@@ -3,17 +3,19 @@ splicing connector, used 3x (H / N / G) as the AC distribution block on the
 power tray.
 
 Geometry from the official WAGO 221-413 datasheet. It is a free connector with
-no mounting holes — the power tray retains it in a printed snap pocket, so the
-solid here is the body envelope plus the three orange levers (modeled closed).
+no mounting holes — the power tray retains it butt-end-first in an angled
+press-fit slot, so the solid here is the body envelope plus the three orange
+levers (modeled closed).
 
 Coordinate frame
 ----------------
 - X = width (18.8 mm, the lever-hinge axis), Y = depth (18.6 mm, wire-entry
   axis), Z = height up from the base. Origin at the body-footprint center;
   Z = 0 the seating plane.
-- Wires enter the -Y face; levers flip up on the +Z face. Closed height 8.4 mm;
-  a lever flipped fully open reaches ~15.25 mm (measured) — size pockets to clear
-  it if the levers must be worked in place.
+- Wires enter the +Y (front) face and the levers flip up on the +Z face above
+  it; the lever-indicating grooves mark that +Y front. The -Y face is the blank
+  butt end (no wires). Closed height 8.4 mm; a lever flipped fully open reaches
+  ~15.25 mm (measured) — clear it if the levers must be worked in place.
 """
 
 import sys
