@@ -138,8 +138,8 @@ def build():
     # hopper funnel.
     pa1 = _rot(_load(PUMP_ASSEMBLY), (1, 0, 0), 90.0)  # depth axis along Y, elbows up
     pa2 = _rot(_load(PUMP_ASSEMBLY), (1, 0, 0), 90.0)
-    placed["pump-assembly-1"] = _at(pa1, 20.0, 12.0, comp_top_z)
-    placed["pump-assembly-2"] = _at(pa2, 100.0, 12.0, comp_top_z)
+    placed["pump-assembly-1"] = _at(pa1, 14.0, 12.0, comp_top_z)
+    placed["pump-assembly-2"] = _at(pa2, 86.0, 12.0, comp_top_z)
     pump_top_z = comp_top_z + pa1.BoundingBox().zlen
     sf_w, sf_d, sf_h = SEAFLO_DIMS                      # [75 x 60 x 175](SEAFLO_DIMS)
     seaflo = _box(sf_h, sf_w, sf_d)                    # 175 x 75 x 60, long axis along X
@@ -154,7 +154,7 @@ def build():
     # leaves the volume around it free.
     placed["bag-circuit"]   = _at(_load(TRAY_STEPS["bag-circuit"]),     0.0, 161.0, back_top_z)
     placed["source-select"] = _at(_load(TRAY_STEPS["source-select"]),  0.0, 238.0, back_top_z)
-    placed["bib-gate"]      = _at(_load(TRAY_STEPS["bib-gate"]),      172.0,   0.0, cond_top_z)
-    placed["nozzle-gate"]   = _at(_load(TRAY_STEPS["nozzle-gate"]),   180.0,  78.0, cond_top_z)
+    placed["bib-gate"]      = _at(_load(TRAY_STEPS["bib-gate"]),      154.0,   0.0, cond_top_z)
+    placed["nozzle-gate"]   = _at(_load(TRAY_STEPS["nozzle-gate"]),   164.0,  78.0, cond_top_z)
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
