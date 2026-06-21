@@ -13,16 +13,18 @@ the compressor shroud). Placeholder boxes for parts that have no STEP yet
 Coordinate frame: +X right, +Y back, +Z up. Origin at the lower-front-left
 corner.
 
-Layout (a roughly-packed stand-in, not collision-validated — as in the wide
-build, the trays/pumps are crammed where they fit and some overlap):
+Layout — packed against the actual solid geometry (see _audit.py), not bboxes:
   * Zone A (back-bottom):  cold core (foam shell), rotated 90° about Z so it is
     181 wide × 283 deep, on the floor, lifted clear of the back braces.
   * Zone D (front-bottom): compressor shroud (rotated 90° more than the wide
-    build → 133 wide × 178 deep) + condenser/fan beside it + SeaFlo pump.
-  * Zone C (front-top):    the two flavor pumps (under the funnel opening).
-  * Zone B (back-top):     the four valve-manifold trays, each rotated 90° about
-    Z (74.5 wide) to fit the narrow width, packed into two columns above the
-    cold core.
+    build → 133 wide × 178 deep) + condenser/fan beside it.
+  * Zone C (front-top):    the two flavor pumps; the SeaFlo laid over their backs,
+    set clear of every valve tray (it grazes only the soft funnel above it).
+  * Zone B (back-top):     the four valve-manifold trays above the cold core.
+    They are sparse dog-bones, so they NEST: two per column, a deep tray plus a
+    shorter one (one flipped 180° so its tees interleave with the other's) slid
+    over the deep tray's empty bridge. The residual overlap is small bucket-edge
+    contact, not elbows ramming elbows.
 """
 
 from pathlib import Path
@@ -130,8 +132,11 @@ def build():
     placed["condenser+fan"] = _at(cond, COND_RIGHT - CONDENSER_AIRFLOW, 0.0, COND_LIFT)
 
     # --- Zone C: the two flavor pumps stand on the compressor top (elbows up),
-    # the SeaFlo laid flat over their backs above — set behind the display and the
-    # hopper funnel (both fill the upper front), so it clears them.
+    # the SeaFlo laid flat over their backs above. A 175 mm pump has no channel
+    # that clears BOTH the rigid valve trays (back) and the display+funnel depth
+    # (front) — the gap between them is only ~47 mm. It is set forward to clear
+    # every tray (no contact with their elbows); it grazes only the soft silicone
+    # funnel, which sits directly above it.
     pa1 = _rot(_load(PUMP_ASSEMBLY), (1, 0, 0), 90.0)  # 71.7 x 126.9 x 89.5
     pa2 = _rot(_load(PUMP_ASSEMBLY), (1, 0, 0), 90.0)
     placed["pump-assembly-1"] = _at(pa1, SIDE_RIB_INSET + 2.0, 14.0, comp_top_z)
@@ -139,23 +144,25 @@ def build():
     pump_top_z = comp_top_z + pa1.BoundingBox().zlen
     sf_w, sf_d, sf_h = SEAFLO_DIMS                     # [75 x 60 x 175](SEAFLO_DIMS)
     seaflo = _box(sf_h, sf_w, sf_d)                    # 175 x 75 x 60, long axis along X
-    placed["seaflo-pump"] = _at(seaflo, SIDE_RIB_INSET + 2.0, 152.0, pump_top_z)
+    placed["seaflo-pump"] = _at(seaflo, SIDE_RIB_INSET + 2.0, 123.0, pump_top_z)
 
     # --- Zone B: the four valve-manifold trays back-top above the cold core.
-    # The two deep trays stand on edge in two columns (source-select, the widest
-    # at 93 mm, on the left; bag-circuit beside it). The nozzle-gate tucks behind
-    # bag-circuit, and the bib-gate lies flat across the back — a rough stand-in
-    # (as in the wide build, the trays are crammed where they fit and some
-    # overlap; the narrow width leaves no room to lay them all flat).
-    ss = _rot(_load(TRAY_STEPS["source-select"]), (0, 0, 1), 90.0)  # 93 x 271
-    bc = _rot(_load(TRAY_STEPS["bag-circuit"]),   (0, 0, 1), 90.0)  # 74.5 x 212
-    ng = _rot(_load(TRAY_STEPS["nozzle-gate"]),   (0, 0, 1), 90.0)  # 74.5 x 126
-    bg = _load(TRAY_STEPS["bib-gate"])                              # 166 x 74.5
-    y0 = FRONT_DEPTH + 1.0
-    y_back = FRONT_DEPTH + cold_d - 1.0
-    placed["source-select"] = _at(ss,  2.0, y0,             back_top_z)  # col L
-    placed["bag-circuit"]   = _at(bc, 99.0, y0,             back_top_z)  # col R, front
-    placed["nozzle-gate"]   = _at(ng, 99.0, y_back - 126.0, back_top_z)  # col R, back
-    placed["bib-gate"]      = _at(bg,  8.0, y_back - 74.5,  back_top_z)  # flat, across back
+    # Each tray is a sparse (~quarter-fill) dog-bone: dense valve buckets at the
+    # two ends with the elbows/tees rising out the top, joined by an empty pinched
+    # bridge. The bbox is mostly air, so the trays NEST rather than tile — two per
+    # column, a deep tray (source-select, bag-circuit) plus a shorter one slid
+    # over the deep tray's sparse bridge. The bib-gate is flipped 180° about X
+    # (floor up, tees pointing down) so its tees interleave with bag-circuit's
+    # instead of colliding; the residual solid overlap lives at bucket edges, not
+    # elbow-on-elbow. See _audit.py for the measured overlaps.
+    ss = _rot(_load(TRAY_STEPS["source-select"]), (0, 0, 1), 90.0)  # 93 x 271, col L deep
+    bc = _rot(_load(TRAY_STEPS["bag-circuit"]),   (0, 0, 1), 90.0)  # 74.5 x 212, col R deep
+    ng = _rot(_load(TRAY_STEPS["nozzle-gate"]),   (0, 0, 1), 90.0)  # 74.5 x 126, nested col L
+    bg = _rot(_load(TRAY_STEPS["bib-gate"]),      (0, 0, 1), 90.0)  # 74.5 x 166, nested col R
+    bg = _rot(bg, (1, 0, 0), 180.0)                                 # flip floor-up, tees down
+    placed["source-select"] = _at(ss,  2.0, FRONT_DEPTH + 1.0,   back_top_z)  # col L deep
+    placed["nozzle-gate"]   = _at(ng, 14.0, FRONT_DEPTH + 0.0,   back_top_z)  # col L nested over bridge
+    placed["bag-circuit"]   = _at(bc, 98.0, FRONT_DEPTH + 1.0,   back_top_z)  # col R deep
+    placed["bib-gate"]      = _at(bg, 114.0, FRONT_DEPTH + 117.0, back_top_z)  # col R nested, flipped
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
