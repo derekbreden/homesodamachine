@@ -296,18 +296,23 @@ def build_source_select_tray():
         inner, outer = side_profiles[sy]
         tray = tray.union(extrude_xy(inner + outer[::-1], bot_z, hug_wall_top_z))
 
-    # Short connecting walls: bridge each short-wall end across the gap to the
-    # front edge of the adjacent tall valve wall.
+    # Short connecting walls: a 3 mm-thick wall per junction, running in Y from
+    # the short-wall end to the tall wall's front edge (overlapping both so it
+    # fuses into the perimeter).
     for vx, vy, dx, dy in valves:
         a, nout = _valve_axes(vx, vy, dx, dy)
         m, c = _line_xy(vx + port_face_offset * nout[0], vy + port_face_offset * nout[1], a)
-        x_end = math.copysign(x_split, vx)
-        sy = math.copysign(1.0, vy)
-        si = (x_end, m * x_end + c)                              # short-wall end, inner
-        so = (x_end, m * x_end + c + sy * wall_thickness)        # short-wall end, outer
-        fo = _wall_corner(vx, vy, a, nout, tall_inner + wall_thickness, body_width / 2)
-        fi = _wall_corner(vx, vy, a, nout, tall_inner, body_width / 2)
-        tray = tray.union(extrude_xy([si, so, fo, fi], bot_z, hug_wall_top_z))
+        sx, sy = math.copysign(1.0, vx), math.copysign(1.0, vy)
+        fi = _wall_corner(vx, vy, a, nout, tall_inner, body_width / 2)               # tall front-inner
+        fo = _wall_corner(vx, vy, a, nout, tall_inner + wall_thickness, body_width / 2)  # tall front-outer
+        ty = m * (sx * x_split) + c                                  # short-wall inner end y
+        x0, x1 = sorted((fi[0], fi[0] - sx * wall_thickness))        # 3 mm in X, reaching the tall wall
+        y0, y1 = sorted((ty, fo[1]))                                 # from the short-wall end up to the tall wall
+        tray = tray.union(
+            cq.Workplane("XY")
+            .box(x1 - x0, y1 - y0, hug_wall_top_z - bot_z, centered=(False, False, False))
+            .translate((x0, y0, bot_z))
+        )
     return tray
 
 
