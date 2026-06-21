@@ -196,6 +196,7 @@ div_y_extent = outlet_y + div_groove_radius            # divider reach in |Y| in
 hug_half_y = div_y_extent + wall_clear + wall_thickness  # central bridge half-width
 div_crown_z = port_z + div_body_half                   # divider crown height
 hug_wall_top_z = div_crown_z + 2.0                     # short central walls just clear the dividers
+valve_back_x = plate_half_x                            # valve-end floor back edge (covers the rear sockets)
 
 # Walls hug the valve bodies and the port cylinders. The tall valve-end walls run
 # parallel to each valve's outer top-box edge; the short central walls bump
@@ -204,7 +205,6 @@ body_width_x = cell.valve.body_width_x                 # valve top-box width (lo
 body_width = cell.valve.body_width                     # valve top-box depth (local Y)
 tall_inner = body_width_x / 2 + wall_clear             # tall-wall inner face, off valve center
 port_face_offset = cell.valve.port_radius + wall_clear  # short-wall bump, off the port axis
-valve_floor_inner = x_split - margin                   # valve-end floor reaches under the tall walls
 
 
 def build_source_select_tray():
@@ -234,13 +234,27 @@ def build_source_select_tray():
         side_profiles[sy] = (inner, outer)
 
     tray = extrude_xy(side_profiles[-1.0][1] + side_profiles[1.0][1][::-1], bot_z, top_z)
-    for sx in (-1.0, 1.0):                                            # full-width valve ends
-        x0, x1 = sorted((sx * valve_floor_inner, sx * plate_half_x))
-        tray = tray.union(
-            cq.Workplane("XY")
-            .box(x1 - x0, 2 * plate_half_y, top_z - bot_z, centered=(True, True, False))
-            .translate(((x0 + x1) / 2.0, 0.0, bot_z))
-        )
+    for sx in (-1.0, 1.0):
+        # Valve-end floor follows the walls: the two tall walls' slanted outer
+        # faces on ±Y, the connecting-wall inner faces on the inboard side, and
+        # full width only across the back where the rear sockets sit.
+        vp = next(v for v in valves if v[0] * sx > 0 and v[1] > 0)   # +Y valve this end
+        vm = next(v for v in valves if v[0] * sx > 0 and v[1] < 0)   # −Y valve this end
+
+        def faces(v):
+            a, nout = _valve_axes(*v)
+            fo = _wall_corner(v[0], v[1], a, nout, tall_inner + wall_thickness, body_width / 2)   # front-outer
+            bo = _wall_corner(v[0], v[1], a, nout, tall_inner + wall_thickness, -body_width / 2)  # back-outer
+            fi = _wall_corner(v[0], v[1], a, nout, tall_inner, body_width / 2)
+            return fo, bo, fi[0] - sx * wall_thickness               # +connecting-wall inner-face x
+
+        fop, bop, cwx = faces(vp)
+        fom, bom, _ = faces(vm)
+        bx = sx * valve_back_x
+        tray = tray.union(extrude_xy([
+            (cwx, fom[1]), (fom[0], fom[1]), (bom[0], bom[1]), (bx, bom[1]),
+            (bx, bop[1]), (bop[0], bop[1]), (fop[0], fop[1]), (cwx, fop[1]),
+        ], bot_z, top_z))
 
     for vx, vy, dx, dy in valves:
         phi = _aim_phi(vx, vy, dx, dy)
