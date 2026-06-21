@@ -1,9 +1,9 @@
 """Kitchen Edition enclosure contents — every internal subsystem packed.
 
 Detailed STEP imports where they exist (cold-core foam shell, the four
-valve-manifold tray assemblies with their seated valves, two pump-case
-assemblies, the compressor shroud). Placeholder boxes for parts that have no
-STEP yet (condenser+fan, SeaFlo diaphragm pump).
+valve-manifold tray assemblies with their seated valves, two pump assemblies
+(Kamoer pump + outlet elbows), the compressor shroud). Placeholder boxes for
+parts that have no STEP yet (condenser+fan, SeaFlo diaphragm pump).
 
 Coordinate frame: +X right, +Y back, +Z up. Origin at the lower-front-left
 corner.
@@ -13,7 +13,7 @@ stand-in (not collision-validated):
   * Zone A (back-bottom):  cold core (foam shell), on the floor, its −Y
     dispense/service ports facing forward toward the front zones.
   * Zone D (front-bottom): compressor shroud + condenser/fan + SeaFlo pump.
-  * Zone C (front-top):    the two pump cases (cartridge under the funnel).
+  * Zone C (front-top):    the two flavor pumps (under the funnel).
   * Zone B (back-top):     the four valve-manifold trays, above the cold core.
 """
 
@@ -27,9 +27,9 @@ _hw = _repo / "hardware"
 
 
 # --- Source STEPs ---------------------------------------------------------
-FOAM_SHELL  = _hw / "printed-parts" / "cold-core" / "foam-shell" / "foam-shell.step"
-COMP_SHROUD = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
-PUMP_CASE   = _hw / "printed-parts" / "flavor" / "pump-case" / "pump-case-assembly.step"
+FOAM_SHELL    = _hw / "printed-parts" / "cold-core" / "foam-shell" / "foam-shell.step"
+COMP_SHROUD   = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
+PUMP_ASSEMBLY = _hw / "reference" / "kamoer-kphm400" / "pump-assembly.step"
 _VM = _hw / "printed-parts" / "valve-manifold"
 TRAY_STEPS = {
     "source-select": _VM / "source-select-tray" / "source-select-assembly.step",
@@ -53,7 +53,7 @@ SEAFLO_DIMS = (75.0, 60.0, 175.0)
 # ahead of the cold core.
 FRONT_DEPTH = 155.0
 # Vertical gap between the bottom layer (cold core + front-bottom) and the
-# top layer (pump cases + trays).
+# top layer (pump assemblies + trays).
 LAYER_GAP = 5.0
 # The front half's corner ribs reach ~12.25 mm inboard from each side wall
 # (the boss chain: head counterbore + heat-set + cap). Front-bottom content set
@@ -77,8 +77,8 @@ COLORS = {
     "compressor-shroud": cq.Color(0.60, 0.62, 0.66),
     "condenser+fan":     cq.Color(0.78, 0.55, 0.35),
     "seaflo-pump":       cq.Color(0.20, 0.35, 0.55),
-    "pump-case-1":       cq.Color(0.45, 0.45, 0.50),
-    "pump-case-2":       cq.Color(0.55, 0.55, 0.60),
+    "pump-assembly-1":   cq.Color(0.45, 0.45, 0.50),
+    "pump-assembly-2":   cq.Color(0.55, 0.55, 0.60),
     "source-select":     cq.Color(0.45, 0.70, 0.45),
     "bag-circuit":       cq.Color(0.90, 0.66, 0.32),
     "bib-gate":          cq.Color(0.62, 0.47, 0.82),
@@ -133,15 +133,15 @@ def build():
     placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW - SIDE_RIB_INSET, 0.0, SEAM_CLEAR_LIFT)
     cond_top_z = SEAM_CLEAR_LIFT + CONDENSER_FACE_A
 
-    # --- Zone C: the pump cartridge sits low on the compressor top, the SeaFlo
-    # laid flat across the cases above them. The whole right column above the
-    # condenser is left open as the hopper-funnel reserve — funnel on the right,
-    # toward the front.
-    pc1 = _rot(_load(PUMP_CASE), (1, 0, 0), 90.0)      # 76 x 136 x 74 (short axis up)
-    pc2 = _rot(_load(PUMP_CASE), (1, 0, 0), 90.0)
-    placed["pump-case-1"] = _at(pc1, 20.0, 12.0, comp_top_z)
-    placed["pump-case-2"] = _at(pc2, 100.0, 12.0, comp_top_z)
-    pump_top_z = comp_top_z + pc1.BoundingBox().zlen
+    # --- Zone C: the two flavor pumps sit low on the compressor top, the SeaFlo
+    # laid flat across them above. The whole right column above the condenser is
+    # left open as the hopper-funnel reserve — funnel on the right, toward the
+    # front.
+    pa1 = _rot(_load(PUMP_ASSEMBLY), (1, 0, 0), 90.0)  # depth axis along Y, elbows up
+    pa2 = _rot(_load(PUMP_ASSEMBLY), (1, 0, 0), 90.0)
+    placed["pump-assembly-1"] = _at(pa1, 20.0, 12.0, comp_top_z)
+    placed["pump-assembly-2"] = _at(pa2, 100.0, 12.0, comp_top_z)
+    pump_top_z = comp_top_z + pa1.BoundingBox().zlen
     sf_w, sf_d, sf_h = SEAFLO_DIMS                      # [75 x 60 x 175](SEAFLO_DIMS)
     seaflo = _box(sf_h, sf_w, sf_d)                    # 175 x 75 x 60, long axis along X
     placed["seaflo-pump"] = _at(seaflo, 14.0, 80.0, pump_top_z)
