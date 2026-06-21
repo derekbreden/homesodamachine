@@ -111,6 +111,30 @@ def _rot2(x, y, deg):
     return (x * c - y * s, x * s + y * c)
 
 
+def _valve_axes(vx, vy, dx, dy):
+    """Aim unit (valve → its divider outlet) and the outward wall normal — the
+    in-plane perpendicular pointing away from Y = 0."""
+    ax, ay = dx - vx, dy - vy
+    n = math.hypot(ax, ay)
+    a = (ax / n, ay / n)
+    perp = (a[1], -a[0])
+    if (perp[1] < 0) != (vy < 0):
+        perp = (-perp[0], -perp[1])
+    return a, perp
+
+
+def _line_xy(px, py, a):
+    """Slope, intercept of the line through (px, py) along direction a."""
+    m = a[1] / a[0]
+    return m, py - m * px
+
+
+def _wall_corner(vx, vy, a, nout, off, t):
+    """A point ``off`` outboard of valve center along ``nout`` and ``t`` along
+    the aim axis ``a``."""
+    return (vx + off * nout[0] + t * a[0], vy + off * nout[1] + t * a[1])
+
+
 def place_valve(vx, vy, dx, dy, flip=False):
     # The aimed port (local +Y) is the outlet for V-A/V-B feeding Y-A; for
     # V-C/V-D it is the inlet drawing from Y-B (flow out to Y-KA/Y-KB), flipped 180.
@@ -173,18 +197,51 @@ hug_half_y = div_y_extent + wall_clear + wall_thickness  # central bridge half-w
 div_crown_z = port_z + div_body_half                   # divider crown height
 hug_wall_top_z = div_crown_z + 2.0                     # short central walls just clear the dividers
 
+# Walls hug the valve bodies and the port cylinders. The tall valve-end walls run
+# parallel to each valve's outer top-box edge; the short central walls bump
+# outward where a valve's inner port pokes past the divider-hug line.
+body_width_x = cell.valve.body_width_x                 # valve top-box width (local X)
+body_width = cell.valve.body_width                     # valve top-box depth (local Y)
+tall_inner = body_width_x / 2 + wall_clear             # tall-wall inner face, off valve center
+port_face_offset = cell.valve.port_radius + wall_clear  # short-wall bump, off the port axis
+valve_floor_inner = x_split - margin                   # valve-end floor reaches under the tall walls
+
 
 def build_source_select_tray():
-    def floor_box(x0, x1, y_half):
+    def extrude_xy(pts, z0, z1):
         return (
+            cq.Workplane("XY").polyline(pts).close()
+            .extrude(z1 - z0).translate((0.0, 0.0, z0))
+        )
+
+    # Central bridge: the short walls hug the dividers but bump outward where a
+    # valve's inner port pokes past the hug line; the bridge floor follows.
+    side_profiles = {}
+    for sy in (-1.0, 1.0):
+        hug_in = sy * (hug_half_y - wall_thickness)
+        vL, vR = sorted((v for v in valves if (v[1] < 0) == (sy < 0)), key=lambda v: v[0])
+        aL, noutL = _valve_axes(*vL)
+        aR, noutR = _valve_axes(*vR)
+        mL, cL = _line_xy(vL[0] + port_face_offset * noutL[0], vL[1] + port_face_offset * noutL[1], aL)
+        mR, cR = _line_xy(vR[0] + port_face_offset * noutR[0], vR[1] + port_face_offset * noutR[1], aR)
+        inner = [
+            (-x_split, mL * -x_split + cL),    # left port tangent at the bridge end
+            ((hug_in - cL) / mL, hug_in),       # left tangent meets the divider-hug line
+            ((hug_in - cR) / mR, hug_in),       # straight hug across the dividers
+            (x_split, mR * x_split + cR),        # right port tangent at the bridge end
+        ]
+        outer = [(x, y + sy * wall_thickness) for x, y in inner]
+        side_profiles[sy] = (inner, outer)
+
+    tray = extrude_xy(side_profiles[-1.0][1] + side_profiles[1.0][1][::-1], bot_z, top_z)
+    for sx in (-1.0, 1.0):                                            # full-width valve ends
+        x0, x1 = sorted((sx * valve_floor_inner, sx * plate_half_x))
+        tray = tray.union(
             cq.Workplane("XY")
-            .box(x1 - x0, 2 * y_half, top_z - bot_z, centered=(True, True, False))
+            .box(x1 - x0, 2 * plate_half_y, top_z - bot_z, centered=(True, True, False))
             .translate(((x0 + x1) / 2.0, 0.0, bot_z))
         )
 
-    tray = floor_box(-x_split, x_split, hug_half_y)                      # central bridge
-    tray = tray.union(floor_box(-plate_half_x, -x_split, plate_half_y))  # −X valve end
-    tray = tray.union(floor_box(x_split, plate_half_x, plate_half_y))    # +X valve end
     for vx, vy, dx, dy in valves:
         phi = _aim_phi(vx, vy, dx, dy)
         for sx in (-1.0, 1.0):
@@ -221,21 +278,23 @@ def build_source_select_tray():
         )
         tray = tray.cut(cq.Workplane(obj=groove))
 
-    def wall_box(x0, x1, y_center, top):
-        return (
-            cq.Workplane("XY")
-            .box(x1 - x0, wall_thickness, top - bot_z, centered=(True, True, False))
-            .translate(((x0 + x1) / 2.0, y_center, bot_z))
-        )
+    # Tall valve-end walls: a full-height slab parallel to each valve's outer
+    # top-box edge, set one clearance outboard of it.
+    for vx, vy, dx, dy in valves:
+        a, nout = _valve_axes(vx, vy, dx, dy)
+        t_back, t_front = -body_width / 2, body_width / 2   # spans the valve top-box edge
+        tray = tray.union(extrude_xy(
+            [_wall_corner(vx, vy, a, nout, tall_inner, t_back),
+             _wall_corner(vx, vy, a, nout, tall_inner, t_front),
+             _wall_corner(vx, vy, a, nout, tall_inner + wall_thickness, t_front),
+             _wall_corner(vx, vy, a, nout, tall_inner + wall_thickness, t_back)],
+            bot_z, wall_top_z,
+        ))
 
-    for sy in (+1.0, -1.0):
-        # Full-height walls flank the two valve ends (carry the stack pitch);
-        # short walls hug the dividers across the central bridge.
-        y_valve = sy * (plate_half_y - wall_thickness / 2.0)
-        y_hug = sy * (hug_half_y - wall_thickness / 2.0)
-        tray = tray.union(wall_box(-plate_half_x, -x_split, y_valve, wall_top_z))
-        tray = tray.union(wall_box(x_split, plate_half_x, y_valve, wall_top_z))
-        tray = tray.union(wall_box(-x_split, x_split, y_hug, hug_wall_top_z))
+    # Short central walls: the hug/bump strip per side, just clearing the dividers.
+    for sy in (-1.0, 1.0):
+        inner, outer = side_profiles[sy]
+        tray = tray.union(extrude_xy(inner + outer[::-1], bot_z, hug_wall_top_z))
     return tray
 
 
