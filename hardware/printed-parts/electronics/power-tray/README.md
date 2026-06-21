@@ -29,8 +29,14 @@ electronics trays. It carries the mains-side parts on one printed frame:
   stack *is* the bus — there is no copper bar — and it's earthed through the C14
   cord (Class I). See [`/business/regulatory.md`](/business/regulatory.md).
 
-Off this tray: the **GFCI** (tabled), the **C14 inlet** (back panel), and the
-controller modules (a separate controller tray).
+The PSU, relay, and Wago column **pack flush** against each other (no inter-part
+gaps). Off this tray: the **GFCI** (tabled), the **C14 inlet** (back panel), and
+the controller modules (a separate controller tray).
+
+A wide-and-shallow alternative is the sibling
+[narrow power tray](/hardware/printed-parts/electronics/narrow-power-tray/) (PSU
+turned 90°). Both layouts are built by the same `build_tray(L)` engine here, from
+a `Layout` of component centres + Z rotations.
 
 ## Retention
 
