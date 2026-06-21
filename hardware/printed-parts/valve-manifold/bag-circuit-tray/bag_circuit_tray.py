@@ -4,15 +4,17 @@ The [fluid-topology](../../../topology/fluid-topology.md) bag circuit as a
 tray. The four valves sit ports-along-X with no aiming tilt, paired in two
 columns: V-F over V-I on the −X side, V-E over V-H on the +X side. Each row's
 two valves connect **in-line through a Tee** whose run lies along X; the Tee's
-branch rises (+Z) to the bag.
+branch is turned 90° about X to point **outward along Y** to the bag, passing
+through a notch in the central hug wall.
 
-    V-F ──┬── V-E      Y-E run; branch up → Bag A
+    V-F ──┬── V-E      Y-E run; branch → +Y to Bag A
           ┊
-    V-I ──┴── V-H      Y-H run; branch up → Bag B
+    V-I ──┴── V-H      Y-H run; branch → −Y to Bag B
 
-This module also holds the shared parallel-tray base — `place_valve`,
-`place_tee`, `build_tray`, and the common geometry — imported by the
-all-Tee gate-tray variants in `../nozzle-gate-tray/` and `../bib-gate-tray/`.
+This module also holds the shared parallel-tray base — `place_valve`, `place_tee`
+(and its branch-reorient variants `place_tee_hung`, `place_tee_branch_out`,
+`place_tee_branch_to_xport`), `build_tray`, and the common geometry — imported by
+the all-Tee gate-tray variants in `../nozzle-gate-tray/` and `../bib-gate-tray/`.
 
 Origin = cell center, Z = 0 the valve mounting plane, ports at Z = 11.3.
 """
@@ -102,6 +104,32 @@ def place_tee_hung(target, spin):
     )
 
 
+def place_tee_branch_to_xport(port_tip, spin):
+    """Tee plugged branch-first into a port that faces +X (e.g. a valve's inner
+    port): a −90° turn about Y points the branch −X to oppose the port and stands
+    the run along Z. The branch tip butts ``port_tip`` (x, y, z) and the run is
+    swung ``spin`` deg about the branch (X) axis, which holds the butt point."""
+    fit = cq.importers.importStep(str(_tee_path)).val()
+    tx, ty, tz = port_tip
+    return (
+        fit.rotate((0, 0, 0), (0, 1, 0), 90.0)    # run → X, branch → +Z
+        .rotate((0, 0, 0), (1, 0, 0), 90.0)
+        .rotate((0, 0, 0), (0, 1, 0), -90.0)      # branch +Z → −X, run → +Z
+        .rotate((0, 0, 0), (1, 0, 0), spin)       # swing run about branch (X) axis
+        .translate((tx + tee_branch_reach, ty, tz))
+    )
+
+
+def place_tee_branch_out(cx, cy):
+    """Tee, run along X (valve on the −X end), with its branch turned 90° about X
+    to point **outward along Y** (away from the row center: +Y for a +Y row, −Y
+    for a −Y row) instead of up — it leaves through a notch in the hug wall."""
+    row_sign = 1.0 if cy >= 0 else -1.0
+    return place_tee(cx, cy).rotate(
+        (cx, cy, port_z), (cx + 1.0, cy, port_z), -90.0 * row_sign
+    )
+
+
 def place_elbow(cx, cy, ux, uy):
     """Elbow on a valve's outer (unoccupied) port: one leg collinear with the
     port axis — its collet butting the port tip — and the bend turning the line
@@ -122,7 +150,8 @@ def place_elbow(cx, cy, ux, uy):
 def build_assembly():
     # Outlets point +X: V-F/V-I out to the center Tees, V-E/V-H out to the pumps.
     parts = {nm: place_valve(*p, -90.0) for nm, p in valves.items()}
-    parts.update({nm: place_tee(*p) for nm, p in tees.items()})
+    # Each Tee's branch points outward along Y (turned 90° about X) to its bag.
+    parts.update({nm: place_tee_branch_out(*p) for nm, p in tees.items()})
     # An elbow turns each valve's outer (unoccupied) port +Z up out of the tray.
     parts.update({
         f"E{nm}": place_elbow(cx, cy, -1.0 if cx < 0 else 1.0, 0.0)
@@ -240,6 +269,21 @@ def build_bag_circuit_tray():
                 .box(x1 - x0, y1 - y0, bc_hug_wall_top_z - bot_z, centered=(False, False, False))
                 .translate((x0, y0, bot_z))
             )
+
+    # Each outward Tee branch (place_tee_branch_out) runs along ±Y at port_z; cut
+    # an open-top slot per side so the branch clears the central floor and passes
+    # through its hug wall.
+    z0 = port_z - tee_groove_radius
+    for cx, cy in tees.values():
+        sy = 1.0 if cy >= 0 else -1.0
+        y0, y1 = sorted((cy, sy * (bc_hug_half_y + 2.0)))
+        slot = (
+            cq.Workplane("XY")
+            .box(2.0 * tee_groove_radius, y1 - y0, bc_hug_wall_top_z + 1.0 - z0,
+                 centered=(True, False, False))
+            .translate((cx, y0, z0))
+        )
+        tray = tray.cut(slot)
     return tray
 
 
