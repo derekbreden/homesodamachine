@@ -45,17 +45,17 @@ def build():
         .box(19.0, 15.6, envelope_z - pin_drop - pcb_t, centered=(True, True, False))
         .translate((-2.0, 0.0, pcb_t))
     )
-    # 3-pole COM/NO/NC screw block on the +X end.
+    # 3-pole COM/NO/NC screw block on the +X end (inboard of the corner holes).
     screw_blk = (
         cq.Workplane("XY")
         .box(11.0, 15.0, 10.0, centered=(True, True, False))
-        .translate((length / 2.0 - 6.0, 0.0, pcb_t))
+        .translate((length / 2.0 - 10.0, 0.0, pcb_t))
     )
-    # VCC/GND/IN 3-pin header on the -X end.
+    # VCC/GND/IN 3-pin header on the -X end (inboard of the corner holes).
     header = (
         cq.Workplane("XY")
         .box(8.0, 3.0, 8.5, centered=(True, True, False))
-        .translate((-(length / 2.0 - 5.0), 0.0, pcb_t))
+        .translate((-(length / 2.0 - 9.0), 0.0, pcb_t))
     )
     # Representative pin protrusion below the board (clearance the tray must give).
     pins = (
