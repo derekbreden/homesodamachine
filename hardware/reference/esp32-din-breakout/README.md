@@ -1,18 +1,20 @@
 # ESP32-DevKitC-32E on DIN-rail breakout — reference solid
 
-The controller-tray MCU (`hardware/ledger/bom.md`: ESP32 **B09MQJWQN2** on DIN-rail
-breakout **B0BW4SJ5X2**). The carrier is what bolts to the tray (the DevKitC
-plugs into it), so the footprint and mounting holes are the carrier's.
+The controller-tray MCU (`hardware/ledger/bom.md`: ESP32 **B09MQJWQN2** on the
+breakout **B0BW4SJ5X2** — the "ESP32 Super Breakout Board DIN Rail Mount").
 
-**Estimated stand-in — verify by caliper.** No controlled drawing for the
-breakout; the carrier size and hole pattern are typical-module guesses.
+The carrier sockets the DevKitC into 2×19 @ 2.54 mm rows, has 3.81 mm screw
+terminals down both edges, and **ships with a bracket for 35 mm DIN rail**.
 
 | | mm |
 |---|---|
-| Carrier footprint | **100 × 66** (est.) |
-| Mounting holes | 4× ⌀3.2 on an **88 × 56** rectangle (est.) |
-| Height | ~15 (ESP32 module + sockets); screw-terminal strips down both edges |
+| Footprint | **72 × 54** (estimated) |
+| Mounting | native **35 mm DIN-rail clip** (PCB also has mounting holes per the silkscreen) |
+| Height | ~16 (ESP32 module + sockets) |
 
-Frame: X = length, Y = width, Z up from the carrier underside; origin at the
-footprint centre, Z = 0 the standoff plane. Regenerate with
-`tools/cad-venv/bin/python esp32_din_breakout.py`.
+> **Most-estimated reference.** The listing publishes pitches (2×19 @ 2.54, screw
+> @ 3.81) but **not the overall footprint**, and it's a DIN-mount board — verify
+> by caliper. The 4-hole pattern in the model is a placeholder; on a flat tray
+> this part likely wants a short DIN-rail segment rather than 4 corner bosses.
+
+Regenerate with `tools/cad-venv/bin/python esp32_din_breakout.py`.

@@ -21,13 +21,13 @@ sys.path.insert(0, str(_hw / "scripts"))
 from _cadq_export import export_step
 
 name = "l298n"
-length = 43.5
-width = 43.5
+length = 43.0
+width = 43.0
 pcb_t = 1.6
-envelope_z = 27.0      # finned heatsink
+envelope_z = 28.0      # finned heatsink
 pin_drop = 2.5
 hole_dia = 3.2
-holes = [(sx * 18.75, sy * 18.75) for sx in (-1.0, 1.0) for sy in (-1.0, 1.0)]
+holes = [(sx * 18.5, sy * 18.5) for sx in (-1.0, 1.0) for sy in (-1.0, 1.0)]   # 37 x 37
 
 
 def build():
