@@ -4,15 +4,15 @@ The AC-in / 12 V-out block of the Zone-B electronics shelf — the first of the
 electronics trays. It carries the mains-side parts on one printed frame:
 
 ```
-   ┌──────────┬───────────────────────┐
-   │          │   ( GND )             │
-   │   PSU    │  ┌────┐    ┌──────┐    │
-   │ (IRM-90) │  │relay│   │ Wago G│   │
-   │  AC end↑ │  │  #1 │   ├──────┤    │
-   │  DC end↓ │  │     │   │ Wago N│   │
-   │          │  └────┘   ├──────┤    │
-   │          │           │ Wago H│   │
-   └──────────┴───────────┴──────┴────┘
+   ┌─────────────────────────────────────────┐
+   │  ○        ○      ○ (GND stud)            │
+   │    ┌──────┐   ┌────┐                      │
+   │    │ PSU  │   │relay│   ◹ ◹ ◹  Wagos —    │
+   │    │IRM-90│   │ #1 │    butt in slot,     │
+   │    └──────┘   └────┘    angled 45° up     │
+   │  ○        ○   ○    ○                      │
+   └─────────────────────────────────────────┘
+   ○ = M3 heat-set boss (screw mount / ground stud)
 ```
 
 ## What mounts here
@@ -32,28 +32,30 @@ electronics trays. It carries the mains-side parts on one printed frame:
 Off this tray: the **GFCI** (tabled), the **C14 inlet** (back panel), and the
 controller modules (a separate controller tray).
 
-## Retention — press fit throughout
+## Retention
 
-Same idiom as the valve trays and the enclosure:
+Two idioms, both already used elsewhere in the appliance:
 
-- **PSU and Wagos** drop into **press-fit pockets** — walls one 0.15 mm
-  clearance off the body. The PSU end walls are notched for its terminal wiring;
-  each Wago pocket is open on its wire-entry face, with the levers clearing above.
-- **Relay #1** presses onto **four posts** that enter its mounting holes (the
-  reverse of the valve's posts-into-sockets, since the board has the holes). The
-  posts stand the board off so its underside pins clear the floor.
+- **PSU and relay #1 — heat-set M3 inserts + SHCS** (the electronics-shelf
+  module idiom). The PSU screws down through its four ledge holes onto four low
+  bosses — just tall enough to seat an insert, no clearance standoff. Relay #1
+  screws onto four taller **standoff bosses** that stand the board off so its
+  ~2 mm underside pins clear the floor.
+- **Wagos — angled press-fit slots.** Each lug tilts **45° up** toward its wire
+  end and drops butt-end-first into a slot that wraps the butt half on five faces
+  (both X, both Z, and the −Y end) at one 0.15 mm clearance, open toward the wire
+  end. The lug sticks halfway out so the levers and wire ports stay accessible.
 
-The one exception is the **ground boss** — press fit doesn't apply to a safety
-bond carrying fault current. It takes a heat-set M3 insert (the same insert +
-SHCS idiom as every module on the shelf), and the screw clamps the ring-terminal
-stack metal-to-metal.
+The **ground boss** is the same heat-set insert idiom — a safety bond carrying
+fault current, so the screw clamps the ring-terminal stack metal-to-metal rather
+than relying on a press fit.
 
 ## The tray
 
-A flat frame plate (~**116 × 125 mm**, 3 mm floor) with a perimeter stiffening
-lip. Local frame: X right, Y deep, Z up; origin at the bottom-left corner.
-Zone-B placement and tray-to-enclosure joinery are deferred — this first pass
-just gets the loose parts attached to one printed part.
+A flat plate (~**116 × 125 mm**, 3 mm floor) carrying the bosses and slots.
+Local frame: X right, Y deep, Z up; origin at the bottom-left corner. Zone-B
+placement, tray-to-enclosure joinery, and any floor stiffening are deferred —
+this first pass just gets the loose parts attached to one printed part.
 
 `power_tray.py` → `power-tray.step`; `power_assembly.py` → `power-assembly.step`
 (tray + parts seated). Regenerate with `tools/cad-venv/bin/python <script>`.
