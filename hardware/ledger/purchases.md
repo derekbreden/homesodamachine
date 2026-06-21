@@ -332,6 +332,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Tripp Lite P006-006 NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed. Order #112-2843637-5886607, placed April 24, 2026 | [B0000511C0](https://www.amazon.com/dp/B0000511C0) | 1 | $9.21 | ACQUIRED |
 | Legrand Radiant 1597BKCCD12 15 A self-test GFCI, decorator duplex, black. Order #112-6714135-1147434, placed May 20, 2026 | [B017HAB4BO](https://www.amazon.com/dp/B017HAB4BO) | 2 | $41.72 | ACQUIRED (delivered May 21) |
 | Mean Well IRM-90-12ST encapsulated 80 W / 12 V / 6.7 A PSU. Order #112-1500299-7944264, placed April 21, 2026 | [B0CNRST18V](https://www.amazon.com/dp/B0CNRST18V) | 1 | $31.66 | ACQUIRED |
+| Mean Well IRM-90-12ST encapsulated 80 W / 12 V / 6.7 A PSU. Order #112-9276465-1199416, placed June 20, 2026 | [B0CNRST18V](https://www.amazon.com/dp/B0CNRST18V) | 1 | $32.31 | ON-ORDER (arriving Mon Jun 22) |
 | Mean Well LRS-200-12 enclosed 204 W / 12 V / 17 A PSU. Order #112-9091100-8229010, placed April 17, 2026 | [B0874XQ82F](https://www.amazon.com/dp/B0874XQ82F) | 1 | $30.03 | ACQUIRED |
 | P3 Kill-A-Watt P4400 power meter (bench). Order #112-0118962-3725825, placed April 17, 2026 | [B00009MDBU](https://www.amazon.com/dp/B00009MDBU) | 1 | $34.31 | ACQUIRED |
 
