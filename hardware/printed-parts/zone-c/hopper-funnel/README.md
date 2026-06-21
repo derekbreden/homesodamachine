@@ -15,13 +15,11 @@ drops straight into the opening:
 - **Collar.** A straight rectangular section — vertical walls, no slope — that
   press-fits into the opening and fills the 3 mm top wall. The brim + collar give
   6 mm of straight rectangular wall pressing the opening sides.
-- **Cup → cone → spout.** Below the collar the bore narrows from the rectangular
-  mouth into a throat sized to the clear slot beside the bib-gate tray (between the
-  pump on one side and the tray on the other), then a cone hugs that slot all the
-  way down, offset −X, to a short straight [6.35 mm](HOPPER_SPOUT_ID) spout (1/4",
-  matching the pump tubing) one mm above the compressor. The throat height, the
-  slot width, and the spout floor all read live from the content beneath. Total
-  drop [143 mm](HOPPER_DROP) below the brim.
+- **Ramp + spout.** Below the collar the bore ramps from the rectangular mouth
+  down to a round [6.35 mm](HOPPER_SPOUT_ID) spout (1/4", matching the pump
+  tubing), centered on the opening. The ramp necks one mm above the bib-gate tray
+  (read live), then a straight spout tube carries the exit down the clear column.
+  Total drop [74 mm](HOPPER_DROP) below the brim.
 
 The collar footprint is taken from the enclosure's opening rectangle
 (`enclosure.py` `_hopper_hole`), so the funnel and hole always match.
