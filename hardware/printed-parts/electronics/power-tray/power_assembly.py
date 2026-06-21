@@ -13,6 +13,7 @@ for _p in (
     _hw / "reference" / "meanwell-irm90",
     _hw / "reference" / "wago-221-413",
     _hw / "reference" / "teyleten-relay",
+    _hw / "reference" / "ground-ring-stack",
     _here.parent,
 ):
     sys.path.insert(0, str(_p))
@@ -21,11 +22,13 @@ import power_tray as t
 import meanwell_irm90 as psu
 import wago_221_413 as wago
 import teyleten_relay as relay
+import ground_ring_stack as gnd
 
 TRAY_COLOR = cq.Color(0.85, 0.78, 0.62)    # PETG tan
 PSU_COLOR = cq.Color(0.30, 0.32, 0.36)     # encapsulated brick, dark
 RELAY_COLOR = cq.Color(0.20, 0.45, 0.75)   # PCB blue
 WAGO_COLOR = cq.Color(0.85, 0.45, 0.15)    # orange levers
+GND_COLOR = cq.Color(0.80, 0.80, 0.83)     # tin-plated lugs + stainless screw
 
 
 def build():
@@ -42,6 +45,9 @@ def build():
     for i, cy in enumerate(t.wago_cys):
         assy.add(wago.build().val().translate((t.wago_cx, cy, t.floor_t)),
                  name=f"wago{i}", color=WAGO_COLOR)
+    # Ground ring-terminal stack clamped to the heat-set boss (Z=0 at boss top).
+    assy.add(gnd.build().val().translate((t.gnd_cx, t.gnd_cy, t.floor_t + t.gnd_boss_h)),
+             name="ground-stack", color=GND_COLOR)
     return assy
 
 

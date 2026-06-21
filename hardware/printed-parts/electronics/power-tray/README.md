@@ -23,8 +23,11 @@ electronics trays. It carries the mains-side parts on one printed frame:
   compressor's 120 VAC hot leg.
 - **3× [Wago 221-413](/hardware/reference/wago-221-413/)** — the H / N / G AC
   distribution block.
-- **Ground-bus tie point** — one M3 boss for the chassis-ground ring-terminal
-  stack.
+- **[Ground ring-terminal stack](/hardware/reference/ground-ring-stack/)** — the
+  single-point chassis ground. One heat-set M3 boss takes a screw that clamps a
+  fan of green ring lugs (one per exposed-metal part) into a bolted stack. The
+  stack *is* the bus — there is no copper bar — and it's earthed through the C14
+  cord (Class I). See [`/business/regulatory.md`](/business/regulatory.md).
 
 Off this tray: the **GFCI** (tabled), the **C14 inlet** (back panel), and the
 controller modules (a separate controller tray).
@@ -39,6 +42,11 @@ Same idiom as the valve trays and the enclosure:
 - **Relay #1** presses onto **four posts** that enter its mounting holes (the
   reverse of the valve's posts-into-sockets, since the board has the holes). The
   posts stand the board off so its underside pins clear the floor.
+
+The one exception is the **ground boss** — press fit doesn't apply to a safety
+bond carrying fault current. It takes a heat-set M3 insert (the same insert +
+SHCS idiom as every module on the shelf), and the screw clamps the ring-terminal
+stack metal-to-metal.
 
 ## The tray
 
