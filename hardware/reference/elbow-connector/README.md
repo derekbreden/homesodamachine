@@ -1,7 +1,7 @@
 # Elbow connector — reference fitting (stand-in)
 
 The production fitting is the **John Guest PP0308E** 1/4" union elbow, black PP
-— already in the BOM (`hardware/ledger/bom.md` §8) for the CO2-path bend, and
+— already in the BOM (`hardware/ledger/bom.md` §4) for the CO2-path bend, and
 the 90° elbow the [valve manifold](/hardware/printed-parts/valve-manifold/)
 sets on the **outer (unoccupied) port of every valve** to turn the line up out
 of the tray.
