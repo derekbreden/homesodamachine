@@ -1,14 +1,15 @@
 """Nozzle-gate tray: 2 axis-aligned Beduan valves + 2 Tee fittings.
 
 The [fluid-topology](../../../topology/fluid-topology.md) nozzle gates as a
-tray. A single −X column (V-G over V-J) meets a Tee on each row; the Tee run
-lies along X (valve on the −X end), and the branch rises (+Z). The +X run end
-and the branch leave the tray to the pump and the nozzle.
+tray. A single −X column (V-G over V-J) meets a Tee on each row. Y-D seats run
+along X (valve on the −X end) with its branch up (+Z). Y-G instead plugs its
+**branch into V-J's inner port** — its run no longer butts the valve — then its
+run swings 45° about that branch (X) axis.
 
-    V-G ──┬──→      Y-D run; branch ↑
-    V-J ──┴──→      Y-G run; branch ↑
+    V-G ──┬──→        Y-D: run along X, branch ↑
+    V-J ──● Y-G       Y-G: branch butts V-J's inner port, run swung 45° about X
 
-Valve placement, the Tee placer, and the tray builder are shared with the
+Valve placement, the Tee placers, and the tray builder are shared with the
 [bag-circuit tray](../bag-circuit-tray/) via `build_tray`. Origin = cell
 center, Z = 0 the mounting plane, ports at Z = 11.3.
 """
@@ -33,6 +34,7 @@ import bag_circuit_tray as bc
 # One valve column (−X) + a Tee on each row.
 valves = {"VG": (-bc.valve_x, +bc.row_half), "VJ": (-bc.valve_x, -bc.row_half)}
 tees = {"YD": (0.0, +bc.row_half), "YG": (0.0, -bc.row_half)}
+yg_spin = 45.0  # YG run swung this many deg about its branch (X) axis
 
 # The tray floors and walls the valves only: it hugs the single −X valve
 # column, symmetric about it. The Tees still seat in the assembly, but the tray
@@ -46,7 +48,11 @@ def build_assembly():
     # Outlets point -X to the nozzles (the outer ports); inlets are from the
     # center Tees. The valve flow arrow (local +Y) points -X.
     parts = {nm: bc.place_valve(*p, 90.0) for nm, p in valves.items()}
-    parts.update({nm: bc.place_tee(*p) for nm, p in tees.items()})
+    # YD seats run-along-X, branch up. YG plugs its branch into VJ's inner port
+    # (X-facing), then its run swings about that branch (X) axis.
+    parts["YD"] = bc.place_tee(*tees["YD"])
+    vj_port = (-bc.tee_run_half, -bc.row_half, bc.port_z)  # VJ inner port tip
+    parts["YG"] = bc.place_tee_branch_to_xport(vj_port, yg_spin)
     # An elbow turns each valve's outer (−X nozzle-outlet) port +Z up out of the tray.
     parts.update({
         f"E{nm}": bc.place_elbow(cx, cy, -1.0 if cx < 0 else 1.0, 0.0)
