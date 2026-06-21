@@ -8,10 +8,11 @@ to bottom:
     top surface;
   * a straight rectangular collar — vertical walls, no slope — that press-fits
     into the opening, filling the 3 mm top wall;
-  * a ramp from that rectangular mouth down to a 1/4" round spout that hangs into
-    the Zone C funnel reserve, stopping one mm clear of the tallest content below
-    (the bib-gate tray) — so the drop is exactly the room the current packing
-    leaves.
+  * a ramp from that rectangular mouth down to a 1/4" round spout, then a straight
+    spout tube that hangs into the Zone C funnel reserve. The ramp necks one mm
+    above the tallest content under the mouth; the spout then drops to one mm above
+    the tallest content under its own circular footprint — so both sit exactly where
+    the current packing leaves room.
 
 The funnel shares the opening rectangle with the enclosure, so the collar always
 matches the hole. It is built in enclosure world coordinates (+X right, +Y back,
@@ -39,9 +40,9 @@ brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
-spout_tube = 21.0       # straight spout tube below the ramp tip — its length sets
-                        # how far the Ø6.35 exit drops into the clear column
-tip_clearance = 1.0     # gap left above the tallest content under the mouth
+tip_clearance = 1.0     # gap left above the tallest content under a footprint —
+                        # both the neck (under the mouth) and the spout exit (under
+                        # the spout's own column) stop this far above what they overlie
 
 
 # --- primitives -------------------------------------------------------------
@@ -93,11 +94,13 @@ def build():
     top_z = oz1 + brim_thickness                       # brim top = outermost point
     spout_or = spout_id / 2.0 + spout_wall
 
-    # The ramp necks to the round spout one mm above the bib-gate tray (read live);
-    # a straight spout tube then carries the Ø6.35 exit straight down the clear
-    # column, centered on the opening.
+    # The ramp necks to the round spout one mm above the tallest content under the
+    # wide mouth (read live). The straight spout then drops as far as its own narrow
+    # column allows — one mm above the tallest content under the spout's circular
+    # footprint, by the same live rule. The footprint is a subset of the mouth, so
+    # the exit never rises above the neck. Centered on the opening, so x and y hold.
     neck_z = _content_top(x0, x1, y0, y1)
-    end_z = neck_z - spout_tube
+    end_z = _content_top(cx - spout_or, cx + spout_or, cy - spout_or, cy + spout_or)
 
     # Outer: brim flange, straight collar, ramp to the spout, straight spout tube.
     solid = (
