@@ -20,7 +20,6 @@ Y deep, Z up; origin at the floor's bottom-left corner, Z = 0 the floor
 underside, floor top at ``floor_t``.
 """
 
-import math
 import sys
 from pathlib import Path
 
@@ -85,8 +84,9 @@ relay_posts = [
 ]
 
 # Three Wagos in a column on the far right, butt-bottom Y of each angled slot.
+# Base shifted +4.454 so the first slot's butt back lands flush at y ~ 6.06.
 wago_cx = relay_cx + relay.width / 2.0 + 6.0 + wago.width / 2.0
-wago_butt_ys = [margin + 4.0, margin + 27.6, margin + 51.2]
+wago_butt_ys = [margin + 8.454 + i * 23.6 for i in range(3)]
 
 # Ground-bus boss above the relay.
 gnd_cx = relay_cx
@@ -143,23 +143,23 @@ def _convex_hull(points):
 
 
 def _build_floor():
-    """A single solid floor: the convex outline of every object's footprint pad,
-    extruded at plate thickness. One connected piece, no thin trusses."""
-    s = math.sin(math.radians(wago_tilt))
-    c = math.cos(math.radians(wago_tilt))
-    wy0 = -wago.height * s        # tilted-Wago XY projection: butt-top corner
-    wy1 = wago.depth * c          #                            wire-bottom corner
+    """A single solid floor: the convex outline of every object's footprint,
+    extruded at plate thickness. One connected piece, no thin trusses. The Wago
+    footprints use the full slot extent, so the floor underlies each angled slot
+    out to its +X edge and back to its butt with nothing cantilevered off an edge."""
     rects = [
         (psu_cx, psu_cy, psu.width, psu.length),           # PSU body + ledges
         (relay_cx, relay_cy, relay.width, relay.length),   # relay PCB
         (gnd_cx, gnd_cy, 18.0, 18.0),                      # ground ring-stack fan
     ]
-    for by in wago_butt_ys:
-        rects.append((wago_cx, by + (wy0 + wy1) / 2.0, wago.width, wy1 - wy0))
     pts = []
     for cx, cy, w, d in rects:
         pts += [(cx - w / 2.0, cy - d / 2.0), (cx + w / 2.0, cy - d / 2.0),
                 (cx + w / 2.0, cy + d / 2.0), (cx - w / 2.0, cy + d / 2.0)]
+    for by in wago_butt_ys:
+        bb = _wago_slot(wago_cx, by).val().BoundingBox()
+        pts += [(bb.xmin, bb.ymin), (bb.xmax, bb.ymin),
+                (bb.xmax, bb.ymax), (bb.xmin, bb.ymax)]
     return cq.Workplane("XY").polyline(_convex_hull(pts)).close().extrude(floor_t)
 
 
