@@ -1,6 +1,6 @@
 {
   "thickness_mm": 3.0,
-  "material": "PETG",
+  "material": "PET-CF",
   "process": "3D-print",
-  "notes": "Minimum wall thickness; shroud wrapping faucet body, flavor tubes, and lever swing"
+  "notes": "Minimum wall thickness; shroud wrapping faucet body, flavor tubes, and lever swing. PET-CF per MATERIAL.md (Bambu PET-CF / Polymaker Fiberon PET-CF17)."
 }

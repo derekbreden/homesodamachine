@@ -148,7 +148,7 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Valve tray — nozzle-gate | 1 | PETG | 0.043 | $0.48 |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.151 | $7.26 |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.65 |
-| **Printed parts total** | | | **~5.95** | **[$103.94](BOM_SEC7)** |
+| **Printed parts total** | | | **~5.95** | **[$72.77](BOM_SEC7)** |
 
 By material: PETG ≈ 5.79 kg / $64.86, PET-CF ≈ 0.16 kg / $7.91.
 
@@ -170,6 +170,10 @@ Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× foam-c
 | [John Guest PP2308E two-way divider, black polypropylene 1/4"](https://www.freshwatersystems.com/products/john-guest-two-way-divider-black-polypropylene-1-4) | source-select Y-A, Y-B per fluid-topology-trays.mmd (trident, parallel-outlet geometry), [2](Y_DIVIDERS) per unit; FWS WEBFWS100673541 May 9: 2 bags of 10 @ $61.66 = $30.83/bag = $3.083/ea pre-tax/ship; 1 bag = 5 builds of stock | [2](Y_DIVIDERS) (of 1 bag) | $3.083 | $6.17 |
 | [John Guest PP0208E 1/4" union tee, black polypropylene (bag of 10)](https://www.freshwatersystems.com/products/john-guest-union-tee-black-polypropylene-1-4) | manifold Tees Y-C/D/E/F/G/H/KA/KB per fluid-topology-trays.mmd (run in-line between butted valves, branch rises to bag/pump/nozzle), [8](TEES) per unit; same JG black-PP NSF 51 + 61 family as the §3 install-kit tee. FWS WEBFWS100681220 Jun 8: 2 bags of 10 @ $42.68 = $21.34/bag = $2.134/ea pre-tax/ship | [8](TEES) (of 2 bags) | $2.134 | $17.07 |
 | [Siptenk 1/4" OD brass tube stiffener insert (100-pk)](https://www.amazon.com/dp/B0FM77LLM1) | required on the LLDPE side of the carbonated-water tube end that lands in the Westbrass body's upstream compression port (per [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) step 2) so the brass ferrule does not crush the soft tube; 1 stiffener per build ($8.99/100) | 1 (of 100 pk) | $0.09 | $0.09 |
+| [BBDINO 40A food-contact platinum silicone, 2.42 lb kit, 1:1](https://www.amazon.com/dp/B0FHHBGSQK) | **Cast silicone hopper funnel** (Zone C, [printed-parts/zone-c/](/hardware/printed-parts/zone-c/README.md)) — the removable, dishwasher-safe flavor-fill funnel, cast in a two-piece printed mold (the vacuum chamber + Orion pump + post-cure oven are tooling, in [purchases.md](/hardware/ledger/purchases.md) §21). ~78 g of mixed silicone per funnel (CAD shell volume 68.8 mL × ~1.13 g/mL) ≈ ~13 funnels per kit. Amazon 112-8255970 Jun 22: $35.16 ÷ 13 | 1 (~78 g) | $2.70 | $2.70 |
+| [BBDINO black silicone pigment, 150 g](https://www.amazon.com/dp/B0BVR3R58V) | funnel colorant at ≤2% by weight (~1.5 g/funnel; carbon-black, hides dark-concentrate staining; food contact qualified by the wetted-surface screen, not a cert). $18.97 ÷ ~100 funnels | 1 (~1.5 g) | $0.19 | $0.19 |
+| [Mann Ease Release 200, 14 oz aerosol](https://www.amazon.com/dp/B002YEBO1O) | platinum-safe mold release on the printed funnel-mold cavity (kept off the food-contact core); $21.99 ÷ ~50 pours | 1 (of ~50) | $0.44 | $0.44 |
+| [TCP Global 32 oz graduated mixing cups (25-pk)](https://www.amazon.com/dp/B08HNCGY4N) | silicone-degassing batch cup (3–4× headroom for the ~70 mL pour), 1 disposable per pour; $17.99 ÷ 25 | 1 (of 25 pk) | $0.72 | $0.72 |
 
 ## 9. Dispensing (carbonator bottom-plate outlet → faucet)
 
@@ -278,7 +282,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$172.20](BOM_SEC4) |
 | 5. Refrigeration | [$194.67](BOM_SEC5) |
 | 6. Cold core insulation | [$52.38](BOM_SEC6) |
-| 7. Printed parts (PETG) | [$103.94](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$72.77](BOM_SEC7) |
 | 8. Flavor subsystem | [$264.60](BOM_SEC8) |
 | 9. Dispensing | [$53.74](BOM_SEC9) |
 | 10. UI | [$3.21](BOM_SEC10) |
@@ -286,7 +290,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.94](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,606.50](BOM_GRAND)** |
+| **Total** | **[$1,575.33](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
