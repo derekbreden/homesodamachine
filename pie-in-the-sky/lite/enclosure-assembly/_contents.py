@@ -140,7 +140,14 @@ def build():
     # exits -> world -Y (front). On the floor, inset off the -X wall.
     res = _place(_rot(_load(RES_STEP), (0, 0, 1), 90.0), xmin=RES_X_INSET, ymin=RES_FRONT_Y, zmin=0.0)
     placed["reservoir-pockets"] = (res, RES_COLOR)
-    col_x = res.BoundingBox().xmax + COL_GAP   # the right channel butts the reservoir
+    # The reservoir's bbox +X is the rod-end boss, which only pokes out high up
+    # (z >= ~256); the box WALL the column actually butts is ~8 mm inboard. Butt
+    # to the real wall — the dumbbell column nestles right up to it (verified zero
+    # real-solid clash, the boss tucking into source-select's mid void).
+    rb = res.BoundingBox()
+    res_wall = res.intersect(_box(rb.xlen + 20, rb.ylen + 20, 250)
+                             .translate((rb.xmin - 10, rb.ymin - 10, 0))).BoundingBox().xmax
+    col_x = res_wall + COL_GAP
 
     # --- Zone B front: source-select stood vertical (rotate +90 about Y so its
     # long axis runs up Z; footprint 63 x 93), butted to the reservoir's +X wall,
