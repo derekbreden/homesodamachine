@@ -101,11 +101,13 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
 # interfere.
 hopper_hole_x = 90.0    # opening width (X), nominal before the corner-pod clamp
 hopper_hole_y = 95.0    # opening depth (Y); clamped to the seam in _hopper_hole
-# Split-plane Y. Placed just behind the full-depth funnel so the seam never runs
-# across the hopper opening (the only thing that constrains the split — the box
-# itself fits the print bed whole). Kept < the reservoir front so the corner
-# bosses clear the reservoir.
-split_y = 95.0
+# Split-plane Y. The box fits the print bed whole, so the split is an ACCESS
+# choice — its only hard constraint is the hopper (the seam must not run across
+# the opening). Pushed all the way forward to the minimum that keeps the display
+# housing whole in the front half (the facet back reaches ~80 mm); the front
+# trays end just ahead of it and the reservoir is pulled up right behind it, so
+# the seam sits in the thin gap between the two zones instead of in a dead band.
+split_y = 80.0
 
 # Split + boss parameters — every dimension sized to its function. The seam is a
 # Y plane; the front half's full-wall rear lip telescopes into the back; four
