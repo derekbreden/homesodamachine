@@ -46,20 +46,20 @@ import enclosure as E
 brim_overhang = 3.0     # brim flange reach past the opening, all around
 brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
-chute_h = 30.0          # straight rectangular chute height — brim top down to the ramp
-                        # start. Leaves the rest of the drop for a real funnel ramp.
-neck_dx = 0.0           # spout centered under the opening — nothing below the mouth
-                        # to dodge (only the front bag-circuit lid), so no offset
+chute_h = 48.0          # tall straight vertical chute below the brim — vertical
+                        # walls, the bulk of the pour buffer (not a deep cone).
+ramp_h = 35.0           # SHORT ramp from the chute bottom necking to the spout —
+                        # kept shallow so the funnel sits in the top of the box
+                        # instead of plunging a long cone toward the floor.
+neck_dx = 0.0           # spout centered under the opening
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
-spout_tube = 6.0        # straight spout tube below the ramp tip — its length sets
-                        # how far the Ø6.35 exit drops toward V-B
+spout_tube = 6.0        # straight spout tube below the ramp neck (the barb stub)
 tip_clearance = 1.0     # gap left above the tallest content under the mouth
-# The spout exits into the open air ABOVE the front trays (the whole mouth
-# footprint has content under it — the front bag-circuit lid — so there is no
-# clear column to drop into, unlike the Kitchen). Leave room below the exit for a
-# tube/barb fitting and the flex-tube run back to V-B — but not so much that the
-# ramp is squeezed out.
+# The spout exits HIGH above the content (the chute + short ramp set its height);
+# a flexible tube then carries the Ø6.35 exit the rest of the way down to V-B. This
+# gap is only the minimum the exit must keep clear of whatever sits beneath the
+# mouth — a sanity floor, not the thing that places the spout.
 spout_fitting_gap = 8.0
 
 
@@ -112,16 +112,21 @@ def build():
     top_z = oz1 + brim_thickness                       # brim top = outermost point
     spout_or = spout_id / 2.0 + spout_wall
     ncx = cx + neck_dx                                 # spout/neck, shifted in X
-    ramp_top_z = top_z - chute_h                        # straight chute bottom = ramp start
 
-    # The ramp necks to the round spout, whose straight tube exits a fitting-gap
-    # above the tallest content under the mouth (read live), leaving open air for a
-    # tube/barb to attach; a flexible tube then carries the Ø6.35 exit on toward V-B.
-    end_z = _content_top(x0, x1, y0, y1) + spout_fitting_gap
-    neck_z = end_z + spout_tube            # the round neck, one tube-length up
+    # Top-down: brim, tall vertical chute, SHORT ramp necking to the centered
+    # spout, short spout tube. The spout exits high (set by chute_h + ramp_h, not
+    # by the content), so the funnel stays in the top of the box; a flex tube
+    # carries the pour down to V-B.
+    ramp_top_z = top_z - chute_h           # straight chute bottom = ramp start
+    neck_z = ramp_top_z - ramp_h           # ramp bottom = round spout neck
+    end_z = neck_z - spout_tube            # spout exit
+    floor = _content_top(x0, x1, y0, y1) + spout_fitting_gap
+    assert end_z >= floor, (
+        f"funnel spout z={end_z:.0f} below content clearance {floor:.0f} — "
+        "raise chute_h/ramp_h or lower the content beneath the mouth")
 
-    # Outer: brim flange, a tall straight rectangular chute, a shallow ramp down to
-    # the +X-offset spout, straight spout tube.
+    # Outer: brim flange, a tall straight rectangular chute, a short ramp down to
+    # the centered spout, straight spout tube.
     solid = (
         _box(w + 2.0 * brim_overhang, d + 2.0 * brim_overhang, oz1, top_z, cx, cy)
         .fuse(_box(w, d, ramp_top_z, oz1, cx, cy))

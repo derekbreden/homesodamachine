@@ -13,12 +13,9 @@ reservoir-pockets box is the heavy back-bottom anchor the box is sized around.
 
 `enclosure.py` exports the two printable halves (`enclosure-front.step`,
 `enclosure-back.step`) plus `enclosure.step` — the two halves as separate solids
-in assembled position, seams intact (mirrors `faucet/touch-flo-shell`). It also
-exports two test-print coupons over a shared mating geometry:
-`enclosure-front-coupon.step`, a reduced-size front half carrying every feature
-at full size (the display housing, the telescoping lip, the four corner bosses,
-the ribs), and `enclosure-back-coupon.step`, the matching back half — its mouth,
-four plugs, and screw bores aligned to the front coupon's lip and sockets.
+in assembled position, seams intact (mirrors `faucet/touch-flo-shell`). (The Lite
+carries no test-print coupons; the [Kitchen edition coupons](/hardware/printed-parts/enclosure/enclosure/)
+cover the shared split/boss mating geometry.)
 
 ## Frame
 
@@ -81,31 +78,33 @@ originally sketched.
 
 ## Hopper opening
 
-A rectangular opening is punched through the top wall to the right of the
-display housing and flush to the front, where the removable hopper
+A **narrow-X, deep-Y slot** is punched through the top wall to the right of the
+display housing, where the removable hopper
 [funnel](/pie-in-the-sky/lite/printed-parts/funnel/) drops in — its brim resting
-on the top, its collar press-fitting the opening. The opening is sized to the
-room right of the display; its +X edge is clamped clear of the top-right corner
-pod. The funnel derives its collar from the same rectangle (`_hopper_hole`), so
-the two always match.
+on the top, its collar press-fitting the opening. The −X edge sits just right of
+the tall bag-circuit tray (so the funnel chute clears it); the +X edge runs flush
+to the top-right corner pod (no dead strip of wall); the slot reaches the full
+front-half depth back to the seam lip. The short trays beneath it are kept low,
+so the deep slot has a tall clear chute for a big pour buffer. The funnel derives
+its collar from the same rectangle (`_hopper_hole`), so the two always match.
 
 ## Dimensions
 
 Outer envelope [215.5 mm](LITE_OUTER_X) × [345.1 mm](LITE_OUTER_Y) × [305 mm](LITE_OUTER_Z)
-(X × Y × Z) — smaller than the Kitchen edition (289 × 342 × 310) on every axis,
-because the Lite carries no cold core or refrigeration depth. Read live from the
-contents placed by `../enclosure-assembly/_contents.py`, so any move in the
-contents propagates.
+(X × Y × Z) — narrower and shorter than the Kitchen edition (289 × 342 × 310) in
+X and Z, but a touch deeper in Y: with no side column beside the reservoir, the
+trays and pumps pack into a deep front zone instead, trading width for depth.
+Read live from the contents placed by `../enclosure-assembly/_contents.py`, so any
+move in the contents propagates.
 
 ## Regenerate
 
 The enclosure sizes itself from the contents bbox:
 
 `tools/cad-venv/bin/python pie-in-the-sky/lite/enclosure/enclosure.py`
-→ `enclosure-front.step`, `enclosure-back.step`, `enclosure.step`, the two
-coupons. Wall, split, boss, and facet constants are at the top of `enclosure.py`.
-Prints the facet size, each half's envelope vs. the H2C bed, and the
-reservoir/boss clearance.
+→ `enclosure-front.step`, `enclosure-back.step`, `enclosure.step`. Wall, split,
+boss, and facet constants are at the top of `enclosure.py`. Prints the facet size,
+each half's envelope vs. the H2C bed, and the reservoir/boss clearance.
 
 ## Sources
 [value](NAME) texts are updated by:
