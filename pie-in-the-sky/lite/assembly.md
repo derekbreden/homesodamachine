@@ -48,7 +48,7 @@ Assemble the four manifold trays — source-select, bag-circuit, bib-gate, nozzl
 
 ### 4. Mount the pumps
 
-Seat the two Kamoer KPHM400 pumps in their printed cases, standing on the floor side by side in the front-right under the hopper, tube barbs facing −Y (front) into the open front air, per [`_contents.py`](/pie-in-the-sky/lite/enclosure-assembly/_contents.py).
+Seat the two Kamoer KPHM400 pumps in their printed cases, stacked one above the other in the back of the +X column behind source-select (the +Y space the reservoir does not reach) — keeping them off the front zone so the cabinet stays narrow. They are reached by separating the back half / lifting source-select, per [`_contents.py`](/pie-in-the-sky/lite/enclosure-assembly/_contents.py).
 
 ### 5. Plumb the flavor circuit
 
@@ -68,7 +68,7 @@ Install the Touch-Flo faucet through the counter per its own [`ASSEMBLY.md`](/ha
 
 ### 9. Close the enclosure
 
-Lower the contents (the bag cradle already loaded, step 2) into the back half, seat the Waveshare 4.3″ display in the front half's facet, then telescope the front half onto the back and drive the four corner M3 cross-pins from the ±X exterior. The funnel brim sits flush on the top; the reservoir's +Y doorway faces the cabinet back for rear bag-swap access (the in-cabinet rear-access detail — a removable rear panel or pull-out — is an open item); the −Y wall is the front, carrying the display facet, the front tray stack, and the pumps.
+Lower the contents (the bag cradle already loaded, step 2) into the back half, seat the Waveshare 4.3″ display in the front half's facet, then telescope the front half onto the back and drive the four corner M3 cross-pins from the ±X exterior. The funnel brim sits flush on the top; the reservoir's +Y doorway faces the cabinet back for rear bag-swap access (the in-cabinet rear-access detail — a removable rear panel or pull-out — is an open item); the −Y wall is the front, carrying the display facet and the front tray stack.
 
 ## Output condition
 
