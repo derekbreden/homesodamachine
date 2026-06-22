@@ -47,11 +47,13 @@ platinum-compatible release film.
 
 ## Cast
 
-1. **Silicone.** Food-grade platinum-cure, target **Shore A ~50** — stiff enough
-   to hold the rectangular brim shape and press-fit the collar, soft enough to
-   peel off the core. Select for **high tear-strength / elongation**: the 2 mm
-   spout wall is the weak link on demold. One funnel is about
-   [69 mL](SIL_VOLUME) of silicone.
+1. **Silicone.** Food-grade platinum-cure, **Shore A 40** (the BBDINO 40A kit in
+   [purchases.md §21](/hardware/ledger/purchases.md)). Soft is right here: it
+   peels off the rigid core without tearing the 2 mm spout, conforms and seals at
+   the press-fit collar, and flexes to clean — and the funnel never has to be
+   self-supporting, since the rigid opening cradles it during a pour. Select for
+   **high tear-strength / elongation**; the 2 mm spout wall is the weak link on
+   demold. One funnel is about [69 mL](SIL_VOLUME) of silicone.
 2. **Release + inhibition.** Platinum silicone is cure-poisoned by sulfur, tin,
    amines, and many release agents — a bad release leaves an uncured, tacky layer
    on the food face. Use a **platinum-compatible (addition-cure) release**, or
