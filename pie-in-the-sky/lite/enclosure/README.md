@@ -93,7 +93,7 @@ from the same rectangle (`_hopper_hole`), so the two always match.
 
 ## Dimensions
 
-Outer envelope [215.5 mm](LITE_OUTER_X) × [345.1 mm](LITE_OUTER_Y) × [305 mm](LITE_OUTER_Z)
+Outer envelope [215.5 mm](LITE_OUTER_X) × [324.9 mm](LITE_OUTER_Y) × [305 mm](LITE_OUTER_Z)
 (X × Y × Z) — narrower and shorter than the Kitchen edition (289 × 342 × 310) in
 X and Z, but a touch deeper in Y: with no side column beside the reservoir, the
 trays and pumps pack into a deep front zone instead, trading width for depth.
