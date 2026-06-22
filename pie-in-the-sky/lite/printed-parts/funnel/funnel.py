@@ -15,10 +15,11 @@ top to bottom,
   * a tall straight rectangular chute — vertical walls, no slope — pressing the
     [3 mm](WALL) top wall at its top and hanging down into the reserve;
   * a shallow ramp from the bottom of that chute down to a round
-    [6.35 mm](SPOUT_ID) spout (1/4", matching the pump tubing). The spout is
-    offset toward the source-select column and necks one mm above the tallest
-    content below (read live), then a short straight tube carries the exit on
-    down toward V-B.
+    [6.35 mm](SPOUT_ID) spout (1/4", matching the pump tubing). The spout necks
+    one mm above the tallest content below the mouth (read live — the front
+    bag-circuit tray), where a short flexible tube carries the pour on to V-B.
+    Like the Kitchen hopper, the spout does not land on V-B directly; the
+    topology routes Hopper → V-B through the manifold.
 
 The funnel shares the opening rectangle with the enclosure, so the collar always
 matches the hole. It is built in enclosure world coordinates (+X right, +Y back,
@@ -45,12 +46,17 @@ brim_overhang = 3.0     # brim flange reach past the opening, all around
 brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 chute_h = 30.0          # straight rectangular chute height — brim top down to the ramp start
-neck_dx = 20.0          # neck (ramp foot + spout) shift in +X toward the source-select column
+neck_dx = 20.0          # neck (ramp foot + spout) shift in +X toward the source-select side
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
 spout_tube = 6.0        # straight spout tube below the ramp tip — its length sets
                         # how far the Ø6.35 exit drops toward V-B
 tip_clearance = 1.0     # gap left above the tallest content under the mouth
+# The spout exits into the open air ABOVE the front trays (the whole mouth
+# footprint has content under it — the front bag-circuit lid — so there is no
+# clear column to drop into, unlike the Kitchen). Leave real room below the exit
+# for a tube/barb fitting and the flex-tube run back to V-B.
+spout_fitting_gap = 14.0
 
 
 # --- primitives -------------------------------------------------------------
@@ -104,10 +110,10 @@ def build():
     ncx = cx + neck_dx                                 # spout/neck, shifted in X
     ramp_top_z = top_z - chute_h                        # straight chute bottom = ramp start
 
-    # The ramp necks to the round spout, whose straight tube exits one tip-clearance
-    # above the tallest content under the mouth (read live); a flexible tube then
-    # carries the Ø6.35 exit on toward V-B.
-    end_z = _content_top(x0, x1, y0, y1)   # exit one tip_clearance above the content
+    # The ramp necks to the round spout, whose straight tube exits a fitting-gap
+    # above the tallest content under the mouth (read live), leaving open air for a
+    # tube/barb to attach; a flexible tube then carries the Ø6.35 exit on toward V-B.
+    end_z = _content_top(x0, x1, y0, y1) + spout_fitting_gap
     neck_z = end_z + spout_tube            # the round neck, one tube-length up
 
     # Outer: brim flange, a tall straight rectangular chute, a shallow ramp down to
