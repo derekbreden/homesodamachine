@@ -24,11 +24,12 @@ opening:
   straight rectangular drop.
 - **Ramp + spout.** Below the chute a shallow ramp narrows to a round
   [6.35 mm](SPOUT_ID) spout (1/4", matching the pump tubing), offset toward the
-  source-select side. The ramp necks one mm above the tallest content below the
-  mouth (read live — the front bag-circuit tray); a short flexible tube then
-  carries the pour on to V-B (the spout does not land on V-B directly, same as
-  the Kitchen hopper). Total drop [80 mm](HOPPER_DROP) below the brim; capacity
-  to the brim rim ≈ [440 mL](HOPPER_CAP).
+  source-select side. The spout exits into the open air above the tallest
+  content below the mouth (read live — the front bag-circuit tray), with room
+  left below for a tube/barb fitting; a short flexible tube then carries the pour
+  on to V-B (the spout does not land on V-B directly, same as the Kitchen
+  hopper). Total drop [80 mm](HOPPER_DROP) below the brim; capacity to the brim
+  rim ≈ [440 mL](HOPPER_CAP).
 
 The chute footprint is taken from the enclosure's opening rectangle
 (`enclosure.py` `_hopper_hole`), so the funnel and hole always match.
