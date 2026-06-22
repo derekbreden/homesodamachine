@@ -102,7 +102,8 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
 # the opening). It rides in the gap between the front zone (the trays + pumps,
 # whose backs land just ahead of it) and the reservoir (seated just behind it),
 # while staying behind the display housing so the facet is whole in the front half.
-split_y = 176.0
+# Computed live from the contents (see `_split_y`) so it tracks the cluster as it
+# packs, rather than a fixed plane that the trays could slide across.
 
 # Split + boss parameters — every dimension sized to its function. The seam is a
 # Y plane; the front half's full-wall rear lip telescopes into the back; four
@@ -167,6 +168,21 @@ def _round_corner_y(solid, xc, zc, r):
 
 # --- box dimensions, driven by the placed contents -------------------------
 
+# The reservoir and the power tray beside it live in the BACK half; everything
+# else is front-zone content that must stay wholly in the front half.
+_BACK_ZONE = {"reservoir-pockets", "power-tray"}
+
+
+def _split_y(placed=None):
+    """Seam Y, riding midway in the gap between the front cluster's back (the
+    deepest non-back-zone content) and the reservoir front, so the trays sit
+    wholly in the front half and the reservoir wholly in the back half."""
+    placed = placed if placed is not None else _contents.build()
+    front_back = max(s.BoundingBox().ymax for k, (s, _c) in placed.items() if k not in _BACK_ZONE)
+    res_front = placed["reservoir-pockets"][0].BoundingBox().ymin
+    return 0.5 * (front_back + res_front)
+
+
 def _dims():
     placed = _contents.build()
     bbs = [s.BoundingBox() for s, _c in placed.values()]
@@ -194,7 +210,7 @@ def _dims():
     outer = (ox0, ox1, oy0, oy1, oz0, oz1)
     _fa, _fn, _fo, _fdy, _fdz = _facet_geom(outer)
     facet_back_y = oy0 + _fdy + display_facet_thickness * math.sqrt(2.0)
-    y_joint = max(facet_back_y + 2.0, split_y)
+    y_joint = max(facet_back_y + 2.0, _split_y(placed))
     res_front_y = placed["reservoir-pockets"][0].BoundingBox().ymin
     return inner, outer, y_joint, res_front_y
 
@@ -327,7 +343,7 @@ def _hopper_hole(inner, outer):
     x1 = pod_in - 1.0                                        # flush to the top-right corner pod
     x0 = ox0 + display_facet_x + wall                        # flush past the display facet gusset
     _a, _n, _o, dy, _dz = _facet_geom(outer)
-    y_joint = max(oy0 + dy + display_facet_thickness * math.sqrt(2.0) + 2.0, split_y)
+    y_joint = max(oy0 + dy + display_facet_thickness * math.sqrt(2.0) + 2.0, _split_y())
     y1 = y_joint - wall - 2.0                                # just in front of the seam lip
     return x0, x1, iy0, y1
 
