@@ -55,12 +55,11 @@ neck_dx = 0.0           # spout centered under the opening
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
 spout_tube = 6.0        # straight spout tube below the ramp neck (the barb stub)
-tip_clearance = 1.0     # gap left above the tallest content under the mouth
 # The spout exits HIGH above the content (the chute + short ramp set its height);
-# a flexible tube then carries the Ø6.35 exit the rest of the way down to V-B. This
-# gap is only the minimum the exit must keep clear of whatever sits beneath the
-# mouth — a sanity floor, not the thing that places the spout.
-spout_fitting_gap = 8.0
+# a flexible tube then carries the Ø6.35 exit the rest of the way down to V-B. The
+# mouth deliberately overhangs the tall bag-circuit tray on its −X side to reclaim
+# that width — the tapered ramp narrows past the tray before reaching its height,
+# so the funnel still clears it. build() verifies this against the real solids.
 
 
 # --- primitives -------------------------------------------------------------
@@ -91,15 +90,12 @@ def _cyl(r, z_top, z_bot, cx, cy):
 
 # --- the funnel -------------------------------------------------------------
 
-def _content_top(x0, x1, y0, y1):
-    """One mm above the tallest placed content whose footprint underlies the given
-    rectangle — read live, so the funnel tracks the packing."""
-    top = 0.0
-    for shape, _c in E._contents.build().values():
-        b = shape.BoundingBox()
-        if min(b.xmax, x1) > max(b.xmin, x0) and min(b.ymax, y1) > max(b.ymin, y0):
-            top = max(top, b.zmax)
-    return top + tip_clearance
+def _assert_clears_content(funnel):
+    """The mouth overhangs tall trays the tapered ramp clears — verify against the
+    REAL placed solids (a bbox check would falsely trip on the overhang)."""
+    for name, (s, _c) in E._contents.build().items():
+        ov = funnel.intersect(s).Volume()
+        assert ov < 1.0, f"funnel intersects {name} by {ov:.0f} mm³ — reshape the chute/ramp"
 
 
 def build():
@@ -120,10 +116,6 @@ def build():
     ramp_top_z = top_z - chute_h           # straight chute bottom = ramp start
     neck_z = ramp_top_z - ramp_h           # ramp bottom = round spout neck
     end_z = neck_z - spout_tube            # spout exit
-    floor = _content_top(x0, x1, y0, y1) + spout_fitting_gap
-    assert end_z >= floor, (
-        f"funnel spout z={end_z:.0f} below content clearance {floor:.0f} — "
-        "raise chute_h/ramp_h or lower the content beneath the mouth")
 
     # Outer: brim flange, a tall straight rectangular chute, a short ramp down to
     # the centered spout, straight spout tube.
@@ -139,9 +131,11 @@ def build():
         .fuse(_loft_rc(bore_w, bore_d, cx, cy, ramp_top_z, spout_id / 2.0, ncx, cy, neck_z))
         .fuse(_cyl(spout_id / 2.0, neck_z, end_z - 1.0, ncx, cy))
     )
+    funnel = solid.cut(cavity)
+    _assert_clears_content(funnel)
     # Capacity filled to the brim rim: the cavity between the spout exit and brim top.
     fill = cavity.intersect(_box(600.0, 600.0, end_z, top_z, cx, cy)).Volume()
-    return cq.Workplane(obj=solid.cut(cavity)), (w, d, top_z - end_z, end_z, fill)
+    return cq.Workplane(obj=funnel), (w, d, top_z - end_z, end_z, fill)
 
 
 def main():
