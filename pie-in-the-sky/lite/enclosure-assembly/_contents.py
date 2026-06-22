@@ -6,32 +6,31 @@ corner; floor on Z=0. The -Y face is the FRONT (the user side, carrying the
 display facet); +Y is the cabinet BACK.
 
 The reservoir-pockets box plays the Kitchen cold core's role — the one heavy
-volume that cannot move, seated on the floor at the BACK-LEFT, its single
-fully-open wall (the bag-load doorway) facing the cabinet back (+Y) and its two
-bag-spout exit holes on the forward (-Y) face. Everything else fills the voids
-that placement leaves:
+volume that cannot move, seated on the floor at the BACK, its single fully-open
+wall (the bag-load doorway) facing the cabinet back (+Y) and its two bag-spout
+exit holes on the forward (-Y) face. The cabinet is deliberately NARROW in X and
+DEEP in Y: nothing stands beside the reservoir except the one part thin enough to
+share its +X depth band — the power tray. Everything else packs into the FRONT
+zone, ahead of the reservoir:
 
-  * Zone A (back-left, full height):  reservoir-pockets, on the floor, rotated
-    +90 deg about Z so its doorway faces +Y (back) and its spout exits face -Y
-    (front). The full-height anchor, nearly flush to the -X wall.
-  * Zone B (right channel, full height):  the dead column to the +X of the
-    reservoir holds the two LONG-axis trays nose to tail in depth — source-select
-    stood vertical at the FRONT of the column (under the hopper, V-B toward the
-    front), and the two flavor pumps stacked one above the other in the column's
-    BACK half (the +Y space the reservoir does not reach). Keeping the pumps off
-    the front zone is what keeps the box narrow in X.
-  * Zone D (front, low):  the power tray (Mean Well PSU + Wago distribution +
-    ground stack, no relay) stood vertical as a side-wall panel in the front-left
-    corner; the two short trays (bib-gate, nozzle-gate) stacked flat just right of
-    it under the display facet; and bag-circuit laid flat across the front-zone
-    top above them.
-  * Zone C (front top):  the hopper opening + funnel (added in the assembly,
-    derived from the enclosure) drops in over the front zone.
+  * Back band (against the split):  the two LONG-axis trays stood vertical, side
+    by side — source-select and bag-circuit — long axis up Z, footprints ~63 mm
+    wide so two fit across the narrow box. They sit behind the pump stack.
+  * Front-left:  the two flavor pump ASSEMBLIES (Kamoer pump + 90 deg outlet
+    elbows), stacked one above the other (turned a quarter-turn so the elbow span
+    runs in X, the shallower 72 mm depth in Y), a single narrow footprint.
+  * Front-right, low:  the two SHORT trays (bib-gate, nozzle-gate) stood vertical
+    and nose-to-tail in depth, kept LOW (~140 mm) so the hopper funnel above them
+    gets a tall clear chute.
+  * Front-right, high:  the hopper funnel (added in the assembly, derived from the
+    enclosure) — a narrow-X, deep-Y slot dropping over the short trays.
+  * +X back band:  the power tray (Mean Well PSU + Wago distribution + ground
+    stack, no relay) stood vertical beside the reservoir, its 40.5 mm depth all it
+    costs in X.
 
-The trays keep their native stack pitch where stacked. The display and the
-hopper funnel are NOT placed here — like the Kitchen, the enclosure sizes itself
-from these contents, then the display facet and the funnel are derived from the
-enclosure and seated in `enclosure_assembly.py`.
+The display and the hopper funnel are NOT placed here — like the Kitchen, the
+enclosure sizes itself from these contents, then the display facet and the funnel
+are derived from the enclosure and seated in `enclosure_assembly.py`.
 
 The groups never overlap (verified by real solid intersection in
 `enclosure.py`'s report). Inter-tray links are tubing (the topology "Tube
@@ -55,47 +54,39 @@ TRAY_STEPS = {
     "bib-gate":      _VM / "bib-gate-tray"      / "bib-gate-assembly.step",
     "nozzle-gate":   _VM / "nozzle-gate-tray"   / "nozzle-gate-assembly.step",
 }
-PUMP_STEP = _hw / "reference" / "kamoer-kphm400" / "kamoer-kphm400.step"
+# The flavor pumps as full ASSEMBLIES — the Kamoer KPHM400 with its 90 deg outlet
+# elbows — not the bare pump body (the elbows set the real envelope).
+PUMP_STEP = _hw / "reference" / "kamoer-kphm400" / "pump-assembly.step"
 RES_STEP = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "reservoir-pockets" / "reservoir-pockets.step"
 POWER_STEP = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "electronics" / "power-tray" / "power-assembly.step"
 
 # --- Packing parameters (free design choices, not measured geometry) ------
-# Reservoir -Y (front) face Y. Pulled all the way up to just behind the split
-# (5 mm past it), closing the dead band that used to sit between the front zone
-# and the reservoir. Its bag pockets are inboard of the corner cross-pin pods, so
-# even butted to the seam it clears every split feature (plug, pod, brace, lip) —
-# verified zero overlap. This is what makes the funnel effectively butt the
-# reservoir: only the thin seam separates the two.
-RES_FRONT_Y = 85.0
-# Inset the reservoir off the −X wall so its full-height back-top corner clears
-# the top corner brace at the seam (which reaches ~1 mm inboard).
-RES_X_INSET = 3.0
-# Gap from the reservoir's +X wall to the source-select column. The column butts
-# the reservoir, so its right edge — not a flush-to-the-far-wall placement — sets
-# the box width.
-COL_GAP = 2.0
-# Native valve-tray stack pitch (a tray floor lands on the walls below).
-TRAY_PITCH = 63.0
+# Inset off the -X wall so the floor content clears the bottom corner pods.
+X_INSET = 3.0
+# The reservoir gets its own slightly larger inset so its full-height -X wall
+# clears the back-half corner braces (which run the full depth in the ±X corners,
+# reaching a hair inboard of the inner wall).
+RES_X_INSET = 6.0
 # The four corner cross-pin bosses tuck into the ±X/±Z corners and run in Y
 # across the seam. Floor content against a side wall would foul the bottom pods,
 # so it is lifted clear of them — the Kitchen `FOAM_LIFT` idiom.
 FLOOR_LIFT = 14.0
-# bag-circuit lies flat across the front-zone top; its underside sits just clear
-# of the vertical power panel's top (z ~= 148).
-BAG_TOP_Z = 150.0
-# Both pumps stack one above the other in the column BEHIND source-select (the
-# +Y half of the right channel, which the reservoir does not reach) — a narrow
-# footprint that keeps them off the front zone so the box stays narrow in X.
-# (Trade-off: they are reached by opening the back half / lifting source-select;
-# noted in the README.)
-PUMP_BACK_GAP = 1.0        # gap from source-select's back face to the pump stack (Y)
-PUMP_STACK_GAP = 2.0       # gap between the two stacked pumps (Z)
-# The power tray (../printed-parts/electronics/power-tray/ — Mean Well PSU + Wago
-# AC distribution + ground stack, no relay) stands vertical against the -X wall
-# in the front-left corner: a side-wall electronics panel, its 134 mm length up
-# Z, so its 40.5 mm depth is all it costs in X. The short-tray stack shifts +X to
-# clear it.
-POWER_X_GAP = 2.5    # gap from the power panel to the short-tray stack
+# Front-zone Y stations. The two pump assemblies stack at the very front; the two
+# long trays (source-select, bag-circuit) stand just behind them, their backs on
+# the split. Gaps keep the real solids clear.
+PUMP_FRONT_Y = 5.0         # pump stack front face
+PUMP_TO_TRAY_GAP = 2.5     # gap from the pump stack back to the vertical trays (Y)
+STACK_GAP = 2.0            # vertical gap between stacked parts (Z)
+TRAY_GAP_X = 3.0           # gap between side-by-side vertical trays (X)
+# The short trays (bib, nozzle) stand vertical nose-to-tail in the front-right,
+# under the hopper funnel.
+SHORT_FRONT_Y = 5.0
+SHORT_GAP_Y = 2.0
+SHORT_X = 135.0            # short-tray / funnel column left edge (clear of bag-circuit)
+# Reservoir seats behind the front zone; the split falls in the gap between them.
+RES_TO_SPLIT_GAP = 8.0     # reservoir front face behind the deepest front tray
+# Gap from the reservoir's real +X wall to the power tray beside it.
+POWER_GAP_X = 2.0
 
 # --- Colors ---------------------------------------------------------------
 RES_COLOR = cq.Color(0.60, 0.80, 1.00, 0.28)
@@ -137,58 +128,57 @@ def _place(shape, *, xmax=None, xmin=None, ymin=None, ymax=None, zmin=None, zmax
 def build():
     placed = {}
 
-    # --- Zone A: reservoir-pockets, back-left, doorway facing the cabinet back.
-    # Rotate +90 deg about Z: local +X doorway -> world +Y (back); local -X spout
-    # exits -> world -Y (front). On the floor, inset off the -X wall.
-    res = _place(_rot(_load(RES_STEP), (0, 0, 1), 90.0), xmin=RES_X_INSET, ymin=RES_FRONT_Y, zmin=0.0)
-    placed["reservoir-pockets"] = (res, RES_COLOR)
-    # The reservoir's bbox +X is the rod-end boss, which only pokes out high up
-    # (z >= ~256); the box WALL the column actually butts is ~8 mm inboard. Butt
-    # to the real wall — the dumbbell column nestles right up to it (verified zero
-    # real-solid clash, the boss tucking into source-select's mid void).
-    rb = res.BoundingBox()
-    res_wall = res.intersect(_box(rb.xlen + 20, rb.ylen + 20, 250)
-                             .translate((rb.xmin - 10, rb.ymin - 10, 0))).BoundingBox().xmax
-    col_x = res_wall + COL_GAP
-
-    # --- Zone B front: source-select stood vertical (rotate +90 about Y so its
-    # long axis runs up Z; footprint 63 x 93), butted to the reservoir's +X wall,
-    # at the front of the column so its V-B port sits under the hopper toward the
-    # front (the funnel necks above the front trays, not onto V-B — Kitchen idiom).
-    # A hair forward of the reservoir front so the pump stack behind it tucks
-    # within the reservoir's back face (keeps the box from growing in Y).
-    src = _place(_rot(_load(TRAY_STEPS["source-select"]), (0, 1, 0), 90.0),
-                 xmin=col_x, ymin=RES_FRONT_Y - 3.0, zmin=0.0)
-    placed["source-select"] = (src, COLORS["source-select"])
-    sb = src.BoundingBox()
-
-    # --- Zone B back: the two pumps stacked one above the other in the column
-    # behind source-select. Native orientation; lifted clear of the bottom bosses.
-    pump_lo = _place(_load(PUMP_STEP), xmin=col_x, ymin=sb.ymax + PUMP_BACK_GAP, zmin=FLOOR_LIFT)
-    pump_up = _place(_load(PUMP_STEP), xmin=col_x, ymin=sb.ymax + PUMP_BACK_GAP,
-                     zmin=pump_lo.BoundingBox().zmax + PUMP_STACK_GAP)
+    # --- Front-left: the two pump ASSEMBLIES (with elbows), stacked. Turned a
+    # quarter-turn about Z so the elbow span (89.5 mm) runs in X and the shallower
+    # 71.7 mm depth runs in Y, keeping the front zone short.
+    pump_lo = _place(_rot(_load(PUMP_STEP), (0, 0, 1), 90.0),
+                     xmin=X_INSET, ymin=PUMP_FRONT_Y, zmin=FLOOR_LIFT)
+    pb = pump_lo.BoundingBox()
+    pump_up = _place(_rot(_load(PUMP_STEP), (0, 0, 1), 90.0),
+                     xmin=X_INSET, ymin=PUMP_FRONT_Y, zmin=pb.zmax + STACK_GAP)
     placed["pump-lower"] = (pump_lo, PUMP_COLORS["pump-lower"])
     placed["pump-upper"] = (pump_up, PUMP_COLORS["pump-upper"])
 
-    # --- Power tray stood vertical against the -X wall, front-left corner: its
-    # 134 mm length up Z (rotate -90 about Y), so it costs only its 40.5 mm depth
-    # in X. Lifted clear of the bottom bosses.
-    power = _place(_rot(_load(POWER_STEP), (0, 1, 0), -90.0), xmin=0.0, ymin=0.0, zmin=FLOOR_LIFT)
-    placed["power-tray"] = (power, POWER_COLOR)
-    stack_x0 = power.BoundingBox().xmax + POWER_X_GAP   # short trays start right of the panel
+    # --- Back band: source-select + bag-circuit stood vertical (rotate +90 about
+    # Y so their long axis runs up Z), side by side behind the pump stack, their
+    # back faces on the split line. source-select is the deeper of the two and
+    # sets the front-zone depth.
+    tray_front = pb.ymax + PUMP_TO_TRAY_GAP
+    src = _place(_rot(_load(TRAY_STEPS["source-select"]), (0, 1, 0), 90.0),
+                 xmin=X_INSET, ymin=tray_front, zmin=FLOOR_LIFT)
+    placed["source-select"] = (src, COLORS["source-select"])
+    sb = src.BoundingBox()
+    split_front = sb.ymax            # the front zone's back face (the split rides here)
+    bag = _place(_rot(_load(TRAY_STEPS["bag-circuit"]), (0, 1, 0), 90.0),
+                 xmin=sb.xmax + TRAY_GAP_X, ymax=split_front, zmin=FLOOR_LIFT)
+    placed["bag-circuit"] = (bag, COLORS["bag-circuit"])
 
-    # --- Zone D: the two short trays stacked flat just right of the power panel
-    # (native orientation, long axis along X), under the display facet, lifted
-    # clear of the bottom corner bosses.
-    bib = _place(_load(TRAY_STEPS["bib-gate"]), xmin=stack_x0, ymin=0.0, zmin=FLOOR_LIFT)
-    noz = _place(_load(TRAY_STEPS["nozzle-gate"]), xmin=stack_x0, ymin=0.0, zmin=FLOOR_LIFT + TRAY_PITCH)
+    # --- Front-right, low: bib-gate + nozzle-gate stood vertical, nose-to-tail in
+    # depth, kept low so the hopper funnel above them clears a tall chute.
+    bib = _place(_rot(_load(TRAY_STEPS["bib-gate"]), (0, 1, 0), 90.0),
+                 xmin=SHORT_X, ymin=SHORT_FRONT_Y, zmin=FLOOR_LIFT)
+    bibb = bib.BoundingBox()
+    noz = _place(_rot(_load(TRAY_STEPS["nozzle-gate"]), (0, 1, 0), 90.0),
+                 xmin=SHORT_X, ymin=bibb.ymax + SHORT_GAP_Y, zmin=FLOOR_LIFT)
     placed["bib-gate"] = (bib, COLORS["bib-gate"])
     placed["nozzle-gate"] = (noz, COLORS["nozzle-gate"])
 
-    # bag-circuit lies flat across the front-zone top above the short trays and
-    # the power panel (native orientation; elbows up into the open air below the
-    # facet/hopper). Flush +X to the column line.
-    bag = _place(_load(TRAY_STEPS["bag-circuit"]), xmax=src.BoundingBox().xmax, ymin=0.0, zmin=BAG_TOP_Z)
-    placed["bag-circuit"] = (bag, COLORS["bag-circuit"])
+    # --- Reservoir-pockets, back, doorway facing the cabinet back. Rotate +90
+    # about Z: local +X doorway -> world +Y (back); local -X spout exits -> world
+    # -Y (front). Seated behind the front zone, the split falling in the gap.
+    res_front = split_front + RES_TO_SPLIT_GAP
+    res = _place(_rot(_load(RES_STEP), (0, 0, 1), 90.0),
+                 xmin=RES_X_INSET, ymin=res_front, zmin=0.0)
+    placed["reservoir-pockets"] = (res, RES_COLOR)
+
+    # --- Power tray stood vertical beside the reservoir on +X: rotate -90 about Y
+    # so its 134 mm length runs up Z, costing only its 40.5 mm depth in X. Butted
+    # to the reservoir's real +X wall (the bbox +X is a high rod-end boss).
+    rb = res.BoundingBox()
+    res_wall = res.intersect(_box(rb.xlen + 20, rb.ylen + 20, 250)
+                             .translate((rb.xmin - 10, rb.ymin - 10, 0))).BoundingBox().xmax
+    power = _place(_rot(_load(POWER_STEP), (0, 1, 0), -90.0),
+                   xmin=res_wall + POWER_GAP_X, ymin=res_front, zmin=FLOOR_LIFT)
+    placed["power-tray"] = (power, POWER_COLOR)
 
     return placed
