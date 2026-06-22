@@ -19,10 +19,11 @@ zone, ahead of the reservoir:
   * Front-left:  the two flavor pump ASSEMBLIES (Kamoer pump + 90 deg outlet
     elbows), stacked one above the other (turned a quarter-turn so the elbow span
     runs in X, the shallower 72 mm depth in Y), a single narrow footprint.
-  * Front-right:  the two SHORT trays (bib-gate, nozzle-gate) STACKED into one
-    footprint — nozzle flipped 180 deg about Z so its valve cluster interleaves
-    with bib's, the pair overlapping in Z so the tower clears the funnel floor.
-    One footprint instead of two trays nose-to-tail, freeing the right-back.
+  * Back-right:  the two SHORT trays (bib-gate, nozzle-gate) STACKED into one
+    footprint, pushed back with their backs on the split — nozzle rotated 180 deg
+    about Z so its valve cluster interleaves with bib's, the pair overlapping in Z
+    so the tower clears the funnel floor. One footprint instead of two trays
+    nose-to-tail, opening a void at the right-FRONT.
   * Front-right, high:  the hopper funnel (added in the assembly, derived from the
     enclosure) — a narrow-X, deep-Y slot dropping over the short trays.
   * +X back band:  the power tray (Mean Well PSU + Wago distribution + ground
@@ -79,12 +80,11 @@ PUMP_FRONT_Y = 5.0         # pump stack front face
 PUMP_TO_TRAY_GAP = 2.5     # gap from the pump stack back to the vertical trays (Y)
 STACK_GAP = 2.0            # vertical gap between stacked parts (Z)
 TRAY_GAP_X = 3.0           # gap between side-by-side vertical trays (X)
-# The short trays (bib, nozzle) STACK into one footprint in the front-right under
-# the funnel: nozzle is flipped 180 deg about Z so its valve cluster interleaves
-# with bib's, letting them overlap in Z so the combined tower clears the funnel.
-SHORT_FRONT_Y = 5.0
+# The short trays (bib, nozzle) STACK into one footprint at the back-right (backs
+# on the split), so the void opens at the right-front. nozzle is rotated 180 deg
+# about Z so its valve cluster interleaves with bib's, overlapping in Z.
 SHORT_X = 135.0            # short-tray / funnel column left edge (clear of bag-circuit)
-STACK_OVERLAP = 42.0      # nozzle drops this far into bib (real valve-cluster interleave)
+STACK_OVERLAP = 39.0      # nozzle drops this far into bib — the clean interleave (no graze)
 # Reservoir seats behind the front zone; the split falls in the gap between them.
 RES_TO_SPLIT_GAP = 8.0     # reservoir front face behind the deepest front tray
 # Gap from the reservoir's real +X wall to the power tray beside it.
@@ -155,16 +155,16 @@ def build():
                  xmin=sb.xmax + TRAY_GAP_X, ymax=split_front, zmin=FLOOR_LIFT)
     placed["bag-circuit"] = (bag, COLORS["bag-circuit"])
 
-    # --- Front-right: bib-gate + nozzle-gate STACKED into one footprint. nozzle is
-    # flipped 180 deg about Z so its valve cluster meshes with bib's, so the two
-    # overlap STACK_OVERLAP in Z and the combined tower stays under the funnel
-    # floor — one footprint instead of two trays nose-to-tail, freeing the
-    # right-back of the front zone.
+    # --- Back-right: bib-gate + nozzle-gate STACKED into one footprint, pushed to
+    # the back (their backs on the split, touching the reservoir side) so the void
+    # opens at the right-FRONT. nozzle is rotated 180 deg about Z so its valve
+    # cluster meshes with bib's; the two overlap STACK_OVERLAP in Z (elbows
+    # interleaved, not crushed) and the tower clears the funnel floor.
     bib = _place(_rot(_load(TRAY_STEPS["bib-gate"]), (0, 1, 0), 90.0),
-                 xmin=SHORT_X, ymin=SHORT_FRONT_Y, zmin=FLOOR_LIFT)
+                 xmin=SHORT_X, ymax=split_front, zmin=FLOOR_LIFT)
     bibb = bib.BoundingBox()
     noz = _place(_rot(_rot(_load(TRAY_STEPS["nozzle-gate"]), (0, 1, 0), 90.0), (0, 0, 1), 180.0),
-                 xmin=SHORT_X, ymin=SHORT_FRONT_Y, zmin=bibb.zmax - STACK_OVERLAP)
+                 xmin=SHORT_X, ymax=split_front, zmin=bibb.zmax - STACK_OVERLAP)
     placed["bib-gate"] = (bib, COLORS["bib-gate"])
     placed["nozzle-gate"] = (noz, COLORS["nozzle-gate"])
 
