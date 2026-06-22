@@ -60,11 +60,11 @@ RES_STEP = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "reservoir-pock
 POWER_STEP = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "electronics" / "power-tray" / "power-assembly.step"
 
 # --- Packing parameters (free design choices, not measured geometry) ------
-# Reservoir -Y (front) face Y. Seated just behind where the split-plane cross-pin
-# bosses and telescoping lip land (the enclosure derives y_joint from the display
-# facet), mirroring the Kitchen `boss_to_coldcore` clear gap so the box never
-# fouls the seam hardware.
-RES_FRONT_Y = 100.0
+# Reservoir -Y (front) face Y. Seated behind the seam: the split is set just
+# behind the full-depth funnel (so the seam never crosses the hopper), and the
+# corner bosses run forward to the lip rim, so the reservoir front sits clear of
+# that rim. Mirrors the Kitchen `boss_to_coldcore` clear gap.
+RES_FRONT_Y = 110.0
 # Inset the reservoir off the −X wall so its full-height back-top corner clears
 # the top corner brace at the seam (which reaches ~1 mm inboard).
 RES_X_INSET = 3.0
