@@ -1,42 +1,40 @@
-"""Lite Edition enclosure contents — the four valve-manifold tray assemblies,
-two bare Kamoer pumps, and the hopper funnel packed around the reservoir-pockets
-box. The arrangement these contents take inside the enclosure.
+"""Lite Edition enclosure contents — every internal subsystem packed, in the
+Kitchen-edition frame so the same split-half enclosure wraps them.
 
-Coordinate frame is the reservoir's (Z+ up, X left/right, Y front/back as
-depth, floor on Z=0). The reservoir's +X doorway faces the enclosure back
-(bags load from the rear); its -X wall is the enclosure front and carries both
-bag-spout exits low (y = +/-36, z ~= 12).
+Coordinate frame: +X right, +Y back, +Z up. Origin at the lower-front-left
+corner; floor on Z=0. The -Y face is the FRONT (the user side, carrying the
+display facet); +Y is the cabinet BACK.
 
-Two faces carry the manifold:
+The reservoir-pockets box plays the Kitchen cold core's role — the one heavy
+volume that cannot move, seated on the floor at the BACK, its single fully-open
+wall (the bag-load doorway) facing the cabinet back (+Y) and its two bag-spout
+exit holes on the forward (-Y) face. Everything else fills the voids that
+placement leaves, mirroring the Kitchen zone map:
 
-  * bag-circuit, bib-gate, and nozzle-gate stack in Z largest-to-smallest at
-    the trays' designed 63 mm pitch, butted against the reservoir's **-X face**,
-    nudged +Y so the quick-connect elbows on their -Y ports clear the
-    reservoir's -Y wall.
+  * Zone A (back-bottom):  reservoir-pockets, on the floor, rotated +90 deg
+    about Z so its doorway faces +Y (back) and its spout exits face -Y (front).
+    It is the full-height anchor, flush to the -X (left) wall.
+  * Zone C (front-top):    the hopper opening + funnel (added in the assembly,
+    derived from the enclosure) and, below it, the two flavor pumps standing on
+    the floor under the opening.
+  * Zone D (front-bottom): the two short valve trays (bib-gate, nozzle-gate)
+    stacked flat against the front-left corner, under the display facet, with
+    bag-circuit laid flat across the top of the front zone above the pump tops.
+  * Zone B (back, right channel): source-select stood vertical in the column to
+    the +X of the reservoir (under the hopper), and the electronics shelf in the
+    dead strip between the reservoir's +X wall and that column.
 
-  * source-select stands vertical against the reservoir's **+Y face** (rotated
-    90 deg about X, then 90 deg about Y so its 225 mm long axis runs up Z, then
-    180 deg about Z), butted in -X against the tray stack and lifted off the
-    floor (the Z- face) by the same clearance the stack leaves to the -Y wall,
-    so its bottom port has matching elbow room. Pushing it to the -X end frees
-    the +X end of the +Y wall for connections.
+The trays keep their native stack pitch where stacked. The display and the
+hopper funnel are NOT placed here — like the Kitchen, the enclosure sizes itself
+from these contents, then the display facet and the funnel are derived from the
+enclosure and seated in `enclosure_assembly.py`.
 
-  * two bare Kamoer KPHM400 pumps, native orientation (tube barbs out +Y into
-    open space), stacked end to end in **front** of the tray stack (-X of it),
-    -Y-aligned so the whole +Y half stays free for the funnel. This grows the X
-    footprint rather than Y; the lower pump sits on the floor.
-
-  * the hopper funnel rides on the **front (-X)**, its front edge flush with the
-    pumps' front so it reads as a front element, filling the +Y half of the
-    front top (clear of the -Y pumps), inlet flush with the lid. The spout
-    reaches back to V-B on source-select.
-
-The groups sit on different faces/corners and never overlap (verified by real
-solid intersection). Inter-tray links are tubing (the topology "Tube Segments"
-tables); valve and Tee branches point +Z (up) or out the open tray ends.
+The groups never overlap (verified by real solid intersection in
+`enclosure.py`'s report). Inter-tray links are tubing (the topology "Tube
+Segments" tables); valve and Tee branches point +Z (up) or out the open tray
+ends.
 """
 
-import sys
 from pathlib import Path
 
 import cadquery as cq
@@ -45,45 +43,54 @@ _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 _hw = _repo / "hardware"
 _VM = _hw / "printed-parts" / "valve-manifold"
+
+# --- Source STEPs ---------------------------------------------------------
 TRAY_STEPS = {
     "source-select": _VM / "source-select-tray" / "source-select-assembly.step",
-    "bag-circuit": _VM / "bag-circuit-tray" / "bag-circuit-assembly.step",
-    "bib-gate": _VM / "bib-gate-tray" / "bib-gate-assembly.step",
-    "nozzle-gate": _VM / "nozzle-gate-tray" / "nozzle-gate-assembly.step",
+    "bag-circuit":   _VM / "bag-circuit-tray"   / "bag-circuit-assembly.step",
+    "bib-gate":      _VM / "bib-gate-tray"      / "bib-gate-assembly.step",
+    "nozzle-gate":   _VM / "nozzle-gate-tray"   / "nozzle-gate-assembly.step",
 }
 PUMP_STEP = _hw / "reference" / "kamoer-kphm400" / "kamoer-kphm400.step"
-FUNNEL_STEP = (
-    _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "funnel" / "funnel.step"
-)
-RES_DIR = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "reservoir-pockets"
-RES_STEP = RES_DIR / "reservoir-pockets.step"
+RES_STEP = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "reservoir-pockets" / "reservoir-pockets.step"
 
-# Reservoir wall planes (the box faces, not the rod-end bosses) for true butting.
-sys.path.insert(0, str(RES_DIR))
-import reservoir_pockets as _res
-RES_X_FRONT = _res.outer_x_range[0]  # [-77](RES_X_FRONT), the -X (enclosure-front) wall
-RES_Y_FRONT = _res.outer_y_range[0]  # [-73](RES_Y_FRONT), the -Y wall
-RES_Y_BACK = _res.outer_y_range[1]   # [+73](RES_Y_BACK), the +Y wall
+# --- Packing parameters (free design choices, not measured geometry) ------
+# Reservoir -Y (front) face Y. Seated just behind where the split-plane cross-pin
+# bosses and telescoping lip land (the enclosure derives y_joint from the display
+# facet), mirroring the Kitchen `boss_to_coldcore` clear gap so the box never
+# fouls the seam hardware.
+RES_FRONT_Y = 100.0
+# Shared right edge: pump-2 and the vertical source-select column both flush to
+# it, so the box's +X wall lands one wall outboard of this.
+RIGHT_X = 261.0
+# Native valve-tray stack pitch (a tray floor lands on the walls below).
+TRAY_PITCH = 63.0
+# bag-circuit lies flat across the front-zone top; its underside sits just clear
+# of the pump tops rather than stacking at the native pitch (which would foul
+# them).
+BAG_TOP_Z = 128.0
+PUMP_FRONT_Y = 8.0         # pump -Y face (leaves the barb face clear of the front wall)
+PUMP_GAP = 2.0             # gap between the two side-by-side pumps
+ELEC_GAP = 2.0             # gap from the reservoir +X wall to the electronics shelf
+# Electronics shelf — consolidated stand-in for the Lite's undesigned 12 V /
+# logic / driver stack (ESP32, MCP23017, ULN2803A, L298N, 12 V supply). A solid
+# placeholder, like the Kitchen's condenser/SeaFlo boxes, sized to the real
+# board clusters packed into the dead +X channel beside the reservoir.
+ELEC_DIMS = (32.0, 150.0, 72.0)   # X (into the strip) x Y (depth) x Z (height)
 
-# Distinct flat colors per tray; reservoir translucent so the manifold reads
-# through it.
+# --- Colors ---------------------------------------------------------------
 RES_COLOR = cq.Color(0.60, 0.80, 1.00, 0.28)
 COLORS = {
     "source-select": cq.Color(0.45, 0.70, 0.45),  # green
-    "bag-circuit": cq.Color(0.90, 0.66, 0.32),    # amber
-    "bib-gate": cq.Color(0.62, 0.47, 0.82),       # violet
-    "nozzle-gate": cq.Color(0.84, 0.42, 0.42),    # red
+    "bag-circuit":   cq.Color(0.90, 0.66, 0.32),  # amber
+    "bib-gate":      cq.Color(0.62, 0.47, 0.82),  # violet
+    "nozzle-gate":   cq.Color(0.84, 0.42, 0.42),  # red
 }
 PUMP_COLORS = {
-    "pump-lower": cq.Color(0.38, 0.40, 0.44),     # dark slate
-    "pump-upper": cq.Color(0.56, 0.58, 0.62),     # light slate
+    "pump-1": cq.Color(0.38, 0.40, 0.44),     # dark slate
+    "pump-2": cq.Color(0.56, 0.58, 0.62),     # light slate
 }
-FUNNEL_COLOR = cq.Color(0.92, 0.88, 0.55, 0.45)   # translucent pale, hollow reads
-
-# --- Packing parameters ---------------------------------------------------
-GAP = 2.0        # butting clearance to the reservoir walls
-Y_SHIFT = 30.0   # +Y nudge of the -X-face stack (elbow clearance off the -Y wall)
-PUMP_GAP = 4.0   # gap between the two end-to-end stacked pumps
+ELEC_COLOR = cq.Color(0.30, 0.55, 0.45)       # teal placeholder
 
 
 def _load(path):
@@ -94,100 +101,62 @@ def _rot(shape, axis, deg):
     return shape.rotate((0, 0, 0), axis, deg)
 
 
-def _place(shape, *, xmax=None, xmin=None, xcenter=None, ycenter=None, ymin=None, ymax=None, zmin=None, zmax=None):
+def _box(dx, dy, dz):
+    return cq.Workplane("XY").box(dx, dy, dz, centered=False).val()
+
+
+def _place(shape, *, xmax=None, xmin=None, ymin=None, ymax=None, zmin=None, zmax=None):
     """Translate so the requested bounding-box references land on targets.
     Unset axes are left where they are."""
     bb = shape.BoundingBox()
-    if xmax is not None:
-        dx = xmax - bb.xmax
-    elif xmin is not None:
-        dx = xmin - bb.xmin
-    elif xcenter is not None:
-        dx = xcenter - 0.5 * (bb.xmin + bb.xmax)
-    else:
-        dx = 0.0
-    if ymax is not None:
-        dy = ymax - bb.ymax
-    elif ycenter is not None:
-        dy = ycenter - 0.5 * (bb.ymin + bb.ymax)
-    elif ymin is not None:
-        dy = ymin - bb.ymin
-    else:
-        dy = 0.0
-    if zmax is not None:
-        dz = zmax - bb.zmax
-    elif zmin is not None:
-        dz = zmin - bb.zmin
-    else:
-        dz = 0.0
+    dx = (xmax - bb.xmax) if xmax is not None else (xmin - bb.xmin) if xmin is not None else 0.0
+    dy = (ymax - bb.ymax) if ymax is not None else (ymin - bb.ymin) if ymin is not None else 0.0
+    dz = (zmax - bb.zmax) if zmax is not None else (zmin - bb.zmin) if zmin is not None else 0.0
     return shape.translate((dx, dy, dz))
 
 
 def build():
-    res = _load(RES_STEP)
+    placed = {}
 
-    # bag-circuit / bib-gate / nozzle-gate: each rotated 90 about Z (ports along
-    # +/-Y), nudged +Y, butted against the -X wall, stacked in Z largest-to-
-    # smallest at the trays' native 63 mm pitch.
-    def stack(name, zmin):
-        s = _rot(_load(TRAY_STEPS[name]), (0, 0, 1), 90.0)
-        s = s.translate((0.0, Y_SHIFT, 0.0))
-        return _place(s, xmax=RES_X_FRONT - GAP, zmin=zmin)
+    # --- Zone A: reservoir-pockets, back-bottom, doorway facing the cabinet
+    # back. Rotate +90 deg about Z: local +X doorway -> world +Y (back); local
+    # -X spout exits -> world -Y (front). Flush to the -X wall, on the floor.
+    res = _place(_rot(_load(RES_STEP), (0, 0, 1), 90.0), xmin=0.0, ymin=RES_FRONT_Y, zmin=0.0)
+    placed["reservoir-pockets"] = (res, RES_COLOR)
 
-    bag = stack("bag-circuit", 0.0)
-    bib = stack("bib-gate", bag.BoundingBox().zmax)
-    noz = stack("nozzle-gate", bib.BoundingBox().zmax)
+    # --- Zone D: the two short trays stacked flat against the front-left
+    # corner (native orientation, long axis along X), under the display facet.
+    bib = _place(_load(TRAY_STEPS["bib-gate"]), xmin=0.0, ymin=0.0, zmin=0.0)
+    noz = _place(_load(TRAY_STEPS["nozzle-gate"]), xmin=0.0, ymin=0.0, zmin=TRAY_PITCH)
+    placed["bib-gate"] = (bib, COLORS["bib-gate"])
+    placed["nozzle-gate"] = (noz, COLORS["nozzle-gate"])
 
-    # The elbow clearance the stack leaves to the -Y wall (its -Y edge minus the
-    # wall plane). Reuse that exact distance as source-select's lift off the
-    # floor (the Z- face) so its bottom port has matching elbow room.
-    trays = (bag, bib, noz)
-    elbow_clear = min(t.BoundingBox().ymin for t in trays) - RES_Y_FRONT
-    stack_xmax = max(t.BoundingBox().xmax for t in trays)
+    # bag-circuit lies flat across the front-zone top, spanning the width above
+    # the pump tops (native orientation; elbows up into the open air below the
+    # facet/hopper).
+    bag = _place(_load(TRAY_STEPS["bag-circuit"]), xmin=0.0, ymin=0.0, zmin=BAG_TOP_Z)
+    placed["bag-circuit"] = (bag, COLORS["bag-circuit"])
 
-    # source-select: stood vertical (90 about X, then 90 about Y), flipped 180
-    # about Z, on the +Y wall, butted -X against the tray stack, lifted one
-    # elbow-clearance off the floor.
-    src = _load(TRAY_STEPS["source-select"])
-    src = _rot(src, (1, 0, 0), 90.0)
-    src = _rot(src, (0, 1, 0), 90.0)
-    src = _rot(src, (0, 0, 1), 180.0)
-    src = _place(src, xmin=stack_xmax, ymin=RES_Y_BACK + GAP, zmin=elbow_clear)
+    # --- Zone C floor: two bare Kamoer pumps standing tall on the floor in the
+    # front-right, side by side along X, under the hopper opening. Barbs face
+    # -Y (front) into the open front air.
+    pump2 = _place(_load(PUMP_STEP), xmax=RIGHT_X, ymin=PUMP_FRONT_Y, zmin=0.0)
+    pump1 = _place(_load(PUMP_STEP), xmax=pump2.BoundingBox().xmin - PUMP_GAP, ymin=PUMP_FRONT_Y, zmin=0.0)
+    placed["pump-1"] = (pump1, PUMP_COLORS["pump-1"])
+    placed["pump-2"] = (pump2, PUMP_COLORS["pump-2"])
 
-    # Two bare Kamoer pumps in native orientation (tube barbs out +Y, into open
-    # space), stacked end to end in FRONT of the tray stack (-X of it). This
-    # grows the X footprint, not Y. They are -Y-aligned to the reservoir's -Y
-    # edge so the whole +Y half stays free for the funnel; lower pump on the
-    # floor.
-    trays_front = min(t.BoundingBox().xmin for t in trays)
-    ceiling_z = res.BoundingBox().zmax
+    # --- Zone B: source-select stood vertical (rotate +90 about Y so its long
+    # axis runs up Z; footprint 63 x 93), flush to the +X column, under the
+    # hopper, front-aligned with the reservoir so its V-B port sits below the
+    # funnel spout.
+    src = _place(_rot(_load(TRAY_STEPS["source-select"]), (0, 1, 0), 90.0),
+                 xmax=RIGHT_X, ymin=RES_FRONT_Y, zmin=0.0)
+    placed["source-select"] = (src, COLORS["source-select"])
 
-    def pump(zmin):
-        p = _load(PUMP_STEP)
-        return _place(p, xmax=trays_front - GAP, ymin=res.BoundingBox().ymin, zmin=zmin)
+    # --- Zone B: electronics shelf in the dead strip between the reservoir's
+    # +X wall and the source-select column.
+    elec = _place(_box(*ELEC_DIMS),
+                  xmin=res.BoundingBox().xmax + ELEC_GAP, ymin=RES_FRONT_Y, zmin=0.0)
+    placed["electronics"] = (elec, ELEC_COLOR)
 
-    pump_lo = pump(0.0)
-    pump_up = pump(pump_lo.BoundingBox().zmax + PUMP_GAP)
-
-    # Funnel (hopper): on the FRONT (-X), its front edge flush with the pumps'
-    # front so it reads as a front element, filling the +Y half of the front top
-    # (clear of the -Y pumps), inlet flush with the lid. The spout reaches back
-    # to V-B on source-select.
-    fun = _place(
-        _load(FUNNEL_STEP),
-        xmin=pump_lo.BoundingBox().xmin,
-        ymax=src.BoundingBox().ymax,
-        zmax=ceiling_z,
-    )
-
-    placed = {
-        "reservoir-pockets": (res, RES_COLOR),
-        "source-select": (src, COLORS["source-select"]),
-        "bag-circuit": (bag, COLORS["bag-circuit"]),
-        "bib-gate": (bib, COLORS["bib-gate"]),
-        "nozzle-gate": (noz, COLORS["nozzle-gate"]),
-        "pump-upper": (pump_up, PUMP_COLORS["pump-upper"]),
-        "pump-lower": (pump_lo, PUMP_COLORS["pump-lower"]),
-        "funnel": (fun, FUNNEL_COLOR),
-    }
     return placed
