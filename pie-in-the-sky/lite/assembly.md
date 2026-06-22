@@ -36,17 +36,19 @@ Print the transparent-PETG parts — the two enclosure halves (front + back), re
 
 ### 2. Hang the bag rod and load the bags
 
-Cut one 1/8" stainless rod to [158 mm](ROD_LENGTH) — tip to tip, the same stock as the carbonator float rod. Thread it through both Platypus bags' centered top loops, slide the rod in from the cradle's +X (rear) doorway carrying both bags, roll it down the flared ramp, and let it seat in the center rest pocket against the −X end stop. The bags' own weight holds it down, and the 2 mm plug past each rod-end boss captures it along its own axis so it cannot slide out; the channel stays open at +X for insertion and removal. Route each bag's spout down to the ⌀6.5 mm exit low in the cradle's −X (front) wall.
+This step is done on the bare cradle, described in its own local frame (doorway on +X, spout exits on −X); when the cradle is seated in the enclosure it is rotated +90° about Z, so its +X doorway becomes the enclosure's +Y (cabinet back) and its −X exit wall becomes the −Y (front) — see [`_contents.py`](/pie-in-the-sky/lite/enclosure-assembly/_contents.py).
 
-Unlike the carbonator and Kitchen-reservoir float rods, this is a **tool-free hang** — no weld, no boss bore — so the same operation is the consumer-serviceable bag swap (load through the rear doorway). Geometry: [`reservoir-pockets/README.md`](/pie-in-the-sky/lite/printed-parts/reservoir-pockets/README.md).
+Cut one 1/8" stainless rod to [158 mm](ROD_LENGTH) — tip to tip, the same stock as the carbonator float rod. Thread it through both Platypus bags' centered top loops, slide the rod in from the cradle's +X (doorway) side carrying both bags, roll it down the flared ramp, and let it seat in the center rest pocket against the −X end stop. The bags' own weight holds it down, and the 2 mm plug past each rod-end boss captures it along its own axis so it cannot slide out; the channel stays open at +X for insertion and removal. Route each bag's spout down to the ⌀6.5 mm exit low in the cradle's −X (exit) wall.
+
+Unlike the carbonator and Kitchen-reservoir float rods, this is a **tool-free hang** — no weld, no boss bore — so the same operation is the consumer-serviceable bag swap (through the doorway that faces the cabinet back once installed). Geometry: [`reservoir-pockets/README.md`](/pie-in-the-sky/lite/printed-parts/reservoir-pockets/README.md).
 
 ### 3. Build and stack the valve manifold
 
-Assemble the four manifold trays — source-select, bag-circuit, bib-gate, nozzle-gate — the same tray assemblies as the Kitchen build ([`valve-manifold/`](/hardware/printed-parts/valve-manifold/)), populated with the Beduan solenoids and John Guest dividers / tees / stem-barbs from [`lite-bom.md`](/pie-in-the-sky/lite/lite-bom.md). Stack bag-circuit / bib-gate / nozzle-gate against the cradle's −X face at their designed tray pitch, and stand source-select vertical against the +Y face, per [`_contents.py`](/pie-in-the-sky/lite/enclosure-assembly/_contents.py).
+Assemble the four manifold trays — source-select, bag-circuit, bib-gate, nozzle-gate — the same tray assemblies as the Kitchen build ([`valve-manifold/`](/hardware/printed-parts/valve-manifold/)), populated with the Beduan solenoids and John Guest dividers / tees / stem-barbs from [`lite-bom.md`](/pie-in-the-sky/lite/lite-bom.md). Stack bib-gate and nozzle-gate flat in the front-left corner under the display, lay bag-circuit flat across the front-zone top, and stand source-select vertical in the +X column beside the reservoir (under the hopper), per [`_contents.py`](/pie-in-the-sky/lite/enclosure-assembly/_contents.py).
 
 ### 4. Mount the pumps
 
-Seat the two Kamoer KPHM400 pumps in their printed cases, stacked end to end in front of (−X of) the tray stack, tube barbs facing out into the open +Y space, per [`_contents.py`](/pie-in-the-sky/lite/enclosure-assembly/_contents.py).
+Seat the two Kamoer KPHM400 pumps in their printed cases, standing on the floor side by side in the front-right under the hopper, tube barbs facing −Y (front) into the open front air, per [`_contents.py`](/pie-in-the-sky/lite/enclosure-assembly/_contents.py).
 
 ### 5. Plumb the flavor circuit
 
@@ -54,7 +56,7 @@ Run the clear-PVC and LLDPE lines per [`fluid-topology-manifold.mmd`](/pie-in-th
 
 ### 6. Mount the funnel
 
-Drop the funnel into the top-wall opening to the right of the display — brim resting on the lid, collar press-fit in the opening — with the spout reaching down to V-B on source-select. Geometry: [`funnel/README.md`](/pie-in-the-sky/lite/printed-parts/funnel/README.md).
+Drop the funnel into the top-wall opening to the right of the display — brim resting on the lid, collar press-fit in the opening — its spout necking above the front trays, where a short flexible tube carries the pour back to V-B on source-select (the spout does not land on V-B directly, same as the Kitchen hopper). Geometry: [`funnel/README.md`](/pie-in-the-sky/lite/printed-parts/funnel/README.md).
 
 ### 7. Wire the electronics
 
@@ -66,7 +68,7 @@ Install the Touch-Flo faucet through the counter per its own [`ASSEMBLY.md`](/ha
 
 ### 9. Close the enclosure
 
-Lower the contents into the back half, seat the Waveshare 4.3″ display in the front half's facet, then telescope the front half onto the back and drive the four corner M3 cross-pins from the ±X exterior. The funnel brim sits flush on the top; the reservoir's +Y doorway faces the cabinet back — exposed when the back half is pulled — for bag-swap access; the −Y wall is the front, carrying the display facet, the front tray stack, and the pumps.
+Lower the contents (the bag cradle already loaded, step 2) into the back half, seat the Waveshare 4.3″ display in the front half's facet, then telescope the front half onto the back and drive the four corner M3 cross-pins from the ±X exterior. The funnel brim sits flush on the top; the reservoir's +Y doorway faces the cabinet back for rear bag-swap access (the in-cabinet rear-access detail — a removable rear panel or pull-out — is an open item); the −Y wall is the front, carrying the display facet, the front tray stack, and the pumps.
 
 ## Output condition
 
