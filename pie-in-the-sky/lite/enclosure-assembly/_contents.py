@@ -13,18 +13,20 @@ DEEP in Y: nothing stands beside the reservoir except the one part thin enough t
 share its +X depth band — the power tray. Everything else packs into the FRONT
 zone, ahead of the reservoir:
 
-  * Back band (against the split):  the two LONG-axis trays stood vertical, side
-    by side — source-select and bag-circuit — long axis up Z, footprints ~63 mm
-    wide so two fit across the narrow box. They sit behind the pump stack.
   * Right-front void:  the two flavor pump ASSEMBLIES (Kamoer pump + 90 deg outlet
     elbows), laid on their sides with the motor cylinders pointing at the -X wall,
     heads stacked at the void's bottom-right corner. The thin motors reach left
-    across the vacated front-left.
+    across the front-left, where only the narrow bag-circuit tray sits.
   * Back-right:  the two SHORT trays (bib-gate, nozzle-gate) STACKED into one
-    footprint, pushed back with their backs on the split. Each tray is linear
-    (tees one end, elbows the other); nozzle is flipped end-for-end so the small
-    ELBOW ends meet and interleave while the bulky tees ride the outer ends — one
-    footprint instead of two trays nose-to-tail, opening a void at the right-FRONT.
+    footprint, their front against the pump backs. Each tray is linear (tees one
+    end, elbows the other); nozzle is flipped end-for-end so the small ELBOW ends
+    meet and interleave while the bulky tees ride the outer ends. The stack's back
+    face sets the split plane.
+  * Back-left:  the source-select tray stood vertical and turned a quarter-turn so
+    its long footprint side lies along the back wall — wide in X, shallow in Y —
+    back face on the split, against the reservoir.
+  * Front-left:  the bag-circuit tray stood vertical, narrow in X, dropped into the
+    strip left of the pump motors with its front flush to the pump fronts.
   * Front-right, high:  the hopper funnel (added in the assembly, derived from the
     enclosure) — a narrow-X, deep-Y slot dropping over the short trays.
   * +X back band:  the power tray (Mean Well PSU + Wago distribution + ground
@@ -74,21 +76,25 @@ RES_X_INSET = 6.0
 # across the seam. Floor content against a side wall would foul the bottom pods,
 # so it is lifted clear of them — the Kitchen `FOAM_LIFT` idiom.
 FLOOR_LIFT = 14.0
-# Front-zone Y stations. The pumps sit in the right-front void (independent of the
-# trays now); the long trays stand at the back with their backs on the split.
-PUMP_FRONT_Y = 25.0        # pump front face — pulled back so the heads just meet the
-                           # bib/nozzle stack, drawing the box front edge in with them
+# Front-zone Y stations. The pumps sit in the right-front void; the bib/nozzle
+# stack sits with its front against the pump backs, and the stack's depth sets the
+# split plane (the reservoir seats behind that).
+PUMP_FRONT_Y = 25.0        # pump front face — also the box front edge (the frontmost content)
 PUMP_HEAD_X = 200.0        # the pump heads' +X face (the void's bottom-right corner)
-SOURCE_FRONT_Y = 79.0      # source-select front face (decoupled from the pumps)
+STACK_TO_PUMP_GAP = 1.0    # gap from the pump backs to the short-tray stack front (Y)
 STACK_GAP = 2.0            # vertical gap between stacked parts (Z)
-TRAY_GAP_X = 3.0           # gap between side-by-side vertical trays (X)
-# The short trays (bib, nozzle) STACK into one footprint at the back-right (backs
-# on the split), so the void opens at the right-front. Each tray is linear —
-# tees at one end, ELBOWS at the other. bib stands elbows-up (rot +90 about Y);
-# nozzle is flipped end-for-end (rot -90 about Y) so its elbows point DOWN onto
-# bib's, so the small ELBOW ends interleave and the bulky tees sit at the outer
-# (top/bottom) ends, clear of each other.
-SHORT_X = 135.0            # short-tray / funnel column left edge (clear of bag-circuit)
+# The short trays (bib, nozzle) STACK into one footprint at the back-right, front
+# against the pump backs. Each tray is linear — tees at one end, ELBOWS at the
+# other. bib stands elbows-up (rot +90 about Y); nozzle is flipped end-for-end
+# (rot -90 about Y) so its elbows point DOWN onto bib's, so the small ELBOW ends
+# interleave and the bulky tees sit at the outer (top/bottom) ends, clear of each
+# other.
+SHORT_X = 135.0            # short-tray / funnel column left edge (clear of source-select)
+# The source-select tray stands full height; its top-left corner would foul the
+# enclosure's rounded top -X/+Z edge (12 mm print-anti-warp round), so it is held
+# off the -X wall by that radius. The lower bag-circuit, which never reaches the
+# round, still sits hard against the wall at X_INSET.
+SRC_X_INSET = 12.0
 STACK_OVERLAP = 34.0      # nozzle drops this far into bib — clean elbow-to-elbow interleave
 # Reservoir seats behind the front zone; the split falls in the gap between them.
 RES_TO_SPLIT_GAP = 8.0     # reservoir front face behind the deepest front tray
@@ -148,31 +154,35 @@ def build():
     placed["pump-lower"] = (pump_lo, PUMP_COLORS["pump-lower"])
     placed["pump-upper"] = (pump_up, PUMP_COLORS["pump-upper"])
 
-    # --- Back band: source-select + bag-circuit stood vertical (rotate +90 about
-    # Y so their long axis runs up Z), side by side at the back-left with their
-    # back faces on the split line (placed independently of the pumps).
-    src = _place(_rot(_load(TRAY_STEPS["source-select"]), (0, 1, 0), 90.0),
-                 xmin=X_INSET, ymin=SOURCE_FRONT_Y, zmin=FLOOR_LIFT)
-    placed["source-select"] = (src, COLORS["source-select"])
-    sb = src.BoundingBox()
-    split_front = sb.ymax            # the front zone's back face (the split rides here)
-    bag = _place(_rot(_load(TRAY_STEPS["bag-circuit"]), (0, 1, 0), 90.0),
-                 xmin=sb.xmax + TRAY_GAP_X, ymax=split_front, zmin=FLOOR_LIFT)
-    placed["bag-circuit"] = (bag, COLORS["bag-circuit"])
-
-    # --- Back-right: bib-gate + nozzle-gate STACKED into one footprint, pushed to
-    # the back (their backs on the split, touching the reservoir side) so the void
-    # opens at the right-FRONT. bib stands elbows-up; nozzle is flipped end-for-end
-    # (rot -90 about Y) so its elbow end points DOWN onto bib's — the small ELBOW
-    # ends interleave (overlap STACK_OVERLAP in Z), the bulky tees ride the outer
-    # ends clear of each other, and the tower clears the funnel floor.
+    # --- Back-right: bib-gate + nozzle-gate STACKED into one footprint, their
+    # front against the pump backs; the stack's back face sets the split plane (and
+    # the reservoir seats behind it). bib stands elbows-up; nozzle is flipped
+    # end-for-end (rot -90 about Y) so its elbow end points DOWN onto bib's — the
+    # small ELBOW ends interleave (overlap STACK_OVERLAP in Z), the bulky tees ride
+    # the outer ends clear of each other, and the tower clears the funnel floor.
     bib = _place(_rot(_load(TRAY_STEPS["bib-gate"]), (0, 1, 0), 90.0),
-                 xmin=SHORT_X, ymax=split_front, zmin=FLOOR_LIFT)
+                 xmin=SHORT_X, ymin=pb.ymax + STACK_TO_PUMP_GAP, zmin=FLOOR_LIFT)
     bibb = bib.BoundingBox()
+    split_front = bibb.ymax           # the front zone's back face (the split rides here)
     noz = _place(_rot(_load(TRAY_STEPS["nozzle-gate"]), (0, 1, 0), -90.0),
                  xmin=SHORT_X, ymax=split_front, zmin=bibb.zmax - STACK_OVERLAP)
     placed["bib-gate"] = (bib, COLORS["bib-gate"])
     placed["nozzle-gate"] = (noz, COLORS["nozzle-gate"])
+
+    # --- Back-left: source-select stood vertical and turned a quarter-turn (rot
+    # +90 about Y to stand it up, then -90 about Z) so its long footprint side runs
+    # along the back wall — wide in X, shallow in Y — with its back face on the
+    # split, against the reservoir.
+    src = _place(_rot(_rot(_load(TRAY_STEPS["source-select"]), (0, 1, 0), 90.0), (0, 0, 1), -90.0),
+                 xmin=SRC_X_INSET, ymax=split_front, zmin=FLOOR_LIFT)
+    placed["source-select"] = (src, COLORS["source-select"])
+
+    # --- Front-left void: bag-circuit stood vertical (rot +90 about Y), narrow in
+    # X so it drops into the strip left of the pump motors, its front flush with the
+    # pump fronts (the box front edge).
+    bag = _place(_rot(_load(TRAY_STEPS["bag-circuit"]), (0, 1, 0), 90.0),
+                 xmin=X_INSET, ymin=PUMP_FRONT_Y, zmin=FLOOR_LIFT)
+    placed["bag-circuit"] = (bag, COLORS["bag-circuit"])
 
     # --- Reservoir-pockets, back, doorway facing the cabinet back. Rotate +90
     # about Z: local +X doorway -> world +Y (back); local -X spout exits -> world
