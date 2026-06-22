@@ -1,14 +1,14 @@
 # Electronics Shelf
 
-The production procedure for the appliance's single electronics shelf — the bench-built assembly that carries every controller, driver, and distribution block on one panel behind the rear-panel C14 inlet. Feeds [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) alongside [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md).
+The production procedure for the appliance's electronics shelf — the bench-built Zone-B assembly that carries every controller, driver, and distribution block across three printed trays behind the rear-panel C14 inlet. The trays are the committed CAD under [`/hardware/printed-parts/electronics/`](/hardware/printed-parts/electronics/) (controller-tray, driver-tray, power-tray). Feeds [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) alongside [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md).
 
 Topology lives in [`/hardware/wiring/power.mmd`](/hardware/wiring/power.mmd) (AC + 12 V), [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd) (controller pin map), and [`/hardware/wiring/valve-control.mmd`](/hardware/wiring/valve-control.mmd) (MCP23017 + ULN2803A fan-out). Run-by-run gauges, lengths, and terminations live in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md).
 
 ## Scope
 
-In: all controllers (ESP32-DevKitC-32E, MCP23017 ×2, ULN2803A ×2, L298N peristaltic-pump driver, Teyleten 3.3 V opto-isolated relays ×2, DS3231 RTC, Mean Well IRM-90-12ST PSU, Legrand 1597BKCCD12 GFCI module, Wago 221-413 lever blocks ×3 for AC distribution, a printed/screw DC distribution block, solid-copper ground bus, JST XH 4-pin / 6-pin / 9-pin / 10-pin connector kits, CQRobot bonded ribbon, Keszoox 50 cm pre-crimped silicone pigtails, 16 AWG appliance wire + 18 AWG hookup wire + crimp ferrules), and the printed electronics-shelf frame.
+In: all controllers (ESP32-DevKitC-32E, MCP23017 ×2, ULN2803A ×2, L298N peristaltic-pump driver, Teyleten 3.3 V opto-isolated relays ×2, DS3231 RTC, Mean Well IRM-90-12ST PSU, Wago 221-413 lever blocks ×3 for AC distribution, a printed/screw DC distribution block, solid-copper ground bus, JST XH 4-pin / 6-pin / 9-pin / 10-pin connector kits, CQRobot bonded ribbon, Keszoox 50 cm pre-crimped silicone pigtails, 16 AWG appliance wire + 18 AWG hookup wire + crimp ferrules), and the three printed electronics-shelf trays.
 
-Out: one bench-built electronics shelf with every module mounted, the AC distribution block populated (H/N/G Wagos seated, three loads landed), the DC distribution block populated (12 V trunk in from PSU, branches to relay #2, L298N, ULN2803A pair, condenser-fan run), all module-to-module JST harnesses crimped and plugged, the ground bus prepared with a labeled ring-terminal landing per exposed-metal load, and AC + DC pigtails landed and labeled by run-ID — AC-1a (H/N/G) stubs hanging long for the C14 inlet, AC-1b internal to the shelf between the GFCI and the Wagos, AC-4/5/6 pigtails landed on relay #1 and the AC distribution block for compressor-side termination at [`wiring.md`](/hardware/assembly/wiring.md), DC-1/4/6/8 trunk and branch stubs ready, and SIG headers ready to take the sensor harnesses. Unpowered.
+Out: one bench-built electronics shelf with every module mounted, the AC distribution block populated (H/N/G Wagos seated, three loads landed), the DC distribution block populated (12 V trunk in from PSU, branches to relay #2, L298N, ULN2803A pair, condenser-fan run), all module-to-module JST harnesses crimped and plugged, the ground bus prepared with a labeled ring-terminal landing per exposed-metal load, and AC + DC pigtails landed and labeled by run-ID — AC-1 (H/N/G) from the C14 inlet to the Wagos, the inlet-side ends hanging long for the C14 inlet termination, AC-4/5/6 pigtails landed on relay #1 and the AC distribution block for compressor-side termination at [`wiring.md`](/hardware/assembly/wiring.md), DC-1/4/6/8 trunk and branch stubs ready, and SIG headers ready to take the sensor harnesses. Unpowered.
 
 Not in scope: physical install of the shelf into the enclosure top-back, including chassis-ground-stud landing — that is [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md). Landing the AC pigtails into the C14 inlet's solder-tab pins and routing the AC-4/5/6 bundle through the compressor-shroud grommet — that is [`wiring.md`](/hardware/assembly/wiring.md). Flashing firmware to the MCUs and first power-up — that is [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md). The ESP32-S3-Touch-LCD-4.3B config display lives on the front face per [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md); its SIG-7 RS485 link lands on the shelf-side header at system integration.
 
@@ -27,28 +27,27 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §1 (
 | DS3231 RTC | B09LLMYBM1 (1 of 2-pack) | I²C device at 0x68. |
 | TTL-to-RS485 transceiver (ALMOCN) | B09998FY4X (1 of 5-pack) | Base-side RS485 for the SIG-7 config-display link to the 4.3B (which has onboard RS485). Auto-direction; powered from the 3.3 V rail so its RO can't over-volt the ESP32 RX. The SIG-6 faucet-display link is direct TTL UART — no transceiver. |
 | Mean Well IRM-90-12ST | B0CNRST18V | [80 W](PSU_POWER) / [12 V](PSU_VOLTAGE) / [6.7 A](PSU_CURRENT) encapsulated PSU; IEC 60335-1 listed. Primary lands on the AC distribution block via AC-2; secondary feeds the DC distribution block via DC-1. |
-| Legrand 1597BKCCD12 GFCI module | B017HAB4BO ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11) | UL 943 Class A [6 mA](GFCI_TRIP) personnel-protection device. Wired inline between the C14 inlet LOAD and the AC distribution block. Self-test every [3 seconds](GFCI_SELF_TEST) + SafeLock end-of-life lockout. Mounted on the shelf. |
 | Wago 221-413 lever-nut connector ×[3](WAGO_COUNT) | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | AC distribution block — one Wago per conductor (H, N, G), each carrying one in-leg from the C14 pigtail and two out-legs. |
 | DC distribution block | placeholder per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | 12 V + and GND rails for the DC-2 / DC-4 / DC-6 / DC-8 / DC-9 fan-out from the PSU secondary. Hardware TBD — see Open items. |
-| Solid-copper ground bus | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 (16 AWG green stock) | Single chassis-ground tie point on the shelf. Receives PSU chassis ground (AC-2 G) and the C14 inlet's earth pin (via AC-1a G → GFCI pass-through earth → AC-1b G); distributes to every exposed-metal load via short green pigtails. |
+| Solid-copper ground bus | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 (16 AWG green stock) | Single chassis-ground tie point on the shelf. Receives PSU chassis ground (AC-2 G) and the C14 inlet's earth pin (via AC-1 G); distributes to every exposed-metal load via short green pigtails. |
 | JST XH 2.54 mm connector kits — 4-pin / 6-pin / 9-pin / 10-pin | B0B2RB524Y / B0B2R8Q1JL / B0B2R73RQB / B0B2R93CV3 | Inter-module logic harnesses per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "Inter-module connectors": [~3](JST_4PIN_COUNT)× 4-pin (I²C / UART hops), [~1](JST_6PIN_COUNT)× 6-pin (L298N control), [~4](JST_9PIN_COUNT)× 9-pin (ULN sides), [~4](JST_10PIN_COUNT)× 10-pin (MCP GPIO rows). |
 | CQRobot bonded ribbon kit (15 cm × 12 cond × 8 ribbons) | B0F6C7X5CR | Module-to-module connections under ~6"; pre-crimped female XH terminals on both ends. |
 | Keszoox [50 cm](KESZOOX_LENGTH) pre-crimped silicone pigtails (20 wires, 10 colors, 22 AWG) | B0F8HMQRRN | Cabinet-spanning runs; supplies the ULN→solenoid fan-out leads + sensor pigtails handed off to [`wiring.md`](/hardware/assembly/wiring.md). |
-| 16 AWG silicone-insulated appliance wire (black/white/green) | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | AC pigtail stock for AC-1a through AC-6. |
+| 16 AWG silicone-insulated appliance wire (black/white/green) | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | AC pigtail stock for AC-1 through AC-6. |
 | 18 AWG stranded hookup wire | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | 12 V trunk + branch stock (DC-2/3/6/9). |
 | Spade crimp terminals + ferrules + ring terminals | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 (B0B9MZJ2ML + B01MZZGAJP) | AC pigtails land in Wago 221 lever blocks via crimp ferrules; the PSU primary and Teyleten contact terminals take crimp forks; the ground bus takes ring terminals. |
-| Printed electronics-shelf frame | TBD (see Open items) | PET-CF, M3 heat-set inserts (ruthex per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13). |
+| Printed electronics-shelf trays ×3 | [`/hardware/printed-parts/electronics/`](/hardware/printed-parts/electronics/) (controller-tray, driver-tray, power-tray) | PET-CF, M3 heat-set inserts (ruthex per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13). |
 | M3 heat-set inserts + M3 × 8/12 SHCS | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13 | Module mounting. |
 
 Tooling: Hakko FX-888D iron + T18 tip kit for the heat-set inserts and JST male-header solder pass (per [`/hardware/handwork.md`](/hardware/assembly/handwork.md) "Solder JST connectors"), ESD mat, ferrule crimper, JST XH crimper, ring/fork-terminal crimper, helping hands, multimeter for AC-side continuity and DC-side polarity checks.
 
 ## Procedure
 
-### 1. Prepare the printed shelf frame
+### 1. Prepare the printed shelf trays
 
-Heat-set M3 inserts into every mounting boss on the printed shelf per its CAD source. Verify each insert is flush with the boss face.
+Heat-set M3 inserts into every mounting boss on the three printed trays per their CAD source under [`/hardware/printed-parts/electronics/`](/hardware/printed-parts/electronics/) (controller-tray, driver-tray, power-tray). Verify each insert is flush with the boss face.
 
-Module placement geometry on the shelf is set by the shelf STL — see Open items.
+Module placement geometry is set by the tray CAD: the ESP32 + MCP23017 pair + DS3231 + RS485 transceiver on the controller-tray; the L298N + ULN2803A pair + relay #2 + DC distribution block on the driver-tray; the PSU + relay #1 + Wago AC distribution + ground ring-stack on the power-tray.
 
 ### 2. Solder JST XH male headers to module carriers
 
@@ -65,10 +64,9 @@ After every module's headers are in, leave the modules off-shelf on the ESD mat.
 
 Mount the three Wago 221-413 lever blocks in their bays on the shelf — one each for H, N, G. Label each block at its bay (H / N / G) with label tape or printed shelf bay-callouts.
 
-Cut and prep the 16 AWG appliance-wire pigtails for AC-1a through AC-6 per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "AC mains" table:
+Cut and prep the 16 AWG appliance-wire pigtails for AC-1 through AC-6 per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "AC mains" table:
 
-- **AC-1a** — [~150 mm](PIGTAIL_GFCI) pigtails on H, N, G between the C14 inlet and the Legrand GFCI's **LINE** terminals. Backstab or screw terminations at the LINE end; the inlet-side end is left long ([~150 mm](PIGTAIL_SLACK) slack) for the C14 inlet's solder-tab terminations during [`wiring.md`](/hardware/assembly/wiring.md). Label each conductor "AC-1a H" / "AC-1a N" / "AC-1a G" with heat-shrink flags.
-- **AC-1b** — [~150 mm](PIGTAIL_GFCI) pigtails on H, N, G between the GFCI's **LOAD** terminals and the H / N / G Wago 221 lever blocks. Backstab or screw terminations at the LOAD end; ferrules at the Wago end. Label each conductor "AC-1b H" / "AC-1b N" / "AC-1b G" with heat-shrink flags. Both ends land in this procedure — AC-1b does not hang off-shelf.
+- **AC-1** — [~150 mm](PIGTAIL_INLET) pigtails on H, N, G between the C14 inlet and the H / N / G Wago 221 lever blocks. Ferrules at the Wago end; the inlet-side end is left long ([~150 mm](PIGTAIL_SLACK) slack) for the C14 inlet's solder-tab terminations during [`wiring.md`](/hardware/assembly/wiring.md). Label each conductor "AC-1 H" / "AC-1 N" / "AC-1 G" with heat-shrink flags. Ground-fault protection is deferred — see [`/pie-in-the-sky/gfci.md`](/pie-in-the-sky/gfci.md).
 - **AC-2** — H + N + G pigtails from the H / N / G Wago blocks to the PSU primary terminals, [~100 mm](PIGTAIL_MEDIUM), ferrules at the Wago end, crimp forks at the PSU end.
 - **AC-3** — H pigtail from the H Wago block to the relay #1 contact input ("common" terminal), [~50 mm](PIGTAIL_SHORT), ferrule one end, crimp fork the other.
 - **AC-4/5/6** — pigtails from the relay #1 contact output (AC-4 switched H, [~400 mm](PIGTAIL_COMPRESSOR)), the N Wago block (AC-5, [~400 mm](PIGTAIL_COMPRESSOR)), and the ground bus (AC-6, [~400 mm](PIGTAIL_COMPRESSOR)). Each carries a female disconnect at the compressor-side end and is left coiled with a labeled flag for routing through the compressor-shroud grommet at [`wiring.md`](/hardware/assembly/wiring.md).
@@ -79,26 +77,25 @@ Land the solid-copper ground bus on its mounting boss. Stage short green 16 AWG 
 
 Place each module on its boss pattern, M3 × 8 SHCS through the module PCB into the heat-set insert. Mount sequence top-down by bay:
 
-1. **Legrand 1597BKCCD12 GFCI module** — inline between the C14 inlet LOAD and the AC distribution block. AC-1a lands on the device's LINE terminals; AC-1b on the LOAD terminals.
-2. **Mean Well IRM-90-12ST PSU**.
-3. **Teyleten relay #1** (compressor switch) and **Teyleten relay #2** (diaphragm-pump switch).
-4. **ESP32-DevKitC-32E** (on its DIN-rail breakout) — on the logic side of the shelf.
-5. **MCP23017 × 2** — co-located with the ESP32.
-6. **DS3231 RTC** — same I²C bus.
-7. **ULN2803A × 2** — adjacent to the MCP23017s, COM pins facing the DC distribution block, channel outputs facing the solenoid-fan-out bay.
-8. **L298N pump driver** — its own bay.
+1. **Mean Well IRM-90-12ST PSU**.
+2. **Teyleten relay #1** (compressor switch) and **Teyleten relay #2** (diaphragm-pump switch).
+3. **ESP32-DevKitC-32E** (on its DIN-rail breakout) — on the logic side of the shelf.
+4. **MCP23017 × 2** — co-located with the ESP32.
+5. **DS3231 RTC** — same I²C bus.
+6. **ULN2803A × 2** — adjacent to the MCP23017s, COM pins facing the DC distribution block, channel outputs facing the solenoid-fan-out bay.
+7. **L298N pump driver** — its own bay.
 
 Pre-flash happens at [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md).
 
 ### 5. Land AC pigtails into the distribution block + PSU + relay #1
 
-Open each Wago 221-413 lever and seat the staged ferrules. Each block carries one in-leg (the AC-1b conductor from the GFCI's LOAD terminals) plus the out-legs called out in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md):
+Open each Wago 221-413 lever and seat the staged ferrules. Each block carries one in-leg (the AC-1 conductor from the C14 inlet) plus the out-legs called out in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md):
 
-- **H Wago** — AC-1b H in; AC-2 H out to PSU primary; AC-3 H out to relay #1 contact input.
-- **N Wago** — AC-1b N in; AC-2 N out to PSU primary; AC-5 N out left coiled with its labeled flag (compressor-side disconnect terminated, lands during [`wiring.md`](/hardware/assembly/wiring.md)).
-- **G Wago** — AC-1b G in; AC-2 G out to the PSU chassis ground stud; AC-6 G out to the ground bus, which carries the compressor-shroud bond branch.
+- **H Wago** — AC-1 H in; AC-2 H out to PSU primary; AC-3 H out to relay #1 contact input.
+- **N Wago** — AC-1 N in; AC-2 N out to PSU primary; AC-5 N out left coiled with its labeled flag (compressor-side disconnect terminated, lands during [`wiring.md`](/hardware/assembly/wiring.md)).
+- **G Wago** — AC-1 G in; AC-2 G out to the PSU chassis ground stud; AC-6 G out to the ground bus, which carries the compressor-shroud bond branch.
 
-Lock down each Wago lever. Multimeter-check each Wago bay for continuity from the AC-1b stub to every named out-leg.
+Lock down each Wago lever. Multimeter-check each Wago bay for continuity from the AC-1 stub to every named out-leg.
 
 Land AC-2 forks on the PSU primary screw terminals. Land AC-3 fork on relay #1's contact-input terminal ("COM" on the Teyleten silkscreen). Verify the relay's other contact terminal ("NO") has the AC-4 switched-H pigtail crimped on with its compressor-side disconnect already in place from step 3.
 
@@ -135,9 +132,9 @@ The [4.7 kΩ](DS18B20_PULLUP) DS18B20 pull-up resistor (between SIG-1 data and 3
 
 Before the shelf leaves the bench, unpowered:
 
-- AC side: continuity from each AC-1b pigtail (GFCI LOAD-side end) through its Wago block to every named out-leg, including the long compressor-side coils. The C14-side AC-1a through-GFCI continuity is not verifiable at this bench stage because the device's relay is open in the unpowered / un-RESET state; that path is exercised at first power-on per [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md). Confirm no continuity between the H bus and the G bus, the N bus and the G bus, or the H bus and the N bus.
+- AC side: continuity from each AC-1 pigtail (C14-inlet-side end) through its Wago block to every named out-leg, including the long compressor-side coils. Confirm no continuity between the H bus and the G bus, the N bus and the G bus, or the H bus and the N bus.
 - DC side: continuity from each DC-1 trunk pair through the distribution block to every named branch. Confirm correct polarity at each branch.
-- Ground bus: continuity from every ring-terminal pigtail on the bus back to the AC-1a G stub (the C14-inlet-side pigtail; earth is a pass-through on the GFCI, not sensed by the CT, so the end-to-end continuity is valid at unpowered state).
+- Ground bus: continuity from every ring-terminal pigtail on the bus back to the AC-1 G stub (the C14-inlet-side pigtail).
 - I²C trunk: visual check that every JST is fully seated and oriented correctly.
 
 First power-on happens at [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md), after the shelf is installed and the chassis-ground bonds are landed.
@@ -152,17 +149,16 @@ A finished electronics shelf is:
 - Inter-module JST harnesses crimped and plugged — I²C, both UART trunks, MCP-to-ULN ports, L298N control
 - Relay control + outputs and the ESP32-hub logic landed on screw terminals (no JST)
 - Ground bus mounted, bus-side ring terminals seated for every exposed-metal load, load-side ends left long with labeled flags
-- AC-1a (H/N/G), AC-4/5/6 (compressor-side), and DC-3 (diaphragm pump) and DC-9 (condenser fan) pigtails coiled with labeled heat-shrink flags identifying the run-ID — ready to be picked up by [`wiring.md`](/hardware/assembly/wiring.md)
+- AC-1 (H/N/G, inlet-side), AC-4/5/6 (compressor-side), and DC-3 (diaphragm pump) and DC-9 (condenser fan) pigtails coiled with labeled heat-shrink flags identifying the run-ID — ready to be picked up by [`wiring.md`](/hardware/assembly/wiring.md)
 - SIG-1 through SIG-9 sensor pigtails crimped, shelf-side seated, load-side ends labeled, DS18B20 pull-up installed at the ESP32 end
 - Pre-power continuity and isolation checks passed (AC bus separation, DC polarity, ground continuity)
 - Unpowered, MCUs unflashed
 
 ## Open items
 
-1. **Printed electronics-shelf frame.** STL / CadQuery source is not yet committed under [`/hardware/printed-parts/enclosure/`](/hardware/printed-parts/enclosure/). The frame's overall envelope, mounting-boss layout for each module, AC-distribution + DC-distribution bays, ground-bus boss, and the wire-egress paths off the shelf all need to be specified in CAD before this procedure can run on unit 1.
-2. **PCB / breakout mounting hardware.** M3 standoff heights for each module (the ESP32 DIN-rail breakout, the MCP23017 carriers, the Teyleten relay modules, the ULN2803A carriers, the L298N) are not yet in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13. Commit a standoff SKU + per-module count once the shelf CAD lands.
-3. **DC distribution block hardware.** The 12 V distribution block is a placeholder. Pick after the shelf CAD lands and the bay it occupies is sized.
-4. **Shelf frame material thickness.** PET-CF, 3-4 mm thick at 30-40 % infill working assumption. Confirm once the heaviest module (the Mean Well IRM-90-12ST PSU at [~200 g](PSU_MASS)) is staged against the candidate frame.
+1. **PCB / breakout mounting hardware.** M3 standoff heights for each module (the ESP32 DIN-rail breakout, the MCP23017 carriers, the Teyleten relay modules, the ULN2803A carriers, the L298N) are not yet in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13. Commit a standoff SKU + per-module count.
+2. **DC distribution block hardware.** The 12 V distribution block on the driver-tray is a placeholder. Pick once the bay it occupies is sized.
+3. **Tray material thickness.** PET-CF, 3-4 mm thick at 30-40 % infill working assumption. Confirm once the heaviest module (the Mean Well IRM-90-12ST PSU at [~200 g](PSU_MASS)) is staged against the power-tray.
 
 ## Sources
 [value](NAME) texts are updated by:

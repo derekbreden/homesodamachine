@@ -96,7 +96,6 @@ The appliance ships with the water filter included. **Placement (internal vs. ex
 | [HiLetgo DS18B20 waterproof 1-wire probe, 1 m SS sheath (5-pk)](https://www.amazon.com/dp/B00M1PM55K) | 2 probes per unit: tank wall (compressor cycling setpoint) + evaporator coil (freeze-protect cutout); 2 of 5 per unit ($11.79/5 × 2) | 2 (of 5 pk) | $2.36 | $4.72 |
 | [MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10-pk)](https://www.amazon.com/dp/B07DCXKNXQ) | rear-panel mains inlet; accepts standard NEMA 5-15P-to-C13 line cord; 1 of 10 per unit ($6.96/10) | 1 (of 10 pk) | $0.70 | $0.70 |
 | [Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed (6-pk)](https://www.amazon.com/dp/B08VS8D4WC) | ships in the box so the customer can plug the appliance into a standard US wall outlet; 1 of 6 per unit ($24.00/6) | 1 (of 6 pk) | $4.00 | $4.00 |
-| [Legrand Radiant 1597BKCCD12 15 A self-test GFCI, decorator duplex, black](https://www.amazon.com/dp/B017HAB4BO) | UL 943 Class A 6 mA personnel-protection device, mounted on the electronics shelf inline between the C14 inlet LOAD and the AC distribution block. Protection lives in the appliance, not in the cord, so the C14 inlet's swappable-C13-cord property is preserved per [`/business/regulatory.md`](/business/regulatory.md) "UL 943 — ground-fault protection". Self-test every 3 seconds (vs industry-standard hours) + SafeLock end-of-life lockout. TEST/RESET/LED are not customer-accessible from the front face by design — the device's 3-second self-test cycle handles ongoing verification. Amazon 112-6714135 May 20: 2 @ $19.45 + $2.82 tax = $41.72 ÷ 2 = $20.86/ea | 1 | $20.86 | $20.86 |
 | [Enviro-Safe R-600a 3-pack + brass charging gauge](https://www.amazon.com/dp/B0CGG1WH1N) | pure R-600a; refills the sealed loop after venting factory charge; ~40 g per system × ~12 recharges per 3-can bundle; 1/12 of $72.92 delivered; brass gauge stays with tools (see purchases.md) | 1 | $6.08 | $6.08 |
 | [Supco BPV31 bullet-piercing valve](https://www.amazon.com/dp/B00DM8J3MI) | taps the compressor process tube to vent the factory R-600a charge before brazing in the replacement drier; left clamped on the cut stub after teardown; single-use per build | 1 | $7.37 | $7.37 |
 | [BCuP-5 15% Ag silver brazing alloy, 1/16" × 1 troy oz rod](https://www.amazon.com/dp/B0DQ3ZMHK7) | filler for copper-to-copper refrigeration joints; ~10 g per build × ~3 builds per 31 g rod; $18.99/3 | 1 (of 3) | $6.33 | $6.33 |
@@ -183,7 +182,7 @@ Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not ship
 | [CQRobot JST XH 2.54 mm 10-pin connector kit (30 sets)](https://www.amazon.com/dp/B0B2R93CV3) | 10-pin XH — MCP23017 GPIO port rows (VCC + GND + 8 GPIO); fills the 10-hole footprint so the header/housing can't seat off-by-one (the 9-pin was sized for the ULN sides, not these); ~4/unit; $8.99/30 × 4 | 4 (of 30 pk) | $0.30 | $1.20 |
 | [CQRobot JST XH 2.54 mm pre-crimped bonded ribbon kit, 15 cm × 12 conductors × 8 ribbons + assorted housings](https://www.amazon.com/dp/B0F6C7X5CR) | short-hop bonded ribbon for module-to-module connections (≤6"); ~2/unit; $15.86/8 × 2 | 2 (of 8 pk) | $1.98 | $3.97 |
 | [Keszoox JST XH 2.54 mm pre-crimped wires, 50 cm × 22 AWG silicone (20 wires/pk, 10 colors)](https://www.amazon.com/dp/B0F8HMQRRN) | cabinet-spanning pre-crimped female XH pigtails (ULN→solenoid fan-outs, sensor pigtails); ~1 pk/unit | 1 pk (of 20 wires) | $11.63 | $11.63 |
-| 16 AWG stranded silicone-insulated appliance wire (black/white/green) | placeholder pending sourcing decision; AC pigtails for the C14 → GFCI → distribution → relay → compressor + PSU runs per [`wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md); ~3 ft total per build across all AC runs (AC-1a through AC-6 in the schedule) | — | ~$1.87 | $1.87 |
+| 16 AWG stranded silicone-insulated appliance wire (black/white/green) | placeholder pending sourcing decision; AC pigtails for the C14 → distribution → relay → compressor + PSU runs per [`wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md); ~3 ft total per build across all AC runs (AC-1 through AC-6 in the schedule) | — | ~$1.87 | $1.87 |
 | 18 AWG stranded hookup wire (12 V trunk + branch) | placeholder pending sourcing decision; runs DC-1 through DC-9 in [`wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) | — | ~$0.50 | $0.50 |
 | Wago 221-413 lever-nut connector, 3-conductor | placeholder pending sourcing decision; AC distribution block on the electronics shelf (H, N, G — one connector per conductor); 3 connectors per build, ~$0.85 each at 10-pk pricing | 3 | $0.85 | $2.55 |
 
@@ -257,7 +256,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 2. Carbonator vessel (plan A, 316L) | [$240.69](BOM_SEC2) |
 | 3. Water inlet | [$238.96](BOM_SEC3) |
 | 4. CO2 subsystem | [$172.20](BOM_SEC4) |
-| 5. Refrigeration | [$215.53](BOM_SEC5) |
+| 5. Refrigeration | [$194.67](BOM_SEC5) |
 | 6. Cold core insulation | [$52.38](BOM_SEC6) |
 | 7. Printed parts (PETG) | [$103.94](BOM_SEC7) |
 | 8. Flavor subsystem | [$264.60](BOM_SEC8) |
@@ -267,7 +266,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.94](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,627.36](BOM_GRAND)** |
+| **Total** | **[$1,606.50](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

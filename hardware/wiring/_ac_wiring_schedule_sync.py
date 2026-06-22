@@ -18,19 +18,16 @@ from docgen import substitute_md
 # US household single-phase line voltage.
 line_voltage_v = 120
 
-# Legrand Radiant 1597BKCCD12 GFCI trip threshold. UL 943 Class A.
-gfci_trip_ma = 6
-
 # AC primary fuse rating.
 ac_primary_fuse_a = 5
 
 # ─── Conductor gauges ─────────────────────────────────────────────────
 # Four AWG classes used across the schedule:
-#   - mains-side (AC-1a/b and AC-6 ground bond, 12 V trunk out of PSU)
+#   - mains-side (AC-1 and AC-6 ground bond, 12 V trunk out of PSU)
 #   - AC branch (PSU primary, compressor leads, relay legs)
 #   - signal (DS18B20 bus, peristaltic-pump rail, solenoid fan-out)
 #   - low-voltage logic (ESP32 GPIO, I2C, reed switches, UART trunk)
-awg_mains = 16          # AC-1a/b, AC-6, DC-1/DC-2/DC-3, ground bus
+awg_mains = 16          # AC-1, AC-6, DC-1/DC-2/DC-3, ground bus
 awg_ac_branch = 18      # AC-2/AC-3/AC-4/AC-5, DC-6
 awg_sig = 22            # DS18B20 + peristaltic + solenoid + fan
 awg_lv = 24             # ESP32 GPIO, I2C, reeds, UART
@@ -82,7 +79,7 @@ loom_conductors = 24
 # All values mm except where noted.
 len_short_mm = 50       # AC-3 (shelf hop), DC-8 (L298N onboard 5 V reg → MCU)
 len_short_2_mm = 100    # AC-2 (distribution → PSU), DC-1, DC-2, LV-3
-len_mid_mm = 150        # AC-1a/AC-1b (C14 → GFCI → block), LV-1, LV-2, DC-4, DC-6, DC-7 fan-out, SIG-8
+len_mid_mm = 150        # AC-1 (C14 → distribution block), LV-1, LV-2, DC-4, DC-6, DC-7 fan-out, SIG-8
 len_pump_mm = 250       # DC-3 (diaphragm pump), DC-5 to manifold
 len_manifold_mm = 300   # DC-7 (shelf → manifold)
 len_compressor_mm = 400 # AC-4, AC-5, AC-6 (shelf → compressor through grommet), DC-9 (shelf → side-wall fan)
@@ -99,7 +96,6 @@ def main():
     variables = {
         # Mains-side voltage / fault protection.
         "V_LINE": f"{line_voltage_v:.4g} V",
-        "GFCI_TRIP": f"{gfci_trip_ma:.4g} mA",
         "PRIMARY_FUSE_A": f"{ac_primary_fuse_a:.4g} A",
         # Conductor gauges.
         "AWG_MAINS": f"{awg_mains:.4g}",
@@ -148,10 +144,9 @@ def main():
         expected_counts={
             # Mains-side voltage / fault protection.
             "V_LINE": 1,
-            "GFCI_TRIP": 1,
             "PRIMARY_FUSE_A": 1,
             # Conductor gauges (raw, in the per-row "AWG" column).
-            "AWG_MAINS": 6,        # AC-1a, AC-1b, AC-6, DC-1, DC-2, DC-3
+            "AWG_MAINS": 5,        # AC-1, AC-6, DC-1, DC-2, DC-3
             "AWG_AC_BRANCH": 5,    # AC-2/3/4/5, DC-6
             "AWG_SIG": 6,          # DC-4/5/7/8/9, SIG-1
             "AWG_LV": 9,           # LV-1/2/3, SIG-2/3/4/7/8/9
@@ -181,7 +176,7 @@ def main():
             # Run-length design targets.
             "LEN_SHORT": 2,
             "LEN_SHORT_2": 5,
-            "LEN_MID": 9,
+            "LEN_MID": 8,
             "LEN_PUMP": 2,
             "LEN_MANIFOLD": 1,
             "LEN_COMPRESSOR": 4,

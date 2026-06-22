@@ -95,8 +95,12 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
 # collar press-fits the opening, and its bore ramps down to a spout inside. Sized
 # to the room to the right of the display; the +X edge is clamped clear of the
 # top-right corner pod.
-hopper_hole_x = 150.0   # opening width (X), nominal before the corner-pod clamp
-hopper_hole_y = 80.0    # opening depth (Y), from the inner front wall back
+# The opening is narrow in X and deep in Y (a quarter-turn from the wide-X
+# Kitchen hopper), so the funnel takes little lateral room beside the display and
+# reaches back over the front zone instead. Depth is held clear of the reservoir
+# front (the reservoir is full height behind it).
+hopper_hole_x = 80.0    # opening width (X), nominal before the corner-pod clamp
+hopper_hole_y = 95.0    # opening depth (Y), from the inner front wall back
 
 # Split + boss parameters — every dimension sized to its function. The seam is a
 # Y plane; the front half's full-wall rear lip telescopes into the back; four

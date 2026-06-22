@@ -94,13 +94,6 @@ hopper_door_b = FRONT_MARGIN + hopper_door_d / 2
 # the CO2 port's depth anchor on the side face.
 CONTROL_COLUMN_A = W - SIDE_MARGIN - hopper_door_w / 2
 
-# GFCI access band — 27 × [18 mm](GFCI_W) exposed band centered on the 42 × 67
-# Legrand 1597 body, tucked into the back-right corner.
-GFCI_W = 18.0
-GFCI_H = 27.0
-GFCI_A = W - 38.5
-GFCI_B = D - 26.0
-
 
 # ---------------------------------------------------------------------------
 # Front-face features (a runs along +X width, b runs along +Z height)
@@ -359,8 +352,7 @@ def build_appliance() -> cq.Workplane:
     """Build the full appliance model as a CadQuery Workplane."""
     appliance = cq.Workplane("XY").box(W, D, H, centered=False)
 
-    # Top face: GFCI band + the centered hopper door
-    appliance = _cut_top_rectangle(appliance, GFCI_A, GFCI_B, GFCI_W, GFCI_H)
+    # Top face: the centered hopper door
     appliance = _cut_top_rectangle(appliance, hopper_door_a, hopper_door_b, hopper_door_w, hopper_door_d)
 
     # Front face: S3 knob + dispense tip + push button
@@ -485,14 +477,12 @@ def refresh_comments() -> None:
             "TRIANGLE_VERTEX_OFFSET": f"{TRIANGLE_VERTEX_OFFSET:.4g} mm",
             "TRIANGLE_BASE_HALF_WIDTH": f"{TRIANGLE_BASE_HALF_WIDTH:.4g} mm",
             "TRIANGLE_BASE_OFFSET": f"{TRIANGLE_BASE_OFFSET:.4g} mm",
-            "GFCI_W": f"{GFCI_W:.4g} mm",
         },
         expected_counts={
             "TIP_ANGLE_FROM_VERTICAL_DEG": 3,
             "TRIANGLE_VERTEX_OFFSET": 1,
             "TRIANGLE_BASE_HALF_WIDTH": 1,
             "TRIANGLE_BASE_OFFSET": 1,
-            "GFCI_W": 1,
             "PUMP_DOOR_W": 1,
             "PUMP_DOOR_D": 1,
             "HOPPER_DOOR_W": 1,
