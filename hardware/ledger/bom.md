@@ -117,22 +117,42 @@ Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration modul
 | [JMU 6" tongue depressors, individually wrapped (100-pk)](https://www.amazon.com/dp/B09H6ZP447) | foam-pour consumable; 4 stir sticks per build for hand-mixing 2-part PU foam in the graduated cups; $7.50/100 × 4 | 4 (of 100 pk) | $0.08 | $0.30 |
 | [SUP powder-free 4 mil nitrile exam gloves, XL, 100-pk = 50 pairs](https://www.amazon.com/dp/B0G8SSMVKW) | foam-pour PPE; 1 pair per build (PU foam isocyanate component is a skin sensitizer); $7.49/50 pairs × 1 | 1 pair (of 50) | $0.15 | $0.15 |
 
-## 7. Printed mechanical parts (PETG @ $12.99/kg)
+## 7. Printed mechanical parts
 
-Rough filament estimates for all printed geometry. Revise once STLs are final and slicer reports actual mass per part.
+Per-unit filament for every printed part shipped inside one finished appliance, one row per part. PETG throughout except the PET-CF (Polymaker Fiberon PET-CF17) faucet shell and mounting plate. `Mass (kg)` and `$` are per-line totals (quantity included). Masses are geometry-derived — CAD solid volume × density (PETG 1.27 g/cm³, PET-CF 1.30 g/cm³) — not slicer-measured. PETG $11.20/kg (Bambu PETG Basic, $224.04 ÷ 20 kg); PET-CF $48.25/kg (Polymaker Fiberon PET-CF17, $96.50 ÷ 2 kg).
 
-| Part | Mass (kg) | $ |
-|---|---:|---:|
-| Cold-core inner shell (retains foam around vessel) | 1.0 | $12.99 |
-| Cold-core outer shell (retains outer foam layer) | 1.5 | $19.49 |
-| Bladder cradles (2× arch, flavor reservoirs) | 0.5 | $6.50 |
-| Outermost enclosure (under-counter cabinet housing) | 3.5 | $45.47 |
-| Flavor hopper funnel (top-front, SodaStream-pour sized) | 0.4 | $5.20 |
-| Pump cartridge assembly + Zone C top door | 0.5 | $6.50 |
-| Miscellaneous (condenser grille, fitting bosses, brackets, faucet gooseneck cover, cable-gland mounts) | 0.6 | $7.79 |
-| **Printed parts total** | **~8.0** | **[$103.94](BOM_SEC7)** |
+| Part | Qty | Material | Mass (kg) | $ |
+|---|---:|---|---:|---:|
+| Cold-core inner shell (foam-shell) | 1 | PETG | 1.340 | $15.01 |
+| Cold-core foam cap — top | 1 | PETG | 0.171 | $1.92 |
+| Cold-core foam cap — bottom | 1 | PETG | 0.170 | $1.91 |
+| Copper-plug stack (4 plugs) | 4 | PETG | 0.006 | $0.06 |
+| PRV shroud | 1 | PETG | 0.008 | $0.09 |
+| Flavor reservoir body — left | 1 | PETG | 0.398 | $4.46 |
+| Flavor reservoir body — right | 1 | PETG | 0.398 | $4.46 |
+| Flavor reservoir cap — left | 1 | PETG | 0.059 | $0.67 |
+| Flavor reservoir cap — right | 1 | PETG | 0.059 | $0.67 |
+| Magnet float (level sense) | 2 | PETG | 0.021 | $0.23 |
+| Cap-sense sleeve (2 clamshell halves) | 1 | PETG | 0.002 | $0.02 |
+| Controller tray | 1 | PETG | 0.031 | $0.35 |
+| Driver tray | 1 | PETG | 0.025 | $0.28 |
+| Power tray | 1 | PETG | 0.055 | $0.61 |
+| Enclosure — front half | 1 | PETG | 0.852 | $9.54 |
+| Enclosure — back half | 1 | PETG | 1.533 | $17.17 |
+| Pump cartridge — base | 1 | PETG | 0.206 | $2.31 |
+| Pump cartridge — cap | 1 | PETG | 0.049 | $0.55 |
+| Peristaltic tube (vase-mode, 1 per pump) | 2 | PETG | 0.009 | $0.10 |
+| Valve tray — source-select | 1 | PETG | 0.179 | $2.00 |
+| Valve tray — bag-circuit | 1 | PETG | 0.133 | $1.49 |
+| Valve tray — BiB-gate | 1 | PETG | 0.043 | $0.48 |
+| Valve tray — nozzle-gate | 1 | PETG | 0.043 | $0.48 |
+| Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.151 | $7.26 |
+| Faucet mounting plate | 1 | PET-CF | 0.013 | $0.65 |
+| **Printed parts total** | | | **~5.95** | **[$103.94](BOM_SEC7)** |
 
-Dishing dies (PA6-CF) for end-cap forming are vessel-fabrication tools, not shipped product — excluded.
+By material: PETG ≈ 5.79 kg / $64.86, PET-CF ≈ 0.16 kg / $7.91.
+
+Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× foam-cap gasket, 2× reservoir gasket, 2× reservoir bulkhead dry washer, 2× reservoir vent retaining ring, 1× faucet mounting gasket, 1× faucet TPU o-ring. The hopper funnel is cast platinum-cure silicone (flavor subsystem). Printed tooling does not ship: the coil-winding mandrel, the foam-pour cap lids, the two-piece hopper-funnel silicone mold, and the single-valve cradle.
 
 ## 8. Flavor subsystem
 

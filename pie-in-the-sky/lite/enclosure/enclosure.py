@@ -309,14 +309,21 @@ def _hopper_hole(inner, outer):
     """Rectangle (x0, x1, y0, y1) of the funnel opening in the top wall: its −X
     edge flush past the display end-wall gusset (right of the facet), its −Y edge
     flush with the inner front wall, width/depth from the hopper parameters — the
-    +X edge clamped to clear the top-right corner pod's inboard end. The companion
-    funnel (../../printed-parts/funnel/) derives its collar from this same rect."""
+    +X edge clamped to clear the top-right corner pod's inboard end, the +Y edge
+    clamped to stay in front of the seam lip so the whole opening lives in the
+    front half. The companion funnel (../../printed-parts/funnel/) derives its
+    collar from this same rect."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     x0 = ox0 + display_facet_x + wall                  # just past the facet gusset
     pod_in = ix1 + wall - (head_cbore_depth + screw_len + socket_cap)
     x1 = min(x0 + hopper_hole_x, pod_in - 1.0)         # clear the top-right pod
-    return x0, x1, iy0, iy0 + hopper_hole_y
+    # The front lip starts one wall ahead of the joint; keep the opening (and its
+    # funnel) a hair in front of it so it never fouls the seam.
+    _a, _n, _o, dy, _dz = _facet_geom(outer)
+    y_joint = oy0 + dy + display_facet_thickness * math.sqrt(2.0) + 2.0
+    y1 = min(iy0 + hopper_hole_y, y_joint - wall - 2.0)
+    return x0, x1, iy0, y1
 
 
 def _hopper_cut(inner, outer):
