@@ -6,24 +6,26 @@ corner; floor on Z=0. The -Y face is the FRONT (the user side, carrying the
 display facet); +Y is the cabinet BACK.
 
 The reservoir-pockets box plays the Kitchen cold core's role — the one heavy
-volume that cannot move, seated on the floor at the BACK, its single fully-open
-wall (the bag-load doorway) facing the cabinet back (+Y) and its two bag-spout
-exit holes on the forward (-Y) face. Everything else fills the voids that
-placement leaves, mirroring the Kitchen zone map:
+volume that cannot move, seated on the floor at the BACK-LEFT, its single
+fully-open wall (the bag-load doorway) facing the cabinet back (+Y) and its two
+bag-spout exit holes on the forward (-Y) face. Everything else fills the voids
+that placement leaves:
 
-  * Zone A (back-bottom):  reservoir-pockets, on the floor, rotated +90 deg
-    about Z so its doorway faces +Y (back) and its spout exits face -Y (front).
-    It is the full-height anchor, nearly flush to the -X (left) wall (inset a
-    few mm to clear the seam's top corner brace).
-  * Zone C (front-top):    the hopper opening + funnel (added in the assembly,
-    derived from the enclosure) and, below it, the two flavor pumps standing on
-    the floor under the opening.
-  * Zone D (front-bottom): the two short valve trays (bib-gate, nozzle-gate)
-    stacked flat against the front-left corner, under the display facet, with
-    bag-circuit laid flat across the top of the front zone above the pump tops.
-  * Zone B (back, right channel): source-select stood vertical in the column to
-    the +X of the reservoir (under the hopper), and the electronics shelf in the
-    dead strip between the reservoir's +X wall and that column.
+  * Zone A (back-left, full height):  reservoir-pockets, on the floor, rotated
+    +90 deg about Z so its doorway faces +Y (back) and its spout exits face -Y
+    (front). The full-height anchor, nearly flush to the -X wall.
+  * Zone B (right channel, full height):  the dead column to the +X of the
+    reservoir holds the two LONG-axis trays nose to tail in depth — source-select
+    stood vertical at the FRONT of the column (under the hopper, V-B toward the
+    front), and the two flavor pumps stacked one above the other in the column's
+    BACK half (the +Y space the reservoir does not reach). Keeping the pumps off
+    the front zone is what keeps the box narrow in X.
+  * Zone D (front, low):  the two short trays (bib-gate, nozzle-gate) stacked
+    flat in the front-left corner under the display facet, the electronics shelf
+    in the front-zone void just to their right, and bag-circuit laid flat across
+    the front-zone top above them.
+  * Zone C (front top):  the hopper opening + funnel (added in the assembly,
+    derived from the enclosure) drops in over the front zone.
 
 The trays keep their native stack pitch where stacked. The display and the
 hopper funnel are NOT placed here — like the Kitchen, the enclosure sizes itself
@@ -61,30 +63,35 @@ RES_STEP = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "reservoir-pock
 # facet), mirroring the Kitchen `boss_to_coldcore` clear gap so the box never
 # fouls the seam hardware.
 RES_FRONT_Y = 100.0
-# Shared right edge: pump-2 and the vertical source-select column both flush to
-# it, so the box's +X wall lands one wall outboard of this.
-RIGHT_X = 261.0
-# Native valve-tray stack pitch (a tray floor lands on the walls below).
-TRAY_PITCH = 63.0
-# The four corner cross-pin bosses tuck into the ±X/±Z corners and run in Y
-# across the seam. Front-bottom content sitting on the floor against a side wall
-# would foul the bottom pods, so it is lifted clear of them — the Kitchen
-# `FOAM_LIFT` idiom. (Mid-height and top content already clears.)
-FLOOR_LIFT = 14.0
-# bag-circuit lies flat across the front-zone top; its underside sits just clear
-# of the lifted pump/short-tray tops.
-BAG_TOP_Z = 142.0
-PUMP_FRONT_Y = 8.0         # pump -Y face (leaves the barb face clear of the front wall)
-PUMP_GAP = 2.0             # gap between the two side-by-side pumps
 # Inset the reservoir off the −X wall so its full-height back-top corner clears
 # the top corner brace at the seam (which reaches ~1 mm inboard).
 RES_X_INSET = 3.0
-ELEC_GAP = 2.0             # gap from the reservoir +X wall to the electronics shelf
+# Gap from the reservoir's +X wall to the source-select column. The column butts
+# the reservoir, so its right edge — not a flush-to-the-far-wall placement — sets
+# the box width.
+COL_GAP = 2.0
+# Native valve-tray stack pitch (a tray floor lands on the walls below).
+TRAY_PITCH = 63.0
+# The four corner cross-pin bosses tuck into the ±X/±Z corners and run in Y
+# across the seam. Floor content against a side wall would foul the bottom pods,
+# so it is lifted clear of them — the Kitchen `FOAM_LIFT` idiom.
+FLOOR_LIFT = 14.0
+# bag-circuit lies flat across the front-zone top; its underside sits just clear
+# of the lifted short-tray tops.
+BAG_TOP_Z = 142.0
+# Both pumps stack one above the other in the column BEHIND source-select (the
+# +Y half of the right channel, which the reservoir does not reach) — a narrow
+# footprint that keeps them off the front zone so the box stays narrow in X.
+# (Trade-off: they are reached by opening the back half / lifting source-select;
+# noted in the README.)
+PUMP_BACK_GAP = 1.0        # gap from source-select's back face to the pump stack (Y)
+PUMP_STACK_GAP = 2.0       # gap between the two stacked pumps (Z)
 # Electronics shelf — consolidated stand-in for the Lite's undesigned 12 V /
 # logic / driver stack (ESP32, MCP23017, ULN2803A, L298N, 12 V supply). A solid
-# placeholder, like the Kitchen's condenser/SeaFlo boxes, sized to the real
-# board clusters packed into the dead +X channel beside the reservoir.
-ELEC_DIMS = (28.0, 150.0, 72.0)   # X (into the strip) x Y (depth) x Z (height)
+# placeholder, like the Kitchen's condenser/SeaFlo boxes, tucked into the
+# front-zone void just right of the short-tray stack.
+ELEC_GAP = 4.0                    # gap from the short-tray stack to the electronics
+ELEC_DIMS = (28.0, 70.0, 72.0)    # X x Y (in the front zone) x Z (height)
 
 # --- Colors ---------------------------------------------------------------
 RES_COLOR = cq.Color(0.60, 0.80, 1.00, 0.28)
@@ -95,8 +102,8 @@ COLORS = {
     "nozzle-gate":   cq.Color(0.84, 0.42, 0.42),  # red
 }
 PUMP_COLORS = {
-    "pump-1": cq.Color(0.38, 0.40, 0.44),     # dark slate
-    "pump-2": cq.Color(0.56, 0.58, 0.62),     # light slate
+    "pump-lower": cq.Color(0.38, 0.40, 0.44),     # dark slate
+    "pump-upper": cq.Color(0.56, 0.58, 0.62),     # light slate
 }
 ELEC_COLOR = cq.Color(0.30, 0.55, 0.45)       # teal placeholder
 
@@ -126,14 +133,31 @@ def _place(shape, *, xmax=None, xmin=None, ymin=None, ymax=None, zmin=None, zmax
 def build():
     placed = {}
 
-    # --- Zone A: reservoir-pockets, back-bottom, doorway facing the cabinet
-    # back. Rotate +90 deg about Z: local +X doorway -> world +Y (back); local
-    # -X spout exits -> world -Y (front). On the floor, inset off the -X wall to
-    # clear the top corner brace.
+    # --- Zone A: reservoir-pockets, back-left, doorway facing the cabinet back.
+    # Rotate +90 deg about Z: local +X doorway -> world +Y (back); local -X spout
+    # exits -> world -Y (front). On the floor, inset off the -X wall.
     res = _place(_rot(_load(RES_STEP), (0, 0, 1), 90.0), xmin=RES_X_INSET, ymin=RES_FRONT_Y, zmin=0.0)
     placed["reservoir-pockets"] = (res, RES_COLOR)
+    col_x = res.BoundingBox().xmax + COL_GAP   # the right channel butts the reservoir
 
-    # --- Zone D: the two short trays stacked flat against the front-left corner
+    # --- Zone B front: source-select stood vertical (rotate +90 about Y so its
+    # long axis runs up Z; footprint 63 x 93), butted to the reservoir's +X wall,
+    # at the front of the column so its V-B port sits under the hopper toward the
+    # front (the funnel necks above the front trays, not onto V-B — Kitchen idiom).
+    src = _place(_rot(_load(TRAY_STEPS["source-select"]), (0, 1, 0), 90.0),
+                 xmin=col_x, ymin=RES_FRONT_Y, zmin=0.0)
+    placed["source-select"] = (src, COLORS["source-select"])
+    sb = src.BoundingBox()
+
+    # --- Zone B back: the two pumps stacked one above the other in the column
+    # behind source-select. Native orientation; lifted clear of the bottom bosses.
+    pump_lo = _place(_load(PUMP_STEP), xmin=col_x, ymin=sb.ymax + PUMP_BACK_GAP, zmin=FLOOR_LIFT)
+    pump_up = _place(_load(PUMP_STEP), xmin=col_x, ymin=sb.ymax + PUMP_BACK_GAP,
+                     zmin=pump_lo.BoundingBox().zmax + PUMP_STACK_GAP)
+    placed["pump-lower"] = (pump_lo, PUMP_COLORS["pump-lower"])
+    placed["pump-upper"] = (pump_up, PUMP_COLORS["pump-upper"])
+
+    # --- Zone D: the two short trays stacked flat in the front-left corner
     # (native orientation, long axis along X), under the display facet, lifted
     # clear of the bottom corner bosses.
     bib = _place(_load(TRAY_STEPS["bib-gate"]), xmin=0.0, ymin=0.0, zmin=FLOOR_LIFT)
@@ -141,33 +165,15 @@ def build():
     placed["bib-gate"] = (bib, COLORS["bib-gate"])
     placed["nozzle-gate"] = (noz, COLORS["nozzle-gate"])
 
-    # bag-circuit lies flat across the front-zone top, spanning the width above
-    # the pump tops (native orientation; elbows up into the open air below the
-    # facet/hopper).
+    # bag-circuit lies flat across the front-zone top above the short trays
+    # (native orientation; elbows up into the open air below the facet/hopper).
     bag = _place(_load(TRAY_STEPS["bag-circuit"]), xmin=0.0, ymin=0.0, zmin=BAG_TOP_Z)
     placed["bag-circuit"] = (bag, COLORS["bag-circuit"])
 
-    # --- Zone C floor: two bare Kamoer pumps standing tall in the front-right,
-    # side by side along X, under the hopper opening, lifted clear of the bottom
-    # corner bosses. Barbs face -Y (front) into the open front air.
-    pump2 = _place(_load(PUMP_STEP), xmax=RIGHT_X, ymin=PUMP_FRONT_Y, zmin=FLOOR_LIFT)
-    pump1 = _place(_load(PUMP_STEP), xmax=pump2.BoundingBox().xmin - PUMP_GAP, ymin=PUMP_FRONT_Y, zmin=FLOOR_LIFT)
-    placed["pump-1"] = (pump1, PUMP_COLORS["pump-1"])
-    placed["pump-2"] = (pump2, PUMP_COLORS["pump-2"])
-
-    # --- Zone B: source-select stood vertical (rotate +90 about Y so its long
-    # axis runs up Z; footprint 63 x 93), flush to the +X column, under the
-    # hopper, front-aligned with the reservoir with its V-B port toward the
-    # front for the short hopper-feed tube (the funnel necks above the front
-    # trays, not onto V-B — the Kitchen idiom).
-    src = _place(_rot(_load(TRAY_STEPS["source-select"]), (0, 1, 0), 90.0),
-                 xmax=RIGHT_X, ymin=RES_FRONT_Y, zmin=0.0)
-    placed["source-select"] = (src, COLORS["source-select"])
-
-    # --- Zone B: electronics shelf in the dead strip between the reservoir's
-    # +X wall and the source-select column.
+    # --- electronics shelf: the front-zone void just right of the short-tray
+    # stack (the front-right is now free — the pumps moved to the back column).
     elec = _place(_box(*ELEC_DIMS),
-                  xmin=res.BoundingBox().xmax + ELEC_GAP, ymin=RES_FRONT_Y, zmin=0.0)
+                  xmin=bib.BoundingBox().xmax + ELEC_GAP, ymin=0.0, zmin=FLOOR_LIFT)
     placed["electronics"] = (elec, ELEC_COLOR)
 
     return placed

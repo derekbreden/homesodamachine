@@ -2,13 +2,7 @@
 
 The under-counter appliance enclosure — outer dimensions, internal zoning, and what lives where. This README is the architectural orientation for the printed enclosure as a whole; panel-specific design lives in the sub-folders.
 
-The enclosure dimensions are driven by three things, in order:
-
-1. The foam shell's envelope at the back (Zone A) — the only volume that cannot move or compress.
-2. The electronics trays + back-panel terminations zone above the foam shell (Zone B).
-3. The compressor + condenser + fan zone in front of the foam shell (Zone D).
-
-Everything else fits into the voids those three create.
+The foam shell's envelope at the back (Zone A) is the one volume that cannot move or compress; the enclosure width follows it. Everything else is a working arrangement packed into the voids around it, rearrangeable within the constraints below.
 
 ## The 4 zones
 
@@ -17,24 +11,21 @@ Everything else fits into the voids those three create.
 - **Zone C (front-top):** The flavor funnel over the pump cartridge under a single centered top door — the removable silicone funnel seats on top, the pump cartridge sits beneath it. Detail: [`/hardware/printed-parts/zone-c/README.md`](/hardware/printed-parts/zone-c/README.md).
 - **Zone D (front-bottom):** Compressor + condenser + fan + water-inlet plumbing subsystem. Compressor sits on the floor in its sheet-metal shroud in front of the foam shell. Condenser along one ±X side wall with the fan axis crossing side-to-side. The Multiplex backflow preventer + drip pan + moisture sensor + SeaFlo pump live here as a co-located plumbing cluster. Compressor shroud: [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md).
 
-## What is firm
+## Constraints the layout respects
 
-- Foam shell occupying Zone A entirely, penetrations on the −Y front and +Z top only.
-- Appliance width ≈ foam shell width (~[283 mm](APPLIANCE_WIDTH)).
-- Appliance depth = foam shell depth + condenser depth (~[331 mm](APPLIANCE_DEPTH)).
-- Compressor + condenser + fan in Zone D with side-to-side airflow (fan axis between the two ±X side walls).
-- Compressor shroud over the compressor — terminal block + PTC relay/overload (UL 60335-2-89, 130 × 175 × 150 mm interior, the only metal part in the enclosure).
-- Electronics trays in Zone B above the foam shell.
-- Flavor funnel over the pump cartridge in Zone C, under a single centered top door — funnel removable for cleaning, pump cartridge reached beneath it.
-- Multiplex backflow preventer + drip pan + moisture sensor as a co-located plumbing cluster on the water-inlet path, with the drip pan sitting directly under the Multiplex's atmospheric vent.
+The zone arrangement above is the current pack — a working layout. It is free to rearrange so long as it respects these physical and functional realities:
 
-## What is flexible
+- The foam shell is the largest single solid; it cannot move or compress. Its penetrations are on the −Y front and +Z top only — the +Y rear, sides, and bottom stay clean.
+- Appliance width follows foam shell width (~[283 mm](APPLIANCE_WIDTH)); the shell is the widest object.
+- Appliance depth carries the foam shell plus the compressor/condenser block stacked along Y (currently ~[331 mm](APPLIANCE_DEPTH)).
+- The condenser and fan need side-to-side cross-flow airflow to reject heat — fan axis between the two ±X side walls.
+- The compressor shroud is a fixed-size sheet-metal part enclosing the terminal block + PTC relay/overload (UL 60335-2-89, 130 × 175 × 150 mm interior, the only metal part in the enclosure).
+- The flavor funnel feeds the pump cartridge from above and stays top-removable for cleaning.
+- The Multiplex drip pan sits directly under the Multiplex's atmospheric vent; the backflow preventer + drip pan + moisture sensor co-locate on the water-inlet path.
+- The CO2 line runs from the front face to the foam-shell +Z top entry; the WR1110 secondary regulator sits somewhere along that path.
+- The carbonated-water dispense run from the foam-shell −Y water outlet to the front spout stays short.
 
-- SeaFlo diaphragm pump — anywhere internal.
-- Valve manifold (12 Beduan solenoids) — anywhere internal.
-- WR1110 secondary regulator placement — has to be along the front → foam-shell top CO2 path, but the bracket location along that path is open.
-- PRV vent termination location — somewhere warm-side where a relief event won't soak anything important.
-- Service-access volumes for the BPV31 piercing valve and the reservoir-cap path — required negative space rather than objects, but they constrain whatever placements we choose.
+Everything else is open: which zone holds the electronics, where the compressor block sits relative to the shell, the funnel/pump position and its door, the exact zone boundaries and appliance depth, and all intra-zone placement — SeaFlo diaphragm pump, valve manifold (12 Beduan solenoids), WR1110 bracket along the CO2 path, PRV vent termination on the warm side where a relief event won't soak anything important, and the service-access voids for the BPV31 piercing valve and the reservoir-cap path.
 
 ## What is on the front face
 
