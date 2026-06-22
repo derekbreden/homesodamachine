@@ -101,6 +101,11 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
 # interfere.
 hopper_hole_x = 90.0    # opening width (X), nominal before the corner-pod clamp
 hopper_hole_y = 95.0    # opening depth (Y); clamped to the seam in _hopper_hole
+# Split-plane Y. Placed just behind the full-depth funnel so the seam never runs
+# across the hopper opening (the only thing that constrains the split — the box
+# itself fits the print bed whole). Kept < the reservoir front so the corner
+# bosses clear the reservoir.
+split_y = 95.0
 
 # Split + boss parameters — every dimension sized to its function. The seam is a
 # Y plane; the front half's full-wall rear lip telescopes into the back; four
@@ -181,14 +186,18 @@ def _dims():
     ox0, ox1 = ix0 - wall, ix1 + wall
     oy0, oy1 = iy0 - wall, iy1 + wall
     oz0, oz1 = iz0 - wall, iz1 + wall
-    # Split plane: as far forward as the print allows — just behind the display
-    # housing, so the whole facet stays in the front half. The floor parts are
-    # raised clear of the seam lip, so nothing on the floor limits it.
+    # Split plane. The whole box fits the print bed, so the split is an ACCESS
+    # choice, not a print constraint — the one thing that pins it is the hopper:
+    # the seam must not run across the opening. So place it at `split_y`, just
+    # behind the (full-depth) funnel, but never in front of the display housing
+    # (the facet must stay whole in the front half). The reservoir is seated far
+    # enough back that the corner bosses (which run forward to the lip rim) clear
+    # its front face.
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ox0, ox1, oy0, oy1, oz0, oz1)
     _fa, _fn, _fo, _fdy, _fdz = _facet_geom(outer)
     facet_back_y = oy0 + _fdy + display_facet_thickness * math.sqrt(2.0)
-    y_joint = facet_back_y + 2.0
+    y_joint = max(facet_back_y + 2.0, split_y)
     res_front_y = placed["reservoir-pockets"][0].BoundingBox().ymin
     return inner, outer, y_joint, res_front_y
 
@@ -319,9 +328,10 @@ def _hopper_hole(inner, outer):
     pod_in = ix1 + wall - (head_cbore_depth + screw_len + socket_cap)
     x1 = min(x0 + hopper_hole_x, pod_in - 1.0)         # clear the top-right pod
     # Keep the opening (and its funnel) entirely in front of the seam lip, so the
-    # funnel and the split never interfere — the lip is left whole.
+    # funnel and the split never interfere — the lip is left whole. Use the actual
+    # joint (the split is set behind the funnel), not just the facet minimum.
     _a, _n, _o, dy, _dz = _facet_geom(outer)
-    y_joint = oy0 + dy + display_facet_thickness * math.sqrt(2.0) + 2.0
+    y_joint = max(oy0 + dy + display_facet_thickness * math.sqrt(2.0) + 2.0, split_y)
     y1 = min(iy0 + hopper_hole_y, y_joint - wall - 2.0)
     return x0, x1, iy0, y1
 
