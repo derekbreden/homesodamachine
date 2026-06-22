@@ -1,26 +1,43 @@
 # Funnel (hopper)
 
-The hopper you pour batch liquid into. It drains through its spout to **V-B**
-on the [source-select tray](/hardware/printed-parts/valve-manifold/source-select-tray/)
+The removable hopper you pour SodaStream concentrate into. It drains through its
+spout to **V-B** on the [source-select tray](/hardware/printed-parts/valve-manifold/source-select-tray/)
 — fluid topology [segment 4](/hardware/topology/fluid-topology.md),
 "Hopper funnel bottom → V-B-I". A **pour-through guide**, not a batch reservoir:
 what you pour gets pumped straight on to a bag.
 
+The same idiom as the Kitchen edition's
+[hopper funnel](/hardware/printed-parts/zone-c/hopper-funnel/): it seats in the
+top-wall opening to the **right of the display**, cut by the enclosure via
+`_hopper_hole`, so the collar always matches the hole.
+
 ## Shape
 
-A **130 mm square inlet** tapering over 78 mm — a square-to-round loft — to a
-**round spout**: 12 mm long, 10 mm OD, **6.5 mm bore** to match the 1/4 in tube
-line used elsewhere (the reservoir's port holes). Walls are **2 mm**, open
-through both ends. **90 mm** tall overall.
+Built top to bottom in enclosure world coordinates so it drops straight into the
+opening:
 
-Local frame: centered on Z (x = y = 0), spout outlet on Z = 0, inlet opening up
-at Z = 90. In the [enclosure assembly](/pie-in-the-sky/lite/enclosure-assembly/) it rides on
-the **front (−X)**, its front edge flush with the pumps' front,
-filling the +Y half of the front top (inlet flush with the lid); the spout
-reaches back to V-B.
+- **Brim.** A flat flange overhanging the opening 3 mm all around, resting on the
+  enclosure top surface.
+- **Chute.** A tall straight rectangular section — vertical walls, no slope —
+  [30 mm](HOPPER_CHUTE) from the brim top down to where the ramp starts. Its top
+  press-fits the [3 mm](WALL) top wall; the rest hangs down into the reserve as a
+  straight rectangular drop.
+- **Ramp + spout.** Below the chute a shallow ramp narrows to a round
+  [6.35 mm](SPOUT_ID) spout (1/4", matching the pump tubing), offset toward the
+  source-select column. The ramp necks one mm above the tallest content below
+  (read live), then a short straight spout tube carries the exit on down toward
+  V-B. Total drop [94 mm](HOPPER_DROP) below the brim; capacity to the brim
+  rim ≈ [488 mL](HOPPER_CAP).
+
+The chute footprint is taken from the enclosure's opening rectangle
+(`enclosure.py` `_hopper_hole`), so the funnel and hole always match.
 
 ## Regenerate
 
 `tools/cad-venv/bin/python pie-in-the-sky/lite/printed-parts/funnel/funnel.py`
-→ `funnel.step`. Dimensions are the constants at the top of `funnel.py`
-(`inlet_side`, `wall`, `taper_height`, `spout_od/id`, `spout_length`).
+→ `funnel.step`. Seated in the enclosure view by
+[`../../enclosure-assembly/enclosure_assembly.py`](/pie-in-the-sky/lite/enclosure-assembly/enclosure_assembly.py).
+
+## Sources
+[value](NAME) texts are updated by:
+- `/pie-in-the-sky/lite/printed-parts/funnel/funnel.py`
