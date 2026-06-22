@@ -28,11 +28,12 @@ step 3 — one green ring-terminal bond per exposed-metal part:
 - PSU chassis (run AC-2 G)
 - the C14 inlet's earth feed (G Wago → bus)
 
-This is a **Class I** appliance ([`/business/regulatory.md`](/business/regulatory.md),
-UL 943): the stack is earthed through the C14 cord, so a basic-insulation fault
-clears to ground (breaker) and a leak trips the onboard GFCI at 6 mA. The bonds
-do not merely tie the metal parts to each other — they tie that bonded node to
-building earth.
+This is a **Class I** appliance ([`/business/regulatory.md`](/business/regulatory.md)):
+the stack is earthed through the C14 cord, so a basic-insulation fault clears to
+ground (breaker). The bonds do not merely tie the metal parts to each other —
+they tie that bonded node to building earth. An in-appliance ground-fault device
+on the AC side is deferred ([`/pie-in-the-sky/gfci.md`](/pie-in-the-sky/gfci.md));
+earth is a pass-through on such a device, so this bond path is unchanged by it.
 
 ## Geometry
 

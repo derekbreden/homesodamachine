@@ -19,7 +19,7 @@ opening:
 - **Brim.** A flat flange overhanging the opening 3 mm all around, resting on the
   enclosure top surface.
 - **Chute.** A tall straight rectangular section — vertical walls, no slope —
-  [30 mm](HOPPER_CHUTE) from the brim top down to where the ramp starts. Its top
+  [63 mm](HOPPER_CHUTE) from the brim top down to where the ramp starts. Its top
   press-fits the [3 mm](WALL) top wall; the rest hangs down into the reserve as a
   straight rectangular drop.
 - **Ramp + spout.** Below the chute a shallow ramp narrows to a round
@@ -29,7 +29,7 @@ opening:
   left below for a tube/barb fitting; a short flexible tube then carries the pour
   on to V-B (the spout does not land on V-B directly, same as the Kitchen
   hopper). Total drop [80 mm](HOPPER_DROP) below the brim; capacity to the brim
-  rim ≈ [440 mL](HOPPER_CAP).
+  rim ≈ [441 mL](HOPPER_CAP).
 
 The chute footprint is taken from the enclosure's opening rectangle
 (`enclosure.py` `_hopper_hole`), so the funnel and hole always match.
