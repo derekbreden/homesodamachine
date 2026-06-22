@@ -37,8 +37,8 @@ TRAY_STEPS = {
     "bib-gate":      _VM / "bib-gate-tray"      / "bib-gate-assembly.step",
     "nozzle-gate":   _VM / "nozzle-gate-tray"   / "nozzle-gate-assembly.step",
 }
-# Zone-B AC/PSU shelf — the wide-shallow narrow variant (PSU turned 90°).
-POWER_ASSEMBLY = _hw / "printed-parts" / "electronics" / "narrow-power-tray" / "narrow-power-assembly.step"
+# Zone-B AC/PSU shelf — wide-shallow layout (PSU turned 90°).
+POWER_ASSEMBLY = _hw / "printed-parts" / "electronics" / "power-tray" / "power-assembly.step"
 
 # --- Placeholder dimensions ----------------------------------------------
 # Condenser + fan harvested from the donor ice maker. Two dimensions match
@@ -163,7 +163,7 @@ def build():
     placed["bib-gate"]      = _at(_load(TRAY_STEPS["bib-gate"]),      154.0,   0.0, cond_top_z)
     placed["nozzle-gate"]   = _at(_load(TRAY_STEPS["nozzle-gate"]),   164.0,  78.0, cond_top_z)
 
-    # --- Narrow power tray (Zone-B AC/PSU shelf), turned 90° about Z so the Mean
+    # --- Power tray (Zone-B AC/PSU shelf), turned 90° about Z so the Mean
     # Well PSU's long axis lies along enclosure-Y. It threads the right-side
     # channel: along Y between the funnel back and source-select's front; along X
     # between bag-circuit's right elbows and the +X wall; resting at the short-tray

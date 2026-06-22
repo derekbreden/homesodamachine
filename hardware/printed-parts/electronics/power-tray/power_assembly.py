@@ -61,7 +61,7 @@ def build_assembly(L, name="power-assembly"):
 
 
 def main():
-    export_assembly(build_assembly(t.WIDE, "power-assembly"), str(_here.parent / "power-assembly.step"))
+    export_assembly(build_assembly(t.LAYOUT, "power-assembly"), str(_here.parent / "power-assembly.step"))
     print("-> power-assembly.step")
 
 
