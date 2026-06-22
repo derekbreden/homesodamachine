@@ -26,7 +26,7 @@ zone, ahead of the reservoir:
     its long footprint side lies along the back wall — wide in X, shallow in Y —
     back face on the split, against the reservoir.
   * Front-left:  the bag-circuit tray stood vertical, narrow in X, dropped into the
-    strip left of the pump motors with its front flush to the pump fronts.
+    strip left of the pump motors, just behind the pump fronts.
   * Front-right, high:  the hopper funnel (added in the assembly, derived from the
     enclosure) — a narrow-X, deep-Y slot dropping over the short trays.
   * +X back band:  the power tray (Mean Well PSU + Wago distribution + ground
@@ -79,7 +79,8 @@ FLOOR_LIFT = 14.0
 # Front-zone Y stations. The pumps sit in the right-front void; the bib/nozzle
 # stack sits with its front against the pump backs, and the stack's depth sets the
 # split plane (the reservoir seats behind that).
-PUMP_FRONT_Y = 25.0        # pump front face — also the box front edge (the frontmost content)
+PUMP_FRONT_Y = 32.0        # pump front face (and box front edge): the front cluster is slid
+                           # back until the bib/nozzle backs nearly meet the reservoir front
 PUMP_HEAD_X = 200.0        # the pump heads' +X face (the void's bottom-right corner)
 STACK_TO_PUMP_GAP = 1.0    # gap from the pump backs to the short-tray stack front (Y)
 STACK_GAP = 2.0            # vertical gap between stacked parts (Z)
@@ -97,7 +98,7 @@ SHORT_X = 135.0            # short-tray / funnel column left edge (clear of sour
 SRC_X_INSET = 12.0
 STACK_OVERLAP = 34.0      # nozzle drops this far into bib — clean elbow-to-elbow interleave
 # Reservoir seats behind the front zone; the split falls in the gap between them.
-RES_TO_SPLIT_GAP = 8.0     # reservoir front face behind the deepest front tray
+RES_TO_SPLIT_GAP = 1.0     # reservoir front behind the cluster back — just the seam clearance
 # Gap from the reservoir's real +X wall to the power tray beside it.
 POWER_GAP_X = 2.0
 
@@ -178,10 +179,10 @@ def build():
     placed["source-select"] = (src, COLORS["source-select"])
 
     # --- Front-left void: bag-circuit stood vertical (rot +90 about Y), narrow in
-    # X so it drops into the strip left of the pump motors, its front flush with the
-    # pump fronts (the box front edge).
+    # X so it drops into the strip left of the pump motors, sitting just behind the
+    # pump fronts so the pumps alone set the box front edge.
     bag = _place(_rot(_load(TRAY_STEPS["bag-circuit"]), (0, 1, 0), 90.0),
-                 xmin=X_INSET, ymin=PUMP_FRONT_Y, zmin=FLOOR_LIFT)
+                 xmin=X_INSET, ymin=PUMP_FRONT_Y + 2.0, zmin=FLOOR_LIFT)
     placed["bag-circuit"] = (bag, COLORS["bag-circuit"])
 
     # --- Reservoir-pockets, back, doorway facing the cabinet back. Rotate +90
