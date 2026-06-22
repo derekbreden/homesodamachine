@@ -15,12 +15,14 @@ distribution connectors (H / N / G), plus a ground-bus tie point.
 - **Ground bus** — a heat-set boss for the ground-stud SHCS; the bus is the
   bolted ring-terminal stack (hardware/reference/ground-ring-stack/).
 
-The components pack **flush** (no inter-part gaps), and the floor is the single
-convex outline of every footprint. The build is parameterised by a ``Layout``
-(component centres + Z rotations), so the sibling ``narrow-power-tray`` reuses
-``build_tray`` with the PSU turned 90°. GFCI is tabled; the C14 inlet lives on
-the back panel. Local frame: X right, Y deep, Z up; origin at the floor's
-bottom-left corner, Z = 0 the floor underside, floor top at ``floor_t``.
+The PSU is turned 90° (its 109 mm length runs along X) for a wide/shallow
+footprint; the relay and the Wago column pack flush to its right and the ground
+ring-stack sits above the PSU. The components pack **flush** (no inter-part
+gaps), and the floor is the single convex outline of every footprint. The build
+is parameterised by a ``Layout`` (component centres + Z rotations). GFCI is
+tabled; the C14 inlet lives on the back panel. Local frame: X right, Y deep,
+Z up; origin at the floor's bottom-left corner, Z = 0 the floor underside, floor
+top at ``floor_t``.
 """
 
 import math
@@ -198,23 +200,24 @@ def build_tray(L):
     return tray
 
 
-# --- Wide layout (default) ------------------------------------------------
-# PSU at the lower-left; relay flush to its right; Wago column flush past the
-# relay; ground boss flush above the relay. Everything packs edge-to-edge.
-_psu_c = (margin + psu.width / 2.0, margin + psu.length / 2.0)
-_relay_cx = margin + psu.width + relay.width / 2.0
+# --- Layout ---------------------------------------------------------------
+# PSU turned 90° (109 mm length along X) at the lower-left; relay and the Wago
+# column pack flush to its right; ground ring-stack in the open space above the
+# PSU. Wide/shallow footprint (~151 × 80 mm).
+_psu_c = (margin + psu.length / 2.0, margin + psu.width / 2.0)
+_relay_cx = margin + psu.length + relay.width / 2.0
 _relay_cy = margin + relay.length / 2.0
 _wago_cx = _relay_cx + relay.width / 2.0 + wago_slot_half
-WIDE = Layout(
-    psu_c=_psu_c, psu_rot=0.0,
+LAYOUT = Layout(
+    psu_c=_psu_c, psu_rot=90.0,
     relay_c=(_relay_cx, _relay_cy), relay_rot=90.0,
     wago_places=tuple((_wago_cx, margin + 8.454 + i * wago_pitch) for i in range(3)),
-    gnd_c=(_relay_cx + 6.5, _relay_cy + relay.length / 2.0 + 12.0),  # open space above the cluster
+    gnd_c=(margin + 22.0, margin + psu.width + 11.0),
 )
 
 
 def build_power_tray():
-    return build_tray(WIDE)
+    return build_tray(LAYOUT)
 
 
 def main():
