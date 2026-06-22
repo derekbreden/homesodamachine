@@ -326,8 +326,8 @@ def _hopper_hole(inner, outer):
     x1 = pod_in - 1.0                                        # flush to the top-right corner pod
     x0 = ox0 + display_facet_x + wall                        # just past the facet gusset
     bag = _contents.build()["bag-circuit"][0].BoundingBox()
-    if bag.xmax + 3.0 < x1:                                  # clear the tall bag tray when it falls in span
-        x0 = max(x0, bag.xmax + 3.0)                         # (skipped on the reduced coupon box)
+    if bag.xmax + 3.0 < x1:                                  # clear the tall bag tray when it
+        x0 = max(x0, bag.xmax + 3.0)                         # falls within the opening span
     _a, _n, _o, dy, _dz = _facet_geom(outer)
     y_joint = max(oy0 + dy + display_facet_thickness * math.sqrt(2.0) + 2.0, split_y)
     y1 = y_joint - wall - 2.0                                # just in front of the seam lip
@@ -492,19 +492,6 @@ def _y_boss(y_joint):
     return y_joint + plug_dia / 2.0
 
 
-def coupon_dims():
-    """Dims for the front-half test-print coupon — a reduced-size box carrying
-    every feature (display housing, telescoping lip, the four corner bosses, the
-    full-depth ribs) at full size."""
-    ix0, ix1 = 0.0, 150.0          # facet 119.5 flush-left, right boss clear
-    iy0, iy1 = 0.0, 122.0          # back coupon's depth behind the joint
-    iz0, iz1 = 0.0, 110.0
-    y_joint = 85.0                 # lip + rear bosses sit behind the housing
-    inner = (ix0, ix1, iy0, iy1, iz0, iz1)
-    outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
-    return inner, outer, y_joint, None
-
-
 def build_front_half(dims=None):
     inner, outer, y_joint, _ = dims if dims is not None else _dims()
     shell = _shell_with_facet(inner, outer).val()
@@ -606,26 +593,14 @@ def main():
     assy.add(front, name="enclosure_front", color=cq.Color(0.80, 0.84, 0.90))
     assy.add(back, name="enclosure_back", color=cq.Color(0.70, 0.74, 0.82))
 
-    coupon = build_front_half(coupon_dims())
-    coupon_back = build_back_half(coupon_dims())
-
     export_step(front, str(_here.parent / "enclosure-front.step"))
     export_step(back, str(_here.parent / "enclosure-back.step"))
     export_assembly(assy, str(_here.parent / "enclosure.step"))
-    export_step(coupon, str(_here.parent / "enclosure-front-coupon.step"))
-    export_step(coupon_back, str(_here.parent / "enclosure-back-coupon.step"))
     print("-> enclosure-front.step")
     print("-> enclosure-back.step")
     print("-> enclosure.step (assembled halves)")
-    print("-> enclosure-front-coupon.step (test print)")
-    print("-> enclosure-back-coupon.step (test print)")
     _report_facet(front)
     _report_split(front, back)
-    for tag, c in (("front coupon", coupon), ("back coupon", coupon_back)):
-        b = c.val().BoundingBox()
-        print(f"  {tag}:     {b.xlen:.0f}×{b.ylen:.0f}×{b.zlen:.0f} mm, {len(c.val().Solids())} solid")
-    cpair = coupon.val().intersect(coupon_back.val()).Volume()
-    print(f"  coupon ∩:         {cpair:.1f} mm³  ({'CLEAR slip-fit' if cpair < 5 else 'INTERFERENCE'})")
 
     inner, outer, _yj, _cf = _dims()
     ox0, ox1, oy0, oy1, oz0, oz1 = outer

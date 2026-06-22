@@ -44,11 +44,11 @@ Unlike the carbonator and Kitchen-reservoir float rods, this is a **tool-free ha
 
 ### 3. Build and stack the valve manifold
 
-Assemble the four manifold trays — source-select, bag-circuit, bib-gate, nozzle-gate — the same tray assemblies as the Kitchen build ([`valve-manifold/`](/hardware/printed-parts/valve-manifold/)), populated with the Beduan solenoids and John Guest dividers / tees / stem-barbs from [`lite-bom.md`](/pie-in-the-sky/lite/lite-bom.md). Stack bib-gate and nozzle-gate flat in the front-left corner under the display, lay bag-circuit flat across the front-zone top, and stand source-select vertical in the +X column beside the reservoir (under the hopper), per [`_contents.py`](/pie-in-the-sky/lite/enclosure-assembly/_contents.py).
+Assemble the four manifold trays — source-select, bag-circuit, bib-gate, nozzle-gate — the same tray assemblies as the Kitchen build ([`valve-manifold/`](/hardware/printed-parts/valve-manifold/)), populated with the Beduan solenoids and John Guest dividers / tees / stem-barbs from [`lite-bom.md`](/pie-in-the-sky/lite/lite-bom.md). All four stand vertical (long axis up) in the front zone ahead of the reservoir: source-select and bag-circuit side by side in the back band against the split, bib-gate and nozzle-gate nose-to-tail in the front-right under the hopper, kept low so the funnel above clears a tall chute — per [`_contents.py`](/pie-in-the-sky/lite/enclosure-assembly/_contents.py).
 
 ### 4. Mount the pumps
 
-Seat the two Kamoer KPHM400 pumps in their printed cases, stacked one above the other in the back of the +X column behind source-select (the +Y space the reservoir does not reach) — keeping them off the front zone so the cabinet stays narrow. They are reached by separating the back half / lifting source-select, per [`_contents.py`](/pie-in-the-sky/lite/enclosure-assembly/_contents.py).
+Seat the two Kamoer KPHM400 pumps (the full pump assemblies, with their 90° outlet elbows) stacked one above the other in the front-left of the front zone, turned a quarter-turn so the elbow span runs in X and the shallower depth in Y — a single narrow footprint, the long trays standing just behind them. Per [`_contents.py`](/pie-in-the-sky/lite/enclosure-assembly/_contents.py).
 
 ### 5. Plumb the flavor circuit
 
@@ -56,11 +56,11 @@ Run the clear-PVC and LLDPE lines per [`fluid-topology-manifold.mmd`](/pie-in-th
 
 ### 6. Mount the funnel
 
-Drop the funnel into the top-wall opening to the right of the display — brim resting on the lid, collar press-fit in the opening — its spout necking above the front trays, where a short flexible tube carries the pour back to V-B on source-select (the spout does not land on V-B directly, same as the Kitchen hopper). Geometry: [`funnel/README.md`](/pie-in-the-sky/lite/printed-parts/funnel/README.md).
+Drop the funnel into the narrow-X, deep-Y top-wall slot to the right of the display — brim resting on the lid, collar press-fit in the opening. Its tall chute holds the pour buffer; a short ramp necks to a centered spout that exits high above the short trays, where a flexible tube carries the pour down to V-B on source-select (the spout does not land on V-B directly, same as the Kitchen hopper). Geometry: [`funnel/README.md`](/pie-in-the-sky/lite/printed-parts/funnel/README.md).
 
 ### 7. Wire the electronics
 
-Mount the 12 V supply + AC distribution on the [power tray](/pie-in-the-sky/lite/printed-parts/electronics/power-tray/) (Mean Well PSU + Wagos + ground stack, no relay) — it stands vertical as a side-wall panel in the front-left corner. Mount the ESP32, MCP23017 expander, ULN2803A drivers, and motor driver, and wire everything to the two pumps, the manifold solenoids, the Waveshare 4.3″ config display, and the air switch — the same parts family and dispense logic as the main appliance, minus every sensor the Lite omits (no level reeds, no moisture telltale). The logic/driver-board tray is still undesigned (see Open items).
+Mount the 12 V supply + AC distribution on the [power tray](/pie-in-the-sky/lite/printed-parts/electronics/power-tray/) (Mean Well PSU + Wagos + ground stack, no relay) — it stands vertical beside the reservoir on the +X side, the one part thin enough to share the reservoir's depth band, its 40.5 mm depth all it costs in width. Mount the ESP32, MCP23017 expander, ULN2803A drivers, and motor driver, and wire everything to the two pumps, the manifold solenoids, the Waveshare 4.3″ config display, and the air switch — the same parts family and dispense logic as the main appliance, minus every sensor the Lite omits (no level reeds, no moisture telltale). The logic/driver-board tray is still undesigned (see Open items).
 
 ### 8. Install the faucet and through-counter UI
 
