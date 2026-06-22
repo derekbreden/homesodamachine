@@ -25,16 +25,12 @@ psu_voltage_v = 12                      # regulated rail
 psu_current_a = 6.7                     # max
 psu_mass_g = 200
 
-# ─── GFCI spec (Legrand 1597BKCCD12) ───────────────────────────────────
-gfci_trip_threshold_ma = 6              # UL 943 Class A trip
-gfci_self_test_interval_s = 3           # self-test cycle
-
 # ─── AC pigtail lengths ────────────────────────────────────────────────
 # Source: ../wiring/ac-wiring-schedule.md "AC mains" table.
 pigtail_short_mm = 50                   # AC-3 load-side
 pigtail_medium_mm = 100                 # AC-2, DC-1
-pigtail_gfci_mm = 150                   # AC-1a (C14 → GFCI LINE), AC-1b (GFCI LOAD → Wago)
-pigtail_slack_mm = 150                  # AC-1a inlet-side slack
+pigtail_inlet_mm = 150                  # AC-1 (C14 → AC distribution block)
+pigtail_slack_mm = 150                  # AC-1 inlet-side slack
 pigtail_compressor_mm = 400             # AC-4/5/6 compressor-side runs
 
 # ─── Wire-stock format (Keszoox pigtail length) ────────────────────────
@@ -67,13 +63,10 @@ def main():
         "PSU_VOLTAGE": f"{psu_voltage_v:.4g} V",
         "PSU_CURRENT": f"{psu_current_a:.4g} A",
         "PSU_MASS": f"~{psu_mass_g:.4g} g",
-        # GFCI specs.
-        "GFCI_TRIP": f"{gfci_trip_threshold_ma:.4g} mA",
-        "GFCI_SELF_TEST": f"{gfci_self_test_interval_s:.4g} seconds",
         # AC pigtail lengths.
         "PIGTAIL_SHORT": f"~{pigtail_short_mm:.4g} mm",
         "PIGTAIL_MEDIUM": f"~{pigtail_medium_mm:.4g} mm",
-        "PIGTAIL_GFCI": f"~{pigtail_gfci_mm:.4g} mm",
+        "PIGTAIL_INLET": f"~{pigtail_inlet_mm:.4g} mm",
         "PIGTAIL_SLACK": f"~{pigtail_slack_mm:.4g} mm",
         "PIGTAIL_COMPRESSOR": f"~{pigtail_compressor_mm:.4g} mm",
         # Wire-stock pigtail.
@@ -99,11 +92,9 @@ def main():
             "PSU_VOLTAGE": 1,
             "PSU_CURRENT": 1,
             "PSU_MASS": 1,
-            "GFCI_TRIP": 1,
-            "GFCI_SELF_TEST": 1,
             "PIGTAIL_SHORT": 1,
             "PIGTAIL_MEDIUM": 2,
-            "PIGTAIL_GFCI": 2,
+            "PIGTAIL_INLET": 1,
             "PIGTAIL_SLACK": 1,
             "PIGTAIL_COMPRESSOR": 3,
             "KESZOOX_LENGTH": 2,

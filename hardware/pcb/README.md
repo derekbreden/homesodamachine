@@ -45,8 +45,10 @@ Off the board, unchanged:
   bus between PSU and board is the splice seam for
   [`/hardware/battery-backup/README.md`](/hardware/battery-backup/README.md)
   (transfer module + LiFePO4 pack), and keeps a dead PSU a part-swap.
-- **C14 inlet, GFCI, AC distribution Wagos, ground bus** — AC stays on the shelf
-  except the compressor leg routed through relay #1's fenced corner.
+- **C14 inlet, AC distribution Wagos, ground bus** — the C14 inlet lands on the
+  AC distribution Wagos directly; AC stays on the shelf except the compressor leg
+  routed through relay #1's fenced corner. An in-appliance ground-fault device on
+  the AC side is deferred ([`/pie-in-the-sky/gfci.md`](/pie-in-the-sky/gfci.md)).
 - Both ESP32-S3 displays (4.3B config + faucet), all field sensors and actuators —
   these connect to the board, they don't live on it.
 

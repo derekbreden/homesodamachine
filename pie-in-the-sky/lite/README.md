@@ -123,7 +123,7 @@ Reservoirs are off-the-shelf collapsible bags, not printed (see "What the Lite E
 
 ### Added scope for the Lite Edition — what is now designed, what is not
 
-The existing prototype lives ad-hoc on the counter; the Lite Edition wraps it in a consumer form. The pieces the prototype does without:
+The existing prototype lives ad-hoc under the sink; the Lite Edition wraps it in a consumer form. The pieces the prototype does without:
 
 - **Enclosure shell — designed.** [`enclosure/`](/pie-in-the-sky/lite/enclosure/) — the same split-half (front + back) cross-pinned shell as the Kitchen edition, sized live to the contents, with the 45° display facet at the top-front-left and a drop-in hopper opening to its right. The reservoir-pockets box is the heavy back-bottom anchor (doorway facing the cabinet back), where the Kitchen has its cold core. The Kitchen's `back-panel/` / `front-panel/` / `nameplate/` subfolders are sized for the integrated appliance (side-to-side condenser airflow, rear-panel CO2 / water inlets, compressor compartment) — none of that applies, so the Lite has no equivalents. Still open within the shell: mounting feet, a pump-access provision, and the rear faucet-inlet stub for the Lillium hose.
 - **Bag cradle — designed.** [`reservoir-pockets/`](/pie-in-the-sky/lite/printed-parts/reservoir-pockets/) — two pockets holding each bag spout-down, with a rod-hang channel and low ⌀6.5 mm spout exits.
