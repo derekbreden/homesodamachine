@@ -74,11 +74,12 @@ RES_X_INSET = 6.0
 # across the seam. Floor content against a side wall would foul the bottom pods,
 # so it is lifted clear of them — the Kitchen `FOAM_LIFT` idiom.
 FLOOR_LIFT = 14.0
-# Front-zone Y stations. The two pump assemblies sit in the right-front void with
-# their motor cylinders pointing at the -X wall; the long trays stand behind them.
-PUMP_FRONT_Y = 5.0         # pump front face
+# Front-zone Y stations. The pumps sit in the right-front void (independent of the
+# trays now); the long trays stand at the back with their backs on the split.
+PUMP_FRONT_Y = 25.0        # pump front face — pulled back so the heads just meet the
+                           # bib/nozzle stack, drawing the box front edge in with them
 PUMP_HEAD_X = 200.0        # the pump heads' +X face (the void's bottom-right corner)
-PUMP_TO_TRAY_GAP = 2.5     # gap from the pump back to the vertical trays (Y)
+SOURCE_FRONT_Y = 79.0      # source-select front face (decoupled from the pumps)
 STACK_GAP = 2.0            # vertical gap between stacked parts (Z)
 TRAY_GAP_X = 3.0           # gap between side-by-side vertical trays (X)
 # The short trays (bib, nozzle) STACK into one footprint at the back-right (backs
@@ -148,12 +149,10 @@ def build():
     placed["pump-upper"] = (pump_up, PUMP_COLORS["pump-upper"])
 
     # --- Back band: source-select + bag-circuit stood vertical (rotate +90 about
-    # Y so their long axis runs up Z), side by side behind the pump stack, their
-    # back faces on the split line. source-select is the deeper of the two and
-    # sets the front-zone depth.
-    tray_front = pb.ymax + PUMP_TO_TRAY_GAP
+    # Y so their long axis runs up Z), side by side at the back-left with their
+    # back faces on the split line (placed independently of the pumps).
     src = _place(_rot(_load(TRAY_STEPS["source-select"]), (0, 1, 0), 90.0),
-                 xmin=X_INSET, ymin=tray_front, zmin=FLOOR_LIFT)
+                 xmin=X_INSET, ymin=SOURCE_FRONT_Y, zmin=FLOOR_LIFT)
     placed["source-select"] = (src, COLORS["source-select"])
     sb = src.BoundingBox()
     split_front = sb.ymax            # the front zone's back face (the split rides here)
