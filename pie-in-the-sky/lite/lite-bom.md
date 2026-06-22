@@ -22,7 +22,7 @@ Estimated delivered parts cost per Lite unit: **[$230.41](LITE_TOTAL)**. Exclude
 
 ## Clear-PVC length — ~13 ft/unit (estimate)
 
-The enclosure is not designed yet (see [`README.md`](/pie-in-the-sky/lite/README.md) "Not designed"), so these are routing estimates from component sizes and a small under-sink envelope, not measured runs:
+The internal routing is not laid out yet (the [enclosure](/pie-in-the-sky/lite/enclosure/) packs the contents but the tube runs are not modeled), so these are routing estimates from component sizes and the ~277 × 270 × 305 mm envelope, not measured runs:
 
 | Clear run group | Count | Est. each | Subtotal |
 |---|---:|---:|---:|
