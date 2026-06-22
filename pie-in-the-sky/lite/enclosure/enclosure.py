@@ -96,11 +96,11 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
 # to the room to the right of the display; the +X edge is clamped clear of the
 # top-right corner pod.
 # The opening is narrower in X than the wide Kitchen hopper (a quarter-turn) but
-# kept usable — wide enough to pour into, deep enough for a real ramp. It reaches
-# back across the seam (the funnel crosses the split — the split is not a barrier)
-# and stops just short of the reservoir, which stands full height behind it.
+# kept usable — wide enough to pour into, deep enough for a real ramp. Its depth
+# is clamped to stay in front of the seam lip so the funnel and the split never
+# interfere.
 hopper_hole_x = 90.0    # opening width (X), nominal before the corner-pod clamp
-hopper_hole_y = 95.0    # opening depth (Y), from the inner front wall back
+hopper_hole_y = 95.0    # opening depth (Y); clamped to the seam in _hopper_hole
 
 # Split + boss parameters — every dimension sized to its function. The seam is a
 # Y plane; the front half's full-wall rear lip telescopes into the back; four
@@ -318,18 +318,18 @@ def _hopper_hole(inner, outer):
     x0 = ox0 + display_facet_x + wall                  # just past the facet gusset
     pod_in = ix1 + wall - (head_cbore_depth + screw_len + socket_cap)
     x1 = min(x0 + hopper_hole_x, pod_in - 1.0)         # clear the top-right pod
-    # The opening reaches straight back across the seam (the funnel crosses the
-    # split); the seam lip is notched out of its path in both halves, so the depth
-    # is set only by the parameter and the reservoir behind it.
-    return x0, x1, iy0, iy0 + hopper_hole_y
+    # Keep the opening (and its funnel) entirely in front of the seam lip, so the
+    # funnel and the split never interfere — the lip is left whole.
+    _a, _n, _o, dy, _dz = _facet_geom(outer)
+    y_joint = oy0 + dy + display_facet_thickness * math.sqrt(2.0) + 2.0
+    y1 = min(iy0 + hopper_hole_y, y_joint - wall - 2.0)
+    return x0, x1, iy0, y1
 
 
 def _hopper_cut(inner, outer):
-    """The funnel opening punched clean through the top wall — and one wall
-    deeper, so where the opening crosses the seam it also notches the telescoping
-    lip's top band out of the funnel's path. Applied to BOTH halves."""
+    """The funnel opening punched clean through the top wall."""
     x0, x1, y0, y1 = _hopper_hole(inner, outer)
-    return _ybox(x0, x1, y0, y1, inner[5] - wall - 1.0, outer[5] + 1.0)
+    return _ybox(x0, x1, y0, y1, inner[5] - 1.0, outer[5] + 1.0)
 
 
 # --- split joint: telescoping lip + X-axis corner cross-pins ----------------
@@ -530,9 +530,6 @@ def build_back_half(dims=None):
         back = back.fuse(_back_plug(x_ext, sx, z_boss, yb, y_joint))
     for x_in, x_ext, sx, z_boss, sz in _bosses(inner):
         back = back.fuse(_back_brace(x_in, x_ext, sx, z_boss, sz, y_joint, outer, inner))
-    # The hopper opening crosses the seam, so its back portion is punched through
-    # the back half's top wall (and the lip notch already lives in the cut).
-    back = back.cut(_hopper_cut(inner, outer))
     # Clip any corner feature that pokes past the rounded print silhouette.
     back = back.intersect(_rounded_outer(outer))
     for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
