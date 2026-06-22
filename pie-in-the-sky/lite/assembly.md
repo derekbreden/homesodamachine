@@ -6,7 +6,7 @@ The Lite Edition is the flavor half of the main appliance wrapped in a small tra
 
 ## Scope
 
-In: the printed PETG parts ([enclosure shell](/pie-in-the-sky/lite/enclosure/), [reservoir-pockets bag cradle](/pie-in-the-sky/lite/printed-parts/reservoir-pockets/), [funnel / hopper](/pie-in-the-sky/lite/printed-parts/funnel/), the [faucet stack](/hardware/printed-parts/faucet/), and the [pump cases](/hardware/printed-parts/flavor/pump-case/)); the off-the-shelf flavor parts (two Platypus bags, two Kamoer KPHM400 pumps, the manifold valves + John Guest fittings + tubing); the faucet, air switch, and round display; the electronics family (ESP32, MCP23017 expander, ULN2803A drivers, motor driver, 12 V supply); and one 1/8" stainless bag-hanger rod.
+In: the printed PETG parts ([enclosure halves](/pie-in-the-sky/lite/enclosure/), [reservoir-pockets bag cradle](/pie-in-the-sky/lite/printed-parts/reservoir-pockets/), [funnel / hopper](/pie-in-the-sky/lite/printed-parts/funnel/), the [faucet stack](/hardware/printed-parts/faucet/), and the [pump cases](/hardware/printed-parts/flavor/pump-case/)); the off-the-shelf flavor parts (two Platypus bags, two Kamoer KPHM400 pumps, the manifold valves + John Guest fittings + tubing); the faucet, air switch, and the Waveshare 4.3″ config display; the electronics family (ESP32, MCP23017 expander, ULN2803A drivers, motor driver, 12 V supply); and one 1/8" stainless bag-hanger rod.
 
 Out: a finished Lite Edition unit, ready for under-sink install and pairing to a Lillium-class carbonator.
 
@@ -18,9 +18,9 @@ Per-unit parts and cost live in [`lite-bom.md`](/pie-in-the-sky/lite/lite-bom.md
 
 | Item | Source | Notes |
 |---|---|---|
-| Enclosure shell (printed PETG) | [`enclosure/`](/pie-in-the-sky/lite/enclosure/) | Six-wall box; lid hole clears the funnel inlet |
+| Enclosure halves (printed PETG) | [`enclosure/`](/pie-in-the-sky/lite/enclosure/) | Split front + back, telescoping cross-pinned; display facet + hopper opening |
 | Reservoir-pockets bag cradle (printed PETG) | [`reservoir-pockets/`](/pie-in-the-sky/lite/printed-parts/reservoir-pockets/) | Two bag pockets + a rod-hang channel |
-| Funnel / hopper (printed PETG) | [`funnel/`](/pie-in-the-sky/lite/printed-parts/funnel/) | Square-to-round pour-through guide to V-B |
+| Funnel / hopper (printed PETG) | [`funnel/`](/pie-in-the-sky/lite/printed-parts/funnel/) | Drop-in pour-through funnel; collar from the hopper opening, to V-B |
 | Faucet stack (printed PET-CF) | [`faucet/touch-flo-shell/`](/hardware/printed-parts/faucet/touch-flo-shell/) | Touch-Flo shell + plate + gasket + o-ring |
 | Pump cases (printed) | [`flavor/pump-case/`](/hardware/printed-parts/flavor/pump-case/) | Houses the Kamoer pumps |
 | 1/8" stainless bag-hanger rod, [158 mm](ROD_LENGTH) | Same stock as the carbonator float rod (Tandefio B0CY4DWJFQ) | Threads both bags' top loops |
@@ -32,7 +32,7 @@ Per-unit parts and cost live in [`lite-bom.md`](/pie-in-the-sky/lite/lite-bom.md
 
 ### 1. Print and prep the parts
 
-Print the transparent-PETG parts — enclosure shell, reservoir-pockets cradle, funnel — plus the PET-CF faucet stack and the pump cases. Deburr the ⌀6.5 mm tube exits and the rod-hang channel so the bag spouts and the hanger rod seat clean.
+Print the transparent-PETG parts — the two enclosure halves (front + back), reservoir-pockets cradle, funnel — plus the PET-CF faucet stack and the pump cases. Deburr the ⌀6.5 mm tube exits and the rod-hang channel so the bag spouts and the hanger rod seat clean.
 
 ### 2. Hang the bag rod and load the bags
 
@@ -54,19 +54,19 @@ Run the clear-PVC and LLDPE lines per [`fluid-topology-manifold.mmd`](/pie-in-th
 
 ### 6. Mount the funnel
 
-Seat the funnel on the front (−X), inlet flush with the enclosure lid, spout reaching back to V-B on source-select. Geometry: [`funnel/README.md`](/pie-in-the-sky/lite/printed-parts/funnel/README.md).
+Drop the funnel into the top-wall opening to the right of the display — brim resting on the lid, collar press-fit in the opening — with the spout reaching down to V-B on source-select. Geometry: [`funnel/README.md`](/pie-in-the-sky/lite/printed-parts/funnel/README.md).
 
 ### 7. Wire the electronics
 
-Mount the ESP32, MCP23017 expander, ULN2803A drivers, motor driver, and 12 V supply, and wire them to the two pumps, the manifold solenoids, the round display, and the air switch — the same parts family and dispense logic as the main appliance, minus every sensor the Lite omits (no level reeds, no moisture telltale). The electronics-shelf housing is undesigned (see Open items).
+Mount the ESP32, MCP23017 expander, ULN2803A drivers, motor driver, and 12 V supply, and wire them to the two pumps, the manifold solenoids, the Waveshare 4.3″ config display, and the air switch — the same parts family and dispense logic as the main appliance, minus every sensor the Lite omits (no level reeds, no moisture telltale). The electronics-shelf housing is undesigned (a placeholder in the +X channel beside the reservoir; see Open items).
 
 ### 8. Install the faucet and through-counter UI
 
-Install the Touch-Flo faucet through the counter per its own [`ASSEMBLY.md`](/hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md), with the carbonated-water inlet stub fed from the customer's Lillium output and the two flavor lines injecting at the nozzle. Mount the KRAUS air switch and the RP2040 round display through the counter alongside it.
+Install the Touch-Flo faucet through the counter per its own [`ASSEMBLY.md`](/hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md), with the carbonated-water inlet stub fed from the customer's Lillium output and the two flavor lines injecting at the nozzle. Mount the KRAUS air switch through the counter alongside it. (The Waveshare 4.3″ config display lives in the enclosure facet, not through the counter — it is seated when the halves close, step 9.)
 
 ### 9. Close the enclosure
 
-Lower the assembled contents into the enclosure shell, the funnel inlet rising through the lid hole flush with the cabinet top, and close it. The +X doorway faces the cabinet back for bag-swap access; the −X wall is the front, carrying the manifold ports and the pump column.
+Lower the contents into the back half, seat the Waveshare 4.3″ display in the front half's facet, then telescope the front half onto the back and drive the four corner M3 cross-pins from the ±X exterior. The funnel brim sits flush on the top; the reservoir's +Y doorway faces the cabinet back — exposed when the back half is pulled — for bag-swap access; the −Y wall is the front, carrying the display facet, the front tray stack, and the pumps.
 
 ## Output condition
 
@@ -76,18 +76,17 @@ A finished Lite Edition unit:
 - Manifold + pumps assembled and plumbed per the fluid topology
 - Electronics wired to pumps, valves, display, and air switch
 - Faucet + air switch + display installed through-counter; faucet inlet ready for the Lillium hose
-- Contents closed inside the transparent enclosure, funnel inlet flush with the lid
+- Contents closed inside the transparent split-half enclosure, display seated in the facet, funnel brim flush on the lid
 
 Ready to install under-sink beside a Lillium-class carbonator; the customer completes the Lillium pairing, prime, and first fill per [`README.md`](/pie-in-the-sky/lite/README.md) "Setup, priming, and refill".
 
 ## Open items
 
-The Lite Edition is still substantially undesigned ([`README.md`](/pie-in-the-sky/lite/README.md) "Not designed" + "Open questions"). Before this procedure is buildable:
+The Lite Edition still has open detail ([`README.md`](/pie-in-the-sky/lite/README.md) "Added scope" + "Open questions"). The enclosure shell, bag cradle, and hopper are now designed; remaining before this procedure is fully buildable:
 
-- **Enclosure detail.** Mounting feet, the pump-access door, and the rear faucet-inlet stub that accepts the Lillium hose are not designed.
+- **Enclosure detail.** Within the [split-half shell](/pie-in-the-sky/lite/enclosure/): mounting feet, a pump-access provision, and the rear faucet-inlet stub that accepts the Lillium hose are not yet drawn.
 - **Bag-port fitting.** What mates to the Platypus spout, and whether one low port serves both fill and draw or a second port is needed.
-- **Electronics-shelf housing.** A discrete printed part or a feature of the enclosure shell.
-- **Hopper mounting.** Part of the enclosure shell or a separate mounted part.
+- **Electronics-shelf housing.** A discrete printed part to replace the placeholder box in the +X channel beside the reservoir.
 - **Firmware.** The manual-prime, no-sensor build.
 - **Iteration lock.** Whether the faucet, pump-case, and cap-sense-sleeve versions on file are the shipping versions.
 
