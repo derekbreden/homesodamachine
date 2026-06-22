@@ -68,10 +68,12 @@ platinum-compatible release film.
    casts voids this way; use only with no chamber.)
 4. **Clamp.** Hold the plate down with clamps or weight through the plate while it
    cures; a loosely-held plate flashes a soft fill at the brim parting line.
-5. **Cure, then post-cure bake.** After primary cure, **bake per the maker's
-   spec** (e.g. ~4 h at ~120 °C). This drives off residual platinum and cyclic
-   siloxanes (D4/D5/D6) and improves compression set so the collar holds. It is
-   the food-contact acceptance gate — see
+5. **Cure, then post-cure bake.** After primary cure, **bake per the silicone's
+   TDS** — typically **~4 h at ~200 °C (392 °F)** (industry norm 160–200 °C for
+   2–6 h). The high-temp soak is what drives off residual platinum and cyclic
+   siloxanes (D4/D5/D6) and improves compression set so the collar holds; a
+   filament dryer (≤110 °C) is far too cool. It is the food-contact acceptance
+   gate — see
    [wetted-surface-test.md](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md).
 6. **Demold.** Respect the full demold time before pulling the thin spout; lift
    the core out (it peels off the plug), then pop the funnel from the cavity.
