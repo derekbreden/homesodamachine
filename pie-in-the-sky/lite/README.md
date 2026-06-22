@@ -24,9 +24,9 @@ A transparent consumer-grade enclosure wrapping the flavor-injection half of the
 - **A valve manifold** with the same source-selection / output-routing pattern as the main appliance. Hopper input, bag output to faucet, clean-cycle paths. Lite divergences — BiB dispenses direct with no chilled pre-load, clean water comes from the Lillium, and the runs the user sees through the enclosure go clear — in [`fluid-topology-manifold.mmd`](/pie-in-the-sky/lite/fluid-topology-manifold.mmd).
 - **A faucet** — Westbrass Touch-Flo or equivalent through-counter dispense — with the carbonated water line entering its inlet from the customer's Lillium output, and the two flavor lines injecting at the nozzle alongside the carbonated water.
 - **A flavor-select air switch** (KRAUS or equivalent), through-counter.
-- **An RP2040 round display** through-counter, showing the active flavor's logo.
+- **A config display** — the same Waveshare ESP32-S3-Touch-LCD-4.3B as the main appliance, set into a 45° facet at the top-front-left of the enclosure (angled up to the user), showing the active flavor by default and reaching settings on touch. Same front display as the Kitchen edition.
 - **Electronics shelf** — ESP32, MCP23017 expander, ULN2803A drivers, motor driver, 12 V supply. Same parts family as the main appliance.
-- **A transparent PETG enclosure** sized for under-sink placement. No refrigeration loop means no compressor, no condenser, no fan, no foam shell, no hydrocarbon-refrigerant shroud — the cabinet is meaningfully smaller than the main appliance's.
+- **A transparent PETG enclosure** sized for under-sink placement. The same split-half (front + back) cross-pinned shell as the main appliance, with the display facet and a drop-in hopper opening — but no refrigeration loop, so no compressor, condenser, fan, foam shell, or hydrocarbon-refrigerant shroud; the reservoir-pockets bag box is the heavy back-bottom anchor instead of the cold core, and the cabinet is meaningfully smaller than the main appliance's.
 
 ## What the Lite Edition does not contain
 
@@ -121,14 +121,14 @@ Reservoirs are off-the-shelf collapsible bags, not printed (see "What the Lite E
 - [`cap-sense-sleeve/`](/hardware/printed-parts/flavor/cap-sense-sleeve/) — +Y and -Y STEPs generated. No print-log or README.
 - [`buckle/`](/hardware/printed-parts/flavor/buckle/) — only `discussion.md` on file; no STEP, no cadquery. Not designed yet.
 
-### Not designed — added scope for the Lite Edition
+### Added scope for the Lite Edition — what is now designed, what is not
 
-The existing prototype lives ad-hoc on the counter; the Lite Edition wraps it in a consumer form. Parts that don't exist yet because the prototype does without them:
+The existing prototype lives ad-hoc on the counter; the Lite Edition wraps it in a consumer form. The pieces the prototype does without:
 
-- **Enclosure shell.** The cold-core enclosure docs ([`back-panel/`](/hardware/printed-parts/enclosure/back-panel/), [`front-panel/`](/hardware/printed-parts/enclosure/front-panel/), [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/)) are sized and oriented for the integrated appliance — side-to-side condenser airflow, rear-panel CO2 / water inlets, compressor compartment, foam-shell back wall. None of that applies. A separate, smaller enclosure design is its own pass: footprint, panel layout, faucet pass-through, hopper opening, pump-cartridge access door, electronics mount, mounting feet, rear inlet for the Lillium carbonated-water hose.
-- **Bag cradle.** Holds each bag spout-down with the port at the low point. Undesigned: tilt/funnel geometry, how the port exits the low point, how the bag is retained as it deflates.
-- **Hopper.** Cold-core docs reference an enclosure-integrated hopper for top-fill. Lite-side, the hopper is either part of the new enclosure shell or a separate part that mounts to it.
-- **Electronics-shelf housing.** Cold-core has an electronics shelf at the top-back. Lite-side, the electronics take a smaller home — either a discrete printed part or a feature of the new enclosure shell.
+- **Enclosure shell — designed.** [`enclosure/`](/pie-in-the-sky/lite/enclosure/) — the same split-half (front + back) cross-pinned shell as the Kitchen edition, sized live to the contents, with the 45° display facet at the top-front-left and a drop-in hopper opening to its right. The reservoir-pockets box is the heavy back-bottom anchor (doorway facing the cabinet back), where the Kitchen has its cold core. The Kitchen's `back-panel/` / `front-panel/` / `nameplate/` subfolders are sized for the integrated appliance (side-to-side condenser airflow, rear-panel CO2 / water inlets, compressor compartment) — none of that applies, so the Lite has no equivalents. Still open within the shell: mounting feet, a pump-access provision, and the rear faucet-inlet stub for the Lillium hose.
+- **Bag cradle — designed.** [`reservoir-pockets/`](/pie-in-the-sky/lite/printed-parts/reservoir-pockets/) — two pockets holding each bag spout-down, with a rod-hang channel and low ⌀6.5 mm spout exits.
+- **Hopper — designed.** [`funnel/`](/pie-in-the-sky/lite/printed-parts/funnel/) — a drop-in pour-through funnel whose collar is derived from the enclosure's hopper opening (the Kitchen `zone-c` idiom), seated right of the display.
+- **Electronics-shelf housing — not designed.** Cold-core has an electronics shelf at the top-back. Lite-side, the electronics take a smaller home — represented as a placeholder box in the dead +X channel beside the reservoir until a discrete printed part is drawn.
 
 ### Open questions that surface from this walk
 
