@@ -1,7 +1,7 @@
 """Assembled power tray: the tray with the PSU, relay #1, and the three Wago
 AC-distribution connectors seated, plus the ground ring-terminal stack.
 
-``build_assembly(L)`` works for any Layout, so the narrow variant reuses it."""
+``build_assembly(L)`` takes a ``Layout`` from power_tray and seats the parts."""
 
 import sys
 from pathlib import Path
