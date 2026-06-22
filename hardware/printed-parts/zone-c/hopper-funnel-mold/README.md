@@ -53,7 +53,9 @@ platinum-compatible release film.
    the press-fit collar, and flexes to clean — and the funnel never has to be
    self-supporting, since the rigid opening cradles it during a pour. Select for
    **high tear-strength / elongation**; the 2 mm spout wall is the weak link on
-   demold. One funnel is about [69 mL](SIL_VOLUME) of silicone.
+   demold. One funnel is about [69 mL](SIL_VOLUME) of silicone. BBDINO rates it
+   food-contact safe for **fat-free foods** — fine here: the concentrate is a
+   sugar/sucralose syrup with no fat.
 2. **Release + inhibition.** Platinum silicone is cure-poisoned by sulfur, tin,
    amines, and many release agents — a bad release leaves an uncured, tacky layer
    on the food face. Use a **platinum-compatible (addition-cure) release**, or
@@ -70,12 +72,14 @@ platinum-compatible release film.
    casts voids this way; use only with no chamber.)
 4. **Clamp.** Hold the plate down with clamps or weight through the plate while it
    cures; a loosely-held plate flashes a soft fill at the brim parting line.
-5. **Cure, then post-cure bake.** After primary cure, **bake per the silicone's
-   TDS** — typically **~4 h at ~200 °C (392 °F)** (industry norm 160–200 °C for
-   2–6 h). The high-temp soak is what drives off residual platinum and cyclic
+5. **Cure, then post-cure bake.** BBDINO 40A cures at room temperature (~5 h to
+   demold, no post-cure in its instructions) and is rated to **230 °C / 446 °F**
+   once cured — so the bake below sits well within its limit. For food contact,
+   add a drive-off **bake of ~4 h at ~200 °C (392 °F)** (industry norm
+   160–200 °C, 2–6 h): the high-temp soak clears residual platinum + cyclic
    siloxanes (D4/D5/D6) and improves compression set so the collar holds; a
-   filament dryer (≤110 °C) is far too cool. It is the food-contact acceptance
-   gate — see
+   filament dryer (≤110 °C) is far too cool. This bake — not BBDINO's room-temp
+   cure — is the food-contact acceptance gate — see
    [wetted-surface-test.md](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md).
 6. **Demold.** Respect the full demold time before pulling the thin spout; lift
    the core out (it peels off the plug), then pop the funnel from the cavity.
