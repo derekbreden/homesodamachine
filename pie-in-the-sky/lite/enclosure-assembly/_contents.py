@@ -20,10 +20,11 @@ that placement leaves:
     front), and the two flavor pumps stacked one above the other in the column's
     BACK half (the +Y space the reservoir does not reach). Keeping the pumps off
     the front zone is what keeps the box narrow in X.
-  * Zone D (front, low):  the two short trays (bib-gate, nozzle-gate) stacked
-    flat in the front-left corner under the display facet, the electronics shelf
-    in the front-zone void just to their right, and bag-circuit laid flat across
-    the front-zone top above them.
+  * Zone D (front, low):  the power tray (Mean Well PSU + Wago distribution +
+    ground stack, no relay) stood vertical as a side-wall panel in the front-left
+    corner; the two short trays (bib-gate, nozzle-gate) stacked flat just right of
+    it under the display facet; and bag-circuit laid flat across the front-zone
+    top above them.
   * Zone C (front top):  the hopper opening + funnel (added in the assembly,
     derived from the enclosure) drops in over the front zone.
 
@@ -56,6 +57,7 @@ TRAY_STEPS = {
 }
 PUMP_STEP = _hw / "reference" / "kamoer-kphm400" / "kamoer-kphm400.step"
 RES_STEP = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "reservoir-pockets" / "reservoir-pockets.step"
+POWER_STEP = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "electronics" / "power-tray" / "power-assembly.step"
 
 # --- Packing parameters (free design choices, not measured geometry) ------
 # Reservoir -Y (front) face Y. Seated just behind where the split-plane cross-pin
@@ -77,8 +79,8 @@ TRAY_PITCH = 63.0
 # so it is lifted clear of them — the Kitchen `FOAM_LIFT` idiom.
 FLOOR_LIFT = 14.0
 # bag-circuit lies flat across the front-zone top; its underside sits just clear
-# of the lifted short-tray tops.
-BAG_TOP_Z = 142.0
+# of the vertical power panel's top (z ~= 148).
+BAG_TOP_Z = 150.0
 # Both pumps stack one above the other in the column BEHIND source-select (the
 # +Y half of the right channel, which the reservoir does not reach) — a narrow
 # footprint that keeps them off the front zone so the box stays narrow in X.
@@ -86,12 +88,12 @@ BAG_TOP_Z = 142.0
 # noted in the README.)
 PUMP_BACK_GAP = 1.0        # gap from source-select's back face to the pump stack (Y)
 PUMP_STACK_GAP = 2.0       # gap between the two stacked pumps (Z)
-# Electronics shelf — consolidated stand-in for the Lite's undesigned 12 V /
-# logic / driver stack (ESP32, MCP23017, ULN2803A, L298N, 12 V supply). A solid
-# placeholder, like the Kitchen's condenser/SeaFlo boxes, tucked into the
-# front-zone void just right of the short-tray stack.
-ELEC_GAP = 4.0                    # gap from the short-tray stack to the electronics
-ELEC_DIMS = (28.0, 70.0, 72.0)    # X x Y (in the front zone) x Z (height)
+# The power tray (../printed-parts/electronics/power-tray/ — Mean Well PSU + Wago
+# AC distribution + ground stack, no relay) stands vertical against the -X wall
+# in the front-left corner: a side-wall electronics panel, its 134 mm length up
+# Z, so its 40.5 mm depth is all it costs in X. The short-tray stack shifts +X to
+# clear it.
+POWER_X_GAP = 2.5    # gap from the power panel to the short-tray stack
 
 # --- Colors ---------------------------------------------------------------
 RES_COLOR = cq.Color(0.60, 0.80, 1.00, 0.28)
@@ -105,7 +107,7 @@ PUMP_COLORS = {
     "pump-lower": cq.Color(0.38, 0.40, 0.44),     # dark slate
     "pump-upper": cq.Color(0.56, 0.58, 0.62),     # light slate
 }
-ELEC_COLOR = cq.Color(0.30, 0.55, 0.45)       # teal placeholder
+POWER_COLOR = cq.Color(0.85, 0.78, 0.62)      # PETG tan tray
 
 
 def _load(path):
@@ -159,23 +161,25 @@ def build():
     placed["pump-lower"] = (pump_lo, PUMP_COLORS["pump-lower"])
     placed["pump-upper"] = (pump_up, PUMP_COLORS["pump-upper"])
 
-    # --- Zone D: the two short trays stacked flat in the front-left corner
+    # --- Power tray stood vertical against the -X wall, front-left corner: its
+    # 134 mm length up Z (rotate -90 about Y), so it costs only its 40.5 mm depth
+    # in X. Lifted clear of the bottom bosses.
+    power = _place(_rot(_load(POWER_STEP), (0, 1, 0), -90.0), xmin=0.0, ymin=0.0, zmin=FLOOR_LIFT)
+    placed["power-tray"] = (power, POWER_COLOR)
+    stack_x0 = power.BoundingBox().xmax + POWER_X_GAP   # short trays start right of the panel
+
+    # --- Zone D: the two short trays stacked flat just right of the power panel
     # (native orientation, long axis along X), under the display facet, lifted
     # clear of the bottom corner bosses.
-    bib = _place(_load(TRAY_STEPS["bib-gate"]), xmin=0.0, ymin=0.0, zmin=FLOOR_LIFT)
-    noz = _place(_load(TRAY_STEPS["nozzle-gate"]), xmin=0.0, ymin=0.0, zmin=FLOOR_LIFT + TRAY_PITCH)
+    bib = _place(_load(TRAY_STEPS["bib-gate"]), xmin=stack_x0, ymin=0.0, zmin=FLOOR_LIFT)
+    noz = _place(_load(TRAY_STEPS["nozzle-gate"]), xmin=stack_x0, ymin=0.0, zmin=FLOOR_LIFT + TRAY_PITCH)
     placed["bib-gate"] = (bib, COLORS["bib-gate"])
     placed["nozzle-gate"] = (noz, COLORS["nozzle-gate"])
 
-    # bag-circuit lies flat across the front-zone top above the short trays
-    # (native orientation; elbows up into the open air below the facet/hopper).
-    bag = _place(_load(TRAY_STEPS["bag-circuit"]), xmin=0.0, ymin=0.0, zmin=BAG_TOP_Z)
+    # bag-circuit lies flat across the front-zone top above the short trays and
+    # the power panel (native orientation; elbows up into the open air below the
+    # facet/hopper). Flush +X to the column line.
+    bag = _place(_load(TRAY_STEPS["bag-circuit"]), xmax=src.BoundingBox().xmax, ymin=0.0, zmin=BAG_TOP_Z)
     placed["bag-circuit"] = (bag, COLORS["bag-circuit"])
-
-    # --- electronics shelf: the front-zone void just right of the short-tray
-    # stack (the front-right is now free — the pumps moved to the back column).
-    elec = _place(_box(*ELEC_DIMS),
-                  xmin=bib.BoundingBox().xmax + ELEC_GAP, ymin=0.0, zmin=FLOOR_LIFT)
-    placed["electronics"] = (elec, ELEC_COLOR)
 
     return placed
