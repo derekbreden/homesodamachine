@@ -90,24 +90,19 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
                                  # corner pod clean through (it overhangs the hole otherwise)
 
 # Hopper funnel opening (Zone C) — a rectangular hole through the top wall, right
-# of the display housing and flush to the front, where the removable funnel
-# (../../printed-parts/funnel/) drops in: its brim rests on the top, its straight
-# collar press-fits the opening, and its bore ramps down to a spout inside. Sized
-# to the room to the right of the display; the +X edge is clamped clear of the
-# top-right corner pod.
-# The opening is narrower in X than the wide Kitchen hopper (a quarter-turn) but
-# kept usable — wide enough to pour into, deep enough for a real ramp. Its depth
-# is clamped to stay in front of the seam lip so the funnel and the split never
-# interfere.
-hopper_hole_x = 90.0    # opening width (X), nominal before the corner-pod clamp
-hopper_hole_y = 95.0    # opening depth (Y); clamped to the seam in _hopper_hole
+# of the display housing, where the removable funnel (../../printed-parts/funnel/)
+# drops in: its brim rests on the top, its straight collar press-fits the opening,
+# and its bore ramps down to a spout inside. A NARROW-X, DEEP-Y slot (the Kitchen
+# hopper turned a quarter-turn): its -X edge sits just right of the tall bag-circuit
+# tray, its +X edge runs flush to the top-right corner pod (no dead strip), and it
+# reaches the full front-half depth back to the seam lip. The short trays beneath
+# it are kept low, so the deep slot has a tall clear chute for a big pour buffer.
 # Split-plane Y. The box fits the print bed whole, so the split is an ACCESS
 # choice — its only hard constraint is the hopper (the seam must not run across
-# the opening). Pushed all the way forward to the minimum that keeps the display
-# housing whole in the front half (the facet back reaches ~80 mm); the front
-# trays end just ahead of it and the reservoir is pulled up right behind it, so
-# the seam sits in the thin gap between the two zones instead of in a dead band.
-split_y = 80.0
+# the opening). It rides in the gap between the front zone (the trays + pumps,
+# whose backs land just ahead of it) and the reservoir (seated just behind it),
+# while staying behind the display housing so the facet is whole in the front half.
+split_y = 176.0
 
 # Split + boss parameters — every dimension sized to its function. The seam is a
 # Y plane; the front half's full-wall rear lip telescopes into the back; four
@@ -317,24 +312,25 @@ def _facet_end_wall(inner, outer):
 # --- hopper funnel opening (Zone C) -----------------------------------------
 
 def _hopper_hole(inner, outer):
-    """Rectangle (x0, x1, y0, y1) of the funnel opening in the top wall: its −X
-    edge flush past the display end-wall gusset (right of the facet), its −Y edge
-    flush with the inner front wall, width/depth from the hopper parameters — the
-    +X edge clamped to clear the top-right corner pod's inboard end, the +Y edge
-    clamped to stay in front of the seam lip so the whole opening lives in the
-    front half. The companion funnel (../../printed-parts/funnel/) derives its
-    collar from this same rect."""
+    """Rectangle (x0, x1, y0, y1) of the funnel opening in the top wall — a
+    narrow-X, deep-Y slot. Its −X edge sits right of BOTH the display gusset and
+    the tall bag-circuit tray (so the funnel chute clears that tray); its +X edge
+    runs flush to the top-right corner pod's inboard end (no dead strip of wall);
+    its −Y edge is flush with the inner front wall; its +Y edge is clamped to stay
+    just in front of the seam lip, so the deep slot still lives wholly in the front
+    half. The companion funnel (../../printed-parts/funnel/) derives its collar
+    from this same rect."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
-    x0 = ox0 + display_facet_x + wall                  # just past the facet gusset
     pod_in = ix1 + wall - (head_cbore_depth + screw_len + socket_cap)
-    x1 = min(x0 + hopper_hole_x, pod_in - 1.0)         # clear the top-right pod
-    # Keep the opening (and its funnel) entirely in front of the seam lip, so the
-    # funnel and the split never interfere — the lip is left whole. Use the actual
-    # joint (the split is set behind the funnel), not just the facet minimum.
+    x1 = pod_in - 1.0                                        # flush to the top-right corner pod
+    x0 = ox0 + display_facet_x + wall                        # just past the facet gusset
+    bag = _contents.build()["bag-circuit"][0].BoundingBox()
+    if bag.xmax + 3.0 < x1:                                  # clear the tall bag tray when it falls in span
+        x0 = max(x0, bag.xmax + 3.0)                         # (skipped on the reduced coupon box)
     _a, _n, _o, dy, _dz = _facet_geom(outer)
     y_joint = max(oy0 + dy + display_facet_thickness * math.sqrt(2.0) + 2.0, split_y)
-    y1 = min(iy0 + hopper_hole_y, y_joint - wall - 2.0)
+    y1 = y_joint - wall - 2.0                                # just in front of the seam lip
     return x0, x1, iy0, y1
 
 
