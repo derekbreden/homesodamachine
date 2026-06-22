@@ -60,7 +60,7 @@ Drop the funnel into the top-wall opening to the right of the display — brim r
 
 ### 7. Wire the electronics
 
-Mount the ESP32, MCP23017 expander, ULN2803A drivers, motor driver, and 12 V supply, and wire them to the two pumps, the manifold solenoids, the Waveshare 4.3″ config display, and the air switch — the same parts family and dispense logic as the main appliance, minus every sensor the Lite omits (no level reeds, no moisture telltale). The electronics-shelf housing is undesigned (a placeholder in the +X channel beside the reservoir; see Open items).
+Mount the 12 V supply + AC distribution on the [power tray](/pie-in-the-sky/lite/printed-parts/electronics/power-tray/) (Mean Well PSU + Wagos + ground stack, no relay) — it stands vertical as a side-wall panel in the front-left corner. Mount the ESP32, MCP23017 expander, ULN2803A drivers, and motor driver, and wire everything to the two pumps, the manifold solenoids, the Waveshare 4.3″ config display, and the air switch — the same parts family and dispense logic as the main appliance, minus every sensor the Lite omits (no level reeds, no moisture telltale). The logic/driver-board tray is still undesigned (see Open items).
 
 ### 8. Install the faucet and through-counter UI
 
@@ -88,7 +88,7 @@ The Lite Edition still has open detail ([`README.md`](/pie-in-the-sky/lite/READM
 
 - **Enclosure detail.** Within the [split-half shell](/pie-in-the-sky/lite/enclosure/): mounting feet, a pump-access provision, and the rear faucet-inlet stub that accepts the Lillium hose are not yet drawn.
 - **Bag-port fitting.** What mates to the Platypus spout, and whether one low port serves both fill and draw or a second port is needed.
-- **Electronics-shelf housing.** A discrete printed part to replace the placeholder box in the +X channel beside the reservoir.
+- **Logic/driver-board tray.** The [power tray](/pie-in-the-sky/lite/printed-parts/electronics/power-tray/) (PSU + AC distribution) is designed; the ESP32 / MCP23017 / ULN2803A / L298N still want their own module tray.
 - **Firmware.** The manual-prime, no-sensor build.
 - **Iteration lock.** Whether the faucet, pump-case, and cap-sense-sleeve versions on file are the shipping versions.
 
