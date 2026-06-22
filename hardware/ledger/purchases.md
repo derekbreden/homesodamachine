@@ -510,6 +510,17 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 | 2026-05-10 | 7139410 / 0510DBREDENSTEINER | 316 SS Ultra-Low-Profile SHCS, M3 × 0.50 × 8 mm (P/N 91223A413) — shelf spare (superseded by M3×6, then obsolete) | $59.67 | ACQUIRED (delivered May 13, obsolete) |
 | 2026-05-22 | 7833043 / 0522DBREDENSTEINER | 316 SS Ultra-Low-Profile SHCS, M3 × 0.50 × 6 mm (P/N 91223A412) — shelf spare (obsolete on arrival) | $51.69 | ACQUIRED (delivered May 23, obsolete) |
 
+## 21. Silicone molding — Zone C hopper-funnel
+
+Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hopper-funnel ([printed-parts/zone-c/](/hardware/printed-parts/zone-c/README.md)): a two-piece printed mold poured with food-grade platinum silicone and vacuum-degassed in a chamber driven by the §6 Orion 4 CFM vacuum pump (B08P1WRZ1S) + 1/4" SAE manifold. The base silicone (BBDINO 40A food-contact platinum, [B0FHHBGSQK](https://www.amazon.com/dp/B0FHHBGSQK), ~$35.16) is not yet purchased.
+
+| Part | ASIN link | Qty | $ | Status |
+|---|---|---|---|---|
+| PB Motor Tech 5-gallon stainless vacuum chamber, 18.9 L, 11.8" × 11.8" interior, tempered-glass lid + glycerin gauge + shutoff valve + hose — degassing chamber for the silicone hopper-funnel pours; mates the §6 Orion 4 CFM vacuum pump via 1/4" SAE flare. Order #112-7063184-8235469, placed June 22, 2026 | [B0D78ZM928](https://www.amazon.com/dp/B0D78ZM928) | 1 | $95.99 | ON-ORDER (arriving Jun 24) |
+| BBDINO black silicone pigment, high-concentrated platinum-cure, 150 g — colorant for the cast hopper-funnel at ≤2% by weight (carbon-black, hides concentrate staining; food-contact qualified by the wetted-surface screen per [reservoir/wetted-surface-test.md](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md), not a cert). Order #112-7063184-8235469, placed June 22, 2026 | [B0BVR3R58V](https://www.amazon.com/dp/B0BVR3R58V) | 1 | $18.97 | ON-ORDER (arriving Jun 24) |
+| Mann Ease Release 200, 14 oz aerosol — platinum-silicone-safe mold release for the printed hopper-funnel mold (cavity side; kept off the food-contact core). Order #112-0411698-8891425, placed June 22, 2026 | [B002YEBO1O](https://www.amazon.com/dp/B002YEBO1O) | 1 | $21.99 | ON-ORDER (arriving Jun 23) |
+| TCP Global 32 oz / 1000 mL graduated mixing cups (25-pk) — silicone-degassing batch cups, sized for the 3–4× vacuum rise of a ~150 mL pour. Order #112-0401256-3893007, placed June 22, 2026 | [B08HNCGY4N](https://www.amazon.com/dp/B08HNCGY4N) | 1 pk (25) | $17.99 | ON-ORDER (arriving Jun 22) |
+
 ---
 
 ## Still needed — LIKELY-TO-BUY
@@ -527,10 +538,10 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$26,709.43](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$29,317.35](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$816.56](LEDGER_ON_ORDER) |
+| ON-ORDER | [$971.50](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$30,176.80](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$30,331.74](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
