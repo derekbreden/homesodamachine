@@ -1,7 +1,7 @@
 # Funnel (hopper)
 
-The removable hopper you pour SodaStream concentrate into. It drains through its
-spout to **V-B** on the [source-select tray](/hardware/printed-parts/valve-manifold/source-select-tray/)
+The removable hopper you pour SodaStream concentrate into. It drains to **V-B**
+on the [source-select tray](/hardware/printed-parts/valve-manifold/source-select-tray/)
 — fluid topology [segment 4](/hardware/topology/fluid-topology.md),
 "Hopper funnel bottom → V-B-I". A **pour-through guide**, not a batch reservoir:
 what you pour gets pumped straight on to a bag.
@@ -24,10 +24,11 @@ opening:
   straight rectangular drop.
 - **Ramp + spout.** Below the chute a shallow ramp narrows to a round
   [6.35 mm](SPOUT_ID) spout (1/4", matching the pump tubing), offset toward the
-  source-select column. The ramp necks one mm above the tallest content below
-  (read live), then a short straight spout tube carries the exit on down toward
-  V-B. Total drop [94 mm](HOPPER_DROP) below the brim; capacity to the brim
-  rim ≈ [488 mL](HOPPER_CAP).
+  source-select side. The ramp necks one mm above the tallest content below the
+  mouth (read live — the front bag-circuit tray); a short flexible tube then
+  carries the pour on to V-B (the spout does not land on V-B directly, same as
+  the Kitchen hopper). Total drop [80 mm](HOPPER_DROP) below the brim; capacity
+  to the brim rim ≈ [440 mL](HOPPER_CAP).
 
 The chute footprint is taken from the enclosure's opening rectangle
 (`enclosure.py` `_hopper_hole`), so the funnel and hole always match.

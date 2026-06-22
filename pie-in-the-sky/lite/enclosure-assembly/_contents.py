@@ -157,8 +157,9 @@ def build():
 
     # --- Zone B: source-select stood vertical (rotate +90 about Y so its long
     # axis runs up Z; footprint 63 x 93), flush to the +X column, under the
-    # hopper, front-aligned with the reservoir so its V-B port sits below the
-    # funnel spout.
+    # hopper, front-aligned with the reservoir with its V-B port toward the
+    # front for the short hopper-feed tube (the funnel necks above the front
+    # trays, not onto V-B — the Kitchen idiom).
     src = _place(_rot(_load(TRAY_STEPS["source-select"]), (0, 1, 0), 90.0),
                  xmax=RIGHT_X, ymin=RES_FRONT_Y, zmin=0.0)
     placed["source-select"] = (src, COLORS["source-select"])
