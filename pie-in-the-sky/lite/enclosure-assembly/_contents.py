@@ -16,9 +16,10 @@ zone, ahead of the reservoir:
   * Back band (against the split):  the two LONG-axis trays stood vertical, side
     by side — source-select and bag-circuit — long axis up Z, footprints ~63 mm
     wide so two fit across the narrow box. They sit behind the pump stack.
-  * Front-left:  the two flavor pump ASSEMBLIES (Kamoer pump + 90 deg outlet
-    elbows), stacked one above the other (turned a quarter-turn so the elbow span
-    runs in X, the shallower 72 mm depth in Y), a single narrow footprint.
+  * Right-front void:  the two flavor pump ASSEMBLIES (Kamoer pump + 90 deg outlet
+    elbows), laid on their sides with the motor cylinders pointing at the -X wall,
+    heads stacked at the void's bottom-right corner. The thin motors reach left
+    across the vacated front-left.
   * Back-right:  the two SHORT trays (bib-gate, nozzle-gate) STACKED into one
     footprint, pushed back with their backs on the split. Each tray is linear
     (tees one end, elbows the other); nozzle is flipped end-for-end so the small
@@ -73,11 +74,11 @@ RES_X_INSET = 6.0
 # across the seam. Floor content against a side wall would foul the bottom pods,
 # so it is lifted clear of them — the Kitchen `FOAM_LIFT` idiom.
 FLOOR_LIFT = 14.0
-# Front-zone Y stations. The two pump assemblies stack at the very front; the two
-# long trays (source-select, bag-circuit) stand just behind them, their backs on
-# the split. Gaps keep the real solids clear.
-PUMP_FRONT_Y = 5.0         # pump stack front face
-PUMP_TO_TRAY_GAP = 2.5     # gap from the pump stack back to the vertical trays (Y)
+# Front-zone Y stations. The two pump assemblies sit in the right-front void with
+# their motor cylinders pointing at the -X wall; the long trays stand behind them.
+PUMP_FRONT_Y = 5.0         # pump front face
+PUMP_HEAD_X = 200.0        # the pump heads' +X face (the void's bottom-right corner)
+PUMP_TO_TRAY_GAP = 2.5     # gap from the pump back to the vertical trays (Y)
 STACK_GAP = 2.0            # vertical gap between stacked parts (Z)
 TRAY_GAP_X = 3.0           # gap between side-by-side vertical trays (X)
 # The short trays (bib, nozzle) STACK into one footprint at the back-right (backs
@@ -133,14 +134,16 @@ def _place(shape, *, xmax=None, xmin=None, ymin=None, ymax=None, zmin=None, zmax
 def build():
     placed = {}
 
-    # --- Front-left: the two pump ASSEMBLIES (with elbows), stacked. Turned a
-    # quarter-turn about Z so the elbow span (89.5 mm) runs in X and the shallower
-    # 71.7 mm depth runs in Y, keeping the front zone short.
-    pump_lo = _place(_rot(_load(PUMP_STEP), (0, 0, 1), 90.0),
-                     xmin=X_INSET, ymin=PUMP_FRONT_Y, zmin=FLOOR_LIFT)
+    # --- Right-front void: the two pump ASSEMBLIES (with elbows), laid on their
+    # sides so the motor CYLINDERS point at the -X wall — bulky heads at +X, thin
+    # motors reaching left. Heads stacked at the void's bottom-right corner; the
+    # motors reach left across the (now vacated) front-left, where nothing else
+    # sits, so they stay clear. (Orientation: rot +90 Z, then +90 Y to lay the
+    # motor along X, then 180 Z to point it -X with the head at +X.)
+    pump_neg_x = _rot(_rot(_rot(_load(PUMP_STEP), (0, 0, 1), 90.0), (0, 1, 0), 90.0), (0, 0, 1), 180.0)
+    pump_lo = _place(pump_neg_x, xmax=PUMP_HEAD_X, ymin=PUMP_FRONT_Y, zmin=FLOOR_LIFT)
     pb = pump_lo.BoundingBox()
-    pump_up = _place(_rot(_load(PUMP_STEP), (0, 0, 1), 90.0),
-                     xmin=X_INSET, ymin=PUMP_FRONT_Y, zmin=pb.zmax + STACK_GAP)
+    pump_up = _place(pump_neg_x, xmax=PUMP_HEAD_X, ymin=PUMP_FRONT_Y, zmin=pb.zmax + STACK_GAP)
     placed["pump-lower"] = (pump_lo, PUMP_COLORS["pump-lower"])
     placed["pump-upper"] = (pump_up, PUMP_COLORS["pump-upper"])
 
