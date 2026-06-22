@@ -132,7 +132,6 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Flavor reservoir body — right | 1 | PETG | 0.398 | $4.46 |
 | Flavor reservoir cap — left | 1 | PETG | 0.059 | $0.67 |
 | Flavor reservoir cap — right | 1 | PETG | 0.059 | $0.67 |
-| Magnet float (level sense) | 2 | PETG | 0.021 | $0.23 |
 | Cap-sense sleeve (2 clamshell halves) | 1 | PETG | 0.002 | $0.02 |
 | Controller tray | 1 | PETG | 0.031 | $0.35 |
 | Driver tray | 1 | PETG | 0.025 | $0.28 |
@@ -148,9 +147,9 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Valve tray — nozzle-gate | 1 | PETG | 0.043 | $0.48 |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.151 | $7.26 |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.65 |
-| **Printed parts total** | | | **~5.95** | **[$72.77](BOM_SEC7)** |
+| **Printed parts total** | | | **~5.93** | **[$72.54](BOM_SEC7)** |
 
-By material: PETG ≈ 5.79 kg / $64.86, PET-CF ≈ 0.16 kg / $7.91.
+By material: PETG ≈ 5.77 kg / $64.63, PET-CF ≈ 0.16 kg / $7.91.
 
 Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× foam-cap gasket, 2× reservoir gasket, 2× reservoir bulkhead dry washer, 2× reservoir vent retaining ring, 1× faucet mounting gasket, 1× faucet TPU o-ring. The hopper funnel is cast platinum-cure silicone (flavor subsystem). Printed tooling does not ship: the coil-winding mandrel, the foam-pour cap lids, the two-piece hopper-funnel silicone mold, and the single-valve cradle.
 
@@ -282,7 +281,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$172.20](BOM_SEC4) |
 | 5. Refrigeration | [$194.67](BOM_SEC5) |
 | 6. Cold core insulation | [$52.38](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$72.77](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$72.54](BOM_SEC7) |
 | 8. Flavor subsystem | [$268.65](BOM_SEC8) |
 | 9. Dispensing | [$53.74](BOM_SEC9) |
 | 10. UI | [$3.21](BOM_SEC10) |
@@ -290,7 +289,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.94](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,579.38](BOM_GRAND)** |
+| **Total** | **[$1,579.15](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
