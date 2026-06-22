@@ -60,11 +60,13 @@ RES_STEP = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "reservoir-pock
 POWER_STEP = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "electronics" / "power-tray" / "power-assembly.step"
 
 # --- Packing parameters (free design choices, not measured geometry) ------
-# Reservoir -Y (front) face Y. Seated behind the seam: the split is set just
-# behind the full-depth funnel (so the seam never crosses the hopper), and the
-# corner bosses run forward to the lip rim, so the reservoir front sits clear of
-# that rim. Mirrors the Kitchen `boss_to_coldcore` clear gap.
-RES_FRONT_Y = 110.0
+# Reservoir -Y (front) face Y. Pulled all the way up to just behind the split
+# (5 mm past it), closing the dead band that used to sit between the front zone
+# and the reservoir. Its bag pockets are inboard of the corner cross-pin pods, so
+# even butted to the seam it clears every split feature (plug, pod, brace, lip) —
+# verified zero overlap. This is what makes the funnel effectively butt the
+# reservoir: only the thin seam separates the two.
+RES_FRONT_Y = 85.0
 # Inset the reservoir off the −X wall so its full-height back-top corner clears
 # the top corner brace at the seam (which reaches ~1 mm inboard).
 RES_X_INSET = 3.0

@@ -48,7 +48,8 @@ brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 chute_h = 30.0          # straight rectangular chute height — brim top down to the ramp
                         # start. Leaves the rest of the drop for a real funnel ramp.
-neck_dx = 20.0          # neck (ramp foot + spout) shift in +X toward the source-select side
+neck_dx = 0.0           # spout centered under the opening — nothing below the mouth
+                        # to dodge (only the front bag-circuit lid), so no offset
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
 spout_tube = 6.0        # straight spout tube below the ramp tip — its length sets

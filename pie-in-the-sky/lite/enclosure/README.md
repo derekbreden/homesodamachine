@@ -91,7 +91,7 @@ the two always match.
 
 ## Dimensions
 
-Outer envelope [238 mm](LITE_OUTER_X) × [280 mm](LITE_OUTER_Y) × [305 mm](LITE_OUTER_Z)
+Outer envelope [238 mm](LITE_OUTER_X) × [255 mm](LITE_OUTER_Y) × [305 mm](LITE_OUTER_Z)
 (X × Y × Z) — smaller than the Kitchen edition (289 × 342 × 310) on every axis,
 because the Lite carries no cold core or refrigeration depth. Read live from the
 contents placed by `../enclosure-assembly/_contents.py`, so any move in the

@@ -29,7 +29,7 @@ opening:
   left below for a tube/barb fitting; a short flexible tube then carries the pour
   on to V-B (the spout does not land on V-B directly, same as the Kitchen
   hopper). Total drop [78 mm](HOPPER_DROP) below the brim; capacity to the brim
-  rim ≈ [336 mL](HOPPER_CAP).
+  rim ≈ [280 mL](HOPPER_CAP).
 
 The chute footprint is taken from the enclosure's opening rectangle
 (`enclosure.py` `_hopper_hole`), so the funnel and hole always match.
