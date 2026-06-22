@@ -3,15 +3,16 @@
 The AC-in / 12 V-out block of the Zone-B electronics shelf — the first of the
 electronics trays. It carries the mains-side parts on one printed frame:
 
+PSU turned 90° for a wide/shallow footprint:
+
 ```
-   ┌─────────────────────────────────────────┐
-   │  ○        ○      ○ (GND stud)            │
-   │    ┌──────┐   ┌────┐                      │
-   │    │ PSU  │   │relay│   ◹ ◹ ◹  Wagos —    │
-   │    │IRM-90│   │ #1 │    butt in slot,     │
-   │    └──────┘   └────┘    angled 45° up     │
-   │  ○        ○   ○    ○                      │
-   └─────────────────────────────────────────┘
+   ┌──────────────────────────────────────────────┐
+   │  ○(GND)                                         │
+   │   ┌────────────────────┐  ║relay║  ◹            │
+   │ ○ │   PSU (IRM-90)      │  ║ #1  ║  ◹  Wagos     │
+   │   │   turned 90°        │  ║     ║  ◹  (butt in  │
+   │ ○ └────────────────────┘  ║     ║     slot, 45°)│
+   └──────────────────────────────────────────────┘
    ○ = M3 heat-set boss (screw mount / ground stud)
 ```
 
@@ -29,14 +30,14 @@ electronics trays. It carries the mains-side parts on one printed frame:
   stack *is* the bus — there is no copper bar — and it's earthed through the C14
   cord (Class I). See [`/business/regulatory.md`](/business/regulatory.md).
 
-The PSU, relay, and Wago column **pack flush** against each other (no inter-part
-gaps). Off this tray: the **GFCI** (tabled), the **C14 inlet** (back panel), and
-the controller modules (a separate controller tray).
+The PSU (turned 90°), relay, and Wago column **pack flush** against each other
+(no inter-part gaps), with the ground ring-stack in the open space above the PSU.
+Off this tray: the **GFCI** (tabled), the **C14 inlet** (back panel), and the
+controller modules (a separate controller tray).
 
-A wide-and-shallow alternative is the sibling
-[narrow power tray](/hardware/printed-parts/electronics/narrow-power-tray/) (PSU
-turned 90°). Both layouts are built by the same `build_tray(L)` engine here, from
-a `Layout` of component centres + Z rotations.
+The build is parameterised by a `Layout` (component centres + Z rotations) and
+the geometry engine (`build_tray`, the floor/boss/slot helpers) is shared with
+the [controller and driver trays](/hardware/printed-parts/electronics/module_tray.py).
 
 ## Retention
 
@@ -59,12 +60,12 @@ than relying on a press fit.
 ## The tray
 
 The floor is a **single solid floor** (3 mm) — the convex outline of every
-object's footprint, so it reads as a rough map of the space the parts occupy
-while the layout is still being worked. One connected piece, no thin trusses; it
-re-derives from the part footprints, so it follows along as things are
-rearranged. Local frame: X right, Y deep, Z up; origin at the bottom-left
-corner. Zone-B placement, joinery, and any final trim/stiffening are deferred
-until the arrangement settles.
+object's footprint. One connected piece, no thin trusses; it re-derives from the
+part footprints, so it follows along as things are rearranged. Footprint
+≈ **151 × 74 mm** (wide/shallow). Local frame: X right, Y deep, Z up; origin at
+the bottom-left corner. It threads the right-side channel of the enclosure (see
+[`enclosure-assembly`](/hardware/printed-parts/enclosure/enclosure-assembly/));
+joinery and any final trim/stiffening are deferred.
 
 `power_tray.py` → `power-tray.step`; `power_assembly.py` → `power-assembly.step`
 (tray + parts seated). Regenerate with `tools/cad-venv/bin/python <script>`.
