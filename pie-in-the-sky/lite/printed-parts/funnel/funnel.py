@@ -46,9 +46,8 @@ import enclosure as E
 brim_overhang = 3.0     # brim flange reach past the opening, all around
 brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
-chute_h = 72.0          # straight rectangular chute height — brim top down to the ramp
-                        # start. Tall (vs the wide Kitchen hopper) to recover capacity
-                        # the narrow (rotated) mouth gives up; clears the content below.
+chute_h = 30.0          # straight rectangular chute height — brim top down to the ramp
+                        # start. Leaves the rest of the drop for a real funnel ramp.
 neck_dx = 20.0          # neck (ramp foot + spout) shift in +X toward the source-select side
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
@@ -57,9 +56,10 @@ spout_tube = 6.0        # straight spout tube below the ramp tip — its length 
 tip_clearance = 1.0     # gap left above the tallest content under the mouth
 # The spout exits into the open air ABOVE the front trays (the whole mouth
 # footprint has content under it — the front bag-circuit lid — so there is no
-# clear column to drop into, unlike the Kitchen). Leave real room below the exit
-# for a tube/barb fitting and the flex-tube run back to V-B.
-spout_fitting_gap = 14.0
+# clear column to drop into, unlike the Kitchen). Leave room below the exit for a
+# tube/barb fitting and the flex-tube run back to V-B — but not so much that the
+# ramp is squeezed out.
+spout_fitting_gap = 8.0
 
 
 # --- primitives -------------------------------------------------------------
