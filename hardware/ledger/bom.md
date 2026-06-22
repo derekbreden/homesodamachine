@@ -283,14 +283,14 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 5. Refrigeration | [$194.67](BOM_SEC5) |
 | 6. Cold core insulation | [$52.38](BOM_SEC6) |
 | 7. Printed parts (PETG + PET-CF) | [$72.77](BOM_SEC7) |
-| 8. Flavor subsystem | [$264.60](BOM_SEC8) |
+| 8. Flavor subsystem | [$268.65](BOM_SEC8) |
 | 9. Dispensing | [$53.74](BOM_SEC9) |
 | 10. UI | [$3.21](BOM_SEC10) |
 | 11. Wiring | [$32.56](BOM_SEC11) |
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.94](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,575.33](BOM_GRAND)** |
+| **Total** | **[$1,579.38](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
