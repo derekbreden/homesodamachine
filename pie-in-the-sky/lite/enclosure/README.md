@@ -81,12 +81,15 @@ originally sketched.
 A **narrow-X, deep-Y slot** is punched through the top wall to the right of the
 display housing, where the removable hopper
 [funnel](/pie-in-the-sky/lite/printed-parts/funnel/) drops in — its brim resting
-on the top, its collar press-fitting the opening. The −X edge sits just right of
-the tall bag-circuit tray (so the funnel chute clears it); the +X edge runs flush
-to the top-right corner pod (no dead strip of wall); the slot reaches the full
-front-half depth back to the seam lip. The short trays beneath it are kept low,
-so the deep slot has a tall clear chute for a big pour buffer. The funnel derives
-its collar from the same rectangle (`_hopper_hole`), so the two always match.
+on the top, its collar press-fitting the opening. Both side edges run flush to
+their neighbours with no dead strip of wall: the −X edge against the display
+gusset, the +X edge against the top-right corner pod; the slot reaches the full
+front-half depth back to the seam lip. The −X side overhangs the tall bag-circuit
+tray, but the funnel's tapered ramp narrows past that tray before reaching its
+height, so the chute still clears it (verified in `funnel.py` against the real
+solids). The short trays beneath the rest of the slot are kept low, so the deep
+slot has a tall clear chute for a big pour buffer. The funnel derives its collar
+from the same rectangle (`_hopper_hole`), so the two always match.
 
 ## Dimensions
 

@@ -3,7 +3,7 @@
 The removable hopper you pour SodaStream concentrate into. It drains to **V-B**
 on the [source-select tray](/hardware/printed-parts/valve-manifold/source-select-tray/)
 — fluid topology [segment 4](/hardware/topology/fluid-topology.md),
-"Hopper funnel bottom → V-B-I". A **pour buffer** holding ≈ [514 mL](HOPPER_CAP)
+"Hopper funnel bottom → V-B-I". A **pour buffer** holding ≈ [687 mL](HOPPER_CAP)
 to the brim — generous enough to take a full pour at once while the pump draws it
 on to a bag.
 

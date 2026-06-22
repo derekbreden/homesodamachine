@@ -313,21 +313,19 @@ def _facet_end_wall(inner, outer):
 
 def _hopper_hole(inner, outer):
     """Rectangle (x0, x1, y0, y1) of the funnel opening in the top wall — a
-    narrow-X, deep-Y slot. Its −X edge sits right of BOTH the display gusset and
-    the tall bag-circuit tray (so the funnel chute clears that tray); its +X edge
-    runs flush to the top-right corner pod's inboard end (no dead strip of wall);
-    its −Y edge is flush with the inner front wall; its +Y edge is clamped to stay
-    just in front of the seam lip, so the deep slot still lives wholly in the front
-    half. The companion funnel (../../printed-parts/funnel/) derives its collar
-    from this same rect."""
+    narrow-X, deep-Y slot. Its −X edge runs flush to the display gusset (no dead
+    strip of wall there); its +X edge runs flush to the top-right corner pod's
+    inboard end; its −Y edge is flush with the inner front wall; its +Y edge is
+    clamped to stay just in front of the seam lip, so the deep slot still lives
+    wholly in the front half. The mouth overhangs the tall bag-circuit tray on its
+    −X side, but the funnel tapers in as it descends and clears it (verified in
+    funnel.py against the real solids). The companion funnel
+    (../../printed-parts/funnel/) derives its collar from this same rect."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     pod_in = ix1 + wall - (head_cbore_depth + screw_len + socket_cap)
     x1 = pod_in - 1.0                                        # flush to the top-right corner pod
-    x0 = ox0 + display_facet_x + wall                        # just past the facet gusset
-    bag = _contents.build()["bag-circuit"][0].BoundingBox()
-    if bag.xmax + 3.0 < x1:                                  # clear the tall bag tray when it
-        x0 = max(x0, bag.xmax + 3.0)                         # falls within the opening span
+    x0 = ox0 + display_facet_x + wall                        # flush past the display facet gusset
     _a, _n, _o, dy, _dz = _facet_geom(outer)
     y_joint = max(oy0 + dy + display_facet_thickness * math.sqrt(2.0) + 2.0, split_y)
     y1 = y_joint - wall - 2.0                                # just in front of the seam lip
