@@ -144,8 +144,10 @@ def build():
     # long axis runs up Z; footprint 63 x 93), butted to the reservoir's +X wall,
     # at the front of the column so its V-B port sits under the hopper toward the
     # front (the funnel necks above the front trays, not onto V-B — Kitchen idiom).
+    # A hair forward of the reservoir front so the pump stack behind it tucks
+    # within the reservoir's back face (keeps the box from growing in Y).
     src = _place(_rot(_load(TRAY_STEPS["source-select"]), (0, 1, 0), 90.0),
-                 xmin=col_x, ymin=RES_FRONT_Y, zmin=0.0)
+                 xmin=col_x, ymin=RES_FRONT_Y - 3.0, zmin=0.0)
     placed["source-select"] = (src, COLORS["source-select"])
     sb = src.BoundingBox()
 
