@@ -15,11 +15,12 @@ top to bottom,
   * a tall straight rectangular chute — vertical walls, no slope — pressing the
     [3 mm](WALL) top wall at its top and hanging down into the reserve;
   * a shallow ramp from the bottom of that chute down to a round
-    [6.35 mm](SPOUT_ID) spout (1/4", matching the pump tubing). The spout necks
-    one mm above the tallest content below the mouth (read live — the front
-    bag-circuit tray), where a short flexible tube carries the pour on to V-B.
-    Like the Kitchen hopper, the spout does not land on V-B directly; the
-    topology routes Hopper → V-B through the manifold.
+    [6.35 mm](SPOUT_ID) spout (1/4", matching the pump tubing). The spout exits
+    into the open air above the tallest content below the mouth (read live — the
+    front bag-circuit tray), with room left below for a tube/barb fitting; a
+    short flexible tube then carries the pour on to V-B. Like the Kitchen hopper,
+    the spout does not land on V-B directly; the topology routes Hopper → V-B
+    through the manifold.
 
 The funnel shares the opening rectangle with the enclosure, so the collar always
 matches the hole. It is built in enclosure world coordinates (+X right, +Y back,
