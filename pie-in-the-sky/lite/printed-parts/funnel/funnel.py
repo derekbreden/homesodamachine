@@ -46,8 +46,8 @@ import enclosure as E
 brim_overhang = 3.0     # brim flange reach past the opening, all around
 brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
-chute_h = 63.0          # straight rectangular chute height — brim top down to the ramp
-                        # start. Taller than the wide Kitchen hopper to recover capacity
+chute_h = 72.0          # straight rectangular chute height — brim top down to the ramp
+                        # start. Tall (vs the wide Kitchen hopper) to recover capacity
                         # the narrow (rotated) mouth gives up; clears the content below.
 neck_dx = 20.0          # neck (ramp foot + spout) shift in +X toward the source-select side
 spout_id = 6.35         # 1/4" outlet bore
