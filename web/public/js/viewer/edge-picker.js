@@ -703,14 +703,21 @@ function repoPath(file) {
 }
 function headerName(file) { return file.split("/").pop().replace(/\.step$/i, ""); }
 
+// The clicked component's name, or null when there's none worth showing. Only
+// assemblies carry real component names; single-solid STEPs get a generic occt
+// translator string, which is noise. One helper so the panel row and the copy
+// blob agree on what (if anything) to show.
+function solidName(sel) {
+  const s = sel.type === "face" ? sel.solid : sel.edge.solid;
+  return isAssembly && s && !/^Open CASCADE STEP translator/.test(s) ? s : null;
+}
+
 function allText(sel) {
   const lines = [];
   const file = currentFile();
   if (file) lines.push(`file: ${repoPath(file)}`);
-  // Only assemblies carry real component names; single-solid STEPs get a
-  // generic translator string from occt, which is noise — skip it.
-  const solid = sel.type === "face" ? sel.solid : sel.edge.solid;
-  if (isAssembly && solid && !/^Open CASCADE STEP translator/.test(solid)) {
+  const solid = solidName(sel);
+  if (solid) {
     lines.push(`solid: ${solid}`);
   }
   if (sel.type === "face") {
@@ -775,6 +782,7 @@ function buildPanel() {
   };
 
   panelRows = {
+    solid: mkRow("Solid"),
     edge: mkRow("Edge"),
     faceA: mkRow("Face A"),
     faceB: mkRow("Face B"),
@@ -798,6 +806,9 @@ function showPanel(sel) {
   const isFace = sel.type === "face";
   const faces = selFaceTexts(sel);
   panel.querySelector(".edge-panel-title").textContent = isFace ? "Face" : "Edge";
+  const solid = solidName(sel);
+  panelRows.solid.row.style.display = solid ? "" : "none";
+  panelRows.solid.val.textContent = solid || "";
   panelRows.edge.row.style.display = isFace ? "none" : "";
   if (!isFace) panelRows.edge.val.textContent = edgeText(sel);
   panelRows.faceA.lab.textContent = isFace ? "Face" : "Face A";
