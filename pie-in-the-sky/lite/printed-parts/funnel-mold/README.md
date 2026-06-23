@@ -38,9 +38,9 @@ and screen per
 before use. Full step-by-step (release/inhibition, pour, clamp, bake, demold):
 [hopper-funnel-mold/README.md](/hardware/printed-parts/zone-c/hopper-funnel-mold/README.md).
 
-Note: the lite funnel is logged as a printed part in the lite BOM; casting it in
-silicone instead is a lite-BOM decision tracked in
-[pie-in-the-sky/lite/](/pie-in-the-sky/lite/README.md).
+The cast funnel's silicone, pigment, and release are costed per-unit in the
+[lite BOM](/pie-in-the-sky/lite/lite-bom.md) (Flavor subsystem); the mold, vacuum
+chamber, pump, and post-cure oven are shared tooling in the ledger §21.
 
 ## Regenerate
 
