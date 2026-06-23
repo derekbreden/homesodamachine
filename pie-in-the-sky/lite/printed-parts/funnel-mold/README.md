@@ -62,42 +62,58 @@ Per-attempt slice records: [`print-log.md`](print-log.md).
 ## Finish the core
 
 The core plug forms the funnel's **wetted inside face**, so its surface
-telegraphs into the silicone and decides how the cast releases. Two faces, two
-strategies:
+telegraphs into the silicone and sets how the cast releases. The two halves get
+different finishes:
 
 - **Cavity (cosmetic outside):** leave as-printed; mist Mann Ease Release 200
   ([§21](/hardware/ledger/purchases.md)) every pour.
-- **Core (food-contact inside):** smooth + seal it, and demold it **release-free**
-  — release is kept off this face so it never transfers to the funnel's food side,
-  which means the finished surface *is* the release. So it has to come out smooth.
+- **Core (food-contact inside):** **seal** it with a hard clear acrylic and run a
+  light release on it too — *not* a filler-primer, and *not* release-free.
 
-Finishing the core (with what the ledger already holds):
+Why not a filler-primer: sanded back it cures matte and micro-porous, which a soft
+40A silicone keys into and tears against on demold (a grip surface, not a release
+surface), and enamel-class primers can inhibit the cure. Why not release-free: a
+cured film alone does not reliably release soft silicone over many pulls — it
+grips and can delaminate. Sealing and releasing are two separate jobs; do both.
 
-1. **Knock down the layer lines** with the owned Shineboc wet/dry sponges
-   ([B0D8ZC6HKY](https://www.amazon.com/dp/B0D8ZC6HKY)), ~320 → 600 grit, then
-   wipe with the owned 99.9 % IPA ([B0BZ21DBJ6](https://www.amazon.com/dp/B0BZ21DBJ6))
-   and let it flash off.
-2. **Fill + seal** with 2–3 mist coats of a high-build sandable filler-primer —
-   **Rust-Oleum 249279 automotive filler primer**
-   ([B003CT4AM0](https://www.amazon.com/dp/B003CT4AM0)), the one finishing supply
-   not yet owned (see [Still needed](/hardware/ledger/purchases.md)). Let each coat
+Finishing the core (owned = already in the ledger):
+
+1. **Light-sand** the core with the Shineboc wet/dry sponges (owned,
+   [B0D8ZC6HKY](https://www.amazon.com/dp/B0D8ZC6HKY)), ~320 → 600 grit; wipe with
+   99.9 % IPA (owned, [B0BZ21DBJ6](https://www.amazon.com/dp/B0BZ21DBJ6)) and let it
    flash off.
-3. **Wet-sand back** 600 → 2000 grit to a uniform satin — fill the valleys, don't
-   cut back through to bare PETG.
-4. **Let the primer fully gas off before casting** — solvent left in the film is
-   itself a platinum-cure inhibitor. Wait until there is no solvent smell, not a
-   few minutes.
-5. **Coupon-test whenever the finish is new or re-primed:** cast a thumbnail of
-   BBDINO 40A against a scrap of the *actual* primed PETG, full room-temp cure,
-   and check for a tacky/uncured film. Clean → cast for real. Tacky → the primer
-   is inhibiting the cure: switch primer, or accept a light Ease Release 200 on the
-   core too (the post-cure bake + [wetted-surface screen](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md)
-   is the food-safety gate regardless).
+2. **Seal** with 2–3 thin coats of **gloss clear acrylic** — Krylon K01303 Crystal
+   Clear Acrylic ([B00023JE7K](https://www.amazon.com/dp/B00023JE7K)). A hard,
+   glossy, low-surface-energy film: it seals the print porosity (no outgassing
+   through the face under vacuum), is amine/sulfur/tin-free so it does not inhibit
+   the cure, and bonds to PETG. *Not* a high-build filler — at 0.08 mm the texture
+   is shallow.
+   - **Only if the 0.08 mm texture still telegraphs through:** one thin
+     self-leveling epoxy base coat — Smooth-On XTC-3D
+     ([B01BKSLI9M](https://www.amazon.com/dp/B01BKSLI9M)) — *under* the acrylic to
+     fill it glassy. The acrylic still goes on top as the release skin; epoxy alone
+     is not a release face and must be fully cured.
+3. **Let it fully gas off before casting** — solvent (or, for the epoxy base,
+   uncured resin) left in the film inhibits platinum cure. Wait until there is no
+   solvent smell.
+4. **Release the core too:** a light mist of Mann Ease Release 200 on the cured
+   acrylic. It is an addition-cure-compatible *film*, not a silicone-fluid release
+   (which would prime the silicone to bond), so it does not add the D4/D5/D6
+   siloxane the screen is chasing — and the funnel's ~200 °C post-cure bake +
+   [wetted-surface screen](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md)
+   is the food-contact gate that clears any trace. Keep silicone-fluid "food-grade"
+   releases off it.
+5. **Coupon-test the exact stack, on every re-coat:** cast a BBDINO 40A pad on a
+   scrap carrying the *same* sand → acrylic → release finish, room-temp cure, and
+   check both that it cures firm (no tacky face) **and** peels clean — then peel it
+   a few more times on the same coupon, since grip/fusing shows up over repeated
+   demolds, not the first.
 
-At 0.08 mm layers the lines are fine and steps 1–3 may need little fill — but the
-primer also seals the print porosity, so the core releases clean and doesn't
-outgas through its face under vacuum. Re-prime when the finish dulls or bald-spots;
-it is the wear surface that gates how many funnels the mold yields.
+Re-coat the acrylic when it dulls or bald-spots; it is the wear surface that gates
+how many funnels the mold yields. If PETG + acrylic can't pass the coupon, the
+fallback is a natively smooth SLA-printed core (fully UV-cured + IPA-washed +
+sealed the same way — resin is the worst cure inhibitor, so the wash discipline
+and coupon test are mandatory).
 
 ## Cast + bake
 
