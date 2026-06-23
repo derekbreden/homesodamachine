@@ -86,6 +86,7 @@ Cylinders, regulator, CO2 line, push-to-connect adapters for the CO2 side.
 |---|---|---|---|---|
 | Lillium under-sink carbonated soda maker + 3-way sparkling-water faucet, black, 110–120 V AC (SKU 102) | [liliumfaucet.com](https://liliumfaucet.com/) | 1 | $1,129.00 | ACQUIRED |
 | TAPRITE E-T742 CO2 dual-gauge primary regulator, CGA-320. Order #114-0170640-0334629, placed February 13, 2026 | [B00L38DRD0](https://www.amazon.com/dp/B00L38DRD0) | 1 | $96.47 | ACQUIRED |
+| WELLBOM 0–120 PSI CO2 dual-gauge regulator, CGA-320, with pressure-release valve. Order #112-8121022-3791448, placed June 22, 2026 | [B0G13P5PMY](https://www.amazon.com/dp/B0G13P5PMY) | 1 | $49.32 | ON-ORDER (arriving Thu Jun 25) |
 | Airgas #8160436286 — prototype CO2 cylinder, 5 lb aluminum food-grade, CGA-320 (CY-CD FG5) | airgas.com (Lincoln NE) | 1 | $133.10 | ACQUIRED |
 | Airgas #8160436286 — CO2 fill, 5 lb food-grade (prototype cylinder) | airgas.com (Lincoln NE) | 1 | $47.93 | ACQUIRED |
 | Airgas #8162013342 — testing CO2 cylinder, 5 lb aluminum food-grade, CGA-320 (CY-CD FG5) | airgas.com (Lincoln NE) | 1 | $133.10 | ACQUIRED |
