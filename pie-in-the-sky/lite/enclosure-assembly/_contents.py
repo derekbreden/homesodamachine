@@ -13,10 +13,10 @@ DEEP in Y: nothing stands beside the reservoir except the one part thin enough t
 share its +X depth band — the power tray. Everything else packs into the FRONT
 zone, ahead of the reservoir:
 
-  * Right-front void:  the two flavor pump ASSEMBLIES (Kamoer pump + 90 deg outlet
-    elbows), laid on their sides with the motor cylinders pointing at the -X wall,
-    heads stacked at the void's bottom-right corner. The thin motors reach left
-    across the front-left, where only the narrow bag-circuit tray sits.
+  * Front, on the floor:  the two flavor pump ASSEMBLIES (Kamoer pump + 90 deg
+    outlet elbows), laid on their sides with the motor cylinders pointing -X into
+    the bag-circuit tray's air gaps — the lower motor in the clear floor band
+    beneath the raised bag, the upper motor in the bag's mid gap. Bulky heads at +X.
   * Back-right:  the two SHORT trays (bib-gate, nozzle-gate) STACKED into one
     footprint, their front against the pump backs. Each tray is linear (tees one
     end, elbows the other); nozzle is flipped end-for-end so the small ELBOW ends
@@ -76,14 +76,17 @@ RES_X_INSET = 6.0
 # across the seam. Floor content against a side wall would foul the bottom pods,
 # so it is lifted clear of them — the Kitchen `FOAM_LIFT` idiom.
 FLOOR_LIFT = 14.0
-# Front-zone Y stations. The pumps sit in the right-front void; the bib/nozzle
-# stack sits with its front against the pump backs, and the stack's depth sets the
-# split plane (the reservoir seats behind that).
+# Front-zone Y stations. The pumps lie at the front with their motors pointing -X
+# to thread the bag-circuit tray's air gaps; the bib/nozzle stack sits with its
+# front against the pump backs, and the stack's depth sets the split plane (the
+# reservoir seats behind that).
 PUMP_FRONT_Y = 32.0        # pump front face (and box front edge): the front cluster is slid
                            # back until the bib/nozzle backs nearly meet the reservoir front
-PUMP_HEAD_X = 200.0        # the pump heads' +X face (the void's bottom-right corner)
+PUMP_HEAD_X = 164.0        # the pump heads' +X face — pulled -X so the motor cylinders nest
+                           # into the bag tray, motor tips ~1 mm shy of the first bag fitting
+PUMP_UPPER_ZMIN = 114.0    # upper pump height: its motor lands in the bag tray's mid air gap
+                           # (~z120-170), as the lower pump's motor runs the floor gap below it
 STACK_TO_PUMP_GAP = 1.0    # gap from the pump backs to the short-tray stack front (Y)
-STACK_GAP = 2.0            # vertical gap between stacked parts (Z)
 BAG_SOURCE_GAP = 1.0       # gap from the bag-circuit back to the source-select front (Y)
 BAG_Z_LIFT = 32.0          # bag-circuit raised this far above the floor lift — its top just
                            # clears the display housing back, opening a floor channel beneath
@@ -148,16 +151,17 @@ def _place(shape, *, xmax=None, xmin=None, ymin=None, ymax=None, zmin=None, zmax
 def build():
     placed = {}
 
-    # --- Right-front void: the two pump ASSEMBLIES (with elbows), laid on their
-    # sides so the motor CYLINDERS point at the -X wall — bulky heads at +X, thin
-    # motors reaching left. Heads stacked at the void's bottom-right corner; the
-    # motors reach left across the (now vacated) front-left, where nothing else
-    # sits, so they stay clear. (Orientation: rot +90 Z, then +90 Y to lay the
+    # --- Front, on the floor: the two pump ASSEMBLIES (with elbows), laid on their
+    # sides so the motor CYLINDERS point -X into the bag-circuit tray's air gaps —
+    # bulky heads at +X. The lower pump sits on the floor so its motor runs the
+    # clear band beneath the raised bag; the upper pump rides at PUMP_UPPER_ZMIN so
+    # its motor lands in the bag's mid air gap. Both reach -X until the motor tips
+    # near the first bag fitting. (Orientation: rot +90 Z, then +90 Y to lay the
     # motor along X, then 180 Z to point it -X with the head at +X.)
     pump_neg_x = _rot(_rot(_rot(_load(PUMP_STEP), (0, 0, 1), 90.0), (0, 1, 0), 90.0), (0, 0, 1), 180.0)
-    pump_lo = _place(pump_neg_x, xmax=PUMP_HEAD_X, ymin=PUMP_FRONT_Y, zmin=FLOOR_LIFT)
+    pump_lo = _place(pump_neg_x, xmax=PUMP_HEAD_X, ymin=PUMP_FRONT_Y, zmin=0.0)
     pb = pump_lo.BoundingBox()
-    pump_up = _place(pump_neg_x, xmax=PUMP_HEAD_X, ymin=PUMP_FRONT_Y, zmin=pb.zmax + STACK_GAP)
+    pump_up = _place(pump_neg_x, xmax=PUMP_HEAD_X, ymin=PUMP_FRONT_Y, zmin=PUMP_UPPER_ZMIN)
     placed["pump-lower"] = (pump_lo, PUMP_COLORS["pump-lower"])
     placed["pump-upper"] = (pump_up, PUMP_COLORS["pump-upper"])
 
