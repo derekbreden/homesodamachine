@@ -1,12 +1,13 @@
 /**
- * esp32-mcp-mini — an ESP32 DevKitC-32E (socketed on two 1x19 rows, 25.4 mm
- * apart) and two MCP23017 (DIP-28) on a shared I2C bus, U2 at 0x20 and U3 at
- * 0x21. Each MCP's GPA0-7 / GPB0-7 lands on its own edge header; four spare
- * ESP32 GPIO land on JE. The ESP's 3V3 pin powers both MCPs. Through-hole,
- * two layers.
+ * esp32-mcp-mini — an ESP32 DevKitC-32E socket; two MCP23017 (DIP-28) on a
+ * shared I2C bus (U2 at 0x20, U3 at 0x21); U2's GPA0-7 drive a ULN2803 (U4)
+ * that sinks eight 12 V solenoid outputs on J_VA; U2's GPB0-7 and both of U3's
+ * banks land on edge headers; four spare ESP32 GPIO on JE. J12 brings 12 V in
+ * for the ULN COM and the solenoid high side; the ESP's 3V3 pin powers the
+ * MCPs. Through-hole, two layers.
  *
- * ESP socket geometry: 2x19 @ 2.54 mm pitch, rows 25.4 mm (1.0") apart, pin map
- * the standard DevKitC-32E 38-pin layout.
+ * ESP socket: 2x19 @ 2.54 mm pitch, rows 25.4 mm (1.0") apart, pin map the
+ * standard DevKitC-32E 38-pin layout.
  */
 
 export default () => {
@@ -24,45 +25,61 @@ export default () => {
     pin21: "GPA0", pin22: "GPA1", pin23: "GPA2", pin24: "GPA3",
     pin25: "GPA4", pin26: "GPA5", pin27: "GPA6", pin28: "GPA7",
   }
-  const bank = (n: number) => [0, 1, 2, 3, 4, 5, 6, 7].map((i) => `${n === 0 ? "GPA" : "GPB"}${i}`)
+  // ULN2803A: pin1-8 IN, pin9 GND, pin10 COM, pin11-18 OUT8..OUT1.
+  const ulnPins = {
+    pin1: "IN1", pin2: "IN2", pin3: "IN3", pin4: "IN4",
+    pin5: "IN5", pin6: "IN6", pin7: "IN7", pin8: "IN8",
+    pin9: "GND", pin10: "COM",
+    pin11: "OUT8", pin12: "OUT7", pin13: "OUT6", pin14: "OUT5",
+    pin15: "OUT4", pin16: "OUT3", pin17: "OUT2", pin18: "OUT1",
+  }
+  const i8 = [0, 1, 2, 3, 4, 5, 6, 7]
+  const valves = ["VA", "VB", "VC", "VD", "VE", "VF", "VG", "VH"]
+  const gpb = i8.map((i) => `GPB${i}`)
+  const gpa = i8.map((i) => `GPA${i}`)
 
   return (
-    <board width="150mm" height="115mm">
+    <board width="175mm" height="125mm">
       {/* ---- ESP32 DevKitC socket: two 1x19 female rows, 25.4 mm apart ---- */}
       <pinheader name="U1A" pinCount={19} pitch="2.54mm" gender="female"
         footprint="pinrow19" pinLabels={espA}
-        pcbX={-45} pcbY={12.7} schX={-12} schY={6} />
+        pcbX={-55} pcbY={13} schX={-14} schY={6} />
       <pinheader name="U1B" pinCount={19} pitch="2.54mm" gender="female"
         footprint="pinrow19" pinLabels={espB}
-        pcbX={-45} pcbY={-12.7} schX={-12} schY={-6} />
+        pcbX={-55} pcbY={-13} schX={-14} schY={-6} />
 
       {/* ---- MCP23017 #1 @0x20 (A0/A1/A2 = GND) ---- */}
-      <chip name="U2" footprint="dip28_w7.62mm" pcbX={5} pcbY={26} schX={4} schY={7} pinLabels={mcpPins} />
+      <chip name="U2" footprint="dip28_w7.62mm" pcbX={2} pcbY={30} schX={3} schY={7} pinLabels={mcpPins} />
       {/* ---- MCP23017 #2 @0x21 (A0 = 3V3, A1/A2 = GND) ---- */}
-      <chip name="U3" footprint="dip28_w7.62mm" pcbX={5} pcbY={-26} schX={4} schY={-7} pinLabels={mcpPins} />
+      <chip name="U3" footprint="dip28_w7.62mm" pcbX={2} pcbY={-28} schX={3} schY={-7} pinLabels={mcpPins} />
+      {/* ---- ULN2803A: sinks 8 solenoids, driven by U2 GPA0-7, COM at 12 V ---- */}
+      <chip name="U4" footprint="dip18" pcbX={28} pcbY={32} schX={8} schY={9} pinLabels={ulnPins} />
 
-      {/* ---- I2C pull-ups + per-MCP decoupling (THT) ---- */}
-      <resistor name="R1" resistance="4.7k" footprint="axial" pcbX={-12} pcbY={20} schX={0} schY={3} />
-      <resistor name="R2" resistance="4.7k" footprint="axial" pcbX={-12} pcbY={16} schX={1} schY={3} />
-      <capacitor name="C1" capacitance="100nF" footprint="axial" pcbX={-12} pcbY={32} schX={-3} schY={9} />
-      <capacitor name="C2" capacitance="100nF" footprint="axial" pcbX={-12} pcbY={-32} schX={-3} schY={-9} />
+      {/* ---- I2C pull-ups, MCP decoupling, 12 V bulk (THT) ---- */}
+      <resistor name="R1" resistance="4.7k" footprint="axial" pcbX={-20} pcbY={24} schX={0} schY={3} />
+      <resistor name="R2" resistance="4.7k" footprint="axial" pcbX={-20} pcbY={20} schX={1} schY={3} />
+      <capacitor name="C1" capacitance="100nF" footprint="axial" pcbX={-20} pcbY={34} schX={-3} schY={10} />
+      <capacitor name="C2" capacitance="100nF" footprint="axial" pcbX={-20} pcbY={-34} schX={-3} schY={-10} />
+      <capacitor name="C3" capacitance="100uF" footprint="radial" polarized pcbX={-40} pcbY={46} schX={-7} schY={13} />
 
-      {/* ---- edge breakout headers: one GPA + one GPB per MCP, plus ESP spares ---- */}
-      <pinheader name="JA" pinCount={8} pitch="2.54mm" gender="male" footprint="pinrow8"
-        pinLabels={bank(0)} pcbX={42} pcbY={34} schX={14} schY={9} />
+      {/* ---- connectors ---- */}
+      <pinheader name="J12" pinCount={2} pitch="2.54mm" gender="male" footprint="pinrow2"
+        pinLabels={["V12", "GND"]} pcbX={-58} pcbY={46} schX={-14} schY={13} />
+      {/* solenoid outputs: 8 ULN sinks + a 12 V common (high side) */}
+      <pinheader name="J_VA" pinCount={9} pitch="2.54mm" gender="male" footprint="pinrow9"
+        pinLabels={[...valves, "COM"]} pcbX={56} pcbY={40} schX={16} schY={9} />
+      {/* U2 GPB, and both of U3's banks, straight to edge headers */}
       <pinheader name="JB" pinCount={8} pitch="2.54mm" gender="male" footprint="pinrow8"
-        pinLabels={bank(1)} pcbX={42} pcbY={18} schX={14} schY={5} />
+        pinLabels={gpb} pcbX={56} pcbY={14} schX={16} schY={4} />
       <pinheader name="JC" pinCount={8} pitch="2.54mm" gender="male" footprint="pinrow8"
-        pinLabels={bank(0)} pcbX={42} pcbY={-18} schX={14} schY={-5} />
+        pinLabels={gpa} pcbX={56} pcbY={-20} schX={16} schY={-5} />
       <pinheader name="JD" pinCount={8} pitch="2.54mm" gender="male" footprint="pinrow8"
-        pinLabels={bank(1)} pcbX={42} pcbY={-34} schX={14} schY={-9} />
+        pinLabels={gpb} pcbX={56} pcbY={-40} schX={16} schY={-9} />
       <pinheader name="JE" pinCount={6} pitch="2.54mm" gender="male" footprint="pinrow6"
         pinLabels={["IO32", "IO33", "IO25", "IO26", "3V3", "GND"]}
-        pcbX={-45} pcbY={-42} schX={-12} schY={-13} />
+        pcbX={-58} pcbY={-44} schX={-14} schY={-13} />
 
       {/* ===================== NETS ===================== */}
-      {/* the ESP's 3V3 pin feeds both MCPs (VDD + RST), the pull-ups, the decaps,
-          and the edge 3V3; U3 A0 = 3V3 sets its 0x21 address */}
       <netlabel net="V3_3" schX={-3} schY={1} connectsTo={[
         ".U1A > .3V3",
         ".U2 > .VDD", ".U2 > .RST",
@@ -73,9 +90,14 @@ export default () => {
         ".U1B > .GNDb",
         ".U2 > .VSS", ".U2 > .A0", ".U2 > .A1", ".U2 > .A2",
         ".U3 > .VSS", ".U3 > .A1", ".U3 > .A2",
-        ".C1 > .pin2", ".C2 > .pin2", ".JE > .GND",
+        ".U4 > .GND", ".C1 > .pin2", ".C2 > .pin2", ".C3 > .pin2",
+        ".J12 > .GND", ".JE > .GND",
       ]} />
-      {/* shared I2C bus: ESP IO21/IO22 + both MCPs + pull-ups */}
+      {/* 12 V: input, the ULN clamp common, the solenoid high side, bulk cap */}
+      <netlabel net="V12" schX={6} schY={13} connectsTo={[
+        ".J12 > .V12", ".U4 > .COM", ".J_VA > .COM", ".C3 > .pin1",
+      ]} />
+      {/* shared I2C bus */}
       <netlabel net="SDA" schX={1} schY={2} connectsTo={[
         ".U1B > .IO21", ".U2 > .SDA", ".U3 > .SDA", ".R1 > .pin1",
       ]} />
@@ -83,18 +105,22 @@ export default () => {
         ".U1B > .IO22", ".U2 > .SCL", ".U3 > .SCL", ".R2 > .pin1",
       ]} />
 
-      {/* MCP #1 GPA0-7 -> JA, GPB0-7 -> JB */}
-      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
-        <trace key={`u2a-${i}`} from={`.U2 > .GPA${i}`} to={`.JA > .GPA${i}`} />
+      {/* U2 GPA0-7 -> ULN IN1-8 -> J_VA (the solenoid drive chain) */}
+      {i8.map((i) => (
+        <trace key={`u2a-in-${i}`} from={`.U2 > .GPA${i}`} to={`.U4 > .IN${i + 1}`} />
       ))}
-      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+      {i8.map((i) => (
+        <trace key={`uln-out-${i}`} from={`.U4 > .OUT${i + 1}`} to={`.J_VA > .${valves[i]}`} />
+      ))}
+      {/* U2 GPB0-7 -> JB */}
+      {i8.map((i) => (
         <trace key={`u2b-${i}`} from={`.U2 > .GPB${i}`} to={`.JB > .GPB${i}`} />
       ))}
-      {/* MCP #2 GPA0-7 -> JC, GPB0-7 -> JD */}
-      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+      {/* U3 GPA0-7 -> JC, GPB0-7 -> JD */}
+      {i8.map((i) => (
         <trace key={`u3a-${i}`} from={`.U3 > .GPA${i}`} to={`.JC > .GPA${i}`} />
       ))}
-      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+      {i8.map((i) => (
         <trace key={`u3b-${i}`} from={`.U3 > .GPB${i}`} to={`.JD > .GPB${i}`} />
       ))}
       {/* four spare ESP32 GPIO -> JE */}

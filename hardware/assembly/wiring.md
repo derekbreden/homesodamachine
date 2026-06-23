@@ -67,7 +67,7 @@ If any check fails, find and fix it before step 4.
 
 Execute the DC runs in the order they appear in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "12 V distribution": DC-1 (PSU output → [12 V](DC_BUS_V) distribution block on the shelf) first, then DC-2 through DC-9 from the block outward. The [12 V](DC_BUS_V) block has its own lever-nut stack distinct from the AC stack.
 
-DC-3 (relay #2 → SeaFlo diaphragm pump) and DC-5 (L298N → Kamoer pumps) both leave the shelf and route through the cabinet. DC-5's cabinet-side run lands on the pump leads via quick-disconnect spade terminals ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11). Terminate on the pump-side spades.
+DC-3 (relay #2 → SeaFlo diaphragm pump) and DC-5 (L298N → Kamoer pumps) both leave the shelf and route through the cabinet. DC-5's cabinet-side run lands on the pump-motor spade tabs via crimped female faston receptacles ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11). Terminate on the pump-motor tabs.
 
 DC-7 (ULN2803A outputs → 12 solenoid coils on the manifold) ships as a single ~24-conductor bundle from the electronics shelf to the manifold. The bundle ships as 12× Keszoox B0F8HMQRRN pre-crimped [50 cm](KESZOOX_LEN) pigtails (one per valve) and fans out to a female disconnect per valve at the manifold.
 
