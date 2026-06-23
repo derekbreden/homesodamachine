@@ -45,7 +45,7 @@
 | Printed | Enclosure — back half (PETG) | 1 | $9.77 | [enclosure/](/pie-in-the-sky/lite/enclosure/) | Transparent back shell housing the reservoir-pockets box. PETG @ $11.20/kg, mass from CAD volume. |
 | Printed | Reservoir-pockets bag cradle (PETG) | 1 | $6.22 | [reservoir-pockets/](/pie-in-the-sky/lite/printed-parts/reservoir-pockets/) | Two bag pockets + rod-hang channel. PETG @ $11.20/kg, mass from CAD volume. |
 | Printed | Power tray (PETG) | 1 | $0.55 | [power-tray/](/pie-in-the-sky/lite/printed-parts/electronics/power-tray/) | PSU + Wago AC distribution + ground-stack frame. PETG @ $11.20/kg, mass from CAD volume. |
-| Printed | Logic tray (PETG) | 1 | $0.43 | [logic-tray/](/pie-in-the-sky/lite/printed-parts/electronics/logic-tray/) | ESP32 + L298N + 2× ULN2803A + MCP23017 + RS485 on one frame — the Kitchen's controller + driver trays folded into one. PETG @ $11.20/kg, mass from CAD volume. |
+| Printed | Logic tray (PETG) | 1 | $0.49 | [logic-tray/](/pie-in-the-sky/lite/printed-parts/electronics/logic-tray/) | ESP32 + L298N + 2× ULN2803A + MCP23017 + DS3231 + RS485 on one frame — the Kitchen's controller + driver trays folded into one. PETG @ $11.20/kg, mass from CAD volume. |
 | Printed | Valve tray — source-select (PETG) | 1 | $2.00 | [valve-manifold/](/hardware/printed-parts/valve-manifold/) | Shared with the Kitchen build (bom.md §7). |
 | Printed | Valve tray — bag-circuit (PETG) | 1 | $1.49 | [valve-manifold/](/hardware/printed-parts/valve-manifold/) | Shared with the Kitchen build (bom.md §7). |
 | Printed | Valve tray — BiB-gate (PETG) | 1 | $0.48 | [valve-manifold/](/hardware/printed-parts/valve-manifold/) | Shared with the Kitchen build (bom.md §7). |
@@ -63,12 +63,12 @@
 | Wiring | BNTECHGO 18 AWG silicone wire, red 25 ft + black 25 ft | ~6 ft | $0.30/ft | [B07HGTKQ89](https://www.amazon.com/dp/B07HGTKQ89) | 12 V DC trunk + branches — PSU → DC block → pumps / displays (red + / black −). 150-strand silicone, 600 V. $14.99/50 ft; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §9). |
 | Wiring | Keszoox JST-XH pre-crimped pigtails, 50 cm × 22 AWG (20 wires/pk) | 1 pk | $11.63 | [B0F8HMQRRN](https://www.amazon.com/dp/B0F8HMQRRN) | Cabinet-spanning pre-crimped female XH pigtails — the ULN2803A → 12-solenoid fan-out across to the manifold. ~1 pk/unit; same part as the Kitchen build (bom.md §11). ACQUIRED ([purchases.md](/hardware/ledger/purchases.md)). |
 | Wiring | CQRobot JST-XH pre-crimped bonded ribbon, 15 cm × 12-cond (8 ribbons/pk) | 2 | $1.98 | [B0F6C7X5CR](https://www.amazon.com/dp/B0F6C7X5CR) | Short-hop bonded ribbon for the on-tray module-to-module links (MCP23017 ↔ ULN inputs, etc.). 2 of 8; same part as the Kitchen build (bom.md §11). ACQUIRED. |
-| Fasteners | ruthex M3 heat-set inserts, short, brass (100 pc) | 22 | $0.107 | [B0D39W228K](https://www.amazon.com/dp/B0D39W228K) | Power tray (5) + faucet plate (3) + logic tray (14 M3) bosses. Of 100; ACQUIRED. |
-| Fasteners | BNUOK M3×12 mm SHCS, 12.9 alloy, black oxide (120 pc) | 22 | $0.071 | [B0DJQGVK8S](https://www.amazon.com/dp/B0DJQGVK8S) | One per M3 boss (power tray + faucet plate + logic tray). Black-oxide socket-head cap screws; same finish/head as the M3×25 foam-cap screws. Of 120; ACQUIRED. |
+| Fasteners | ruthex M3 heat-set inserts, short, brass (100 pc) | 26 | $0.107 | [B0D39W228K](https://www.amazon.com/dp/B0D39W228K) | Power tray (5) + faucet plate (3) + logic tray (18 M3) bosses. Of 100; ACQUIRED. |
+| Fasteners | BNUOK M3×12 mm SHCS, 12.9 alloy, black oxide (120 pc) | 26 | $0.071 | [B0DJQGVK8S](https://www.amazon.com/dp/B0DJQGVK8S) | One per M3 boss (power tray + faucet plate + logic tray). Black-oxide socket-head cap screws; same finish/head as the M3×25 foam-cap screws. Of 120; ACQUIRED. |
 
 ## Per-unit cost (estimate)
 
-Estimated delivered parts cost per Lite unit: **[$586.97](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
+Estimated delivered parts cost per Lite unit: **[$587.75](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
 
 ## Clear-PVC length — ~13 ft/unit (estimate)
 
