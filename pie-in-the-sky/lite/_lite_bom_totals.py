@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
-"""Compute the Lite edition's per-subsystem subtotals + grand total from the BOM
-table and write them into the Totals-table [value](NAME) markers — so they track
-the parts table instead of being hand-summed.
+"""Maintain the Lite edition BOM's per-row Line cost + per-subsystem totals.
 
-Per row: line = qty × unit price. Unit prices written "$X/ft" are multiplied by
-the foot count in the Qty cell; plain "$X" by the integer count. A "—" unit
-(shared-stock stub) counts as $0. Rows roll up by their Subsystem (first column)
-into the LITE_<SUBSYSTEM> markers, and the lot into LITE_TOTAL. The CO2 tank,
-flavor concentrate, and shared consumables are external/user-supplied and
-excluded (as the table already is). Only the first table (the parts list) is
-read; the Totals table after it is skipped.
+For each parts-table row it computes Line = Qty × Unit and writes it into a
+"Line" column (inserting the column after "Unit" the first time it runs), so
+every row shows its own delivered cost — no mental math. Unit prices written
+"$X/ft" are multiplied by the foot count in the Qty cell; plain "$X" by the
+integer count; a "—" unit (shared-stock stub) shows "—" and counts as $0.
+
+Rows then roll up by their Subsystem (first column) into the LITE_<SUBSYSTEM>
+markers, and the lot into LITE_TOTAL, in the Totals table. Each subtotal is the
+sum of the per-row Line cells (each rounded to the cent), so the visible Line
+column adds up to the visible subtotal, and the subtotals to the grand total.
+
+Only the first table (the parts list) is touched; the Totals / Clear-PVC tables
+after it are passed through unchanged.
 
 Run:  python3 pie-in-the-sky/lite/_lite_bom_totals.py
 """
@@ -29,7 +33,6 @@ from docgen import substitute_md  # noqa: E402
 MONEY = re.compile(r"\$\s?([0-9][0-9,]*(?:\.[0-9]+)?)")
 NUM = re.compile(r"[0-9][0-9,]*(?:\.[0-9]+)?")
 
-
 # Subsystem (first column of the parts table) → its Totals-table marker. Order
 # is the Totals table's row order.
 MARKERS = {
@@ -42,33 +45,68 @@ MARKERS = {
     "Fasteners": "LITE_FASTENERS",
 }
 
+# Split-index of the Line cell. `"| a | b |".split("|")` keeps a leading "" at
+# index 0, so the columns are Subsystem=1, Item=2, Qty=3, Unit=4, then Line=5
+# (inserted just after Unit, before Source/Notes).
+LINE_COL = 5
+
 
 def main():
+    raw = open(BOM, encoding="utf-8").read().splitlines()
+    out = []
     sums = {}
-    seen_table = False
-    in_table = False
-    for ln in open(BOM, encoding="utf-8").read().splitlines():
-        # The parts list is the first table; stop at the first heading after it
-        # (so the Totals table below — also `| Subsystem |`-ish — is not re-read).
-        if ln.startswith("## "):
-            if seen_table:
-                break
+    state = "pre"
+    col_existed = False
+    expected = 8  # incoming cell count for a 6-column row (2 empty sentinels)
+    for ln in raw:
+        if state == "pre":
+            if ln.startswith("| Subsystem |"):
+                cells = ln.split("|")
+                col_existed = "Line" in [c.strip() for c in cells]
+                expected = 9 if col_existed else 8
+                if not col_existed:
+                    cells.insert(LINE_COL, " Line ")
+                out.append("|".join(cells))
+                state = "sep"
+            else:
+                out.append(ln)
             continue
-        if ln.startswith("| Subsystem |"):
-            in_table = True
-            seen_table = True
+        if state == "sep":
+            cells = ln.split("|")
+            if not col_existed:
+                cells.insert(LINE_COL, "---:")
+            out.append("|".join(cells))
+            state = "rows"
             continue
-        if not in_table or not ln.startswith("|") or set(ln) <= set("|-: "):
+        if state == "rows":
+            if not ln.startswith("|") or set(ln) <= set("|-: "):
+                out.append(ln)
+                state = "post"
+                continue
+            cells = ln.split("|")
+            if len(cells) != expected:  # malformed row — leave it untouched
+                out.append(ln)
+                continue
+            qty_m = NUM.search(cells[3])
+            price_m = MONEY.search(cells[4])
+            if qty_m and price_m:
+                line = round(
+                    float(qty_m.group(0).replace(",", ""))
+                    * float(price_m.group(1).replace(",", "")), 2)
+                cell = f" ${line:,.2f} "
+                sub = cells[1].strip()
+                sums[sub] = sums.get(sub, 0.0) + line
+            else:
+                cell = " — "  # "—" unit (shared-stock stub): no line, $0
+            if col_existed:
+                cells[LINE_COL] = cell
+            else:
+                cells.insert(LINE_COL, cell)
+            out.append("|".join(cells))
             continue
-        c = [x.strip() for x in ln.strip().strip("|").split("|")]
-        if len(c) < 4:
-            continue
-        qty_m = NUM.search(c[2])
-        price_m = MONEY.search(c[3])
-        if not qty_m or not price_m:
-            continue  # e.g. the "—" shared-stub row
-        line = float(qty_m.group(0).replace(",", "")) * float(price_m.group(1).replace(",", ""))
-        sums[c[0]] = sums.get(c[0], 0.0) + line
+        out.append(ln)  # state == "post"
+
+    open(BOM, "w", encoding="utf-8").write("\n".join(out) + "\n")
 
     unmapped = set(sums) - set(MARKERS)
     if unmapped:
@@ -76,7 +114,7 @@ def main():
             f"Lite BOM has subsystem(s) with no Totals-table marker: {sorted(unmapped)} "
             "— add a row + marker to the Totals table and MARKERS.")
 
-    grand = sum(sums.values())
+    grand = round(sum(sums.values()), 2)
     variables = {"LITE_TOTAL": f"${grand:,.2f}"}
     counts = {"LITE_TOTAL": 1}
     for sub, marker in MARKERS.items():
