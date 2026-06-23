@@ -523,7 +523,7 @@ Industrial-supply orders direct from McMaster-Carr (mcmaster.com). First McMaste
 
 ## 21. Silicone molding — Zone C hopper-funnel
 
-Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hopper-funnel ([printed-parts/zone-c/](/hardware/printed-parts/zone-c/README.md)): a two-piece printed mold poured with food-grade platinum silicone (BBDINO 40A — ~69 mL / ~78 g per funnel, ~13 funnels per kit), vacuum-degassed in a chamber driven by the §6 Orion 4 CFM vacuum pump (B08P1WRZ1S) + 1/4" SAE manifold, then oven post-cured. Pigmented black to hide concentrate staining; food contact (fat-free) qualified by the wetted-surface screen, not a cert.
+Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hopper-funnel ([printed-parts/zone-c/](/hardware/printed-parts/zone-c/README.md)): a two-piece printed mold poured with food-grade platinum silicone (BBDINO 40A — ~69 mL / ~78 g per funnel, ~13 funnels per kit), vacuum-degassed in a chamber driven by the §6 Orion 4 CFM vacuum pump (B08P1WRZ1S) + 1/4" SAE manifold, then oven post-cured. Pigmented black to hide concentrate staining; food contact (fat-free) qualified by the wetted-surface screen, not a cert. The printed core's food-contact face is sealed with a clear-acrylic coat that releases the silicone without inhibiting cure; release runs on it and the cavity.
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
@@ -534,6 +534,7 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 | BBDINO black silicone pigment, high-concentrated platinum-cure, 150 g — colorant for the cast hopper-funnel at ≤2% by weight (carbon-black, hides concentrate staining; food-contact qualified by the wetted-surface screen per [reservoir/wetted-surface-test.md](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md), not a cert). Order #112-7063184-8235469, placed June 22, 2026 | [B0BVR3R58V](https://www.amazon.com/dp/B0BVR3R58V) | 1 | $18.97 | ON-ORDER (arriving Jun 24) |
 | Mann Ease Release 200, 14 oz aerosol — addition-cure-compatible mold release for the printed hopper-funnel mold; used on the cavity and on the core's clear-acrylic seal (it is a release film, not a silicone fluid, so it does not add siloxane to the food face — any trace is cleared by the funnel's post-cure bake + wetted-surface screen). Order #112-0411698-8891425, placed June 22, 2026 | [B002YEBO1O](https://www.amazon.com/dp/B002YEBO1O) | 1 | $21.99 | ON-ORDER (arriving Jun 23) |
 | TCP Global 32 oz / 1000 mL graduated mixing cups (25-pk) — silicone-degassing batch cups, sized for the 3–4× vacuum rise of a ~70 mL pour. Order #112-0401256-3893007, placed June 22, 2026 | [B08HNCGY4N](https://www.amazon.com/dp/B08HNCGY4N) | 1 pk (25) | $17.99 | ACQUIRED (delivered Jun 22) |
+| Krylon K01303 Crystal Clear Acrylic, 11 oz gloss — clear-acrylic seal for the printed core's food-contact face: seals the print porosity and releases the platinum silicone without inhibiting the cure (acrylic, not enamel); finished + coupon-tested per [funnel-mold/README.md](/pie-in-the-sky/lite/printed-parts/funnel-mold/README.md) "Finish the core". Order #112-5591371-7092233, placed June 23, 2026 | [B00023JE7K](https://www.amazon.com/dp/B00023JE7K) | 1 | $9.89 | ON-ORDER (arriving Jun 25) |
 
 ---
 
@@ -542,8 +543,7 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 | Part | Notes |
 |---|---|
 | **Google Pixel 10a unlocked Android phone, 128 GB Obsidian (2026 model)** | Android development handset for the soda-machine app's Android side (`android/`). [B0GHRHXVN1](https://www.amazon.com/dp/B0GHRHXVN1). |
-| **Krylon K01303 Crystal Clear Acrylic, gloss, 11 oz (~$9.89)** | Hard gloss clear-acrylic seal coat for the §21 hopper-funnel mold's printed core face — seals print porosity, releases platinum silicone, and (acrylic, not enamel) does not inhibit the cure. The one core-finishing supply not yet on hand; sanding sponges, IPA, and Mann Ease Release 200 are already owned. Replaces an earlier filler-primer idea — a matte sandable primer cures micro-porous and grips/tears soft silicone (see [funnel-mold/README.md](/pie-in-the-sky/lite/printed-parts/funnel-mold/README.md) "Finish the core"). [B00023JE7K](https://www.amazon.com/dp/B00023JE7K). |
-| **Smooth-On XTC-3D 3D-print smoothing epoxy, 6.4 oz (~$19.99) — optional** | Self-leveling epoxy base coat under the acrylic, only if the 0.08 mm core texture still telegraphs through the acrylic alone. Fills/seals; not the release face. [B01BKSLI9M](https://www.amazon.com/dp/B01BKSLI9M). |
+| **Smooth-On XTC-3D 3D-print smoothing epoxy, 6.4 oz (~$19.99) — optional** | Self-leveling epoxy base coat under the §21 core's clear-acrylic seal, only if the 0.08 mm core texture still telegraphs through the acrylic alone. Fills/seals; not the release face. [B01BKSLI9M](https://www.amazon.com/dp/B01BKSLI9M). |
 
 ---
 
@@ -554,10 +554,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$27,226.23](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$29,834.15](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$939.04](LEDGER_ON_ORDER) |
+| ON-ORDER | [$948.93](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$30,816.08](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$30,825.97](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
