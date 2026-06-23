@@ -14,8 +14,6 @@ labeled connector. The full connection contract — every module and net — is
   solenoid high side; the ESP's 3V3 pin powers the MCPs. Through-hole, two layers,
   routed. ESP socket rows are 25.4 mm apart (DevKitC-32E); the pin map is the
   standard 38-pin layout.
-- `spike.tsx` — one ESP32 GPIO → gate resistor → low-side MOSFET → 12 V valve.
-  Two layers, routed.
 - `render-board.ts` — `bun render-board.ts <board>.tsx [scheme]`: exports the
   Gerbers and composes the three copper views into `out/`. The dev watcher
   (`web/dev-server`) runs it on every save of a board under `pcb/`, so the
@@ -24,27 +22,24 @@ labeled connector. The full connection contract — every module and net — is
   Bottom (back copper, seen through the board), and Overlay (both, warm front /
   cool back) SVGs, aligned in one frame at the real trace widths. `SCHEMES` holds
   the colour schemes (`copper` default, `blueprint`, `ink`).
-- `svg2png.ts` — SVG → PNG (resvg, headless).
-- `out/` — rendered and exported artifacts. `<board>.{top,bottom,overlay}.{svg,png}`
-  are the three copper views the site shows; `<board>.gerbers.zip` is the
-  fabrication set they're built from.
+- `out/` — exactly what `render-board.ts` produces, so a save keeps it current
+  and `build:check` guards it: `<board>.{top,bottom,overlay}.{svg,png}` (the
+  three copper views the site shows) and `<board>.gerbers.zip` (the fabrication
+  set they're built from).
 
 ## Toolchain
 
 [tscircuit](https://tscircuit.com), run under bun (`bun install` already done in
 this directory):
 
-    bunx tsci build <board>.tsx                                    # eval + DRC -> dist/.../circuit.json
-    bunx tsci export -f pcb-svg       -o out/<board>.pcb.svg <board>.tsx
-    bunx tsci export -f schematic-svg -o out/<board>.sch.svg <board>.tsx
-    bunx tsci export -f gerbers       -o out/<board>.gerbers.zip <board>.tsx
-    bunx tsci export -f kicad_pcb     -o out/<board>.kicad_pcb <board>.tsx
-    bunx tsci export -f step          -o out/<board>.step <board>.tsx
-    bun svg2png.ts out/<board>.pcb.svg out/<board>.pcb.png
+    bunx tsci build <board>.tsx           # eval + DRC -> dist/.../circuit.json
+    bun render-board.ts <board>.tsx       # gerbers + the three copper views (svg+png), "copper"
+    bun render-board.ts <board>.tsx ink   # or "blueprint"
 
-    # gerbers + the three copper views (Top / Bottom / Overlay), svg + png
-    bun render-board.ts <board>.tsx                # default "copper" scheme
-    bun render-board.ts <board>.tsx ink           # or "blueprint"
+`render-board.ts` is what fills `out/`. Other formats export on demand and are
+not committed (they'd drift, since nothing regenerates them):
+
+    bunx tsci export -f <schematic-svg|kicad_pcb|step|specctra-dsn|…> -o <path> <board>.tsx
 
 `tsci import` pulls footprints from JLCPCB part numbers; `tsci convert` ingests
 `.kicad_mod` footprints.
