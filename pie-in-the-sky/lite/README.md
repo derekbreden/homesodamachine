@@ -85,7 +85,7 @@ Clean cycle: the customer starts it, watches Lillium water run out through the f
 | Faucet + under-counter plate | $40 |
 | User interface (faucet flavor display + config display + buzzer) | $80 |
 | Wiring + fasteners | $25 |
-| Printed mechanical parts (transparent enclosure, hopper, bag cradles, pump cartridge) | $50 |
+| Printed mechanical parts (transparent enclosure, hopper, bag cradles) | $50 |
 | Mechanical attach hardware + bag port fittings | $10 |
 | **Total** | **~$575** |
 
@@ -112,15 +112,6 @@ Reservoirs are off-the-shelf collapsible bags, not printed (see "What the Lite E
 - [`touch-flo-mounting-gasket/`](/hardware/printed-parts/faucet/touch-flo-mounting-gasket/) — TPU gasket between mounting plate and countertop.
 - [`touch-flo-tpu-o-ring/`](/hardware/printed-parts/faucet/touch-flo-tpu-o-ring/) — TPU o-ring at the body-to-shell interface.
 
-### Exists, no documented iteration
-
-**Flavor pump stack** — [`hardware/printed-parts/flavor/`](/hardware/printed-parts/flavor/)
-
-- [`pump-case/`](/hardware/printed-parts/flavor/pump-case/) — base + cap STEPs generated. No print-log or README on file.
-- [`peristaltic-tube/`](/hardware/printed-parts/flavor/peristaltic-tube/) — STEP generated. No print-log or README.
-- [`cap-sense-sleeve/`](/hardware/printed-parts/flavor/cap-sense-sleeve/) — +Y and -Y STEPs generated. No print-log or README.
-- [`buckle/`](/hardware/printed-parts/flavor/buckle/) — only `discussion.md` on file; no STEP, no cadquery. Not designed yet.
-
 ### Added scope for the Lite Edition — what is now designed, what is not
 
 The existing prototype lives ad-hoc under the sink; the Lite Edition wraps it in a consumer form. The pieces the prototype does without:
@@ -133,8 +124,6 @@ The existing prototype lives ad-hoc under the sink; the Lite Edition wraps it in
 ### Open questions that surface from this walk
 
 - What fitting mates to the Platypus bag's port, and does one low port serve both fill (from the hopper through the manifold) and draw (to the pump), or does the bag need a second port?
-- Is `flavor/buckle` load-bearing for the prototype, or just an idea captured in `discussion.md`?
-- Are `flavor/pump-case` + `peristaltic-tube` + `cap-sense-sleeve` the same iteration the prototype is using, or is the prototype on earlier / different versions?
 - Is `touch-flo-shell` at attempt 14/15 the version that would ship, or is more iteration expected — the scarf-seam recording-only posture suggests Derek is still tuning.
 
 ## Form factor

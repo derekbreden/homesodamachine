@@ -371,7 +371,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 
 ## 13. Printing consumables
 
-3D-printer filament stock used for printed mechanical parts (cold-core shells, bladder cradles, pump cartridge, enclosure, hopper, etc.). PETG is the default per bom.md §7; specialty filaments below are for specific parts requiring flexibility or chemical resistance.
+3D-printer filament stock used for printed mechanical parts (cold-core shells, bladder cradles, enclosure, hopper, etc.). PETG is the default per bom.md §7; specialty filaments below are for specific parts requiring flexibility or chemical resistance.
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|

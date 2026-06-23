@@ -2,7 +2,7 @@
 
 The removable dishwasher-safe silicone funnel that seats in the Zone C top-wall
 opening, right of the display and flush to the front. Pour SodaStream concentrate
-into it; lift it out by hand for the dishwasher and to reach the pump cartridge
+into it; lift it out by hand for the dishwasher and to reach the pumps
 beneath. Zone framing: [`../README.md`](/hardware/printed-parts/zone-c/README.md).
 
 ## Shape

@@ -12,7 +12,7 @@ The module does not carbonate. It does not connect to the customer's plumbing or
 
 - **Two new flavor reservoirs**, 1 L each, in the same printed hard-reservoir architecture as the main unit's two. PTFE-membrane vented caps, low outlet sump, hopper fill from above.
 - **A small refrigerated chamber** holding those two reservoirs at 8–15 °C. The architecture mirrors the main unit's cold core at smaller scale: foam-shell wrap, evaporator coil, harvested compressor / condenser / fan / cap-tube / drier. Setpoint is warmer than the main unit's (no carbonation to keep cold here — just syrup storage), which opens a possible Peltier path as a quieter alternative to the donor-compressor architecture. Side-to-side airflow same as the main unit.
-- **Two Kamoer peristaltic pumps** (one per new reservoir), in the same replaceable pump-cartridge pattern as the main unit. Tool-free swap.
+- **Two Kamoer peristaltic pumps** (one per new reservoir), the same off-the-shelf pumps as the main unit.
 - **A top hopper** sized to accept a SodaStream-pour, routed through solenoid-selected valves to the two new reservoirs. Customer fills the two module-side flavors through the module's own hopper, independent of the main unit's hopper.
 - **A valve manifold** extension of the main unit's pattern, generalized for the four-line faucet — flavor select, clean-cycle routing, source-selection for hopper fill.
 - **Its own electronics shelf** — local microcontroller, MCP23017 expander, ULN2803A drivers, motor driver, 12 V regulation. Subordinate to the main unit's ESP32 for high-level control; runs its own refrigeration cycle and pump timing locally.
