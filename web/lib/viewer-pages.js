@@ -1,7 +1,7 @@
-// Server-renders the two viewer pages: /3d (parts — prints + cuts) and
-// /charts (mermaid diagrams). Both pages share the same body fragment
-// (lib/templates/viewer-body.html), which decides what to
-// render based on location.pathname. The server picks the page title and
+// Server-renders the four viewer pages: /3d (parts — prints + cuts), /charts
+// (mermaid diagrams), /drawings (line art), and /pcb (board views). All pages
+// share the same body fragment (lib/templates/viewer-body.html), which decides
+// what to render based on location.pathname. The server picks the page title and
 // active nav item based on which route was hit; everything else is in the
 // fragment.
 //
@@ -12,8 +12,8 @@
 //   /dev/mermaid  → /charts
 //   /dev/settings → /settings
 //
-// Settings used to be a third section here; it now lives at /settings
-// (lib/settings.js), reachable via the gear in the nav.
+// Settings lives at /settings (lib/settings.js), reachable via the gear in the
+// nav.
 
 import path from "path";
 import fs from "fs";
