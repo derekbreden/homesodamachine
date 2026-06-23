@@ -1,12 +1,7 @@
 /**
- * Carrier-board toolchain spike — the board's core motif, in miniature.
- *
- * One ESP32 GPIO drives a low-side N-MOSFET that switches a 12 V valve. This
- * is the unit cell repeated ~14× across the real carrier board (12 solenoids
- * + condenser fan + diaphragm-pump relay, via the ULN2803 / relay modules).
- *
- * Its only job is to prove the loop end-to-end: code -> rendered PNG I can
- * actually look at -> Gerbers + STEP + KiCad out. The circuit is incidental.
+ * spike — one ESP32 GPIO -> gate resistor -> low-side N-MOSFET -> 12 V valve.
+ * The unit cell of the carrier's valve and relay low-side drive. Two layers,
+ * through-hole.
  */
 
 export default () => (

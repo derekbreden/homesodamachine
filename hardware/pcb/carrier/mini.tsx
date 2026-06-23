@@ -1,14 +1,11 @@
 /**
- * esp32-mcp-mini — the smallest real, *fully routed* board: prove the whole
- * loop on something I can verify completely before scaling up.
+ * esp32-mcp-mini — an ESP32 DevKitC-32E (socketed on two 1x19 rows) and an
+ * MCP23017 (DIP-28) over I2C, with the MCP's GPA0-7 / GPB0-7 and four spare
+ * ESP32 GPIO on edge headers. The ESP's 3V3 pin powers the MCP. Through-hole,
+ * two layers.
  *
- *   ESP32 DevKitC-32E (socketed on two 1x19 rows) --- I2C ---> MCP23017 (DIP-28),
- *   with the MCP's GPA0-7 / GPB0-7 broken out to edge headers and a few spare
- *   ESP32 GPIO to a third edge header. The ESP's 3V3 pin powers the MCP.
- *
- * Through-hole only. Routing is ON: success means every net is copper, DRC
- * clean, no ratlines. The one caliper-confirm item is the ESP socket row
- * spacing (22.86 mm / 0.9", standard DevKitC-32E).
+ * The ESP socket rows are 22.86 mm (0.9") apart and the pin map is the standard
+ * DevKitC-32E 38-pin layout — both unconfirmed against the physical module.
  */
 
 export default () => {
