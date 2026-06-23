@@ -13,10 +13,13 @@ that registers over the cavity, with a centered lead-nosed pin continuing the
 
 Both halves pull straight up — a funnel is its own draft. Geometry is read live
 from the lite funnel: funnel.build_solids() returns the exterior + bore solids,
-and the mold is those Booleaned out of blocks, so the mold tracks the funnel as
-the lite packing keeps settling. Forming surfaces carry no release clearance
-(the mold face is the part face). Pour / degas / post-cure bake: see README.md
-and the Kitchen mold's notes.
+and the mold wraps those, so it tracks the funnel as the lite packing keeps
+settling. Both are relieved shells, not solid blocks: a registration skin and a
+forming wall around the funnel, braced by a rib lattice, with the dead volume
+hollowed out — the cavity relief vents to the bed, the core plug to a shell
+vented through the plate. Forming surfaces carry no release clearance (the mold
+face is the part face). Pour / degas / post-cure bake: see README.md and the
+Kitchen mold's notes.
 """
 
 import sys
