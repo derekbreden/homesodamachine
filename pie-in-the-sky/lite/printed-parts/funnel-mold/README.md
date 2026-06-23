@@ -15,10 +15,12 @@ tracks the funnel as the lite packing keeps settling.
 ## The two halves
 
 Both are **relieved shells, not solid blocks**: a registration skin on the
-outside, a forming wall around the funnel, and a rib lattice bridging the two,
+outside, a forming wall around the funnel, and a diagonal X-brace tying the two,
 with the dead volume between them hollowed out. The pair is [954 g](PAIR_MASS)
 of PETG at 100 % infill — and because the relief leaves the forming faces backed
-by solid wall, 100 % infill costs little.
+by solid wall, 100 % infill costs little. The forming-wall overhangs over the
+relief are carried by **print supports**, not by PETG structure, so the model
+stays minimal.
 
 - **Cavity** ([95.0 × 158.0 × 99.0 mm](CAVITY_DIMS), [656 g](CAVITY_MASS)). The
   funnel exterior carved from a block, opening up; brim recess at the rim,
@@ -26,9 +28,9 @@ by solid wall, 100 % infill costs little.
   the [10 mm](MOLD_BASE) spout floor and the [8 mm](MOLD_WALL)-nominal block
   footprint the core skirt registers against; a [6 mm](BOWL_WALL) forming wall
   contains the silicone and backs the cast against the vacuum pull. Between skin
-  and forming wall the dead solid is relieved out, braced by a [4 mm](RIB_WALL)
-  rib lattice; the relief vents down to the bed, so it prints with no internal
-  support.
+  and forming wall the dead solid is relieved out, leaving only a [6 mm](BRACE_WALL)
+  diagonal X-brace (corner to corner through the spout boss) to hold the open
+  cavity rigid through the pour; the relief vents down to the bed.
 - **Core** ([107.0 × 170.0 × 109.0 mm](CORE_DIMS), [298 g](CORE_MASS)). The bore
   as a plug on a [10 mm](PLATE_THK) top plate that forms the brim top and
   registers over the cavity by a skirt; a centered, lead-nosed pin continues the
@@ -45,12 +47,16 @@ funnel is about [82 mL](SIL_VOLUME) of silicone.
 ## Print
 
 Both halves print as drawn — cavity opening up, core clamp-face down with the
-plug up. The cavity relief opens to the bed and the rib lattice carries the steep
-deep-Y forming wall on short bridges, so neither half needs support. The forming
-wall and registration skin stay fully solid (the relief stops short of both), so
-the cast surface and the skirt fit are unaffected by the lightening. As on the
-Kitchen mold, smooth the core plug (it forms the funnel's food-contact inside
-face); the cavity exterior can stay as-printed.
+plug up. The cavity's forming wall flares out over the relief (steepest on the
+deep-Y ramp), so it **prints on supports**: enable them, and they grow in the
+relief gaps between the X-brace, not on a forming face. That support sits in
+sealed-off internal dead space — not in the silicone path, not on the cast
+surface, not in the registration — so it can be left in place; the only check is
+that none intrudes into the open bowl, the pin-register hole, or the vents. The
+forming wall and registration skin stay fully solid (the relief stops short of
+both), so the cast surface and the skirt fit are unaffected by the lightening. As
+on the Kitchen mold, smooth the core plug (it forms the funnel's food-contact
+inside face); the cavity exterior can stay as-printed.
 
 ## Cast + bake
 
