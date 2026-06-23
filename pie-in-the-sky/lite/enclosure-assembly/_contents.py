@@ -70,7 +70,7 @@ X_INSET = 3.0
 # The reservoir gets its own slightly larger inset so its full-height -X wall
 # clears the back-half corner braces (which run the full depth in the ±X corners,
 # reaching a hair inboard of the inner wall).
-RES_X_INSET = 6.0
+RES_X_INSET = 15.0
 # The four corner cross-pin bosses tuck into the ±X/±Z corners and run in Y
 # across the seam. Floor content against a side wall would foul the bottom pods,
 # so it is lifted clear of them — the Kitchen `FOAM_LIFT` idiom.

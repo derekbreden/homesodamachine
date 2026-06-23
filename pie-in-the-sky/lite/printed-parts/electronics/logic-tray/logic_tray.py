@@ -2,9 +2,9 @@
 
 One tray carries the whole low-voltage logic set: the ESP32 (on its DIN-rail
 breakout), the MCP23017 I2C GPIO expander, both ULN2803A solenoid drivers, the
-L298N pump driver, and the TTL-to-RS485 transceiver. The Lite folds the Kitchen
-edition's two trays (controller + driver) into one — it has a single MCP23017
-and no DS3231, so the combined set fits one compact frame.
+L298N pump driver, the DS3231 RTC, and the TTL-to-RS485 transceiver. The Lite
+folds the Kitchen edition's two trays (controller + driver) into one — it has a
+single MCP23017, so the combined set fits one compact frame.
 
 Same idioms as the rest of the shelf: boards pack flush, a single
 convex-outline floor, no walls, heat-set standoff bosses (M3 per board, M2 for
@@ -12,9 +12,9 @@ the MCP23017's 2 mm holes). Built by the shared
 [`module_tray`](/hardware/printed-parts/electronics/module_tray.py) engine.
 
 Layout: ESP32 breakout at the lower-left; the L298N flush to its right; the two
-ULN2803As stacked in the next column; the MCP23017 + RS485 stacked in the last
-column. Local frame: X right, Y deep, Z up; origin at the floor's bottom-left
-corner.
+ULN2803As stacked in the next column; the MCP23017 + RS485 stacked in the next
+column; the DS3231 in the last column. Local frame: X right, Y deep, Z up;
+origin at the floor's bottom-left corner.
 """
 
 import sys
@@ -24,7 +24,7 @@ _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 _hw = _repo / "hardware"
 sys.path.insert(0, str(_hw / "printed-parts" / "electronics"))
-for _r in ("esp32-din-breakout", "mcp23017", "uln2803a", "l298n", "rs485-transceiver"):
+for _r in ("esp32-din-breakout", "mcp23017", "uln2803a", "l298n", "rs485-transceiver", "ds3231-rtc"):
     sys.path.insert(0, str(_hw / "reference" / _r))
 sys.path.insert(0, str(_hw / "scripts"))
 from _cadq_export import export_step
@@ -35,6 +35,7 @@ import mcp23017 as mcp
 import uln2803a as uln
 import l298n
 import rs485_transceiver as rs485
+import ds3231_rtc as ds3231
 
 m = mt.margin
 
