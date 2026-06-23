@@ -22,6 +22,7 @@ face is the part face). Pour / degas / post-cure bake: see README.md and the
 Kitchen mold's notes.
 """
 
+import math
 import sys
 from pathlib import Path
 
@@ -53,9 +54,9 @@ vent_id = 2.5         # vent holes through the plate, over the brim ring
 skin_wall = 5.0       # outer registration skin kept around the cavity block
 bowl_wall = 6.0       # forming wall kept around the funnel — silicone containment
                       # and a gas-tight PETG backing for the vacuum-degas pour
-rib_wall = 4.0        # ribs bracing the skin to the forming wall
-rib_pitch = 30.0      # target spacing of the relief rib lattice — short enough that
-                      # the steep deep-Y forming wall bridges between ribs, no support
+brace_wall = 6.0      # the diagonal X-brace beams (cavity) and the plate ribs — the
+                      # only solid structure across the relief; print supports, not
+                      # PETG, hold the steep forming-wall overhangs up during printing
 plate_relief = 4.0    # solid kept under the plate's brim face when its top is relieved
 boss_wall = 4.0       # solid kept around each plate through-hole when relieved
 

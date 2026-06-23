@@ -136,9 +136,13 @@ export async function composeViews(dir: string, scheme: Scheme) {
   // All apertures, once. Layer ids are prefixed by gerber-to-svg so no clash.
   const allDefs = present.map((l) => l.defs).join("")
 
-  // Paint a layer: its raw geometry under the shared flip, in `color`.
+  // Paint a layer: its raw geometry under the shared flip, in `color`. The
+  // geometry inherits paint from its group — pads/regions fill, traces (drawn
+  // fill="none") stroke — so the wrapper sets both. Setting literal fill/stroke
+  // (rather than an inherited CSS color / currentColor) resolves in every
+  // renderer, resvg included.
   const paint = (l: Layer | null, color: string, opacity = 1) =>
-    l ? `<g style="color:${color}"${opacity !== 1 ? ` opacity="${opacity}"` : ""}>${l.body}</g>` : ""
+    l ? `<g fill="${color}" stroke="${color}"${opacity !== 1 ? ` opacity="${opacity}"` : ""}>${l.body}</g>` : ""
 
   const drillPunch = `${paint(drl, scheme.drill)}${paint(drlN, scheme.drill)}`
   const edgePaint = paint(edge, scheme.edge)
