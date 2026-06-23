@@ -47,9 +47,14 @@ const Esp32 = ({ x, y }: { x: number; y: number }) => (
     <resistor name="R1" resistance="4.7k" footprint="axial" {...at(x + 27, y + 3)} />
     <resistor name="R2" resistance="4.7k" footprint="axial" {...at(x + 27, y - 1)} />
     <trace from=".U1A > .3V3" to="net.V3_3" />
+    {/* tie every ground pin, incl. the center one, so consumers reach ground short */}
     <trace from=".U1B > .GNDb" to="net.GND" />
-    <trace from=".U1B > .IO21" to="net.SDA" />
-    <trace from=".U1B > .IO22" to="net.SCL" />
+    <trace from=".U1B > .GNDc" to="net.GND" />
+    <trace from=".U1A > .GND" to="net.GND" />
+    {/* I2C on IO16/IO17 — adjacent pins on the MCP-facing side, so the bus is one
+        short bundle instead of a diagonal across the whole socket */}
+    <trace from=".U1B > .IO16" to="net.SDA" />
+    <trace from=".U1B > .IO17" to="net.SCL" />
     <trace from=".R1 > .pin1" to="net.SDA" />
     <trace from=".R1 > .pin2" to="net.V3_3" />
     <trace from=".R2 > .pin1" to="net.SCL" />
