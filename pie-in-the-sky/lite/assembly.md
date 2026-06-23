@@ -89,7 +89,7 @@ The Lite Edition still has open detail ([`README.md`](/pie-in-the-sky/lite/READM
 - **Bag-port fitting.** What mates to the Platypus spout, and whether one low port serves both fill and draw or a second port is needed.
 - **Logic/driver-board tray.** The [power tray](/pie-in-the-sky/lite/printed-parts/electronics/power-tray/) (PSU + AC distribution) is designed; the ESP32 / MCP23017 / ULN2803A / L298N still want their own module tray.
 - **Firmware.** The manual-prime, no-sensor build.
-- **Iteration lock.** Whether the faucet, pump-case, and cap-sense-sleeve versions on file are the shipping versions.
+- **Iteration lock.** Whether the faucet version on file is the shipping version.
 
 ## Sources
 [value](NAME) texts are updated by:
