@@ -36,7 +36,7 @@
 | Electronics | MXR IEC 60320 C14 panel-mount AC inlet (10-pack) | 1 | $0.70 | [B07DCXKNXQ](https://www.amazon.com/dp/B07DCXKNXQ) | Rear mains inlet; accepts a standard NEMA 5-15P-to-C13 cord. 1 of 10. Same as Kitchen bom.md §5. |
 | Electronics | Monoprice NEMA 5-15P → IEC C13 line cord (6-pack) | 1 | $4.00 | [B08VS8D4WC](https://www.amazon.com/dp/B08VS8D4WC) | The Lite's own US wall cord (one of two cords at the outlet, the other the Lillium's). 1 of 6. Same as Kitchen bom.md §5. |
 | Electronics | Wago 221-413 lever-nut, 3-conductor | 3 | $0.85 | [wago-221-413](/hardware/reference/wago-221-413/) | H / N / G AC distribution block on the [power tray](/pie-in-the-sky/lite/printed-parts/electronics/power-tray/). One per conductor. Same as Kitchen bom.md §11. |
-| Electronics | Ground ring-terminal stack — single-point chassis ground | 1 | ~$0.10 | [ground-ring-stack](/hardware/reference/ground-ring-stack/) | Green M3 ring lugs (one per exposed-metal part) clamped on the power-tray ground boss, earthed through the C14 cord (Class I). Lug count pending the exposed-metal inventory. |
+| Electronics | smseace #4/M3 insulated ring terminal, 22–16 AWG (150 pc) | 4 | $0.064 | [B08B5VS8ZR](https://www.amazon.com/dp/B08B5VS8ZR) | Single-point chassis-ground lugs on the power-tray ground boss ([ground-ring-stack](/hardware/reference/ground-ring-stack/)), earthed through the C14 cord (Class I); the green 16 AWG ground wire crimps into each. One per exposed-metal point — faucet body (via its SS under-counter plate), Mean Well PSU chassis, SS bag-hanger rod, and the C14 inlet earth. $9.64/150; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §9). |
 | Electronics | ALMOCN TTL-to-RS485 module (5-pack) | 1 | $2.70 | [B09998FY4X](https://www.amazon.com/dp/B09998FY4X) | Base-ESP32 transceiver for the SIG-7 link to the 4.3B config display — the 4.3B exposes RS485 as its host interface, so the base side needs a matching transceiver. Auto-direction, screw-terminal RS485 + JST TTL. 1 of 5. Same as Kitchen bom.md §1. |
 | Electronics | DORHEA DS3231 AT24C32 RTC module (2-pk) | 1 | $3.54 | [B09LLMYBM1](https://www.amazon.com/dp/B09LLMYBM1) | I²C real-time clock at 0x68 — timestamps usage statistics (hourly + daily dispense logging). 1 of 2; same part/role as the Kitchen build (bom.md §1). |
 | Electronics | BNTECHGO 28 AWG silicone ribbon, 4-conductor, 50 ft | 1 | $3.06 | [B07PNPHWMG](https://www.amazon.com/dp/B07PNPHWMG) | Faucet-display harness (SIG-6: TX / RX / 5 V / GND) from the gooseneck 1.47″ flavor display down through the counter to the base ESP32. ~2 m off the 50 ft spool. Same as Kitchen bom.md §9. |
@@ -67,10 +67,12 @@
 | Fasteners | ruthex M3 heat-set inserts, short, brass (100 pc) | 30 | $0.107 | [B0D39W228K](https://www.amazon.com/dp/B0D39W228K) | Power tray (5) + faucet plate (3) + logic tray (18 M3) + enclosure cross-pins (4) bosses. Of 100; ACQUIRED. |
 | Fasteners | BNUOK M3×12 mm SHCS, 12.9 alloy, black oxide (120 pc) | 26 | $0.071 | [B0DJQGVK8S](https://www.amazon.com/dp/B0DJQGVK8S) | One per M3 boss (power tray + faucet plate + logic tray). Black-oxide socket-head cap screws; same finish/head as the M3×25 foam-cap screws. Of 120; ACQUIRED. |
 | Fasteners | BNUOK M3×10 mm SHCS, 12.9 alloy, black oxide (120 pc) | 4 | $0.071 | [B0DJQGGDP2](https://www.amazon.com/dp/B0DJQGGDP2) | The 4 enclosure corner cross-pins — M3×10 into ruthex M3 per [enclosure/](/pie-in-the-sky/lite/enclosure/). $8.57/120. ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §11). |
+| Fasteners | ruthex M2×4 heat-set inserts, brass (70 pc) | 2 | $0.153 | [B088QJG676](https://www.amazon.com/dp/B088QJG676) | The 2 logic-tray bosses for the MCP23017 (its ⌀2 mm holes take M2, not M3). $10.71/70; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §11). |
+| Fasteners | Sutemribor M2×6 mm SHCS, 12.9 alloy, black oxide (105 pc) | 2 | $0.174 | [B0CXQ7Q7L3](https://www.amazon.com/dp/B0CXQ7Q7L3) | One per M2 boss — the MCP23017 mount on the logic tray. Black-oxide socket-head, matching the BNUOK M3 family. $18.22/105; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §11). |
 
 ## Per-unit cost (estimate)
 
-Estimated delivered parts cost per Lite unit: **[$589.19](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
+Estimated delivered parts cost per Lite unit: **[$590.00](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
 
 ## Clear-PVC length — ~13 ft/unit (estimate)
 
