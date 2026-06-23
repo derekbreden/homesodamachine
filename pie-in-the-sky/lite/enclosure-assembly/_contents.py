@@ -86,9 +86,8 @@ PUMP_HEAD_X = 164.0        # the pump heads' +X face — pulled -X so the motor 
                            # into the bag tray, motor tips ~1 mm shy of the first bag fitting
 PUMP_UPPER_ZMIN = 93.0     # upper pump height: its motor lands in the bag tray's mid air gap
                            # (~z100-150), as the lower pump's motor runs the floor gap below it
-PUMP_FRONT_OFFSET = 2.0    # pumps set the box front this far ahead of the bag — backing the
-                           # shave off this much lets the bag rise fully clear of the lower motor
-                           # (display rides forward of the bag) with zero contact
+PUMP_TO_STACK_GAP = 1.0    # gap from the pump backs (heads) to the back-row (bib/nozzle) front;
+                           # the pumps are pushed as far +Y as they go, butting that face
 RES_FRONT_Y = 180.0        # reservoir front datum (the back anchor); content packs ahead of it
 BAG_SOURCE_GAP = 1.0       # gap from the bag-circuit back to the source-select front (Y)
 BAG_Z_LIFT = 5.0           # bag-circuit raised this far above the floor lift — as high as the
@@ -173,6 +172,7 @@ def build():
                  xmax=SHORT_X_MAX, ymax=split_front, zmin=bibb.zmax - STACK_OVERLAP)
     placed["bib-gate"] = (bib, COLORS["bib-gate"])
     placed["nozzle-gate"] = (noz, COLORS["nozzle-gate"])
+    stack_front = min(bibb.ymin, noz.BoundingBox().ymin)   # back-row front the pumps butt
 
     # --- Back-left: source-select stood vertical and turned a quarter-turn (rot
     # +90 about Y to stand it up, then -90 about Z) so its long footprint side runs
@@ -186,7 +186,7 @@ def build():
     # about Y), narrow in X in the strip left of the pump motors, its back tucked
     # against the source-select front. Raised clear of the floor so the lower pump
     # motor runs beneath it; its height is bounded by the seated display above and
-    # that motor below — a tight squeeze the PUMP_FRONT_OFFSET below opens up.
+    # that motor below.
     bag = _place(_rot(_load(TRAY_STEPS["bag-circuit"]), (0, 1, 0), 90.0),
                  xmin=X_INSET, ymax=src.BoundingBox().ymin - BAG_SOURCE_GAP,
                  zmin=FLOOR_LIFT + BAG_Z_LIFT)
@@ -196,16 +196,14 @@ def build():
     # sides so the motor CYLINDERS point -X into the bag-circuit tray's air gaps —
     # bulky heads at +X. The lower pump sits on the floor so its motor runs the clear
     # band beneath the bag; the upper pump rides at PUMP_UPPER_ZMIN so its motor lands
-    # in the bag's mid air gap. The pumps set the box FRONT, parked PUMP_FRONT_OFFSET
-    # ahead of the bag (a hair shallower than butting the back row) so the display —
-    # which rides the front wall — sits forward of the bag, giving the bag room to
-    # stand high enough to clear the lower motor while still clearing the display.
-    # Motors thread the bag along X, so the pumps' Y is free. (Orientation: rot +90 Z,
-    # then +90 Y to lay the motor along X, then 180 Z to point it -X, head at +X.)
+    # in the bag's mid air gap. The pumps are pushed as far +Y as they go — their
+    # heads butt the back-row (bib/nozzle) front, PUMP_TO_STACK_GAP shy. Motors thread
+    # the bag along X, so the pumps' Y is free. (Orientation: rot +90 Z, then +90 Y to
+    # lay the motor along X, then 180 Z to point it -X, head at +X.)
     pump_neg_x = _rot(_rot(_rot(_load(PUMP_STEP), (0, 0, 1), 90.0), (0, 1, 0), 90.0), (0, 0, 1), 180.0)
-    pump_front = bag.BoundingBox().ymin - PUMP_FRONT_OFFSET
-    pump_lo = _place(pump_neg_x, xmax=PUMP_HEAD_X, ymin=pump_front, zmin=0.0)
-    pump_up = _place(pump_neg_x, xmax=PUMP_HEAD_X, ymin=pump_front, zmin=PUMP_UPPER_ZMIN)
+    pump_back = stack_front - PUMP_TO_STACK_GAP
+    pump_lo = _place(pump_neg_x, xmax=PUMP_HEAD_X, ymax=pump_back, zmin=0.0)
+    pump_up = _place(pump_neg_x, xmax=PUMP_HEAD_X, ymax=pump_back, zmin=PUMP_UPPER_ZMIN)
     placed["pump-lower"] = (pump_lo, PUMP_COLORS["pump-lower"])
     placed["pump-upper"] = (pump_up, PUMP_COLORS["pump-upper"])
 

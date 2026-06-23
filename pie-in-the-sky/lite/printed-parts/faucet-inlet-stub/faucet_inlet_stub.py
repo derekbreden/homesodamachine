@@ -7,30 +7,35 @@ the faucet.
 Flow path, port to port:
     Lillium hose
       -> bulkhead IN  (panel pass-through, +X side)
-      -> elbow IN     (turns the run inward, toward -X)
-      -> reducer      (3/8" PTC -> 1/4" PTC)
-      -> DIGITEN flow meter  (axis along X, inside the enclosure)
-      -> reducer      (1/4" PTC -> 3/8" PTC)
+      -> elbow IN     (turns the run inward, toward the meter inlet)
+      -> DIGITEN flow meter  (90° L-body, inlet and outlet at 90°)
       -> elbow OUT    (turns the run back toward the panel)
       -> bulkhead OUT (panel pass-through, -X side)
       -> faucet
+
+The meter is the G1/4" 1/4"-PTC part: both ports take a 1/4" OD tube
+directly, so the 1/4" elbows mate it without any reducer. Its two ports sit
+at 90°, so it is set corner-down (the L straddling X=0), the inlet opening
+toward the +X bulkhead and the outlet toward the -X bulkhead, both leaning
++Y toward the panel.
 
 Coordinate frame
 ----------------
 - Y = panel-normal : +Y is outside the enclosure (toward the Lillium hose
                      and the faucet); -Y is inside. The rear panel sits at
                      Y = 0, the bulkhead seating plane.
-- X = lateral      : the two bulkheads straddle X = 0 at ±[79.56 mm](BULKHEAD_X);
-                     the flow meter spans between them along X.
+- X = lateral      : the two bulkheads straddle X = 0 at ±[38.65 mm](BULKHEAD_X);
+                     the flow meter sits centered between them.
 - Z = up.
 
-The two bulkheads sit [159.1 mm](BULKHEAD_PITCH) apart on the panel — the
-flow meter is 60 mm port-to-port, and a reducer plus an elbow leg stand off
-each end. The flow meter, both elbows, and both reducers live inside the
-enclosure at Y = -[44.35 mm](STUB_DEPTH_Y).
+The two bulkheads sit [77.3 mm](BULKHEAD_PITCH) apart on the panel — the
+meter's two ports stand 27 mm off its center at 90°, and an elbow leg stands
+off each port. The flow meter, both elbows, and the meter corner live inside
+the enclosure at Y = -[63.44 mm](STUB_DEPTH_Y).
 """
 
 import sys
+import math
 from pathlib import Path
 
 import cadquery as cq
@@ -57,53 +62,30 @@ bulkhead_far_ring_y = -24.79     # inner tube-port face, into the enclosure
 # Elbow (elbow-connector.step frame): bend corner at the origin, each leg
 # running out to its collet face.
 elbow_leg = 19.56                # bend corner to collet face, both legs
-# Flow sensor (digiten_flow_sensor.py frame): axis along Y, ports at ±this.
-flow_port_face = 30.0            # collet face from center, each port
+# Flow sensor (digiten_flow_sensor.py frame): inlet +Y, outlet +X, each
+# collet face this far from the body center along its own axis.
+flow_port_face = 27.0            # collet face from center, each port
 
 
-# --- Reducer adapter: JG PP201208WP, 3/8" PTC x 1/4" PTC reducing union ------
-# Modeled as a stepped coaxial stub for layout keep-out. Length and the
-# diameters are photo/catalog estimates pending a part in hand.
-reducer_len = 30.0               # overall length, port face to port face (estimated)
-reducer_38_dia = 16.0            # 3/8" collet barrel OD (estimated)
-reducer_14_dia = 12.0            # 1/4" collet barrel OD (estimated)
+# --- Layout: 90° L-meter straddling X=0, inside the enclosure ----------------
+# The meter is set corner-down (rotated 45° about Z) so its two 90° ports lean
+# symmetrically toward the panel: the inlet opens up-and-toward +X, the outlet
+# up-and-toward -X. Each port face then sits at lateral offset and depth
+# flow_port_face/√2 from the meter center. An elbow turns each port's run +Y
+# to the bulkhead's inner ring face; the bulkhead X is the elbow bend corner.
+_diag = flow_port_face / math.sqrt(2.0)   # port-face X offset and Y rise, each port
 
+# The meter center depth into the enclosure (-Y). The elbow axial leg
+# (length elbow_leg) bridges from the bulkhead far ring face down to the
+# elbow corner, which sits one elbow_leg in +Y above each port face.
+meter_center_y = bulkhead_far_ring_y - elbow_leg - _diag   # meter center, -Y
+stub_depth_y = meter_center_y                              # chain depth, -Y
 
-# --- Layout: lateral chain along X, inside the enclosure ---------------------
-# The flow meter sits centered on X=0 at a fixed depth into the enclosure,
-# its axis along X. Working outward from each port face: a reducer, then an
-# elbow whose lateral leg meets the reducer and whose axial leg points +Y
-# to the bulkhead's inner port. The bulkhead X is whatever puts that elbow
-# axial-leg collet face on the bulkhead's far ring face.
-#
-# The lateral chain (flow meter, both reducers, both elbow corners) lives at
-# one depth into the enclosure along -Y, at Z=0. The elbow axial leg
-# (length elbow_leg) bridges that depth out to the bulkhead far ring face.
-stub_depth_y = bulkhead_far_ring_y - elbow_leg   # elbow corner / chain depth, -Y
-
-# Outboard end of one reducer = flow port face + reducer length. The elbow's
-# lateral-leg collet face meets the reducer there; its bend corner sits one
-# elbow_leg further out, which sets the bulkhead axis.
-_reducer_outer_x = flow_port_face + reducer_len
-bulkhead_x = _reducer_outer_x + elbow_leg         # elbow bend corner = bulkhead axis
-bulkhead_pitch = 2.0 * bulkhead_x                 # lateral spacing on the panel
-
-
-def build_reducer():
-    """JG 3/8x1/4 reducing union as a stepped coaxial stub along Y: a
-    reducer_38_dia barrel toward the elbow and a reducer_14_dia barrel toward
-    the flow-meter port."""
-    big = (
-        cq.Workplane("XZ")
-        .circle(reducer_38_dia / 2.0)
-        .extrude(reducer_len / 2.0)
-    )
-    small = (
-        cq.Workplane("XZ")
-        .circle(reducer_14_dia / 2.0)
-        .extrude(-reducer_len / 2.0)
-    )
-    return big.union(small)
+# Each port face is at lateral ±_diag from center; the elbow's lateral leg
+# meets it there and its bend corner sits one elbow_leg further out laterally,
+# which sets the bulkhead axis.
+bulkhead_x = _diag + elbow_leg            # elbow bend corner = bulkhead axis
+bulkhead_pitch = 2.0 * bulkhead_x         # lateral spacing on the panel
 
 
 def place_bulkhead(sign):
@@ -116,35 +98,24 @@ def place_bulkhead(sign):
 
 def place_elbow(sign):
     """Elbow at the bulkhead's inner port: axial leg up +Y into the bulkhead
-    far ring, lateral leg turned inward (toward X=0) to meet the reducer.
+    far ring, lateral leg turned inward (toward X=0) to meet the meter port.
 
     Source elbow has legs on +Y and +Z meeting at the corner (origin). The +Y
     leg is the axial leg and stays +Y; rotating about Y swings the +Z leg into
     the lateral direction — -90 about Y sends +Z onto -X (inward for the +X
     bulkhead), +90 sends it onto +X (for the -X bulkhead). The corner lands at
-    (sign*bulkhead_x, stub_depth_y, 0)."""
+    (sign*bulkhead_x, stub_depth_y + _diag, 0)."""
     fit = cq.importers.importStep(str(_ELBOW_STEP)).val()
     fit = fit.rotate((0, 0, 0), (0, 1, 0), -90 * sign)
-    return fit.translate((sign * bulkhead_x, stub_depth_y, 0.0))
-
-
-def place_reducer(sign):
-    """Reducer between the elbow lateral leg and the flow-meter port, axis
-    along X, centered between the flow port face and the elbow corner."""
-    cx = sign * (flow_port_face + reducer_len / 2.0)
-    return (
-        build_reducer()
-        .rotate((0, 0, 0), (0, 0, 1), -90)  # Y-axis stub -> X-axis
-        .translate((cx, stub_depth_y, 0.0))
-    )
+    return fit.translate((sign * bulkhead_x, stub_depth_y + _diag, 0.0))
 
 
 def place_flow_meter():
-    """Flow meter centered at X=0 at the chain depth, axis rotated from Y onto
-    X so its ports face ±X toward the reducers."""
+    """Flow meter centered at X=0 at the chain depth, rotated 45° about Z so its
+    inlet (+Y) and outlet (+X) ports lean symmetrically toward the panel."""
     return (
         cq.importers.importStep(str(_FLOW_SENSOR_STEP)).val()
-        .rotate((0, 0, 0), (0, 0, 1), 90)
+        .rotate((0, 0, 0), (0, 0, 1), 45)
         .translate((0.0, stub_depth_y, 0.0))
     )
 
@@ -152,7 +123,6 @@ def place_flow_meter():
 PANEL_COLOR = cq.Color(0.85, 0.78, 0.62)
 BULKHEAD_COLOR = cq.Color(0.55, 0.57, 0.60)   # gray acetal
 ELBOW_COLOR = cq.Color(0.20, 0.22, 0.26)      # black PP
-REDUCER_COLOR = cq.Color(0.95, 0.95, 0.97)    # white PP
 METER_COLOR = cq.Color(0.30, 0.55, 0.85)      # blue, to read clearly
 
 
@@ -162,8 +132,6 @@ def build():
     assy.add(place_bulkhead(-1), name="bulkhead-out", color=BULKHEAD_COLOR)
     assy.add(place_elbow(+1), name="elbow-in", color=ELBOW_COLOR)
     assy.add(place_elbow(-1), name="elbow-out", color=ELBOW_COLOR)
-    assy.add(place_reducer(+1), name="reducer-in", color=REDUCER_COLOR)
-    assy.add(place_reducer(-1), name="reducer-out", color=REDUCER_COLOR)
     assy.add(place_flow_meter(), name="flow-meter", color=METER_COLOR)
     return assy
 
