@@ -19,6 +19,7 @@ export const state = {
   mmdFiles: [],       // Mermaid files
   dxfFiles: [],       // DXF files
   drawingFiles: [],   // Line-art SVG files (drawings/ convention)
+  pcbBoards: [],      // PCB boards: {source, name, dir, top, bottom, overlay}
   currentDetail: null,
   mountedDetail: null,
   currentMmdContent: null,
@@ -29,6 +30,13 @@ export const state = {
   currentDrawingWrapper: null,// host div inside the modal (PanZoom container)
   currentDrawingPz: null,     // PanZoom handle for currentDrawingWrapper
   currentDrawingMinimap: null,// Minimap handle
+  currentPcbSource: null,     // source path of the open board
+  currentPcbViews: null,      // {top,bottom,overlay} SVG text for the open board
+  currentPcbView: null,       // which view is showing ("top"|"bottom"|"overlay")
+  currentPcbWrapper: null,    // host div inside the modal (PanZoom container)
+  currentPcbToggle: null,     // the Top/Bottom/Overlay segmented control element
+  currentPcbPz: null,         // PanZoom handle for currentPcbWrapper
+  currentPcbMinimap: null,    // Minimap handle
   currentCadWrapper: null,    // host div inside the modal (parent of canvases)
   currentCadResizeObserver: null,
   currentGroup: null,         // Three.js group currently in scene
@@ -36,6 +44,7 @@ export const state = {
   mmdThumbCache: new Map(),   // Mermaid file -> svgHTML
   dxfThumbCache: new Map(),   // DXF file -> dataURL
   drawingThumbCache: new Map(),// Drawing file -> svgText (used for both thumbnail and detail)
+  pcbThumbCache: new Map(),   // PCB board source -> Top-view svgText (thumbnail)
   stepEtags: new Map(),       // file -> last loaded ETag (for refetch dedupe)
   dxfEtags: new Map(),        // file -> last loaded ETag
   dxfMeta: new Map(),         // DXF file -> {thickness_mm, material} from sidecar (hardware/README.md)
