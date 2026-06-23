@@ -17,7 +17,12 @@ labeled connector. The full connection contract — every module and net — is
 - `spike.tsx` — one ESP32 GPIO → gate resistor → low-side MOSFET → 12 V valve.
   Two layers, routed.
 - `svg2png.ts` — SVG → PNG (resvg, headless).
-- `out/` — rendered and exported artifacts.
+- `gerber-view.ts` — renders a Gerber folder to true-to-fab SVGs via pcb-stackup:
+  `.cu.*` (soldermask pulled back, copper in copper) and `.real.*` (green
+  soldermask, as manufactured), top and bottom.
+- `out/` — rendered and exported artifacts. `<board>.cu.{top,bottom}.png` and
+  `<board>.real.{top,bottom}.png` are the copper and as-fabbed views of the
+  actual Gerbers.
 
 ## Toolchain
 
@@ -31,6 +36,10 @@ this directory):
     bunx tsci export -f kicad_pcb     -o out/<board>.kicad_pcb <board>.tsx
     bunx tsci export -f step          -o out/<board>.step <board>.tsx
     bun svg2png.ts out/<board>.pcb.svg out/<board>.pcb.png
+
+    # true-to-fab copper / as-manufactured views from the Gerbers
+    unzip -o out/<board>.gerbers.zip -d /tmp/gb && bun gerber-view.ts /tmp/gb out/<board>
+    bun svg2png.ts out/<board>.cu.top.svg out/<board>.cu.top.png
 
 `tsci import` pulls footprints from JLCPCB part numbers; `tsci convert` ingests
 `.kicad_mod` footprints.
