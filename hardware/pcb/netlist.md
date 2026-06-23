@@ -75,7 +75,7 @@ screw block for the trunk current). Per [`README.md`](/hardware/pcb/README.md) "
 | J3 | 300 V terminal block | 2 | Unswitched AC H + N into the fenced corner (AC-3). |
 | J4 | 300 V terminal block | 3 | Switched-H (K1 NO) + N + earth → compressor (AC-4/5/6). |
 | J5 | Screw / XH paralleled | 2 | K2-switched +12 V → SeaFlo diaphragm pump (~5 A, DC-3). |
-| J6, J7 | JST-XH 2P | 2 | DRV8871 U7 / U8 → Kamoer pump A / B (DC-5, spade-connected at the cartridge). |
+| J6, J7 | JST-XH 2P | 2 | DRV8871 U7 / U8 → Kamoer pump A / B (DC-5, spade-connected at the pumps). |
 | J8 | JST-XH ~9P | 9 | ULN U5 ch1–8 → solenoids V-A…V-H + 12 V COM. |
 | J9 | JST-XH ~7P | 7 | ULN U6 ch1–4 → V-I…V-K-B, ch5 → condenser fan + 12 V COM. |
 | J10 | JST-XH 5P | 5 | Reservoir A reeds 1–4 + GND → U3 PB4–7. |
