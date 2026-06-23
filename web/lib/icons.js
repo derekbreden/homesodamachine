@@ -49,6 +49,7 @@ const NOTIF_KIND_TO_INNER = {
   dxf:     "scissors",
   mermaid: "chart",
   drawing: "pencil",
+  pcb:     "cpu",
   post:    "newspaper",
 };
 
@@ -63,6 +64,7 @@ export const NOTIF_ICON_BY_KIND = {
   dxf:     notifIconSvg("dxf"),
   mermaid: notifIconSvg("mermaid"),
   drawing: notifIconSvg("drawing"),
+  pcb:     notifIconSvg("pcb"),
   post:    notifIconSvg("post"),
   default: notifIconSvg("default"),
 };

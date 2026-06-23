@@ -18,6 +18,7 @@ import {
   detectChangedMermaid,
   detectChangedDxf,
   detectChangedDrawings,
+  detectChangedPcb,
   detectChangedPosts,
   describeChangedPosts,
   notifyPostsChanged,
@@ -295,14 +296,15 @@ export async function start({ dev = false, port, hardwareDir, liteDir } = {}) {
   if (!dev) {
     (async () => {
       try {
-        const [changedSteps, changedMermaid, changedDxf, changedDrawings, changedPostFiles] = await Promise.all([
+        const [changedSteps, changedMermaid, changedDxf, changedDrawings, changedPcb, changedPostFiles] = await Promise.all([
           detectChangedSteps(HARDWARE_DIR),
           detectChangedMermaid(HARDWARE_DIR),
           detectChangedDxf(HARDWARE_DIR),
           detectChangedDrawings(HARDWARE_DIR),
+          detectChangedPcb(HARDWARE_DIR),
           detectChangedPosts(POSTS_DIR),
         ]);
-        const changedFiles = [...changedSteps, ...changedMermaid, ...changedDxf, ...changedDrawings];
+        const changedFiles = [...changedSteps, ...changedMermaid, ...changedDxf, ...changedDrawings, ...changedPcb];
         const changedPosts = describeChangedPosts({
           postsDir: POSTS_DIR,
           filenames: changedPostFiles,

@@ -6,11 +6,12 @@
 //     /api/push/subscribe.
 //   - Server (this module) stores tokens + which files each subscription
 //     watches in Postgres.
-//   - On prod boot, server.js calls detectChangedSteps + detectChangedMermaid
-//     against per-kind hash tables, concatenates the result, and calls
-//     notifyFilesChanged once for the combined set. One FCM banner regardless
-//     of how many files or which kinds changed; SSE files-changed event
-//     fires alongside for in-app handling (see lib/shell.js HEAD_TAGS).
+//   - On prod boot, server.js calls the per-kind detect* functions (steps,
+//     mermaid, dxf, drawings, pcb boards) against per-kind hash tables,
+//     concatenates the result, and calls notifyFilesChanged once for the
+//     combined set. One FCM banner regardless of how many files or which kinds
+//     changed; SSE files-changed event fires alongside for in-app handling
+//     (see lib/shell.js HEAD_TAGS).
 //
 // Notes:
 //   - The first time a hash table is empty (genuine bootstrap — first deploy
@@ -24,7 +25,7 @@ import path from "path";
 import fs from "fs";
 import crypto from "crypto";
 import { insertNotification } from "./notifications.js";
-import { walkFiles, walkFilesUnderDir } from "./walk.js";
+import { walkFiles, walkFilesUnderDir, walkPcbBoards } from "./walk.js";
 
 let pool = null;
 let adminApp = null;
@@ -92,6 +93,13 @@ function ensureSchema() {
     `);
     await pool.query(`
       CREATE TABLE IF NOT EXISTS drawing_hashes (
+        file TEXT PRIMARY KEY,
+        sha256 TEXT NOT NULL,
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      )
+    `);
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS pcb_hashes (
         file TEXT PRIMARY KEY,
         sha256 TEXT NOT NULL,
         updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -299,6 +307,52 @@ export function detectChangedDxf(hardwareDir) {
 
 export function detectChangedDrawings(hardwareDir) {
   return detectChangedFilesInTable("drawing_hashes", walkDrawingFiles, hardwareDir);
+}
+
+// PCB boards differ from the single-file kinds above: a board is a source
+// (`pcb/<dir>/<name>.tsx`) with three rendered views, so we key the hash row by
+// the board SOURCE (the id that flows through SSE + the deep link) but fingerprint
+// the board by its OVERLAY view — the overlay composites both copper layers, so
+// it changes whenever any view does. Same first-seen / bootstrap suppression as
+// detectChangedFilesInTable, kept inline since the key and the hashed file differ.
+export async function detectChangedPcb(hardwareDir) {
+  if (!pool) return [];
+  await ensureSchema();
+
+  const { rows: countRows } = await pool.query(
+    "SELECT COUNT(*)::int AS c FROM pcb_hashes",
+  );
+  const isBootstrap = countRows[0].c === 0;
+
+  const changed = [];
+  for (const board of walkPcbBoards(hardwareDir)) {
+    let buf;
+    try {
+      buf = fs.readFileSync(path.join(hardwareDir, board.overlay));
+    } catch {
+      continue;
+    }
+    const sha = crypto.createHash("sha256").update(buf).digest("hex");
+
+    const { rows } = await pool.query(
+      "SELECT sha256 FROM pcb_hashes WHERE file = $1",
+      [board.source],
+    );
+    const prev = rows[0]?.sha256;
+
+    if (prev === sha) continue;
+
+    if (prev || !isBootstrap) changed.push(board.source);
+
+    await pool.query(
+      `INSERT INTO pcb_hashes (file, sha256, updated_at)
+       VALUES ($1, $2, NOW())
+       ON CONFLICT (file) DO UPDATE SET sha256 = EXCLUDED.sha256, updated_at = NOW()`,
+      [board.source, sha],
+    );
+  }
+
+  return changed;
 }
 
 // Hash every post under postsDir, compare to post_hashes, return list of
@@ -517,17 +571,23 @@ function isDrawingPath(p) {
   return p.endsWith(".svg") && p.split("/").includes("drawings");
 }
 
+function isPcbPath(p) {
+  return p.endsWith(".tsx") && p.split("/").includes("pcb");
+}
+
 function describeFilesUpdate(files) {
   const stepCount = files.filter((f) => f.endsWith(".step")).length;
   const mermaidCount = files.filter((f) => f.endsWith(".mmd")).length;
   const dxfCount = files.filter((f) => f.endsWith(".dxf")).length;
   const drawingCount = files.filter(isDrawingPath).length;
+  const pcbCount = files.filter(isPcbPath).length;
   let title;
   if (files.length === 1) {
     if (files[0].endsWith(".step")) title = "Print updated";
     else if (files[0].endsWith(".mmd")) title = "Diagram updated";
     else if (files[0].endsWith(".dxf")) title = "Cut updated";
     else if (isDrawingPath(files[0])) title = "Drawing updated";
+    else if (isPcbPath(files[0])) title = "Board updated";
     else title = "File updated";
   } else if (stepCount === files.length) {
     title = `${files.length} Prints updated`;
@@ -537,6 +597,8 @@ function describeFilesUpdate(files) {
     title = `${files.length} Cuts updated`;
   } else if (drawingCount === files.length) {
     title = `${files.length} Drawings updated`;
+  } else if (pcbCount === files.length) {
+    title = `${files.length} Boards updated`;
   } else {
     title = `${files.length} Files updated`;
   }
@@ -561,27 +623,30 @@ export async function notifyFilesChanged({ files }) {
 
   const { title, body } = describeFilesUpdate(files);
   // STEP and DXF files both live on /3d (Prints + Cuts sections), mermaid
-  // files on /charts, drawing SVGs on /drawings. Pick the deep link
-  // based on the first file's extension so a single-file notification
-  // lands the user on the right page; mixed batches are rare enough that
-  // we just send them to /3d (the "default" parts page).
+  // files on /charts, drawing SVGs on /drawings, PCB boards on /pcb. Pick the
+  // deep link based on the first file's extension so a single-file
+  // notification lands the user on the right page; mixed batches are rare
+  // enough that we just send them to /3d (the "default" parts page).
   const firstFile = files[0];
   let basePath;
   if (firstFile.endsWith(".mmd")) basePath = "/charts";
   else if (isDrawingPath(firstFile)) basePath = "/drawings";
+  else if (isPcbPath(firstFile)) basePath = "/pcb";
   else basePath = "/3d";
   const link = `${basePath}?file=${encodeURIComponent(firstFile)}`;
   // Pick a kind for the notifications-list icon. Pure step / mermaid /
-  // dxf / drawing / (mixed → "files"); inferred from the file list rather
-  // than passed separately so callers don't have to think about it.
+  // dxf / drawing / pcb / (mixed → "files"); inferred from the file list
+  // rather than passed separately so callers don't have to think about it.
   const stepCount = files.filter((f) => f.endsWith(".step")).length;
   const mermaidCount = files.filter((f) => f.endsWith(".mmd")).length;
   const dxfCount = files.filter((f) => f.endsWith(".dxf")).length;
   const drawingCount = files.filter(isDrawingPath).length;
+  const pcbCount = files.filter(isPcbPath).length;
   const kind = stepCount === files.length ? "step"
              : mermaidCount === files.length ? "mermaid"
              : dxfCount === files.length ? "dxf"
              : drawingCount === files.length ? "drawing"
+             : pcbCount === files.length ? "pcb"
              : "files";
   return fanOutToTokens(
     rows,
