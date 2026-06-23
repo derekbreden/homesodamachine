@@ -64,7 +64,7 @@ into a single rigid sub-assembly.
 |  1  | `touch-flo-mounting-plate` (printed, PET-CF) — three chamfer-tipped screw bosses on the top face, counterbored from below | [`/hardware/printed-parts/faucet/touch-flo-mounting-plate/`](/hardware/printed-parts/faucet/touch-flo-mounting-plate/) |
 |  1  | Touch-Flo valve body + factory shank nut (harvested) | [`/hardware/reference/touch-flo-faucet/`](/hardware/reference/touch-flo-faucet/)            |
 |  3  | ruthex M3 short heat-set insert (RX-M3Sx4.0, Ø4.2 knurled brass) | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13                |
-|  3  | BNUOK M3 × 12 mm SHCS, 304 stainless                 | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13                            |
+|  3  | BNUOK M3 × 12 mm SHCS, black oxide                   | [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13                            |
 
 The three pod screws are the entire shell retention: each M3×12 drives
 up from under the plate, through the counterbore and the boss, into a

@@ -24,7 +24,7 @@ hole — shy of the hole floor (the gap absorbs the hole ceiling's bridge
 sag, insert squeeze-out, and layer-1 lips) so the plate seats on the foot,
 not the boss. A [0.6 mm](BOSS_CHAMFER) × 45° lead-in chamfer rings each top
 rim, easing all three pins into their holes at once. Each is bored for an
-M3×12 stainless SHCS:
+M3×12 black-oxide SHCS:
 
 - [6.15 mm](CBORE_D) ⌀ counterbore through the full plate. The head bears on
   the boss base and stays recessed clear of the gasket.
