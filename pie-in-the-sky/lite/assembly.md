@@ -6,7 +6,7 @@ The Lite Edition is the flavor half of the main appliance wrapped in a small tra
 
 ## Scope
 
-In: the printed PETG parts ([enclosure halves](/pie-in-the-sky/lite/enclosure/), [reservoir-pockets bag cradle](/pie-in-the-sky/lite/printed-parts/reservoir-pockets/), [funnel / hopper](/pie-in-the-sky/lite/printed-parts/funnel/), the [faucet stack](/hardware/printed-parts/faucet/), and the [pump cases](/hardware/printed-parts/flavor/pump-case/)); the off-the-shelf flavor parts (two Platypus bags, two Kamoer KPHM400 pumps, the manifold valves + John Guest fittings + tubing); the faucet, air switch, and the Waveshare 4.3″ config display; the electronics family (ESP32, MCP23017 expander, ULN2803A drivers, motor driver, 12 V supply); and one 1/8" stainless bag-hanger rod.
+In: the printed PETG parts ([enclosure halves](/pie-in-the-sky/lite/enclosure/), [reservoir-pockets bag cradle](/pie-in-the-sky/lite/printed-parts/reservoir-pockets/), [funnel / hopper](/pie-in-the-sky/lite/printed-parts/funnel/), the [faucet stack](/hardware/printed-parts/faucet/), and the [pump cases](/hardware/printed-parts/flavor/pump-case/)); the off-the-shelf flavor parts (two Platypus bags, two Kamoer KPHM400 pumps, the manifold valves + John Guest fittings + tubing); the faucet, the Waveshare 1.47″ faucet flavor display, and the Waveshare 4.3″ config display; the electronics family (ESP32, MCP23017 expander, ULN2803A drivers, motor driver, 12 V supply); and one 1/8" stainless bag-hanger rod.
 
 Out: a finished Lite Edition unit, ready for under-sink install and pairing to a Lillium-class carbonator.
 
@@ -60,11 +60,11 @@ Drop the funnel into the narrow-X, deep-Y top-wall slot to the right of the disp
 
 ### 7. Wire the electronics
 
-Mount the 12 V supply + AC distribution on the [power tray](/pie-in-the-sky/lite/printed-parts/electronics/power-tray/) (Mean Well PSU + Wagos + ground stack, no relay) — it stands vertical beside the reservoir on the +X side, the one part thin enough to share the reservoir's depth band, its 40.5 mm depth all it costs in width. Mount the ESP32, MCP23017 expander, ULN2803A drivers, and motor driver, and wire everything to the two pumps, the manifold solenoids, the Waveshare 4.3″ config display, and the air switch — the same parts family and dispense logic as the main appliance, minus every sensor the Lite omits (no level reeds, no moisture telltale). The logic/driver-board tray is still undesigned (see Open items).
+Mount the 12 V supply + AC distribution on the [power tray](/pie-in-the-sky/lite/printed-parts/electronics/power-tray/) (Mean Well PSU + Wagos + ground stack, no relay) — it stands vertical beside the reservoir on the +X side, the one part thin enough to share the reservoir's depth band, its 40.5 mm depth all it costs in width. Mount the ESP32, MCP23017 expander, ULN2803A drivers, and motor driver, and wire everything to the two pumps, the manifold solenoids, the Waveshare 4.3″ config display (over RS485), and the Waveshare 1.47″ faucet flavor display (over UART) — the same parts family and dispense logic as the main appliance, minus every sensor the Lite omits (no level reeds, no moisture telltale). The logic/driver-board tray is still undesigned (see Open items).
 
-### 8. Install the faucet and through-counter UI
+### 8. Install the faucet and its flavor display
 
-Install the Touch-Flo faucet through the counter per its own [`ASSEMBLY.md`](/hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md), with the carbonated-water inlet stub fed from the customer's Lillium output and the two flavor lines injecting at the nozzle. Mount the KRAUS air switch through the counter alongside it. (The Waveshare 4.3″ config display lives in the enclosure facet, not through the counter — it is seated when the halves close, step 9.)
+Install the Touch-Flo faucet through the counter per its own [`ASSEMBLY.md`](/hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md), with the carbonated-water inlet stub fed from the customer's Lillium output and the two flavor lines injecting at the nozzle. Mount the Waveshare 1.47″ faucet flavor display on the gooseneck dispense head — the flavor-select toggle, its ESP32-S3 linked to the base ESP32 over UART down through the counter. (The Waveshare 4.3″ config display lives in the enclosure facet, not through the counter — it is seated when the halves close, step 9.)
 
 ### 9. Close the enclosure
 
@@ -76,8 +76,8 @@ A finished Lite Edition unit:
 
 - Two flavor bags hung on the rod cradle, spouts plumbed to the manifold
 - Manifold + pumps assembled and plumbed per the fluid topology
-- Electronics wired to pumps, valves, display, and air switch
-- Faucet + air switch + display installed through-counter; faucet inlet ready for the Lillium hose
+- Electronics wired to pumps, valves, and both displays (4.3″ config + 1.47″ faucet flavor)
+- Faucet installed through-counter with its gooseneck flavor display; config display seated in the enclosure facet; faucet inlet ready for the Lillium hose
 - Contents closed inside the transparent split-half enclosure, display seated in the facet, funnel brim flush on the lid
 
 Ready to install under-sink beside a Lillium-class carbonator; the customer completes the Lillium pairing, prime, and first fill per [`README.md`](/pie-in-the-sky/lite/README.md) "Setup, priming, and refill".
