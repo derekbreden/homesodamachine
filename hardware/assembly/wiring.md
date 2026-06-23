@@ -67,7 +67,7 @@ If any check fails, find and fix it before step 4.
 
 Execute the DC runs in the order they appear in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "12 V distribution": DC-1 (PSU output → [12 V](DC_BUS_V) distribution block on the shelf) first, then DC-2 through DC-9 from the block outward. The [12 V](DC_BUS_V) block has its own lever-nut stack distinct from the AC stack.
 
-DC-3 (relay #2 → SeaFlo diaphragm pump) and DC-5 (L298N → Kamoer pumps) both leave the shelf and route through the cabinet. DC-5's cabinet-side run lands at the pump-cartridge magnetic pogo interface ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §8). Terminate on the manifold-side pogo pad.
+DC-3 (relay #2 → SeaFlo diaphragm pump) and DC-5 (L298N → Kamoer pumps) both leave the shelf and route through the cabinet. DC-5's cabinet-side run lands on the pump leads via quick-disconnect spade terminals ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11). Terminate on the pump-side spades.
 
 DC-7 (ULN2803A outputs → 12 solenoid coils on the manifold) ships as a single ~24-conductor bundle from the electronics shelf to the manifold. The bundle ships as 12× Keszoox B0F8HMQRRN pre-crimped [50 cm](KESZOOX_LEN) pigtails (one per valve) and fans out to a female disconnect per valve at the manifold.
 
@@ -103,7 +103,7 @@ Continuity-test each signal run end-to-end before zip-tying down.
 Bundle by zone:
 
 - **Shelf-to-cold-core bundle** — SIG-1 (DS18B20 bus), SIG-2 + SIG-3 (carbonator reeds), the pressure-vessel chassis-ground bond, and any of the reservoir-reed harnesses ([`/hardware/printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md)) into a single spiral-wrapped bundle exiting the back of the shelf and routing along the back wall of the enclosure to the cold core's penetrations.
-- **Shelf-to-manifold bundle** — DC-7 (24 conductors to the solenoid manifold), DC-3 (diaphragm pump), DC-5 (peristaltic pump pogo pad), and DC-4 (L298N feed). Spiral-wrap and zip-tie; fan-out happens at the manifold.
+- **Shelf-to-manifold bundle** — DC-7 (24 conductors to the solenoid manifold), DC-3 (diaphragm pump), DC-5 (peristaltic pump spade leads), and DC-4 (L298N feed). Spiral-wrap and zip-tie; fan-out happens at the manifold.
 - **Shelf-to-shroud bundle** — the [18 AWG](SHROUD_SJOOW_AWG) SJOOW jacketed lead from step 2 is its own bundle; zip-tie tie-down points only.
 - **Shelf-to-front-face bundle** — SIG-7 (4.3B config-display RS485 + power run) routed forward through the enclosure interior to the front face. Display end lands on the 4.3B's screw terminals.
 - **Shelf-to-umbilical bundle** — SIG-6 (faucet-display TTL UART on the BNTECHGO ribbon) and the under-counter SS plate chassis-ground bond. Both ride the umbilical together up to the under-counter zone; spiral-wrap on the shelf side, separator at the umbilical's bulkhead.
