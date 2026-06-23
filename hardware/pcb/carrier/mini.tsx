@@ -113,7 +113,7 @@ const PowerIn = ({ name, x, y }: { name: string; x: number; y: number }) => (
 // GPB banks exit left, GPA banks exit right, so no bundle crosses the board.
 
 export default () => (
-  <board width="150mm" height="120mm">
+  <board width="150mm" height="120mm" minTraceWidth="0.2mm" traceClearance="0.5mm">
     {/* brain + bus on the left; spares break out just above the socket */}
     <Esp32 x={-46} y={0} />
     <EdgeBank name="JE" x={-50} y={32} rot={0}
