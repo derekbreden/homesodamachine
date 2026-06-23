@@ -6,11 +6,12 @@ corner; floor on Z=0. The -Y face is the FRONT (the user side, carrying the
 display facet); +Y is the cabinet BACK.
 
 The reservoir-pockets box plays the Kitchen cold core's role — the one heavy
-volume that cannot move, seated on the floor at the BACK, its single fully-open
-wall (the bag-load doorway) facing the cabinet back (+Y) and its two bag-spout
-exit holes on the forward (-Y) face. The cabinet is NARROW in X and DEEP in Y;
-nothing stands beside the reservoir, and the rest sits in the front zone ahead of
-it:
+volume that cannot move, seated on the floor at the BACK, its bag-load doorway
+facing the cabinet LEFT (-X) and its two bag-spout exit holes on the +X face. It
+sits hard against the left corner braces, opening a strip on its +X side. The
+cabinet is NARROW in X and DEEP in Y; the rest sits in the front zone ahead of
+the reservoir, with a tall thin column of electronics and rear-panel ports in
+that +X strip:
 
   * Front, on the floor:  the two flavor pump ASSEMBLIES (Kamoer pump + 90 deg
     outlet elbows), laid on their sides, motor cylinders pointing -X into the
@@ -31,6 +32,11 @@ it:
   * Front-right corner:  the power tray (Mean Well PSU + Wago distribution + ground
     stack, no relay) stood vertical, its -X face on the pump-head +X face, front
     ahead of the bag.
+  * Right of the reservoir (the +X strip):  the logic tray stood vertical at the
+    strip front, and behind it on the back wall the rear-panel cluster — the
+    faucet-inlet stub (turned so its two carb-water bulkheads stack in Z), the two
+    umbilical flavor bulkheads, and the C14 mains inlet. The three rear-panel
+    parts mount THROUGH the back wall: bodies inboard, ports proud out the back.
 
 The display and the hopper funnel are NOT placed here — like the Kitchen, the
 enclosure sizes itself from these contents, then the display facet and the funnel
@@ -63,6 +69,12 @@ TRAY_STEPS = {
 PUMP_STEP = _hw / "reference" / "kamoer-kphm400" / "pump-assembly.step"
 RES_STEP = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "reservoir-pockets" / "reservoir-pockets.step"
 POWER_STEP = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "electronics" / "power-tray" / "power-assembly.step"
+LOGIC_STEP = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "electronics" / "logic-tray" / "logic-assembly.step"
+# Rear-panel hardware, mounted THROUGH the back wall: the carb-water pass-through
+# stub, the two umbilical flavor bulkheads, and the C14 mains inlet.
+STUB_STEP = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "faucet-inlet-stub" / "faucet-inlet-stub.step"
+BULKHEAD_STEP = _hw / "reference" / "jg-bulkhead-union" / "jg-bulkhead-union.step"
+C14_STEP = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 
 # --- Packing parameters (free design choices, not measured geometry) ------
 # Inset off the -X wall so the floor content clears the bottom corner pods.
@@ -97,6 +109,13 @@ SRC_X_INSET = 12.0         # source-select inset off the -X wall
 STACK_OVERLAP = 32.0       # nozzle drops this far into bib (Z); elbow ends interleave
 RES_TO_SPLIT_GAP = 1.0     # reservoir front behind the split (Y)
 POWER_AHEAD_OF_BAG = 2.0   # power-tray front ahead of the bag-circuit front (Y)
+# The +X strip, right of the reservoir. The logic tray stands vertical at the
+# strip front; the three rear-panel parts seat on the back wall behind it.
+PANEL_X_GAP = 1.0          # gap from the reservoir's +X face to the strip contents
+BULKHEAD_X = 186.0         # the two umbilical flavor bulkheads, centered here in X
+BULKHEAD_ZA = 215.0        # lower flavor bulkhead, center height
+BULKHEAD_ZB = 245.0        # upper flavor bulkhead, center height
+C14_Z = 150.0              # mains inlet, center height (mid-strip, between stub and bulkheads)
 
 # --- Colors ---------------------------------------------------------------
 RES_COLOR = cq.Color(0.60, 0.80, 1.00, 0.28)
@@ -111,6 +130,9 @@ PUMP_COLORS = {
     "pump-upper": cq.Color(0.56, 0.58, 0.62),     # light slate
 }
 POWER_COLOR = cq.Color(0.85, 0.78, 0.62)      # PETG tan tray
+LOGIC_COLOR = cq.Color(0.30, 0.45, 0.58)      # teal control tray
+PANEL_COLOR = cq.Color(0.55, 0.57, 0.60)      # gray panel hardware (stub + bulkheads)
+C14_COLOR = cq.Color(0.22, 0.22, 0.25)        # black mains inlet
 
 
 def _load(path):
@@ -198,5 +220,41 @@ def build():
     power = _place(_rot(_load(POWER_STEP), (0, 1, 0), -90.0),
                    xmin=PUMP_HEAD_X, ymin=bag.BoundingBox().ymin - POWER_AHEAD_OF_BAG, zmin=FLOOR_LIFT)
     placed["power-tray"] = (power, POWER_COLOR)
+
+    # --- Right of the reservoir: the +X strip it opened. The logic tray is
+    # interior — stood vertical (its long axis up Z) at the strip front, just
+    # behind the short-tray backs, off the floor pods. The three rear-panel parts
+    # mount THROUGH the back wall: each seats its Y=0 face on the reservoir's back
+    # (the box's inner +Y wall), body reaching -Y inward, proud end out the back
+    # for the Lillium hose / C13 cord / umbilical tubes. They are sized out of the
+    # enclosure (enclosure._PANEL_ZONE); only their inboard bodies need to clear.
+    back_wall = res.BoundingBox().ymax
+    strip_x = res.BoundingBox().xmax + PANEL_X_GAP
+
+    def _on_panel(step, xc, zc):
+        """Seat a panel part's Y=0 face on the back wall, centered at (xc, zc)."""
+        s = _load(step).translate((0.0, back_wall, 0.0))
+        b = s.BoundingBox()
+        return s.translate((xc - (b.xmin + b.xmax) / 2.0, 0.0, zc - (b.zmin + b.zmax) / 2.0))
+
+    logic = _place(_rot(_load(LOGIC_STEP), (0, 1, 0), 90.0),
+                   xmin=strip_x, ymin=split_front + 1.0, zmin=FLOOR_LIFT)
+    placed["logic-assembly"] = (logic, LOGIC_COLOR)
+
+    # Faucet-inlet stub, rot +90 about Y so its two carb-water bulkheads stack in
+    # Z (not side-by-side in X) to fit the narrow strip; the flow-meter chain
+    # reaches -Y inward, low in the strip.
+    stub = _place(_rot(_load(STUB_STEP), (0, 1, 0), 90.0).translate((0.0, back_wall, 0.0)),
+                  xmin=strip_x, zmin=FLOOR_LIFT)
+    placed["faucet-inlet-stub"] = (stub, PANEL_COLOR)
+
+    # The two umbilical flavor bulkheads, stacked high above the stub. (The
+    # carb-water umbilical port is the stub's own OUT bulkhead, not a third here.)
+    placed["umbilical-bulkhead-a"] = (_on_panel(BULKHEAD_STEP, BULKHEAD_X, BULKHEAD_ZA), PANEL_COLOR)
+    placed["umbilical-bulkhead-b"] = (_on_panel(BULKHEAD_STEP, BULKHEAD_X, BULKHEAD_ZB), PANEL_COLOR)
+
+    # C14 mains inlet, mid-strip, its +X edge flush to the power-tray's +X line.
+    c14 = _place(_on_panel(C14_STEP, 0.0, C14_Z), xmax=power.BoundingBox().xmax)
+    placed["iec-c14-inlet"] = (c14, C14_COLOR)
 
     return placed
