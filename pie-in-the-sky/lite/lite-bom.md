@@ -58,6 +58,8 @@
 | Wiring | CQRobot JST-XH 2.54 mm 6-pin connector kit (50 sets) | 1 | $0.18 | [B0B2R8Q1JL](https://www.amazon.com/dp/B0B2R8Q1JL) | L298N control row (ENA / IN1–4 / ENB). 1 of 50; ACQUIRED ([purchases.md](/hardware/ledger/purchases.md)). |
 | Wiring | CQRobot JST-XH 2.54 mm 9-pin connector kit (30 sets) | 4 | $0.31 | [B0B2R73RQB](https://www.amazon.com/dp/B0B2R73RQB) | ULN2803A module sides (2 ULN × 2 sides). 4 of 30; ACQUIRED. |
 | Wiring | CQRobot JST-XH 2.54 mm 10-pin connector kit (30 sets) | 2 | $0.32 | [B0B2R93CV3](https://www.amazon.com/dp/B0B2R93CV3) | MCP23017 GPIO port rows (one MCP, both ports). 2 of 30; ACQUIRED. |
+| Wiring | Baomain 6.3 mm female insulated faston, 22–16 AWG (100 pc) | 24 | $0.075 | [B01G408A4M](https://www.amazon.com/dp/B01G408A4M) | Crimp-on female disconnects on the 12 Beduan solenoid coil tabs (2 each) — the switched lead off the Keszoox/ULN and the +12 V lead off the trunk. $7.50/100; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md)). |
+| Wiring | Baomain 4.8 mm female insulated faston, 22–16 AWG (100 pc) | 4 | $0.073 | [B01N5APVEE](https://www.amazon.com/dp/B01N5APVEE) | Crimp-on female disconnects on the 2 Kamoer pump-motor tabs (2 each) — the L298N OUT-A/B leads. $7.28/100; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md)). |
 | Wiring | Heat-shrink tubing, 2:1, assorted kit | 1 | $0.38 | [B0FRNMXN6Q](https://www.amazon.com/dp/B0FRNMXN6Q) | Insulates + strain-relieves each crimped faston joint on the pump + solenoid leads — the secure half of the connection. ≈1/20 of the assorted 2:1 kit per build; ACQUIRED ([purchases.md](/hardware/ledger/purchases.md)). |
 | Wiring | BNTECHGO 16 AWG silicone wire, 5-color kit (R/Blk/Wht/Blu/Grn, 25 ft ea) | ~3 ft | $0.31/ft | [B06Y557TCL](https://www.amazon.com/dp/B06Y557TCL) | AC mains pigtails — C14 inlet → Wago block → PSU primary (black line / white neutral / green ground). 252-strand silicone, 600 V. $38.29/125 ft; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §9). |
 | Wiring | BNTECHGO 18 AWG silicone wire, red 25 ft + black 25 ft | ~6 ft | $0.30/ft | [B07HGTKQ89](https://www.amazon.com/dp/B07HGTKQ89) | 12 V DC trunk + branches — PSU → DC block → pumps / displays (red + / black −). 150-strand silicone, 600 V. $14.99/50 ft; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §9). |
@@ -72,7 +74,7 @@
 
 ## Per-unit cost (estimate)
 
-Estimated delivered parts cost per Lite unit: **[$590.00](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
+Estimated delivered parts cost per Lite unit: **[$592.09](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
 
 ## Clear-PVC length — ~13 ft/unit (estimate)
 
