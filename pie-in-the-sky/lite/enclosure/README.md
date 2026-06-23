@@ -92,7 +92,7 @@ the real solids). The funnel derives its collar from the same rectangle
 
 ## Dimensions
 
-Outer envelope [213.5 mm](LITE_OUTER_X) × [309.5 mm](LITE_OUTER_Y) × [301 mm](LITE_OUTER_Z)
+Outer envelope [213.5 mm](LITE_OUTER_X) × [300.5 mm](LITE_OUTER_Y) × [301 mm](LITE_OUTER_Z)
 (X × Y × Z) — smaller than the Kitchen edition (289 × 342 × 310) in all three
 axes: with no cold core, compressor, or condenser, the trays and pumps pack into a
 tight front zone ahead of the reservoir, and the contents sit flush against the

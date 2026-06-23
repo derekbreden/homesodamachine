@@ -67,10 +67,10 @@ POWER_STEP = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "electronics"
 # --- Packing parameters (free design choices, not measured geometry) ------
 # Inset off the -X wall so the floor content clears the bottom corner pods.
 X_INSET = 3.0
-# The reservoir gets its own slightly larger inset so its full-height -X wall
-# clears the back-half corner braces (which run the full depth in the ±X corners,
-# reaching a hair inboard of the inner wall).
-RES_X_INSET = 15.0
+# The reservoir is inset off the -X wall, clear of the back-half corner braces
+# (full-depth in the ±X corners) and, as it sits pulled forward, clear of the
+# source-select tray's top-back fitting that its front-left corner slides past.
+RES_X_INSET = 30.0
 # The four corner cross-pin bosses tuck into the ±X/±Z corners and run in Y
 # across the seam. Floor content against a side wall would foul the bottom pods,
 # so it is lifted clear of them — the Kitchen `FOAM_LIFT` idiom.
@@ -81,7 +81,8 @@ FLOOR_LIFT = 14.0
 PUMP_HEAD_X = 164.0        # the pump heads' +X face
 PUMP_UPPER_ZMIN = 93.0     # upper pump zmin (its motor in the bag tray's ~z100-150 air gap)
 PUMP_TO_STACK_GAP = 1.0    # pump heads to the back-row (bib/nozzle) front (Y)
-RES_FRONT_Y = 180.0        # reservoir front datum (the back anchor)
+RES_FRONT_Y = 180.0        # split datum: back trays hang off it, seam rides on it
+RES_Y_PULL = 9.0           # reservoir front pulled this far forward of the datum (-Y)
 BAG_SOURCE_GAP = 1.0       # bag-circuit back to the source-select front (Y)
 BAG_Z_LIFT = 5.0           # bag-circuit raised this far above the floor lift
 # The short trays (bib, nozzle) STACK into one footprint at the back-right, turned a
@@ -181,11 +182,12 @@ def build():
     placed["pump-lower"] = (pump_lo, PUMP_COLORS["pump-lower"])
     placed["pump-upper"] = (pump_up, PUMP_COLORS["pump-upper"])
 
-    # --- Reservoir-pockets, back, doorway facing the cabinet left. Rotate 180
-    # about Z: local +X doorway -> world -X (left); local -X spout exits -> world
-    # +X (right). Seated at its fixed datum, the split falling just in front of it.
+    # --- Reservoir-pockets, doorway facing the cabinet left. Rotate 180 about Z:
+    # local +X doorway -> world -X (left); local -X spout exits -> world +X (right).
+    # Pulled RES_Y_PULL forward of the datum, its front crossing the seam as an
+    # insert; the box back wall follows its (now shallower) back.
     res = _place(_rot(_load(RES_STEP), (0, 0, 1), 180.0),
-                 xmin=RES_X_INSET, ymin=res_front, zmin=0.0)
+                 xmin=RES_X_INSET, ymin=res_front - RES_Y_PULL, zmin=0.0)
     placed["reservoir-pockets"] = (res, RES_COLOR)
 
     # --- Power tray in the front-right corner: stood vertical (rot -90 about Y), its
