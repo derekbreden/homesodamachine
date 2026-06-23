@@ -89,14 +89,14 @@ function shortName(source) {
 }
 
 // --- Thumbnail ---
-// The card thumbnail is the Top view SVG, scaled by its container. Cached as a
-// string (matches drawings/mermaid; keeps the grid cache shape uniform).
+// The card thumbnail is the Overlay view SVG, scaled by its container. Cached as
+// a string (matches drawings/mermaid; keeps the grid cache shape uniform).
 export async function renderPcbThumbnail(source) {
   if (state.pcbThumbCache.has(source)) return state.pcbThumbCache.get(source);
   const board = boardForSource(source);
   if (!board) return null;
   try {
-    const resp = await fetch(contentUrl(board.top));
+    const resp = await fetch(contentUrl(board.overlay));
     if (!resp.ok) return null;
     const svgText = await resp.text();
     state.pcbThumbCache.set(source, svgText);
@@ -203,7 +203,7 @@ export async function openPcbDetail(source, pushHistory = true) {
     return;
   }
 
-  const view = pcbLoadView(source) || "top";
+  const view = pcbLoadView(source) || "overlay";
   const toggle = makeViewToggle((v) => { if (v !== state.currentPcbView) mountView(v, true); });
   wrapper.appendChild(toggle);
 
