@@ -50,8 +50,9 @@ vent_id = 2.5         # vent holes through the plate, over the brim ring
 skin_wall = 5.0       # outer registration skin kept around the cavity block
 bowl_wall = 6.0       # forming wall kept around the funnel — silicone containment
                       # and a gas-tight PETG backing for the vacuum-degas pour
-rib_wall = 5.0        # cross ribs bracing the skin to the forming wall
-base_foot = 4.0       # printing-base slab left under the relieved cavity flanks
+rib_wall = 4.0        # ribs bracing the skin to the forming wall
+rib_pitch = 30.0      # target spacing of the relief rib lattice — short enough that
+                      # the steep deep-Y forming wall bridges between ribs, no support
 plate_relief = 4.0    # solid kept under the plate's brim face when its top is relieved
 boss_wall = 4.0       # solid kept around each plate through-hole when relieved
 
@@ -77,6 +78,19 @@ def _loft_rc(w, d, cx0, cy0, z0, r1, cx1, cy1, z1):
         .workplane(offset=z1 - z0).center(cx1 - cx0, cy1 - cy0).circle(r1)
         .loft(combine=True).val()
     )
+
+
+def _rib_lattice(block_w, block_d, z0, z1, cx, cy, t, pitch):
+    """A grid of thin vertical ribs spanning z[z0,z1] over the block footprint.
+    Kept out of the relief so the steep forming wall lands on a rib every `pitch`
+    and bridges between them; off the forming face, the funnel cut removes them."""
+    nx, ny = max(1, round(block_w / pitch)), max(1, round(block_d / pitch))
+    ribs = _box(t, block_d, z0, z1, cx, cy)
+    for i in range(nx + 1):
+        ribs = ribs.fuse(_box(t, block_d, z0, z1, cx - block_w / 2.0 + i * block_w / nx, cy))
+    for j in range(ny + 1):
+        ribs = ribs.fuse(_box(block_w, t, z0, z1, cx, cy - block_d / 2.0 + j * block_d / ny))
+    return ribs
 
 
 def _grown_funnel(m, g):
@@ -116,16 +130,14 @@ def build():
     )
 
     # Relieve the dead solid: keep a skin_wall registration shell, a bowl_wall of
-    # PETG around the funnel, a base_foot printing slab, a mold_base spout boss
-    # carrying the pin register, and a bracing cross of ribs — hollow the rest.
-    # The relief opens up through the top rim, so it prints with no internal
-    # support, and stops bowl_wall short of the funnel: it never reaches the
-    # forming face.
+    # PETG around the funnel, a mold_base spout boss carrying the pin register, and
+    # a rib lattice — hollow the rest. The relief opens down to the bed (no sealed
+    # void) and stops bowl_wall short of the funnel, so it never reaches the
+    # forming face; the lattice carries the steep deep-Y wall on short bridges.
     relief = _box(block_w - 2.0 * skin_wall, block_d - 2.0 * skin_wall,
-                  floor_z + base_foot, top_z + 1.0, cx, cy).cut(_grown_funnel(m, bowl_wall))
+                  floor_z, top_z + 1.0, cx, cy).cut(_grown_funnel(m, bowl_wall))
     relief = relief.cut(_cyl(m["spout_or"] + bowl_wall, end_z, floor_z, ncx, cy))
-    relief = relief.cut(_box(rib_wall, block_d, floor_z + base_foot, top_z, cx, cy))
-    relief = relief.cut(_box(block_w, rib_wall, floor_z + base_foot, top_z, cx, cy))
+    relief = relief.cut(_rib_lattice(block_w, block_d, floor_z, top_z, cx, cy, rib_wall, rib_pitch))
     cavity = cavity.cut(relief)
 
     # CORE: the bore is the plug; extend the spout pin (lead-nosed so it
