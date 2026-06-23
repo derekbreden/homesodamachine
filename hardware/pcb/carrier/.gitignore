@@ -7,7 +7,18 @@ dist
 *.tsbuildinfo
 .cache
 
+# out/ holds only what render-board.ts maintains (the three copper views +
+# gerbers). Other tsci exports are regenerable and would silently drift, so
+# they're never committed — ignored here even if a local export writes them.
 out/*.step
+out/*.pcb.svg
+out/*.pcb.png
+out/*.sch.svg
+out/*.sch.png
+out/*.kicad_pcb
+out/*.netlist.txt
+out/*.specctra-dsn
+out/*.dsn
 
 # misc
 *.tgz
