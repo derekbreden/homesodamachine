@@ -40,8 +40,8 @@ The condenser fan does **not** appear in the AC table: the harvested fan is a [1
 
 | # | From | To | Conductors | AWG | Approx. length | Termination | Notes |
 |---|---|---|---|---|---|---|---|
-| LV-1 | ESP32 GPIO 14 (relay #1 control) | Teyleten relay #1 input terminal (IN) | signal + GND | [24](AWG_LV) | [~150 mm](LEN_MID) | Screw terminals both ends (DIN-breakout → relay input terminal) | [3.3 V](V_IO) opto-isolated; no ground loop concern. |
-| LV-2 | ESP32 GPIO 4 (relay #2 control) | Teyleten relay #2 input terminal (IN) | signal + GND | [24](AWG_LV) | [~150 mm](LEN_MID) | Screw terminals both ends | Diaphragm pump refill gate. |
+| LV-1 | ESP32 GPIO 17 (relay #1 control) | Teyleten relay #1 input terminal (IN) | signal + GND | [24](AWG_LV) | [~150 mm](LEN_MID) | Screw terminals both ends (DIN-breakout → relay input terminal) | [3.3 V](V_IO) opto-isolated; no ground loop concern. |
+| LV-2 | ESP32 GPIO 16 (relay #2 control) | Teyleten relay #2 input terminal (IN) | signal + GND | [24](AWG_LV) | [~150 mm](LEN_MID) | Screw terminals both ends | Diaphragm pump refill gate. |
 | LV-3 | [5 V](V_LOGIC) rail (L298N onboard 7805/78M05) | Teyleten relay #1 + #2 module VCC | + + GND | [24](AWG_LV) | [~100 mm](LEN_SHORT_2) each | Screw terminals (relay VCC) | Both relays share the [5 V](V_LOGIC) rail off the L298N's onboard regulator; opto-isolation keeps the coil supply electrically separate from logic. |
 
 ### [12 V](V_DC) distribution
@@ -62,14 +62,14 @@ The condenser fan does **not** appear in the AC table: the harvested fan is a [1
 
 | # | From | To | Conductors | AWG | Approx. length | Notes |
 |---|---|---|---|---|---|---|
-| SIG-1 | DS18B20 1-wire bus (tank wall + evap suction probes) | ESP32 GPIO 16 + [3.3 V](V_IO) + GND | data + [3.3 V](V_IO) + GND, parallel-bussed | [22](AWG_SIG) | [~600 mm](LEN_COLD_CORE) to back of cold core | [4.7 kΩ](DS18B20_PULLUP) pull-up between data and [3.3 V](V_IO) (BOM §1). |
-| SIG-2 | Reed switch — low (carbonator) | ESP32 GPIO 17 + GND | switch + GND | [24](AWG_LV) | [~600 mm](LEN_COLD_CORE) | INPUT_PULLUP. |
-| SIG-3 | Reed switch — high (carbonator) | ESP32 GPIO 27 + GND | switch + GND | [24](AWG_LV) | [~600 mm](LEN_COLD_CORE) | INPUT_PULLUP. |
+| SIG-1 | DS18B20 1-wire bus (tank wall + evap suction probes) | ESP32 GPIO 14 + [3.3 V](V_IO) + GND | data + [3.3 V](V_IO) + GND, parallel-bussed | [22](AWG_SIG) | [~600 mm](LEN_COLD_CORE) to back of cold core | [4.7 kΩ](DS18B20_PULLUP) pull-up between data and [3.3 V](V_IO) (BOM §1). |
+| SIG-2 | Reed switch — low (carbonator) | ESP32 GPIO 36 + GND | switch + GND | [24](AWG_LV) | [~600 mm](LEN_COLD_CORE) | INPUT_PULLUP. |
+| SIG-3 | Reed switch — high (carbonator) | ESP32 GPIO 39 + GND | switch + GND | [24](AWG_LV) | [~600 mm](LEN_COLD_CORE) | INPUT_PULLUP. |
 | SIG-4 | DIGITEN flow meter (Zone B, on the carbonated-water line where it exits the cold core near the shelf) | ESP32 GPIO 23 + [5 V](V_LOGIC) + GND | pulse + V + GND | [24](AWG_LV) | [~150 mm](LEN_MID) (internal, within the electronics-shelf zone) | Pulse interrupt; flow detection is internal — does not leave the enclosure. |
-| SIG-6 | ESP32-S3-Touch-LCD-1.47 faucet flavor display on the gooseneck head | ESP32 GPIO 32 (TX) + GPIO 35 (RX) + display power + GND, up the umbilical | UART + power | 28 | [~1 m](LEN_UMBILICAL) (up the umbilical) | Direct TTL UART to the 1.47" display's ESP32-S3, which breaks out TTL UART (no transceiver — RS485 is reserved for the 4.3B, which has no free TTL UART). On the BNTECHGO 28 AWG 4-conductor ribbon (TX / RX / [5 V](V_LOGIC) / GND); the display takes 5 V up the umbilical. |
-| SIG-7 | ESP32-S3-Touch-LCD-4.3B config display on the front face (fixed) | ESP32 GPIO 15 (TX) + GPIO 34 (RX) via the TTL-to-RS485 transceiver (A/B) + display power + GND | RS485 + power | [24](AWG_LV) | [~1 m](LEN_UMBILICAL) (electronics shelf → front face, internal) | RS485 differential pair from the base ESP32's TTL-to-RS485 transceiver to the 4.3B's onboard SP3485; the display's 7–36 V screw input takes [12 V](V_DC) off the bus on the same run. Fixed front-face mount per [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md). Transceiver powered from the [3.3 V](V_IO) rail so its RO can't over-volt GPIO 34; A/B on a twisted pair. |
+| SIG-6 | ESP32-S3-Touch-LCD-1.47 faucet flavor display on the gooseneck head | ESP32 GPIO 33 (TX) + GPIO 35 (RX) + display power + GND, up the umbilical | UART + power | 28 | [~1 m](LEN_UMBILICAL) (up the umbilical) | Direct TTL UART to the 1.47" display's ESP32-S3, which breaks out TTL UART (no transceiver — RS485 is reserved for the 4.3B, which has no free TTL UART). On the BNTECHGO 28 AWG 4-conductor ribbon (TX / RX / [5 V](V_LOGIC) / GND); the display takes 5 V up the umbilical. |
+| SIG-7 | ESP32-S3-Touch-LCD-4.3B config display on the front face (fixed) | ESP32 GPIO 32 (TX) + GPIO 34 (RX) via the TTL-to-RS485 transceiver (A/B) + display power + GND | RS485 + power | [24](AWG_LV) | [~1 m](LEN_UMBILICAL) (electronics shelf → front face, internal) | RS485 differential pair from the base ESP32's TTL-to-RS485 transceiver to the 4.3B's onboard SP3485; the display's 7–36 V screw input takes [12 V](V_DC) off the bus on the same run. Fixed front-face mount per [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md). Transceiver powered from the [3.3 V](V_IO) rail so its RO can't over-volt GPIO 34; A/B on a twisted pair. |
 | SIG-8 | DS3231 RTC + MCP23017 (I2C) | ESP32 GPIO 21 (SDA) + GPIO 22 (SCL) + [3.3 V](V_IO) + GND | I2C bus | [24](AWG_LV) | [~150 mm](LEN_MID) shared bus on shelf | Both devices co-located on the electronics shelf. |
-| SIG-9 | Backflow vent moisture sensor | ESP32 GPIO (TBD) + GND | switch + GND | [24](AWG_LV) | [~600 mm](LEN_COLD_CORE) to drip pan inside cabinet | Per [`/hardware/future.md`](/hardware/future.md) "Backflow vent monitoring"; pin not yet assigned in [`esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd). |
+| SIG-9 | Backflow vent moisture sensor | ESP32 GPIO 13 + GND | switch + GND | [24](AWG_LV) | [~600 mm](LEN_COLD_CORE) to drip pan inside cabinet | Per [`/hardware/future.md`](/hardware/future.md) "Backflow vent monitoring"; on GPIO 13 per [`esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd). |
 
 ## Inter-module connectors
 
@@ -105,7 +105,6 @@ Single-point chassis ground at the electronics shelf, bonded back through the C1
 - **Fuse on the AC primary** — a [5 A](PRIMARY_FUSE_A) fast-blow inline fuse between the C14 inlet and the AC distribution block was discussed in [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md) for bench testing. Whether it stays in the production unit (fuse holder on the rear panel? fuse on the shelf?) needs a decision.
 - **Distribution block hardware** — Wago 221 lever blocks vs. screw terminal block vs. PCB-mounted block. Wago is the fastest hand-build option.
 - **Wiring loom organization between the electronics shelf and the valve manifold** — [24](LOOM_CONDUCTORS) conductors want to be a single bundled run (ribbon cable, twisted pairs, or a simple zip-tied loom). TBD when the manifold is mocked up.
-- **Backflow moisture sensor pin assignment** — needs to land in `esp32-pinout.mmd`.
 
 ## Revision
 

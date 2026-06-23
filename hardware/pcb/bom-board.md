@@ -62,7 +62,7 @@ unique Extended lines (the ICs that hold value). See
 |---|--:|---|---|---|---|---|
 | R1, R2 | 2 | 4.7 kΩ I²C pull-up | 0603 | C25900 | Basic | SDA / SCL to 3.3 V. |
 | R3 | 1 | 4.7 kΩ 1-wire pull-up | 0603 | C25900 | Basic | DS18B20 data to 3.3 V (migrated from `bom.md` §1 EDGELEC line). |
-| R4, R5 | 2 | 10 kΩ carbonator-reed pull-up | 0603 | C25804 | Basic | GPIO 17 / 27. The 8 reservoir reeds use MCP internal pull-ups. |
+| R4, R5 | 2 | 10 kΩ carbonator-reed pull-up | 0603 | C25804 | Basic | GPIO 36 / 39 (input-only pads — external pull-ups required). The 8 reservoir reeds use MCP internal pull-ups. |
 | R_FLOW | 1 | 10 kΩ flow-meter pull-up | 0603 | C25804 | Basic | Open-collector pulse to GPIO 23; add level handling for the 5 V sensor. |
 | R_CC1, R_CC2 | 2 | 5.1 kΩ USB-C CC | 0603 | C25905 | Basic | One per CC line to GND (advertise sink). |
 | R_EN, R_IO0 | 2 | 10 kΩ strap pull-up | 0603 | C25804 | Basic | EN + IO0; plus strap states for IO2/IO12/IO15 per the WROOM table. |
@@ -108,7 +108,7 @@ The board takes one 12 V input from the off-board Mean Well IRM-90-12ST (80 W / 
 | 3.3 V | ESP32 (~0.5 A WiFi TX), 2× MCP23017, DS3231, RS485, pull-ups/logic | ~0.18 A | ~0.57 A |
 
 - **Worst reachable 12 V state ≈ 6.0 A** — a refill cycle (SeaFlo ~5 A + fan + display +
-  buck). The firmware refill-vs-dispense interlock (relay #2 / GPIO 4 held off during a
+  buck). The firmware refill-vs-dispense interlock (relay #2 / GPIO 16 held off during a
   dispense, per `power.mmd`) is load-bearing for the power design: it guarantees the pump
   and the full valve bank are never concurrent, so every reachable state stays under the
   6.7 A PSU ceiling. Valve concurrency is low by architecture (source-selection energizes

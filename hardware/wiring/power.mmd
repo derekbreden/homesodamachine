@@ -3,8 +3,8 @@ flowchart TD
   %% Power Distribution (current plan).
   %% 120 VAC mains in via C14 inlet; Mean Well 12 V PSU supplies the
   %% 12 V bus for everything except the compressor itself, which runs
-  %% on switched mains via Teyleten relay #1 (ESP32 GPIO 14). The 12 V
-  %% diaphragm pump is gated by Teyleten relay #2 (ESP32 GPIO 4) so
+  %% on switched mains via Teyleten relay #1 (ESP32 GPIO 17). The 12 V
+  %% diaphragm pump is gated by Teyleten relay #2 (ESP32 GPIO 16) so
   %% firmware can keep refill off during an active dispense.
   %% The 5 V logic rail is the L298N Board A onboard 7805/78M05, made
   %% from the 12 V at its VS input; it powers the base ESP32, the relay
@@ -49,7 +49,7 @@ flowchart TD
   end
 
   subgraph Refrigeration["Refrigeration  (harvested ice-maker)"]
-    RELAY["Teyleten 3.3 V relay #1\n(opto-isolated, GPIO 14)\nLOCATION: electronics shelf"]
+    RELAY["Teyleten 3.3 V relay #1\n(opto-isolated, GPIO 17)\nLOCATION: electronics shelf"]
     COMP_AC["AC hermetic compressor\n+ clip-on PTC start relay/overload\n(Frigidaire EFIC117-SS donor)\nLOCATION: inside compressor shroud"]
     COND_FAN["Condenser fan motor\n12 V DC brushless axial, ~0.35 A\n(donor PCB discarded; driven from 12 V bus)\nLOCATION: side of enclosure (side-to-side airflow path)"]
     RELAY ==>|"switched AC hot\n(through shroud grommet)"| COMP_AC
@@ -62,7 +62,7 @@ flowchart TD
   end
 
   subgraph Carbonation["Carbonation"]
-    DIA_RELAY["Teyleten 3.3 V relay #2\n(opto-isolated, GPIO 4)"]
+    DIA_RELAY["Teyleten 3.3 V relay #2\n(opto-isolated, GPIO 16)"]
     DIA_PUMP["SeaFlo diaphragm pump\n12 V, 100 PSI"]
     DIA_RELAY ==>|"switched 12 V"| DIA_PUMP
   end
