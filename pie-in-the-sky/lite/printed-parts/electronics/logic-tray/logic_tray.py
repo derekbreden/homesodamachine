@@ -40,22 +40,26 @@ import ds3231_rtc as ds3231
 m = mt.margin
 
 # ESP32 breakout lower-left; L298N flush to its right; the two ULN2803As stacked
-# in the next column; the MCP23017 + RS485 stacked in the last column.
+# in the next column; the MCP23017 + RS485 stacked in the next column; the
+# DS3231 in the last column.
 _esp_c = (m + esp32.length / 2.0, m + esp32.width / 2.0)
 _esp_r = m + esp32.length
 _l_cx = _esp_r + l298n.length / 2.0
 _l_r = _esp_r + l298n.length
 _uln_cx = _l_r + uln.length / 2.0
 _uln_r = _l_r + uln.length
-_last_cx = _uln_r + max(mcp.length, rs485.length) / 2.0
+_mr_cx = _uln_r + max(mcp.length, rs485.length) / 2.0
+_mr_r = _uln_r + max(mcp.length, rs485.length)
+_ds_cx = _mr_r + ds3231.length / 2.0
 
 MOUNTS = [
     Mount(esp32, _esp_c, 0.0),
     Mount(l298n, (_l_cx, m + l298n.width / 2.0), 0.0),
     Mount(uln, (_uln_cx, m + uln.width / 2.0), 0.0),
     Mount(uln, (_uln_cx, m + uln.width + uln.width / 2.0), 0.0),
-    Mount(rs485, (_last_cx, m + rs485.width / 2.0), 0.0),
-    Mount(mcp, (_last_cx, m + rs485.width + mcp.width / 2.0), 0.0),
+    Mount(rs485, (_mr_cx, m + rs485.width / 2.0), 0.0),
+    Mount(mcp, (_mr_cx, m + rs485.width + mcp.width / 2.0), 0.0),
+    Mount(ds3231, (_ds_cx, m + ds3231.width / 2.0), 0.0),
 ]
 
 
