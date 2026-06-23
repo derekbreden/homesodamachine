@@ -49,10 +49,13 @@
 | Printed | Valve tray — BiB-gate (PETG) | 1 | $0.48 | [valve-manifold/](/hardware/printed-parts/valve-manifold/) | Shared with the Kitchen build (bom.md §7). |
 | Printed | Valve tray — nozzle-gate (PETG) | 1 | $0.48 | [valve-manifold/](/hardware/printed-parts/valve-manifold/) | Shared with the Kitchen build (bom.md §7). |
 | Printed | Controller + driver tray, lite variant (PETG) | 1 | $0.60 | [electronics/](/hardware/printed-parts/electronics/) | The Kitchen [controller tray](/hardware/printed-parts/electronics/controller-tray/) + [driver tray](/hardware/printed-parts/electronics/driver-tray/) minus the Teyleten relay (driver) and the second MCP23017 (controller). Lite-variant CAD pending; placeholder from the Kitchen tray costs. |
+| Faucet | DIGITEN G3/8" Hall-effect flow sensor | 1 | $7.99 | [B07QQW4C7R](https://www.amazon.com/dp/B07QQW4C7R) | Flow detection on the Lillium-fed carbonated-water inlet — pump injection triggers on detected flow. Sits inside the enclosure on the rear carb-water pass-through (bulkhead in → elbow → flow meter → elbow → bulkhead out). Same part as Kitchen bom.md §9. |
+| Faucet | John Guest PP0308E 1/4" OD union elbow, black PP | 2 | $2.28 | [FWS](https://www.freshwatersystems.com/products/john-guest-union-elbow-black-polypropylene-1-4) | The two elbows in the rear carb-water pass-through, turning the run from each bulkhead into the flow meter. The flow meter's G3/8 ports adapt to 1/4" PTC — adapter finalized with the inlet-stub assembly. CadQuery: [elbow-connector](/hardware/reference/elbow-connector/). |
+| Faucet | John Guest PP1208E 1/4" PTC bulkhead union (10-pk) | 2 | $2.48 | [B00JYFU8MM](https://www.amazon.com/dp/B00JYFU8MM) | The two rear-panel carb-water ports — Lillium hose in, faucet line out — close together on the back. Black PP, NSF 51+61, 150 psi @ 70°F. Same bulkhead family as the Kitchen umbilical (§8); CadQuery: [jg-bulkhead-union](/hardware/reference/jg-bulkhead-union/). |
 
 ## Per-unit cost (estimate)
 
-Estimated delivered parts cost per Lite unit: **[$538.56](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
+Estimated delivered parts cost per Lite unit: **[$556.07](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
 
 ## Clear-PVC length — ~13 ft/unit (estimate)
 
