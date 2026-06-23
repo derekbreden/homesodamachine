@@ -6,10 +6,9 @@
  * for the ULN common and the solenoid high side; the ESP's 3V3 pin powers the
  * MCPs. Through-hole, two layers.
  *
- * Each repeated unit is a component that ties its own pins to global named nets
- * (V3_3, GND, SDA, SCL, V12) and exposes its banks as `<ref>_GPA{i}` / `_GPB{i}`
- * / `_OUT{i}` nets; the board below composes them. ESP socket: 2x19 @ 2.54 mm,
- * rows 25.4 mm (1.0") apart, standard DevKitC-32E 38-pin map.
+ * Layout: each MCP sits between its two breakout headers — GPB on the left
+ * edge, GPA on the right — so every bank leaves as a straight bundle. ESP
+ * socket: 2x19 @ 2.54 mm, rows 25.4 mm (1.0") apart, standard DevKitC-32E map.
  */
 
 const i8 = [0, 1, 2, 3, 4, 5, 6, 7]
@@ -17,7 +16,6 @@ const gpa = i8.map((i) => `GPA${i}`)
 const gpb = i8.map((i) => `GPB${i}`)
 const valves = ["VA", "VB", "VC", "VD", "VE", "VF", "VG", "VH"]
 
-// pcb position + a matching, spread-out schematic position from one origin
 const at = (px: number, py: number) => ({ pcbX: px, pcbY: py, schX: px / 6, schY: py / 6 })
 
 const espA = ["3V3", "EN", "IO36", "IO39", "IO34", "IO35", "IO32", "IO33", "IO25",
@@ -32,7 +30,6 @@ const mcpPins = {
   pin21: "GPA0", pin22: "GPA1", pin23: "GPA2", pin24: "GPA3",
   pin25: "GPA4", pin26: "GPA5", pin27: "GPA6", pin28: "GPA7",
 }
-// ULN2803A: pin1-8 IN, pin9 GND, pin10 COM, pin11-18 OUT8..OUT1.
 const ulnPins = {
   pin1: "IN1", pin2: "IN2", pin3: "IN3", pin4: "IN4",
   pin5: "IN5", pin6: "IN6", pin7: "IN7", pin8: "IN8",
@@ -43,14 +40,12 @@ const ulnPins = {
 
 // ---- reusable units --------------------------------------------------------
 
-// ESP32 DevKitC socket: two 1x19 female rows 25.4 mm apart, the I2C pull-ups,
-// and the bus/power/spare-GPIO tied to named nets.
 const Esp32 = ({ x, y }: { x: number; y: number }) => (
   <>
     <pinheader name="U1A" pinCount={19} pitch="2.54mm" gender="female" footprint="pinrow19" pinLabels={espA} {...at(x, y + 12.7)} />
     <pinheader name="U1B" pinCount={19} pitch="2.54mm" gender="female" footprint="pinrow19" pinLabels={espB} {...at(x, y - 12.7)} />
-    <resistor name="R1" resistance="4.7k" footprint="axial" {...at(x + 30, y + 4)} />
-    <resistor name="R2" resistance="4.7k" footprint="axial" {...at(x + 30, y)} />
+    <resistor name="R1" resistance="4.7k" footprint="axial" {...at(x + 27, y + 3)} />
+    <resistor name="R2" resistance="4.7k" footprint="axial" {...at(x + 27, y - 1)} />
     <trace from=".U1A > .3V3" to="net.V3_3" />
     <trace from=".U1B > .GNDb" to="net.GND" />
     <trace from=".U1B > .IO21" to="net.SDA" />
@@ -63,12 +58,10 @@ const Esp32 = ({ x, y }: { x: number; y: number }) => (
   </>
 )
 
-// MCP23017: chip + decoupling, address straps (A0 high = 0x21, low = 0x20),
-// power + I2C to named nets, GPA/GPB banks exposed as `<name>_GPA{i}`/`_GPB{i}`.
 const Mcp23017 = ({ name, x, y, a0High }: { name: string; x: number; y: number; a0High: boolean }) => (
   <>
     <chip name={name} footprint="dip28_w7.62mm" pinLabels={mcpPins} {...at(x, y)} />
-    <capacitor name={`${name}C`} capacitance="100nF" footprint="axial" {...at(x - 14, y)} />
+    <capacitor name={`${name}C`} capacitance="100nF" footprint="axial" {...at(x, y - 20)} />
     <trace from={`.${name} > .VDD`} to="net.V3_3" />
     <trace from={`.${name} > .RST`} to="net.V3_3" />
     <trace from={`.${name} > .VSS`} to="net.GND" />
@@ -84,8 +77,6 @@ const Mcp23017 = ({ name, x, y, a0High }: { name: string; x: number; y: number; 
   </>
 )
 
-// ULN2803: eight low-side sinks. IN1-8 pulled from `${inPrefix}{i}` nets, OUT1-8
-// exposed as `<name>_OUT{i}`, clamp common on 12 V.
 const Uln2803 = ({ name, x, y, inPrefix }: { name: string; x: number; y: number; inPrefix: string }) => (
   <>
     <chip name={name} footprint="dip18" pinLabels={ulnPins} {...at(x, y)} />
@@ -96,19 +87,18 @@ const Uln2803 = ({ name, x, y, inPrefix }: { name: string; x: number; y: number;
   </>
 )
 
-// A breakout header: each pin `labels[i]` wired to `nets[i]`.
-const EdgeBank = ({ name, x, y, labels, nets }: { name: string; x: number; y: number; labels: string[]; nets: string[] }) => (
+// A breakout header; rot=90 stands it vertical so it hugs a chip's pin column.
+const EdgeBank = ({ name, x, y, labels, nets, rot = 0 }: { name: string; x: number; y: number; labels: string[]; nets: string[]; rot?: number }) => (
   <>
-    <pinheader name={name} pinCount={labels.length} pitch="2.54mm" gender="male" footprint={`pinrow${labels.length}`} pinLabels={labels} {...at(x, y)} />
+    <pinheader name={name} pinCount={labels.length} pitch="2.54mm" gender="male" footprint={`pinrow${labels.length}`} pinLabels={labels} pcbRotation={rot} {...at(x, y)} />
     {labels.map((lab, i) => <trace key={i} from={`.${name} > .${lab}`} to={`net.${nets[i]}`} />)}
   </>
 )
 
-// 12 V input + bulk cap.
 const PowerIn = ({ name, x, y }: { name: string; x: number; y: number }) => (
   <>
     <pinheader name={name} pinCount={2} pitch="2.54mm" gender="male" footprint="pinrow2" pinLabels={["V12", "GND"]} {...at(x, y)} />
-    <capacitor name={`${name}C`} capacitance="100uF" footprint="radial" polarized {...at(x + 16, y)} />
+    <capacitor name={`${name}C`} capacitance="100uF" footprint="radial" polarized {...at(x, y - 8)} />
     <trace from={`.${name} > .V12`} to="net.V12" />
     <trace from={`.${name} > .GND`} to="net.GND" />
     <trace from={`.${name}C > .pin1`} to="net.V12" />
@@ -117,25 +107,27 @@ const PowerIn = ({ name, x, y }: { name: string; x: number; y: number }) => (
 )
 
 // ---- the board -------------------------------------------------------------
+// Two MCP "stations" stacked vertically. Each: [GPB header | MCP | GPA side].
+// GPB banks exit left, GPA banks exit right, so no bundle crosses the board.
 
 export default () => (
-  <board width="175mm" height="125mm">
-    <Esp32 x={-55} y={0} />
-    <PowerIn name="J12" x={-58} y={46} />
-
-    <Mcp23017 name="U2" x={2} y={30} a0High={false} />
-    <Mcp23017 name="U3" x={2} y={-28} a0High={true} />
-    <Uln2803 name="U4" x={30} y={32} inPrefix="U2_GPA" />
-
-    {/* U2's GPA bank -> ULN -> eight solenoids + 12 V common */}
-    <EdgeBank name="J_VA" x={58} y={40} labels={[...valves, "COM"]} nets={[...i8.map((i) => `U4_OUT${i}`), "V12"]} />
-    {/* the other three banks straight to edge headers */}
-    <EdgeBank name="JB" x={58} y={14} labels={gpb} nets={i8.map((i) => `U2_GPB${i}`)} />
-    <EdgeBank name="JC" x={58} y={-20} labels={gpa} nets={i8.map((i) => `U3_GPA${i}`)} />
-    <EdgeBank name="JD" x={58} y={-40} labels={gpb} nets={i8.map((i) => `U3_GPB${i}`)} />
-    {/* spare ESP32 GPIO + power */}
-    <EdgeBank name="JE" x={-58} y={-44}
+  <board width="150mm" height="120mm">
+    {/* brain + bus on the left */}
+    <Esp32 x={-46} y={6} />
+    <EdgeBank name="JE" x={-46} y={-40} rot={0}
       labels={["IO32", "IO33", "IO25", "IO26", "3V3", "GND"]}
       nets={["IO32", "IO33", "IO25", "IO26", "V3_3", "GND"]} />
+
+    {/* upper station: U2 -> ULN -> solenoids */}
+    <EdgeBank name="JB" x={-14} y={31} rot={90} labels={gpb} nets={i8.map((i) => `U2_GPB${i}`)} />
+    <Mcp23017 name="U2" x={2} y={24} a0High={false} />
+    <Uln2803 name="U4" x={22} y={24} inPrefix="U2_GPA" />
+    <EdgeBank name="J_VA" x={40} y={24} rot={90} labels={[...valves, "COM"]} nets={[...i8.map((i) => `U4_OUT${i}`), "V12"]} />
+    <PowerIn name="J12" x={40} y={47} />
+
+    {/* lower station: U3 banks straight to headers */}
+    <EdgeBank name="JD" x={-14} y={-17} rot={90} labels={gpb} nets={i8.map((i) => `U3_GPB${i}`)} />
+    <Mcp23017 name="U3" x={2} y={-24} a0High={true} />
+    <EdgeBank name="JC" x={20} y={-17} rot={90} labels={gpa} nets={i8.map((i) => `U3_GPA${i}`)} />
   </board>
 )
