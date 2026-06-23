@@ -307,6 +307,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Feggizuli 280 pc spade connector kit. Order #114-0182432-7123463, placed February 24, 2026 | [B0B4H54KPS](https://www.amazon.com/dp/B0B4H54KPS) | 1 pk | $8.25 | ACQUIRED |
 | 60 pc female spade crimp kit. Order #114-5322942-5213821, placed February 24, 2026 | [B0B9MZJ2ML](https://www.amazon.com/dp/B0B9MZJ2ML) | 1 pk | $10.71 | ACQUIRED |
 | Twidec 20 pc 4.8/6.3 mm spade crimp. Order #114-0884594-8630623, placed February 24, 2026 | [B08F784R9W](https://www.amazon.com/dp/B08F784R9W) | 1 pk | $9.64 | ACQUIRED |
+| smseace #4 (M3) ring terminals, insulated, 22–16 AWG, 150 pc. Order #112-4073443-1219450, placed June 22, 2026 | [B08B5VS8ZR](https://www.amazon.com/dp/B08B5VS8ZR) | 1 pk (150) | $9.64 | ON-ORDER (arriving Jun 25) |
 | Dupont jumper wires (M/F, M/M, F/F) 20 cm. Order #114-5649971-6455418, placed February 24, 2026 | [B0BRTJXND9](https://www.amazon.com/dp/B0BRTJXND9) | 1 pk | $6.40 | ACQUIRED |
 | ELEGOO 120 pc Dupont jumper wire ribbon. Orders #114-0818390-2733826 (Feb 2, ×1), #114-0077226-6463477 (Feb 24, ×1) | [B01EV70C78](https://www.amazon.com/dp/B01EV70C78) | 2 | $7.49 ea | ACQUIRED |
 | Taiss Dupont crimp kit + SN-28B. Order #114-3384762-6934634, placed February 22, 2026 | [B0B11RLGDZ](https://www.amazon.com/dp/B0B11RLGDZ) | 1 | $23.58 | ACQUIRED |
@@ -358,10 +359,12 @@ Ice-maker donor units and copper coil for the chill loop.
 | Amerock bar pulls 3-3/4" matte-black (10 pk). Order #114-3717852-7039428, placed March 7, 2026 | [B0DLWMV3RM](https://www.amazon.com/dp/B0DLWMV3RM) | 1 pk | $27.05 | ACQUIRED |
 | Neodymium disc magnets 3×1 mm. Order #112-2147768-5852208, placed March 15, 2026 | [B0BQ3LPGZ1](https://www.amazon.com/dp/B0BQ3LPGZ1) | 1 | $20.90 | ACQUIRED |
 | ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set | [B0D39W228K](https://www.amazon.com/dp/B0D39W228K) | 1 pk (100) | $10.71 | ACQUIRED (delivered May 11) |
+| ruthex M2 Threaded Inserts, 70 pc, RX-M2x4 brass heat-set (3.2 mm insert hole). Order #112-2773449-1292200, placed June 22, 2026 | [B088QJG676](https://www.amazon.com/dp/B088QJG676) | 1 pk (70) | $10.71 | ON-ORDER (arriving Jun 24) |
 | BNUOK M3 × 25 mm Hex Socket Head Cap Screws, 60 pc, 12.9 alloy steel, black oxide finish. Order #112-2495614-5144234, placed May 10, 2026 | [B0DJQGF665](https://www.amazon.com/dp/B0DJQGF665) | 1 pk (60) | $8.57 | ACQUIRED (delivered May 11) |
 | BNUOK M3 × 12 mm Hex Socket Head Cap Screws, 120 pc, 12.9 alloy steel, black oxide finish. Order #112-0144900-5988250, placed May 10, 2026 | [B0DJQGVK8S](https://www.amazon.com/dp/B0DJQGVK8S) | 1 pk (120) | $8.57 | ACQUIRED (delivered May 11, spare stock) |
 | BNUOK M3 × 10 mm Hex Socket Head Cap Screws, 120 pc, 12.9 alloy steel, black oxide finish. Order #112-6542724-2528248, placed June 22, 2026 | [B0DJQGGDP2](https://www.amazon.com/dp/B0DJQGGDP2) | 1 pk (120) | $8.57 | ON-ORDER (arriving Jun 24) |
 | BNUOK M3 × 12 mm Hex Socket Head Cap Screws, 120 pc, 304 stainless steel (18-8), bright finish. Order #112-3709957-5726619, placed June 2, 2026 | [B0DJQGMQZM](https://www.amazon.com/dp/B0DJQGMQZM) | 1 pk (120) | $8.66 | ACQUIRED (delivered Jun 3) |
+| Sutemribor M2 × 6 mm Hex Socket Head Cap Screws, 105 pc, M2-0.4, 12.9 alloy steel, black oxide finish, fully threaded. Order #112-1905695-2405047, placed June 22, 2026 | [B0CXQ7Q7L3](https://www.amazon.com/dp/B0CXQ7Q7L3) | 1 pk (105) | $18.22 | ON-ORDER (arriving Jun 24) |
 | LVDALAB PTFE Membrane Filter, ø13 mm × 0.45 µm, 100 pc, non-sterile. Order #112-4393734-6836206, placed May 11, 2026 | [B0D41KT345](https://www.amazon.com/dp/B0D41KT345) | 1 pk (100) | $13.23 | ACQUIRED (delivered May 12) |
 | Mudder PTFE / PVC / PU tubing cutter, ≤3/4" OD (3-pk, black). Order #112-8598924-2300214, placed May 17, 2026 | [B08VW15TK8](https://www.amazon.com/dp/B08VW15TK8) | 1 pk (3) | $12.86 | ACQUIRED (delivered May 18) |
 
@@ -547,10 +550,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$27,226.23](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$29,834.15](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$870.70](LEDGER_ON_ORDER) |
+| ON-ORDER | [$924.26](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$30,747.74](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$30,801.30](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
