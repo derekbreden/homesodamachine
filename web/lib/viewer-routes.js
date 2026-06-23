@@ -2,7 +2,7 @@ import express from "express";
 import path from "path";
 import fs from "fs";
 
-import { walkFiles, walkFilesUnderDir } from "./walk.js";
+import { walkFiles, walkFilesUnderDir, walkPcbBoards } from "./walk.js";
 
 function safeFile(rootDir, rel, ext) {
   if (rel.includes("..")) return null;
@@ -23,49 +23,6 @@ function readSidecar(rootDir, rel) {
   } catch {
     return null;
   }
-}
-
-// PCB boards: a board is a tscircuit source (`pcb/<dir>/<name>.tsx`) whose three
-// copper views have been rendered into a sibling `out/` by render-board.ts. We
-// list boards (not raw SVGs) so the viewer shows one card per board with its
-// Top / Bottom / Overlay views attached. Scoped to `<root>/pcb` and skips
-// node_modules so we never recurse the tscircuit toolchain's dependency tree.
-function walkPcbBoards(rootDir) {
-  const pcbDir = path.join(rootDir, "pcb");
-  if (!fs.existsSync(pcbDir)) return [];
-  const boards = [];
-  function walk(dir) {
-    let entries;
-    try {
-      entries = fs.readdirSync(dir, { withFileTypes: true });
-    } catch {
-      return;
-    }
-    for (const entry of entries) {
-      if (entry.name.startsWith(".") || entry.name === "node_modules") continue;
-      const full = path.join(dir, entry.name);
-      if (entry.isDirectory()) {
-        walk(full);
-        continue;
-      }
-      if (!entry.name.endsWith(".tsx")) continue;
-      const name = entry.name.replace(/\.tsx$/, "");
-      // A board counts only once its views exist; the overlay is the tell.
-      if (!fs.existsSync(path.join(dir, "out", `${name}.overlay.svg`))) continue;
-      const relDir = path.relative(rootDir, dir).split(path.sep).join("/");
-      const view = (v) => `${relDir}/out/${name}.${v}.svg`;
-      boards.push({
-        source: `${relDir}/${entry.name}`,
-        name,
-        dir: relDir,
-        top: view("top"),
-        bottom: view("bottom"),
-        overlay: view("overlay"),
-      });
-    }
-  }
-  walk(pcbDir);
-  return boards.sort((a, b) => a.source.localeCompare(b.source));
 }
 
 // The viewer serves one of two content roots, chosen per request by the
