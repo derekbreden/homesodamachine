@@ -36,10 +36,13 @@ platinum-compatible release film.
 - **Material:** PETG (the cheap workhorse; the cold-core foam shells print in it
   too). Both halves print flat as drawn — cavity opening up, core plate down.
 - **Food-contact finish:** the core plug forms the funnel's inside (food-contact)
-  surface, so its layer lines telegraph into the silicone. Smooth the plug —
-  sand + filler-primer, or print the core on resin/SLA — since PETG can't be
-  vapor-smoothed and a layer-lined inner surface traps sticky concentrate. The
-  cavity (outside) face can stay as-printed.
+  surface, so its texture telegraphs into the silicone. Smooth + seal the plug —
+  light sand, then a hard **gloss clear-acrylic** seal coat (not a matte
+  filler-primer, which is micro-porous and grips/tears soft silicone; not enamel,
+  which can inhibit the cure). PETG can't be vapor-smoothed, and a rough inner
+  surface both traps concentrate and outgasses under vacuum. The cavity (outside)
+  face can stay as-printed. Full procedure — seal, release, coupon-test — in the
+  lite mold's [README "Finish the core"](/pie-in-the-sky/lite/printed-parts/funnel-mold/README.md).
 - **Critical bridge:** printed opening-up, the cavity's flange-seat ledge (the
   downward-facing shelf where the brim recess meets the chute) is a short bridge
   that forms the brim seal — verify it prints clean.
