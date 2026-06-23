@@ -2,7 +2,7 @@
 
 A transparent PETG box, 3 mm walls, sized live to the bounding box of the
 contents placed by
-[`../enclosure-assembly/_contents.py`](/pie-in-the-sky/lite/enclosure-assembly/_contents.py),
+[`../enclosure-assembly/_contents.py`](/pie-in-the-sky/lite/printed-parts/enclosure/enclosure-assembly/_contents.py),
 **split into two printable halves** — `enclosure-front` and `enclosure-back` —
 that telescope and screw together. The back half houses the reservoir-pockets
 box; the front half's rear wall inserts into it.
@@ -104,11 +104,12 @@ print-corners). Read live from the contents placed by
 
 The enclosure sizes itself from the contents bbox:
 
-`tools/cad-venv/bin/python pie-in-the-sky/lite/enclosure/enclosure.py`
+`tools/cad-venv/bin/python pie-in-the-sky/lite/printed-parts/enclosure/enclosure/enclosure.py`
 → `enclosure-front.step`, `enclosure-back.step`, `enclosure.step`. Wall, split,
 boss, and facet constants are at the top of `enclosure.py`. Prints the facet size,
 each half's envelope vs. the H2C bed, and the reservoir/boss clearance.
 
 ## Sources
 [value](NAME) texts are updated by:
-- `/pie-in-the-sky/lite/enclosure/enclosure.py`
+- `/pie-in-the-sky/lite/printed-parts/enclosure/enclosure/enclosure.py`
+- `/pie-in-the-sky/lite/printed-parts/enclosure/enclosure/enclosure.py`

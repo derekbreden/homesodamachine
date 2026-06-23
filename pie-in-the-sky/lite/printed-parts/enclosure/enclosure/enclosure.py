@@ -41,7 +41,7 @@ _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_repo / "tools"))
-sys.path.insert(0, str(_repo / "pie-in-the-sky" / "lite" / "enclosure-assembly"))
+sys.path.insert(0, str(_repo / "pie-in-the-sky" / "lite" / "printed-parts" / "enclosure" / "enclosure-assembly"))
 from _cadq_export import export_step, export_assembly
 from docgen import substitute_md, substitute_py_comments
 import _contents

@@ -37,11 +37,11 @@ test("a tray STEP's consumers include the assemblies that only _load it (regress
   // or calls importStep directly, so the old import-only walk missed all three.
   const consumers = findScriptsConsumingStep("source-select-assembly.step", ROOTS);
   assert.ok(
-    consumers.some(ends("pie-in-the-sky/lite/enclosure-assembly/enclosure_assembly.py")),
+    consumers.some(ends("pie-in-the-sky/lite/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py")),
     `expected lite enclosure-assembly among consumers, got:\n${consumers.map(rel).join("\n")}`,
   );
   assert.ok(
-    consumers.some(ends("pie-in-the-sky/lite/enclosure/enclosure.py")),
+    consumers.some(ends("pie-in-the-sky/lite/printed-parts/enclosure/enclosure/enclosure.py")),
     "expected lite enclosure among consumers",
   );
   assert.ok(
@@ -70,7 +70,7 @@ test("build order puts a producer before the scripts that load its STEP", () => 
     (s) => s.split(path.sep).join("/").endsWith("source-select-tray/source_select_assembly.py"),
   );
   const consumer = order.findIndex(
-    (s) => s.split(path.sep).join("/").endsWith("pie-in-the-sky/lite/enclosure-assembly/enclosure_assembly.py"),
+    (s) => s.split(path.sep).join("/").endsWith("pie-in-the-sky/lite/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py"),
   );
   assert.ok(producer !== -1, "tray assembly generator should be in the order");
   assert.ok(consumer !== -1, "enclosure assembly should be in the order");

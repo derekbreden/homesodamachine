@@ -1,7 +1,7 @@
 """Lite hopper funnel — the removable pour-through insert.
 
 A wide funnel that drops into the top-wall opening to the right of the display
-(cut by ../../enclosure/enclosure.py via `_hopper_hole`). You pour SodaStream
+(cut by ../enclosure/enclosure/enclosure.py via `_hopper_hole`). You pour SodaStream
 concentrate into it; it drains through its spout to V-B on the source-select
 tray (fluid topology segment 4, "Hopper funnel bottom -> V-B-I"). A pour-through
 guide with a small buffer, not a batch reservoir — what gets poured in is pumped
@@ -36,7 +36,7 @@ _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_repo / "tools"))
-_ENCL = _repo / "pie-in-the-sky" / "lite" / "enclosure"
+_ENCL = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "enclosure" / "enclosure"
 sys.path.insert(0, str(_ENCL))
 from _cadq_export import export_step
 from docgen import substitute_md, substitute_py_comments

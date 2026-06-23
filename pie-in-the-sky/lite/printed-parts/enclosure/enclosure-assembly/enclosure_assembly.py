@@ -21,7 +21,7 @@ sys.path.insert(0, str(_repo / "tools"))
 from _cadq_export import export_assembly
 import _contents as contents
 
-_ENCLOSURE_DIR = _repo / "pie-in-the-sky" / "lite" / "enclosure"
+_ENCLOSURE_DIR = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "enclosure" / "enclosure"
 sys.path.insert(0, str(_ENCLOSURE_DIR))
 import enclosure  # facet geometry, to seat the display in the housing
 
