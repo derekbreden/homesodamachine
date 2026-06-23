@@ -37,7 +37,7 @@ The chute footprint is taken from the enclosure's opening rectangle
 
 `tools/cad-venv/bin/python pie-in-the-sky/lite/printed-parts/funnel/funnel.py`
 → `funnel.step`. Seated in the enclosure view by
-[`../../enclosure-assembly/enclosure_assembly.py`](/pie-in-the-sky/lite/enclosure-assembly/enclosure_assembly.py).
+[`../enclosure/enclosure-assembly/enclosure_assembly.py`](/pie-in-the-sky/lite/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py).
 
 ## Sources
 [value](NAME) texts are updated by:
