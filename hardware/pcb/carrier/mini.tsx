@@ -80,7 +80,9 @@ const Mcp23017 = ({ name, x, y, a0High }: { name: string; x: number; y: number; 
 const Uln2803 = ({ name, x, y, inPrefix }: { name: string; x: number; y: number; inPrefix: string }) => (
   <>
     <chip name={name} footprint="dip18" pinLabels={ulnPins} {...at(x, y)} />
-    {i8.map((i) => <trace key={`in${i}`} from={`.${name} > .IN${i + 1}`} to={`net.${inPrefix}${i}`} />)}
+    {/* IN1 takes GPA7, IN8 takes GPA0 — so the bundle from the MCP runs straight,
+        not crossed (the MCP's GPA0 sits at the bottom of its pin column) */}
+    {i8.map((i) => <trace key={`in${i}`} from={`.${name} > .IN${i + 1}`} to={`net.${inPrefix}${7 - i}`} />)}
     {i8.map((i) => <trace key={`o${i}`} from={`.${name} > .OUT${i + 1}`} to={`net.${name}_OUT${i}`} />)}
     <trace from={`.${name} > .COM`} to="net.V12" />
     <trace from={`.${name} > .GND`} to="net.GND" />
@@ -112,21 +114,22 @@ const PowerIn = ({ name, x, y }: { name: string; x: number; y: number }) => (
 
 export default () => (
   <board width="150mm" height="120mm">
-    {/* brain + bus on the left */}
-    <Esp32 x={-46} y={6} />
-    <EdgeBank name="JE" x={-46} y={-40} rot={0}
+    {/* brain + bus on the left; spares break out just above the socket */}
+    <Esp32 x={-46} y={0} />
+    <EdgeBank name="JE" x={-50} y={32} rot={0}
       labels={["IO32", "IO33", "IO25", "IO26", "3V3", "GND"]}
       nets={["IO32", "IO33", "IO25", "IO26", "V3_3", "GND"]} />
 
-    {/* upper station: U2 -> ULN -> solenoids */}
-    <EdgeBank name="JB" x={-14} y={31} rot={90} labels={gpb} nets={i8.map((i) => `U2_GPB${i}`)} />
+    {/* upper station: U2 -> ULN -> solenoids. GPB header order reversed so the
+        bundle aligns with the MCP's left column (GPB0 at top). */}
+    <EdgeBank name="JB" x={-14} y={31} rot={90} labels={[...gpb].reverse()} nets={[...i8].reverse().map((i) => `U2_GPB${i}`)} />
     <Mcp23017 name="U2" x={2} y={24} a0High={false} />
-    <Uln2803 name="U4" x={22} y={24} inPrefix="U2_GPA" />
-    <EdgeBank name="J_VA" x={40} y={24} rot={90} labels={[...valves, "COM"]} nets={[...i8.map((i) => `U4_OUT${i}`), "V12"]} />
-    <PowerIn name="J12" x={40} y={47} />
+    <Uln2803 name="U4" x={22} y={30} inPrefix="U2_GPA" />
+    <EdgeBank name="J_VA" x={40} y={30} rot={90} labels={[...valves, "COM"]} nets={[...i8.map((i) => `U4_OUT${i}`), "V12"]} />
+    <PowerIn name="J12" x={54} y={40} />
 
     {/* lower station: U3 banks straight to headers */}
-    <EdgeBank name="JD" x={-14} y={-17} rot={90} labels={gpb} nets={i8.map((i) => `U3_GPB${i}`)} />
+    <EdgeBank name="JD" x={-14} y={-17} rot={90} labels={[...gpb].reverse()} nets={[...i8].reverse().map((i) => `U3_GPB${i}`)} />
     <Mcp23017 name="U3" x={2} y={-24} a0High={true} />
     <EdgeBank name="JC" x={20} y={-17} rot={90} labels={gpa} nets={i8.map((i) => `U3_GPA${i}`)} />
   </board>
