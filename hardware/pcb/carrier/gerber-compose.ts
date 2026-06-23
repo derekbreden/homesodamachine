@@ -86,9 +86,10 @@ function renderLayer(file: string, id: string): Promise<Layer | null> {
       const defs = defsMatch ? defsMatch[1] : ""
 
       // The post-defs remainder is the single flip group. Pull Ty and the raw
-      // geometry it wraps.
+      // geometry it wraps. `transform` may not be the first attribute on the
+      // <g>, so match it anywhere in the opening tag (don't anchor to <g\s+).
       const afterDefs = svg.slice(svg.indexOf("</defs>") + 7, svg.lastIndexOf("</svg>"))
-      const gMatch = afterDefs.match(/<g\s+transform="translate\(0,(-?\d+(?:\.\d+)?)\)\s*scale\(1,-1\)"[^>]*>([\s\S]*)<\/g>\s*$/)
+      const gMatch = afterDefs.match(/<g\b[^>]*\btransform="translate\(0,(-?\d+(?:\.\d+)?)\)\s*scale\(1,-1\)"[^>]*>([\s\S]*)<\/g>\s*$/)
       if (!gMatch) return resolve(null)
       resolve({ defs, body: gMatch[2], ty: parseFloat(gMatch[1]), vb })
     })
