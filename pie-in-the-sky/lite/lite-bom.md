@@ -63,12 +63,14 @@
 | Wiring | BNTECHGO 18 AWG silicone wire, red 25 ft + black 25 ft | ~6 ft | $0.30/ft | [B07HGTKQ89](https://www.amazon.com/dp/B07HGTKQ89) | 12 V DC trunk + branches — PSU → DC block → pumps / displays (red + / black −). 150-strand silicone, 600 V. $14.99/50 ft; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §9). |
 | Wiring | Keszoox JST-XH pre-crimped pigtails, 50 cm × 22 AWG (20 wires/pk) | 1 pk | $11.63 | [B0F8HMQRRN](https://www.amazon.com/dp/B0F8HMQRRN) | Cabinet-spanning pre-crimped female XH pigtails — the ULN2803A → 12-solenoid fan-out across to the manifold. ~1 pk/unit; same part as the Kitchen build (bom.md §11). ACQUIRED ([purchases.md](/hardware/ledger/purchases.md)). |
 | Wiring | CQRobot JST-XH pre-crimped bonded ribbon, 15 cm × 12-cond (8 ribbons/pk) | 2 | $1.98 | [B0F6C7X5CR](https://www.amazon.com/dp/B0F6C7X5CR) | Short-hop bonded ribbon for the on-tray module-to-module links (MCP23017 ↔ ULN inputs, etc.). 2 of 8; same part as the Kitchen build (bom.md §11). ACQUIRED. |
+| Wiring | HS 6" black zip ties, nylon PA66 (100 pc) | ~12 | $0.064 | [B0DR8KSVQD](https://www.amazon.com/dp/B0DR8KSVQD) | Harness + tube-bundle cable management. ~12 of the 100-pack per build; $6.42/100. ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §9). |
 | Fasteners | ruthex M3 heat-set inserts, short, brass (100 pc) | 30 | $0.107 | [B0D39W228K](https://www.amazon.com/dp/B0D39W228K) | Power tray (5) + faucet plate (3) + logic tray (18 M3) + enclosure cross-pins (4) bosses. Of 100; ACQUIRED. |
 | Fasteners | BNUOK M3×12 mm SHCS, 12.9 alloy, black oxide (120 pc) | 26 | $0.071 | [B0DJQGVK8S](https://www.amazon.com/dp/B0DJQGVK8S) | One per M3 boss (power tray + faucet plate + logic tray). Black-oxide socket-head cap screws; same finish/head as the M3×25 foam-cap screws. Of 120; ACQUIRED. |
+| Fasteners | BNUOK M3×10 mm SHCS, 12.9 alloy, black oxide (120 pc) | 4 | $0.071 | [B0DJQGGDP2](https://www.amazon.com/dp/B0DJQGGDP2) | The 4 enclosure corner cross-pins — M3×10 into ruthex M3 per [enclosure/](/pie-in-the-sky/lite/enclosure/). $8.57/120. ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §11). |
 
 ## Per-unit cost (estimate)
 
-Estimated delivered parts cost per Lite unit: **[$588.14](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
+Estimated delivered parts cost per Lite unit: **[$589.19](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
 
 ## Clear-PVC length — ~13 ft/unit (estimate)
 
