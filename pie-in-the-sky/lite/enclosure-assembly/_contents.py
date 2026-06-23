@@ -67,10 +67,11 @@ POWER_STEP = _repo / "pie-in-the-sky" / "lite" / "printed-parts" / "electronics"
 # --- Packing parameters (free design choices, not measured geometry) ------
 # Inset off the -X wall so the floor content clears the bottom corner pods.
 X_INSET = 3.0
-# The reservoir is inset off the -X wall, clear of the back-half corner braces
-# (full-depth in the ±X corners) and, as it sits pulled forward, clear of the
-# source-select tray's top-back fitting that its front-left corner slides past.
-RES_X_INSET = 30.0
+# The reservoir is inset off the -X wall, just clear of the back-half corner
+# braces (full-depth in the ±X corners). Slid hard left like this it opens a
+# strip on its +X side — between it and the power tray — for the rear-panel
+# cluster (faucet-inlet stub, umbilical bulkheads, C14) and the logic tray.
+RES_X_INSET = 15.0
 # The four corner cross-pin bosses tuck into the ±X/±Z corners and run in Y
 # across the seam. Floor content against a side wall would foul the bottom pods,
 # so it is lifted clear of them — the Kitchen `FOAM_LIFT` idiom.
@@ -82,7 +83,8 @@ PUMP_HEAD_X = 164.0        # the pump heads' +X face
 PUMP_UPPER_ZMIN = 93.0     # upper pump zmin (its motor in the bag tray's ~z100-150 air gap)
 PUMP_TO_STACK_GAP = 1.0    # pump heads to the back-row (bib/nozzle) front (Y)
 RES_FRONT_Y = 180.0        # split datum: back trays hang off it, seam rides on it
-RES_Y_PULL = 9.0           # reservoir front pulled this far forward of the datum (-Y)
+RES_Y_PULL = 7.0           # reservoir front pulled forward of the datum (-Y); held back
+                           # just enough to clear source-select's back fitting at the -X inset
 BAG_SOURCE_GAP = 1.0       # bag-circuit back to the source-select front (Y)
 BAG_Z_LIFT = 5.0           # bag-circuit raised this far above the floor lift
 # The short trays (bib, nozzle) STACK into one footprint at the back-right, turned a
