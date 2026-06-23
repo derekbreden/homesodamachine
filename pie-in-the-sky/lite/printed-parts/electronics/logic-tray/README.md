@@ -1,10 +1,10 @@
 # Logic tray (controller + driver group) — Lite
 
 The low-voltage logic block of the Lite electronics shelf — the MCU, its I²C bus,
-and the 12 V drivers — on one printed frame. The Lite folds the Kitchen edition's
-two trays ([controller](/hardware/printed-parts/electronics/controller-tray/) +
+the DS3231 clock, and the 12 V drivers — on one printed frame. The Lite folds the
+Kitchen edition's two trays ([controller](/hardware/printed-parts/electronics/controller-tray/) +
 [driver](/hardware/printed-parts/electronics/driver-tray/)) into a single tray: it
-carries one MCP23017 and no DS3231, so the whole logic set packs onto one floor.
+carries one MCP23017, so the whole logic set packs onto one floor.
 
 Built by the shared [`module_tray`](/hardware/printed-parts/electronics/module_tray.py)
 engine, same idioms as the [power tray](/pie-in-the-sky/lite/printed-parts/electronics/power-tray/):
@@ -17,6 +17,7 @@ standoff bosses**.
 - **[L298N](/hardware/reference/l298n/)** — dual H-bridge for the two Kamoer peristaltic pumps; also makes the 5 V logic rail
 - **2× [ULN2803A](/hardware/reference/uln2803a/)** — sink the 12 manifold-solenoid coils to GND
 - **[MCP23017](/hardware/reference/mcp23017/)** — I²C GPIO expander driving the 12-solenoid bank (one expander — the Lite has no reed inputs)
+- **[DS3231 RTC](/hardware/reference/ds3231-rtc/)** — I²C real-time clock, keeps time for the usage statistics
 - **[TTL→RS485 transceiver](/hardware/reference/rs485-transceiver/)** — base side of the SIG-7 link to the front 4.3″ config display
 
 Off this tray: the 12 V + AC switching lives on the
@@ -26,11 +27,12 @@ feed and the ground bond cross between the two.
 ## Layout & retention
 
 ESP32 breakout at the lower-left; the L298N flush to its right; the two ULN2803As
-stacked in the next column; the MCP23017 + RS485 stacked in the last column.
-Footprint ≈ **190 × 55 mm**. Each board screws onto heat-set standoff bosses sized
-per its holes — **M3** for the ESP32, L298N, ULN2803A, and RS485; **M2** for the
-MCP23017 (its holes are ⌀2). **16 heat-set bosses** total (ESP32 4 + L298N 4 +
-ULN2803A 2×2 + MCP23017 2 + RS485 2).
+stacked in the next column; the MCP23017 + RS485 stacked in the next column; the
+DS3231 in the last column. Footprint ≈ **229 × 55 mm**. Each board screws onto
+heat-set standoff bosses sized per its holes — **M3** for the ESP32, L298N,
+ULN2803A, RS485, and DS3231; **M2** for the MCP23017 (its holes are ⌀2).
+**20 heat-set bosses** total — **18 M3 + 2 M2** (ESP32 4 + L298N 4 + ULN2803A 2×2
++ RS485 2 + DS3231 4 M3; MCP23017 2 M2).
 
 Local frame: X right, Y deep, Z up; origin at the floor's bottom-left corner,
 Z = 0 the floor underside, floor top at `floor_t`. The tray stands vertical in the
@@ -59,5 +61,6 @@ dimensions are invented here:
 - `/hardware/reference/uln2803a/uln2803a.py`
 - `/hardware/reference/mcp23017/mcp23017.py`
 - `/hardware/reference/rs485-transceiver/rs485_transceiver.py`
+- `/hardware/reference/ds3231-rtc/ds3231_rtc.py`
 
 The floor / boss conventions come from `/hardware/printed-parts/electronics/module_tray.py`.
