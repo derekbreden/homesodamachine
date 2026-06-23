@@ -177,13 +177,15 @@ _BACK_ZONE = {"reservoir-pockets", "power-tray"}
 
 
 def _split_y(placed=None):
-    """Seam Y, riding midway in the gap between the front cluster's back (the
-    deepest non-back-zone content) and the reservoir front, so the trays sit
-    wholly in the front half and the reservoir wholly in the back half."""
+    """Seam Y, riding just behind the front cluster's back (the deepest
+    non-back-zone content). The reservoir is pulled forward across the seam as an
+    insert; once its front sits at or ahead of the cluster back, the cluster back
+    governs the seam (clamped) and the reservoir crosses it."""
     placed = placed if placed is not None else _contents.build()
     front_back = max(s.BoundingBox().ymax for k, (s, _c) in placed.items() if k not in _BACK_ZONE)
     res_front = placed["reservoir-pockets"][0].BoundingBox().ymin
-    return 0.5 * (front_back + res_front)
+    res_ref = max(res_front, front_back + 1.0)
+    return 0.5 * (front_back + res_ref)
 
 
 def _dims():
