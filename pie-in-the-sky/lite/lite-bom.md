@@ -40,10 +40,19 @@
 | Electronics | ALMOCN TTL-to-RS485 module (5-pack) | 1 | $2.70 | [B09998FY4X](https://www.amazon.com/dp/B09998FY4X) | Base-ESP32 transceiver for the SIG-7 link to the 4.3B config display — the 4.3B exposes RS485 as its host interface, so the base side needs a matching transceiver. Auto-direction, screw-terminal RS485 + JST TTL. 1 of 5. Same as Kitchen bom.md §1. |
 | Electronics | BNTECHGO 28 AWG silicone ribbon, 4-conductor, 50 ft | 1 | $3.06 | [B07PNPHWMG](https://www.amazon.com/dp/B07PNPHWMG) | Faucet-display harness (SIG-6: TX / RX / 5 V / GND) from the gooseneck 1.47″ flavor display down through the counter to the base ESP32. ~2 m off the 50 ft spool. Same as Kitchen bom.md §9. |
 | Mechanical | 1/8" stainless bag-hanger rod, 158 mm cut | 1 | $0.86 | [B0CY4DWJFQ](https://www.amazon.com/dp/B0CY4DWJFQ) | Threads both Platypus bags' top loops in the [reservoir-pockets](/pie-in-the-sky/lite/printed-parts/reservoir-pockets/) cradle; tool-free hang ([assembly.md](/pie-in-the-sky/lite/assembly.md) step 2). ~0.5 of a 12" stick; same Tandefio stock as the carbonator float rod (bom.md §12), $1.71/stick. |
+| Printed | Enclosure — front half (PETG) | 1 | $11.21 | [enclosure/](/pie-in-the-sky/lite/enclosure/) | Transparent split-half front shell — 45° display facet + hopper opening. PETG @ $11.20/kg, mass from CAD volume. |
+| Printed | Enclosure — back half (PETG) | 1 | $9.77 | [enclosure/](/pie-in-the-sky/lite/enclosure/) | Transparent back shell housing the reservoir-pockets box. PETG @ $11.20/kg, mass from CAD volume. |
+| Printed | Reservoir-pockets bag cradle (PETG) | 1 | $6.22 | [reservoir-pockets/](/pie-in-the-sky/lite/printed-parts/reservoir-pockets/) | Two bag pockets + rod-hang channel. PETG @ $11.20/kg, mass from CAD volume. |
+| Printed | Power tray (PETG) | 1 | $0.55 | [power-tray/](/pie-in-the-sky/lite/printed-parts/electronics/power-tray/) | PSU + Wago AC distribution + ground-stack frame. PETG @ $11.20/kg, mass from CAD volume. |
+| Printed | Valve tray — source-select (PETG) | 1 | $2.00 | [valve-manifold/](/hardware/printed-parts/valve-manifold/) | Shared with the Kitchen build (bom.md §7). |
+| Printed | Valve tray — bag-circuit (PETG) | 1 | $1.49 | [valve-manifold/](/hardware/printed-parts/valve-manifold/) | Shared with the Kitchen build (bom.md §7). |
+| Printed | Valve tray — BiB-gate (PETG) | 1 | $0.48 | [valve-manifold/](/hardware/printed-parts/valve-manifold/) | Shared with the Kitchen build (bom.md §7). |
+| Printed | Valve tray — nozzle-gate (PETG) | 1 | $0.48 | [valve-manifold/](/hardware/printed-parts/valve-manifold/) | Shared with the Kitchen build (bom.md §7). |
+| Printed | Controller + driver tray, lite variant (PETG) | 1 | $0.60 | [electronics/](/hardware/printed-parts/electronics/) | The Kitchen [controller tray](/hardware/printed-parts/electronics/controller-tray/) + [driver tray](/hardware/printed-parts/electronics/driver-tray/) minus the Teyleten relay (driver) and the second MCP23017 (controller). Lite-variant CAD pending; placeholder from the Kitchen tray costs. |
 
 ## Per-unit cost (estimate)
 
-Estimated delivered parts cost per Lite unit: **[$505.76](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
+Estimated delivered parts cost per Lite unit: **[$538.56](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
 
 ## Clear-PVC length — ~13 ft/unit (estimate)
 
