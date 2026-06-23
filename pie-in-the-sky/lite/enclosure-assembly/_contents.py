@@ -181,10 +181,10 @@ def build():
     placed["pump-lower"] = (pump_lo, PUMP_COLORS["pump-lower"])
     placed["pump-upper"] = (pump_up, PUMP_COLORS["pump-upper"])
 
-    # --- Reservoir-pockets, back, doorway facing the cabinet back. Rotate +90
-    # about Z: local +X doorway -> world +Y (back); local -X spout exits -> world
-    # -Y (front). Seated at its fixed datum, the split falling just in front of it.
-    res = _place(_rot(_load(RES_STEP), (0, 0, 1), 90.0),
+    # --- Reservoir-pockets, back, doorway facing the cabinet left. Rotate 180
+    # about Z: local +X doorway -> world -X (left); local -X spout exits -> world
+    # +X (right). Seated at its fixed datum, the split falling just in front of it.
+    res = _place(_rot(_load(RES_STEP), (0, 0, 1), 180.0),
                  xmin=RES_X_INSET, ymin=res_front, zmin=0.0)
     placed["reservoir-pockets"] = (res, RES_COLOR)
 
