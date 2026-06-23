@@ -263,6 +263,30 @@
 .edge-panel-close:hover {
   color: var(--text);
 }
+/* Faces opt-in — deliberately faint; brightens on hover so it stays out of the
+   way until wanted. */
+.edge-panel-faces {
+  flex: 0 0 auto;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--text-2);
+  opacity: 0.4;
+  font-size: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.edge-panel-faces:hover {
+  opacity: 0.85;
+}
+.edge-panel-faces input {
+  width: 11px;
+  height: 11px;
+  margin: 0;
+  cursor: pointer;
+  accent-color: var(--text-2);
+}
 .edge-row {
   display: flex;
   align-items: flex-start;
