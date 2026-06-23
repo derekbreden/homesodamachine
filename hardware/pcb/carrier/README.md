@@ -36,14 +36,35 @@ connector footprints to real parts.
 
 ## Files
 
+- `carrier.tsx` — the carrier board. Every module socket (ESP32 DevKitC, 2×
+  MCP23017, 2× ULN2803, L298N, DS3231, MP1584 buck, RS485, 2× relay) and all 16
+  field connectors, with every net from `../netlist.md` realized between them.
+  The floor plan is a single `PCB`/`SCH` table near the top — one place to edit.
 - `spike.tsx` — toolchain proof. The board's unit cell (an ESP32 GPIO → gate
   resistor → low-side MOSFET → 12 V valve), the motif repeated ~14× on the real
   board. Built only to prove the loop end to end: code → rendered PNG →
   Gerbers + KiCad + STEP.
 - `svg2png.ts` — headless SVG → PNG rasterizer (resvg, no browser).
 - `out/` — rendered + exported artifacts, committed alongside the source.
+  `carrier.netlist.txt` is the machine-readable connection list, verified
+  net-by-net against `../netlist.md`.
 
 ## Status
 
-Spike proven — the loop renders and exports clean. The full carrier board is
-next.
+v0.1 — connectivity complete and verified. Every net in `../netlist.md` is
+realized at module-socket + field-connector level; the board builds clean
+(connectivity DRC passes) and exports. Carrier-correct simplifications vs the
+chip-level netlist: USB/CH340, the 3.3 V regulator, the relay opto/driver
+stages, and the RTC coin cell all live on their modules, not the board.
+
+Next iterations, in order:
+
+1. **Real footprints.** Module sockets are placeholder `dip{n}` parts (hence the
+   oversized provisional outline). Pin each to its actual vendor breakout via
+   `tsci import` / `tsci search --kicad`, which shrinks the board toward the
+   100 × 100 target.
+2. **Floor plan + routing.** Settle placement against real footprints, then
+   route (the autorouter struggles at this density on the placeholder layout —
+   expect to grow the board, add a layer, or route the power pours by hand).
+3. **Schematic cleanup.** The flat single sheet is dense; split into hierarchical
+   sheets per subsystem for review.
