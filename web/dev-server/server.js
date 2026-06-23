@@ -187,7 +187,7 @@ async function runPcbRender(tsxPath) {
 
   console.log(`  ↪ rendering board: ${relForLog(tsxPath)}`);
   try {
-    await new Promise((resolve, reject) => {
+    const code = await new Promise((resolve, reject) => {
       const proc = spawn("bun", ["render-board.ts", path.basename(tsxPath)], {
         cwd: scriptDir,
         stdio: ["ignore", "ignore", "inherit"],
@@ -197,6 +197,12 @@ async function runPcbRender(tsxPath) {
       proc.on("close", resolve);
       proc.on("error", reject);
     });
+    // Don't broadcast on a failed render — that would refresh the viewer onto
+    // the previous (now stale) views and hide the failure (mirrors runScript).
+    if (code !== 0) {
+      console.log(`  ↪ board render failed (exit ${code})`);
+      return;
+    }
     const relFile = relForBroadcast(tsxPath);
     console.log(`  -> ${relFile}`);
     broadcast({ type: "files-changed", files: [relFile] });

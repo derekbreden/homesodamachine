@@ -5,15 +5,17 @@
 //     apps and the S3 device — same hex values as Theme.swift / Theme.kt)
 //   - body base styles (font, background)
 //   - The top nav, including the gear that links to /settings
-//   - Dev-mode flag: html.dev-mode reveals Parts / Charts in the
-//     public nav; flag is persisted in localStorage and applied by an
-//     inline head script before first paint to avoid a flash.
+//   - Dev-mode flag: html.dev-mode reveals Parts / Charts / Drawings /
+//     Boards in the public nav; flag is persisted in localStorage and applied
+//     by an inline head script before first paint to avoid a flash.
 //   - The .ios-toggle pill primitive (shared between /settings rows and
 //     anywhere else that wants the same delightful slide).
 //
 // Two surfaces:
-//   "public" — civilian: Home, Updates [+ Parts, Charts when dev mode], Settings
-//   "dev"    — engineering: Home, Updates, Parts, Charts, Settings (always)
+//   "public" — civilian: Home, Updates [+ Parts, Charts, Drawings, Boards when
+//              dev mode], Settings
+//   "dev"    — engineering: Home, Updates, Parts, Charts, Drawings, Boards,
+//              Settings (always)
 //
 // Render flow:
 //   res.send(renderHead({title, ...}) + renderNav({surface, active}) +
@@ -128,8 +130,8 @@ html.notifs-enabled .site-nav .nav-bell { display: inline-flex; }
   box-sizing: content-box;
 }
 
-/* Public nav hides Parts / Charts / Drawings unless html.dev-mode is set.
-   The dev surface (.site-nav-dev) always shows them. */
+/* Public nav hides Parts / Charts / Drawings / Boards unless html.dev-mode is
+   set. The dev surface (.site-nav-dev) always shows them. */
 .site-nav-public a[data-nav="parts"],
 .site-nav-public a[data-nav="charts"],
 .site-nav-public a[data-nav="drawings"],

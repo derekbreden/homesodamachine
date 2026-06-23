@@ -179,7 +179,15 @@ export async function openPcbDetail(source, pushHistory = true) {
   state.currentDetail = { type: "pcb", file: source };
   if (pushHistory) location.hash = "pcb:" + encodeURIComponent(source);
 
-  const board = boardForSource(source);
+  let board = boardForSource(source);
+  if (!board) {
+    // Deep-link (or any call) before the board list loaded: fetch it and retry,
+    // so we open the real board rather than the unavailable-fallback.
+    try {
+      const list = await fetch("/api/pcb").then((r) => (r.ok ? r.json() : null));
+      if (list) { state.pcbBoards = list; board = boardForSource(source); }
+    } catch {}
+  }
   const views = board ? await fetchViews(board) : null;
 
   const wrapper = document.createElement("div");
