@@ -529,6 +529,15 @@
   background: #0b0e14;
   touch-action: none;
 }
+/* The board SVG is sized in Gerber units (~150000px nominal) so PanZoom's
+   viewBox-based fit math is consistent; absolute positioning keeps that
+   oversized element out of layout flow (clipped by the wrapper) until
+   PanZoom's transform scales it to fit. */
+.pcb-wrapper > svg.pcb-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
 /* Top / Bottom / Overlay segmented control — top-centre, clear of the
    filename pill (top-left), minimap + close X (top-right). Same pill

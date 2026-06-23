@@ -44,9 +44,14 @@ function boardForSource(source) {
   return (state.pcbBoards || []).find((b) => b.source === source) || null;
 }
 
-// Parse an SVG string into a live SVGSVGElement. The render carries width/height
-// in mm and a matching viewBox; we re-assert width/height from the viewBox so
-// PanZoom can measure the natural size for its initial fit.
+// Parse an SVG string into a live SVGSVGElement. PanZoom reads an SVG's natural
+// size from its viewBox (here in Gerber units, e.g. 150050), and fits/zooms by
+// CSS-transforming the element — so the element's rendered px size must MATCH
+// the viewBox units, or fit math (natural ÷ rendered) is off by the unit ratio.
+// We therefore set width/height to the viewBox numbers. That makes the element
+// nominally ~150000px, so .pcb-svg is positioned absolutely (viewer.css) and
+// clipped by the overflow-hidden wrapper until PanZoom's fit scales it down —
+// otherwise the unscaled element would blow out the page on first paint.
 function parseSvgString(svgText) {
   const doc = new DOMParser().parseFromString(svgText, "image/svg+xml");
   const svgEl = doc.querySelector("svg");
@@ -150,6 +155,10 @@ function mountView(view, preserve) {
   const pz = PanZoom.wrap(svgEl, {
     container: wrapper,
     initialFit: !prev,
+    // The board's natural size is in Gerber units (~150000), so the fit scale is
+    // tiny (~0.006). Drop PanZoom's default minScale floor (0.1) well below it
+    // or the fit clamps and the board renders far too zoomed-in.
+    minScale: 0.0001,
     onTransformChange: (t) => { if (source) pcbSaveTransform(source, t); },
     onTransformLive: (t) => minimap.update(t),
   });
@@ -190,24 +199,45 @@ export async function openPcbDetail(source, pushHistory = true) {
   const toggle = makeViewToggle((v) => { if (v !== state.currentPcbView) mountView(v, true); });
   wrapper.appendChild(toggle);
 
+  // Publish the open-modal context, then build the first view synchronously —
+  // before ContentViewer.open (the proven mermaid/drawings order). Mounting
+  // here rather than in onOpen keeps the SVG + PanZoom out of reach of the
+  // singleton-close path, which fires the prior modal's onClose during open.
   state.currentPcbSource = source;
   state.currentPcbViews = views;
   state.currentPcbWrapper = wrapper;
   state.currentPcbToggle = toggle;
   state.currentPcbView = view;
+  mountView(view, false);
+  // Local handles for onOpen/onClose so a later modal reassigning the shared
+  // state can't strand this modal's fit or teardown.
+  const pz = state.currentPcbPz;
+  const minimap = state.currentPcbMinimap;
 
   ContentViewer.open({
     content: wrapper,
     filename: shortName(source),
     onOpen: () => {
-      // The wrapper has a real layout box only after showModal; mount now so
-      // PanZoom's fit measures correctly, then apply any saved transform.
-      mountView(view, false);
+      // The wrapper has a real layout box only after showModal; re-fit now
+      // (PanZoom's initial fit ran before it was measurable), then apply any
+      // saved transform on top.
+      try { pz?.fit(); } catch {}
       const saved = pcbLoadTransform(source);
-      if (saved && state.currentPcbPz) state.currentPcbPz.setTransform(saved);
-      state.currentPcbMinimap?.update();
+      if (saved && pz) pz.setTransform(saved);
+      minimap?.update();
     },
-    onClose: () => { clearPcbState(); if (location.hash) history.back(); },
+    onClose: () => {
+      // Only tear down shared state if it still belongs to this modal; a newer
+      // board opened over this one already owns it. Always destroy this modal's
+      // own PanZoom either way.
+      if (state.currentPcbWrapper === wrapper) {
+        clearPcbState();
+      } else {
+        try { pz?.destroy(); } catch {}
+        try { minimap?.destroy(); } catch {}
+      }
+      if (location.hash) history.back();
+    },
   });
 }
 

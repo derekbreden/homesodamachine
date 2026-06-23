@@ -51,13 +51,13 @@ fill_port_id = 4.0    # pour port through the plate (fallback to the open-cavity
 fill_port_csink = 5.0   # shallow pour basin countersunk on top of the fill port
 vent_id = 2.5         # vent holes through the plate, over the brim ring
 
-# --- lightening: a ribbed shell, not a solid block --------------------------
-skin_wall = 5.0       # outer registration skin kept around the cavity block
-bowl_wall = 6.0       # forming wall kept around the funnel — silicone containment
-                      # and a gas-tight PETG backing for the vacuum-degas pour
-brace_wall = 6.0      # the diagonal X-brace beams (cavity) and the plate ribs — the
-                      # only solid structure across the relief; print supports, not
-                      # PETG, hold the steep forming-wall overhangs up during printing
+# --- lightening: a forming wall + a top collar + a low X-brace --------------
+bowl_wall = 4.0       # forming wall kept around the funnel — the mold cavity itself,
+                      # thick enough to hold the liquid silicone and stay stiff
+collar_h = 13.0       # height of the top registration band the core skirt drops over;
+                      # below it there is no outer skin, only the forming wall
+brace_wall = 4.0      # the low diagonal X-brace beams (cavity) and the plate ribs
+skin_wall = 5.0       # border kept solid when the core's top plate is relieved
 plate_relief = 4.0    # solid kept under the plate's brim face when its top is relieved
 boss_wall = 4.0       # solid kept around each plate through-hole when relieved
 
@@ -139,15 +139,17 @@ def build():
         .cut(_cyl(pin_r + pin_reg_clear, end_z, floor_z - 1.0, ncx, cy))
     )
 
-    # Relieve the dead solid: keep a skin_wall registration shell, a bowl_wall of
-    # PETG around the funnel, a mold_base spout boss carrying the pin register, and
-    # a diagonal X-brace — hollow everything else. The relief opens down to the bed
-    # and stops bowl_wall short of the funnel, so it never reaches the forming face;
-    # print supports (not PETG) hold the steep forming-wall overhangs over the gaps.
-    relief = _box(block_w - 2.0 * skin_wall, block_d - 2.0 * skin_wall,
-                  floor_z, top_z + 1.0, cx, cy).cut(_grown_funnel(m, bowl_wall))
+    # Strip everything below a top registration collar down to the forming wall.
+    # What stays: a bowl_wall shell around the funnel (the mold cavity — it holds
+    # the silicone), the mold_base spout floor + pin register, a collar_h band the
+    # core skirt drops over, and a low diagonal X-brace standing the necking funnel
+    # on a wide foot through the pour. Below the collar there is no outer skin — the
+    # chute forming wall is its own stiff tube. Print supports carry the lower
+    # forming-wall overhangs; they land in open space, off the forming face.
+    collar_z0 = top_z - collar_h
+    relief = _box(block_w + 1.0, block_d + 1.0, floor_z, collar_z0, cx, cy).cut(_grown_funnel(m, bowl_wall))
     relief = relief.cut(_cyl(m["spout_or"] + bowl_wall, end_z, floor_z, ncx, cy))
-    relief = relief.cut(_x_brace(block_w, block_d, floor_z, top_z, cx, cy, brace_wall))
+    relief = relief.cut(_x_brace(block_w, block_d, floor_z, m["ramp_top_z"], cx, cy, brace_wall))
     cavity = cavity.cut(relief)
 
     # CORE: the bore is the plug; extend the spout pin (lead-nosed so it
