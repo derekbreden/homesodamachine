@@ -539,10 +539,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$26,819.36](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$27,197.43](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$29,427.28](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,195.49](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$29,805.35](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$817.42](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Grand total — cash outlay** | [$30,665.66](LEDGER_GRAND_TOTAL) |
@@ -551,7 +551,7 @@ ACQUIRED hardware by section:
 
 | § | Section | $ |
 |---|---|---|
-| 1 | Pressure vessel / carbonator fabrication | [$3,848.56](LEDGER_SEC1) |
+| 1 | Pressure vessel / carbonator fabrication | [$3,892.84](LEDGER_SEC1) |
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,785.10](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$889.15](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$225.27](LEDGER_SEC4) |
@@ -559,17 +559,18 @@ ACQUIRED hardware by section:
 | 6 | Refrigeration | [$1,882.74](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
 | 8 | Electronics — controllers | [$208.03](LEDGER_SEC8) |
-| 9 | Electronics — I/O, drivers, sensors, power | [$807.86](LEDGER_SEC9) |
+| 9 | Electronics — I/O, drivers, sensors, power | [$876.17](LEDGER_SEC9) |
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$124.48](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$372.51](LEDGER_SEC12) |
 | 13 | Printing consumables | [$1,190.97](LEDGER_SEC13) |
-| 14 | Soldering + small-signal tools | [$789.94](LEDGER_SEC14) |
-| 15 | 3D printing equipment + filaments (Bambu direct) | [$8,453.30](LEDGER_SEC15) |
+| 14 | Soldering + small-signal tools | [$803.87](LEDGER_SEC14) |
+| 15 | 3D printing equipment + filaments (Bambu direct) | [$8,677.34](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |
 | 17 | Domain / infrastructure | [$599.00](LEDGER_SEC17) |
 | 19 | Video / marketing capture | [$91.43](LEDGER_SEC19) |
 | 20 | McMaster-Carr direct | [$111.36](LEDGER_SEC20) |
+| 21 | Silicone molding — Zone C hopper-funnel | [$27.51](LEDGER_SEC21) |
 
 Notes:
 - **MISSING** = paid but never received (no refund pursued) — a real cash outlay, tracked apart from ACQUIRED.
