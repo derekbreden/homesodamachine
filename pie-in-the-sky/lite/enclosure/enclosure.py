@@ -171,9 +171,16 @@ def _round_corner_y(solid, xc, zc, r):
 
 # --- box dimensions, driven by the placed contents -------------------------
 
-# The reservoir and the power tray beside it live in the BACK half; everything
-# else is front-zone content that must stay wholly in the front half.
-_BACK_ZONE = {"reservoir-pockets", "power-tray"}
+# Content excluded from the front-cluster back used to place the seam (_split_y):
+# the reservoir (the back anchor), the power tray, and the logic tray. They still
+# size the box; only their pull on the split plane is removed.
+_BACK_ZONE = {"reservoir-pockets", "power-tray", "logic-assembly"}
+
+# Parts that mount THROUGH the back wall — the faucet-inlet stub, the umbilical
+# bulkheads, the C14 inlet. Their ports pass outside the box, so they do NOT size
+# it (only their inboard bodies must fit, checked separately), and their large +Y
+# reach is kept out of the split calc.
+_PANEL_ZONE = {"faucet-inlet-stub", "umbilical-bulkhead-a", "umbilical-bulkhead-b", "iec-c14-inlet"}
 
 
 def _split_y(placed=None):
@@ -182,7 +189,8 @@ def _split_y(placed=None):
     insert; once its front sits at or ahead of the cluster back, the cluster back
     governs the seam (clamped) and the reservoir crosses it."""
     placed = placed if placed is not None else _contents.build()
-    front_back = max(s.BoundingBox().ymax for k, (s, _c) in placed.items() if k not in _BACK_ZONE)
+    front_back = max(s.BoundingBox().ymax for k, (s, _c) in placed.items()
+                     if k not in _BACK_ZONE and k not in _PANEL_ZONE)
     res_front = placed["reservoir-pockets"][0].BoundingBox().ymin
     res_ref = max(res_front, front_back + 1.0)
     return 0.5 * (front_back + res_ref)
@@ -190,7 +198,10 @@ def _split_y(placed=None):
 
 def _dims():
     placed = _contents.build()
-    bbs = [s.BoundingBox() for s, _c in placed.values()]
+    # Panel-mount parts pass through the back wall; their proud ports must not grow
+    # the box (their inboard bodies are checked to fit separately). Everything else
+    # — the reservoir and the logic tray included — sizes it.
+    bbs = [s.BoundingBox() for k, (s, _c) in placed.items() if k not in _PANEL_ZONE]
     cxmin = min(b.xmin for b in bbs); cxmax = max(b.xmax for b in bbs)
     cymin = min(b.ymin for b in bbs); cymax = max(b.ymax for b in bbs)
     czmin = min(b.zmin for b in bbs); czmax = max(b.zmax for b in bbs)
