@@ -201,10 +201,14 @@ def _dims():
     # Panel-mount parts pass through the back wall; their proud ports must not grow
     # the box (their inboard bodies are checked to fit separately). Everything else
     # — the reservoir and the logic tray included — sizes it.
-    bbs = [s.BoundingBox() for k, (s, _c) in placed.items() if k not in _PANEL_ZONE]
-    cxmin = min(b.xmin for b in bbs); cxmax = max(b.xmax for b in bbs)
-    cymin = min(b.ymin for b in bbs); cymax = max(b.ymax for b in bbs)
-    czmin = min(b.zmin for b in bbs); czmax = max(b.zmax for b in bbs)
+    sized = {k: s.BoundingBox() for k, (s, _c) in placed.items() if k not in _PANEL_ZONE}
+    cxmin = min(b.xmin for b in sized.values())
+    # The logic tray sits mid-wall (not at a rounded corner), so it needs only
+    # containment, not the corner clearance: it tucks under the +X wall the power
+    # tray already sets rather than pushing it out (verified clear of wall + braces).
+    cxmax = max(b.xmax for k, b in sized.items() if k != "logic-assembly")
+    cymin = min(b.ymin for b in sized.values()); cymax = max(b.ymax for b in sized.values())
+    czmin = min(b.zmin for b in sized.values()); czmax = max(b.zmax for b in sized.values())
     ix0, ix1 = cxmin - clearance_xz, cxmax + clearance_xz
     iy0, iy1 = cymin - clearance_y, cymax + clearance_y
     # The floor is a fixed Z=0 datum, not the lowest content — so parts can stand
@@ -559,6 +563,20 @@ def build_back_half(dims=None):
     back = back.intersect(_rounded_outer(outer))
     for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
         back = back.cut(_screw_cut(x_ext, sx, z_boss, yb))
+    # Rear-panel through-holes for the panel-mounted parts (the faucet-inlet stub's
+    # two carb-water bulkheads, the C14 inlet, the two umbilical flavor bulkheads),
+    # cut through the back wall so each barrel passes through (_contents owns the
+    # port layout, since it places the parts).
+    y0, y1 = inner[3] - 5.0, outer[3] + 5.0
+    for hole in _contents.back_wall_ports():
+        kind, hx, hz = hole[0], hole[1], hole[2]
+        if kind == "round":
+            cutter = cq.Solid.makeCylinder(hole[3] / 2.0, y1 - y0,
+                                           cq.Vector(hx, y0, hz), cq.Vector(0, 1, 0))
+        else:
+            wx, wz = hole[3], hole[4]
+            cutter = _ybox(hx - wx / 2.0, hx + wx / 2.0, y0, y1, hz - wz / 2.0, hz + wz / 2.0)
+        back = back.cut(cutter)
     return cq.Workplane(obj=back)
 
 
