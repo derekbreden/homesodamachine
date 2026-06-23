@@ -1,7 +1,7 @@
 """Pump case — two-piece enclosure for a peristaltic pump.
 
 Base: base plate with octagon-to-footprint ramp, octagon pump bore,
-      a cylindrical tower below, and a pogo connector pocket.
+      and a cylindrical tower below.
 Cap:  asymmetric flared skirt (wide on +Y, narrow on -Y) with a lower
       extension that tapers to uniform width.
 
@@ -80,20 +80,9 @@ snap_deflection = 1.0
 # Arch notches
 arch_radius = 4.5
 
-# Pogo connector
-pogo_outer_length = 12.7
-pogo_outer_width = 4.2
-pogo_outer_depth = 1.0
-pogo_inner_length = 14.7
-pogo_inner_width = 4.2
-pogo_z_offset = 13.5
-pogo_ridge_length = 24.5
-pogo_ridge_width = 10.0
-pogo_ridge_depth = 0.7  # outer-wall thickness the pogo pins protrude through
 
-
-# Outer envelope of the assembled case, including the snaps, tubes, and
-# pogo that protrude past the bare base/cap solids.
+# Outer envelope of the assembled case, including the snaps and tubes
+# that protrude past the bare base/cap solids.
 
 # Snap protrudes past the footprint; silicone tubes extend past the case body.
 snap_protrusion_per_side = 2.5
@@ -102,9 +91,9 @@ tube_protrusion_length = 11.3
 # [75.0 mm](CASE_OUTER_X) is the full width of the assembled case
 case_outer_x = footprint_x + 2 * snap_protrusion_per_side
 
-# [88.0 mm](CASE_OUTER_Y) is the full depth of the assembled case, with the protruding tubes included
+# [87.3 mm](CASE_OUTER_Y) is the full depth of the assembled case, with the protruding tubes included
 case_outer_y = (footprint_y + 2 * skirt_wide_flare_per_side
-                + pogo_ridge_depth + tube_protrusion_length)
+                + tube_protrusion_length)
 
 # [135.5 mm](CASE_OUTER_Z) is the full height of the assembled case
 case_outer_z = (base_thickness + ramp_from_skirt_to_octagon_height + tower_height
@@ -695,36 +684,6 @@ def add_snap_fits(base, cap):
     return base, cap
 
 
-def add_pogo_pocket(base):
-    """Stepped pill pocket on the +Y face with an outward pill ridge for pogo mating."""
-    pogo_z = skirt_bottom_z + pogo_z_offset
-
-    ridge = (
-        WorldWorkplane(xz_plane_y_up)
-        .workplane(offset=pos_y_face_y)
-        .center(center_x, pogo_z)
-        .slot2D(pogo_ridge_length, pogo_ridge_width)
-        .extrude(pogo_ridge_depth)
-    )
-    base = base.union(ridge)
-
-    outer_step = (
-        WorldWorkplane(xz_plane_y_up)
-        .workplane(offset=pos_y_face_y + pogo_ridge_depth + overcut)
-        .center(center_x, pogo_z)
-        .slot2D(pogo_outer_length, pogo_outer_width)
-        .extrude(-(pogo_outer_depth + overcut))
-    )
-    inner_step = (
-        WorldWorkplane(xz_plane_y_up)
-        .workplane(offset=pos_y_face_y + overcut)
-        .center(center_x, pogo_z)
-        .slot2D(pogo_inner_length, pogo_inner_width)
-        .extrude(-(wall_thickness + 2 * overcut))
-    )
-    return base.cut(outer_step).cut(inner_step)
-
-
 # Assembly
 
 def build_pump_case():
@@ -737,7 +696,6 @@ def build_pump_case():
     combined = cut_arch_notches(combined)
     base, cap = split_into_base_and_cap(combined)
     base, cap = add_snap_fits(base, cap)
-    base = add_pogo_pocket(base)
     return base, cap
 
 
