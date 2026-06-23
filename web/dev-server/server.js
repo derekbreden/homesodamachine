@@ -165,6 +165,49 @@ async function runScript(pyFilePath) {
   }
 }
 
+// --- PCB board renderer ---
+//
+// A board is a tscircuit source (pcb/<dir>/<name>.tsx) whose sibling
+// render-board.ts re-exports the Gerbers and composes the three copper views
+// into out/. Unlike the CadQuery generators this runs `bun render-board.ts`
+// (the toolchain lives in that dir's node_modules), but the lifecycle mirrors
+// runScript: abort an in-flight render when a newer save lands, broadcast the
+// board source once the views are rewritten so the viewer refreshes.
+const pcbRunning = new Map(); // tsx path -> AbortController
+
+async function runPcbRender(tsxPath) {
+  const scriptDir = path.dirname(tsxPath);
+  const renderScript = path.join(scriptDir, "render-board.ts");
+  if (!fs.existsSync(renderScript)) return; // no local renderer beside this board
+
+  const prev = pcbRunning.get(tsxPath);
+  if (prev) prev.abort();
+  const ac = new AbortController();
+  pcbRunning.set(tsxPath, ac);
+
+  console.log(`  ↪ rendering board: ${relForLog(tsxPath)}`);
+  try {
+    await new Promise((resolve, reject) => {
+      const proc = spawn("bun", ["render-board.ts", path.basename(tsxPath)], {
+        cwd: scriptDir,
+        stdio: ["ignore", "ignore", "inherit"],
+        signal: ac.signal,
+        killSignal: "SIGKILL",
+      });
+      proc.on("close", resolve);
+      proc.on("error", reject);
+    });
+    const relFile = relForBroadcast(tsxPath);
+    console.log(`  -> ${relFile}`);
+    broadcast({ type: "files-changed", files: [relFile] });
+  } catch (e) {
+    if (e.name === "AbortError") return;
+    console.log(`  ↪ board render failed: ${e.message}`);
+  } finally {
+    if (pcbRunning.get(tsxPath) === ac) pcbRunning.delete(tsxPath);
+  }
+}
+
 // --- File watcher ---
 //
 // Polling is deliberate. chokidar 4 dropped fsevents and now uses Node's
@@ -182,7 +225,13 @@ async function runScript(pyFilePath) {
 // changes anyway.
 const watcher = chokidar.watch(CONTENT_ROOTS, {
   ignoreInitial: true,
-  ignored: (p) => p.split(path.sep).includes("__pycache__"),
+  // __pycache__: every generator run rewrites .pyc. node_modules: the PCB
+  // toolchain (hardware/pcb/*/node_modules) is a large tree we never act on,
+  // and polling it would swamp the 200ms loop.
+  ignored: (p) => {
+    const seg = p.split(path.sep);
+    return seg.includes("__pycache__") || seg.includes("node_modules");
+  },
   usePolling: true,
   interval: 200,
   binaryInterval: 400,
@@ -277,6 +326,22 @@ watcher.on("change", (absPath) => {
         console.log(`Sidecar changed: ${relForLog(absPath)} -> refresh ${relFile}`);
         broadcast({ type: "files-changed", files: [relFile] });
       }, 300),
+    );
+    return;
+  }
+
+  // PCB board source changed — re-render its three copper views, then
+  // broadcast the board source so the viewer refreshes the card + open modal.
+  // (node_modules is already filtered by the watcher's `ignored`.)
+  if (absPath.endsWith(".tsx") && absPath.split(path.sep).includes("pcb")) {
+    if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
+    debounce.set(
+      absPath,
+      setTimeout(() => {
+        debounce.delete(absPath);
+        console.log(`Board changed: ${relForLog(absPath)}`);
+        runPcbRender(absPath).catch(() => {});
+      }, 500),
     );
     return;
   }

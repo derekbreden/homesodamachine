@@ -44,19 +44,23 @@ function setupNav() {
     parts: "Parts · Home Soda Machine",
     charts: "Charts · Home Soda Machine",
     drawings: "Drawings · Home Soda Machine",
+    pcb: "Boards · Home Soda Machine",
   };
   document.title = titleMap[section] || document.title;
 }
 
 export async function fetchFiles() {
-  const [stepResp, mmdResp, dxfResp, drawingResp] = await Promise.all([
+  const [stepResp, mmdResp, dxfResp, drawingResp, pcbResp] = await Promise.all([
     fetch("/api/steps"),
     fetch("/api/mermaid"),
     fetch("/api/dxf"),
     fetch("/api/drawings"),
+    fetch("/api/pcb"),
   ]);
   state.allFiles = (await stepResp.json()).sort();
   state.mmdFiles = (await mmdResp.json()).sort();
+  // PCB boards arrive pre-sorted from the server (by source path).
+  state.pcbBoards = await pcbResp.json();
   // /api/dxf returns objects with thickness_mm + material from each
   // part's sidecar (hardware/README.md). Cache the metadata so the
   // viewer can extrude on open without a second round-trip.

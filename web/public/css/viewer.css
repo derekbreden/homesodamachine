@@ -499,3 +499,70 @@
 .drawing-svg g[stroke-dasharray] {
   stroke-width: 0.5;
 }
+
+/* PCB board thumbnail in card. The view SVG carries its own FR4 background
+   and copper colours, so — unlike line-art — we don't recolor strokes; we
+   just scale it to fit. The dark thumb background matches the board
+   substrate so the letterbox around the (landscape) board is seamless. */
+.card .pcb-thumb {
+  width: 100%;
+  aspect-ratio: 1;
+  background: #0b0e14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 8px;
+}
+.card .pcb-thumb svg {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* PCB detail view (inside ContentViewer). The board substrate fills the
+   surface; the SVG sits on top and PanZoom drives pan/zoom. */
+.pcb-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0b0e14;
+  touch-action: none;
+}
+
+/* Top / Bottom / Overlay segmented control — top-centre, clear of the
+   filename pill (top-left), minimap + close X (top-right). Same pill
+   aesthetic as the reset / ruler toggles. */
+.pcb-view-toggle {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 12;
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  background: rgba(35, 35, 66, 0.85);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.pcb-view-btn {
+  padding: 5px 12px;
+  background: transparent;
+  color: var(--text-2);
+  border: none;
+  border-radius: 6px;
+  font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background 0.12s, color 0.12s;
+}
+.pcb-view-btn:hover { color: var(--text); }
+.pcb-view-btn.active {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
