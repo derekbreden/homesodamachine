@@ -542,6 +542,7 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 | Part | Notes |
 |---|---|
 | **Google Pixel 10a unlocked Android phone, 128 GB Obsidian (2026 model)** | Android development handset for the soda-machine app's Android side (`android/`). [B0GHRHXVN1](https://www.amazon.com/dp/B0GHRHXVN1). |
+| **Rust-Oleum 249279 automotive filler primer, 11 oz, gray (~$7.97)** | High-build sandable primer to smooth + seal the §21 hopper-funnel mold's printed core face before casting — the one finishing supply not yet on hand (sanding sponges, IPA, and Mann Ease Release 200 are already owned). Procedure: [funnel-mold/README.md](/pie-in-the-sky/lite/printed-parts/funnel-mold/README.md) "Finish the core". [B003CT4AM0](https://www.amazon.com/dp/B003CT4AM0). |
 
 ---
 
@@ -552,10 +553,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$27,226.23](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$29,834.15](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$924.26](LEDGER_ON_ORDER) |
+| ON-ORDER | [$939.04](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$30,801.30](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$30,816.08](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
