@@ -25,8 +25,8 @@ zone, ahead of the reservoir:
   * Back-left:  the source-select tray stood vertical and turned a quarter-turn so
     its long footprint side lies along the back wall — wide in X, shallow in Y —
     back face on the split, against the reservoir.
-  * Front-left:  the bag-circuit tray stood vertical, narrow in X, dropped into the
-    strip left of the pump motors, just behind the pump fronts.
+  * Left column:  the bag-circuit tray stood vertical, narrow in X, in the strip
+    left of the pump motors, its back tucked against the source-select front.
   * Front-right, high:  the hopper funnel (added in the assembly, derived from the
     enclosure) — a narrow-X, deep-Y slot dropping over the short trays.
   * +X back band:  the power tray (Mean Well PSU + Wago distribution + ground
@@ -84,6 +84,7 @@ PUMP_FRONT_Y = 32.0        # pump front face (and box front edge): the front clu
 PUMP_HEAD_X = 200.0        # the pump heads' +X face (the void's bottom-right corner)
 STACK_TO_PUMP_GAP = 1.0    # gap from the pump backs to the short-tray stack front (Y)
 STACK_GAP = 2.0            # vertical gap between stacked parts (Z)
+BAG_SOURCE_GAP = 1.0       # gap from the bag-circuit back to the source-select front (Y)
 # The short trays (bib, nozzle) STACK into one footprint at the back-right, front
 # against the pump backs. Each tray is linear — tees at one end, ELBOWS at the
 # other. bib stands elbows-up (rot +90 about Y); nozzle is flipped end-for-end
@@ -180,11 +181,12 @@ def build():
                  xmin=SRC_X_INSET, ymax=split_front, zmin=FLOOR_LIFT)
     placed["source-select"] = (src, COLORS["source-select"])
 
-    # --- Front-left void: bag-circuit stood vertical (rot +90 about Y), narrow in
-    # X so it drops into the strip left of the pump motors, sitting just behind the
-    # pump fronts so the pumps alone set the box front edge.
+    # --- Left column, ahead of source-select: bag-circuit stood vertical (rot +90
+    # about Y), narrow in X in the strip left of the pump motors, its back tucked
+    # against the source-select front (no dead gap). It still clears the pump
+    # fronts, which set the box front edge.
     bag = _place(_rot(_load(TRAY_STEPS["bag-circuit"]), (0, 1, 0), 90.0),
-                 xmin=X_INSET, ymin=PUMP_FRONT_Y + 2.0, zmin=FLOOR_LIFT)
+                 xmin=X_INSET, ymax=src.BoundingBox().ymin - BAG_SOURCE_GAP, zmin=FLOOR_LIFT)
     placed["bag-circuit"] = (bag, COLORS["bag-circuit"])
 
     # --- Reservoir-pockets, back, doorway facing the cabinet back. Rotate +90
