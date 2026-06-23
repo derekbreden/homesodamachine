@@ -14,23 +14,22 @@ tracks the funnel as the lite packing keeps settling.
 
 ## The two halves
 
-Both are **relieved shells, not solid blocks**: a registration skin on the
-outside, a forming wall around the funnel, and a diagonal X-brace tying the two,
-with the dead volume between them hollowed out. The pair is [502 g](PAIR_MASS)
-of PETG at 100 % infill — and because the relief leaves the forming faces backed
-by solid wall, 100 % infill costs little. The forming-wall overhangs over the
-relief are carried by **print supports**, not by PETG structure, so the model
-stays minimal.
+Neither is a solid block. Each is the bare structure the mold needs and nothing
+more — a forming wall around the funnel, a registration band at the top, and a
+minimal brace — with everything else open. The pair is [502 g](PAIR_MASS) of PETG
+at 100 % infill; the forming-wall overhangs are held during printing by
+sacrificial **supports**, not by PETG that stays in the part.
 
 - **Cavity** ([95.0 × 158.0 × 99.0 mm](CAVITY_DIMS), [262 g](CAVITY_MASS)). The
   funnel exterior carved from a block, opening up; brim recess at the rim,
-  spout-pin register hole in the floor. A [5 mm](SKIN_WALL) outer skin carries
-  the [10 mm](MOLD_BASE) spout floor and the [8 mm](MOLD_WALL)-nominal block
-  footprint the core skirt registers against; a [4 mm](BOWL_WALL) forming wall
-  contains the silicone and backs the cast against the vacuum pull. Between skin
-  and forming wall the dead solid is relieved out, leaving only a [4 mm](BRACE_WALL)
-  diagonal X-brace (corner to corner through the spout boss) to hold the open
-  cavity rigid through the pour; the relief vents down to the bed.
+  spout-pin register hole in the floor. The mold is a [4 mm](BOWL_WALL) forming
+  wall around the funnel (the cavity that holds the silicone) standing on a
+  [10 mm](MOLD_BASE) spout floor. The only other solid is a [13 mm](COLLAR_H)
+  registration collar at the top — the [8 mm](MOLD_WALL)-wide band the core skirt
+  drops over — and a low [4 mm](BRACE_WALL) diagonal X-brace, corner to corner
+  through the spout boss, that stands the necking funnel on a wide foot through
+  the pour. Below the collar there is no outer skin; the chute forming wall is its
+  own stiff tube.
 - **Core** ([107.0 × 170.0 × 109.0 mm](CORE_DIMS), [241 g](CORE_MASS)). The bore
   as a plug on a [10 mm](PLATE_THK) top plate that forms the brim top and
   registers over the cavity by a skirt; a centered, lead-nosed pin continues the
@@ -47,16 +46,16 @@ funnel is about [82 mL](SIL_VOLUME) of silicone.
 ## Print
 
 Both halves print as drawn — cavity opening up, core clamp-face down with the
-plug up. The cavity's forming wall flares out over the relief (steepest on the
-deep-Y ramp), so it **prints on supports**: enable them, and they grow in the
-relief gaps between the X-brace, not on a forming face. That support sits in
-sealed-off internal dead space — not in the silicone path, not on the cast
-surface, not in the registration — so it can be left in place; the only check is
-that none intrudes into the open bowl, the pin-register hole, or the vents. The
-forming wall and registration skin stay fully solid (the relief stops short of
-both), so the cast surface and the skirt fit are unaffected by the lightening. As
-on the Kitchen mold, smooth the core plug (it forms the funnel's food-contact
-inside face); the cavity exterior can stay as-printed.
+plug up. The cavity's forming wall flares out over open space (steepest on the
+deep-Y ramp), so it **prints on supports**: enable them and they fill the open
+relief, landing on the bed and the X-brace, never on the forming face. That
+support is in open space off the part — not in the silicone path, not on the cast
+surface, not in the registration — so it can be left in; the only check is that
+none intrudes into the bowl, the pin-register hole, or the vents. The forming
+wall, the collar, and the spout floor stay fully solid, so the cast surface and
+the skirt fit are unaffected by the lightening. As on the Kitchen mold, smooth
+the core plug (it forms the funnel's food-contact inside face); the cavity
+exterior can stay as-printed.
 
 ## Cast + bake
 
