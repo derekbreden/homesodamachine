@@ -23,8 +23,8 @@ A transparent consumer-grade enclosure wrapping the flavor-injection half of the
 - **Two peristaltic pumps** (Kamoer KPHM400), valve-locked between dispenses so each flavor holds prime between pours for instant injection.
 - **A valve manifold** with the same source-selection / output-routing pattern as the main appliance. Hopper input, bag output to faucet, clean-cycle paths. Lite divergences — BiB dispenses direct with no chilled pre-load, clean water comes from the Lillium, and the runs the user sees through the enclosure go clear — in [`fluid-topology-manifold.mmd`](/pie-in-the-sky/lite/fluid-topology-manifold.mmd).
 - **A faucet** — Westbrass Touch-Flo or equivalent through-counter dispense — with the carbonated water line entering its inlet from the customer's Lillium output, and the two flavor lines injecting at the nozzle alongside the carbonated water.
-- **A flavor-select air switch** (KRAUS or equivalent), through-counter.
-- **A config display** — the same Waveshare ESP32-S3-Touch-LCD-4.3B as the main appliance, set into a 45° facet at the top-front-left of the enclosure (angled up to the user), showing the active flavor by default and reaching settings on touch. Same front display as the Kitchen edition.
+- **A faucet flavor display + touch toggle** — the same Waveshare ESP32-S3 1.47″ touch LCD as the main appliance, on the faucet gooseneck. It shows the active flavor and switches it on touch — the flavor-select input. Its ESP32-S3 talks to the base ESP32 over UART.
+- **A config display** — the same Waveshare ESP32-S3-Touch-LCD-4.3B as the main appliance, set into a 45° facet at the top-front-left of the enclosure (angled up to the user), reaching settings, clean cycles, and priming on touch. Same front display as the Kitchen edition; its onboard RS485 links to the base ESP32.
 - **Electronics shelf** — ESP32, MCP23017 expander, ULN2803A drivers, motor driver, 12 V supply. Same parts family as the main appliance.
 - **A transparent PETG enclosure** sized for under-sink placement. The same split-half (front + back) cross-pinned shell as the main appliance, with the display facet and a drop-in hopper opening — but no refrigeration loop, so no compressor, condenser, fan, foam shell, or hydrocarbon-refrigerant shroud; the reservoir-pockets bag box is the heavy back-bottom anchor instead of the cold core, and the cabinet is meaningfully smaller than the main appliance's.
 
@@ -83,7 +83,7 @@ Clean cycle: the customer starts it, watches Lillium water run out through the f
 | Controllers + electronics | $110 |
 | Flavor subsystem (2 collapsible bags, 2 Kamoer pumps, manifold solenoids, hopper, fittings) | $260 |
 | Faucet + under-counter plate | $40 |
-| User interface (air switch + display + buzzer) | $80 |
+| User interface (faucet flavor display + config display + buzzer) | $80 |
 | Wiring + fasteners | $25 |
 | Printed mechanical parts (transparent enclosure, hopper, bag cradles, pump cartridge) | $50 |
 | Mechanical attach hardware + bag port fittings | $10 |

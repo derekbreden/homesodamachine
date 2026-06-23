@@ -37,11 +37,13 @@
 | Electronics | Monoprice NEMA 5-15P → IEC C13 line cord (6-pack) | 1 | $4.00 | [B08VS8D4WC](https://www.amazon.com/dp/B08VS8D4WC) | The Lite's own US wall cord (one of two cords at the outlet, the other the Lillium's). 1 of 6. Same as Kitchen bom.md §5. |
 | Electronics | Wago 221-413 lever-nut, 3-conductor | 3 | $0.85 | [wago-221-413](/hardware/reference/wago-221-413/) | H / N / G AC distribution block on the [power tray](/pie-in-the-sky/lite/printed-parts/electronics/power-tray/). One per conductor. Same as Kitchen bom.md §11. |
 | Electronics | Ground ring-terminal stack — single-point chassis ground | 1 | ~$0.10 | [ground-ring-stack](/hardware/reference/ground-ring-stack/) | Green M3 ring lugs (one per exposed-metal part) clamped on the power-tray ground boss, earthed through the C14 cord (Class I). Lug count pending the exposed-metal inventory. |
+| Electronics | ALMOCN TTL-to-RS485 module (5-pack) | 1 | $2.70 | [B09998FY4X](https://www.amazon.com/dp/B09998FY4X) | Base-ESP32 transceiver for the SIG-7 link to the 4.3B config display — the 4.3B has an **onboard RS485** interface, so the base side needs a matching transceiver (it is the board's host interface, not a distance/UART choice; same in both editions). Auto-direction, screw-terminal RS485 + JST TTL. 1 of 5. Same as Kitchen bom.md §1. |
+| Electronics | BNTECHGO 28 AWG silicone ribbon, 4-conductor, 50 ft | 1 | $3.06 | [B07PNPHWMG](https://www.amazon.com/dp/B07PNPHWMG) | Faucet-display harness (SIG-6: TX / RX / 5 V / GND) from the gooseneck 1.47″ flavor display down through the counter to the base ESP32. ~2 m off the 50 ft spool. Same as Kitchen bom.md §9. |
 | Mechanical | 1/8" stainless bag-hanger rod, 158 mm cut | 1 | $0.86 | [B0CY4DWJFQ](https://www.amazon.com/dp/B0CY4DWJFQ) | Threads both Platypus bags' top loops in the [reservoir-pockets](/pie-in-the-sky/lite/printed-parts/reservoir-pockets/) cradle; tool-free hang ([assembly.md](/pie-in-the-sky/lite/assembly.md) step 2). ~0.5 of a 12" stick; same Tandefio stock as the carbonator float rod (bom.md §12), $1.71/stick. |
 
 ## Per-unit cost (estimate)
 
-Estimated delivered parts cost per Lite unit: **[$500.00](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
+Estimated delivered parts cost per Lite unit: **[$505.76](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
 
 ## Clear-PVC length — ~13 ft/unit (estimate)
 
