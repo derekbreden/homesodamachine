@@ -85,6 +85,9 @@ PUMP_HEAD_X = 200.0        # the pump heads' +X face (the void's bottom-right co
 STACK_TO_PUMP_GAP = 1.0    # gap from the pump backs to the short-tray stack front (Y)
 STACK_GAP = 2.0            # vertical gap between stacked parts (Z)
 BAG_SOURCE_GAP = 1.0       # gap from the bag-circuit back to the source-select front (Y)
+BAG_Z_LIFT = 32.0          # bag-circuit raised this far above the floor lift — its top just
+                           # clears the display housing back, opening a floor channel beneath
+                           # it for the pump motors to reach under
 # The short trays (bib, nozzle) STACK into one footprint at the back-right, front
 # against the pump backs. Each tray is linear — tees at one end, ELBOWS at the
 # other. bib stands elbows-up (rot +90 about Y); nozzle is flipped end-for-end
@@ -183,10 +186,11 @@ def build():
 
     # --- Left column, ahead of source-select: bag-circuit stood vertical (rot +90
     # about Y), narrow in X in the strip left of the pump motors, its back tucked
-    # against the source-select front (no dead gap). It still clears the pump
-    # fronts, which set the box front edge.
+    # against the source-select front (no dead gap). Raised clear of the floor (its
+    # top just under the display housing back) so the pump motors run beneath it.
     bag = _place(_rot(_load(TRAY_STEPS["bag-circuit"]), (0, 1, 0), 90.0),
-                 xmin=X_INSET, ymax=src.BoundingBox().ymin - BAG_SOURCE_GAP, zmin=FLOOR_LIFT)
+                 xmin=X_INSET, ymax=src.BoundingBox().ymin - BAG_SOURCE_GAP,
+                 zmin=FLOOR_LIFT + BAG_Z_LIFT)
     placed["bag-circuit"] = (bag, COLORS["bag-circuit"])
 
     # --- Reservoir-pockets, back, doorway facing the cabinet back. Rotate +90

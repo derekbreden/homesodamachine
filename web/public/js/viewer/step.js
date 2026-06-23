@@ -24,7 +24,31 @@ document.head.appendChild(occtScript);
 // --- STEP parsing ---
 async function parseStep(buffer) {
   const occt = await occtPromise;
-  return occt.ReadStepFile(buffer, null);
+  const result = occt.ReadStepFile(buffer, null);
+  backfillMeshNames(result);
+  return result;
+}
+
+// occt-import-js copies a product's name onto its mesh only when the product is a
+// single solid. A multi-solid component (our valve-manifold trays, the pump
+// assemblies, the display) comes back with unnamed leaf meshes — the name lives
+// on the owning hierarchy node instead. Walk the node tree and stamp each unnamed
+// mesh with its component's name, so the edge picker's `solid:` blob line names
+// the tray you clicked, not just the single-solid parts (reservoir, shell halves,
+// funnel). Each mesh is listed by exactly one node, so the unnamed-only guard
+// never clobbers a real per-mesh name.
+function backfillMeshNames(result) {
+  if (!result || !result.meshes || !result.root) return;
+  const visit = (node) => {
+    if (node.name && node.meshes) {
+      for (const mi of node.meshes) {
+        const mesh = result.meshes[mi];
+        if (mesh && !mesh.name) mesh.name = node.name;
+      }
+    }
+    (node.children || []).forEach(visit);
+  };
+  visit(result.root);
 }
 
 // Default gray for parts that carry no color (single-solid STEPs from

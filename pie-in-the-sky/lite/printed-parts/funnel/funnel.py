@@ -98,7 +98,12 @@ def _assert_clears_content(funnel):
         assert ov < 1.0, f"funnel intersects {name} by {ov:.0f} mm³ — reshape the chute/ramp"
 
 
-def build():
+def build_solids():
+    """Funnel exterior and bore as separate solids, plus a metrics dict — the
+    source the silicone-mold generator consumes (the mold cavity is the negative
+    of `solid`, the mold core is `cavity`). Mirrors the Kitchen funnel's
+    build_solids(); see ../funnel-mold/. Pure geometry — the content-clearance
+    check lives in build(), not here."""
     inner, outer, _yj, _cf = E._dims()
     iz1, oz1 = inner[5], outer[5]
     x0, x1, y0, y1 = E._hopper_hole(inner, outer)
@@ -131,11 +136,28 @@ def build():
         .fuse(_loft_rc(bore_w, bore_d, cx, cy, ramp_top_z, spout_id / 2.0, ncx, cy, neck_z))
         .fuse(_cyl(spout_id / 2.0, neck_z, end_z - 1.0, ncx, cy))
     )
+    meta = {
+        "w": w, "d": d, "cx": cx, "cy": cy, "ncx": ncx,
+        "bore_w": bore_w, "bore_d": bore_d,
+        "brim_overhang": brim_overhang, "collar_wall": collar_wall,
+        "spout_id": spout_id, "spout_or": spout_or,
+        "top_z": top_z, "oz1": oz1, "ramp_top_z": ramp_top_z,
+        "neck_z": neck_z, "end_z": end_z,
+    }
+    return solid, cavity, meta
+
+
+def build():
+    solid, cavity, m = build_solids()
     funnel = solid.cut(cavity)
     _assert_clears_content(funnel)
     # Capacity filled to the brim rim: the cavity between the spout exit and brim top.
-    fill = cavity.intersect(_box(600.0, 600.0, end_z, top_z, cx, cy)).Volume()
-    return cq.Workplane(obj=funnel), (w, d, top_z - end_z, end_z, fill)
+    fill = cavity.intersect(
+        _box(600.0, 600.0, m["end_z"], m["top_z"], m["cx"], m["cy"])
+    ).Volume()
+    return cq.Workplane(obj=funnel), (
+        m["w"], m["d"], m["top_z"] - m["end_z"], m["end_z"], fill,
+    )
 
 
 def main():
