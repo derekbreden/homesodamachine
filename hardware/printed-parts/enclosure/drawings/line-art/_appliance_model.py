@@ -71,7 +71,7 @@ D = APPLIANCE_D     # depth (along +Y)
 PUMP_SIDE_BY_SIDE_CLEARANCE = 15.0
 PUMP_CASE_DEPTH_CLEARANCE = 10.0
 
-# [98.0 mm](PUMP_DOOR_W) — single-case depth + clearance, along the appliance width.
+# [97.3 mm](PUMP_DOOR_W) — single-case depth + clearance, along the appliance width.
 pump_door_w = case_outer_y + PUMP_CASE_DEPTH_CLEARANCE
 
 # [165.0 mm](PUMP_DOOR_D) — two cases side-by-side + clearance, along the appliance depth.
@@ -83,7 +83,7 @@ DOOR_GAP = 10.0
 
 # The hopper door — the larger case footprint — centered across the
 # width and anchored to the front.
-# [155.0 mm](HOPPER_DOOR_W) — APPLIANCE_W − 2 × SIDE_MARGIN − pump_door_w − DOOR_GAP.
+# [155.7 mm](HOPPER_DOOR_W) — APPLIANCE_W − 2 × SIDE_MARGIN − pump_door_w − DOOR_GAP.
 hopper_door_w = W - 2 * SIDE_MARGIN - pump_door_w - DOOR_GAP
 # [165.0 mm](HOPPER_DOOR_D) — matches pump door depth.
 hopper_door_d = pump_door_d
