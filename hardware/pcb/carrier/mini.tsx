@@ -130,7 +130,9 @@ export default () => (
     <EdgeBank name="JB" x={-14} y={31} rot={90} labels={[...gpb].reverse()} nets={[...i8].reverse().map((i) => `U2_GPB${i}`)} />
     <Mcp23017 name="U2" x={2} y={24} a0High={false} />
     <Uln2803 name="U4" x={22} y={30} inPrefix="U2_GPA" />
-    <EdgeBank name="J_VA" x={40} y={30} rot={90} labels={[...valves, "COM"]} nets={[...i8.map((i) => `U4_OUT${i}`), "V12"]} />
+    {/* J_VA pin order reversed so VA aligns with the ULN's OUT1 (top) and the
+        eight valve lines run straight across, not crossed; COM lands by U4's COM */}
+    <EdgeBank name="J_VA" x={40} y={30} rot={90} labels={["COM", ...[...valves].reverse()]} nets={["V12", ...[...i8].reverse().map((i) => `U4_OUT${i}`)]} />
     <PowerIn name="J12" x={54} y={40} />
 
     {/* lower station: U3 banks straight to headers */}
@@ -140,16 +142,15 @@ export default () => (
 
     {/* silkscreen block labels — name each subsystem so the board reads at a glance */}
     {[
-      { t: "ESP32-MCP-MINI", x: 0, y: 57, s: 4 },
       { t: "ESP32", x: -46, y: 0, s: 5 },
       { t: "SPARE GPIO", x: -50, y: 47, s: 3 },
-      { t: "MCP 0x20", x: -2, y: 51, s: 3 }, // upper sub-row
-      { t: "ULN2803", x: 28, y: 46, s: 2.8 }, // lower sub-row, offset right
-      { t: "VALVES", x: 46, y: 51, s: 2.8 }, // upper sub-row
-      { t: "12V IN", x: 58, y: 46, s: 2.8 }, // lower sub-row
+      { t: "MCP 0x20", x: 2, y: 51, s: 3 },
+      { t: "ULN2803", x: 26, y: 47, s: 2.8 },
+      { t: "VALVES", x: 44, y: 30, s: 2.6, r: 90 }, // vertical, alongside the J_VA connector
+      { t: "12V IN", x: 56, y: 47, s: 2.8 },
       { t: "MCP 0x21", x: 2, y: -48, s: 3.5 },
     ].map((L) => (
-      <silkscreentext key={L.t} text={L.t} fontSize={`${L.s}mm`} pcbX={L.x} pcbY={L.y} />
+      <silkscreentext key={L.t} text={L.t} fontSize={`${L.s}mm`} pcbX={L.x} pcbY={L.y} pcbRotation={(L as any).r || 0} />
     ))}
   </board>
 )
