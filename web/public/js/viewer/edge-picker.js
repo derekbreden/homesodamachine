@@ -725,8 +725,8 @@ function allText(sel) {
   } else {
     const faces = selFaceTexts(sel);
     lines.push(`edge: ${edgeText(sel)}`);
-    if (faces.a) lines.push(`faceA: ${faces.a}`);
-    if (faces.b) lines.push(`faceB: ${faces.b}`);
+    if (showFaces && faces.a) lines.push(`faceA: ${faces.a}`);
+    if (showFaces && faces.b) lines.push(`faceB: ${faces.b}`);
   }
   lines.push(`click: ${clickText(sel)}`);
   return lines.join("\n");
@@ -735,6 +735,15 @@ function allText(sel) {
 // --- copy panel ---
 let panel = null;
 let panelRows = null;
+
+// An edge's two bordering faces are mostly noise on this (axis-aligned, named-
+// solid) geometry — the edge coordinates already imply them. So they're hidden by
+// default; a subtle header checkbox brings them back, panel + copy, for the cases
+// they earn their keep (a bore rim, two coincident edges). A FACE pick still shows
+// the face it selected — that's the pick, not a bordering face. Persisted across
+// loads/sessions like the edition choice.
+const FACES_KEY = "hsmPickFaces";
+let showFaces = (() => { try { return localStorage.getItem(FACES_KEY) === "1"; } catch { return false; } })();
 
 function buildPanel() {
   panel = document.createElement("div");
@@ -747,6 +756,21 @@ function buildPanel() {
   title.textContent = "Edge";
   const fileEl = document.createElement("span");
   fileEl.className = "edge-panel-file";
+  const facesToggle = document.createElement("label");
+  facesToggle.className = "edge-panel-faces";
+  facesToggle.title = "Include the edge's bordering faces in the copy";
+  const facesBox = document.createElement("input");
+  facesBox.type = "checkbox";
+  facesBox.checked = showFaces;
+  const facesLab = document.createElement("span");
+  facesLab.textContent = "faces";
+  facesToggle.appendChild(facesBox);
+  facesToggle.appendChild(facesLab);
+  facesBox.addEventListener("change", () => {
+    showFaces = facesBox.checked;
+    try { localStorage.setItem(FACES_KEY, showFaces ? "1" : "0"); } catch {}
+    if (selection) showPanel(selection); // re-render rows for the live selection
+  });
   const close = document.createElement("button");
   close.type = "button";
   close.className = "edge-panel-close";
@@ -755,6 +779,7 @@ function buildPanel() {
   close.addEventListener("click", () => clearSelection());
   head.appendChild(title);
   head.appendChild(fileEl);
+  head.appendChild(facesToggle);
   head.appendChild(close);
   panel.appendChild(head);
   panel._fileEl = fileEl;
@@ -812,9 +837,12 @@ function showPanel(sel) {
   panelRows.edge.row.style.display = isFace ? "none" : "";
   if (!isFace) panelRows.edge.val.textContent = edgeText(sel);
   panelRows.faceA.lab.textContent = isFace ? "Face" : "Face A";
-  panelRows.faceA.row.style.display = faces.a ? "" : "none";
+  // A face PICK shows the face it selected (that's the pick); an edge pick's two
+  // bordering faces show only when the faces toggle is on.
+  const showA = isFace ? !!faces.a : (showFaces && !!faces.a);
+  panelRows.faceA.row.style.display = showA ? "" : "none";
   panelRows.faceA.val.textContent = faces.a || "";
-  panelRows.faceB.row.style.display = !isFace && faces.b ? "" : "none";
+  panelRows.faceB.row.style.display = (!isFace && showFaces && faces.b) ? "" : "none";
   panelRows.faceB.val.textContent = faces.b || "";
   panelRows.click.val.textContent = clickText(sel);
   const file = currentFile();
