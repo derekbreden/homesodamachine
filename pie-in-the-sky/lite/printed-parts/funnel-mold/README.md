@@ -57,6 +57,8 @@ the skirt fit are unaffected by the lightening. As on the Kitchen mold, smooth
 the core plug (it forms the funnel's food-contact inside face); the cavity
 exterior can stay as-printed.
 
+Per-attempt slice records: [`print-log.md`](print-log.md).
+
 ## Cast + bake
 
 Identical procedure to the Kitchen edition — food-grade platinum silicone (Shore
