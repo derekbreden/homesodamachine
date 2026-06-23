@@ -470,8 +470,8 @@ print(s.Volume(), (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax), (com.x
 
 ## Reference
 
-- [`/hardware/printed-parts/flavor/pump-case/pump_case.py`](/hardware/printed-parts/flavor/pump-case/pump_case.py)
-  — gold standard for the PETG-enclosure pattern in this repo.
+- [`/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py`](/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py)
+  — gold standard for the printed-enclosure pattern in this repo.
 
 The cadquery venv lives at `tools/cad-venv/bin/python` (cadquery is not
 on system Python).
