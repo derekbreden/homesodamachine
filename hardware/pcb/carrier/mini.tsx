@@ -137,5 +137,19 @@ export default () => (
     <EdgeBank name="JD" x={-14} y={-17} rot={90} labels={[...gpb].reverse()} nets={[...i8].reverse().map((i) => `U3_GPB${i}`)} />
     <Mcp23017 name="U3" x={2} y={-24} a0High={true} />
     <EdgeBank name="JC" x={20} y={-17} rot={90} labels={gpa} nets={i8.map((i) => `U3_GPA${i}`)} />
+
+    {/* silkscreen block labels — name each subsystem so the board reads at a glance */}
+    {[
+      { t: "ESP32-MCP-MINI", x: 0, y: 57, s: 4 },
+      { t: "ESP32", x: -46, y: 0, s: 5 },
+      { t: "SPARE GPIO", x: -50, y: 47, s: 3 },
+      { t: "MCP 0x20", x: -2, y: 51, s: 3 }, // upper sub-row
+      { t: "ULN2803", x: 28, y: 46, s: 2.8 }, // lower sub-row, offset right
+      { t: "VALVES", x: 46, y: 51, s: 2.8 }, // upper sub-row
+      { t: "12V IN", x: 58, y: 46, s: 2.8 }, // lower sub-row
+      { t: "MCP 0x21", x: 2, y: -48, s: 3.5 },
+    ].map((L) => (
+      <silkscreentext key={L.t} text={L.t} fontSize={`${L.s}mm`} pcbX={L.x} pcbY={L.y} />
+    ))}
   </board>
 )
