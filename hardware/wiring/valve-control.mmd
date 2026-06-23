@@ -19,9 +19,10 @@ flowchart LR
   %% channel 5 (the fan is a 12 V DC brushless axial — see
   %% `power.mmd`); the remaining 11 bits of 0x21 are spare.
   %%
-  %% Conditional: 0x21 could be replaced by ESP32 direct GPIO (GPIO 2,
-  %% 12 + GPIO 36, 39 with external 10 kΩ pull-ups) or a 74HC165 shift
-  %% register — saves the chip, decision deferred.
+  %% Conditional: 0x21 could be replaced by a 74HC165 shift register or
+  %% direct ESP32 GPIO — saves the chip, decision deferred. (GPIO 36/39
+  %% now read the carbonator reeds, so the direct-GPIO option would draw
+  %% from the remaining spares 15/4/12/2.)
   %%
   %% Architecture detail at
   %% hardware/printed-parts/cold-core/reservoir/level-sensing.md.
