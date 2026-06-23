@@ -96,7 +96,9 @@ SHORT_X = 135.0            # short-tray / funnel column left edge (clear of sour
 # off the -X wall by that radius. The lower bag-circuit, which never reaches the
 # round, still sits hard against the wall at X_INSET.
 SRC_X_INSET = 12.0
-STACK_OVERLAP = 34.0      # nozzle drops this far into bib — clean elbow-to-elbow interleave
+STACK_OVERLAP = 32.0      # nozzle drops this far into bib — elbows interleave, fittings clear
+                          # (at 34 a top fitting grazes; the box Z is reservoir-set, so the
+                          # slightly taller tower costs nothing)
 # Reservoir seats behind the front zone; the split falls in the gap between them.
 RES_TO_SPLIT_GAP = 1.0     # reservoir front behind the cluster back — just the seam clearance
 # Gap from the reservoir's real +X wall to the power tray beside it.
