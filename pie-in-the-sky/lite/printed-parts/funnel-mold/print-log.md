@@ -66,4 +66,43 @@ Brim: `brim_type` auto_brim; `brim_width` 5.
 
 Derek: "we're still at nearly 3 days for both pieces at 0.08 layers."
 
+### Result — FAILED (2026-06-23)
+
+Derek: "Print failed partway through on first attempt at a funnel mold. The auto
+generated supports toppled over."
+
+The tree(auto) supports filling the cavity's open forming-wall relief toppled
+over and the print failed partway through, before the part completed.
+
+## Re-slice — support base brim (2026-06-23, settings per [`funnel-mold.3mf`](funnel-mold.3mf))
+
+Same object, plate, filament, and process as the snapshot above; the only
+project-setting change targets the toppled supports.
+
+Derek: "I have attempted to add a brim to them with 'initial layer expansion'
+that worked for a similar problem another time."
+
+The "similar problem another time" is the
+[touch-flo-shell PET-CF attempt 9](/hardware/printed-parts/faucet/touch-flo-shell/print-log.md)
+tip-over fix — the same `raft_first_layer_expansion` knob.
+
+What that maps to in the 3mf (vs the snapshot above):
+- `raft_first_layer_expansion`: -1 (default/disabled) → 20 (mm) — the key the
+  Bambu Studio UI labels "Initial layer expansion". With supports enabled it
+  expands the first layer of each support tower outward by 20 mm, giving the
+  tower a much wider footprint at the bed and increasing its tip-over resistance.
+  Now also listed in `different_settings_to_system`.
+- Everything else is unchanged: tree(auto) supports, `support_threshold_angle`
+  15, `support_on_build_plate_only` 0, `support_top_z_distance` 0.08; PETG
+  Translucent slot; 0.08 mm layers, 100 % infill; `brim_type` auto_brim /
+  `brim_width` 5 (the part brim, not the support-tower brim — unchanged).
+
+Realized in the saved plate (`Metadata/plate_1.json`):
+- Plate bbox ≈ 155 × 215 mm (was ≈ 119 × 179 — the support bases grew ~18 mm
+  outward on every edge).
+- `first_layer_time` ≈ 1056 s (was ≈ 281 — the brim adds first-layer area).
+
+Still **saved but not fully sliced** — `slice_info.config` is header-only (no
+per-plate time/filament estimate, no G-code member), same as the snapshot above.
+
 ### Result — not yet recorded (slice saved 2026-06-23)
