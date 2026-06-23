@@ -200,8 +200,8 @@ Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× foam-c
 | [CQRobot JST XH 2.54 mm 10-pin connector kit (30 sets)](https://www.amazon.com/dp/B0B2R93CV3) | 10-pin XH — MCP23017 GPIO port rows (VCC + GND + 8 GPIO); fills the 10-hole footprint so the header/housing can't seat off-by-one (the 9-pin was sized for the ULN sides, not these); ~4/unit; $8.99/30 × 4 | 4 (of 30 pk) | $0.30 | $1.20 |
 | [CQRobot JST XH 2.54 mm pre-crimped bonded ribbon kit, 15 cm × 12 conductors × 8 ribbons + assorted housings](https://www.amazon.com/dp/B0F6C7X5CR) | short-hop bonded ribbon for module-to-module connections (≤6"); ~2/unit; $15.86/8 × 2 | 2 (of 8 pk) | $1.98 | $3.97 |
 | [Keszoox JST XH 2.54 mm pre-crimped wires, 50 cm × 22 AWG silicone (20 wires/pk, 10 colors)](https://www.amazon.com/dp/B0F8HMQRRN) | cabinet-spanning pre-crimped female XH pigtails (ULN→solenoid fan-outs, sensor pigtails); ~1 pk/unit | 1 pk (of 20 wires) | $11.63 | $11.63 |
-| 16 AWG stranded silicone-insulated appliance wire (black/white/green) | placeholder pending sourcing decision; AC pigtails for the C14 → distribution → relay → compressor + PSU runs per [`wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md); ~3 ft total per build across all AC runs (AC-1 through AC-6 in the schedule) | — | ~$1.87 | $1.87 |
-| 18 AWG stranded hookup wire (12 V trunk + branch) | placeholder pending sourcing decision; runs DC-1 through DC-9 in [`wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) | — | ~$0.50 | $0.50 |
+| [BNTECHGO 16 AWG silicone wire, 5-color kit (25 ft ea)](https://www.amazon.com/dp/B06Y557TCL) | AC pigtails for the C14 → distribution → relay → compressor + PSU runs per [`wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md); black line / white neutral / green ground, ~6 ft total per build across AC-1…AC-6. 252-strand silicone, 600 V. $38.29/125 ft = $0.31/ft; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §9) | ~6 ft | $0.31/ft | $1.86 |
+| [BNTECHGO 18 AWG silicone wire, red 25 ft + black 25 ft](https://www.amazon.com/dp/B07HGTKQ89) | 12 V DC trunk + branches, DC-1…DC-9 per [`wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md); red + / black −. The 12-solenoid fan-out rides the Keszoox pigtails, so this covers the trunk + pump / fan / display branches. 150-strand silicone, 600 V. $14.99/50 ft = $0.30/ft; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §9) | ~8 ft | $0.30/ft | $2.40 |
 | Wago 221-413 lever-nut connector, 3-conductor | placeholder pending sourcing decision; AC distribution block on the electronics shelf (H, N, G — one connector per conductor); 3 connectors per build, ~$0.85 each at 10-pk pricing | 3 | $0.85 | $2.55 |
 
 ## 12. Level sensing (external reed + internal magnetic float on 316L SS rod, shared SKU across carbonator + reservoirs)
@@ -281,11 +281,11 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 8. Flavor subsystem | [$257.94](BOM_SEC8) |
 | 9. Dispensing | [$56.83](BOM_SEC9) |
 | 10. UI | [$3.21](BOM_SEC10) |
-| 11. Wiring | [$32.56](BOM_SEC11) |
+| 11. Wiring | [$34.45](BOM_SEC11) |
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.94](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,567.09](BOM_GRAND)** |
+| **Total** | **[$1,568.98](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
