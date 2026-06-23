@@ -95,10 +95,6 @@ total_m3_inserts_per_build = (
     + touchflo_inserts_per_build
 )
 
-# Combined M3 × 12 screw count across the appliance (15) — reservoir
-# caps + touch-flo share the SKU.
-m3x12_screws_per_build = reservoir_cap_screws_per_build + touchflo_screws_per_build
-
 # Reservoir-cap vent filters per build (2).
 vent_filters_per_build = vent_filters_per_reservoir_cap * reservoirs_per_build
 
@@ -130,7 +126,6 @@ def main():
         "RES_SCREWS": f"{reservoir_cap_screws_per_build:.4g}",
         "TOUCHFLO_INSERTS": f"{touchflo_inserts_per_build:.4g}",
         "TOUCHFLO_SCREWS": f"{touchflo_screws_per_build:.4g}",
-        "M3X12_TOTAL": f"{m3x12_screws_per_build:.4g}",
         "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
         # Vent filters.
         "VENT_FILTERS": f"{vent_filters_per_build:.4g}",
@@ -160,7 +155,6 @@ def main():
             "RES_SCREWS": 1,
             "TOUCHFLO_INSERTS": 2,
             "TOUCHFLO_SCREWS": 2,
-            "M3X12_TOTAL": 1,
             "TOTAL_M3_INSERTS": 2,
             "VENT_FILTERS": 3,
         },

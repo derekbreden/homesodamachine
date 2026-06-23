@@ -176,7 +176,7 @@ Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× foam-c
 | [VALVENTO 1/4" OD compression × 1/4" NPT adapter (2-pk)](https://www.amazon.com/dp/B0DXZZBK7D) | joins bottom-plate 1/4" NPT outlet port (port 3) to 1/4" tubing run; 1 of 2 per unit (pack delivered $12.85/2) | 1 (of 2) | $6.42 | $6.42 |
 | [Westbrass R2031-NL-62 8" Touch-Flo dispenser faucet, matte black](https://www.amazon.com/dp/B07KH285GJ) | donor faucet; family-equivalence + interchangeable-finish notes in [`printed-parts/faucet/touch-flo-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md) "Adjacent parts" | 1 | $31.28 | $31.28 |
 | SendCutSend 0.060" 316 SS under-counter plate (`touch_flo_under_counter_plate.dxf`) | dimensions + role in [`printed-parts/faucet/touch-flo-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md) "Adjacent parts"; SCS S064D925 May 10: 10 @ $2.85 + $5.00 ship + $2.79 tax = $36.29 ÷ 10 = $3.63/ea | 1 | $3.63 | $3.63 |
-| [DIGITEN G3/8" Hall-effect flow sensor](https://www.amazon.com/dp/B07QQW4C7R) | | 1 | $7.99 | $7.99 |
+| [DIGITEN G1/4" Hall-effect flow sensor, 0.3–10 L/min](https://www.amazon.com/dp/B07QRXLRTH) | flow detection on the carbonated-water dispense path; ACQUIRED ×4 ([purchases.md](/hardware/ledger/purchases.md) §7) | 1 | $10.18 | $10.18 |
 | [CARGEN Pipe Insulation Foam Tube, 1/4" ID × 3/8" wall × 6 ft, nitrile rubber closed-cell](https://www.amazon.com/dp/B0D2XFK337) | insulates the 1/4" OD LLDPE carbonated-water dispense tube from the foam-shell exit through the countertop to the underside of the Westbrass touch-flo body. ~12" per build, 72"/roll = 6 builds/roll. Amazon 112-3935659 May 15: 2 @ $7.59 + $1.10 tax = $16.28 ÷ 12 builds = $1.36/build | 1/6 roll (~12") | $1.36 | $1.36 |
 | [BNTECHGO 28 AWG silicone ribbon cable, 4-conductor flat, 50 ft](https://www.amazon.com/dp/B07PNPHWMG) | Umbilical signal cable — the faucet-display harness (SIG-6: TX / RX / 5 V / GND) from the gooseneck 1.47" display down through the countertop and umbilical to the base ESP32. ~2 m per build off the 50 ft (15.2 m) spool; Amazon 112-9860351 Jun 10: $21.43 ÷ ~7 builds = $3.06/build | ~1/7 spool (~2 m) | $3.06 | $3.06 |
 
@@ -244,8 +244,8 @@ The same reed-and-float pattern is used in three places: the carbonator vessel (
 Heat-set + screw retention appears in three places:
 
 1. **Foam-bag-shell caps** clamped to the `outer_shell` via [12](FOAM_INSERTS) ruthex inserts + [12](FOAM_SCREWS) BNUOK M3×25 SHCS, TPU 90A gasket compressing per cap — procedure in [`assembly/cold-core.md`](/hardware/assembly/cold-core.md).
-2. **Reservoir cap** clamped to each reservoir body via [6](RES_INSERTS_PER_CAP) ruthex inserts + 6 BNUOK M3×12 SHCS per cap, TPU gasket — geometry + screw spec in [`printed-parts/cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py).
-3. **Touch-flo mounting plate** bolted up into the shell's three base pods via [3](TOUCHFLO_INSERTS) ruthex inserts + [3](TOUCHFLO_SCREWS) BNUOK M3×12 SHCS — procedure in [`printed-parts/faucet/touch-flo-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md).
+2. **Reservoir cap** clamped to each reservoir body via [6](RES_INSERTS_PER_CAP) ruthex inserts + 6 BNUOK M3×12 304 SS SHCS per cap, TPU gasket — geometry + screw spec in [`printed-parts/cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py).
+3. **Touch-flo mounting plate** bolted up into the shell's three base pods via [3](TOUCHFLO_INSERTS) ruthex inserts + [3](TOUCHFLO_SCREWS) BNUOK M3×12 black-oxide SHCS — procedure in [`printed-parts/faucet/touch-flo-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md).
 
 Each reservoir cap also carries a ø13 mm hydrophobic PTFE membrane vent filter — see [`printed-parts/cold-core/reservoir/vent.md`](/hardware/printed-parts/cold-core/reservoir/vent.md) for the splash-baffle architecture; 1 filter per cap × [2](RESERVOIR_CAP_COUNT) caps per build = [2](VENT_FILTERS) per build.
 
@@ -255,7 +255,8 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 |---|---|---:|---:|---:|
 | [ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set](https://www.amazon.com/dp/B0D39W228K) | M3 × 4 mm L × 4.2 mm OD knurled brass; [27](TOTAL_M3_INSERTS) per build ([12](FOAM_INSERTS) foam-bag-shell + [12](RES_INSERTS) reservoir caps + [3](TOUCHFLO_INSERTS) touch-flo base pods); Amazon 112-4234665 May 10: $9.99 + $0.72 tax = $10.71 ÷ 100 = $0.1071/ea | [27](TOTAL_M3_INSERTS) (of 100 pk) | $0.11 | $2.89 |
 | [BNUOK M3 × 25 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 60 pc](https://www.amazon.com/dp/B0DJQGF665) | foam-bag-shell cap clamp screws (6 top + 6 bottom); Amazon 112-2495614 May 10: $7.99 + $0.58 tax = $8.57 ÷ 60 = $0.1428/ea | [12](FOAM_SCREWS) (of 60 pk) | $0.14 | $1.71 |
-| [BNUOK M3 × 12 mm DIN 912 socket head cap, 304 stainless steel (18-8), 120 pc](https://www.amazon.com/dp/B0DJQGMQZM) | [12](RES_SCREWS) reservoir-cap clamp screws + [3](TOUCHFLO_SCREWS) touch-flo plate-to-shell screws; Amazon 112-3709957 Jun 2: $8.07 + $0.59 tax = $8.66 ÷ 120 = $0.0722/ea | [15](M3X12_TOTAL) (of 120 pk) | $0.07 | $1.08 |
+| [BNUOK M3 × 12 mm DIN 912 socket head cap, 304 stainless steel (18-8), 120 pc](https://www.amazon.com/dp/B0DJQGMQZM) | reservoir-cap clamp screws (reservoir lid/body joint); Amazon 112-3709957 Jun 2: $8.07 + $0.59 tax = $8.66 ÷ 120 = $0.0722/ea | [12](RES_SCREWS) (of 120 pk) | $0.07 | $0.87 |
+| [BNUOK M3 × 12 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGVK8S) | touch-flo plate-to-shell screws; Amazon 112-0144900 May 10: $7.99 + $0.58 tax = $8.57 ÷ 120 = $0.0714/ea | [3](TOUCHFLO_SCREWS) (of 120 pk) | $0.07 | $0.21 |
 | [LVDALAB PTFE Membrane Filter, ø13 mm × 0.45 µm, 100 pc, non-sterile](https://www.amazon.com/dp/B0D41KT345) | hydrophobic PTFE membrane in the reservoir-cap vent pocket; architecture + sizing in [`printed-parts/cold-core/reservoir/vent.md`](/hardware/printed-parts/cold-core/reservoir/vent.md); [2](VENT_FILTERS) per build (1 per cap × 2 caps); Amazon 112-4393734 May 11: $12.99 − $0.65 promo + $0.89 tax = $13.23 ÷ 100 = $0.1323/ea | [2](VENT_FILTERS) (of 100 pk) | $0.13 | $0.26 |
 
 ## 14. Install kit (per-appliance install-kit tools)
@@ -278,13 +279,13 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 6. Cold core insulation | [$52.38](BOM_SEC6) |
 | 7. Printed parts (PETG + PET-CF) | [$69.56](BOM_SEC7) |
 | 8. Flavor subsystem | [$257.94](BOM_SEC8) |
-| 9. Dispensing | [$53.74](BOM_SEC9) |
+| 9. Dispensing | [$55.93](BOM_SEC9) |
 | 10. UI | [$3.21](BOM_SEC10) |
 | 11. Wiring | [$32.56](BOM_SEC11) |
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.94](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,565.46](BOM_GRAND)** |
+| **Total** | **[$1,567.65](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
