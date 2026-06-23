@@ -196,6 +196,7 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 | SodaStream Diet Mountain Dew 4-pack. Orders #114-0084687-6710639 (Apr 26), #114-0749284-0433838 (Feb 24), #114-7016001-0433834 (Jun 10), #114-3163590-0127432 (Mar 8), #114-1990143-8424226 (May 16) | [B0G26HQWBY](https://www.amazon.com/dp/B0G26HQWBY) | 1 | $28.99 | ACQUIRED |
 | SodaStream Pepsi Wild Cherry Zero 4-pack. Orders #114-0069643-1757059 (Feb 25), #114-3163590-0127432 (Mar 8) | [B0G4NRDQB8](https://www.amazon.com/dp/B0G4NRDQB8) | 1 | $28.99 | ACQUIRED |
 | SodaStream Diet Cola 4-pack. Order #112-0933043-5526613, placed February 23, 2026 | [B01GQ2ZMKI](https://www.amazon.com/dp/B01GQ2ZMKI) | 1 | $18.89 | ACQUIRED |
+| SodaStream Diet Pepsi Drink Mix 4-pack (cola syrup, 4 × 14.9 fl oz). Order #114-4609926-1663418, placed June 22, 2026 | [B0G25QRMBP](https://www.amazon.com/dp/B0G25QRMBP) | 1 | $28.80 | ACQUIRED (delivered Jun 22) |
 | Magnetic pogo pin connector, 2-pin (2 pair). Order #112-1533167-6762648, placed April 17, 2026 | [B0CSX6ZQ1H](https://www.amazon.com/dp/B0CSX6ZQ1H) | 1 pk | $10.71 | ACQUIRED |
 
 ## 6. Refrigeration
@@ -320,6 +321,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | Keszoox JST XH 2.54 mm pre-crimped wires, 50 cm × 22 AWG silicone, 20 pcs/pk in 10 colors. Order #112-7245467-6557007, placed April 26, 2026 | [B0F8HMQRRN](https://www.amazon.com/dp/B0F8HMQRRN) | 2 pk | $11.63 ea | ACQUIRED (delivered Apr 30) |
 | KWANGIL 22AWG 12-Conductor Cable, UL2464, High-Flexible Tinned Copper Unshielded, Matte Black, 25 ft. Order #114-2322598-9184256, placed May 14, 2026 | [B0CSD5QZ21](https://www.amazon.com/dp/B0CSD5QZ21) | 1 | $25.73 | ACQUIRED (delivered May 15) |
 | BNTECHGO 28 AWG silicone ribbon cable, 4-conductor flat, black, 50 ft — faucet display harness (5 V / GND / TX / RX) through the faucet shell to the under-counter base. Order #112-9860351-3650618, placed Jun 10, 2026 | [B07PNPHWMG](https://www.amazon.com/dp/B07PNPHWMG) | 1 (50 ft) | $21.43 | ACQUIRED (delivered Jun 11) |
+| BNTECHGO 16 AWG silicone wire kit, stranded tinned copper, 5 colors (red/black/white/blue/green) × 25 ft each. Order #112-8448573-3185817, placed Jun 22, 2026 | [B06Y557TCL](https://www.amazon.com/dp/B06Y557TCL) | 1 kit (5× 25 ft) | $38.29 | ON-ORDER (arriving Jun 23) |
+| BNTECHGO 18 AWG silicone wire, stranded tinned copper, red 25 ft + black 25 ft. Order #112-8492724-3195462, placed Jun 22, 2026 | [B07HGTKQ89](https://www.amazon.com/dp/B07HGTKQ89) | 1 (2× 25 ft) | $14.99 | ON-ORDER (arriving Jun 23) |
 | CR2032 3 V cell pack (RTC backup). Order #114-3384762-6934634, placed February 22, 2026 | [B0C15WJXL2](https://www.amazon.com/dp/B0C15WJXL2) | 1 | $12.00 | ACQUIRED |
 | Breadboard kit, 2×830 + 2×400 pt. Order #114-0818390-2733826, placed February 2, 2026 | [B07DL13RZH](https://www.amazon.com/dp/B07DL13RZH) | 1 pk | $7.33 | ACQUIRED |
 | Gratury IP67 waterproof enclosure. Order #114-6385083-8023407, placed February 2, 2026 | [B08281V2RL](https://www.amazon.com/dp/B08281V2RL) | 1 | $23.58 | ACQUIRED |

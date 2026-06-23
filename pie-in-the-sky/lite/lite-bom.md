@@ -44,6 +44,7 @@
 | Printed | Enclosure — back half (PETG) | 1 | $9.77 | [enclosure/](/pie-in-the-sky/lite/enclosure/) | Transparent back shell housing the reservoir-pockets box. PETG @ $11.20/kg, mass from CAD volume. |
 | Printed | Reservoir-pockets bag cradle (PETG) | 1 | $6.22 | [reservoir-pockets/](/pie-in-the-sky/lite/printed-parts/reservoir-pockets/) | Two bag pockets + rod-hang channel. PETG @ $11.20/kg, mass from CAD volume. |
 | Printed | Power tray (PETG) | 1 | $0.55 | [power-tray/](/pie-in-the-sky/lite/printed-parts/electronics/power-tray/) | PSU + Wago AC distribution + ground-stack frame. PETG @ $11.20/kg, mass from CAD volume. |
+| Printed | Logic tray (PETG) | 1 | $0.43 | [logic-tray/](/pie-in-the-sky/lite/printed-parts/electronics/logic-tray/) | ESP32 + L298N + 2× ULN2803A + MCP23017 + RS485 on one frame — the Kitchen's controller + driver trays folded into one. PETG @ $11.20/kg, mass from CAD volume. |
 | Printed | Valve tray — source-select (PETG) | 1 | $2.00 | [valve-manifold/](/hardware/printed-parts/valve-manifold/) | Shared with the Kitchen build (bom.md §7). |
 | Printed | Valve tray — bag-circuit (PETG) | 1 | $1.49 | [valve-manifold/](/hardware/printed-parts/valve-manifold/) | Shared with the Kitchen build (bom.md §7). |
 | Printed | Valve tray — BiB-gate (PETG) | 1 | $0.48 | [valve-manifold/](/hardware/printed-parts/valve-manifold/) | Shared with the Kitchen build (bom.md §7). |
@@ -54,15 +55,15 @@
 | Faucet | Blue 1/4" OD LLDPE tube, NSF-51 (carb-water) | ~6 ft | $0.12/ft | [purchases.md](/hardware/ledger/purchases.md) | The carbonated-water line — Lillium output → rear inlet bulkhead → flow meter → outlet bulkhead → faucet. Blue per the committed color system (blue = carbonated water; white = tap water). Shares the Kitchen build's blue 1/4" LLDPE roll (FWS order WEBFWS100677333, ACQUIRED — blue 1/4" LLDPE 100 ft); priced as the black-LLDPE class. |
 | Wiring | CQRobot JST-XH 2.54 mm 4-pin connector kit (50 sets) | 2 | $0.17 | [B0B2RB524Y](https://www.amazon.com/dp/B0B2RB524Y) | Serial/UART hops to both displays — SIG-6 faucet (TX / RX / 5 V / GND) + SIG-7 config. 2 of 50; ACQUIRED ([purchases.md](/hardware/ledger/purchases.md)). |
 | Wiring | CQRobot JST-XH 2.54 mm 6-pin connector kit (50 sets) | 1 | $0.18 | [B0B2R8Q1JL](https://www.amazon.com/dp/B0B2R8Q1JL) | L298N control row (ENA / IN1–4 / ENB). 1 of 50; ACQUIRED ([purchases.md](/hardware/ledger/purchases.md)). |
-| Wiring | CQRobot JST-XH 2.54 mm 9-pin connector kit (30 sets) | 4 | $0.31 | [B0B2R73RQB](https://www.amazon.com/dp/B0B2R73RQB) | ULN2803A module sides (2 ULN × 2 sides). 4 of 30; ACQUIRED. Count pending the logic tray. |
+| Wiring | CQRobot JST-XH 2.54 mm 9-pin connector kit (30 sets) | 4 | $0.31 | [B0B2R73RQB](https://www.amazon.com/dp/B0B2R73RQB) | ULN2803A module sides (2 ULN × 2 sides). 4 of 30; ACQUIRED. |
 | Wiring | CQRobot JST-XH 2.54 mm 10-pin connector kit (30 sets) | 2 | $0.32 | [B0B2R93CV3](https://www.amazon.com/dp/B0B2R93CV3) | MCP23017 GPIO port rows (one MCP, both ports). 2 of 30; ACQUIRED. |
 | Wiring | Heat-shrink tubing, 2:1, assorted kit | 1 | $0.38 | [B0FRNMXN6Q](https://www.amazon.com/dp/B0FRNMXN6Q) | Insulates + strain-relieves each crimped faston joint on the pump + solenoid leads — the secure half of the connection. ≈1/20 of the assorted 2:1 kit per build; ACQUIRED ([purchases.md](/hardware/ledger/purchases.md)). |
-| Fasteners | ruthex M3 heat-set inserts, short, brass (100 pc) | ~14 | $0.107 | [B0D39W228K](https://www.amazon.com/dp/B0D39W228K) | Power tray (5) + faucet plate (3) + logic tray (~6) bosses. Of 100; ACQUIRED. Count pending the logic tray. |
-| Fasteners | BNUOK M3×12 mm SHCS, 12.9 alloy, black oxide (120 pc) | ~14 | $0.071 | [B0DJQGVK8S](https://www.amazon.com/dp/B0DJQGVK8S) | Black-oxide socket-head cap screws into the heat-set bosses — same finish/head as the M3×25 foam-cap screws. Of 120; ACQUIRED. |
+| Fasteners | ruthex M3 heat-set inserts, short, brass (100 pc) | 22 | $0.107 | [B0D39W228K](https://www.amazon.com/dp/B0D39W228K) | Power tray (5) + faucet plate (3) + logic tray (14 M3) bosses. Of 100; ACQUIRED. |
+| Fasteners | BNUOK M3×12 mm SHCS, 12.9 alloy, black oxide (120 pc) | 22 | $0.071 | [B0DJQGVK8S](https://www.amazon.com/dp/B0DJQGVK8S) | One per M3 boss (power tray + faucet plate + logic tray). Black-oxide socket-head cap screws; same finish/head as the M3×25 foam-cap screws. Of 120; ACQUIRED. |
 
 ## Per-unit cost (estimate)
 
-Estimated delivered parts cost per Lite unit: **[$563.09](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
+Estimated delivered parts cost per Lite unit: **[$564.94](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
 
 ## Clear-PVC length — ~13 ft/unit (estimate)
 
