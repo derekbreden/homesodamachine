@@ -33,9 +33,10 @@ that +X strip:
     stack, no relay) stood vertical, its -X face on the pump-head +X face, front
     ahead of the bag.
   * Right of the reservoir (the +X strip):  the logic tray stood vertical at the
-    strip front, and behind it on the back wall the rear-panel cluster — the
-    faucet-inlet stub (turned so its two carb-water bulkheads stack in Z), the two
-    umbilical flavor bulkheads, and the C14 mains inlet. The three rear-panel
+    strip front, and behind it on the back wall a vertical column of rear-panel
+    ports — bottom to top: the faucet-inlet stub's two carb-water bulkheads
+    (turned so they stack in Z), the two umbilical flavor bulkheads, then the C14
+    mains inlet alone at the TOP, above every water port. The three rear-panel
     parts mount THROUGH the back wall: bodies inboard, ports proud out the back.
 
 The display and the hopper funnel are NOT placed here — like the Kitchen, the
@@ -110,12 +111,25 @@ STACK_OVERLAP = 32.0       # nozzle drops this far into bib (Z); elbow ends inte
 RES_TO_SPLIT_GAP = 1.0     # reservoir front behind the split (Y)
 POWER_AHEAD_OF_BAG = 2.0   # power-tray front ahead of the bag-circuit front (Y)
 # The +X strip, right of the reservoir. The logic tray stands vertical at the
-# strip front; the three rear-panel parts seat on the back wall behind it.
-PANEL_X_GAP = 1.0          # gap from the reservoir's +X face to the strip contents
-BULKHEAD_X = 186.0         # the two umbilical flavor bulkheads, centered here in X
-BULKHEAD_ZA = 215.0        # lower flavor bulkhead, center height
-BULKHEAD_ZB = 245.0        # upper flavor bulkhead, center height
-C14_Z = 150.0              # mains inlet, center height (mid-strip, between stub and bulkheads)
+# strip front; the three rear-panel parts seat on the back wall behind it, their
+# ports aligned in one vertical column at PANEL_PORT_X. Up the column: the
+# carb-water stub (low), the two umbilical flavor bulkheads, then the C14 mains
+# inlet alone at the TOP — mains kept above every water/carb port, so condensate
+# off the cold lines and any leak (both run downward) stay clear of it.
+PANEL_X_GAP = 1.0          # gap from the reservoir's +X face to the logic tray
+PANEL_PORT_X = 189.0       # rear-panel ports aligned on this vertical line
+BULKHEAD_ZA = 150.0        # lower umbilical flavor bulkhead, center height
+BULKHEAD_ZB = 185.0        # upper umbilical flavor bulkhead, center height
+C14_Z = 258.0              # mains inlet, high in the strip — above all water ports
+STUB_HALF_PITCH = 38.65    # stub bulkhead offset from its center (faucet_inlet_stub.bulkhead_x)
+# Panel parts seat on the back wall's OUTER face, so their barrels pass through the
+# wall (body/flange proud outside, retained by the wall). enclosure.py cuts the
+# matching holes (back_wall_ports), sized to clear the modeled hardware.
+PANEL_WALL = 3.0           # enclosure wall thickness (== enclosure.wall)
+BULKHEAD_HOLE_D = 18.0     # clears the jg-bulkhead-union panel barrel (Ø17.14)
+C14_HOLE_CLEAR = 0.5       # C14 cutout clearance per side around its body cross-section
+C14_LIP_DEPTH = 4.5        # bezel-lip depth behind the C14 flange; seat the lip on the
+                           # wall's outer face so the 20.5 body (not the 22.5 lip) is in the hole
 
 # --- Colors ---------------------------------------------------------------
 RES_COLOR = cq.Color(0.60, 0.80, 1.00, 0.28)
@@ -222,39 +236,76 @@ def build():
     placed["power-tray"] = (power, POWER_COLOR)
 
     # --- Right of the reservoir: the +X strip it opened. The logic tray is
-    # interior — stood vertical (its long axis up Z) at the strip front, just
-    # behind the short-tray backs, off the floor pods. The three rear-panel parts
-    # mount THROUGH the back wall: each seats its Y=0 face on the reservoir's back
-    # (the box's inner +Y wall), body reaching -Y inward, proud end out the back
-    # for the Lillium hose / C13 cord / umbilical tubes. They are sized out of the
-    # enclosure (enclosure._PANEL_ZONE); only their inboard bodies need to clear.
-    back_wall = res.BoundingBox().ymax
-    strip_x = res.BoundingBox().xmax + PANEL_X_GAP
+    # interior — stood vertical (long axis up Z) at the strip front, just behind
+    # the short-tray backs, off the floor pods. It tucks under the +X wall the
+    # power tray already sets, so it does not push that wall out (enclosure.py
+    # excludes it from the +X size; verified to clear the wall and braces).
+    res_bb = res.BoundingBox()
+
+    logic = _place(_rot(_load(LOGIC_STEP), (0, 1, 0), 90.0),
+                   xmin=res_bb.xmax + PANEL_X_GAP, ymin=split_front + 1.0, zmin=FLOOR_LIFT)
+    placed["logic-assembly"] = (logic, LOGIC_COLOR)
+
+    # The three rear-panel parts mount THROUGH the back wall: each seats its Y=0
+    # face on the wall's OUTER face, so the barrel passes through the wall (port
+    # proud outside for the Lillium hose / C13 cord / umbilical, retained by the
+    # wall; far end reaching -Y inboard). Their ports align on one vertical column
+    # at PANEL_PORT_X; enclosure.py cuts the matching holes and sizes the box from
+    # interior content only (enclosure._PANEL_ZONE).
+    panel_seat = res_bb.ymax + PANEL_WALL          # back wall OUTER face
 
     def _on_panel(step, xc, zc):
-        """Seat a panel part's Y=0 face on the back wall, centered at (xc, zc)."""
-        s = _load(step).translate((0.0, back_wall, 0.0))
+        """Seat a panel part's Y=0 face on the wall's outer face, port at (xc, zc)."""
+        s = _load(step).translate((0.0, panel_seat, 0.0))
         b = s.BoundingBox()
         return s.translate((xc - (b.xmin + b.xmax) / 2.0, 0.0, zc - (b.zmin + b.zmax) / 2.0))
 
-    logic = _place(_rot(_load(LOGIC_STEP), (0, 1, 0), 90.0),
-                   xmin=strip_x, ymin=split_front + 1.0, zmin=FLOOR_LIFT)
-    placed["logic-assembly"] = (logic, LOGIC_COLOR)
-
     # Faucet-inlet stub, rot +90 about Y so its two carb-water bulkheads stack in
-    # Z (not side-by-side in X) to fit the narrow strip; the flow-meter chain
-    # reaches -Y inward, low in the strip.
-    stub = _place(_rot(_load(STUB_STEP), (0, 1, 0), 90.0).translate((0.0, back_wall, 0.0)),
-                  xmin=strip_x, zmin=FLOOR_LIFT)
+    # Z (not side-by-side in X) to fit the narrow strip; centered on the column,
+    # lifted off the floor, flow-meter chain reaching -Y inboard.
+    stub = _rot(_load(STUB_STEP), (0, 1, 0), 90.0).translate((0.0, panel_seat, 0.0))
+    sb = stub.BoundingBox()
+    stub = stub.translate((PANEL_PORT_X - (sb.xmin + sb.xmax) / 2.0, 0.0, FLOOR_LIFT - sb.zmin))
     placed["faucet-inlet-stub"] = (stub, PANEL_COLOR)
 
-    # The two umbilical flavor bulkheads, stacked high above the stub. (The
+    # The two umbilical flavor bulkheads, up the column above the stub. (The
     # carb-water umbilical port is the stub's own OUT bulkhead, not a third here.)
-    placed["umbilical-bulkhead-a"] = (_on_panel(BULKHEAD_STEP, BULKHEAD_X, BULKHEAD_ZA), PANEL_COLOR)
-    placed["umbilical-bulkhead-b"] = (_on_panel(BULKHEAD_STEP, BULKHEAD_X, BULKHEAD_ZB), PANEL_COLOR)
+    placed["umbilical-bulkhead-a"] = (_on_panel(BULKHEAD_STEP, PANEL_PORT_X, BULKHEAD_ZA), PANEL_COLOR)
+    placed["umbilical-bulkhead-b"] = (_on_panel(BULKHEAD_STEP, PANEL_PORT_X, BULKHEAD_ZB), PANEL_COLOR)
 
-    # C14 mains inlet, mid-strip, its +X edge flush to the power-tray's +X line.
-    c14 = _place(_on_panel(C14_STEP, 0.0, C14_Z), xmax=power.BoundingBox().xmax)
-    placed["iec-c14-inlet"] = (c14, C14_COLOR)
+    # C14 mains inlet, mid column between the stub and the bulkheads. Seated out by
+    # the bezel-lip depth so the snap-in body (not the lip) passes through the hole.
+    placed["iec-c14-inlet"] = (
+        _on_panel(C14_STEP, PANEL_PORT_X, C14_Z).translate((0.0, C14_LIP_DEPTH, 0.0)),
+        C14_COLOR,
+    )
 
     return placed
+
+
+def back_wall_ports():
+    """Through-holes the rear panel needs for the panel-mounted parts, derived
+    from their placed positions: (kind, x, z, *size) in world coords — kind
+    'round' (a diameter) or 'rect' (x, z size). enclosure.py cuts these through
+    the back wall. The faucet-inlet stub contributes its two carb-water bulkheads
+    (±STUB_HALF_PITCH about its center); the C14 and the two umbilical bulkheads
+    are one port each."""
+    placed = build()
+    s = placed["faucet-inlet-stub"][0].BoundingBox()
+    scx, scz = (s.xmin + s.xmax) / 2.0, (s.zmin + s.zmax) / 2.0
+    holes = [
+        ("round", scx, scz - STUB_HALF_PITCH, BULKHEAD_HOLE_D),
+        ("round", scx, scz + STUB_HALF_PITCH, BULKHEAD_HOLE_D),
+    ]
+    for key in ("umbilical-bulkhead-a", "umbilical-bulkhead-b"):
+        b = placed[key][0].BoundingBox()
+        holes.append(("round", (b.xmin + b.xmax) / 2.0, (b.zmin + b.zmax) / 2.0, BULKHEAD_HOLE_D))
+    # C14: cut to its actual cross-section where it passes through the wall. Its
+    # earth-key makes the bezel taller than the body, so the full-bbox center sits
+    # above the body center — slicing at the wall finds the true body footprint.
+    wall_y0 = placed["reservoir-pockets"][0].BoundingBox().ymax
+    slab = cq.Solid.makeBox(1000.0, PANEL_WALL, 1000.0, cq.Vector(-500.0, wall_y0, -500.0))
+    cs = placed["iec-c14-inlet"][0].intersect(slab).BoundingBox()
+    holes.append(("rect", (cs.xmin + cs.xmax) / 2.0, (cs.zmin + cs.zmax) / 2.0,
+                  cs.xlen + 2.0 * C14_HOLE_CLEAR, cs.zlen + 2.0 * C14_HOLE_CLEAR))
+    return holes
