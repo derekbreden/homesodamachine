@@ -143,8 +143,7 @@ Check valves, sparge stone + barb adapter for internal-sparge CO2 carbonation, c
 | VALVENTO 316 SS 1/4" OD compression × 1/4" NPT adapter (2 pk). Order #112-6216768-3197856, placed April 12, 2026 | [B0DXZZBK7D](https://www.amazon.com/dp/B0DXZZBK7D) | 1 pk | $12.85 | ACQUIRED |
 | VALVENTO 1/4" OD 316 SS tube, 12" length (5 pk). Order #112-6216768-3197856, placed April 12, 2026 | [B0F6SYFK48](https://www.amazon.com/dp/B0F6SYFK48) | 1 pk | $18.23 | ACQUIRED |
 | TAISHER 304 SS compression square needle valve 1/4". Order #112-4838242-5164262, placed March 14, 2026 | [B0CLXHZZCW](https://www.amazon.com/dp/B0CLXHZZCW) | 1 | $22.51 | ACQUIRED |
-| YKEBVPW 1/4" push-connect needle valve flow control. Order #112-4375086-9926652, placed May 30, 2026 | [B0FBFVTNLM](https://www.amazon.com/dp/B0FBFVTNLM) | 1 | $8.03 | ACQUIRED |
-| YKEBVPW 1/4" needle valve | amazon.com (112-4375086-9926652) | 1 | $8.03 | ACQUIRED (delivered Jun 1) |
+| YKEBVPW 1/4" push-connect needle valve flow control. Order #112-4375086-9926652, placed May 30, 2026 | [B0FBFVTNLM](https://www.amazon.com/dp/B0FBFVTNLM) | 1 | $8.03 | ACQUIRED (delivered Jun 1) |
 
 ## 5. Flavor subsystem
 
@@ -540,13 +539,13 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$26,827.39](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$26,819.36](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$29,435.31](LEDGER_ACQUIRED_COMBINED) |
+| ACQUIRED (combined) | [$29,427.28](LEDGER_ACQUIRED_COMBINED) |
 | ON-ORDER | [$1,195.49](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$30,673.69](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$30,665.66](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -555,7 +554,7 @@ ACQUIRED hardware by section:
 | 1 | Pressure vessel / carbonator fabrication | [$3,848.56](LEDGER_SEC1) |
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,785.10](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$889.15](LEDGER_SEC3) |
-| 4 | Carbonator plumbing | [$233.30](LEDGER_SEC4) |
+| 4 | Carbonator plumbing | [$225.27](LEDGER_SEC4) |
 | 5 | Flavor subsystem | [$1,146.40](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,882.74](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
