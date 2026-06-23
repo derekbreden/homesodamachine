@@ -24,6 +24,7 @@ export type Scheme = {
   bottom: string // back copper
   drill: string // drilled holes (painted over the copper so they read as holes)
   edge: string // board outline
+  silk: string // silkscreen legend (labels + part outlines + ref designators)
   topOpacity: number // front copper opacity in the overlay
   bottomOpacity: number // back copper opacity in the overlay
 }
@@ -38,6 +39,7 @@ export const SCHEMES: Record<string, Scheme> = {
     bottom: "#34d1e0",
     drill: "#0b0e14",
     edge: "#5a6478",
+    silk: "#f2eede",
     topOpacity: 0.85,
     bottomOpacity: 0.8,
   },
@@ -47,6 +49,7 @@ export const SCHEMES: Record<string, Scheme> = {
     bottom: "#ffcf6b",
     drill: "#0a2540",
     edge: "#4d7299",
+    silk: "#ffffff",
     topOpacity: 0.85,
     bottomOpacity: 0.8,
   },
@@ -56,6 +59,7 @@ export const SCHEMES: Record<string, Scheme> = {
     bottom: "#c4382c",
     drill: "#f4f1ea",
     edge: "#9aa0a6",
+    silk: "#2b2d33",
     topOpacity: 0.8,
     bottomOpacity: 0.8,
   },
@@ -110,15 +114,17 @@ function fnum(n: number) {
 export async function composeViews(dir: string, scheme: Scheme) {
   // Layers we draw, by role. Edge_Cuts defines the board frame; copper is the
   // subject; drills punch holes back out of the copper.
-  const [fcu, bcu, edge, drl, drlN] = await Promise.all([
+  const [fcu, bcu, edge, drl, drlN, fsilk, bsilk] = await Promise.all([
     renderLayer(`${dir}/F_Cu.gbr`, "fcu"),
     renderLayer(`${dir}/B_Cu.gbr`, "bcu"),
     renderLayer(`${dir}/Edge_Cuts.gbr`, "edge"),
     renderLayer(`${dir}/drill.drl`, "drl"),
     renderLayer(`${dir}/drill_npth.drl`, "drln"),
+    renderLayer(`${dir}/F_SilkScreen.gbr`, "fsilk"),
+    renderLayer(`${dir}/B_SilkScreen.gbr`, "bsilk"),
   ])
 
-  const present = [fcu, bcu, edge, drl, drlN].filter(Boolean) as Layer[]
+  const present = [fcu, bcu, edge, drl, drlN, fsilk, bsilk].filter(Boolean) as Layer[]
   if (present.length === 0) throw new Error(`no renderable layers in ${dir}`)
 
   // Unified frame: the board outline if we have it, else the union of every
@@ -147,6 +153,8 @@ export async function composeViews(dir: string, scheme: Scheme) {
 
   const drillPunch = `${paint(drl, scheme.drill)}${paint(drlN, scheme.drill)}`
   const edgePaint = paint(edge, scheme.edge)
+  const fsilkPaint = paint(fsilk, scheme.silk)
+  const bsilkPaint = paint(bsilk, scheme.silk)
   const vb = `${fnum(Xmin)} ${fnum(Ymin)} ${fnum(W)} ${fnum(H)}`
   const wmm = (W / 1000).toFixed(3)
   const hmm = (H / 1000).toFixed(3)
@@ -154,18 +162,19 @@ export async function composeViews(dir: string, scheme: Scheme) {
   // Assemble one view from an ordered stack of painted copper groups. The FR4
   // rect lives in viewBox space (no flip needed — it's the whole frame); the
   // copper, drills and outline live under the single shared flip group.
-  const view = (copper: string) =>
+  // Silk sits on top of the copper so labels and outlines stay legible.
+  const view = (copper: string, silk: string) =>
     `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ` +
     `width="${wmm}mm" height="${hmm}mm" viewBox="${vb}" ` +
     `stroke-linecap="round" stroke-linejoin="round" stroke-width="0" fill-rule="evenodd">` +
     `<defs>${allDefs}</defs>` +
     `<rect x="${fnum(Xmin)}" y="${fnum(Ymin)}" width="${fnum(W)}" height="${fnum(H)}" fill="${scheme.fr4}"/>` +
-    `<g transform="translate(0,${fnum(Tu)}) scale(1,-1)">${copper}${drillPunch}${edgePaint}</g>` +
+    `<g transform="translate(0,${fnum(Tu)}) scale(1,-1)">${copper}${drillPunch}${edgePaint}${silk}</g>` +
     `</svg>`
 
-  const top = view(paint(fcu, scheme.top))
-  const bottom = view(paint(bcu, scheme.bottom))
-  const overlay = view(paint(bcu, scheme.bottom, scheme.bottomOpacity) + paint(fcu, scheme.top, scheme.topOpacity))
+  const top = view(paint(fcu, scheme.top), fsilkPaint)
+  const bottom = view(paint(bcu, scheme.bottom), bsilkPaint)
+  const overlay = view(paint(bcu, scheme.bottom, scheme.bottomOpacity) + paint(fcu, scheme.top, scheme.topOpacity), fsilkPaint)
 
   return { top, bottom, overlay, width: W, height: H, widthMm: +wmm, heightMm: +hmm }
 }
