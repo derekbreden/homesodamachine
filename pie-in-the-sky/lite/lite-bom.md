@@ -51,15 +51,18 @@
 | Faucet | DIGITEN G1/4" Hall-effect flow sensor, 0.3–10 L/min | 1 | $10.18 | [B07QRXLRTH](https://www.amazon.com/dp/B07QRXLRTH) | Flow detection on the Lillium-fed carbonated-water inlet — pump injection triggers on detected flow. Sits inside the enclosure on the rear carb-water pass-through (bulkhead in → elbow → flow meter → elbow → bulkhead out); 1/4" ports sized to the carb-water line. ACQUIRED ×4 ([purchases.md](/hardware/ledger/purchases.md) §7). |
 | Faucet | John Guest PP0308E 1/4" OD union elbow, black PP | 2 | $2.28 | [FWS](https://www.freshwatersystems.com/products/john-guest-union-elbow-black-polypropylene-1-4) | The two elbows in the rear carb-water pass-through, turning the run from each bulkhead toward the flow meter. CadQuery: [elbow-connector](/hardware/reference/elbow-connector/). |
 | Faucet | John Guest PP1208E 1/4" PTC bulkhead union (10-pk) | 2 | $2.48 | [B00JYFU8MM](https://www.amazon.com/dp/B00JYFU8MM) | The two rear-panel carb-water ports — Lillium hose in, faucet line out — close together on the back. Black PP, NSF 51+61, 150 psi @ 70°F. Same bulkhead family as the Kitchen umbilical (§8); CadQuery: [jg-bulkhead-union](/hardware/reference/jg-bulkhead-union/). |
+| Faucet | Blue 1/4" OD LLDPE tube, NSF-51 (carb-water) | ~6 ft | $0.12/ft | [purchases.md](/hardware/ledger/purchases.md) | The carbonated-water line — Lillium output → rear inlet bulkhead → flow meter → outlet bulkhead → faucet. Blue per the committed color system (blue = carbonated water; white = tap water). Shares the Kitchen build's blue 1/4" LLDPE roll (FWS order WEBFWS100677333, ACQUIRED — blue 1/4" LLDPE 100 ft); priced as the black-LLDPE class. |
+| Wiring | CQRobot JST-XH 2.54 mm 4-pin connector kit (50 sets) | 2 | $0.17 | [B0B2RB524Y](https://www.amazon.com/dp/B0B2RB524Y) | Serial/UART hops to both displays — SIG-6 faucet (TX / RX / 5 V / GND) + SIG-7 config. 2 of 50; ACQUIRED ([purchases.md](/hardware/ledger/purchases.md)). |
 | Wiring | CQRobot JST-XH 2.54 mm 6-pin connector kit (50 sets) | 1 | $0.18 | [B0B2R8Q1JL](https://www.amazon.com/dp/B0B2R8Q1JL) | L298N control row (ENA / IN1–4 / ENB). 1 of 50; ACQUIRED ([purchases.md](/hardware/ledger/purchases.md)). |
 | Wiring | CQRobot JST-XH 2.54 mm 9-pin connector kit (30 sets) | 4 | $0.31 | [B0B2R73RQB](https://www.amazon.com/dp/B0B2R73RQB) | ULN2803A module sides (2 ULN × 2 sides). 4 of 30; ACQUIRED. Count pending the logic tray. |
 | Wiring | CQRobot JST-XH 2.54 mm 10-pin connector kit (30 sets) | 2 | $0.32 | [B0B2R93CV3](https://www.amazon.com/dp/B0B2R93CV3) | MCP23017 GPIO port rows (one MCP, both ports). 2 of 30; ACQUIRED. |
+| Wiring | Heat-shrink tubing, 2:1, assorted kit | 1 | $0.38 | [B0FRNMXN6Q](https://www.amazon.com/dp/B0FRNMXN6Q) | Insulates + strain-relieves each crimped faston joint on the pump + solenoid leads — the secure half of the connection. ≈1/20 of the assorted 2:1 kit per build; ACQUIRED ([purchases.md](/hardware/ledger/purchases.md)). |
 | Fasteners | ruthex M3 heat-set inserts, short, brass (100 pc) | ~14 | $0.107 | [B0D39W228K](https://www.amazon.com/dp/B0D39W228K) | Power tray (5) + faucet plate (3) + logic tray (~6) bosses. Of 100; ACQUIRED. Count pending the logic tray. |
 | Fasteners | BNUOK M3×12 mm SHCS, 12.9 alloy, black oxide (120 pc) | ~14 | $0.071 | [B0DJQGVK8S](https://www.amazon.com/dp/B0DJQGVK8S) | Black-oxide socket-head cap screws into the heat-set bosses — same finish/head as the M3×25 foam-cap screws. Of 120; ACQUIRED. |
 
 ## Per-unit cost (estimate)
 
-Estimated delivered parts cost per Lite unit: **[$561.65](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
+Estimated delivered parts cost per Lite unit: **[$563.09](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
 
 ## Clear-PVC length — ~13 ft/unit (estimate)
 

@@ -59,7 +59,7 @@ Stainless pressure-vessel fabrication: 316 SS round-tube body + 1/4" laser-cut 3
 | Bosch DSB1013 1" × 6" Daredevil Standard Spade Bit. Order #111-4630388-1572202, placed April 29, 2026 | [B001NGPAA0](https://www.amazon.com/dp/B001NGPAA0) | 1 | $5.35 | ACQUIRED |
 | Drill Hulk DHCO26 9/64" (3.57 mm) M35 cobalt jobber twist drill bits, 12-pack — blind rod-register drilling in the 316 SS end-cap plates. Order #112-3161139-1981039, placed June 15, 2026 | [B07XNNNC5Y](https://www.amazon.com/dp/B07XNNNC5Y) | 1 pk (12) | $18.43 | ACQUIRED (delivered Jun 16) |
 | WEN BA4555 5" benchtop metal-cutting band saw — horizontal cutoff with vise + length stop, 0–60° miter, variable 125–260 FPM, 56-1/2" blade. Square, repeatable cuts of the 1/8" 316L level-sensing rods (carbonator + flavor reservoir + lite reservoir pocket). Order #112-0741371-9657825, placed June 17, 2026 | [B09XWQCNGT](https://www.amazon.com/dp/B09XWQCNGT) | 1 | $362.73 | ON-ORDER (arriving Jun 24–25) |
-| Imachinist S56121224SS 56-1/2" × 1/2" × 24 TPI M42 bi-metal bandsaw blade (stainless) — 1/8" rod cutoff blade for the BA4555. Order #112-3334877-3267411, placed June 17, 2026 | [B0B7GDTX9H](https://www.amazon.com/dp/B0B7GDTX9H) | 1 | $19.83 | ON-ORDER (arriving Mon Jun 22) |
+| Imachinist S56121224SS 56-1/2" × 1/2" × 24 TPI M42 bi-metal bandsaw blade (stainless) — 1/8" rod cutoff blade for the BA4555. Order #112-3334877-3267411, placed June 17, 2026 | [B0B7GDTX9H](https://www.amazon.com/dp/B0B7GDTX9H) | 1 | $19.83 | ACQUIRED (delivered Jun 21) |
 | Ultra Duster Canned Air Industrial Strength 10 oz, 4-pack. Order #112-6571709-7582668, placed May 8, 2026 | [B07JRBR1MM](https://www.amazon.com/dp/B07JRBR1MM) | 1 pk (4× 10 oz) | $24.51 | ACQUIRED (delivered May 12) |
 | Hgnova 15-pc 1064 nm laser protective lens, D18 × 2 mm, 1000–3000 W handheld 4-in-1 laser welder. Order #112-3421913-9021801, placed April 30, 2026 | [B0FF38DY1Z](https://www.amazon.com/dp/B0FF38DY1Z) | 1 pk (15) | $19.29 | ACQUIRED |
 | SENCTRL 0–200 PSI glycerin-filled pressure gauge, 2.5" dial, 1/4" NPT lower mount, SS case. Order #112-2086169-3211445, placed May 4, 2026 | [B0BCHMQLFB](https://www.amazon.com/dp/B0BCHMQLFB) | 1 | $10.72 | ACQUIRED (delivered Tue May 5) |
@@ -74,7 +74,7 @@ Stainless pressure-vessel fabrication: 316 SS round-tube body + 1/4" laser-cut 3
 | SendCutSend order SP54G453 — 304 SS 0.048" body half-sheets ×10 (plan-B spare) | sendcutsend.com | 10 | $134.38 | ACQUIRED |
 | SendCutSend order S064D925 — 0.060" 316 SS Touch-Flo under-counter plates | sendcutsend.com | 10 | $36.29 | ACQUIRED (delivered May 14) |
 | SendCutSend order S4177511 — 0.060" 316 SS Touch-Flo under-counter plates | sendcutsend.com | 23 | $34.78 | ON-ORDER (placed Jun 18, 2026; invoice dated Jun 19; paid Visa, in production) |
-| Cantesco P101S-A red visible dye penetrant, solvent-removable aerosol — dye-penetrant (PT) leak/crack inspection of the end-cap closure fillet welds before hydro (step 6). Order #112-1089976-3089830, placed June 16, 2026 | [B00T46ZH5E](https://www.amazon.com/dp/B00T46ZH5E) | 1 | $24.45 | ON-ORDER (arriving Thu Jun 18) |
+| Cantesco P101S-A red visible dye penetrant, solvent-removable aerosol — dye-penetrant (PT) leak/crack inspection of the end-cap closure fillet welds before hydro (step 6). Order #112-1089976-3089830, placed June 16, 2026 | [B00T46ZH5E](https://www.amazon.com/dp/B00T46ZH5E) | 1 | $24.45 | ACQUIRED (delivered Jun 19) |
 | Cantesco D101-A non-aqueous wet developer, white, 12 oz aerosol — PT developer that draws the penetrant back out of a defect as a visible indication. Order #112-9519199-9509821, placed June 16, 2026 | [B008BJCOLK](https://www.amazon.com/dp/B008BJCOLK) | 1 | $15.88 | ACQUIRED (delivered Jun 16) |
 | Cleanroom wipes, 9" × 9", cellulose/polyester Grade A 68 GSM, lint-free (150 pcs) — controlled PT penetrant wipe-off (dampened with the already-owned isopropyl alcohol, not sprayed) + low-lint surface for reading indications. Order #112-1089976-3089830, placed June 16, 2026 | [B0GD16CMYL](https://www.amazon.com/dp/B0GD16CMYL) | 1 pk (150) | $17.15 | ACQUIRED (delivered Jun 16) |
 
@@ -292,8 +292,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | Kraftex copper foil tape, 1/4" × 66 ft, conductive adhesive. Order #112-5656837-1597066, placed May 8, 2026 | [B0G1TN3JWB](https://www.amazon.com/dp/B0G1TN3JWB) | 1 | $7.50 | ACQUIRED (delivered May 9) |
 | ~~Tynulox 1/8" × 6" 304 SS round rod (10 pk)~~. Order #112-8251187-7721036, placed April 24, 2026 | [B0BKGS32KJ](https://www.amazon.com/dp/B0BKGS32KJ) | 1 pk | $8.56 | ACQUIRED (superseded) |
 | Tandefio 1/8" × 12" 316 SS round rod (5 pk). Order #112-7391312-2980226, placed April 24, 2026 | [B0CY4DWJFQ](https://www.amazon.com/dp/B0CY4DWJFQ) | 1 pk | $8.57 | ACQUIRED |
-| 1/8" (3 mm) × 7.8" (200 mm) 316 SS round rod (10 pk) — level-sensing rod stock. Order #114-7801151-2777012, placed June 17, 2026 | [B0FYC63JCY](https://www.amazon.com/dp/B0FYC63JCY) | 2 pk (20) | $18.22 | ON-ORDER (arriving Tue Jun 23) |
-| MECCANIXITY 1/8" (3 mm) × 9.84" (250 mm) 316 SS round rod (10 pk) — level-sensing rod stock. Order #114-2674264-1703446, placed June 17, 2026 | [B0FWZMZBY7](https://www.amazon.com/dp/B0FWZMZBY7) | 2 pk (20) | $17.78 | ON-ORDER (arriving Jun 18–20) |
+| 1/8" (3 mm) × 7.8" (200 mm) 316 SS round rod (10 pk) — level-sensing rod stock. Order #114-7801151-2777012, placed June 17, 2026 | [B0FYC63JCY](https://www.amazon.com/dp/B0FYC63JCY) | 2 pk (20) | $18.22 | ACQUIRED (delivered Jun 21) |
+| MECCANIXITY 1/8" (3 mm) × 9.84" (250 mm) 316 SS round rod (10 pk) — level-sensing rod stock. Order #114-2674264-1703446, placed June 17, 2026 | [B0FWZMZBY7](https://www.amazon.com/dp/B0FWZMZBY7) | 2 pk (20) | $17.78 | ACQUIRED (delivered Jun 20) |
 | 12 V 2 A DC power supply, 9-tip. Orders #114-1015191-6799441 (Feb 18), #114-9620011-1329056 (Feb 25) | [B0DZGTTBGZ](https://www.amazon.com/dp/B0DZGTTBGZ) | 1 | bundle | ACQUIRED |
 | 5 V 3 A AC/DC adapter, 11-tip. Order #114-0818390-2733826, placed February 2, 2026 | [B09NLMVXMZ](https://www.amazon.com/dp/B09NLMVXMZ) | 1 | $9.00 | ACQUIRED |
 | Molence C45 PCB DIN-rail adapter clips (10 sets). Order #114-2582317-0018622, placed February 26, 2026 | [B09KZHY8G4](https://www.amazon.com/dp/B09KZHY8G4) | 1 pk | $10.71 | ACQUIRED |
@@ -333,7 +333,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Tripp Lite P006-006 NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed. Order #112-2843637-5886607, placed April 24, 2026 | [B0000511C0](https://www.amazon.com/dp/B0000511C0) | 1 | $9.21 | ACQUIRED |
 | Legrand Radiant 1597BKCCD12 15 A self-test GFCI, decorator duplex, black. Order #112-6714135-1147434, placed May 20, 2026 | [B017HAB4BO](https://www.amazon.com/dp/B017HAB4BO) | 2 | $41.72 | ACQUIRED (delivered May 21) |
 | Mean Well IRM-90-12ST encapsulated 80 W / 12 V / 6.7 A PSU. Order #112-1500299-7944264, placed April 21, 2026 | [B0CNRST18V](https://www.amazon.com/dp/B0CNRST18V) | 1 | $31.66 | ACQUIRED |
-| Mean Well IRM-90-12ST encapsulated 80 W / 12 V / 6.7 A PSU. Order #112-9276465-1199416, placed June 20, 2026 | [B0CNRST18V](https://www.amazon.com/dp/B0CNRST18V) | 1 | $32.31 | ON-ORDER (arriving Mon Jun 22) |
+| Mean Well IRM-90-12ST encapsulated 80 W / 12 V / 6.7 A PSU. Order #112-9276465-1199416, placed June 20, 2026 | [B0CNRST18V](https://www.amazon.com/dp/B0CNRST18V) | 1 | $32.31 | ACQUIRED (delivered Jun 22) |
 | Mean Well LRS-200-12 enclosed 204 W / 12 V / 17 A PSU. Order #112-9091100-8229010, placed April 17, 2026 | [B0874XQ82F](https://www.amazon.com/dp/B0874XQ82F) | 1 | $30.03 | ACQUIRED |
 | P3 Kill-A-Watt P4400 power meter (bench). Order #112-0118962-3725825, placed April 17, 2026 | [B00009MDBU](https://www.amazon.com/dp/B00009MDBU) | 1 | $34.31 | ACQUIRED |
 
@@ -424,7 +424,7 @@ Bench soldering capability for through-hole, wire-to-pad (pogo pin leads), and g
 | Hakko T18-D08 chisel tip, 0.8 mm — fine FX-888D tip for the faucet display S3's small through-hole pads; complements the T18-D12/D16 already on hand. Order #112-3550632-8904259, placed Jun 11, 2026 | [B004ORB8GK](https://www.amazon.com/dp/B004ORB8GK) | 1 | $9.87 | ACQUIRED (delivered Jun 13) |
 | VECO-T T18 10-tip assortment (LB/BR02/D16/D32/B/K/C2/C5/I/S3), FX-888D-compatible aftermarket — adds the K knife for drag-soldering JST-XH connector rows and the high-mass D32/S3 for desoldering the pre-soldered MCP23017 GPIO + L298N control headers in the Dupont→JST migration; not genuine Hakko. Order #112-7486016-3622668, placed Jun 14, 2026 | [B0FWKGXFK7](https://www.amazon.com/dp/B0FWKGXFK7) | 1 kit (10 tips) | $20.37 | ACQUIRED (delivered Jun 15) |
 | Hakko FR-301 portable desoldering tool, 140 W — self-contained heated hollow nozzle + motorized vacuum pump, trigger-actuated; clears solder-blocked plated through-holes in one pull. Bought after braid/manual wicking couldn't clear the plated barrels on the pre-soldered MCP23017 GPIO + L298N control headers during the Dupont→JST migration. Order #112-8278354-1449064, placed Jun 14, 2026 | [B07BKSLLG9](https://www.amazon.com/dp/B07BKSLLG9) | 1 | $225.20 | ACQUIRED (delivered Jun 15) |
-| No-clean lead-free rosin solder flux paste, 4-pack 10cc syringes w/ assorted blunt dispensing tips — needle-tip paste flux for SMD/wire-to-pad rework; the dispensing-syringe form the jarred §14 8341 lacks. Order #112-4685860-9927453, placed Jun 17, 2026 | [B0GGQNNF98](https://www.amazon.com/dp/B0GGQNNF98) | 1 (4 syringes) | $13.93 | ON-ORDER (arriving Thu Jun 18) |
+| No-clean lead-free rosin solder flux paste, 4-pack 10cc syringes w/ assorted blunt dispensing tips — needle-tip paste flux for SMD/wire-to-pad rework; the dispensing-syringe form the jarred §14 8341 lacks. Order #112-4685860-9927453, placed Jun 17, 2026 | [B0GGQNNF98](https://www.amazon.com/dp/B0GGQNNF98) | 1 (4 syringes) | $13.93 | ACQUIRED (delivered Jun 18) |
 
 ## 15. 3D printing equipment and filaments (Bambu Lab direct)
 
@@ -461,8 +461,8 @@ Receipts grouped by order; each line in the table is one shipment. See Bambu Lab
 | 2026-05-04 | us728027710789775361 | Bambu Lab H2C (AMS Combo) — second printer | $2,572.93 | ACQUIRED |
 | 2026-05-25 | us735568811268960257 | PETG Basic Black 30105 ×10 + PETG Translucent Clear 32101 ×10 (1 kg refills, bulk) | $278.72 | ACQUIRED (delivered May 29) |
 | 2026-06-10 | us741350370718978049 | Induction Heating Assembly - Right ×1 (H2C / H2C Laser) + shipping + tax | $71.83 | ACQUIRED (delivered Jun 15) |
-| 2026-06-17 | us743915395468910593 | PETG Basic Black 30105 ×10 + PETG Translucent Clear 32101 ×10 (1 kg refills, bulk) | $224.04 | ON-ORDER |
-| **§15 subtotal — 17 orders (16 ACQUIRED, 1 ON-ORDER)** | | | **ACQUIRED $8,453.30 · ON-ORDER $224.04** | |
+| 2026-06-17 | us743915395468910593 | PETG Basic Black 30105 ×10 + PETG Translucent Clear 32101 ×10 (1 kg refills, bulk) | $224.04 | ACQUIRED (delivered Jun 20) |
+| **§15 subtotal — 17 orders (17 ACQUIRED)** | | | **ACQUIRED $8,677.34** | |
 
 ## 16. Laser welding / cleaning / cutting
 
@@ -519,11 +519,11 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 |---|---|---|---|---|
 | PB Motor Tech 5-gallon stainless vacuum chamber, 18.9 L, 11.8" × 11.8" interior, tempered-glass lid + glycerin gauge + shutoff valve + hose — degassing chamber for the silicone hopper-funnel pours; mates the §6 Orion 4 CFM vacuum pump via 1/4" SAE flare. Order #112-7063184-8235469, placed June 22, 2026 | [B0D78ZM928](https://www.amazon.com/dp/B0D78ZM928) | 1 | $95.99 | ON-ORDER (arriving Jun 24) |
 | Nuwave Bravo 30-QT 12-in-1 convection toaster oven, 50–500 °F, top/bottom heater control — silicone post-cure bake (drives off volatiles + completes the platinum cure for the food-contact funnel). Order #112-7063184-8235469, placed June 22, 2026 | [B00IXBMS6M](https://www.amazon.com/dp/B00IXBMS6M) | 1 | $129.99 | ON-ORDER (arriving Jun 24) |
-| Rubbermaid Commercial stainless monitoring thermometer, 60–580 °F — post-cure oven-temperature verification. Order #112-0401256-3893007, placed June 22, 2026 | [B005KDEIZ0](https://www.amazon.com/dp/B005KDEIZ0) | 1 | $9.52 | ON-ORDER (arriving Jun 22) |
+| Rubbermaid Commercial stainless monitoring thermometer, 60–580 °F — post-cure oven-temperature verification. Order #112-0401256-3893007, placed June 22, 2026 | [B005KDEIZ0](https://www.amazon.com/dp/B005KDEIZ0) | 1 | $9.52 | ACQUIRED (delivered Jun 22) |
 | BBDINO 40A food-contact platinum silicone mold-making kit, 2.42 lb, 1:1 by weight — base silicone for the cast hopper-funnel (~78 g/funnel ≈ ~13 funnels per kit). Order #112-8255970-7923460, placed June 22, 2026 | [B0FHHBGSQK](https://www.amazon.com/dp/B0FHHBGSQK) | 1 kit | $35.16 | ON-ORDER (arriving Jun 23) |
 | BBDINO black silicone pigment, high-concentrated platinum-cure, 150 g — colorant for the cast hopper-funnel at ≤2% by weight (carbon-black, hides concentrate staining; food-contact qualified by the wetted-surface screen per [reservoir/wetted-surface-test.md](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md), not a cert). Order #112-7063184-8235469, placed June 22, 2026 | [B0BVR3R58V](https://www.amazon.com/dp/B0BVR3R58V) | 1 | $18.97 | ON-ORDER (arriving Jun 24) |
 | Mann Ease Release 200, 14 oz aerosol — platinum-silicone-safe mold release for the printed hopper-funnel mold (cavity side; kept off the food-contact core). Order #112-0411698-8891425, placed June 22, 2026 | [B002YEBO1O](https://www.amazon.com/dp/B002YEBO1O) | 1 | $21.99 | ON-ORDER (arriving Jun 23) |
-| TCP Global 32 oz / 1000 mL graduated mixing cups (25-pk) — silicone-degassing batch cups, sized for the 3–4× vacuum rise of a ~70 mL pour. Order #112-0401256-3893007, placed June 22, 2026 | [B08HNCGY4N](https://www.amazon.com/dp/B08HNCGY4N) | 1 pk (25) | $17.99 | ON-ORDER (arriving Jun 22) |
+| TCP Global 32 oz / 1000 mL graduated mixing cups (25-pk) — silicone-degassing batch cups, sized for the 3–4× vacuum rise of a ~70 mL pour. Order #112-0401256-3893007, placed June 22, 2026 | [B08HNCGY4N](https://www.amazon.com/dp/B08HNCGY4N) | 1 pk (25) | $17.99 | ACQUIRED (delivered Jun 22) |
 
 ---
 
