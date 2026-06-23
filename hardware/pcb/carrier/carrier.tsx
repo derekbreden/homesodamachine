@@ -1,18 +1,14 @@
 /**
- * Home Soda Machine — controller carrier board (v0.1)
+ * Home Soda Machine — controller carrier board.
  *
- * A through-hole carrier that the existing off-the-shelf modules plug into,
- * replacing the hand-wired electronics-shelf stack with one board. Every
- * active part stays a known-good module on 2.54 mm headers; the board carries
- * power and routes the signals between them, and lands every field harness on
- * a labeled connector.
+ * A through-hole carrier the off-the-shelf modules plug into on 2.54 mm
+ * headers: it carries power, routes the signals between them, and lands every
+ * field harness on a labeled connector. The connection contract is
+ * ../netlist.md.
  *
- * The connection contract is ../netlist.md. Reference designators and nets
- * follow that file. Module sockets are modeled as labeled THT parts; pinning
- * each socket to a specific vendor footprint (real pin order / two-row
- * geometry, via `tsci import`) is the next iteration. Open decisions resolved
- * for the carrier: pumps keep ENA/ENB (the L298N is 3-wire), and the backflow
- * moisture sensor takes GPIO 13.
+ * Module sockets are placeholder dip{n} footprints; the outline is provisional.
+ * The pumps drive through ENA/ENB (the L298N is 3-wire); the backflow moisture
+ * sensor is on GPIO 13.
  */
 
 export default () => {
@@ -20,10 +16,7 @@ export default () => {
   const valveAH = ["A", "B", "C", "D", "E", "F", "G", "H"] // U3 GPA0..7 -> U5 IN1..8 -> J8
   const valveIKB = ["I", "J", "KA", "KB"] //                  U3 GPB0..3 -> U6 IN1..4 -> J9
 
-  // ---- floor plan, one place to edit ----------------------------------------
-  // Module sockets are placeholder DIP footprints, larger than the real breakout
-  // modules; the outline below is provisional. Pinning each socket to its real
-  // vendor footprint (via `tsci import`) shrinks this toward the 100x100 target.
+  // ---- floor plan ----
   // PCB positions in mm; rows top->bottom: MCU/logic, expanders, drivers,
   // passives, then two connector banks along the bottom edge.
   const PCB: Record<string, [number, number]> = {
