@@ -59,6 +59,46 @@ exterior can stay as-printed.
 
 Per-attempt slice records: [`print-log.md`](print-log.md).
 
+## Finish the core
+
+The core plug forms the funnel's **wetted inside face**, so its surface
+telegraphs into the silicone and decides how the cast releases. Two faces, two
+strategies:
+
+- **Cavity (cosmetic outside):** leave as-printed; mist Mann Ease Release 200
+  ([§21](/hardware/ledger/purchases.md)) every pour.
+- **Core (food-contact inside):** smooth + seal it, and demold it **release-free**
+  — release is kept off this face so it never transfers to the funnel's food side,
+  which means the finished surface *is* the release. So it has to come out smooth.
+
+Finishing the core (with what the ledger already holds):
+
+1. **Knock down the layer lines** with the owned Shineboc wet/dry sponges
+   ([B0D8ZC6HKY](https://www.amazon.com/dp/B0D8ZC6HKY)), ~320 → 600 grit, then
+   wipe with the owned 99.9 % IPA ([B0BZ21DBJ6](https://www.amazon.com/dp/B0BZ21DBJ6))
+   and let it flash off.
+2. **Fill + seal** with 2–3 mist coats of a high-build sandable filler-primer —
+   **Rust-Oleum 249279 automotive filler primer**
+   ([B003CT4AM0](https://www.amazon.com/dp/B003CT4AM0)), the one finishing supply
+   not yet owned (see [Still needed](/hardware/ledger/purchases.md)). Let each coat
+   flash off.
+3. **Wet-sand back** 600 → 2000 grit to a uniform satin — fill the valleys, don't
+   cut back through to bare PETG.
+4. **Let the primer fully gas off before casting** — solvent left in the film is
+   itself a platinum-cure inhibitor. Wait until there is no solvent smell, not a
+   few minutes.
+5. **Coupon-test whenever the finish is new or re-primed:** cast a thumbnail of
+   BBDINO 40A against a scrap of the *actual* primed PETG, full room-temp cure,
+   and check for a tacky/uncured film. Clean → cast for real. Tacky → the primer
+   is inhibiting the cure: switch primer, or accept a light Ease Release 200 on the
+   core too (the post-cure bake + [wetted-surface screen](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md)
+   is the food-safety gate regardless).
+
+At 0.08 mm layers the lines are fine and steps 1–3 may need little fill — but the
+primer also seals the print porosity, so the core releases clean and doesn't
+outgas through its face under vacuum. Re-prime when the finish dulls or bald-spots;
+it is the wear surface that gates how many funnels the mold yields.
+
 ## Cast + bake
 
 Identical procedure to the Kitchen edition — food-grade platinum silicone (Shore
