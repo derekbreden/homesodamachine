@@ -16,13 +16,18 @@ labeled connector. The full connection contract — every module and net — is
   standard 38-pin layout.
 - `spike.tsx` — one ESP32 GPIO → gate resistor → low-side MOSFET → 12 V valve.
   Two layers, routed.
+- `render-board.ts` — `bun render-board.ts <board>.tsx [scheme]`: exports the
+  Gerbers and composes the three copper views into `out/`. The dev watcher
+  (`web/dev-server`) runs it on every save of a board under `pcb/`, so the
+  site's Boards viewer (`/pcb`) stays current.
+- `gerber-compose.ts` — composes a Gerber folder into Top (front copper),
+  Bottom (back copper, seen through the board), and Overlay (both, warm front /
+  cool back) SVGs, aligned in one frame at the real trace widths. `SCHEMES` holds
+  the colour schemes (`copper` default, `blueprint`, `ink`).
 - `svg2png.ts` — SVG → PNG (resvg, headless).
-- `gerber-view.ts` — renders a Gerber folder to true-to-fab SVGs via pcb-stackup:
-  `.cu.*` (soldermask pulled back, copper in copper) and `.real.*` (green
-  soldermask, as manufactured), top and bottom.
-- `out/` — rendered and exported artifacts. `<board>.cu.{top,bottom}.png` and
-  `<board>.real.{top,bottom}.png` are the copper and as-fabbed views of the
-  actual Gerbers.
+- `out/` — rendered and exported artifacts. `<board>.{top,bottom,overlay}.{svg,png}`
+  are the three copper views the site shows; `<board>.gerbers.zip` is the
+  fabrication set they're built from.
 
 ## Toolchain
 
@@ -37,9 +42,9 @@ this directory):
     bunx tsci export -f step          -o out/<board>.step <board>.tsx
     bun svg2png.ts out/<board>.pcb.svg out/<board>.pcb.png
 
-    # true-to-fab copper / as-manufactured views from the Gerbers
-    unzip -o out/<board>.gerbers.zip -d /tmp/gb && bun gerber-view.ts /tmp/gb out/<board>
-    bun svg2png.ts out/<board>.cu.top.svg out/<board>.cu.top.png
+    # gerbers + the three copper views (Top / Bottom / Overlay), svg + png
+    bun render-board.ts <board>.tsx                # default "copper" scheme
+    bun render-board.ts <board>.tsx ink           # or "blueprint"
 
 `tsci import` pulls footprints from JLCPCB part numbers; `tsci convert` ingests
 `.kicad_mod` footprints.
