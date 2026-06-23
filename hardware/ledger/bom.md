@@ -132,24 +132,20 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Flavor reservoir body — right | 1 | PETG | 0.398 | $4.46 |
 | Flavor reservoir cap — left | 1 | PETG | 0.059 | $0.67 |
 | Flavor reservoir cap — right | 1 | PETG | 0.059 | $0.67 |
-| Cap-sense sleeve (2 clamshell halves) | 1 | PETG | 0.002 | $0.02 |
 | Controller tray | 1 | PETG | 0.031 | $0.35 |
 | Driver tray | 1 | PETG | 0.025 | $0.28 |
 | Power tray | 1 | PETG | 0.055 | $0.61 |
 | Enclosure — front half | 1 | PETG | 0.852 | $9.54 |
 | Enclosure — back half | 1 | PETG | 1.533 | $17.17 |
-| Pump cartridge — base | 1 | PETG | 0.206 | $2.31 |
-| Pump cartridge — cap | 1 | PETG | 0.049 | $0.55 |
-| Peristaltic tube (vase-mode, 1 per pump) | 2 | PETG | 0.009 | $0.10 |
 | Valve tray — source-select | 1 | PETG | 0.179 | $2.00 |
 | Valve tray — bag-circuit | 1 | PETG | 0.133 | $1.49 |
 | Valve tray — BiB-gate | 1 | PETG | 0.043 | $0.48 |
 | Valve tray — nozzle-gate | 1 | PETG | 0.043 | $0.48 |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.151 | $7.26 |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.65 |
-| **Printed parts total** | | | **~5.93** | **[$72.54](BOM_SEC7)** |
+| **Printed parts total** | | | **~5.66** | **[$69.56](BOM_SEC7)** |
 
-By material: PETG ≈ 5.77 kg / $64.63, PET-CF ≈ 0.16 kg / $7.91.
+By material: PETG ≈ 5.50 kg / $61.65, PET-CF ≈ 0.16 kg / $7.91.
 
 Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× foam-cap gasket, 2× reservoir gasket, 2× reservoir bulkhead dry washer, 2× reservoir vent retaining ring, 1× faucet mounting gasket, 1× faucet TPU o-ring. The hopper funnel is cast platinum-cure silicone (flavor subsystem). Printed tooling does not ship: the coil-winding mandrel, the foam-pour cap lids, the two-piece hopper-funnel silicone mold, and the single-valve cradle.
 
@@ -157,11 +153,11 @@ Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× foam-c
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [Kamoer KPHM400-SW3B25 12V peristaltic pump](https://www.amazon.com/dp/B09MS6C91D) | paid price per Feb 2026 Amazon 114-1015191 + 112-0545074 (Kamoer Fluid Tech Shanghai); current listing matches at $32.55. Pump leads terminate in quick-disconnect spade terminals — the tool-free cartridge disconnect. | 2 | $32.55 | $65.10 |
+| [Kamoer KPHM400-SW3B25 12V peristaltic pump](https://www.amazon.com/dp/B09MS6C91D) | paid price per Feb 2026 Amazon 114-1015191 + 112-0545074 (Kamoer Fluid Tech Shanghai); current listing matches at $32.55. Pump leads terminate in quick-disconnect spade terminals — the tool-free pump disconnect. | 2 | $32.55 | $65.10 |
 | [Beduan 12V 1/4" solenoid valve (NC)](https://www.amazon.com/dp/B07NWCQJK9) | V-A/B/C/D/E/F/G/H/I/J/KA/KB per fluid-topology-manifold.mmd ([12](SOLENOIDS) per unit); lower-bound delivered single-unit cost (range $9.64–$19.28 across user's mixed orders) | [12](SOLENOIDS) | $9.64 | $115.68 |
 | [John Guest PP1208E 1/4" OD black polypropylene push-to-connect bulkhead union (10-pk)](https://www.amazon.com/dp/B00JYFU8MM) | **Rear-panel umbilical port** — [3](PP1208E_PANEL) bulkheads on the enclosure back panel accepting the 3-tube under-cabinet-faucet umbilical (1 carbonated water + 2 flavors), one bulkhead marked with a blue accent ring to match the blue-color-coded carbonated-water tube per [printed-parts/enclosure/back-panel/README.md](/hardware/printed-parts/enclosure/back-panel/README.md). Black PP, NSF 51 + NSF 61, FDA-compliant materials, EPDM O-ring, 150 psi @ 70°F. Amazon 112-6407862 May 11: $23.11 + $1.68 tax = $24.79 ÷ 10 = $2.479/ea; 10-pk = ~3 builds of stock | [3](PP1208E_TOTAL) (of 10 pk) | $2.48 | $7.44 |
 | [PureSec 1/4" RO push-to-connect 90° elbow bulkhead, white polypropylene (5-pk)](https://www.amazon.com/dp/B0968K4JRN) | **Reservoir-cap outlet port** — single-piece right-angle PTC bulkhead through the reservoir floor trough per [`printed-parts/cold-core/reservoir/floor-and-bulkhead.md`](/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md); the integral 90° elbow routes the syrup line laterally, so no separate union elbow is needed at the reservoir. White PP, water/RO/beverage-rated; ships without a panel o-ring — the panel seal is sourced separately (purchased silicone wet washer + printed TPU dry washer; see the silicone-washer row below). ⌀16 mm mounting hole. 1 per reservoir × [2](RESERVOIRS) = 2/build. Amazon B0968K4JRN: $10.99 ÷ 5 = $2.198/ea; 5-pk = 2.5 builds of stock | [2](RESERVOIRS) (of 5 pk) | $2.20 | $4.40 |
-| [uxcell silicone flat washer, ⌀16 ID × ⌀24 OD × 3 mm, clear (10-pk)](https://www.amazon.com/dp/B07D23JJMR) | **Reservoir bulkhead wet-side face seal** — the primary seal where the PureSec barrel passes up through the reservoir floor; sits in the wet-side counterbore, compressed by the bulkhead hex nut, per [`printed-parts/cold-core/reservoir/floor-and-bulkhead.md`](/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md). Food-reasonable silicone (food-grade implied, not certified) — qualified by the wetted-surface screen, not a cert, per [`printed-parts/cold-core/reservoir/wetted-surface-test.md`](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md). Replaces the former printed TPU wet washer (the dry-side washer stays printed TPU). 1 per reservoir × 2 reservoirs = 2/build. Amazon 112-8819640-4433810 Jun 7: $7.50 ÷ 10 = $0.75/ea; 10-pk = 5 builds of stock | 2 (of 10 pk) | $0.75 | $1.50 |
+| [uxcell silicone flat washer, ⌀16 ID × ⌀24 OD × 3 mm, clear (10-pk)](https://www.amazon.com/dp/B07D23JJMR) | **Reservoir bulkhead wet-side face seal** — the primary seal where the PureSec barrel passes up through the reservoir floor; sits in the wet-side counterbore, compressed by the bulkhead hex nut, per [`printed-parts/cold-core/reservoir/floor-and-bulkhead.md`](/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md). Food-reasonable silicone (food-grade implied, not certified) — qualified by the wetted-surface screen, not a cert, per [`printed-parts/cold-core/reservoir/wetted-surface-test.md`](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md). The dry-side washer is printed TPU. 1 per reservoir × 2 reservoirs = 2/build. Amazon 112-8819640-4433810 Jun 7: $7.50 ÷ 10 = $0.75/ea; 10-pk = 5 builds of stock | 2 (of 10 pk) | $0.75 | $1.50 |
 | [Supply Depot BIB connector, 3/8" red (2-pk)](https://www.amazon.com/dp/B0DMFK9B6P) | rear-panel commercial-syrup input | 1 pk | $19.99 | $19.99 |
 | [MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4-pk)](https://www.amazon.com/dp/B0DMP77B6S) | | 1 pk | $12.97 | $12.97 |
 | [John Guest PP010822E 1/4" OD × 1/4" NPT male connector, black polypropylene (10-pk)](https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-black-polypropylene-1-4-x-1-4-nptf) | 1/4" NPT M × 1/4" PTC adapter pair (one per BiB-input leg, between MAACFLOW 3/8" barb × 1/4" NPT M and the LLDPE feeding the manifold junctions below); 2 per build; FWS WEBFWS100675224 May 15: $11.00 + $5.23 ship + $1.18 tax = $17.41 ÷ 10 = $1.741/ea | 2 (of 10 pk) | $1.74 | $3.48 |
@@ -280,7 +276,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$172.20](BOM_SEC4) |
 | 5. Refrigeration | [$194.67](BOM_SEC5) |
 | 6. Cold core insulation | [$52.38](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$72.54](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$69.56](BOM_SEC7) |
 | 8. Flavor subsystem | [$257.94](BOM_SEC8) |
 | 9. Dispensing | [$53.74](BOM_SEC9) |
 | 10. UI | [$3.21](BOM_SEC10) |
@@ -288,7 +284,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.94](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,568.44](BOM_GRAND)** |
+| **Total** | **[$1,565.46](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
