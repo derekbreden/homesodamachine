@@ -1,22 +1,17 @@
-# Controller PCB — carrier board
+# Controller PCB
 
-A through-hole carrier board the controller modules plug into on 2.54 mm
-headers — the ESP32 DevKitC, the two MCP23017 breakouts, the ULN2803 driver
-boards, the L298N pump driver, and the relay / RTC / RS485 / buck modules. It
-carries power, routes the signals between them, and lands every field harness on
-a labeled connector. The connection contract is
+A through-hole board the controller modules plug into on 2.54 mm headers,
+routing power and signals between them and landing each field harness on a
+labeled connector. The full connection contract — every module and net — is
 [`../netlist.md`](/hardware/pcb/netlist.md).
 
 ## Boards
 
-- `mini.tsx` — an ESP32 DevKitC socket and an MCP23017 (DIP-28) over I²C, with
-  GPA0-7, GPB0-7, and four spare ESP32 GPIO on edge headers; the ESP's 3V3 pin
-  powers the MCP. Through-hole, two layers, routed. The ESP socket rows are
-  22.86 mm apart and the pin map is the standard DevKitC-32E 38-pin layout —
-  both unconfirmed against the physical module.
-- `carrier.tsx` — 11 module sockets and the 16 field connectors, realizing every
-  net in `../netlist.md`. Module sockets are placeholder `dip{n}` footprints; the
-  outline is provisional. Builds; not routed.
+- `mini.tsx` — an ESP32 DevKitC socket and two MCP23017 (DIP-28) on a shared I²C
+  bus (U2 at 0x20, U3 at 0x21); each MCP's GPA0-7 / GPB0-7 on an edge header,
+  four spare ESP32 GPIO on JE, the ESP's 3V3 pin powering both MCPs. Through-hole,
+  two layers, routed. ESP socket rows are 25.4 mm apart (DevKitC-32E); the pin map
+  is the standard 38-pin layout.
 - `spike.tsx` — one ESP32 GPIO → gate resistor → low-side MOSFET → 12 V valve.
   Two layers, routed.
 - `svg2png.ts` — SVG → PNG (resvg, headless).
