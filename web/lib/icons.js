@@ -23,6 +23,8 @@ const INNER = {
   newspaper: '<path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"></path>',
   // Pencil — Drawings (line-art SVGs; also notification kind=drawing).
   pencil: '<path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>',
+  // Circuit board — PCB boards (carrier viewer; also notification kind=pcb).
+  cpu: '<rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line>',
   // Generic file — notification fallback.
   file: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline>',
 };
@@ -36,6 +38,7 @@ function svg(innerKey, className = "") {
 export const PARTS_SVG     = svg("cube");
 export const CHARTS_SVG    = svg("chart");
 export const DRAWINGS_SVG  = svg("pencil");
+export const PCB_SVG       = svg("cpu");
 export const GEAR_SVG      = svg("gear");
 export const BELL_SVG      = svg("bell");
 

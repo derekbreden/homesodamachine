@@ -25,6 +25,49 @@ function readSidecar(rootDir, rel) {
   }
 }
 
+// PCB boards: a board is a tscircuit source (`pcb/<dir>/<name>.tsx`) whose three
+// copper views have been rendered into a sibling `out/` by render-board.ts. We
+// list boards (not raw SVGs) so the viewer shows one card per board with its
+// Top / Bottom / Overlay views attached. Scoped to `<root>/pcb` and skips
+// node_modules so we never recurse the tscircuit toolchain's dependency tree.
+function walkPcbBoards(rootDir) {
+  const pcbDir = path.join(rootDir, "pcb");
+  if (!fs.existsSync(pcbDir)) return [];
+  const boards = [];
+  function walk(dir) {
+    let entries;
+    try {
+      entries = fs.readdirSync(dir, { withFileTypes: true });
+    } catch {
+      return;
+    }
+    for (const entry of entries) {
+      if (entry.name.startsWith(".") || entry.name === "node_modules") continue;
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(full);
+        continue;
+      }
+      if (!entry.name.endsWith(".tsx")) continue;
+      const name = entry.name.replace(/\.tsx$/, "");
+      // A board counts only once its views exist; the overlay is the tell.
+      if (!fs.existsSync(path.join(dir, "out", `${name}.overlay.svg`))) continue;
+      const relDir = path.relative(rootDir, dir).split(path.sep).join("/");
+      const view = (v) => `${relDir}/out/${name}.${v}.svg`;
+      boards.push({
+        source: `${relDir}/${entry.name}`,
+        name,
+        dir: relDir,
+        top: view("top"),
+        bottom: view("bottom"),
+        overlay: view("overlay"),
+      });
+    }
+  }
+  walk(pcbDir);
+  return boards.sort((a, b) => a.source.localeCompare(b.source));
+}
+
 // The viewer serves one of two content roots, chosen per request by the
 // hidden Edition toggle (Settings, dev-mode only). Kitchen (the default) is
 // the hardware/ tree; Lite is pie-in-the-sky/lite/. The client mirrors its
@@ -67,6 +110,11 @@ export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
     res.json(walkFilesUnderDir(rootFor(req), ".svg", "drawings"));
   });
 
+  // PCB boards with their three rendered copper views (see walkPcbBoards).
+  app.get("/api/pcb", (req, res) => {
+    res.json(walkPcbBoards(rootFor(req)));
+  });
+
   app.get("/api/dxf", (req, res) => {
     const rootDir = rootFor(req);
     const paths = walkFiles(rootDir, ".dxf");
@@ -102,6 +150,20 @@ export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
     // (logos, hand-drawn diagrams) aren't reachable through this endpoint.
     if (!rel.split("/").includes("drawings")) {
       return res.status(400).send("Not a drawing");
+    }
+    if (!fs.existsSync(abs)) return res.status(404).send("Not found");
+    res.type("image/svg+xml").send(fs.readFileSync(abs, "utf-8"));
+  });
+
+  // PCB view SVG content. Only the three rendered board views under a
+  // `pcb/.../out/` directory are reachable — not arbitrary SVGs that may live
+  // elsewhere in the tree.
+  app.get("/api/pcb-content/*", (req, res) => {
+    const rel = req.params[0];
+    const abs = safeFile(rootFor(req), rel, ".svg");
+    if (!abs) return res.status(400).send("Invalid path");
+    if (!/(^|\/)pcb\/.+\/out\/[^/]+\.(top|bottom|overlay)\.svg$/.test(rel)) {
+      return res.status(400).send("Not a board view");
     }
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     res.type("image/svg+xml").send(fs.readFileSync(abs, "utf-8"));

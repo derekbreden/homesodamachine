@@ -15,11 +15,12 @@ Both halves pull straight up — a funnel is its own draft. Geometry is read liv
 from the lite funnel: funnel.build_solids() returns the exterior + bore solids,
 and the mold wraps those, so it tracks the funnel as the lite packing keeps
 settling. Both are relieved shells, not solid blocks: a registration skin and a
-forming wall around the funnel, braced by a rib lattice, with the dead volume
+forming wall around the funnel, braced by a diagonal X, with the dead volume
 hollowed out — the cavity relief vents to the bed, the core plug to a shell
-vented through the plate. Forming surfaces carry no release clearance (the mold
-face is the part face). Pour / degas / post-cure bake: see README.md and the
-Kitchen mold's notes.
+vented through the plate. The X is the only solid structure across the relief;
+print supports carry the forming-wall overhangs. Forming surfaces carry no
+release clearance (the mold face is the part face). Pour / degas / post-cure
+bake: see README.md and the Kitchen mold's notes.
 """
 
 import math
@@ -84,17 +85,22 @@ def _loft_rc(w, d, cx0, cy0, z0, r1, cx1, cy1, z1):
     )
 
 
-def _rib_lattice(block_w, block_d, z0, z1, cx, cy, t, pitch):
-    """A grid of thin vertical ribs spanning z[z0,z1] over the block footprint.
-    Kept out of the relief so the steep forming wall lands on a rib every `pitch`
-    and bridges between them; off the forming face, the funnel cut removes them."""
-    nx, ny = max(1, round(block_w / pitch)), max(1, round(block_d / pitch))
-    ribs = _box(t, block_d, z0, z1, cx, cy)
-    for i in range(nx + 1):
-        ribs = ribs.fuse(_box(t, block_d, z0, z1, cx - block_w / 2.0 + i * block_w / nx, cy))
-    for j in range(ny + 1):
-        ribs = ribs.fuse(_box(block_w, t, z0, z1, cx, cy - block_d / 2.0 + j * block_d / ny))
-    return ribs
+def _x_brace(block_w, block_d, z0, z1, cx, cy, t):
+    """Two diagonal beams (corner to corner through the center) spanning z[z0,z1]
+    — the minimal structure that ties the spout boss to the corner skin and keeps
+    the open cavity rigid through the pour and clamp. Off the forming face; print
+    supports carry the forming-wall overhangs, not these."""
+    length = math.hypot(block_w, block_d)
+    angle = math.degrees(math.atan2(block_d, block_w))
+
+    def beam(a):
+        return (
+            cq.Workplane("XY").box(length, t, z1 - z0, centered=(True, True, False))
+            .translate((0, 0, z0)).rotate((0, 0, 0), (0, 0, 1), a)
+            .translate((cx, cy, 0)).val()
+        )
+
+    return beam(angle).fuse(beam(-angle))
 
 
 def _grown_funnel(m, g):
@@ -135,13 +141,13 @@ def build():
 
     # Relieve the dead solid: keep a skin_wall registration shell, a bowl_wall of
     # PETG around the funnel, a mold_base spout boss carrying the pin register, and
-    # a rib lattice — hollow the rest. The relief opens down to the bed (no sealed
-    # void) and stops bowl_wall short of the funnel, so it never reaches the
-    # forming face; the lattice carries the steep deep-Y wall on short bridges.
+    # a diagonal X-brace — hollow everything else. The relief opens down to the bed
+    # and stops bowl_wall short of the funnel, so it never reaches the forming face;
+    # print supports (not PETG) hold the steep forming-wall overhangs over the gaps.
     relief = _box(block_w - 2.0 * skin_wall, block_d - 2.0 * skin_wall,
                   floor_z, top_z + 1.0, cx, cy).cut(_grown_funnel(m, bowl_wall))
     relief = relief.cut(_cyl(m["spout_or"] + bowl_wall, end_z, floor_z, ncx, cy))
-    relief = relief.cut(_rib_lattice(block_w, block_d, floor_z, top_z, cx, cy, rib_wall, rib_pitch))
+    relief = relief.cut(_x_brace(block_w, block_d, floor_z, top_z, cx, cy, brace_wall))
     cavity = cavity.cut(relief)
 
     # CORE: the bore is the plug; extend the spout pin (lead-nosed so it
@@ -191,8 +197,8 @@ def build():
         bosses = bosses.fuse(_cyl(vent_id / 2.0 + boss_wall, top_z + plate_thk, top_z, vx, vy))
     plate_relief_cut = _box(plate_w - 2.0 * skin_wall, plate_d - 2.0 * skin_wall,
                             top_z + plate_relief, top_z + plate_thk + 1.0, cx, cy).cut(bosses)
-    plate_relief_cut = plate_relief_cut.cut(_box(rib_wall, plate_d, top_z + plate_relief, top_z + plate_thk, cx, cy))
-    plate_relief_cut = plate_relief_cut.cut(_box(plate_w, rib_wall, top_z + plate_relief, top_z + plate_thk, cx, cy))
+    plate_relief_cut = plate_relief_cut.cut(_box(brace_wall, plate_d, top_z + plate_relief, top_z + plate_thk, cx, cy))
+    plate_relief_cut = plate_relief_cut.cut(_box(plate_w, brace_wall, top_z + plate_relief, top_z + plate_thk, cx, cy))
     core = core.cut(plate_relief_cut)
 
     # Tidy origin: centered in XY, mold floor at z=0; same transform on both
@@ -250,7 +256,7 @@ def main():
             "PLATE_THK": f"{plate_thk:g} mm",
             "SKIN_WALL": f"{skin_wall:g} mm",
             "BOWL_WALL": f"{bowl_wall:g} mm",
-            "RIB_WALL": f"{rib_wall:g} mm",
+            "BRACE_WALL": f"{brace_wall:g} mm",
             "SIL_WALL": f"{info['sil_wall']:g} mm",
             "SPOUT_BORE": f"{info['spout_id']:g} mm",
             "SIL_VOLUME": f"{info['sil_vol'] / 1000.0:.0f} mL",
@@ -265,7 +271,7 @@ def main():
         },
         expected_counts={
             "MOLD_WALL": 1, "MOLD_BASE": 1, "PLATE_THK": 1, "SIL_WALL": 2,
-            "SKIN_WALL": 1, "BOWL_WALL": 1, "RIB_WALL": 1,
+            "SKIN_WALL": 1, "BOWL_WALL": 1, "BRACE_WALL": 1,
             "SPOUT_BORE": 1, "SIL_VOLUME": 1, "CAVITY_DIMS": 1, "CORE_DIMS": 1,
             "CAVITY_MASS": 1, "CORE_MASS": 1, "PAIR_MASS": 1,
             "FILL_D": 1, "VENT_D": 1, "N_VENTS": 1,

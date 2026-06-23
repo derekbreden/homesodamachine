@@ -31,6 +31,7 @@ const TITLES = {
   parts: "Parts · Home Soda Machine",
   charts: "Charts · Home Soda Machine",
   drawings: "Drawings · Home Soda Machine",
+  pcb: "Boards · Home Soda Machine",
 };
 
 export function mountViewerPages(app) {
@@ -58,6 +59,7 @@ export function mountViewerPages(app) {
   app.get("/3d", renderPage("parts"));
   app.get("/charts", renderPage("charts"));
   app.get("/drawings", renderPage("drawings"));
+  app.get("/pcb", renderPage("pcb"));
 
   // Legacy redirects. /dev?file=foo and /dev/?file=foo were the deep-link
   // shape baked into FCM notifications before the rename; preserve the

@@ -41,7 +41,7 @@ const zipRel = path.join("out", `${board}.gerbers.zip`)
 const tsci = path.join(dir, "node_modules", ".bin", "tsci")
 console.log(`[${board}] exporting gerbers… (cwd=${dir})`)
 try {
-  execFileSync(tsci, ["export", "-f", "gerbers", "-o", zip, `${board}.tsx`], {
+  execFileSync(tsci, ["export", "-f", "gerbers", "-o", zipRel, `${board}.tsx`], {
     cwd: dir,
     encoding: "utf8",
     stdio: ["ignore", "pipe", "pipe"],

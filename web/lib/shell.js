@@ -19,7 +19,7 @@
 //   res.send(renderHead({title, ...}) + renderNav({surface, active}) +
 //            <body content> + renderFooter());
 
-import { PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
+import { PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
 
 function escape(s) {
   return String(s)
@@ -132,12 +132,14 @@ html.notifs-enabled .site-nav .nav-bell { display: inline-flex; }
    The dev surface (.site-nav-dev) always shows them. */
 .site-nav-public a[data-nav="parts"],
 .site-nav-public a[data-nav="charts"],
-.site-nav-public a[data-nav="drawings"] {
+.site-nav-public a[data-nav="drawings"],
+.site-nav-public a[data-nav="pcb"] {
   display: none;
 }
 html.dev-mode .site-nav-public a[data-nav="parts"],
 html.dev-mode .site-nav-public a[data-nav="charts"],
-html.dev-mode .site-nav-public a[data-nav="drawings"] {
+html.dev-mode .site-nav-public a[data-nav="drawings"],
+html.dev-mode .site-nav-public a[data-nav="pcb"] {
   display: inline-flex;
 }
 
@@ -337,6 +339,7 @@ export function renderNav({ surface = "public", active = null }) {
     { href: "/3d", name: "parts", label: "Parts", svg: PARTS_SVG },
     { href: "/charts", name: "charts", label: "Charts", svg: CHARTS_SVG },
     { href: "/drawings", name: "drawings", label: "Drawings", svg: DRAWINGS_SVG },
+    { href: "/pcb", name: "pcb", label: "Boards", svg: PCB_SVG },
   ];
   const textItems = textLinks
     .map((l) => {
