@@ -307,6 +307,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | Feggizuli 280 pc spade connector kit. Order #114-0182432-7123463, placed February 24, 2026 | [B0B4H54KPS](https://www.amazon.com/dp/B0B4H54KPS) | 1 pk | $8.25 | ACQUIRED |
 | 60 pc female spade crimp kit. Order #114-5322942-5213821, placed February 24, 2026 | [B0B9MZJ2ML](https://www.amazon.com/dp/B0B9MZJ2ML) | 1 pk | $10.71 | ACQUIRED |
 | Twidec 20 pc 4.8/6.3 mm spade crimp. Order #114-0884594-8630623, placed February 24, 2026 | [B08F784R9W](https://www.amazon.com/dp/B08F784R9W) | 1 pk | $9.64 | ACQUIRED |
+| Baomain 1/4" / 6.3 mm female insulated quick-disconnect spade terminals, 22–16 AWG, red (100-pack). Order #112-3443368-0402610, placed June 22, 2026 | [B01G408A4M](https://www.amazon.com/dp/B01G408A4M) | 1 pk (100) | $7.50 | ON-ORDER (arriving Jun 24) |
+| Baomain 0.187" / 4.8 mm (3/16") female fully-insulated quick-disconnect spade terminals, 22–16 AWG, red (100-pack). Order #112-3515616-8230610, placed June 22, 2026 | [B01N5APVEE](https://www.amazon.com/dp/B01N5APVEE) | 1 pk (100) | $7.28 | ON-ORDER (arriving Jun 24) |
 | smseace #4 (M3) ring terminals, insulated, 22–16 AWG, 150 pc. Order #112-4073443-1219450, placed June 22, 2026 | [B08B5VS8ZR](https://www.amazon.com/dp/B08B5VS8ZR) | 1 pk (150) | $9.64 | ON-ORDER (arriving Jun 25) |
 | Dupont jumper wires (M/F, M/M, F/F) 20 cm. Order #114-5649971-6455418, placed February 24, 2026 | [B0BRTJXND9](https://www.amazon.com/dp/B0BRTJXND9) | 1 pk | $6.40 | ACQUIRED |
 | ELEGOO 120 pc Dupont jumper wire ribbon. Orders #114-0818390-2733826 (Feb 2, ×1), #114-0077226-6463477 (Feb 24, ×1) | [B01EV70C78](https://www.amazon.com/dp/B01EV70C78) | 2 | $7.49 ea | ACQUIRED |
