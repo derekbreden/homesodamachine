@@ -37,7 +37,7 @@ ULN2803A, RS485, and DS3231; **M2** for the MCP23017 (its holes are ⌀2).
 Local frame: X right, Y deep, Z up; origin at the floor's bottom-left corner,
 Z = 0 the floor underside, floor top at `floor_t`. The tray stands vertical in the
 front-right of the cabinet, beside the [power tray](/pie-in-the-sky/lite/printed-parts/electronics/power-tray/);
-it is placed by [`../../../enclosure-assembly/_contents.py`](/pie-in-the-sky/lite/enclosure-assembly/_contents.py).
+it is placed by [`../../enclosure/enclosure-assembly/_contents.py`](/pie-in-the-sky/lite/printed-parts/enclosure/enclosure-assembly/_contents.py).
 
 > Two caveats carried from the board research: the **MCP23017 mounts cantilevered**
 > (both holes on one short end), and the **ESP32 breakout is natively a 35 mm
