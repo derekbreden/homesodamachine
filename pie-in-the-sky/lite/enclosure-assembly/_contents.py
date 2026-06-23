@@ -17,11 +17,13 @@ zone, ahead of the reservoir:
     outlet elbows), laid on their sides with the motor cylinders pointing -X into
     the bag-circuit tray's air gaps — the lower motor in the clear floor band
     beneath the raised bag, the upper motor in the bag's mid gap. Bulky heads at +X.
+    Pulled +Y until the pump backs meet the short-tray front (the box front edge);
+    the motors thread the bag along X, so the pumps' Y is free.
   * Back-right:  the two SHORT trays (bib-gate, nozzle-gate) STACKED into one
-    footprint, their front against the pump backs. Each tray is linear (tees one
-    end, elbows the other); nozzle is flipped end-for-end so the small ELBOW ends
-    meet and interleave while the bulky tees ride the outer ends. The stack's back
-    face sets the split plane.
+    footprint and turned a quarter-turn so the stack is shallow in Y, pushed back
+    with its back on the split (against the reservoir). Each tray is linear (tees
+    one end, elbows the other); nozzle is flipped end-for-end so the small ELBOW
+    ends meet and interleave while the bulky tees ride the outer ends.
   * Back-left:  the source-select tray stood vertical and turned a quarter-turn so
     its long footprint side lies along the back wall — wide in X, shallow in Y —
     back face on the split, against the reservoir.
@@ -76,28 +78,30 @@ RES_X_INSET = 6.0
 # across the seam. Floor content against a side wall would foul the bottom pods,
 # so it is lifted clear of them — the Kitchen `FOAM_LIFT` idiom.
 FLOOR_LIFT = 14.0
-# Front-zone Y stations. The pumps lie at the front with their motors pointing -X
-# to thread the bag-circuit tray's air gaps; the bib/nozzle stack sits with its
-# front against the pump backs, and the stack's depth sets the split plane (the
-# reservoir seats behind that).
-PUMP_FRONT_Y = 32.0        # pump front face (and box front edge): the front cluster is slid
-                           # back until the bib/nozzle backs nearly meet the reservoir front
+# Front-zone Y stations. The reservoir is the fixed back anchor (RES_FRONT_Y); the
+# split rides just in front of it and the back trays hang off the split. The pumps
+# lie at the front on the floor, motors pointing -X to thread the bag-circuit tray's
+# air gaps — independent of the trays, with open space behind them for a later +Y move.
 PUMP_HEAD_X = 164.0        # the pump heads' +X face — pulled -X so the motor cylinders nest
                            # into the bag tray, motor tips ~1 mm shy of the first bag fitting
 PUMP_UPPER_ZMIN = 93.0     # upper pump height: its motor lands in the bag tray's mid air gap
                            # (~z100-150), as the lower pump's motor runs the floor gap below it
-STACK_TO_PUMP_GAP = 1.0    # gap from the pump backs to the short-tray stack front (Y)
+PUMP_FRONT_OFFSET = 2.0    # pumps set the box front this far ahead of the bag — backing the
+                           # shave off this much lets the bag rise fully clear of the lower motor
+                           # (display rides forward of the bag) with zero contact
+RES_FRONT_Y = 180.0        # reservoir front datum (the back anchor); content packs ahead of it
 BAG_SOURCE_GAP = 1.0       # gap from the bag-circuit back to the source-select front (Y)
-BAG_Z_LIFT = 12.0          # bag-circuit raised this far above the floor lift — as high as the
-                           # seated display (its PCB juts into the box) allows, opening a floor
-                           # channel beneath it for the lower pump motor to run under
-# The short trays (bib, nozzle) STACK into one footprint at the back-right, front
-# against the pump backs. Each tray is linear — tees at one end, ELBOWS at the
-# other. bib stands elbows-up (rot +90 about Y); nozzle is flipped end-for-end
-# (rot -90 about Y) so its elbows point DOWN onto bib's, so the small ELBOW ends
-# interleave and the bulky tees sit at the outer (top/bottom) ends, clear of each
-# other.
-SHORT_X = 135.0            # short-tray / funnel column left edge (clear of source-select)
+BAG_Z_LIFT = 5.0           # bag-circuit raised this far above the floor lift — as high as the
+                           # seated display allows (the display rides the receded front wall and
+                           # juts back over the bag), still opening a floor channel for the lower
+                           # pump motor to run under
+# The short trays (bib, nozzle) STACK into one footprint at the back-right, turned a
+# quarter-turn (rot +90 about Z) so the stack is shallow in Y — pushed back with its
+# back on the split (against the reservoir), opening space in front. Each tray is
+# linear — tees at one end, ELBOWS at the other. bib stands elbows-up (rot +90 about
+# Y); nozzle is flipped end-for-end (rot -90 about Y) so its elbows point DOWN onto
+# bib's, so the small ELBOW ends interleave and the bulky tees sit at the outer ends.
+SHORT_X_MAX = 198.0        # short-tray stack right edge (clear of the +X wall and power)
 # The source-select tray stands full height; its top-left corner would foul the
 # enclosure's rounded top -X/+Z edge (12 mm print-anti-warp round), so it is held
 # off the -X wall by that radius. The lower bag-circuit, which never reaches the
@@ -151,32 +155,22 @@ def _place(shape, *, xmax=None, xmin=None, ymin=None, ymax=None, zmin=None, zmax
 def build():
     placed = {}
 
-    # --- Front, on the floor: the two pump ASSEMBLIES (with elbows), laid on their
-    # sides so the motor CYLINDERS point -X into the bag-circuit tray's air gaps —
-    # bulky heads at +X. The lower pump sits on the floor so its motor runs the
-    # clear band beneath the raised bag; the upper pump rides at PUMP_UPPER_ZMIN so
-    # its motor lands in the bag's mid air gap. Both reach -X until the motor tips
-    # near the first bag fitting. (Orientation: rot +90 Z, then +90 Y to lay the
-    # motor along X, then 180 Z to point it -X with the head at +X.)
-    pump_neg_x = _rot(_rot(_rot(_load(PUMP_STEP), (0, 0, 1), 90.0), (0, 1, 0), 90.0), (0, 0, 1), 180.0)
-    pump_lo = _place(pump_neg_x, xmax=PUMP_HEAD_X, ymin=PUMP_FRONT_Y, zmin=0.0)
-    pb = pump_lo.BoundingBox()
-    pump_up = _place(pump_neg_x, xmax=PUMP_HEAD_X, ymin=PUMP_FRONT_Y, zmin=PUMP_UPPER_ZMIN)
-    placed["pump-lower"] = (pump_lo, PUMP_COLORS["pump-lower"])
-    placed["pump-upper"] = (pump_up, PUMP_COLORS["pump-upper"])
+    # The reservoir is the fixed back anchor; the split rides just in front of it,
+    # and the back trays hang off the split (pushed back against the reservoir).
+    res_front = RES_FRONT_Y
+    split_front = res_front - RES_TO_SPLIT_GAP
 
-    # --- Back-right: bib-gate + nozzle-gate STACKED into one footprint, their
-    # front against the pump backs; the stack's back face sets the split plane (and
-    # the reservoir seats behind it). bib stands elbows-up; nozzle is flipped
-    # end-for-end (rot -90 about Y) so its elbow end points DOWN onto bib's — the
-    # small ELBOW ends interleave (overlap STACK_OVERLAP in Z), the bulky tees ride
-    # the outer ends clear of each other, and the tower clears the funnel floor.
-    bib = _place(_rot(_load(TRAY_STEPS["bib-gate"]), (0, 1, 0), 90.0),
-                 xmin=SHORT_X, ymin=pb.ymax + STACK_TO_PUMP_GAP, zmin=FLOOR_LIFT)
+    # --- Back-right: bib-gate + nozzle-gate STACKED and turned a quarter-turn (rot
+    # +90 about Z) so the stack is shallow in Y, pushed back with its back on the
+    # split (against the reservoir) — opening space in front of it for the pumps. bib
+    # stands elbows-up; nozzle is flipped end-for-end (rot -90 about Y) so its elbow
+    # end points DOWN onto bib's — the small ELBOW ends interleave (overlap
+    # STACK_OVERLAP in Z), the bulky tees ride the outer ends.
+    bib = _place(_rot(_rot(_load(TRAY_STEPS["bib-gate"]), (0, 1, 0), 90.0), (0, 0, 1), 90.0),
+                 xmax=SHORT_X_MAX, ymax=split_front, zmin=FLOOR_LIFT)
     bibb = bib.BoundingBox()
-    split_front = bibb.ymax           # the front zone's back face (the split rides here)
-    noz = _place(_rot(_load(TRAY_STEPS["nozzle-gate"]), (0, 1, 0), -90.0),
-                 xmin=SHORT_X, ymax=split_front, zmin=bibb.zmax - STACK_OVERLAP)
+    noz = _place(_rot(_rot(_load(TRAY_STEPS["nozzle-gate"]), (0, 1, 0), -90.0), (0, 0, 1), 90.0),
+                 xmax=SHORT_X_MAX, ymax=split_front, zmin=bibb.zmax - STACK_OVERLAP)
     placed["bib-gate"] = (bib, COLORS["bib-gate"])
     placed["nozzle-gate"] = (noz, COLORS["nozzle-gate"])
 
@@ -190,17 +184,34 @@ def build():
 
     # --- Left column, ahead of source-select: bag-circuit stood vertical (rot +90
     # about Y), narrow in X in the strip left of the pump motors, its back tucked
-    # against the source-select front (no dead gap). Raised clear of the floor (its
-    # top just under the display housing back) so the pump motors run beneath it.
+    # against the source-select front. Raised clear of the floor so the lower pump
+    # motor runs beneath it; its height is bounded by the seated display above and
+    # that motor below — a tight squeeze the PUMP_FRONT_OFFSET below opens up.
     bag = _place(_rot(_load(TRAY_STEPS["bag-circuit"]), (0, 1, 0), 90.0),
                  xmin=X_INSET, ymax=src.BoundingBox().ymin - BAG_SOURCE_GAP,
                  zmin=FLOOR_LIFT + BAG_Z_LIFT)
     placed["bag-circuit"] = (bag, COLORS["bag-circuit"])
 
+    # --- Front, on the floor: the two pump ASSEMBLIES (with elbows), laid on their
+    # sides so the motor CYLINDERS point -X into the bag-circuit tray's air gaps —
+    # bulky heads at +X. The lower pump sits on the floor so its motor runs the clear
+    # band beneath the bag; the upper pump rides at PUMP_UPPER_ZMIN so its motor lands
+    # in the bag's mid air gap. The pumps set the box FRONT, parked PUMP_FRONT_OFFSET
+    # ahead of the bag (a hair shallower than butting the back row) so the display —
+    # which rides the front wall — sits forward of the bag, giving the bag room to
+    # stand high enough to clear the lower motor while still clearing the display.
+    # Motors thread the bag along X, so the pumps' Y is free. (Orientation: rot +90 Z,
+    # then +90 Y to lay the motor along X, then 180 Z to point it -X, head at +X.)
+    pump_neg_x = _rot(_rot(_rot(_load(PUMP_STEP), (0, 0, 1), 90.0), (0, 1, 0), 90.0), (0, 0, 1), 180.0)
+    pump_front = bag.BoundingBox().ymin - PUMP_FRONT_OFFSET
+    pump_lo = _place(pump_neg_x, xmax=PUMP_HEAD_X, ymin=pump_front, zmin=0.0)
+    pump_up = _place(pump_neg_x, xmax=PUMP_HEAD_X, ymin=pump_front, zmin=PUMP_UPPER_ZMIN)
+    placed["pump-lower"] = (pump_lo, PUMP_COLORS["pump-lower"])
+    placed["pump-upper"] = (pump_up, PUMP_COLORS["pump-upper"])
+
     # --- Reservoir-pockets, back, doorway facing the cabinet back. Rotate +90
     # about Z: local +X doorway -> world +Y (back); local -X spout exits -> world
-    # -Y (front). Seated behind the front zone, the split falling in the gap.
-    res_front = split_front + RES_TO_SPLIT_GAP
+    # -Y (front). Seated at its fixed datum, the split falling just in front of it.
     res = _place(_rot(_load(RES_STEP), (0, 0, 1), 90.0),
                  xmin=RES_X_INSET, ymin=res_front, zmin=0.0)
     placed["reservoir-pockets"] = (res, RES_COLOR)
