@@ -1,6 +1,6 @@
 # Purchases
 
-Capital expenditure ledger for the soda-flavor-injector project. Scope: **2026 calendar year only** (Jan 1 → Jun 8, 2026 YTD). Compiled from Amazon order history, direct-from-vendor receipts (Bambu Lab, XLaserlab, Namecheap), and capitalized contract labor (Anthropic / Claude API + subscription for AI-assisted engineering — CAD, firmware, electrical design, documentation, procurement research). Every item is either already in-hand (**ACQUIRED**), placed but not yet arrived (**ON-ORDER**), or identified as a planned purchase (**LIKELY-TO-BUY**).
+Capital expenditure ledger for the soda-flavor-injector project. Scope: **2026 calendar year only**. Compiled from Amazon order history, direct-from-vendor receipts (Bambu Lab, XLaserlab, Namecheap), and capitalized contract labor (Anthropic / Claude API + subscription for AI-assisted engineering — CAD, firmware, electrical design, documentation, procurement research). Every item is either already in-hand (**ACQUIRED**), placed but not yet arrived (**ON-ORDER**), or identified as a planned purchase (**LIKELY-TO-BUY**).
 
 This is the **purchase ledger** — every buy event, kept for tax records and complete sourcing history. It is not a per-unit bill of materials. Views over this ledger live in sibling files:
 
