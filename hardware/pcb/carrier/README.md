@@ -7,11 +7,13 @@ labeled connector. The full connection contract — every module and net — is
 
 ## Boards
 
-- `mini.tsx` — an ESP32 DevKitC socket and two MCP23017 (DIP-28) on a shared I²C
-  bus (U2 at 0x20, U3 at 0x21); each MCP's GPA0-7 / GPB0-7 on an edge header,
-  four spare ESP32 GPIO on JE, the ESP's 3V3 pin powering both MCPs. Through-hole,
-  two layers, routed. ESP socket rows are 25.4 mm apart (DevKitC-32E); the pin map
-  is the standard 38-pin layout.
+- `mini.tsx` — an ESP32 DevKitC socket; two MCP23017 (DIP-28) on a shared I²C bus
+  (U2 at 0x20, U3 at 0x21); U2's GPA0-7 driving a ULN2803 (U4) that sinks eight
+  12 V solenoid outputs on J_VA; U2's GPB and both of U3's banks on edge headers;
+  four spare ESP32 GPIO on JE. J12 brings 12 V in for the ULN common and the
+  solenoid high side; the ESP's 3V3 pin powers the MCPs. Through-hole, two layers,
+  routed. ESP socket rows are 25.4 mm apart (DevKitC-32E); the pin map is the
+  standard 38-pin layout.
 - `spike.tsx` — one ESP32 GPIO → gate resistor → low-side MOSFET → 12 V valve.
   Two layers, routed.
 - `svg2png.ts` — SVG → PNG (resvg, headless).
