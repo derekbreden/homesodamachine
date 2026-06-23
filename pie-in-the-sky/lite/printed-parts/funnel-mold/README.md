@@ -16,13 +16,13 @@ tracks the funnel as the lite packing keeps settling.
 
 Both are **relieved shells, not solid blocks**: a registration skin on the
 outside, a forming wall around the funnel, and a diagonal X-brace tying the two,
-with the dead volume between them hollowed out. The pair is [954 g](PAIR_MASS)
+with the dead volume between them hollowed out. The pair is [905 g](PAIR_MASS)
 of PETG at 100 % infill — and because the relief leaves the forming faces backed
 by solid wall, 100 % infill costs little. The forming-wall overhangs over the
 relief are carried by **print supports**, not by PETG structure, so the model
 stays minimal.
 
-- **Cavity** ([95.0 × 158.0 × 99.0 mm](CAVITY_DIMS), [656 g](CAVITY_MASS)). The
+- **Cavity** ([95.0 × 158.0 × 99.0 mm](CAVITY_DIMS), [606 g](CAVITY_MASS)). The
   funnel exterior carved from a block, opening up; brim recess at the rim,
   spout-pin register hole in the floor. A [5 mm](SKIN_WALL) outer skin carries
   the [10 mm](MOLD_BASE) spout floor and the [8 mm](MOLD_WALL)-nominal block
@@ -31,7 +31,7 @@ stays minimal.
   and forming wall the dead solid is relieved out, leaving only a [6 mm](BRACE_WALL)
   diagonal X-brace (corner to corner through the spout boss) to hold the open
   cavity rigid through the pour; the relief vents down to the bed.
-- **Core** ([107.0 × 170.0 × 109.0 mm](CORE_DIMS), [298 g](CORE_MASS)). The bore
+- **Core** ([107.0 × 170.0 × 109.0 mm](CORE_DIMS), [299 g](CORE_MASS)). The bore
   as a plug on a [10 mm](PLATE_THK) top plate that forms the brim top and
   registers over the cavity by a skirt; a centered, lead-nosed pin continues the
   [6.35 mm](SPOUT_BORE) spout bore down through the cavity floor, holding the
