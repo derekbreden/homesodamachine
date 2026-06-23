@@ -51,10 +51,10 @@ const Esp32 = ({ x, y }: { x: number; y: number }) => (
     <trace from=".U1B > .GNDb" to="net.GND" />
     <trace from=".U1B > .GNDc" to="net.GND" />
     <trace from=".U1A > .GND" to="net.GND" />
-    {/* I2C on IO16/IO17 — adjacent pins on the MCP-facing side, so the bus is one
-        short bundle instead of a diagonal across the whole socket */}
-    <trace from=".U1B > .IO16" to="net.SDA" />
-    <trace from=".U1B > .IO17" to="net.SCL" />
+    {/* I2C on IO21/IO22 — the ESP32 default Wire pins (16/17 carry the two relay
+        drives in the netlist GPIO map) */}
+    <trace from=".U1B > .IO21" to="net.SDA" />
+    <trace from=".U1B > .IO22" to="net.SCL" />
     <trace from=".R1 > .pin1" to="net.SDA" />
     <trace from=".R1 > .pin2" to="net.V3_3" />
     <trace from=".R2 > .pin1" to="net.SCL" />
