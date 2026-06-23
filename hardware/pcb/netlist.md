@@ -56,7 +56,7 @@ Reference designators are stable across this file and [`bom-board.md`](/hardware
 | C_dec (×~12) | 100 nF X7R | One per IC power pin. |
 | R1, R2 | 4.7 kΩ | I²C SDA / SCL pull-ups to 3.3 V. |
 | R3 | 4.7 kΩ | DS18B20 1-wire pull-up to 3.3 V (migrated from `bom.md` §1 EDGELEC line). |
-| R4, R5 | 10 kΩ | Carbonator-reed pull-ups (GPIO 17 / 27). The 8 reservoir reeds use the MCP23017 internal pull-ups. |
+| R4, R5 | 10 kΩ | Carbonator-reed pull-ups (GPIO 36 / 39) — required, as input-only pads have no internal pull-up. The 8 reservoir reeds use the MCP23017 internal pull-ups. |
 | D1 | TVS, SMAJ15A | 12 V input transient clamp. |
 | D2… | ESD arrays | At each off-board signal connector (1-wire, flow, UARTs, reeds). |
 | LED1, LED2 | Power-good + status | On-board indication, each with a series resistor. |
@@ -80,41 +80,50 @@ screw block for the trunk current). Per [`README.md`](/hardware/pcb/README.md) "
 | J9 | JST-XH ~7P | 7 | ULN U6 ch1–4 → V-I…V-K-B, ch5 → condenser fan + 12 V COM. |
 | J10 | JST-XH 5P | 5 | Reservoir A reeds 1–4 + GND → U3 PB4–7. |
 | J11 | JST-XH 5P | 5 | Reservoir B reeds 1–4 + GND → U4 PA0–3. |
-| J12 | JST-XH 3P | 3 | Carbonator reeds low (GPIO 17) + high (GPIO 27) + GND. |
-| J13 | JST-XH 3P | 3 | DS18B20 1-wire: data (GPIO 16) + 3.3 V + GND (2 probes bussed). |
+| J12 | JST-XH 3P | 3 | Carbonator reeds low (GPIO 36) + high (GPIO 39) + GND. |
+| J13 | JST-XH 3P | 3 | DS18B20 1-wire: data (GPIO 14) + 3.3 V + GND (2 probes bussed). |
 | J14 | JST-XH 3P | 3 | DIGITEN flow meter: pulse (GPIO 23) + 5 V + GND. |
-| J15 | JST-XH 2P | 2 | Backflow drip-pan moisture sensor (SIG-9) + GND. GPIO TBD. |
+| J15 | JST-XH 2P | 2 | Backflow drip-pan moisture sensor (SIG-9, GPIO 13) + GND. |
 | J16 | JST-XH 4P (edge) | 4 | Config-display RS485: A + B + 12 V + GND → 4.3B (SIG-7). |
 | J17 | JST-XH 4P (edge) | 4 | Faucet-display TTL UART: TX + RX + 5 V + GND, up the umbilical (SIG-6). |
 
 ## ESP32-WROOM-32E GPIO map
 
+Clustered so each subsystem lands on physically adjacent module pads: the signals
+to one destination leave the socket as a single bundle, which cuts crossings on
+the carrier PCB and in the hand-wired harness alike. The WROOM-32E and the
+DevKitC carrier share pad order, so one assignment serves both. The six inputs
+sit on input-only / boot-safe pads (34/35/36/39 + 13/23); strapping pins (5, 15)
+are used only where their boot state is harmless.
+
 | GPIO | Function | Connects |
 |---|---|---|
 | 21 | I²C SDA (R1 pull-up) | U3 0x20, U4 0x21, U9 0x68 |
 | 22 | I²C SCL (R2 pull-up) | U3, U4, U9 |
-| 16 | 1-wire data (R3 pull-up) | J13 → 2× DS18B20 (tank wall + suction line) |
-| 17 | Carbonator reed LOW, pull-up | J12 — refill threshold. *(legacy `main.cpp`: clean solenoid)* |
-| 27 | Carbonator reed HIGH, pull-up | J12 — full threshold. *(legacy `main.cpp`: clean solenoid)* |
+| 32 | UART1 TX | U12 DI → RS485 → 4.3B config display |
+| 34 | UART1 RX (input-only) | U12 RO ← 4.3B config display |
+| 33 | UART2 TX | J17 → faucet display |
+| 35 | UART2 RX (input-only) | J17 ← faucet display |
+| 36 | Carbonator reed LOW (input-only, ext pull-up) | J12 — refill threshold |
+| 39 | Carbonator reed HIGH (input-only, ext pull-up) | J12 — full threshold |
 | 23 | Flow pulse (interrupt) | J14 → DIGITEN flow meter |
-| 14 | Relay #1 drive | OK1 → Q1 → K1 (compressor 120 VAC) |
-| 4 | Relay #2 drive | OK2 → Q2 → K2 (diaphragm pump 12 V). *(legacy `main.cpp`: dispensing solenoid)* |
+| 13 | Backflow moisture (SIG-9) | J15 — drip-pan sensor |
+| 14 | 1-wire data (R3 pull-up) | J13 → 2× DS18B20 (tank wall + suction line) |
 | 25 | Pump A IN1 | U7 |
 | 26 | Pump A IN2 | U7 |
-| 33 | Pump A — legacy A_ENA | **Decision:** free spare, or PWM-bearing IN to U7 (DRV8871 is 2-wire). |
+| 27 | Pump A EN (PWM) | U7 — L298N ENA on the carrier; an SMD DRV8871 board leaves it unconnected |
 | 18 | Pump B IN1 | U8 |
 | 5 | Pump B IN2 (strapping pin) | U8 |
-| 19 | Pump B — legacy B_ENA | **Decision:** free spare, or PWM-bearing IN to U8. |
-| 15 | UART1 TX (strapping pin) | U12 DI → RS485 → 4.3B config display |
-| 34 | UART1 RX (input-only) | U12 RO |
-| 32 | UART2 TX | J17 → faucet display |
-| 35 | UART2 RX (input-only) | J17 ← faucet display |
+| 19 | Pump B EN (PWM) | U8 — L298N ENB on the carrier; unconnected on a DRV8871 board |
+| 17 | Relay #1 drive | OK1 → Q1 → K1 (compressor 120 VAC) |
+| 16 | Relay #2 drive | OK2 → Q2 → K2 (diaphragm pump 12 V) |
 | 0 | BOOT strap | SW1 + 10 k + U2 RTS |
 | EN | Reset | SW2 + 10 k + RC + U2 DTR |
 | 1 / 3 | UART0 TX/RX | U2 (service console) |
-| — | Backflow moisture (SIG-9) | **Unassigned.** Candidates: GPIO 2, 12, 13 (or input-only 36/39 with external pull-up). |
 
-Spare after assignment: GPIO 2, 12, 13 (bootstrap-sensitive), input-only 36, 39.
+Spare after assignment: GPIO 15, 4, 12, 2 (all bootstrap-sensitive or freed by the
+re-cluster). The clustered bundles: comms 32/33/34/35 + reeds 36/39 on one socket
+edge; pumps 25/26/27 and 18/5/19 each a contiguous triple; relays 16/17 adjacent.
 
 ## Nets (summary)
 
@@ -127,12 +136,13 @@ Spare after assignment: GPIO 2, 12, 13 (bootstrap-sensitive), input-only 36, 39.
 - **VALVE_I…VALVE_K-B** — U3 PB0–3 → U6 IN1–4 → J9.
 - **FAN_DRIVE** — U4 PA4 → U6 IN5 → J9 (low-side; fan + on +12 V).
 - **RSVR_A_REED1–4 / RSVR_B_REED1–4** — J10/J11 → U3 PB4–7 / U4 PA0–3 (INPUT_PULLUP).
-- **CARB_REED_LOW / _HIGH** — J12 → GPIO 17 / 27.
-- **ONEWIRE_DATA** — GPIO 16 + R3 → J13.
-- **PUMP_A/B_IN1/IN2** — GPIO 25/26, 18/5 → U7/U8; OUT → J6/J7.
-- **RELAY1/2_DRIVE** — GPIO 14/4 → OK1/OK2 → Q1/Q2 → K1/K2 coils.
+- **CARB_REED_LOW / _HIGH** — J12 → GPIO 36 / 39.
+- **ONEWIRE_DATA** — GPIO 14 + R3 → J13.
+- **PUMP_A/B** — GPIO 25/26/27, 18/5/19 (IN1/IN2/EN) → U7/U8; OUT → J6/J7.
+- **RELAY1/2_DRIVE** — GPIO 17/16 → OK1/OK2 → Q1/Q2 → K1/K2 coils.
+- **MOISTURE** — J15 → GPIO 13.
 - **COMPRESSOR_AC_HOT** — J3 → K1 → J4 (switched). Creepage-isolated corner.
-- **UART1 (RS485) / UART2** — GPIO 15/34 → U12 → J16; GPIO 32/35 → J17.
+- **UART1 (RS485) / UART2** — GPIO 32/34 → U12 → J16; GPIO 33/35 → J17.
 - **USB** — J1 → U2 → UART0 + EN/IO0.
 - **VBAT** — BT1 → U9.
 
@@ -140,13 +150,12 @@ Spare after assignment: GPIO 2, 12, 13 (bootstrap-sensitive), input-only 36, 39.
 
 Resolved at schematic capture; each changes a footprint, a net, or a part value.
 
-1. **Pump driver enable pins.** The DRV8871 is a 2-wire (IN1/IN2) bridge; the L298N it
-   replaces was 3-wire (ENA/IN1/IN2). For each pump, either drop the ENA pin (GPIO 33,
-   19 become free spares; speed via PWM on one IN) or keep GPIO 33/19 as the PWM-bearing
-   IN. The choice sets which GPIO carries PWM into U7/U8.
-2. **Backflow moisture-sensor GPIO (SIG-9).** Unassigned in `esp32-pinout.mmd`;
-   [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md)
-   step 6 expects it live, so it must be assigned on the board. Pick from GPIO 2/12/13.
+1. **Pump driver enable pins.** *Resolved: keep 3-wire (EN/IN1/IN2).* The buildable-now
+   carrier uses an L298N, which needs all three; the map carries Pump A on 25/26/27 and
+   Pump B on 18/5/19. A future SMD DRV8871 board (2-wire) simply leaves GPIO 27/19
+   unconnected — no penalty either way.
+2. **Backflow moisture-sensor GPIO (SIG-9).** *Resolved: GPIO 13* (→ J15) — a free,
+   non-input-only digital pin.
 3. **Relay coil voltage (5 V vs 12 V).** Sets Q1/Q2 sizing and the flyback rail. 5 V keeps
    coil current low; 12 V avoids loading the 5 V buck.
 4. **3.3 V rail: second buck vs AMS1117 LDO from 5 V.** A buck is preferred; an LDO from

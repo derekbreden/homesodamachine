@@ -51,7 +51,7 @@ Firmware should NOT dispense, should NOT energize the compressor, and should NOT
 
 ### 3. First water fill of the carbonator
 
-Open the test-rig water-side valve. The carbonator low-level reed reads empty; with the faucet closed and the empty-reed asserted, firmware now permits a refill cycle. Operator commands "fill carbonator" from the bench-acceptance UI. The SeaFlo diaphragm pump energizes (relay #2, ESP32 GPIO 4). Water flows from the bench tap through the Multiplex 19-0897 backflow → FFL38BARB38 → SeaFlo → GASHER water-side check → PP010822E adapter pair → +Z foam-shell slot → TAISHER 90° elbow → vessel top-plate Port 2 → vessel headspace, against the not-yet-charged CO2 side (atmospheric).
+Open the test-rig water-side valve. The carbonator low-level reed reads empty; with the faucet closed and the empty-reed asserted, firmware now permits a refill cycle. Operator commands "fill carbonator" from the bench-acceptance UI. The SeaFlo diaphragm pump energizes (relay #2, ESP32 GPIO 16). Water flows from the bench tap through the Multiplex 19-0897 backflow → FFL38BARB38 → SeaFlo → GASHER water-side check → PP010822E adapter pair → +Z foam-shell slot → TAISHER 90° elbow → vessel top-plate Port 2 → vessel headspace, against the not-yet-charged CO2 side (atmospheric).
 
 Pump runs until the high-level reed asserts, then firmware closes the cycle and de-energizes the pump.
 
