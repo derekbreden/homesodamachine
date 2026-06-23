@@ -101,13 +101,13 @@ A 100 ft roll covers a 3–10 unit batch.
 
 | Subsystem | $ |
 |---|---:|
-| Flavor | [$318.25](LITE_FLAVOR) |
-| Faucet | [$62.77](LITE_FAUCET) |
-| Electronics | [$157.27](LITE_ELECTRONICS) |
-| Mechanical | [$0.86](LITE_MECHANICAL) |
-| Printed | [$32.69](LITE_PRINTED) |
-| Wiring | [$24.13](LITE_WIRING) |
-| Fasteners | [$5.99](LITE_FASTENERS) |
+| 1. Flavor | [$318.25](LITE_FLAVOR) |
+| 2. Faucet | [$62.77](LITE_FAUCET) |
+| 3. Electronics | [$157.27](LITE_ELECTRONICS) |
+| 4. Mechanical | [$0.86](LITE_MECHANICAL) |
+| 5. Printed | [$32.69](LITE_PRINTED) |
+| 6. Wiring | [$24.13](LITE_WIRING) |
+| 7. Fasteners | [$5.99](LITE_FASTENERS) |
 | **Total** | **[$601.96](LITE_TOTAL)** |
 
 ## External / user-supplied (not shipped)
