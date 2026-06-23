@@ -48,11 +48,13 @@ import _contents
 
 # Shell parameters.
 wall = 3.0                  # PETG wall thickness
-# Gap between the contents bbox and the inner wall, on all sides. Unlike the
-# Kitchen edition (whose cold core is pre-rounded to match the box), the Lite
-# contents are square-cornered off-the-shelf parts that sit flush; a small
-# clearance keeps their corners out of the rounded print-relief corners.
-interior_clearance = 5.0
+# Gap between the contents bbox and the inner wall. The front/back (−Y/+Y) walls
+# are flat, so content packs straight against them — no buffer. The ±X / ±Z walls
+# hold only enough margin to keep the tall reservoir's square corners clear of the
+# rounded vertical print-relief corners (corner_round); with less, those corners
+# would foul the fillet.
+clearance_y = 0.0
+clearance_xz = 3.0          # the minimum: below this the reservoir's corners foul the fillet
 corner_round = 12.          # vertical (Y) print-corner relief radius (anti-warp on the bed)
 
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
@@ -93,8 +95,9 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
 # of the display housing, where the removable funnel (../../printed-parts/funnel/)
 # drops in: its brim rests on the top, its straight collar press-fits the opening,
 # and its bore ramps down to a spout inside. A NARROW-X, DEEP-Y slot (the Kitchen
-# hopper turned a quarter-turn): its -X edge sits just right of the tall bag-circuit
-# tray, its +X edge runs flush to the top-right corner pod (no dead strip), and it
+# hopper turned a quarter-turn): its -X edge sits just right of the display housing
+# (the tall back trays end short of it), its +X edge runs flush to the top-right
+# corner pod (no dead strip), and it
 # reaches the full front-half depth back to the seam lip. The short trays beneath
 # it are kept low, so the deep slot has a tall clear chute for a big pour buffer.
 # Split-plane Y. The box fits the print bed whole, so the split is an ACCESS
@@ -189,13 +192,13 @@ def _dims():
     cxmin = min(b.xmin for b in bbs); cxmax = max(b.xmax for b in bbs)
     cymin = min(b.ymin for b in bbs); cymax = max(b.ymax for b in bbs)
     czmin = min(b.zmin for b in bbs); czmax = max(b.zmax for b in bbs)
-    ix0, ix1 = cxmin - interior_clearance, cxmax + interior_clearance
-    iy0, iy1 = cymin - interior_clearance, cymax + interior_clearance
+    ix0, ix1 = cxmin - clearance_xz, cxmax + clearance_xz
+    iy0, iy1 = cymin - clearance_y, cymax + clearance_y
     # The floor is a fixed Z=0 datum, not the lowest content — so parts can stand
     # on feet above it (the floor, seam lip, and braces stay put). The ceiling
     # still follows the tallest content.
-    iz0 = min(czmin, 0.0) - interior_clearance
-    iz1 = czmax + interior_clearance
+    iz0 = min(czmin, 0.0) - clearance_xz
+    iz1 = czmax + clearance_xz
     ox0, ox1 = ix0 - wall, ix1 + wall
     oy0, oy1 = iy0 - wall, iy1 + wall
     oz0, oz1 = iz0 - wall, iz1 + wall
@@ -333,9 +336,9 @@ def _hopper_hole(inner, outer):
     strip of wall there); its +X edge runs flush to the top-right corner pod's
     inboard end; its −Y edge is flush with the inner front wall; its +Y edge is
     clamped to stay just in front of the seam lip, so the deep slot still lives
-    wholly in the front half. The mouth overhangs the tall bag-circuit tray on its
-    −X side, but the funnel tapers in as it descends and clears it (verified in
-    funnel.py against the real solids). The companion funnel
+    wholly in the front half. Only the short bib/nozzle stack sits beneath the
+    slot — the tall back trays end short of its −X edge — so the chute drops clear
+    (verified in funnel.py against the real solids). The companion funnel
     (../../printed-parts/funnel/) derives its collar from this same rect."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer

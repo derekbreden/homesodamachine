@@ -84,21 +84,21 @@ display housing, where the removable hopper
 on the top, its collar press-fitting the opening. Both side edges run flush to
 their neighbours with no dead strip of wall: the −X edge against the display
 gusset, the +X edge against the top-right corner pod; the slot reaches the full
-front-half depth back to the seam lip. The −X side overhangs the tall bag-circuit
-tray, but the funnel's tapered ramp narrows past that tray before reaching its
-height, so the chute still clears it (verified in `funnel.py` against the real
-solids). The short trays beneath the rest of the slot are kept low, so the deep
-slot has a tall clear chute for a big pour buffer. The funnel derives its collar
-from the same rectangle (`_hopper_hole`), so the two always match.
+front-half depth back to the seam lip. Only the short bib/nozzle stack sits
+beneath the slot — the tall back trays end short of its −X edge — so the deep
+slot has a tall clear chute for a big pour buffer (verified in `funnel.py` against
+the real solids). The funnel derives its collar from the same rectangle
+(`_hopper_hole`), so the two always match.
 
 ## Dimensions
 
-Outer envelope [215.5 mm](LITE_OUTER_X) × [318.2 mm](LITE_OUTER_Y) × [305 mm](LITE_OUTER_Z)
-(X × Y × Z) — narrower and shorter than the Kitchen edition (289 × 342 × 310) in
-X and Z, but a touch deeper in Y: with no side column beside the reservoir, the
-trays and pumps pack into a deep front zone instead, trading width for depth.
-Read live from the contents placed by `../enclosure-assembly/_contents.py`, so any
-move in the contents propagates.
+Outer envelope [211.5 mm](LITE_OUTER_X) × [308.2 mm](LITE_OUTER_Y) × [301 mm](LITE_OUTER_Z)
+(X × Y × Z) — smaller than the Kitchen edition (289 × 342 × 310) in all three
+axes: with no cold core, compressor, or condenser, the trays and pumps pack into a
+tight front zone ahead of the reservoir, and the contents sit flush against the
+flat front/back walls (only the ±X/±Z walls keep a thin margin off the rounded
+print-corners). Read live from the contents placed by
+`../enclosure-assembly/_contents.py`, so any move in the contents propagates.
 
 ## Regenerate
 
