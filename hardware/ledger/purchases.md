@@ -542,13 +542,13 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$27,197.43](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$27,226.23](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$29,805.35](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$817.42](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$29,834.15](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$870.70](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$30,665.66](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$30,747.74](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -558,7 +558,7 @@ ACQUIRED hardware by section:
 | 2 | CO2 subsystem (incl. Lillium prototype carbonator $1,129) | [$1,785.10](LEDGER_SEC2) |
 | 3 | Water supply + backflow prevention | [$889.15](LEDGER_SEC3) |
 | 4 | Carbonator plumbing | [$225.27](LEDGER_SEC4) |
-| 5 | Flavor subsystem | [$1,146.40](LEDGER_SEC5) |
+| 5 | Flavor subsystem | [$1,175.20](LEDGER_SEC5) |
 | 6 | Refrigeration | [$1,882.74](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
 | 8 | Electronics — controllers | [$208.03](LEDGER_SEC8) |
