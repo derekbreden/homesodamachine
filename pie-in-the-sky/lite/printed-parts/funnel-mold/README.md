@@ -9,25 +9,48 @@ The funnel is a hollow [3 mm](SIL_WALL) shell, so the silicone forms in the gap
 between an outer **cavity** and an inner **core**.
 
 The mold is a parametric derivative of the lite funnel: `funnel.build_solids()`
-returns the exterior + bore solids, and the two halves are those Booleaned out of
-blocks — so the mold tracks the funnel as the lite packing keeps settling.
+returns the exterior + bore solids, and the two halves wrap those — so the mold
+tracks the funnel as the lite packing keeps settling.
 
 ## The two halves
 
-- **Cavity** ([93.0 × 164.7 × 99.0 mm](CAVITY_DIMS)). The funnel exterior carved out of a
-  block, opening up; brim recess at the rim, spout-pin register hole in the
-  floor. Wall [8 mm](MOLD_WALL) around the part, floor [10 mm](MOLD_BASE) under
-  the spout.
-- **Core** ([105.0 × 176.7 × 109.0 mm](CORE_DIMS)). The bore as a plug on a [10 mm](PLATE_THK)
-  top plate that forms the brim top and registers over the cavity by a skirt; a
-  centered, lead-nosed pin continues the [6.35 mm](SPOUT_BORE) spout bore down
-  through the cavity floor, holding the thin spout wall concentric. A
-  [4 mm](FILL_D) pour port and [5](N_VENTS) [2.5 mm](VENT_D) vents pass
-  through the plate, over the brim flange ring.
+Both are **relieved shells, not solid blocks**: a registration skin on the
+outside, a forming wall around the funnel, and a rib lattice bridging the two,
+with the dead volume between them hollowed out. The pair is [954 g](PAIR_MASS)
+of PETG at 100 % infill — and because the relief leaves the forming faces backed
+by solid wall, 100 % infill costs little.
+
+- **Cavity** ([95.0 × 158.0 × 99.0 mm](CAVITY_DIMS), [656 g](CAVITY_MASS)). The
+  funnel exterior carved from a block, opening up; brim recess at the rim,
+  spout-pin register hole in the floor. A [5 mm](SKIN_WALL) outer skin carries
+  the [10 mm](MOLD_BASE) spout floor and the [8 mm](MOLD_WALL)-nominal block
+  footprint the core skirt registers against; a [6 mm](BOWL_WALL) forming wall
+  contains the silicone and backs the cast against the vacuum pull. Between skin
+  and forming wall the dead solid is relieved out, braced by a [4 mm](RIB_WALL)
+  rib lattice; the relief vents down to the bed, so it prints with no internal
+  support.
+- **Core** ([107.0 × 170.0 × 109.0 mm](CORE_DIMS), [298 g](CORE_MASS)). The bore
+  as a plug on a [10 mm](PLATE_THK) top plate that forms the brim top and
+  registers over the cavity by a skirt; a centered, lead-nosed pin continues the
+  [6.35 mm](SPOUT_BORE) spout bore down through the cavity floor, holding the
+  thin spout wall concentric. The plug is hollow — a forming-wall shell vented up
+  through the plate — so the deep chute is not a solid mass. A [4 mm](FILL_D)
+  pour port and [5](N_VENTS) [2.5 mm](VENT_D) vents pass through the plate, over
+  the brim flange ring.
 
 Both halves pull straight up (a funnel is its own draft); the forming surfaces
 carry no release clearance, so the wall casts at exactly [3 mm](SIL_WALL). One
-funnel is about [84 mL](SIL_VOLUME) of silicone.
+funnel is about [82 mL](SIL_VOLUME) of silicone.
+
+## Print
+
+Both halves print as drawn — cavity opening up, core clamp-face down with the
+plug up. The cavity relief opens to the bed and the rib lattice carries the steep
+deep-Y forming wall on short bridges, so neither half needs support. The forming
+wall and registration skin stay fully solid (the relief stops short of both), so
+the cast surface and the skirt fit are unaffected by the lightening. As on the
+Kitchen mold, smooth the core plug (it forms the funnel's food-contact inside
+face); the cavity exterior can stay as-printed.
 
 ## Cast + bake
 
