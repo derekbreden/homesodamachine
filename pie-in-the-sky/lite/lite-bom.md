@@ -22,8 +22,8 @@
 | Flavor | John Guest PP0308E 1/4" OD union elbow, black PP | 4 | $2.28 | [FWS](https://www.freshwatersystems.com/products/john-guest-union-elbow-black-polypropylene-1-4) | The 90° outlet elbows on the Kamoer pump-outlet pairs (2 per pump × 2 pumps), turning each pump loop in plane per [assembly.md](/pie-in-the-sky/lite/assembly.md) step 4. Same part as the Kitchen build (bom.md §4). Black PP, NSF 51+61, 1/4" push-connect. $2.28/ea from bags of 10. |
 | Faucet | Westbrass A2031-NL-62 8" Touch-Flo dispenser faucet, matte black | 1 | $32.18 | [B0BXFW1J38](https://www.amazon.com/dp/B0BXFW1J38) | Donor through-counter faucet; the carbonated-water inlet is fed from the customer's Lillium output, the two flavor lines injecting at the nozzle. Same part as the Kitchen build (bom.md §9), reskinned by the printed PET-CF shell below. |
 | Faucet | SendCutSend 0.060" 316 SS under-counter plate (touch_flo_under_counter_plate.dxf) | 1 | $3.63 | SendCutSend | Through-counter clamp plate the faucet body draws up against. Same DXF/part as the Kitchen build (bom.md §9). |
-| Faucet | Faucet touch-flo shell — PET-CF, 3-piece split (printed) | 1 | $7.26 | [faucet/touch-flo-shell/](/hardware/printed-parts/faucet/touch-flo-shell/) | The printed faucet reskin around the Westbrass body: Polymaker Fiberon PET-CF17, 0.151 kg/unit @ $48.25/kg. Shared with the Kitchen build (bom.md §7). The TPU mounting gasket + body-to-shell o-ring print from per-unit-trivial stock, not costed. |
-| Faucet | Faucet mounting plate — PET-CF (printed) | 1 | $0.65 | [faucet/touch-flo-mounting-plate/](/hardware/printed-parts/faucet/touch-flo-mounting-plate/) | Printed PET-CF plate paired with the shell, 0.013 kg/unit @ $48.25/kg. Shared with the Kitchen build (bom.md §7). |
+| Faucet | Faucet touch-flo shell — PET-CF, 3-piece split (printed) | 1 | $5.94 | [faucet/touch-flo-shell/](/hardware/printed-parts/faucet/touch-flo-shell/) | The printed faucet reskin around the Westbrass body: Polymaker Fiberon PET-CF17, 0.151 kg/unit @ $39.32/kg. Shared with the Kitchen build (bom.md §7). The TPU mounting gasket + body-to-shell o-ring print from per-unit-trivial stock, not costed. |
+| Faucet | Faucet mounting plate — PET-CF (printed) | 1 | $0.51 | [faucet/touch-flo-mounting-plate/](/hardware/printed-parts/faucet/touch-flo-mounting-plate/) | Printed PET-CF plate paired with the shell, 0.013 kg/unit @ $39.32/kg. Shared with the Kitchen build (bom.md §7). |
 | Electronics | ESP32-DevKitC-32E main controller | 1 | $11.00 | [B09MQJWQN2](https://www.amazon.com/dp/B09MQJWQN2) | Dispense controller; same part/role as the Kitchen build (bom.md §1). Its onboard AMS1117 supplies the 3.3 V I²C rail. |
 | Electronics | Waveshare MCP23017 I²C GPIO expander | 1 | $12.99 | [B07P2H1NZG](https://www.amazon.com/dp/B07P2H1NZG) | Expands the ESP32 I²C into 16 GPIO to address the 12-solenoid manifold bank. One expander — the Lite has no reed inputs, so no second MCP23017. Same part as Kitchen bom.md §1. |
 | Electronics | ULN2803A high-current driver module (2-pc) | 1 | $6.59 | [B0F872W528](https://www.amazon.com/dp/B0F872W528) | Two Darlington-array modules switch the 12 manifold solenoids from the MCP23017's low-current GPIO (a GPIO pin can't source a 12 V valve coil's current). One 2-pack per unit. Same as Kitchen bom.md §1. |
@@ -59,7 +59,7 @@
 
 ## Per-unit cost (estimate)
 
-Estimated delivered parts cost per Lite unit: **[$563.11](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
+Estimated delivered parts cost per Lite unit: **[$561.65](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
 
 ## Clear-PVC length — ~13 ft/unit (estimate)
 

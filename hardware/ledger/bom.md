@@ -119,7 +119,7 @@ Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration modul
 
 ## 7. Printed mechanical parts
 
-Per-unit filament for every printed part shipped inside one finished appliance, one row per part. PETG throughout except the PET-CF (Polymaker Fiberon PET-CF17) faucet shell and mounting plate. `Mass (kg)` and `$` are per-line totals (quantity included). Masses are geometry-derived — CAD solid volume × density (PETG 1.27 g/cm³, PET-CF 1.30 g/cm³) — not slicer-measured. PETG $11.20/kg (Bambu PETG Basic, $224.04 ÷ 20 kg); PET-CF $48.25/kg (Polymaker Fiberon PET-CF17, $96.50 ÷ 2 kg).
+Per-unit filament for every printed part shipped inside one finished appliance, one row per part. PETG throughout except the PET-CF (Polymaker Fiberon PET-CF17) faucet shell and mounting plate. `Mass (kg)` and `$` are per-line totals (quantity included). Masses are geometry-derived — CAD solid volume × density (PETG 1.27 g/cm³, PET-CF 1.30 g/cm³) — not slicer-measured. PETG $11.20/kg (Bambu PETG Basic, $224.04 ÷ 20 kg); PET-CF $39.32/kg (Polymaker Fiberon PET-CF17, $117.96 ÷ 3 kg).
 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
@@ -141,11 +141,11 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Valve tray — bag-circuit | 1 | PETG | 0.133 | $1.49 |
 | Valve tray — BiB-gate | 1 | PETG | 0.043 | $0.48 |
 | Valve tray — nozzle-gate | 1 | PETG | 0.043 | $0.48 |
-| Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.151 | $7.26 |
-| Faucet mounting plate | 1 | PET-CF | 0.013 | $0.65 |
-| **Printed parts total** | | | **~5.66** | **[$69.56](BOM_SEC7)** |
+| Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.151 | $5.94 |
+| Faucet mounting plate | 1 | PET-CF | 0.013 | $0.51 |
+| **Printed parts total** | | | **~5.66** | **[$68.10](BOM_SEC7)** |
 
-By material: PETG ≈ 5.50 kg / $61.65, PET-CF ≈ 0.16 kg / $7.91.
+By material: PETG ≈ 5.50 kg / $61.65, PET-CF ≈ 0.16 kg / $6.45.
 
 Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× foam-cap gasket, 2× reservoir gasket, 2× reservoir bulkhead dry washer, 2× reservoir vent retaining ring, 1× faucet mounting gasket, 1× faucet TPU o-ring. The hopper funnel is cast platinum-cure silicone (flavor subsystem). Printed tooling does not ship: the coil-winding mandrel, the foam-pour cap lids, the two-piece hopper-funnel silicone mold, and the single-valve cradle.
 
@@ -277,7 +277,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$172.20](BOM_SEC4) |
 | 5. Refrigeration | [$194.67](BOM_SEC5) |
 | 6. Cold core insulation | [$52.38](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$69.56](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$68.10](BOM_SEC7) |
 | 8. Flavor subsystem | [$257.94](BOM_SEC8) |
 | 9. Dispensing | [$56.83](BOM_SEC9) |
 | 10. UI | [$3.21](BOM_SEC10) |
@@ -285,7 +285,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.94](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,568.55](BOM_GRAND)** |
+| **Total** | **[$1,567.09](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
