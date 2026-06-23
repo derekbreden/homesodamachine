@@ -68,11 +68,25 @@ def build():
     return assy
 
 
+def _report_display_clear(placed, display):
+    """Content must clear the SEATED display, not just the shell housing — the
+    Waveshare PCB juts into the box behind the facet, deeper than the cavity, so a
+    content-vs-shell check alone misses a tray driven up into it."""
+    worst, who = 0.0, None
+    for name, (shape, _c) in placed.items():
+        v = shape.intersect(display).Volume()
+        if v > worst:
+            worst, who = v, name
+    tag = "CLEAR" if worst < 1.0 else f"CLASH — {who}"
+    print(f"  content vs display: {worst:.1f} mm³  ({tag})")
+
+
 def main():
     assy = build()
     out = _here.parent / "enclosure-assembly.step"
     export_assembly(assy, str(out))
     print(f"-> {out.name}")
+    _report_display_clear(contents.build(), _placed_display())
 
 
 if __name__ == "__main__":

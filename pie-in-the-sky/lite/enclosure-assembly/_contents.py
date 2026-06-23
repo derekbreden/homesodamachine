@@ -84,13 +84,13 @@ PUMP_FRONT_Y = 32.0        # pump front face (and box front edge): the front clu
                            # back until the bib/nozzle backs nearly meet the reservoir front
 PUMP_HEAD_X = 164.0        # the pump heads' +X face — pulled -X so the motor cylinders nest
                            # into the bag tray, motor tips ~1 mm shy of the first bag fitting
-PUMP_UPPER_ZMIN = 114.0    # upper pump height: its motor lands in the bag tray's mid air gap
-                           # (~z120-170), as the lower pump's motor runs the floor gap below it
+PUMP_UPPER_ZMIN = 93.0     # upper pump height: its motor lands in the bag tray's mid air gap
+                           # (~z100-150), as the lower pump's motor runs the floor gap below it
 STACK_TO_PUMP_GAP = 1.0    # gap from the pump backs to the short-tray stack front (Y)
 BAG_SOURCE_GAP = 1.0       # gap from the bag-circuit back to the source-select front (Y)
-BAG_Z_LIFT = 32.0          # bag-circuit raised this far above the floor lift — its top just
-                           # clears the display housing back, opening a floor channel beneath
-                           # it for the pump motors to reach under
+BAG_Z_LIFT = 12.0          # bag-circuit raised this far above the floor lift — as high as the
+                           # seated display (its PCB juts into the box) allows, opening a floor
+                           # channel beneath it for the lower pump motor to run under
 # The short trays (bib, nozzle) STACK into one footprint at the back-right, front
 # against the pump backs. Each tray is linear — tees at one end, ELBOWS at the
 # other. bib stands elbows-up (rot +90 about Y); nozzle is flipped end-for-end
