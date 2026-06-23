@@ -26,6 +26,7 @@ import { paintStepThumb } from "./grid.js";
 import { loadDxfFile, renderDxfThumbnail } from "./dxf.js";
 import { renderMmdThumbnail, refetchOpenMmd } from "./mermaid.js";
 import { renderDrawingThumbnail, refetchOpenDrawing } from "./drawings.js";
+import { renderPcbThumbnail, refetchOpenPcb } from "./pcb.js";
 import { fetchFiles } from "./main.js";
 
 function refreshStepCard(file) {
@@ -90,6 +91,18 @@ function refreshDrawingCard(file) {
   });
 }
 
+function refreshPcbCard(file) {
+  state.pcbThumbCache.delete(file);
+  const card = state.gridEl.querySelector(`.card[data-type="pcb"][data-file="${CSS.escape(file)}"]`);
+  if (!card) { fetchFiles(); return; }
+  const thumbEl = card.querySelector(".pcb-thumb");
+  if (thumbEl) thumbEl.innerHTML = `<div class="placeholder">updating...</div>`;
+  renderPcbThumbnail(file).then((svg) => {
+    if (!thumbEl) return;
+    thumbEl.innerHTML = svg ? svg : `<div class="placeholder">error</div>`;
+  });
+}
+
 function isOpenAs(type, file) {
   return state.currentDetail && state.currentDetail.type === type && state.currentDetail.file === file;
 }
@@ -108,6 +121,12 @@ window.addEventListener("hsm:files-changed", (e) => {
     } else if (file.endsWith(".svg")) {
       refreshDrawingCard(file);
       if (isOpenAs("drawing", file)) refetchOpenDrawing(file);
+    } else if (file.endsWith(".tsx")) {
+      // PCB board: the watcher broadcasts the board source after re-rendering
+      // its three views, so refresh the card and the open modal (if it's this
+      // board) against the new SVGs.
+      refreshPcbCard(file);
+      if (isOpenAs("pcb", file)) refetchOpenPcb(file);
     }
   }
 });
@@ -123,6 +142,7 @@ function reloadOpenDetail() {
   else if (d.type === "dxf") loadDxfFile(d.file, { preserveCamera: true });
   else if (d.type === "mmd") refetchOpenMmd(d.file);
   else if (d.type === "drawing") refetchOpenDrawing(d.file);
+  else if (d.type === "pcb") refetchOpenPcb(d.file);
 }
 
 window.addEventListener("hsm:deploy", (e) => {
@@ -136,6 +156,7 @@ window.addEventListener("hsm:deploy", (e) => {
     state.dxfThumbCache.clear();
     state.mmdThumbCache.clear();
     state.drawingThumbCache.clear();
+    state.pcbThumbCache.clear();
     state.stepEtags.clear();
     state.dxfEtags.clear();
   }

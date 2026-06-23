@@ -74,9 +74,20 @@
 | Fasteners | ruthex M2×4 heat-set inserts, brass (70 pc) | 2 | $0.153 | [B088QJG676](https://www.amazon.com/dp/B088QJG676) | The 2 logic-tray bosses for the MCP23017 (its ⌀2 mm holes take M2, not M3). $10.71/70; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §11). |
 | Fasteners | Sutemribor M2×6 mm SHCS, 12.9 alloy, black oxide (105 pc) | 2 | $0.174 | [B0CXQ7Q7L3](https://www.amazon.com/dp/B0CXQ7Q7L3) | One per M2 boss — the MCP23017 mount on the logic tray. Black-oxide socket-head, matching the BNUOK M3 family. $18.22/105; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §11). |
 
-## Per-unit cost (estimate)
+## Totals
 
-Estimated delivered parts cost per Lite unit: **[$601.96](LITE_TOTAL)**. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
+Estimated delivered parts cost per Lite unit, by subsystem. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
+
+| Subsystem | Per-unit |
+|---|---:|
+| Flavor | [$318.25](LITE_FLAVOR) |
+| Faucet | [$62.77](LITE_FAUCET) |
+| Electronics | [$157.27](LITE_ELECTRONICS) |
+| Mechanical | [$0.86](LITE_MECHANICAL) |
+| Printed | [$32.69](LITE_PRINTED) |
+| Wiring | [$24.13](LITE_WIRING) |
+| Fasteners | [$5.99](LITE_FASTENERS) |
+| **Total** | **[$601.96](LITE_TOTAL)** |
 
 ## Clear-PVC length — ~13 ft/unit (estimate)
 

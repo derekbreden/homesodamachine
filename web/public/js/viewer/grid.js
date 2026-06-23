@@ -7,6 +7,7 @@ import { state } from "./state.js";
 import { openDetail, openDxfDetail } from "./cad-detail.js";
 import { openMmdDetail, renderMmdThumbnail } from "./mermaid.js";
 import { openDrawingDetail, renderDrawingThumbnail } from "./drawings.js";
+import { openPcbDetail, renderPcbThumbnail } from "./pcb.js";
 import { renderThumbnail } from "./step.js";
 import { renderDxfThumbnail } from "./dxf.js";
 
@@ -106,6 +107,7 @@ export function currentSection() {
   const tail = location.pathname.replace(/\/$/, "");
   if (tail === "/charts") return "charts";
   if (tail === "/drawings") return "drawings";
+  if (tail === "/pcb") return "pcb";
   return "parts";
 }
 
@@ -227,6 +229,34 @@ export function buildGrid() {
     }
   }
 
+  if (section === "pcb") {
+    // PCB boards: one card per board, thumbnail is the Top copper view. The
+    // card opens a modal with the Top / Bottom / Overlay toggle (pcb.js). The
+    // dir subline carries the board's folder (minus the leading pcb/).
+    const pcbThumb = (source) => `<div class="pcb-thumb" data-file="${source}"><div class="placeholder">loading...</div></div>`;
+    const header = document.createElement("div");
+    header.className = "section-header";
+    header.textContent = "Boards";
+    state.gridEl.appendChild(header);
+    if (!state.pcbBoards || state.pcbBoards.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "empty-state";
+      empty.textContent = "No boards yet.";
+      state.gridEl.appendChild(empty);
+    } else {
+      for (const board of state.pcbBoards) {
+        const dirLabel = board.dir.replace(/^pcb\//, "");
+        const card = document.createElement("div");
+        card.className = "card";
+        card.dataset.file = board.source;
+        card.dataset.type = "pcb";
+        card.innerHTML = `${pcbThumb(board.source)}<div class="label"><span class="dir">${dirLabel}</span>${board.name}</div>`;
+        card.addEventListener("click", () => openPcbDetail(board.source));
+        state.gridEl.appendChild(card);
+      }
+    }
+  }
+
   // STEP thumbnails: point each card's <img> at its committed server-rendered
   // PNG (with a client-render fallback). Native loading="lazy" handles
   // deferral, so no IntersectionObserver here anymore.
@@ -293,5 +323,24 @@ export function buildGrid() {
 
   for (const card of state.gridEl.querySelectorAll('.card[data-type="drawing"]')) {
     drawingObserver.observe(card);
+  }
+
+  // Lazy-load PCB thumbnails (the board's Top copper view, rendered inline)
+  const pcbObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      pcbObserver.unobserve(entry.target);
+      const file = entry.target.dataset.file;
+      renderPcbThumbnail(file).then((svg) => {
+        const thumbEl = entry.target.querySelector(".pcb-thumb");
+        if (!thumbEl) return;
+        if (!svg) { thumbEl.innerHTML = `<div class="placeholder">error</div>`; return; }
+        thumbEl.innerHTML = svg;
+      });
+    }
+  }, { rootMargin: "200px" });
+
+  for (const card of state.gridEl.querySelectorAll('.card[data-type="pcb"]')) {
+    pcbObserver.observe(card);
   }
 }

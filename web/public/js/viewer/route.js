@@ -18,11 +18,12 @@ import {
 } from "./cad-detail.js";
 import { openMmdDetail, closeMmdDetail } from "./mermaid.js";
 import { openDrawingDetail, closeDrawingDetail } from "./drawings.js";
+import { openPcbDetail, closePcbDetail } from "./pcb.js";
 
 // Browser/OS back button: navigate to whatever the new hash represents.
 // ContentViewer handles Escape / X / backdrop / swipe-down on its own.
-const HASH_PREFIXES = { "step:": "step", "dxf:": "dxf", "mmd:": "mmd", "svg:": "drawing" };
-const OPENERS = { step: openDetail, dxf: openDxfDetail, mmd: openMmdDetail, drawing: openDrawingDetail };
+const HASH_PREFIXES = { "step:": "step", "dxf:": "dxf", "mmd:": "mmd", "svg:": "drawing", "pcb:": "pcb" };
+const OPENERS = { step: openDetail, dxf: openDxfDetail, mmd: openMmdDetail, drawing: openDrawingDetail, pcb: openPcbDetail };
 
 window.addEventListener("popstate", () => {
   const hash = location.hash ? decodeURIComponent(location.hash.slice(1)) : "";
@@ -41,6 +42,7 @@ window.addEventListener("popstate", () => {
   if (state.currentDetail) {
     if (state.currentDetail.type === "mmd") closeMmdDetail(false);
     else if (state.currentDetail.type === "drawing") closeDrawingDetail(false);
+    else if (state.currentDetail.type === "pcb") closePcbDetail(false);
     else closeCadDetail(false);
   }
   if (want.type) OPENERS[want.type](want.file, false);
@@ -60,6 +62,8 @@ export function applyInitialRoute(occtPromise) {
       setTimeout(() => openDxfDetail(initialFile, true), 100);
     } else if (initialFile.endsWith(".svg")) {
       setTimeout(() => openDrawingDetail(initialFile, true), 100);
+    } else if (initialFile.endsWith(".tsx")) {
+      setTimeout(() => openPcbDetail(initialFile, true), 100);
     } else {
       occtPromise.then(() => setTimeout(() => openDetail(initialFile, true), 100));
     }
@@ -77,6 +81,9 @@ export function applyInitialRoute(occtPromise) {
     } else if (hash.startsWith("svg:")) {
       const file = hash.slice(4);
       setTimeout(() => openDrawingDetail(file, false), 100);
+    } else if (hash.startsWith("pcb:")) {
+      const file = hash.slice(4);
+      setTimeout(() => openPcbDetail(file, false), 100);
     } else {
       // Legacy hash format (just a step file path)
       occtPromise.then(() => setTimeout(() => openDetail(hash, false), 100));
