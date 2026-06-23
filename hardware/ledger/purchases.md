@@ -387,6 +387,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Bambu Lab Induction Heating Assembly - Right (H2C and H2C Laser, Bambu SKU 3DPP431) | [innoaddi.com](https://www.innoaddi.com/products/induction-heating-assembly-right) | 1 | $68.98 | ACQUIRED (delivered May 26) |
 | Shineboc 20-pc Wet/Dry Sanding Sponge Set, foam-backed silicon-carbide, 3" × 4", 9 grits (180/320/400/600/800/1200/2000/2500/3000). Order #112-0610257-0936212, placed May 11, 2026 | [B0D8ZC6HKY](https://www.amazon.com/dp/B0D8ZC6HKY) | 1 pk (20) | $10.71 | ACQUIRED (delivered May 12) |
 | Polymaker Fiberon PET-CF17, 1.75 mm × 1 kg, Black. Order #114-0500457-4192257, placed May 17, 2026 | [B0G2CC2YP8](https://www.amazon.com/dp/B0G2CC2YP8) | 2 | $96.50 | ACQUIRED (delivered May 18) |
+| Polymaker Fiberon PET-CF17, 1.75 mm × 3 kg, Black. Order #114-7618665-2979463, placed June 13, 2026 | [B0DJNVQJX9](https://www.amazon.com/dp/B0DJNVQJX9) | 1 | $117.96 | ACQUIRED (delivered June 15) |
 | SunTop food-contact-compliant PETG, 1.75 mm × 1 kg, Clear/Transparent. Order #112-1471049-5385066, placed May 17, 2026 | [B0FP34MJ94](https://www.amazon.com/dp/B0FP34MJ94) | 2 | $49.32 | ACQUIRED (delivered May 18) |
 | Elmer's disappearing purple school glue sticks, washable, 6 g × 12 — print-bed adhesion/release layer. Order #114-9764609-4555460, placed Mar 22, 2026 | [B003ULCZ7M](https://www.amazon.com/dp/B003ULCZ7M) | 1 pk (12) | $7.38 | ACQUIRED (delivered Mar 24) |
 
@@ -539,13 +540,13 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$26,709.43](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$26,827.39](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$29,317.35](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,146.17](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$29,435.31](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$1,195.49](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$30,506.41](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$30,673.69](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -563,7 +564,7 @@ ACQUIRED hardware by section:
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$124.48](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$372.51](LEDGER_SEC12) |
-| 13 | Printing consumables | [$1,073.01](LEDGER_SEC13) |
+| 13 | Printing consumables | [$1,190.97](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$789.94](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$8,453.30](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |
