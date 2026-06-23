@@ -157,8 +157,7 @@ Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× foam-c
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [Kamoer KPHM400-SW3B25 12V peristaltic pump](https://www.amazon.com/dp/B09MS6C91D) | paid price per Feb 2026 Amazon 114-1015191 + 112-0545074 (Kamoer Fluid Tech Shanghai); current listing matches at $32.55 | 2 | $32.55 | $65.10 |
-| [Magnetic pogo pin connector, 2-pin (2 pair)](https://www.amazon.com/dp/B0CSX6ZQ1H) | tool-free pump cartridge electrical connection, one pair per pump | 1 pk | $10.71 | $10.71 |
+| [Kamoer KPHM400-SW3B25 12V peristaltic pump](https://www.amazon.com/dp/B09MS6C91D) | paid price per Feb 2026 Amazon 114-1015191 + 112-0545074 (Kamoer Fluid Tech Shanghai); current listing matches at $32.55. Pump electrical connection is spade terminals — a cartridge swap disconnects the spades and pushes the PTC collets by hand (no magnetic pogo connector). | 2 | $32.55 | $65.10 |
 | [Beduan 12V 1/4" solenoid valve (NC)](https://www.amazon.com/dp/B07NWCQJK9) | V-A/B/C/D/E/F/G/H/I/J/KA/KB per fluid-topology-manifold.mmd ([12](SOLENOIDS) per unit); lower-bound delivered single-unit cost (range $9.64–$19.28 across user's mixed orders) | [12](SOLENOIDS) | $9.64 | $115.68 |
 | [John Guest PP1208E 1/4" OD black polypropylene push-to-connect bulkhead union (10-pk)](https://www.amazon.com/dp/B00JYFU8MM) | **Rear-panel umbilical port** — [3](PP1208E_PANEL) bulkheads on the enclosure back panel accepting the 3-tube under-cabinet-faucet umbilical (1 carbonated water + 2 flavors), one bulkhead marked with a blue accent ring to match the blue-color-coded carbonated-water tube per [printed-parts/enclosure/back-panel/README.md](/hardware/printed-parts/enclosure/back-panel/README.md). Black PP, NSF 51 + NSF 61, FDA-compliant materials, EPDM O-ring, 150 psi @ 70°F. Amazon 112-6407862 May 11: $23.11 + $1.68 tax = $24.79 ÷ 10 = $2.479/ea; 10-pk = ~3 builds of stock | [3](PP1208E_TOTAL) (of 10 pk) | $2.48 | $7.44 |
 | [PureSec 1/4" RO push-to-connect 90° elbow bulkhead, white polypropylene (5-pk)](https://www.amazon.com/dp/B0968K4JRN) | **Reservoir-cap outlet port** — single-piece right-angle PTC bulkhead through the reservoir floor trough per [`printed-parts/cold-core/reservoir/floor-and-bulkhead.md`](/hardware/printed-parts/cold-core/reservoir/floor-and-bulkhead.md); the integral 90° elbow routes the syrup line laterally, so no separate union elbow is needed at the reservoir. White PP, water/RO/beverage-rated; ships without a panel o-ring — the panel seal is sourced separately (purchased silicone wet washer + printed TPU dry washer; see the silicone-washer row below). ⌀16 mm mounting hole. 1 per reservoir × [2](RESERVOIRS) = 2/build. Amazon B0968K4JRN: $10.99 ÷ 5 = $2.198/ea; 5-pk = 2.5 builds of stock | [2](RESERVOIRS) (of 5 pk) | $2.20 | $4.40 |
@@ -282,14 +281,14 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 5. Refrigeration | [$194.67](BOM_SEC5) |
 | 6. Cold core insulation | [$52.38](BOM_SEC6) |
 | 7. Printed parts (PETG + PET-CF) | [$72.54](BOM_SEC7) |
-| 8. Flavor subsystem | [$268.65](BOM_SEC8) |
+| 8. Flavor subsystem | [$257.94](BOM_SEC8) |
 | 9. Dispensing | [$53.74](BOM_SEC9) |
 | 10. UI | [$3.21](BOM_SEC10) |
 | 11. Wiring | [$32.56](BOM_SEC11) |
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.94](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,579.15](BOM_GRAND)** |
+| **Total** | **[$1,568.44](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
