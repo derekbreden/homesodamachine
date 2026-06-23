@@ -74,21 +74,6 @@
 | Fasteners | ruthex M2×4 heat-set inserts, brass (70 pc) | 2 | $0.153 | [B088QJG676](https://www.amazon.com/dp/B088QJG676) | The 2 logic-tray bosses for the MCP23017 (its ⌀2 mm holes take M2, not M3). $10.71/70; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §11). |
 | Fasteners | Sutemribor M2×6 mm SHCS, 12.9 alloy, black oxide (105 pc) | 2 | $0.174 | [B0CXQ7Q7L3](https://www.amazon.com/dp/B0CXQ7Q7L3) | One per M2 boss — the MCP23017 mount on the logic tray. Black-oxide socket-head, matching the BNUOK M3 family. $18.22/105; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §11). |
 
-## Totals
-
-Estimated delivered parts cost per Lite unit, by subsystem. Excludes external/user-supplied items (CO2 tank, flavor concentrate) and shared-stock consumables.
-
-| Subsystem | Per-unit |
-|---|---:|
-| Flavor | [$318.25](LITE_FLAVOR) |
-| Faucet | [$62.77](LITE_FAUCET) |
-| Electronics | [$157.27](LITE_ELECTRONICS) |
-| Mechanical | [$0.86](LITE_MECHANICAL) |
-| Printed | [$32.69](LITE_PRINTED) |
-| Wiring | [$24.13](LITE_WIRING) |
-| Fasteners | [$5.99](LITE_FASTENERS) |
-| **Total** | **[$601.96](LITE_TOTAL)** |
-
 ## Clear-PVC length — ~13 ft/unit (estimate)
 
 The internal routing is not laid out yet (the [enclosure](/pie-in-the-sky/lite/enclosure/) packs the contents but the tube runs are not modeled), so these are routing estimates from component sizes and the ~277 × 270 × 305 mm envelope, not measured runs:
@@ -110,6 +95,25 @@ A 100 ft roll covers a 3–10 unit batch.
 - Costs are resolved delivered single-unit where purchased; FWS catalog unit prices get shipping + tax allocated at order time, per the Kitchen `bom.md` pattern.
 - Dimensions are the manufacturer listing's; real measurements pending the physical units.
 - Food-contact parts are chosen for genuine food-safe **material** suitability, not a third-party listing — D2C sale pursues no NSF/UL listing credential (see [`../../business/regulatory.md`](/business/regulatory.md)). Vendor NSF/FDA marks are recorded where stated, as material descriptors, not a gate.
+- Shared-stock consumables drawn from existing rolls (e.g. the silicone tube stub) are shown at their per-build share or as "—", and don't move the total.
+
+## Totals
+
+| Subsystem | $ |
+|---|---:|
+| Flavor | [$318.25](LITE_FLAVOR) |
+| Faucet | [$62.77](LITE_FAUCET) |
+| Electronics | [$157.27](LITE_ELECTRONICS) |
+| Mechanical | [$0.86](LITE_MECHANICAL) |
+| Printed | [$32.69](LITE_PRINTED) |
+| Wiring | [$24.13](LITE_WIRING) |
+| Fasteners | [$5.99](LITE_FASTENERS) |
+| **Total** | **[$601.96](LITE_TOTAL)** |
+
+## External / user-supplied (not shipped)
+
+- **External carbonator (Lillium-class)** — the chilled carbonated-water source the appliance dispenses; the customer's own under-counter unit, with its CO2 tank + refills.
+- **Flavor concentrate** — SodaStream or BIB syrup.
 
 ## Sources
 [value](NAME) texts are updated by:
