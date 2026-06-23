@@ -6,7 +6,7 @@ The Lite Edition is the flavor half of the main appliance wrapped in a small tra
 
 ## Scope
 
-In: the printed PETG parts ([enclosure halves](/pie-in-the-sky/lite/enclosure/), [reservoir-pockets bag cradle](/pie-in-the-sky/lite/printed-parts/reservoir-pockets/), [funnel / hopper](/pie-in-the-sky/lite/printed-parts/funnel/), the [faucet stack](/hardware/printed-parts/faucet/), and the [pump cases](/hardware/printed-parts/flavor/pump-case/)); the off-the-shelf flavor parts (two Platypus bags, two Kamoer KPHM400 pumps, the manifold valves + John Guest fittings + tubing); the faucet, the Waveshare 1.47″ faucet flavor display, and the Waveshare 4.3″ config display; the electronics family (ESP32, MCP23017 expander, ULN2803A drivers, motor driver, 12 V supply); and one 1/8" stainless bag-hanger rod.
+In: the printed PETG parts ([enclosure halves](/pie-in-the-sky/lite/enclosure/), [reservoir-pockets bag cradle](/pie-in-the-sky/lite/printed-parts/reservoir-pockets/), [funnel / hopper](/pie-in-the-sky/lite/printed-parts/funnel/), the [faucet stack](/hardware/printed-parts/faucet/)); the off-the-shelf flavor parts (two Platypus bags, two Kamoer KPHM400 pumps, the manifold valves + John Guest fittings + tubing); the faucet, the Waveshare 1.47″ faucet flavor display, and the Waveshare 4.3″ config display; the electronics family (ESP32, MCP23017 expander, ULN2803A drivers, motor driver, 12 V supply); and one 1/8" stainless bag-hanger rod.
 
 Out: a finished Lite Edition unit, ready for under-sink install and pairing to a Lillium-class carbonator.
 
@@ -22,7 +22,6 @@ Per-unit parts and cost live in [`lite-bom.md`](/pie-in-the-sky/lite/lite-bom.md
 | Reservoir-pockets bag cradle (printed PETG) | [`reservoir-pockets/`](/pie-in-the-sky/lite/printed-parts/reservoir-pockets/) | Two bag pockets + a rod-hang channel |
 | Funnel / hopper (printed PETG) | [`funnel/`](/pie-in-the-sky/lite/printed-parts/funnel/) | Drop-in pour-through funnel; collar from the hopper opening, to V-B |
 | Faucet stack (printed PET-CF) | [`faucet/touch-flo-shell/`](/hardware/printed-parts/faucet/touch-flo-shell/) | Touch-Flo shell + plate + gasket + o-ring |
-| Pump cases (printed) | [`flavor/pump-case/`](/hardware/printed-parts/flavor/pump-case/) | Houses the Kamoer pumps |
 | 1/8" stainless bag-hanger rod, [158 mm](ROD_LENGTH) | Same stock as the carbonator float rod (Tandefio B0CY4DWJFQ) | Threads both bags' top loops |
 | Platypus Hoser 1 L bag × 2 | [B002OYMRS8](https://www.amazon.com/dp/B002OYMRS8) | Spout-down flavor reservoirs ([`lite-bom.md`](/pie-in-the-sky/lite/lite-bom.md)) |
 | Kamoer KPHM400 pump × 2 | [`lite-bom.md`](/pie-in-the-sky/lite/lite-bom.md) | Valve-locked peristaltic pumps |
@@ -32,7 +31,7 @@ Per-unit parts and cost live in [`lite-bom.md`](/pie-in-the-sky/lite/lite-bom.md
 
 ### 1. Print and prep the parts
 
-Print the transparent-PETG parts — the two enclosure halves (front + back), reservoir-pockets cradle, funnel — plus the PET-CF faucet stack and the pump cases. Deburr the ⌀6.5 mm tube exits and the rod-hang channel so the bag spouts and the hanger rod seat clean.
+Print the transparent-PETG parts — the two enclosure halves (front + back), reservoir-pockets cradle, funnel — plus the PET-CF faucet stack. Deburr the ⌀6.5 mm tube exits and the rod-hang channel so the bag spouts and the hanger rod seat clean.
 
 ### 2. Hang the bag rod and load the bags
 
