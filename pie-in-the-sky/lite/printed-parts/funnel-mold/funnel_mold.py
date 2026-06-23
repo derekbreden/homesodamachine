@@ -14,11 +14,11 @@ that registers over the cavity, with a centered lead-nosed pin continuing the
 Both halves pull straight up — a funnel is its own draft. Geometry is read live
 from the lite funnel: funnel.build_solids() returns the exterior + bore solids,
 and the mold wraps those, so it tracks the funnel as the lite packing keeps
-settling. Both are relieved shells, not solid blocks: a registration skin and a
-forming wall around the funnel, braced by a diagonal X, with the dead volume
-hollowed out — the cavity relief vents to the bed, the core plug to a shell
-vented through the plate. The X is the only solid structure across the relief;
-print supports carry the forming-wall overhangs. Forming surfaces carry no
+settling. Neither is a solid block: a forming wall around the funnel, a top
+registration collar the core skirt drops over, and a low diagonal X-brace that
+stands the funnel up for the pour — everything else open. The core plug is a
+forming-wall shell vented up through the plate. Sacrificial print supports, not
+PETG, hold the forming-wall overhangs while printing. Forming surfaces carry no
 release clearance (the mold face is the part face). Pour / degas / post-cure
 bake: see README.md and the Kitchen mold's notes.
 """
@@ -256,8 +256,8 @@ def main():
             "MOLD_WALL": f"{mold_wall:g} mm",
             "MOLD_BASE": f"{mold_base:g} mm",
             "PLATE_THK": f"{plate_thk:g} mm",
-            "SKIN_WALL": f"{skin_wall:g} mm",
             "BOWL_WALL": f"{bowl_wall:g} mm",
+            "COLLAR_H": f"{collar_h:g} mm",
             "BRACE_WALL": f"{brace_wall:g} mm",
             "SIL_WALL": f"{info['sil_wall']:g} mm",
             "SPOUT_BORE": f"{info['spout_id']:g} mm",
@@ -273,7 +273,7 @@ def main():
         },
         expected_counts={
             "MOLD_WALL": 1, "MOLD_BASE": 1, "PLATE_THK": 1, "SIL_WALL": 2,
-            "SKIN_WALL": 1, "BOWL_WALL": 1, "BRACE_WALL": 1,
+            "BOWL_WALL": 1, "COLLAR_H": 1, "BRACE_WALL": 1,
             "SPOUT_BORE": 1, "SIL_VOLUME": 1, "CAVITY_DIMS": 1, "CORE_DIMS": 1,
             "CAVITY_MASS": 1, "CORE_MASS": 1, "PAIR_MASS": 1,
             "FILL_D": 1, "VENT_D": 1, "N_VENTS": 1,
