@@ -111,9 +111,11 @@ export default () => (
   <board width="125mm" height="100mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
     {/* ESP top edge (y -3.75) flush with 0x21's top edge; 5mm gap to 0x21 kept */}
     <Esp32 x={-34.65} y={-17.75} />
-    <Mcp23017 name="U2" x={5.46} y={20.5} addr="0x20" breakout rot={180} />
+    {/* 0x20 + U4 shifted left 10.16mm as a unit so 0x20's flipped I2C VCC (pin1)
+        sits in x with 0x21's VCC (both x=1.65); moving 0x20 alone would hit U4 */}
+    <Mcp23017 name="U2" x={-4.7} y={20.5} addr="0x20" breakout rot={180} />
     <Mcp23017 name="U3" x={8} y={-23} addr="0x21" breakout />
-    <Uln2803 name="U4" x={-22.69} y={15.19} srcPrefix="U2_GPA" rot={180} />
+    <Uln2803 name="U4" x={-32.85} y={15.19} srcPrefix="U2_GPA" rot={180} />
     <Uln2803 name="U5" x={36.15} y={-17.69} srcPrefix="U3_GPA" />
   </board>
 )
