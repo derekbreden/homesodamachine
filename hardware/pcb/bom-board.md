@@ -62,7 +62,6 @@ unique Extended lines (the ICs that hold value). See
 |---|--:|---|---|---|---|---|
 | R1, R2 | 2 | 4.7 kΩ I²C pull-up | 0603 | C25900 | Basic | SDA / SCL to 3.3 V. |
 | R3 | 1 | 4.7 kΩ 1-wire pull-up | 0603 | C25900 | Basic | DS18B20 data to 3.3 V (migrated from `bom.md` §1 EDGELEC line). |
-| R4, R5 | 2 | 10 kΩ carbonator-reed pull-up | 0603 | C25804 | Basic | GPIO 36 / 39 (input-only pads — external pull-ups required). The 8 reservoir reeds use MCP internal pull-ups. |
 | R_FLOW | 1 | 10 kΩ flow-meter pull-up | 0603 | C25804 | Basic | Open-collector pulse to GPIO 23; add level handling for the 5 V sensor. |
 | R_CC1, R_CC2 | 2 | 5.1 kΩ USB-C CC | 0603 | C25905 | Basic | One per CC line to GND (advertise sink). |
 | R_EN, R_IO0 | 2 | 10 kΩ strap pull-up | 0603 | C25804 | Basic | EN + IO0; plus strap states for IO2/IO12/IO15 per the WROOM table. |
@@ -87,7 +86,7 @@ unique Extended lines (the ICs that hold value). See
 | J8 | 1 | JST-XH ~9P | TH | U5 → solenoids V-A…V-H + COM. |
 | J9 | 1 | JST-XH ~7P | TH | U6 → V-I…V-K-B + condenser fan + COM. |
 | J10, J11 | 2 | JST-XH 5P | TH | Reservoir A / B reeds + GND. |
-| J12 | 1 | JST-XH 3P | TH | Carbonator reeds low/high + GND. |
+| J12 | 1 | JST-XH 3P | TH | Carbonator reeds low/high + GND → U4 (0x21) PB0/PB1. |
 | J13, J14 | 2 | JST-XH 3P | TH | DS18B20 1-wire; flow meter. |
 | J15 | 1 | JST-XH 2P | TH | Backflow moisture + GND. |
 | J16, J17 | 2 | JST-XH 4P (edge) | TH | Config-display RS485; faucet-display UART. |

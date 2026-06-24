@@ -10,19 +10,21 @@ flowchart LR
   %%         inputs (4 reservoir reed switches) on Port B[4:7]
   %%   0x21  inputs (4 reservoir reed switches) on Port A[0:3];
   %%         1 output (condenser fan) on PA4 via ULN2803A #2 ch 5;
-  %%         11 spare bits.
+  %%         inputs (2 carbonator reed switches) on Port B[0:1];
+  %%         9 spare bits.
   %%
-  %% Reservoir level sensing: 4 reeds per reservoir × 2 reservoirs
-  %% = 8 inputs. Reservoir A's 4 reeds land on the existing 0x20's 4
-  %% spare bits (PB[4:7]). Reservoir B's 4 reeds land on a new chip at
-  %% 0x21 (PA[0:3]); PA4 drives the condenser fan via ULN2803A #2
-  %% channel 5 (the fan is a 12 V DC brushless axial — see
-  %% `power.mmd`); the remaining 11 bits of 0x21 are spare.
+  %% Level sensing rides the MCP internal pull-ups (no external resistors):
+  %% the 8 reservoir reeds (4 per reservoir × 2) plus the 2 carbonator reeds,
+  %% 10 reed inputs total. Reservoir A's 4 reeds land on 0x20's 4 spare bits
+  %% (PB[4:7]). Reservoir B's 4 reeds land on 0x21 (PA[0:3]); PA4 drives the
+  %% condenser fan via ULN2803A #2 channel 5 (the fan is a 12 V DC brushless
+  %% axial — see `power.mmd`). The carbonator's low/high reeds land on 0x21
+  %% PB[0:1]; the remaining 9 bits of 0x21 are spare.
   %%
   %% Conditional: 0x21 could be replaced by a 74HC165 shift register or
-  %% direct ESP32 GPIO — saves the chip, decision deferred. (GPIO 36/39
-  %% now read the carbonator reeds, so the direct-GPIO option would draw
-  %% from the remaining spares 15/4/12/2.)
+  %% direct ESP32 GPIO — saves the chip, decision deferred. (It now also
+  %% carries the carbonator reeds, so the direct-GPIO option would draw
+  %% from the spares 15/4/12/2 + input-only 36/39.)
   %%
   %% Architecture detail at
   %% hardware/printed-parts/cold-core/reservoir/level-sensing.md.
@@ -37,7 +39,7 @@ flowchart LR
     direction TB
     RTC["DS3231 RTC\n0x68"]
     MCP0["MCP23017\n0x20 (valves + 4 reed inputs)"]
-    MCP1["MCP23017\n0x21 (4 reed inputs, 12 spare)"]
+    MCP1["MCP23017\n0x21 (6 reed inputs, fan, 9 spare)"]
   end
 
   subgraph Expander0["MCP23017 0x20 — 16 GPIO"]
@@ -68,7 +70,7 @@ flowchart LR
     end
   end
 
-  subgraph Expander1["MCP23017 0x21 — 16 GPIO  (4 INPUTS, 1 OUTPUT, 11 SPARE)"]
+  subgraph Expander1["MCP23017 0x21 — 16 GPIO  (6 INPUTS, 1 OUTPUT, 9 SPARE)"]
     direction TB
 
     subgraph PortA1["Port A  (GPA0–7) — Reservoir B reeds 1-4 + Cond fan + 3 spare"]
@@ -83,10 +85,10 @@ flowchart LR
       A1_GPA7["GPA7  spare"]
     end
 
-    subgraph PortB1["Port B  (GPB0–7) — 8 spare"]
+    subgraph PortB1["Port B  (GPB0–7) — Carbonator reeds + 6 spare"]
       direction TB
-      A1_GPB0["GPB0  spare"]
-      A1_GPB1["GPB1  spare"]
+      A1_GPB0["GPB0 ← Carbonator reed LOW / refill"]
+      A1_GPB1["GPB1 ← Carbonator reed HIGH / full"]
       A1_GPB2["GPB2  spare"]
       A1_GPB3["GPB3  spare"]
       A1_GPB4["GPB4  spare"]
@@ -147,7 +149,7 @@ flowchart LR
     end
   end
 
-  subgraph Reeds["Reservoir Reed Switches  (4 per reservoir, INPUT_PULLUP, magnet pulls LOW)"]
+  subgraph Reeds["Reed Switches  (INPUT_PULLUP, magnet pulls LOW)"]
     direction TB
 
     subgraph RsvrA["Reservoir A — bottom (reed 1) to top (reed 4)"]
@@ -164,6 +166,12 @@ flowchart LR
       RB2["Reed 2"]
       RB3["Reed 3"]
       RB4["Reed 4  FULL threshold"]
+    end
+
+    subgraph Carb["Carbonator vessel — 2 reeds (threshold-only)"]
+      direction TB
+      CARB_LO["Reed LOW  refill threshold"]
+      CARB_HI["Reed HIGH  full threshold"]
     end
   end
 
@@ -200,6 +208,10 @@ flowchart LR
   RB3 -->|"INPUT_PULLUP"| A1_GPA2
   RB4 -->|"INPUT_PULLUP"| A1_GPA3
 
+  %% ── 0x21 Port B[0:1] ← Carbonator reeds low/high ──
+  CARB_LO -->|"INPUT_PULLUP"| A1_GPB0
+  CARB_HI -->|"INPUT_PULLUP"| A1_GPB1
+
   %% ── U1 → Valves ──
   U1_1 ==> VA
   U1_2 ==> VB
@@ -223,8 +235,6 @@ flowchart LR
   style A1_GPA5 fill:#333,stroke:#555,color:#777
   style A1_GPA6 fill:#333,stroke:#555,color:#777
   style A1_GPA7 fill:#333,stroke:#555,color:#777
-  style A1_GPB0 fill:#333,stroke:#555,color:#777
-  style A1_GPB1 fill:#333,stroke:#555,color:#777
   style A1_GPB2 fill:#333,stroke:#555,color:#777
   style A1_GPB3 fill:#333,stroke:#555,color:#777
   style A1_GPB4 fill:#333,stroke:#555,color:#777

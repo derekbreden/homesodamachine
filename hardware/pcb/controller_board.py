@@ -133,8 +133,10 @@ def espnet(name, gpio):
 i2c_sda = espnet("I2C_SDA", "IO21")
 i2c_scl = espnet("I2C_SCL", "IO22")
 onewire = espnet("ONEWIRE", "IO16")
-carb_lo = espnet("CARB_REED_LOW", "IO17")
-carb_hi = espnet("CARB_REED_HIGH", "IO27")
+# Carbonator reeds land on the 0x21 MCP23017 (U4 GPB0/GPB1, wired below) on the
+# MCP internal pull-ups — no ESP pin, no external resistor.
+carb_lo = Net("CARB_REED_LOW")
+carb_hi = Net("CARB_REED_HIGH")
 flow    = espnet("FLOW_PULSE", "IO23")
 rly1    = espnet("RELAY1_DRIVE", "IO14")
 rly2    = espnet("RELAY2_DRIVE", "IO4")
@@ -156,8 +158,6 @@ status  = espnet("STATUS_LED", "IO2")
 res(p3v3, "4.7k", i2c_sda)
 res(p3v3, "4.7k", i2c_scl)
 res(p3v3, "4.7k", onewire)
-res(p3v3, "10k", carb_lo)
-res(p3v3, "10k", carb_hi)
 res(p5, "10k", flow)                            # 5V open-collector sensor
 
 led_st = Part("Device", "LED", ref="LED2", value="STATUS",
@@ -239,6 +239,8 @@ rsvr_b = [Net(f"RSVR_B_REED{i+1}") for i in range(4)]
 for i in range(4):
     wire(rsvr_b[i], pn(u4, f"GPA{i}"))
 wire(pn(u4, "GPA4"), pn(u6, "I5"))              # condenser fan drive
+wire(carb_lo, pn(u4, "GPB0"))                   # carbonator reed low (refill)
+wire(carb_hi, pn(u4, "GPB1"))                   # carbonator reed high (full)
 
 valve_a = jst("J8", 9, "VALVES V-A..V-H + 12V")
 for i in range(8):
@@ -388,10 +390,10 @@ def noconn(part, *keys):
         for p in (hit if isinstance(hit, list) else [hit]):
             wire(NC, p)
 
-noconn(esp, "NC", "IO12", "IO19", "SENSOR_VP", "SENSOR_VN")   # spare + freed IOs
+noconn(esp, "NC", "IO12", "IO17", "IO19", "IO27", "SENSOR_VP", "SENSOR_VN")   # spare + freed IOs
 noconn(u3, "INTA", "INTB")
 noconn(u4, "INTA", "INTB", "GPA5", "GPA6", "GPA7",
-       "GPB0", "GPB1", "GPB2", "GPB3", "GPB4", "GPB5", "GPB6", "GPB7")  # 0x21 spares
+       "GPB2", "GPB3", "GPB4", "GPB5", "GPB6", "GPB7")  # 0x21 spares
 noconn(u6, "I6", "I7", "I8", "O6", "O7", "O8")        # unused ULN #2 channels
 noconn(rtc, "32KHZ", "~{INT}/SQW", "~{RST}")
 noconn(ch, "~{CTS}")

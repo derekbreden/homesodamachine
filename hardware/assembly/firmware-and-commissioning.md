@@ -103,9 +103,9 @@ pio device monitor -e esp32dev
 
 The default firmware periodically prints a sensor-health frame. Step through each line:
 
-- **I²C scan** — expect ACKs at [0x20](MCP_VALVES) (MCP23017 valves + Reservoir A reeds), [0x21](MCP_RESERVOIRS) (Reservoir B reeds + condenser-fan driver bit), [0x68](RTC_ADDR) (DS3231 RTC). Any missing ACK is a wiring or solder defect at that device.
+- **I²C scan** — expect ACKs at [0x20](MCP_VALVES) (MCP23017 valves + Reservoir A reeds), [0x21](MCP_RESERVOIRS) (Reservoir B reeds + carbonator reeds + condenser-fan driver bit), [0x68](RTC_ADDR) (DS3231 RTC). Any missing ACK is a wiring or solder defect at that device.
 - **DS18B20 bus** — expect exactly two devices addressed on the 1-wire bus on [GPIO 14](GPIO_ONEWIRE) (tank-wall probe + suction-line probe). Both should report within [±2 °C](AMBIENT_TOL) of room ambient with the compressor de-energized. If only one address enumerates, suspect a parasitic-power miswire or the [4.7 kΩ](ONEWIRE_PULLUP) pull-up.
-- **Carbonator reeds** ([GPIO 36](GPIO_REED_LOW) low, [GPIO 39](GPIO_REED_HIGH) high) — both INPUT_PULLUP, both reading high (no magnet present, no float installed yet). Bring a small bench magnet near each reed in turn and confirm it pulls low.
+- **Carbonator reeds** (MCP23017 [0x21 PB0](REED_LOW) low, [0x21 PB1](REED_HIGH) high) — both on the MCP internal pull-up, both reading high (no magnet present, no float installed yet). Bring a small bench magnet near each reed in turn and confirm it pulls low.
 - **Reservoir reeds** — all 8 (Reservoir A on MCP23017 [0x20](MCP_VALVES) PB[4:7], Reservoir B on [0x21](MCP_RESERVOIRS) PA[0:3]) reading their no-magnet baseline. Architecture and calibration in [`/hardware/printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md). Same bench-magnet check per reed.
 - **DIGITEN flow meter** ([GPIO 23](GPIO_FLOW)) — manually rotate the impeller with a clean implement; expect a pulse count increment per rotation in the serial output.
 - **MQ-6 hydrocarbon sensor** — needs ~60 s warm-up to reach operating temperature. After warm-up, expect a clean-air baseline reading on its analog input (verify the bench air is free of solvents or LPG nearby — wave clean air across the sensor or move the chassis briefly to a clean-air environment if needed). Architecture: the MQ-6 sits low on the rear interior enclosure wall, mesh facing horizontally inward (the bare sensor's orientation is unconstrained per the Winsen datasheet; this position catches dense R-600a as it pools at the cabinet floor from any of the dominant brazed-joint leak sites) — the hardware-only backstop to the firmware-controlled cutoffs ([`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) "Safety").
@@ -148,7 +148,7 @@ Query the firmware over serial for its loaded setpoints. Expected:
 - Hysteresis: **[±2 °C](HYSTERESIS)** (compressor on at [4 °C](COMP_ON_TEMP), off at [2 °C](COMP_OFF_TEMP))
 - Freeze-protect cutoff: **[−8 °C](FREEZE_CUTOFF)** on the suction-line probe
 - Compressor minimum off-time: **[3 min](MIN_OFF_TIME_BARE)**
-- Carbonator refill threshold: low-level reed ([GPIO 36](GPIO_REED_LOW))
+- Carbonator refill threshold: low-level reed (MCP23017 [0x21 PB0](REED_LOW))
 - Backflow alarm: armed on drip-pan moisture sensor
 
 These are baked into the firmware on `main` as factory defaults; no per-unit setting is required here. Customer-side tuning (ratio adjust, Wi-Fi binding, cloud pairing) happens through the iOS/Android app post-install.
