@@ -2,8 +2,11 @@
 
 A through-hole board the controller modules plug into on 2.54 mm headers,
 routing power and signals between them and landing each field harness on a
-labeled connector. The full connection contract — every module and net — is
-[`../netlist.md`](/hardware/pcb/netlist.md).
+labeled connector. The logical design it realizes — the ESP32 GPIO map, the
+MCP23017 I²C banks (0x20/0x21), and the valve / reed / sensor wiring — is the
+source of truth in [`/hardware/wiring/`](/hardware/wiring/)
+([`esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd),
+[`valve-control.mmd`](/hardware/wiring/valve-control.mmd)).
 
 ## Boards
 
