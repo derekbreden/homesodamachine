@@ -3403,7 +3403,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -5.7749999999999995,
-      "y": -1.7166666666666668
+      "y": -0.8416666666666668
     },
     "rotation": 0,
     "size": {
@@ -3470,7 +3470,7 @@
     "rotation": 0,
     "position": {
       "x": -6.5249999999999995,
-      "y": -3.846666666666667
+      "y": -2.971666666666667
     },
     "color": "#006464",
     "font_size": 0.18
@@ -3484,7 +3484,7 @@
     "rotation": 0,
     "position": {
       "x": -6.5249999999999995,
-      "y": 0.41333333333333366
+      "y": 1.2883333333333336
     },
     "color": "#006464",
     "font_size": 0.18
@@ -3494,7 +3494,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -5.7749999999999995,
-      "y": -5.95
+      "y": -5.075
     },
     "rotation": 0,
     "size": {
@@ -3561,7 +3561,7 @@
     "rotation": 0,
     "position": {
       "x": -6.5249999999999995,
-      "y": -8.080000000000002
+      "y": -7.205000000000001
     },
     "color": "#006464",
     "font_size": 0.18
@@ -3575,7 +3575,7 @@
     "rotation": 0,
     "position": {
       "x": -6.5249999999999995,
-      "y": -3.82
+      "y": -2.945
     },
     "color": "#006464",
     "font_size": 0.18
@@ -4308,7 +4308,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": 0.0833333333333337
+      "y": 0.9583333333333337
     },
     "source_port_id": "source_port_0",
     "facing_direction": "right",
@@ -4325,7 +4325,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": -0.11666666666666647
+      "y": 0.7583333333333335
     },
     "source_port_id": "source_port_1",
     "facing_direction": "right",
@@ -4342,7 +4342,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": -0.31666666666666665
+      "y": 0.5583333333333333
     },
     "source_port_id": "source_port_2",
     "facing_direction": "right",
@@ -4359,7 +4359,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": -0.5166666666666668
+      "y": 0.35833333333333317
     },
     "source_port_id": "source_port_3",
     "facing_direction": "right",
@@ -4376,7 +4376,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": -0.716666666666667
+      "y": 0.158333333333333
     },
     "source_port_id": "source_port_4",
     "facing_direction": "right",
@@ -4393,7 +4393,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": -0.9166666666666672
+      "y": -0.041666666666667185
     },
     "source_port_id": "source_port_5",
     "facing_direction": "right",
@@ -4410,7 +4410,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": -1.1166666666666674
+      "y": -0.24166666666666736
     },
     "source_port_id": "source_port_6",
     "facing_direction": "right",
@@ -4427,7 +4427,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": -1.3166666666666675
+      "y": -0.44166666666666754
     },
     "source_port_id": "source_port_7",
     "facing_direction": "right",
@@ -4444,7 +4444,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": -1.5166666666666675
+      "y": -0.6416666666666675
     },
     "source_port_id": "source_port_8",
     "facing_direction": "right",
@@ -4461,7 +4461,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": -1.7166666666666675
+      "y": -0.8416666666666675
     },
     "source_port_id": "source_port_9",
     "facing_direction": "right",
@@ -4478,7 +4478,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": -1.9166666666666674
+      "y": -1.0416666666666674
     },
     "source_port_id": "source_port_10",
     "facing_direction": "right",
@@ -4495,7 +4495,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": -2.116666666666667
+      "y": -1.2416666666666674
     },
     "source_port_id": "source_port_11",
     "facing_direction": "right",
@@ -4512,7 +4512,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": -2.3166666666666673
+      "y": -1.4416666666666673
     },
     "source_port_id": "source_port_12",
     "facing_direction": "right",
@@ -4529,7 +4529,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": -2.5166666666666675
+      "y": -1.6416666666666673
     },
     "source_port_id": "source_port_13",
     "facing_direction": "right",
@@ -4546,7 +4546,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": -2.7166666666666672
+      "y": -1.8416666666666672
     },
     "source_port_id": "source_port_14",
     "facing_direction": "right",
@@ -4563,7 +4563,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": -2.916666666666667
+      "y": -2.041666666666667
     },
     "source_port_id": "source_port_15",
     "facing_direction": "right",
@@ -4580,7 +4580,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": -3.116666666666667
+      "y": -2.241666666666667
     },
     "source_port_id": "source_port_16",
     "facing_direction": "right",
@@ -4597,7 +4597,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": -3.3166666666666673
+      "y": -2.4416666666666673
     },
     "source_port_id": "source_port_17",
     "facing_direction": "right",
@@ -4614,7 +4614,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -4.625,
-      "y": -3.5166666666666675
+      "y": -2.6416666666666675
     },
     "source_port_id": "source_port_18",
     "facing_direction": "right",
@@ -4631,7 +4631,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -4.1499999999999995
+      "y": -3.2749999999999995
     },
     "source_port_id": "source_port_19",
     "facing_direction": "right",
@@ -4648,7 +4648,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -4.35
+      "y": -3.4749999999999996
     },
     "source_port_id": "source_port_20",
     "facing_direction": "right",
@@ -4665,7 +4665,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -4.55
+      "y": -3.675
     },
     "source_port_id": "source_port_21",
     "facing_direction": "right",
@@ -4682,7 +4682,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -4.75
+      "y": -3.875
     },
     "source_port_id": "source_port_22",
     "facing_direction": "right",
@@ -4699,7 +4699,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -4.95
+      "y": -4.075
     },
     "source_port_id": "source_port_23",
     "facing_direction": "right",
@@ -4716,7 +4716,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -5.15
+      "y": -4.275
     },
     "source_port_id": "source_port_24",
     "facing_direction": "right",
@@ -4733,7 +4733,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -5.3500000000000005
+      "y": -4.4750000000000005
     },
     "source_port_id": "source_port_25",
     "facing_direction": "right",
@@ -4750,7 +4750,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -5.550000000000001
+      "y": -4.675000000000001
     },
     "source_port_id": "source_port_26",
     "facing_direction": "right",
@@ -4767,7 +4767,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -5.750000000000001
+      "y": -4.875000000000001
     },
     "source_port_id": "source_port_27",
     "facing_direction": "right",
@@ -4784,7 +4784,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -5.950000000000001
+      "y": -5.075000000000001
     },
     "source_port_id": "source_port_28",
     "facing_direction": "right",
@@ -4801,7 +4801,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -6.15
+      "y": -5.275
     },
     "source_port_id": "source_port_29",
     "facing_direction": "right",
@@ -4818,7 +4818,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -6.3500000000000005
+      "y": -5.4750000000000005
     },
     "source_port_id": "source_port_30",
     "facing_direction": "right",
@@ -4835,7 +4835,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -6.550000000000001
+      "y": -5.675000000000001
     },
     "source_port_id": "source_port_31",
     "facing_direction": "right",
@@ -4852,7 +4852,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -6.750000000000001
+      "y": -5.875000000000001
     },
     "source_port_id": "source_port_32",
     "facing_direction": "right",
@@ -4869,7 +4869,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -6.950000000000001
+      "y": -6.075000000000001
     },
     "source_port_id": "source_port_33",
     "facing_direction": "right",
@@ -4886,7 +4886,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -7.15
+      "y": -6.275
     },
     "source_port_id": "source_port_34",
     "facing_direction": "right",
@@ -4903,7 +4903,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -7.3500000000000005
+      "y": -6.4750000000000005
     },
     "source_port_id": "source_port_35",
     "facing_direction": "right",
@@ -4920,7 +4920,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -7.550000000000001
+      "y": -6.675000000000001
     },
     "source_port_id": "source_port_36",
     "facing_direction": "right",
@@ -4937,7 +4937,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -4.625,
-      "y": -7.750000000000001
+      "y": -6.875000000000001
     },
     "source_port_id": "source_port_37",
     "facing_direction": "right",
@@ -6491,31 +6491,31 @@
       {
         "from": {
           "x": -4.625,
-          "y": -4.1499999999999995
+          "y": -3.2749999999999995
         },
         "to": {
           "x": -4.425,
-          "y": -4.1499999999999995
+          "y": -3.2749999999999995
         }
       },
       {
         "from": {
           "x": -4.425,
-          "y": -4.1499999999999995
+          "y": -3.2749999999999995
         },
         "to": {
           "x": -4.425,
-          "y": -2.5166666666666675
+          "y": -1.6416666666666673
         }
       },
       {
         "from": {
           "x": -4.425,
-          "y": -2.5166666666666675
+          "y": -1.6416666666666673
         },
         "to": {
           "x": -4.625,
-          "y": -2.5166666666666675
+          "y": -1.6416666666666673
         }
       }
     ],
@@ -7179,21 +7179,21 @@
       {
         "from": {
           "x": -4.625,
-          "y": 0.0833333333333337
+          "y": 0.9583333333333337
         },
         "to": {
-          "x": -4.524,
-          "y": 0.0833333333333337
+          "x": -4.174,
+          "y": 0.9583333333333337
         }
       },
       {
         "from": {
-          "x": -4.524,
-          "y": 0.0833333333333337
+          "x": -4.174,
+          "y": 0.9583333333333337
         },
         "to": {
-          "x": -4.524,
-          "y": 0.2843333333333337
+          "x": -4.174,
+          "y": 1.0093333333333336
         }
       }
     ],
@@ -7380,12 +7380,12 @@
     "text": "V3_3",
     "source_net_id": "source_net_0",
     "anchor_position": {
-      "x": -4.524,
-      "y": 0.2843333333333337
+      "x": -4.174,
+      "y": 1.0093333333333336
     },
     "center": {
-      "x": -4.524,
-      "y": 0.37433333333333374
+      "x": -4.174,
+      "y": 1.0993333333333337
     },
     "anchor_side": "bottom",
     "symbol_name": "rail_up"
@@ -7460,11 +7460,11 @@
     "source_net_id": "source_net_1",
     "anchor_position": {
       "x": -4.425,
-      "y": -4.1499999999999995
+      "y": -3.2749999999999995
     },
     "center": {
       "x": -4.185,
-      "y": -4.1499999999999995
+      "y": -3.2749999999999995
     },
     "anchor_side": "left"
   },
@@ -7584,11 +7584,11 @@
     "source_net_id": "source_net_3",
     "anchor_position": {
       "x": -4.625,
-      "y": -4.55
+      "y": -3.675
     },
     "center": {
       "x": -4.385,
-      "y": -4.55
+      "y": -3.675
     },
     "anchor_side": "left"
   },
@@ -7614,11 +7614,11 @@
     "source_net_id": "source_net_2",
     "anchor_position": {
       "x": -4.625,
-      "y": -5.15
+      "y": -4.275
     },
     "center": {
       "x": -4.385,
-      "y": -5.15
+      "y": -4.275
     },
     "anchor_side": "left"
   },
@@ -8062,7 +8062,7 @@
     "pcb_component_id": "pcb_component_0",
     "center": {
       "x": -34.65,
-      "y": -10.3
+      "y": -5.050000000000001
     },
     "width": 47.22,
     "height": 1.5,
@@ -8075,14 +8075,14 @@
     "position_mode": "relative_to_group_anchor",
     "positioned_relative_to_pcb_board_id": "pcb_board_0",
     "display_offset_x": -34.65,
-    "display_offset_y": -10.3
+    "display_offset_y": -5.050000000000001
   },
   {
     "type": "pcb_component",
     "pcb_component_id": "pcb_component_1",
     "center": {
       "x": -34.65,
-      "y": -35.7
+      "y": -30.45
     },
     "width": 47.22,
     "height": 1.5,
@@ -8095,7 +8095,7 @@
     "position_mode": "relative_to_group_anchor",
     "positioned_relative_to_pcb_board_id": "pcb_board_0",
     "display_offset_x": -34.65,
-    "display_offset_y": -35.7
+    "display_offset_y": -30.45
   },
   {
     "type": "pcb_component",
@@ -8333,7 +8333,7 @@
       "1"
     ],
     "x": -57.51,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -8351,7 +8351,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -57.51,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -8374,7 +8374,7 @@
       "2"
     ],
     "x": -54.97,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -8389,7 +8389,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -54.97,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8399,7 +8399,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -54.97,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8408,7 +8408,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -54.97,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -8431,7 +8431,7 @@
       "3"
     ],
     "x": -52.43,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -8446,7 +8446,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -52.43,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8456,7 +8456,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -52.43,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8465,7 +8465,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -52.43,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -8488,7 +8488,7 @@
       "4"
     ],
     "x": -49.89,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -8503,7 +8503,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -49.89,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8513,7 +8513,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -49.89,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8522,7 +8522,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -49.89,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -8545,7 +8545,7 @@
       "5"
     ],
     "x": -47.349999999999994,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -8560,7 +8560,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -47.349999999999994,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8570,7 +8570,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -47.349999999999994,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8579,7 +8579,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -47.349999999999994,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -8602,7 +8602,7 @@
       "6"
     ],
     "x": -44.81,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -8617,7 +8617,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -44.81,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8627,7 +8627,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -44.81,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8636,7 +8636,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -44.81,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -8659,7 +8659,7 @@
       "7"
     ],
     "x": -42.269999999999996,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -8674,7 +8674,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -42.269999999999996,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8684,7 +8684,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -42.269999999999996,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8693,7 +8693,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -42.269999999999996,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -8716,7 +8716,7 @@
       "8"
     ],
     "x": -39.73,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -8731,7 +8731,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -39.73,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8741,7 +8741,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -39.73,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8750,7 +8750,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -39.73,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -8773,7 +8773,7 @@
       "9"
     ],
     "x": -37.19,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -8788,7 +8788,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -37.19,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8798,7 +8798,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -37.19,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8807,7 +8807,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -37.19,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -8830,7 +8830,7 @@
       "10"
     ],
     "x": -34.65,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -8845,7 +8845,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -34.65,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8855,7 +8855,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -34.65,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8864,7 +8864,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -34.65,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -8887,7 +8887,7 @@
       "11"
     ],
     "x": -32.11,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -8902,7 +8902,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -32.11,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8912,7 +8912,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -32.11,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8921,7 +8921,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -32.11,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -8944,7 +8944,7 @@
       "12"
     ],
     "x": -29.569999999999997,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -8959,7 +8959,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -29.569999999999997,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8969,7 +8969,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -29.569999999999997,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8978,7 +8978,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -29.569999999999997,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9001,7 +9001,7 @@
       "13"
     ],
     "x": -27.029999999999998,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -9016,7 +9016,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -27.029999999999998,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9026,7 +9026,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -27.029999999999998,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9035,7 +9035,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -27.029999999999998,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9058,7 +9058,7 @@
       "14"
     ],
     "x": -24.489999999999995,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -9073,7 +9073,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -24.489999999999995,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9083,7 +9083,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -24.489999999999995,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9092,7 +9092,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -24.489999999999995,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9115,7 +9115,7 @@
       "15"
     ],
     "x": -21.949999999999996,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -9130,7 +9130,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -21.949999999999996,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9140,7 +9140,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -21.949999999999996,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9149,7 +9149,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -21.949999999999996,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9172,7 +9172,7 @@
       "16"
     ],
     "x": -19.409999999999997,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -9187,7 +9187,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -19.409999999999997,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9197,7 +9197,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -19.409999999999997,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9206,7 +9206,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -19.409999999999997,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9229,7 +9229,7 @@
       "17"
     ],
     "x": -16.869999999999997,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -9244,7 +9244,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -16.869999999999997,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9254,7 +9254,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -16.869999999999997,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9263,7 +9263,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -16.869999999999997,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9286,7 +9286,7 @@
       "18"
     ],
     "x": -14.329999999999998,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -9301,7 +9301,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -14.329999999999998,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9311,7 +9311,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -14.329999999999998,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9320,7 +9320,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -14.329999999999998,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9343,7 +9343,7 @@
       "19"
     ],
     "x": -11.79,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "layers": [
       "top",
       "bottom"
@@ -9358,7 +9358,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -11.79,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9368,7 +9368,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -11.79,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9377,7 +9377,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -11.79,
-      "y": -9.175
+      "y": -3.9250000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9393,7 +9393,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -34.65,
-      "y": -7.760000000000001
+      "y": -2.5100000000000007
     },
     "font": "tscircuit2024",
     "font_size": 0.7,
@@ -9410,7 +9410,7 @@
     "layer": "top",
     "center": {
       "x": -34.65,
-      "y": -10.3
+      "y": -5.050000000000001
     },
     "width": 49.26,
     "height": 3.54,
@@ -9430,7 +9430,7 @@
       "1"
     ],
     "x": -57.51,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -9448,7 +9448,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -57.51,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9471,7 +9471,7 @@
       "2"
     ],
     "x": -54.97,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -9486,7 +9486,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -54.97,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9496,7 +9496,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -54.97,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9505,7 +9505,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -54.97,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9528,7 +9528,7 @@
       "3"
     ],
     "x": -52.43,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -9543,7 +9543,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -52.43,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9553,7 +9553,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -52.43,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9562,7 +9562,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -52.43,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9585,7 +9585,7 @@
       "4"
     ],
     "x": -49.89,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -9600,7 +9600,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -49.89,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9610,7 +9610,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -49.89,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9619,7 +9619,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -49.89,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9642,7 +9642,7 @@
       "5"
     ],
     "x": -47.349999999999994,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -9657,7 +9657,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -47.349999999999994,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9667,7 +9667,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -47.349999999999994,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9676,7 +9676,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -47.349999999999994,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9699,7 +9699,7 @@
       "6"
     ],
     "x": -44.81,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -9714,7 +9714,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -44.81,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9724,7 +9724,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -44.81,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9733,7 +9733,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -44.81,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9756,7 +9756,7 @@
       "7"
     ],
     "x": -42.269999999999996,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -9771,7 +9771,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -42.269999999999996,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9781,7 +9781,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -42.269999999999996,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9790,7 +9790,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -42.269999999999996,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9813,7 +9813,7 @@
       "8"
     ],
     "x": -39.73,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -9828,7 +9828,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -39.73,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9838,7 +9838,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -39.73,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9847,7 +9847,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -39.73,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9870,7 +9870,7 @@
       "9"
     ],
     "x": -37.19,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -9885,7 +9885,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -37.19,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9895,7 +9895,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -37.19,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9904,7 +9904,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -37.19,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9927,7 +9927,7 @@
       "10"
     ],
     "x": -34.65,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -9942,7 +9942,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -34.65,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9952,7 +9952,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -34.65,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9961,7 +9961,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -34.65,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9984,7 +9984,7 @@
       "11"
     ],
     "x": -32.11,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -9999,7 +9999,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -32.11,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -10009,7 +10009,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -32.11,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -10018,7 +10018,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -32.11,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -10041,7 +10041,7 @@
       "12"
     ],
     "x": -29.569999999999997,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -10056,7 +10056,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -29.569999999999997,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -10066,7 +10066,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -29.569999999999997,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -10075,7 +10075,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -29.569999999999997,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -10098,7 +10098,7 @@
       "13"
     ],
     "x": -27.029999999999998,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -10113,7 +10113,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -27.029999999999998,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -10123,7 +10123,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -27.029999999999998,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -10132,7 +10132,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -27.029999999999998,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -10155,7 +10155,7 @@
       "14"
     ],
     "x": -24.489999999999995,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -10170,7 +10170,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -24.489999999999995,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -10180,7 +10180,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -24.489999999999995,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -10189,7 +10189,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -24.489999999999995,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -10212,7 +10212,7 @@
       "15"
     ],
     "x": -21.949999999999996,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -10227,7 +10227,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -21.949999999999996,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -10237,7 +10237,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -21.949999999999996,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -10246,7 +10246,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -21.949999999999996,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -10269,7 +10269,7 @@
       "16"
     ],
     "x": -19.409999999999997,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -10284,7 +10284,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -19.409999999999997,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -10294,7 +10294,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -19.409999999999997,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -10303,7 +10303,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -19.409999999999997,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -10326,7 +10326,7 @@
       "17"
     ],
     "x": -16.869999999999997,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -10341,7 +10341,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -16.869999999999997,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -10351,7 +10351,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -16.869999999999997,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -10360,7 +10360,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -16.869999999999997,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -10383,7 +10383,7 @@
       "18"
     ],
     "x": -14.329999999999998,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -10398,7 +10398,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -14.329999999999998,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -10408,7 +10408,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -14.329999999999998,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -10417,7 +10417,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -14.329999999999998,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -10440,7 +10440,7 @@
       "19"
     ],
     "x": -11.79,
-    "y": -35.7,
+    "y": -30.45,
     "layers": [
       "top",
       "bottom"
@@ -10455,7 +10455,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -11.79,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -10465,7 +10465,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -11.79,
-    "y": -35.7,
+    "y": -30.45,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -10474,7 +10474,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -11.79,
-      "y": -34.575
+      "y": -29.325
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -10490,7 +10490,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -34.65,
-      "y": -33.160000000000004
+      "y": -27.91
     },
     "font": "tscircuit2024",
     "font_size": 0.7,
@@ -10507,7 +10507,7 @@
     "layer": "top",
     "center": {
       "x": -34.65,
-      "y": -35.7
+      "y": -30.45
     },
     "width": 49.26,
     "height": 3.54,
@@ -10521,23 +10521,23 @@
     "route": [
       {
         "x": -60.65,
-        "y": -37
+        "y": -31.75
       },
       {
         "x": -8.649999999999999,
-        "y": -37
+        "y": -31.75
       },
       {
         "x": -8.649999999999999,
-        "y": -9
+        "y": -3.75
       },
       {
         "x": -60.65,
-        "y": -9
+        "y": -3.75
       },
       {
         "x": -60.65,
-        "y": -37
+        "y": -31.75
       }
     ],
     "stroke_width": 0.2,
@@ -10549,7 +10549,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -34.65,
-      "y": -23
+      "y": -17.75
     },
     "font": "tscircuit2024",
     "font_size": 3,
@@ -16008,7 +16008,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -57.51,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_0"
   },
   {
@@ -16023,7 +16023,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -54.97,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_1"
   },
   {
@@ -16038,7 +16038,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -52.43,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_2"
   },
   {
@@ -16053,7 +16053,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -49.89,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_3"
   },
   {
@@ -16068,7 +16068,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -47.349999999999994,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_4"
   },
   {
@@ -16083,7 +16083,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -44.81,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_5"
   },
   {
@@ -16098,7 +16098,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -42.269999999999996,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_6"
   },
   {
@@ -16113,7 +16113,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -39.73,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_7"
   },
   {
@@ -16128,7 +16128,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -37.19,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_8"
   },
   {
@@ -16143,7 +16143,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -34.65,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_9"
   },
   {
@@ -16158,7 +16158,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -32.11,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_10"
   },
   {
@@ -16173,7 +16173,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -29.569999999999997,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_11"
   },
   {
@@ -16188,7 +16188,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -27.029999999999998,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_12"
   },
   {
@@ -16203,7 +16203,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -24.489999999999995,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_13"
   },
   {
@@ -16218,7 +16218,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -21.949999999999996,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_14"
   },
   {
@@ -16233,7 +16233,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -19.409999999999997,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_15"
   },
   {
@@ -16248,7 +16248,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -16.869999999999997,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_16"
   },
   {
@@ -16263,7 +16263,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -14.329999999999998,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_17"
   },
   {
@@ -16278,7 +16278,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -11.79,
-    "y": -10.3,
+    "y": -5.050000000000001,
     "source_port_id": "source_port_18"
   },
   {
@@ -16293,7 +16293,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -57.51,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_19"
   },
   {
@@ -16308,7 +16308,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -54.97,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_20"
   },
   {
@@ -16323,7 +16323,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -52.43,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_21"
   },
   {
@@ -16338,7 +16338,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -49.89,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_22"
   },
   {
@@ -16353,7 +16353,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -47.349999999999994,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_23"
   },
   {
@@ -16368,7 +16368,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -44.81,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_24"
   },
   {
@@ -16383,7 +16383,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -42.269999999999996,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_25"
   },
   {
@@ -16398,7 +16398,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -39.73,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_26"
   },
   {
@@ -16413,7 +16413,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -37.19,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_27"
   },
   {
@@ -16428,7 +16428,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -34.65,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_28"
   },
   {
@@ -16443,7 +16443,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -32.11,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_29"
   },
   {
@@ -16458,7 +16458,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -29.569999999999997,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_30"
   },
   {
@@ -16473,7 +16473,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -27.029999999999998,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_31"
   },
   {
@@ -16488,7 +16488,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -24.489999999999995,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_32"
   },
   {
@@ -16503,7 +16503,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -21.949999999999996,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_33"
   },
   {
@@ -16518,7 +16518,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -19.409999999999997,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_34"
   },
   {
@@ -16533,7 +16533,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -16.869999999999997,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_35"
   },
   {
@@ -16548,7 +16548,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -14.329999999999998,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_36"
   },
   {
@@ -16563,7 +16563,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -11.79,
-    "y": -35.7,
+    "y": -30.45,
     "source_port_id": "source_port_37"
   },
   {
@@ -17891,7 +17891,7 @@
     "cad_component_id": "cad_component_0",
     "position": {
       "x": -34.65,
-      "y": -10.3,
+      "y": -5.050000000000001,
       "z": 0.7
     },
     "rotation": {
@@ -17910,7 +17910,7 @@
     "cad_component_id": "cad_component_1",
     "position": {
       "x": -34.65,
-      "y": -35.7,
+      "y": -30.45,
       "z": 0.7
     },
     "rotation": {
@@ -18550,29 +18550,36 @@
       },
       {
         "route_type": "wire",
-        "x": 4.1899999999999995,
-        "y": -0.6237306885962717,
+        "x": 4.604498854607497,
+        "y": 3.25,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 1.9873653442981356,
-        "y": -2.826365344298136,
+        "x": 8.553853424281439,
+        "y": -0.6993545696739415,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 1.991,
-        "y": -2.83,
+        "x": 8.557354569673942,
+        "y": -0.6993545696739415,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 8.586,
+        "y": -0.728,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "via",
-        "x": 1.991,
-        "y": -2.83,
+        "x": 8.586,
+        "y": -0.728,
         "from_layer": "top",
         "to_layer": "bottom",
         "via_diameter": 0.3,
@@ -18580,43 +18587,36 @@
       },
       {
         "route_type": "wire",
-        "x": 1.991,
-        "y": -2.83,
+        "x": 8.586,
+        "y": -0.728,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 3.1832483890378804,
-        "y": -4.02224838903788,
+        "x": 8.586,
+        "y": -2.1300000000000003,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 7.996057427918165,
-        "y": -4.02224838903788,
+        "x": 8.83076292508966,
+        "y": -2.37476292508966,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 8.111248389037879,
-        "y": -4.02224838903788,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": 8.161,
-        "y": -4.072,
+        "x": 8.853,
+        "y": -2.397,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "via",
-        "x": 8.161,
-        "y": -4.072,
+        "x": 8.853,
+        "y": -2.397,
         "from_layer": "bottom",
         "to_layer": "top",
         "via_diameter": 0.3,
@@ -18624,15 +18624,15 @@
       },
       {
         "route_type": "wire",
-        "x": 8.161,
-        "y": -4.072,
+        "x": 8.853,
+        "y": -2.397,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 8.161,
-        "y": -4.641,
+        "x": 8.853,
+        "y": -5.333,
         "width": 0.2,
         "layer": "top"
       },
@@ -18656,7 +18656,7 @@
       {
         "route_type": "wire",
         "x": -52.43,
-        "y": -35.7,
+        "y": -30.45,
         "width": 0.2,
         "layer": "top",
         "start_pcb_port_id": "pcb_port_21"
@@ -18664,35 +18664,35 @@
       {
         "route_type": "wire",
         "x": -52.43,
-        "y": -34.912237294476135,
+        "y": -30.435335079459197,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -51.04255537102251,
-        "y": -33.524792665498644,
+        "x": -50.84944643378705,
+        "y": -28.854781513246248,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -51.04255537102251,
-        "y": -33.50255537102251,
+        "x": -50.84944643378705,
+        "y": -28.83644643378705,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -50.95499999910638,
-        "y": -33.41632025024877,
+        "x": -50.74299893912588,
+        "y": -28.743582853075612,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "via",
-        "x": -50.95499999910638,
-        "y": -33.41632025024877,
+        "x": -50.74299893912588,
+        "y": -28.743582853075612,
         "from_layer": "top",
         "to_layer": "bottom",
         "via_diameter": 0.3,
@@ -18700,39 +18700,83 @@
       },
       {
         "route_type": "wire",
-        "x": -50.95499999910638,
-        "y": -33.41632025024877,
+        "x": -50.74299893912588,
+        "y": -28.743582853075612,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": -28.89067451755871,
-        "y": -11.350674517558712,
+        "x": -22.44034735561185,
+        "y": -28.73,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 4.153821606472294,
-        "y": -11.350674517558712,
+        "x": -9.800759962764783,
+        "y": -16.090412607152935,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 4.153821606472294,
-        "y": -10.866178393527704,
+        "x": -9.800759962764783,
+        "y": -16.073759962764782,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 9.27,
-        "y": -5.75,
+        "x": -9.71999978702387,
+        "y": -15.982124295574778,
         "width": 0.2,
-        "layer": "bottom",
-        "end_pcb_port_id": "pcb_port_87"
+        "layer": "bottom"
+      },
+      {
+        "route_type": "via",
+        "x": -9.71999978702387,
+        "y": -15.982124295574778,
+        "from_layer": "bottom",
+        "to_layer": "top",
+        "via_diameter": 0.3,
+        "via_hole_diameter": 0.2
+      },
+      {
+        "route_type": "wire",
+        "x": -9.71999978702387,
+        "y": -15.982124295574778,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": -9.744805217099957,
+        "y": -12.292891084318116,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 4.092233330922756,
+        "y": 1.548242809956441,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 4.119086324120254,
+        "y": 3.179086324120254,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 4.19,
+        "y": 3.25,
+        "width": 0.2,
+        "layer": "top",
+        "end_pcb_port_id": "pcb_port_61"
       }
     ],
     "subcircuit_id": "subcircuit_source_group_0",
@@ -18754,35 +18798,35 @@
       {
         "route_type": "wire",
         "x": 6.73,
-        "y": -0.4666395656606295,
+        "y": -4.392832153821725,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 7.059883231892758,
-        "y": -0.13675633376787233,
+        "x": 7.361257278236124,
+        "y": -3.761574875585602,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 7.059883231892758,
-        "y": -0.04588323189275789,
+        "x": 7.363425124414397,
+        "y": -3.761574875585602,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 7.015,
-        "y": -0.001,
+        "x": 7.39,
+        "y": -3.735,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "via",
-        "x": 7.015,
-        "y": -0.001,
+        "x": 7.39,
+        "y": -3.735,
         "from_layer": "top",
         "to_layer": "bottom",
         "via_diameter": 0.3,
@@ -18790,43 +18834,43 @@
       },
       {
         "route_type": "wire",
-        "x": 7.015,
-        "y": -0.001,
+        "x": 7.39,
+        "y": -3.735,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 7.015,
-        "y": 1.2920189820587094,
+        "x": 7.39,
+        "y": -0.24727511912054168,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 6.869317375512136,
-        "y": 1.4377016065465733,
+        "x": 7.988878614981042,
+        "y": 0.35160349586050044,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 6.869317375512136,
-        "y": 1.4726826244878641,
+        "x": 7.988878614981042,
+        "y": 0.4128786149810426,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 6.819,
-        "y": 1.523,
+        "x": 8.081500527852082,
+        "y": 0.4865038064420149,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "via",
-        "x": 6.819,
-        "y": 1.523,
+        "x": 8.081500527852082,
+        "y": 0.4865038064420149,
         "from_layer": "bottom",
         "to_layer": "top",
         "via_diameter": 0.3,
@@ -18834,15 +18878,15 @@
       },
       {
         "route_type": "wire",
-        "x": 6.819,
-        "y": 1.523,
+        "x": 8.081500527852082,
+        "y": 0.4865038064420149,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 6.819,
-        "y": 3.1610000000000005,
+        "x": 8.072,
+        "y": 1.9080000000000013,
         "width": 0.2,
         "layer": "top"
       },
@@ -18866,57 +18910,71 @@
       {
         "route_type": "wire",
         "x": -44.81,
-        "y": -35.7,
+        "y": -30.45,
         "width": 0.2,
         "layer": "top",
         "start_pcb_port_id": "pcb_port_24"
       },
       {
         "route_type": "wire",
-        "x": -20.460047574865172,
-        "y": -11.350047574865172,
+        "x": -30.697248045426928,
+        "y": -16.337773091711462,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -2.6463681510740464,
-        "y": -11.350047574865172,
+        "x": -8.655792831568322,
+        "y": -16.34759767599373,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -0.06765242144156902,
-        "y": -11.350047574865172,
+        "x": -8.655792629303818,
+        "y": -14.902808751400144,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 1.1128546985596421,
-        "y": -10.169540454863961,
+        "x": -2.127571986900201,
+        "y": -8.374588108996528,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 1.1154595451360385,
-        "y": -10.169540454863961,
+        "x": 0.18151038973529215,
+        "y": -8.374588108996528,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 1.182,
-        "y": -10.103,
+        "x": 0.2630677101852628,
+        "y": -8.456145429446499,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 0.28914542944649896,
+        "y": -8.456145429446499,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 0.304,
+        "y": -8.471,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "via",
-        "x": 1.182,
-        "y": -10.103,
+        "x": 0.304,
+        "y": -8.471,
         "from_layer": "top",
         "to_layer": "bottom",
         "via_diameter": 0.3,
@@ -18924,36 +18982,43 @@
       },
       {
         "route_type": "wire",
-        "x": 1.182,
-        "y": -10.103,
+        "x": 0.304,
+        "y": -8.471,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 2.5060000000000002,
-        "y": -10.103,
+        "x": 2.911288487222071,
+        "y": -8.471,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 4.348943500659129,
-        "y": -8.260056499340871,
+        "x": 3.3644322625480902,
+        "y": -8.92414377532602,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 4.504,
-        "y": -8.105,
+        "x": 3.528856224673981,
+        "y": -8.92414377532602,
+        "width": 0.2,
+        "layer": "bottom"
+      },
+      {
+        "route_type": "wire",
+        "x": 3.537,
+        "y": -8.916,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "via",
-        "x": 4.504,
-        "y": -8.105,
+        "x": 3.537,
+        "y": -8.916,
         "from_layer": "bottom",
         "to_layer": "top",
         "via_diameter": 0.3,
@@ -18961,15 +19026,15 @@
       },
       {
         "route_type": "wire",
-        "x": 4.504,
-        "y": -8.105,
+        "x": 3.537,
+        "y": -8.916,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 4.504,
-        "y": -7.976000000000001,
+        "x": 3.564,
+        "y": -8.916,
         "width": 0.2,
         "layer": "top"
       },
@@ -19001,7 +19066,109 @@
       {
         "route_type": "wire",
         "x": 4.19,
-        "y": -1.8299999999999992,
+        "y": -4.001402457472767,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 4.898037564323574,
+        "y": -3.2933648931491932,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 4.898037564323574,
+        "y": -3.2559624356764254,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 5.023,
+        "y": -3.131,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "via",
+        "x": 5.023,
+        "y": -3.131,
+        "from_layer": "top",
+        "to_layer": "bottom",
+        "via_diameter": 0.3,
+        "via_hole_diameter": 0.2
+      },
+      {
+        "route_type": "wire",
+        "x": 5.023,
+        "y": -3.131,
+        "width": 0.2,
+        "layer": "bottom"
+      },
+      {
+        "route_type": "wire",
+        "x": 5.021546121594028,
+        "y": -2.0684272876071543,
+        "width": 0.2,
+        "layer": "bottom"
+      },
+      {
+        "route_type": "wire",
+        "x": 8.32972459984845,
+        "y": 1.2529330064666313,
+        "width": 0.2,
+        "layer": "bottom"
+      },
+      {
+        "route_type": "wire",
+        "x": 8.414047191428804,
+        "y": 1.244890386585383,
+        "width": 0.2,
+        "layer": "bottom"
+      },
+      {
+        "route_type": "wire",
+        "x": 8.889476820082688,
+        "y": 1.720320015239267,
+        "width": 0.2,
+        "layer": "bottom"
+      },
+      {
+        "route_type": "wire",
+        "x": 8.890320015239267,
+        "y": 1.720320015239267,
+        "width": 0.2,
+        "layer": "bottom"
+      },
+      {
+        "route_type": "wire",
+        "x": 8.987,
+        "y": 1.817,
+        "width": 0.2,
+        "layer": "bottom"
+      },
+      {
+        "route_type": "via",
+        "x": 8.987,
+        "y": 1.817,
+        "from_layer": "bottom",
+        "to_layer": "top",
+        "via_diameter": 0.3,
+        "via_hole_diameter": 0.2
+      },
+      {
+        "route_type": "wire",
+        "x": 8.987,
+        "y": 1.817,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 8.987,
+        "y": 2.9670000000000005,
         "width": 0.2,
         "layer": "top"
       },
@@ -19032,103 +19199,15 @@
       },
       {
         "route_type": "wire",
-        "x": -14.312084354055145,
+        "x": -14.41,
         "y": 5.029999999999999,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -20.581343037869825,
-        "y": -1.23925868381468,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -20.581343037869825,
-        "y": -1.3103430378698258,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -20.604,
-        "y": -1.333,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "via",
-        "x": -20.604,
-        "y": -1.333,
-        "from_layer": "top",
-        "to_layer": "bottom",
-        "via_diameter": 0.3,
-        "via_hole_diameter": 0.2
-      },
-      {
-        "route_type": "wire",
-        "x": -20.604,
-        "y": -1.333,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -20.604,
-        "y": -5.407429540140535,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -21.434481715949556,
-        "y": -6.237911256090091,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -21.434481715949556,
-        "y": -6.302481715949554,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -21.469,
-        "y": -6.337,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "via",
-        "x": -21.469,
-        "y": -6.337,
-        "from_layer": "bottom",
-        "to_layer": "top",
-        "via_diameter": 0.3,
-        "via_hole_diameter": 0.2
-      },
-      {
-        "route_type": "wire",
-        "x": -21.469,
-        "y": -6.337,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -21.469,
-        "y": -7.2790000000000035,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
         "x": -24.49,
-        "y": -10.3,
+        "y": -5.05,
         "width": 0.2,
         "layer": "top",
         "end_pcb_port_id": "pcb_port_13"
@@ -19290,50 +19369,36 @@
       },
       {
         "route_type": "wire",
-        "x": -12.687797030038004,
-        "y": 2.7607474654417317,
+        "x": -8.607086579502194,
+        "y": 0.9470865795021917,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -2.287129606478643,
-        "y": -7.66762413729338,
+        "x": 2.803017655860945,
+        "y": 0.9470865795021917,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 0.08620025956277244,
-        "y": -7.656037564480145,
+        "x": 2.803017655860945,
+        "y": 0.7790176558609453,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 0.18391953976168152,
-        "y": -7.753756844679054,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": 0.35124315532094574,
-        "y": -7.753756844679054,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": 0.3542381710868926,
-        "y": -7.747238552047585,
+        "x": 2.799,
+        "y": 0.775,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "via",
-        "x": 0.3542381710868926,
-        "y": -7.747238552047585,
+        "x": 2.799,
+        "y": 0.775,
         "from_layer": "top",
         "to_layer": "bottom",
         "via_diameter": 0.3,
@@ -19341,43 +19406,43 @@
       },
       {
         "route_type": "wire",
-        "x": 0.3542381710868926,
-        "y": -7.747238552047585,
+        "x": 2.799,
+        "y": 0.775,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 2.6699735748019218,
-        "y": -7.749,
+        "x": 2.799,
+        "y": -3.358662687021802,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 2.8005720039886524,
-        "y": -7.618401570813269,
+        "x": 3.133170558126749,
+        "y": -3.692833245148551,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 2.897598429186731,
-        "y": -7.618401570813269,
+        "x": 3.133170558126749,
+        "y": -3.743170558126749,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 2.944,
-        "y": -7.572,
+        "x": 3.165,
+        "y": -3.775,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "via",
-        "x": 2.944,
-        "y": -7.572,
+        "x": 3.165,
+        "y": -3.775,
         "from_layer": "bottom",
         "to_layer": "top",
         "via_diameter": 0.3,
@@ -19385,15 +19450,15 @@
       },
       {
         "route_type": "wire",
-        "x": 2.944,
-        "y": -7.572,
+        "x": 3.165,
+        "y": -3.775,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 2.944,
-        "y": -6.996,
+        "x": 3.165,
+        "y": -4.725,
         "width": 0.2,
         "layer": "top"
       },
@@ -19424,22 +19489,96 @@
       },
       {
         "route_type": "wire",
-        "x": 17.5693899174537,
-        "y": -5.033357951801461,
+        "x": 9.27,
+        "y": 3.190766966256823,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 25.58218257886613,
-        "y": -5.049198111405146,
+        "x": 10.819038569547638,
+        "y": 1.641728396709184,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 25.58218223467746,
-        "y": -6.962182234677463,
+        "x": 10.819038569547638,
+        "y": 1.6229614304523623,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 10.897351190478275,
+        "y": 1.5446560393732245,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "via",
+        "x": 10.897351190478275,
+        "y": 1.5446560393732245,
+        "from_layer": "top",
+        "to_layer": "bottom",
+        "via_diameter": 0.3,
+        "via_hole_diameter": 0.2
+      },
+      {
+        "route_type": "wire",
+        "x": 10.897351190478275,
+        "y": 1.5446560393732245,
+        "width": 0.2,
+        "layer": "bottom"
+      },
+      {
+        "route_type": "wire",
+        "x": 10.909,
+        "y": 0.2574206234064978,
+        "width": 0.2,
+        "layer": "bottom"
+      },
+      {
+        "route_type": "wire",
+        "x": 11.420538201895058,
+        "y": -0.25411757848855915,
+        "width": 0.2,
+        "layer": "bottom"
+      },
+      {
+        "route_type": "wire",
+        "x": 11.420538201895058,
+        "y": -0.28153820189505757,
+        "width": 0.2,
+        "layer": "bottom"
+      },
+      {
+        "route_type": "wire",
+        "x": 11.548,
+        "y": -0.409,
+        "width": 0.2,
+        "layer": "bottom"
+      },
+      {
+        "route_type": "via",
+        "x": 11.548,
+        "y": -0.409,
+        "from_layer": "bottom",
+        "to_layer": "top",
+        "via_diameter": 0.3,
+        "via_hole_diameter": 0.2
+      },
+      {
+        "route_type": "wire",
+        "x": 11.548,
+        "y": -0.409,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": 19.028999999999996,
+        "y": -0.409,
         "width": 0.2,
         "layer": "top"
       },
@@ -19696,36 +19835,36 @@
       {
         "route_type": "wire",
         "x": -24.489999999999995,
-        "y": -10.3,
+        "y": -5.050000000000001,
         "width": 0.2,
         "layer": "top",
         "start_pcb_port_id": "pcb_port_13"
       },
       {
         "route_type": "wire",
-        "x": -47.24198255866046,
-        "y": -33.051309576091164,
+        "x": -47.825723105670164,
+        "y": -28.377395195404446,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -54.81552474636788,
-        "y": -33.051335290069986,
+        "x": -55.365373116000356,
+        "y": -28.38046757650259,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -54.86198255820496,
-        "y": -33.05198255820496,
+        "x": -55.4457224552914,
+        "y": -28.385722455291408,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
         "x": -57.51,
-        "y": -35.7,
+        "y": -30.45,
         "width": 0.2,
         "layer": "top",
         "end_pcb_port_id": "pcb_port_19"
@@ -19750,60 +19889,44 @@
       {
         "route_type": "wire",
         "x": 1.6500000000000004,
-        "y": -4.136684014278812,
+        "y": -4.759141298943726,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 3.160676897106533,
-        "y": -2.6260071171722785,
+        "x": 5.159807470933321,
+        "y": -1.2493338280104065,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 3.160676897106533,
-        "y": -2.598323102893467,
+        "x": 8.604566278104983,
+        "y": -1.2512508996803355,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 3.215,
-        "y": -2.544,
+        "x": 11.657657349020928,
+        "y": 1.7862024189665344,
         "width": 0.2,
         "layer": "top"
       },
       {
-        "route_type": "via",
-        "x": 3.215,
-        "y": -2.544,
-        "from_layer": "top",
-        "to_layer": "bottom",
-        "via_diameter": 0.3,
-        "via_hole_diameter": 0.2
-      },
-      {
         "route_type": "wire",
-        "x": 3.215,
-        "y": -2.544,
+        "x": 11.647925014621324,
+        "y": 3.087925014621323,
         "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": 6.016,
-        "y": -2.544,
-        "width": 0.2,
-        "layer": "bottom"
+        "layer": "top"
       },
       {
         "route_type": "wire",
         "x": 11.81,
         "y": 3.25,
         "width": 0.2,
-        "layer": "bottom",
+        "layer": "top",
         "end_pcb_port_id": "pcb_port_58"
       }
     ],
@@ -19875,22 +19998,22 @@
       },
       {
         "route_type": "wire",
-        "x": 2.4434617578239424,
-        "y": -28.486538242176056,
+        "x": 2.3862215511093874,
+        "y": -28.543778448890613,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 2.443461757823943,
-        "y": -17.92838982014693,
+        "x": 2.386221551109388,
+        "y": -6.694743565867805,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 2.443461757823943,
-        "y": -6.543461757823943,
+        "x": 2.386221551109388,
+        "y": -6.486221551109388,
         "width": 0.2,
         "layer": "top"
       },
@@ -19922,21 +20045,21 @@
       {
         "route_type": "wire",
         "x": 11.809999999999999,
-        "y": 21.323286129944826,
+        "y": 21.11743838811348,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 10.801226497878101,
-        "y": 22.332059632066724,
+        "x": 10.65568642979498,
+        "y": 22.2717519583185,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 10.801226497878101,
-        "y": 22.4237735021219,
+        "x": 10.65568642979498,
+        "y": 22.38068642979498,
         "width": 0.2,
         "layer": "top"
       },
@@ -19966,21 +20089,21 @@
       {
         "route_type": "wire",
         "x": 10.75,
-        "y": 27.356509288642876,
+        "y": 27.354632810929125,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 11.716910433340843,
-        "y": 28.32341972198372,
+        "x": 11.71823642961918,
+        "y": 28.322869240548304,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": 11.716910433340843,
-        "y": 28.335910433340842,
+        "x": 11.71823642961918,
+        "y": 28.337236429619182,
         "width": 0.2,
         "layer": "bottom"
       },
@@ -20034,52 +20157,82 @@
       {
         "route_type": "wire",
         "x": -57.51,
-        "y": -10.3,
+        "y": -5.050000000000001,
         "width": 0.2,
         "layer": "top",
         "start_pcb_port_id": "pcb_port_0"
       },
       {
         "route_type": "wire",
-        "x": -53.05490195995267,
-        "y": -5.844901959952672,
+        "x": -50.75890510092514,
+        "y": -11.801094899074856,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -4.52832338760255,
-        "y": -5.867074041679104,
+        "x": -47.056512551019466,
+        "y": -11.801094899074856,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -2.2306989676866333,
-        "y": -8.17001738984911,
+        "x": -46.848905100925144,
+        "y": -11.801094899074856,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 0.4713187994003421,
-        "y": -8.146666023253971,
+        "x": -46.836,
+        "y": -11.814,
         "width": 0.2,
         "layer": "top"
       },
       {
+        "route_type": "via",
+        "x": -46.836,
+        "y": -11.814,
+        "from_layer": "top",
+        "to_layer": "bottom",
+        "via_diameter": 0.3,
+        "via_hole_diameter": 0.2
+      },
+      {
         "route_type": "wire",
-        "x": 1.6502105615237335,
-        "y": -6.965093583019426,
+        "x": -46.836,
+        "y": -11.814,
         "width": 0.2,
-        "layer": "top"
+        "layer": "bottom"
+      },
+      {
+        "route_type": "wire",
+        "x": -9.278735803945647,
+        "y": -11.814,
+        "width": 0.2,
+        "layer": "bottom"
+      },
+      {
+        "route_type": "wire",
+        "x": -1.7186061755314999,
+        "y": -4.253870371585853,
+        "width": 0.2,
+        "layer": "bottom"
+      },
+      {
+        "route_type": "wire",
+        "x": 0.1538703715858527,
+        "y": -4.253870371585853,
+        "width": 0.2,
+        "layer": "bottom"
       },
       {
         "route_type": "wire",
         "x": 1.65,
         "y": -5.75,
         "width": 0.2,
-        "layer": "top",
+        "layer": "bottom",
         "end_pcb_port_id": "pcb_port_84"
       }
     ],
@@ -20090,8 +20243,8 @@
     "type": "pcb_via",
     "pcb_via_id": "pcb_via_0",
     "pcb_trace_id": "source_net_3_mst0_0",
-    "x": 1.991,
-    "y": -2.83,
+    "x": 8.586,
+    "y": -0.728,
     "hole_diameter": 0.2,
     "outer_diameter": 0.3,
     "layers": [
@@ -20105,8 +20258,8 @@
     "type": "pcb_via",
     "pcb_via_id": "pcb_via_1",
     "pcb_trace_id": "source_net_3_mst0_0",
-    "x": 8.161,
-    "y": -4.072,
+    "x": 8.853,
+    "y": -2.397,
     "hole_diameter": 0.2,
     "outer_diameter": 0.3,
     "layers": [
@@ -20120,8 +20273,8 @@
     "type": "pcb_via",
     "pcb_via_id": "pcb_via_2",
     "pcb_trace_id": "source_net_3_mst1_0",
-    "x": -50.95499999910638,
-    "y": -33.41632025024877,
+    "x": -50.74299893912588,
+    "y": -28.743582853075612,
     "hole_diameter": 0.2,
     "outer_diameter": 0.3,
     "layers": [
@@ -20134,39 +20287,24 @@
   {
     "type": "pcb_via",
     "pcb_via_id": "pcb_via_3",
-    "pcb_trace_id": "source_net_2_mst0_0",
-    "x": 7.015,
-    "y": -0.001,
+    "pcb_trace_id": "source_net_3_mst1_0",
+    "x": -9.71999978702387,
+    "y": -15.982124295574778,
     "hole_diameter": 0.2,
     "outer_diameter": 0.3,
     "layers": [
-      "top",
-      "bottom"
+      "bottom",
+      "top"
     ],
-    "from_layer": "top",
-    "to_layer": "bottom"
+    "from_layer": "bottom",
+    "to_layer": "top"
   },
   {
     "type": "pcb_via",
     "pcb_via_id": "pcb_via_4",
     "pcb_trace_id": "source_net_2_mst0_0",
-    "x": 6.819,
-    "y": 1.523,
-    "hole_diameter": 0.2,
-    "outer_diameter": 0.3,
-    "layers": [
-      "bottom",
-      "top"
-    ],
-    "from_layer": "bottom",
-    "to_layer": "top"
-  },
-  {
-    "type": "pcb_via",
-    "pcb_via_id": "pcb_via_5",
-    "pcb_trace_id": "source_net_2_mst1_0",
-    "x": 1.182,
-    "y": -10.103,
+    "x": 7.39,
+    "y": -3.735,
     "hole_diameter": 0.2,
     "outer_diameter": 0.3,
     "layers": [
@@ -20175,28 +20313,28 @@
     ],
     "from_layer": "top",
     "to_layer": "bottom"
+  },
+  {
+    "type": "pcb_via",
+    "pcb_via_id": "pcb_via_5",
+    "pcb_trace_id": "source_net_2_mst0_0",
+    "x": 8.081500527852082,
+    "y": 0.4865038064420149,
+    "hole_diameter": 0.2,
+    "outer_diameter": 0.3,
+    "layers": [
+      "bottom",
+      "top"
+    ],
+    "from_layer": "bottom",
+    "to_layer": "top"
   },
   {
     "type": "pcb_via",
     "pcb_via_id": "pcb_via_6",
     "pcb_trace_id": "source_net_2_mst1_0",
-    "x": 4.504,
-    "y": -8.105,
-    "hole_diameter": 0.2,
-    "outer_diameter": 0.3,
-    "layers": [
-      "bottom",
-      "top"
-    ],
-    "from_layer": "bottom",
-    "to_layer": "top"
-  },
-  {
-    "type": "pcb_via",
-    "pcb_via_id": "pcb_via_7",
-    "pcb_trace_id": "source_net_1_mst1_0",
-    "x": -20.604,
-    "y": -1.333,
+    "x": 0.304,
+    "y": -8.471,
     "hole_diameter": 0.2,
     "outer_diameter": 0.3,
     "layers": [
@@ -20208,10 +20346,10 @@
   },
   {
     "type": "pcb_via",
-    "pcb_via_id": "pcb_via_8",
-    "pcb_trace_id": "source_net_1_mst1_0",
-    "x": -21.469,
-    "y": -6.337,
+    "pcb_via_id": "pcb_via_7",
+    "pcb_trace_id": "source_net_2_mst1_0",
+    "x": 3.537,
+    "y": -8.916,
     "hole_diameter": 0.2,
     "outer_diameter": 0.3,
     "layers": [
@@ -20223,7 +20361,37 @@
   },
   {
     "type": "pcb_via",
+    "pcb_via_id": "pcb_via_8",
+    "pcb_trace_id": "source_net_1_mst0_0",
+    "x": 5.023,
+    "y": -3.131,
+    "hole_diameter": 0.2,
+    "outer_diameter": 0.3,
+    "layers": [
+      "top",
+      "bottom"
+    ],
+    "from_layer": "top",
+    "to_layer": "bottom"
+  },
+  {
+    "type": "pcb_via",
     "pcb_via_id": "pcb_via_9",
+    "pcb_trace_id": "source_net_1_mst0_0",
+    "x": 8.987,
+    "y": 1.817,
+    "hole_diameter": 0.2,
+    "outer_diameter": 0.3,
+    "layers": [
+      "bottom",
+      "top"
+    ],
+    "from_layer": "bottom",
+    "to_layer": "top"
+  },
+  {
+    "type": "pcb_via",
+    "pcb_via_id": "pcb_via_10",
     "pcb_trace_id": "source_net_1_mst3_0",
     "x": 2.004,
     "y": -27.247,
@@ -20238,7 +20406,7 @@
   },
   {
     "type": "pcb_via",
-    "pcb_via_id": "pcb_via_10",
+    "pcb_via_id": "pcb_via_11",
     "pcb_trace_id": "source_net_1_mst3_0",
     "x": 3.642,
     "y": -26.008,
@@ -20253,10 +20421,10 @@
   },
   {
     "type": "pcb_via",
-    "pcb_via_id": "pcb_via_11",
+    "pcb_via_id": "pcb_via_12",
     "pcb_trace_id": "source_net_1_mst4_0",
-    "x": 0.3542381710868926,
-    "y": -7.747238552047585,
+    "x": 2.799,
+    "y": 0.775,
     "hole_diameter": 0.2,
     "outer_diameter": 0.3,
     "layers": [
@@ -20268,10 +20436,10 @@
   },
   {
     "type": "pcb_via",
-    "pcb_via_id": "pcb_via_12",
+    "pcb_via_id": "pcb_via_13",
     "pcb_trace_id": "source_net_1_mst4_0",
-    "x": 2.944,
-    "y": -7.572,
+    "x": 3.165,
+    "y": -3.775,
     "hole_diameter": 0.2,
     "outer_diameter": 0.3,
     "layers": [
@@ -20283,7 +20451,37 @@
   },
   {
     "type": "pcb_via",
-    "pcb_via_id": "pcb_via_13",
+    "pcb_via_id": "pcb_via_14",
+    "pcb_trace_id": "source_net_1_mst5_0",
+    "x": 10.897351190478275,
+    "y": 1.5446560393732245,
+    "hole_diameter": 0.2,
+    "outer_diameter": 0.3,
+    "layers": [
+      "top",
+      "bottom"
+    ],
+    "from_layer": "top",
+    "to_layer": "bottom"
+  },
+  {
+    "type": "pcb_via",
+    "pcb_via_id": "pcb_via_15",
+    "pcb_trace_id": "source_net_1_mst5_0",
+    "x": 11.548,
+    "y": -0.409,
+    "hole_diameter": 0.2,
+    "outer_diameter": 0.3,
+    "layers": [
+      "bottom",
+      "top"
+    ],
+    "from_layer": "bottom",
+    "to_layer": "top"
+  },
+  {
+    "type": "pcb_via",
+    "pcb_via_id": "pcb_via_16",
     "pcb_trace_id": "source_net_1_mst6_0",
     "x": -10.868,
     "y": 7.192,
@@ -20298,7 +20496,7 @@
   },
   {
     "type": "pcb_via",
-    "pcb_via_id": "pcb_via_14",
+    "pcb_via_id": "pcb_via_17",
     "pcb_trace_id": "source_net_1_mst6_0",
     "x": -8.604,
     "y": 25.191,
@@ -20313,7 +20511,7 @@
   },
   {
     "type": "pcb_via",
-    "pcb_via_id": "pcb_via_15",
+    "pcb_via_id": "pcb_via_18",
     "pcb_trace_id": "source_net_1_mst7_0",
     "x": 22.049,
     "y": -28.214994140625002,
@@ -20328,7 +20526,7 @@
   },
   {
     "type": "pcb_via",
-    "pcb_via_id": "pcb_via_16",
+    "pcb_via_id": "pcb_via_19",
     "pcb_trace_id": "source_net_1_mst7_0",
     "x": 23.996,
     "y": -9.222,
@@ -20343,22 +20541,7 @@
   },
   {
     "type": "pcb_via",
-    "pcb_via_id": "pcb_via_17",
-    "pcb_trace_id": "source_net_0_mst0_0",
-    "x": 3.215,
-    "y": -2.544,
-    "hole_diameter": 0.2,
-    "outer_diameter": 0.3,
-    "layers": [
-      "top",
-      "bottom"
-    ],
-    "from_layer": "top",
-    "to_layer": "bottom"
-  },
-  {
-    "type": "pcb_via",
-    "pcb_via_id": "pcb_via_18",
+    "pcb_via_id": "pcb_via_20",
     "pcb_trace_id": "source_net_0_mst4_0",
     "x": 10.75,
     "y": 22.475,
@@ -20373,7 +20556,7 @@
   },
   {
     "type": "pcb_via",
-    "pcb_via_id": "pcb_via_19",
+    "pcb_via_id": "pcb_via_21",
     "pcb_trace_id": "source_net_0_mst4_0",
     "x": 11.768,
     "y": 28.387,
@@ -20385,5 +20568,20 @@
     ],
     "from_layer": "bottom",
     "to_layer": "top"
+  },
+  {
+    "type": "pcb_via",
+    "pcb_via_id": "pcb_via_22",
+    "pcb_trace_id": "source_net_0_mst5_0",
+    "x": -46.836,
+    "y": -11.814,
+    "hole_diameter": 0.2,
+    "outer_diameter": 0.3,
+    "layers": [
+      "top",
+      "bottom"
+    ],
+    "from_layer": "top",
+    "to_layer": "bottom"
   }
 ]
