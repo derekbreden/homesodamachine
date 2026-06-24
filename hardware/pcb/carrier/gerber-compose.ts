@@ -25,6 +25,7 @@ export type Scheme = {
   drill: string // drilled holes (painted over the copper so they read as holes)
   edge: string // board outline
   silk: string // silkscreen legend (labels + part outlines + ref designators)
+  silkOpacity: number // silk opacity — semi-transparent so traces read through the outlines
   topOpacity: number // front copper opacity in the overlay
   bottomOpacity: number // back copper opacity in the overlay
 }
@@ -40,6 +41,7 @@ export const SCHEMES: Record<string, Scheme> = {
     drill: "#0b0e14",
     edge: "#5a6478",
     silk: "#f2eede",
+    silkOpacity: 0.55,
     topOpacity: 0.85,
     bottomOpacity: 0.8,
   },
@@ -50,6 +52,7 @@ export const SCHEMES: Record<string, Scheme> = {
     drill: "#0a2540",
     edge: "#4d7299",
     silk: "#ffffff",
+    silkOpacity: 0.6,
     topOpacity: 0.85,
     bottomOpacity: 0.8,
   },
@@ -60,6 +63,7 @@ export const SCHEMES: Record<string, Scheme> = {
     drill: "#f4f1ea",
     edge: "#9aa0a6",
     silk: "#2b2d33",
+    silkOpacity: 0.7,
     topOpacity: 0.8,
     bottomOpacity: 0.8,
   },
@@ -153,8 +157,8 @@ export async function composeViews(dir: string, scheme: Scheme) {
 
   const drillPunch = `${paint(drl, scheme.drill)}${paint(drlN, scheme.drill)}`
   const edgePaint = paint(edge, scheme.edge)
-  const fsilkPaint = paint(fsilk, scheme.silk)
-  const bsilkPaint = paint(bsilk, scheme.silk)
+  const fsilkPaint = paint(fsilk, scheme.silk, scheme.silkOpacity)
+  const bsilkPaint = paint(bsilk, scheme.silk, scheme.silkOpacity)
   const vb = `${fnum(Xmin)} ${fnum(Ymin)} ${fnum(W)} ${fnum(H)}`
   const wmm = (W / 1000).toFixed(3)
   const hmm = (H / 1000).toFixed(3)
