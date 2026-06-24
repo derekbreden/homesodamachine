@@ -299,22 +299,15 @@
   // (file-change broadcasts from chokidar) and the production server
   // (deploy-version handshake on connect + boot-time diff replay).
   //
-  // We're on WebSockets after SSE proved unreliable in our setup:
-  // Safari kept long-lived EventSources in OPEN state with no bytes
-  // flowing (no error event, no auto-reconnect), and even when SSE
-  // reconnect did fire there was no clean way for the client to learn
-  // "I missed some broadcasts." WebSocket gives us:
-  //   - explicit onclose (fires whenever the socket dies, in every
-  //     browser we care about) → drives our own reconnect loop with
-  //     exponential backoff
+  // Liveness rests on three mechanisms:
+  //   - onclose drives a reconnect loop with exponential backoff
   //   - server-side ping/pong (web/lib/events.js sends a protocol-level
-  //     ping every 30s; the browser auto-pongs; if pong doesn't arrive
-  //     the server terminate()s the socket and the client's onclose
-  //     fires)
-  //   - {type:"ping"} data frame alongside the protocol ping that the
-  //     onmessage handler observes — used as a freshness signal so
-  //     visibility-change can detect a silently dead socket even on
-  //     browsers that lie about readyState
+  //     ping every 30s; the browser auto-pongs; a missed pong has the
+  //     server terminate() the socket, firing the client's onclose)
+  //   - a {type:"ping"} data frame alongside the protocol ping that the
+  //     onmessage handler observes as a freshness signal, so
+  //     visibility-change catches a silently dead socket even where
+  //     readyState lies
   //
   // Wire shape and reconnect behavior:
   //   - On connect, server sends {type:"hello", commit, time, recent?}.

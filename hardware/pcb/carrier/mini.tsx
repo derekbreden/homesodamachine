@@ -28,6 +28,8 @@ const mcpGPA = ["VCC", "GND", "GPA0", "GPA1", "GPA2", "GPA3", "GPA4", "GPA5", "G
 const mcpI2C = ["VCC", "GND", "SDA", "SCL", "INTA", "INTB"]
 const ulnIN = ["IN1", "IN2", "IN3", "IN4", "IN5", "IN6", "IN7", "IN8", "GND"]
 const ulnOUT = ["OUT1", "OUT2", "OUT3", "OUT4", "OUT5", "OUT6", "OUT7", "OUT8", "COM"]
+const dsH6 = ["32K", "SQW", "SCL", "SDA", "VCC", "GND"]
+const dsH4 = ["SCL", "SDA", "VCC", "GND"]
 
 // A stroked rectangle on the silk layer — the module's PCB outline.
 const Outline = ({ x, y, w, h }: { x: number; y: number; w: number; h: number }) => (
@@ -100,6 +102,30 @@ const Uln2803 = ({ name, x, y, srcPrefix, rot = 0 }: { name: string; x: number; 
   )
 }
 
+// ---- DORHEA DS3231 RTC board (38.5 x 21.3) ---------------------------------
+// Long axis along X. 6-pin header (32K/SQW/SCL/SDA/VCC/GND) at the -X end, the
+// 4-pin I2C tap (SCL/SDA/VCC/GND) at the +X end, 3 mounting holes (the 4th
+// corner left open for the coin cell). Both headers are the same bus; the
+// carrier wires only the clean 4-pin tap, the 6-pin pads are on record but unused.
+const Ds3231 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => {
+  const s = rot === 180 ? -1 : 1
+  return (
+    <>
+      <Outline x={x} y={y} w={38.5} h={21.3} />
+      <silkscreentext text="DS3231" fontSize="2.6mm" pcbX={x} pcbY={y} />
+      <hole shape="circle" diameter="2.4mm" pcbX={x - s * 10.75} pcbY={y - s * 8.65} />
+      <hole shape="circle" diameter="2.4mm" pcbX={x - s * 10.75} pcbY={y + s * 8.65} />
+      <hole shape="circle" diameter="2.4mm" pcbX={x + s * 15.05} pcbY={y + s * 8.65} />
+      <pinheader name={`${name}H`} pinCount={6} pitch="2.54mm" gender="female" footprint="pinrow6" pcbRotation={90 + rot} pinLabels={dsH6} {...at(x - s * 17.25, y)} />
+      <pinheader name={`${name}I`} pinCount={4} pitch="2.54mm" gender="female" footprint="pinrow4" pcbRotation={90 + rot} pinLabels={dsH4} {...at(x + s * 17.25, y)} />
+      <trace from={`.${name}I > .SDA`} to="net.SDA" />
+      <trace from={`.${name}I > .SCL`} to="net.SCL" />
+      <trace from={`.${name}I > .VCC`} to="net.V3_3" />
+      <trace from={`.${name}I > .GND`} to="net.GND" />
+    </>
+  )
+}
+
 // ---- the board -------------------------------------------------------------
 // Stacked column with a consistent 5.0 mm board-edge gap on every adjacent pair:
 // ESP<->0x21, 0x20<->0x21, and each MCP<->its ULN. The two MCPs stack (0x20 above
@@ -115,5 +141,8 @@ export default () => (
     <Mcp23017 name="U3" x={8} y={-23} addr="0x21" breakout />
     <Uln2803 name="U4" x={36.15} y={25.81} srcPrefix="U2_GPA" />
     <Uln2803 name="U5" x={36.15} y={-17.69} srcPrefix="U3_GPA" />
+    {/* DS3231 RTC left of 0x20, its 4-pin I2C tap at the same height (y 37.75)
+        as 0x20's I2C header for a short bus hop across the gap */}
+    <Ds3231 name="U6" x={-26} y={37.75} />
   </board>
 )
