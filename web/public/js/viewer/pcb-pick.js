@@ -166,14 +166,14 @@ function padLine(p) {
 }
 function posLine(p) { return `x=${fnum(p.x)} y=${fnum(p.y)} mm`; }
 
-// One source of truth for what a selection says, in the panel and the copy blob.
+// What a selection says — a title for the panel header and the copy blob shown
+// verbatim in the panel's text box.
 function describe(sel) {
   const d = sel.data;
   const fileLine = ctx && ctx.source ? `file: ${repoPath(ctx.source)}` : null;
   if (sel.kind === "pad") {
     return {
       title: "Pad",
-      rows: [["Pad", padLine(d)], ["Net", d.net || "(none)"], ["Pos", posLine(d)]],
       blob: [fileLine, `pad: ${padLine(d)}`, `net: ${d.net || "(none)"}`, `pos: ${posLine(d)}`].filter(Boolean).join("\n"),
     };
   }
@@ -181,14 +181,12 @@ function describe(sel) {
     const layers = d.fromLayer && d.toLayer ? `${d.fromLayer} ↔ ${d.toLayer}` : "";
     return {
       title: "Via",
-      rows: [["Net", d.net || "(none)"], ["Layers", layers], ["Pos", posLine(d)]],
       blob: [fileLine, `via: net ${d.net || "(none)"}${layers ? " · " + layers : ""}`, `pos: ${posLine(d)}`].filter(Boolean).join("\n"),
     };
   }
   const route = d.from && d.to ? `${d.from} → ${d.to}` : (d.from || d.to || "");
   return {
     title: "Trace",
-    rows: [["Net", d.net || "(none)"], ["From", d.from || "—"], ["To", d.to || "—"]],
     blob: [fileLine, `trace: net ${d.net || "(none)"}`, route ? `route: ${route}` : null].filter(Boolean).join("\n"),
   };
 }
@@ -206,39 +204,26 @@ function buildPanel() {
   close.title = "Clear selection";
   close.addEventListener("click", () => clearSelection());
   head.append(title, fileEl, close);
-  const rowsHost = el2("div", "edge-rows");
-  const all = el2("button", "edge-panel-all");
-  all.type = "button";
-  all.textContent = "Copy all";
-  panel.append(head, rowsHost, all);
-  panel._title = title; panel._fileEl = fileEl; panel._rowsHost = rowsHost; panel._allBtn = all;
-}
-
-function mkRow(label, value) {
-  const row = el2("div", "edge-row");
-  const lab = el2("span", "edge-row-label"); lab.textContent = label;
-  const val = el2("span", "edge-row-val"); val.textContent = value;
-  const copy = el2("button", "edge-row-copy"); copy.type = "button"; copy.textContent = "Copy";
-  row.append(lab, val, copy);
-  const doCopy = () => copyText(val.textContent, copy);
-  val.addEventListener("click", doCopy);
-  copy.addEventListener("click", doCopy);
-  return row;
+  const text = el2("textarea", "edge-panel-text");
+  text.readOnly = true;
+  text.spellcheck = false;
+  const copy = el2("button", "edge-panel-all");
+  copy.type = "button";
+  copy.textContent = "Copy";
+  copy.addEventListener("click", () => copyText(panel._text.value, copy));
+  panel.append(head, text, copy);
+  panel._title = title; panel._fileEl = fileEl; panel._text = text;
 }
 
 function showPanel(sel) {
   if (!panel) buildPanel();
   if (ctx && ctx.wrapper && panel.parentElement !== ctx.wrapper) ctx.wrapper.appendChild(panel);
-  const { title, rows, blob } = describe(sel);
+  const { title, blob } = describe(sel);
   panel._title.textContent = title;
   panel._fileEl.textContent = ctx && ctx.source ? ctx.source.split("/").pop().replace(/\.tsx$/, "") : "";
   panel._fileEl.title = ctx && ctx.source ? repoPath(ctx.source) : "";
-  panel._rowsHost.textContent = "";
-  for (const [label, value] of rows) {
-    if (value == null || value === "") continue;
-    panel._rowsHost.appendChild(mkRow(label, value));
-  }
-  panel._allBtn.onclick = () => copyText(blob, panel._allBtn);
+  panel._text.value = blob;
+  panel._text.rows = Math.min(12, Math.max(2, blob.split("\n").length));
   panel.classList.add("show");
 }
 function hidePanel() { if (panel) panel.classList.remove("show"); }

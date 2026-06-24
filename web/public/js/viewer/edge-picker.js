@@ -734,7 +734,6 @@ function allText(sel) {
 
 // --- copy panel ---
 let panel = null;
-let panelRows = null;
 
 // An edge's two bordering faces are mostly noise on this (axis-aligned, named-
 // solid) geometry — the edge coordinates already imply them. So they're hidden by
@@ -769,7 +768,7 @@ function buildPanel() {
   facesBox.addEventListener("change", () => {
     showFaces = facesBox.checked;
     try { localStorage.setItem(FACES_KEY, showFaces ? "1" : "0"); } catch {}
-    if (selection) showPanel(selection); // re-render rows for the live selection
+    if (selection) showPanel(selection); // re-render the blob for the live selection
   });
   const close = document.createElement("button");
   close.type = "button";
@@ -784,43 +783,19 @@ function buildPanel() {
   panel.appendChild(head);
   panel._fileEl = fileEl;
 
-  const mkRow = (label) => {
-    const row = document.createElement("div");
-    row.className = "edge-row";
-    const lab = document.createElement("span");
-    lab.className = "edge-row-label";
-    lab.textContent = label;
-    const val = document.createElement("span");
-    val.className = "edge-row-val";
-    const copy = document.createElement("button");
-    copy.type = "button";
-    copy.className = "edge-row-copy";
-    copy.textContent = "Copy";
-    row.appendChild(lab);
-    row.appendChild(val);
-    row.appendChild(copy);
-    panel.appendChild(row);
-    const doCopy = () => copyText(val.textContent, copy);
-    val.addEventListener("click", doCopy);
-    copy.addEventListener("click", doCopy);
-    return { row, lab, val, copy };
-  };
+  const text = document.createElement("textarea");
+  text.className = "edge-panel-text";
+  text.readOnly = true;
+  text.spellcheck = false;
+  panel.appendChild(text);
+  panel._text = text;
 
-  panelRows = {
-    solid: mkRow("Solid"),
-    edge: mkRow("Edge"),
-    faceA: mkRow("Face A"),
-    faceB: mkRow("Face B"),
-    click: mkRow("Click"),
-  };
-
-  const all = document.createElement("button");
-  all.type = "button";
-  all.className = "edge-panel-all";
-  all.textContent = "Copy all";
-  all.addEventListener("click", () => { if (selection) copyText(allText(selection), all); });
-  panel.appendChild(all);
-  panel._allBtn = all;
+  const copy = document.createElement("button");
+  copy.type = "button";
+  copy.className = "edge-panel-all";
+  copy.textContent = "Copy";
+  copy.addEventListener("click", () => { if (selection) copyText(panel._text.value, copy); });
+  panel.appendChild(copy);
 }
 
 function showPanel(sel) {
@@ -828,23 +803,10 @@ function showPanel(sel) {
   if (state.currentCadWrapper && panel.parentElement !== state.currentCadWrapper) {
     state.currentCadWrapper.appendChild(panel);
   }
-  const isFace = sel.type === "face";
-  const faces = selFaceTexts(sel);
-  panel.querySelector(".edge-panel-title").textContent = isFace ? "Face" : "Edge";
-  const solid = solidName(sel);
-  panelRows.solid.row.style.display = solid ? "" : "none";
-  panelRows.solid.val.textContent = solid || "";
-  panelRows.edge.row.style.display = isFace ? "none" : "";
-  if (!isFace) panelRows.edge.val.textContent = edgeText(sel);
-  panelRows.faceA.lab.textContent = isFace ? "Face" : "Face A";
-  // A face PICK shows the face it selected (that's the pick); an edge pick's two
-  // bordering faces show only when the faces toggle is on.
-  const showA = isFace ? !!faces.a : (showFaces && !!faces.a);
-  panelRows.faceA.row.style.display = showA ? "" : "none";
-  panelRows.faceA.val.textContent = faces.a || "";
-  panelRows.faceB.row.style.display = (!isFace && showFaces && faces.b) ? "" : "none";
-  panelRows.faceB.val.textContent = faces.b || "";
-  panelRows.click.val.textContent = clickText(sel);
+  panel.querySelector(".edge-panel-title").textContent = sel.type === "face" ? "Face" : "Edge";
+  const blob = allText(sel);
+  panel._text.value = blob;
+  panel._text.rows = Math.min(12, Math.max(2, blob.split("\n").length));
   const file = currentFile();
   panel._fileEl.textContent = file ? headerName(file) : "";
   panel._fileEl.title = file ? repoPath(file) : "";
