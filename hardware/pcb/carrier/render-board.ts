@@ -70,3 +70,12 @@ try {
 } finally {
   rmSync(scratch, { recursive: true, force: true })
 }
+
+// Distill the board's pickable entities (pads + identity) next to the views so
+// the web viewer's pad picker has semantic data in lockstep with the copper.
+// Best-effort: a board that renders but can't distill still ships its views.
+try {
+  execFileSync("bun", [path.join(dir, "pick-data.ts"), `${board}.tsx`], { cwd: dir, stdio: "inherit" })
+} catch {
+  console.error(`[${board}] pick-data failed — picks.json not refreshed (views still written)`)
+}

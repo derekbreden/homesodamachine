@@ -85,6 +85,10 @@ export function walkPcbBoards(rootDir) {
       if (!fs.existsSync(path.join(dir, "out", `${name}.overlay.svg`))) continue;
       const relDir = path.relative(rootDir, dir).split(path.sep).join("/");
       const view = (v) => `${relDir}/out/${name}.${v}.svg`;
+      // The pad picker's semantic data (pads + identity), when the distiller
+      // has produced it; older boards without it simply have no picker.
+      const picksRel = `${relDir}/out/${name}.picks.json`;
+      const hasPicks = fs.existsSync(path.join(dir, "out", `${name}.picks.json`));
       boards.push({
         source: `${relDir}/${entry.name}`,
         name,
@@ -92,6 +96,7 @@ export function walkPcbBoards(rootDir) {
         top: view("top"),
         bottom: view("bottom"),
         overlay: view("overlay"),
+        picks: hasPicks ? picksRel : null,
       });
     }
   }

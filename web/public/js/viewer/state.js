@@ -37,6 +37,7 @@ export const state = {
   currentPcbToggle: null,     // the Top/Bottom/Overlay segmented control element
   currentPcbPz: null,         // PanZoom handle for currentPcbWrapper
   currentPcbMinimap: null,    // Minimap handle
+  currentPcbPicks: null,      // {pads,unitsPerMm} pad-picker data for the open board
   currentCadWrapper: null,    // host div inside the modal (parent of canvases)
   currentCadResizeObserver: null,
   currentGroup: null,         // Three.js group currently in scene
