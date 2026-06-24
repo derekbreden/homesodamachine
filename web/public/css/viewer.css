@@ -607,16 +607,30 @@
   pointer-events: none;
 }
 /* Always invisible — never paint over the copper. (Default SVG fill is opaque
-   black, which would mask every pad when the picker is off.) */
-.pcb-pad-hit {
+   black, which would mask everything when the picker is off.) */
+.pcb-pad-hit,
+.pcb-via-hit {
   fill: transparent;
 }
-.pcb-pick-layer.active .pcb-pad-hit {
+.pcb-trace-hit {
+  fill: none;
+  stroke: transparent;
+}
+.pcb-pick-layer.active .pcb-pad-hit,
+.pcb-pick-layer.active .pcb-via-hit {
   pointer-events: all;
   cursor: pointer;
 }
-.pcb-pick-layer.active .pcb-pad-hit:hover {
-  fill: rgba(89, 208, 255, 0.22);
+.pcb-pick-layer.active .pcb-trace-hit {
+  pointer-events: stroke;
+  cursor: pointer;
+}
+.pcb-pick-layer.active .pcb-pad-hit:hover,
+.pcb-pick-layer.active .pcb-via-hit:hover {
+  fill: rgba(89, 208, 255, 0.25);
+}
+.pcb-pick-layer.active .pcb-trace-hit:hover {
+  stroke: rgba(89, 208, 255, 0.4);
 }
 .pcb-pick-hilite {
   pointer-events: none;

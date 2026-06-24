@@ -1,105 +1,93 @@
-// Pad picker for the PCB viewer — the 2D counterpart to the STEP edge picker.
-// A toggle (persisted per-browser) turns the board into a clickable surface:
-// click a pad / through-hole to select it and copy a text blob naming it
-// (component ref, pin, net, board position). The agent on the other side of
-// the clipboard reads the blob to know exactly which pad the user means.
+// Board inspector for the PCB viewer — the 2D counterpart to the STEP edge
+// picker. A toggle (persisted per-browser) turns the board into a clickable
+// surface: click a pad / through-hole, a via, or a trace to select it and copy
+// a text blob naming it. The agent on the other side of the clipboard reads the
+// blob to know exactly what the user means; there is no paste-back-to-highlight
+// round-trip (it has never earned its keep).
 //
-// The copper SVG is anonymous Gerber geometry, so identity comes from a
-// sidecar: hardware/pcb/carrier/pick-data.ts distills each pad's ref/pin/net
-// and millimetre position into out/<board>.picks.json. We overlay an invisible
-// hit-circle per pad, inside a group that reuses the SVG's own
-// `translate(…) scale(1,-1)` Gerber-unit transform — so a pad at circuit-json
-// (x,y) mm lands exactly on its rendered copper (1 mm = 1000 SVG units). The
-// browser does the hit-testing through PanZoom's CSS transform; we only listen
-// for a click on a hit-circle (delegated) and read its pad index.
+// The copper SVG is anonymous Gerber geometry, so identity comes from a sidecar:
+// hardware/pcb/carrier/pick-data.ts distills pads (ref/pin/net + mm position),
+// vias (net + layer hop), and traces (net + endpoint pads + polyline) into
+// out/<board>.picks.json. We overlay an invisible hit-target per entity inside a
+// group that reuses the SVG's own `translate(…) scale(1,-1)` Gerber-unit
+// transform — so geometry at circuit-json (x,y) mm lands on its rendered copper
+// (1 mm = 1000 SVG units). The browser does the hit-testing through PanZoom's
+// CSS transform; on pointerup (not `click` — PanZoom captures the pointer) we
+// read what's under the cursor. Targets are layered pad > via > trace, so where
+// they overlap the most specific wins.
 
 import { state } from "./state.js";
 
+const SVGNS = "http://www.w3.org/2000/svg";
 const LS_KEY = "pcb-pad-pick";
-const HIT_R = 1100;       // hit-circle radius in Gerber units (1.1 mm); just
-                          // under the 2.54 mm pad pitch so neighbours don't overlap
-const HILITE = "#ffd400"; // selected-pad ring (matches the edge picker's warm yellow)
+const PAD_HIT_R = 1100;   // pad hit radius, Gerber units (1.1 mm) — under the 2.54 mm pitch
+const VIA_HIT_R = 650;    // via hit radius (0.65 mm)
+const TRACE_HIT_W = 700;  // trace hit-band width (0.7 mm)
+const HILITE = "#ffd400"; // selection colour (the edge picker's warm yellow)
 
 let enabled = (() => {
   try { return localStorage.getItem(LS_KEY) === "1"; } catch { return false; }
 })();
 
-// Live install: the freshly mounted SVG, its hit layer + highlight group, the
-// board's pads, and the board source. Rebuilt on every view swap (mountView
-// re-parses the SVG); the selection survives swaps so toggling Top/Bottom/Overlay
-// keeps the pad highlighted.
-let ctx = null;
-let selection = null; // { index, pad, source }
-let panel = null, panelRows = null;
+let ctx = null;       // { svgEl, layer, hilite, pads, vias, traces, source, wrapper }
+let selection = null; // { kind:"pad"|"via"|"trace", index, data, source }
+let panel = null;
 
 // --- install / teardown (called by pcb.js around mountView) ---
 
-// Build the hit layer + highlight group inside `svgEl` and wire the delegated
-// click. `info` = { pads, source, wrapper }. Safe to call with no pads (older
-// boards lacking a picks sidecar) — it simply installs nothing.
 export function installPadPicker(svgEl, info) {
-  if (!svgEl || !info || !Array.isArray(info.pads) || !info.pads.length) {
-    ctx = null;
-    return;
-  }
-  // Reuse the geometry group's exact transform so picks share its frame.
+  const hasData = svgEl && info && ((info.pads && info.pads.length) || (info.vias && info.vias.length) || (info.traces && info.traces.length));
+  if (!hasData) { ctx = null; return; }
+
   const geomG = svgEl.querySelector("g[transform]");
   const transform = (geomG && geomG.getAttribute("transform")) || "scale(1,-1)";
 
-  const layer = document.createElementNS("http://www.w3.org/2000/svg", "g");
-  layer.setAttribute("class", "pcb-pick-layer");
-  layer.setAttribute("transform", transform);
-  for (let i = 0; i < info.pads.length; i++) {
-    const p = info.pads[i];
-    const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    c.setAttribute("class", "pcb-pad-hit");
-    c.setAttribute("cx", p.x * 1000);
-    c.setAttribute("cy", p.y * 1000);
-    c.setAttribute("r", HIT_R);
-    c.setAttribute("data-i", String(i));
-    layer.appendChild(c);
-  }
-  const hilite = document.createElementNS("http://www.w3.org/2000/svg", "g");
-  hilite.setAttribute("class", "pcb-pick-hilite");
-  hilite.setAttribute("transform", transform);
+  const layer = el("g", { class: "pcb-pick-layer", transform });
+  // Order matters: traces first (bottom), then vias, then pads (top), so where
+  // targets overlap, elementFromPoint returns the most specific one.
+  (info.traces || []).forEach((t, i) => {
+    if (!t.points || t.points.length < 2) return;
+    layer.appendChild(el("polyline", {
+      class: "pcb-trace-hit", "data-i": i, "stroke-width": TRACE_HIT_W,
+      points: t.points.map((p) => `${p[0] * 1000},${p[1] * 1000}`).join(" "),
+    }));
+  });
+  (info.vias || []).forEach((v, i) => {
+    layer.appendChild(el("circle", { class: "pcb-via-hit", "data-i": i, cx: v.x * 1000, cy: v.y * 1000, r: VIA_HIT_R }));
+  });
+  (info.pads || []).forEach((p, i) => {
+    layer.appendChild(el("circle", { class: "pcb-pad-hit", "data-i": i, cx: p.x * 1000, cy: p.y * 1000, r: PAD_HIT_R }));
+  });
 
-  // On top of the copper so hits land and the ring reads over traces.
+  const hilite = el("g", { class: "pcb-pick-hilite", transform });
   svgEl.appendChild(layer);
   svgEl.appendChild(hilite);
 
-  ctx = { svgEl, layer, hilite, pads: info.pads, source: info.source, wrapper: info.wrapper };
+  ctx = { svgEl, layer, hilite, pads: info.pads || [], vias: info.vias || [], traces: info.traces || [], source: info.source, wrapper: info.wrapper };
   applyEnabled();
   wireWrapper(info.wrapper);
 
-  // Carry a live selection across a view swap (same board → same pad indices).
-  if (selection && selection.source === info.source && selection.index < info.pads.length) {
-    drawHighlight(info.pads[selection.index]);
-    showPanel(info.pads[selection.index]);
+  // Carry a live selection across a view swap (same board → same indices).
+  if (selection && selection.source === info.source) {
+    const data = pick(selection.kind, selection.index);
+    if (data) { selection.data = data; drawHighlight(selection); showPanel(selection); }
+    else clearSelection();
   } else {
     clearSelection();
   }
 }
 
-// Full teardown when the board modal closes.
 export function clearPadPicker() {
   clearSelection();
   ctx = null;
 }
 
 function applyEnabled() {
-  if (!ctx) return;
-  ctx.layer.classList.toggle("active", enabled);
+  if (ctx) ctx.layer.classList.toggle("active", enabled);
 }
 
-// --- selection ---
+// --- pointer wiring (on the wrapper — PanZoom's capture container) ---
 
-// Selection runs off pointerdown/up on the wrapper — PanZoom captures the
-// pointer to the wrapper on pointerdown (pan-zoom.js), so a real click never
-// reaches the SVG as a `click` event. We record the down point and, on an up
-// that didn't travel (a click, not a pan), hit-test the cursor: a pad's
-// hit-circle selects it; empty board clears. PanZoom's own handlers don't stop
-// propagation, so ours coexist. Wired once per board (the wrapper is reused
-// across Top/Bottom/Overlay swaps).
 function wireWrapper(wrapper) {
   if (!wrapper || wrapper._padPickWired) return;
   wrapper._padPickWired = true;
@@ -109,21 +97,29 @@ function wireWrapper(wrapper) {
     if (!enabled || !ctx) return;
     if (e.target && e.target.closest && e.target.closest("button")) return; // a control, not the board
     if (Math.hypot(e.clientX - downX, e.clientY - downY) > 6) return;       // a pan, not a click
-    const el = document.elementFromPoint(e.clientX, e.clientY);
-    if (el && el.classList && el.classList.contains("pcb-pad-hit")) {
-      selectPad(+el.getAttribute("data-i"));
-    } else {
-      clearSelection();
-    }
+    const t = document.elementFromPoint(e.clientX, e.clientY);
+    const cl = t && t.classList;
+    if (cl && cl.contains("pcb-pad-hit")) select("pad", +t.getAttribute("data-i"));
+    else if (cl && cl.contains("pcb-via-hit")) select("via", +t.getAttribute("data-i"));
+    else if (cl && cl.contains("pcb-trace-hit")) select("trace", +t.getAttribute("data-i"));
+    else clearSelection();
   });
 }
 
-function selectPad(i) {
-  if (!ctx || !ctx.pads[i]) return;
-  const pad = ctx.pads[i];
-  selection = { index: i, pad, source: ctx.source };
-  drawHighlight(pad);
-  showPanel(pad);
+// --- selection ---
+
+function pick(kind, index) {
+  if (!ctx) return null;
+  const arr = kind === "pad" ? ctx.pads : kind === "via" ? ctx.vias : ctx.traces;
+  return arr ? arr[index] : null;
+}
+
+function select(kind, index) {
+  const data = pick(kind, index);
+  if (!data) return;
+  selection = { kind, index, data, source: ctx.source };
+  drawHighlight(selection);
+  showPanel(selection);
 }
 
 function clearSelection() {
@@ -132,22 +128,27 @@ function clearSelection() {
   hidePanel();
 }
 
-function drawHighlight(pad) {
+function drawHighlight(sel) {
   if (!ctx) return;
   const g = ctx.hilite;
   while (g.firstChild) g.removeChild(g.firstChild);
-  const padR = (pad.pad ? (pad.pad * 1000) / 2 : 700);
-  const ring = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-  ring.setAttribute("cx", pad.x * 1000);
-  ring.setAttribute("cy", pad.y * 1000);
-  ring.setAttribute("r", padR + 350);
-  ring.setAttribute("fill", "none");
-  ring.setAttribute("stroke", HILITE);
-  ring.setAttribute("stroke-width", "180");
-  g.appendChild(ring);
+  const d = sel.data;
+  if (sel.kind === "trace") {
+    g.appendChild(el("polyline", {
+      points: d.points.map((p) => `${p[0] * 1000},${p[1] * 1000}`).join(" "),
+      fill: "none", stroke: HILITE, "stroke-width": (d.width ? d.width * 1000 : 200) + 260,
+      "stroke-linecap": "round", "stroke-linejoin": "round", opacity: "0.85",
+    }));
+  } else {
+    const size = sel.kind === "pad" ? (d.pad ? (d.pad * 1000) / 2 : 700) : (d.outer ? (d.outer * 1000) / 2 : 300);
+    g.appendChild(el("circle", {
+      cx: d.x * 1000, cy: d.y * 1000, r: size + 320,
+      fill: "none", stroke: HILITE, "stroke-width": 180,
+    }));
+  }
 }
 
-// --- text formatting (the copy blob the agent reads) ---
+// --- text (panel rows + copy blob) ---
 
 function repoPath(source) {
   let lite = false;
@@ -158,87 +159,86 @@ function fnum(n) {
   const s = Number(n).toFixed(3);
   return s === "-0.000" ? "0.000" : s;
 }
-function padLine(pad) {
-  const pin = pad.pinNum != null ? `pin ${pad.pinNum}` : "";
-  const name = pad.pin && String(pad.pin) !== String(pad.pinNum) ? pad.pin : "";
-  return [pad.ref || "?", pin, name].filter(Boolean).join(" ");
+function padLine(p) {
+  const pin = p.pinNum != null ? `pin ${p.pinNum}` : "";
+  const name = p.pin && String(p.pin) !== String(p.pinNum) ? p.pin : "";
+  return [p.ref || "?", pin, name].filter(Boolean).join(" ");
 }
-function posLine(pad) { return `x=${fnum(pad.x)} y=${fnum(pad.y)} mm`; }
+function posLine(p) { return `x=${fnum(p.x)} y=${fnum(p.y)} mm`; }
 
-function allText(pad) {
-  const lines = [];
-  if (ctx && ctx.source) lines.push(`file: ${repoPath(ctx.source)}`);
-  lines.push(`pad: ${padLine(pad)}`);
-  lines.push(`net: ${pad.net || "(none)"}`);
-  lines.push(`pos: ${posLine(pad)}`);
-  return lines.join("\n");
+// One source of truth for what a selection says, in the panel and the copy blob.
+function describe(sel) {
+  const d = sel.data;
+  const fileLine = ctx && ctx.source ? `file: ${repoPath(ctx.source)}` : null;
+  if (sel.kind === "pad") {
+    return {
+      title: "Pad",
+      rows: [["Pad", padLine(d)], ["Net", d.net || "(none)"], ["Pos", posLine(d)]],
+      blob: [fileLine, `pad: ${padLine(d)}`, `net: ${d.net || "(none)"}`, `pos: ${posLine(d)}`].filter(Boolean).join("\n"),
+    };
+  }
+  if (sel.kind === "via") {
+    const layers = d.fromLayer && d.toLayer ? `${d.fromLayer} ↔ ${d.toLayer}` : "";
+    return {
+      title: "Via",
+      rows: [["Net", d.net || "(none)"], ["Layers", layers], ["Pos", posLine(d)]],
+      blob: [fileLine, `via: net ${d.net || "(none)"}${layers ? " · " + layers : ""}`, `pos: ${posLine(d)}`].filter(Boolean).join("\n"),
+    };
+  }
+  const route = d.from && d.to ? `${d.from} → ${d.to}` : (d.from || d.to || "");
+  return {
+    title: "Trace",
+    rows: [["Net", d.net || "(none)"], ["From", d.from || "—"], ["To", d.to || "—"]],
+    blob: [fileLine, `trace: net ${d.net || "(none)"}`, route ? `route: ${route}` : null].filter(Boolean).join("\n"),
+  };
 }
 
-// --- panel (reuses .edge-panel styles) ---
+// --- panel (reuses .edge-panel styles; rows are rebuilt per selection) ---
 
 function buildPanel() {
-  panel = document.createElement("div");
-  panel.className = "edge-panel";
-
-  const head = document.createElement("div");
-  head.className = "edge-panel-head";
-  const title = document.createElement("span");
-  title.className = "edge-panel-title";
-  title.textContent = "Pad";
-  const fileEl = document.createElement("span");
-  fileEl.className = "edge-panel-file";
-  const close = document.createElement("button");
+  panel = el2("div", "edge-panel");
+  const head = el2("div", "edge-panel-head");
+  const title = el2("span", "edge-panel-title");
+  const fileEl = el2("span", "edge-panel-file");
+  const close = el2("button", "edge-panel-close");
   close.type = "button";
-  close.className = "edge-panel-close";
   close.textContent = "×";
   close.title = "Clear selection";
   close.addEventListener("click", () => clearSelection());
-  head.appendChild(title);
-  head.appendChild(fileEl);
-  head.appendChild(close);
-  panel.appendChild(head);
-  panel._fileEl = fileEl;
-
-  const mkRow = (label) => {
-    const row = document.createElement("div");
-    row.className = "edge-row";
-    const lab = document.createElement("span");
-    lab.className = "edge-row-label";
-    lab.textContent = label;
-    const val = document.createElement("span");
-    val.className = "edge-row-val";
-    const copy = document.createElement("button");
-    copy.type = "button";
-    copy.className = "edge-row-copy";
-    copy.textContent = "Copy";
-    row.appendChild(lab);
-    row.appendChild(val);
-    row.appendChild(copy);
-    panel.appendChild(row);
-    const doCopy = () => copyText(val.textContent, copy);
-    val.addEventListener("click", doCopy);
-    copy.addEventListener("click", doCopy);
-    return { row, lab, val, copy };
-  };
-
-  panelRows = { pad: mkRow("Pad"), net: mkRow("Net"), pos: mkRow("Pos") };
-
-  const all = document.createElement("button");
+  head.append(title, fileEl, close);
+  const rowsHost = el2("div", "edge-rows");
+  const all = el2("button", "edge-panel-all");
   all.type = "button";
-  all.className = "edge-panel-all";
   all.textContent = "Copy all";
-  all.addEventListener("click", () => { if (selection) copyText(allText(selection.pad), all); });
-  panel.appendChild(all);
+  panel.append(head, rowsHost, all);
+  panel._title = title; panel._fileEl = fileEl; panel._rowsHost = rowsHost; panel._allBtn = all;
 }
 
-function showPanel(pad) {
+function mkRow(label, value) {
+  const row = el2("div", "edge-row");
+  const lab = el2("span", "edge-row-label"); lab.textContent = label;
+  const val = el2("span", "edge-row-val"); val.textContent = value;
+  const copy = el2("button", "edge-row-copy"); copy.type = "button"; copy.textContent = "Copy";
+  row.append(lab, val, copy);
+  const doCopy = () => copyText(val.textContent, copy);
+  val.addEventListener("click", doCopy);
+  copy.addEventListener("click", doCopy);
+  return row;
+}
+
+function showPanel(sel) {
   if (!panel) buildPanel();
   if (ctx && ctx.wrapper && panel.parentElement !== ctx.wrapper) ctx.wrapper.appendChild(panel);
-  panelRows.pad.val.textContent = padLine(pad);
-  panelRows.net.val.textContent = pad.net || "(none)";
-  panelRows.pos.val.textContent = posLine(pad);
+  const { title, rows, blob } = describe(sel);
+  panel._title.textContent = title;
   panel._fileEl.textContent = ctx && ctx.source ? ctx.source.split("/").pop().replace(/\.tsx$/, "") : "";
   panel._fileEl.title = ctx && ctx.source ? repoPath(ctx.source) : "";
+  panel._rowsHost.textContent = "";
+  for (const [label, value] of rows) {
+    if (value == null || value === "") continue;
+    panel._rowsHost.appendChild(mkRow(label, value));
+  }
+  panel._allBtn.onclick = () => copyText(blob, panel._allBtn);
   panel.classList.add("show");
 }
 function hidePanel() { if (panel) panel.classList.remove("show"); }
@@ -265,7 +265,20 @@ function fallbackCopy(text, done) {
   document.body.removeChild(ta);
 }
 
-// --- public toggle API (mirrors the edge picker) ---
+// --- small element helpers ---
+
+function el(tag, attrs) {
+  const n = document.createElementNS(SVGNS, tag);
+  for (const k in attrs) n.setAttribute(k, String(attrs[k]));
+  return n;
+}
+function el2(tag, className) {
+  const n = document.createElement(tag);
+  if (className) n.className = className;
+  return n;
+}
+
+// --- public toggle API ---
 
 export function setPadPickEnabled(on) {
   enabled = !!on;
@@ -280,7 +293,7 @@ export function makePadPickToggle() {
   btn.type = "button";
   btn.className = "pad-pick-toggle";
   function refresh() {
-    btn.textContent = enabled ? "Select pad: on" : "Select pad: off";
+    btn.textContent = enabled ? "Inspect: on" : "Inspect: off";
     btn.classList.toggle("off", !enabled);
   }
   btn.addEventListener("click", (e) => {
