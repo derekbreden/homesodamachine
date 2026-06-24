@@ -3,16 +3,23 @@
 Used 2× on the driver tray (`hardware/ledger/bom.md`: **B0F872W528**, 2-pc) — sink
 the 12 solenoid coils + the condenser fan to GND; COM tied to 12 V for flyback.
 
-Geometry read off the Amazon photos: a **small purple SOIC breakout** (ULN2803A
-SOIC-18 centred), a 9-pin 2.54 mm header along each long edge (1B-8B+GND /
-1C-8C+COM), and **2 plated mounting holes placed diagonally**. This is the
-compact pin-header breakout, not a screw-terminal slab.
+Geometry **calipered from the physical board**. A small purple SOIC breakout
+(ULN2803A SOIC-18 centred), a 9-pin 2.54 mm header along each long edge, and 2
+mounting holes on the centreline. Frame matches the `module_tray` convention:
+**X = length = the 24 mm axis (the 9-pin rows run along X), Y = width = the 23 mm
+axis (the two rows sit at Y = ±10)**, origin at the footprint centre.
 
-| | mm |
+| Feature | Measurement |
 |---|---|
-| Footprint | **31 × 22** (estimated from photo) |
-| Mounting holes | **2**, diagonal, ⌀3.0 |
-| Height | ~12 (2.54 mm headers) |
+| Footprint | **24 (X, length) × 23 (Y, width)** mm |
+| Mounting holes | **2 × ⌀3.0**; 17.5 apart along X, centred in Y (on the Y = 0 centreline) → (±8.75, 0) |
+| Channel headers | **2 × 9-pin, 2.54 mm**; rows 20.0 apart across Y (±10), running along X; span ≈ 20.3 (8 × 2.54), slightly +X-biased (≈1.5 from the first edge, ≈2.5 to the other) |
 
-Footprint is estimated from the photo — verify by caliper. Regenerate with
-`tools/cad-venv/bin/python uln2803a.py`.
+Pitch is the standard 2.54 mm 0.1″ header. Each row is **9 pins**: one edge is
+1B…8B + GND, the other is 1C…8C + COM (IC pins 9/10 land on the 9th header pin).
+Drive: GPIO → the B pins; loads' low side → the C pins; COM → +12 V; GND → board
+ground. Inputs and outputs are on opposite long edges. Onboard the ULN2803A has
+internal flyback diodes (to COM) and 2.7 kΩ input base resistors — the carrier
+adds neither. No regulator, no I²C, no level shifter on the module.
+
+Regenerate the solid with `tools/cad-venv/bin/python uln2803a.py`.
