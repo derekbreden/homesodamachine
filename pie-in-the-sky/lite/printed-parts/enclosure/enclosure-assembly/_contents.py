@@ -261,11 +261,13 @@ def build():
         return s.translate((xc - (b.xmin + b.xmax) / 2.0, 0.0, zc - (b.zmin + b.zmax) / 2.0))
 
     # Faucet-inlet stub, rot +90 about Y so its two carb-water bulkheads stack in
-    # Z (not side-by-side in X) to fit the narrow strip; centered on the column,
-    # lifted off the floor, flow-meter chain reaching -Y inboard.
+    # Z (not side-by-side in X) to fit the narrow strip; lifted off the floor,
+    # inline flow-meter chain reaching -Y inboard. Centered in X on the bulkhead
+    # axis — the rotated origin (X=0) — NOT the bbox: the meter's wire boss sticks
+    # off to one side, so the bbox center sits off the barrels the holes register on.
     stub = _rot(_load(STUB_STEP), (0, 1, 0), 90.0).translate((0.0, panel_seat, 0.0))
     sb = stub.BoundingBox()
-    stub = stub.translate((PANEL_PORT_X - (sb.xmin + sb.xmax) / 2.0, 0.0, FLOOR_LIFT - sb.zmin))
+    stub = stub.translate((PANEL_PORT_X, 0.0, FLOOR_LIFT - sb.zmin))
     placed["faucet-inlet-stub"] = (stub, PANEL_COLOR)
 
     # The two umbilical flavor bulkheads, up the column above the stub. (The
@@ -288,14 +290,16 @@ def back_wall_ports():
     from their placed positions: (kind, x, z, *size) in world coords — kind
     'round' (a diameter) or 'rect' (x, z size). enclosure.py cuts these through
     the back wall. The faucet-inlet stub contributes its two carb-water bulkheads
-    (±STUB_HALF_PITCH about its center); the C14 and the two umbilical bulkheads
-    are one port each."""
+    (±STUB_HALF_PITCH about the column axis); the C14 and the two umbilical
+    bulkheads are one port each."""
     placed = build()
+    # Stub holes register on the bulkhead axis (PANEL_PORT_X, the column), not the
+    # stub bbox center — the meter's wire boss offsets the bbox off the barrels.
     s = placed["faucet-inlet-stub"][0].BoundingBox()
-    scx, scz = (s.xmin + s.xmax) / 2.0, (s.zmin + s.zmax) / 2.0
+    scz = (s.zmin + s.zmax) / 2.0
     holes = [
-        ("round", scx, scz - STUB_HALF_PITCH, BULKHEAD_HOLE_D),
-        ("round", scx, scz + STUB_HALF_PITCH, BULKHEAD_HOLE_D),
+        ("round", PANEL_PORT_X, scz - STUB_HALF_PITCH, BULKHEAD_HOLE_D),
+        ("round", PANEL_PORT_X, scz + STUB_HALF_PITCH, BULKHEAD_HOLE_D),
     ]
     for key in ("umbilical-bulkhead-a", "umbilical-bulkhead-b"):
         b = placed[key][0].BoundingBox()
