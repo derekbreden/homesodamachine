@@ -226,7 +226,7 @@ export default () => (
     <Uln2803 name="U4" x={20.253} y={35.9} srcPrefix="U2_GPA" rot={90} />
     <Uln2803 name="U5" x={46.112} y={-22.84} srcPrefix="U3_GPA" />
     <Ds3231 name="U6" x={-17.937} y={24.1} rot={180} />
-    <Rs485 name="U7" x={-31.687} y={-36.025} rot={180} />
+    <Rs485 name="U7" x={-40.687} y={-36.025} rot={180} />
     {/* J1 — manifold B: U5 outputs (OUT1-8 + COM=12V borrowed off-board) -> valve loom; right border */}
     <Jst name="J1" x={65} y={-22.84} count={9} labels={ulnOUT} rot={90} label="MANIFOLD B" />
     {[1, 2, 3, 4, 5, 6, 7, 8].map((k) => <trace key={`j1${k}`} from={`.J1 > .OUT${k}`} to={`.U5O > .OUT${k}`} />)}
@@ -237,7 +237,7 @@ export default () => (
     <trace from=".J2 > .COM" to=".U4O > .COM" />
     {/* J3 — reservoir reeds off 0x21's GPB bank; horizontal, below-left, GPB0..7
         ordered to fan as non-crossing diagonals up to the vertical GPB column */}
-    <Jst name="J3" x={7} y={-54} count={9} rot={0} labelDir={1} label="RSVR REEDS" labels={["GPB0", "GPB1", "GPB2", "GPB3", "GPB4", "GPB5", "GPB6", "GPB7", "GND"]} />
+    <Jst name="J3" x={-4} y={-54} count={9} rot={0} labelDir={1} label="RSVR REEDS" labels={["GPB0", "GPB1", "GPB2", "GPB3", "GPB4", "GPB5", "GPB6", "GPB7", "GND"]} />
     {[0, 1, 2, 3, 4, 5, 6, 7].map((k) => <trace key={`j3${k}`} from={`.J3 > .GPB${k}`} to={`.U3B > .GPB${k}`} />)}
     <trace from=".J3 > .GND" to="net.GND" />
   </board>
