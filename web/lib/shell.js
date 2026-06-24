@@ -218,7 +218,7 @@ html.dev-mode .site-nav-public a[data-nav="pcb"] {
 }
 /* In-app toast for foreground push notifications. Bottom-anchored, fixed,
    sits above any modal in the app. The HEAD_TAGS script appends a single
-   .hsm-toast to body when an SSE pending-nav event arrives for a URL
+   .hsm-toast to body when a pending-nav event arrives for a URL
    different from the current one (same-URL events trigger a reload
    instead — see HEAD_TAGS). */
 .hsm-toast {
@@ -283,7 +283,7 @@ html.dev-mode .site-nav-public a[data-nav="pcb"] {
 // localStorage is the source of truth, but the server picks the viewer's
 // content root from the `hsmEdition` cookie, so we write that cookie before
 // the viewer's main.js fires its /api fetches. Everything else (SW navigate
-// bridge, notifications state, SSE owner, toast) lives in public/boot.js
+// bridge, notifications state, live-update owner, toast) lives in public/boot.js
 // loaded with defer — see that file's docstring for the full architecture.
 const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("devMode")==="1")document.documentElement.classList.add("dev-mode");if(localStorage.getItem("hsmFcmToken"))document.documentElement.classList.add("notifs-enabled");var ed=localStorage.getItem("hsmEdition")==="lite"?"lite":"kitchen";document.cookie="hsmEdition="+ed+";path=/;max-age=31536000;samesite=lax";if(ed==="lite")document.documentElement.classList.add("lite-mode");}catch(e){}})();</script>
 <script src="/boot.js" defer></script>

@@ -2,7 +2,7 @@
 // SVG renderer, the per-file PanZoom transform persistence, the modal
 // open/close flow (separate from cad-detail.js because mmd uses
 // PanZoom and not the Three.js scene), the offscreen thumbnail
-// renderer, and the SSE-driven open-modal swap.
+// renderer, and the open-modal swap on re-render.
 
 import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
 import { state } from "./state.js";
@@ -29,7 +29,7 @@ mermaid.initialize({
 // --- Mermaid detail view ---
 // The detail opens inside ContentViewer; PanZoom drives pan/zoom; we persist
 // {scale,panX,panY} per-file in localStorage and restore on reopen. The
-// wrapper / SVG host stays mounted so SSE re-renders can swap the SVG
+// wrapper / SVG host stays mounted so re-renders can swap the SVG
 // without recreating PanZoom (preserves the user's pan/zoom).
 let mmdRenderCounter = 0;
 
@@ -71,7 +71,7 @@ export async function mmdRenderSvg(content) {
 }
 
 // Replace the SVG inside the open modal's wrapper without touching PanZoom.
-// Used by the SSE re-render path so the user's pan/zoom is preserved.
+// Used by the re-render path so the user's pan/zoom is preserved.
 async function reRenderOpenMmd(content) {
   if (!state.currentMmdWrapper || !state.currentMmdPz) return;
   let svgEl;
@@ -239,9 +239,6 @@ export function closeMmdDetail(pushHistory = true) {
   ContentViewer.close();
 }
 
-// SSE-driven re-fetch of the open mmd modal. If content changed, swap
-// the SVG without disturbing the user's pan/zoom (reRenderOpenMmd
-// preserves it via getTransform/setTransform).
 export async function refetchOpenMmd(file) {
   const resp = await fetch(`/api/mermaid-content/${file}`);
   if (!resp.ok) return;
