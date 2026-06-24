@@ -6,16 +6,10 @@
 //     replay so a client whose old connection died during the container
 //     swap gets the change list it missed.
 //
-// We landed on WebSockets after Server-Sent Events proved unreliable in
-// our setup: Safari kept long-lived EventSources in OPEN readyState
-// after the underlying TCP connection had died (no error, no
-// auto-reconnect), and even when reconnect did fire there was no clean
-// way for the client to notice the "I missed some broadcasts in the
-// disconnect window" case in dev (the commit fingerprint stays "dev"
-// across reconnects). WebSocket auto-reconnect on the client and
-// server-side ping/terminate give us a single observable channel where
-// "the connection is healthy" is easy to define and easy to recover
-// from when it isn't.
+// Liveness: the client reconnects on close with backoff; the server
+// pings every 30s and terminates a socket that misses its pong. A client
+// that reconnects catches up on anything it missed via the `recent`
+// snapshot on the next hello (below).
 //
 // Wire shape (JSON over text frames):
 //   server -> client:
