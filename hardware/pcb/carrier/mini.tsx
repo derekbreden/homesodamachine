@@ -236,9 +236,23 @@ export default () => (
     {[1, 2, 3, 4, 5, 6, 7, 8].map((k) => <trace key={`j2${k}`} from={`.J2 > .OUT${k}`} to={`.U4O > .OUT${k}`} />)}
     <trace from=".J2 > .COM" to=".U4O > .COM" />
     {/* J3 — reservoir reeds off 0x21's GPB bank; horizontal, below-left, GPB0..7
-        ordered to fan as non-crossing diagonals up to the vertical GPB column */}
+        ordered to fan as non-crossing diagonals up to the vertical GPB column.
+        The bundle is a planar matched-order fan, but the capacity router serialises
+        it and vias the losers, so each GPB trace is hand-routed (pcbPath, relative
+        to the J3 source pad): a diagonal up to x=4 — clear of 0x21's body edge at
+        x=6.3 and the VCC/GND pads at the column's foot — then a short horizontal in
+        to the GPB pad at its own y. GND is left to the autorouter; it dips to the
+        back layer and passes under the fan. */}
     <Jst name="J3" x={-4} y={-54} count={9} rot={0} labelDir={1} label="RSVR REEDS" labels={["GPB0", "GPB1", "GPB2", "GPB3", "GPB4", "GPB5", "GPB6", "GPB7", "GND"]} />
-    {[0, 1, 2, 3, 4, 5, 6, 7].map((k) => <trace key={`j3${k}`} from={`.J3 > .GPB${k}`} to={`.U3B > .GPB${k}`} />)}
-    <trace from=".J3 > .GND" to="net.GND" />
+    {[0, 1, 2, 3, 4, 5, 6, 7].map((k) => {
+      const j3x = -4, j3y = -54 // J3 origin; pcbPath points are relative to it
+      const stageX = 4 // diagonal turns up here, just left of 0x21's body edge (x=6.3)
+      const ty = -15.22 - k * 2.54 // 0x21 GPB-k pad y (column descends from GPB0 at -15.22)
+      return <trace key={`j3${k}`} from={`.J3 > .GPB${k}`} to={`.U3B > .GPB${k}`} pcbPath={[{ x: stageX - j3x, y: ty - j3y }]} />
+    })}
+    {/* reed common ground: one via drops it to the back layer at J3, it runs up
+        under the signal fan and lands on 0x21's I2C GND pad (a through-hole pad,
+        so no exit via). pcbPath is relative to J3's origin (-4, -54). */}
+    <trace from=".J3 > .GND" to=".U3I > .GND" pcbPath={[{ x: 10.16, y: 4 }, { x: 10.16, y: 4, via: true, toLayer: "bottom" }, { x: 10.16, y: 4 }, { x: 18.15, y: 40 }]} />
   </board>
 )
