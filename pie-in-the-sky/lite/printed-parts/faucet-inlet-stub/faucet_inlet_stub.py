@@ -1,41 +1,43 @@
 """Lite-edition rear-panel carbonated-water pass-through — the
 faucet-inlet stub. Carb water from the external Lillium carbonator enters
-the rear panel, turns inward, crosses the DIGITEN flow meter (detected
-flow triggers the flavor pumps), turns back, and exits the rear panel to
-the faucet.
+the rear panel, turns inward and down to the meter, crosses the DIGITEN flow
+meter (detected flow triggers the flavor pumps), turns back up, and exits the
+rear panel to the faucet.
 
 Flow path, port to port:
     Lillium hose
       -> bulkhead IN  (panel pass-through, +X side)
-      -> elbow IN     (turns the run inward, toward the meter inlet)
-      -> DIGITEN flow meter  (90° L-body, inlet and outlet at 90°)
-      -> elbow OUT    (turns the run back toward the panel)
+      -> elbow IN     (drops the run inward to the meter axis)
+      -> DIGITEN flow meter  (inline, ports coaxial on +X / -X)
+      -> elbow OUT    (lifts the run back up toward the panel)
       -> bulkhead OUT (panel pass-through, -X side)
       -> faucet
 
-The meter is the G1/4" 1/4"-PTC part: both ports take a 1/4" OD tube
-directly, so the 1/4" elbows mate it without any reducer. Its two ports sit
-at 90°, so it is set corner-down (the L straddling X=0), the inlet opening
-toward the +X bulkhead and the outlet toward the -X bulkhead, both leaning
-+Y toward the panel.
+The meter is the inline G1/4" 1/4"-PTC part: its two ports are coaxial on
+opposite rims (one opening +X, one -X), each taking a 1/4" OD tube directly.
+It lies with its flow axis along X, deep in the enclosure; a 1/4" elbow stands
+off each collet and turns the run +Y up to a panel bulkhead — so the whole
+path is a flat U, in at the +X bulkhead, straight across through the meter,
+out at the -X bulkhead. Every collet face mates its neighbour: bulkhead ring
+to elbow axial leg, elbow lateral leg to meter collet.
 
 Coordinate frame
 ----------------
 - Y = panel-normal : +Y is outside the enclosure (toward the Lillium hose
                      and the faucet); -Y is inside. The rear panel sits at
                      Y = 0, the bulkhead seating plane.
-- X = lateral      : the two bulkheads straddle X = 0 at ±[38.65 mm](BULKHEAD_X);
-                     the flow meter sits centered between them.
+- X = lateral / meter flow axis : the two bulkheads straddle X = 0 at
+                     ±[49.56 mm](BULKHEAD_X); the meter lies between them on
+                     the X axis, inlet/outlet collets opening +X and -X.
 - Z = up.
 
-The two bulkheads sit [77.3 mm](BULKHEAD_PITCH) apart on the panel — the
-meter's two ports stand 27 mm off its center at 90°, and an elbow leg stands
-off each port. The flow meter, both elbows, and the meter corner live inside
-the enclosure at Y = -[63.44 mm](STUB_DEPTH_Y).
+The two bulkheads sit [99.12 mm](BULKHEAD_PITCH) apart on the panel. Each
+elbow's axial leg drops from a bulkhead's inner ring face down to the meter
+axis at Y = -[44.35 mm](STUB_DEPTH_Y), where its lateral leg meets the meter's
+collet face; the meter and both elbows live inside the enclosure.
 """
 
 import sys
-import math
 from pathlib import Path
 
 import cadquery as cq
@@ -60,31 +62,25 @@ _BULKHEAD_STEP = _hw / "reference" / "jg-bulkhead-union" / "jg-bulkhead-union.st
 # Y=0; the far ring face is its inner tube port, reaching into the enclosure.
 bulkhead_far_ring_y = -24.79     # inner tube-port face, into the enclosure
 # Elbow (elbow-connector.step frame): bend corner at the origin, each leg
-# running out to its collet face.
+# running out to its collet face along +Y and +Z.
 elbow_leg = 19.56                # bend corner to collet face, both legs
-# Flow sensor (digiten_flow_sensor.py frame): inlet +Y, outlet +X, each
-# collet face this far from the body center along its own axis.
-flow_port_face = 27.0            # collet face from center, each port
+# Flow meter (digiten_flow_sensor.py frame): inline, ports coaxial on ±X, each
+# collet face this far from the body center along the flow axis.
+flow_port_face = 30.0            # collet face from center, each port
 
 
-# --- Layout: 90° L-meter straddling X=0, inside the enclosure ----------------
-# The meter is set corner-down (rotated 45° about Z) so its two 90° ports lean
-# symmetrically toward the panel: the inlet opens up-and-toward +X, the outlet
-# up-and-toward -X. Each port face then sits at lateral offset and depth
-# flow_port_face/√2 from the meter center. An elbow turns each port's run +Y
-# to the bulkhead's inner ring face; the bulkhead X is the elbow bend corner.
-_diag = flow_port_face / math.sqrt(2.0)   # port-face X offset and Y rise, each port
+# --- Layout: inline meter on the X axis, a flat U up to two panel bulkheads --
+# The meter lies with its flow axis along X at depth meter_center_y; an elbow
+# stands off each ±X collet, dropping +Y to a panel bulkhead. The elbow axial
+# leg bridges the bulkhead's inner ring face down to the meter axis, so the
+# meter sits one elbow_leg below the bulkhead ring face.
+meter_center_y = bulkhead_far_ring_y - elbow_leg          # meter axis depth, -Y
+stub_depth_y = meter_center_y                             # chain depth, -Y
 
-# The meter center depth into the enclosure (-Y). The elbow axial leg
-# (length elbow_leg) bridges from the bulkhead far ring face down to the
-# elbow corner, which sits one elbow_leg in +Y above each port face.
-meter_center_y = bulkhead_far_ring_y - elbow_leg - _diag   # meter center, -Y
-stub_depth_y = meter_center_y                              # chain depth, -Y
-
-# Each port face is at lateral ±_diag from center; the elbow's lateral leg
-# meets it there and its bend corner sits one elbow_leg further out laterally,
-# which sets the bulkhead axis.
-bulkhead_x = _diag + elbow_leg            # elbow bend corner = bulkhead axis
+# Each elbow's lateral leg runs from its bend corner in to the meter collet
+# face (at flow_port_face from center); the corner sits one elbow_leg further
+# out, which sets the bulkhead axis.
+bulkhead_x = flow_port_face + elbow_leg   # meter collet + elbow lateral leg
 bulkhead_pitch = 2.0 * bulkhead_x         # lateral spacing on the panel
 
 
@@ -97,30 +93,30 @@ def place_bulkhead(sign):
 
 
 def place_elbow(sign):
-    """Elbow at the bulkhead's inner port: axial leg up +Y into the bulkhead
-    far ring, lateral leg turned inward (toward X=0) to meet the meter port.
+    """Elbow at a bulkhead's inner port: axial leg up +Y into the bulkhead far
+    ring, lateral leg turned inward (toward X=0) to meet the meter collet.
 
     Source elbow has legs on +Y and +Z meeting at the corner (origin). The +Y
     leg is the axial leg and stays +Y; rotating about Y swings the +Z leg into
     the lateral direction — -90 about Y sends +Z onto -X (inward for the +X
     bulkhead), +90 sends it onto +X (for the -X bulkhead). The corner lands at
-    (sign*bulkhead_x, stub_depth_y + _diag, 0)."""
+    (sign*bulkhead_x, meter_center_y, 0): its +Y leg reaches the bulkhead ring
+    at Y=bulkhead_far_ring_y, its lateral leg the meter collet at X=sign*flow_port_face."""
     fit = cq.importers.importStep(str(_ELBOW_STEP)).val()
     fit = fit.rotate((0, 0, 0), (0, 1, 0), -90 * sign)
-    return fit.translate((sign * bulkhead_x, stub_depth_y + _diag, 0.0))
+    return fit.translate((sign * bulkhead_x, meter_center_y, 0.0))
 
 
 def place_flow_meter():
-    """Flow meter centered at X=0 at the chain depth, rotated 45° about Z so its
-    inlet (+Y) and outlet (+X) ports lean symmetrically toward the panel."""
+    """Inline flow meter centered on X=0 at the chain depth, flow axis along X
+    so its +X / -X collets face the two elbows. No rotation — the reference
+    model is already built inline on X."""
     return (
         cq.importers.importStep(str(_FLOW_SENSOR_STEP)).val()
-        .rotate((0, 0, 0), (0, 0, 1), 45)
         .translate((0.0, stub_depth_y, 0.0))
     )
 
 
-PANEL_COLOR = cq.Color(0.85, 0.78, 0.62)
 BULKHEAD_COLOR = cq.Color(0.55, 0.57, 0.60)   # gray acetal
 ELBOW_COLOR = cq.Color(0.20, 0.22, 0.26)      # black PP
 METER_COLOR = cq.Color(0.30, 0.55, 0.85)      # blue, to read clearly

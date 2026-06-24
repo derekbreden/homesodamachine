@@ -6,35 +6,41 @@ the flavor pumps). A purchased part, not a printed one — the model is a
 keep-out envelope for placement and tube routing, not a manufacturing
 drawing.
 
-A round rotor-chamber body with two quick-connect ports cast onto its rim
-at 90° to each other — water enters one port, spins the rotor in the round
-chamber, and exits the perpendicular port (an L-shaped flow path, not a
-straight through-bore). Reduced to coaxial/cylindrical keep-out:
+A round, coin-shaped housing with two quick-connect ports on OPPOSITE rims,
+coaxial along one diameter: water enters one collet, spins the rotor in the
+round chamber, and exits the collet straight across the body — an INLINE
+(straight-through, 180°) flow path, not an L. Reduced to coaxial/cylindrical
+keep-out:
 
-- Body — the round white rotor housing carrying the rotor and the Hall
-  sensor. A disk Ø[34 mm](BODY_DIA) across the chamber plane (X-Y), the
-  rotor axis through its thickness Z [13 mm](BODY_THICK).
-- Two quick-connect ports — at 90° in the chamber plane, one opening +Y
-  (inlet) and one opening +X (outlet), each a Ø[12 mm](PORT_DIA) collet
-  barrel whose outer collet face reaches [27 mm](PORT_FACE) from the body
-  center along its own axis. As sold these are 1/4" push-to-connect (push a
-  1/4" OD tube in past the blue collet ring), not exposed threads — "G1/4"
-  is the size class, not a BSP thread.
+- Body — the round white rotor housing (rotor + Hall sensor). A disk
+  Ø[26 mm](BODY_DIA) across the circular label / rotor-cover faces, the
+  body running [22 mm](BODY_LEN) through its depth (the two molded halves,
+  joined at a mid-plane seam with four screws). The flow axis is a diameter
+  of the disk; the rotor spins about that body depth axis.
+- Two quick-connect ports — coaxial on opposite rims, one opening +X, one
+  opening -X, each a Ø[12 mm](PORT_DIA) collet barrel whose outer collet
+  face reaches [30 mm](PORT_FACE) from the body center along the flow axis
+  ([60 mm] tip to tip). As sold these are 1/4" push-to-connect (push a 1/4"
+  OD tube in past the blue collet ring), not exposed threads — "G1/4" is the
+  size class, not a BSP thread.
 - Wire-exit boss — the rim stub (Ø[8 mm](WIRE_BOSS_DIA), [3 mm](WIRE_BOSS_LEN)
-  proud) where the 3-wire pigtail (red VCC / black GND / yellow signal,
-  JST-XH 2.54 3-pin) leaves the housing.
+  proud) where the 3-wire pigtail (red VCC / black GND / yellow signal) leaves
+  the housing, off the rim perpendicular to the flow axis.
+
+The label face (DIGITEN logo) and the opposite molded 5-spoke "wagon-wheel"
+rotor cover with its flow-direction arrow are surface graphics, not enveloped.
 
 Coordinate frame (the repo world frame)
 ---------------------------------------
-- Z = rotor axis : normal to the chamber plane, through the disk thickness;
-                   the rotor spins about Z.
-- Y = inlet axis  : the inlet port opens toward +Y, its collet face at
-                    Y = +[27 mm](PORT_FACE).
-- X = outlet axis : the outlet port opens toward +X at 90° to the inlet,
-                    its collet face at X = +[27 mm](PORT_FACE).
+- X = flow axis  : the two ports are coaxial along X, collet faces at
+                   X = ±[30 mm](PORT_FACE), opening +X and -X.
+- Y = body depth : normal to the round label / rotor-cover faces; the body
+                   spans Y = ±[11 mm] (the [22 mm](BODY_LEN) depth). The
+                   rotor spins about Y.
+- Z = up         : the wire-exit boss leaves the rim toward +Z.
 
-Origin is the body center. The disk is centered on it; the two ports run out
-along +Y and +X; the wire-exit boss leaves toward -X-and-up off the rim.
+Origin is the body center. The two ports run out along ±X; the wire-exit boss
+leaves +Z off the rim.
 """
 
 import sys
@@ -50,70 +56,63 @@ from docgen import substitute_md, substitute_py_comments
 
 
 # --- Body: round rotor housing (rotor + Hall sensor) -------------------------
-# Photo-estimated against the 1/4" PTC collet barrel; no manufacturer
-# dimension drawing is published for this part.
-body_dia = 34.0       # rotor-chamber disk diameter across the chamber plane (X-Y)
-body_thick = 13.0     # disk thickness along the rotor axis (Z)
+# Photo-estimated against the 1/4" PTC collet barrel and the published
+# YF-S402B-family envelope (60 x 26 x 22 mm); no manufacturer dimension
+# drawing is published for this part.
+body_dia = 26.0       # round label / rotor-cover face diameter
+body_len = 22.0       # body depth through the two molded halves (the flow axis
+                      # is a diameter of the disk; the rotor spins about this axis)
 
-# --- Ports: two quick-connect collets at 90° in the chamber plane ------------
+# --- Ports: two coaxial quick-connect collets on opposite rims ---------------
 port_dia = 12.0       # 1/4" PTC collet barrel OD (photo-estimated)
-port_face = 27.0      # body center to outer collet face, along each port axis
+port_face = 30.0      # body center to outer collet face, along the flow axis
+                      # (60 mm tip to tip)
 
 # --- Wire-exit boss: pigtail root on the rim ---------------------------------
 # Photo-estimated: a small stub off the housing rim where the 3-wire pigtail
-# leaves. Size and exact angle are read off product photos, not a drawing;
-# the pigtail itself (a flexible 15 cm lead) is not enveloped.
+# leaves, perpendicular to the flow axis. The pigtail itself (a flexible ~15 cm
+# lead to a 3-pin JST connector) is not enveloped.
 wire_boss_dia = 8.0      # boss diameter (photo-estimated)
 wire_boss_len = 3.0      # boss stand-off proud of the rim (photo-estimated)
-wire_boss_z = 0.0        # boss center height along the rotor axis (photo-estimated)
 
 
 def build_body_disk():
-    """Round rotor housing: Ø body_dia disk, thickness body_thick centered on
-    Z=0, rotor axis along Z."""
+    """Round rotor housing: Ø body_dia, the body_len depth along Y (the body
+    axis the rotor spins about), centered on the origin."""
     return (
-        cq.Workplane("XY")
-        .workplane(offset=-body_thick / 2.0)
+        cq.Workplane("XZ")            # sketch plane normal along Y
+        .workplane(offset=-body_len / 2.0)
         .circle(body_dia / 2.0)
-        .extrude(body_thick)
+        .extrude(body_len)
     )
 
 
-def build_inlet_port():
-    """Quick-connect collet barrel opening +Y, from the body out to the
-    port_face collet face."""
+def build_port(sign):
+    """Quick-connect collet barrel coaxial on the flow (X) axis, opening
+    sign*X, from the body center out to the port_face collet face. Built
+    through the body center so it fuses with the disk into one connected port."""
     return (
-        cq.Workplane("XZ")  # sketch plane normal along Y
+        cq.Workplane("YZ")            # sketch plane normal along X
         .circle(port_dia / 2.0)
-        .extrude(port_face)
-    )
-
-
-def build_outlet_port():
-    """Quick-connect collet barrel opening +X (90° from the inlet), from the
-    body out to the port_face collet face."""
-    return (
-        cq.Workplane("YZ")  # sketch plane normal along X
-        .circle(port_dia / 2.0)
-        .extrude(port_face)
+        .extrude(sign * port_face)
     )
 
 
 def build_wire_boss():
-    """Rim stub where the pigtail leaves, projecting toward -X off the rim."""
+    """Rim stub where the pigtail leaves, projecting +Z off the rim,
+    perpendicular to the flow axis."""
     return (
-        cq.Workplane("YZ")  # sketch plane normal along X
-        .workplane(offset=-(body_dia / 2.0))
-        .center(0, wire_boss_z)
+        cq.Workplane("XY")            # sketch plane normal along Z
+        .workplane(offset=body_dia / 2.0)
         .circle(wire_boss_dia / 2.0)
-        .extrude(-wire_boss_len)
+        .extrude(wire_boss_len)
     )
 
 
 _PARTS = [
-    ("body", build_body_disk, cq.Color(0.92, 0.92, 0.94)),   # white housing
-    ("port-inlet", build_inlet_port, cq.Color(0.85, 0.87, 0.90)),
-    ("port-outlet", build_outlet_port, cq.Color(0.85, 0.87, 0.90)),
+    ("body", build_body_disk, cq.Color(0.92, 0.92, 0.94)),        # white housing
+    ("port-a", lambda: build_port(+1), cq.Color(0.85, 0.87, 0.90)),
+    ("port-b", lambda: build_port(-1), cq.Color(0.85, 0.87, 0.90)),
     ("wire-boss", build_wire_boss, cq.Color(0.20, 0.20, 0.22)),
 ]
 
@@ -133,12 +132,12 @@ def main():
     export_assembly(build_assembly(), str(_here.parent / "digiten-flow-sensor.step"))
     bb = build_scene().BoundingBox()
     print("-> digiten-flow-sensor.step")
-    print("flow-sensor envelope  X[%.1f, %.1f]  Y[%.1f, %.1f]  Z[%.1f, %.1f]   (inlet +Y, outlet +X)"
+    print("flow-sensor envelope  X[%.1f, %.1f]  Y[%.1f, %.1f]  Z[%.1f, %.1f]   (inline, ports ±X)"
           % (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax))
 
     md_vars = {
         "BODY_DIA": f"{body_dia:.4g}",
-        "BODY_THICK": f"{body_thick:.4g}",
+        "BODY_LEN": f"{body_len:.4g}",
         "PORT_DIA": f"{port_dia:.4g}",
         "PORT_FACE": f"{port_face:.4g}",
         "WIRE_BOSS_DIA": f"{wire_boss_dia:.4g}",
@@ -148,7 +147,7 @@ def main():
         _here.parent / "README.md",
         variables=md_vars,
         expected_counts={
-            "BODY_DIA": 2, "BODY_THICK": 2,
+            "BODY_DIA": 2, "BODY_LEN": 2,
             "PORT_DIA": 1, "PORT_FACE": 3,
             "WIRE_BOSS_DIA": 1, "WIRE_BOSS_LEN": 1,
         },
@@ -158,8 +157,8 @@ def main():
         Path(__file__),
         variables={k: f"{v} mm" for k, v in md_vars.items()},
         expected_counts={
-            "BODY_DIA": 1, "BODY_THICK": 1,
-            "PORT_DIA": 1, "PORT_FACE": 3,
+            "BODY_DIA": 1, "BODY_LEN": 2,
+            "PORT_DIA": 1, "PORT_FACE": 2,
             "WIRE_BOSS_DIA": 1, "WIRE_BOSS_LEN": 1,
         },
     )

@@ -7,45 +7,48 @@ water spins the rotor; the Hall pulse train (F = 23·Q, ≈1380 pulses/L) trigge
 the flavor pumps. A purchased part, not a printed one — the model is for
 placement and tube routing, not a manufacturing drawing.
 
-A round rotor-chamber body with two quick-connect ports on its rim at 90° to
-each other — water enters one port, spins the rotor, and exits the
-perpendicular port (an L-shaped flow path, not a straight through-bore).
-Reduced to coaxial/cylindrical keep-out:
+A round, coin-shaped body with two quick-connect ports on **opposite rims,
+coaxial along one diameter** — water enters one collet, spins the rotor, and
+exits the collet straight across the body. An **inline** (straight-through,
+180°) flow path, not an L. Reduced to coaxial/cylindrical keep-out:
 
 | Piece | Size | Part |
 |---|---|---|
-| Disk | Ø[34](BODY_DIA) × [13](BODY_THICK) thick | body — round rotor housing carrying the rotor and Hall sensor |
-| 2× barrel | Ø[12](PORT_DIA) collet, face [27](PORT_FACE) from center | quick-connect ports, at 90° in the chamber plane (inlet +Y, outlet +X) |
+| Disk | Ø[26](BODY_DIA) × [22](BODY_LEN) deep | body — round rotor housing carrying the rotor and Hall sensor |
+| 2× barrel | Ø[12](PORT_DIA) collet, face [30](PORT_FACE) from center | quick-connect ports, coaxial on opposite rims (one +X, one −X) |
 | Stub | Ø[8](WIRE_BOSS_DIA) × [3](WIRE_BOSS_LEN) proud | wire-exit boss where the 3-wire pigtail leaves the rim |
 
 The ports are 1/4" push-to-connect as sold — a 1/4" OD tube pushes in past the
 blue collet ring; there are no exposed threads. "G1/4" is the size class, not a
 BSP thread. The pigtail carries red VCC (DC 3.5–12 V), black GND, and yellow
-signal (square-wave, open-collector), on a JST-XH 2.54 3-pin connector.
+signal (square-wave, open-collector), leaving the rim perpendicular to the flow
+axis on a JST-XH 2.54 3-pin connector.
 
 ## Coordinate convention (repo world frame)
 
-- **Z** = rotor axis — normal to the chamber plane, through the disk thickness
-- **Y** = inlet axis — the inlet port opens toward +Y, its collet face at
-  Y = +[27](PORT_FACE)
-- **X** = outlet axis — the outlet port opens toward +X at 90° to the inlet
+- **X** = flow axis — the two ports are coaxial along X, collet faces at
+  X = ±[30](PORT_FACE), opening +X and −X
+- **Y** = body depth — normal to the round label / rotor-cover faces; the body
+  is [22](BODY_LEN) deep, the rotor spinning about Y
+- **Z** = up — the wire-exit boss leaves the rim toward +Z
 
-Origin is the body center: the disk is centered on it, the two ports run out
-along +Y and +X, and the wire-exit boss leaves toward −X off the rim.
+Origin is the body center: the two ports run out along ±X, and the wire-exit
+boss leaves +Z off the rim.
 
-Overall envelope: the round body plus two ports reaching [27](PORT_FACE) along
-+Y and +X, the disk [13](BODY_THICK) (Z) thick, Ø[34](BODY_DIA) across.
+Overall envelope: a round body Ø[26](BODY_DIA) with two ports reaching
+[30](PORT_FACE) along ±X (60 mm tip to tip).
 
 ## Measured vs estimated
 
 DIGITEN publishes no dimension drawing for this part, so **every dimension is
-photo-estimated** — read off the three product photos (Amazon B07QRXLRTH and
-digit-en.com FL-S402B), scaled against the 1/4" PTC collet barrel:
+photo-estimated** — read off the DIGITEN product photos (Amazon B07QRXLRTH and
+digit-en.com FL-S402B) and cross-checked against the published YF-S402B-family
+envelope (60 × 26 × 22 mm):
 
-- body disk diameter and thickness, the 90° port arrangement, the collet
-  barrel OD, and the center-to-collet-face length;
-- the wire-exit boss diameter, stand-off, and −X exit direction. The flexible
-  15 cm pigtail itself is not enveloped.
+- body diameter and depth, the **inline** (180°, coaxial) two-port arrangement,
+  the collet barrel OD, and the center-to-collet-face length;
+- the wire-exit boss diameter, stand-off, and +Z rim-exit direction. The
+  flexible ~15 cm pigtail itself is not enveloped.
 
 The **port type** (1/4" push-to-connect, not a BSP thread) and the **F = 23·Q**
 constant are confirmed from the Amazon listing text, the part label, and the
