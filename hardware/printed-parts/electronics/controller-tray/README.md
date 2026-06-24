@@ -26,9 +26,11 @@ research: the **MCP23017 mounts cantilevered** (both holes on one end), and the
 **ESP32 breakout is natively a 35 mm DIN-rail board** — on this tray it sits on
 placeholder bosses, but it may instead want a printed DIN-rail segment.
 
-> Geometries are now from research (Amazon photos + the Waveshare manual), except
-> the **ESP32 DIN-breakout footprint, which stays estimated** (the listing
-> publishes pitches, not overall size) — verify by caliper.
+> The **MCP23017 is now calipered** from the physical board (38.5 × 23.3, ⌀2 M2
+> holes 18.8 apart at one end) — see its [reference](/hardware/reference/mcp23017/).
+> The DS3231 and RS485 are from research (Amazon photos + manuals), and the
+> **ESP32 DIN-breakout footprint stays estimated** (the listing publishes pitches,
+> not overall size) — verify by caliper.
 
 `controller_tray.py` → `controller-tray.step`; `controller_assembly.py` →
 `controller-assembly.step`. Regenerate with `tools/cad-venv/bin/python <script>`.

@@ -28,7 +28,7 @@ feed and the ground bond cross between the two.
 
 ESP32 breakout at the lower-left; the L298N flush to its right; the two ULN2803As
 stacked in the next column; the MCP23017 + RS485 stacked in the next column; the
-DS3231 in the last column. Footprint ≈ **229 × 55 mm**. Each board screws onto
+DS3231 in the last column. Footprint ≈ **222 × 55 mm**. Each board screws onto
 heat-set standoff bosses sized per its holes — **M3** for the ESP32, L298N,
 ULN2803A, RS485, and DS3231; **M2** for the MCP23017 (its holes are ⌀2).
 **20 heat-set bosses** total — **18 M3 + 2 M2** (ESP32 4 + L298N 4 + ULN2803A 2×2
