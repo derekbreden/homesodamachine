@@ -184,10 +184,10 @@ function mountView(view, preserve) {
   if (source) pcbSaveView(source, view);
   if (state.currentPcbToggle) syncToggle(state.currentPcbToggle, view);
 
-  // Re-arm the pad picker on the freshly mounted SVG (the three views share a
-  // frame, so a live selection carries across the swap).
+  // Re-arm the board inspector on the freshly mounted SVG (the three views share
+  // a frame, so a live selection carries across the swap).
   const picks = state.currentPcbPicks;
-  installPadPicker(svgEl, picks && picks.pads ? { pads: picks.pads, source, wrapper } : null);
+  installPadPicker(svgEl, picks ? { pads: picks.pads, vias: picks.vias, traces: picks.traces, source, wrapper } : null);
 }
 
 export async function openPcbDetail(source, pushHistory = true) {
