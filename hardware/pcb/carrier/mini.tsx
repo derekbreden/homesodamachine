@@ -207,30 +207,28 @@ const Jst = ({ name, x, y, count, labels, rot = 0, label, labelDir = -1 }: { nam
 }
 
 // ---- the board -------------------------------------------------------------
-// Relative arrangement unchanged (0x20+U4 turned a quarter-turn above 0x21, both
-// MCP I2C headers on the shared centre channel, the RS485 / ESP / DS3231 left
-// column). Whole-cluster moves: (1) the left column was raised so the RS485's
-// bottom edge lines up with 0x21's bottom edge; (2) the RS485 is nudged ~7 mm left
-// of the ESP so its corner hole clears 0x21's GPB header keep-out; (3) the whole
-// cluster is centred at the origin with a uniform border on every side. The
-// border is sized to a real vertical JST XH: ~5 mm module gap + ~5.8 mm connector
-// body + ~2 mm edge clearance => 13 mm (15 mm was an over-estimate). Used area
-// 115.2 x 94.8; board 141.2 x 120.8. I2C-cluster geometry/routing is intact.
+// Relative arrangement: the 0x20+U4 unit is a quarter-turn above 0x21, both MCP
+// I2C headers open onto the shared centre channel, and the RS485 / ESP / DS3231
+// stack as the left column. The RS485 sits 5 mm (board-to-board, the standard
+// module gap) left of 0x21, tucked back under the ESP. The whole cluster is centred
+// on the origin with a uniform border just wide enough for one vertical JST XH on
+// any edge: ~1.7 mm to its module + 5.8 mm body + 0.5 mm pad-to-edge = 8 mm. J1/J2
+// sit in that border snug to their source drivers. Used 108.3 x 94.8; board 124.3 x 110.8.
 export default () => (
-  <board width="141.22mm" height="120.8mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
-    <Esp32 x={-24.687} y={-5.65} />
-    <Mcp23017 name="U2" x={25.563} y={7.75} addr="0x20" breakout rot={90} />
-    <Mcp23017 name="U3" x={17.963} y={-28.15} addr="0x21" breakout />
-    <Uln2803 name="U4" x={20.253} y={35.9} srcPrefix="U2_GPA" rot={90} />
-    <Uln2803 name="U5" x={46.112} y={-22.84} srcPrefix="U3_GPA" />
-    <Ds3231 name="U6" x={-17.937} y={24.1} rot={180} />
-    <Rs485 name="U7" x={-31.687} y={-36.025} rot={180} />
-    {/* J1 — manifold B: U5 outputs (OUT1-8 + COM=12V borrowed off-board) -> valve loom; right border */}
-    <Jst name="J1" x={65} y={-22.84} count={9} labels={ulnOUT} rot={90} label="MANIFOLD B" />
+  <board width="124.299mm" height="110.8mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
+    <Esp32 x={-28.15} y={-5.65} />
+    <Mcp23017 name="U2" x={22.1} y={7.75} addr="0x20" breakout rot={90} />
+    <Mcp23017 name="U3" x={14.5} y={-28.15} addr="0x21" breakout />
+    <Uln2803 name="U4" x={16.79} y={35.9} srcPrefix="U2_GPA" rot={90} />
+    <Uln2803 name="U5" x={42.65} y={-22.84} srcPrefix="U3_GPA" />
+    <Ds3231 name="U6" x={-21.4} y={24.1} rot={180} />
+    <Rs485 name="U7" x={-28.075} y={-36.025} rot={180} />
+    {/* J1 — manifold B: U5 outputs (OUT1-8 + COM=12V borrowed off-board) -> valve loom; right border, snug to U5 */}
+    <Jst name="J1" x={58.75} y={-22.84} count={9} labels={ulnOUT} rot={90} label="MANIFOLD B" />
     {[1, 2, 3, 4, 5, 6, 7, 8].map((k) => <trace key={`j1${k}`} from={`.J1 > .OUT${k}`} to={`.U5O > .OUT${k}`} />)}
     <trace from=".J1 > .COM" to=".U5O > .COM" />
-    {/* J2 — manifold A: U4 outputs -> valve loom; U4's output row faces up, so top border */}
-    <Jst name="J2" x={20.253} y={54.5} count={9} labels={ulnOUT} rot={180} label="MANIFOLD A" />
+    {/* J2 — manifold A: U4 outputs -> valve loom; U4's output row faces up, so top border, snug to U4 */}
+    <Jst name="J2" x={16.79} y={52} count={9} labels={ulnOUT} rot={180} label="MANIFOLD A" />
     {[1, 2, 3, 4, 5, 6, 7, 8].map((k) => <trace key={`j2${k}`} from={`.J2 > .OUT${k}`} to={`.U4O > .OUT${k}`} />)}
     <trace from=".J2 > .COM" to=".U4O > .COM" />
   </board>
