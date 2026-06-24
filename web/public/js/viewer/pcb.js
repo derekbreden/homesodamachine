@@ -11,7 +11,7 @@
 
 import { state } from "./state.js";
 import { makeResetButton, makeMinimap } from "./pan-zoom-extras.js";
-import { installPadPicker, clearPadPicker, makePadPickToggle } from "./pcb-pick.js";
+import { installPadPicker, clearPadPicker, clearPadSelection, makePadPickToggle } from "./pcb-pick.js";
 
 const VIEWS = ["top", "bottom", "overlay"];
 const VIEW_LABEL = { top: "Top", bottom: "Bottom", overlay: "Overlay" };
@@ -302,11 +302,19 @@ export function closePcbDetail(pushHistory = true) {
 export async function refetchOpenPcb(source) {
   const board = boardForSource(source);
   if (!board) return;
-  const views = await fetchViews(board);
+  const [views, picks] = await Promise.all([fetchViews(board), fetchPicks(board)]);
   if (!views) return;
   const prevActive = state.currentPcbViews?.[state.currentPcbView];
   state.currentPcbViews = views;
+  state.currentPcbPicks = picks;
+  // The board re-rendered underneath us: drop any stale selection (its geometry
+  // may be gone) so the inspector doesn't keep a dead highlight, then rebuild
+  // the hit targets from the fresh picks so they line up with the new copper.
+  clearPadSelection();
   if (views[state.currentPcbView] !== prevActive) {
     mountView(state.currentPcbView, true);
+  } else {
+    const svgEl = state.currentPcbWrapper?.querySelector(".pcb-svg");
+    if (svgEl) installPadPicker(svgEl, picks ? { pads: picks.pads, vias: picks.vias, traces: picks.traces, source, wrapper: state.currentPcbWrapper } : null);
   }
 }

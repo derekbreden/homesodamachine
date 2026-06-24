@@ -36,6 +36,9 @@ let panel = null;
 // --- install / teardown (called by pcb.js around mountView) ---
 
 export function installPadPicker(svgEl, info) {
+  // Idempotent: a live re-render can re-install on a still-mounted SVG, so drop
+  // any prior overlay first rather than stacking a second one.
+  if (svgEl) svgEl.querySelectorAll(".pcb-pick-layer, .pcb-pick-hilite").forEach((n) => n.remove());
   const hasData = svgEl && info && ((info.pads && info.pads.length) || (info.vias && info.vias.length) || (info.traces && info.traces.length));
   if (!hasData) { ctx = null; return; }
 
@@ -80,6 +83,12 @@ export function installPadPicker(svgEl, info) {
 export function clearPadPicker() {
   clearSelection();
   ctx = null;
+}
+
+// Drop the current selection (highlight + panel) without tearing down the
+// picker — used when the board re-renders underneath an open inspector.
+export function clearPadSelection() {
+  clearSelection();
 }
 
 function applyEnabled() {
