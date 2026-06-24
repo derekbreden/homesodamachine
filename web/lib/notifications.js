@@ -346,7 +346,7 @@ function renderNotificationsPage() {
     }).then(function(){ refresh(); window.dispatchEvent(new CustomEvent("hsm:notifications-changed")); });
   });
 
-  // Refresh on focus / pageshow / SSE-driven update.
+  // Refresh on focus / pageshow / notifications-changed.
   window.addEventListener("focus", refresh);
   window.addEventListener("pageshow", refresh);
   window.addEventListener("hsm:notifications-changed", refresh);

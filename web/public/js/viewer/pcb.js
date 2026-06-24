@@ -4,7 +4,7 @@
 // fabrication Gerbers, so the lines have the real widths the board is made with.
 //
 // Modeled on drawings.js: a 2D SVG opened in ContentViewer with PanZoom, with
-// per-board transform persistence and an SSE-driven swap. What it adds is the
+// per-board transform persistence and a swap-in-place on re-render. What it adds is the
 // Top / Bottom / Overlay toggle. The three views share one identical viewBox, so
 // switching swaps the SVG while keeping the user's exact pan/zoom — the board
 // holds still under the toggle.
@@ -297,8 +297,6 @@ export function closePcbDetail(pushHistory = true) {
   ContentViewer.close();
 }
 
-// SSE-driven re-fetch of the open board. If any view changed, swap the active
-// view in place (preserving pan/zoom and the selected view).
 export async function refetchOpenPcb(source) {
   const board = boardForSource(source);
   if (!board) return;

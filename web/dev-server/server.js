@@ -1,12 +1,12 @@
 // Dev wrapper around the production server. Boots the shared HTTP server,
-// then attaches the watcher, Python runner, and SSE broadcast for hot
+// then attaches the watcher, Python runner, and file-change broadcast for hot
 // reload — everything that only makes sense locally.
 //
 // URL structure is identical to production: localhost:3000/ is the landing
 // page, localhost:3000/3d is the parts viewer, /charts is the diagrams
 // viewer, /blog is the Updates feed, and so on. The wrapper is purely
 // additive — it does NOT change any routes. `dev: true` only changes the
-// commit signal sent over SSE and skips the boot-time FCM push diff that
+// commit signal sent to clients and skips the boot-time FCM push diff that
 // fires on real deploys.
 //
 // The CadQuery scripts write atomically to their natural location next to

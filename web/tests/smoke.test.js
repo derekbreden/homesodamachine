@@ -41,7 +41,7 @@ before(async () => {
 
 after(async () => {
   if (!server) return;
-  // The SSE handler holds a setInterval and a long-lived response open.
+  // The WebSocket server holds a 30s ping interval and the open sockets.
   // closeAllConnections() forces those sockets shut so server.close()'s
   // promise resolves immediately instead of waiting on the keepalive
   // interval (~30s).

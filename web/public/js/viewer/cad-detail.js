@@ -228,7 +228,7 @@ export function closeCadDetail(pushHistory = true) {
   ContentViewer.close();
 }
 
-// Backward-compatible thin wrappers — call sites in grid/sse/popstate
+// Backward-compatible thin wrappers — call sites in grid/live/popstate
 // still use the old per-format names.
 export function openDetail(file, pushHistory = true)    { openCadDetail("step", file, pushHistory); }
 export function openDxfDetail(file, pushHistory = true) { openCadDetail("dxf",  file, pushHistory); }

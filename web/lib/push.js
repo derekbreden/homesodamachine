@@ -10,7 +10,7 @@
 //     mermaid, dxf, drawings, pcb boards) against per-kind hash tables,
 //     concatenates the result, and calls notifyFilesChanged once for the
 //     combined set. One FCM banner regardless of how many files or which kinds
-//     changed; SSE files-changed event fires alongside for in-app handling
+//     changed; the files-changed broadcast fires alongside for in-app handling
 //     (see lib/shell.js HEAD_TAGS).
 //
 // Notes:
@@ -311,7 +311,7 @@ export function detectChangedDrawings(hardwareDir) {
 
 // PCB boards differ from the single-file kinds above: a board is a source
 // (`pcb/<dir>/<name>.tsx`) with three rendered views, so we key the hash row by
-// the board SOURCE (the id that flows through SSE + the deep link) but fingerprint
+// the board SOURCE (the id that flows through the broadcast + the deep link) but fingerprint
 // the board by its OVERLAY view — the overlay composites both copper layers, so
 // it changes whenever any view does. Same first-seen / bootstrap suppression as
 // detectChangedFilesInTable, kept inline since the key and the hashed file differ.
@@ -501,9 +501,9 @@ function extractPostTitle(postsDir, filename) {
   return "New blog post";
 }
 
-// Resolve each changed post into the metadata the SSE broadcast needs
+// Resolve each changed post into the metadata the broadcast needs
 // (title for the toast body, link for tap-through). Exported so server.js
-// can hand the same metadata to both the SSE broadcast and the FCM call.
+// can hand the same metadata to both the broadcast and the FCM call.
 export function describeChangedPosts({ postsDir, filenames }) {
   return filenames.map((filename) => ({
     filename,

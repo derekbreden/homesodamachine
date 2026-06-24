@@ -1,10 +1,10 @@
 // Drawings module. Owns the SVG fetcher, the per-file PanZoom transform
 // persistence, the modal open/close flow, the offscreen thumbnail
-// renderer, and the SSE-driven open-modal swap.
+// renderer, and the open-modal swap on re-render.
 //
 // Modeled on mermaid.js. The two viewer surfaces look the same from the
 // outside — a 2D SVG opened in ContentViewer with PanZoom — so the
-// open/close + transform-persistence + SSE-swap logic mirrors mermaid's.
+// open/close + transform-persistence + re-render-swap logic mirrors mermaid's.
 // What differs: the SVG is generated upstream (tools/line-art/line_art.py)
 // and served whole by the server, so there's no per-page render step;
 // fetch -> parse to <svg> element -> wrap.
@@ -90,7 +90,7 @@ function shortName(file, ext = ".svg") {
 }
 
 // Swap the SVG inside the open modal's wrapper without disturbing PanZoom's
-// state — used by the SSE re-render path so the user's pan/zoom is
+// state — used by the re-render path so the user's pan/zoom is
 // preserved across an upstream regenerate. Minimap + reset button get
 // rebuilt against the new SVG so natural-bounds-derived state stays current.
 async function reRenderOpenDrawing(svgText) {
@@ -218,8 +218,6 @@ export function closeDrawingDetail(pushHistory = true) {
   ContentViewer.close();
 }
 
-// SSE-driven re-fetch of the currently-open drawing. If the content
-// changed, swap the SVG without disturbing the user's pan/zoom.
 export async function refetchOpenDrawing(file) {
   const resp = await fetch(`/api/drawing-content/${file}`);
   if (!resp.ok) return;

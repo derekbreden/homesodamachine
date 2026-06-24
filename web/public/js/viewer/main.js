@@ -5,7 +5,7 @@
 //   2. Expose window.__hsm for the headless render tools (Puppeteer
 //      drives loadStepFile / loadDxfFile and reads scene/camera).
 //   3. fetchFiles() → buildGrid() → applyInitialRoute(occtPromise).
-//   4. Side-effect import ./live.js to register the SSE listeners.
+//   4. Side-effect import ./live.js to register the live-update listeners.
 
 import * as THREE from "three";
 import { state } from "./state.js";

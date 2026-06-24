@@ -50,9 +50,9 @@ const Esp32 = ({ x, y }: { x: number; y: number }) => (
     <pinheader name="U1B" pinCount={19} pitch="2.54mm" gender="female" footprint="pinrow19" pinLabels={espB} {...at(x, y - 12.7)} />
     <Outline x={x} y={y} w={52} h={28} />
     <silkscreentext text="ESP32" fontSize="3mm" pcbX={x} pcbY={y} />
+    {/* one 3V3 + one GND tie — the module bridges its other power/ground pins */}
     <trace from=".U1A > .3V3" to="net.V3_3" />
     <trace from=".U1A > .GND" to="net.GND" />
-    <trace from=".U1B > .GNDb" to="net.GND" />
     <trace from=".U1B > .IO21" to="net.SDA" />
     <trace from=".U1B > .IO22" to="net.SCL" />
   </>
@@ -72,14 +72,12 @@ const Mcp23017 = ({ name, x, y, addr, breakout = false, rot = 0 }: { name: strin
       <pinheader name={`${name}B`} pinCount={10} pitch="2.54mm" gender="female" footprint="pinrow10" pcbRotation={90 + rot} pinLabels={mcpGPB} {...at(x - s * 10, y + s * 1.5)} />
       <pinheader name={`${name}A`} pinCount={10} pitch="2.54mm" gender="female" footprint="pinrow10" pcbRotation={90 + rot} pinLabels={mcpGPA} {...at(x + s * 10, y + s * 1.5)} />
       <pinheader name={`${name}I`} pinCount={6} pitch="2.54mm" gender="female" footprint="pinrow6" pcbRotation={rot} pinLabels={mcpI2C} {...at(x, y + s * 17.25)} />
+      {/* power + ground in via the I2C header only; the module bridges VCC/GND
+          to its GPA/GPB rows internally, so the carrier ties one of each */}
       <trace from={`.${name}I > .VCC`} to="net.V3_3" />
       <trace from={`.${name}I > .GND`} to="net.GND" />
       <trace from={`.${name}I > .SDA`} to="net.SDA" />
       <trace from={`.${name}I > .SCL`} to="net.SCL" />
-      <trace from={`.${name}A > .VCC`} to="net.V3_3" />
-      <trace from={`.${name}A > .GND`} to="net.GND" />
-      <trace from={`.${name}B > .VCC`} to="net.V3_3" />
-      <trace from={`.${name}B > .GND`} to="net.GND" />
       {breakout && i8.map((k) => <trace key={`a${k}`} from={`.${name}A > .GPA${k}`} to={`net.${name}_GPA${k}`} />)}
     </>
   )
