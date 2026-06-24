@@ -11,6 +11,7 @@
 
 import { state } from "./state.js";
 import { makeResetButton, makeMinimap } from "./pan-zoom-extras.js";
+import { installPadPicker, clearPadPicker, makePadPickToggle } from "./pcb-pick.js";
 
 const VIEWS = ["top", "bottom", "overlay"];
 const VIEW_LABEL = { top: "Top", bottom: "Bottom", overlay: "Overlay" };
@@ -70,6 +71,17 @@ function parseSvgString(svgText) {
 }
 
 function contentUrl(path) { return `/api/pcb-content/${path}`; }
+function picksUrl(path) { return `/api/pcb-picks/${path}`; }
+
+// Fetch a board's pad-picker data (pads + identity), or null when the board
+// has no picks sidecar / the fetch fails — the picker then just doesn't arm.
+async function fetchPicks(board) {
+  if (!board || !board.picks) return null;
+  try {
+    const r = await fetch(picksUrl(board.picks));
+    return r.ok ? await r.json() : null;
+  } catch { return null; }
+}
 
 // Fetch all three view SVGs for a board. Returns { top, bottom, overlay } of
 // SVG text, or null if any fail.
@@ -171,6 +183,11 @@ function mountView(view, preserve) {
   if (prev) pz.setTransform(prev);
   if (source) pcbSaveView(source, view);
   if (state.currentPcbToggle) syncToggle(state.currentPcbToggle, view);
+
+  // Re-arm the pad picker on the freshly mounted SVG (the three views share a
+  // frame, so a live selection carries across the swap).
+  const picks = state.currentPcbPicks;
+  installPadPicker(svgEl, picks && picks.pads ? { pads: picks.pads, source, wrapper } : null);
 }
 
 export async function openPcbDetail(source, pushHistory = true) {
@@ -188,7 +205,9 @@ export async function openPcbDetail(source, pushHistory = true) {
       if (list) { state.pcbBoards = list; board = boardForSource(source); }
     } catch {}
   }
-  const views = board ? await fetchViews(board) : null;
+  const [views, picks] = board
+    ? await Promise.all([fetchViews(board), fetchPicks(board)])
+    : [null, null];
 
   const wrapper = document.createElement("div");
   wrapper.className = "pcb-wrapper";
@@ -206,6 +225,7 @@ export async function openPcbDetail(source, pushHistory = true) {
   const view = pcbLoadView(source) || "overlay";
   const toggle = makeViewToggle((v) => { if (v !== state.currentPcbView) mountView(v, true); });
   wrapper.appendChild(toggle);
+  if (picks && picks.pads && picks.pads.length) wrapper.appendChild(makePadPickToggle());
 
   // Publish the open-modal context, then build the first view synchronously —
   // before ContentViewer.open (the proven mermaid/drawings order). Mounting
@@ -213,6 +233,7 @@ export async function openPcbDetail(source, pushHistory = true) {
   // singleton-close path, which fires the prior modal's onClose during open.
   state.currentPcbSource = source;
   state.currentPcbViews = views;
+  state.currentPcbPicks = picks;
   state.currentPcbWrapper = wrapper;
   state.currentPcbToggle = toggle;
   state.currentPcbView = view;
@@ -252,9 +273,11 @@ export async function openPcbDetail(source, pushHistory = true) {
 function clearPcbState() {
   try { state.currentPcbPz?.destroy(); } catch {}
   try { state.currentPcbMinimap?.destroy(); } catch {}
+  try { clearPadPicker(); } catch {}
   state.currentDetail = null;
   state.currentPcbSource = null;
   state.currentPcbViews = null;
+  state.currentPcbPicks = null;
   state.currentPcbWrapper = null;
   state.currentPcbToggle = null;
   state.currentPcbPz = null;
