@@ -188,24 +188,22 @@ const Rs485 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; ro
 }
 
 // ---- the board -------------------------------------------------------------
-// 0x21 stands upright at the lower-middle; the 0x20 + U4 unit is turned a
-// quarter-turn CCW and set above it, 0x20's (rotated) bottom-left corner 5 mm
-// above 0x21's top-left corner with left edges aligned. That swings 0x20's I2C
-// header from its top edge round to its left edge, so both MCP I2C headers open
-// onto one shared centre-left channel. U4 follows the turn rigidly to sit above
-// 0x20 (GPA->IN bundle still straight, 5 mm gap). 0x21->U5 is unchanged. The
-// DS3231 sits in the freed left bay, its 4-pin I2C tap facing that channel.
+// The module arrangement is unchanged in its relative placement (0x20+U4 turned a
+// quarter-turn above 0x21, both MCP I2C headers on the shared centre channel, the
+// RS485 / ESP / DS3231 left column). Two whole-cluster moves: (1) the left column
+// was raised so the RS485's bottom edge lines up with 0x21's bottom edge; (2) the
+// whole cluster is then centred at the origin with a uniform 15 mm border on every
+// side — empty perimeter for the JST trunk connectors (5 mm module->connector,
+// ~5 mm connector body, 5 mm connector->edge). Used area 108.3 x 94.8; board
+// 138.3 x 124.8. Relative geometry (and its routing) is preserved.
 export default () => (
-  <board width="125mm" height="124mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
-    {/* ESP top edge (y -3.75) flush with 0x21's top edge; 5mm gap to 0x21 kept */}
-    <Esp32 x={-34.65} y={-17.75} />
-    <Mcp23017 name="U2" x={15.6} y={12.9} addr="0x20" breakout rot={90} />
-    <Mcp23017 name="U3" x={8} y={-23} addr="0x21" breakout />
-    <Uln2803 name="U4" x={10.29} y={41.05} srcPrefix="U2_GPA" rot={90} />
-    <Uln2803 name="U5" x={36.15} y={-17.69} srcPrefix="U3_GPA" />
-    <Ds3231 name="U6" x={-27.9} y={12} rot={180} />
-    {/* RS485 in the bottom-left bay, aligned under the ESP with a 5mm gap; turned
-        180 so its TTL header sits at the left end under the ESP's IO32/IO34/3V3 */}
-    <Rs485 name="U7" x={-34.65} y={-48.125} rot={180} />
+  <board width="138.3mm" height="124.8mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
+    <Esp32 x={-28.15} y={-5.65} />
+    <Mcp23017 name="U2" x={22.1} y={7.75} addr="0x20" breakout rot={90} />
+    <Mcp23017 name="U3" x={14.5} y={-28.15} addr="0x21" breakout />
+    <Uln2803 name="U4" x={16.79} y={35.9} srcPrefix="U2_GPA" rot={90} />
+    <Uln2803 name="U5" x={42.65} y={-22.84} srcPrefix="U3_GPA" />
+    <Ds3231 name="U6" x={-21.4} y={24.1} rot={180} />
+    <Rs485 name="U7" x={-28.15} y={-36.025} rot={180} />
   </board>
 )
