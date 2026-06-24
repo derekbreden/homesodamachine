@@ -1,22 +1,37 @@
 /**
  * esp32-mcp-mini — the controller core on its real, calipered module footprints:
  * an ESP32-DevKitC-32E socket, two Waveshare MCP23017 boards (0x20, 0x21) on the
- * shared I2C bus, and two ULN2803A driver boards driven by 0x20/0x21's GPA banks.
- * Every footprint is the physical MODULE (2.54 mm header rows + its mounting
- * holes), not a bare chip. Through-hole, two layers.
+ * shared I2C bus, two ULN2803A driver boards driven by 0x20/0x21's GPA banks, and
+ * a DORHEA DS3231 RTC on the same I2C bus. Every footprint is the physical MODULE
+ * (2.54 mm header rows + its mounting holes), not a bare chip. Through-hole, two
+ * layers.
  *
- * Module footprints from hardware/reference/{mcp23017,uln2803a} (calipered):
+ * Module footprints from hardware/reference/{mcp23017,uln2803a,ds3231-rtc}:
  *   MCP23017  38.5 x 23.3; 2x M2 holes one end; 2x 10-pin GPIO + 6-pin I2C
  *   ULN2803A  24 x 23; 2x dia-3 holes on the centreline; 2x 9-pin channel rows
+ *   DS3231    38.5 x 21.3; 3x dia-2.4 holes; 6-pin header + 4-pin I2C tap
  *   ESP32     2x19 @ 2.54 mm, rows 25.4 mm (1.0") apart, DevKitC-32E map
  *
- * The 0x20 + U4 unit is flipped 180deg so 0x20's I2C header faces 0x21's, putting
- * their SDA/SCL pins next to each other for a short bus hop between the two MCPs.
- * Modules carry their own pull-ups/decoupling/flyback, so the carrier adds none.
+ * The 0x20 + U4 unit is turned a quarter-turn CCW and stacked above 0x21, which
+ * swings 0x20's I2C header from its top edge round to its left edge — both MCP
+ * I2C headers then open onto one shared centre-left channel where the DS3231 taps
+ * in. Modules carry their own pull-ups/decoupling/flyback, so the carrier adds none.
  */
 
 const i8 = [0, 1, 2, 3, 4, 5, 6, 7]
 const at = (px: number, py: number) => ({ pcbX: px, pcbY: py, schX: px / 6, schY: py / 6 })
+
+// Rotate a module-local offset (ox, oy) by a whole quarter-turn `deg` (CCW, the
+// tscircuit pcbRotation sense), so a module can be dropped at 0/90/180/270 and
+// every sub-element (holes, headers) turns with it.
+const rotxy = (ox: number, oy: number, deg: number): [number, number] => {
+  switch (((deg % 360) + 360) % 360) {
+    case 90: return [-oy, ox]
+    case 180: return [-ox, -oy]
+    case 270: return [oy, -ox]
+    default: return [ox, oy]
+  }
+}
 
 const espA = ["3V3", "EN", "IO36", "IO39", "IO34", "IO35", "IO32", "IO33", "IO25",
   "IO26", "IO27", "IO14", "IO12", "GND", "IO13", "IO9", "IO10", "IO11", "V5"]
@@ -61,19 +76,22 @@ const Esp32 = ({ x, y }: { x: number; y: number }) => (
 )
 
 // ---- Waveshare MCP23017 board (23.3 x 38.5) --------------------------------
-// rot=180 flips the whole module about its centre (every sub-element offset
-// negates, headers turn 180deg) — pin labels/nets are unchanged, so wiring holds.
+// rot turns the whole module a quarter-turn at a time (every offset rotates,
+// headers turn with it) — pin labels/nets are unchanged, so the wiring holds.
 const Mcp23017 = ({ name, x, y, addr, breakout = false, rot = 0 }: { name: string; x: number; y: number; addr: string; breakout?: boolean; rot?: number }) => {
-  const s = rot === 180 ? -1 : 1
+  const o = (ox: number, oy: number) => rotxy(ox, oy, rot)
+  const [w, h] = rot % 180 === 0 ? [23.3, 38.5] : [38.5, 23.3]
+  const hA = o(9.4, 16.75), hB = o(-9.4, 16.75)
+  const pB = o(-10, 1.5), pA = o(10, 1.5), pI = o(0, 17.25)
   return (
     <>
-      <Outline x={x} y={y} w={23.3} h={38.5} />
+      <Outline x={x} y={y} w={w} h={h} />
       <silkscreentext text={`MCP ${addr}`} fontSize="2.6mm" pcbX={x} pcbY={y} />
-      <hole shape="circle" diameter="2mm" pcbX={x + s * 9.4} pcbY={y + s * 16.75} />
-      <hole shape="circle" diameter="2mm" pcbX={x - s * 9.4} pcbY={y + s * 16.75} />
-      <pinheader name={`${name}B`} pinCount={10} pitch="2.54mm" gender="female" footprint="pinrow10" pcbRotation={90 + rot} pinLabels={mcpGPB} {...at(x - s * 10, y + s * 1.5)} />
-      <pinheader name={`${name}A`} pinCount={10} pitch="2.54mm" gender="female" footprint="pinrow10" pcbRotation={90 + rot} pinLabels={mcpGPA} {...at(x + s * 10, y + s * 1.5)} />
-      <pinheader name={`${name}I`} pinCount={6} pitch="2.54mm" gender="female" footprint="pinrow6" pcbRotation={rot} pinLabels={mcpI2C} {...at(x, y + s * 17.25)} />
+      <hole shape="circle" diameter="2mm" pcbX={x + hA[0]} pcbY={y + hA[1]} />
+      <hole shape="circle" diameter="2mm" pcbX={x + hB[0]} pcbY={y + hB[1]} />
+      <pinheader name={`${name}B`} pinCount={10} pitch="2.54mm" gender="female" footprint="pinrow10" pcbRotation={90 + rot} pinLabels={mcpGPB} {...at(x + pB[0], y + pB[1])} />
+      <pinheader name={`${name}A`} pinCount={10} pitch="2.54mm" gender="female" footprint="pinrow10" pcbRotation={90 + rot} pinLabels={mcpGPA} {...at(x + pA[0], y + pA[1])} />
+      <pinheader name={`${name}I`} pinCount={6} pitch="2.54mm" gender="female" footprint="pinrow6" pcbRotation={rot} pinLabels={mcpI2C} {...at(x + pI[0], y + pI[1])} />
       {/* power + ground in via the I2C header only; the module bridges VCC/GND
           to its GPA/GPB rows internally, so the carrier ties one of each */}
       <trace from={`.${name}I > .VCC`} to="net.V3_3" />
@@ -87,15 +105,18 @@ const Mcp23017 = ({ name, x, y, addr, breakout = false, rot = 0 }: { name: strin
 
 // ---- ULN2803A board (23 x 24) ----------------------------------------------
 const Uln2803 = ({ name, x, y, srcPrefix, rot = 0 }: { name: string; x: number; y: number; srcPrefix: string; rot?: number }) => {
-  const s = rot === 180 ? -1 : 1
+  const o = (ox: number, oy: number) => rotxy(ox, oy, rot)
+  const [w, h] = rot % 180 === 0 ? [23, 24] : [24, 23]
+  const hT = o(0, 8.75), hB = o(0, -8.75)
+  const pI = o(-10, 0), pO = o(10, 0)
   return (
     <>
-      <Outline x={x} y={y} w={23} h={24} />
+      <Outline x={x} y={y} w={w} h={h} />
       <silkscreentext text={name} fontSize="2.6mm" pcbX={x} pcbY={y} />
-      <hole shape="circle" diameter="3mm" pcbX={x} pcbY={y + 8.75} />
-      <hole shape="circle" diameter="3mm" pcbX={x} pcbY={y - 8.75} />
-      <pinheader name={`${name}I`} pinCount={9} pitch="2.54mm" gender="female" footprint="pinrow9" pcbRotation={90 + rot} pinLabels={ulnIN} {...at(x - s * 10, y)} />
-      <pinheader name={`${name}O`} pinCount={9} pitch="2.54mm" gender="female" footprint="pinrow9" pcbRotation={90 + rot} pinLabels={ulnOUT} {...at(x + s * 10, y)} />
+      <hole shape="circle" diameter="3mm" pcbX={x + hT[0]} pcbY={y + hT[1]} />
+      <hole shape="circle" diameter="3mm" pcbX={x + hB[0]} pcbY={y + hB[1]} />
+      <pinheader name={`${name}I`} pinCount={9} pitch="2.54mm" gender="female" footprint="pinrow9" pcbRotation={90 + rot} pinLabels={ulnIN} {...at(x + pI[0], y + pI[1])} />
+      <pinheader name={`${name}O`} pinCount={9} pitch="2.54mm" gender="female" footprint="pinrow9" pcbRotation={90 + rot} pinLabels={ulnOUT} {...at(x + pO[0], y + pO[1])} />
       <trace from={`.${name}I > .GND`} to="net.GND" />
       {i8.map((k) => <trace key={`in${k}`} from={`.${name}I > .IN${k + 1}`} to={`net.${srcPrefix}${k}`} />)}
     </>
@@ -108,16 +129,19 @@ const Uln2803 = ({ name, x, y, srcPrefix, rot = 0 }: { name: string; x: number; 
 // corner left open for the coin cell). Both headers are the same bus; the
 // carrier wires only the clean 4-pin tap, the 6-pin pads are on record but unused.
 const Ds3231 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => {
-  const s = rot === 180 ? -1 : 1
+  const o = (ox: number, oy: number) => rotxy(ox, oy, rot)
+  const [w, h] = rot % 180 === 0 ? [38.5, 21.3] : [21.3, 38.5]
+  const h1 = o(-10.75, -8.65), h2 = o(-10.75, 8.65), h3 = o(15.05, 8.65)
+  const pH = o(-17.25, 0), pI = o(17.25, 0)
   return (
     <>
-      <Outline x={x} y={y} w={38.5} h={21.3} />
+      <Outline x={x} y={y} w={w} h={h} />
       <silkscreentext text="DS3231" fontSize="2.6mm" pcbX={x} pcbY={y} />
-      <hole shape="circle" diameter="2.4mm" pcbX={x - s * 10.75} pcbY={y - s * 8.65} />
-      <hole shape="circle" diameter="2.4mm" pcbX={x - s * 10.75} pcbY={y + s * 8.65} />
-      <hole shape="circle" diameter="2.4mm" pcbX={x + s * 15.05} pcbY={y + s * 8.65} />
-      <pinheader name={`${name}H`} pinCount={6} pitch="2.54mm" gender="female" footprint="pinrow6" pcbRotation={90 + rot} pinLabels={dsH6} {...at(x - s * 17.25, y)} />
-      <pinheader name={`${name}I`} pinCount={4} pitch="2.54mm" gender="female" footprint="pinrow4" pcbRotation={90 + rot} pinLabels={dsH4} {...at(x + s * 17.25, y)} />
+      <hole shape="circle" diameter="2.4mm" pcbX={x + h1[0]} pcbY={y + h1[1]} />
+      <hole shape="circle" diameter="2.4mm" pcbX={x + h2[0]} pcbY={y + h2[1]} />
+      <hole shape="circle" diameter="2.4mm" pcbX={x + h3[0]} pcbY={y + h3[1]} />
+      <pinheader name={`${name}H`} pinCount={6} pitch="2.54mm" gender="female" footprint="pinrow6" pcbRotation={90 + rot} pinLabels={dsH6} {...at(x + pH[0], y + pH[1])} />
+      <pinheader name={`${name}I`} pinCount={4} pitch="2.54mm" gender="female" footprint="pinrow4" pcbRotation={90 + rot} pinLabels={dsH4} {...at(x + pI[0], y + pI[1])} />
       <trace from={`.${name}I > .SDA`} to="net.SDA" />
       <trace from={`.${name}I > .SCL`} to="net.SCL" />
       <trace from={`.${name}I > .VCC`} to="net.V3_3" />
@@ -127,22 +151,21 @@ const Ds3231 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; r
 }
 
 // ---- the board -------------------------------------------------------------
-// Stacked column with a consistent 5.0 mm board-edge gap on every adjacent pair:
-// ESP<->0x21, 0x20<->0x21, and each MCP<->its ULN. The two MCPs stack (0x20 above
-// 0x21, both at x=8); each MCP's GPA bank feeds its ULN straight across (each ULN
-// raised 5.31 mm above its MCP so the IN row lines up with the GPA row).
+// 0x21 stands upright at the lower-middle; the 0x20 + U4 unit is turned a
+// quarter-turn CCW and set above it, 0x20's (rotated) bottom-left corner 5 mm
+// above 0x21's top-left corner with left edges aligned. That swings 0x20's I2C
+// header from its top edge round to its left edge, so both MCP I2C headers open
+// onto one shared centre-left channel. U4 follows the turn rigidly to sit above
+// 0x20 (GPA->IN bundle still straight, 5 mm gap). 0x21->U5 is unchanged. The
+// DS3231 sits in the freed left bay, its 4-pin I2C tap facing that channel.
 export default () => (
-  <board width="125mm" height="100mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
+  <board width="125mm" height="110mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
     {/* ESP top edge (y -3.75) flush with 0x21's top edge; 5mm gap to 0x21 kept */}
     <Esp32 x={-34.65} y={-17.75} />
-    {/* 0x20 + U4 un-flipped, back to the stack: 0x20 above 0x21 (5mm), U4 to
-        0x20's right (5mm) and raised 5.31 so its GPA->IN bundle runs straight */}
-    <Mcp23017 name="U2" x={8} y={20.5} addr="0x20" breakout />
+    <Mcp23017 name="U2" x={15.6} y={12.9} addr="0x20" breakout rot={90} />
     <Mcp23017 name="U3" x={8} y={-23} addr="0x21" breakout />
-    <Uln2803 name="U4" x={36.15} y={25.81} srcPrefix="U2_GPA" />
+    <Uln2803 name="U4" x={10.29} y={41.05} srcPrefix="U2_GPA" rot={90} />
     <Uln2803 name="U5" x={36.15} y={-17.69} srcPrefix="U3_GPA" />
-    {/* DS3231 RTC left of 0x20, its 4-pin I2C tap at the same height (y 37.75)
-        as 0x20's I2C header for a short bus hop across the gap */}
-    <Ds3231 name="U6" x={-26} y={37.75} />
+    <Ds3231 name="U6" x={-26} y={12} rot={180} />
   </board>
 )
