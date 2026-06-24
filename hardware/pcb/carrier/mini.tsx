@@ -206,5 +206,13 @@ export default () => (
     <Uln2803 name="U5" x={46.112} y={-22.84} srcPrefix="U3_GPA" />
     <Ds3231 name="U6" x={-17.937} y={24.1} rot={180} />
     <Rs485 name="U7" x={-31.687} y={-36.025} rot={180} />
+    {/* J1 — manifold B: U5 outputs (OUT1-8 + COM=12V borrowed off-board) -> valve loom */}
+    <pinheader name="J1" pinCount={9} pitch="2.54mm" gender="male" footprint="pinrow9" pcbRotation={90} pinLabels={ulnOUT} {...at(65, -22.84)} />
+    {[1, 2, 3, 4, 5, 6, 7, 8].map((k) => <trace key={`j1${k}`} from={`.J1 > .OUT${k}`} to={`.U5O > .OUT${k}`} />)}
+    <trace from=".J1 > .COM" to=".U5O > .COM" />
+    {/* J2 — manifold A: U4 outputs -> valve loom; U4's output row faces up, so top border */}
+    <pinheader name="J2" pinCount={9} pitch="2.54mm" gender="male" footprint="pinrow9" pcbRotation={180} pinLabels={ulnOUT} {...at(20.253, 53)} />
+    {[1, 2, 3, 4, 5, 6, 7, 8].map((k) => <trace key={`j2${k}`} from={`.J2 > .OUT${k}`} to={`.U4O > .OUT${k}`} />)}
+    <trace from=".J2 > .COM" to=".U4O > .COM" />
   </board>
 )
