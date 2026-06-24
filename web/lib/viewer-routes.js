@@ -126,6 +126,20 @@ export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
     res.type("image/svg+xml").send(fs.readFileSync(abs, "utf-8"));
   });
 
+  // PCB pad-picker data — the distilled pads + identity for one board (see
+  // hardware/pcb/carrier/pick-data.ts). Same `pcb/.../out/` confinement as the
+  // view content, restricted to the `.picks.json` the distiller writes.
+  app.get("/api/pcb-picks/*", (req, res) => {
+    const rel = req.params[0];
+    const abs = safeFile(rootFor(req), rel, ".json");
+    if (!abs) return res.status(400).send("Invalid path");
+    if (!/(^|\/)pcb\/.+\/out\/[^/]+\.picks\.json$/.test(rel)) {
+      return res.status(400).send("Not pick data");
+    }
+    if (!fs.existsSync(abs)) return res.status(404).send("Not found");
+    res.type("application/json").send(fs.readFileSync(abs, "utf-8"));
+  });
+
   // sendFile races against the atomic-rename window in
   // hardware/scripts/_cadq_export.py: existsSync above can pass and then the
   // file vanish for a few ms while a regen writes a new temp + rename.
