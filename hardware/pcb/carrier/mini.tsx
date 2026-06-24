@@ -188,22 +188,23 @@ const Rs485 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; ro
 }
 
 // ---- the board -------------------------------------------------------------
-// The module arrangement is unchanged in its relative placement (0x20+U4 turned a
-// quarter-turn above 0x21, both MCP I2C headers on the shared centre channel, the
-// RS485 / ESP / DS3231 left column). Two whole-cluster moves: (1) the left column
-// was raised so the RS485's bottom edge lines up with 0x21's bottom edge; (2) the
-// whole cluster is then centred at the origin with a uniform 15 mm border on every
-// side — empty perimeter for the JST trunk connectors (5 mm module->connector,
-// ~5 mm connector body, 5 mm connector->edge). Used area 108.3 x 94.8; board
-// 138.3 x 124.8. Relative geometry (and its routing) is preserved.
+// Relative arrangement unchanged (0x20+U4 turned a quarter-turn above 0x21, both
+// MCP I2C headers on the shared centre channel, the RS485 / ESP / DS3231 left
+// column). Whole-cluster moves: (1) the left column was raised so the RS485's
+// bottom edge lines up with 0x21's bottom edge; (2) the RS485 is nudged ~7 mm left
+// of the ESP so its corner hole clears 0x21's GPB header keep-out; (3) the whole
+// cluster is centred at the origin with a uniform 15 mm border on every side —
+// empty perimeter for the JST trunk connectors (5 mm module->connector, ~5 mm
+// connector body, 5 mm connector->edge). Used area 115.2 x 94.8; board
+// 145.2 x 124.8. Relative geometry of the I2C cluster (and its routing) is intact.
 export default () => (
-  <board width="138.3mm" height="124.8mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
-    <Esp32 x={-28.15} y={-5.65} />
-    <Mcp23017 name="U2" x={22.1} y={7.75} addr="0x20" breakout rot={90} />
-    <Mcp23017 name="U3" x={14.5} y={-28.15} addr="0x21" breakout />
-    <Uln2803 name="U4" x={16.79} y={35.9} srcPrefix="U2_GPA" rot={90} />
-    <Uln2803 name="U5" x={42.65} y={-22.84} srcPrefix="U3_GPA" />
-    <Ds3231 name="U6" x={-21.4} y={24.1} rot={180} />
-    <Rs485 name="U7" x={-28.15} y={-36.025} rot={180} />
+  <board width="145.22mm" height="124.8mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
+    <Esp32 x={-24.687} y={-5.65} />
+    <Mcp23017 name="U2" x={25.563} y={7.75} addr="0x20" breakout rot={90} />
+    <Mcp23017 name="U3" x={17.963} y={-28.15} addr="0x21" breakout />
+    <Uln2803 name="U4" x={20.253} y={35.9} srcPrefix="U2_GPA" rot={90} />
+    <Uln2803 name="U5" x={46.112} y={-22.84} srcPrefix="U3_GPA" />
+    <Ds3231 name="U6" x={-17.937} y={24.1} rot={180} />
+    <Rs485 name="U7" x={-31.687} y={-36.025} rot={180} />
   </board>
 )
