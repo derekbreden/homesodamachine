@@ -1,145 +1,21 @@
 # Controller PCB
 
-A single consolidated controller board for the integrated appliance, replacing the
-module stack on the electronics shelf. Designed in-repo (KiCad) under Derek's
-guidance, fabbed and SMT-assembled by a turnkey web fab (JLCPCB-class) — the board's
-two exposed-pad parts (the ESP32-WROOM ground pad and the DRV8871 thermal pads) need
-machine reflow, which the bench in [`/hardware/ledger/tools.md`](/hardware/ledger/tools.md)
-cannot do. The through-hole pass (connectors, relays, coin holder, AC terminals) is
-hand-soldered in-house on the existing bench. Fab and placement options, and the
-in-house-vs-turnkey decision, are in [`fabrication.md`](/hardware/pcb/fabrication.md).
+The controller board is a **through-hole carrier**: the controller modules plug
+into 2.54 mm header sockets, and the board routes power and signals between them
+and out to labeled field connectors. It lives in
+[`carrier/`](/hardware/pcb/carrier/) — `mini.tsx` is the board, built in
+[tscircuit](https://tscircuit.com); see
+[`carrier/README.md`](/hardware/pcb/carrier/README.md) for the toolchain and the
+render/verify loop.
 
-The design package (the plan — the connection design and the part/cost/fab homework):
+The board realizes a logical design that lives upstream of it. The source of
+truth for that design is [`/hardware/wiring/`](/hardware/wiring/):
 
-- [`netlist.md`](/hardware/pcb/netlist.md) — components, nets, the GPIO map, open decisions.
-- [`bom-board.md`](/hardware/pcb/bom-board.md) — discrete-component BOM (LCSC candidates, JLCPCB class) + power budget.
-- [`fabrication.md`](/hardware/pcb/fabrication.md) — board fab + placement options and the working recommendation.
+- [`esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd) — the ESP32 GPIO map.
+- [`valve-control.mmd`](/hardware/wiring/valve-control.mmd) — the MCP23017 I²C
+  banks (0x20/0x21) and the valve / reed / condenser-fan wiring.
+- [`ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) — the
+  run-by-run field-harness schedule (connectors, conductors, AWG, lengths).
+- [`power.mmd`](/hardware/wiring/power.mmd) — the power topology.
 
-How the board actually gets designed — GUI schematic capture and layout in KiCad, the
-code-defined toolchain explored below, or something else — is open and unreviewed (see Status).
-
-## Scope
-
-On the board:
-
-- **ESP32-WROOM-32E** module (replaces the DevKitC + DIN-rail breakout), USB-C
-  service port, BOOT/EN buttons.
-- **2× MCP23017** (SOIC-28) at 0x20/0x21 — valve bank + reed banks, as in
-  [`/hardware/assembly/firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md).
-- **2× ULN2803A** (SOIC-18) — solenoid bank + condenser fan low-side drive.
-- **2× DRV8871-class H-bridges** — the two peristaltic flavor pumps (replaces the
-  L298N module).
-- **DS3231SN + CR2032 holder** (replaces the RTC module).
-- **2× relays, integrated with their opto/driver stages** (replaces the Teyleten
-  modules): relay #1 switches the compressor's 120 VAC hot leg in a fenced,
-  creepage-isolated corner of the board; relay #2 gates 12 V to the SeaFlo
-  diaphragm pump.
-- **12 V → 5 V → 3.3 V regulation** on-board (two buck stages, in place of the
-  dev modules' onboard linear regulators; absorbs the shelf's DC distribution
-  block — the board's pours are the 12 V fan-out).
-- Bulk capacitance, DS18B20 pull-up, status LEDs, ESD/TVS at field connectors.
-
-Off the board, unchanged:
-
-- **Mean Well IRM-90-12ST** — the board takes one `12 V IN` connector. The 12 V
-  bus between PSU and board is the splice seam for
-  [`/hardware/battery-backup/README.md`](/hardware/battery-backup/README.md)
-  (transfer module + LiFePO4 pack), and keeps a dead PSU a part-swap.
-- **C14 inlet, AC distribution Wagos, ground bus** — the C14 inlet lands on the
-  AC distribution Wagos directly; AC stays on the shelf except the compressor leg
-  routed through relay #1's fenced corner. An in-appliance ground-fault device on
-  the AC side is deferred ([`/pie-in-the-sky/gfci.md`](/pie-in-the-sky/gfci.md)).
-- Both ESP32-S3 displays (4.3B config + faucet), all field sensors and actuators —
-  these connect to the board, they don't live on it.
-
-## Layout
-
-Target: **100 × 100 mm, 4-layer.**
-
-Connectors are vertical-entry JST XH in **islands adjacent to their owners** —
-reed-bank headers on their MCP23017's port rows, pump/valve headers at the driver
-stages, sensor headers near the ESP32 — with the harness leaving vertically into
-a loom. Edge positions are reserved for what humans touch in service: the two
-display UARTs, USB-C, and the AC corner. Silkscreen labels per island/bank rather
-than per header; wire identity rides the harness heat-shrink flags (SIG-N IDs per
-[`/hardware/assembly/wiring.md`](/hardware/assembly/wiring.md)).
-
-Fab panel: 2-up or 4-up with rails for in-house placement.
-
-## BOM delta
-
-Lines deleted from [`bom.md`](/hardware/ledger/bom.md) §1 (delivered-cost
-convention, per unit):
-
-| Deleted line | $ |
-|---|---:|
-| ESP32-DevKitC-32E | $11.00 |
-| ESP32 DIN Rail Breakout Board | $25.99 |
-| L298N dual H-bridge (1 of 4 pk) | $2.68 |
-| MCP23017 expander #1 | $12.99 |
-| MCP23017 expander #2 (bom.md §9 line) | $12.99 |
-| DS3231 RTC module (1 of 2 pk) | $3.54 |
-| ULN2803A module 2-pack | $6.59 |
-| Teyleten opto relay modules × 2 | $5.20 |
-| **Total deleted** | **$80.98** |
-
-The DC distribution block (an unpriced TBD in bom.md §11) is also absorbed. The
-470 µF bulk cap and the 4.7 kΩ pull-up migrate onto the board as reel parts. The
-module-to-module XH hop harnesses disappear; field-harness connectors remain.
-
-What the board adds per unit — estimates pending the first JLCPCB quote and LCSC
-cart, stated as ranges:
-
-| Qty | Bare PCB (4L, 100×100, panelized) | Components (reel/cut-tape + TH) | Board total (est.) | Net vs. $80.98 deleted |
-|---:|---:|---:|---:|---:|
-| 10 | ~$4–6 | ~$32–38 | ~$36–44 | ≈ −$37 to −$45 |
-| 50 | ~$2–3 | ~$26–30 | ~$28–33 | ≈ −$48 to −$53 |
-| 100 | ~$1.50–2.50 | ~$24–28 | ~$26–30 | ≈ −$51 to −$55 |
-
-Deleted-module prices are retail-constant with quantity; board cost falls with
-quantity, so the per-unit saving grows with the batch. The Components column folds
-in turnkey SMT — placement labor plus the one-time per-order Extended-part feeder
-fees (~$25–40, amortizing over the batch) — per the assembly model in
-[`fabrication.md`](/hardware/pcb/fabrication.md). The power budget that sizes the two
-buck stages and the 12 V input is in [`bom-board.md`](/hardware/pcb/bom-board.md).
-
-## Firmware
-
-The integrated board's firmware follows the GPIO map in
-[`netlist.md`](/hardware/pcb/netlist.md): the MCP23017s, ULN channels, pump drivers,
-relays, RTC, and both display UART links keep their roles. That file is
-board-authoritative where it and the prototype `firmware/src/main.cpp` disagree on a
-GPIO — the prototype firmware runs the 2-flavor dispenser and keeps its own pins; the
-integrated firmware that follows this map is written once the board it runs on exists.
-The USB-C service port carries the same flash/debug path as the DevKitC.
-
-## Exploration — a code-defined toolchain (not a chosen path)
-
-A proof-of-concept of how much of the board could be generated from code instead of drawn in
-a GUI, kept here for reference. **None of it is reviewed, endorsed, or signed off**, and it
-does not set the path the board will actually take — it's an experiment in what's mechanizable.
-
-- **Netlist** — [`controller_board.py`](/hardware/pcb/controller_board.py) defines the circuit
-  with [SKiDL](https://github.com/devbisme/skidl) and emits
-  [`controller-board.net`](/hardware/pcb/controller-board.net) (a KiCad netlist). Run:
-  `tools/pcb-venv/bin/python hardware/pcb/controller_board.py`. It resolves the
-  [`netlist.md`](/hardware/pcb/netlist.md) open decisions to concrete choices (its header notes
-  which), passes ERC clean, and uses stock-symbol stand-ins for a few parts with no KiCad symbol.
-- **Placement** — [`controller_layout.py`](/hardware/pcb/controller_layout.py) reads the netlist
-  via KiCad's `pcbnew` API, places every footprint (size-aware, mains parts in an isolated
-  corner), assigns nets, draws the 100 × 100 outline, and writes
-  [`controller-board.kicad_pcb`](/hardware/pcb/controller-board.kicad_pcb) + `.kicad_pro`. Run
-  with KiCad's bundled Python (the one with `pcbnew`). It's a first-pass placement, not hand-tuned.
-- **Autorouting** — an optional external round-trip via freerouting (export DSN → route → import
-  SES). Not committed: non-deterministic, only partially routes against a first-pass placement.
-
-This reaches a placed board, not a manufacturable one. Routing-aware placement, full routing,
-and the by-hand creepage / RF-keepout / thermal / EMC review are all unaddressed — and are
-exactly where human judgment, not automation, decides the board.
-
-## Status
-
-Plan stage. The design data above (netlist, BOM, fab + placement options) is the plan; the
-board build path — schematic capture and layout in KiCad's GUI, the code-defined exploration
-above, or another route — is undecided and unreviewed. No part of the board has been signed
-off for fab.
+Module part numbers are in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §1.

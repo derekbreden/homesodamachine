@@ -121,7 +121,7 @@ PANEL_PORT_X = 189.0       # rear-panel ports aligned on this vertical line
 BULKHEAD_ZA = 150.0        # lower umbilical flavor bulkhead, center height
 BULKHEAD_ZB = 185.0        # upper umbilical flavor bulkhead, center height
 C14_Z = 258.0              # mains inlet, high in the strip — above all water ports
-STUB_HALF_PITCH = 38.65    # stub bulkhead offset from its center (faucet_inlet_stub.bulkhead_x)
+STUB_HALF_PITCH = 49.56    # stub bulkhead offset from its center (faucet_inlet_stub.bulkhead_x)
 # Panel parts seat on the back wall's OUTER face, so their barrels pass through the
 # wall (body/flange proud outside, retained by the wall). enclosure.py cuts the
 # matching holes (back_wall_ports), sized to clear the modeled hardware.
