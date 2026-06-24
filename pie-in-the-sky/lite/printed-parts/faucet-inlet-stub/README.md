@@ -10,7 +10,7 @@ Flow path, port to port:
     Lillium hose
       -> bulkhead IN   (panel pass-through, +X side)
       -> elbow IN      (turns the run inward)
-      -> DIGITEN flow meter   (90° L-body, inlet and outlet at 90°)
+      -> DIGITEN flow meter   (inline, ports coaxial on +X / -X)
       -> elbow OUT     (turns the run back toward the panel)
       -> bulkhead OUT  (panel pass-through, -X side)
       -> faucet
@@ -27,10 +27,11 @@ Flow path, port to port:
 
 The DIGITEN flow meter presents 1/4" push-to-connect ports — the same size as
 the elbows and bulkheads — so each meter port takes a 1/4" OD tube directly and
-the 1/4" elbows mate it with no adapter. The meter's two ports sit at 90°, so it
-is set corner-down (the L straddling X=0): the inlet leans up-and-toward the +X
-bulkhead, the outlet up-and-toward the −X bulkhead. Each elbow turns its
-bulkhead's inward run to meet the meter port.
+the 1/4" elbows mate it with no adapter. The meter is inline: its two ports are
+coaxial on opposite rims (one +X, one −X). It lies flat with its flow axis along
+X between the two bulkheads; each elbow drops from a bulkhead's inner ring face
+down to the meter axis and turns in to meet that side's collet — a flat U: in at
++X, across through the meter, out at −X.
 
 ## Coordinate convention
 
@@ -41,9 +42,9 @@ bulkhead's inward run to meet the meter port.
 - **Z** = up.
 
 The two bulkheads sit [99.12](BULKHEAD_PITCH) mm apart on the panel — the meter's
-two ports stand 27 mm off its center at 90°, and an elbow leg stands off each
-port. The flow meter, both elbows, and the meter corner live inside the
-enclosure at Y = −[44.35](STUB_DEPTH_Y) mm.
+two collets reach 30 mm off its center along the flow axis, and an elbow leg
+stands off each. The flow meter and both elbows live inside the enclosure, the
+meter axis at Y = −[44.35](STUB_DEPTH_Y) mm.
 
 ## Open interface
 

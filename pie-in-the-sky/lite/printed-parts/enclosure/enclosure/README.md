@@ -112,4 +112,3 @@ each half's envelope vs. the H2C bed, and the reservoir/boss clearance.
 ## Sources
 [value](NAME) texts are updated by:
 - `/pie-in-the-sky/lite/printed-parts/enclosure/enclosure/enclosure.py`
-- `/pie-in-the-sky/lite/printed-parts/enclosure/enclosure/enclosure.py`
