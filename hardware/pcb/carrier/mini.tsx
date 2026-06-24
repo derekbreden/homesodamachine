@@ -48,6 +48,7 @@ const Esp32 = ({ x, y }: { x: number; y: number }) => (
   <>
     <pinheader name="U1A" pinCount={19} pitch="2.54mm" gender="female" footprint="pinrow19" pinLabels={espA} {...at(x, y + 12.7)} />
     <pinheader name="U1B" pinCount={19} pitch="2.54mm" gender="female" footprint="pinrow19" pinLabels={espB} {...at(x, y - 12.7)} />
+    <Outline x={x} y={y} w={52} h={28} />
     <silkscreentext text="ESP32" fontSize="3mm" pcbX={x} pcbY={y} />
     <trace from=".U1A > .3V3" to="net.V3_3" />
     <trace from=".U1A > .GND" to="net.GND" />
@@ -104,11 +105,11 @@ const Uln2803 = ({ name, x, y, srcPrefix }: { name: string; x: number; y: number
 // bundle wraps the board. (On the real unit 0x21 reads reeds; here it drives a
 // ULN to exercise the same board-to-board footprint.)
 export default () => (
-  <board width="160mm" height="100mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
-    <Esp32 x={-52} y={0} />
-    <Mcp23017 name="U2" x={-10} y={23} addr="0x20" breakout />
-    <Mcp23017 name="U3" x={-10} y={-23} addr="0x21" breakout />
-    <Uln2803 name="U4" x={30} y={23} srcPrefix="U2_GPA" />
-    <Uln2803 name="U5" x={30} y={-23} srcPrefix="U3_GPA" />
+  <board width="125mm" height="100mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
+    <Esp32 x={-33} y={0} />
+    <Mcp23017 name="U2" x={8} y={23} addr="0x20" breakout />
+    <Mcp23017 name="U3" x={8} y={-23} addr="0x21" breakout />
+    <Uln2803 name="U4" x={36} y={23} srcPrefix="U2_GPA" />
+    <Uln2803 name="U5" x={36} y={-23} srcPrefix="U3_GPA" />
   </board>
 )
