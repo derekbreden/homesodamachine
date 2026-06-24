@@ -36,14 +36,14 @@ bulkhead's inward run to meet the meter port.
 
 - **Y** = panel-normal — +Y outside the enclosure (toward the Lillium hose and
   the faucet), −Y inside. The rear panel is the bulkhead seating plane at Y = 0.
-- **X** = lateral — the two bulkheads straddle X = 0 at ±[38.65](BULKHEAD_X);
+- **X** = lateral — the two bulkheads straddle X = 0 at ±[49.56](BULKHEAD_X);
   the flow meter sits centered between them.
 - **Z** = up.
 
-The two bulkheads sit [77.3](BULKHEAD_PITCH) mm apart on the panel — the meter's
+The two bulkheads sit [99.12](BULKHEAD_PITCH) mm apart on the panel — the meter's
 two ports stand 27 mm off its center at 90°, and an elbow leg stands off each
 port. The flow meter, both elbows, and the meter corner live inside the
-enclosure at Y = −[63.44](STUB_DEPTH_Y) mm.
+enclosure at Y = −[44.35](STUB_DEPTH_Y) mm.
 
 ## Open interface
 

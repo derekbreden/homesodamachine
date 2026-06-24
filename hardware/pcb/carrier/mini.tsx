@@ -45,6 +45,8 @@ const ulnIN = ["IN1", "IN2", "IN3", "IN4", "IN5", "IN6", "IN7", "IN8", "GND"]
 const ulnOUT = ["OUT1", "OUT2", "OUT3", "OUT4", "OUT5", "OUT6", "OUT7", "OUT8", "COM"]
 const dsH6 = ["32K", "SQW", "SCL", "SDA", "VCC", "GND"]
 const dsH4 = ["SCL", "SDA", "VCC", "GND"]
+const rs485T = ["VCC", "TXD", "RXD", "GND"]
+const rs485L = ["A", "B", "Earth"]
 
 // A stroked rectangle on the silk layer — the module's PCB outline.
 const Outline = ({ x, y, w, h }: { x: number; y: number; w: number; h: number }) => (
@@ -150,6 +152,41 @@ const Ds3231 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; r
   )
 }
 
+// ---- ALMOCN TTL-to-RS485 transceiver (51.85 x 22.75) -----------------------
+// Long axis along X. The 4-pin TTL header (VCC/TXD/RXD/GND, 2.54mm) at the +X end
+// wires to the ESP on-board (the SIG-7 hop becomes copper). The stock 5.08mm screw
+// terminal at the -X end is desoldered and re-headered so the module plugs in there
+// too; its A/B/Earth land on the carrier (3-pin, 5.08mm) and exit off-board to the
+// front 4.3" display. A/B/Earth are unwired here (Earth is an isolated shield ref,
+// not GND; A/B await the display-side connector). Auto-direction (no DE/RE); VCC at
+// 3.3V. Straight-through UART: ESP IO32(TX)->TXD, IO34(RX)<-RXD (IO34 is input-only,
+// so it must land on the module's MCU-facing output, RXD).
+const Rs485 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => {
+  const o = (ox: number, oy: number) => rotxy(ox, oy, rot)
+  const [w, h] = rot % 180 === 0 ? [51.85, 22.75] : [22.75, 51.85]
+  const h1 = o(-23.8, -9.5), h2 = o(-23.8, 9.5), h3 = o(23.8, -9.5), h4 = o(23.8, 9.5)
+  const pT = o(18.725, 0), pL = o(-21.925, 0)
+  return (
+    <>
+      <Outline x={x} y={y} w={w} h={h} />
+      <silkscreentext text="RS485" fontSize="2.6mm" pcbX={x} pcbY={y} />
+      <hole shape="circle" diameter="2mm" pcbX={x + h1[0]} pcbY={y + h1[1]} />
+      <hole shape="circle" diameter="2mm" pcbX={x + h2[0]} pcbY={y + h2[1]} />
+      <hole shape="circle" diameter="2mm" pcbX={x + h3[0]} pcbY={y + h3[1]} />
+      <hole shape="circle" diameter="2mm" pcbX={x + h4[0]} pcbY={y + h4[1]} />
+      <pinheader name={`${name}T`} pinCount={4} pitch="2.54mm" gender="female" footprint="pinrow4" pcbRotation={90 + rot} pinLabels={rs485T} {...at(x + pT[0], y + pT[1])} />
+      {/* line side: stock 5.08mm screw terminal desoldered + re-headered, so the
+          module plugs in here too; A/B/Earth land on the carrier and exit off-board */}
+      <pinheader name={`${name}L`} pinCount={3} pitch="5.08mm" gender="female" pcbRotation={90 + rot} pinLabels={rs485L} {...at(x + pL[0], y + pL[1])} />
+      {/* TTL side -> ESP, on-board; line side A/B/Earth off-board, unwired */}
+      <trace from={`.${name}T > .VCC`} to="net.V3_3" />
+      <trace from={`.${name}T > .GND`} to="net.GND" />
+      <trace from={`.${name}T > .TXD`} to=".U1A > .IO32" />
+      <trace from={`.${name}T > .RXD`} to=".U1A > .IO34" />
+    </>
+  )
+}
+
 // ---- the board -------------------------------------------------------------
 // 0x21 stands upright at the lower-middle; the 0x20 + U4 unit is turned a
 // quarter-turn CCW and set above it, 0x20's (rotated) bottom-left corner 5 mm
@@ -159,7 +196,7 @@ const Ds3231 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; r
 // 0x20 (GPA->IN bundle still straight, 5 mm gap). 0x21->U5 is unchanged. The
 // DS3231 sits in the freed left bay, its 4-pin I2C tap facing that channel.
 export default () => (
-  <board width="125mm" height="110mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
+  <board width="125mm" height="124mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
     {/* ESP top edge (y -3.75) flush with 0x21's top edge; 5mm gap to 0x21 kept */}
     <Esp32 x={-34.65} y={-17.75} />
     <Mcp23017 name="U2" x={15.6} y={12.9} addr="0x20" breakout rot={90} />
@@ -167,5 +204,8 @@ export default () => (
     <Uln2803 name="U4" x={10.29} y={41.05} srcPrefix="U2_GPA" rot={90} />
     <Uln2803 name="U5" x={36.15} y={-17.69} srcPrefix="U3_GPA" />
     <Ds3231 name="U6" x={-27.9} y={12} rot={180} />
+    {/* RS485 in the bottom-left bay, aligned under the ESP with a 5mm gap; turned
+        180 so its TTL header sits at the left end under the ESP's IO32/IO34/3V3 */}
+    <Rs485 name="U7" x={-34.65} y={-48.125} rot={180} />
   </board>
 )

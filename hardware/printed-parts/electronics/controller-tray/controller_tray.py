@@ -2,8 +2,9 @@
 
 Carries the ESP32 (on its DIN-rail breakout), both MCP23017 I2C GPIO expanders,
 the DS3231 RTC, and the TTL-to-RS485 transceiver. Same idioms as the power tray:
-boards pack flush, a single convex-outline floor, no walls, heat-set M3 bosses
-(the RS485 has no holes and rests on the floor). Built by the shared
+boards pack flush, a single convex-outline floor, no walls, heat-set bosses sized
+per board (M2 for the MCP23017, DS3231, and RS485; the RS485 takes 4 corner
+bosses). Built by the shared
 [`module_tray`](/hardware/printed-parts/electronics/module_tray.py) engine.
 
 Layout: ESP32 breakout at the left; the two MCP23017s stacked just to its right;

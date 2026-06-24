@@ -28,11 +28,11 @@ feed and the ground bond cross between the two.
 
 ESP32 breakout at the lower-left; the L298N flush to its right; the two ULN2803As
 stacked in the next column; the MCP23017 + RS485 stacked in the next column; the
-DS3231 in the last column. Footprint ≈ **222 × 55 mm**. Each board screws onto
-heat-set standoff bosses sized per its holes — **M3** for the ESP32, L298N,
-ULN2803A, and RS485; **M2** for the MCP23017 (⌀2) and the DS3231 (⌀2.4).
-**19 heat-set bosses** total — **14 M3 + 5 M2** (ESP32 4 + L298N 4 + ULN2803A 2×2
-+ RS485 2 M3; MCP23017 2 + DS3231 3 M2).
+DS3231 in the last column. Each board screws onto heat-set standoff bosses sized
+per its holes — **M3** for the ESP32, L298N, and ULN2803A; **M2** for the
+MCP23017 (⌀2), the DS3231 (⌀2.4), and the RS485 (⌀2, 4 corner holes).
+**21 heat-set bosses** total — **12 M3 + 9 M2** (ESP32 4 + L298N 4 + ULN2803A 2×2
+M3; MCP23017 2 + DS3231 3 + RS485 4 M2).
 
 Local frame: X right, Y deep, Z up; origin at the floor's bottom-left corner,
 Z = 0 the floor underside, floor top at `floor_t`. The tray stands vertical in the
