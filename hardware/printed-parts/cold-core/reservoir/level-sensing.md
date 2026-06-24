@@ -50,7 +50,7 @@ The working requirement is that the donut **ride against the cavity far wall**, 
 [4](REEDS_PER_RES) reeds × 2 reservoirs = **8 input GPIOs needed** for the flavor reservoir level sensing. Allocation:
 
 - **Reservoir A's [4](REEDS_PER_RES) reeds** → existing MCP23017 0x20 PB[4:7] (the chip's spare bits after 12 valves). No firmware change beyond reading [4](REEDS_PER_RES) new bits.
-- **Reservoir B's [4](REEDS_PER_RES) reeds** → new MCP23017 at I²C address 0x21, PA[0:3]. 12 spare bits on the new chip for future expansion. Same I²C driver as 0x20.
+- **Reservoir B's [4](REEDS_PER_RES) reeds** → new MCP23017 at I²C address 0x21, PA[0:3]. The chip also carries the condenser-fan driver bit (PA4) and the 2 carbonator reeds (PB[0:1]), leaving 9 spare bits for future expansion. Same I²C driver as 0x20.
 
 ## Parts (per build)
 

@@ -17,19 +17,21 @@ from docgen import substitute_md
 # ─── ESP32 pin assignments ────────────────────────────────────────────
 # Source: hardware/wiring/esp32-pinout.mmd.
 
-gpio_relay1 = 14            # Teyleten relay #1 (compressor AC)
-gpio_onewire = 16           # DS18B20 1-wire bus (tank-wall + suction-line)
-gpio_reed_low = 17          # Carbonator reed low (refill threshold)
-gpio_reed_high = 27         # Carbonator reed high (full threshold)
+gpio_relay1 = 17            # Teyleten relay #1 (compressor AC)
+gpio_onewire = 14           # DS18B20 1-wire bus (tank-wall + suction-line)
 gpio_flow = 23              # DIGITEN flow meter pulse input
-gpio_relay2 = 4             # Teyleten relay #2 (diaphragm pump 12 V refill)
+gpio_relay2 = 16            # Teyleten relay #2 (diaphragm pump 12 V refill)
 
 # ─── I²C device addresses ─────────────────────────────────────────────
 # 7-bit addresses on the shared SDA/SCL bus (GPIO 21/22).
 
 mcp_valves_addr = 0x20      # MCP23017: 12 valves on PA[0:7]+PB[0:3], Rsvr A reeds on PB[4:7]
-mcp_reservoirs_addr = 0x21  # MCP23017: Rsvr B reeds on PA[0:3], condenser-fan driver bit PA4
+mcp_reservoirs_addr = 0x21  # MCP23017: Rsvr B reeds PA[0:3], cond-fan bit PA4, carbonator reeds PB[0:1]
 rtc_addr = 0x68             # DS3231 RTC
+
+# Carbonator reeds ride the 0x21 MCP23017 on its internal pull-ups (no externals).
+reed_low_loc = "0x21 PB0"   # Carbonator reed low (refill threshold)
+reed_high_loc = "0x21 PB1"  # Carbonator reed high (full threshold)
 
 # ─── Sensor inventory ─────────────────────────────────────────────────
 
@@ -70,8 +72,8 @@ def main():
         # Pin assignments (decimal GPIO numbers in the doc's prose).
         "GPIO_RELAY1": f"GPIO {gpio_relay1:d}",
         "GPIO_ONEWIRE": f"GPIO {gpio_onewire:d}",
-        "GPIO_REED_LOW": f"GPIO {gpio_reed_low:d}",
-        "GPIO_REED_HIGH": f"GPIO {gpio_reed_high:d}",
+        "REED_LOW": reed_low_loc,
+        "REED_HIGH": reed_high_loc,
         "GPIO_FLOW": f"GPIO {gpio_flow:d}",
         # I²C addresses — formatted as 7-bit hex (0xNN).
         "MCP_VALVES": f"0x{mcp_valves_addr:02x}",
@@ -112,8 +114,8 @@ def main():
             # Pin assignments.
             "GPIO_RELAY1": 1,
             "GPIO_ONEWIRE": 1,
-            "GPIO_REED_LOW": 2,
-            "GPIO_REED_HIGH": 1,
+            "REED_LOW": 2,
+            "REED_HIGH": 1,
             "GPIO_FLOW": 1,
             # I²C addresses.
             "MCP_VALVES": 5,
