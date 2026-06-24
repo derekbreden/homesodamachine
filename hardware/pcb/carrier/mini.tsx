@@ -109,7 +109,9 @@ export default () => (
     <Esp32 x={-33} y={0} />
     <Mcp23017 name="U2" x={8} y={23} addr="0x20" breakout />
     <Mcp23017 name="U3" x={8} y={-23} addr="0x21" breakout />
-    <Uln2803 name="U4" x={36} y={23} srcPrefix="U2_GPA" />
-    <Uln2803 name="U5" x={36} y={-23} srcPrefix="U3_GPA" />
+    {/* ULN raised 5.31mm so its IN1-8 row lines up with the MCP's GPA0-7 row
+        (GPA sits high on its header, IN low on its own) — straight traces across */}
+    <Uln2803 name="U4" x={36} y={28.31} srcPrefix="U2_GPA" />
+    <Uln2803 name="U5" x={36} y={-17.69} srcPrefix="U3_GPA" />
   </board>
 )
