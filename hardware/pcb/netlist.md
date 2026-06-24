@@ -28,10 +28,10 @@ Reference designators are stable across this file and [`bom-board.md`](/hardware
 
 | Ref | Part | Package | Role |
 |---|---|---|---|
-| U1 | ESP32-WROOM-32E | SMD module, castellated | Main MCU. I²C, 2× UART, 1-wire, flow input, carbonator reeds, pump drive, relay drive. Replaces ESP32-DevKitC. |
+| U1 | ESP32-WROOM-32E | SMD module, castellated | Main MCU. I²C, 2× UART, 1-wire, flow input, pump drive, relay drive. Replaces ESP32-DevKitC. |
 | U2 | CH340X (or CP2102N) | MSOP-10 / QFN-24 | USB-UART bridge for the service port — WROOM has no native USB. DTR/RTS → EN/IO0 auto-boot. |
 | U3 | MCP23017 @ 0x20 | SOIC-28 | Valve bank: PA0–7 + PB0–3 → ULN inputs; PB4–7 ← Reservoir A reeds. |
-| U4 | MCP23017 @ 0x21 | SOIC-28 | PA0–3 ← Reservoir B reeds; PA4 → ULN U6 ch5 (condenser fan); PA5–7 + PB0–7 spare. |
+| U4 | MCP23017 @ 0x21 | SOIC-28 | PA0–3 ← Reservoir B reeds; PA4 → ULN U6 ch5 (condenser fan); PB0–1 ← Carbonator reeds (low/high); PA5–7 + PB2–7 spare. |
 | U5 | ULN2803A #1 | SOIC-18 | Sinks solenoids V-A…V-H (ch1–8). COM → +12 V (integrated flyback). |
 | U6 | ULN2803A #2 | SOIC-18 | Sinks V-I, V-J, V-K-A, V-K-B (ch1–4) + condenser fan (ch5). ch6–8 free. COM → +12 V. |
 | U7 | DRV8871 (pump A) | HSOP-8, thermal pad | Peristaltic flavor pump A H-bridge. Replaces L298N channel A. |
@@ -56,7 +56,6 @@ Reference designators are stable across this file and [`bom-board.md`](/hardware
 | C_dec (×~12) | 100 nF X7R | One per IC power pin. |
 | R1, R2 | 4.7 kΩ | I²C SDA / SCL pull-ups to 3.3 V. |
 | R3 | 4.7 kΩ | DS18B20 1-wire pull-up to 3.3 V (migrated from `bom.md` §1 EDGELEC line). |
-| R4, R5 | 10 kΩ | Carbonator-reed pull-ups (GPIO 36 / 39) — required, as input-only pads have no internal pull-up. The 8 reservoir reeds use the MCP23017 internal pull-ups. |
 | D1 | TVS, SMAJ15A | 12 V input transient clamp. |
 | D2… | ESD arrays | At each off-board signal connector (1-wire, flow, UARTs, reeds). |
 | LED1, LED2 | Power-good + status | On-board indication, each with a series resistor. |
@@ -80,7 +79,7 @@ screw block for the trunk current). Per [`README.md`](/hardware/pcb/README.md) "
 | J9 | JST-XH ~7P | 7 | ULN U6 ch1–4 → V-I…V-K-B, ch5 → condenser fan + 12 V COM. |
 | J10 | JST-XH 5P | 5 | Reservoir A reeds 1–4 + GND → U3 PB4–7. |
 | J11 | JST-XH 5P | 5 | Reservoir B reeds 1–4 + GND → U4 PA0–3. |
-| J12 | JST-XH 3P | 3 | Carbonator reeds low (GPIO 36) + high (GPIO 39) + GND. |
+| J12 | JST-XH 3P | 3 | Carbonator reeds low + high + GND → U4 (0x21) PB0 / PB1. |
 | J13 | JST-XH 3P | 3 | DS18B20 1-wire: data (GPIO 14) + 3.3 V + GND (2 probes bussed). |
 | J14 | JST-XH 3P | 3 | DIGITEN flow meter: pulse (GPIO 23) + 5 V + GND. |
 | J15 | JST-XH 2P | 2 | Backflow drip-pan moisture sensor (SIG-9, GPIO 13) + GND. |
@@ -92,9 +91,10 @@ screw block for the trunk current). Per [`README.md`](/hardware/pcb/README.md) "
 Clustered so each subsystem lands on physically adjacent module pads: the signals
 to one destination leave the socket as a single bundle, which cuts crossings on
 the carrier PCB and in the hand-wired harness alike. The WROOM-32E and the
-DevKitC carrier share pad order, so one assignment serves both. The six inputs
-sit on input-only / boot-safe pads (34/35/36/39 + 13/23); strapping pins (5, 15)
-are used only where their boot state is harmless.
+DevKitC carrier share pad order, so one assignment serves both. The four inputs
+sit on input-only pads 34/35 (UART RX) + boot-safe pads 13/23; the other
+input-only pads (36/39) are free. Strapping pins (5, 15) are used only where
+their boot state is harmless.
 
 | GPIO | Function | Connects |
 |---|---|---|
@@ -104,8 +104,6 @@ are used only where their boot state is harmless.
 | 34 | UART1 RX (input-only) | U12 RO ← 4.3B config display |
 | 33 | UART2 TX | J17 → faucet display |
 | 35 | UART2 RX (input-only) | J17 ← faucet display |
-| 36 | Carbonator reed LOW (input-only, ext pull-up) | J12 — refill threshold |
-| 39 | Carbonator reed HIGH (input-only, ext pull-up) | J12 — full threshold |
 | 23 | Flow pulse (interrupt) | J14 → DIGITEN flow meter |
 | 13 | Backflow moisture (SIG-9) | J15 — drip-pan sensor |
 | 14 | 1-wire data (R3 pull-up) | J13 → 2× DS18B20 (tank wall + suction line) |
@@ -121,9 +119,9 @@ are used only where their boot state is harmless.
 | EN | Reset | SW2 + 10 k + RC + U2 DTR |
 | 1 / 3 | UART0 TX/RX | U2 (service console) |
 
-Spare after assignment: GPIO 15, 4, 12, 2 (all bootstrap-sensitive or freed by the
-re-cluster). The clustered bundles: comms 32/33/34/35 + reeds 36/39 on one socket
-edge; pumps 25/26/27 and 18/5/19 each a contiguous triple; relays 16/17 adjacent.
+Spare after assignment: GPIO 15, 4, 12, 2 (bootstrap-sensitive or freed by the
+re-cluster) + input-only 36, 39. The clustered bundles: comms 32/33/34/35 on one
+socket edge; pumps 25/26/27 and 18/5/19 each a contiguous triple; relays 16/17 adjacent.
 
 ## Nets (summary)
 
@@ -136,7 +134,7 @@ edge; pumps 25/26/27 and 18/5/19 each a contiguous triple; relays 16/17 adjacent
 - **VALVE_I…VALVE_K-B** — U3 PB0–3 → U6 IN1–4 → J9.
 - **FAN_DRIVE** — U4 PA4 → U6 IN5 → J9 (low-side; fan + on +12 V).
 - **RSVR_A_REED1–4 / RSVR_B_REED1–4** — J10/J11 → U3 PB4–7 / U4 PA0–3 (INPUT_PULLUP).
-- **CARB_REED_LOW / _HIGH** — J12 → GPIO 36 / 39.
+- **CARB_REED_LOW / _HIGH** — J12 → U4 (0x21) PB0 / PB1 (INPUT_PULLUP).
 - **ONEWIRE_DATA** — GPIO 14 + R3 → J13.
 - **PUMP_A/B** — GPIO 25/26/27, 18/5/19 (IN1/IN2/EN) → U7/U8; OUT → J6/J7.
 - **RELAY1/2_DRIVE** — GPIO 17/16 → OK1/OK2 → Q1/Q2 → K1/K2 coils.
@@ -165,9 +163,10 @@ Resolved at schematic capture; each changes a footprint, a net, or a part value.
    or a screw terminal.
 6. **Flow-meter level.** The DIGITEN sensor is 5 V-powered; its pulse into GPIO 23 needs an
    open-collector pull-up to 3.3 V or a level step — confirm it does not over-volt the pin.
-7. **0x21 vs direct GPIO.** `valve-control.mmd` notes 0x21 could be dropped for direct
-   ESP32 GPIO (2/12 + input-only 36/39) or a 74HC165. The board commits to 2× MCP23017;
-   capture treats the direct-GPIO option as not-populated unless chosen.
+7. **0x21 vs direct GPIO.** `valve-control.mmd` notes 0x21 could be dropped for a 74HC165
+   or direct ESP32 GPIO (the free spares 2/12 + input-only 36/39). The board commits to
+   2× MCP23017 — 0x21 now also carries the 2 carbonator reeds, so dropping it would
+   re-home those too; capture treats the direct-GPIO option as not-populated unless chosen.
 8. **AC corner.** Enforce ≥8 mm creepage and a milled isolation slot under K1; AC
    terminals are 300 V blocks, not JST; the corner stays isolated from logic ground.
 9. **USB-UART bridge vs flash header.** U2 + auto-reset preserves the DevKitC service path;
