@@ -103,15 +103,16 @@ const Uln2803 = ({ name, x, y, srcPrefix, rot = 0 }: { name: string; x: number; 
 }
 
 // ---- the board -------------------------------------------------------------
-// ESP dropped down level with 0x21. 0x20 + its ULN (U4) flipped 180deg so 0x20's
-// I2C header sits just above 0x21's — SDA-to-SDA is a short straight hop. U4 rides
-// the flip to the left; each MCP's GPA bank still feeds its ULN straight across.
+// Consistent 5.0 mm board-edge-to-edge gaps as a starting grid: ESP<->0x21,
+// 0x20<->0x21, and each MCP<->its ULN. 0x20 + U4 are flipped 180deg and moved as
+// a unit (so 0x20's I2C faces 0x21's and the GPA->input bundle stays straight);
+// the SDA hop is a bit longer than the 1mm version, in trade for even spacing.
 export default () => (
   <board width="125mm" height="100mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
-    <Esp32 x={-33} y={-23} />
-    <Mcp23017 name="U2" x={5.46} y={16.5} addr="0x20" breakout rot={180} />
+    <Esp32 x={-34.65} y={-23} />
+    <Mcp23017 name="U2" x={5.46} y={20.5} addr="0x20" breakout rot={180} />
     <Mcp23017 name="U3" x={8} y={-23} addr="0x21" breakout />
-    <Uln2803 name="U4" x={-22.54} y={11.19} srcPrefix="U2_GPA" rot={180} />
-    <Uln2803 name="U5" x={36} y={-17.69} srcPrefix="U3_GPA" />
+    <Uln2803 name="U4" x={-22.69} y={15.19} srcPrefix="U2_GPA" rot={180} />
+    <Uln2803 name="U5" x={36.15} y={-17.69} srcPrefix="U3_GPA" />
   </board>
 )
