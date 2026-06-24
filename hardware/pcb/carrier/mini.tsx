@@ -166,6 +166,6 @@ export default () => (
     <Mcp23017 name="U3" x={8} y={-23} addr="0x21" breakout />
     <Uln2803 name="U4" x={10.29} y={41.05} srcPrefix="U2_GPA" rot={90} />
     <Uln2803 name="U5" x={36.15} y={-17.69} srcPrefix="U3_GPA" />
-    <Ds3231 name="U6" x={-26} y={12} rot={180} />
+    <Ds3231 name="U6" x={-27.9} y={12} rot={180} />
   </board>
 )
