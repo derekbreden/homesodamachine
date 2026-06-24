@@ -249,7 +249,7 @@
   window.addEventListener("hsm:notifications-updated", renderToast);
 
   // ----- Warm-tap auto-redirect -----
-  // Only for "page just (re)gained focus" events, NOT for SSE-driven
+  // Only for "page just (re)gained focus" events, NOT for live
   // refetches (during active use the user is in the middle of
   // something; toast is the right surface there). 1 unread → redirect
   // to that file. 2+ → leave it; the toast offers /notifications.

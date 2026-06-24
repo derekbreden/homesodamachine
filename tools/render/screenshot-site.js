@@ -17,9 +17,8 @@
 //
 // The bounded network-idle wait (rather than networkidle0 on goto) exists
 // because the dev viewer pages (/3d, /charts, /drawings) open a long-lived
-// /ws WebSocket and the previous server iteration kept an SSE /api/events
-// connection open the same way. Either holds the in-flight connection count
-// above 0 indefinitely, so networkidle0 never resolves and the screenshot
+// /ws WebSocket that holds the in-flight connection count above 0
+// indefinitely, so networkidle0 never resolves and the screenshot
 // times out. The 8-second cap lets one-shot fetches (the importmap-loaded
 // occt-import-js wasm, /api/steps + siblings, GET /api/firebase-config)
 // settle while remaining tolerant of any number of persistent streaming
