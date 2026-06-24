@@ -106,7 +106,7 @@ const Uln2803 = ({ name, x, y, srcPrefix, rot = 0 }: { name: string; x: number; 
 // 0x21, both at x=8); each MCP's GPA bank feeds its ULN straight across (each ULN
 // raised 5.31 mm above its MCP so the IN row lines up with the GPA row).
 export default () => (
-  <board width="125mm" height="100mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
+  <board width="125mm" height="100mm" minTraceWidth="0.3mm" traceClearance="0.5mm">
     {/* ESP top edge (y -3.75) flush with 0x21's top edge; 5mm gap to 0x21 kept */}
     <Esp32 x={-34.65} y={-17.75} />
     {/* 0x20 + U4 un-flipped, back to the stack: 0x20 above 0x21 (5mm), U4 to
