@@ -105,12 +105,13 @@ buck stages and the 12 V input is in [`bom-board.md`](/hardware/pcb/bom-board.md
 
 ## Firmware
 
-Same firmware tree, new pin map revision: the MCP23017s, ULN channels, pump
-drivers, relays, RTC, and both display UART links keep their roles; GPIO
-assignments follow the board's [`netlist.md`](/hardware/pcb/netlist.md). That file is
+The integrated board's firmware follows the GPIO map in
+[`netlist.md`](/hardware/pcb/netlist.md): the MCP23017s, ULN channels, pump drivers,
+relays, RTC, and both display UART links keep their roles. That file is
 board-authoritative where it and the prototype `firmware/src/main.cpp` disagree on a
-GPIO — the firmware pin-map revision to match it is one of the netlist's open
-decisions. USB-C service port carries the same flash/debug path as the DevKitC.
+GPIO — the prototype firmware runs the 2-flavor dispenser and keeps its own pins; the
+integrated firmware that follows this map is written once the board it runs on exists.
+The USB-C service port carries the same flash/debug path as the DevKitC.
 
 ## Exploration — a code-defined toolchain (not a chosen path)
 

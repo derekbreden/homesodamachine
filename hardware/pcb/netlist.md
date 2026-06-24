@@ -9,8 +9,9 @@ as connections.
 (`firmware/src/main.cpp`) disagree on a GPIO, this file wins — the consolidated board
 follows the wiring topology docs, and `main.cpp` predates the move of the valves to the
 MCP23017 bank (it still `#define`s GPIO 17/27 as clean solenoids, GPIO 4 as a dispensing
-solenoid, GPIO 13 as the removed flavor switch). A firmware pin-map revision to match
-this netlist is one of the [Open decisions](#open-decisions).
+solenoid, GPIO 13 as the removed flavor switch). The integrated-appliance firmware that
+follows this map is written once the board it runs on exists; the prototype firmware keeps
+its own pins and is not retrofitted.
 
 Reconciled from:
 [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd),
@@ -171,5 +172,3 @@ Resolved at schematic capture; each changes a footprint, a net, or a part value.
    terminals are 300 V blocks, not JST; the corner stays isolated from logic ground.
 9. **USB-UART bridge vs flash header.** U2 + auto-reset preserves the DevKitC service path;
    a bare 6-pin UART-flash header drops an Extended part but needs an external adapter.
-10. **Firmware pin-map revision.** Update the firmware GPIO map to match this netlist (the
-    legacy `main.cpp` `#define`s for GPIO 4/12/13/17/27 are prototype-era).
