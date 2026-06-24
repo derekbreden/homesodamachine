@@ -109,7 +109,8 @@ const Uln2803 = ({ name, x, y, srcPrefix, rot = 0 }: { name: string; x: number; 
 // the SDA hop is a bit longer than the 1mm version, in trade for even spacing.
 export default () => (
   <board width="125mm" height="100mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
-    <Esp32 x={-34.65} y={-23} />
+    {/* ESP top edge (y -3.75) flush with 0x21's top edge; 5mm gap to 0x21 kept */}
+    <Esp32 x={-34.65} y={-17.75} />
     <Mcp23017 name="U2" x={5.46} y={20.5} addr="0x20" breakout rot={180} />
     <Mcp23017 name="U3" x={8} y={-23} addr="0x21" breakout />
     <Uln2803 name="U4" x={-22.69} y={15.19} srcPrefix="U2_GPA" rot={180} />
