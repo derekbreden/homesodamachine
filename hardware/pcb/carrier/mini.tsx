@@ -213,20 +213,18 @@ const Jst = ({ name, x, y, count, labels, rot = 0, label, labelDir = -1 }: { nam
 // bottom edge lines up with 0x21's bottom edge; (2) the RS485 is nudged ~7 mm left
 // of the ESP so its corner hole clears 0x21's GPB header keep-out; (3) the whole
 // cluster is centred at the origin with a uniform border on every side. The
-// border is sized to a real vertical JST XH and what actually needs the room: a
-// ~5 mm module gap + ~5.8 mm connector body + ~0.5 mm edge => 11 mm. Only the
-// PADS need clearance to the cut edge (~fab minimum, here ~3 mm); the silk body
-// sits at the edge and the housing overhangs, as on most boards. (15 was a guess,
-// 13 still over-budgeted the edge.) Used area 115.2 x 94.8; board 137.2 x 116.8.
+// border is sized to a real vertical JST XH: ~5 mm module gap + ~5.8 mm connector
+// body + ~2 mm edge clearance => 13 mm (15 mm was an over-estimate). Used area
+// 115.2 x 94.8; board 141.2 x 120.8. I2C-cluster geometry/routing is intact.
 export default () => (
-  <board width="137.22mm" height="116.8mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
+  <board width="141.22mm" height="120.8mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
     <Esp32 x={-24.687} y={-5.65} />
     <Mcp23017 name="U2" x={25.563} y={7.75} addr="0x20" breakout rot={90} />
     <Mcp23017 name="U3" x={17.963} y={-28.15} addr="0x21" breakout />
     <Uln2803 name="U4" x={20.253} y={35.9} srcPrefix="U2_GPA" rot={90} />
     <Uln2803 name="U5" x={46.112} y={-22.84} srcPrefix="U3_GPA" />
     <Ds3231 name="U6" x={-17.937} y={24.1} rot={180} />
-    <Rs485 name="U7" x={-40.687} y={-36.025} rot={180} />
+    <Rs485 name="U7" x={-31.687} y={-36.025} rot={180} />
     {/* J1 — manifold B: U5 outputs (OUT1-8 + COM=12V borrowed off-board) -> valve loom; right border */}
     <Jst name="J1" x={65} y={-22.84} count={9} labels={ulnOUT} rot={90} label="MANIFOLD B" />
     {[1, 2, 3, 4, 5, 6, 7, 8].map((k) => <trace key={`j1${k}`} from={`.J1 > .OUT${k}`} to={`.U5O > .OUT${k}`} />)}
@@ -235,10 +233,5 @@ export default () => (
     <Jst name="J2" x={20.253} y={54.5} count={9} labels={ulnOUT} rot={180} label="MANIFOLD A" />
     {[1, 2, 3, 4, 5, 6, 7, 8].map((k) => <trace key={`j2${k}`} from={`.J2 > .OUT${k}`} to={`.U4O > .OUT${k}`} />)}
     <trace from=".J2 > .COM" to=".U4O > .COM" />
-    {/* J3 — reservoir reeds off 0x21's GPB bank; horizontal, below-left, GPB0..7
-        ordered to fan as non-crossing diagonals up to the vertical GPB column */}
-    <Jst name="J3" x={-4} y={-54} count={9} rot={0} labelDir={1} label="RSVR REEDS" labels={["GPB0", "GPB1", "GPB2", "GPB3", "GPB4", "GPB5", "GPB6", "GPB7", "GND"]} />
-    {[0, 1, 2, 3, 4, 5, 6, 7].map((k) => <trace key={`j3${k}`} from={`.J3 > .GPB${k}`} to={`.U3B > .GPB${k}`} />)}
-    <trace from=".J3 > .GND" to="net.GND" />
   </board>
 )
