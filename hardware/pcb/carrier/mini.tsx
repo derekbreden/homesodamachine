@@ -233,5 +233,10 @@ export default () => (
     <Jst name="J2" x={20.253} y={54.5} count={9} labels={ulnOUT} rot={180} label="MANIFOLD A" />
     {[1, 2, 3, 4, 5, 6, 7, 8].map((k) => <trace key={`j2${k}`} from={`.J2 > .OUT${k}`} to={`.U4O > .OUT${k}`} />)}
     <trace from=".J2 > .COM" to=".U4O > .COM" />
+    {/* J3 — reservoir reeds off 0x21's GPB bank; horizontal, below-left, GPB0..7
+        ordered to fan as non-crossing diagonals up to the vertical GPB column */}
+    <Jst name="J3" x={7} y={-54} count={9} rot={0} labelDir={1} label="RSVR REEDS" labels={["GPB0", "GPB1", "GPB2", "GPB3", "GPB4", "GPB5", "GPB6", "GPB7", "GND"]} />
+    {[0, 1, 2, 3, 4, 5, 6, 7].map((k) => <trace key={`j3${k}`} from={`.J3 > .GPB${k}`} to={`.U3B > .GPB${k}`} />)}
+    <trace from=".J3 > .GND" to="net.GND" />
   </board>
 )
