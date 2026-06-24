@@ -34,6 +34,7 @@ const boardProps: any = {
   autorouterEffortLevel: effort,
 }
 if (version) boardProps.autorouterVersion = version
+if (cfg.autorouter) boardProps.autorouter = cfg.autorouter // e.g. "sequential_trace"
 
 const yshift = cfg.yshift ?? 0 // parallel: vertical misalignment between the two rows
 const Hx = mode === "perp" ? offsetX : -gap
@@ -47,14 +48,21 @@ export default () => (
     {P.map((p, i) => {
       const ti = pair === "rev" ? n - 1 - i : i
       const target = P[ti]
-      // optional single midpoint hint (global coords) along the straight diagonal
+      // pad coords (global), derived from geometry — so hints regenerate on a move
       const hx = mode === "perp" ? Hx + (i - (n - 1) / 2) * 2.54 : Hx
       const hy = mode === "perp" ? Hy : (i - (n - 1) / 2) * 2.54
       const vx = 0
       const vy = (ti - (n - 1) / 2) * 2.54
-      const hintProps = cfg.hints === "mid"
-        ? { pcbRouteHints: [{ x: (hx + vx) / 2, y: (hy + vy) / 2 }] }
-        : {}
+      const stageX = -3 // just left of the column (x=0): forces a horizontal approach
+      const m = cfg.hints
+      let hints: any[] | null = null
+      if (m === "mid") hints = [{ x: (hx + vx) / 2, y: (hy + vy) / 2 }]
+      else if (m === "midL") hints = [{ x: (hx + vx) / 2, y: (hy + vy) / 2, to_layer: "top" }]
+      else if (m === "stage") hints = [{ x: stageX, y: vy }]
+      else if (m === "stageL") hints = [{ x: stageX, y: vy, to_layer: "top" }]
+      else if (m === "two") hints = [{ x: (hx + stageX) / 2, y: (hy + vy) / 2 }, { x: stageX, y: vy }]
+      else if (m === "twoL") hints = [{ x: (hx + stageX) / 2, y: (hy + vy) / 2, to_layer: "top" }, { x: stageX, y: vy, to_layer: "top" }]
+      const hintProps = hints ? { pcbRouteHints: hints } : {}
       return <trace key={i} from={`.H > .${p}`} to={`.V > .${target}`} {...hintProps} />
     })}
   </board>
