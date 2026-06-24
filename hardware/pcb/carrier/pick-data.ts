@@ -51,12 +51,16 @@ function distill(circuit: any[]) {
   const srcPort: Record<string, any> = {}
   const pcbPort: Record<string, any> = {}
   const netByKey: Record<string, string> = {}
+  const netById: Record<string, string> = {}
 
   for (const e of circuit) {
     if (e.type === "source_component") compName[e.source_component_id] = e.name
     else if (e.type === "source_port") srcPort[e.source_port_id] = e
     else if (e.type === "pcb_port") pcbPort[e.pcb_port_id] = e
-    else if (e.type === "source_net") netByKey[e.subcircuit_connectivity_map_key] = e.name
+    else if (e.type === "source_net") {
+      netByKey[e.subcircuit_connectivity_map_key] = e.name
+      netById[e.source_net_id] = e.name
+    }
   }
 
   // Resolve a pcb pad's identity through pcb_port -> source_port -> component,
@@ -97,7 +101,43 @@ function distill(circuit: any[]) {
     }
   }
 
-  return { board, unitsPerMm: 1000, pads }
+  // Traces carry a net (connection_name is a source_net id) and, on their first
+  // and last route points, the ports they run between → endpoint pads. The 2D
+  // polyline is every route point; layer hops at vias are flattened away.
+  const traceNet = (t: any) => netById[t.connection_name] ?? t.connection_name ?? null
+  const traceNetByPcbId: Record<string, string | null> = {}
+  const traces: any[] = []
+  for (const e of circuit) {
+    if (e.type !== "pcb_trace") continue
+    traceNetByPcbId[e.pcb_trace_id] = traceNet(e)
+    const wire = e.route.filter((r: any) => r.x != null && r.y != null)
+    const startId = e.route.find((r: any) => r.start_pcb_port_id)?.start_pcb_port_id
+    const endId = e.route.find((r: any) => r.end_pcb_port_id)?.end_pcb_port_id
+    const a = startId ? identify(startId) : null
+    const b = endId ? identify(endId) : null
+    traces.push({
+      net: traceNet(e),
+      from: a && a.ref ? `${a.ref}.${a.pin}` : null,
+      to: b && b.ref ? `${b.ref}.${b.pin}` : null,
+      width: wire[0]?.width ?? null,
+      points: wire.map((r: any) => [round(r.x), round(r.y)]),
+    })
+  }
+
+  // Vias are points; their net comes from the trace they belong to.
+  const vias: any[] = []
+  for (const e of circuit) {
+    if (e.type !== "pcb_via") continue
+    vias.push({
+      x: round(e.x), y: round(e.y),
+      net: traceNetByPcbId[e.pcb_trace_id] ?? null,
+      fromLayer: e.from_layer ?? null,
+      toLayer: e.to_layer ?? null,
+      outer: e.outer_diameter ?? null,
+    })
+  }
+
+  return { board, unitsPerMm: 1000, pads, vias, traces }
 }
 
 function round(n: number) {
