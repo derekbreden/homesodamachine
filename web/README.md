@@ -10,7 +10,7 @@ The hardware/firmware/CAD content the site presents lives in [`hardware/`](/hard
 cd web
 npm install
 npm start          # production server (port 3001 by default; PORT env overrides)
-npm run dev        # dev wrapper: chokidar + Python runner + SSE hot reload (port 3000)
+npm run dev        # dev wrapper: chokidar + Python runner + WebSocket hot reload (port 3000)
 npm test           # smoke tests: route mount + Puppeteer viewer (no DB needed)
 ```
 
@@ -125,7 +125,7 @@ Three signals drive the page: the WebSocket push, FCM, and activation (focus/vis
 
 There is **one server core** ([`server.js`](/web/server.js)). The dev wrapper ([`dev-server/server.js`](/web/dev-server/server.js)) imports `start({ dev: true })` and *adds*:
 
-- chokidar watcher on the repo's `hardware/` to re-run CadQuery generator scripts and broadcast `files-changed` over SSE.
+- chokidar watcher on the repo's `hardware/` to re-run CadQuery generator scripts and broadcast `files-changed` over the `/ws` WebSocket.
 - `findScriptsImportingStep` heuristic to also rebuild dependent scripts when a STEP they import changes.
 - A Python runner that picks up any new part-named generator script (detected by `export_step` / `export_assembly` / `export_dxf` calls) automatically.
 
@@ -144,7 +144,7 @@ To verify dev/prod parity, the test in `tests/smoke.test.js` boots `start({ dev:
 | Walk a directory by extension | `import { walkFiles } from "./walk.js"` (server-side). |
 | Open a CAD detail modal | `openCadDetail("step", file)` or `("dxf", file)` from `cad-detail.js`. Don't write a parallel modal flow. |
 | Persist some viewer state across opens | Add to `state.js`'s exported `state` object. Don't introduce a fresh module-scope `let`. |
-| Add an SSE event type | Define on the server in `lib/events.js` + `lib/push.js`, dispatch on the client in `public/boot.js`'s SSE handler block. Page modules listen via `window.addEventListener("hsm:foo")`. |
+| Add a live event type | Define on the server in `lib/events.js` + `lib/push.js`, dispatch on the client in `public/boot.js`'s WebSocket message handler. Page modules listen via `window.addEventListener("hsm:foo")`. |
 | Wake a user via FCM | `notifyFilesChanged` / `notifyPostsChanged` in `lib/push.js`. The boot-time diff in `server.js` shows the canonical wiring. |
 
 ## Things that are NOT here

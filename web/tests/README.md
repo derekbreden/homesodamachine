@@ -24,8 +24,8 @@ credentials required.
   imported by an HTML surface. Status code + Content-Type prefix.
 - **Legacy redirects.** `/dev`, `/dev/diagrams`, `/dev/mermaid`,
   `/dev/settings` still 301 to their new homes.
-- **SSE.** `/api/events` opens, sends a `hello` frame with a `commit`
-  field, then is aborted.
+- **WebSocket.** `/ws` accepts a connection and receives a `hello`
+  frame carrying a `commit` field on connect.
 - **File passthroughs.** `/steps/*`, `/dxfs/*`, `/api/mermaid-content/*`
   each probe one real file from the tree (skipped if the tree happens
   to be empty for that extension).

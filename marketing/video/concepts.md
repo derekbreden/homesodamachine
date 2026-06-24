@@ -74,7 +74,7 @@ One possible direction: laptop screen split with terminal + viewer, fire the pro
 - **Audience:** Makers, 3D printing, CadQuery users, AI-assisted-workflow people, ambient-computing/PWA people. Anyone building physical things with code who's curious about agent + push-notification feedback loops.
 - **Shareability:** Very high in maker/dev communities. Possibly higher than the original framing — this version has a clearer "I want this" moment.
 - **Trust signal:** Strong. "This person built real infrastructure all the way from CadQuery script through FCM to phone" = "this person is serious."
-- **Where it lives in the repo:** `web/dev-server/server.js` (dev wrapper, file watcher, SSE), `web/lib/push.js` (FCM push on STEP/Mermaid changes), `web/lib/viewer-pages.js` and `web/lib/viewer-routes.js` (shared production+dev viewer).
+- **Where it lives in the repo:** `web/dev-server/server.js` (dev wrapper, file watcher, WebSocket hot reload), `web/lib/push.js` (FCM push on STEP/Mermaid changes), `web/lib/viewer-pages.js` and `web/lib/viewer-routes.js` (shared production+dev viewer).
 
 ### 5. The AI Design Pipeline Failure (2-3 minutes)
 

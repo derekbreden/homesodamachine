@@ -111,7 +111,7 @@ async function capture(url) {
     await page.setViewport({ width, height, deviceScaleFactor: 2 });
     await page.goto(url, { waitUntil: "load", timeout: 60_000 });
 
-    // Bounded-wait for things to settle. SSE / WebSocket connections on the
+    // Bounded-wait for things to settle. WebSocket connections on the
     // dev viewer pages keep traffic alive forever, so we cap the wait at 8s
     // and proceed regardless — streaming connections don't change the
     // visible state, only the in-flight count puppeteer is bookkeeping.
