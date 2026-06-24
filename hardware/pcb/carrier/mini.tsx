@@ -103,19 +103,19 @@ const Uln2803 = ({ name, x, y, srcPrefix, rot = 0 }: { name: string; x: number; 
 }
 
 // ---- the board -------------------------------------------------------------
-// Consistent 5.0 mm board-edge-to-edge gaps as a starting grid: ESP<->0x21,
-// 0x20<->0x21, and each MCP<->its ULN. 0x20 + U4 are flipped 180deg and moved as
-// a unit (so 0x20's I2C faces 0x21's and the GPA->input bundle stays straight);
-// the SDA hop is a bit longer than the 1mm version, in trade for even spacing.
+// Stacked column with a consistent 5.0 mm board-edge gap on every adjacent pair:
+// ESP<->0x21, 0x20<->0x21, and each MCP<->its ULN. The two MCPs stack (0x20 above
+// 0x21, both at x=8); each MCP's GPA bank feeds its ULN straight across (each ULN
+// raised 5.31 mm above its MCP so the IN row lines up with the GPA row).
 export default () => (
   <board width="125mm" height="100mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
     {/* ESP top edge (y -3.75) flush with 0x21's top edge; 5mm gap to 0x21 kept */}
     <Esp32 x={-34.65} y={-17.75} />
-    {/* 0x20 + U4 shifted left 10.16mm as a unit so 0x20's flipped I2C VCC (pin1)
-        sits in x with 0x21's VCC (both x=1.65); moving 0x20 alone would hit U4 */}
-    <Mcp23017 name="U2" x={-4.7} y={20.5} addr="0x20" breakout rot={180} />
+    {/* 0x20 + U4 un-flipped, back to the stack: 0x20 above 0x21 (5mm), U4 to
+        0x20's right (5mm) and raised 5.31 so its GPA->IN bundle runs straight */}
+    <Mcp23017 name="U2" x={8} y={20.5} addr="0x20" breakout />
     <Mcp23017 name="U3" x={8} y={-23} addr="0x21" breakout />
-    <Uln2803 name="U4" x={-32.85} y={15.19} srcPrefix="U2_GPA" rot={180} />
+    <Uln2803 name="U4" x={36.15} y={25.81} srcPrefix="U2_GPA" />
     <Uln2803 name="U5" x={36.15} y={-17.69} srcPrefix="U3_GPA" />
   </board>
 )
