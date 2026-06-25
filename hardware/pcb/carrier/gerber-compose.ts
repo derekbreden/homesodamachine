@@ -29,6 +29,7 @@ export type Scheme = {
   silkOpacity: number // silk opacity — semi-transparent so traces read through the outlines
   topOpacity: number // front copper opacity in the overlay
   bottomOpacity: number // back copper opacity in the overlay
+  copperFillOpacity: number // fill opacity for copper REGIONS — pours/zones/pads fill, traces stroke (fill="none"), so a faint fill drops the pour to a wash over the substrate while traces stay fully opaque
 }
 
 // Bright copper-on-near-black, warm front / cool back. The default: thin traces
@@ -45,6 +46,7 @@ export const SCHEMES: Record<string, Scheme> = {
     silkOpacity: 0.55,
     topOpacity: 0.85,
     bottomOpacity: 0.8,
+    copperFillOpacity: 0.18,
   },
   blueprint: {
     fr4: "#0a2540",
@@ -56,6 +58,7 @@ export const SCHEMES: Record<string, Scheme> = {
     silkOpacity: 0.6,
     topOpacity: 0.85,
     bottomOpacity: 0.8,
+    copperFillOpacity: 0.18,
   },
   ink: {
     fr4: "#f4f1ea",
@@ -67,6 +70,7 @@ export const SCHEMES: Record<string, Scheme> = {
     silkOpacity: 0.7,
     topOpacity: 0.8,
     bottomOpacity: 0.8,
+    copperFillOpacity: 0.2,
   },
 }
 
@@ -154,8 +158,8 @@ export async function composeViews(dir: string, scheme: Scheme) {
   // fill="none") stroke — so the wrapper sets both. Setting literal fill/stroke
   // (rather than an inherited CSS color / currentColor) resolves in every
   // renderer, resvg included.
-  const paint = (l: Layer | null, color: string, opacity = 1) =>
-    l ? `<g fill="${color}" stroke="${color}"${opacity !== 1 ? ` opacity="${opacity}"` : ""}>${l.body}</g>` : ""
+  const paint = (l: Layer | null, color: string, opacity = 1, fillOpacity = 1) =>
+    l ? `<g fill="${color}" stroke="${color}"${opacity !== 1 ? ` opacity="${opacity}"` : ""}${fillOpacity !== 1 ? ` fill-opacity="${fillOpacity}"` : ""}>${l.body}</g>` : ""
 
   const drillPunch = `${paint(drl, scheme.drill)}${paint(drlN, scheme.drill)}`
   const edgePaint = paint(edge, scheme.edge)
@@ -189,9 +193,9 @@ export async function composeViews(dir: string, scheme: Scheme) {
       `</svg>`
   }
 
-  const top = view(paint(fcu, scheme.top), fsilkPaint)
-  const bottom = view(paint(bcu, scheme.bottom), bsilkPaint, true)
-  const overlay = view(paint(bcu, scheme.bottom, scheme.bottomOpacity) + paint(fcu, scheme.top, scheme.topOpacity), fsilkPaint)
+  const top = view(paint(fcu, scheme.top, 1, scheme.copperFillOpacity), fsilkPaint)
+  const bottom = view(paint(bcu, scheme.bottom, 1, scheme.copperFillOpacity), bsilkPaint, true)
+  const overlay = view(paint(bcu, scheme.bottom, scheme.bottomOpacity, scheme.copperFillOpacity) + paint(fcu, scheme.top, scheme.topOpacity, scheme.copperFillOpacity), fsilkPaint)
 
   return { top, bottom, overlay, width: W, height: H, widthMm: +wmm, heightMm: +hmm }
 }
