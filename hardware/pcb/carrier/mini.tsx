@@ -26,7 +26,7 @@ export default () => (
     <Jst name="J2" x={57.0} y={-14.94} count={9} labels={ulnOUT} rot={90} label="MANIFOLD B" labelDir={1} />
     <Jst name="J3" x={-30.0} y={44} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" />
     <Jst name="J4" x={-63.0} y={2} count={7} labels={["GND", "V5", "IO13", "IO23", "IO39", "IO36", "IO14"]} rot={90} label="SENSORS" />
-    <Jst name="J5" x={-25.0} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO5", "IO18", "IO19", "IO26", "IO25", "IO27"]} rot={0} label="DRIVER" />
+    <Jst name="J5" x={-25.0} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO5", "IO19", "IO18", "IO26", "IO25", "IO27"]} rot={0} label="DRIVER" />
     <Jst name="J8" x={-52.0} y={-45} count={2} labels={["GND", "V5"]} rot={0} label="POWER" />
     <Jst name="J6" x={3.0} y={46} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={5.0} y={-46} count={7} labels={["GND", "RB1", "RB2", "RB3", "RB4", "CARBLO", "CARBHI"]} rot={0} label="REEDS B" />
@@ -57,13 +57,11 @@ export default () => (
     {i8.map((k) => <trace key={`a2${k}`} from={`.U2A > .GPA${k}`} to={`net.U2_GPA${k}`} />)}
     {i8.map((k) => <trace key={`a3${k}`} from={`.U3A > .GPA${k}`} to={`net.U3_GPA${k}`} />)}
 
-    {/* ULN cluster -> logic ground: ONE tie. The ULN's single GND pin is both
-        its valve-current return and the reference for its MCP-driven inputs, so
-        the cluster needs exactly one tie to the MCP ground. U4 (driven by U2)
-        makes it here; U5 reaches the same ground through J10 -> U4 (see J10
-        below) and J10 carries its valve return, so U5 needs no tie of its own.
-        A second tie would only re-loop the ground through the MCP. */}
+    {/* ULN grounds -> the MCP grounds (each ULN's single GND pin is its
+        valve-current return and the reference for its MCP-driven inputs); the
+        back-side ground pour ties these into the plane with the rest. */}
     <trace from=".U4I > .GND" to=".U2I > .GND" />
+    <trace from=".U5I > .GND" to=".U2A > .GND" />
 
     {/* GPA -> ULN inputs */}
     {i8.map((k) => <trace key={`i4${k}`} from={`.U4I > .IN${k + 1}`} to={`net.U2_GPA${k}`} />)}
