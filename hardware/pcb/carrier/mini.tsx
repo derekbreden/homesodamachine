@@ -134,7 +134,9 @@ export default () => (
     <trace from=".J7 > .CARBHI" to=".U3B > .GPB5" />
     <trace from=".J7 > .GND" to=".U3B > .GND" />
 
-    {/* DISPLAY: RS485 line side (A/B/Earth) out to the front 4.3" config panel */}
+    {/* DISPLAY: RS485 line side (A/B/Earth) out to the front 4.3" config panel.
+        Signal only — the 4.3B takes its own 7-36 V screw-terminal power straight
+        off the 12 V bus harness, not through this connector. */}
     <trace from=".J9 > .A" to=".U7L > .A" />
     <trace from=".J9 > .B" to=".U7L > .B" />
     <trace from=".J9 > .EARTH" to=".U7L > .Earth" />
