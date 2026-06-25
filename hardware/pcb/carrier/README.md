@@ -10,13 +10,19 @@ source of truth in [`/hardware/wiring/`](/hardware/wiring/)
 
 ## Boards
 
-- `mini.tsx` — an ESP32 DevKitC socket; two MCP23017 (DIP-28) on a shared I²C bus
-  (U2 at 0x20, U3 at 0x21); U2's GPA0-7 driving a ULN2803 (U4) that sinks eight
-  12 V solenoid outputs on J_VA; U2's GPB and both of U3's banks on edge headers;
-  four spare ESP32 GPIO on JE. J12 brings 12 V in for the ULN common and the
-  solenoid high side; the ESP's 3V3 pin powers the MCPs. Through-hole, two layers,
-  routed. ESP socket rows are 25.4 mm apart (DevKitC-32E); the pin map is the
-  standard 38-pin layout.
+- `mini.tsx` — the carrier. An ESP32 DevKitC socket (U1), two MCP23017 (U2 at
+  0x20, U3 at 0x21) and a DS3231 RTC (U6) on a shared I²C bus, two ULN2803 sink
+  drivers (U4/U5), and an RS485 transceiver (U7). Each MCP's GPA0-7 drives one
+  ULN, whose outputs leave on the manifold connectors J1/J2 (eight valve channels
+  + a 12 V COM each; one U5 channel is the condenser fan). The MCP GPB banks read
+  the reed inputs (J6/J7: reservoir A/B + carbonator). The ESP GPIO harness lands
+  on J3 (faucet UART + 5 V), J4 (flow / 1-wire / backflow sensors), and J5 (L298N
+  pump signals + two relay drives). RS485 bridges the ESP UART to the front config
+  display: its line side exits on J9. Power is split — J8 brings in the 5 V logic
+  rail (the ESP's 3V3 pin then powers the I²C devices) and J10 the 12 V valve
+  supply (feeds the ULN commons). Through-hole, two layers, routed, 134 × 100 mm.
+  ESP socket rows are 25.4 mm apart (DevKitC-32E); the pin map is the standard
+  38-pin layout. Routing/EE notes live in the `mini.tsx` header.
 - `render-board.ts` — `bun render-board.ts <board>.tsx [scheme]`: exports the
   Gerbers and composes the three copper views into `out/`. The dev watcher
   (`web/dev-server`) runs it on every save of a board under `pcb/`, so the
