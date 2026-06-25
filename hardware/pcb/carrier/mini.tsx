@@ -1,7 +1,7 @@
 /**
  * esp32-mcp-mini — the controller carrier. Off-the-shelf modules plug into
  * 2.54 mm header sockets; the board is the interconnect, and every off-board
- * interface lands on a labeled edge connector (J1-J10). Footprint geometry
+ * interface lands on a labeled edge connector (J1-J11). Footprint geometry
  * lives in ./carrier_parts; placement + routing are declared here.
  *
  * Left column top->bottom: RS485, ESP32, DS3231. MCP stack (0x20 over 0x21) with
@@ -24,15 +24,16 @@ export default () => (
     <Uln2803 name="U5" x={39.65} y={-14.94} />
     <Buzzer name="U8" x={44} y={-42.5} rot={90} />
     <Jst name="J1" x={57.0} y={25.56} count={9} labels={ulnOUT} rot={90} label="MANIFOLD A" labelDir={1} />
-    <Jst name="J2" x={57.0} y={-14.94} count={9} labels={ulnOUT} rot={90} label="MANIFOLD B" labelDir={1} />
+    <Jst name="J2" x={57.0} y={-14.94} count={6} labels={["OUT1", "OUT2", "OUT3", "OUT4", "FAN", "COM"]} rot={90} label="MANIFOLD B" labelDir={1} />
     <Jst name="J3" x={-30.0} y={44} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" />
-    <Jst name="J4" x={-63.0} y={2} count={7} labels={["GND", "V5", "IO13", "IO23", "IO39", "IO36", "IO14"]} rot={90} label="SENSORS" />
+    <Jst name="J4" x={-63.0} y={2} count={7} labels={["GND", "V5", "3V3", "IO13", "IO23", "IO36", "IO14"]} rot={90} label="SENSORS" />
     <Jst name="J5" x={-25.0} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO5", "IO18", "IO19", "IO26", "IO25", "IO27"]} rot={0} label="DRIVER" />
     <Jst name="J8" x={-52.0} y={-45} count={2} labels={["GND", "V5"]} rot={0} label="POWER" />
     <Jst name="J6" x={3.0} y={46} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={5.0} y={-46} count={7} labels={["GND", "RB1", "RB2", "RB3", "RB4", "CARBLO", "CARBHI"]} rot={0} label="REEDS B" />
     <Jst name="J9" x={-13.0} y={46} count={3} labels={["A", "B", "EARTH"]} rot={0} label="DISPLAY" />
     <Jst name="J10" x={63.0} y={5} count={2} labels={["GND", "V12"]} rot={90} label="VALVE 12V" />
+    <Jst name="J11" x={-63.0} y={-20} count={3} labels={["GND", "V5", "IO39"]} rot={90} label="GAS" />
 
     {/* MCP 0x21 power -> 0x20 */}
     <trace from=".U3I > .VCC" to=".U2B > .VCC" />
@@ -75,7 +76,13 @@ export default () => (
     {/* manifold JSTs: ULN outputs -> valve looms (parallel to the OUT rows) */}
     {i8.map((k) => <trace key={`j1${k}`} from={`.J1 > .OUT${k + 1}`} to={`.U4O > .OUT${k + 1}`} />)}
     <trace from=".J1 > .COM" to=".U4O > .COM" />
-    {i8.map((k) => <trace key={`j2${k}`} from={`.J2 > .OUT${k + 1}`} to={`.U5O > .OUT${k + 1}`} />)}
+    {/* MANIFOLD B: 4 valves (V-I/V-J/V-K-A/V-K-B) on U5 ch1-4, condenser FAN on
+        U5 ch5 (0x21 GPA4), COM = 12V flyback. U5 ch6-8 are spare (not broken out). */}
+    <trace from=".J2 > .OUT1" to=".U5O > .OUT1" />
+    <trace from=".J2 > .OUT2" to=".U5O > .OUT2" />
+    <trace from=".J2 > .OUT3" to=".U5O > .OUT3" />
+    <trace from=".J2 > .OUT4" to=".U5O > .OUT4" />
+    <trace from=".J2 > .FAN" to=".U5O > .OUT5" />
     <trace from=".J2 > .COM" to=".U5O > .COM" />
 
     {/* FAUCET UART (IO33 TX / IO35 RX) */}
@@ -84,10 +91,13 @@ export default () => (
     <trace from=".J3 > .V5" to=".U1A > .V5" />
     <trace from=".J3 > .GND" to=".U1A > .GND" />
 
-    {/* SENSORS: flow / 1-wire / backflow + two spare input-only pins */}
+    {/* SENSORS: flow (IO23) / 1-wire temps (IO14) / backflow moisture (IO13) +
+        one spare input-only pin (IO36). 3V3 is the DS18B20 supply and the 1-wire
+        pull-up reference at the harness — IO14 is NOT 5 V tolerant, so the probes
+        run off 3V3, not the V5 pin (which powers the 5 V flow sensor). */}
     <trace from=".J4 > .IO14" to=".U1A > .IO14" />
     <trace from=".J4 > .IO36" to=".U1A > .IO36" />
-    <trace from=".J4 > .IO39" to=".U1A > .IO39" />
+    <trace from=".J4 > .3V3" to=".U1A > .3V3" />
     <trace from=".J4 > .IO23" to=".U1B > .IO23" />
     <trace from=".J4 > .IO13" to=".U1A > .IO13" />
     <trace from=".J4 > .V5" to=".U1A > .V5" />
@@ -141,6 +151,14 @@ export default () => (
     <trace from=".U8 > .IO" to=".U1B > .IO4" />
     <trace from=".U8 > .VCC" to=".U1A > .V5" />
     <trace from=".U8 > .GND" to="net.GND" />
+
+    {/* GAS: ACEIRMC MQ-6 combustible / refrigerant-leak sensor, mounted low on the
+        rear cabinet floor (catches dense R-600a pooling). 5 V heater supply; AOUT
+        analog -> IO39 (ADC1) for firmware threshold + leak trip. Its own connector,
+        not in the SENSORS loom, so the fire-safety run is isolated and unambiguous. */}
+    <trace from=".J11 > .IO39" to=".U1A > .IO39" />
+    <trace from=".J11 > .V5" to=".U1A > .V5" />
+    <trace from=".J11 > .GND" to="net.GND" />
 
     {/* Power planes. A ground pour fills the back (valve return + logic ground);
         a 12V pour covers the valve block on the front — J10 feeds the ULN flyback
