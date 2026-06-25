@@ -10,7 +10,7 @@
  * way a CadQuery .py regenerates its .step.
  */
 import { composeViews, SCHEMES } from "./gerber-compose"
-import { bottomSilkGerber } from "./bottom-silk"
+import { backSilkBoardTsx } from "./bottom-silk"
 import { execFileSync } from "node:child_process"
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from "node:fs"
 import { tmpdir } from "node:os"
@@ -72,13 +72,34 @@ try {
 const scratch = mkdtempSync(path.join(tmpdir(), `pcb-${board}-`))
 try {
   execFileSync("unzip", ["-o", "-q", zip, "-d", scratch])
-  // tscircuit only draws the front legend; mirror it onto B_SilkScreen (in place,
-  // glyphs flipped) so the bottom view and the fab set carry a readable back-side
-  // legend. Drop it into both the scratch dir (for compose) and the gerber zip.
+  // Back silk: tscircuit only draws the front legend. Build a throwaway board of
+  // layer="bottom" copies of every front silk element (same engine -> identical
+  // font + per-size stroke) and lift its B_SilkScreen, so the bottom view and the
+  // fab set carry a back legend that matches the front exactly. tscircuit mirrors
+  // each glyph in place; the compositor's bottom view flips it readable, and the
+  // gerber stays correct on the real board. Drop it into the scratch + gerber zip.
   if (circuit) {
-    const bsilkPath = path.join(scratch, "B_SilkScreen.gbr")
-    writeFileSync(bsilkPath, bottomSilkGerber(circuit))
-    execFileSync("zip", ["-q", "-j", zip, bsilkPath])
+    const bsTsx = `.${board}.backsilk.tmp.tsx`
+    const bsZipRel = path.join("out", `.${board}.backsilk.tmp.zip`)
+    const bsZipAbs = path.join(dir, bsZipRel)
+    try {
+      writeFileSync(path.join(dir, bsTsx), backSilkBoardTsx(circuit))
+      execFileSync(tsci, ["export", "-f", "gerbers", "-o", bsZipRel, bsTsx], { cwd: dir, stdio: ["ignore", "pipe", "pipe"] })
+      const bsScratch = mkdtempSync(path.join(tmpdir(), `pcb-${board}-bsilk-`))
+      try {
+        execFileSync("unzip", ["-o", "-q", bsZipAbs, "-d", bsScratch])
+        const bsilkPath = path.join(scratch, "B_SilkScreen.gbr")
+        writeFileSync(bsilkPath, readFileSync(path.join(bsScratch, "B_SilkScreen.gbr")))
+        execFileSync("zip", ["-q", "-j", zip, bsilkPath])
+      } finally {
+        rmSync(bsScratch, { recursive: true, force: true })
+      }
+    } catch {
+      console.error(`[${board}] back-silk render failed — bottom view shows no back legend`)
+    } finally {
+      rmSync(path.join(dir, bsTsx), { force: true })
+      rmSync(bsZipAbs, { force: true })
+    }
   }
   const { top, bottom, overlay, widthMm, heightMm } = await composeViews(scratch, scheme)
   const svgs = { top, bottom, overlay }
