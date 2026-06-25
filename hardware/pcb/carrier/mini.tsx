@@ -13,10 +13,10 @@ import {
 
 export default () => (
   <board width="112mm" height="82mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
-    <Ds3231 name="U6" x={-35.15} y={-28.925} rot={180} />
+    <Ds3231 name="U6" x={-35.15} y={-28.65} rot={180} />
     <Esp32 x={-28.15} y={-2} />
-    <Rs485 name="U7" x={-28.15} y={25.45} rot={180} />
-    <Mcp23017 name="U2" x={11.5} y={20.55} addr="0x20" />
+    <Rs485 name="U7" x={-28.15} y={25.375} rot={180} />
+    <Mcp23017 name="U2" x={11.5} y={20.25} addr="0x20" />
     <Mcp23017 name="U3" x={11.5} y={-20.25} addr="0x21" />
     <Uln2803 name="U4" x={36.65} y={25.56} />
     <Uln2803 name="U5" x={36.65} y={-14.94} />
