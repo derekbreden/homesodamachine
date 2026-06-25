@@ -1,9 +1,10 @@
 /**
- * Compose a board's copper layers into three aligned, high-visibility views —
- * Top (front copper), Bottom (back copper, seen through the board), and Overlay
- * (both at once, one warm hue and one cool, so you read which side a trace is on
- * by its colour). Built straight from the fabrication Gerbers, so the lines have
- * the real widths the board is made with.
+ * Compose a board's copper layers into three high-visibility views — Top (front
+ * copper, looking down), Bottom (back copper as viewed from the back, i.e. the
+ * board flipped over in your hand — x-mirrored), and Overlay (both at once in
+ * one frame, one warm hue and one cool, so you read which side a trace is on by
+ * its colour — this is the "x-ray, seen through the board" view). Built straight
+ * from the fabrication Gerbers, so the lines have the real widths.
  *
  * gerber-to-svg renders each layer with `fill="currentColor"` and flips it about
  * that layer's OWN vertical centre (`translate(0,Ty) scale(1,-1)`), so two layers
@@ -142,7 +143,8 @@ export async function composeViews(dir: string, scheme: Scheme) {
   }
   const W = Xmax - Xmin
   const H = Ymax - Ymin
-  const Tu = Ymin + Ymax // flip about the shared board centre
+  const Tu = Ymin + Ymax // y-flip about the board centre (Gerber Y up -> SVG Y down)
+  const Tx = Xmin + Xmax // x-mirror about the board centre, for the bottom view
 
   // All apertures, once. Layer ids are prefixed by gerber-to-svg so no clash.
   const allDefs = present.map((l) => l.defs).join("")
@@ -165,19 +167,30 @@ export async function composeViews(dir: string, scheme: Scheme) {
 
   // Assemble one view from an ordered stack of painted copper groups. The FR4
   // rect lives in viewBox space (no flip needed — it's the whole frame); the
-  // copper, drills and outline live under the single shared flip group.
-  // Silk sits on top of the copper so labels and outlines stay legible.
-  const view = (copper: string, silk: string) =>
-    `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ` +
-    `width="${wmm}mm" height="${hmm}mm" viewBox="${vb}" ` +
-    `stroke-linecap="round" stroke-linejoin="round" stroke-width="0" fill-rule="evenodd">` +
-    `<defs>${allDefs}</defs>` +
-    `<rect x="${fnum(Xmin)}" y="${fnum(Ymin)}" width="${fnum(W)}" height="${fnum(H)}" fill="${scheme.fr4}"/>` +
-    `<g transform="translate(0,${fnum(Tu)}) scale(1,-1)">${copper}${drillPunch}${edgePaint}${silk}</g>` +
-    `</svg>`
+  // copper, drills and outline live under one group transform. Top/Overlay look
+  // down on the front (`scale(1,-1)`, the Gerber-Y flip only). The Bottom view
+  // shows the board as if you turned it over in your hand — the back face viewed
+  // from the back — so it also mirrors x about the board centre (`scale(-1,-1)`
+  // + translate Tx). That mirrors the back copper into its true back-side
+  // orientation and un-mirrors the (in-place-flipped) back silk so it reads
+  // right-way-round here, while the fab gerber stays correct on the real board.
+  // The pad picker (web/.../pcb-pick.js) reuses this same `<g>` transform, so it
+  // mirrors in lockstep. Silk sits on top of the copper so labels stay legible.
+  const view = (copper: string, silk: string, mirror = false) => {
+    const tf = mirror
+      ? `translate(${fnum(Tx)},${fnum(Tu)}) scale(-1,-1)`
+      : `translate(0,${fnum(Tu)}) scale(1,-1)`
+    return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ` +
+      `width="${wmm}mm" height="${hmm}mm" viewBox="${vb}" ` +
+      `stroke-linecap="round" stroke-linejoin="round" stroke-width="0" fill-rule="evenodd">` +
+      `<defs>${allDefs}</defs>` +
+      `<rect x="${fnum(Xmin)}" y="${fnum(Ymin)}" width="${fnum(W)}" height="${fnum(H)}" fill="${scheme.fr4}"/>` +
+      `<g transform="${tf}">${copper}${drillPunch}${edgePaint}${silk}</g>` +
+      `</svg>`
+  }
 
   const top = view(paint(fcu, scheme.top), fsilkPaint)
-  const bottom = view(paint(bcu, scheme.bottom), bsilkPaint)
+  const bottom = view(paint(bcu, scheme.bottom), bsilkPaint, true)
   const overlay = view(paint(bcu, scheme.bottom, scheme.bottomOpacity) + paint(fcu, scheme.top, scheme.topOpacity), fsilkPaint)
 
   return { top, bottom, overlay, width: W, height: H, widthMm: +wmm, heightMm: +hmm }

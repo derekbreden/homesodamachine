@@ -1,35 +1,42 @@
 /**
  * esp32-mcp-mini — the controller carrier. Off-the-shelf modules plug into
- * 2.54 mm header sockets; the board is the interconnect. Footprint geometry
- * lives in ./carrier_parts; routing is declared here.
+ * 2.54 mm header sockets; the board is the interconnect, and every off-board
+ * interface lands on a labeled edge connector (J1-J10). Footprint geometry
+ * lives in ./carrier_parts; placement + routing are declared here.
  *
- * Left column top->bottom: DS3231, ESP32 (180deg), RS485. MCP stack + ULN block
- * to the right. Only the established MCP/ULN core routing is wired; the ESP,
- * DS3231, and RS485 are placed but not yet connected.
+ * Left column top->bottom: RS485, ESP32, DS3231. MCP stack (0x20 over 0x21) with
+ * the ULN drivers and manifold connectors to the right. Fully wired: I2C bus,
+ * the GPA->ULN->manifold valve chain, reed inputs, the ESP GPIO harness, the
+ * RS485 UART + line-out, and the 5 V / 12 V power.
+ *
+ * Note on trace width: the tscircuit autorouter emits one uniform width
+ * (minTraceWidth); per-trace `thickness` is ignored and traceClearance does not
+ * drive it (realized clearance is congestion-bound, ~0.13 mm here). Signals are
+ * fine at 0.2 mm; the high-current power legs are called out at J10 below.
  */
 import {
   i8, Esp32, Mcp23017, Uln2803, Ds3231, Rs485, Jst, ulnOUT,
 } from "./carrier_parts"
 
 export default () => (
-  <board width="145mm" height="100mm" minTraceWidth="0.3mm" traceClearance="0.4mm">
-    <Ds3231 name="U6" x={-35.15} y={-28.65} rot={180} />
-    <Esp32 x={-28.15} y={-2} />
-    <Rs485 name="U7" x={-32} y={25.375} rot={180} />
-    <Mcp23017 name="U2" x={11.5} y={20.25} addr="0x20" />
-    <Mcp23017 name="U3" x={11.5} y={-20.25} addr="0x21" />
-    <Uln2803 name="U4" x={36.65} y={25.56} />
-    <Uln2803 name="U5" x={36.65} y={-14.94} />
-    <Jst name="J1" x={54} y={25.56} count={9} labels={ulnOUT} rot={90} label="MANIFOLD A" />
-    <Jst name="J2" x={54} y={-14.94} count={9} labels={ulnOUT} rot={90} label="MANIFOLD B" />
-    <Jst name="J3" x={-33} y={44} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" />
-    <Jst name="J4" x={-66} y={2} count={7} labels={["GND", "V5", "IO13", "IO23", "IO39", "IO36", "IO14"]} rot={90} label="SENSORS" />
-    <Jst name="J5" x={-28} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO5", "IO18", "IO19", "IO26", "IO25", "IO27"]} rot={0} label="DRIVER" />
-    <Jst name="J8" x={-55} y={-45} count={2} labels={["GND", "V5"]} rot={0} label="POWER" />
-    <Jst name="J6" x={0} y={46} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
-    <Jst name="J7" x={2} y={-46} count={7} labels={["GND", "RB1", "RB2", "RB3", "RB4", "CARBLO", "CARBHI"]} rot={0} label="REEDS B" />
-    <Jst name="J9" x={-16} y={47} count={3} labels={["A", "B", "EARTH"]} rot={0} label="DISPLAY" />
-    <Jst name="J10" x={60} y={5} count={2} labels={["GND", "V12"]} rot={90} label="VALVE 12V" />
+  <board width="134mm" height="100mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
+    <Ds3231 name="U6" x={-32.15} y={-28.65} rot={180} />
+    <Esp32 x={-25.15} y={-2} />
+    <Rs485 name="U7" x={-29.0} y={25.375} rot={180} />
+    <Mcp23017 name="U2" x={14.5} y={20.25} addr="0x20" />
+    <Mcp23017 name="U3" x={14.5} y={-20.25} addr="0x21" />
+    <Uln2803 name="U4" x={39.65} y={25.56} />
+    <Uln2803 name="U5" x={39.65} y={-14.94} />
+    <Jst name="J1" x={57.0} y={25.56} count={9} labels={ulnOUT} rot={90} label="MANIFOLD A" />
+    <Jst name="J2" x={57.0} y={-14.94} count={9} labels={ulnOUT} rot={90} label="MANIFOLD B" />
+    <Jst name="J3" x={-30.0} y={44} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" />
+    <Jst name="J4" x={-63.0} y={2} count={7} labels={["GND", "V5", "IO13", "IO23", "IO39", "IO36", "IO14"]} rot={90} label="SENSORS" />
+    <Jst name="J5" x={-25.0} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO5", "IO18", "IO19", "IO26", "IO25", "IO27"]} rot={0} label="DRIVER" />
+    <Jst name="J8" x={-52.0} y={-45} count={2} labels={["GND", "V5"]} rot={0} label="POWER" />
+    <Jst name="J6" x={3.0} y={46} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
+    <Jst name="J7" x={5.0} y={-46} count={7} labels={["GND", "RB1", "RB2", "RB3", "RB4", "CARBLO", "CARBHI"]} rot={0} label="REEDS B" />
+    <Jst name="J9" x={-13.0} y={46} count={3} labels={["A", "B", "EARTH"]} rot={0} label="DISPLAY" />
+    <Jst name="J10" x={63.0} y={5} count={2} labels={["GND", "V12"]} rot={90} label="VALVE 12V" />
 
     {/* MCP 0x21 power -> 0x20 */}
     <trace from=".U3I > .VCC" to=".U2B > .VCC" />
@@ -126,10 +133,12 @@ export default () => (
     <trace from=".J9 > .B" to=".U7L > .B" />
     <trace from=".J9 > .EARTH" to=".U7L > .Earth" />
 
-    {/* VALVE 12V in: feeds the ULN flyback commons + solenoid high side, and a
-        short valve-current ground return to the ULN grounds (power.mmd). Wide
-        (1 mm ~ 2 A) to carry the summed solenoid + fan current the COM rail
-        sinks; signal traces stay 0.2 mm. */}
+    {/* VALVE 12V in: feeds the ULN flyback commons + solenoid high side, and the
+        valve-current ground return to the ULN grounds (power.mmd). These four are
+        the HIGH-CURRENT nets: COM/GND sink the summed solenoid + fan current, and
+        a dispense can hold ~1 A on one manifold. The autorouter gives them the
+        same 0.2 mm width as signals (~0.5 A) — reinforce these legs at assembly
+        (solder bead along the trace) before driving the full valve set. */}
     <trace from=".J10 > .V12" to=".U4O > .COM" />
     <trace from=".J10 > .V12" to=".U5O > .COM" />
     <trace from=".J10 > .GND" to=".U4I > .GND" />
