@@ -22,7 +22,7 @@ source of truth in [`/hardware/wiring/`](/hardware/wiring/)
   rail (the ESP's 3V3 pin then powers the I²C devices) and J10 the 12 V valve
   supply (feeds the ULN commons). Through-hole, two layers, routed, 134 × 100 mm.
   ESP socket rows are 25.4 mm apart (DevKitC-32E); the pin map is the standard
-  38-pin layout. Routing/EE notes live in the `mini.tsx` header.
+  38-pin layout.
 - `render-board.ts` — `bun render-board.ts <board>.tsx [scheme]`: exports the
   Gerbers and composes the three copper views into `out/`. The dev watcher
   (`web/dev-server`) runs it on every save of a board under `pcb/`, so the

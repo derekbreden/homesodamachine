@@ -1,13 +1,10 @@
 /**
- * _analyze.ts — RELIABLE board metrics. Exports its OWN fresh circuit-json to a
- * private temp file (the repo's dev watcher races + lags the checked-in
- * <board>.circuit.json, so reading that is not trustworthy), then reports:
- * total vias, DRC errors, content/silk bounds + board slack, every via
- * attributed to the net/connector pair it sits on, per-module bboxes, and the
- * realized minimum copper clearance (the autorouter stamps width without
- * DRC-verifying clearance, so this is the ground truth).
+ * _analyze.ts — board metrics. Exports a fresh circuit-json to a temp file, then
+ * reports total vias, DRC errors, content/silk bounds + board slack, every via
+ * attributed to its net/connector pin-pair, per-module bboxes, and the realized
+ * minimum copper clearance (trace-trace and trace-pad, different nets).
  *
- *   bun _analyze.ts [board]        # default: mini   (~12s; does a fresh export)
+ *   bun _analyze.ts [board]        # default: mini
  */
 import { execFileSync } from "node:child_process"
 import { readFileSync, rmSync } from "node:fs"
