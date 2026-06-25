@@ -5,26 +5,26 @@ flowchart LR
   %%  MCP23017 ×2 + ULN2803A ×2 (valves), reed inputs
   %% ═══════════════════════════════════════
   %%
-  %% Two MCP23017 expanders on the shared I2C bus:
-  %%   0x20  outputs (valves) on Port A + Port B[0:3];
-  %%         inputs (4 reservoir reed switches) on Port B[4:7]
-  %%   0x21  inputs (4 reservoir reed switches) on Port A[0:3];
-  %%         1 output (condenser fan) on PA4 via ULN2803A #2 ch 5;
-  %%         inputs (2 carbonator reed switches) on Port B[0:1];
-  %%         9 spare bits.
+  %% Two MCP23017 expanders on the shared I2C bus. Each one splits cleanly —
+  %% Port A drives its own ULN2803A (outputs), Port B reads reeds (inputs):
+  %%   0x20  8 valve outputs (V-A..V-H) on Port A -> ULN2803A #1 -> MANIFOLD A;
+  %%         4 reservoir-A reed inputs on Port B[0:3]; PB[4:7] spare.
+  %%   0x21  4 valve outputs (V-I/V-J/V-K-A/V-K-B) on Port A[0:3] + condenser fan
+  %%         on PA4 -> ULN2803A #2 (ch 1-5) -> MANIFOLD B; PA[5:7] spare;
+  %%         4 reservoir-B reed inputs on Port B[0:3]; 2 carbonator reeds on
+  %%         PB[4:5]; PB[6:7] spare.
   %%
   %% Level sensing rides the MCP internal pull-ups (no external resistors):
   %% the 8 reservoir reeds (4 per reservoir × 2) plus the 2 carbonator reeds,
-  %% 10 reed inputs total. Reservoir A's 4 reeds land on 0x20's 4 spare bits
-  %% (PB[4:7]). Reservoir B's 4 reeds land on 0x21 (PA[0:3]); PA4 drives the
-  %% condenser fan via ULN2803A #2 channel 5 (the fan is a 12 V DC brushless
-  %% axial — see `power.mmd`). The carbonator's low/high reeds land on 0x21
-  %% PB[0:1]; the remaining 9 bits of 0x21 are spare.
+  %% 10 reed inputs total. Reservoir A's 4 reeds land on 0x20 PB[0:3]; Reservoir
+  %% B's 4 reeds on 0x21 PB[0:3]; the carbonator's low/high reeds on 0x21 PB[4:5].
+  %% PA4 of 0x21 drives the condenser fan via ULN2803A #2 channel 5 (the fan is a
+  %% 12 V DC brushless axial — see `power.mmd`).
   %%
   %% Conditional: 0x21 could be replaced by a 74HC165 shift register or
   %% direct ESP32 GPIO — saves the chip, decision deferred. (It now also
   %% carries the carbonator reeds, so the direct-GPIO option would draw
-  %% from the spares 15/4/12/2 + input-only 36/39.)
+  %% from the spares 15/12/2 + input-only 36; GPIO 4 = buzzer, 39 = gas sensor.)
   %%
   %% Architecture detail at
   %% hardware/printed-parts/cold-core/reservoir/level-sensing.md.
@@ -38,8 +38,8 @@ flowchart LR
   subgraph I2C_Bus["I2C Bus  (shared)"]
     direction TB
     RTC["DS3231 RTC\n0x68"]
-    MCP0["MCP23017\n0x20 (valves + 4 reed inputs)"]
-    MCP1["MCP23017\n0x21 (6 reed inputs, fan, 9 spare)"]
+    MCP0["MCP23017\n0x20 (8 valves + 4 reed inputs)"]
+    MCP1["MCP23017\n0x21 (4 valves + fan + 6 reed inputs)"]
   end
 
   subgraph Expander0["MCP23017 0x20 — 16 GPIO"]
@@ -57,42 +57,42 @@ flowchart LR
       A0_GPA7["GPA7 → V-H"]
     end
 
-    subgraph PortB0["Port B  (GPB0–7) — OUTPUTS + INPUTS"]
+    subgraph PortB0["Port B  (GPB0–7) — INPUTS"]
       direction TB
-      A0_GPB0["GPB0 → V-I"]
-      A0_GPB1["GPB1 → V-J"]
-      A0_GPB2["GPB2 → V-K-A"]
-      A0_GPB3["GPB3 → V-K-B"]
-      A0_GPB4["GPB4 ← Rsvr A reed 1 / EMPTY"]
-      A0_GPB5["GPB5 ← Rsvr A reed 2"]
-      A0_GPB6["GPB6 ← Rsvr A reed 3"]
-      A0_GPB7["GPB7 ← Rsvr A reed 4 / FULL"]
+      A0_GPB0["GPB0 ← Rsvr A reed 1 / EMPTY"]
+      A0_GPB1["GPB1 ← Rsvr A reed 2"]
+      A0_GPB2["GPB2 ← Rsvr A reed 3"]
+      A0_GPB3["GPB3 ← Rsvr A reed 4 / FULL"]
+      A0_GPB4["GPB4  spare"]
+      A0_GPB5["GPB5  spare"]
+      A0_GPB6["GPB6  spare"]
+      A0_GPB7["GPB7  spare"]
     end
   end
 
   subgraph Expander1["MCP23017 0x21 — 16 GPIO  (6 INPUTS, 1 OUTPUT, 9 SPARE)"]
     direction TB
 
-    subgraph PortA1["Port A  (GPA0–7) — Reservoir B reeds 1-4 + Cond fan + 3 spare"]
+    subgraph PortA1["Port A  (GPA0–7) — OUTPUTS  (4 valves + cond fan + 3 spare)"]
       direction TB
-      A1_GPA0["GPA0 ← Rsvr B reed 1 / EMPTY"]
-      A1_GPA1["GPA1 ← Rsvr B reed 2"]
-      A1_GPA2["GPA2 ← Rsvr B reed 3"]
-      A1_GPA3["GPA3 ← Rsvr B reed 4 / FULL"]
+      A1_GPA0["GPA0 → V-I"]
+      A1_GPA1["GPA1 → V-J"]
+      A1_GPA2["GPA2 → V-K-A"]
+      A1_GPA3["GPA3 → V-K-B"]
       A1_GPA4["GPA4 → Cond fan"]
       A1_GPA5["GPA5  spare"]
       A1_GPA6["GPA6  spare"]
       A1_GPA7["GPA7  spare"]
     end
 
-    subgraph PortB1["Port B  (GPB0–7) — Carbonator reeds + 6 spare"]
+    subgraph PortB1["Port B  (GPB0–7) — INPUTS  (Rsvr B reeds + carbonator reeds + 2 spare)"]
       direction TB
-      A1_GPB0["GPB0 ← Carbonator reed LOW / refill"]
-      A1_GPB1["GPB1 ← Carbonator reed HIGH / full"]
-      A1_GPB2["GPB2  spare"]
-      A1_GPB3["GPB3  spare"]
-      A1_GPB4["GPB4  spare"]
-      A1_GPB5["GPB5  spare"]
+      A1_GPB0["GPB0 ← Rsvr B reed 1 / EMPTY"]
+      A1_GPB1["GPB1 ← Rsvr B reed 2"]
+      A1_GPB2["GPB2 ← Rsvr B reed 3"]
+      A1_GPB3["GPB3 ← Rsvr B reed 4 / FULL"]
+      A1_GPB4["GPB4 ← Carbonator reed LOW / refill"]
+      A1_GPB5["GPB5 ← Carbonator reed HIGH / full"]
       A1_GPB6["GPB6  spare"]
       A1_GPB7["GPB7  spare"]
     end
@@ -190,27 +190,27 @@ flowchart LR
   A0_GPA6 --> U1_7
   A0_GPA7 --> U1_8
 
-  %% ── 0x20 Port B[0:3] → U2 ──
-  A0_GPB0 --> U2_1
-  A0_GPB1 --> U2_2
-  A0_GPB2 --> U2_3
-  A0_GPB3 --> U2_4
+  %% ── 0x21 Port A[0:3] → U2 ch1-4  (MANIFOLD B valves) ──
+  A1_GPA0 --> U2_1
+  A1_GPA1 --> U2_2
+  A1_GPA2 --> U2_3
+  A1_GPA3 --> U2_4
 
-  %% ── 0x20 Port B[4:7] ← Reservoir A reeds 1-4 ──
-  RA1 -->|"INPUT_PULLUP"| A0_GPB4
-  RA2 -->|"INPUT_PULLUP"| A0_GPB5
-  RA3 -->|"INPUT_PULLUP"| A0_GPB6
-  RA4 -->|"INPUT_PULLUP"| A0_GPB7
+  %% ── 0x20 Port B[0:3] ← Reservoir A reeds 1-4 ──
+  RA1 -->|"INPUT_PULLUP"| A0_GPB0
+  RA2 -->|"INPUT_PULLUP"| A0_GPB1
+  RA3 -->|"INPUT_PULLUP"| A0_GPB2
+  RA4 -->|"INPUT_PULLUP"| A0_GPB3
 
-  %% ── 0x21 Port A[0:3] ← Reservoir B reeds 1-4 ──
-  RB1 -->|"INPUT_PULLUP"| A1_GPA0
-  RB2 -->|"INPUT_PULLUP"| A1_GPA1
-  RB3 -->|"INPUT_PULLUP"| A1_GPA2
-  RB4 -->|"INPUT_PULLUP"| A1_GPA3
+  %% ── 0x21 Port B[0:3] ← Reservoir B reeds 1-4 ──
+  RB1 -->|"INPUT_PULLUP"| A1_GPB0
+  RB2 -->|"INPUT_PULLUP"| A1_GPB1
+  RB3 -->|"INPUT_PULLUP"| A1_GPB2
+  RB4 -->|"INPUT_PULLUP"| A1_GPB3
 
-  %% ── 0x21 Port B[0:1] ← Carbonator reeds low/high ──
-  CARB_LO -->|"INPUT_PULLUP"| A1_GPB0
-  CARB_HI -->|"INPUT_PULLUP"| A1_GPB1
+  %% ── 0x21 Port B[4:5] ← Carbonator reeds low/high ──
+  CARB_LO -->|"INPUT_PULLUP"| A1_GPB4
+  CARB_HI -->|"INPUT_PULLUP"| A1_GPB5
 
   %% ── U1 → Valves ──
   U1_1 ==> VA
@@ -232,13 +232,13 @@ flowchart LR
   A1_GPA4 --> U2_5
 
   %% Spare pins dimmed
+  style A0_GPB4 fill:#333,stroke:#555,color:#777
+  style A0_GPB5 fill:#333,stroke:#555,color:#777
+  style A0_GPB6 fill:#333,stroke:#555,color:#777
+  style A0_GPB7 fill:#333,stroke:#555,color:#777
   style A1_GPA5 fill:#333,stroke:#555,color:#777
   style A1_GPA6 fill:#333,stroke:#555,color:#777
   style A1_GPA7 fill:#333,stroke:#555,color:#777
-  style A1_GPB2 fill:#333,stroke:#555,color:#777
-  style A1_GPB3 fill:#333,stroke:#555,color:#777
-  style A1_GPB4 fill:#333,stroke:#555,color:#777
-  style A1_GPB5 fill:#333,stroke:#555,color:#777
   style A1_GPB6 fill:#333,stroke:#555,color:#777
   style A1_GPB7 fill:#333,stroke:#555,color:#777
   style U2_free fill:#333,stroke:#555,color:#777
