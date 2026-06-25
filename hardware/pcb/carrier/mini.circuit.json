@@ -3642,7 +3642,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -2.983333333333333,
-      "y": -4.820833333333334
+      "y": -4.7749999999999995
     },
     "rotation": 0,
     "size": {
@@ -3683,7 +3683,7 @@
     "rotation": 0,
     "position": {
       "x": -3.683333333333333,
-      "y": -5.650833333333334
+      "y": -5.6049999999999995
     },
     "color": "#006464",
     "font_size": 0.18
@@ -3697,7 +3697,7 @@
     "rotation": 0,
     "position": {
       "x": -3.683333333333333,
-      "y": -3.9908333333333337
+      "y": -3.9449999999999994
     },
     "color": "#006464",
     "font_size": 0.18
@@ -3707,7 +3707,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -8.733333333333333,
-      "y": -4.820833333333334
+      "y": -4.7749999999999995
     },
     "rotation": 0,
     "size": {
@@ -3744,7 +3744,7 @@
     "rotation": 0,
     "position": {
       "x": -9.433333333333332,
-      "y": -5.450833333333334
+      "y": -5.404999999999999
     },
     "color": "#006464",
     "font_size": 0.18
@@ -3758,7 +3758,7 @@
     "rotation": 0,
     "position": {
       "x": -9.433333333333332,
-      "y": -4.190833333333334
+      "y": -4.145
     },
     "color": "#006464",
     "font_size": 0.18
@@ -3950,7 +3950,7 @@
     "schematic_component_id": "schematic_component_4",
     "center": {
       "x": -7.8125,
-      "y": 4.241666666666666
+      "y": 4.229166666666667
     },
     "rotation": 0,
     "size": {
@@ -3987,7 +3987,7 @@
     "rotation": 0,
     "position": {
       "x": -8.5125,
-      "y": 3.6116666666666664
+      "y": 3.599166666666667
     },
     "color": "#006464",
     "font_size": 0.18
@@ -4001,7 +4001,7 @@
     "rotation": 0,
     "position": {
       "x": -8.5125,
-      "y": 4.871666666666666
+      "y": 4.859166666666667
     },
     "color": "#006464",
     "font_size": 0.18
@@ -4011,7 +4011,7 @@
     "schematic_component_id": "schematic_component_5",
     "center": {
       "x": -1.0374999999999996,
-      "y": 4.241666666666666
+      "y": 4.229166666666667
     },
     "rotation": 0,
     "size": {
@@ -4046,7 +4046,7 @@
     "rotation": 0,
     "position": {
       "x": -1.8374999999999997,
-      "y": 3.7116666666666664
+      "y": 3.699166666666667
     },
     "color": "#006464",
     "font_size": 0.18
@@ -4060,7 +4060,7 @@
     "rotation": 0,
     "position": {
       "x": -1.8374999999999997,
-      "y": 4.7716666666666665
+      "y": 4.759166666666667
     },
     "color": "#006464",
     "font_size": 0.18
@@ -4070,7 +4070,7 @@
     "schematic_component_id": "schematic_component_6",
     "center": {
       "x": 0.25,
-      "y": 3.6750000000000003
+      "y": 3.625
     },
     "rotation": 0,
     "size": {
@@ -4119,7 +4119,7 @@
     "rotation": 0,
     "position": {
       "x": -0.5,
-      "y": 2.4450000000000003
+      "y": 2.3950000000000005
     },
     "color": "#006464",
     "font_size": 0.18
@@ -4133,7 +4133,7 @@
     "rotation": 0,
     "position": {
       "x": -0.5,
-      "y": 4.905
+      "y": 4.8549999999999995
     },
     "color": "#006464",
     "font_size": 0.18
@@ -4143,7 +4143,7 @@
     "schematic_component_id": "schematic_component_7",
     "center": {
       "x": 3.5833333333333335,
-      "y": 3.6750000000000003
+      "y": 3.625
     },
     "rotation": 0,
     "size": {
@@ -4192,7 +4192,7 @@
     "rotation": 0,
     "position": {
       "x": 2.8333333333333335,
-      "y": 2.4450000000000003
+      "y": 2.3950000000000005
     },
     "color": "#006464",
     "font_size": 0.18
@@ -4206,7 +4206,7 @@
     "rotation": 0,
     "position": {
       "x": 2.8333333333333335,
-      "y": 4.905
+      "y": 4.8549999999999995
     },
     "color": "#006464",
     "font_size": 0.18
@@ -4216,7 +4216,7 @@
     "schematic_component_id": "schematic_component_8",
     "center": {
       "x": 1.9166666666666667,
-      "y": 6.3
+      "y": 6.25
     },
     "rotation": 0,
     "size": {
@@ -4257,7 +4257,7 @@
     "rotation": 0,
     "position": {
       "x": 1.1666666666666667,
-      "y": 5.47
+      "y": 5.42
     },
     "color": "#006464",
     "font_size": 0.18
@@ -4271,7 +4271,7 @@
     "rotation": 0,
     "position": {
       "x": 1.1666666666666667,
-      "y": 7.13
+      "y": 7.08
     },
     "color": "#006464",
     "font_size": 0.18
@@ -4793,7 +4793,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -1.8833333333333329,
-      "y": -4.320833333333334
+      "y": -4.2749999999999995
     },
     "source_port_id": "source_port_0",
     "facing_direction": "right",
@@ -4810,7 +4810,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -1.8833333333333329,
-      "y": -4.520833333333334
+      "y": -4.475
     },
     "source_port_id": "source_port_1",
     "facing_direction": "right",
@@ -4827,7 +4827,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -1.8833333333333329,
-      "y": -4.720833333333333
+      "y": -4.674999999999999
     },
     "source_port_id": "source_port_2",
     "facing_direction": "right",
@@ -4844,7 +4844,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -1.8833333333333329,
-      "y": -4.920833333333333
+      "y": -4.874999999999999
     },
     "source_port_id": "source_port_3",
     "facing_direction": "right",
@@ -4861,7 +4861,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -1.8833333333333329,
-      "y": -5.120833333333334
+      "y": -5.074999999999999
     },
     "source_port_id": "source_port_4",
     "facing_direction": "right",
@@ -4878,7 +4878,7 @@
     "schematic_component_id": "schematic_component_0",
     "center": {
       "x": -1.8833333333333329,
-      "y": -5.320833333333334
+      "y": -5.2749999999999995
     },
     "source_port_id": "source_port_5",
     "facing_direction": "right",
@@ -4895,7 +4895,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -7.633333333333333,
-      "y": -4.520833333333334
+      "y": -4.475
     },
     "source_port_id": "source_port_6",
     "facing_direction": "right",
@@ -4912,7 +4912,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -7.633333333333333,
-      "y": -4.720833333333334
+      "y": -4.675
     },
     "source_port_id": "source_port_7",
     "facing_direction": "right",
@@ -4929,7 +4929,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -7.633333333333333,
-      "y": -4.920833333333333
+      "y": -4.874999999999999
     },
     "source_port_id": "source_port_8",
     "facing_direction": "right",
@@ -4946,7 +4946,7 @@
     "schematic_component_id": "schematic_component_1",
     "center": {
       "x": -7.633333333333333,
-      "y": -5.120833333333334
+      "y": -5.074999999999999
     },
     "source_port_id": "source_port_9",
     "facing_direction": "right",
@@ -5609,7 +5609,7 @@
     "schematic_component_id": "schematic_component_4",
     "center": {
       "x": -6.7125,
-      "y": 4.541666666666666
+      "y": 4.529166666666667
     },
     "source_port_id": "source_port_48",
     "facing_direction": "right",
@@ -5626,7 +5626,7 @@
     "schematic_component_id": "schematic_component_4",
     "center": {
       "x": -6.7125,
-      "y": 4.341666666666666
+      "y": 4.329166666666667
     },
     "source_port_id": "source_port_49",
     "facing_direction": "right",
@@ -5643,7 +5643,7 @@
     "schematic_component_id": "schematic_component_4",
     "center": {
       "x": -6.7125,
-      "y": 4.141666666666667
+      "y": 4.129166666666667
     },
     "source_port_id": "source_port_50",
     "facing_direction": "right",
@@ -5660,7 +5660,7 @@
     "schematic_component_id": "schematic_component_4",
     "center": {
       "x": -6.7125,
-      "y": 3.9416666666666664
+      "y": 3.929166666666667
     },
     "source_port_id": "source_port_51",
     "facing_direction": "right",
@@ -5677,7 +5677,7 @@
     "schematic_component_id": "schematic_component_5",
     "center": {
       "x": 0.16250000000000053,
-      "y": 4.441666666666666
+      "y": 4.429166666666667
     },
     "source_port_id": "source_port_52",
     "facing_direction": "right",
@@ -5694,7 +5694,7 @@
     "schematic_component_id": "schematic_component_5",
     "center": {
       "x": 0.16250000000000053,
-      "y": 4.241666666666666
+      "y": 4.229166666666667
     },
     "source_port_id": "source_port_53",
     "facing_direction": "right",
@@ -5711,7 +5711,7 @@
     "schematic_component_id": "schematic_component_5",
     "center": {
       "x": 0.16250000000000053,
-      "y": 4.041666666666666
+      "y": 4.029166666666667
     },
     "source_port_id": "source_port_54",
     "facing_direction": "right",
@@ -5728,7 +5728,7 @@
     "schematic_component_id": "schematic_component_6",
     "center": {
       "x": 1.4,
-      "y": 4.575
+      "y": 4.525
     },
     "source_port_id": "source_port_55",
     "facing_direction": "right",
@@ -5745,7 +5745,7 @@
     "schematic_component_id": "schematic_component_6",
     "center": {
       "x": 1.4,
-      "y": 4.375
+      "y": 4.325
     },
     "source_port_id": "source_port_56",
     "facing_direction": "right",
@@ -5762,7 +5762,7 @@
     "schematic_component_id": "schematic_component_6",
     "center": {
       "x": 1.4,
-      "y": 4.175000000000001
+      "y": 4.125
     },
     "source_port_id": "source_port_57",
     "facing_direction": "right",
@@ -5779,7 +5779,7 @@
     "schematic_component_id": "schematic_component_6",
     "center": {
       "x": 1.4,
-      "y": 3.9750000000000005
+      "y": 3.925
     },
     "source_port_id": "source_port_58",
     "facing_direction": "right",
@@ -5796,7 +5796,7 @@
     "schematic_component_id": "schematic_component_6",
     "center": {
       "x": 1.4,
-      "y": 3.7750000000000004
+      "y": 3.725
     },
     "source_port_id": "source_port_59",
     "facing_direction": "right",
@@ -5813,7 +5813,7 @@
     "schematic_component_id": "schematic_component_6",
     "center": {
       "x": 1.4,
-      "y": 3.575
+      "y": 3.5250000000000004
     },
     "source_port_id": "source_port_60",
     "facing_direction": "right",
@@ -5830,7 +5830,7 @@
     "schematic_component_id": "schematic_component_6",
     "center": {
       "x": 1.4,
-      "y": 3.3750000000000004
+      "y": 3.325
     },
     "source_port_id": "source_port_61",
     "facing_direction": "right",
@@ -5847,7 +5847,7 @@
     "schematic_component_id": "schematic_component_6",
     "center": {
       "x": 1.4,
-      "y": 3.1750000000000003
+      "y": 3.125
     },
     "source_port_id": "source_port_62",
     "facing_direction": "right",
@@ -5864,7 +5864,7 @@
     "schematic_component_id": "schematic_component_6",
     "center": {
       "x": 1.4,
-      "y": 2.9750000000000005
+      "y": 2.925
     },
     "source_port_id": "source_port_63",
     "facing_direction": "right",
@@ -5881,7 +5881,7 @@
     "schematic_component_id": "schematic_component_6",
     "center": {
       "x": 1.4,
-      "y": 2.7750000000000004
+      "y": 2.725
     },
     "source_port_id": "source_port_64",
     "facing_direction": "right",
@@ -5898,7 +5898,7 @@
     "schematic_component_id": "schematic_component_7",
     "center": {
       "x": 4.733333333333333,
-      "y": 4.575
+      "y": 4.525
     },
     "source_port_id": "source_port_65",
     "facing_direction": "right",
@@ -5915,7 +5915,7 @@
     "schematic_component_id": "schematic_component_7",
     "center": {
       "x": 4.733333333333333,
-      "y": 4.375
+      "y": 4.325
     },
     "source_port_id": "source_port_66",
     "facing_direction": "right",
@@ -5932,7 +5932,7 @@
     "schematic_component_id": "schematic_component_7",
     "center": {
       "x": 4.733333333333333,
-      "y": 4.175000000000001
+      "y": 4.125
     },
     "source_port_id": "source_port_67",
     "facing_direction": "right",
@@ -5949,7 +5949,7 @@
     "schematic_component_id": "schematic_component_7",
     "center": {
       "x": 4.733333333333333,
-      "y": 3.9750000000000005
+      "y": 3.925
     },
     "source_port_id": "source_port_68",
     "facing_direction": "right",
@@ -5966,7 +5966,7 @@
     "schematic_component_id": "schematic_component_7",
     "center": {
       "x": 4.733333333333333,
-      "y": 3.7750000000000004
+      "y": 3.725
     },
     "source_port_id": "source_port_69",
     "facing_direction": "right",
@@ -5983,7 +5983,7 @@
     "schematic_component_id": "schematic_component_7",
     "center": {
       "x": 4.733333333333333,
-      "y": 3.575
+      "y": 3.5250000000000004
     },
     "source_port_id": "source_port_70",
     "facing_direction": "right",
@@ -6000,7 +6000,7 @@
     "schematic_component_id": "schematic_component_7",
     "center": {
       "x": 4.733333333333333,
-      "y": 3.3750000000000004
+      "y": 3.325
     },
     "source_port_id": "source_port_71",
     "facing_direction": "right",
@@ -6017,7 +6017,7 @@
     "schematic_component_id": "schematic_component_7",
     "center": {
       "x": 4.733333333333333,
-      "y": 3.1750000000000003
+      "y": 3.125
     },
     "source_port_id": "source_port_72",
     "facing_direction": "right",
@@ -6034,7 +6034,7 @@
     "schematic_component_id": "schematic_component_7",
     "center": {
       "x": 4.733333333333333,
-      "y": 2.9750000000000005
+      "y": 2.925
     },
     "source_port_id": "source_port_73",
     "facing_direction": "right",
@@ -6051,7 +6051,7 @@
     "schematic_component_id": "schematic_component_7",
     "center": {
       "x": 4.733333333333333,
-      "y": 2.7750000000000004
+      "y": 2.725
     },
     "source_port_id": "source_port_74",
     "facing_direction": "right",
@@ -6068,7 +6068,7 @@
     "schematic_component_id": "schematic_component_8",
     "center": {
       "x": 3.0666666666666664,
-      "y": 6.8
+      "y": 6.75
     },
     "source_port_id": "source_port_75",
     "facing_direction": "right",
@@ -6085,7 +6085,7 @@
     "schematic_component_id": "schematic_component_8",
     "center": {
       "x": 3.0666666666666664,
-      "y": 6.6
+      "y": 6.55
     },
     "source_port_id": "source_port_76",
     "facing_direction": "right",
@@ -6102,7 +6102,7 @@
     "schematic_component_id": "schematic_component_8",
     "center": {
       "x": 3.0666666666666664,
-      "y": 6.4
+      "y": 6.35
     },
     "source_port_id": "source_port_77",
     "facing_direction": "right",
@@ -6119,7 +6119,7 @@
     "schematic_component_id": "schematic_component_8",
     "center": {
       "x": 3.0666666666666664,
-      "y": 6.2
+      "y": 6.15
     },
     "source_port_id": "source_port_78",
     "facing_direction": "right",
@@ -6136,7 +6136,7 @@
     "schematic_component_id": "schematic_component_8",
     "center": {
       "x": 3.0666666666666664,
-      "y": 6
+      "y": 5.95
     },
     "source_port_id": "source_port_79",
     "facing_direction": "right",
@@ -6153,7 +6153,7 @@
     "schematic_component_id": "schematic_component_8",
     "center": {
       "x": 3.0666666666666664,
-      "y": 5.8
+      "y": 5.75
     },
     "source_port_id": "source_port_80",
     "facing_direction": "right",
@@ -7226,17 +7226,17 @@
       {
         "from": {
           "x": -1.8833333333333329,
-          "y": -5.120833333333334
+          "y": -5.074999999999999
         },
         "to": {
           "x": 1.5999999999999999,
-          "y": -5.120833333333334
+          "y": -5.074999999999999
         }
       },
       {
         "from": {
           "x": 1.5999999999999999,
-          "y": -5.120833333333334
+          "y": -5.074999999999999
         },
         "to": {
           "x": 1.5999999999999999,
@@ -7265,17 +7265,17 @@
       {
         "from": {
           "x": 4.733333333333333,
-          "y": 3.1750000000000003
+          "y": 3.125
         },
         "to": {
           "x": 5.641666666666667,
-          "y": 3.1750000000000003
+          "y": 3.125
         }
       },
       {
         "from": {
           "x": 5.641666666666667,
-          "y": 3.1750000000000003
+          "y": 3.125
         },
         "to": {
           "x": 5.641666666666667,
@@ -7304,38 +7304,38 @@
       {
         "from": {
           "x": 4.733333333333333,
-          "y": 2.9750000000000005
+          "y": 2.925
         },
         "to": {
           "x": 5.704166333333333,
-          "y": 2.9750000000000005
+          "y": 2.925
         }
       },
       {
         "from": {
           "x": 5.704166333333333,
-          "y": 2.9750000000000005
+          "y": 2.925
         },
         "to": {
           "x": 5.779166333333333,
-          "y": 2.9750000000000005
+          "y": 2.925
         },
         "is_crossing": true
       },
       {
         "from": {
           "x": 5.779166333333333,
-          "y": 2.9750000000000005
+          "y": 2.925
         },
         "to": {
           "x": 5.841666666666666,
-          "y": 2.9750000000000005
+          "y": 2.925
         }
       },
       {
         "from": {
           "x": 5.841666666666666,
-          "y": 2.9750000000000005
+          "y": 2.925
         },
         "to": {
           "x": 5.841666666666666,
@@ -7425,17 +7425,17 @@
       {
         "from": {
           "x": 4.733333333333333,
-          "y": 2.7750000000000004
+          "y": 2.725
         },
         "to": {
           "x": 5.741666666666666,
-          "y": 2.7750000000000004
+          "y": 2.725
         }
       },
       {
         "from": {
           "x": 5.741666666666666,
-          "y": 2.7750000000000004
+          "y": 2.725
         },
         "to": {
           "x": 5.741666666666666,
@@ -7845,11 +7845,11 @@
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net7",
     "anchor_position": {
       "x": -1.8833333333333329,
-      "y": -5.320833333333334
+      "y": -5.2749999999999995
     },
     "center": {
       "x": -0.9233333333333329,
-      "y": -5.320833333333334
+      "y": -5.2749999999999995
     },
     "anchor_side": "left"
   },
@@ -7890,11 +7890,11 @@
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net3",
     "anchor_position": {
       "x": -7.633333333333333,
-      "y": -4.520833333333334
+      "y": -4.475
     },
     "center": {
       "x": -5.653333333333332,
-      "y": -4.520833333333334
+      "y": -4.475
     },
     "anchor_side": "left"
   },
@@ -7905,11 +7905,11 @@
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net3",
     "anchor_position": {
       "x": 3.0666666666666664,
-      "y": 6.2
+      "y": 6.15
     },
     "center": {
       "x": 5.046666666666667,
-      "y": 6.2
+      "y": 6.15
     },
     "anchor_side": "left"
   },
@@ -7950,11 +7950,11 @@
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net2",
     "anchor_position": {
       "x": -7.633333333333333,
-      "y": -4.720833333333334
+      "y": -4.675
     },
     "center": {
       "x": -5.653333333333332,
-      "y": -4.720833333333334
+      "y": -4.675
     },
     "anchor_side": "left"
   },
@@ -7965,11 +7965,11 @@
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net2",
     "anchor_position": {
       "x": 3.0666666666666664,
-      "y": 6.4
+      "y": 6.35
     },
     "center": {
       "x": 5.046666666666667,
-      "y": 6.4
+      "y": 6.35
     },
     "anchor_side": "left"
   },
@@ -7995,11 +7995,11 @@
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net0",
     "anchor_position": {
       "x": 1.4,
-      "y": 4.575
+      "y": 4.525
     },
     "center": {
       "x": 2.36,
-      "y": 4.575
+      "y": 4.525
     },
     "anchor_side": "left"
   },
@@ -8025,11 +8025,11 @@
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net1",
     "anchor_position": {
       "x": 1.4,
-      "y": 4.375
+      "y": 4.325
     },
     "center": {
       "x": 2.36,
-      "y": 4.375
+      "y": 4.325
     },
     "anchor_side": "left"
   },
@@ -8055,11 +8055,11 @@
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net24",
     "anchor_position": {
       "x": 4.733333333333333,
-      "y": 4.375
+      "y": 4.325
     },
     "center": {
       "x": 5.693333333333333,
-      "y": 4.375
+      "y": 4.325
     },
     "anchor_side": "left"
   },
@@ -8070,11 +8070,11 @@
     "source_net_id": "source_net_0",
     "anchor_position": {
       "x": 4.733333333333333,
-      "y": 4.175000000000001
+      "y": 4.125
     },
     "center": {
       "x": 5.213333333333333,
-      "y": 4.175000000000001
+      "y": 4.125
     },
     "anchor_side": "left"
   },
@@ -8100,11 +8100,11 @@
     "source_net_id": "source_net_1",
     "anchor_position": {
       "x": 4.733333333333333,
-      "y": 3.9750000000000005
+      "y": 3.925
     },
     "center": {
       "x": 5.213333333333333,
-      "y": 3.9750000000000005
+      "y": 3.925
     },
     "anchor_side": "left"
   },
@@ -8130,11 +8130,11 @@
     "source_net_id": "source_net_2",
     "anchor_position": {
       "x": 4.733333333333333,
-      "y": 3.7750000000000004
+      "y": 3.725
     },
     "center": {
       "x": 5.213333333333333,
-      "y": 3.7750000000000004
+      "y": 3.725
     },
     "anchor_side": "left"
   },
@@ -8160,11 +8160,11 @@
     "source_net_id": "source_net_3",
     "anchor_position": {
       "x": 4.733333333333333,
-      "y": 3.575
+      "y": 3.5250000000000004
     },
     "center": {
       "x": 5.213333333333333,
-      "y": 3.575
+      "y": 3.5250000000000004
     },
     "anchor_side": "left"
   },
@@ -8190,11 +8190,11 @@
     "source_net_id": "source_net_4",
     "anchor_position": {
       "x": 4.733333333333333,
-      "y": 3.3750000000000004
+      "y": 3.325
     },
     "center": {
       "x": 5.213333333333333,
-      "y": 3.3750000000000004
+      "y": 3.325
     },
     "anchor_side": "left"
   },
@@ -8235,11 +8235,11 @@
     "source_net_id": "source_net_6",
     "anchor_position": {
       "x": 5.841666666666666,
-      "y": 2.9750000000000005
+      "y": 2.925
     },
     "center": {
       "x": 6.321666666666665,
-      "y": 2.9750000000000005
+      "y": 2.925
     },
     "anchor_side": "left"
   },
@@ -8250,11 +8250,11 @@
     "source_net_id": "source_net_7",
     "anchor_position": {
       "x": 5.741666666666666,
-      "y": 2.7750000000000004
+      "y": 2.725
     },
     "center": {
       "x": 6.221666666666666,
-      "y": 2.7750000000000004
+      "y": 2.725
     },
     "anchor_side": "left"
   },
@@ -8280,11 +8280,11 @@
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net25",
     "anchor_position": {
       "x": 3.0666666666666664,
-      "y": 6.6
+      "y": 6.55
     },
     "center": {
       "x": 4.026666666666666,
-      "y": 6.6
+      "y": 6.55
     },
     "anchor_side": "left"
   },
@@ -8488,10 +8488,10 @@
     "pcb_component_id": "pcb_component_0",
     "center": {
       "x": -17.9,
-      "y": -28.925
+      "y": -28.65
     },
     "width": 1.5,
-    "height": 14.199999999999996,
+    "height": 14.200000000000003,
     "layer": "top",
     "rotation": 270,
     "source_component_id": "source_component_0",
@@ -8501,17 +8501,17 @@
     "position_mode": "relative_to_group_anchor",
     "positioned_relative_to_pcb_board_id": "pcb_board_0",
     "display_offset_x": -17.9,
-    "display_offset_y": -28.925
+    "display_offset_y": -28.65
   },
   {
     "type": "pcb_component",
     "pcb_component_id": "pcb_component_1",
     "center": {
       "x": -52.4,
-      "y": -28.925
+      "y": -28.65
     },
     "width": 1.5,
-    "height": 9.119999999999997,
+    "height": 9.120000000000001,
     "layer": "top",
     "rotation": 270,
     "source_component_id": "source_component_1",
@@ -8521,7 +8521,7 @@
     "position_mode": "relative_to_group_anchor",
     "positioned_relative_to_pcb_board_id": "pcb_board_0",
     "display_offset_x": -52.4,
-    "display_offset_y": -28.925
+    "display_offset_y": -28.65
   },
   {
     "type": "pcb_component",
@@ -8568,7 +8568,7 @@
     "pcb_component_id": "pcb_component_4",
     "center": {
       "x": -46.875,
-      "y": 25.45
+      "y": 25.375
     },
     "width": 1.5,
     "height": 9.119999999999997,
@@ -8581,17 +8581,17 @@
     "position_mode": "relative_to_group_anchor",
     "positioned_relative_to_pcb_board_id": "pcb_board_0",
     "display_offset_x": -46.875,
-    "display_offset_y": 25.45
+    "display_offset_y": 25.375
   },
   {
     "type": "pcb_component",
     "pcb_component_id": "pcb_component_5",
     "center": {
       "x": -6.224999999999998,
-      "y": 25.45
+      "y": 25.375
     },
     "width": 1.5000000000000018,
-    "height": 11.660000000000004,
+    "height": 11.659999999999997,
     "layer": "top",
     "rotation": 270,
     "source_component_id": "source_component_5",
@@ -8601,17 +8601,17 @@
     "position_mode": "relative_to_group_anchor",
     "positioned_relative_to_pcb_board_id": "pcb_board_0",
     "display_offset_x": -6.224999999999998,
-    "display_offset_y": 25.45
+    "display_offset_y": 25.375
   },
   {
     "type": "pcb_component",
     "pcb_component_id": "pcb_component_6",
     "center": {
       "x": 1.5,
-      "y": 22.050000000000004
+      "y": 21.75
     },
     "width": 1.5000000000000016,
-    "height": 24.360000000000003,
+    "height": 24.36,
     "layer": "top",
     "rotation": 90,
     "source_component_id": "source_component_6",
@@ -8621,17 +8621,17 @@
     "position_mode": "relative_to_group_anchor",
     "positioned_relative_to_pcb_board_id": "pcb_board_0",
     "display_offset_x": 1.5,
-    "display_offset_y": 22.05
+    "display_offset_y": 21.75
   },
   {
     "type": "pcb_component",
     "pcb_component_id": "pcb_component_7",
     "center": {
       "x": 21.5,
-      "y": 22.050000000000004
+      "y": 21.75
     },
     "width": 1.5,
-    "height": 24.360000000000003,
+    "height": 24.36,
     "layer": "top",
     "rotation": 90,
     "source_component_id": "source_component_7",
@@ -8641,14 +8641,14 @@
     "position_mode": "relative_to_group_anchor",
     "positioned_relative_to_pcb_board_id": "pcb_board_0",
     "display_offset_x": 21.5,
-    "display_offset_y": 22.05
+    "display_offset_y": 21.75
   },
   {
     "type": "pcb_component",
     "pcb_component_id": "pcb_component_8",
     "center": {
       "x": 11.5,
-      "y": 37.8
+      "y": 37.5
     },
     "width": 14.200000000000001,
     "height": 1.5,
@@ -8661,7 +8661,7 @@
     "position_mode": "relative_to_group_anchor",
     "positioned_relative_to_pcb_board_id": "pcb_board_0",
     "display_offset_x": 11.5,
-    "display_offset_y": 37.8
+    "display_offset_y": 37.5
   },
   {
     "type": "pcb_component",
@@ -8833,23 +8833,23 @@
     "route": [
       {
         "x": -54.4,
-        "y": -39.575
+        "y": -39.3
       },
       {
         "x": -15.899999999999999,
-        "y": -39.575
+        "y": -39.3
       },
       {
         "x": -15.899999999999999,
-        "y": -18.275
+        "y": -18
       },
       {
         "x": -54.4,
-        "y": -18.275
+        "y": -18
       },
       {
         "x": -54.4,
-        "y": -39.575
+        "y": -39.3
       }
     ],
     "stroke_width": 0.2,
@@ -8861,7 +8861,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -35.15,
-      "y": -28.925
+      "y": -28.65
     },
     "font": "tscircuit2024",
     "font_size": 2.6,
@@ -8878,7 +8878,7 @@
     "hole_shape": "circle",
     "hole_diameter": 2.4,
     "x": -24.4,
-    "y": -20.275,
+    "y": -20,
     "is_covered_with_solder_mask": false,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -8889,7 +8889,7 @@
     "hole_shape": "circle",
     "hole_diameter": 2.4,
     "x": -24.4,
-    "y": -37.575,
+    "y": -37.3,
     "is_covered_with_solder_mask": false,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -8900,7 +8900,7 @@
     "hole_shape": "circle",
     "hole_diameter": 2.4,
     "x": -50.2,
-    "y": -37.575,
+    "y": -37.3,
     "is_covered_with_solder_mask": false,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -8918,7 +8918,7 @@
       "1"
     ],
     "x": -17.9,
-    "y": -22.575000000000003,
+    "y": -22.299999999999997,
     "layers": [
       "top",
       "bottom"
@@ -8936,7 +8936,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -16.775,
-      "y": -22.575000000000003
+      "y": -22.299999999999997
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -8959,7 +8959,7 @@
       "2"
     ],
     "x": -17.9,
-    "y": -25.115000000000002,
+    "y": -24.84,
     "layers": [
       "top",
       "bottom"
@@ -8974,7 +8974,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -17.9,
-    "y": -25.115000000000002,
+    "y": -24.84,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8984,7 +8984,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -17.9,
-    "y": -25.115000000000002,
+    "y": -24.84,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -8993,7 +8993,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -16.775,
-      "y": -25.115000000000002
+      "y": -24.84
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9016,7 +9016,7 @@
       "3"
     ],
     "x": -17.9,
-    "y": -27.655,
+    "y": -27.38,
     "layers": [
       "top",
       "bottom"
@@ -9031,7 +9031,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -17.9,
-    "y": -27.655,
+    "y": -27.38,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9041,7 +9041,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -17.9,
-    "y": -27.655,
+    "y": -27.38,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9050,7 +9050,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -16.775,
-      "y": -27.655
+      "y": -27.38
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9073,7 +9073,7 @@
       "4"
     ],
     "x": -17.9,
-    "y": -30.195,
+    "y": -29.919999999999998,
     "layers": [
       "top",
       "bottom"
@@ -9088,7 +9088,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -17.9,
-    "y": -30.195,
+    "y": -29.919999999999998,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9098,7 +9098,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -17.9,
-    "y": -30.195,
+    "y": -29.919999999999998,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9107,7 +9107,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -16.775,
-      "y": -30.195
+      "y": -29.919999999999998
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9130,7 +9130,7 @@
       "5"
     ],
     "x": -17.9,
-    "y": -32.735,
+    "y": -32.46,
     "layers": [
       "top",
       "bottom"
@@ -9145,7 +9145,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -17.9,
-    "y": -32.735,
+    "y": -32.46,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9155,7 +9155,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -17.9,
-    "y": -32.735,
+    "y": -32.46,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9164,7 +9164,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -16.775,
-      "y": -32.735
+      "y": -32.46
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9187,7 +9187,7 @@
       "6"
     ],
     "x": -17.9,
-    "y": -35.275,
+    "y": -35,
     "layers": [
       "top",
       "bottom"
@@ -9202,7 +9202,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -17.9,
-    "y": -35.275,
+    "y": -35,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9212,7 +9212,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -17.9,
-    "y": -35.275,
+    "y": -35,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9221,7 +9221,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -16.775,
-      "y": -35.275
+      "y": -35
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9237,7 +9237,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -15.36,
-      "y": -28.925
+      "y": -28.65
     },
     "font": "tscircuit2024",
     "font_size": 0.7,
@@ -9254,7 +9254,7 @@
     "layer": "top",
     "center": {
       "x": -17.9,
-      "y": -28.925
+      "y": -28.65
     },
     "width": 16.24,
     "height": 3.54,
@@ -9275,7 +9275,7 @@
       "1"
     ],
     "x": -52.4,
-    "y": -25.115000000000002,
+    "y": -24.84,
     "layers": [
       "top",
       "bottom"
@@ -9293,7 +9293,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -51.275,
-      "y": -25.115000000000002
+      "y": -24.84
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9316,7 +9316,7 @@
       "2"
     ],
     "x": -52.4,
-    "y": -27.655,
+    "y": -27.38,
     "layers": [
       "top",
       "bottom"
@@ -9331,7 +9331,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -52.4,
-    "y": -27.655,
+    "y": -27.38,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9341,7 +9341,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -52.4,
-    "y": -27.655,
+    "y": -27.38,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9350,7 +9350,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -51.275,
-      "y": -27.655
+      "y": -27.38
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9373,7 +9373,7 @@
       "3"
     ],
     "x": -52.4,
-    "y": -30.195,
+    "y": -29.919999999999998,
     "layers": [
       "top",
       "bottom"
@@ -9388,7 +9388,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -52.4,
-    "y": -30.195,
+    "y": -29.919999999999998,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9398,7 +9398,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -52.4,
-    "y": -30.195,
+    "y": -29.919999999999998,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9407,7 +9407,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -51.275,
-      "y": -30.195
+      "y": -29.919999999999998
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9430,7 +9430,7 @@
       "4"
     ],
     "x": -52.4,
-    "y": -32.735,
+    "y": -32.46,
     "layers": [
       "top",
       "bottom"
@@ -9445,7 +9445,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -52.4,
-    "y": -32.735,
+    "y": -32.46,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9455,7 +9455,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -52.4,
-    "y": -32.735,
+    "y": -32.46,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -9464,7 +9464,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -51.275,
-      "y": -32.735
+      "y": -32.46
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -9480,7 +9480,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -49.86,
-      "y": -28.925
+      "y": -28.65
     },
     "font": "tscircuit2024",
     "font_size": 0.7,
@@ -9497,7 +9497,7 @@
     "layer": "top",
     "center": {
       "x": -52.4,
-      "y": -28.925
+      "y": -28.65
     },
     "width": 11.16,
     "height": 3.54,
@@ -11752,23 +11752,23 @@
     "route": [
       {
         "x": -54.075,
-        "y": 14.075
+        "y": 14
       },
       {
         "x": -2.224999999999998,
-        "y": 14.075
+        "y": 14
       },
       {
         "x": -2.224999999999998,
-        "y": 36.825
+        "y": 36.75
       },
       {
         "x": -54.075,
-        "y": 36.825
+        "y": 36.75
       },
       {
         "x": -54.075,
-        "y": 14.075
+        "y": 14
       }
     ],
     "stroke_width": 0.2,
@@ -11780,7 +11780,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -28.15,
-      "y": 25.45
+      "y": 25.375
     },
     "font": "tscircuit2024",
     "font_size": 2.6,
@@ -11797,7 +11797,7 @@
     "hole_shape": "circle",
     "hole_diameter": 2,
     "x": -4.349999999999998,
-    "y": 34.95,
+    "y": 34.875,
     "is_covered_with_solder_mask": false,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -11808,7 +11808,7 @@
     "hole_shape": "circle",
     "hole_diameter": 2,
     "x": -4.349999999999998,
-    "y": 15.95,
+    "y": 15.875,
     "is_covered_with_solder_mask": false,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -11819,7 +11819,7 @@
     "hole_shape": "circle",
     "hole_diameter": 2,
     "x": -51.95,
-    "y": 34.95,
+    "y": 34.875,
     "is_covered_with_solder_mask": false,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -11830,7 +11830,7 @@
     "hole_shape": "circle",
     "hole_diameter": 2,
     "x": -51.95,
-    "y": 15.95,
+    "y": 15.875,
     "is_covered_with_solder_mask": false,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -11848,7 +11848,7 @@
       "1"
     ],
     "x": -46.875,
-    "y": 29.259999999999998,
+    "y": 29.185,
     "layers": [
       "top",
       "bottom"
@@ -11866,7 +11866,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -45.75,
-      "y": 29.259999999999998
+      "y": 29.185
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -11889,7 +11889,7 @@
       "2"
     ],
     "x": -46.875,
-    "y": 26.72,
+    "y": 26.645,
     "layers": [
       "top",
       "bottom"
@@ -11904,7 +11904,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -46.875,
-    "y": 26.72,
+    "y": 26.645,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -11914,7 +11914,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -46.875,
-    "y": 26.72,
+    "y": 26.645,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -11923,7 +11923,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -45.75,
-      "y": 26.72
+      "y": 26.645
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -11946,7 +11946,7 @@
       "3"
     ],
     "x": -46.875,
-    "y": 24.18,
+    "y": 24.105,
     "layers": [
       "top",
       "bottom"
@@ -11961,7 +11961,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -46.875,
-    "y": 24.18,
+    "y": 24.105,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -11971,7 +11971,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -46.875,
-    "y": 24.18,
+    "y": 24.105,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -11980,7 +11980,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -45.75,
-      "y": 24.18
+      "y": 24.105
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -12003,7 +12003,7 @@
       "4"
     ],
     "x": -46.875,
-    "y": 21.64,
+    "y": 21.565,
     "layers": [
       "top",
       "bottom"
@@ -12018,7 +12018,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -46.875,
-    "y": 21.64,
+    "y": 21.565,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12028,7 +12028,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -46.875,
-    "y": 21.64,
+    "y": 21.565,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12037,7 +12037,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -45.75,
-      "y": 21.64
+      "y": 21.565
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -12053,7 +12053,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -44.335,
-      "y": 25.45
+      "y": 25.375
     },
     "font": "tscircuit2024",
     "font_size": 0.7,
@@ -12070,7 +12070,7 @@
     "layer": "top",
     "center": {
       "x": -46.875,
-      "y": 25.45
+      "y": 25.375
     },
     "width": 11.16,
     "height": 3.54,
@@ -12091,7 +12091,7 @@
       "1"
     ],
     "x": -6.224999999999997,
-    "y": 30.53,
+    "y": 30.455,
     "layers": [
       "top",
       "bottom"
@@ -12116,7 +12116,7 @@
       "2"
     ],
     "x": -6.224999999999998,
-    "y": 25.45,
+    "y": 25.375,
     "layers": [
       "top",
       "bottom"
@@ -12131,7 +12131,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -6.224999999999998,
-    "y": 25.45,
+    "y": 25.375,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12141,7 +12141,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -6.224999999999998,
-    "y": 25.45,
+    "y": 25.375,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12157,7 +12157,7 @@
       "3"
     ],
     "x": -6.224999999999999,
-    "y": 20.369999999999997,
+    "y": 20.295,
     "layers": [
       "top",
       "bottom"
@@ -12172,7 +12172,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -6.224999999999999,
-    "y": 20.369999999999997,
+    "y": 20.295,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12182,7 +12182,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": -6.224999999999999,
-    "y": 20.369999999999997,
+    "y": 20.295,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12191,7 +12191,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -1.1449999999999978,
-      "y": 25.45
+      "y": 25.375
     },
     "font": "tscircuit2024",
     "font_size": 0.7,
@@ -12208,7 +12208,7 @@
     "layer": "top",
     "center": {
       "x": -6.224999999999998,
-      "y": 25.45
+      "y": 25.375
     },
     "width": 16.240000000000002,
     "height": 6.08,
@@ -12223,23 +12223,23 @@
     "route": [
       {
         "x": -0.15000000000000036,
-        "y": 1.3000000000000007
+        "y": 1
       },
       {
         "x": 23.15,
-        "y": 1.3000000000000007
+        "y": 1
       },
       {
         "x": 23.15,
-        "y": 39.8
+        "y": 39.5
       },
       {
         "x": -0.15000000000000036,
-        "y": 39.8
+        "y": 39.5
       },
       {
         "x": -0.15000000000000036,
-        "y": 1.3000000000000007
+        "y": 1
       }
     ],
     "stroke_width": 0.2,
@@ -12251,7 +12251,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 11.5,
-      "y": 20.55
+      "y": 20.25
     },
     "font": "tscircuit2024",
     "font_size": 2.6,
@@ -12268,7 +12268,7 @@
     "hole_shape": "circle",
     "hole_diameter": 2,
     "x": 20.9,
-    "y": 37.3,
+    "y": 37,
     "is_covered_with_solder_mask": false,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -12279,7 +12279,7 @@
     "hole_shape": "circle",
     "hole_diameter": 2,
     "x": 2.0999999999999996,
-    "y": 37.3,
+    "y": 37,
     "is_covered_with_solder_mask": false,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -12297,7 +12297,7 @@
       "1"
     ],
     "x": 1.4999999999999993,
-    "y": 10.620000000000001,
+    "y": 10.32,
     "layers": [
       "top",
       "bottom"
@@ -12315,7 +12315,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 0.37499999999999933,
-      "y": 10.620000000000001
+      "y": 10.32
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -12338,7 +12338,7 @@
       "2"
     ],
     "x": 1.4999999999999996,
-    "y": 13.16,
+    "y": 12.86,
     "layers": [
       "top",
       "bottom"
@@ -12353,7 +12353,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 1.4999999999999996,
-    "y": 13.16,
+    "y": 12.86,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12363,7 +12363,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 1.4999999999999996,
-    "y": 13.16,
+    "y": 12.86,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12372,7 +12372,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 0.37499999999999956,
-      "y": 13.16
+      "y": 12.86
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -12395,7 +12395,7 @@
       "3"
     ],
     "x": 1.4999999999999996,
-    "y": 15.700000000000001,
+    "y": 15.4,
     "layers": [
       "top",
       "bottom"
@@ -12410,7 +12410,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 1.4999999999999996,
-    "y": 15.700000000000001,
+    "y": 15.4,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12420,7 +12420,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 1.4999999999999996,
-    "y": 15.700000000000001,
+    "y": 15.4,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12429,7 +12429,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 0.37499999999999956,
-      "y": 15.700000000000001
+      "y": 15.4
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -12452,7 +12452,7 @@
       "4"
     ],
     "x": 1.4999999999999998,
-    "y": 18.240000000000002,
+    "y": 17.94,
     "layers": [
       "top",
       "bottom"
@@ -12467,7 +12467,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 1.4999999999999998,
-    "y": 18.240000000000002,
+    "y": 17.94,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12477,7 +12477,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 1.4999999999999998,
-    "y": 18.240000000000002,
+    "y": 17.94,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12486,7 +12486,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 0.3749999999999998,
-      "y": 18.240000000000002
+      "y": 17.94
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -12509,7 +12509,7 @@
       "5"
     ],
     "x": 1.5,
-    "y": 20.78,
+    "y": 20.48,
     "layers": [
       "top",
       "bottom"
@@ -12524,7 +12524,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 1.5,
-    "y": 20.78,
+    "y": 20.48,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12534,7 +12534,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 1.5,
-    "y": 20.78,
+    "y": 20.48,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12543,7 +12543,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 0.375,
-      "y": 20.78
+      "y": 20.48
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -12566,7 +12566,7 @@
       "6"
     ],
     "x": 1.5,
-    "y": 23.32,
+    "y": 23.02,
     "layers": [
       "top",
       "bottom"
@@ -12581,7 +12581,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 1.5,
-    "y": 23.32,
+    "y": 23.02,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12591,7 +12591,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 1.5,
-    "y": 23.32,
+    "y": 23.02,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12600,7 +12600,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 0.375,
-      "y": 23.32
+      "y": 23.02
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -12623,7 +12623,7 @@
       "7"
     ],
     "x": 1.5000000000000002,
-    "y": 25.86,
+    "y": 25.560000000000002,
     "layers": [
       "top",
       "bottom"
@@ -12638,7 +12638,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 1.5000000000000002,
-    "y": 25.86,
+    "y": 25.560000000000002,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12648,7 +12648,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 1.5000000000000002,
-    "y": 25.86,
+    "y": 25.560000000000002,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12657,7 +12657,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 0.3750000000000002,
-      "y": 25.86
+      "y": 25.560000000000002
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -12680,7 +12680,7 @@
       "8"
     ],
     "x": 1.5000000000000004,
-    "y": 28.400000000000002,
+    "y": 28.1,
     "layers": [
       "top",
       "bottom"
@@ -12695,7 +12695,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 1.5000000000000004,
-    "y": 28.400000000000002,
+    "y": 28.1,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12705,7 +12705,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 1.5000000000000004,
-    "y": 28.400000000000002,
+    "y": 28.1,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12714,7 +12714,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 0.37500000000000044,
-      "y": 28.400000000000002
+      "y": 28.1
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -12737,7 +12737,7 @@
       "9"
     ],
     "x": 1.5000000000000004,
-    "y": 30.94,
+    "y": 30.64,
     "layers": [
       "top",
       "bottom"
@@ -12752,7 +12752,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 1.5000000000000004,
-    "y": 30.94,
+    "y": 30.64,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12762,7 +12762,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 1.5000000000000004,
-    "y": 30.94,
+    "y": 30.64,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12771,7 +12771,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 0.37500000000000044,
-      "y": 30.94
+      "y": 30.64
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -12794,7 +12794,7 @@
       "10"
     ],
     "x": 1.5000000000000007,
-    "y": 33.480000000000004,
+    "y": 33.18,
     "layers": [
       "top",
       "bottom"
@@ -12809,7 +12809,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 1.5000000000000007,
-    "y": 33.480000000000004,
+    "y": 33.18,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12819,7 +12819,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 1.5000000000000007,
-    "y": 33.480000000000004,
+    "y": 33.18,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12828,7 +12828,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 0.37500000000000067,
-      "y": 33.480000000000004
+      "y": 33.18
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -12844,7 +12844,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": -1.04,
-      "y": 22.05
+      "y": 21.75
     },
     "font": "tscircuit2024",
     "font_size": 0.7,
@@ -12861,7 +12861,7 @@
     "layer": "top",
     "center": {
       "x": 1.5,
-      "y": 22.05
+      "y": 21.75
     },
     "width": 26.4,
     "height": 3.54,
@@ -12882,7 +12882,7 @@
       "1"
     ],
     "x": 21.5,
-    "y": 10.620000000000001,
+    "y": 10.32,
     "layers": [
       "top",
       "bottom"
@@ -12900,7 +12900,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 20.375,
-      "y": 10.620000000000001
+      "y": 10.32
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -12923,7 +12923,7 @@
       "2"
     ],
     "x": 21.5,
-    "y": 13.16,
+    "y": 12.86,
     "layers": [
       "top",
       "bottom"
@@ -12938,7 +12938,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 21.5,
-    "y": 13.16,
+    "y": 12.86,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12948,7 +12948,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 21.5,
-    "y": 13.16,
+    "y": 12.86,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -12957,7 +12957,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 20.375,
-      "y": 13.16
+      "y": 12.86
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -12980,7 +12980,7 @@
       "3"
     ],
     "x": 21.5,
-    "y": 15.700000000000001,
+    "y": 15.4,
     "layers": [
       "top",
       "bottom"
@@ -12995,7 +12995,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 21.5,
-    "y": 15.700000000000001,
+    "y": 15.4,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13005,7 +13005,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 21.5,
-    "y": 15.700000000000001,
+    "y": 15.4,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13014,7 +13014,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 20.375,
-      "y": 15.700000000000001
+      "y": 15.4
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -13037,7 +13037,7 @@
       "4"
     ],
     "x": 21.5,
-    "y": 18.240000000000002,
+    "y": 17.94,
     "layers": [
       "top",
       "bottom"
@@ -13052,7 +13052,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 21.5,
-    "y": 18.240000000000002,
+    "y": 17.94,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13062,7 +13062,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 21.5,
-    "y": 18.240000000000002,
+    "y": 17.94,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13071,7 +13071,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 20.375,
-      "y": 18.240000000000002
+      "y": 17.94
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -13094,7 +13094,7 @@
       "5"
     ],
     "x": 21.5,
-    "y": 20.78,
+    "y": 20.48,
     "layers": [
       "top",
       "bottom"
@@ -13109,7 +13109,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 21.5,
-    "y": 20.78,
+    "y": 20.48,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13119,7 +13119,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 21.5,
-    "y": 20.78,
+    "y": 20.48,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13128,7 +13128,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 20.375,
-      "y": 20.78
+      "y": 20.48
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -13151,7 +13151,7 @@
       "6"
     ],
     "x": 21.5,
-    "y": 23.32,
+    "y": 23.02,
     "layers": [
       "top",
       "bottom"
@@ -13166,7 +13166,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 21.5,
-    "y": 23.32,
+    "y": 23.02,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13176,7 +13176,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 21.5,
-    "y": 23.32,
+    "y": 23.02,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13185,7 +13185,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 20.375,
-      "y": 23.32
+      "y": 23.02
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -13208,7 +13208,7 @@
       "7"
     ],
     "x": 21.5,
-    "y": 25.86,
+    "y": 25.560000000000002,
     "layers": [
       "top",
       "bottom"
@@ -13223,7 +13223,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 21.5,
-    "y": 25.86,
+    "y": 25.560000000000002,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13233,7 +13233,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 21.5,
-    "y": 25.86,
+    "y": 25.560000000000002,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13242,7 +13242,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 20.375,
-      "y": 25.86
+      "y": 25.560000000000002
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -13265,7 +13265,7 @@
       "8"
     ],
     "x": 21.5,
-    "y": 28.400000000000002,
+    "y": 28.1,
     "layers": [
       "top",
       "bottom"
@@ -13280,7 +13280,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 21.5,
-    "y": 28.400000000000002,
+    "y": 28.1,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13290,7 +13290,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 21.5,
-    "y": 28.400000000000002,
+    "y": 28.1,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13299,7 +13299,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 20.375,
-      "y": 28.400000000000002
+      "y": 28.1
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -13322,7 +13322,7 @@
       "9"
     ],
     "x": 21.5,
-    "y": 30.94,
+    "y": 30.64,
     "layers": [
       "top",
       "bottom"
@@ -13337,7 +13337,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 21.5,
-    "y": 30.94,
+    "y": 30.64,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13347,7 +13347,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 21.5,
-    "y": 30.94,
+    "y": 30.64,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13356,7 +13356,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 20.375,
-      "y": 30.94
+      "y": 30.64
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -13379,7 +13379,7 @@
       "10"
     ],
     "x": 21.5,
-    "y": 33.480000000000004,
+    "y": 33.18,
     "layers": [
       "top",
       "bottom"
@@ -13394,7 +13394,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 21.5,
-    "y": 33.480000000000004,
+    "y": 33.18,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13404,7 +13404,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 21.5,
-    "y": 33.480000000000004,
+    "y": 33.18,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13413,7 +13413,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 20.375,
-      "y": 33.480000000000004
+      "y": 33.18
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -13429,7 +13429,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 18.96,
-      "y": 22.05
+      "y": 21.75
     },
     "font": "tscircuit2024",
     "font_size": 0.7,
@@ -13446,7 +13446,7 @@
     "layer": "top",
     "center": {
       "x": 21.5,
-      "y": 22.05
+      "y": 21.75
     },
     "width": 26.4,
     "height": 3.54,
@@ -13467,7 +13467,7 @@
       "1"
     ],
     "x": 5.15,
-    "y": 37.8,
+    "y": 37.5,
     "layers": [
       "top",
       "bottom"
@@ -13485,7 +13485,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 5.15,
-      "y": 38.925
+      "y": 38.625
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -13508,7 +13508,7 @@
       "2"
     ],
     "x": 7.69,
-    "y": 37.8,
+    "y": 37.5,
     "layers": [
       "top",
       "bottom"
@@ -13523,7 +13523,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 7.69,
-    "y": 37.8,
+    "y": 37.5,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13533,7 +13533,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 7.69,
-    "y": 37.8,
+    "y": 37.5,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13542,7 +13542,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 7.69,
-      "y": 38.925
+      "y": 38.625
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -13565,7 +13565,7 @@
       "3"
     ],
     "x": 10.23,
-    "y": 37.8,
+    "y": 37.5,
     "layers": [
       "top",
       "bottom"
@@ -13580,7 +13580,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 10.23,
-    "y": 37.8,
+    "y": 37.5,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13590,7 +13590,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 10.23,
-    "y": 37.8,
+    "y": 37.5,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13599,7 +13599,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 10.23,
-      "y": 38.925
+      "y": 38.625
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -13622,7 +13622,7 @@
       "4"
     ],
     "x": 12.77,
-    "y": 37.8,
+    "y": 37.5,
     "layers": [
       "top",
       "bottom"
@@ -13637,7 +13637,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 12.77,
-    "y": 37.8,
+    "y": 37.5,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13647,7 +13647,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 12.77,
-    "y": 37.8,
+    "y": 37.5,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13656,7 +13656,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 12.77,
-      "y": 38.925
+      "y": 38.625
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -13679,7 +13679,7 @@
       "5"
     ],
     "x": 15.31,
-    "y": 37.8,
+    "y": 37.5,
     "layers": [
       "top",
       "bottom"
@@ -13694,7 +13694,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 15.31,
-    "y": 37.8,
+    "y": 37.5,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13704,7 +13704,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 15.31,
-    "y": 37.8,
+    "y": 37.5,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13713,7 +13713,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 15.31,
-      "y": 38.925
+      "y": 38.625
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -13736,7 +13736,7 @@
       "6"
     ],
     "x": 17.85,
-    "y": 37.8,
+    "y": 37.5,
     "layers": [
       "top",
       "bottom"
@@ -13751,7 +13751,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 17.85,
-    "y": 37.8,
+    "y": 37.5,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13761,7 +13761,7 @@
     "shape": "circle",
     "radius": 0.75,
     "x": 17.85,
-    "y": 37.8,
+    "y": 37.5,
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
@@ -13770,7 +13770,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 17.85,
-      "y": 38.925
+      "y": 38.625
     },
     "font": "tscircuit2024",
     "font_size": 0.5,
@@ -13786,7 +13786,7 @@
     "anchor_alignment": "center",
     "anchor_position": {
       "x": 11.5,
-      "y": 40.339999999999996
+      "y": 40.04
     },
     "font": "tscircuit2024",
     "font_size": 0.7,
@@ -13803,7 +13803,7 @@
     "layer": "top",
     "center": {
       "x": 11.5,
-      "y": 37.8
+      "y": 37.5
     },
     "width": 16.24,
     "height": 3.54,
@@ -17663,7 +17663,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -17.9,
-    "y": -22.575000000000003,
+    "y": -22.299999999999997,
     "source_port_id": "source_port_0"
   },
   {
@@ -17678,7 +17678,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -17.9,
-    "y": -25.115000000000002,
+    "y": -24.84,
     "source_port_id": "source_port_1"
   },
   {
@@ -17693,7 +17693,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -17.9,
-    "y": -27.655,
+    "y": -27.38,
     "source_port_id": "source_port_2"
   },
   {
@@ -17708,7 +17708,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -17.9,
-    "y": -30.195,
+    "y": -29.919999999999998,
     "source_port_id": "source_port_3"
   },
   {
@@ -17723,7 +17723,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -17.9,
-    "y": -32.735,
+    "y": -32.46,
     "source_port_id": "source_port_4"
   },
   {
@@ -17738,7 +17738,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -17.9,
-    "y": -35.275,
+    "y": -35,
     "source_port_id": "source_port_5"
   },
   {
@@ -17753,7 +17753,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -52.4,
-    "y": -25.115000000000002,
+    "y": -24.84,
     "source_port_id": "source_port_6"
   },
   {
@@ -17768,7 +17768,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -52.4,
-    "y": -27.655,
+    "y": -27.38,
     "source_port_id": "source_port_7"
   },
   {
@@ -17783,7 +17783,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -52.4,
-    "y": -30.195,
+    "y": -29.919999999999998,
     "source_port_id": "source_port_8"
   },
   {
@@ -17798,7 +17798,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -52.4,
-    "y": -32.735,
+    "y": -32.46,
     "source_port_id": "source_port_9"
   },
   {
@@ -18383,7 +18383,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -46.875,
-    "y": 29.259999999999998,
+    "y": 29.185,
     "source_port_id": "source_port_48"
   },
   {
@@ -18398,7 +18398,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -46.875,
-    "y": 26.72,
+    "y": 26.645,
     "source_port_id": "source_port_49"
   },
   {
@@ -18413,7 +18413,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -46.875,
-    "y": 24.18,
+    "y": 24.105,
     "source_port_id": "source_port_50"
   },
   {
@@ -18428,7 +18428,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -46.875,
-    "y": 21.64,
+    "y": 21.565,
     "source_port_id": "source_port_51"
   },
   {
@@ -18443,7 +18443,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -6.224999999999997,
-    "y": 30.53,
+    "y": 30.455,
     "source_port_id": "source_port_52"
   },
   {
@@ -18458,7 +18458,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -6.224999999999998,
-    "y": 25.45,
+    "y": 25.375,
     "source_port_id": "source_port_53"
   },
   {
@@ -18473,7 +18473,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": -6.224999999999999,
-    "y": 20.369999999999997,
+    "y": 20.295,
     "source_port_id": "source_port_54"
   },
   {
@@ -18488,7 +18488,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 1.4999999999999993,
-    "y": 10.620000000000001,
+    "y": 10.32,
     "source_port_id": "source_port_55"
   },
   {
@@ -18503,7 +18503,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 1.4999999999999996,
-    "y": 13.16,
+    "y": 12.86,
     "source_port_id": "source_port_56"
   },
   {
@@ -18518,7 +18518,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 1.4999999999999996,
-    "y": 15.700000000000001,
+    "y": 15.4,
     "source_port_id": "source_port_57"
   },
   {
@@ -18533,7 +18533,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 1.4999999999999998,
-    "y": 18.240000000000002,
+    "y": 17.94,
     "source_port_id": "source_port_58"
   },
   {
@@ -18548,7 +18548,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 1.5,
-    "y": 20.78,
+    "y": 20.48,
     "source_port_id": "source_port_59"
   },
   {
@@ -18563,7 +18563,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 1.5,
-    "y": 23.32,
+    "y": 23.02,
     "source_port_id": "source_port_60"
   },
   {
@@ -18578,7 +18578,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 1.5000000000000002,
-    "y": 25.86,
+    "y": 25.560000000000002,
     "source_port_id": "source_port_61"
   },
   {
@@ -18593,7 +18593,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 1.5000000000000004,
-    "y": 28.400000000000002,
+    "y": 28.1,
     "source_port_id": "source_port_62"
   },
   {
@@ -18608,7 +18608,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 1.5000000000000004,
-    "y": 30.94,
+    "y": 30.64,
     "source_port_id": "source_port_63"
   },
   {
@@ -18623,7 +18623,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 1.5000000000000007,
-    "y": 33.480000000000004,
+    "y": 33.18,
     "source_port_id": "source_port_64"
   },
   {
@@ -18638,7 +18638,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 21.5,
-    "y": 10.620000000000001,
+    "y": 10.32,
     "source_port_id": "source_port_65"
   },
   {
@@ -18653,7 +18653,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 21.5,
-    "y": 13.16,
+    "y": 12.86,
     "source_port_id": "source_port_66"
   },
   {
@@ -18668,7 +18668,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 21.5,
-    "y": 15.700000000000001,
+    "y": 15.4,
     "source_port_id": "source_port_67"
   },
   {
@@ -18683,7 +18683,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 21.5,
-    "y": 18.240000000000002,
+    "y": 17.94,
     "source_port_id": "source_port_68"
   },
   {
@@ -18698,7 +18698,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 21.5,
-    "y": 20.78,
+    "y": 20.48,
     "source_port_id": "source_port_69"
   },
   {
@@ -18713,7 +18713,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 21.5,
-    "y": 23.32,
+    "y": 23.02,
     "source_port_id": "source_port_70"
   },
   {
@@ -18728,7 +18728,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 21.5,
-    "y": 25.86,
+    "y": 25.560000000000002,
     "source_port_id": "source_port_71"
   },
   {
@@ -18743,7 +18743,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 21.5,
-    "y": 28.400000000000002,
+    "y": 28.1,
     "source_port_id": "source_port_72"
   },
   {
@@ -18758,7 +18758,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 21.5,
-    "y": 30.94,
+    "y": 30.64,
     "source_port_id": "source_port_73"
   },
   {
@@ -18773,7 +18773,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 21.5,
-    "y": 33.480000000000004,
+    "y": 33.18,
     "source_port_id": "source_port_74"
   },
   {
@@ -18788,7 +18788,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 5.15,
-    "y": 37.8,
+    "y": 37.5,
     "source_port_id": "source_port_75"
   },
   {
@@ -18803,7 +18803,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 7.69,
-    "y": 37.8,
+    "y": 37.5,
     "source_port_id": "source_port_76"
   },
   {
@@ -18818,7 +18818,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 10.23,
-    "y": 37.8,
+    "y": 37.5,
     "source_port_id": "source_port_77"
   },
   {
@@ -18833,7 +18833,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 12.77,
-    "y": 37.8,
+    "y": 37.5,
     "source_port_id": "source_port_78"
   },
   {
@@ -18848,7 +18848,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 15.31,
-    "y": 37.8,
+    "y": 37.5,
     "source_port_id": "source_port_79"
   },
   {
@@ -18863,7 +18863,7 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "x": 17.85,
-    "y": 37.8,
+    "y": 37.5,
     "source_port_id": "source_port_80"
   },
   {
@@ -19801,7 +19801,7 @@
     "cad_component_id": "cad_component_0",
     "position": {
       "x": -17.9,
-      "y": -28.925,
+      "y": -28.65,
       "z": 0.7
     },
     "rotation": {
@@ -19820,7 +19820,7 @@
     "cad_component_id": "cad_component_1",
     "position": {
       "x": -52.4,
-      "y": -28.925,
+      "y": -28.65,
       "z": 0.7
     },
     "rotation": {
@@ -19877,7 +19877,7 @@
     "cad_component_id": "cad_component_4",
     "position": {
       "x": -46.875,
-      "y": 25.45,
+      "y": 25.375,
       "z": 0.7
     },
     "rotation": {
@@ -19896,7 +19896,7 @@
     "cad_component_id": "cad_component_5",
     "position": {
       "x": -6.224999999999998,
-      "y": 25.45,
+      "y": 25.375,
       "z": 0.7
     },
     "rotation": {
@@ -19915,7 +19915,7 @@
     "cad_component_id": "cad_component_6",
     "position": {
       "x": 1.5,
-      "y": 22.050000000000004,
+      "y": 21.75,
       "z": 0.7
     },
     "rotation": {
@@ -19934,7 +19934,7 @@
     "cad_component_id": "cad_component_7",
     "position": {
       "x": 21.5,
-      "y": 22.050000000000004,
+      "y": 21.75,
       "z": 0.7
     },
     "rotation": {
@@ -19953,7 +19953,7 @@
     "cad_component_id": "cad_component_8",
     "position": {
       "x": 11.5,
-      "y": 37.8,
+      "y": 37.5,
       "z": 0.7
     },
     "rotation": {
@@ -20308,17 +20308,10 @@
       {
         "route_type": "wire",
         "x": 21.5,
-        "y": 33.480000000000004,
+        "y": 33.18,
         "width": 0.2,
         "layer": "top",
         "start_pcb_port_id": "pcb_port_74"
-      },
-      {
-        "route_type": "wire",
-        "x": 26.349999999999994,
-        "y": 33.480000000000004,
-        "width": 0.2,
-        "layer": "top"
       },
       {
         "route_type": "wire",
@@ -20340,17 +20333,10 @@
       {
         "route_type": "wire",
         "x": 21.5,
-        "y": 30.94,
+        "y": 30.64,
         "width": 0.2,
         "layer": "top",
         "start_pcb_port_id": "pcb_port_73"
-      },
-      {
-        "route_type": "wire",
-        "x": 26.349999999999998,
-        "y": 30.94,
-        "width": 0.2,
-        "layer": "top"
       },
       {
         "route_type": "wire",
@@ -20372,17 +20358,10 @@
       {
         "route_type": "wire",
         "x": 21.5,
-        "y": 28.400000000000002,
+        "y": 28.1,
         "width": 0.2,
         "layer": "top",
         "start_pcb_port_id": "pcb_port_72"
-      },
-      {
-        "route_type": "wire",
-        "x": 26.349999999999998,
-        "y": 28.400000000000002,
-        "width": 0.2,
-        "layer": "top"
       },
       {
         "route_type": "wire",
@@ -20404,22 +20383,15 @@
       {
         "route_type": "wire",
         "x": 21.5,
-        "y": 25.86,
+        "y": 25.560000000000002,
         "width": 0.2,
         "layer": "top",
         "start_pcb_port_id": "pcb_port_71"
       },
       {
         "route_type": "wire",
-        "x": 26.349999999999998,
-        "y": 25.86,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": 26.65,
-        "y": 25.56,
+        "x": 26.649999999999995,
+        "y": 25.560000000000002,
         "width": 0.2,
         "layer": "top",
         "end_pcb_port_id": "pcb_port_111"
@@ -20436,17 +20408,10 @@
       {
         "route_type": "wire",
         "x": 21.5,
-        "y": 23.32,
+        "y": 23.02,
         "width": 0.2,
         "layer": "top",
         "start_pcb_port_id": "pcb_port_70"
-      },
-      {
-        "route_type": "wire",
-        "x": 26.349999999999998,
-        "y": 23.32,
-        "width": 0.2,
-        "layer": "top"
       },
       {
         "route_type": "wire",
@@ -20468,17 +20433,10 @@
       {
         "route_type": "wire",
         "x": 21.5,
-        "y": 20.78,
+        "y": 20.48,
         "width": 0.2,
         "layer": "top",
         "start_pcb_port_id": "pcb_port_69"
-      },
-      {
-        "route_type": "wire",
-        "x": 26.349999999999998,
-        "y": 20.78,
-        "width": 0.2,
-        "layer": "top"
       },
       {
         "route_type": "wire",
@@ -20500,17 +20458,10 @@
       {
         "route_type": "wire",
         "x": 21.5,
-        "y": 18.240000000000002,
+        "y": 17.94,
         "width": 0.2,
         "layer": "top",
         "start_pcb_port_id": "pcb_port_68"
-      },
-      {
-        "route_type": "wire",
-        "x": 26.349999999999998,
-        "y": 18.240000000000002,
-        "width": 0.2,
-        "layer": "top"
       },
       {
         "route_type": "wire",
@@ -20532,17 +20483,10 @@
       {
         "route_type": "wire",
         "x": 21.5,
-        "y": 15.700000000000001,
+        "y": 15.4,
         "width": 0.2,
         "layer": "top",
         "start_pcb_port_id": "pcb_port_67"
-      },
-      {
-        "route_type": "wire",
-        "x": 26.349999999999998,
-        "y": 15.700000000000001,
-        "width": 0.2,
-        "layer": "top"
       },
       {
         "route_type": "wire",
@@ -20571,29 +20515,29 @@
       },
       {
         "route_type": "wire",
-        "x": 23.603722341748814,
-        "y": 38.766277658251184,
+        "x": 23.91991442425659,
+        "y": 38.46191442425659,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 8.411909487219098,
-        "y": 38.766277658251184,
+        "x": 8.530937703448698,
+        "y": 38.46191442425659,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 8.411909487219098,
-        "y": 38.5219094872191,
+        "x": 8.530937703448698,
+        "y": 38.340937703448695,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
         "x": 7.69,
-        "y": 37.8,
+        "y": 37.5,
         "width": 0.2,
         "layer": "top",
         "end_pcb_port_id": "pcb_port_76"
@@ -20610,7 +20554,7 @@
       {
         "route_type": "wire",
         "x": 21.5,
-        "y": 13.16,
+        "y": 12.86,
         "width": 0.2,
         "layer": "top",
         "start_pcb_port_id": "pcb_port_66"
@@ -20618,7 +20562,7 @@
       {
         "route_type": "wire",
         "x": 26.65,
-        "y": 8.010000000000002,
+        "y": 7.710000000000001,
         "width": 0.2,
         "layer": "top"
       },
@@ -20642,15 +20586,15 @@
       {
         "route_type": "wire",
         "x": -17.9,
-        "y": -35.275,
+        "y": -35,
         "width": 0.2,
         "layer": "bottom",
         "start_pcb_port_id": "pcb_port_5"
       },
       {
         "route_type": "wire",
-        "x": 13.865000000000002,
-        "y": -35.275,
+        "x": 14.14,
+        "y": -35,
         "width": 0.2,
         "layer": "bottom"
       },
@@ -20674,15 +20618,15 @@
       {
         "route_type": "wire",
         "x": -17.9,
-        "y": -32.735,
+        "y": -32.46,
         "width": 0.2,
         "layer": "top",
         "start_pcb_port_id": "pcb_port_4"
       },
       {
         "route_type": "wire",
-        "x": -1.0549999999999997,
-        "y": -32.735,
+        "x": -0.7800000000000011,
+        "y": -32.46,
         "width": 0.2,
         "layer": "top"
       },
@@ -20714,14 +20658,14 @@
       {
         "route_type": "wire",
         "x": -45.93,
-        "y": -18.645,
+        "y": -18.37,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
         "x": -52.4,
-        "y": -25.115,
+        "y": -24.84,
         "width": 0.2,
         "layer": "top",
         "end_pcb_port_id": "pcb_port_6"
@@ -20746,7 +20690,7 @@
       {
         "route_type": "wire",
         "x": 12.77,
-        "y": 37.8,
+        "y": 37.5,
         "width": 0.2,
         "layer": "top",
         "end_pcb_port_id": "pcb_port_78"
@@ -20883,15 +20827,15 @@
       },
       {
         "route_type": "wire",
-        "x": -51.265,
-        "y": -27.655,
+        "x": -50.99,
+        "y": -27.38,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
         "x": -52.4,
-        "y": -27.655,
+        "y": -27.38,
         "width": 0.2,
         "layer": "top",
         "end_pcb_port_id": "pcb_port_7"
@@ -20916,7 +20860,7 @@
       {
         "route_type": "wire",
         "x": 10.23,
-        "y": 37.8,
+        "y": 37.5,
         "width": 0.2,
         "layer": "top",
         "end_pcb_port_id": "pcb_port_77"
@@ -20986,7 +20930,7 @@
       {
         "route_type": "wire",
         "x": 1.4999999999999996,
-        "y": 13.16,
+        "y": 12.86,
         "width": 0.2,
         "layer": "top",
         "start_pcb_port_id": "pcb_port_56"
@@ -20994,7 +20938,7 @@
       {
         "route_type": "wire",
         "x": 7.6899999999999995,
-        "y": 6.970000000000001,
+        "y": 6.67,
         "width": 0.2,
         "layer": "top"
       },
@@ -21018,7 +20962,7 @@
       {
         "route_type": "wire",
         "x": 1.4999999999999993,
-        "y": 10.620000000000001,
+        "y": 10.32,
         "width": 0.2,
         "layer": "top",
         "start_pcb_port_id": "pcb_port_55"
