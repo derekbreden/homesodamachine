@@ -1,8 +1,10 @@
 /**
  * _analyze.ts — board metrics. Exports a fresh circuit-json to a temp file, then
  * reports total vias, DRC errors, content/silk bounds + board slack, every via
- * attributed to its net/connector pin-pair, per-module bboxes, and the realized
- * minimum copper clearance (trace-trace and trace-pad, different nets).
+ * attributed to its net/connector pin-pair, per-module bboxes, the realized
+ * minimum copper clearance (trace-trace and trace-pad, different nets), and any
+ * redundant trace (a connection that only closes a loop once each module's
+ * internal same-name pin-bonding is accounted for).
  *
  *   bun _analyze.ts [board]        # default: mini
  */
@@ -88,6 +90,48 @@ console.log(`content bbox:   ${(cx1 - cx0).toFixed(1)} x ${(cy1 - cy0).toFixed(1
 console.log(`silk extent:    x ${sx0.toFixed(1)}..${sx1.toFixed(1)}  y ${sy0.toFixed(1)}..${sy1.toFixed(1)}`)
 console.log(errTypes.length ? errTypes.map((et) => `DRC ${et}: ${byType[et].length}`).join("\n") : `DRC errors: 0`)
 console.log(`realized clearance: trace-trace ${minTT.toFixed(3)} mm ${ttInfo} | trace-pad ${minTP.toFixed(3)} mm ${tpInfo}  (trace w=${w0})`)
+
+// ---- redundant traces: a declared trace whose two ends are ALREADY joined some
+// other way only adds a loop — it's unnecessary. Such loops are invisible at the
+// raw-trace level because each socketed module bonds its own same-named pins
+// internally (all VCC together, all GND — including the ESP's GNDb/GNDc — together,
+// the DS3231's bridged bus). So we collapse those per U-module from a NAME rule,
+// not a hand-kept wiring table: within a `U<n>` component, pins with the same name
+// are one node and any /^gnd/ name folds to GND. Then union-find the declared
+// source_traces; whichever trace closes a loop is flagged with its loop members
+// (one of them is removable). Connectors/nets stay per-pad. Zero upkeep: a new
+// U-module or connector is classified by its name automatically.
+const spLabel = (spid: string) => {
+  const sp = srcPort[spid]; if (!sp) return spid
+  const comp = srcComp[sp.source_component_id]
+  return `${comp ? comp.name : "?"}.${sp.name}`
+}
+const bridgeNode = (label: string) => {
+  const dot = label.indexOf("."); if (dot < 0) return label // a net node (net.X)
+  const hdr = label.slice(0, dot), pin = label.slice(dot + 1)
+  const m = hdr.match(/^(U\d+)/); if (!m) return label // connector pin — not bonded
+  return `${m[1]}#${/^gnd/i.test(pin) ? "GND" : pin}`
+}
+const uf: Record<string, string> = {}
+const find = (x: string): string => { uf[x] ??= x; let r = x; while (uf[r] !== r) r = uf[r]; while (uf[x] !== r) { const n = uf[x]; uf[x] = r; x = n } return r }
+const tadj: Record<string, { to: string; name: string }[]> = {}
+const loops: string[][] = []
+for (const t of byType.source_trace || []) {
+  const ns = [...(t.connected_source_port_ids || []).map(spLabel).map(bridgeNode), ...(t.connected_source_net_ids || [])]
+  if (ns.length < 2) continue
+  const name = t.display_name || t.source_trace_id
+  const [a, b] = ns
+  if (find(a) === find(b)) {
+    const prev: Record<string, { from: string; name: string } | null> = { [a]: null }
+    const q = [a]
+    while (q.length) { const x = q.shift()!; if (x === b) break; for (const e of tadj[x] || []) if (!(e.to in prev)) { prev[e.to] = { from: x, name: e.name }; q.push(e.to) } }
+    const members = [name]; let cur = b
+    while (prev[cur]) { members.push(prev[cur]!.name); cur = prev[cur]!.from }
+    loops.push(members)
+  } else { uf[find(a)] = find(b); (tadj[a] ??= []).push({ to: b, name }); (tadj[b] ??= []).push({ to: a, name }) }
+}
+console.log(`redundant traces: ${loops.length}${loops.length ? "  (one trace in each loop below is removable)" : ""}`)
+for (const m of loops) console.log(`  ! loop: ${m.join("  +  ")}`)
 console.log(`\n## vias by net (total ${vias.length})`)
 for (const [k, n] of Object.entries(viaGroups).sort((a, b) => b[1] - a[1])) console.log(`  ${String(n).padStart(3)}  ${k}`)
 console.log(`\n## modules`)

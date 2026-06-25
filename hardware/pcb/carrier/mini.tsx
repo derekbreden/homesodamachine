@@ -138,5 +138,10 @@ export default () => (
     <trace from=".J10 > .V12" to=".U5O > .COM" />
     <trace from=".J10 > .GND" to=".U4I > .GND" />
     <trace from=".J10 > .GND" to=".U5I > .GND" />
+
+    <trace from=".U1B > .GNDb" to="net.GND" />
+    <trace from=".J10 > .V12" to="net.V12" />
+    <copperpour name="POUR_GND" layer="bottom" connectsTo="net.GND" />
+    <copperpour name="POUR_12V" layer="top" connectsTo="net.V12" shape="rect" center={{ x: 50, y: 5 }} width={30} height={74} />
   </board>
 )
