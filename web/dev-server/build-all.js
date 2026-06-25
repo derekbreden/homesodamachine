@@ -62,6 +62,7 @@ function runBoard(board) {
     const proc = spawn("bun", ["render-board.ts", board.file], {
       cwd: board.dir,
       stdio: ["ignore", "ignore", "inherit"],
+      env: { ...process.env, RENDER_SOURCE: "build-all" },
     });
     proc.on("close", (code) => resolve(code ?? 0));
     proc.on("error", () => resolve(1));

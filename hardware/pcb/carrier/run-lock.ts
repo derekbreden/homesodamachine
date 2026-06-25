@@ -1,21 +1,13 @@
 /**
- * Single-flight lock for the board render: the newest run wins.
+ * Per-board single-flight lock for the board render: the newest run wins.
  *
- * render-board is launched from two places that can't see each other — the dev
- * watcher (on every save) and an agent running it by hand — so two full pipelines
- * can grind on the same board at once, each ~3 tscircuit builds, fighting over the
- * shared cache and out/. This makes "newest wins" real: on start a run SIGTERMs
- * any older live run for the same board, and if THIS run is the one superseded it
- * kills its in-flight child and exits with a one-line reason — so the wasted work
- * stops instead of running to completion.
+ * On start a run SIGTERMs any older live run holding the same board's lock and
+ * takes it over; a run that receives the signal kills its in-flight child and
+ * exits (143), naming the run that superseded it. The lock is a pid file in the
+ * OS temp dir keyed by board name; a stale file whose pid is dead is ignored.
  *
- * Keyed per board, so `build-all` rendering boards back to back (and unrelated
- * boards in general) don't supersede each other — only a redundant run of the
- * SAME board does. The lock lives in the OS temp dir and records the pid, so a
- * crashed run leaves a stale file the next run detects (dead pid) and ignores.
- *
- * Set RENDER_SOURCE to label a run in the messages ("dev-server", "build-all");
- * an unset run shows as "manual" (an agent at the CLI).
+ * RENDER_SOURCE labels a run in the messages — "dev-server", "build-all", else
+ * "manual".
  */
 import { readFileSync, writeFileSync, rmSync, mkdirSync } from "node:fs"
 import { tmpdir } from "node:os"

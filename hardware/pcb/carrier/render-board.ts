@@ -9,10 +9,9 @@
  * generator the dev watcher runs on every save of a board under pcb/, the same
  * way a CadQuery .py regenerates its .step.
  *
- * Single-flight: a fresh run supersedes any older run of the SAME board (dev
- * watcher vs. a hand-run), killing its in-flight build so only the newest runs.
- * Subprocesses are spawned async (not execFileSync) precisely so a supersede
- * signal can interrupt them mid-build instead of after the current step.
+ * Single-flight per board (run-lock): a fresh run supersedes an older run of the
+ * same board. Subprocesses run async; a supersede signal interrupts the build in
+ * progress.
  */
 import { composeViews, SCHEMES } from "./gerber-compose"
 import { backSilkBoardTsx } from "./bottom-silk"

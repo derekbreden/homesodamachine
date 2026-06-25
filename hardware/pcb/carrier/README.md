@@ -26,7 +26,13 @@ source of truth in [`/hardware/wiring/`](/hardware/wiring/)
 - `render-board.ts` — `bun render-board.ts <board>.tsx [scheme]`: exports the
   Gerbers and composes the three copper views into `out/`. The dev watcher
   (`web/dev-server`) runs it on every save of a board under `pcb/`, so the
-  site's Boards viewer (`/pcb`) stays current.
+  site's Boards viewer (`/pcb`) stays current. Single-flight per board
+  (`run-lock.ts`): a new render supersedes any older run of the same board, which
+  stops mid-build and logs which run took over.
+- `run-lock.ts` — per-board single-flight lock for `render-board`: a starting run
+  SIGTERMs an older live run of the same board; a superseded run kills its child
+  and exits, naming the run that took over. `RENDER_SOURCE` (`dev-server` /
+  `build-all`, else `manual`) names each run in those messages.
 - `gerber-compose.ts` — composes a Gerber folder into Top (front copper + front
   silk, looking down), Bottom (back copper + back silk **as viewed from the back**
   — x-mirrored, the board flipped over), and Overlay (both copper, **front silk
