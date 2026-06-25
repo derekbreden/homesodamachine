@@ -8,10 +8,16 @@
  * scheme is a key of SCHEMES in gerber-compose (default "copper"). This is the
  * generator the dev watcher runs on every save of a board under pcb/, the same
  * way a CadQuery .py regenerates its .step.
+ *
+ * Single-flight: a fresh run supersedes any older run of the SAME board (dev
+ * watcher vs. a hand-run), killing its in-flight build so only the newest runs.
+ * Subprocesses are spawned async (not execFileSync) precisely so a supersede
+ * signal can interrupt them mid-build instead of after the current step.
  */
 import { composeViews, SCHEMES } from "./gerber-compose"
 import { backSilkBoardTsx } from "./bottom-silk"
-import { execFileSync } from "node:child_process"
+import { singleflight } from "./run-lock"
+import { spawn, type ChildProcess } from "node:child_process"
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from "node:fs"
 import { tmpdir } from "node:os"
 import path from "node:path"
@@ -36,17 +42,43 @@ const zip = path.join(outDir, `${board}.gerbers.zip`)
 // tsci writes -o relative to cwd (and mangles an absolute path), so hand it a
 // cwd-relative target; we keep the absolute `zip` for the unzip step.
 const zipRel = path.join("out", `${board}.gerbers.zip`)
-
-// Build + route + export the Gerbers in one step. The local tscircuit CLI runs
-// under bun via its shebang; stderr inherited so a routing/DRC failure surfaces.
 const tsci = path.join(dir, "node_modules", ".bin", "tsci")
+
+// Temp files/dirs to remove on exit (normal OR superseded — process.exit fires
+// the `exit` handler), tracked as they're created so cleanup needs no scope.
+const temps = new Set<string>()
+const track = (p: string) => (temps.add(p), p)
+process.on("exit", () => { for (const p of temps) try { rmSync(p, { recursive: true, force: true }) } catch {} })
+
+// Become the only running render for this board; if a newer run supersedes us it
+// SIGTERMs us and our handler (in run-lock) kills the child below + exits.
+let child: ChildProcess | null = null
+const lock = singleflight(board, process.env.RENDER_SOURCE || "manual")
+lock.setChildKiller(() => { try { child?.kill("SIGKILL") } catch {} })
+
+// Async exec that mimics execFileSync's throw-on-nonzero (e.status/stdout/stderr)
+// while keeping the event loop free, so a supersede signal lands immediately and
+// `child` can be killed mid-run.
+function sh(cmd: string, args: string[], opts: { cwd?: string; inherit?: boolean } = {}): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const c = spawn(cmd, args, { cwd: opts.cwd, stdio: opts.inherit ? "inherit" : ["ignore", "pipe", "pipe"] })
+    child = c
+    let out = "", err = ""
+    c.stdout?.on("data", (d) => (out += d))
+    c.stderr?.on("data", (d) => (err += d))
+    c.on("error", (e) => { if (child === c) child = null; reject(e) })
+    c.on("close", (code) => {
+      if (child === c) child = null
+      if (code === 0) resolve(out)
+      else reject(Object.assign(new Error(`${cmd} exited ${code}`), { status: code, stdout: out, stderr: err }))
+    })
+  })
+}
+
+// Build + route + export the Gerbers. A routing/DRC failure surfaces on stderr.
 console.log(`[${board}] exporting gerbers… (cwd=${dir})`)
 try {
-  execFileSync(tsci, ["export", "-f", "gerbers", "-o", zipRel, `${board}.tsx`], {
-    cwd: dir,
-    encoding: "utf8",
-    stdio: ["ignore", "pipe", "pipe"],
-  })
+  await sh(tsci, ["export", "-f", "gerbers", "-o", zipRel, `${board}.tsx`], { cwd: dir })
 } catch (e: any) {
   console.error(`[${board}] gerber export failed (status ${e.status})`)
   if (e.stdout) console.error("stdout:", String(e.stdout).slice(-1000))
@@ -59,19 +91,19 @@ try {
 // anonymous copper Gerbers. tsci mangles an absolute -o, so keep it cwd-relative
 // inside the board dir; pick-data reuses it so this is the only extra build.
 const cjRel = `.${board}.circuit.tmp.json`
-const cjAbs = path.join(dir, cjRel)
+const cjAbs = track(path.join(dir, cjRel))
 let circuit: any[] | null = null
 try {
-  execFileSync(tsci, ["export", "-f", "circuit-json", "-o", cjRel, `${board}.tsx`], { cwd: dir, stdio: ["ignore", "pipe", "pipe"] })
+  await sh(tsci, ["export", "-f", "circuit-json", "-o", cjRel, `${board}.tsx`], { cwd: dir })
   circuit = JSON.parse(readFileSync(cjAbs, "utf8"))
 } catch {
   console.error(`[${board}] circuit-json export failed — back silk + picks skipped`)
 }
 
 // Unzip into a scratch dir, synthesize the back silk into it, compose, clean up.
-const scratch = mkdtempSync(path.join(tmpdir(), `pcb-${board}-`))
+const scratch = track(mkdtempSync(path.join(tmpdir(), `pcb-${board}-`)))
 try {
-  execFileSync("unzip", ["-o", "-q", zip, "-d", scratch])
+  await sh("unzip", ["-o", "-q", zip, "-d", scratch])
   // Back silk: tscircuit only draws the front legend. Build a throwaway board of
   // layer="bottom" copies of every front silk element (same engine -> identical
   // font + per-size stroke) and lift its B_SilkScreen, so the bottom view and the
@@ -81,24 +113,18 @@ try {
   if (circuit) {
     const bsTsx = `.${board}.backsilk.tmp.tsx`
     const bsZipRel = path.join("out", `.${board}.backsilk.tmp.zip`)
-    const bsZipAbs = path.join(dir, bsZipRel)
+    track(path.join(dir, bsTsx))
+    track(path.join(dir, bsZipRel))
     try {
       writeFileSync(path.join(dir, bsTsx), backSilkBoardTsx(circuit))
-      execFileSync(tsci, ["export", "-f", "gerbers", "-o", bsZipRel, bsTsx], { cwd: dir, stdio: ["ignore", "pipe", "pipe"] })
-      const bsScratch = mkdtempSync(path.join(tmpdir(), `pcb-${board}-bsilk-`))
-      try {
-        execFileSync("unzip", ["-o", "-q", bsZipAbs, "-d", bsScratch])
-        const bsilkPath = path.join(scratch, "B_SilkScreen.gbr")
-        writeFileSync(bsilkPath, readFileSync(path.join(bsScratch, "B_SilkScreen.gbr")))
-        execFileSync("zip", ["-q", "-j", zip, bsilkPath])
-      } finally {
-        rmSync(bsScratch, { recursive: true, force: true })
-      }
+      await sh(tsci, ["export", "-f", "gerbers", "-o", bsZipRel, bsTsx], { cwd: dir })
+      const bsScratch = track(mkdtempSync(path.join(tmpdir(), `pcb-${board}-bsilk-`)))
+      await sh("unzip", ["-o", "-q", path.join(dir, bsZipRel), "-d", bsScratch])
+      const bsilkPath = path.join(scratch, "B_SilkScreen.gbr")
+      writeFileSync(bsilkPath, readFileSync(path.join(bsScratch, "B_SilkScreen.gbr")))
+      await sh("zip", ["-q", "-j", zip, bsilkPath])
     } catch {
       console.error(`[${board}] back-silk render failed — bottom view shows no back legend`)
-    } finally {
-      rmSync(path.join(dir, bsTsx), { force: true })
-      rmSync(bsZipAbs, { force: true })
     }
   }
   const { top, bottom, overlay, widthMm, heightMm } = await composeViews(scratch, scheme)
@@ -119,9 +145,9 @@ try {
 // the web viewer's pad picker has semantic data in lockstep with the copper.
 // Reuses the circuit-json above. Best-effort: a render still ships its views.
 try {
-  execFileSync("bun", [path.join(dir, "pick-data.ts"), `${board}.tsx`, cjRel], { cwd: dir, stdio: "inherit" })
+  await sh("bun", [path.join(dir, "pick-data.ts"), `${board}.tsx`, cjRel], { cwd: dir, inherit: true })
 } catch {
   console.error(`[${board}] pick-data failed — picks.json not refreshed (views still written)`)
-} finally {
-  rmSync(cjAbs, { force: true })
 }
+
+lock.release()
