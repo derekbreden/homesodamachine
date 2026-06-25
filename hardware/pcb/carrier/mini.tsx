@@ -28,6 +28,8 @@ export default () => (
     <Jst name="J8" x={-55} y={-45} count={2} labels={["GND", "V5"]} rot={0} label="POWER" />
     <Jst name="J6" x={0} y={46} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={2} y={-46} count={7} labels={["GND", "RB1", "RB2", "RB3", "RB4", "CARBLO", "CARBHI"]} rot={0} label="REEDS B" />
+    <Jst name="J9" x={-14} y={47} count={3} labels={["A", "B", "EARTH"]} rot={0} label="DISPLAY" />
+    <Jst name="J10" x={60} y={5} count={2} labels={["GND", "V12"]} rot={90} label="VALVE 12V" />
 
     {/* MCP 0x21 power -> 0x20 */}
     <trace from=".U3I > .VCC" to=".U2B > .VCC" />
@@ -118,5 +120,17 @@ export default () => (
     <trace from=".J7 > .CARBLO" to=".U3B > .GPB4" />
     <trace from=".J7 > .CARBHI" to=".U3B > .GPB5" />
     <trace from=".J7 > .GND" to=".U3B > .GND" />
+
+    {/* DISPLAY: RS485 line side (A/B/Earth) out to the front 4.3" config panel */}
+    <trace from=".J9 > .A" to=".U7L > .A" />
+    <trace from=".J9 > .B" to=".U7L > .B" />
+    <trace from=".J9 > .EARTH" to=".U7L > .Earth" />
+
+    {/* VALVE 12V in: feeds the ULN flyback commons + solenoid high side, and a
+        short valve-current ground return to the ULN grounds (power.mmd) */}
+    <trace from=".J10 > .V12" to=".U4O > .COM" />
+    <trace from=".J10 > .V12" to=".U5O > .COM" />
+    <trace from=".J10 > .GND" to=".U4I > .GND" />
+    <trace from=".J10 > .GND" to=".U5I > .GND" />
   </board>
 )
