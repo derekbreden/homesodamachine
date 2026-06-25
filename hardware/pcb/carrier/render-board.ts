@@ -10,8 +10,9 @@
  * way a CadQuery .py regenerates its .step.
  */
 import { composeViews, SCHEMES } from "./gerber-compose"
+import { bottomSilkGerber } from "./bottom-silk"
 import { execFileSync } from "node:child_process"
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from "node:fs"
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from "node:fs"
 import { tmpdir } from "node:os"
 import path from "node:path"
 import { Resvg } from "@resvg/resvg-js"
@@ -53,10 +54,32 @@ try {
   throw e
 }
 
-// Unzip into a scratch dir, compose, clean up.
+// Export the board's circuit-json once: the back-silk synthesis and the pick
+// distiller both need the structured entities (texts, pads, nets), not just the
+// anonymous copper Gerbers. tsci mangles an absolute -o, so keep it cwd-relative
+// inside the board dir; pick-data reuses it so this is the only extra build.
+const cjRel = `.${board}.circuit.tmp.json`
+const cjAbs = path.join(dir, cjRel)
+let circuit: any[] | null = null
+try {
+  execFileSync(tsci, ["export", "-f", "circuit-json", "-o", cjRel, `${board}.tsx`], { cwd: dir, stdio: ["ignore", "pipe", "pipe"] })
+  circuit = JSON.parse(readFileSync(cjAbs, "utf8"))
+} catch {
+  console.error(`[${board}] circuit-json export failed — back silk + picks skipped`)
+}
+
+// Unzip into a scratch dir, synthesize the back silk into it, compose, clean up.
 const scratch = mkdtempSync(path.join(tmpdir(), `pcb-${board}-`))
 try {
   execFileSync("unzip", ["-o", "-q", zip, "-d", scratch])
+  // tscircuit only draws the front legend; mirror it onto B_SilkScreen (in place,
+  // glyphs flipped) so the bottom view and the fab set carry a readable back-side
+  // legend. Drop it into both the scratch dir (for compose) and the gerber zip.
+  if (circuit) {
+    const bsilkPath = path.join(scratch, "B_SilkScreen.gbr")
+    writeFileSync(bsilkPath, bottomSilkGerber(circuit))
+    execFileSync("zip", ["-q", "-j", zip, bsilkPath])
+  }
   const { top, bottom, overlay, widthMm, heightMm } = await composeViews(scratch, scheme)
   const svgs = { top, bottom, overlay }
   for (const v of VIEWS) {
@@ -73,9 +96,11 @@ try {
 
 // Distill the board's pickable entities (pads + identity) next to the views so
 // the web viewer's pad picker has semantic data in lockstep with the copper.
-// Best-effort: a board that renders but can't distill still ships its views.
+// Reuses the circuit-json above. Best-effort: a render still ships its views.
 try {
-  execFileSync("bun", [path.join(dir, "pick-data.ts"), `${board}.tsx`], { cwd: dir, stdio: "inherit" })
+  execFileSync("bun", [path.join(dir, "pick-data.ts"), `${board}.tsx`, cjRel], { cwd: dir, stdio: "inherit" })
 } catch {
   console.error(`[${board}] pick-data failed — picks.json not refreshed (views still written)`)
+} finally {
+  rmSync(cjAbs, { force: true })
 }

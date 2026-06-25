@@ -12,7 +12,7 @@ import {
 } from "./carrier_parts"
 
 export default () => (
-  <board width="145mm" height="100mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
+  <board width="145mm" height="100mm" minTraceWidth="0.3mm" traceClearance="0.4mm">
     <Ds3231 name="U6" x={-35.15} y={-28.65} rot={180} />
     <Esp32 x={-28.15} y={-2} />
     <Rs485 name="U7" x={-32} y={25.375} rot={180} />
@@ -78,7 +78,7 @@ export default () => (
     {/* FAUCET UART (IO33 TX / IO35 RX) */}
     <trace from=".J3 > .IO33" to=".U1A > .IO33" />
     <trace from=".J3 > .IO35" to=".U1A > .IO35" />
-    <trace from=".J3 > .V5" to=".U1A > .V5" thickness="0.5mm" />
+    <trace from=".J3 > .V5" to=".U1A > .V5" />
     <trace from=".J3 > .GND" to=".U1A > .GND" />
 
     {/* SENSORS: flow / 1-wire / backflow + two spare input-only pins */}
@@ -87,7 +87,7 @@ export default () => (
     <trace from=".J4 > .IO39" to=".U1A > .IO39" />
     <trace from=".J4 > .IO23" to=".U1B > .IO23" />
     <trace from=".J4 > .IO13" to=".U1A > .IO13" />
-    <trace from=".J4 > .V5" to=".U1A > .V5" thickness="0.5mm" />
+    <trace from=".J4 > .V5" to=".U1A > .V5" />
     <trace from=".J4 > .GND" to=".U1B > .GNDb" />
 
     {/* DRIVER: pump A (27/25/26) + pump B (19/18/5) + relays (17/16) */}
@@ -102,8 +102,8 @@ export default () => (
     <trace from=".J5 > .GND" to=".U1B > .GNDb" />
 
     {/* POWER in: 5V -> ESP V5 (3V3 regulated on-board) */}
-    <trace from=".J8 > .V5" to=".U1A > .V5" thickness="0.6mm" />
-    <trace from=".J8 > .GND" to=".U1B > .GNDb" thickness="0.6mm" />
+    <trace from=".J8 > .V5" to=".U1A > .V5" />
+    <trace from=".J8 > .GND" to=".U1B > .GNDb" />
 
     {/* REEDS A (reservoir A) -> 0x20 GPB inputs */}
     <trace from=".J6 > .RA1" to=".U2B > .GPB0" />
@@ -130,9 +130,9 @@ export default () => (
         short valve-current ground return to the ULN grounds (power.mmd). Wide
         (1 mm ~ 2 A) to carry the summed solenoid + fan current the COM rail
         sinks; signal traces stay 0.2 mm. */}
-    <trace from=".J10 > .V12" to=".U4O > .COM" thickness="1mm" />
-    <trace from=".J10 > .V12" to=".U5O > .COM" thickness="1mm" />
-    <trace from=".J10 > .GND" to=".U4I > .GND" thickness="1mm" />
-    <trace from=".J10 > .GND" to=".U5I > .GND" thickness="1mm" />
+    <trace from=".J10 > .V12" to=".U4O > .COM" />
+    <trace from=".J10 > .V12" to=".U5O > .COM" />
+    <trace from=".J10 > .GND" to=".U4I > .GND" />
+    <trace from=".J10 > .GND" to=".U5I > .GND" />
   </board>
 )
