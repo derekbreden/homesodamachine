@@ -46,7 +46,7 @@ export const SCHEMES: Record<string, Scheme> = {
     silkOpacity: 0.55,
     topOpacity: 0.85,
     bottomOpacity: 0.8,
-    copperFillOpacity: 0.18,
+    copperFillOpacity: 0.08,
   },
   blueprint: {
     fr4: "#0a2540",
