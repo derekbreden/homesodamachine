@@ -25,17 +25,17 @@ gpio_relay2 = 16            # Teyleten relay #2 (diaphragm pump 12 V refill)
 # ─── I²C device addresses ─────────────────────────────────────────────
 # 7-bit addresses on the shared SDA/SCL bus (GPIO 21/22).
 
-mcp_valves_addr = 0x20      # MCP23017: 12 valves on PA[0:7]+PB[0:3], Rsvr A reeds on PB[4:7]
-mcp_reservoirs_addr = 0x21  # MCP23017: Rsvr B reeds PA[0:3], cond-fan bit PA4, carbonator reeds PB[0:1]
+mcp_valves_addr = 0x20      # MCP23017: 8 valves on PA[0:7] -> ULN U4, Rsvr A reeds on PB[0:3]
+mcp_reservoirs_addr = 0x21  # MCP23017: 4 valves PA[0:3] + cond-fan PA4 -> ULN U5; Rsvr B reeds PB[0:3], carbonator reeds PB[4:5]
 rtc_addr = 0x68             # DS3231 RTC
 
 # Carbonator reeds ride the 0x21 MCP23017 on its internal pull-ups (no externals).
-reed_low_loc = "0x21 PB0"   # Carbonator reed low (refill threshold)
-reed_high_loc = "0x21 PB1"  # Carbonator reed high (full threshold)
+reed_low_loc = "0x21 PB4"   # Carbonator reed low (refill threshold)
+reed_high_loc = "0x21 PB5"  # Carbonator reed high (full threshold)
 
 # ─── Sensor inventory ─────────────────────────────────────────────────
 
-valve_count = 12            # Beduan solenoids on MCP23017 0x20 → ULN2803A U1/U2
+valve_count = 12            # Beduan solenoids: 8 on 0x20 + 4 on 0x21 → ULN2803A U4/U5
 reservoir_count = 2         # Flavor reservoirs (A + B)
 reeds_per_reservoir = 4     # Float-rod reeds per reservoir
 reeds_carbonator = 2        # Carbonator low + high reeds
