@@ -27,4 +27,13 @@ sync with the board**, not the other way round:
 pins are bring-up-validated (they are provisional until the board is tested). A pin
 change lands in `mini.tsx` first, then propagates to these views.
 
+This direction is **enforced** by a drift-check:
+[`/hardware/scripts/check_pinmap.py`](/hardware/scripts/check_pinmap.py) reads the
+canonical pin map from `mini.tsx` and fails if `esp32-pinout.mmd`, the assembly
+sync drivers, or the BOM disagree — a board pin missing from the docs, a sync GPIO
+on the wrong role, or an electrical BOM part with no pad (the failure that left the
+piezo buzzer and the MQ-6 gas sensor wired to nothing). Run `python3
+hardware/scripts/check_pinmap.py` before committing a pin change or ordering the
+board; it is CI-ready (exit 0 = in sync, 1 = drift).
+
 Module part numbers are in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §1.
