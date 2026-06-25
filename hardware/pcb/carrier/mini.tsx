@@ -26,14 +26,14 @@ export default () => (
     <Jst name="J1" x={57.0} y={25.56} count={9} labels={ulnOUT} rot={90} label="MANIFOLD A" labelDir={1} />
     <Jst name="J2" x={57.0} y={-14.94} count={6} labels={["OUT1", "OUT2", "OUT3", "OUT4", "FAN", "COM"]} rot={90} label="MANIFOLD B" labelDir={1} />
     <Jst name="J3" x={-30.0} y={44} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" />
-    <Jst name="J4" x={-63.0} y={2} count={7} labels={["GND", "V5", "3V3", "IO13", "IO23", "IO36", "IO14"]} rot={90} label="SENSORS" />
+    <Jst name="J4" x={-63.0} y={2} count={6} labels={["GND", "V5", "3V3", "IO13", "IO23", "IO14"]} rot={90} label="SENSORS" />
     <Jst name="J5" x={-25.0} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO5", "IO18", "IO19", "IO26", "IO25", "IO27"]} rot={0} label="DRIVER" />
     <Jst name="J8" x={-52.0} y={-45} count={2} labels={["GND", "V5"]} rot={0} label="POWER" />
     <Jst name="J6" x={3.0} y={46} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={5.0} y={-46} count={7} labels={["GND", "RB1", "RB2", "RB3", "RB4", "CARBLO", "CARBHI"]} rot={0} label="REEDS B" />
     <Jst name="J9" x={-13.0} y={46} count={3} labels={["A", "B", "EARTH"]} rot={0} label="DISPLAY" />
     <Jst name="J10" x={63.0} y={5} count={2} labels={["GND", "V12"]} rot={90} label="VALVE 12V" />
-    <Jst name="J11" x={-63.0} y={-20} count={3} labels={["GND", "V5", "IO39"]} rot={90} label="GAS" />
+    <Jst name="J11" x={-63.0} y={-22} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={90} label="GAS" />
 
     {/* MCP 0x21 power -> 0x20 */}
     <trace from=".U3I > .VCC" to=".U2B > .VCC" />
@@ -91,12 +91,12 @@ export default () => (
     <trace from=".J3 > .V5" to=".U1A > .V5" />
     <trace from=".J3 > .GND" to=".U1A > .GND" />
 
-    {/* SENSORS: flow (IO23) / 1-wire temps (IO14) / backflow moisture (IO13) +
-        one spare input-only pin (IO36). 3V3 is the DS18B20 supply and the 1-wire
-        pull-up reference at the harness — IO14 is NOT 5 V tolerant, so the probes
-        run off 3V3, not the V5 pin (which powers the 5 V flow sensor). */}
+    {/* SENSORS: flow (IO23) / 1-wire temps (IO14) / backflow drip-pan moisture
+        (IO13). 3V3 powers the DS18B20 probes (IO14 is NOT 5 V tolerant; it is also
+        the 1-wire pull-up reference) AND the moisture module (so its DO on IO13 is
+        3.3 V-safe); V5 powers the 5 V flow sensor. (IO36 moved to the GAS connector
+        as the MQ-6 DOUT.) */}
     <trace from=".J4 > .IO14" to=".U1A > .IO14" />
-    <trace from=".J4 > .IO36" to=".U1A > .IO36" />
     <trace from=".J4 > .3V3" to=".U1A > .3V3" />
     <trace from=".J4 > .IO23" to=".U1B > .IO23" />
     <trace from=".J4 > .IO13" to=".U1A > .IO13" />
@@ -155,10 +155,17 @@ export default () => (
     <trace from=".U8 > .GND" to="net.GND" />
 
     {/* GAS: ACEIRMC MQ-6 combustible / refrigerant-leak sensor, mounted low on the
-        rear cabinet floor (catches dense R-600a pooling). 5 V heater supply; AOUT
-        analog -> IO39 (ADC1) for firmware threshold + leak trip. Its own connector,
-        not in the SENSORS loom, so the fire-safety run is isolated and unambiguous. */}
-    <trace from=".J11 > .IO39" to=".U1A > .IO39" />
+        rear cabinet floor (catches dense R-600a pooling). 5 V heater supply. BOTH
+        MQ-6 outputs swing 0-5 V, so each is divided to 3.3 V AT THE HARNESS before
+        landing here (IO36/IO39 are NOT 5 V tolerant):
+          AOUT (analog level)        -> IO39 (ADC1) — firmware trend + warm-up sense
+          DOUT (LM393 comparator trip) -> IO36       — the hardware gas trip
+        Own connector, isolated from the SENSORS loom, so the fire-safety run is
+        unambiguous. DOUT is the signal a firmware-INDEPENDENT compressor interlock
+        must consume; that interlock (a 74LVC1G08 gating IO17 -> J5) is NOT yet on
+        this board — it needs two bench-verified polarities first (see notes). */}
+    <trace from=".J11 > .AOUT" to=".U1A > .IO39" />
+    <trace from=".J11 > .DOUT" to=".U1A > .IO36" />
     <trace from=".J11 > .V5" to=".U1A > .V5" />
     <trace from=".J11 > .GND" to="net.GND" />
 
