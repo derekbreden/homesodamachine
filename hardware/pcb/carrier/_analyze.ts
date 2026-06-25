@@ -75,6 +75,8 @@ const portNet: Record<string, string> = {}
 for (const t of byType.pcb_trace || []) for (const s of t.route || []) { if (s.start_pcb_port_id) portNet[s.start_pcb_port_id] = t.connection_name; if (s.end_pcb_port_id) portNet[s.end_pcb_port_id] = t.connection_name }
 const circs: { x: number; y: number; r: number; net: string; layers: string[] }[] = []
 for (const p of byType.pcb_plated_hole || []) circs.push({ x: p.x, y: p.y, r: Math.max(p.rect_pad_width || 0, p.rect_pad_height || 0, p.hole_diameter || 0) / 2, net: portNet[p.pcb_port_id] || `pad_${p.pcb_plated_hole_id}`, layers: p.layers || ["top", "bottom"] })
+// vias are copper too — a trace passing another net's via is a real clearance pinch
+for (const v of vias) circs.push({ x: v.x, y: v.y, r: (v.outer_diameter || 0.3) / 2, net: (byType.pcb_trace || []).find((t: any) => t.pcb_trace_id === v.pcb_trace_id)?.connection_name || `via_${v.pcb_via_id}`, layers: v.layers || ["top", "bottom"] })
 const ptSeg = (px: number, py: number, s: Seg) => { const dx = s.x2 - s.x1, dy = s.y2 - s.y1, L2 = dx * dx + dy * dy || 1e-9; let t = ((px - s.x1) * dx + (py - s.y1) * dy) / L2; t = Math.max(0, Math.min(1, t)); return Math.hypot(px - (s.x1 + t * dx), py - (s.y1 + t * dy)) }
 const segSeg = (a: Seg, b: Seg) => Math.min(ptSeg(a.x1, a.y1, b), ptSeg(a.x2, a.y2, b), ptSeg(b.x1, b.y1, a), ptSeg(b.x2, b.y2, a))
 let minTT = Infinity, ttInfo = "", minTP = Infinity, tpInfo = ""
