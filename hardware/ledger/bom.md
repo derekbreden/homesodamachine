@@ -184,7 +184,7 @@ Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× foam-c
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [DIYables Passive Piezo Buzzer Module, 5 V (2-pack)](https://www.amazon.com/dp/B0DYDN31PV) | audible-alarm output driven by ESP32 GPIO; 1 of 2 per unit ($6.42/2) | 1 (of 2 pk) | $3.21 | $3.21 |
+| [DIYables Passive Piezo Buzzer Module, 5 V (2-pack)](https://www.amazon.com/dp/B0DYDN31PV) | audible-alarm output — PWM tone from ESP32 GPIO 4 (LEDC); plugs into the carrier at U8 (3-pin GND/IO/VCC). 1 of 2 per unit ($6.42/2) | 1 (of 2 pk) | $3.21 | $3.21 |
 
 ## 11. Wiring + fasteners
 

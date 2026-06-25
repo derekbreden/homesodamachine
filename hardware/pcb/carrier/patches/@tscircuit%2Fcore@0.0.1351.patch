@@ -1,0 +1,23 @@
+diff --git a/dist/index.js b/dist/index.js
+index c7b53b7a6db997fd2924cd638de3d2f0757d8682..65e2204e0cc335ce9381446b203f01635f111d13 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -22355,6 +22355,18 @@ var Group5 = class extends NormalComponent3 {
+       subcircuit_id: this.subcircuit_id,
+       subcircuitComponent: this
+     });
++    {
++      // PATCH(homesodamachine): plumb autorouter.traceClearance -> the capacity
++      // solver's defaultObstacleMargin + minTraceToPadEdgeClearance so trace
++      // spacing is tunable, decoupled from minTraceWidth (the drawn copper width).
++      // Stock core never sets these, pinning the realized floor at ~0.115mm.
++      // See hardware/pcb/carrier/_clrsweep.ts for the sweep that found 0.3mm.
++      const _tc = props.autorouter && typeof props.autorouter === "object" ? props.autorouter.traceClearance : void 0;
++      if (typeof _tc === "number" && _tc > 0) {
++        baseSimpleRouteJson.defaultObstacleMargin = _tc;
++        baseSimpleRouteJson.minTraceToPadEdgeClearance = _tc;
++      }
++    }
+     const routingPhasePlans = this._getRoutingPhasePlans();
+     const hasPhasedAutorouting = Group_hasPhasedAutorouting(routingPhasePlans);
+     const outputTraces = [];

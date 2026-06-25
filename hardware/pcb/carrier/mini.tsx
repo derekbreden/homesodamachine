@@ -10,11 +10,11 @@
  * UART + line-out, and the 5 V / 12 V power all route to edge connectors J1-J10.
  */
 import {
-  i8, Esp32, Mcp23017, Uln2803, Ds3231, Rs485, Jst, ulnOUT,
+  i8, Esp32, Mcp23017, Uln2803, Ds3231, Rs485, Jst, Buzzer, ulnOUT,
 } from "./carrier_parts"
 
 export default () => (
-  <board width="134mm" height="100mm" minTraceWidth="0.2mm">
+  <board width="134mm" height="100mm" minTraceWidth="0.2mm" autorouter={{ traceClearance: 0.3 }}>
     <Ds3231 name="U6" x={-32.15} y={-28.65} rot={180} />
     <Esp32 x={-25.15} y={-2} />
     <Rs485 name="U7" x={-29.0} y={25.375} rot={180} />
@@ -22,6 +22,7 @@ export default () => (
     <Mcp23017 name="U3" x={14.5} y={-20.25} addr="0x21" />
     <Uln2803 name="U4" x={39.65} y={25.56} />
     <Uln2803 name="U5" x={39.65} y={-14.94} />
+    <Buzzer name="U8" x={44} y={-42.5} rot={90} />
     <Jst name="J1" x={57.0} y={25.56} count={9} labels={ulnOUT} rot={90} label="MANIFOLD A" labelDir={1} />
     <Jst name="J2" x={57.0} y={-14.94} count={9} labels={ulnOUT} rot={90} label="MANIFOLD B" labelDir={1} />
     <Jst name="J3" x={-30.0} y={44} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" />
@@ -134,6 +135,12 @@ export default () => (
     <trace from=".J10 > .V12" to=".U5O > .COM" />
     <trace from=".J10 > .GND" to=".U4I > .GND" />
     <trace from=".J10 > .GND" to=".U5I > .GND" />
+
+    {/* BUZZER: passive piezo. I/O takes a PWM tone from IO4 (LEDC); VCC is the
+        5 V rail; GND ties into the back-side ground pour. */}
+    <trace from=".U8 > .IO" to=".U1B > .IO4" />
+    <trace from=".U8 > .VCC" to=".U1A > .V5" />
+    <trace from=".U8 > .GND" to="net.GND" />
 
     {/* Power planes. A ground pour fills the back (valve return + logic ground);
         a 12V pour covers the valve block on the front — J10 feeds the ULN flyback

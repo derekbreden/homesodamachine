@@ -50,6 +50,10 @@ export const dsH6 = ["32K", "SQW", "SCL", "SDA", "VCC", "GND"]
 export const dsH4 = ["SCL", "SDA", "VCC", "GND"]
 export const rs485T = ["VCC", "TXD", "RXD", "GND"]
 export const rs485L = ["A", "B", "Earth"]
+// Module reads GND(top) / IO / VCC(bottom); the array runs pin1->pin3 in the
+// order a pinrow at pcbRotation 90 actually lays them out (pin1 at the bottom/
+// VCC end), so the labelled pad lands on the module's matching physical pin.
+export const buzz = ["VCC", "IO", "GND"]
 
 // A stroked rectangle on the silk layer — the module's PCB outline.
 export const Outline = ({ x, y, w, h }: { x: number; y: number; w: number; h: number }) => (
@@ -163,6 +167,27 @@ export const Rs485 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: num
       <hole shape="circle" diameter="2mm" pcbX={x + h4[0]} pcbY={y + h4[1]} />
       <pinheader name={`${name}T`} pinCount={4} pitch="2.54mm" gender="female" footprint="pinrow4" pcbRotation={90 + rot} pinLabels={rs485T} {...at(x + pT[0], y + pT[1])} />
       <pinheader name={`${name}L`} pinCount={3} pitch="5.08mm" gender="female" pcbRotation={90 + rot} pinLabels={rs485L} {...at(x + pL[0], y + pL[1])} />
+    </>
+  )
+}
+
+// ---- DIYables passive piezo buzzer module (13 x 32) ------------------------
+// 3-pin header (GND/IO/VCC, top->bottom) clustered near one short end; a single
+// dia-4.2 mounting hole sits mid-body. The I/O pin takes a PWM tone straight
+// from an ESP GPIO (LEDC) — VCC is the 5 V rail, GND the logic ground. Pin and
+// hole offsets are the module's own (13 x 32, corner origin) re-expressed about
+// its centre (6.5, 16.0): hole (6.5,16.6)->(0,0.6); pins at x4 -> x-2.5, GND
+// y9.04->-6.96 / IO y6.50->-9.50 / VCC y3.96->-12.04.
+export const Buzzer = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => {
+  const o = (ox: number, oy: number) => rotxy(ox, oy, rot)
+  const [w, h] = rot % 180 === 0 ? [13, 32] : [32, 13]
+  const hM = o(0, 0.6), pP = o(-2.5, -9.5)
+  return (
+    <>
+      <Outline x={x} y={y} w={w} h={h} />
+      <silkscreentext text="BUZZER" fontSize="1.8mm" pcbX={x} pcbY={y + 8} pcbRotation={rot} />
+      <hole shape="circle" diameter="4.2mm" pcbX={x + hM[0]} pcbY={y + hM[1]} />
+      <pinheader name={name} pinCount={3} pitch="2.54mm" gender="female" footprint="pinrow3" pcbRotation={90 + rot} pinLabels={buzz} {...at(x + pP[0], y + pP[1])} />
     </>
   )
 }
