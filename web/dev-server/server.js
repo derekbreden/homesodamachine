@@ -191,6 +191,9 @@ async function runPcbRender(tsxPath) {
       const proc = spawn("bun", ["render-board.ts", path.basename(tsxPath)], {
         cwd: scriptDir,
         stdio: ["ignore", "ignore", "inherit"],
+        // Tag the run so render-board's single-flight lock can name us when it
+        // supersedes (or is superseded by) a hand-run of the same board.
+        env: { ...process.env, RENDER_SOURCE: "dev-server" },
         signal: ac.signal,
         killSignal: "SIGKILL",
       });
