@@ -10,11 +10,11 @@
  * UART + line-out, and the 5 V / 12 V power all route to edge connectors J1-J10.
  */
 import {
-  i8, Esp32, Mcp23017, Uln2803, Ds3231, Rs485, Jst, Buzzer, ulnOUT,
+  i8, at, Esp32, Mcp23017, Uln2803, Ds3231, Rs485, Jst, Buzzer, ulnOUT,
 } from "./carrier_parts"
 
 export default () => (
-  <board width="134mm" height="100mm" minTraceWidth="0.2mm" autorouter={{ traceClearance: 0.3 }}>
+  <board width="134mm" height="100mm" minTraceWidth="0.2mm" autorouter={{ traceClearance: 0.34 }}>
     <Ds3231 name="U6" x={-32.15} y={-28.65} rot={180} />
     <Esp32 x={-25.15} y={-2} />
     <Rs485 name="U7" x={-29.0} y={25.375} rot={180} />
@@ -34,6 +34,14 @@ export default () => (
     <Jst name="J9" x={-13.0} y={46} count={3} labels={["A", "B", "EARTH"]} rot={0} label="DISPLAY" />
     <Jst name="J10" x={63.0} y={5} count={2} labels={["GND", "V12"]} rot={90} label="VALVE 12V" />
     <Jst name="J11" x={-63.0} y={-22} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={90} label="GAS" />
+    {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
+        plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Through-hole
+        axial resistors, 2.2k top + 3.3k bottom -> 5*3.3/5.5 = 3.0 V (safely under
+        3.3 V, still a valid logic HIGH for DOUT). AOUT: R1/R2; DOUT: R3/R4. */}
+    <resistor name="R1" resistance="2.2k" footprint="axial_p2.54mm" {...at(-60, -8)} />
+    <resistor name="R2" resistance="3.3k" footprint="axial_p2.54mm" {...at(-60, -15)} />
+    <resistor name="R3" resistance="2.2k" footprint="axial_p2.54mm" {...at(-53, -8)} />
+    <resistor name="R4" resistance="3.3k" footprint="axial_p2.54mm" {...at(-53, -15)} />
 
     {/* MCP 0x21 power -> 0x20 */}
     <trace from=".U3I > .VCC" to=".U2B > .VCC" />
@@ -156,16 +164,22 @@ export default () => (
 
     {/* GAS: ACEIRMC MQ-6 combustible / refrigerant-leak sensor, mounted low on the
         rear cabinet floor (catches dense R-600a pooling). 5 V heater supply. BOTH
-        MQ-6 outputs swing 0-5 V, so each is divided to 3.3 V AT THE HARNESS before
-        landing here (IO36/IO39 are NOT 5 V tolerant):
-          AOUT (analog level)        -> IO39 (ADC1) — firmware trend + warm-up sense
-          DOUT (LM393 comparator trip) -> IO36       — the hardware gas trip
+        MQ-6 outputs swing 0-5 V; each is stepped to ~3.3 V by an on-board divider
+        (R1/R2, R3/R4 above) before the ESP, since IO36/IO39 are NOT 5 V tolerant:
+          AOUT (analog level)        -> R1/R2 -> IO39 (ADC1) — trend + warm-up sense
+          DOUT (LM393 comparator trip) -> R3/R4 -> IO36       — the hardware gas trip
         Own connector, isolated from the SENSORS loom, so the fire-safety run is
         unambiguous. DOUT is the signal a firmware-INDEPENDENT compressor interlock
         must consume; that interlock (a 74LVC1G08 gating IO17 -> J5) is NOT yet on
         this board — it needs two bench-verified polarities first (see notes). */}
-    <trace from=".J11 > .AOUT" to=".U1A > .IO39" />
-    <trace from=".J11 > .DOUT" to=".U1A > .IO36" />
+    <trace from=".J11 > .AOUT" to=".R1 > .pin1" />
+    <trace from=".R1 > .pin2" to=".R2 > .pin1" />
+    <trace from=".R1 > .pin2" to=".U1A > .IO39" />
+    <trace from=".R2 > .pin2" to="net.GND" />
+    <trace from=".J11 > .DOUT" to=".R3 > .pin1" />
+    <trace from=".R3 > .pin2" to=".R4 > .pin1" />
+    <trace from=".R3 > .pin2" to=".U1A > .IO36" />
+    <trace from=".R4 > .pin2" to="net.GND" />
     <trace from=".J11 > .V5" to=".U1A > .V5" />
     <trace from=".J11 > .GND" to="net.GND" />
 
