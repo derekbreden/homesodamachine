@@ -139,9 +139,15 @@ export default () => (
     <trace from=".J10 > .GND" to=".U4I > .GND" />
     <trace from=".J10 > .GND" to=".U5I > .GND" />
 
+    {/* Power planes. A ground pour fills the back (valve return + logic ground);
+        a 12V pour covers the valve block on the front — J10 feeds the ULN flyback
+        commons and the manifold COM pins, which carry the summed solenoid + fan
+        current (up to three valves open at once, see fluid-topology.md). The two
+        traces below name the nets so the pours bind to them. */}
     <trace from=".U1B > .GNDb" to="net.GND" />
     <trace from=".J10 > .V12" to="net.V12" />
-    <copperpour name="POUR_GND" layer="bottom" connectsTo="net.GND" />
-    <copperpour name="POUR_12V" layer="top" connectsTo="net.V12" shape="rect" center={{ x: 50, y: 5 }} width={30} height={74} />
+    <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" />
+    <copperpour name="V12PLANE" layer="top" connectsTo="net.V12"
+      outline={[{ x: 44, y: -16 }, { x: 66, y: -16 }, { x: 66, y: 40 }, { x: 44, y: 40 }]} />
   </board>
 )
