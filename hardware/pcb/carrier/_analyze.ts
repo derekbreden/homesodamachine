@@ -2,9 +2,9 @@
  * _analyze.ts — board metrics. Exports a fresh circuit-json to a temp file, then
  * reports total vias, DRC errors, content/silk bounds + board slack, every via
  * attributed to its net/connector pin-pair, per-module bboxes, the realized
- * minimum copper clearance (trace-trace and trace-pad, different nets), and any
- * redundant trace (a connection that only closes a loop once each module's
- * internal same-name pin-bonding is accounted for).
+ * minimum copper clearance (trace-trace and trace-pad, different nets), and trace
+ * loops once each module's internal same-name pin-bonding is accounted for —
+ * split into removable signal loops and intentional power/ground parallel paths.
  *
  *   bun _analyze.ts [board]        # default: mini
  */
@@ -91,16 +91,17 @@ console.log(`silk extent:    x ${sx0.toFixed(1)}..${sx1.toFixed(1)}  y ${sy0.toF
 console.log(errTypes.length ? errTypes.map((et) => `DRC ${et}: ${byType[et].length}`).join("\n") : `DRC errors: 0`)
 console.log(`realized clearance: trace-trace ${minTT.toFixed(3)} mm ${ttInfo} | trace-pad ${minTP.toFixed(3)} mm ${tpInfo}  (trace w=${w0})`)
 
-// ---- redundant traces: a declared trace whose two ends are ALREADY joined some
-// other way only adds a loop — it's unnecessary. Such loops are invisible at the
-// raw-trace level because each socketed module bonds its own same-named pins
-// internally (all VCC together, all GND — including the ESP's GNDb/GNDc — together,
-// the DS3231's bridged bus). So we collapse those per U-module from a NAME rule,
-// not a hand-kept wiring table: within a `U<n>` component, pins with the same name
-// are one node and any /^gnd/ name folds to GND. Then union-find the declared
-// source_traces; whichever trace closes a loop is flagged with its loop members
-// (one of them is removable). Connectors/nets stay per-pad. Zero upkeep: a new
-// U-module or connector is classified by its name automatically.
+// ---- trace loops: a declared trace whose two ends are ALREADY joined some other
+// way closes a loop. Such loops are invisible at the raw-trace level because each
+// socketed module bonds its own same-named pins internally (all VCC together, all
+// GND — including the ESP's GNDb/GNDc — together, the DS3231's bridged bus). So we
+// collapse those per U-module from a NAME rule, not a hand-kept wiring table:
+// within a `U<n>` component, pins with the same name are one node and any /^gnd/
+// name folds to GND. Then union-find the declared source_traces; whichever trace
+// closes a loop is its loop members. On a SIGNAL net a loop is removable waste; on
+// a power/ground net (isPwr) it's an intentional parallel path — a multi-tie or a
+// plane stitch — so the two are reported apart. Connectors/nets stay per-pad. Zero
+// upkeep: a new U-module or connector is classified by its name automatically.
 const spLabel = (spid: string) => {
   const sp = srcPort[spid]; if (!sp) return spid
   const comp = srcComp[sp.source_component_id]
@@ -112,10 +113,14 @@ const bridgeNode = (label: string) => {
   const m = hdr.match(/^(U\d+)/); if (!m) return label // connector pin — not bonded
   return `${m[1]}#${/^gnd/i.test(pin) ? "GND" : pin}`
 }
+// A loop on a power/ground net is a parallel path (extra tie or a plane stitch),
+// not waste — it routes cleaner and shares current. Only signal-net loops are
+// removable, so a loop is judged by the kind of net it closes.
+const isPwr = (n: string) => /(?:[.#]|^net\.)(gnd|vcc|v5|v12|3v3)\b/i.test(n)
 const uf: Record<string, string> = {}
 const find = (x: string): string => { uf[x] ??= x; let r = x; while (uf[r] !== r) r = uf[r]; while (uf[x] !== r) { const n = uf[x]; uf[x] = r; x = n } return r }
 const tadj: Record<string, { to: string; name: string }[]> = {}
-const loops: string[][] = []
+const loops: { members: string[]; pwr: boolean }[] = []
 for (const t of byType.source_trace || []) {
   const ns = [...(t.connected_source_port_ids || []).map(spLabel).map(bridgeNode), ...(t.connected_source_net_ids || [])]
   if (ns.length < 2) continue
@@ -127,11 +132,14 @@ for (const t of byType.source_trace || []) {
     while (q.length) { const x = q.shift()!; if (x === b) break; for (const e of tadj[x] || []) if (!(e.to in prev)) { prev[e.to] = { from: x, name: e.name }; q.push(e.to) } }
     const members = [name]; let cur = b
     while (prev[cur]) { members.push(prev[cur]!.name); cur = prev[cur]!.from }
-    loops.push(members)
+    loops.push({ members, pwr: isPwr(a) })
   } else { uf[find(a)] = find(b); (tadj[a] ??= []).push({ to: b, name }); (tadj[b] ??= []).push({ to: a, name }) }
 }
-console.log(`redundant traces: ${loops.length}${loops.length ? "  (one trace in each loop below is removable)" : ""}`)
-for (const m of loops) console.log(`  ! loop: ${m.join("  +  ")}`)
+const removable = loops.filter((l) => !l.pwr), pwrLoops = loops.filter((l) => l.pwr)
+console.log(`removable redundant traces: ${removable.length}${removable.length ? "  (signal loop — one trace in each is removable)" : ""}`)
+for (const l of removable) console.log(`  ! loop: ${l.members.join("  +  ")}`)
+if (pwrLoops.length) console.log(`power/ground parallel paths: ${pwrLoops.length} (intentional — multi-tie / plane stitch, not removable)`)
+for (const l of pwrLoops) console.log(`  ~ ${l.members.join("  +  ")}`)
 console.log(`\n## vias by net (total ${vias.length})`)
 for (const [k, n] of Object.entries(viaGroups).sort((a, b) => b[1] - a[1])) console.log(`  ${String(n).padStart(3)}  ${k}`)
 console.log(`\n## modules`)
