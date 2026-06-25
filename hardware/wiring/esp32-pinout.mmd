@@ -13,8 +13,10 @@ flowchart LR
   %%   GPIO 16 drives Teyleten relay #2 (diaphragm pump 12 V, refill).
   %%   GPIO 13 reads the backflow drip-pan moisture sensor (SIG-9).
   %%   GPIO 4  drives the passive piezo buzzer (PWM tone via LEDC; DIYables module).
-  %%   GPIO 39 reads the MQ-6 combustible-gas / refrigerant-leak sensor (AOUT,
-  %%     ADC1; mounted low on the rear cabinet floor — catches R-600a pooling).
+  %%   GPIO 39 reads the MQ-6 gas / refrigerant-leak sensor AOUT (analog, ADC1) and
+  %%     GPIO 36 reads its DOUT (LM393 comparator trip). MQ-6 outputs swing 0-5 V,
+  %%     divided to 3.3 V at the harness (36/39 are not 5 V tolerant). DOUT is the
+  %%     hardware gas-trip signal (sensor low on the rear cabinet floor).
   %% All 10 reed switches — 8 flavor-reservoir (4 per reservoir) + 2 carbonator
   %% (low/high) — are read through the I2C MCP23017 expanders, not direct ESP32
   %% GPIO, so every reed rides the MCP internal pull-up (no external resistors):
@@ -25,8 +27,8 @@ flowchart LR
   %%     carbonator reeds low/high on PB[4:5]; PB[6:7] spare. See valve-control.mmd.
   %% Conditional: 0x21 could be replaced by a 74HC165 or direct GPIO — saves the
   %%   chip, decision deferred (it now also carries the carbonator reeds, so the
-  %%   direct option would draw from the spares 15/12/2 + input-only 36; 39 now
-  %%   reads the gas sensor).
+  %%   direct option would draw from the spares 15/12/2; 36/39 now read the gas
+  %%   sensor DOUT/AOUT).
   %% Two display UARTs:
   %%   GPIO 32/34 = Serial1 -> ALMOCN RS485 transceiver -> 4.3B config display
   %%                (front panel, internal run; the 4.3B has no free TTL UART).
@@ -36,7 +38,6 @@ flowchart LR
   %%   GPIO 15  - free (strapping; was UART1 TX before the re-cluster)
   %%   GPIO 12  - free (bootstrap-sensitive)
   %%   GPIO 2   - free (bootstrap-sensitive)
-  %%   GPIO 36  - free (input-only; needs an external pull-up if used as an input)
 
   subgraph ESP["ESP32-DevKitC-32E"]
     direction TB
@@ -65,7 +66,8 @@ flowchart LR
     subgraph Input_Pins["Sensor Inputs"]
       P23["GPIO 23  Flow Meter"]
       P13["GPIO 13  Backflow moisture"]
-      P39["GPIO 39  Gas sensor (ADC1)"]
+      P39["GPIO 39  Gas sensor AOUT (ADC1)"]
+      P36["GPIO 36  Gas sensor DOUT (trip)"]
     end
 
     subgraph Refrigeration_Pins["Refrigeration"]
@@ -136,6 +138,7 @@ flowchart LR
   MOIST -->|"INPUT"| P13
   P4 -->|"PWM tone"| BUZZER
   GAS -->|"AOUT (analog)"| P39
+  GAS -->|"DOUT (trip)"| P36
 
   %% Signals: UART, I2C, GPIO control, semantic-reference (white).
   %% 0-1 UART Serial1 (4.3B config), 2-3 UART Serial2 (faucet),
@@ -144,9 +147,10 @@ flowchart LR
   %% 20 = logical I2C-device -> subsystem ref.
   linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,15,17,20,22 stroke:#ccc,stroke-width:2px
   %% Sensor feedback to MCU (blue).
-  %% 14 = flow meter, 19 = DS18B20 1-wire, 21 = backflow moisture, 23 = gas sensor.
+  %% 14 = flow meter, 19 = DS18B20 1-wire, 21 = backflow moisture,
+  %% 23 = gas AOUT, 24 = gas DOUT.
   %% (The carbonator reeds feed the 0x21 MCP23017, not the ESP — see valve-control.)
-  linkStyle 14,19,21,23 stroke:#09f,stroke-width:2px
+  linkStyle 14,19,21,23,24 stroke:#09f,stroke-width:2px
   %% Power: motor/pump outputs and switched 120 VAC (red, thick).
   %% 12-13 = L298 motor channels, 16 = relay #1 -> compressor AC,
   %% 18 = relay #2 -> diaphragm pump 12 V.
