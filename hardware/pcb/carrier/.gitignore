@@ -22,6 +22,11 @@ out/*
 !out/mini.gerbers.zip
 !out/mini.picks.json
 
+# tscircuit circuit-json is a regenerable intermediate — render-board re-exports
+# it every run for the back-silk + pick synthesis, so it drifts and bloats.
+# Never committed (same policy as the tsci exports above).
+*.circuit.json
+
 # misc
 *.circuit.tmp.json
 *.tgz
