@@ -53,7 +53,7 @@ The appliance ships with the water filter included. **Placement (internal vs. ex
 | [brewhardware FFL38BARB38 swivel flare adapter, 3/8" FFL × 3/8" OD SS hose barb](https://www.brewhardware.com/product_p/ffl38barb38.htm) | single-piece adapter on the Multiplex 19-0897 MFL outlet; 304 SS wetted barb, chrome-plated brass swivel nut never touches water; brewhardware #156209 May 16: 5 @ $4.99 = $24.95 + $14.47 ship = $39.42 ÷ 5 = $7.88/ea | 1 (of 5 pk) | $7.88 | $7.88 |
 | [JoyTube 3/8" ID × 1/2" OD food-grade silicone tubing, 10 ft](https://www.amazon.com/dp/B089YGDB55) | 3/8" ID food-grade silicone hose, ~12" per build between the brewhardware FFL38BARB38 hose-barb adapter (Multiplex 19-0897 MFL outlet side) and the SeaFlo 22-Series pump's 3/8" hose-barb inlet; covers the entire suction-side hose run with no diameter step-down. JoyTube ACQUIRED per `purchases.md:140`: $11.99 + $0.87 tax = $12.86 ÷ 10 builds = $1.286/build (10 ft × ~12"/build) | 1/10 roll (~12") | $1.29 | $1.29 |
 | [Sealproof 1/4" ID × 3/8" OD clear PVC, 10 ft](https://www.amazon.com/dp/B07D9DK94V) (vent telltale) | | 1 | $8.46 | $8.46 |
-| [Shutao 6-pc water sensor module, LM393, 3.3–5 V](https://www.amazon.com/dp/B0B2W76MB1) | Backflow drip-pan telltale: the Multiplex 19-0897 vent weeps to the internal drip pan; this module's flat conductivity plate sits in the pan and water bridging it trips the LM393 (a wet pan flags cross-contamination). Run VCC at **3.3 V** (J4.3V3) so DO is ESP-safe; DO is active-low when wet → ESP32 GPIO 13 (SIG-9) per [`wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd); "drip pan dry" is a required check in [`assembly/acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md). Bare electrodes electroplate under continuous DC, so firmware should pulse VCC only when sampling; the 6-pack ($6.99 ÷ 6) gives spares. Amazon's Choice, Prime. | 1 (of 6 pk) | $1.17 | $1.17 |
+| [Shutao 6-pc water sensor module, LM393, 3.3–5 V](https://www.amazon.com/dp/B0B2W76MB1) | Backflow drip-pan telltale: the Multiplex 19-0897 vent weeps to the internal drip pan; this module's flat conductivity plate sits in the pan and water bridging it trips the LM393 (a wet pan flags cross-contamination). Run VCC at **3.3 V** (J4.3V3) so DO is ESP-safe; DO is active-low when wet → ESP32 GPIO 13 (SIG-9) per [`wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd); "drip pan dry" is a required check in [`assembly/acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md). Bare electrodes electroplate under continuous DC, so firmware should pulse VCC only when sampling; the 6-pack gives spares. Order #112-2621523-2281840 Jun 25: $6.99 + $0.51 tax = $7.50 ÷ 6 = $1.25/ea. Amazon's Choice, Prime. | 1 (of 6 pk) | $1.25 | $1.25 |
 | [LOKMAN 304 SS worm-gear clamps, 10–16 mm (20-pk)](https://www.amazon.com/dp/B076Q7QVNM) | vent line clamps; 4 of 20 per unit | 4 (of 20 pk) | $1.80 | $1.80 |
 | [SEAFLO 22-Series 12V 1.3 GPM 100 psi diaphragm pump (3/8" hose-barb ports)](https://www.amazon.com/dp/B0166UBJX4) | | 1 | $48.25 | $48.25 |
 | [MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4-pk)](https://www.amazon.com/dp/B0DMP77B6S) | adapts pump 3/8" hose-barb output to 1/4" NPT plumbing for the check valve and top-plate port; 1 of 4 per unit (also used in §8) | 1 (of 4 pk) | $3.24 | $3.24 |
@@ -274,7 +274,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 |---|---:|
 | 1. Controllers + electronics | [$169.54](BOM_SEC1) |
 | 2. Carbonator vessel (plan A, 316L) | [$240.69](BOM_SEC2) |
-| 3. Water inlet | [$238.96](BOM_SEC3) |
+| 3. Water inlet | [$240.21](BOM_SEC3) |
 | 4. CO2 subsystem | [$172.20](BOM_SEC4) |
 | 5. Refrigeration | [$194.67](BOM_SEC5) |
 | 6. Cold core insulation | [$52.38](BOM_SEC6) |
@@ -286,7 +286,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.94](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,568.98](BOM_GRAND)** |
+| **Total** | **[$1,570.23](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
