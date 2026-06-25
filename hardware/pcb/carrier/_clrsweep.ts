@@ -80,6 +80,5 @@ const run = (label: string, boardTag: string) => {
 
 console.log("# autorouter.traceClearance -> defaultObstacleMargin sweep (patched core)\n")
 console.log("# minTraceWidth=0.2mm fixed (drawn width); FLOOR = min(trace-trace, trace-pad)\n")
-run("none (baseline)", `<board width="134mm" height="100mm" minTraceWidth="0.2mm">`)
-for (const clr of [0.28, 0.3, 0.31, 0.32, 0.33, 0.34, 0.36, 0.38])
+for (const clr of [0.24, 0.25, 0.26, 0.27, 0.33, 0.34, 0.35, 0.36, 0.38])
   run(`traceClearance=${clr}`, `<board width="134mm" height="100mm" minTraceWidth="0.2mm" autorouter={{ traceClearance: ${clr} }}>`)
