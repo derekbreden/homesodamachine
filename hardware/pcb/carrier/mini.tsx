@@ -26,6 +26,8 @@ export default () => (
     <Jst name="J4" x={-66} y={2} count={7} labels={["GND", "V5", "IO13", "IO23", "IO39", "IO36", "IO14"]} rot={90} label="SENSORS" />
     <Jst name="J5" x={-2} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO5", "IO18", "IO19", "IO26", "IO25", "IO27"]} rot={0} label="DRIVER" />
     <Jst name="J8" x={-55} y={-45} count={2} labels={["GND", "V5"]} rot={0} label="POWER" />
+    <Jst name="J6" x={0} y={46} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
+    <Jst name="J7" x={24} y={-46} count={7} labels={["GND", "RB1", "RB2", "RB3", "RB4", "CARBLO", "CARBHI"]} rot={0} label="REEDS B" />
 
     {/* MCP 0x21 power -> 0x20 */}
     <trace from=".U3I > .VCC" to=".U2B > .VCC" />
@@ -100,5 +102,21 @@ export default () => (
     {/* POWER in: 5V -> ESP V5 (3V3 regulated on-board) */}
     <trace from=".J8 > .V5" to=".U1A > .V5" />
     <trace from=".J8 > .GND" to=".U1B > .GNDb" />
+
+    {/* REEDS A (reservoir A) -> 0x20 GPB inputs */}
+    <trace from=".J6 > .RA1" to=".U2B > .GPB0" />
+    <trace from=".J6 > .RA2" to=".U2B > .GPB1" />
+    <trace from=".J6 > .RA3" to=".U2B > .GPB2" />
+    <trace from=".J6 > .RA4" to=".U2B > .GPB3" />
+    <trace from=".J6 > .GND" to=".U2B > .GND" />
+
+    {/* REEDS B (reservoir B + carbonator low/high) -> 0x21 GPB inputs */}
+    <trace from=".J7 > .RB1" to=".U3B > .GPB0" />
+    <trace from=".J7 > .RB2" to=".U3B > .GPB1" />
+    <trace from=".J7 > .RB3" to=".U3B > .GPB2" />
+    <trace from=".J7 > .RB4" to=".U3B > .GPB3" />
+    <trace from=".J7 > .CARBLO" to=".U3B > .GPB4" />
+    <trace from=".J7 > .CARBHI" to=".U3B > .GPB5" />
+    <trace from=".J7 > .GND" to=".U3B > .GND" />
   </board>
 )
