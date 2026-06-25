@@ -5,14 +5,9 @@
  * lives in ./carrier_parts; placement + routing are declared here.
  *
  * Left column top->bottom: RS485, ESP32, DS3231. MCP stack (0x20 over 0x21) with
- * the ULN drivers and manifold connectors to the right. Fully wired: I2C bus,
- * the GPA->ULN->manifold valve chain, reed inputs, the ESP GPIO harness, the
- * RS485 UART + line-out, and the 5 V / 12 V power.
- *
- * Note on trace width: the tscircuit autorouter emits one uniform width
- * (minTraceWidth); per-trace `thickness` is ignored and traceClearance does not
- * drive it (realized clearance is congestion-bound, ~0.13 mm here). Signals are
- * fine at 0.2 mm; the high-current power legs are called out at J10 below.
+ * the ULN drivers and manifold connectors to the right. I2C bus, the
+ * GPA->ULN->manifold valve chain, reed inputs, the ESP GPIO harness, the RS485
+ * UART + line-out, and the 5 V / 12 V power all route to edge connectors J1-J10.
  */
 import {
   i8, Esp32, Mcp23017, Uln2803, Ds3231, Rs485, Jst, ulnOUT,
@@ -134,11 +129,7 @@ export default () => (
     <trace from=".J9 > .EARTH" to=".U7L > .Earth" />
 
     {/* VALVE 12V in: feeds the ULN flyback commons + solenoid high side, and the
-        valve-current ground return to the ULN grounds (power.mmd). These four are
-        the HIGH-CURRENT nets: COM/GND sink the summed solenoid + fan current, and
-        a dispense can hold ~1 A on one manifold. The autorouter gives them the
-        same 0.2 mm width as signals (~0.5 A) — reinforce these legs at assembly
-        (solder bead along the trace) before driving the full valve set. */}
+        valve-current ground return to the ULN grounds (power.mmd). */}
     <trace from=".J10 > .V12" to=".U4O > .COM" />
     <trace from=".J10 > .V12" to=".U5O > .COM" />
     <trace from=".J10 > .GND" to=".U4I > .GND" />
