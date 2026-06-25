@@ -170,23 +170,25 @@ export const Rs485 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: num
 // ---- JST trunk connector ---------------------------------------------------
 // A board header (the off-board loom cable plugs in) with a body outline + a
 // function label. Single row, in-plane body ~5.8 mm deep. The function label
-// sits perpendicular to the row, offset toward the board interior so it never
-// runs off the edge the connector lands on — auto from the connector's own
-// position (toward 0,0), since a connector on the bottom/left edge needs the
-// opposite sign from one on the top/right. labelDir overrides the sign if given.
+// runs PARALLEL to the row (rotated with the connector, like the pin labels) and
+// sits beside it, offset toward the board interior — so it clears the through-
+// hole row instead of crossing it, and never runs off the edge the connector
+// lands on. The interior side is auto from the connector's own position (toward
+// 0,0). labelDir overrides the sign if given.
 export const Jst = ({ name, x, y, count, labels, rot = 0, label, labelDir }: { name: string; x: number; y: number; count: number; labels: string[]; rot?: number; label: string; labelDir?: number }) => {
   const len = count * 2.54 + 2
   const dep = 5.8
-  const [w, h] = rot % 180 === 0 ? [len, dep] : [dep, len]
+  const vertical = rot % 180 !== 0
+  const [w, h] = vertical ? [dep, len] : [len, dep]
   const off = dep / 2 + 2
-  const [lx, ly] = rot % 180 === 0
-    ? [0, (labelDir ?? (-Math.sign(y) || -1)) * off]
-    : [(labelDir ?? (-Math.sign(x) || -1)) * off, 0]
+  const [lx, ly] = vertical
+    ? [(labelDir ?? (-Math.sign(x) || -1)) * off, 0]
+    : [0, (labelDir ?? (-Math.sign(y) || -1)) * off]
   return (
     <>
       <pinheader name={name} pinCount={count} pitch="2.54mm" gender="male" footprint={`pinrow${count}`} pcbRotation={rot} pinLabels={labels} {...at(x, y)} />
       <Outline x={x} y={y} w={w} h={h} />
-      <silkscreentext text={label} fontSize="1.4mm" pcbX={x + lx} pcbY={y + ly} />
+      <silkscreentext text={label} fontSize="1.4mm" pcbX={x + lx} pcbY={y + ly} pcbRotation={vertical ? 270 : 0} />
     </>
   )
 }
