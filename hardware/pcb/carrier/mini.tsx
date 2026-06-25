@@ -22,8 +22,8 @@ export default () => (
     <Mcp23017 name="U3" x={14.5} y={-20.25} addr="0x21" />
     <Uln2803 name="U4" x={39.65} y={25.56} />
     <Uln2803 name="U5" x={39.65} y={-14.94} />
-    <Jst name="J1" x={57.0} y={25.56} count={9} labels={ulnOUT} rot={90} label="MANIFOLD A" />
-    <Jst name="J2" x={57.0} y={-14.94} count={9} labels={ulnOUT} rot={90} label="MANIFOLD B" />
+    <Jst name="J1" x={57.0} y={25.56} count={9} labels={ulnOUT} rot={90} label="MANIFOLD A" labelDir={1} />
+    <Jst name="J2" x={57.0} y={-14.94} count={9} labels={ulnOUT} rot={90} label="MANIFOLD B" labelDir={1} />
     <Jst name="J3" x={-30.0} y={44} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" />
     <Jst name="J4" x={-63.0} y={2} count={7} labels={["GND", "V5", "IO13", "IO23", "IO39", "IO36", "IO14"]} rot={90} label="SENSORS" />
     <Jst name="J5" x={-25.0} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO5", "IO18", "IO19", "IO26", "IO25", "IO27"]} rot={0} label="DRIVER" />
