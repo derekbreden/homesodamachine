@@ -1,5 +1,9 @@
 flowchart LR
 
+  %% DERIVED VIEW — the canonical pin map is hardware/pcb/carrier/mini.tsx
+  %% (PCB-canonical). Keep this in sync with the board; do not change a pin
+  %% assignment here without changing mini.tsx first.
+  %%
   %% ESP32 Pin Assignments (re-clustered for minimal wiring crossings).
   %% Each subsystem lands on physically adjacent module pads, so its signals
   %% leave the socket as one bundle — fewer crossings on the carrier PCB and in

@@ -3,10 +3,11 @@
 A through-hole board the controller modules plug into on 2.54 mm headers,
 routing power and signals between them and landing each field harness on a
 labeled connector. The logical design it realizes — the ESP32 GPIO map, the
-MCP23017 I²C banks (0x20/0x21), and the valve / reed / sensor wiring — is the
-source of truth in [`/hardware/wiring/`](/hardware/wiring/)
+MCP23017 I²C banks (0x20/0x21), and the valve / reed / sensor wiring — is
+**canonical here in `mini.tsx`**; [`/hardware/wiring/`](/hardware/wiring/)
 ([`esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd),
-[`valve-control.mmd`](/hardware/wiring/valve-control.mmd)).
+[`valve-control.mmd`](/hardware/wiring/valve-control.mmd)) holds human-readable
+views derived from it (canonical-but-provisional until bring-up).
 
 ## Boards
 
