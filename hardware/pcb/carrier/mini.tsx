@@ -15,7 +15,7 @@ export default () => (
   <board width="145mm" height="100mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
     <Ds3231 name="U6" x={-35.15} y={-28.65} rot={180} />
     <Esp32 x={-28.15} y={-2} />
-    <Rs485 name="U7" x={-28.15} y={25.375} rot={180} />
+    <Rs485 name="U7" x={-32} y={25.375} rot={180} />
     <Mcp23017 name="U2" x={11.5} y={20.25} addr="0x20" />
     <Mcp23017 name="U3" x={11.5} y={-20.25} addr="0x21" />
     <Uln2803 name="U4" x={36.65} y={25.56} />
@@ -28,7 +28,7 @@ export default () => (
     <Jst name="J8" x={-55} y={-45} count={2} labels={["GND", "V5"]} rot={0} label="POWER" />
     <Jst name="J6" x={0} y={46} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={2} y={-46} count={7} labels={["GND", "RB1", "RB2", "RB3", "RB4", "CARBLO", "CARBHI"]} rot={0} label="REEDS B" />
-    <Jst name="J9" x={-14} y={47} count={3} labels={["A", "B", "EARTH"]} rot={0} label="DISPLAY" />
+    <Jst name="J9" x={-16} y={47} count={3} labels={["A", "B", "EARTH"]} rot={0} label="DISPLAY" />
     <Jst name="J10" x={60} y={5} count={2} labels={["GND", "V12"]} rot={90} label="VALVE 12V" />
 
     {/* MCP 0x21 power -> 0x20 */}
@@ -67,7 +67,7 @@ export default () => (
     <trace from=".U7T > .TXD" to=".U1A > .IO32" />
     <trace from=".U7T > .RXD" to=".U1A > .IO34" />
     <trace from=".U7T > .VCC" to=".U1A > .3V3" />
-    <trace from=".U7T > .GND" to=".U1A > .GND" />
+    <trace from=".U7T > .GND" to=".U1B > .GNDb" />
 
     {/* manifold JSTs: ULN outputs -> valve looms (parallel to the OUT rows) */}
     {i8.map((k) => <trace key={`j1${k}`} from={`.J1 > .OUT${k + 1}`} to={`.U4O > .OUT${k + 1}`} />)}
@@ -110,7 +110,7 @@ export default () => (
     <trace from=".J6 > .RA2" to=".U2B > .GPB1" />
     <trace from=".J6 > .RA3" to=".U2B > .GPB2" />
     <trace from=".J6 > .RA4" to=".U2B > .GPB3" />
-    <trace from=".J6 > .GND" to=".U2B > .GND" />
+    <trace from=".J6 > .GND" to=".U2I > .GND" />
 
     {/* REEDS B (reservoir B + carbonator low/high) -> 0x21 GPB inputs */}
     <trace from=".J7 > .RB1" to=".U3B > .GPB0" />
