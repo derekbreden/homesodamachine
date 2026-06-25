@@ -105,4 +105,66 @@ Realized in the saved plate (`Metadata/plate_1.json`):
 Still **saved but not fully sliced** — `slice_info.config` is header-only (no
 per-plate time/filament estimate, no G-code member), same as the snapshot above.
 
-### Result — not yet recorded (slice saved 2026-06-23)
+### Result — completed, one cruddy mid layer (2026-06-25, per Derek)
+
+The support-base brim held — the towers did not topple, and the print ran to
+completion (the prior failure mode did not recur).
+
+Derek: "Last print had a single layer in the middle that turned out cruddy
+because the AI monitoring paused for a long time on a 'detected air printing'
+that I simply resumed on and could find no trouble with."
+
+One mid-height layer printed cruddy. Derek attributes it to the printer's AI
+monitoring auto-pausing for an extended time on a false "detected air printing"
+alert; he resumed the print and found no actual fault. That auto-pause is a
+printer/cloud setting, not a project setting — it is not captured in the 3mf.
+
+## Re-slice — 0.16 mm profile + build-plate-only supports (2026-06-25, settings per [`funnel-mold.3mf`](funnel-mold.3mf))
+
+Same object, plate, and filament as the snapshots above — cavity half only
+(`funnel-mold-cavity.step`, 1 object, identity orientation), PETG Translucent
+slot. The print profile and the supports changed.
+
+Derek: "Did a couple other tweaks." Printer-side, the AI-monitoring "detected
+air printing" auto-pause was turned off (not captured in the 3mf).
+
+Profile swap — `print_settings_id` 0.08mm High Quality → 0.16mm High Quality:
+- `layer_height` 0.08 → 0.16 — roughly halves the layer count (targets the
+  standing "nearly 3 days for both pieces at 0.08 layers" note above).
+- Shell layer counts drop as the layers thicken (shell thickness held):
+  `top_shell_layers` 9 → 6, `bottom_shell_layers` 7 → 4;
+  `top_color_penetration_layers` 9 → 6, `bottom_color_penetration_layers` 7 → 4.
+- Profile speeds rise (mm/s): `inner_wall_speed` 120 → 150,
+  `internal_solid_infill_speed` 120 → 180, `sparse_infill_speed` 100 → 180,
+  `top_surface_speed` 120 → 150, `gap_infill_speed` 50 → 250,
+  `initial_layer_speed` 40 → 50, `initial_layer_infill_speed` 70 → 105.
+- `support_top_z_distance` / `support_bottom_z_distance` 0.08 → 0.16 (one layer,
+  tracking layer height).
+- `ironing_flow` 8 % → 25 %, `ironing_speed` 30 → 20 — profile defaults only;
+  `ironing_type` is still no ironing, so these are inert.
+
+Support changes (now also in `different_settings_to_system`):
+- `support_on_build_plate_only` 0 → 1 — supports grow only from the bed, not off
+  the part's surfaces.
+- `support_threshold_angle` 15 → 45.
+- `raft_first_layer_expansion` 20 → 5 — the tower-base brim from the previous
+  attempt, dialed back from 20 mm to 5 mm.
+
+Other:
+- `extruder_ams_count` extruder-1 entry `4#0` → `4#1` (AMS slot bookkeeping;
+  incidental).
+- Filament, wall loops, line widths, seam, cooling, and the part brim
+  (`brim_type` auto_brim, `brim_width` 5) — all unchanged.
+
+Realized in the saved plate (`Metadata/plate_1.json`):
+- 1 object, `funnel-mold-cavity.step` — still the cavity half only; the core is
+  not on this plate.
+- Plate bbox ≈ 107 × 158 mm (was ≈ 155 × 215 in the brimmed snapshot) — the
+  support footprint pulled back in (raft expansion 20 → 5, build-plate-only
+  supports, threshold 45).
+- `first_layer_time` ≈ 541 s (was ≈ 1056).
+
+Still **saved but not fully sliced** — `slice_info.config` is header-only (no
+per-plate time/filament estimate, no G-code member), same as the snapshots above.
+
+### Result — not yet recorded (print started 2026-06-25)
