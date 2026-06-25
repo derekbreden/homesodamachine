@@ -624,6 +624,29 @@
 .pcb-wrapper > .pad-pick-toggle.off {
   opacity: 0.55;
 }
+
+/* Board outer-dimensions readout — bottom-centre, between the pad-pick toggle
+   (bottom-left) and the reset button (bottom-right). Sourced dynamically from
+   the board element via picks.json (pick-data.ts), with an SVG-viewBox
+   fallback. Monospace, non-interactive so it never swallows a pan/drag. */
+.pcb-wrapper > .pcb-dims {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 12;
+  padding: 5px 10px;
+  background: rgba(35, 35, 66, 0.85);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font: 12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+}
 .pcb-pick-layer {
   pointer-events: none;
 }

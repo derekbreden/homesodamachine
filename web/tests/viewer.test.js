@@ -89,3 +89,56 @@ test("/3d renders subsystem subheaders after JS hydrates", async (t) => {
     );
   }
 });
+
+test("/pcb board modal shows the board's outer dimensions", async (t) => {
+  if (!puppeteer) return t.skip("puppeteer unavailable");
+  // Needs a rendered board with a picks sidecar (the dimensions source).
+  const picksPath = path.join(
+    REPO_ROOT, "hardware", "pcb", "carrier", "out", "mini.picks.json",
+  );
+  if (!fs.existsSync(picksPath)) return t.skip("no rendered board with picks");
+
+  // Reuse the browser the prior test launched; launch one if it skipped.
+  if (!browser) {
+    try {
+      browser = await puppeteer.launch({ headless: true });
+    } catch (e) {
+      return t.skip(`puppeteer launch failed: ${e.message}`);
+    }
+  }
+  const page = await browser.newPage();
+  try {
+    await page.goto(`${baseUrl}/pcb`, { waitUntil: "domcontentloaded" });
+
+    // Open the first board by deep-link hash and read the dimensions chip.
+    // Asserting against the board's own picks `size` keeps this dynamic — it
+    // tracks a resize instead of pinning a magic number.
+    const board = await page.evaluate(() =>
+      fetch("/api/pcb").then((r) => r.json()).then((b) => b[0]),
+    );
+    assert.ok(board && board.picks, "expected a board with a picks sidecar from /api/pcb");
+
+    const size = await page.evaluate(
+      (p) => fetch(`/api/pcb-picks/${p}`).then((r) => r.json()).then((j) => j.size),
+      board.picks,
+    );
+    // picks.json is a render artifact; if it predates the size field, skip
+    // rather than fail (a re-render adds it — see pick-data.ts).
+    if (!size || !size.width || !size.height) {
+      return t.skip("board picks lack size — re-render needed");
+    }
+
+    await page.evaluate((src) => {
+      location.hash = "pcb:" + encodeURIComponent(src);
+    }, board.source);
+
+    await page.waitForSelector(".pcb-dims", { timeout: 10_000 });
+    const chip = await page.$eval(".pcb-dims", (el) => el.textContent.trim());
+
+    const fmt = (n) => (Math.round(n * 10) / 10).toString();
+    const want = `${fmt(size.width)} × ${fmt(size.height)} mm`;
+    assert.equal(chip, want, `dims chip "${chip}" should equal "${want}"`);
+  } finally {
+    await page.close().catch(() => {});
+  }
+});

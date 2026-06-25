@@ -144,7 +144,16 @@ function distill(circuit: any[]) {
     })
   }
 
-  return { board, unitsPerMm: 1000, pads, vias, traces }
+  // Board outer dimensions (mm), straight off the board element — the
+  // authoritative size the viewer shows and the fab cuts to. Dynamic: it
+  // tracks whatever the source declares, so a resize updates the readout.
+  const boardEl = circuit.find((e) => e.type === "pcb_board")
+  const size =
+    boardEl && boardEl.width && boardEl.height
+      ? { width: round(boardEl.width), height: round(boardEl.height) }
+      : null
+
+  return { board, unitsPerMm: 1000, size, pads, vias, traces }
 }
 
 function round(n: number) {

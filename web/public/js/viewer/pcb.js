@@ -100,6 +100,37 @@ function shortName(source) {
   return parts.pop().replace(/\.tsx$/, "");
 }
 
+// Board outer dimensions readout. Authoritative source is the board element's
+// width/height, carried in picks.json (pick-data.ts); when a board has no picks
+// sidecar we fall back to the mounted SVG's viewBox (Gerber units ÷ unitsPerMm),
+// which is the rendered extent (a hair larger than the cut outline). Returns a
+// "134 × 100 mm" string, or null if neither source is available.
+function fmtMm(n) {
+  return (Math.round(n * 10) / 10).toString();
+}
+function boardDimsText(picks, wrapper) {
+  const s = picks && picks.size;
+  if (s && s.width && s.height) return `${fmtMm(s.width)} × ${fmtMm(s.height)} mm`;
+  const svg = wrapper && wrapper.querySelector("svg.pcb-svg");
+  const vb = svg && svg.viewBox && svg.viewBox.baseVal;
+  const per = (picks && picks.unitsPerMm) || 1000;
+  if (vb && vb.width && vb.height) return `${fmtMm(vb.width / per)} × ${fmtMm(vb.height / per)} mm`;
+  return null;
+}
+// Create or update the bottom-centre dimensions chip in `wrapper`.
+function updateDimsChip(wrapper, picks) {
+  if (!wrapper) return;
+  const text = boardDimsText(picks, wrapper);
+  let el = wrapper.querySelector(".pcb-dims");
+  if (!text) { if (el) el.remove(); return; }
+  if (!el) {
+    el = document.createElement("div");
+    el.className = "pcb-dims";
+    wrapper.appendChild(el);
+  }
+  el.textContent = text;
+}
+
 // --- Thumbnail ---
 // The card thumbnail is the Overlay view SVG, scaled by its container. Cached as
 // a string (matches drawings/mermaid; keeps the grid cache shape uniform).
@@ -238,6 +269,7 @@ export async function openPcbDetail(source, pushHistory = true) {
   state.currentPcbToggle = toggle;
   state.currentPcbView = view;
   mountView(view, false);
+  updateDimsChip(wrapper, picks);
   // Local handles for onOpen/onClose so a later modal reassigning the shared
   // state can't strand this modal's fit or teardown.
   const pz = state.currentPcbPz;
@@ -305,6 +337,7 @@ export async function refetchOpenPcb(source) {
   const prevActive = state.currentPcbViews?.[state.currentPcbView];
   state.currentPcbViews = views;
   state.currentPcbPicks = picks;
+  updateDimsChip(state.currentPcbWrapper, picks);
   // The board re-rendered underneath us: drop any stale selection (its geometry
   // may be gone) so the inspector doesn't keep a dead highlight, then rebuild
   // the hit targets from the fresh picks so they line up with the new copper.
