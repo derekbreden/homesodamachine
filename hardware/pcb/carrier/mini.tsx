@@ -13,9 +13,9 @@ import {
 
 export default () => (
   <board width="112mm" height="82mm" minTraceWidth="0.2mm" traceClearance="0.4mm">
-    <Ds3231 name="U6" x={-21.4} y={28.9} rot={180} />
-    <Esp32 x={-28.15} y={2.25} rot={180} />
-    <Rs485 name="U7" x={-28.075} y={-25.125} rot={180} />
+    <Ds3231 name="U6" x={-35.15} y={-28.925} rot={180} />
+    <Esp32 x={-28.15} y={-2} />
+    <Rs485 name="U7" x={-28.15} y={25.45} rot={180} />
     <Mcp23017 name="U2" x={11.5} y={20.55} addr="0x20" />
     <Mcp23017 name="U3" x={11.5} y={-20.25} addr="0x21" />
     <Uln2803 name="U4" x={36.65} y={25.56} />
@@ -26,10 +26,16 @@ export default () => (
     <trace from=".U3I > .GND" to=".U2B > .GND" />
 
     {/* I2C bus */}
-    <trace from=".U2I > .SDA" to="net.SDA" />
-    <trace from=".U2I > .SCL" to="net.SCL" />
-    <trace from=".U3I > .SDA" to="net.SDA" />
-    <trace from=".U3I > .SCL" to="net.SCL" />
+    <trace from=".U1B > .IO21" to=".U6I > .SDA" />
+    <trace from=".U1B > .IO22" to=".U6I > .SCL" />
+    <trace from=".U2I > .SDA" to=".U3I > .SDA" />
+    <trace from=".U2I > .SCL" to=".U3I > .SCL" />
+    <trace from=".U1B > .IO21" to=".U3I > .SDA" />
+    <trace from=".U1B > .IO22" to=".U3I > .SCL" />
+
+    {/* DS3231 VCC / GND */}
+    <trace from=".U6H > .VCC" to=".U3B > .VCC" />
+    <trace from=".U6H > .GND" to=".U3A > .GND" />
 
     {/* MCP GPA banks broken out */}
     {i8.map((k) => <trace key={`a2${k}`} from={`.U2A > .GPA${k}`} to={`net.U2_GPA${k}`} />)}
