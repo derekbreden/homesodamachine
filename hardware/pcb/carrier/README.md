@@ -32,10 +32,12 @@ source of truth in [`/hardware/wiring/`](/hardware/wiring/)
   — x-mirrored, the board flipped over), and Overlay (both copper, **front silk
   only** — the x-ray "seen through the board" view) SVGs, at the real trace
   widths. `SCHEMES` holds the colour schemes (`copper` default, `blueprint`, `ink`).
-- `bottom-silk.ts` — tscircuit draws the legend on the front only; this mirrors
-  it onto `B_SilkScreen` *in place* (each label stays on its own pad, glyphs flip
-  left-right) so the back face reads correctly from the solder side. `render-board`
-  synthesizes it into both the bottom view and the fabrication zip.
+- `bottom-silk.ts` — tscircuit draws the legend on the front only; this emits a
+  throwaway board of `layer="bottom"` copies of every front silk element (same
+  positions). `render-board` builds that with tscircuit and lifts its
+  `B_SilkScreen`, so the back legend is rendered by the same engine — identical
+  font + per-size stroke to the front, mirrored in place so it reads correctly
+  from the solder side — into both the bottom view and the fabrication zip.
 - `out/` — exactly what `render-board.ts` produces, so a save keeps it current
   and `build:check` guards it: `<board>.{top,bottom,overlay}.{svg,png}` (the
   three copper views the site shows) and `<board>.gerbers.zip` (the fabrication
