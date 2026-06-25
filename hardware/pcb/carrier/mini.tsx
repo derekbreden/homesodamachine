@@ -39,6 +39,10 @@ export default () => (
     <trace from=".U6H > .VCC" to=".U3B > .VCC" />
     <trace from=".U6H > .GND" to=".U3A > .GND" />
 
+    {/* ESP 3V3 + GND feed the expander power/ground (completes logic power) */}
+    <trace from=".U1A > .3V3" to=".U2B > .VCC" />
+    <trace from=".U1A > .GND" to=".U2B > .GND" />
+
     {/* MCP GPA banks broken out */}
     {i8.map((k) => <trace key={`a2${k}`} from={`.U2A > .GPA${k}`} to={`net.U2_GPA${k}`} />)}
     {i8.map((k) => <trace key={`a3${k}`} from={`.U3A > .GPA${k}`} to={`net.U3_GPA${k}`} />)}
