@@ -66,14 +66,22 @@ export const Outline = ({ x, y, w, h }: { x: number; y: number; w: number; h: nu
 )
 
 // ---- ESP32-DevKitC-32E socket (2x19 @ 2.54, rows 25.4 apart) ---------------
-export const Esp32 = ({ x, y }: { x: number; y: number }) => (
-  <>
-    <pinheader name="U1A" pinCount={19} pitch="2.54mm" gender="female" footprint="pinrow19" pinLabels={espA} {...at(x, y + 12.7)} />
-    <pinheader name="U1B" pinCount={19} pitch="2.54mm" gender="female" footprint="pinrow19" pinLabels={espB} {...at(x, y - 12.7)} />
-    <Outline x={x} y={y} w={52} h={28} />
-    <silkscreentext text="ESP32" fontSize="3mm" pcbX={x} pcbY={y} />
-  </>
-)
+// rot turns the whole socket a quarter-turn: the A/B rows swap sides and each
+// row's pin order reverses, so the labels still resolve but the bus row can be
+// aimed at whatever neighbour it should face.
+export const Esp32 = ({ x, y, rot = 0 }: { x: number; y: number; rot?: number }) => {
+  const o = (ox: number, oy: number) => rotxy(ox, oy, rot)
+  const a = o(0, 12.7), b = o(0, -12.7)
+  const [w, h] = rot % 180 === 0 ? [52, 28] : [28, 52]
+  return (
+    <>
+      <pinheader name="U1A" pinCount={19} pitch="2.54mm" gender="female" footprint="pinrow19" pcbRotation={rot} pinLabels={espA} {...at(x + a[0], y + a[1])} />
+      <pinheader name="U1B" pinCount={19} pitch="2.54mm" gender="female" footprint="pinrow19" pcbRotation={rot} pinLabels={espB} {...at(x + b[0], y + b[1])} />
+      <Outline x={x} y={y} w={w} h={h} />
+      <silkscreentext text="ESP32" fontSize="3mm" pcbX={x} pcbY={y} />
+    </>
+  )
+}
 
 // ---- Waveshare MCP23017 board (23.3 x 38.5) --------------------------------
 // I2C header on the +Y edge, GPA row on +X, GPB row on -X (before rotation).
