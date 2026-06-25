@@ -5,7 +5,11 @@
  * this carries the identity (component ref, pin, net) and position for each
  * pad so a click can name what it landed on.
  *
- *   bun pick-data.ts <board.tsx>
+ *   bun pick-data.ts <board.tsx> [circuit.json]
+ *
+ * If a pre-exported circuit-json path is given (render-board passes the one it
+ * already exported), it's read directly — no second build. Otherwise this
+ * exports its own transiently.
  *
  * Positions are in board millimetres (circuit-json native). The viewer maps mm
  * onto the SVG by the same `scale(1,-1)` Gerber-unit frame the views use
@@ -27,23 +31,26 @@ const dir = path.dirname(boardFile)
 const board = path.basename(boardFile).replace(/\.tsx$/, "")
 const tsci = path.join(dir, "node_modules", ".bin", "tsci")
 
-// Export circuit JSON transiently to distill picks. tsci resolves -o relative
-// to cwd and mangles an absolute path (see render-board.ts), so hand it a
-// cwd-relative target inside the board dir, then read and remove it.
-const cjRel = `.${board}.circuit.tmp.json`
-const cjAbs = path.join(dir, cjRel)
+// Use a caller-supplied circuit-json if given (render-board already exported
+// one); else export transiently. tsci resolves -o relative to cwd and mangles
+// an absolute path (see render-board.ts), so a self-export stays cwd-relative.
+const given = process.argv[3]
+const cjRel = given ?? `.${board}.circuit.tmp.json`
+const cjAbs = path.isAbsolute(cjRel) ? cjRel : path.join(dir, cjRel)
 try {
-  execFileSync(tsci, ["export", "-f", "circuit-json", "-o", cjRel, `${board}.tsx`], {
-    cwd: dir,
-    stdio: ["ignore", "pipe", "pipe"],
-  })
+  if (!given) {
+    execFileSync(tsci, ["export", "-f", "circuit-json", "-o", cjRel, `${board}.tsx`], {
+      cwd: dir,
+      stdio: ["ignore", "pipe", "pipe"],
+    })
+  }
   const circuit = JSON.parse(readFileSync(cjAbs, "utf8"))
   const data = distill(circuit)
   const outPath = path.join(dir, "out", `${board}.picks.json`)
   writeFileSync(outPath, JSON.stringify(data))
   console.log(`[${board}] wrote ${board}.picks.json — ${data.pads.length} pads`)
 } finally {
-  rmSync(cjAbs, { force: true })
+  if (!given) rmSync(cjAbs, { force: true })
 }
 
 function distill(circuit: any[]) {
