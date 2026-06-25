@@ -57,8 +57,12 @@ export default () => (
     {i8.map((k) => <trace key={`a2${k}`} from={`.U2A > .GPA${k}`} to={`net.U2_GPA${k}`} />)}
     {i8.map((k) => <trace key={`a3${k}`} from={`.U3A > .GPA${k}`} to={`net.U3_GPA${k}`} />)}
 
-    {/* ULN grounds */}
-    <trace from=".U5I > .GND" to=".U2A > .GND" />
+    {/* ULN cluster -> logic ground: ONE tie. The ULN's single GND pin is both
+        its valve-current return and the reference for its MCP-driven inputs, so
+        the cluster needs exactly one tie to the MCP ground. U4 (driven by U2)
+        makes it here; U5 reaches the same ground through J10 -> U4 (see J10
+        below) and J10 carries its valve return, so U5 needs no tie of its own.
+        A second tie would only re-loop the ground through the MCP. */}
     <trace from=".U4I > .GND" to=".U2I > .GND" />
 
     {/* GPA -> ULN inputs */}
