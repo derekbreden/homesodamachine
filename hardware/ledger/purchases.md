@@ -289,6 +289,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Stainless-steel float switch, double-ball, 200 mm tube — teardown/donor for the commodity ⌀28 × 28 mm crimped SS float that recurs across nearly all SS float-switch listings. Order #112-7010270-8849812, placed Jun 14, 2026 | [B09JSYMM5G](https://www.amazon.com/dp/B09JSYMM5G) | 1 | $15.22 | ACQUIRED (delivered Jun 16) |
 | MECCANIXITY stainless-steel float switch, 45 mm rod, M10 thread (2 pc) — same commodity ⌀28 × 28 mm SS float, teardown/donor. Order #112-7886483-1554622, placed Jun 14, 2026 | [B0FL763VPL](https://www.amazon.com/dp/B0FL763VPL) | 1 pk (2) | $14.79 | ACQUIRED (delivered Jun 16) |
 | EC Buying XKC-Y25-V non-contact capacitive liquid-level sensor. Order #112-5459082-8422662, placed May 8, 2026 | [B0C73F96MF](https://www.amazon.com/dp/B0C73F96MF) | 1 | $10.29 | ACQUIRED (delivered May 9) |
+| Shutao 6-pc water-sensor module, LM393 comparator, 3.3–5 V — backflow drip-pan wet telltale: conductivity plate sits in the internal drip pan, VCC at 3.3 V keeps DO ESP-safe (active-low when wet) → ESP32 GPIO 13. Order #112-2621523-2281840, placed June 25, 2026 | [B0B2W76MB1](https://www.amazon.com/dp/B0B2W76MB1) | 1 pk (6) | $7.50 | ON-ORDER (arriving Jun 26) |
 | HiLetgo MPR121 12-channel I2C capacitive touch breakout (2 pk). Order #112-5503072-4357859, placed May 8, 2026 | [B06XXYZPPX](https://www.amazon.com/dp/B06XXYZPPX) | 1 pk | $6.85 | ACQUIRED (delivered May 10) |
 | Kraftex copper foil tape, 1/4" × 66 ft, conductive adhesive. Order #112-5656837-1597066, placed May 8, 2026 | [B0G1TN3JWB](https://www.amazon.com/dp/B0G1TN3JWB) | 1 | $7.50 | ACQUIRED (delivered May 9) |
 | ~~Tynulox 1/8" × 6" 304 SS round rod (10 pk)~~. Order #112-8251187-7721036, placed April 24, 2026 | [B0BKGS32KJ](https://www.amazon.com/dp/B0BKGS32KJ) | 1 pk | $8.56 | ACQUIRED (superseded) |
@@ -554,10 +555,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$27,226.23](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$29,834.15](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$948.93](LEDGER_ON_ORDER) |
+| ON-ORDER | [$956.43](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$30,825.97](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$30,833.47](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
