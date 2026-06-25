@@ -4098,6 +4098,7 @@
     "connected_source_net_ids": [],
     "subcircuit_id": "subcircuit_source_group_0",
     "display_name": ".J3 > .V5 to .U1A > .V5",
+    "min_trace_thickness": 0.5,
     "subcircuit_connectivity_map_key": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net51"
   },
   {
@@ -4182,6 +4183,7 @@
     "connected_source_net_ids": [],
     "subcircuit_id": "subcircuit_source_group_0",
     "display_name": ".J4 > .V5 to .U1A > .V5",
+    "min_trace_thickness": 0.5,
     "subcircuit_connectivity_map_key": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net51"
   },
   {
@@ -4314,6 +4316,7 @@
     "connected_source_net_ids": [],
     "subcircuit_id": "subcircuit_source_group_0",
     "display_name": ".J8 > .V5 to .U1A > .V5",
+    "min_trace_thickness": 0.6,
     "subcircuit_connectivity_map_key": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net51"
   },
   {
@@ -4326,6 +4329,7 @@
     "connected_source_net_ids": [],
     "subcircuit_id": "subcircuit_source_group_0",
     "display_name": ".J8 > .GND to .U1B > .GNDb",
+    "min_trace_thickness": 0.6,
     "subcircuit_connectivity_map_key": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net30"
   },
   {
@@ -4518,6 +4522,7 @@
     "connected_source_net_ids": [],
     "subcircuit_id": "subcircuit_source_group_0",
     "display_name": ".J10 > .V12 to .U4O > .COM",
+    "min_trace_thickness": 1,
     "subcircuit_connectivity_map_key": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net39"
   },
   {
@@ -4530,6 +4535,7 @@
     "connected_source_net_ids": [],
     "subcircuit_id": "subcircuit_source_group_0",
     "display_name": ".J10 > .V12 to .U5O > .COM",
+    "min_trace_thickness": 1,
     "subcircuit_connectivity_map_key": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net39"
   },
   {
@@ -4542,6 +4548,7 @@
     "connected_source_net_ids": [],
     "subcircuit_id": "subcircuit_source_group_0",
     "display_name": ".J10 > .GND to .U4I > .GND",
+    "min_trace_thickness": 1,
     "subcircuit_connectivity_map_key": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net27"
   },
   {
@@ -4554,6 +4561,7 @@
     "connected_source_net_ids": [],
     "subcircuit_id": "subcircuit_source_group_0",
     "display_name": ".J10 > .GND to .U5I > .GND",
+    "min_trace_thickness": 1,
     "subcircuit_connectivity_map_key": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net27"
   },
   {
