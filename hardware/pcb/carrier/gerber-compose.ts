@@ -158,8 +158,15 @@ export async function composeViews(dir: string, scheme: Scheme) {
   // fill="none") stroke — so the wrapper sets both. Setting literal fill/stroke
   // (rather than an inherited CSS color / currentColor) resolves in every
   // renderer, resvg included.
-  const paint = (l: Layer | null, color: string, opacity = 1, fillOpacity = 1) =>
-    l ? `<g fill="${color}" stroke="${color}"${opacity !== 1 ? ` opacity="${opacity}"` : ""}${fillOpacity !== 1 ? ` fill-opacity="${fillOpacity}"` : ""}>${l.body}</g>` : ""
+  // Copper fades via fill-opacity so the pour reads as a faint wash. But pads and
+  // vias are aperture flashes (<use>), and we want those solid — pin each flash
+  // back to fill-opacity 1, so only the region fills (the pour) stay faded while
+  // the through-holes read at full strength. Traces are stroked <path>, untouched.
+  const paint = (l: Layer | null, color: string, opacity = 1, fillOpacity = 1) => {
+    if (!l) return ""
+    const body = fillOpacity !== 1 ? l.body.replace(/<use\b/g, '<use fill-opacity="1"') : l.body
+    return `<g fill="${color}" stroke="${color}"${opacity !== 1 ? ` opacity="${opacity}"` : ""}${fillOpacity !== 1 ? ` fill-opacity="${fillOpacity}"` : ""}>${body}</g>`
+  }
 
   const drillPunch = `${paint(drl, scheme.drill)}${paint(drlN, scheme.drill)}`
   const edgePaint = paint(edge, scheme.edge)
