@@ -78,6 +78,8 @@ const run = (label: string, boardTag: string) => {
   console.log(`${label.padEnd(20)} vias:${String(viaN).padStart(3)} drc:${drc} minW:${traceW.toFixed(3)}  T-T:${m.tt.gap.toFixed(3)} ${m.tt.info}  T-pad:${m.tp.gap.toFixed(3)} ${m.tp.info}  FLOOR:${m.floor.toFixed(3)}mm`)
 }
 
-console.log("# minTraceWidth sweep — FLOOR = min(trace-trace, trace-pad), the weakest link\n")
-for (const w of ["0.13mm", "0.14mm", "0.15mm", "0.16mm", "0.17mm", "0.18mm", "0.2mm", "0.22mm", "0.25mm"])
-  run(`minTraceWidth=${w}`, `<board width="134mm" height="100mm" minTraceWidth="${w}">`)
+console.log("# autorouter.traceClearance -> defaultObstacleMargin sweep (patched core)\n")
+console.log("# minTraceWidth=0.2mm fixed (drawn width); FLOOR = min(trace-trace, trace-pad)\n")
+run("none (baseline)", `<board width="134mm" height="100mm" minTraceWidth="0.2mm">`)
+for (const clr of [0.28, 0.3, 0.31, 0.32, 0.33, 0.34, 0.36, 0.38])
+  run(`traceClearance=${clr}`, `<board width="134mm" height="100mm" minTraceWidth="0.2mm" autorouter={{ traceClearance: ${clr} }}>`)
