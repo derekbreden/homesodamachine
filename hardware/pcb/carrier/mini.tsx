@@ -22,12 +22,12 @@ export default () => (
     <Uln2803 name="U5" x={36.65} y={-14.94} />
     <Jst name="J1" x={54} y={25.56} count={9} labels={ulnOUT} rot={90} label="MANIFOLD A" />
     <Jst name="J2" x={54} y={-14.94} count={9} labels={ulnOUT} rot={90} label="MANIFOLD B" />
-    <Jst name="J3" x={-45} y={44} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" />
+    <Jst name="J3" x={-33} y={44} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" />
     <Jst name="J4" x={-66} y={2} count={7} labels={["GND", "V5", "IO13", "IO23", "IO39", "IO36", "IO14"]} rot={90} label="SENSORS" />
-    <Jst name="J5" x={-2} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO5", "IO18", "IO19", "IO26", "IO25", "IO27"]} rot={0} label="DRIVER" />
+    <Jst name="J5" x={-28} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO5", "IO18", "IO19", "IO26", "IO25", "IO27"]} rot={0} label="DRIVER" />
     <Jst name="J8" x={-55} y={-45} count={2} labels={["GND", "V5"]} rot={0} label="POWER" />
     <Jst name="J6" x={0} y={46} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
-    <Jst name="J7" x={24} y={-46} count={7} labels={["GND", "RB1", "RB2", "RB3", "RB4", "CARBLO", "CARBHI"]} rot={0} label="REEDS B" />
+    <Jst name="J7" x={2} y={-46} count={7} labels={["GND", "RB1", "RB2", "RB3", "RB4", "CARBLO", "CARBHI"]} rot={0} label="REEDS B" />
 
     {/* MCP 0x21 power -> 0x20 */}
     <trace from=".U3I > .VCC" to=".U2B > .VCC" />
