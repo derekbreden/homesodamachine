@@ -22,9 +22,10 @@ source of truth in [`/hardware/wiring/`](/hardware/wiring/)
   (`web/dev-server`) runs it on every save of a board under `pcb/`, so the
   site's Boards viewer (`/pcb`) stays current.
 - `gerber-compose.ts` — composes a Gerber folder into Top (front copper + front
-  silk), Bottom (back copper + back silk), and Overlay (both copper, **front silk
-  only**) SVGs, aligned in one frame at the real trace widths. `SCHEMES` holds
-  the colour schemes (`copper` default, `blueprint`, `ink`).
+  silk, looking down), Bottom (back copper + back silk **as viewed from the back**
+  — x-mirrored, the board flipped over), and Overlay (both copper, **front silk
+  only** — the x-ray "seen through the board" view) SVGs, at the real trace
+  widths. `SCHEMES` holds the colour schemes (`copper` default, `blueprint`, `ink`).
 - `bottom-silk.ts` — tscircuit draws the legend on the front only; this mirrors
   it onto `B_SilkScreen` *in place* (each label stays on its own pad, glyphs flip
   left-right) so the back face reads correctly from the solder side. `render-board`
