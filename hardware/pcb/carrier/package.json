@@ -18,6 +18,7 @@
   },
   "patchedDependencies": {
     "@tscircuit/core@0.0.1351": "patches/@tscircuit%2Fcore@0.0.1351.patch",
-    "@tscircuit/cli@0.1.1537": "patches/@tscircuit%2Fcli@0.1.1537.patch"
+    "@tscircuit/cli@0.1.1537": "patches/@tscircuit%2Fcli@0.1.1537.patch",
+    "@tscircuit/copper-pour-solver@0.0.29": "patches/@tscircuit%2Fcopper-pour-solver@0.0.29.patch"
   }
 }
