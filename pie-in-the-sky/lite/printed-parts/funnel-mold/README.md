@@ -16,7 +16,7 @@ tracks the funnel as the lite packing keeps settling.
 
 Neither is a solid block. Each is the bare structure the mold needs and nothing
 more — a forming wall around the funnel, a registration band at the top, and a
-minimal brace — with everything else open. The pair is [502 g](PAIR_MASS) of PETG
+minimal brace — with everything else open. The pair is [503 g](PAIR_MASS) of PETG
 at 100 % infill; the forming-wall overhangs are held during printing by
 sacrificial **supports**, not by PETG that stays in the part.
 
