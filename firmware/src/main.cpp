@@ -35,7 +35,7 @@
 
 // ── Inputs ──
 #define FLAVOR_SW_PIN   13   // latching toggle: flavor select (air switch)
-#define FLOW_PIN        23   // flow meter pulse input
+#define FLOW_PIN        15   // flow meter pulse input
 
 // ── Per-flavor config (runtime, persisted in LittleFS) ──
 // Ratio: flavoring to water in 1:X. Lower = more flavor.
