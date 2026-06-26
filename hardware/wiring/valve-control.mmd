@@ -13,16 +13,21 @@ flowchart LR
   %% Port A drives its own ULN2803A (outputs), Port B reads reeds (inputs):
   %%   0x20  8 valve outputs (V-A..V-H) on Port A -> ULN2803A #1 -> MANIFOLD A;
   %%         4 reservoir-A reed inputs on Port B[0:3]; PB[4:7] spare.
-  %%   0x21  4 valve outputs (V-I/V-J/V-K-A/V-K-B) on Port A[0:3] + condenser fan
-  %%         on PA4 -> ULN2803A #2 (ch 1-5) -> MANIFOLD B; PA[5:7] spare;
+  %%   0x21  4 valve outputs (V-I/V-J/V-K-A/V-K-B) on Port A[4:7] + condenser fan
+  %%         on PA3 -> ULN2803A #2 (ch 1-5) -> MANIFOLD B; PA[0:2] spare;
   %%         4 reservoir-B reed inputs on Port B[0:3]; 2 carbonator reeds on
   %%         PB[4:5]; PB[6:7] spare.
+  %%
+  %%  Bit order: the ULN2803A modules mount silk-side-up, which reverses their
+  %%  input row, so on the board GPA_k drives ULN channel (8-k) — the GPA bit
+  %%  order runs OPPOSITE the channel/valve order (0x20 GPA0->V-H .. GPA7->V-A;
+  %%  0x21 GPA7->V-I .. GPA3->fan, GPA[0:2] spare). Port B (reeds) is unaffected.
   %%
   %% Level sensing rides the MCP internal pull-ups (no external resistors):
   %% the 8 reservoir reeds (4 per reservoir × 2) plus the 2 carbonator reeds,
   %% 10 reed inputs total. Reservoir A's 4 reeds land on 0x20 PB[0:3]; Reservoir
   %% B's 4 reeds on 0x21 PB[0:3]; the carbonator's low/high reeds on 0x21 PB[4:5].
-  %% PA4 of 0x21 drives the condenser fan via ULN2803A #2 channel 5 (the fan is a
+  %% PA3 of 0x21 drives the condenser fan via ULN2803A #2 channel 5 (the fan is a
   %% 12 V DC brushless axial — see `power.mmd`).
   %%
   %% Conditional: 0x21 could be replaced by a 74HC165 shift register or
@@ -51,14 +56,14 @@ flowchart LR
 
     subgraph PortA0["Port A  (GPA0–7) — OUTPUTS"]
       direction TB
-      A0_GPA0["GPA0 → V-A"]
-      A0_GPA1["GPA1 → V-B"]
-      A0_GPA2["GPA2 → V-C"]
-      A0_GPA3["GPA3 → V-D"]
-      A0_GPA4["GPA4 → V-E"]
-      A0_GPA5["GPA5 → V-F"]
-      A0_GPA6["GPA6 → V-G"]
-      A0_GPA7["GPA7 → V-H"]
+      A0_GPA0["GPA0 → V-H"]
+      A0_GPA1["GPA1 → V-G"]
+      A0_GPA2["GPA2 → V-F"]
+      A0_GPA3["GPA3 → V-E"]
+      A0_GPA4["GPA4 → V-D"]
+      A0_GPA5["GPA5 → V-C"]
+      A0_GPA6["GPA6 → V-B"]
+      A0_GPA7["GPA7 → V-A"]
     end
 
     subgraph PortB0["Port B  (GPB0–7) — INPUTS"]
@@ -79,14 +84,14 @@ flowchart LR
 
     subgraph PortA1["Port A  (GPA0–7) — OUTPUTS  (4 valves + cond fan + 3 spare)"]
       direction TB
-      A1_GPA0["GPA0 → V-I"]
-      A1_GPA1["GPA1 → V-J"]
-      A1_GPA2["GPA2 → V-K-A"]
-      A1_GPA3["GPA3 → V-K-B"]
-      A1_GPA4["GPA4 → Cond fan"]
-      A1_GPA5["GPA5  spare"]
-      A1_GPA6["GPA6  spare"]
-      A1_GPA7["GPA7  spare"]
+      A1_GPA0["GPA0  spare"]
+      A1_GPA1["GPA1  spare"]
+      A1_GPA2["GPA2  spare"]
+      A1_GPA3["GPA3 → Cond fan"]
+      A1_GPA4["GPA4 → V-K-B"]
+      A1_GPA5["GPA5 → V-K-A"]
+      A1_GPA6["GPA6 → V-J"]
+      A1_GPA7["GPA7 → V-I"]
     end
 
     subgraph PortB1["Port B  (GPB0–7) — INPUTS  (Rsvr B reeds + carbonator reeds + 2 spare)"]
@@ -184,21 +189,21 @@ flowchart LR
   SDA & SCL <-->|"I2C"| MCP0
   SDA & SCL <-->|"I2C"| MCP1
 
-  %% ── 0x20 Port A → U1 ──
-  A0_GPA0 --> U1_1
-  A0_GPA1 --> U1_2
-  A0_GPA2 --> U1_3
-  A0_GPA3 --> U1_4
-  A0_GPA4 --> U1_5
-  A0_GPA5 --> U1_6
-  A0_GPA6 --> U1_7
-  A0_GPA7 --> U1_8
+  %% ── 0x20 Port A → U1  (GPA bit order reversed: GPA_k → channel 8-k) ──
+  A0_GPA0 --> U1_8
+  A0_GPA1 --> U1_7
+  A0_GPA2 --> U1_6
+  A0_GPA3 --> U1_5
+  A0_GPA4 --> U1_4
+  A0_GPA5 --> U1_3
+  A0_GPA6 --> U1_2
+  A0_GPA7 --> U1_1
 
-  %% ── 0x21 Port A[0:3] → U2 ch1-4  (MANIFOLD B valves) ──
-  A1_GPA0 --> U2_1
-  A1_GPA1 --> U2_2
-  A1_GPA2 --> U2_3
-  A1_GPA3 --> U2_4
+  %% ── 0x21 Port A[4:7] → U2 ch1-4  (MANIFOLD B valves; GPA bit order reversed) ──
+  A1_GPA7 --> U2_1
+  A1_GPA6 --> U2_2
+  A1_GPA5 --> U2_3
+  A1_GPA4 --> U2_4
 
   %% ── 0x20 Port B[0:3] ← Reservoir A reeds 1-4 ──
   RA1 -->|"INPUT_PULLUP"| A0_GPB0
@@ -232,17 +237,17 @@ flowchart LR
   U2_3 ==> VKA
   U2_4 ==> VKB
 
-  %% ── 0x21 PA4 → U2 ch5 (condenser fan low-side switch) ──
-  A1_GPA4 --> U2_5
+  %% ── 0x21 PA3 → U2 ch5 (condenser fan low-side switch) ──
+  A1_GPA3 --> U2_5
 
   %% Spare pins dimmed
   style A0_GPB4 fill:#333,stroke:#555,color:#777
   style A0_GPB5 fill:#333,stroke:#555,color:#777
   style A0_GPB6 fill:#333,stroke:#555,color:#777
   style A0_GPB7 fill:#333,stroke:#555,color:#777
-  style A1_GPA5 fill:#333,stroke:#555,color:#777
-  style A1_GPA6 fill:#333,stroke:#555,color:#777
-  style A1_GPA7 fill:#333,stroke:#555,color:#777
+  style A1_GPA0 fill:#333,stroke:#555,color:#777
+  style A1_GPA1 fill:#333,stroke:#555,color:#777
+  style A1_GPA2 fill:#333,stroke:#555,color:#777
   style A1_GPB6 fill:#333,stroke:#555,color:#777
   style A1_GPB7 fill:#333,stroke:#555,color:#777
   style U2_free fill:#333,stroke:#555,color:#777
