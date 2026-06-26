@@ -12,7 +12,7 @@ The Home Soda Machine prototype runs on three microcontrollers — ESP32 (main c
 
 ```
                         ┌─────────────────────┐
-  Carbonated Water ───→ │ Flow Meter (GPIO 23) │
+  Carbonated Water ───→ │ Flow Meter (GPIO 15) │
                         └──────────┬──────────┘
                                    │ pulses
   ┌───────────────┐     ┌──────────▼──────────┐
@@ -76,7 +76,7 @@ The assignments below are for the **prototype hardware** under Derek's sink — 
 | Function | GPIO | Notes |
 |----------|------|-------|
 | Flavor toggle switch | 13 | Air switch, INPUT_PULLUP |
-| Flow meter | 23 | Hall effect, FALLING edge interrupt |
+| Flow meter | 15 | Hall effect, FALLING edge interrupt |
 | Display UART TX | 32 | 115200 baud, TinyProto HDLC to RP2040 (Serial2) |
 | Display UART RX | 35 | 115200 baud, TinyProto HDLC from RP2040 |
 | Config UART TX | 15 | 115200 baud, TinyProto HDLC to ESP32-S3 (Serial1) |
