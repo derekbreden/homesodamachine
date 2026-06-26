@@ -7,11 +7,12 @@ dist
 *.tsbuildinfo
 .cache
 
-# out/ keeps ONLY the real board's render outputs (render-board.ts: the three
-# copper views + gerbers + picks). Everything else is regenerable and an upload
+# out/ keeps ONLY the real board's render outputs (render-board.ts: the copper
+# views + gerbers + picks). Everything else is regenerable and an upload
 # decoy — other tsci export formats, the empty render of the carrier_parts
 # footprint helper (it has no board), and any _-prefixed scratch board. So:
-# ignore all of out/, then whitelist exactly mini's artifacts.
+# ignore all of out/, then whitelist exactly mini's artifacts (top/bottom/overlay
+# plus the inner-plane views on the 4-layer board).
 out/*
 !out/mini.top.svg
 !out/mini.top.png
@@ -19,6 +20,10 @@ out/*
 !out/mini.bottom.png
 !out/mini.overlay.svg
 !out/mini.overlay.png
+!out/mini.inner1.svg
+!out/mini.inner1.png
+!out/mini.inner2.svg
+!out/mini.inner2.png
 !out/mini.gerbers.zip
 !out/mini.picks.json
 
