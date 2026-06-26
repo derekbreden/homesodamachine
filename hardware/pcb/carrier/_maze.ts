@@ -54,6 +54,14 @@ const CASES: Record<string, any> = {
     ],
     region: { x0: -24, x1: 18, y0: -35, y1: 38 },
   },
+  // ESP IO4 -> buzzer U8. IO4 is the rightmost ESP top-row pin; U8 sits down-left.
+  // The route drops below the ESP pin row (y=-13.7) and threads the clear corridor
+  // above the U8 pins (y=-20.5), dodging U8.VCC, to land on U8.IO.
+  io4u8: {
+    ...COMMON, clr: 0.45, // hugs the dense ESP pin row — hold the full board clearance
+    pairs: [{ from: "U8.IO", to: "U1B.IO4" }],
+    region: { x0: -58, x1: -36, y0: -26, y1: -10 },
+  },
 }
 const SPEC = CASES[process.argv[2] || "j6"]
 if (!SPEC) { console.error(`unknown case "${process.argv[2]}" — have: ${Object.keys(CASES).join(", ")}`); process.exit(1) }

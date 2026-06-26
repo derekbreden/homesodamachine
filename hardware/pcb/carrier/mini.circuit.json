@@ -7315,7 +7315,7 @@
     "type": "schematic_component",
     "schematic_component_id": "schematic_component_28",
     "center": {
-      "x": -3.25,
+      "x": -3.16,
       "y": 6.816666666666666
     },
     "size": {
@@ -7332,7 +7332,7 @@
     "type": "schematic_component",
     "schematic_component_id": "schematic_component_29",
     "center": {
-      "x": -3.25,
+      "x": -3.16,
       "y": 7.3999999999999995
     },
     "size": {
@@ -7349,7 +7349,7 @@
     "type": "schematic_component",
     "schematic_component_id": "schematic_component_30",
     "center": {
-      "x": -1.75,
+      "x": -1.8283333333333334,
       "y": 6.816666666666666
     },
     "size": {
@@ -7366,7 +7366,7 @@
     "type": "schematic_component",
     "schematic_component_id": "schematic_component_31",
     "center": {
-      "x": -1.75,
+      "x": -1.8283333333333334,
       "y": 7.3999999999999995
     },
     "size": {
@@ -10793,7 +10793,7 @@
     "pin_number": 1,
     "true_ccw_index": 3,
     "display_pin_label": "GND",
-    "is_connected": false
+    "is_connected": true
   },
   {
     "type": "schematic_port",
@@ -10851,7 +10851,7 @@
     "schematic_port_id": "schematic_port_203",
     "schematic_component_id": "schematic_component_28",
     "center": {
-      "x": -3.8,
+      "x": -3.71,
       "y": 6.816666666666666
     },
     "source_port_id": "source_port_203",
@@ -10866,7 +10866,7 @@
     "schematic_port_id": "schematic_port_204",
     "schematic_component_id": "schematic_component_28",
     "center": {
-      "x": -2.7,
+      "x": -2.6100000000000003,
       "y": 6.816666666666666
     },
     "source_port_id": "source_port_204",
@@ -10881,7 +10881,7 @@
     "schematic_port_id": "schematic_port_205",
     "schematic_component_id": "schematic_component_29",
     "center": {
-      "x": -3.8,
+      "x": -3.71,
       "y": 7.3999999999999995
     },
     "source_port_id": "source_port_205",
@@ -10896,7 +10896,7 @@
     "schematic_port_id": "schematic_port_206",
     "schematic_component_id": "schematic_component_29",
     "center": {
-      "x": -2.7,
+      "x": -2.6100000000000003,
       "y": 7.3999999999999995
     },
     "source_port_id": "source_port_206",
@@ -10904,14 +10904,14 @@
     "distance_from_component_edge": 0.4,
     "pin_number": 2,
     "display_pin_label": "cathode",
-    "is_connected": false
+    "is_connected": true
   },
   {
     "type": "schematic_port",
     "schematic_port_id": "schematic_port_207",
     "schematic_component_id": "schematic_component_30",
     "center": {
-      "x": -2.3,
+      "x": -2.3783333333333334,
       "y": 6.816666666666666
     },
     "source_port_id": "source_port_207",
@@ -10926,7 +10926,7 @@
     "schematic_port_id": "schematic_port_208",
     "schematic_component_id": "schematic_component_30",
     "center": {
-      "x": -1.2000000000000002,
+      "x": -1.2783333333333333,
       "y": 6.816666666666666
     },
     "source_port_id": "source_port_208",
@@ -10941,7 +10941,7 @@
     "schematic_port_id": "schematic_port_209",
     "schematic_component_id": "schematic_component_31",
     "center": {
-      "x": -2.3,
+      "x": -2.3783333333333334,
       "y": 7.3999999999999995
     },
     "source_port_id": "source_port_209",
@@ -10956,7 +10956,7 @@
     "schematic_port_id": "schematic_port_210",
     "schematic_component_id": "schematic_component_31",
     "center": {
-      "x": -1.2000000000000002,
+      "x": -1.2783333333333333,
       "y": 7.3999999999999995
     },
     "source_port_id": "source_port_210",
@@ -11376,17 +11376,17 @@
           "y": 6.808333333333334
         },
         "to": {
-          "x": -2.3,
+          "x": -2.3783333333333334,
           "y": 6.808333333333334
         }
       },
       {
         "from": {
-          "x": -2.3,
+          "x": -2.3783333333333334,
           "y": 6.808333333333334
         },
         "to": {
-          "x": -2.3,
+          "x": -2.3783333333333334,
           "y": 6.816666666666666
         }
       }
@@ -11397,6 +11397,60 @@
   {
     "type": "schematic_trace",
     "schematic_trace_id": "schematic_trace_8",
+    "source_trace_id": "R2.2-J11.1",
+    "edges": [
+      {
+        "from": {
+          "x": -2.6100000000000003,
+          "y": 7.3999999999999995
+        },
+        "to": {
+          "x": -2.6100000000000003,
+          "y": 7.989455349999999
+        }
+      },
+      {
+        "from": {
+          "x": -2.6100000000000003,
+          "y": 7.989455349999999
+        },
+        "to": {
+          "x": -3.7383333333333333,
+          "y": 7.989455349999999
+        }
+      },
+      {
+        "from": {
+          "x": -3.7383333333333333,
+          "y": 7.989455349999999
+        },
+        "to": {
+          "x": -3.7383333333333333,
+          "y": 7.408333333333333
+        }
+      },
+      {
+        "from": {
+          "x": -3.7383333333333333,
+          "y": 7.408333333333333
+        },
+        "to": {
+          "x": -3.766666666666667,
+          "y": 7.408333333333333
+        }
+      }
+    ],
+    "junctions": [
+      {
+        "x": -2.6100000000000003,
+        "y": 7.989455349999999
+      }
+    ],
+    "subcircuit_connectivity_map_key": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net2"
+  },
+  {
+    "type": "schematic_trace",
+    "schematic_trace_id": "schematic_trace_9",
     "source_trace_id": "U2I.2-J6.1",
     "edges": [
       {
@@ -11435,7 +11489,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_9",
+    "schematic_trace_id": "schematic_trace_10",
     "source_trace_id": "U1B.19-U1B.13",
     "edges": [
       {
@@ -11474,7 +11528,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_10",
+    "schematic_trace_id": "schematic_trace_11",
     "source_trace_id": "U2A.10-U4I.9",
     "edges": [
       {
@@ -11513,7 +11567,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_11",
+    "schematic_trace_id": "schematic_trace_12",
     "source_trace_id": "U3A.10-U5I.9",
     "edges": [
       {
@@ -11552,7 +11606,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_12",
+    "schematic_trace_id": "schematic_trace_13",
     "source_trace_id": "U7T.2-U1A.13",
     "edges": [
       {
@@ -11591,7 +11645,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_13",
+    "schematic_trace_id": "schematic_trace_14",
     "source_trace_id": "J5.9-U1B.12",
     "edges": [
       {
@@ -11650,7 +11704,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_14",
+    "schematic_trace_id": "schematic_trace_15",
     "source_trace_id": "J9.1-U7L.1",
     "edges": [
       {
@@ -11689,7 +11743,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_15",
+    "schematic_trace_id": "schematic_trace_16",
     "source_trace_id": "U6I.4-U3B.2",
     "edges": [
       {
@@ -11728,7 +11782,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_16",
+    "schematic_trace_id": "schematic_trace_17",
     "source_trace_id": "U8.3-J8.1",
     "edges": [
       {
@@ -11767,7 +11821,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_17",
+    "schematic_trace_id": "schematic_trace_18",
     "source_trace_id": "available-net-orientation-0-V3V3",
     "edges": [
       {
@@ -11796,7 +11850,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_18",
+    "schematic_trace_id": "schematic_trace_19",
     "source_trace_id": "available-net-orientation-1-V3V3",
     "edges": [
       {
@@ -11825,7 +11879,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_19",
+    "schematic_trace_id": "schematic_trace_20",
     "source_trace_id": "available-net-orientation-2-V3V3",
     "edges": [
       {
@@ -11854,7 +11908,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_20",
+    "schematic_trace_id": "schematic_trace_21",
     "source_trace_id": "available-net-orientation-3-V3V3",
     "edges": [
       {
@@ -11883,7 +11937,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_21",
+    "schematic_trace_id": "schematic_trace_22",
     "source_trace_id": "available-net-orientation-4-V3V3",
     "edges": [
       {
@@ -11912,7 +11966,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_22",
+    "schematic_trace_id": "schematic_trace_23",
     "source_trace_id": "available-net-orientation-5-V3V3",
     "edges": [
       {
@@ -11941,7 +11995,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_23",
+    "schematic_trace_id": "schematic_trace_24",
     "source_trace_id": "available-net-orientation-6-V3V3",
     "edges": [
       {
@@ -11970,7 +12024,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_24",
+    "schematic_trace_id": "schematic_trace_25",
     "source_trace_id": "available-net-orientation-7-V3V3",
     "edges": [
       {
@@ -11999,7 +12053,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_25",
+    "schematic_trace_id": "schematic_trace_26",
     "source_trace_id": "available-net-orientation-8-GND",
     "edges": [
       {
@@ -12028,7 +12082,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_26",
+    "schematic_trace_id": "schematic_trace_27",
     "source_trace_id": "available-net-orientation-13-GND",
     "edges": [
       {
@@ -12057,7 +12111,7 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_27",
+    "schematic_trace_id": "schematic_trace_28",
     "source_trace_id": "available-net-orientation-22-GND",
     "edges": [
       {
@@ -12086,8 +12140,62 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_28",
-    "source_trace_id": "available-net-orientation-35-V5",
+    "schematic_trace_id": "schematic_trace_29",
+    "source_trace_id": "available-net-orientation-24-GND",
+    "edges": [
+      {
+        "from": {
+          "x": -2.6100000000000003,
+          "y": 7.3999999999999995
+        },
+        "to": {
+          "x": -2.6100000000000003,
+          "y": 7.989455349999999
+        }
+      },
+      {
+        "from": {
+          "x": -2.6100000000000003,
+          "y": 7.989455349999999
+        },
+        "to": {
+          "x": -2.6100000000000003,
+          "y": 8.039455349999999
+        }
+      },
+      {
+        "from": {
+          "x": -2.6100000000000003,
+          "y": 8.039455349999999
+        },
+        "to": {
+          "x": -8.56,
+          "y": 8.039455349999999
+        }
+      },
+      {
+        "from": {
+          "x": -8.56,
+          "y": 8.039455349999999
+        },
+        "to": {
+          "x": -8.56,
+          "y": 7.938455349999999
+        }
+      }
+    ],
+    "junctions": [
+      {
+        "x": -2.6100000000000003,
+        "y": 7.989455349999999
+      }
+    ],
+    "subcircuit_connectivity_map_key": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net2"
+  },
+  {
+    "type": "schematic_trace",
+    "schematic_trace_id": "schematic_trace_30",
+    "source_trace_id": "available-net-orientation-34-V5",
     "edges": [
       {
         "from": {
@@ -12115,8 +12223,8 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_29",
-    "source_trace_id": "available-net-orientation-36-V5",
+    "schematic_trace_id": "schematic_trace_31",
+    "source_trace_id": "available-net-orientation-35-V5",
     "edges": [
       {
         "from": {
@@ -12144,8 +12252,8 @@
   },
   {
     "type": "schematic_trace",
-    "schematic_trace_id": "schematic_trace_30",
-    "source_trace_id": "available-net-orientation-134-V12",
+    "schematic_trace_id": "schematic_trace_32",
+    "source_trace_id": "available-net-orientation-133-V12",
     "edges": [
       {
         "from": {
@@ -12554,14 +12662,15 @@
     "text": "GND",
     "source_net_id": "source_net_2",
     "anchor_position": {
-      "x": -3.766666666666667,
-      "y": 7.408333333333333
+      "x": -8.56,
+      "y": 7.938455349999999
     },
     "center": {
-      "x": -3.5266666666666673,
-      "y": 7.408333333333333
+      "x": -8.56,
+      "y": 7.848455349999999
     },
-    "anchor_side": "left"
+    "anchor_side": "top",
+    "symbol_name": "rail_down"
   },
   {
     "type": "schematic_net_label",
@@ -12569,11 +12678,11 @@
     "text": "GND",
     "source_net_id": "source_net_2",
     "anchor_position": {
-      "x": -2.7,
+      "x": -1.2783333333333333,
       "y": 7.3999999999999995
     },
     "center": {
-      "x": -2.46,
+      "x": -1.0383333333333333,
       "y": 7.3999999999999995
     },
     "anchor_side": "left"
@@ -12581,21 +12690,6 @@
   {
     "type": "schematic_net_label",
     "schematic_net_label_id": "schematic_net_label_26",
-    "text": "GND",
-    "source_net_id": "source_net_2",
-    "anchor_position": {
-      "x": -1.2000000000000002,
-      "y": 7.3999999999999995
-    },
-    "center": {
-      "x": -0.9600000000000002,
-      "y": 7.3999999999999995
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_27",
     "text": "U6I_SCL/U1B_IO22/U2I_SCL/U3I_SCL",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net4",
     "anchor_position": {
@@ -12610,7 +12704,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_28",
+    "schematic_net_label_id": "schematic_net_label_27",
     "text": "U6I_SCL/U1B_IO22/U2I_SCL/U3I_SCL",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net4",
     "anchor_position": {
@@ -12620,6 +12714,21 @@
     "center": {
       "x": 1.4133333333333333,
       "y": -4.475
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_28",
+    "text": "U6I_SCL/U1B_IO22/U2I_SCL/U3I_SCL",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net4",
+    "anchor_position": {
+      "x": 3.5666666666666664,
+      "y": 5.883333333333334
+    },
+    "center": {
+      "x": 5.546666666666667,
+      "y": 5.883333333333334
     },
     "anchor_side": "left"
   },
@@ -12630,32 +12739,17 @@
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net4",
     "anchor_position": {
       "x": 3.5666666666666664,
-      "y": 5.883333333333334
+      "y": -0.8666666666666669
     },
     "center": {
       "x": 5.546666666666667,
-      "y": 5.883333333333334
+      "y": -0.8666666666666669
     },
     "anchor_side": "left"
   },
   {
     "type": "schematic_net_label",
     "schematic_net_label_id": "schematic_net_label_30",
-    "text": "U6I_SCL/U1B_IO22/U2I_SCL/U3I_SCL",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net4",
-    "anchor_position": {
-      "x": 3.5666666666666664,
-      "y": -0.8666666666666669
-    },
-    "center": {
-      "x": 5.546666666666667,
-      "y": -0.8666666666666669
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_31",
     "text": "U6I_SDA/U1B_IO21/U2I_SDA/U3I_SDA",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net3",
     "anchor_position": {
@@ -12670,7 +12764,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_32",
+    "schematic_net_label_id": "schematic_net_label_31",
     "text": "U6I_SDA/U1B_IO21/U2I_SDA/U3I_SDA",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net3",
     "anchor_position": {
@@ -12685,7 +12779,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_33",
+    "schematic_net_label_id": "schematic_net_label_32",
     "text": "U6I_SDA/U1B_IO21/U2I_SDA/U3I_SDA",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net3",
     "anchor_position": {
@@ -12695,27 +12789,27 @@
     "center": {
       "x": 5.546666666666667,
       "y": 6.083333333333334
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_33",
+    "text": "U6I_SDA/U1B_IO21/U2I_SDA/U3I_SDA",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net3",
+    "anchor_position": {
+      "x": 3.5666666666666664,
+      "y": -0.6666666666666669
+    },
+    "center": {
+      "x": 5.546666666666667,
+      "y": -0.6666666666666669
     },
     "anchor_side": "left"
   },
   {
     "type": "schematic_net_label",
     "schematic_net_label_id": "schematic_net_label_34",
-    "text": "U6I_SDA/U1B_IO21/U2I_SDA/U3I_SDA",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net3",
-    "anchor_position": {
-      "x": 3.5666666666666664,
-      "y": -0.6666666666666669
-    },
-    "center": {
-      "x": 5.546666666666667,
-      "y": -0.6666666666666669
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_35",
     "text": "V5",
     "source_net_id": "source_net_1",
     "anchor_position": {
@@ -12731,7 +12825,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_36",
+    "schematic_net_label_id": "schematic_net_label_35",
     "text": "V5",
     "source_net_id": "source_net_1",
     "anchor_position": {
@@ -12747,7 +12841,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_37",
+    "schematic_net_label_id": "schematic_net_label_36",
     "text": "V5",
     "source_net_id": "source_net_1",
     "anchor_position": {
@@ -12762,7 +12856,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_38",
+    "schematic_net_label_id": "schematic_net_label_37",
     "text": "V5",
     "source_net_id": "source_net_1",
     "anchor_position": {
@@ -12777,7 +12871,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_39",
+    "schematic_net_label_id": "schematic_net_label_38",
     "text": "V5",
     "source_net_id": "source_net_1",
     "anchor_position": {
@@ -12792,7 +12886,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_40",
+    "schematic_net_label_id": "schematic_net_label_39",
     "text": "V5",
     "source_net_id": "source_net_1",
     "anchor_position": {
@@ -12807,7 +12901,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_41",
+    "schematic_net_label_id": "schematic_net_label_40",
     "text": "U1A_IO13/J4_IO13",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net43",
     "anchor_position": {
@@ -12822,7 +12916,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_42",
+    "schematic_net_label_id": "schematic_net_label_41",
     "text": "U1A_IO13/J4_IO13",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net43",
     "anchor_position": {
@@ -12832,6 +12926,21 @@
     "center": {
       "x": -3.021666666666666,
       "y": 2.9499999999999997
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_42",
+    "text": "U1A_IO14/J4_IO14",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net41",
+    "anchor_position": {
+      "x": -9.183333333333334,
+      "y": 0.4
+    },
+    "center": {
+      "x": -8.163333333333334,
+      "y": 0.4
     },
     "anchor_side": "left"
   },
@@ -12841,27 +12950,27 @@
     "text": "U1A_IO14/J4_IO14",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net41",
     "anchor_position": {
-      "x": -9.183333333333334,
-      "y": 0.4
-    },
-    "center": {
-      "x": -8.163333333333334,
-      "y": 0.4
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_44",
-    "text": "U1A_IO14/J4_IO14",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net41",
-    "anchor_position": {
       "x": -4.041666666666666,
       "y": 2.349999999999999
     },
     "center": {
       "x": -3.021666666666666,
       "y": 2.349999999999999
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_44",
+    "text": "U1A_IO27/J5_IO27",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net44",
+    "anchor_position": {
+      "x": -3.35,
+      "y": -7.466666666666667
+    },
+    "center": {
+      "x": -2.33,
+      "y": -7.466666666666667
     },
     "anchor_side": "left"
   },
@@ -12871,27 +12980,27 @@
     "text": "U1A_IO27/J5_IO27",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net44",
     "anchor_position": {
-      "x": -3.35,
-      "y": -7.466666666666667
-    },
-    "center": {
-      "x": -2.33,
-      "y": -7.466666666666667
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_46",
-    "text": "U1A_IO27/J5_IO27",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net44",
-    "anchor_position": {
       "x": -4.041666666666666,
       "y": 2.1499999999999995
     },
     "center": {
       "x": -3.021666666666666,
       "y": 2.1499999999999995
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_46",
+    "text": "U1A_IO26/J5_IO26",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net46",
+    "anchor_position": {
+      "x": -3.35,
+      "y": -7.866666666666667
+    },
+    "center": {
+      "x": -2.33,
+      "y": -7.866666666666667
     },
     "anchor_side": "left"
   },
@@ -12901,27 +13010,27 @@
     "text": "U1A_IO26/J5_IO26",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net46",
     "anchor_position": {
-      "x": -3.35,
-      "y": -7.866666666666667
-    },
-    "center": {
-      "x": -2.33,
-      "y": -7.866666666666667
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_48",
-    "text": "U1A_IO26/J5_IO26",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net46",
-    "anchor_position": {
       "x": -4.041666666666666,
       "y": 1.9499999999999993
     },
     "center": {
       "x": -3.021666666666666,
       "y": 1.9499999999999993
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_48",
+    "text": "U1A_IO25/J5_IO25",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net45",
+    "anchor_position": {
+      "x": -3.35,
+      "y": -8.266666666666667
+    },
+    "center": {
+      "x": -2.33,
+      "y": -8.266666666666667
     },
     "anchor_side": "left"
   },
@@ -12931,27 +13040,27 @@
     "text": "U1A_IO25/J5_IO25",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net45",
     "anchor_position": {
-      "x": -3.35,
-      "y": -8.266666666666667
-    },
-    "center": {
-      "x": -2.33,
-      "y": -8.266666666666667
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_50",
-    "text": "U1A_IO25/J5_IO25",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net45",
-    "anchor_position": {
       "x": -4.041666666666666,
       "y": 1.7499999999999993
     },
     "center": {
       "x": -3.021666666666666,
       "y": 1.7499999999999993
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_50",
+    "text": "U1A_IO33/J3_IO33",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net39",
+    "anchor_position": {
+      "x": -6.133333333333335,
+      "y": 7.008333333333334
+    },
+    "center": {
+      "x": -5.113333333333335,
+      "y": 7.008333333333334
     },
     "anchor_side": "left"
   },
@@ -12961,27 +13070,27 @@
     "text": "U1A_IO33/J3_IO33",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net39",
     "anchor_position": {
-      "x": -6.133333333333335,
-      "y": 7.008333333333334
-    },
-    "center": {
-      "x": -5.113333333333335,
-      "y": 7.008333333333334
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_52",
-    "text": "U1A_IO33/J3_IO33",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net39",
-    "anchor_position": {
       "x": -4.041666666666666,
       "y": 1.5499999999999994
     },
     "center": {
       "x": -3.021666666666666,
       "y": 1.5499999999999994
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_52",
+    "text": "U1A_IO35/J3_IO35",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net40",
+    "anchor_position": {
+      "x": -6.133333333333335,
+      "y": 6.808333333333334
+    },
+    "center": {
+      "x": -5.113333333333335,
+      "y": 6.808333333333334
     },
     "anchor_side": "left"
   },
@@ -12991,21 +13100,6 @@
     "text": "U1A_IO35/J3_IO35",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net40",
     "anchor_position": {
-      "x": -6.133333333333335,
-      "y": 6.808333333333334
-    },
-    "center": {
-      "x": -5.113333333333335,
-      "y": 6.808333333333334
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_54",
-    "text": "U1A_IO35/J3_IO35",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net40",
-    "anchor_position": {
       "x": -4.041666666666666,
       "y": 1.1499999999999995
     },
@@ -13017,7 +13111,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_55",
+    "schematic_net_label_id": "schematic_net_label_54",
     "text": "U1A_IO34/U7T_RXD",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net24",
     "anchor_position": {
@@ -13032,7 +13126,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_56",
+    "schematic_net_label_id": "schematic_net_label_55",
     "text": "U1A_IO34/U7T_RXD",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net24",
     "anchor_position": {
@@ -13047,37 +13141,37 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_57",
+    "schematic_net_label_id": "schematic_net_label_56",
     "text": "U1A_IO39/R1_pin2/R2_pin1",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net67",
     "anchor_position": {
-      "x": -2.7,
+      "x": -2.6100000000000003,
       "y": 6.816666666666666
     },
     "center": {
-      "x": -1.2000000000000002,
+      "x": -1.1100000000000003,
       "y": 6.816666666666666
     },
     "anchor_side": "left"
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_58",
+    "schematic_net_label_id": "schematic_net_label_57",
     "text": "U1A_IO39/R1_pin2/R2_pin1",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net67",
     "anchor_position": {
-      "x": -3.8,
+      "x": -3.71,
       "y": 7.3999999999999995
     },
     "center": {
-      "x": -5.3,
+      "x": -5.21,
       "y": 7.3999999999999995
     },
     "anchor_side": "right"
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_59",
+    "schematic_net_label_id": "schematic_net_label_58",
     "text": "U1A_IO39/R1_pin2/R2_pin1",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net67",
     "anchor_position": {
@@ -13087,6 +13181,21 @@
     "center": {
       "x": -2.541666666666666,
       "y": 0.7499999999999996
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_59",
+    "text": "U1A_IO36/R3_pin2/R4_pin1",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net69",
+    "anchor_position": {
+      "x": -1.2783333333333333,
+      "y": 6.816666666666666
+    },
+    "center": {
+      "x": 0.22166666666666668,
+      "y": 6.816666666666666
     },
     "anchor_side": "left"
   },
@@ -13096,33 +13205,18 @@
     "text": "U1A_IO36/R3_pin2/R4_pin1",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net69",
     "anchor_position": {
-      "x": -1.2000000000000002,
-      "y": 6.816666666666666
-    },
-    "center": {
-      "x": 0.2999999999999998,
-      "y": 6.816666666666666
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_61",
-    "text": "U1A_IO36/R3_pin2/R4_pin1",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net69",
-    "anchor_position": {
-      "x": -2.3,
+      "x": -2.3783333333333334,
       "y": 7.3999999999999995
     },
     "center": {
-      "x": -3.8,
+      "x": -3.8783333333333334,
       "y": 7.3999999999999995
     },
     "anchor_side": "right"
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_62",
+    "schematic_net_label_id": "schematic_net_label_61",
     "text": "U1A_IO36/R3_pin2/R4_pin1",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net69",
     "anchor_position": {
@@ -13137,7 +13231,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_63",
+    "schematic_net_label_id": "schematic_net_label_62",
     "text": "U1B_IO15/J4_IO15",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net42",
     "anchor_position": {
@@ -13152,7 +13246,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_64",
+    "schematic_net_label_id": "schematic_net_label_63",
     "text": "U1B_IO15/J4_IO15",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net42",
     "anchor_position": {
@@ -13167,7 +13261,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_65",
+    "schematic_net_label_id": "schematic_net_label_64",
     "text": "U1B_IO4/U8_IO",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net65",
     "anchor_position": {
@@ -13182,7 +13276,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_66",
+    "schematic_net_label_id": "schematic_net_label_65",
     "text": "U1B_IO4/U8_IO",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net65",
     "anchor_position": {
@@ -13197,7 +13291,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_67",
+    "schematic_net_label_id": "schematic_net_label_66",
     "text": "U1B_IO16/J5_IO16",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net51",
     "anchor_position": {
@@ -13212,7 +13306,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_68",
+    "schematic_net_label_id": "schematic_net_label_67",
     "text": "U1B_IO16/J5_IO16",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net51",
     "anchor_position": {
@@ -13222,6 +13316,21 @@
     "center": {
       "x": -3.021666666666666,
       "y": -1.883333333333334
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_68",
+    "text": "U1B_IO17/J5_IO17",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net50",
+    "anchor_position": {
+      "x": -3.35,
+      "y": -7.266666666666667
+    },
+    "center": {
+      "x": -2.33,
+      "y": -7.266666666666667
     },
     "anchor_side": "left"
   },
@@ -13231,21 +13340,6 @@
     "text": "U1B_IO17/J5_IO17",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net50",
     "anchor_position": {
-      "x": -3.35,
-      "y": -7.266666666666667
-    },
-    "center": {
-      "x": -2.33,
-      "y": -7.266666666666667
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_70",
-    "text": "U1B_IO17/J5_IO17",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net50",
-    "anchor_position": {
       "x": -4.041666666666666,
       "y": -2.083333333333334
     },
@@ -13257,7 +13351,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_71",
+    "schematic_net_label_id": "schematic_net_label_70",
     "text": "U1B_IO5/J5_IO5",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net49",
     "anchor_position": {
@@ -13272,7 +13366,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_72",
+    "schematic_net_label_id": "schematic_net_label_71",
     "text": "U1B_IO5/J5_IO5",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net49",
     "anchor_position": {
@@ -13287,7 +13381,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_73",
+    "schematic_net_label_id": "schematic_net_label_72",
     "text": "U1B_IO18/J5_IO18",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net48",
     "anchor_position": {
@@ -13302,7 +13396,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_74",
+    "schematic_net_label_id": "schematic_net_label_73",
     "text": "U1B_IO18/J5_IO18",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net48",
     "anchor_position": {
@@ -13317,7 +13411,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_75",
+    "schematic_net_label_id": "schematic_net_label_74",
     "text": "U7L_B/J9_B",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net63",
     "anchor_position": {
@@ -13332,7 +13426,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_76",
+    "schematic_net_label_id": "schematic_net_label_75",
     "text": "U7L_B/J9_B",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net63",
     "anchor_position": {
@@ -13347,7 +13441,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_77",
+    "schematic_net_label_id": "schematic_net_label_76",
     "text": "U7L_Earth/J9_EARTH",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net64",
     "anchor_position": {
@@ -13362,7 +13456,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_78",
+    "schematic_net_label_id": "schematic_net_label_77",
     "text": "U7L_Earth/J9_EARTH",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net64",
     "anchor_position": {
@@ -13377,7 +13471,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_79",
+    "schematic_net_label_id": "schematic_net_label_78",
     "text": "U2B_GPB3/J6_RA4",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net55",
     "anchor_position": {
@@ -13392,7 +13486,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_80",
+    "schematic_net_label_id": "schematic_net_label_79",
     "text": "U2B_GPB3/J6_RA4",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net55",
     "anchor_position": {
@@ -13402,6 +13496,21 @@
     "center": {
       "x": 2.86,
       "y": 3.058333333333333
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_80",
+    "text": "U2B_GPB2/J6_RA3",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net54",
+    "anchor_position": {
+      "x": 3.1833333333333336,
+      "y": 6.933333333333333
+    },
+    "center": {
+      "x": 4.1433333333333335,
+      "y": 6.933333333333333
     },
     "anchor_side": "left"
   },
@@ -13411,27 +13520,27 @@
     "text": "U2B_GPB2/J6_RA3",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net54",
     "anchor_position": {
-      "x": 3.1833333333333336,
-      "y": 6.933333333333333
-    },
-    "center": {
-      "x": 4.1433333333333335,
-      "y": 6.933333333333333
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_82",
-    "text": "U2B_GPB2/J6_RA3",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net54",
-    "anchor_position": {
       "x": 1.9,
       "y": 2.858333333333333
     },
     "center": {
       "x": 2.86,
       "y": 2.858333333333333
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_82",
+    "text": "U2B_GPB1/J6_RA2",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net53",
+    "anchor_position": {
+      "x": 3.1833333333333336,
+      "y": 7.133333333333333
+    },
+    "center": {
+      "x": 4.1433333333333335,
+      "y": 7.133333333333333
     },
     "anchor_side": "left"
   },
@@ -13441,27 +13550,27 @@
     "text": "U2B_GPB1/J6_RA2",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net53",
     "anchor_position": {
-      "x": 3.1833333333333336,
-      "y": 7.133333333333333
-    },
-    "center": {
-      "x": 4.1433333333333335,
-      "y": 7.133333333333333
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_84",
-    "text": "U2B_GPB1/J6_RA2",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net53",
-    "anchor_position": {
       "x": 1.9,
       "y": 2.658333333333333
     },
     "center": {
       "x": 2.86,
       "y": 2.658333333333333
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_84",
+    "text": "U2B_GPB0/J6_RA1",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net52",
+    "anchor_position": {
+      "x": 3.1833333333333336,
+      "y": 7.333333333333333
+    },
+    "center": {
+      "x": 4.1433333333333335,
+      "y": 7.333333333333333
     },
     "anchor_side": "left"
   },
@@ -13471,21 +13580,6 @@
     "text": "U2B_GPB0/J6_RA1",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net52",
     "anchor_position": {
-      "x": 3.1833333333333336,
-      "y": 7.333333333333333
-    },
-    "center": {
-      "x": 4.1433333333333335,
-      "y": 7.333333333333333
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_86",
-    "text": "U2B_GPB0/J6_RA1",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net52",
-    "anchor_position": {
       "x": 1.9,
       "y": 2.458333333333333
     },
@@ -13497,7 +13591,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_87",
+    "schematic_net_label_id": "schematic_net_label_86",
     "text": "U2_GPA0",
     "source_net_id": "source_net_3",
     "anchor_position": {
@@ -13512,7 +13606,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_88",
+    "schematic_net_label_id": "schematic_net_label_87",
     "text": "U2_GPA0",
     "source_net_id": "source_net_3",
     "anchor_position": {
@@ -13522,6 +13616,21 @@
     "center": {
       "x": 6.5216666666666665,
       "y": 4.17
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_88",
+    "text": "U2_GPA1",
+    "source_net_id": "source_net_4",
+    "anchor_position": {
+      "x": 5.2333333333333325,
+      "y": 3.658333333333333
+    },
+    "center": {
+      "x": 5.713333333333333,
+      "y": 3.658333333333333
     },
     "anchor_side": "left"
   },
@@ -13531,27 +13640,27 @@
     "text": "U2_GPA1",
     "source_net_id": "source_net_4",
     "anchor_position": {
-      "x": 5.2333333333333325,
-      "y": 3.658333333333333
-    },
-    "center": {
-      "x": 5.713333333333333,
-      "y": 3.658333333333333
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_90",
-    "text": "U2_GPA1",
-    "source_net_id": "source_net_4",
-    "anchor_position": {
       "x": 6.041666666666666,
       "y": 3.97
     },
     "center": {
       "x": 6.5216666666666665,
       "y": 3.97
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_90",
+    "text": "U2_GPA2",
+    "source_net_id": "source_net_5",
+    "anchor_position": {
+      "x": 5.2333333333333325,
+      "y": 3.458333333333333
+    },
+    "center": {
+      "x": 5.713333333333333,
+      "y": 3.458333333333333
     },
     "anchor_side": "left"
   },
@@ -13561,27 +13670,27 @@
     "text": "U2_GPA2",
     "source_net_id": "source_net_5",
     "anchor_position": {
-      "x": 5.2333333333333325,
-      "y": 3.458333333333333
-    },
-    "center": {
-      "x": 5.713333333333333,
-      "y": 3.458333333333333
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_92",
-    "text": "U2_GPA2",
-    "source_net_id": "source_net_5",
-    "anchor_position": {
       "x": 6.041666666666666,
       "y": 3.7700000000000005
     },
     "center": {
       "x": 6.5216666666666665,
       "y": 3.7700000000000005
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_92",
+    "text": "U2_GPA3",
+    "source_net_id": "source_net_6",
+    "anchor_position": {
+      "x": 5.2333333333333325,
+      "y": 3.258333333333333
+    },
+    "center": {
+      "x": 5.713333333333333,
+      "y": 3.258333333333333
     },
     "anchor_side": "left"
   },
@@ -13591,27 +13700,27 @@
     "text": "U2_GPA3",
     "source_net_id": "source_net_6",
     "anchor_position": {
-      "x": 5.2333333333333325,
-      "y": 3.258333333333333
-    },
-    "center": {
-      "x": 5.713333333333333,
-      "y": 3.258333333333333
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_94",
-    "text": "U2_GPA3",
-    "source_net_id": "source_net_6",
-    "anchor_position": {
       "x": 6.041666666666666,
       "y": 3.5700000000000003
     },
     "center": {
       "x": 6.5216666666666665,
       "y": 3.5700000000000003
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_94",
+    "text": "U2_GPA4",
+    "source_net_id": "source_net_7",
+    "anchor_position": {
+      "x": 5.2333333333333325,
+      "y": 3.058333333333333
+    },
+    "center": {
+      "x": 5.713333333333333,
+      "y": 3.058333333333333
     },
     "anchor_side": "left"
   },
@@ -13621,27 +13730,27 @@
     "text": "U2_GPA4",
     "source_net_id": "source_net_7",
     "anchor_position": {
-      "x": 5.2333333333333325,
-      "y": 3.058333333333333
-    },
-    "center": {
-      "x": 5.713333333333333,
-      "y": 3.058333333333333
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_96",
-    "text": "U2_GPA4",
-    "source_net_id": "source_net_7",
-    "anchor_position": {
       "x": 6.041666666666666,
       "y": 3.3700000000000006
     },
     "center": {
       "x": 6.5216666666666665,
       "y": 3.3700000000000006
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_96",
+    "text": "U2_GPA5",
+    "source_net_id": "source_net_8",
+    "anchor_position": {
+      "x": 5.2333333333333325,
+      "y": 2.858333333333333
+    },
+    "center": {
+      "x": 5.713333333333333,
+      "y": 2.858333333333333
     },
     "anchor_side": "left"
   },
@@ -13651,27 +13760,27 @@
     "text": "U2_GPA5",
     "source_net_id": "source_net_8",
     "anchor_position": {
-      "x": 5.2333333333333325,
-      "y": 2.858333333333333
-    },
-    "center": {
-      "x": 5.713333333333333,
-      "y": 2.858333333333333
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_98",
-    "text": "U2_GPA5",
-    "source_net_id": "source_net_8",
-    "anchor_position": {
       "x": 6.041666666666666,
       "y": 3.1700000000000004
     },
     "center": {
       "x": 6.5216666666666665,
       "y": 3.1700000000000004
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_98",
+    "text": "U2_GPA6",
+    "source_net_id": "source_net_9",
+    "anchor_position": {
+      "x": 5.2333333333333325,
+      "y": 2.658333333333333
+    },
+    "center": {
+      "x": 5.713333333333333,
+      "y": 2.658333333333333
     },
     "anchor_side": "left"
   },
@@ -13681,21 +13790,6 @@
     "text": "U2_GPA6",
     "source_net_id": "source_net_9",
     "anchor_position": {
-      "x": 5.2333333333333325,
-      "y": 2.658333333333333
-    },
-    "center": {
-      "x": 5.713333333333333,
-      "y": 2.658333333333333
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_100",
-    "text": "U2_GPA6",
-    "source_net_id": "source_net_9",
-    "anchor_position": {
       "x": 6.041666666666666,
       "y": 2.9700000000000006
     },
@@ -13707,7 +13801,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_101",
+    "schematic_net_label_id": "schematic_net_label_100",
     "text": "U2_GPA7",
     "source_net_id": "source_net_10",
     "anchor_position": {
@@ -13722,7 +13816,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_102",
+    "schematic_net_label_id": "schematic_net_label_101",
     "text": "U3B_GPB5/J7_CARBHI",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net61",
     "anchor_position": {
@@ -13737,7 +13831,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_103",
+    "schematic_net_label_id": "schematic_net_label_102",
     "text": "U3B_GPB5/J7_CARBHI",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net61",
     "anchor_position": {
@@ -13747,6 +13841,21 @@
     "center": {
       "x": 3.04,
       "y": -3.291666666666667
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_103",
+    "text": "U3B_GPB4/J7_CARBLO",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net60",
+    "anchor_position": {
+      "x": 3.4166666666666665,
+      "y": -7.466666666666667
+    },
+    "center": {
+      "x": 4.556666666666667,
+      "y": -7.466666666666667
     },
     "anchor_side": "left"
   },
@@ -13756,21 +13865,6 @@
     "text": "U3B_GPB4/J7_CARBLO",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net60",
     "anchor_position": {
-      "x": 3.4166666666666665,
-      "y": -7.466666666666667
-    },
-    "center": {
-      "x": 4.556666666666667,
-      "y": -7.466666666666667
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_105",
-    "text": "U3B_GPB4/J7_CARBLO",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net60",
-    "anchor_position": {
       "x": 1.9,
       "y": -3.491666666666667
     },
@@ -13782,7 +13876,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_106",
+    "schematic_net_label_id": "schematic_net_label_105",
     "text": "U3B_GPB3/J7_RB4",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net59",
     "anchor_position": {
@@ -13797,7 +13891,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_107",
+    "schematic_net_label_id": "schematic_net_label_106",
     "text": "U3B_GPB3/J7_RB4",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net59",
     "anchor_position": {
@@ -13807,6 +13901,21 @@
     "center": {
       "x": 2.86,
       "y": -3.691666666666667
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_107",
+    "text": "U3B_GPB2/J7_RB3",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net58",
+    "anchor_position": {
+      "x": 3.4166666666666665,
+      "y": -7.866666666666667
+    },
+    "center": {
+      "x": 4.376666666666667,
+      "y": -7.866666666666667
     },
     "anchor_side": "left"
   },
@@ -13816,27 +13925,27 @@
     "text": "U3B_GPB2/J7_RB3",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net58",
     "anchor_position": {
-      "x": 3.4166666666666665,
-      "y": -7.866666666666667
-    },
-    "center": {
-      "x": 4.376666666666667,
-      "y": -7.866666666666667
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_109",
-    "text": "U3B_GPB2/J7_RB3",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net58",
-    "anchor_position": {
       "x": 1.9,
       "y": -3.891666666666667
     },
     "center": {
       "x": 2.86,
       "y": -3.891666666666667
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_109",
+    "text": "U3B_GPB1/J7_RB2",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net57",
+    "anchor_position": {
+      "x": 3.4166666666666665,
+      "y": -8.066666666666666
+    },
+    "center": {
+      "x": 4.376666666666667,
+      "y": -8.066666666666666
     },
     "anchor_side": "left"
   },
@@ -13846,27 +13955,27 @@
     "text": "U3B_GPB1/J7_RB2",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net57",
     "anchor_position": {
-      "x": 3.4166666666666665,
-      "y": -8.066666666666666
-    },
-    "center": {
-      "x": 4.376666666666667,
-      "y": -8.066666666666666
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_111",
-    "text": "U3B_GPB1/J7_RB2",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net57",
-    "anchor_position": {
       "x": 1.9,
       "y": -4.091666666666667
     },
     "center": {
       "x": 2.86,
       "y": -4.091666666666667
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_111",
+    "text": "U3B_GPB0/J7_RB1",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net56",
+    "anchor_position": {
+      "x": 3.4166666666666665,
+      "y": -8.266666666666667
+    },
+    "center": {
+      "x": 4.376666666666667,
+      "y": -8.266666666666667
     },
     "anchor_side": "left"
   },
@@ -13876,21 +13985,6 @@
     "text": "U3B_GPB0/J7_RB1",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net56",
     "anchor_position": {
-      "x": 3.4166666666666665,
-      "y": -8.266666666666667
-    },
-    "center": {
-      "x": 4.376666666666667,
-      "y": -8.266666666666667
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_113",
-    "text": "U3B_GPB0/J7_RB1",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net56",
-    "anchor_position": {
       "x": 1.9,
       "y": -4.291666666666667
     },
@@ -13902,7 +13996,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_114",
+    "schematic_net_label_id": "schematic_net_label_113",
     "text": "U3_GPA0",
     "source_net_id": "source_net_11",
     "anchor_position": {
@@ -13917,7 +14011,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_115",
+    "schematic_net_label_id": "schematic_net_label_114",
     "text": "U3_GPA0",
     "source_net_id": "source_net_11",
     "anchor_position": {
@@ -13927,6 +14021,21 @@
     "center": {
       "x": 6.5216666666666665,
       "y": -2.5799999999999996
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_115",
+    "text": "U3_GPA1",
+    "source_net_id": "source_net_12",
+    "anchor_position": {
+      "x": 5.2333333333333325,
+      "y": -3.091666666666667
+    },
+    "center": {
+      "x": 5.713333333333333,
+      "y": -3.091666666666667
     },
     "anchor_side": "left"
   },
@@ -13936,27 +14045,27 @@
     "text": "U3_GPA1",
     "source_net_id": "source_net_12",
     "anchor_position": {
-      "x": 5.2333333333333325,
-      "y": -3.091666666666667
-    },
-    "center": {
-      "x": 5.713333333333333,
-      "y": -3.091666666666667
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_117",
-    "text": "U3_GPA1",
-    "source_net_id": "source_net_12",
-    "anchor_position": {
       "x": 6.041666666666666,
       "y": -2.78
     },
     "center": {
       "x": 6.5216666666666665,
       "y": -2.78
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_117",
+    "text": "U3_GPA2",
+    "source_net_id": "source_net_13",
+    "anchor_position": {
+      "x": 5.2333333333333325,
+      "y": -3.291666666666667
+    },
+    "center": {
+      "x": 5.713333333333333,
+      "y": -3.291666666666667
     },
     "anchor_side": "left"
   },
@@ -13966,27 +14075,27 @@
     "text": "U3_GPA2",
     "source_net_id": "source_net_13",
     "anchor_position": {
-      "x": 5.2333333333333325,
-      "y": -3.291666666666667
-    },
-    "center": {
-      "x": 5.713333333333333,
-      "y": -3.291666666666667
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_119",
-    "text": "U3_GPA2",
-    "source_net_id": "source_net_13",
-    "anchor_position": {
       "x": 6.041666666666666,
       "y": -2.9799999999999995
     },
     "center": {
       "x": 6.5216666666666665,
       "y": -2.9799999999999995
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_119",
+    "text": "U3_GPA3",
+    "source_net_id": "source_net_14",
+    "anchor_position": {
+      "x": 5.2333333333333325,
+      "y": -3.491666666666667
+    },
+    "center": {
+      "x": 5.713333333333333,
+      "y": -3.491666666666667
     },
     "anchor_side": "left"
   },
@@ -13996,27 +14105,27 @@
     "text": "U3_GPA3",
     "source_net_id": "source_net_14",
     "anchor_position": {
-      "x": 5.2333333333333325,
-      "y": -3.491666666666667
-    },
-    "center": {
-      "x": 5.713333333333333,
-      "y": -3.491666666666667
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_121",
-    "text": "U3_GPA3",
-    "source_net_id": "source_net_14",
-    "anchor_position": {
       "x": 6.041666666666666,
       "y": -3.1799999999999997
     },
     "center": {
       "x": 6.5216666666666665,
       "y": -3.1799999999999997
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_121",
+    "text": "U3_GPA4",
+    "source_net_id": "source_net_15",
+    "anchor_position": {
+      "x": 5.2333333333333325,
+      "y": -3.691666666666667
+    },
+    "center": {
+      "x": 5.713333333333333,
+      "y": -3.691666666666667
     },
     "anchor_side": "left"
   },
@@ -14026,27 +14135,27 @@
     "text": "U3_GPA4",
     "source_net_id": "source_net_15",
     "anchor_position": {
-      "x": 5.2333333333333325,
-      "y": -3.691666666666667
-    },
-    "center": {
-      "x": 5.713333333333333,
-      "y": -3.691666666666667
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_123",
-    "text": "U3_GPA4",
-    "source_net_id": "source_net_15",
-    "anchor_position": {
       "x": 6.041666666666666,
       "y": -3.3799999999999994
     },
     "center": {
       "x": 6.5216666666666665,
       "y": -3.3799999999999994
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_123",
+    "text": "U3_GPA5",
+    "source_net_id": "source_net_16",
+    "anchor_position": {
+      "x": 5.2333333333333325,
+      "y": -3.891666666666667
+    },
+    "center": {
+      "x": 5.713333333333333,
+      "y": -3.891666666666667
     },
     "anchor_side": "left"
   },
@@ -14056,27 +14165,27 @@
     "text": "U3_GPA5",
     "source_net_id": "source_net_16",
     "anchor_position": {
-      "x": 5.2333333333333325,
-      "y": -3.891666666666667
-    },
-    "center": {
-      "x": 5.713333333333333,
-      "y": -3.891666666666667
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_125",
-    "text": "U3_GPA5",
-    "source_net_id": "source_net_16",
-    "anchor_position": {
       "x": 6.041666666666666,
       "y": -3.5799999999999996
     },
     "center": {
       "x": 6.5216666666666665,
       "y": -3.5799999999999996
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_125",
+    "text": "U3_GPA6",
+    "source_net_id": "source_net_17",
+    "anchor_position": {
+      "x": 5.2333333333333325,
+      "y": -4.091666666666667
+    },
+    "center": {
+      "x": 5.713333333333333,
+      "y": -4.091666666666667
     },
     "anchor_side": "left"
   },
@@ -14086,21 +14195,6 @@
     "text": "U3_GPA6",
     "source_net_id": "source_net_17",
     "anchor_position": {
-      "x": 5.2333333333333325,
-      "y": -4.091666666666667
-    },
-    "center": {
-      "x": 5.713333333333333,
-      "y": -4.091666666666667
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_127",
-    "text": "U3_GPA6",
-    "source_net_id": "source_net_17",
-    "anchor_position": {
       "x": 6.041666666666666,
       "y": -3.7799999999999994
     },
@@ -14112,7 +14206,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_128",
+    "schematic_net_label_id": "schematic_net_label_127",
     "text": "U3_GPA7",
     "source_net_id": "source_net_18",
     "anchor_position": {
@@ -14127,7 +14221,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_129",
+    "schematic_net_label_id": "schematic_net_label_128",
     "text": "V12",
     "source_net_id": "source_net_19",
     "anchor_position": {
@@ -14137,27 +14231,27 @@
     "center": {
       "x": 9.665000000000001,
       "y": 4.37
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_129",
+    "text": "V12",
+    "source_net_id": "source_net_19",
+    "anchor_position": {
+      "x": 9.425,
+      "y": -2.38
+    },
+    "center": {
+      "x": 9.665000000000001,
+      "y": -2.38
     },
     "anchor_side": "left"
   },
   {
     "type": "schematic_net_label",
     "schematic_net_label_id": "schematic_net_label_130",
-    "text": "V12",
-    "source_net_id": "source_net_19",
-    "anchor_position": {
-      "x": 9.425,
-      "y": -2.38
-    },
-    "center": {
-      "x": 9.665000000000001,
-      "y": -2.38
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_131",
     "text": "V12",
     "source_net_id": "source_net_19",
     "anchor_position": {
@@ -14173,7 +14267,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_132",
+    "schematic_net_label_id": "schematic_net_label_131",
     "text": "V12",
     "source_net_id": "source_net_19",
     "anchor_position": {
@@ -14188,7 +14282,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_133",
+    "schematic_net_label_id": "schematic_net_label_132",
     "text": "U4O_OUT8/J1_OUT8",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net32",
     "anchor_position": {
@@ -14203,7 +14297,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_134",
+    "schematic_net_label_id": "schematic_net_label_133",
     "text": "U4O_OUT8/J1_OUT8",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net32",
     "anchor_position": {
@@ -14213,6 +14307,21 @@
     "center": {
       "x": 10.445,
       "y": 4.17
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_134",
+    "text": "U4O_OUT7/J1_OUT7",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net31",
+    "anchor_position": {
+      "x": 10.483333333333334,
+      "y": 3.97
+    },
+    "center": {
+      "x": 11.503333333333334,
+      "y": 3.97
     },
     "anchor_side": "left"
   },
@@ -14222,11 +14331,11 @@
     "text": "U4O_OUT7/J1_OUT7",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net31",
     "anchor_position": {
-      "x": 10.483333333333334,
+      "x": 9.425,
       "y": 3.97
     },
     "center": {
-      "x": 11.503333333333334,
+      "x": 10.445,
       "y": 3.97
     },
     "anchor_side": "left"
@@ -14234,15 +14343,15 @@
   {
     "type": "schematic_net_label",
     "schematic_net_label_id": "schematic_net_label_136",
-    "text": "U4O_OUT7/J1_OUT7",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net31",
+    "text": "U4O_OUT6/J1_OUT6",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net30",
     "anchor_position": {
-      "x": 9.425,
-      "y": 3.97
+      "x": 10.483333333333334,
+      "y": 3.7700000000000005
     },
     "center": {
-      "x": 10.445,
-      "y": 3.97
+      "x": 11.503333333333334,
+      "y": 3.7700000000000005
     },
     "anchor_side": "left"
   },
@@ -14252,11 +14361,11 @@
     "text": "U4O_OUT6/J1_OUT6",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net30",
     "anchor_position": {
-      "x": 10.483333333333334,
+      "x": 9.425,
       "y": 3.7700000000000005
     },
     "center": {
-      "x": 11.503333333333334,
+      "x": 10.445,
       "y": 3.7700000000000005
     },
     "anchor_side": "left"
@@ -14264,15 +14373,15 @@
   {
     "type": "schematic_net_label",
     "schematic_net_label_id": "schematic_net_label_138",
-    "text": "U4O_OUT6/J1_OUT6",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net30",
+    "text": "U4O_OUT5/J1_OUT5",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net29",
     "anchor_position": {
-      "x": 9.425,
-      "y": 3.7700000000000005
+      "x": 10.483333333333334,
+      "y": 3.5700000000000003
     },
     "center": {
-      "x": 10.445,
-      "y": 3.7700000000000005
+      "x": 11.503333333333334,
+      "y": 3.5700000000000003
     },
     "anchor_side": "left"
   },
@@ -14282,11 +14391,11 @@
     "text": "U4O_OUT5/J1_OUT5",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net29",
     "anchor_position": {
-      "x": 10.483333333333334,
+      "x": 9.425,
       "y": 3.5700000000000003
     },
     "center": {
-      "x": 11.503333333333334,
+      "x": 10.445,
       "y": 3.5700000000000003
     },
     "anchor_side": "left"
@@ -14294,15 +14403,15 @@
   {
     "type": "schematic_net_label",
     "schematic_net_label_id": "schematic_net_label_140",
-    "text": "U4O_OUT5/J1_OUT5",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net29",
+    "text": "U4O_OUT4/J1_OUT4",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net28",
     "anchor_position": {
-      "x": 9.425,
-      "y": 3.5700000000000003
+      "x": 10.483333333333334,
+      "y": 3.3700000000000006
     },
     "center": {
-      "x": 10.445,
-      "y": 3.5700000000000003
+      "x": 11.503333333333334,
+      "y": 3.3700000000000006
     },
     "anchor_side": "left"
   },
@@ -14312,11 +14421,11 @@
     "text": "U4O_OUT4/J1_OUT4",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net28",
     "anchor_position": {
-      "x": 10.483333333333334,
+      "x": 9.425,
       "y": 3.3700000000000006
     },
     "center": {
-      "x": 11.503333333333334,
+      "x": 10.445,
       "y": 3.3700000000000006
     },
     "anchor_side": "left"
@@ -14324,15 +14433,15 @@
   {
     "type": "schematic_net_label",
     "schematic_net_label_id": "schematic_net_label_142",
-    "text": "U4O_OUT4/J1_OUT4",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net28",
+    "text": "U4O_OUT3/J1_OUT3",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net27",
     "anchor_position": {
-      "x": 9.425,
-      "y": 3.3700000000000006
+      "x": 10.483333333333334,
+      "y": 3.1700000000000004
     },
     "center": {
-      "x": 10.445,
-      "y": 3.3700000000000006
+      "x": 11.503333333333334,
+      "y": 3.1700000000000004
     },
     "anchor_side": "left"
   },
@@ -14342,11 +14451,11 @@
     "text": "U4O_OUT3/J1_OUT3",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net27",
     "anchor_position": {
-      "x": 10.483333333333334,
+      "x": 9.425,
       "y": 3.1700000000000004
     },
     "center": {
-      "x": 11.503333333333334,
+      "x": 10.445,
       "y": 3.1700000000000004
     },
     "anchor_side": "left"
@@ -14354,15 +14463,15 @@
   {
     "type": "schematic_net_label",
     "schematic_net_label_id": "schematic_net_label_144",
-    "text": "U4O_OUT3/J1_OUT3",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net27",
+    "text": "U4O_OUT2/J1_OUT2",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net26",
     "anchor_position": {
-      "x": 9.425,
-      "y": 3.1700000000000004
+      "x": 10.483333333333334,
+      "y": 2.9700000000000006
     },
     "center": {
-      "x": 10.445,
-      "y": 3.1700000000000004
+      "x": 11.503333333333334,
+      "y": 2.9700000000000006
     },
     "anchor_side": "left"
   },
@@ -14372,11 +14481,11 @@
     "text": "U4O_OUT2/J1_OUT2",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net26",
     "anchor_position": {
-      "x": 10.483333333333334,
+      "x": 9.425,
       "y": 2.9700000000000006
     },
     "center": {
-      "x": 11.503333333333334,
+      "x": 10.445,
       "y": 2.9700000000000006
     },
     "anchor_side": "left"
@@ -14384,15 +14493,15 @@
   {
     "type": "schematic_net_label",
     "schematic_net_label_id": "schematic_net_label_146",
-    "text": "U4O_OUT2/J1_OUT2",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net26",
+    "text": "U4O_OUT1/J1_OUT1",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net25",
     "anchor_position": {
-      "x": 9.425,
-      "y": 2.9700000000000006
+      "x": 10.483333333333334,
+      "y": 2.7700000000000005
     },
     "center": {
-      "x": 10.445,
-      "y": 2.9700000000000006
+      "x": 11.503333333333334,
+      "y": 2.7700000000000005
     },
     "anchor_side": "left"
   },
@@ -14402,21 +14511,6 @@
     "text": "U4O_OUT1/J1_OUT1",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net25",
     "anchor_position": {
-      "x": 10.483333333333334,
-      "y": 2.7700000000000005
-    },
-    "center": {
-      "x": 11.503333333333334,
-      "y": 2.7700000000000005
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_148",
-    "text": "U4O_OUT1/J1_OUT1",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net25",
-    "anchor_position": {
       "x": 9.425,
       "y": 2.7700000000000005
     },
@@ -14428,7 +14522,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_149",
+    "schematic_net_label_id": "schematic_net_label_148",
     "text": "U5O_OUT5/J2_FAN",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net38",
     "anchor_position": {
@@ -14443,7 +14537,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_150",
+    "schematic_net_label_id": "schematic_net_label_149",
     "text": "U5O_OUT5/J2_FAN",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net38",
     "anchor_position": {
@@ -14458,7 +14552,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_151",
+    "schematic_net_label_id": "schematic_net_label_150",
     "text": "J11_AOUT/R1_pin1",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net66",
     "anchor_position": {
@@ -14473,15 +14567,15 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_152",
+    "schematic_net_label_id": "schematic_net_label_151",
     "text": "J11_AOUT/R1_pin1",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net66",
     "anchor_position": {
-      "x": -3.8,
+      "x": -3.71,
       "y": 6.816666666666666
     },
     "center": {
-      "x": -4.82,
+      "x": -4.73,
       "y": 6.816666666666666
     },
     "anchor_side": "right"
@@ -15050,7 +15144,7 @@
     "type": "pcb_component",
     "pcb_component_id": "pcb_component_28",
     "center": {
-      "x": -19.5,
+      "x": -18.96,
       "y": 40.9
     },
     "width": 3.9399999999999977,
@@ -15063,14 +15157,14 @@
     "obstructs_within_bounds": true,
     "position_mode": "relative_to_group_anchor",
     "positioned_relative_to_pcb_board_id": "pcb_board_0",
-    "display_offset_x": -19.5,
+    "display_offset_x": -18.96,
     "display_offset_y": 40.9
   },
   {
     "type": "pcb_component",
     "pcb_component_id": "pcb_component_29",
     "center": {
-      "x": -19.5,
+      "x": -18.96,
       "y": 44.4
     },
     "width": 3.9399999999999977,
@@ -15083,14 +15177,14 @@
     "obstructs_within_bounds": true,
     "position_mode": "relative_to_group_anchor",
     "positioned_relative_to_pcb_board_id": "pcb_board_0",
-    "display_offset_x": -19.5,
+    "display_offset_x": -18.96,
     "display_offset_y": 44.4
   },
   {
     "type": "pcb_component",
     "pcb_component_id": "pcb_component_30",
     "center": {
-      "x": -10.5,
+      "x": -10.97,
       "y": 40.9
     },
     "width": 3.9399999999999977,
@@ -15103,14 +15197,14 @@
     "obstructs_within_bounds": true,
     "position_mode": "relative_to_group_anchor",
     "positioned_relative_to_pcb_board_id": "pcb_board_0",
-    "display_offset_x": -10.5,
+    "display_offset_x": -10.97,
     "display_offset_y": 40.9
   },
   {
     "type": "pcb_component",
     "pcb_component_id": "pcb_component_31",
     "center": {
-      "x": -10.5,
+      "x": -10.97,
       "y": 44.4
     },
     "width": 3.9399999999999977,
@@ -15123,7 +15217,7 @@
     "obstructs_within_bounds": true,
     "position_mode": "relative_to_group_anchor",
     "positioned_relative_to_pcb_board_id": "pcb_board_0",
-    "display_offset_x": -10.5,
+    "display_offset_x": -10.97,
     "display_offset_y": 44.4
   },
   {
@@ -28191,7 +28285,7 @@
       "unnamed_platedhole204",
       "1"
     ],
-    "x": -20.77,
+    "x": -20.23,
     "y": 40.9,
     "layers": [
       "top",
@@ -28206,7 +28300,7 @@
     "layer": "top",
     "shape": "circle",
     "radius": 0.7,
-    "x": -20.77,
+    "x": -20.23,
     "y": 40.9,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -28216,7 +28310,7 @@
     "layer": "bottom",
     "shape": "circle",
     "radius": 0.7,
-    "x": -20.77,
+    "x": -20.23,
     "y": 40.9,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -28232,7 +28326,7 @@
       "unnamed_platedhole205",
       "2"
     ],
-    "x": -18.23,
+    "x": -17.69,
     "y": 40.9,
     "layers": [
       "top",
@@ -28247,7 +28341,7 @@
     "layer": "top",
     "shape": "circle",
     "radius": 0.7,
-    "x": -18.23,
+    "x": -17.69,
     "y": 40.9,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -28257,7 +28351,7 @@
     "layer": "bottom",
     "shape": "circle",
     "radius": 0.7,
-    "x": -18.23,
+    "x": -17.69,
     "y": 40.9,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -28268,11 +28362,11 @@
     "layer": "top",
     "route": [
       {
-        "x": -19.02,
+        "x": -18.48,
         "y": 40.9
       },
       {
-        "x": -19.98,
+        "x": -19.44,
         "y": 40.9
       }
     ],
@@ -28284,7 +28378,7 @@
     "pcb_silkscreen_text_id": "pcb_silkscreen_text_247",
     "anchor_alignment": "center",
     "anchor_position": {
-      "x": -19.5,
+      "x": -18.96,
       "y": 42.4
     },
     "font": "tscircuit2024",
@@ -28302,51 +28396,51 @@
     "layer": "top",
     "outline": [
       {
-        "x": -21.82,
+        "x": -21.28,
         "y": 41.949999999999996
       },
       {
-        "x": -21.82,
+        "x": -21.28,
         "y": 41.949999999999996
       },
       {
-        "x": -21.82,
+        "x": -21.28,
         "y": 41.949999999999996
       },
       {
-        "x": -17.27,
+        "x": -16.73,
         "y": 41.949999999999996
       },
       {
-        "x": -17.27,
+        "x": -16.73,
         "y": 41.949999999999996
       },
       {
-        "x": -17.27,
+        "x": -16.73,
         "y": 41.949999999999996
       },
       {
-        "x": -17.27,
+        "x": -16.73,
         "y": 39.85
       },
       {
-        "x": -17.27,
+        "x": -16.73,
         "y": 39.85
       },
       {
-        "x": -17.27,
+        "x": -16.73,
         "y": 39.85
       },
       {
-        "x": -21.82,
+        "x": -21.28,
         "y": 39.85
       },
       {
-        "x": -21.82,
+        "x": -21.28,
         "y": 39.85
       },
       {
-        "x": -21.82,
+        "x": -21.28,
         "y": 39.85
       }
     ],
@@ -28364,7 +28458,7 @@
       "unnamed_platedhole206",
       "1"
     ],
-    "x": -20.77,
+    "x": -20.23,
     "y": 44.4,
     "layers": [
       "top",
@@ -28379,7 +28473,7 @@
     "layer": "top",
     "shape": "circle",
     "radius": 0.7,
-    "x": -20.77,
+    "x": -20.23,
     "y": 44.4,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -28389,7 +28483,7 @@
     "layer": "bottom",
     "shape": "circle",
     "radius": 0.7,
-    "x": -20.77,
+    "x": -20.23,
     "y": 44.4,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -28405,7 +28499,7 @@
       "unnamed_platedhole207",
       "2"
     ],
-    "x": -18.23,
+    "x": -17.69,
     "y": 44.4,
     "layers": [
       "top",
@@ -28420,7 +28514,7 @@
     "layer": "top",
     "shape": "circle",
     "radius": 0.7,
-    "x": -18.23,
+    "x": -17.69,
     "y": 44.4,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -28430,7 +28524,7 @@
     "layer": "bottom",
     "shape": "circle",
     "radius": 0.7,
-    "x": -18.23,
+    "x": -17.69,
     "y": 44.4,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -28441,11 +28535,11 @@
     "layer": "top",
     "route": [
       {
-        "x": -19.02,
+        "x": -18.48,
         "y": 44.4
       },
       {
-        "x": -19.98,
+        "x": -19.44,
         "y": 44.4
       }
     ],
@@ -28457,7 +28551,7 @@
     "pcb_silkscreen_text_id": "pcb_silkscreen_text_248",
     "anchor_alignment": "center",
     "anchor_position": {
-      "x": -19.5,
+      "x": -18.96,
       "y": 45.9
     },
     "font": "tscircuit2024",
@@ -28475,51 +28569,51 @@
     "layer": "top",
     "outline": [
       {
-        "x": -21.82,
+        "x": -21.28,
         "y": 45.449999999999996
       },
       {
-        "x": -21.82,
+        "x": -21.28,
         "y": 45.449999999999996
       },
       {
-        "x": -21.82,
+        "x": -21.28,
         "y": 45.449999999999996
       },
       {
-        "x": -17.27,
+        "x": -16.73,
         "y": 45.449999999999996
       },
       {
-        "x": -17.27,
+        "x": -16.73,
         "y": 45.449999999999996
       },
       {
-        "x": -17.27,
+        "x": -16.73,
         "y": 45.449999999999996
       },
       {
-        "x": -17.27,
+        "x": -16.73,
         "y": 43.35
       },
       {
-        "x": -17.27,
+        "x": -16.73,
         "y": 43.35
       },
       {
-        "x": -17.27,
+        "x": -16.73,
         "y": 43.35
       },
       {
-        "x": -21.82,
+        "x": -21.28,
         "y": 43.35
       },
       {
-        "x": -21.82,
+        "x": -21.28,
         "y": 43.35
       },
       {
-        "x": -21.82,
+        "x": -21.28,
         "y": 43.35
       }
     ],
@@ -28537,7 +28631,7 @@
       "unnamed_platedhole208",
       "1"
     ],
-    "x": -11.77,
+    "x": -12.24,
     "y": 40.9,
     "layers": [
       "top",
@@ -28552,7 +28646,7 @@
     "layer": "top",
     "shape": "circle",
     "radius": 0.7,
-    "x": -11.77,
+    "x": -12.24,
     "y": 40.9,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -28562,7 +28656,7 @@
     "layer": "bottom",
     "shape": "circle",
     "radius": 0.7,
-    "x": -11.77,
+    "x": -12.24,
     "y": 40.9,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -28578,7 +28672,7 @@
       "unnamed_platedhole209",
       "2"
     ],
-    "x": -9.23,
+    "x": -9.700000000000001,
     "y": 40.9,
     "layers": [
       "top",
@@ -28593,7 +28687,7 @@
     "layer": "top",
     "shape": "circle",
     "radius": 0.7,
-    "x": -9.23,
+    "x": -9.700000000000001,
     "y": 40.9,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -28603,7 +28697,7 @@
     "layer": "bottom",
     "shape": "circle",
     "radius": 0.7,
-    "x": -9.23,
+    "x": -9.700000000000001,
     "y": 40.9,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -28614,11 +28708,11 @@
     "layer": "top",
     "route": [
       {
-        "x": -10.02,
+        "x": -10.49,
         "y": 40.9
       },
       {
-        "x": -10.98,
+        "x": -11.450000000000001,
         "y": 40.9
       }
     ],
@@ -28630,7 +28724,7 @@
     "pcb_silkscreen_text_id": "pcb_silkscreen_text_249",
     "anchor_alignment": "center",
     "anchor_position": {
-      "x": -10.5,
+      "x": -10.97,
       "y": 42.4
     },
     "font": "tscircuit2024",
@@ -28648,51 +28742,51 @@
     "layer": "top",
     "outline": [
       {
-        "x": -12.82,
+        "x": -13.290000000000001,
         "y": 41.949999999999996
       },
       {
-        "x": -12.82,
+        "x": -13.290000000000001,
         "y": 41.949999999999996
       },
       {
-        "x": -12.82,
+        "x": -13.290000000000001,
         "y": 41.949999999999996
       },
       {
-        "x": -8.27,
+        "x": -8.74,
         "y": 41.949999999999996
       },
       {
-        "x": -8.27,
+        "x": -8.74,
         "y": 41.949999999999996
       },
       {
-        "x": -8.27,
+        "x": -8.74,
         "y": 41.949999999999996
       },
       {
-        "x": -8.27,
+        "x": -8.74,
         "y": 39.85
       },
       {
-        "x": -8.27,
+        "x": -8.74,
         "y": 39.85
       },
       {
-        "x": -8.27,
+        "x": -8.74,
         "y": 39.85
       },
       {
-        "x": -12.82,
+        "x": -13.290000000000001,
         "y": 39.85
       },
       {
-        "x": -12.82,
+        "x": -13.290000000000001,
         "y": 39.85
       },
       {
-        "x": -12.82,
+        "x": -13.290000000000001,
         "y": 39.85
       }
     ],
@@ -28710,7 +28804,7 @@
       "unnamed_platedhole210",
       "1"
     ],
-    "x": -11.77,
+    "x": -12.24,
     "y": 44.4,
     "layers": [
       "top",
@@ -28725,7 +28819,7 @@
     "layer": "top",
     "shape": "circle",
     "radius": 0.7,
-    "x": -11.77,
+    "x": -12.24,
     "y": 44.4,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -28735,7 +28829,7 @@
     "layer": "bottom",
     "shape": "circle",
     "radius": 0.7,
-    "x": -11.77,
+    "x": -12.24,
     "y": 44.4,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -28751,7 +28845,7 @@
       "unnamed_platedhole211",
       "2"
     ],
-    "x": -9.23,
+    "x": -9.700000000000001,
     "y": 44.4,
     "layers": [
       "top",
@@ -28766,7 +28860,7 @@
     "layer": "top",
     "shape": "circle",
     "radius": 0.7,
-    "x": -9.23,
+    "x": -9.700000000000001,
     "y": 44.4,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -28776,7 +28870,7 @@
     "layer": "bottom",
     "shape": "circle",
     "radius": 0.7,
-    "x": -9.23,
+    "x": -9.700000000000001,
     "y": 44.4,
     "subcircuit_id": "subcircuit_source_group_0"
   },
@@ -28787,11 +28881,11 @@
     "layer": "top",
     "route": [
       {
-        "x": -10.02,
+        "x": -10.49,
         "y": 44.4
       },
       {
-        "x": -10.98,
+        "x": -11.450000000000001,
         "y": 44.4
       }
     ],
@@ -28803,7 +28897,7 @@
     "pcb_silkscreen_text_id": "pcb_silkscreen_text_250",
     "anchor_alignment": "center",
     "anchor_position": {
-      "x": -10.5,
+      "x": -10.97,
       "y": 45.9
     },
     "font": "tscircuit2024",
@@ -28821,51 +28915,51 @@
     "layer": "top",
     "outline": [
       {
-        "x": -12.82,
+        "x": -13.290000000000001,
         "y": 45.449999999999996
       },
       {
-        "x": -12.82,
+        "x": -13.290000000000001,
         "y": 45.449999999999996
       },
       {
-        "x": -12.82,
+        "x": -13.290000000000001,
         "y": 45.449999999999996
       },
       {
-        "x": -8.27,
+        "x": -8.74,
         "y": 45.449999999999996
       },
       {
-        "x": -8.27,
+        "x": -8.74,
         "y": 45.449999999999996
       },
       {
-        "x": -8.27,
+        "x": -8.74,
         "y": 45.449999999999996
       },
       {
-        "x": -8.27,
+        "x": -8.74,
         "y": 43.35
       },
       {
-        "x": -8.27,
+        "x": -8.74,
         "y": 43.35
       },
       {
-        "x": -8.27,
+        "x": -8.74,
         "y": 43.35
       },
       {
-        "x": -12.82,
+        "x": -13.290000000000001,
         "y": 43.35
       },
       {
-        "x": -12.82,
+        "x": -13.290000000000001,
         "y": 43.35
       },
       {
-        "x": -12.82,
+        "x": -13.290000000000001,
         "y": 43.35
       }
     ],
@@ -29685,6 +29779,44 @@
         "x": 4.5,
         "y": -21.62,
         "end_pcb_port_id": "pcb_port_85"
+      }
+    ],
+    "subcircuit_id": "subcircuit_source_group_0"
+  },
+  {
+    "type": "pcb_trace",
+    "pcb_trace_id": "pcb_trace_23",
+    "pcb_component_id": null,
+    "route": [
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -55,
+        "y": -20.5,
+        "start_pcb_port_id": "pcb_port_144"
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -49.6,
+        "y": -15.1
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -40.2,
+        "y": -15.1
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -38.77,
+        "y": -13.7,
+        "end_pcb_port_id": "pcb_port_35"
       }
     ],
     "subcircuit_id": "subcircuit_source_group_0"
@@ -32745,7 +32877,7 @@
       "bottom"
     ],
     "subcircuit_id": "subcircuit_source_group_0",
-    "x": -20.77,
+    "x": -20.23,
     "y": 40.9,
     "source_port_id": "source_port_203"
   },
@@ -32760,7 +32892,7 @@
       "bottom"
     ],
     "subcircuit_id": "subcircuit_source_group_0",
-    "x": -18.23,
+    "x": -17.69,
     "y": 40.9,
     "source_port_id": "source_port_204"
   },
@@ -32775,7 +32907,7 @@
       "bottom"
     ],
     "subcircuit_id": "subcircuit_source_group_0",
-    "x": -20.77,
+    "x": -20.23,
     "y": 44.4,
     "source_port_id": "source_port_205"
   },
@@ -32790,7 +32922,7 @@
       "bottom"
     ],
     "subcircuit_id": "subcircuit_source_group_0",
-    "x": -18.23,
+    "x": -17.69,
     "y": 44.4,
     "source_port_id": "source_port_206"
   },
@@ -32805,7 +32937,7 @@
       "bottom"
     ],
     "subcircuit_id": "subcircuit_source_group_0",
-    "x": -11.77,
+    "x": -12.24,
     "y": 40.9,
     "source_port_id": "source_port_207"
   },
@@ -32820,7 +32952,7 @@
       "bottom"
     ],
     "subcircuit_id": "subcircuit_source_group_0",
-    "x": -9.23,
+    "x": -9.700000000000001,
     "y": 40.9,
     "source_port_id": "source_port_208"
   },
@@ -32835,7 +32967,7 @@
       "bottom"
     ],
     "subcircuit_id": "subcircuit_source_group_0",
-    "x": -11.77,
+    "x": -12.24,
     "y": 44.4,
     "source_port_id": "source_port_209"
   },
@@ -32850,7 +32982,7 @@
       "bottom"
     ],
     "subcircuit_id": "subcircuit_source_group_0",
-    "x": -9.23,
+    "x": -9.700000000000001,
     "y": 44.4,
     "source_port_id": "source_port_210"
   },
@@ -33390,7 +33522,7 @@
     "type": "cad_component",
     "cad_component_id": "cad_component_28",
     "position": {
-      "x": -19.5,
+      "x": -18.96,
       "y": 40.9,
       "z": 0.7
     },
@@ -33409,7 +33541,7 @@
     "type": "cad_component",
     "cad_component_id": "cad_component_29",
     "position": {
-      "x": -19.5,
+      "x": -18.96,
       "y": 44.4,
       "z": 0.7
     },
@@ -33428,7 +33560,7 @@
     "type": "cad_component",
     "cad_component_id": "cad_component_30",
     "position": {
-      "x": -10.5,
+      "x": -10.97,
       "y": 40.9,
       "z": 0.7
     },
@@ -33447,7 +33579,7 @@
     "type": "cad_component",
     "cad_component_id": "cad_component_31",
     "position": {
-      "x": -10.5,
+      "x": -10.97,
       "y": 44.4,
       "z": 0.7
     },
@@ -33869,26 +34001,26 @@
     "route": [
       {
         "route_type": "wire",
-        "x": -11.77,
-        "y": 44.4,
+        "x": -9.700000000000001,
+        "y": 40.9,
         "width": 0.2,
         "layer": "top",
-        "start_pcb_port_id": "pcb_port_209"
+        "start_pcb_port_id": "pcb_port_208"
       },
       {
         "route_type": "wire",
-        "x": -11.77,
-        "y": 43.44,
+        "x": -9.700000000000001,
+        "y": 41.86,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -9.23,
-        "y": 40.9,
+        "x": -12.24,
+        "y": 44.4,
         "width": 0.2,
         "layer": "top",
-        "end_pcb_port_id": "pcb_port_208"
+        "end_pcb_port_id": "pcb_port_209"
       }
     ],
     "subcircuit_id": "subcircuit_source_group_0",
@@ -33910,13 +34042,13 @@
       {
         "route_type": "wire",
         "x": -13.369999999999997,
-        "y": 36.760000000000005,
+        "y": 37.230000000000004,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -9.23,
+        "x": -9.7,
         "y": 40.9,
         "width": 0.2,
         "layer": "top",
@@ -33933,7 +34065,7 @@
     "route": [
       {
         "route_type": "wire",
-        "x": -11.77,
+        "x": -12.24,
         "y": 40.9,
         "width": 0.2,
         "layer": "top",
@@ -33941,22 +34073,8 @@
       },
       {
         "route_type": "wire",
-        "x": -13.363902473810032,
-        "y": 42.179533135724625,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -25.533902473810034,
-        "y": 42.179533135724625,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -25.51339668825069,
-        "y": 42.47339668825069,
+        "x": -14.221698366374609,
+        "y": 42.20692453575114,
         "width": 0.2,
         "layer": "top"
       },
@@ -33979,7 +34097,7 @@
     "route": [
       {
         "route_type": "wire",
-        "x": -18.23,
+        "x": -17.69,
         "y": 40.9,
         "width": 0.2,
         "layer": "top",
@@ -33987,36 +34105,36 @@
       },
       {
         "route_type": "wire",
-        "x": -17.025430499910353,
+        "x": -16.545174058725177,
         "y": 40.9,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -16.993330248061266,
-        "y": 40.932100251849086,
+        "x": -16.470829265177205,
+        "y": 40.97434479354797,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -16.993330248061266,
-        "y": 41.001330248061265,
+        "x": -16.470829265177205,
+        "y": 41.0091707348228,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -17.038,
-        "y": 41.046,
+        "x": -16.338,
+        "y": 41.142,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "via",
-        "x": -17.038,
-        "y": 41.046,
+        "x": -16.338,
+        "y": 41.142,
         "from_layer": "top",
         "to_layer": "bottom",
         "via_diameter": 0.5,
@@ -34024,36 +34142,43 @@
       },
       {
         "route_type": "wire",
-        "x": -17.038,
-        "y": 41.046,
+        "x": -16.338,
+        "y": 41.142,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": -17.038,
-        "y": 42.79554222232593,
+        "x": -16.338,
+        "y": 42.97419871608322,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": -17.038,
-        "y": 42.965,
+        "x": -16.455801213564268,
+        "y": 43.09199992964749,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": -17.058,
-        "y": 42.985,
+        "x": -16.455801213564268,
+        "y": 43.11580121356427,
+        "width": 0.2,
+        "layer": "bottom"
+      },
+      {
+        "route_type": "wire",
+        "x": -16.469,
+        "y": 43.129,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "via",
-        "x": -17.058,
-        "y": 42.985,
+        "x": -16.469,
+        "y": 43.129,
         "from_layer": "bottom",
         "to_layer": "top",
         "via_diameter": 0.5,
@@ -34061,21 +34186,21 @@
       },
       {
         "route_type": "wire",
-        "x": -17.058,
-        "y": 42.985,
+        "x": -16.469,
+        "y": 43.129,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -19.355,
-        "y": 42.985,
+        "x": -18.959,
+        "y": 43.129,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -20.77,
+        "x": -20.23,
         "y": 44.4,
         "width": 0.2,
         "layer": "top",
@@ -34101,13 +34226,13 @@
       {
         "route_type": "wire",
         "x": -15.909999999999997,
-        "y": 38.58,
+        "y": 39.11999999999999,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -18.23,
+        "x": -17.69,
         "y": 40.9,
         "width": 0.2,
         "layer": "top",
@@ -34124,7 +34249,7 @@
     "route": [
       {
         "route_type": "wire",
-        "x": -20.77,
+        "x": -20.23,
         "y": 40.9,
         "width": 0.2,
         "layer": "top",
@@ -34148,52 +34273,6 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "source_trace_id": "source_trace_119"
-  },
-  {
-    "type": "pcb_trace",
-    "pcb_trace_id": "source_trace_117_0",
-    "connection_name": "source_trace_117",
-    "route": [
-      {
-        "route_type": "wire",
-        "x": -38.769999999999996,
-        "y": -13.7,
-        "width": 0.2,
-        "layer": "top",
-        "start_pcb_port_id": "pcb_port_35"
-      },
-      {
-        "route_type": "wire",
-        "x": -44.59945383302336,
-        "y": -19.40676175612588,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -53.89543293739317,
-        "y": -19.11648311300103,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -54.03135718392841,
-        "y": -19.53135718392841,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -55,
-        "y": -20.5,
-        "width": 0.2,
-        "layer": "top",
-        "end_pcb_port_id": "pcb_port_144"
-      }
-    ],
-    "subcircuit_id": "subcircuit_source_group_0",
-    "source_trace_id": "source_trace_117"
   },
   {
     "type": "pcb_trace",
@@ -34377,15 +34456,15 @@
       },
       {
         "route_type": "wire",
-        "x": -60.65426244562614,
-        "y": -3.54895793618363,
+        "x": -60.654280723334494,
+        "y": -3.5489585227424043,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -60.70375419629975,
-        "y": -2.006478189908893,
+        "x": -60.70378491584507,
+        "y": -2.006479175744673,
         "width": 0.2,
         "layer": "top"
       },
@@ -34480,36 +34559,36 @@
       },
       {
         "route_type": "wire",
-        "x": -31.515245382131763,
-        "y": 17.145245382131765,
+        "x": -26.069999999999997,
+        "y": 14.690910362839784,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": -32.54895685880934,
-        "y": 17.145245382131765,
+        "x": -29.2583387291219,
+        "y": 17.879249091961686,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": -32.54895685880934,
-        "y": 17.194956858809338,
+        "x": -29.2583387291219,
+        "y": 17.8813387291219,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": -32.56899999991989,
-        "y": 17.215450143063286,
+        "x": -29.31813994444596,
+        "y": 18.117236657023327,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "via",
-        "x": -32.56899999991989,
-        "y": 17.215450143063286,
+        "x": -29.31813994444596,
+        "y": 18.117236657023327,
         "from_layer": "bottom",
         "to_layer": "top",
         "via_diameter": 0.5,
@@ -34517,15 +34596,15 @@
       },
       {
         "route_type": "wire",
-        "x": -32.56899999991989,
-        "y": 17.215450143063286,
+        "x": -29.31813994444596,
+        "y": 18.117236657023327,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -32.569,
-        "y": 32.789,
+        "x": -29.336,
+        "y": 29.555999999999997,
         "width": 0.2,
         "layer": "top"
       },
@@ -34913,22 +34992,15 @@
       },
       {
         "route_type": "wire",
-        "x": -28.593930765830052,
-        "y": 16.31464513254974,
+        "x": -29.36522512085213,
+        "y": 17.26920415846889,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -36.70091456550258,
-        "y": 16.31465234827069,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -36.830675932005846,
-        "y": 16.750675932005848,
+        "x": -37.61341556100972,
+        "y": 17.53340070864592,
         "width": 0.2,
         "layer": "top"
       },
@@ -34948,8 +35020,8 @@
     "type": "pcb_via",
     "pcb_via_id": "pcb_via_0",
     "pcb_trace_id": "source_trace_120__source_trace_121_mst0_0",
-    "x": -17.038,
-    "y": 41.046,
+    "x": -16.338,
+    "y": 41.142,
     "hole_diameter": 0.3,
     "outer_diameter": 0.5,
     "layers": [
@@ -34963,8 +35035,8 @@
     "type": "pcb_via",
     "pcb_via_id": "pcb_via_1",
     "pcb_trace_id": "source_trace_120__source_trace_121_mst0_0",
-    "x": -17.058,
-    "y": 42.985,
+    "x": -16.469,
+    "y": 43.129,
     "hole_diameter": 0.3,
     "outer_diameter": 0.5,
     "layers": [
@@ -34978,8 +35050,8 @@
     "type": "pcb_via",
     "pcb_via_id": "pcb_via_2",
     "pcb_trace_id": "source_trace_79_0",
-    "x": -32.56899999991989,
-    "y": 17.215450143063286,
+    "x": -29.31813994444596,
+    "y": 18.117236657023327,
     "hole_diameter": 0.3,
     "outer_diameter": 0.5,
     "layers": [
@@ -35019,131 +35091,131 @@
         {
           "vertices": [
             {
-              "x": -20.77,
+              "x": -20.23,
               "y": 43.5
             },
             {
-              "x": -20.594419,
+              "x": -20.054419,
               "y": 43.517293
             },
             {
-              "x": -20.425585,
+              "x": -19.885585,
               "y": 43.568508
             },
             {
-              "x": -20.269987,
+              "x": -19.729987,
               "y": 43.651677
             },
             {
-              "x": -20.133604,
+              "x": -19.593604,
               "y": 43.763604
             },
             {
-              "x": -20.021677,
+              "x": -19.481677,
               "y": 43.899987
             },
             {
-              "x": -19.938508,
+              "x": -19.398508,
               "y": 44.055585
             },
             {
-              "x": -19.887293,
+              "x": -19.347293,
               "y": 44.224419
             },
             {
-              "x": -19.87,
+              "x": -19.33,
               "y": 44.4
             },
             {
-              "x": -19.887293,
+              "x": -19.347293,
               "y": 44.575581
             },
             {
-              "x": -19.938508,
+              "x": -19.398508,
               "y": 44.744415
             },
             {
-              "x": -20.021677,
+              "x": -19.481677,
               "y": 44.900013
             },
             {
-              "x": -20.133604,
+              "x": -19.593604,
               "y": 45.036396
             },
             {
-              "x": -20.269987,
+              "x": -19.729987,
               "y": 45.148323
             },
             {
-              "x": -20.425585,
+              "x": -19.885585,
               "y": 45.231492
             },
             {
-              "x": -20.594419,
+              "x": -20.054419,
               "y": 45.282707
             },
             {
-              "x": -20.77,
+              "x": -20.23,
               "y": 45.3
             },
             {
-              "x": -20.945581,
+              "x": -20.405581,
               "y": 45.282707
             },
             {
-              "x": -21.114415,
+              "x": -20.574415,
               "y": 45.231492
             },
             {
-              "x": -21.270013,
+              "x": -20.730013,
               "y": 45.148323
             },
             {
-              "x": -21.406396,
+              "x": -20.866396,
               "y": 45.036396
             },
             {
-              "x": -21.518323,
+              "x": -20.978323,
               "y": 44.900013
             },
             {
-              "x": -21.601492,
+              "x": -21.061492,
               "y": 44.744415
             },
             {
-              "x": -21.652707,
+              "x": -21.112707,
               "y": 44.575581
             },
             {
-              "x": -21.67,
+              "x": -21.13,
               "y": 44.4
             },
             {
-              "x": -21.652707,
+              "x": -21.112707,
               "y": 44.224419
             },
             {
-              "x": -21.601492,
+              "x": -21.061492,
               "y": 44.055585
             },
             {
-              "x": -21.518323,
+              "x": -20.978323,
               "y": 43.899987
             },
             {
-              "x": -21.406396,
+              "x": -20.866396,
               "y": 43.763604
             },
             {
-              "x": -21.270013,
+              "x": -20.730013,
               "y": 43.651677
             },
             {
-              "x": -21.114415,
+              "x": -20.574415,
               "y": 43.568508
             },
             {
-              "x": -20.945581,
+              "x": -20.405581,
               "y": 43.517293
             }
           ]
@@ -35151,131 +35223,131 @@
         {
           "vertices": [
             {
-              "x": -11.77,
+              "x": -12.24,
               "y": 43.5
             },
             {
-              "x": -11.594419,
+              "x": -12.064419,
               "y": 43.517293
             },
             {
-              "x": -11.425585,
+              "x": -11.895585,
               "y": 43.568508
             },
             {
-              "x": -11.269987,
+              "x": -11.739987,
               "y": 43.651677
             },
             {
-              "x": -11.133604,
+              "x": -11.603604,
               "y": 43.763604
             },
             {
-              "x": -11.021677,
+              "x": -11.491677,
               "y": 43.899987
             },
             {
-              "x": -10.938508,
+              "x": -11.408508,
               "y": 44.055585
             },
             {
-              "x": -10.887293,
+              "x": -11.357293,
               "y": 44.224419
             },
             {
-              "x": -10.87,
+              "x": -11.34,
               "y": 44.4
             },
             {
-              "x": -10.887293,
+              "x": -11.357293,
               "y": 44.575581
             },
             {
-              "x": -10.938508,
+              "x": -11.408508,
               "y": 44.744415
             },
             {
-              "x": -11.021677,
+              "x": -11.491677,
               "y": 44.900013
             },
             {
-              "x": -11.133604,
+              "x": -11.603604,
               "y": 45.036396
             },
             {
-              "x": -11.269987,
+              "x": -11.739987,
               "y": 45.148323
             },
             {
-              "x": -11.425585,
+              "x": -11.895585,
               "y": 45.231492
             },
             {
-              "x": -11.594419,
+              "x": -12.064419,
               "y": 45.282707
             },
             {
-              "x": -11.77,
+              "x": -12.24,
               "y": 45.3
             },
             {
-              "x": -11.945581,
+              "x": -12.415581,
               "y": 45.282707
             },
             {
-              "x": -12.114415,
+              "x": -12.584415,
               "y": 45.231492
             },
             {
-              "x": -12.270013,
+              "x": -12.740013,
               "y": 45.148323
             },
             {
-              "x": -12.406396,
+              "x": -12.876396,
               "y": 45.036396
             },
             {
-              "x": -12.518323,
+              "x": -12.988323,
               "y": 44.900013
             },
             {
-              "x": -12.601492,
+              "x": -13.071492,
               "y": 44.744415
             },
             {
-              "x": -12.652707,
+              "x": -13.122707,
               "y": 44.575581
             },
             {
-              "x": -12.67,
+              "x": -13.14,
               "y": 44.4
             },
             {
-              "x": -12.652707,
+              "x": -13.122707,
               "y": 44.224419
             },
             {
-              "x": -12.601492,
+              "x": -13.071492,
               "y": 44.055585
             },
             {
-              "x": -12.518323,
+              "x": -12.988323,
               "y": 43.899987
             },
             {
-              "x": -12.406396,
+              "x": -12.876396,
               "y": 43.763604
             },
             {
-              "x": -12.270013,
+              "x": -12.740013,
               "y": 43.651677
             },
             {
-              "x": -12.114415,
+              "x": -12.584415,
               "y": 43.568508
             },
             {
-              "x": -11.945581,
+              "x": -12.415581,
               "y": 43.517293
             }
           ]
@@ -36887,307 +36959,351 @@
         {
           "vertices": [
             {
-              "x": -18.23,
+              "x": -16.338,
+              "y": 40.692
+            },
+            {
+              "x": -16.250209,
+              "y": 40.700647
+            },
+            {
+              "x": -16.165792,
+              "y": 40.726254
+            },
+            {
+              "x": -16.087993,
+              "y": 40.767839
+            },
+            {
+              "x": -16.019802,
+              "y": 40.823802
+            },
+            {
+              "x": -15.963839,
+              "y": 40.891993
+            },
+            {
+              "x": -15.922254,
+              "y": 40.969792
+            },
+            {
+              "x": -15.896647,
+              "y": 41.054209
+            },
+            {
+              "x": -15.888,
+              "y": 41.142
+            },
+            {
+              "x": -15.896647,
+              "y": 41.229791
+            },
+            {
+              "x": -15.922254,
+              "y": 41.314208
+            },
+            {
+              "x": -15.963839,
+              "y": 41.392007
+            },
+            {
+              "x": -16.019802,
+              "y": 41.460198
+            },
+            {
+              "x": -16.038,
+              "y": 41.475133
+            },
+            {
+              "x": -16.038,
+              "y": 42.974199
+            },
+            {
+              "x": -16.040445,
+              "y": 42.99902
+            },
+            {
+              "x": -16.027647,
+              "y": 43.041209
+            },
+            {
+              "x": -16.019,
+              "y": 43.129
+            },
+            {
+              "x": -16.027647,
+              "y": 43.216791
+            },
+            {
+              "x": -16.053254,
+              "y": 43.301208
+            },
+            {
+              "x": -16.094839,
+              "y": 43.379007
+            },
+            {
+              "x": -16.150802,
+              "y": 43.447198
+            },
+            {
+              "x": -16.218993,
+              "y": 43.503161
+            },
+            {
+              "x": -16.296792,
+              "y": 43.544746
+            },
+            {
+              "x": -16.381209,
+              "y": 43.570353
+            },
+            {
+              "x": -16.469,
+              "y": 43.579
+            },
+            {
+              "x": -16.556791,
+              "y": 43.570353
+            },
+            {
+              "x": -16.641208,
+              "y": 43.544746
+            },
+            {
+              "x": -16.719007,
+              "y": 43.503161
+            },
+            {
+              "x": -16.787198,
+              "y": 43.447198
+            },
+            {
+              "x": -16.843161,
+              "y": 43.379007
+            },
+            {
+              "x": -16.884746,
+              "y": 43.301208
+            },
+            {
+              "x": -16.910353,
+              "y": 43.216791
+            },
+            {
+              "x": -16.919,
+              "y": 43.129
+            },
+            {
+              "x": -16.910353,
+              "y": 43.041209
+            },
+            {
+              "x": -16.884746,
+              "y": 42.956792
+            },
+            {
+              "x": -16.843161,
+              "y": 42.878993
+            },
+            {
+              "x": -16.787198,
+              "y": 42.810802
+            },
+            {
+              "x": -16.719007,
+              "y": 42.754839
+            },
+            {
+              "x": -16.641208,
+              "y": 42.713254
+            },
+            {
+              "x": -16.638,
+              "y": 42.712281
+            },
+            {
+              "x": -16.638,
+              "y": 41.475133
+            },
+            {
+              "x": -16.656198,
+              "y": 41.460198
+            },
+            {
+              "x": -16.712161,
+              "y": 41.392007
+            },
+            {
+              "x": -16.753746,
+              "y": 41.314208
+            },
+            {
+              "x": -16.779353,
+              "y": 41.229791
+            },
+            {
+              "x": -16.788,
+              "y": 41.142
+            },
+            {
+              "x": -16.779353,
+              "y": 41.054209
+            },
+            {
+              "x": -16.753746,
+              "y": 40.969792
+            },
+            {
+              "x": -16.712161,
+              "y": 40.891993
+            },
+            {
+              "x": -16.656198,
+              "y": 40.823802
+            },
+            {
+              "x": -16.588007,
+              "y": 40.767839
+            },
+            {
+              "x": -16.510208,
+              "y": 40.726254
+            },
+            {
+              "x": -16.425791,
+              "y": 40.700647
+            }
+          ]
+        },
+        {
+          "vertices": [
+            {
+              "x": -20.23,
               "y": 40
             },
             {
-              "x": -18.054419,
+              "x": -20.054419,
               "y": 40.017293
             },
             {
-              "x": -17.885585,
+              "x": -19.885585,
               "y": 40.068508
             },
             {
-              "x": -17.729987,
+              "x": -19.729987,
               "y": 40.151677
             },
             {
-              "x": -17.593604,
+              "x": -19.593604,
               "y": 40.263604
             },
             {
-              "x": -17.481677,
+              "x": -19.481677,
               "y": 40.399987
             },
             {
-              "x": -17.398508,
+              "x": -19.398508,
               "y": 40.555585
             },
             {
-              "x": -17.348246,
-              "y": 40.721276
-            },
-            {
-              "x": -17.288007,
-              "y": 40.671839
-            },
-            {
-              "x": -17.210208,
-              "y": 40.630254
-            },
-            {
-              "x": -17.125791,
-              "y": 40.604647
-            },
-            {
-              "x": -17.038,
-              "y": 40.596
-            },
-            {
-              "x": -16.950209,
-              "y": 40.604647
-            },
-            {
-              "x": -16.865792,
-              "y": 40.630254
-            },
-            {
-              "x": -16.787993,
-              "y": 40.671839
-            },
-            {
-              "x": -16.719802,
-              "y": 40.727802
-            },
-            {
-              "x": -16.663839,
-              "y": 40.795993
-            },
-            {
-              "x": -16.622254,
-              "y": 40.873792
-            },
-            {
-              "x": -16.596647,
-              "y": 40.958209
-            },
-            {
-              "x": -16.588,
-              "y": 41.046
-            },
-            {
-              "x": -16.596647,
-              "y": 41.133791
-            },
-            {
-              "x": -16.622254,
-              "y": 41.218208
-            },
-            {
-              "x": -16.663839,
-              "y": 41.296007
-            },
-            {
-              "x": -16.719802,
-              "y": 41.364198
-            },
-            {
-              "x": -16.738,
-              "y": 41.379133
-            },
-            {
-              "x": -16.738,
-              "y": 42.668998
-            },
-            {
-              "x": -16.683839,
-              "y": 42.734993
-            },
-            {
-              "x": -16.642254,
-              "y": 42.812792
-            },
-            {
-              "x": -16.616647,
-              "y": 42.897209
-            },
-            {
-              "x": -16.608,
-              "y": 42.985
-            },
-            {
-              "x": -16.616647,
-              "y": 43.072791
-            },
-            {
-              "x": -16.642254,
-              "y": 43.157208
-            },
-            {
-              "x": -16.683839,
-              "y": 43.235007
-            },
-            {
-              "x": -16.739802,
-              "y": 43.303198
-            },
-            {
-              "x": -16.807993,
-              "y": 43.359161
-            },
-            {
-              "x": -16.885792,
-              "y": 43.400746
-            },
-            {
-              "x": -16.970209,
-              "y": 43.426353
-            },
-            {
-              "x": -17.058,
-              "y": 43.435
-            },
-            {
-              "x": -17.145791,
-              "y": 43.426353
-            },
-            {
-              "x": -17.230208,
-              "y": 43.400746
-            },
-            {
-              "x": -17.308007,
-              "y": 43.359161
-            },
-            {
-              "x": -17.376198,
-              "y": 43.303198
-            },
-            {
-              "x": -17.432161,
-              "y": 43.235007
-            },
-            {
-              "x": -17.473746,
-              "y": 43.157208
-            },
-            {
-              "x": -17.499353,
-              "y": 43.072791
-            },
-            {
-              "x": -17.508,
-              "y": 42.985
-            },
-            {
-              "x": -17.499353,
-              "y": 42.897209
-            },
-            {
-              "x": -17.473746,
-              "y": 42.812792
-            },
-            {
-              "x": -17.432161,
-              "y": 42.734993
-            },
-            {
-              "x": -17.376198,
-              "y": 42.666802
-            },
-            {
-              "x": -17.338,
-              "y": 42.635454
-            },
-            {
-              "x": -17.338,
-              "y": 41.379133
-            },
-            {
-              "x": -17.356198,
-              "y": 41.364198
-            },
-            {
-              "x": -17.412161,
-              "y": 41.296007
-            },
-            {
-              "x": -17.419123,
-              "y": 41.282983
-            },
-            {
-              "x": -17.481677,
-              "y": 41.400013
-            },
-            {
-              "x": -17.593604,
-              "y": 41.536396
-            },
-            {
-              "x": -17.729987,
-              "y": 41.648323
-            },
-            {
-              "x": -17.885585,
-              "y": 41.731492
-            },
-            {
-              "x": -18.054419,
-              "y": 41.782707
-            },
-            {
-              "x": -18.23,
-              "y": 41.8
-            },
-            {
-              "x": -18.405581,
-              "y": 41.782707
-            },
-            {
-              "x": -18.574415,
-              "y": 41.731492
-            },
-            {
-              "x": -18.730013,
-              "y": 41.648323
-            },
-            {
-              "x": -18.866396,
-              "y": 41.536396
-            },
-            {
-              "x": -18.978323,
-              "y": 41.400013
-            },
-            {
-              "x": -19.061492,
-              "y": 41.244415
-            },
-            {
-              "x": -19.112707,
-              "y": 41.075581
-            },
-            {
-              "x": -19.13,
-              "y": 40.9
-            },
-            {
-              "x": -19.112707,
+              "x": -19.347293,
               "y": 40.724419
             },
             {
-              "x": -19.061492,
+              "x": -19.33,
+              "y": 40.9
+            },
+            {
+              "x": -19.347293,
+              "y": 41.075581
+            },
+            {
+              "x": -19.398508,
+              "y": 41.244415
+            },
+            {
+              "x": -19.481677,
+              "y": 41.400013
+            },
+            {
+              "x": -19.593604,
+              "y": 41.536396
+            },
+            {
+              "x": -19.729987,
+              "y": 41.648323
+            },
+            {
+              "x": -19.885585,
+              "y": 41.731492
+            },
+            {
+              "x": -20.054419,
+              "y": 41.782707
+            },
+            {
+              "x": -20.23,
+              "y": 41.8
+            },
+            {
+              "x": -20.405581,
+              "y": 41.782707
+            },
+            {
+              "x": -20.574415,
+              "y": 41.731492
+            },
+            {
+              "x": -20.730013,
+              "y": 41.648323
+            },
+            {
+              "x": -20.866396,
+              "y": 41.536396
+            },
+            {
+              "x": -20.978323,
+              "y": 41.400013
+            },
+            {
+              "x": -21.061492,
+              "y": 41.244415
+            },
+            {
+              "x": -21.112707,
+              "y": 41.075581
+            },
+            {
+              "x": -21.13,
+              "y": 40.9
+            },
+            {
+              "x": -21.112707,
+              "y": 40.724419
+            },
+            {
+              "x": -21.061492,
               "y": 40.555585
             },
             {
-              "x": -18.978323,
+              "x": -20.978323,
               "y": 40.399987
             },
             {
-              "x": -18.866396,
+              "x": -20.866396,
               "y": 40.263604
             },
             {
-              "x": -18.730013,
+              "x": -20.730013,
               "y": 40.151677
             },
             {
-              "x": -18.574415,
+              "x": -20.574415,
               "y": 40.068508
             },
             {
-              "x": -18.405581,
+              "x": -20.405581,
               "y": 40.017293
             }
           ]
@@ -37195,131 +37311,131 @@
         {
           "vertices": [
             {
-              "x": -20.77,
+              "x": -17.69,
               "y": 40
             },
             {
-              "x": -20.594419,
+              "x": -17.514419,
               "y": 40.017293
             },
             {
-              "x": -20.425585,
+              "x": -17.345585,
               "y": 40.068508
             },
             {
-              "x": -20.269987,
+              "x": -17.189987,
               "y": 40.151677
             },
             {
-              "x": -20.133604,
+              "x": -17.053604,
               "y": 40.263604
             },
             {
-              "x": -20.021677,
+              "x": -16.941677,
               "y": 40.399987
             },
             {
-              "x": -19.938508,
+              "x": -16.858508,
               "y": 40.555585
             },
             {
-              "x": -19.887293,
+              "x": -16.807293,
               "y": 40.724419
             },
             {
-              "x": -19.87,
+              "x": -16.79,
               "y": 40.9
             },
             {
-              "x": -19.887293,
+              "x": -16.807293,
               "y": 41.075581
             },
             {
-              "x": -19.938508,
+              "x": -16.858508,
               "y": 41.244415
             },
             {
-              "x": -20.021677,
+              "x": -16.941677,
               "y": 41.400013
             },
             {
-              "x": -20.133604,
+              "x": -17.053604,
               "y": 41.536396
             },
             {
-              "x": -20.269987,
+              "x": -17.189987,
               "y": 41.648323
             },
             {
-              "x": -20.425585,
+              "x": -17.345585,
               "y": 41.731492
             },
             {
-              "x": -20.594419,
+              "x": -17.514419,
               "y": 41.782707
             },
             {
-              "x": -20.77,
+              "x": -17.69,
               "y": 41.8
             },
             {
-              "x": -20.945581,
+              "x": -17.865581,
               "y": 41.782707
             },
             {
-              "x": -21.114415,
+              "x": -18.034415,
               "y": 41.731492
             },
             {
-              "x": -21.270013,
+              "x": -18.190013,
               "y": 41.648323
             },
             {
-              "x": -21.406396,
+              "x": -18.326396,
               "y": 41.536396
             },
             {
-              "x": -21.518323,
+              "x": -18.438323,
               "y": 41.400013
             },
             {
-              "x": -21.601492,
+              "x": -18.521492,
               "y": 41.244415
             },
             {
-              "x": -21.652707,
+              "x": -18.572707,
               "y": 41.075581
             },
             {
-              "x": -21.67,
+              "x": -18.59,
               "y": 40.9
             },
             {
-              "x": -21.652707,
+              "x": -18.572707,
               "y": 40.724419
             },
             {
-              "x": -21.601492,
+              "x": -18.521492,
               "y": 40.555585
             },
             {
-              "x": -21.518323,
+              "x": -18.438323,
               "y": 40.399987
             },
             {
-              "x": -21.406396,
+              "x": -18.326396,
               "y": 40.263604
             },
             {
-              "x": -21.270013,
+              "x": -18.190013,
               "y": 40.151677
             },
             {
-              "x": -21.114415,
+              "x": -18.034415,
               "y": 40.068508
             },
             {
-              "x": -20.945581,
+              "x": -17.865581,
               "y": 40.017293
             }
           ]
@@ -37327,131 +37443,131 @@
         {
           "vertices": [
             {
-              "x": -11.77,
+              "x": -12.24,
               "y": 40
             },
             {
-              "x": -11.594419,
+              "x": -12.064419,
               "y": 40.017293
             },
             {
-              "x": -11.425585,
+              "x": -11.895585,
               "y": 40.068508
             },
             {
-              "x": -11.269987,
+              "x": -11.739987,
               "y": 40.151677
             },
             {
-              "x": -11.133604,
+              "x": -11.603604,
               "y": 40.263604
             },
             {
-              "x": -11.021677,
+              "x": -11.491677,
               "y": 40.399987
             },
             {
-              "x": -10.938508,
+              "x": -11.408508,
               "y": 40.555585
             },
             {
-              "x": -10.887293,
+              "x": -11.357293,
               "y": 40.724419
             },
             {
-              "x": -10.87,
+              "x": -11.34,
               "y": 40.9
             },
             {
-              "x": -10.887293,
+              "x": -11.357293,
               "y": 41.075581
             },
             {
-              "x": -10.938508,
+              "x": -11.408508,
               "y": 41.244415
             },
             {
-              "x": -11.021677,
+              "x": -11.491677,
               "y": 41.400013
             },
             {
-              "x": -11.133604,
+              "x": -11.603604,
               "y": 41.536396
             },
             {
-              "x": -11.269987,
+              "x": -11.739987,
               "y": 41.648323
             },
             {
-              "x": -11.425585,
+              "x": -11.895585,
               "y": 41.731492
             },
             {
-              "x": -11.594419,
+              "x": -12.064419,
               "y": 41.782707
             },
             {
-              "x": -11.77,
+              "x": -12.24,
               "y": 41.8
             },
             {
-              "x": -11.945581,
+              "x": -12.415581,
               "y": 41.782707
             },
             {
-              "x": -12.114415,
+              "x": -12.584415,
               "y": 41.731492
             },
             {
-              "x": -12.270013,
+              "x": -12.740013,
               "y": 41.648323
             },
             {
-              "x": -12.406396,
+              "x": -12.876396,
               "y": 41.536396
             },
             {
-              "x": -12.518323,
+              "x": -12.988323,
               "y": 41.400013
             },
             {
-              "x": -12.601492,
+              "x": -13.071492,
               "y": 41.244415
             },
             {
-              "x": -12.652707,
+              "x": -13.122707,
               "y": 41.075581
             },
             {
-              "x": -12.67,
+              "x": -13.14,
               "y": 40.9
             },
             {
-              "x": -12.652707,
+              "x": -13.122707,
               "y": 40.724419
             },
             {
-              "x": -12.601492,
+              "x": -13.071492,
               "y": 40.555585
             },
             {
-              "x": -12.518323,
+              "x": -12.988323,
               "y": 40.399987
             },
             {
-              "x": -12.406396,
+              "x": -12.876396,
               "y": 40.263604
             },
             {
-              "x": -12.270013,
+              "x": -12.740013,
               "y": 40.151677
             },
             {
-              "x": -12.114415,
+              "x": -12.584415,
               "y": 40.068508
             },
             {
-              "x": -11.945581,
+              "x": -12.415581,
               "y": 40.017293
             }
           ]
@@ -37459,131 +37575,131 @@
         {
           "vertices": [
             {
-              "x": -9.23,
+              "x": -9.7,
               "y": 40
             },
             {
-              "x": -9.054419,
+              "x": -9.524419,
               "y": 40.017293
             },
             {
-              "x": -8.885585,
+              "x": -9.355585,
               "y": 40.068508
             },
             {
-              "x": -8.729987,
+              "x": -9.199987,
               "y": 40.151677
             },
             {
-              "x": -8.593604,
+              "x": -9.063604,
               "y": 40.263604
             },
             {
-              "x": -8.481677,
+              "x": -8.951677,
               "y": 40.399987
             },
             {
-              "x": -8.398508,
+              "x": -8.868508,
               "y": 40.555585
             },
             {
-              "x": -8.347293,
+              "x": -8.817293,
               "y": 40.724419
             },
             {
-              "x": -8.33,
+              "x": -8.8,
               "y": 40.9
             },
             {
-              "x": -8.347293,
+              "x": -8.817293,
               "y": 41.075581
             },
             {
-              "x": -8.398508,
+              "x": -8.868508,
               "y": 41.244415
             },
             {
-              "x": -8.481677,
+              "x": -8.951677,
               "y": 41.400013
             },
             {
-              "x": -8.593604,
+              "x": -9.063604,
               "y": 41.536396
             },
             {
-              "x": -8.729987,
+              "x": -9.199987,
               "y": 41.648323
             },
             {
-              "x": -8.885585,
+              "x": -9.355585,
               "y": 41.731492
             },
             {
-              "x": -9.054419,
+              "x": -9.524419,
               "y": 41.782707
             },
             {
-              "x": -9.23,
+              "x": -9.7,
               "y": 41.8
             },
             {
-              "x": -9.405581,
+              "x": -9.875581,
               "y": 41.782707
             },
             {
-              "x": -9.574415,
+              "x": -10.044415,
               "y": 41.731492
             },
             {
-              "x": -9.730013,
+              "x": -10.200013,
               "y": 41.648323
             },
             {
-              "x": -9.866396,
+              "x": -10.336396,
               "y": 41.536396
             },
             {
-              "x": -9.978323,
+              "x": -10.448323,
               "y": 41.400013
             },
             {
-              "x": -10.061492,
+              "x": -10.531492,
               "y": 41.244415
             },
             {
-              "x": -10.112707,
+              "x": -10.582707,
               "y": 41.075581
             },
             {
-              "x": -10.13,
+              "x": -10.6,
               "y": 40.9
             },
             {
-              "x": -10.112707,
+              "x": -10.582707,
               "y": 40.724419
             },
             {
-              "x": -10.061492,
+              "x": -10.531492,
               "y": 40.555585
             },
             {
-              "x": -9.978323,
+              "x": -10.448323,
               "y": 40.399987
             },
             {
-              "x": -9.866396,
+              "x": -10.336396,
               "y": 40.263604
             },
             {
-              "x": -9.730013,
+              "x": -10.200013,
               "y": 40.151677
             },
             {
-              "x": -9.574415,
+              "x": -10.044415,
               "y": 40.068508
             },
             {
-              "x": -9.405581,
+              "x": -9.875581,
               "y": 40.017293
             }
           ]
@@ -43471,6 +43587,262 @@
         {
           "vertices": [
             {
+              "x": -26.07,
+              "y": 10.75
+            },
+            {
+              "x": -25.884664,
+              "y": 10.768254
+            },
+            {
+              "x": -25.706451,
+              "y": 10.822314
+            },
+            {
+              "x": -25.542208,
+              "y": 10.910104
+            },
+            {
+              "x": -25.398249,
+              "y": 11.028249
+            },
+            {
+              "x": -25.280104,
+              "y": 11.172208
+            },
+            {
+              "x": -25.192314,
+              "y": 11.336451
+            },
+            {
+              "x": -25.138254,
+              "y": 11.514664
+            },
+            {
+              "x": -25.12,
+              "y": 11.7
+            },
+            {
+              "x": -25.138254,
+              "y": 11.885336
+            },
+            {
+              "x": -25.192314,
+              "y": 12.063549
+            },
+            {
+              "x": -25.280104,
+              "y": 12.227792
+            },
+            {
+              "x": -25.398249,
+              "y": 12.371751
+            },
+            {
+              "x": -25.542208,
+              "y": 12.489896
+            },
+            {
+              "x": -25.706451,
+              "y": 12.577686
+            },
+            {
+              "x": -25.77,
+              "y": 12.596963
+            },
+            {
+              "x": -25.77,
+              "y": 14.69091
+            },
+            {
+              "x": -25.775764,
+              "y": 14.749437
+            },
+            {
+              "x": -25.792836,
+              "y": 14.805715
+            },
+            {
+              "x": -25.820559,
+              "y": 14.857581
+            },
+            {
+              "x": -25.857868,
+              "y": 14.903042
+            },
+            {
+              "x": -28.901803,
+              "y": 17.946977
+            },
+            {
+              "x": -28.876787,
+              "y": 18.029446
+            },
+            {
+              "x": -28.86814,
+              "y": 18.117237
+            },
+            {
+              "x": -28.876787,
+              "y": 18.205027
+            },
+            {
+              "x": -28.902394,
+              "y": 18.289444
+            },
+            {
+              "x": -28.943979,
+              "y": 18.367243
+            },
+            {
+              "x": -28.999942,
+              "y": 18.435435
+            },
+            {
+              "x": -29.068133,
+              "y": 18.491398
+            },
+            {
+              "x": -29.145932,
+              "y": 18.532982
+            },
+            {
+              "x": -29.230349,
+              "y": 18.55859
+            },
+            {
+              "x": -29.31814,
+              "y": 18.567237
+            },
+            {
+              "x": -29.405931,
+              "y": 18.55859
+            },
+            {
+              "x": -29.490347,
+              "y": 18.532982
+            },
+            {
+              "x": -29.568147,
+              "y": 18.491398
+            },
+            {
+              "x": -29.636338,
+              "y": 18.435435
+            },
+            {
+              "x": -29.692301,
+              "y": 18.367243
+            },
+            {
+              "x": -29.733886,
+              "y": 18.289444
+            },
+            {
+              "x": -29.759493,
+              "y": 18.205027
+            },
+            {
+              "x": -29.76814,
+              "y": 18.117237
+            },
+            {
+              "x": -29.759493,
+              "y": 18.029446
+            },
+            {
+              "x": -29.733886,
+              "y": 17.945029
+            },
+            {
+              "x": -29.692301,
+              "y": 17.86723
+            },
+            {
+              "x": -29.636338,
+              "y": 17.799039
+            },
+            {
+              "x": -29.568147,
+              "y": 17.743075
+            },
+            {
+              "x": -29.505194,
+              "y": 17.709427
+            },
+            {
+              "x": -29.470471,
+              "y": 17.667117
+            },
+            {
+              "x": -26.37,
+              "y": 14.566646
+            },
+            {
+              "x": -26.37,
+              "y": 12.596963
+            },
+            {
+              "x": -26.433549,
+              "y": 12.577686
+            },
+            {
+              "x": -26.597792,
+              "y": 12.489896
+            },
+            {
+              "x": -26.741751,
+              "y": 12.371751
+            },
+            {
+              "x": -26.859896,
+              "y": 12.227792
+            },
+            {
+              "x": -26.947686,
+              "y": 12.063549
+            },
+            {
+              "x": -27.001746,
+              "y": 11.885336
+            },
+            {
+              "x": -27.02,
+              "y": 11.7
+            },
+            {
+              "x": -27.001746,
+              "y": 11.514664
+            },
+            {
+              "x": -26.947686,
+              "y": 11.336451
+            },
+            {
+              "x": -26.859896,
+              "y": 11.172208
+            },
+            {
+              "x": -26.741751,
+              "y": 11.028249
+            },
+            {
+              "x": -26.597792,
+              "y": 10.910104
+            },
+            {
+              "x": -26.433549,
+              "y": 10.822314
+            },
+            {
+              "x": -26.255336,
+              "y": 10.768254
+            }
+          ]
+        },
+        {
+          "vertices": [
+            {
               "x": -52.8,
               "y": 15.675
             },
@@ -43729,266 +44101,6 @@
             {
               "x": -5.434108,
               "y": 15.698058
-            }
-          ]
-        },
-        {
-          "vertices": [
-            {
-              "x": -26.07,
-              "y": 10.75
-            },
-            {
-              "x": -25.884664,
-              "y": 10.768254
-            },
-            {
-              "x": -25.706451,
-              "y": 10.822314
-            },
-            {
-              "x": -25.542208,
-              "y": 10.910104
-            },
-            {
-              "x": -25.398249,
-              "y": 11.028249
-            },
-            {
-              "x": -25.280104,
-              "y": 11.172208
-            },
-            {
-              "x": -25.192314,
-              "y": 11.336451
-            },
-            {
-              "x": -25.138254,
-              "y": 11.514664
-            },
-            {
-              "x": -25.12,
-              "y": 11.7
-            },
-            {
-              "x": -25.138254,
-              "y": 11.885336
-            },
-            {
-              "x": -25.192314,
-              "y": 12.063549
-            },
-            {
-              "x": -25.280104,
-              "y": 12.227792
-            },
-            {
-              "x": -25.398249,
-              "y": 12.371751
-            },
-            {
-              "x": -25.542208,
-              "y": 12.489896
-            },
-            {
-              "x": -25.706451,
-              "y": 12.577686
-            },
-            {
-              "x": -25.884664,
-              "y": 12.631746
-            },
-            {
-              "x": -26.07,
-              "y": 12.65
-            },
-            {
-              "x": -26.255336,
-              "y": 12.631746
-            },
-            {
-              "x": -26.433549,
-              "y": 12.577686
-            },
-            {
-              "x": -26.492117,
-              "y": 12.546381
-            },
-            {
-              "x": -31.303113,
-              "y": 17.357377
-            },
-            {
-              "x": -31.348574,
-              "y": 17.394686
-            },
-            {
-              "x": -31.40044,
-              "y": 17.422409
-            },
-            {
-              "x": -31.456718,
-              "y": 17.439481
-            },
-            {
-              "x": -31.515245,
-              "y": 17.445245
-            },
-            {
-              "x": -32.184035,
-              "y": 17.445245
-            },
-            {
-              "x": -32.194839,
-              "y": 17.465457
-            },
-            {
-              "x": -32.250802,
-              "y": 17.533648
-            },
-            {
-              "x": -32.318993,
-              "y": 17.589611
-            },
-            {
-              "x": -32.396792,
-              "y": 17.631196
-            },
-            {
-              "x": -32.481209,
-              "y": 17.656804
-            },
-            {
-              "x": -32.569,
-              "y": 17.66545
-            },
-            {
-              "x": -32.656791,
-              "y": 17.656804
-            },
-            {
-              "x": -32.741208,
-              "y": 17.631196
-            },
-            {
-              "x": -32.819007,
-              "y": 17.589611
-            },
-            {
-              "x": -32.887198,
-              "y": 17.533648
-            },
-            {
-              "x": -32.943161,
-              "y": 17.465457
-            },
-            {
-              "x": -32.984746,
-              "y": 17.387658
-            },
-            {
-              "x": -33.010353,
-              "y": 17.303241
-            },
-            {
-              "x": -33.019,
-              "y": 17.21545
-            },
-            {
-              "x": -33.010353,
-              "y": 17.127659
-            },
-            {
-              "x": -32.984746,
-              "y": 17.043243
-            },
-            {
-              "x": -32.943161,
-              "y": 16.965444
-            },
-            {
-              "x": -32.887198,
-              "y": 16.897252
-            },
-            {
-              "x": -32.819007,
-              "y": 16.841289
-            },
-            {
-              "x": -32.741208,
-              "y": 16.799704
-            },
-            {
-              "x": -32.656791,
-              "y": 16.774097
-            },
-            {
-              "x": -32.569,
-              "y": 16.76545
-            },
-            {
-              "x": -32.481209,
-              "y": 16.774097
-            },
-            {
-              "x": -32.396792,
-              "y": 16.799704
-            },
-            {
-              "x": -32.318993,
-              "y": 16.841289
-            },
-            {
-              "x": -32.314173,
-              "y": 16.845245
-            },
-            {
-              "x": -31.639509,
-              "y": 16.845245
-            },
-            {
-              "x": -26.916381,
-              "y": 12.122117
-            },
-            {
-              "x": -26.947686,
-              "y": 12.063549
-            },
-            {
-              "x": -27.001746,
-              "y": 11.885336
-            },
-            {
-              "x": -27.02,
-              "y": 11.7
-            },
-            {
-              "x": -27.001746,
-              "y": 11.514664
-            },
-            {
-              "x": -26.947686,
-              "y": 11.336451
-            },
-            {
-              "x": -26.859896,
-              "y": 11.172208
-            },
-            {
-              "x": -26.741751,
-              "y": 11.028249
-            },
-            {
-              "x": -26.597792,
-              "y": 10.910104
-            },
-            {
-              "x": -26.433549,
-              "y": 10.822314
-            },
-            {
-              "x": -26.255336,
-              "y": 10.768254
             }
           ]
         },
@@ -59996,19 +60108,19 @@
         "vertices": [
           {
             "x": 59.8,
-            "y": -30.3
+            "y": -33
           },
           {
             "x": 47.2,
-            "y": -30.3
+            "y": -33
           },
           {
             "x": 47.2,
-            "y": 39.8
+            "y": 35.4
           },
           {
             "x": 59.8,
-            "y": 39.8
+            "y": 35.4
           }
         ]
       },
