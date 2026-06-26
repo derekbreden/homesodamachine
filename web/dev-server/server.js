@@ -25,6 +25,7 @@ import {
   isRunnableScript,
   findGenerateScripts,
   findRunnableScriptsTransitivelyImporting,
+  findBoardsTransitivelyImporting,
   findScriptsConsumingStep,
 } from "./deps.js";
 
@@ -339,8 +340,10 @@ watcher.on("change", (absPath) => {
     return;
   }
 
-  // PCB board source changed — re-render its three copper views, then
-  // broadcast the board source so the viewer refreshes the card + open modal.
+  // PCB source changed — re-render the board(s) it feeds and broadcast each so
+  // the viewer refreshes the card + open modal. A board source renders itself; a
+  // shared include (`carrier_parts.tsx`) follows the import chain to the boards
+  // that pull it in (`mini.tsx`), since the include has no `<board>` of its own.
   // (node_modules is already filtered by the watcher's `ignored`.)
   if (absPath.endsWith(".tsx") && absPath.split(path.sep).includes("pcb")) {
     if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
@@ -348,8 +351,15 @@ watcher.on("change", (absPath) => {
       absPath,
       setTimeout(() => {
         debounce.delete(absPath);
-        console.log(`Board changed: ${relForLog(absPath)}`);
-        runPcbRender(absPath).catch(() => {});
+        const segs = absPath.split(path.sep);
+        const pcbRoot = segs.slice(0, segs.indexOf("pcb") + 1).join(path.sep);
+        const boards = findBoardsTransitivelyImporting(absPath, pcbRoot);
+        if (boards.length === 0) {
+          console.log(`Changed: ${relForLog(absPath)} (no board imports it — nothing to render)`);
+          return;
+        }
+        console.log(`Changed: ${relForLog(absPath)}`);
+        for (const board of boards) runPcbRender(board).catch(() => {});
       }, 500),
     );
     return;
