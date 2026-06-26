@@ -70,9 +70,24 @@ for (const e of c) if (/silkscreen/.test(e.type)) for (const p of e.route || [])
 // realized clearance: trace<->trace and trace<->pad/via, different nets, per layer
 type Seg = { x1: number; y1: number; x2: number; y2: number; w: number; net: string; layer: string }
 const segs: Seg[] = []
-for (const t of byType.pcb_trace || []) { const r = t.route || []; for (let i = 0; i + 1 < r.length; i++) { const a = r[i], b = r[i + 1]; if (a.layer !== b.layer) continue; segs.push({ x1: a.x, y1: a.y, x2: b.x, y2: b.y, w: a.width || 0.2, net: t.connection_name, layer: a.layer }) } }
-const portNet: Record<string, string> = {}
-for (const t of byType.pcb_trace || []) for (const s of t.route || []) { if (s.start_pcb_port_id) portNet[s.start_pcb_port_id] = t.connection_name; if (s.end_pcb_port_id) portNet[s.end_pcb_port_id] = t.connection_name }
+// A manual <pcbtrace> (clean-pass copper) carries no connection_name and no port-ids
+// on its route, so its own landing pads would read as foreign-net overlaps. Tie each
+// such trace and the two pads its endpoints sit on to one synthetic net (as the core
+// carve patch ties them by the same endpoint match), so they're same-net here.
+const padAt = (x: number, y: number) => (byType.pcb_plated_hole || []).find((p: any) => Math.abs(p.x - x) < 0.06 && Math.abs(p.y - y) < 0.06)
+const cpNetByTrace: Record<string, string> = {}
+const cpPortNet: Record<string, string> = {}
+for (const t of byType.pcb_trace || []) {
+  if (t.connection_name) continue
+  const w = (t.route || []).filter((p: any) => p.route_type === "wire" && typeof p.x === "number")
+  if (w.length < 2) continue
+  const cp = `cp_${t.pcb_trace_id}`
+  cpNetByTrace[t.pcb_trace_id] = cp
+  for (const end of [w[0], w[w.length - 1]]) { const pad = padAt(end.x, end.y); if (pad) cpPortNet[pad.pcb_port_id] = cp }
+}
+for (const t of byType.pcb_trace || []) { const r = t.route || []; for (let i = 0; i + 1 < r.length; i++) { const a = r[i], b = r[i + 1]; if (a.layer !== b.layer) continue; segs.push({ x1: a.x, y1: a.y, x2: b.x, y2: b.y, w: a.width || 0.2, net: t.connection_name || cpNetByTrace[t.pcb_trace_id], layer: a.layer }) } }
+const portNet: Record<string, string> = { ...cpPortNet }
+for (const t of byType.pcb_trace || []) for (const s of t.route || []) { if (s.start_pcb_port_id && t.connection_name) portNet[s.start_pcb_port_id] = t.connection_name; if (s.end_pcb_port_id && t.connection_name) portNet[s.end_pcb_port_id] = t.connection_name }
 const circs: { x: number; y: number; r: number; net: string; layers: string[] }[] = []
 for (const p of byType.pcb_plated_hole || []) circs.push({ x: p.x, y: p.y, r: Math.max(p.rect_pad_width || 0, p.rect_pad_height || 0, p.hole_diameter || 0) / 2, net: portNet[p.pcb_port_id] || `pad_${p.pcb_plated_hole_id}`, layers: p.layers || ["top", "bottom"] })
 // vias are copper too — a trace passing another net's via is a real clearance pinch
