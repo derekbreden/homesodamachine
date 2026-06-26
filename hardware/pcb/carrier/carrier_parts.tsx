@@ -77,11 +77,17 @@ export const Esp32 = ({ x, y, rot = 0 }: { x: number; y: number; rot?: number })
   const o = (ox: number, oy: number) => rotxy(ox, oy, rot)
   const a = o(0, 12.7), b = o(0, -12.7)
   const [w, h] = rot % 180 === 0 ? [52, 28] : [28, 52]
+  // WROOM PCB antenna: an 18 x 6 mm keepout off the 3V3 short end (3V3 is U1A
+  // pin 1). It projects past the body outline and turns with the module, so
+  // neighbours and stacked boards stay clear of it in any orientation.
+  const ant = o(-29, 0)
+  const [aw, ah] = rot % 180 === 0 ? [6, 18] : [18, 6]
   return (
     <>
       <pinheader name="U1A" pinCount={19} pitch="2.54mm" gender="female" footprint="pinrow19" pcbRotation={rot} pinLabels={espA} {...at(x + a[0], y + a[1])} />
       <pinheader name="U1B" pinCount={19} pitch="2.54mm" gender="female" footprint="pinrow19" pcbRotation={rot} pinLabels={espB} {...at(x + b[0], y + b[1])} />
       <Outline x={x} y={y} w={w} h={h} />
+      <Outline x={x + ant[0]} y={y + ant[1]} w={aw} h={ah} />
       <silkscreentext text="ESP32" fontSize="3mm" pcbX={x} pcbY={y} />
     </>
   )

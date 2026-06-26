@@ -14,7 +14,7 @@ import {
 } from "./carrier_parts"
 
 export default () => (
-  <board width="134mm" height="100mm" minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" autorouter={{ traceClearance: 0.47 }}>
+  <board width="146mm" height="100mm" minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" autorouter={{ traceClearance: 0.47 }}>
     <Ds3231 name="U6" x={-32.15} y={-28.65} rot={180} />
     <Esp32 x={-25.15} y={-2} />
     <Rs485 name="U7" x={-29.0} y={25.375} rot={180} />
@@ -26,24 +26,24 @@ export default () => (
     <Jst name="J1" x={57.0} y={25.56} count={9} labels={ulnOUT} rot={90} label="MANIFOLD A" labelDir={1} />
     <Jst name="J2" x={57.0} y={-14.94} count={6} labels={["OUT1", "OUT2", "OUT3", "OUT4", "FAN", "COM"]} rot={90} label="MANIFOLD B" labelDir={1} />
     <Jst name="J3" x={-30.0} y={44} count={4} labels={["GND", "IO35", "IO33", "V5"]} rot={0} label="FAUCET" />
-    <Jst name="J4" x={-56.0} y={3} count={6} labels={["GND", "IO23", "V5", "IO13", "IO14", "3V3"]} rot={90} label="SENSORS" />
+    <Jst name="J4" x={-64.0} y={3} count={6} labels={["GND", "IO23", "V5", "IO13", "IO14", "3V3"]} rot={90} label="SENSORS" />
     <Jst name="J5" x={-25.0} y={-46} count={9} labels={["GND", "IO19", "IO18", "IO25", "IO5", "IO26", "IO17", "IO27", "IO16"]} rot={0} label="DRIVER" />
     <Jst name="J8" x={-52.0} y={-45} count={2} labels={["GND", "V5"]} rot={0} label="POWER" />
     <Jst name="J6" x={10.0} y={46} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={13.0} y={-46} count={7} labels={["GND", "CARBHI", "CARBLO", "RB4", "RB3", "RB2", "RB1"]} rot={0} label="REEDS B" />
     <Jst name="J9" x={-13.0} y={46} count={3} labels={["EARTH", "B", "A"]} rot={0} label="DISPLAY" />
     <Jst name="J10" x={57.0} y={5} count={2} labels={["GND", "V12"]} rot={90} label="12V" />
-    <Jst name="J11" x={-56.0} y={-24} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={90} label="GAS" />
+    <Jst name="J11" x={-64.0} y={-24} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={90} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
         a vertical 2-resistor series: 2.2k (input, bottom) -> midpoint -> 3.3k (to
         GND, top) -> 5*3.3/5.5 = 3.0 V (safely under 3.3 V, still a valid logic HIGH
         for DOUT). The midpoint taps right into the ESP; AOUT: R1/R2 -> IO39, DOUT:
         R3/R4 -> IO36 (the two ADC pins at the ESP top row's left end). */}
-    <resistor name="R1" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-54, -14)} />
-    <resistor name="R2" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-54, -9)} />
-    <resistor name="R3" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-58, -14)} />
-    <resistor name="R4" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-58, -9)} />
+    <resistor name="R1" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-62, -14)} />
+    <resistor name="R2" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-62, -9)} />
+    <resistor name="R3" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-66, -14)} />
+    <resistor name="R4" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-66, -9)} />
 
     {/* MCP 0x21 power -> 0x20 */}
     <trace from=".U3I > .VCC" to=".U2B > .VCC" />
