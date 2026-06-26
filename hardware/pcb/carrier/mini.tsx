@@ -26,7 +26,7 @@ import {
 
 export default () => (
   <board layers={4} outline={[{ x: -67, y: -51 }, { x: 61, y: -51 }, { x: 61, y: 49.5 }, { x: -67, y: 49.5 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" autorouter={{ traceClearance: 0.55 }}>
-    <Ds3231 name="U6" x={-37.15} y={-27.65} rot={180} />
+    <Ds3231 name="U6" x={-37.15} y={-27.65} rot={0} />
     <Esp32 x={-31.15} y={-1} />
     <Rs485 name="U7" x={-29.0} y={26.375} rot={180} />
     <Mcp23017 name="U2" x={14.5} y={20.25} addr="0x20" />
@@ -35,9 +35,9 @@ export default () => (
     <Uln2803 name="U5" x={39.65} y={-17.48} />
     <Buzzer name="U8" x={-6} y={-33} rot={180} />
     <Jst name="J1" x={56.0} y={23.02} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
-    <Jst name="J2" x={56.0} y={-17.48} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
+    <Jst name="J2" x={56.0} y={-13.67} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
     <Jst name="J3" x={-30.0} y={42.65} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
-    <Jst name="J4" x={-62.0} y={3} count={6} labels={["GND", "IO23", "V5", "IO13", "IO14", "3V3"]} rot={90} label="SENSORS" />
+    <Jst name="J4" x={-62.0} y={3} count={6} labels={["GND", "IO23", "V5", "IO14", "IO13", "3V3"]} rot={90} label="SENSORS" />
     <Jst name="J5" x={-27.0} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO27", "IO5", "IO26", "IO18", "IO25", "IO19"]} rot={0} label="DRIVER" />
     <Jst name="J8" x={-52.0} y={-43.3} count={2} labels={["GND", "V5"]} rot={0} label="POWER" />
     <Jst name="J6" x={12.5} y={44.4} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
