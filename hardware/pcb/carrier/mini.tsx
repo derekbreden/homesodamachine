@@ -23,11 +23,11 @@ export default () => (
     <Uln2803 name="U4" x={39.65} y={25.56} />
     <Uln2803 name="U5" x={39.65} y={-14.94} />
     <Buzzer name="U8" x={44} y={-42.5} rot={90} />
-    <Jst name="J1" x={57.0} y={25.56} count={9} labels={ulnOUT} rot={90} label="MANIFOLD A" labelDir={1} />
-    <Jst name="J2" x={57.0} y={-14.94} count={6} labels={["OUT1", "OUT2", "OUT3", "OUT4", "FAN", "COM"]} rot={90} label="MANIFOLD B" labelDir={1} />
-    <Jst name="J3" x={-30.0} y={44} count={4} labels={["GND", "IO35", "IO33", "V5"]} rot={0} label="FAUCET" />
+    <Jst name="J1" x={57.0} y={25.56} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
+    <Jst name="J2" x={57.0} y={-14.94} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
+    <Jst name="J3" x={-30.0} y={44} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
     <Jst name="J4" x={-64.0} y={3} count={6} labels={["GND", "IO23", "V5", "IO13", "IO14", "3V3"]} rot={90} label="SENSORS" />
-    <Jst name="J5" x={-25.0} y={-46} count={9} labels={["GND", "IO19", "IO18", "IO25", "IO5", "IO26", "IO17", "IO27", "IO16"]} rot={0} label="DRIVER" />
+    <Jst name="J5" x={-25.0} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO27", "IO5", "IO26", "IO18", "IO25", "IO19"]} rot={0} label="DRIVER" />
     <Jst name="J8" x={-52.0} y={-45} count={2} labels={["GND", "V5"]} rot={0} label="POWER" />
     <Jst name="J6" x={10.0} y={46} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={13.0} y={-46} count={7} labels={["GND", "CARBHI", "CARBLO", "RB4", "RB3", "RB2", "RB1"]} rot={0} label="REEDS B" />
@@ -77,9 +77,11 @@ export default () => (
     <trace from=".U2I > .GND" to="net.GND" />
     <trace from=".U2A > .GND" to="net.GND" />
 
-    {/* GPA -> ULN inputs */}
-    {i8.map((k) => <trace key={`i4${k}`} from={`.U4I > .IN${k + 1}`} to={`net.U2_GPA${k}`} />)}
-    {i8.map((k) => <trace key={`i5${k}`} from={`.U5I > .IN${k + 1}`} to={`net.U3_GPA${k}`} />)}
+    {/* GPA -> ULN inputs. Silk-up ULN reverses its IN row (IN1 lands at +Y), so
+        GPA_k feeds IN_{8-k} to keep the bank crossing-free: GPA0->IN8 ... GPA7->IN1.
+        This reverses which GPA bit drives which channel (re-synced in valve-control.mmd). */}
+    {i8.map((k) => <trace key={`i4${k}`} from={`.U4I > .IN${8 - k}`} to={`net.U2_GPA${k}`} />)}
+    {i8.map((k) => <trace key={`i5${k}`} from={`.U5I > .IN${8 - k}`} to={`net.U3_GPA${k}`} />)}
 
     {/* RS485 TTL side -> ESP UART + power (top row faces up toward RS485) */}
     <trace from=".U7T > .TXD" to=".U1A > .IO32" />
@@ -201,6 +203,6 @@ export default () => (
     <trace from=".J10 > .V12" to="net.V12" />
     <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" />
     <copperpour name="V12PLANE" layer="top" connectsTo="net.V12"
-      outline={[{ x: 47, y: -16 }, { x: 60, y: -16 }, { x: 60, y: 40 }, { x: 47, y: 40 }]} />
+      outline={[{ x: 47, y: -27 }, { x: 60, y: -27 }, { x: 60, y: 40 }, { x: 47, y: 40 }]} />
   </board>
 )
