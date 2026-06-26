@@ -77,15 +77,16 @@ export const Esp32 = ({ x, y, rot = 0 }: { x: number; y: number; rot?: number })
   const o = (ox: number, oy: number) => rotxy(ox, oy, rot)
   const a = o(0, 12.7), b = o(0, -12.7)
   const [w, h] = rot % 180 === 0 ? [52, 28] : [28, 52]
-  // WROOM PCB antenna: an 18 x 6 mm keepout off the 3V3 short end (3V3 is U1A
-  // pin 1). It projects past the body outline and turns with the module, so
-  // neighbours and stacked boards stay clear of it in any orientation.
-  const ant = o(-29, 0)
+  // WROOM PCB antenna: an 18 x 6 mm keepout off the 3V3 short end. The socket is
+  // soldered SILK-SIDE-UP, so U1A/U1B carry the DevKitC columns reversed (pin1
+  // lands at +X), putting the 3V3 short end at +X — where this keepout sits. It
+  // turns with the module so neighbours / stacked boards stay clear in any rot.
+  const ant = o(29, 0)
   const [aw, ah] = rot % 180 === 0 ? [6, 18] : [18, 6]
   return (
     <>
-      <pinheader name="U1A" pinCount={19} pitch="2.54mm" gender="female" footprint="pinrow19" pcbRotation={rot} pinLabels={espA} {...at(x + a[0], y + a[1])} />
-      <pinheader name="U1B" pinCount={19} pitch="2.54mm" gender="female" footprint="pinrow19" pcbRotation={rot} pinLabels={espB} {...at(x + b[0], y + b[1])} />
+      <pinheader name="U1A" pinCount={19} pitch="2.54mm" gender="female" footprint="pinrow19" pcbRotation={rot} pinLabels={[...espA].reverse()} {...at(x + a[0], y + a[1])} />
+      <pinheader name="U1B" pinCount={19} pitch="2.54mm" gender="female" footprint="pinrow19" pcbRotation={rot} pinLabels={[...espB].reverse()} {...at(x + b[0], y + b[1])} />
       <Outline x={x} y={y} w={w} h={h} />
       <Outline x={x + ant[0]} y={y + ant[1]} w={aw} h={ah} />
       <silkscreentext text="ESP32" fontSize="3mm" pcbX={x} pcbY={y} />
@@ -114,7 +115,8 @@ export const Mcp23017 = ({ name, x, y, addr, rot = 0 }: { name: string; x: numbe
 }
 
 // ---- ULN2803A board (23 x 24) ----------------------------------------------
-// IN row on -X, OUT row on +X (before rotation); GND is IN pin 9, COM is OUT pin 9.
+// IN row on -X, OUT row on +X (before rotation). Soldered SILK-SIDE-UP, so the
+// two 9-pin rows run reversed: IN1/OUT1 land at +Y, GND/COM at -Y.
 export const Uln2803 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => {
   const o = (ox: number, oy: number) => rotxy(ox, oy, rot)
   const [w, h] = rot % 180 === 0 ? [23, 24] : [24, 23]
@@ -126,8 +128,8 @@ export const Uln2803 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: n
       <silkscreentext text={name} fontSize="2.6mm" pcbX={x} pcbY={y} />
       <hole shape="circle" diameter="3mm" pcbX={x + hT[0]} pcbY={y + hT[1]} />
       <hole shape="circle" diameter="3mm" pcbX={x + hB[0]} pcbY={y + hB[1]} />
-      <pinheader name={`${name}I`} pinCount={9} pitch="2.54mm" gender="female" footprint="pinrow9" pcbRotation={90 + rot} pinLabels={ulnIN} {...at(x + pI[0], y + pI[1])} />
-      <pinheader name={`${name}O`} pinCount={9} pitch="2.54mm" gender="female" footprint="pinrow9" pcbRotation={90 + rot} pinLabels={ulnOUT} {...at(x + pO[0], y + pO[1])} />
+      <pinheader name={`${name}I`} pinCount={9} pitch="2.54mm" gender="female" footprint="pinrow9" pcbRotation={90 + rot} pinLabels={[...ulnIN].reverse()} {...at(x + pI[0], y + pI[1])} />
+      <pinheader name={`${name}O`} pinCount={9} pitch="2.54mm" gender="female" footprint="pinrow9" pcbRotation={90 + rot} pinLabels={[...ulnOUT].reverse()} {...at(x + pO[0], y + pO[1])} />
     </>
   )
 }
