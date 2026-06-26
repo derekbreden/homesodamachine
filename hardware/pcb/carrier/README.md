@@ -66,3 +66,29 @@ not committed (they'd drift, since nothing regenerates them):
 
 `tsci import` pulls footprints from JLCPCB part numbers; `tsci convert` ingests
 `.kicad_mod` footprints.
+
+## Routing optimization (optional)
+
+Two levers steer the autorouter; `_clrsweep.ts` explores them — it rewrites only
+the `<board>` tag, re-exports, and prints the realized copper floor + via count
+per setting. `bun _clrsweep.ts`, or pass board widths: `bun _clrsweep.ts 134,160,180`.
+
+- **`autorouter={{ traceClearance }}`** — the trace-spacing knob. A core patch
+  (`patches/`) fans it to the capacity router's `defaultObstacleMargin` +
+  `minTraceToPadEdgeClearance` (stock core can't set the first). It is a *soft
+  target*, not a floor: the capacity mesh only re-routes a trace out of a channel
+  once clearance crosses a whole-trace capacity threshold, so the realized gap
+  moves in plateaus and cliffs — **sweep to find the best value, don't compute it**,
+  and re-sweep after any placement change (the optimum drifts).
+- **board `width` / size** — a second, independent lever: more area gives the
+  router room to detour and relieves pinches `traceClearance` alone can't. With
+  components at fixed coordinates a bigger board mostly adds *peripheral* room; the
+  fuller "make it airy" lever is spreading the components themselves (their coords
+  here). Width is the cheap first cut, placement the deep one.
+
+Caveat on the metric: the "floor" `_clrsweep`/`_analyze` report is the single
+tightest pad/trace gap — a weak proxy for **legibility** (can a human read the
+board). For that, look at the rendered views (airy bundles, no nests) and the
+typical spacing + via count, not the floor number. Compact and legible trade off;
+the width×clearance grid traces that front, so you can choose the smallest board
+that is still easy to inspect by eye.
