@@ -1,8 +1,53 @@
+diff --git a/node_modules/@tscircuit/core/.bun-tag-c78b4bfb32a68812 b/.bun-tag-c78b4bfb32a68812
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/dist/index.js b/dist/index.js
-index c7b53b7a6db997fd2924cd638de3d2f0757d8682..65e2204e0cc335ce9381446b203f01635f111d13 100644
+index c7b53b7a6db997fd2924cd638de3d2f0757d8682..793ec97a9b13e2ba675f04ed79f95038ae6063c5 100644
 --- a/dist/index.js
 +++ b/dist/index.js
-@@ -22355,6 +22355,18 @@ var Group5 = class extends NormalComponent3 {
+@@ -16046,6 +16046,32 @@ var getSimpleRouteJsonFromCircuitJson = ({
+       conn.externallyConnectedPointIds.push([...tracePortIds]);
+     }
+   }
++  let routedConns = allConns;
++  if (subcircuitComponent) {
++    const pouredReps = /* @__PURE__ */ new Set();
++    for (const cp of subcircuitComponent.selectAll("copperpour")) {
++      let pouredNet;
++      try { pouredNet = cp.getSubcircuit().selectOne(cp._parsedProps.connectsTo); } catch {}
++      if (pouredNet?.source_net_id) {
++        pouredReps.add(connMap.getNetConnectedToId(pouredNet.source_net_id) ?? pouredNet.source_net_id);
++      }
++    }
++    if (pouredReps.size > 0) {
++      const connIsPoured = (conn) => {
++        for (const pt of conn.pointsToConnect) {
++          const id = pt.pcb_port_id ?? pt.pointId;
++          if (!id) continue;
++          const rep = connMap.getNetConnectedToId(id);
++          if (rep && pouredReps.has(rep)) return true;
++        }
++        return false;
++      };
++      routedConns = allConns.filter((conn) => !connIsPoured(conn));
++      if (process.env.POUR_SKIP_DEBUG) {
++        console.error(`[pour-skip] pouredReps=${pouredReps.size} allConns=${allConns.length} routed=${routedConns.length} skipped=${allConns.length - routedConns.length}`);
++      }
++    }
++  }
+   const resolvedMinViaHoleDiameter = minViaHoleDiameter ?? board?.min_via_hole_diameter;
+   const resolvedMinViaPadDiameter = minViaPadDiameter ?? board?.min_via_pad_diameter;
+   const resolvedMinTraceToPadEdgeClearance = minTraceToPadEdgeClearance ?? board?.min_trace_to_pad_edge_clearance;
+@@ -16058,7 +16084,7 @@ var getSimpleRouteJsonFromCircuitJson = ({
+     simpleRouteJson: {
+       bounds,
+       obstacles,
+-      connections: allConns,
++      connections: routedConns,
+       traces: descendantTraces.length > 0 ? descendantTraces : void 0,
+       layerCount: board?.num_layers ?? 2,
+       minTraceWidth: minTraceWidth ?? board?.min_trace_width ?? 0.1,
+@@ -22355,6 +22381,18 @@ var Group5 = class extends NormalComponent3 {
        subcircuit_id: this.subcircuit_id,
        subcircuitComponent: this
      });

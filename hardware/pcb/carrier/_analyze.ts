@@ -93,6 +93,23 @@ console.log(`silk extent:    x ${sx0.toFixed(1)}..${sx1.toFixed(1)}  y ${sy0.toF
 console.log(errTypes.length ? errTypes.map((et) => `DRC ${et}: ${byType[et].length}`).join("\n") : `DRC errors: 0`)
 console.log(`realized clearance: trace-trace ${minTT.toFixed(3)} mm ${ttInfo} | trace-pad ${minTP.toFixed(3)} mm ${tpInfo}  (trace w=${w0})`)
 
+// ---- pour coverage: a copper pour carries every pad on its net, so the autorouter
+// skips those nets (no traces, no vias). That makes the pour the ONLY connection for
+// those pads — nothing in the routed-trace DRC checks it. So we check it here: every
+// pad whose net is poured must sit in filled copper (inside the pour's outer ring and
+// outside every carve-out ring). A pad in a gap is a floating island — a real break.
+const ufN: Record<string, string> = {}
+const findN = (x: string): string => { ufN[x] ??= x; let r = x; while (ufN[r] !== r) r = ufN[r]; while (ufN[x] !== r) { const n = ufN[x]; ufN[x] = r; x = n } return r }
+for (const t of byType.source_trace || []) { const ids = [...(t.connected_source_port_ids || []), ...(t.connected_source_net_ids || [])]; for (let i = 1; i < ids.length; i++) ufN[findN(ids[0])] = findN(ids[i]) }
+const padRep = (pid: string): string | null => { const o = pcbPort[pid]; return o ? findN(o.source_port_id) : null }
+const inPoly = (x: number, y: number, vs: any[]): boolean => { let inside = false; for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) { const xi = vs[i].x, yi = vs[i].y, xj = vs[j].x, yj = vs[j].y; if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)) inside = !inside } return inside }
+const inPour = (x: number, y: number, pour: any): boolean => { if (!inPoly(x, y, pour.brep_shape.outer_ring.vertices)) return false; for (const r of pour.brep_shape.inner_rings || []) if (inPoly(x, y, r.vertices)) return false; return true }
+const pads = [...(byType.pcb_plated_hole || []), ...(byType.pcb_smtpad || [])]
+let pourPads = 0; const uncovered: string[] = []
+for (const pour of byType.pcb_copper_pour || []) { const prep = findN(pour.source_net_id); for (const h of pads) { if (!h.pcb_port_id || padRep(h.pcb_port_id) !== prep) continue; pourPads++; if (!inPour(h.x, h.y, pour)) uncovered.push(`${portLabel(h.pcb_port_id)} @(${h.x.toFixed(1)},${h.y.toFixed(1)}) ${pour.layer}`) } }
+console.log(`pour coverage: ${pourPads} poured-net pads, ${uncovered.length} uncovered${uncovered.length ? "  ⚠ FLOATING — pour does not reach these" : ""}`)
+for (const u of uncovered) console.log(`  ✗ ${u}`)
+
 // ---- trace loops: a declared trace whose two ends are ALREADY joined some other
 // way closes a loop. Such loops are invisible at the raw-trace level because each
 // socketed module bonds its own same-named pins internally (all VCC together, all
