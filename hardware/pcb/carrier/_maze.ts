@@ -42,6 +42,18 @@ const CASES: Record<string, any> = {
     ],
     region: { x0: -41, x1: -13, y0: -47, y1: 14 },
   },
+  // I2C bus: two 4-pin nets routed as their declared tree segments. The MCP<->MCP
+  // backbone (U2I<->U3I) falls out as a clean vertical pair; the ESP feeds the
+  // backbone bottom (U3I) and taps the RTC (U6I). Segments meet at the shared pads.
+  i2c: {
+    ...COMMON,
+    pairs: [
+      { from: "U2I.SDA", to: "U3I.SDA" }, { from: "U2I.SCL", to: "U3I.SCL" },
+      { from: "U1B.IO21", to: "U3I.SDA" }, { from: "U1B.IO22", to: "U3I.SCL" },
+      { from: "U1B.IO21", to: "U6I.SDA" }, { from: "U1B.IO22", to: "U6I.SCL" },
+    ],
+    region: { x0: -24, x1: 18, y0: -35, y1: 38 },
+  },
 }
 const SPEC = CASES[process.argv[2] || "j6"]
 if (!SPEC) { console.error(`unknown case "${process.argv[2]}" — have: ${Object.keys(CASES).join(", ")}`); process.exit(1) }
