@@ -77,14 +77,21 @@ const segs: Seg[] = []
 const padAt = (x: number, y: number) => (byType.pcb_plated_hole || []).find((p: any) => Math.abs(p.x - x) < 0.06 && Math.abs(p.y - y) < 0.06)
 const cpNetByTrace: Record<string, string> = {}
 const cpPortNet: Record<string, string> = {}
-for (const t of byType.pcb_trace || []) {
-  if (t.connection_name) continue
+// One logical net can be SEVERAL pcbtraces meeting at shared pads (e.g. the I2C tree).
+// Union traces that share an endpoint pad so every segment and every pad it touches
+// reads as one net, not as mutual foreign-net overlaps at the junctions.
+const manual = (byType.pcb_trace || []).filter((t: any) => !t.connection_name && (t.route || []).filter((p: any) => p.route_type === "wire" && typeof p.x === "number").length >= 2)
+const padTraces: Record<string, string[]> = {}
+for (const t of manual) {
   const w = (t.route || []).filter((p: any) => p.route_type === "wire" && typeof p.x === "number")
-  if (w.length < 2) continue
-  const cp = `cp_${t.pcb_trace_id}`
-  cpNetByTrace[t.pcb_trace_id] = cp
-  for (const end of [w[0], w[w.length - 1]]) { const pad = padAt(end.x, end.y); if (pad) cpPortNet[pad.pcb_port_id] = cp }
+  for (const e of [w[0], w[w.length - 1]]) { const pad = padAt(e.x, e.y); if (pad) (padTraces[pad.pcb_port_id] ||= []).push(t.pcb_trace_id) }
 }
+const cpParent: Record<string, string> = {}
+const cpFind = (x: string): string => { while (cpParent[x] !== x) { cpParent[x] = cpParent[cpParent[x]]; x = cpParent[x] } return x }
+for (const t of manual) cpParent[t.pcb_trace_id] = t.pcb_trace_id
+for (const pid in padTraces) { const ts = padTraces[pid]; for (let i = 1; i < ts.length; i++) cpParent[cpFind(ts[i])] = cpFind(ts[0]) }
+for (const t of manual) cpNetByTrace[t.pcb_trace_id] = `cp_${cpFind(t.pcb_trace_id)}`
+for (const pid in padTraces) cpPortNet[pid] = `cp_${cpFind(padTraces[pid][0])}`
 for (const t of byType.pcb_trace || []) { const r = t.route || []; for (let i = 0; i + 1 < r.length; i++) { const a = r[i], b = r[i + 1]; if (a.layer !== b.layer) continue; segs.push({ x1: a.x, y1: a.y, x2: b.x, y2: b.y, w: a.width || 0.2, net: t.connection_name || cpNetByTrace[t.pcb_trace_id], layer: a.layer }) } }
 const portNet: Record<string, string> = { ...cpPortNet }
 for (const t of byType.pcb_trace || []) for (const s of t.route || []) { if (s.start_pcb_port_id && t.connection_name) portNet[s.start_pcb_port_id] = t.connection_name; if (s.end_pcb_port_id && t.connection_name) portNet[s.end_pcb_port_id] = t.connection_name }
