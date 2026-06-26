@@ -32,7 +32,7 @@ export default () => (
     <Jst name="J6" x={10.0} y={46} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={13.0} y={-46} count={7} labels={["GND", "CARBHI", "CARBLO", "RB4", "RB3", "RB2", "RB1"]} rot={0} label="REEDS B" />
     <Jst name="J9" x={-13.0} y={46} count={3} labels={["EARTH", "B", "A"]} rot={0} label="DISPLAY" />
-    <Jst name="J10" x={57.0} y={5} count={2} labels={["GND", "V12"]} rot={90} label="VALVE 12V" />
+    <Jst name="J10" x={57.0} y={5} count={2} labels={["GND", "V12"]} rot={90} label="12V" />
     <Jst name="J11" x={-56.0} y={-24} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={90} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
@@ -157,7 +157,7 @@ export default () => (
     <trace from=".J9 > .B" to=".U7L > .B" />
     <trace from=".J9 > .EARTH" to=".U7L > .Earth" />
 
-    {/* VALVE 12V in: J10 feeds the ULN flyback commons (net.V12) and the valve-
+    {/* 12V in: J10 feeds the ULN flyback commons (net.V12) and the valve-
         current ground return via the back-side pour (power.mmd). */}
     <trace from=".U4O > .COM" to="net.V12" />
     <trace from=".U5O > .COM" to="net.V12" />
