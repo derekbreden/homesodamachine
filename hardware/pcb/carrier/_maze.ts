@@ -18,24 +18,33 @@
 import { execFileSync } from "node:child_process"
 import { readFileSync, writeFileSync, rmSync } from "node:fs"
 
-// ── SPEC: which connections to maze-route, in routing order (hardest first helps) ──
-const SPEC = {
-  board: "mini",
-  // each: from/to pin selectors (for the temp <trace> removal + start/goal pads)
-  pairs: [
-    { from: "J6.RA1", to: "U2B.GPB0" },
-    { from: "J6.RA2", to: "U2B.GPB1" },
-    { from: "J6.RA3", to: "U2B.GPB2" },
-    { from: "J6.RA4", to: "U2B.GPB3" },
-  ],
-  region: { x0: 2, x1: 21, y0: 20, y1: 44 }, // routing window (mm), padded internally
-  cell: 0.1,        // grid pitch (mm)
-  clr: 0.25,        // min copper-edge clearance to other nets (mm)
-  width: 0.2,       // drawn trace width (mm)
-  viaCost: 60,      // in cells — high so a via only appears when unavoidable
-  startLayer: "top",
-  turn: 12,        // turn penalty (cells) — higher = straighter, fewer segments
+// ── CASES: named connection groups to maze-route. Select with `bun _maze.ts <case>`.
+// pairs are routed in order (hardest first helps). region is the routing window (mm).
+const COMMON = { board: "mini", cell: 0.1, clr: 0.25, width: 0.2, viaCost: 60, startLayer: "top", turn: 12 }
+const CASES: Record<string, any> = {
+  // J6 reeds past the U2 I2C header (committed)
+  j6: {
+    ...COMMON,
+    pairs: [
+      { from: "J6.RA1", to: "U2B.GPB0" }, { from: "J6.RA2", to: "U2B.GPB1" },
+      { from: "J6.RA3", to: "U2B.GPB2" }, { from: "J6.RA4", to: "U2B.GPB3" },
+    ],
+    region: { x0: 2, x1: 21, y0: 20, y1: 44 },
+  },
+  // J5 driver -> ESP. 3 signals reach the FAR U1A row (route the long ones first),
+  // 5 reach the near U1B row. Window spans the whole ESP height.
+  j5: {
+    ...COMMON,
+    pairs: [
+      { from: "J5.IO27", to: "U1A.IO27" }, { from: "J5.IO26", to: "U1A.IO26" }, { from: "J5.IO25", to: "U1A.IO25" },
+      { from: "J5.IO16", to: "U1B.IO16" }, { from: "J5.IO17", to: "U1B.IO17" }, { from: "J5.IO5", to: "U1B.IO5" },
+      { from: "J5.IO18", to: "U1B.IO18" }, { from: "J5.IO19", to: "U1B.IO19" },
+    ],
+    region: { x0: -41, x1: -13, y0: -47, y1: 14 },
+  },
 }
+const SPEC = CASES[process.argv[2] || "j6"]
+if (!SPEC) { console.error(`unknown case "${process.argv[2]}" — have: ${Object.keys(CASES).join(", ")}`); process.exit(1) }
 
 // ── export the obstacle board: mini.tsx with the SPEC nets' <trace>s removed ──
 const src = readFileSync(`${SPEC.board}.tsx`, "utf8")
@@ -59,10 +68,17 @@ for (const e of c) {
   if (e.type === "source_component") sc[e.source_component_id] = e
 }
 const label = (pid: string) => { const p = pp[pid]; const o = p && sp[p.source_port_id]; return o ? `${sc[o.source_component_id].name}.${o.name}` : "" }
+// pad keep-out radius: a disc that covers the whole pad. For a rectangular pad use
+// the half-DIAGONAL (its corner reach), or a 45° trace clips the corner the disc misses.
+const padR = (h: any) => {
+  const w = h.rect_pad_width || 0, ht = h.rect_pad_height || 0
+  const rectR = (w || ht) ? Math.hypot(w, ht) / 2 : 0
+  return Math.max((h.outer_diameter || 0) / 2, rectR, (h.hole_diameter || 0) / 2)
+}
 const pads: Record<string, { x: number; y: number; r: number; port: string }> = {}
 for (const h of c.filter((e) => e.type === "pcb_plated_hole")) {
   const l = label(h.pcb_port_id); if (!l) continue
-  pads[l] = { x: h.x, y: h.y, r: Math.max(h.outer_diameter || 0, h.rect_pad_width || 0, h.rect_pad_height || 0, h.hole_diameter || 0) / 2, port: h.pcb_port_id }
+  pads[l] = { x: h.x, y: h.y, r: padR(h), port: h.pcb_port_id }
 }
 
 // ── occupancy grid (per layer) ──
@@ -88,16 +104,18 @@ const stampCapsule = (xa: number, ya: number, xb: number, yb: number, r: number,
   for (let s = 0; s <= n; s++) stampDisc(xa + (xb - xa) * s / n, ya + (yb - ya) * s / n, r, [L])
 }
 
-// own pads of the nets we route — never treat these as obstacles
-const ownPorts = new Set<string>()
-for (const { from, to } of SPEC.pairs) { for (const sel of [from, to]) { const p = pads[sel]; if (p) ownPorts.add(p.port) } }
-
-const layerOf = (l: string) => Math.max(0, LAYERS.indexOf(l))
-// pads / plated holes (block both layers — through-hole)
-for (const h of c.filter((e) => e.type === "pcb_plated_hole")) {
-  if (ownPorts.has(h.pcb_port_id)) continue
-  stampDisc(h.x, h.y, Math.max(h.outer_diameter || 0, h.rect_pad_width || 0, h.rect_pad_height || 0, h.hole_diameter || 0) / 2 + SPEC.clr + HALF, [0, 1])
+const clearDisc = (x: number, y: number, r: number, layers: number[]) => {
+  const rc = Math.ceil(r / CELL), ci = gx(x), cj = gy(y)
+  for (let dj = -rc; dj <= rc; dj++) for (let di = -rc; di <= rc; di++) {
+    if (Math.hypot(di, dj) * CELL > r) continue
+    const i = ci + di, j = cj + dj; if (inb(i, j)) for (const L of layers) occ[L][idx(i, j)] = 0
+  }
 }
+const layerOf = (l: string) => Math.max(0, LAYERS.indexOf(l))
+// EVERY pad/plated hole is an obstacle (block both layers — through-hole). A route
+// clears only ITS OWN two pads while routing, then re-stamps them — so a trace for
+// one net never runs through another net's pad even when both share an ESP column.
+for (const h of c.filter((e) => e.type === "pcb_plated_hole")) stampDisc(h.x, h.y, padR(h) + SPEC.clr + HALF, [0, 1])
 // non-plated holes (mounting holes) — copper must clear them on both layers
 for (const h of c.filter((e) => e.type === "pcb_hole")) stampDisc(h.x, h.y, (h.hole_diameter || 0) / 2 + SPEC.clr + HALF, [0, 1])
 // vias (both layers)
@@ -193,7 +211,11 @@ function emit(from: string, to: string, path: [number, number, number][], sx: nu
 for (const { from, to } of SPEC.pairs) {
   const s = pads[from], g = pads[to]
   if (!s || !g) { console.error(`// missing pad ${from} or ${to}`); continue }
+  // open this net's own two pads, route, then re-stamp them as obstacles for the rest
+  const sr = s.r + SPEC.clr + HALF, gr = g.r + SPEC.clr + HALF
+  clearDisc(s.x, s.y, sr, [0, 1]); clearDisc(g.x, g.y, gr, [0, 1])
   const path = route(s.x, s.y, g.x, g.y, layerOf(SPEC.startLayer))
+  stampDisc(s.x, s.y, sr, [0, 1]); stampDisc(g.x, g.y, gr, [0, 1])
   if (!path) { console.error(`// NO PATH ${from} -> ${to}`); continue }
   addPathObstacle(path)
   emit(from, to, path, s.x, s.y, g.x, g.y)
