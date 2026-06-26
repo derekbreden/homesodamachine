@@ -281,6 +281,8 @@ Ice-maker donor units and copper coil for the chill loop.
 | DS3231 AT24C32 RTC module (2 pk). Order #114-2813251-8225805, placed March 16, 2026 | [B09LLMYBM1](https://www.amazon.com/dp/B09LLMYBM1) | 1 pk | $7.07 | ACQUIRED |
 | HiLetgo DS3231 high-precision RTC (5 pk). Order #114-5764473-1322614, placed March 16, 2026 | [B01N1LZSK3](https://www.amazon.com/dp/B01N1LZSK3) | 1 pk | $16.08 | ACQUIRED |
 | EDGELEC 4.7 kΩ 1/4 W 1% metal-film resistor (100 pk). Order #112-0915506-0821038, placed April 26, 2026 | [B07HDFHPP3](https://www.amazon.com/dp/B07HDFHPP3) | 1 pk | $5.89 | ACQUIRED |
+| Chanzon 2.2 kΩ 1/4 W 1% metal-film resistor (100 pk) — MQ-6 gas-sensor output divider top leg (carrier R1/R3), 2 per unit. Order #112-6701248-5105066, placed June 25, 2026 | [B08QRPRVMJ](https://www.amazon.com/dp/B08QRPRVMJ) | 1 pk (100) | $5.49 | ON-ORDER (arriving Jun 27) |
+| Chanzon 3.3 kΩ 1/4 W 1% metal-film resistor (100 pk) — MQ-6 gas-sensor output divider bottom leg (carrier R2/R4), 2 per unit. Order #112-6701248-5105066, placed June 25, 2026 | [B08QRG7JBY](https://www.amazon.com/dp/B08QRG7JBY) | 1 pk (100) | $5.49 | ON-ORDER (arriving Jun 27) |
 | Rubycon 470 µF 25 V low-ESR (0.08 Ω) radial aluminum electrolytic capacitor, 10×12.5 mm (15 pk). Order #112-0915506-0821038, placed April 26, 2026 | [B0F8BZVBKF](https://www.amazon.com/dp/B0F8BZVBKF) | 1 pk | $7.40 | ACQUIRED |
 | HiLetgo NJK-5002C Hall-effect proximity switch (2 pk). Order #112-2147768-5852208, placed March 15, 2026 | [B01MZYYCLH](https://www.amazon.com/dp/B01MZYYCLH) | 1 pk | $9.11 | ACQUIRED |
 | Gebildet reed switches, 14 mm glass body, NO (6 pk). Order #112-4347613-6452231, placed April 24, 2026 | [B0CW9418F6](https://www.amazon.com/dp/B0CW9418F6) | 1 pk | $6.42 | ACQUIRED |
@@ -555,10 +557,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$27,226.23](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$29,834.15](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$956.43](LEDGER_ON_ORDER) |
+| ON-ORDER | [$967.41](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$30,833.47](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$30,844.45](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 

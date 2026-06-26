@@ -19,6 +19,8 @@ First-pass draft. **Pricing convention: delivered cost** (product + shipping + t
 | [Waveshare MCP23017 I2C GPIO expander](https://www.amazon.com/dp/B07P2H1NZG) | expands ESP32 I2C into 16 GPIO for solenoid bank | 1 | $12.99 | $12.99 |
 | [DORHEA DS3231 AT24C32 RTC module (2-pk)](https://www.amazon.com/dp/B09LLMYBM1) | I2C RTC at 0x68, referenced in `wiring/esp32-pinout.mmd` and `wiring/valve-control.mmd`; I²C pins broken out as a single inline VCC/GND/SDA/SCL row for a clean 4-pin XH; 1 of 2 per unit ($7.07/2) | 1 (of 2 pk) | $3.54 | $3.54 |
 | [EDGELEC 4.7 kΩ 1/4 W 1% metal-film resistor (100-pk)](https://www.amazon.com/dp/B07HDFHPP3) | DS18B20 1-wire bus pull-up between DATA and 3.3 V; 1 of 100 per unit ($5.89/100) | 1 (of 100 pk) | $0.06 | $0.06 |
+| [Chanzon 2.2 kΩ 1/4 W 1% metal-film resistor (100-pk)](https://www.amazon.com/dp/B08QRPRVMJ) | MQ-6 gas-sensor output divider, top leg (carrier R1/R3 in [`pcb/carrier/mini.tsx`](/hardware/pcb/carrier/mini.tsx)): the MQ-6 runs on 5 V so its AOUT/DOUT swing 0–5 V; a 2.2 kΩ/3.3 kΩ divider on each steps them to ~3.0 V before ESP32 GPIO 39/36, which are NOT 5 V tolerant. 2 of 100 per unit ($5.49/100) | 2 (of 100 pk) | $0.05 | $0.11 |
+| [Chanzon 3.3 kΩ 1/4 W 1% metal-film resistor (100-pk)](https://www.amazon.com/dp/B08QRG7JBY) | MQ-6 gas-sensor output divider, bottom leg (carrier R2/R4): pairs with the 2.2 kΩ top leg on each MQ-6 output (AOUT→IO39, DOUT→IO36) to step 0–5 V down to ~3.0 V. 2 of 100 per unit ($5.49/100) | 2 (of 100 pk) | $0.05 | $0.11 |
 | [Rubycon 470 µF 25 V low-ESR radial electrolytic capacitor, 10×12.5 mm (15-pk)](https://www.amazon.com/dp/B0F8BZVBKF) | bulk decoupling on the 12 V solenoid rail at the ULN2803A driver modules; 1 of 15 per unit ($7.40/15) | 1 (of 15 pk) | $0.49 | $0.49 |
 | [ULN2803A high-current driver module (2-pc)](https://www.amazon.com/dp/B0F872W528) | 2 modules drive 12 solenoids from MCP23017 outputs; 1 full 2-pack per unit | 1 pk | $6.59 | $6.59 |
 | [Mean Well IRM-90-12ST, 80 W / 12 V / 6.7 A, encapsulated](https://www.amazon.com/dp/B0CNRST18V) | 12 V supply for the low-voltage bus; IEC 60335-1 household-appliance safety listed | 1 | $31.66 | $31.66 |
@@ -272,7 +274,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 
 | Section | $ |
 |---|---:|
-| 1. Controllers + electronics | [$169.54](BOM_SEC1) |
+| 1. Controllers + electronics | [$169.76](BOM_SEC1) |
 | 2. Carbonator vessel (plan A, 316L) | [$240.69](BOM_SEC2) |
 | 3. Water inlet | [$240.21](BOM_SEC3) |
 | 4. CO2 subsystem | [$172.20](BOM_SEC4) |
@@ -286,7 +288,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.94](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,570.23](BOM_GRAND)** |
+| **Total** | **[$1,570.45](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
