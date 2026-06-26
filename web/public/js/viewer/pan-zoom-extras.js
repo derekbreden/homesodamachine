@@ -50,8 +50,15 @@ export function makeResetButton(pz, opts = {}) {
   return btn;
 }
 
-export function makeMinimap(svgEl, container) {
+export function makeMinimap(svgEl, container, inset) {
   const nat = naturalSize(svgEl);
+  // Fit insets (px), read live so they track a caller that measures its chrome
+  // after layout (see pcb.js). Absent ⇒ all zero, i.e. the original full-frame
+  // fit. Must mirror PanZoom.fitScale / panBounds so the indicator's "default
+  // view" rectangle matches where the board actually rests.
+  const ins = inset || {};
+  const insT = () => +ins.top || 0, insB = () => +ins.bottom || 0;
+  const insL = () => +ins.left || 0, insR = () => +ins.right || 0;
   // If we can't measure the source, return a no-op shell — the caller
   // still gets a valid element to insert; it just won't update. (We
   // still need nat to compute the fit scale and centered fit-pan.)
@@ -99,12 +106,14 @@ export function makeMinimap(svgEl, container) {
     const t = lastTransform;
     if (!t.scale) return;
 
-    // Default (fit) view parameters. Match PanZoom's fit logic:
-    // scale to min(W/natW, H/natH), then center the resulting box.
-    const fs = Math.min(W / nat.w, H / nat.h);
+    // Default (fit) view parameters. Match PanZoom's fit logic: scale to fit
+    // the inset band, then center the resulting box within that band.
+    const availW = W - insL() - insR();
+    const availH = H - insT() - insB();
+    const fs = Math.min(availW / nat.w, availH / nat.h);
     if (!fs) return;
-    const fsPanX = (W - fs * nat.w) / 2;
-    const fsPanY = (H - fs * nat.h) / 2;
+    const fsPanX = insL() + (availW - fs * nat.w) / 2;
+    const fsPanY = insT() + (availH - fs * nat.h) / 2;
 
     // Current viewport, expressed in *default-view* (= wrapper-at-fit)
     // coordinates. An SVG point sx maps to default-view x = sx*fs + fsPanX.
