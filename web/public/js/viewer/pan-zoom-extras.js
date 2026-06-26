@@ -50,15 +50,12 @@ export function makeResetButton(pz, opts = {}) {
   return btn;
 }
 
-export function makeMinimap(svgEl, container, inset) {
+export function makeMinimap(svgEl, container, obstacles) {
   const nat = naturalSize(svgEl);
-  // Fit insets (px), read live so they track a caller that measures its chrome
-  // after layout (see pcb.js). Absent ⇒ all zero, i.e. the original full-frame
-  // fit. Must mirror PanZoom.fitScale / panBounds so the indicator's "default
-  // view" rectangle matches where the board actually rests.
-  const ins = inset || {};
-  const insT = () => +ins.top || 0, insB = () => +ins.bottom || 0;
-  const insL = () => +ins.left || 0, insR = () => +ins.right || 0;
+  // Fit obstacles (container-local px rects), read live so the indicator's
+  // "default view" rectangle tracks the same obstacle-aware fit PanZoom uses
+  // (see PanZoom.fitScale). Absent ⇒ the original full-frame fit.
+  const obs = obstacles || null;
   // If we can't measure the source, return a no-op shell — the caller
   // still gets a valid element to insert; it just won't update. (We
   // still need nat to compute the fit scale and centered fit-pan.)
@@ -82,9 +79,9 @@ export function makeMinimap(svgEl, container, inset) {
 
   function update(transform) {
     if (transform && transform.scale) lastTransform = transform;
-    const cb = container.getBoundingClientRect();
-    if (!cb.width || !cb.height) return;
-    const W = cb.width, H = cb.height;
+    // Layout size (transform-invariant; the modal card animates scale on open).
+    const W = container.clientWidth, H = container.clientHeight;
+    if (!W || !H) return;
 
     // Outer box matches the container's aspect ratio (both views — fit
     // and current — live inside the same wrapper, so the box that
@@ -106,14 +103,14 @@ export function makeMinimap(svgEl, container, inset) {
     const t = lastTransform;
     if (!t.scale) return;
 
-    // Default (fit) view parameters. Match PanZoom's fit logic: scale to fit
-    // the inset band, then center the resulting box within that band.
-    const availW = W - insL() - insR();
-    const availH = H - insT() - insB();
-    const fs = Math.min(availW / nat.w, availH / nat.h);
+    // Default (fit) view parameters. Match PanZoom's obstacle-aware fit: the
+    // largest centered box that clears the chrome, then centered in the wrapper.
+    const fs = (window.PanZoom && window.PanZoom.fitScale)
+      ? window.PanZoom.fitScale(W, H, nat.w, nat.h, obs)
+      : Math.min(W / nat.w, H / nat.h);
     if (!fs) return;
-    const fsPanX = insL() + (availW - fs * nat.w) / 2;
-    const fsPanY = insT() + (availH - fs * nat.h) / 2;
+    const fsPanX = (W - fs * nat.w) / 2;
+    const fsPanY = (H - fs * nat.h) / 2;
 
     // Current viewport, expressed in *default-view* (= wrapper-at-fit)
     // coordinates. An SVG point sx maps to default-view x = sx*fs + fsPanX.

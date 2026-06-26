@@ -42,6 +42,33 @@
     return { w: r.width, h: r.height };
   }
 
+  // Largest scale at which the content, centered in a vw×vh viewport, clears
+  // every obstacle rect (container-local px, {left,top,right,bottom}). With no
+  // obstacles this is the plain min-fit. The centered box grows monotonically
+  // from the centre, so a binary search finds the threshold — and a corner
+  // widget (e.g. the minimap) only constrains the fit once the box actually
+  // grows under it, instead of stealing a full-width band. Exposed so the
+  // minimap can derive the same "default view" rectangle PanZoom fits to.
+  function computeFitScale(vw, vh, natW, natH, obstacles) {
+    const base = Math.min(vw / natW, vh / natH);
+    if (!obstacles || !obstacles.length || !(base > 0)) return base;
+    const hits = (s) => {
+      const cw = natW * s, ch = natH * s;
+      const bl = (vw - cw) / 2, bt = (vh - ch) / 2, br = bl + cw, bb = bt + ch;
+      for (const o of obstacles) {
+        if (bl < o.right && br > o.left && bt < o.bottom && bb > o.top) return true;
+      }
+      return false;
+    };
+    if (!hits(base)) return base;
+    let lo = 0, hi = base;
+    for (let i = 0; i < 40; i++) {
+      const mid = (lo + hi) / 2;
+      if (hits(mid)) hi = mid; else lo = mid;
+    }
+    return lo > 0 ? lo : base; // centre itself blocked ⇒ degenerate; ignore
+  }
+
   function wrap(el, opts) {
     if (!el) throw new Error("PanZoom.wrap: element required");
     opts = opts || {};
@@ -51,16 +78,14 @@
     const maxScale = opts.maxScale != null ? opts.maxScale : 10;
     const onChange = opts.onTransformChange || null;
     const onLive = opts.onTransformLive || null;
-    // Optional fit insets (px): reserve space at the edges so the fit (and the
-    // zoom-out floor, which IS the fit scale) keeps the content clear of
-    // overlaid chrome — e.g. the PCB viewer's toggle/minimap/readout pills.
-    // Read live off the passed object so a caller can measure its chrome after
-    // layout and mutate the same reference. Empty/absent ⇒ all zero (no change).
-    const fitInset = opts.fitInset || {};
-    const insT = () => +fitInset.top || 0;
-    const insB = () => +fitInset.bottom || 0;
-    const insL = () => +fitInset.left || 0;
-    const insR = () => +fitInset.right || 0;
+    // Optional fit obstacles: rectangles (container-local px, {left,top,right,
+    // bottom}) the fitted content must clear — the overlaid chrome (PCB toggle /
+    // minimap / readout pills). The fit (and the zoom-out floor, which IS the fit
+    // scale) shrink only as far as needed to keep the centered content out of
+    // them, so a corner widget constrains the fit only when the content grows
+    // under it. Read live so a caller can measure its chrome after layout and
+    // mutate the same array in place. Absent ⇒ plain fit (no change).
+    const fitObstacles = opts.fitObstacles || null;
 
     let scale = 1, panX = 0, panY = 0;
     const active = new Map(); // pointerId -> {x,y}
@@ -77,13 +102,20 @@
     // container). Acts as the dynamic floor for the user's zoom — they can
     // never pinch/wheel below "fully visible," because there's nothing to
     // see down there. Returns 0 if the layout isn't ready yet.
+    // Viewport SIZE for fit/pan math. clientWidth/Height are layout px — NOT
+    // affected by an ancestor CSS transform (the modal card animates scale
+    // 0.96→1 on open), unlike getBoundingClientRect. Using them makes the fit
+    // and centering correct mid-animation, so no settle-timing dance is needed.
+    // (Pointer handlers still read getBoundingClientRect for the screen origin.)
+    function viewportSize() {
+      return { width: container.clientWidth, height: container.clientHeight };
+    }
+
     function fitScale() {
-      const viewport = container.getBoundingClientRect();
+      const viewport = viewportSize();
       const nat = getNaturalSize(el);
-      const availW = viewport.width - insL() - insR();
-      const availH = viewport.height - insT() - insB();
-      if (!nat.w || !nat.h || availW <= 0 || availH <= 0) return 0;
-      return Math.min(availW / nat.w, availH / nat.h);
+      if (!nat.w || !nat.h || !viewport.width || !viewport.height) return 0;
+      return computeFitScale(viewport.width, viewport.height, nat.w, nat.h, fitObstacles);
     }
 
     // Pan limits given a scale. When content is smaller than the viewport
@@ -93,24 +125,20 @@
     // edge, with no overscroll into empty space. Same category of fix as
     // capping body min-height to 100svh on iOS Safari.
     function panBounds(s) {
-      const viewport = container.getBoundingClientRect();
+      const viewport = viewportSize();
       const nat = getNaturalSize(el);
       if (!nat.w || !nat.h || !viewport.width || !viewport.height) {
         return { minX: -Infinity, maxX: Infinity, minY: -Infinity, maxY: Infinity };
       }
       const cw = nat.w * s, ch = nat.h * s;
-      const availW = viewport.width - insL() - insR();
-      const availH = viewport.height - insT() - insB();
-      // Content that fits the inset band on an axis locks centered WITHIN that
-      // band (clearing the chrome); content larger than the band pans across
-      // the full viewport (it may slide under the chrome once zoomed in).
-      const cx = insL() + (availW - cw) / 2;
-      const cy = insT() + (availH - ch) / 2;
-      const bx = cw <= availW
-        ? { min: cx, max: cx }
+      // Centered when the content fits the viewport on an axis (it sits centred
+      // at the fit scale, clear of the obstacles by construction); pannable to
+      // the edges once larger (it may slide under chrome when zoomed in).
+      const bx = cw <= viewport.width
+        ? { min: (viewport.width - cw) / 2, max: (viewport.width - cw) / 2 }
         : { min: viewport.width - cw, max: 0 };
-      const by = ch <= availH
-        ? { min: cy, max: cy }
+      const by = ch <= viewport.height
+        ? { min: (viewport.height - ch) / 2, max: (viewport.height - ch) / 2 }
         : { min: viewport.height - ch, max: 0 };
       return { minX: bx.min, maxX: bx.max, minY: by.min, maxY: by.max };
     }
@@ -322,5 +350,5 @@
     };
   }
 
-  window.PanZoom = { wrap: wrap };
+  window.PanZoom = { wrap: wrap, fitScale: computeFitScale };
 })();
