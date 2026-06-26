@@ -105,8 +105,17 @@ const padRep = (pid: string): string | null => { const o = pcbPort[pid]; return 
 const inPoly = (x: number, y: number, vs: any[]): boolean => { let inside = false; for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) { const xi = vs[i].x, yi = vs[i].y, xj = vs[j].x, yj = vs[j].y; if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)) inside = !inside } return inside }
 const inPour = (x: number, y: number, pour: any): boolean => { if (!inPoly(x, y, pour.brep_shape.outer_ring.vertices)) return false; for (const r of pour.brep_shape.inner_rings || []) if (inPoly(x, y, r.vertices)) return false; return true }
 const pads = [...(byType.pcb_plated_hole || []), ...(byType.pcb_smtpad || [])]
+// A net can pour as several disconnected fragments; a pad is carried if ANY
+// fragment of its net covers it. Group pours by net, then test each pad once.
+const poursByRep: Record<string, any[]> = {}
+for (const pour of byType.pcb_copper_pour || []) (poursByRep[findN(pour.source_net_id)] ||= []).push(pour)
 let pourPads = 0; const uncovered: string[] = []
-for (const pour of byType.pcb_copper_pour || []) { const prep = findN(pour.source_net_id); for (const h of pads) { if (!h.pcb_port_id || padRep(h.pcb_port_id) !== prep) continue; pourPads++; if (!inPour(h.x, h.y, pour)) uncovered.push(`${portLabel(h.pcb_port_id)} @(${h.x.toFixed(1)},${h.y.toFixed(1)}) ${pour.layer}`) } }
+for (const h of pads) {
+  if (!h.pcb_port_id) continue
+  const rep = padRep(h.pcb_port_id); const ps = rep && poursByRep[rep]; if (!ps) continue
+  pourPads++
+  if (!ps.some((pour) => inPour(h.x, h.y, pour))) uncovered.push(`${portLabel(h.pcb_port_id)} @(${h.x.toFixed(1)},${h.y.toFixed(1)}) ${ps[0].layer}`)
+}
 console.log(`pour coverage: ${pourPads} poured-net pads, ${uncovered.length} uncovered${uncovered.length ? "  ⚠ FLOATING — pour does not reach these" : ""}`)
 for (const u of uncovered) console.log(`  ✗ ${u}`)
 

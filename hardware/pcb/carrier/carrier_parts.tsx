@@ -181,11 +181,14 @@ export const Rs485 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: num
 export const Buzzer = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => {
   const o = (ox: number, oy: number) => rotxy(ox, oy, rot)
   const [w, h] = rot % 180 === 0 ? [13, 32] : [32, 13]
-  const hM = o(0, 0.6), pP = o(-2.5, -9.5)
+  const hM = o(0, 0.6), pP = o(-2.5, -9.5), lbl = o(0, 9)
   return (
     <>
       <Outline x={x} y={y} w={w} h={h} />
-      <silkscreentext text="BUZZER" fontSize="1.8mm" pcbX={x} pcbY={y + 8} pcbRotation={rot} />
+      {/* Horizontal label, offset into the body's empty end (clear of the centre
+          mounting hole + the pin row); the offset rotates with the module but the
+          glyphs stay readable rather than turning with it. */}
+      <silkscreentext text="BUZZER" fontSize="1.8mm" pcbX={x + lbl[0]} pcbY={y + lbl[1]} />
       <hole shape="circle" diameter="4.2mm" pcbX={x + hM[0]} pcbY={y + hM[1]} />
       <pinheader name={name} pinCount={3} pitch="2.54mm" gender="female" footprint="pinrow3" pcbRotation={90 + rot} pinLabels={buzz} {...at(x + pP[0], y + pP[1])} />
     </>
@@ -196,16 +199,16 @@ export const Buzzer = ({ name, x, y, rot = 0 }: { name: string; x: number; y: nu
 // A board header (the off-board loom cable plugs in) with a body outline + a
 // function label. Single row, in-plane body ~5.8 mm deep. The function label
 // runs PARALLEL to the row (rotated with the connector, like the pin labels) and
-// sits beside it, offset toward the board interior — so it clears the through-
-// hole row instead of crossing it, and never runs off the edge the connector
-// lands on. The interior side is auto from the connector's own position (toward
-// 0,0). labelDir overrides the sign if given.
+// sits INSIDE the body outline, tucked to one side of the through-hole row — so
+// it travels with the connector wherever it moves and never sprawls into the
+// routing area. The tucked side is auto from the connector's own position
+// (toward the board interior); labelDir overrides the sign if given.
 export const Jst = ({ name, x, y, count, labels, rot = 0, label, labelDir }: { name: string; x: number; y: number; count: number; labels: string[]; rot?: number; label: string; labelDir?: number }) => {
   const len = count * 2.54 + 2
   const dep = 5.8
   const vertical = rot % 180 !== 0
   const [w, h] = vertical ? [dep, len] : [len, dep]
-  const off = dep / 2 + 2
+  const off = dep / 2 - 1
   const [lx, ly] = vertical
     ? [(labelDir ?? (-Math.sign(x) || -1)) * off, 0]
     : [0, (labelDir ?? (-Math.sign(y) || -1)) * off]
