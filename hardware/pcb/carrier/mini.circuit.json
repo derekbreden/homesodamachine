@@ -482,7 +482,8 @@
       "4"
     ],
     "source_component_id": "source_component_3",
-    "subcircuit_id": "subcircuit_source_group_0"
+    "subcircuit_id": "subcircuit_source_group_0",
+    "subcircuit_connectivity_map_key": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net42"
   },
   {
     "type": "source_port",
@@ -673,8 +674,7 @@
       "18"
     ],
     "source_component_id": "source_component_3",
-    "subcircuit_id": "subcircuit_source_group_0",
-    "subcircuit_connectivity_map_key": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net42"
+    "subcircuit_id": "subcircuit_source_group_0"
   },
   {
     "type": "source_port",
@@ -2500,10 +2500,10 @@
   {
     "type": "source_port",
     "source_port_id": "source_port_166",
-    "name": "IO23",
+    "name": "IO15",
     "pin_number": 2,
     "port_hints": [
-      "IO23",
+      "IO15",
       "pin2",
       "2"
     ],
@@ -4561,11 +4561,11 @@
     "source_trace_id": "source_trace_84",
     "connected_source_port_ids": [
       "source_port_166",
-      "source_port_46"
+      "source_port_32"
     ],
     "connected_source_net_ids": [],
     "subcircuit_id": "subcircuit_source_group_0",
-    "display_name": ".J4 > .IO23 to .U1B > .IO23",
+    "display_name": ".J4 > .IO15 to .U1B > .IO15",
     "subcircuit_connectivity_map_key": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net42"
   },
   {
@@ -5244,15 +5244,6 @@
   {
     "type": "source_pin_missing_trace_warning",
     "source_pin_missing_trace_warning_id": "source_pin_missing_trace_warning_13",
-    "message": "Port IO15 on U1B is missing a trace",
-    "source_component_id": "source_component_3",
-    "source_port_id": "source_port_32",
-    "subcircuit_id": "subcircuit_source_group_0",
-    "warning_type": "source_pin_missing_trace_warning"
-  },
-  {
-    "type": "source_pin_missing_trace_warning",
-    "source_pin_missing_trace_warning_id": "source_pin_missing_trace_warning_14",
     "message": "Port IO2 on U1B is missing a trace",
     "source_component_id": "source_component_3",
     "source_port_id": "source_port_33",
@@ -5261,7 +5252,7 @@
   },
   {
     "type": "source_pin_missing_trace_warning",
-    "source_pin_missing_trace_warning_id": "source_pin_missing_trace_warning_15",
+    "source_pin_missing_trace_warning_id": "source_pin_missing_trace_warning_14",
     "message": "Port IO0 on U1B is missing a trace",
     "source_component_id": "source_component_3",
     "source_port_id": "source_port_34",
@@ -5270,7 +5261,7 @@
   },
   {
     "type": "source_pin_missing_trace_warning",
-    "source_pin_missing_trace_warning_id": "source_pin_missing_trace_warning_16",
+    "source_pin_missing_trace_warning_id": "source_pin_missing_trace_warning_15",
     "message": "Port IO3 on U1B is missing a trace",
     "source_component_id": "source_component_3",
     "source_port_id": "source_port_43",
@@ -5279,10 +5270,19 @@
   },
   {
     "type": "source_pin_missing_trace_warning",
-    "source_pin_missing_trace_warning_id": "source_pin_missing_trace_warning_17",
+    "source_pin_missing_trace_warning_id": "source_pin_missing_trace_warning_16",
     "message": "Port IO1 on U1B is missing a trace",
     "source_component_id": "source_component_3",
     "source_port_id": "source_port_44",
+    "subcircuit_id": "subcircuit_source_group_0",
+    "warning_type": "source_pin_missing_trace_warning"
+  },
+  {
+    "type": "source_pin_missing_trace_warning",
+    "source_pin_missing_trace_warning_id": "source_pin_missing_trace_warning_17",
+    "message": "Port IO23 on U1B is missing a trace",
+    "source_component_id": "source_component_3",
+    "source_port_id": "source_port_46",
     "subcircuit_id": "subcircuit_source_group_0",
     "warning_type": "source_pin_missing_trace_warning"
   },
@@ -6839,7 +6839,7 @@
     "pin_spacing": 0.2,
     "port_labels": {
       "1": "GND",
-      "2": "IO23",
+      "2": "IO15",
       "3": "V5",
       "4": "IO14",
       "5": "IO13",
@@ -10231,7 +10231,7 @@
     "side_of_component": "right",
     "pin_number": 2,
     "true_ccw_index": 4,
-    "display_pin_label": "IO23",
+    "display_pin_label": "IO15",
     "is_connected": false
   },
   {
@@ -13229,6 +13229,36 @@
   {
     "type": "schematic_net_label",
     "schematic_net_label_id": "schematic_net_label_61",
+    "text": "U1B_IO15/J4_IO15",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net42",
+    "anchor_position": {
+      "x": -9.183333333333334,
+      "y": 0.8
+    },
+    "center": {
+      "x": -8.163333333333334,
+      "y": 0.8
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_62",
+    "text": "U1B_IO15/J4_IO15",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net42",
+    "anchor_position": {
+      "x": -4.041666666666666,
+      "y": -1.0833333333333333
+    },
+    "center": {
+      "x": -3.021666666666666,
+      "y": -1.0833333333333333
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_63",
     "text": "U1B_IO4/U8_IO",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net65",
     "anchor_position": {
@@ -13243,7 +13273,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_62",
+    "schematic_net_label_id": "schematic_net_label_64",
     "text": "U1B_IO4/U8_IO",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net65",
     "anchor_position": {
@@ -13258,52 +13288,52 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_63",
-    "text": "U1B_IO16/J5_IO16",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net51",
-    "anchor_position": {
-      "x": -3.35,
-      "y": -7.066666666666667
-    },
-    "center": {
-      "x": -2.33,
-      "y": -7.066666666666667
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_64",
-    "text": "U1B_IO16/J5_IO16",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net51",
-    "anchor_position": {
-      "x": -4.041666666666666,
-      "y": -1.883333333333334
-    },
-    "center": {
-      "x": -3.021666666666666,
-      "y": -1.883333333333334
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
     "schematic_net_label_id": "schematic_net_label_65",
-    "text": "U1B_IO17/J5_IO17",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net50",
+    "text": "U1B_IO16/J5_IO16",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net51",
     "anchor_position": {
       "x": -3.35,
-      "y": -7.266666666666667
+      "y": -7.066666666666667
     },
     "center": {
       "x": -2.33,
-      "y": -7.266666666666667
+      "y": -7.066666666666667
     },
     "anchor_side": "left"
   },
   {
     "type": "schematic_net_label",
     "schematic_net_label_id": "schematic_net_label_66",
+    "text": "U1B_IO16/J5_IO16",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net51",
+    "anchor_position": {
+      "x": -4.041666666666666,
+      "y": -1.883333333333334
+    },
+    "center": {
+      "x": -3.021666666666666,
+      "y": -1.883333333333334
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_67",
+    "text": "U1B_IO17/J5_IO17",
+    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net50",
+    "anchor_position": {
+      "x": -3.35,
+      "y": -7.266666666666667
+    },
+    "center": {
+      "x": -2.33,
+      "y": -7.266666666666667
+    },
+    "anchor_side": "left"
+  },
+  {
+    "type": "schematic_net_label",
+    "schematic_net_label_id": "schematic_net_label_68",
     "text": "U1B_IO17/J5_IO17",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net50",
     "anchor_position": {
@@ -13318,7 +13348,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_67",
+    "schematic_net_label_id": "schematic_net_label_69",
     "text": "U1B_IO5/J5_IO5",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net49",
     "anchor_position": {
@@ -13333,7 +13363,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_68",
+    "schematic_net_label_id": "schematic_net_label_70",
     "text": "U1B_IO5/J5_IO5",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net49",
     "anchor_position": {
@@ -13348,7 +13378,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_69",
+    "schematic_net_label_id": "schematic_net_label_71",
     "text": "U1B_IO18/J5_IO18",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net48",
     "anchor_position": {
@@ -13363,7 +13393,7 @@
   },
   {
     "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_70",
+    "schematic_net_label_id": "schematic_net_label_72",
     "text": "U1B_IO18/J5_IO18",
     "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net48",
     "anchor_position": {
@@ -13373,36 +13403,6 @@
     "center": {
       "x": -3.021666666666666,
       "y": -2.483333333333334
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_71",
-    "text": "U1B_IO23/J4_IO23",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net42",
-    "anchor_position": {
-      "x": -9.183333333333334,
-      "y": 0.8
-    },
-    "center": {
-      "x": -8.163333333333334,
-      "y": 0.8
-    },
-    "anchor_side": "left"
-  },
-  {
-    "type": "schematic_net_label",
-    "schematic_net_label_id": "schematic_net_label_72",
-    "text": "U1B_IO23/J4_IO23",
-    "source_net_id": "unnamedsubcircuitsubcircuit_source_group_0_connectivity_net42",
-    "anchor_position": {
-      "x": -4.041666666666666,
-      "y": -3.8833333333333337
-    },
-    "center": {
-      "x": -3.021666666666666,
-      "y": -3.8833333333333337
     },
     "anchor_side": "left"
   },
@@ -25775,7 +25775,7 @@
     "font": "tscircuit2024",
     "font_size": 0.5,
     "layer": "top",
-    "text": "IO23",
+    "text": "IO15",
     "ccw_rotation": 270,
     "pcb_component_id": "pcb_component_20",
     "subcircuit_id": "subcircuit_source_group_0"
@@ -33263,50 +33263,43 @@
       },
       {
         "route_type": "wire",
-        "x": -20.95703476004865,
-        "y": 3.9129652399513493,
+        "x": -21.968260095000495,
+        "y": 2.9017399049995056,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": -33.226148040690525,
-        "y": 3.9129652399513493,
+        "x": -29.80722068277241,
+        "y": 2.9017399049995047,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": -33.239757682337796,
-        "y": 3.9129652399513493,
+        "x": -38.29212605619321,
+        "y": -5.583165468421303,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": -43.83631442725847,
-        "y": -6.683591504969325,
+        "x": -38.3101654684213,
+        "y": -5.583165468421303,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": -43.837591504969325,
-        "y": -6.683591504969325,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -43.955,
-        "y": -6.801,
+        "x": -38.442,
+        "y": -5.715,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "via",
-        "x": -43.955,
-        "y": -6.801,
+        "x": -38.442,
+        "y": -5.715,
         "from_layer": "bottom",
         "to_layer": "top",
         "via_diameter": 0.5,
@@ -33314,29 +33307,29 @@
       },
       {
         "route_type": "wire",
-        "x": -43.955,
-        "y": -6.801,
+        "x": -38.442,
+        "y": -5.715,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -47.09308232606595,
-        "y": -9.542359846147118,
+        "x": -42.658183106939205,
+        "y": -9.533795598544675,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -63.012794707677614,
-        "y": -9.616354050684325,
+        "x": -63.00570411055886,
+        "y": -9.613641979800231,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -63.068524994454975,
-        "y": -9.762685954992383,
+        "x": -63.06167847961464,
+        "y": -9.765602906708452,
         "width": 0.2,
         "layer": "top"
       },
@@ -33425,28 +33418,35 @@
       {
         "route_type": "wire",
         "x": -15.909999999999997,
-        "y": 6.902000000000005,
+        "y": 6.034998470349368,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -22.06292493605233,
-        "y": 0.7490750639476714,
+        "x": -21.4500945366886,
+        "y": 0.494903933660765,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -22.109,
-        "y": 0.703,
+        "x": -21.4500945366886,
+        "y": 0.37190546331140034,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": -21.491,
+        "y": 0.331,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "via",
-        "x": -22.109,
-        "y": 0.703,
+        "x": -21.491,
+        "y": 0.331,
         "from_layer": "top",
         "to_layer": "bottom",
         "via_diameter": 0.5,
@@ -33454,71 +33454,43 @@
       },
       {
         "route_type": "wire",
-        "x": -22.109,
-        "y": 0.703,
+        "x": -21.491,
+        "y": 0.331,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": -21.956236905730684,
-        "y": -3.1423029615014064,
+        "x": -26.8769251205987,
+        "y": 0.331,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": -24.624057644079848,
-        "y": -6.128314969726391,
+        "x": -30.31546945159155,
+        "y": -3.107544330992851,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": -32.21958471224236,
-        "y": -6.054729315930343,
+        "x": -30.462807616722376,
+        "y": -3.107544330992851,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": -32.908906129330795,
-        "y": -5.321367105147195,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -32.68581290757229,
-        "y": -4.621596106944571,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -32.77494269463079,
-        "y": -4.4592792274583655,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -32.77494269463079,
-        "y": -4.403057305369209,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -32.782,
-        "y": -4.396,
+        "x": -30.476977844871335,
+        "y": -3.112896605943494,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "via",
-        "x": -32.782,
-        "y": -4.396,
+        "x": -30.476977844871335,
+        "y": -3.112896605943494,
         "from_layer": "bottom",
         "to_layer": "top",
         "via_diameter": 0.5,
@@ -33526,22 +33498,15 @@
       },
       {
         "route_type": "wire",
-        "x": -32.782,
-        "y": -4.396,
+        "x": -30.476977844871335,
+        "y": -3.112896605943494,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -37.47018617011565,
-        "y": -4.640658924249433,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -43.94418617011565,
-        "y": -11.114658924249433,
+        "x": -38.225263285729525,
+        "y": -10.87,
         "width": 0.2,
         "layer": "top"
       },
@@ -33604,50 +33569,50 @@
       },
       {
         "route_type": "wire",
-        "x": -35.2679688967339,
-        "y": -9.925331794889555,
+        "x": -35.255487920195286,
+        "y": -9.905259900082982,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -13.077307856348266,
-        "y": -9.932491072069148,
+        "x": -13.064711664687065,
+        "y": -9.902877501792355,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -13.096479771850861,
-        "y": -10.309114571413396,
+        "x": -12.811857126929079,
+        "y": -10.299572893795993,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -12.624509190481435,
-        "y": -10.771432069199296,
+        "x": -11.657597609867286,
+        "y": -11.453832410857785,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -12.549567930800702,
-        "y": -10.771432069199296,
+        "x": -11.738990144651517,
+        "y": -11.353331887002618,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -12.434,
-        "y": -10.886999999999999,
+        "x": -11.616,
+        "y": -11.489,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "via",
-        "x": -12.434,
-        "y": -10.886999999999999,
+        "x": -11.616,
+        "y": -11.489,
         "from_layer": "top",
         "to_layer": "bottom",
         "via_diameter": 0.5,
@@ -33655,29 +33620,29 @@
       },
       {
         "route_type": "wire",
-        "x": -12.434,
-        "y": -10.886999999999999,
+        "x": -11.616,
+        "y": -11.489,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": -10.586163492947662,
-        "y": -12.238304476936834,
+        "x": -8.400970327389121,
+        "y": -11.321625370316777,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": -6.780343921599457,
-        "y": -12.337271662668682,
+        "x": -6.36987841366714,
+        "y": -13.08562569464095,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "wire",
-        "x": -6.798664690671909,
-        "y": -19.70133530932809,
+        "x": -6.655331360949419,
+        "y": -19.84466863905058,
         "width": 0.2,
         "layer": "bottom"
       },
@@ -34470,36 +34435,36 @@
       },
       {
         "route_type": "wire",
-        "x": -29.662784566896832,
-        "y": -41.06644308819173,
+        "x": -29.662784566901706,
+        "y": -41.0664430881964,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -30.22120989118369,
-        "y": -12.043074906684781,
+        "x": -30.221209891184028,
+        "y": -12.043074906684787,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -30.20005427430396,
-        "y": -11.450668300903686,
+        "x": -30.200054274165062,
+        "y": -11.450668300886422,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -28.63137204278974,
-        "y": -10.888552272342064,
+        "x": -28.631372042568543,
+        "y": -10.88855227199971,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -29.377615168886457,
-        "y": -11.072883907571676,
+        "x": -29.377615168865344,
+        "y": -11.072883905929492,
         "width": 0.2,
         "layer": "top"
       },
@@ -34572,22 +34537,22 @@
       },
       {
         "route_type": "wire",
-        "x": -30.155225257538337,
-        "y": -4.39048137021759,
+        "x": -26.97938097322081,
+        "y": 3.974522019360609,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -30.398010340817486,
-        "y": 10.981580336661581,
+        "x": -31.013009765815966,
+        "y": 8.347013283895123,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -30.79602768134435,
-        "y": 11.347290107040768,
+        "x": -30.48570716851953,
+        "y": 11.03570716851953,
         "width": 0.2,
         "layer": "top"
       },
@@ -34618,64 +34583,64 @@
       },
       {
         "route_type": "wire",
-        "x": -29.102451721311272,
-        "y": -35.87968660349943,
+        "x": -29.10245172131696,
+        "y": -35.87968660348396,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -29.65024268291322,
-        "y": -12.459258916940215,
+        "x": -29.65024268291477,
+        "y": -12.459258916930555,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -29.001598787046834,
-        "y": -12.264380198375918,
+        "x": -29.001598786991295,
+        "y": -12.264380198467542,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -27.121106188729794,
-        "y": -11.215990593301402,
+        "x": -27.121106188687193,
+        "y": -11.21599059321944,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -21.710323680671763,
-        "y": -11.15315824935597,
+        "x": -21.710323680704953,
+        "y": -11.153158249486024,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -21.890648229305114,
-        "y": -10.968539766770864,
+        "x": -21.890648229345405,
+        "y": -10.968539767113045,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -21.983052326024662,
-        "y": -12.266770382219956,
+        "x": -21.98305232623372,
+        "y": -12.26677038228534,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -21.770243604409,
-        "y": -10.759024210466544,
+        "x": -21.770243604409206,
+        "y": -10.759024210794854,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "via",
-        "x": -21.770243604409,
-        "y": -10.759024210466544,
+        "x": -21.770243604409206,
+        "y": -10.759024210794854,
         "from_layer": "top",
         "to_layer": "bottom",
         "via_diameter": 0.5,
@@ -34683,8 +34648,8 @@
       },
       {
         "route_type": "wire",
-        "x": -21.770243604409,
-        "y": -10.759024210466544,
+        "x": -21.770243604409206,
+        "y": -10.759024210794854,
         "width": 0.2,
         "layer": "bottom"
       },
@@ -34727,8 +34692,22 @@
       },
       {
         "route_type": "wire",
-        "x": -28.61,
-        "y": -1.6310000000000002,
+        "x": -21.723136114457134,
+        "y": -0.7243841623109133,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": -27.77257552176337,
+        "y": 5.942850524258631,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": -27.688428590860344,
+        "y": 11.016796168632975,
         "width": 0.2,
         "layer": "top"
       },
@@ -34794,15 +34773,15 @@
       },
       {
         "route_type": "wire",
-        "x": -31.110204431339163,
-        "y": -9.165000000638086,
+        "x": -31.109,
+        "y": -9.165,
         "width": 0.2,
         "layer": "bottom"
       },
       {
         "route_type": "via",
-        "x": -31.110204431339163,
-        "y": -9.165000000638086,
+        "x": -31.109,
+        "y": -9.165,
         "from_layer": "bottom",
         "to_layer": "top",
         "via_diameter": 0.5,
@@ -34810,15 +34789,29 @@
       },
       {
         "route_type": "wire",
-        "x": -31.110204431339163,
-        "y": -9.165000000638086,
+        "x": -31.109,
+        "y": -9.165,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": -31.085254826343345,
-        "y": 9.131912288811153,
+        "x": -29.52840170133561,
+        "y": -8.169468815195895,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": -29.544066895727873,
+        "y": -2.6899337791166857,
+        "width": 0.2,
+        "layer": "top"
+      },
+      {
+        "route_type": "wire",
+        "x": -33.4749436666518,
+        "y": 1.194048537185561,
         "width": 0.2,
         "layer": "top"
       },
@@ -34873,275 +34866,25 @@
     "route": [
       {
         "route_type": "wire",
-        "x": -10.829999999999998,
+        "x": -46.39,
         "y": -13.7,
         "width": 0.2,
-        "layer": "top",
-        "start_pcb_port_id": "pcb_port_46"
+        "layer": "bottom",
+        "start_pcb_port_id": "pcb_port_32"
       },
       {
         "route_type": "wire",
-        "x": -10.829999999999998,
-        "y": -12.341058526945076,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -10.023278344913491,
-        "y": -11.534336871858569,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -10.023278344913491,
-        "y": -11.47327834491349,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -9.923,
-        "y": -11.373,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "via",
-        "x": -9.923,
-        "y": -11.373,
-        "from_layer": "top",
-        "to_layer": "bottom",
-        "via_diameter": 0.5,
-        "via_hole_diameter": 0.3
-      },
-      {
-        "route_type": "wire",
-        "x": -9.923,
-        "y": -11.373,
+        "x": -59.28,
+        "y": -0.8100000000000005,
         "width": 0.2,
         "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -9.923,
-        "y": -9.485,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -10.883580693958617,
-        "y": -8.524419306041382,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -10.95,
-        "y": -8.458,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "via",
-        "x": -10.95,
-        "y": -8.458,
-        "from_layer": "bottom",
-        "to_layer": "top",
-        "via_diameter": 0.5,
-        "via_hole_diameter": 0.3
-      },
-      {
-        "route_type": "wire",
-        "x": -10.95,
-        "y": -8.458,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -18.194482971310972,
-        "y": -2.366526289521605,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -23.34536039001594,
-        "y": -3.19744574313817,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -23.399520238826955,
-        "y": -3.3985202388269564,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -23.4,
-        "y": -3.399,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "via",
-        "x": -23.4,
-        "y": -3.399,
-        "from_layer": "top",
-        "to_layer": "bottom",
-        "via_diameter": 0.5,
-        "via_hole_diameter": 0.3
-      },
-      {
-        "route_type": "wire",
-        "x": -23.4,
-        "y": -3.399,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -33.03969091125139,
-        "y": -0.3876100279836707,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -31.696745061298504,
-        "y": -4.859858489068251,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -29.256883489982577,
-        "y": 2.6977270535009095,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -31.853,
-        "y": -5.122,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "via",
-        "x": -31.853,
-        "y": -5.122,
-        "from_layer": "bottom",
-        "to_layer": "top",
-        "via_diameter": 0.5,
-        "via_hole_diameter": 0.3
-      },
-      {
-        "route_type": "wire",
-        "x": -31.853,
-        "y": -5.122,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -36.860757794818326,
-        "y": -6.189535829740332,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -36.97441576725271,
-        "y": -5.438901868046664,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -36.99922936404443,
-        "y": -5.423901868046665,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -37.12031016169201,
-        "y": -5.544982665694244,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "via",
-        "x": -37.12031016169201,
-        "y": -5.544982665694244,
-        "from_layer": "top",
-        "to_layer": "bottom",
-        "via_diameter": 0.5,
-        "via_hole_diameter": 0.3
-      },
-      {
-        "route_type": "wire",
-        "x": -37.12031016169201,
-        "y": -5.544982665694244,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -38.06701733430576,
-        "y": -5.544982665694244,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -38.805281761173255,
-        "y": -4.8067182388267495,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -38.834,
-        "y": -4.778,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "via",
-        "x": -38.834,
-        "y": -4.778,
-        "from_layer": "bottom",
-        "to_layer": "top",
-        "via_diameter": 0.5,
-        "via_hole_diameter": 0.3
-      },
-      {
-        "route_type": "wire",
-        "x": -38.834,
-        "y": -4.778,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -60.36148599519779,
-        "y": -2.448514004802276,
-        "width": 0.2,
-        "layer": "top"
       },
       {
         "route_type": "wire",
         "x": -62,
         "y": -0.81,
         "width": 0.2,
-        "layer": "top",
+        "layer": "bottom",
         "end_pcb_port_id": "pcb_port_166"
       }
     ],
@@ -35812,36 +35555,36 @@
       },
       {
         "route_type": "wire",
-        "x": -10.183616468044804,
-        "y": -10.330219529614915,
+        "x": -12.995454702064414,
+        "y": -13.63396369147937,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 1.6206388198418087,
-        "y": -10.087814709601433,
+        "x": -10.385889258143566,
+        "y": -11.353590443035786,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 3.3460937115814735,
-        "y": -8.58690886596035,
+        "x": -7.2403852686183825,
+        "y": -8.58349701909486,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 10.416232607644135,
-        "y": -8.60585033973474,
+        "x": 10.415094769624769,
+        "y": -8.593276361674585,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 10.41892236749244,
-        "y": -8.515277689833665,
+        "x": 10.415175315030735,
+        "y": -8.447860880457922,
         "width": 0.2,
         "layer": "top"
       },
@@ -36017,22 +35760,22 @@
       },
       {
         "route_type": "wire",
-        "x": -2.938135192650146,
-        "y": -9.49924746536013,
+        "x": -10.876764146951414,
+        "y": -1.3057641469514127,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 4.767284651518666,
-        "y": -0.6210305455609689,
+        "x": 11.433193160589742,
+        "y": -1.3057641469514127,
         "width": 0.2,
         "layer": "top"
       },
       {
         "route_type": "wire",
-        "x": 11.355,
-        "y": -1.125,
+        "x": 11.535764146951413,
+        "y": -1.3057641469514127,
         "width": 0.2,
         "layer": "top"
       },
@@ -36077,8 +35820,8 @@
     "type": "pcb_via",
     "pcb_via_id": "pcb_via_0",
     "pcb_trace_id": "source_trace_124__source_trace_125_mst1_0",
-    "x": -43.955,
-    "y": -6.801,
+    "x": -38.442,
+    "y": -5.715,
     "hole_diameter": 0.3,
     "outer_diameter": 0.5,
     "layers": [
@@ -36092,8 +35835,8 @@
     "type": "pcb_via",
     "pcb_via_id": "pcb_via_1",
     "pcb_trace_id": "source_trace_120__source_trace_121_mst1_0",
-    "x": -22.109,
-    "y": 0.703,
+    "x": -21.491,
+    "y": 0.331,
     "hole_diameter": 0.3,
     "outer_diameter": 0.5,
     "layers": [
@@ -36107,8 +35850,8 @@
     "type": "pcb_via",
     "pcb_via_id": "pcb_via_2",
     "pcb_trace_id": "source_trace_120__source_trace_121_mst1_0",
-    "x": -32.782,
-    "y": -4.396,
+    "x": -30.476977844871335,
+    "y": -3.112896605943494,
     "hole_diameter": 0.3,
     "outer_diameter": 0.5,
     "layers": [
@@ -36122,8 +35865,8 @@
     "type": "pcb_via",
     "pcb_via_id": "pcb_via_3",
     "pcb_trace_id": "source_trace_117_0",
-    "x": -12.434,
-    "y": -10.886999999999999,
+    "x": -11.616,
+    "y": -11.489,
     "hole_diameter": 0.3,
     "outer_diameter": 0.5,
     "layers": [
@@ -36197,8 +35940,8 @@
     "type": "pcb_via",
     "pcb_via_id": "pcb_via_8",
     "pcb_trace_id": "source_trace_88_0",
-    "x": -21.770243604409,
-    "y": -10.759024210466544,
+    "x": -21.770243604409206,
+    "y": -10.759024210794854,
     "hole_diameter": 0.3,
     "outer_diameter": 0.5,
     "layers": [
@@ -36227,8 +35970,8 @@
     "type": "pcb_via",
     "pcb_via_id": "pcb_via_10",
     "pcb_trace_id": "source_trace_87_0",
-    "x": -31.110204431339163,
-    "y": -9.165000000638086,
+    "x": -31.109,
+    "y": -9.165,
     "hole_diameter": 0.3,
     "outer_diameter": 0.5,
     "layers": [
@@ -36241,96 +35984,6 @@
   {
     "type": "pcb_via",
     "pcb_via_id": "pcb_via_11",
-    "pcb_trace_id": "source_trace_84_0",
-    "x": -9.923,
-    "y": -11.373,
-    "hole_diameter": 0.3,
-    "outer_diameter": 0.5,
-    "layers": [
-      "top",
-      "bottom"
-    ],
-    "from_layer": "top",
-    "to_layer": "bottom"
-  },
-  {
-    "type": "pcb_via",
-    "pcb_via_id": "pcb_via_12",
-    "pcb_trace_id": "source_trace_84_0",
-    "x": -10.95,
-    "y": -8.458,
-    "hole_diameter": 0.3,
-    "outer_diameter": 0.5,
-    "layers": [
-      "bottom",
-      "top"
-    ],
-    "from_layer": "bottom",
-    "to_layer": "top"
-  },
-  {
-    "type": "pcb_via",
-    "pcb_via_id": "pcb_via_13",
-    "pcb_trace_id": "source_trace_84_0",
-    "x": -23.4,
-    "y": -3.399,
-    "hole_diameter": 0.3,
-    "outer_diameter": 0.5,
-    "layers": [
-      "top",
-      "bottom"
-    ],
-    "from_layer": "top",
-    "to_layer": "bottom"
-  },
-  {
-    "type": "pcb_via",
-    "pcb_via_id": "pcb_via_14",
-    "pcb_trace_id": "source_trace_84_0",
-    "x": -31.853,
-    "y": -5.122,
-    "hole_diameter": 0.3,
-    "outer_diameter": 0.5,
-    "layers": [
-      "bottom",
-      "top"
-    ],
-    "from_layer": "bottom",
-    "to_layer": "top"
-  },
-  {
-    "type": "pcb_via",
-    "pcb_via_id": "pcb_via_15",
-    "pcb_trace_id": "source_trace_84_0",
-    "x": -37.12031016169201,
-    "y": -5.544982665694244,
-    "hole_diameter": 0.3,
-    "outer_diameter": 0.5,
-    "layers": [
-      "top",
-      "bottom"
-    ],
-    "from_layer": "top",
-    "to_layer": "bottom"
-  },
-  {
-    "type": "pcb_via",
-    "pcb_via_id": "pcb_via_16",
-    "pcb_trace_id": "source_trace_84_0",
-    "x": -38.834,
-    "y": -4.778,
-    "hole_diameter": 0.3,
-    "outer_diameter": 0.5,
-    "layers": [
-      "bottom",
-      "top"
-    ],
-    "from_layer": "bottom",
-    "to_layer": "top"
-  },
-  {
-    "type": "pcb_via",
-    "pcb_via_id": "pcb_via_17",
     "pcb_trace_id": "source_trace_80_0",
     "x": -27.42,
     "y": 28.837,
@@ -36345,7 +35998,7 @@
   },
   {
     "type": "pcb_via",
-    "pcb_via_id": "pcb_via_18",
+    "pcb_via_id": "pcb_via_12",
     "pcb_trace_id": "source_trace_79_0",
     "x": -29.979184239984242,
     "y": 29.002898022821146,
@@ -36360,7 +36013,7 @@
   },
   {
     "type": "pcb_via",
-    "pcb_via_id": "pcb_via_19",
+    "pcb_via_id": "pcb_via_13",
     "pcb_trace_id": "source_trace_61_0",
     "x": -30.039,
     "y": 18.015,
@@ -36375,7 +36028,7 @@
   },
   {
     "type": "pcb_via",
-    "pcb_via_id": "pcb_via_20",
+    "pcb_via_id": "pcb_via_14",
     "pcb_trace_id": "source_trace_20__source_trace_22__source_trace_24_mst1_0",
     "x": -18.383,
     "y": -11.721,
@@ -36390,7 +36043,7 @@
   },
   {
     "type": "pcb_via",
-    "pcb_via_id": "pcb_via_21",
+    "pcb_via_id": "pcb_via_15",
     "pcb_trace_id": "source_trace_20__source_trace_22__source_trace_24_mst1_0",
     "x": -18.588,
     "y": -9.017,
@@ -47669,68 +47322,68 @@
         {
           "vertices": [
             {
-              "x": -43.955,
-              "y": -7.251
+              "x": -38.442,
+              "y": -6.165
             },
             {
-              "x": -43.867209,
-              "y": -7.242353
+              "x": -38.354209,
+              "y": -6.156353
             },
             {
-              "x": -43.782792,
-              "y": -7.216746
+              "x": -38.269792,
+              "y": -6.130746
             },
             {
-              "x": -43.704993,
-              "y": -7.175161
+              "x": -38.191993,
+              "y": -6.089161
             },
             {
-              "x": -43.636802,
-              "y": -7.119198
+              "x": -38.123802,
+              "y": -6.033198
             },
             {
-              "x": -43.580839,
-              "y": -7.051007
+              "x": -38.067839,
+              "y": -5.965007
             },
             {
-              "x": -43.539254,
-              "y": -6.973208
+              "x": -38.026254,
+              "y": -5.887208
             },
             {
-              "x": -43.513647,
-              "y": -6.888791
+              "x": -38.000647,
+              "y": -5.802791
             },
             {
-              "x": -43.505,
-              "y": -6.801
+              "x": -37.992,
+              "y": -5.715
             },
             {
-              "x": -43.507193,
-              "y": -6.778735
+              "x": -37.99269,
+              "y": -5.707994
             },
             {
-              "x": -33.115494,
-              "y": 3.612965
+              "x": -29.682957,
+              "y": 2.60174
             },
             {
-              "x": -20.957035,
-              "y": 3.612965
+              "x": -21.96826,
+              "y": 2.60174
             },
             {
-              "x": -20.898508,
-              "y": 3.61873
+              "x": -21.909733,
+              "y": 2.607504
             },
             {
-              "x": -20.84223,
-              "y": 3.635801
+              "x": -21.853455,
+              "y": 2.624576
             },
             {
-              "x": -20.790364,
-              "y": 3.663524
+              "x": -21.801589,
+              "y": 2.652299
             },
             {
-              "x": -20.744903,
-              "y": 3.700833
+              "x": -21.756128,
+              "y": 2.689608
             },
             {
               "x": -13.649053,
@@ -47857,100 +47510,96 @@
               "y": 11.151425
             },
             {
-              "x": -21.081299,
-              "y": 4.212965
+              "x": -22.092524,
+              "y": 3.20174
             },
             {
-              "x": -33.226148,
-              "y": 4.212965
+              "x": -29.807221,
+              "y": 3.20174
             },
             {
-              "x": -33.239758,
-              "y": 4.212965
+              "x": -29.865748,
+              "y": 3.195975
             },
             {
-              "x": -33.298285,
-              "y": 4.207201
+              "x": -29.922026,
+              "y": 3.178904
             },
             {
-              "x": -33.354563,
-              "y": 4.190129
+              "x": -29.973892,
+              "y": 3.151181
             },
             {
-              "x": -33.406429,
-              "y": 4.162406
+              "x": -30.019353,
+              "y": 3.113872
             },
             {
-              "x": -33.45189,
-              "y": 4.125097
+              "x": -38.40215,
+              "y": -5.268925
             },
             {
-              "x": -43.930409,
-              "y": -6.353422
+              "x": -38.442,
+              "y": -5.265
             },
             {
-              "x": -43.955,
-              "y": -6.351
+              "x": -38.529791,
+              "y": -5.273647
             },
             {
-              "x": -44.042791,
-              "y": -6.359647
+              "x": -38.614208,
+              "y": -5.299254
             },
             {
-              "x": -44.127208,
-              "y": -6.385254
+              "x": -38.692007,
+              "y": -5.340839
             },
             {
-              "x": -44.205007,
-              "y": -6.426839
+              "x": -38.760198,
+              "y": -5.396802
             },
             {
-              "x": -44.273198,
-              "y": -6.482802
+              "x": -38.816161,
+              "y": -5.464993
             },
             {
-              "x": -44.329161,
-              "y": -6.550993
+              "x": -38.857746,
+              "y": -5.542792
             },
             {
-              "x": -44.370746,
-              "y": -6.628792
+              "x": -38.883353,
+              "y": -5.627209
             },
             {
-              "x": -44.396353,
-              "y": -6.713209
+              "x": -38.892,
+              "y": -5.715
             },
             {
-              "x": -44.405,
-              "y": -6.801
+              "x": -38.883353,
+              "y": -5.802791
             },
             {
-              "x": -44.396353,
-              "y": -6.888791
+              "x": -38.857746,
+              "y": -5.887208
             },
             {
-              "x": -44.370746,
-              "y": -6.973208
+              "x": -38.816161,
+              "y": -5.965007
             },
             {
-              "x": -44.329161,
-              "y": -7.051007
+              "x": -38.760198,
+              "y": -6.033198
             },
             {
-              "x": -44.273198,
-              "y": -7.119198
+              "x": -38.692007,
+              "y": -6.089161
             },
             {
-              "x": -44.205007,
-              "y": -7.175161
+              "x": -38.614208,
+              "y": -6.130746
             },
             {
-              "x": -44.127208,
-              "y": -7.216746
-            },
-            {
-              "x": -44.042791,
-              "y": -7.242353
+              "x": -38.529791,
+              "y": -6.156353
             }
           ]
         },
@@ -48657,378 +48306,6 @@
         {
           "vertices": [
             {
-              "x": -31.853,
-              "y": -5.572
-            },
-            {
-              "x": -31.765209,
-              "y": -5.563353
-            },
-            {
-              "x": -31.680792,
-              "y": -5.537746
-            },
-            {
-              "x": -31.602993,
-              "y": -5.496161
-            },
-            {
-              "x": -31.534802,
-              "y": -5.440198
-            },
-            {
-              "x": -31.478839,
-              "y": -5.372007
-            },
-            {
-              "x": -31.437254,
-              "y": -5.294208
-            },
-            {
-              "x": -31.411647,
-              "y": -5.209791
-            },
-            {
-              "x": -31.403,
-              "y": -5.122
-            },
-            {
-              "x": -31.411647,
-              "y": -5.034209
-            },
-            {
-              "x": -31.426042,
-              "y": -4.986752
-            },
-            {
-              "x": -31.419581,
-              "y": -4.974664
-            },
-            {
-              "x": -31.412583,
-              "y": -4.951596
-            },
-            {
-              "x": -31.411254,
-              "y": -4.952025
-            },
-            {
-              "x": -30.31405,
-              "y": -1.553385
-            },
-            {
-              "x": -23.807909,
-              "y": -3.58587
-            },
-            {
-              "x": -23.774161,
-              "y": -3.649007
-            },
-            {
-              "x": -23.718198,
-              "y": -3.717198
-            },
-            {
-              "x": -23.650007,
-              "y": -3.773161
-            },
-            {
-              "x": -23.572208,
-              "y": -3.814746
-            },
-            {
-              "x": -23.487791,
-              "y": -3.840353
-            },
-            {
-              "x": -23.4,
-              "y": -3.849
-            },
-            {
-              "x": -23.312209,
-              "y": -3.840353
-            },
-            {
-              "x": -23.227792,
-              "y": -3.814746
-            },
-            {
-              "x": -23.149993,
-              "y": -3.773161
-            },
-            {
-              "x": -23.081802,
-              "y": -3.717198
-            },
-            {
-              "x": -23.025839,
-              "y": -3.649007
-            },
-            {
-              "x": -22.984254,
-              "y": -3.571208
-            },
-            {
-              "x": -22.958647,
-              "y": -3.486791
-            },
-            {
-              "x": -22.95,
-              "y": -3.399
-            },
-            {
-              "x": -22.958647,
-              "y": -3.311209
-            },
-            {
-              "x": -22.984254,
-              "y": -3.226792
-            },
-            {
-              "x": -23.025839,
-              "y": -3.148993
-            },
-            {
-              "x": -23.081802,
-              "y": -3.080802
-            },
-            {
-              "x": -23.149993,
-              "y": -3.024839
-            },
-            {
-              "x": -23.227792,
-              "y": -2.983254
-            },
-            {
-              "x": -23.312209,
-              "y": -2.957647
-            },
-            {
-              "x": -23.4,
-              "y": -2.949
-            },
-            {
-              "x": -23.487791,
-              "y": -2.957647
-            },
-            {
-              "x": -23.572208,
-              "y": -2.983254
-            },
-            {
-              "x": -23.628472,
-              "y": -3.013328
-            },
-            {
-              "x": -30.129707,
-              "y": -0.982376
-            },
-            {
-              "x": -28.971392,
-              "y": 2.60556
-            },
-            {
-              "x": -28.972722,
-              "y": 2.60599
-            },
-            {
-              "x": -28.962648,
-              "y": 2.6392
-            },
-            {
-              "x": -28.956883,
-              "y": 2.697727
-            },
-            {
-              "x": -28.962648,
-              "y": 2.756254
-            },
-            {
-              "x": -28.97972,
-              "y": 2.812532
-            },
-            {
-              "x": -29.007443,
-              "y": 2.864398
-            },
-            {
-              "x": -29.044751,
-              "y": 2.909859
-            },
-            {
-              "x": -29.090212,
-              "y": 2.947168
-            },
-            {
-              "x": -29.142078,
-              "y": 2.974891
-            },
-            {
-              "x": -29.198356,
-              "y": 2.991963
-            },
-            {
-              "x": -29.256883,
-              "y": 2.997727
-            },
-            {
-              "x": -29.315411,
-              "y": 2.991963
-            },
-            {
-              "x": -29.371689,
-              "y": 2.974891
-            },
-            {
-              "x": -29.423555,
-              "y": 2.947168
-            },
-            {
-              "x": -29.469016,
-              "y": 2.909859
-            },
-            {
-              "x": -29.506324,
-              "y": 2.864398
-            },
-            {
-              "x": -29.534047,
-              "y": 2.812532
-            },
-            {
-              "x": -29.540327,
-              "y": 2.791829
-            },
-            {
-              "x": -29.541603,
-              "y": 2.792253
-            },
-            {
-              "x": -30.73227,
-              "y": -0.794138
-            },
-            {
-              "x": -32.950236,
-              "y": -0.101257
-            },
-            {
-              "x": -32.950664,
-              "y": -0.102626
-            },
-            {
-              "x": -32.981164,
-              "y": -0.093374
-            },
-            {
-              "x": -33.039691,
-              "y": -0.08761
-            },
-            {
-              "x": -33.098218,
-              "y": -0.093374
-            },
-            {
-              "x": -33.154496,
-              "y": -0.110446
-            },
-            {
-              "x": -33.206362,
-              "y": -0.138169
-            },
-            {
-              "x": -33.251823,
-              "y": -0.175478
-            },
-            {
-              "x": -33.289132,
-              "y": -0.220939
-            },
-            {
-              "x": -33.316855,
-              "y": -0.272805
-            },
-            {
-              "x": -33.333926,
-              "y": -0.329083
-            },
-            {
-              "x": -33.339691,
-              "y": -0.38761
-            },
-            {
-              "x": -33.333926,
-              "y": -0.446137
-            },
-            {
-              "x": -33.325634,
-              "y": -0.473474
-            },
-            {
-              "x": -33.327016,
-              "y": -0.473889
-            },
-            {
-              "x": -32.05183,
-              "y": -4.720484
-            },
-            {
-              "x": -32.103007,
-              "y": -4.747839
-            },
-            {
-              "x": -32.171198,
-              "y": -4.803802
-            },
-            {
-              "x": -32.227161,
-              "y": -4.871993
-            },
-            {
-              "x": -32.268746,
-              "y": -4.949792
-            },
-            {
-              "x": -32.294353,
-              "y": -5.034209
-            },
-            {
-              "x": -32.303,
-              "y": -5.122
-            },
-            {
-              "x": -32.294353,
-              "y": -5.209791
-            },
-            {
-              "x": -32.268746,
-              "y": -5.294208
-            },
-            {
-              "x": -32.227161,
-              "y": -5.372007
-            },
-            {
-              "x": -32.171198,
-              "y": -5.440198
-            },
-            {
-              "x": -32.103007,
-              "y": -5.496161
-            },
-            {
-              "x": -32.025208,
-              "y": -5.537746
-            },
-            {
-              "x": -31.940791,
-              "y": -5.563353
-            }
-          ]
-        },
-        {
-          "vertices": [
-            {
               "x": -62,
               "y": 0.78
             },
@@ -49161,424 +48438,348 @@
         {
           "vertices": [
             {
-              "x": -24.624058,
-              "y": -6.428315
+              "x": -30.476978,
+              "y": -3.562897
             },
             {
-              "x": -24.565531,
-              "y": -6.422551
+              "x": -30.389187,
+              "y": -3.55425
             },
             {
-              "x": -24.509253,
-              "y": -6.405479
+              "x": -30.30477,
+              "y": -3.528642
             },
             {
-              "x": -24.457387,
-              "y": -6.377756
+              "x": -30.226971,
+              "y": -3.487058
             },
             {
-              "x": -24.411926,
-              "y": -6.340447
+              "x": -30.15878,
+              "y": -3.431095
             },
             {
-              "x": -24.401222,
-              "y": -6.327405
+              "x": -30.102817,
+              "y": -3.362903
             },
             {
-              "x": -24.400341,
-              "y": -6.328192
+              "x": -30.061232,
+              "y": -3.285104
             },
             {
-              "x": -21.73252,
-              "y": -3.34218
+              "x": -30.057952,
+              "y": -3.274291
             },
             {
-              "x": -21.733401,
-              "y": -3.341393
+              "x": -26.752661,
+              "y": 0.031
             },
             {
-              "x": -21.706796,
-              "y": -3.308974
+              "x": -21.824133,
+              "y": 0.031
             },
             {
-              "x": -21.679073,
-              "y": -3.257108
+              "x": -21.809198,
+              "y": 0.012802
             },
             {
-              "x": -21.662001,
-              "y": -3.20083
+              "x": -21.741007,
+              "y": -0.043161
             },
             {
-              "x": -21.656237,
-              "y": -3.142303
+              "x": -21.663208,
+              "y": -0.084746
             },
             {
-              "x": -21.657406,
-              "y": -3.130431
+              "x": -21.578791,
+              "y": -0.110353
             },
             {
-              "x": -21.656473,
-              "y": -3.130394
+              "x": -21.491,
+              "y": -0.119
             },
             {
-              "x": -21.795954,
-              "y": 0.380574
+              "x": -21.403209,
+              "y": -0.110353
             },
             {
-              "x": -21.790802,
-              "y": 0.384802
+              "x": -21.318792,
+              "y": -0.084746
             },
             {
-              "x": -21.734839,
-              "y": 0.452993
+              "x": -21.240993,
+              "y": -0.043161
             },
             {
-              "x": -21.693254,
-              "y": 0.530792
+              "x": -21.172802,
+              "y": 0.012802
             },
             {
-              "x": -21.667647,
-              "y": 0.615209
+              "x": -21.116839,
+              "y": 0.080993
             },
             {
-              "x": -21.659,
-              "y": 0.703
+              "x": -21.075254,
+              "y": 0.158792
             },
             {
-              "x": -21.667647,
-              "y": 0.790791
+              "x": -21.049647,
+              "y": 0.243209
             },
             {
-              "x": -21.693254,
-              "y": 0.875208
+              "x": -21.041,
+              "y": 0.331
             },
             {
-              "x": -21.734839,
-              "y": 0.953007
+              "x": -21.049647,
+              "y": 0.418791
             },
             {
-              "x": -21.790802,
-              "y": 1.021198
+              "x": -21.075254,
+              "y": 0.503208
             },
             {
-              "x": -21.858993,
-              "y": 1.077161
+              "x": -21.116839,
+              "y": 0.581007
             },
             {
-              "x": -21.936792,
-              "y": 1.118746
+              "x": -21.172802,
+              "y": 0.649198
             },
             {
-              "x": -22.021209,
-              "y": 1.144353
+              "x": -21.240993,
+              "y": 0.705161
             },
             {
-              "x": -22.109,
-              "y": 1.153
+              "x": -21.318792,
+              "y": 0.746746
             },
             {
-              "x": -22.196791,
-              "y": 1.144353
+              "x": -21.403209,
+              "y": 0.772353
             },
             {
-              "x": -22.281208,
-              "y": 1.118746
+              "x": -21.491,
+              "y": 0.781
             },
             {
-              "x": -22.359007,
-              "y": 1.077161
+              "x": -21.578791,
+              "y": 0.772353
             },
             {
-              "x": -22.427198,
-              "y": 1.021198
+              "x": -21.663208,
+              "y": 0.746746
             },
             {
-              "x": -22.483161,
-              "y": 0.953007
+              "x": -21.741007,
+              "y": 0.705161
             },
             {
-              "x": -22.524746,
-              "y": 0.875208
+              "x": -21.809198,
+              "y": 0.649198
             },
             {
-              "x": -22.550353,
-              "y": 0.790791
+              "x": -21.824133,
+              "y": 0.631
             },
             {
-              "x": -22.559,
-              "y": 0.703
+              "x": -26.876925,
+              "y": 0.631
             },
             {
-              "x": -22.550353,
-              "y": 0.615209
+              "x": -26.935452,
+              "y": 0.625236
             },
             {
-              "x": -22.524746,
-              "y": 0.530792
+              "x": -26.99173,
+              "y": 0.608164
             },
             {
-              "x": -22.483161,
-              "y": 0.452993
+              "x": -27.043596,
+              "y": 0.580441
             },
             {
-              "x": -22.427198,
-              "y": 0.384802
+              "x": -27.089057,
+              "y": 0.543132
             },
             {
-              "x": -22.395565,
-              "y": 0.358841
+              "x": -30.323621,
+              "y": -2.691432
             },
             {
-              "x": -22.260818,
-              "y": -3.032936
+              "x": -30.389187,
+              "y": -2.671543
             },
             {
-              "x": -24.757155,
-              "y": -5.827011
+              "x": -30.476978,
+              "y": -2.662897
             },
             {
-              "x": -32.088668,
-              "y": -5.755983
+              "x": -30.564768,
+              "y": -2.671543
             },
             {
-              "x": -32.569501,
-              "y": -5.24443
+              "x": -30.649185,
+              "y": -2.697151
             },
             {
-              "x": -32.399987,
-              "y": -4.71272
+              "x": -30.726984,
+              "y": -2.738735
             },
             {
-              "x": -32.401335,
-              "y": -4.71229
+              "x": -30.795176,
+              "y": -2.794699
             },
             {
-              "x": -32.391577,
-              "y": -4.680123
+              "x": -30.851139,
+              "y": -2.86289
             },
             {
-              "x": -32.385813,
-              "y": -4.621596
+              "x": -30.892724,
+              "y": -2.940689
             },
             {
-              "x": -32.38721,
-              "y": -4.607413
+              "x": -30.918331,
+              "y": -3.025106
             },
             {
-              "x": -32.366254,
-              "y": -4.568208
+              "x": -30.926978,
+              "y": -3.112897
             },
             {
-              "x": -32.340647,
-              "y": -4.483791
+              "x": -30.918331,
+              "y": -3.200687
             },
             {
-              "x": -32.332,
-              "y": -4.396
+              "x": -30.892724,
+              "y": -3.285104
             },
             {
-              "x": -32.340647,
-              "y": -4.308209
+              "x": -30.851139,
+              "y": -3.362903
             },
             {
-              "x": -32.366254,
-              "y": -4.223792
+              "x": -30.795176,
+              "y": -3.431095
             },
             {
-              "x": -32.407839,
-              "y": -4.145993
+              "x": -30.726984,
+              "y": -3.487058
             },
             {
-              "x": -32.463802,
-              "y": -4.077802
+              "x": -30.649185,
+              "y": -3.528642
             },
             {
-              "x": -32.531993,
-              "y": -4.021839
-            },
-            {
-              "x": -32.609792,
-              "y": -3.980254
-            },
-            {
-              "x": -32.694209,
-              "y": -3.954647
-            },
-            {
-              "x": -32.782,
-              "y": -3.946
-            },
-            {
-              "x": -32.869791,
-              "y": -3.954647
-            },
-            {
-              "x": -32.954208,
-              "y": -3.980254
-            },
-            {
-              "x": -33.032007,
-              "y": -4.021839
-            },
-            {
-              "x": -33.100198,
-              "y": -4.077802
-            },
-            {
-              "x": -33.156161,
-              "y": -4.145993
-            },
-            {
-              "x": -33.197746,
-              "y": -4.223792
-            },
-            {
-              "x": -33.223353,
-              "y": -4.308209
-            },
-            {
-              "x": -33.232,
-              "y": -4.396
-            },
-            {
-              "x": -33.223353,
-              "y": -4.483791
-            },
-            {
-              "x": -33.197746,
-              "y": -4.568208
-            },
-            {
-              "x": -33.156161,
-              "y": -4.646007
-            },
-            {
-              "x": -33.100198,
-              "y": -4.714198
-            },
-            {
-              "x": -33.044726,
-              "y": -4.759723
-            },
-            {
-              "x": -33.194732,
-              "y": -5.230243
-            },
-            {
-              "x": -33.193384,
-              "y": -5.230673
-            },
-            {
-              "x": -33.203142,
-              "y": -5.26284
-            },
-            {
-              "x": -33.208906,
-              "y": -5.321367
-            },
-            {
-              "x": -33.203142,
-              "y": -5.379894
-            },
-            {
-              "x": -33.18607,
-              "y": -5.436172
-            },
-            {
-              "x": -33.158347,
-              "y": -5.488038
-            },
-            {
-              "x": -33.12694,
-              "y": -5.526308
-            },
-            {
-              "x": -33.1275,
-              "y": -5.526834
-            },
-            {
-              "x": -32.438179,
-              "y": -6.260196
-            },
-            {
-              "x": -32.437619,
-              "y": -6.25967
-            },
-            {
-              "x": -32.431717,
-              "y": -6.266861
-            },
-            {
-              "x": -32.386256,
-              "y": -6.30417
-            },
-            {
-              "x": -32.33439,
-              "y": -6.331893
-            },
-            {
-              "x": -32.278112,
-              "y": -6.348965
-            },
-            {
-              "x": -32.222488,
-              "y": -6.354443
-            },
-            {
-              "x": -32.222491,
-              "y": -6.354715
-            },
-            {
-              "x": -24.626964,
-              "y": -6.428301
-            },
-            {
-              "x": -24.626961,
-              "y": -6.428029
+              "x": -30.564768,
+              "y": -3.55425
             }
           ]
         },
         {
           "vertices": [
             {
-              "x": -62,
-              "y": -1.76
+              "x": -46.39,
+              "y": -14.65
             },
             {
-              "x": -61.814664,
-              "y": -1.741746
+              "x": -46.204664,
+              "y": -14.631746
             },
             {
-              "x": -61.636451,
-              "y": -1.687686
+              "x": -46.026451,
+              "y": -14.577686
             },
             {
-              "x": -61.472208,
-              "y": -1.599896
+              "x": -45.862208,
+              "y": -14.489896
             },
             {
-              "x": -61.328249,
-              "y": -1.481751
+              "x": -45.718249,
+              "y": -14.371751
             },
             {
-              "x": -61.210104,
-              "y": -1.337792
+              "x": -45.600104,
+              "y": -14.227792
             },
             {
-              "x": -61.122314,
-              "y": -1.173549
+              "x": -45.512314,
+              "y": -14.063549
             },
             {
-              "x": -61.068254,
-              "y": -0.995336
+              "x": -45.458254,
+              "y": -13.885336
             },
             {
-              "x": -61.05,
-              "y": -0.81
+              "x": -45.44,
+              "y": -13.7
             },
             {
-              "x": -61.068254,
-              "y": -0.624664
+              "x": -45.458254,
+              "y": -13.514664
+            },
+            {
+              "x": -45.512314,
+              "y": -13.336451
+            },
+            {
+              "x": -45.600104,
+              "y": -13.172208
+            },
+            {
+              "x": -45.718249,
+              "y": -13.028249
+            },
+            {
+              "x": -45.862208,
+              "y": -12.910104
+            },
+            {
+              "x": -46.026451,
+              "y": -12.822314
+            },
+            {
+              "x": -46.204664,
+              "y": -12.768254
+            },
+            {
+              "x": -46.39,
+              "y": -12.75
+            },
+            {
+              "x": -46.575336,
+              "y": -12.768254
+            },
+            {
+              "x": -46.753549,
+              "y": -12.822314
+            },
+            {
+              "x": -46.812117,
+              "y": -12.853619
+            },
+            {
+              "x": -59.067868,
+              "y": -0.597868
+            },
+            {
+              "x": -59.113329,
+              "y": -0.560559
+            },
+            {
+              "x": -59.165195,
+              "y": -0.532836
+            },
+            {
+              "x": -59.221473,
+              "y": -0.515764
+            },
+            {
+              "x": -59.28,
+              "y": -0.51
+            },
+            {
+              "x": -61.103037,
+              "y": -0.51
             },
             {
               "x": -61.122314,
@@ -49667,6 +48868,86 @@
             {
               "x": -62.185336,
               "y": -1.741746
+            },
+            {
+              "x": -62,
+              "y": -1.76
+            },
+            {
+              "x": -61.814664,
+              "y": -1.741746
+            },
+            {
+              "x": -61.636451,
+              "y": -1.687686
+            },
+            {
+              "x": -61.472208,
+              "y": -1.599896
+            },
+            {
+              "x": -61.328249,
+              "y": -1.481751
+            },
+            {
+              "x": -61.210104,
+              "y": -1.337792
+            },
+            {
+              "x": -61.122314,
+              "y": -1.173549
+            },
+            {
+              "x": -61.103037,
+              "y": -1.11
+            },
+            {
+              "x": -59.404264,
+              "y": -1.11
+            },
+            {
+              "x": -47.236381,
+              "y": -13.277883
+            },
+            {
+              "x": -47.267686,
+              "y": -13.336451
+            },
+            {
+              "x": -47.321746,
+              "y": -13.514664
+            },
+            {
+              "x": -47.34,
+              "y": -13.7
+            },
+            {
+              "x": -47.321746,
+              "y": -13.885336
+            },
+            {
+              "x": -47.267686,
+              "y": -14.063549
+            },
+            {
+              "x": -47.179896,
+              "y": -14.227792
+            },
+            {
+              "x": -47.061751,
+              "y": -14.371751
+            },
+            {
+              "x": -46.917792,
+              "y": -14.489896
+            },
+            {
+              "x": -46.753549,
+              "y": -14.577686
+            },
+            {
+              "x": -46.575336,
+              "y": -14.631746
             }
           ]
         },
@@ -50479,250 +49760,6 @@
             {
               "x": 23.665892,
               "y": -4.676942
-            }
-          ]
-        },
-        {
-          "vertices": [
-            {
-              "x": -37.12031,
-              "y": -5.994983
-            },
-            {
-              "x": -37.03252,
-              "y": -5.986336
-            },
-            {
-              "x": -36.948103,
-              "y": -5.960728
-            },
-            {
-              "x": -36.870304,
-              "y": -5.919144
-            },
-            {
-              "x": -36.802112,
-              "y": -5.863181
-            },
-            {
-              "x": -36.746149,
-              "y": -5.794989
-            },
-            {
-              "x": -36.704564,
-              "y": -5.71719
-            },
-            {
-              "x": -36.678957,
-              "y": -5.632773
-            },
-            {
-              "x": -36.67031,
-              "y": -5.544983
-            },
-            {
-              "x": -36.678957,
-              "y": -5.457192
-            },
-            {
-              "x": -36.704564,
-              "y": -5.372775
-            },
-            {
-              "x": -36.746149,
-              "y": -5.294976
-            },
-            {
-              "x": -36.802112,
-              "y": -5.226785
-            },
-            {
-              "x": -36.870304,
-              "y": -5.170821
-            },
-            {
-              "x": -36.948103,
-              "y": -5.129237
-            },
-            {
-              "x": -37.03252,
-              "y": -5.103629
-            },
-            {
-              "x": -37.12031,
-              "y": -5.094983
-            },
-            {
-              "x": -37.208101,
-              "y": -5.103629
-            },
-            {
-              "x": -37.292518,
-              "y": -5.129237
-            },
-            {
-              "x": -37.370317,
-              "y": -5.170821
-            },
-            {
-              "x": -37.438508,
-              "y": -5.226785
-            },
-            {
-              "x": -37.453443,
-              "y": -5.244983
-            },
-            {
-              "x": -37.942753,
-              "y": -5.244983
-            },
-            {
-              "x": -38.386308,
-              "y": -4.801428
-            },
-            {
-              "x": -38.384,
-              "y": -4.778
-            },
-            {
-              "x": -38.392647,
-              "y": -4.690209
-            },
-            {
-              "x": -38.418254,
-              "y": -4.605792
-            },
-            {
-              "x": -38.459839,
-              "y": -4.527993
-            },
-            {
-              "x": -38.515802,
-              "y": -4.459802
-            },
-            {
-              "x": -38.583993,
-              "y": -4.403839
-            },
-            {
-              "x": -38.661792,
-              "y": -4.362254
-            },
-            {
-              "x": -38.746209,
-              "y": -4.336647
-            },
-            {
-              "x": -38.834,
-              "y": -4.328
-            },
-            {
-              "x": -38.921791,
-              "y": -4.336647
-            },
-            {
-              "x": -39.006208,
-              "y": -4.362254
-            },
-            {
-              "x": -39.084007,
-              "y": -4.403839
-            },
-            {
-              "x": -39.152198,
-              "y": -4.459802
-            },
-            {
-              "x": -39.208161,
-              "y": -4.527993
-            },
-            {
-              "x": -39.249746,
-              "y": -4.605792
-            },
-            {
-              "x": -39.275353,
-              "y": -4.690209
-            },
-            {
-              "x": -39.284,
-              "y": -4.778
-            },
-            {
-              "x": -39.275353,
-              "y": -4.865791
-            },
-            {
-              "x": -39.249746,
-              "y": -4.950208
-            },
-            {
-              "x": -39.208161,
-              "y": -5.028007
-            },
-            {
-              "x": -39.152198,
-              "y": -5.096198
-            },
-            {
-              "x": -39.084007,
-              "y": -5.152161
-            },
-            {
-              "x": -39.006208,
-              "y": -5.193746
-            },
-            {
-              "x": -38.921791,
-              "y": -5.219353
-            },
-            {
-              "x": -38.834,
-              "y": -5.228
-            },
-            {
-              "x": -38.810572,
-              "y": -5.225692
-            },
-            {
-              "x": -38.279149,
-              "y": -5.757115
-            },
-            {
-              "x": -38.233688,
-              "y": -5.794424
-            },
-            {
-              "x": -38.181822,
-              "y": -5.822147
-            },
-            {
-              "x": -38.125544,
-              "y": -5.839218
-            },
-            {
-              "x": -38.067017,
-              "y": -5.844983
-            },
-            {
-              "x": -37.453443,
-              "y": -5.844983
-            },
-            {
-              "x": -37.438508,
-              "y": -5.863181
-            },
-            {
-              "x": -37.370317,
-              "y": -5.919144
-            },
-            {
-              "x": -37.292518,
-              "y": -5.960728
-            },
-            {
-              "x": -37.208101,
-              "y": -5.986336
             }
           ]
         },
@@ -51665,250 +50702,6 @@
         {
           "vertices": [
             {
-              "x": -9.923,
-              "y": -11.823
-            },
-            {
-              "x": -9.835209,
-              "y": -11.814353
-            },
-            {
-              "x": -9.750792,
-              "y": -11.788746
-            },
-            {
-              "x": -9.672993,
-              "y": -11.747161
-            },
-            {
-              "x": -9.604802,
-              "y": -11.691198
-            },
-            {
-              "x": -9.548839,
-              "y": -11.623007
-            },
-            {
-              "x": -9.507254,
-              "y": -11.545208
-            },
-            {
-              "x": -9.481647,
-              "y": -11.460791
-            },
-            {
-              "x": -9.473,
-              "y": -11.373
-            },
-            {
-              "x": -9.481647,
-              "y": -11.285209
-            },
-            {
-              "x": -9.507254,
-              "y": -11.200792
-            },
-            {
-              "x": -9.548839,
-              "y": -11.122993
-            },
-            {
-              "x": -9.604802,
-              "y": -11.054802
-            },
-            {
-              "x": -9.623,
-              "y": -11.039867
-            },
-            {
-              "x": -9.623,
-              "y": -9.485
-            },
-            {
-              "x": -9.628764,
-              "y": -9.426473
-            },
-            {
-              "x": -9.645836,
-              "y": -9.370195
-            },
-            {
-              "x": -9.673559,
-              "y": -9.318329
-            },
-            {
-              "x": -9.710868,
-              "y": -9.272868
-            },
-            {
-              "x": -10.502308,
-              "y": -8.481428
-            },
-            {
-              "x": -10.5,
-              "y": -8.458
-            },
-            {
-              "x": -10.508647,
-              "y": -8.370209
-            },
-            {
-              "x": -10.534254,
-              "y": -8.285792
-            },
-            {
-              "x": -10.575839,
-              "y": -8.207993
-            },
-            {
-              "x": -10.631802,
-              "y": -8.139802
-            },
-            {
-              "x": -10.699993,
-              "y": -8.083839
-            },
-            {
-              "x": -10.777792,
-              "y": -8.042254
-            },
-            {
-              "x": -10.862209,
-              "y": -8.016647
-            },
-            {
-              "x": -10.95,
-              "y": -8.008
-            },
-            {
-              "x": -11.037791,
-              "y": -8.016647
-            },
-            {
-              "x": -11.122208,
-              "y": -8.042254
-            },
-            {
-              "x": -11.200007,
-              "y": -8.083839
-            },
-            {
-              "x": -11.268198,
-              "y": -8.139802
-            },
-            {
-              "x": -11.324161,
-              "y": -8.207993
-            },
-            {
-              "x": -11.365746,
-              "y": -8.285792
-            },
-            {
-              "x": -11.391353,
-              "y": -8.370209
-            },
-            {
-              "x": -11.4,
-              "y": -8.458
-            },
-            {
-              "x": -11.391353,
-              "y": -8.545791
-            },
-            {
-              "x": -11.365746,
-              "y": -8.630208
-            },
-            {
-              "x": -11.324161,
-              "y": -8.708007
-            },
-            {
-              "x": -11.268198,
-              "y": -8.776198
-            },
-            {
-              "x": -11.200007,
-              "y": -8.832161
-            },
-            {
-              "x": -11.122208,
-              "y": -8.873746
-            },
-            {
-              "x": -11.037791,
-              "y": -8.899353
-            },
-            {
-              "x": -10.95,
-              "y": -8.908
-            },
-            {
-              "x": -10.926572,
-              "y": -8.905692
-            },
-            {
-              "x": -10.223,
-              "y": -9.609264
-            },
-            {
-              "x": -10.223,
-              "y": -11.039867
-            },
-            {
-              "x": -10.241198,
-              "y": -11.054802
-            },
-            {
-              "x": -10.297161,
-              "y": -11.122993
-            },
-            {
-              "x": -10.338746,
-              "y": -11.200792
-            },
-            {
-              "x": -10.364353,
-              "y": -11.285209
-            },
-            {
-              "x": -10.373,
-              "y": -11.373
-            },
-            {
-              "x": -10.364353,
-              "y": -11.460791
-            },
-            {
-              "x": -10.338746,
-              "y": -11.545208
-            },
-            {
-              "x": -10.297161,
-              "y": -11.623007
-            },
-            {
-              "x": -10.241198,
-              "y": -11.691198
-            },
-            {
-              "x": -10.173007,
-              "y": -11.747161
-            },
-            {
-              "x": -10.095208,
-              "y": -11.788746
-            },
-            {
-              "x": -10.010791,
-              "y": -11.814353
-            }
-          ]
-        },
-        {
-          "vertices": [
-            {
               "x": -28.182625,
               "y": -11.21536
             },
@@ -52693,112 +51486,112 @@
               "y": -10.628594
             },
             {
-              "x": -30.677109,
-              "y": -9.280013
+              "x": -30.676226,
+              "y": -9.281072
             },
             {
-              "x": -30.668851,
+              "x": -30.667647,
               "y": -9.252791
             },
             {
-              "x": -30.660204,
+              "x": -30.659,
               "y": -9.165
             },
             {
-              "x": -30.668851,
+              "x": -30.667647,
               "y": -9.077209
             },
             {
-              "x": -30.694459,
+              "x": -30.693254,
               "y": -8.992792
             },
             {
-              "x": -30.736043,
+              "x": -30.734839,
               "y": -8.914993
             },
             {
-              "x": -30.792006,
+              "x": -30.790802,
               "y": -8.846802
             },
             {
-              "x": -30.860198,
+              "x": -30.858993,
               "y": -8.790839
             },
             {
-              "x": -30.937997,
+              "x": -30.936792,
               "y": -8.749254
             },
             {
-              "x": -31.022414,
+              "x": -31.021209,
               "y": -8.723647
             },
             {
-              "x": -31.110204,
+              "x": -31.109,
               "y": -8.715
             },
             {
-              "x": -31.197995,
+              "x": -31.196791,
               "y": -8.723647
             },
             {
-              "x": -31.282412,
+              "x": -31.281208,
               "y": -8.749254
             },
             {
-              "x": -31.360211,
+              "x": -31.359007,
               "y": -8.790839
             },
             {
-              "x": -31.428402,
+              "x": -31.427198,
               "y": -8.846802
             },
             {
-              "x": -31.484366,
+              "x": -31.483161,
               "y": -8.914993
             },
             {
-              "x": -31.52595,
+              "x": -31.524746,
               "y": -8.992792
             },
             {
-              "x": -31.551558,
+              "x": -31.550353,
               "y": -9.077209
             },
             {
-              "x": -31.560204,
+              "x": -31.559,
               "y": -9.165
             },
             {
-              "x": -31.551558,
+              "x": -31.550353,
               "y": -9.252791
             },
             {
-              "x": -31.52595,
+              "x": -31.524746,
               "y": -9.337208
             },
             {
-              "x": -31.484366,
+              "x": -31.483161,
               "y": -9.415007
             },
             {
-              "x": -31.428402,
+              "x": -31.427198,
               "y": -9.483198
             },
             {
-              "x": -31.360211,
+              "x": -31.359007,
               "y": -9.539161
             },
             {
-              "x": -31.282412,
+              "x": -31.281208,
               "y": -9.580746
             },
             {
-              "x": -31.197995,
+              "x": -31.196791,
               "y": -9.606353
             },
             {
-              "x": -31.185155,
-              "y": -9.607618
+              "x": -31.185262,
+              "y": -9.607489
             },
             {
               "x": -30.090373,
@@ -53889,236 +52682,220 @@
               "y": -19.568254
             },
             {
-              "x": -6.363549,
-              "y": -19.622314
+              "x": -6.345442,
+              "y": -19.616821
             },
             {
-              "x": -6.422117,
-              "y": -19.653619
+              "x": -6.070146,
+              "y": -13.098284
             },
             {
-              "x": -6.498356,
-              "y": -19.57738
+              "x": -6.071121,
+              "y": -13.098243
             },
             {
-              "x": -6.480345,
-              "y": -12.338018
+              "x": -6.069878,
+              "y": -13.085626
             },
             {
-              "x": -6.480417,
-              "y": -12.338018
+              "x": -6.075643,
+              "y": -13.027099
             },
             {
-              "x": -6.480344,
-              "y": -12.337272
+              "x": -6.092715,
+              "y": -12.970821
             },
             {
-              "x": -6.486108,
-              "y": -12.278745
+              "x": -6.120438,
+              "y": -12.918955
             },
             {
-              "x": -6.50318,
-              "y": -12.222467
+              "x": -6.157746,
+              "y": -12.873494
             },
             {
-              "x": -6.530903,
-              "y": -12.170601
+              "x": -6.174033,
+              "y": -12.860127
             },
             {
-              "x": -6.568212,
-              "y": -12.12514
+              "x": -6.173162,
+              "y": -12.859124
             },
             {
-              "x": -6.613673,
-              "y": -12.087831
+              "x": -8.204254,
+              "y": -11.095124
             },
             {
-              "x": -6.665539,
-              "y": -12.060108
+              "x": -8.205125,
+              "y": -11.096127
             },
             {
-              "x": -6.721817,
-              "y": -12.043036
+              "x": -8.234299,
+              "y": -11.072184
             },
             {
-              "x": -6.772562,
-              "y": -12.038038
+              "x": -8.286165,
+              "y": -11.044462
             },
             {
-              "x": -6.772545,
-              "y": -12.037373
+              "x": -8.342443,
+              "y": -11.02739
             },
             {
-              "x": -10.484703,
-              "y": -11.940842
+              "x": -8.40097,
+              "y": -11.021625
             },
             {
-              "x": -11.988519,
-              "y": -10.841117
+              "x": -8.416508,
+              "y": -11.023156
             },
             {
-              "x": -11.992647,
-              "y": -10.799209
+              "x": -8.416567,
+              "y": -11.022031
             },
             {
-              "x": -12.018254,
-              "y": -10.714792
+              "x": -11.296837,
+              "y": -11.171978
             },
             {
-              "x": -12.059839,
-              "y": -10.636993
+              "x": -11.297802,
+              "y": -11.170802
             },
             {
-              "x": -12.115802,
-              "y": -10.568802
+              "x": -11.365993,
+              "y": -11.114839
             },
             {
-              "x": -12.183993,
-              "y": -10.512839
+              "x": -11.443792,
+              "y": -11.073254
             },
             {
-              "x": -12.261792,
-              "y": -10.471254
+              "x": -11.528209,
+              "y": -11.047647
             },
             {
-              "x": -12.346209,
-              "y": -10.445647
+              "x": -11.616,
+              "y": -11.039
             },
             {
-              "x": -12.434,
-              "y": -10.437
+              "x": -11.703791,
+              "y": -11.047647
             },
             {
-              "x": -12.521791,
-              "y": -10.445647
+              "x": -11.788208,
+              "y": -11.073254
             },
             {
-              "x": -12.606208,
-              "y": -10.471254
+              "x": -11.866007,
+              "y": -11.114839
             },
             {
-              "x": -12.684007,
-              "y": -10.512839
+              "x": -11.934198,
+              "y": -11.170802
             },
             {
-              "x": -12.752198,
-              "y": -10.568802
+              "x": -11.990161,
+              "y": -11.238993
             },
             {
-              "x": -12.808161,
-              "y": -10.636993
+              "x": -12.031746,
+              "y": -11.316792
             },
             {
-              "x": -12.849746,
-              "y": -10.714792
+              "x": -12.057353,
+              "y": -11.401209
             },
             {
-              "x": -12.875353,
-              "y": -10.799209
+              "x": -12.066,
+              "y": -11.489
             },
             {
-              "x": -12.884,
-              "y": -10.887
+              "x": -12.057353,
+              "y": -11.576791
             },
             {
-              "x": -12.875353,
-              "y": -10.974791
+              "x": -12.031746,
+              "y": -11.661208
             },
             {
-              "x": -12.849746,
-              "y": -11.059208
+              "x": -11.990161,
+              "y": -11.739007
             },
             {
-              "x": -12.808161,
-              "y": -11.137007
+              "x": -11.934198,
+              "y": -11.807198
             },
             {
-              "x": -12.752198,
-              "y": -11.205198
+              "x": -11.866007,
+              "y": -11.863161
             },
             {
-              "x": -12.684007,
-              "y": -11.261161
+              "x": -11.788208,
+              "y": -11.904746
             },
             {
-              "x": -12.606208,
-              "y": -11.302746
+              "x": -11.703791,
+              "y": -11.930353
             },
             {
-              "x": -12.521791,
-              "y": -11.328353
+              "x": -11.616,
+              "y": -11.939
             },
             {
-              "x": -12.434,
-              "y": -11.337
+              "x": -11.528209,
+              "y": -11.930353
             },
             {
-              "x": -12.346209,
-              "y": -11.328353
+              "x": -11.443792,
+              "y": -11.904746
             },
             {
-              "x": -12.3409,
-              "y": -11.326742
+              "x": -11.365993,
+              "y": -11.863161
             },
             {
-              "x": -10.763251,
-              "y": -12.480462
+              "x": -11.297802,
+              "y": -11.807198
             },
             {
-              "x": -10.762673,
-              "y": -12.479671
+              "x": -11.268347,
+              "y": -11.771307
             },
             {
-              "x": -10.752835,
-              "y": -12.487745
+              "x": -8.506278,
+              "y": -11.627514
             },
             {
-              "x": -10.700969,
-              "y": -12.515468
+              "x": -6.675709,
+              "y": -13.217361
             },
             {
-              "x": -10.644691,
-              "y": -12.53254
+              "x": -6.955064,
+              "y": -19.83201
             },
             {
-              "x": -10.593945,
-              "y": -12.537538
+              "x": -6.954088,
+              "y": -19.832051
             },
             {
-              "x": -10.593962,
-              "y": -12.538203
+              "x": -6.955331,
+              "y": -19.844669
             },
             {
-              "x": -7.081072,
-              "y": -12.629553
+              "x": -6.949567,
+              "y": -19.903196
             },
             {
-              "x": -7.098664,
-              "y": -19.700589
+              "x": -6.932495,
+              "y": -19.959474
             },
             {
-              "x": -7.098592,
-              "y": -19.700589
+              "x": -6.904772,
+              "y": -20.01134
             },
             {
-              "x": -7.098665,
-              "y": -19.701335
-            },
-            {
-              "x": -7.0929,
-              "y": -19.759862
-            },
-            {
-              "x": -7.075829,
-              "y": -19.81614
-            },
-            {
-              "x": -7.048106,
-              "y": -19.868006
-            },
-            {
-              "x": -7.010797,
-              "y": -19.913467
+              "x": -6.867463,
+              "y": -20.056801
             },
             {
               "x": -6.846381,
@@ -55514,138 +54291,6 @@
             },
             {
               "x": -49.115336,
-              "y": -14.631746
-            }
-          ]
-        },
-        {
-          "vertices": [
-            {
-              "x": -46.39,
-              "y": -14.65
-            },
-            {
-              "x": -46.204664,
-              "y": -14.631746
-            },
-            {
-              "x": -46.026451,
-              "y": -14.577686
-            },
-            {
-              "x": -45.862208,
-              "y": -14.489896
-            },
-            {
-              "x": -45.718249,
-              "y": -14.371751
-            },
-            {
-              "x": -45.600104,
-              "y": -14.227792
-            },
-            {
-              "x": -45.512314,
-              "y": -14.063549
-            },
-            {
-              "x": -45.458254,
-              "y": -13.885336
-            },
-            {
-              "x": -45.44,
-              "y": -13.7
-            },
-            {
-              "x": -45.458254,
-              "y": -13.514664
-            },
-            {
-              "x": -45.512314,
-              "y": -13.336451
-            },
-            {
-              "x": -45.600104,
-              "y": -13.172208
-            },
-            {
-              "x": -45.718249,
-              "y": -13.028249
-            },
-            {
-              "x": -45.862208,
-              "y": -12.910104
-            },
-            {
-              "x": -46.026451,
-              "y": -12.822314
-            },
-            {
-              "x": -46.204664,
-              "y": -12.768254
-            },
-            {
-              "x": -46.39,
-              "y": -12.75
-            },
-            {
-              "x": -46.575336,
-              "y": -12.768254
-            },
-            {
-              "x": -46.753549,
-              "y": -12.822314
-            },
-            {
-              "x": -46.917792,
-              "y": -12.910104
-            },
-            {
-              "x": -47.061751,
-              "y": -13.028249
-            },
-            {
-              "x": -47.179896,
-              "y": -13.172208
-            },
-            {
-              "x": -47.267686,
-              "y": -13.336451
-            },
-            {
-              "x": -47.321746,
-              "y": -13.514664
-            },
-            {
-              "x": -47.34,
-              "y": -13.7
-            },
-            {
-              "x": -47.321746,
-              "y": -13.885336
-            },
-            {
-              "x": -47.267686,
-              "y": -14.063549
-            },
-            {
-              "x": -47.179896,
-              "y": -14.227792
-            },
-            {
-              "x": -47.061751,
-              "y": -14.371751
-            },
-            {
-              "x": -46.917792,
-              "y": -14.489896
-            },
-            {
-              "x": -46.753549,
-              "y": -14.577686
-            },
-            {
-              "x": -46.575336,
               "y": -14.631746
             }
           ]
@@ -64489,34 +63134,6 @@
       "outer_ring": {
         "vertices": [
           {
-            "x": -31.715274,
-            "y": -3.755032
-          },
-          {
-            "x": -32.589884,
-            "y": -0.842426
-          },
-          {
-            "x": -30.921351,
-            "y": -1.363667
-          }
-        ]
-      },
-      "inner_rings": []
-    },
-    "source_net_id": "source_net_2",
-    "subcircuit_id": "subcircuit_source_group_0",
-    "covered_with_solder_mask": true
-  },
-  {
-    "type": "pcb_copper_pour",
-    "pcb_copper_pour_id": "pcb_copper_pour_2",
-    "shape": "brep",
-    "layer": "bottom",
-    "brep_shape": {
-      "outer_ring": {
-        "vertices": [
-          {
             "x": 6.785963,
             "y": 38.182887
           },
@@ -64558,7 +63175,7 @@
   },
   {
     "type": "pcb_copper_pour",
-    "pcb_copper_pour_id": "pcb_copper_pour_3",
+    "pcb_copper_pour_id": "pcb_copper_pour_2",
     "shape": "brep",
     "layer": "bottom",
     "brep_shape": {
@@ -64586,7 +63203,7 @@
   },
   {
     "type": "pcb_copper_pour",
-    "pcb_copper_pour_id": "pcb_copper_pour_4",
+    "pcb_copper_pour_id": "pcb_copper_pour_3",
     "shape": "brep",
     "layer": "top",
     "brep_shape": {
@@ -68311,7 +66928,7 @@
   },
   {
     "type": "pcb_copper_pour",
-    "pcb_copper_pour_id": "pcb_copper_pour_5",
+    "pcb_copper_pour_id": "pcb_copper_pour_4",
     "shape": "brep",
     "layer": "inner1",
     "brep_shape": {
@@ -70456,7 +69073,7 @@
   },
   {
     "type": "pcb_copper_pour",
-    "pcb_copper_pour_id": "pcb_copper_pour_6",
+    "pcb_copper_pour_id": "pcb_copper_pour_5",
     "shape": "brep",
     "layer": "inner2",
     "brep_shape": {

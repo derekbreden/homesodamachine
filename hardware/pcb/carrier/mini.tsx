@@ -37,7 +37,7 @@ export default () => (
     <Jst name="J1" x={56.0} y={23.02} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
     <Jst name="J2" x={56.0} y={-13.67} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
     <Jst name="J3" x={-30.0} y={42.65} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
-    <Jst name="J4" x={-62.0} y={3} count={6} labels={["GND", "IO23", "V5", "IO14", "IO13", "3V3"]} rot={90} label="SENSORS" />
+    <Jst name="J4" x={-62.0} y={3} count={6} labels={["GND", "IO15", "V5", "IO14", "IO13", "3V3"]} rot={90} label="SENSORS" />
     <Jst name="J5" x={-27.0} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO27", "IO5", "IO26", "IO18", "IO25", "IO19"]} rot={0} label="DRIVER" />
     <Jst name="J8" x={-52.0} y={-43.3} count={2} labels={["GND", "V5"]} rot={0} label="POWER" />
     <Jst name="J6" x={12.5} y={44.4} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
@@ -129,11 +129,11 @@ export default () => (
     <trace from=".J3 > .GND" to="net.GND" />
     <trace from=".U1A > .GND" to="net.GND" />
 
-    {/* SENSORS: flow (IO23) / 1-wire temps (IO14) / backflow drip-pan moisture
+    {/* SENSORS: flow (IO15) / 1-wire temps (IO14) / backflow drip-pan moisture
         (IO13). 3V3 powers the DS18B20 probes + the moisture module; V5 the flow
         sensor. */}
     <trace from=".J4 > .IO14" to=".U1A > .IO14" />
-    <trace from=".J4 > .IO23" to=".U1B > .IO23" />
+    <trace from=".J4 > .IO15" to=".U1B > .IO15" />
     <trace from=".J4 > .IO13" to=".U1A > .IO13" />
     <trace from=".J4 > .GND" to="net.GND" />
 

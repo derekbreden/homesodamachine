@@ -19,7 +19,7 @@ from docgen import substitute_md
 
 gpio_relay1 = 17            # Teyleten relay #1 (compressor AC)
 gpio_onewire = 14           # DS18B20 1-wire bus (tank-wall + suction-line)
-gpio_flow = 23              # DIGITEN flow meter pulse input
+gpio_flow = 15              # DIGITEN flow meter pulse input
 gpio_relay2 = 16            # Teyleten relay #2 (diaphragm pump 12 V refill)
 
 # ─── I²C device addresses ─────────────────────────────────────────────

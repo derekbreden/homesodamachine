@@ -108,7 +108,7 @@ CROSS = [
     ("piezo buzzer",        r"Buzzer name=",     r"[Pp]iezo|[Bb]uzzer"),
     ("gas sensor",          r'label="GAS"',      r"MQ-6|combustible gas"),
     ("moisture sensor",     r"backflow",         r"moisture|water sensor"),
-    ("flow sensor",         r"\.IO23",           r"DIGITEN|flow sensor"),
+    ("flow sensor",         r"\.IO15",           r"DIGITEN|flow sensor"),
     ("DS18B20 temps",       r"\.IO14",           r"DS18B20"),
     ("compressor relay",    r"\.IO17",           r"[Tt]eyleten"),
     ("diaphragm pump relay",r"\.IO16",           r"SEAFLO|diaphragm"),
