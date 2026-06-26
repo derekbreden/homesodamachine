@@ -1,5 +1,8 @@
+diff --git a/node_modules/@tscircuit/cli/.bun-tag-61206223c58962c9 b/.bun-tag-61206223c58962c9
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/dist/cli/main.js b/dist/cli/main.js
-index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..dd54f725b1f5b21f76b1e476a29afae380be2242 100755
+index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..df0a74ceb86224cf337acb53b0b724ea76138598 100755
 --- a/dist/cli/main.js
 +++ b/dist/cli/main.js
 @@ -255845,6 +255845,12 @@ var layerAndTypeToFileFunction = {
@@ -64,6 +67,15 @@ index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..dd54f725b1f5b21f76b1e476a29afae3
    ]) {
      const glayer = glayers[glayer_name];
      defineCommonMacros(glayer);
+@@ -255973,7 +256003,7 @@ var convertSoupToGerberCommands = (soup, opts = {}) => {
+     let initialX = element.anchor_position.x;
+     let initialY = element.anchor_position.y;
+     const fontSize = element.font_size * CAP_HEIGHT_SCALE;
+-    const letterSpacing = fontSize * 0.4;
++    const letterSpacing = fontSize * (element.font_size <= 0.85 ? 0.05 : 0.4);
+     const spaceWidth = fontSize * 0.5;
+     const textWidth = element.text.split("").reduce((width, char) => {
+       if (char === " ") {
 @@ -256186,7 +256216,7 @@ var convertSoupToGerberCommands = (soup, opts = {}) => {
      });
      return { vertices: new_vertices };
