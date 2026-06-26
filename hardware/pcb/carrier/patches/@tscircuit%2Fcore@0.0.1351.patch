@@ -1,8 +1,11 @@
 diff --git a/node_modules/@tscircuit/core/.bun-tag-c78b4bfb32a68812 b/.bun-tag-c78b4bfb32a68812
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/@tscircuit/core/.bun-tag-d8ee55b5ad48cd97 b/.bun-tag-d8ee55b5ad48cd97
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/dist/index.js b/dist/index.js
-index c7b53b7a6db997fd2924cd638de3d2f0757d8682..793ec97a9b13e2ba675f04ed79f95038ae6063c5 100644
+index c7b53b7a6db997fd2924cd638de3d2f0757d8682..0df316b4e89cf2ceb4c07e82ab363b96bb6fbfc5 100644
 --- a/dist/index.js
 +++ b/dist/index.js
 @@ -16046,6 +16046,32 @@ var getSimpleRouteJsonFromCircuitJson = ({
@@ -47,7 +50,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..793ec97a9b13e2ba675f04ed79f95038
        traces: descendantTraces.length > 0 ? descendantTraces : void 0,
        layerCount: board?.num_layers ?? 2,
        minTraceWidth: minTraceWidth ?? board?.min_trace_width ?? 0.1,
-@@ -22355,6 +22381,18 @@ var Group5 = class extends NormalComponent3 {
+@@ -22355,6 +22381,44 @@ var Group5 = class extends NormalComponent3 {
        subcircuit_id: this.subcircuit_id,
        subcircuitComponent: this
      });
@@ -62,6 +65,32 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..793ec97a9b13e2ba675f04ed79f95038
 +        baseSimpleRouteJson.defaultObstacleMargin = _tc;
 +        baseSimpleRouteJson.minTraceToPadEdgeClearance = _tc;
 +      }
++      // PATCH(homesodamachine): cap the autorouter's usable layer count
++      // independently of the board's num_layers, so a 4-layer board can keep
++      // signals on top+bottom while inner layers stay pure copper pours (planes).
++      // Without this the capacity router freely routes on inner1/inner2 and
++      // slices the power planes. autorouter.layerCount=2 -> route top+bottom only.
++      // PATCH(homesodamachine): present a 2-layer (top/bottom) routing view while the
++      // board stays 4-layer for copper pours. The capacity router routes contiguous
++      // z-layers and would run signals across the inner planes; a full-board obstacle
++      // blocks via landings too. Instead we STRIP the poured inner layers from the
++      // routing obstacle model and cap layerCount to the outer copper, so signals
++      // route on top+bottom with normal through-vias and inner1/inner2 stay pure
++      // copperpour planes (the pours are separate entities, untouched by this).
++      try {
++        const pouredInner = /* @__PURE__ */ new Set();
++        for (const cp of this.selectAll("copperpour")) {
++          const ly = cp._parsedProps && cp._parsedProps.layer;
++          if (typeof ly === "string" && ly.indexOf("inner") === 0) pouredInner.add(ly);
++        }
++        if (pouredInner.size > 0 && Array.isArray(baseSimpleRouteJson.obstacles)) {
++          baseSimpleRouteJson.obstacles = baseSimpleRouteJson.obstacles
++            .map((o) => o.layers ? { ...o, layers: o.layers.filter((l) => !pouredInner.has(l)) } : o)
++            .filter((o) => !o.layers || o.layers.length > 0);
++          baseSimpleRouteJson.layerCount = Math.max(2, (baseSimpleRouteJson.layerCount || 4) - pouredInner.size);
++          if (process.env.PATCH_DEBUG) console.error(`[patch] 2-layer routing view: stripped ${[...pouredInner].join(",")}, layerCount=${baseSimpleRouteJson.layerCount}`);
++        }
++      } catch (e) { if (process.env.PATCH_DEBUG) console.error("[patch] inner-strip error", String(e)); }
 +    }
      const routingPhasePlans = this._getRoutingPhasePlans();
      const hasPhasedAutorouting = Group_hasPhasedAutorouting(routingPhasePlans);
