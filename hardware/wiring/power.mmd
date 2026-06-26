@@ -34,7 +34,7 @@ flowchart TD
   %%   to drive it (factory wiring was never AC on the fan itself),
   %%   so on harvest we discard the donor PCB and drive the fan
   %%   from our own 12 V bus. Low-side switched via one channel of
-  %%   ULN2803A #2 driven from MCP23017 0x21 PA4 — same pattern as
+  %%   ULN2803A #2 driven from MCP23017 0x21 PA3 — same pattern as
   %%   the solenoid valves. Firmware turns it on/off in lockstep
   %%   with the compressor.
   %% See `ac-wiring-schedule.md` for run-by-run gauges + lengths and
@@ -83,7 +83,7 @@ flowchart TD
 
   %% Condenser fan rides the same low-side switching pattern as the
   %% solenoid valves: one ULN2803A #2 channel (driven from MCP23017
-  %% 0x21 PA4) sinks the fan's return when commanded. Crossing the
+  %% 0x21 PA3) sinks the fan's return when commanded. Crossing the
   %% subgraph boundary is intentional — the fan is semantically part
   %% of Refrigeration, but its switching topology is the valve pattern.
   ULN ==>|"switched 12 V (low-side)"| COND_FAN

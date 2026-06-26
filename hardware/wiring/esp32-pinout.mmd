@@ -24,10 +24,11 @@ flowchart LR
   %% All 10 reed switches — 8 flavor-reservoir (4 per reservoir) + 2 carbonator
   %% (low/high) — are read through the I2C MCP23017 expanders, not direct ESP32
   %% GPIO, so every reed rides the MCP internal pull-up (no external resistors):
-  %%   MCP23017 0x20: 8 valves (V-A..V-H) on PA[0:7] -> ULN U4 -> MANIFOLD A;
+  %%   MCP23017 0x20: 8 valves (V-A..V-H) on PA[0:7] -> ULN U4 -> MANIFOLD A
+  %%     (silk-up ULN reverses the bank: GPA0->V-H .. GPA7->V-A);
   %%     Rsvr A 4 reeds on PB[0:3]; PB[4:7] spare.
-  %%   MCP23017 0x21: 4 valves (V-I/V-J/V-K-A/V-K-B) on PA[0:3] + condenser fan on
-  %%     PA4 -> ULN U5 -> MANIFOLD B; PA[5:7] spare. Rsvr B 4 reeds on PB[0:3];
+  %%   MCP23017 0x21: 4 valves (V-I/V-J/V-K-A/V-K-B) on PA[4:7] + condenser fan on
+  %%     PA3 -> ULN U5 -> MANIFOLD B; PA[0:2] spare. Rsvr B 4 reeds on PB[0:3];
   %%     carbonator reeds low/high on PB[4:5]; PB[6:7] spare. See valve-control.mmd.
   %% Conditional: 0x21 could be replaced by a 74HC165 or direct GPIO — saves the
   %%   chip, decision deferred (it now also carries the carbonator reeds, so the
