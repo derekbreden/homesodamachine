@@ -1,0 +1,20 @@
+diff --git a/dist/index.js b/dist/index.js
+index 85d1ce644b64ac84402c94127cff80bb35e577bc..8973d79782e95d4a6f4161970a4cfbd592355383 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -527,7 +527,14 @@ var convertCircuitJsonToInputProblem = (circuitJson, options) => {
+       }
+     } else if (elm.type === "pcb_plated_hole") {
+       const platedHole = elm;
+-      if (!platedHole.layers.includes(options.layer)) continue;
++      // PATCH(homesodamachine): a plated THROUGH-hole's barrel is conductive on
++      // every copper layer, but its .layers only lists where it has pad copper
++      // (top/bottom). The stock guard skips it on inner layers, so an inner power
++      // plane floods solid over every through-hole pin with no anti-pad and shorts
++      // the rails. Treat a hole that spans top&bottom as present on ALL layers, so
++      // the pour cuts an anti-pad (or connects, if on its net) on the inner planes too.
++      const _isThroughHole = platedHole.layers.includes("top") && platedHole.layers.includes("bottom");
++      if (!_isThroughHole && !platedHole.layers.includes(options.layer)) continue;
+       let connectivityKey = connectivityMap.getNetConnectedToId(
+         platedHole.pcb_plated_hole_id
+       );
