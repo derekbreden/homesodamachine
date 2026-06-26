@@ -16,16 +16,16 @@ import {
 
 export default () => (
   <board layers={4} width="146mm" height="100mm" minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" autorouter={{ traceClearance: 0.47 }}>
-    <Ds3231 name="U6" x={-32.15} y={-28.65} rot={180} />
-    <Esp32 x={-25.15} y={-2} />
+    <Ds3231 name="U6" x={-37.15} y={-28.65} rot={180} />
+    <Esp32 x={-31.15} y={-2} />
     <Rs485 name="U7" x={-29.0} y={25.375} rot={180} />
     <Mcp23017 name="U2" x={14.5} y={20.25} addr="0x20" />
     <Mcp23017 name="U3" x={14.5} y={-20.25} addr="0x21" />
-    <Uln2803 name="U4" x={39.65} y={25.56} />
-    <Uln2803 name="U5" x={39.65} y={-14.94} />
-    <Buzzer name="U8" x={44} y={-42.5} rot={90} />
-    <Jst name="J1" x={57.0} y={25.56} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
-    <Jst name="J2" x={57.0} y={-14.94} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
+    <Uln2803 name="U4" x={39.65} y={23.02} />
+    <Uln2803 name="U5" x={39.65} y={-17.48} />
+    <Buzzer name="U8" x={-5} y={-32} rot={180} />
+    <Jst name="J1" x={57.0} y={23.02} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
+    <Jst name="J2" x={57.0} y={-17.48} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
     <Jst name="J3" x={-30.0} y={44} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
     <Jst name="J4" x={-64.0} y={3} count={6} labels={["GND", "IO23", "V5", "IO13", "IO14", "3V3"]} rot={90} label="SENSORS" />
     <Jst name="J5" x={-25.0} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO27", "IO5", "IO26", "IO18", "IO25", "IO19"]} rot={0} label="DRIVER" />
@@ -180,7 +180,7 @@ export default () => (
     <trace from=".J10 > .V12" to="net.V12" />
     <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" />
     <copperpour name="V12PLANE" layer="top" connectsTo="net.V12"
-      outline={[{ x: 47, y: -27 }, { x: 60, y: -27 }, { x: 60, y: 40 }, { x: 47, y: 40 }]} />
+      outline={[{ x: 47, y: -30.5 }, { x: 60, y: -30.5 }, { x: 60, y: 40 }, { x: 47, y: 40 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" />
   </board>
