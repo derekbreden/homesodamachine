@@ -22,7 +22,7 @@ views derived from it (canonical-but-provisional until bring-up).
   display: its line side exits on J9. Power is split — J8 brings in the 5 V logic
   rail (the ESP's 3V3 pin then powers the I²C devices) and J10 the 12 V valve
   supply (feeds the ULN commons). Through-hole, **four layers**, routed,
-  131 × 102 mm. The four power nets each get a plane — top a V12 pour over the
+  128 × 99 mm. The four power nets each get a plane — top a V12 pour over the
   valve block, inner1 the 3V3 plane, inner2 the 5V plane, bottom the GND plane —
   and every power/ground pin commons to its plane at its through-hole barrel, so
   only the point-to-point signals and the I²C bus are routed, on the two outer

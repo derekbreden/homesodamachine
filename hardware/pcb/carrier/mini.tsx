@@ -4,9 +4,10 @@
  * interface lands on a labeled edge connector (J1-J11). Footprint geometry
  * lives in ./carrier_parts; placement + routing are declared here.
  *
- * Left column: RS485 over the ESP32; DS3231 sits center-bottom. MCP stack (0x20 over 0x21) with
- * the ULN drivers and manifold connectors to the right. The buzzer tucks into the
- * pocket below the ESP; the gas dividers sit up top, over the ESP IO36/IO39 ADC pins.
+ * Left column: RS485 over the ESP32; DS3231 centered in the pocket below it. MCP stack
+ * (0x20 over 0x21) with the ULN drivers and manifold connectors to the right, dropped to
+ * sit flush with the left half. The buzzer sits bottom-left, beside DS3231; the gas
+ * dividers (R1-R4) sit up top in the connector row, over the ESP IO36/IO39 ADC pins.
  *
  * FOUR layers, stackup top->bottom:
  *   L1 top    — signals + the V12 pour over the valve block (top-right)
@@ -25,36 +26,36 @@ import {
 } from "./carrier_parts"
 
 export default () => (
-  <board layers={4} outline={[{ x: -67, y: -51 }, { x: 61, y: -51 }, { x: 61, y: 49.5 }, { x: -67, y: 49.5 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" autorouter={{ traceClearance: 0.45 }}>
-    <Ds3231 name="U6" x={-28} y={-27.65} rot={0} />
+  <board layers={4} outline={[{ x: -66.9, y: -51 }, { x: 60.9, y: -51 }, { x: 60.9, y: 47.7 }, { x: -66.9, y: 47.7 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" autorouter={{ traceClearance: 0.45 }}>
+    <Ds3231 name="U6" x={-27.25} y={-28.65} rot={0} />
     <Esp32 x={-31.15} y={-1} />
     <Rs485 name="U7" x={-29.0} y={26.375} rot={180} />
-    <Mcp23017 name="U2" x={14.5} y={20.25} addr="0x20" />
-    <Mcp23017 name="U3" x={14.5} y={-20.25} addr="0x21" />
-    <Uln2803 name="U4" x={39.65} y={23.02} />
-    <Uln2803 name="U5" x={39.65} y={-17.48} />
+    <Mcp23017 name="U2" x={14.5} y={18.65} addr="0x20" />
+    <Mcp23017 name="U3" x={14.5} y={-21.85} addr="0x21" />
+    <Uln2803 name="U4" x={39.65} y={21.42} />
+    <Uln2803 name="U5" x={39.65} y={-19.08} />
     <Buzzer name="U8" x={-55} y={-33} rot={180} />
-    <Jst name="J1" x={56.0} y={23.02} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
-    <Jst name="J2" x={56.0} y={-13.67} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
-    <Jst name="J3" x={-50.0} y={42.65} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
+    <Jst name="J1" x={56.0} y={21.42} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
+    <Jst name="J2" x={56.0} y={-15.27} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
+    <Jst name="J3" x={-46.0} y={42.65} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
     <Jst name="J4" x={-62.0} y={3} count={6} labels={["GND", "IO15", "V5", "IO14", "IO13", "3V3"]} rot={90} label="SENSORS" />
     <Jst name="J5" x={-27.0} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO27", "IO5", "IO26", "IO18", "IO25", "IO19"]} rot={0} label="DRIVER" />
-    <Jst name="J8" x={-63.0} y={-12} count={2} labels={["GND", "V5"]} rot={90} label="POWER" />
-    <Jst name="J6" x={12.5} y={44.4} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
+    <Jst name="J8" x={-62.0} y={-11.3} count={2} labels={["GND", "V5"]} rot={90} label="POWER" />
+    <Jst name="J6" x={12.5} y={42.8} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={13.0} y={-46} count={7} labels={["GND", "CARBHI", "CARBLO", "RB4", "RB3", "RB2", "RB1"]} rot={0} label="REEDS B" />
     <Jst name="J9" x={-4.0} y={42.65} count={3} labels={["EARTH", "B", "A"]} rot={0} label="DISPLAY" />
-    <Jst name="J10" x={56.0} y={5} count={2} labels={["GND", "V12"]} rot={90} label="12V" />
-    <Jst name="J11" x={-34.0} y={42.65} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={0} label="GAS" />
+    <Jst name="J10" x={56.0} y={3.4} count={2} labels={["GND", "V12"]} rot={90} label="12V" />
+    <Jst name="J11" x={-31.8} y={42.65} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={0} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
         a vertical 2-resistor series: 2.2k (input, bottom) -> midpoint -> 3.3k (to
         GND, top) -> 5*3.3/5.5 = 3.0 V (safely under 3.3 V, still a valid logic HIGH
         for DOUT). The midpoint taps right into the ESP; AOUT: R1/R2 -> IO39, DOUT:
         R3/R4 -> IO36 (IO36/IO39, the ADC1 pins on the ESP top row, just below where the dividers now sit). */}
-    <resistor name="R1" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={0} {...at(-22, 43.5)} />
-    <resistor name="R2" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={0} {...at(-22, 47)} />
-    <resistor name="R3" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={0} {...at(-13, 43.5)} />
-    <resistor name="R4" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={0} {...at(-13, 47)} />
+    <resistor name="R1" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={0} {...at(-21.8, 40.9)} />
+    <resistor name="R2" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={0} {...at(-21.8, 44.4)} />
+    <resistor name="R3" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={0} {...at(-12.8, 40.9)} />
+    <resistor name="R4" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={0} {...at(-12.8, 44.4)} />
 
     {/* 3V3 rail -> inner1 plane. ESP 3V3 sources it; the I2C devices (both MCPs,
         DS3231), RS485, and the sensor loom common to it at their barrels. */}
