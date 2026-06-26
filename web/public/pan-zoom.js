@@ -51,6 +51,16 @@
     const maxScale = opts.maxScale != null ? opts.maxScale : 10;
     const onChange = opts.onTransformChange || null;
     const onLive = opts.onTransformLive || null;
+    // Optional fit insets (px): reserve space at the edges so the fit (and the
+    // zoom-out floor, which IS the fit scale) keeps the content clear of
+    // overlaid chrome — e.g. the PCB viewer's toggle/minimap/readout pills.
+    // Read live off the passed object so a caller can measure its chrome after
+    // layout and mutate the same reference. Empty/absent ⇒ all zero (no change).
+    const fitInset = opts.fitInset || {};
+    const insT = () => +fitInset.top || 0;
+    const insB = () => +fitInset.bottom || 0;
+    const insL = () => +fitInset.left || 0;
+    const insR = () => +fitInset.right || 0;
 
     let scale = 1, panX = 0, panY = 0;
     const active = new Map(); // pointerId -> {x,y}
@@ -70,8 +80,10 @@
     function fitScale() {
       const viewport = container.getBoundingClientRect();
       const nat = getNaturalSize(el);
-      if (!nat.w || !nat.h || !viewport.width || !viewport.height) return 0;
-      return Math.min(viewport.width / nat.w, viewport.height / nat.h);
+      const availW = viewport.width - insL() - insR();
+      const availH = viewport.height - insT() - insB();
+      if (!nat.w || !nat.h || availW <= 0 || availH <= 0) return 0;
+      return Math.min(availW / nat.w, availH / nat.h);
     }
 
     // Pan limits given a scale. When content is smaller than the viewport
@@ -87,11 +99,18 @@
         return { minX: -Infinity, maxX: Infinity, minY: -Infinity, maxY: Infinity };
       }
       const cw = nat.w * s, ch = nat.h * s;
-      const bx = cw <= viewport.width
-        ? { min: (viewport.width - cw) / 2, max: (viewport.width - cw) / 2 }
+      const availW = viewport.width - insL() - insR();
+      const availH = viewport.height - insT() - insB();
+      // Content that fits the inset band on an axis locks centered WITHIN that
+      // band (clearing the chrome); content larger than the band pans across
+      // the full viewport (it may slide under the chrome once zoomed in).
+      const cx = insL() + (availW - cw) / 2;
+      const cy = insT() + (availH - ch) / 2;
+      const bx = cw <= availW
+        ? { min: cx, max: cx }
         : { min: viewport.width - cw, max: 0 };
-      const by = ch <= viewport.height
-        ? { min: (viewport.height - ch) / 2, max: (viewport.height - ch) / 2 }
+      const by = ch <= availH
+        ? { min: cy, max: cy }
         : { min: viewport.height - ch, max: 0 };
       return { minX: bx.min, maxX: bx.max, minY: by.min, maxY: by.max };
     }
