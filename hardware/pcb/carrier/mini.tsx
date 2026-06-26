@@ -25,25 +25,25 @@ import {
 } from "./carrier_parts"
 
 export default () => (
-  <board layers={4} outline={[{ x: -69, y: -51 }, { x: 62, y: -51 }, { x: 62, y: 51 }, { x: -69, y: 51 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" autorouter={{ traceClearance: 0.55 }}>
-    <Ds3231 name="U6" x={-37.15} y={-28.65} rot={180} />
-    <Esp32 x={-31.15} y={-2} />
-    <Rs485 name="U7" x={-29.0} y={25.375} rot={180} />
+  <board layers={4} outline={[{ x: -69, y: -51 }, { x: 61, y: -51 }, { x: 61, y: 49.5 }, { x: -69, y: 49.5 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" autorouter={{ traceClearance: 0.45 }}>
+    <Ds3231 name="U6" x={-37.15} y={-27.65} rot={180} />
+    <Esp32 x={-31.15} y={-1} />
+    <Rs485 name="U7" x={-29.0} y={26.375} rot={180} />
     <Mcp23017 name="U2" x={14.5} y={20.25} addr="0x20" />
     <Mcp23017 name="U3" x={14.5} y={-20.25} addr="0x21" />
     <Uln2803 name="U4" x={39.65} y={23.02} />
     <Uln2803 name="U5" x={39.65} y={-17.48} />
-    <Buzzer name="U8" x={-5} y={-32} rot={180} />
-    <Jst name="J1" x={57.0} y={23.02} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
-    <Jst name="J2" x={57.0} y={-17.48} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
-    <Jst name="J3" x={-30.0} y={44} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
+    <Buzzer name="U8" x={-6} y={-33} rot={180} />
+    <Jst name="J1" x={56.0} y={23.02} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
+    <Jst name="J2" x={56.0} y={-17.48} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
+    <Jst name="J3" x={-30.0} y={42.65} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
     <Jst name="J4" x={-64.0} y={3} count={6} labels={["GND", "IO23", "V5", "IO13", "IO14", "3V3"]} rot={90} label="SENSORS" />
-    <Jst name="J5" x={-25.0} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO27", "IO5", "IO26", "IO18", "IO25", "IO19"]} rot={0} label="DRIVER" />
-    <Jst name="J8" x={-52.0} y={-45} count={2} labels={["GND", "V5"]} rot={0} label="POWER" />
-    <Jst name="J6" x={12.5} y={46} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
+    <Jst name="J5" x={-27.0} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO27", "IO5", "IO26", "IO18", "IO25", "IO19"]} rot={0} label="DRIVER" />
+    <Jst name="J8" x={-52.0} y={-43.3} count={2} labels={["GND", "V5"]} rot={0} label="POWER" />
+    <Jst name="J6" x={12.5} y={44.4} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={13.0} y={-46} count={7} labels={["GND", "CARBHI", "CARBLO", "RB4", "RB3", "RB2", "RB1"]} rot={0} label="REEDS B" />
-    <Jst name="J9" x={-13.0} y={46} count={3} labels={["EARTH", "B", "A"]} rot={0} label="DISPLAY" />
-    <Jst name="J10" x={57.0} y={5} count={2} labels={["GND", "V12"]} rot={90} label="12V" />
+    <Jst name="J9" x={-46.0} y={42.65} count={3} labels={["EARTH", "B", "A"]} rot={0} label="DISPLAY" />
+    <Jst name="J10" x={56.0} y={5} count={2} labels={["GND", "V12"]} rot={90} label="12V" />
     <Jst name="J11" x={-64.0} y={-24} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={90} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
