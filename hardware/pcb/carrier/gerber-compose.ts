@@ -23,6 +23,7 @@ export type Scheme = {
   fr4: string // board substrate (the background)
   top: string // front copper
   bottom: string // back copper
+  inner: string[] // inner copper layers (inner1, inner2, …) by index, cycled if more
   drill: string // drilled holes (painted over the copper so they read as holes)
   edge: string // board outline
   silk: string // silkscreen legend (labels + part outlines + ref designators)
@@ -40,6 +41,7 @@ export const SCHEMES: Record<string, Scheme> = {
     fr4: "#0b0e14",
     top: "#ffb04a",
     bottom: "#34d1e0",
+    inner: ["#8ae66e", "#d98cff"],
     drill: "#0b0e14",
     edge: "#5a6478",
     silk: "#f2eede",
@@ -52,6 +54,7 @@ export const SCHEMES: Record<string, Scheme> = {
     fr4: "#0a2540",
     top: "#aee4ff",
     bottom: "#ffcf6b",
+    inner: ["#a6f59a", "#ffb3e6"],
     drill: "#0a2540",
     edge: "#4d7299",
     silk: "#ffffff",
@@ -64,6 +67,7 @@ export const SCHEMES: Record<string, Scheme> = {
     fr4: "#f4f1ea",
     top: "#17191e",
     bottom: "#c4382c",
+    inner: ["#2f7d32", "#6a3fb5"],
     drill: "#f4f1ea",
     edge: "#9aa0a6",
     silk: "#2b2d33",
@@ -133,7 +137,16 @@ export async function composeViews(dir: string, scheme: Scheme) {
     renderLayer(`${dir}/B_SilkScreen.gbr`, "bsilk"),
   ])
 
-  const present = [fcu, bcu, edge, drl, drlN, fsilk, bsilk].filter(Boolean) as Layer[]
+  // Inner copper (4-layer+ boards): In1_Cu … In6_Cu in stack order (inner1 sits
+  // just below the top). Missing files render null and drop out, so 2-layer
+  // boards are unaffected. Each carries its scheme hue (cycled past the palette).
+  const innerLayers = (await Promise.all(
+    [1, 2, 3, 4, 5, 6].map((n, i) => renderLayer(`${dir}/In${n}_Cu.gbr`, `in${i + 1}`)),
+  ))
+    .map((l, i) => ({ l, color: scheme.inner[i % scheme.inner.length] }))
+    .filter((x): x is { l: Layer; color: string } => x.l !== null)
+
+  const present = [fcu, bcu, edge, drl, drlN, fsilk, bsilk, ...innerLayers.map((x) => x.l)].filter(Boolean) as Layer[]
   if (present.length === 0) throw new Error(`no renderable layers in ${dir}`)
 
   // Unified frame: the board outline if we have it, else the union of every
@@ -202,7 +215,28 @@ export async function composeViews(dir: string, scheme: Scheme) {
 
   const top = view(paint(fcu, scheme.top, 1, scheme.copperFillOpacity), fsilkPaint)
   const bottom = view(paint(bcu, scheme.bottom, 1, scheme.copperFillOpacity), bsilkPaint, true)
-  const overlay = view(paint(bcu, scheme.bottom, scheme.bottomOpacity, scheme.copperFillOpacity) + paint(fcu, scheme.top, scheme.topOpacity, scheme.copperFillOpacity), fsilkPaint)
 
-  return { top, bottom, overlay, width: W, height: H, widthMm: +wmm, heightMm: +hmm }
+  // Overlay: an x-ray through the whole stack, back to front — bottom deepest,
+  // top drawn last, inner layers between in physical order. Each layer keeps its
+  // own hue; pours fade to a wash (copperFillOpacity) so the planes tint rather
+  // than mask, while traces and pads stay solid and read by colour.
+  const innerStackOverlay = innerLayers
+    .slice().reverse() // deepest inner (nearest the bottom) painted first
+    .map((x) => paint(x.l, x.color, scheme.bottomOpacity, scheme.copperFillOpacity))
+    .join("")
+  const overlay = view(
+    paint(bcu, scheme.bottom, scheme.bottomOpacity, scheme.copperFillOpacity) +
+      innerStackOverlay +
+      paint(fcu, scheme.top, scheme.topOpacity, scheme.copperFillOpacity),
+    fsilkPaint,
+  )
+
+  // A solo view per inner layer, so each plane can be inspected on its own
+  // (with the drills + outline for orientation; no silk lives on inner copper).
+  const inners: Record<string, string> = {}
+  innerLayers.forEach((x, i) => {
+    inners[`inner${i + 1}`] = view(paint(x.l, x.color, 1, scheme.copperFillOpacity), "")
+  })
+
+  return { top, bottom, overlay, inners, width: W, height: H, widthMm: +wmm, heightMm: +hmm }
 }
