@@ -15,7 +15,7 @@ import {
 } from "./carrier_parts"
 
 export default () => (
-  <board layers={4} width="146mm" height="100mm" minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" autorouter={{ traceClearance: 0.47 }}>
+  <board layers={4} outline={[{ x: -69, y: -51 }, { x: 62, y: -51 }, { x: 62, y: 51 }, { x: -69, y: 51 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" autorouter={{ traceClearance: 0.47 }}>
     <Ds3231 name="U6" x={-37.15} y={-28.65} rot={180} />
     <Esp32 x={-31.15} y={-2} />
     <Rs485 name="U7" x={-29.0} y={25.375} rot={180} />
