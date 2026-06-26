@@ -26,7 +26,7 @@ import {
 } from "./carrier_parts"
 
 export default () => (
-  <board layers={4} outline={[{ x: -66.9, y: -51 }, { x: 60.9, y: -51 }, { x: 60.9, y: 47.7 }, { x: -66.9, y: 47.7 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" autorouter={{ traceClearance: 0.45 }}>
+  <board layers={4} outline={[{ x: -66.9, y: -51 }, { x: 60.9, y: -51 }, { x: 60.9, y: 47.7 }, { x: -66.9, y: 47.7 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
     <Ds3231 name="U6" x={-27.25} y={-28.65} rot={0} />
     <Esp32 x={-31.15} y={-1} />
     <Rs485 name="U7" x={-29.0} y={26.375} rot={180} />
@@ -398,10 +398,10 @@ export default () => (
         its through-hole barrel, so none of these nets is individually routed. */}
     <trace from=".U1B > .GNDb" to="net.GND" />
     <trace from=".J10 > .V12" to="net.V12" />
-    <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" />
+    <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" boardEdgeMargin="0.3mm" />
     <copperpour name="V12PLANE" layer="top" connectsTo="net.V12"
       outline={[{ x: 47, y: -33.2 }, { x: 60, y: -33.2 }, { x: 60, y: 35.6 }, { x: 47, y: 35.6 }]} />
-    <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" />
-    <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" />
+    <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.3mm" />
+    <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.3mm" />
   </board>
 )
