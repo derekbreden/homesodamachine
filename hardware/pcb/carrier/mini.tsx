@@ -45,7 +45,8 @@ export default () => (
 
     {/* MCP 0x21 power -> 0x20 */}
     <trace from=".U3I > .VCC" to=".U2B > .VCC" />
-    <trace from=".U3I > .GND" to=".U2B > .GND" />
+    <trace from=".U3I > .GND" to="net.GND" />
+    <trace from=".U2B > .GND" to="net.GND" />
 
     {/* I2C bus */}
     <trace from=".U1B > .IO21" to=".U6I > .SDA" />
@@ -55,21 +56,24 @@ export default () => (
     <trace from=".U1B > .IO21" to=".U3I > .SDA" />
     <trace from=".U1B > .IO22" to=".U3I > .SCL" />
 
-    {/* DS3231 VCC / GND */}
+    {/* DS3231 VCC */}
     <trace from=".U6H > .VCC" to=".U3B > .VCC" />
-    <trace from=".U6H > .GND" to=".U3A > .GND" />
+    <trace from=".U6H > .GND" to="net.GND" />
+    <trace from=".U3A > .GND" to="net.GND" />
 
-    {/* ESP 3V3 + GND feed the expander power/ground (completes logic power) */}
+    {/* ESP 3V3 feeds the expander power (completes logic power) */}
     <trace from=".U1A > .3V3" to=".U2I > .VCC" />
-    <trace from=".U1B > .GNDc" to=".U6I > .GND" />
+    <trace from=".U1B > .GNDc" to="net.GND" />
+    <trace from=".U6I > .GND" to="net.GND" />
 
     {/* MCP GPA banks broken out */}
     {i8.map((k) => <trace key={`a2${k}`} from={`.U2A > .GPA${k}`} to={`net.U2_GPA${k}`} />)}
     {i8.map((k) => <trace key={`a3${k}`} from={`.U3A > .GPA${k}`} to={`net.U3_GPA${k}`} />)}
 
-    {/* ULN U4 ground -> MCP ground; U5's ground returns through J10 (below). The
-        back-side pour ties all grounds into the plane. */}
-    <trace from=".U4I > .GND" to=".U2I > .GND" />
+    {/* ULN U4 + MCP 0x20 grounds tie into the back-side ground pour. */}
+    <trace from=".U4I > .GND" to="net.GND" />
+    <trace from=".U2I > .GND" to="net.GND" />
+    <trace from=".U2A > .GND" to="net.GND" />
 
     {/* GPA -> ULN inputs */}
     {i8.map((k) => <trace key={`i4${k}`} from={`.U4I > .IN${k + 1}`} to={`net.U2_GPA${k}`} />)}
@@ -79,11 +83,11 @@ export default () => (
     <trace from=".U7T > .TXD" to=".U1A > .IO32" />
     <trace from=".U7T > .RXD" to=".U1A > .IO34" />
     <trace from=".U7T > .VCC" to=".U1A > .3V3" />
-    <trace from=".U7T > .GND" to=".U1B > .GNDb" />
+    <trace from=".U7T > .GND" to="net.GND" />
 
     {/* manifold JSTs: ULN outputs -> valve looms (parallel to the OUT rows) */}
     {i8.map((k) => <trace key={`j1${k}`} from={`.J1 > .OUT${k + 1}`} to={`.U4O > .OUT${k + 1}`} />)}
-    <trace from=".J1 > .COM" to=".U4O > .COM" />
+    <trace from=".J1 > .COM" to="net.V12" />
     {/* MANIFOLD B: 4 valves (V-I/V-J/V-K-A/V-K-B) on U5 ch1-4, condenser FAN on
         U5 ch5 (0x21 GPA4), COM = 12V flyback. U5 ch6-8 are spare (not broken out). */}
     <trace from=".J2 > .OUT1" to=".U5O > .OUT1" />
@@ -91,13 +95,14 @@ export default () => (
     <trace from=".J2 > .OUT3" to=".U5O > .OUT3" />
     <trace from=".J2 > .OUT4" to=".U5O > .OUT4" />
     <trace from=".J2 > .FAN" to=".U5O > .OUT5" />
-    <trace from=".J2 > .COM" to=".U5O > .COM" />
+    <trace from=".J2 > .COM" to="net.V12" />
 
     {/* FAUCET UART (IO33 TX / IO35 RX) */}
     <trace from=".J3 > .IO33" to=".U1A > .IO33" />
     <trace from=".J3 > .IO35" to=".U1A > .IO35" />
     <trace from=".J3 > .V5" to=".U1A > .V5" />
-    <trace from=".J3 > .GND" to=".U1A > .GND" />
+    <trace from=".J3 > .GND" to="net.GND" />
+    <trace from=".U1A > .GND" to="net.GND" />
 
     {/* SENSORS: flow (IO23) / 1-wire temps (IO14) / backflow drip-pan moisture
         (IO13). 3V3 powers the DS18B20 probes (IO14 is NOT 5 V tolerant; it is also
@@ -109,7 +114,7 @@ export default () => (
     <trace from=".J4 > .IO23" to=".U1B > .IO23" />
     <trace from=".J4 > .IO13" to=".U1A > .IO13" />
     <trace from=".J4 > .V5" to=".U1A > .V5" />
-    <trace from=".J4 > .GND" to=".U1B > .GNDb" />
+    <trace from=".J4 > .GND" to="net.GND" />
 
     {/* DRIVER: pump A (27/25/26) + pump B (19/18/5) + relays (17/16) */}
     <trace from=".J5 > .IO27" to=".U1A > .IO27" />
@@ -120,18 +125,18 @@ export default () => (
     <trace from=".J5 > .IO5" to=".U1B > .IO5" />
     <trace from=".J5 > .IO17" to=".U1B > .IO17" />
     <trace from=".J5 > .IO16" to=".U1B > .IO16" />
-    <trace from=".J5 > .GND" to=".U1B > .GNDb" />
+    <trace from=".J5 > .GND" to="net.GND" />
 
     {/* POWER in: 5V -> ESP V5 (3V3 regulated on-board) */}
     <trace from=".J8 > .V5" to=".U1A > .V5" />
-    <trace from=".J8 > .GND" to=".U1B > .GNDb" />
+    <trace from=".J8 > .GND" to="net.GND" />
 
     {/* REEDS A (reservoir A) -> 0x20 GPB inputs */}
     <trace from=".J6 > .RA1" to=".U2B > .GPB0" />
     <trace from=".J6 > .RA2" to=".U2B > .GPB1" />
     <trace from=".J6 > .RA3" to=".U2B > .GPB2" />
     <trace from=".J6 > .RA4" to=".U2B > .GPB3" />
-    <trace from=".J6 > .GND" to=".U2I > .GND" />
+    <trace from=".J6 > .GND" to="net.GND" />
 
     {/* REEDS B (reservoir B + carbonator low/high) -> 0x21 GPB inputs */}
     <trace from=".J7 > .RB1" to=".U3B > .GPB0" />
@@ -140,7 +145,8 @@ export default () => (
     <trace from=".J7 > .RB4" to=".U3B > .GPB3" />
     <trace from=".J7 > .CARBLO" to=".U3B > .GPB4" />
     <trace from=".J7 > .CARBHI" to=".U3B > .GPB5" />
-    <trace from=".J7 > .GND" to=".U3B > .GND" />
+    <trace from=".J7 > .GND" to="net.GND" />
+    <trace from=".U3B > .GND" to="net.GND" />
 
     {/* DISPLAY: RS485 line side (A/B/Earth) out to the front 4.3" config panel.
         Signal only — the 4.3B takes its own 7-36 V screw-terminal power straight
@@ -149,12 +155,12 @@ export default () => (
     <trace from=".J9 > .B" to=".U7L > .B" />
     <trace from=".J9 > .EARTH" to=".U7L > .Earth" />
 
-    {/* VALVE 12V in: feeds the ULN flyback commons + solenoid high side, and the
-        valve-current ground return to the ULN grounds (power.mmd). */}
-    <trace from=".J10 > .V12" to=".U4O > .COM" />
-    <trace from=".J10 > .V12" to=".U5O > .COM" />
-    <trace from=".J10 > .GND" to=".U4I > .GND" />
-    <trace from=".J10 > .GND" to=".U5I > .GND" />
+    {/* VALVE 12V in: J10 feeds the ULN flyback commons (net.V12) and the valve-
+        current ground return via the back-side pour (power.mmd). */}
+    <trace from=".U4O > .COM" to="net.V12" />
+    <trace from=".U5O > .COM" to="net.V12" />
+    <trace from=".J10 > .GND" to="net.GND" />
+    <trace from=".U5I > .GND" to="net.GND" />
 
     {/* BUZZER: passive piezo. I/O takes a PWM tone from IO4 (LEDC); VCC is the
         5 V rail; GND ties into the back-side ground pour. */}
@@ -186,8 +192,9 @@ export default () => (
     {/* Power planes. A ground pour fills the back (valve return + logic ground);
         a 12V pour covers the valve block on the front — J10 feeds the ULN flyback
         commons and the manifold COM pins, which carry the summed solenoid + fan
-        current (up to three valves open at once, see fluid-topology.md). The two
-        traces below name the nets so the pours bind to them. */}
+        current (up to three valves open at once, see fluid-topology.md). Every
+        ground pin lands on net.GND and every 12V common on net.V12; the pours
+        carry that copper, so neither net is individually routed. */}
     <trace from=".U1B > .GNDb" to="net.GND" />
     <trace from=".J10 > .V12" to="net.V12" />
     <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" />
