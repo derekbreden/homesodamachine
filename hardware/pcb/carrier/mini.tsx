@@ -6,7 +6,7 @@
  *
  * Left column top->bottom: RS485, ESP32, DS3231. MCP stack (0x20 over 0x21) with
  * the ULN drivers and manifold connectors to the right. The buzzer tucks into the
- * pocket below the ESP; the gas dividers sit at the far-left edge.
+ * pocket below the ESP; the gas dividers sit up top, over the ESP IO36/IO39 ADC pins.
  *
  * FOUR layers, stackup top->bottom:
  *   L1 top    — signals + the V12 pour over the valve block (top-right)
@@ -25,7 +25,7 @@ import {
 } from "./carrier_parts"
 
 export default () => (
-  <board layers={4} outline={[{ x: -67, y: -51 }, { x: 61, y: -51 }, { x: 61, y: 49.5 }, { x: -67, y: 49.5 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" autorouter={{ traceClearance: 0.55 }}>
+  <board layers={4} outline={[{ x: -67, y: -51 }, { x: 61, y: -51 }, { x: 61, y: 52.5 }, { x: -67, y: 52.5 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" autorouter={{ traceClearance: 0.40 }}>
     <Ds3231 name="U6" x={-37.15} y={-27.65} rot={0} />
     <Esp32 x={-31.15} y={-1} />
     <Rs485 name="U7" x={-29.0} y={26.375} rot={180} />
@@ -42,19 +42,19 @@ export default () => (
     <Jst name="J8" x={-52.0} y={-43.3} count={2} labels={["GND", "V5"]} rot={0} label="POWER" />
     <Jst name="J6" x={12.5} y={44.4} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={13.0} y={-46} count={7} labels={["GND", "CARBHI", "CARBLO", "RB4", "RB3", "RB2", "RB1"]} rot={0} label="REEDS B" />
-    <Jst name="J9" x={-46.0} y={42.65} count={3} labels={["EARTH", "B", "A"]} rot={0} label="DISPLAY" />
+    <Jst name="J9" x={-4.0} y={42.65} count={3} labels={["EARTH", "B", "A"]} rot={0} label="DISPLAY" />
     <Jst name="J10" x={56.0} y={5} count={2} labels={["GND", "V12"]} rot={90} label="12V" />
-    <Jst name="J11" x={-62.0} y={-25} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={90} label="GAS" />
+    <Jst name="J11" x={-44.0} y={42.65} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={0} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
         a vertical 2-resistor series: 2.2k (input, bottom) -> midpoint -> 3.3k (to
         GND, top) -> 5*3.3/5.5 = 3.0 V (safely under 3.3 V, still a valid logic HIGH
         for DOUT). The midpoint taps right into the ESP; AOUT: R1/R2 -> IO39, DOUT:
-        R3/R4 -> IO36 (the two ADC pins at the ESP top row's left end). */}
-    <resistor name="R1" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-60, -14.6)} />
-    <resistor name="R2" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-60, -9.6)} />
-    <resistor name="R3" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-64, -14.6)} />
-    <resistor name="R4" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-64, -9.6)} />
+        R3/R4 -> IO36 (IO36/IO39, the ADC1 pins on the ESP top row, just below where the dividers now sit). */}
+    <resistor name="R1" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-20, 42)} />
+    <resistor name="R2" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-20, 48)} />
+    <resistor name="R3" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-13, 42)} />
+    <resistor name="R4" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-13, 48)} />
 
     {/* 3V3 rail -> inner1 plane. ESP 3V3 sources it; the I2C devices (both MCPs,
         DS3231), RS485, and the sensor loom common to it at their barrels. */}
