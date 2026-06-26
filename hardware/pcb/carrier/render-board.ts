@@ -33,7 +33,6 @@ const boardFile = path.resolve(arg)
 const dir = path.dirname(boardFile)
 const board = path.basename(boardFile).replace(/\.tsx$/, "")
 const scheme = SCHEMES[schemeName] || SCHEMES.copper
-const VIEWS = ["top", "bottom", "overlay"] as const
 
 const outDir = path.join(dir, "out")
 mkdirSync(outDir, { recursive: true })
@@ -126,16 +125,18 @@ try {
       console.error(`[${board}] back-silk render failed — bottom view shows no back legend`)
     }
   }
-  const { top, bottom, overlay, widthMm, heightMm } = await composeViews(scratch, scheme)
-  const svgs = { top, bottom, overlay }
-  for (const v of VIEWS) {
+  const { top, bottom, overlay, inners, widthMm, heightMm } = await composeViews(scratch, scheme)
+  // top/bottom/overlay always; plus one solo view per inner copper layer (4-layer+).
+  const svgs: Record<string, string> = { top, bottom, overlay, ...inners }
+  const views = Object.keys(svgs)
+  for (const v of views) {
     const svg = svgs[v]
     writeFileSync(path.join(outDir, `${board}.${v}.svg`), svg)
     // PNG width tracks the board's aspect so neither view is squashed.
     const png = new Resvg(svg, { fitTo: { mode: "width", value: 1600 } }).render().asPng()
     writeFileSync(path.join(outDir, `${board}.${v}.png`), png)
   }
-  console.log(`[${board}] ${widthMm} × ${heightMm} mm — wrote ${board}.{${VIEWS.join(",")}}.{svg,png} (${schemeName})`)
+  console.log(`[${board}] ${widthMm} × ${heightMm} mm — wrote ${board}.{${views.join(",")}}.{svg,png} (${schemeName})`)
 } finally {
   rmSync(scratch, { recursive: true, force: true })
 }
