@@ -1,0 +1,111 @@
+diff --git a/dist/cli/main.js b/dist/cli/main.js
+index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..dd54f725b1f5b21f76b1e476a29afae380be2242 100755
+--- a/dist/cli/main.js
++++ b/dist/cli/main.js
+@@ -255845,6 +255845,12 @@ var layerAndTypeToFileFunction = {
+   "bottom-silkscreen": "Legend,Bot",
+   "top-paste": "Paste,Top",
+   "bottom-paste": "Paste,Bot",
++  "inner1-copper": "Copper,L2,Inr",
++  "inner2-copper": "Copper,L3,Inr",
++  "inner3-copper": "Copper,L4,Inr",
++  "inner4-copper": "Copper,L5,Inr",
++  "inner5-copper": "Copper,L6,Inr",
++  "inner6-copper": "Copper,L7,Inr",
+   edgecut: "Profile,NP"
+ };
+ var getCommandHeaders = (opts) => {
+@@ -255876,7 +255882,13 @@ var getCommandHeaders = (opts) => {
+ };
+ var layerRefToGerberPrefix = {
+   top: "F_",
+-  bottom: "B_"
++  bottom: "B_",
++  inner1: "In1_",
++  inner2: "In2_",
++  inner3: "In3_",
++  inner4: "In4_",
++  inner5: "In5_",
++  inner6: "In6_"
+ };
+ var layerTypeToGerberSuffix = {
+   copper: "Cu",
+@@ -255930,6 +255942,23 @@ var convertSoupToGerberCommands = (soup, opts = {}) => {
+       layer: "edgecut"
+     })
+   };
++  // PATCH(homesodamachine): emit inner copper layers (In{n}_Cu) for boards with
++  // num_layers > 2. Stock builds only F_Cu/B_Cu, silently dropping inner-layer
++  // pours/traces from the fabrication gerbers. We add one Cu glayer per inner
++  // layer; getGerberLayerName(inner{n}, copper) -> In{n}_Cu (prefix table above),
++  // and the element-draw + stringify + zip-write loops are layer-generic.
++  const __innerCuNames = [];
++  const __innerLayers = [];
++  {
++    const __board = soup.find((e4) => e4.type === "pcb_board");
++    const __numLayers = __board && typeof __board.num_layers === "number" ? __board.num_layers : 2;
++    for (let __i = 1; __i <= __numLayers - 2 && __i <= 6; __i++) {
++      __innerLayers.push(`inner${__i}`);
++      const __nm = `In${__i}_Cu`;
++      glayers[__nm] = getCommandHeaders({ layer: `inner${__i}`, layer_type: "copper" });
++      __innerCuNames.push(__nm);
++    }
++  }
+   for (const glayer_name of [
+     "F_Cu",
+     "B_Cu",
+@@ -255938,7 +255967,8 @@ var convertSoupToGerberCommands = (soup, opts = {}) => {
+     "F_Paste",
+     "B_Paste",
+     "F_SilkScreen",
+-    "B_SilkScreen"
++    "B_SilkScreen",
++    ...__innerCuNames
+   ]) {
+     const glayer = glayers[glayer_name];
+     defineCommonMacros(glayer);
+@@ -256186,7 +256216,7 @@ var convertSoupToGerberCommands = (soup, opts = {}) => {
+     });
+     return { vertices: new_vertices };
+   };
+-  for (const layer of ["top", "bottom"]) {
++  for (const layer of ["top", "bottom", ...__innerLayers]) {
+     for (const element of soup) {
+       if (element.type === "pcb_copper_pour" && layer === element.layer) {
+         const copper_glayer = glayers[getGerberLayerName(layer, "copper")];
+@@ -256274,7 +256304,7 @@ var convertSoupToGerberCommands = (soup, opts = {}) => {
+       }
+     }
+   }
+-  for (const layer of ["top", "bottom", "edgecut"]) {
++  for (const layer of ["top", "bottom", ...__innerLayers, "edgecut"]) {
+     for (const element of soup) {
+       if (element.type === "pcb_trace") {
+         const { route } = element;
+@@ -256320,7 +256350,7 @@ var convertSoupToGerberCommands = (soup, opts = {}) => {
+           for (const glayer of [
+             glayers[getGerberLayerName(layer, "copper")],
+             glayers[getGerberLayerName(layer, "soldermask")]
+-          ]) {
++          ].filter(Boolean)) {
+             const apertureConfig = getApertureConfigFromPcbSmtpad(element);
+             const apertureNumber = findApertureNumber(glayer, apertureConfig);
+             const gb2 = gerberBuilder().add("select_aperture", {
+@@ -256391,7 +256421,7 @@ var convertSoupToGerberCommands = (soup, opts = {}) => {
+           for (const glayer of [
+             glayers[getGerberLayerName(layer, "copper")],
+             glayers[getGerberLayerName(layer, "soldermask")]
+-          ]) {
++          ].filter(Boolean)) {
+             const holeW = "hole_width" in element && typeof element.hole_width === "number" ? element.hole_width : 0;
+             const holeH = "hole_height" in element && typeof element.hole_height === "number" ? element.hole_height : 0;
+             const padWidthCandidates = [holeW];
+@@ -256486,7 +256516,7 @@ var convertSoupToGerberCommands = (soup, opts = {}) => {
+         if (layer !== "edgecut") {
+           for (const glayer of [
+             glayers[getGerberLayerName(layer, "soldermask")]
+-          ]) {
++          ].filter(Boolean)) {
+             if (element.hole_shape !== "circle") {
+               console.warn("NOT IMPLEMENTED: drawing gerber for non-round holes");
+               continue;
