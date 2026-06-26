@@ -15280,7 +15280,7 @@
       "y": -35
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "32K",
     "ccw_rotation": 270,
@@ -15337,7 +15337,7 @@
       "y": -32.46
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "SQW",
     "ccw_rotation": 270,
@@ -15394,7 +15394,7 @@
       "y": -29.919999999999998
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "SCL",
     "ccw_rotation": 270,
@@ -15451,7 +15451,7 @@
       "y": -27.38
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "SDA",
     "ccw_rotation": 270,
@@ -15508,7 +15508,7 @@
       "y": -24.839999999999996
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "VCC",
     "ccw_rotation": 270,
@@ -15565,7 +15565,7 @@
       "y": -22.299999999999997
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 270,
@@ -15581,7 +15581,7 @@
       "y": -28.65
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "U6H",
     "ccw_rotation": 90,
@@ -15637,7 +15637,7 @@
       "y": -32.46
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "SCL",
     "ccw_rotation": 270,
@@ -15694,7 +15694,7 @@
       "y": -29.919999999999998
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "SDA",
     "ccw_rotation": 270,
@@ -15751,7 +15751,7 @@
       "y": -27.38
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "VCC",
     "ccw_rotation": 270,
@@ -15808,7 +15808,7 @@
       "y": -24.84
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 270,
@@ -15824,7 +15824,7 @@
       "y": -28.65
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "U6I",
     "ccw_rotation": 90,
@@ -15880,7 +15880,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "V5",
     "ccw_rotation": 0,
@@ -15937,7 +15937,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO11",
     "ccw_rotation": 0,
@@ -15994,7 +15994,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO10",
     "ccw_rotation": 0,
@@ -16051,7 +16051,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO9",
     "ccw_rotation": 0,
@@ -16108,7 +16108,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO13",
     "ccw_rotation": 0,
@@ -16165,7 +16165,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 0,
@@ -16222,7 +16222,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO12",
     "ccw_rotation": 0,
@@ -16279,7 +16279,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO14",
     "ccw_rotation": 0,
@@ -16336,7 +16336,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO27",
     "ccw_rotation": 0,
@@ -16393,7 +16393,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO26",
     "ccw_rotation": 0,
@@ -16450,7 +16450,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO25",
     "ccw_rotation": 0,
@@ -16507,7 +16507,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO33",
     "ccw_rotation": 0,
@@ -16564,7 +16564,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO32",
     "ccw_rotation": 0,
@@ -16621,7 +16621,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO35",
     "ccw_rotation": 0,
@@ -16678,7 +16678,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO34",
     "ccw_rotation": 0,
@@ -16735,7 +16735,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO39",
     "ccw_rotation": 0,
@@ -16792,7 +16792,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO36",
     "ccw_rotation": 0,
@@ -16849,7 +16849,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "EN",
     "ccw_rotation": 0,
@@ -16906,7 +16906,7 @@
       "y": 12.825
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "3V3",
     "ccw_rotation": 0,
@@ -16922,7 +16922,7 @@
       "y": 14.239999999999998
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "U1A",
     "ccw_rotation": 0,
@@ -16977,7 +16977,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO6",
     "ccw_rotation": 0,
@@ -17034,7 +17034,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO7",
     "ccw_rotation": 0,
@@ -17091,7 +17091,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO8",
     "ccw_rotation": 0,
@@ -17148,7 +17148,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO15",
     "ccw_rotation": 0,
@@ -17205,7 +17205,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO2",
     "ccw_rotation": 0,
@@ -17262,7 +17262,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO0",
     "ccw_rotation": 0,
@@ -17319,7 +17319,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO4",
     "ccw_rotation": 0,
@@ -17376,7 +17376,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO16",
     "ccw_rotation": 0,
@@ -17433,7 +17433,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO17",
     "ccw_rotation": 0,
@@ -17490,7 +17490,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO5",
     "ccw_rotation": 0,
@@ -17547,7 +17547,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO18",
     "ccw_rotation": 0,
@@ -17604,7 +17604,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO19",
     "ccw_rotation": 0,
@@ -17661,7 +17661,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GNDc",
     "ccw_rotation": 0,
@@ -17718,7 +17718,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO21",
     "ccw_rotation": 0,
@@ -17775,7 +17775,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO3",
     "ccw_rotation": 0,
@@ -17832,7 +17832,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO1",
     "ccw_rotation": 0,
@@ -17889,7 +17889,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO22",
     "ccw_rotation": 0,
@@ -17946,7 +17946,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO23",
     "ccw_rotation": 0,
@@ -18003,7 +18003,7 @@
       "y": -12.575
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GNDb",
     "ccw_rotation": 0,
@@ -18019,7 +18019,7 @@
       "y": -11.16
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "U1B",
     "ccw_rotation": 0,
@@ -18240,7 +18240,7 @@
       "y": 30.185
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "VCC",
     "ccw_rotation": 90,
@@ -18297,7 +18297,7 @@
       "y": 27.645
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "TXD",
     "ccw_rotation": 90,
@@ -18354,7 +18354,7 @@
       "y": 25.105
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "RXD",
     "ccw_rotation": 90,
@@ -18411,7 +18411,7 @@
       "y": 22.565
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 90,
@@ -18427,7 +18427,7 @@
       "y": 26.375
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "U7T",
     "ccw_rotation": 270,
@@ -18565,7 +18565,7 @@
       "y": 26.375
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "U7L",
     "ccw_rotation": 270,
@@ -18689,7 +18689,7 @@
       "y": 8.719999999999999
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "VCC",
     "ccw_rotation": 270,
@@ -18746,7 +18746,7 @@
       "y": 11.259999999999998
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 270,
@@ -18803,7 +18803,7 @@
       "y": 13.799999999999999
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPB7",
     "ccw_rotation": 270,
@@ -18860,7 +18860,7 @@
       "y": 16.34
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPB6",
     "ccw_rotation": 270,
@@ -18917,7 +18917,7 @@
       "y": 18.88
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPB5",
     "ccw_rotation": 270,
@@ -18974,7 +18974,7 @@
       "y": 21.419999999999998
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPB4",
     "ccw_rotation": 270,
@@ -19031,7 +19031,7 @@
       "y": 23.96
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPB3",
     "ccw_rotation": 270,
@@ -19088,7 +19088,7 @@
       "y": 26.5
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPB2",
     "ccw_rotation": 270,
@@ -19145,7 +19145,7 @@
       "y": 29.04
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPB1",
     "ccw_rotation": 270,
@@ -19202,7 +19202,7 @@
       "y": 31.58
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPB0",
     "ccw_rotation": 270,
@@ -19218,7 +19218,7 @@
       "y": 20.15
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "U2B",
     "ccw_rotation": 90,
@@ -19274,7 +19274,7 @@
       "y": 8.719999999999999
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "VCC",
     "ccw_rotation": 270,
@@ -19331,7 +19331,7 @@
       "y": 11.259999999999998
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 270,
@@ -19388,7 +19388,7 @@
       "y": 13.799999999999999
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPA0",
     "ccw_rotation": 270,
@@ -19445,7 +19445,7 @@
       "y": 16.34
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPA1",
     "ccw_rotation": 270,
@@ -19502,7 +19502,7 @@
       "y": 18.88
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPA2",
     "ccw_rotation": 270,
@@ -19559,7 +19559,7 @@
       "y": 21.419999999999998
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPA3",
     "ccw_rotation": 270,
@@ -19616,7 +19616,7 @@
       "y": 23.96
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPA4",
     "ccw_rotation": 270,
@@ -19673,7 +19673,7 @@
       "y": 26.5
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPA5",
     "ccw_rotation": 270,
@@ -19730,7 +19730,7 @@
       "y": 29.04
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPA6",
     "ccw_rotation": 270,
@@ -19787,7 +19787,7 @@
       "y": 31.58
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPA7",
     "ccw_rotation": 270,
@@ -19803,7 +19803,7 @@
       "y": 20.15
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "U2A",
     "ccw_rotation": 90,
@@ -19859,7 +19859,7 @@
       "y": 37.025
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "VCC",
     "ccw_rotation": 0,
@@ -19916,7 +19916,7 @@
       "y": 37.025
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 0,
@@ -19973,7 +19973,7 @@
       "y": 37.025
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "SDA",
     "ccw_rotation": 0,
@@ -20030,7 +20030,7 @@
       "y": 37.025
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "SCL",
     "ccw_rotation": 0,
@@ -20087,7 +20087,7 @@
       "y": 37.025
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "INTA",
     "ccw_rotation": 0,
@@ -20144,7 +20144,7 @@
       "y": 37.025
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "INTB",
     "ccw_rotation": 0,
@@ -20160,7 +20160,7 @@
       "y": 38.44
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "U2I",
     "ccw_rotation": 0,
@@ -20283,7 +20283,7 @@
       "y": -31.78
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "VCC",
     "ccw_rotation": 270,
@@ -20340,7 +20340,7 @@
       "y": -29.240000000000002
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 270,
@@ -20397,7 +20397,7 @@
       "y": -26.700000000000003
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPB7",
     "ccw_rotation": 270,
@@ -20454,7 +20454,7 @@
       "y": -24.16
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPB6",
     "ccw_rotation": 270,
@@ -20511,7 +20511,7 @@
       "y": -21.62
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPB5",
     "ccw_rotation": 270,
@@ -20568,7 +20568,7 @@
       "y": -19.080000000000002
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPB4",
     "ccw_rotation": 270,
@@ -20625,7 +20625,7 @@
       "y": -16.54
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPB3",
     "ccw_rotation": 270,
@@ -20682,7 +20682,7 @@
       "y": -14
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPB2",
     "ccw_rotation": 270,
@@ -20739,7 +20739,7 @@
       "y": -11.46
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPB1",
     "ccw_rotation": 270,
@@ -20796,7 +20796,7 @@
       "y": -8.920000000000002
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPB0",
     "ccw_rotation": 270,
@@ -20812,7 +20812,7 @@
       "y": -20.35
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "U3B",
     "ccw_rotation": 90,
@@ -20868,7 +20868,7 @@
       "y": -31.78
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "VCC",
     "ccw_rotation": 270,
@@ -20925,7 +20925,7 @@
       "y": -29.240000000000002
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 270,
@@ -20982,7 +20982,7 @@
       "y": -26.700000000000003
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPA0",
     "ccw_rotation": 270,
@@ -21039,7 +21039,7 @@
       "y": -24.16
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPA1",
     "ccw_rotation": 270,
@@ -21096,7 +21096,7 @@
       "y": -21.62
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPA2",
     "ccw_rotation": 270,
@@ -21153,7 +21153,7 @@
       "y": -19.080000000000002
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPA3",
     "ccw_rotation": 270,
@@ -21210,7 +21210,7 @@
       "y": -16.54
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPA4",
     "ccw_rotation": 270,
@@ -21267,7 +21267,7 @@
       "y": -14
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPA5",
     "ccw_rotation": 270,
@@ -21324,7 +21324,7 @@
       "y": -11.46
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPA6",
     "ccw_rotation": 270,
@@ -21381,7 +21381,7 @@
       "y": -8.920000000000002
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GPA7",
     "ccw_rotation": 270,
@@ -21397,7 +21397,7 @@
       "y": -20.35
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "U3A",
     "ccw_rotation": 90,
@@ -21453,7 +21453,7 @@
       "y": -3.4750000000000014
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "VCC",
     "ccw_rotation": 0,
@@ -21510,7 +21510,7 @@
       "y": -3.4750000000000014
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 0,
@@ -21567,7 +21567,7 @@
       "y": -3.4750000000000014
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "SDA",
     "ccw_rotation": 0,
@@ -21624,7 +21624,7 @@
       "y": -3.4750000000000014
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "SCL",
     "ccw_rotation": 0,
@@ -21681,7 +21681,7 @@
       "y": -3.4750000000000014
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "INTA",
     "ccw_rotation": 0,
@@ -21738,7 +21738,7 @@
       "y": -3.4750000000000014
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "INTB",
     "ccw_rotation": 0,
@@ -21754,7 +21754,7 @@
       "y": -2.0600000000000014
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "U3I",
     "ccw_rotation": 0,
@@ -21877,7 +21877,7 @@
       "y": 11.260000000000002
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 270,
@@ -21934,7 +21934,7 @@
       "y": 13.8
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IN8",
     "ccw_rotation": 270,
@@ -21991,7 +21991,7 @@
       "y": 16.340000000000003
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IN7",
     "ccw_rotation": 270,
@@ -22048,7 +22048,7 @@
       "y": 18.880000000000003
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IN6",
     "ccw_rotation": 270,
@@ -22105,7 +22105,7 @@
       "y": 21.42
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IN5",
     "ccw_rotation": 270,
@@ -22162,7 +22162,7 @@
       "y": 23.96
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IN4",
     "ccw_rotation": 270,
@@ -22219,7 +22219,7 @@
       "y": 26.5
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IN3",
     "ccw_rotation": 270,
@@ -22276,7 +22276,7 @@
       "y": 29.040000000000003
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IN2",
     "ccw_rotation": 270,
@@ -22333,7 +22333,7 @@
       "y": 31.580000000000002
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IN1",
     "ccw_rotation": 270,
@@ -22349,7 +22349,7 @@
       "y": 21.42
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "U4I",
     "ccw_rotation": 90,
@@ -22405,7 +22405,7 @@
       "y": 11.260000000000002
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "COM",
     "ccw_rotation": 270,
@@ -22462,7 +22462,7 @@
       "y": 13.8
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT8",
     "ccw_rotation": 270,
@@ -22519,7 +22519,7 @@
       "y": 16.340000000000003
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT7",
     "ccw_rotation": 270,
@@ -22576,7 +22576,7 @@
       "y": 18.880000000000003
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT6",
     "ccw_rotation": 270,
@@ -22633,7 +22633,7 @@
       "y": 21.42
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT5",
     "ccw_rotation": 270,
@@ -22690,7 +22690,7 @@
       "y": 23.96
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT4",
     "ccw_rotation": 270,
@@ -22747,7 +22747,7 @@
       "y": 26.5
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT3",
     "ccw_rotation": 270,
@@ -22804,7 +22804,7 @@
       "y": 29.040000000000003
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT2",
     "ccw_rotation": 270,
@@ -22861,7 +22861,7 @@
       "y": 31.580000000000002
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT1",
     "ccw_rotation": 270,
@@ -22877,7 +22877,7 @@
       "y": 21.42
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "U4O",
     "ccw_rotation": 90,
@@ -23001,7 +23001,7 @@
       "y": -29.24
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 270,
@@ -23058,7 +23058,7 @@
       "y": -26.7
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IN8",
     "ccw_rotation": 270,
@@ -23115,7 +23115,7 @@
       "y": -24.159999999999997
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IN7",
     "ccw_rotation": 270,
@@ -23172,7 +23172,7 @@
       "y": -21.619999999999997
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IN6",
     "ccw_rotation": 270,
@@ -23229,7 +23229,7 @@
       "y": -19.08
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IN5",
     "ccw_rotation": 270,
@@ -23286,7 +23286,7 @@
       "y": -16.54
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IN4",
     "ccw_rotation": 270,
@@ -23343,7 +23343,7 @@
       "y": -13.999999999999998
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IN3",
     "ccw_rotation": 270,
@@ -23400,7 +23400,7 @@
       "y": -11.459999999999997
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IN2",
     "ccw_rotation": 270,
@@ -23457,7 +23457,7 @@
       "y": -8.919999999999998
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IN1",
     "ccw_rotation": 270,
@@ -23473,7 +23473,7 @@
       "y": -19.08
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "U5I",
     "ccw_rotation": 90,
@@ -23529,7 +23529,7 @@
       "y": -29.24
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "COM",
     "ccw_rotation": 270,
@@ -23586,7 +23586,7 @@
       "y": -26.7
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT8",
     "ccw_rotation": 270,
@@ -23643,7 +23643,7 @@
       "y": -24.159999999999997
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT7",
     "ccw_rotation": 270,
@@ -23700,7 +23700,7 @@
       "y": -21.619999999999997
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT6",
     "ccw_rotation": 270,
@@ -23757,7 +23757,7 @@
       "y": -19.08
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT5",
     "ccw_rotation": 270,
@@ -23814,7 +23814,7 @@
       "y": -16.54
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT4",
     "ccw_rotation": 270,
@@ -23871,7 +23871,7 @@
       "y": -13.999999999999998
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT3",
     "ccw_rotation": 270,
@@ -23928,7 +23928,7 @@
       "y": -11.459999999999997
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT2",
     "ccw_rotation": 270,
@@ -23985,7 +23985,7 @@
       "y": -8.919999999999998
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT1",
     "ccw_rotation": 270,
@@ -24001,7 +24001,7 @@
       "y": -19.08
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "U5O",
     "ccw_rotation": 90,
@@ -24114,7 +24114,7 @@
       "y": -21.625
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "VCC",
     "ccw_rotation": 180,
@@ -24171,7 +24171,7 @@
       "y": -21.625
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO",
     "ccw_rotation": 180,
@@ -24228,7 +24228,7 @@
       "y": -21.625
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 180,
@@ -24244,7 +24244,7 @@
       "y": -23.04
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "U8",
     "ccw_rotation": 180,
@@ -24300,7 +24300,7 @@
       "y": 11.260000000000002
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "COM",
     "ccw_rotation": 270,
@@ -24357,7 +24357,7 @@
       "y": 13.8
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT8",
     "ccw_rotation": 270,
@@ -24414,7 +24414,7 @@
       "y": 16.340000000000003
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT7",
     "ccw_rotation": 270,
@@ -24471,7 +24471,7 @@
       "y": 18.880000000000003
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT6",
     "ccw_rotation": 270,
@@ -24528,7 +24528,7 @@
       "y": 21.42
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT5",
     "ccw_rotation": 270,
@@ -24585,7 +24585,7 @@
       "y": 23.96
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT4",
     "ccw_rotation": 270,
@@ -24642,7 +24642,7 @@
       "y": 26.5
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT3",
     "ccw_rotation": 270,
@@ -24699,7 +24699,7 @@
       "y": 29.040000000000003
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT2",
     "ccw_rotation": 270,
@@ -24756,7 +24756,7 @@
       "y": 31.580000000000002
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT1",
     "ccw_rotation": 270,
@@ -24772,7 +24772,7 @@
       "y": 21.42
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "J1",
     "ccw_rotation": 90,
@@ -24874,7 +24874,7 @@
       "y": -21.619999999999997
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "COM",
     "ccw_rotation": 270,
@@ -24931,7 +24931,7 @@
       "y": -19.08
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "FAN",
     "ccw_rotation": 270,
@@ -24988,7 +24988,7 @@
       "y": -16.54
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT4",
     "ccw_rotation": 270,
@@ -25045,7 +25045,7 @@
       "y": -14
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT3",
     "ccw_rotation": 270,
@@ -25102,7 +25102,7 @@
       "y": -11.459999999999999
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT2",
     "ccw_rotation": 270,
@@ -25159,7 +25159,7 @@
       "y": -8.92
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "OUT1",
     "ccw_rotation": 270,
@@ -25175,7 +25175,7 @@
       "y": -15.27
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "J2",
     "ccw_rotation": 90,
@@ -25277,7 +25277,7 @@
       "y": 43.775
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 0,
@@ -25334,7 +25334,7 @@
       "y": 43.775
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "V5",
     "ccw_rotation": 0,
@@ -25391,7 +25391,7 @@
       "y": 43.775
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO33",
     "ccw_rotation": 0,
@@ -25448,7 +25448,7 @@
       "y": 43.775
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO35",
     "ccw_rotation": 0,
@@ -25464,7 +25464,7 @@
       "y": 45.19
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "J3",
     "ccw_rotation": 0,
@@ -25565,7 +25565,7 @@
       "y": -3.3499999999999996
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 270,
@@ -25622,7 +25622,7 @@
       "y": -0.8099999999999996
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO15",
     "ccw_rotation": 270,
@@ -25679,7 +25679,7 @@
       "y": 1.7300000000000004
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "V5",
     "ccw_rotation": 270,
@@ -25736,7 +25736,7 @@
       "y": 4.2700000000000005
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO14",
     "ccw_rotation": 270,
@@ -25793,7 +25793,7 @@
       "y": 6.8100000000000005
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO13",
     "ccw_rotation": 270,
@@ -25850,7 +25850,7 @@
       "y": 9.35
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "3V3",
     "ccw_rotation": 270,
@@ -25866,7 +25866,7 @@
       "y": 3
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "J4",
     "ccw_rotation": 90,
@@ -25968,7 +25968,7 @@
       "y": -44.875
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 0,
@@ -26025,7 +26025,7 @@
       "y": -44.875
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO16",
     "ccw_rotation": 0,
@@ -26082,7 +26082,7 @@
       "y": -44.875
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO17",
     "ccw_rotation": 0,
@@ -26139,7 +26139,7 @@
       "y": -44.875
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO27",
     "ccw_rotation": 0,
@@ -26196,7 +26196,7 @@
       "y": -44.875
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO5",
     "ccw_rotation": 0,
@@ -26253,7 +26253,7 @@
       "y": -44.875
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO26",
     "ccw_rotation": 0,
@@ -26310,7 +26310,7 @@
       "y": -44.875
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO18",
     "ccw_rotation": 0,
@@ -26367,7 +26367,7 @@
       "y": -44.875
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO25",
     "ccw_rotation": 0,
@@ -26424,7 +26424,7 @@
       "y": -44.875
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "IO19",
     "ccw_rotation": 0,
@@ -26440,7 +26440,7 @@
       "y": -43.46
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "J5",
     "ccw_rotation": 0,
@@ -26541,7 +26541,7 @@
       "y": -12.57
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 270,
@@ -26598,7 +26598,7 @@
       "y": -10.030000000000001
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "V5",
     "ccw_rotation": 270,
@@ -26614,7 +26614,7 @@
       "y": -11.3
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "J8",
     "ccw_rotation": 90,
@@ -26716,7 +26716,7 @@
       "y": 43.925
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 0,
@@ -26773,7 +26773,7 @@
       "y": 43.925
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "RA1",
     "ccw_rotation": 0,
@@ -26830,7 +26830,7 @@
       "y": 43.925
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "RA2",
     "ccw_rotation": 0,
@@ -26887,7 +26887,7 @@
       "y": 43.925
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "RA3",
     "ccw_rotation": 0,
@@ -26944,7 +26944,7 @@
       "y": 43.925
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "RA4",
     "ccw_rotation": 0,
@@ -26960,7 +26960,7 @@
       "y": 45.339999999999996
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "J6",
     "ccw_rotation": 0,
@@ -27061,7 +27061,7 @@
       "y": -44.875
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 0,
@@ -27118,7 +27118,7 @@
       "y": -44.875
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "CARBHI",
     "ccw_rotation": 0,
@@ -27175,7 +27175,7 @@
       "y": -44.875
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "CARBLO",
     "ccw_rotation": 0,
@@ -27232,7 +27232,7 @@
       "y": -44.875
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "RB4",
     "ccw_rotation": 0,
@@ -27289,7 +27289,7 @@
       "y": -44.875
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "RB3",
     "ccw_rotation": 0,
@@ -27346,7 +27346,7 @@
       "y": -44.875
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "RB2",
     "ccw_rotation": 0,
@@ -27403,7 +27403,7 @@
       "y": -44.875
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "RB1",
     "ccw_rotation": 0,
@@ -27419,7 +27419,7 @@
       "y": -43.46
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "J7",
     "ccw_rotation": 0,
@@ -27520,7 +27520,7 @@
       "y": 43.775
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "A",
     "ccw_rotation": 0,
@@ -27577,7 +27577,7 @@
       "y": 43.775
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "B",
     "ccw_rotation": 0,
@@ -27634,7 +27634,7 @@
       "y": 43.775
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "EARTH",
     "ccw_rotation": 0,
@@ -27650,7 +27650,7 @@
       "y": 45.19
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "J9",
     "ccw_rotation": 0,
@@ -27751,7 +27751,7 @@
       "y": -0.10000000000000009
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 270,
@@ -27808,7 +27808,7 @@
       "y": 2.44
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "V12",
     "ccw_rotation": 270,
@@ -27824,7 +27824,7 @@
       "y": 1.1700000000000002
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "J10",
     "ccw_rotation": 90,
@@ -27926,7 +27926,7 @@
       "y": 43.775
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "GND",
     "ccw_rotation": 0,
@@ -27983,7 +27983,7 @@
       "y": 43.775
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "V5",
     "ccw_rotation": 0,
@@ -28040,7 +28040,7 @@
       "y": 43.775
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "AOUT",
     "ccw_rotation": 0,
@@ -28097,7 +28097,7 @@
       "y": 43.775
     },
     "font": "tscircuit2024",
-    "font_size": 0.5,
+    "font_size": 0.8,
     "layer": "top",
     "text": "DOUT",
     "ccw_rotation": 0,
@@ -28113,7 +28113,7 @@
       "y": 45.19
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "J11",
     "ccw_rotation": 0,
@@ -28288,7 +28288,7 @@
       "y": 42.4
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "R1",
     "ccw_rotation": 0,
@@ -28461,7 +28461,7 @@
       "y": 45.9
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "R2",
     "ccw_rotation": 0,
@@ -28634,7 +28634,7 @@
       "y": 42.4
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "R3",
     "ccw_rotation": 0,
@@ -28807,7 +28807,7 @@
       "y": 45.9
     },
     "font": "tscircuit2024",
-    "font_size": 0.7,
+    "font_size": 0.8,
     "layer": "top",
     "text": "R4",
     "ccw_rotation": 0,
@@ -35202,20 +35202,20 @@
       "outer_ring": {
         "vertices": [
           {
-            "x": 60.7,
-            "y": -50.8
+            "x": 60.6,
+            "y": -50.7
           },
           {
-            "x": -66.7,
-            "y": -50.8
+            "x": -66.6,
+            "y": -50.7
           },
           {
-            "x": -66.7,
-            "y": 47.5
+            "x": -66.6,
+            "y": 47.4
           },
           {
-            "x": 60.7,
-            "y": 47.5
+            "x": 60.6,
+            "y": 47.4
           }
         ]
       },
@@ -64416,20 +64416,20 @@
       "outer_ring": {
         "vertices": [
           {
-            "x": 60.7,
-            "y": -50.8
+            "x": 60.6,
+            "y": -50.7
           },
           {
-            "x": -66.7,
-            "y": -50.8
+            "x": -66.6,
+            "y": -50.7
           },
           {
-            "x": -66.7,
-            "y": 47.5
+            "x": -66.6,
+            "y": 47.4
           },
           {
-            "x": 60.7,
-            "y": 47.5
+            "x": 60.6,
+            "y": 47.4
           }
         ]
       },
@@ -66561,20 +66561,20 @@
       "outer_ring": {
         "vertices": [
           {
-            "x": 60.7,
-            "y": -50.8
+            "x": 60.6,
+            "y": -50.7
           },
           {
-            "x": -66.7,
-            "y": -50.8
+            "x": -66.6,
+            "y": -50.7
           },
           {
-            "x": -66.7,
-            "y": 47.5
+            "x": -66.6,
+            "y": 47.4
           },
           {
-            "x": 60.7,
-            "y": 47.5
+            "x": 60.6,
+            "y": 47.4
           }
         ]
       },
