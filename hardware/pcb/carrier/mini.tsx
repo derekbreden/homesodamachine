@@ -5,31 +5,42 @@
  * lives in ./carrier_parts; placement + routing are declared here.
  *
  * Left column top->bottom: RS485, ESP32, DS3231. MCP stack (0x20 over 0x21) with
- * the ULN drivers and manifold connectors to the right. I2C bus, the
- * GPA->ULN->manifold valve chain, reed inputs, the ESP GPIO harness, the RS485
- * UART + line-out, and the 5 V / 12 V power all route to edge connectors J1-J10.
+ * the ULN drivers and manifold connectors to the right. The buzzer tucks into the
+ * pocket below the ESP; the gas dividers sit at the far-left edge.
+ *
+ * FOUR layers, stackup top->bottom:
+ *   L1 top    — signals + the V12 pour over the valve block (top-right)
+ *   L2 inner1 — 3V3 plane (full flood)
+ *   L3 inner2 — 5V plane (full flood)
+ *   L4 bottom — GND plane (full flood)
+ * 3V3, 5V, GND and V12 are poured: every through-hole pin on those nets commons
+ * to its plane at the barrel, so none of them is routed (no power vias). Only the
+ * point-to-point signals + the I2C bus are traced, and they are confined to the
+ * two outer layers (the core patch hands the router a 2-layer view so the inner
+ * planes stay pristine copper). SDA/SCL stay a routed top bus — two co-located
+ * nets pour into ugly interlocking islands, a clean trace pair reads better.
  */
 import {
   i8, at, Esp32, Mcp23017, Uln2803, Ds3231, Rs485, Jst, Buzzer, ulnOUT,
 } from "./carrier_parts"
 
 export default () => (
-  <board width="146mm" height="100mm" minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" autorouter={{ traceClearance: 0.47 }}>
-    <Ds3231 name="U6" x={-32.15} y={-28.65} rot={180} />
-    <Esp32 x={-25.15} y={-2} />
+  <board layers={4} outline={[{ x: -69, y: -51 }, { x: 62, y: -51 }, { x: 62, y: 51 }, { x: -69, y: 51 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" autorouter={{ traceClearance: 0.55 }}>
+    <Ds3231 name="U6" x={-37.15} y={-28.65} rot={180} />
+    <Esp32 x={-31.15} y={-2} />
     <Rs485 name="U7" x={-29.0} y={25.375} rot={180} />
     <Mcp23017 name="U2" x={14.5} y={20.25} addr="0x20" />
     <Mcp23017 name="U3" x={14.5} y={-20.25} addr="0x21" />
-    <Uln2803 name="U4" x={39.65} y={25.56} />
-    <Uln2803 name="U5" x={39.65} y={-14.94} />
-    <Buzzer name="U8" x={44} y={-42.5} rot={90} />
-    <Jst name="J1" x={57.0} y={25.56} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
-    <Jst name="J2" x={57.0} y={-14.94} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
+    <Uln2803 name="U4" x={39.65} y={23.02} />
+    <Uln2803 name="U5" x={39.65} y={-17.48} />
+    <Buzzer name="U8" x={-5} y={-32} rot={180} />
+    <Jst name="J1" x={57.0} y={23.02} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
+    <Jst name="J2" x={57.0} y={-17.48} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
     <Jst name="J3" x={-30.0} y={44} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
     <Jst name="J4" x={-64.0} y={3} count={6} labels={["GND", "IO23", "V5", "IO13", "IO14", "3V3"]} rot={90} label="SENSORS" />
     <Jst name="J5" x={-25.0} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO27", "IO5", "IO26", "IO18", "IO25", "IO19"]} rot={0} label="DRIVER" />
     <Jst name="J8" x={-52.0} y={-45} count={2} labels={["GND", "V5"]} rot={0} label="POWER" />
-    <Jst name="J6" x={10.0} y={46} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
+    <Jst name="J6" x={12.5} y={46} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={13.0} y={-46} count={7} labels={["GND", "CARBHI", "CARBLO", "RB4", "RB3", "RB2", "RB1"]} rot={0} label="REEDS B" />
     <Jst name="J9" x={-13.0} y={46} count={3} labels={["EARTH", "B", "A"]} rot={0} label="DISPLAY" />
     <Jst name="J10" x={57.0} y={5} count={2} labels={["GND", "V12"]} rot={90} label="12V" />
@@ -45,12 +56,35 @@ export default () => (
     <resistor name="R3" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-66, -14)} />
     <resistor name="R4" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-66, -9)} />
 
-    {/* MCP 0x21 power -> 0x20 */}
-    <trace from=".U3I > .VCC" to=".U2B > .VCC" />
+    {/* 3V3 rail -> inner1 plane. ESP 3V3 sources it; the I2C devices (both MCPs,
+        DS3231), RS485, and the sensor loom common to it at their barrels. */}
+    <trace from=".U1A > .3V3" to="net.V3V3" />
+    <trace from=".U2I > .VCC" to="net.V3V3" />
+    <trace from=".U2B > .VCC" to="net.V3V3" />
+    <trace from=".U3I > .VCC" to="net.V3V3" />
+    <trace from=".U3B > .VCC" to="net.V3V3" />
+    <trace from=".U6H > .VCC" to="net.V3V3" />
+    <trace from=".U7T > .VCC" to="net.V3V3" />
+    <trace from=".J4 > .3V3" to="net.V3V3" />
+
+    {/* 5V rail -> inner2 plane. J8 feeds it; ESP V5, faucet, sensors, gas, and the
+        buzzer common to it at their barrels. */}
+    <trace from=".U1A > .V5" to="net.V5" />
+    <trace from=".J8 > .V5" to="net.V5" />
+    <trace from=".J3 > .V5" to="net.V5" />
+    <trace from=".J4 > .V5" to="net.V5" />
+    <trace from=".J11 > .V5" to="net.V5" />
+    <trace from=".U8 > .VCC" to="net.V5" />
+
+    {/* grounds (every GND pin -> the bottom plane) */}
     <trace from=".U3I > .GND" to="net.GND" />
     <trace from=".U2B > .GND" to="net.GND" />
+    <trace from=".U6H > .GND" to="net.GND" />
+    <trace from=".U3A > .GND" to="net.GND" />
+    <trace from=".U1B > .GNDc" to="net.GND" />
+    <trace from=".U6I > .GND" to="net.GND" />
 
-    {/* I2C bus */}
+    {/* I2C bus — routed top bus, not poured (two co-located nets) */}
     <trace from=".U1B > .IO21" to=".U6I > .SDA" />
     <trace from=".U1B > .IO22" to=".U6I > .SCL" />
     <trace from=".U2I > .SDA" to=".U3I > .SDA" />
@@ -58,42 +92,30 @@ export default () => (
     <trace from=".U1B > .IO21" to=".U3I > .SDA" />
     <trace from=".U1B > .IO22" to=".U3I > .SCL" />
 
-    {/* DS3231 VCC */}
-    <trace from=".U6H > .VCC" to=".U3B > .VCC" />
-    <trace from=".U6H > .GND" to="net.GND" />
-    <trace from=".U3A > .GND" to="net.GND" />
-
-    {/* ESP 3V3 feeds the expander power (completes logic power) */}
-    <trace from=".U1A > .3V3" to=".U2I > .VCC" />
-    <trace from=".U1B > .GNDc" to="net.GND" />
-    <trace from=".U6I > .GND" to="net.GND" />
-
     {/* MCP GPA banks broken out */}
     {i8.map((k) => <trace key={`a2${k}`} from={`.U2A > .GPA${k}`} to={`net.U2_GPA${k}`} />)}
     {i8.map((k) => <trace key={`a3${k}`} from={`.U3A > .GPA${k}`} to={`net.U3_GPA${k}`} />)}
 
-    {/* ULN U4 + MCP 0x20 grounds tie into the back-side ground pour. */}
+    {/* ULN U4 + MCP 0x20 grounds */}
     <trace from=".U4I > .GND" to="net.GND" />
     <trace from=".U2I > .GND" to="net.GND" />
     <trace from=".U2A > .GND" to="net.GND" />
 
     {/* GPA -> ULN inputs. Silk-up ULN reverses its IN row (IN1 lands at +Y), so
         GPA_k feeds IN_{8-k} to keep the bank crossing-free: GPA0->IN8 ... GPA7->IN1.
-        This reverses which GPA bit drives which channel (re-synced in valve-control.mmd). */}
+        (Re-synced in valve-control.mmd.) */}
     {i8.map((k) => <trace key={`i4${k}`} from={`.U4I > .IN${8 - k}`} to={`net.U2_GPA${k}`} />)}
     {i8.map((k) => <trace key={`i5${k}`} from={`.U5I > .IN${8 - k}`} to={`net.U3_GPA${k}`} />)}
 
-    {/* RS485 TTL side -> ESP UART + power (top row faces up toward RS485) */}
+    {/* RS485 TTL side -> ESP UART */}
     <trace from=".U7T > .TXD" to=".U1A > .IO32" />
     <trace from=".U7T > .RXD" to=".U1A > .IO34" />
-    <trace from=".U7T > .VCC" to=".U1A > .3V3" />
     <trace from=".U7T > .GND" to="net.GND" />
 
-    {/* manifold JSTs: ULN outputs -> valve looms (parallel to the OUT rows) */}
+    {/* manifold JSTs: ULN outputs -> valve looms */}
     {i8.map((k) => <trace key={`j1${k}`} from={`.J1 > .OUT${k + 1}`} to={`.U4O > .OUT${k + 1}`} />)}
     <trace from=".J1 > .COM" to="net.V12" />
-    {/* MANIFOLD B: 4 valves (V-I/V-J/V-K-A/V-K-B) on U5 ch1-4, condenser FAN on
-        U5 ch5 (0x21 GPA4), COM = 12V flyback. U5 ch6-8 are spare (not broken out). */}
+    {/* MANIFOLD B: 4 valves on U5 ch1-4, condenser FAN on U5 ch5, COM = 12V flyback. */}
     <trace from=".J2 > .OUT1" to=".U5O > .OUT1" />
     <trace from=".J2 > .OUT2" to=".U5O > .OUT2" />
     <trace from=".J2 > .OUT3" to=".U5O > .OUT3" />
@@ -104,20 +126,15 @@ export default () => (
     {/* FAUCET UART (IO33 TX / IO35 RX) */}
     <trace from=".J3 > .IO33" to=".U1A > .IO33" />
     <trace from=".J3 > .IO35" to=".U1A > .IO35" />
-    <trace from=".J3 > .V5" to=".U1A > .V5" />
     <trace from=".J3 > .GND" to="net.GND" />
     <trace from=".U1A > .GND" to="net.GND" />
 
     {/* SENSORS: flow (IO23) / 1-wire temps (IO14) / backflow drip-pan moisture
-        (IO13). 3V3 powers the DS18B20 probes (IO14 is NOT 5 V tolerant; it is also
-        the 1-wire pull-up reference) AND the moisture module (so its DO on IO13 is
-        3.3 V-safe); V5 powers the 5 V flow sensor. (IO36 moved to the GAS connector
-        as the MQ-6 DOUT.) */}
+        (IO13). 3V3 powers the DS18B20 probes + the moisture module; V5 the flow
+        sensor. */}
     <trace from=".J4 > .IO14" to=".U1A > .IO14" />
-    <trace from=".J4 > .3V3" to=".U1A > .3V3" />
     <trace from=".J4 > .IO23" to=".U1B > .IO23" />
     <trace from=".J4 > .IO13" to=".U1A > .IO13" />
-    <trace from=".J4 > .V5" to=".U1A > .V5" />
     <trace from=".J4 > .GND" to="net.GND" />
 
     {/* DRIVER: pump A (27/25/26) + pump B (19/18/5) + relays (17/16) */}
@@ -131,8 +148,7 @@ export default () => (
     <trace from=".J5 > .IO16" to=".U1B > .IO16" />
     <trace from=".J5 > .GND" to="net.GND" />
 
-    {/* POWER in: 5V -> ESP V5 (3V3 regulated on-board) */}
-    <trace from=".J8 > .V5" to=".U1A > .V5" />
+    {/* POWER in: 5V via the plane; ground here */}
     <trace from=".J8 > .GND" to="net.GND" />
 
     {/* REEDS A (reservoir A) -> 0x20 GPB inputs */}
@@ -153,30 +169,27 @@ export default () => (
     <trace from=".U3B > .GND" to="net.GND" />
 
     {/* DISPLAY: RS485 line side (A/B/Earth) out to the front 4.3" config panel.
-        Signal only — the 4.3B takes its own 7-36 V screw-terminal power straight
-        off the 12 V bus harness, not through this connector. */}
+        Signal only — the panel takes its own 7-36 V power off the 12 V harness. */}
     <trace from=".J9 > .A" to=".U7L > .A" />
     <trace from=".J9 > .B" to=".U7L > .B" />
     <trace from=".J9 > .EARTH" to=".U7L > .Earth" />
 
-    {/* 12V in: J10 feeds the ULN flyback commons (net.V12) and the valve-
-        current ground return via the back-side pour (power.mmd). */}
+    {/* 12V in: J10 feeds the ULN flyback commons (net.V12). */}
     <trace from=".U4O > .COM" to="net.V12" />
     <trace from=".U5O > .COM" to="net.V12" />
     <trace from=".J10 > .GND" to="net.GND" />
     <trace from=".U5I > .GND" to="net.GND" />
 
-    {/* BUZZER: passive piezo. I/O takes a PWM tone from IO4 (LEDC); VCC is the
-        5 V rail; GND ties into the back-side ground pour. */}
+    {/* BUZZER: passive piezo in the pocket below the ESP. Tone on IO4 (LEDC); VCC
+        on the 5 V plane; GND on the ground plane. */}
     <trace from=".U8 > .IO" to=".U1B > .IO4" />
-    <trace from=".U8 > .VCC" to=".U1A > .V5" />
     <trace from=".U8 > .GND" to="net.GND" />
 
     {/* GAS: ACEIRMC MQ-6 combustible / refrigerant-leak sensor, mounted low on the
         rear cabinet floor (catches dense R-600a pooling). 5 V heater supply. BOTH
-        MQ-6 outputs swing 0-5 V; each is stepped to ~3.3 V by an on-board divider
+        MQ-6 outputs swing 0-5 V; each is stepped to ~3.0 V by an on-board divider
         (R1/R2, R3/R4 above) before the ESP, since IO36/IO39 are NOT 5 V tolerant:
-          AOUT (analog level)        -> R1/R2 -> IO39 (ADC1) — trend + warm-up sense
+          AOUT (analog level)          -> R1/R2 -> IO39 (ADC1) — trend + warm-up sense
           DOUT (LM393 comparator trip) -> R3/R4 -> IO36       — the hardware gas trip
         Own connector, isolated from the SENSORS loom, so the fire-safety run is
         unambiguous. DOUT is the signal a firmware-INDEPENDENT compressor interlock
@@ -190,19 +203,18 @@ export default () => (
     <trace from=".R3 > .pin2" to=".R4 > .pin1" />
     <trace from=".R3 > .pin2" to=".U1A > .IO36" />
     <trace from=".R4 > .pin2" to="net.GND" />
-    <trace from=".J11 > .V5" to=".U1A > .V5" />
     <trace from=".J11 > .GND" to="net.GND" />
 
-    {/* Power planes. A ground pour fills the back (valve return + logic ground);
-        a 12V pour covers the valve block on the front — J10 feeds the ULN flyback
-        commons and the manifold COM pins, which carry the summed solenoid + fan
-        current (up to three valves open at once, see fluid-topology.md). Every
-        ground pin lands on net.GND and every 12V common on net.V12; the pours
-        carry that copper, so neither net is individually routed. */}
+    {/* Power planes, top->bottom: V12 island (top, over the valve block), 3V3
+        (inner1, full flood), 5V (inner2, full flood), GND (bottom, full flood).
+        Every ground/3V3/5V/12V pin lands on its net and commons to the plane at
+        its through-hole barrel, so none of these nets is individually routed. */}
     <trace from=".U1B > .GNDb" to="net.GND" />
     <trace from=".J10 > .V12" to="net.V12" />
     <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" />
     <copperpour name="V12PLANE" layer="top" connectsTo="net.V12"
-      outline={[{ x: 47, y: -27 }, { x: 60, y: -27 }, { x: 60, y: 40 }, { x: 47, y: 40 }]} />
+      outline={[{ x: 47, y: -30.5 }, { x: 60, y: -30.5 }, { x: 60, y: 40 }, { x: 47, y: 40 }]} />
+    <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" />
+    <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" />
   </board>
 )

@@ -21,9 +21,13 @@ views derived from it (canonical-but-provisional until bring-up).
   pump signals + two relay drives). RS485 bridges the ESP UART to the front config
   display: its line side exits on J9. Power is split — J8 brings in the 5 V logic
   rail (the ESP's 3V3 pin then powers the I²C devices) and J10 the 12 V valve
-  supply (feeds the ULN commons). Through-hole, two layers, routed, 134 × 100 mm.
-  ESP socket rows are 25.4 mm apart (DevKitC-32E); the pin map is the standard
-  38-pin layout.
+  supply (feeds the ULN commons). Through-hole, **four layers**, routed,
+  131 × 102 mm. The four power nets each get a plane — top a V12 pour over the
+  valve block, inner1 the 3V3 plane, inner2 the 5V plane, bottom the GND plane —
+  and every power/ground pin commons to its plane at its through-hole barrel, so
+  only the point-to-point signals and the I²C bus are routed, on the two outer
+  layers (see Routing optimization below). ESP socket rows are 25.4 mm apart
+  (DevKitC-32E); the pin map is the standard 38-pin layout.
 - `render-board.ts` — `bun render-board.ts <board>.tsx [scheme]`: exports the
   Gerbers and composes the three copper views into `out/`. The dev watcher
   (`web/dev-server`) runs it on every save of a board under `pcb/`, so the
@@ -36,9 +40,11 @@ views derived from it (canonical-but-provisional until bring-up).
   `build-all`, else `manual`) names each run in those messages.
 - `gerber-compose.ts` — composes a Gerber folder into Top (front copper + front
   silk, looking down), Bottom (back copper + back silk **as viewed from the back**
-  — x-mirrored, the board flipped over), and Overlay (both copper, **front silk
-  only** — the x-ray "seen through the board" view) SVGs, at the real trace
-  widths. `SCHEMES` holds the colour schemes (`copper` default, `blueprint`, `ink`).
+  — x-mirrored, the board flipped over), and Overlay (every copper layer at once
+  — the x-ray "seen through the board" view, **front silk only**, each layer its
+  own hue) SVGs, at the real trace widths. On a board with inner layers it also
+  emits one solo view per inner copper layer (`<board>.inner1`, `inner2`, …).
+  `SCHEMES` holds the colour schemes (`copper` default, `blueprint`, `ink`).
 - `bottom-silk.ts` — tscircuit draws the legend on the front only; this emits a
   throwaway board of `layer="bottom"` copies of every front silk element (same
   positions). `render-board` builds that with tscircuit and lifts its
@@ -46,9 +52,9 @@ views derived from it (canonical-but-provisional until bring-up).
   font + per-size stroke to the front, mirrored in place so it reads correctly
   from the solder side — into both the bottom view and the fabrication zip.
 - `out/` — exactly what `render-board.ts` produces, so a save keeps it current
-  and `build:check` guards it: `<board>.{top,bottom,overlay}.{svg,png}` (the
-  three copper views the site shows) and `<board>.gerbers.zip` (the fabrication
-  set they're built from).
+  and `build:check` guards it: `<board>.{top,bottom,overlay[,inner1,inner2,…]}.{svg,png}`
+  (the copper views the site shows) and `<board>.gerbers.zip` (the fabrication
+  set they're built from — `F_Cu`/`B_Cu` plus `In1_Cu`/`In2_Cu` on a 4-layer board).
 
 ## Toolchain
 
@@ -85,6 +91,24 @@ per setting. `bun _clrsweep.ts`, or pass board widths: `bun _clrsweep.ts 134,160
   components at fixed coordinates a bigger board mostly adds *peripheral* room; the
   fuller "make it airy" lever is spreading the components themselves (their coords
   here). Width is the cheap first cut, placement the deep one.
+
+### Four-layer planes
+
+The board is 4-layer: signals on the two outer copper layers, the four power nets
+each poured as a plane (3V3 on inner1, 5V on inner2, GND on bottom, V12 a bounded
+pour on top). Every through-hole pin commons to its plane at the barrel, so the
+power nets add no vias. Two patches (`patches/`) make this work:
+
+- **core patch** (alongside the `traceClearance` + pour-skip plumbing): when inner
+  layers carry a copperpour it strips them from the autorouter's obstacle model and
+  caps the router's layer count — handing it a *2-layer (top+bottom) view*. The
+  capacity router routes contiguous layers and would otherwise run signals across
+  the inner planes (slicing them); this keeps them pristine copper while signals
+  stay on the outer layers with normal through-vias. Auto-detects poured inner
+  layers, no per-board config.
+- **`@tscircuit/cli` patch** — the stock gerber exporter only emits `F_Cu`/`B_Cu`,
+  silently dropping inner copper from the fabrication set. The patch emits
+  `In{n}_Cu` for boards with `num_layers > 2`; `gerber-compose` then renders them.
 
 Caveat on the metric: the "floor" `_clrsweep`/`_analyze` report is the single
 tightest pad/trace gap — a weak proxy for **legibility** (can a human read the
