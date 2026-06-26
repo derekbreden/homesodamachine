@@ -78,8 +78,11 @@ const run = (label: string, boardTag: string) => {
   console.log(`${label.padEnd(20)} vias:${String(viaN).padStart(3)} drc:${drc} minW:${traceW.toFixed(3)}  T-T:${m.tt.gap.toFixed(3)} ${m.tt.info}  T-pad:${m.tp.gap.toFixed(3)} ${m.tp.info}  FLOOR:${m.floor.toFixed(3)}mm`)
 }
 
-console.log("# autorouter.traceClearance -> defaultObstacleMargin sweep (patched core)\n")
+console.log("# board width x autorouter.traceClearance grid (patched core)\n")
 console.log("# minTraceWidth=0.2mm fixed (drawn width); FLOOR = min(trace-trace, trace-pad)\n")
 const via = `minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm"` // 0.1mm annular ring (JLC standard)
-for (const clr of [0.45, 0.46, 0.47, 0.48, 0.49, 0.5, 0.52])
-  run(`traceClearance=${clr}`, `<board width="134mm" height="100mm" minTraceWidth="0.2mm" ${via} autorouter={{ traceClearance: ${clr} }}>`)
+const widths = process.argv[2] ? process.argv[2].split(",").map(Number) : [127, 130, 134]
+const clrs = [0.45, 0.5, 0.55, 0.6, 0.65, 0.7]
+for (const w of widths)
+  for (const clr of clrs)
+    run(`w${w} clr${clr}`, `<board width="${w}mm" height="100mm" minTraceWidth="0.2mm" ${via} autorouter={{ traceClearance: ${clr} }}>`)

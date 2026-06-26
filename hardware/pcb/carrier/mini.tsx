@@ -25,23 +25,25 @@ export default () => (
     <Buzzer name="U8" x={44} y={-42.5} rot={90} />
     <Jst name="J1" x={57.0} y={25.56} count={9} labels={ulnOUT} rot={90} label="MANIFOLD A" labelDir={1} />
     <Jst name="J2" x={57.0} y={-14.94} count={6} labels={["OUT1", "OUT2", "OUT3", "OUT4", "FAN", "COM"]} rot={90} label="MANIFOLD B" labelDir={1} />
-    <Jst name="J3" x={-30.0} y={44} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" />
-    <Jst name="J4" x={-63.0} y={2} count={6} labels={["GND", "V5", "3V3", "IO13", "IO23", "IO14"]} rot={90} label="SENSORS" />
-    <Jst name="J5" x={-25.0} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO5", "IO18", "IO19", "IO26", "IO25", "IO27"]} rot={0} label="DRIVER" />
+    <Jst name="J3" x={-30.0} y={44} count={4} labels={["GND", "IO35", "IO33", "V5"]} rot={0} label="FAUCET" />
+    <Jst name="J4" x={-56.0} y={3} count={6} labels={["GND", "IO23", "V5", "IO13", "IO14", "3V3"]} rot={90} label="SENSORS" />
+    <Jst name="J5" x={-25.0} y={-46} count={9} labels={["GND", "IO19", "IO18", "IO25", "IO5", "IO26", "IO17", "IO27", "IO16"]} rot={0} label="DRIVER" />
     <Jst name="J8" x={-52.0} y={-45} count={2} labels={["GND", "V5"]} rot={0} label="POWER" />
-    <Jst name="J6" x={3.0} y={46} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
-    <Jst name="J7" x={5.0} y={-46} count={7} labels={["GND", "RB1", "RB2", "RB3", "RB4", "CARBLO", "CARBHI"]} rot={0} label="REEDS B" />
-    <Jst name="J9" x={-13.0} y={46} count={3} labels={["A", "B", "EARTH"]} rot={0} label="DISPLAY" />
-    <Jst name="J10" x={63.0} y={5} count={2} labels={["GND", "V12"]} rot={90} label="VALVE 12V" />
-    <Jst name="J11" x={-63.0} y={-22} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={90} label="GAS" />
+    <Jst name="J6" x={10.0} y={46} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
+    <Jst name="J7" x={13.0} y={-46} count={7} labels={["GND", "CARBHI", "CARBLO", "RB4", "RB3", "RB2", "RB1"]} rot={0} label="REEDS B" />
+    <Jst name="J9" x={-13.0} y={46} count={3} labels={["EARTH", "B", "A"]} rot={0} label="DISPLAY" />
+    <Jst name="J10" x={57.0} y={5} count={2} labels={["GND", "V12"]} rot={90} label="VALVE 12V" />
+    <Jst name="J11" x={-56.0} y={-24} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={90} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
-        plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Through-hole
-        axial resistors, 2.2k top + 3.3k bottom -> 5*3.3/5.5 = 3.0 V (safely under
-        3.3 V, still a valid logic HIGH for DOUT). AOUT: R1/R2; DOUT: R3/R4. */}
-    <resistor name="R1" resistance="2.2k" footprint="axial_p2.54mm" {...at(-60, -8)} />
-    <resistor name="R2" resistance="3.3k" footprint="axial_p2.54mm" {...at(-60, -15)} />
-    <resistor name="R3" resistance="2.2k" footprint="axial_p2.54mm" {...at(-53, -8)} />
-    <resistor name="R4" resistance="3.3k" footprint="axial_p2.54mm" {...at(-53, -15)} />
+        plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
+        a vertical 2-resistor series: 2.2k (input, bottom) -> midpoint -> 3.3k (to
+        GND, top) -> 5*3.3/5.5 = 3.0 V (safely under 3.3 V, still a valid logic HIGH
+        for DOUT). The midpoint taps right into the ESP; AOUT: R1/R2 -> IO39, DOUT:
+        R3/R4 -> IO36 (the two ADC pins at the ESP top row's left end). */}
+    <resistor name="R1" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-54, -14)} />
+    <resistor name="R2" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-54, -9)} />
+    <resistor name="R3" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-58, -14)} />
+    <resistor name="R4" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={90} {...at(-58, -9)} />
 
     {/* MCP 0x21 power -> 0x20 */}
     <trace from=".U3I > .VCC" to=".U2B > .VCC" />
@@ -199,6 +201,6 @@ export default () => (
     <trace from=".J10 > .V12" to="net.V12" />
     <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" />
     <copperpour name="V12PLANE" layer="top" connectsTo="net.V12"
-      outline={[{ x: 44, y: -16 }, { x: 66, y: -16 }, { x: 66, y: 40 }, { x: 44, y: 40 }]} />
+      outline={[{ x: 47, y: -16 }, { x: 60, y: -16 }, { x: 60, y: 40 }, { x: 47, y: 40 }]} />
   </board>
 )
