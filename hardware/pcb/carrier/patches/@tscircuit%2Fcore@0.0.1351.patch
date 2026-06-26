@@ -1,14 +1,17 @@
 diff --git a/node_modules/@tscircuit/core/.bun-tag-c78b4bfb32a68812 b/.bun-tag-c78b4bfb32a68812
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/@tscircuit/core/.bun-tag-d637b02405e7afd7 b/.bun-tag-d637b02405e7afd7
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/node_modules/@tscircuit/core/.bun-tag-d8ee55b5ad48cd97 b/.bun-tag-d8ee55b5ad48cd97
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/dist/index.js b/dist/index.js
-index c7b53b7a6db997fd2924cd638de3d2f0757d8682..0df316b4e89cf2ceb4c07e82ab363b96bb6fbfc5 100644
+index c7b53b7a6db997fd2924cd638de3d2f0757d8682..8d57b15879bc3a4efa689490940ab41dceac2e3f 100644
 --- a/dist/index.js
 +++ b/dist/index.js
-@@ -16046,6 +16046,32 @@ var getSimpleRouteJsonFromCircuitJson = ({
+@@ -16046,6 +16046,53 @@ var getSimpleRouteJsonFromCircuitJson = ({
        conn.externallyConnectedPointIds.push([...tracePortIds]);
      }
    }
@@ -22,26 +25,47 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..0df316b4e89cf2ceb4c07e82ab363b96
 +        pouredReps.add(connMap.getNetConnectedToId(pouredNet.source_net_id) ?? pouredNet.source_net_id);
 +      }
 +    }
-+    if (pouredReps.size > 0) {
-+      const connIsPoured = (conn) => {
-+        for (const pt of conn.pointsToConnect) {
-+          const id = pt.pcb_port_id ?? pt.pointId;
-+          if (!id) continue;
-+          const rep = connMap.getNetConnectedToId(id);
-+          if (rep && pouredReps.has(rep)) return true;
-+        }
-+        return false;
-+      };
-+      routedConns = allConns.filter((conn) => !connIsPoured(conn));
++    // PATCH(homesodamachine): second-pass carve. A manual <pcbtrace> hand-routes a
++    // connection the capacity autorouter packs badly; carve that connection out so
++    // the autorouter leaves it alone and the clean pcbtrace copper is the only copper
++    // on it. The pcbtrace's first/last wire points land on the connection's two pads,
++    // so we match a connection's pointsToConnect xy against pcbtrace endpoints. The
++    // <trace> stays as the canonical netlist. See clean-pass.ts (the route generator).
++    const manualEnds = [];
++    for (const pt of subcircuitComponent.selectAll("pcbtrace")) {
++      const route = pt._parsedProps?.route;
++      if (!Array.isArray(route)) continue;
++      const w = route.filter((p) => p && p.route_type === "wire" && typeof p.x === "number" && typeof p.y === "number");
++      if (w.length >= 2) manualEnds.push([w[0], w[w.length - 1]]);
++    }
++    const nearPt = (a, b) => a && b && Math.abs(a.x - b.x) < 0.06 && Math.abs(a.y - b.y) < 0.06;
++    const connIsManual = (conn) => {
++      const ps = conn.pointsToConnect;
++      if (!ps || ps.length !== 2) return false;
++      for (const [s, e] of manualEnds)
++        if ((nearPt(ps[0], s) && nearPt(ps[1], e)) || (nearPt(ps[0], e) && nearPt(ps[1], s))) return true;
++      return false;
++    };
++    const connIsPoured = (conn) => {
++      for (const pt of conn.pointsToConnect) {
++        const id = pt.pcb_port_id ?? pt.pointId;
++        if (!id) continue;
++        const rep = connMap.getNetConnectedToId(id);
++        if (rep && pouredReps.has(rep)) return true;
++      }
++      return false;
++    };
++    if (pouredReps.size > 0 || manualEnds.length > 0) {
++      routedConns = allConns.filter((conn) => !connIsPoured(conn) && !connIsManual(conn));
 +      if (process.env.POUR_SKIP_DEBUG) {
-+        console.error(`[pour-skip] pouredReps=${pouredReps.size} allConns=${allConns.length} routed=${routedConns.length} skipped=${allConns.length - routedConns.length}`);
++        console.error(`[pour-skip] pouredReps=${pouredReps.size} manual=${manualEnds.length} allConns=${allConns.length} routed=${routedConns.length} skipped=${allConns.length - routedConns.length}`);
 +      }
 +    }
 +  }
    const resolvedMinViaHoleDiameter = minViaHoleDiameter ?? board?.min_via_hole_diameter;
    const resolvedMinViaPadDiameter = minViaPadDiameter ?? board?.min_via_pad_diameter;
    const resolvedMinTraceToPadEdgeClearance = minTraceToPadEdgeClearance ?? board?.min_trace_to_pad_edge_clearance;
-@@ -16058,7 +16084,7 @@ var getSimpleRouteJsonFromCircuitJson = ({
+@@ -16058,7 +16105,7 @@ var getSimpleRouteJsonFromCircuitJson = ({
      simpleRouteJson: {
        bounds,
        obstacles,
@@ -50,7 +74,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..0df316b4e89cf2ceb4c07e82ab363b96
        traces: descendantTraces.length > 0 ? descendantTraces : void 0,
        layerCount: board?.num_layers ?? 2,
        minTraceWidth: minTraceWidth ?? board?.min_trace_width ?? 0.1,
-@@ -22355,6 +22381,44 @@ var Group5 = class extends NormalComponent3 {
+@@ -22355,6 +22402,44 @@ var Group5 = class extends NormalComponent3 {
        subcircuit_id: this.subcircuit_id,
        subcircuitComponent: this
      });
