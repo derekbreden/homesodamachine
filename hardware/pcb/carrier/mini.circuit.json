@@ -27593,7 +27593,7 @@
     "font": "tscircuit2024",
     "font_size": 1.4,
     "layer": "top",
-    "text": "VALVE 12V",
+    "text": "12V",
     "ccw_rotation": 270,
     "pcb_component_id": null,
     "subcircuit_id": "subcircuit_source_group_0"
