@@ -16,42 +16,45 @@ import { installPadPicker, clearPadPicker, clearPadSelection, makePadPickToggle 
 const VIEWS = ["top", "bottom", "overlay"];
 const VIEW_LABEL = { top: "Top", bottom: "Bottom", overlay: "Overlay" };
 
-// Fit insets (px) for the board PanZoom: reserve the bands occupied by the
-// overlaid chrome (view toggle / minimap / filename / close on top; readout /
-// pad-pick / reset on bottom) so the default fit — and the zoom-out floor,
-// which equals the fit scale — keeps the whole board clear of them. One shared
-// object: PanZoom and the minimap read it live, and onOpen measures the real
-// chrome into it once the modal is laid out. Singleton modal ⇒ one is enough.
-const pcbFitInset = { top: 0, right: 0, bottom: 0, left: 0 };
+// Fit obstacles for the board PanZoom: the on-screen rectangles of the overlaid
+// chrome (toggle / minimap / filename / close on top; readout / pad-pick / reset
+// on the bottom), so the fit — and the zoom-out floor, which equals the fit
+// scale — grow the board as large as possible while clearing them. Treating
+// them as rects (not a uniform band) means a corner widget like the minimap
+// only limits the fit when the board actually grows under it. One shared array:
+// PanZoom and the minimap read it live; onOpen measures the laid-out chrome in.
+const pcbFitObstacles = [];
 
-// Measure the chrome overlaying the board and return the band heights to keep
-// clear, top and bottom. Queried live (positions shift with safe-area insets
-// and the minimap's aspect-driven height), capped so a tiny window still
-// leaves the board most of the height.
-function measureChromeInset(wrapper) {
+// Each chrome pill, as a wrapper-local rect padded by `gap`, so the board keeps
+// a small margin from it. Measured live (positions shift with safe-area insets
+// and the minimap's aspect-driven height).
+const CHROME_SELECTORS = [
+  ".pcb-view-toggle", ".pan-zoom-minimap", ".cv-filename", ".cv-close",
+  ".pcb-dims", ".pcb-wrapper > .pad-pick-toggle", ".reset-view",
+];
+function measureChromeObstacles(wrapper) {
   const wr = wrapper.getBoundingClientRect();
-  if (!wr.width || !wr.height) return null;
+  const cw = wrapper.clientWidth, ch = wrapper.clientHeight;
+  if (!wr.width || !wr.height || !cw || !ch) return [];
+  // getBoundingClientRect is scaled by the modal card's open animation; divide
+  // the wrapper-relative offsets by that live scale to land in layout px — the
+  // same coordinate space PanZoom fits in (clientWidth/Height). This makes the
+  // fit correct mid-animation without waiting for the card to settle.
+  const sx = wr.width / cw, sy = wr.height / ch;
   const gap = 12;
-  const topSel = [".pcb-view-toggle", ".pan-zoom-minimap", ".cv-filename", ".cv-close"];
-  const botSel = [".pcb-dims", ".pcb-wrapper > .pad-pick-toggle", ".reset-view"];
-  let top = 0, bottom = 0;
-  for (const sel of topSel)
+  const rects = [];
+  for (const sel of CHROME_SELECTORS)
     for (const el of document.querySelectorAll(sel)) {
       const r = el.getBoundingClientRect();
-      if (r.height) top = Math.max(top, r.bottom - wr.top);
+      if (!r.width || !r.height) continue;
+      rects.push({
+        left: (r.left - wr.left) / sx - gap,
+        top: (r.top - wr.top) / sy - gap,
+        right: (r.right - wr.left) / sx + gap,
+        bottom: (r.bottom - wr.top) / sy + gap,
+      });
     }
-  for (const sel of botSel)
-    for (const el of document.querySelectorAll(sel)) {
-      const r = el.getBoundingClientRect();
-      if (r.height) bottom = Math.max(bottom, wr.bottom - r.top);
-    }
-  const cap = wr.height * 0.45;
-  return {
-    top: Math.min(top > 0 ? top + gap : 0, cap),
-    right: 0,
-    bottom: Math.min(bottom > 0 ? bottom + gap : 0, cap),
-    left: 0,
-  };
+  return rects;
 }
 
 function pcbTransformKey(source) { return `pcb-transform:${source}`; }
@@ -232,7 +235,7 @@ function mountView(view, preserve) {
   wrapper.insertBefore(svgEl, wrapper.firstChild);
 
   const source = state.currentPcbSource;
-  const minimap = makeMinimap(svgEl, wrapper, pcbFitInset);
+  const minimap = makeMinimap(svgEl, wrapper, pcbFitObstacles);
   const pz = PanZoom.wrap(svgEl, {
     container: wrapper,
     initialFit: !prev,
@@ -240,10 +243,10 @@ function mountView(view, preserve) {
     // tiny (~0.006). Drop PanZoom's default minScale floor (0.1) well below it
     // or the fit clamps and the board renders far too zoomed-in.
     minScale: 0.0001,
-    // Reserve the chrome bands so the fit (and the zoom-out floor) show the
-    // whole board between them. Measured into pcbFitInset in onOpen; shared by
-    // reference so swaps + the minimap stay consistent.
-    fitInset: pcbFitInset,
+    // Grow the fit (and the zoom-out floor) as large as clears the chrome rects.
+    // Measured into pcbFitObstacles in onOpen; shared by reference so swaps + the
+    // minimap stay consistent.
+    fitObstacles: pcbFitObstacles,
     onTransformChange: (t) => { if (source) pcbSaveTransform(source, t); },
     onTransformLive: (t) => minimap.update(t),
   });
@@ -267,8 +270,8 @@ export async function openPcbDetail(source, pushHistory = true) {
   // Set currentDetail BEFORE touching location.hash (popstate may fire
   // synchronously under Puppeteer; its handler dispatches on currentDetail).
   state.currentDetail = { type: "pcb", file: source };
-  // Start from no inset; onOpen measures the real chrome once it's laid out.
-  pcbFitInset.top = pcbFitInset.bottom = pcbFitInset.left = pcbFitInset.right = 0;
+  // Start from no obstacles; onOpen measures the real chrome once it's laid out.
+  pcbFitObstacles.length = 0;
   if (pushHistory) location.hash = "pcb:" + encodeURIComponent(source);
 
   let board = boardForSource(source);
@@ -323,20 +326,28 @@ export async function openPcbDetail(source, pushHistory = true) {
     content: wrapper,
     filename: shortName(source),
     onOpen: () => {
-      // The wrapper has a real layout box only after showModal. Size the
-      // minimap first (its box is aspect-driven and otherwise still at its
-      // pre-layout max height), then measure the settled chrome bands into the
-      // shared inset and fit so the whole board lands clear of them. A saved
-      // transform, if any, overrides the fit.
-      try {
+      // Size the minimap (its box is aspect-driven, otherwise still at its
+      // pre-layout max height), measure the laid-out chrome rects into the
+      // shared obstacle list, and fit so the board grows as large as clears
+      // them.
+      const refit = () => {
+        try {
+          minimap?.update();
+          const obs = measureChromeObstacles(wrapper);
+          pcbFitObstacles.length = 0;
+          pcbFitObstacles.push(...obs);
+          pz?.fit();
+        } catch {}
         minimap?.update();
-        const m = measureChromeInset(wrapper);
-        if (m) Object.assign(pcbFitInset, m);
-        pz?.fit();
-      } catch {}
+      };
+      refit();
+      // measureChromeObstacles works in layout px, so the fit is correct even
+      // mid-open-animation — no settle-timing needed. One more on the next frame
+      // covers the minimap sizing itself (its box is aspect-driven on first
+      // paint). A saved transform, if any, overrides the fit.
       const saved = pcbLoadTransform(source);
-      if (saved && pz) pz.setTransform(saved);
-      minimap?.update();
+      if (saved && pz) { pz.setTransform(saved); minimap?.update(); return; }
+      requestAnimationFrame(refit);
     },
     onClose: () => {
       // Only tear down shared state if it still belongs to this modal; a newer
