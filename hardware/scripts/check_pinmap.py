@@ -117,6 +117,7 @@ CROSS = [
     ("config display",      r'label="DISPLAY"',  r"4\.3B|ALMOCN|RS485|RS-485"),
     ("faucet display",      r'label="FAUCET"',   r"1\.47"),
     ("reed switches",       r"REEDS",            r"[Rr]eed"),
+    ("gas divider resistors",r'resistance="2.2k"',r"gas-sensor output divider"),
 ]
 for name, mk, bk in CROSS:
     if not re.search(mk, mini):
