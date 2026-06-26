@@ -37,25 +37,25 @@ export default () => (
     <Buzzer name="U8" x={-55} y={-33} rot={180} />
     <Jst name="J1" x={56.0} y={21.42} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
     <Jst name="J2" x={56.0} y={-15.27} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
-    <Jst name="J3" x={-46.0} y={42.65} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
+    <Jst name="J3" x={-43.7} y={42.65} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
     <Jst name="J4" x={-62.0} y={3} count={6} labels={["GND", "IO15", "V5", "IO14", "IO13", "3V3"]} rot={90} label="SENSORS" />
     <Jst name="J5" x={-27.0} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO27", "IO5", "IO26", "IO18", "IO25", "IO19"]} rot={0} label="DRIVER" />
-    <Jst name="J8" x={-62.0} y={-11.3} count={2} labels={["GND", "V5"]} rot={90} label="POWER" />
+    <Jst name="J8" x={-62.0} y={-11.3} count={2} labels={["GND", "V5"]} rot={90} label="5V" />
     <Jst name="J6" x={12.5} y={42.8} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={13.0} y={-46} count={7} labels={["GND", "CARBHI", "CARBLO", "RB4", "RB3", "RB2", "RB1"]} rot={0} label="REEDS B" />
-    <Jst name="J9" x={-4.0} y={42.65} count={3} labels={["EARTH", "B", "A"]} rot={0} label="DISPLAY" />
-    <Jst name="J10" x={56.0} y={3.4} count={2} labels={["GND", "V12"]} rot={90} label="12V" />
-    <Jst name="J11" x={-31.8} y={42.65} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={0} label="GAS" />
+    <Jst name="J9" x={-1.7} y={42.65} count={3} labels={["A", "B", "EARTH"]} rot={0} label="DISPLAY" />
+    <Jst name="J10" x={56.0} y={1.17} count={2} labels={["GND", "V12"]} rot={90} label="12V" />
+    <Jst name="J11" x={-29.5} y={42.65} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={0} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
         a vertical 2-resistor series: 2.2k (input, bottom) -> midpoint -> 3.3k (to
         GND, top) -> 5*3.3/5.5 = 3.0 V (safely under 3.3 V, still a valid logic HIGH
         for DOUT). The midpoint taps right into the ESP; AOUT: R1/R2 -> IO39, DOUT:
         R3/R4 -> IO36 (IO36/IO39, the ADC1 pins on the ESP top row, just below where the dividers now sit). */}
-    <resistor name="R1" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={0} {...at(-21.8, 40.9)} />
-    <resistor name="R2" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={0} {...at(-21.8, 44.4)} />
-    <resistor name="R3" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={0} {...at(-12.8, 40.9)} />
-    <resistor name="R4" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={0} {...at(-12.8, 44.4)} />
+    <resistor name="R1" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={0} {...at(-19.5, 40.9)} />
+    <resistor name="R2" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={0} {...at(-19.5, 44.4)} />
+    <resistor name="R3" resistance="2.2k" footprint="axial_p2.54mm" pcbRotation={0} {...at(-10.5, 40.9)} />
+    <resistor name="R4" resistance="3.3k" footprint="axial_p2.54mm" pcbRotation={0} {...at(-10.5, 44.4)} />
 
     {/* 3V3 rail -> inner1 plane. ESP 3V3 sources it; the I2C devices (both MCPs,
         DS3231), RS485, and the sensor loom common to it at their barrels. */}
@@ -149,7 +149,8 @@ export default () => (
     <trace from=".J5 > .IO16" to=".U1B > .IO16" />
     <trace from=".J5 > .GND" to="net.GND" />
 
-    {/* POWER in: 5V via the plane; ground here */}
+    {/* 5V in (J8, labeled "5V" to pair with the "12V" connector): rail via the
+        plane; ground here */}
     <trace from=".J8 > .GND" to="net.GND" />
 
     {/* REEDS A (reservoir A) -> 0x20 GPB inputs */}
