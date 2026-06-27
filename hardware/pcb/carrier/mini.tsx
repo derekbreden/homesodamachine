@@ -464,20 +464,23 @@ export default () => (
       {route_type:"wire",x:-11.75,y:44.4,width:0.2,layer:"top"},
     ]} />
 
-    {/* V12 HF decoupling: two through-hole 0.1uF ceramics in the open pockets of
-        the V12 island, one near each ULN. Each de-energizing solenoid dumps its
-        coil energy through the ULN clamp diode into V12; these snub the fast edge /
-        rail bounce that the bulk reservoir can't. pin1 sits inside the V12 island
-        (the top pour floods to its barrel), pin2 commons to the GND plane — no
-        routing, no vias, same barrel-pickup as every other power pin. The low-
-        frequency BULK reservoir (470uF, BOM 1) mounts across the ULN module
-        COM->GND pins at build; the island has no room for a 10mm radial. */}
+    {/* V12 decoupling. HF: two 0.1uF ceramics (C1/C2) in the V12 island pockets,
+        one by each ULN, snubbing the fast solenoid-turn-off edge. BULK: a 470uF
+        low-ESR electrolytic (C3, BOM 1) in the open valley between the two ULNs it
+        feeds, soaking the inrush + flyback dump the ceramics can't. Every pin1 ->
+        V12, pin2 -> GND plane — no routing, no vias, barrel pickup like every power
+        pin; the top pour floods to each pin1 barrel (a left finger of the island
+        reaches C3 between the chips). C3 is polarized: pin1 (+) is V12. */}
     <capacitor name="C1" capacitance="0.1uF" footprint="axial_p2.54mm" pcbRotation={90} {...at(52.8, -26)} />
     <capacitor name="C2" capacitance="0.1uF" footprint="axial_p2.54mm" pcbRotation={90} {...at(52.8, 6.7)} />
+    <capacitor name="C3" capacitance="470uF" footprint="radial_p5.08mm" {...at(39.65, 1.17)} />
+    <silkscreentext text="+" fontSize="1.6mm" pcbX={33.5} pcbY={1.17} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
     <trace from=".C2 > .pin1" to="net.V12" />
     <trace from=".C2 > .pin2" to="net.GND" />
+    <trace from=".C3 > .pin1" to="net.V12" />
+    <trace from=".C3 > .pin2" to="net.GND" />
 
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
         monocolor silk via logo.ts) centered over the centered name + version,
@@ -501,7 +504,7 @@ export default () => (
     <trace from=".J10 > .V12" to="net.V12" />
     <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" boardEdgeMargin="0.5mm" />
     <copperpour name="V12PLANE" layer="top" connectsTo="net.V12"
-      outline={[{ x: 47, y: -33.2 }, { x: 60, y: -33.2 }, { x: 60, y: 35.6 }, { x: 47, y: 35.6 }]} />
+      outline={[{ x: 47, y: -33.2 }, { x: 60, y: -33.2 }, { x: 60, y: 35.6 }, { x: 47, y: 35.6 }, { x: 47, y: 7 }, { x: 35, y: 7 }, { x: 35, y: -4 }, { x: 47, y: -4 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
   </board>
