@@ -40,8 +40,7 @@ export function boardVersion(): string {
       .split("\n")
       .map((l) => l.slice(3))
       .some((p) => p && !regenerated.test(p))
-    const modified = sourceDirty ? "+" : ""
-    return `${date} ${rev}${modified}`
+    return `${date} ${rev}`
   } catch {
     return `${buildDate()} unknown`
   }
