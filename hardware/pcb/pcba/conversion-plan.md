@@ -26,9 +26,11 @@ imported until each module is converted. The carrier's render pipeline + patches
 against the copy. First render matches the carrier.
 
 ### 1 — Through-hole passives → SMD
-R1–R4 (2.2k/3.3k) → 0603; C1/C2 (0.1 µF) → 0805; C3 (470 µF / 25 V) → SMD
-aluminium-polymer, same valley between the ULNs. Same nets, same positions; C3 polarity
-and body height.
+R1–R4 (2.2k/3.3k) → 0603 (C4190 / C22978, Basic); C1/C2 (0.1 µF) → 0805 (C49678, Basic).
+C3 (470 µF / 25 V) stays radial THT — the JLCPCB-library SMD electrolytics are Extended
+only (see [`jlcpcb-parts.md`](jlcpcb-parts.md)); it rides the connector THT pass and keeps
+its barrel plane-stitch. Each SMD pad on a plane net (the GND legs) takes an explicit
+via-in-pad to the plane — see [`plane-stitching.md`](plane-stitching.md).
 
 ### 2 — ULN2803A ×2 → SOIC-18
 The 18 module pins (8 IN, 8 OUT, GND, COM) → the 18 SOIC pads, same nets. Flyback diodes
