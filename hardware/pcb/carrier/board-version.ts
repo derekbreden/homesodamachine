@@ -4,15 +4,10 @@
  * displays and the iOS app do.
  *
  * Format: `YYYY.MM.DD <short-sha>[+]` — HEAD's commit date and short SHA, with
- * a trailing `+` when the working tree has uncommitted edits. A clean version
- * is a pure function of the commit: the date is the commit's own date, so it
- * can never drift from the SHA it names, and a fabbed board reporting it pins
- * the gerbers to exactly one source tree. A trailing `+` means it was rendered
- * from that commit "and then some" — the board is the named commit plus
- * uncommitted edits, likely the next commit rather than the one listed (a
- * clarification, not a warning — nothing is wrong); commit, then re-render, to
- * stamp a clean SHA. Falls back to the build date + "unknown" off-repo, exactly
- * as pre_build.py does.
+ * a trailing `+` when the board's design source (this directory, excluding the
+ * regenerated out/ and *.circuit.json) has uncommitted edits. The date is the
+ * commit's own date; `+` is that commit plus uncommitted source edits. Off-repo,
+ * the build date + "unknown".
  *
  * Computed at render time (mini.tsx calls boardVersion() for its identity silk),
  * the board analogue of pre_build.py generating fw_version.h before a firmware
@@ -40,7 +35,12 @@ export function boardVersion(): string {
     } catch {
       date = buildDate()
     }
-    const modified = run("status --porcelain").length > 0 ? "+" : ""
+    const regenerated = /(^|\/)out\/|\.circuit\.json$/ // out/ renders + circuit-json caches
+    const sourceDirty = run("status --porcelain .")
+      .split("\n")
+      .map((l) => l.slice(3))
+      .some((p) => p && !regenerated.test(p))
+    const modified = sourceDirty ? "+" : ""
     return `${date} ${rev}${modified}`
   } catch {
     return `${buildDate()} unknown`
