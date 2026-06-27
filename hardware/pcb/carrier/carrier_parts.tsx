@@ -50,10 +50,9 @@ export const dsH6 = ["32K", "SQW", "SCL", "SDA", "VCC", "GND"]
 export const dsH4 = ["SCL", "SDA", "VCC", "GND"]
 export const rs485T = ["VCC", "TXD", "RXD", "GND"]
 export const rs485L = ["A", "B", "Earth"]
-// Module reads GND(top) / IO / VCC(bottom); the array runs pin1->pin3 in the
-// order a pinrow at pcbRotation 90 actually lays them out (pin1 at the bottom/
-// VCC end), so the labelled pad lands on the module's matching physical pin.
-export const buzz = ["VCC", "IO", "GND"]
+// 3-pin header across the body's +Y end; pin1->pin3 run GND/IO/VCC from -X to
+// +X, matching the module's pad order so each labelled pad lands on its pin.
+export const buzz = ["GND", "IO", "VCC"]
 
 // A stroked rectangle on the silk layer — the module's PCB outline.
 export const Outline = ({ x, y, w, h }: { x: number; y: number; w: number; h: number }) => (
@@ -180,16 +179,14 @@ export const Rs485 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: num
 }
 
 // ---- DIYables passive piezo buzzer module (13 x 32) ------------------------
-// 3-pin header (GND/IO/VCC, top->bottom) clustered near one short end; a single
-// dia-4.2 mounting hole sits mid-body. The I/O pin takes a PWM tone straight
-// from an ESP GPIO (LEDC) — VCC is the 5 V rail, GND the logic ground. Pin and
-// hole offsets are the module's own (13 x 32, corner origin) re-expressed about
-// its centre (6.5, 16.0): hole (6.5,16.6)->(0,0.6); pins at x4 -> x-2.5, GND
-// y9.04->-6.96 / IO y6.50->-9.50 / VCC y3.96->-12.04.
+// 3-pin header (GND/IO/VCC) across the +Y short end; a dia-4.2 mounting hole
+// just below body centre; "BUZZER" tucked into the empty -Y end clear of both.
+// The I/O pin takes a PWM tone straight from an ESP GPIO (LEDC) — VCC is the 5 V
+// rail, GND the logic ground.
 export const Buzzer = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => {
   const o = (ox: number, oy: number) => rotxy(ox, oy, rot)
   const [w, h] = rot % 180 === 0 ? [13, 32] : [32, 13]
-  const hM = o(0, 0.6), pP = o(0, -12.5), lbl = o(0, 9)
+  const hM = o(0, -0.6), pP = o(0, 12.5), lbl = o(0, -9)
   return (
     <>
       <Outline x={x} y={y} w={w} h={h} />
@@ -220,11 +217,17 @@ export const Jst = ({ name, x, y, count, labels, rot = 0, label, labelDir }: { n
   const [lx, ly] = vertical
     ? [(labelDir ?? (-Math.sign(x) || -1)) * off, 0]
     : [0, (labelDir ?? (-Math.sign(y) || -1)) * off]
+  // The footprinter auto-places the ref-des one pitch off the row's +Y side.
+  // For the bottom row that lands on the interior, crowding the function label,
+  // so there we drop it (norefdes) and place it ourselves one pitch off the
+  // outward (-Y) side — matching how the top row's ref-des sits on the edge.
+  const refInterior = !vertical && Math.sign(y) < 0
   return (
     <>
-      <pinheader name={name} pinCount={count} pitch="2.54mm" gender="male" footprint={`pinrow${count}`} pcbRotation={rot} pinLabels={labels} {...at(x, y)} />
+      <pinheader name={name} pinCount={count} pitch="2.54mm" gender="male" footprint={refInterior ? `pinrow${count}_norefdes` : `pinrow${count}`} pcbRotation={rot} pinLabels={labels} {...at(x, y)} />
       <Outline x={x} y={y} w={w} h={h} />
       <silkscreentext text={label} fontSize="1.4mm" pcbX={x + lx} pcbY={y + ly} pcbRotation={vertical ? 270 : 0} />
+      {refInterior && <silkscreentext text={name} fontSize="0.8mm" pcbX={x} pcbY={y - 2.54} pcbRotation={0} />}
     </>
   )
 }

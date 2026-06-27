@@ -10,8 +10,11 @@ index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2
 diff --git a/node_modules/@tscircuit/core/.bun-tag-d8ee55b5ad48cd97 b/.bun-tag-d8ee55b5ad48cd97
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/@tscircuit/core/.bun-tag-e7d150fbb953f5c9 b/.bun-tag-e7d150fbb953f5c9
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/dist/index.js b/dist/index.js
-index c7b53b7a6db997fd2924cd638de3d2f0757d8682..234bcbbcdaa6fd33ec558152caadde2e93eb954a 100644
+index c7b53b7a6db997fd2924cd638de3d2f0757d8682..02b256d970bddd0726998acf66203ffa3fa3d64a 100644
 --- a/dist/index.js
 +++ b/dist/index.js
 @@ -7174,6 +7174,11 @@ var PcbTrace = class extends PrimitiveComponent2 {
@@ -26,7 +29,18 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..234bcbbcdaa6fd33ec558152caadde2e
    }
    getPcbSize() {
      const { _parsedProps: props } = this;
-@@ -16046,6 +16051,53 @@ var getSimpleRouteJsonFromCircuitJson = ({
+@@ -10111,6 +10116,10 @@ var calculateCcwRotation = (componentRotationStr, elementCcwRotation) => {
+     totalRotation = componentAngle;
+   }
+   const normalizedRotation = (totalRotation % 360 + 360) % 360;
++  // carrier: vertical footprint silk always reads top-to-bottom (270), never
++  // bottom-to-top (90) — so a part's auto ref-des reads the same direction as
++  // its pin labels (the footprinter bakes those two with opposite rotations).
++  if (normalizedRotation === 90) return 270;
+   return normalizedRotation;
+ };
+ var optional = (value) => value ?? void 0;
+@@ -16046,6 +16055,53 @@ var getSimpleRouteJsonFromCircuitJson = ({
        conn.externallyConnectedPointIds.push([...tracePortIds]);
      }
    }
@@ -80,7 +94,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..234bcbbcdaa6fd33ec558152caadde2e
    const resolvedMinViaHoleDiameter = minViaHoleDiameter ?? board?.min_via_hole_diameter;
    const resolvedMinViaPadDiameter = minViaPadDiameter ?? board?.min_via_pad_diameter;
    const resolvedMinTraceToPadEdgeClearance = minTraceToPadEdgeClearance ?? board?.min_trace_to_pad_edge_clearance;
-@@ -16058,7 +16110,7 @@ var getSimpleRouteJsonFromCircuitJson = ({
+@@ -16058,7 +16114,7 @@ var getSimpleRouteJsonFromCircuitJson = ({
      simpleRouteJson: {
        bounds,
        obstacles,
@@ -89,7 +103,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..234bcbbcdaa6fd33ec558152caadde2e
        traces: descendantTraces.length > 0 ? descendantTraces : void 0,
        layerCount: board?.num_layers ?? 2,
        minTraceWidth: minTraceWidth ?? board?.min_trace_width ?? 0.1,
-@@ -22355,6 +22407,44 @@ var Group5 = class extends NormalComponent3 {
+@@ -22355,6 +22411,44 @@ var Group5 = class extends NormalComponent3 {
        subcircuit_id: this.subcircuit_id,
        subcircuitComponent: this
      });
