@@ -449,10 +449,15 @@ export async function refetchOpenPcb(source) {
   state.currentPcbPicks = picks;
   updateDimsChip(state.currentPcbWrapper, picks);
 
+  // If the showing plane is gone, fall back to the overlay (always present).
+  const present = orderedViews(board).map((e) => e.view).filter((v) => views[v]);
+  const view = views[prevView] ? prevView : "overlay";
+
   // Rebuild the toggle when the available planes changed (a layer added or
   // removed), so new buttons appear and dead ones go away; leave it untouched
   // when the set is identical (the common case — a geometry-only re-render).
-  const present = orderedViews(board).map((e) => e.view).filter((v) => views[v]);
+  // Either way re-sync the active button: a remount below would, but the
+  // unchanged-view path skips it, and a freshly built toggle starts blank.
   if (state.currentPcbToggle) {
     const shown = [...state.currentPcbToggle.querySelectorAll(".pcb-view-btn")].map((b) => b.dataset.view);
     if (shown.join() !== present.join()) {
@@ -460,9 +465,8 @@ export async function refetchOpenPcb(source) {
       state.currentPcbToggle.replaceWith(fresh);
       state.currentPcbToggle = fresh;
     }
+    syncToggle(state.currentPcbToggle, view);
   }
-  // If the showing plane is gone, fall back to the overlay (always present).
-  const view = views[prevView] ? prevView : "overlay";
 
   // The board re-rendered underneath us: drop any stale selection (its geometry
   // may be gone) so the inspector doesn't keep a dead highlight, then rebuild
