@@ -27,10 +27,15 @@ export function backSilkBoardTsx(circuit: any[]): string {
   const els: string[] = []
   for (const e of circuit) {
     if (e.type === "pcb_silkscreen_text" && e.layer === "top" && e.text) {
+      // Preserve the front text's anchor — anchor_position is that anchor's
+      // point, not necessarily the center. Re-emitting a corner-anchored label
+      // (e.g. the bottom_right board nameplate) as "center" would place its
+      // centre where its corner was, throwing half the text off the board edge.
       els.push(
         `    <silkscreentext layer="bottom" text={${JSON.stringify(e.text)}} ` +
           `pcbX={${n(e.anchor_position.x)}} pcbY={${n(e.anchor_position.y)}} ` +
-          `fontSize="${n(e.font_size)}mm" pcbRotation={${e.ccw_rotation || 0}} anchorAlignment="center" />`,
+          `fontSize="${n(e.font_size)}mm" pcbRotation={${e.ccw_rotation || 0}} ` +
+          `anchorAlignment=${JSON.stringify(e.anchor_alignment || "center")} />`,
       )
     } else if (e.type === "pcb_silkscreen_path" && e.layer === "top") {
       const route = JSON.stringify((e.route || []).map((p: any) => ({ x: n(p.x), y: n(p.y) })))
