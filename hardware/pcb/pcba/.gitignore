@@ -1,0 +1,49 @@
+# dependencies
+node_modules
+
+# tscircuit build cache + local registry/parts cache
+dist
+.tscircuit
+*.tsbuildinfo
+.cache
+
+# out/ keeps ONLY the real board's render outputs (render-board.ts: the copper
+# views + gerbers + picks). Everything else is regenerable and an upload
+# decoy — other tsci export formats, the empty render of the carrier_parts
+# footprint helper (it has no board), and any _-prefixed scratch board. So:
+# ignore all of out/, then whitelist exactly pcba's artifacts (top/bottom/overlay
+# plus the inner-plane views on the 4-layer board).
+out/*
+!out/pcba.top.svg
+!out/pcba.top.png
+!out/pcba.bottom.svg
+!out/pcba.bottom.png
+!out/pcba.overlay.svg
+!out/pcba.overlay.png
+!out/pcba.inner1.svg
+!out/pcba.inner1.png
+!out/pcba.inner2.svg
+!out/pcba.inner2.png
+!out/pcba.gerbers.zip
+!out/pcba.picks.json
+
+# tscircuit circuit-json is a regenerable intermediate — render-board re-exports
+# it every run for the back-silk + pick synthesis, so it drifts and bloats.
+# Never committed (same policy as the tsci exports above).
+*.circuit.json
+
+# misc
+*.circuit.tmp.json
+*.tgz
+coverage
+*.lcov
+.env
+.env.*.local
+logs
+*.log
+.DS_Store
+.idea
+
+# atomic-write / clearance-sweep scratch (._foo.tsx working copies, *.tmp.* renames)
+._*
+*.tmp.tsx
