@@ -30,4 +30,6 @@ passes assembly DFM.
 - [`conversion-plan.md`](conversion-plan.md) — the modules in order, what each becomes,
   what's involved.
 - [`esp32-scope.md`](esp32-scope.md) — what the base ESP32 uses, and the SMD block.
+- [`jlcpcb-parts.md`](jlcpcb-parts.md) — the JLCPCB parts library reference: the LCSC
+  part each component maps to, library type, and how each was found. Grows per step.
 - Per-step specs (`uln2803.md`, `mcp23017.md`, …) land here as steps are taken.
