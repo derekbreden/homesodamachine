@@ -7,8 +7,14 @@ index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2
 diff --git a/node_modules/@tscircuit/cli/.bun-tag-8dcffd970c258935 b/.bun-tag-8dcffd970c258935
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/@tscircuit/cli/.bun-tag-de7a6a7caf613c1c b/.bun-tag-de7a6a7caf613c1c
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/@tscircuit/cli/.bun-tag-e781972174b49464 b/.bun-tag-e781972174b49464
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/dist/cli/main.js b/dist/cli/main.js
-index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..751986e39b1af0616444b6efe4e26f9051661e88 100755
+index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..1364113d4cb171ec2c70c75d36c5b4e1773bd877 100755
 --- a/dist/cli/main.js
 +++ b/dist/cli/main.js
 @@ -255845,6 +255845,12 @@ var layerAndTypeToFileFunction = {
@@ -87,7 +93,7 @@ index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..751986e39b1af0616444b6efe4e26f90
 -      }
 -      return width + fontSize + letterSpacing;
 -    }, 0) - letterSpacing;
-+    const letterSpacing = fontSize * 0.24;
++    const letterSpacing = fontSize * 0.3;
 +    const spaceWidth = (HERSHEY[" "] ? HERSHEY[" "].w : 0.5) * fontSize;
 +    const _hsW = (c) => c === " " ? spaceWidth : (HERSHEY[c] || HERSHEY["?"]).w * fontSize;
 +    const textWidth = element.text.toUpperCase().split("").reduce((width, char) => width + _hsW(char) + letterSpacing, 0) - letterSpacing;
