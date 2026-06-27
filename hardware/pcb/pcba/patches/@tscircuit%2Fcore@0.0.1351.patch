@@ -1,0 +1,150 @@
+diff --git a/node_modules/@tscircuit/core/.bun-tag-812649e809f49b8d b/.bun-tag-812649e809f49b8d
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/@tscircuit/core/.bun-tag-c78b4bfb32a68812 b/.bun-tag-c78b4bfb32a68812
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/@tscircuit/core/.bun-tag-d637b02405e7afd7 b/.bun-tag-d637b02405e7afd7
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/@tscircuit/core/.bun-tag-d8ee55b5ad48cd97 b/.bun-tag-d8ee55b5ad48cd97
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/@tscircuit/core/.bun-tag-e7d150fbb953f5c9 b/.bun-tag-e7d150fbb953f5c9
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/dist/index.js b/dist/index.js
+index c7b53b7a6db997fd2924cd638de3d2f0757d8682..02b256d970bddd0726998acf66203ffa3fa3d64a 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -7174,6 +7174,11 @@ var PcbTrace = class extends PrimitiveComponent2 {
+       pcb_group_id: this.getGroup()?.pcb_group_id ?? void 0
+     });
+     this.pcb_trace_id = pcb_trace.pcb_trace_id;
++    for (const point6 of transformedRoute) {
++      if (point6.route_type === "via") {
++        db.pcb_via.insert({ pcb_trace_id: pcb_trace.pcb_trace_id, x: point6.x, y: point6.y, hole_diameter: point6.via_hole_diameter ?? 0.3, outer_diameter: point6.via_diameter ?? 0.5, layers: [point6.from_layer, point6.to_layer], from_layer: point6.from_layer, to_layer: point6.to_layer });
++      }
++    }
+   }
+   getPcbSize() {
+     const { _parsedProps: props } = this;
+@@ -10111,6 +10116,10 @@ var calculateCcwRotation = (componentRotationStr, elementCcwRotation) => {
+     totalRotation = componentAngle;
+   }
+   const normalizedRotation = (totalRotation % 360 + 360) % 360;
++  // carrier: vertical footprint silk always reads top-to-bottom (270), never
++  // bottom-to-top (90) — so a part's auto ref-des reads the same direction as
++  // its pin labels (the footprinter bakes those two with opposite rotations).
++  if (normalizedRotation === 90) return 270;
+   return normalizedRotation;
+ };
+ var optional = (value) => value ?? void 0;
+@@ -16046,6 +16055,53 @@ var getSimpleRouteJsonFromCircuitJson = ({
+       conn.externallyConnectedPointIds.push([...tracePortIds]);
+     }
+   }
++  let routedConns = allConns;
++  if (subcircuitComponent) {
++    const pouredReps = /* @__PURE__ */ new Set();
++    for (const cp of subcircuitComponent.selectAll("copperpour")) {
++      let pouredNet;
++      try { pouredNet = cp.getSubcircuit().selectOne(cp._parsedProps.connectsTo); } catch {}
++      if (pouredNet?.source_net_id) {
++        pouredReps.add(connMap.getNetConnectedToId(pouredNet.source_net_id) ?? pouredNet.source_net_id);
++      }
++    }
++    // PATCH(homesodamachine): second-pass carve. A manual <pcbtrace> hand-routes a
++    // connection the capacity autorouter packs badly; carve that connection out so
++    // the autorouter leaves it alone and the clean pcbtrace copper is the only copper
++    // on it. The pcbtrace's first/last wire points land on the connection's two pads,
++    // so we match a connection's pointsToConnect xy against pcbtrace endpoints. The
++    // <trace> stays as the canonical netlist. See clean-pass.ts (the route generator).
++    const manualEnds = [];
++    for (const pt of subcircuitComponent.selectAll("pcbtrace")) {
++      const route = pt._parsedProps?.route;
++      if (!Array.isArray(route)) continue;
++      const w = route.filter((p) => p && p.route_type === "wire" && typeof p.x === "number" && typeof p.y === "number");
++      if (w.length >= 2) manualEnds.push([w[0], w[w.length - 1]]);
++    }
++    const nearPt = (a, b) => a && b && Math.abs(a.x - b.x) < 0.06 && Math.abs(a.y - b.y) < 0.06;
++    const connIsManual = (conn) => {
++      const ps = conn.pointsToConnect;
++      if (!ps || ps.length !== 2) return false;
++      for (const [s, e] of manualEnds)
++        if ((nearPt(ps[0], s) && nearPt(ps[1], e)) || (nearPt(ps[0], e) && nearPt(ps[1], s))) return true;
++      return false;
++    };
++    const connIsPoured = (conn) => {
++      for (const pt of conn.pointsToConnect) {
++        const id = pt.pcb_port_id ?? pt.pointId;
++        if (!id) continue;
++        const rep = connMap.getNetConnectedToId(id);
++        if (rep && pouredReps.has(rep)) return true;
++      }
++      return false;
++    };
++    if (pouredReps.size > 0 || manualEnds.length > 0) {
++      routedConns = allConns.filter((conn) => !connIsPoured(conn) && !connIsManual(conn));
++      if (process.env.POUR_SKIP_DEBUG) {
++        console.error(`[pour-skip] pouredReps=${pouredReps.size} manual=${manualEnds.length} allConns=${allConns.length} routed=${routedConns.length} skipped=${allConns.length - routedConns.length}`);
++      }
++    }
++  }
+   const resolvedMinViaHoleDiameter = minViaHoleDiameter ?? board?.min_via_hole_diameter;
+   const resolvedMinViaPadDiameter = minViaPadDiameter ?? board?.min_via_pad_diameter;
+   const resolvedMinTraceToPadEdgeClearance = minTraceToPadEdgeClearance ?? board?.min_trace_to_pad_edge_clearance;
+@@ -16058,7 +16114,7 @@ var getSimpleRouteJsonFromCircuitJson = ({
+     simpleRouteJson: {
+       bounds,
+       obstacles,
+-      connections: allConns,
++      connections: routedConns,
+       traces: descendantTraces.length > 0 ? descendantTraces : void 0,
+       layerCount: board?.num_layers ?? 2,
+       minTraceWidth: minTraceWidth ?? board?.min_trace_width ?? 0.1,
+@@ -22355,6 +22411,44 @@ var Group5 = class extends NormalComponent3 {
+       subcircuit_id: this.subcircuit_id,
+       subcircuitComponent: this
+     });
++    {
++      // PATCH(homesodamachine): plumb autorouter.traceClearance -> the capacity
++      // solver's defaultObstacleMargin + minTraceToPadEdgeClearance so trace
++      // spacing is tunable, decoupled from minTraceWidth (the drawn copper width).
++      // Stock core never sets these, pinning the realized floor at ~0.115mm.
++      // See hardware/pcb/carrier/_clrsweep.ts for the sweep that found 0.3mm.
++      const _tc = props.autorouter && typeof props.autorouter === "object" ? props.autorouter.traceClearance : void 0;
++      if (typeof _tc === "number" && _tc > 0) {
++        baseSimpleRouteJson.defaultObstacleMargin = _tc;
++        baseSimpleRouteJson.minTraceToPadEdgeClearance = _tc;
++      }
++      // PATCH(homesodamachine): cap the autorouter's usable layer count
++      // independently of the board's num_layers, so a 4-layer board can keep
++      // signals on top+bottom while inner layers stay pure copper pours (planes).
++      // Without this the capacity router freely routes on inner1/inner2 and
++      // slices the power planes. autorouter.layerCount=2 -> route top+bottom only.
++      // PATCH(homesodamachine): present a 2-layer (top/bottom) routing view while the
++      // board stays 4-layer for copper pours. The capacity router routes contiguous
++      // z-layers and would run signals across the inner planes; a full-board obstacle
++      // blocks via landings too. Instead we STRIP the poured inner layers from the
++      // routing obstacle model and cap layerCount to the outer copper, so signals
++      // route on top+bottom with normal through-vias and inner1/inner2 stay pure
++      // copperpour planes (the pours are separate entities, untouched by this).
++      try {
++        const pouredInner = /* @__PURE__ */ new Set();
++        for (const cp of this.selectAll("copperpour")) {
++          const ly = cp._parsedProps && cp._parsedProps.layer;
++          if (typeof ly === "string" && ly.indexOf("inner") === 0) pouredInner.add(ly);
++        }
++        if (pouredInner.size > 0 && Array.isArray(baseSimpleRouteJson.obstacles)) {
++          baseSimpleRouteJson.obstacles = baseSimpleRouteJson.obstacles
++            .map((o) => o.layers ? { ...o, layers: o.layers.filter((l) => !pouredInner.has(l)) } : o)
++            .filter((o) => !o.layers || o.layers.length > 0);
++          baseSimpleRouteJson.layerCount = Math.max(2, (baseSimpleRouteJson.layerCount || 4) - pouredInner.size);
++          if (process.env.PATCH_DEBUG) console.error(`[patch] 2-layer routing view: stripped ${[...pouredInner].join(",")}, layerCount=${baseSimpleRouteJson.layerCount}`);
++        }
++      } catch (e) { if (process.env.PATCH_DEBUG) console.error("[patch] inner-strip error", String(e)); }
++    }
+     const routingPhasePlans = this._getRoutingPhasePlans();
+     const hasPhasedAutorouting = Group_hasPhasedAutorouting(routingPhasePlans);
+     const outputTraces = [];
