@@ -106,9 +106,7 @@ export const Mcp23017 = ({ name, x, y, addr, rot = 0 }: { name: string; x: numbe
   return (
     <>
       <Outline x={x} y={y} w={w} h={h} />
-      {/* 2.2 mm (vs the other modules' 2.6): the 8-char name has to clear both
-          pin-label columns now that they read inward, into the narrow body. */}
-      <silkscreentext text={`MCP ${addr}`} fontSize="2.2mm" pcbX={x} pcbY={y} />
+      <silkscreentext text={`MCP ${addr}`} fontSize="2.6mm" pcbX={x} pcbY={y} />
       <hole shape="circle" diameter="2mm" pcbX={x + hA[0]} pcbY={y + hA[1]} />
       <hole shape="circle" diameter="2mm" pcbX={x + hB[0]} pcbY={y + hB[1]} />
       {/* Labels read toward the body centre (inside the fence): the +X GPA row
