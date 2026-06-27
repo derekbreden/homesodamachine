@@ -74,6 +74,18 @@ const CASES: Record<string, any> = {
     ],
     region: { x0: -52, x1: -12, y0: 9, y1: 45 },
   },
+  // GAS divider network: J11.AOUT/DOUT -> R1/R3 -> midpoints -> R2/R4 (GND legs stay
+  // on the plane) and the two midpoint taps drop ~30mm straight down to the ESP ADC
+  // pins IO39/IO36. The taps are the nesty runs; DOUT must also reach R3 past R1/R2.
+  divider: {
+    ...COMMON,
+    pairs: [
+      { from: "R1.pin2", to: "U1A.IO39" }, { from: "R3.pin2", to: "U1A.IO36" },
+      { from: "J11.AOUT", to: "R1.pin1" }, { from: "J11.DOUT", to: "R3.pin1" },
+      { from: "R1.pin2", to: "R2.pin1" }, { from: "R3.pin2", to: "R4.pin1" },
+    ],
+    region: { x0: -27, x1: -7, y0: 9, y1: 46 },
+  },
 }
 const SPEC = CASES[process.argv[2] || "j6"]
 if (!SPEC) { console.error(`unknown case "${process.argv[2]}" — have: ${Object.keys(CASES).join(", ")}`); process.exit(1) }

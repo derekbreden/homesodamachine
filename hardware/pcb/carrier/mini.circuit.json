@@ -29817,6 +29817,192 @@
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
+    "type": "pcb_trace",
+    "pcb_trace_id": "pcb_trace_28",
+    "pcb_component_id": null,
+    "route": [
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -15.15,
+        "y": 40.9,
+        "start_pcb_port_id": "pcb_port_204"
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -15.9,
+        "y": 40.2
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -15.91,
+        "y": 11.7,
+        "end_pcb_port_id": "pcb_port_25"
+      }
+    ],
+    "subcircuit_id": "subcircuit_source_group_0"
+  },
+  {
+    "type": "pcb_trace",
+    "pcb_trace_id": "pcb_trace_29",
+    "pcb_component_id": null,
+    "route": [
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -9.21,
+        "y": 40.9,
+        "start_pcb_port_id": "pcb_port_208"
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -13.4,
+        "y": 36.7
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -13.37,
+        "y": 11.7,
+        "end_pcb_port_id": "pcb_port_26"
+      }
+    ],
+    "subcircuit_id": "subcircuit_source_group_0"
+  },
+  {
+    "type": "pcb_trace",
+    "pcb_trace_id": "pcb_trace_30",
+    "pcb_component_id": null,
+    "route": [
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -25.2,
+        "y": 42.65,
+        "start_pcb_port_id": "pcb_port_201"
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -23.5,
+        "y": 40.9
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -17.69,
+        "y": 40.9,
+        "end_pcb_port_id": "pcb_port_203"
+      }
+    ],
+    "subcircuit_id": "subcircuit_source_group_0"
+  },
+  {
+    "type": "pcb_trace",
+    "pcb_trace_id": "pcb_trace_31",
+    "pcb_component_id": null,
+    "route": [
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -22.66,
+        "y": 42.65,
+        "start_pcb_port_id": "pcb_port_202"
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -13.4,
+        "y": 42.6
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -11.75,
+        "y": 40.9,
+        "end_pcb_port_id": "pcb_port_207"
+      }
+    ],
+    "subcircuit_id": "subcircuit_source_group_0"
+  },
+  {
+    "type": "pcb_trace",
+    "pcb_trace_id": "pcb_trace_32",
+    "pcb_component_id": null,
+    "route": [
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "bottom",
+        "x": -15.15,
+        "y": 40.9,
+        "start_pcb_port_id": "pcb_port_204"
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "bottom",
+        "x": -17.7,
+        "y": 43.4
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "bottom",
+        "x": -17.69,
+        "y": 44.4,
+        "end_pcb_port_id": "pcb_port_205"
+      }
+    ],
+    "subcircuit_id": "subcircuit_source_group_0"
+  },
+  {
+    "type": "pcb_trace",
+    "pcb_trace_id": "pcb_trace_33",
+    "pcb_component_id": null,
+    "route": [
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -9.21,
+        "y": 40.9,
+        "start_pcb_port_id": "pcb_port_208"
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -11.7,
+        "y": 43.4
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -11.75,
+        "y": 44.4,
+        "end_pcb_port_id": "pcb_port_209"
+      }
+    ],
+    "subcircuit_id": "subcircuit_source_group_0"
+  },
+  {
     "type": "pcb_port",
     "pcb_port_id": "pcb_port_0",
     "pcb_component_id": "pcb_component_0",
@@ -33991,337 +34177,6 @@
   },
   {
     "type": "pcb_trace",
-    "pcb_trace_id": "source_trace_124__source_trace_125_mst0_0",
-    "connection_name": "source_trace_124__source_trace_125",
-    "route": [
-      {
-        "route_type": "wire",
-        "x": -11.75,
-        "y": 44.4,
-        "width": 0.2,
-        "layer": "top",
-        "start_pcb_port_id": "pcb_port_209"
-      },
-      {
-        "route_type": "wire",
-        "x": -11.75,
-        "y": 43.44,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -9.21,
-        "y": 40.9,
-        "width": 0.2,
-        "layer": "top",
-        "end_pcb_port_id": "pcb_port_208"
-      }
-    ],
-    "subcircuit_id": "subcircuit_source_group_0",
-    "source_trace_id": "source_trace_124"
-  },
-  {
-    "type": "pcb_trace",
-    "pcb_trace_id": "source_trace_124__source_trace_125_mst1_0",
-    "connection_name": "source_trace_124__source_trace_125",
-    "route": [
-      {
-        "route_type": "wire",
-        "x": -13.369999999999997,
-        "y": 11.7,
-        "width": 0.2,
-        "layer": "top",
-        "start_pcb_port_id": "pcb_port_26"
-      },
-      {
-        "route_type": "wire",
-        "x": -13.369999999999997,
-        "y": 36.74,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -9.21,
-        "y": 40.9,
-        "width": 0.2,
-        "layer": "top",
-        "end_pcb_port_id": "pcb_port_208"
-      }
-    ],
-    "subcircuit_id": "subcircuit_source_group_0",
-    "source_trace_id": "source_trace_125"
-  },
-  {
-    "type": "pcb_trace",
-    "pcb_trace_id": "source_trace_123_0",
-    "connection_name": "source_trace_123",
-    "route": [
-      {
-        "route_type": "wire",
-        "x": -11.75,
-        "y": 40.9,
-        "width": 0.2,
-        "layer": "top",
-        "start_pcb_port_id": "pcb_port_207"
-      },
-      {
-        "route_type": "wire",
-        "x": -11.61342100116207,
-        "y": 40.401913311246275,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -18.35378933923044,
-        "y": 33.513163100458485,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -19.113864768164085,
-        "y": 33.72286476816408,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -19.59770307945267,
-        "y": 34.206703079452666,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -19.599,
-        "y": 34.208,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "via",
-        "x": -19.599,
-        "y": 34.208,
-        "from_layer": "top",
-        "to_layer": "bottom",
-        "via_diameter": 0.5,
-        "via_hole_diameter": 0.3
-      },
-      {
-        "route_type": "wire",
-        "x": -19.599,
-        "y": 34.208,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -19.599,
-        "y": 39.589,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -22.66,
-        "y": 42.65,
-        "width": 0.2,
-        "layer": "bottom",
-        "end_pcb_port_id": "pcb_port_202"
-      }
-    ],
-    "subcircuit_id": "subcircuit_source_group_0",
-    "source_trace_id": "source_trace_123"
-  },
-  {
-    "type": "pcb_trace",
-    "pcb_trace_id": "source_trace_120__source_trace_121_mst0_0",
-    "connection_name": "source_trace_120__source_trace_121",
-    "route": [
-      {
-        "route_type": "wire",
-        "x": -15.150000000000002,
-        "y": 40.9,
-        "width": 0.2,
-        "layer": "top",
-        "start_pcb_port_id": "pcb_port_204"
-      },
-      {
-        "route_type": "wire",
-        "x": -15.150000000000002,
-        "y": 41.86,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -17.69,
-        "y": 44.4,
-        "width": 0.2,
-        "layer": "top",
-        "end_pcb_port_id": "pcb_port_205"
-      }
-    ],
-    "subcircuit_id": "subcircuit_source_group_0",
-    "source_trace_id": "source_trace_120"
-  },
-  {
-    "type": "pcb_trace",
-    "pcb_trace_id": "source_trace_120__source_trace_121_mst1_0",
-    "connection_name": "source_trace_120__source_trace_121",
-    "route": [
-      {
-        "route_type": "wire",
-        "x": -15.150000000000002,
-        "y": 40.9,
-        "width": 0.2,
-        "layer": "top",
-        "start_pcb_port_id": "pcb_port_204"
-      },
-      {
-        "route_type": "wire",
-        "x": -15.150000000000002,
-        "y": 37.97874860975172,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -16.266273680206506,
-        "y": 36.862474929545215,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -16.266273680206506,
-        "y": 36.81772631979349,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -16.308,
-        "y": 36.776,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "via",
-        "x": -16.308,
-        "y": 36.776,
-        "from_layer": "top",
-        "to_layer": "bottom",
-        "via_diameter": 0.5,
-        "via_hole_diameter": 0.3
-      },
-      {
-        "route_type": "wire",
-        "x": -16.308,
-        "y": 36.776,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -16.308,
-        "y": 27.8825767396143,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -15.879825716456745,
-        "y": 27.454402456071044,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -15.879825716456745,
-        "y": 27.39582571645674,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -15.803,
-        "y": 27.319,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "via",
-        "x": -15.803,
-        "y": 27.319,
-        "from_layer": "bottom",
-        "to_layer": "top",
-        "via_diameter": 0.5,
-        "via_hole_diameter": 0.3
-      },
-      {
-        "route_type": "wire",
-        "x": -15.803,
-        "y": 27.319,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -15.803,
-        "y": 11.806999999999999,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -15.91,
-        "y": 11.7,
-        "width": 0.2,
-        "layer": "top",
-        "end_pcb_port_id": "pcb_port_25"
-      }
-    ],
-    "subcircuit_id": "subcircuit_source_group_0",
-    "source_trace_id": "source_trace_121"
-  },
-  {
-    "type": "pcb_trace",
-    "pcb_trace_id": "source_trace_119_0",
-    "connection_name": "source_trace_119",
-    "route": [
-      {
-        "route_type": "wire",
-        "x": -17.69,
-        "y": 40.9,
-        "width": 0.2,
-        "layer": "top",
-        "start_pcb_port_id": "pcb_port_203"
-      },
-      {
-        "route_type": "wire",
-        "x": -23.45,
-        "y": 40.9,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -25.2,
-        "y": 42.65,
-        "width": 0.2,
-        "layer": "top",
-        "end_pcb_port_id": "pcb_port_201"
-      }
-    ],
-    "subcircuit_id": "subcircuit_source_group_0",
-    "source_trace_id": "source_trace_119"
-  },
-  {
-    "type": "pcb_trace",
     "pcb_trace_id": "source_trace_112_0",
     "connection_name": "source_trace_112",
     "route": [
@@ -34882,51 +34737,6 @@
     ],
     "subcircuit_id": "subcircuit_source_group_0",
     "source_trace_id": "source_trace_64"
-  },
-  {
-    "type": "pcb_via",
-    "pcb_via_id": "pcb_via_0",
-    "pcb_trace_id": "source_trace_123_0",
-    "x": -19.599,
-    "y": 34.208,
-    "hole_diameter": 0.3,
-    "outer_diameter": 0.5,
-    "layers": [
-      "top",
-      "bottom"
-    ],
-    "from_layer": "top",
-    "to_layer": "bottom"
-  },
-  {
-    "type": "pcb_via",
-    "pcb_via_id": "pcb_via_1",
-    "pcb_trace_id": "source_trace_120__source_trace_121_mst1_0",
-    "x": -16.308,
-    "y": 36.776,
-    "hole_diameter": 0.3,
-    "outer_diameter": 0.5,
-    "layers": [
-      "top",
-      "bottom"
-    ],
-    "from_layer": "top",
-    "to_layer": "bottom"
-  },
-  {
-    "type": "pcb_via",
-    "pcb_via_id": "pcb_via_2",
-    "pcb_trace_id": "source_trace_120__source_trace_121_mst1_0",
-    "x": -15.803,
-    "y": 27.319,
-    "hole_diameter": 0.3,
-    "outer_diameter": 0.5,
-    "layers": [
-      "bottom",
-      "top"
-    ],
-    "from_layer": "bottom",
-    "to_layer": "top"
   },
   {
     "type": "pcb_copper_pour",
@@ -36410,84 +36220,28 @@
         {
           "vertices": [
             {
-              "x": -19.599,
-              "y": 33.758
+              "x": -22.66,
+              "y": 41.7
             },
             {
-              "x": -19.511209,
-              "y": 33.766647
+              "x": -22.474664,
+              "y": 41.718254
             },
             {
-              "x": -19.426792,
-              "y": 33.792254
+              "x": -22.296451,
+              "y": 41.772314
             },
             {
-              "x": -19.348993,
-              "y": 33.833839
+              "x": -22.132208,
+              "y": 41.860104
             },
             {
-              "x": -19.280802,
-              "y": 33.889802
+              "x": -21.988249,
+              "y": 41.978249
             },
             {
-              "x": -19.224839,
-              "y": 33.957993
-            },
-            {
-              "x": -19.183254,
-              "y": 34.035792
-            },
-            {
-              "x": -19.157647,
-              "y": 34.120209
-            },
-            {
-              "x": -19.149,
-              "y": 34.208
-            },
-            {
-              "x": -19.157647,
-              "y": 34.295791
-            },
-            {
-              "x": -19.183254,
-              "y": 34.380208
-            },
-            {
-              "x": -19.224839,
-              "y": 34.458007
-            },
-            {
-              "x": -19.280802,
-              "y": 34.526198
-            },
-            {
-              "x": -19.299,
-              "y": 34.541133
-            },
-            {
-              "x": -19.299,
-              "y": 39.589
-            },
-            {
-              "x": -19.304764,
-              "y": 39.647527
-            },
-            {
-              "x": -19.321836,
-              "y": 39.703805
-            },
-            {
-              "x": -19.349559,
-              "y": 39.755671
-            },
-            {
-              "x": -19.386868,
-              "y": 39.801132
-            },
-            {
-              "x": -21.813619,
-              "y": 42.227883
+              "x": -21.870104,
+              "y": 42.122208
             },
             {
               "x": -21.782314,
@@ -36592,78 +36346,6 @@
             {
               "x": -22.845336,
               "y": 41.718254
-            },
-            {
-              "x": -22.66,
-              "y": 41.7
-            },
-            {
-              "x": -22.474664,
-              "y": 41.718254
-            },
-            {
-              "x": -22.296451,
-              "y": 41.772314
-            },
-            {
-              "x": -22.237883,
-              "y": 41.803619
-            },
-            {
-              "x": -19.899,
-              "y": 39.464736
-            },
-            {
-              "x": -19.899,
-              "y": 34.541133
-            },
-            {
-              "x": -19.917198,
-              "y": 34.526198
-            },
-            {
-              "x": -19.973161,
-              "y": 34.458007
-            },
-            {
-              "x": -20.014746,
-              "y": 34.380208
-            },
-            {
-              "x": -20.040353,
-              "y": 34.295791
-            },
-            {
-              "x": -20.049,
-              "y": 34.208
-            },
-            {
-              "x": -20.040353,
-              "y": 34.120209
-            },
-            {
-              "x": -20.014746,
-              "y": 34.035792
-            },
-            {
-              "x": -19.973161,
-              "y": 33.957993
-            },
-            {
-              "x": -19.917198,
-              "y": 33.889802
-            },
-            {
-              "x": -19.849007,
-              "y": 33.833839
-            },
-            {
-              "x": -19.771208,
-              "y": 33.792254
-            },
-            {
-              "x": -19.686791,
-              "y": 33.766647
             }
           ]
         },
@@ -37476,246 +37158,6 @@
             {
               "x": -9.385581,
               "y": 40.017293
-            }
-          ]
-        },
-        {
-          "vertices": [
-            {
-              "x": -15.803,
-              "y": 26.869
-            },
-            {
-              "x": -15.715209,
-              "y": 26.877647
-            },
-            {
-              "x": -15.630792,
-              "y": 26.903254
-            },
-            {
-              "x": -15.552993,
-              "y": 26.944839
-            },
-            {
-              "x": -15.484802,
-              "y": 27.000802
-            },
-            {
-              "x": -15.428839,
-              "y": 27.068993
-            },
-            {
-              "x": -15.387254,
-              "y": 27.146792
-            },
-            {
-              "x": -15.361647,
-              "y": 27.231209
-            },
-            {
-              "x": -15.353,
-              "y": 27.319
-            },
-            {
-              "x": -15.361647,
-              "y": 27.406791
-            },
-            {
-              "x": -15.387254,
-              "y": 27.491208
-            },
-            {
-              "x": -15.428839,
-              "y": 27.569007
-            },
-            {
-              "x": -15.484802,
-              "y": 27.637198
-            },
-            {
-              "x": -15.552993,
-              "y": 27.693161
-            },
-            {
-              "x": -15.630792,
-              "y": 27.734746
-            },
-            {
-              "x": -15.715209,
-              "y": 27.760353
-            },
-            {
-              "x": -15.766572,
-              "y": 27.765412
-            },
-            {
-              "x": -16.008,
-              "y": 28.006841
-            },
-            {
-              "x": -16.008,
-              "y": 36.442867
-            },
-            {
-              "x": -15.989802,
-              "y": 36.457802
-            },
-            {
-              "x": -15.933839,
-              "y": 36.525993
-            },
-            {
-              "x": -15.892254,
-              "y": 36.603792
-            },
-            {
-              "x": -15.866647,
-              "y": 36.688209
-            },
-            {
-              "x": -15.858,
-              "y": 36.776
-            },
-            {
-              "x": -15.866647,
-              "y": 36.863791
-            },
-            {
-              "x": -15.892254,
-              "y": 36.948208
-            },
-            {
-              "x": -15.933839,
-              "y": 37.026007
-            },
-            {
-              "x": -15.989802,
-              "y": 37.094198
-            },
-            {
-              "x": -16.057993,
-              "y": 37.150161
-            },
-            {
-              "x": -16.135792,
-              "y": 37.191746
-            },
-            {
-              "x": -16.220209,
-              "y": 37.217353
-            },
-            {
-              "x": -16.308,
-              "y": 37.226
-            },
-            {
-              "x": -16.395791,
-              "y": 37.217353
-            },
-            {
-              "x": -16.480208,
-              "y": 37.191746
-            },
-            {
-              "x": -16.558007,
-              "y": 37.150161
-            },
-            {
-              "x": -16.626198,
-              "y": 37.094198
-            },
-            {
-              "x": -16.682161,
-              "y": 37.026007
-            },
-            {
-              "x": -16.723746,
-              "y": 36.948208
-            },
-            {
-              "x": -16.749353,
-              "y": 36.863791
-            },
-            {
-              "x": -16.758,
-              "y": 36.776
-            },
-            {
-              "x": -16.749353,
-              "y": 36.688209
-            },
-            {
-              "x": -16.723746,
-              "y": 36.603792
-            },
-            {
-              "x": -16.682161,
-              "y": 36.525993
-            },
-            {
-              "x": -16.626198,
-              "y": 36.457802
-            },
-            {
-              "x": -16.608,
-              "y": 36.442867
-            },
-            {
-              "x": -16.608,
-              "y": 27.882577
-            },
-            {
-              "x": -16.602236,
-              "y": 27.82405
-            },
-            {
-              "x": -16.585164,
-              "y": 27.767772
-            },
-            {
-              "x": -16.557441,
-              "y": 27.715906
-            },
-            {
-              "x": -16.520132,
-              "y": 27.670445
-            },
-            {
-              "x": -16.24544,
-              "y": 27.395753
-            },
-            {
-              "x": -16.253,
-              "y": 27.319
-            },
-            {
-              "x": -16.244353,
-              "y": 27.231209
-            },
-            {
-              "x": -16.218746,
-              "y": 27.146792
-            },
-            {
-              "x": -16.177161,
-              "y": 27.068993
-            },
-            {
-              "x": -16.121198,
-              "y": 27.000802
-            },
-            {
-              "x": -16.053007,
-              "y": 26.944839
-            },
-            {
-              "x": -15.975208,
-              "y": 26.903254
-            },
-            {
-              "x": -15.890791,
-              "y": 26.877647
             }
           ]
         },
