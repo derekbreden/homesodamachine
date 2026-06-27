@@ -25,6 +25,7 @@ import {
   i8, at, Esp32, Mcp23017, Uln2803, Ds3231, Rs485, Jst, Buzzer, ulnOUT,
 } from "./carrier_parts"
 import { boardVersionParts } from "./board-version"
+import { logoRoutes } from "./logo"
 
 // Identity stamp version (commit date + short SHA), computed once per render.
 const ID = boardVersionParts()
@@ -478,17 +479,19 @@ export default () => (
     <trace from=".C2 > .pin1" to="net.V12" />
     <trace from=".C2 > .pin2" to="net.GND" />
 
-    {/* Board identity nameplate — two lines stacked in the open lower-right
-        pocket, both right-aligned (bottom_right anchor) so the block's right edge
-        and bottom land on the SAME 2.0mm edge margin as the JST fences (right edge
-        x=58.9, bottom y=-49.0): the legend's corner lines up with the connector
-        grid. Line 2 is the version, the firmware scheme (firmware/pre_build.py):
-        commit date + short SHA, a trailing `+` when rendered from uncommitted edits — a
-        pure function of the commit, naming which source tree a fabbed board came
-        from. (The bottom_right anchor's bbox grows downward, so the anchor Y sits
-        ~1.33mm above the rendered bottom — hence -47.67 lands the block on -49.) */}
-    <silkscreentext text="HOME SODA MACHINE" fontSize="2mm" anchorAlignment="bottom_right" pcbX={58.9} pcbY={-44.87} />
-    <silkscreentext text={`${ID.date} ${ID.rev}`} fontSize="2mm" anchorAlignment="bottom_right" pcbX={58.9} pcbY={-47.67} />
+    {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
+        monocolor silk via logo.ts) centered over the centered name + version,
+        stacked in the open lower-right pocket with even vertical spacing. Bottom
+        line sits on the 2.0mm bottom margin (rendered bottom y=-49). The version
+        is the firmware scheme (firmware/pre_build.py): commit date + short SHA,
+        a trailing `+` from uncommitted edits — a pure function of the commit,
+        naming which source tree a fabbed board came from. CENTER_X=43 centers the
+        block in the pocket. */}
+    {logoRoutes(43, -40.87, 5).map((route, i) => (
+      <silkscreenpath key={`logo${i}`} strokeWidth="0.15mm" route={route} />
+    ))}
+    <silkscreentext text="HOME SODA MACHINE" fontSize="2mm" anchorAlignment="center" pcbX={43} pcbY={-45.57} />
+    <silkscreentext text={`${ID.date} ${ID.rev}`} fontSize="2mm" anchorAlignment="center" pcbX={43} pcbY={-48.37} />
 
     {/* Power planes, top->bottom: V12 island (top, over the valve block), 3V3
         (inner1, full flood), 5V (inner2, full flood), GND (bottom, full flood).
