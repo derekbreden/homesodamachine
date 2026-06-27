@@ -3,14 +3,16 @@
  * scheme in `firmware/pre_build.py` so the carrier reads the same way the
  * displays and the iOS app do.
  *
- * Format: `YYYY.MM.DD <short-sha>[-dirty]` — HEAD's commit date and short SHA,
- * with a `-dirty` suffix when the working tree has uncommitted edits. A clean
- * version is a pure function of the commit: the date is the commit's own date,
- * so it can never drift from the SHA it names, and a fabbed board reporting it
- * pins the gerbers to exactly one source tree. `-dirty` means it was rendered
- * from that commit plus uncommitted edits (so it corresponds to no commit) —
- * commit, then re-render, to stamp a clean SHA. Falls back to the build date +
- * "unknown" off-repo, exactly as pre_build.py does.
+ * Format: `YYYY.MM.DD <short-sha>[+]` — HEAD's commit date and short SHA, with
+ * a trailing `+` when the working tree has uncommitted edits. A clean version
+ * is a pure function of the commit: the date is the commit's own date, so it
+ * can never drift from the SHA it names, and a fabbed board reporting it pins
+ * the gerbers to exactly one source tree. A trailing `+` means it was rendered
+ * from that commit "and then some" — the board is the named commit plus
+ * uncommitted edits, likely the next commit rather than the one listed (a
+ * clarification, not a warning — nothing is wrong); commit, then re-render, to
+ * stamp a clean SHA. Falls back to the build date + "unknown" off-repo, exactly
+ * as pre_build.py does.
  *
  * Computed at render time (mini.tsx calls boardVersion() for its identity silk),
  * the board analogue of pre_build.py generating fw_version.h before a firmware
@@ -38,8 +40,8 @@ export function boardVersion(): string {
     } catch {
       date = buildDate()
     }
-    const dirty = run("status --porcelain").length > 0 ? "-dirty" : ""
-    return `${date} ${rev}${dirty}`
+    const modified = run("status --porcelain").length > 0 ? "+" : ""
+    return `${date} ${rev}${modified}`
   } catch {
     return `${buildDate()} unknown`
   }
@@ -47,7 +49,7 @@ export function boardVersion(): string {
 
 /**
  * The version split into its two lines for the board's identity stamp: the
- * commit date and the (upper-cased) short SHA + dirty flag. The board nameplate
+ * commit date and the (upper-cased) short SHA + its trailing `+`. The board nameplate
  * stacks them under "HOME SODA MACHINE"; upper-case to match the rest of the
  * board's silk and read clean at a glance.
  */
