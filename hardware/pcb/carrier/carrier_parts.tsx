@@ -84,7 +84,10 @@ export const Esp32 = ({ x, y, rot = 0 }: { x: number; y: number; rot?: number })
   const [aw, ah] = rot % 180 === 0 ? [6, 18] : [18, 6]
   return (
     <>
-      <pinheader name="U1A" pinCount={19} pitch="2.54mm" gender="female" footprint="pinrow19" pcbRotation={rot} pinLabels={[...espA].reverse()} {...at(x + a[0], y + a[1])} />
+      {/* Both rows read their labels toward the body centre (inside the fence,
+          flanking the ESP32 mark). U1B's near row already does; U1A is the far
+          row, so it flips its pin labels + ref-des to its inner side. */}
+      <pinheader name="U1A" pinCount={19} pitch="2.54mm" gender="female" footprint="pinrow19_flippinlabels" pcbRotation={rot} pinLabels={[...espA].reverse()} {...at(x + a[0], y + a[1])} />
       <pinheader name="U1B" pinCount={19} pitch="2.54mm" gender="female" footprint="pinrow19" pcbRotation={rot} pinLabels={[...espB].reverse()} {...at(x + b[0], y + b[1])} />
       <Outline x={x} y={y} w={w} h={h} />
       <Outline x={x + ant[0]} y={y + ant[1]} w={aw} h={ah} />
@@ -103,12 +106,16 @@ export const Mcp23017 = ({ name, x, y, addr, rot = 0 }: { name: string; x: numbe
   return (
     <>
       <Outline x={x} y={y} w={w} h={h} />
-      <silkscreentext text={`MCP ${addr}`} fontSize="2.6mm" pcbX={x} pcbY={y} />
+      {/* 2.2 mm (vs the other modules' 2.6): the 8-char name has to clear both
+          pin-label columns now that they read inward, into the narrow body. */}
+      <silkscreentext text={`MCP ${addr}`} fontSize="2.2mm" pcbX={x} pcbY={y} />
       <hole shape="circle" diameter="2mm" pcbX={x + hA[0]} pcbY={y + hA[1]} />
       <hole shape="circle" diameter="2mm" pcbX={x + hB[0]} pcbY={y + hB[1]} />
-      <pinheader name={`${name}B`} pinCount={10} pitch="2.54mm" gender="female" footprint="pinrow10" pcbRotation={90 + rot} pinLabels={mcpGPB} {...at(x + pB[0], y + pB[1])} />
+      {/* Labels read toward the body centre (inside the fence): the +X GPA row
+          already does; the -X GPB row and the +Y I2C tap flip to their inner side. */}
+      <pinheader name={`${name}B`} pinCount={10} pitch="2.54mm" gender="female" footprint="pinrow10_flippinlabels" pcbRotation={90 + rot} pinLabels={mcpGPB} {...at(x + pB[0], y + pB[1])} />
       <pinheader name={`${name}A`} pinCount={10} pitch="2.54mm" gender="female" footprint="pinrow10" pcbRotation={90 + rot} pinLabels={mcpGPA} {...at(x + pA[0], y + pA[1])} />
-      <pinheader name={`${name}I`} pinCount={6} pitch="2.54mm" gender="female" footprint="pinrow6" pcbRotation={rot} pinLabels={mcpI2C} {...at(x + pI[0], y + pI[1])} />
+      <pinheader name={`${name}I`} pinCount={6} pitch="2.54mm" gender="female" footprint="pinrow6_flippinlabels" pcbRotation={rot} pinLabels={mcpI2C} {...at(x + pI[0], y + pI[1])} />
     </>
   )
 }
@@ -127,7 +134,9 @@ export const Uln2803 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: n
       <silkscreentext text={name} fontSize="2.6mm" pcbX={x} pcbY={y} />
       <hole shape="circle" diameter="3mm" pcbX={x + hT[0]} pcbY={y + hT[1]} />
       <hole shape="circle" diameter="3mm" pcbX={x + hB[0]} pcbY={y + hB[1]} />
-      <pinheader name={`${name}I`} pinCount={9} pitch="2.54mm" gender="female" footprint="pinrow9" pcbRotation={90 + rot} pinLabels={[...ulnIN].reverse()} {...at(x + pI[0], y + pI[1])} />
+      {/* Labels read toward the body centre (inside the fence): the +X OUT row
+          already does; the -X IN row flips its pin labels + ref-des to its inner side. */}
+      <pinheader name={`${name}I`} pinCount={9} pitch="2.54mm" gender="female" footprint="pinrow9_flippinlabels" pcbRotation={90 + rot} pinLabels={[...ulnIN].reverse()} {...at(x + pI[0], y + pI[1])} />
       <pinheader name={`${name}O`} pinCount={9} pitch="2.54mm" gender="female" footprint="pinrow9" pcbRotation={90 + rot} pinLabels={[...ulnOUT].reverse()} {...at(x + pO[0], y + pO[1])} />
     </>
   )
@@ -149,7 +158,9 @@ export const Ds3231 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: nu
       <hole shape="circle" diameter="2.4mm" pcbX={x + h1[0]} pcbY={y + h1[1]} />
       <hole shape="circle" diameter="2.4mm" pcbX={x + h2[0]} pcbY={y + h2[1]} />
       <hole shape="circle" diameter="2.4mm" pcbX={x + h3[0]} pcbY={y + h3[1]} />
-      <pinheader name={`${name}H`} pinCount={6} pitch="2.54mm" gender="female" footprint="pinrow6" pcbRotation={90 + rot} pinLabels={dsH6} {...at(x + pH[0], y + pH[1])} />
+      {/* Labels read toward the body centre (inside the fence): the +X I2C tap
+          already does; the -X 6-pin header flips its labels + ref-des to its inner side. */}
+      <pinheader name={`${name}H`} pinCount={6} pitch="2.54mm" gender="female" footprint="pinrow6_flippinlabels" pcbRotation={90 + rot} pinLabels={dsH6} {...at(x + pH[0], y + pH[1])} />
       <pinheader name={`${name}I`} pinCount={4} pitch="2.54mm" gender="female" footprint="pinrow4" pcbRotation={90 + rot} pinLabels={dsH4} {...at(x + pI[0], y + pI[1])} />
     </>
   )
@@ -201,33 +212,35 @@ export const Buzzer = ({ name, x, y, rot = 0 }: { name: string; x: number; y: nu
 }
 
 // ---- JST trunk connector ---------------------------------------------------
-// A board header (the off-board loom cable plugs in) with a body outline + a
-// function label. Single row, in-plane body ~5.8 mm deep. The function label
-// runs PARALLEL to the row (rotated with the connector, like the pin labels) and
-// sits INSIDE the body outline, tucked to one side of the through-hole row — so
-// it travels with the connector wherever it moves and never sprawls into the
-// routing area. The tucked side is auto from the connector's own position
-// (toward the board interior); labelDir overrides the sign if given.
+// A board header (the off-board loom cable plugs in) with a body outline, a
+// function name, the pin labels, and the ref-des — all inside the ~5.8 mm body,
+// running PARALLEL to the row. The name sits on the board-edge side of the row;
+// the pin labels and ref-des tuck to the opposite (interior) side, with the
+// ref-des centred between the pin labels and the fence. labelDir overrides the
+// name's side on the vertical connectors (where the loom dictates body facing).
 export const Jst = ({ name, x, y, count, labels, rot = 0, label, labelDir }: { name: string; x: number; y: number; count: number; labels: string[]; rot?: number; label: string; labelDir?: number }) => {
   const len = count * 2.54 + 2
   const dep = 5.8
   const vertical = rot % 180 !== 0
   const [w, h] = vertical ? [dep, len] : [len, dep]
-  const off = dep / 2 - 1
-  const [lx, ly] = vertical
-    ? [(labelDir ?? (-Math.sign(x) || -1)) * off, 0]
-    : [0, (labelDir ?? (-Math.sign(y) || -1)) * off]
-  // The footprinter auto-places the ref-des one pitch off the row's +Y side.
-  // For the bottom row that lands on the interior, crowding the function label,
-  // so there we drop it (norefdes) and place it ourselves one pitch off the
-  // outward (-Y) side — matching how the top row's ref-des sits on the edge.
-  const refInterior = !vertical && Math.sign(y) < 0
+  // The function name tucks just inside the fence on the +X (vertical) / +Y
+  // (horizontal) side; the pin labels and ref-des sit on the opposite side. The
+  // horizontal connectors flip the footprinter's pin labels over so the name
+  // reads on the board-edge side and the pins + ref-des tuck toward the interior.
+  const nameOff = dep / 2 - 1
+  const nameDir = vertical ? (labelDir ?? (-Math.sign(x) || -1)) : 1
+  const [lx, ly] = vertical ? [nameDir * nameOff, 0] : [0, nameDir * nameOff]
+  // Ref-des centred in the gap between the pin-label row and the fence edge
+  // (rather than jammed against the fence, where the footprinter would put it).
+  const refOff = 2.2
+  const [rx, ry] = vertical ? [-refOff, 0] : [0, -refOff]
+  const fp = `pinrow${count}_norefdes${vertical ? "" : "_flippinlabels"}`
   return (
     <>
-      <pinheader name={name} pinCount={count} pitch="2.54mm" gender="male" footprint={refInterior ? `pinrow${count}_norefdes` : `pinrow${count}`} pcbRotation={rot} pinLabels={labels} {...at(x, y)} />
+      <pinheader name={name} pinCount={count} pitch="2.54mm" gender="male" footprint={fp} pcbRotation={rot} pinLabels={labels} {...at(x, y)} />
       <Outline x={x} y={y} w={w} h={h} />
       <silkscreentext text={label} fontSize="1.4mm" pcbX={x + lx} pcbY={y + ly} pcbRotation={vertical ? 270 : 0} />
-      {refInterior && <silkscreentext text={name} fontSize="0.8mm" pcbX={x} pcbY={y - 2.54} pcbRotation={0} />}
+      <silkscreentext text={name} fontSize="0.8mm" pcbX={x + rx} pcbY={y + ry} pcbRotation={vertical ? 270 : 0} />
     </>
   )
 }
