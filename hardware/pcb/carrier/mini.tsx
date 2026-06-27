@@ -475,7 +475,7 @@ export default () => (
     <capacitor name="C1" capacitance="0.1uF" footprint="axial_p2.54mm" pcbRotation={0} {...at(56, -26.9767)} />
     <capacitor name="C2" capacitance="0.1uF" footprint="axial_p2.54mm" pcbRotation={0} {...at(56, 5.9033)} />
     <capacitor name="C3" capacitance="470uF" footprint="radial_p5.08mm" {...at(39.65, 1.17)} />
-    <silkscreentext text="+" fontSize="1.6mm" pcbX={33.5} pcbY={1.17} />
+    <silkscreentext text="+" fontSize="2.66mm" pcbX={34.60} pcbY={1.46} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
     <trace from=".C2 > .pin1" to="net.V12" />
@@ -505,7 +505,7 @@ export default () => (
     <trace from=".J10 > .V12" to="net.V12" />
     <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" boardEdgeMargin="0.5mm" />
     <copperpour name="V12PLANE" layer="top" connectsTo="net.V12"
-      outline={[{ x: 33.5, y: -33.2 }, { x: 60, y: -33.2 }, { x: 60, y: 35.6 }, { x: 33.5, y: 35.6 }]} />
+      outline={[{ x: 33, y: -33.2 }, { x: 60, y: -33.2 }, { x: 60, y: 35.6 }, { x: 33, y: 35.6 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
   </board>
