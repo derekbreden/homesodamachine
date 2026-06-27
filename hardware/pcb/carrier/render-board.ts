@@ -15,6 +15,7 @@
  */
 import { composeViews, SCHEMES } from "./gerber-compose"
 import { backSilkBoardTsx } from "./bottom-silk"
+import { dedupDrill } from "./dedup-drill"
 import { singleflight } from "./run-lock"
 import { spawn, type ChildProcess } from "node:child_process"
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from "node:fs"
@@ -102,6 +103,19 @@ try {
 const scratch = track(mkdtempSync(path.join(tmpdir(), `pcb-${board}-`)))
 try {
   await sh("unzip", ["-o", "-q", zip, "-d", scratch])
+  // Dedup the drill files: the tscircuit gerber exporter writes every mechanical
+  // (NPTH) mounting hole into drill.drl (PTH) too, at identical coords — a fab
+  // drill conflict. Strip the NPTH coords from drill.drl and re-zip the corrected
+  // file so the fabrication set has each hole exactly once. (dedup-drill.ts.)
+  try {
+    const { removed, droppedTools } = dedupDrill(scratch)
+    if (removed) {
+      await sh("zip", ["-q", "-j", zip, path.join(scratch, "drill.drl")])
+      console.log(`[${board}] drill dedup: removed ${removed} duplicate PTH holes (tools ${droppedTools.join(",")} were NPTH-only)`)
+    }
+  } catch {
+    console.error(`[${board}] drill dedup failed — fab zip may carry duplicate PTH/NPTH holes`)
+  }
   // Back silk: tscircuit only draws the front legend. Build a throwaway board of
   // layer="bottom" copies of every front silk element (same engine -> identical
   // font + per-size stroke) and lift its B_SilkScreen, so the bottom view and the

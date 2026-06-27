@@ -64,13 +64,14 @@ const CASES: Record<string, any> = {
   },
   // FAUCET UART + RS485 UART off the ESP far row (U1A). 4 signals fan up-left out
   // of the dense top ESP row: IO33/IO35 climb to the FAUCET connector on the top
-  // edge, IO32/IO34 cross to the RS485 TTL header on the far left. Pin order does
-  // not match target order, so the paths interleave around the RS485 mount holes.
+  // edge, IO32/IO34 reach the RS485 TTL header on the far left. The transceiver's
+  // TXD (upper pad) -> IO34 (right) and RXD (lower pad) -> IO32 (left) nest without
+  // a crossing, so the pair routes cleanly without the old bottom-layer split.
   faucet485: {
     ...COMMON,
     pairs: [
       { from: "J3.IO33", to: "U1A.IO33" }, { from: "J3.IO35", to: "U1A.IO35" },
-      { from: "U7T.TXD", to: "U1A.IO32" }, { from: "U7T.RXD", to: "U1A.IO34" },
+      { from: "U7T.TXD", to: "U1A.IO34" }, { from: "U7T.RXD", to: "U1A.IO32" },
     ],
     region: { x0: -52, x1: -12, y0: 9, y1: 45 },
   },
