@@ -19,7 +19,7 @@ export const state = {
   mmdFiles: [],       // Mermaid files
   dxfFiles: [],       // DXF files
   drawingFiles: [],   // Line-art SVG files (drawings/ convention)
-  pcbBoards: [],      // PCB boards: {source, name, dir, top, bottom, overlay}
+  pcbBoards: [],      // PCB boards: {source, name, dir, top, bottom, overlay, inners, picks}
   currentDetail: null,
   mountedDetail: null,
   currentMmdContent: null,
@@ -31,10 +31,10 @@ export const state = {
   currentDrawingPz: null,     // PanZoom handle for currentDrawingWrapper
   currentDrawingMinimap: null,// Minimap handle
   currentPcbSource: null,     // source path of the open board
-  currentPcbViews: null,      // {top,bottom,overlay} SVG text for the open board
-  currentPcbView: null,       // which view is showing ("top"|"bottom"|"overlay")
+  currentPcbViews: null,      // {top,bottom,overlay,inner1,…} SVG text for the open board
+  currentPcbView: null,       // which view is showing ("top"|"bottom"|"overlay"|"inner1"…)
   currentPcbWrapper: null,    // host div inside the modal (PanZoom container)
-  currentPcbToggle: null,     // the Top/Bottom/Overlay segmented control element
+  currentPcbToggle: null,     // the view segmented control element (Top/Inner/Bottom/Overlay)
   currentPcbPz: null,         // PanZoom handle for currentPcbWrapper
   currentPcbMinimap: null,    // Minimap handle
   currentPcbPicks: null,      // {pads,unitsPerMm} pad-picker data for the open board
