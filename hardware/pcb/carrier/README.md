@@ -116,3 +116,46 @@ board). For that, look at the rendered views (airy bundles, no nests) and the
 typical spacing + via count, not the floor number. Compact and legible trade off;
 the width×clearance grid traces that front, so you can choose the smallest board
 that is still easy to inspect by eye.
+
+## Ordering (JLCPCB) + open items
+
+The fabrication set in `out/mini.gerbers.zip` is what JLCPCB needs: the copper
+(`F_Cu`/`In1_Cu`/`In2_Cu`/`B_Cu`), masks, silks, `Edge_Cuts`, and the two
+Excellon drills. `render-board.ts` dedupes `drill.drl` against `drill_npth.drl`
+on every render (the tscircuit exporter otherwise writes each mounting hole into
+**both** the plated and non-plated files — a drill conflict the fab would query;
+see `dedup-drill.ts`). The `bom.csv`/`pick_and_place.csv`/`F_Paste`/`B_Paste` in
+the zip are for SMT assembly only — this board is hand-assembled through-hole, so
+ignore them and do **not** order a stencil or assembly against the paste layers.
+
+DRC-clean at the floor checks (0 errors, 0 vias, 0.2 mm trace / 0.30 mm space,
+0.25 mm annular, drill 0.7/1.0 mm) — all comfortably inside JLCPCB capability.
+
+**Order-time selections** (not encodable in the gerbers — set them in the cart):
+
+- **Surface finish: ENIG.** The board lives under a sink, above a condensing
+  cold-core, for a 10-year life; ENIG resists corrosion/humidity better than the
+  default lead-free HASL, and it is flat. Modest upcharge at this size.
+- **Confirm the 4-layer stackup** (default 1 oz outer / 0.5 oz inner). The valve
+  current rides the **outer** 1 oz V12 pour and the through-hole barrels; only the
+  logic rails (3V3/5V) ride the 0.5 oz inner planes — fine. Don't let a respin push
+  V12 onto an inner layer.
+- **Conformal-coat the assembled board** (IPC-CC-830, acrylic or polyurethane),
+  masking the header sockets — condensation + dust + DC bias over a decade attacks
+  the 12 V net and the high-impedance gas-sensor divider nodes first.
+
+**Deferred to the next revision** (provisional-until-bring-up board; fine to fab
+this rev for bench bring-up, address before a unit ships to a kitchen):
+
+- **Firmware-independent gas/compressor interlock.** The MQ-6 `DOUT` trip reaches
+  only the ESP ADC; the 74LVC1G08 hardware AND-gate that would cut compressor
+  enable (`IO17`→J5) on a leak independent of firmware is **not on this board**
+  (see the GAS comment in `mini.tsx`). For a flammable-refrigerant (R-600a)
+  appliance this is the one safety layer the board still owes — stage the gate
+  footprint next rev, both trip polarities bench-verified, fail-safe on sensor/power
+  loss. Until then, gas safety is firmware-only.
+- **Reverse-polarity / input protection.** No P-FET ideal-diode, fuse, or TVS on
+  the 12 V (J10) / 5 V (J8) inputs. Cheap insurance against a build-time wiring slip
+  or PSU fault on the sole 12 V feed; defer to the protection-rework rev.
+- Bump the board-ID **REV** on `mini.tsx`'s identity silk every respin so a fabbed
+  board is identifiable in the field.
