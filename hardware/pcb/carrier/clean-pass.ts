@@ -77,8 +77,8 @@ const J7_REEDS: Pair[] = [
   { from: "J7.RB2", to: "U3B.GPB1" },
   { from: "J7.RB3", to: "U3B.GPB2" },
   { from: "J7.RB4", to: "U3B.GPB3" },
-  { from: "J7.CARBLO", to: "U3B.GPB4" },
-  { from: "J7.CARBHI", to: "U3B.GPB5" },
+  { from: "J7.CLO", to: "U3B.GPB4" },
+  { from: "J7.CHI", to: "U3B.GPB5" },
 ]
 
 console.log(fanRowToColumn(J7_REEDS, { layer: "top", width: 0.2 }))
