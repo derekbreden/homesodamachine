@@ -27,10 +27,11 @@ against the copy. First render matches the carrier.
 
 ### 1 — Through-hole passives → SMD
 R1–R4 (2.2k/3.3k) → 0603 (C4190 / C22978, Basic); C1/C2 (0.1 µF) → 0805 (C49678, Basic).
-C3 (470 µF / 25 V) is left through-hole for now — no Basic SMD bulk cap exists, so its part
-is an open decision (THT radial, one Extended SMD, or a Basic MLCC bank; see
-[`jlcpcb-parts.md`](jlcpcb-parts.md)). Each SMD pad on a plane net (the GND legs) takes an
-explicit via-in-pad to the plane — see [`plane-stitching.md`](plane-stitching.md).
+C3 (470 µF / 25 V) is wired as a THT radial — `C350206`, placed by JLCPCB through-hole
+assembly (no Basic SMD bulk cap exists; see [`jlcpcb-parts.md`](jlcpcb-parts.md)); its barrel
+stitches to the planes directly. Each SMD pad on a plane net (the GND legs) takes an explicit
+via-in-pad to the plane — see [`plane-stitching.md`](plane-stitching.md). All seven step-1
+passives carry `supplierPartNumbers` (JLCPCB BOM/CPL-ready).
 
 ### 2 — ULN2803A ×2 → SOIC-18
 The 18 module pins (8 IN, 8 OUT, GND, COM) → the 18 SOIC pads, same nets. Flyback diodes
