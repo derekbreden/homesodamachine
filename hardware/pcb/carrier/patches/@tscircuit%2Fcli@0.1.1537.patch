@@ -4,8 +4,11 @@ index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2
 diff --git a/node_modules/@tscircuit/cli/.bun-tag-61206223c58962c9 b/.bun-tag-61206223c58962c9
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/@tscircuit/cli/.bun-tag-8dcffd970c258935 b/.bun-tag-8dcffd970c258935
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/dist/cli/main.js b/dist/cli/main.js
-index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..e8d54b42c8d8338732b4b3b6ee6bc78b49fb51ac 100755
+index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..751986e39b1af0616444b6efe4e26f9051661e88 100755
 --- a/dist/cli/main.js
 +++ b/dist/cli/main.js
 @@ -255845,6 +255845,12 @@ var layerAndTypeToFileFunction = {
@@ -84,7 +87,7 @@ index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..e8d54b42c8d8338732b4b3b6ee6bc78b
 -      }
 -      return width + fontSize + letterSpacing;
 -    }, 0) - letterSpacing;
-+    const letterSpacing = fontSize * 0.06;
++    const letterSpacing = fontSize * 0.24;
 +    const spaceWidth = (HERSHEY[" "] ? HERSHEY[" "].w : 0.5) * fontSize;
 +    const _hsW = (c) => c === " " ? spaceWidth : (HERSHEY[c] || HERSHEY["?"]).w * fontSize;
 +    const textWidth = element.text.toUpperCase().split("").reduce((width, char) => width + _hsW(char) + letterSpacing, 0) - letterSpacing;
