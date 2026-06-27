@@ -486,9 +486,9 @@ export default () => (
         date + short SHA, `-dirty` when rendered from uncommitted edits — a pure
         function of the commit, naming which source tree a fabbed board came from.
         Rendered by the proportional silk font; 2.0mm reads clean at a glance. */}
-    <silkscreentext text="HOME SODA MACHINE" fontSize="2mm" anchorAlignment="bottom_right" pcbX={58.9} pcbY={-43.4} />
-    <silkscreentext text={ID.date} fontSize="2mm" anchorAlignment="bottom_right" pcbX={58.9} pcbY={-46.2} />
-    <silkscreentext text={ID.rev} fontSize="2mm" anchorAlignment="bottom_right" pcbX={58.9} pcbY={-49.0} />
+    <silkscreentext text="HOME SODA MACHINE" fontSize="2mm" anchorAlignment="bottom_right" pcbX={58.9} pcbY={-42.07} />
+    <silkscreentext text={ID.date} fontSize="2mm" anchorAlignment="bottom_right" pcbX={58.9} pcbY={-44.87} />
+    <silkscreentext text={ID.rev} fontSize="2mm" anchorAlignment="bottom_right" pcbX={58.9} pcbY={-47.67} />
 
     {/* Power planes, top->bottom: V12 island (top, over the valve block), 3V3
         (inner1, full flood), 5V (inner2, full flood), GND (bottom, full flood).
