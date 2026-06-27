@@ -28,13 +28,21 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | R1, R3 — gas divider, top leg | 2.2 kΩ ±1% | 0603 | C4190 | Basic | 2,358,134 | $0.0019 |
 | R2, R4 — gas divider, bottom leg | 3.3 kΩ ±1% | 0603 | C22978 | Basic | 1,028,999 | $0.0023 |
 | C1, C2 — V12 HF decouple | 0.1 µF 50V X7R | 0805 | C49678 | Basic | 8,182,736 | $0.0136 |
-| C3 — V12 bulk | 470 µF 25V | radial, THT | carrier Rubycon (THT-assembled) | — | — | — |
+| C3 — V12 bulk | 470 µF 25V | open | not yet assigned | — | — | — |
 
 Manufacturers: C4190 / C22978 = UNI-ROYAL 0603WAF series; C49678 = YAGEO
 CC0805KRX7R9BB104.
 
-C3 stays through-hole. A 470 µF/25V SMD electrolytic exists in the JLCPCB library only as
-**Extended** (D10×L10 mm cans, in stock) — e.g. `C3351` (Honor RVT1E471M1010, $0.060),
-`C47023111` (D8×L10, $0.050), `C3445246` (90 mΩ / 5000 h, $0.091). The THT radial rides
-the connector through-hole assembly pass (plan step 5) and keeps its barrel plane-stitch;
-the SMD line is here for a full-reflow board.
+**C3 has no JLCPCB part assigned yet — its form is an open decision.** Its need is V12
+bulk decoupling (soak solenoid inrush + flyback). JLCPCB's Basic library carries no
+aluminium-electrolytic or polymer at bulk values: both 470 µF/25V and 100 µF/25V SMD are
+**Extended only** (verified across every manufacturer in the library, Rubycon / Panasonic /
+Nichicon included). So an SMD bulk cap is an Extended line whatever the value. Options:
+
+- **THT radial**, placed by JLCPCB through-hole assembly (already paid for the J connectors,
+  plan step 5); keeps its barrel plane-stitch. Needs a JLCPCB-library THT 470 µF/25V part chosen.
+- **One Extended SMD electrolytic** — `C3351` (Honor RVT1E471M1010, $0.060), `C47023111`
+  (D8×L10, $0.050), `C3445246` (90 mΩ / 5000 h, $0.091).
+- **A Basic MLCC bank** — ceramics are the Basic library's strength and electrically the best
+  snubber; reaching usable bulk (~100 µF) takes several 25V MLCCs, and the bulk-vs-ESR
+  tradeoff against the electrolytic wants checking against the actual solenoid current.
