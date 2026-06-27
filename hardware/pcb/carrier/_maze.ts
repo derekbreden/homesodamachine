@@ -202,9 +202,13 @@ function route(sx: number, sy: number, gxm: number, gym: number, sLayer: number)
   // close to neighbouring copper. Require the extra pad ring (beyond HALF) clear, both layers.
   const VIAR = Math.max(0, 0.25 - HALF), vrc = Math.ceil(VIAR / CELL)
   const viaClear = (i: number, j: number) => { for (let dj = -vrc; dj <= vrc; dj++) for (let di = -vrc; di <= vrc; di++) { if (Math.hypot(di, dj) * CELL > VIAR) continue; if (!free(i + di, j + dj, 0) || !free(i + di, j + dj, 1)) return false } return true }
-  const startK = key(S.i, S.j, S.l, 8); dist.set(startK, 0)
+  // a through-hole endpoint connects EVERY layer, so a route may BEGIN on either copper
+  // layer with no via — the barrel is the layer change. Seed both start layers; a tiny
+  // epsilon biases to the preferred startLayer so a clean route stays there on a tie.
+  // (The goal is likewise reached on any layer — the found-check ignores layer.)
   // binary heap of [f, g, key]
-  const heap: [number, number, number][] = [[h(S.i, S.j), 0, startK]]
+  const heap: [number, number, number][] = []
+  for (const sl of [S.l, 1 - S.l]) { const sk = key(S.i, S.j, sl, 8), c0 = sl === S.l ? 0 : 1e-3; dist.set(sk, c0); heap.push([h(S.i, S.j) + c0, c0, sk]) }
   const push = (f: number, g: number, k: number) => { heap.push([f, g, k]); let c = heap.length - 1; while (c > 0) { const p = (c - 1) >> 1; if (heap[p][0] <= heap[c][0]) break;[heap[p], heap[c]] = [heap[c], heap[p]]; c = p } }
   const pop = () => { const top = heap[0], last = heap.pop()!; if (heap.length) { heap[0] = last; let p = 0; for (; ;) { let s = p, l = 2 * p + 1, r = l + 1; if (l < heap.length && heap[l][0] < heap[s][0]) s = l; if (r < heap.length && heap[r][0] < heap[s][0]) s = r; if (s === p) break;[heap[p], heap[s]] = [heap[s], heap[p]]; p = s } } return top }
   const unpack = (k: number) => { const i = k % NX, j = Math.floor(k / NX) % NY, ld = Math.floor(k / NXY); return [i, j, ld % 9, Math.floor(ld / 9)] as const }

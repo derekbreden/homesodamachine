@@ -572,6 +572,11 @@
   transform: translateX(-50%);
   z-index: 12;
   display: inline-flex;
+  /* A 4-layer board adds Inner buttons; wrap (centred) rather than run off a
+     narrow screen, and never exceed the viewport width. */
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: calc(100vw - 24px);
   gap: 2px;
   padding: 3px;
   background: rgba(35, 35, 66, 0.85);

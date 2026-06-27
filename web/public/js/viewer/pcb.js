@@ -1,20 +1,48 @@
-// PCB board module. A board carries three rendered copper views — Top (front),
-// Bottom (back, seen through the board), and Overlay (both, warm front / cool
+// PCB board module. A board carries its rendered copper views — Top (front),
+// Bottom (back, seen from above through the board), any inner copper planes of a
+// multi-layer board, and Overlay (the whole stack at once, warm front / cool
 // back) — produced by hardware/pcb/carrier/render-board.ts straight from the
 // fabrication Gerbers, so the lines have the real widths the board is made with.
 //
 // Modeled on drawings.js: a 2D SVG opened in ContentViewer with PanZoom, with
-// per-board transform persistence and a swap-in-place on re-render. What it adds is the
-// Top / Bottom / Overlay toggle. The three views share one identical viewBox, so
-// switching swaps the SVG while keeping the user's exact pan/zoom — the board
-// holds still under the toggle.
+// per-board transform persistence and a swap-in-place on re-render. What it adds
+// is the view toggle — Top / Inner 1…N / Bottom / Overlay, in physical stack
+// order. All views share one identical viewBox, so switching swaps the SVG while
+// keeping the user's exact pan/zoom — the board holds still under the toggle.
 
 import { state } from "./state.js";
 import { makeResetButton, makeMinimap } from "./pan-zoom-extras.js";
 import { installPadPicker, clearPadPicker, clearPadSelection, makePadPickToggle } from "./pcb-pick.js";
 
-const VIEWS = ["top", "bottom", "overlay"];
-const VIEW_LABEL = { top: "Top", bottom: "Bottom", overlay: "Overlay" };
+// Every board has these three; inner planes (inner1, inner2, …) are per-board,
+// discovered by the server (walk.js) and slotted between Top and Bottom.
+const FIXED_LABEL = { top: "Top", bottom: "Bottom", overlay: "Overlay" };
+
+// The view key for an inner-plane path (".../mini.inner2.svg" -> "inner2"), or
+// null if the path isn't an inner view.
+function innerKey(path) {
+  const m = /\.inner(\d+)\.svg$/.exec(path || "");
+  return m ? "inner" + m[1] : null;
+}
+// Human label for a view key: the fixed ones verbatim, "inner2" -> "Inner 2".
+function viewLabel(view) {
+  if (FIXED_LABEL[view]) return FIXED_LABEL[view];
+  const m = /^inner(\d+)$/.exec(view);
+  return m ? "Inner " + m[1] : view;
+}
+// The ordered {view, path} list a board offers, in physical stack order:
+// Top (front) → inner planes front-to-back → Bottom (back) → Overlay (composite,
+// last). board.inners is already stack-ordered by the server.
+function orderedViews(board) {
+  const list = [{ view: "top", path: board.top }];
+  for (const p of board.inners || []) {
+    const key = innerKey(p);
+    if (key) list.push({ view: key, path: p });
+  }
+  list.push({ view: "bottom", path: board.bottom });
+  list.push({ view: "overlay", path: board.overlay });
+  return list;
+}
 
 // Fit obstacles for the board PanZoom: the on-screen rectangles of the overlaid
 // chrome (toggle / minimap / filename / close on top; readout / pad-pick / reset
@@ -75,10 +103,10 @@ export function pcbLoadTransform(source) {
 function pcbSaveView(source, view) {
   try { localStorage.setItem(pcbViewKey(source), view); } catch {}
 }
-function pcbLoadView(source) {
+function pcbLoadView(source, validViews) {
   try {
     const v = localStorage.getItem(pcbViewKey(source));
-    return VIEWS.includes(v) ? v : null;
+    return validViews.includes(v) ? v : null;
   } catch { return null; }
 }
 
@@ -124,15 +152,20 @@ async function fetchPicks(board) {
   } catch { return null; }
 }
 
-// Fetch all three view SVGs for a board. Returns { top, bottom, overlay } of
-// SVG text, or null if any fail.
+// Fetch a board's view SVGs — Top/Bottom/Overlay plus any inner planes — keyed
+// by view name ({ top, bottom, overlay, inner1, … }). Returns null if any of the
+// three fixed views fail; an inner plane that fails to load is simply omitted,
+// so its toggle button never appears rather than blocking the whole board.
 async function fetchViews(board) {
   try {
-    const [top, bottom, overlay] = await Promise.all(
-      VIEWS.map((v) => fetch(contentUrl(board[v])).then((r) => (r.ok ? r.text() : null))),
+    const entries = orderedViews(board);
+    const texts = await Promise.all(
+      entries.map((e) => fetch(contentUrl(e.path)).then((r) => (r.ok ? r.text() : null))),
     );
-    if (!top || !bottom || !overlay) return null;
-    return { top, bottom, overlay };
+    const views = {};
+    entries.forEach((e, i) => { if (texts[i] != null) views[e.view] = texts[i]; });
+    if (!views.top || !views.bottom || !views.overlay) return null;
+    return views;
   } catch { return null; }
 }
 
@@ -188,17 +221,17 @@ export async function renderPcbThumbnail(source) {
   } catch { return null; }
 }
 
-// Build the Top / Bottom / Overlay segmented control. onSelect(view) swaps the
-// shown SVG; the buttons reflect state.currentPcbView.
-function makeViewToggle(onSelect) {
+// Build the segmented control from `views` (ordered view keys). onSelect(view)
+// swaps the shown SVG; the buttons reflect state.currentPcbView.
+function makeViewToggle(views, onSelect) {
   const wrap = document.createElement("div");
   wrap.className = "pcb-view-toggle";
-  for (const v of VIEWS) {
+  for (const v of views) {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "pcb-view-btn";
     btn.dataset.view = v;
-    btn.textContent = VIEW_LABEL[v];
+    btn.textContent = viewLabel(v);
     btn.addEventListener("click", (e) => { e.stopPropagation(); onSelect(v); });
     wrap.appendChild(btn);
   }
@@ -211,8 +244,8 @@ function syncToggle(toggleEl, view) {
 }
 
 // Mount `view` into the open board's wrapper, re-wrapping PanZoom while keeping
-// the current transform (the three views share a viewBox, so the board doesn't
-// move). `preserve` carries the transform across a swap; on first mount we fit.
+// the current transform (all views share a viewBox, so the board doesn't move).
+// `preserve` carries the transform across a swap; on first mount we fit.
 function mountView(view, preserve) {
   const wrapper = state.currentPcbWrapper;
   if (!wrapper) return;
@@ -300,8 +333,11 @@ export async function openPcbDetail(source, pushHistory = true) {
     return;
   }
 
-  const view = pcbLoadView(source) || "overlay";
-  const toggle = makeViewToggle((v) => { if (v !== state.currentPcbView) mountView(v, true); });
+  // The toggle and its order follow the views that actually loaded, in stack
+  // order; a saved view only sticks if it's one of them.
+  const present = orderedViews(board).map((e) => e.view).filter((v) => views[v]);
+  const view = pcbLoadView(source, present) || "overlay";
+  const toggle = makeViewToggle(present, (v) => { if (v !== state.currentPcbView) mountView(v, true); });
   wrapper.appendChild(toggle);
   if (picks && picks.pads && picks.pads.length) wrapper.appendChild(makePadPickToggle());
 
