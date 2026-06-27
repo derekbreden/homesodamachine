@@ -16,7 +16,9 @@ axis**, origin at the footprint centre.
 
 **Electrical.** Auto-direction (**no DE/RE pin** — Tx/Rx switching is detected on
 the TTL Tx line, saving a GPIO). VCC range is 3.0–30 V; on the carrier it runs at
-**3.3 V** so its receiver output can't over-volt the ESP32's input-only GPIO 34.
+**3.3 V** so the module's receiver output — its **TXD** pin, wired to the ESP32's
+input-only **GPIO 34** (the UART RX) — can't over-volt that pin. The ESP32's UART
+TX (**GPIO 32**, output-capable) drives the module's **RXD**.
 An onboard **120 Ω** termination is present but **OFF by default** — enabled only
 by shorting the R0 pads at the bus end, so the carrier adds no termination. The
 third line terminal is **"Earth"** — an isolated chassis/shield reference, **not
