@@ -142,3 +142,46 @@ test("/pcb board modal shows the board's outer dimensions", async (t) => {
     await page.close().catch(() => {});
   }
 });
+
+test("/pcb view toggle exposes inner copper planes in stack order", async (t) => {
+  if (!puppeteer) return t.skip("puppeteer unavailable");
+  if (!browser) {
+    try {
+      browser = await puppeteer.launch({ headless: true });
+    } catch (e) {
+      return t.skip(`puppeteer launch failed: ${e.message}`);
+    }
+  }
+  const page = await browser.newPage();
+  try {
+    await page.goto(`${baseUrl}/pcb`, { waitUntil: "domcontentloaded" });
+
+    // Find a multi-layer board (one /api/pcb advertises inner planes for).
+    const board = await page.evaluate(() =>
+      fetch("/api/pcb").then((r) => r.json()).then((b) => b.find((x) => x.inners && x.inners.length)),
+    );
+    if (!board) return t.skip("no board with inner planes");
+
+    await page.evaluate((src) => {
+      location.hash = "pcb:" + encodeURIComponent(src);
+    }, board.source);
+    await page.waitForSelector(".pcb-view-toggle .pcb-view-btn", { timeout: 10_000 });
+
+    // The toggle's order is the physical stack: Top → inner planes → Bottom →
+    // Overlay. Inner keys come from the board's own inners list, so this tracks
+    // a 4-layer board the same as a 6-layer one.
+    const views = await page.$$eval(".pcb-view-toggle .pcb-view-btn", (els) =>
+      els.map((e) => e.dataset.view),
+    );
+    const innerKeys = board.inners.map((p) => "inner" + p.match(/\.inner(\d+)\.svg$/)[1]);
+    assert.deepEqual(views, ["top", ...innerKeys, "bottom", "overlay"]);
+
+    // Clicking an inner button activates it (the view actually switches).
+    const firstInner = innerKeys[0];
+    await page.click(`.pcb-view-btn[data-view="${firstInner}"]`);
+    const active = await page.$eval(".pcb-view-btn.active", (e) => e.dataset.view);
+    assert.equal(active, firstInner, "clicked inner button should become active");
+  } finally {
+    await page.close().catch(() => {});
+  }
+});

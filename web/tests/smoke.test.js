@@ -241,6 +241,21 @@ test("GET /api/drawing-content/* returns SVG when a drawing exists", async (t) =
   assert.match(res.headers.get("content-type") || "", /^image\/svg\+xml/);
 });
 
+// Inner copper planes of a multi-layer board. /api/pcb advertises them in
+// `inners`; the content gate must let those filenames through (it's stricter
+// than the fixed Top/Bottom/Overlay). Skip when no board has inner layers (a
+// repo of only 2-layer boards).
+test("GET /api/pcb-content/* serves an inner copper plane", async (t) => {
+  const boards = await fetch(`${baseUrl}/api/pcb`).then((r) => r.json());
+  const withInner = boards.find((b) => b.inners && b.inners.length);
+  if (!withInner) return t.skip("no board with inner planes");
+  const inner = withInner.inners[0];
+  assert.match(inner, /\.inner\d+\.svg$/, "inners[] should be inner-plane SVG paths");
+  const res = await fetch(`${baseUrl}/api/pcb-content/${inner}`);
+  assert.equal(res.status, 200);
+  assert.match(res.headers.get("content-type") || "", /^image\/svg\+xml/);
+});
+
 // Phase 4 viewer split (/css/viewer.css, /js/viewer/*.js) is in flight on
 // a parallel branch. Test what's there today; skip what isn't so this
 // suite keeps passing while the split lands.
