@@ -159,3 +159,29 @@ this rev for bench bring-up, address before a unit ships to a kitchen):
   or PSU fault on the sole 12 V feed; defer to the protection-rework rev.
 - Bump the board-ID **REV** on `mini.tsx`'s identity silk every respin so a fabbed
   board is identifiable in the field.
+
+## SMD / all-JLCPCB revision (scoped)
+
+A successor board carries the same logical design (this pin map) but as bare SMD
+silicon JLCPCB assembles in full — no plug-in modules, no hand soldering. Scope
+locked:
+
+- **On-carrier modules only become silicon.** ESP32-DevKitC → **ESP32-WROOM-32E**
+  (JLCPCB-placeable, RF stays certified) + USB-C / USB-UART bridge / auto-program /
+  EN+BOOT / ESD; 2×MCP23017 → SOIC-28; 2×ULN2803A → SOIC-18; DS3231 → DS3231SN +
+  SMD coin-cell holder; the RS485 transceiver, buzzer, R1–R4, C1–C3 → SMD parts.
+  The L298N pump driver, MQ-6, displays, reeds, pumps, and solenoids stay off-board
+  on the J-connectors (field harnesses).
+- **Power inlets stay split** (12 V J10 + 5 V J8). The board makes only **3V3**
+  locally (one LDO, replacing the DevKitC's AMS1117); external 5 V still feeds logic.
+  No on-board buck.
+- **Field connectors (J1–J11) stay through-hole JST, assembled by JLCPCB** (paid
+  THT assembly) — their footprints/placement carry over from this board. The result
+  is a hybrid: SMD ICs stitch to the planes with real vias (the via-free /
+  barrel-stitch property here does not survive for SMD signal routing), THT
+  connectors common at their barrels as today.
+- Absorb the two deferred items above (gas/compressor interlock, input protection).
+- Every part maps to an in-stock LCSC number, **Basic-first** to avoid feeder fees;
+  keep parts to one side where possible (`tsci import <LCSC#>` pulls footprints).
+  Reuses this directory's render / gerber / back-silk / inner-Cu pipeline, the
+  `_maze` router core, the silk/placement helpers, and the four tscircuit patches.
