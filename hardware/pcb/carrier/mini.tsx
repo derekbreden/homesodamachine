@@ -483,7 +483,7 @@ export default () => (
         and bottom land on the SAME 2.0mm edge margin as the JST fences (right edge
         x=58.9, bottom y=-49.0): the legend's corner lines up with the connector
         grid. Line 2 is the version, the firmware scheme (firmware/pre_build.py):
-        commit date + short SHA, `-dirty` when rendered from uncommitted edits — a
+        commit date + short SHA, a trailing `+` when rendered from uncommitted edits — a
         pure function of the commit, naming which source tree a fabbed board came
         from. (The bottom_right anchor's bbox grows downward, so the anchor Y sits
         ~1.33mm above the rendered bottom — hence -47.67 lands the block on -49.) */}
