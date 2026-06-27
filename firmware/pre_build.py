@@ -26,16 +26,18 @@ else:
 
 def fw_version():
     """The complete version string: HEAD's commit date (YYYY.MM.DD) and
-    short SHA, with a `-dirty` suffix when the working tree has uncommitted
+    short SHA, with a trailing `+` when the working tree has uncommitted
     changes. Falls back to the build date + "unknown" when git is
     unavailable or this is not a repo.
 
     A clean version is a pure function of the commit — the date is the
     commit's own date, so it can never drift from the SHA it names — and a
-    device reporting it pins the binary to exactly one source tree.
-    `-dirty` means it was built from that commit plus uncommitted edits and
-    so corresponds to no commit. The generated fw_version.h files are
-    gitignored, so a rebuild never makes the tree look dirty on its own.
+    device reporting it pins the binary to exactly one source tree. A
+    trailing `+` means it was built from that commit plus uncommitted edits,
+    so the running code is the named commit "and then some" — likely the
+    next commit, not the one listed. It is a clarification, not a warning:
+    nothing is wrong. The generated fw_version.h files are gitignored, so a
+    rebuild never adds a `+` on its own.
     """
     project_dir = env.subst("$PROJECT_DIR")
 
@@ -59,7 +61,7 @@ def fw_version():
         )
         status = run("status", "--porcelain")
         if status.returncode == 0 and status.stdout.strip():
-            rev += "-dirty"
+            rev += "+"
         return f"{date} {rev}"
     except OSError:
         return time.strftime("%Y.%m.%d") + " unknown"
