@@ -1,7 +1,10 @@
 # Module-by-module conversion plan
 
 Each step is one in-place swap on the PCBA board (method in [`README.md`](README.md)),
-rendered and read against the carrier before the next.
+rendered and read against the carrier before the next. Every render also writes
+`out/pcba.{bom,cpl}.csv` (the JLCPCB BOM + placements) and logs how many parts carry a
+JLCPCB part number — the fab package is proven continuously and the wired count (N/35) is
+the coverage signal, so nothing is deferred to "figure out at the end."
 
 | # | Step | Becomes |
 |---|------|---------|
@@ -67,6 +70,7 @@ RS485, the sensor loom's 3V3 leg.
 ### 9 — ESP32 → WROOM-32E
 See [`esp32-scope.md`](esp32-scope.md).
 
-### 10 — Integration + DFM
-One-side placement where possible, paste + courtyards, BOM + CPL, LCSC stock check,
-JLCPCB assembly rules. Fabrication here.
+### 10 — Complete coverage + DFM
+The BOM/CPL already regenerate each render; this is where the wired count reaches 35/35
+(every connector and former module carries a JLCPCB #), plus final DFM — one-side placement
+where possible, paste + courtyards, LCSC stock recheck, JLCPCB assembly rules. Fabrication here.

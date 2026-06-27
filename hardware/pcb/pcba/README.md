@@ -11,7 +11,9 @@ canonical pin map and is unchanged. The PCBA board starts as a copy of it and co
 one module at a time. Each step is an in-place swap — one module's socket becomes its
 SMD equivalent in the same silk rectangle, same position, same nets — rendered and read
 against the carrier. Fabrication is once, after every module is converted and the board
-passes assembly DFM.
+passes assembly DFM. Every render also writes the JLCPCB BOM + placements
+(`out/pcba.{bom,cpl}.csv`) and logs the wired count (parts carrying a JLCPCB #), so the fab
+package is generated and checked from step 1 rather than assembled at the end.
 
 ## Scope
 
