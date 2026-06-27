@@ -49,7 +49,7 @@ export default () => (
     <Jst name="J6" x={12.5} y={42.8} count={5} labels={["GND", "RA1", "RA2", "RA3", "RA4"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={13.0} y={-46} count={7} labels={["GND", "CHI", "CLO", "RB4", "RB3", "RB2", "RB1"]} rot={0} label="REEDS B" />
     <Jst name="J9" x={-1.7} y={42.65} count={3} labels={["A", "B", "ERTH"]} rot={0} label="DISPLAY" />
-    <Jst name="J10" x={56.0} y={1.17} count={2} labels={["GND", "V12"]} rot={90} label="12V" labelDir={1} />
+    <Jst name="J10" x={56.0} y={-0.7233} count={2} labels={["GND", "V12"]} rot={90} label="12V" labelDir={1} />
     <Jst name="J11" x={-26.47} y={42.65} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={0} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
@@ -464,15 +464,16 @@ export default () => (
       {route_type:"wire",x:-11.75,y:44.4,width:0.2,layer:"top"},
     ]} />
 
-    {/* V12 decoupling. HF: two 0.1uF ceramics (C1/C2) in the V12 island pockets,
-        one by each ULN, snubbing the fast solenoid-turn-off edge. BULK: a 470uF
-        low-ESR electrolytic (C3, BOM 1) in the open valley between the two ULNs it
-        feeds, soaking the inrush + flyback dump the ceramics can't. Every pin1 ->
-        V12, pin2 -> GND plane — no routing, no vias, barrel pickup like every power
-        pin; the top pour floods to each pin1 barrel (a left finger of the island
-        reaches C3 between the chips). C3 is polarized: pin1 (+) is V12. */}
-    <capacitor name="C1" capacitance="0.1uF" footprint="axial_p2.54mm" pcbRotation={90} {...at(52.8, -26)} />
-    <capacitor name="C2" capacitance="0.1uF" footprint="axial_p2.54mm" pcbRotation={90} {...at(52.8, 6.7)} />
+    {/* V12 decoupling. HF: two 0.1uF ceramics (C1/C2) set into the right-edge
+        connector stack, centered across the MANIFOLD fence — C2 in the gap above
+        the 12V inlet, C1 below MANIFOLD B — snubbing the fast solenoid-turn-off
+        edge. BULK: a 470uF low-ESR electrolytic (C3, BOM 1) in the open valley
+        between the two ULNs it feeds, soaking the inrush + flyback dump the
+        ceramics can't. Every pin1 -> V12, pin2 -> GND plane — no routing, no vias,
+        barrel pickup like every power pin; the top V12 island floods the whole
+        valve block, covering each pin1 barrel. C3 is polarized: pin1 (+) is V12. */}
+    <capacitor name="C1" capacitance="0.1uF" footprint="axial_p2.54mm" pcbRotation={0} {...at(56, -26.9767)} />
+    <capacitor name="C2" capacitance="0.1uF" footprint="axial_p2.54mm" pcbRotation={0} {...at(56, 5.9033)} />
     <capacitor name="C3" capacitance="470uF" footprint="radial_p5.08mm" {...at(39.65, 1.17)} />
     <silkscreentext text="+" fontSize="1.6mm" pcbX={33.5} pcbY={1.17} />
     <trace from=".C1 > .pin1" to="net.V12" />
@@ -504,7 +505,7 @@ export default () => (
     <trace from=".J10 > .V12" to="net.V12" />
     <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" boardEdgeMargin="0.5mm" />
     <copperpour name="V12PLANE" layer="top" connectsTo="net.V12"
-      outline={[{ x: 47, y: -33.2 }, { x: 60, y: -33.2 }, { x: 60, y: 35.6 }, { x: 47, y: 35.6 }, { x: 47, y: 7 }, { x: 35, y: 7 }, { x: 35, y: -4 }, { x: 47, y: -4 }]} />
+      outline={[{ x: 33.5, y: -33.2 }, { x: 60, y: -33.2 }, { x: 60, y: 35.6 }, { x: 33.5, y: 35.6 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
   </board>
