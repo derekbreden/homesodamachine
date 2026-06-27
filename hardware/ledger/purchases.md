@@ -269,6 +269,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Meshnology ESP32-S3 round rotary display 1.28" — prototype enclosure-front config display. Order #114-7373747-7178604, placed March 9, 2026 | [B0G5Q4LXVJ](https://www.amazon.com/dp/B0G5Q4LXVJ) | 1 | bundle | ACQUIRED |
 | Waveshare ESP32-S3-Touch-LCD-4.3B — 4.3" 800×480 IPS RGB capacitive-touch dev board (ST7262 RGB + GT911 touch, CH422G I/O expander), ESP32-S3-WROOM-1-N16R8; enclosure-front config + interaction display, 7–36 V screw-terminal input off the 12 V bus. Order #112-5620567-3321809, placed Jun 13, 2026 | [B0D925SBYF](https://www.amazon.com/dp/B0D925SBYF) | 1 | $46.11 | ACQUIRED (delivered Jun 15) |
 | Waveshare ESP32-S3 1.47" capacitive-touch IPS LCD dev board, 172×320 (JD9853 driver + AXS5106L touch) — faucet-mounted flavor display + touch toggle. Order #112-7687617-6094631, placed Jun 7, 2026 | [B0FCF1MGT3](https://www.amazon.com/dp/B0FCF1MGT3) | 2 | $51.46 | ACQUIRED (delivered Jun 9) |
+| JLCPCB order W2026062715518432 — controller carrier PCB ([`mini.tsx`](/hardware/pcb/carrier/mini.tsx)), 4-layer, 128 × 99 mm through-hole carrier; gerber set `mini.gerbers_Y2` (sub-order Y2-12927587A). $122.17 as-paid = $48.07 merch + $50.15 shipping + $16.82 customs duties/taxes + $7.13 sales tax. Placed Jun 27, 2026 | [jlcpcb.com](https://jlcpcb.com/) | 10 | $122.17 | ON-ORDER (in production, 3–4 day build) |
 
 ## 9. Electronics — I/O, drivers, sensors, power, DIN rail, connectors
 
@@ -557,10 +558,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 | ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$27,226.23](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
 | ACQUIRED (combined) | [$29,834.15](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$967.41](LEDGER_ON_ORDER) |
+| ON-ORDER | [$1,089.58](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$30,844.45](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$30,966.62](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
