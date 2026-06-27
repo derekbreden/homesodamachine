@@ -32,4 +32,6 @@ passes assembly DFM.
 - [`esp32-scope.md`](esp32-scope.md) — what the base ESP32 uses, and the SMD block.
 - [`jlcpcb-parts.md`](jlcpcb-parts.md) — the JLCPCB parts library reference: the LCSC
   part each component maps to, library type, and how each was found. Grows per step.
+- [`plane-stitching.md`](plane-stitching.md) — why SMD pads on a plane net each need an
+  explicit via, and that tscircuit's DRC won't flag a missing one.
 - Per-step specs (`uln2803.md`, `mcp23017.md`, …) land here as steps are taken.
