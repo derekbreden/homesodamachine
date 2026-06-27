@@ -161,7 +161,6 @@ export async function composeViews(dir: string, scheme: Scheme) {
   const W = Xmax - Xmin
   const H = Ymax - Ymin
   const Tu = Ymin + Ymax // y-flip about the board centre (Gerber Y up -> SVG Y down)
-  const Tx = Xmin + Xmax // x-mirror about the board centre, for the bottom view
 
   // All apertures, once. Layer ids are prefixed by gerber-to-svg so no clash.
   const allDefs = present.map((l) => l.defs).join("")
@@ -191,19 +190,15 @@ export async function composeViews(dir: string, scheme: Scheme) {
 
   // Assemble one view from an ordered stack of painted copper groups. The FR4
   // rect lives in viewBox space (no flip needed — it's the whole frame); the
-  // copper, drills and outline live under one group transform. Top/Overlay look
-  // down on the front (`scale(1,-1)`, the Gerber-Y flip only). The Bottom view
-  // shows the board as if you turned it over in your hand — the back face viewed
-  // from the back — so it also mirrors x about the board centre (`scale(-1,-1)`
-  // + translate Tx). That mirrors the back copper into its true back-side
-  // orientation and un-mirrors the (in-place-flipped) back silk so it reads
-  // right-way-round here, while the fab gerber stays correct on the real board.
-  // The pad picker (web/.../pcb-pick.js) reuses this same `<g>` transform, so it
-  // mirrors in lockstep. Silk sits on top of the copper so labels stay legible.
-  const view = (copper: string, silk: string, mirror = false) => {
-    const tf = mirror
-      ? `translate(${fnum(Tx)},${fnum(Tu)}) scale(-1,-1)`
-      : `translate(0,${fnum(Tu)}) scale(1,-1)`
+  // copper, drills and outline live under one group transform. Every view looks
+  // straight down from above (`scale(1,-1)`, the Gerber-Y flip only), so the
+  // Bottom view shows the back face seen through the board from the top — no
+  // x-mirror. Back copper therefore appears in its through-the-board orientation
+  // and the (in-place-flipped) back silk reads mirrored here, while the fab
+  // gerber stays correct on the real board. The pad picker (web/.../pcb-pick.js)
+  // reuses this same `<g>` transform. Silk sits on top of the copper.
+  const view = (copper: string, silk: string) => {
+    const tf = `translate(0,${fnum(Tu)}) scale(1,-1)`
     return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ` +
       `width="${wmm}mm" height="${hmm}mm" viewBox="${vb}" ` +
       `stroke-linecap="round" stroke-linejoin="round" stroke-width="0" fill-rule="evenodd">` +
@@ -214,7 +209,7 @@ export async function composeViews(dir: string, scheme: Scheme) {
   }
 
   const top = view(paint(fcu, scheme.top, 1, scheme.copperFillOpacity), fsilkPaint)
-  const bottom = view(paint(bcu, scheme.bottom, 1, scheme.copperFillOpacity), bsilkPaint, true)
+  const bottom = view(paint(bcu, scheme.bottom, 1, scheme.copperFillOpacity), bsilkPaint)
 
   // Overlay: an x-ray through the whole stack, back to front — bottom deepest,
   // top drawn last, inner layers between in physical order. Each layer keeps its
