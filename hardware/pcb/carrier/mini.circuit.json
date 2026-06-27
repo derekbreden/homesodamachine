@@ -29073,6 +29073,202 @@
         "route_type": "wire",
         "width": 0.2,
         "layer": "top",
+        "x": -39.36,
+        "y": 42.65,
+        "start_pcb_port_id": "pcb_port_163"
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -26.1,
+        "y": 29.3
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -26.07,
+        "y": 11.7,
+        "end_pcb_port_id": "pcb_port_21"
+      }
+    ],
+    "subcircuit_id": "subcircuit_source_group_0"
+  },
+  {
+    "type": "pcb_trace",
+    "pcb_trace_id": "pcb_trace_7",
+    "pcb_component_id": null,
+    "route": [
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -36.82,
+        "y": 42.65,
+        "start_pcb_port_id": "pcb_port_164"
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -21,
+        "y": 26.8
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -20.99,
+        "y": 11.7,
+        "end_pcb_port_id": "pcb_port_23"
+      }
+    ],
+    "subcircuit_id": "subcircuit_source_group_0"
+  },
+  {
+    "type": "pcb_trace",
+    "pcb_trace_id": "pcb_trace_8",
+    "pcb_component_id": null,
+    "route": [
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -47.725,
+        "y": 27.645,
+        "start_pcb_port_id": "pcb_port_49"
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -39.4,
+        "y": 27.6
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -26.7,
+        "y": 14.9
+      },
+      {
+        "route_type": "via",
+        "from_layer": "top",
+        "to_layer": "bottom",
+        "x": -26.7,
+        "y": 14.9
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "bottom",
+        "x": -26.7,
+        "y": 14.9
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "bottom",
+        "x": -23.53,
+        "y": 11.7,
+        "end_pcb_port_id": "pcb_port_22"
+      }
+    ],
+    "subcircuit_id": "subcircuit_source_group_0"
+  },
+  {
+    "type": "pcb_via",
+    "pcb_via_id": "pcb_via_0",
+    "pcb_trace_id": "pcb_trace_8",
+    "x": -26.7,
+    "y": 14.9,
+    "hole_diameter": 0.3,
+    "outer_diameter": 0.5,
+    "layers": [
+      "top",
+      "bottom"
+    ],
+    "from_layer": "top",
+    "to_layer": "bottom"
+  },
+  {
+    "type": "pcb_trace",
+    "pcb_trace_id": "pcb_trace_9",
+    "pcb_component_id": null,
+    "route": [
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -47.725,
+        "y": 25.105,
+        "start_pcb_port_id": "pcb_port_50"
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
+        "x": -37.8,
+        "y": 25.1
+      },
+      {
+        "route_type": "via",
+        "from_layer": "top",
+        "to_layer": "bottom",
+        "x": -37.8,
+        "y": 25.1
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "bottom",
+        "x": -37.8,
+        "y": 25.1
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "bottom",
+        "x": -31.8,
+        "y": 25.1
+      },
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "bottom",
+        "x": -18.45,
+        "y": 11.7,
+        "end_pcb_port_id": "pcb_port_24"
+      }
+    ],
+    "subcircuit_id": "subcircuit_source_group_0"
+  },
+  {
+    "type": "pcb_via",
+    "pcb_via_id": "pcb_via_1",
+    "pcb_trace_id": "pcb_trace_9",
+    "x": -37.8,
+    "y": 25.1,
+    "hole_diameter": 0.3,
+    "outer_diameter": 0.5,
+    "layers": [
+      "top",
+      "bottom"
+    ],
+    "from_layer": "top",
+    "to_layer": "bottom"
+  },
+  {
+    "type": "pcb_trace",
+    "pcb_trace_id": "pcb_trace_10",
+    "pcb_component_id": null,
+    "route": [
+      {
+        "route_type": "wire",
+        "width": 0.2,
+        "layer": "top",
         "x": -29.54,
         "y": -46,
         "start_pcb_port_id": "pcb_port_174"
@@ -29104,7 +29300,7 @@
   },
   {
     "type": "pcb_trace",
-    "pcb_trace_id": "pcb_trace_7",
+    "pcb_trace_id": "pcb_trace_11",
     "pcb_component_id": null,
     "route": [
       {
@@ -29142,7 +29338,7 @@
   },
   {
     "type": "pcb_trace",
-    "pcb_trace_id": "pcb_trace_8",
+    "pcb_trace_id": "pcb_trace_12",
     "pcb_component_id": null,
     "route": [
       {
@@ -29180,7 +29376,7 @@
   },
   {
     "type": "pcb_trace",
-    "pcb_trace_id": "pcb_trace_9",
+    "pcb_trace_id": "pcb_trace_13",
     "pcb_component_id": null,
     "route": [
       {
@@ -29211,7 +29407,7 @@
   },
   {
     "type": "pcb_trace",
-    "pcb_trace_id": "pcb_trace_10",
+    "pcb_trace_id": "pcb_trace_14",
     "pcb_component_id": null,
     "route": [
       {
@@ -29242,7 +29438,7 @@
   },
   {
     "type": "pcb_trace",
-    "pcb_trace_id": "pcb_trace_11",
+    "pcb_trace_id": "pcb_trace_15",
     "pcb_component_id": null,
     "route": [
       {
@@ -29273,7 +29469,7 @@
   },
   {
     "type": "pcb_trace",
-    "pcb_trace_id": "pcb_trace_12",
+    "pcb_trace_id": "pcb_trace_16",
     "pcb_component_id": null,
     "route": [
       {
@@ -29304,7 +29500,7 @@
   },
   {
     "type": "pcb_trace",
-    "pcb_trace_id": "pcb_trace_13",
+    "pcb_trace_id": "pcb_trace_17",
     "pcb_component_id": null,
     "route": [
       {
@@ -29335,7 +29531,7 @@
   },
   {
     "type": "pcb_trace",
-    "pcb_trace_id": "pcb_trace_14",
+    "pcb_trace_id": "pcb_trace_18",
     "pcb_component_id": null,
     "route": [
       {
@@ -29373,7 +29569,7 @@
   },
   {
     "type": "pcb_trace",
-    "pcb_trace_id": "pcb_trace_15",
+    "pcb_trace_id": "pcb_trace_19",
     "pcb_component_id": null,
     "route": [
       {
@@ -29418,7 +29614,7 @@
   },
   {
     "type": "pcb_trace",
-    "pcb_trace_id": "pcb_trace_16",
+    "pcb_trace_id": "pcb_trace_20",
     "pcb_component_id": null,
     "route": [
       {
@@ -29433,22 +29629,22 @@
         "route_type": "wire",
         "width": 0.2,
         "layer": "top",
-        "x": 14.9,
-        "y": 42.7
+        "x": 14,
+        "y": 41.8
       },
       {
         "route_type": "via",
         "from_layer": "top",
         "to_layer": "bottom",
-        "x": 14.9,
-        "y": 42.7
+        "x": 14,
+        "y": 41.8
       },
       {
         "route_type": "wire",
         "width": 0.2,
         "layer": "bottom",
-        "x": 14.9,
-        "y": 42.7
+        "x": 14,
+        "y": 41.8
       },
       {
         "route_type": "wire",
@@ -29476,8 +29672,23 @@
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
+    "type": "pcb_via",
+    "pcb_via_id": "pcb_via_2",
+    "pcb_trace_id": "pcb_trace_20",
+    "x": 14,
+    "y": 41.8,
+    "hole_diameter": 0.3,
+    "outer_diameter": 0.5,
+    "layers": [
+      "top",
+      "bottom"
+    ],
+    "from_layer": "top",
+    "to_layer": "bottom"
+  },
+  {
     "type": "pcb_trace",
-    "pcb_trace_id": "pcb_trace_17",
+    "pcb_trace_id": "pcb_trace_21",
     "pcb_component_id": null,
     "route": [
       {
@@ -29492,22 +29703,22 @@
         "route_type": "wire",
         "width": 0.2,
         "layer": "top",
-        "x": 17.5,
-        "y": 42.7
+        "x": 16.6,
+        "y": 41.8
       },
       {
         "route_type": "via",
         "from_layer": "top",
         "to_layer": "bottom",
-        "x": 17.5,
-        "y": 42.7
+        "x": 16.6,
+        "y": 41.8
       },
       {
         "route_type": "wire",
         "width": 0.2,
         "layer": "bottom",
-        "x": 17.5,
-        "y": 42.7
+        "x": 16.6,
+        "y": 41.8
       },
       {
         "route_type": "wire",
@@ -29535,8 +29746,23 @@
     "subcircuit_id": "subcircuit_source_group_0"
   },
   {
+    "type": "pcb_via",
+    "pcb_via_id": "pcb_via_3",
+    "pcb_trace_id": "pcb_trace_21",
+    "x": 16.6,
+    "y": 41.8,
+    "hole_diameter": 0.3,
+    "outer_diameter": 0.5,
+    "layers": [
+      "top",
+      "bottom"
+    ],
+    "from_layer": "top",
+    "to_layer": "bottom"
+  },
+  {
     "type": "pcb_trace",
-    "pcb_trace_id": "pcb_trace_18",
+    "pcb_trace_id": "pcb_trace_22",
     "pcb_component_id": null,
     "route": [
       {
@@ -29567,7 +29793,7 @@
   },
   {
     "type": "pcb_trace",
-    "pcb_trace_id": "pcb_trace_19",
+    "pcb_trace_id": "pcb_trace_23",
     "pcb_component_id": null,
     "route": [
       {
@@ -29598,7 +29824,7 @@
   },
   {
     "type": "pcb_trace",
-    "pcb_trace_id": "pcb_trace_20",
+    "pcb_trace_id": "pcb_trace_24",
     "pcb_component_id": null,
     "route": [
       {
@@ -29629,7 +29855,7 @@
   },
   {
     "type": "pcb_trace",
-    "pcb_trace_id": "pcb_trace_21",
+    "pcb_trace_id": "pcb_trace_25",
     "pcb_component_id": null,
     "route": [
       {
@@ -29660,7 +29886,7 @@
   },
   {
     "type": "pcb_trace",
-    "pcb_trace_id": "pcb_trace_22",
+    "pcb_trace_id": "pcb_trace_26",
     "pcb_component_id": null,
     "route": [
       {
@@ -29691,7 +29917,7 @@
   },
   {
     "type": "pcb_trace",
-    "pcb_trace_id": "pcb_trace_23",
+    "pcb_trace_id": "pcb_trace_27",
     "pcb_component_id": null,
     "route": [
       {
@@ -34471,112 +34697,6 @@
   },
   {
     "type": "pcb_trace",
-    "pcb_trace_id": "source_trace_80_0",
-    "connection_name": "source_trace_80",
-    "route": [
-      {
-        "route_type": "wire",
-        "x": -20.989999999999995,
-        "y": 11.7,
-        "width": 0.2,
-        "layer": "top",
-        "start_pcb_port_id": "pcb_port_23"
-      },
-      {
-        "route_type": "wire",
-        "x": -33.38878092917357,
-        "y": 23.95208123646599,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -37.07670791699622,
-        "y": 23.848745171885096,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -37.62073222564365,
-        "y": 24.53239410035083,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -37.44665021336799,
-        "y": 42.211617360731005,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -37.368457698833495,
-        "y": 42.1015423011665,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -36.82,
-        "y": 42.65,
-        "width": 0.2,
-        "layer": "top",
-        "end_pcb_port_id": "pcb_port_164"
-      }
-    ],
-    "subcircuit_id": "subcircuit_source_group_0",
-    "source_trace_id": "source_trace_80"
-  },
-  {
-    "type": "pcb_trace",
-    "pcb_trace_id": "source_trace_79_0",
-    "connection_name": "source_trace_79",
-    "route": [
-      {
-        "route_type": "wire",
-        "x": -26.069999999999997,
-        "y": 11.7,
-        "width": 0.2,
-        "layer": "bottom",
-        "start_pcb_port_id": "pcb_port_21"
-      },
-      {
-        "route_type": "wire",
-        "x": -39.96998480422191,
-        "y": 25.056131687913243,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -39.71082686012137,
-        "y": 42.290969660706786,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -39.69917696855605,
-        "y": 42.310823031443945,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -39.36,
-        "y": 42.65,
-        "width": 0.2,
-        "layer": "bottom",
-        "end_pcb_port_id": "pcb_port_163"
-      }
-    ],
-    "subcircuit_id": "subcircuit_source_group_0",
-    "source_trace_id": "source_trace_79"
-  },
-  {
-    "type": "pcb_trace",
     "pcb_trace_id": "source_trace_77_0",
     "connection_name": "source_trace_77",
     "route": [
@@ -34901,211 +35021,8 @@
     "source_trace_id": "source_trace_64"
   },
   {
-    "type": "pcb_trace",
-    "pcb_trace_id": "source_trace_62_0",
-    "connection_name": "source_trace_62",
-    "route": [
-      {
-        "route_type": "wire",
-        "x": -18.449999999999996,
-        "y": 11.7,
-        "width": 0.2,
-        "layer": "top",
-        "start_pcb_port_id": "pcb_port_24"
-      },
-      {
-        "route_type": "wire",
-        "x": -31.563163699316608,
-        "y": 24.81316369931661,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -36.76812682848693,
-        "y": 24.81316369931661,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -36.77916369931661,
-        "y": 24.81316369931661,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -36.812,
-        "y": 24.846,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "via",
-        "x": -36.812,
-        "y": 24.846,
-        "from_layer": "top",
-        "to_layer": "bottom",
-        "via_diameter": 0.5,
-        "via_hole_diameter": 0.3
-      },
-      {
-        "route_type": "wire",
-        "x": -36.812,
-        "y": 24.846,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -38.481310283418004,
-        "y": 24.53842323897779,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -38.269696765606334,
-        "y": 24.74995718590721,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -38.37506169659254,
-        "y": 24.748938303407463,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -38.424,
-        "y": 24.7,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "via",
-        "x": -38.424,
-        "y": 24.7,
-        "from_layer": "bottom",
-        "to_layer": "top",
-        "via_diameter": 0.5,
-        "via_hole_diameter": 0.3
-      },
-      {
-        "route_type": "wire",
-        "x": -38.424,
-        "y": 24.7,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -47.30191940459958,
-        "y": 24.10682875993212,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -47.725,
-        "y": 25.105,
-        "width": 0.2,
-        "layer": "top",
-        "end_pcb_port_id": "pcb_port_50"
-      }
-    ],
-    "subcircuit_id": "subcircuit_source_group_0",
-    "source_trace_id": "source_trace_62"
-  },
-  {
-    "type": "pcb_trace",
-    "pcb_trace_id": "source_trace_61_0",
-    "connection_name": "source_trace_61",
-    "route": [
-      {
-        "route_type": "wire",
-        "x": -23.529999999999998,
-        "y": 11.7,
-        "width": 0.2,
-        "layer": "bottom",
-        "start_pcb_port_id": "pcb_port_22"
-      },
-      {
-        "route_type": "wire",
-        "x": -23.20009504303903,
-        "y": 12.373010854359036,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -36.97052040992631,
-        "y": 26.14343622124631,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -38.64243676567618,
-        "y": 25.973188153551508,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -39.10693624947716,
-        "y": 25.508688669750526,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "wire",
-        "x": -39.157702868668764,
-        "y": 25.457922050558924,
-        "width": 0.2,
-        "layer": "bottom"
-      },
-      {
-        "route_type": "via",
-        "x": -39.157702868668764,
-        "y": 25.457922050558924,
-        "from_layer": "bottom",
-        "to_layer": "top",
-        "via_diameter": 0.5,
-        "via_hole_diameter": 0.3
-      },
-      {
-        "route_type": "wire",
-        "x": -39.157702868668764,
-        "y": 25.457922050558924,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -45.537922050558926,
-        "y": 25.457922050558924,
-        "width": 0.2,
-        "layer": "top"
-      },
-      {
-        "route_type": "wire",
-        "x": -47.725,
-        "y": 27.645,
-        "width": 0.2,
-        "layer": "top",
-        "end_pcb_port_id": "pcb_port_49"
-      }
-    ],
-    "subcircuit_id": "subcircuit_source_group_0",
-    "source_trace_id": "source_trace_61"
-  },
-  {
     "type": "pcb_via",
-    "pcb_via_id": "pcb_via_0",
+    "pcb_via_id": "pcb_via_4",
     "pcb_trace_id": "source_trace_123_0",
     "x": -19.599,
     "y": 34.208,
@@ -35120,7 +35037,7 @@
   },
   {
     "type": "pcb_via",
-    "pcb_via_id": "pcb_via_1",
+    "pcb_via_id": "pcb_via_5",
     "pcb_trace_id": "source_trace_120__source_trace_121_mst1_0",
     "x": -16.308,
     "y": 36.776,
@@ -35135,55 +35052,10 @@
   },
   {
     "type": "pcb_via",
-    "pcb_via_id": "pcb_via_2",
+    "pcb_via_id": "pcb_via_6",
     "pcb_trace_id": "source_trace_120__source_trace_121_mst1_0",
     "x": -15.803,
     "y": 27.319,
-    "hole_diameter": 0.3,
-    "outer_diameter": 0.5,
-    "layers": [
-      "bottom",
-      "top"
-    ],
-    "from_layer": "bottom",
-    "to_layer": "top"
-  },
-  {
-    "type": "pcb_via",
-    "pcb_via_id": "pcb_via_3",
-    "pcb_trace_id": "source_trace_62_0",
-    "x": -36.812,
-    "y": 24.846,
-    "hole_diameter": 0.3,
-    "outer_diameter": 0.5,
-    "layers": [
-      "top",
-      "bottom"
-    ],
-    "from_layer": "top",
-    "to_layer": "bottom"
-  },
-  {
-    "type": "pcb_via",
-    "pcb_via_id": "pcb_via_4",
-    "pcb_trace_id": "source_trace_62_0",
-    "x": -38.424,
-    "y": 24.7,
-    "hole_diameter": 0.3,
-    "outer_diameter": 0.5,
-    "layers": [
-      "bottom",
-      "top"
-    ],
-    "from_layer": "bottom",
-    "to_layer": "top"
-  },
-  {
-    "type": "pcb_via",
-    "pcb_via_id": "pcb_via_5",
-    "pcb_trace_id": "source_trace_61_0",
-    "x": -39.157702868668764,
-    "y": 25.457922050558924,
     "hole_diameter": 0.3,
     "outer_diameter": 0.5,
     "layers": [
@@ -36147,94 +36019,6 @@
         {
           "vertices": [
             {
-              "x": -26.07,
-              "y": 10.75
-            },
-            {
-              "x": -25.884664,
-              "y": 10.768254
-            },
-            {
-              "x": -25.706451,
-              "y": 10.822314
-            },
-            {
-              "x": -25.542208,
-              "y": 10.910104
-            },
-            {
-              "x": -25.398249,
-              "y": 11.028249
-            },
-            {
-              "x": -25.280104,
-              "y": 11.172208
-            },
-            {
-              "x": -25.192314,
-              "y": 11.336451
-            },
-            {
-              "x": -25.138254,
-              "y": 11.514664
-            },
-            {
-              "x": -25.12,
-              "y": 11.7
-            },
-            {
-              "x": -25.138254,
-              "y": 11.885336
-            },
-            {
-              "x": -25.192314,
-              "y": 12.063549
-            },
-            {
-              "x": -25.280104,
-              "y": 12.227792
-            },
-            {
-              "x": -25.398249,
-              "y": 12.371751
-            },
-            {
-              "x": -25.542208,
-              "y": 12.489896
-            },
-            {
-              "x": -25.706451,
-              "y": 12.577686
-            },
-            {
-              "x": -25.884664,
-              "y": 12.631746
-            },
-            {
-              "x": -26.07,
-              "y": 12.65
-            },
-            {
-              "x": -26.255336,
-              "y": 12.631746
-            },
-            {
-              "x": -26.433549,
-              "y": 12.577686
-            },
-            {
-              "x": -26.508656,
-              "y": 12.53754
-            },
-            {
-              "x": -39.668058,
-              "y": 25.182064
-            },
-            {
-              "x": -39.419591,
-              "y": 41.705869
-            },
-            {
               "x": -39.36,
               "y": 41.7
             },
@@ -36351,88 +36135,16 @@
               "y": 41.978249
             },
             {
-              "x": -40.01576,
-              "y": 41.965126
+              "x": -39.887792,
+              "y": 41.860104
             },
             {
-              "x": -40.269951,
-              "y": 25.060642
+              "x": -39.723549,
+              "y": 41.772314
             },
             {
-              "x": -40.269541,
-              "y": 25.060636
-            },
-            {
-              "x": -40.269985,
-              "y": 25.056132
-            },
-            {
-              "x": -40.26422,
-              "y": 24.997605
-            },
-            {
-              "x": -40.247149,
-              "y": 24.941327
-            },
-            {
-              "x": -40.219426,
-              "y": 24.889461
-            },
-            {
-              "x": -40.182117,
-              "y": 24.844
-            },
-            {
-              "x": -40.177476,
-              "y": 24.840192
-            },
-            {
-              "x": -40.177843,
-              "y": 24.83981
-            },
-            {
-              "x": -26.925174,
-              "y": 12.105667
-            },
-            {
-              "x": -26.947686,
-              "y": 12.063549
-            },
-            {
-              "x": -27.001746,
-              "y": 11.885336
-            },
-            {
-              "x": -27.02,
-              "y": 11.7
-            },
-            {
-              "x": -27.001746,
-              "y": 11.514664
-            },
-            {
-              "x": -26.947686,
-              "y": 11.336451
-            },
-            {
-              "x": -26.859896,
-              "y": 11.172208
-            },
-            {
-              "x": -26.741751,
-              "y": 11.028249
-            },
-            {
-              "x": -26.597792,
-              "y": 10.910104
-            },
-            {
-              "x": -26.433549,
-              "y": 10.822314
-            },
-            {
-              "x": -26.255336,
-              "y": 10.768254
+              "x": -39.545336,
+              "y": 41.718254
             }
           ]
         },
@@ -37373,6 +37085,694 @@
             {
               "x": 0.654664,
               "y": 41.718254
+            }
+          ]
+        },
+        {
+          "vertices": [
+            {
+              "x": 4.5,
+              "y": 25.55
+            },
+            {
+              "x": 4.685336,
+              "y": 25.568254
+            },
+            {
+              "x": 4.863549,
+              "y": 25.622314
+            },
+            {
+              "x": 5.027792,
+              "y": 25.710104
+            },
+            {
+              "x": 5.171751,
+              "y": 25.828249
+            },
+            {
+              "x": 5.289896,
+              "y": 25.972208
+            },
+            {
+              "x": 5.377686,
+              "y": 26.136451
+            },
+            {
+              "x": 5.431746,
+              "y": 26.314664
+            },
+            {
+              "x": 5.45,
+              "y": 26.5
+            },
+            {
+              "x": 5.431746,
+              "y": 26.685336
+            },
+            {
+              "x": 5.377686,
+              "y": 26.863549
+            },
+            {
+              "x": 5.346381,
+              "y": 26.922117
+            },
+            {
+              "x": 12.112132,
+              "y": 33.687868
+            },
+            {
+              "x": 12.149441,
+              "y": 33.733329
+            },
+            {
+              "x": 12.177164,
+              "y": 33.785195
+            },
+            {
+              "x": 12.194236,
+              "y": 33.841473
+            },
+            {
+              "x": 12.2,
+              "y": 33.9
+            },
+            {
+              "x": 12.2,
+              "y": 39.575736
+            },
+            {
+              "x": 13.976572,
+              "y": 41.352308
+            },
+            {
+              "x": 14,
+              "y": 41.35
+            },
+            {
+              "x": 14.087791,
+              "y": 41.358647
+            },
+            {
+              "x": 14.172208,
+              "y": 41.384254
+            },
+            {
+              "x": 14.250007,
+              "y": 41.425839
+            },
+            {
+              "x": 14.318198,
+              "y": 41.481802
+            },
+            {
+              "x": 14.374161,
+              "y": 41.549993
+            },
+            {
+              "x": 14.415746,
+              "y": 41.627792
+            },
+            {
+              "x": 14.441353,
+              "y": 41.712209
+            },
+            {
+              "x": 14.45,
+              "y": 41.8
+            },
+            {
+              "x": 14.441353,
+              "y": 41.887791
+            },
+            {
+              "x": 14.415746,
+              "y": 41.972208
+            },
+            {
+              "x": 14.374161,
+              "y": 42.050007
+            },
+            {
+              "x": 14.318198,
+              "y": 42.118198
+            },
+            {
+              "x": 14.250007,
+              "y": 42.174161
+            },
+            {
+              "x": 14.172208,
+              "y": 42.215746
+            },
+            {
+              "x": 14.087791,
+              "y": 42.241353
+            },
+            {
+              "x": 14,
+              "y": 42.25
+            },
+            {
+              "x": 13.912209,
+              "y": 42.241353
+            },
+            {
+              "x": 13.827792,
+              "y": 42.215746
+            },
+            {
+              "x": 13.749993,
+              "y": 42.174161
+            },
+            {
+              "x": 13.681802,
+              "y": 42.118198
+            },
+            {
+              "x": 13.625839,
+              "y": 42.050007
+            },
+            {
+              "x": 13.584254,
+              "y": 41.972208
+            },
+            {
+              "x": 13.558647,
+              "y": 41.887791
+            },
+            {
+              "x": 13.55,
+              "y": 41.8
+            },
+            {
+              "x": 13.552308,
+              "y": 41.776572
+            },
+            {
+              "x": 11.687868,
+              "y": 39.912132
+            },
+            {
+              "x": 11.650559,
+              "y": 39.866671
+            },
+            {
+              "x": 11.622836,
+              "y": 39.814805
+            },
+            {
+              "x": 11.605764,
+              "y": 39.758527
+            },
+            {
+              "x": 11.6,
+              "y": 39.7
+            },
+            {
+              "x": 11.6,
+              "y": 34.024264
+            },
+            {
+              "x": 4.922117,
+              "y": 27.346381
+            },
+            {
+              "x": 4.863549,
+              "y": 27.377686
+            },
+            {
+              "x": 4.685336,
+              "y": 27.431746
+            },
+            {
+              "x": 4.5,
+              "y": 27.45
+            },
+            {
+              "x": 4.314664,
+              "y": 27.431746
+            },
+            {
+              "x": 4.136451,
+              "y": 27.377686
+            },
+            {
+              "x": 3.972208,
+              "y": 27.289896
+            },
+            {
+              "x": 3.828249,
+              "y": 27.171751
+            },
+            {
+              "x": 3.710104,
+              "y": 27.027792
+            },
+            {
+              "x": 3.622314,
+              "y": 26.863549
+            },
+            {
+              "x": 3.568254,
+              "y": 26.685336
+            },
+            {
+              "x": 3.55,
+              "y": 26.5
+            },
+            {
+              "x": 3.568254,
+              "y": 26.314664
+            },
+            {
+              "x": 3.622314,
+              "y": 26.136451
+            },
+            {
+              "x": 3.710104,
+              "y": 25.972208
+            },
+            {
+              "x": 3.828249,
+              "y": 25.828249
+            },
+            {
+              "x": 3.972208,
+              "y": 25.710104
+            },
+            {
+              "x": 4.136451,
+              "y": 25.622314
+            },
+            {
+              "x": 4.314664,
+              "y": 25.568254
+            }
+          ]
+        },
+        {
+          "vertices": [
+            {
+              "x": 4.5,
+              "y": 23.01
+            },
+            {
+              "x": 4.685336,
+              "y": 23.028254
+            },
+            {
+              "x": 4.863549,
+              "y": 23.082314
+            },
+            {
+              "x": 5.027792,
+              "y": 23.170104
+            },
+            {
+              "x": 5.171751,
+              "y": 23.288249
+            },
+            {
+              "x": 5.289896,
+              "y": 23.432208
+            },
+            {
+              "x": 5.377686,
+              "y": 23.596451
+            },
+            {
+              "x": 5.431746,
+              "y": 23.774664
+            },
+            {
+              "x": 5.45,
+              "y": 23.96
+            },
+            {
+              "x": 5.431746,
+              "y": 24.145336
+            },
+            {
+              "x": 5.377686,
+              "y": 24.323549
+            },
+            {
+              "x": 5.34549,
+              "y": 24.383784
+            },
+            {
+              "x": 14.612559,
+              "y": 33.688296
+            },
+            {
+              "x": 14.612517,
+              "y": 33.688338
+            },
+            {
+              "x": 14.649441,
+              "y": 33.733329
+            },
+            {
+              "x": 14.677164,
+              "y": 33.785195
+            },
+            {
+              "x": 14.694236,
+              "y": 33.841473
+            },
+            {
+              "x": 14.7,
+              "y": 33.9
+            },
+            {
+              "x": 14.7,
+              "y": 39.475736
+            },
+            {
+              "x": 16.576572,
+              "y": 41.352308
+            },
+            {
+              "x": 16.6,
+              "y": 41.35
+            },
+            {
+              "x": 16.687791,
+              "y": 41.358647
+            },
+            {
+              "x": 16.772208,
+              "y": 41.384254
+            },
+            {
+              "x": 16.850007,
+              "y": 41.425839
+            },
+            {
+              "x": 16.918198,
+              "y": 41.481802
+            },
+            {
+              "x": 16.974161,
+              "y": 41.549993
+            },
+            {
+              "x": 17.015746,
+              "y": 41.627792
+            },
+            {
+              "x": 17.041353,
+              "y": 41.712209
+            },
+            {
+              "x": 17.05,
+              "y": 41.8
+            },
+            {
+              "x": 17.041353,
+              "y": 41.887791
+            },
+            {
+              "x": 17.015746,
+              "y": 41.972208
+            },
+            {
+              "x": 16.974161,
+              "y": 42.050007
+            },
+            {
+              "x": 16.918198,
+              "y": 42.118198
+            },
+            {
+              "x": 16.850007,
+              "y": 42.174161
+            },
+            {
+              "x": 16.772208,
+              "y": 42.215746
+            },
+            {
+              "x": 16.687791,
+              "y": 42.241353
+            },
+            {
+              "x": 16.6,
+              "y": 42.25
+            },
+            {
+              "x": 16.512209,
+              "y": 42.241353
+            },
+            {
+              "x": 16.427792,
+              "y": 42.215746
+            },
+            {
+              "x": 16.349993,
+              "y": 42.174161
+            },
+            {
+              "x": 16.281802,
+              "y": 42.118198
+            },
+            {
+              "x": 16.225839,
+              "y": 42.050007
+            },
+            {
+              "x": 16.184254,
+              "y": 41.972208
+            },
+            {
+              "x": 16.158647,
+              "y": 41.887791
+            },
+            {
+              "x": 16.15,
+              "y": 41.8
+            },
+            {
+              "x": 16.152308,
+              "y": 41.776572
+            },
+            {
+              "x": 14.187868,
+              "y": 39.812132
+            },
+            {
+              "x": 14.150559,
+              "y": 39.766671
+            },
+            {
+              "x": 14.122836,
+              "y": 39.714805
+            },
+            {
+              "x": 14.105764,
+              "y": 39.658527
+            },
+            {
+              "x": 14.1,
+              "y": 39.6
+            },
+            {
+              "x": 14.1,
+              "y": 36.277928
+            },
+            {
+              "x": 14.019896,
+              "y": 36.427792
+            },
+            {
+              "x": 13.901751,
+              "y": 36.571751
+            },
+            {
+              "x": 13.757792,
+              "y": 36.689896
+            },
+            {
+              "x": 13.593549,
+              "y": 36.777686
+            },
+            {
+              "x": 13.415336,
+              "y": 36.831746
+            },
+            {
+              "x": 13.23,
+              "y": 36.85
+            },
+            {
+              "x": 13.044664,
+              "y": 36.831746
+            },
+            {
+              "x": 12.866451,
+              "y": 36.777686
+            },
+            {
+              "x": 12.702208,
+              "y": 36.689896
+            },
+            {
+              "x": 12.558249,
+              "y": 36.571751
+            },
+            {
+              "x": 12.440104,
+              "y": 36.427792
+            },
+            {
+              "x": 12.352314,
+              "y": 36.263549
+            },
+            {
+              "x": 12.298254,
+              "y": 36.085336
+            },
+            {
+              "x": 12.28,
+              "y": 35.9
+            },
+            {
+              "x": 12.298254,
+              "y": 35.714664
+            },
+            {
+              "x": 12.352314,
+              "y": 35.536451
+            },
+            {
+              "x": 12.440104,
+              "y": 35.372208
+            },
+            {
+              "x": 12.558249,
+              "y": 35.228249
+            },
+            {
+              "x": 12.702208,
+              "y": 35.110104
+            },
+            {
+              "x": 12.866451,
+              "y": 35.022314
+            },
+            {
+              "x": 13.044664,
+              "y": 34.968254
+            },
+            {
+              "x": 13.23,
+              "y": 34.95
+            },
+            {
+              "x": 13.415336,
+              "y": 34.968254
+            },
+            {
+              "x": 13.593549,
+              "y": 35.022314
+            },
+            {
+              "x": 13.757792,
+              "y": 35.110104
+            },
+            {
+              "x": 13.901751,
+              "y": 35.228249
+            },
+            {
+              "x": 14.019896,
+              "y": 35.372208
+            },
+            {
+              "x": 14.1,
+              "y": 35.522072
+            },
+            {
+              "x": 14.1,
+              "y": 34.02391
+            },
+            {
+              "x": 4.920451,
+              "y": 24.807271
+            },
+            {
+              "x": 4.863549,
+              "y": 24.837686
+            },
+            {
+              "x": 4.685336,
+              "y": 24.891746
+            },
+            {
+              "x": 4.5,
+              "y": 24.91
+            },
+            {
+              "x": 4.314664,
+              "y": 24.891746
+            },
+            {
+              "x": 4.136451,
+              "y": 24.837686
+            },
+            {
+              "x": 3.972208,
+              "y": 24.749896
+            },
+            {
+              "x": 3.828249,
+              "y": 24.631751
+            },
+            {
+              "x": 3.710104,
+              "y": 24.487792
+            },
+            {
+              "x": 3.622314,
+              "y": 24.323549
+            },
+            {
+              "x": 3.568254,
+              "y": 24.145336
+            },
+            {
+              "x": 3.55,
+              "y": 23.96
+            },
+            {
+              "x": 3.568254,
+              "y": 23.774664
+            },
+            {
+              "x": 3.622314,
+              "y": 23.596451
+            },
+            {
+              "x": 3.710104,
+              "y": 23.432208
+            },
+            {
+              "x": 3.828249,
+              "y": 23.288249
+            },
+            {
+              "x": 3.972208,
+              "y": 23.170104
+            },
+            {
+              "x": 4.136451,
+              "y": 23.082314
+            },
+            {
+              "x": 4.314664,
+              "y": 23.028254
             }
           ]
         },
@@ -38425,138 +38825,6 @@
             {
               "x": 7.2,
               "y": 36.85
-            }
-          ]
-        },
-        {
-          "vertices": [
-            {
-              "x": 13.23,
-              "y": 34.95
-            },
-            {
-              "x": 13.415336,
-              "y": 34.968254
-            },
-            {
-              "x": 13.593549,
-              "y": 35.022314
-            },
-            {
-              "x": 13.757792,
-              "y": 35.110104
-            },
-            {
-              "x": 13.901751,
-              "y": 35.228249
-            },
-            {
-              "x": 14.019896,
-              "y": 35.372208
-            },
-            {
-              "x": 14.107686,
-              "y": 35.536451
-            },
-            {
-              "x": 14.161746,
-              "y": 35.714664
-            },
-            {
-              "x": 14.18,
-              "y": 35.9
-            },
-            {
-              "x": 14.161746,
-              "y": 36.085336
-            },
-            {
-              "x": 14.107686,
-              "y": 36.263549
-            },
-            {
-              "x": 14.019896,
-              "y": 36.427792
-            },
-            {
-              "x": 13.901751,
-              "y": 36.571751
-            },
-            {
-              "x": 13.757792,
-              "y": 36.689896
-            },
-            {
-              "x": 13.593549,
-              "y": 36.777686
-            },
-            {
-              "x": 13.415336,
-              "y": 36.831746
-            },
-            {
-              "x": 13.23,
-              "y": 36.85
-            },
-            {
-              "x": 13.044664,
-              "y": 36.831746
-            },
-            {
-              "x": 12.866451,
-              "y": 36.777686
-            },
-            {
-              "x": 12.702208,
-              "y": 36.689896
-            },
-            {
-              "x": 12.558249,
-              "y": 36.571751
-            },
-            {
-              "x": 12.440104,
-              "y": 36.427792
-            },
-            {
-              "x": 12.352314,
-              "y": 36.263549
-            },
-            {
-              "x": 12.298254,
-              "y": 36.085336
-            },
-            {
-              "x": 12.28,
-              "y": 35.9
-            },
-            {
-              "x": 12.298254,
-              "y": 35.714664
-            },
-            {
-              "x": 12.352314,
-              "y": 35.536451
-            },
-            {
-              "x": 12.440104,
-              "y": 35.372208
-            },
-            {
-              "x": 12.558249,
-              "y": 35.228249
-            },
-            {
-              "x": 12.702208,
-              "y": 35.110104
-            },
-            {
-              "x": 12.866451,
-              "y": 35.022314
-            },
-            {
-              "x": 13.044664,
-              "y": 34.968254
             }
           ]
         },
@@ -40847,138 +41115,6 @@
         {
           "vertices": [
             {
-              "x": 4.5,
-              "y": 25.55
-            },
-            {
-              "x": 4.685336,
-              "y": 25.568254
-            },
-            {
-              "x": 4.863549,
-              "y": 25.622314
-            },
-            {
-              "x": 5.027792,
-              "y": 25.710104
-            },
-            {
-              "x": 5.171751,
-              "y": 25.828249
-            },
-            {
-              "x": 5.289896,
-              "y": 25.972208
-            },
-            {
-              "x": 5.377686,
-              "y": 26.136451
-            },
-            {
-              "x": 5.431746,
-              "y": 26.314664
-            },
-            {
-              "x": 5.45,
-              "y": 26.5
-            },
-            {
-              "x": 5.431746,
-              "y": 26.685336
-            },
-            {
-              "x": 5.377686,
-              "y": 26.863549
-            },
-            {
-              "x": 5.289896,
-              "y": 27.027792
-            },
-            {
-              "x": 5.171751,
-              "y": 27.171751
-            },
-            {
-              "x": 5.027792,
-              "y": 27.289896
-            },
-            {
-              "x": 4.863549,
-              "y": 27.377686
-            },
-            {
-              "x": 4.685336,
-              "y": 27.431746
-            },
-            {
-              "x": 4.5,
-              "y": 27.45
-            },
-            {
-              "x": 4.314664,
-              "y": 27.431746
-            },
-            {
-              "x": 4.136451,
-              "y": 27.377686
-            },
-            {
-              "x": 3.972208,
-              "y": 27.289896
-            },
-            {
-              "x": 3.828249,
-              "y": 27.171751
-            },
-            {
-              "x": 3.710104,
-              "y": 27.027792
-            },
-            {
-              "x": 3.622314,
-              "y": 26.863549
-            },
-            {
-              "x": 3.568254,
-              "y": 26.685336
-            },
-            {
-              "x": 3.55,
-              "y": 26.5
-            },
-            {
-              "x": 3.568254,
-              "y": 26.314664
-            },
-            {
-              "x": 3.622314,
-              "y": 26.136451
-            },
-            {
-              "x": 3.710104,
-              "y": 25.972208
-            },
-            {
-              "x": 3.828249,
-              "y": 25.828249
-            },
-            {
-              "x": 3.972208,
-              "y": 25.710104
-            },
-            {
-              "x": 4.136451,
-              "y": 25.622314
-            },
-            {
-              "x": 4.314664,
-              "y": 25.568254
-            }
-          ]
-        },
-        {
-          "vertices": [
-            {
               "x": 24.5,
               "y": 25.55
             },
@@ -41639,310 +41775,6 @@
         {
           "vertices": [
             {
-              "x": -23.53,
-              "y": 10.75
-            },
-            {
-              "x": -23.344664,
-              "y": 10.768254
-            },
-            {
-              "x": -23.166451,
-              "y": 10.822314
-            },
-            {
-              "x": -23.002208,
-              "y": 10.910104
-            },
-            {
-              "x": -22.858249,
-              "y": 11.028249
-            },
-            {
-              "x": -22.740104,
-              "y": 11.172208
-            },
-            {
-              "x": -22.652314,
-              "y": 11.336451
-            },
-            {
-              "x": -22.598254,
-              "y": 11.514664
-            },
-            {
-              "x": -22.58,
-              "y": 11.7
-            },
-            {
-              "x": -22.598254,
-              "y": 11.885336
-            },
-            {
-              "x": -22.652314,
-              "y": 12.063549
-            },
-            {
-              "x": -22.740104,
-              "y": 12.227792
-            },
-            {
-              "x": -22.858249,
-              "y": 12.371751
-            },
-            {
-              "x": -22.90364,
-              "y": 12.409002
-            },
-            {
-              "x": -22.905859,
-              "y": 12.431538
-            },
-            {
-              "x": -22.922931,
-              "y": 12.487816
-            },
-            {
-              "x": -22.950654,
-              "y": 12.539682
-            },
-            {
-              "x": -22.987963,
-              "y": 12.585143
-            },
-            {
-              "x": -36.758388,
-              "y": 26.355568
-            },
-            {
-              "x": -36.803849,
-              "y": 26.392877
-            },
-            {
-              "x": -36.855715,
-              "y": 26.4206
-            },
-            {
-              "x": -36.911993,
-              "y": 26.437672
-            },
-            {
-              "x": -36.97052,
-              "y": 26.443436
-            },
-            {
-              "x": -37.000766,
-              "y": 26.440457
-            },
-            {
-              "x": -37.000912,
-              "y": 26.441893
-            },
-            {
-              "x": -38.672828,
-              "y": 26.271645
-            },
-            {
-              "x": -38.672682,
-              "y": 26.270209
-            },
-            {
-              "x": -38.700964,
-              "y": 26.267424
-            },
-            {
-              "x": -38.757242,
-              "y": 26.250352
-            },
-            {
-              "x": -38.809108,
-              "y": 26.222629
-            },
-            {
-              "x": -38.854569,
-              "y": 26.18532
-            },
-            {
-              "x": -39.134275,
-              "y": 25.905614
-            },
-            {
-              "x": -39.157703,
-              "y": 25.907922
-            },
-            {
-              "x": -39.245494,
-              "y": 25.899275
-            },
-            {
-              "x": -39.32991,
-              "y": 25.873668
-            },
-            {
-              "x": -39.407709,
-              "y": 25.832083
-            },
-            {
-              "x": -39.475901,
-              "y": 25.77612
-            },
-            {
-              "x": -39.531864,
-              "y": 25.707929
-            },
-            {
-              "x": -39.573449,
-              "y": 25.63013
-            },
-            {
-              "x": -39.599056,
-              "y": 25.545713
-            },
-            {
-              "x": -39.607703,
-              "y": 25.457922
-            },
-            {
-              "x": -39.599056,
-              "y": 25.370131
-            },
-            {
-              "x": -39.573449,
-              "y": 25.285715
-            },
-            {
-              "x": -39.531864,
-              "y": 25.207915
-            },
-            {
-              "x": -39.475901,
-              "y": 25.139724
-            },
-            {
-              "x": -39.407709,
-              "y": 25.083761
-            },
-            {
-              "x": -39.32991,
-              "y": 25.042176
-            },
-            {
-              "x": -39.245494,
-              "y": 25.016569
-            },
-            {
-              "x": -39.157703,
-              "y": 25.007922
-            },
-            {
-              "x": -39.069912,
-              "y": 25.016569
-            },
-            {
-              "x": -38.985495,
-              "y": 25.042176
-            },
-            {
-              "x": -38.907696,
-              "y": 25.083761
-            },
-            {
-              "x": -38.839505,
-              "y": 25.139724
-            },
-            {
-              "x": -38.783542,
-              "y": 25.207915
-            },
-            {
-              "x": -38.741957,
-              "y": 25.285715
-            },
-            {
-              "x": -38.716349,
-              "y": 25.370131
-            },
-            {
-              "x": -38.707703,
-              "y": 25.457922
-            },
-            {
-              "x": -38.71001,
-              "y": 25.481351
-            },
-            {
-              "x": -38.505811,
-              "y": 25.68555
-            },
-            {
-              "x": -37.081892,
-              "y": 25.830544
-            },
-            {
-              "x": -23.844049,
-              "y": 12.592701
-            },
-            {
-              "x": -23.893549,
-              "y": 12.577686
-            },
-            {
-              "x": -24.057792,
-              "y": 12.489896
-            },
-            {
-              "x": -24.201751,
-              "y": 12.371751
-            },
-            {
-              "x": -24.319896,
-              "y": 12.227792
-            },
-            {
-              "x": -24.407686,
-              "y": 12.063549
-            },
-            {
-              "x": -24.461746,
-              "y": 11.885336
-            },
-            {
-              "x": -24.48,
-              "y": 11.7
-            },
-            {
-              "x": -24.461746,
-              "y": 11.514664
-            },
-            {
-              "x": -24.407686,
-              "y": 11.336451
-            },
-            {
-              "x": -24.319896,
-              "y": 11.172208
-            },
-            {
-              "x": -24.201751,
-              "y": 11.028249
-            },
-            {
-              "x": -24.057792,
-              "y": 10.910104
-            },
-            {
-              "x": -23.893549,
-              "y": 10.822314
-            },
-            {
-              "x": -23.715336,
-              "y": 10.768254
-            }
-          ]
-        },
-        {
-          "vertices": [
-            {
               "x": -47.725,
               "y": 24.155
             },
@@ -42075,372 +41907,268 @@
         {
           "vertices": [
             {
-              "x": -38.48131,
-              "y": 24.238423
+              "x": -18.45,
+              "y": 10.75
             },
             {
-              "x": -38.427019,
-              "y": 24.243771
+              "x": -18.264664,
+              "y": 10.768254
             },
             {
-              "x": -38.426949,
-              "y": 24.24339
+              "x": -18.086451,
+              "y": 10.822314
             },
             {
-              "x": -38.353259,
-              "y": 24.256968
+              "x": -17.922208,
+              "y": 10.910104
             },
             {
-              "x": -38.336209,
-              "y": 24.258647
+              "x": -17.778249,
+              "y": 11.028249
             },
             {
-              "x": -38.323931,
-              "y": 24.262371
+              "x": -17.660104,
+              "y": 11.172208
             },
             {
-              "x": -37.08494,
-              "y": 24.49066
+              "x": -17.572314,
+              "y": 11.336451
             },
             {
-              "x": -37.062007,
-              "y": 24.471839
+              "x": -17.518254,
+              "y": 11.514664
             },
             {
-              "x": -36.984208,
-              "y": 24.430254
+              "x": -17.5,
+              "y": 11.7
             },
             {
-              "x": -36.899791,
-              "y": 24.404647
+              "x": -17.518254,
+              "y": 11.885336
             },
             {
-              "x": -36.812,
-              "y": 24.396
+              "x": -17.572314,
+              "y": 12.063549
             },
             {
-              "x": -36.724209,
-              "y": 24.404647
+              "x": -17.660104,
+              "y": 12.227792
             },
             {
-              "x": -36.639792,
-              "y": 24.430254
+              "x": -17.778249,
+              "y": 12.371751
             },
             {
-              "x": -36.561993,
-              "y": 24.471839
+              "x": -17.922208,
+              "y": 12.489896
             },
             {
-              "x": -36.493802,
-              "y": 24.527802
+              "x": -18.086451,
+              "y": 12.577686
             },
             {
-              "x": -36.437839,
-              "y": 24.595993
+              "x": -18.264664,
+              "y": 12.631746
             },
             {
-              "x": -36.396254,
-              "y": 24.673792
+              "x": -18.45,
+              "y": 12.65
             },
             {
-              "x": -36.370647,
-              "y": 24.758209
+              "x": -18.635336,
+              "y": 12.631746
             },
             {
-              "x": -36.362,
-              "y": 24.846
+              "x": -18.813549,
+              "y": 12.577686
             },
             {
-              "x": -36.370647,
-              "y": 24.933791
+              "x": -18.870572,
+              "y": 12.547206
             },
             {
-              "x": -36.396254,
-              "y": 25.018208
+              "x": -31.587472,
+              "y": 25.311735
             },
             {
-              "x": -36.437839,
-              "y": 25.096007
+              "x": -31.587511,
+              "y": 25.311697
             },
             {
-              "x": -36.493802,
-              "y": 25.164198
+              "x": -31.587868,
+              "y": 25.312132
             },
             {
-              "x": -36.561993,
-              "y": 25.220161
+              "x": -31.633329,
+              "y": 25.349441
             },
             {
-              "x": -36.639792,
-              "y": 25.261746
+              "x": -31.685195,
+              "y": 25.377164
             },
             {
-              "x": -36.724209,
-              "y": 25.287353
+              "x": -31.741473,
+              "y": 25.394236
             },
             {
-              "x": -36.812,
-              "y": 25.296
+              "x": -31.8,
+              "y": 25.4
             },
             {
-              "x": -36.899791,
-              "y": 25.287353
+              "x": -37.466867,
+              "y": 25.4
             },
             {
-              "x": -36.984208,
-              "y": 25.261746
+              "x": -37.481802,
+              "y": 25.418198
             },
             {
-              "x": -37.062007,
-              "y": 25.220161
+              "x": -37.549993,
+              "y": 25.474161
             },
             {
-              "x": -37.130198,
-              "y": 25.164198
+              "x": -37.627792,
+              "y": 25.515746
             },
             {
-              "x": -37.186161,
-              "y": 25.096007
+              "x": -37.712209,
+              "y": 25.541353
             },
             {
-              "x": -37.194401,
-              "y": 25.080591
+              "x": -37.8,
+              "y": 25.55
             },
             {
-              "x": -38.028665,
-              "y": 24.926875
+              "x": -37.887791,
+              "y": 25.541353
             },
             {
-              "x": -38.057565,
-              "y": 24.962089
+              "x": -37.972208,
+              "y": 25.515746
             },
             {
-              "x": -38.064271,
-              "y": 24.967593
+              "x": -38.050007,
+              "y": 25.474161
             },
             {
-              "x": -38.105802,
-              "y": 25.018198
+              "x": -38.118198,
+              "y": 25.418198
             },
             {
-              "x": -38.173993,
-              "y": 25.074161
+              "x": -38.174161,
+              "y": 25.350007
             },
             {
-              "x": -38.251792,
-              "y": 25.115746
+              "x": -38.215746,
+              "y": 25.272208
             },
             {
-              "x": -38.336209,
-              "y": 25.141353
+              "x": -38.241353,
+              "y": 25.187791
             },
             {
-              "x": -38.424,
-              "y": 25.15
+              "x": -38.25,
+              "y": 25.1
             },
             {
-              "x": -38.511791,
-              "y": 25.141353
+              "x": -38.241353,
+              "y": 25.012209
             },
             {
-              "x": -38.596208,
-              "y": 25.115746
+              "x": -38.215746,
+              "y": 24.927792
             },
             {
-              "x": -38.674007,
-              "y": 25.074161
+              "x": -38.174161,
+              "y": 24.849993
             },
             {
-              "x": -38.742198,
-              "y": 25.018198
+              "x": -38.118198,
+              "y": 24.781802
             },
             {
-              "x": -38.798161,
-              "y": 24.950007
+              "x": -38.050007,
+              "y": 24.725839
             },
             {
-              "x": -38.839746,
-              "y": 24.872208
+              "x": -37.972208,
+              "y": 24.684254
             },
             {
-              "x": -38.865353,
-              "y": 24.787791
+              "x": -37.887791,
+              "y": 24.658647
             },
             {
-              "x": -38.874,
-              "y": 24.7
+              "x": -37.8,
+              "y": 24.65
             },
             {
-              "x": -38.865353,
-              "y": 24.612209
+              "x": -37.712209,
+              "y": 24.658647
             },
             {
-              "x": -38.839746,
-              "y": 24.527792
+              "x": -37.627792,
+              "y": 24.684254
             },
             {
-              "x": -38.798161,
-              "y": 24.449993
+              "x": -37.549993,
+              "y": 24.725839
             },
             {
-              "x": -38.742198,
-              "y": 24.381802
+              "x": -37.481802,
+              "y": 24.781802
             },
             {
-              "x": -38.731375,
-              "y": 24.37292
+              "x": -37.466867,
+              "y": 24.8
             },
             {
-              "x": -38.730751,
-              "y": 24.371752
+              "x": -31.924592,
+              "y": 24.8
             },
             {
-              "x": -38.693442,
-              "y": 24.326291
+              "x": -19.295555,
+              "y": 12.123662
             },
             {
-              "x": -38.647981,
-              "y": 24.288982
+              "x": -19.327686,
+              "y": 12.063549
             },
             {
-              "x": -38.596115,
-              "y": 24.261259
+              "x": -19.381746,
+              "y": 11.885336
             },
             {
-              "x": -38.539837,
-              "y": 24.244188
-            }
-          ]
-        },
-        {
-          "vertices": [
-            {
-              "x": 4.5,
-              "y": 23.01
-            },
-            {
-              "x": 4.685336,
-              "y": 23.028254
-            },
-            {
-              "x": 4.863549,
-              "y": 23.082314
-            },
-            {
-              "x": 5.027792,
-              "y": 23.170104
-            },
-            {
-              "x": 5.171751,
-              "y": 23.288249
-            },
-            {
-              "x": 5.289896,
-              "y": 23.432208
-            },
-            {
-              "x": 5.377686,
-              "y": 23.596451
-            },
-            {
-              "x": 5.431746,
-              "y": 23.774664
-            },
-            {
-              "x": 5.45,
-              "y": 23.96
-            },
-            {
-              "x": 5.431746,
-              "y": 24.145336
-            },
-            {
-              "x": 5.377686,
-              "y": 24.323549
-            },
-            {
-              "x": 5.289896,
-              "y": 24.487792
-            },
-            {
-              "x": 5.171751,
-              "y": 24.631751
-            },
-            {
-              "x": 5.027792,
-              "y": 24.749896
-            },
-            {
-              "x": 4.863549,
-              "y": 24.837686
-            },
-            {
-              "x": 4.685336,
-              "y": 24.891746
-            },
-            {
-              "x": 4.5,
-              "y": 24.91
-            },
-            {
-              "x": 4.314664,
-              "y": 24.891746
-            },
-            {
-              "x": 4.136451,
-              "y": 24.837686
-            },
-            {
-              "x": 3.972208,
-              "y": 24.749896
-            },
-            {
-              "x": 3.828249,
-              "y": 24.631751
-            },
-            {
-              "x": 3.710104,
-              "y": 24.487792
-            },
-            {
-              "x": 3.622314,
-              "y": 24.323549
-            },
-            {
-              "x": 3.568254,
-              "y": 24.145336
-            },
-            {
-              "x": 3.55,
-              "y": 23.96
+              "x": -19.4,
+              "y": 11.7
             },
             {
-              "x": 3.568254,
-              "y": 23.774664
+              "x": -19.381746,
+              "y": 11.514664
             },
             {
-              "x": 3.622314,
-              "y": 23.596451
+              "x": -19.327686,
+              "y": 11.336451
             },
             {
-              "x": 3.710104,
-              "y": 23.432208
+              "x": -19.239896,
+              "y": 11.172208
             },
             {
-              "x": 3.828249,
-              "y": 23.288249
+              "x": -19.121751,
+              "y": 11.028249
             },
             {
-              "x": 3.972208,
-              "y": 23.170104
+              "x": -18.977792,
+              "y": 10.910104
             },
             {
-              "x": 4.136451,
-              "y": 23.082314
+              "x": -18.813549,
+              "y": 10.822314
             },
             {
-              "x": 4.314664,
-              "y": 23.028254
+              "x": -18.635336,
+              "y": 10.768254
             }
           ]
         },
@@ -45351,6 +45079,242 @@
         {
           "vertices": [
             {
+              "x": -23.53,
+              "y": 10.75
+            },
+            {
+              "x": -23.344664,
+              "y": 10.768254
+            },
+            {
+              "x": -23.166451,
+              "y": 10.822314
+            },
+            {
+              "x": -23.002208,
+              "y": 10.910104
+            },
+            {
+              "x": -22.858249,
+              "y": 11.028249
+            },
+            {
+              "x": -22.740104,
+              "y": 11.172208
+            },
+            {
+              "x": -22.652314,
+              "y": 11.336451
+            },
+            {
+              "x": -22.598254,
+              "y": 11.514664
+            },
+            {
+              "x": -22.58,
+              "y": 11.7
+            },
+            {
+              "x": -22.598254,
+              "y": 11.885336
+            },
+            {
+              "x": -22.652314,
+              "y": 12.063549
+            },
+            {
+              "x": -22.740104,
+              "y": 12.227792
+            },
+            {
+              "x": -22.858249,
+              "y": 12.371751
+            },
+            {
+              "x": -23.002208,
+              "y": 12.489896
+            },
+            {
+              "x": -23.166451,
+              "y": 12.577686
+            },
+            {
+              "x": -23.344664,
+              "y": 12.631746
+            },
+            {
+              "x": -23.53,
+              "y": 12.65
+            },
+            {
+              "x": -23.715336,
+              "y": 12.631746
+            },
+            {
+              "x": -23.893549,
+              "y": 12.577686
+            },
+            {
+              "x": -23.948226,
+              "y": 12.548461
+            },
+            {
+              "x": -26.252507,
+              "y": 14.874549
+            },
+            {
+              "x": -26.25,
+              "y": 14.9
+            },
+            {
+              "x": -26.258647,
+              "y": 14.987791
+            },
+            {
+              "x": -26.284254,
+              "y": 15.072208
+            },
+            {
+              "x": -26.325839,
+              "y": 15.150007
+            },
+            {
+              "x": -26.381802,
+              "y": 15.218198
+            },
+            {
+              "x": -26.449993,
+              "y": 15.274161
+            },
+            {
+              "x": -26.527792,
+              "y": 15.315746
+            },
+            {
+              "x": -26.612209,
+              "y": 15.341353
+            },
+            {
+              "x": -26.7,
+              "y": 15.35
+            },
+            {
+              "x": -26.787791,
+              "y": 15.341353
+            },
+            {
+              "x": -26.872208,
+              "y": 15.315746
+            },
+            {
+              "x": -26.950007,
+              "y": 15.274161
+            },
+            {
+              "x": -27.018198,
+              "y": 15.218198
+            },
+            {
+              "x": -27.074161,
+              "y": 15.150007
+            },
+            {
+              "x": -27.115746,
+              "y": 15.072208
+            },
+            {
+              "x": -27.141353,
+              "y": 14.987791
+            },
+            {
+              "x": -27.15,
+              "y": 14.9
+            },
+            {
+              "x": -27.141353,
+              "y": 14.812209
+            },
+            {
+              "x": -27.115746,
+              "y": 14.727792
+            },
+            {
+              "x": -27.074161,
+              "y": 14.649993
+            },
+            {
+              "x": -27.018198,
+              "y": 14.581802
+            },
+            {
+              "x": -26.950007,
+              "y": 14.525839
+            },
+            {
+              "x": -26.872208,
+              "y": 14.484254
+            },
+            {
+              "x": -26.787791,
+              "y": 14.458647
+            },
+            {
+              "x": -26.7,
+              "y": 14.45
+            },
+            {
+              "x": -26.678589,
+              "y": 14.452109
+            },
+            {
+              "x": -24.374299,
+              "y": 12.126012
+            },
+            {
+              "x": -24.407686,
+              "y": 12.063549
+            },
+            {
+              "x": -24.461746,
+              "y": 11.885336
+            },
+            {
+              "x": -24.48,
+              "y": 11.7
+            },
+            {
+              "x": -24.461746,
+              "y": 11.514664
+            },
+            {
+              "x": -24.407686,
+              "y": 11.336451
+            },
+            {
+              "x": -24.319896,
+              "y": 11.172208
+            },
+            {
+              "x": -24.201751,
+              "y": 11.028249
+            },
+            {
+              "x": -24.057792,
+              "y": 10.910104
+            },
+            {
+              "x": -23.893549,
+              "y": 10.822314
+            },
+            {
+              "x": -23.715336,
+              "y": 10.768254
+            }
+          ]
+        },
+        {
+          "vertices": [
+            {
               "x": 4.5,
               "y": 12.85
             },
@@ -47351,6 +47315,138 @@
         {
           "vertices": [
             {
+              "x": -26.07,
+              "y": 10.75
+            },
+            {
+              "x": -25.884664,
+              "y": 10.768254
+            },
+            {
+              "x": -25.706451,
+              "y": 10.822314
+            },
+            {
+              "x": -25.542208,
+              "y": 10.910104
+            },
+            {
+              "x": -25.398249,
+              "y": 11.028249
+            },
+            {
+              "x": -25.280104,
+              "y": 11.172208
+            },
+            {
+              "x": -25.192314,
+              "y": 11.336451
+            },
+            {
+              "x": -25.138254,
+              "y": 11.514664
+            },
+            {
+              "x": -25.12,
+              "y": 11.7
+            },
+            {
+              "x": -25.138254,
+              "y": 11.885336
+            },
+            {
+              "x": -25.192314,
+              "y": 12.063549
+            },
+            {
+              "x": -25.280104,
+              "y": 12.227792
+            },
+            {
+              "x": -25.398249,
+              "y": 12.371751
+            },
+            {
+              "x": -25.542208,
+              "y": 12.489896
+            },
+            {
+              "x": -25.706451,
+              "y": 12.577686
+            },
+            {
+              "x": -25.884664,
+              "y": 12.631746
+            },
+            {
+              "x": -26.07,
+              "y": 12.65
+            },
+            {
+              "x": -26.255336,
+              "y": 12.631746
+            },
+            {
+              "x": -26.433549,
+              "y": 12.577686
+            },
+            {
+              "x": -26.597792,
+              "y": 12.489896
+            },
+            {
+              "x": -26.741751,
+              "y": 12.371751
+            },
+            {
+              "x": -26.859896,
+              "y": 12.227792
+            },
+            {
+              "x": -26.947686,
+              "y": 12.063549
+            },
+            {
+              "x": -27.001746,
+              "y": 11.885336
+            },
+            {
+              "x": -27.02,
+              "y": 11.7
+            },
+            {
+              "x": -27.001746,
+              "y": 11.514664
+            },
+            {
+              "x": -26.947686,
+              "y": 11.336451
+            },
+            {
+              "x": -26.859896,
+              "y": 11.172208
+            },
+            {
+              "x": -26.741751,
+              "y": 11.028249
+            },
+            {
+              "x": -26.597792,
+              "y": 10.910104
+            },
+            {
+              "x": -26.433549,
+              "y": 10.822314
+            },
+            {
+              "x": -26.255336,
+              "y": 10.768254
+            }
+          ]
+        },
+        {
+          "vertices": [
+            {
               "x": -20.99,
               "y": 10.75
             },
@@ -47476,138 +47572,6 @@
             },
             {
               "x": -21.175336,
-              "y": 10.768254
-            }
-          ]
-        },
-        {
-          "vertices": [
-            {
-              "x": -18.45,
-              "y": 10.75
-            },
-            {
-              "x": -18.264664,
-              "y": 10.768254
-            },
-            {
-              "x": -18.086451,
-              "y": 10.822314
-            },
-            {
-              "x": -17.922208,
-              "y": 10.910104
-            },
-            {
-              "x": -17.778249,
-              "y": 11.028249
-            },
-            {
-              "x": -17.660104,
-              "y": 11.172208
-            },
-            {
-              "x": -17.572314,
-              "y": 11.336451
-            },
-            {
-              "x": -17.518254,
-              "y": 11.514664
-            },
-            {
-              "x": -17.5,
-              "y": 11.7
-            },
-            {
-              "x": -17.518254,
-              "y": 11.885336
-            },
-            {
-              "x": -17.572314,
-              "y": 12.063549
-            },
-            {
-              "x": -17.660104,
-              "y": 12.227792
-            },
-            {
-              "x": -17.778249,
-              "y": 12.371751
-            },
-            {
-              "x": -17.922208,
-              "y": 12.489896
-            },
-            {
-              "x": -18.086451,
-              "y": 12.577686
-            },
-            {
-              "x": -18.264664,
-              "y": 12.631746
-            },
-            {
-              "x": -18.45,
-              "y": 12.65
-            },
-            {
-              "x": -18.635336,
-              "y": 12.631746
-            },
-            {
-              "x": -18.813549,
-              "y": 12.577686
-            },
-            {
-              "x": -18.977792,
-              "y": 12.489896
-            },
-            {
-              "x": -19.121751,
-              "y": 12.371751
-            },
-            {
-              "x": -19.239896,
-              "y": 12.227792
-            },
-            {
-              "x": -19.327686,
-              "y": 12.063549
-            },
-            {
-              "x": -19.381746,
-              "y": 11.885336
-            },
-            {
-              "x": -19.4,
-              "y": 11.7
-            },
-            {
-              "x": -19.381746,
-              "y": 11.514664
-            },
-            {
-              "x": -19.327686,
-              "y": 11.336451
-            },
-            {
-              "x": -19.239896,
-              "y": 11.172208
-            },
-            {
-              "x": -19.121751,
-              "y": 11.028249
-            },
-            {
-              "x": -18.977792,
-              "y": 10.910104
-            },
-            {
-              "x": -18.813549,
-              "y": 10.822314
-            },
-            {
-              "x": -18.635336,
               "y": 10.768254
             }
           ]
