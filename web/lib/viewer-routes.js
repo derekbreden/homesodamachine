@@ -112,14 +112,15 @@ export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
     res.type("image/svg+xml").send(fs.readFileSync(abs, "utf-8"));
   });
 
-  // PCB view SVG content. Only the three rendered board views under a
-  // `pcb/.../out/` directory are reachable — not arbitrary SVGs that may live
+  // PCB view SVG content. Only the rendered board views under a `pcb/.../out/`
+  // directory are reachable — the fixed Top/Bottom/Overlay plus any inner
+  // copper planes (inner1, inner2, …) — not arbitrary SVGs that may live
   // elsewhere in the tree.
   app.get("/api/pcb-content/*", (req, res) => {
     const rel = req.params[0];
     const abs = safeFile(rootFor(req), rel, ".svg");
     if (!abs) return res.status(400).send("Invalid path");
-    if (!/(^|\/)pcb\/.+\/out\/[^/]+\.(top|bottom|overlay)\.svg$/.test(rel)) {
+    if (!/(^|\/)pcb\/.+\/out\/[^/]+\.(top|bottom|overlay|inner\d+)\.svg$/.test(rel)) {
       return res.status(400).send("Not a board view");
     }
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
