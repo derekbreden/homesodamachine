@@ -62,6 +62,18 @@ const CASES: Record<string, any> = {
     pairs: [{ from: "U8.IO", to: "U1B.IO4" }],
     region: { x0: -58, x1: -36, y0: -26, y1: -10 },
   },
+  // FAUCET UART + RS485 UART off the ESP far row (U1A). 4 signals fan up-left out
+  // of the dense top ESP row: IO33/IO35 climb to the FAUCET connector on the top
+  // edge, IO32/IO34 cross to the RS485 TTL header on the far left. Pin order does
+  // not match target order, so the paths interleave around the RS485 mount holes.
+  faucet485: {
+    ...COMMON,
+    pairs: [
+      { from: "J3.IO33", to: "U1A.IO33" }, { from: "J3.IO35", to: "U1A.IO35" },
+      { from: "U7T.TXD", to: "U1A.IO32" }, { from: "U7T.RXD", to: "U1A.IO34" },
+    ],
+    region: { x0: -52, x1: -12, y0: 9, y1: 45 },
+  },
 }
 const SPEC = CASES[process.argv[2] || "j6"]
 if (!SPEC) { console.error(`unknown case "${process.argv[2]}" — have: ${Object.keys(CASES).join(", ")}`); process.exit(1) }
@@ -112,6 +124,20 @@ const idx = (i: number, j: number) => j * NX + i
 const inb = (i: number, j: number) => i >= 0 && i < NX && j >= 0 && j < NY
 const HALF = SPEC.width / 2
 
+// via drill keep-out grid: a via's DRILL can't sit within hole-to-hole spacing of any
+// other hole (pad, mounting hole, via) — overlapping drills are unfabbable. Unlike the
+// per-net pad exemption (which lets a TRACE reach its endpoint), this blocks a VIA even at
+// the route's own start/goal hole, so a via never lands on the through-hole it leaves from.
+const viaOcc = new Uint8Array(NX * NY)
+const VIAHOLER = 0.15, HOLEGAP = 0.45
+const stampViaKO = (x: number, y: number, holeR: number) => {
+  const r = holeR + VIAHOLER + HOLEGAP, rc = Math.ceil(r / CELL), ci = gx(x), cj = gy(y)
+  for (let dj = -rc; dj <= rc; dj++) for (let di = -rc; di <= rc; di++) {
+    if (Math.hypot(di, dj) * CELL > r) continue
+    const i = ci + di, j = cj + dj; if (inb(i, j)) viaOcc[idx(i, j)] = 1
+  }
+}
+
 const stampDisc = (x: number, y: number, r: number, layers: number[]) => {
   const rc = Math.ceil(r / CELL), ci = gx(x), cj = gy(y)
   for (let dj = -rc; dj <= rc; dj++) for (let di = -rc; di <= rc; di++) {
@@ -140,6 +166,10 @@ for (const h of c.filter((e) => e.type === "pcb_plated_hole")) stampDisc(h.x, h.
 for (const h of c.filter((e) => e.type === "pcb_hole")) stampDisc(h.x, h.y, (h.hole_diameter || 0) / 2 + SPEC.clr + HALF, [0, 1])
 // vias (both layers)
 for (const v of c.filter((e) => e.type === "pcb_via")) stampDisc(v.x, v.y, (v.outer_diameter || 0.3) / 2 + SPEC.clr + HALF, [0, 1])
+// via drill keep-out around every hole (incl. this route's own endpoints) and existing via
+for (const h of c.filter((e) => e.type === "pcb_plated_hole")) stampViaKO(h.x, h.y, (h.hole_diameter || h.hole_width || 0.6) / 2)
+for (const h of c.filter((e) => e.type === "pcb_hole")) stampViaKO(h.x, h.y, (h.hole_diameter || 0) / 2)
+for (const v of c.filter((e) => e.type === "pcb_via")) stampViaKO(v.x, v.y, (v.hole_diameter || 0.3) / 2)
 // other-net trace segments (per layer)
 for (const t of c.filter((e) => e.type === "pcb_trace")) {
   const r = t.route || []
@@ -167,6 +197,11 @@ function route(sx: number, sy: number, gxm: number, gym: number, sLayer: number)
   const h = (i: number, j: number) => { const di = Math.abs(i - G.i), dj = Math.abs(j - G.j); return (di + dj) + (SQ2 - 2) * Math.min(di, dj) }
   const dist = new Map<number, number>(), prev = new Map<number, number>()
   const free = (i: number, j: number, l: number) => inb(i, j) && !occ[l][idx(i, j)]
+  // a via drops a real pad (~0.25mm radius) on BOTH layers; obstacles are stamped only
+  // to trace-half (HALF) clearance, so a minimally-free cell leaves the wider via pad too
+  // close to neighbouring copper. Require the extra pad ring (beyond HALF) clear, both layers.
+  const VIAR = Math.max(0, 0.25 - HALF), vrc = Math.ceil(VIAR / CELL)
+  const viaClear = (i: number, j: number) => { for (let dj = -vrc; dj <= vrc; dj++) for (let di = -vrc; di <= vrc; di++) { if (Math.hypot(di, dj) * CELL > VIAR) continue; if (!free(i + di, j + dj, 0) || !free(i + di, j + dj, 1)) return false } return true }
   const startK = key(S.i, S.j, S.l, 8); dist.set(startK, 0)
   // binary heap of [f, g, key]
   const heap: [number, number, number][] = [[h(S.i, S.j), 0, startK]]
@@ -189,7 +224,7 @@ function route(sx: number, sy: number, gxm: number, gym: number, sLayer: number)
       if (nd < (dist.get(nk) ?? Infinity)) { dist.set(nk, nd); prev.set(nk, k); push(nd + h(ni, nj), nd, nk) }
     }
     const ol = 1 - l
-    if (free(i, j, ol)) { const nk = key(i, j, ol, d), nd = g + SPEC.viaCost; if (nd < (dist.get(nk) ?? Infinity)) { dist.set(nk, nd); prev.set(nk, k); push(nd + h(i, j), nd, nk) } }
+    if (free(i, j, ol) && !viaOcc[idx(i, j)] && viaClear(i, j)) { const nk = key(i, j, ol, d), nd = g + SPEC.viaCost; if (nd < (dist.get(nk) ?? Infinity)) { dist.set(nk, nd); prev.set(nk, k); push(nd + h(i, j), nd, nk) } }
   }
   if (found == null) return null
   const path: [number, number, number][] = []
