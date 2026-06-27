@@ -103,7 +103,7 @@ fs.mkdirSync(path.dirname(outputPath), { recursive: true });
 
 // Capture one screenshot at `url` and write it to outputPath.
 async function capture(url) {
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ headless: true, protocolTimeout: 300_000 });
   try {
     const page = await browser.newPage();
     await page.setUserAgent(IPHONE_UA);
