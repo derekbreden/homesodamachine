@@ -151,6 +151,20 @@ try {
     writeFileSync(path.join(outDir, `${board}.${v}.png`), png)
   }
   console.log(`[${board}] ${widthMm} × ${heightMm} mm — wrote ${board}.{${views.join(",")}}.{svg,png} (${schemeName})`)
+  // Surface the assembly BOM + CPL (they ride inside the gerber zip) as first-class
+  // out/ files, so every render leaves a diffable BOM/CPL: the JLCPCB part numbers and
+  // placements, checkable as each part is wired rather than discovered at fab time. The
+  // wired count (parts carrying a JLCPCB #) is the coverage signal as modules convert.
+  try {
+    const bom = readFileSync(path.join(scratch, "bom.csv"), "utf8")
+    writeFileSync(path.join(outDir, `${board}.bom.csv`), bom)
+    writeFileSync(path.join(outDir, `${board}.cpl.csv`), readFileSync(path.join(scratch, "pick_and_place.csv")))
+    const rows = bom.trimEnd().split("\n").slice(1).filter(Boolean)
+    const wired = rows.filter((r) => r.split(",").pop()?.trim()).length
+    console.log(`[${board}] wrote ${board}.{bom,cpl}.csv — ${wired}/${rows.length} parts carry a JLCPCB #`)
+  } catch {
+    console.error(`[${board}] BOM/CPL not found in the gerber export`)
+  }
 } finally {
   rmSync(scratch, { recursive: true, force: true })
 }
