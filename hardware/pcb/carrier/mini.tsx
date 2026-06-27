@@ -24,6 +24,10 @@
 import {
   i8, at, Esp32, Mcp23017, Uln2803, Ds3231, Rs485, Jst, Buzzer, ulnOUT,
 } from "./carrier_parts"
+import { boardVersionParts } from "./board-version"
+
+// Identity stamp version (commit date + short SHA), computed once per render.
+const ID = boardVersionParts()
 
 export default () => (
   <board layers={4} outline={[{ x: -66.9, y: -51 }, { x: 60.9, y: -51 }, { x: 60.9, y: 47.7 }, { x: -66.9, y: 47.7 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
@@ -474,12 +478,17 @@ export default () => (
     <trace from=".C2 > .pin1" to="net.V12" />
     <trace from=".C2 > .pin2" to="net.GND" />
 
-    {/* Board identity — in the open pocket below ULN U5, clear of every module
-        body. Bump the rev/date on each respin so a fabbed board is identifiable
-        in the field over the product's 10-year life. 1.4mm = the connector-label
-        size, above the JLCPCB legible floor (the dense per-pin labels are 0.8mm
-        reference-grade). */}
-    <silkscreentext text="HSM CARRIER  REV A  2026-06" fontSize="1.4mm" pcbX={39} pcbY={-38} />
+    {/* Board identity nameplate — three lines stacked in the open lower-right
+        pocket, each right-aligned (bottom_right anchor) so the block's right edge
+        and bottom land on the SAME 2.0mm edge margin as the JST fences (right edge
+        x=58.9, bottom y=-49.0): the legend's corner lines up with the connector
+        grid. The version is the firmware scheme (firmware/pre_build.py): commit
+        date + short SHA, `-dirty` when rendered from uncommitted edits — a pure
+        function of the commit, naming which source tree a fabbed board came from.
+        Rendered by the proportional silk font; 2.0mm reads clean at a glance. */}
+    <silkscreentext text="HOME SODA MACHINE" fontSize="2mm" anchorAlignment="bottom_right" pcbX={58.9} pcbY={-43.4} />
+    <silkscreentext text={ID.date} fontSize="2mm" anchorAlignment="bottom_right" pcbX={58.9} pcbY={-46.2} />
+    <silkscreentext text={ID.rev} fontSize="2mm" anchorAlignment="bottom_right" pcbX={58.9} pcbY={-49.0} />
 
     {/* Power planes, top->bottom: V12 island (top, over the valve block), 3V3
         (inner1, full flood), 5V (inner2, full flood), GND (bottom, full flood).
