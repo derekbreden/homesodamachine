@@ -26,6 +26,7 @@ import {
 } from "./carrier_parts"
 import { boardVersionParts } from "./board-version"
 import { logoRoutes } from "./logo"
+import { NXB_25V470_10_12_5 } from "./imports/NXB_25V470_10_12_5"
 
 // Identity stamp version (commit date + short SHA), computed once per render.
 const ID = boardVersionParts()
@@ -57,10 +58,10 @@ export default () => (
         GND, top) -> 5*3.3/5.5 = 3.0 V (safely under 3.3 V, still a valid logic HIGH
         for DOUT). The midpoint taps right into the ESP; AOUT: R1/R2 -> IO39, DOUT:
         R3/R4 -> IO36 (IO36/IO39, the ADC1 pins on the ESP top row below the dividers). */}
-    <resistor name="R1" resistance="2.2k" footprint="0603" pcbRotation={0} {...at(-16.42, 40.9)} />
-    <resistor name="R2" resistance="3.3k" footprint="0603" pcbRotation={0} {...at(-16.42, 44.4)} />
-    <resistor name="R3" resistance="2.2k" footprint="0603" pcbRotation={0} {...at(-10.48, 40.9)} />
-    <resistor name="R4" resistance="3.3k" footprint="0603" pcbRotation={0} {...at(-10.48, 44.4)} />
+    <resistor name="R1" resistance="2.2k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C4190"] }} pcbRotation={0} {...at(-16.42, 40.9)} />
+    <resistor name="R2" resistance="3.3k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22978"] }} pcbRotation={0} {...at(-16.42, 44.4)} />
+    <resistor name="R3" resistance="2.2k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C4190"] }} pcbRotation={0} {...at(-10.48, 40.9)} />
+    <resistor name="R4" resistance="3.3k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22978"] }} pcbRotation={0} {...at(-10.48, 44.4)} />
 
     {/* 3V3 rail -> inner1 plane. ESP 3V3 sources it; the I2C devices (both MCPs,
         DS3231), RS485, and the sensor loom common to it at their barrels. */}
@@ -435,9 +436,9 @@ export default () => (
         ceramics can't. Every pin1 -> V12, pin2 -> GND plane — no routing, no vias,
         barrel pickup like every power pin; the top V12 island floods the whole
         valve block, covering each pin1 barrel. C3 is polarized: pin1 (+) is V12. */}
-    <capacitor name="C1" capacitance="0.1uF" footprint="0805" pcbRotation={0} {...at(56, -26.9767)} />
-    <capacitor name="C2" capacitance="0.1uF" footprint="0805" pcbRotation={0} {...at(56, 5.9033)} />
-    <capacitor name="C3" capacitance="470uF" footprint="radial_p5.08mm" {...at(39.65, 1.17)} />
+    <capacitor name="C1" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(56, -26.9767)} />
+    <capacitor name="C2" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(56, 5.9033)} />
+    <NXB_25V470_10_12_5 name="C3" {...at(39.65, 1.17)} />
     <silkscreentext text="+" fontSize="2.66mm" pcbX={34.60} pcbY={1.46} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />

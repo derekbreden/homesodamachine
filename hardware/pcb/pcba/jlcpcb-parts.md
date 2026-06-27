@@ -18,8 +18,12 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 - Search the library: `jlcpcb.com/parts` → search `value package` (e.g. `470uF 25V SMD`)
   → the componentSearch grid; filter Parts Type and In-stock; read MFR Part #, LCSC #,
   library type, stock, price.
-- Footprint into tscircuit: `tsci import <C#>`. Standard chip passives use the built-in
-  footprinter names (`0603`, `0805`).
+- Footprint into tscircuit: standard chip passives use the built-in footprinter names
+  (`0603`, `0805`), which match the JLCPCB part. For THT or odd parts the generic footprint
+  can mismatch the supplier's land pattern — `tsci build` prints a copper-IoU warning — so
+  pull the real one with `tsci import <C#>` and use it (see C3 → `imports/`).
+- Wire a part onto the board with `supplierPartNumbers={{ jlcpcb: ["C#"] }}` on the
+  component; that is what flows into the JLCPCB BOM/CPL.
 
 ## Inventory
 
@@ -28,21 +32,18 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | R1, R3 — gas divider, top leg | 2.2 kΩ ±1% | 0603 | C4190 | Basic | 2,358,134 | $0.0019 |
 | R2, R4 — gas divider, bottom leg | 3.3 kΩ ±1% | 0603 | C22978 | Basic | 1,028,999 | $0.0023 |
 | C1, C2 — V12 HF decouple | 0.1 µF 50V X7R | 0805 | C49678 | Basic | 8,182,736 | $0.0136 |
-| C3 — V12 bulk | 470 µF 25V | open | not yet assigned | — | — | — |
+| C3 — V12 bulk | 470 µF 25V | radial THT, D10×12.5, 5.08 mm | C350206 | Extended | 91 | $0.105 |
 
 Manufacturers: C4190 / C22978 = UNI-ROYAL 0603WAF series; C49678 = YAGEO
 CC0805KRX7R9BB104.
 
-**C3 has no JLCPCB part assigned yet — its form is an open decision.** Its need is V12
-bulk decoupling (soak solenoid inrush + flyback). JLCPCB's Basic library carries no
-aluminium-electrolytic or polymer at bulk values: both 470 µF/25V and 100 µF/25V SMD are
-**Extended only** (verified across every manufacturer in the library, Rubycon / Panasonic /
-Nichicon included). So an SMD bulk cap is an Extended line whatever the value. Options:
+**C3 is wired as a THT radial — `C350206`** (SamYoung NXB, D10×12.5 mm, 5.08 mm pitch,
+53 mΩ ESR / 1.36 A ripple / 4000 h @105 °C), placed by JLCPCB through-hole assembly; its
+barrel stitches to V12/GND directly (no SMD via). Footprint pulled with `tsci import` to
+match the part's pads — the generic `radial_p5.08mm` matched at only IoU 0.55 → `imports/`.
 
-- **THT radial**, placed by JLCPCB through-hole assembly (already paid for the J connectors,
-  plan step 5); keeps its barrel plane-stitch. Needs a JLCPCB-library THT 470 µF/25V part chosen.
-- **One Extended SMD electrolytic** — `C3351` (Honor RVT1E471M1010, $0.060), `C47023111`
-  (D8×L10, $0.050), `C3445246` (90 mΩ / 5000 h, $0.091).
-- **A Basic MLCC bank** — ceramics are the Basic library's strength and electrically the best
-  snubber; reaching usable bulk (~100 µF) takes several 25V MLCCs, and the bulk-vs-ESR
-  tradeoff against the electrolytic wants checking against the actual solenoid current.
+THT because the need (V12 bulk decoupling) has no Basic SMD option: both 470 µF/25V and
+100 µF/25V SMD are **Extended only** across the whole library (Rubycon / Panasonic / Nichicon
+included). Extended SMD alternatives, for a full-reflow board: `C3351` (Honor RVT1E471M1010,
+$0.060), `C47023111` (D8×L10, $0.050), `C3445246` (90 mΩ / 5000 h, $0.091); or a Basic MLCC
+bank (several 25V MLCCs — lower bulk, far lower ESR, wants checking against the solenoid inrush).
