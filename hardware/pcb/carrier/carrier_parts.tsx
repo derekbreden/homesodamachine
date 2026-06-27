@@ -49,7 +49,7 @@ export const ulnOUT = ["OUT1", "OUT2", "OUT3", "OUT4", "OUT5", "OUT6", "OUT7", "
 export const dsH6 = ["32K", "SQW", "SCL", "SDA", "VCC", "GND"]
 export const dsH4 = ["SCL", "SDA", "VCC", "GND"]
 export const rs485T = ["VCC", "TXD", "RXD", "GND"]
-export const rs485L = ["A", "B", "Earth"]
+export const rs485L = ["A", "B", "ERTH"]
 // 3-pin header across the body's +Y end; pin1->pin3 run GND/IO/VCC from -X to
 // +X, matching the module's pad order so each labelled pad lands on its pin.
 export const buzz = ["GND", "IO", "VCC"]
@@ -168,7 +168,7 @@ export const Ds3231 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: nu
 
 // ---- ALMOCN TTL-to-RS485 transceiver (51.85 x 22.75) -----------------------
 // 4-pin TTL header (VCC/TXD/RXD/GND) at +X end -> ESP UART, on-board. 3-pin line
-// header (A/B/Earth, re-headered from the stock screw terminal) at -X end ->
+// header (A/B/ERTH, re-headered from the stock screw terminal) at -X end ->
 // off-board to the front 4.3" display. Auto-direction (no DE/RE); VCC at 3.3V.
 export const Rs485 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => {
   const o = (ox: number, oy: number) => rotxy(ox, oy, rot)
