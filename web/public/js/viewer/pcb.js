@@ -242,6 +242,9 @@ function syncToggle(toggleEl, view) {
     btn.classList.toggle("active", btn.dataset.view === view);
   }
 }
+// The toggle's per-button action — swap to `v` unless it's already showing.
+// Shared by the initial build and the live-reload rebuild.
+function onViewSelect(v) { if (v !== state.currentPcbView) mountView(v, true); }
 
 // Mount `view` into the open board's wrapper, re-wrapping PanZoom while keeping
 // the current transform (all views share a viewBox, so the board doesn't move).
@@ -337,7 +340,7 @@ export async function openPcbDetail(source, pushHistory = true) {
   // order; a saved view only sticks if it's one of them.
   const present = orderedViews(board).map((e) => e.view).filter((v) => views[v]);
   const view = pcbLoadView(source, present) || "overlay";
-  const toggle = makeViewToggle(present, (v) => { if (v !== state.currentPcbView) mountView(v, true); });
+  const toggle = makeViewToggle(present, onViewSelect);
   wrapper.appendChild(toggle);
   if (picks && picks.pads && picks.pads.length) wrapper.appendChild(makePadPickToggle());
 
@@ -428,20 +431,45 @@ export function closePcbDetail(pushHistory = true) {
 }
 
 export async function refetchOpenPcb(source) {
+  // Live-reload path: the open-board branch of refreshPcbCard (live.js) never
+  // re-fetches the board list, so board.inners would otherwise be frozen at
+  // page-load. Refresh it (like openPcbDetail) so a re-render that added or
+  // dropped an inner plane is reflected in the views we fetch and the toggle.
+  try {
+    const list = await fetch("/api/pcb").then((r) => (r.ok ? r.json() : null));
+    if (list) state.pcbBoards = list;
+  } catch {}
   const board = boardForSource(source);
   if (!board) return;
   const [views, picks] = await Promise.all([fetchViews(board), fetchPicks(board)]);
   if (!views) return;
-  const prevActive = state.currentPcbViews?.[state.currentPcbView];
+  const prevView = state.currentPcbView;
+  const prevActive = state.currentPcbViews?.[prevView];
   state.currentPcbViews = views;
   state.currentPcbPicks = picks;
   updateDimsChip(state.currentPcbWrapper, picks);
+
+  // Rebuild the toggle when the available planes changed (a layer added or
+  // removed), so new buttons appear and dead ones go away; leave it untouched
+  // when the set is identical (the common case — a geometry-only re-render).
+  const present = orderedViews(board).map((e) => e.view).filter((v) => views[v]);
+  if (state.currentPcbToggle) {
+    const shown = [...state.currentPcbToggle.querySelectorAll(".pcb-view-btn")].map((b) => b.dataset.view);
+    if (shown.join() !== present.join()) {
+      const fresh = makeViewToggle(present, onViewSelect);
+      state.currentPcbToggle.replaceWith(fresh);
+      state.currentPcbToggle = fresh;
+    }
+  }
+  // If the showing plane is gone, fall back to the overlay (always present).
+  const view = views[prevView] ? prevView : "overlay";
+
   // The board re-rendered underneath us: drop any stale selection (its geometry
   // may be gone) so the inspector doesn't keep a dead highlight, then rebuild
   // the hit targets from the fresh picks so they line up with the new copper.
   clearPadSelection();
-  if (views[state.currentPcbView] !== prevActive) {
-    mountView(state.currentPcbView, true);
+  if (view !== prevView || views[view] !== prevActive) {
+    mountView(view, true);
   } else {
     const svgEl = state.currentPcbWrapper?.querySelector(".pcb-svg");
     if (svgEl) installPadPicker(svgEl, picks ? { pads: picks.pads, vias: picks.vias, traces: picks.traces, source, wrapper: state.currentPcbWrapper } : null);
