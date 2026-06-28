@@ -160,12 +160,13 @@ function clientToMm(clientX, clientY) {
   const t = pz.getTransform();
   const wr = wrapper.getBoundingClientRect();
   // The SVG is absolutely positioned at (0,0) in the wrapper. PanZoom applies
-  // translate(panX px, panY px) scale(scale) with transform-origin 0 0, so a
-  // point at element coordinate (vx, vy) renders at:
-  //   screen = wr.left + (vx + panX) * scale
-  // Undo that: vx = (client - wr.left) / scale - panX
-  const vx = (clientX - wr.left) / t.scale - t.panX;
-  const vy = (clientY - wr.top) / t.scale - t.panY;
+  // translate(panX px, panY px) scale(scale) with transform-origin 0 0. CSS
+  // transforms apply right-to-left (scale, then translate), so a point at
+  // element coordinate (vx, vy) renders at:
+  //   screen = wr.left + vx * scale + panX
+  // Undo that: vx = (clientX - wr.left - panX) / scale
+  const vx = (clientX - wr.left - t.panX) / t.scale;
+  const vy = (clientY - wr.top - t.panY) / t.scale;
   const ctm = ctx.layer.getCTM();
   if (!ctm) return null;
   const local = new DOMPoint(vx, vy).matrixTransform(ctm.inverse());
