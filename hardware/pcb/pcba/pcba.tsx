@@ -35,14 +35,14 @@ import { ESP32_WROOM_32E_N4 as Wroom } from "./imports/ESP32_WROOM_32E_N4"
 const ID = boardVersionParts()
 
 export default () => (
-  <board layers={4} outline={[{ x: -66.9, y: -51 }, { x: 60.9, y: -51 }, { x: 60.9, y: 47.7 }, { x: -66.9, y: 47.7 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
+  <board layers={4} outline={[{ x: -52.5, y: -48.2 }, { x: 37.5, y: -48.2 }, { x: 37.5, y: 51.1 }, { x: -52.5, y: 51.1 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
     {/* DS3231SN RTC + CR2032 backup, in the bay below the ESP (the freed DS3231-
         module footprint). The 20 mm coin holder (BT1) is the bulk; the SOIC + 0.1uF
         decoupler sit to its right, clear of the ESP courtyard and the U3 cap (C5).
         CR2032 + is the wide can on the centre pad (pin2 -> VBAT); clips are - (GND). */}
-    <CoinCell name="BT1" pcbX={-31.15} pcbY={-28} pcbRotation={0} />
-    <Ds3231Smd name="U6" x={-9} y={-28} />
-    <capacitor name="C6" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} {...at(-1, -28)} />
+    <CoinCell name="BT1" pcbX={-26.8} pcbY={-27.5} pcbRotation={0} />
+    <Ds3231Smd name="U6" x={-6} y={-19.5} />
+    <capacitor name="C6" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} {...at(9, 1)} />
     <silkscreentext text="+" fontSize="1.4mm" pcbX={-31.15} pcbY={-23.5} />
     <silkscreentext text="-" fontSize="1.4mm" pcbX={-20} pcbY={-28} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio. rot 180 puts
@@ -56,55 +56,55 @@ export default () => (
         IO0 up in the south gap; J12 is the 6-pin serial programming header (TX0/RX0/IO0/
         EN/GND/3V3) in the freed west pocket. */}
     <Wroom name="U1" pcbX={-31.15} pcbY={-1} pcbRotation={180} />
-    <capacitor name="C10" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} {...at(-21, 12.5)} />
-    <capacitor name="C11" capacitance="10uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C15850"] }} {...at(-21, 15.8)} />
-    <resistor name="R7" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-25, 12.5)} />
-    <capacitor name="C12" capacitance="1uF" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C15849"] }} {...at(-25, 15.8)} />
-    <resistor name="R8" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} pcbRotation={90} {...at(-40, -13.5)} />
-    <Jst name="J12" x={-50} y={-1} count={6} labels={["3V3", "EN", "IO0", "RX0", "TX0", "GND"]} rot={90} label="PROG" />
+    <capacitor name="C10" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} {...at(-20.3, 13)} />
+    <capacitor name="C11" capacitance="10uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C15850"] }} {...at(-14.7, 13)} />
+    <resistor name="R7" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-25.8, 13)} />
+    <capacitor name="C12" capacitance="1uF" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C15849"] }} {...at(-31, 13)} />
+    <resistor name="R8" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} pcbRotation={0} {...at(-38.4, -14.3)} />
+    <Jst name="J12" x={-46.1} y={16.6} count={6} labels={["3V3", "EN", "IO0", "RX0", "TX0", "GND"]} rot={90} label="PROG" />
     {/* RS-485 to the front display (J9). THVD1426 auto-direction transceiver (U7):
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
         only D (from ESP TX) and R (to ESP RX) are driven. R6 = 120R line termination
         across A/B; D1 = SM712 ESD array at the J9 cable entry; C7 decouples VCC. */}
-    <Thvd1426 name="U7" x={-13} y={30} />
-    <resistor name="R6" resistance="120" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22787"] }} {...at(-7, 30)} />
-    <Sm712 name="D1" x={-3} y={37} rot={0} />
-    <capacitor name="C7" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} {...at(-19, 30)} />
+    <Thvd1426 name="U7" x={-2.45} y={46} />
+    <resistor name="R6" resistance="120" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22787"] }} {...at(4.25, 46)} />
+    <Sm712 name="D1" x={15.3} y={46} rot={0} />
+    <capacitor name="C7" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} {...at(9.6, 46)} />
     {/* 5V -> 3V3 LDO (U9, AMS1117-3.3) in the freed bay above the ESP. Becomes the
         board's 3V3 source — the ESP module no longer feeds net.V3V3 (its onboard
         regulator self-powers it). VIN off the 5V plane, VOUT to the 3V3 plane, both
         via barrels/stitch; C8 (10uF) in, C9 (22uF) out flank it. */}
-    <Ams1117_33 name="U9" x={-45} y={22} />
-    <capacitor name="C8" capacitance="10uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C15850"] }} {...at(-53, 22)} />
-    <capacitor name="C9" capacitance="22uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C45783"] }} {...at(-37, 22)} />
-    <Mcp23017 name="U2" x={22} y={30} addr="0x20" rot={270} />
-    <Mcp23017 name="U3" x={22} y={-30} addr="0x21" rot={90} />
-    <Uln2803 name="U4" x={36} y={19.1} />
-    <Uln2803 name="U5" x={36} y={-19.1} />
-    <MLT_5020 name="U8" {...at(-56, -33)} />
-    <S8050 name="Q1" {...at(-56, -39)} />
-    <resistor name="R5" resistance="1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C21190"] }} {...at(-52, -39)} />
-    <Jst name="J1" x={44.7} y={19.1} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
-    <Jst name="J2" x={44.7} y={-19.1} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
-    <Jst name="J3" x={-40.63} y={42.65} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
-    <Jst name="J4" x={-62.0} y={3} count={6} labels={["GND", "IO15", "V5", "IO14", "IO13", "3V3"]} rot={90} label="SENSORS" />
-    <Jst name="J5" x={-31.15} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO27", "IO5", "IO26", "IO18", "IO25", "IO19"]} rot={0} label="DRIVER" />
-    <Jst name="J8" x={-62.0} y={-11.3} count={2} labels={["GND", "V5"]} rot={90} label="5V" />
-    <Jst name="J6" x={25} y={38.65} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
-    <Jst name="J7" x={19} y={-38.65} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
-    <Jst name="J9" x={-1.7} y={42.65} count={3} labels={["A", "B", "ERTH"]} rot={0} label="DISPLAY" />
-    <Jst name="J10" x={56.0} y={0} count={2} labels={["GND", "V12"]} rot={90} label="12V" labelDir={1} />
-    <Jst name="J11" x={-26.47} y={42.65} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={0} label="GAS" />
+    <Ams1117_33 name="U9" x={17.15} y={0.93} />
+    <capacitor name="C8" capacitance="10uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C15850"] }} pcbRotation={90} {...at(13.5, 8.18)} />
+    <capacitor name="C9" capacitance="22uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C45783"] }} pcbRotation={90} {...at(17.5, 8.18)} />
+    <Mcp23017 name="U2" x={1.25} y={29} addr="0x20" rot={270} />
+    <Mcp23017 name="U3" x={1.25} y={-31} addr="0x21" rot={90} />
+    <Uln2803 name="U4" x={15.25} y={18.1} />
+    <Uln2803 name="U5" x={15.25} y={-20.1} />
+    <MLT_5020 name="U8" {...at(-46, -25.5)} />
+    <S8050 name="Q1" {...at(-46, -31)} />
+    <resistor name="R5" resistance="1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C21190"] }} {...at(-44, -35)} />
+    <Jst name="J1" x={23.95} y={18.1} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
+    <Jst name="J2" x={23.95} y={-20.1} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
+    <Jst name="J3" x={-35.23} y={46} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
+    <Jst name="J4" x={-46.1} y={-1} count={6} labels={["GND", "IO15", "V5", "IO14", "IO13", "3V3"]} rot={90} label="SENSORS" />
+    <Jst name="J5" x={-31.15} y={-43.1} count={9} labels={["GND", "IO16", "IO17", "IO27", "IO5", "IO26", "IO18", "IO25", "IO19"]} rot={0} label="DRIVER" />
+    <Jst name="J8" x={-46.1} y={-14} count={2} labels={["GND", "V5"]} rot={90} label="5V" />
+    <Jst name="J6" x={4.25} y={37.65} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
+    <Jst name="J7" x={-1.75} y={-39.65} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
+    <Jst name="J9" x={23.2} y={46} count={3} labels={["A", "B", "ERTH"]} rot={0} label="DISPLAY" />
+    <Jst name="J10" x={25} y={-42} count={2} labels={["GND", "V12"]} rot={90} label="12V" labelDir={1} />
+    <Jst name="J11" x={-22.68} y={46} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={0} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
         a vertical 2-resistor series: 2.2k (input, bottom) -> midpoint -> 3.3k (to
         GND, top) -> 5*3.3/5.5 = 3.0 V (safely under 3.3 V, still a valid logic HIGH
         for DOUT). The midpoint taps right into the ESP; AOUT: R1/R2 -> IO39, DOUT:
         R3/R4 -> IO36 (IO36/IO39, the ADC1 pins on the ESP top row below the dividers). */}
-    <resistor name="R1" resistance="2.2k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C4190"] }} pcbRotation={0} {...at(-16.42, 40.9)} />
-    <resistor name="R2" resistance="3.3k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22978"] }} pcbRotation={0} {...at(-16.42, 44.4)} />
-    <resistor name="R3" resistance="2.2k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C4190"] }} pcbRotation={0} {...at(-10.48, 40.9)} />
-    <resistor name="R4" resistance="3.3k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22978"] }} pcbRotation={0} {...at(-10.48, 44.4)} />
+    <resistor name="R1" resistance="2.2k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C4190"] }} pcbRotation={0} {...at(-13.95, 47.9)} />
+    <resistor name="R2" resistance="3.3k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22978"] }} pcbRotation={0} {...at(-9.05, 47.9)} />
+    <resistor name="R3" resistance="2.2k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C4190"] }} pcbRotation={0} {...at(-13.95, 44.1)} />
+    <resistor name="R4" resistance="3.3k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22978"] }} pcbRotation={0} {...at(-9.05, 44.1)} />
 
     {/* 3V3 rail -> inner1 plane. U9 (LDO) sources it from 5V; the I2C devices (both
         MCPs, DS3231), RS485, and the sensor loom common to it at their barrels. The
@@ -199,8 +199,8 @@ export default () => (
     <trace from=".U3 > .A1" to="net.GND" />
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
-    <capacitor name="C4" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(8.5, 20.5)} />
-    <capacitor name="C5" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(8.5, -20.5)} />
+    <capacitor name="C4" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={90} {...at(13.5, -10.32)} />
+    <capacitor name="C5" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={90} {...at(17.5, -10.32)} />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
@@ -366,9 +366,9 @@ export default () => (
         inrush + flyback dump the ceramics can't. Every pin1 -> V12, pin2 -> GND
         plane — no routing, no vias, barrel pickup like every power pin; the top V12
         island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
-    <capacitor name="C1" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(56, -19.1)} />
-    <capacitor name="C2" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(56, 19.1)} />
-    <NXB_25V470_10_12_5 name="C3" {...at(40, 0)} />
+    <capacitor name="C1" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(14.2, -5.62)} />
+    <capacitor name="C2" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(19.6, -5.62)} />
+    <NXB_25V470_10_12_5 name="C3" pcbRotation={180} {...at(30, -3)} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
     <trace from=".C2 > .pin1" to="net.V12" />
@@ -404,7 +404,7 @@ export default () => (
     <trace from=".J10 > .V12" to="net.V12" />
     <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" boardEdgeMargin="0.5mm" />
     <copperpour name="V12PLANE" layer="top" connectsTo="net.V12"
-      outline={[{ x: 35, y: -34 }, { x: 60, y: -34 }, { x: 60, y: 34 }, { x: 35, y: 34 }]} />
+      outline={[{ x: 9, y: -44 }, { x: 36, y: -44 }, { x: 36, y: 31 }, { x: 9, y: 31 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
   </board>
