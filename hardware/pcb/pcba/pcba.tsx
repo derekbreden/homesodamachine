@@ -359,6 +359,7 @@ export default () => (
         or U3/U5/J7/J2). Each <pcbtrace> carves its connection out of the
         autorouter and replaces it with a riser + one 45deg landing: 0 vias, top
         layer, crossing-free. ===== */}
+
     {/* GPA -> ULN IN (U2 -> U4): same-pitch parallel diagonal bus */}
     {/* U2.GPA0 -> U4.IN8 */}
     <pcbtrace route={[
@@ -411,14 +412,14 @@ export default () => (
     {/* REEDS A (J6 -> U2 GPB): converging fan, reordered J6 */}
     {/* J6.RA1 -> U2.GPB0 */}
     <pcbtrace route={[
-      {route_type:"wire",x:30.08,y:38.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:30.08,y:33.425,width:0.2,layer:"top"},
+      {route_type:"wire",x:30,y:38.65,width:0.2,layer:"top"},
+      {route_type:"wire",x:30,y:33.505,width:0.2,layer:"top"},
       {route_type:"wire",x:30.255,y:33.25,width:0.2,layer:"top"},
     ]} />
     {/* J6.RA2 -> U2.GPB1 */}
     <pcbtrace route={[
-      {route_type:"wire",x:27.54,y:38.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:27.54,y:34.695,width:0.2,layer:"top"},
+      {route_type:"wire",x:27.5,y:38.65,width:0.2,layer:"top"},
+      {route_type:"wire",x:27.5,y:34.735,width:0.2,layer:"top"},
       {route_type:"wire",x:28.985,y:33.25,width:0.2,layer:"top"},
     ]} />
     {/* J6.RA3 -> U2.GPB2 */}
@@ -429,34 +430,34 @@ export default () => (
     ]} />
     {/* J6.RA4 -> U2.GPB3 */}
     <pcbtrace route={[
-      {route_type:"wire",x:22.46,y:38.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:22.46,y:37.235,width:0.2,layer:"top"},
+      {route_type:"wire",x:22.5,y:38.65,width:0.2,layer:"top"},
+      {route_type:"wire",x:22.5,y:37.195,width:0.2,layer:"top"},
       {route_type:"wire",x:26.445,y:33.25,width:0.2,layer:"top"},
     ]} />
     {/* ULN OUT -> MANIFOLD A (U4 -> J1): widening fan */}
     {/* U4.OUT1 -> J1.OUT1 */}
     <pcbtrace route={[
       {route_type:"wire",x:39.25,y:24.18,width:0.2,layer:"top"},
-      {route_type:"wire",x:39.62,y:24.18,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:29.26,width:0.2,layer:"top"},
+      {route_type:"wire",x:39.78,y:24.18,width:0.2,layer:"top"},
+      {route_type:"wire",x:44.7,y:29.1,width:0.2,layer:"top"},
     ]} />
     {/* U4.OUT2 -> J1.OUT2 */}
     <pcbtrace route={[
       {route_type:"wire",x:39.25,y:22.91,width:0.2,layer:"top"},
-      {route_type:"wire",x:40.89,y:22.91,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:26.72,width:0.2,layer:"top"},
+      {route_type:"wire",x:41.01,y:22.91,width:0.2,layer:"top"},
+      {route_type:"wire",x:44.7,y:26.6,width:0.2,layer:"top"},
     ]} />
     {/* U4.OUT3 -> J1.OUT3 */}
     <pcbtrace route={[
       {route_type:"wire",x:39.25,y:21.64,width:0.2,layer:"top"},
-      {route_type:"wire",x:42.16,y:21.64,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:24.18,width:0.2,layer:"top"},
+      {route_type:"wire",x:42.24,y:21.64,width:0.2,layer:"top"},
+      {route_type:"wire",x:44.7,y:24.1,width:0.2,layer:"top"},
     ]} />
     {/* U4.OUT4 -> J1.OUT4 */}
     <pcbtrace route={[
       {route_type:"wire",x:39.25,y:20.37,width:0.2,layer:"top"},
-      {route_type:"wire",x:43.43,y:20.37,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:21.64,width:0.2,layer:"top"},
+      {route_type:"wire",x:43.47,y:20.37,width:0.2,layer:"top"},
+      {route_type:"wire",x:44.7,y:21.6,width:0.2,layer:"top"},
     ]} />
     {/* U4.OUT5 -> J1.OUT5 */}
     <pcbtrace route={[
@@ -467,22 +468,21 @@ export default () => (
     {/* U4.OUT6 -> J1.OUT6 */}
     <pcbtrace route={[
       {route_type:"wire",x:39.25,y:17.83,width:0.2,layer:"top"},
-      {route_type:"wire",x:43.43,y:17.83,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:16.56,width:0.2,layer:"top"},
+      {route_type:"wire",x:43.47,y:17.83,width:0.2,layer:"top"},
+      {route_type:"wire",x:44.7,y:16.6,width:0.2,layer:"top"},
     ]} />
     {/* U4.OUT7 -> J1.OUT7 */}
     <pcbtrace route={[
       {route_type:"wire",x:39.25,y:16.56,width:0.2,layer:"top"},
-      {route_type:"wire",x:42.16,y:16.56,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:14.02,width:0.2,layer:"top"},
+      {route_type:"wire",x:42.24,y:16.56,width:0.2,layer:"top"},
+      {route_type:"wire",x:44.7,y:14.1,width:0.2,layer:"top"},
     ]} />
     {/* U4.OUT8 -> J1.OUT8 */}
     <pcbtrace route={[
       {route_type:"wire",x:39.25,y:15.29,width:0.2,layer:"top"},
-      {route_type:"wire",x:40.89,y:15.29,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:11.48,width:0.2,layer:"top"},
+      {route_type:"wire",x:41.01,y:15.29,width:0.2,layer:"top"},
+      {route_type:"wire",x:44.7,y:11.6,width:0.2,layer:"top"},
     ]} />
-
     {/* ULN IN -> GPA (U5 -> U3): parallel diagonal bus, knee left of U5 */}
     {/* U5.IN8 -> U3.GPA0 */}
     <pcbtrace route={[
@@ -535,20 +535,20 @@ export default () => (
     {/* REEDS B (J7 -> U3 GPB): converging fan, reordered+shifted J7 */}
     {/* J7.RB1 -> U3.GPB0 */}
     <pcbtrace route={[
-      {route_type:"wire",x:11.38,y:-38.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:11.38,y:-35.615,width:0.2,layer:"top"},
+      {route_type:"wire",x:11.5,y:-38.65,width:0.2,layer:"top"},
+      {route_type:"wire",x:11.5,y:-35.495,width:0.2,layer:"top"},
       {route_type:"wire",x:13.745,y:-33.25,width:0.2,layer:"top"},
     ]} />
     {/* J7.RB2 -> U3.GPB1 */}
     <pcbtrace route={[
-      {route_type:"wire",x:13.92,y:-38.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:13.92,y:-34.345,width:0.2,layer:"top"},
+      {route_type:"wire",x:14,y:-38.65,width:0.2,layer:"top"},
+      {route_type:"wire",x:14,y:-34.265,width:0.2,layer:"top"},
       {route_type:"wire",x:15.015,y:-33.25,width:0.2,layer:"top"},
     ]} />
     {/* J7.RB3 -> U3.GPB2 */}
     <pcbtrace route={[
-      {route_type:"wire",x:16.46,y:-38.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:16.46,y:-33.425,width:0.2,layer:"top"},
+      {route_type:"wire",x:16.5,y:-38.65,width:0.2,layer:"top"},
+      {route_type:"wire",x:16.5,y:-33.465,width:0.2,layer:"top"},
       {route_type:"wire",x:16.285,y:-33.25,width:0.2,layer:"top"},
     ]} />
     {/* J7.RB4 -> U3.GPB3 */}
@@ -559,46 +559,46 @@ export default () => (
     ]} />
     {/* J7.CLO -> U3.GPB4 */}
     <pcbtrace route={[
-      {route_type:"wire",x:21.54,y:-38.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:21.54,y:-35.965,width:0.2,layer:"top"},
+      {route_type:"wire",x:21.5,y:-38.65,width:0.2,layer:"top"},
+      {route_type:"wire",x:21.5,y:-35.925,width:0.2,layer:"top"},
       {route_type:"wire",x:18.825,y:-33.25,width:0.2,layer:"top"},
     ]} />
     {/* J7.CHI -> U3.GPB5 */}
     <pcbtrace route={[
-      {route_type:"wire",x:24.08,y:-38.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:24.08,y:-37.235,width:0.2,layer:"top"},
+      {route_type:"wire",x:24,y:-38.65,width:0.2,layer:"top"},
+      {route_type:"wire",x:24,y:-37.155,width:0.2,layer:"top"},
       {route_type:"wire",x:20.095,y:-33.25,width:0.2,layer:"top"},
     ]} />
     {/* ULN OUT -> MANIFOLD B (U5 -> J2): widening fan */}
     {/* U5.OUT1 -> J2.OUT1 */}
     <pcbtrace route={[
       {route_type:"wire",x:39.25,y:-14.02,width:0.2,layer:"top"},
-      {route_type:"wire",x:43.43,y:-14.02,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:-12.75,width:0.2,layer:"top"},
+      {route_type:"wire",x:43.53,y:-14.02,width:0.2,layer:"top"},
+      {route_type:"wire",x:44.7,y:-12.85,width:0.2,layer:"top"},
     ]} />
     {/* U5.OUT2 -> J2.OUT2 */}
     <pcbtrace route={[
       {route_type:"wire",x:39.25,y:-15.29,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:-15.29,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:-15.29,width:0.2,layer:"top"},
+      {route_type:"wire",x:44.64,y:-15.29,width:0.2,layer:"top"},
+      {route_type:"wire",x:44.7,y:-15.35,width:0.2,layer:"top"},
     ]} />
     {/* U5.OUT3 -> J2.OUT3 */}
     <pcbtrace route={[
       {route_type:"wire",x:39.25,y:-16.56,width:0.2,layer:"top"},
-      {route_type:"wire",x:43.43,y:-16.56,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:-17.83,width:0.2,layer:"top"},
+      {route_type:"wire",x:43.41,y:-16.56,width:0.2,layer:"top"},
+      {route_type:"wire",x:44.7,y:-17.85,width:0.2,layer:"top"},
     ]} />
     {/* U5.OUT4 -> J2.OUT4 */}
     <pcbtrace route={[
       {route_type:"wire",x:39.25,y:-17.83,width:0.2,layer:"top"},
-      {route_type:"wire",x:42.16,y:-17.83,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:-20.37,width:0.2,layer:"top"},
+      {route_type:"wire",x:42.18,y:-17.83,width:0.2,layer:"top"},
+      {route_type:"wire",x:44.7,y:-20.35,width:0.2,layer:"top"},
     ]} />
     {/* U5.OUT5 -> J2.FAN */}
     <pcbtrace route={[
       {route_type:"wire",x:39.25,y:-19.1,width:0.2,layer:"top"},
-      {route_type:"wire",x:40.89,y:-19.1,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:-22.91,width:0.2,layer:"top"},
+      {route_type:"wire",x:40.95,y:-19.1,width:0.2,layer:"top"},
+      {route_type:"wire",x:44.7,y:-22.85,width:0.2,layer:"top"},
     ]} />
 
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
