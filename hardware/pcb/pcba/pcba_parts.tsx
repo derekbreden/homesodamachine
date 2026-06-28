@@ -85,3 +85,40 @@ export const Ds3231Smd = ({ name, x, y, rot = 0 }: { name: string; x: number; y:
     {...at(x, y)}
   />
 )
+
+// ---- THVD1426 — RS-485 transceiver, SOIC-8, auto-direction -------------------
+// C5215922 (TI THVD1426DRLR). 3.0-5.5 V, 12 Mbps, internal auto-direction off the
+// D pin — no host DE/RE. NOT the MAX485 pinout: 1 R (RX out), 2 /RE (tie GND =
+// always receive), 3 /SHDN (tie VCC = always on), 4 D (TX in), 5 GND, 6 A, 7 B,
+// 8 VCC. R/D are the TTL side to the ESP UART; A/B the differential line to J9.
+const thvdPinLabels = {
+  pin1: "R", pin2: "RE", pin3: "SHDN", pin4: "D",
+  pin5: "GND", pin6: "A", pin7: "B", pin8: "VCC",
+}
+
+export const Thvd1426 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => (
+  <chip
+    name={name}
+    footprint="soic8"
+    pcbRotation={rot}
+    pinLabels={thvdPinLabels}
+    supplierPartNumbers={{ jlcpcb: ["C5215922"] }}
+    {...at(x, y)}
+  />
+)
+
+// ---- SM712 — RS-485 ESD/TVS array, SOT-23 -----------------------------------
+// C12067 (Semtech SM712.TCT). Asymmetric -7 V / +12 V clamp matching the RS-485
+// common-mode range, sits at the J9 cable entry. 1 A line, 2 B line, 3 GND.
+const sm712PinLabels = { pin1: "A", pin2: "B", pin3: "GND" }
+
+export const Sm712 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => (
+  <chip
+    name={name}
+    footprint="sot23"
+    pcbRotation={rot}
+    pinLabels={sm712PinLabels}
+    supplierPartNumbers={{ jlcpcb: ["C12067"] }}
+    {...at(x, y)}
+  />
+)
