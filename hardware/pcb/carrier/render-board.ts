@@ -16,6 +16,7 @@
 import { composeViews, SCHEMES } from "./gerber-compose"
 import { backSilkBoardTsx } from "./bottom-silk"
 import { dedupDrill } from "./dedup-drill"
+import { applyPrettyRoutes } from "./pretty-routes"
 import { singleflight } from "./run-lock"
 import { spawn, type ChildProcess } from "node:child_process"
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from "node:fs"
@@ -74,10 +75,26 @@ function sh(cmd: string, args: string[], opts: { cwd?: string; inherit?: boolean
   })
 }
 
+// Resolve declared 2nd-pass routes: pretty="<strategy>:<group>" on a <trace> means
+// "route this by net identity with the pretty router." applyPrettyRoutes routes those
+// groups in-process against a fresh obstacle field and writes a throwaway routed .tsx
+// (pretty attrs stripped, computed <pcbtrace> copper injected) that the rest of the
+// build renders. So 2nd-pass routes regenerate from live geometry every build — never
+// frozen into the source, never able to go stale. No-op (returns `board`) otherwise.
+const exportCircuitJson = async (name: string) => {
+  const out = `.${name}.cj.tmp.json`
+  await sh(tsci, ["export", "-f", "circuit-json", "-o", out, `${name}.tsx`], { cwd: dir })
+  const cj = JSON.parse(readFileSync(path.join(dir, out), "utf8"))
+  rmSync(path.join(dir, out), { force: true }); rmSync(path.join(dir, `${name}.circuit.json`), { force: true })
+  return cj
+}
+const renderName = await applyPrettyRoutes(dir, board, exportCircuitJson)
+if (renderName !== board) track(path.join(dir, `${renderName}.tsx`))
+
 // Build + route + export the Gerbers. A routing/DRC failure surfaces on stderr.
 console.log(`[${board}] exporting gerbers… (cwd=${dir})`)
 try {
-  await sh(tsci, ["export", "-f", "gerbers", "-o", zipRel, `${board}.tsx`], { cwd: dir })
+  await sh(tsci, ["export", "-f", "gerbers", "-o", zipRel, `${renderName}.tsx`], { cwd: dir })
 } catch (e: any) {
   console.error(`[${board}] gerber export failed (status ${e.status})`)
   if (e.stdout) console.error("stdout:", String(e.stdout).slice(-1000))
@@ -93,7 +110,7 @@ const cjRel = `.${board}.circuit.tmp.json`
 const cjAbs = track(path.join(dir, cjRel))
 let circuit: any[] | null = null
 try {
-  await sh(tsci, ["export", "-f", "circuit-json", "-o", cjRel, `${board}.tsx`], { cwd: dir })
+  await sh(tsci, ["export", "-f", "circuit-json", "-o", cjRel, `${renderName}.tsx`], { cwd: dir })
   circuit = JSON.parse(readFileSync(cjAbs, "utf8"))
 } catch {
   console.error(`[${board}] circuit-json export failed — back silk + picks skipped`)
