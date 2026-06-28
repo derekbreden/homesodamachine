@@ -64,7 +64,7 @@ export default () => (
     <Jst name="J6" x={25} y={38.65} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={19} y={-38.65} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
     <Jst name="J9" x={-1.7} y={42.65} count={3} labels={["A", "B", "ERTH"]} rot={0} label="DISPLAY" />
-    <Jst name="J10" x={56.0} y={-0.7233} count={2} labels={["GND", "V12"]} rot={90} label="12V" labelDir={1} />
+    <Jst name="J10" x={56.0} y={0} count={2} labels={["GND", "V12"]} rot={90} label="12V" labelDir={1} />
     <Jst name="J11" x={-26.47} y={42.65} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={0} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
@@ -138,8 +138,8 @@ export default () => (
     <trace from=".U3 > .A1" to="net.GND" />
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
-    <capacitor name="C4" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(8.5, 17.5)} />
-    <capacitor name="C5" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(8.5, -23)} />
+    <capacitor name="C4" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(8.5, 20.5)} />
+    <capacitor name="C5" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(8.5, -20.5)} />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
@@ -346,17 +346,17 @@ export default () => (
     <trace from=".R4 > .pin2" to="net.GND" />
     <trace from=".J11 > .GND" to="net.GND" />
 
-    {/* V12 decoupling. HF: two 0.1uF ceramics (C1/C2) set into the right-edge
-        connector stack, centered across the MANIFOLD fence — C2 in the gap above
-        the 12V inlet, C1 below MANIFOLD B — snubbing the fast solenoid-turn-off
-        edge. BULK: a 470uF low-ESR electrolytic (C3, BOM 1) in the open valley
-        between the two ULNs it feeds, soaking the inrush + flyback dump the
-        ceramics can't. Every pin1 -> V12, pin2 -> GND plane — no routing, no vias,
-        barrel pickup like every power pin; the top V12 island floods the whole
-        valve block, covering each pin1 barrel. C3 is polarized: pin1 (+) is V12. */}
-    <capacitor name="C1" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(56, -26.9767)} />
-    <capacitor name="C2" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(56, 5.9033)} />
-    <NXB_25V470_10_12_5 name="C3" {...at(39.65, 1.17)} />
+    {/* V12 decoupling, gridded on the right edge. HF: two 0.1uF ceramics (C1/C2)
+        each level with its manifold row — C2 by MANIFOLD A (y+19.1), C1 by MANIFOLD
+        B (y-19.1) — snubbing the fast solenoid-turn-off edge, with the 12V inlet
+        (J10) centered between them at y0. BULK: a 470uF low-ESR electrolytic (C3,
+        BOM 1) centered in the valley between the two ULNs it feeds, soaking the
+        inrush + flyback dump the ceramics can't. Every pin1 -> V12, pin2 -> GND
+        plane — no routing, no vias, barrel pickup like every power pin; the top V12
+        island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
+    <capacitor name="C1" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(56, -19.1)} />
+    <capacitor name="C2" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(56, 19.1)} />
+    <NXB_25V470_10_12_5 name="C3" {...at(40, 0)} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
     <trace from=".C2 > .pin1" to="net.V12" />
@@ -640,7 +640,7 @@ export default () => (
     <trace from=".J10 > .V12" to="net.V12" />
     <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" boardEdgeMargin="0.5mm" />
     <copperpour name="V12PLANE" layer="top" connectsTo="net.V12"
-      outline={[{ x: 33, y: -33.2 }, { x: 60, y: -33.2 }, { x: 60, y: 35.6 }, { x: 33, y: 35.6 }]} />
+      outline={[{ x: 35, y: -34 }, { x: 60, y: -34 }, { x: 60, y: 34 }, { x: 35, y: 34 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
   </board>
