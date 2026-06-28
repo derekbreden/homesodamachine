@@ -58,9 +58,6 @@ from _compressor_shroud_dimensions import (  # noqa: E402
 
 cabinet_slack_mm = 200       # umbilical-end ground-bond slack at cabinet side
 
-keszoox_pigtail_len_cm = 50  # Keszoox B0F8HMQRRN pre-crimped pigtail length
-                             # (from BOM §11 inter-module connectors)
-
 # Donor-compressor nameplate winding-resistance reference range for the
 # dielectric / continuity check.
 winding_r_low_ohm = 10
@@ -99,7 +96,6 @@ def main():
         "PULLUP_R": f"{_sched_ds18b20_pullup_kohm:.4g} kΩ",
         # Procedure-only (local).
         "CABINET_SLACK": f"{cabinet_slack_mm:.4g} mm",
-        "KESZOOX_LEN": f"{keszoox_pigtail_len_cm:.4g} cm",
         "WINDING_R_LOW": f"{winding_r_low_ohm:.4g}",
         "WINDING_R_HIGH": f"{winding_r_high_ohm:.4g} Ω",
         # Shroud-side imports.
@@ -134,7 +130,6 @@ def main():
             "SIG_DISPLAY_LEN": 1,
             "DC9_LEN": 1,
             "CABINET_SLACK": 1,
-            "KESZOOX_LEN": 1,
             "PULLUP_R": 1,
             "WINDING_R_LOW": 1,
             "WINDING_R_HIGH": 1,
