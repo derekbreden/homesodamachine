@@ -41,11 +41,11 @@ export default () => (
         module footprint). The 20 mm coin holder (BT1) is the bulk; the SOIC + 0.1uF
         decoupler sit to its right, clear of the ESP courtyard and the U3 cap (C5).
         CR2032 + is the wide can on the centre pad (pin2 -> VBAT); clips are - (GND). */}
-    <CoinCell name="BT1" pcbX={-30} pcbY={-28} pcbRotation={0} />
+    <CoinCell name="BT1" pcbX={-31.15} pcbY={-28} pcbRotation={0} />
     <Ds3231Smd name="U6" x={-9} y={-28} />
     <capacitor name="C6" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} {...at(-1, -28)} />
-    <silkscreentext text="+" fontSize="1.4mm" pcbX={-30} pcbY={-24} />
-    <silkscreentext text="-" fontSize="1.4mm" pcbX={-18.5} pcbY={-28} />
+    <silkscreentext text="+" fontSize="1.4mm" pcbX={-31.15} pcbY={-23.5} />
+    <silkscreentext text="-" fontSize="1.4mm" pcbX={-20} pcbY={-28} />
     <Esp32 x={-31.15} y={-1} />
     <Rs485 name="U7" x={-29.0} y={26.375} rot={180} />
     <Mcp23017 name="U2" x={22} y={30} addr="0x20" rot={270} />
@@ -59,7 +59,7 @@ export default () => (
     <Jst name="J2" x={44.7} y={-19.1} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
     <Jst name="J3" x={-40.63} y={42.65} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
     <Jst name="J4" x={-62.0} y={3} count={6} labels={["GND", "IO15", "V5", "IO14", "IO13", "3V3"]} rot={90} label="SENSORS" />
-    <Jst name="J5" x={-27.0} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO27", "IO5", "IO26", "IO18", "IO25", "IO19"]} rot={0} label="DRIVER" />
+    <Jst name="J5" x={-31.15} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO27", "IO5", "IO26", "IO18", "IO25", "IO19"]} rot={0} label="DRIVER" />
     <Jst name="J8" x={-62.0} y={-11.3} count={2} labels={["GND", "V5"]} rot={90} label="5V" />
     <Jst name="J6" x={25} y={38.65} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={19} y={-38.65} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
