@@ -53,14 +53,15 @@ export function findPrettyTraces(src: string): Pretty[] {
 }
 
 /**
- * Resolve a board's pretty-routes into a routed temp .tsx and return its basename
- * (no extension), for the rest of render-board to render. Returns `board` unchanged
- * when there are no pretty traces (pure no-op — the normal build path).
+ * Resolve a board's pretty-routes into a routed temp .tsx and return it alongside
+ * the obstacle circuit-json (the board stripped of pretty nets). The caller reuses
+ * that circuit-json for back-silk synthesis and pick-data so it doesn't need its
+ * own tsci export. Returns the board unchanged when there are no pretty traces.
  */
-export async function applyPrettyRoutes(dir: string, board: string, exportCJ: ExportCircuitJson): Promise<string> {
+export async function applyPrettyRoutes(dir: string, board: string, exportCJ: ExportCircuitJson): Promise<{ routedName: string; obstacleCircuitJson: any[] | null }> {
   const src = readFileSync(path.join(dir, `${board}.tsx`), "utf8")
   const pretties = findPrettyTraces(src)
-  if (!pretties.length) return board
+  if (!pretties.length) return { routedName: board, obstacleCircuitJson: null }
 
   // Obstacle field: the board with every pretty <trace> removed, so the autorouter
   // leaves those corridors clear. (Non-pretty nets route identically here and in the
@@ -73,7 +74,7 @@ export async function applyPrettyRoutes(dir: string, board: string, exportCJ: Ex
     const repl = obstacleSrc.slice(0, i).trimEnd().endsWith("=>") ? "null" : ""
     obstacleSrc = obstacleSrc.slice(0, i) + repl + obstacleSrc.slice(i + p.el.length)
   }
-  const obsName = `._${board}.pretty-obstacle.tmp`
+  const obsName = `_build-${board}.pretty-obstacle.tmp`
   writeFileSync(path.join(dir, `${obsName}.tsx`), obstacleSrc)
   let obstacle: any[]
   try {
@@ -124,8 +125,8 @@ export async function applyPrettyRoutes(dir: string, board: string, exportCJ: Ex
   // the carve owns them) and inject the computed <pcbtrace> copper before </board>.
   let routedSrc = src.replace(/\s+pretty="[^"]*"/g, "")
   routedSrc = routedSrc.replace(/(\n\s*)<\/board>/, `\n${jsx.join("\n")}$1</board>`)
-  const routedName = `._${board}.pretty-routed.tmp`
+  const routedName = `_build-${board}.pretty-routed.tmp`
   writeFileSync(path.join(dir, `${routedName}.tsx`), routedSrc)
   console.log(`[pretty] routed ${jsx.length} net(s): ${mazeGroups.size} maze group(s) + ${cleanNets.length} clean fan(s) -> ${routedName}.tsx`)
-  return routedName
+  return { routedName, obstacleCircuitJson: obstacle }
 }
