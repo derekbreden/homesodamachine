@@ -24,7 +24,7 @@
 import {
   i8, at, Esp32, Jst, ulnOUT,
 } from "./carrier_parts"
-import { Uln2803, Mcp23017, Ds3231Smd, Thvd1426, Sm712 } from "./pcba_parts"
+import { Uln2803, Mcp23017, Ds3231Smd, Thvd1426, Sm712, Ams1117_33 } from "./pcba_parts"
 import { boardVersionParts } from "./board-version"
 import { logoRoutes } from "./logo"
 import { NXB_25V470_10_12_5 } from "./imports/NXB_25V470_10_12_5"
@@ -55,6 +55,13 @@ export default () => (
     <resistor name="R6" resistance="120" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22787"] }} {...at(-7, 30)} />
     <Sm712 name="D1" x={-3} y={37} rot={0} />
     <capacitor name="C7" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} {...at(-19, 30)} />
+    {/* 5V -> 3V3 LDO (U9, AMS1117-3.3) in the freed bay above the ESP. Becomes the
+        board's 3V3 source — the ESP module no longer feeds net.V3V3 (its onboard
+        regulator self-powers it). VIN off the 5V plane, VOUT to the 3V3 plane, both
+        via barrels/stitch; C8 (10uF) in, C9 (22uF) out flank it. */}
+    <Ams1117_33 name="U9" x={-45} y={22} />
+    <capacitor name="C8" capacitance="10uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C15850"] }} {...at(-53, 22)} />
+    <capacitor name="C9" capacitance="22uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C45783"] }} {...at(-37, 22)} />
     <Mcp23017 name="U2" x={22} y={30} addr="0x20" rot={270} />
     <Mcp23017 name="U3" x={22} y={-30} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={36} y={19.1} />
@@ -84,9 +91,18 @@ export default () => (
     <resistor name="R3" resistance="2.2k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C4190"] }} pcbRotation={0} {...at(-10.48, 40.9)} />
     <resistor name="R4" resistance="3.3k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22978"] }} pcbRotation={0} {...at(-10.48, 44.4)} />
 
-    {/* 3V3 rail -> inner1 plane. ESP 3V3 sources it; the I2C devices (both MCPs,
-        DS3231), RS485, and the sensor loom common to it at their barrels. */}
-    <trace from=".U1A > .3V3" to="net.V3V3" />
+    {/* 3V3 rail -> inner1 plane. U9 (LDO) sources it from 5V; the I2C devices (both
+        MCPs, DS3231), RS485, and the sensor loom common to it at their barrels. The
+        ESP module's onboard regulator self-powers it off 5V — its 3V3 pin is left
+        unconnected so it doesn't fight the LDO (the bare ESP in step 9 will take 3V3
+        from this plane instead). */}
+    <trace from=".U9 > .VOUT" to="net.V3V3" />
+    <trace from=".U9 > .VIN" to="net.V5" />
+    <trace from=".U9 > .GND" to="net.GND" />
+    <trace from=".C8 > .pin1" to="net.V5" />
+    <trace from=".C8 > .pin2" to="net.GND" />
+    <trace from=".C9 > .pin1" to="net.V3V3" />
+    <trace from=".C9 > .pin2" to="net.GND" />
     <trace from=".U2 > .VCC" to="net.V3V3" />
     <trace from=".U3 > .VCC" to="net.V3V3" />
     <trace from=".U6 > .VCC" to="net.V3V3" />
