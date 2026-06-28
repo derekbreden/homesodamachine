@@ -143,10 +143,6 @@ export default () => (
     <trace from=".U1B > .IO21" to=".U3 > .SDA" />
     <trace from=".U1B > .IO22" to=".U3 > .SCL" />
 
-    {/* MCP GPA banks broken out */}
-    {i8.map((k) => <trace key={`a2${k}`} from={`.U2 > .GPA${k}`} to={`net.U2_GPA${k}`} />)}
-    {i8.map((k) => <trace key={`a3${k}`} from={`.U3 > .GPA${k}`} to={`net.U3_GPA${k}`} />)}
-
     {/* ULN U4 ground (U2/U3 grounds are in the grounds block above) */}
     <trace from=".U4 > .GND" to="net.GND" />
 
@@ -170,11 +166,26 @@ export default () => (
     <trace from=".C5 > .pin1" to="net.V3V3" />
     <trace from=".C5 > .pin2" to="net.GND" />
 
-    {/* GPA -> ULN inputs. The netlist keeps the carrier's GPA_k -> IN_{8-k} map
-        (GPA0->IN8 ... GPA7->IN1), so the firmware valve mapping is unchanged; inside
-        the ULN, channel j is IN_j -> OUT_j -> J.OUT_j. (valve-control.mmd.) */}
-    {i8.map((k) => <trace key={`i4${k}`} from={`.U4 > .IN${8 - k}`} to={`net.U2_GPA${k}`} />)}
-    {i8.map((k) => <trace key={`i5${k}`} from={`.U5 > .IN${8 - k}`} to={`net.U3_GPA${k}`} />)}
+    {/* GPA -> ULN inputs, GPA_k -> IN_{8-k} (GPA0->IN8 ... GPA7->IN1), so the firmware
+        valve mapping is unchanged; inside the ULN, channel j is IN_j -> OUT_j -> J.OUT_j
+        (valve-control.mmd). pretty="clean:..." fans each pair as a riser + 45° landing at
+        build time (pretty-routes.ts): U2->U4 from the GPA row, U5->U3 from the IN column. */}
+    <trace from=".U2 > .GPA0" to=".U4 > .IN8" pretty="clean:fanRowToColumn" />
+    <trace from=".U2 > .GPA1" to=".U4 > .IN7" pretty="clean:fanRowToColumn" />
+    <trace from=".U2 > .GPA2" to=".U4 > .IN6" pretty="clean:fanRowToColumn" />
+    <trace from=".U2 > .GPA3" to=".U4 > .IN5" pretty="clean:fanRowToColumn" />
+    <trace from=".U2 > .GPA4" to=".U4 > .IN4" pretty="clean:fanRowToColumn" />
+    <trace from=".U2 > .GPA5" to=".U4 > .IN3" pretty="clean:fanRowToColumn" />
+    <trace from=".U2 > .GPA6" to=".U4 > .IN2" pretty="clean:fanRowToColumn" />
+    <trace from=".U2 > .GPA7" to=".U4 > .IN1" pretty="clean:fanRowToColumn" />
+    <trace from=".U5 > .IN8" to=".U3 > .GPA0" pretty="clean:fanColumnToColumn" />
+    <trace from=".U5 > .IN7" to=".U3 > .GPA1" pretty="clean:fanColumnToColumn" />
+    <trace from=".U5 > .IN6" to=".U3 > .GPA2" pretty="clean:fanColumnToColumn" />
+    <trace from=".U5 > .IN5" to=".U3 > .GPA3" pretty="clean:fanColumnToColumn" />
+    <trace from=".U5 > .IN4" to=".U3 > .GPA4" pretty="clean:fanColumnToColumn" />
+    <trace from=".U5 > .IN3" to=".U3 > .GPA5" pretty="clean:fanColumnToColumn" />
+    <trace from=".U5 > .IN2" to=".U3 > .GPA6" pretty="clean:fanColumnToColumn" />
+    <trace from=".U5 > .IN1" to=".U3 > .GPA7" pretty="clean:fanColumnToColumn" />
 
     {/* RS485 TTL side -> ESP UART. R (the receiver output) lands on IO34 — the ESP
         UART RX, an input-only pin, all an RX needs; D (the driver input) is fed by
@@ -188,37 +199,29 @@ export default () => (
     <trace from=".C7 > .pin2" to="net.GND" />
 
     {/* manifold JSTs: ULN outputs -> valve looms */}
-    {i8.map((k) => <trace key={`j1${k}`} from={`.J1 > .OUT${k + 1}`} to={`.U4 > .OUT${k + 1}`} />)}
+    <trace from=".U4 > .OUT1" to=".J1 > .OUT1" pretty="clean:fanColumnToColumn" />
+    <trace from=".U4 > .OUT2" to=".J1 > .OUT2" pretty="clean:fanColumnToColumn" />
+    <trace from=".U4 > .OUT3" to=".J1 > .OUT3" pretty="clean:fanColumnToColumn" />
+    <trace from=".U4 > .OUT4" to=".J1 > .OUT4" pretty="clean:fanColumnToColumn" />
+    <trace from=".U4 > .OUT5" to=".J1 > .OUT5" pretty="clean:fanColumnToColumn" />
+    <trace from=".U4 > .OUT6" to=".J1 > .OUT6" pretty="clean:fanColumnToColumn" />
+    <trace from=".U4 > .OUT7" to=".J1 > .OUT7" pretty="clean:fanColumnToColumn" />
+    <trace from=".U4 > .OUT8" to=".J1 > .OUT8" pretty="clean:fanColumnToColumn" />
     <trace from=".J1 > .COM" to="net.V12" />
     {/* MANIFOLD B: 4 valves on U5 ch1-4, condenser FAN on U5 ch5, COM = 12V flyback. */}
-    <trace from=".J2 > .OUT1" to=".U5 > .OUT1" />
-    <trace from=".J2 > .OUT2" to=".U5 > .OUT2" />
-    <trace from=".J2 > .OUT3" to=".U5 > .OUT3" />
-    <trace from=".J2 > .OUT4" to=".U5 > .OUT4" />
-    <trace from=".J2 > .FAN" to=".U5 > .OUT5" />
+    <trace from=".U5 > .OUT1" to=".J2 > .OUT1" pretty="clean:fanColumnToColumn" />
+    <trace from=".U5 > .OUT2" to=".J2 > .OUT2" pretty="clean:fanColumnToColumn" />
+    <trace from=".U5 > .OUT3" to=".J2 > .OUT3" pretty="clean:fanColumnToColumn" />
+    <trace from=".U5 > .OUT4" to=".J2 > .OUT4" pretty="clean:fanColumnToColumn" />
+    <trace from=".U5 > .OUT5" to=".J2 > .FAN" pretty="clean:fanColumnToColumn" />
     <trace from=".J2 > .COM" to="net.V12" />
 
-    {/* FAUCET UART (IO33 TX / IO35 RX) */}
-    <trace from=".J3 > .IO33" to=".U1A > .IO33" />
-    <trace from=".J3 > .IO35" to=".U1A > .IO35" />
+    {/* FAUCET UART (IO33 TX / IO35 RX). pretty="maze:faucet485" climbs both signals
+        from the FAUCET connector down to the ESP far row at build time (pretty-routes.ts). */}
+    <trace from=".J3 > .IO33" to=".U1A > .IO33" pretty="maze:faucet485" />
+    <trace from=".J3 > .IO35" to=".U1A > .IO35" pretty="maze:faucet485" />
     <trace from=".J3 > .GND" to="net.GND" />
     <trace from=".U1A > .GND" to="net.GND" />
-
-    {/* FAUCET UART fan off the ESP far row, maze-routed: IO33/IO35 climb to the
-        FAUCET connector on top. Each <pcbtrace> carves its connection (declared
-        above) from the autorouter; the <trace>s stay the netlist. (_maze.ts.) */}
-    {/* J3.IO33 -> U1A.IO33 — 0 vias */}
-    <pcbtrace route={[
-      {route_type:"wire",x:-39.36,y:42.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:-26.1,y:29.3,width:0.2,layer:"top"},
-      {route_type:"wire",x:-26.07,y:11.7,width:0.2,layer:"top"},
-    ]} />
-    {/* J3.IO35 -> U1A.IO35 — 0 vias */}
-    <pcbtrace route={[
-      {route_type:"wire",x:-36.82,y:42.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:-21,y:26.8,width:0.2,layer:"top"},
-      {route_type:"wire",x:-20.99,y:11.7,width:0.2,layer:"top"},
-    ]} />
 
     {/* SENSORS: flow (IO15) / 1-wire temps (IO14) / backflow drip-pan moisture
         (IO13). 3V3 powers the DS18B20 probes + the moisture module; V5 the flow
@@ -250,20 +253,20 @@ export default () => (
         plane; ground here */}
     <trace from=".J8 > .GND" to="net.GND" />
 
-    {/* REEDS A (reservoir A) -> 0x20 GPB inputs */}
-    <trace from=".J6 > .RA1" to=".U2 > .GPB0" />
-    <trace from=".J6 > .RA2" to=".U2 > .GPB1" />
-    <trace from=".J6 > .RA3" to=".U2 > .GPB2" />
-    <trace from=".J6 > .RA4" to=".U2 > .GPB3" />
+    {/* REEDS A (reservoir A) -> 0x20 GPB inputs. pretty="clean:fanRowToColumn" fans J6 up. */}
+    <trace from=".J6 > .RA1" to=".U2 > .GPB0" pretty="clean:fanRowToColumn" />
+    <trace from=".J6 > .RA2" to=".U2 > .GPB1" pretty="clean:fanRowToColumn" />
+    <trace from=".J6 > .RA3" to=".U2 > .GPB2" pretty="clean:fanRowToColumn" />
+    <trace from=".J6 > .RA4" to=".U2 > .GPB3" pretty="clean:fanRowToColumn" />
     <trace from=".J6 > .GND" to="net.GND" />
 
-    {/* REEDS B (reservoir B + carbonator low/high) -> 0x21 GPB inputs */}
-    <trace from=".J7 > .RB1" to=".U3 > .GPB0" />
-    <trace from=".J7 > .RB2" to=".U3 > .GPB1" />
-    <trace from=".J7 > .RB3" to=".U3 > .GPB2" />
-    <trace from=".J7 > .RB4" to=".U3 > .GPB3" />
-    <trace from=".J7 > .CLO" to=".U3 > .GPB4" />
-    <trace from=".J7 > .CHI" to=".U3 > .GPB5" />
+    {/* REEDS B (reservoir B + carbonator low/high) -> 0x21 GPB inputs. pretty="clean:fanRowToColumn" fans J7 down. */}
+    <trace from=".J7 > .RB1" to=".U3 > .GPB0" pretty="clean:fanRowToColumn" />
+    <trace from=".J7 > .RB2" to=".U3 > .GPB1" pretty="clean:fanRowToColumn" />
+    <trace from=".J7 > .RB3" to=".U3 > .GPB2" pretty="clean:fanRowToColumn" />
+    <trace from=".J7 > .RB4" to=".U3 > .GPB3" pretty="clean:fanRowToColumn" />
+    <trace from=".J7 > .CLO" to=".U3 > .GPB4" pretty="clean:fanRowToColumn" />
+    <trace from=".J7 > .CHI" to=".U3 > .GPB5" pretty="clean:fanRowToColumn" />
     <trace from=".J7 > .GND" to="net.GND" />
     <trace from=".U3 > .GND" to="net.GND" />
 
@@ -340,253 +343,6 @@ export default () => (
         layer), so no stitch via is declared here. C1/C2 pin1 sit on the top V12 island —
         same layer as their pour — and need none; C3's radial barrel picks up V12/GND
         directly. See plane-stitching.md (and order the PCBA with filled+capped vias). */}
-
-    {/* ===== 2nd-pass clean fans — top + bottom driver clusters. Generated by
-        clean-pass.ts from live pad coords (rerun after moving any of U2/U4/J6/J1
-        or U3/U5/J7/J2). Each <pcbtrace> carves its connection out of the
-        autorouter and replaces it with a riser + one 45deg landing: 0 vias, top
-        layer, crossing-free. ===== */}
-
-    {/* GPA -> ULN IN (U2 -> U4): same-pitch parallel diagonal bus */}
-    {/* U2.GPA0 -> U4.IN8 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:21.365,y:26.75,width:0.2,layer:"top"},
-      {route_type:"wire",x:21.365,y:26.675,width:0.2,layer:"top"},
-      {route_type:"wire",x:32.75,y:15.29,width:0.2,layer:"top"},
-    ]} />
-    {/* U2.GPA1 -> U4.IN7 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:22.635,y:26.75,width:0.2,layer:"top"},
-      {route_type:"wire",x:22.635,y:26.675,width:0.2,layer:"top"},
-      {route_type:"wire",x:32.75,y:16.56,width:0.2,layer:"top"},
-    ]} />
-    {/* U2.GPA2 -> U4.IN6 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:23.905,y:26.75,width:0.2,layer:"top"},
-      {route_type:"wire",x:23.905,y:26.675,width:0.2,layer:"top"},
-      {route_type:"wire",x:32.75,y:17.83,width:0.2,layer:"top"},
-    ]} />
-    {/* U2.GPA3 -> U4.IN5 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:25.175,y:26.75,width:0.2,layer:"top"},
-      {route_type:"wire",x:25.175,y:26.675,width:0.2,layer:"top"},
-      {route_type:"wire",x:32.75,y:19.1,width:0.2,layer:"top"},
-    ]} />
-    {/* U2.GPA4 -> U4.IN4 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:26.445,y:26.75,width:0.2,layer:"top"},
-      {route_type:"wire",x:26.445,y:26.675,width:0.2,layer:"top"},
-      {route_type:"wire",x:32.75,y:20.37,width:0.2,layer:"top"},
-    ]} />
-    {/* U2.GPA5 -> U4.IN3 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:27.715,y:26.75,width:0.2,layer:"top"},
-      {route_type:"wire",x:27.715,y:26.675,width:0.2,layer:"top"},
-      {route_type:"wire",x:32.75,y:21.64,width:0.2,layer:"top"},
-    ]} />
-    {/* U2.GPA6 -> U4.IN2 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:28.985,y:26.75,width:0.2,layer:"top"},
-      {route_type:"wire",x:28.985,y:26.675,width:0.2,layer:"top"},
-      {route_type:"wire",x:32.75,y:22.91,width:0.2,layer:"top"},
-    ]} />
-    {/* U2.GPA7 -> U4.IN1 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:30.255,y:26.75,width:0.2,layer:"top"},
-      {route_type:"wire",x:30.255,y:26.675,width:0.2,layer:"top"},
-      {route_type:"wire",x:32.75,y:24.18,width:0.2,layer:"top"},
-    ]} />
-    {/* REEDS A (J6 -> U2 GPB): converging fan, reordered J6 */}
-    {/* J6.RA1 -> U2.GPB0 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:30,y:38.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:30,y:33.505,width:0.2,layer:"top"},
-      {route_type:"wire",x:30.255,y:33.25,width:0.2,layer:"top"},
-    ]} />
-    {/* J6.RA2 -> U2.GPB1 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:27.5,y:38.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:27.5,y:34.735,width:0.2,layer:"top"},
-      {route_type:"wire",x:28.985,y:33.25,width:0.2,layer:"top"},
-    ]} />
-    {/* J6.RA3 -> U2.GPB2 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:25,y:38.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:25,y:35.965,width:0.2,layer:"top"},
-      {route_type:"wire",x:27.715,y:33.25,width:0.2,layer:"top"},
-    ]} />
-    {/* J6.RA4 -> U2.GPB3 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:22.5,y:38.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:22.5,y:37.195,width:0.2,layer:"top"},
-      {route_type:"wire",x:26.445,y:33.25,width:0.2,layer:"top"},
-    ]} />
-    {/* ULN OUT -> MANIFOLD A (U4 -> J1): widening fan */}
-    {/* U4.OUT1 -> J1.OUT1 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:39.25,y:24.18,width:0.2,layer:"top"},
-      {route_type:"wire",x:39.78,y:24.18,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:29.1,width:0.2,layer:"top"},
-    ]} />
-    {/* U4.OUT2 -> J1.OUT2 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:39.25,y:22.91,width:0.2,layer:"top"},
-      {route_type:"wire",x:41.01,y:22.91,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:26.6,width:0.2,layer:"top"},
-    ]} />
-    {/* U4.OUT3 -> J1.OUT3 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:39.25,y:21.64,width:0.2,layer:"top"},
-      {route_type:"wire",x:42.24,y:21.64,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:24.1,width:0.2,layer:"top"},
-    ]} />
-    {/* U4.OUT4 -> J1.OUT4 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:39.25,y:20.37,width:0.2,layer:"top"},
-      {route_type:"wire",x:43.47,y:20.37,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:21.6,width:0.2,layer:"top"},
-    ]} />
-    {/* U4.OUT5 -> J1.OUT5 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:39.25,y:19.1,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:19.1,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:19.1,width:0.2,layer:"top"},
-    ]} />
-    {/* U4.OUT6 -> J1.OUT6 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:39.25,y:17.83,width:0.2,layer:"top"},
-      {route_type:"wire",x:43.47,y:17.83,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:16.6,width:0.2,layer:"top"},
-    ]} />
-    {/* U4.OUT7 -> J1.OUT7 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:39.25,y:16.56,width:0.2,layer:"top"},
-      {route_type:"wire",x:42.24,y:16.56,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:14.1,width:0.2,layer:"top"},
-    ]} />
-    {/* U4.OUT8 -> J1.OUT8 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:39.25,y:15.29,width:0.2,layer:"top"},
-      {route_type:"wire",x:41.01,y:15.29,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:11.6,width:0.2,layer:"top"},
-    ]} />
-    {/* ULN IN -> GPA (U5 -> U3): parallel diagonal bus, knee left of U5 */}
-    {/* U5.IN8 -> U3.GPA0 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:32.75,y:-22.91,width:0.2,layer:"top"},
-      {route_type:"wire",x:26.475,y:-22.91,width:0.2,layer:"top"},
-      {route_type:"wire",x:22.635,y:-26.75,width:0.2,layer:"top"},
-    ]} />
-    {/* U5.IN7 -> U3.GPA1 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:32.75,y:-21.64,width:0.2,layer:"top"},
-      {route_type:"wire",x:26.475,y:-21.64,width:0.2,layer:"top"},
-      {route_type:"wire",x:21.365,y:-26.75,width:0.2,layer:"top"},
-    ]} />
-    {/* U5.IN6 -> U3.GPA2 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:32.75,y:-20.37,width:0.2,layer:"top"},
-      {route_type:"wire",x:26.475,y:-20.37,width:0.2,layer:"top"},
-      {route_type:"wire",x:20.095,y:-26.75,width:0.2,layer:"top"},
-    ]} />
-    {/* U5.IN5 -> U3.GPA3 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:32.75,y:-19.1,width:0.2,layer:"top"},
-      {route_type:"wire",x:26.475,y:-19.1,width:0.2,layer:"top"},
-      {route_type:"wire",x:18.825,y:-26.75,width:0.2,layer:"top"},
-    ]} />
-    {/* U5.IN4 -> U3.GPA4 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:32.75,y:-17.83,width:0.2,layer:"top"},
-      {route_type:"wire",x:26.475,y:-17.83,width:0.2,layer:"top"},
-      {route_type:"wire",x:17.555,y:-26.75,width:0.2,layer:"top"},
-    ]} />
-    {/* U5.IN3 -> U3.GPA5 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:32.75,y:-16.56,width:0.2,layer:"top"},
-      {route_type:"wire",x:26.475,y:-16.56,width:0.2,layer:"top"},
-      {route_type:"wire",x:16.285,y:-26.75,width:0.2,layer:"top"},
-    ]} />
-    {/* U5.IN2 -> U3.GPA6 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:32.75,y:-15.29,width:0.2,layer:"top"},
-      {route_type:"wire",x:26.475,y:-15.29,width:0.2,layer:"top"},
-      {route_type:"wire",x:15.015,y:-26.75,width:0.2,layer:"top"},
-    ]} />
-    {/* U5.IN1 -> U3.GPA7 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:32.75,y:-14.02,width:0.2,layer:"top"},
-      {route_type:"wire",x:26.475,y:-14.02,width:0.2,layer:"top"},
-      {route_type:"wire",x:13.745,y:-26.75,width:0.2,layer:"top"},
-    ]} />
-    {/* REEDS B (J7 -> U3 GPB): converging fan, reordered+shifted J7 */}
-    {/* J7.RB1 -> U3.GPB0 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:11.5,y:-38.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:11.5,y:-35.495,width:0.2,layer:"top"},
-      {route_type:"wire",x:13.745,y:-33.25,width:0.2,layer:"top"},
-    ]} />
-    {/* J7.RB2 -> U3.GPB1 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:14,y:-38.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:14,y:-34.265,width:0.2,layer:"top"},
-      {route_type:"wire",x:15.015,y:-33.25,width:0.2,layer:"top"},
-    ]} />
-    {/* J7.RB3 -> U3.GPB2 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:16.5,y:-38.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:16.5,y:-33.465,width:0.2,layer:"top"},
-      {route_type:"wire",x:16.285,y:-33.25,width:0.2,layer:"top"},
-    ]} />
-    {/* J7.RB4 -> U3.GPB3 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:19,y:-38.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:19,y:-34.695,width:0.2,layer:"top"},
-      {route_type:"wire",x:17.555,y:-33.25,width:0.2,layer:"top"},
-    ]} />
-    {/* J7.CLO -> U3.GPB4 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:21.5,y:-38.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:21.5,y:-35.925,width:0.2,layer:"top"},
-      {route_type:"wire",x:18.825,y:-33.25,width:0.2,layer:"top"},
-    ]} />
-    {/* J7.CHI -> U3.GPB5 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:24,y:-38.65,width:0.2,layer:"top"},
-      {route_type:"wire",x:24,y:-37.155,width:0.2,layer:"top"},
-      {route_type:"wire",x:20.095,y:-33.25,width:0.2,layer:"top"},
-    ]} />
-    {/* ULN OUT -> MANIFOLD B (U5 -> J2): widening fan */}
-    {/* U5.OUT1 -> J2.OUT1 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:39.25,y:-14.02,width:0.2,layer:"top"},
-      {route_type:"wire",x:43.53,y:-14.02,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:-12.85,width:0.2,layer:"top"},
-    ]} />
-    {/* U5.OUT2 -> J2.OUT2 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:39.25,y:-15.29,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.64,y:-15.29,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:-15.35,width:0.2,layer:"top"},
-    ]} />
-    {/* U5.OUT3 -> J2.OUT3 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:39.25,y:-16.56,width:0.2,layer:"top"},
-      {route_type:"wire",x:43.41,y:-16.56,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:-17.85,width:0.2,layer:"top"},
-    ]} />
-    {/* U5.OUT4 -> J2.OUT4 */}
-    <pcbtrace route={[
-      {route_type:"wire",x:39.25,y:-17.83,width:0.2,layer:"top"},
-      {route_type:"wire",x:42.18,y:-17.83,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:-20.35,width:0.2,layer:"top"},
-    ]} />
-    {/* U5.OUT5 -> J2.FAN */}
-    <pcbtrace route={[
-      {route_type:"wire",x:39.25,y:-19.1,width:0.2,layer:"top"},
-      {route_type:"wire",x:40.95,y:-19.1,width:0.2,layer:"top"},
-      {route_type:"wire",x:44.7,y:-22.85,width:0.2,layer:"top"},
-    ]} />
 
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
         monocolor silk via logo.ts) centered over the centered name + version,
