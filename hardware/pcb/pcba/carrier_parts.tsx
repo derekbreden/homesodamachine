@@ -219,37 +219,44 @@ const XH254_BY_COUNT: Record<number, string> = {
 }
 
 // ---- JST trunk connector ---------------------------------------------------
-// A board header (the off-board loom cable plugs in) with a body outline, a
-// function name, the pin labels, and the ref-des — all inside the ~5.8 mm body,
-// running PARALLEL to the row. The name sits on the board-edge side of the row;
-// the pin labels and ref-des tuck to the opposite (interior) side, with the
-// ref-des centred between the pin labels and the fence. labelDir overrides the
-// name's side on the vertical connectors (where the loom dictates body facing).
+// A board header (the off-board loom cable plugs in): a fence holding the pin
+// row, the function label, the pin labels and the ref-des. Laid out for a
+// horizontal row — function label one side, pin labels + ref-des the other —
+// then placed for the connector's orientation so a vertical one is the horizontal
+// turned a quarter-turn and every label reads the same way (bottom-to-top
+// vertical, left-to-right horizontal). The pin labels are drawn here, not by the
+// footprint (whose auto labels lock vertical rows to top-to-bottom); the footprint
+// string is pads-only. Margins to the fence are even on all four sides; labelDir
+// flips the function label to the loom-facing side (clear of the trunk traces).
 export const Jst = ({ name, x, y, count, labels, rot = 0, label, labelDir, jlcpcb }: { name: string; x: number; y: number; count: number; labels: string[]; rot?: number; label: string; labelDir?: number; jlcpcb?: string }) => {
-  const len = count * 2.5 + 2.6
-  const dep = 5.9
   const vertical = rot % 180 !== 0
+  const pitch = 2.5, padR = 0.825                   // XH 2.5 mm pitch, 1.65 mm pad radius
+  const bigHalf = 0.42, smHalf = 0.24               // ink cap half-heights (0.6 × font size)
+  const G = 0.45, M = 0.6                            // even tier gap; even content -> fence margin
+  // perpDir = the side the function label sits on (pin labels + ref-des opposite).
+  // Defaults toward the board centre; labelDir overrides where the loom dictates.
+  const perpDir = vertical ? (labelDir ?? (-Math.sign(x) || -1)) : 1
+  const bigOff = padR + G + bigHalf                 // row -> function label
+  const labelOff = padR + G + smHalf                // row -> pin label
+  const refOff = labelOff + smHalf + G + smHalf     // row -> ref-des (one tier beyond pin labels)
+  const uc = ((bigOff + bigHalf) - (refOff + smHalf)) / 2     // fence centre, perpendicular
+  const dep = (bigOff + bigHalf) + (refOff + smHalf) + 2 * M + 0.2  // +0.2 fence stroke
+  const len = (count - 1) * pitch + 2 * (padR + M + 0.1)
   const [w, h] = vertical ? [dep, len] : [len, dep]
-  // The function name tucks just inside the fence on the +X (vertical) / +Y
-  // (horizontal) side; the pin labels and ref-des sit on the opposite side. The
-  // horizontal connectors flip the footprinter's pin labels over so the name
-  // reads on the board-edge side and the pins + ref-des tuck toward the interior.
-  const nameOff = dep / 2 - 1
-  const nameDir = vertical ? (labelDir ?? (-Math.sign(x) || -1)) : 1
-  const [lx, ly] = vertical ? [nameDir * nameOff, 0] : [0, nameDir * nameOff]
-  // Ref-des centred in the gap between the pin-label row and the fence edge
-  // (rather than jammed against the fence, where the footprinter would put it).
-  const refOff = 2.2
-  const [rx, ry] = vertical ? [-refOff, 0] : [0, -refOff]
-  // XH2.54 wire-to-board wafer land pattern: 2.5 mm pitch (genuine XH — the "2.54"
-  // in the part name is the market's rounded label), 1.1 mm holes / 1.65 mm pads.
-  const fp = `pinrow${count}_p2.5mm_id1.1mm_od1.65mm_norefdes${vertical ? "" : "_flippinlabels"}`
+  const P = (u: number, v: number): [number, number] => (vertical ? [perpDir * u, v] : [v, perpDir * u])
+  const [bdx, bdy] = P(bigOff, 0)
+  const [rdx, rdy] = P(-refOff, 0)
+  const [fdx, fdy] = P(uc, 0)
   return (
     <>
-      <pinheader name={name} pinCount={count} pitch="2.5mm" gender="male" footprint={fp} pcbRotation={rot} pinLabels={labels} supplierPartNumbers={(() => { const p = jlcpcb ?? XH254_BY_COUNT[count]; return p ? { jlcpcb: [p] } : undefined })()} {...at(x, y)} />
-      <Outline x={x} y={y} w={w} h={h} />
-      <silkscreentext text={label} fontSize="1.4mm" pcbX={x + lx} pcbY={y + ly} pcbRotation={vertical ? 90 : 0} />
-      <silkscreentext text={name} fontSize="0.8mm" pcbX={x + rx} pcbY={y + ry} pcbRotation={vertical ? 90 : 0} />
+      <pinheader name={name} pinCount={count} pitch="2.5mm" gender="male" footprint={`pinrow${count}_p2.5mm_id1.1mm_od1.65mm_nopinlabels_norefdes`} pcbRotation={rot} pinLabels={labels} supplierPartNumbers={(() => { const p = jlcpcb ?? XH254_BY_COUNT[count]; return p ? { jlcpcb: [p] } : undefined })()} {...at(x, y)} />
+      <Outline x={x + fdx} y={y + fdy} w={w} h={h} />
+      {labels.map((lbl, i) => {
+        const [dx, dy] = P(-labelOff, (i - (count - 1) / 2) * pitch)
+        return <silkscreentext key={i} text={lbl} fontSize="0.8mm" pcbX={x + dx} pcbY={y + dy} pcbRotation={rot} />
+      })}
+      <silkscreentext text={label} fontSize="1.4mm" pcbX={x + bdx} pcbY={y + bdy} pcbRotation={rot} />
+      <silkscreentext text={name} fontSize="0.8mm" pcbX={x + rdx} pcbY={y + rdy} pcbRotation={rot} />
     </>
   )
 }
