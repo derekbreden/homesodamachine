@@ -122,7 +122,32 @@ function boardForSource(source) {
 // nominally ~150000px, so .pcb-svg is positioned absolutely (viewer.css) and
 // clipped by the overflow-hidden wrapper until PanZoom's fit scales it down —
 // otherwise the unscaled element would blow out the page on first paint.
+// Inlining several board SVGs into one document collides their shared element ids:
+// pcb-stackup emits the SAME `fcu_clear-1`, `bcu_clear-1`, `in*_clear-1`, and
+// `*_pad-*` ids in every file and view, so a `mask="url(#fcu_clear-1)"` binds to
+// whichever copy is FIRST in the document — a grid thumbnail — and the modal's
+// copper gets masked by the wrong board's clearance (the "big hole" that only
+// appeared from the /pcb grid, not a direct deep-link). Rewrite every id and its
+// references to a per-instance token so each inlined SVG is self-contained.
+let _svgIdSeq = 0;
+function uniquifySvgIds(svgText) {
+  const ids = new Set();
+  for (const m of svgText.matchAll(/\bid="([^"]+)"/g)) ids.add(m[1]);
+  if (!ids.size) return svgText;
+  const tok = "__b" + ++_svgIdSeq;
+  let out = svgText;
+  for (const id of ids) {
+    const esc = id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    out = out
+      .replace(new RegExp(`id="${esc}"`, "g"), `id="${id}${tok}"`)
+      .replace(new RegExp(`url\\(#${esc}\\)`, "g"), `url(#${id}${tok})`)
+      .replace(new RegExp(`((?:xlink:)?href)="#${esc}"`, "g"), `$1="#${id}${tok}"`);
+  }
+  return out;
+}
+
 function parseSvgString(svgText) {
+  svgText = uniquifySvgIds(svgText);
   const doc = new DOMParser().parseFromString(svgText, "image/svg+xml");
   const svgEl = doc.querySelector("svg");
   if (!svgEl) throw new Error("Board view has no <svg> element");
@@ -215,7 +240,9 @@ export async function renderPcbThumbnail(source) {
   try {
     const resp = await fetch(contentUrl(board.overlay));
     if (!resp.ok) return null;
-    const svgText = await resp.text();
+    // Uniquify here too — the grid inlines every board's thumbnail at once, so
+    // without this they collide with each other (and seed the modal collision).
+    const svgText = uniquifySvgIds(await resp.text());
     state.pcbThumbCache.set(source, svgText);
     return svgText;
   } catch { return null; }
