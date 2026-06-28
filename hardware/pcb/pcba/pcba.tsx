@@ -37,12 +37,12 @@ const ID = boardVersionParts()
 export default () => (
   <board layers={4} outline={[{ x: -66.9, y: -51 }, { x: 60.9, y: -51 }, { x: 60.9, y: 47.7 }, { x: -66.9, y: 47.7 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
     {/* DS3231SN RTC + CR2032 backup, in the bay below the ESP (the freed DS3231-
-        module footprint). The 20 mm coin holder (BT1) is the bulk; the SOIC + 0.1uF
-        decoupler sit to its right, clear of the ESP courtyard and the U3 cap (C5).
-        CR2032 + is the wide can on the centre pad (pin2 -> VBAT); clips are - (GND). */}
+        module footprint). The 20 mm coin holder (BT1) is the bulk; U6 (the SOIC) sits
+        to its right, its 0.1uF decoupler (C6) tucked against U6's VCC pin on the west
+        edge. CR2032 + is the wide can on the centre pad (pin2 -> VBAT); clips are - (GND). */}
     <CoinCell name="BT1" pcbX={-31.15} pcbY={-28} pcbRotation={0} />
     <Ds3231Smd name="U6" x={-9} y={-28} />
-    <capacitor name="C6" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} {...at(-1, -28)} />
+    <capacitor name="C6" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={90} {...at(-13.75, -24.27)} />
     <silkscreentext text="+" fontSize="1.4mm" pcbX={-31.15} pcbY={-23.5} />
     <silkscreentext text="-" fontSize="1.4mm" pcbX={-20} pcbY={-28} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio. rot 180 puts
@@ -56,8 +56,8 @@ export default () => (
         IO0 up in the south gap; J12 is the 6-pin serial programming header (TX0/RX0/IO0/
         EN/GND/3V3) in the freed west pocket. */}
     <Wroom name="U1" pcbX={-31.15} pcbY={-1} pcbRotation={180} />
-    <capacitor name="C10" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} {...at(-21, 12.5)} />
-    <capacitor name="C11" capacitance="10uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C15850"] }} {...at(-21, 15.8)} />
+    <capacitor name="C10" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} {...at(-22.45, 10.09)} />
+    <capacitor name="C11" capacitance="10uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C15850"] }} pcbRotation={180} {...at(-25.58, 10.36)} />
     <resistor name="R7" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-25, 12.5)} />
     <capacitor name="C12" capacitance="1uF" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C15849"] }} {...at(-25, 15.8)} />
     <resistor name="R8" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} pcbRotation={90} {...at(-40, -13.5)} />
@@ -69,14 +69,14 @@ export default () => (
     <Thvd1426 name="U7" x={-13} y={30} />
     <resistor name="R6" resistance="120" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22787"] }} {...at(-7, 30)} />
     <Sm712 name="D1" x={-3} y={37} rot={0} />
-    <capacitor name="C7" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} {...at(-19, 30)} />
+    <capacitor name="C7" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={270} {...at(-9.32, 30.96)} />
     {/* 5V -> 3V3 LDO (U9, AMS1117-3.3) in the freed bay above the ESP. Becomes the
         board's 3V3 source — the ESP module no longer feeds net.V3V3 (its onboard
         regulator self-powers it). VIN off the 5V plane, VOUT to the 3V3 plane, both
         via barrels/stitch; C8 (10uF) in, C9 (22uF) out flank it. */}
     <Ams1117_33 name="U9" x={-45} y={22} />
-    <capacitor name="C8" capacitance="10uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C15850"] }} {...at(-53, 22)} />
-    <capacitor name="C9" capacitance="22uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C45783"] }} {...at(-37, 22)} />
+    <capacitor name="C8" capacitance="10uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C15850"] }} pcbRotation={90} {...at(-50.22, 20.45)} />
+    <capacitor name="C9" capacitance="22uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C45783"] }} pcbRotation={90} {...at(-39.84, 22.89)} />
     <Mcp23017 name="U2" x={22} y={30} addr="0x20" rot={270} />
     <Mcp23017 name="U3" x={22} y={-30} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={36} y={19.1} />
@@ -199,8 +199,8 @@ export default () => (
     <trace from=".U3 > .A1" to="net.GND" />
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
-    <capacitor name="C4" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(8.5, 20.5)} />
-    <capacitor name="C5" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(8.5, -20.5)} />
+    <capacitor name="C4" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={180} {...at(16.74, 35.03)} />
+    <capacitor name="C5" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(24.39, -34.77)} />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
