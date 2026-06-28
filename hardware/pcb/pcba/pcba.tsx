@@ -447,13 +447,12 @@ export default () => (
     <trace from=".C3 > .pin1" to="net.V12" />
     <trace from=".C3 > .pin2" to="net.GND" />
 
-    {/* SMD GND legs stitch to the bottom GND plane — no through-hole barrel, so each
-        pin2 pad takes an explicit via-in-pad to the plane. C3's radial barrel still
-        picks up V12/GND directly. */}
-    <pcbtrace route={[{ route_type: "via", x: 56.91, y: -26.98, from_layer: "top", to_layer: "bottom" }]} />
-    <pcbtrace route={[{ route_type: "via", x: 56.91, y: 5.90, from_layer: "top", to_layer: "bottom" }]} />
-    <pcbtrace route={[{ route_type: "via", x: -15.60, y: 44.40, from_layer: "top", to_layer: "bottom" }]} />
-    <pcbtrace route={[{ route_type: "via", x: -9.66, y: 44.40, from_layer: "top", to_layer: "bottom" }]} />
+    {/* SMD GND legs (C1/C2 pin2, R2/R4 pin2) stitch to the bottom GND plane: an SMD pad
+        has no through-hole barrel, so a pad whose net is poured on another layer would
+        float. The core patch auto-drops a via-in-pad on every such pad (pad layer -> pour
+        layer), so no stitch via is declared here. C1/C2 pin1 sit on the top V12 island —
+        same layer as their pour — and need none; C3's radial barrel picks up V12/GND
+        directly. See plane-stitching.md (and order the PCBA with filled+capped vias). */}
 
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
         monocolor silk via logo.ts) centered over the centered name + version,

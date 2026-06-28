@@ -1,8 +1,11 @@
 diff --git a/node_modules/@tscircuit/copper-pour-solver/.bun-tag-2a9535ff9aec0463 b/.bun-tag-2a9535ff9aec0463
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/@tscircuit/copper-pour-solver/.bun-tag-dede0a731d6fc77 b/.bun-tag-dede0a731d6fc77
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/dist/index.js b/dist/index.js
-index 85d1ce644b64ac84402c94127cff80bb35e577bc..e2dcb09ee86cbb319416e58d6bc9972f38bdc8b8 100644
+index 85d1ce644b64ac84402c94127cff80bb35e577bc..6348b58492ef84317a8fb842eca7b4095bdd345e 100644
 --- a/dist/index.js
 +++ b/dist/index.js
 @@ -527,7 +527,14 @@ var convertCircuitJsonToInputProblem = (circuitJson, options) => {
@@ -21,7 +24,24 @@ index 85d1ce644b64ac84402c94127cff80bb35e577bc..e2dcb09ee86cbb319416e58d6bc9972f
        let connectivityKey = connectivityMap.getNetConnectedToId(
          platedHole.pcb_plated_hole_id
        );
-@@ -628,10 +635,15 @@ var convertCircuitJsonToInputProblem = (circuitJson, options) => {
+@@ -615,7 +622,15 @@ var convertCircuitJsonToInputProblem = (circuitJson, options) => {
+       }
+     } else if (elm.type === "pcb_via") {
+       const via = elm;
+-      if (!via.layers.includes(options.layer)) continue;
++      // PATCH(homesodamachine): a through-via's barrel is conductive on every copper layer,
++      // but via.layers only lists its endpoints (top/bottom) — the identical bug the
++      // plated-hole guard above fixes. The stock check skips the via on inner layers, so an
++      // inner power plane floods solid over it with no anti-pad and shorts that plane to the
++      // via's net (GND for our SMD stitch vias, a routed signal for the autorouter's). Treat
++      // a top&bottom via as present on ALL layers, so each inner plane cuts an anti-pad (or
++      // connects, if the via is on that plane's net).
++      const _isThroughVia = via.layers.includes("top") && via.layers.includes("bottom");
++      if (!_isThroughVia && !via.layers.includes(options.layer)) continue;
+       const connectivityKey = connectivityMap.getNetConnectedToId(via.pcb_via_id) ?? `unconnected-via:${via.pcb_via_id}`;
+       pads.push({
+         shape: "circle",
+@@ -628,10 +643,15 @@ var convertCircuitJsonToInputProblem = (circuitJson, options) => {
        });
      } else if (elm.type === "pcb_trace") {
        const trace = elm;
