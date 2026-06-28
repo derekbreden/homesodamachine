@@ -56,8 +56,8 @@ export default () => (
         IO0 up in the south gap; J12 is the 6-pin serial programming header (TX0/RX0/IO0/
         EN/GND/3V3) in the freed west pocket. */}
     <Wroom name="U1" pcbX={-31.15} pcbY={-1} pcbRotation={180} />
-    <capacitor name="C10" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={90} {...at(-20.5, 12.5)} />
-    <capacitor name="C11" capacitance="10uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C15850"] }} pcbRotation={90} {...at(-17.5, 12.5)} />
+    <capacitor name="C10" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={90} {...at(-20.5, 14)} />
+    <capacitor name="C11" capacitance="10uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C15850"] }} pcbRotation={90} {...at(-17.5, 14)} />
     <resistor name="R7" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-25, 12.5)} />
     <capacitor name="C12" capacitance="1uF" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C15849"] }} {...at(-25, 15.8)} />
     <resistor name="R8" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} pcbRotation={90} {...at(-40, -13.5)} />
@@ -75,8 +75,8 @@ export default () => (
         regulator self-powers it). VIN off the 5V plane, VOUT to the 3V3 plane, both
         via barrels/stitch; C8 (10uF) input bypass; C9 (22uF) output bypass. */}
     <Ams1117_33 name="U9" x={-45} y={22} />
-    <capacitor name="C8" capacitance="10uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C15850"] }} pcbRotation={90} {...at(-47.5, 20.5)} />
-    <capacitor name="C9" capacitance="22uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C45783"] }} pcbRotation={90} {...at(-40.5, 22.5)} />
+    <capacitor name="C8" capacitance="10uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C15850"] }} pcbRotation={90} {...at(-46.5, 20.5)} />
+    <capacitor name="C9" capacitance="22uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C45783"] }} pcbRotation={90} {...at(-39.5, 22.5)} />
     <Mcp23017 name="U2" x={22} y={30} addr="0x20" rot={270} />
     <Mcp23017 name="U3" x={22} y={-30} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={36} y={19.1} />
@@ -199,7 +199,7 @@ export default () => (
     <trace from=".U3 > .A1" to="net.GND" />
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
-    <capacitor name="C4" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={90} {...at(16.5, 32.5)} />
+    <capacitor name="C4" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={90} {...at(15.5, 32.5)} />
     <capacitor name="C5" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={90} {...at(28, -34)} />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
@@ -367,7 +367,7 @@ export default () => (
         plane — no routing, no vias, barrel pickup like every power pin; the top V12
         island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
     <capacitor name="C1" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={90} {...at(36.5, -27.5)} />
-    <capacitor name="C2" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={90} {...at(38, 14)} />
+    <capacitor name="C2" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={90} {...at(38, 12)} />
     <NXB_25V470_10_12_5 name="C3" {...at(40, 0)} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
