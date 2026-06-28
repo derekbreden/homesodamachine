@@ -28,7 +28,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 (
 | BiB adapter | Supply Depot B0DMFK9B6P ([back-panel §4](/hardware/printed-parts/enclosure/back-panel/README.md)) | 3/8" red BiB connector, single panel-side connector feeding both flavors downstream |
 | Umbilical PP1208E bulkheads × 3 | John Guest B00JYFU8MM ([back-panel §6](/hardware/printed-parts/enclosure/back-panel/README.md)) | Triangular cluster; blue accent ring on the carbonated-water bulkhead at the top vertex |
 | Drip pan + moisture sensor | TBD — see Open items | Backflow-vent observation per [`/hardware/future.md`](/hardware/future.md) "Backflow vent monitoring"; sensor wires to SIG-9 in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md), terminated at the shelf during [`wiring.md`](/hardware/assembly/wiring.md) |
-| Heyco SB-500-6 snap bushing | B01LPBST9G ([compressor-shroud §Penetrations](/hardware/cut-parts/compressor-shroud/README.md)) | AC pass-through grommet in the shroud sidewall |
+| SS 1/2" NPT cable gland | B0F2HP5FWB ([compressor-shroud §Penetrations](/hardware/cut-parts/compressor-shroud/README.md)) | AC pass-through strain relief in the shroud sidewall |
 | Bench-built electronics shelf | Output of [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md) | Unpowered; AC pigtails hang free, terminated at the C14 inlet in [`wiring.md`](/hardware/assembly/wiring.md) |
 | ruthex M3 heat-set inserts + M3 fasteners | ruthex B0D39W228K + BNUOK B0DJQGF665 / B0DJQGVK8S | Per the enclosure-shell screw schedule (TBD until enclosure CAD lands — see Open items) |
 | Chassis bonding lead — compressor shroud | Green 18 AWG, ring terminal | Bonded to the shroud's earth-bond hole on the back face (see [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md) "Grounding & mounting"); landed at the ground bus in [`wiring.md`](/hardware/assembly/wiring.md) |
@@ -68,7 +68,7 @@ The compressor body comes in as part of the integrated refrigerant-loop assembly
 **Install the compressor shroud over the terminal block + PTC relay/overload module BEFORE bolting the compressor to the enclosure floor.** Bench access to the terminal block is much easier with the compressor still on the build cart; once the compressor is bolted to the floor it sits in the middle-bottom of the enclosure with the cold core landing right next to it, and seating the shroud over it is much harder. Sequence:
 
 1. Set the compressor on its side or upright on a clean bench, the cold-core assembly steady on its cart with no tension on the refrigerant lines.
-2. Route the Heyco SB-500-6 snap bushing into the shroud's [1/2"](PANEL_HOLE) sidewall hole (the side that will face toward the electronics shelf at top-back — best path for the future AC pigtail run to Teyleten relay #1).
+2. Fit the SS cable gland into the shroud's [7/8"](PANEL_HOLE) sidewall hole and secure its locknut (the side that will face toward the electronics shelf at top-back — best path for the future AC pigtail run to Teyleten relay #1).
 3. Lower the shroud down over the terminal block + PTC module. Confirm ≥[10 mm](TB_CLEARANCE) clearance on all sides of the terminal block per [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md) "Dimensions".
 4. Fasten the shroud to the enclosure floor through the two mounting holes near the base of the side walls, per [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md) "Grounding & mounting". Torque-limited.
 
@@ -104,7 +104,7 @@ Lift the populated back panel (all bulkheads pre-installed per step 1) and seat 
 
 The panel has no fluid-pressure duty per the back-panel README — the bulkhead O-rings seal the pressurized fluid path around each tube. The panel-to-shell interface is mechanical capture only; no panel-side gasket is required.
 
-The four cabinet-side bulkhead stubs (water inlet barb, CO2 NPT, BiB downstream barb, three umbilical PTC interiors) are now all visible from inside the cabinet. They get plumbed in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md). The C14 inlet's solder-tab pins are similarly exposed inside; they get terminated to the electronics shelf's AC pigtails in [`wiring.md`](/hardware/assembly/wiring.md). The compressor shroud's [1/2"](PANEL_HOLE) Heyco-bushed sidewall hole now faces the electronics-shelf landing zone, ready to accept the shelf-side AC run in [`wiring.md`](/hardware/assembly/wiring.md). Confirm: no plumbing or wiring has been routed through any bulkhead or shroud penetration at this point.
+The four cabinet-side bulkhead stubs (water inlet barb, CO2 NPT, BiB downstream barb, three umbilical PTC interiors) are now all visible from inside the cabinet. They get plumbed in [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md). The C14 inlet's solder-tab pins are similarly exposed inside; they get terminated to the electronics shelf's AC pigtails in [`wiring.md`](/hardware/assembly/wiring.md). The compressor shroud's [7/8"](PANEL_HOLE) gland sidewall hole now faces the electronics-shelf landing zone, ready to accept the shelf-side AC run in [`wiring.md`](/hardware/assembly/wiring.md). Confirm: no plumbing or wiring has been routed through any bulkhead or shroud penetration at this point.
 
 ### 8. Seat the electronics shelf at the top-back (unpowered)
 
@@ -119,7 +119,7 @@ Confirm the shelf clears the back-panel bulkheads behind it (the C14 inlet pigta
 A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) and [`wiring.md`](/hardware/assembly/wiring.md):
 
 - Cold core seated at the rear on its support ring, no tension on the refrigerant lines
-- Compressor bolted to the enclosure floor, sheet-metal shroud installed and anchored to the M5 compressor feet, Heyco-bushed [1/2"](PANEL_HOLE) AC pass-through facing the electronics shelf
+- Compressor bolted to the enclosure floor, sheet-metal shroud installed and anchored to the M5 compressor feet, gland-fitted [7/8"](PANEL_HOLE) AC pass-through facing the electronics shelf
 - Condenser + fan mounted on the chosen side wall, airflow axis crossing the enclosure side-to-side, intake grille on one side face and exhaust grille on the opposite side face
 - Back panel mounted with all back-panel bulkheads pre-installed: C14 inlet (recessed with printed shroud), FFL38BARB38 water inlet, Supply Depot BiB connector, three PP1208E umbilical bulkheads in triangular cluster (blue ring at top vertex). CO2 inlet lives on the front panel — see [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md); separate install step (not yet broken out in this doc).
 - Drip pan + moisture sensor installed under the backflow-vent termination point, sensor leads routed toward the electronics shelf (not yet terminated)

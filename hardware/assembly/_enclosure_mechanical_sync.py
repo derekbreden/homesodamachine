@@ -45,7 +45,7 @@ def main():
         "TB_CLEARANCE": f"{terminal_block_clearance_mm:.4g} mm",
         # G90 sheet thickness.
         "WALL_IN": f'{wall_thickness_in:.4g}"',
-        # Heyco SB-500-6 sidewall panel hole.
+        # AC pass-through panel hole (cable gland).
         "PANEL_HOLE": panel_hole_label,
         # Foam-shell outer bottom-cap footprint.
         "FOAM_SHELL_X": f"{outer_shell_x_length:.4g}",

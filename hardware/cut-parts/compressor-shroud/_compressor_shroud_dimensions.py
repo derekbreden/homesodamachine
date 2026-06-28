@@ -41,9 +41,9 @@ outer_depth_mm = interior_depth_mm + 2 * wall_thickness_mm
 outer_height_mm = interior_height_mm + wall_thickness_mm
 
 # ── Penetrations ───────────────────────────────────────────────────
-ac_hole_diameter_in = 0.5
+ac_hole_diameter_in = 0.875        # 7/8" — clearance for the 1/2" NPT cable gland
 ac_hole_diameter_mm = ac_hole_diameter_in * _MM_PER_IN
-panel_hole_label = '1/2"'          # AC pass-through; imported by enclosure sync
+panel_hole_label = '7/8"'          # AC pass-through; imported by enclosure sync
 copper_tube_od_label = '1/4"'
 copper_tube_od_mm = 6.35
 copper_hole_diameter_mm = 8.0
@@ -53,9 +53,8 @@ mounting_hole_diameter_mm = 4.5    # M4 clearance — fastens to the enclosure f
 # Imported by /hardware/assembly/_wiring_sync.py and
 # _enclosure_mechanical_sync.py — keep these names stable.
 ac_cable_awg = 18
-ac_cable_od_mm = 6.4
-bushing_cable_od_low_mm = 5.6
-bushing_cable_od_high_mm = 6.4
+gland_cable_od_low_mm = 6           # SS 1/2" NPT cable gland clamping range
+gland_cable_od_high_mm = 12
 chassis_ground_hole_mm = 6           # earth-bond point if added (see README "Grounding")
 compressor_class_w = 100
 terminal_block_clearance_mm = 10
@@ -120,9 +119,8 @@ def main():
         # Penetrations.
         "PANEL_HOLE": panel_hole_label,
         "AC_HOLE_MM": f"{ac_hole_diameter_mm:.4g} mm",
-        "BUSHING_LOW": f"{bushing_cable_od_low_mm:.4g}",
-        "BUSHING_HIGH": f"{bushing_cable_od_high_mm:.4g} mm",
-        "AC_OD": f"{ac_cable_od_mm:.4g} mm",
+        "GLAND_LOW": f"{gland_cable_od_low_mm:.4g}",
+        "GLAND_HIGH": f"{gland_cable_od_high_mm:.4g} mm",
         "CU_HOLE": f"{copper_hole_diameter_mm:.4g} mm",
         "CU_OD": copper_tube_od_label,
         # Grounding + mounting.
@@ -160,7 +158,7 @@ def main():
             "COMP_CLASS_W": 1,
             "PTC_TEMP_LOW": 1,
             "PTC_TEMP": 1,
-            "AC_AWG": 3,
+            "AC_AWG": 2,
             "FAN_V": 1,
             "INT_W": 1,
             "INT_D": 1,
@@ -177,9 +175,8 @@ def main():
             "K_FACTOR": 2,
             "PANEL_HOLE": 1,
             "AC_HOLE_MM": 1,
-            "BUSHING_LOW": 1,
-            "BUSHING_HIGH": 1,
-            "AC_OD": 1,
+            "GLAND_LOW": 1,
+            "GLAND_HIGH": 1,
             "CU_HOLE": 2,
             "CU_OD": 2,
             "GND_HOLE": 2,

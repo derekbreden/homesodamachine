@@ -59,8 +59,6 @@ Conductor counts are the board connector pin counts (`pcba.tsx` J1–J11 = {9, 6
 1. **Manifold trunk cable.** The KWANGIL 22 AWG UL2464 is black and on-hand but 12-conductor (populate to 9 / 6) and unshielded — fine for valve power. Confirm whether to keep it depopulated or source a right-count jacketed cable.
 2. **Shielded reed pairs.** The ~600 mm reed / 1-wire runs pass alongside the switching solenoid trunk; consider shielded twisted pair (foil + drain, single-end grounded) over plain 24 AWG.
 3. **AC mains wire grade.** Confirm the line-voltage runs use a recognized appliance-grade wire (UL1015 / UL1028, 600 V, 105 °C) rather than hobby silicone — the discipline already applied to the SJOOW shroud lead.
-4. **Shroud pass-through hole.** The shroud sidewall penetration is a 1/2" snap-bushing hole; the AC pass-through strain relief is a 1/2" NPT cable gland (7/8" clearance hole). Revise the shroud DXF to 7/8", and propagate through `_wiring_sync` / `_enclosure_mechanical_sync` and the snap-bushing prose in [`wiring.md`](/hardware/assembly/wiring.md) + [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md).
-
 ## Sources
 
 Run lengths + terminations: [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md). Stock: [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11, tooling [`/hardware/ledger/tools.md`](/hardware/ledger/tools.md). Install: [`/hardware/assembly/wiring.md`](/hardware/assembly/wiring.md).

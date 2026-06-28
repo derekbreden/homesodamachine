@@ -39,7 +39,7 @@ from _ac_wiring_schedule_sync import (  # noqa: E402
     jst_pitch_mm as _sched_jst_pitch_mm,
 )
 
-# Import shroud-side values (cable OD, bushing range, ground-stud hole,
+# Import shroud-side values (cable AWG, gland range, ground-stud hole,
 # compressor class).
 sys.path.insert(
     0,
@@ -47,8 +47,8 @@ sys.path.insert(
 )
 from _compressor_shroud_dimensions import (  # noqa: E402
     ac_cable_awg as _shroud_ac_cable_awg,
-    bushing_cable_od_low_mm as _shroud_bushing_low_mm,
-    bushing_cable_od_high_mm as _shroud_bushing_high_mm,
+    gland_cable_od_low_mm as _shroud_gland_low_mm,
+    gland_cable_od_high_mm as _shroud_gland_high_mm,
     chassis_ground_hole_mm as _shroud_gnd_hole_mm,
     compressor_class_w as _shroud_compressor_class_w,
 )
@@ -100,8 +100,8 @@ def main():
         "WINDING_R_HIGH": f"{winding_r_high_ohm:.4g} Ω",
         # Shroud-side imports.
         "SHROUD_SJOOW_AWG": f"{_shroud_ac_cable_awg:.4g} AWG",
-        "BUSHING_LOW": f"{_shroud_bushing_low_mm:.4g}",
-        "BUSHING_HIGH": f"{_shroud_bushing_high_mm:.4g} mm",
+        "GLAND_LOW": f"{_shroud_gland_low_mm:.4g}",
+        "GLAND_HIGH": f"{_shroud_gland_high_mm:.4g} mm",
         "GND_STUD_HOLE": f"{_shroud_gnd_hole_mm:.4g} mm",
         "COMP_CLASS_W": f"{_shroud_compressor_class_w:.4g} W",
     }
@@ -134,8 +134,8 @@ def main():
             "WINDING_R_LOW": 1,
             "WINDING_R_HIGH": 1,
             "SHROUD_SJOOW_AWG": 3,
-            "BUSHING_LOW": 1,
-            "BUSHING_HIGH": 1,
+            "GLAND_LOW": 1,
+            "GLAND_HIGH": 1,
             "GND_STUD_HOLE": 1,
             "COMP_CLASS_W": 1,
         },
