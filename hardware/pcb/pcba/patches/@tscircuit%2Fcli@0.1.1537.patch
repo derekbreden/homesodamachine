@@ -17,7 +17,9 @@ diff --git a/dist/cli/main.js b/dist/cli/main.js
 index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..1364113d4cb171ec2c70c75d36c5b4e1773bd877 100755
 --- a/dist/cli/main.js
 +++ b/dist/cli/main.js
-@@ -255845,6 +255845,12 @@ var layerAndTypeToFileFunction = {
+--- /Users/derekbredensteiner/.bun/install/cache/@tscircuit/cli@0.1.1537@@@1/dist/cli/main.js	2026-06-22 22:37:33
++++ node_modules/@tscircuit/cli/dist/cli/main.js	2026-06-28 17:27:08
+@@ -255845,6 +255845,12 @@
    "bottom-silkscreen": "Legend,Bot",
    "top-paste": "Paste,Top",
    "bottom-paste": "Paste,Bot",
@@ -30,7 +32,7 @@ index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..1364113d4cb171ec2c70c75d36c5b4e1
    edgecut: "Profile,NP"
  };
  var getCommandHeaders = (opts) => {
-@@ -255876,7 +255882,13 @@ var getCommandHeaders = (opts) => {
+@@ -255876,7 +255882,13 @@
  };
  var layerRefToGerberPrefix = {
    top: "F_",
@@ -45,7 +47,7 @@ index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..1364113d4cb171ec2c70c75d36c5b4e1
  };
  var layerTypeToGerberSuffix = {
    copper: "Cu",
-@@ -255930,6 +255942,23 @@ var convertSoupToGerberCommands = (soup, opts = {}) => {
+@@ -255930,6 +255942,23 @@
        layer: "edgecut"
      })
    };
@@ -69,7 +71,7 @@ index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..1364113d4cb171ec2c70c75d36c5b4e1
    for (const glayer_name of [
      "F_Cu",
      "B_Cu",
-@@ -255938,7 +255967,8 @@ var convertSoupToGerberCommands = (soup, opts = {}) => {
+@@ -255938,7 +255967,8 @@
      "F_Paste",
      "B_Paste",
      "F_SilkScreen",
@@ -79,7 +81,7 @@ index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..1364113d4cb171ec2c70c75d36c5b4e1
    ]) {
      const glayer = glayers[glayer_name];
      defineCommonMacros(glayer);
-@@ -255972,15 +256002,12 @@ var convertSoupToGerberCommands = (soup, opts = {}) => {
+@@ -255972,15 +256002,12 @@
      });
      let initialX = element.anchor_position.x;
      let initialY = element.anchor_position.y;
@@ -100,7 +102,7 @@ index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..1364113d4cb171ec2c70c75d36c5b4e1
      const textHeight = fontSize;
      const anchorAlignment = element.anchor_alignment || (() => {
        const side = element.anchor_side;
-@@ -256093,18 +256120,14 @@ var convertSoupToGerberCommands = (soup, opts = {}) => {
+@@ -256093,18 +256120,14 @@
          anchoredX += spaceWidth + letterSpacing;
          continue;
        }
@@ -126,7 +128,7 @@ index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..1364113d4cb171ec2c70c75d36c5b4e1
      }
      glayer.push(...gerber.build());
      if (layerType === "copper" && element.is_knockout) {
-@@ -256186,7 +256209,7 @@ var convertSoupToGerberCommands = (soup, opts = {}) => {
+@@ -256186,7 +256209,7 @@
      });
      return { vertices: new_vertices };
    };
@@ -135,7 +137,7 @@ index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..1364113d4cb171ec2c70c75d36c5b4e1
      for (const element of soup) {
        if (element.type === "pcb_copper_pour" && layer === element.layer) {
          const copper_glayer = glayers[getGerberLayerName(layer, "copper")];
-@@ -256274,7 +256297,7 @@ var convertSoupToGerberCommands = (soup, opts = {}) => {
+@@ -256274,7 +256297,7 @@
        }
      }
    }
@@ -144,7 +146,7 @@ index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..1364113d4cb171ec2c70c75d36c5b4e1
      for (const element of soup) {
        if (element.type === "pcb_trace") {
          const { route } = element;
-@@ -256320,7 +256343,7 @@ var convertSoupToGerberCommands = (soup, opts = {}) => {
+@@ -256320,7 +256343,7 @@
            for (const glayer of [
              glayers[getGerberLayerName(layer, "copper")],
              glayers[getGerberLayerName(layer, "soldermask")]
@@ -153,7 +155,7 @@ index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..1364113d4cb171ec2c70c75d36c5b4e1
              const apertureConfig = getApertureConfigFromPcbSmtpad(element);
              const apertureNumber = findApertureNumber(glayer, apertureConfig);
              const gb2 = gerberBuilder().add("select_aperture", {
-@@ -256391,7 +256414,7 @@ var convertSoupToGerberCommands = (soup, opts = {}) => {
+@@ -256391,7 +256414,7 @@
            for (const glayer of [
              glayers[getGerberLayerName(layer, "copper")],
              glayers[getGerberLayerName(layer, "soldermask")]
@@ -162,7 +164,7 @@ index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..1364113d4cb171ec2c70c75d36c5b4e1
              const holeW = "hole_width" in element && typeof element.hole_width === "number" ? element.hole_width : 0;
              const holeH = "hole_height" in element && typeof element.hole_height === "number" ? element.hole_height : 0;
              const padWidthCandidates = [holeW];
-@@ -256486,7 +256509,7 @@ var convertSoupToGerberCommands = (soup, opts = {}) => {
+@@ -256486,7 +256509,7 @@
          if (layer !== "edgecut") {
            for (const glayer of [
              glayers[getGerberLayerName(layer, "soldermask")]
@@ -171,3 +173,58 @@ index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..1364113d4cb171ec2c70c75d36c5b4e1
              if (element.hole_shape !== "circle") {
                console.warn("NOT IMPLEMENTED: drawing gerber for non-round holes");
                continue;
+@@ -257295,17 +257318,43 @@
+       }
+       process.exit(0);
+     }
+-    const format = formatOption;
+-    await exportSnippet({
+-      filePath: file,
+-      format,
+-      outputPath: options.output,
+-      platformConfig: platformConfig2,
+-      pcbSnapshotSettings: options.showCourtyards ? { showCourtyards: true } : undefined,
+-      onExit: (code) => process.exit(code),
+-      onError: (message) => console.error(message),
+-      onSuccess: ({ outputDestination }) => console.log(`Exported to ${outputDestination}!`)
+-    });
++    var formats = formatOption.split(",").map(function(s) { return s.trim(); });
++    if (formats.length === 1) {
++      await exportSnippet({
++        filePath: file,
++        format: formats[0],
++        outputPath: options.output,
++        platformConfig: platformConfig2,
++        pcbSnapshotSettings: options.showCourtyards ? { showCourtyards: true } : undefined,
++        onExit: function(code) { process.exit(code); },
++        onError: function(message) { console.error(message); },
++        onSuccess: function(r) { console.log("Exported to " + r.outputDestination + "!"); }
++      });
++    } else {
++      var _cj = await generateCircuitJson({ filePath: file, platformConfig: platformConfig2 });
++      if (!_cj || !_cj.circuitJson) { console.error("Error generating circuit JSON"); process.exit(1); }
++      var _pj = path61.dirname(file);
++      var _bn = path61.basename(file, path61.extname(file));
++      var _tmp = path61.join(_pj, "._tsci-multifmt-" + _bn + ".circuit.json");
++      await fs57.writeFile(_tmp, JSON.stringify(_cj.circuitJson));
++      for (var _k = 0; _k < formats.length; _k++) {
++        var _fmt = formats[_k];
++        var _ext = OUTPUT_EXTENSIONS[_fmt] || "";
++        var _out = (_k === 0 && options.output) ? options.output : path61.join(_pj, _bn + _ext);
++        await exportSnippet({
++          filePath: _tmp,
++          format: _fmt,
++          outputPath: _out,
++          platformConfig: platformConfig2,
++          pcbSnapshotSettings: options.showCourtyards ? { showCourtyards: true } : undefined,
++          onExit: function(code) { if (code !== 0) process.exit(code); },
++          onError: function(message) { console.error(message); },
++          onSuccess: function(r) { console.log("Exported to " + r.outputDestination + "!"); }
++        });
++      }
++      fs57.unlink(_tmp).catch(function(){});
++      process.exit(0);
++    }
+   });
+ };
+ 

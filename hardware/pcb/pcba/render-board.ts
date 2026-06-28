@@ -82,38 +82,39 @@ function sh(cmd: string, args: string[], opts: { cwd?: string; inherit?: boolean
 // build renders. So 2nd-pass routes regenerate from live geometry every build — never
 // frozen into the source, never able to go stale. No-op (returns `board`) otherwise.
 const exportCircuitJson = async (name: string) => {
-  const out = `.${name}.cj.tmp.json`
+  const out = `_build-${name}.cj.tmp.json`
   await sh(tsci, ["export", "-f", "circuit-json", "-o", out, `${name}.tsx`], { cwd: dir })
   const cj = JSON.parse(readFileSync(path.join(dir, out), "utf8"))
   rmSync(path.join(dir, out), { force: true }); rmSync(path.join(dir, `${name}.circuit.json`), { force: true })
   return cj
 }
-const renderName = await applyPrettyRoutes(dir, board, exportCircuitJson)
-if (renderName !== board) track(path.join(dir, `${renderName}.tsx`))
+const { routedName, obstacleCircuitJson } = await applyPrettyRoutes(dir, board, exportCircuitJson)
+if (routedName !== board) track(path.join(dir, `${routedName}.tsx`))
 
-// Build + route + export the Gerbers. A routing/DRC failure surfaces on stderr.
+// Export fabrication Gerbers (and circuit-json when we don't already have it from
+// the obstacle field). When both are needed, the combined format (,"gerbers,circuit-json")
+// runs a single tsci pipeline — one autorouter pass, two outputs — saving ~2 min.
 console.log(`[${board}] exporting gerbers… (cwd=${dir})`)
+let circuit: any[] | null = obstacleCircuitJson
+const exportFormat = circuit ? "gerbers" : "gerbers,circuit-json"
 try {
-  await sh(tsci, ["export", "-f", "gerbers", "-o", zipRel, `${renderName}.tsx`], { cwd: dir })
+  await sh(tsci, ["export", "-f", exportFormat, "-o", zipRel, `${routedName}.tsx`], { cwd: dir })
 } catch (e: any) {
   console.error(`[${board}] gerber export failed (status ${e.status})`)
   if (e.stdout) console.error("stdout:", String(e.stdout).slice(-1000))
   if (e.stderr) console.error("stderr:", String(e.stderr).slice(-1000))
   throw e
 }
-
-// Export the board's circuit-json once: the back-silk synthesis and the pick
-// distiller both need the structured entities (texts, pads, nets), not just the
-// anonymous copper Gerbers. tsci mangles an absolute -o, so keep it cwd-relative
-// inside the board dir; pick-data reuses it so this is the only extra build.
-const cjRel = `.${board}.circuit.tmp.json`
-const cjAbs = track(path.join(dir, cjRel))
-let circuit: any[] | null = null
-try {
-  await sh(tsci, ["export", "-f", "circuit-json", "-o", cjRel, `${renderName}.tsx`], { cwd: dir })
-  circuit = JSON.parse(readFileSync(cjAbs, "utf8"))
-} catch {
-  console.error(`[${board}] circuit-json export failed — back silk + picks skipped`)
+if (!circuit) {
+  // Combined export wrote circuit-json next to the routed .tsx (e.g. pcba.circuit.json
+  // or _build-pcba.pretty-routed.tmp.circuit.json). Read it in for back-silk + picks.
+  const cjAbs = path.join(dir, `${routedName}.circuit.json`)
+  try {
+    circuit = JSON.parse(readFileSync(cjAbs, "utf8"))
+    rmSync(cjAbs, { force: true })
+  } catch {
+    console.error(`[${board}] circuit-json export failed — back silk + picks skipped`)
+  }
 }
 
 // Unzip into a scratch dir, synthesize the back silk into it, compose, clean up.
@@ -140,8 +141,8 @@ try {
   // each glyph in place; the compositor's bottom view flips it readable, and the
   // gerber stays correct on the real board. Drop it into the scratch + gerber zip.
   if (circuit) {
-    const bsTsx = `.${board}.backsilk.tmp.tsx`
-    const bsZipRel = path.join("out", `.${board}.backsilk.tmp.zip`)
+    const bsTsx = `_build-${board}.backsilk.tmp.tsx`
+    const bsZipRel = path.join("out", `_build-${board}.backsilk.tmp.zip`)
     track(path.join(dir, bsTsx))
     track(path.join(dir, bsZipRel))
     try {
@@ -188,11 +189,18 @@ try {
 
 // Distill the board's pickable entities (pads + identity) next to the views so
 // the web viewer's pad picker has semantic data in lockstep with the copper.
-// Reuses the circuit-json above. Best-effort: a render still ships its views.
-try {
-  await sh("bun", [path.join(dir, "pick-data.ts"), `${board}.tsx`, cjRel], { cwd: dir, inherit: true })
-} catch {
-  console.error(`[${board}] pick-data failed — picks.json not refreshed (views still written)`)
+// Reuses the circuit-json already in memory (from the obstacle field or the
+// combined export above). Write it to a temp file for pick-data.ts — it's a
+// separate process, so we can't share the in-memory object. Best-effort.
+if (circuit) {
+  const picksTmp = `_build-${board}.picks-input.tmp.json`
+  writeFileSync(path.join(dir, picksTmp), JSON.stringify(circuit))
+  try {
+    await sh("bun", [path.join(dir, "pick-data.ts"), `${board}.tsx`, picksTmp], { cwd: dir, inherit: true })
+  } catch {
+    console.error(`[${board}] pick-data failed — picks.json not refreshed (views still written)`)
+  }
+  rmSync(path.join(dir, picksTmp), { force: true })
 }
 
 lock.release()
