@@ -19,7 +19,7 @@ Not in scope: routing, strain-relief, and landing into the chassis ([`wiring.md`
 
 ## Stock & tooling
 
-Wire is bulk silicone, 600 V, cut-to-length, all per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11: **22 AWG black** (valve branches, low-power DC, J4/J5 signal — the workhorse), **24 AWG black** (reeds, sensors), 18 AWG red/black (COM trunk + AC device branches; black used for DC), 16 AWG 5-color (AC mains + 12 V trunk + green ground). Jacketed runs: the KWANGIL 22 AWG UL2464 black multiconductor (manifold trunks), the BNTECHGO 28 AWG 4-conductor ribbon (faucet umbilical), and the 18 AWG SJOOW 3-conductor lead (shroud pass-through — *still a gap*).
+Wire is bulk silicone, 600 V, cut-to-length, all per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11: **22 AWG black** (valve branches, low-power DC, J4/J5 signal — the workhorse), **24 AWG black** (reeds, sensors), 18 AWG red/black (COM trunk + AC device branches; black used for DC), 16 AWG 5-color (AC mains + 12 V trunk + green ground). Jacketed runs: the KWANGIL 22 AWG UL2464 black multiconductor (manifold trunks), the BNTECHGO 28 AWG 4-conductor ribbon (faucet umbilical), and the GEARit 18 AWG SJOOW 3-conductor lead (shroud pass-through).
 
 Terminations: insulated bootlace ferrules (Preciva kit) into the Wago 221 lever nuts + screw terminals; female Faston disconnects (6.3 mm / 4.8 mm) at valves, motors, compressor, and fan; ring terminals to the ground bus + shroud stud; JST-XH housings at module pin headers. Distribution / fan-out: Wago 221 lever nuts — **221-413** (AC mains H/N/G), **221-415** (≤5-conductor GND fan-outs), **221-420** (the >5-conductor manifold COM + reservoir-B reed GND).
 
@@ -59,7 +59,7 @@ Conductor counts are the board connector pin counts (`pcba.tsx` J1–J11 = {9, 6
 1. **Manifold trunk cable.** The KWANGIL 22 AWG UL2464 is black and on-hand but 12-conductor (populate to 9 / 6) and unshielded — fine for valve power. Confirm whether to keep it depopulated or source a right-count jacketed cable.
 2. **Shielded reed pairs.** The ~600 mm reed / 1-wire runs pass alongside the switching solenoid trunk; consider shielded twisted pair (foil + drain, single-end grounded) over plain 24 AWG.
 3. **AC mains wire grade.** Confirm the line-voltage runs use a recognized appliance-grade wire (UL1015 / UL1028, 600 V, 105 °C) rather than hobby silicone — the discipline already applied to the SJOOW shroud lead.
-4. **18 AWG SJOOW shroud cable** — still a procurement gap (OD 5.6–6.4 mm for the Heyco SB-500-6 grommet).
+4. **Shroud pass-through hole.** The shroud sidewall penetration is a 1/2" snap-bushing hole; the AC pass-through strain relief is a 1/2" NPT cable gland (7/8" clearance hole). Revise the shroud DXF to 7/8", and propagate through `_wiring_sync` / `_enclosure_mechanical_sync` and the snap-bushing prose in [`wiring.md`](/hardware/assembly/wiring.md) + [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md).
 
 ## Sources
 
