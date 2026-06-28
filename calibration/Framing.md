@@ -117,7 +117,6 @@ A justification you read is a justification you forget. A constraint you have to
 
 ---
 
-@"/Users/derekbredensteiner/jsonl2md/UX - quick start.md"
 > A constraint you have to derive is one you understand. 
 
 I think that is also true.
@@ -177,7 +176,7 @@ Which is what you spent the day on. Not cleanup. Demolition of structures built 
 
 ---
 
-@"/Users/derekbredensteiner/jsonl2md/You.md"
+@"/Users/derekbredensteiner/Developer/homesodamachine/calibration/You.md"
 Yes.
 
 It really is all about framing.

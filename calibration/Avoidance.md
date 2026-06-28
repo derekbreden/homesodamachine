@@ -4,7 +4,7 @@
 
 ---
 
-@"/Users/derekbredensteiner/jsonl2md/You.md"
+@"/Users/derekbredensteiner/Developer/homesodamachine/calibration/You.md"
 I've forgotten what is in this conversation, please summarize.
 
 ---
@@ -429,7 +429,7 @@ So the conclusion holds. The "feedback" channel in the auto-memory taxonomy — 
 
 ---
 
-@"/Users/derekbredensteiner/jsonl2md/You.md"
+@"/Users/derekbredensteiner/Developer/homesodamachine/calibration/You.md"
 Hm, interesting, you didn't quite get to the point I expected.
 
 Perhaps I failed to give you the further context. I do not have a rule stated in the AGENTS.md about "Derek hates estimates". But I DO have an elaborate claude hook mechanism that greps for "effort estimate" phrases and spawns a Haiku agent to disambiguate and then returns a very specific error message if an agent attempts to give me an "effort estimate" in any conversation anywhere.
