@@ -29,8 +29,8 @@ import path from "node:path"
 // route must detour (e.g. J5.IO19 swings right of BT1's clip). Params match COMMON.
 const COMMON = { cell: 0.1, clr: 0.25, width: 0.2, viaCost: 60, startLayer: "top", turn: 12 }
 const MAZE_GROUPS: Record<string, MazeSpec> = {
-  j5: { ...COMMON, region: { x0: -44, x1: -13, y0: -47, y1: 14 } },
-  faucet485: { ...COMMON, region: { x0: -52, x1: -12, y0: 6, y1: 45 } },
+  j5: { ...COMMON, region: { x0: -44, x1: -8, y0: -46, y1: 14 } },
+  faucet485: { ...COMMON, region: { x0: -48, x1: -12, y0: 6, y1: 49 } },
 }
 
 // circuit-json exporter the caller supplies (render-board reuses its tsci runner).
