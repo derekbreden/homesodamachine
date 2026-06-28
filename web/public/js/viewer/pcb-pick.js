@@ -145,16 +145,31 @@ function select(kind, index) {
   showPanel(selection);
 }
 
-// Map a viewport (client) point to board mm. The pick layer carries the SVG's
-// own Gerber-unit transform, so its getScreenCTM — which folds in PanZoom's CSS
-// pan/zoom and the viewBox — turns a screen click straight into layer-local
-// units (1 mm = 1000), no manual unwinding of the transform stack needed.
+// Map a viewport (client) point to board mm. Undo PanZoom's CSS transform
+// manually to reach SVG viewport coordinates, then use getCTM() (which
+// excludes CSS transforms) to map into the <g>'s local coordinate system.
+// getScreenCTM() is tempting but browsers disagree on whether it includes CSS
+// transforms on the SVG root — when it omits them the scale is off by ~160×
+// and every click lands near board centre.
 function clientToMm(clientX, clientY) {
   if (!ctx || !ctx.layer) return null;
-  const m = ctx.layer.getScreenCTM();
-  if (!m) return null;
-  const p = new DOMPoint(clientX, clientY).matrixTransform(m.inverse());
-  return { x: p.x / 1000, y: p.y / 1000 };
+  const wrapper = ctx.wrapper;
+  if (!wrapper) return null;
+  const pz = state.currentPcbPz;
+  if (!pz) return null;
+  const t = pz.getTransform();
+  const wr = wrapper.getBoundingClientRect();
+  // The SVG is absolutely positioned at (0,0) in the wrapper. PanZoom applies
+  // translate(panX px, panY px) scale(scale) with transform-origin 0 0, so a
+  // point at element coordinate (vx, vy) renders at:
+  //   screen = wr.left + (vx + panX) * scale
+  // Undo that: vx = (client - wr.left) / scale - panX
+  const vx = (clientX - wr.left) / t.scale - t.panX;
+  const vy = (clientY - wr.top) / t.scale - t.panY;
+  const ctm = ctx.layer.getCTM();
+  if (!ctm) return null;
+  const local = new DOMPoint(vx, vy).matrixTransform(ctm.inverse());
+  return { x: local.x / 1000, y: local.y / 1000 };
 }
 
 // A click that hit no entity: select the bare spot under the cursor, so an

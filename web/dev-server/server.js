@@ -240,7 +240,14 @@ const watcher = chokidar.watch(CONTENT_ROOTS, {
   // and polling it would swamp the 200ms loop.
   ignored: (p) => {
     const seg = p.split(path.sep);
-    return seg.includes("__pycache__") || seg.includes("node_modules");
+    const base = path.basename(p);
+    return (
+      seg.includes("__pycache__") ||
+      seg.includes("node_modules") ||
+      seg.includes("out") ||
+      base.startsWith("._") ||
+      base.startsWith(".DS_Store")
+    );
   },
   usePolling: true,
   interval: 200,
@@ -346,6 +353,9 @@ watcher.on("change", (absPath) => {
   // that pull it in (`mini.tsx`), since the include has no `<board>` of its own.
   // (node_modules is already filtered by the watcher's `ignored`.)
   if (absPath.endsWith(".tsx") && absPath.split(path.sep).includes("pcb")) {
+    // Skip temp/dot files (._...tmp.tsx) written by the PCB build pipeline
+    // so the watcher doesn't re-trigger on its own artifacts.
+    if (path.basename(absPath).startsWith("._")) return;
     if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
     debounce.set(
       absPath,
