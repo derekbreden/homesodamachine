@@ -8,6 +8,54 @@ import path from "path";
 
 const PCB_DIR = "pcb";
 
+// ---- Imported constant resolver --------------------------------------------
+
+// Resolve simple exported const values from imported local files so that
+// expressions like labels={[...ulnOUT].reverse()} can be expanded.
+function resolveImportedConstants(tsx, boardDir) {
+  const consts = {};
+
+  // Parse import { A, B } from "./file" declarations for local files.
+  const importRe = /import\s+\{([^}]+)\}\s+from\s+"(\.\/[^"]+)"/g;
+  for (const m of tsx.matchAll(importRe)) {
+    const names = m[1].split(",").map((s) => {
+      const trim = s.trim();
+      // Handle "as" renames: "Foo as Bar"
+      const asMatch = trim.match(/^(\w+)\s+as\s+(\w+)$/);
+      return asMatch ? { src: asMatch[1], alias: asMatch[2] } : { src: trim, alias: trim };
+    });
+    const filePath = path.join(boardDir, m[2]);
+    // Try .tsx, .ts, then bare (for index files or files without explicit ext).
+    const tryPaths = filePath.endsWith(".tsx") || filePath.endsWith(".ts")
+      ? [filePath]
+      : [filePath + ".tsx", filePath + ".ts", filePath];
+    let fileSrc = null;
+    for (const fp of tryPaths) {
+      try { fileSrc = fs.readFileSync(fp, "utf-8"); break; } catch {}
+    }
+    if (!fileSrc) continue;
+
+    for (const { src, alias } of names) {
+      // export const Foo = [...]
+      const arrRe = new RegExp(`export\\s+const\\s+${src.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*=\\s*\\[([^\\]]*)\\]`);
+      const arrMatch = fileSrc.match(arrRe);
+      if (arrMatch) {
+        const items = [...arrMatch[1].matchAll(/"([^"]*)"/g)].map((x) => x[1]);
+        consts[alias] = items;
+        continue;
+      }
+      // export const Foo = "..."
+      const strRe = new RegExp(`export\\s+const\\s+${src.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*=\\s*"([^"]*)"`);
+      const strMatch = fileSrc.match(strRe);
+      if (strMatch) {
+        consts[alias] = strMatch[1];
+      }
+    }
+  }
+
+  return consts;
+}
+
 // ---- TSX parser -----------------------------------------------------------
 
 function findSelfClosingElements(tsx) {
@@ -51,7 +99,7 @@ function findSelfClosingElements(tsx) {
 }
 
 const SKIP_TAGS = new Set([
-  "trace", "copperpour", "silkscreentext", "silkscreenpath", "Outline", "board",
+  "trace", "copperpour", "board",
 ]);
 
 const SHAPES = {
@@ -89,9 +137,65 @@ function componentShape(tag, footprint, count) {
   return { cat: "unknown", size: { w: 5, h: 5 } };
 }
 
-function parseBoardTsx(tsx) {
+// Jst connector silk generation — replicates the layout math in carrier_parts.tsx
+// so the editor can draw the fence + labels without expanding the component.
+function jstSilk({ x, y, count, labels, rot, name, label }) {
+  const silk = [];
+  const vertical = rot % 180 !== 0;
+  const pitch = 2.5, padR = 0.825;
+  const bigHalf = 0.42, smHalf = 0.24;
+  const G = 0.45, M = 0.6;
+  const perpDir = vertical ? -1 : 1;
+  const bigOff = padR + G + bigHalf;
+  const labelOff = padR + G + smHalf;
+  const refOff = labelOff + smHalf + G + smHalf;
+  const uc = ((bigOff + bigHalf) - (refOff + smHalf)) / 2;
+  const dep = (bigOff + bigHalf) + (refOff + smHalf) + 2 * M + 0.2;
+  const len = (count - 1) * pitch + 2 * (padR + M + 0.1);
+  const [w, h] = vertical ? [dep, len] : [len, dep];
+  const P = (u, v) => (vertical ? [perpDir * u, v] : [v, perpDir * u]);
+  const [bdx, bdy] = P(bigOff, 0);
+  const [rdx, rdy] = P(-refOff, 0);
+  const [fdx, fdy] = P(uc, 0);
+
+  // Fence rectangle
+  silk.push({
+    kind: "fence",
+    x: x + fdx, y: y + fdy, w, h, rot: 0,
+    strokeWidth: 0.2,
+  });
+
+  // Pin labels
+  for (let i = 0; i < labels.length; i++) {
+    const [dx, dy] = P(-labelOff, (i - (count - 1) / 2) * pitch);
+    silk.push({
+      kind: "text", text: labels[i], fontSize: 0.8,
+      x: x + dx, y: y + dy, rot,
+      anchor: null,
+    });
+  }
+
+  // Function label
+  silk.push({
+    kind: "text", text: label, fontSize: 1.4,
+    x: x + bdx, y: y + bdy, rot,
+    anchor: null,
+  });
+
+  // Ref-des label
+  silk.push({
+    kind: "text", text: name, fontSize: 0.8,
+    x: x + rdx, y: y + rdy, rot,
+    anchor: null,
+  });
+
+  return silk;
+}
+
+function parseBoardTsx(tsx, consts) {
   const elements = findSelfClosingElements(tsx);
   const components = [];
+  const silk = [];
 
   // Board outline from <board outline={[...]}>
   const boardMatch = tsx.match(/<board\s[^>]*\boutline=\{\[([^\]]*)\]/);
@@ -103,6 +207,46 @@ function parseBoardTsx(tsx) {
 
   for (const { tag, body } of elements) {
     if (SKIP_TAGS.has(tag)) continue;
+
+    // Standalone silkscreen text
+    if (tag === "silkscreentext") {
+      const textMatch = body.match(/\btext=\{?`([^`]*)`\}?|\btext="([^"]*)"|\btext=\{([^}]*)\}/);
+      const px = body.match(/\bpcbX=\{(-?[\d.]+)\}/);
+      const py = body.match(/\bpcbY=\{(-?[\d.]+)\}/);
+      const fs = body.match(/\bfontSize=["{]([^"}]+)["}]/);
+      const rotMatch = body.match(/\bpcbRotation=\{(-?\d+)\}/);
+      const anchorMatch = body.match(/\banchorAlignment=["{]([^"}]+)["}]/);
+      if (textMatch && px && py) {
+        const textVal = (textMatch[1] || textMatch[2] || textMatch[3] || "").replace(/^"(.*)"$/, "$1");
+        silk.push({
+          kind: "text",
+          text: textVal,
+          fontSize: fs ? parseFloat(fs[1]) : 1,
+          x: parseFloat(px[1]),
+          y: parseFloat(py[1]),
+          rot: rotMatch ? parseInt(rotMatch[1], 10) : 0,
+          anchor: anchorMatch ? anchorMatch[1] : null,
+        });
+      }
+      continue;
+    }
+
+    // Standalone silkscreen paths
+    if (tag === "silkscreenpath") {
+      const swMatch = body.match(/strokeWidth=["{]([^"}]+)["}]/);
+      const routeMatch = body.match(/route=\{\[([^\]]+)\]/);
+      if (routeMatch) {
+        const pts = [...routeMatch[1].matchAll(/\{\s*x:\s*(-?[\d.]+)\s*,\s*y:\s*(-?[\d.]+)\s*\}/g)];
+        if (pts.length >= 2) {
+          silk.push({
+            kind: "path",
+            strokeWidth: swMatch ? parseFloat(swMatch[1]) : 0.15,
+            points: pts.map((m) => ({ x: parseFloat(m[1]), y: parseFloat(m[2]) })),
+          });
+        }
+      }
+      continue;
+    }
 
     const nameMatch = body.match(/name=["{]([^"}]+)["}]/);
     if (!nameMatch) continue;
@@ -139,15 +283,33 @@ function parseBoardTsx(tsx) {
     const rotMatch = body.match(/(?:pcbRotation|rot)=\{(-?\d+)\}/);
     if (rotMatch) rot = parseInt(rotMatch[1], 10);
 
-    // Footprint for passives
-    let footprint = null;
-    const fpMatch = body.match(/footprint=["{]([^"}]+)["}]/);
-    if (fpMatch) footprint = fpMatch[1];
-
     // Pin count for connectors
     let count = null;
     const cntMatch = body.match(/\bcount=\{(\d+)\}/);
     if (cntMatch) count = parseInt(cntMatch[1], 10);
+
+    // Connector labels
+    let labels = null, jstLabel = null;
+    const labelsMatch = body.match(/\blabels=\{(\[[^\]]*\])(?:\.[^}\s]+)?\}/) || body.match(/\blabels=\{\[([^\]]*)\]\}/);
+    if (labelsMatch) {
+      const raw = labelsMatch[1] || labelsMatch[2] || "";
+      labels = [...raw.matchAll(/"([^"]*)"/g)].map((m) => m[1]);
+    }
+    // Fall back to resolving imported-constant spreads, e.g. [...ulnOUT].reverse()
+    if ((!labels || !labels.length) && consts && count) {
+      const spreadMatch = body.match(/labels=\{\.\.\.(\w+)\}/) || body.match(/labels=\{\[\.\.\.(\w+)\]\.reverse\(\)\}/);
+      if (spreadMatch && consts[spreadMatch[1]]) {
+        const arr = consts[spreadMatch[1]];
+        labels = body.includes(".reverse()") ? [...arr].reverse() : [...arr];
+      }
+    }
+    const labelMatch = body.match(/\blabel=["{]([^"}]+)["}]/);
+    if (labelMatch) jstLabel = labelMatch[1];
+
+    // Footprint for passives
+    let footprint = null;
+    const fpMatch = body.match(/footprint=["{]([^"}]+)["}]/);
+    if (fpMatch) footprint = fpMatch[1];
 
     // Extra descriptor for passives
     let extra = null;
@@ -162,9 +324,14 @@ function parseBoardTsx(tsx) {
       tag, ref, x: Math.round(x * 100) / 100, y: Math.round(y * 100) / 100,
       rot, posKind, cat, size, footprint, count, extra,
     });
+
+    // Generate silk for Jst connectors
+    if ((tag === "Jst" || tag === "pinheader") && jstLabel && count) {
+      silk.push(...jstSilk({ x, y, count, labels: labels || [], rot, name: ref, label: jstLabel }));
+    }
   }
 
-  return { components, outline };
+  return { components, silk, outline };
 }
 
 // ---- Write-back ------------------------------------------------------------
@@ -286,11 +453,13 @@ export function mountPcbEditorRoutes(app, hardwareDir) {
     if (!tsxPath) return res.status(404).json({ error: `Board not found: ${name}` });
 
     const tsx = fs.readFileSync(tsxPath, "utf-8");
-    const { components, outline } = parseBoardTsx(tsx);
+    const consts = resolveImportedConstants(tsx, path.dirname(tsxPath));
+    const { components, silk, outline } = parseBoardTsx(tsx, consts);
     res.json({
       name,
       tsxPath: path.relative(hardwareDir, tsxPath),
       components,
+      silk,
       outline,
       rawTsx: tsx,
     });

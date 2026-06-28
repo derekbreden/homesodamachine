@@ -42,6 +42,70 @@ function buildOutline(outline) {
   return [svgel("path", { class: "board-outline", d })];
 }
 
+// ---- Silk layer (fences + text + paths) ------------------------------------
+
+function buildSilk(silkItems) {
+  if (!silkItems || !silkItems.length) return [];
+  const els = [];
+
+  for (const s of silkItems) {
+    if (s.kind === "fence") {
+      const { x, y } = svgXY(s);
+      const w = s.w * U, h = s.h * U;
+      els.push(
+        svgel("rect", {
+          class: "silk-fence",
+          x: x - w / 2, y: y - h / 2, width: w, height: h,
+          fill: "none", "stroke-width": s.strokeWidth * U,
+          style: "stroke: var(--silk);",
+        }),
+      );
+    } else if (s.kind === "text") {
+      const { x: sx, y: sy } = svgXY(s);
+      const fontSize = s.fontSize * U;
+      const el = svgel("text", {
+        class: "silk-text",
+        x: sx, y: sy,
+        "font-size": fontSize,
+        "font-family": "monospace",
+        "text-anchor": s.anchor === "center" ? "middle" : (s.anchor || "start"),
+        style: "fill: var(--silk);",
+      });
+      el.textContent = s.text;
+      if (s.rot && s.rot % 360 !== 0) {
+        el.setAttribute("transform", `translate(${sx},${sy}) rotate(${-s.rot})`);
+        el.setAttribute("x", 0);
+        el.setAttribute("y", 0);
+      }
+      els.push(el);
+    } else if (s.kind === "path") {
+      if (s.points.length >= 2) {
+        const d =
+          "M" +
+          s.points
+            .map((p) => {
+              const { x, y } = svgXY(p);
+              return `${x},${y}`;
+            })
+            .join("L");
+        els.push(
+          svgel("path", {
+            class: "silk-path",
+            d,
+            fill: "none",
+            "stroke-width": s.strokeWidth * U,
+            "stroke-linecap": "round",
+            "stroke-linejoin": "round",
+            style: "stroke: var(--silk);",
+          }),
+        );
+      }
+    }
+  }
+
+  return els;
+}
+
 function buildGrid(bounds) {
   const els = [];
   const stepMinor = 1, stepMajor = 5;
@@ -447,6 +511,13 @@ async function loadBoard(name) {
     const outlineGroup = svgel("g", { class: "outline-group" });
     for (const el of buildOutline(data.outline)) outlineGroup.appendChild(el);
     svgEl.appendChild(outlineGroup);
+  }
+
+  // Silk layer
+  if (data.silk && data.silk.length) {
+    const silkGroup = svgel("g", { class: "silk-group" });
+    for (const el of buildSilk(data.silk)) silkGroup.appendChild(el);
+    svgEl.appendChild(silkGroup);
   }
 
   // Components
