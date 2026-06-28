@@ -237,8 +237,8 @@ export const Jst = ({ name, x, y, count, labels, rot = 0, label, labelDir }: { n
     <>
       <pinheader name={name} pinCount={count} pitch="2.54mm" gender="male" footprint={fp} pcbRotation={rot} pinLabels={labels} {...at(x, y)} />
       <Outline x={x} y={y} w={w} h={h} />
-      <silkscreentext text={label} fontSize="1.4mm" pcbX={x + lx} pcbY={y + ly} pcbRotation={vertical ? 270 : 0} />
-      <silkscreentext text={name} fontSize="0.8mm" pcbX={x + rx} pcbY={y + ry} pcbRotation={vertical ? 270 : 0} />
+      <silkscreentext text={label} fontSize="1.4mm" pcbX={x + lx} pcbY={y + ly} pcbRotation={vertical ? 90 : 0} />
+      <silkscreentext text={name} fontSize="0.8mm" pcbX={x + rx} pcbY={y + ry} pcbRotation={vertical ? 90 : 0} />
     </>
   )
 }
