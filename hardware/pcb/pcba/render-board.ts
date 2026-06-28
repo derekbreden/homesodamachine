@@ -91,9 +91,11 @@ const exportCircuitJson = async (name: string) => {
 const { routedName, obstacleCircuitJson } = await applyPrettyRoutes(dir, board, exportCircuitJson)
 if (routedName !== board) track(path.join(dir, `${routedName}.tsx`))
 
-// Export fabrication Gerbers (and circuit-json when we don't already have it from
-// the obstacle field). When both are needed, the combined format (,"gerbers,circuit-json")
-// runs a single tsci pipeline — one autorouter pass, two outputs — saving ~2 min.
+// Export fabrication Gerbers. When there are pretty routes, the obstacle
+// circuit-json from applyPrettyRoutes has the structured entities (texts,
+// pads, nets) that back-silk + pick-data need — no separate export needed.
+// When there are none, ask for both formats at once so a single tsci pipeline
+// (one autorouter pass, two outputs) covers it without a second build.
 console.log(`[${board}] exporting gerbers… (cwd=${dir})`)
 let circuit: any[] | null = obstacleCircuitJson
 const exportFormat = circuit ? "gerbers" : "gerbers,circuit-json"
@@ -106,8 +108,6 @@ try {
   throw e
 }
 if (!circuit) {
-  // Combined export wrote circuit-json next to the routed .tsx (e.g. pcba.circuit.json
-  // or _build-pcba.pretty-routed.tmp.circuit.json). Read it in for back-silk + picks.
   const cjAbs = path.join(dir, `${routedName}.circuit.json`)
   try {
     circuit = JSON.parse(readFileSync(cjAbs, "utf8"))
