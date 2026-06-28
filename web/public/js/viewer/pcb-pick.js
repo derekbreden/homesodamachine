@@ -1,9 +1,11 @@
 // Board inspector for the PCB viewer — the 2D counterpart to the STEP edge
 // picker. A toggle (persisted per-browser) turns the board into a clickable
 // surface: click a pad / through-hole, a via, or a trace to select it and copy
-// a text blob naming it. The agent on the other side of the clipboard reads the
-// blob to know exactly what the user means; there is no paste-back-to-highlight
-// round-trip (it has never earned its keep).
+// a text blob naming it; click anywhere else (bare laminate, an unpicked copper
+// pour, silkscreen) to drop a marker at that spot and copy its board (x, y) mm.
+// The agent on the other side of the clipboard reads the blob to know exactly
+// what the user means; there is no paste-back-to-highlight round-trip (it has
+// never earned its keep).
 //
 // The copper SVG is anonymous Gerber geometry, so identity comes from a sidecar:
 // hardware/pcb/carrier/pick-data.ts distills pads (ref/pin/net + mm position),
@@ -14,7 +16,9 @@
 // (1 mm = 1000 SVG units). The browser does the hit-testing through PanZoom's
 // CSS transform; on pointerup (not `click` — PanZoom captures the pointer) we
 // read what's under the cursor. Targets are layered pad > via > trace, so where
-// they overlap the most specific wins.
+// they overlap the most specific wins. A click that hits no target instead maps
+// the cursor back to board mm through the pick layer's getScreenCTM (which folds
+// in PanZoom's CSS transform), so a miss still yields a coordinate.
 
 import { state } from "./state.js";
 
@@ -24,6 +28,8 @@ const PAD_HIT_R = 1100;   // pad hit radius, Gerber units (1.1 mm) — under the
 const VIA_HIT_R = 650;    // via hit radius (0.65 mm)
 const TRACE_HIT_W = 700;  // trace hit-band width (0.7 mm)
 const HILITE = "#ffd400"; // selection colour (the edge picker's warm yellow)
+// Overlaid UI that sits over the board — a click here is chrome, not a pick.
+const CHROME_SEL = ".edge-panel, .pcb-view-toggle, .pan-zoom-minimap, .pcb-dims, .cv-filename";
 
 let enabled = (() => {
   try { return localStorage.getItem(LS_KEY) === "1"; } catch { return false; }
@@ -70,11 +76,15 @@ export function installPadPicker(svgEl, info) {
   applyEnabled();
   wireWrapper(info.wrapper);
 
-  // Carry a live selection across a view swap (same board → same indices).
+  // Carry a live selection across a view swap (same board → same frame, so a
+  // point's mm and an entity's index both still hold).
   if (selection && selection.source === info.source) {
-    const data = pick(selection.kind, selection.index);
-    if (data) { selection.data = data; drawHighlight(selection); showPanel(selection); }
-    else clearSelection();
+    if (selection.kind === "point") { drawHighlight(selection); showPanel(selection); }
+    else {
+      const data = pick(selection.kind, selection.index);
+      if (data) { selection.data = data; drawHighlight(selection); showPanel(selection); }
+      else clearSelection();
+    }
   } else {
     clearSelection();
   }
@@ -107,11 +117,15 @@ function wireWrapper(wrapper) {
     if (e.target && e.target.closest && e.target.closest("button")) return; // a control, not the board
     if (Math.hypot(e.clientX - downX, e.clientY - downY) > 6) return;       // a pan, not a click
     const t = document.elementFromPoint(e.clientX, e.clientY);
+    // An overlaid chrome pill (the inspector panel, view toggle, minimap, dims,
+    // filename) sits over the board; clicking one is UI, not a board pick — leave
+    // the current selection alone rather than dropping a marker under it.
+    if (t && t.closest && t.closest(CHROME_SEL)) return;
     const cl = t && t.classList;
     if (cl && cl.contains("pcb-pad-hit")) select("pad", +t.getAttribute("data-i"));
     else if (cl && cl.contains("pcb-via-hit")) select("via", +t.getAttribute("data-i"));
     else if (cl && cl.contains("pcb-trace-hit")) select("trace", +t.getAttribute("data-i"));
-    else clearSelection();
+    else selectPoint(e.clientX, e.clientY);
   });
 }
 
@@ -131,6 +145,28 @@ function select(kind, index) {
   showPanel(selection);
 }
 
+// Map a viewport (client) point to board mm. The pick layer carries the SVG's
+// own Gerber-unit transform, so its getScreenCTM — which folds in PanZoom's CSS
+// pan/zoom and the viewBox — turns a screen click straight into layer-local
+// units (1 mm = 1000), no manual unwinding of the transform stack needed.
+function clientToMm(clientX, clientY) {
+  if (!ctx || !ctx.layer) return null;
+  const m = ctx.layer.getScreenCTM();
+  if (!m) return null;
+  const p = new DOMPoint(clientX, clientY).matrixTransform(m.inverse());
+  return { x: p.x / 1000, y: p.y / 1000 };
+}
+
+// A click that hit no entity: select the bare spot under the cursor, so an
+// empty-board click reads out its (x, y) the same way a pad click reads its pad.
+function selectPoint(clientX, clientY) {
+  const mm = clientToMm(clientX, clientY);
+  if (!mm) return;
+  selection = { kind: "point", data: mm, source: ctx.source };
+  drawHighlight(selection);
+  showPanel(selection);
+}
+
 function clearSelection() {
   selection = null;
   if (ctx && ctx.hilite) while (ctx.hilite.firstChild) ctx.hilite.removeChild(ctx.hilite.firstChild);
@@ -142,6 +178,13 @@ function drawHighlight(sel) {
   const g = ctx.hilite;
   while (g.firstChild) g.removeChild(g.firstChild);
   const d = sel.data;
+  if (sel.kind === "point") {
+    const x = d.x * 1000, y = d.y * 1000, arm = 1500, r = 520, sw = 150;
+    g.appendChild(el("circle", { cx: x, cy: y, r, fill: "none", stroke: HILITE, "stroke-width": sw, opacity: "0.95" }));
+    g.appendChild(el("line", { x1: x - arm, y1: y, x2: x + arm, y2: y, stroke: HILITE, "stroke-width": sw, "stroke-linecap": "round" }));
+    g.appendChild(el("line", { x1: x, y1: y - arm, x2: x, y2: y + arm, stroke: HILITE, "stroke-width": sw, "stroke-linecap": "round" }));
+    return;
+  }
   if (sel.kind === "trace") {
     g.appendChild(el("polyline", {
       points: d.points.map((p) => `${p[0] * 1000},${p[1] * 1000}`).join(" "),
@@ -180,6 +223,12 @@ function posLine(p) { return `x=${fnum(p.x)} y=${fnum(p.y)} mm`; }
 function describe(sel) {
   const d = sel.data;
   const fileLine = ctx && ctx.source ? `file: ${repoPath(ctx.source)}` : null;
+  if (sel.kind === "point") {
+    return {
+      title: "Point",
+      blob: [fileLine, `pos: ${posLine(d)}`].filter(Boolean).join("\n"),
+    };
+  }
   if (sel.kind === "pad") {
     return {
       title: "Pad",
