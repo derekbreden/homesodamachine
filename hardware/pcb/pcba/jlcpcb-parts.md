@@ -43,6 +43,9 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | U7 — RS485 to display | THVD1426, auto-direction transceiver, 3.3 V | SOIC-8 | C5215922 | Extended | 5,945 | $1.84 |
 | D1 — RS485 line ESD | SM712, RS485 TVS array (−7/+12 V) | SOT-23 | C12067 | Extended | 35,585 | $0.41 |
 | R6 — RS485 termination | 120 Ω ±1% | 0603 | C22787 | Basic | 1,728,584 | $0.0022 |
+| U9 — 5V→3V3 LDO | AMS1117-3.3, 1 A, 1.1 V dropout | SOT-223 | C6186 | Basic | — | $0.04 |
+| C8 — LDO input | 10 µF 25V X5R | 0805 | C15850 | Basic | — | $0.01 |
+| C9 — LDO output | 22 µF 25V X5R | 0805 | C45783 | Basic | — | $0.02 |
 | J8, J10 — 2-pin (5V, 12V) | XH2.54 2P, vertical THT male wafer | wafer, 2.5 mm | C5359631 | Extended | 74,020 | $0.0141 |
 | J9 — 3-pin (DISPLAY) | XH2.54 3P | wafer, 2.5 mm | C7429633 | Extended | 411,459 | $0.0117 |
 | J3, J11 — 4-pin (FAUCET, GAS) | XH2.54 4P | wafer, 2.5 mm | C7429634 | Extended | 609,442 | $0.0116 |
