@@ -109,6 +109,9 @@ export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
       return res.status(400).send("Not a drawing");
     }
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
+    // Line-art is regenerated live too; revalidate so a reload never serves a
+    // stale drawing (same reasoning as the PCB views below).
+    res.set("Cache-Control", "no-cache");
     res.type("image/svg+xml").send(fs.readFileSync(abs, "utf-8"));
   });
 
@@ -124,6 +127,13 @@ export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
       return res.status(400).send("Not a board view");
     }
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
+    // These views are re-rendered live (the watcher rewrites out/ on every board
+    // save). Without a cache directive the browser is free to heuristically cache
+    // the SVG and serve a stale copy on reload — Safari does, so a re-render only
+    // shows up over the live-reload socket, never on refresh. no-cache keeps the
+    // ETag (cheap 304s) but forces revalidation, so a reload always gets the
+    // current copper.
+    res.set("Cache-Control", "no-cache");
     res.type("image/svg+xml").send(fs.readFileSync(abs, "utf-8"));
   });
 
@@ -138,6 +148,9 @@ export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
       return res.status(400).send("Not pick data");
     }
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
+    // Re-rendered in lockstep with the views above — same no-cache so the pad
+    // picker's hit targets don't lag a stale render.
+    res.set("Cache-Control", "no-cache");
     res.type("application/json").send(fs.readFileSync(abs, "utf-8"));
   });
 
