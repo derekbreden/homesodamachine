@@ -22,8 +22,9 @@
  * nets pour into ugly interlocking islands, a clean trace pair reads better.
  */
 import {
-  i8, at, Esp32, Mcp23017, Uln2803, Ds3231, Rs485, Jst, Buzzer, ulnOUT,
+  i8, at, Esp32, Mcp23017, Ds3231, Rs485, Jst, Buzzer, ulnOUT,
 } from "./carrier_parts"
+import { Uln2803 } from "./pcba_parts"
 import { boardVersionParts } from "./board-version"
 import { logoRoutes } from "./logo"
 import { NXB_25V470_10_12_5 } from "./imports/NXB_25V470_10_12_5"
@@ -146,15 +147,15 @@ export default () => (
     {i8.map((k) => <trace key={`a3${k}`} from={`.U3A > .GPA${k}`} to={`net.U3_GPA${k}`} />)}
 
     {/* ULN U4 + MCP 0x20 grounds */}
-    <trace from=".U4I > .GND" to="net.GND" />
+    <trace from=".U4 > .GND" to="net.GND" />
     <trace from=".U2I > .GND" to="net.GND" />
     <trace from=".U2A > .GND" to="net.GND" />
 
     {/* GPA -> ULN inputs. Silk-up ULN reverses its IN row (IN1 lands at +Y), so
         GPA_k feeds IN_{8-k} to keep the bank crossing-free: GPA0->IN8 ... GPA7->IN1.
         (Re-synced in valve-control.mmd.) */}
-    {i8.map((k) => <trace key={`i4${k}`} from={`.U4I > .IN${8 - k}`} to={`net.U2_GPA${k}`} />)}
-    {i8.map((k) => <trace key={`i5${k}`} from={`.U5I > .IN${8 - k}`} to={`net.U3_GPA${k}`} />)}
+    {i8.map((k) => <trace key={`i4${k}`} from={`.U4 > .IN${8 - k}`} to={`net.U2_GPA${k}`} />)}
+    {i8.map((k) => <trace key={`i5${k}`} from={`.U5 > .IN${8 - k}`} to={`net.U3_GPA${k}`} />)}
 
     {/* RS485 TTL side -> ESP UART. The module's TXD (its RS485-receiver TTL output)
         lands on IO34 — the ESP UART RX, an input-only pin, all an RX needs; the
@@ -166,14 +167,14 @@ export default () => (
     <trace from=".U7T > .GND" to="net.GND" />
 
     {/* manifold JSTs: ULN outputs -> valve looms */}
-    {i8.map((k) => <trace key={`j1${k}`} from={`.J1 > .OUT${k + 1}`} to={`.U4O > .OUT${k + 1}`} />)}
+    {i8.map((k) => <trace key={`j1${k}`} from={`.J1 > .OUT${k + 1}`} to={`.U4 > .OUT${k + 1}`} />)}
     <trace from=".J1 > .COM" to="net.V12" />
     {/* MANIFOLD B: 4 valves on U5 ch1-4, condenser FAN on U5 ch5, COM = 12V flyback. */}
-    <trace from=".J2 > .OUT1" to=".U5O > .OUT1" />
-    <trace from=".J2 > .OUT2" to=".U5O > .OUT2" />
-    <trace from=".J2 > .OUT3" to=".U5O > .OUT3" />
-    <trace from=".J2 > .OUT4" to=".U5O > .OUT4" />
-    <trace from=".J2 > .FAN" to=".U5O > .OUT5" />
+    <trace from=".J2 > .OUT1" to=".U5 > .OUT1" />
+    <trace from=".J2 > .OUT2" to=".U5 > .OUT2" />
+    <trace from=".J2 > .OUT3" to=".U5 > .OUT3" />
+    <trace from=".J2 > .OUT4" to=".U5 > .OUT4" />
+    <trace from=".J2 > .FAN" to=".U5 > .OUT5" />
     <trace from=".J2 > .COM" to="net.V12" />
 
     {/* FAUCET UART (IO33 TX / IO35 RX) */}
@@ -388,10 +389,10 @@ export default () => (
     <trace from=".J9 > .ERTH" to=".U7L > .ERTH" />
 
     {/* 12V in: J10 feeds the ULN flyback commons (net.V12). */}
-    <trace from=".U4O > .COM" to="net.V12" />
-    <trace from=".U5O > .COM" to="net.V12" />
+    <trace from=".U4 > .COM" to="net.V12" />
+    <trace from=".U5 > .COM" to="net.V12" />
     <trace from=".J10 > .GND" to="net.GND" />
-    <trace from=".U5I > .GND" to="net.GND" />
+    <trace from=".U5 > .GND" to="net.GND" />
 
     {/* BUZZER: passive piezo in the pocket below the ESP. Tone on IO4 (LEDC); VCC
         on the 5 V plane; GND on the ground plane. */}
