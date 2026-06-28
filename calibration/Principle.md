@@ -4,7 +4,7 @@
 
 ---
 
-@"/Users/derekbredensteiner/jsonl2md/You.md" @"/Users/derekbredensteiner/jsonl2md/Framing.md"
+@"/Users/derekbredensteiner/Developer/homesodamachine/calibration/You.md" @"/Users/derekbredensteiner/Developer/homesodamachine/calibration/Framing.md"
 Please distill what "Framing" refers to as "The You.md Principle".
 
 Please explain it completely to a naive reader that has not seen either of these documents.
