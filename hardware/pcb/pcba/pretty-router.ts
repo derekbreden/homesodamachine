@@ -44,10 +44,18 @@ export function mazeRouteNets(circuit: any[], pairs: { from: string; to: string 
     if (e.type === "source_component") sc[e.source_component_id] = e
   }
   const label = (pid: string) => { const p = pp[pid]; const o = p && sp[p.source_port_id]; return o ? `${sc[o.source_component_id].name}.${o.name}` : "" }
-  const pads: Record<string, { x: number; y: number; r: number; port: string }> = {}
+  const pads: Record<string, { x: number; y: number; r: number; port: string; layers: number[] }> = {}
   for (const h of c.filter((e) => e.type === "pcb_plated_hole")) {
     const l = label(h.pcb_port_id); if (!l) continue
-    pads[l] = { x: h.x, y: h.y, r: padR(h), port: h.pcb_port_id }
+    pads[l] = { x: h.x, y: h.y, r: padR(h), port: h.pcb_port_id, layers: [0, 1] }
+  }
+  // SMD pads can be maze endpoints too (the bare WROOM's IO pins). A plated hole connects
+  // every layer; an SMD pad is single-layer, so the route must begin/end on that pad's
+  // layer — a barrel-free via brings a bottom run up to a top pad just before it lands.
+  // THT wins a name clash (it reaches all layers).
+  for (const s of c.filter((e) => e.type === "pcb_smtpad")) {
+    const l = label(s.pcb_port_id); if (!l || pads[l]) continue
+    pads[l] = { x: s.x, y: s.y, r: padR(s), port: s.pcb_port_id, layers: [s.layer === "bottom" ? 1 : 0] }
   }
 
   // ── occupancy grid (per layer) ──
@@ -147,8 +155,8 @@ export function mazeRouteNets(circuit: any[], pairs: { from: string; to: string 
   const TURN = SPEC.turn ?? 12
   const moves = [[1, 0, 1], [-1, 0, 1], [0, 1, 1], [0, -1, 1], [1, 1, SQ2], [1, -1, SQ2], [-1, 1, SQ2], [-1, -1, SQ2]]
   const NXY = NX * NY
-  function route(sx: number, sy: number, gxm: number, gym: number, sLayer: number) {
-    const S = { i: gx(sx), j: gy(sy), l: sLayer }, G = { i: gx(gxm), j: gy(gym) }
+  function route(sx: number, sy: number, gxm: number, gym: number, startLayers: number[], goalLayers: number[]) {
+    const S = { i: gx(sx), j: gy(sy) }, G = { i: gx(gxm), j: gy(gym) }
     for (const [px, py] of [[sx, sy], [gxm, gym]]) {
       const ci = gx(px), cj = gy(py)
       for (let dj = -2; dj <= 2; dj++) for (let di = -2; di <= 2; di++) { const i = ci + di, j = cj + dj; if (inb(i, j)) { occ[0][idx(i, j)] = 0; occ[1][idx(i, j)] = 0 } }
@@ -162,13 +170,14 @@ export function mazeRouteNets(circuit: any[], pairs: { from: string; to: string 
     // close to neighbouring copper. Require the extra pad ring (beyond HALF) clear, both layers.
     const VIAR = Math.max(0, 0.25 - HALF), vrc = Math.ceil(VIAR / CELL)
     const viaClear = (i: number, j: number) => { for (let dj = -vrc; dj <= vrc; dj++) for (let di = -vrc; di <= vrc; di++) { if (Math.hypot(di, dj) * CELL > VIAR) continue; if (!free(i + di, j + dj, 0) || !free(i + di, j + dj, 1)) return false } return true }
-    // a through-hole endpoint connects EVERY layer, so a route may BEGIN on either copper
-    // layer with no via — the barrel is the layer change. Seed both start layers; a tiny
-    // epsilon biases to the preferred startLayer so a clean route stays there on a tie.
-    // (The goal is likewise reached on any layer — the found-check ignores layer.)
+    // A through-hole endpoint connects EVERY layer (startLayers/goalLayers = [top,bottom]),
+    // so a route may BEGIN on either copper layer with no via — the barrel is the layer
+    // change. An SMD endpoint is one layer, so its set is just that layer. A tiny epsilon
+    // biases to the preferred startLayer so a clean route stays there on a tie.
     // binary heap of [f, g, key]
+    const pref = layerOf(SPEC.startLayer)
     const heap: [number, number, number][] = []
-    for (const sl of [S.l, 1 - S.l]) { const sk = key(S.i, S.j, sl, 8), c0 = sl === S.l ? 0 : 1e-3; dist.set(sk, c0); heap.push([h(S.i, S.j) + c0, c0, sk]) }
+    for (const sl of startLayers) { const sk = key(S.i, S.j, sl, 8), c0 = sl === pref ? 0 : 1e-3; dist.set(sk, c0); heap.push([h(S.i, S.j) + c0, c0, sk]) }
     const push = (f: number, g: number, k: number) => { heap.push([f, g, k]); let c = heap.length - 1; while (c > 0) { const p = (c - 1) >> 1; if (heap[p][0] <= heap[c][0]) break;[heap[p], heap[c]] = [heap[c], heap[p]]; c = p } }
     const pop = () => { const top = heap[0], last = heap.pop()!; if (heap.length) { heap[0] = last; let p = 0; for (; ;) { let s = p, l = 2 * p + 1, r = l + 1; if (l < heap.length && heap[l][0] < heap[s][0]) s = l; if (r < heap.length && heap[r][0] < heap[s][0]) s = r; if (s === p) break;[heap[p], heap[s]] = [heap[s], heap[p]]; p = s } } return top }
     const unpack = (k: number) => { const i = k % NX, j = Math.floor(k / NX) % NY, ld = Math.floor(k / NXY); return [i, j, ld % 9, Math.floor(ld / 9)] as const }
@@ -177,7 +186,7 @@ export function mazeRouteNets(circuit: any[], pairs: { from: string; to: string 
       const [, g, k] = pop()
       const [i, j, d, l] = unpack(k)
       if (g > (dist.get(k) ?? Infinity) + 1e-9) continue
-      if (i === G.i && j === G.j) { found = k; break }
+      if (i === G.i && j === G.j && goalLayers.includes(l)) { found = k; break }
       for (let m = 0; m < 8; m++) {
         const [di, dj, cost] = moves[m]
         const ni = i + di, nj = j + dj
@@ -234,7 +243,7 @@ export function mazeRouteNets(circuit: any[], pairs: { from: string; to: string 
     // open this net's own two pads, route, then re-stamp them as obstacles for the rest
     const sr = s.r + SPEC.clr + HALF, gr = g.r + SPEC.clr + HALF
     clearDisc(s.x, s.y, sr, [0, 1]); clearDisc(g.x, g.y, gr, [0, 1])
-    const path = route(s.x, s.y, g.x, g.y, layerOf(SPEC.startLayer))
+    const path = route(s.x, s.y, g.x, g.y, s.layers, g.layers)
     stampDisc(s.x, s.y, sr, [0, 1]); stampDisc(g.x, g.y, gr, [0, 1])
     if (!path) { console.error(`// NO PATH ${from} -> ${to}`); continue }
     addPathObstacle(path)

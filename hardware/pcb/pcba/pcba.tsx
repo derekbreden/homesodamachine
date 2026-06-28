@@ -22,7 +22,7 @@
  * nets pour into ugly interlocking islands, a clean trace pair reads better.
  */
 import {
-  i8, at, Esp32, Jst, ulnOUT,
+  i8, at, Jst, ulnOUT,
 } from "./carrier_parts"
 import { Uln2803, Mcp23017, Ds3231Smd, Thvd1426, Sm712, Ams1117_33 } from "./pcba_parts"
 import { boardVersionParts } from "./board-version"
@@ -31,6 +31,7 @@ import { NXB_25V470_10_12_5 } from "./imports/NXB_25V470_10_12_5"
 import { MLT_5020 } from "./imports/MLT_5020"
 import { S8050_J3Y_RANGE_200_350_ as S8050 } from "./imports/S8050_J3Y_RANGE_200_350_"
 import { CR2032_______3V as CoinCell } from "./imports/CR2032_______3V"
+import { ESP32_WROOM_32E_N4 as Wroom } from "./imports/ESP32_WROOM_32E_N4"
 
 // Identity stamp version (commit date + short SHA), computed once per render.
 const ID = boardVersionParts()
@@ -46,7 +47,23 @@ export default () => (
     <capacitor name="C6" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} {...at(-1, -28)} />
     <silkscreentext text="+" fontSize="1.4mm" pcbX={-31.15} pcbY={-23.5} />
     <silkscreentext text="-" fontSize="1.4mm" pcbX={-20} pcbY={-28} />
-    <Esp32 x={-31.15} y={-1} />
+    {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio. rot 180 puts
+        the ADC/UART/pump-A pins on the north edge and the I2C/pump-B/buzzer/IO0 pins on
+        the south edge — the same north/south split the DevKitC carrier had, so the J5
+        and faucet mazes re-route against the same geometry — with the antenna keepout
+        pointing east into open board. 3V3 is the only supply pin (no V5): it draws from
+        the step-8 LDO plane, every GND pad (incl. the centre thermal pad) auto-stitches
+        to the bottom plane. Decoupling (C10 0.1uF + C11 10uF bulk) and the EN power-on
+        RC (R7 10k pull-up + C12 1uF) sit just north by the 3V3/EN pins; R8 (10k) pulls
+        IO0 up in the south gap; J12 is the 6-pin serial programming header (TX0/RX0/IO0/
+        EN/GND/3V3) in the freed west pocket. */}
+    <Wroom name="U1" pcbX={-31.15} pcbY={-1} pcbRotation={180} />
+    <capacitor name="C10" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} {...at(-21, 12.5)} />
+    <capacitor name="C11" capacitance="10uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C15850"] }} {...at(-21, 15.8)} />
+    <resistor name="R7" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-25, 12.5)} />
+    <capacitor name="C12" capacitance="1uF" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C15849"] }} {...at(-25, 15.8)} />
+    <resistor name="R8" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} pcbRotation={90} {...at(-40, -13.5)} />
+    <Jst name="J12" x={-50} y={-1} count={6} labels={["3V3", "EN", "IO0", "RX0", "TX0", "GND"]} rot={90} label="PROG" />
     {/* RS-485 to the front display (J9). THVD1426 auto-direction transceiver (U7):
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
         only D (from ESP TX) and R (to ESP RX) are driven. R6 = 120R line termination
@@ -112,9 +129,35 @@ export default () => (
     <trace from=".C7 > .pin1" to="net.V3V3" />
     <trace from=".J4 > .3V3" to="net.V3V3" />
 
-    {/* 5V rail -> inner2 plane. J8 feeds it; ESP V5, faucet, sensors, and gas common
-        to it at their barrels; the buzzer high side (U8 +) auto-stitches to it. */}
-    <trace from=".U1A > .V5" to="net.V5" />
+    {/* Bare WROOM (U1) power + reset + programming block. 3V3 is the lone supply pin: it,
+        the decouplers (C10 0.1uF / C11 10uF bulk), the pull-up high sides (R7 EN, R8 IO0)
+        and the prog header (J12) all common to the 3V3 plane; the GND pads (incl. the
+        centre thermal pad), the EN cap (C12) low side, and the prog GND to the bottom
+        plane — all SMD legs auto-stitch. EN power-on RC: R7 (10k) to 3V3, C12 (1uF) to
+        GND. IO0 held high by R8 (10k). J12 breaks out the serial bootloader (TX0=IO1,
+        RX0=IO3, IO0, EN). No V5 — the module is 3V3-only. */}
+    <trace from=".U1 > .3V3" to="net.V3V3" />
+    <trace from=".U1 > .GND" to="net.GND" />
+    <trace from=".C10 > .pin1" to="net.V3V3" />
+    <trace from=".C10 > .pin2" to="net.GND" />
+    <trace from=".C11 > .pin1" to="net.V3V3" />
+    <trace from=".C11 > .pin2" to="net.GND" />
+    <trace from=".R7 > .pin2" to="net.V3V3" />
+    <trace from=".R7 > .pin1" to=".U1 > .EN" />
+    <trace from=".C12 > .pin1" to=".U1 > .EN" />
+    <trace from=".C12 > .pin2" to="net.GND" />
+    <trace from=".R8 > .pin2" to="net.V3V3" />
+    <trace from=".R8 > .pin1" to=".U1 > .IO0" />
+    <trace from=".J12 > .3V3" to="net.V3V3" />
+    <trace from=".J12 > .GND" to="net.GND" />
+    <trace from=".J12 > .EN" to=".U1 > .EN" />
+    <trace from=".J12 > .IO0" to=".U1 > .IO0" />
+    <trace from=".J12 > .TX0" to=".U1 > .IO1" />
+    <trace from=".J12 > .RX0" to=".U1 > .IO3" />
+
+    {/* 5V rail -> inner2 plane. J8 feeds it; faucet, sensors, and gas common to it at
+        their barrels; the buzzer high side (U8 +) auto-stitches to it. The bare WROOM
+        draws no 5V (3V3-only). */}
     <trace from=".J8 > .V5" to="net.V5" />
     <trace from=".J3 > .V5" to="net.V5" />
     <trace from=".J4 > .V5" to="net.V5" />
@@ -126,7 +169,6 @@ export default () => (
     <trace from=".U2 > .GND" to="net.GND" />
     <trace from=".U6 > .GND" to="net.GND" />
     <trace from=".C6 > .pin2" to="net.GND" />
-    <trace from=".U1B > .GNDc" to="net.GND" />
 
     {/* RTC backup: CR2032 + (centre pad pin2) -> VBAT; clips/holes (-) -> GND. */}
     <trace from=".U6 > .VBAT" to=".BT1 > .pin2" />
@@ -136,12 +178,12 @@ export default () => (
     <trace from=".BT1 > .pin5" to="net.GND" />
 
     {/* I2C bus — routed top bus, not poured (two co-located nets) */}
-    <trace from=".U1B > .IO21" to=".U6 > .SDA" />
-    <trace from=".U1B > .IO22" to=".U6 > .SCL" />
+    <trace from=".U1 > .IO21" to=".U6 > .SDA" />
+    <trace from=".U1 > .IO22" to=".U6 > .SCL" />
     <trace from=".U2 > .SDA" to=".U3 > .SDA" />
     <trace from=".U2 > .SCL" to=".U3 > .SCL" />
-    <trace from=".U1B > .IO21" to=".U3 > .SDA" />
-    <trace from=".U1B > .IO22" to=".U3 > .SCL" />
+    <trace from=".U1 > .IO21" to=".U3 > .SDA" />
+    <trace from=".U1 > .IO22" to=".U3 > .SCL" />
 
     {/* ULN U4 ground (U2/U3 grounds are in the grounds block above) */}
     <trace from=".U4 > .GND" to="net.GND" />
@@ -192,8 +234,8 @@ export default () => (
         IO32 — the ESP UART TX, which must be output-capable (IO34/35/36/39 can't
         drive). 3.3 V VCC keeps R's swing safe for input-only IO34. /RE -> GND keeps
         the receiver always on; auto-direction is driven entirely off the D pin. */}
-    <trace from=".U7 > .R" to=".U1A > .IO34" />
-    <trace from=".U7 > .D" to=".U1A > .IO32" />
+    <trace from=".U7 > .R" to=".U1 > .IO34" />
+    <trace from=".U7 > .D" to=".U1 > .IO32" />
     <trace from=".U7 > .RE" to="net.GND" />
     <trace from=".U7 > .GND" to="net.GND" />
     <trace from=".C7 > .pin2" to="net.GND" />
@@ -218,17 +260,16 @@ export default () => (
 
     {/* FAUCET UART (IO33 TX / IO35 RX). pretty="maze:faucet485" climbs both signals
         from the FAUCET connector down to the ESP far row at build time (pretty-routes.ts). */}
-    <trace from=".J3 > .IO33" to=".U1A > .IO33" pretty="maze:faucet485" />
-    <trace from=".J3 > .IO35" to=".U1A > .IO35" pretty="maze:faucet485" />
+    <trace from=".J3 > .IO33" to=".U1 > .IO33" pretty="maze:faucet485" />
+    <trace from=".J3 > .IO35" to=".U1 > .IO35" pretty="maze:faucet485" />
     <trace from=".J3 > .GND" to="net.GND" />
-    <trace from=".U1A > .GND" to="net.GND" />
 
     {/* SENSORS: flow (IO15) / 1-wire temps (IO14) / backflow drip-pan moisture
         (IO13). 3V3 powers the DS18B20 probes + the moisture module; V5 the flow
         sensor. */}
-    <trace from=".J4 > .IO14" to=".U1A > .IO14" />
-    <trace from=".J4 > .IO15" to=".U1B > .IO15" />
-    <trace from=".J4 > .IO13" to=".U1A > .IO13" />
+    <trace from=".J4 > .IO14" to=".U1 > .IO14" />
+    <trace from=".J4 > .IO15" to=".U1 > .IO15" />
+    <trace from=".J4 > .IO13" to=".U1 > .IO13" />
     <trace from=".J4 > .GND" to="net.GND" />
 
     {/* DRIVER: pump A (27/25/26) + pump B (19/18/5) + relays (17/16). pretty="maze:j5"
@@ -236,14 +277,14 @@ export default () => (
         at build time from live pad geometry — fanning past BT1's coin-cell pad, mostly on
         the bottom layer under it. No coordinates are frozen here; move J5/BT1/the ESP and
         the next build re-routes. The GND pin pours to the plane (not routed). */}
-    <trace from=".J5 > .IO27" to=".U1A > .IO27" pretty="maze:j5" />
-    <trace from=".J5 > .IO25" to=".U1A > .IO25" pretty="maze:j5" />
-    <trace from=".J5 > .IO26" to=".U1A > .IO26" pretty="maze:j5" />
-    <trace from=".J5 > .IO19" to=".U1B > .IO19" pretty="maze:j5" />
-    <trace from=".J5 > .IO18" to=".U1B > .IO18" pretty="maze:j5" />
-    <trace from=".J5 > .IO5" to=".U1B > .IO5" pretty="maze:j5" />
-    <trace from=".J5 > .IO17" to=".U1B > .IO17" pretty="maze:j5" />
-    <trace from=".J5 > .IO16" to=".U1B > .IO16" pretty="maze:j5" />
+    <trace from=".J5 > .IO27" to=".U1 > .IO27" pretty="maze:j5" />
+    <trace from=".J5 > .IO25" to=".U1 > .IO25" pretty="maze:j5" />
+    <trace from=".J5 > .IO26" to=".U1 > .IO26" pretty="maze:j5" />
+    <trace from=".J5 > .IO19" to=".U1 > .IO19" pretty="maze:j5" />
+    <trace from=".J5 > .IO18" to=".U1 > .IO18" pretty="maze:j5" />
+    <trace from=".J5 > .IO5" to=".U1 > .IO5" pretty="maze:j5" />
+    <trace from=".J5 > .IO17" to=".U1 > .IO17" pretty="maze:j5" />
+    <trace from=".J5 > .IO16" to=".U1 > .IO16" pretty="maze:j5" />
     <trace from=".J5 > .GND" to="net.GND" />
 
     {/* (J5 driver copper is generated at build time from the pretty="maze:j5" traces
@@ -297,7 +338,7 @@ export default () => (
     <trace from=".U8 > ._NEG" to=".Q1 > .C" />
     <trace from=".Q1 > .E" to="net.GND" />
     <trace from=".Q1 > .B" to=".R5 > .pin1" />
-    <trace from=".R5 > .pin2" to=".U1B > .IO4" />
+    <trace from=".R5 > .pin2" to=".U1 > .IO4" />
 
     {/* GAS: ACEIRMC MQ-6 combustible / refrigerant-leak sensor, mounted low on the
         rear cabinet floor (catches dense R-600a pooling). 5 V heater supply. BOTH
@@ -311,11 +352,11 @@ export default () => (
         this board — it needs two bench-verified polarities first (see notes). */}
     <trace from=".J11 > .AOUT" to=".R1 > .pin1" />
     <trace from=".R1 > .pin2" to=".R2 > .pin1" />
-    <trace from=".R1 > .pin2" to=".U1A > .IO39" />
+    <trace from=".R1 > .pin2" to=".U1 > .IO39" />
     <trace from=".R2 > .pin2" to="net.GND" />
     <trace from=".J11 > .DOUT" to=".R3 > .pin1" />
     <trace from=".R3 > .pin2" to=".R4 > .pin1" />
-    <trace from=".R3 > .pin2" to=".U1A > .IO36" />
+    <trace from=".R3 > .pin2" to=".U1 > .IO36" />
     <trace from=".R4 > .pin2" to="net.GND" />
     <trace from=".J11 > .GND" to="net.GND" />
 
@@ -362,7 +403,6 @@ export default () => (
         (inner1, full flood), 5V (inner2, full flood), GND (bottom, full flood).
         Every ground/3V3/5V/12V pin lands on its net and commons to the plane at
         its through-hole barrel, so none of these nets is individually routed. */}
-    <trace from=".U1B > .GNDb" to="net.GND" />
     <trace from=".J10 > .V12" to="net.V12" />
     <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" boardEdgeMargin="0.5mm" />
     <copperpour name="V12PLANE" layer="top" connectsTo="net.V12"
