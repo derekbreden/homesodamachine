@@ -1,6 +1,9 @@
 diff --git a/node_modules/@tscircuit/core/.bun-tag-812649e809f49b8d b/.bun-tag-812649e809f49b8d
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/@tscircuit/core/.bun-tag-94a94793e74ff8b5 b/.bun-tag-94a94793e74ff8b5
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/node_modules/@tscircuit/core/.bun-tag-c78b4bfb32a68812 b/.bun-tag-c78b4bfb32a68812
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
@@ -17,7 +20,7 @@ diff --git a/node_modules/@tscircuit/core/.bun-tag-ed8a2c7eba990c90 b/.bun-tag-e
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/dist/index.js b/dist/index.js
-index c7b53b7a6db997fd2924cd638de3d2f0757d8682..646c47779cbfb3dfce4dea080c3e7d8a92a1a2cb 100644
+index c7b53b7a6db997fd2924cd638de3d2f0757d8682..2cdacce56c765c8c00576b2c9f503182a100ae4e 100644
 --- a/dist/index.js
 +++ b/dist/index.js
 @@ -7174,6 +7174,11 @@ var PcbTrace = class extends PrimitiveComponent2 {
@@ -43,7 +46,53 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..646c47779cbfb3dfce4dea080c3e7d8a
    return normalizedRotation;
  };
  var optional = (value) => value ?? void 0;
-@@ -16046,6 +16055,53 @@ var getSimpleRouteJsonFromCircuitJson = ({
+@@ -15733,6 +15742,45 @@ var getSimpleRouteJsonFromCircuitJson = ({
+       group: pcbGroup
+     })
+   );
++  // PATCH(homesodamachine): reserve each SMD-plane-pad stitch-via spot as a router obstacle.
++  // An SMD pad whose net is poured on another layer gets a stitch via in the copper-pour
++  // render — which runs AFTER autorouting — so the router doesn't know the via is coming and
++  // will lay a different-net trace across that spot on the pour layer, shorting to the via.
++  // Drop an obstacle (the via footprint, on the pour layer) at each such pad so the router
++  // routes other nets around it; the pour render then drops the real via in the reserved gap.
++  if (subcircuitComponent) {
++    const _pourLayersByRep = /* @__PURE__ */ new Map();
++    for (const cp of subcircuitComponent.selectAll("copperpour")) {
++      let _pn;
++      try { _pn = cp.getSubcircuit().selectOne(cp._parsedProps.connectsTo); } catch {}
++      const _ly = cp._parsedProps && cp._parsedProps.layer;
++      if (_pn?.source_net_id && typeof _ly === "string") {
++        const _rep = connMap.getNetConnectedToId(_pn.source_net_id) ?? _pn.source_net_id;
++        let _set = _pourLayersByRep.get(_rep);
++        if (!_set) { _set = /* @__PURE__ */ new Set(); _pourLayersByRep.set(_rep, _set); }
++        _set.add(_ly);
++      }
++    }
++    if (_pourLayersByRep.size > 0) {
++      const _viaPad = minViaPadDiameter ?? board?.min_via_pad_diameter ?? 0.5;
++      for (const sp of db.pcb_smtpad.list()) {
++        if (!sp.pcb_port_id) continue;
++        const _rep = connMap.getNetConnectedToId(sp.pcb_port_id);
++        const _set = _rep && _pourLayersByRep.get(_rep);
++        if (!_set) continue;
++        // Pad's net poured on a layer other than the pad's? Then the pour render drops a
++        // THROUGH stitch via (pad layer <-> opposite outer layer). Reserve the via footprint
++        // on that opposite outer layer — the only routable layer the via crosses besides the
++        // pad's own (which already carries the SMD pad obstacle). Inner layers aren't routed.
++        let _needs = false;
++        for (const _pl of _set) if (_pl !== sp.layer) _needs = true;
++        if (!_needs) continue;
++        const _outerLy = sp.layer === "top" ? "bottom" : "top";
++        obstacles.push({ type: "oval", layers: [_outerLy], center: { x: sp.x, y: sp.y }, width: _viaPad, height: _viaPad, connectedTo: [] });
++        if (process.env.POUR_SKIP_DEBUG) console.error(`[stitch-keepout] ${sp.pcb_smtpad_id} @(${sp.x.toFixed(2)},${sp.y.toFixed(2)}) reserve ${_outerLy}`);
++      }
++    }
++  }
+   const breakoutPointPositions = breakoutPoints.map((bp) => ({
+     x: bp.x,
+     y: bp.y
+@@ -16046,6 +16094,53 @@ var getSimpleRouteJsonFromCircuitJson = ({
        conn.externallyConnectedPointIds.push([...tracePortIds]);
      }
    }
@@ -97,7 +146,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..646c47779cbfb3dfce4dea080c3e7d8a
    const resolvedMinViaHoleDiameter = minViaHoleDiameter ?? board?.min_via_hole_diameter;
    const resolvedMinViaPadDiameter = minViaPadDiameter ?? board?.min_via_pad_diameter;
    const resolvedMinTraceToPadEdgeClearance = minTraceToPadEdgeClearance ?? board?.min_trace_to_pad_edge_clearance;
-@@ -16058,7 +16114,7 @@ var getSimpleRouteJsonFromCircuitJson = ({
+@@ -16058,7 +16153,7 @@ var getSimpleRouteJsonFromCircuitJson = ({
      simpleRouteJson: {
        bounds,
        obstacles,
@@ -106,7 +155,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..646c47779cbfb3dfce4dea080c3e7d8a
        traces: descendantTraces.length > 0 ? descendantTraces : void 0,
        layerCount: board?.num_layers ?? 2,
        minTraceWidth: minTraceWidth ?? board?.min_trace_width ?? 0.1,
-@@ -22355,6 +22411,44 @@ var Group5 = class extends NormalComponent3 {
+@@ -22355,6 +22450,44 @@ var Group5 = class extends NormalComponent3 {
        subcircuit_id: this.subcircuit_id,
        subcircuitComponent: this
      });
@@ -151,51 +200,75 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..646c47779cbfb3dfce4dea080c3e7d8a
      const routingPhasePlans = this._getRoutingPhasePlans();
      const hasPhasedAutorouting = Group_hasPhasedAutorouting(routingPhasePlans);
      const outputTraces = [];
-@@ -29088,6 +29182,43 @@ var CopperPour = class extends PrimitiveComponent2 {
+@@ -29088,6 +29221,67 @@ var CopperPour = class extends PrimitiveComponent2 {
          return;
        }
        const subcircuit = this.getSubcircuit();
-+      // PATCH(homesodamachine): auto-stitch SMD pads to THIS pour across layers — and do it
-+      // BEFORE the connectivity map + pour key below, so the stitch vias sit in the same
-+      // snapshot the solver keys against. (The generated connectivity_net ids are not stable
-+      // across rebuilds, so computing the pour key first and inserting after makes the via's
-+      // key mismatch the pour's, and the solver rings it as foreign copper.) A pour joins
-+      // same-net copper only on its OWN layer (the solver skips any pad/via whose layers
-+      // exclude props.layer); a THT barrel spans every layer for free, but an SMD pad sits on
-+      // one layer, so a same-net SMD pad on a DIFFERENT layer floats — silently, since DRC is
-+      // pour-blind. The via MUST carry the net or the solver rings it (the trap the old
-+      // hand-placed <pcbtrace> vias fell into): mirror an autorouter via — a pcb_trace on the
-+      // pad's existing pad->net source_trace, referenced by the via, so connectivity runs
-+      // pad -> source_trace -> net -> via and the solver floods onto it. Idempotent (skips a
-+      // pad that already carries a via). Via-in-pad -> order the PCBA with epoxy filled+capped
-+      // vias (JLCPCB POFV). See plane-stitching.md.
++      // PATCH(homesodamachine): auto-stitch EVERY cross-layer SMD plane pad to its plane, in
++      // ONE idempotent pass over ALL poured nets, before this pour's brep is solved. Why this
++      // shape:
++      //  - An SMD pad sits on one layer; a THT barrel reaches all layers for free. A pad whose
++      //    plane net is poured on a DIFFERENT layer floats unless stitched, and DRC is
++      //    pour-blind so it never flags it.
++      //  - The via MUST carry the net or the pour solver rings it as foreign copper and it
++      //    stays isolated (the trap bare <pcbtrace> vias fell into). So mirror an autorouter
++      //    via: a pcb_trace on the pad's existing pad->net source_trace, referenced by the via
++      //    (connectivity runs pad -> source_trace -> net -> via).
++      //  - It is a THROUGH via (outer-to-outer), never a blind via to an inner plane — JLCPCB
++      //    drills through-holes only; the through-via antipad guard (copper-pour-solver)
++      //    connects it to its net's plane wherever that sits and antipads the rest.
++      //  - ALL poured nets are stitched in this single pass (not just this pour's net): pours
++      //    render in arbitrary order, so if a pad's via were created only by its own net's
++      //    pour, a different-net pour solving first would flood over the not-yet-existing via.
++      //    Creating them all up front (idempotent via _viaAt) means every pour brep antipads
++      //    every foreign via. The router separately reserves each spot (getSimpleRouteJson
++      //    stitch-keepout). Via-in-pad -> order the PCBA with epoxy filled+capped vias (POFV).
++      //    See plane-stitching.md.
 +      {
 +        const _cj0 = db.toArray();
-+        const _netId = net.source_net_id;
-+        const _netTraces = _cj0.filter((e) => e.type === "source_trace" && (e.connected_source_net_ids || []).includes(_netId));
-+        if (_netTraces.length) {
++        const _pourLyByNet = /* @__PURE__ */ new Map();
++        let _allPours = [];
++        try { _allPours = subcircuit.selectAll("copperpour"); } catch {}
++        for (const _cp of _allPours) {
++          let _pn;
++          try { _pn = _cp.getSubcircuit().selectOne(_cp._parsedProps.connectsTo); } catch {}
++          const _ly = _cp._parsedProps && _cp._parsedProps.layer;
++          if (_pn?.source_net_id && typeof _ly === "string") {
++            let _s = _pourLyByNet.get(_pn.source_net_id);
++            if (!_s) { _s = /* @__PURE__ */ new Set(); _pourLyByNet.set(_pn.source_net_id, _s); }
++            _s.add(_ly);
++          }
++        }
++        if (_pourLyByNet.size > 0) {
 +          const _portToSrc = /* @__PURE__ */ new Map();
 +          for (const e of _cj0) if (e.type === "pcb_port") _portToSrc.set(e.pcb_port_id, e.source_port_id);
++          const _sTraces = _cj0.filter((e) => e.type === "source_trace");
 +          const _bd = db.pcb_board.list()[0];
 +          const _hole = _bd?.min_via_hole_diameter ?? 0.3;
 +          const _outer = _bd?.min_via_pad_diameter ?? 0.5;
 +          const _viaAt = (x, y) => db.pcb_via.list().some((v) => Math.abs(v.x - x) < 0.05 && Math.abs(v.y - y) < 0.05);
 +          for (const sp of _cj0) {
-+            if (sp.type !== "pcb_smtpad" || !sp.pcb_port_id || sp.layer === props.layer) continue;
++            if (sp.type !== "pcb_smtpad" || !sp.pcb_port_id) continue;
 +            const _spid = _portToSrc.get(sp.pcb_port_id);
 +            if (!_spid) continue;
-+            const _st = _netTraces.find((t) => (t.connected_source_port_ids || []).includes(_spid));
++            // the source_trace tying this pad to a plane net poured on a DIFFERENT layer
++            let _st = null;
++            for (const t of _sTraces) {
++              if (!(t.connected_source_port_ids || []).includes(_spid)) continue;
++              if ((t.connected_source_net_ids || []).some((nid) => { const s = _pourLyByNet.get(nid); return s && [...s].some((l) => l !== sp.layer); })) { _st = t; break; }
++            }
 +            if (!_st || _viaAt(sp.x, sp.y)) continue;
-+            const _tr = db.pcb_trace.insert({ source_trace_id: _st.source_trace_id, route: [{ route_type: "via", x: sp.x, y: sp.y, from_layer: sp.layer, to_layer: props.layer }], subcircuit_id: subcircuit?.subcircuit_id ?? void 0 });
-+            db.pcb_via.insert({ pcb_trace_id: _tr.pcb_trace_id, x: sp.x, y: sp.y, hole_diameter: _hole, outer_diameter: _outer, layers: [sp.layer, props.layer], from_layer: sp.layer, to_layer: props.layer });
-+            if (process.env.POUR_SKIP_DEBUG) console.error(`[pour-stitch] ${sp.pcb_smtpad_id} ${sp.layer}->${props.layer} @(${sp.x.toFixed(3)},${sp.y.toFixed(3)}) net=${_st.source_trace_id}`);
++            const _toLy = sp.layer === "top" ? "bottom" : "top";
++            const _tr = db.pcb_trace.insert({ source_trace_id: _st.source_trace_id, route: [{ route_type: "via", x: sp.x, y: sp.y, from_layer: sp.layer, to_layer: _toLy }], subcircuit_id: subcircuit?.subcircuit_id ?? void 0 });
++            db.pcb_via.insert({ pcb_trace_id: _tr.pcb_trace_id, x: sp.x, y: sp.y, hole_diameter: _hole, outer_diameter: _outer, layers: [sp.layer, _toLy], from_layer: sp.layer, to_layer: _toLy });
++            if (process.env.POUR_SKIP_DEBUG) console.error(`[pour-stitch] ${sp.pcb_smtpad_id} ${sp.layer}<->${_toLy} @(${sp.x.toFixed(3)},${sp.y.toFixed(3)}) net=${_st.source_trace_id}`);
 +          }
 +        }
 +      }
        const circuitJson = db.toArray();
        const sourceNet = circuitJson.find(
          (elm) => elm.type === "source_net" && elm.name === net.name
-@@ -29096,7 +29227,7 @@ var CopperPour = class extends PrimitiveComponent2 {
+@@ -29096,7 +29290,7 @@ var CopperPour = class extends PrimitiveComponent2 {
        const connectedNetId = sourceNet?.source_net_id ?? net.source_net_id;
        const pourConnectivityKey = (connectedNetId ? connectivityMap.getNetConnectedToId(connectedNetId) : void 0) || sourceNet?.subcircuit_connectivity_map_key || "";
        const clearance = props.clearance ?? 0.2;
