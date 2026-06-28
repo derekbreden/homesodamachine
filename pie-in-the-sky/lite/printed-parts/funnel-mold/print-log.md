@@ -167,4 +167,61 @@ Realized in the saved plate (`Metadata/plate_1.json`):
 Still **saved but not fully sliced** — `slice_info.config` is header-only (no
 per-plate time/filament estimate, no G-code member), same as the snapshots above.
 
-### Result — not yet recorded (print started 2026-06-25)
+### Result — completed (per Derek)
+
+Print ran to completion. Supports held; no tip-over.
+
+## Re-slice — core half, support clearance up (2026-06-27, settings per [`funnel-mold.3mf`](funnel-mold.3mf))
+
+One object change; support z and xy standoff increased; support-tower brim disabled.
+
+Object:
+- 1 object: `funnel-mold-core.step` (the **core half only**); cavity is not on this plate.
+  `source_offset_z` 54.5, identity matrix (printed as modeled, opening up).
+
+What changed vs the 2026-06-25 snapshot:
+- `support_top_z_distance` / `support_bottom_z_distance` 0.16 → 0.24.
+- `support_object_xy_distance` 0.35 → 0.42.
+- `raft_first_layer_expansion` 5 → -1.
+
+Everything else unchanged: 0.16 mm layers, `support_on_build_plate_only` 1,
+`support_threshold_angle` 45, PETG Translucent, 100 % zig-zag infill, `brim_type` auto_brim /
+`brim_width` 5.
+
+Realized in the saved plate (`Metadata/plate_1.json`):
+- 1 object, `funnel-mold-core.step`.
+- Plate bbox ≈ 107 × 170 mm; `first_layer_time` ≈ 752 s.
+
+Still **saved but not fully sliced** — `slice_info.config` is header-only (no per-plate
+time/filament estimate, no G-code member), same as prior snapshots.
+
+### Result — completed; mating halves too much clearance (per Derek)
+
+Print completed. Supports removed more cleanly than prior attempts. Fitted against the cavity:
+clearance between mating surfaces too large.
+
+## Re-slice — both halves (2026-06-28, settings per [`funnel-mold.3mf`](funnel-mold.3mf))
+
+Both halves on the plate; core geometry from commit `ece85465`; all support settings unchanged
+from the 2026-06-27 snapshot.
+
+Objects:
+- 2 objects: `funnel-mold-cavity.step` (`source_offset_z` 49.5) and `funnel-mold-core.step`
+  (`source_offset_z` 54.5). Both identity matrix.
+
+Support settings (unchanged vs 2026-06-27):
+- `support_on_build_plate_only` 1; `support_threshold_angle` 45; `support_type` tree(auto).
+- `support_top_z_distance` / `support_bottom_z_distance` 0.24; `support_object_xy_distance` 0.42.
+- `raft_first_layer_expansion` -1.
+
+Everything else unchanged: 0.16 mm layers, PETG Translucent, 100 % zig-zag infill,
+`brim_type` auto_brim / `brim_width` 5.
+
+Realized in the saved plate (`Metadata/plate_1.json`):
+- 2 objects, `funnel-mold-cavity.step` + `funnel-mold-core.step`.
+- Plate bbox ≈ 223 × 171 mm; `first_layer_time` ≈ 1170 s.
+
+Still **saved but not fully sliced** — `slice_info.config` is header-only (no per-plate
+time/filament estimate, no G-code member), same as prior snapshots.
+
+### Result — not yet recorded (print started 2026-06-28)
