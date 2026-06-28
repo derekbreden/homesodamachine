@@ -34,6 +34,7 @@ package is generated and checked from step 1 rather than assembled at the end.
 - [`esp32-scope.md`](esp32-scope.md) — what the base ESP32 uses, and the SMD block.
 - [`jlcpcb-parts.md`](jlcpcb-parts.md) — the JLCPCB parts library reference: the LCSC
   part each component maps to, library type, and how each was found. Grows per step.
-- [`plane-stitching.md`](plane-stitching.md) — why SMD pads on a plane net each need an
-  explicit via, and that tscircuit's DRC won't flag a missing one.
+- [`plane-stitching.md`](plane-stitching.md) — how SMD pads on a plane net are auto-stitched
+  to the plane (and why a stitch via must carry the net), since DRC is pour-blind and won't
+  flag a floating pad.
 - Per-step specs (`uln2803.md`, `mcp23017.md`, …) land here as steps are taken.
