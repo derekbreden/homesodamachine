@@ -34,3 +34,31 @@ export const Uln2803 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: n
     {...at(x, y)}
   />
 )
+
+// ---- MCP23017 — SOIC-28 (300 mil) ------------------------------------------
+// 16-bit I2C GPIO expander. C47023 (Microchip MCP23017-E/SO). Pinout: 1-8 GPB0-7
+// (left, toward the reed JSTs), 9 VDD, 10 VSS, 11 NC, 12 SCL, 13 SDA, 14 NC,
+// 15 A0, 16 A1, 17 A2, 18 /RESET, 19 INTB, 20 INTA, 21-28 GPA0-7 (right, toward
+// the ULN inputs). VDD auto-stitches to the 3V3 inner plane, VSS to the bottom GND
+// plane. A0/A1/A2 are strapped and /RESET tied high in pcba.tsx (the address +
+// reset the breakout module set with jumpers); INTA/INTB are unused (polled). NC
+// pins 11/14 and the INT pins are left off the label map → unconnected pads.
+const mcpPinLabels = {
+  pin1: "GPB0", pin2: "GPB1", pin3: "GPB2", pin4: "GPB3",
+  pin5: "GPB4", pin6: "GPB5", pin7: "GPB6", pin8: "GPB7",
+  pin9: "VCC", pin10: "GND", pin12: "SCL", pin13: "SDA",
+  pin15: "A0", pin16: "A1", pin17: "A2", pin18: "RESET",
+  pin21: "GPA0", pin22: "GPA1", pin23: "GPA2", pin24: "GPA3",
+  pin25: "GPA4", pin26: "GPA5", pin27: "GPA6", pin28: "GPA7",
+}
+
+export const Mcp23017 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; addr?: string; rot?: number }) => (
+  <chip
+    name={name}
+    footprint="soic28_w7.5mm_p1.27mm"
+    pcbRotation={rot}
+    pinLabels={mcpPinLabels}
+    supplierPartNumbers={{ jlcpcb: ["C47023"] }}
+    {...at(x, y)}
+  />
+)
