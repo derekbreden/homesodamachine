@@ -22,21 +22,30 @@
  * nets pour into ugly interlocking islands, a clean trace pair reads better.
  */
 import {
-  i8, at, Esp32, Ds3231, Rs485, Jst, ulnOUT,
+  i8, at, Esp32, Rs485, Jst, ulnOUT,
 } from "./carrier_parts"
-import { Uln2803, Mcp23017 } from "./pcba_parts"
+import { Uln2803, Mcp23017, Ds3231Smd } from "./pcba_parts"
 import { boardVersionParts } from "./board-version"
 import { logoRoutes } from "./logo"
 import { NXB_25V470_10_12_5 } from "./imports/NXB_25V470_10_12_5"
 import { MLT_5020 } from "./imports/MLT_5020"
 import { S8050_J3Y_RANGE_200_350_ as S8050 } from "./imports/S8050_J3Y_RANGE_200_350_"
+import { CR2032_______3V as CoinCell } from "./imports/CR2032_______3V"
 
 // Identity stamp version (commit date + short SHA), computed once per render.
 const ID = boardVersionParts()
 
 export default () => (
   <board layers={4} outline={[{ x: -66.9, y: -51 }, { x: 60.9, y: -51 }, { x: 60.9, y: 47.7 }, { x: -66.9, y: 47.7 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
-    <Ds3231 name="U6" x={-27.25} y={-28.65} rot={0} />
+    {/* DS3231SN RTC + CR2032 backup, in the bay below the ESP (the freed DS3231-
+        module footprint). The 20 mm coin holder (BT1) is the bulk; the SOIC + 0.1uF
+        decoupler sit to its right, clear of the ESP courtyard and the U3 cap (C5).
+        CR2032 + is the wide can on the centre pad (pin2 -> VBAT); clips are - (GND). */}
+    <CoinCell name="BT1" pcbX={-30} pcbY={-28} pcbRotation={0} />
+    <Ds3231Smd name="U6" x={-9} y={-28} />
+    <capacitor name="C6" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} {...at(-1, -28)} />
+    <silkscreentext text="+" fontSize="1.4mm" pcbX={-30} pcbY={-24} />
+    <silkscreentext text="-" fontSize="1.4mm" pcbX={-18.5} pcbY={-28} />
     <Esp32 x={-31.15} y={-1} />
     <Rs485 name="U7" x={-29.0} y={26.375} rot={180} />
     <Mcp23017 name="U2" x={22} y={30} addr="0x20" rot={270} />
@@ -73,7 +82,8 @@ export default () => (
     <trace from=".U1A > .3V3" to="net.V3V3" />
     <trace from=".U2 > .VCC" to="net.V3V3" />
     <trace from=".U3 > .VCC" to="net.V3V3" />
-    <trace from=".U6H > .VCC" to="net.V3V3" />
+    <trace from=".U6 > .VCC" to="net.V3V3" />
+    <trace from=".C6 > .pin1" to="net.V3V3" />
     <trace from=".U7T > .VCC" to="net.V3V3" />
     <trace from=".J4 > .3V3" to="net.V3V3" />
 
@@ -89,13 +99,20 @@ export default () => (
     {/* grounds (every GND pin -> the bottom plane) */}
     <trace from=".U3 > .GND" to="net.GND" />
     <trace from=".U2 > .GND" to="net.GND" />
-    <trace from=".U6H > .GND" to="net.GND" />
+    <trace from=".U6 > .GND" to="net.GND" />
+    <trace from=".C6 > .pin2" to="net.GND" />
     <trace from=".U1B > .GNDc" to="net.GND" />
-    <trace from=".U6I > .GND" to="net.GND" />
+
+    {/* RTC backup: CR2032 + (centre pad pin2) -> VBAT; clips/holes (-) -> GND. */}
+    <trace from=".U6 > .VBAT" to=".BT1 > .pin2" />
+    <trace from=".BT1 > .pin1" to="net.GND" />
+    <trace from=".BT1 > .pin3" to="net.GND" />
+    <trace from=".BT1 > .pin4" to="net.GND" />
+    <trace from=".BT1 > .pin5" to="net.GND" />
 
     {/* I2C bus — routed top bus, not poured (two co-located nets) */}
-    <trace from=".U1B > .IO21" to=".U6I > .SDA" />
-    <trace from=".U1B > .IO22" to=".U6I > .SCL" />
+    <trace from=".U1B > .IO21" to=".U6 > .SDA" />
+    <trace from=".U1B > .IO22" to=".U6 > .SCL" />
     <trace from=".U2 > .SDA" to=".U3 > .SDA" />
     <trace from=".U2 > .SCL" to=".U3 > .SCL" />
     <trace from=".U1B > .IO21" to=".U3 > .SDA" />
