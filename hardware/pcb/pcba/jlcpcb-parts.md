@@ -38,6 +38,11 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | U8 — alarm/tone buzzer | MLT-5020, passive magnetic (external drive), 4 kHz/75 dB, ~100 mA | SMD 5×5 mm | C94598 | Extended | 104,490 | $0.434 |
 | Q1 — U8 low-side driver | S8050 (J3Y), NPN 25 V/500 mA | SOT-23 | C2146 | Basic | 554,300 | $0.015 |
 | R5 — Q1 base | 1 kΩ ±1% | 0603 | C21190 | Basic | 6,282,722 | $0.0023 |
+| U6 — RTC | DS3231SN, TCXO RTC (±2 ppm) | SOIC-16 (300 mil) | C9866 | Extended | 335 | $6.14 |
+| BT1 — RTC backup | CR2032 coin holder (flat, button+clip) | SMD ~28×21 mm | C70373 | Extended | — | $0.10 |
+| U7 — RS485 to display | THVD1426, auto-direction transceiver, 3.3 V | SOIC-8 | C5215922 | Extended | 5,945 | $1.84 |
+| D1 — RS485 line ESD | SM712, RS485 TVS array (−7/+12 V) | SOT-23 | C12067 | Extended | 35,585 | $0.41 |
+| R6 — RS485 termination | 120 Ω ±1% | 0603 | C22787 | Basic | 1,728,584 | $0.0022 |
 | J8, J10 — 2-pin (5V, 12V) | XH2.54 2P, vertical THT male wafer | wafer, 2.5 mm | C5359631 | Extended | 74,020 | $0.0141 |
 | J9 — 3-pin (DISPLAY) | XH2.54 3P | wafer, 2.5 mm | C7429633 | Extended | 411,459 | $0.0117 |
 | J3, J11 — 4-pin (FAUCET, GAS) | XH2.54 4P | wafer, 2.5 mm | C7429634 | Extended | 609,442 | $0.0116 |
