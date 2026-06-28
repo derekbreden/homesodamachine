@@ -76,7 +76,7 @@ export default () => (
         via barrels/stitch; C8 (10uF) input bypass; C9 (22uF) output bypass. */}
     <Ams1117_33 name="U9" x={-45} y={22} />
     <capacitor name="C8" capacitance="10uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C15850"] }} pcbRotation={90} {...at(-48.08, 17.1)} />
-    <capacitor name="C9" capacitance="22uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C45783"] }} pcbRotation={90} {...at(-49.65, 22.25)} />
+    <capacitor name="C9" capacitance="22uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C45783"] }} pcbRotation={90} {...at(-50.95, 22.15)} />
     <Mcp23017 name="U2" x={22} y={30} addr="0x20" rot={270} />
     <Mcp23017 name="U3" x={22} y={-30} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={36} y={19.1} />
