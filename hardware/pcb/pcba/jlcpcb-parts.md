@@ -34,9 +34,14 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | C1, C2 — V12 HF decouple | 0.1 µF 50V X7R | 0805 | C49678 | Basic | 8,182,736 | $0.0136 |
 | C3 — V12 bulk | 470 µF 25V | radial THT, D10×12.5, 5.08 mm | C350206 | Extended | 91 | $0.105 |
 | U4, U5 — valve/fan sink drivers | ULN2803A, 8-ch Darlington | SOIC-18 (300 mil) | C845537 | Extended | 350,244 | $0.089 |
+| U2, U3 — I²C GPIO expanders | MCP23017, 16-bit | SOIC-28 (300 mil) | C47023 | Extended | — | — |
+| U8 — alarm/tone buzzer | MLT-5020, passive magnetic (external drive), 4 kHz/75 dB, ~100 mA | SMD 5×5 mm | C94598 | Extended | 104,490 | $0.434 |
+| Q1 — U8 low-side driver | S8050 (J3Y), NPN 25 V/500 mA | SOT-23 | C2146 | Basic | 554,300 | $0.015 |
+| R5 — Q1 base | 1 kΩ ±1% | 0603 | C21190 | Basic | 6,282,722 | $0.0023 |
 
-Manufacturers: C4190 / C22978 = UNI-ROYAL 0603WAF series; C49678 = YAGEO
-CC0805KRX7R9BB104; C845537 = UMW (Youtai) ULN2803A.
+Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C49678 = YAGEO
+CC0805KRX7R9BB104; C845537 = UMW (Youtai) ULN2803A; C47023 = Microchip MCP23017-E/SO;
+C94598 = Jiangsu Huaneng MLT-5020; C2146 = JSCJ S8050 J3Y.
 
 **U4/U5 are `C845537`** (UMW ULN2803A, SOP-18-300mil wide body). No Basic ULN2803 SOIC
 exists in the library — every ULN2803 part is Extended — so the feeder fee is unavoidable;
@@ -54,3 +59,13 @@ THT because the need (V12 bulk decoupling) has no Basic SMD option: both 470 µF
 included). Extended SMD alternatives, for a full-reflow board: `C3351` (Honor RVT1E471M1010,
 $0.060), `C47023111` (D8×L10, $0.050), `C3445246` (90 mΩ / 5000 h, $0.091); or a Basic MLCC
 bank (several 25V MLCCs — lower bulk, far lower ESR, wants checking against the solenoid inrush).
+
+**U8 is a passive buzzer + transistor, not an active buzzer.** The firmware generates the
+tone on IO4 (LEDC), so the part must be externally driven — `C94598` (MLT-5020) is passive
+electromagnetic. Every passive SMD buzzer in the library is Extended; `C94598` has the deepest
+stock at 5×5 mm. Its ~100 mA coil exceeds the ESP32 GPIO's ~12 mA source, so it is **low-side
+switched** by Q1 (`C2146`, S8050 NPN, Basic): IO4 → R5 (1 kΩ base) → Q1 base; Q1 collector
+sinks the buzzer's − leg, emitter to the GND plane, the + leg on the 5 V plane. No flyback
+diode (per the step spec); the S8050's 25 V Vce(o) is the only clamp on the coil's turn-off
+spike — the first thing to add if the transistor shows stress. Q1 emitter and U8 + are SMD
+plane pads and auto-stitch to GND / 5 V (see [`plane-stitching.md`](plane-stitching.md)).
