@@ -264,3 +264,57 @@ export function routedNetToPcbTrace(rn: RoutedNet, ids: { pcb_trace_id: string; 
     ...(ids.subcircuit_id ? { subcircuit_id: ids.subcircuit_id } : {}),
   }
 }
+
+// ── clean fan router ────────────────────────────────────────────────────────
+// Not obstacle-aware: where a corridor is empty, each net is one perpendicular
+// riser + one 45° landing (0 vias, 1 layer), crossing-free under a monotonic pin
+// mapping. Pads come from BOTH smtpads (the chips) and plated holes (the JSTs).
+export type FanType = "fanRowToColumn" | "fanColumnToColumn"
+export type CleanSpec = { fanType: FanType; layer?: string; width?: number }
+
+const wirePt = (x: number, y: number, width: number, layer: string): RoutePoint =>
+  ({ route_type: "wire", x: +x.toFixed(3), y: +y.toFixed(3), width, layer })
+
+// "Comp.pin" -> {x,y} from smtpads + plated holes (chips are SMD, JSTs through-hole).
+export function cleanPads(circuit: any[]): Record<string, { x: number; y: number }> {
+  const sp: any = {}, pp: any = {}, sc: any = {}
+  for (const e of circuit) {
+    if (e.type === "source_port") sp[e.source_port_id] = e
+    if (e.type === "pcb_port") pp[e.pcb_port_id] = e
+    if (e.type === "source_component") sc[e.source_component_id] = e
+  }
+  const pads: Record<string, { x: number; y: number }> = {}
+  for (const h of circuit.filter((e) => e.type === "pcb_smtpad" || e.type === "pcb_plated_hole")) {
+    const p = pp[h.pcb_port_id]; if (!p) continue
+    const o = sp[p.source_port_id]; if (!o) continue
+    const nm = o.name || (o.port_hints || []).find((x: string) => !/^\d+$/.test(x))
+    if (nm) pads[`${sc[o.source_component_id].name}.${nm}`] = { x: +h.x.toFixed(3), y: +h.y.toFixed(3) }
+  }
+  return pads
+}
+
+// route one net as a clean fan. `from` is the riser source (a row for fanRowToColumn,
+// a column for fanColumnToColumn); `to` is reached by the 45° landing.
+export function cleanFanRoute(pads: Record<string, { x: number; y: number }>, from: string, to: string, spec: CleanSpec): RoutedNet {
+  const s = pads[from], t = pads[to]
+  if (!s || !t) throw new Error(`clean fan: no pad ${!s ? from : to}`)
+  const layer = spec.layer ?? "top", width = spec.width ?? 0.2
+  let route: RoutePoint[]
+  if (spec.fanType === "fanRowToColumn") {
+    const cy = t.y - Math.sign(t.y - s.y) * Math.abs(s.x - t.x)
+    route = [wirePt(s.x, s.y, width, layer), wirePt(s.x, cy, width, layer), wirePt(t.x, t.y, width, layer)]
+  } else {
+    const cx = t.x - Math.sign(t.x - s.x) * Math.abs(s.y - t.y)
+    route = [wirePt(s.x, s.y, width, layer), wirePt(cx, s.y, width, layer), wirePt(t.x, t.y, width, layer)]
+  }
+  return { from, to, route, vias: 0 }
+}
+
+// warn (don't fail) if a fan's pin mapping isn't monotone — that's when risers cross.
+// axis = source coordinate that's swept; tax = target coordinate that must track it.
+export function monoWarn(pairs: { from: string; to: string }[], pads: Record<string, { x: number; y: number }>, axis: "x" | "y", tax: "x" | "y", label: string) {
+  const pts = pairs.map((p) => ({ s: pads[p.from], t: pads[p.to] })).filter((p) => p.s && p.t)
+  const by = [...pts].sort((a, b) => a.s![axis] - b.s![axis]).map((p) => p.t![tax])
+  const up = by.every((v, i) => i === 0 || v >= by[i - 1]!), dn = by.every((v, i) => i === 0 || v <= by[i - 1]!)
+  if (!up && !dn) console.error(`[pretty] WARN: ${label} pin mapping non-monotone — fan may cross`)
+}
