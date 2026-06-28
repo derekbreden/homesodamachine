@@ -78,3 +78,13 @@ console.log("    {/* REEDS A (J6 -> U2 GPB): converging fan, reordered J6 */}")
 console.log(fanRowToColumn([1, 2, 3, 4].map((n) => ({ from: `J6.RA${n}`, to: `U2.GPB${n - 1}` }))))
 console.log("    {/* ULN OUT -> MANIFOLD A (U4 -> J1): widening fan */}")
 console.log(fanColumnToColumn(i8.map((k) => ({ from: `U4.OUT${k + 1}`, to: `J1.OUT${k + 1}` }))))
+
+// ── BOTTOM cluster (U3 is rot90 — GPA/GPB sit left, mirror-flipped from U2) ───
+// GPA is on the side away from U5, so drive the bus from the IN column (source
+// spread in y) down-left into the GPA row: knee lands on a clean vertical line.
+console.log("    {/* ULN IN -> GPA (U5 -> U3): parallel diagonal bus, knee left of U5 */}")
+console.log(fanColumnToColumn(i8.map((k) => ({ from: `U5.IN${8 - k}`, to: `U3.GPA${k}` }))))
+console.log("    {/* REEDS B (J7 -> U3 GPB): converging fan, reordered+shifted J7 */}")
+console.log(fanRowToColumn([["RB1", 0], ["RB2", 1], ["RB3", 2], ["RB4", 3], ["CLO", 4], ["CHI", 5]].map(([r, g]) => ({ from: `J7.${r}`, to: `U3.GPB${g}` }))))
+console.log("    {/* ULN OUT -> MANIFOLD B (U5 -> J2): widening fan */}")
+console.log(fanColumnToColumn([["OUT1", "OUT1"], ["OUT2", "OUT2"], ["OUT3", "OUT3"], ["OUT4", "OUT4"], ["OUT5", "FAN"]].map(([o, j]) => ({ from: `U5.${o}`, to: `J2.${j}` }))))
