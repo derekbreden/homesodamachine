@@ -439,7 +439,6 @@ export default () => (
     <capacitor name="C1" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(56, -26.9767)} />
     <capacitor name="C2" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(56, 5.9033)} />
     <NXB_25V470_10_12_5 name="C3" {...at(39.65, 1.17)} />
-    <silkscreentext text="+" fontSize="2.66mm" pcbX={34.60} pcbY={1.46} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
     <trace from=".C2 > .pin1" to="net.V12" />
