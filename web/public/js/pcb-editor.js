@@ -107,13 +107,13 @@ function buildCompShape(comp) {
     g.appendChild(svgel("rect", {
       class: "shape", x: -w / 2, y: -h / 2, width: w, height: h, rx: 0.3 * U,
     }));
-    // Pin dots
+    // Pin dots along the connector's length (x-axis at rot=0).
     const pinPitch = 2.5 * U;
     const count = comp.count || 1;
     const dotR = 0.4 * U;
     for (let i = 0; i < count; i++) {
-      const py = (i - (count - 1) / 2) * pinPitch;
-      g.appendChild(svgel("circle", { class: "shape", cx: 0, cy: py, r: dotR }));
+      const px = (i - (count - 1) / 2) * pinPitch;
+      g.appendChild(svgel("circle", { class: "shape", cx: px, cy: 0, r: dotR }));
     }
     // Label: ref + connector name
     const lbl = comp.ref;
