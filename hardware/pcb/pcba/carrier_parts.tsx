@@ -209,6 +209,15 @@ export const Buzzer = ({ name, x, y, rot = 0 }: { name: string; x: number; y: nu
   )
 }
 
+// XH2.54 vertical THT male wafer connectors (JLCPCB assembly), keyed by pin count.
+// The "2.54" is the market label; the parts are genuine 2.5 mm-pitch XH (mate with
+// standard female JST-XH 2.54 housings). XUNPU WAFER-XH2.54-NPZZ / Megastar
+// ZX-XH2.54-NPZZ — see jlcpcb-parts.md.
+const XH254_BY_COUNT: Record<number, string> = {
+  2: "C5359631", 3: "C7429633", 4: "C7429634", 5: "C5359633",
+  6: "C5359634", 7: "C5359635", 9: "C7429639",
+}
+
 // ---- JST trunk connector ---------------------------------------------------
 // A board header (the off-board loom cable plugs in) with a body outline, a
 // function name, the pin labels, and the ref-des — all inside the ~5.8 mm body,
@@ -216,9 +225,9 @@ export const Buzzer = ({ name, x, y, rot = 0 }: { name: string; x: number; y: nu
 // the pin labels and ref-des tuck to the opposite (interior) side, with the
 // ref-des centred between the pin labels and the fence. labelDir overrides the
 // name's side on the vertical connectors (where the loom dictates body facing).
-export const Jst = ({ name, x, y, count, labels, rot = 0, label, labelDir }: { name: string; x: number; y: number; count: number; labels: string[]; rot?: number; label: string; labelDir?: number }) => {
-  const len = count * 2.54 + 2
-  const dep = 5.8
+export const Jst = ({ name, x, y, count, labels, rot = 0, label, labelDir, jlcpcb }: { name: string; x: number; y: number; count: number; labels: string[]; rot?: number; label: string; labelDir?: number; jlcpcb?: string }) => {
+  const len = count * 2.5 + 2.6
+  const dep = 5.9
   const vertical = rot % 180 !== 0
   const [w, h] = vertical ? [dep, len] : [len, dep]
   // The function name tucks just inside the fence on the +X (vertical) / +Y
@@ -232,10 +241,12 @@ export const Jst = ({ name, x, y, count, labels, rot = 0, label, labelDir }: { n
   // (rather than jammed against the fence, where the footprinter would put it).
   const refOff = 2.2
   const [rx, ry] = vertical ? [-refOff, 0] : [0, -refOff]
-  const fp = `pinrow${count}_norefdes${vertical ? "" : "_flippinlabels"}`
+  // XH2.54 wire-to-board wafer land pattern: 2.5 mm pitch (genuine XH — the "2.54"
+  // in the part name is the market's rounded label), 1.1 mm holes / 1.65 mm pads.
+  const fp = `pinrow${count}_p2.5mm_id1.1mm_od1.65mm_norefdes${vertical ? "" : "_flippinlabels"}`
   return (
     <>
-      <pinheader name={name} pinCount={count} pitch="2.54mm" gender="male" footprint={fp} pcbRotation={rot} pinLabels={labels} {...at(x, y)} />
+      <pinheader name={name} pinCount={count} pitch="2.5mm" gender="male" footprint={fp} pcbRotation={rot} pinLabels={labels} supplierPartNumbers={(() => { const p = jlcpcb ?? XH254_BY_COUNT[count]; return p ? { jlcpcb: [p] } : undefined })()} {...at(x, y)} />
       <Outline x={x} y={y} w={w} h={h} />
       <silkscreentext text={label} fontSize="1.4mm" pcbX={x + lx} pcbY={y + ly} pcbRotation={vertical ? 90 : 0} />
       <silkscreentext text={name} fontSize="0.8mm" pcbX={x + rx} pcbY={y + ry} pcbRotation={vertical ? 90 : 0} />
