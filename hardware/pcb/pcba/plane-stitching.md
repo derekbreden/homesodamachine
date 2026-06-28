@@ -7,11 +7,21 @@ by the pour; it needs a via down to the plane's layer — the SMD analogue of th
 
 ## It's automatic (the core patch)
 
-The `@tscircuit/core` patch does this in the copper-pour render: for each pour, every same-net
-SMD pad sitting on another layer gets a stitch via (pad layer → pour layer) before the pour is
-solved, so the pour floods onto it. Nothing is declared in the board — `pcba.tsx` carries no
-stitch `<pcbtrace>`s. A pad already on its plane's layer (e.g. a top pad on the top V12 island)
-connects directly and gets none.
+The `@tscircuit/core` patch does this in the copper-pour render: every SMD pad whose net is
+poured on another layer gets a **through** stitch via (top↔bottom) carrying that net. Nothing is
+declared in the board — `pcba.tsx` has no stitch `<pcbtrace>`s. A pad already on its plane's
+layer (e.g. a top pad on the top V12 island) connects directly and gets none. Two details have
+to hold together:
+
+- **One pass, all nets, before any pour solves.** Pours render in arbitrary order; if a pad's
+  via were created only by its own net's pour, a different-net pour solving first would flood
+  over the not-yet-existing via and short to it. So the first pour to render stitches *every*
+  poured net's cross-layer pads (idempotent — later pours skip a pad that already has a via), and
+  every pour's brep then antipads every foreign via.
+- **Through, never blind.** The via spans top↔bottom even when its plane is an inner layer —
+  JLCPCB drills through-holes only, not blind vias. The through-via antipad guard (below)
+  connects it to its net's plane wherever that sits and clears the rest, so a top 3V3 pad gets a
+  top↔bottom via that floods onto the inner1 3V3 plane and is antipadded on 5V and GND.
 
 ## A stitch via must carry the net
 
@@ -38,6 +48,17 @@ clearance (GND stitch vias short to 3V3 and 5V; routed signal vias short to what
 cross). The `@tscircuit/copper-pour-solver` patch fixes this by treating any top-and-bottom via
 as present on all layers — the same guard the patch already applies to plated through-holes — so
 each inner plane antipads the via (or connects to it, if the via is on that plane's net).
+
+## The router must reserve the stitch spot
+
+The stitch via is created in the copper-pour render, which runs *after* autorouting — so the
+autorouter doesn't know the via is coming and will lay a different-net trace across that spot on
+the bottom (routable) layer, shorting to the via. So the same `@tscircuit/core` patch, where the
+router builds its obstacle list, drops a **stitch-keepout** (the via footprint, on the opposite
+outer layer the through via crosses) at every such pad. The router routes other nets around it;
+the pour render then drops the real via in the reserved gap. DRC can't catch this short either
+(the via lands post-routing, post-DRC), so the keepout is the only thing between a dropped signal
+and a GND short.
 
 ## DRC will not catch a broken stitch
 
