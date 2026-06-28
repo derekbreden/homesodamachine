@@ -24,7 +24,7 @@ Six laser-cut holes — three pass-throughs, an earth-bond point, and two mounti
 
 | # | Hole | Face | Purpose |
 |---|---|---|---|
-| 1 | [1/2"](PANEL_HOLE) (Ø[12.7 mm](AC_HOLE_MM)) | back, centered H + V | 120 V AC cable — 3-conductor [18 AWG](AC_AWG) SJOOW (switched H + N + G). Heyco SB-500-6 snap bushing (B01LPBST9G), [5.6](BUSHING_LOW)–[6.4 mm](BUSHING_HIGH) cable-OD range, fits the [18 AWG](AC_AWG) SJOOW (~[6.4 mm](AC_OD) OD). |
+| 1 | [7/8"](PANEL_HOLE) (Ø[22.22 mm](AC_HOLE_MM)) | back, centered H + V | 120 V AC cable — 3-conductor [18 AWG](AC_AWG) SJOOW (switched H + N + G). SS 1/2" NPT cable gland (B0F2HP5FWB), [6](GLAND_LOW)–[12 mm](GLAND_HIGH) clamping range. |
 | 2 | Ø[8 mm](CU_HOLE) | left | copper inlet — clearance for [1/4"](CU_OD) OD ACR copper |
 | 3 | Ø[8 mm](CU_HOLE) | left | copper outlet — clearance for [1/4"](CU_OD) OD ACR copper |
 | 4 | Ø[6 mm](GND_HOLE) | back, beside the AC hole | earth bond — ring terminal to the ground bus (wiring AC-6) |
