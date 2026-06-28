@@ -62,3 +62,26 @@ export const Mcp23017 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: 
     {...at(x, y)}
   />
 )
+
+// ---- DS3231SN — SOIC-16 (300 mil) ------------------------------------------
+// I2C RTC with internal TCXO + crystal (±2 ppm). C9866 (ADI/Maxim DS3231SN#).
+// Pinout: 1 32KHZ, 2 VCC, 3 INT/SQW, 4 /RST, 5-12 NC, 13 GND, 14 VBAT, 15 SDA,
+// 16 SCL. The breakout's AT24C32 EEPROM is dropped (firmware uses none). VCC
+// auto-stitches to the 3V3 inner plane, GND to the bottom plane; VBAT runs to the
+// coin cell (no charging path — trickle charger off by default). 32KHZ/SQW unused,
+// /RST has an internal pull-up (NC). NC pins are left off the map → unconnected.
+const ds3231PinLabels = {
+  pin1: "T32K", pin2: "VCC", pin3: "SQW", pin4: "RST",
+  pin13: "GND", pin14: "VBAT", pin15: "SDA", pin16: "SCL",
+}
+
+export const Ds3231Smd = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => (
+  <chip
+    name={name}
+    footprint="soic16_w7.5mm_p1.27mm"
+    pcbRotation={rot}
+    pinLabels={ds3231PinLabels}
+    supplierPartNumbers={{ jlcpcb: ["C9866"] }}
+    {...at(x, y)}
+  />
+)
