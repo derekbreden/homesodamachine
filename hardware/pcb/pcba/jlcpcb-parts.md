@@ -33,9 +33,16 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | R2, R4 — gas divider, bottom leg | 3.3 kΩ ±1% | 0603 | C22978 | Basic | 1,028,999 | $0.0023 |
 | C1, C2 — V12 HF decouple | 0.1 µF 50V X7R | 0805 | C49678 | Basic | 8,182,736 | $0.0136 |
 | C3 — V12 bulk | 470 µF 25V | radial THT, D10×12.5, 5.08 mm | C350206 | Extended | 91 | $0.105 |
+| U4, U5 — valve/fan sink drivers | ULN2803A, 8-ch Darlington | SOIC-18 (300 mil) | C845537 | Extended | 350,244 | $0.089 |
 
 Manufacturers: C4190 / C22978 = UNI-ROYAL 0603WAF series; C49678 = YAGEO
-CC0805KRX7R9BB104.
+CC0805KRX7R9BB104; C845537 = UMW (Youtai) ULN2803A.
+
+**U4/U5 are `C845537`** (UMW ULN2803A, SOP-18-300mil wide body). No Basic ULN2803 SOIC
+exists in the library — every ULN2803 part is Extended — so the feeder fee is unavoidable;
+C845537 is the cheapest with deep stock (genuine-TI ULN2803ADWR is `C9683`, ~$4.40). The
+generic `soic18_w7.5mm_p1.27mm` footprint matches the 300-mil land pattern (no IoU warning),
+so no `tsci import`. Pins 1-8 IN1-IN8, 9 GND, 10 COM (12 V flyback common), 11-18 OUT8-OUT1.
 
 **C3 is wired as a THT radial — `C350206`** (SamYoung NXB, D10×12.5 mm, 5.08 mm pitch,
 53 mΩ ESR / 1.36 A ripple / 4000 h @105 °C), placed by JLCPCB through-hole assembly; its
