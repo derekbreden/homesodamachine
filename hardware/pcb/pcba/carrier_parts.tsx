@@ -233,9 +233,12 @@ export const Jst = ({ name, x, y, count, labels, rot = 0, label, labelDir, jlcpc
   const pitch = 2.5, padR = 0.825                   // XH 2.5 mm pitch, 1.65 mm pad radius
   const bigHalf = 0.42, smHalf = 0.24               // ink cap half-heights (0.6 × font size)
   const G = 0.45, M = 0.6                            // even tier gap; even content -> fence margin
-  // perpDir = the side the function label sits on (pin labels + ref-des opposite).
-  // Defaults toward the board centre; labelDir overrides where the loom dictates.
-  const perpDir = vertical ? (labelDir ?? (-Math.sign(x) || -1)) : 1
+  // A vertical connector is the horizontal layout turned a quarter-turn CCW (the
+  // rotation that makes the text read bottom-to-top), so the function label sits on
+  // the -X side — the side that reads as ABOVE the pins once the board is turned to
+  // read it — and the pin labels + ref-des on +X. Uniform across all connectors so
+  // they're consistent; labelDir is accepted but no longer needed for this.
+  const perpDir = vertical ? -1 : 1
   const bigOff = padR + G + bigHalf                 // row -> function label
   const labelOff = padR + G + smHalf                // row -> pin label
   const refOff = labelOff + smHalf + G + smHalf     // row -> ref-des (one tier beyond pin labels)
