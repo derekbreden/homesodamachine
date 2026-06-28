@@ -21,9 +21,7 @@
  * planes stay pristine copper). SDA/SCL stay a routed top bus — two co-located
  * nets pour into ugly interlocking islands, a clean trace pair reads better.
  */
-import {
-  i8, at, Jst, ulnOUT,
-} from "./carrier_parts"
+import { at, Jst, ulnOUT } from "./carrier_parts"
 import { Uln2803, Mcp23017, Ds3231Smd, Thvd1426, Sm712, Ams1117_33 } from "./pcba_parts"
 import { boardVersionParts } from "./board-version"
 import { logoRoutes } from "./logo"
