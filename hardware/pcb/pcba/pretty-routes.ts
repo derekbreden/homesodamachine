@@ -21,7 +21,7 @@
  * can never go stale (it is always fed routes that land on the current pads). The net
  * list comes from the .tsx, so adding a signal is one <trace ... pretty=...> line.
  */
-import { mazeRouteNets, cleanPads, cleanFanRoute, monoWarn, routedNetToJSX, type MazeSpec, type FanType } from "./pretty-router"
+import { mazeRouteNets, cleanPads, monoWarn, routedNetToJSX, type MazeSpec, type FanType } from "./pretty-router"
 import { readFileSync, writeFileSync, rmSync } from "node:fs"
 import path from "node:path"
 
@@ -41,6 +41,19 @@ type Pretty = { el: string; from: string; to: string; strategy: string; variant:
 const attrOf = (el: string, name: string) => (el.match(new RegExp(`\\b${name}="([^"]*)"`)) || [])[1] || ""
 // ".J5 > .IO25" -> "J5.IO25" (the form the router labels pads with)
 const toDot = (sel: string) => sel.replace(/^\./, "").replace(/\s*>\s*\./, ".")
+
+// A circuit-json pcb_trace.route -> a fixed <pcbtrace>, so the obstacle pass's already
+// routed copper can be frozen into the final build (eliminating the second autoroute).
+const pcbTraceRouteToJSX = (route: any[]): string => {
+  const body = route
+    .map((p) =>
+      p.route_type === "via"
+        ? `{route_type:"via",x:${p.x},y:${p.y},from_layer:${JSON.stringify(p.from_layer)},to_layer:${JSON.stringify(p.to_layer)}}`
+        : `{route_type:"wire",x:${p.x},y:${p.y},width:${p.width ?? 0.2},layer:${JSON.stringify(p.layer)}}`,
+    )
+    .join(",\n      ")
+  return `    <pcbtrace route={[\n      ${body},\n    ]} />`
+}
 
 export function findPrettyTraces(src: string): Pretty[] {
   // match each self-closing <trace .../> (non-greedy to the first "/>", since the
@@ -105,8 +118,11 @@ export async function applyPrettyRoutes(dir: string, board: string, exportCJ: Ex
     for (const rn of routed) { jsx.push(routedNetToJSX(rn)); field = field.concat([{ type: "pcb_trace", pcb_trace_id: `_pretty_obs_${obsId++}`, route: rn.route }]) }
   }
 
-  // ── clean fans: each net routes independently from its two pads. Warn (don't fail)
-  // if a fan's pin mapping isn't monotone, grouping by fan type + source component. ──
+  // ── clean fans: the SAME obstacle-aware router as the maze, in "fan" style — biased
+  // toward a tidy riser + 45° landing, but it detours / dips to the other layer (via) to
+  // dodge copper, so a fan never shorts an autoroute. Routed per group against the
+  // accumulating field (which already carries the autoroutes + the maze copper); each
+  // routed fan joins the field so the next group + the autorouter-free render avoid it. ──
   const cleanNets = pretties.filter((p) => p.strategy === "clean")
   if (cleanNets.length) {
     const pads = cleanPads(obstacle)
@@ -117,9 +133,21 @@ export async function applyPrettyRoutes(dir: string, board: string, exportCJ: Ex
       const pairs = ps.map((p) => ({ from: toDot(p.from), to: toDot(p.to) }))
       if (ft === "fanRowToColumn") monoWarn(pairs, pads, "x", "y", k)
       else monoWarn(pairs, pads, "y", "x", k)
+      const routed = mazeRouteNets(field, pairs, { ...COMMON, style: "fan", fanType: ft, margin: 5 })
+      if (routed.length !== pairs.length) throw new Error(`[pretty] fan group ${k}: routed only ${routed.length}/${pairs.length} nets — corridor fully blocked`)
+      for (const rn of routed) { jsx.push(routedNetToJSX(rn)); field = field.concat([{ type: "pcb_trace", pcb_trace_id: `_fan_obs_${obsId++}`, route: rn.route }]) }
     }
-    for (const p of cleanNets) jsx.push(routedNetToJSX(cleanFanRoute(pads, toDot(p.from), toDot(p.to), { fanType: p.variant as FanType })))
   }
+
+  // ── collapse the second autoroute ──
+  // The obstacle pass already routed every non-pretty net, and BOTH the maze and the
+  // (now obstacle-aware) fans routed AROUND that copper — so nothing overlaps. Freeze
+  // those routes in as fixed <pcbtrace> too: the final export then has nothing left to
+  // autoroute. This is also what makes the result correct — the autorouter ignores
+  // injected <pcbtrace>, so a second autoroute pass would re-route a net straight back
+  // across the pretty copper (the SDA-over-fan short). One pass, no re-crossing.
+  const frozen = obstacle.filter((e) => e.type === "pcb_trace")
+  for (const t of frozen) jsx.push(pcbTraceRouteToJSX(t.route))
 
   // Routed render input: strip the pretty attrs (so the <trace>s are plain netlist +
   // the carve owns them) and inject the computed <pcbtrace> copper before </board>.
@@ -127,6 +155,6 @@ export async function applyPrettyRoutes(dir: string, board: string, exportCJ: Ex
   routedSrc = routedSrc.replace(/(\n\s*)<\/board>/, `\n${jsx.join("\n")}$1</board>`)
   const routedName = `_build-${board}.pretty-routed.tmp`
   writeFileSync(path.join(dir, `${routedName}.tsx`), routedSrc)
-  console.log(`[pretty] routed ${jsx.length} net(s): ${mazeGroups.size} maze group(s) + ${cleanNets.length} clean fan(s) -> ${routedName}.tsx`)
+  console.log(`[pretty] routed ${mazeGroups.size} maze group(s) + ${cleanNets.length} clean fan(s) + froze ${frozen.length} autorouted net(s) -> ${routedName}.tsx (no 2nd autoroute)`)
   return { routedName, obstacleCircuitJson: obstacle }
 }
