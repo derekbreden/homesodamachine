@@ -122,21 +122,3 @@ export const Sm712 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: num
     {...at(x, y)}
   />
 )
-
-// ---- AMS1117-3.3 — 5 V -> 3V3 LDO, SOT-223 ----------------------------------
-// C6186 (AMS1117-3.3, 1 A, 1.1 V dropout). Pin 1 GND, 2 VOUT, 3 VIN; the heat-tab
-// is VOUT (labelled on the 4th pad). The board's 3V3 source once the ESP module's
-// onboard regulator is dropped — feeds both MCPs, DS3231, RS485, the sensor 3V3 leg
-// and (after step 9) the bare ESP, so it carries the WiFi-TX peak. 10uF in / 22uF out.
-const amsPinLabels = { pin1: "GND", pin2: "VOUT", pin3: "VIN", pin4: "VOUT" }
-
-export const Ams1117_33 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => (
-  <chip
-    name={name}
-    footprint="sot223"
-    pcbRotation={rot}
-    pinLabels={amsPinLabels}
-    supplierPartNumbers={{ jlcpcb: ["C6186"] }}
-    {...at(x, y)}
-  />
-)
