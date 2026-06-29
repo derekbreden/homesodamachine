@@ -145,17 +145,17 @@ if (process.env.RENDER_SOURCE === "dev-server") {
   }
 }
 
-const { routedName, obstacleCircuitJson } = await applyPrettyRoutes(dir, board, exportCircuitJson)
+const { routedName } = await applyPrettyRoutes(dir, board, exportCircuitJson)
 if (routedName !== board) track(path.join(dir, `${routedName}.tsx`))
 
-// Export fabrication Gerbers. When there are pretty routes, the obstacle
-// circuit-json from applyPrettyRoutes has the structured entities (texts,
-// pads, nets) that back-silk + pick-data need — no separate export needed.
-// When there are none, ask for both formats at once so a single tsci pipeline
-// (one autorouter pass, two outputs) covers it without a second build.
+// Export fabrication Gerbers AND the circuit-json of the FINAL routed board in one
+// tsci pipeline (one autorouter pass, two outputs). back-silk + pick-data read that
+// circuit-json, so the pad picker hit-tests against the COMPLETE copper — including
+// the pretty / 2nd-pass traces. (Reusing the obstacle pass's circuit-json here left
+// the pretty nets — which are removed in the obstacle — unpickable in the viewer.)
 console.log(`[${board}] exporting gerbers… (cwd=${dir})`)
-let circuit: any[] | null = obstacleCircuitJson
-const exportFormat = circuit ? "gerbers" : "gerbers,circuit-json"
+let circuit: any[] | null = null
+const exportFormat = "gerbers,circuit-json"
 try {
   await sh(tsci, ["export", "-f", exportFormat, "-o", zipRel, `${routedName}.tsx`], { cwd: dir })
 } catch (e: any) {
