@@ -373,7 +373,8 @@ export default () => (
         island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
     <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={39} y={-27.5} rot={90} />
     <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={39.2} y={10.9} rot={90} />
-    <NXB_25V470_10_12_5 name="C3" {...at(34.1, -2.2)} />
+    <NXB_25V470_10_12_5 name="C3" pcbRotation={180} {...at(34.1, -2.2)} />
+    <silkscreentext text="C3" fontSize="1mm" anchorAlignment="center" pcbX={34.1} pcbY={3.8} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
     <trace from=".C2 > .pin1" to="net.V12" />
