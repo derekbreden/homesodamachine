@@ -138,7 +138,7 @@ export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
   });
 
   // PCB pad-picker data — the distilled pads + identity for one board (see
-  // hardware/pcb/carrier/pick-data.ts). Same `pcb/.../out/` confinement as the
+  // hardware/pcb/pcba/pick-data.ts). Same `pcb/.../out/` confinement as the
   // view content, restricted to the `.picks.json` the distiller writes.
   app.get("/api/pcb-picks/*", (req, res) => {
     const rel = req.params[0];

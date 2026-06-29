@@ -8,7 +8,7 @@
  * mid-build, or the thin _maze.ts / clean-pass.ts CLI shells). This is the routing
  * core extracted from _maze.ts so the 2nd pass can run as a real BUILD stage keyed
  * to live geometry, instead of being snapshotted into frozen coordinates pasted
- * into the board .tsx. See conversion-plan.md.
+ * into the board .tsx.
  */
 
 export type RoutePoint =

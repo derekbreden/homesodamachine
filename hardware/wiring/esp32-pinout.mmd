@@ -1,8 +1,8 @@
 flowchart LR
 
-  %% DERIVED VIEW — the canonical pin map is hardware/pcb/carrier/mini.tsx
+  %% DERIVED VIEW — the canonical pin map is hardware/pcb/pcba/pcba.tsx
   %% (PCB-canonical). Keep this in sync with the board; do not change a pin
-  %% assignment here without changing mini.tsx first.
+  %% assignment here without changing pcba.tsx first.
   %%
   %% ESP32 Pin Assignments (re-clustered for minimal wiring crossings).
   %% Each subsystem lands on physically adjacent module pads, so its signals
@@ -43,6 +43,10 @@ flowchart LR
   %%   GPIO 23  - free (was the flow-meter pin)
   %%   GPIO 12  - free (bootstrap-sensitive)
   %%   GPIO 2   - free (bootstrap-sensitive)
+  %% Programming / console header J12 (the bare WROOM exposes these; the DevKitC hid them):
+  %%   GPIO 0   boot strap (J12 IO0 + R8 pull-up to 3V3)
+  %%   GPIO 1   U0TXD (J12 TX0, program / console)
+  %%   GPIO 3   U0RXD (J12 RX0, program / console)
 
   subgraph ESP["ESP32-DevKitC-32E"]
     direction TB

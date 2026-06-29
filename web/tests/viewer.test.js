@@ -94,7 +94,7 @@ test("/pcb board modal shows the board's outer dimensions", async (t) => {
   if (!puppeteer) return t.skip("puppeteer unavailable");
   // Needs a rendered board with a picks sidecar (the dimensions source).
   const picksPath = path.join(
-    REPO_ROOT, "hardware", "pcb", "carrier", "out", "mini.picks.json",
+    REPO_ROOT, "hardware", "pcb", "pcba", "out", "pcba.picks.json",
   );
   if (!fs.existsSync(picksPath)) return t.skip("no rendered board with picks");
 

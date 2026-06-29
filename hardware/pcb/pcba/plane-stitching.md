@@ -1,7 +1,7 @@
 # SMD pads on a plane net are auto-stitched to the plane
 
 A through-hole pin's plated barrel pierces every layer, so on a plane net (GND / 3V3 / 5V /
-V12) it commons to the pour at its barrel for free — the carrier's whole power scheme. An SMD
+V12) it commons to the pour at its barrel for free — the board's through-hole connector power scheme. An SMD
 pad is copper on one layer. A pad whose net is poured on a *different* layer is not connected
 by the pour; it needs a via down to the plane's layer — the SMD analogue of the THT barrel.
 

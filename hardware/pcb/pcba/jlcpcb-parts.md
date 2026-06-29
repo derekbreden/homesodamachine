@@ -100,12 +100,11 @@ diode (per the step spec); the S8050's 25 V Vce(o) is the only clamp on the coil
 spike — the first thing to add if the transistor shows stress. Q1 emitter and U8 + are SMD
 plane pads and auto-stitch to GND / 5 V (see [`plane-stitching.md`](plane-stitching.md)).
 
-**U1 is the bare ESP32-WROOM-32E-N4 (`C701341`, Extended), replacing the DevKitC socket.**
+**U1 is the bare ESP32-WROOM-32E-N4 (`C701341`, Extended), the ESP32 base part.**
 The only ESP32 base part the design needs — radio unused, so the cheapest WROOM-32E variant
 (4 MB, N4) is fine; the keepout silk stays but no plane is carved (no RF). Placed `rot 180`
-so the module's pin geography matches the carrier's two header rows (ADC/UART/pump-A north,
-I2C/pump-B/buzzer/IO0 south), letting the J5 and faucet mazes re-route against the same
-layout. It is **3V3-only** — no onboard regulator, no V5 pin — drawing the WiFi-idle ~110 mA
+so the module's pin geography falls into two rows (ADC/UART/pump-A north,
+I2C/pump-B/buzzer/IO0 south), keeping the J5 and faucet route corridors clean. It is **3V3-only** — no onboard regulator, no V5 pin — drawing the WiFi-idle ~110 mA
 peak from the step-8 LDO plane through its single 3V3 stitch via, with C10 (0.1 µF) + C11
 (10 µF bulk) at the pin. The 3 castellated GND pads + the 9-pad centre thermal pad all share
 one `GND` port and each auto-stitches to the bottom plane. EN power-on RC: R7 (10 kΩ, `C25804`

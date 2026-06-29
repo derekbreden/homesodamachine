@@ -1,7 +1,7 @@
 // PCB board module. A board carries its rendered copper views — Top (front),
 // Bottom (back, seen from above through the board), any inner copper planes of a
 // multi-layer board, and Overlay (the whole stack at once, warm front / cool
-// back) — produced by hardware/pcb/carrier/render-board.ts straight from the
+// back) — produced by hardware/pcb/pcba/render-board.ts straight from the
 // fabrication Gerbers, so the lines have the real widths the board is made with.
 //
 // Modeled on drawings.js: a 2D SVG opened in ContentViewer with PanZoom, with
