@@ -3,35 +3,29 @@
  *
  * A board declares 2nd-pass routing inline, by net identity:
  *
- *   <trace from=".J5 > .IO25"  to=".U1 > .IO25" pretty="maze:j5" />
- *   <trace from=".U2 > .GPA0"  to=".U4 > .IN8"   pretty="clean:fanRowToColumn" />
+ *   <trace from=".U2 > .GPA0" to=".U4 > .IN8" pretty="clean:fanRowToColumn" />
  *
- * `pretty="<strategy>:<variant>"`. At build time applyPrettyRoutes() (called by
- * render-board) autoroutes the rest of the board, routes the pretty nets in-process
- * against that field (pretty-router.ts), and returns a FINISHED circuit-json — the
- * autoroutes plus the computed copper spliced in — which render-board converts straight
- * to gerbers. No throwaway .tsx, no second autoroute (see applyPrettyRoutes below).
+ * `pretty="clean:<fanType>"`. At build time applyPrettyRoutes() (called by render-board)
+ * autoroutes the rest of the board, routes the pretty nets in-process against that field
+ * (pretty-router.ts), and returns a FINISHED circuit-json — the autoroutes plus the
+ * computed copper spliced in — which render-board converts straight to gerbers. No
+ * throwaway .tsx, no second autoroute (see applyPrettyRoutes below).
  *
- *   maze:<group>     obstacle-aware A*. variant names a MAZE_GROUPS window below.
  *   clean:<fanType>  riser + 45° fan (fanRowToColumn | fanColumnToRow | fanColumnToColumn
- *                    | fanRowToRow — fan<sourceLine>To<targetLine>). variant
- *                    IS the fan type; `from` is the riser source.
+ *                    | fanRowToRow — fan<sourceLine>To<targetLine>). variant IS the fan
+ *                    type; `from` is the riser source.
  *
  * The point: routes regenerate every build from live geometry, so moving a part just
- * re-routes it. No coordinates are frozen into the source. The net
- * list comes from the .tsx, so adding a signal is one <trace ... pretty=...> line.
+ * re-routes it. No coordinates are frozen into the source. The net list comes from the
+ * .tsx, so adding a signal is one <trace ... pretty=...> line.
  */
-import { mazeRouteNets, cleanFanRoute, cleanPads, monoWarn, type MazeSpec, type FanType } from "./pretty-router"
+import { cleanFanRoute, cleanPads, monoWarn, type FanType } from "./pretty-router"
 import { readFileSync, writeFileSync, rmSync } from "node:fs"
 import path from "node:path"
 
-// maze search windows. The region can be wider than the pads' bounding box where a
-// route must detour (e.g. J5.IO19 swings right of BT1's clip). Params match COMMON.
-const COMMON = { cell: 0.1, clr: 0.25, width: 0.2, viaCost: 60, startLayer: "top", turn: 12 }
-const MAZE_GROUPS: Record<string, MazeSpec> = {
-  j5: { ...COMMON, region: { x0: -44, x1: -13, y0: -47, y1: 14 } },
-  faucet485: { ...COMMON, region: { x0: -52, x1: -12, y0: 6, y1: 45 } },
-}
+// clean-fan clearance (mm): the edge-to-edge gap a fan diagonal keeps from other copper
+// when deciding whether to drop to the bottom layer.
+const CLR = 0.25
 
 // circuit-json exporter the caller supplies (render-board reuses its tsci runner).
 export type ExportCircuitJson = (tsxBasename: string) => Promise<any[]>
@@ -57,11 +51,10 @@ export function findPrettyTraces(src: string): Pretty[] {
  *
  *   1. AUTOROUTER FIRST — export the board with every pretty <trace> removed, so the
  *      autorouter routes only the non-pretty nets and leaves the pretty corridors clear.
- *   2. OUR ROUTER AFTER — route the pretty nets against that autorouted field. Maze nets
- *      are obstacle-aware A* (they via/detour around autoroute copper and each other).
- *      Clean fans keep a FIXED straight → 45° → straight XY shape (no search), but are
- *      obstacle-aware in Z: a diagonal that would cross top copper drops to the bottom
- *      layer (a via at each end). Nothing overlaps, by construction.
+ *   2. OUR ROUTER AFTER — route the pretty nets against that autorouted field. Clean fans
+ *      keep a FIXED straight → 45° → straight XY shape (no search), but are obstacle-aware
+ *      in Z: a diagonal that would cross top copper (a trace or another part's SMD pad)
+ *      drops to the bottom layer (a via at each end). Nothing overlaps, by construction.
  *   3. STOP — splice our copper (a pcb_trace + a pcb_via per layer change, per net) into
  *      the autorouted circuit-json and return it. The caller converts THIS straight to
  *      gerbers; the autorouter never runs again.
@@ -95,27 +88,9 @@ export async function applyPrettyRoutes(dir: string, board: string, exportCJ: Ex
     rmSync(path.join(dir, `${obsName}.circuit.json`), { force: true })
   }
 
-  // ── STEP 2: our router after, avoiding the autoroutes (and each other). ──
-  for (const p of pretties) if (p.strategy !== "maze" && p.strategy !== "clean") throw new Error(`[pretty] unknown strategy "${p.strategy}" (${p.from} -> ${p.to})`)
-  const routedNets: ReturnType<typeof mazeRouteNets> = []
-  let field = obstacle
-
-  // maze groups: hardest(longest)-first, deterministic; each routed group joins the field.
-  const xy: Record<string, { x: number; y: number }> = cleanPads(obstacle)
-  const len = (p: Pretty) => { const a = xy[toDot(p.from)], b = xy[toDot(p.to)]; return a && b ? Math.abs(a.x - b.x) + Math.abs(a.y - b.y) : 0 }
-  const mazeGroups = new Map<string, Pretty[]>()
-  for (const p of pretties) if (p.strategy === "maze") (mazeGroups.get(p.variant) ?? mazeGroups.set(p.variant, []).get(p.variant)!).push(p)
-  let obsId = 0
-  for (const key of [...mazeGroups.keys()].sort()) {
-    const ps = mazeGroups.get(key)!
-    const cfg = MAZE_GROUPS[key]
-    if (!cfg) throw new Error(`[pretty] no MAZE_GROUPS window for "${key}" (${ps.length} net(s): ${ps.map((p) => `${p.from}->${p.to}`).join(", ")})`)
-    const ordered = [...ps].sort((a, b) => len(b) - len(a) || toDot(a.from).localeCompare(toDot(b.from)))
-    const pairs = ordered.map((p) => ({ from: toDot(p.from), to: toDot(p.to) }))
-    const routed = mazeRouteNets(field, pairs, cfg)
-    if (routed.length !== pairs.length) throw new Error(`[pretty] maze group ${key}: routed only ${routed.length}/${pairs.length} nets — widen the region or check for obstacles`)
-    for (const rn of routed) { routedNets.push(rn); field = field.concat([{ type: "pcb_trace", pcb_trace_id: `_pretty_obs_${obsId++}`, route: rn.route }]) }
-  }
+  // ── STEP 2: our router after, avoiding the autoroutes. ──
+  for (const p of pretties) if (p.strategy !== "clean") throw new Error(`[pretty] unknown strategy "${p.strategy}" (${p.from} -> ${p.to}) — only clean fans are supported`)
+  const routedNets: ReturnType<typeof cleanFanRoute>[] = []
 
   // clean fans: pure geometry, NOT a search. The autorouter ran first and left these
   // corridors clear, so each net draws straight → 45° → straight on one layer, no vias.
@@ -135,9 +110,9 @@ export async function applyPrettyRoutes(dir: string, board: string, exportCJ: Ex
       }
       const [sax, tax] = MONO[ft]
       monoWarn(pairs, pads, sax, tax, k)
-      // Z-aware: pass the copper routed so far (autoroutes + maze) so a fan diagonal that
-      // would cross top copper drops to the bottom layer instead of shorting. XY stays fixed.
-      for (const { from, to } of pairs) routedNets.push(cleanFanRoute(pads, from, to, { fanType: ft, field, clr: COMMON.clr }))
+      // Z-aware: pass the autoroutes so a fan diagonal that would cross top copper (a trace
+      // or another part's SMD pad) drops to the bottom layer instead of shorting. XY stays fixed.
+      for (const { from, to } of pairs) routedNets.push(cleanFanRoute(pads, from, to, { fanType: ft, field: obstacle, clr: CLR }))
     }
   }
 
@@ -153,6 +128,6 @@ export async function applyPrettyRoutes(dir: string, board: string, exportCJ: Ex
       extra.push({ type: "pcb_via", pcb_via_id: `pcb_via_pretty_${i}_${j}`, pcb_trace_id: `pcb_trace_pretty_${i}`, x: p.x, y: p.y, hole_diameter: 0.3, outer_diameter: 0.5, layers: [p.from_layer, p.to_layer], from_layer: p.from_layer, to_layer: p.to_layer })
     })
   })
-  console.log(`[pretty] step1 autoroute + step2 ${mazeGroups.size} maze group(s) + ${cleanNets.length} clean fan(s): spliced ${routedNets.length} net(s) (${vias} via) into the circuit-json — no 2nd autoroute`)
+  console.log(`[pretty] step1 autoroute + step2 ${cleanNets.length} clean fan(s): spliced ${routedNets.length} net(s) (${vias} via) into the circuit-json — no 2nd autoroute`)
   return obstacle.concat(extra)
 }
