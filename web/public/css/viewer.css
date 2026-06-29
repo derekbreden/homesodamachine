@@ -740,6 +740,13 @@
 .pcb-edit-layer.active .pcb-edit-box:hover {
   fill: rgba(110, 215, 140, 0.22);
 }
+/* In the multi-selection: brighter than armed-idle, dimmer than the active drag,
+   so the grabbed set reads at a glance. */
+.pcb-edit-layer.active .pcb-edit-comp.selected .pcb-edit-box {
+  fill: rgba(110, 215, 140, 0.28);
+  stroke: rgba(150, 245, 180, 1);
+  stroke-width: 170;
+}
 .pcb-edit-layer.active .pcb-edit-comp.dragging .pcb-edit-box {
   cursor: grabbing;
   fill: rgba(110, 215, 140, 0.30);
