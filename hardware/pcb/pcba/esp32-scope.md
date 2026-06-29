@@ -14,7 +14,8 @@ UART hub:
 - I²C: IO21 (SDA), IO22 (SCL)
 - UART → RS485 config display: IO32 (TX), IO34 (RX)
 - UART → faucet display: IO33 (TX), IO35 (RX)
-- Pump A / B + relays → L298N: IO27, IO25, IO26, IO19, IO18, IO5, IO17, IO16
+- Pumps → on-board DRV8870 H-bridges: IO27/IO25 (pump A IN1/IN2), IO19/IO18 (pump B IN1/IN2)
+- Relays (off-board modules) → IO17, IO16. IO26/IO5 are spare (were the L298N's 3rd pump lines)
 - Sensors: IO14 (1-wire), IO15 (flow), IO13 (backflow)
 - Gas dividers: IO39 (AOUT), IO36 (DOUT)
 - Buzzer: IO4
@@ -26,11 +27,11 @@ the module's internal flash.
 ## SMD block
 
 WROOM-32E + per-VDD 0.1 µF + 10 µF bulk; EN 10k + 1 µF; IO0 10k pull-up; 6-pin serial
-header (TX0 / RX0 / IO0 / EN / GND / 3V3). 3V3 from the step-8 LDO.
+header (TX0 / RX0 / IO0 / EN / GND / 3V3). 3V3 from the on-board K7803 buck.
 
 Strapping pins:
 - IO0 — pull-up + on the header (boot select)
-- IO5 — pump-B output; high at boot
+- IO5 — spare (was pump-B 3rd line); high at boot
 - IO15 — flow input; high at boot
 - IO2, IO12 — unconnected; low / floating at boot
 

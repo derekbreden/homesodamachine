@@ -12,9 +12,9 @@ checked on every build rather than assembled at the end.
 ## Scope
 
 - Active parts are silicon: ESP32 (bare WROOM), 2×MCP23017, 2×ULN2803A, DS3231,
-  RS485, buzzer. The L298N, MQ-6, displays, reeds, pumps, and solenoids stay
-  off-board on the connectors.
-- Split 12 V / 5 V inlets. 3V3 made on-board (one LDO); 5 V external.
+  RS485, buzzer, 2× DRV8870 pump-motor H-bridges, 2× K78xx bucks. The MQ-6, displays,
+  reeds, pump motors, relays, and solenoids stay off-board on the connectors.
+- Single 12 V inlet; 3V3 and 5 V both made on-board (K7803 / K7805 switching bucks).
 - Field connectors through-hole, JLCPCB-assembled.
 - Two deferred items: gas/compressor interlock, input protection.
 - Parts map to in-stock LCSC numbers, Basic-first; `tsci import <LCSC#>` for footprints.
