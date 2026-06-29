@@ -5,7 +5,7 @@
  * render those as <pcbtrace> JSX or as circuit-json pcb_trace entities.
  *
  * NO file or child-process I/O — the caller supplies the circuit-json (render-board
- * mid-build, or the thin _maze.ts / clean-pass.ts CLI shells). This is the routing
+ * mid-build, or the thin _maze.ts CLI shell). This is the routing
  * core extracted from _maze.ts so the 2nd pass can run as a real BUILD stage keyed
  * to live geometry, instead of being snapshotted into frozen coordinates pasted
  * into the board .tsx.
