@@ -16,6 +16,29 @@ export const at = (px: number, py: number) => ({ pcbX: px, pcbY: py, schX: px / 
 // MANIFOLD A's connector reuses the ULN output order (ch1-8 + the 12 V flyback COM).
 export const ulnOUT = ["OUT1", "OUT2", "OUT3", "OUT4", "OUT5", "OUT6", "OUT7", "OUT8", "COM"]
 
+// ---- SMD capacitor with a hand-drawn ref-des -------------------------------
+// A 2-pad ceramic whose ref-des is drawn here, not by the footprint. tscircuit's
+// auto ref-des locks a vertical part's label to top-to-bottom; every connector
+// label on this board reads bottom-to-top (the Jst helper hand-draws its labels
+// for the same reason). So we suppress the footprint ref-des (`_norefdes`, which
+// keeps the 3-sided silk courtyard) and redraw it: rot 90 for a vertical part
+// (reads bottom-to-top), rot 0 for a horizontal one. `lab` is the ref-des centre
+// relative to the body; the default sits one tier off the body — on the -X side
+// for a vertical part (the connector convention), above for a horizontal one.
+export const Cap = ({ name, capacitance, footprint, jlcpcb, x, y, rot = 90, lab }: {
+  name: string; capacitance: string; footprint: string; jlcpcb: string
+  x: number; y: number; rot?: number; lab?: [number, number]
+}) => {
+  const vertical = rot % 180 !== 0
+  const [lx, ly] = lab ?? (vertical ? [-1.85, 0] : [0, 1.35])
+  return (
+    <>
+      <capacitor name={name} capacitance={capacitance} footprint={`${footprint}_norefdes`} supplierPartNumbers={{ jlcpcb: [jlcpcb] }} pcbRotation={rot} {...at(x, y)} />
+      <silkscreentext text={name} fontSize="0.8mm" pcbX={x + lx} pcbY={y + ly} pcbRotation={vertical ? 90 : 0} />
+    </>
+  )
+}
+
 // A stroked rectangle on the silk layer — a part's PCB outline / fence.
 export const Outline = ({ x, y, w, h }: { x: number; y: number; w: number; h: number }) => (
   <silkscreenpath
