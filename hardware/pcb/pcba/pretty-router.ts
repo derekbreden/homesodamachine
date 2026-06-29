@@ -351,6 +351,40 @@ export function cleanPads(circuit: any[]): Record<string, { x: number; y: number
   return pads
 }
 
+// A clean fan: a known geometric path (NOT a search). The autorouter has already run
+// and left these corridors clear, so the fan just draws straight → 45° → straight.
+export type CleanSpec = { fanType: FanType; layer?: string; width?: number; stub?: number }
+
+const wirePt = (x: number, y: number, width: number, layer: string): RoutePoint =>
+  ({ route_type: "wire", x: +x.toFixed(3), y: +y.toFixed(3), width, layer })
+
+// Route one net as a clean fan, single layer, no vias. The pad escape and the pad landing
+// are both PERPENDICULAR to their pin rows; the 45° diagonal only happens in open space
+// between them. `stub` is the small perpendicular escape length off the source pad.
+//
+//   fanRowToColumn  (source pins form a ROW, target pins form a COLUMN):
+//     escape the source straight in Y a small amount toward the goal, run 45° toward the
+//     goal until the goal's Y is reached, then go straight in X into the goal.
+//   fanColumnToColumn  (source pins form a COLUMN, target a ROW):  the X/Y mirror —
+//     escape straight in X, run 45° until the goal's X, then straight in Y into the goal.
+export function cleanFanRoute(pads: Record<string, { x: number; y: number }>, from: string, to: string, spec: CleanSpec): RoutedNet {
+  const s = pads[from], t = pads[to]
+  if (!s || !t) throw new Error(`clean fan: no pad ${!s ? from : to}`)
+  const layer = spec.layer ?? "top", width = spec.width ?? 0.2, stub = spec.stub ?? 1
+  const pt = (x: number, y: number) => wirePt(x, y, width, layer)
+  let route: RoutePoint[]
+  if (spec.fanType === "fanRowToColumn") {
+    const y1 = s.y + Math.sign(t.y - s.y) * stub           // straight: small Y escape toward goal
+    const x2 = s.x + Math.sign(t.x - s.x) * Math.abs(t.y - y1) // 45° until the goal's Y
+    route = [pt(s.x, s.y), pt(s.x, y1), pt(x2, t.y), pt(t.x, t.y)] // straight in X into the goal
+  } else {
+    const x1 = s.x + Math.sign(t.x - s.x) * stub           // straight: small X escape toward goal
+    const y2 = s.y + Math.sign(t.y - s.y) * Math.abs(t.x - x1) // 45° until the goal's X
+    route = [pt(s.x, s.y), pt(x1, s.y), pt(t.x, y2), pt(t.x, t.y)] // straight in Y into the goal
+  }
+  return { from, to, route, vias: 0 }
+}
+
 // warn (don't fail) if a fan's pin mapping isn't monotone — that's when risers cross.
 // axis = source coordinate that's swept; tax = target coordinate that must track it.
 export function monoWarn(pairs: { from: string; to: string }[], pads: Record<string, { x: number; y: number }>, axis: "x" | "y", tax: "x" | "y", label: string) {
