@@ -8,7 +8,7 @@
 // never earned its keep).
 //
 // The copper SVG is anonymous Gerber geometry, so identity comes from a sidecar:
-// hardware/pcb/carrier/pick-data.ts distills pads (ref/pin/net + mm position),
+// hardware/pcb/pcba/pick-data.ts distills pads (ref/pin/net + mm position),
 // vias (net + layer hop), and traces (net + endpoint pads + polyline) into
 // out/<board>.picks.json. We overlay an invisible hit-target per entity inside a
 // group that reuses the SVG's own `translate(…) scale(1,-1)` Gerber-unit

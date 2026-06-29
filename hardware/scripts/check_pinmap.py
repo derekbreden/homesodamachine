@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """check_pinmap.py — drift guard for the canonical pin map.
 
-The carrier PCB (`hardware/pcb/carrier/mini.tsx`) is the canonical source of truth
+The controller PCB (`hardware/pcb/pcba/pcba.tsx`) is the canonical source of truth
 for the ESP32 GPIO / MCP-bank pin map (see `hardware/pcb/README.md`). The pinout
 diagram, the assembly doc-sync drivers, and the BOM are DERIVED views. They are
 hand-maintained, so they drift — and that drift is exactly what left the piezo
@@ -32,7 +32,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-MINI = ROOT / "hardware/pcb/carrier/mini.tsx"
+BOARD = ROOT / "hardware/pcb/pcba/pcba.tsx"
 PINOUT = ROOT / "hardware/wiring/esp32-pinout.mmd"
 BOM = ROOT / "hardware/ledger/bom.md"
 SHELF_SYNC = ROOT / "hardware/assembly/_electronics_shelf_sync.py"
@@ -46,15 +46,15 @@ def fail(msg: str) -> None:
     failures.append(msg)
 
 
-mini = MINI.read_text()
+board = BOARD.read_text()
 pinout = PINOUT.read_text()
 bom = BOM.read_text()
 shelf = SHELF_SYNC.read_text()
 fw = FW_SYNC.read_text()
 
 # ── 1. Pinout coverage ────────────────────────────────────────────────────
-# Board GPIO set: every ESP socket pin (.U1A/.U1B > .IOxx) named in a trace.
-board_gpios = {int(n) for n in re.findall(r"\.U1[AB] > \.IO(\d+)", mini)}
+# Board GPIO set: every ESP socket pin (.U1 > .IOxx) named in a trace.
+board_gpios = {int(n) for n in re.findall(r"\.U1[AB]? > \.IO(\d+)", board)}
 
 # Documented GPIOs + role text, from the pinout node defs and the header comment.
 doc_roles: dict[int, str] = {}
@@ -101,11 +101,11 @@ for text, var, kw in SYNC_CHECKS:
         fail(f"{var}={val} but the pinout says GPIO{hits[0]} is the {kw!r} pin")
 
 # ── 3. BOM <-> board cross-table ──────────────────────────────────────────
-# Every controller-facing function: (name, mini.tsx marker regex, bom.md marker
+# Every controller-facing function: (name, pcba.tsx marker regex, bom.md marker
 # regex). The marker must be present in BOTH the board and the BOM. Add a new
 # pin-driven part here when you add it to the BOM.
 CROSS = [
-    ("piezo buzzer",        r"Buzzer name=",     r"[Pp]iezo|[Bb]uzzer"),
+    ("piezo buzzer",        r"\.U8 > \._NEG",    r"[Pp]iezo|[Bb]uzzer"),
     ("gas sensor",          r'label="GAS"',      r"MQ-6|combustible gas"),
     ("moisture sensor",     r"backflow",         r"moisture|water sensor"),
     ("flow sensor",         r"\.IO15",           r"DIGITEN|flow sensor"),
@@ -120,15 +120,15 @@ CROSS = [
     ("gas divider resistors",r'resistance="2.2k"',r"gas-sensor output divider"),
 ]
 for name, mk, bk in CROSS:
-    if not re.search(mk, mini):
-        fail(f"cross-table: {name!r} expected on the board (mini.tsx /{mk}/) — not found")
+    if not re.search(mk, board):
+        fail(f"cross-table: {name!r} expected on the board (pcba.tsx /{mk}/) — not found")
     if not re.search(bk, bom):
         fail(f"cross-table: {name!r} expected in the BOM (/{bk}/) — not found")
 
-# Electrical BOM parts that legitimately need NO dedicated carrier signal pin:
-# plug-in modules (the controller / expanders / driver chips that socket onto the
-# board) and the power supply. Matched against the part NAME.
-NO_PIN = r"ESP32-DevKitC|DIN Rail|MCP23017|DS3231|ULN2803|Mean Well"
+# Electrical BOM parts that legitimately need NO dedicated board signal pin:
+# the SMD silicon / expanders / driver chips that carry their own pins, plus the
+# power supply. Matched against the part NAME.
+NO_PIN = r"ESP32-DevKitC|ESP32-WROOM|DIN Rail|MCP23017|DS3231|ULN2803|Mean Well"
 
 # Enforce the piezo failure mode away: every BOM line whose PART NAME looks like a
 # controller-facing electrical part must be covered by a CROSS bom-marker or the
@@ -160,4 +160,4 @@ if failures:
     for f in failures:
         print(f"  ✗ {f}")
     sys.exit(1)
-print("\n✓ pin map in sync: pinout, sync drivers, and BOM all agree with the carrier.")
+print("\n✓ pin map in sync: pinout, sync drivers, and BOM all agree with the board.")
