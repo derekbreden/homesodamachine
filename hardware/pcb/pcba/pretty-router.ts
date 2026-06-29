@@ -22,28 +22,10 @@ export type FanType = "fanRowToColumn" | "fanColumnToColumn"
 export type MazeSpec = {
   cell: number; clr: number; width: number; viaCost: number
   startLayer: string; turn?: number
-  // A* search window. Optional: when omitted (fan style) it is derived from the
-  // nets' own pads + their ideal-fan extents, padded by `margin` (mm, default 3).
+  // A* search window. Optional: when omitted it is derived from the nets' own pads,
+  // padded by `margin` (mm, default 3).
   region?: { x0: number; x1: number; y0: number; y1: number }
   margin?: number
-  // Routing style. "maze" (default) = free obstacle-aware A*. "fan" = the SAME
-  // obstacle-aware A*, but biased toward a clean perpendicular-riser + 45° landing
-  // (`fanType` sets the riser axis): an empty corridor yields the tidy fan, while a
-  // blocked one dips to the other layer (via) or detours instead of shorting.
-  style?: "maze" | "fan"
-  fanType?: FanType
-}
-
-// The ideal clean-fan polyline (riser + 45° landing) between two pads — geometry
-// only, used to size the fan's search window and to bias the A* toward the tidy
-// shape. fanRowToColumn risers run on Y (row source); fanColumnToColumn on X.
-export function idealFanPts(s: { x: number; y: number }, t: { x: number; y: number }, fanType: FanType): { x: number; y: number }[] {
-  if (fanType === "fanRowToColumn") {
-    const cy = t.y - Math.sign(t.y - s.y) * Math.abs(s.x - t.x)
-    return [s, { x: s.x, y: cy }, t]
-  }
-  const cx = t.x - Math.sign(t.x - s.x) * Math.abs(s.y - t.y)
-  return [s, { x: cx, y: s.y }, t]
 }
 
 // pad keep-out radius: a disc that covers the whole pad. For a rectangular pad use
@@ -83,8 +65,7 @@ export function mazeRouteNets(circuit: any[], pairs: { from: string; to: string 
 
   // ── occupancy grid (per layer) ──
   // Region: explicit (maze groups carry a tuned window), else derived from this
-  // call's own pads + their ideal-fan extents, padded by `margin` so the A* has
-  // room to detour/via around an obstacle (fan style).
+  // call's own pads, padded by `margin` so the A* has room to detour/via around copper.
   let REGION = SPEC.region
   if (!REGION) {
     const pts: { x: number; y: number }[] = []
@@ -92,7 +73,6 @@ export function mazeRouteNets(circuit: any[], pairs: { from: string; to: string 
       const a = pads[from], b = pads[to]
       if (a) pts.push(a)
       if (b) pts.push(b)
-      if (SPEC.style === "fan" && SPEC.fanType && a && b) pts.push(...idealFanPts(a, b, SPEC.fanType))
     }
     if (!pts.length) throw new Error("[route] no region and no resolvable pads to derive one from")
     const m = SPEC.margin ?? 3
@@ -195,23 +175,10 @@ export function mazeRouteNets(circuit: any[], pairs: { from: string; to: string 
   // so the path comes out as a few clean H/V/45° segments instead of grid stairs.
   const SQ2 = Math.SQRT2
   const TURN = SPEC.turn ?? 12
-  const FAN_OFFPATH = 4 // per-cell penalty for straying off the ideal-fan corridor (fan style)
   const moves = [[1, 0, 1], [-1, 0, 1], [0, 1, 1], [0, -1, 1], [1, 1, SQ2], [1, -1, SQ2], [-1, 1, SQ2], [-1, -1, SQ2]]
   const NXY = NX * NY
 
-  // Mark the ideal-fan corridor (riser + 45° polyline, ±halo cells) into a cell mask, so
-  // the A* can be biased to hug it. Cells outside the mask cost FAN_OFFPATH extra.
-  const markPreferred = (pts: { x: number; y: number }[], halo = 2): Uint8Array => {
-    const mask = new Uint8Array(NX * NY)
-    const mark = (x: number, y: number) => { const ci = gx(x), cj = gy(y); for (let dj = -halo; dj <= halo; dj++) for (let di = -halo; di <= halo; di++) { const i = ci + di, j = cj + dj; if (inb(i, j)) mask[idx(i, j)] = 1 } }
-    for (let s = 0; s + 1 < pts.length; s++) {
-      const a = pts[s], b = pts[s + 1], n = Math.max(1, Math.ceil(Math.hypot(b.x - a.x, b.y - a.y) / (CELL / 2)))
-      for (let q = 0; q <= n; q++) mark(a.x + (b.x - a.x) * q / n, a.y + (b.y - a.y) * q / n)
-    }
-    return mask
-  }
-
-  function route(sx: number, sy: number, gxm: number, gym: number, startLayers: number[], goalLayers: number[], preferred?: Uint8Array | null) {
+  function route(sx: number, sy: number, gxm: number, gym: number, startLayers: number[], goalLayers: number[]) {
     const S = { i: gx(sx), j: gy(sy) }, G = { i: gx(gxm), j: gy(gym) }
     for (const [px, py] of [[sx, sy], [gxm, gym]]) {
       const ci = gx(px), cj = gy(py)
@@ -248,7 +215,7 @@ export function mazeRouteNets(circuit: any[], pairs: { from: string; to: string 
         const ni = i + di, nj = j + dj
         if (!free(ni, nj, l)) continue
         if (di !== 0 && dj !== 0 && (!free(i + di, j, l) || !free(i, j + dj, l))) continue
-        const nd = g + cost + (d !== 8 && d !== m ? TURN : 0) + (preferred && !preferred[idx(ni, nj)] ? FAN_OFFPATH : 0)
+        const nd = g + cost + (d !== 8 && d !== m ? TURN : 0)
         const nk = key(ni, nj, l, m)
         if (nd < (dist.get(nk) ?? Infinity)) { dist.set(nk, nd); prev.set(nk, k); push(nd + h(ni, nj), nd, nk) }
       }
@@ -296,13 +263,10 @@ export function mazeRouteNets(circuit: any[], pairs: { from: string; to: string 
   for (const { from, to } of pairs) {
     const s = pads[from], g = pads[to]
     if (!s || !g) { console.error(`// missing pad ${from} or ${to}`); continue }
-    // fan style: bias the A* toward this net's ideal riser+45° corridor (it still
-    // detours / vias to dodge copper — that's the whole point of unifying the two).
-    const preferred = SPEC.style === "fan" && SPEC.fanType ? markPreferred(idealFanPts(s, g, SPEC.fanType)) : null
     // open this net's own two pads, route, then re-stamp them as obstacles for the rest
     const sr = s.r + SPEC.clr + HALF, gr = g.r + SPEC.clr + HALF
     clearDisc(s.x, s.y, sr, [0, 1]); clearDisc(g.x, g.y, gr, [0, 1])
-    const path = route(s.x, s.y, g.x, g.y, s.layers, g.layers, preferred)
+    const path = route(s.x, s.y, g.x, g.y, s.layers, g.layers)
     stampDisc(s.x, s.y, sr, [0, 1]); stampDisc(g.x, g.y, gr, [0, 1])
     if (!path) { console.error(`// NO PATH ${from} -> ${to}`); continue }
     addPathObstacle(path)
