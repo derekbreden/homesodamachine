@@ -59,8 +59,9 @@ export function findPrettyTraces(src: string): Pretty[] {
  *      autorouter routes only the non-pretty nets and leaves the pretty corridors clear.
  *   2. OUR ROUTER AFTER — route the pretty nets against that autorouted field. Maze nets
  *      are obstacle-aware A* (they via/detour around autoroute copper and each other).
- *      Clean fans are pure geometry — straight → 45° → straight on one layer — drawn into
- *      the corridors the autorouter was told to leave clear. Nothing overlaps, by construction.
+ *      Clean fans keep a FIXED straight → 45° → straight XY shape (no search), but are
+ *      obstacle-aware in Z: a diagonal that would cross top copper drops to the bottom
+ *      layer (a via at each end). Nothing overlaps, by construction.
  *   3. STOP — splice our copper (a pcb_trace + a pcb_via per layer change, per net) into
  *      the autorouted circuit-json and return it. The caller converts THIS straight to
  *      gerbers; the autorouter never runs again.
@@ -128,7 +129,9 @@ export async function applyPrettyRoutes(dir: string, board: string, exportCJ: Ex
       const pairs = ps.map((p) => ({ from: toDot(p.from), to: toDot(p.to) }))
       if (ft === "fanRowToColumn") monoWarn(pairs, pads, "x", "y", k)
       else monoWarn(pairs, pads, "y", "x", k)
-      for (const { from, to } of pairs) routedNets.push(cleanFanRoute(pads, from, to, { fanType: ft }))
+      // Z-aware: pass the copper routed so far (autoroutes + maze) so a fan diagonal that
+      // would cross top copper drops to the bottom layer instead of shorting. XY stays fixed.
+      for (const { from, to } of pairs) routedNets.push(cleanFanRoute(pads, from, to, { fanType: ft, field, clr: COMMON.clr }))
     }
   }
 
