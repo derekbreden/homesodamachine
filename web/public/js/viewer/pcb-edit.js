@@ -18,6 +18,9 @@
 // the pad picker uses (1 mm = 1000 SVG units), so component-mm geometry lands
 // on its rendered copper. A drag moves the handle by translating its group in
 // that frame; on release we POST anchor+delta to the write-back endpoint.
+// Hold ⌘/Ctrl/Shift to build a multi-selection — each modifier-click toggles a
+// component, and dragging any selected one then moves the whole set as a rigid
+// group, writing each moved component back in turn.
 // Inspect and Edit are mutually exclusive — arming one disarms the other (via
 // the shared "hsm:pcb-tool" event) so their overlays never fight for a click.
 
@@ -34,7 +37,8 @@ let enabled = (() => {
 })();
 
 let ctx = null;         // { svgEl, layer, status, boardName, components, source, wrapper }
-let dragging = null;    // { g, ref, ox, oy, startMm, newX, newY, moved }
+let dragging = null;    // { items:[{g,ref,ox,oy,newX,newY}], startMm, moved, additive, primaryRef, pending, captureEl }
+const selected = new Set(); // refs in the current multi-selection (re-applied on rebuild)
 let toggleRefresh = null; // the current Edit toggle button's label refresher
 
 // --- dev availability + component fetch (called by pcb.js) ------------------
@@ -60,6 +64,7 @@ export async function fetchEditComponents(boardName) {
 // { name, components } from fetchEditComponents plus the board's picks (for
 // footprint geometry), source, and wrapper. Null/absent info tears down.
 export function installEditOverlay(svgEl, info) {
+  const prevBoard = ctx && ctx.boardName;
   if (svgEl) svgEl.querySelectorAll(".pcb-edit-layer").forEach((n) => n.remove());
   if (!svgEl || !info || !info.components || !info.components.length) { ctx = null; return; }
 
@@ -107,12 +112,20 @@ export function installEditOverlay(svgEl, info) {
   info.wrapper.appendChild(status);
 
   ctx = { svgEl, layer, status, boardName: info.name, components: info.components, source: info.source, wrapper: info.wrapper };
+  // A new board starts clean; a same-board rebuild (after a write-back re-render)
+  // keeps the selection so a multi-move stays grouped across the reload.
+  if (info.name !== prevBoard) selected.clear();
   applyEnabled();
+  applySelectionClasses();
   layer.addEventListener("pointerdown", onPointerDown, true);
+  // Suppress the browser context menu while armed so Ctrl-click multi-select is
+  // clean on macOS, where a Ctrl+click would otherwise pop the menu.
+  layer.addEventListener("contextmenu", (e) => { if (enabled) e.preventDefault(); });
 }
 
 export function clearEditOverlay() {
   dragging = null;
+  selected.clear();
   if (ctx) {
     try { ctx.layer.remove(); } catch {}
     try { ctx.status.remove(); } catch {}
@@ -145,7 +158,30 @@ function boxFor(comp, padsByRef) {
 
 function applyEnabled() {
   if (ctx) ctx.layer.classList.toggle("active", enabled);
-  if (!enabled) { dragging = null; hideStatus(); }
+  if (!enabled) { dragging = null; hideStatus(); clearSelection(); }
+}
+
+// --- selection (refs; classes re-applied whenever the overlay rebuilds) ------
+
+function applySelectionClasses() {
+  if (!ctx) return;
+  for (const node of ctx.layer.querySelectorAll(".pcb-edit-comp")) {
+    node.classList.toggle("selected", selected.has(node.getAttribute("data-ref")));
+  }
+}
+function setSelection(refs) {
+  selected.clear();
+  for (const r of refs) selected.add(r);
+  applySelectionClasses();
+}
+function toggleSelected(ref) {
+  if (selected.has(ref)) selected.delete(ref); else selected.add(ref);
+  applySelectionClasses();
+}
+function clearSelection() {
+  if (!selected.size) return;
+  selected.clear();
+  applySelectionClasses();
 }
 
 // --- drag (pointer capture keeps the move/up on the grabbed component) ------
@@ -169,18 +205,51 @@ function clientToMm(clientX, clientY) {
 
 function onPointerDown(e) {
   if (!enabled || !ctx) return;
+  const additive = e.metaKey || e.ctrlKey || e.shiftKey;
   const g = e.target.closest(".pcb-edit-comp");
-  if (!g) return; // a miss falls through to PanZoom for panning
+  if (!g) {
+    // Empty space: a plain press clears the selection; a modifier press keeps it,
+    // so panning around never costs the user their multi-select. Either way we
+    // don't stopPropagation, so PanZoom still gets the press and pans the board.
+    if (!additive) clearSelection();
+    return;
+  }
   if (e.button !== undefined && e.button !== 0) return;
   e.stopPropagation();
   e.preventDefault();
 
   const startMm = clientToMm(e.clientX, e.clientY);
   if (!startMm) return;
-  const ox = parseFloat(g.getAttribute("data-x"));
-  const oy = parseFloat(g.getAttribute("data-y"));
-  dragging = { g, ref: g.getAttribute("data-ref"), ox, oy, startMm, newX: ox, newY: oy, moved: false };
-  g.classList.add("dragging");
+  const ref = g.getAttribute("data-ref");
+
+  // Decide what this press grabs, and what a release-without-move does to the
+  // selection (standard editor semantics):
+  //   • modifier      → grab selection+this; a click toggles this one
+  //   • already-sel'd → grab the whole selection; a click collapses to this one
+  //   • unselected    → select only this, and grab just it
+  let moveRefs, pending;
+  if (additive) {
+    moveRefs = new Set(selected); moveRefs.add(ref);
+    pending = "toggle";
+  } else if (selected.has(ref)) {
+    moveRefs = new Set(selected);
+    pending = "reduce";
+  } else {
+    setSelection([ref]);
+    moveRefs = new Set([ref]);
+    pending = null;
+  }
+
+  const items = [];
+  for (const node of ctx.layer.querySelectorAll(".pcb-edit-comp")) {
+    if (!moveRefs.has(node.getAttribute("data-ref"))) continue;
+    const ox = parseFloat(node.getAttribute("data-x"));
+    const oy = parseFloat(node.getAttribute("data-y"));
+    items.push({ g: node, ref: node.getAttribute("data-ref"), ox, oy, newX: ox, newY: oy });
+    node.classList.add("dragging");
+  }
+
+  dragging = { items, startMm, moved: false, additive, primaryRef: ref, pending, captureEl: g };
   try { g.setPointerCapture(e.pointerId); } catch {}
 }
 
@@ -188,26 +257,50 @@ function onPointerMove(e) {
   if (!dragging) return;
   const now = clientToMm(e.clientX, e.clientY);
   if (!now) return;
-  let nx = dragging.ox + (now.x - dragging.startMm.x);
-  let ny = dragging.oy + (now.y - dragging.startMm.y);
+  // Snap the shared delta (not each absolute position) so the group translates
+  // rigidly — relative spacing is preserved no matter how many are grabbed.
+  let dx = now.x - dragging.startMm.x;
+  let dy = now.y - dragging.startMm.y;
   if (SNAP_MM > 0) {
-    nx = Math.round(nx / SNAP_MM) * SNAP_MM;
-    ny = Math.round(ny / SNAP_MM) * SNAP_MM;
+    dx = Math.round(dx / SNAP_MM) * SNAP_MM;
+    dy = Math.round(dy / SNAP_MM) * SNAP_MM;
   }
-  dragging.newX = nx; dragging.newY = ny;
-  if (nx !== dragging.ox || ny !== dragging.oy) dragging.moved = true;
-  dragging.g.setAttribute("transform", `translate(${(nx - dragging.ox) * 1000},${(ny - dragging.oy) * 1000})`);
-  setStatus(`${dragging.ref}  x=${fmt(nx)}  y=${fmt(ny)}`);
+  for (const it of dragging.items) {
+    it.newX = it.ox + dx;
+    it.newY = it.oy + dy;
+    it.g.setAttribute("transform", `translate(${dx * 1000},${dy * 1000})`);
+  }
+  if (!dragging.moved && (dx !== 0 || dy !== 0)) {
+    dragging.moved = true;
+    // First real motion promotes a modifier-press from "toggle on release" into a
+    // group drag, so the pressed component reads as selected with the rest.
+    if (dragging.additive && !selected.has(dragging.primaryRef)) {
+      selected.add(dragging.primaryRef);
+      applySelectionClasses();
+    }
+  }
+  if (dragging.items.length > 1) {
+    setStatus(`${dragging.items.length} comps  Δx=${fmt(dx)}  Δy=${fmt(dy)}`);
+  } else {
+    const it = dragging.items[0];
+    setStatus(`${it.ref}  x=${fmt(it.newX)}  y=${fmt(it.newY)}`);
+  }
 }
 
 function onPointerUp(e) {
   if (!dragging) return;
   const d = dragging;
   dragging = null;
-  d.g.classList.remove("dragging");
-  try { d.g.releasePointerCapture(e.pointerId); } catch {}
-  if (!d.moved) { hideStatus(); return; }
-  writePosition(d);
+  d.items.forEach((it) => it.g.classList.remove("dragging"));
+  try { d.captureEl.releasePointerCapture(e.pointerId); } catch {}
+  if (!d.moved) {
+    // A press that never moved is a selection click, not a drag.
+    if (d.pending === "toggle") toggleSelected(d.primaryRef);
+    else if (d.pending === "reduce") setSelection([d.primaryRef]);
+    hideStatus();
+    return;
+  }
+  writePositions(d.items);
 }
 
 document.addEventListener("pointermove", onPointerMove);
@@ -215,10 +308,10 @@ document.addEventListener("pointerup", onPointerUp);
 
 // --- write-back -------------------------------------------------------------
 
-async function writePosition(d) {
-  if (!ctx) return;
-  const { ref, ox, oy, newX, newY, g } = d;
-  setStatus(`${ref}: saving…`);
+// POST one component's move. On success the live overlay/comp adopt the new
+// anchor (the dev watcher rebuilds the copper shortly after); on failure the
+// handle snaps back. Returns { ok, error } so a batch can be summarised.
+async function writeOne({ ref, ox, oy, newX, newY, g }) {
   try {
     const resp = await fetch(`/api/pcb-editor/board/${encodeURIComponent(ctx.boardName)}/update-position`, {
       method: "POST",
@@ -226,22 +319,47 @@ async function writePosition(d) {
       body: JSON.stringify({ ref, oldX: ox, oldY: oy, newX, newY }),
     });
     if (resp.ok) {
-      setStatus(`${ref}: ${fmt(ox)},${fmt(oy)} → ${fmt(newX)},${fmt(newY)} ✓`);
       // Anchor the next drag at the new value; the live re-render + refetch will
       // rebuild the whole overlay from the moved copper shortly after.
       g.setAttribute("data-x", String(newX));
       g.setAttribute("data-y", String(newY));
       const comp = ctx.components.find((c) => c.ref === ref);
       if (comp) { comp.x = newX; comp.y = newY; }
-    } else {
-      const err = await resp.json().catch(() => ({}));
-      setStatus(`save failed: ${err.error || resp.status}`, true);
-      g.setAttribute("transform", "translate(0,0)"); // snap the handle back
+      return { ok: true };
     }
+    const err = await resp.json().catch(() => ({}));
+    g.setAttribute("transform", "translate(0,0)"); // snap the handle back
+    return { ok: false, error: err.error || resp.status };
   } catch (e) {
-    setStatus(`network error: ${e.message}`, true);
     g.setAttribute("transform", "translate(0,0)");
+    return { ok: false, error: e.message };
   }
+}
+
+async function writePosition(d) {
+  if (!ctx) return;
+  setStatus(`${d.ref}: saving…`);
+  const r = await writeOne(d);
+  if (r.ok) setStatus(`${d.ref}: ${fmt(d.ox)},${fmt(d.oy)} → ${fmt(d.newX)},${fmt(d.newY)} ✓`);
+  else setStatus(`save failed: ${r.error}`, true);
+}
+
+// Write every component that actually moved. Sequential, not parallel: each
+// write is a read-modify-write of the one board .tsx, so overlapping them risks
+// dropping edits. A lone mover reads nicer via the single-component status.
+async function writePositions(items) {
+  if (!ctx) return;
+  const moved = items.filter((it) => it.newX !== it.ox || it.newY !== it.oy);
+  if (!moved.length) { hideStatus(); return; }
+  if (moved.length === 1) return writePosition(moved[0]);
+  setStatus(`saving ${moved.length}…`);
+  let ok = 0; const failed = [];
+  for (const it of moved) {
+    const r = await writeOne(it);
+    if (r.ok) ok++; else failed.push(it.ref);
+  }
+  if (failed.length) setStatus(`saved ${ok}/${moved.length} — failed: ${failed.join(", ")}`, true);
+  else setStatus(`moved ${moved.length} components ✓`);
 }
 
 // --- status chip ------------------------------------------------------------
