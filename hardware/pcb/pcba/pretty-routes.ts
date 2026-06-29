@@ -30,7 +30,7 @@ const CLR = 0.25
 // circuit-json exporter the caller supplies (render-board reuses its tsci runner).
 export type ExportCircuitJson = (tsxBasename: string) => Promise<any[]>
 
-type Pretty = { el: string; from: string; to: string; strategy: string; variant: string }
+type Pretty = { el: string; from: string; to: string; strategy: string; variant: string; viaLayer: string }
 
 const attrOf = (el: string, name: string) => (el.match(new RegExp(`\\b${name}="([^"]*)"`)) || [])[1] || ""
 // ".J5 > .IO25" -> "J5.IO25" (the form the router labels pads with)
@@ -41,8 +41,11 @@ export function findPrettyTraces(src: string): Pretty[] {
   // from/to selectors contain ">" e.g. ".J5 > .IO25"), then keep the pretty ones.
   const els = (src.match(/<trace\b[\s\S]*?\/>/g) || []).filter((el) => /\bpretty="/.test(el))
   return els.map((el) => {
-    const [strategy, variant] = attrOf(el, "pretty").split(":")
-    return { el, from: attrOf(el, "from"), to: attrOf(el, "to"), strategy: strategy || "", variant: variant || "" }
+    // pretty="<strategy>:<variant>[@<layer>]" — an optional @layer suffix forces a clean fan
+    // onto a plane layer (e.g. clean:fanRowToColumn@inner1), routing its whole crossing there.
+    const [strategy, spec] = attrOf(el, "pretty").split(":")
+    const [variant, viaLayer] = (spec || "").split("@")
+    return { el, from: attrOf(el, "from"), to: attrOf(el, "to"), strategy: strategy || "", variant: variant || "", viaLayer: viaLayer || "" }
   })
 }
 
@@ -98,7 +101,7 @@ export async function applyPrettyRoutes(dir: string, board: string, exportCJ: Ex
   if (cleanNets.length) {
     const pads = cleanPads(obstacle)
     const fanGroups = new Map<string, Pretty[]>()
-    for (const p of cleanNets) { const k = `${p.variant}|${toDot(p.from).split(".")[0]}->${toDot(p.to).split(".")[0]}`; (fanGroups.get(k) ?? fanGroups.set(k, []).get(k)!).push(p) }
+    for (const p of cleanNets) { const k = `${p.variant}@${p.viaLayer}|${toDot(p.from).split(".")[0]}->${toDot(p.to).split(".")[0]}`; (fanGroups.get(k) ?? fanGroups.set(k, []).get(k)!).push(p) }
     for (const [k, ps] of fanGroups) {
       const ft = ps[0]!.variant as FanType
       const pairs = ps.map((p) => ({ from: toDot(p.from), to: toDot(p.to) }))
@@ -111,8 +114,10 @@ export async function applyPrettyRoutes(dir: string, board: string, exportCJ: Ex
       const [sax, tax] = MONO[ft]
       monoWarn(pairs, pads, sax, tax, k)
       // Z-aware: pass the autoroutes so a fan diagonal that would cross top copper (a trace
-      // or another part's SMD pad) drops to the bottom layer instead of shorting. XY stays fixed.
-      for (const { from, to } of pairs) routedNets.push(cleanFanRoute(pads, from, to, { fanType: ft, field: obstacle, clr: CLR }))
+      // or another part's SMD pad) drops to the bottom layer instead of shorting. XY stays
+      // fixed. A viaLayer (from an @layer suffix) instead runs the whole crossing on a plane.
+      const viaLayer = ps[0]!.viaLayer || undefined
+      for (const { from, to } of pairs) routedNets.push(cleanFanRoute(pads, from, to, { fanType: ft, viaLayer, field: obstacle, clr: CLR }))
     }
   }
 
