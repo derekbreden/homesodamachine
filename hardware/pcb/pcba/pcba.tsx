@@ -42,7 +42,7 @@ export default () => (
         edge. CR2032 + is the wide can on the centre pad (pin2 -> VBAT); clips are - (GND). */}
     <CoinCell name="BT1" pcbX={5} pcbY={0} pcbRotation={0} />
     <Ds3231Smd name="U6" x={-14.05} y={0.7} />
-    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-20.3} y={4.1} rot={90} />
+    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-19.8} y={3.88} rot={90} />
     <silkscreentext text="+" fontSize="1.4mm" pcbX={-31.15} pcbY={-23.5} />
     <silkscreentext text="-" fontSize="1.4mm" pcbX={-20} pcbY={-28} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio. rot 180 puts
@@ -61,12 +61,12 @@ export default () => (
         maze window (which reaches y=14 to land J5's signals on U1's north-edge
         GPIO). The supply decouplers C10 + C11 share the y=15.42 lane to the east;
         C10's ref-des sits on the +X side, away from C12. All read bottom-to-top. */}
-    <resistor name="R7" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-62.5, -17.65)} />
-    <capacitor name="C12" capacitance="1uF" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C15849"] }} {...at(-62.6, -20.55)} />
-    <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-42.25} y={-7.8} rot={90} lab={[1.85, 0]} />
-    <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-37.15} y={-7.8} rot={90} />
-    <resistor name="R8" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} pcbRotation={90} {...at(-44.6, 13.2)} />
-    <Jst name="J12" x={-55.4} y={-25.2} count={6} labels={["3V3", "EN", "IO0", "RX0", "TX0", "GND"]} rot={0} label="PROG" />
+    <capacitor name="C12" capacitance="1uF" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C15849"] }} {...at(-63.0, -12.0)} />
+    <resistor name="R7" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-63.0, -16.0)} />
+    <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-58.5} y={-13.5} rot={90} lab={[1.85, 0]} />
+    <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-54.0} y={-13.5} rot={90} lab={[1.85, 0]} />
+    <resistor name="R8" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} pcbRotation={90} {...at(-49.2, 12.3)} />
+    <Jst name="J12" x={-55.4} y={-25.2} count={6} labels={["3V3", "EN", "TX0", "RX0", "IO0", "GND"]} rot={0} label="PROG" />
     {/* RS-485 to the front display (J9). THVD1426 auto-direction transceiver (U7):
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
         only D (from ESP TX) and R (to ESP RX) are driven. R6 = 120R line termination
@@ -74,29 +74,29 @@ export default () => (
     <Thvd1426 name="U7" x={-17.1} y={-16.4} />
     <resistor name="R6" resistance="120" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22787"] }} {...at(-23.75, -13)} />
     <Sm712 name="D1" x={-24} y={-17.1} rot={0} />
-    <capacitor name="C7" capacitance="0.1uF" footprint="0805" supplierPartNumbers={{ jlcpcb: ["C49678"] }} pcbRotation={0} {...at(-32.25, -16.35)} />
+    <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-12.5} y={-13.0} rot={90} lab={[1.85, 0]} />
     {/* 5V -> 3V3 LDO (U9, AMS1117-3.3) in the freed bay above the ESP. Becomes the
         board's 3V3 source — the ESP module no longer feeds net.V3V3 (its onboard
         regulator self-powers it). VIN off the 5V plane, VOUT to the 3V3 plane, both
         via barrels/stitch; C8 (10uF) input bypass; C9 (22uF) output bypass. */}
     <Ams1117_33 name="U9" x={0.8} y={-17.1} />
-    <Cap name="C8" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-1.55} y={-22.9} rot={90} />
-    <Cap name="C9" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-4.85} y={-17.1} rot={90} />
+    <Cap name="C8" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-5.3} y={-17.1} rot={90} />
+    <Cap name="C9" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={6.7} y={-17.1} rot={90} lab={[1.85, 0]} />
     <Mcp23017 name="U2" x={22} y={30} addr="0x20" rot={270} />
     <Mcp23017 name="U3" x={22} y={-26} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={36} y={19.1} />
     <Uln2803 name="U5" x={36} y={-15.1} />
     <MLT_5020 name="U8" {...at(-38.4, 12.6)} />
     <S8050 name="Q1" {...at(-40, 6.75)} />
-    <resistor name="R5" resistance="1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C21190"] }} {...at(-36.1, 7.6)} />
+    <resistor name="R5" resistance="1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C21190"] }} {...at(-44.5, 9.0)} />
     <Jst name="J1" x={44.7} y={19.1} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
     <Jst name="J2" x={44.7} y={-15.1} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
     <Jst name="J3" x={-41.9} y={-25.05} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
     <Jst name="J4" x={-24.85} y={21.55} count={6} labels={["GND", "V5", "IO14", "IO13", "IO15", "3V3"]} rot={0} label="SENSORS" />
-    <Jst name="J5" x={-46.9} y={21.8} count={9} labels={["IO19", "IO18", "IO25", "IO26", "IO5", "IO27", "IO17", "IO16", "GND"]} rot={0} label="DRIVER" />
+    <Jst name="J5" x={-46.9} y={21.8} count={9} labels={["IO19", "IO18", "IO25", "IO5", "IO26", "IO17", "IO27", "IO16", "GND"]} rot={0} label="DRIVER" />
     <Jst name="J8" x={-62.75} y={21.75} count={2} labels={["GND", "V5"]} rot={0} label="5V" />
-    <Jst name="J6" x={25} y={38.65} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
-    <Jst name="J7" x={19} y={-34.65} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
+    <Jst name="J6" x={25} y={42.0} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
+    <Jst name="J7" x={19} y={-38.0} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
     <Jst name="J9" x={-9.85} y={-25.1} count={3} labels={["A", "B", "ERTH"]} rot={0} label="DISPLAY" />
     <Jst name="J10" x={44.7} y={0} count={2} labels={["GND", "V12"]} rot={90} label="12V" labelDir={1} />
     <Jst name="J11" x={-30.25} y={-25.05} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={0} label="GAS" />
@@ -180,13 +180,15 @@ export default () => (
     <trace from=".BT1 > .pin4" to="net.GND" />
     <trace from=".BT1 > .pin5" to="net.GND" />
 
-    {/* I2C bus — routed top bus, not poured (two co-located nets) */}
+    {/* I2C bus — routed top bus, not poured (two co-located nets). Daisy-chained in
+        board order U1 -> U6 -> U2 -> U3 so each hop is short and the bus doesn't
+        double back across the board. */}
     <trace from=".U1 > .IO21" to=".U6 > .SDA" />
     <trace from=".U1 > .IO22" to=".U6 > .SCL" />
-    <trace from=".U2 > .SDA" to=".U3 > .SDA" />
-    <trace from=".U2 > .SCL" to=".U3 > .SCL" />
-    <trace from=".U1 > .IO21" to=".U3 > .SDA" />
-    <trace from=".U1 > .IO22" to=".U3 > .SCL" />
+    <trace from=".U6 > .SDA" to=".U2 > .SDA" />
+    <trace from=".U6 > .SCL" to=".U2 > .SCL" />
+    <trace from=".U6 > .SDA" to=".U3 > .SDA" />
+    <trace from=".U6 > .SCL" to=".U3 > .SCL" />
 
     {/* ULN U4 ground (U2/U3 grounds are in the grounds block above) */}
     <trace from=".U4 > .GND" to="net.GND" />
@@ -204,8 +206,8 @@ export default () => (
     <trace from=".U3 > .A1" to="net.GND" />
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
-    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={15.4} y={36.55} rot={90} />
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={30.33} y={-32.25} rot={90} lab={[1.85, 0]} />
+    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={19.5} y={35.65} rot={0} />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={24.0} y={-31.65} rot={0} lab={[2.6, 0]} />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
