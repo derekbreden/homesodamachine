@@ -1,10 +1,6 @@
 # web-hardware
 
-The CAD and the PCB in this repo are source an agent writes — part geometry, the board, the wiring. The hard part is pointing: "shorten this edge," "move this pad to that net" — you and the agent never see the same screen, and an edge or a pad has no name to say out loud.
-
-web-hardware is the browser surface where you point at the same part the agent does. Click an edge or a face on a 3D part, a pad or trace or bare spot on a board, and its coordinates and identity come out as text for the agent. The agent edits the source; the part re-renders and the page reloads live; a commit pushes it to your phone. It shows STEP and DXF parts, boards, mermaid topology, and line-art drawings; on a board you can also drag components to new spots.
-
-That, factored out of [`web/`](/web/): point it at a directory of files, hand it an HTML shell, and those come up. Branding, routes, and content layout live in the shell and a config the consumer passes; the package carries none of them. Anyone can run it against their own hardware project.
+A package that renders hardware-design files in the browser — STEP, DXF, PCB, mermaid, line-art — with the picker, editor, live reload, and phone-push that [`web/`](/web/) has today. Point it at a directory of files, hand it an HTML shell, and those come up. Branding, routes, and content layout live in the shell and a config the consumer passes; the package carries none of them. Anyone can run it against their own hardware project.
 
 `web/` runs on this package and keeps every behavior it has now.
 
