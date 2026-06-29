@@ -339,13 +339,29 @@ function el2(tag, className) {
 
 // --- public toggle API ---
 
+let toggleRefresh = null; // the current Inspect toggle button's label refresher
+
 export function setPadPickEnabled(on) {
   enabled = !!on;
   try { localStorage.setItem(LS_KEY, enabled ? "1" : "0"); } catch {}
   applyEnabled();
   if (!enabled) clearSelection();
+  // Arming Inspect disarms Edit (and vice versa) so their overlays don't both
+  // claim a click. Only announce on arm, so disarming can't ping-pong.
+  if (enabled) window.dispatchEvent(new CustomEvent("hsm:pcb-tool", { detail: "inspect" }));
 }
 export function isPadPickEnabled() { return enabled; }
+
+// Another tool (the component editor) armed itself — stand down if it wasn't us.
+window.addEventListener("hsm:pcb-tool", (e) => {
+  if (e.detail !== "inspect" && enabled) {
+    enabled = false;
+    try { localStorage.setItem(LS_KEY, "0"); } catch {}
+    applyEnabled();
+    clearSelection();
+    if (toggleRefresh) toggleRefresh();
+  }
+});
 
 export function makePadPickToggle() {
   const btn = document.createElement("button");
@@ -360,6 +376,7 @@ export function makePadPickToggle() {
     setPadPickEnabled(!enabled);
     refresh();
   });
+  toggleRefresh = refresh;
   refresh();
   return btn;
 }
