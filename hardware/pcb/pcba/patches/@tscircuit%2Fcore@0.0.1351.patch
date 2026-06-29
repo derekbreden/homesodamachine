@@ -191,7 +191,20 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..0f736e719048144919216af367516252
      const routingPhasePlans = this._getRoutingPhasePlans();
      const hasPhasedAutorouting = Group_hasPhasedAutorouting(routingPhasePlans);
      const outputTraces = [];
-@@ -29088,6 +29216,67 @@ var CopperPour = class extends PrimitiveComponent2 {
+@@ -24842,6 +24970,12 @@
+     if (layerCount === 4) {
+       return ["top", "bottom", "inner1", "inner2"];
+     }
++    if (layerCount === 6) {
++      return ["top", "bottom", "inner1", "inner2", "inner3", "inner4"];
++    }
++    if (layerCount === 8) {
++      return ["top", "bottom", "inner1", "inner2", "inner3", "inner4", "inner5", "inner6"];
++    }
+     return ["top", "bottom"];
+   }
+   _getSubcircuitLayerCount() {
+@@ -29088,6 +29222,67 @@ var CopperPour = class extends PrimitiveComponent2 {
          return;
        }
        const subcircuit = this.getSubcircuit();
@@ -259,7 +272,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..0f736e719048144919216af367516252
        const circuitJson = db.toArray();
        const sourceNet = circuitJson.find(
          (elm) => elm.type === "source_net" && elm.name === net.name
-@@ -29096,7 +29285,7 @@ var CopperPour = class extends PrimitiveComponent2 {
+@@ -29096,7 +29291,7 @@ var CopperPour = class extends PrimitiveComponent2 {
        const connectedNetId = sourceNet?.source_net_id ?? net.source_net_id;
        const pourConnectivityKey = (connectedNetId ? connectivityMap.getNetConnectedToId(connectedNetId) : void 0) || sourceNet?.subcircuit_connectivity_map_key || "";
        const clearance = props.clearance ?? 0.2;

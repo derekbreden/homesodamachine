@@ -9,17 +9,21 @@
  * sit flush with the left half. The buzzer sits bottom-left, beside DS3231; the gas
  * dividers (R1-R4) sit up top in the connector row, over the ESP IO36/IO39 ADC pins.
  *
- * FOUR layers, stackup top->bottom:
+ * SIX layers, stackup top->bottom:
  *   L1 top    — signals + the V12 pour over the valve block (top-right)
  *   L2 inner1 — 3V3 plane (full flood)
  *   L3 inner2 — 5V plane (full flood)
- *   L4 bottom — GND plane (full flood)
- * 3V3, 5V, GND and V12 are poured: every through-hole pin on those nets commons
- * to its plane at the barrel, so none of them is routed (no power vias). Only the
- * point-to-point signals + the I2C bus are traced, and they are confined to the
- * two outer layers (the core patch hands the router a 2-layer view so the inner
- * planes stay pristine copper). SDA/SCL stay a routed top bus — two co-located
- * nets pour into ugly interlocking islands, a clean trace pair reads better.
+ *   L4 inner3 — SDA plane (full flood)
+ *   L5 inner4 — SCL plane (full flood)
+ *   L6 bottom — GND plane (full flood)
+ * Every high-fan-out net (3V3, 5V, GND, V12, SDA, SCL) is poured on its own layer:
+ * each pin commons to its plane at the barrel (through-hole) or auto-stitches a via
+ * (SMD), so none of them is routed. Only the point-to-point signals are traced, on
+ * the two outer layers (the core patch hands the router a 2-layer view so the inner
+ * planes stay pristine). NOTE: SDA/SCL are full-flood planes for now — deliberately
+ * generous while the arrangement settles. They carry far more capacitance than the
+ * I2C bus wants (the 400pF budget); they get tightened to local zones once placement
+ * is final (and after the 12V bucks / L298N land and re-shuffle the board).
  */
 import { at, Cap, Jst, ulnOUT } from "./carrier_parts"
 import { Uln2803, Mcp23017, Ds3231Smd, Thvd1426, Sm712, Ams1117_33 } from "./pcba_parts"
@@ -35,7 +39,7 @@ import { ESP32_WROOM_32E_N4 as Wroom } from "./imports/ESP32_WROOM_32E_N4"
 const ID = boardVersionParts()
 
 export default () => (
-  <board layers={4} outline={[{ x: -66.9, y: -39 }, { x: 37, y: -39 }, { x: 37, y: 33 }, { x: -66.9, y: 33 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
+  <board layers={6} outline={[{ x: -66.9, y: -39 }, { x: 37, y: -39 }, { x: 37, y: 33 }, { x: -66.9, y: 33 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
     {/* DS3231SN RTC + CR2032 backup, in the bay below the ESP (the freed DS3231-
         module footprint). The 20 mm coin holder (BT1) is the bulk; U6 (the SOIC) sits
         to its right, its 0.1uF decoupler (C6) tucked against U6's VCC pin on the west
@@ -223,15 +227,19 @@ export default () => (
     <trace from=".U3 > .GPA6" to=".U5 > .IN2" />
     <trace from=".U3 > .GPA7" to=".U5 > .IN1" />
 
-    {/* I2C bus — routed top bus, not poured (two co-located nets). Daisy-chained in
-        board order U1 -> U6 -> U2 -> U3 so each hop is short and the bus doesn't
-        double back across the board. */}
-    <trace from=".U1 > .IO21" to=".U6 > .SDA" />
-    <trace from=".U1 > .IO22" to=".U6 > .SCL" />
-    <trace from=".U6 > .SDA" to=".U2 > .SDA" />
-    <trace from=".U6 > .SCL" to=".U2 > .SCL" />
-    <trace from=".U6 > .SDA" to=".U3 > .SDA" />
-    <trace from=".U6 > .SCL" to=".U3 > .SCL" />
+    {/* I2C bus — SDA and SCL are high-fan-out nets, so they are POURED (inner3 / inner4),
+        not routed: every SDA/SCL pin is put on its net and commons to that plane (the SMD
+        pads auto-stitch a via to the inner layer). net.SDA = U1.IO21 + U6/U2/U3.SDA;
+        net.SCL = U1.IO22 + U6/U2/U3.SCL. The router excludes poured nets, so nothing here
+        routes. (Full-flood for now; tighten to local zones later — see header note.) */}
+    <trace from=".U1 > .IO21" to="net.SDA" />
+    <trace from=".U6 > .SDA" to="net.SDA" />
+    <trace from=".U2 > .SDA" to="net.SDA" />
+    <trace from=".U3 > .SDA" to="net.SDA" />
+    <trace from=".U1 > .IO22" to="net.SCL" />
+    <trace from=".U6 > .SCL" to="net.SCL" />
+    <trace from=".U2 > .SCL" to="net.SCL" />
+    <trace from=".U3 > .SCL" to="net.SCL" />
 
     {/* RS485 TTL side -> ESP UART. R (the receiver output) lands on IO34 — the ESP
         UART RX, an input-only pin, all an RX needs; D (the driver input) is fed by
@@ -403,15 +411,18 @@ export default () => (
     <silkscreentext text="HOME SODA MACHINE" fontSize="1mm" anchorAlignment="center" pcbX={26} pcbY={-34.2} />
     <silkscreentext text={`${ID.date} ${ID.rev}`} fontSize="1mm" anchorAlignment="center" pcbX={26} pcbY={-36.3} />
 
-    {/* Power planes, top->bottom: V12 island (top, over the valve block), 3V3
-        (inner1, full flood), 5V (inner2, full flood), GND (bottom, full flood).
-        Every ground/3V3/5V/12V pin lands on its net and commons to the plane at
-        its through-hole barrel, so none of these nets is individually routed. */}
+    {/* Power/bus planes, top->bottom: V12 island (top, over the valve block), 3V3
+        (inner1), 5V (inner2), SDA (inner3), SCL (inner4), GND (bottom) — all full
+        flood. Every 3V3/5V/12V/GND/SDA/SCL pin lands on its net and commons to the
+        plane at its through-hole barrel, or an auto-stitched via for SMD pads, so
+        none of these nets is individually routed. */}
     <trace from=".J10 > .V12" to="net.V12" />
     <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" boardEdgeMargin="0.5mm" />
     <copperpour name="V12PLANE" layer="top" connectsTo="net.V12"
       outline={[{ x: 19, y: -34 }, { x: 36.5, y: -34 }, { x: 36.5, y: 32.5 }, { x: 19, y: 32.5 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
+    <copperpour name="SDAPLANE" layer="inner3" connectsTo="net.SDA" boardEdgeMargin="0.5mm" />
+    <copperpour name="SCLPLANE" layer="inner4" connectsTo="net.SCL" boardEdgeMargin="0.5mm" />
   </board>
 )
