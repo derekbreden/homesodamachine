@@ -26,7 +26,9 @@
  * is final (and after the 12V bucks / L298N land and re-shuffle the board).
  */
 import { at, Cap, Jst, ulnOUT } from "./carrier_parts"
-import { Uln2803, Mcp23017, Ds3231Smd, Thvd1426, Sm712, Ams1117_33 } from "./pcba_parts"
+import { Uln2803, Mcp23017, Ds3231Smd, Thvd1426, Sm712 } from "./pcba_parts"
+import { K7803_1000R3 } from "./imports/K7803_1000R3"
+import { K7805_2000R3 } from "./imports/K7805_2000R3"
 import { boardVersionParts } from "./board-version"
 import { logoRoutes } from "./logo"
 import { NXB_25V470_10_12_5 } from "./imports/NXB_25V470_10_12_5"
@@ -77,13 +79,15 @@ export default () => (
     <resistor name="R6" resistance="120" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22787"] }} {...at(-20.9, -17.5)} />
     <Sm712 name="D1" x={-21.15} y={-22.6} rot={0} />
     <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-8.35} y={-18.5} rot={90} lab={[1.85, 0]} />
-    {/* 5V -> 3V3 LDO (U9, AMS1117-3.3) in the freed bay above the ESP. Becomes the
-        board's 3V3 source — the ESP module no longer feeds net.V3V3 (its onboard
-        regulator self-powers it). VIN off the 5V plane, VOUT to the 3V3 plane, both
-        via barrels/stitch; C8 (10uF) input bypass; C9 (22uF) output bypass. */}
-    <Ams1117_33 name="U9" x={-32.3} y={-8.25} />
-    <Cap name="C8" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-39.7} y={-8.25} rot={90} />
-    <Cap name="C9" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-24.9} y={-8.25} rot={90} lab={[1.85, 0]} />
+    {/* On-board supplies — both bucked straight off the 12V rail in the freed bay above
+        the ESP, so a single 12V input (J10 / the manifold COM) now powers the whole board.
+        U9 = K7803 (12V->3V3, 1A); U10 = K7805 (12V->5V, 2A). Both are 3-pin SIP modules
+        (pin1 Vin / pin2 GND / pin3 +Vo, 2.54 mm pitch) with internal caps; every pin is
+        through-hole and commons to its plane at the barrel, so nothing routes. (Bulk
+        output caps can be added in the refinement pass; the modules are drop-in 78xx
+        replacements and run without external caps.) */}
+    <K7803_1000R3 name="U9" pcbX={-38} pcbY={-7} pcbRotation={0} />
+    <K7805_2000R3 name="U10" pcbX={-23} pcbY={-7} pcbRotation={0} />
     <Mcp23017 name="U2" x={4.8} y={18.1} addr="0x20" rot={270} />
     <Mcp23017 name="U3" x={4.9} y={-22.85} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={18.8} y={7.2} />
@@ -95,9 +99,7 @@ export default () => (
     <Jst name="J2" x={29.7} y={-12.95} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
     <Jst name="J3" x={-42.55} y={-32} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
     <Jst name="J4" x={-24.8} y={27.45} count={6} labels={["GND", "V5", "IO14", "IO13", "IO15", "3V3"]} rot={0} label="SENSORS" />
-    <Jst name="J5" x={-46.05} y={27.45} count={9} labels={["IO19", "IO18", "IO25", "IO5", "IO26", "IO17", "IO27", "IO16", "GND"]} rot={0} label="DRIVER" />
-    <Jst name="J8" x={-62.7} y={27.44} count={2} labels={["GND", "V5"]} rot={0} label="5V" />
-    <Jst name="J6" x={6.55} y={27.45} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
+    <Jst name="J5" x={-46.05} y={27.45} count={9} labels={["IO19", "IO18", "IO25", "IO5", "IO26", "IO17", "IO27", "IO16", "GND"]} rot={0} label="DRIVER" />    <Jst name="J6" x={6.55} y={27.45} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={5.4} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
     <Jst name="J9" x={-9.9} y={-32.05} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" />
     <Jst name="J10" x={29.65} y={27.45} count={2} labels={["GND", "V12"]} rot={90} label="12V" labelDir={1} />
@@ -113,18 +115,16 @@ export default () => (
     <resistor name="R3" resistance="2.2k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C4190"] }} pcbRotation={0} {...at(-17.95, -34.45)} />
     <resistor name="R4" resistance="3.3k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22978"] }} pcbRotation={0} {...at(-17.95, -29.45)} />
 
-    {/* 3V3 rail -> inner1 plane. U9 (LDO) sources it from 5V; the I2C devices (both
-        MCPs, DS3231), RS485, and the sensor loom common to it at their barrels. The
-        ESP module's onboard regulator self-powers it off 5V — its 3V3 pin is left
-        unconnected so it doesn't fight the LDO (the bare ESP in step 9 will take 3V3
-        from this plane instead). */}
-    <trace from=".U9 > .VOUT" to="net.V3V3" />
-    <trace from=".U9 > .VIN" to="net.V5" />
-    <trace from=".U9 > .GND" to="net.GND" />
-    <trace from=".C8 > .pin1" to="net.V5" />
-    <trace from=".C8 > .pin2" to="net.GND" />
-    <trace from=".C9 > .pin1" to="net.V3V3" />
-    <trace from=".C9 > .pin2" to="net.GND" />
+    {/* 3V3 rail -> inner1 plane, sourced by the K7803 buck (U9) off 12V. The I2C devices
+        (both MCPs, DS3231), RS485, the WROOM, and the sensor loom all common to it at
+        their barrels. */}
+    {/* bucks: Vin (pin1) off 12V, GND (pin2) to the bottom plane, +Vo (pin3) to its rail */}
+    <trace from=".U9 > .pin1" to="net.V12" />
+    <trace from=".U9 > .pin2" to="net.GND" />
+    <trace from=".U9 > .pin3" to="net.V3V3" />
+    <trace from=".U10 > .pin1" to="net.V12" />
+    <trace from=".U10 > .pin2" to="net.GND" />
+    <trace from=".U10 > .pin3" to="net.V5" />
     <trace from=".U2 > .VCC" to="net.V3V3" />
     <trace from=".U3 > .VCC" to="net.V3V3" />
     <trace from=".U6 > .VCC" to="net.V3V3" />
@@ -160,10 +160,9 @@ export default () => (
     <trace from=".J12 > .TX0" to=".U1 > .IO1" />
     <trace from=".J12 > .RX0" to=".U1 > .IO3" />
 
-    {/* 5V rail -> inner2 plane. J8 feeds it; faucet, sensors, and gas common to it at
-        their barrels; the buzzer high side (U8 +) auto-stitches to it. The bare WROOM
-        draws no 5V (3V3-only). */}
-    <trace from=".J8 > .V5" to="net.V5" />
+    {/* 5V rail -> inner2 plane, now sourced by the K7805 buck (U10). Faucet, sensors, and
+        gas common to it at their barrels; the buzzer high side (U8 +) auto-stitches to it.
+        The bare WROOM draws no 5V (3V3-only). */}
     <trace from=".J3 > .V5" to="net.V5" />
     <trace from=".J4 > .V5" to="net.V5" />
     <trace from=".J11 > .V5" to="net.V5" />
@@ -302,9 +301,6 @@ export default () => (
     {/* (J5 driver copper is generated at build time from the pretty="maze:j5" traces
         above — see pretty-routes.ts. Nothing is frozen here.) */}
 
-    {/* 5V in (J8, labeled "5V" to pair with the "12V" connector): rail via the
-        plane; ground here */}
-    <trace from=".J8 > .GND" to="net.GND" />
 
     {/* REEDS A (reservoir A) -> 0x20 GPB inputs. pretty="clean:fanRowToColumn" fans J6 up. */}
     <trace from=".J6 > .RA1" to=".U2 > .GPB0" />
@@ -418,8 +414,11 @@ export default () => (
         none of these nets is individually routed. */}
     <trace from=".J10 > .V12" to="net.V12" />
     <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" boardEdgeMargin="0.5mm" />
+    {/* V12 = the valve-block island PLUS a finger reaching left along the open y~-7 lane
+        to the bucks (U9/U10), so their through-hole Vin barrels common to 12V there. The
+        finger is groundwork — it gets redrawn when the L298N / rearrangement re-homes V12. */}
     <copperpour name="V12PLANE" layer="top" connectsTo="net.V12"
-      outline={[{ x: 19, y: -34 }, { x: 36.5, y: -34 }, { x: 36.5, y: 32.5 }, { x: 19, y: 32.5 }]} />
+      outline={[{ x: 19, y: 32.5 }, { x: 36.5, y: 32.5 }, { x: 36.5, y: -34 }, { x: 19, y: -34 }, { x: 19, y: -11 }, { x: -41, y: -11 }, { x: -41, y: -3 }, { x: 19, y: -3 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
     <copperpour name="SDAPLANE" layer="inner3" connectsTo="net.SDA" boardEdgeMargin="0.5mm" />
