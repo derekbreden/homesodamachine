@@ -63,28 +63,17 @@ const segSegDist = (ax: number, ay: number, bx: number, by: number, cx: number, 
     ptSegDist(cx, cy, ax, ay, bx, by), ptSegDist(dx, dy, ax, ay, bx, by),
   )
 }
-// Does segment a→b on `layer` come within edge-to-edge `clr` of any copper there the fan
-// doesn't own — a trace wire, or an SMD pad (e.g. C4's 0805 pads sitting in the U6→U2 I2C
-// corridor)? The fan's own from/to endpoint pads are exempt (its escape and landing
-// legitimately touch them — passed as `own`); copper pours are ignored — a pour auto-clears
-// around any trace, never a short. An SMD pad blocks only its own copper layer, so a diagonal
-// that hits one on top can dive under it on the bottom. Returns the offending id, or null.
-const diagHitsCopper = (a: { x: number; y: number }, b: { x: number; y: number }, layer: string, field: any[], clr: number, width: number, own: { x: number; y: number }[]): string | null => {
-  const owned = (x: number, y: number) => own.some((o) => Math.hypot(x - o.x, y - o.y) < 0.05)
+// Does segment a→b on `layer` come within edge-to-edge `clr` of any trace wire on that
+// layer in `field`? Pads/holes/pours are ignored — a pour clears around copper (never a
+// short), and the fan's own escape/landing own its endpoint pads. Returns the trace id or null.
+const diagHitsTrace = (a: { x: number; y: number }, b: { x: number; y: number }, layer: string, field: any[], clr: number, width: number): string | null => {
   for (const e of field) {
-    if (e.type === "pcb_trace") {
-      const r = e.route || []
-      for (let i = 0; i + 1 < r.length; i++) {
-        const p = r[i], q = r[i + 1]
-        if (p.route_type !== "wire" || q.route_type !== "wire" || p.layer !== layer || q.layer !== layer) continue
-        if (segSegDist(a.x, a.y, b.x, b.y, p.x, p.y, q.x, q.y) < clr + width / 2 + (p.width ?? 0.2) / 2) return e.pcb_trace_id || "?"
-      }
-    } else if (e.type === "pcb_smtpad" && e.layer === layer && !owned(e.x, e.y)) {
-      // a disc covering the whole pad: the rect's half-diagonal (rotation-invariant — covers
-      // the corner a 45° run would otherwise clip), or the circle radius. The pads we care
-      // about sit squarely in a corridor, so the conservative disc is exact enough.
-      const reach = e.shape === "circle" ? (e.radius || 0) : Math.hypot(e.width || 0, e.height || 0) / 2
-      if (reach && ptSegDist(e.x, e.y, a.x, a.y, b.x, b.y) < clr + width / 2 + reach) return e.pcb_smtpad_id || "?"
+    if (e.type !== "pcb_trace") continue
+    const r = e.route || []
+    for (let i = 0; i + 1 < r.length; i++) {
+      const p = r[i], q = r[i + 1]
+      if (p.route_type !== "wire" || q.route_type !== "wire" || p.layer !== layer || q.layer !== layer) continue
+      if (segSegDist(a.x, a.y, b.x, b.y, p.x, p.y, q.x, q.y) < clr + width / 2 + (p.width ?? 0.2) / 2) return e.pcb_trace_id || "?"
     }
   }
   return null
@@ -137,9 +126,8 @@ export function cleanFanRoute(pads: Record<string, { x: number; y: number }>, fr
   // cross top copper — then drop JUST the diagonal to the bottom layer. The XY path is
   // identical either way; only the layer of the diagonal (and its two vias) changes.
   let diagLayer = top
-  const own = [s, t] // the fan's own endpoint pads — its escape/landing touch them, so they're exempt
-  if (spec.field && diagHitsCopper(p1, p2, top, spec.field, clr, width, own)) {
-    if (!diagHitsCopper(p1, p2, bottom, spec.field, clr, width, own)) diagLayer = bottom
+  if (spec.field && diagHitsTrace(p1, p2, top, spec.field, clr, width)) {
+    if (!diagHitsTrace(p1, p2, bottom, spec.field, clr, width)) diagLayer = bottom
     else throw new Error(`[pretty] fan ${from} -> ${to}: diagonal crosses copper on BOTH layers — cannot route this fixed path without a short`)
   }
   const w = (pp: { x: number; y: number }, l: string) => wirePt(pp.x, pp.y, width, l)
