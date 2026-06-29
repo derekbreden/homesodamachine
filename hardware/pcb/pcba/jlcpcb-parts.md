@@ -43,16 +43,19 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | U7 — RS485 to display | THVD1426, auto-direction transceiver, 3.3 V | SOIC-8 | C5215922 | Extended | 5,945 | $1.84 |
 | D1 — RS485 line ESD | SM712, RS485 TVS array (−7/+12 V) | SOT-23 | C12067 | Extended | 35,585 | $0.41 |
 | R6 — RS485 termination | 120 Ω ±1% | 0603 | C22787 | Basic | 1,728,584 | $0.0022 |
-| U9 — 5V→3V3 LDO | AMS1117-3.3, 1 A, 1.1 V dropout | SOT-223 | C6186 | Basic | — | $0.04 |
-| C8 — LDO input | 10 µF 25V X5R | 0805 | C15850 | Basic | — | $0.01 |
-| C9 — LDO output | 22 µF 25V X5R | 0805 | C45783 | Basic | — | $0.02 |
+| U9 — 12V→3V3 buck | K7803-1000R3, 1 A non-isolated switcher | SIP-3 (THT) | C5369647 | Extended | — | — |
+| U10 — 12V→5V buck | K7805-2000R3, 2 A non-isolated switcher | SIP-3 (THT) | C18212380 | Extended | — | — |
+| U11, U12 — pump H-bridges | DRV8870, single H-bridge, 45 V / 3.6 A | SOIC-8 PowerPAD | C86590 | Extended | — | — |
+| C13/C14/C15/C17/C19 — buck/driver decouple | 10 µF 25V X5R | 0805 | C15850 | Basic | (see C11) | $0.01 |
+| C16 — U10 5V buck output | 22 µF 25V X5R | 0805 | C45783 | Basic | — | $0.02 |
+| C18/C20 — driver VM HF | 0.1 µF 50V X7R | 0805 | C49678 | Basic | (see C1/C2) | $0.0136 |
 | U1 — base controller | ESP32-WROOM-32E-N4, no radio | SMD module 18×25.5 mm | C701341 | Extended | 22,002 (2026-06-28) | $3.77 |
 | R7, R8 — EN / IO0 pull-ups | 10 kΩ ±1% | 0603 | C25804 | Basic | 3,845,978 | $0.0013 |
 | C10 — ESP 3V3 decouple | 0.1 µF 50V X7R | 0805 | C49678 | Basic | (see C1/C2) | $0.0136 |
 | C11 — ESP 3V3 bulk | 10 µF 25V X5R | 0805 | C15850 | Basic | (see C8) | $0.01 |
 | C12 — EN power-on RC | 1 µF 50V X5R | 0603 | C15849 | Basic | 6,521,627 | $0.036 |
 | J12 — 6-pin (PROG serial) | XH2.54 6P | wafer, 2.5 mm | C5359634 | Extended | (see J2/J4) | $0.0254 |
-| J8, J10 — 2-pin (5V, 12V) | XH2.54 2P, vertical THT male wafer | wafer, 2.5 mm | C5359631 | Extended | 74,020 | $0.0141 |
+| J10, J13, J14 — 2-pin (12V, pump A, pump B) | XH2.54 2P, vertical THT male wafer | wafer, 2.5 mm | C5359631 | Extended | 74,020 | $0.0141 |
 | J9 — 3-pin (DISPLAY) | XH2.54 3P | wafer, 2.5 mm | C7429633 | Extended | 411,459 | $0.0117 |
 | J3, J11 — 4-pin (FAUCET, GAS) | XH2.54 4P | wafer, 2.5 mm | C7429634 | Extended | 609,442 | $0.0116 |
 | J6 — 5-pin (REEDS A) | XH2.54 5P | wafer, 2.5 mm | C5359633 | Extended | 14,791 | $0.0294 |
@@ -104,8 +107,8 @@ plane pads and auto-stitch to GND / 5 V (see [`plane-stitching.md`](plane-stitch
 The only ESP32 base part the design needs — radio unused, so the cheapest WROOM-32E variant
 (4 MB, N4) is fine; the keepout silk stays but no plane is carved (no RF). Placed `rot 180`
 so the module's pin geography falls into two rows (ADC/UART/pump-A north,
-I2C/pump-B/buzzer/IO0 south), keeping the J5 and faucet route corridors clean. It is **3V3-only** — no onboard regulator, no V5 pin — drawing the WiFi-idle ~110 mA
-peak from the step-8 LDO plane through its single 3V3 stitch via, with C10 (0.1 µF) + C11
+I2C/pump-B/buzzer/IO0 south), keeping the driver and faucet route corridors clean. It is **3V3-only** — no onboard regulator, no V5 pin — drawing the WiFi-idle ~110 mA
+peak from the 3V3 buck plane through its single 3V3 stitch via, with C10 (0.1 µF) + C11
 (10 µF bulk) at the pin. The 3 castellated GND pads + the 9-pad centre thermal pad all share
 one `GND` port and each auto-stitches to the bottom plane. EN power-on RC: R7 (10 kΩ, `C25804`
 Basic) up to 3V3, C12 (1 µF, `C15849` Basic) to GND. IO0 held high by R8 (10 kΩ). J12 is the
