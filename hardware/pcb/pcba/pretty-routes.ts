@@ -13,7 +13,8 @@
  * of the build renders.
  *
  *   maze:<group>     obstacle-aware A*. variant names a MAZE_GROUPS window below.
- *   clean:<fanType>  riser + 45° fan (fanRowToColumn | fanColumnToColumn). variant
+ *   clean:<fanType>  riser + 45° fan (fanRowToColumn | fanColumnToRow | fanColumnToColumn
+ *                    | fanRowToRow — fan<sourceLine>To<targetLine>). variant
  *                    IS the fan type; `from` is the riser source.
  *
  * The point: routes regenerate every build from live geometry, so moving a part just
@@ -127,8 +128,14 @@ export async function applyPrettyRoutes(dir: string, board: string, exportCJ: Ex
     for (const [k, ps] of fanGroups) {
       const ft = ps[0]!.variant as FanType
       const pairs = ps.map((p) => ({ from: toDot(p.from), to: toDot(p.to) }))
-      if (ft === "fanRowToColumn") monoWarn(pairs, pads, "x", "y", k)
-      else monoWarn(pairs, pads, "y", "x", k)
+      // monotonicity axes: source pads spread along their line (ROW→x, COLUMN→y), and the
+      // target pads must track monotonically along theirs, or risers cross.
+      const MONO: Record<FanType, ["x" | "y", "x" | "y"]> = {
+        fanRowToColumn: ["x", "y"], fanColumnToRow: ["y", "x"],
+        fanColumnToColumn: ["y", "y"], fanRowToRow: ["x", "x"],
+      }
+      const [sax, tax] = MONO[ft]
+      monoWarn(pairs, pads, sax, tax, k)
       // Z-aware: pass the copper routed so far (autoroutes + maze) so a fan diagonal that
       // would cross top copper drops to the bottom layer instead of shorting. XY stays fixed.
       for (const { from, to } of pairs) routedNets.push(cleanFanRoute(pads, from, to, { fanType: ft, field, clr: COMMON.clr }))
