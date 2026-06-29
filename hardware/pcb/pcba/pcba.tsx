@@ -223,14 +223,14 @@ export default () => (
     <trace from=".U2 > .GPA5" to=".U4 > .IN3" pretty="clean:fanRowToColumn" />
     <trace from=".U2 > .GPA6" to=".U4 > .IN2" pretty="clean:fanRowToColumn" />
     <trace from=".U2 > .GPA7" to=".U4 > .IN1" pretty="clean:fanRowToColumn" />
-    <trace from=".U5 > .IN8" to=".U3 > .GPA0" pretty="clean:fanColumnToColumn" />
-    <trace from=".U5 > .IN7" to=".U3 > .GPA1" pretty="clean:fanColumnToColumn" />
-    <trace from=".U5 > .IN6" to=".U3 > .GPA2" pretty="clean:fanColumnToColumn" />
-    <trace from=".U5 > .IN5" to=".U3 > .GPA3" pretty="clean:fanColumnToColumn" />
-    <trace from=".U5 > .IN4" to=".U3 > .GPA4" pretty="clean:fanColumnToColumn" />
-    <trace from=".U5 > .IN3" to=".U3 > .GPA5" pretty="clean:fanColumnToColumn" />
-    <trace from=".U5 > .IN2" to=".U3 > .GPA6" pretty="clean:fanColumnToColumn" />
-    <trace from=".U5 > .IN1" to=".U3 > .GPA7" pretty="clean:fanColumnToColumn" />
+    <trace from=".U3 > .GPA0" to=".U5 > .IN8" pretty="clean:fanRowToColumn" />
+    <trace from=".U3 > .GPA1" to=".U5 > .IN7" pretty="clean:fanRowToColumn" />
+    <trace from=".U3 > .GPA2" to=".U5 > .IN6" pretty="clean:fanRowToColumn" />
+    <trace from=".U3 > .GPA3" to=".U5 > .IN5" pretty="clean:fanRowToColumn" />
+    <trace from=".U3 > .GPA4" to=".U5 > .IN4" pretty="clean:fanRowToColumn" />
+    <trace from=".U3 > .GPA5" to=".U5 > .IN3" pretty="clean:fanRowToColumn" />
+    <trace from=".U3 > .GPA6" to=".U5 > .IN2" pretty="clean:fanRowToColumn" />
+    <trace from=".U3 > .GPA7" to=".U5 > .IN1" pretty="clean:fanRowToColumn" />
 
     {/* RS485 TTL side -> ESP UART. R (the receiver output) lands on IO34 — the ESP
         UART RX, an input-only pin, all an RX needs; D (the driver input) is fed by
