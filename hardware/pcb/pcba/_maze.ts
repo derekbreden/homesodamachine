@@ -1,5 +1,5 @@
 /**
- * _maze.ts — the obstacle-aware second-pass router. Where clean-pass.ts's fan rule
+ * _maze.ts — the obstacle-aware second-pass router. Where the clean fan rule
  * needs an empty corridor, this threads a clean octilinear (H/V/45°) route through a
  * field of pads, traces, and vias — the "more intelligence" for congested cases.
  *
