@@ -75,6 +75,51 @@ function sh(cmd: string, args: string[], opts: { cwd?: string; inherit?: boolean
   })
 }
 
+// Write a board's composed views to out/ as SVG + PNG. Shared by the placement
+// preview and the full render (extracted so both paint the views identically).
+const writeViews = (svgs: Record<string, string>) => {
+  for (const v of Object.keys(svgs)) {
+    writeFileSync(path.join(outDir, `${board}.${v}.svg`), svgs[v])
+    // PNG width tracks the board's aspect so neither view is squashed.
+    writeFileSync(path.join(outDir, `${board}.${v}.png`), new Resvg(svgs[v], { fitTo: { mode: "width", value: 1600 } }).render().asPng())
+  }
+}
+
+// PHASE 1 — placement preview (dev-server only). Paint where every pad, hole, and
+// silk legend lands BEFORE the slow route passes, so an interactive save shows up
+// in the viewer in ~3s. Strip the netlist traces + pours (nothing to autoroute, no
+// pour to solve, and no flood to hide the pads) and export gerbers in one tsci boot,
+// then compose the SAME views the full render does — identical styling AND viewBox,
+// so the viewer keeps its pan/zoom across the swap. The full render below overwrites
+// out/ with the routed copper and the watcher broadcasts again. Best-effort: any
+// failure here just skips the preview; the full render still runs.
+async function placementPreview() {
+  const placementSrc = readFileSync(boardFile, "utf8")
+    .replace(/<trace\b[\s\S]*?\/>/g, "")      // drop every netlist trace
+    .replace(/<copperpour\b[\s\S]*?\/>/g, "") // drop every pour
+  const name = `_build-${board}.placement.tmp`
+  track(path.join(dir, `${name}.tsx`))
+  writeFileSync(path.join(dir, `${name}.tsx`), placementSrc)
+  const zipRel = path.join("out", `${name}.gerbers.zip`)
+  track(path.join(dir, zipRel))
+  await sh(tsci, ["export", "-f", "gerbers,circuit-json", "-o", zipRel, `${name}.tsx`], { cwd: dir })
+  const cjAbs = track(path.join(dir, `${name}.circuit.json`))
+  const scratch = track(mkdtempSync(path.join(tmpdir(), `pcb-${board}-place-`)))
+  await sh("unzip", ["-o", "-q", path.join(dir, zipRel), "-d", scratch])
+  const { top, bottom, overlay, inners, widthMm, heightMm } = await composeViews(scratch, scheme)
+  writeViews({ top, bottom, overlay, ...inners })
+  rmSync(scratch, { recursive: true, force: true })
+  // Refresh picks from the placement circuit-json (pads only) so the pad picker
+  // lands on the new positions during the preview, not the prior render's.
+  try {
+    const picksTmp = track(path.join(dir, `_build-${board}.place-picks.tmp.json`))
+    writeFileSync(picksTmp, readFileSync(cjAbs, "utf8"))
+    await sh("bun", [path.join(dir, "pick-data.ts"), `${board}.tsx`, picksTmp], { cwd: dir, inherit: true })
+    rmSync(picksTmp, { force: true })
+  } catch {}
+  console.error(`[${board}] placement preview: ${widthMm} × ${heightMm} mm (no traces/pours)`)
+}
+
 // Resolve declared 2nd-pass routes: pretty="<strategy>:<group>" on a <trace> means
 // "route this by net identity with the pretty router." applyPrettyRoutes routes those
 // groups in-process against a fresh obstacle field and writes a throwaway routed .tsx
@@ -88,6 +133,18 @@ const exportCircuitJson = async (name: string) => {
   rmSync(path.join(dir, out), { force: true }); rmSync(path.join(dir, `${name}.circuit.json`), { force: true })
   return cj
 }
+// Paint the placement preview first under the live watcher, then fall through to the
+// full routed render below. build-all / manual stay single-pass, so the committed
+// out/ artifacts are always trace-complete (never a placement-only view).
+if (process.env.RENDER_SOURCE === "dev-server") {
+  try {
+    await placementPreview()
+    console.log("RENDER_PHASE=placement") // the dev watcher broadcasts the preview on this line
+  } catch (e: any) {
+    console.error(`[${board}] placement preview failed — going straight to full render: ${e?.message || e}`)
+  }
+}
+
 const { routedName, obstacleCircuitJson } = await applyPrettyRoutes(dir, board, exportCircuitJson)
 if (routedName !== board) track(path.join(dir, `${routedName}.tsx`))
 
@@ -160,14 +217,8 @@ try {
   const { top, bottom, overlay, inners, widthMm, heightMm } = await composeViews(scratch, scheme)
   // top/bottom/overlay always; plus one solo view per inner copper layer (4-layer+).
   const svgs: Record<string, string> = { top, bottom, overlay, ...inners }
+  writeViews(svgs)
   const views = Object.keys(svgs)
-  for (const v of views) {
-    const svg = svgs[v]
-    writeFileSync(path.join(outDir, `${board}.${v}.svg`), svg)
-    // PNG width tracks the board's aspect so neither view is squashed.
-    const png = new Resvg(svg, { fitTo: { mode: "width", value: 1600 } }).render().asPng()
-    writeFileSync(path.join(outDir, `${board}.${v}.png`), png)
-  }
   console.log(`[${board}] ${widthMm} × ${heightMm} mm — wrote ${board}.{${views.join(",")}}.{svg,png} (${schemeName})`)
   // Surface the assembly BOM + CPL (they ride inside the gerber zip) as first-class
   // out/ files, so every render leaves a diffable BOM/CPL: the JLCPCB part numbers and
