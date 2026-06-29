@@ -684,3 +684,93 @@
 .pcb-pick-hilite {
   pointer-events: none;
 }
+
+/* Component editor (pcb-edit.js) — dev-server-only. Toggle stacked just above
+   the Inspect pill (bottom-left). When armed, each component shows a draggable
+   box over its footprint; dragging writes the new position back to the board
+   source. Green to read distinctly from Inspect's cyan and the selection's
+   yellow. */
+.pcb-wrapper > .pcb-edit-toggle {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + 40px);
+  left: calc(env(safe-area-inset-left, 0px) + 16px);
+  z-index: 12;
+  padding: 6px 10px;
+  background: rgba(35, 35, 66, 0.85);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font: 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.pcb-wrapper > .pcb-edit-toggle:hover {
+  background: rgba(58, 58, 90, 0.9);
+}
+.pcb-wrapper > .pcb-edit-toggle.off {
+  opacity: 0.55;
+}
+
+/* The overlay is inert (invisible, non-interactive) until armed, so it never
+   paints over the copper or swallows a pan when Edit is off. */
+.pcb-edit-layer {
+  pointer-events: none;
+}
+.pcb-edit-box {
+  fill: transparent;
+  stroke: none;
+}
+.pcb-edit-label { display: none; }
+.pcb-edit-label text {
+  fill: rgba(170, 240, 190, 0.95);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  paint-order: stroke;
+  stroke: rgba(0, 0, 0, 0.55);
+  stroke-width: 220;
+}
+.pcb-edit-layer.active .pcb-edit-box {
+  pointer-events: all;
+  cursor: grab;
+  fill: rgba(110, 215, 140, 0.10);
+  stroke: rgba(110, 215, 140, 0.85);
+  stroke-width: 130;
+}
+.pcb-edit-layer.active .pcb-edit-label { display: block; }
+.pcb-edit-layer.active .pcb-edit-box:hover {
+  fill: rgba(110, 215, 140, 0.22);
+}
+.pcb-edit-layer.active .pcb-edit-comp.dragging .pcb-edit-box {
+  cursor: grabbing;
+  fill: rgba(110, 215, 140, 0.30);
+  stroke: rgba(150, 245, 180, 1);
+  stroke-width: 200;
+}
+
+/* Drag readout / save status — bottom-centre, above the dims chip. Transient:
+   shown only mid-drag and briefly after a save. */
+.pcb-wrapper > .pcb-edit-status {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + 40px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 12;
+  max-width: calc(100vw - 32px);
+  padding: 5px 10px;
+  background: rgba(35, 35, 66, 0.9);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font: 12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: nowrap;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.pcb-wrapper > .pcb-edit-status.show { opacity: 1; }
+.pcb-wrapper > .pcb-edit-status.error {
+  color: #ff8a8a;
+  border-color: #7a3a3a;
+}

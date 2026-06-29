@@ -3,14 +3,14 @@
  *
  * A board declares 2nd-pass routing inline, by net identity:
  *
- *   <trace from=".J5 > .IO25"  to=".U1A > .IO25" pretty="maze:j5" />
+ *   <trace from=".J5 > .IO25"  to=".U1 > .IO25" pretty="maze:j5" />
  *   <trace from=".U2 > .GPA0"  to=".U4 > .IN8"   pretty="clean:fanRowToColumn" />
  *
  * `pretty="<strategy>:<variant>"`. At build time applyPrettyRoutes() (called by
- * render-board) collects those traces, routes them with the in-process router
- * (pretty-router.ts), and writes a throwaway "routed" .tsx — the board with the
- * pretty attrs stripped and the computed <pcbtrace> copper injected — which the rest
- * of the build renders.
+ * render-board) autoroutes the rest of the board, routes the pretty nets in-process
+ * against that field (pretty-router.ts), and returns a FINISHED circuit-json — the
+ * autoroutes plus the computed copper spliced in — which render-board converts straight
+ * to gerbers. No throwaway .tsx, no second autoroute (see applyPrettyRoutes below).
  *
  *   maze:<group>     obstacle-aware A*. variant names a MAZE_GROUPS window below.
  *   clean:<fanType>  riser + 45° fan (fanRowToColumn | fanColumnToRow | fanColumnToColumn
@@ -18,8 +18,7 @@
  *                    IS the fan type; `from` is the riser source.
  *
  * The point: routes regenerate every build from live geometry, so moving a part just
- * re-routes it. No coordinates are frozen into the source, and the coordinate carve
- * can never go stale (it is always fed routes that land on the current pads). The net
+ * re-routes it. No coordinates are frozen into the source. The net
  * list comes from the .tsx, so adding a signal is one <trace ... pretty=...> line.
  */
 import { mazeRouteNets, cleanFanRoute, cleanPads, monoWarn, type MazeSpec, type FanType } from "./pretty-router"

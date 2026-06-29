@@ -38,13 +38,11 @@ const PYTHON_BIN = path.join(PROJECT_ROOT, "tools", "cad-venv", "bin", "python")
 
 const { app, broadcast, hardwareDir: HARDWARE_DIR, liteDir: LITE_DIR } = await start({ dev: true });
 
-// PCB editor — dev-only, not reachable on the public site.
+// PCB editor API — dev-only, not reachable on the public site. Backs the
+// viewer's "Edit" toggle (web/public/js/viewer/pcb-edit.js): board component
+// parse + position write-back. Absent in production, so the board is read-only
+// there and the Edit toggle never appears.
 mountPcbEditorRoutes(app, HARDWARE_DIR);
-app.get("/pcb-editor", (_req, res) => {
-  res.type("text/html").send(fs.readFileSync(
-    path.join(__dirname, "..", "public", "pcb-editor.html"), "utf-8",
-  ));
-});
 
 // Content roots the viewer serves, and that we therefore watch, regenerate,
 // and broadcast for. hardware/ is the kitchen edition; pie-in-the-sky/lite/ is
