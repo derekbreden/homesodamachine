@@ -315,16 +315,56 @@ export function cleanPads(circuit: any[]): Record<string, { x: number; y: number
   return pads
 }
 
-// A clean fan: a known geometric path (NOT a search). The autorouter has already run
-// and left these corridors clear, so the fan just draws straight → 45° → straight.
-export type CleanSpec = { fanType: FanType; layer?: string; width?: number; stub?: number }
+// A clean fan: a FIXED geometric path (NOT a search) — straight → 45° → straight. The XY
+// shape never bends around copper; the only obstacle-aware decision is which LAYER each
+// piece runs on. Pass `field` (the copper routed so far) to make it Z-aware.
+export type CleanSpec = { fanType: FanType; layer?: string; width?: number; stub?: number; field?: any[]; clr?: number }
 
 const wirePt = (x: number, y: number, width: number, layer: string): RoutePoint =>
   ({ route_type: "wire", x: +x.toFixed(3), y: +y.toFixed(3), width, layer })
+const viaPt = (x: number, y: number, from_layer: string, to_layer: string): RoutePoint =>
+  ({ route_type: "via", x: +x.toFixed(3), y: +y.toFixed(3), from_layer, to_layer })
 
-// Route one net as a clean fan, single layer, no vias. The pad escape and the pad landing
-// are both PERPENDICULAR to their pin rows; the 45° diagonal only happens in open space
-// between them. `stub` is the small perpendicular escape length off the source pad.
+// distance from point (px,py) to segment (ax,ay)-(bx,by)
+const ptSegDist = (px: number, py: number, ax: number, ay: number, bx: number, by: number): number => {
+  const dx = bx - ax, dy = by - ay, L2 = dx * dx + dy * dy
+  const tt = L2 ? Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / L2)) : 0
+  return Math.hypot(px - (ax + tt * dx), py - (ay + tt * dy))
+}
+// min distance between segment AB and segment CD (0 if they cross)
+const segSegDist = (ax: number, ay: number, bx: number, by: number, cx: number, cy: number, dx: number, dy: number): number => {
+  const d1x = bx - ax, d1y = by - ay, d2x = dx - cx, d2y = dy - cy, den = d1x * d2y - d1y * d2x
+  if (Math.abs(den) > 1e-12) {
+    const ux = cx - ax, uy = cy - ay, ta = (ux * d2y - uy * d2x) / den, tb = (ux * d1y - uy * d1x) / den
+    if (ta >= 0 && ta <= 1 && tb >= 0 && tb <= 1) return 0
+  }
+  return Math.min(
+    ptSegDist(ax, ay, cx, cy, dx, dy), ptSegDist(bx, by, cx, cy, dx, dy),
+    ptSegDist(cx, cy, ax, ay, bx, by), ptSegDist(dx, dy, ax, ay, bx, by),
+  )
+}
+// Does segment a→b on `layer` come within edge-to-edge `clr` of any trace wire on that
+// layer in `field`? Pads/holes/pours are ignored — a pour clears around copper (never a
+// short), and the fan's own escape/landing own its endpoint pads. Returns the trace id or null.
+const diagHitsTrace = (a: { x: number; y: number }, b: { x: number; y: number }, layer: string, field: any[], clr: number, width: number): string | null => {
+  for (const e of field) {
+    if (e.type !== "pcb_trace") continue
+    const r = e.route || []
+    for (let i = 0; i + 1 < r.length; i++) {
+      const p = r[i], q = r[i + 1]
+      if (p.route_type !== "wire" || q.route_type !== "wire" || p.layer !== layer || q.layer !== layer) continue
+      if (segSegDist(a.x, a.y, b.x, b.y, p.x, p.y, q.x, q.y) < clr + width / 2 + (p.width ?? 0.2) / 2) return e.pcb_trace_id || "?"
+    }
+  }
+  return null
+}
+
+// Route one net as a clean fan. The pad escape and the pad landing are PERPENDICULAR to
+// their pin rows; the 45° diagonal happens in open space between them. The path is FIXED —
+// it never bends to dodge copper. It IS obstacle-aware in Z: if the diagonal would cross
+// top copper, that diagonal drops to the bottom layer (a via at each end) so it passes
+// under instead of shorting — when the bottom is clear there too. Escape/landing stay on
+// the pads' (top) layer. With no `field`, it stays all-top, 0 vias.
 //
 //   fanRowToColumn  (source pins form a ROW, target pins form a COLUMN):
 //     escape the source straight in Y a small amount toward the goal, run 45° toward the
@@ -334,19 +374,42 @@ const wirePt = (x: number, y: number, width: number, layer: string): RoutePoint 
 export function cleanFanRoute(pads: Record<string, { x: number; y: number }>, from: string, to: string, spec: CleanSpec): RoutedNet {
   const s = pads[from], t = pads[to]
   if (!s || !t) throw new Error(`clean fan: no pad ${!s ? from : to}`)
-  const layer = spec.layer ?? "top", width = spec.width ?? 0.2, stub = spec.stub ?? 1
-  const pt = (x: number, y: number) => wirePt(x, y, width, layer)
-  let route: RoutePoint[]
+  const top = spec.layer ?? "top", bottom = top === "top" ? "bottom" : "top"
+  const width = spec.width ?? 0.2, stub = spec.stub ?? 1, clr = spec.clr ?? 0.25
+  // the four FIXED corners: source pad → perpendicular escape → diagonal end → target pad
+  let p0: { x: number; y: number }, p1: { x: number; y: number }, p2: { x: number; y: number }, p3: { x: number; y: number }
   if (spec.fanType === "fanRowToColumn") {
-    const y1 = s.y + Math.sign(t.y - s.y) * stub           // straight: small Y escape toward goal
+    const y1 = s.y + Math.sign(t.y - s.y) * stub             // straight: small Y escape toward goal
     const x2 = s.x + Math.sign(t.x - s.x) * Math.abs(t.y - y1) // 45° until the goal's Y
-    route = [pt(s.x, s.y), pt(s.x, y1), pt(x2, t.y), pt(t.x, t.y)] // straight in X into the goal
+    p0 = { x: s.x, y: s.y }; p1 = { x: s.x, y: y1 }; p2 = { x: x2, y: t.y }; p3 = { x: t.x, y: t.y } // straight in X into the goal
   } else {
-    const x1 = s.x + Math.sign(t.x - s.x) * stub           // straight: small X escape toward goal
+    const x1 = s.x + Math.sign(t.x - s.x) * stub             // straight: small X escape toward goal
     const y2 = s.y + Math.sign(t.y - s.y) * Math.abs(t.x - x1) // 45° until the goal's X
-    route = [pt(s.x, s.y), pt(x1, s.y), pt(t.x, y2), pt(t.x, t.y)] // straight in Y into the goal
+    p0 = { x: s.x, y: s.y }; p1 = { x: x1, y: s.y }; p2 = { x: t.x, y: y2 }; p3 = { x: t.x, y: t.y } // straight in Y into the goal
   }
-  return { from, to, route, vias: 0 }
+  // Z-only obstacle awareness: keep the whole net on top unless the diagonal p1→p2 would
+  // cross top copper — then drop JUST the diagonal to the bottom layer. The XY path is
+  // identical either way; only the layer of the diagonal (and its two vias) changes.
+  let diagLayer = top
+  if (spec.field && diagHitsTrace(p1, p2, top, spec.field, clr, width)) {
+    if (!diagHitsTrace(p1, p2, bottom, spec.field, clr, width)) diagLayer = bottom
+    else console.error(`[pretty] WARN: fan ${from} -> ${to} diagonal crosses copper on BOTH layers — left on ${top} (may short)`)
+  }
+  const w = (pp: { x: number; y: number }, l: string) => wirePt(pp.x, pp.y, width, l)
+  let route: RoutePoint[], vias = 0
+  if (diagLayer === top) {
+    route = [w(p0, top), w(p1, top), w(p2, top), w(p3, top)]
+  } else {
+    route = [
+      w(p0, top), w(p1, top),                          // escape on top
+      viaPt(p1.x, p1.y, top, bottom), w(p1, bottom),   // dive
+      w(p2, bottom),                                   // diagonal on bottom
+      viaPt(p2.x, p2.y, bottom, top), w(p2, top),      // surface
+      w(p3, top),                                      // landing on top
+    ]
+    vias = 2
+  }
+  return { from, to, route, vias }
 }
 
 // warn (don't fail) if a fan's pin mapping isn't monotone — that's when risers cross.
