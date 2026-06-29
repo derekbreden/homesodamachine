@@ -1,8 +1,9 @@
 /**
  * pretty-router.ts — the in-process 2nd-pass routers. Pure functions: given an
  * obstacle circuit-json (the board with the target nets NOT yet routed), the net
- * pairs to route, and params, they return clean octilinear routes plus helpers to
- * render those as <pcbtrace> JSX or as circuit-json pcb_trace entities.
+ * pairs to route, and params, they return clean octilinear routes (render-board splices
+ * these straight into circuit-json as pcb_trace/pcb_via; routedNetToJSX renders one as
+ * <pcbtrace> JSX for the _maze.ts debug CLI).
  *
  * NO file or child-process I/O — the caller supplies the circuit-json (render-board
  * mid-build, or the thin _maze.ts CLI shell). This is the routing
@@ -275,7 +276,7 @@ export function mazeRouteNets(circuit: any[], pairs: { from: string; to: string 
   return routed
 }
 
-// render a routed net as the <pcbtrace> JSX the board files use (CLI output + migration).
+// render a routed net as <pcbtrace> JSX (used by the _maze.ts debug CLI to print routes).
 export function routedNetToJSX(rn: RoutedNet): string {
   const body = rn.route.map((p) =>
     p.route_type === "wire"
@@ -283,18 +284,6 @@ export function routedNetToJSX(rn: RoutedNet): string {
       : `{route_type:"via",x:${p.x},y:${p.y},from_layer:"${p.from_layer}",to_layer:"${p.to_layer}"}`
   ).join(",\n      ")
   return `    {/* ${rn.from} -> ${rn.to} — ${rn.vias} via${rn.vias === 1 ? "" : "s"} */}\n    <pcbtrace route={[\n      ${body},\n    ]} />`
-}
-
-// build a circuit-json pcb_trace entity for build-time injection. Passing source_trace_id
-// ties the copper to its net (identity preserved) — no coordinate carve needed downstream.
-export function routedNetToPcbTrace(rn: RoutedNet, ids: { pcb_trace_id: string; source_trace_id?: string; subcircuit_id?: string }): any {
-  return {
-    type: "pcb_trace",
-    pcb_trace_id: ids.pcb_trace_id,
-    route: rn.route,
-    ...(ids.source_trace_id ? { source_trace_id: ids.source_trace_id } : {}),
-    ...(ids.subcircuit_id ? { subcircuit_id: ids.subcircuit_id } : {}),
-  }
 }
 
 // "Comp.pin" -> {x,y} from smtpads + plated holes (chips are SMD, JSTs through-hole).
