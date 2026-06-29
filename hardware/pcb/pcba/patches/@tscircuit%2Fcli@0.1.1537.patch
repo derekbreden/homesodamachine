@@ -17,8 +17,6 @@ diff --git a/dist/cli/main.js b/dist/cli/main.js
 index 3446fa1cf5d84c014d3bc0dea3ee2ee51d69dbd9..1364113d4cb171ec2c70c75d36c5b4e1773bd877 100755
 --- a/dist/cli/main.js
 +++ b/dist/cli/main.js
---- /Users/derekbredensteiner/.bun/install/cache/@tscircuit/cli@0.1.1537@@@1/dist/cli/main.js	2026-06-22 22:37:33
-+++ node_modules/@tscircuit/cli/dist/cli/main.js	2026-06-28 17:27:08
 @@ -255845,6 +255845,12 @@
    "bottom-silkscreen": "Legend,Bot",
    "top-paste": "Paste,Top",
