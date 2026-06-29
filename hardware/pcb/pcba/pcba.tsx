@@ -223,17 +223,15 @@ export default () => (
     <trace from=".U3 > .GPA6" to=".U5 > .IN2" />
     <trace from=".U3 > .GPA7" to=".U5 > .IN1" />
 
-    {/* I2C bus — SDA dives to the inner1 (3V3) plane, SCL to inner2 (5V); each hop's whole
-        crossing runs on its plane (an empty pour), with a via a stub off each pad. Putting
-        the two co-located nets on separate empty layers lets them cross each other and
-        everything else for free — no top-side rat's nest. Daisy-chained in board order
-        U1 -> U6 -> U2 -> U3. @inner suffix routes the fan on that plane (pretty-routes.ts). */}
-    <trace from=".U1 > .IO21" to=".U6 > .SDA" pretty="clean:fanRowToColumn@inner1" />
-    <trace from=".U1 > .IO22" to=".U6 > .SCL" pretty="clean:fanRowToColumn@inner2" />
-    <trace from=".U6 > .SDA" to=".U2 > .SDA" pretty="clean:fanColumnToRow@inner1" />
-    <trace from=".U6 > .SCL" to=".U2 > .SCL" pretty="clean:fanColumnToRow@inner2" />
-    <trace from=".U6 > .SDA" to=".U3 > .SDA" pretty="clean:fanColumnToRow@inner1" />
-    <trace from=".U6 > .SCL" to=".U3 > .SCL" pretty="clean:fanColumnToRow@inner2" />
+    {/* I2C bus — routed top bus, not poured (two co-located nets). Daisy-chained in
+        board order U1 -> U6 -> U2 -> U3 so each hop is short and the bus doesn't
+        double back across the board. */}
+    <trace from=".U1 > .IO21" to=".U6 > .SDA" />
+    <trace from=".U1 > .IO22" to=".U6 > .SCL" />
+    <trace from=".U6 > .SDA" to=".U2 > .SDA" />
+    <trace from=".U6 > .SCL" to=".U2 > .SCL" />
+    <trace from=".U6 > .SDA" to=".U3 > .SDA" />
+    <trace from=".U6 > .SCL" to=".U3 > .SCL" />
 
     {/* RS485 TTL side -> ESP UART. R (the receiver output) lands on IO34 — the ESP
         UART RX, an input-only pin, all an RX needs; D (the driver input) is fed by
