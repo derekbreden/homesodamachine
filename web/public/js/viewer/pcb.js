@@ -218,10 +218,18 @@ function boardDimsText(picks, wrapper) {
   if (vb && vb.width && vb.height) return `${fmtMm(vb.width / per)} × ${fmtMm(vb.height / per)} mm`;
   return null;
 }
+// Via tally for the dimensions chip. Vias live in picks.json (pick-data.ts);
+// without a picks sidecar there is no via data, so this returns null and the
+// chip shows dimensions alone. Returns a "42 vias" string (singular "1 via").
+function viaCountText(picks) {
+  const vias = picks && picks.vias;
+  if (!Array.isArray(vias)) return null;
+  return `${vias.length} via${vias.length === 1 ? "" : "s"}`;
+}
 // Create or update the bottom-centre dimensions chip in `wrapper`.
 function updateDimsChip(wrapper, picks) {
   if (!wrapper) return;
-  const text = boardDimsText(picks, wrapper);
+  const text = [boardDimsText(picks, wrapper), viaCountText(picks)].filter(Boolean).join(" · ");
   let el = wrapper.querySelector(".pcb-dims");
   if (!text) { if (el) el.remove(); return; }
   if (!el) {
