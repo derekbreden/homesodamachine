@@ -21,7 +21,7 @@
  * can never go stale (it is always fed routes that land on the current pads). The net
  * list comes from the .tsx, so adding a signal is one <trace ... pretty=...> line.
  */
-import { mazeRouteNets, cleanPads, monoWarn, type MazeSpec, type FanType } from "./pretty-router"
+import { mazeRouteNets, cleanFanRoute, cleanPads, monoWarn, type MazeSpec, type FanType } from "./pretty-router"
 import { readFileSync, writeFileSync, rmSync } from "node:fs"
 import path from "node:path"
 
@@ -57,9 +57,10 @@ export function findPrettyTraces(src: string): Pretty[] {
  *
  *   1. AUTOROUTER FIRST — export the board with every pretty <trace> removed, so the
  *      autorouter routes only the non-pretty nets and leaves the pretty corridors clear.
- *   2. OUR ROUTER AFTER, AVOIDING — route the pretty nets (maze + clean fans) against that
- *      autorouted field, obstacle-aware, so they via/detour around the autoroute copper
- *      (and each other). Nothing overlaps, by construction.
+ *   2. OUR ROUTER AFTER — route the pretty nets against that autorouted field. Maze nets
+ *      are obstacle-aware A* (they via/detour around autoroute copper and each other).
+ *      Clean fans are pure geometry — straight → 45° → straight on one layer — drawn into
+ *      the corridors the autorouter was told to leave clear. Nothing overlaps, by construction.
  *   3. STOP — splice our copper (a pcb_trace + a pcb_via per layer change, per net) into
  *      the autorouted circuit-json and return it. The caller converts THIS straight to
  *      gerbers; the autorouter never runs again.
@@ -115,7 +116,8 @@ export async function applyPrettyRoutes(dir: string, board: string, exportCJ: Ex
     for (const rn of routed) { routedNets.push(rn); field = field.concat([{ type: "pcb_trace", pcb_trace_id: `_pretty_obs_${obsId++}`, route: rn.route }]) }
   }
 
-  // clean fans: same obstacle-aware engine, "fan" style (tidy riser + 45°, vias to dodge).
+  // clean fans: pure geometry, NOT a search. The autorouter ran first and left these
+  // corridors clear, so each net draws straight → 45° → straight on one layer, no vias.
   const cleanNets = pretties.filter((p) => p.strategy === "clean")
   if (cleanNets.length) {
     const pads = cleanPads(obstacle)
@@ -126,9 +128,7 @@ export async function applyPrettyRoutes(dir: string, board: string, exportCJ: Ex
       const pairs = ps.map((p) => ({ from: toDot(p.from), to: toDot(p.to) }))
       if (ft === "fanRowToColumn") monoWarn(pairs, pads, "x", "y", k)
       else monoWarn(pairs, pads, "y", "x", k)
-      const routed = mazeRouteNets(field, pairs, { ...COMMON, style: "fan", fanType: ft, margin: 5 })
-      if (routed.length !== pairs.length) throw new Error(`[pretty] fan group ${k}: routed only ${routed.length}/${pairs.length} nets — corridor fully blocked`)
-      for (const rn of routed) { routedNets.push(rn); field = field.concat([{ type: "pcb_trace", pcb_trace_id: `_fan_obs_${obsId++}`, route: rn.route }]) }
+      for (const { from, to } of pairs) routedNets.push(cleanFanRoute(pads, from, to, { fanType: ft }))
     }
   }
 
