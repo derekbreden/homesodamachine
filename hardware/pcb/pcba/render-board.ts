@@ -125,10 +125,10 @@ async function placementPreview() {
 
 // Resolve declared 2nd-pass routes: pretty="<strategy>:<group>" on a <trace> means
 // "route this by net identity with the pretty router." applyPrettyRoutes routes those
-// groups in-process against a fresh obstacle field and writes a throwaway routed .tsx
-// (pretty attrs stripped, computed <pcbtrace> copper injected) that the rest of the
-// build renders. So 2nd-pass routes regenerate from live geometry every build — never
-// frozen into the source, never able to go stale. No-op (returns `board`) otherwise.
+// groups in-process against a fresh obstacle field and returns a finished circuit-json
+// (autoroutes + the computed copper spliced in) that we convert straight to gerbers —
+// no throwaway .tsx, no second autoroute. So 2nd-pass routes regenerate from live
+// geometry every build, never frozen into the source. No-op otherwise.
 const exportCircuitJson = async (name: string) => {
   const out = `_build-${name}.cj.tmp.json`
   await sh(tsci, ["export", "-f", "circuit-json", "-o", out, `${name}.tsx`], { cwd: dir })

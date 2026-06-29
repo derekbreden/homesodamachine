@@ -13,6 +13,7 @@
 import { state } from "./state.js";
 import { makeResetButton, makeMinimap } from "./pan-zoom-extras.js";
 import { installPadPicker, clearPadPicker, clearPadSelection, makePadPickToggle } from "./pcb-pick.js";
+import { installEditOverlay, clearEditOverlay, makeEditToggle, fetchEditComponents } from "./pcb-edit.js";
 
 // Every board has these three; inner planes (inner1, inner2, …) are per-board,
 // discovered by the server (walk.js) and slotted between Top and Bottom.
@@ -58,7 +59,8 @@ const pcbFitObstacles = [];
 // and the minimap's aspect-driven height).
 const CHROME_SELECTORS = [
   ".pcb-view-toggle", ".pan-zoom-minimap", ".cv-filename", ".cv-close",
-  ".pcb-dims", ".pcb-wrapper > .pad-pick-toggle", ".reset-view",
+  ".pcb-dims", ".pcb-wrapper > .pad-pick-toggle", ".pcb-wrapper > .pcb-edit-toggle",
+  ".reset-view",
 ];
 function measureChromeObstacles(wrapper) {
   const wr = wrapper.getBoundingClientRect();
@@ -327,6 +329,12 @@ function mountView(view, preserve) {
   // a frame, so a live selection carries across the swap).
   const picks = state.currentPcbPicks;
   installPadPicker(svgEl, picks ? { pads: picks.pads, vias: picks.vias, traces: picks.traces, source, wrapper } : null);
+
+  // Re-arm the (dev-only) component editor on the freshly mounted SVG. Present
+  // only when the editor API returned components for this board (state set in
+  // openPcbDetail / refetchOpenPcb); null elsewhere, so production is read-only.
+  const edit = state.currentPcbEdit;
+  installEditOverlay(svgEl, edit ? { name: edit.name, components: edit.components, picks, source, wrapper } : null);
 }
 
 export async function openPcbDetail(source, pushHistory = true) {
@@ -346,9 +354,9 @@ export async function openPcbDetail(source, pushHistory = true) {
       if (list) { state.pcbBoards = list; board = boardForSource(source); }
     } catch {}
   }
-  const [views, picks] = board
-    ? await Promise.all([fetchViews(board), fetchPicks(board)])
-    : [null, null];
+  const [views, picks, edit] = board
+    ? await Promise.all([fetchViews(board), fetchPicks(board), fetchEditComponents(shortName(source))])
+    : [null, null, null];
 
   const wrapper = document.createElement("div");
   wrapper.className = "pcb-wrapper";
@@ -370,6 +378,10 @@ export async function openPcbDetail(source, pushHistory = true) {
   const toggle = makeViewToggle(present, onViewSelect);
   wrapper.appendChild(toggle);
   if (picks && picks.pads && picks.pads.length) wrapper.appendChild(makePadPickToggle());
+  // The Edit toggle only mounts when the dev-only editor API returned
+  // components (null in production) — so the move-components affordance is
+  // dev-server-only without any host/commit sniffing.
+  if (edit) wrapper.appendChild(makeEditToggle());
 
   // Publish the open-modal context, then build the first view synchronously —
   // before ContentViewer.open (the proven mermaid/drawings order). Mounting
@@ -378,6 +390,7 @@ export async function openPcbDetail(source, pushHistory = true) {
   state.currentPcbSource = source;
   state.currentPcbViews = views;
   state.currentPcbPicks = picks;
+  state.currentPcbEdit = edit;
   state.currentPcbWrapper = wrapper;
   state.currentPcbToggle = toggle;
   state.currentPcbView = view;
@@ -434,10 +447,12 @@ function clearPcbState() {
   try { state.currentPcbPz?.destroy(); } catch {}
   try { state.currentPcbMinimap?.destroy(); } catch {}
   try { clearPadPicker(); } catch {}
+  try { clearEditOverlay(); } catch {}
   state.currentDetail = null;
   state.currentPcbSource = null;
   state.currentPcbViews = null;
   state.currentPcbPicks = null;
+  state.currentPcbEdit = null;
   state.currentPcbWrapper = null;
   state.currentPcbToggle = null;
   state.currentPcbPz = null;
@@ -468,12 +483,15 @@ export async function refetchOpenPcb(source) {
   } catch {}
   const board = boardForSource(source);
   if (!board) return;
-  const [views, picks] = await Promise.all([fetchViews(board), fetchPicks(board)]);
+  const [views, picks, edit] = await Promise.all([
+    fetchViews(board), fetchPicks(board), fetchEditComponents(shortName(source)),
+  ]);
   if (!views) return;
   const prevView = state.currentPcbView;
   const prevActive = state.currentPcbViews?.[prevView];
   state.currentPcbViews = views;
   state.currentPcbPicks = picks;
+  state.currentPcbEdit = edit;
   updateDimsChip(state.currentPcbWrapper, picks);
 
   // If the showing plane is gone, fall back to the overlay (always present).
@@ -503,6 +521,9 @@ export async function refetchOpenPcb(source) {
     mountView(view, true);
   } else {
     const svgEl = state.currentPcbWrapper?.querySelector(".pcb-svg");
-    if (svgEl) installPadPicker(svgEl, picks ? { pads: picks.pads, vias: picks.vias, traces: picks.traces, source, wrapper: state.currentPcbWrapper } : null);
+    if (svgEl) {
+      installPadPicker(svgEl, picks ? { pads: picks.pads, vias: picks.vias, traces: picks.traces, source, wrapper: state.currentPcbWrapper } : null);
+      installEditOverlay(svgEl, edit ? { name: edit.name, components: edit.components, picks, source, wrapper: state.currentPcbWrapper } : null);
+    }
   }
 }

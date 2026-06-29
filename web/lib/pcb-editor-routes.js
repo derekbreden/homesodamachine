@@ -341,54 +341,49 @@ function fmtNum(n) {
   return s.replace(/\.00$/, "").replace(/(\.[0-9])0$/, "$1");
 }
 
-function esc(s) {
-  return String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+// Match a source literal against the client's old value by NUMBER, not string —
+// the parser rounds positions to 2 decimals (so a source `-25.0` arrives as
+// `-25`, `15.420` as `15.42`), and an exact-string match would miss those. The
+// 0.01 window comfortably covers that rounding while staying well under the
+// snap grid, so it can't collide with a different placement.
+function numClose(a, b) {
+  return Math.abs(Number(a) - Number(b)) < 0.01;
 }
 
-function updatePositionInTsx(tsx, ref, oldX, oldY, newX, newY) {
+export function updatePositionInTsx(tsx, ref, oldX, oldY, newX, newY) {
   const newXS = fmtNum(newX);
   const newYS = fmtNum(newY);
-  const oldXS = String(oldX);
-  const oldYS = String(oldY);
 
   const lines = tsx.split("\n");
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     if (!line.includes(`name="${ref}"`) && !line.includes(`name={${ref}}`)) continue;
 
-    // at() spread
-    if (line.includes("{...at(")) {
-      const atRe = new RegExp(`(\\{\.\.\.at\\()${esc(oldXS)}, ${esc(oldYS)}(\\))`);
-      if (atRe.test(line)) {
-        lines[i] = line.replace(atRe, `$1${newXS}, ${newYS}$2`);
-        return lines.join("\n");
-      }
-      // Try with more/less whitespace
-      const atRe2 = new RegExp(`(\\{\.\.\.at\\()${esc(oldXS)},\\s*${esc(oldYS)}(\\))`);
-      if (atRe2.test(line)) {
-        lines[i] = line.replace(atRe2, `$1${newXS}, ${newYS}$2`);
-        return lines.join("\n");
-      }
+    // {...at(x, y)} spread
+    const at = line.match(/\{\.\.\.at\(\s*(-?[\d.]+)\s*,\s*(-?[\d.]+)\s*\)/);
+    if (at && numClose(at[1], oldX) && numClose(at[2], oldY)) {
+      lines[i] = line.slice(0, at.index) + `{...at(${newXS}, ${newYS})` + line.slice(at.index + at[0].length);
+      return lines.join("\n");
     }
 
-    // pcbX/pcbY
-    if (line.includes("pcbX={") && line.includes("pcbY={")) {
-      const pxRe = new RegExp(`\\bpcbX=\\{${esc(oldXS)}\\}`);
-      const pyRe = new RegExp(`\\bpcbY=\\{${esc(oldYS)}\\}`);
-      if (pxRe.test(line) && pyRe.test(line)) {
-        lines[i] = line.replace(pxRe, `pcbX={${newXS}}`).replace(pyRe, `pcbY={${newYS}}`);
-        return lines.join("\n");
-      }
+    // pcbX={x} pcbY={y}
+    const px = line.match(/\bpcbX=\{(-?[\d.]+)\}/);
+    const py = line.match(/\bpcbY=\{(-?[\d.]+)\}/);
+    if (px && py && numClose(px[1], oldX) && numClose(py[1], oldY)) {
+      lines[i] = line
+        .replace(/\bpcbX=\{-?[\d.]+\}/, `pcbX={${newXS}}`)
+        .replace(/\bpcbY=\{-?[\d.]+\}/, `pcbY={${newYS}}`);
+      return lines.join("\n");
     }
 
-    // x/y direct
-    if (line.includes("x={") && line.includes("y={")) {
-      const xRe = new RegExp(`\\bx=\\{${esc(oldXS)}\\}`);
-      const yRe = new RegExp(`\\by=\\{${esc(oldYS)}\\}`);
-      if (xRe.test(line) && yRe.test(line)) {
-        lines[i] = line.replace(xRe, `x={${newXS}}`).replace(yRe, `y={${newYS}}`);
-        return lines.join("\n");
-      }
+    // x={x} y={y} direct
+    const xm = line.match(/\bx=\{(-?[\d.]+)\}/);
+    const ym = line.match(/\by=\{(-?[\d.]+)\}/);
+    if (xm && ym && numClose(xm[1], oldX) && numClose(ym[1], oldY)) {
+      lines[i] = line
+        .replace(/\bx=\{-?[\d.]+\}/, `x={${newXS}}`)
+        .replace(/\by=\{-?[\d.]+\}/, `y={${newYS}}`);
+      return lines.join("\n");
     }
   }
 
