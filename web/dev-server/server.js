@@ -200,12 +200,33 @@ async function runPcbRender(tsxPath) {
     const code = await new Promise((resolve, reject) => {
       const proc = spawn("bun", ["render-board.ts", path.basename(tsxPath)], {
         cwd: scriptDir,
-        stdio: ["ignore", "ignore", "inherit"],
+        // stdout piped so we can catch the placement-preview sentinel; stderr still
+        // inherited so tsci/render errors land in the dev log.
+        stdio: ["ignore", "pipe", "inherit"],
         // Tag the run so render-board's single-flight lock can name us when it
         // supersedes (or is superseded by) a hand-run of the same board.
         env: { ...process.env, RENDER_SOURCE: "dev-server" },
         signal: ac.signal,
         killSignal: "SIGKILL",
+      });
+      // Two-phase render: render-board paints a fast placement preview, prints the
+      // sentinel below, then runs the full routed render. Broadcast on the sentinel
+      // so the viewer shows the preview immediately — the watcher ignores out/, so it
+      // won't notice the write on its own. The post-close broadcast then swaps in the
+      // full copper. (Non-sentinel stdout is dropped; render errors ride stderr.)
+      let buf = "";
+      proc.stdout.setEncoding("utf8");
+      proc.stdout.on("data", (chunk) => {
+        buf += chunk;
+        let nl;
+        while ((nl = buf.indexOf("\n")) !== -1) {
+          const line = buf.slice(0, nl); buf = buf.slice(nl + 1);
+          if (line.trim() === "RENDER_PHASE=placement" && !ac.signal.aborted) {
+            const relFile = relForBroadcast(tsxPath);
+            console.log(`  -> ${relFile} (placement preview)`);
+            broadcast({ type: "files-changed", files: [relFile] });
+          }
+        }
       });
       proc.on("close", resolve);
       proc.on("error", reject);
