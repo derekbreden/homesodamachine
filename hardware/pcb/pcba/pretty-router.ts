@@ -17,7 +17,7 @@ export type RoutePoint =
 
 export type RoutedNet = { from: string; to: string; route: RoutePoint[]; vias: number }
 
-export type FanType = "fanRowToColumn" | "fanColumnToColumn"
+export type FanType = "fanRowToColumn" | "fanColumnToRow" | "fanColumnToColumn" | "fanRowToRow"
 
 export type MazeSpec = {
   cell: number; clr: number; width: number; viaCost: number
@@ -360,32 +360,47 @@ const diagHitsTrace = (a: { x: number; y: number }, b: { x: number; y: number },
 }
 
 // Route one net as a clean fan. The pad escape and the pad landing are PERPENDICULAR to
-// their pin rows; the 45° diagonal happens in open space between them. The path is FIXED —
+// their pin lines; the 45° diagonal happens in open space between them. The path is FIXED —
 // it never bends to dodge copper. It IS obstacle-aware in Z: if the diagonal would cross
 // top copper, that diagonal drops to the bottom layer (a via at each end) so it passes
-// under instead of shorting — when the bottom is clear there too. Escape/landing stay on
-// the pads' (top) layer. With no `field`, it stays all-top, 0 vias.
+// under instead of shorting — when the bottom is clear there too; if BOTH layers are
+// blocked it throws (it can't route this fixed path without a short). Escape/landing stay
+// on the pads' (top) layer. With no `field`, it stays all-top, 0 vias.
 //
-//   fanRowToColumn  (source pins form a ROW, target pins form a COLUMN):
-//     escape the source straight in Y a small amount toward the goal, run 45° toward the
-//     goal until the goal's Y is reached, then go straight in X into the goal.
-//   fanColumnToColumn  (source pins form a COLUMN, target a ROW):  the X/Y mirror —
-//     escape straight in X, run 45° until the goal's X, then straight in Y into the goal.
+// fanType is fan<source line>To<target line>: the source pads lie on a ROW (escape ⟂ in Y)
+// or a COLUMN (escape ⟂ in X); the target pads lie on a ROW (land ⟂ in Y) or a COLUMN
+// (land ⟂ in X). All four are escape → 45° → land, the diagonal covering the offset the
+// two straights don't:
+//   fanRowToColumn     escape Y, land X     fanColumnToRow     escape X, land Y
+//   fanColumnToColumn  escape X, land X     fanRowToRow        escape Y, land Y
 export function cleanFanRoute(pads: Record<string, { x: number; y: number }>, from: string, to: string, spec: CleanSpec): RoutedNet {
   const s = pads[from], t = pads[to]
   if (!s || !t) throw new Error(`clean fan: no pad ${!s ? from : to}`)
   const top = spec.layer ?? "top", bottom = top === "top" ? "bottom" : "top"
   const width = spec.width ?? 0.2, stub = spec.stub ?? 1, clr = spec.clr ?? 0.25
-  // the four FIXED corners: source pad → perpendicular escape → diagonal end → target pad
+  const sgx = Math.sign(t.x - s.x), sgy = Math.sign(t.y - s.y)
+  // the four FIXED corners: source pad → perpendicular escape → diagonal end → target pad.
+  // The diagonal (p1→p2) is 45° by construction (|Δx| = |Δy|); the escape (p0→p1) and the
+  // landing (p2→p3) are each a single axis, ⟂ to the source / target pin line.
   let p0: { x: number; y: number }, p1: { x: number; y: number }, p2: { x: number; y: number }, p3: { x: number; y: number }
-  if (spec.fanType === "fanRowToColumn") {
-    const y1 = s.y + Math.sign(t.y - s.y) * stub             // straight: small Y escape toward goal
-    const x2 = s.x + Math.sign(t.x - s.x) * Math.abs(t.y - y1) // 45° until the goal's Y
-    p0 = { x: s.x, y: s.y }; p1 = { x: s.x, y: y1 }; p2 = { x: x2, y: t.y }; p3 = { x: t.x, y: t.y } // straight in X into the goal
+  if (spec.fanType === "fanRowToColumn") {        // escape Y, land X
+    const y1 = s.y + sgy * stub
+    p0 = { x: s.x, y: s.y }; p1 = { x: s.x, y: y1 }
+    p2 = { x: s.x + sgx * Math.abs(t.y - y1), y: t.y }; p3 = { x: t.x, y: t.y }
+  } else if (spec.fanType === "fanColumnToRow") {  // escape X, land Y
+    const x1 = s.x + sgx * stub
+    p0 = { x: s.x, y: s.y }; p1 = { x: x1, y: s.y }
+    p2 = { x: t.x, y: s.y + sgy * Math.abs(t.x - x1) }; p3 = { x: t.x, y: t.y }
+  } else if (spec.fanType === "fanColumnToColumn") { // escape X, land X (diagonal spans Y)
+    const x1 = s.x + sgx * stub
+    p0 = { x: s.x, y: s.y }; p1 = { x: x1, y: s.y }
+    p2 = { x: x1 + sgx * Math.abs(t.y - s.y), y: t.y }; p3 = { x: t.x, y: t.y }
+  } else if (spec.fanType === "fanRowToRow") {      // escape Y, land Y (diagonal spans X)
+    const y1 = s.y + sgy * stub
+    p0 = { x: s.x, y: s.y }; p1 = { x: s.x, y: y1 }
+    p2 = { x: t.x, y: y1 + sgy * Math.abs(t.x - s.x) }; p3 = { x: t.x, y: t.y }
   } else {
-    const x1 = s.x + Math.sign(t.x - s.x) * stub             // straight: small X escape toward goal
-    const y2 = s.y + Math.sign(t.y - s.y) * Math.abs(t.x - x1) // 45° until the goal's X
-    p0 = { x: s.x, y: s.y }; p1 = { x: x1, y: s.y }; p2 = { x: t.x, y: y2 }; p3 = { x: t.x, y: t.y } // straight in Y into the goal
+    throw new Error(`clean fan ${from} -> ${to}: unknown fanType ${JSON.stringify(spec.fanType)} (expected fanRowToColumn | fanColumnToRow | fanColumnToColumn | fanRowToRow)`)
   }
   // Z-only obstacle awareness: keep the whole net on top unless the diagonal p1→p2 would
   // cross top copper — then drop JUST the diagonal to the bottom layer. The XY path is
@@ -393,7 +408,7 @@ export function cleanFanRoute(pads: Record<string, { x: number; y: number }>, fr
   let diagLayer = top
   if (spec.field && diagHitsTrace(p1, p2, top, spec.field, clr, width)) {
     if (!diagHitsTrace(p1, p2, bottom, spec.field, clr, width)) diagLayer = bottom
-    else console.error(`[pretty] WARN: fan ${from} -> ${to} diagonal crosses copper on BOTH layers — left on ${top} (may short)`)
+    else throw new Error(`[pretty] fan ${from} -> ${to}: diagonal crosses copper on BOTH layers — cannot route this fixed path without a short`)
   }
   const w = (pp: { x: number; y: number }, l: string) => wirePt(pp.x, pp.y, width, l)
   let route: RoutePoint[], vias = 0
