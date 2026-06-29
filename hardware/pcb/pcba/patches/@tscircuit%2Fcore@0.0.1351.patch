@@ -7,6 +7,9 @@ index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2
 diff --git a/node_modules/@tscircuit/core/.bun-tag-c78b4bfb32a68812 b/.bun-tag-c78b4bfb32a68812
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/@tscircuit/core/.bun-tag-d5bc90521db587c0 b/.bun-tag-d5bc90521db587c0
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/node_modules/@tscircuit/core/.bun-tag-d637b02405e7afd7 b/.bun-tag-d637b02405e7afd7
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
@@ -20,22 +23,10 @@ diff --git a/node_modules/@tscircuit/core/.bun-tag-ed8a2c7eba990c90 b/.bun-tag-e
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/dist/index.js b/dist/index.js
-index c7b53b7a6db997fd2924cd638de3d2f0757d8682..2cdacce56c765c8c00576b2c9f503182a100ae4e 100644
+index c7b53b7a6db997fd2924cd638de3d2f0757d8682..0f736e719048144919216af367516252981267cc 100644
 --- a/dist/index.js
 +++ b/dist/index.js
-@@ -7174,6 +7174,11 @@ var PcbTrace = class extends PrimitiveComponent2 {
-       pcb_group_id: this.getGroup()?.pcb_group_id ?? void 0
-     });
-     this.pcb_trace_id = pcb_trace.pcb_trace_id;
-+    for (const point6 of transformedRoute) {
-+      if (point6.route_type === "via") {
-+        db.pcb_via.insert({ pcb_trace_id: pcb_trace.pcb_trace_id, x: point6.x, y: point6.y, hole_diameter: point6.via_hole_diameter ?? 0.3, outer_diameter: point6.via_diameter ?? 0.5, layers: [point6.from_layer, point6.to_layer], from_layer: point6.from_layer, to_layer: point6.to_layer });
-+      }
-+    }
-   }
-   getPcbSize() {
-     const { _parsedProps: props } = this;
-@@ -10111,6 +10116,10 @@ var calculateCcwRotation = (componentRotationStr, elementCcwRotation) => {
+@@ -10111,6 +10111,10 @@ var calculateCcwRotation = (componentRotationStr, elementCcwRotation) => {
      totalRotation = componentAngle;
    }
    const normalizedRotation = (totalRotation % 360 + 360) % 360;
@@ -46,7 +37,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..2cdacce56c765c8c00576b2c9f503182
    return normalizedRotation;
  };
  var optional = (value) => value ?? void 0;
-@@ -15733,6 +15742,45 @@ var getSimpleRouteJsonFromCircuitJson = ({
+@@ -15733,6 +15737,45 @@ var getSimpleRouteJsonFromCircuitJson = ({
        group: pcbGroup
      })
    );
@@ -92,7 +83,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..2cdacce56c765c8c00576b2c9f503182
    const breakoutPointPositions = breakoutPoints.map((bp) => ({
      x: bp.x,
      y: bp.y
-@@ -16046,6 +16094,53 @@ var getSimpleRouteJsonFromCircuitJson = ({
+@@ -16046,6 +16089,53 @@ var getSimpleRouteJsonFromCircuitJson = ({
        conn.externallyConnectedPointIds.push([...tracePortIds]);
      }
    }
@@ -146,7 +137,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..2cdacce56c765c8c00576b2c9f503182
    const resolvedMinViaHoleDiameter = minViaHoleDiameter ?? board?.min_via_hole_diameter;
    const resolvedMinViaPadDiameter = minViaPadDiameter ?? board?.min_via_pad_diameter;
    const resolvedMinTraceToPadEdgeClearance = minTraceToPadEdgeClearance ?? board?.min_trace_to_pad_edge_clearance;
-@@ -16058,7 +16153,7 @@ var getSimpleRouteJsonFromCircuitJson = ({
+@@ -16058,7 +16148,7 @@ var getSimpleRouteJsonFromCircuitJson = ({
      simpleRouteJson: {
        bounds,
        obstacles,
@@ -155,7 +146,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..2cdacce56c765c8c00576b2c9f503182
        traces: descendantTraces.length > 0 ? descendantTraces : void 0,
        layerCount: board?.num_layers ?? 2,
        minTraceWidth: minTraceWidth ?? board?.min_trace_width ?? 0.1,
-@@ -22355,6 +22450,44 @@ var Group5 = class extends NormalComponent3 {
+@@ -22355,6 +22445,44 @@ var Group5 = class extends NormalComponent3 {
        subcircuit_id: this.subcircuit_id,
        subcircuitComponent: this
      });
@@ -200,7 +191,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..2cdacce56c765c8c00576b2c9f503182
      const routingPhasePlans = this._getRoutingPhasePlans();
      const hasPhasedAutorouting = Group_hasPhasedAutorouting(routingPhasePlans);
      const outputTraces = [];
-@@ -29088,6 +29221,67 @@ var CopperPour = class extends PrimitiveComponent2 {
+@@ -29088,6 +29216,67 @@ var CopperPour = class extends PrimitiveComponent2 {
          return;
        }
        const subcircuit = this.getSubcircuit();
@@ -268,7 +259,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..2cdacce56c765c8c00576b2c9f503182
        const circuitJson = db.toArray();
        const sourceNet = circuitJson.find(
          (elm) => elm.type === "source_net" && elm.name === net.name
-@@ -29096,7 +29290,7 @@ var CopperPour = class extends PrimitiveComponent2 {
+@@ -29096,7 +29285,7 @@ var CopperPour = class extends PrimitiveComponent2 {
        const connectedNetId = sourceNet?.source_net_id ?? net.source_net_id;
        const pourConnectivityKey = (connectedNetId ? connectivityMap.getNetConnectedToId(connectedNetId) : void 0) || sourceNet?.subcircuit_connectivity_map_key || "";
        const clearance = props.clearance ?? 0.2;
