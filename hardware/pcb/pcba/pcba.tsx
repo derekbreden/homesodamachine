@@ -35,13 +35,13 @@ import { ESP32_WROOM_32E_N4 as Wroom } from "./imports/ESP32_WROOM_32E_N4"
 const ID = boardVersionParts()
 
 export default () => (
-  <board layers={4} outline={[{ x: -66.9, y: -51 }, { x: 60.9, y: -51 }, { x: 60.9, y: 47.7 }, { x: -66.9, y: 47.7 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
+  <board layers={4} outline={[{ x: -66.9, y: -39 }, { x: 37, y: -39 }, { x: 37, y: 33 }, { x: -66.9, y: 33 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
     {/* DS3231SN RTC + CR2032 backup, in the bay below the ESP (the freed DS3231-
         module footprint). The 20 mm coin holder (BT1) is the bulk; U6 (the SOIC) sits
         to its right, its 0.1uF decoupler (C6) tucked against U6's VCC pin on the west
         edge. CR2032 + is the wide can on the centre pad (pin2 -> VBAT); clips are - (GND). */}
     <CoinCell name="BT1" pcbX={-6.85} pcbY={1.9} pcbRotation={0} />
-    <silkscreentext text="BT1" fontSize="1mm" anchorAlignment="center" pcbX={5} pcbY={14.7} />
+    <silkscreentext text="BT1" fontSize="1mm" anchorAlignment="center" pcbX={-6.85} pcbY={-10.5} />
     <Ds3231Smd name="U6" x={-25.9} y={2.6} />
     <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-32.85} y={5.78} rot={90} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio. rot 180 puts
@@ -85,7 +85,7 @@ export default () => (
     <Mcp23017 name="U3" x={4.9} y={-22.85} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={18.8} y={7.2} />
     <Uln2803 name="U5" x={18.9} y={-11.95} />
-    <MLT_5020 name="U8" {...at(-29.05, 19.7)} />
+    <MLT_5020 name="U8" {...at(-29.05, 17.5)} />
     <S8050 name="Q1" {...at(-35.05, 17.2)} />
     <resistor name="R5" resistance="1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C21190"] }} {...at(-45.0, 9.0)} />
     <Jst name="J1" x={29.65} y={9.9} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
@@ -94,21 +94,21 @@ export default () => (
     <Jst name="J4" x={-24.8} y={27.2} count={6} labels={["GND", "V5", "IO14", "IO13", "IO15", "3V3"]} rot={0} label="SENSORS" />
     <Jst name="J5" x={-46.85} y={27.45} count={9} labels={["IO19", "IO18", "IO25", "IO5", "IO26", "IO17", "IO27", "IO16", "GND"]} rot={0} label="DRIVER" />
     <Jst name="J8" x={-62.7} y={27.4} count={2} labels={["GND", "V5"]} rot={0} label="5V" />
-    <Jst name="J6" x={7.55} y={27.05} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
-    <Jst name="J7" x={4.9} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
-    <Jst name="J9" x={-9.9} y={-32.05} count={3} labels={["A", "B", "ERTH"]} rot={0} label="DISPLAY" />
+    <Jst name="J6" x={6.55} y={27.05} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
+    <Jst name="J7" x={5.4} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
+    <Jst name="J9" x={-9.4} y={-32.05} count={3} labels={["A", "B", "ERTH"]} rot={0} label="DISPLAY" />
     <Jst name="J10" x={29.65} y={27.45} count={2} labels={["GND", "V12"]} rot={90} label="12V" labelDir={1} />
-    <Jst name="J11" x={-29.55} y={-32} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={0} label="GAS" />
+    <Jst name="J11" x={-30.05} y={-32} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={0} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
         a vertical 2-resistor series: 2.2k (input, bottom) -> midpoint -> 3.3k (to
         GND, top) -> 5*3.3/5.5 = 3.0 V (safely under 3.3 V, still a valid logic HIGH
         for DOUT). The midpoint taps right into the ESP; AOUT: R1/R2 -> IO39, DOUT:
         R3/R4 -> IO36 (IO36/IO39, the ADC1 pins on the ESP top row below the dividers). */}
-    <resistor name="R1" resistance="2.2k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C4190"] }} pcbRotation={0} {...at(-21.05, -34.45)} />
-    <resistor name="R2" resistance="3.3k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22978"] }} pcbRotation={0} {...at(-21.05, -29.45)} />
-    <resistor name="R3" resistance="2.2k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C4190"] }} pcbRotation={0} {...at(-17.05, -34.45)} />
-    <resistor name="R4" resistance="3.3k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22978"] }} pcbRotation={0} {...at(-17.05, -29.45)} />
+    <resistor name="R1" resistance="2.2k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C4190"] }} pcbRotation={0} {...at(-21.95, -34.45)} />
+    <resistor name="R2" resistance="3.3k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22978"] }} pcbRotation={0} {...at(-21.95, -29.45)} />
+    <resistor name="R3" resistance="2.2k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C4190"] }} pcbRotation={0} {...at(-17.95, -34.45)} />
+    <resistor name="R4" resistance="3.3k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22978"] }} pcbRotation={0} {...at(-17.95, -29.45)} />
 
     {/* 3V3 rail -> inner1 plane. U9 (LDO) sources it from 5V; the I2C devices (both
         MCPs, DS3231), RS485, and the sensor loom common to it at their barrels. The
@@ -375,7 +375,7 @@ export default () => (
     <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={23.4} y={-21.35} rot={90} />
     <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={11.95} y={-1.7} rot={90} />
     <NXB_25V470_10_12_5 name="C3" pcbRotation={180} {...at(20.35, 23.9)} />
-    <silkscreentext text="C3" fontSize="1mm" anchorAlignment="center" pcbX={34.1} pcbY={3.8} />
+    <silkscreentext text="C3" fontSize="1mm" anchorAlignment="center" pcbX={20.35} pcbY={30.5} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
     <trace from=".C2 > .pin1" to="net.V12" />
@@ -391,18 +391,17 @@ export default () => (
         directly. See plane-stitching.md (and order the PCBA with filled+capped vias). */}
 
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
-        monocolor silk via logo.ts) centered over the centered name + version,
-        stacked in the open lower-right pocket with even vertical spacing. Bottom
-        line sits on the 2.0mm bottom margin (rendered bottom y=-49). The version
-        is the firmware scheme (firmware/pre_build.py): commit date + short SHA,
-        a trailing `+` from uncommitted edits — a pure function of the commit,
-        naming which source tree a fabbed board came from. CENTER_X=43 centers the
-        block in the pocket. */}
-    {logoRoutes(43, -40.87, 5).map((route, i) => (
-      <silkscreenpath key={`logo${i}`} strokeWidth="0.15mm" route={route} />
+        monocolor silk via logo.ts) over the centered name + version, a compact
+        stack tucked into the bottom-right corner. The version is the firmware
+        scheme (firmware/pre_build.py): commit date + short SHA, a trailing `+`
+        from uncommitted edits — a pure function of the commit, naming which
+        source tree a fabbed board came from. CENTER_X=28 sits the block in the
+        corner pocket, clear of the bottom-row connectors. */}
+    {logoRoutes(26, -30.5, 2).map((route, i) => (
+      <silkscreenpath key={`logo${i}`} strokeWidth="0.12mm" route={route} />
     ))}
-    <silkscreentext text="HOME SODA MACHINE" fontSize="2mm" anchorAlignment="center" pcbX={43} pcbY={-45.57} />
-    <silkscreentext text={`${ID.date} ${ID.rev}`} fontSize="2mm" anchorAlignment="center" pcbX={43} pcbY={-48.37} />
+    <silkscreentext text="HOME SODA MACHINE" fontSize="1mm" anchorAlignment="center" pcbX={26} pcbY={-34.2} />
+    <silkscreentext text={`${ID.date} ${ID.rev}`} fontSize="1mm" anchorAlignment="center" pcbX={26} pcbY={-36.3} />
 
     {/* Power planes, top->bottom: V12 island (top, over the valve block), 3V3
         (inner1, full flood), 5V (inner2, full flood), GND (bottom, full flood).
@@ -411,7 +410,7 @@ export default () => (
     <trace from=".J10 > .V12" to="net.V12" />
     <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" boardEdgeMargin="0.5mm" />
     <copperpour name="V12PLANE" layer="top" connectsTo="net.V12"
-      outline={[{ x: 19, y: -34 }, { x: 60, y: -34 }, { x: 60, y: 34 }, { x: 19, y: 34 }]} />
+      outline={[{ x: 19, y: -34 }, { x: 36.5, y: -34 }, { x: 36.5, y: 32.5 }, { x: 19, y: 32.5 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
   </board>
