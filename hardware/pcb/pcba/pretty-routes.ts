@@ -21,7 +21,7 @@
  * can never go stale (it is always fed routes that land on the current pads). The net
  * list comes from the .tsx, so adding a signal is one <trace ... pretty=...> line.
  */
-import { mazeRouteNets, cleanPads, monoWarn, routedNetToJSX, type MazeSpec, type FanType } from "./pretty-router"
+import { mazeRouteNets, cleanPads, monoWarn, type MazeSpec, type FanType } from "./pretty-router"
 import { readFileSync, writeFileSync, rmSync } from "node:fs"
 import path from "node:path"
 
@@ -42,19 +42,6 @@ const attrOf = (el: string, name: string) => (el.match(new RegExp(`\\b${name}="(
 // ".J5 > .IO25" -> "J5.IO25" (the form the router labels pads with)
 const toDot = (sel: string) => sel.replace(/^\./, "").replace(/\s*>\s*\./, ".")
 
-// A circuit-json pcb_trace.route -> a fixed <pcbtrace>, so the obstacle pass's already
-// routed copper can be frozen into the final build (eliminating the second autoroute).
-const pcbTraceRouteToJSX = (route: any[]): string => {
-  const body = route
-    .map((p) =>
-      p.route_type === "via"
-        ? `{route_type:"via",x:${p.x},y:${p.y},from_layer:${JSON.stringify(p.from_layer)},to_layer:${JSON.stringify(p.to_layer)}}`
-        : `{route_type:"wire",x:${p.x},y:${p.y},width:${p.width ?? 0.2},layer:${JSON.stringify(p.layer)}}`,
-    )
-    .join(",\n      ")
-  return `    <pcbtrace route={[\n      ${body},\n    ]} />`
-}
-
 export function findPrettyTraces(src: string): Pretty[] {
   // match each self-closing <trace .../> (non-greedy to the first "/>", since the
   // from/to selectors contain ">" e.g. ".J5 > .IO25"), then keep the pretty ones.
@@ -66,20 +53,29 @@ export function findPrettyTraces(src: string): Pretty[] {
 }
 
 /**
- * Resolve a board's pretty-routes into a routed temp .tsx and return it alongside
- * the obstacle circuit-json (the board stripped of pretty nets). The caller reuses
- * that circuit-json for back-silk synthesis and pick-data so it doesn't need its
- * own tsci export. Returns the board unchanged when there are no pretty traces.
+ * The 2nd-pass router as a TWO-step pipeline, returning a finished circuit-json:
+ *
+ *   1. AUTOROUTER FIRST — export the board with every pretty <trace> removed, so the
+ *      autorouter routes only the non-pretty nets and leaves the pretty corridors clear.
+ *   2. OUR ROUTER AFTER, AVOIDING — route the pretty nets (maze + clean fans) against that
+ *      autorouted field, obstacle-aware, so they via/detour around the autoroute copper
+ *      (and each other). Nothing overlaps, by construction.
+ *   3. STOP — splice our copper (a pcb_trace + a pcb_via per layer change, per net) into
+ *      the autorouted circuit-json and return it. The caller converts THIS straight to
+ *      gerbers; the autorouter never runs again.
+ *
+ * Step 3 is the whole point. Re-exporting through tscircuit re-autoroutes the non-pretty
+ * nets (it can't see injected copper) and the re-route crosses the pretty copper — that
+ * was every short. Returning finished circuit-json avoids any second autoroute. With no
+ * pretty traces, returns the board's own circuit-json (the autorouter routed everything).
  */
-export async function applyPrettyRoutes(dir: string, board: string, exportCJ: ExportCircuitJson): Promise<{ routedName: string; obstacleCircuitJson: any[] | null }> {
+export async function applyPrettyRoutes(dir: string, board: string, exportCJ: ExportCircuitJson): Promise<any[]> {
   const src = readFileSync(path.join(dir, `${board}.tsx`), "utf8")
   const pretties = findPrettyTraces(src)
-  if (!pretties.length) return { routedName: board, obstacleCircuitJson: null }
+  if (!pretties.length) return exportCJ(board) // no 2nd-pass nets: autoroute everything, render that
 
-  // Obstacle field: the board with every pretty <trace> removed, so the autorouter
-  // leaves those corridors clear. (Non-pretty nets route identically here and in the
-  // final routed render, since the pretty nets are carved there too.) A trace that is a
-  // .map() arrow body becomes `null` (valid, renders nothing); a standalone child is cut.
+  // ── STEP 1: autorouter first. Obstacle field = the board with every pretty <trace>
+  // removed. A trace that is a .map() arrow body becomes `null`; a standalone child is cut. ──
   let obstacleSrc = src
   for (const p of pretties) {
     const i = obstacleSrc.indexOf(p.el)
@@ -97,16 +93,17 @@ export async function applyPrettyRoutes(dir: string, board: string, exportCJ: Ex
     rmSync(path.join(dir, `${obsName}.circuit.json`), { force: true })
   }
 
-  const jsx: string[] = []
+  // ── STEP 2: our router after, avoiding the autoroutes (and each other). ──
   for (const p of pretties) if (p.strategy !== "maze" && p.strategy !== "clean") throw new Error(`[pretty] unknown strategy "${p.strategy}" (${p.from} -> ${p.to})`)
+  const routedNets: ReturnType<typeof mazeRouteNets> = []
+  let field = obstacle
 
-  // ── maze groups: route hardest(longest)-first, deterministically, accumulating
-  // each group's copper into the field so later groups avoid it. ──
+  // maze groups: hardest(longest)-first, deterministic; each routed group joins the field.
   const xy: Record<string, { x: number; y: number }> = cleanPads(obstacle)
   const len = (p: Pretty) => { const a = xy[toDot(p.from)], b = xy[toDot(p.to)]; return a && b ? Math.abs(a.x - b.x) + Math.abs(a.y - b.y) : 0 }
   const mazeGroups = new Map<string, Pretty[]>()
   for (const p of pretties) if (p.strategy === "maze") (mazeGroups.get(p.variant) ?? mazeGroups.set(p.variant, []).get(p.variant)!).push(p)
-  let field = obstacle, obsId = 0
+  let obsId = 0
   for (const key of [...mazeGroups.keys()].sort()) {
     const ps = mazeGroups.get(key)!
     const cfg = MAZE_GROUPS[key]
@@ -115,14 +112,10 @@ export async function applyPrettyRoutes(dir: string, board: string, exportCJ: Ex
     const pairs = ordered.map((p) => ({ from: toDot(p.from), to: toDot(p.to) }))
     const routed = mazeRouteNets(field, pairs, cfg)
     if (routed.length !== pairs.length) throw new Error(`[pretty] maze group ${key}: routed only ${routed.length}/${pairs.length} nets — widen the region or check for obstacles`)
-    for (const rn of routed) { jsx.push(routedNetToJSX(rn)); field = field.concat([{ type: "pcb_trace", pcb_trace_id: `_pretty_obs_${obsId++}`, route: rn.route }]) }
+    for (const rn of routed) { routedNets.push(rn); field = field.concat([{ type: "pcb_trace", pcb_trace_id: `_pretty_obs_${obsId++}`, route: rn.route }]) }
   }
 
-  // ── clean fans: the SAME obstacle-aware router as the maze, in "fan" style — biased
-  // toward a tidy riser + 45° landing, but it detours / dips to the other layer (via) to
-  // dodge copper, so a fan never shorts an autoroute. Routed per group against the
-  // accumulating field (which already carries the autoroutes + the maze copper); each
-  // routed fan joins the field so the next group + the autorouter-free render avoid it. ──
+  // clean fans: same obstacle-aware engine, "fan" style (tidy riser + 45°, vias to dodge).
   const cleanNets = pretties.filter((p) => p.strategy === "clean")
   if (cleanNets.length) {
     const pads = cleanPads(obstacle)
@@ -135,26 +128,22 @@ export async function applyPrettyRoutes(dir: string, board: string, exportCJ: Ex
       else monoWarn(pairs, pads, "y", "x", k)
       const routed = mazeRouteNets(field, pairs, { ...COMMON, style: "fan", fanType: ft, margin: 5 })
       if (routed.length !== pairs.length) throw new Error(`[pretty] fan group ${k}: routed only ${routed.length}/${pairs.length} nets — corridor fully blocked`)
-      for (const rn of routed) { jsx.push(routedNetToJSX(rn)); field = field.concat([{ type: "pcb_trace", pcb_trace_id: `_fan_obs_${obsId++}`, route: rn.route }]) }
+      for (const rn of routed) { routedNets.push(rn); field = field.concat([{ type: "pcb_trace", pcb_trace_id: `_fan_obs_${obsId++}`, route: rn.route }]) }
     }
   }
 
-  // ── collapse the second autoroute ──
-  // The obstacle pass already routed every non-pretty net, and BOTH the maze and the
-  // (now obstacle-aware) fans routed AROUND that copper — so nothing overlaps. Freeze
-  // those routes in as fixed <pcbtrace> too: the final export then has nothing left to
-  // autoroute. This is also what makes the result correct — the autorouter ignores
-  // injected <pcbtrace>, so a second autoroute pass would re-route a net straight back
-  // across the pretty copper (the SDA-over-fan short). One pass, no re-crossing.
-  const frozen = obstacle.filter((e) => e.type === "pcb_trace")
-  for (const t of frozen) jsx.push(pcbTraceRouteToJSX(t.route))
-
-  // Routed render input: strip the pretty attrs (so the <trace>s are plain netlist +
-  // the carve owns them) and inject the computed <pcbtrace> copper before </board>.
-  let routedSrc = src.replace(/\s+pretty="[^"]*"/g, "")
-  routedSrc = routedSrc.replace(/(\n\s*)<\/board>/, `\n${jsx.join("\n")}$1</board>`)
-  const routedName = `_build-${board}.pretty-routed.tmp`
-  writeFileSync(path.join(dir, `${routedName}.tsx`), routedSrc)
-  console.log(`[pretty] routed ${mazeGroups.size} maze group(s) + ${cleanNets.length} clean fan(s) + froze ${frozen.length} autorouted net(s) -> ${routedName}.tsx (no 2nd autoroute)`)
-  return { routedName, obstacleCircuitJson: obstacle }
+  // ── STEP 3: STOP. Splice our copper into the autorouted circuit-json — a pcb_trace per
+  // net plus a pcb_via for each layer change — and return it. No re-export, no 2nd autoroute. ──
+  const extra: any[] = []
+  let vias = 0
+  routedNets.forEach((rn, i) => {
+    extra.push({ type: "pcb_trace", pcb_trace_id: `pcb_trace_pretty_${i}`, route: rn.route })
+    rn.route.forEach((p, j) => {
+      if (p.route_type !== "via") return
+      vias++
+      extra.push({ type: "pcb_via", pcb_via_id: `pcb_via_pretty_${i}_${j}`, pcb_trace_id: `pcb_trace_pretty_${i}`, x: p.x, y: p.y, hole_diameter: 0.3, outer_diameter: 0.5, layers: [p.from_layer, p.to_layer], from_layer: p.from_layer, to_layer: p.to_layer })
+    })
+  })
+  console.log(`[pretty] step1 autoroute + step2 ${mazeGroups.size} maze group(s) + ${cleanNets.length} clean fan(s): spliced ${routedNets.length} net(s) (${vias} via) into the circuit-json — no 2nd autoroute`)
+  return obstacle.concat(extra)
 }

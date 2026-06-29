@@ -18,8 +18,11 @@ import { backSilkBoardTsx } from "./bottom-silk"
 import { dedupDrill } from "./dedup-drill"
 import { applyPrettyRoutes } from "./pretty-routes"
 import { singleflight } from "./run-lock"
+import { convertSoupToGerberCommands, stringifyGerberCommandLayers, convertSoupToExcellonDrillCommands, stringifyExcellonDrill } from "circuit-json-to-gerber"
+import { convertCircuitJsonToBomRows, convertBomRowsToCsv } from "circuit-json-to-bom-csv"
+import { convertCircuitJsonToPickAndPlaceCsv } from "circuit-json-to-pnp-csv"
 import { spawn, type ChildProcess } from "node:child_process"
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from "node:fs"
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, readdirSync, rmSync } from "node:fs"
 import { tmpdir } from "node:os"
 import path from "node:path"
 import { Resvg } from "@resvg/resvg-js"
@@ -145,85 +148,67 @@ if (process.env.RENDER_SOURCE === "dev-server") {
   }
 }
 
-const { routedName } = await applyPrettyRoutes(dir, board, exportCircuitJson)
-if (routedName !== board) track(path.join(dir, `${routedName}.tsx`))
+// The COMPLETE routed circuit-json: step 1 autoroutes the non-pretty nets, step 2 routes
+// the pretty nets around them, spliced together. The autorouter does NOT run again — we
+// convert this circuit-json straight to the fab set below (the whole 2-step point).
+const circuit = await applyPrettyRoutes(dir, board, exportCircuitJson)
 
-// Export fabrication Gerbers AND the circuit-json of the FINAL routed board in one
-// tsci pipeline (one autorouter pass, two outputs). back-silk + pick-data read that
-// circuit-json, so the pad picker hit-tests against the COMPLETE copper — including
-// the pretty / 2nd-pass traces. (Reusing the obstacle pass's circuit-json here left
-// the pretty nets — which are removed in the obstacle — unpickable in the viewer.)
-console.log(`[${board}] exporting gerbers… (cwd=${dir})`)
-let circuit: any[] | null = null
-const exportFormat = "gerbers,circuit-json"
-try {
-  await sh(tsci, ["export", "-f", exportFormat, "-o", zipRel, `${routedName}.tsx`], { cwd: dir })
-} catch (e: any) {
-  console.error(`[${board}] gerber export failed (status ${e.status})`)
-  if (e.stdout) console.error("stdout:", String(e.stdout).slice(-1000))
-  if (e.stderr) console.error("stderr:", String(e.stderr).slice(-1000))
-  throw e
-}
-if (!circuit) {
-  const cjAbs = path.join(dir, `${routedName}.circuit.json`)
-  try {
-    circuit = JSON.parse(readFileSync(cjAbs, "utf8"))
-    rmSync(cjAbs, { force: true })
-  } catch {
-    console.error(`[${board}] circuit-json export failed — back silk + picks skipped`)
-  }
-}
-
-// Unzip into a scratch dir, synthesize the back silk into it, compose, clean up.
+// Generate the fabrication set (gerbers + drill + BOM + CPL) from that circuit-json with
+// the standalone converters — the SAME ones tscircuit's CLI uses, but with no autorouter
+// in the loop. Write into a scratch dir for compose + back-silk, then zip to out/.
+console.log(`[${board}] generating gerbers from circuit-json (${circuit.length} elements, no 2nd autoroute)…`)
 const scratch = track(mkdtempSync(path.join(tmpdir(), `pcb-${board}-`)))
 try {
-  await sh("unzip", ["-o", "-q", zip, "-d", scratch])
-  // Dedup the drill files: the tscircuit gerber exporter writes every mechanical
-  // (NPTH) mounting hole into drill.drl (PTH) too, at identical coords — a fab
-  // drill conflict. Strip the NPTH coords from drill.drl and re-zip the corrected
-  // file so the fabrication set has each hole exactly once. (dedup-drill.ts.)
+  const layers = stringifyGerberCommandLayers(convertSoupToGerberCommands(circuit, { flip_y_axis: false }))
+  for (const [name, txt] of Object.entries(layers)) writeFileSync(path.join(scratch, `${name}.gbr`), txt as string)
+  const pth = convertSoupToExcellonDrillCommands({ circuitJson: circuit, is_plated: true, flip_y_axis: false })
+  if (pth.length) writeFileSync(path.join(scratch, "drill.drl"), stringifyExcellonDrill(pth))
+  const npth = convertSoupToExcellonDrillCommands({ circuitJson: circuit, is_plated: false, flip_y_axis: false })
+  if (npth.length) writeFileSync(path.join(scratch, "drill_npth.drl"), stringifyExcellonDrill(npth))
+  writeFileSync(path.join(scratch, "bom.csv"), await convertBomRowsToCsv(await convertCircuitJsonToBomRows({ circuitJson: circuit })))
+  writeFileSync(path.join(scratch, "pick_and_place.csv"), convertCircuitJsonToPickAndPlaceCsv(circuit))
+
+  // Dedup drill (defensive — the converter already splits PTH/NPTH into separate files,
+  // but keep the guard against a coincident plated+non-plated hole).
   try {
     const { removed, droppedTools } = dedupDrill(scratch)
-    if (removed) {
-      await sh("zip", ["-q", "-j", zip, path.join(scratch, "drill.drl")])
-      console.log(`[${board}] drill dedup: removed ${removed} duplicate PTH holes (tools ${droppedTools.join(",")} were NPTH-only)`)
-    }
+    if (removed) console.log(`[${board}] drill dedup: removed ${removed} duplicate PTH holes (tools ${droppedTools.join(",")})`)
   } catch {
     console.error(`[${board}] drill dedup failed — fab zip may carry duplicate PTH/NPTH holes`)
   }
-  // Back silk: tscircuit only draws the front legend. Build a throwaway board of
-  // layer="bottom" copies of every front silk element (same engine -> identical
-  // font + per-size stroke) and lift its B_SilkScreen, so the bottom view and the
-  // fab set carry a back legend that matches the front exactly. tscircuit mirrors
-  // each glyph in place; the compositor's bottom view flips it readable, and the
-  // gerber stays correct on the real board. Drop it into the scratch + gerber zip.
-  if (circuit) {
-    const bsTsx = `_build-${board}.backsilk.tmp.tsx`
-    const bsZipRel = path.join("out", `_build-${board}.backsilk.tmp.zip`)
-    track(path.join(dir, bsTsx))
-    track(path.join(dir, bsZipRel))
-    try {
-      writeFileSync(path.join(dir, bsTsx), backSilkBoardTsx(circuit))
-      await sh(tsci, ["export", "-f", "gerbers", "-o", bsZipRel, bsTsx], { cwd: dir })
-      const bsScratch = track(mkdtempSync(path.join(tmpdir(), `pcb-${board}-bsilk-`)))
-      await sh("unzip", ["-o", "-q", path.join(dir, bsZipRel), "-d", bsScratch])
-      const bsilkPath = path.join(scratch, "B_SilkScreen.gbr")
-      writeFileSync(bsilkPath, readFileSync(path.join(bsScratch, "B_SilkScreen.gbr")))
-      await sh("zip", ["-q", "-j", zip, bsilkPath])
-    } catch {
-      console.error(`[${board}] back-silk render failed — bottom view shows no back legend`)
-    }
+
+  // Back silk: the converter only draws the front legend. Build a throwaway board of
+  // layer="bottom" copies of every front silk element (same engine -> identical font +
+  // per-size stroke) and lift its B_SilkScreen, overwriting the front-only one here so the
+  // bottom view + fab set carry a back legend that matches the front. (Still a tiny tsci
+  // export — silk only, no routing.)
+  const bsTsx = `_build-${board}.backsilk.tmp.tsx`
+  const bsZipRel = path.join("out", `_build-${board}.backsilk.tmp.zip`)
+  track(path.join(dir, bsTsx))
+  track(path.join(dir, bsZipRel))
+  try {
+    writeFileSync(path.join(dir, bsTsx), backSilkBoardTsx(circuit))
+    await sh(tsci, ["export", "-f", "gerbers", "-o", bsZipRel, bsTsx], { cwd: dir })
+    const bsScratch = track(mkdtempSync(path.join(tmpdir(), `pcb-${board}-bsilk-`)))
+    await sh("unzip", ["-o", "-q", path.join(dir, bsZipRel), "-d", bsScratch])
+    writeFileSync(path.join(scratch, "B_SilkScreen.gbr"), readFileSync(path.join(bsScratch, "B_SilkScreen.gbr")))
+  } catch {
+    console.error(`[${board}] back-silk render failed — bottom view shows no back legend`)
   }
+
+  // Zip the fab set into out/ (fresh — drop any prior zip first).
+  rmSync(zip, { force: true })
+  await sh("zip", ["-q", "-j", zip, ...readdirSync(scratch).map((f) => path.join(scratch, f))])
+
   const { top, bottom, overlay, inners, widthMm, heightMm } = await composeViews(scratch, scheme)
   // top/bottom/overlay always; plus one solo view per inner copper layer (4-layer+).
   const svgs: Record<string, string> = { top, bottom, overlay, ...inners }
   writeViews(svgs)
   const views = Object.keys(svgs)
   console.log(`[${board}] ${widthMm} × ${heightMm} mm — wrote ${board}.{${views.join(",")}}.{svg,png} (${schemeName})`)
-  // Surface the assembly BOM + CPL (they ride inside the gerber zip) as first-class
-  // out/ files, so every render leaves a diffable BOM/CPL: the JLCPCB part numbers and
-  // placements, checkable as each part is wired rather than discovered at fab time. The
-  // wired count (parts carrying a JLCPCB #) is the coverage signal as modules convert.
+  // Surface the assembly BOM + CPL as first-class out/ files: the JLCPCB part numbers and
+  // placements, diffable per render. The wired count (parts carrying a JLCPCB #) is the
+  // coverage signal as modules convert.
   try {
     const bom = readFileSync(path.join(scratch, "bom.csv"), "utf8")
     writeFileSync(path.join(outDir, `${board}.bom.csv`), bom)
@@ -232,7 +217,7 @@ try {
     const wired = rows.filter((r) => r.split(",").pop()?.trim()).length
     console.log(`[${board}] wrote ${board}.{bom,cpl}.csv — ${wired}/${rows.length} parts carry a JLCPCB #`)
   } catch {
-    console.error(`[${board}] BOM/CPL not found in the gerber export`)
+    console.error(`[${board}] BOM/CPL generation failed`)
   }
 } finally {
   rmSync(scratch, { recursive: true, force: true })

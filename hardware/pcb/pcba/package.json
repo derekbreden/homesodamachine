@@ -12,6 +12,9 @@
   "dependencies": {
     "@resvg/resvg-js": "^2.6.2",
     "@tscircuit/cli": "^0.1.1537",
+    "circuit-json-to-bom-csv": "^0.0.9",
+    "circuit-json-to-gerber": "^0.0.78",
+    "circuit-json-to-pnp-csv": "^0.0.8",
     "circuit-to-svg": "^0.0.360",
     "pcb-stackup": "^4.2.8",
     "tscircuit": "^0.0.1927"
