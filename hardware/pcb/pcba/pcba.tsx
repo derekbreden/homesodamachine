@@ -179,6 +179,16 @@ export default () => (
     <trace from=".BT1 > .pin4" to="net.GND" />
     <trace from=".BT1 > .pin5" to="net.GND" />
 
+    {/* I2C bus — routed top bus, not poured (two co-located nets). Daisy-chained in
+        board order U1 -> U6 -> U2 -> U3 so each hop is short and the bus doesn't
+        double back across the board. */}
+    <trace from=".U1 > .IO21" to=".U6 > .SDA" />
+    <trace from=".U1 > .IO22" to=".U6 > .SCL" />
+    <trace from=".U6 > .SDA" to=".U2 > .SDA" />
+    <trace from=".U6 > .SCL" to=".U2 > .SCL" />
+    <trace from=".U6 > .SDA" to=".U3 > .SDA" />
+    <trace from=".U6 > .SCL" to=".U3 > .SCL" />
+
     {/* ULN U4 ground (U2/U3 grounds are in the grounds block above) */}
     <trace from=".U4 > .GND" to="net.GND" />
 
@@ -206,32 +216,22 @@ export default () => (
         valve mapping is unchanged; inside the ULN, channel j is IN_j -> OUT_j -> J.OUT_j
         (valve-control.mmd). pretty="clean:..." fans each pair as a riser + 45° landing at
         build time (pretty-routes.ts): U2->U4 from the GPA row, U5->U3 from the IN column. */}
-    <trace from=".U2 > .GPA0" to=".U4 > .IN8" pretty="clean:fanRowToColumn" />
-    <trace from=".U2 > .GPA1" to=".U4 > .IN7" pretty="clean:fanRowToColumn" />
-    <trace from=".U2 > .GPA2" to=".U4 > .IN6" pretty="clean:fanRowToColumn" />
-    <trace from=".U2 > .GPA3" to=".U4 > .IN5" pretty="clean:fanRowToColumn" />
-    <trace from=".U2 > .GPA4" to=".U4 > .IN4" pretty="clean:fanRowToColumn" />
-    <trace from=".U2 > .GPA5" to=".U4 > .IN3" pretty="clean:fanRowToColumn" />
-    <trace from=".U2 > .GPA6" to=".U4 > .IN2" pretty="clean:fanRowToColumn" />
-    <trace from=".U2 > .GPA7" to=".U4 > .IN1" pretty="clean:fanRowToColumn" />
-    <trace from=".U3 > .GPA0" to=".U5 > .IN8" pretty="clean:fanRowToColumn" />
-    <trace from=".U3 > .GPA1" to=".U5 > .IN7" pretty="clean:fanRowToColumn" />
-    <trace from=".U3 > .GPA2" to=".U5 > .IN6" pretty="clean:fanRowToColumn" />
-    <trace from=".U3 > .GPA3" to=".U5 > .IN5" pretty="clean:fanRowToColumn" />
-    <trace from=".U3 > .GPA4" to=".U5 > .IN4" pretty="clean:fanRowToColumn" />
-    <trace from=".U3 > .GPA5" to=".U5 > .IN3" pretty="clean:fanRowToColumn" />
-    <trace from=".U3 > .GPA6" to=".U5 > .IN2" pretty="clean:fanRowToColumn" />
-    <trace from=".U3 > .GPA7" to=".U5 > .IN1" pretty="clean:fanRowToColumn" />
-
-    {/* I2C bus — routed top bus, not poured (two co-located nets). Daisy-chained in
-        board order U1 -> U6 -> U2 -> U3 so each hop is short and the bus doesn't
-        double back across the board. */}
-    <trace from=".U1 > .IO21" to=".U6 > .SDA" />
-    <trace from=".U1 > .IO22" to=".U6 > .SCL" />
-    <trace from=".U6 > .SDA" to=".U2 > .SDA" pretty="clean:fanColumnToRow" />
-    <trace from=".U6 > .SCL" to=".U2 > .SCL" pretty="clean:fanColumnToRow" />
-    <trace from=".U6 > .SDA" to=".U3 > .SDA" pretty="clean:fanColumnToRow" />
-    <trace from=".U6 > .SCL" to=".U3 > .SCL" pretty="clean:fanColumnToRow" />
+    <trace from=".U2 > .GPA0" to=".U4 > .IN8" />
+    <trace from=".U2 > .GPA1" to=".U4 > .IN7" />
+    <trace from=".U2 > .GPA2" to=".U4 > .IN6" />
+    <trace from=".U2 > .GPA3" to=".U4 > .IN5" />
+    <trace from=".U2 > .GPA4" to=".U4 > .IN4" />
+    <trace from=".U2 > .GPA5" to=".U4 > .IN3" />
+    <trace from=".U2 > .GPA6" to=".U4 > .IN2" />
+    <trace from=".U2 > .GPA7" to=".U4 > .IN1" />
+    <trace from=".U3 > .GPA0" to=".U5 > .IN8" />
+    <trace from=".U3 > .GPA1" to=".U5 > .IN7" />
+    <trace from=".U3 > .GPA2" to=".U5 > .IN6" />
+    <trace from=".U3 > .GPA3" to=".U5 > .IN5" />
+    <trace from=".U3 > .GPA4" to=".U5 > .IN4" />
+    <trace from=".U3 > .GPA5" to=".U5 > .IN3" />
+    <trace from=".U3 > .GPA6" to=".U5 > .IN2" />
+    <trace from=".U3 > .GPA7" to=".U5 > .IN1" />
 
     {/* RS485 TTL side -> ESP UART. R (the receiver output) lands on IO34 — the ESP
         UART RX, an input-only pin, all an RX needs; D (the driver input) is fed by
