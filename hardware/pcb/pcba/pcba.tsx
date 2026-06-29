@@ -83,22 +83,22 @@ export default () => (
     <Cap name="C8" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-48.5} y={16} rot={90} />
     <Cap name="C9" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-51.4} y={22.15} rot={90} />
     <Mcp23017 name="U2" x={22} y={30} addr="0x20" rot={270} />
-    <Mcp23017 name="U3" x={22} y={-30} addr="0x21" rot={90} />
+    <Mcp23017 name="U3" x={22} y={-26} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={36} y={19.1} />
-    <Uln2803 name="U5" x={36} y={-19.1} />
+    <Uln2803 name="U5" x={36} y={-15.1} />
     <MLT_5020 name="U8" {...at(-56, -33)} />
     <S8050 name="Q1" {...at(-56, -39)} />
     <resistor name="R5" resistance="1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C21190"] }} {...at(-52, -39)} />
     <Jst name="J1" x={44.7} y={19.1} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
-    <Jst name="J2" x={44.7} y={-19.1} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
+    <Jst name="J2" x={44.7} y={-15.1} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
     <Jst name="J3" x={-40.63} y={42.65} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
     <Jst name="J4" x={-62.0} y={3} count={6} labels={["GND", "IO15", "V5", "IO14", "IO13", "3V3"]} rot={90} label="SENSORS" />
     <Jst name="J5" x={-31.15} y={-46} count={9} labels={["GND", "IO16", "IO17", "IO27", "IO5", "IO26", "IO18", "IO25", "IO19"]} rot={0} label="DRIVER" />
     <Jst name="J8" x={-62.0} y={-11.3} count={2} labels={["GND", "V5"]} rot={90} label="5V" />
     <Jst name="J6" x={25} y={38.65} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
-    <Jst name="J7" x={19} y={-38.65} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
+    <Jst name="J7" x={19} y={-34.65} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
     <Jst name="J9" x={-1.7} y={42.65} count={3} labels={["A", "B", "ERTH"]} rot={0} label="DISPLAY" />
-    <Jst name="J10" x={56.0} y={0} count={2} labels={["GND", "V12"]} rot={90} label="12V" labelDir={1} />
+    <Jst name="J10" x={44.7} y={0} count={2} labels={["GND", "V12"]} rot={90} label="12V" labelDir={1} />
     <Jst name="J11" x={-26.47} y={42.65} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={0} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
@@ -205,7 +205,7 @@ export default () => (
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
     <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={15.4} y={36.55} rot={90} />
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={30.33} y={-36.25} rot={90} lab={[1.85, 0]} />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={30.33} y={-32.25} rot={90} lab={[1.85, 0]} />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
@@ -371,9 +371,9 @@ export default () => (
         inrush + flyback dump the ceramics can't. Every pin1 -> V12, pin2 -> GND
         plane — no routing, no vias, barrel pickup like every power pin; the top V12
         island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
-    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={39} y={-27.5} rot={90} />
+    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={39} y={-23.5} rot={90} />
     <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={39.2} y={10.9} rot={90} />
-    <NXB_25V470_10_12_5 name="C3" pcbRotation={180} {...at(34.1, -2.2)} />
+    <NXB_25V470_10_12_5 name="C3" pcbRotation={180} {...at(34.1, 0)} />
     <silkscreentext text="C3" fontSize="1mm" anchorAlignment="center" pcbX={34.1} pcbY={3.8} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
