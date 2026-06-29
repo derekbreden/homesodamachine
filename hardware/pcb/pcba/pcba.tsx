@@ -41,7 +41,6 @@ export default () => (
         to its right, its 0.1uF decoupler (C6) tucked against U6's VCC pin on the west
         edge. CR2032 + is the wide can on the centre pad (pin2 -> VBAT); clips are - (GND). */}
     <CoinCell name="BT1" pcbX={-6.85} pcbY={1.9} pcbRotation={0} />
-    <silkscreentext text="BT1" fontSize="1mm" anchorAlignment="center" pcbX={-6.85} pcbY={-10.5} />
     <Ds3231Smd name="U6" x={-25.9} y={2.6} />
     <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-32.85} y={5.78} rot={90} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio. rot 180 puts
@@ -88,17 +87,17 @@ export default () => (
     <MLT_5020 name="U8" {...at(-29.05, 17.5)} />
     <S8050 name="Q1" {...at(-35.05, 17.2)} />
     <resistor name="R5" resistance="1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C21190"] }} {...at(-42.5, 9.0)} />
-    <Jst name="J1" x={29.65} y={9.9} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
-    <Jst name="J2" x={29.7} y={-11.95} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
+    <Jst name="J1" x={29.65} y={7.9} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
+    <Jst name="J2" x={29.7} y={-13.95} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
     <Jst name="J3" x={-42.55} y={-32} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
-    <Jst name="J4" x={-24.8} y={27.2} count={6} labels={["GND", "V5", "IO14", "IO13", "IO15", "3V3"]} rot={0} label="SENSORS" />
+    <Jst name="J4" x={-24.8} y={27.45} count={6} labels={["GND", "V5", "IO14", "IO13", "IO15", "3V3"]} rot={0} label="SENSORS" />
     <Jst name="J5" x={-46.05} y={27.45} count={9} labels={["IO19", "IO18", "IO25", "IO5", "IO26", "IO17", "IO27", "IO16", "GND"]} rot={0} label="DRIVER" />
-    <Jst name="J8" x={-62.7} y={27.4} count={2} labels={["GND", "V5"]} rot={0} label="5V" />
-    <Jst name="J6" x={6.55} y={27.05} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
+    <Jst name="J8" x={-62.7} y={27.44} count={2} labels={["GND", "V5"]} rot={0} label="5V" />
+    <Jst name="J6" x={6.55} y={27.45} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={5.4} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
-    <Jst name="J9" x={-9.9} y={-32.05} count={3} labels={["A", "B", "ERTH"]} rot={0} label="DISPLAY" />
+    <Jst name="J9" x={-9.9} y={-32.05} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" />
     <Jst name="J10" x={29.65} y={27.45} count={2} labels={["GND", "V12"]} rot={90} label="12V" labelDir={1} />
-    <Jst name="J11" x={-30.05} y={-32} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={0} label="GAS" />
+    <Jst name="J11" x={-30.05} y={-32.05} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={0} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
         a vertical 2-resistor series: 2.2k (input, bottom) -> midpoint -> 3.3k (to
@@ -173,21 +172,12 @@ export default () => (
     <trace from=".C6 > .pin2" to="net.GND" />
 
     {/* RTC backup: CR2032 + (centre pad pin2) -> VBAT; clips/holes (-) -> GND. */}
-    <trace from=".U6 > .VBAT" to=".BT1 > .pin2" />
+    {/* <trace from=".U6 > .VBAT" to=".BT1 > .pin2" /> */}
     <trace from=".BT1 > .pin1" to="net.GND" />
     <trace from=".BT1 > .pin3" to="net.GND" />
     <trace from=".BT1 > .pin4" to="net.GND" />
     <trace from=".BT1 > .pin5" to="net.GND" />
 
-    {/* I2C bus — routed top bus, not poured (two co-located nets). Daisy-chained in
-        board order U1 -> U6 -> U2 -> U3 so each hop is short and the bus doesn't
-        double back across the board. */}
-    <trace from=".U1 > .IO21" to=".U6 > .SDA" />
-    <trace from=".U1 > .IO22" to=".U6 > .SCL" />
-    <trace from=".U6 > .SDA" to=".U2 > .SDA" />
-    <trace from=".U6 > .SCL" to=".U2 > .SCL" />
-    <trace from=".U6 > .SDA" to=".U3 > .SDA" />
-    <trace from=".U6 > .SCL" to=".U3 > .SCL" />
 
     {/* ULN U4 ground (U2/U3 grounds are in the grounds block above) */}
     <trace from=".U4 > .GND" to="net.GND" />
@@ -205,7 +195,7 @@ export default () => (
     <trace from=".U3 > .A1" to="net.GND" />
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
-    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-7.3} y={21} rot={0} lab={[0, -1.35]} />
+    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-7.4} y={15.2} rot={0} lab={[0, -1.35]} />
     <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={17.4} y={-25.8} rot={0} lab={[2.6, 0]} />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
@@ -216,14 +206,14 @@ export default () => (
         valve mapping is unchanged; inside the ULN, channel j is IN_j -> OUT_j -> J.OUT_j
         (valve-control.mmd). pretty="clean:..." fans each pair as a riser + 45° landing at
         build time (pretty-routes.ts): U2->U4 from the GPA row, U5->U3 from the IN column. */}
-    <trace from=".U2 > .GPA0" to=".U4 > .IN8" />
-    <trace from=".U2 > .GPA1" to=".U4 > .IN7" />
-    <trace from=".U2 > .GPA2" to=".U4 > .IN6" />
-    <trace from=".U2 > .GPA3" to=".U4 > .IN5" />
-    <trace from=".U2 > .GPA4" to=".U4 > .IN4" />
-    <trace from=".U2 > .GPA5" to=".U4 > .IN3" />
-    <trace from=".U2 > .GPA6" to=".U4 > .IN2" />
-    <trace from=".U2 > .GPA7" to=".U4 > .IN1" />
+    <trace from=".U2 > .GPA0" to=".U4 > .IN8" pretty="clean:fanRowToColumn" />
+    <trace from=".U2 > .GPA1" to=".U4 > .IN7" pretty="clean:fanRowToColumn" />
+    <trace from=".U2 > .GPA2" to=".U4 > .IN6" pretty="clean:fanRowToColumn" />
+    <trace from=".U2 > .GPA3" to=".U4 > .IN5" pretty="clean:fanRowToColumn" />
+    <trace from=".U2 > .GPA4" to=".U4 > .IN4" pretty="clean:fanRowToColumn" />
+    <trace from=".U2 > .GPA5" to=".U4 > .IN3" pretty="clean:fanRowToColumn" />
+    <trace from=".U2 > .GPA6" to=".U4 > .IN2" pretty="clean:fanRowToColumn" />
+    <trace from=".U2 > .GPA7" to=".U4 > .IN1" pretty="clean:fanRowToColumn" />
     <trace from=".U3 > .GPA0" to=".U5 > .IN8" />
     <trace from=".U3 > .GPA1" to=".U5 > .IN7" />
     <trace from=".U3 > .GPA2" to=".U5 > .IN6" />
@@ -232,6 +222,18 @@ export default () => (
     <trace from=".U3 > .GPA5" to=".U5 > .IN3" />
     <trace from=".U3 > .GPA6" to=".U5 > .IN2" />
     <trace from=".U3 > .GPA7" to=".U5 > .IN1" />
+
+    {/* I2C bus — SDA dives to the inner1 (3V3) plane, SCL to inner2 (5V); each hop's whole
+        crossing runs on its plane (an empty pour), with a via a stub off each pad. Putting
+        the two co-located nets on separate empty layers lets them cross each other and
+        everything else for free — no top-side rat's nest. Daisy-chained in board order
+        U1 -> U6 -> U2 -> U3. @inner suffix routes the fan on that plane (pretty-routes.ts). */}
+    <trace from=".U1 > .IO21" to=".U6 > .SDA" pretty="clean:fanRowToColumn@inner1" />
+    <trace from=".U1 > .IO22" to=".U6 > .SCL" pretty="clean:fanRowToColumn@inner2" />
+    <trace from=".U6 > .SDA" to=".U2 > .SDA" pretty="clean:fanColumnToRow@inner1" />
+    <trace from=".U6 > .SCL" to=".U2 > .SCL" pretty="clean:fanColumnToRow@inner2" />
+    <trace from=".U6 > .SDA" to=".U3 > .SDA" pretty="clean:fanColumnToRow@inner1" />
+    <trace from=".U6 > .SCL" to=".U3 > .SCL" pretty="clean:fanColumnToRow@inner2" />
 
     {/* RS485 TTL side -> ESP UART. R (the receiver output) lands on IO34 — the ESP
         UART RX, an input-only pin, all an RX needs; D (the driver input) is fed by
@@ -245,21 +247,21 @@ export default () => (
     <trace from=".C7 > .pin2" to="net.GND" />
 
     {/* manifold JSTs: ULN outputs -> valve looms */}
-    <trace from=".U4 > .OUT1" to=".J1 > .OUT1" />
-    <trace from=".U4 > .OUT2" to=".J1 > .OUT2" />
-    <trace from=".U4 > .OUT3" to=".J1 > .OUT3" />
-    <trace from=".U4 > .OUT4" to=".J1 > .OUT4" />
-    <trace from=".U4 > .OUT5" to=".J1 > .OUT5" />
-    <trace from=".U4 > .OUT6" to=".J1 > .OUT6" />
-    <trace from=".U4 > .OUT7" to=".J1 > .OUT7" />
-    <trace from=".U4 > .OUT8" to=".J1 > .OUT8" />
+    <trace from=".U4 > .OUT1" to=".J1 > .OUT1" pretty="clean:fanColumnToColumn" />
+    <trace from=".U4 > .OUT2" to=".J1 > .OUT2" pretty="clean:fanColumnToColumn" />
+    <trace from=".U4 > .OUT3" to=".J1 > .OUT3" pretty="clean:fanColumnToColumn" />
+    <trace from=".U4 > .OUT4" to=".J1 > .OUT4" pretty="clean:fanColumnToColumn" />
+    <trace from=".U4 > .OUT5" to=".J1 > .OUT5" pretty="clean:fanColumnToColumn" />
+    <trace from=".U4 > .OUT6" to=".J1 > .OUT6" pretty="clean:fanColumnToColumn" />
+    <trace from=".U4 > .OUT7" to=".J1 > .OUT7" pretty="clean:fanColumnToColumn" />
+    <trace from=".U4 > .OUT8" to=".J1 > .OUT8" pretty="clean:fanColumnToColumn" />
     <trace from=".J1 > .COM" to="net.V12" />
     {/* MANIFOLD B: 4 valves on U5 ch1-4, condenser FAN on U5 ch5, COM = 12V flyback. */}
-    <trace from=".U5 > .OUT1" to=".J2 > .OUT1" />
-    <trace from=".U5 > .OUT2" to=".J2 > .OUT2" />
-    <trace from=".U5 > .OUT3" to=".J2 > .OUT3" />
-    <trace from=".U5 > .OUT4" to=".J2 > .OUT4" />
-    <trace from=".U5 > .OUT5" to=".J2 > .FAN" />
+    <trace from=".U5 > .OUT1" to=".J2 > .OUT1" pretty="clean:fanColumnToColumn"  />
+    <trace from=".U5 > .OUT2" to=".J2 > .OUT2" pretty="clean:fanColumnToColumn"  />
+    <trace from=".U5 > .OUT3" to=".J2 > .OUT3" pretty="clean:fanColumnToColumn"  />
+    <trace from=".U5 > .OUT4" to=".J2 > .OUT4" pretty="clean:fanColumnToColumn"  />
+    <trace from=".U5 > .OUT5" to=".J2 > .FAN" pretty="clean:fanColumnToColumn"  />
     <trace from=".J2 > .COM" to="net.V12" />
 
     {/* FAUCET UART (IO33 TX / IO35 RX). pretty="maze:faucet485" climbs both signals
@@ -373,7 +375,7 @@ export default () => (
         plane — no routing, no vias, barrel pickup like every power pin; the top V12
         island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
     <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={23.4} y={-21.35} rot={90} />
-    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={11.95} y={-1.7} rot={90} />
+    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={23.4} y={-1.7} rot={90} />
     <NXB_25V470_10_12_5 name="C3" pcbRotation={180} {...at(20.35, 23.9)} />
     <silkscreentext text="C3" fontSize="1mm" anchorAlignment="center" pcbX={20.35} pcbY={30.5} />
     <trace from=".C1 > .pin1" to="net.V12" />
