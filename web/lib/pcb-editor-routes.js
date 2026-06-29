@@ -76,19 +76,32 @@ function findSelfClosingElements(tsx) {
     }
     const tagName = tagMatch[1];
     let bodyStart = lt + 1 + tagMatch[0].length;
+    // Walk the tag's attributes tracking brace depth and quoted strings to find
+    // where it ends. A `/>` at depth 0 closes a self-closing element (what we
+    // collect); a bare `>` at depth 0 closes a NON-self-closing opening tag
+    // (e.g. <board ...>) — we must stop there and resume scanning its children,
+    // or the first self-closing child (BT1, the first component on the board)
+    // gets swallowed into this tag's body and is never parsed. Quote tracking
+    // keeps a `>` inside an attribute string (e.g. a trace's from=".U6 > .VBAT")
+    // from being mistaken for the tag end.
     let braceDepth = 0;
-    let end = -1;
+    let quote = null;
+    let end = -1, openEnd = -1;
     for (let j = bodyStart; j < tsx.length - 1; j++) {
       const c = tsx[j];
-      if (c === "{") braceDepth++;
-      else if (c === "}") braceDepth--;
-      else if (c === "/" && tsx[j + 1] === ">" && braceDepth === 0) {
-        end = j;
-        break;
+      if (quote) { if (c === quote) quote = null; continue; }
+      if (c === '"' || c === "'") { quote = c; continue; }
+      if (c === "{") { braceDepth++; continue; }
+      if (c === "}") { braceDepth--; continue; }
+      if (braceDepth === 0) {
+        if (c === "/" && tsx[j + 1] === ">") { end = j; break; }
+        if (c === ">") { openEnd = j; break; }
       }
     }
     if (end === -1) {
-      i = lt + 1;
+      // Non-self-closing: skip past an opening tag's `>` so its children get
+      // scanned; otherwise (never terminated) inch forward and retry.
+      i = openEnd !== -1 ? openEnd + 1 : lt + 1;
       continue;
     }
     const body = tsx.slice(bodyStart, end).trim();

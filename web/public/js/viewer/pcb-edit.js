@@ -135,16 +135,21 @@ export function clearEditOverlay() {
 
 // The component's draggable box: the bounding extent of its pads (the real
 // footprint), grown a hair and floored so even a one-pad or colinear part stays
-// grabbable. Falls back to the source-parsed nominal size when a component has
-// no pads in picks (e.g. a mounting-only part).
+// grabbable. Each pad contributes its own size (the `pad` field, a diameter/
+// edge in mm), not just its centre — otherwise a footprint whose pads are
+// colinear (e.g. BT1's coin-cell holder, all five pads on one row) collapses to
+// zero in that axis and the handle becomes an unhittable sliver. Falls back to
+// the source-parsed nominal size when a component has no pads in picks (e.g. a
+// mounting-only part).
 function boxFor(comp, padsByRef) {
   const ps = padsByRef.get(comp.ref);
   let cx, cy, w, h;
   if (ps && ps.length) {
     let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
     for (const p of ps) {
-      minX = Math.min(minX, p.x); maxX = Math.max(maxX, p.x);
-      minY = Math.min(minY, p.y); maxY = Math.max(maxY, p.y);
+      const r = (Number(p.pad) || 0) / 2; // pad half-extent so colinear pads don't collapse
+      minX = Math.min(minX, p.x - r); maxX = Math.max(maxX, p.x + r);
+      minY = Math.min(minY, p.y - r); maxY = Math.max(maxY, p.y + r);
     }
     cx = (minX + maxX) / 2; cy = (minY + maxY) / 2;
     w = (maxX - minX) + PAD_MM * 2; h = (maxY - minY) + PAD_MM * 2;
