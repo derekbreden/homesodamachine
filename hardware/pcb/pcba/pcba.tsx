@@ -87,8 +87,8 @@ export default () => (
     <MLT_5020 name="U8" {...at(-29.05, 17.5)} />
     <S8050 name="Q1" {...at(-35.05, 17.2)} />
     <resistor name="R5" resistance="1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C21190"] }} {...at(-42.5, 9.0)} />
-    <Jst name="J1" x={29.65} y={7.9} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
-    <Jst name="J2" x={29.7} y={-13.95} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
+    <Jst name="J1" x={29.65} y={8.9} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
+    <Jst name="J2" x={29.7} y={-12.95} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
     <Jst name="J3" x={-42.55} y={-32} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
     <Jst name="J4" x={-24.8} y={27.45} count={6} labels={["GND", "V5", "IO14", "IO13", "IO15", "3V3"]} rot={0} label="SENSORS" />
     <Jst name="J5" x={-46.05} y={27.45} count={9} labels={["IO19", "IO18", "IO25", "IO5", "IO26", "IO17", "IO27", "IO16", "GND"]} rot={0} label="DRIVER" />
@@ -245,21 +245,21 @@ export default () => (
     <trace from=".C7 > .pin2" to="net.GND" />
 
     {/* manifold JSTs: ULN outputs -> valve looms */}
-    <trace from=".U4 > .OUT1" to=".J1 > .OUT1" pretty="clean:fanColumnToColumn" />
-    <trace from=".U4 > .OUT2" to=".J1 > .OUT2" pretty="clean:fanColumnToColumn" />
-    <trace from=".U4 > .OUT3" to=".J1 > .OUT3" pretty="clean:fanColumnToColumn" />
-    <trace from=".U4 > .OUT4" to=".J1 > .OUT4" pretty="clean:fanColumnToColumn" />
-    <trace from=".U4 > .OUT5" to=".J1 > .OUT5" pretty="clean:fanColumnToColumn" />
-    <trace from=".U4 > .OUT6" to=".J1 > .OUT6" pretty="clean:fanColumnToColumn" />
-    <trace from=".U4 > .OUT7" to=".J1 > .OUT7" pretty="clean:fanColumnToColumn" />
-    <trace from=".U4 > .OUT8" to=".J1 > .OUT8" pretty="clean:fanColumnToColumn" />
+    <trace from=".U4 > .OUT1" to=".J1 > .OUT1" />
+    <trace from=".U4 > .OUT2" to=".J1 > .OUT2" />
+    <trace from=".U4 > .OUT3" to=".J1 > .OUT3" />
+    <trace from=".U4 > .OUT4" to=".J1 > .OUT4" />
+    <trace from=".U4 > .OUT5" to=".J1 > .OUT5" />
+    <trace from=".U4 > .OUT6" to=".J1 > .OUT6" />
+    <trace from=".U4 > .OUT7" to=".J1 > .OUT7" />
+    <trace from=".U4 > .OUT8" to=".J1 > .OUT8" />
     <trace from=".J1 > .COM" to="net.V12" />
     {/* MANIFOLD B: 4 valves on U5 ch1-4, condenser FAN on U5 ch5, COM = 12V flyback. */}
-    <trace from=".U5 > .OUT1" to=".J2 > .OUT1" pretty="clean:fanColumnToColumn"  />
-    <trace from=".U5 > .OUT2" to=".J2 > .OUT2" pretty="clean:fanColumnToColumn"  />
-    <trace from=".U5 > .OUT3" to=".J2 > .OUT3" pretty="clean:fanColumnToColumn"  />
-    <trace from=".U5 > .OUT4" to=".J2 > .OUT4" pretty="clean:fanColumnToColumn"  />
-    <trace from=".U5 > .OUT5" to=".J2 > .FAN" pretty="clean:fanColumnToColumn"  />
+    <trace from=".U5 > .OUT1" to=".J2 > .OUT1" />
+    <trace from=".U5 > .OUT2" to=".J2 > .OUT2" />
+    <trace from=".U5 > .OUT3" to=".J2 > .OUT3" />
+    <trace from=".U5 > .OUT4" to=".J2 > .OUT4" />
+    <trace from=".U5 > .OUT5" to=".J2 > .FAN" />
     <trace from=".J2 > .COM" to="net.V12" />
 
     {/* FAUCET UART (IO33 TX / IO35 RX). pretty="maze:faucet485" climbs both signals
