@@ -17,7 +17,6 @@ import { composeViews, SCHEMES } from "./gerber-compose"
 import { backSilkBoardTsx } from "./bottom-silk"
 import { dedupDrill } from "./dedup-drill"
 import { applyPrettyRoutes } from "./pretty-routes"
-import { resolvePours } from "./resolve-pours"
 import { singleflight } from "./run-lock"
 import { convertSoupToGerberCommands, stringifyGerberCommandLayers, convertSoupToExcellonDrillCommands, stringifyExcellonDrill } from "circuit-json-to-gerber"
 import { convertCircuitJsonToBomRows, convertBomRowsToCsv } from "circuit-json-to-bom-csv"
@@ -152,11 +151,7 @@ if (process.env.RENDER_SOURCE === "dev-server") {
 // The COMPLETE routed circuit-json: step 1 autoroutes the non-pretty nets, step 2 routes
 // the pretty nets around them, spliced together. The autorouter does NOT run again — we
 // convert this circuit-json straight to the fab set below (the whole 2-step point).
-let circuit = await applyPrettyRoutes(dir, board, exportCircuitJson)
-// The pour breps were baked at export time, before the pretty copper was spliced in — so
-// they flood over every pretty trace + via (a short to the planes). Re-solve them against
-// this finished circuit-json so each plane antipads the pretty copper it isn't on.
-circuit = await resolvePours(circuit, dir, board)
+const circuit = await applyPrettyRoutes(dir, board, exportCircuitJson)
 
 // Generate the fabrication set (gerbers + drill + BOM + CPL) from that circuit-json with
 // the standalone converters — the SAME ones tscircuit's CLI uses, but with no autorouter

@@ -38,7 +38,7 @@ export function cleanPads(circuit: any[]): Record<string, { x: number; y: number
 // A clean fan: a FIXED geometric path (NOT a search) — straight → 45° → straight. The XY
 // shape never bends around copper; the only obstacle-aware decision is which LAYER each
 // piece runs on. Pass `field` (the copper routed so far) to make it Z-aware.
-export type CleanSpec = { fanType: FanType; layer?: string; viaLayer?: string; width?: number; stub?: number; field?: any[]; clr?: number }
+export type CleanSpec = { fanType: FanType; layer?: string; width?: number; stub?: number; field?: any[]; clr?: number }
 
 const wirePt = (x: number, y: number, width: number, layer: string): RoutePoint =>
   ({ route_type: "wire", x: +x.toFixed(3), y: +y.toFixed(3), width, layer })
@@ -96,9 +96,7 @@ const diagHitsCopper = (a: { x: number; y: number }, b: { x: number; y: number }
 // top copper, that diagonal drops to the bottom layer (a via at each end) so it passes
 // under instead of shorting — when the bottom is clear there too; if BOTH layers are
 // blocked it throws (it can't route this fixed path without a short). Escape/landing stay
-// on the pads' (top) layer. With no `field`, it stays all-top, 0 vias. With `viaLayer` set
-// (inner1/inner2), the ENTIRE crossing instead runs on that plane layer — an empty power
-// pour — with a via a stub off each pad; only those stubs stay on top.
+// on the pads' (top) layer. With no `field`, it stays all-top, 0 vias.
 //
 // fanType is fan<source line>To<target line>: the source pads lie on a ROW (escape ⟂ in Y)
 // or a COLUMN (escape ⟂ in X); the target pads lie on a ROW (land ⟂ in Y) or a COLUMN
@@ -135,46 +133,26 @@ export function cleanFanRoute(pads: Record<string, { x: number; y: number }>, fr
   } else {
     throw new Error(`clean fan ${from} -> ${to}: unknown fanType ${JSON.stringify(spec.fanType)} (expected fanRowToColumn | fanColumnToRow | fanColumnToColumn | fanRowToRow)`)
   }
-  // Z obstacle awareness. Default: keep the whole net on top unless the diagonal p1→p2 would
-  // cross top copper — then drop JUST the diagonal to the bottom layer (the XY path is
-  // identical; only the diagonal's layer + its two vias change). With `viaLayer` set, instead
-  // run the ENTIRE crossing on that plane layer (inner1/inner2) — an empty power pour with
-  // nothing to hit — so the long straight leg leaves the top entirely; the pour auto-clears
-  // around the trace and both vias.
+  // Z-only obstacle awareness: keep the whole net on top unless the diagonal p1→p2 would
+  // cross top copper — then drop JUST the diagonal to the bottom layer. The XY path is
+  // identical either way; only the layer of the diagonal (and its two vias) changes.
   let diagLayer = top
   const own = [s, t] // the fan's own endpoint pads — its escape/landing touch them, so they're exempt
-  if (!spec.viaLayer && spec.field && diagHitsCopper(p1, p2, top, spec.field, clr, width, own)) {
+  if (spec.field && diagHitsCopper(p1, p2, top, spec.field, clr, width, own)) {
     if (!diagHitsCopper(p1, p2, bottom, spec.field, clr, width, own)) diagLayer = bottom
     else throw new Error(`[pretty] fan ${from} -> ${to}: diagonal crosses copper on BOTH layers — cannot route this fixed path without a short`)
   }
   const w = (pp: { x: number; y: number }, l: string) => wirePt(pp.x, pp.y, width, l)
   let route: RoutePoint[], vias = 0
-  if (spec.viaLayer) {
-    // FULL-PLANE dive: the escape (p0→p1) and a stub before the target pad stay on top to
-    // clear the pads; everything between — the diagonal AND the long landing leg — runs on
-    // the plane, with a via a stub off each pad (no via-in-pad). p3b is `stub` back from the
-    // target pad along the landing leg (clamped if that leg is shorter than a stub).
-    const via = spec.viaLayer
-    const ldx = p3.x - p2.x, ldy = p3.y - p2.y, llen = Math.hypot(ldx, ldy) || 1, back = Math.min(stub, llen)
-    const p3b = { x: +(p3.x - (ldx / llen) * back).toFixed(3), y: +(p3.y - (ldy / llen) * back).toFixed(3) }
-    route = [
-      w(p0, top), w(p1, top),                          // escape on top, off the source pad
-      viaPt(p1.x, p1.y, top, via), w(p1, via),         // dive onto the plane
-      w(p2, via),                                      // diagonal on the plane
-      w(p3b, via),                                     // landing run on the plane
-      viaPt(p3b.x, p3b.y, via, top), w(p3b, top),      // surface a stub short of the target pad
-      w(p3, top),                                      // land on the target pad
-    ]
-    vias = 2
-  } else if (diagLayer === top) {
+  if (diagLayer === top) {
     route = [w(p0, top), w(p1, top), w(p2, top), w(p3, top)]
   } else {
     route = [
-      w(p0, top), w(p1, top),                              // escape on top
-      viaPt(p1.x, p1.y, top, diagLayer), w(p1, diagLayer), // dive
-      w(p2, diagLayer),                                    // diagonal on the dive layer
-      viaPt(p2.x, p2.y, diagLayer, top), w(p2, top),       // surface
-      w(p3, top),                                          // landing on top
+      w(p0, top), w(p1, top),                          // escape on top
+      viaPt(p1.x, p1.y, top, bottom), w(p1, bottom),   // dive
+      w(p2, bottom),                                   // diagonal on bottom
+      viaPt(p2.x, p2.y, bottom, top), w(p2, top),      // surface
+      w(p3, top),                                      // landing on top
     ]
     vias = 2
   }
