@@ -244,27 +244,27 @@ export default () => (
     <trace from=".C7 > .pin2" to="net.GND" />
 
     {/* manifold JSTs: ULN outputs -> valve looms */}
-    <trace from=".U4 > .OUT1" to=".J1 > .OUT1" pretty="clean:fanColumnToColumn" />
-    <trace from=".U4 > .OUT2" to=".J1 > .OUT2" pretty="clean:fanColumnToColumn" />
-    <trace from=".U4 > .OUT3" to=".J1 > .OUT3" pretty="clean:fanColumnToColumn" />
-    <trace from=".U4 > .OUT4" to=".J1 > .OUT4" pretty="clean:fanColumnToColumn" />
-    <trace from=".U4 > .OUT5" to=".J1 > .OUT5" pretty="clean:fanColumnToColumn" />
-    <trace from=".U4 > .OUT6" to=".J1 > .OUT6" pretty="clean:fanColumnToColumn" />
-    <trace from=".U4 > .OUT7" to=".J1 > .OUT7" pretty="clean:fanColumnToColumn" />
-    <trace from=".U4 > .OUT8" to=".J1 > .OUT8" pretty="clean:fanColumnToColumn" />
+    <trace from=".U4 > .OUT1" to=".J1 > .OUT1" />
+    <trace from=".U4 > .OUT2" to=".J1 > .OUT2" />
+    <trace from=".U4 > .OUT3" to=".J1 > .OUT3" />
+    <trace from=".U4 > .OUT4" to=".J1 > .OUT4" />
+    <trace from=".U4 > .OUT5" to=".J1 > .OUT5" />
+    <trace from=".U4 > .OUT6" to=".J1 > .OUT6" />
+    <trace from=".U4 > .OUT7" to=".J1 > .OUT7" />
+    <trace from=".U4 > .OUT8" to=".J1 > .OUT8" />
     <trace from=".J1 > .COM" to="net.V12" />
     {/* MANIFOLD B: 4 valves on U5 ch1-4, condenser FAN on U5 ch5, COM = 12V flyback. */}
-    <trace from=".U5 > .OUT1" to=".J2 > .OUT1" pretty="clean:fanColumnToColumn" />
-    <trace from=".U5 > .OUT2" to=".J2 > .OUT2" pretty="clean:fanColumnToColumn" />
-    <trace from=".U5 > .OUT3" to=".J2 > .OUT3" pretty="clean:fanColumnToColumn" />
-    <trace from=".U5 > .OUT4" to=".J2 > .OUT4" pretty="clean:fanColumnToColumn" />
-    <trace from=".U5 > .OUT5" to=".J2 > .FAN" pretty="clean:fanColumnToColumn" />
+    <trace from=".U5 > .OUT1" to=".J2 > .OUT1" />
+    <trace from=".U5 > .OUT2" to=".J2 > .OUT2" />
+    <trace from=".U5 > .OUT3" to=".J2 > .OUT3" />
+    <trace from=".U5 > .OUT4" to=".J2 > .OUT4" />
+    <trace from=".U5 > .OUT5" to=".J2 > .FAN" />
     <trace from=".J2 > .COM" to="net.V12" />
 
     {/* FAUCET UART (IO33 TX / IO35 RX). pretty="maze:faucet485" climbs both signals
         from the FAUCET connector down to the ESP far row at build time (pretty-routes.ts). */}
-    <trace from=".J3 > .IO33" to=".U1 > .IO33" pretty="maze:faucet485" />
-    <trace from=".J3 > .IO35" to=".U1 > .IO35" pretty="maze:faucet485" />
+    <trace from=".J3 > .IO33" to=".U1 > .IO33" />
+    <trace from=".J3 > .IO35" to=".U1 > .IO35" />
     <trace from=".J3 > .GND" to="net.GND" />
 
     {/* SENSORS: flow (IO15) / 1-wire temps (IO14) / backflow drip-pan moisture
@@ -280,14 +280,14 @@ export default () => (
         at build time from live pad geometry — fanning past BT1's coin-cell pad, mostly on
         the bottom layer under it. No coordinates are frozen here; move J5/BT1/the ESP and
         the next build re-routes. The GND pin pours to the plane (not routed). */}
-    <trace from=".J5 > .IO27" to=".U1 > .IO27" pretty="maze:j5" />
-    <trace from=".J5 > .IO25" to=".U1 > .IO25" pretty="maze:j5" />
-    <trace from=".J5 > .IO26" to=".U1 > .IO26" pretty="maze:j5" />
-    <trace from=".J5 > .IO19" to=".U1 > .IO19" pretty="maze:j5" />
-    <trace from=".J5 > .IO18" to=".U1 > .IO18" pretty="maze:j5" />
-    <trace from=".J5 > .IO5" to=".U1 > .IO5" pretty="maze:j5" />
-    <trace from=".J5 > .IO17" to=".U1 > .IO17" pretty="maze:j5" />
-    <trace from=".J5 > .IO16" to=".U1 > .IO16" pretty="maze:j5" />
+    <trace from=".J5 > .IO27" to=".U1 > .IO27" />
+    <trace from=".J5 > .IO25" to=".U1 > .IO25" />
+    <trace from=".J5 > .IO26" to=".U1 > .IO26" />
+    <trace from=".J5 > .IO19" to=".U1 > .IO19" />
+    <trace from=".J5 > .IO18" to=".U1 > .IO18" />
+    <trace from=".J5 > .IO5" to=".U1 > .IO5" />
+    <trace from=".J5 > .IO17" to=".U1 > .IO17" />
+    <trace from=".J5 > .IO16" to=".U1 > .IO16" />
     <trace from=".J5 > .GND" to="net.GND" />
 
     {/* (J5 driver copper is generated at build time from the pretty="maze:j5" traces
@@ -298,19 +298,19 @@ export default () => (
     <trace from=".J8 > .GND" to="net.GND" />
 
     {/* REEDS A (reservoir A) -> 0x20 GPB inputs. pretty="clean:fanRowToColumn" fans J6 up. */}
-    <trace from=".J6 > .RA1" to=".U2 > .GPB0" pretty="clean:fanRowToColumn" />
-    <trace from=".J6 > .RA2" to=".U2 > .GPB1" pretty="clean:fanRowToColumn" />
-    <trace from=".J6 > .RA3" to=".U2 > .GPB2" pretty="clean:fanRowToColumn" />
-    <trace from=".J6 > .RA4" to=".U2 > .GPB3" pretty="clean:fanRowToColumn" />
+    <trace from=".J6 > .RA1" to=".U2 > .GPB0" />
+    <trace from=".J6 > .RA2" to=".U2 > .GPB1" />
+    <trace from=".J6 > .RA3" to=".U2 > .GPB2" />
+    <trace from=".J6 > .RA4" to=".U2 > .GPB3" />
     <trace from=".J6 > .GND" to="net.GND" />
 
     {/* REEDS B (reservoir B + carbonator low/high) -> 0x21 GPB inputs. pretty="clean:fanRowToColumn" fans J7 down. */}
-    <trace from=".J7 > .RB1" to=".U3 > .GPB0" pretty="clean:fanRowToColumn" />
-    <trace from=".J7 > .RB2" to=".U3 > .GPB1" pretty="clean:fanRowToColumn" />
-    <trace from=".J7 > .RB3" to=".U3 > .GPB2" pretty="clean:fanRowToColumn" />
-    <trace from=".J7 > .RB4" to=".U3 > .GPB3" pretty="clean:fanRowToColumn" />
-    <trace from=".J7 > .CLO" to=".U3 > .GPB4" pretty="clean:fanRowToColumn" />
-    <trace from=".J7 > .CHI" to=".U3 > .GPB5" pretty="clean:fanRowToColumn" />
+    <trace from=".J7 > .RB1" to=".U3 > .GPB0" />
+    <trace from=".J7 > .RB2" to=".U3 > .GPB1" />
+    <trace from=".J7 > .RB3" to=".U3 > .GPB2" />
+    <trace from=".J7 > .RB4" to=".U3 > .GPB3" />
+    <trace from=".J7 > .CLO" to=".U3 > .GPB4" />
+    <trace from=".J7 > .CHI" to=".U3 > .GPB5" />
     <trace from=".J7 > .GND" to="net.GND" />
     <trace from=".U3 > .GND" to="net.GND" />
 
