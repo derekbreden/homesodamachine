@@ -30,13 +30,13 @@ index 85d1ce644b64ac84402c94127cff80bb35e577bc..6348b58492ef84317a8fb842eca7b409
        const via = elm;
 -      if (!via.layers.includes(options.layer)) continue;
 +      // PATCH(homesodamachine): a through-via's barrel is conductive on every copper layer,
-+      // but via.layers only lists its endpoints — the identical bug the plated-hole guard
-+      // above fixes. The stock check skips the via on layers it doesn't name, so a plane
-+      // floods over it with no anti-pad and shorts to the via's net (GND stitch vias, the
-+      // autorouter's signals, or an I2C fan diving to a plane — a top<->inner via naming
-+      // neither bottom nor the other inner plane). Every via here is a plated through-hole,
-+      // so treat any via reaching an outer layer as on ALL layers (anti-pad, or connect on-net).
-+      const _isThroughVia = via.layers.includes("top") || via.layers.includes("bottom");
++      // but via.layers only lists its endpoints (top/bottom) — the identical bug the
++      // plated-hole guard above fixes. The stock check skips the via on inner layers, so an
++      // inner power plane floods solid over it with no anti-pad and shorts that plane to the
++      // via's net (GND for our SMD stitch vias, a routed signal for the autorouter's). Treat
++      // a top&bottom via as present on ALL layers, so each inner plane cuts an anti-pad (or
++      // connects, if the via is on that plane's net).
++      const _isThroughVia = via.layers.includes("top") && via.layers.includes("bottom");
 +      if (!_isThroughVia && !via.layers.includes(options.layer)) continue;
        const connectivityKey = connectivityMap.getNetConnectedToId(via.pcb_via_id) ?? `unconnected-via:${via.pcb_via_id}`;
        pads.push({
