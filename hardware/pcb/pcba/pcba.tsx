@@ -40,11 +40,10 @@ export default () => (
         module footprint). The 20 mm coin holder (BT1) is the bulk; U6 (the SOIC) sits
         to its right, its 0.1uF decoupler (C6) tucked against U6's VCC pin on the west
         edge. CR2032 + is the wide can on the centre pad (pin2 -> VBAT); clips are - (GND). */}
-    <CoinCell name="BT1" pcbX={5} pcbY={0} pcbRotation={0} />
+    <CoinCell name="BT1" pcbX={5} pcbY={0} pcbRotation={90} />
+    <silkscreentext text="BT1" fontSize="1mm" anchorAlignment="center" pcbX={5} pcbY={14.7} />
     <Ds3231Smd name="U6" x={-14.05} y={0.7} />
     <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-21.0} y={3.88} rot={90} />
-    <silkscreentext text="+" fontSize="1.4mm" pcbX={5} pcbY={4.5} />
-    <silkscreentext text="-" fontSize="1.4mm" pcbX={16} pcbY={0} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio. rot 180 puts
         the ADC/UART/pump-A pins on the north edge and the I2C/pump-B/buzzer/IO0 pins on
         the south edge — the same north/south split the DevKitC carrier had, so the J5
