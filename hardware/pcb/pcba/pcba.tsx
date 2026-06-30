@@ -40,7 +40,7 @@ import { logoRoutes } from "./logo"
 import { NXB_25V470_10_12_5 } from "./imports/NXB_25V470_10_12_5"
 import { MLT_5020 } from "./imports/MLT_5020"
 import { S8050_J3Y_RANGE_200_350_ as S8050 } from "./imports/S8050_J3Y_RANGE_200_350_"
-import { CR2032_______3V as CoinCell } from "./imports/CR2032_______3V"
+import { KH_CR2032_2_1 as CoinCell } from "./imports/KH_CR2032_2_1"
 import { ESP32_WROOM_32E_N4 as Wroom } from "./imports/ESP32_WROOM_32E_N4"
 
 // Identity stamp version (commit date + short SHA), computed once per render.
@@ -49,9 +49,9 @@ const ID = boardVersionParts()
 export default () => (
   <board layers={6} outline={[{ x: -67.5, y: -38 }, { x: 47, y: -38 }, { x: 47, y: 36 }, { x: -67.5, y: 36 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
     {/* DS3231SN RTC + CR2032 backup, east of the ESP. U6 (the SOIC) sits high with its
-        0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm coin
-        holder (BT1) is the bulk to U6's east. CR2032 + is the wide can on the centre pad
-        (pin2 -> VBAT); clips are - (GND). */}
+        0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
+        base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
+        pin2 (-> GND); the cell is retained by the molded base, not SMT clips. */}
     <CoinCell name="BT1" pcbX={-20.55} pcbY={-2} pcbRotation={180} />
     <Ds3231Smd name="U6" x={-35.85} y={7.1} />
     <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-41.95} y={8.15} rot={90} />
@@ -210,12 +210,9 @@ export default () => (
     <trace from=".U6 > .GND" to="net.GND" />
     <trace from=".C6 > .pin2" to="net.GND" />
 
-    {/* RTC backup: CR2032 + (centre pad pin2) -> VBAT; clips/holes (-) -> GND. */}
-    {/* <trace from=".U6 > .VBAT" to=".BT1 > .pin2" /> */}
-    <trace from=".BT1 > .pin1" to="net.GND" />
-    <trace from=".BT1 > .pin3" to="net.GND" />
-    <trace from=".BT1 > .pin4" to="net.GND" />
-    <trace from=".BT1 > .pin5" to="net.GND" />
+    {/* RTC backup: CR2032 + (pin1) -> VBAT; - (pin2) -> GND. */}
+    {/* <trace from=".U6 > .VBAT" to=".BT1 > .pin1" /> */}
+    <trace from=".BT1 > .pin2" to="net.GND" />
 
 
     {/* ULN U4 ground (U2/U3 grounds are in the grounds block above) */}
