@@ -53,6 +53,9 @@ export default () => (
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
         pin2 (-> GND); the cell is retained by the molded base, not SMT clips. */}
     <CoinCell name="BT1" pcbX={-20.55} pcbY={-2} pcbRotation={180} />
+    {/* BT1 ref-des hand-drawn upright above the cell (the footprint's own label is
+        suppressed: at rot 180 it read upside-down — same fix as U10). */}
+    <silkscreentext text="BT1" fontSize="1mm" anchorAlignment="center" pcbX={-20.55} pcbY={10.0} />
     <Ds3231Smd name="U6" x={-35.85} y={7.1} />
     <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-41.95} y={8.15} rot={90} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio, antenna keepout
@@ -71,8 +74,8 @@ export default () => (
         share the lane just east of them. */}
     <capacitor name="C12" capacitance="1uF" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C15849"] }} {...at(-63.5, -13.5)} />
     <resistor name="R7" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-63.5, -17.5)} />
-    <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-58.5} y={-14.0} rot={90} lab={[-1.85, 0]} />
-    <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-53.5} y={-14.0} rot={90} lab={[1.85, 0]} />
+    <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-58.5} y={-14.0} rot={90} />
+    <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-53.5} y={-14.0} rot={90} side="E" />
     <resistor name="R8" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} pcbRotation={90} {...at(-49.2, 14.8)} />
     <Jst name="J12" x={-45} y={31} count={6} labels={["3V3", "EN", "TX0", "RX0", "IO0", "GND"]} rot={0} label="PROG" />
     {/* RS-485 to the front display (J9). THVD1426 auto-direction transceiver (U7):
@@ -82,31 +85,31 @@ export default () => (
     <Thvd1426 name="U7" x={-50} y={-22} />
     <resistor name="R6" resistance="120" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22787"] }} {...at(-44, -22)} />
     <Sm712 name="D1" x={-44} y={-26} rot={0} />
-    <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-50} y={-17} rot={90} lab={[1.85, 0]} />
+    <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-50} y={-17} rot={90} side="E" />
     {/* On-board supplies in the open right-hand area: U9 = K7803 (12V->3V3, 1A), U10 =
         K7805 (12V->5V, 2A), 3-pin SIP modules (pin1 Vin / pin2 GND / pin3 +Vo, 2.54 mm
         pitch). Vin/+Vo/GND each common to their plane at the barrel. Per buck: a 10uF input
         cap (Vin->GND) and an output cap (+Vo->GND, 10uF on U9, 22uF on U10). */}
     <K7803_1000R3 name="U9" pcbX={10.15} pcbY={28.45} pcbRotation={0} />
-    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={6.15} y={24.45} rot={0} lab={[0, -1.35]} />
-    <Cap name="C14" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={14.15} y={24.35} rot={0} lab={[0, -1.35]} />
+    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={6.15} y={24.45} rot={0} side="S" />
+    <Cap name="C14" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={14.15} y={24.35} rot={0} side="S" />
     <K7805_2000R3 name="U10" pcbX={18.75} pcbY={-29.85} pcbRotation={180} />
     {/* U10 ref-des hand-drawn upright inside its fence (the footprint's own label is
         suppressed: at rot 180 it read upside-down, below the fence). */}
     <silkscreentext text="U10" fontSize="1mm" anchorAlignment="center" pcbX={18.75} pcbY={-25.0} />
-    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={14.75} y={-34.1} rot={0} lab={[0, -1.35]} />
-    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={22.75} y={-34.1} rot={0} lab={[0, -1.35]} />
+    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={14.75} y={-34.1} rot={0} side="S" />
+    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={22.75} y={-34.1} rot={0} side="S" />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
         pump (12V brushed DC, 0.3-0.5A, PWM), 45V/3.6A SMD with internal freewheeling +
         OCP/OTP/UVLO. VM->12V (the top SMD pad lands directly on the V12 island), GND/PAD->GND,
         ISEN->GND, VREF->3V3, IN1/IN2 from the ESP north-edge pins, OUT1/OUT2 to PUMPS. 10uF +
         0.1uF VM decoupling per chip. */}
     <Drv8870 name="U11" pcbX={-31.55} pcbY={22} pcbRotation={0} />
-    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-35.1} y={14.5} rot={0} lab={[0, -1.35]} />
-    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-28.1} y={13} rot={0} lab={[0, -1.35]} />
+    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-35.1} y={14.5} rot={0} side="N" />
+    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-28.1} y={13} rot={0} side="S" />
     <Drv8870 name="U12" pcbX={-18.5} pcbY={22} pcbRotation={0} />
-    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-22.05} y={13} rot={0} lab={[0, -1.35]} />
-    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-15.05} y={13} rot={0} lab={[0, -1.35]} />
+    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-22.05} y={13} rot={0} side="S" />
+    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-15.05} y={13} rot={0} side="S" />
     <Mcp23017 name="U2" x={-2.2} y={18.1} addr="0x20" rot={270} />
     <Mcp23017 name="U3" x={-2.1} y={-22.85} addr="0x21" rot={90} />
     {/* MCP / buzzer ref-des hand-drawn upright to the west of each part (the
@@ -240,8 +243,8 @@ export default () => (
     <trace from=".U3 > .A1" to="net.GND" />
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
-    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-4.5} y={12} rot={0} lab={[0, -1.35]} />
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9.65} y={-25.9} rot={90} lab={[1.85, 0]} />
+    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-4.5} y={12} rot={0} side="S" />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9.65} y={-25.9} rot={90} side="E" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
@@ -443,8 +446,8 @@ export default () => (
         can't. Every pin1 -> V12, pin2 -> GND plane — no routing, no vias, barrel
         pickup like every power pin; the top V12 island floods the whole valve
         block. C3 is polarized: pin1 (+) is V12. */}
-    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={14.4} y={-20.2} rot={0} lab={[0, -1.35]} />
-    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={14.3} y={-3.3} rot={0} lab={[0, -1.35]} />
+    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={14.4} y={-20.2} rot={0} side="S" />
+    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={14.3} y={-3.3} rot={0} side="S" />
     <NXB_25V470_10_12_5 name="C3" pcbRotation={180} {...at(-1.4, 3.8)} />
     <silkscreentext text="C3" fontSize="1mm" anchorAlignment="center" pcbX={-1.4} pcbY={-2.8} />
     <trace from=".C1 > .pin1" to="net.V12" />
