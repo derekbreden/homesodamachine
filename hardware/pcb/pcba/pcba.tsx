@@ -4,26 +4,28 @@
  * interface lands on a labeled edge connector (J1-J11). Footprint geometry
  * lives in ./carrier_parts; placement + routing are declared here.
  *
- * Left column: RS485 over the ESP32; DS3231 centered in the pocket below it. MCP stack
- * (0x20 over 0x21) with the ULN drivers to their right. The buzzer sits bottom-left,
- * beside DS3231; the gas dividers (R1-R4) sit up top in the connector row, over the ESP
- * IO36/IO39 ADC pins. The valve manifolds sit immediately right of their ULNs. The motor
- * drivers (U11/U12) + the PUMPS connector sit in the top-center bay near the ESP; the bucks
- * (U9/U10) + 12V inlet sit in the open right-hand area.
+ * Left edge: the bare ESP32 with its antenna pointing off-board, the buzzer (U8/Q1/R5)
+ * tucked into the upper-left beside it, the prog header (J12) at the lower-left. Center:
+ * DS3231 + coin cell in the pocket east of the ESP, RS485 (U7) below them, the two MCPs
+ * stacked through the middle (0x20 north, 0x21 south) — their reed inputs land on the
+ * connectors directly above (REEDS A) and below (REEDS B). The gas dividers (R1-R4) sit
+ * lower-center by the GAS connector. Right block: the two ULNs with the valve manifolds
+ * immediately to their right and the V12 bulk/HF decoupling between them. The motor drivers
+ * (U11/U12) + PUMPS sit in the top-center bay near the ESP; the K7803/K7805 bucks (U9 top,
+ * U10 bottom) and the 12V inlet (J10) frame the right column.
  *
- * EIGHT layers, stackup top->bottom:
- *   L1 top    — signals
+ * SIX layers, stackup top->bottom:
+ *   L1 top    — signals + the V12 island
  *   L2 inner1 — 3V3 plane (full flood)
  *   L3 inner2 — 5V plane (full flood)
- *   L4 inner3 — V12 plane (full flood)
- *   L5 inner4 — SDA plane (full flood)
- *   L6 inner5 — SCL plane (full flood)
- *   L7 inner6 — GND plane (full flood)
- *   L8 bottom — GND plane (full flood)
- * Every high-fan-out net (3V3, 5V, V12, SDA, SCL, GND) is a full-flood plane on its own
- * layer: each pin commons to its plane at the barrel (through-hole) or an auto-stitched via
- * (SMD), so none of them is routed. The point-to-point signals are traced on the two outer
- * layers (the core patch gives the router a top+bottom view).
+ *   L4 inner3 — SDA plane (full flood)
+ *   L5 inner4 — SCL plane (full flood)
+ *   L6 bottom — GND plane (full flood)
+ * 3V3/5V/SDA/SCL/GND are full-flood planes: each pin commons to its plane at the barrel
+ * (through-hole) or an auto-stitched via (SMD). V12 is a top-copper island over the valve/
+ * buck/driver block (the L outline at the pours): top-layer 12V pads sit on it directly,
+ * through-hole 12V pins pick it up at the barrel. Point-to-point signals are traced on the
+ * two outer layers (the core patch gives the router a top+bottom view).
  */
 import { at, Cap, Jst, ulnOUT } from "./carrier_parts"
 import { Uln2803, Mcp23017, Ds3231Smd, Thvd1426, Sm712 } from "./pcba_parts"
@@ -42,7 +44,7 @@ import { ESP32_WROOM_32E_N4 as Wroom } from "./imports/ESP32_WROOM_32E_N4"
 const ID = boardVersionParts()
 
 export default () => (
-  <board layers={8} outline={[{ x: -66.9, y: -42 }, { x: 56, y: -42 }, { x: 56, y: 36 }, { x: -66.9, y: 36 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
+  <board layers={6} outline={[{ x: -67.5, y: -38 }, { x: 47, y: -38 }, { x: 47, y: 36 }, { x: -67.5, y: 36 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
     {/* DS3231SN RTC + CR2032 backup, in the bay below the ESP (the freed DS3231-
         module footprint). The 20 mm coin holder (BT1) is the bulk; U6 (the SOIC) sits
         to its right, its 0.1uF decoupler (C6) tucked against U6's VCC pin on the west
@@ -111,9 +113,10 @@ export default () => (
         across (J1 pin order = ULN output pin order, reversed). */}
     <Jst name="J1" x={29.65} y={8.9} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
     <Jst name="J2" x={29.7} y={-12.95} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
-    {/* Pump-motor outputs — one PUMPS connector: A = U11 OUT1/OUT2, B = U12 OUT1/OUT2,
-        ordered top-to-bottom to match the two drivers stacked beside it. */}
-    <Jst name="J13" x={-11.25} y={31} count={4} labels={["AM1", "AM2", "BM1", "BM2"]} rot={0} label="PUMPS" labelDir={1} />
+    {/* Pump-motor outputs — one PUMPS connector. Pin order runs B (U12, the nearer
+        driver) then A (U11, the farther), so each driver's OUT pair lands on the J13
+        pins on its own side and exits straight without wrapping its thermal pad. */}
+    <Jst name="J13" x={-11.25} y={31} count={4} labels={["BM1", "BM2", "AM1", "AM2"]} rot={0} label="PUMPS" labelDir={1} />
     <Jst name="J3" x={-42.55} y={-32} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
     <Jst name="J4" x={-44} y={31} count={6} labels={["GND", "V5", "IO14", "IO13", "IO15", "3V3"]} rot={0} label="SENSORS" />
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
@@ -260,7 +263,7 @@ export default () => (
         not routed: every SDA/SCL pin is put on its net and commons to that plane (the SMD
         pads auto-stitch a via to the inner layer). net.SDA = U1.IO21 + U6/U2/U3.SDA;
         net.SCL = U1.IO22 + U6/U2/U3.SCL. The router excludes poured nets, so nothing here
-        routes. (Full-flood for now; tighten to local zones later — see header note.) */}
+        routes. */}
     <trace from=".U1 > .IO21" to="net.SDA" />
     <trace from=".U6 > .SDA" to="net.SDA" />
     <trace from=".U2 > .SDA" to="net.SDA" />
@@ -445,30 +448,30 @@ export default () => (
 
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
         monocolor silk via logo.ts) over the centered name + version, a compact
-        stack tucked into the bottom-right corner. The version is the firmware
-        scheme (firmware/pre_build.py): commit date + short SHA, a trailing `+`
-        from uncommitted edits — a pure function of the commit, naming which
-        source tree a fabbed board came from. CENTER_X=28 sits the block in the
-        corner pocket, clear of the bottom-row connectors. */}
-    {logoRoutes(26, -30.5, 2).map((route, i) => (
+        stack in the open far-right pocket of the V12 island, clear of the right
+        column. The version is the firmware scheme (firmware/pre_build.py): commit
+        date + short SHA, a trailing `+` from uncommitted edits — a pure function
+        of the commit, naming which source tree a fabbed board came from. */}
+    {logoRoutes(38.5, -29.5, 2).map((route, i) => (
       <silkscreenpath key={`logo${i}`} strokeWidth="0.12mm" route={route} />
     ))}
-    <silkscreentext text="HOME SODA MACHINE" fontSize="1mm" anchorAlignment="center" pcbX={26} pcbY={-34.2} />
-    <silkscreentext text={`${ID.date} ${ID.rev}`} fontSize="1mm" anchorAlignment="center" pcbX={26} pcbY={-36.3} />
+    <silkscreentext text="HOME SODA MACHINE" fontSize="1mm" anchorAlignment="center" pcbX={38.5} pcbY={-32.5} />
+    <silkscreentext text={`${ID.date} ${ID.rev}`} fontSize="1mm" anchorAlignment="center" pcbX={38.5} pcbY={-34.5} />
 
-    {/* Power/bus planes — EIGHT layers, top->bottom: top (signals), 3V3 (inner1), 5V
-        (inner2), V12 (inner3), SDA (inner4), SCL (inner5), GND (inner6), GND (bottom).
-        Every high-fan-out net (3V3/5V/V12/SDA/SCL/GND) is a full-flood plane on its own
-        layer; each pin commons to its plane at its through-hole barrel or an auto-stitched
-        via (SMD), so none is individually routed. Point-to-point signals route on top and
-        bottom. */}
+    {/* Power/bus pours — SIX layers, top->bottom: top (signals + the V12 island), 3V3
+        (inner1), 5V (inner2), SDA (inner3), SCL (inner4), GND (bottom). 3V3/5V/SDA/SCL/GND
+        are full-flood planes; each pin commons to its plane at its through-hole barrel or
+        an auto-stitched via (SMD). V12 is a top-copper island over the valve/buck/driver
+        block (its L outline below): top-layer 12V pads sit directly on it, through-hole 12V
+        pins pick it up at the barrel. Point-to-point signals route on top and bottom. */}
     <trace from=".J10 > .V12" to="net.V12" />
+    <copperpour name="V12ISLAND" layer="top" connectsTo="net.V12"
+      outline={[{ x: -38, y: 35 }, { x: 45, y: 35 }, { x: 45, y: -37 },
+                { x: 14.5, y: -37 }, { x: 14.5, y: 22 }, { x: -38, y: 22 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
-    <copperpour name="V12PLANE" layer="inner3" connectsTo="net.V12" boardEdgeMargin="0.5mm" />
-    <copperpour name="SDAPLANE" layer="inner4" connectsTo="net.SDA" boardEdgeMargin="0.5mm" />
-    <copperpour name="SCLPLANE" layer="inner5" connectsTo="net.SCL" boardEdgeMargin="0.5mm" />
-    <copperpour name="GND2PLANE" layer="inner6" connectsTo="net.GND" boardEdgeMargin="0.5mm" />
+    <copperpour name="SDAPLANE" layer="inner3" connectsTo="net.SDA" boardEdgeMargin="0.5mm" />
+    <copperpour name="SCLPLANE" layer="inner4" connectsTo="net.SCL" boardEdgeMargin="0.5mm" />
     <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" boardEdgeMargin="0.5mm" />
   </board>
 )
