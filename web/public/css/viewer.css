@@ -754,6 +754,69 @@
   stroke-width: 200;
 }
 
+/* Dashed box around the whole selection. non-scaling-stroke keeps it a crisp,
+   constant width through the board's huge Gerber-unit zoom. Inert, and only
+   while armed. */
+.pcb-edit-bounds-g { pointer-events: none; }
+.pcb-edit-bounds {
+  fill: none;
+  stroke: rgba(150, 245, 180, 0.95);
+  stroke-width: 1.5px;
+  stroke-dasharray: 5 4;
+  vector-effect: non-scaling-stroke;
+}
+.pcb-edit-layer:not(.active) .pcb-edit-bounds-g { display: none !important; }
+
+/* Floating selection toolbar — rotate + the six alignments. Positioned in
+   wrapper px over the selection's top edge (left/top set live in JS); the
+   transform lifts it clear of the box, flipping below near the top chrome. The
+   align row is revealed only when ≥ 2 parts are selected (.multi). */
+.pcb-wrapper > .pcb-edit-toolbar {
+  position: absolute;
+  z-index: 13;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: rgba(35, 35, 66, 0.92);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, calc(-100% - 10px));
+  transition: opacity 0.12s;
+}
+.pcb-wrapper > .pcb-edit-toolbar.show { opacity: 1; pointer-events: auto; }
+.pcb-wrapper > .pcb-edit-toolbar.below { transform: translate(-50%, 10px); }
+.pcb-wrapper > .pcb-edit-toolbar:not(.multi) .align-only { display: none; }
+.pcb-edit-tool-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: rgba(190, 245, 205, 0.92);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.pcb-edit-tool-btn svg { width: 19px; height: 19px; display: block; }
+.pcb-edit-tool-btn:hover { background: rgba(110, 215, 140, 0.20); color: #d8ffe4; }
+.pcb-edit-tool-btn:active { background: rgba(110, 215, 140, 0.34); }
+.pcb-edit-tool-sep {
+  width: 1px;
+  align-self: stretch;
+  margin: 3px 2px;
+  background: var(--border);
+}
+
 /* Drag readout / save status — bottom-centre, above the dims chip. Transient:
    shown only mid-drag and briefly after a save. */
 .pcb-wrapper > .pcb-edit-status {
