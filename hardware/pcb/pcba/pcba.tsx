@@ -7,26 +7,23 @@
  * Left column: RS485 over the ESP32; DS3231 centered in the pocket below it. MCP stack
  * (0x20 over 0x21) with the ULN drivers to their right. The buzzer sits bottom-left,
  * beside DS3231; the gas dividers (R1-R4) sit up top in the connector row, over the ESP
- * IO36/IO39 ADC pins. The valve manifolds sit immediately right of their ULNs so the
- * ULN-output shots are straight; the right-hand bay beyond them is the power/motor cluster
- * under the V12 pour — the two bucks (U9/U10) and the two pump-motor H-bridges (U11/U12)
- * with their decoupling, plus the 12V inlet and the single PUMPS connector.
+ * IO36/IO39 ADC pins. The valve manifolds sit immediately right of their ULNs. The motor
+ * drivers (U11/U12) + the PUMPS connector sit in the top-center bay near the ESP; the bucks
+ * (U9/U10) + 12V inlet sit in the open right-hand area.
  *
- * SIX layers, stackup top->bottom:
- *   L1 top    — signals + the V12 pour over the valve block + power/motor bay (right)
+ * EIGHT layers, stackup top->bottom:
+ *   L1 top    — signals
  *   L2 inner1 — 3V3 plane (full flood)
  *   L3 inner2 — 5V plane (full flood)
- *   L4 inner3 — SDA plane (full flood)
- *   L5 inner4 — SCL plane (full flood)
- *   L6 bottom — GND plane (full flood)
- * Every high-fan-out net (3V3, 5V, GND, V12, SDA, SCL) is poured on its own layer:
- * each pin commons to its plane at the barrel (through-hole) or auto-stitches a via
- * (SMD), so none of them is routed. Only the point-to-point signals are traced, on
- * the two outer layers (the core patch hands the router a 2-layer view so the inner
- * planes stay pristine). NOTE: SDA/SCL are full-flood planes for now — deliberately
- * generous while the arrangement settles. They carry far more capacitance than the
- * I2C bus wants (the 400pF budget); they get tightened to local zones once placement
- * is final (the 12V bucks + pump H-bridges have now landed in the right-hand bay).
+ *   L4 inner3 — V12 plane (full flood)
+ *   L5 inner4 — SDA plane (full flood)
+ *   L6 inner5 — SCL plane (full flood)
+ *   L7 inner6 — GND plane (full flood)
+ *   L8 bottom — GND plane (full flood)
+ * Every high-fan-out net (3V3, 5V, V12, SDA, SCL, GND) is a full-flood plane on its own
+ * layer: each pin commons to its plane at the barrel (through-hole) or an auto-stitched via
+ * (SMD), so none of them is routed. The point-to-point signals are traced on the two outer
+ * layers (the core patch gives the router a top+bottom view).
  */
 import { at, Cap, Jst, ulnOUT } from "./carrier_parts"
 import { Uln2803, Mcp23017, Ds3231Smd, Thvd1426, Sm712 } from "./pcba_parts"
@@ -45,7 +42,7 @@ import { ESP32_WROOM_32E_N4 as Wroom } from "./imports/ESP32_WROOM_32E_N4"
 const ID = boardVersionParts()
 
 export default () => (
-  <board layers={6} outline={[{ x: -66.9, y: -39 }, { x: 53, y: -39 }, { x: 53, y: 33 }, { x: -66.9, y: 33 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
+  <board layers={8} outline={[{ x: -66.9, y: -42 }, { x: 56, y: -42 }, { x: 56, y: 36 }, { x: -66.9, y: 36 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
     {/* DS3231SN RTC + CR2032 backup, in the bay below the ESP (the freed DS3231-
         module footprint). The 20 mm coin holder (BT1) is the bulk; U6 (the SOIC) sits
         to its right, its 0.1uF decoupler (C6) tucked against U6's VCC pin on the west
@@ -82,32 +79,27 @@ export default () => (
     <resistor name="R6" resistance="120" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22787"] }} {...at(-20.9, -17.5)} />
     <Sm712 name="D1" x={-21.15} y={-22.6} rot={0} />
     <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-8.35} y={-18.5} rot={90} lab={[1.85, 0]} />
-    {/* POWER + MOTOR-DRIVE column — the right-hand bay, inside the V12 pour, so every
-        12V pin (buck Vin, driver VM) commons to 12V at its barrel/pad with no routing.
-        On-board supplies: U9 = K7803 (12V->3V3, 1A), U10 = K7805 (12V->5V, 2A), 3-pin SIP
-        modules (pin1 Vin / pin2 GND / pin3 +Vo, 2.54 mm pitch), so a single 12V input
-        (J10 / the manifold COM) powers the whole board. Each buck carries local
-        decoupling: a 10uF across Vin->GND (a switcher wants its input cap at the pin — the
-        rail's bulk C3 is over by the manifold) and an output cap across +Vo->GND
-        (10uF on the 1A 3V3, 22uF on the 2A 5V for transient/ripple). */}
-    <K7803_1000R3 name="U9" pcbX={30} pcbY={27} pcbRotation={0} />
-    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={26.5} y={22.5} rot={0} lab={[0, -1.35]} />
-    <Cap name="C14" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={33.5} y={22.5} rot={0} lab={[0, -1.35]} />
-    <K7805_2000R3 name="U10" pcbX={44} pcbY={27} pcbRotation={180} />
-    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={40.5} y={22.5} rot={0} lab={[0, -1.35]} />
-    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={47.5} y={22.5} rot={0} lab={[0, -1.35]} />
-    {/* Pump drivers: one DRV8870 H-bridge per peristaltic flavor pump (12V brushed DC,
-        0.3-0.5A, PWM speed). 45V/3.6A SMD with internal freewheeling + OCP/OTP/UVLO, so
-        no discrete flyback diodes and no logic supply: VM->12V, GND/PAD->GND, ISEN->GND
-        and VREF->3V3 (current regulation off — the internal 3.6A OCP is the only limit),
-        IN1/IN2 from the ESP pump pins, OUT1/OUT2 to the PUMPS connector. 10uF + 0.1uF
-        local VM decoupling per chip (the motor current pulses; the rail bulk is far). */}
-    <Drv8870 name="U11" pcbX={40} pcbY={4} pcbRotation={0} />
-    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={34.5} y={4} rot={90} lab={[-1.85, 0]} />
-    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={45.5} y={4} rot={90} lab={[1.85, 0]} />
-    <Drv8870 name="U12" pcbX={40} pcbY={-9} pcbRotation={0} />
-    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={34.5} y={-9} rot={90} lab={[-1.85, 0]} />
-    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={45.5} y={-9} rot={90} lab={[1.85, 0]} />
+    {/* On-board supplies in the open right-hand area: U9 = K7803 (12V->3V3, 1A), U10 =
+        K7805 (12V->5V, 2A), 3-pin SIP modules (pin1 Vin / pin2 GND / pin3 +Vo, 2.54 mm
+        pitch). Vin/+Vo/GND each common to their plane at the barrel. Per buck: a 10uF input
+        cap (Vin->GND) and an output cap (+Vo->GND, 10uF on U9, 22uF on U10). */}
+    <K7803_1000R3 name="U9" pcbX={44} pcbY={20} pcbRotation={0} />
+    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={40} y={15} rot={0} lab={[0, -1.35]} />
+    <Cap name="C14" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={48} y={15} rot={0} lab={[0, -1.35]} />
+    <K7805_2000R3 name="U10" pcbX={44} pcbY={5} pcbRotation={180} />
+    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={40} y={0} rot={0} lab={[0, -1.35]} />
+    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={48} y={0} rot={0} lab={[0, -1.35]} />
+    {/* Pump drivers, top-center bay by the ESP: one DRV8870 H-bridge per peristaltic flavor
+        pump (12V brushed DC, 0.3-0.5A, PWM), 45V/3.6A SMD with internal freewheeling +
+        OCP/OTP/UVLO. VM->12V (auto-stitch via to the inner plane), GND/PAD->GND, ISEN->GND,
+        VREF->3V3, IN1/IN2 from the ESP pump pins, OUT1/OUT2 to PUMPS. 10uF + 0.1uF VM
+        decoupling per chip. */}
+    <Drv8870 name="U11" pcbX={-30} pcbY={30} pcbRotation={0} />
+    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-33.5} y={23} rot={0} lab={[0, -1.35]} />
+    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-26.5} y={23} rot={0} lab={[0, -1.35]} />
+    <Drv8870 name="U12" pcbX={-19} pcbY={30} pcbRotation={0} />
+    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-22.5} y={23} rot={0} lab={[0, -1.35]} />
+    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-15.5} y={23} rot={0} lab={[0, -1.35]} />
     <Mcp23017 name="U2" x={4.8} y={18.1} addr="0x20" rot={270} />
     <Mcp23017 name="U3" x={4.9} y={-22.85} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={18.8} y={7.2} />
@@ -121,19 +113,17 @@ export default () => (
     <Jst name="J2" x={29.7} y={-12.95} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
     {/* Pump-motor outputs — one PUMPS connector: A = U11 OUT1/OUT2, B = U12 OUT1/OUT2,
         ordered top-to-bottom to match the two drivers stacked beside it. */}
-    <Jst name="J13" x={51} y={-8} count={4} labels={["AM1", "AM2", "BM1", "BM2"]} rot={90} label="PUMPS" labelDir={1} />
+    <Jst name="J13" x={-8} y={29} count={4} labels={["AM1", "AM2", "BM1", "BM2"]} rot={90} label="PUMPS" labelDir={1} />
     <Jst name="J3" x={-42.55} y={-32} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
-    <Jst name="J4" x={-24.8} y={27.45} count={6} labels={["GND", "V5", "IO14", "IO13", "IO15", "3V3"]} rot={0} label="SENSORS" />
+    <Jst name="J4" x={-44} y={31} count={6} labels={["GND", "V5", "IO14", "IO13", "IO15", "3V3"]} rot={0} label="SENSORS" />
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
-        (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). The
-        pump motors that used to leave on this connector are now driven on-board by U11/U12;
-        only the relay lines remain. V5 feeds the relay modules' coil/opto supply (the
-        external L298N's 78M05 that used to is gone). */}
-    <Jst name="J5" x={-49.55} y={27.45} count={4} labels={["GND", "V5", "IO16", "IO17"]} rot={0} label="RELAYS" />
-    <Jst name="J6" x={6.55} y={27.45} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
+        (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO16/
+        IO17 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
+    <Jst name="J5" x={-59} y={31} count={4} labels={["GND", "V5", "IO16", "IO17"]} rot={0} label="RELAYS" />
+    <Jst name="J6" x={8} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={5.4} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
     <Jst name="J9" x={-9.9} y={-32.05} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" />
-    <Jst name="J10" x={51} y={15} count={2} labels={["GND", "V12"]} rot={90} label="12V" labelDir={1} />
+    <Jst name="J10" x={50} y={31} count={2} labels={["GND", "V12"]} rot={90} label="12V" labelDir={1} />
     <Jst name="J11" x={-30.05} y={-32.05} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={0} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
@@ -323,11 +313,10 @@ export default () => (
     <trace from=".J4 > .IO13" to=".U1 > .IO13" />
     <trace from=".J4 > .GND" to="net.GND" />
 
-    {/* PUMP DRIVERS — the two DRV8870 H-bridges (U11 pump A, U12 pump B). Control in from
-        the ESP (IN1 = PWM speed, IN2 = direction/coast — IO26/IO5, the old 3rd pump lines,
-        are now spare), motor out to the pump connectors. VM off 12V; GND + thermal PAD to
-        the plane; ISEN to GND and VREF to 3V3 (current regulation off — the internal 3.6A
-        OCP is the limit); VM decoupled by C17/C18 (U11) and C19/C20 (U12). */}
+    {/* PUMP DRIVERS — the two DRV8870 H-bridges (U11 pump A, U12 pump B). IN1/IN2 from the
+        ESP (IO27/IO25, IO19/IO18), OUT1/OUT2 to the PUMPS connector. VM off 12V; GND +
+        thermal PAD to the plane; ISEN to GND, VREF to 3V3; VM decoupled by C17/C18 (U11)
+        and C19/C20 (U12). IO26/IO5 are unconnected. */}
     <trace from=".U1 > .IO27" to=".U11 > .IN1" />
     <trace from=".U1 > .IO25" to=".U11 > .IN2" />
     <trace from=".U11 > .VM" to="net.V12" />
@@ -438,8 +427,8 @@ export default () => (
         island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
     <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={23.4} y={-21.35} rot={90} />
     <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={23.4} y={-1.7} rot={90} />
-    <NXB_25V470_10_12_5 name="C3" pcbRotation={0} {...at(40, 15)} />
-    <silkscreentext text="C3" fontSize="1mm" anchorAlignment="center" pcbX={34} pcbY={15} />
+    <NXB_25V470_10_12_5 name="C3" pcbRotation={0} {...at(44, -10)} />
+    <silkscreentext text="C3" fontSize="1mm" anchorAlignment="center" pcbX={38} pcbY={-10} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
     <trace from=".C2 > .pin1" to="net.V12" />
@@ -467,23 +456,19 @@ export default () => (
     <silkscreentext text="HOME SODA MACHINE" fontSize="1mm" anchorAlignment="center" pcbX={26} pcbY={-34.2} />
     <silkscreentext text={`${ID.date} ${ID.rev}`} fontSize="1mm" anchorAlignment="center" pcbX={26} pcbY={-36.3} />
 
-    {/* Power/bus planes, top->bottom: V12 island (top, over the valve block), 3V3
-        (inner1), 5V (inner2), SDA (inner3), SCL (inner4), GND (bottom) — all full
-        flood. Every 3V3/5V/12V/GND/SDA/SCL pin lands on its net and commons to the
-        plane at its through-hole barrel, or an auto-stitched via for SMD pads, so
-        none of these nets is individually routed. */}
+    {/* Power/bus planes — EIGHT layers, top->bottom: top (signals), 3V3 (inner1), 5V
+        (inner2), V12 (inner3), SDA (inner4), SCL (inner5), GND (inner6), GND (bottom).
+        Every high-fan-out net (3V3/5V/V12/SDA/SCL/GND) is a full-flood plane on its own
+        layer; each pin commons to its plane at its through-hole barrel or an auto-stitched
+        via (SMD), so none is individually routed. Point-to-point signals route on top and
+        bottom. */}
     <trace from=".J10 > .V12" to="net.V12" />
-    <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" boardEdgeMargin="0.5mm" />
-    {/* V12 = the right-hand bay on top: ULN COM + manifold COM (valve block), the bucks +
-        driver VM + 12V inlet (power cluster), all under one continuous flood so 12V reaches
-        every load. Every 12V barrel/pad commons here; non-12V pads (ULN/manifold outputs,
-        driver IN/OUT, signals) get an anti-pad, and the pour clears around any signal trace
-        crossing it. Left edge x=20 catches the ULN COM without reaching the central parts. */}
-    <copperpour name="V12PLANE" layer="top" connectsTo="net.V12"
-      outline={[{ x: 20, y: 32.5 }, { x: 52.5, y: 32.5 }, { x: 52.5, y: -23.5 }, { x: 20, y: -23.5 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
-    <copperpour name="SDAPLANE" layer="inner3" connectsTo="net.SDA" boardEdgeMargin="0.5mm" />
-    <copperpour name="SCLPLANE" layer="inner4" connectsTo="net.SCL" boardEdgeMargin="0.5mm" />
+    <copperpour name="V12PLANE" layer="inner3" connectsTo="net.V12" boardEdgeMargin="0.5mm" />
+    <copperpour name="SDAPLANE" layer="inner4" connectsTo="net.SDA" boardEdgeMargin="0.5mm" />
+    <copperpour name="SCLPLANE" layer="inner5" connectsTo="net.SCL" boardEdgeMargin="0.5mm" />
+    <copperpour name="GND2PLANE" layer="inner6" connectsTo="net.GND" boardEdgeMargin="0.5mm" />
+    <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" boardEdgeMargin="0.5mm" />
   </board>
 )
