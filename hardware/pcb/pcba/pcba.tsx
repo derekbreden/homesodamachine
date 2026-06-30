@@ -52,9 +52,9 @@ export default () => (
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm coin
         holder (BT1) is the bulk to U6's east. CR2032 + is the wide can on the centre pad
         (pin2 -> VBAT); clips are - (GND). */}
-    <CoinCell name="BT1" pcbX={-17} pcbY={-1} pcbRotation={0} />
-    <Ds3231Smd name="U6" x={-37} y={7} />
-    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-42} y={8} rot={90} />
+    <CoinCell name="BT1" pcbX={-20.55} pcbY={-2} pcbRotation={180} />
+    <Ds3231Smd name="U6" x={-35.85} y={7.1} />
+    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-41.95} y={8.15} rot={90} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio, antenna keepout
         pointing west off the board edge. Usable GPIO sit on the north and south
         castellations only (the east edge is the module's flash); the relay/pump/buzzer/
@@ -87,12 +87,12 @@ export default () => (
         K7805 (12V->5V, 2A), 3-pin SIP modules (pin1 Vin / pin2 GND / pin3 +Vo, 2.54 mm
         pitch). Vin/+Vo/GND each common to their plane at the barrel. Per buck: a 10uF input
         cap (Vin->GND) and an output cap (+Vo->GND, 10uF on U9, 22uF on U10). */}
-    <K7803_1000R3 name="U9" pcbX={11.2} pcbY={28.5} pcbRotation={0} />
-    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={7.2} y={24.4} rot={0} lab={[0, -1.35]} />
-    <Cap name="C14" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={15.2} y={24.4} rot={0} lab={[0, -1.35]} />
-    <K7805_2000R3 name="U10" pcbX={19.8} pcbY={-29.8} pcbRotation={180} />
-    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={15.8} y={-34.05} rot={0} lab={[0, -1.35]} />
-    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={23.8} y={-34.05} rot={0} lab={[0, -1.35]} />
+    <K7803_1000R3 name="U9" pcbX={10.15} pcbY={28.45} pcbRotation={0} />
+    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={9} y={24.45} rot={0} lab={[0, -1.35]} />
+    <Cap name="C14" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={14.15} y={24.35} rot={0} lab={[0, -1.35]} />
+    <K7805_2000R3 name="U10" pcbX={18.75} pcbY={-29.85} pcbRotation={180} />
+    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={14.75} y={-34.1} rot={0} lab={[0, -1.35]} />
+    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={22.75} y={-34.1} rot={0} lab={[0, -1.35]} />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
         pump (12V brushed DC, 0.3-0.5A, PWM), 45V/3.6A SMD with internal freewheeling +
         OCP/OTP/UVLO. VM->12V (the top SMD pad lands directly on the V12 island), GND/PAD->GND,
@@ -108,13 +108,13 @@ export default () => (
     <Mcp23017 name="U3" x={-2.1} y={-22.85} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={11.8} y={4.85} />
     <Uln2803 name="U5" x={11.9} y={-11.95} />
-    <MLT_5020 name="U8" {...at(-35.5, -13)} />
+    <MLT_5020 name="U8" {...at(-41.45, -15.35)} pcbRotation={270} />
     <S8050 name="Q1" {...at(-42, -9)} />
     <resistor name="R5" resistance="1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C21190"] }} {...at(-42, -5)} />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
-    <Jst name="J1" x={22.65} y={8.9} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
-    <Jst name="J2" x={22.7} y={-12.95} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
+    <Jst name="J1" x={21.6} y={8.85} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
+    <Jst name="J2" x={21.65} y={-13} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
@@ -128,7 +128,7 @@ export default () => (
     <Jst name="J6" x={-4.55} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={-1.6} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
     <Jst name="J9" x={-48.25} y={-32} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" />
-    <Jst name="J10" x={22.3} y={31} count={2} labels={["GND", "V12"]} rot={0} label="12V" labelDir={1} />
+    <Jst name="J10" x={21.25} y={30.95} count={2} labels={["GND", "V12"]} rot={0} label="12V" labelDir={1} />
     <Jst name="J11" x={-60} y={-32} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} rot={0} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
@@ -235,7 +235,7 @@ export default () => (
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
     <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-4.5} y={12} rot={0} lab={[0, -1.35]} />
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={10.4} y={-25.8} rot={0} lab={[2.6, 0]} />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9.65} y={-25.9} rot={90} lab={[2.6, 0]} />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
@@ -436,7 +436,7 @@ export default () => (
         island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
     <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={14.4} y={-20.2} rot={0} />
     <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={14.3} y={-3.3} rot={0} />
-    <NXB_25V470_10_12_5 name="C3" pcbRotation={180} {...at(13.45, 16.6)} />
+    <NXB_25V470_10_12_5 name="C3" pcbRotation={180} {...at(-1.4, 3.8)} />
     <silkscreentext text="C3" fontSize="1mm" anchorAlignment="center" pcbX={13.45} pcbY={16.6} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
