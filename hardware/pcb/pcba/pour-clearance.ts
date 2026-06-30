@@ -1,26 +1,38 @@
 /**
  * pour-clearance.ts — net-class clearance over the exported circuit-json, the seam pretty-router
- * works in. Each <copperpour> arrives already solved into a brep: an outer_ring plus inner_rings,
- * one inner_ring per antipad void the solver cut around a foreign pad or barrel at its single
- * clearance. For a net pair in the rule table, this widens that void — it appends a larger keepout
- * ring around the foreign pad. The gerber converter draws every inner_ring as a clear region, so
- * the larger overlapping clear is the one that takes. Per layer: the top island clears around the
- * low-voltage pads under it; the 3V3 / 5V / SDA / SCL planes clear around the 12V barrels punching
- * through them.
+ * works in. A pour declares it on the board, beside its outline:
  *
- * Read live from the circuit-json every build — a part moving re-cuts the voids. No-op on a board
- * with no rule-matched pour.
+ *   <copperpour connectsTo="net.V12" netClearance="0.5mm from V3V3, V5, SDA, SCL" ... />
+ *
+ * findPourClearanceRules reads that off the source (tscircuit doesn't know netClearance and drops
+ * it, so the rule is carried in the attribute and parsed here, like pretty=). widenPourVoids
+ * applies it: each <copperpour> arrives already solved into a brep — an outer_ring plus inner_rings,
+ * one per antipad void the solver cut around a foreign pad at its single clearance — and for a
+ * declared net pair this appends a larger keepout ring around the foreign pad. The gerber converter
+ * draws every inner_ring as a clear region, so the larger overlapping clear is the one that takes.
+ * Per layer: the V12 pour clears around the low-voltage pads under it; the planes it pairs with
+ * clear around the 12V barrels punching through them.
+ *
+ * Read live every build — a part moving re-cuts the voids. No-op on a board with no netClearance.
  */
 
 export type ClearanceRule = { a: string; b: string; clearanceMm: number }
 
-// 12V-to-low-voltage spacing (mm).
-export const DEFAULT_RULES: ClearanceRule[] = [
-  { a: "V12", b: "V3V3", clearanceMm: 0.5 },
-  { a: "V12", b: "V5", clearanceMm: 0.5 },
-  { a: "V12", b: "SDA", clearanceMm: 0.5 },
-  { a: "V12", b: "SCL", clearanceMm: 0.5 },
-]
+// Read each pour's `netClearance="<mm>mm from NetA, NetB, …"` into unordered net pairs, paired with
+// the pour's own net (connectsTo). The aggressor is the declaring pour's net; the rest are victims.
+export function findPourClearanceRules(src: string): ClearanceRule[] {
+  const rules: ClearanceRule[] = []
+  for (const el of src.match(/<copperpour\b[\s\S]*?\/>/g) || []) {
+    const decl = (el.match(/\bnetClearance="([^"]*)"/) || [])[1]
+    const net = (el.match(/\bconnectsTo="net\.([^"]*)"/) || [])[1]
+    if (!decl || !net) continue
+    const m = decl.match(/^\s*([\d.]+)\s*mm\s+from\s+(.+)$/i)
+    if (!m) continue
+    const clearanceMm = parseFloat(m[1]!)
+    for (const v of m[2]!.split(",").map((s) => s.trim()).filter(Boolean)) rules.push({ a: net, b: v, clearanceMm })
+  }
+  return rules
+}
 
 type Vert = { x: number; y: number }
 
@@ -73,7 +85,7 @@ export type WidenStats = { added: number; perPour: Record<string, number>; pads:
 
 /** Append a widened keepout ring to every pour wherever a rule-paired foreign pad sits inside it.
  *  Mutates `circuit` in place and returns what changed. */
-export function widenPourVoids(circuit: any[], rules: ClearanceRule[] = DEFAULT_RULES): WidenStats {
+export function widenPourVoids(circuit: any[], rules: ClearanceRule[] = []): WidenStats {
   const by = (t: string) => circuit.filter((e) => e.type === t)
   const SP: Record<string, any> = Object.fromEntries(by("source_port").map((e) => [e.source_port_id, e]))
   const SC: Record<string, any> = Object.fromEntries(by("source_component").map((e) => [e.source_component_id, e]))
