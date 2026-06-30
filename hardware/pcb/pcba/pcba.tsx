@@ -523,14 +523,10 @@ export default () => (
         bridge a power plane (GND connects on the bottom plane; V12 / 3V3 / 5V / SDA / SCL
         antipad). No board grow — the edge connectors (and the U9/U10 bucks) were packed
         east/west to open a connector-clear gap in each corner; the holes sit in those gaps. */}
-    <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" portHints={["pin1"]} pcbX={-63} pcbY={32.5} />
-    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" portHints={["pin1"]} pcbX={24} pcbY={32.5} />
-    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" portHints={["pin1"]} pcbX={24.5} pcbY={-33.5} />
-    <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" portHints={["pin1"]} pcbX={-65} pcbY={-33.5} />
-    <trace from=".MH1 > .pin1" to="net.GND" />
-    <trace from=".MH2 > .pin1" to="net.GND" />
-    <trace from=".MH3 > .pin1" to="net.GND" />
-    <trace from=".MH4 > .pin1" to="net.GND" />
+    <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-63} pcbY={32.5} />
+    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={24} pcbY={32.5} />
+    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={24.5} pcbY={-33.5} />
+    <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-65} pcbY={-33.5} />
 
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
         monocolor silk via logo.ts) over the centered name + version, a compact
