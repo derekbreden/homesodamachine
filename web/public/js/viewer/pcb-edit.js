@@ -20,7 +20,9 @@
 // that frame; on release we POST anchor+delta to the write-back endpoint.
 // Hold ⌘/Ctrl/Shift to build a multi-selection — each modifier-click toggles a
 // component, and dragging any selected one then moves the whole set as a rigid
-// group, writing each moved component back in turn.
+// group, writing each moved component back in turn. Holding a modifier as the
+// drag begins instead locks it to one axis (the dominant one, latched on the
+// first travel); Escape mid-drag cancels and snaps every handle back home.
 // A selection also raises a bounding box and a small toolbar: rotate (90° — a
 // lone part spins in place; a group rotates rigidly about its centre) and the
 // six box-edge alignments (left / centre / right, top / middle / bottom).
@@ -34,13 +36,14 @@ const LS_KEY = "pcb-edit";
 const SNAP_MM = 0.05;          // drag snap grid (matches the prototype editor)
 const PAD_MM = 0.6;            // grow the pad bbox so the handle clears the copper
 const MIN_BOX_MM = 1.6;        // floor for tiny / colinear footprints, so they stay grabbable
+const AXIS_LOCK_PX = 4;        // pointer travel (screen px) before a modifier-drag latches its axis
 
 let enabled = (() => {
   try { return localStorage.getItem(LS_KEY) === "1"; } catch { return false; }
 })();
 
 let ctx = null;         // { svgEl, layer, status, toolbar, boundsG, boundsRect, boardName, components, compByRef, boxByRef, source, wrapper }
-let dragging = null;    // { items:[{g,ref,ox,oy,newX,newY}], startMm, moved, additive, primaryRef, pending, captureEl }
+let dragging = null;    // { items:[{g,ref,ox,oy,newX,newY}], startMm, startClient, pointerId, moved, axisLock, lockAxis, primaryRef, pending, captureEl }
 const selected = new Set(); // refs in the current multi-selection (re-applied on rebuild)
 let toggleRefresh = null; // the current Edit toggle button's label refresher
 let opBusy = false;     // a rotate / align write-back is in flight — ignore re-clicks until it settles
@@ -256,12 +259,14 @@ function onPointerDown(e) {
 
   // Decide what this press grabs, and what a release-without-move does to the
   // selection (standard editor semantics):
-  //   • modifier      → grab selection+this; a click toggles this one
+  //   • modifier      → a release toggles this part (multi-select); a move is an
+  //                     axis-locked drag of the grabbed set (the whole selection
+  //                     if this part is in it, else just this part)
   //   • already-sel'd → grab the whole selection; a click collapses to this one
   //   • unselected    → select only this, and grab just it
   let moveRefs, pending;
   if (additive) {
-    moveRefs = new Set(selected); moveRefs.add(ref);
+    moveRefs = selected.has(ref) ? new Set(selected) : new Set([ref]);
     pending = "toggle";
   } else if (selected.has(ref)) {
     moveRefs = new Set(selected);
@@ -281,7 +286,10 @@ function onPointerDown(e) {
     node.classList.add("dragging");
   }
 
-  dragging = { items, startMm, moved: false, additive, primaryRef: ref, pending, captureEl: g };
+  dragging = {
+    items, startMm, startClient: { x: e.clientX, y: e.clientY }, pointerId: e.pointerId,
+    moved: false, axisLock: additive, lockAxis: null, primaryRef: ref, pending, captureEl: g,
+  };
   try { g.setPointerCapture(e.pointerId); } catch {}
   hideSelectionUI(); // bounds + toolbar reappear on release, re-anchored to the moved selection
 }
@@ -290,10 +298,24 @@ function onPointerMove(e) {
   if (!dragging) return;
   const now = clientToMm(e.clientX, e.clientY);
   if (!now) return;
-  // Snap the shared delta (not each absolute position) so the group translates
-  // rigidly — relative spacing is preserved no matter how many are grabbed.
   let dx = now.x - dragging.startMm.x;
   let dy = now.y - dragging.startMm.y;
+
+  // Modifier held at press → lock to one axis. Latch the dominant screen axis on
+  // the first decisive travel, then hold it for the rest of the drag; until then
+  // sit in a small dead zone so the choice isn't made on jitter.
+  if (dragging.axisLock) {
+    if (!dragging.lockAxis) {
+      const pdx = e.clientX - dragging.startClient.x;
+      const pdy = e.clientY - dragging.startClient.y;
+      if (Math.max(Math.abs(pdx), Math.abs(pdy)) < AXIS_LOCK_PX) return;
+      dragging.lockAxis = Math.abs(pdx) >= Math.abs(pdy) ? "x" : "y";
+    }
+    if (dragging.lockAxis === "x") dy = 0; else dx = 0;
+  }
+
+  // Snap the shared delta (not each absolute position) so the group translates
+  // rigidly — relative spacing is preserved no matter how many are grabbed.
   if (SNAP_MM > 0) {
     dx = Math.round(dx / SNAP_MM) * SNAP_MM;
     dy = Math.round(dy / SNAP_MM) * SNAP_MM;
@@ -303,20 +325,14 @@ function onPointerMove(e) {
     it.newY = it.oy + dy;
     it.g.setAttribute("transform", `translate(${dx * 1000},${dy * 1000})`);
   }
-  if (!dragging.moved && (dx !== 0 || dy !== 0)) {
-    dragging.moved = true;
-    // First real motion promotes a modifier-press from "toggle on release" into a
-    // group drag, so the pressed component reads as selected with the rest.
-    if (dragging.additive && !selected.has(dragging.primaryRef)) {
-      selected.add(dragging.primaryRef);
-      applySelectionClasses();
-    }
-  }
+  if (!dragging.moved && (dx !== 0 || dy !== 0)) dragging.moved = true;
+
+  const axisTag = dragging.lockAxis === "x" ? "↔ " : dragging.lockAxis === "y" ? "↕ " : "";
   if (dragging.items.length > 1) {
-    setStatus(`${dragging.items.length} comps  Δx=${fmt(dx)}  Δy=${fmt(dy)}`);
+    setStatus(`${axisTag}${dragging.items.length} comps  Δx=${fmt(dx)}  Δy=${fmt(dy)}`);
   } else {
     const it = dragging.items[0];
-    setStatus(`${it.ref}  x=${fmt(it.newX)}  y=${fmt(it.newY)}`);
+    setStatus(`${axisTag}${it.ref}  x=${fmt(it.newX)}  y=${fmt(it.newY)}`);
   }
 }
 
@@ -339,6 +355,29 @@ function onPointerUp(e) {
 
 document.addEventListener("pointermove", onPointerMove);
 document.addEventListener("pointerup", onPointerUp);
+
+// Escape mid-drag aborts it: snap every grabbed handle home and write nothing.
+// Capture-phase + stopPropagation so the same keypress doesn't also close the
+// viewer; when no drag is in flight we leave Escape alone for exactly that.
+function cancelDrag() {
+  if (!dragging) return;
+  const d = dragging;
+  dragging = null;
+  for (const it of d.items) {
+    it.g.classList.remove("dragging");
+    it.g.setAttribute("transform", "translate(0,0)");
+  }
+  try { d.captureEl.releasePointerCapture(d.pointerId); } catch {}
+  setStatus("drag cancelled");
+  refreshSelectionUI();
+}
+document.addEventListener("keydown", (e) => {
+  if (dragging && (e.key === "Escape" || e.key === "Esc")) {
+    e.preventDefault();
+    e.stopPropagation();
+    cancelDrag();
+  }
+}, true);
 
 // --- write-back -------------------------------------------------------------
 
