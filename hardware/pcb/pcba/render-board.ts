@@ -103,12 +103,19 @@ async function placementPreview() {
   const name = `_build-${board}.placement.tmp`
   track(path.join(dir, `${name}.tsx`))
   writeFileSync(path.join(dir, `${name}.tsx`), placementSrc)
-  const zipRel = path.join("out", `${name}.gerbers.zip`)
-  track(path.join(dir, zipRel))
-  await sh(tsci, ["export", "-f", "gerbers,circuit-json", "-o", zipRel, `${name}.tsx`], { cwd: dir })
-  const cjAbs = track(path.join(dir, `${name}.circuit.json`))
+  // Gerbers in-process from the circuit-json — the SAME standalone converter the full
+  // render uses below, NOT `tsci export -f gerbers`. tsci's bundled gerber converter
+  // throws on pill-shaped SMD pads ("Unsupported shape pill", e.g. the DRV8870 land
+  // pattern), which would fail the export and skip the whole preview; circuit-json-to-gerber
+  // handles them. Keeps the preview alive for any footprint the full render can gerber.
+  const circuit = await exportCircuitJson(name)
   const scratch = track(mkdtempSync(path.join(tmpdir(), `pcb-${board}-place-`)))
-  await sh("unzip", ["-o", "-q", path.join(dir, zipRel), "-d", scratch])
+  const layers = stringifyGerberCommandLayers(convertSoupToGerberCommands(circuit, { flip_y_axis: false }))
+  for (const [n, txt] of Object.entries(layers)) writeFileSync(path.join(scratch, `${n}.gbr`), txt as string)
+  const pth = convertSoupToExcellonDrillCommands({ circuitJson: circuit, is_plated: true, flip_y_axis: false })
+  if (pth.length) writeFileSync(path.join(scratch, "drill.drl"), stringifyExcellonDrill(pth))
+  const npth = convertSoupToExcellonDrillCommands({ circuitJson: circuit, is_plated: false, flip_y_axis: false })
+  if (npth.length) writeFileSync(path.join(scratch, "drill_npth.drl"), stringifyExcellonDrill(npth))
   const { top, bottom, overlay, inners, widthMm, heightMm } = await composeViews(scratch, scheme)
   writeViews({ top, bottom, overlay, ...inners })
   rmSync(scratch, { recursive: true, force: true })
@@ -116,7 +123,7 @@ async function placementPreview() {
   // lands on the new positions during the preview, not the prior render's.
   try {
     const picksTmp = track(path.join(dir, `_build-${board}.place-picks.tmp.json`))
-    writeFileSync(picksTmp, readFileSync(cjAbs, "utf8"))
+    writeFileSync(picksTmp, JSON.stringify(circuit))
     await sh("bun", [path.join(dir, "pick-data.ts"), `${board}.tsx`, picksTmp], { cwd: dir, inherit: true })
     rmSync(picksTmp, { force: true })
   } catch {}
