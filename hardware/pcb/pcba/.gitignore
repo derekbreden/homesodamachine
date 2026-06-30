@@ -12,7 +12,7 @@ dist
 # decoy — other tsci export formats, the empty render of the carrier_parts
 # footprint helper (it has no board), and any _-prefixed scratch board. So:
 # ignore all of out/, then whitelist exactly pcba's artifacts (top/bottom/overlay
-# plus the inner-plane views on the 4-layer board).
+# plus every inner-plane view, pcba.inner* — however many layers the board has).
 out/*
 !out/pcba.top.svg
 !out/pcba.top.png
@@ -20,10 +20,8 @@ out/*
 !out/pcba.bottom.png
 !out/pcba.overlay.svg
 !out/pcba.overlay.png
-!out/pcba.inner1.svg
-!out/pcba.inner1.png
-!out/pcba.inner2.svg
-!out/pcba.inner2.png
+!out/pcba.inner*.svg
+!out/pcba.inner*.png
 !out/pcba.gerbers.zip
 !out/pcba.picks.json
 !out/pcba.bom.csv
