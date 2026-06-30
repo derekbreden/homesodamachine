@@ -24,6 +24,7 @@
   "patchedDependencies": {
     "@tscircuit/copper-pour-solver@0.0.29": "patches/@tscircuit%2Fcopper-pour-solver@0.0.29.patch",
     "@tscircuit/footprinter@0.0.357": "patches/@tscircuit%2Ffootprinter@0.0.357.patch",
+    "circuit-json-to-gerber@0.0.78": "patches/circuit-json-to-gerber@0.0.78.patch",
     "@tscircuit/cli@0.1.1537": "patches/@tscircuit%2Fcli@0.1.1537.patch",
     "@tscircuit/core@0.0.1351": "patches/@tscircuit%2Fcore@0.0.1351.patch",
   },
