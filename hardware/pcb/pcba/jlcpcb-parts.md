@@ -39,7 +39,7 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | Q1 — U8 low-side driver | S8050 (J3Y), NPN 25 V/500 mA | SOT-23 | C2146 | Basic | 554,300 | $0.015 |
 | R5 — Q1 base | 1 kΩ ±1% | 0603 | C21190 | Basic | 6,282,722 | $0.0023 |
 | U6 — RTC | DS3231SN, TCXO RTC (±2 ppm) | SOIC-16 (300 mil) | C9866 | Extended | 335 | $6.14 |
-| BT1 — RTC backup | CR2032 coin holder (flat, button+clip) | SMD ~28×21 mm | C70373 | Extended | — | $0.10 |
+| BT1 — RTC backup | CR2032 coin base, 2-pin THT (horizontal) | THT plugin ~25×23 mm | C5365915 | Extended | 11,888 (2026-06-30) | $0.135 |
 | U7 — RS485 to display | THVD1426, auto-direction transceiver, 3.3 V | SOIC-8 | C5215922 | Extended | 5,945 | $1.84 |
 | D1 — RS485 line ESD | SM712, RS485 TVS array (−7/+12 V) | SOT-23 | C12067 | Extended | 35,585 | $0.41 |
 | R6 — RS485 termination | 120 Ω ±1% | 0603 | C22787 | Basic | 1,728,584 | $0.0022 |
@@ -103,6 +103,16 @@ sinks the buzzer's − leg, emitter to the GND plane, the + leg on the 5 V plane
 diode (per the step spec); the S8050's 25 V Vce(o) is the only clamp on the coil's turn-off
 spike — the first thing to add if the transistor shows stress. Q1 emitter and U8 + are SMD
 plane pads and auto-stitch to GND / 5 V (see [`plane-stitching.md`](plane-stitching.md)).
+
+**BT1 is a THT coin base (`C5365915`, Kinghelm KH-CR2032-2-1), not the cheapest SMT clip.**
+The bare bent-leg SMT clip (`C70373`, $0.05, 27k stock) is the cheapest CR2032 holder in the
+library, but JLCPCB rates it **"Assembly difficulty: High"** — it trips the "processing of this
+component is difficult" review (and a possible advanced-option fee) on every order. Every CR2032
+holder in the library is Extended (no Basic option), so the feeder fee is unavoidable either way;
+among the holders JLCPCB does **not** flag, the 2-pin THT base is the mechanically secure choice and
+rides the through-hole assembly the board already runs for the XH connectors. Two 1.2 mm plated
+posts at ±10 mm: pin1 (silk-marked +) → DS3231 VBAT, pin2 (−) → GND; the cell is retained by the
+molded base. `tsci import` pulled the real land pattern (→ `imports/KH_CR2032_2_1.tsx`).
 
 **U1 is the bare ESP32-WROOM-32E-N4 (`C701341`, Extended), the ESP32 base part.**
 The only ESP32 base part the design needs — radio unused, so the cheapest WROOM-32E variant
