@@ -83,6 +83,42 @@ function keepoutRing(cx: number, cy: number, hx: number, hy: number): { vertices
 
 export type WidenStats = { added: number; perPour: Record<string, number>; pads: string[] }
 
+/**
+ * The ESP32-WROOM antenna fires off the west board edge, and its keepout box (the
+ * footprint's silk antenna outline, part-frame x −16.764…−10.48 at rot 0) must carry no
+ * copper. The module's two GND corner pads sit only ~1.2 mm east of the box, so the
+ * planes can't be pulled far back — this punches the box (carried a touch east of it,
+ * stopping ~0.2 mm short of those pads) out of every pour, so no plane floods under the
+ * antenna. Derived from the WROOM's placed centre (its supplier part is C701341); it
+ * assumes the design's rot-0 placement (antenna due west). Returns how many pours it cut.
+ */
+export function antennaKeepout(circuit: any[]): number {
+  const by = (t: string) => circuit.filter((e) => e.type === t)
+  const sc = by("source_component").find(
+    (c) => c.manufacturer_part_number === "ESP32_WROOM_32E_N4" || c.supplier_part_numbers?.jlcpcb?.includes("C701341"),
+  )
+  if (!sc) return 0
+  const pc = by("pcb_component").find((p) => p.source_component_id === sc.source_component_id)
+  if (!pc?.center) return 0
+  const cx = pc.center.x, cy = pc.center.y
+  // antenna box east edge is cx−10.48, the GND pad west edge ~cx−9.77; carve to cx−10.0
+  // (past the box, ~0.2 mm shy of the pads) and from cx−11.5 (just off the west edge).
+  const x0 = cx - 11.5, x1 = cx - 10.0, y0 = cy - 10, y1 = cy + 10
+  let n = 0
+  for (const pour of by("pcb_copper_pour")) {
+    if (pour.shape !== "brep" || !pour.brep_shape) continue
+    const outer: Vert[] = pour.brep_shape.outer_ring?.vertices
+    if (!outer?.length) continue
+    if (Math.min(...outer.map((v) => v.x)) > x1) continue // pour doesn't reach the antenna
+    pour.brep_shape.inner_rings = pour.brep_shape.inner_rings || []
+    pour.brep_shape.inner_rings.push({ vertices: [
+      { x: x0, y: y0 }, { x: x1, y: y0 }, { x: x1, y: y1 }, { x: x0, y: y1 },
+    ] })
+    n++
+  }
+  return n
+}
+
 /** Append a widened keepout ring to every pour wherever a rule-paired foreign pad sits inside it.
  *  Mutates `circuit` in place and returns what changed. */
 export function widenPourVoids(circuit: any[], rules: ClearanceRule[] = []): WidenStats {
