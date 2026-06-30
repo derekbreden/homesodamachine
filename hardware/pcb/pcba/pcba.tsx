@@ -29,6 +29,11 @@
  * buck/driver block (the L outline at the pours): top-layer 12V pads sit on it directly,
  * through-hole 12V pins pick it up at the barrel. Point-to-point signals are traced on the
  * two outer layers (the core patch gives the router a top+bottom view).
+ *
+ * `schematicDisabled` on the board: this is a fab-only PCB (its canonical "schematic" is
+ * esp32-pinout.mmd). tscircuit's schematic-trace-solver — NOT the PCB autorouter — hangs on
+ * this dense layout whenever a net is added; the capacity-autorouter handles the PCB fine.
+ * Disabling the schematic removes the hang and speeds every render; the gerbers are unaffected.
  */
 import { at, Cap, Jst, ulnOUT } from "./carrier_parts"
 import { Uln2803, Mcp23017, Ds3231Smd, Thvd1426, Sm712 } from "./pcba_parts"
@@ -42,12 +47,15 @@ import { MLT_5020 } from "./imports/MLT_5020"
 import { S8050_J3Y_RANGE_200_350_ as S8050 } from "./imports/S8050_J3Y_RANGE_200_350_"
 import { KH_CR2032_2_1 as CoinCell } from "./imports/KH_CR2032_2_1"
 import { ESP32_WROOM_32E_N4 as Wroom } from "./imports/ESP32_WROOM_32E_N4"
+import { KT_0603R as LedRed } from "./imports/KT_0603R"
+import { A_19_217_GHC_YR1S2_3T as LedGrn } from "./imports/A_19_217_GHC_YR1S2_3T"
+import { A_19_217_BHC_ZL1M2RY_3T as LedBlu } from "./imports/A_19_217_BHC_ZL1M2RY_3T"
 
 // Identity stamp version (commit date + short SHA), computed once per render.
 const ID = boardVersionParts()
 
 export default () => (
-  <board layers={6} outline={[{ x: -71.5, y: -42 }, { x: 31, y: -42 }, { x: 31, y: 40 }, { x: -71.5, y: 40 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
+  <board layers={6} schematicDisabled outline={[{ x: -67.5, y: -38 }, { x: 27, y: -38 }, { x: 27, y: 36 }, { x: -67.5, y: 36 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
     {/* DS3231SN RTC + CR2032 backup, east of the ESP. U6 (the SOIC) sits high with its
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
@@ -77,7 +85,7 @@ export default () => (
     <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-58.5} y={-14.0} rot={90} />
     <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-53.5} y={-14.0} rot={90} side="E" />
     <resistor name="R8" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} pcbRotation={90} {...at(-49.2, 14.8)} />
-    <Jst name="J12" x={-45} y={31} count={6} labels={["3V3", "EN", "TX0", "RX0", "IO0", "GND"]} rot={0} label="PROG" />
+    <Jst name="J12" x={-38.68} y={31} count={6} labels={["3V3", "EN", "TX0", "RX0", "IO0", "GND"]} rot={0} label="PROG" />
     {/* RS-485 to the front display (J9). THVD1426 auto-direction transceiver (U7):
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
         only D (from ESP TX) and R (to ESP RX) are driven. R6 = 120R line termination
@@ -90,15 +98,15 @@ export default () => (
         K7805 (12V->5V, 2A), 3-pin SIP modules (pin1 Vin / pin2 GND / pin3 +Vo, 2.54 mm
         pitch). Vin/+Vo/GND each common to their plane at the barrel. Per buck: a 10uF input
         cap (Vin->GND) and an output cap (+Vo->GND, 10uF on U9, 22uF on U10). */}
-    <K7803_1000R3 name="U9" pcbX={10.15} pcbY={28.45} pcbRotation={0} />
-    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={6.15} y={24.45} rot={0} side="S" />
-    <Cap name="C14" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={14.15} y={24.35} rot={0} side="S" />
-    <K7805_2000R3 name="U10" pcbX={18.75} pcbY={-29.85} pcbRotation={180} />
+    <K7803_1000R3 name="U9" pcbX={4.825} pcbY={28.45} pcbRotation={0} />
+    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={0.825} y={24.45} rot={0} side="S" />
+    <Cap name="C14" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={8.825} y={24.35} rot={0} side="S" />
+    <K7805_2000R3 name="U10" pcbX={16.125} pcbY={-29.85} pcbRotation={180} />
     {/* U10 ref-des hand-drawn upright inside its fence (the footprint's own label is
         suppressed: at rot 180 it read upside-down, below the fence). */}
-    <silkscreentext text="U10" fontSize="1mm" anchorAlignment="center" pcbX={18.75} pcbY={-25.0} />
-    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={14.75} y={-34.1} rot={0} side="S" />
-    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={22.75} y={-34.1} rot={0} side="S" />
+    <silkscreentext text="U10" fontSize="1mm" anchorAlignment="center" pcbX={16.125} pcbY={-25.0} />
+    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={12.125} y={-34.1} rot={0} side="S" />
+    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={20.125} y={-34.1} rot={0} side="S" />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
         pump (12V brushed DC, 0.3-0.5A, PWM), 45V/3.6A SMD with internal freewheeling +
         OCP/OTP/UVLO. VM->12V (the top SMD pad lands directly on the V12 island), GND/PAD->GND,
@@ -130,18 +138,18 @@ export default () => (
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
-    <Jst name="J13" x={-26} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} rot={0} label="PUMPS" labelDir={1} />
-    <Jst name="J3" x={-36.5} y={-32} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" />
-    <Jst name="J4" x={-21} y={-32} count={6} labels={["GND", "V5", "IO25", "IO26", "IO27", "3V3"]} rot={0} label="SENSORS" />
+    <Jst name="J13" x={-23.63} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} rot={0} label="PUMPS" labelDir={1} />
+    <Jst name="J3" x={-34.88} y={-32} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" />
+    <Jst name="J4" x={-19.83} y={-32} count={6} labels={["GND", "V5", "IO25", "IO26", "IO27", "3V3"]} rot={0} label="SENSORS" />
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
         (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
         IO19 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
-    <Jst name="J5" x={-60} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} rot={0} label="RELAYS" />
-    <Jst name="J6" x={-4.55} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
-    <Jst name="J7" x={-1.6} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
-    <Jst name="J9" x={-48.25} y={-32} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" />
-    <Jst name="J10" x={21.25} y={30.95} count={2} labels={["GND", "V12"]} rot={0} label="12V" labelDir={1} />
-    <Jst name="J11" x={-60} y={-32} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} rot={0} label="GAS" />
+    <Jst name="J5" x={-53.73} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} rot={0} label="RELAYS" />
+    <Jst name="J6" x={-9.83} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
+    <Jst name="J7" x={-1.03} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
+    <Jst name="J9" x={-46.18} y={-32} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" />
+    <Jst name="J10" x={15.73} y={30.95} count={2} labels={["GND", "V12"]} rot={0} label="12V" labelDir={1} />
+    <Jst name="J11" x={-57.48} y={-32} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} rot={0} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
         a vertical 2-resistor series: 2.2k (input, bottom) -> midpoint -> 3.3k (to
@@ -244,7 +252,7 @@ export default () => (
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
     <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-4.5} y={12} rot={0} side="S" />
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9.65} y={-25.9} rot={90} side="E" />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={8.3} y={-25.9} rot={90} side="E" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
@@ -321,9 +329,10 @@ export default () => (
     <trace from=".J3 > .GND" to="net.GND" />
 
     {/* SENSORS: flow (IO25) / 1-wire temps (IO26) / backflow drip-pan moisture
-        (IO27) — three adjacent S-edge GPIOs (internal pull-ups for the 1-wire bus +
-        open-collector flow). 3V3 powers the DS18B20 probes + the moisture module; V5
-        the flow sensor. */}
+        (IO27) — three adjacent S-edge GPIOs. The 1-wire bus gets a proper 4.7k external
+        pull-up to 3V3 on-board (R9 above), not the ESP's weak internal one; flow uses the
+        internal pull-up (open-collector). 3V3 powers the DS18B20 probes + the moisture
+        module; V5 the flow sensor. */}
     <trace from=".J4 > .IO25" to=".U1 > .IO25" />
     <trace from=".J4 > .IO26" to=".U1 > .IO26" />
     <trace from=".J4 > .IO27" to=".U1 > .IO27" />
@@ -468,28 +477,56 @@ export default () => (
         ac-wiring-schedule SIG-1). The bus runs ~600 mm out to the cold-core probes, too
         far for the ESP's ~45k internal pull-up, so the 1-wire bus gets its proper external
         pull-up on-board, at the SENSORS connector where the probe loom leaves the board. */}
-    {/* 1-wire pull-up — DEFERRED (shared blocker with the LEDs below). Intended: R9 = 4.7k
-        (C23162), R9.pin1→net.V3V3 (poured, fine) + R9.pin2→.J4>.IO26 (a new point-to-point net).
-        BLOCKER: adding ANY new autorouted point-to-point net to this board makes the tscircuit
-        autorouter non-terminate (>400 s; bisected). Poured-net hops (e.g. the mounting holes →
-        net.GND) and bare component placement render fine in ~60 s; pcbRouteHints did NOT help.
-        Re-add the pull-up once the autoroute is unblocked (pretty-router / autorouter fix). */}
+    <resistor name="R9" resistance="4.7k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23162"] }} {...at(-16, -28)} />
+    <trace from=".R9 > .pin1" to="net.V3V3" />
+    <trace from=".R9 > .pin2" to=".J4 > .IO26" />
 
-    {/* Indicator LEDs — DEFERRED (same autoroute blocker as R9 above). Plan: 3 firmware status
-        LEDs near the ESP — RED=fault/IO14, GREEN=ready/IO2, BLUE=activity/IO12 (active-high to
-        GND, boot-safe) — plus 2 rail greens flanking the logo (3V3, 5V, each lit off its plane).
-        Series 470R (C23179) per LED; LED parts red=C2286, green=C72043, blue=C72041 (0603 <led>,
-        anode=pin1). The bare components place + pour-solve fine (~50 s); their anode/GPIO
-        point-to-point traces hang the autorouter. Re-add when the autoroute is unblocked. */}
+    {/* ── Indicator LEDs flanking the brand logo ─────────────────────────────────────
+        LEFT — firmware status, three otherwise-idle ESP GPIO, active-high to GND, boot-safe:
+        RED = fault (IO14, not a strap), GREEN = ready/heartbeat (IO2, wants low at boot),
+        BLUE = activity (IO12 / MTDI, wants low at boot — LED-to-GND only, never tied high).
+        RIGHT — power rails, each off its plane through a series R: 3V3 + 5V (3V3 lit ⇒ 12 V in
+        AND the K7803 buck is up — the board is alive before firmware runs). 470R (C23179) per
+        LED; ref-des silk stripped from the LED imports (it collides at this pitch), so meaning
+        is by colour + position (see esp32-scope.md). */}
+    {/* left — firmware R/G/B; anode toward its R (outboard, -x): D2 red rot 180, D3/D4 native */}
+    <LedRed name="D2" pcbRotation={180} {...at(-31.5, -15.5)} />
+    <LedGrn name="D3" {...at(-31.5, -18.5)} />
+    <LedBlu name="D4" {...at(-31.5, -21.5)} />
+    <resistor name="R10" resistance="470" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23179"] }} {...at(-36, -15.5)} />
+    <resistor name="R11" resistance="470" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23179"] }} {...at(-36, -18.5)} />
+    <resistor name="R12" resistance="470" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23179"] }} {...at(-36, -21.5)} />
+    {/* right — power rails (green), anode toward its R (outboard, +x): both rot 180 */}
+    <LedGrn name="D5" pcbRotation={180} {...at(-21.5, -17)} />
+    <LedGrn name="D6" pcbRotation={180} {...at(-21.5, -20)} />
+    <resistor name="R13" resistance="470" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23179"] }} {...at(-17, -17)} />
+    <resistor name="R14" resistance="470" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23179"] }} {...at(-17, -20)} />
+    {/* firmware: GPIO -> R -> anode, cathode -> GND */}
+    <trace from=".U1 > .IO14" to=".R10 > .pin1" />
+    <trace from=".R10 > .pin2" to=".D2 > .anode" />
+    <trace from=".D2 > .cathode" to="net.GND" />
+    <trace from=".U1 > .IO2" to=".R11 > .pin1" />
+    <trace from=".R11 > .pin2" to=".D3 > .anode" />
+    <trace from=".D3 > .cathode" to="net.GND" />
+    <trace from=".U1 > .IO12" to=".R12 > .pin1" />
+    <trace from=".R12 > .pin2" to=".D4 > .anode" />
+    <trace from=".D4 > .cathode" to="net.GND" />
+    {/* rails: plane -> R -> anode, cathode -> GND (R/LED pads auto-stitch to their planes) */}
+    <trace from=".R13 > .pin1" to="net.V3V3" />
+    <trace from=".R13 > .pin2" to=".D5 > .anode" />
+    <trace from=".D5 > .cathode" to="net.GND" />
+    <trace from=".R14 > .pin1" to="net.V5" />
+    <trace from=".R14 > .pin2" to=".D6 > .anode" />
+    <trace from=".D6 > .cathode" to="net.GND" />
 
-    {/* ── M3 mounting holes, one per corner of the grown board, plated and tied to GND so
-        a metal screw can't bridge a power plane (GND connects on the bottom plane; V12 /
-        3V3 / 5V / SDA / SCL antipad). The outline was grown ~4 mm per side to open a
-        connector-clear mounting border; the holes sit just inside the old corners. */}
-    <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.6mm" portHints={["pin1"]} pcbX={-67.5} pcbY={37} />
-    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.6mm" portHints={["pin1"]} pcbX={27} pcbY={37} />
-    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.6mm" portHints={["pin1"]} pcbX={27} pcbY={-39} />
-    <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.6mm" portHints={["pin1"]} pcbX={-67.5} pcbY={-39} />
+    {/* ── M3 mounting holes, one per corner, plated and tied to GND so a metal screw can't
+        bridge a power plane (GND connects on the bottom plane; V12 / 3V3 / 5V / SDA / SCL
+        antipad). No board grow — the edge connectors (and the U9/U10 bucks) were packed
+        east/west to open a connector-clear gap in each corner; the holes sit in those gaps. */}
+    <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" portHints={["pin1"]} pcbX={-63} pcbY={32.5} />
+    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" portHints={["pin1"]} pcbX={24} pcbY={32.5} />
+    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" portHints={["pin1"]} pcbX={24.5} pcbY={-33.5} />
+    <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" portHints={["pin1"]} pcbX={-65} pcbY={-33.5} />
     <trace from=".MH1 > .pin1" to="net.GND" />
     <trace from=".MH2 > .pin1" to="net.GND" />
     <trace from=".MH3 > .pin1" to="net.GND" />

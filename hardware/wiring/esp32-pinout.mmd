@@ -37,12 +37,12 @@ flowchart LR
   %%                (front panel, internal run; the 4.3B has no free TTL UART).
   %%   GPIO 33/35 = Serial2, direct TTL UART -> 1.47" faucet display
   %%                (up the umbilical; the 1.47" breaks out TTL UART).
+  %%   On-board status LEDs (active-high to GND, boot-safe), flanking the brand logo:
+  %%     RED on 14 (fault), GREEN on 2 (ready), BLUE on 12 (activity); 3V3 + 5V rail
+  %%     greens light straight off their planes (no GPIO).
   %% Freed GPIOs still available:
   %%   GPIO 15  - free (was the flow-meter pin)
-  %%   GPIO 14  - free (was the 1-wire pin)
-  %%   GPIO 12  - free (bootstrap-sensitive)
   %%   GPIO 5   - free (bootstrap-sensitive; was an L298 pump pin)
-  %%   GPIO 2   - free (bootstrap-sensitive)
   %% Programming / console header J12 (the bare WROOM exposes these; the DevKitC hid them):
   %%   GPIO 0   boot strap (J12 IO0 + R8 pull-up to 3V3)
   %%   GPIO 1   U0TXD (J12 TX0, program / console)
@@ -88,6 +88,12 @@ flowchart LR
 
     subgraph Alert_Pins["User Feedback"]
       P13["GPIO 13  Piezo buzzer (PWM tone)"]
+    end
+
+    subgraph LED_Pins["Status LEDs  (on-board, flanking the logo)"]
+      P14["GPIO 14  RED status LED (fault)"]
+      P2["GPIO 2   GREEN status LED (ready)"]
+      P12["GPIO 12  BLUE status LED (activity)"]
     end
   end
 
