@@ -107,9 +107,9 @@ export default () => (
     <Mcp23017 name="U3" x={4.9} y={-22.85} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={18.8} y={4.85} />
     <Uln2803 name="U5" x={18.9} y={-11.95} />
-    <MLT_5020 name="U8" {...at(-61, 22.7)} />
-    <S8050 name="Q1" {...at(-63.2, 15.65)} />
-    <resistor name="R5" resistance="1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C21190"] }} {...at(-63.65, 11.5)} />
+    <MLT_5020 name="U8" {...at(-35, -5)} />
+    <S8050 name="Q1" {...at(-42, -7)} />
+    <resistor name="R5" resistance="1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C21190"] }} {...at(-42, -3)} />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
     <Jst name="J1" x={29.65} y={8.9} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
@@ -394,16 +394,16 @@ export default () => (
     <trace from=".J10 > .GND" to="net.GND" />
     <trace from=".U5 > .GND" to="net.GND" />
 
-    {/* BUZZER: MLT-5020 passive magnetic transducer (C94598) in the upper-left beside the
-        ESP, low-side switched by Q1 (S8050 NPN, C2146) so IO5's ~12 mA source isn't
-        asked to sink the buzzer's ~100 mA coil. Tone on IO5 (LEDC, a north-edge pin) ->
-        R5 (1k base) -> Q1 base; Q1 collector sinks U8 -, emitter to the GND plane; U8 +
-        on the 5 V plane. IO5 is a boot-strap pin (internal pull-up holds it high at reset),
-        so the transducer gives a short power-on click before firmware takes IO5 low. */}
+    {/* BUZZER: MLT-5020 passive magnetic transducer (C94598) just east of the ESP by its
+        IO13 pin, low-side switched by Q1 (S8050 NPN, C2146) so IO13's ~12 mA source isn't
+        asked to sink the buzzer's ~100 mA coil. Tone on IO13 (LEDC, the lone usable east-edge
+        GPIO) -> R5 (1k base) -> Q1 base; Q1 collector sinks U8 -, emitter to the GND plane;
+        U8 + on the 5 V plane. IO13 is a plain GPIO (not a strapping pin), so it boots high-Z
+        and the transducer stays silent until firmware drives it. */}
     <trace from=".U8 > ._NEG" to=".Q1 > .C" />
     <trace from=".Q1 > .E" to="net.GND" />
     <trace from=".Q1 > .B" to=".R5 > .pin1" />
-    <trace from=".R5 > .pin2" to=".U1 > .IO5" />
+    <trace from=".R5 > .pin2" to=".U1 > .IO13" />
 
     {/* GAS: ACEIRMC MQ-6 combustible / refrigerant-leak sensor, mounted low on the
         rear cabinet floor (catches dense R-600a pooling). 5 V heater supply. BOTH
