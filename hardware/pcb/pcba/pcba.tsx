@@ -52,7 +52,7 @@ export default () => (
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm coin
         holder (BT1) is the bulk to U6's east. CR2032 + is the wide can on the centre pad
         (pin2 -> VBAT); clips are - (GND). */}
-    <CoinCell name="BT1" pcbX={-17} pcbY={1.9} pcbRotation={0} />
+    <CoinCell name="BT1" pcbX={-17} pcbY={-1} pcbRotation={0} />
     <Ds3231Smd name="U6" x={-37} y={7} />
     <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-42} y={8} rot={90} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio, antenna keepout
@@ -87,12 +87,12 @@ export default () => (
         K7805 (12V->5V, 2A), 3-pin SIP modules (pin1 Vin / pin2 GND / pin3 +Vo, 2.54 mm
         pitch). Vin/+Vo/GND each common to their plane at the barrel. Per buck: a 10uF input
         cap (Vin->GND) and an output cap (+Vo->GND, 10uF on U9, 22uF on U10). */}
-    <K7803_1000R3 name="U9" pcbX={18.2} pcbY={28.5} pcbRotation={0} />
-    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={14.2} y={24.4} rot={0} lab={[0, -1.35]} />
-    <Cap name="C14" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={22.2} y={24.4} rot={0} lab={[0, -1.35]} />
-    <K7805_2000R3 name="U10" pcbX={26.8} pcbY={-29.8} pcbRotation={180} />
-    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={22.8} y={-34.05} rot={0} lab={[0, -1.35]} />
-    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={30.8} y={-34.05} rot={0} lab={[0, -1.35]} />
+    <K7803_1000R3 name="U9" pcbX={11.2} pcbY={28.5} pcbRotation={0} />
+    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={7.2} y={24.4} rot={0} lab={[0, -1.35]} />
+    <Cap name="C14" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={15.2} y={24.4} rot={0} lab={[0, -1.35]} />
+    <K7805_2000R3 name="U10" pcbX={19.8} pcbY={-29.8} pcbRotation={180} />
+    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={15.8} y={-34.05} rot={0} lab={[0, -1.35]} />
+    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={23.8} y={-34.05} rot={0} lab={[0, -1.35]} />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
         pump (12V brushed DC, 0.3-0.5A, PWM), 45V/3.6A SMD with internal freewheeling +
         OCP/OTP/UVLO. VM->12V (the top SMD pad lands directly on the V12 island), GND/PAD->GND,
@@ -104,17 +104,17 @@ export default () => (
     <Drv8870 name="U12" pcbX={-20.55} pcbY={22} pcbRotation={0} />
     <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-24.1} y={16} rot={0} lab={[0, -1.35]} />
     <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-17.1} y={16} rot={0} lab={[0, -1.35]} />
-    <Mcp23017 name="U2" x={4.8} y={18.1} addr="0x20" rot={270} />
-    <Mcp23017 name="U3" x={4.9} y={-22.85} addr="0x21" rot={90} />
-    <Uln2803 name="U4" x={18.8} y={4.85} />
-    <Uln2803 name="U5" x={18.9} y={-11.95} />
+    <Mcp23017 name="U2" x={-2.2} y={18.1} addr="0x20" rot={270} />
+    <Mcp23017 name="U3" x={-2.1} y={-22.85} addr="0x21" rot={90} />
+    <Uln2803 name="U4" x={11.8} y={4.85} />
+    <Uln2803 name="U5" x={11.9} y={-11.95} />
     <MLT_5020 name="U8" {...at(-35.5, -13)} />
     <S8050 name="Q1" {...at(-42, -9)} />
     <resistor name="R5" resistance="1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C21190"] }} {...at(-42, -5)} />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
-    <Jst name="J1" x={29.65} y={8.9} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
-    <Jst name="J2" x={29.7} y={-12.95} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
+    <Jst name="J1" x={22.65} y={8.9} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
+    <Jst name="J2" x={22.7} y={-12.95} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
@@ -125,10 +125,10 @@ export default () => (
         (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
         IO19 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
     <Jst name="J5" x={-60} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} rot={0} label="RELAYS" />
-    <Jst name="J6" x={2.45} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
-    <Jst name="J7" x={5.4} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
+    <Jst name="J6" x={-4.55} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
+    <Jst name="J7" x={-1.6} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
     <Jst name="J9" x={-48.25} y={-32} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" />
-    <Jst name="J10" x={29.3} y={31} count={2} labels={["GND", "V12"]} rot={0} label="12V" labelDir={1} />
+    <Jst name="J10" x={22.3} y={31} count={2} labels={["GND", "V12"]} rot={0} label="12V" labelDir={1} />
     <Jst name="J11" x={-60} y={-32} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} rot={0} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
@@ -234,8 +234,8 @@ export default () => (
     <trace from=".U3 > .A1" to="net.GND" />
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
-    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={2.5} y={12} rot={0} lab={[0, -1.35]} />
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={17.4} y={-25.8} rot={0} lab={[2.6, 0]} />
+    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-4.5} y={12} rot={0} lab={[0, -1.35]} />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={10.4} y={-25.8} rot={0} lab={[2.6, 0]} />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
@@ -434,10 +434,10 @@ export default () => (
         inrush + flyback dump the ceramics can't. Every pin1 -> V12, pin2 -> GND
         plane — no routing, no vias, barrel pickup like every power pin; the top V12
         island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
-    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={21.4} y={-20.2} rot={0} />
-    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={21.3} y={-3.3} rot={0} />
-    <NXB_25V470_10_12_5 name="C3" pcbRotation={180} {...at(20.45, 16.6)} />
-    <silkscreentext text="C3" fontSize="1mm" anchorAlignment="center" pcbX={20.45} pcbY={16.6} />
+    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={14.4} y={-20.2} rot={0} />
+    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={14.3} y={-3.3} rot={0} />
+    <NXB_25V470_10_12_5 name="C3" pcbRotation={180} {...at(13.45, 16.6)} />
+    <silkscreentext text="C3" fontSize="1mm" anchorAlignment="center" pcbX={13.45} pcbY={16.6} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
     <trace from=".C2 > .pin1" to="net.V12" />
@@ -472,8 +472,8 @@ export default () => (
         pins pick it up at the barrel. Point-to-point signals route on top and bottom. */}
     <trace from=".J10 > .V12" to="net.V12" />
     <copperpour name="V12ISLAND" layer="top" connectsTo="net.V12" netClearance="0.5mm from V3V3, V5, SDA, SCL"
-      outline={[{ x: -37, y: 35 }, { x: 45, y: 35 }, { x: 45, y: -37 }, { x: 14.5, y: -37 },
-                { x: 14.5, y: 22 }, { x: -14, y: 22 }, { x: -14, y: 13 }, { x: -37, y: 13 }]} />
+      outline={[{ x: -37, y: 35 }, { x: 45, y: 35 }, { x: 45, y: -37 }, { x: 7.5, y: -37 },
+                { x: 7.5, y: 22 }, { x: -14, y: 22 }, { x: -14, y: 13 }, { x: -37, y: 13 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
     <copperpour name="SDAPLANE" layer="inner3" connectsTo="net.SDA" boardEdgeMargin="0.5mm" />
