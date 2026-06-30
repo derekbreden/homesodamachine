@@ -40,8 +40,8 @@ keys to a different id and rings.
 ## Through-vias must be antipadded on the inner planes
 
 A stitch via — like every through-via on the board, including the autorouter's signal vias —
-drills through all four layers, so each inner plane it does *not* belong to must clear it with
-an antipad, or the plane shorts to the via's net. tscircuit emits a via's `layers` as just its
+drills the full stackup top-to-bottom, so each inner plane it does *not* belong to must clear it
+with an antipad, or the plane shorts to the via's net. tscircuit emits a via's `layers` as just its
 endpoints (`["top","bottom"]`), and the copper-pour solver only antipads a via on a layer that
 is in `via.layers` — so inner-plane pours flood straight over every through-via with no
 clearance (GND stitch vias short to 3V3 and 5V; routed signal vias short to whatever plane they
