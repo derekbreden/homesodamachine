@@ -20,12 +20,13 @@ its pins instead of crossing the fan.
 - UART → faucet display: IO33 (TX), IO35 (RX, input-only) — south edge
 - Pumps → on-board DRV8870 H-bridges: IO18→A.IN2, IO17→A.IN1, IO16→B.IN2, IO4→B.IN1 — north edge, one bus, ordered west-to-east so the four IN traces comb up with no crossing (IN1/IN2 only set H-bridge polarity; firmware picks the forward sense)
 - Relays (off-board modules) → IO23, IO19 — north edge
-- Sensors: IO26 (1-wire), IO25 (flow), IO27 (backflow) — three adjacent south-edge pins
+- Sensors: IO26 (1-wire, 4.7k external pull-up to 3V3 — R9), IO25 (flow), IO27 (backflow) — three adjacent south-edge pins
+- Status LEDs: IO14 (red/fault), IO2 (green/ready), IO12 (blue/activity) — on-board, active-high to GND, boot-safe
 - Gas dividers: IO39 (AOUT), IO36 (DOUT) — south-edge ADC1, input-only
 - Buzzer: IO13 (the lone usable east-edge GPIO, not a strapping pin → silent at boot)
 - Power / reset: 3V3, V5, GND, EN
 
-Programming: TX0 (IO1), RX0 (IO3), IO0, EN. Unconnected: IO5, IO14, IO15, IO2, IO12.
+Programming: TX0 (IO1), RX0 (IO3), IO0, EN. Unconnected: IO5, IO15.
 IO6–IO11 are the module's internal flash.
 
 ## SMD block
