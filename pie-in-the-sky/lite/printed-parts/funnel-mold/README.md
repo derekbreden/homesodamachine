@@ -16,7 +16,7 @@ tracks the funnel as the lite packing keeps settling.
 
 Neither is a solid block. Each is the bare structure the mold needs and nothing
 more — a forming wall around the funnel, a registration band at the top, and a
-minimal brace — with everything else open. The pair is [503 g](PAIR_MASS) of PETG
+minimal brace — with everything else open. The pair is [504 g](PAIR_MASS) of PETG
 at 100 % infill; the forming-wall overhangs are held during printing by
 sacrificial **supports**, not by PETG that stays in the part.
 
@@ -30,13 +30,13 @@ sacrificial **supports**, not by PETG that stays in the part.
   through the spout boss, that stands the necking funnel on a wide foot through
   the pour. Below the collar there is no outer skin; the chute forming wall is its
   own stiff tube.
-- **Core** ([107.0 × 170.0 × 109.0 mm](CORE_DIMS), [241 g](CORE_MASS)). The bore
+- **Core** ([107.0 × 170.0 × 109.0 mm](CORE_DIMS), [242 g](CORE_MASS)). The bore
   as a plug on a [10 mm](PLATE_THK) top plate that forms the brim top and
   registers over the cavity by a skirt; a centered, lead-nosed pin continues the
   [6.35 mm](SPOUT_BORE) spout bore down through the cavity floor, holding the
   thin spout wall concentric. The plug is hollow — a forming-wall shell vented up
-  through the plate — so the deep chute is not a solid mass. A [4 mm](FILL_D)
-  pour port and [5](N_VENTS) [2.5 mm](VENT_D) vents pass through the plate, over
+  through the plate — so the deep chute is not a solid mass. A [8 mm](FILL_D)
+  pour port and [5](N_VENTS) [4 mm](VENT_D) vents pass through the plate, over
   the brim flange ring.
 
 Both halves pull straight up (a funnel is its own draft); the forming surfaces
