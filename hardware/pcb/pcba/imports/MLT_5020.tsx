@@ -27,7 +27,6 @@ export const MLT_5020 = (props: ChipProps<typeof pinLabels>) => {
 <silkscreenpath route={[{"x":2.7940000000000964,"y":1.524000000000001},{"x":2.7940000000000964,"y":-1.168781000000081}]} />
 <silkscreentext text="+" pcbX="-1.524mm" pcbY="-1.397127mm" anchorAlignment="bottom_left" fontSize="2.032mm" />
 <silkscreentext text="-" pcbX="0.762mm" pcbY="-1.397127mm" anchorAlignment="bottom_left" fontSize="2.032mm" />
-<silkscreentext text="{NAME}" pcbX="-0.003048mm" pcbY="3.618867mm" anchorAlignment="center" fontSize="1mm" />
 <courtyardoutline outline={[{"x":-3.4026479999998855,"y":2.8688669999999092},{"x":3.3965520000000424,"y":2.8688669999999092},{"x":3.3965520000000424,"y":-2.8889330000000655},{"x":-3.4026479999998855,"y":-2.8889330000000655},{"x":-3.4026479999998855,"y":2.8688669999999092}]} />
       </footprint>}
       cadModel={{
