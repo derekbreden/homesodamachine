@@ -4,18 +4,18 @@
  * interface lands on a labeled edge connector (J1-J11). Footprint geometry
  * lives in ./carrier_parts; placement + routing are declared here.
  *
- * The ESP32 sits at the far-left, antenna off-board. Its usable GPIO are all on the north
- * and south castellations — the east edge facing the board is flash pins — so every off-board
- * signal fans up or down, and its connector lives on that edge ordered to match the pin run.
- * NORTH / top-left: RELAYS (J5), the buzzer (U8/Q1/R5), and — combed up from the north pins as
- * one parallel bus — the two pump drivers (U11/U12) + PUMPS in the top-center bay. SOUTH /
- * bottom-left: an ordered row of the south-fanned connectors, each below its own pins — PROG
- * (J12), GAS (J11 + the R1-R4 dividers), RS485 (U7 + SCREEN J9), FAUCET (J3), SENSORS (J4).
- * Center: DS3231 + coin cell in the pocket east of the ESP; the two MCPs stacked through the
- * middle (0x20 north, 0x21 south) with their reed inputs on REEDS A (above) / REEDS B (below).
- * Right block: the two ULNs with the valve manifolds immediately to their right and the V12
- * bulk/HF decoupling between them; the K7803/K7805 bucks (U9 top, U10 bottom) and the 12V
- * inlet (J10) frame the right column.
+ * The ESP32 sits at the far-left, antenna off-board. Its usable GPIO are nearly all on the
+ * north and south castellations (the east edge is flash + the lone GPIO IO13), so every
+ * off-board signal fans up or down and its connector lives on that edge, ordered to match the
+ * pin run. NORTH / top: RELAYS (J5) and PROG (J12) at the edge, and — combed up from the north
+ * pins as one parallel bus — the two pump drivers (U11/U12) feeding PUMPS. SOUTH / bottom: an
+ * edge row of cable connectors — GAS (J11), SCREEN (J9), FAUCET (J3), SENSORS (J4) — with their
+ * on-board conditioning in a second row just above (the R1-R4 gas dividers, the U7 RS485
+ * transceiver). The buzzer (U8/Q1/R5) sits east of the ESP by its IO13 pin. Center: DS3231 +
+ * coin cell; the two MCPs stacked through the middle (0x20 north, 0x21 south) with their reed
+ * inputs on REEDS A (above) / REEDS B (below). Right block: the two ULNs with the valve
+ * manifolds immediately to their right and the V12 bulk/HF decoupling between them; the K7803/
+ * K7805 bucks (U9 top, U10 bottom) and the 12V inlet (J10) frame the right column.
  *
  * SIX layers, stackup top->bottom:
  *   L1 top    — signals + the V12 island
@@ -63,7 +63,8 @@ export default () => (
         plane (sourced by the K7803 buck), every GND pad (incl. the centre thermal pad)
         auto-stitches to the bottom plane. Decoupling (C10 0.1uF + C11 10uF bulk) and the EN
         power-on RC (R7 10k pull-up + C12 1uF) sit at the south edge by the 3V3/EN pins; R8
-        (10k) pulls IO0 up; J12 is the 6-pin serial programming header in the west pocket. */}
+        (10k) pulls IO0 up; J12 is the 6-pin serial programming header on the north edge by its
+        IO0/TX0/RX0 pins — only its EN line climbs from the south edge. */}
     <Wroom name="U1" pcbX={-56.45} pcbY={0} pcbRotation={0} />
     {/* WROOM support south of U1: the EN power-on RC (R7 + C12) stacked at the far-west,
         hard by U1's EN pin so the EN trace stays short; the supply decouplers C10 + C11
@@ -72,15 +73,15 @@ export default () => (
     <resistor name="R7" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-63.5, -17.5)} />
     <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-58.5} y={-14.0} rot={90} lab={[-1.85, 0]} />
     <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-53.5} y={-14.0} rot={90} lab={[1.85, 0]} />
-    <resistor name="R8" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} pcbRotation={90} {...at(-49.2, 12.3)} />
-    <Jst name="J12" x={-58} y={-32} count={6} labels={["3V3", "EN", "TX0", "RX0", "IO0", "GND"]} rot={0} label="PROG" />
+    <resistor name="R8" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} pcbRotation={90} {...at(-49.2, 14.8)} />
+    <Jst name="J12" x={-45} y={31} count={6} labels={["3V3", "EN", "TX0", "RX0", "IO0", "GND"]} rot={0} label="PROG" />
     {/* RS-485 to the front display (J9). THVD1426 auto-direction transceiver (U7):
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
         only D (from ESP TX) and R (to ESP RX) are driven. R6 = 120R line termination
         across A/B; D1 = SM712 ESD array at the J9 cable entry; C7 decouples VCC. */}
     <Thvd1426 name="U7" x={-50} y={-22} />
     <resistor name="R6" resistance="120" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22787"] }} {...at(-44, -22)} />
-    <Sm712 name="D1" x={-44} y={-17} rot={0} />
+    <Sm712 name="D1" x={-44} y={-26} rot={0} />
     <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-50} y={-17} rot={90} lab={[1.85, 0]} />
     {/* On-board supplies in the open right-hand area: U9 = K7803 (12V->3V3, 1A), U10 =
         K7805 (12V->5V, 2A), 3-pin SIP modules (pin1 Vin / pin2 GND / pin3 +Vo, 2.54 mm
@@ -118,17 +119,17 @@ export default () => (
         driver) then A (U11, the farther), so each driver's OUT pair lands on the J13
         pins on its own side and exits straight without wrapping its thermal pad. */}
     <Jst name="J13" x={-11.25} y={31} count={4} labels={["BM1", "BM2", "AM1", "AM2"]} rot={0} label="PUMPS" labelDir={1} />
-    <Jst name="J3" x={-28} y={-32} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
-    <Jst name="J4" x={-13} y={-32} count={6} labels={["GND", "V5", "IO25", "IO26", "IO27", "3V3"]} rot={0} label="SENSORS" />
+    <Jst name="J3" x={-34} y={-32} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
+    <Jst name="J4" x={-19} y={-32} count={6} labels={["GND", "V5", "IO25", "IO26", "IO27", "3V3"]} rot={0} label="SENSORS" />
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
         (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
         IO19 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
-    <Jst name="J5" x={-59} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} rot={0} label="RELAYS" />
+    <Jst name="J5" x={-60} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} rot={0} label="RELAYS" />
     <Jst name="J6" x={2.45} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={5.4} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
-    <Jst name="J9" x={-36} y={-22} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" />
+    <Jst name="J9" x={-47} y={-32} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" />
     <Jst name="J10" x={29.3} y={31} count={2} labels={["GND", "V12"]} rot={0} label="12V" labelDir={1} />
-    <Jst name="J11" x={-42} y={-32} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={0} label="GAS" />
+    <Jst name="J11" x={-59} y={-32} count={4} labels={["GND", "V5", "AOUT", "DOUT"]} rot={0} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
         a vertical 2-resistor series: 2.2k (input, bottom) -> midpoint -> 3.3k (to
