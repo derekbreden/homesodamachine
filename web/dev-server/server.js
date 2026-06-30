@@ -181,19 +181,26 @@ async function runScript(pyFilePath) {
 // (the toolchain lives in that dir's node_modules), but the lifecycle mirrors
 // runScript: abort an in-flight render when a newer save lands, broadcast the
 // board source once the views are rewritten so the viewer refreshes.
-const pcbRunning = new Map(); // tsx path -> AbortController
+const pcbRunning = new Map(); // tsx path -> kill fn (terminates the in-flight render's whole process group)
 
 async function runPcbRender(tsxPath) {
   const scriptDir = path.dirname(tsxPath);
   const renderScript = path.join(scriptDir, "render-board.ts");
   if (!fs.existsSync(renderScript)) return; // no local renderer beside this board
 
-  const prev = pcbRunning.get(tsxPath);
-  if (prev) prev.abort();
-  const ac = new AbortController();
-  pcbRunning.set(tsxPath, ac);
+  // Supersede an in-flight render of this board by killing its whole process GROUP, not
+  // just the `bun render-board.ts` process. render-board spawns heavy `tsci export`
+  // children; a bare kill of the parent (the old AbortController SIGKILL) orphans them —
+  // SIGKILL is also uncatchable, so render-board's own run-lock child-reaper never runs.
+  // On rapid saves the orphans pile up and thrash the machine. SIGTERM the group first
+  // (render-board's handler reaps its tsci child + temp files and exits), then a delayed
+  // SIGKILL backstops any straggler. The child spawns `detached` so it leads its own
+  // group — signalling -pid hits render-board + tsci, never the dev server.
+  pcbRunning.get(tsxPath)?.();
 
   console.log(`  ↪ rendering board: ${relForLog(tsxPath)}`);
+  let killer = null;
+  let superseded = false;
   try {
     const code = await new Promise((resolve, reject) => {
       const proc = spawn("bun", ["render-board.ts", path.basename(tsxPath)], {
@@ -204,9 +211,16 @@ async function runPcbRender(tsxPath) {
         // Tag the run so render-board's single-flight lock can name us when it
         // supersedes (or is superseded by) a hand-run of the same board.
         env: { ...process.env, RENDER_SOURCE: "dev-server" },
-        signal: ac.signal,
-        killSignal: "SIGKILL",
+        // Own process group so the supersede kill can reap render-board AND its tsci
+        // children together. Must NOT share the dev server's group (we negative-pid kill).
+        detached: true,
       });
+      killer = () => {
+        superseded = true;
+        try { process.kill(-proc.pid, "SIGTERM"); } catch {}
+        setTimeout(() => { try { process.kill(-proc.pid, "SIGKILL"); } catch {} }, 2000).unref();
+      };
+      pcbRunning.set(tsxPath, killer);
       // Two-phase render: render-board paints a fast placement preview, prints the
       // sentinel below, then runs the full routed render. Broadcast on the sentinel
       // so the viewer shows the preview immediately — the watcher ignores out/, so it
@@ -219,7 +233,7 @@ async function runPcbRender(tsxPath) {
         let nl;
         while ((nl = buf.indexOf("\n")) !== -1) {
           const line = buf.slice(0, nl); buf = buf.slice(nl + 1);
-          if (line.trim() === "RENDER_PHASE=placement" && !ac.signal.aborted) {
+          if (line.trim() === "RENDER_PHASE=placement" && !superseded) {
             const relFile = relForBroadcast(tsxPath);
             console.log(`  -> ${relFile} (placement preview)`);
             broadcast({ type: "files-changed", files: [relFile] });
@@ -229,6 +243,9 @@ async function runPcbRender(tsxPath) {
       proc.on("close", resolve);
       proc.on("error", reject);
     });
+    // A superseded render was killed mid-flight — its out/ is half-written, so don't
+    // broadcast it (a newer render is already running and will broadcast its own result).
+    if (superseded) return;
     // Don't broadcast on a failed render — that would refresh the viewer onto
     // the previous (now stale) views and hide the failure (mirrors runScript).
     if (code !== 0) {
@@ -239,10 +256,9 @@ async function runPcbRender(tsxPath) {
     console.log(`  -> ${relFile}`);
     broadcast({ type: "files-changed", files: [relFile] });
   } catch (e) {
-    if (e.name === "AbortError") return;
     console.log(`  ↪ board render failed: ${e.message}`);
   } finally {
-    if (pcbRunning.get(tsxPath) === ac) pcbRunning.delete(tsxPath);
+    if (pcbRunning.get(tsxPath) === killer) pcbRunning.delete(tsxPath);
   }
 }
 
