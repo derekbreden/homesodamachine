@@ -47,7 +47,7 @@ import { ESP32_WROOM_32E_N4 as Wroom } from "./imports/ESP32_WROOM_32E_N4"
 const ID = boardVersionParts()
 
 export default () => (
-  <board layers={6} outline={[{ x: -67.5, y: -38 }, { x: 47, y: -38 }, { x: 47, y: 36 }, { x: -67.5, y: 36 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
+  <board layers={6} outline={[{ x: -67.5, y: -38 }, { x: 27, y: -38 }, { x: 27, y: 36 }, { x: -67.5, y: 36 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
     {/* DS3231SN RTC + CR2032 backup, east of the ESP. U6 (the SOIC) sits high with its
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
@@ -88,9 +88,12 @@ export default () => (
         pitch). Vin/+Vo/GND each common to their plane at the barrel. Per buck: a 10uF input
         cap (Vin->GND) and an output cap (+Vo->GND, 10uF on U9, 22uF on U10). */}
     <K7803_1000R3 name="U9" pcbX={10.15} pcbY={28.45} pcbRotation={0} />
-    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={9} y={24.45} rot={0} lab={[0, -1.35]} />
+    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={6.15} y={24.45} rot={0} lab={[0, -1.35]} />
     <Cap name="C14" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={14.15} y={24.35} rot={0} lab={[0, -1.35]} />
     <K7805_2000R3 name="U10" pcbX={18.75} pcbY={-29.85} pcbRotation={180} />
+    {/* U10 ref-des hand-drawn upright inside its fence (the footprint's own label is
+        suppressed: at rot 180 it read upside-down, below the fence). */}
+    <silkscreentext text="U10" fontSize="1mm" anchorAlignment="center" pcbX={18.75} pcbY={-25.0} />
     <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={14.75} y={-34.1} rot={0} lab={[0, -1.35]} />
     <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={22.75} y={-34.1} rot={0} lab={[0, -1.35]} />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
@@ -99,16 +102,22 @@ export default () => (
         ISEN->GND, VREF->3V3, IN1/IN2 from the ESP north-edge pins, OUT1/OUT2 to PUMPS. 10uF +
         0.1uF VM decoupling per chip. */}
     <Drv8870 name="U11" pcbX={-31.55} pcbY={22} pcbRotation={0} />
-    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-35.1} y={16} rot={0} lab={[0, -1.35]} />
-    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-28.1} y={16} rot={0} lab={[0, -1.35]} />
-    <Drv8870 name="U12" pcbX={-20.55} pcbY={22} pcbRotation={0} />
-    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-24.1} y={16} rot={0} lab={[0, -1.35]} />
-    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-17.1} y={16} rot={0} lab={[0, -1.35]} />
+    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-35.1} y={14.5} rot={0} lab={[0, -1.35]} />
+    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-28.1} y={13} rot={0} lab={[0, -1.35]} />
+    <Drv8870 name="U12" pcbX={-18.5} pcbY={22} pcbRotation={0} />
+    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-22.05} y={13} rot={0} lab={[0, -1.35]} />
+    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-15.05} y={13} rot={0} lab={[0, -1.35]} />
     <Mcp23017 name="U2" x={-2.2} y={18.1} addr="0x20" rot={270} />
     <Mcp23017 name="U3" x={-2.1} y={-22.85} addr="0x21" rot={90} />
+    {/* MCP / buzzer ref-des hand-drawn upright to the west of each part (the
+        footprints' own labels are suppressed — _norefdes on the MCPs, the MLT label
+        dropped — because the chip rotations turned them upside-down or sideways). */}
+    <silkscreentext text="U2" fontSize="1mm" anchorAlignment="center" pcbX={-8.5} pcbY={18.1} />
+    <silkscreentext text="U3" fontSize="1mm" anchorAlignment="center" pcbX={-8.5} pcbY={-22.85} />
     <Uln2803 name="U4" x={11.8} y={4.85} />
     <Uln2803 name="U5" x={11.9} y={-11.95} />
     <MLT_5020 name="U8" {...at(-41.45, -15.35)} pcbRotation={270} />
+    <silkscreentext text="U8" fontSize="1mm" anchorAlignment="center" pcbX={-36.5} pcbY={-15.35} />
     <S8050 name="Q1" {...at(-42, -9)} />
     <resistor name="R5" resistance="1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C21190"] }} {...at(-42, -5)} />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
@@ -211,7 +220,7 @@ export default () => (
     <trace from=".C6 > .pin2" to="net.GND" />
 
     {/* RTC backup: CR2032 + (pin1) -> VBAT; - (pin2) -> GND. */}
-    {/* <trace from=".U6 > .VBAT" to=".BT1 > .pin1" /> */}
+    <trace from=".U6 > .VBAT" to=".BT1 > .pin1" />
     <trace from=".BT1 > .pin2" to="net.GND" />
 
 
@@ -232,7 +241,7 @@ export default () => (
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
     <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-4.5} y={12} rot={0} lab={[0, -1.35]} />
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9.65} y={-25.9} rot={90} lab={[2.6, 0]} />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9.65} y={-25.9} rot={90} lab={[1.85, 0]} />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
@@ -317,13 +326,15 @@ export default () => (
     <trace from=".J4 > .IO27" to=".U1 > .IO27" />
     <trace from=".J4 > .GND" to="net.GND" />
 
-    {/* PUMP DRIVERS — the two DRV8870 H-bridges (U11 pump A, U12 pump B). IN1/IN2 from the
-        ESP north-edge pins (IO18/IO17 to U11, IO16/IO4 to U12) so both drivers comb up from
-        that edge as one parallel bus; OUT1/OUT2 to the PUMPS connector. VM off 12V; GND +
-        thermal PAD to the plane; ISEN to GND, VREF to 3V3; VM decoupled by C17/C18 (U11)
-        and C19/C20 (U12). IO13/IO14/IO15 are unconnected. */}
-    <trace from=".U1 > .IO18" to=".U11 > .IN1" />
-    <trace from=".U1 > .IO17" to=".U11 > .IN2" />
+    {/* PUMP DRIVERS — the two DRV8870 H-bridges (U11 pump A, U12 pump B). IN pins fed from
+        the ESP north-edge bus, ordered so the four traces comb up west-to-east with no
+        crossing: IO18->U11.IN2, IO17->U11.IN1, IO16->U12.IN2, IO4->U12.IN1 (the WROOM pins
+        run IO18/IO17/IO16/IO4 west-to-east, the IN2/IN1 pads west-to-east — IN1/IN2 only set
+        H-bridge polarity, so the firmware picks the forward sense). OUT1/OUT2 to the PUMPS
+        connector. VM off 12V; GND + thermal PAD to the plane; ISEN to GND, VREF to 3V3; VM
+        decoupled by C17/C18 (U11) and C19/C20 (U12). IO13/IO14/IO15 are unconnected. */}
+    <trace from=".U1 > .IO18" to=".U11 > .IN2" />
+    <trace from=".U1 > .IO17" to=".U11 > .IN1" />
     <trace from=".U11 > .VM" to="net.V12" />
     <trace from=".U11 > .GND" to="net.GND" />
     <trace from=".U11 > .PAD" to="net.GND" />
@@ -335,8 +346,8 @@ export default () => (
     <trace from=".C17 > .pin2" to="net.GND" />
     <trace from=".C18 > .pin1" to="net.V12" />
     <trace from=".C18 > .pin2" to="net.GND" />
-    <trace from=".U1 > .IO16" to=".U12 > .IN1" />
-    <trace from=".U1 > .IO4" to=".U12 > .IN2" />
+    <trace from=".U1 > .IO16" to=".U12 > .IN2" />
+    <trace from=".U1 > .IO4" to=".U12 > .IN1" />
     <trace from=".U12 > .VM" to="net.V12" />
     <trace from=".U12 > .GND" to="net.GND" />
     <trace from=".U12 > .PAD" to="net.GND" />
@@ -427,14 +438,15 @@ export default () => (
         each level with its manifold row — C2 by MANIFOLD A (y+19.1), C1 by MANIFOLD
         B (y-19.1) — snubbing the fast solenoid-turn-off edge, with the 12V inlet
         (J10) centered between them at y0. BULK: a 470uF low-ESR electrolytic (C3,
-        BOM 1) centered in the valley between the two ULNs it feeds, soaking the
-        inrush + flyback dump the ceramics can't. Every pin1 -> V12, pin2 -> GND
-        plane — no routing, no vias, barrel pickup like every power pin; the top V12
-        island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
-    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={14.4} y={-20.2} rot={0} />
-    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={14.3} y={-3.3} rot={0} />
+        BOM 1) in the board centre between the two MCP stacks, west of the ULNs it
+        feeds across the V12 island, soaking the inrush + flyback dump the ceramics
+        can't. Every pin1 -> V12, pin2 -> GND plane — no routing, no vias, barrel
+        pickup like every power pin; the top V12 island floods the whole valve
+        block. C3 is polarized: pin1 (+) is V12. */}
+    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={14.4} y={-20.2} rot={0} lab={[0, -1.35]} />
+    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={14.3} y={-3.3} rot={0} lab={[0, -1.35]} />
     <NXB_25V470_10_12_5 name="C3" pcbRotation={180} {...at(-1.4, 3.8)} />
-    <silkscreentext text="C3" fontSize="1mm" anchorAlignment="center" pcbX={13.45} pcbY={16.6} />
+    <silkscreentext text="C3" fontSize="1mm" anchorAlignment="center" pcbX={-1.4} pcbY={-2.8} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
     <trace from=".C2 > .pin1" to="net.V12" />
@@ -451,15 +463,16 @@ export default () => (
 
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
         monocolor silk via logo.ts) over the centered name + version, a compact
-        stack in the open far-right pocket of the V12 island, clear of the right
-        column. The version is the firmware scheme (firmware/pre_build.py): commit
-        date + short SHA, a trailing `+` from uncommitted edits — a pure function
-        of the commit, naming which source tree a fabbed board came from. */}
-    {logoRoutes(38.5, -29.5, 2).map((route, i) => (
+        stack in the open lower-centre, between the RS485 cluster to its west and
+        the south MCP (U3) to its east. The version is the firmware scheme
+        (firmware/pre_build.py): commit date + short SHA, a trailing `+` from
+        uncommitted edits — a pure function of the commit, naming which source
+        tree a fabbed board came from. */}
+    {logoRoutes(-26.631, -19.0, 4).map((route, i) => (
       <silkscreenpath key={`logo${i}`} strokeWidth="0.12mm" route={route} />
     ))}
-    <silkscreentext text="HOME SODA MACHINE" fontSize="1mm" anchorAlignment="center" pcbX={38.5} pcbY={-32.5} />
-    <silkscreentext text={`${ID.date} ${ID.rev}`} fontSize="1mm" anchorAlignment="center" pcbX={38.5} pcbY={-34.5} />
+    <silkscreentext text="HOME SODA MACHINE" fontSize="1mm" anchorAlignment="center" pcbX={-26.631} pcbY={-21.9} />
+    <silkscreentext text={`${ID.date} ${ID.rev}`} fontSize="1mm" anchorAlignment="center" pcbX={-26.631} pcbY={-23.2} />
 
     {/* Power/bus pours — SIX layers, top->bottom: top (signals + the V12 island), 3V3
         (inner1), 5V (inner2), SDA (inner3), SCL (inner4), GND (bottom). 3V3/5V/SDA/SCL/GND
@@ -469,8 +482,8 @@ export default () => (
         pins pick it up at the barrel. Point-to-point signals route on top and bottom. */}
     <trace from=".J10 > .V12" to="net.V12" />
     <copperpour name="V12ISLAND" layer="top" connectsTo="net.V12" netClearance="0.5mm from V3V3, V5, SDA, SCL"
-      outline={[{ x: -37, y: 35 }, { x: 45, y: 35 }, { x: 45, y: -37 }, { x: 7.5, y: -37 },
-                { x: 7.5, y: 22 }, { x: -14, y: 22 }, { x: -14, y: 13 }, { x: -37, y: 13 }]} />
+      outline={[{ x: -37, y: 35 }, { x: 26, y: 35 }, { x: 26, y: -37 }, { x: -8, y: -37 },
+                { x: -8, y: 11 }, { x: -37, y: 11 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
     <copperpour name="SDAPLANE" layer="inner3" connectsTo="net.SDA" boardEdgeMargin="0.5mm" />

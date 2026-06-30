@@ -55,7 +55,7 @@ const mcpPinLabels = {
 export const Mcp23017 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; addr?: string; rot?: number }) => (
   <chip
     name={name}
-    footprint="soic28_w7.5mm_p1.27mm"
+    footprint="soic28_w7.5mm_p1.27mm_norefdes"
     pcbRotation={rot}
     pinLabels={mcpPinLabels}
     supplierPartNumbers={{ jlcpcb: ["C47023"] }}

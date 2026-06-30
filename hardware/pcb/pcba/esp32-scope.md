@@ -18,7 +18,7 @@ its pins instead of crossing the fan.
 - I²C: IO21 (SDA), IO22 (SCL)
 - UART → RS485 config display: IO32 (TX), IO34 (RX, input-only) — south edge
 - UART → faucet display: IO33 (TX), IO35 (RX, input-only) — south edge
-- Pumps → on-board DRV8870 H-bridges: IO18/IO17 (pump A IN1/IN2), IO16/IO4 (pump B IN1/IN2) — north edge, one bus
+- Pumps → on-board DRV8870 H-bridges: IO18→A.IN2, IO17→A.IN1, IO16→B.IN2, IO4→B.IN1 — north edge, one bus, ordered west-to-east so the four IN traces comb up with no crossing (IN1/IN2 only set H-bridge polarity; firmware picks the forward sense)
 - Relays (off-board modules) → IO23, IO19 — north edge
 - Sensors: IO26 (1-wire), IO25 (flow), IO27 (backflow) — three adjacent south-edge pins
 - Gas dividers: IO39 (AOUT), IO36 (DOUT) — south-edge ADC1, input-only
