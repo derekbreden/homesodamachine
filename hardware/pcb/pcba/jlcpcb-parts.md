@@ -55,7 +55,8 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | C11 — ESP 3V3 bulk | 10 µF 25V X5R | 0805 | C15850 | Basic | (see C8) | $0.01 |
 | C12 — EN power-on RC | 1 µF 50V X5R | 0603 | C15849 | Basic | 6,521,627 | $0.036 |
 | J12 — 6-pin (PROG serial) | XH2.54 6P | wafer, 2.5 mm | C5359634 | Extended | (see J2/J4) | $0.0254 |
-| J10, J13, J14 — 2-pin (12V, pump A, pump B) | XH2.54 2P, vertical THT male wafer | wafer, 2.5 mm | C5359631 | Extended | 74,020 | $0.0141 |
+| J10 — 2-pin (12V inlet) | XH2.54 2P, vertical THT male wafer | wafer, 2.5 mm | C5359631 | Extended | 74,020 | $0.0141 |
+| J13 — 4-pin (PUMPS: A/B motor leads) | XH2.54 4P | wafer, 2.5 mm | C7429634 | Extended | (see J3/J11) | $0.0116 |
 | J9 — 3-pin (DISPLAY) | XH2.54 3P | wafer, 2.5 mm | C7429633 | Extended | 411,459 | $0.0117 |
 | J3, J11 — 4-pin (FAUCET, GAS) | XH2.54 4P | wafer, 2.5 mm | C7429634 | Extended | 609,442 | $0.0116 |
 | J6 — 5-pin (REEDS A) | XH2.54 5P | wafer, 2.5 mm | C5359633 | Extended | 14,791 | $0.0294 |
