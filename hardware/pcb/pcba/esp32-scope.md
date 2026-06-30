@@ -22,10 +22,10 @@ its pins instead of crossing the fan.
 - Relays (off-board modules) → IO23, IO19 — north edge
 - Sensors: IO26 (1-wire), IO25 (flow), IO27 (backflow) — three adjacent south-edge pins
 - Gas dividers: IO39 (AOUT), IO36 (DOUT) — south-edge ADC1, input-only
-- Buzzer: IO5 (a strapping pin — see below)
+- Buzzer: IO13 (the lone usable east-edge GPIO, not a strapping pin → silent at boot)
 - Power / reset: 3V3, V5, GND, EN
 
-Programming: TX0 (IO1), RX0 (IO3), IO0, EN. Unconnected: IO13, IO14, IO15, IO2, IO12.
+Programming: TX0 (IO1), RX0 (IO3), IO0, EN. Unconnected: IO5, IO14, IO15, IO2, IO12.
 IO6–IO11 are the module's internal flash.
 
 ## SMD block
@@ -35,8 +35,8 @@ header (TX0 / RX0 / IO0 / EN / GND / 3V3). 3V3 from the on-board K7803 buck.
 
 Strapping pins:
 - IO0 — pull-up + on the header (boot select)
-- IO5 — spare (was pump-B 3rd line); high at boot
-- IO15 — flow input; high at boot
+- IO5 — unconnected; high at boot
+- IO15 — unconnected; high at boot
 - IO2, IO12 — unconnected; low / floating at boot
 
 Radio unused; the WROOM antenna keepout stays. No on-board USB, USB-UART bridge, or
