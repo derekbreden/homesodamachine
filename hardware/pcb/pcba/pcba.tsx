@@ -47,7 +47,7 @@ import { ESP32_WROOM_32E_N4 as Wroom } from "./imports/ESP32_WROOM_32E_N4"
 const ID = boardVersionParts()
 
 export default () => (
-  <board layers={6} outline={[{ x: -67.5, y: -38 }, { x: 27, y: -38 }, { x: 27, y: 36 }, { x: -67.5, y: 36 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
+  <board layers={6} outline={[{ x: -71.5, y: -42 }, { x: 31, y: -42 }, { x: 31, y: 40 }, { x: -71.5, y: 40 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
     {/* DS3231SN RTC + CR2032 backup, east of the ESP. U6 (the SOIC) sits high with its
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
@@ -464,6 +464,37 @@ export default () => (
         same layer as their pour — and need none; C3's radial barrel picks up V12/GND
         directly. See plane-stitching.md (and order the PCBA with filled+capped vias). */}
 
+    {/* DS18B20 1-wire bus pull-up — 4.7k from the IO26 data line up to 3V3 (BOM §1 /
+        ac-wiring-schedule SIG-1). The bus runs ~600 mm out to the cold-core probes, too
+        far for the ESP's ~45k internal pull-up, so the 1-wire bus gets its proper external
+        pull-up on-board, at the SENSORS connector where the probe loom leaves the board. */}
+    {/* 1-wire pull-up — DEFERRED (shared blocker with the LEDs below). Intended: R9 = 4.7k
+        (C23162), R9.pin1→net.V3V3 (poured, fine) + R9.pin2→.J4>.IO26 (a new point-to-point net).
+        BLOCKER: adding ANY new autorouted point-to-point net to this board makes the tscircuit
+        autorouter non-terminate (>400 s; bisected). Poured-net hops (e.g. the mounting holes →
+        net.GND) and bare component placement render fine in ~60 s; pcbRouteHints did NOT help.
+        Re-add the pull-up once the autoroute is unblocked (pretty-router / autorouter fix). */}
+
+    {/* Indicator LEDs — DEFERRED (same autoroute blocker as R9 above). Plan: 3 firmware status
+        LEDs near the ESP — RED=fault/IO14, GREEN=ready/IO2, BLUE=activity/IO12 (active-high to
+        GND, boot-safe) — plus 2 rail greens flanking the logo (3V3, 5V, each lit off its plane).
+        Series 470R (C23179) per LED; LED parts red=C2286, green=C72043, blue=C72041 (0603 <led>,
+        anode=pin1). The bare components place + pour-solve fine (~50 s); their anode/GPIO
+        point-to-point traces hang the autorouter. Re-add when the autoroute is unblocked. */}
+
+    {/* ── M3 mounting holes, one per corner of the grown board, plated and tied to GND so
+        a metal screw can't bridge a power plane (GND connects on the bottom plane; V12 /
+        3V3 / 5V / SDA / SCL antipad). The outline was grown ~4 mm per side to open a
+        connector-clear mounting border; the holes sit just inside the old corners. */}
+    <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.6mm" portHints={["pin1"]} pcbX={-67.5} pcbY={37} />
+    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.6mm" portHints={["pin1"]} pcbX={27} pcbY={37} />
+    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.6mm" portHints={["pin1"]} pcbX={27} pcbY={-39} />
+    <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.6mm" portHints={["pin1"]} pcbX={-67.5} pcbY={-39} />
+    <trace from=".MH1 > .pin1" to="net.GND" />
+    <trace from=".MH2 > .pin1" to="net.GND" />
+    <trace from=".MH3 > .pin1" to="net.GND" />
+    <trace from=".MH4 > .pin1" to="net.GND" />
+
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
         monocolor silk via logo.ts) over the centered name + version, a compact
         stack in the open lower-centre, between the RS485 cluster to its west and
@@ -471,11 +502,11 @@ export default () => (
         (firmware/pre_build.py): commit date + short SHA, a trailing `+` from
         uncommitted edits — a pure function of the commit, naming which source
         tree a fabbed board came from. */}
-    {logoRoutes(-26.631, -19.0, 4).map((route, i) => (
-      <silkscreenpath key={`logo${i}`} strokeWidth="0.12mm" route={route} />
+    {logoRoutes(-26.631, -18.5, 6).map((route, i) => (
+      <silkscreenpath key={`logo${i}`} strokeWidth="0.15mm" route={route} />
     ))}
-    <silkscreentext text="HOME SODA MACHINE" fontSize="1mm" anchorAlignment="center" pcbX={-26.631} pcbY={-21.9} />
-    <silkscreentext text={`${ID.date} ${ID.rev}`} fontSize="1mm" anchorAlignment="center" pcbX={-26.631} pcbY={-23.2} />
+    <silkscreentext text="HOME SODA MACHINE" fontSize="1.4mm" anchorAlignment="center" pcbX={-26.631} pcbY={-25.0} />
+    <silkscreentext text={`${ID.date} ${ID.rev}`} fontSize="1.1mm" anchorAlignment="center" pcbX={-26.631} pcbY={-27.6} />
 
     {/* Power/bus pours — SIX layers, top->bottom: top (signals + the V12 island), 3V3
         (inner1), 5V (inner2), SDA (inner3), SCL (inner4), GND (bottom). 3V3/5V/SDA/SCL/GND
