@@ -62,6 +62,15 @@ const XH254_BY_COUNT: Record<number, string> = {
   6: "C5359634", 7: "C5359635", 9: "C7429639",
 }
 
+// The two wafer vendors seat their 3D model a half-turn apart for the same CPL
+// rotation — XUNPU (2/5/6/7P) one way, Megastar (3/4/9P) the other — so a board
+// that mixes both shows connectors facing two ways per edge. The single-row pad set
+// is symmetric under 180°, so flipping one vendor's parts a half-turn AND reversing
+// their pin order turns the wafer to match the other while leaving copper, nets and
+// silk byte-identical. Flip the Megastar parts onto the XUNPU orientation. (If the
+// JLCPCB preview wants the opposite seating, swap this set for the XUNPU C#s.)
+const FLIP_WAFER = new Set(["C7429633", "C7429634", "C7429639"]) // Megastar ZX-XH2.54 3/4/9P
+
 // ---- JST trunk connector ---------------------------------------------------
 // A board header (the off-board loom cable plugs in): a fence holding the pin
 // row, the function label, the pin labels and the ref-des. Laid out for a
@@ -94,9 +103,16 @@ export const Jst = ({ name, x, y, count, labels, rot = 0, label, labelDir, jlcpc
   const [bdx, bdy] = P(bigOff, 0)
   const [rdx, rdy] = P(-refOff, 0)
   const [fdx, fdy] = P(uc, 0)
+  // Vendor-orientation fix: only the part placement turns (half-turn + reversed pin
+  // order for the flip vendor) so its 3D wafer matches the others; the fence + every
+  // silk label below stay on the un-flipped layout, so the rendered board is identical.
+  const part = jlcpcb ?? XH254_BY_COUNT[count]
+  const flip = part != null && FLIP_WAFER.has(part)
+  const phRot = flip ? (rot + 180) % 360 : rot
+  const phLabels = flip ? [...labels].reverse() : labels
   return (
     <>
-      <pinheader name={name} pinCount={count} pitch="2.5mm" gender="male" footprint={`pinrow${count}_p2.5mm_id1.1mm_od1.65mm_nopinlabels_norefdes`} pcbRotation={rot} pinLabels={labels} supplierPartNumbers={(() => { const p = jlcpcb ?? XH254_BY_COUNT[count]; return p ? { jlcpcb: [p] } : undefined })()} {...at(x, y)} />
+      <pinheader name={name} pinCount={count} pitch="2.5mm" gender="male" footprint={`pinrow${count}_p2.5mm_id1.1mm_od1.65mm_nopinlabels_norefdes`} pcbRotation={phRot} pinLabels={phLabels} supplierPartNumbers={part ? { jlcpcb: [part] } : undefined} {...at(x, y)} />
       <Outline x={x + fdx} y={y + fdy} w={w} h={h} />
       {labels.map((lbl, i) => {
         const [dx, dy] = P(-labelOff, (i - (count - 1) / 2) * pitch)
