@@ -86,22 +86,22 @@ export default () => (
         pitch). Vin/+Vo/GND each common to their plane at the barrel. Per buck: a 10uF input
         cap (Vin->GND) and an output cap (+Vo->GND, 10uF on U9, 22uF on U10). */}
     <K7803_1000R3 name="U9" pcbX={18.2} pcbY={28.5} pcbRotation={0} />
-    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={14.2} y={24.25} rot={0} lab={[0, -1.35]} />
-    <Cap name="C14" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={22.2} y={24.25} rot={0} lab={[0, -1.35]} />
+    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={14.2} y={24.4} rot={0} lab={[0, -1.35]} />
+    <Cap name="C14" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={22.2} y={24.4} rot={0} lab={[0, -1.35]} />
     <K7805_2000R3 name="U10" pcbX={26.8} pcbY={-29.8} pcbRotation={180} />
-    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={22.8} y={-33.9} rot={0} lab={[0, -1.35]} />
-    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={30.8} y={-33.9} rot={0} lab={[0, -1.35]} />
+    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={22.8} y={-34.05} rot={0} lab={[0, -1.35]} />
+    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={30.8} y={-34.05} rot={0} lab={[0, -1.35]} />
     {/* Pump drivers, top-center bay by the ESP: one DRV8870 H-bridge per peristaltic flavor
         pump (12V brushed DC, 0.3-0.5A, PWM), 45V/3.6A SMD with internal freewheeling +
         OCP/OTP/UVLO. VM->12V (auto-stitch via to the inner plane), GND/PAD->GND, ISEN->GND,
         VREF->3V3, IN1/IN2 from the ESP pump pins, OUT1/OUT2 to PUMPS. 10uF + 0.1uF VM
         decoupling per chip. */}
     <Drv8870 name="U11" pcbX={-31.55} pcbY={30} pcbRotation={0} />
-    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-35.1} y={24.4} rot={0} lab={[0, -1.35]} />
-    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-28.1} y={24.4} rot={0} lab={[0, -1.35]} />
+    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-35.1} y={24.11} rot={0} lab={[0, -1.35]} />
+    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-28.1} y={24.11} rot={0} lab={[0, -1.35]} />
     <Drv8870 name="U12" pcbX={-20.55} pcbY={30} pcbRotation={0} />
-    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-24.1} y={24.4} rot={0} lab={[0, -1.35]} />
-    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-17.1} y={24.4} rot={0} lab={[0, -1.35]} />
+    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-24.1} y={24.11} rot={0} lab={[0, -1.35]} />
+    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-17.1} y={24.11} rot={0} lab={[0, -1.35]} />
     <Mcp23017 name="U2" x={4.8} y={18.1} addr="0x20" rot={270} />
     <Mcp23017 name="U3" x={4.9} y={-22.85} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={18.8} y={4.85} />
