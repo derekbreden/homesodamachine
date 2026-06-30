@@ -54,35 +54,32 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | C10 — ESP 3V3 decouple | 0.1 µF 50V X7R | 0805 | C49678 | Basic | (see C1/C2) | $0.0136 |
 | C11 — ESP 3V3 bulk | 10 µF 25V X5R | 0805 | C15850 | Basic | (see C8) | $0.01 |
 | C12 — EN power-on RC | 1 µF 50V X5R | 0603 | C15849 | Basic | 6,521,627 | $0.036 |
-| J12 — 6-pin (PROG serial) | XH2.54 6P | wafer, 2.5 mm | C5359634 | Extended | (see J2/J4) | $0.0254 |
 | J10 — 2-pin (12V inlet) | XH2.54 2P, vertical THT male wafer | wafer, 2.5 mm | C5359631 | Extended | 74,020 | $0.0141 |
-| J13 — 4-pin (PUMPS: A/B motor leads) | XH2.54 4P | wafer, 2.5 mm | C7429634 | Extended | (see J3/J11) | $0.0116 |
-| J9 — 3-pin (DISPLAY) | XH2.54 3P | wafer, 2.5 mm | C7429633 | Extended | 411,459 | $0.0117 |
-| J3, J11 — 4-pin (FAUCET, GAS) | XH2.54 4P | wafer, 2.5 mm | C7429634 | Extended | 609,442 | $0.0116 |
+| J9 — 3-pin (SCREEN / RS485) | XH2.54 3P | wafer, 2.5 mm | C5374805 | Extended | 9,613 (2026-06-30) | $0.0218 |
+| J3, J5, J11, J13 — 4-pin (FAUCET, RELAYS, GAS, PUMPS) | XH2.54 4P | wafer, 2.5 mm | C5359632 | Extended | 39,475 (2026-06-30) | $0.0116 |
 | J6 — 5-pin (REEDS A) | XH2.54 5P | wafer, 2.5 mm | C5359633 | Extended | 14,791 | $0.0294 |
-| J2, J4 — 6-pin (MANIFOLD B, SENSORS) | XH2.54 6P | wafer, 2.5 mm | C5359634 | Extended | 42,550 | $0.0254 |
+| J2, J4, J12 — 6-pin (MANIFOLD B, SENSORS, PROG) | XH2.54 6P | wafer, 2.5 mm | C5359634 | Extended | 42,550 | $0.0254 |
 | J7 — 7-pin (REEDS B) | XH2.54 7P | wafer, 2.5 mm | C5359635 | Extended | 16,231 | $0.0278 |
-| J1, J5 — 9-pin (MANIFOLD A, DRIVER) | XH2.54 9P | wafer, 2.5 mm | C7429639 | Extended | 39,643 | $0.0410 |
+| J1 — 9-pin (MANIFOLD A) | XH2.54 9P | wafer, 2.5 mm | C5359637 | Extended | 380 (2026-06-30) | $0.0400 |
 
 Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C49678 = YAGEO
 CC0805KRX7R9BB104; C845537 = UMW (Youtai) ULN2803A; C47023 = Microchip MCP23017-E/SO;
 C94598 = Jiangsu Huaneng MLT-5020; C2146 = JSCJ S8050 J3Y; XH2.54 connectors = XUNPU
-WAFER-XH2.54-NPZZ (2/5/6/7P) + Megastar ZX-XH2.54-NPZZ (3/4/9P), both vertical THT.
+WAFER-XH2.54-{n}PZZ, one vendor across all seven pin counts, vertical THT.
 
 **The "XH2.54" connectors are physically 2.5 mm pitch.** Genuine JST XH is 2.50 mm; the
 ubiquitous "2.54 mm JST-XH" kits/housings are that same 2.50 mm part with a rounded label,
 and the JLCPCB XH2.54 wafers measure 2.50 mm (holes at ±6.25/±3.75/±1.25 mm on the 6P). So
 the board header is 2.5 mm, not 2.54 — the `Jst` footprint is `pinrow${n}_p2.5mm_id1.1mm_od1.65mm`
 to match the wafer land pattern exactly (clean IoU), and it mates with the standard female
-XH housings the wiring kits use. Every XH2.54 part in the library is Extended (no Basic option),
-so the 11 connectors share two feeders (XUNPU + Megastar) across all seven pin counts.
-The two vendors seat their 3D wafer a half-turn apart for the same CPL rotation, so a
-board mixing both shows connectors facing two ways per edge; the `Jst` helper
-(`carrier_parts.tsx`) flips the Megastar parts (3/4/9P) 180° and reverses their pin
-order — copper, nets and silk stay identical (the single-row pads are symmetric under
-180°), only the placed wafer turns to match the XUNPU parts. Side effect: the square
-pin-1 pad lands at the opposite end on a flipped connector (it still marks that part's
-pin 1, and sits hidden under the wafer body).
+XH housings the wiring kits use. Every XH2.54 part in the library is Extended (no Basic
+option), and all seven counts come from **one vendor — XUNPU's WAFER-XH2.54-{n}PZZ
+series** — so every wafer's 3D model seats the same way at a given CPL rotation and its
+pin-1 (square) pad sits at the same end, with no per-part rotation offset to maintain.
+(A single vendor was preferred over the cheapest-per-count mix precisely so the assembled
+board reads uniformly; the only watch-out is the 9P, `C5359637`, which runs lower stock —
+~380 at 2026-06-30 vs tens of thousands for the rest — but it's the lone MANIFOLD A
+connector, so fine for a build; glance at it before a large run.)
 
 **U4/U5 are `C845537`** (UMW ULN2803A, SOP-18-300mil wide body). No Basic ULN2803 SOIC
 exists in the library — every ULN2803 part is Extended — so the feeder fee is unavoidable;
