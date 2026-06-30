@@ -48,13 +48,13 @@ const ID = boardVersionParts()
 
 export default () => (
   <board layers={6} outline={[{ x: -67.5, y: -38 }, { x: 47, y: -38 }, { x: 47, y: 36 }, { x: -67.5, y: 36 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
-    {/* DS3231SN RTC + CR2032 backup, in the bay below the ESP (the freed DS3231-
-        module footprint). The 20 mm coin holder (BT1) is the bulk; U6 (the SOIC) sits
-        to its right, its 0.1uF decoupler (C6) tucked against U6's VCC pin on the west
-        edge. CR2032 + is the wide can on the centre pad (pin2 -> VBAT); clips are - (GND). */}
-    <CoinCell name="BT1" pcbX={-6.85} pcbY={1.9} pcbRotation={0} />
-    <Ds3231Smd name="U6" x={-25.9} y={2.6} />
-    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-32.85} y={5.78} rot={90} />
+    {/* DS3231SN RTC + CR2032 backup, east of the ESP. U6 (the SOIC) sits high with its
+        0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm coin
+        holder (BT1) is the bulk to U6's east. CR2032 + is the wide can on the centre pad
+        (pin2 -> VBAT); clips are - (GND). */}
+    <CoinCell name="BT1" pcbX={-17} pcbY={1.9} pcbRotation={0} />
+    <Ds3231Smd name="U6" x={-37} y={7} />
+    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-42} y={8} rot={90} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio, antenna keepout
         pointing west off the board edge. Usable GPIO sit on the north and south
         castellations only (the east edge is the module's flash); the relay/pump/buzzer/
@@ -108,9 +108,9 @@ export default () => (
     <Mcp23017 name="U3" x={4.9} y={-22.85} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={18.8} y={4.85} />
     <Uln2803 name="U5" x={18.9} y={-11.95} />
-    <MLT_5020 name="U8" {...at(-35, -5)} />
-    <S8050 name="Q1" {...at(-42, -7)} />
-    <resistor name="R5" resistance="1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C21190"] }} {...at(-42, -3)} />
+    <MLT_5020 name="U8" {...at(-35.5, -13)} />
+    <S8050 name="Q1" {...at(-42, -9)} />
+    <resistor name="R5" resistance="1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C21190"] }} {...at(-42, -5)} />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
     <Jst name="J1" x={29.65} y={8.9} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
@@ -118,18 +118,18 @@ export default () => (
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
-    <Jst name="J13" x={-16} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} rot={0} label="PUMPS" labelDir={1} />
-    <Jst name="J3" x={-34} y={-32} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" />
-    <Jst name="J4" x={-19} y={-32} count={6} labels={["GND", "V5", "IO25", "IO26", "IO27", "3V3"]} rot={0} label="SENSORS" />
+    <Jst name="J13" x={-26} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} rot={0} label="PUMPS" labelDir={1} />
+    <Jst name="J3" x={-36.5} y={-32} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" />
+    <Jst name="J4" x={-21} y={-32} count={6} labels={["GND", "V5", "IO25", "IO26", "IO27", "3V3"]} rot={0} label="SENSORS" />
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
         (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
         IO19 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
     <Jst name="J5" x={-60} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} rot={0} label="RELAYS" />
     <Jst name="J6" x={2.45} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
     <Jst name="J7" x={5.4} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
-    <Jst name="J9" x={-47} y={-32} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" />
+    <Jst name="J9" x={-48.25} y={-32} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" />
     <Jst name="J10" x={29.3} y={31} count={2} labels={["GND", "V12"]} rot={0} label="12V" labelDir={1} />
-    <Jst name="J11" x={-59} y={-32} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} rot={0} label="GAS" />
+    <Jst name="J11" x={-60} y={-32} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} rot={0} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
         a vertical 2-resistor series: 2.2k (input, bottom) -> midpoint -> 3.3k (to
@@ -234,7 +234,7 @@ export default () => (
     <trace from=".U3 > .A1" to="net.GND" />
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
-    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-7.4} y={15.2} rot={0} lab={[0, -1.35]} />
+    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={2.5} y={12} rot={0} lab={[0, -1.35]} />
     <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={17.4} y={-25.8} rot={0} lab={[2.6, 0]} />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
