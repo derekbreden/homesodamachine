@@ -11,18 +11,22 @@ UART hub:
 
 ## Connected pins (`mini.tsx`)
 
+Pins are assigned by which WROOM edge faces their connector — north-edge GPIO feed the
+top connectors, south-edge GPIO the bottom — so each connector's traces comb straight to
+its pins instead of crossing the fan.
+
 - I²C: IO21 (SDA), IO22 (SCL)
-- UART → RS485 config display: IO32 (TX), IO34 (RX)
-- UART → faucet display: IO33 (TX), IO35 (RX)
-- Pumps → on-board DRV8870 H-bridges: IO27/IO25 (pump A IN1/IN2), IO19/IO18 (pump B IN1/IN2)
-- Relays (off-board modules) → IO17, IO16. IO26/IO5 are spare (were the L298N's 3rd pump lines)
-- Sensors: IO14 (1-wire), IO15 (flow), IO13 (backflow)
-- Gas dividers: IO39 (AOUT), IO36 (DOUT)
-- Buzzer: IO4
+- UART → RS485 config display: IO32 (TX), IO34 (RX, input-only) — south edge
+- UART → faucet display: IO33 (TX), IO35 (RX, input-only) — south edge
+- Pumps → on-board DRV8870 H-bridges: IO18/IO17 (pump A IN1/IN2), IO16/IO4 (pump B IN1/IN2) — north edge, one bus
+- Relays (off-board modules) → IO23, IO19 — north edge
+- Sensors: IO26 (1-wire), IO25 (flow), IO27 (backflow) — three adjacent south-edge pins
+- Gas dividers: IO39 (AOUT), IO36 (DOUT) — south-edge ADC1, input-only
+- Buzzer: IO5 (a strapping pin — see below)
 - Power / reset: 3V3, V5, GND, EN
 
-Programming: TX0 (IO1), RX0 (IO3), IO0, EN. Unconnected: IO23, IO2, IO12. IO6–IO11 are
-the module's internal flash.
+Programming: TX0 (IO1), RX0 (IO3), IO0, EN. Unconnected: IO13, IO14, IO15, IO2, IO12.
+IO6–IO11 are the module's internal flash.
 
 ## SMD block
 
