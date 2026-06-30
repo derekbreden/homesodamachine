@@ -4,51 +4,51 @@ flowchart LR
   %% (PCB-canonical). Keep this in sync with the board; do not change a pin
   %% assignment here without changing pcba.tsx first.
   %%
-  %% ESP32 Pin Assignments (re-clustered for minimal wiring crossings).
-  %% Each subsystem lands on physically adjacent module pads, so its signals
-  %% leave the socket as one bundle — fewer crossings on the carrier PCB and in
-  %% the hand-wired harness alike. The six inputs sit on input-only / boot-safe
-  %% pads; strapping pins are used only where their boot state is harmless.
-  %% Valves move to I2C expander (MCP23017 -> ULN2803A).
-  %% L298N boards B and C eliminated. Board A kept for pumps.
+  %% ESP32-WROOM-32E GPIO assignments, mirroring the board's edge connectors.
+  %% Pumps now run on two on-board DRV8870 H-bridges (no L298N); the sensor loom,
+  %% relays, and the 1-wire bus moved off the old L298 pins onto the SENSORS /
+  %% RELAYS connectors. The six inputs sit on input-only / boot-safe pads.
+  %% Valves + reeds ride the MCP23017 expanders (MCP -> ULN2803A), not direct GPIO.
   %% Current plan:
-  %%   GPIO 17 drives the Teyleten relay #1 (compressor AC).
-  %%   GPIO 14 hosts the DS18B20 1-wire bus (tank-wall + evap-suction probes).
-  %%   GPIO 16 drives Teyleten relay #2 (diaphragm pump 12 V, refill).
-  %%   GPIO 13 reads the backflow drip-pan moisture sensor (SIG-9).
-  %%   GPIO 4  drives the passive piezo buzzer (PWM tone via LEDC; DIYables module).
+  %%   GPIO 19 drives the Teyleten relay #1 (compressor AC).
+  %%   GPIO 23 drives the Teyleten relay #2 (diaphragm pump 12 V, refill).
+  %%   GPIO 26 hosts the DS18B20 1-wire bus (tank-wall + evap-suction probes).
+  %%   GPIO 25 reads the DIGITEN flow meter (pulse input).
+  %%   GPIO 27 reads the backflow drip-pan moisture sensor (SIG-9).
+  %%   GPIO 13 drives the passive piezo buzzer (PWM tone via LEDC; off-board).
   %%   GPIO 39 reads the MQ-6 gas / refrigerant-leak sensor AOUT (analog, ADC1) and
   %%     GPIO 36 reads its DOUT (LM393 comparator trip). MQ-6 outputs swing 0-5 V,
-  %%     divided to 3.3 V at the harness (36/39 are not 5 V tolerant). DOUT is the
+  %%     divided to 3.3 V on-board (36/39 are not 5 V tolerant). DOUT is the
   %%     hardware gas-trip signal (sensor low on the rear cabinet floor).
+  %%   Pumps: two on-board DRV8870 H-bridges — A on 18/17 (IN2/IN1, U11),
+  %%     B on 16/4 (IN2/IN1, U12). IN1/IN2 set H-bridge polarity (firmware picks
+  %%     the forward sense); there is no separate EN pin.
   %% All 10 reed switches — 8 flavor-reservoir (4 per reservoir) + 2 carbonator
   %% (low/high) — are read through the I2C MCP23017 expanders, not direct ESP32
   %% GPIO, so every reed rides the MCP internal pull-up (no external resistors):
   %%   MCP23017 0x20: 8 valves (V-A..V-H) on PA[0:7] -> ULN U4 -> MANIFOLD A
   %%     (silk-up ULN reverses the bank: GPA0->V-H .. GPA7->V-A);
   %%     Rsvr A 4 reeds on PB[0:3]; PB[4:7] spare.
-  %%   MCP23017 0x21: 4 valves (V-I/V-J/V-K-A/V-K-B) on PA[4:7] + condenser fan on
-  %%     PA3 -> ULN U5 -> MANIFOLD B; PA[0:2] spare. Rsvr B 4 reeds on PB[0:3];
-  %%     carbonator reeds low/high on PB[4:5]; PB[6:7] spare. See valve-control.mmd.
-  %% Conditional: 0x21 could be replaced by a 74HC165 or direct GPIO — saves the
-  %%   chip, decision deferred (it now also carries the carbonator reeds, so the
-  %%   direct option would draw from the spares 15/12/2; 36/39 now read the gas
-  %%   sensor DOUT/AOUT).
+  %%   MCP23017 0x21: 4 valves (V-I/V-J/V-K-A/V-K-B) + condenser fan on PA -> ULN U5
+  %%     -> MANIFOLD B; Rsvr B 4 reeds on PB[0:3]; carbonator reeds low/high on
+  %%     PB[4:5]; spares elsewhere. See valve-control.mmd.
   %% Two display UARTs:
   %%   GPIO 32/34 = Serial1 -> ALMOCN RS485 transceiver -> 4.3B config display
   %%                (front panel, internal run; the 4.3B has no free TTL UART).
   %%   GPIO 33/35 = Serial2, direct TTL UART -> 1.47" faucet display
   %%                (up the umbilical; the 1.47" breaks out TTL UART).
   %% Freed GPIOs still available:
-  %%   GPIO 23  - free (was the flow-meter pin)
+  %%   GPIO 15  - free (was the flow-meter pin)
+  %%   GPIO 14  - free (was the 1-wire pin)
   %%   GPIO 12  - free (bootstrap-sensitive)
+  %%   GPIO 5   - free (bootstrap-sensitive; was an L298 pump pin)
   %%   GPIO 2   - free (bootstrap-sensitive)
   %% Programming / console header J12 (the bare WROOM exposes these; the DevKitC hid them):
   %%   GPIO 0   boot strap (J12 IO0 + R8 pull-up to 3V3)
   %%   GPIO 1   U0TXD (J12 TX0, program / console)
   %%   GPIO 3   U0RXD (J12 RX0, program / console)
 
-  subgraph ESP["ESP32-DevKitC-32E"]
+  subgraph ESP["ESP32-WROOM-32E"]
     direction TB
 
     subgraph UART_Pins["UART  (displays)"]
@@ -63,33 +63,31 @@ flowchart LR
       P22["GPIO 22  SCL"]
     end
 
-    subgraph Pump_Pins["L298N Board A  (pumps only)"]
-      P27["GPIO 27  A_EN   pump A PWM"]
-      P25["GPIO 25  A_IN1  pump A dir"]
-      P26["GPIO 26  A_IN2  pump A dir"]
-      P19["GPIO 19  B_EN   pump B PWM"]
-      P18["GPIO 18  B_IN1  pump B dir"]
-      P5["GPIO 5   B_IN2  pump B dir"]
+    subgraph Pump_Pins["Pump H-bridges  (2× DRV8870)"]
+      P18["GPIO 18  pump A IN2  (U11)"]
+      P17["GPIO 17  pump A IN1  (U11)"]
+      P16["GPIO 16  pump B IN2  (U12)"]
+      P4["GPIO 4   pump B IN1  (U12)"]
     end
 
     subgraph Input_Pins["Sensor Inputs"]
-      P15["GPIO 15  Flow Meter"]
-      P13["GPIO 13  Backflow moisture"]
+      P25["GPIO 25  Flow Meter"]
+      P27["GPIO 27  Backflow moisture"]
       P39["GPIO 39  Gas sensor AOUT (ADC1)"]
       P36["GPIO 36  Gas sensor DOUT (trip)"]
     end
 
     subgraph Refrigeration_Pins["Refrigeration"]
-      P17["GPIO 17  Teyleten relay  (compressor AC)"]
-      P14["GPIO 14  DS18B20 1-wire bus"]
+      P19["GPIO 19  Teyleten relay  (compressor AC)"]
+      P26["GPIO 26  DS18B20 1-wire bus"]
     end
 
     subgraph Carbonator_Pins["Carbonator Water"]
-      P16["GPIO 16  Diaphragm pump relay  (refill)"]
+      P23["GPIO 23  Diaphragm pump relay  (refill)"]
     end
 
     subgraph Alert_Pins["User Feedback"]
-      P4["GPIO 4   Piezo buzzer (PWM tone)"]
+      P13["GPIO 13  Piezo buzzer (PWM tone)"]
     end
   end
 
@@ -100,7 +98,7 @@ flowchart LR
 
   I2C_DEVICES["I2C Devices:\n  DS3231 RTC  0x68\n  MCP23017    0x20  (8 valves on GPA; 4 reservoir reeds on GPB)\n  MCP23017    0x21  (4 valves + fan on GPA; 4 reservoir + 2 carbonator reeds on GPB)"]
 
-  DRV["L298N Board A\n(2 pumps, H-bridge)"]
+  DRV["2× DRV8870 H-bridge\n(on-board; pumps A + B)"]
 
   PUMP1["Kamoer Pump A"]
   PUMP2["Kamoer Pump B"]
@@ -128,39 +126,26 @@ flowchart LR
   P33 & P35 <-->|"Serial2 UART\n(direct TTL,\n up the umbilical)"| FAUCET
   P21 & P22 <-->|"I2C"| I2C_DEVICES
 
-  P27 & P25 & P26 -->|"Pump A"| DRV
-  P19 & P18 & P5 -->|"Pump B"| DRV
+  P18 & P17 -->|"Pump A"| DRV
+  P16 & P4 -->|"Pump B"| DRV
   DRV ==>|"Channel A"| PUMP1
   DRV ==>|"Channel B"| PUMP2
 
-  FLOW -->|"pulse interrupt"| P15
+  FLOW -->|"pulse interrupt"| P25
 
-  P17 -->|"3.3V drive"| RELAY
+  P19 -->|"3.3V drive"| RELAY
   RELAY ==>|"switched 120VAC"| COMP_AC
 
-  P16 -->|"3.3V drive"| DIA_RELAY
+  P23 -->|"3.3V drive"| DIA_RELAY
   DIA_RELAY ==>|"switched 12V"| DIA_PUMP
 
-  DS_PROBES -->|"1-wire data"| P14
+  DS_PROBES -->|"1-wire data"| P26
 
   I2C_DEVICES -->|"MCP23017"| VALVE_CHAIN
-  MOIST -->|"INPUT"| P13
-  P4 -->|"PWM tone"| BUZZER
+  MOIST -->|"INPUT"| P27
+  P13 -->|"PWM tone"| BUZZER
   GAS -->|"AOUT (analog)"| P39
   GAS -->|"DOUT (trip)"| P36
 
-  %% Signals: UART, I2C, GPIO control, semantic-reference (white).
-  %% 0-1 UART Serial1 (4.3B config), 2-3 UART Serial2 (faucet),
-  %% 4-5 I2C, 6-11 GPIO -> L298 inputs,
-  %% 15 = P17 relay #1 drive, 17 = P16 relay #2 drive,
-  %% 20 = logical I2C-device -> subsystem ref.
-  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,15,17,20,22 stroke:#ccc,stroke-width:2px
-  %% Sensor feedback to MCU (blue).
-  %% 14 = flow meter, 19 = DS18B20 1-wire, 21 = backflow moisture,
-  %% 23 = gas AOUT, 24 = gas DOUT.
-  %% (The carbonator reeds feed the 0x21 MCP23017, not the ESP — see valve-control.)
-  linkStyle 14,19,21,23,24 stroke:#09f,stroke-width:2px
-  %% Power: motor/pump outputs and switched 120 VAC (red, thick).
-  %% 12-13 = L298 motor channels, 16 = relay #1 -> compressor AC,
-  %% 18 = relay #2 -> diaphragm pump 12 V.
-  linkStyle 12,13,16,18 stroke:#c44,stroke-width:3px
+  %% Link styling is cosmetic and role-based; left to the renderer's defaults after
+  %% the DRV8870 re-pin (the old fixed linkStyle indices no longer line up).

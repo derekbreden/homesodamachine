@@ -17,10 +17,10 @@ from docgen import substitute_md
 # ─── ESP32 pin assignments ────────────────────────────────────────────
 # Source: hardware/wiring/esp32-pinout.mmd.
 
-gpio_relay1 = 17            # Teyleten relay #1 (compressor AC)
-gpio_onewire = 14           # DS18B20 1-wire bus (tank-wall + suction-line)
-gpio_flow = 15              # DIGITEN flow meter pulse input
-gpio_relay2 = 16            # Teyleten relay #2 (diaphragm pump 12 V refill)
+gpio_relay1 = 19            # Teyleten relay #1 (compressor AC)
+gpio_onewire = 26           # DS18B20 1-wire bus (tank-wall + suction-line)
+gpio_flow = 25              # DIGITEN flow meter pulse input
+gpio_relay2 = 23            # Teyleten relay #2 (diaphragm pump 12 V refill)
 
 # ─── I²C device addresses ─────────────────────────────────────────────
 # 7-bit addresses on the shared SDA/SCL bus (GPIO 21/22).
