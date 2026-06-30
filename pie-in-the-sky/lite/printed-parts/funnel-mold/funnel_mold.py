@@ -47,9 +47,9 @@ plate_thk = 10.0      # core top plate — forms the brim top, carries the vents
 lip_h = 10.0          # how far the skirt drops over the cavity (registration)
 lip_gap = 0.10        # slip between the skirt and the cavity outside
 pin_reg_clear = 0.10  # spout pin press-fits the cavity-floor register hole (PETG seals at zero)
-fill_port_id = 4.0    # pour port through the plate (fallback to the open-cavity pour)
-fill_port_csink = 5.0   # shallow pour basin countersunk on top of the fill port
-vent_id = 2.5         # vent holes through the plate, over the brim ring
+fill_port_id = 8.0    # pour port through the plate (fallback to the open-cavity pour)
+fill_port_csink = 9.0 # shallow pour basin countersunk on top of the fill port
+vent_id = 4.          # vent holes through the plate, over the brim ring
 
 # --- lightening: a forming wall + a top collar + a low X-brace --------------
 bowl_wall = 4.0       # forming wall kept around the funnel — the mold cavity itself,
@@ -181,7 +181,7 @@ def build():
     # Pour port + vents through the plate, over the brim flange ring.
     rx = (m["bore_w"] / 2.0 + brim_w / 2.0) / 2.0
     ry = (m["bore_d"] / 2.0 + brim_d / 2.0) / 2.0
-    ring_w = min(brim_w - m["bore_w"], brim_d - m["bore_d"]) / 2.0
+    ring_w = (min(brim_w - m["bore_w"], brim_d - m["bore_d"]) + skirt_wall) / 2.0
     assert fill_port_csink <= ring_w, f"fill-port csink {fill_port_csink} > brim ring {ring_w:.1f} mm"
     fill_xy = (cx - rx, cy - ry)
     vents = [(cx + rx, cy - ry), (cx - rx, cy + ry), (cx + rx, cy + ry), (cx - rx, cy), (cx + rx, cy)]
