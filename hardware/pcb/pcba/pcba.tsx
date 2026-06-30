@@ -93,17 +93,17 @@ export default () => (
     <K7805_2000R3 name="U10" pcbX={26.8} pcbY={-29.8} pcbRotation={180} />
     <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={22.8} y={-34.05} rot={0} lab={[0, -1.35]} />
     <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={30.8} y={-34.05} rot={0} lab={[0, -1.35]} />
-    {/* Pump drivers, top-center bay by the ESP: one DRV8870 H-bridge per peristaltic flavor
+    {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
         pump (12V brushed DC, 0.3-0.5A, PWM), 45V/3.6A SMD with internal freewheeling +
         OCP/OTP/UVLO. VM->12V (the top SMD pad lands directly on the V12 island), GND/PAD->GND,
         ISEN->GND, VREF->3V3, IN1/IN2 from the ESP north-edge pins, OUT1/OUT2 to PUMPS. 10uF +
         0.1uF VM decoupling per chip. */}
-    <Drv8870 name="U11" pcbX={-31.55} pcbY={30} pcbRotation={0} />
-    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-35.1} y={24.11} rot={0} lab={[0, -1.35]} />
-    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-28.1} y={24.11} rot={0} lab={[0, -1.35]} />
-    <Drv8870 name="U12" pcbX={-20.55} pcbY={30} pcbRotation={0} />
-    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-24.1} y={24.11} rot={0} lab={[0, -1.35]} />
-    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-17.1} y={24.11} rot={0} lab={[0, -1.35]} />
+    <Drv8870 name="U11" pcbX={-31.55} pcbY={22} pcbRotation={0} />
+    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-35.1} y={16} rot={0} lab={[0, -1.35]} />
+    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-28.1} y={16} rot={0} lab={[0, -1.35]} />
+    <Drv8870 name="U12" pcbX={-20.55} pcbY={22} pcbRotation={0} />
+    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-24.1} y={16} rot={0} lab={[0, -1.35]} />
+    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-17.1} y={16} rot={0} lab={[0, -1.35]} />
     <Mcp23017 name="U2" x={4.8} y={18.1} addr="0x20" rot={270} />
     <Mcp23017 name="U3" x={4.9} y={-22.85} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={18.8} y={4.85} />
@@ -118,7 +118,7 @@ export default () => (
     {/* Pump-motor outputs — one PUMPS connector. Pin order runs B (U12, the nearer
         driver) then A (U11, the farther), so each driver's OUT pair lands on the J13
         pins on its own side and exits straight without wrapping its thermal pad. */}
-    <Jst name="J13" x={-11.25} y={31} count={4} labels={["BM1", "BM2", "AM1", "AM2"]} rot={0} label="PUMPS" labelDir={1} />
+    <Jst name="J13" x={-16} y={31} count={4} labels={["BM1", "BM2", "AM1", "AM2"]} rot={0} label="PUMPS" labelDir={1} />
     <Jst name="J3" x={-34} y={-32} count={4} labels={["GND", "V5", "IO33", "IO35"]} rot={0} label="FAUCET" />
     <Jst name="J4" x={-19} y={-32} count={6} labels={["GND", "V5", "IO25", "IO26", "IO27", "3V3"]} rot={0} label="SENSORS" />
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
@@ -472,8 +472,8 @@ export default () => (
         pins pick it up at the barrel. Point-to-point signals route on top and bottom. */}
     <trace from=".J10 > .V12" to="net.V12" />
     <copperpour name="V12ISLAND" layer="top" connectsTo="net.V12" netClearance="0.5mm from V3V3, V5, SDA, SCL"
-      outline={[{ x: -38, y: 35 }, { x: 45, y: 35 }, { x: 45, y: -37 },
-                { x: 14.5, y: -37 }, { x: 14.5, y: 22 }, { x: -38, y: 22 }]} />
+      outline={[{ x: -37, y: 35 }, { x: 45, y: 35 }, { x: 45, y: -37 }, { x: 14.5, y: -37 },
+                { x: 14.5, y: 22 }, { x: -14, y: 22 }, { x: -14, y: 13 }, { x: -37, y: 13 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
     <copperpour name="SDAPLANE" layer="inner3" connectsTo="net.SDA" boardEdgeMargin="0.5mm" />
