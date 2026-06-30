@@ -21,20 +21,31 @@ export const ulnOUT = ["OUT1", "OUT2", "OUT3", "OUT4", "OUT5", "OUT6", "OUT7", "
 // auto ref-des locks a vertical part's label to top-to-bottom; every connector
 // label on this board reads bottom-to-top (the Jst helper hand-draws its labels
 // for the same reason). So we suppress the footprint ref-des (`_norefdes`, which
-// keeps the 3-sided silk courtyard) and redraw it: rot 90 for a vertical part
-// (reads bottom-to-top), rot 0 for a horizontal one. `lab` is the ref-des centre
-// relative to the body; the default sits one tier off the body — on the -X side
-// for a vertical part (the connector convention), above for a horizontal one.
-export const Cap = ({ name, capacitance, footprint, jlcpcb, x, y, rot = 90, lab }: {
+// keeps the silkscreen fence) and redraw it: rot 90 for a vertical part (reads
+// bottom-to-top), rot 0 for a horizontal one.
+//
+// `side` is which edge of the fence the ref-des sits beside — pick whichever is
+// clear of neighbouring traces/parts; the default is the connector convention
+// (W for a vertical part, N for a horizontal one). The OFFSET is not hand-tuned:
+// it's derived from the part's actual PRINTED fence — the silkscreen path, not
+// the (larger) courtyard outline — so every label clears the fence by exactly the
+// margin the footprint's own auto ref-des uses. Footprinter centres its ref-des at
+// `fence + 0.5 mm` (measured from its output, font-independent); matching that is
+// what makes a hand-drawn label read as clean as a stock one like C12's.
+const CAP_FENCE_HALF: Record<string, number> = { "0603": 0.875, "0805": 1.1, "1206": 1.1 }
+const REFDES_GAP = 0.5 // printed fence edge -> ref-des centre (footprinter's own margin)
+export const Cap = ({ name, capacitance, footprint, jlcpcb, x, y, rot = 90, side }: {
   name: string; capacitance: string; footprint: string; jlcpcb: string
-  x: number; y: number; rot?: number; lab?: [number, number]
+  x: number; y: number; rot?: number; side?: "N" | "S" | "E" | "W"
 }) => {
   const vertical = rot % 180 !== 0
-  const [lx, ly] = lab ?? (vertical ? [-1.85, 0] : [0, 1.35])
+  const s = side ?? (vertical ? "W" : "N")
+  const off = (CAP_FENCE_HALF[footprint] ?? 1.1) + REFDES_GAP
+  const [lx, ly] = s === "N" ? [0, off] : s === "S" ? [0, -off] : s === "E" ? [off, 0] : [-off, 0]
   return (
     <>
       <capacitor name={name} capacitance={capacitance} footprint={`${footprint}_norefdes`} supplierPartNumbers={{ jlcpcb: [jlcpcb] }} pcbRotation={rot} {...at(x, y)} />
-      <silkscreentext text={name} fontSize="0.8mm" pcbX={x + lx} pcbY={y + ly} pcbRotation={vertical ? 90 : 0} />
+      <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x + lx} pcbY={y + ly} pcbRotation={vertical ? 90 : 0} />
     </>
   )
 }
