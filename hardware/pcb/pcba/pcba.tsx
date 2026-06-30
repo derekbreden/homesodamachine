@@ -104,9 +104,9 @@ export default () => (
     <Mcp23017 name="U3" x={4.9} y={-22.85} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={18.8} y={7.2} />
     <Uln2803 name="U5" x={18.9} y={-11.95} />
-    <MLT_5020 name="U8" {...at(-29.05, 17.5)} />
-    <S8050 name="Q1" {...at(-35.05, 17.2)} />
-    <resistor name="R5" resistance="1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C21190"] }} {...at(-42.5, 9.0)} />
+    <MLT_5020 name="U8" {...at(-60.8, 23.75)} />
+    <S8050 name="Q1" {...at(-59.3, 17.6)} />
+    <resistor name="R5" resistance="1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C21190"] }} {...at(-59.3, 13.65)} />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
     <Jst name="J1" x={29.65} y={8.9} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
