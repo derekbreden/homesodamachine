@@ -28,6 +28,43 @@ import { tmpdir } from "node:os"
 import path from "node:path"
 import { Resvg } from "@resvg/resvg-js"
 
+/**
+ * JLCPCB's BOM importer folds any row with an empty Comment up into the row above
+ * it — merging that part's designator into the previous line and discarding its own
+ * JLCPCB #. The stock converter fills Comment only for resistors/capacitors (their
+ * value), so every chip/module/connector lands blank and gets swallowed: the ESP32
+ * (U1) disappeared into a 100 nF cap (C6), both bucks and a DRV8870 into their
+ * neighbours, the 470 µF bulk (C3) into another cap. Give every row a non-empty,
+ * ASCII Comment — keep the R/C value, else the part's MPN, else its JLCPCB # — and
+ * fold the micro sign to "u" so JLCPCB's CSV decode can't mojibake "10µ".
+ */
+function fillBomComments(csv: string, circuit: any[]): string {
+  const label = new Map<string, string>() // designator -> MPN, else JLCPCB #
+  for (const e of circuit) {
+    if (e.type !== "source_component" || !e.name) continue
+    const id = e.manufacturer_part_number || e.supplier_part_numbers?.jlcpcb?.[0]
+    if (id) label.set(e.name, id)
+  }
+  const ascii = (s: string) => s.replace(/µ/g, "u") // micro sign -> u
+  const lines = csv.split("\n")
+  const header = lines[0].split(",")
+  const ci = header.indexOf("Comment")
+  const vi = header.indexOf("Value")
+  const pi = header.findIndex((h) => /JLCPCB Part/i.test(h))
+  const out = [ascii(lines[0])]
+  for (let i = 1; i < lines.length; i++) {
+    if (!lines[i].trim()) { out.push(lines[i]); continue }
+    const cols = lines[i].split(",")
+    if (ci >= 0 && !cols[ci]?.trim()) {
+      const fill = label.get(cols[0]?.trim()) || (pi >= 0 ? cols[pi]?.trim() : "") || cols[0]?.trim()
+      cols[ci] = fill
+      if (vi >= 0 && !cols[vi]?.trim()) cols[vi] = fill
+    }
+    out.push(ascii(cols.join(",")))
+  }
+  return out.join("\n")
+}
+
 const arg = process.argv[2]
 const schemeName = process.argv[3] || "copper"
 if (!arg) {
@@ -175,7 +212,8 @@ try {
   if (pth.length) writeFileSync(path.join(scratch, "drill.drl"), stringifyExcellonDrill(pth))
   const npth = convertSoupToExcellonDrillCommands({ circuitJson: circuit, is_plated: false, flip_y_axis: false })
   if (npth.length) writeFileSync(path.join(scratch, "drill_npth.drl"), stringifyExcellonDrill(npth))
-  writeFileSync(path.join(scratch, "bom.csv"), await convertBomRowsToCsv(await convertCircuitJsonToBomRows({ circuitJson: circuit })))
+  const bomCsv = await convertBomRowsToCsv(await convertCircuitJsonToBomRows({ circuitJson: circuit }))
+  writeFileSync(path.join(scratch, "bom.csv"), fillBomComments(bomCsv, circuit))
   writeFileSync(path.join(scratch, "pick_and_place.csv"), convertCircuitJsonToPickAndPlaceCsv(circuit))
 
   // Dedup drill (defensive — the converter already splits PTH/NPTH into separate files,
