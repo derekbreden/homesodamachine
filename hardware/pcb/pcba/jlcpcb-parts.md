@@ -76,6 +76,13 @@ the board header is 2.5 mm, not 2.54 — the `Jst` footprint is `pinrow${n}_p2.5
 to match the wafer land pattern exactly (clean IoU), and it mates with the standard female
 XH housings the wiring kits use. Every XH2.54 part in the library is Extended (no Basic option),
 so the 11 connectors share two feeders (XUNPU + Megastar) across all seven pin counts.
+The two vendors seat their 3D wafer a half-turn apart for the same CPL rotation, so a
+board mixing both shows connectors facing two ways per edge; the `Jst` helper
+(`carrier_parts.tsx`) flips the Megastar parts (3/4/9P) 180° and reverses their pin
+order — copper, nets and silk stay identical (the single-row pads are symmetric under
+180°), only the placed wafer turns to match the XUNPU parts. Side effect: the square
+pin-1 pad lands at the opposite end on a flipped connector (it still marks that part's
+pin 1, and sits hidden under the wafer body).
 
 **U4/U5 are `C845537`** (UMW ULN2803A, SOP-18-300mil wide body). No Basic ULN2803 SOIC
 exists in the library — every ULN2803 part is Extended — so the feeder fee is unavoidable;
