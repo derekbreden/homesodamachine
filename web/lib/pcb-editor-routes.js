@@ -405,7 +405,65 @@ export function updatePositionInTsx(tsx, ref, oldX, oldY, newX, newY) {
   );
 }
 
+// Set a component's rotation in the source TSX. Replaces an existing rotation
+// literal (pcbRotation preferred, else the Cap/Jst `rot` shorthand); when a
+// component carries no rotation yet — e.g. a bare `{...at()}` placement — one is
+// inserted just before the closing `/>`. The prop name follows the component:
+// the Cap/Jst wrappers read `rot`, while builtins (capacitor/resistor/…) and the
+// ChipProps imports read `pcbRotation`. Matched by ref alone, so it composes
+// after a position rewrite has already moved the same line.
+export function updateRotationInTsx(tsx, ref, newRot) {
+  const r = Math.round(Number(newRot));
+  const lines = tsx.split("\n");
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (!line.includes(`name="${ref}"`) && !line.includes(`name={${ref}}`)) continue;
+
+    if (/\bpcbRotation=\{-?\d+\}/.test(line)) {
+      lines[i] = line.replace(/\bpcbRotation=\{-?\d+\}/, `pcbRotation={${r}}`);
+      return lines.join("\n");
+    }
+    if (/\brot=\{-?\d+\}/.test(line)) {
+      lines[i] = line.replace(/\brot=\{-?\d+\}/, `rot={${r}}`);
+      return lines.join("\n");
+    }
+
+    const tagM = line.match(/<\s*(\w+)/);
+    const tag = tagM ? tagM[1] : "";
+    const prop = (tag === "Cap" || tag === "Jst") ? "rot" : "pcbRotation";
+    const tail = line.match(/\s*\/>\s*$/);
+    if (tail) {
+      lines[i] = line.slice(0, tail.index) + ` ${prop}={${r}} />`;
+      return lines.join("\n");
+    }
+  }
+
+  throw new Error(`Could not find component ${ref} to set rotation in TSX`);
+}
+
 // ---- Route mounting (dev-server only) -------------------------------------
+
+// Locate a board's .tsx by name under the PCB root, restricted to boards that
+// also have a rendered overlay (so the viewer can actually show them). Shared by
+// the parse and write-back routes.
+function findBoardTsx(pcbRoot, name) {
+  let found = null;
+  (function walk(dir) {
+    if (found) return;
+    let entries;
+    try { entries = fs.readdirSync(dir, { withFileTypes: true }); } catch { return; }
+    for (const e of entries) {
+      if (e.name.startsWith(".") || e.name === "node_modules") continue;
+      const full = path.join(dir, e.name);
+      if (e.isDirectory()) { walk(full); continue; }
+      if (e.name === `${name}.tsx` && fs.existsSync(path.join(dir, "out", `${name}.overlay.svg`))) {
+        found = full;
+        return;
+      }
+    }
+  })(pcbRoot);
+  return found;
+}
 
 export function mountPcbEditorRoutes(app, hardwareDir) {
   const pcbRoot = path.join(hardwareDir, PCB_DIR);
@@ -441,23 +499,7 @@ export function mountPcbEditorRoutes(app, hardwareDir) {
     const { name } = req.params;
     if (!/^[a-zA-Z0-9_-]+$/.test(name)) return res.status(400).json({ error: "Invalid board name" });
 
-    // Find the TSX file
-    let tsxPath = null;
-    function find(dir) {
-      if (tsxPath) return;
-      let entries;
-      try { entries = fs.readdirSync(dir, { withFileTypes: true }); } catch { return; }
-      for (const e of entries) {
-        if (e.name.startsWith(".") || e.name === "node_modules") continue;
-        const full = path.join(dir, e.name);
-        if (e.isDirectory()) { find(full); continue; }
-        if (e.name === `${name}.tsx` && fs.existsSync(path.join(dir, "out", `${name}.overlay.svg`))) {
-          tsxPath = full;
-          return;
-        }
-      }
-    }
-    find(pcbRoot);
+    const tsxPath = findBoardTsx(pcbRoot, name);
     if (!tsxPath) return res.status(404).json({ error: `Board not found: ${name}` });
 
     const tsx = fs.readFileSync(tsxPath, "utf-8");
@@ -482,23 +524,7 @@ export function mountPcbEditorRoutes(app, hardwareDir) {
       return res.status(400).json({ error: "Missing required fields: ref, oldX, oldY, newX, newY" });
     }
 
-    // Find the TSX file
-    let tsxPath = null;
-    function find(dir) {
-      if (tsxPath) return;
-      let entries;
-      try { entries = fs.readdirSync(dir, { withFileTypes: true }); } catch { return; }
-      for (const e of entries) {
-        if (e.name.startsWith(".") || e.name === "node_modules") continue;
-        const full = path.join(dir, e.name);
-        if (e.isDirectory()) { find(full); continue; }
-        if (e.name === `${name}.tsx` && fs.existsSync(path.join(dir, "out", `${name}.overlay.svg`))) {
-          tsxPath = full;
-          return;
-        }
-      }
-    }
-    find(pcbRoot);
+    const tsxPath = findBoardTsx(pcbRoot, name);
     if (!tsxPath) return res.status(404).json({ error: `Board not found: ${name}` });
 
     const tsx = fs.readFileSync(tsxPath, "utf-8");
@@ -511,5 +537,31 @@ export function mountPcbEditorRoutes(app, hardwareDir) {
 
     fs.writeFileSync(tsxPath, updated, "utf-8");
     res.json({ ok: true, ref, x: newX, y: newY });
+  });
+
+  // Set a component's rotation (degrees) in the source TSX. Rotation is matched
+  // by ref alone, so it composes with a position rewrite of the same line — a
+  // group rotate moves and re-orients each part in two write-backs.
+  app.post("/api/pcb-editor/board/:name/update-rotation", (req, res) => {
+    const { name } = req.params;
+    if (!/^[a-zA-Z0-9_-]+$/.test(name)) return res.status(400).json({ error: "Invalid board name" });
+    const { ref, rot } = req.body || {};
+    if (!ref || rot == null) {
+      return res.status(400).json({ error: "Missing required fields: ref, rot" });
+    }
+
+    const tsxPath = findBoardTsx(pcbRoot, name);
+    if (!tsxPath) return res.status(404).json({ error: `Board not found: ${name}` });
+
+    const tsx = fs.readFileSync(tsxPath, "utf-8");
+    let updated;
+    try {
+      updated = updateRotationInTsx(tsx, ref, rot);
+    } catch (e) {
+      return res.status(400).json({ error: e.message });
+    }
+
+    fs.writeFileSync(tsxPath, updated, "utf-8");
+    res.json({ ok: true, ref, rot });
   });
 }

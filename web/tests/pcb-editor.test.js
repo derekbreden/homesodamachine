@@ -10,7 +10,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 
-import { updatePositionInTsx } from "../lib/pcb-editor-routes.js";
+import { updatePositionInTsx, updateRotationInTsx } from "../lib/pcb-editor-routes.js";
 
 test("at() spread: matches a trailing-zero literal and rewrites it", () => {
   const src = `    <resistor name="R7" footprint="0603" {...at(-25.0, 12.5)} />`;
@@ -52,4 +52,47 @@ test("throws when the ref/position can't be found", () => {
   const src = `    <Wroom name="U1" pcbX={-31.15} pcbY={-1} />`;
   assert.throws(() => updatePositionInTsx(src, "U1", 5, 5, 0, 0), /Could not find position/);
   assert.throws(() => updatePositionInTsx(src, "U9", -31.15, -1, 0, 0), /Could not find position/);
+});
+
+// --- rotation write-back (updateRotationInTsx) ------------------------------
+
+test("rotation: rewrites an existing pcbRotation, leaving position untouched", () => {
+  const src = `    <Wroom name="U1" pcbX={-31.15} pcbY={-1} pcbRotation={180} />`;
+  const out = updateRotationInTsx(src, "U1", 270);
+  assert.equal(out, `    <Wroom name="U1" pcbX={-31.15} pcbY={-1} pcbRotation={270} />`);
+});
+
+test("rotation: rewrites the Cap/Jst `rot` shorthand", () => {
+  const src = `    <Cap name="C10" x={-20.5} y={15.42} rot={90} />`;
+  const out = updateRotationInTsx(src, "C10", 0);
+  assert.equal(out, `    <Cap name="C10" x={-20.5} y={15.42} rot={0} />`);
+});
+
+test("rotation: inserts pcbRotation on a bare {...at()} component that has none", () => {
+  const src = `    <resistor name="R7" footprint="0603" {...at(-25, 12.5)} />`;
+  const out = updateRotationInTsx(src, "R7", 90);
+  assert.equal(out, `    <resistor name="R7" footprint="0603" {...at(-25, 12.5)} pcbRotation={90} />`);
+});
+
+test("rotation: inserts the `rot` prop (not pcbRotation) for a Cap with none", () => {
+  const src = `    <Cap name="C7" capacitance="0.1uF" {...at(-50, -17)} />`;
+  const out = updateRotationInTsx(src, "C7", 90);
+  assert.equal(out, `    <Cap name="C7" capacitance="0.1uF" {...at(-50, -17)} rot={90} />`);
+});
+
+test("rotation: normalizes to an integer and only touches the named line", () => {
+  const src = [
+    `    <Wroom name="U1" pcbX={0} pcbY={0} pcbRotation={0} />`,
+    `    <Wroom name="U2" pcbX={0} pcbY={0} pcbRotation={0} />`,
+  ].join("\n");
+  const out = updateRotationInTsx(src, "U2", 90);
+  assert.equal(out, [
+    `    <Wroom name="U1" pcbX={0} pcbY={0} pcbRotation={0} />`,
+    `    <Wroom name="U2" pcbX={0} pcbY={0} pcbRotation={90} />`,
+  ].join("\n"));
+});
+
+test("rotation: throws when the ref can't be found", () => {
+  const src = `    <Wroom name="U1" pcbX={0} pcbY={0} pcbRotation={0} />`;
+  assert.throws(() => updateRotationInTsx(src, "U9", 90), /Could not find component/);
 });

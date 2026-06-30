@@ -21,6 +21,9 @@
 // Hold ⌘/Ctrl/Shift to build a multi-selection — each modifier-click toggles a
 // component, and dragging any selected one then moves the whole set as a rigid
 // group, writing each moved component back in turn.
+// A selection also raises a bounding box and a small toolbar: rotate (90° — a
+// lone part spins in place; a group rotates rigidly about its centre) and the
+// six box-edge alignments (left / centre / right, top / middle / bottom).
 // Inspect and Edit are mutually exclusive — arming one disarms the other (via
 // the shared "hsm:pcb-tool" event) so their overlays never fight for a click.
 
@@ -36,10 +39,11 @@ let enabled = (() => {
   try { return localStorage.getItem(LS_KEY) === "1"; } catch { return false; }
 })();
 
-let ctx = null;         // { svgEl, layer, status, boardName, components, source, wrapper }
+let ctx = null;         // { svgEl, layer, status, toolbar, boundsG, boundsRect, boardName, components, compByRef, boxByRef, source, wrapper }
 let dragging = null;    // { items:[{g,ref,ox,oy,newX,newY}], startMm, moved, additive, primaryRef, pending, captureEl }
 const selected = new Set(); // refs in the current multi-selection (re-applied on rebuild)
 let toggleRefresh = null; // the current Edit toggle button's label refresher
+let opBusy = false;     // a rotate / align write-back is in flight — ignore re-clicks until it settles
 
 // --- dev availability + component fetch (called by pcb.js) ------------------
 
@@ -66,6 +70,10 @@ export async function fetchEditComponents(boardName) {
 export function installEditOverlay(svgEl, info) {
   const prevBoard = ctx && ctx.boardName;
   if (svgEl) svgEl.querySelectorAll(".pcb-edit-layer").forEach((n) => n.remove());
+  // A view-swap re-installs on the same wrapper; drop the prior run's HTML chrome
+  // (status chip + toolbar) so they don't accumulate.
+  const cleanWrap = (info && info.wrapper) || (ctx && ctx.wrapper);
+  if (cleanWrap) cleanWrap.querySelectorAll(".pcb-edit-status, .pcb-edit-toolbar").forEach((n) => n.remove());
   if (!svgEl || !info || !info.components || !info.components.length) { ctx = null; return; }
 
   // Reuse the SVG's own Gerber-unit transform so component-mm geometry maps
@@ -81,8 +89,12 @@ export function installEditOverlay(svgEl, info) {
   }
 
   const layer = el("g", { class: "pcb-edit-layer", transform });
+  const boxByRef = new Map();   // ref → footprint box as an offset from the anchor (constant under a move)
+  const compByRef = new Map();  // ref → the live component record (x/y/rot updated on write-back)
   for (const comp of info.components) {
     const box = boxFor(comp, padsByRef);
+    boxByRef.set(comp.ref, { dx: box.cx - comp.x, dy: box.cy - comp.y, w: box.w, h: box.h });
+    compByRef.set(comp.ref, comp);
     const g = el("g", {
       class: "pcb-edit-comp",
       "data-ref": comp.ref,
@@ -106,12 +118,25 @@ export function installEditOverlay(svgEl, info) {
     g.appendChild(lbl);
     layer.appendChild(g);
   }
+  // Selection bounding box — drawn in the same flipped Gerber frame as the
+  // component boxes, and inert so it never eats a drag.
+  const boundsG = el("g", { class: "pcb-edit-bounds-g" });
+  const boundsRect = el("rect", { class: "pcb-edit-bounds", x: 0, y: 0, width: 0, height: 0 });
+  boundsG.appendChild(boundsRect);
+  boundsG.style.display = "none";
+  layer.appendChild(boundsG);
   svgEl.appendChild(layer);
 
   const status = el2("div", "pcb-edit-status");
   info.wrapper.appendChild(status);
+  const toolbar = buildToolbar();
+  info.wrapper.appendChild(toolbar);
 
-  ctx = { svgEl, layer, status, boardName: info.name, components: info.components, source: info.source, wrapper: info.wrapper };
+  ctx = {
+    svgEl, layer, status, toolbar, boundsG, boundsRect,
+    boardName: info.name, components: info.components, compByRef, boxByRef,
+    source: info.source, wrapper: info.wrapper,
+  };
   // A new board starts clean; a same-board rebuild (after a write-back re-render)
   // keeps the selection so a multi-move stays grouped across the reload.
   if (info.name !== prevBoard) selected.clear();
@@ -129,6 +154,7 @@ export function clearEditOverlay() {
   if (ctx) {
     try { ctx.layer.remove(); } catch {}
     try { ctx.status.remove(); } catch {}
+    try { ctx.toolbar.remove(); } catch {}
   }
   ctx = null;
 }
@@ -173,6 +199,7 @@ function applySelectionClasses() {
   for (const node of ctx.layer.querySelectorAll(".pcb-edit-comp")) {
     node.classList.toggle("selected", selected.has(node.getAttribute("data-ref")));
   }
+  refreshSelectionUI();
 }
 function setSelection(refs) {
   selected.clear();
@@ -256,6 +283,7 @@ function onPointerDown(e) {
 
   dragging = { items, startMm, moved: false, additive, primaryRef: ref, pending, captureEl: g };
   try { g.setPointerCapture(e.pointerId); } catch {}
+  hideSelectionUI(); // bounds + toolbar reappear on release, re-anchored to the moved selection
 }
 
 function onPointerMove(e) {
@@ -302,10 +330,11 @@ function onPointerUp(e) {
     // A press that never moved is a selection click, not a drag.
     if (d.pending === "toggle") toggleSelected(d.primaryRef);
     else if (d.pending === "reduce") setSelection([d.primaryRef]);
+    else refreshSelectionUI(); // plain press on an unselected part: restore the UI hidden at press
     hideStatus();
     return;
   }
-  writePositions(d.items);
+  writePositions(d.items).finally(refreshSelectionUI);
 }
 
 document.addEventListener("pointermove", onPointerMove);
@@ -365,6 +394,253 @@ async function writePositions(items) {
   }
   if (failed.length) setStatus(`saved ${ok}/${moved.length} — failed: ${failed.join(", ")}`, true);
   else setStatus(`moved ${moved.length} components ✓`);
+}
+
+// --- selection bounds + the rotate / align operations -----------------------
+
+// Live records for the current selection (skipping any ref no longer on board).
+function selectedItems() {
+  if (!ctx) return [];
+  const out = [];
+  for (const ref of selected) {
+    const comp = ctx.compByRef.get(ref);
+    if (comp) out.push({ ref, comp });
+  }
+  return out;
+}
+
+// A component's footprint box in absolute board mm, rebuilt from the live anchor
+// plus the stored offset — so it stays correct right after a move, without
+// waiting for the copper to re-render.
+function boxOf(it) {
+  const o = (ctx && ctx.boxByRef.get(it.ref)) || { dx: 0, dy: 0, w: MIN_BOX_MM, h: MIN_BOX_MM };
+  const cx = it.comp.x + o.dx, cy = it.comp.y + o.dy;
+  return { it, cx, cy, left: cx - o.w / 2, right: cx + o.w / 2, bottom: cy - o.h / 2, top: cy + o.h / 2 };
+}
+
+// Union extent of a set of items, in board mm (y up).
+function boundsOf(items) {
+  let left = Infinity, right = -Infinity, bottom = Infinity, top = -Infinity;
+  for (const it of items) {
+    const b = boxOf(it);
+    if (b.left < left) left = b.left;
+    if (b.right > right) right = b.right;
+    if (b.bottom < bottom) bottom = b.bottom;
+    if (b.top > top) top = b.top;
+  }
+  return { left, right, bottom, top };
+}
+
+function gFor(ref) {
+  return ctx ? ctx.layer.querySelector(`.pcb-edit-comp[data-ref="${CSS.escape(ref)}"]`) : null;
+}
+function normRot(deg) { return ((Math.round(deg) % 360) + 360) % 360; }
+function snap(v) { return SNAP_MM > 0 ? Math.round(v / SNAP_MM) * SNAP_MM : v; }
+
+// Redraw the bounds box and (re)anchor the toolbar over the live selection.
+// Hidden while dragging — both reappear on release, re-anchored to the moved set.
+function refreshSelectionUI() {
+  if (!ctx) return;
+  if (dragging) { hideSelectionUI(); return; }
+  const items = selectedItems();
+  if (!items.length) { hideSelectionUI(); return; }
+  const b = boundsOf(items);
+  ctx.boundsRect.setAttribute("x", b.left * 1000);
+  ctx.boundsRect.setAttribute("y", b.bottom * 1000);
+  ctx.boundsRect.setAttribute("width", (b.right - b.left) * 1000);
+  ctx.boundsRect.setAttribute("height", (b.top - b.bottom) * 1000);
+  ctx.boundsG.style.display = "";
+  ctx.toolbar.classList.toggle("multi", items.length >= 2); // reveal the align row only for ≥ 2
+  ctx.toolbar.classList.add("show");
+  positionToolbar(b);
+}
+function hideSelectionUI() {
+  if (!ctx) return;
+  if (ctx.boundsG) ctx.boundsG.style.display = "none";
+  if (ctx.toolbar) ctx.toolbar.classList.remove("show");
+}
+
+// Board mm → wrapper-local px — the inverse of clientToMm's view math — so an
+// HTML toolbar can sit over a point on the board.
+function mmToWrapper(xMm, yMm) {
+  const pz = state.currentPcbPz;
+  if (!pz || !ctx) return null;
+  const ctm = ctx.layer.getCTM();
+  if (!ctm) return null;
+  const t = pz.getTransform();
+  const p = new DOMPoint(xMm * 1000, yMm * 1000).matrixTransform(ctm);
+  return { x: p.x * t.scale + t.panX, y: p.y * t.scale + t.panY };
+}
+
+// Pin the toolbar centred over the selection's top edge, flipping below when it
+// would otherwise ride up into the top chrome.
+function positionToolbar(b) {
+  if (!ctx || !ctx.toolbar) return;
+  if (!b) { const items = selectedItems(); if (!items.length) return; b = boundsOf(items); }
+  const midX = (b.left + b.right) / 2;
+  const top = mmToWrapper(midX, b.top);
+  const bottom = mmToWrapper(midX, b.bottom);
+  if (!top) return;
+  const tb = ctx.toolbar;
+  const h = tb.offsetHeight || 38;
+  const below = (top.y - 12 - h) < 4 && !!bottom;
+  const anchor = below ? bottom : top;
+  tb.style.left = anchor.x + "px";
+  tb.style.top = anchor.y + "px";
+  tb.classList.toggle("below", below);
+}
+
+// Keep the toolbar glued to the board as the view changes. Driven by the events
+// that actually pan / zoom (pointer drag, wheel, resize) rather than a standing
+// rAF, so the page stays idle — and cheap — when nothing is moving.
+function repositionToolbarIfShown() {
+  if (ctx && ctx.toolbar && ctx.toolbar.classList.contains("show") && !dragging) positionToolbar();
+}
+document.addEventListener("pointermove", repositionToolbarIfShown, { passive: true });
+document.addEventListener("pointerup", repositionToolbarIfShown, { passive: true });
+window.addEventListener("wheel", repositionToolbarIfShown, { passive: true });
+window.addEventListener("resize", repositionToolbarIfShown);
+
+// Rotate the selection 90°. A lone part just bumps its rotation (spins in place);
+// a group rotates rigidly about its bounding-box centre — each anchor swings 90°
+// about the centre AND each part re-orients, which is two write-backs apiece.
+async function rotateSelection() {
+  if (opBusy || !ctx) return;
+  const items = selectedItems();
+  if (!items.length) return;
+  opBusy = true;
+  try {
+    if (items.length === 1) {
+      const it = items[0];
+      const nr = normRot(it.comp.rot + 90);
+      setStatus(`${it.ref}: rotate → ${nr}°`);
+      const r = await writeRotation(it.ref, nr);
+      setStatus(r.ok ? `${it.ref}: ${nr}° ✓` : `rotate failed: ${r.error}`, !r.ok);
+    } else {
+      const b = boundsOf(items);
+      const cx = (b.left + b.right) / 2, cy = (b.bottom + b.top) / 2;
+      setStatus(`rotating ${items.length}…`);
+      let ok = 0; const failed = [];
+      for (const it of items) {
+        const dx = it.comp.x - cx, dy = it.comp.y - cy;
+        const nx = snap(cx - dy), ny = snap(cy + dx); // +90° (CCW), matching the rotation bump
+        const nr = normRot(it.comp.rot + 90);
+        const g = gFor(it.ref);
+        if (g) g.setAttribute("transform", `translate(${(nx - it.comp.x) * 1000},${(ny - it.comp.y) * 1000})`);
+        const moved = nx !== it.comp.x || ny !== it.comp.y;
+        const pr = moved ? await writeOne({ ref: it.ref, ox: it.comp.x, oy: it.comp.y, newX: nx, newY: ny, g }) : { ok: true };
+        const rr = await writeRotation(it.ref, nr);
+        if (pr.ok && rr.ok) ok++; else failed.push(it.ref);
+      }
+      setStatus(failed.length ? `rotated ${ok}/${items.length} — failed: ${failed.join(", ")}` : `rotated ${items.length} ✓`, !!failed.length);
+    }
+  } finally {
+    opBusy = false;
+    refreshSelectionUI();
+  }
+}
+
+// Align the selected footprints by a shared box edge (or centre) on one axis.
+// axis "x": mode left | center | right. axis "y": mode top | middle | bottom.
+async function alignSelection(axis, mode) {
+  if (opBusy || !ctx) return;
+  const items = selectedItems();
+  if (items.length < 2) return;
+  opBusy = true;
+  try {
+    const boxes = items.map(boxOf);
+    let target;
+    if (axis === "x") {
+      const minL = Math.min(...boxes.map((b) => b.left));
+      const maxR = Math.max(...boxes.map((b) => b.right));
+      target = mode === "left" ? minL : mode === "right" ? maxR : (minL + maxR) / 2;
+    } else {
+      const maxT = Math.max(...boxes.map((b) => b.top));
+      const minB = Math.min(...boxes.map((b) => b.bottom));
+      target = mode === "top" ? maxT : mode === "bottom" ? minB : (minB + maxT) / 2;
+    }
+    const writes = [];
+    for (const b of boxes) {
+      const it = b.it;
+      let nx = it.comp.x, ny = it.comp.y;
+      if (axis === "x") {
+        const cur = mode === "left" ? b.left : mode === "right" ? b.right : b.cx;
+        nx = snap(it.comp.x + (target - cur));
+      } else {
+        const cur = mode === "top" ? b.top : mode === "bottom" ? b.bottom : b.cy;
+        ny = snap(it.comp.y + (target - cur));
+      }
+      const g = gFor(it.ref);
+      if (g) g.setAttribute("transform", `translate(${(nx - it.comp.x) * 1000},${(ny - it.comp.y) * 1000})`);
+      writes.push({ ref: it.ref, ox: it.comp.x, oy: it.comp.y, newX: nx, newY: ny, g });
+    }
+    await writePositions(writes);
+  } finally {
+    opBusy = false;
+    refreshSelectionUI();
+  }
+}
+
+// POST a rotation change for one component; mirrors writeOne's contract.
+async function writeRotation(ref, newRot) {
+  try {
+    const resp = await fetch(`/api/pcb-editor/board/${encodeURIComponent(ctx.boardName)}/update-rotation`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ref, rot: newRot }),
+    });
+    if (resp.ok) {
+      const c = ctx.compByRef.get(ref);
+      if (c) c.rot = newRot;
+      return { ok: true };
+    }
+    const err = await resp.json().catch(() => ({}));
+    return { ok: false, error: err.error || resp.status };
+  } catch (e) {
+    return { ok: false, error: e.message };
+  }
+}
+
+// --- selection toolbar (rotate + the six alignments) ------------------------
+
+// 24×24 icons in currentColor, matching the conventional arrangement-tool glyphs:
+// a circular rotate arrow, and bar-against-a-guide marks for each alignment.
+const ICONS = {
+  rotate:     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a8.5 8.5 0 1 1-2.6-6.1"/><polyline points="20.5 3.5 20.5 9 15 9"/></svg>`,
+  "x:left":   `<svg viewBox="0 0 24 24" fill="currentColor"><rect x="2.4" y="3.5" width="1.7" height="17" rx="0.6" opacity="0.65"/><rect x="6" y="6.4" width="13" height="3.6" rx="1.2"/><rect x="6" y="14" width="8.5" height="3.6" rx="1.2"/></svg>`,
+  "x:center": `<svg viewBox="0 0 24 24" fill="currentColor"><rect x="11.15" y="2.6" width="1.7" height="18.8" rx="0.6" opacity="0.65"/><rect x="5.5" y="6.4" width="13" height="3.6" rx="1.2"/><rect x="7.75" y="14" width="8.5" height="3.6" rx="1.2"/></svg>`,
+  "x:right":  `<svg viewBox="0 0 24 24" fill="currentColor"><rect x="19.9" y="3.5" width="1.7" height="17" rx="0.6" opacity="0.65"/><rect x="5" y="6.4" width="13" height="3.6" rx="1.2"/><rect x="9.5" y="14" width="8.5" height="3.6" rx="1.2"/></svg>`,
+  "y:top":    `<svg viewBox="0 0 24 24" fill="currentColor"><rect x="3.5" y="2.4" width="17" height="1.7" rx="0.6" opacity="0.65"/><rect x="6.4" y="6" width="3.6" height="13" rx="1.2"/><rect x="14" y="6" width="3.6" height="8.5" rx="1.2"/></svg>`,
+  "y:middle": `<svg viewBox="0 0 24 24" fill="currentColor"><rect x="2.6" y="11.15" width="18.8" height="1.7" rx="0.6" opacity="0.65"/><rect x="6.4" y="5.5" width="3.6" height="13" rx="1.2"/><rect x="14" y="7.75" width="3.6" height="8.5" rx="1.2"/></svg>`,
+  "y:bottom": `<svg viewBox="0 0 24 24" fill="currentColor"><rect x="3.5" y="19.9" width="17" height="1.7" rx="0.6" opacity="0.65"/><rect x="6.4" y="5" width="3.6" height="13" rx="1.2"/><rect x="14" y="9.5" width="3.6" height="8.5" rx="1.2"/></svg>`,
+};
+
+function toolBtn(action, title, run) {
+  const b = el2("button", "pcb-edit-tool-btn");
+  b.type = "button";
+  b.title = title;
+  b.setAttribute("aria-label", title);
+  b.innerHTML = ICONS[action];
+  b.addEventListener("click", (e) => { e.stopPropagation(); run(); });
+  return b;
+}
+
+function buildToolbar() {
+  const tb = el2("div", "pcb-edit-toolbar");
+  // Keep presses off the board so PanZoom doesn't pan beneath the buttons.
+  tb.addEventListener("pointerdown", (e) => e.stopPropagation());
+  tb.appendChild(toolBtn("rotate", "Rotate 90°", rotateSelection));
+  tb.appendChild(el2("span", "pcb-edit-tool-sep align-only"));
+  tb.appendChild(toolBtn("x:left", "Align left edges", () => alignSelection("x", "left")));
+  tb.appendChild(toolBtn("x:center", "Align horizontal centres", () => alignSelection("x", "center")));
+  tb.appendChild(toolBtn("x:right", "Align right edges", () => alignSelection("x", "right")));
+  tb.appendChild(el2("span", "pcb-edit-tool-sep align-only"));
+  tb.appendChild(toolBtn("y:top", "Align top edges", () => alignSelection("y", "top")));
+  tb.appendChild(toolBtn("y:middle", "Align vertical centres", () => alignSelection("y", "middle")));
+  tb.appendChild(toolBtn("y:bottom", "Align bottom edges", () => alignSelection("y", "bottom")));
+  // Mark the alignment controls so CSS can hide them unless ≥ 2 parts are selected.
+  for (const n of tb.querySelectorAll('[title^="Align"]')) n.classList.add("align-only");
+  return tb;
 }
 
 // --- status chip ------------------------------------------------------------
