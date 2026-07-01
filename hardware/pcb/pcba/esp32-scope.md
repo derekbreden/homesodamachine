@@ -36,8 +36,8 @@ on-board K7803 buck.
 
 ## USB-C programming block
 
-Flashed over a plain USB-C cable — J14 (USB-C receptacle, west edge above the antenna) +
-U13 (CH340C USB-UART bridge). Data only: the bridge runs off the board 3V3 (the board is
+Flashed over a plain USB-C cable — J14 (USB-C receptacle, north edge above the WROOM,
+opening flush to the board edge) + U13 (CH340C USB-UART bridge). Data only: the bridge runs off the board 3V3 (the board is
 12 V-powered), USB VBUS powers nothing. CC1/CC2 carry 5.1k Rd (R15/R16); U14 (USBLC6)
 clamps D+/D-. Auto-reset is the classic cross-coupled NPN pair off DTR/RTS — Q2 pulls EN,
 Q3 pulls IO0 — so esptool resets + enters download mode with no key press; BOOT (SW1) and
