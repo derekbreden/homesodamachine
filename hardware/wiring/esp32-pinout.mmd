@@ -43,10 +43,11 @@ flowchart LR
   %% Freed GPIOs still available:
   %%   GPIO 15  - free (was the flow-meter pin)
   %%   GPIO 5   - free (bootstrap-sensitive; was an L298 pump pin)
-  %% Programming / console header J12 (the bare WROOM exposes these; the DevKitC hid them):
-  %%   GPIO 0   boot strap (J12 IO0 + R8 pull-up to 3V3)
-  %%   GPIO 1   U0TXD (J12 TX0, program / console)
-  %%   GPIO 3   U0RXD (J12 RX0, program / console)
+  %% Programming — on-board USB-C block (J14 receptacle + U13 CH340C USB-UART bridge):
+  %%   GPIO 0   boot strap (R8 pull-up to 3V3, BOOT button, DTR auto-reset via Q3)
+  %%   GPIO 1   U0TXD (-> CH340 RXD)
+  %%   GPIO 3   U0RXD (-> CH340 TXD)
+  %%   EN       reset (R7/C12 RC, RESET button, RTS auto-reset via Q2)
 
   subgraph ESP["ESP32-WROOM-32E"]
     direction TB

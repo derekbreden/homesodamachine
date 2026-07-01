@@ -7,7 +7,8 @@
  * The ESP32 sits at the far-left, antenna off-board. Its usable GPIO are nearly all on the
  * north and south castellations (the east edge is flash + the lone GPIO IO13), so every
  * off-board signal fans up or down and its connector lives on that edge, ordered to match the
- * pin run. NORTH / top: RELAYS (J5) and PROG (J12) at the edge, and — combed up from the north
+ * pin run. NORTH / top: RELAYS (J5) at the edge, the USB-C programming block (J14 + the CH340
+ * bridge, above the WROOM) at the top-left, and — combed up from the north
  * pins as one parallel bus — the two pump drivers (U11/U12) feeding PUMPS. SOUTH / bottom: an
  * edge row of cable connectors — GAS (J11), SCREEN (J9), FAUCET (J3), SENSORS (J4) — with their
  * on-board conditioning in a second row just above (the R1-R4 gas dividers, the U7 RS485
@@ -52,6 +53,11 @@ import { ESP32_WROOM_32E_N4 as Wroom } from "./imports/ESP32_WROOM_32E_N4"
 import { KT_0603R as LedRed } from "./imports/KT_0603R"
 import { A_19_217_GHC_YR1S2_3T as LedGrn } from "./imports/A_19_217_GHC_YR1S2_3T"
 import { A_19_217_BHC_ZL1M2RY_3T as LedBlu } from "./imports/A_19_217_BHC_ZL1M2RY_3T"
+import { CH340C } from "./imports/CH340C"
+import { TYPE_C_31_M_12 as UsbC } from "./imports/TYPE_C_31_M_12"
+import { USBLC6_2SC6 as Usblc6 } from "./imports/USBLC6_2SC6"
+import { TS_1187A_B_A_B as Tact } from "./imports/TS_1187A_B_A_B"
+import { S8050_J3Y_RANGE_200_350_ as S8050 } from "./imports/S8050_J3Y_RANGE_200_350_"
 
 // Identity stamp version (commit date + short SHA), computed once per render.
 const ID = boardVersionParts()
@@ -73,8 +79,8 @@ export default () => (
         plane (sourced by the K7803 buck), every GND pad (incl. the centre thermal pad)
         auto-stitches to the bottom plane. Decoupling (C10 0.1uF + C11 10uF bulk) and the EN
         power-on RC (R7 10k pull-up + C12 1uF) sit at the south edge by the 3V3/EN pins; R8
-        (10k) pulls IO0 up; J12 is the 6-pin serial programming header on the north edge by its
-        IO0/TX0/RX0 pins — only its EN line climbs from the south edge. */}
+        (10k) pulls IO0 up; the WROOM is flashed over the USB-C programming block above it
+        (CH340 bridge on TX0/RX0, auto-reset on EN/IO0) — see that block below. */}
     <Wroom name="U1" pcbX={-56.45} pcbY={0} pcbRotation={0} />
     {/* WROOM support south of U1: the EN power-on RC (R7 + C12) stacked at the far-west,
         hard by U1's EN pin so the EN trace stays short; the supply decouplers C10 + C11
@@ -84,7 +90,6 @@ export default () => (
     <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-58.5} y={-14.0} rot={90} />
     <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-53.5} y={-14.0} rot={90} side="E" />
     <resistor name="R8" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} pcbRotation={0} {...at(-45.25, 12.1)} />
-    <Jst name="J12" x={-38.68} y={31} count={6} labels={["3V3", "EN", "TX0", "RX0", "IO0", "GND"]} rot={0} label="PROG" side="N" />
     {/* RS-485 to the front display (J9). THVD1426 auto-direction transceiver (U7):
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
         only D (from ESP TX) and R (to ESP RX) are driven. R6 = 120R line termination
@@ -134,7 +139,7 @@ export default () => (
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
         (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
         IO19 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
-    <Jst name="J5" x={-53.73} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} rot={0} label="RELAYS" side="N" />
+    <Jst name="J5" x={-36.18} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} rot={0} label="RELAYS" side="N" />
     <Jst name="J6" x={4.17} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" side="N" />
     <Jst name="J7" x={2.52} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" side="S" />
     <Jst name="J9" x={-42.63} y={-32} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" side="S" />
@@ -180,13 +185,12 @@ export default () => (
     <trace from=".C7 > .pin1" to="net.V3V3" />
     <trace from=".J4 > .3V3" to="net.V3V3" />
 
-    {/* Bare WROOM (U1) power + reset + programming block. 3V3 is the lone supply pin: it,
-        the decouplers (C10 0.1uF / C11 10uF bulk), the pull-up high sides (R7 EN, R8 IO0)
-        and the prog header (J12) all common to the 3V3 plane; the GND pads (incl. the
-        centre thermal pad), the EN cap (C12) low side, and the prog GND to the bottom
-        plane — all SMD legs auto-stitch. EN power-on RC: R7 (10k) to 3V3, C12 (1uF) to
-        GND. IO0 held high by R8 (10k). J12 breaks out the serial bootloader (TX0=IO1,
-        RX0=IO3, IO0, EN). No V5 — the module is 3V3-only. */}
+    {/* Bare WROOM (U1) power + reset block. 3V3 is the lone supply pin: it, the decouplers
+        (C10 0.1uF / C11 10uF bulk) and the pull-up high sides (R7 EN, R8 IO0) all common to
+        the 3V3 plane; the GND pads (incl. the centre thermal pad) and the EN cap (C12) low
+        side to the bottom plane — all SMD legs auto-stitch. EN power-on RC: R7 (10k) to 3V3,
+        C12 (1uF) to GND. IO0 held high by R8 (10k). TX0 (IO1) / RX0 (IO3) / IO0 / EN run to
+        the USB-C programming block (below). No V5 — the module is 3V3-only. */}
     <trace from=".U1 > .3V3" to="net.V3V3" />
     <trace from=".U1 > .GND" to="net.GND" />
     <trace from=".C10 > .pin1" to="net.V3V3" />
@@ -199,12 +203,6 @@ export default () => (
     <trace from=".C12 > .pin2" to="net.GND" />
     <trace from=".R8 > .pin2" to="net.V3V3" />
     <trace from=".R8 > .pin1" to=".U1 > .IO0" />
-    <trace from=".J12 > .3V3" to="net.V3V3" />
-    <trace from=".J12 > .GND" to="net.GND" />
-    <trace from=".J12 > .EN" to=".U1 > .EN" />
-    <trace from=".J12 > .IO0" to=".U1 > .IO0" />
-    <trace from=".J12 > .TX0" to=".U1 > .IO1" />
-    <trace from=".J12 > .RX0" to=".U1 > .IO3" />
 
     {/* 5V rail -> inner2 plane, now sourced by the K7805 buck (U10). Faucet, sensors, and
         gas common to it at their barrels; the buzzer high side (U8 +) auto-stitches to it.
@@ -507,6 +505,85 @@ export default () => (
     <trace from=".R14 > .pin1" to="net.V5" />
     <trace from=".R14 > .pin2" to=".D6 > .anode" />
     <trace from=".D6 > .cathode" to="net.GND" />
+
+    {/* ── USB-C programming block ─────────────────────────────────────────────────────
+        Replaces the old PROG JST: a USB-C receptacle (J14, west edge above the WROOM
+        antenna) + CH340C USB-UART bridge (U13) flash the WROOM over a plain USB-C cable.
+        DATA ONLY — the bridge runs off the board 3V3 (the board is 12 V-powered and does
+        nothing without it), so USB VBUS powers nothing; CC1/CC2 get 5.1k Rd pulldowns
+        (R15/R16) so a host enumerates us as a device; U14 (USBLC6) clamps D+/D-; both
+        D+ / both D- pads are tied so the cable works either way up.
+        AUTO-RESET (esptool with no button press): DTR/RTS drive the classic cross-coupled
+        NPN pair — Q2 pulls EN, Q3 pulls IO0 — so neither line drops when a serial monitor
+        asserts both. Derived from esptool ClassicReset polarity (assert = pin LOW):
+          Q2 (EN):  base=DTR, emitter=RTS, collector=EN   -> EN low only when DTR high, RTS low
+          Q3 (IO0): base=RTS, emitter=DTR, collector=IO0  -> IO0 low only when RTS high, DTR low
+        Both-asserted or both-idle => Vbe=0 => off => no reset. R17/R18 limit base current; the
+        pull sides are the existing EN RC (R7/C12) and IO0 pull-up (R8). BOOT (SW1) and RESET
+        (SW2) tacts are the manual overrides (diagonal pads = the two switch terminals). */}
+    <UsbC name="J14" pcbX={-53} pcbY={32.5} pcbRotation={0} />
+    <CH340C name="U13" pcbX={-53} pcbY={22} pcbRotation={0} />
+    <Usblc6 name="U14" pcbX={-45.5} pcbY={26} pcbRotation={0} />
+    <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-45.5} y={21.5} rot={0} side="N" />
+    <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-45.5} y={29.5} rot={0} side="E" />
+    <resistor name="R15" resistance="5.1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23186"] }} {...at(-55, 27.5)} />
+    <resistor name="R16" resistance="5.1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23186"] }} {...at(-50, 27.5)} />
+    <Tact name="SW1" pcbX={-63} pcbY={26} pcbRotation={0} />
+    <Tact name="SW2" pcbX={-63} pcbY={20.5} pcbRotation={0} />
+    <S8050 name="Q2" pcbX={-55} pcbY={16} pcbRotation={0} />
+    <S8050 name="Q3" pcbX={-55} pcbY={12.5} pcbRotation={0} />
+    <silkscreentext text="Q2" fontSize="0.8mm" anchorAlignment="center" pcbX={-58} pcbY={16} />
+    <silkscreentext text="Q3" fontSize="0.8mm" anchorAlignment="center" pcbX={-58} pcbY={12.5} />
+    <resistor name="R17" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-51, 16)} />
+    <resistor name="R18" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-51, 12.5)} />
+    {/* USB-C: GND (pin13/14) + shield ears (pin1-4) to plane; VBUS (pin15/16) to the ESD
+        rail only (not board power); CC1 (pin6) / CC2 (pin12) each to a 5.1k Rd; D+ = pin8+pin10,
+        D- = pin7+pin9 (both orientations tied). */}
+    <trace from=".J14 > .pin13" to="net.GND" />
+    <trace from=".J14 > .pin14" to="net.GND" />
+    <trace from=".J14 > .pin1" to="net.GND" />
+    <trace from=".J14 > .pin2" to="net.GND" />
+    <trace from=".J14 > .pin3" to="net.GND" />
+    <trace from=".J14 > .pin4" to="net.GND" />
+    <trace from=".J14 > .pin6" to=".R15 > .pin1" />
+    <trace from=".R15 > .pin2" to="net.GND" />
+    <trace from=".J14 > .pin12" to=".R16 > .pin1" />
+    <trace from=".R16 > .pin2" to="net.GND" />
+    <trace from=".J14 > .pin8" to=".U14 > .pin1" />
+    <trace from=".J14 > .pin10" to=".U14 > .pin1" />
+    <trace from=".J14 > .pin7" to=".U14 > .pin3" />
+    <trace from=".J14 > .pin9" to=".U14 > .pin3" />
+    <trace from=".J14 > .pin15" to=".U14 > .pin5" />
+    <trace from=".J14 > .pin16" to=".U14 > .pin5" />
+    {/* ESD array: GND + VBUS rail + bypass cap; D+/D- pass through to the bridge. */}
+    <trace from=".U14 > .pin2" to="net.GND" />
+    <trace from=".C22 > .pin1" to=".U14 > .pin5" />
+    <trace from=".C22 > .pin2" to="net.GND" />
+    <trace from=".U14 > .pin6" to=".U13 > .D_POS" />
+    <trace from=".U14 > .pin4" to=".U13 > .D_NEG" />
+    {/* CH340C: 3V3 supply (VCC + V3 tied for 3.3 V op) + 0.1uF decoupling; UART crossed to
+        the WROOM (bridge TXD -> ESP RXD0/IO3, bridge RXD -> ESP TXD0/IO1). */}
+    <trace from=".U13 > .VCC" to="net.V3V3" />
+    <trace from=".U13 > .V3" to="net.V3V3" />
+    <trace from=".U13 > .GND" to="net.GND" />
+    <trace from=".C21 > .pin1" to="net.V3V3" />
+    <trace from=".C21 > .pin2" to="net.GND" />
+    <trace from=".U13 > .TXD" to=".U1 > .IO3" />
+    <trace from=".U13 > .RXD" to=".U1 > .IO1" />
+    {/* Auto-reset cross-coupled pair (see block header for the truth table). */}
+    <trace from=".U13 > .DTR" to=".R17 > .pin1" />
+    <trace from=".R17 > .pin2" to=".Q2 > .B" />
+    <trace from=".U13 > .RTS" to=".Q2 > .E" />
+    <trace from=".Q2 > .C" to=".U1 > .EN" />
+    <trace from=".U13 > .RTS" to=".R18 > .pin1" />
+    <trace from=".R18 > .pin2" to=".Q3 > .B" />
+    <trace from=".U13 > .DTR" to=".Q3 > .E" />
+    <trace from=".Q3 > .C" to=".U1 > .IO0" />
+    {/* Manual BOOT (IO0) / RESET (EN) — diagonal switch pads = the two terminals. */}
+    <trace from=".SW1 > .pin1" to=".U1 > .IO0" />
+    <trace from=".SW1 > .pin4" to="net.GND" />
+    <trace from=".SW2 > .pin1" to=".U1 > .EN" />
+    <trace from=".SW2 > .pin4" to="net.GND" />
 
     {/* ── M3 mounting holes, one per corner, plated and tied to GND so a metal screw can't
         bridge a power plane (GND connects on the bottom plane; V12 / 3V3 / 5V / SDA / SCL
