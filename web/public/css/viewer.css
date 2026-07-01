@@ -640,6 +640,9 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 12;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   padding: 5px 10px;
   background: rgba(35, 35, 66, 0.85);
   color: var(--text);
@@ -650,8 +653,89 @@
   white-space: nowrap;
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
+  /* The readout is glance-only so pan/zoom passes through; the checks badge re-enables. */
   pointer-events: none;
 }
+/* Clickable checks badge inside the readout — green when clean, red with a count when
+   clearance.ts flagged genuine overlap/DRC errors. Opens the board-checks modal. */
+.pcb-dims .pcb-checks {
+  pointer-events: auto;
+  cursor: pointer;
+  font: inherit;
+  padding: 1px 7px;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--ok) 55%, transparent);
+  background: color-mix(in srgb, var(--ok) 18%, transparent);
+  color: var(--ok);
+}
+.pcb-dims .pcb-checks.has-issues {
+  border-color: color-mix(in srgb, var(--err) 60%, transparent);
+  background: color-mix(in srgb, var(--err) 20%, transparent);
+  color: var(--err);
+}
+.pcb-dims .pcb-checks:hover { filter: brightness(1.2); }
+/* Board-checks modal: backdrop + centred card, scoped inside the board wrapper. */
+.pcb-wrapper > .pcb-checks-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(10, 10, 24, 0.55);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+.pcb-checks-card {
+  max-width: min(520px, 92%);
+  max-height: 80%;
+  overflow: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font: 12.5px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: var(--text);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+.pcb-checks-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.pcb-checks-x {
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--text-2);
+  font-size: 15px;
+  line-height: 1;
+}
+.pcb-checks-x:hover { color: var(--text); }
+.pcb-checks-h {
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 10.5px;
+  margin: 12px 0 5px;
+}
+.pcb-checks-h:first-of-type { margin-top: 0; }
+.pcb-checks-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 3px 0;
+  border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+}
+.pcb-checks-row .k { color: var(--text); overflow-wrap: anywhere; }
+.pcb-checks-row .v { color: var(--text-2); white-space: nowrap; }
+.pcb-checks-row.issue .k { color: var(--err); }
+.pcb-checks-row.issue .v { color: var(--text-3); text-transform: uppercase; font-size: 10px; align-self: center; }
+.pcb-checks-clean { color: var(--ok); padding: 2px 0; }
 .pcb-pick-layer {
   pointer-events: none;
 }

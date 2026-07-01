@@ -226,18 +226,95 @@ function viaCountText(picks) {
   if (!Array.isArray(vias)) return null;
   return `${vias.length} via${vias.length === 1 ? "" : "s"}`;
 }
-// Create or update the bottom-centre dimensions chip in `wrapper`.
+// Clearance floor for the chip — the tightest cross-net copper gap (clearance.ts).
+// Returns a "0.11 mm floor" string, or null when a board has no clearance sidecar.
+function clearanceText(picks) {
+  const f = picks && picks.clearance && picks.clearance.floor;
+  if (typeof f !== "number") return null;
+  return `${f.toFixed(3)} mm floor`;
+}
+
+// Create or update the bottom-centre dimensions chip in `wrapper`. The chip carries the
+// glanceable readout (dims · vias · floor) plus a clickable checks badge — green when the
+// board is clean, amber with a count when clearance.ts found genuine overlap/DRC errors —
+// that opens the details modal.
 function updateDimsChip(wrapper, picks) {
   if (!wrapper) return;
-  const text = [boardDimsText(picks, wrapper), viaCountText(picks)].filter(Boolean).join(" · ");
+  closeChecksModal(wrapper);
+  const text = [boardDimsText(picks, wrapper), viaCountText(picks), clearanceText(picks)].filter(Boolean).join(" · ");
+  const errors = (picks && Array.isArray(picks.errors)) ? picks.errors : null;
   let el = wrapper.querySelector(".pcb-dims");
-  if (!text) { if (el) el.remove(); return; }
+  if (!text && !errors) { if (el) el.remove(); return; }
   if (!el) {
     el = document.createElement("div");
     el.className = "pcb-dims";
     wrapper.appendChild(el);
   }
-  el.textContent = text;
+  el.textContent = "";
+  if (text) el.appendChild(Object.assign(document.createElement("span"), { className: "pcb-dims-text", textContent: text }));
+  if (errors) {
+    const n = errors.length;
+    const badge = document.createElement("button");
+    badge.type = "button";
+    badge.className = "pcb-checks" + (n ? " has-issues" : "");
+    badge.textContent = n ? `⚠ ${n} issue${n === 1 ? "" : "s"}` : "✓ clean";
+    badge.title = "Clearance floor + DRC checks";
+    badge.addEventListener("click", (e) => { e.stopPropagation(); openChecksModal(wrapper, picks); });
+    el.appendChild(badge);
+  }
+}
+
+// --- Board-checks modal ---
+// One panel opened from the chip's checks badge: the clearance floor with its tightest
+// cross-net pairs, then the genuine overlap/DRC errors (or a clean note). Text-only via
+// textContent — error strings are raw circuit-json messages.
+function closeChecksModal(wrapper) {
+  const m = wrapper && wrapper.querySelector(".pcb-checks-modal");
+  if (m) m.remove();
+}
+function makeRow(cls, left, right) {
+  const row = document.createElement("div");
+  row.className = cls;
+  row.appendChild(Object.assign(document.createElement("span"), { className: "k", textContent: left }));
+  if (right != null) row.appendChild(Object.assign(document.createElement("span"), { className: "v", textContent: right }));
+  return row;
+}
+function openChecksModal(wrapper, picks) {
+  closeChecksModal(wrapper);
+  const clearance = (picks && picks.clearance) || {};
+  const errors = (picks && Array.isArray(picks.errors)) ? picks.errors : [];
+
+  const modal = document.createElement("div");
+  modal.className = "pcb-checks-modal";
+  modal.addEventListener("click", () => closeChecksModal(wrapper));
+  const card = document.createElement("div");
+  card.className = "pcb-checks-card";
+  card.addEventListener("click", (e) => e.stopPropagation());
+
+  const head = document.createElement("div");
+  head.className = "pcb-checks-head";
+  head.appendChild(Object.assign(document.createElement("span"), { textContent: "Board checks" }));
+  const x = Object.assign(document.createElement("button"), { type: "button", className: "pcb-checks-x", textContent: "✕" });
+  x.addEventListener("click", () => closeChecksModal(wrapper));
+  head.appendChild(x);
+  card.appendChild(head);
+
+  // Clearance floor + tightest pairs.
+  if (typeof clearance.floor === "number") {
+    card.appendChild(Object.assign(document.createElement("div"), { className: "pcb-checks-h", textContent: `Clearance floor — ${clearance.floor.toFixed(3)} mm` }));
+    for (const p of (clearance.tight || [])) card.appendChild(makeRow("pcb-checks-row", `${p.a} ↔ ${p.b}`, `${p.gap.toFixed(3)} mm`));
+  }
+
+  // Genuine overlap / DRC errors.
+  card.appendChild(Object.assign(document.createElement("div"), { className: "pcb-checks-h", textContent: errors.length ? `Issues (${errors.length})` : "Issues" }));
+  if (!errors.length) {
+    card.appendChild(Object.assign(document.createElement("div"), { className: "pcb-checks-clean", textContent: "No clearance or overlap errors." }));
+  } else {
+    for (const er of errors) card.appendChild(makeRow("pcb-checks-row issue", er.text, er.kind));
+  }
+
+  modal.appendChild(card);
+  wrapper.appendChild(modal);
 }
 
 // --- Thumbnail ---

@@ -3,7 +3,9 @@
  * out/<board>.picks.json — the semantic layer the web viewer's pad picker
  * hit-tests against. The rendered copper SVGs are anonymous Gerber geometry;
  * this carries the identity (component ref, pin, net) and position for each
- * pad so a click can name what it landed on.
+ * pad so a click can name what it landed on. It also carries the board readout the
+ * viewer's dims chip shows — size, and (via clearance.ts) the copper clearance floor +
+ * the genuine overlap/DRC errors.
  *
  *   bun pick-data.ts <board.tsx> [circuit.json]
  *
@@ -20,6 +22,7 @@
 import { execFileSync } from "node:child_process"
 import { readFileSync, writeFileSync, rmSync } from "node:fs"
 import path from "node:path"
+import { analyzeClearance } from "./clearance"
 
 const arg = process.argv[2]
 if (!arg) {
@@ -153,7 +156,11 @@ function distill(circuit: any[]) {
       ? { width: round(boardEl.width), height: round(boardEl.height) }
       : null
 
-  return { board, unitsPerMm: 1000, size, pads, vias, traces }
+  // Discrete-copper clearance floor + the genuine DRC findings (clearance.ts), for the
+  // viewer's board readout. Both derive from the same routed circuit-json.
+  const { floor, tight, errors } = analyzeClearance(circuit)
+
+  return { board, unitsPerMm: 1000, size, pads, vias, traces, clearance: { floor, tight }, errors }
 }
 
 function round(n: number) {
