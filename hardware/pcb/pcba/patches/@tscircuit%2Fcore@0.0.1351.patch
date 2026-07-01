@@ -179,7 +179,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..0f736e719048144919216af367516252
 +          const ly = cp._parsedProps && cp._parsedProps.layer;
 +          if (typeof ly === "string" && ly.indexOf("inner") === 0) pouredInner.add(ly);
 +        }
-+        if (false /* HSM: route signals on all layers (was: strip inner + cap to top/bottom) */ && pouredInner.size > 0 && Array.isArray(baseSimpleRouteJson.obstacles)) {
++        if (pouredInner.size > 0 && Array.isArray(baseSimpleRouteJson.obstacles)) {
 +          baseSimpleRouteJson.obstacles = baseSimpleRouteJson.obstacles
 +            .map((o) => o.layers ? { ...o, layers: o.layers.filter((l) => !pouredInner.has(l)) } : o)
 +            .filter((o) => !o.layers || o.layers.length > 0);
