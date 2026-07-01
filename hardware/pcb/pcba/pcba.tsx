@@ -34,6 +34,13 @@
  * esp32-pinout.mmd). tscircuit's schematic-trace-solver — NOT the PCB autorouter — hangs on
  * this dense layout whenever a net is added; the capacity-autorouter handles the PCB fine.
  * Disabling the schematic removes the hang and speeds every render; the gerbers are unaffected.
+ *
+ * `autorouter.traceClearance` (the homesodamachine core patch feeds it to the capacity
+ * solver's obstacle margin) is the packing target, and its floor is counter-intuitive: too
+ * HIGH and the router can't meet it in the dense pump-driver comb, crams the leftover space,
+ * and the realized min gap COLLAPSES. Swept (0.12–0.45): 0.45 gave 3 sub-0.1 mm clearance
+ * DRC errors (floor 0.087); the clean zone is 0.18–0.25; 0.25 realizes the widest floor
+ * (~0.24 mm, ~2.7× JLCPCB's 0.089 min) at 112 vias. Don't raise it back toward 0.45.
  */
 import { at, Cap, Res, Jst, ulnOUT } from "./carrier_parts"
 import { Uln2803, Mcp23017, Ds3231Smd, Thvd1426, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn } from "./pcba_parts"
@@ -50,7 +57,7 @@ import { A_19_217_BHC_ZL1M2RY_3T as LedBlu } from "./imports/A_19_217_BHC_ZL1M2R
 const ID = boardVersionParts()
 
 export default () => (
-  <board layers={6} schematicDisabled outline={[{ x: -67.5, y: -38 }, { x: 27, y: -38 }, { x: 27, y: 36 }, { x: -67.5, y: 36 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.45 }}>
+  <board layers={6} schematicDisabled outline={[{ x: -67.5, y: -38 }, { x: 27, y: -38 }, { x: 27, y: 36 }, { x: -67.5, y: 36 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.25 }}>
     {/* DS3231SN RTC + CR2032 backup, east of the ESP. U6 (the SOIC) sits high with its
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
