@@ -104,9 +104,8 @@ const XH254_BY_COUNT: Record<number, string> = {
 // turned a quarter-turn and every label reads the same way (bottom-to-top
 // vertical, left-to-right horizontal). The pin labels are drawn here, not by the
 // footprint (whose auto labels lock vertical rows to top-to-bottom); the footprint
-// string is pads-only. Margins to the fence are even on all four sides; labelDir
-// flips the function label to the loom-facing side (clear of the trunk traces).
-export const Jst = ({ name, x, y, count, labels, rot = 0, label, labelDir, jlcpcb }: { name: string; x: number; y: number; count: number; labels: string[]; rot?: number; label: string; labelDir?: number; jlcpcb?: string }) => {
+// string is pads-only. Margins to the fence are even on all four sides.
+export const Jst = ({ name, x, y, count, labels, rot = 0, label, side, jlcpcb }: { name: string; x: number; y: number; count: number; labels: string[]; rot?: number; label: string; side?: string; jlcpcb?: string }) => {
   const vertical = rot % 180 !== 0
   const pitch = 2.5, padR = 0.825                   // XH 2.5 mm pitch, 1.65 mm pad radius
   const bigHalf = 0.42, smHalf = 0.24               // ink cap half-heights (0.6 × font size)
@@ -115,9 +114,11 @@ export const Jst = ({ name, x, y, count, labels, rot = 0, label, labelDir, jlcpc
   // rotation that makes the text read bottom-to-top), so the function label sits on
   // the -X side — the side that reads as ABOVE the pins once the board is turned to
   // read it — and the pin labels + ref-des on +X. Uniform across all connectors so
-  // they're consistent; labelDir is accepted but no longer needed for this.
+  // they're consistent.
   const perpDir = vertical ? -1 : 1
   const bigOff = padR + G + bigHalf                 // row -> function label
+  const goofyOff = padR * 2 + G + bigHalf + 2
+  const goffyOffRealized = side == "N" ? (goofyOff-0.5) : -goofyOff
   const labelOff = padR + G + smHalf                // row -> pin label
   const refOff = labelOff + smHalf + G + smHalf     // row -> ref-des (one tier beyond pin labels)
   const uc = ((bigOff + bigHalf) - (refOff + smHalf)) / 2     // fence centre, perpendicular
@@ -128,6 +129,7 @@ export const Jst = ({ name, x, y, count, labels, rot = 0, label, labelDir, jlcpc
   const [bdx, bdy] = P(bigOff, 0)
   const [rdx, rdy] = P(-refOff, 0)
   const [fdx, fdy] = P(uc, 0)
+  const [gdx, gdy] = P(goffyOffRealized, 0)
   const part = jlcpcb ?? XH254_BY_COUNT[count]
   return (
     <>
@@ -139,6 +141,7 @@ export const Jst = ({ name, x, y, count, labels, rot = 0, label, labelDir, jlcpc
       })}
       <silkscreentext text={label} fontSize="1.4mm" pcbX={x + bdx} pcbY={y + bdy} pcbRotation={rot} />
       <silkscreentext text={name} fontSize="0.8mm" pcbX={x + rdx} pcbY={y + rdy} pcbRotation={rot} />
+      <silkscreentext text={label} fontSize="1.4mm" pcbX={x + gdx} pcbY={y + gdy} pcbRotation={rot} />
     </>
   )
 }
