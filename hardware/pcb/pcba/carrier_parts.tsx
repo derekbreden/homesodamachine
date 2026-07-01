@@ -105,7 +105,14 @@ const XH254_BY_COUNT: Record<number, string> = {
 // vertical, left-to-right horizontal). The pin labels are drawn here, not by the
 // footprint (whose auto labels lock vertical rows to top-to-bottom); the footprint
 // string is pads-only. Margins to the fence are even on all four sides.
-export const Jst = ({ name, x, y, count, labels, rot = 0, label, side, jlcpcb }: { name: string; x: number; y: number; count: number; labels: string[]; rot?: number; label: string; side?: string; jlcpcb?: string }) => {
+//
+// A seated wafer hides everything inside the fence, so a second copy of the function
+// label is drawn OUTBOARD of the fence — past the body — where it survives assembly.
+// `side` is the board edge this connector faces (N/S/E/W): it picks which way is
+// outboard, dropping that label into the margin between the fence and the board edge
+// (the same [0,off]/[off,0] convention Cap/Res use). The board's connector-to-edge
+// insets are even, so that outboard margin is the same on every edge.
+export const Jst = ({ name, x, y, count, labels, rot = 0, label, side, jlcpcb }: { name: string; x: number; y: number; count: number; labels: string[]; rot?: number; label: string; side: "N" | "S" | "E" | "W"; jlcpcb?: string }) => {
   const vertical = rot % 180 !== 0
   const pitch = 2.5, padR = 0.825                   // XH 2.5 mm pitch, 1.65 mm pad radius
   const bigHalf = 0.42, smHalf = 0.24               // ink cap half-heights (0.6 × font size)
@@ -117,8 +124,6 @@ export const Jst = ({ name, x, y, count, labels, rot = 0, label, side, jlcpcb }:
   // they're consistent.
   const perpDir = vertical ? -1 : 1
   const bigOff = padR + G + bigHalf                 // row -> function label
-  const goofyOff = padR * 2 + G + bigHalf + 2
-  const goffyOffRealized = side == "N" ? (goofyOff-0.5) : -goofyOff
   const labelOff = padR + G + smHalf                // row -> pin label
   const refOff = labelOff + smHalf + G + smHalf     // row -> ref-des (one tier beyond pin labels)
   const uc = ((bigOff + bigHalf) - (refOff + smHalf)) / 2     // fence centre, perpendicular
@@ -129,7 +134,12 @@ export const Jst = ({ name, x, y, count, labels, rot = 0, label, side, jlcpcb }:
   const [bdx, bdy] = P(bigOff, 0)
   const [rdx, rdy] = P(-refOff, 0)
   const [fdx, fdy] = P(uc, 0)
-  const [gdx, gdy] = P(goffyOffRealized, 0)
+  // Survives-assembly label: outboard of the fence's outer edge (its deeper, ref-des
+  // side sits dep/2 + |uc| from the pin row), cleared by the content margin M plus the
+  // ink's own half-height. Symmetric about the pins (the body is), so one offset serves
+  // every edge; `side` — the board edge faced — only picks the outboard direction.
+  const surviveOff = dep / 2 + Math.abs(uc) + M + bigHalf
+  const [sdx, sdy] = side === "N" ? [0, surviveOff] : side === "S" ? [0, -surviveOff] : side === "E" ? [surviveOff, 0] : [-surviveOff, 0]
   const part = jlcpcb ?? XH254_BY_COUNT[count]
   return (
     <>
@@ -141,7 +151,7 @@ export const Jst = ({ name, x, y, count, labels, rot = 0, label, side, jlcpcb }:
       })}
       <silkscreentext text={label} fontSize="1.4mm" pcbX={x + bdx} pcbY={y + bdy} pcbRotation={rot} />
       <silkscreentext text={name} fontSize="0.8mm" pcbX={x + rdx} pcbY={y + rdy} pcbRotation={rot} />
-      <silkscreentext text={label} fontSize="1.4mm" pcbX={x + gdx} pcbY={y + gdy} pcbRotation={rot} />
+      <silkscreentext text={label} fontSize="1.4mm" pcbX={x + sdx} pcbY={y + sdy} pcbRotation={rot} />
     </>
   )
 }
