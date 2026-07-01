@@ -526,7 +526,9 @@ export default () => (
         auto-reset fans DOWN from the CH340's south-edge DTR/RTS: the EN branch runs SW
         (R17 -> Q2 -> SW2 -> WROOM EN), the IO0 branch runs SE (R18 -> Q3 -> SW1 -> WROOM IO0),
         each transistor sitting between U13 and its button/WROOM pin. TXD/RXD drop to the
-        WROOM UART pins. Spread wide into the space below the buttons + below RELAYS. */}
+        WROOM UART pins. Spread wide into the space below the buttons + below RELAYS — this
+        spread (not the chip rotation) is what brings the via count down. BOOT/RESET end up
+        ~25 mm apart; pulling them adjacent re-crowds the pocket (back to 165 vias + DRC). */}
     <UsbC name="J14" pcbX={-56} pcbY={31.6} pcbRotation={180} />
     <Usblc6 name="U14" pcbX={-56} pcbY={26.5} pcbRotation={0} />
     <CH340C name="U13" pcbX={-54} pcbY={20.5} pcbRotation={180} />
