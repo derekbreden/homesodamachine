@@ -84,7 +84,7 @@ export default () => (
     <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-58.5} y={-14.0} rot={90} />
     <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-53.5} y={-14.0} rot={90} side="E" />
     <resistor name="R8" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} pcbRotation={0} {...at(-45.25, 12.1)} />
-    <Jst name="J12" x={-38.68} y={31} count={6} labels={["3V3", "EN", "TX0", "RX0", "IO0", "GND"]} rot={0} label="PROG" />
+    <Jst name="J12" x={-38.68} y={31} count={6} labels={["3V3", "EN", "TX0", "RX0", "IO0", "GND"]} rot={0} label="PROG" side="N" />
     {/* RS-485 to the front display (J9). THVD1426 auto-direction transceiver (U7):
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
         only D (from ESP TX) and R (to ESP RX) are driven. R6 = 120R line termination
@@ -128,17 +128,17 @@ export default () => (
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
-    <Jst name="J13" x={-23.63} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} rot={0} label="PUMPS" labelDir={1} />
+    <Jst name="J13" x={-23.63} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} rot={0} label="PUMPS" labelDir={1} side="N" />
     <Jst name="J3" x={-31.33} y={-32} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" />
     <Jst name="J4" x={-16.28} y={-32} count={6} labels={["GND", "V5", "IO25", "IO26", "IO27", "3V3"]} rot={0} label="SENSORS" />
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
         (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
         IO19 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
-    <Jst name="J5" x={-53.73} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} rot={0} label="RELAYS" />
-    <Jst name="J6" x={4.17} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" />
+    <Jst name="J5" x={-53.73} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} rot={0} label="RELAYS" side="N" />
+    <Jst name="J6" x={4.17} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" side="N" />
     <Jst name="J7" x={2.52} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
     <Jst name="J9" x={-42.63} y={-32} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" />
-    <Jst name="J10" x={15.73} y={30.95} count={2} labels={["GND", "V12"]} rot={0} label="12V" labelDir={1} />
+    <Jst name="J10" x={15.73} y={30.95} count={2} labels={["GND", "V12"]} rot={0} label="12V" labelDir={1} side="N" />
     <Jst name="J11" x={-53.93} y={-32} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} rot={0} label="GAS" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
