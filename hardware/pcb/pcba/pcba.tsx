@@ -507,45 +507,40 @@ export default () => (
     <trace from=".D6 > .cathode" to="net.GND" />
 
     {/* ── USB-C programming block ─────────────────────────────────────────────────────
-        Replaces the old PROG JST: a USB-C receptacle (J14, west edge above the WROOM
-        antenna) + CH340C USB-UART bridge (U13) flash the WROOM over a plain USB-C cable.
-        DATA ONLY — the bridge runs off the board 3V3 (the board is 12 V-powered and does
-        nothing without it), so USB VBUS powers nothing; CC1/CC2 get 5.1k Rd pulldowns
-        (R15/R16) so a host enumerates us as a device; U14 (USBLC6) clamps D+/D-; both
-        D+ / both D- pads are tied so the cable works either way up.
-        AUTO-RESET (esptool with no button press): DTR/RTS drive the classic cross-coupled
-        NPN pair — Q2 pulls EN, Q3 pulls IO0 — so neither line drops when a serial monitor
-        asserts both. Derived from esptool ClassicReset polarity (assert = pin LOW):
+        USB-C receptacle (J14, north edge above the WROOM, opening flush to the board edge) +
+        CH340C USB-UART bridge (U13) flash the WROOM over a plain USB-C cable. Data only: the
+        bridge runs off the board 3V3, VBUS powers nothing. CC1/CC2 carry 5.1k Rd pulldowns
+        (R15/R16); U14 (USBLC6) clamps D+/D-; both D+ / both D- pads tie for either cable
+        orientation.
+        AUTO-RESET: DTR/RTS drive a cross-coupled NPN pair — Q2 pulls EN, Q3 pulls IO0.
+        esptool ClassicReset polarity (assert = pin LOW):
           Q2 (EN):  base=DTR, emitter=RTS, collector=EN   -> EN low only when DTR high, RTS low
           Q3 (IO0): base=RTS, emitter=DTR, collector=IO0  -> IO0 low only when RTS high, DTR low
-        Both-asserted or both-idle => Vbe=0 => off => no reset. R17/R18 limit base current; the
-        pull sides are the existing EN RC (R7/C12) and IO0 pull-up (R8). BOOT (SW1) and RESET
-        (SW2) tacts are the manual overrides (diagonal pads = the two switch terminals). */}
-    {/* Arranged along the signal flow rather than stacked. D+/D- is a clean vertical
-        column: USB-C (north edge) -> ESD -> CH340 (rot 180, D+/D- on its north edge). The
-        auto-reset fans DOWN from the CH340's south-edge DTR/RTS: the EN branch runs SW
-        (R17 -> Q2 -> SW2 -> WROOM EN), the IO0 branch runs SE (R18 -> Q3 -> SW1 -> WROOM IO0),
-        each transistor sitting between U13 and its button/WROOM pin. TXD/RXD drop to the
-        WROOM UART pins. Spread wide into the space below the buttons + below RELAYS — this
-        spread (not the chip rotation) is what brings the via count down. BOOT/RESET end up
-        ~25 mm apart; pulling them adjacent re-crowds the pocket (back to 165 vias + DRC). */}
-    <UsbC name="J14" pcbX={-51.6} pcbY={31.05} pcbRotation={180} />
-    <Usblc6 name="U14" pcbX={-40.2} pcbY={24.4} pcbRotation={180} />
-    <CH340C name="U13" pcbX={-46.8} pcbY={20.85} pcbRotation={90} />
-    <resistor name="R15" resistance="5.1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23186"] }} {...at(-44.2, 34.85)} />
-    <resistor name="R16" resistance="5.1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23186"] }} {...at(-58.9, 34.7)} pcbRotation={180} />
-    <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-58.9} y={31.6} rot={180} side="S" />
-    <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-44} y={31.9} rot={0} side="S" />
-    {/* EN branch, fanned west toward the WROOM EN pin: R17 -> Q2 -> SW2 */}
-    <resistor name="R17" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-53.9, 20.9)} pcbRotation={180} />
-    <S8050 name="Q2" pcbX={-54.3} pcbY={24.85} pcbRotation={0} />
-    <silkscreentext text="Q2" fontSize="0.8mm" anchorAlignment="center" pcbX={-60.5} pcbY={19} />
-    <Tact name="SW2" pcbX={-61.7} pcbY={22.7} pcbRotation={180} />
-    {/* IO0 branch, fanned east into the space below RELAYS: R18 -> Q3 -> SW1 */}
-    <resistor name="R18" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-53.85, 17.5)} pcbRotation={180} />
-    <S8050 name="Q3" pcbX={-53.65} pcbY={13.85} pcbRotation={270} />
-    <silkscreentext text="Q3" fontSize="0.8mm" anchorAlignment="center" pcbX={-43} pcbY={15.5} />
-    <Tact name="SW1" pcbX={-61.65} pcbY={14.45} pcbRotation={180} />
+        Both-asserted or both-idle => Vbe=0 => off. R17/R18 are the base resistors; the pull
+        sides are the EN RC (R7/C12) and the IO0 pull-up (R8). BOOT (SW1) and RESET (SW2) tacts
+        are the manual overrides (diagonal pads = the two switch terminals). */}
+    {/* Layout: J14 / U14 / U13 stack on x=-51.5, D+/D- running down the column. BOOT/RESET
+        tacts stack on the west edge (x=-62). The auto-reset pair straddles the CH340's
+        south-edge DTR/RTS — Q2 west (collector to the WROOM EN pin at the SW corner), Q3 east
+        by IO0 + its pull-up R8 — with R17/R18 between. CC pulldowns sit in the top corners;
+        C22 rides U14's VBUS, C21 rides U13's 3V3. R15 / C21 / Q3 share x=-44. */}
+    <UsbC name="J14" pcbX={-51.5} pcbY={31.3} pcbRotation={180} />
+    <Usblc6 name="U14" pcbX={-51.5} pcbY={25.7} pcbRotation={180} />
+    <CH340C name="U13" pcbX={-51.5} pcbY={19.3} pcbRotation={180} />
+    <resistor name="R16" resistance="5.1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23186"] }} {...at(-58.9, 34.7)} />
+    <resistor name="R15" resistance="5.1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23186"] }} {...at(-44, 34.7)} />
+    <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-47.5} y={25.7} rot={90} side="E" />
+    <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-44} y={20} rot={90} side="E" />
+    {/* EN branch (west): U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
+    <resistor name="R17" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-53, 14.5)} />
+    <S8050 name="Q2" pcbX={-56.5} pcbY={13} pcbRotation={0} />
+    <silkscreentext text="Q2" fontSize="0.8mm" anchorAlignment="center" pcbX={-56.5} pcbY={10.9} />
+    <Tact name="SW2" pcbX={-62} pcbY={27} pcbRotation={0} />
+    {/* IO0 branch (east): U13.RTS -> R18 -> Q3.base; U13.DTR -> Q3.emitter; Q3.collector -> IO0; SW1 */}
+    <resistor name="R18" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-49, 14.5)} />
+    <S8050 name="Q3" pcbX={-44} pcbY={16} pcbRotation={0} />
+    <silkscreentext text="Q3" fontSize="0.8mm" anchorAlignment="center" pcbX={-41.9} pcbY={16} />
+    <Tact name="SW1" pcbX={-62} pcbY={20} pcbRotation={0} />
     {/* USB-C: GND (pin13/14) + shield ears (pin1-4) to plane; VBUS (pin15/16) to the ESD
         rail only (not board power); CC1 (pin6) / CC2 (pin12) each to a 5.1k Rd; D+ = pin8+pin10,
         D- = pin7+pin9 (both orientations tied). */}
