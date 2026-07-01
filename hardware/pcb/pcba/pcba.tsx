@@ -35,17 +35,12 @@
  * this dense layout whenever a net is added; the capacity-autorouter handles the PCB fine.
  * Disabling the schematic removes the hang and speeds every render; the gerbers are unaffected.
  */
-import { at, Cap, Jst, ulnOUT } from "./carrier_parts"
-import { Uln2803, Mcp23017, Ds3231Smd, Thvd1426, Sm712 } from "./pcba_parts"
+import { at, Cap, Res, Jst, ulnOUT } from "./carrier_parts"
+import { Uln2803, Mcp23017, Ds3231Smd, Thvd1426, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn } from "./pcba_parts"
 import { K7803_1000R3 } from "./imports/K7803_1000R3"
-import { K7805_2000R3 } from "./imports/K7805_2000R3"
 import { DRV8870DDAR as Drv8870 } from "./imports/DRV8870DDAR"
 import { boardVersionParts } from "./board-version"
 import { logoRoutes } from "./logo"
-import { NXB_25V470_10_12_5 } from "./imports/NXB_25V470_10_12_5"
-import { MLT_5020 } from "./imports/MLT_5020"
-import { S8050_J3Y_RANGE_200_350_ as S8050 } from "./imports/S8050_J3Y_RANGE_200_350_"
-import { KH_CR2032_2_1 as CoinCell } from "./imports/KH_CR2032_2_1"
 import { ESP32_WROOM_32E_N4 as Wroom } from "./imports/ESP32_WROOM_32E_N4"
 import { KT_0603R as LedRed } from "./imports/KT_0603R"
 import { A_19_217_GHC_YR1S2_3T as LedGrn } from "./imports/A_19_217_GHC_YR1S2_3T"
@@ -60,7 +55,7 @@ export default () => (
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
         pin2 (-> GND); the cell is retained by the molded base, not SMT clips. */}
-    <CoinCell name="BT1" pcbX={-18.6} pcbY={-2} pcbRotation={0} />
+    <CoinHolder name="BT1" x={-18.6} y={-2} />
     <Ds3231Smd name="U6" x={-38.05} y={7.1} />
     <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-40.4} y={14.35} rot={180} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio, antenna keepout
@@ -98,7 +93,7 @@ export default () => (
     <K7803_1000R3 name="U9" pcbX={-10.22} pcbY={28.45} pcbRotation={0} />
     <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-14.22} y={24.45} rot={0} side="S" />
     <Cap name="C14" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-6.23} y={24.35} rot={0} side="S" />
-    <K7805_2000R3 name="U10" pcbX={16.13} pcbY={-25.95} pcbRotation={180} />
+    <Buck5 name="U10" x={16.13} y={-25.95} />
     <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={16.28} y={-30.2} rot={0} side="S" />
     <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={23.98} y={-25.65} rot={270} side="S" />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
@@ -107,7 +102,7 @@ export default () => (
         ISEN->GND, VREF->3V3, IN1/IN2 from the ESP north-edge pins, OUT1/OUT2 to PUMPS. 10uF +
         0.1uF VM decoupling per chip. */}
     <Drv8870 name="U11" pcbX={-27.95} pcbY={22} pcbRotation={0} />
-    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-31.6} y={15.65} rot={0} side="N" />
+    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-31.6} y={15.65} rot={0} side="S" />
     <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-26.55} y={15.7} rot={0} side="S" />
     <Drv8870 name="U12" pcbX={-21} pcbY={22} pcbRotation={0} />
     <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-21.05} y={15.7} rot={0} side="S" />
@@ -116,9 +111,9 @@ export default () => (
     <Mcp23017 name="U3" x={-0.15} y={-21.35} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={11.8} y={8.45} />
     <Uln2803 name="U5" x={11.9} y={-8.35} />
-    <MLT_5020 name="U8" {...at(-36.3, -8.4)} pcbRotation={90} />
-    <S8050 name="Q1" {...at(-35.8, -2.35)} pcbRotation={180} />
-    <resistor name="R5" resistance="1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C21190"] }} {...at(-40.7, -1.05)} pcbRotation={180} />
+    <Buzzer name="U8" x={-36.3} y={-8.4} />
+    <Npn name="Q1" x={-35.8} y={-2.35} />
+    <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-40.7} y={-1.05} rot={180} side="N" />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
     <Jst name="J1" x={21.6} y={12.45} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
@@ -145,7 +140,7 @@ export default () => (
         for DOUT). The midpoint taps right into the ESP; AOUT: R1/R2 -> IO39, DOUT:
         R3/R4 -> IO36. IO36/IO39 are the ADC1 input-only pins at the west end of the ESP
         south edge; the dividers sit just below them, the GAS connector below the dividers. */}
-    <resistor name="R1" resistance="2.2k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C4190"] }} pcbRotation={180} {...at(-59, -25)} />
+    <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={-59} y={-25} rot={180} side="S" />
     <resistor name="R2" resistance="3.3k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22978"] }} pcbRotation={0} {...at(-59, -21.3)} />
     <resistor name="R3" resistance="2.2k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C4190"] }} pcbRotation={0} {...at(-63, -25)} />
     <resistor name="R4" resistance="3.3k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22978"] }} pcbRotation={0} {...at(-63, -21.3)} />
@@ -240,7 +235,7 @@ export default () => (
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
     <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-4.5} y={12} rot={0} side="S" />
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={7.2} y={-26.9} rot={180} side="E" />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={7.2} y={-26.9} rot={180} side="W" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
@@ -445,7 +440,7 @@ export default () => (
         block. C3 is polarized: pin1 (+) is V12. */}
     <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={14.4} y={-16.6} rot={0} side="S" />
     <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={14.3} y={0.2} rot={0} side="S" />
-    <NXB_25V470_10_12_5 name="C3" pcbRotation={0} {...at(12.75, 21.8)} />
+    <BulkCap name="C3" x={12.75} y={21.8} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
     <trace from=".C2 > .pin1" to="net.V12" />
@@ -508,12 +503,14 @@ export default () => (
 
     {/* ── M3 mounting holes, one per corner, plated and tied to GND so a metal screw can't
         bridge a power plane (GND connects on the bottom plane; V12 / 3V3 / 5V / SDA / SCL
-        antipad). No board grow — the edge connectors (and the U9/U10 bucks) were packed
-        east/west to open a connector-clear gap in each corner; the holes sit in those gaps. */}
-    <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-63.65} pcbY={32.5} />
-    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={23.15} pcbY={32.5} />
-    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={23.4} pcbY={-33.5} />
-    <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-63.9} pcbY={-33.5} />
+        antipad). A symmetric rectangle: every hole is inset 3.5 mm from both of its board
+        edges (centred on the board, ~2.8–4.4 mm clear of the nearest connector at each
+        corner). No board grow — the edge connectors were packed east/west to open the
+        corner gaps the holes sit in. */}
+    <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.0} pcbY={32.5} />
+    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={23.5} pcbY={32.5} />
+    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={23.5} pcbY={-34.5} />
+    <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.0} pcbY={-34.5} />
 
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
         monocolor silk via logo.ts) over the centered name + version, a compact

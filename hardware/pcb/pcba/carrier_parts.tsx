@@ -50,6 +50,27 @@ export const Cap = ({ name, capacitance, footprint, jlcpcb, x, y, rot = 90, side
   )
 }
 
+// ---- SMD resistor with a hand-drawn ref-des -------------------------------
+// Same idea as Cap: a resistor rotated 180° for routing prints its footprint
+// ref-des upside-down, so suppress it (`_norefdes`, keeps the silk fence) and
+// redraw it upright, at a fence-derived offset that rides with (x,y).
+const RES_FENCE_HALF: Record<string, number> = { "0402": 0.65, "0603": 0.875, "0805": 1.1 }
+export const Res = ({ name, resistance, footprint, jlcpcb, x, y, rot = 0, side }: {
+  name: string; resistance: string; footprint: string; jlcpcb: string
+  x: number; y: number; rot?: number; side?: "N" | "S" | "E" | "W"
+}) => {
+  const vertical = rot % 180 !== 0
+  const s = side ?? (vertical ? "W" : "N")
+  const off = (RES_FENCE_HALF[footprint] ?? 0.875) + REFDES_GAP
+  const [lx, ly] = s === "N" ? [0, off] : s === "S" ? [0, -off] : s === "E" ? [off, 0] : [-off, 0]
+  return (
+    <>
+      <resistor name={name} resistance={resistance} footprint={`${footprint}_norefdes`} supplierPartNumbers={{ jlcpcb: [jlcpcb] }} pcbRotation={rot} {...at(x, y)} />
+      <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x + lx} pcbY={y + ly} pcbRotation={vertical ? 90 : 0} />
+    </>
+  )
+}
+
 // A stroked rectangle on the silk layer — a part's PCB outline / fence.
 export const Outline = ({ x, y, w, h }: { x: number; y: number; w: number; h: number }) => (
   <silkscreenpath

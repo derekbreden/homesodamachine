@@ -8,6 +8,11 @@
  * not-yet-converted ones from ./carrier_parts.
  */
 import { at } from "./carrier_parts"
+import { K7805_2000R3 } from "./imports/K7805_2000R3"
+import { MLT_5020 } from "./imports/MLT_5020"
+import { KH_CR2032_2_1 } from "./imports/KH_CR2032_2_1"
+import { NXB_25V470_10_12_5 } from "./imports/NXB_25V470_10_12_5"
+import { S8050_J3Y_RANGE_200_350_ } from "./imports/S8050_J3Y_RANGE_200_350_"
 
 // ---- ULN2803A — SOIC-18 (300 mil wide) -------------------------------------
 // Octal Darlington sink driver. C845537 (UMW ULN2803A, SOP-18-300mil). Pinout:
@@ -52,15 +57,21 @@ const mcpPinLabels = {
   pin25: "GPA4", pin26: "GPA5", pin27: "GPA6", pin28: "GPA7",
 }
 
+// The soic28 footprint is `_norefdes` (its auto ref-des locks to the chip's 90°/270°
+// rotation and reads sideways), so the ref-des is drawn here, upright and centred on
+// the body — a pure function of (x,y), so it rides when the chip is moved.
 export const Mcp23017 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; addr?: string; rot?: number }) => (
-  <chip
-    name={name}
-    footprint="soic28_w7.5mm_p1.27mm_norefdes"
-    pcbRotation={rot}
-    pinLabels={mcpPinLabels}
-    supplierPartNumbers={{ jlcpcb: ["C47023"] }}
-    {...at(x, y)}
-  />
+  <>
+    <chip
+      name={name}
+      footprint="soic28_w7.5mm_p1.27mm_norefdes"
+      pcbRotation={rot}
+      pinLabels={mcpPinLabels}
+      supplierPartNumbers={{ jlcpcb: ["C47023"] }}
+      {...at(x, y)}
+    />
+    <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x} pcbY={y} />
+  </>
 )
 
 // ---- DS3231SN — SOIC-16 (300 mil) ------------------------------------------
@@ -121,4 +132,59 @@ export const Sm712 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: num
     supplierPartNumbers={{ jlcpcb: ["C12067"] }}
     {...at(x, y)}
   />
+)
+
+// ---- labeled wrappers for imported parts -----------------------------------
+// These imports either carry no footprint ref-des (coin holder, bulk cap, buzzer)
+// or one that reads upside-down at the part's seating rotation (the rot-180 buck +
+// transistor). Each wrapper draws an upright ref-des whose position is a pure
+// function of (x,y) — so it rides with the part when moved, the Cap/Jst convention —
+// and bakes in the fixed seating rotation. `dx/dy` place the label just off the
+// printed body: outside it for the tall through-hole parts (coin, bulk cap, buzzer),
+// inside the fence above the pin row for the buck (matches U9). The buzzer/coin/bulk
+// bodies stand over the board, so their labels sit clear of the footprint.
+type Labeled = { name: string; x: number; y: number }
+const refdes = (name: string, x: number, y: number) =>
+  <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x} pcbY={y} />
+
+// K7805 5 V buck (seats rot 180): label upright inside the fence, above the pins.
+export const Buck5 = ({ name, x, y }: Labeled) => (
+  <>
+    <K7805_2000R3 name={name} pcbRotation={180} {...at(x, y)} />
+    {refdes(name, x, y + 3)}
+  </>
+)
+
+// MLT-5020 magnetic buzzer (seats rot 90): label in the open lane to the west
+// (Q1 sits north, an LED resistor south).
+export const Buzzer = ({ name, x, y }: Labeled) => (
+  <>
+    <MLT_5020 name={name} pcbRotation={90} {...at(x, y)} />
+    {refdes(name, x - 4.2, y)}
+  </>
+)
+
+// CR2032 20 mm coin holder: label above the holder (its body covers the centre).
+export const CoinHolder = ({ name, x, y }: Labeled) => (
+  <>
+    <KH_CR2032_2_1 name={name} pcbRotation={0} {...at(x, y)} />
+    {refdes(name, x, y + 12)}
+  </>
+)
+
+// 470 µF radial bulk cap: label below the can (its body covers the centre).
+export const BulkCap = ({ name, x, y }: Labeled) => (
+  <>
+    <NXB_25V470_10_12_5 name={name} pcbRotation={0} {...at(x, y)} />
+    {refdes(name, x + 1.75, y - 6.3)}
+  </>
+)
+
+// S8050 NPN (seats rot 180; its import ref-des is stripped so it isn't drawn
+// upside-down): label upright just north of the body (R5 sits to the west).
+export const Npn = ({ name, x, y }: Labeled) => (
+  <>
+    <S8050_J3Y_RANGE_200_350_ name={name} pcbRotation={180} {...at(x, y)} />
+    {refdes(name, x, y + 2.85)}
+  </>
 )
