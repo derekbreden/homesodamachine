@@ -138,8 +138,8 @@ export const Jst = ({ name, x, y, count, labels, rot = 0, label, side, jlcpcb }:
   // side sits dep/2 + |uc| from the pin row), cleared by the content margin M plus the
   // ink's own half-height. Symmetric about the pins (the body is), so one offset serves
   // every edge; `side` — the board edge faced — only picks the outboard direction.
-  const surviveOff = dep / 2 + Math.abs(uc) + M + bigHalf
-  const [sdx, sdy] = side === "N" ? [0, surviveOff] : side === "S" ? [0, -surviveOff] : side === "E" ? [surviveOff, 0] : [-surviveOff, 0]
+  const surviveOff = dep / 2 + Math.abs(uc) + M + bigHalf + 0.1
+  const [sdx, sdy] = side === "N" ? [0, surviveOff+0.2] : side === "S" ? [0, -surviveOff-0.4] : side === "E" ? [surviveOff+0.4, 0] : [-surviveOff, 0]
   const part = jlcpcb ?? XH254_BY_COUNT[count]
   return (
     <>
@@ -152,6 +152,11 @@ export const Jst = ({ name, x, y, count, labels, rot = 0, label, side, jlcpcb }:
       <silkscreentext text={label} fontSize="1.4mm" pcbX={x + bdx} pcbY={y + bdy} pcbRotation={rot} />
       <silkscreentext text={name} fontSize="0.8mm" pcbX={x + rdx} pcbY={y + rdy} pcbRotation={rot} />
       <silkscreentext text={label} fontSize="1.4mm" pcbX={x + sdx} pcbY={y + sdy} pcbRotation={rot} />
+      {labels.map((lbl, i) => {
+        const pinSurviveOff = surviveOff - 0.9
+        const [dx, dy] = P(side === "N" ? (pinSurviveOff) : (-pinSurviveOff-0.35), (i - (count - 1) / 2) * pitch)
+        return <silkscreentext key={i} text={lbl} fontSize="0.8mm" pcbX={x + dx} pcbY={y + dy} pcbRotation={rot} />
+      })}
     </>
   )
 }
