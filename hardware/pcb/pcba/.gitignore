@@ -44,6 +44,8 @@ logs
 .DS_Store
 .idea
 
-# atomic-write / clearance-sweep scratch (._foo.tsx working copies, *.tmp.* renames)
+# atomic-write / clearance-sweep scratch (._foo.tsx working copies, *.tmp.* renames,
+# *.tmp.ts sweep/analysis scripts)
 ._*
 *.tmp.tsx
+*.tmp.ts
