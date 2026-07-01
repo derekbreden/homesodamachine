@@ -70,7 +70,7 @@ export default () => (
         pin2 (-> GND); the cell is retained by the molded base, not SMT clips. */}
     <CoinHolder name="BT1" x={-18.6} y={-2} />
     <Ds3231Smd name="U6" x={-38.05} y={7.1} />
-    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-40.4} y={14.35} rot={180} />
+    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-44} y={8} rot={90} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio, antenna keepout
         pointing west off the board edge. Usable GPIO sit on the north and south
         castellations only (the east edge is the module's flash); the relay/pump/buzzer/
@@ -89,7 +89,7 @@ export default () => (
     <resistor name="R7" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-63.5, -17.5)} />
     <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-58.5} y={-14.0} rot={90} />
     <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-53.5} y={-14.0} rot={90} side="E" />
-    <resistor name="R8" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} pcbRotation={0} {...at(-45.25, 12.1)} />
+    <resistor name="R8" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} pcbRotation={90} {...at(-44, 12)} />
     {/* RS-485 to the front display (J9). THVD1426 auto-direction transceiver (U7):
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
         only D (from ESP TX) and R (to ESP RX) are driven. R6 = 120R line termination
@@ -522,8 +522,9 @@ export default () => (
     {/* Layout: J14 / U14 / U13 stack on x=-51.5, D+/D- running down the column. BOOT/RESET
         tacts stack on the west edge (x=-62). The auto-reset pair straddles the CH340's
         south-edge DTR/RTS — Q2 west (collector to the WROOM EN pin at the SW corner), Q3 east
-        by IO0 + its pull-up R8 — with R17/R18 between. CC pulldowns sit in the top corners;
-        C22 rides U14's VBUS, C21 rides U13's 3V3. R15 / C21 / Q3 share x=-44. */}
+        by IO0 — with R17/R18 between. CC pulldowns sit in the top corners; C22 rides U14's
+        VBUS, C21 rides U13's 3V3. East column on x=-44, 4 mm pitch: C6 / R8 / Q3 / C21 (with
+        R15 above), R8 the IO0 pull-up spun vertical into the stack. */}
     <UsbC name="J14" pcbX={-51.5} pcbY={31.3} pcbRotation={180} />
     <Usblc6 name="U14" pcbX={-51.5} pcbY={25.7} pcbRotation={180} />
     <CH340C name="U13" pcbX={-51.5} pcbY={19.3} pcbRotation={180} />
