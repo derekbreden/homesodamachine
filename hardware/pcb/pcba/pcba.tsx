@@ -521,7 +521,7 @@ export default () => (
         Both-asserted or both-idle => Vbe=0 => off => no reset. R17/R18 limit base current; the
         pull sides are the existing EN RC (R7/C12) and IO0 pull-up (R8). BOOT (SW1) and RESET
         (SW2) tacts are the manual overrides (diagonal pads = the two switch terminals). */}
-    <UsbC name="J14" pcbX={-53} pcbY={32.5} pcbRotation={0} />
+    <UsbC name="J14" pcbX={-53} pcbY={31.6} pcbRotation={180} />
     <CH340C name="U13" pcbX={-53} pcbY={22} pcbRotation={0} />
     <Usblc6 name="U14" pcbX={-45.5} pcbY={26} pcbRotation={0} />
     <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-45.5} y={21.5} rot={0} side="N" />
