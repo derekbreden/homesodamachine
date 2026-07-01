@@ -334,7 +334,7 @@ export default () => (
         run IO18/IO17/IO16/IO4 west-to-east, the IN2/IN1 pads west-to-east — IN1/IN2 only set
         H-bridge polarity, so the firmware picks the forward sense). OUT1/OUT2 to the PUMPS
         connector. VM off 12V; GND + thermal PAD to the plane; ISEN to GND, VREF to 3V3; VM
-        decoupled by C17/C18 (U11) and C19/C20 (U12). IO13/IO14/IO15 are unconnected. */}
+        decoupled by C17/C18 (U11) and C19/C20 (U12). IO5 and IO15 are the only free GPIO. */}
     <trace from=".U1 > .IO18" to=".U11 > .IN2" />
     <trace from=".U1 > .IO17" to=".U11 > .IN1" />
     <trace from=".U11 > .VM" to="net.V12" />
