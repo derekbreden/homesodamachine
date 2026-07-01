@@ -481,11 +481,11 @@ export default () => (
         LED; ref-des silk stripped from the LED imports (it collides at this pitch), so meaning
         is by colour + position (see esp32-scope.md). */}
     {/* left — firmware R/G/B; anode toward its R (outboard, -x): D2 red rot 180, D3/D4 native */}
-    <LedRed name="D2" pcbRotation={180} {...at(-31.5, -14.05)} />
-    <LedGrn name="D3" {...at(-31.5, -17.05)} />
+    <LedRed name="D2" pcbRotation={180} {...at(-31.5, -15.05)} />
+    <LedGrn name="D3" {...at(-31.5, -17.55)} />
     <LedBlu name="D4" {...at(-31.5, -20.05)} />
-    <resistor name="R10" resistance="470" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23179"] }} {...at(-36, -14.05)} />
-    <resistor name="R11" resistance="470" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23179"] }} {...at(-36, -17.05)} />
+    <resistor name="R10" resistance="470" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23179"] }} {...at(-36, -15.05)} />
+    <resistor name="R11" resistance="470" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23179"] }} {...at(-36, -17.55)} />
     <resistor name="R12" resistance="470" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23179"] }} {...at(-36, -20.05)} />
     {/* right — power rails (green), anode toward its R (outboard, +x): both rot 180 */}
     <LedGrn name="D5" pcbRotation={180} {...at(-21.5, -17)} />
