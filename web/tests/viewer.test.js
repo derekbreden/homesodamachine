@@ -133,11 +133,29 @@ test("/pcb board modal shows the board's outer dimensions", async (t) => {
     }, board.source);
 
     await page.waitForSelector(".pcb-dims", { timeout: 10_000 });
-    const chip = await page.$eval(".pcb-dims", (el) => el.textContent.trim());
+    const chip = await page.$eval(".pcb-dims-text", (el) => el.textContent.trim());
 
+    // The chip's text segment leads with the dimensions (then vias, then the
+    // clearance floor); assert the dims prefix so it stays dynamic to a resize
+    // without pinning the trailing readout fields.
     const fmt = (n) => (Math.round(n * 10) / 10).toString();
     const want = `${fmt(size.width)} × ${fmt(size.height)} mm`;
-    assert.equal(chip, want, `dims chip "${chip}" should equal "${want}"`);
+    assert.ok(chip.startsWith(want), `dims chip "${chip}" should start with "${want}"`);
+
+    // The clearance floor + checks badge (clearance.ts -> picks.json). Robust to the
+    // board's live numbers: the floor shows when picks carry one, and the badge renders
+    // whenever picks carry an errors array (green clean / red N issues).
+    const picks = await page.evaluate(
+      (p) => fetch(`/api/pcb-picks/${p}`).then((r) => r.json()),
+      board.picks,
+    );
+    if (picks.clearance && typeof picks.clearance.floor === "number") {
+      assert.match(chip, /mm floor$/, `dims chip "${chip}" should end with the clearance floor`);
+    }
+    if (Array.isArray(picks.errors)) {
+      const badge = await page.$eval(".pcb-checks", (el) => ({ issues: el.classList.contains("has-issues") }));
+      assert.equal(badge.issues, picks.errors.length > 0, "badge has-issues should match whether errors exist");
+    }
   } finally {
     await page.close().catch(() => {});
   }
