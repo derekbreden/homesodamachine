@@ -529,23 +529,23 @@ export default () => (
         WROOM UART pins. Spread wide into the space below the buttons + below RELAYS — this
         spread (not the chip rotation) is what brings the via count down. BOOT/RESET end up
         ~25 mm apart; pulling them adjacent re-crowds the pocket (back to 165 vias + DRC). */}
-    <UsbC name="J14" pcbX={-56} pcbY={31.6} pcbRotation={180} />
-    <Usblc6 name="U14" pcbX={-56} pcbY={26.5} pcbRotation={0} />
-    <CH340C name="U13" pcbX={-54} pcbY={20.5} pcbRotation={180} />
-    <resistor name="R15" resistance="5.1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23186"] }} {...at(-59.5, 27.5)} />
-    <resistor name="R16" resistance="5.1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23186"] }} {...at(-51.5, 27)} />
-    <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-48} y={26.5} rot={0} side="S" />
-    <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-47} y={22.5} rot={0} side="S" />
+    <UsbC name="J14" pcbX={-51.6} pcbY={31.05} pcbRotation={180} />
+    <Usblc6 name="U14" pcbX={-40.2} pcbY={24.4} pcbRotation={180} />
+    <CH340C name="U13" pcbX={-46.8} pcbY={20.85} pcbRotation={90} />
+    <resistor name="R15" resistance="5.1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23186"] }} {...at(-44.2, 34.85)} />
+    <resistor name="R16" resistance="5.1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23186"] }} {...at(-58.9, 34.7)} pcbRotation={180} />
+    <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-58.9} y={31.6} rot={180} side="S" />
+    <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-44} y={31.9} rot={0} side="S" />
     {/* EN branch, fanned west toward the WROOM EN pin: R17 -> Q2 -> SW2 */}
-    <resistor name="R17" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-61, 15.5)} />
-    <S8050 name="Q2" pcbX={-63.5} pcbY={19} pcbRotation={0} />
+    <resistor name="R17" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-53.9, 20.9)} pcbRotation={180} />
+    <S8050 name="Q2" pcbX={-54.3} pcbY={24.85} pcbRotation={0} />
     <silkscreentext text="Q2" fontSize="0.8mm" anchorAlignment="center" pcbX={-60.5} pcbY={19} />
-    <Tact name="SW2" pcbX={-63.5} pcbY={24} pcbRotation={0} />
+    <Tact name="SW2" pcbX={-61.7} pcbY={22.7} pcbRotation={180} />
     {/* IO0 branch, fanned east into the space below RELAYS: R18 -> Q3 -> SW1 */}
-    <resistor name="R18" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-47, 19)} />
-    <S8050 name="Q3" pcbX={-43} pcbY={18} pcbRotation={0} />
+    <resistor name="R18" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-53.85, 17.5)} pcbRotation={180} />
+    <S8050 name="Q3" pcbX={-53.65} pcbY={13.85} pcbRotation={270} />
     <silkscreentext text="Q3" fontSize="0.8mm" anchorAlignment="center" pcbX={-43} pcbY={15.5} />
-    <Tact name="SW1" pcbX={-40} pcbY={23} pcbRotation={0} />
+    <Tact name="SW1" pcbX={-61.65} pcbY={14.45} pcbRotation={180} />
     {/* USB-C: GND (pin13/14) + shield ears (pin1-4) to plane; VBUS (pin15/16) to the ESD
         rail only (not board power); CC1 (pin6) / CC2 (pin12) each to a 5.1k Rd; D+ = pin8+pin10,
         D- = pin7+pin9 (both orientations tied). */}
