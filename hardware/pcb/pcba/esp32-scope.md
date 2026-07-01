@@ -26,19 +26,28 @@ its pins instead of crossing the fan.
 - Buzzer: IO13 (the lone usable east-edge GPIO, not a strapping pin → silent at boot)
 - Power / reset: 3V3, V5, GND, EN
 
-Programming: TX0 (IO1), RX0 (IO3), IO0, EN. Unconnected: IO5, IO15.
-IO6–IO11 are the module's internal flash.
+Programming: TX0 (IO1), RX0 (IO3), IO0, EN — to the on-board USB-C block. Unconnected:
+IO5, IO15. IO6–IO11 are the module's internal flash.
 
 ## SMD block
 
-WROOM-32E + per-VDD 0.1 µF + 10 µF bulk; EN 10k + 1 µF; IO0 10k pull-up; 6-pin serial
-header (TX0 / RX0 / IO0 / EN / GND / 3V3). 3V3 from the on-board K7803 buck.
+WROOM-32E + per-VDD 0.1 µF + 10 µF bulk; EN 10k + 1 µF; IO0 10k pull-up. 3V3 from the
+on-board K7803 buck.
+
+## USB-C programming block
+
+Flashed over a plain USB-C cable — J14 (USB-C receptacle, west edge above the antenna) +
+U13 (CH340C USB-UART bridge). Data only: the bridge runs off the board 3V3 (the board is
+12 V-powered), USB VBUS powers nothing. CC1/CC2 carry 5.1k Rd (R15/R16); U14 (USBLC6)
+clamps D+/D-. Auto-reset is the classic cross-coupled NPN pair off DTR/RTS — Q2 pulls EN,
+Q3 pulls IO0 — so esptool resets + enters download mode with no key press; BOOT (SW1) and
+RESET (SW2) tacts are the manual overrides. The EN RC (R7/C12) and IO0 pull-up (R8) are
+the pull sides.
 
 Strapping pins:
-- IO0 — pull-up + on the header (boot select)
+- IO0 — pull-up + BOOT button + auto-reset (boot select)
 - IO5 — unconnected; high at boot
 - IO15 — unconnected; high at boot
-- IO2, IO12 — unconnected; low / floating at boot
+- IO2, IO12 — status-LED outputs; low / floating at boot
 
-Radio unused; the WROOM antenna keepout stays. No on-board USB, USB-UART bridge, or
-auto-program circuit.
+Radio unused; the WROOM antenna keepout stays.
