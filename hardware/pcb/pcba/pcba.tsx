@@ -57,7 +57,7 @@ import { A_19_217_BHC_ZL1M2RY_3T as LedBlu } from "./imports/A_19_217_BHC_ZL1M2R
 const ID = boardVersionParts()
 
 export default () => (
-  <board layers={6} schematicDisabled outline={[{ x: -67.5, y: -38 }, { x: 27, y: -38 }, { x: 27, y: 36 }, { x: -67.5, y: 36 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.25 }}>
+  <board layers={6} schematicDisabled outline={[{ x: -67.5, y: -38 }, { x: 27.65, y: -38 }, { x: 27.65, y: 37 }, { x: -67.5, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.25 }}>
     {/* DS3231SN RTC + CR2032 backup, east of the ESP. U6 (the SOIC) sits high with its
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
@@ -123,23 +123,23 @@ export default () => (
     <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-40.7} y={-1.05} rot={180} side="N" />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
-    <Jst name="J1" x={21.6} y={12.45} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" labelDir={1} />
-    <Jst name="J2" x={21.65} y={-9.4} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" labelDir={1} />
+    <Jst name="J1" x={21.6} y={12.45} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" side="E" />
+    <Jst name="J2" x={21.65} y={-9.4} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" side="E" />
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
-    <Jst name="J13" x={-23.63} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} rot={0} label="PUMPS" labelDir={1} side="N" />
-    <Jst name="J3" x={-31.33} y={-32} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" />
-    <Jst name="J4" x={-16.28} y={-32} count={6} labels={["GND", "V5", "IO25", "IO26", "IO27", "3V3"]} rot={0} label="SENSORS" />
+    <Jst name="J13" x={-23.63} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} rot={0} label="PUMPS" side="N" />
+    <Jst name="J3" x={-31.33} y={-32} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" side="S" />
+    <Jst name="J4" x={-16.28} y={-32} count={6} labels={["GND", "V5", "IO25", "IO26", "IO27", "3V3"]} rot={0} label="SENSORS" side="S" />
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
         (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
         IO19 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
     <Jst name="J5" x={-53.73} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} rot={0} label="RELAYS" side="N" />
     <Jst name="J6" x={4.17} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" side="N" />
-    <Jst name="J7" x={2.52} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" />
-    <Jst name="J9" x={-42.63} y={-32} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" />
-    <Jst name="J10" x={15.73} y={30.95} count={2} labels={["GND", "V12"]} rot={0} label="12V" labelDir={1} side="N" />
-    <Jst name="J11" x={-53.93} y={-32} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} rot={0} label="GAS" />
+    <Jst name="J7" x={2.52} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" side="S" />
+    <Jst name="J9" x={-42.63} y={-32} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" side="S" />
+    <Jst name="J10" x={15.73} y={30.95} count={2} labels={["GND", "V12"]} rot={0} label="12V" side="N" />
+    <Jst name="J11" x={-53.93} y={-32} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} rot={0} label="GAS" side="S" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
         a vertical 2-resistor series: 2.2k (input, bottom) -> midpoint -> 3.3k (to
@@ -511,12 +511,11 @@ export default () => (
     {/* ── M3 mounting holes, one per corner, plated and tied to GND so a metal screw can't
         bridge a power plane (GND connects on the bottom plane; V12 / 3V3 / 5V / SDA / SCL
         antipad). A symmetric rectangle: every hole is inset 3.5 mm from both of its board
-        edges (centred on the board, ~2.8–4.4 mm clear of the nearest connector at each
-        corner). No board grow — the edge connectors were packed east/west to open the
-        corner gaps the holes sit in. */}
-    <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.0} pcbY={32.5} />
-    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={23.5} pcbY={32.5} />
-    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={23.5} pcbY={-34.5} />
+        edges, so the four stay centred on the board and clear of the nearest connector at
+        each corner. */}
+    <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.0} pcbY={33.5} />
+    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={24.15} pcbY={33.5} />
+    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={24.15} pcbY={-34.5} />
     <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.0} pcbY={-34.5} />
 
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
