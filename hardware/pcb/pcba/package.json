@@ -21,7 +21,7 @@
   },
   "overrides": {
     "@tscircuit/capacity-autorouter": "github:derekbreden/tscircuit-autorouter#6e39391df777f89fa4b1965f6b276462b17a4f98",
-    "@tscircuit/core": "github:derekbreden/core#41a2dab0377ef8c2edaa1fc512e53ac02fbc2fc3",
+    "@tscircuit/core": "github:derekbreden/core#0a898d89a6515fc88c30140b0f2bb7ebabe28014",
     "@tscircuit/props": "github:derekbreden/props#d179577a44786bb77cc629c35f8e028063cb3e92",
     "@tscircuit/copper-pour-solver": "github:derekbreden/copper-pour-solver#c68dcef975bdb1723227ba7da16bed4470b673be",
     "@tscircuit/footprinter": "github:derekbreden/footprinter#c8eadb7b7ba9366b5f00d457a3bec2209bb73913",
