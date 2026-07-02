@@ -76,9 +76,9 @@ export default () => (
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
         pin2 (-> GND); the cell is retained by the molded base, not SMT clips. */}
-    <CoinHolder name="BT1" x={-18.6} y={-2} />
-    <Ds3231Smd name="U6" x={-38.05} y={7.1} />
-    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-44} y={8} rot={90} />
+    <CoinHolder name="BT1" x={-14.4} y={-2} />
+    <Ds3231Smd name="U6" x={-32.7} y={7.1} />
+    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-38.65} y={8} rot={90} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio, antenna keepout
         pointing west off the board edge. Usable GPIO sit on the north and south
         castellations only (the east edge is the module's flash); the relay/pump/buzzer/
@@ -97,7 +97,7 @@ export default () => (
     <resistor name="R7" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-63.5, -17.5)} />
     <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-58.5} y={-14.0} rot={90} />
     <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-53.5} y={-14.0} rot={90} side="E" />
-    <resistor name="R8" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} pcbRotation={90} {...at(-44, 12)} />
+    <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-44} y={12} rot={270} side="E" />
     {/* RS-485 to the front display (J9). THVD1426 auto-direction transceiver (U7):
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
         only D (from ESP TX) and R (to ESP RX) are driven. R6 = 120R line termination
@@ -112,9 +112,9 @@ export default () => (
         the SMD pads auto-stitch to their planes. Each cap flanks the LDO at the pin of its
         own net: C13 (10uF V5 input) hard by VIN on the east, C14 (22uF 3V3 output) under the
         VOUT tab on the west — so each closes a tight local loop like C15/C16 flank U10. */}
-    <AMS1117_3_3 name="U9" pcbRotation={0} {...at(-10.22, 28.45)} />
-    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-3.0} y={30.75} rot={0} side="S" />
-    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-13.5} y={23.4} rot={0} side="S" />
+    <AMS1117_3_3 name="U9" pcbRotation={0} {...at(-9.17, 28.45)} />
+    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-1.95} y={30.75} rot={0} side="S" />
+    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-11.9} y={23} rot={0} side="S" />
     <Buck5 name="U10" x={22.81} y={-25.95} />
     <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={13.88} y={-26.9} rot={0} side="S" />
     <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={30.66} y={-25.65} rot={270} side="E" />
@@ -124,19 +124,19 @@ export default () => (
         OCP/OTP/UVLO. VM->12V (the top SMD pad lands directly on the V12 island), GND/PAD->GND,
         ISEN->GND, VREF->3V3, IN1/IN2 from the ESP north-edge pins, OUT1/OUT2 to PUMPS. 10uF +
         0.1uF VM decoupling per chip. */}
-    <Drv8870 name="U11" pcbX={-27.95} pcbY={22} pcbRotation={0} />
-    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-31.6} y={15.65} rot={0} side="S" />
-    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-26.55} y={15.7} rot={0} side="S" />
-    <Drv8870 name="U12" pcbX={-21} pcbY={22} pcbRotation={0} />
-    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-21.05} y={15.7} rot={0} side="S" />
-    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-16} y={15.7} rot={0} side="S" />
+    <Drv8870 name="U11" pcbX={-26.15} pcbY={22} pcbRotation={0} />
+    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-29.8} y={15.65} rot={0} side="S" />
+    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-24.75} y={15.7} rot={0} side="S" />
+    <Drv8870 name="U12" pcbX={-19.2} pcbY={22} pcbRotation={0} />
+    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-19.25} y={15.7} rot={0} side="S" />
+    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-14.2} y={15.7} rot={0} side="S" />
     <Mcp23017 name="U2" x={4.48} y={18.1} addr="0x20" rot={270} />
     <Mcp23017 name="U3" x={6.53} y={-21.35} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={18.48} y={8.45} />
     <Uln2803 name="U5" x={18.58} y={-8.35} />
     <Buzzer name="U8" x={-36.3} y={-8.4} />
     <Npn name="Q1" x={-35.8} y={-2.35} />
-    <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-40.7} y={-1.05} rot={180} side="N" />
+    <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-40.7} y={-1.65} rot={180} side="N" />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
     <Jst name="J1" x={28.28} y={12.45} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" side="E" />
@@ -568,16 +568,16 @@ export default () => (
     <resistor name="R16" resistance="5.1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23186"] }} {...at(-58.9, 34.7)} />
     <resistor name="R15" resistance="5.1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23186"] }} {...at(-44, 34.7)} />
     <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-47.5} y={25.7} rot={90} side="E" />
-    <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-44} y={20} rot={90} side="E" />
+    <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-44} y={23.95} rot={90} side="E" />
     {/* EN branch (west): U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
-    <resistor name="R17" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-53, 14.5)} />
-    <S8050 name="Q2" pcbX={-56.5} pcbY={13} pcbRotation={0} />
-    <silkscreentext text="Q2" fontSize="0.8mm" anchorAlignment="center" pcbX={-56.5} pcbY={10.9} />
+    <resistor name="R17" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-55.1, 14)} />
+    <S8050 name="Q2" pcbX={-59.25} pcbY={13} pcbRotation={0} />
+    <silkscreentext text="Q2" fontSize="0.8mm" anchorAlignment="center" pcbX={-57.15} pcbY={13} />
     <Tact name="SW2" pcbX={-62} pcbY={27} pcbRotation={0} />
     {/* IO0 branch (east): U13.RTS -> R18 -> Q3.base; U13.DTR -> Q3.emitter; Q3.collector -> IO0; SW1 */}
-    <resistor name="R18" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-49, 14.5)} />
-    <S8050 name="Q3" pcbX={-44} pcbY={16} pcbRotation={0} />
-    <silkscreentext text="Q3" fontSize="0.8mm" anchorAlignment="center" pcbX={-41.9} pcbY={16} />
+    <resistor name="R18" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-51.1, 14)} />
+    <S8050 name="Q3" pcbX={-43} pcbY={19.55} pcbRotation={0} />
+    <silkscreentext text="Q3" fontSize="0.8mm" anchorAlignment="center" pcbX={-40.9} pcbY={19.55} />
     <Tact name="SW1" pcbX={-62} pcbY={20} pcbRotation={0} />
     {/* USB-C: GND (pin13/14) + shield ears (pin1-4) to plane; VBUS (pin15/16) to the ESD
         rail only (not board power); CC1 (pin6) / CC2 (pin12) each to a 5.1k Rd; D+ = pin8+pin10,
