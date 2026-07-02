@@ -1,6 +1,9 @@
 diff --git a/node_modules/@tscircuit/core/.bun-tag-812649e809f49b8d b/.bun-tag-812649e809f49b8d
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/@tscircuit/core/.bun-tag-868539e4c4bcf3be b/.bun-tag-868539e4c4bcf3be
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/node_modules/@tscircuit/core/.bun-tag-94a94793e74ff8b5 b/.bun-tag-94a94793e74ff8b5
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
@@ -23,10 +26,23 @@ diff --git a/node_modules/@tscircuit/core/.bun-tag-ed8a2c7eba990c90 b/.bun-tag-e
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/dist/index.js b/dist/index.js
-index c7b53b7a6db997fd2924cd638de3d2f0757d8682..0f736e719048144919216af367516252981267cc 100644
+index c7b53b7a6db997fd2924cd638de3d2f0757d8682..4f4f0b787ad58c6ddc0d0ea031b987bd6272324c 100644
 --- a/dist/index.js
 +++ b/dist/index.js
-@@ -10111,6 +10111,10 @@ var calculateCcwRotation = (componentRotationStr, elementCcwRotation) => {
+@@ -3010,8 +3010,10 @@ var getObstaclesFromCircuitJson = (circuitJson, connMap) => {
+             x: element.x,
+             y: element.y
+           },
+-          width: element.hole_diameter,
+-          height: element.hole_diameter,
++          // PATCH(homesodamachine): +0.3mm clearance ring so the router keeps traces off a
++          // drilled hole (a trace across a non-plated hole is severed by the drill).
++          width: element.hole_diameter + 0.3,
++          height: element.hole_diameter + 0.3,
+           connectedTo: []
+         });
+       }
+@@ -10111,6 +10113,10 @@ var calculateCcwRotation = (componentRotationStr, elementCcwRotation) => {
      totalRotation = componentAngle;
    }
    const normalizedRotation = (totalRotation % 360 + 360) % 360;
@@ -37,7 +53,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..0f736e719048144919216af367516252
    return normalizedRotation;
  };
  var optional = (value) => value ?? void 0;
-@@ -15733,6 +15737,45 @@ var getSimpleRouteJsonFromCircuitJson = ({
+@@ -15733,6 +15739,49 @@ var getSimpleRouteJsonFromCircuitJson = ({
        group: pcbGroup
      })
    );
@@ -68,22 +84,26 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..0f736e719048144919216af367516252
 +        const _set = _rep && _pourLayersByRep.get(_rep);
 +        if (!_set) continue;
 +        // Pad's net poured on a layer other than the pad's? Then the pour render drops a
-+        // THROUGH stitch via (pad layer <-> opposite outer layer). Reserve the via footprint
-+        // on that opposite outer layer — the only routable layer the via crosses besides the
-+        // pad's own (which already carries the SMD pad obstacle). Inner layers aren't routed.
++        // THROUGH (top<->bottom) stitch via. Reserve the via footprint on EVERY routable layer
++        // except the pad's own (which already carries the SMD pad obstacle) so no foreign net
++        // routes under the barrel on any layer — with all-layer routing a signal can otherwise
++        // cross a stitch via on an inner layer (the barrel is conductive on every layer).
 +        let _needs = false;
 +        for (const _pl of _set) if (_pl !== sp.layer) _needs = true;
 +        if (!_needs) continue;
-+        const _outerLy = sp.layer === "top" ? "bottom" : "top";
-+        obstacles.push({ type: "oval", layers: [_outerLy], center: { x: sp.x, y: sp.y }, width: _viaPad, height: _viaPad, connectedTo: [] });
-+        if (process.env.POUR_SKIP_DEBUG) console.error(`[stitch-keepout] ${sp.pcb_smtpad_id} @(${sp.x.toFixed(2)},${sp.y.toFixed(2)}) reserve ${_outerLy}`);
++        const _nl = board?.num_layers ?? 2;
++        const _resLy = ["top", "bottom"];
++        for (let _i = 1; _i <= _nl - 2; _i++) _resLy.push("inner" + _i);
++        const _reserve = _resLy.filter((l) => l !== sp.layer);
++        obstacles.push({ type: "oval", layers: _reserve, center: { x: sp.x, y: sp.y }, width: _viaPad, height: _viaPad, connectedTo: [] });
++        if (process.env.POUR_SKIP_DEBUG) console.error(`[stitch-keepout] ${sp.pcb_smtpad_id} @(${sp.x.toFixed(2)},${sp.y.toFixed(2)}) reserve ${_reserve.join(",")}`);
 +      }
 +    }
 +  }
    const breakoutPointPositions = breakoutPoints.map((bp) => ({
      x: bp.x,
      y: bp.y
-@@ -16046,6 +16089,53 @@ var getSimpleRouteJsonFromCircuitJson = ({
+@@ -16046,6 +16095,53 @@ var getSimpleRouteJsonFromCircuitJson = ({
        conn.externallyConnectedPointIds.push([...tracePortIds]);
      }
    }
@@ -137,7 +157,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..0f736e719048144919216af367516252
    const resolvedMinViaHoleDiameter = minViaHoleDiameter ?? board?.min_via_hole_diameter;
    const resolvedMinViaPadDiameter = minViaPadDiameter ?? board?.min_via_pad_diameter;
    const resolvedMinTraceToPadEdgeClearance = minTraceToPadEdgeClearance ?? board?.min_trace_to_pad_edge_clearance;
-@@ -16058,7 +16148,7 @@ var getSimpleRouteJsonFromCircuitJson = ({
+@@ -16058,7 +16154,7 @@ var getSimpleRouteJsonFromCircuitJson = ({
      simpleRouteJson: {
        bounds,
        obstacles,
@@ -146,7 +166,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..0f736e719048144919216af367516252
        traces: descendantTraces.length > 0 ? descendantTraces : void 0,
        layerCount: board?.num_layers ?? 2,
        minTraceWidth: minTraceWidth ?? board?.min_trace_width ?? 0.1,
-@@ -22355,6 +22445,44 @@ var Group5 = class extends NormalComponent3 {
+@@ -22355,6 +22451,58 @@ var Group5 = class extends NormalComponent3 {
        subcircuit_id: this.subcircuit_id,
        subcircuitComponent: this
      });
@@ -180,18 +200,32 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..0f736e719048144919216af367516252
 +          if (typeof ly === "string" && ly.indexOf("inner") === 0) pouredInner.add(ly);
 +        }
 +        if (pouredInner.size > 0 && Array.isArray(baseSimpleRouteJson.obstacles)) {
-+          baseSimpleRouteJson.obstacles = baseSimpleRouteJson.obstacles
-+            .map((o) => o.layers ? { ...o, layers: o.layers.filter((l) => !pouredInner.has(l)) } : o)
-+            .filter((o) => !o.layers || o.layers.length > 0);
-+          baseSimpleRouteJson.layerCount = Math.max(2, (baseSimpleRouteJson.layerCount || 4) - pouredInner.size);
-+          if (process.env.PATCH_DEBUG) console.error(`[patch] 2-layer routing view: stripped ${[...pouredInner].join(",")}, layerCount=${baseSimpleRouteJson.layerCount}`);
++          // ROUTE ALL LAYERS: signals may use inner copper. layerCount stays board.num_layers
++          // (the inner planes are separate copperpour entities the router doesn't see as obstacles).
++          // THROUGH-HOLE SAFETY: a via drilled top<->bottom cannot sit under a pad. Inflate every
++          // SMD-pad / plated-hole obstacle by VIA_KEEPOUT so the mesh filters via-capable (multi-z)
++          // nodes near pads. The mesh z-check leaves inner/bottom trace nodes untouched (a top pad
++          // is z0 only), so under-pad traces still route; only via barrels are pushed off pads.
++          // A THROUGH-hole via can only hide under (and short) a pad whose SMALLER dimension is
++          // >= the via pad diameter. Inflate only those pads by VIA_KEEPOUT so via-capable nodes
++          // are pushed off them; fine-pitch pads a via can't hide under (e.g. USB-C 0.3mm) are
++          // skipped, so their tight pockets aren't over-constrained.
++          const VIA_KEEPOUT = process.env.PATCH_VIA_KEEPOUT ? parseFloat(process.env.PATCH_VIA_KEEPOUT) : 0;
++          const VIA_FIT = process.env.PATCH_VIA_FIT ? parseFloat(process.env.PATCH_VIA_FIT) : (baseSimpleRouteJson.minViaPadDiameter ?? 0.5);
++          let _inf = 0;
++          if (VIA_KEEPOUT > 0) for (const o of baseSimpleRouteJson.obstacles) {
++            const ct = o.connectedTo;
++            const isPad = Array.isArray(ct) && ct.some((id) => typeof id === "string" && (id.indexOf("pcb_smtpad") === 0 || id.indexOf("pcb_plated_hole") === 0));
++            if (isPad && typeof o.width === "number" && typeof o.height === "number" && Math.min(o.width, o.height) >= VIA_FIT) { o.width += 2 * VIA_KEEPOUT; o.height += 2 * VIA_KEEPOUT; _inf++; }
++          }
++          if (process.env.PATCH_DEBUG) console.error(`[patch] ALL-LAYER routing: layerCount=${baseSimpleRouteJson.layerCount}, pad via-keepout ${VIA_KEEPOUT}mm on ${_inf} obstacles`);
 +        }
 +      } catch (e) { if (process.env.PATCH_DEBUG) console.error("[patch] inner-strip error", String(e)); }
 +    }
      const routingPhasePlans = this._getRoutingPhasePlans();
      const hasPhasedAutorouting = Group_hasPhasedAutorouting(routingPhasePlans);
      const outputTraces = [];
-@@ -24842,6 +24970,12 @@
+@@ -24842,6 +24990,12 @@ var Board = class extends Group5 {
      if (layerCount === 4) {
        return ["top", "bottom", "inner1", "inner2"];
      }
@@ -204,10 +238,33 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..0f736e719048144919216af367516252
      return ["top", "bottom"];
    }
    _getSubcircuitLayerCount() {
-@@ -29088,6 +29222,67 @@ var CopperPour = class extends PrimitiveComponent2 {
+@@ -29088,6 +29242,90 @@ var CopperPour = class extends PrimitiveComponent2 {
          return;
        }
        const subcircuit = this.getSubcircuit();
++      // PATCH(homesodamachine): THROUGH-HOLE every via before pours solve. The capacity router
++      // emits blind/buried spans (top->inner1, inner1->inner2, ...) for multi-layer routes;
++      // JLCPCB drills through-holes only. Re-span each via top<->bottom so the through-via
++      // antipad guard (copper-pour-solver) connects it to its net's plane and antipads the rest.
++      // Safe because the router reserved each via's full column (pad via-keepout inflation in
++      // getSimpleRouteJson), so no foreign pad/plane sits under a re-spanned barrel. Idempotent.
++      {
++        const _bd0 = db.pcb_board.list()[0];
++        const _isThru = (a, b) => (a === "top" && b === "bottom") || (a === "bottom" && b === "top");
++        if ((_bd0?.num_layers ?? 2) > 2) {
++          for (const v of db.pcb_via.list()) {
++            if (!_isThru(v.from_layer, v.to_layer)) db.pcb_via.update(v.pcb_via_id, { from_layer: "top", to_layer: "bottom", layers: ["top", "bottom"] });
++          }
++          for (const t of db.pcb_trace.list()) {
++            let _ch = false;
++            for (const r of (t.route || [])) {
++              if (r.route_type === "via" && !_isThru(r.from_layer, r.to_layer)) { r.from_layer = "top"; r.to_layer = "bottom"; _ch = true; }
++            }
++            if (_ch) db.pcb_trace.update(t.pcb_trace_id, { route: t.route });
++          }
++          if (process.env.PATCH_DEBUG) console.error(`[patch] through-holed vias (num_layers=${_bd0?.num_layers})`);
++        }
++      }
 +      // PATCH(homesodamachine): auto-stitch EVERY cross-layer SMD plane pad to its plane, in
 +      // ONE idempotent pass over ALL poured nets, before this pour's brep is solved. Why this
 +      // shape:
@@ -272,7 +329,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..0f736e719048144919216af367516252
        const circuitJson = db.toArray();
        const sourceNet = circuitJson.find(
          (elm) => elm.type === "source_net" && elm.name === net.name
-@@ -29096,7 +29291,7 @@ var CopperPour = class extends PrimitiveComponent2 {
+@@ -29096,7 +29334,7 @@ var CopperPour = class extends PrimitiveComponent2 {
        const connectedNetId = sourceNet?.source_net_id ?? net.source_net_id;
        const pourConnectivityKey = (connectedNetId ? connectivityMap.getNetConnectedToId(connectedNetId) : void 0) || sourceNet?.subcircuit_connectivity_map_key || "";
        const clearance = props.clearance ?? 0.2;

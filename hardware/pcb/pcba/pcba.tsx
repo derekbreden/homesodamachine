@@ -28,8 +28,10 @@
  * 3V3/5V/SDA/SCL/GND are full-flood planes: each pin commons to its plane at the barrel
  * (through-hole) or an auto-stitched via (SMD). V12 is a top-copper island over the valve/
  * buck/driver block (the L outline at the pours): top-layer 12V pads sit on it directly,
- * through-hole 12V pins pick it up at the barrel. Point-to-point signals are traced on the
- * two outer layers (the core patch gives the router a top+bottom view).
+ * through-hole 12V pins pick it up at the barrel. Point-to-point signals route on ALL six
+ * layers: the core patch lets the router use the inner copper and re-spans every via
+ * top<->bottom (JLCPCB drills through-holes only, no blind/buried), so each poured plane
+ * carves clearance around the inner-layer signals crossing it and every via is manufacturable.
  *
  * `schematicDisabled` on the board: this is a fab-only PCB (its canonical "schematic" is
  * esp32-pinout.mmd). tscircuit's schematic-trace-solver — NOT the PCB autorouter — hangs on
@@ -39,12 +41,10 @@
  * `autorouter.traceClearance` (the homesodamachine core patch feeds it to the capacity
  * solver's obstacle margin) is the packing target, and its realized floor is counter-
  * intuitive: too HIGH and the router can't meet it in the dense pump-driver comb, crams the
- * leftover space, and the realized min copper gap COLLAPSES. On this board (144 vias) the
- * floor is deterministic per value: 0.25 collapses to 0.075 mm, 0.18 holds 0.106, 0.15 holds
- * 0.115 (same via count). Keep it in the ~0.12–0.15 low zone; don't raise it toward 0.25+.
- * That 0.115 floor is a via hugging the WROOM/pump-driver pads (U1.IO4, U11) — traceClearance
- * won't beat it, only routing headroom (fewer poured inner planes => more signal layers; the
- * core patch sets layerCount = outer + un-poured-inner) or spreading the comb will. The web
+ * leftover space, and the realized min copper gap COLLAPSES. On this board (163 vias) 0.15
+ * holds a 0.115 mm floor; keep it in the ~0.12–0.15 low zone, don't raise it toward 0.25+.
+ * That 0.115 floor is a via hugging the WROOM/pump-driver pads (U12) — traceClearance won't
+ * beat it; only spreading the comb will (all six layers already carry signal). The web
  * viewer's board chip reports this floor live (clearance.ts -> picks.json).
  */
 import { at, Cap, Res, Jst, ulnOUT } from "./carrier_parts"
