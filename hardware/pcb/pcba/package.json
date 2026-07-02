@@ -23,7 +23,7 @@
     "@tscircuit/capacity-autorouter": "github:derekbreden/tscircuit-autorouter#9d841702256a4224e64252d592d59a70b28ed784",
     "@tscircuit/core": "github:derekbreden/core#f8029fc838b1845f5fc2b8125fbce93bd1dd37e8",
     "@tscircuit/props": "github:derekbreden/props#2a29cec6b4da1f1ff699591ffffd2737826fa292",
-    "@tscircuit/copper-pour-solver": "github:derekbreden/copper-pour-solver#02d99c6e9eaffeba39b1fcb9f9c1b91d8d0f397d",
+    "@tscircuit/copper-pour-solver": "0.0.36",
     "@tscircuit/footprinter": "github:derekbreden/footprinter#1abb8d57d541aaab5ce6efece2901558746c3c25",
     "circuit-json-to-gerber": "github:derekbreden/circuit-json-to-gerber#0fe9fac1f38a86e3e3cbd0ee32f6ebb1b2f91daa",
     "@tscircuit/cli": "github:derekbreden/cli#3a29b7b1582057b463a3e72845684d07ad880572"
