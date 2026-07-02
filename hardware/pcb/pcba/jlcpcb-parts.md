@@ -54,18 +54,19 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | C10 — ESP 3V3 decouple | 0.1 µF 50V X7R | 0805 | C49678 | Basic | (see C1/C2) | $0.0136 |
 | C11 — ESP 3V3 bulk | 10 µF 25V X5R | 0805 | C15850 | Basic | (see C8) | $0.01 |
 | C12 — EN power-on RC | 1 µF 50V X5R | 0603 | C15849 | Basic | 6,521,627 | $0.036 |
-| J10 — 2-pin (12V inlet) | XH2.54 2P, vertical THT male wafer | wafer, 2.5 mm | C5359631 | Extended | 74,020 | $0.0141 |
 | J9 — 3-pin (SCREEN / RS485) | XH2.54 3P | wafer, 2.5 mm | C5374805 | Extended | 9,613 (2026-06-30) | $0.0218 |
 | J3, J5, J11, J13 — 4-pin (FAUCET, RELAYS, GAS, PUMPS) | XH2.54 4P | wafer, 2.5 mm | C5359632 | Extended | 39,475 (2026-06-30) | $0.0116 |
 | J6 — 5-pin (REEDS A) | XH2.54 5P | wafer, 2.5 mm | C5359633 | Extended | 14,791 | $0.0294 |
 | J2, J4, J12 — 6-pin (MANIFOLD B, SENSORS, PROG) | XH2.54 6P | wafer, 2.5 mm | C5359634 | Extended | 42,550 | $0.0254 |
 | J7 — 7-pin (REEDS B) | XH2.54 7P | wafer, 2.5 mm | C5359635 | Extended | 16,231 | $0.0278 |
 | J1 — 9-pin (MANIFOLD A) | XH2.54 9P | wafer, 2.5 mm | C5359637 | Extended | 380 (2026-06-30) | $0.0400 |
+| J10 — 12 V inlet | KF301-5.0-2P screw terminal, 2P 5.0 mm, 17 A / 250 V | THT block, 5.0 mm pitch | C474881 | Extended | — | ~$0.06 |
 
 Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C49678 = YAGEO
 CC0805KRX7R9BB104; C845537 = UMW (Youtai) ULN2803A; C47023 = Microchip MCP23017-E/SO;
-C94598 = Jiangsu Huaneng MLT-5020; C2146 = JSCJ S8050 J3Y; XH2.54 connectors = XUNPU
-WAFER-XH2.54-{n}PZZ, one vendor across all seven pin counts, vertical THT.
+C94598 = Jiangsu Huaneng MLT-5020; C2146 = JSCJ S8050 J3Y; C474881 = Cixi Kefa Elec
+KF301-5.0-2P screw terminal; XH2.54 connectors = XUNPU WAFER-XH2.54-{n}PZZ, one vendor
+across the six pin counts used (3/4/5/6/7/9P), vertical THT.
 
 **The "XH2.54" connectors are physically 2.5 mm pitch.** Genuine JST XH is 2.50 mm; the
 ubiquitous "2.54 mm JST-XH" kits/housings are that same 2.50 mm part with a rounded label,
@@ -73,13 +74,25 @@ and the JLCPCB XH2.54 wafers measure 2.50 mm (holes at ±6.25/±3.75/±1.25 mm o
 the board header is 2.5 mm, not 2.54 — the `Jst` footprint is `pinrow${n}_p2.5mm_id1.1mm_od1.65mm`
 to match the wafer land pattern exactly (clean IoU), and it mates with the standard female
 XH housings the wiring kits use. Every XH2.54 part in the library is Extended (no Basic
-option), and all seven counts come from **one vendor — XUNPU's WAFER-XH2.54-{n}PZZ
+option), and every count used comes from **one vendor — XUNPU's WAFER-XH2.54-{n}PZZ
 series** — so every wafer's 3D model seats the same way at a given CPL rotation and its
 pin-1 (square) pad sits at the same end, with no per-part rotation offset to maintain.
 (A single vendor was preferred over the cheapest-per-count mix precisely so the assembled
 board reads uniformly; the only watch-out is the 9P, `C5359637`, which runs lower stock —
 ~380 at 2026-06-30 vs tens of thousands for the rest — but it's the lone MANIFOLD A
 connector, so fine for a build; glance at it before a large run.)
+
+**J10 is a KF301-5.0-2P screw terminal (`C474881`), not an XH wafer.** The 12 V inlet
+carries the whole board — both pumps priming + a few valves + the condenser fan ≈ 3.3 A
+peak — and the XH wafer contact is only rated 3 A, so it was the one connector running
+its rating. The KF301 is a 5.0 mm-pitch 2-pole block rated 17 A / 250 V (Cixi Kefa Elec):
+real margin, and it lands 16–18 AWG power wire on a screw instead of a crimp. Extended
+(every screw terminal in the library is), commodity stock; wave-soldered THT, so it rides
+the same through-hole assembly the XH wafers + coin base already require (no new process).
+Footprint pulled with `tsci import C474881` (→ `imports/KF301_5_0_2P.tsx`); pin1 → GND,
+pin2 → V12, the polarity silked at each screw because reversing 12 V would cook the
+polarised bulk cap (C3), the bucks, and the DRV8870s. The 2-pin XH wafer (`C5359631`) it
+replaced is no longer on the board.
 
 **U4/U5 are `C845537`** (UMW ULN2803A, SOP-18-300mil wide body). No Basic ULN2803 SOIC
 exists in the library — every ULN2803 part is Extended — so the feeder fee is unavoidable;
