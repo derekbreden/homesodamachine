@@ -63,8 +63,11 @@ pill pads. See `plane-stitching.md`.
 `subcircuit_id` + `source_net_id` (upstream's refactored connectivity API — the old computed
 `pour_connectivity_key`, which `copper-pour-solver 0.0.36` rejects with a throw, is gone). The
 through-hole / through-via inner-plane anti-pad the copper-pour fork used to carry lives in that fork
-again (above), so core's own pour/stitch logic (auto-stitch, stitch-keepout, EVERY_LAYER, carve) is
-otherwise unchanged. All seven forks now track current upstream.
+again (above). Core's pour/stitch logic (auto-stitch, stitch-keepout, EVERY_LAYER, carve) is
+unchanged except for one adaptation the new solver forces: the auto-stitch via is now stamped with
+its own `subcircuit_id`, because `0.0.36` resolves an element's pour net by that element's own
+`subcircuit_id` — without it the stitch via keys to `unconnected-via` and its own plane rings it
+(a floating pad the pour-blind DRC can't catch). All seven forks now track current upstream.
 
 The detailed through-hole-via design (why it's taught at the mesh, the decision point) is in
 [`patches/capacity-autorouter-fork/README.md`](patches/capacity-autorouter-fork/README.md).
