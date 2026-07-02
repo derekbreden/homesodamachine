@@ -1,6 +1,6 @@
 import type { LedProps } from "@tscircuit/props"
 
-export const A_19_217_GHC_YR1S2_3T = (props: LedProps) => {
+export const Blue_light_0603 = (props: LedProps) => {
   const { name = "LED1", ...restProps } = props
 
   return (
@@ -8,10 +8,10 @@ export const A_19_217_GHC_YR1S2_3T = (props: LedProps) => {
       name={name}
       supplierPartNumbers={{
   "jlcpcb": [
-    "C72043"
+    "C2288"
   ]
 }}
-      manufacturerPartNumber="A_19_217_GHC_YR1S2_3T"
+      manufacturerPartNumber="Blue_light_0603"
       footprint={<footprint>
         <smtpad portHints={["pin2"]} pcbX="0.7489952mm" pcbY="0.000127mm" width="0.7999984mm" height="0.7999984mm" shape="rect" />
 <smtpad portHints={["pin1"]} pcbX="-0.7489952mm" pcbY="-0.000127mm" width="0.7999984mm" height="0.7999984mm" shape="rect" />
@@ -30,8 +30,8 @@ export const A_19_217_GHC_YR1S2_3T = (props: LedProps) => {
 <courtyardoutline outline={[{"x":-1.7517750000001797,"y":1.0177150000000665},{"x":1.618425000000002,"y":1.0177150000000665},{"x":1.618425000000002,"y":-0.9808849999999438},{"x":-1.7517750000001797,"y":-0.9808849999999438},{"x":-1.7517750000001797,"y":1.0177150000000665}]} />
       </footprint>}
       cadModel={{
-        objUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C72043.obj?uuid=3c2caa1a3e7d4a5a87f46b87d898ef41",
-        stepUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C72043.step?uuid=3c2caa1a3e7d4a5a87f46b87d898ef41",
+        objUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C2288.obj?uuid=3c2caa1a3e7d4a5a87f46b87d898ef41",
+        stepUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C2288.step?uuid=3c2caa1a3e7d4a5a87f46b87d898ef41",
         pcbRotationOffset: 0,
         modelOriginPosition: { x: -0.000012700000070253736, y: 0.000012699999956566899, z: -0.01 },
       }}
