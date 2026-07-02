@@ -1,0 +1,103 @@
+--- /private/tmp/claude-501/-Users-derekbredensteiner-Developer-homesodamachine/f80c8628-4ddb-427c-8e26-5efbbcf98de9/scratchpad/car-fork/node_modules/@tscircuit/rectdiff/lib/types/srj-types.ts	2026-07-01 21:56:06
++++ /private/tmp/claude-501/-Users-derekbredensteiner-Developer-homesodamachine/f80c8628-4ddb-427c-8e26-5efbbcf98de9/scratchpad/car2/node_modules/@tscircuit/rectdiff/lib/types/srj-types.ts	2026-07-01 22:53:58
+@@ -8,6 +8,13 @@
+   connections: Array<SimpleRouteConnection>
+   bounds: { minX: number; maxX: number; minY: number; maxY: number }
+   outline?: Array<{ x: number; y: number }>
++  /**
++   * "through-hole": every via must be a full-stack (top↔bottom) drilled hole — no blind/buried
++   * vias (JLCPCB standard assembly, and most low-cost fabs). The mesh only makes a node
++   * via-capable where the full board column is clear, so a via can never be drilled through a
++   * pad or barrel. "any" (default): the router may place blind/buried vias between any layers.
++   */
++  viaMode?: "through-hole" | "any"
+ }
+ 
+ export interface Obstacle {
+--- /private/tmp/claude-501/-Users-derekbredensteiner-Developer-homesodamachine/f80c8628-4ddb-427c-8e26-5efbbcf98de9/scratchpad/car-fork/node_modules/@tscircuit/rectdiff/lib/RectDiffPipeline.ts	2026-07-01 21:56:06
++++ /private/tmp/claude-501/-Users-derekbredensteiner-Developer-homesodamachine/f80c8628-4ddb-427c-8e26-5efbbcf98de9/scratchpad/car2/node_modules/@tscircuit/rectdiff/lib/RectDiffPipeline.ts	2026-07-01 22:54:53
+@@ -117,22 +117,46 @@
+     return [this.inputProblem]
+   }
+ 
+-  override getOutput(): { meshNodes: CapacityMeshNode[] } {
++  private throughHoleMeshNodesMemo?: CapacityMeshNode[]
++
++  private getRawMeshNodes(): CapacityMeshNode[] {
+     const outerLayerMergeOutput =
+       this.outerLayerContainmentMergeSolver?.getOutput()
+     if (outerLayerMergeOutput) {
+-      return { meshNodes: outerLayerMergeOutput.outputNodes }
++      return outerLayerMergeOutput.outputNodes
+     }
+     const gapFillOutput = this.gapFillSolver?.getOutput()
+     if (gapFillOutput) {
+-      return { meshNodes: gapFillOutput.outputNodes }
++      return gapFillOutput.outputNodes
+     }
+     if (this.rectDiffGridSolverPipeline) {
+-      return this.rectDiffGridSolverPipeline.getOutput()
++      return this.rectDiffGridSolverPipeline.getOutput().meshNodes
+     }
+-    return { meshNodes: [] }
++    return []
+   }
+ 
++  override getOutput(): { meshNodes: CapacityMeshNode[] } {
++    const rawNodes = this.getRawMeshNodes()
++    if (this.inputProblem.simpleRouteJson.viaMode !== "through-hole") {
++      return { meshNodes: rawNodes }
++    }
++    // THROUGH-HOLE via mode: a via drilled top↔bottom is conductive on every layer, so it may
++    // only be born where the FULL board column is clear. A node's availableZ already encodes
++    // which layers are free at its footprint (obstacles carve it), so a node is via-capable iff
++    // availableZ spans the whole stack. Any node with only *some* layers free would let the
++    // router drop a via there (a blind/buried via, or one that drills the pad on a missing
++    // layer) — split it into one single-layer node per free layer. Traces still route on each
++    // layer, but no via can be born (a single-z node offers no other z to hop to). This is the
++    // one place every downstream solver variant agrees on: they all read availableZ.
++    if (!this.throughHoleMeshNodesMemo) {
++      this.throughHoleMeshNodesMemo = splitNonViaCapableNodes(
++        rawNodes,
++        this.inputProblem.simpleRouteJson.layerCount,
++      )
++    }
++    return { meshNodes: this.throughHoleMeshNodesMemo }
++  }
++
+   override initialVisualize(): GraphicsObject {
+     const base = createBaseVisualization(
+       this.inputProblem.simpleRouteJson,
+@@ -175,3 +199,32 @@
+     })
+   }
+ }
++
++/**
++ * THROUGH-HOLE via mode helper. A node is via-capable only where the entire board column is
++ * clear (availableZ spans all layers). A node with a strict subset of layers free has an
++ * obstacle on the missing layer(s), so a via born there would be blind/buried or drill that
++ * obstacle — split it into one single-layer node per free layer. Single-layer and full-stack
++ * nodes pass through unchanged.
++ */
++function splitNonViaCapableNodes(
++  nodes: CapacityMeshNode[],
++  layerCount: number,
++): CapacityMeshNode[] {
++  const out: CapacityMeshNode[] = []
++  for (const node of nodes) {
++    const z = node.availableZ
++    if (z.length <= 1 || z.length >= layerCount) {
++      out.push(node)
++      continue
++    }
++    for (const singleZ of z) {
++      out.push({
++        ...node,
++        capacityMeshNodeId: `${node.capacityMeshNodeId}_thz${singleZ}`,
++        availableZ: [singleZ],
++      })
++    }
++  }
++  return out
++}

@@ -1,0 +1,77 @@
+diff --git a/lib/autorouter-pipelines/AutoroutingPipeline4_TinyHypergraph/AutoroutingPipelineSolver4_TinyHypergraph.ts b/lib/autorouter-pipelines/AutoroutingPipeline4_TinyHypergraph/AutoroutingPipelineSolver4_TinyHypergraph.ts
+index 6e3abfb..32427d6 100644
+--- a/lib/autorouter-pipelines/AutoroutingPipeline4_TinyHypergraph/AutoroutingPipelineSolver4_TinyHypergraph.ts
++++ b/lib/autorouter-pipelines/AutoroutingPipeline4_TinyHypergraph/AutoroutingPipelineSolver4_TinyHypergraph.ts
+@@ -746,6 +746,7 @@ export class AutoroutingPipelineSolver4_TinyHypergraph extends BaseSolver {
+             defaultViaHoleDiameter: this.viaHoleDiameter,
+             obstacles: this.srj.obstacles,
+             connMap: this.connMap,
++            viaMode: this.srj.viaMode,
+           }),
+         }
+ 
+diff --git a/lib/types/srj-types.ts b/lib/types/srj-types.ts
+index 1c10dac..d4101e9 100644
+--- a/lib/types/srj-types.ts
++++ b/lib/types/srj-types.ts
+@@ -64,6 +64,13 @@ export interface SimpleRouteJson {
+   allowJumpers?: boolean
+   /** Available jumper types for routing. Defaults to ["0603"] */
+   availableJumperTypes?: JumperType[]
++  /**
++   * "through-hole": every via must be a full-stack (top↔bottom) drilled hole — no blind/buried
++   * vias (JLCPCB standard assembly, and most low-cost fabs). The mesh only makes a node
++   * via-capable where the full board column is clear (so a via is never drilled through a pad),
++   * and emitted vias span top↔bottom. "any" (default): blind/buried vias between any layers.
++   */
++  viaMode?: "through-hole" | "any"
+ }
+ 
+ export interface Obstacle {
+diff --git a/lib/utils/convertHdRouteToSimplifiedRoute.ts b/lib/utils/convertHdRouteToSimplifiedRoute.ts
+index 8bb842b..e4332a8 100644
+--- a/lib/utils/convertHdRouteToSimplifiedRoute.ts
++++ b/lib/utils/convertHdRouteToSimplifiedRoute.ts
+@@ -28,6 +28,12 @@ export interface ConvertHdRouteToSimplifiedRouteOptions {
+   defaultViaHoleDiameter?: number
+   obstacles?: ReadonlyArray<Obstacle>
+   connMap?: ConnectivityMap
++  /**
++   * "through-hole": rewrite every emitted via to span the full stack (top↔bottom). Sound
++   * because in this mode the mesh only births vias where the whole column is clear, so spanning
++   * a via top↔bottom crosses no foreign copper. "any" (default): keep the via's own z-span.
++   */
++  viaMode?: "through-hole" | "any"
+ }
+ 
+ /**
+@@ -343,7 +349,7 @@ export const convertHdRouteToSimplifiedRoute = (
+     }
+   }
+ 
+-  return attachTerminalViasToSimplifiedRoute({
++  const withTerminalVias = attachTerminalViasToSimplifiedRoute({
+     route: result,
+     hdRoute,
+     layerCount,
+@@ -351,4 +357,20 @@ export const convertHdRouteToSimplifiedRoute = (
+     tolerance: opts.terminalViaAttachTolerance,
+     defaultViaHoleDiameter: opts.defaultViaHoleDiameter,
+   })
++
++  // THROUGH-HOLE via mode: span every via top↔bottom. The mesh only births a via where the full
++  // column is clear (see RectDiffPipeline's through-hole node split), so widening its span to the
++  // outer layers crosses no foreign copper — it's a manufacturable drilled hole, not a re-labeled
++  // blind via. No-op on ≤2-layer boards (every via is already top↔bottom).
++  if (opts.viaMode === "through-hole" && layerCount > 2) {
++    const topLayer = mapZToLayerName(0, layerCount)
++    const bottomLayer = mapZToLayerName(layerCount - 1, layerCount)
++    return withTerminalVias.map((seg) =>
++      seg.route_type === "via"
++        ? { ...seg, from_layer: topLayer, to_layer: bottomLayer }
++        : seg,
++    )
++  }
++
++  return withTerminalVias
+ }
