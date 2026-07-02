@@ -1,0 +1,143 @@
+diff --git a/lib/solvers/HighDensitySolver/IntraNodeSolver.ts b/lib/solvers/HighDensitySolver/IntraNodeSolver.ts
+index dd2cb32..c22d630 100644
+--- a/lib/solvers/HighDensitySolver/IntraNodeSolver.ts
++++ b/lib/solvers/HighDensitySolver/IntraNodeSolver.ts
+@@ -72,6 +72,7 @@ export class IntraNodeRouteSolver extends BaseSolver {
+   viaDiameter: number
+   traceWidth: number
+   obstacleMargin: number
++  boardLayerCount: number
+   rerouteAttemptsByConnection: Map<string, number>
+ 
+   POSTROUTE_VIA_TRACE_CLEARANCE = 0.1
+@@ -112,6 +113,10 @@ export class IntraNodeRouteSolver extends BaseSolver {
+     this.viaDiameter = params.viaDiameter ?? 0.3
+     this.traceWidth = params.traceWidth ?? 0.15
+     this.obstacleMargin = params.obstacleMargin ?? 0.15
++    // homesodamachine fork: keep the BOARD layer count (from HighDensitySolver) distinct from the
++    // per-node `layerCount` (max port-z here) so the through-hole via guard can require the full
++    // board stack be clear at a via site.
++    this.boardLayerCount = params.layerCount ?? 2
+     const unsolvedConnectionsMap: Map<string, ConnectionPoint[]> = new Map()
+     this.rootConnectionNameByConnectionName = new Map()
+     for (const {
+@@ -247,6 +252,7 @@ export class IntraNodeRouteSolver extends BaseSolver {
+         (max, p) => Math.max(max, (p.z ?? 0) + 1),
+         2,
+       ),
++      boardLayerCount: this.boardLayerCount,
+       availableZ:
+         this.nodeWithPortPoints.availableZ &&
+         this.nodeWithPortPoints.availableZ.length > 0
+diff --git a/lib/solvers/HighDensitySolver/SingleHighDensityRouteSolver.ts b/lib/solvers/HighDensitySolver/SingleHighDensityRouteSolver.ts
+index f2c0933..ec0caf5 100644
+--- a/lib/solvers/HighDensitySolver/SingleHighDensityRouteSolver.ts
++++ b/lib/solvers/HighDensitySolver/SingleHighDensityRouteSolver.ts
+@@ -21,6 +21,12 @@ export type FutureConnection = {
+   points: { x: number; y: number; z: number }[]
+ }
+ 
++// homesodamachine fork: opt-in through-hole-via routing (see convertHdRouteToSimplifiedRoute).
++const isThroughHoleViasOnly = () =>
++  typeof process !== "undefined" &&
++  (process.env?.TSCIRCUIT_THROUGH_HOLE_VIAS === "1" ||
++    process.env?.TSCIRCUIT_THROUGH_HOLE_VIAS === "true")
++
+ const connectionLabel = (
+   connectionName: string,
+   rootConnectionName?: string,
+@@ -53,6 +59,7 @@ export class SingleHighDensityRouteSolver extends BaseSolver {
+   traceThickness: number
+   obstacleMargin: number
+   layerCount: number
++  boardLayerCount: number
+   availableZ: number[]
+   minCellSize = 0.05
+   cellStep = 0.05
+@@ -104,6 +111,7 @@ export class SingleHighDensityRouteSolver extends BaseSolver {
+     traceThickness?: number
+     obstacleMargin?: number
+     layerCount?: number
++    boardLayerCount?: number
+     availableZ?: number[]
+     futureConnections?: FutureConnection[]
+     hyperParameters?: Partial<HighDensityHyperParameters>
+@@ -133,6 +141,9 @@ export class SingleHighDensityRouteSolver extends BaseSolver {
+     this.traceThickness = opts.traceThickness ?? 0.15
+     this.obstacleMargin = opts.obstacleMargin ?? 0.15
+     this.layerCount = opts.layerCount ?? 2
++    // homesodamachine fork: the full board stack, used by the through-hole via guard in
++    // getNeighbors (distinct from layerCount, which is this node's local max z).
++    this.boardLayerCount = opts.boardLayerCount ?? this.layerCount
+     this.availableZ =
+       opts.availableZ && opts.availableZ.length > 0
+         ? [...new Set(opts.availableZ)].sort((a, b) => a - b)
+@@ -504,8 +515,17 @@ export class SingleHighDensityRouteSolver extends BaseSolver {
+     }
+ 
+     // Add via neighbors for all other layers (a via can connect any layer to any other layer)
++    // homesodamachine fork: with TSCIRCUIT_THROUGH_HOLE_VIAS set, a via is a full-stack drill, so
++    // it may only be placed where the ENTIRE board column is clear. The mesh drops the covered
++    // layer from a node's availableZ wherever a pad sits, so requiring availableZ to span the whole
++    // board (length >= boardLayerCount) keeps vias out of pad pockets — no barrel ever drills a pad.
++    const blockNonThroughHoleVias =
++      isThroughHoleViasOnly() &&
++      this.boardLayerCount > 2 &&
++      this.availableZ.length < this.boardLayerCount
+     for (const newZ of this.availableZ) {
+       if (newZ === node.z) continue
++      if (blockNonThroughHoleVias) continue
+ 
+       const viaNeighbor = {
+         ...node,
+diff --git a/lib/utils/convertHdRouteToSimplifiedRoute.ts b/lib/utils/convertHdRouteToSimplifiedRoute.ts
+index 8bb842b..ac3d690 100644
+--- a/lib/utils/convertHdRouteToSimplifiedRoute.ts
++++ b/lib/utils/convertHdRouteToSimplifiedRoute.ts
+@@ -22,6 +22,31 @@ const DEFAULT_TERMINAL_VIA_ATTACH_TOLERANCE = 0.25
+ const SAME_POINT_TOLERANCE = 1e-12
+ const SAME_NET_OBSTACLE_TOLERANCE = 1e-6
+ 
++// homesodamachine fork: when TSCIRCUIT_THROUGH_HOLE_VIAS is set, the router emits only full-stack
++// (top<->bottom) vias instead of the blind/buried consecutive-z spans it places internally —
++// JLCPCB standard assembly drills through-holes only. Off by default, so upstream behavior is
++// unchanged unless a consumer opts in.
++const isThroughHoleViasOnly = () =>
++  typeof process !== "undefined" &&
++  (process.env?.TSCIRCUIT_THROUGH_HOLE_VIAS === "1" ||
++    process.env?.TSCIRCUIT_THROUGH_HOLE_VIAS === "true")
++
++// Rewrite every via in a finished route to span the full copper stack. Sound because the router's
++// route-vs-route via conflict model is already full-column (a via reserves its (x,y) against other
++// routes on all layers), and via candidates are kept off pads by the mesh; the board DRC proves no
++// barrel crosses foreign copper. No-op on <=2-layer boards (every via is top<->bottom already).
++const normalizeViasToThroughHole = (
++  route: SimplifiedPcbTraces[number]["route"],
++  layerCount: number,
++): SimplifiedPcbTraces[number]["route"] => {
++  if (!isThroughHoleViasOnly() || layerCount <= 2) return route
++  const top = mapZToLayerName(0, layerCount)
++  const bottom = mapZToLayerName(layerCount - 1, layerCount)
++  return route.map((seg) =>
++    seg.route_type === "via" ? { ...seg, from_layer: top, to_layer: bottom } : seg,
++  )
++}
++
+ export interface ConvertHdRouteToSimplifiedRouteOptions {
+   connectionPoints?: ReadonlyArray<ConnectionPoint>
+   terminalViaAttachTolerance?: number
+@@ -343,7 +368,7 @@ export const convertHdRouteToSimplifiedRoute = (
+     }
+   }
+ 
+-  return attachTerminalViasToSimplifiedRoute({
++  const withTerminalVias = attachTerminalViasToSimplifiedRoute({
+     route: result,
+     hdRoute,
+     layerCount,
+@@ -351,4 +376,5 @@ export const convertHdRouteToSimplifiedRoute = (
+     tolerance: opts.terminalViaAttachTolerance,
+     defaultViaHoleDiameter: opts.defaultViaHoleDiameter,
+   })
++  return normalizeViasToThroughHole(withTerminalVias, layerCount)
+ }
