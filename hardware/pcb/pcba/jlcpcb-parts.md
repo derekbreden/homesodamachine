@@ -90,10 +90,16 @@ Kefa Elec): real margin, and it lands the 16–18 AWG power feed on a screw inst
 crimp. Extended (every screw terminal in the library is), deep stock (165k at 2026-07-02,
 $0.0995/1+); wave-soldered THT, so it rides the same through-hole assembly the XH wafers +
 coin base already require (no new process, no JLCPCB assembly-difficulty flag).
-Footprint pulled with `tsci import C474881` (→ `imports/KF301_5_0_2P.tsx`); pin1 → GND,
-pin2 → V12, the polarity silked at each screw because reversing 12 V would cook the
-polarised bulk cap (C3), the bucks, and the DRV8870s. The 2-pin XH wafer (`C5359631`) it
-replaced is no longer on the board.
+Footprint pulled with `tsci import C474881` (→ `imports/KF301_5_0_2P.tsx`), then its auto
+ref-des was stripped so the label block is hand-drawn upright as a Jst survive-block: `12V`
+(1.4 mm function label) + `GND`/`V12` (0.8 mm pin labels) sit OUTBOARD of the fence toward the
+board edge, and the part is positioned (`y=30.115`) so its body/fence top edge lands on the
+same line as the north JST fences — labels and fence read at the same Y as J5/J6/J13, uniform
+across the edge. It's placed `pcbRotation={180}` so the wire throats face the north board edge
+— the loom feeds in from outside — with pin1 → GND on the east pad, pin2 → V12 on the west,
+the polarity silked at each screw because reversing 12 V would cook the polarised bulk cap
+(C3), the bucks, and the DRV8870s. The 2-pin XH wafer (`C5359631`) it replaced is no longer
+on the board.
 
 **U4/U5 are `C845537`** (UMW ULN2803A, SOP-18-300mil wide body). No Basic ULN2803 SOIC
 exists in the library — every ULN2803 part is Extended — so the feeder fee is unavoidable;
