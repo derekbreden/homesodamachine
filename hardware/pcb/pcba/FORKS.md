@@ -47,21 +47,17 @@ coherent change — never from the active dev branch, which bundles several chan
 | `@tscircuit/copper-pour-solver` | [copper-pour-solver](https://github.com/derekbreden/copper-pour-solver) | `v0.0.29` | override | antipad pill/oval pads (not just rect/circle) + through-hole via/hole guards + manual-trace net fallback | yes (clean bug fix) |
 | `@tscircuit/footprinter` | [footprinter](https://github.com/derekbreden/footprinter) | `v0.0.357` | override | `flippinlabels` pinrow option + `applyNoRefDes` fix | yes |
 | `circuit-json-to-gerber` | [circuit-json-to-gerber](https://github.com/derekbreden/circuit-json-to-gerber) | `v0.0.78` | override | inlined Hershey single-stroke font for gerber text | maybe |
-| `@tscircuit/cli` | [cli](https://github.com/derekbreden/cli) | `v0.1.1537` | override | multi-format export + inner-layer/Hershey gerbers (see wart) | mixed |
+| `@tscircuit/cli` | [cli](https://github.com/derekbreden/cli) | `v0.1.1537` | override | multi-format export (its gerber output comes from the cjtg fork it depends on) | maybe |
 
 The detailed through-hole-via design (why it's taught at the mesh, the decision point) is in
 [`patches/capacity-autorouter-fork/README.md`](patches/capacity-autorouter-fork/README.md).
 
-## Known wart: the cli fork vendors circuit-json-to-gerber
-
-`@tscircuit/cli`'s build inlines `circuit-json-to-gerber` into its bundle (cjtg is not in the
-`tscircuit` dependency tree). 11 of the cli patch's 12 hunks were therefore gerber changes, and
-the cli fork carries them by **vendoring a copy of cjtg's source** into
-`lib/vendor/circuit-json-to-gerber/`. This is faithful to what the prior bun patch did (it patched
-cli's inlined cjtg), but it duplicates the gerber change that also lives in the `circuit-json-to-gerber`
-fork, so the two can drift. Reshape target: make the cli fork depend on the cjtg fork instead of a
-vendored copy. (Note the two copies are different cjtg versions — cli inlines `0.0.51`, the
-standalone fork is `0.0.78` — so they carry version-appropriate, not identical, change sets.)
+The gerber change (Hershey silkscreen font) has a single home in the `circuit-json-to-gerber` fork.
+It reaches the board two ways, both pointing at that one fork: render-board.ts imports
+`circuit-json-to-gerber` directly (top-level override), and `@tscircuit/cli` depends on it as a
+devDependency that cli's build inlines into its bundle. The cli fork therefore carries only its own
+change — the multi-format export — and inner-layer gerbers come for free from the fork's `0.0.78`
+base (native there; they were only ever backported because cli's old `^0.0.51` pin predated them).
 
 ## Working on a fork (git-guard notes)
 
