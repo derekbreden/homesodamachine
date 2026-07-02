@@ -152,17 +152,26 @@ export default () => (
     <Jst name="J6" x={2.7} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" side="N" />
     <Jst name="J7" x={2.52} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" side="S" />
     <Jst name="J9" x={-42.63} y={-32} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" side="S" />
-    {/* 12V inlet — KF301-5.0-2P 2-pin 5.0mm screw terminal (C474881, 10A/300V), the board's
+    {/* 12V inlet — KF301-5.0-2P 2-pin 5.0mm screw terminal (C474881, 17A/250V), the board's
         power inlet. Sized for the ~3.3A peak (both pumps priming + a few valves + the condenser
-        fan) with margin the 3A XH wafer didn't have. The import draws the body silk + "J10"
-        ref-des; pin1->GND, pin2->V12, with the polarity silked below each screw — reversing 12V
-        would cook the polarised bulk cap (C3), the bucks, and the drivers. THT barrels pick up
-        their nets: V12 off the top island, GND off the bottom plane (the pour antipads the GND
-        barrel clear of the V12 island). Traces unchanged (.J10 > .GND / .V12 below). */}
-    <KF301_5_0_2P name="J10" pinLabels={{ pin1: ["GND"], pin2: ["V12"] }} pcbRotation={0} {...at(15.9, 31)} />
-    <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={15.9} pcbY={24.8} />
-    <silkscreentext text="GND" fontSize="0.8mm" anchorAlignment="center" pcbX={13.4} pcbY={26.9} />
-    <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={18.4} pcbY={26.9} />
+        fan) with margin the 3A XH wafer didn't have. pcbRotation 180 aims the wire throats at the
+        north board edge, so the field loom feeds in from OUTSIDE the board. y=30.115 seats the body
+        (fence) top edge on the same line as the north JST fences (33.815) — every north connector's
+        fence sits the same distance from the edge, so J10 reads uniform with J5/J6/J13. pin1->GND,
+        pin2->V12; the 180 seats GND on the east pad (x 18.4) and V12 on the west (x 13.4) —
+        reversing 12V would cook the polarised bulk cap (C3), the bucks, and the drivers. THT
+        barrels pick up their nets: V12 off the top island, GND off the bottom plane (the pour
+        antipads the GND barrel clear of the V12 island). Traces unchanged (.J10 > .GND / .V12).
+        Labels ARE the Jst survive-block: the import's own ref-des is suppressed (it would print
+        upside-down here), "12V" (1.4mm) + the pin labels (0.8mm) are hand-drawn upright OUTBOARD of
+        the fence toward the edge, at the same absolute Y as the north JSTs (pin labels 34.605,
+        function 35.715) so all four read identically; the ref-des sits inside the fence (hidden
+        under the body once populated), exactly where the JSTs tuck theirs. */}
+    <KF301_5_0_2P name="J10" pinLabels={{ pin1: ["GND"], pin2: ["V12"] }} pcbRotation={180} {...at(15.9, 30.115)} />
+    <silkscreentext text="GND" fontSize="0.8mm" anchorAlignment="center" pcbX={18.4} pcbY={34.605} />
+    <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={13.4} pcbY={34.605} />
+    <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={15.9} pcbY={35.715} />
+    <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={15.9} pcbY={27.0} />
     <Jst name="J11" x={-53.93} y={-32} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} rot={0} label="GAS" side="S" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
