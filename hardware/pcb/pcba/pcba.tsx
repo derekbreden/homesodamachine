@@ -109,11 +109,12 @@ export default () => (
     {/* On-board supplies. U10 = K7805 (12V->5V, 2A) SIP module (pin1 Vin / pin2 GND / pin3
         +Vo), 10uF input + 22uF output cap. U9 = AMS1117-3.3 (C6186, SOT-223 LDO) makes 3V3
         from the 5V rail: VIN off V5, VOUT1 + VOUT2 (tab) to 3V3, GND to the bottom plane;
-        the SMD pads auto-stitch to their planes. C13 = 10uF V5 input cap, C14 = 22uF 3V3
-        output cap. */}
+        the SMD pads auto-stitch to their planes. Each cap flanks the LDO at the pin of its
+        own net: C13 (10uF V5 input) hard by VIN on the east, C14 (22uF 3V3 output) under the
+        VOUT tab on the west — so each closes a tight local loop like C15/C16 flank U10. */}
     <AMS1117_3_3 name="U9" pcbRotation={0} {...at(-10.22, 28.45)} />
-    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-13.5} y={22.0} rot={0} side="S" />
-    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-13.5} y={19.0} rot={0} side="S" />
+    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-3.0} y={30.75} rot={0} side="S" />
+    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-13.5} y={23.4} rot={0} side="S" />
     <Buck5 name="U10" x={22.81} y={-25.95} />
     <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={13.88} y={-26.9} rot={0} side="S" />
     <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={30.66} y={-25.65} rot={270} side="S" />
