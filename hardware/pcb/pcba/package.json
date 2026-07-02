@@ -28,6 +28,6 @@
     "@tscircuit/props@0.0.553": "patches/@tscircuit%2Fprops@0.0.553.patch"
   },
   "overrides": {
-    "@tscircuit/capacity-autorouter": "github:derekbreden/tscircuit-autorouter#c68016b2e1d08b0390af7e53b361695097fb0e02"
+    "@tscircuit/capacity-autorouter": "github:derekbreden/tscircuit-autorouter#9d841702256a4224e64252d592d59a70b28ed784"
   }
 }
