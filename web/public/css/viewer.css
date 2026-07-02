@@ -633,7 +633,9 @@
 /* Board outer-dimensions readout — bottom-centre, between the pad-pick toggle
    (bottom-left) and the reset button (bottom-right). Sourced dynamically from
    the board element via picks.json (pick-data.ts), with an SVG-viewBox
-   fallback. Monospace, non-interactive so it never swallows a pan/drag. */
+   fallback. Same system font as the corner pills (compact enough to clear
+   them on desktop); wraps rather than running off a narrow screen, and never
+   exceeds the viewport. Non-interactive so it never swallows a pan/drag. */
 .pcb-wrapper > .pcb-dims {
   position: absolute;
   bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
@@ -642,15 +644,19 @@
   z-index: 12;
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  /* Prefer one line, sized to content; wrap only when it would exceed the viewport. */
+  width: max-content;
+  max-width: calc(100vw - 24px);
   padding: 5px 10px;
   background: rgba(35, 35, 66, 0.85);
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 8px;
-  font: 12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
+  font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
+  text-align: center;
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
   /* The readout is glance-only so pan/zoom passes through; the checks badge re-enables. */
@@ -674,6 +680,20 @@
   color: var(--err);
 }
 .pcb-dims .pcb-checks:hover { filter: brightness(1.2); }
+/* Phone: dims + via count + clearance floor + the checks badge together overrun
+   a narrow bottom bar and bury the corner Inspect / Reset pills. Lift the readout
+   onto its own row a full pill-height above that corner row (it wraps and grows
+   upward into empty board space, so the corners stay clear). On the dev server the
+   Edit pill stacks a second control into the left corner, so lift a notch higher
+   there (:has) to clear it too. */
+@media (max-width: 600px) {
+  .pcb-wrapper > .pcb-dims {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + 44px);
+  }
+  .pcb-wrapper:has(.pcb-edit-toggle) > .pcb-dims {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + 44px + 40px);
+  }
+}
 /* Board-checks modal: backdrop + centred card, scoped inside the board wrapper. */
 .pcb-wrapper > .pcb-checks-modal {
   position: absolute;
