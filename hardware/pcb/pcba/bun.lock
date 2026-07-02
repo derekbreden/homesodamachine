@@ -22,13 +22,15 @@
     },
   },
   "patchedDependencies": {
-    "circuit-json-to-gerber@0.0.78": "patches/circuit-json-to-gerber@0.0.78.patch",
-    "@tscircuit/core@0.0.1351": "patches/@tscircuit%2Fcore@0.0.1351.patch",
-    "@tscircuit/props@0.0.553": "patches/@tscircuit%2Fprops@0.0.553.patch",
     "@tscircuit/copper-pour-solver@0.0.29": "patches/@tscircuit%2Fcopper-pour-solver@0.0.29.patch",
-    "@tscircuit/capacity-autorouter@0.0.583": "patches/@tscircuit%2Fcapacity-autorouter@0.0.583.patch",
-    "@tscircuit/cli@0.1.1537": "patches/@tscircuit%2Fcli@0.1.1537.patch",
     "@tscircuit/footprinter@0.0.357": "patches/@tscircuit%2Ffootprinter@0.0.357.patch",
+    "@tscircuit/props@0.0.553": "patches/@tscircuit%2Fprops@0.0.553.patch",
+    "circuit-json-to-gerber@0.0.78": "patches/circuit-json-to-gerber@0.0.78.patch",
+    "@tscircuit/cli@0.1.1537": "patches/@tscircuit%2Fcli@0.1.1537.patch",
+    "@tscircuit/core@0.0.1351": "patches/@tscircuit%2Fcore@0.0.1351.patch",
+  },
+  "overrides": {
+    "@tscircuit/capacity-autorouter": "github:derekbreden/tscircuit-autorouter#c68016b2e1d08b0390af7e53b361695097fb0e02",
   },
   "packages": {
     "@babel/code-frame": ["@babel/code-frame@7.29.7", "", { "dependencies": { "@babel/helper-validator-identifier": "^7.29.7", "js-tokens": "^4.0.0", "picocolors": "^1.1.1" } }, "sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw=="],
@@ -235,7 +237,7 @@
 
     "@tscircuit/alphabet": ["@tscircuit/alphabet@0.0.25", "", { "peerDependencies": { "typescript": "^5.0.0" } }, "sha512-PWLjptI6AlLEtF/wjN1N8uC+n3G7vtg0j3xKE1fgWHDhahtnlQRqHDrtPSLlkIR9aJjRfjplzLuaUEaCRvJmZA=="],
 
-    "@tscircuit/capacity-autorouter": ["@tscircuit/capacity-autorouter@0.0.583", "", { "dependencies": { "fast-json-stable-stringify": "^2.1.0", "object-hash": "^3.0.0" } }, "sha512-uSbZct2KuSz5PsS4gcYozhqPlyVx6FhvCZpGX8nBC/b0Xcej+RwZ3O7z6gIpVaj4MO4/iC/3E5TkhKAe3Upwrg=="],
+    "@tscircuit/capacity-autorouter": ["@tscircuit/capacity-autorouter@github:derekbreden/tscircuit-autorouter#c68016b", { "dependencies": { "fast-json-stable-stringify": "^2.1.0", "object-hash": "^3.0.0" } }, "derekbreden-tscircuit-autorouter-c68016b"],
 
     "@tscircuit/checks": ["@tscircuit/checks@0.0.138", "", { "peerDependencies": { "@flatten-js/core": "*", "@tscircuit/math-utils": "*", "circuit-json": "*", "circuit-json-to-connectivity-map": "*", "typescript": "^5.5.3" } }, "sha512-NN84PSdV5Tem9+NpNrereoXHwDg8FHssdY8x1l7Bz8lO5gkYc8HzgUrEpjIhwBqgpe4oELMnwnQ6r3ebXTAs0Q=="],
 
