@@ -59,6 +59,20 @@ devDependency that cli's build inlines into its bundle. The cli fork therefore c
 change — the multi-format export — and inner-layer gerbers come for free from the fork's `0.0.78`
 base (native there; they were only ever backported because cli's old `^0.0.51` pin predated them).
 
+## Local working trees
+
+The forks are checked out at **`~/Developer/tscircuit-forks/<pkg>`**, each on the
+`homesodamachine/through-hole-vias` branch, with `origin` = our fork and `upstream` =
+`tscircuit/<pkg>` (so the sync can `git fetch upstream` and rebase). Each tree's `HEAD` matches the
+commit this project pins in [`package.json`](package.json) (for rectdiff, the commit the CAR fork
+pins). The board build does **not** use these trees — it installs the forks from GitHub via the
+overrides — they exist for developing the forks and running the weekly sync.
+
+To develop a fork: edit its `lib/`/`src/`, then `bun install && bun run build` (commit the rebuilt
+`dist/` for the dist-shipping packages — it's gitignored, so `git add -f dist`), push the branch,
+and bump its SHA in [`package.json`](package.json) `overrides` (or the CAR fork's `package.json`
+for rectdiff) followed by `bun install` here.
+
 ## Working on a fork (git-guard notes)
 
 The homesodamachine worktree's `block-branch`/`block-commit-curation` hooks fire on any Bash in
