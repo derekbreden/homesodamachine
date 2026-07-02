@@ -28,13 +28,6 @@ import { tmpdir } from "node:os"
 import path from "node:path"
 import { Resvg } from "@resvg/resvg-js"
 
-// The homesodamachine capacity-autorouter fork routes on all inner layers but emits only
-// full-stack (top<->bottom) through-hole vias — JLCPCB standard assembly drills through-holes
-// only. Its behavior is opt-in via this flag; set it here so every tsci export this script
-// spawns inherits it (spawn() with no env inherits process.env). The board DRC (clearance.ts)
-// asserts no blind/buried via survives, so a missing flag fails loudly rather than silently.
-process.env.TSCIRCUIT_THROUGH_HOLE_VIAS ??= "1"
-
 /**
  * JLCPCB's BOM importer folds any row with an empty Comment up into the row above
  * it — merging that part's designator into the previous line and discarding its own
