@@ -117,7 +117,7 @@ export default () => (
     <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-13.5} y={23.4} rot={0} side="S" />
     <Buck5 name="U10" x={22.81} y={-25.95} />
     <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={13.88} y={-26.9} rot={0} side="S" />
-    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={30.66} y={-25.65} rot={270} side="S" />
+    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={30.66} y={-25.65} rot={270} side="E" />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
         pump (Kamoer KPHM400-SW, 12V brushed DC, 0.8A at full speed per the datasheet — PWM'd well below that at the
         1:20 dispense ratio; prime/clean is where it hits 0.8A), 45V/3.6A SMD with internal freewheeling +
@@ -279,7 +279,7 @@ export default () => (
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
     <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={2.18} y={12} rot={0} side="S" />
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9} y={-26.9} rot={180} side="W" />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9} y={-26.9} rot={180} side="S" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
