@@ -4,11 +4,39 @@ index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2
 diff --git a/node_modules/@tscircuit/copper-pour-solver/.bun-tag-dede0a731d6fc77 b/.bun-tag-dede0a731d6fc77
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/@tscircuit/copper-pour-solver/.bun-tag-f1ebf620532cb9eb b/.bun-tag-f1ebf620532cb9eb
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/dist/index.js b/dist/index.js
-index 85d1ce644b64ac84402c94127cff80bb35e577bc..6348b58492ef84317a8fb842eca7b4095bdd345e 100644
+index 85d1ce644b64ac84402c94127cff80bb35e577bc..afe95207ca4cbfb0799f15521d2f8d59affc25dc 100644
 --- a/dist/index.js
 +++ b/dist/index.js
-@@ -527,7 +527,14 @@ var convertCircuitJsonToInputProblem = (circuitJson, options) => {
+@@ -524,10 +524,39 @@ var convertCircuitJsonToInputProblem = (circuitJson, options) => {
+           y: smtpad.y,
+           radius: smtpad.radius
+         });
++      } else if (smtpad.shape === "pill" || smtpad.shape === "rotated_pill" || smtpad.shape === "rotated_rect") {
++        // PATCH(homesodamachine): the stock solver antipads only rect + circle, silently
++        // dropping pill / rotated pads — so a plane floods solid over them (the DRV8870 pump
++        // drivers are pill SMD lands). Emit the pad's rotation-aware bounding box as a rect so
++        // it flows through the proven rect+padMargin antipad path. For an axis-aligned pill the
++        // box is the exact copper extent; a rotated pad's box is a hair larger at the rounded
++        // corners — the safe direction (more clearance, never a short).
++        const _hw = smtpad.width / 2, _hh = smtpad.height / 2;
++        const _r = (smtpad.ccw_rotation ?? 0) * Math.PI / 180, _c = Math.abs(Math.cos(_r)), _s = Math.abs(Math.sin(_r));
++        const _ehw = _hw * _c + _hh * _s, _ehh = _hw * _s + _hh * _c;
++        pads.push({
++          shape: "rect",
++          padId: smtpad.pcb_smtpad_id,
++          layer: smtpad.layer,
++          connectivityKey,
++          bounds: {
++            minX: smtpad.x - _ehw,
++            minY: smtpad.y - _ehh,
++            maxX: smtpad.x + _ehw,
++            maxY: smtpad.y + _ehh
++          }
++        });
        }
      } else if (elm.type === "pcb_plated_hole") {
        const platedHole = elm;
@@ -24,7 +52,36 @@ index 85d1ce644b64ac84402c94127cff80bb35e577bc..6348b58492ef84317a8fb842eca7b409
        let connectivityKey = connectivityMap.getNetConnectedToId(
          platedHole.pcb_plated_hole_id
        );
-@@ -615,7 +622,15 @@ var convertCircuitJsonToInputProblem = (circuitJson, options) => {
+@@ -562,6 +591,28 @@ var convertCircuitJsonToInputProblem = (circuitJson, options) => {
+             maxY: platedHole.y + rectHeight / 2
+           }
+         });
++      } else if (platedHole.shape === "pill" || platedHole.shape === "oval") {
++        // PATCH(homesodamachine): same gap as the smtpad pill branch — the stock solver
++        // antipads only circle + rect plated holes, dropping pill/oval slots. The USB-C shield
++        // legs (J14) are pill plated holes on GND; unhandled, all four inner planes flood solid
++        // over them and short GND to 3V3/5V/SDA/SCL. Antipad the pad's rotation-aware outer
++        // bounding box (outer_width/height, the copper extent — not the drill) via the rect path.
++        const _ow = (platedHole.outer_width ?? platedHole.hole_width ?? 0) / 2;
++        const _oh = (platedHole.outer_height ?? platedHole.hole_height ?? 0) / 2;
++        const _r = (platedHole.ccw_rotation ?? 0) * Math.PI / 180, _c = Math.abs(Math.cos(_r)), _s = Math.abs(Math.sin(_r));
++        const _ehw = _ow * _c + _oh * _s, _ehh = _ow * _s + _oh * _c;
++        pads.push({
++          shape: "rect",
++          padId: platedHole.pcb_plated_hole_id,
++          layer: options.layer,
++          connectivityKey,
++          bounds: {
++            minX: platedHole.x - _ehw,
++            minY: platedHole.y - _ehh,
++            maxX: platedHole.x + _ehw,
++            maxY: platedHole.y + _ehh
++          }
++        });
+       }
+     } else if (elm.type === "pcb_hole") {
+       const hole = elm;
+@@ -615,7 +666,15 @@ var convertCircuitJsonToInputProblem = (circuitJson, options) => {
        }
      } else if (elm.type === "pcb_via") {
        const via = elm;
@@ -41,7 +98,7 @@ index 85d1ce644b64ac84402c94127cff80bb35e577bc..6348b58492ef84317a8fb842eca7b409
        const connectivityKey = connectivityMap.getNetConnectedToId(via.pcb_via_id) ?? `unconnected-via:${via.pcb_via_id}`;
        pads.push({
          shape: "circle",
-@@ -628,10 +643,15 @@ var convertCircuitJsonToInputProblem = (circuitJson, options) => {
+@@ -628,10 +687,15 @@ var convertCircuitJsonToInputProblem = (circuitJson, options) => {
        });
      } else if (elm.type === "pcb_trace") {
        const trace = elm;

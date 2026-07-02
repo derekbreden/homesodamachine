@@ -119,6 +119,36 @@ export function antennaKeepout(circuit: any[]): number {
   return n
 }
 
+/** Drop poured fragments the solver pinched off below the fab minimum feature width — tiny
+ *  floating acid-traps (a near-zero-area triangle, a sub-0.1 mm strip) left by its polygon
+ *  boolean ops. Gated on BOTH thinness (2·area/perimeter) AND small area so a legitimately
+ *  thin-waisted but large connected plane region is never removed; nothing this small can carry
+ *  a connection (the smallest via pad is 0.5 mm). Mutates `circuit` in place, returns the count.
+ *  Kept in lockstep with clearance.ts's SLIVER check — same thresholds, so the DRC reports zero
+ *  once this has run. */
+export function dropPourSlivers(circuit: any[], minWidthMm = 0.1, maxAreaMm2 = 0.15): number {
+  const isSliver = (pour: any): boolean => {
+    const verts: Vert[] = pour.brep_shape?.outer_ring?.vertices
+    if (!verts) return false
+    if (verts.length < 3) return true
+    let area2 = 0, per = 0
+    for (let i = 0, j = verts.length - 1; i < verts.length; j = i++) {
+      area2 += verts[j]!.x * verts[i]!.y - verts[i]!.x * verts[j]!.y
+      per += Math.hypot(verts[i]!.x - verts[j]!.x, verts[i]!.y - verts[j]!.y)
+    }
+    const area = Math.abs(area2) / 2
+    const width = per > 0 ? Math.abs(area2) / per : 0
+    return width < minWidthMm && area < maxAreaMm2
+  }
+  let dropped = 0
+  // Splice out the sliver pours (back-to-front so indices stay valid). Removing the element is
+  // safe — nothing that small connects anything — and leaves the gerber converter nothing to draw.
+  for (let i = circuit.length - 1; i >= 0; i--) {
+    if (circuit[i].type === "pcb_copper_pour" && isSliver(circuit[i])) { circuit.splice(i, 1); dropped++ }
+  }
+  return dropped
+}
+
 /** Append a widened keepout ring to every pour wherever a rule-paired foreign pad sits inside it.
  *  Mutates `circuit` in place and returns what changed. */
 export function widenPourVoids(circuit: any[], rules: ClearanceRule[] = []): WidenStats {
