@@ -20,14 +20,14 @@
     "tscircuit": "^0.0.1927"
   },
   "patchedDependencies": {
-    "@tscircuit/core@0.0.1351": "patches/@tscircuit%2Fcore@0.0.1351.patch",
     "@tscircuit/cli@0.1.1537": "patches/@tscircuit%2Fcli@0.1.1537.patch",
-    "@tscircuit/copper-pour-solver@0.0.29": "patches/@tscircuit%2Fcopper-pour-solver@0.0.29.patch",
     "@tscircuit/footprinter@0.0.357": "patches/@tscircuit%2Ffootprinter@0.0.357.patch",
-    "circuit-json-to-gerber@0.0.78": "patches/circuit-json-to-gerber@0.0.78.patch",
-    "@tscircuit/props@0.0.553": "patches/@tscircuit%2Fprops@0.0.553.patch"
+    "circuit-json-to-gerber@0.0.78": "patches/circuit-json-to-gerber@0.0.78.patch"
   },
   "overrides": {
-    "@tscircuit/capacity-autorouter": "github:derekbreden/tscircuit-autorouter#9d841702256a4224e64252d592d59a70b28ed784"
+    "@tscircuit/capacity-autorouter": "github:derekbreden/tscircuit-autorouter#9d841702256a4224e64252d592d59a70b28ed784",
+    "@tscircuit/core": "github:derekbreden/core#f8029fc838b1845f5fc2b8125fbce93bd1dd37e8",
+    "@tscircuit/props": "github:derekbreden/props#2a29cec6b4da1f1ff699591ffffd2737826fa292",
+    "@tscircuit/copper-pour-solver": "github:derekbreden/copper-pour-solver#02d99c6e9eaffeba39b1fcb9f9c1b91d8d0f397d"
   }
 }
