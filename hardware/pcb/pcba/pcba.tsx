@@ -53,6 +53,7 @@
 import { at, Cap, Res, Jst, ulnOUT } from "./carrier_parts"
 import { Uln2803, Mcp23017, Ds3231Smd, Thvd1426, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn } from "./pcba_parts"
 import { K7803_1000R3 } from "./imports/K7803_1000R3"
+import { KF301_5_0_2P } from "./imports/KF301_5_0_2P"
 import { DRV8870DDAR as Drv8870 } from "./imports/DRV8870DDAR"
 import { boardVersionParts } from "./board-version"
 import { logoRoutes } from "./logo"
@@ -116,7 +117,8 @@ export default () => (
     <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={16.28} y={-30.2} rot={0} side="S" />
     <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={23.98} y={-25.65} rot={270} side="S" />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
-        pump (12V brushed DC, 0.3-0.5A, PWM), 45V/3.6A SMD with internal freewheeling +
+        pump (Kamoer KPHM400-SW, 12V brushed DC, 0.8A at full speed per the datasheet — PWM'd well below that at the
+        1:20 dispense ratio; prime/clean is where it hits 0.8A), 45V/3.6A SMD with internal freewheeling +
         OCP/OTP/UVLO. VM->12V (the top SMD pad lands directly on the V12 island), GND/PAD->GND,
         ISEN->GND, VREF->3V3, IN1/IN2 from the ESP north-edge pins, OUT1/OUT2 to PUMPS. 10uF +
         0.1uF VM decoupling per chip. */}
@@ -147,10 +149,20 @@ export default () => (
         (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
         IO19 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
     <Jst name="J5" x={-36.18} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} rot={0} label="RELAYS" side="N" />
-    <Jst name="J6" x={4.17} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" side="N" />
+    <Jst name="J6" x={2.7} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" side="N" />
     <Jst name="J7" x={2.52} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" side="S" />
     <Jst name="J9" x={-42.63} y={-32} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" side="S" />
-    <Jst name="J10" x={15.73} y={30.95} count={2} labels={["GND", "V12"]} rot={0} label="12V" side="N" />
+    {/* 12V inlet — KF301-5.0-2P 2-pin 5.0mm screw terminal (C474881, 10A/300V), the board's
+        power inlet. Sized for the ~3.3A peak (both pumps priming + a few valves + the condenser
+        fan) with margin the 3A XH wafer didn't have. The import draws the body silk + "J10"
+        ref-des; pin1->GND, pin2->V12, with the polarity silked below each screw — reversing 12V
+        would cook the polarised bulk cap (C3), the bucks, and the drivers. THT barrels pick up
+        their nets: V12 off the top island, GND off the bottom plane (the pour antipads the GND
+        barrel clear of the V12 island). Traces unchanged (.J10 > .GND / .V12 below). */}
+    <KF301_5_0_2P name="J10" pinLabels={{ pin1: ["GND"], pin2: ["V12"] }} pcbRotation={0} {...at(15.9, 31)} />
+    <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={15.9} pcbY={24.8} />
+    <silkscreentext text="GND" fontSize="0.8mm" anchorAlignment="center" pcbX={13.4} pcbY={26.9} />
+    <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={18.4} pcbY={26.9} />
     <Jst name="J11" x={-53.93} y={-32} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} rot={0} label="GAS" side="S" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
@@ -441,18 +453,16 @@ export default () => (
     <trace from=".R4 > .pin2" to="net.GND" />
     <trace from=".J11 > .GND" to="net.GND" />
 
-    {/* V12 decoupling, gridded on the right edge. HF: two 0.1uF ceramics (C1/C2)
-        each level with its manifold row — C2 by MANIFOLD A (y+19.1), C1 by MANIFOLD
-        B (y-19.1) — snubbing the fast solenoid-turn-off edge, with the 12V inlet
-        (J10) centered between them at y0. BULK: a 470uF low-ESR electrolytic (C3,
-        BOM 1) in the board centre between the two MCP stacks, west of the ULNs it
-        feeds across the V12 island, soaking the inrush + flyback dump the ceramics
-        can't. Every pin1 -> V12, pin2 -> GND plane — no routing, no vias, barrel
-        pickup like every power pin; the top V12 island floods the whole valve
-        block. C3 is polarized: pin1 (+) is V12. */}
+    {/* V12 decoupling. HF: two 0.1uF ceramics (C1 y-16.6, C2 y0.2) on the V12 island
+        by the ULN/manifold block, snubbing the fast solenoid-turn-off edge. BULK: a
+        470uF low-ESR electrolytic (C3, BOM 1) at the board centre between the two MCP
+        stacks (U2 north, U3 south), west of the ULNs it feeds across the V12 island,
+        soaking the inrush + flyback dump the ceramics can't. Every pin1 -> V12, pin2 ->
+        GND plane — no routing, no vias, barrel pickup like every power pin; the top V12
+        island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
     <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={14.4} y={-16.6} rot={0} side="S" />
     <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={14.3} y={0.2} rot={0} side="S" />
-    <BulkCap name="C3" x={12.75} y={21.8} />
+    <BulkCap name="C3" x={0.144} y={-0.606} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
     <trace from=".C2 > .pin1" to="net.V12" />
