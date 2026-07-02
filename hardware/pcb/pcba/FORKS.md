@@ -34,7 +34,15 @@ GitHub Actions cron: scheduled workflows are disabled on forks by default.
 
 As a change matures, open the PR from a **fresh fork off upstream `main`** carrying just that one
 coherent change — never from the active dev branch, which bundles several changes and a committed
-`dist/`. The active forks are our workbench; PRs are extracted clean.
+`dist/`. The active forks are our workbench; PRs are extracted clean. Open it with
+`gh api repos/<owner>/<repo>/pulls` — `gh pr create` is blocked by the git guard.
+
+Before naming a new option/API, grep the target repo for a sibling that already does the same shape
+and copy its vocabulary. tscircuit maintainers reject relative/inverted names (e.g. `flip`, which
+also reads as a top/bottom *layer* op) in favor of naming the absolute target. Example:
+[footprinter#672](https://github.com/tscircuit/footprinter/pull/672) — `flippinlabels` became
+`pinLabelSide` (`"top"|"bottom"|"left"|"right"`), matching `mountedpcbmodule`'s existing
+`pinRowSide` / `pinrow<side>` enum-plus-DSL-flag convention.
 
 ## The forks
 
