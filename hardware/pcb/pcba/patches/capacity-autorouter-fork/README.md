@@ -24,59 +24,64 @@ born there would be blind/buried or would drill that obstacle. There's no new ge
 layer-count plumbing — `availableZ` already encodes it, and every downstream solver variant reads
 `availableZ`, so teaching the mesh teaches all of them at once.
 
-## What the fork changes
+## What the forks change
 
 Triggered by the board prop **`autorouter={{ viaMode: "through-hole" }}`** (see `pcba.tsx`),
 which `@tscircuit/props` now accepts, `@tscircuit/core` lowers to `SimpleRouteJson.viaMode`, and
-the router honors. Off by default → identical to upstream.
+the router honors. Off by default → identical to upstream. Two forks carry the routing change:
 
-**`@tscircuit/rectdiff`** (`rectdiff.source.patch`, ~2 files) — the mesh:
+**[`derekbreden/rectdiff`](https://github.com/derekbreden/rectdiff)** — branch
+`homesodamachine/through-hole-vias`, off `4af388d` (the commit CAR pins). The mesh:
 - `lib/types/srj-types.ts`: add `viaMode` to `SimpleRouteJson`.
 - `lib/RectDiffPipeline.ts`: in `getOutput`, when `viaMode === "through-hole"`, split every node
   whose `availableZ` is a strict, multi-layer subset of the stack into one single-layer node per
   free layer. Traces still route on each layer; no via can be born there (a single-z node offers
   no other z to hop to). Full-stack nodes stay via-capable; single-layer nodes pass through.
 
-**`@tscircuit/capacity-autorouter`** (`capacity-autorouter.source.patch`, ~3 files) — emission:
+**[`derekbreden/tscircuit-autorouter`](https://github.com/derekbreden/tscircuit-autorouter)** —
+branch `homesodamachine/through-hole-vias`, off `v0.0.583`. Emission:
 - `lib/types/srj-types.ts`: add `viaMode` to `SimpleRouteJson`.
 - `lib/utils/convertHdRouteToSimplifiedRoute.ts`: in through-hole mode, span every emitted via
   `top↔bottom`. Sound because the mesh only births vias where the full column is clear, so
   widening the span crosses no foreign copper — it's a real drilled hole, not a re-labeled blind
   via.
 - `AutoroutingPipeline4_TinyHypergraph`: pass `srj.viaMode` into the emitter.
+- Its `@tscircuit/rectdiff` devDependency points at the rectdiff fork by commit SHA (the same
+  git-SHA mechanism upstream itself uses to pin rectdiff), so the build bundles the forked mesh
+  from source — no build-time patch.
 
-`@tscircuit/core` (in `../@tscircuit%2Fcore@0.0.1351.patch`): lowers `autorouter.viaMode` →
-`srj.viaMode` (beside `traceClearance`), and `EVERY_LAYER` is derived from the board's real layer
-stack so a plated-hole barrel blocks routing — and reduces `availableZ` — on every layer it
-occupies (this is what makes `availableZ` honest enough for the via-capable test to be correct).
-`@tscircuit/props` (in `../@tscircuit%2Fprops@*.patch`): adds `viaMode` to the autorouter schema.
+`@tscircuit/core` (still a bun patch, `../@tscircuit%2Fcore@0.0.1351.patch`, pending its own
+fork): lowers `autorouter.viaMode` → `srj.viaMode` (beside `traceClearance`), and `EVERY_LAYER`
+is derived from the board's real layer stack so a plated-hole barrel blocks routing — and reduces
+`availableZ` — on every layer it occupies (this is what makes `availableZ` honest enough for the
+via-capable test to be correct). `@tscircuit/props` (still a bun patch,
+`../@tscircuit%2Fprops@*.patch`, pending its own fork): adds `viaMode` to the autorouter schema.
 
-The board DRC (`../../clearance.ts`) independently asserts no blind/buried via and no barrel
+The board DRC (`../../clearance.ts`) independently asserts that no blind/buried via and no barrel
 crossing foreign copper on any layer survives.
 
 ## How it ships
 
-The fork is a real GitHub fork: **https://github.com/derekbreden/tscircuit-autorouter**, branch
-`homesodamachine/through-hole-vias` (pinned off upstream tag `v0.0.583`). It carries the CAR
-source changes, the built `dist/` committed on the branch (CAR's build bundles rectdiff from
-source, so the committed dist already contains the rectdiff change), and `homesodamachine-fork/`
-(the rectdiff change + rebuild notes). `main` tracks upstream; our changes live on the branch.
+Both routing forks are real GitHub forks. `main` tracks upstream; our change lives on the
+`homesodamachine/through-hole-vias` branch of each. The CAR fork commits its built `dist/` on the
+branch (upstream gitignores it) so a git-dependency consumer installs it without building; the
+rectdiff fork ships source (`main: lib/index.ts`), so CAR's build bundles it directly.
 
-The project consumes it with a `bun` override in `hardware/pcb/pcba/package.json`, pinned to the
-branch commit:
+The project consumes the CAR fork with a `bun` override in `hardware/pcb/pcba/package.json`,
+pinned to the branch commit; the rectdiff fork rides in as CAR's devDependency SHA:
 
 ```json
 "overrides": { "@tscircuit/capacity-autorouter": "github:derekbreden/tscircuit-autorouter#<sha>" }
 ```
 
-No vendored minified blob, no bun patch for this package — the two `*.source.patch` files here are
-mirrors of what's on the fork branch, kept for review next to the other packages' patches.
+No vendored minified blob and no bun patch for either package — the reviewable source is the two
+fork branches, PR-able to their upstreams.
 
-## Rebuilding / bumping upstream
+## Rebuilding / bumping
 
-Work in the fork repo (`derekbreden/tscircuit-autorouter`): sync `main` from upstream, rebase or
-re-apply the branch, `bun install`, apply `homesodamachine-fork/rectdiff.source.patch` to
-`node_modules/@tscircuit/rectdiff`, `bun run build`, commit `dist/`, push. Then bump the override
-SHA in `package.json` and `bun install`. (rectdiff is carried as a build-time patch for now; the
-endpoint is a matching `derekbreden/rectdiff` fork so the CAR fork depends on it directly — see the
-repo-level fork plan.)
+To change the mesh, edit the rectdiff fork branch, push, and update the `@tscircuit/rectdiff` SHA
+in the CAR fork's `package.json`. To change emission, edit the CAR fork branch. Either way, in the
+CAR fork: `bun install` (pulls the rectdiff fork), `bun run build` (bundles the forked mesh into
+`dist/`), commit `dist/`, push — then bump the override SHA in `hardware/pcb/pcba/package.json`
+and `bun install`. To track upstream: sync each fork's `main` from upstream, rebase the branch,
+rebuild, re-pin.
