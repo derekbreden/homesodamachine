@@ -128,7 +128,11 @@ export const Jst = ({ name, x, y, count, labels, rot = 0, label, side, jlcpcb }:
   const refOff = labelOff + smHalf + G + smHalf     // row -> ref-des (one tier beyond pin labels)
   const uc = ((bigOff + bigHalf) - (refOff + smHalf)) / 2     // fence centre, perpendicular
   const dep = (bigOff + bigHalf) + (refOff + smHalf) + 2 * M + 0.2  // +0.2 fence stroke
-  const len = (count - 1) * pitch + 2 * (padR + M + 0.1)
+  // The fence is the true XH wafer body along the pin axis — JST-XH housing width
+  // A = pitch·(count-1) + 4.9 mm (2.45 mm of plastic past each outer pin), NOT a
+  // pad-derived margin. A pad-margin fence reads ~0.9 mm narrow per end, so a gap
+  // measured fence-to-fence understates the real body-to-body clearance by ~1.85 mm.
+  const len = (count - 1) * pitch + 4.9
   const [w, h] = vertical ? [dep, len] : [len, dep]
   const P = (u: number, v: number): [number, number] => (vertical ? [perpDir * u, v] : [v, perpDir * u])
   const [bdx, bdy] = P(bigOff, 0)
