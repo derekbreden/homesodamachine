@@ -13,6 +13,9 @@ index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2
 diff --git a/node_modules/@tscircuit/core/.bun-tag-d5bc90521db587c0 b/.bun-tag-d5bc90521db587c0
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/node_modules/@tscircuit/core/.bun-tag-d5f15433fb856a9d b/.bun-tag-d5f15433fb856a9d
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/node_modules/@tscircuit/core/.bun-tag-d637b02405e7afd7 b/.bun-tag-d637b02405e7afd7
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
@@ -29,7 +32,7 @@ diff --git a/node_modules/@tscircuit/core/.bun-tag-ed8a2c7eba990c90 b/.bun-tag-e
 new file mode 100644
 index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
 diff --git a/dist/index.js b/dist/index.js
-index c7b53b7a6db997fd2924cd638de3d2f0757d8682..4337fb4875a3ada36ed6c798beb031a5a6dd04db 100644
+index c7b53b7a6db997fd2924cd638de3d2f0757d8682..90013504f311cdc528843a070aa712f54dc83b26 100644
 --- a/dist/index.js
 +++ b/dist/index.js
 @@ -2779,6 +2779,15 @@ var getAxisAlignedRectFromRotatedRect = (rotatedRect) => {
@@ -185,7 +188,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..4337fb4875a3ada36ed6c798beb031a5
        traces: descendantTraces.length > 0 ? descendantTraces : void 0,
        layerCount: board?.num_layers ?? 2,
        minTraceWidth: minTraceWidth ?? board?.min_trace_width ?? 0.1,
-@@ -22355,6 +22460,24 @@ var Group5 = class extends NormalComponent3 {
+@@ -22355,6 +22460,28 @@ var Group5 = class extends NormalComponent3 {
        subcircuit_id: this.subcircuit_id,
        subcircuitComponent: this
      });
@@ -200,17 +203,21 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..4337fb4875a3ada36ed6c798beb031a5
 +        baseSimpleRouteJson.defaultObstacleMargin = _tc;
 +        baseSimpleRouteJson.minTraceToPadEdgeClearance = _tc;
 +      }
-+      // PATCH(homesodamachine): signals route on ALL copper layers (layerCount stays
-+      // board.num_layers; the poured inner planes are separate copperpour entities the router
-+      // doesn't see as obstacles). Through-hole safety is now the router fork's job, not a pad
-+      // via-keepout hack here: the fork places vias only where the full board column is clear and
-+      // emits them top<->bottom (TSCIRCUIT_THROUGH_HOLE_VIAS). EVERY_LAYER (fixed above) makes a
-+      // plated-hole barrel block routing on every layer it occupies, and the DRC proves the result.
++      // PATCH(homesodamachine): plumb autorouter.viaMode -> the SimpleRouteJson (same channel as
++      // traceClearance). "through-hole" tells the capacity-autorouter fork to route on all copper
++      // layers but only birth a via where the full board column is clear, emitting it top<->bottom
++      // — JLCPCB standard assembly drills through-holes only, no blind/buried. Signals still route
++      // on ALL layers (the poured inner planes are separate copperpour entities the router doesn't
++      // see as obstacles); EVERY_LAYER (fixed above) makes a plated-hole barrel block routing on
++      // every layer it occupies so availableZ is honest, and the DRC proves no barrel crosses
++      // foreign copper. Default (unset) = stock blind/buried behavior.
++      const _vm = props.autorouter && typeof props.autorouter === "object" ? props.autorouter.viaMode : void 0;
++      if (_vm === "through-hole" || _vm === "any") baseSimpleRouteJson.viaMode = _vm;
 +    }
      const routingPhasePlans = this._getRoutingPhasePlans();
      const hasPhasedAutorouting = Group_hasPhasedAutorouting(routingPhasePlans);
      const outputTraces = [];
-@@ -24842,6 +24965,12 @@ var Board = class extends Group5 {
+@@ -24842,6 +24969,12 @@ var Board = class extends Group5 {
      if (layerCount === 4) {
        return ["top", "bottom", "inner1", "inner2"];
      }
@@ -223,7 +230,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..4337fb4875a3ada36ed6c798beb031a5
      return ["top", "bottom"];
    }
    _getSubcircuitLayerCount() {
-@@ -29088,6 +29217,72 @@ var CopperPour = class extends PrimitiveComponent2 {
+@@ -29088,6 +29221,72 @@ var CopperPour = class extends PrimitiveComponent2 {
          return;
        }
        const subcircuit = this.getSubcircuit();
@@ -296,7 +303,7 @@ index c7b53b7a6db997fd2924cd638de3d2f0757d8682..4337fb4875a3ada36ed6c798beb031a5
        const circuitJson = db.toArray();
        const sourceNet = circuitJson.find(
          (elm) => elm.type === "source_net" && elm.name === net.name
-@@ -29096,7 +29291,7 @@ var CopperPour = class extends PrimitiveComponent2 {
+@@ -29096,7 +29295,7 @@ var CopperPour = class extends PrimitiveComponent2 {
        const connectedNetId = sourceNet?.source_net_id ?? net.source_net_id;
        const pourConnectivityKey = (connectedNetId ? connectivityMap.getNetConnectedToId(connectedNetId) : void 0) || sourceNet?.subcircuit_connectivity_map_key || "";
        const clearance = props.clearance ?? 0.2;

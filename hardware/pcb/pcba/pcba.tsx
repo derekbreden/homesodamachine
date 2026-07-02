@@ -29,11 +29,12 @@
  * (through-hole) or an auto-stitched via (SMD). V12 is a top-copper island over the valve/
  * buck/driver block (the L outline at the pours): top-layer 12V pads sit on it directly,
  * through-hole 12V pins pick it up at the barrel. Point-to-point signals route on ALL six
- * layers: the homesodamachine @tscircuit/capacity-autorouter fork uses the inner copper but
- * places vias only where the full board column is clear and emits them top<->bottom (JLCPCB
- * drills through-holes only, no blind/buried — see patches/capacity-autorouter-fork/). Each
- * poured plane carves clearance around the inner-layer signals crossing it and every via is a
- * manufacturable through-hole; the DRC (clearance.ts) proves no barrel crosses foreign copper.
+ * layers: `autorouter.viaMode="through-hole"` (below) tells the homesodamachine capacity-autorouter
+ * fork to use the inner copper but make a mesh node via-capable only where the full board column
+ * is clear, and emit those vias top<->bottom (JLCPCB drills through-holes only, no blind/buried —
+ * see patches/capacity-autorouter-fork/). Each poured plane carves clearance around the inner-layer
+ * signals crossing it and every via is a manufacturable through-hole; the DRC (clearance.ts)
+ * proves no blind/buried via and no barrel crossing foreign copper survives.
  *
  * `schematicDisabled` on the board: this is a fab-only PCB (its canonical "schematic" is
  * esp32-pinout.mmd). tscircuit's schematic-trace-solver — NOT the PCB autorouter — hangs on
@@ -69,7 +70,7 @@ import { S8050_J3Y_RANGE_200_350_ as S8050 } from "./imports/S8050_J3Y_RANGE_200
 const ID = boardVersionParts()
 
 export default () => (
-  <board layers={6} schematicDisabled outline={[{ x: -67.5, y: -38.57 }, { x: 28.22, y: -38.57 }, { x: 28.22, y: 37 }, { x: -67.5, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.15 }}>
+  <board layers={6} schematicDisabled outline={[{ x: -67.5, y: -38.57 }, { x: 28.22, y: -38.57 }, { x: 28.22, y: 37 }, { x: -67.5, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.15, viaMode: "through-hole" }}>
     {/* DS3231SN RTC + CR2032 backup, east of the ESP. U6 (the SOIC) sits high with its
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is

@@ -1,0 +1,15 @@
+diff --git a/dist/index.js b/dist/index.js
+index 0530d61555f691b152bbca7c43b80eb74f277541..43ee3af77551c6b64ce731e71611fd31f0eaec2a 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -16282,6 +16282,10 @@ var autorouterConfig = z37.object({
+   serverCacheEnabled: z37.boolean().optional(),
+   cache: z37.custom((v) => true).optional(),
+   traceClearance: length3.optional(),
++  // PATCH(homesodamachine): "through-hole" forbids blind/buried vias — the router routes on all
++  // copper layers but only births a via where the full board column is clear and emits it
++  // top<->bottom (JLCPCB standard assembly drills through-holes only). Default: blind/buried allowed.
++  viaMode: z37.enum(["through-hole", "any"]).optional(),
+   availableJumperTypes: z37.array(z37.enum(["1206x4", "0603"])).optional(),
+   groupMode: z37.enum(["sequential_trace", "subcircuit", "sequential-trace"]).optional(),
+   algorithmFn: z37.custom(
