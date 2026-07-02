@@ -24,8 +24,8 @@
   "overrides": {
     "@tscircuit/capacity-autorouter": "github:derekbreden/tscircuit-autorouter#6e39391df777f89fa4b1965f6b276462b17a4f98",
     "@tscircuit/cli": "github:derekbreden/cli#9a36c81e9291d2bae209c77cdf0d7116321ca34d",
-    "@tscircuit/copper-pour-solver": "0.0.36",
-    "@tscircuit/core": "github:derekbreden/core#f8029fc838b1845f5fc2b8125fbce93bd1dd37e8",
+    "@tscircuit/copper-pour-solver": "github:derekbreden/copper-pour-solver#c68dcef975bdb1723227ba7da16bed4470b673be",
+    "@tscircuit/core": "github:derekbreden/core#41a2dab0377ef8c2edaa1fc512e53ac02fbc2fc3",
     "@tscircuit/footprinter": "github:derekbreden/footprinter#c8eadb7b7ba9366b5f00d457a3bec2209bb73913",
     "@tscircuit/props": "github:derekbreden/props#d179577a44786bb77cc629c35f8e028063cb3e92",
     "circuit-json-to-gerber": "github:derekbreden/circuit-json-to-gerber#8aceadcace30a2b4d3a9fdc2c8e2634d2b1af0f7",
@@ -243,9 +243,9 @@
 
     "@tscircuit/cli": ["@tscircuit/cli@github:derekbreden/cli#9a36c81", { "peerDependencies": { "tscircuit": "*" }, "bin": { "tscircuit-cli": "./cli/entrypoint.js" } }, "derekbreden-cli-9a36c81"],
 
-    "@tscircuit/copper-pour-solver": ["@tscircuit/copper-pour-solver@0.0.36", "", { "dependencies": { "manifold-3d": "^3.4.1" }, "peerDependencies": { "typescript": "^5" } }, "sha512-836MrfxTjh3d1HMTinhc9oVeMV8dBcjl9H6ISuei6zyKrp/lYgbSfGDZQ0+hQpI97VcON6VLfHZx5DD2BZjRyw=="],
+    "@tscircuit/copper-pour-solver": ["@tscircuit/copper-pour-solver@github:derekbreden/copper-pour-solver#c68dcef", { "dependencies": { "manifold-3d": "^3.4.1" }, "peerDependencies": { "typescript": "^5" } }, "derekbreden-copper-pour-solver-c68dcef"],
 
-    "@tscircuit/core": ["@tscircuit/core@github:derekbreden/core#f8029fc", { "dependencies": { "@flatten-js/core": "^1.6.2", "@lume/kiwi": "^0.4.3", "calculate-cell-boundaries": "^0.0.13", "calculate-packing": "0.0.75", "css-select": "5.1.0", "format-si-unit": "^0.0.7", "nanoid": "^5.0.7", "performance-now": "^2.1.0", "react-reconciler": "^0.32.0", "svg-path-commander": "^2.1.11", "transformation-matrix": "^2.16.1", "zod": "^3.25.67" }, "peerDependencies": { "@tscircuit/capacity-autorouter": "*", "@tscircuit/checks": "*", "@tscircuit/circuit-json-util": "*", "@tscircuit/footprinter": "*", "@tscircuit/infgrid-ijump-astar": "*", "@tscircuit/matchpack": "*", "@tscircuit/math-utils": "*", "@tscircuit/props": "*", "@tscircuit/schematic-match-adapt": "*", "bpc-graph": "*", "circuit-json": "*", "circuit-json-to-bpc": "*", "circuit-json-to-connectivity-map": "*", "schematic-symbols": "*", "typescript": "^5.0.0" } }, "derekbreden-core-f8029fc"],
+    "@tscircuit/core": ["@tscircuit/core@github:derekbreden/core#41a2dab", { "dependencies": { "@flatten-js/core": "^1.6.2", "@lume/kiwi": "^0.4.3", "calculate-cell-boundaries": "^0.0.13", "calculate-packing": "0.0.75", "css-select": "5.1.0", "format-si-unit": "^0.0.7", "nanoid": "^5.0.7", "performance-now": "^2.1.0", "react-reconciler": "^0.32.0", "svg-path-commander": "^2.1.11", "transformation-matrix": "^2.16.1", "zod": "^3.25.67" }, "peerDependencies": { "@tscircuit/capacity-autorouter": "*", "@tscircuit/checks": "*", "@tscircuit/circuit-json-util": "*", "@tscircuit/footprinter": "*", "@tscircuit/infgrid-ijump-astar": "*", "@tscircuit/matchpack": "*", "@tscircuit/math-utils": "*", "@tscircuit/props": "*", "@tscircuit/schematic-match-adapt": "*", "bpc-graph": "*", "circuit-json": "*", "circuit-json-to-bpc": "*", "circuit-json-to-connectivity-map": "*", "schematic-symbols": "*", "typescript": "^5.0.0" } }, "derekbreden-core-41a2dab"],
 
     "@tscircuit/eval": ["@tscircuit/eval@0.0.948", "", { "peerDependencies": { "@tscircuit/core": "*", "circuit-json": "*", "typescript": "^5.0.0", "zod": "3" } }, "sha512-4RQZA10dNB1H3oY5CWok/2ftnhHZbTGswsosu9ZCH3wRSUurfIk6TXPwIx5uw2Kp2fYFuQIEAhz0+b0R7XwQ0A=="],
 

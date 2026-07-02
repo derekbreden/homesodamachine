@@ -8,8 +8,7 @@ goal is to become a contributor to tscircuit — and, whether or not that lands,
 forward development on it while still pulling in upstream.
 
 There are no `bun` `patchedDependencies` left. Every tscircuit change the board needs rides in
-through a fork — except `copper-pour-solver`, which we no longer fork (upstream superseded our fix),
-now pinned to a stock upstream version (see below).
+through a fork.
 
 ## The model
 
@@ -44,22 +43,28 @@ coherent change — never from the active dev branch, which bundles several chan
 | `@tscircuit/capacity-autorouter` | [tscircuit-autorouter](https://github.com/derekbreden/tscircuit-autorouter) | `v0.0.620` | override | via emission spans top↔bottom in through-hole mode | yes (with props/core/rectdiff) |
 | `@tscircuit/rectdiff` | [rectdiff](https://github.com/derekbreden/rectdiff) | `v0.0.47` | CAR devDep SHA | mesh: a node is via-capable iff its `availableZ` spans the full stack | yes |
 | `@tscircuit/props` | [props](https://github.com/derekbreden/props) | `v0.0.565` | override | `viaMode` on the autorouter config schema | yes |
-| `@tscircuit/core` | [core](https://github.com/derekbreden/core) | `v0.0.1351` (held — see note) | override | `viaMode`/`traceClearance` lowering, honest `EVERY_LAYER`, 6/8-layer names, pour stitch/keepout/carve, hole clearance ring, silk ref-des rotation | mixed — the `viaMode` lowering yes; the pour/stitch logic is project-specific |
+| `@tscircuit/core` | [core](https://github.com/derekbreden/core) | `v0.0.1380` | override | `viaMode`/`traceClearance` lowering, honest `EVERY_LAYER`, 6/8-layer names, pour stitch/keepout/carve, hole clearance ring, silk ref-des rotation | mixed — the `viaMode` lowering yes; the pour/stitch logic is project-specific |
+| `@tscircuit/copper-pour-solver` | [copper-pour-solver](https://github.com/derekbreden/copper-pour-solver) | `v0.0.36` | override | antipad through-hole barrels/vias + pill/oval plated holes on inner planes | yes (general solver fix) |
 | `@tscircuit/footprinter` | [footprinter](https://github.com/derekbreden/footprinter) | `v0.0.363` | override | `flippinlabels` pinrow option + `applyNoRefDes` fix | yes (`flippinlabels` PR'd: [footprinter#672](https://github.com/tscircuit/footprinter/pull/672)) |
 | `circuit-json-to-gerber` | [circuit-json-to-gerber](https://github.com/derekbreden/circuit-json-to-gerber) | `v0.0.78` | override | inlined Hershey single-stroke font for gerber text | maybe |
 | `@tscircuit/cli` | [cli](https://github.com/derekbreden/cli) | `v0.1.1586` | override | multi-format export (its gerber output comes from the cjtg fork it depends on) | maybe |
 
-**`@tscircuit/copper-pour-solver` is no longer forked.** Upstream added native pill/rotated_pill
-geometry (PR #50) and a global connectivity map (#53/#56), superseding our fork's bounding-box fix.
-tscircuit pins the old `0.0.29` (which reintroduces pour-shorts on this board), so `package.json`
-pins stock upstream `0.0.36` via a plain version override instead.
+**`@tscircuit/copper-pour-solver` (fork, base `v0.0.36`).** Upstream `0.0.36` added native
+pill/rotated_pill *smtpad* geometry (PR #50) and a global connectivity map (#53/#56) — which
+supersede the fork's earlier bounding-box smtpad-pill fix and its manual-trace sentinel. But `0.0.36`
+still antipads a plated hole / via only on the layers listed in its `.layers` (top/bottom for a
+through-hole), so an inner copper pour floods solid over every through-hole barrel and through-via
+with no anti-pad and shorts that plane to the pin's net. The fork restores the guard: a plated-hole /
+via that spans top&bottom is treated as present on all copper layers, and pill/oval *plated holes*
+(which `0.0.36`'s plated-hole path drops entirely — e.g. the USB-C shield legs) are emitted as native
+pill pads. See `plane-stitching.md`.
 
-**`@tscircuit/core` is held at `v0.0.1351`.** Its sync onto upstream `v0.0.1380` rebased cleanly but
-regressed the board (pour-shorts): upstream refactored CopperPour connectivity
-(`pour_connectivity_key` → `subcircuit_id` + `source_net_id`), so our project-specific pour logic
-(auto-stitch, stitch-keepout, EVERY_LAYER) must be adapted to that new architecture before core can
-advance. The synced attempt is preserved on the core fork's `homesodamachine/sync-v0.0.1380-wip`
-branch as the starting point for that work. (The other six forks are synced to current upstream.)
+**`@tscircuit/core` is synced to `v0.0.1380`.** Its copper-pour render now drives the pour solver by
+`subcircuit_id` + `source_net_id` (upstream's refactored connectivity API — the old computed
+`pour_connectivity_key`, which `copper-pour-solver 0.0.36` rejects with a throw, is gone). The
+through-hole / through-via inner-plane anti-pad the copper-pour fork used to carry lives in that fork
+again (above), so core's own pour/stitch logic (auto-stitch, stitch-keepout, EVERY_LAYER, carve) is
+otherwise unchanged. All seven forks now track current upstream.
 
 The detailed through-hole-via design (why it's taught at the mesh, the decision point) is in
 [`patches/capacity-autorouter-fork/README.md`](patches/capacity-autorouter-fork/README.md).
