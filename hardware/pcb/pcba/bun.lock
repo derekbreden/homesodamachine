@@ -23,7 +23,7 @@
   },
   "overrides": {
     "@tscircuit/capacity-autorouter": "github:derekbreden/tscircuit-autorouter#9d841702256a4224e64252d592d59a70b28ed784",
-    "@tscircuit/cli": "github:derekbreden/cli#c68e75224c4774ab61cb2bd72c62650730026a6a",
+    "@tscircuit/cli": "github:derekbreden/cli#3a29b7b1582057b463a3e72845684d07ad880572",
     "@tscircuit/copper-pour-solver": "github:derekbreden/copper-pour-solver#02d99c6e9eaffeba39b1fcb9f9c1b91d8d0f397d",
     "@tscircuit/core": "github:derekbreden/core#f8029fc838b1845f5fc2b8125fbce93bd1dd37e8",
     "@tscircuit/footprinter": "github:derekbreden/footprinter#1abb8d57d541aaab5ce6efece2901558746c3c25",
@@ -241,7 +241,7 @@
 
     "@tscircuit/circuit-json-util": ["@tscircuit/circuit-json-util@0.0.96", "", { "dependencies": { "parsel-js": "^1.1.2" }, "peerDependencies": { "circuit-json": "*", "transformation-matrix": "*", "zod": "3" } }, "sha512-/D5lEPuW77xYESswlufGmJkxh0V4d6aYHA4E1k5ta/erYBZyXGr6Fw8f/cl1lcO1GYo/TWwy6aB8LiNkAVZQTw=="],
 
-    "@tscircuit/cli": ["@tscircuit/cli@github:derekbreden/cli#c68e752", { "peerDependencies": { "tscircuit": "*" }, "bin": { "tscircuit-cli": "./cli/entrypoint.js" } }, "derekbreden-cli-c68e752"],
+    "@tscircuit/cli": ["@tscircuit/cli@github:derekbreden/cli#3a29b7b", { "peerDependencies": { "tscircuit": "*" }, "bin": { "tscircuit-cli": "./cli/entrypoint.js" } }, "derekbreden-cli-3a29b7b"],
 
     "@tscircuit/copper-pour-solver": ["@tscircuit/copper-pour-solver@github:derekbreden/copper-pour-solver#02d99c6", { "dependencies": { "manifold-3d": "^3.4.1" }, "peerDependencies": { "typescript": "^5" } }, "derekbreden-copper-pour-solver-02d99c6"],
 
