@@ -45,7 +45,7 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | R6 — RS485 termination | 120 Ω ±1% | 0603 | C22787 | Basic | 1,728,584 | $0.0022 |
 | U9 — 12V→3V3 buck | K7803-1000R3, 1 A non-isolated switcher | SIP-3 (THT) | C5369647 | Extended | — | — |
 | U10 — 12V→5V buck | K7805-2000R3, 2 A non-isolated switcher | SIP-3 (THT) | C18212380 | Extended | — | — |
-| U11, U12 — pump H-bridges | DRV8870, single H-bridge, 45 V / 3.6 A | SOIC-8 PowerPAD | C86590 | Extended | — | — |
+| U11, U12 — pump H-bridges | DRV8870DDAR, single H-bridge, 45 V / 3.6 A, 565 mΩ | HSOP-8-EP (PowerPAD) | C86590 | Extended | 34,907 (2026-07-02) | $0.41 |
 | C13/C14/C15/C17/C19 — buck/driver decouple | 10 µF 25V X5R | 0805 | C15850 | Basic | (see C11) | $0.01 |
 | C16 — U10 5V buck output | 22 µF 25V X5R | 0805 | C45783 | Basic | — | $0.02 |
 | C18/C20 — driver VM HF | 0.1 µF 50V X7R | 0805 | C49678 | Basic | (see C1/C2) | $0.0136 |
@@ -60,7 +60,7 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | J2, J4, J12 — 6-pin (MANIFOLD B, SENSORS, PROG) | XH2.54 6P | wafer, 2.5 mm | C5359634 | Extended | 42,550 | $0.0254 |
 | J7 — 7-pin (REEDS B) | XH2.54 7P | wafer, 2.5 mm | C5359635 | Extended | 16,231 | $0.0278 |
 | J1 — 9-pin (MANIFOLD A) | XH2.54 9P | wafer, 2.5 mm | C5359637 | Extended | 380 (2026-06-30) | $0.0400 |
-| J10 — 12 V inlet | KF301-5.0-2P screw terminal, 2P 5.0 mm, 17 A / 250 V | THT block, 5.0 mm pitch | C474881 | Extended | — | ~$0.06 |
+| J10 — 12 V inlet | KF301-5.0-2P screw terminal, 2P 5.0 mm, 17 A / 250 V, 14–22 AWG | THT block, 5.0 mm pitch | C474881 | Extended | 165,152 (2026-07-02) | $0.0995 |
 
 Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C49678 = YAGEO
 CC0805KRX7R9BB104; C845537 = UMW (Youtai) ULN2803A; C47023 = Microchip MCP23017-E/SO;
@@ -85,10 +85,11 @@ connector, so fine for a build; glance at it before a large run.)
 **J10 is a KF301-5.0-2P screw terminal (`C474881`), not an XH wafer.** The 12 V inlet
 carries the whole board — both pumps priming + a few valves + the condenser fan ≈ 3.3 A
 peak — and the XH wafer contact is only rated 3 A, so it was the one connector running
-its rating. The KF301 is a 5.0 mm-pitch 2-pole block rated 17 A / 250 V (Cixi Kefa Elec):
-real margin, and it lands 16–18 AWG power wire on a screw instead of a crimp. Extended
-(every screw terminal in the library is), commodity stock; wave-soldered THT, so it rides
-the same through-hole assembly the XH wafers + coin base already require (no new process).
+its rating. The KF301 is a 5.0 mm-pitch 2-pole block rated 17 A / 250 V, 14–22 AWG (Cixi
+Kefa Elec): real margin, and it lands the 16–18 AWG power feed on a screw instead of a
+crimp. Extended (every screw terminal in the library is), deep stock (165k at 2026-07-02,
+$0.0995/1+); wave-soldered THT, so it rides the same through-hole assembly the XH wafers +
+coin base already require (no new process, no JLCPCB assembly-difficulty flag).
 Footprint pulled with `tsci import C474881` (→ `imports/KF301_5_0_2P.tsx`); pin1 → GND,
 pin2 → V12, the polarity silked at each screw because reversing 12 V would cook the
 polarised bulk cap (C3), the bucks, and the DRV8870s. The 2-pin XH wafer (`C5359631`) it
