@@ -15,8 +15,8 @@
  * transceiver). The buzzer (U8/Q1/R5) sits east of the ESP by its IO13 pin. Center: DS3231 +
  * coin cell; the two MCPs stacked through the middle (0x20 north, 0x21 south) with their reed
  * inputs on REEDS A (above) / REEDS B (below). Right block: the two ULNs with the valve
- * manifolds immediately to their right and the V12 bulk/HF decoupling between them; the K7803/
- * K7805 bucks (U9 top, U10 bottom) and the 12V inlet (J10) frame the right column.
+ * manifolds immediately to their right and the V12 bulk/HF decoupling between them; the 3V3
+ * LDO / 5V buck (U9 top, U10 bottom) and the 12V inlet (J10) frame the right column.
  *
  * SIX layers, stackup top->bottom:
  *   L1 top    — signals + the V12 island
@@ -52,15 +52,15 @@
  */
 import { at, Cap, Res, Jst, ulnOUT } from "./carrier_parts"
 import { Uln2803, Mcp23017, Ds3231Smd, Thvd1426, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn } from "./pcba_parts"
-import { K7803_1000R3 } from "./imports/K7803_1000R3"
+import { AMS1117_3_3 } from "./imports/AMS1117_3_3"
 import { KF301_5_0_2P } from "./imports/KF301_5_0_2P"
 import { DRV8870DDAR as Drv8870 } from "./imports/DRV8870DDAR"
 import { boardVersionParts } from "./board-version"
 import { logoRoutes } from "./logo"
 import { ESP32_WROOM_32E_N4 as Wroom } from "./imports/ESP32_WROOM_32E_N4"
 import { KT_0603R as LedRed } from "./imports/KT_0603R"
-import { A_19_217_GHC_YR1S2_3T as LedGrn } from "./imports/A_19_217_GHC_YR1S2_3T"
-import { A_19_217_BHC_ZL1M2RY_3T as LedBlu } from "./imports/A_19_217_BHC_ZL1M2RY_3T"
+import { KT_0603G as LedGrn } from "./imports/KT_0603G"
+import { Blue_light_0603 as LedBlu } from "./imports/Blue_light_0603"
 import { CH340C } from "./imports/CH340C"
 import { TYPE_C_31_M_12 as UsbC } from "./imports/TYPE_C_31_M_12"
 import { USBLC6_2SC6 as Usblc6 } from "./imports/USBLC6_2SC6"
@@ -84,7 +84,7 @@ export default () => (
         castellations only (the east edge is the module's flash); the relay/pump/buzzer/
         I2C/prog lines land on the north edge, the UART/ADC/sensor lines on the south (pin
         map in esp32-scope.md). 3V3 is the only supply pin (no V5): it draws from the 3V3
-        plane (sourced by the K7803 buck), every GND pad (incl. the centre thermal pad)
+        plane (sourced by the AMS1117 LDO off the 5V rail), every GND pad (incl. the centre thermal pad)
         auto-stitches to the bottom plane. Decoupling (C10 0.1uF + C11 10uF bulk) and the EN
         power-on RC (R7 10k pull-up + C12 1uF) sit at the south edge by the 3V3/EN pins; R8
         (10k) pulls IO0 up; the WROOM is flashed over the USB-C programming block above it
@@ -106,13 +106,14 @@ export default () => (
     <resistor name="R6" resistance="120" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22787"] }} {...at(-44.6, -22.55)} />
     <Sm712 name="D1" x={-44} y={-25.95} rot={0} />
     <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-50} y={-17} rot={90} side="E" />
-    {/* On-board supplies in the open right-hand area: U9 = K7803 (12V->3V3, 1A), U10 =
-        K7805 (12V->5V, 2A), 3-pin SIP modules (pin1 Vin / pin2 GND / pin3 +Vo, 2.54 mm
-        pitch). Vin/+Vo/GND each common to their plane at the barrel. Per buck: a 10uF input
-        cap (Vin->GND) and an output cap (+Vo->GND, 10uF on U9, 22uF on U10). */}
-    <K7803_1000R3 name="U9" pcbX={-10.22} pcbY={28.45} pcbRotation={0} />
-    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-14.22} y={24.45} rot={0} side="S" />
-    <Cap name="C14" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-6.23} y={24.35} rot={0} side="S" />
+    {/* On-board supplies. U10 = K7805 (12V->5V, 2A) SIP module (pin1 Vin / pin2 GND / pin3
+        +Vo), 10uF input + 22uF output cap. U9 = AMS1117-3.3 (C6186, SOT-223 LDO) makes 3V3
+        from the 5V rail: VIN off V5, VOUT1 + VOUT2 (tab) to 3V3, GND to the bottom plane;
+        the SMD pads auto-stitch to their planes. C13 = 10uF V5 input cap, C14 = 22uF 3V3
+        output cap. */}
+    <AMS1117_3_3 name="U9" pcbRotation={0} {...at(-10.22, 28.45)} />
+    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-13.5} y={22.0} rot={0} side="S" />
+    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-13.5} y={19.0} rot={0} side="S" />
     <Buck5 name="U10" x={16.13} y={-25.95} />
     <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={16.28} y={-30.2} rot={0} side="S" />
     <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={23.98} y={-25.65} rot={270} side="S" />
@@ -185,15 +186,17 @@ export default () => (
     <resistor name="R3" resistance="2.2k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C4190"] }} pcbRotation={0} {...at(-63, -25)} />
     <resistor name="R4" resistance="3.3k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22978"] }} pcbRotation={0} {...at(-63, -21.3)} />
 
-    {/* 3V3 rail -> inner1 plane, sourced by the K7803 buck (U9) off 12V. The I2C devices
-        (both MCPs, DS3231), RS485, the WROOM, and the sensor loom all common to it at
+    {/* 3V3 rail -> inner1 plane, sourced by the AMS1117 LDO (U9) off the 5V rail. The I2C
+        devices (both MCPs, DS3231), RS485, the WROOM, and the sensor loom all common to it at
         their barrels. */}
-    {/* bucks: Vin (pin1) off 12V, GND (pin2) to the bottom plane, +Vo (pin3) to its rail.
-        Local decoupling per buck: input cap Vin->GND, output cap +Vo->GND. */}
-    <trace from=".U9 > .pin1" to="net.V12" />
-    <trace from=".U9 > .pin2" to="net.GND" />
-    <trace from=".U9 > .pin3" to="net.V3V3" />
-    <trace from=".C13 > .pin1" to="net.V12" />
+    {/* U9 AMS1117-3.3: VIN off the 5V plane, GND to the bottom plane, VOUT1+VOUT2 (tab) to the
+        3V3 plane. U10 K7805 buck: Vin (pin1) off 12V, GND (pin2) to bottom, +Vo (pin3) to 5V.
+        Local decoupling: C13 (10uF) V5 input, C14 (22uF) 3V3 output. */}
+    <trace from=".U9 > .VIN" to="net.V5" />
+    <trace from=".U9 > .GND" to="net.GND" />
+    <trace from=".U9 > .VOUT1" to="net.V3V3" />
+    <trace from=".U9 > .VOUT2" to="net.V3V3" />
+    <trace from=".C13 > .pin1" to="net.V5" />
     <trace from=".C13 > .pin2" to="net.GND" />
     <trace from=".C14 > .pin1" to="net.V3V3" />
     <trace from=".C14 > .pin2" to="net.GND" />
@@ -499,7 +502,7 @@ export default () => (
         RED = fault (IO14, not a strap), GREEN = ready/heartbeat (IO2, wants low at boot),
         BLUE = activity (IO12 / MTDI, wants low at boot — LED-to-GND only, never tied high).
         RIGHT — power rails, each off its plane through a series R: 3V3 + 5V (3V3 lit ⇒ 12 V in
-        AND the K7803 buck is up — the board is alive before firmware runs). 470R (C23179) per
+        AND the 5V buck + 3V3 LDO are up — the board is alive before firmware runs). 470R (C23179) per
         LED; ref-des silk stripped from the LED imports (it collides at this pitch), so meaning
         is by colour + position (see esp32-scope.md). */}
     {/* left — firmware R/G/B; anode toward its R (outboard, -x): D2 red rot 180, D3/D4 native */}
