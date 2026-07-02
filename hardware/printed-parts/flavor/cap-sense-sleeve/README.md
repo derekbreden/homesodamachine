@@ -8,6 +8,17 @@ hopper feed in the manifold; can also live on the BiB-feed segments).
 The MPR121 reads capacitance between the two foil rings; water in the
 tube (~80 dielectric) gives a much larger reading than air (~1).
 
+## Wiring
+
+The MPR121 mounts off-board next to the sleeves at the manifold (short
+electrode leads keep the reading clean) and plugs into the pcba's **J8
+I2C header** — GND / 3V3 / SDA / SCL, all plane nets, so it rides the
+existing bus at address 0x5A with **no ESP32 GPIO**. Each sleeve's two
+foil rings wire to a pair of the MPR121's 12 electrode inputs; poll it,
+or route its IRQ to a spare pin for event-driven reads. J8 is on the
+board's south edge — see the I2C bus in
+[`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd).
+
 ## Clamshell architecture
 
 Two-piece clamshell, split at y=0 along the tube axis. Joined by
