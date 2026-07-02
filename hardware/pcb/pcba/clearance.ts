@@ -47,6 +47,7 @@ export type ClearanceReport = { floor: number | null; tight: ClearancePair[]; er
 const AABB_CAP = 1.5 // skip a pair whose bounding boxes are farther apart than this (mm)
 const TIGHT_MAX = 8  // how many of the tightest pairs to keep for the readout
 const MIN_FEATURE_WIDTH = 0.1 // fab minimum copper feature width (mm) — thinner pours are slivers
+const SLIVER_MAX_AREA = 0.15 // mm² — a thin fragment this small is a floating sliver, not a thin-waisted plane
 const ERR_CAP = 24 // cap on how many pour/via findings to keep (dedup + summary handle the rest)
 
 // A net name is a real signal name unless it's a synthetic id (__u/__t/__v) or a raw
@@ -300,9 +301,12 @@ function viaSpanErrors(circuit: any[]): BoardError[] {
   return out
 }
 
-// SLIVER — a poured fragment thinner than the fab minimum feature width. Thinness proxy is
-// 2·area/perimeter (≈ the half-width of a long thin piece); a big pour's ratio is large.
-function sliverErrors(circuit: any[], netById: Record<string, string>): BoardError[] {
+// SLIVER — a SMALL poured fragment thinner than the fab minimum feature width: a floating
+// acid-trap the pour solver pinched off. Thinness proxy is 2·area/perimeter (≈ the half-width
+// of a long thin piece). The area gate is what keeps this honest: a plane can legitimately
+// have a thin WAIST while being a large connected region (e.g. a 2.4mm SDA fill), so thinness
+// alone over-flags — only a piece that is both thin AND small is a genuine sliver.
+function sliverErrors(circuit: any[], _netById: Record<string, string>): BoardError[] {
   const out: BoardError[] = []
   let n = 0
   for (const e of circuit) {
@@ -314,10 +318,11 @@ function sliverErrors(circuit: any[], netById: Record<string, string>): BoardErr
       area2 += pts[j][0] * pts[i][1] - pts[i][0] * pts[j][1]
       per += Math.hypot(pts[i][0] - pts[j][0], pts[i][1] - pts[j][1])
     }
+    const area = Math.abs(area2) / 2
     const width = per > 0 ? Math.abs(area2) / per : 0 // = 2·area/perimeter
-    if (width < MIN_FEATURE_WIDTH) n++
+    if (width < MIN_FEATURE_WIDTH && area < SLIVER_MAX_AREA) n++
   }
-  if (n) out.push({ kind: "sliver", text: `${n} poured fragment${n === 1 ? "" : "s"} thinner than ${MIN_FEATURE_WIDTH} mm (floating copper / acid trap)` })
+  if (n) out.push({ kind: "sliver", text: `${n} floating pour fragment${n === 1 ? "" : "s"} thinner than ${MIN_FEATURE_WIDTH} mm (acid trap / DFM)` })
   return out
 }
 
