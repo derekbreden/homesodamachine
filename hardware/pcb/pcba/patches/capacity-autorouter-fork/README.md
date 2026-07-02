@@ -56,30 +56,27 @@ crossing foreign copper on any layer survives.
 
 ## How it ships
 
-The **built** fork dist is vendored via the bun patch
-`../@tscircuit%2Fcapacity-autorouter@0.0.583.patch` — capacity-autorouter's build bundles rectdiff
-from source (`main: lib/index.ts`), so the built dist already contains the rectdiff change. The
-patch is a whole-file replacement of the minified `dist/index.js` (large because terser re-mangles
-the whole bundle); the two `*.source.patch` files here are the human-readable intent.
+The fork is a real GitHub fork: **https://github.com/derekbreden/tscircuit-autorouter**, branch
+`homesodamachine/through-hole-vias` (pinned off upstream tag `v0.0.583`). It carries the CAR
+source changes, the built `dist/` committed on the branch (CAR's build bundles rectdiff from
+source, so the committed dist already contains the rectdiff change), and `homesodamachine-fork/`
+(the rectdiff change + rebuild notes). `main` tracks upstream; our changes live on the branch.
 
-## Rebuilding on an upstream bump
+The project consumes it with a `bun` override in `hardware/pcb/pcba/package.json`, pinned to the
+branch commit:
 
-```sh
-# capacity-autorouter (bundles rectdiff from source)
-git clone --branch v0.0.583 https://github.com/tscircuit/capacity-autorouter.git
-cd capacity-autorouter && bun install
-git apply /path/to/patches/capacity-autorouter-fork/capacity-autorouter.source.patch
-( cd node_modules/@tscircuit/rectdiff && git apply /path/to/rectdiff.source.patch )  # or patch -p0
-bun run build   # -> dist/index.js (rectdiff bundled in)
+```json
+"overrides": { "@tscircuit/capacity-autorouter": "github:derekbreden/tscircuit-autorouter#<sha>" }
 ```
 
-Then re-vendor `dist/index.js` into the bun patch:
+No vendored minified blob, no bun patch for this package — the two `*.source.patch` files here are
+mirrors of what's on the fork branch, kept for review next to the other packages' patches.
 
-```sh
-cd hardware/pcb/pcba
-bun patch @tscircuit/capacity-autorouter
-cp /path/to/capacity-autorouter/dist/index.js node_modules/@tscircuit/capacity-autorouter/dist/index.js
-bun patch --commit node_modules/@tscircuit/capacity-autorouter
-```
+## Rebuilding / bumping upstream
 
-Regenerate the two `*.source.patch` files and update the version pins here if the version moved.
+Work in the fork repo (`derekbreden/tscircuit-autorouter`): sync `main` from upstream, rebase or
+re-apply the branch, `bun install`, apply `homesodamachine-fork/rectdiff.source.patch` to
+`node_modules/@tscircuit/rectdiff`, `bun run build`, commit `dist/`, push. Then bump the override
+SHA in `package.json` and `bun install`. (rectdiff is carried as a build-time patch for now; the
+endpoint is a matching `derekbreden/rectdiff` fork so the CAR fork depends on it directly — see the
+repo-level fork plan.)
