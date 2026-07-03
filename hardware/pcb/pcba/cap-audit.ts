@@ -11,17 +11,23 @@
  * notice because the connection is through a plane.
  *
  * AGNOSTIC. It knows nothing about specific ref-des — it resolves whatever {cap, near, role,
- * budget?} rules it is handed against a flat pad list ({ref, pin, x, y}). Any board that
- * exports a `decoupling` table gets the audit; the intent lives with the board, the geometry
- * comes from the render, and the two are compared here. No coordinates are declared twice, so
- * the audit can't fall out of sync with a move — it re-measures every build.
+ * kind} rules it is handed against a flat pad list ({ref, pin, x, y}). Any board that exports a
+ * `decoupling` table gets the audit; the intent lives with the board, the geometry comes from
+ * the render, and the two are compared here. No coordinates are declared twice, so the audit
+ * can't fall out of sync with a move — it re-measures every build.
  */
+
+// Each cap's job — this, not a hand-picked number, sets how tight it must sit (BUDGETS below).
+// A support cap shunts noise / holds charge at a frequency set by its value and what it feeds;
+// the higher that frequency, the shorter the loop it needs, so the tighter its distance budget.
+export type CapKind = "hf" | "bulk" | "rc" | "reservoir"
 
 export type DecouplingRule = {
   cap: string        // the support cap's ref-des
   near: string       // the part it must sit close to
   role: string       // human tag: which rail/pin it serves
-  budget?: number    // max acceptable pad gap (mm); omitted → DEFAULT_BUDGET
+  kind: CapKind      // job class → its distance budget (BUDGETS)
+  budget?: number    // explicit per-cap override (mm); omitted → BUDGETS[kind]
 }
 
 export type CapAuditRow = {
@@ -34,15 +40,22 @@ export type CapAuditRow = {
   note?: string         // set only for the missing-part case
 }
 
-export type CapAudit = { rows: CapAuditRow[]; flagged: number; budget: number }
+export type CapAudit = { rows: CapAuditRow[]; flagged: number; budgets: Record<CapKind, number> }
 
 type Pad = { ref?: string | null; x?: number; y?: number }
 
-// Default max pad gap before a cap reads as "drifted from its target". Sized above the
-// board's tightest legitimate flanks (a buck/LDO input+output pair straddling a wide SIP
-// lands ~5.5 mm) so a clean board stays clean, but below the ~6.5 mm+ a genuinely stranded
-// decoupler shows. Per-rule `budget` overrides it (e.g. a central bulk reservoir).
-export const DEFAULT_BUDGET = 6.0
+// Max pad gap by job (mm) before a cap reads as "drifted from its target". These are
+// placement-tolerance rules of thumb, NOT computed impedance targets: on this plane-decoupled
+// board the poured planes carry the current, so the exact millimetre is a soft constraint (the
+// vertical pad→via→plane inductance dominates the loop, not the lateral distance). The budgets
+// exist to catch a stranded cap, and are ranked by job so the ones that actually want a short
+// loop are held tighter:
+//   hf         0.1uF ceramic — shunts the fastest edges (~1–100 MHz); wants the shortest loop
+//   bulk       10/22uF — a regulator/driver's mid-frequency reservoir; distance-tolerant
+//   rc         a timing/reset RC node (not decoupling) — near its pin, but not critical
+//   reservoir  the one big electrolytic — central by design, feeds a whole block
+export const BUDGETS: Record<CapKind, number> = { hf: 5, bulk: 8, rc: 6, reservoir: 16 }
+export const DEFAULT_BUDGET = 8.0 // fallback only, if a rule somehow carries no kind
 
 export function auditDecoupling(rules: DecouplingRule[], pads: Pad[]): CapAudit {
   const byRef = new Map<string, Pad[]>()
@@ -54,7 +67,7 @@ export function auditDecoupling(rules: DecouplingRule[], pads: Pad[]): CapAudit 
 
   const rows: CapAuditRow[] = []
   for (const r of rules) {
-    const budget = r.budget ?? DEFAULT_BUDGET
+    const budget = r.budget ?? BUDGETS[r.kind] ?? DEFAULT_BUDGET
     const capPads = byRef.get(r.cap), nearPads = byRef.get(r.near)
     if (!capPads || !nearPads) {
       const miss = !capPads && !nearPads ? `${r.cap} & ${r.near}` : !capPads ? r.cap : r.near
@@ -73,5 +86,5 @@ export function auditDecoupling(rules: DecouplingRule[], pads: Pad[]): CapAudit 
   // Worst first: flagged (or missing) ahead of clean, then by gap descending — so the
   // panel leads with whatever most wants attention. Missing parts (gap null) sort to the top.
   rows.sort((a, b) => Number(b.over) - Number(a.over) || (b.gap ?? Infinity) - (a.gap ?? Infinity))
-  return { rows, flagged: rows.reduce((n, r) => n + (r.over ? 1 : 0), 0), budget: DEFAULT_BUDGET }
+  return { rows, flagged: rows.reduce((n, r) => n + (r.over ? 1 : 0), 0), budgets: { ...BUDGETS } }
 }
