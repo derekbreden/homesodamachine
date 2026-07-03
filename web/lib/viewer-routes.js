@@ -4,6 +4,7 @@ import fs from "fs";
 
 import { walkFiles, walkFilesUnderDir, walkPcbBoards } from "./walk.js";
 import { VIEW_REQUEST_RE, PICKS_REQUEST_RE } from "../contracts/pcb-out.js";
+import { sidecarFields } from "../contracts/sidecar.js";
 
 function safeFile(rootDir, rel, ext) {
   if (rel.includes("..")) return null;
@@ -79,14 +80,7 @@ export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
     // Return enriched objects so the client gets the sidecar metadata
     // (thickness_mm, material, etc.) in the same round-trip — the
     // viewer needs thickness to extrude. See hardware/README.md.
-    res.json(paths.map((p) => {
-      const meta = readSidecar(rootDir, p) || {};
-      return {
-        path: p,
-        thickness_mm: typeof meta.thickness_mm === "number" ? meta.thickness_mm : null,
-        material: typeof meta.material === "string" ? meta.material : null,
-      };
-    }));
+    res.json(paths.map((p) => ({ path: p, ...sidecarFields(readSidecar(rootDir, p)) })));
   });
 
   app.get("/api/mermaid-content/*", (req, res) => {
