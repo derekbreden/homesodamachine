@@ -13,6 +13,7 @@ import { MLT_5020 } from "./imports/MLT_5020"
 import { KH_CR2032_2_1 } from "./imports/KH_CR2032_2_1"
 import { NXB_25V470_10_12_5 } from "./imports/NXB_25V470_10_12_5"
 import { S8050_J3Y_RANGE_200_350_ } from "./imports/S8050_J3Y_RANGE_200_350_"
+import { ULN2803A } from "./imports/ULN2803A"
 
 // ---- ULN2803A — SOIC-18 (300 mil wide) -------------------------------------
 // Octal Darlington sink driver. C845537 (UMW ULN2803A, SOP-18-300mil). Pinout:
@@ -29,15 +30,12 @@ const ulnPinLabels = {
   pin15: "OUT4", pin16: "OUT3", pin17: "OUT2", pin18: "OUT1",
 }
 
+// JLCPCB-imported footprint (./imports/ULN2803A) so the CPL rotation matches JLCPCB's
+// library orientation. Its own pin labels (Input1/Output1) are overridden with ours so the
+// net wiring is unchanged. Imported rot 0 is HORIZONTAL (pins on N/S rows); the caller's rot
+// is that value directly (rot 270 for the vertical IN-west/OUT-east seating used on U4/U5).
 export const Uln2803 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => (
-  <chip
-    name={name}
-    footprint="soic18_w7.5mm_p1.27mm"
-    pcbRotation={rot}
-    pinLabels={ulnPinLabels}
-    supplierPartNumbers={{ jlcpcb: ["C845537"] }}
-    {...at(x, y)}
-  />
+  <ULN2803A name={name} pinLabels={ulnPinLabels} pcbRotation={rot} {...at(x, y)} />
 )
 
 // ---- MCP23017 — SOIC-28 (300 mil) ------------------------------------------
