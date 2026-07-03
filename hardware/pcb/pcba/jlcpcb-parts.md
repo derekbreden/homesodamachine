@@ -151,5 +151,5 @@ one `GND` port and each auto-stitches to the bottom plane. EN power-on RC: R7 (1
 Basic) up to 3V3, C12 (1 µF, `C15849` Basic) to GND. IO0 held high by R8 (10 kΩ). J12 is the
 6-pin serial bootloader header (TX0/RX0/IO0/EN/GND/3V3) on the same XH wafer as the field
 connectors. The bare module's IO pins are SMD pads, so the maze router was taught to take SMD
-pads as single-layer endpoints (a barrel-free via lands a bottom run up onto the top pad —
-`pretty-router.ts`); 8 such maze nets land via-in-pad, capped like the plane stitches.
+pads as single-layer endpoints (a barrel-free via lands a bottom run up onto the top pad);
+8 such maze nets land via-in-pad, capped like the plane stitches.
