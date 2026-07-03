@@ -20,5 +20,6 @@ export function innerViewRe(name) {
 }
 
 // Request-path confinement: a rendered board view / pick-data under some pcb/.../out/.
-export const VIEW_REQUEST_RE = /(^|\/)pcb\/.+\/out\/[^/]+\.(top|bottom|overlay|inner\d+)\.svg$/;
+// Longer view names first so `top`/`bottom` can't shadow `topmask`/`bottommask`.
+export const VIEW_REQUEST_RE = /(^|\/)pcb\/.+\/out\/[^/]+\.(topmask|bottommask|top|bottom|overlay|inner\d+)\.svg$/;
 export const PICKS_REQUEST_RE = /(^|\/)pcb\/.+\/out\/[^/]+\.picks\.json$/;

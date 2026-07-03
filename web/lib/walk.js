@@ -106,6 +106,10 @@ export function walkPcbBoards(rootDir) {
       // has produced it; older boards without it simply have no picker.
       const picksRel = picksFile(relDir, name);
       const hasPicks = fs.existsSync(path.join(dir, "out", `${name}.picks.json`));
+      // Solder-mask views (out/<name>.{top,bottom}mask.svg) — the exposed-copper map for
+      // each outer face. Present on any freshly-rendered board; discovered, not assumed, so
+      // an older render without them just doesn't offer the toggle.
+      const maskView = (v) => fs.existsSync(path.join(dir, "out", `${name}.${v}.svg`)) ? view(v) : null;
       boards.push({
         source: `${relDir}/${entry.name}`,
         name,
@@ -114,6 +118,8 @@ export function walkPcbBoards(rootDir) {
         bottom: view("bottom"),
         overlay: view("overlay"),
         inners,
+        topmask: maskView("topmask"),
+        bottommask: maskView("bottommask"),
         picks: hasPicks ? picksRel : null,
       });
     }

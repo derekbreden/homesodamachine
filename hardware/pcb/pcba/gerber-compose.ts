@@ -24,6 +24,7 @@ export type Scheme = {
   top: string // front copper
   bottom: string // back copper
   inner: string[] // inner copper layers (inner1, inner2, …) by index, cycled if more
+  mask: string // exposed copper — the solder-mask OPENINGS, i.e. the solderable / contactable pads (everything else is sealed under mask)
   drill: string // drilled holes (painted over the copper so they read as holes)
   edge: string // board outline
   silk: string // silkscreen legend (labels + part outlines + ref designators)
@@ -42,6 +43,7 @@ export const SCHEMES: Record<string, Scheme> = {
     top: "#ffb04a",
     bottom: "#34d1e0",
     inner: ["#8ae66e", "#d98cff"],
+    mask: "#e6ecf5",
     drill: "#0b0e14",
     edge: "#5a6478",
     silk: "#f2eede",
@@ -55,6 +57,7 @@ export const SCHEMES: Record<string, Scheme> = {
     top: "#aee4ff",
     bottom: "#ffcf6b",
     inner: ["#a6f59a", "#ffb3e6"],
+    mask: "#ffffff",
     drill: "#0a2540",
     edge: "#4d7299",
     silk: "#ffffff",
@@ -68,6 +71,7 @@ export const SCHEMES: Record<string, Scheme> = {
     top: "#17191e",
     bottom: "#c4382c",
     inner: ["#2f7d32", "#6a3fb5"],
+    mask: "#0f8a8a",
     drill: "#f4f1ea",
     edge: "#9aa0a6",
     silk: "#2b2d33",
@@ -127,7 +131,7 @@ function fnum(n: number) {
 export async function composeViews(dir: string, scheme: Scheme) {
   // Layers we draw, by role. Edge_Cuts defines the board frame; copper is the
   // subject; drills punch holes back out of the copper.
-  const [fcu, bcu, edge, drl, drlN, fsilk, bsilk] = await Promise.all([
+  const [fcu, bcu, edge, drl, drlN, fsilk, bsilk, fmask, bmask] = await Promise.all([
     renderLayer(`${dir}/F_Cu.gbr`, "fcu"),
     renderLayer(`${dir}/B_Cu.gbr`, "bcu"),
     renderLayer(`${dir}/Edge_Cuts.gbr`, "edge"),
@@ -135,6 +139,10 @@ export async function composeViews(dir: string, scheme: Scheme) {
     renderLayer(`${dir}/drill_npth.drl`, "drln"),
     renderLayer(`${dir}/F_SilkScreen.gbr`, "fsilk"),
     renderLayer(`${dir}/B_SilkScreen.gbr`, "bsilk"),
+    // Solder mask, top + bottom. In Gerber the mask layer IS the openings (where
+    // mask is cleared), so this geometry is a direct map of exposed / solderable copper.
+    renderLayer(`${dir}/F_Mask.gbr`, "fmask"),
+    renderLayer(`${dir}/B_Mask.gbr`, "bmask"),
   ])
 
   // Inner copper (4-layer+ boards): In1_Cu … In6_Cu in stack order (inner1 sits
@@ -146,8 +154,14 @@ export async function composeViews(dir: string, scheme: Scheme) {
     .map((l, i) => ({ l, color: scheme.inner[i % scheme.inner.length] }))
     .filter((x): x is { l: Layer; color: string } => x.l !== null)
 
-  const present = [fcu, bcu, edge, drl, drlN, fsilk, bsilk, ...innerLayers.map((x) => x.l)].filter(Boolean) as Layer[]
+  const present = [fcu, bcu, edge, drl, drlN, fsilk, bsilk, fmask, bmask, ...innerLayers.map((x) => x.l)].filter(Boolean) as Layer[]
   if (present.length === 0) throw new Error(`no renderable layers in ${dir}`)
+
+  // Mask-view opacities (structural, so module constants rather than per-scheme): in a solo
+  // mask view the copper drops to a dim CTX wash so the bright openings read as "exposed",
+  // and on the overlay the front openings ride on top as a light TINT so pads pop in context.
+  const MASK_CTX = 0.28
+  const MASK_TINT = 0.42
 
   // Unified frame: the board outline if we have it, else the union of every
   // layer's raw extent (copper can spill a hair past the cut line).
@@ -222,7 +236,10 @@ export async function composeViews(dir: string, scheme: Scheme) {
   const overlay = view(
     paint(bcu, scheme.bottom, scheme.bottomOpacity, scheme.copperFillOpacity) +
       innerStackOverlay +
-      paint(fcu, scheme.top, scheme.topOpacity, scheme.copperFillOpacity),
+      paint(fcu, scheme.top, scheme.topOpacity, scheme.copperFillOpacity) +
+      // Front solder-mask openings ride on top as a light tint, so exposed / solderable
+      // pads pop out of the x-ray without hiding the copper beneath them.
+      paint(fmask, scheme.mask, MASK_TINT),
     fsilkPaint,
   )
 
@@ -233,5 +250,16 @@ export async function composeViews(dir: string, scheme: Scheme) {
     inners[`inner${i + 1}`] = view(paint(x.l, x.color, 1, scheme.copperFillOpacity), "")
   })
 
-  return { top, bottom, overlay, inners, width: W, height: H, widthMm: +wmm, heightMm: +hmm }
+  // Solder-mask views, one per outer face: its own copper dimmed to a CTX wash for
+  // orientation, the mask openings painted solid on top — so the bright shapes ARE the
+  // exposed copper (the DRV8870 belly, test points, screw-contact pads, …) and everything
+  // faint is sealed under mask. Null when the board carries no mask gerber (older renders).
+  const topmask = fmask
+    ? view(paint(fcu, scheme.top, MASK_CTX, scheme.copperFillOpacity) + paint(fmask, scheme.mask), fsilkPaint)
+    : ""
+  const bottommask = bmask
+    ? view(paint(bcu, scheme.bottom, MASK_CTX, scheme.copperFillOpacity) + paint(bmask, scheme.mask), bsilkPaint)
+    : ""
+
+  return { top, bottom, overlay, inners, topmask, bottommask, width: W, height: H, widthMm: +wmm, heightMm: +hmm }
 }

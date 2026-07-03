@@ -17,7 +17,7 @@ import { installEditOverlay, clearEditOverlay, makeEditToggle, fetchEditComponen
 
 // Every board has these three; inner planes (inner1, inner2, …) are per-board,
 // discovered by the server (walk.js) and slotted between Top and Bottom.
-const FIXED_LABEL = { top: "Top", bottom: "Bottom", overlay: "Overlay" };
+const FIXED_LABEL = { top: "Top", bottom: "Bottom", overlay: "Overlay", topmask: "Top Mask", bottommask: "Bottom Mask" };
 
 // The view key for an inner-plane path (".../mini.inner2.svg" -> "inner2"), or
 // null if the path isn't an inner view.
@@ -32,8 +32,10 @@ function viewLabel(view) {
   return m ? "Inner " + m[1] : view;
 }
 // The ordered {view, path} list a board offers, in physical stack order:
-// Top (front) → inner planes front-to-back → Bottom (back) → Overlay (composite,
-// last). board.inners is already stack-ordered by the server.
+// Top (front) → inner planes front-to-back → Bottom (back) → Overlay (composite),
+// then the solder-mask views (exposed-copper map per face) as adjuncts at the end.
+// board.inners is already stack-ordered by the server; the mask views are present
+// only when the board rendered them (older renders just omit them).
 function orderedViews(board) {
   const list = [{ view: "top", path: board.top }];
   for (const p of board.inners || []) {
@@ -42,6 +44,8 @@ function orderedViews(board) {
   }
   list.push({ view: "bottom", path: board.bottom });
   list.push({ view: "overlay", path: board.overlay });
+  if (board.topmask) list.push({ view: "topmask", path: board.topmask });
+  if (board.bottommask) list.push({ view: "bottommask", path: board.bottommask });
   return list;
 }
 

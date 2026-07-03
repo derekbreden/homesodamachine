@@ -13,6 +13,8 @@
  * @property {string} bottom
  * @property {string} overlay
  * @property {string[]} inners inner-plane view paths, stack order (pcb-out.js)
+ * @property {string|null} topmask     out/<name>.topmask.svg (exposed-copper map, front) when rendered, else null
+ * @property {string|null} bottommask  out/<name>.bottommask.svg (exposed-copper map, back) when rendered, else null
  * @property {string|null} picks  out/<name>.picks.json when present (picks-schema.ts), else null
  */
 

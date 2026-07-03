@@ -153,8 +153,11 @@ async function placementPreview() {
   if (pth.length) writeFileSync(path.join(scratch, "drill.drl"), stringifyExcellonDrill(pth))
   const npth = convertSoupToExcellonDrillCommands({ circuitJson: circuit, is_plated: false, flip_y_axis: false })
   if (npth.length) writeFileSync(path.join(scratch, "drill_npth.drl"), stringifyExcellonDrill(npth))
-  const { top, bottom, overlay, inners, widthMm, heightMm } = await composeViews(scratch, scheme)
-  writeViews({ top, bottom, overlay, ...inners })
+  const { top, bottom, overlay, inners, topmask, bottommask, widthMm, heightMm } = await composeViews(scratch, scheme)
+  const previewSvgs: Record<string, string> = { top, bottom, overlay, ...inners }
+  if (topmask) previewSvgs.topmask = topmask
+  if (bottommask) previewSvgs.bottommask = bottommask
+  writeViews(previewSvgs)
   rmSync(scratch, { recursive: true, force: true })
   // Refresh picks from the placement circuit-json (pads only) so the pad picker
   // lands on the new positions during the preview, not the prior render's.
@@ -249,9 +252,12 @@ try {
   rmSync(zip, { force: true })
   await sh("zip", ["-q", "-j", zip, ...readdirSync(scratch).map((f) => path.join(scratch, f))])
 
-  const { top, bottom, overlay, inners, widthMm, heightMm } = await composeViews(scratch, scheme)
-  // top/bottom/overlay always; plus one solo view per inner copper layer (4-layer+).
+  const { top, bottom, overlay, inners, topmask, bottommask, widthMm, heightMm } = await composeViews(scratch, scheme)
+  // top/bottom/overlay always; plus one solo view per inner copper layer (4-layer+) and a
+  // solder-mask view per outer face (present whenever the fab set carries the mask gerbers).
   const svgs: Record<string, string> = { top, bottom, overlay, ...inners }
+  if (topmask) svgs.topmask = topmask
+  if (bottommask) svgs.bottommask = bottommask
   writeViews(svgs)
   const views = Object.keys(svgs)
   console.log(`[${board}] ${widthMm} × ${heightMm} mm — wrote ${board}.{${views.join(",")}}.{svg,png} (${schemeName})`)
