@@ -10,6 +10,10 @@ viewer reads it, and the shape they agree on is defined here.
 - **pcb-out.js** — the board `out/` render layout: the view filenames and the `/api/pcb-*` path
   confinement. Produced by `hardware/pcb/pcba/render-board.ts`; read by
   `web/lib/{walk,viewer-routes}.js`.
+- **sidecar.js** — `<part>.step.json` / `<part>.dxf.json`: the fabrication metadata
+  (`thickness_mm`, `material`, `process`, `notes`) authored beside a STEP/DXF. Read by
+  `web/lib/viewer-routes.js` (surfaced on `/api/dxf`) and `web/public/js/viewer/dxf.js`; pinned by
+  `web/tests/sidecar.test.js`.
 
 A sibling that lives with the viewer because the browser loads it at runtime:
 `web/public/js/viewer/pick-format.js` — the clipboard grammar the pickers emit and parse back
