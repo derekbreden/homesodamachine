@@ -16,7 +16,6 @@
 import { composeViews, SCHEMES } from "./gerber-compose"
 import { backSilkBoardTsx } from "./bottom-silk"
 import { dedupDrill } from "./dedup-drill"
-import { injectManualFans } from "./manual-fan"
 import { widenPourVoids, findPourClearanceRules, antennaKeepout, dropPourSlivers } from "./pour-clearance"
 import { singleflight } from "./run-lock"
 import { convertSoupToGerberCommands, stringifyGerberCommandLayers, convertSoupToExcellonDrillCommands, stringifyExcellonDrill } from "circuit-json-to-gerber"
@@ -168,11 +167,10 @@ async function placementPreview() {
   console.error(`[${board}] placement preview: ${widthMm} × ${heightMm} mm (no traces/pours)`)
 }
 
-// Resolve declared manual fans: pretty="<orientation>" on a <trace> means "route this net
-// as a clean straight → 45° → straight fan." injectManualFans rewrites those traces to carry
-// a native pcbPath (computed from a fast placement export of live geometry) and returns the
-// basename to render — so the fan copper lands BEFORE the autorouter as a real pcb_trace:
-// not re-routed, an obstacle the rest routes around, and cleared by the pour. No-op otherwise.
+// Export a board .tsx to circuit-json via tsci (one autoroute + pour pass). A <trace> with
+// pcbFan="<orientation>" is routed natively by tscircuit as a fixed straight → 45° → straight
+// fan in its manual-trace phase — before the autorouter — so it lands as real copper the rest
+// of the board routes around and the pour clears. Nothing 2nd-pass happens here.
 const exportCircuitJson = async (name: string) => {
   const out = `_build-${name}.cj.tmp.json`
   await sh(tsci, ["export", "-f", "circuit-json", "-o", out, `${name}.tsx`], { cwd: dir })
@@ -192,12 +190,10 @@ if (process.env.RENDER_SOURCE === "dev-server") {
   }
 }
 
-// The COMPLETE routed circuit-json in ONE render: injectManualFans places any pretty= fan
-// as fixed pcbPath copper first, then this export autoroutes the rest around it and solves
-// the pours against it. No second autoroute, no spliced copper the pour never saw.
-const renderName = await injectManualFans(dir, board, exportCircuitJson)
-if (renderName !== board) track(path.join(dir, `${renderName}.tsx`))
-const circuit = await exportCircuitJson(renderName)
+// The COMPLETE routed circuit-json in ONE render: tscircuit places every pcbFan trace as
+// fixed copper before autorouting, routes the rest around it, and solves the pours against
+// all of it. The post-export passes below only widen/clean pours the solver already cut.
+const circuit = await exportCircuitJson(board)
 const clr = widenPourVoids(circuit, findPourClearanceRules(readFileSync(boardFile, "utf8")))
 if (clr.added) console.log(`[${board}] pour-clearance: widened ${clr.added} antipad void(s) across ${Object.keys(clr.perPour).length} pour(s)`)
 const antN = antennaKeepout(circuit)
