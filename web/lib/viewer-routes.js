@@ -3,6 +3,7 @@ import path from "path";
 import fs from "fs";
 
 import { walkFiles, walkFilesUnderDir, walkPcbBoards } from "./walk.js";
+import { VIEW_REQUEST_RE, PICKS_REQUEST_RE } from "./pcb-out.js";
 
 function safeFile(rootDir, rel, ext) {
   if (rel.includes("..")) return null;
@@ -123,7 +124,7 @@ export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
     const rel = req.params[0];
     const abs = safeFile(rootFor(req), rel, ".svg");
     if (!abs) return res.status(400).send("Invalid path");
-    if (!/(^|\/)pcb\/.+\/out\/[^/]+\.(top|bottom|overlay|inner\d+)\.svg$/.test(rel)) {
+    if (!VIEW_REQUEST_RE.test(rel)) {
       return res.status(400).send("Not a board view");
     }
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
@@ -144,7 +145,7 @@ export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
     const rel = req.params[0];
     const abs = safeFile(rootFor(req), rel, ".json");
     if (!abs) return res.status(400).send("Invalid path");
-    if (!/(^|\/)pcb\/.+\/out\/[^/]+\.picks\.json$/.test(rel)) {
+    if (!PICKS_REQUEST_RE.test(rel)) {
       return res.status(400).send("Not pick data");
     }
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
