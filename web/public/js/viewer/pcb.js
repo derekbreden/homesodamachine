@@ -343,7 +343,8 @@ function openChecksModal(wrapper, picks) {
     card.appendChild(Object.assign(document.createElement("div"), { className: "pcb-checks-h", textContent: audit.flagged ? `Decoupling — ${audit.flagged} too far` : `Decoupling (${audit.rows.length})` }));
     const rows = audit.rows.map((r) => {
       const left = r.role ? `${r.cap} → ${r.near} · ${r.role}` : `${r.cap} → ${r.near}`;
-      const right = r.gap == null ? (r.note || "not placed") : `${r.gap.toFixed(2)} mm${r.over ? ` > ${r.budget}` : ""}`;
+      // Show gap against its budget so the per-job tolerance is visible (amber when over).
+      const right = r.gap == null ? (r.note || "not placed") : `${r.gap.toFixed(2)} / ${r.budget} mm`;
       return makeRow("pcb-checks-row" + (r.over ? " warn" : ""), left, right);
     });
     addCollapsibleRows(card, rows, Math.max(3, audit.flagged));
