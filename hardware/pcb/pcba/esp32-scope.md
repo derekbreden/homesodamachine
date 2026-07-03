@@ -32,7 +32,7 @@ IO5, IO15. IO6–IO11 are the module's internal flash.
 ## SMD block
 
 WROOM-32E + per-VDD 0.1 µF + 10 µF bulk; EN 10k + 1 µF; IO0 10k pull-up. 3V3 from the
-on-board K7803 buck.
+on-board AMS1117-3.3 LDO (U9), fed off the 5 V rail (the K7805 12 V→5 V buck).
 
 ## USB-C programming block
 
