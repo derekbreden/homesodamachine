@@ -51,6 +51,7 @@ function editionRoot(req, { hardwareDir, liteDir }) {
   return edition === "lite" ? liteDir : hardwareDir;
 }
 
+// Endpoints + response shapes: web/contracts/api-shapes.js.
 export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
   const rootFor = (req) => editionRoot(req, { hardwareDir, liteDir });
 
