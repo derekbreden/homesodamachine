@@ -186,13 +186,15 @@ test("/pcb view toggle exposes inner copper planes in stack order", async (t) =>
     await page.waitForSelector(".pcb-view-toggle .pcb-view-btn", { timeout: 10_000 });
 
     // The toggle's order is the physical stack: Top → inner planes → Bottom →
-    // Overlay. Inner keys come from the board's own inners list, so this tracks
-    // a 4-layer board the same as a 6-layer one.
+    // Overlay, then any solder-mask views as adjuncts at the end. Inner + mask keys
+    // come from the board's own fields, so this tracks a 4-layer board the same as a
+    // 6-layer one and a board with or without mask views.
     const views = await page.$$eval(".pcb-view-toggle .pcb-view-btn", (els) =>
       els.map((e) => e.dataset.view),
     );
     const innerKeys = board.inners.map((p) => "inner" + p.match(/\.inner(\d+)\.svg$/)[1]);
-    assert.deepEqual(views, ["top", ...innerKeys, "bottom", "overlay"]);
+    const maskKeys = ["topmask", "bottommask"].filter((k) => board[k]);
+    assert.deepEqual(views, ["top", ...innerKeys, "bottom", "overlay", ...maskKeys]);
 
     // Clicking an inner button activates it (the view actually switches).
     const firstInner = innerKeys[0];
