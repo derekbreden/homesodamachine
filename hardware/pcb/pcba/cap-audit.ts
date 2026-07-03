@@ -15,6 +15,11 @@
  * `decoupling` table gets the audit; the intent lives with the board, the geometry comes from
  * the render, and the two are compared here. No coordinates are declared twice, so the audit
  * can't fall out of sync with a move — it re-measures every build.
+ *
+ * COVERAGE. The same pass also checks the other direction: every part carrying a supply-input
+ * pin (VCC/VDD/VM/…) should be some rule's target. A chip added without a decoupling rule — a
+ * forgotten decoupler — surfaces as a coverage gap, so the table can't silently fall behind the
+ * board as parts are added.
  */
 
 // Each cap's job — this, not a hand-picked number, sets how tight it must sit (BUDGETS below).
@@ -40,9 +45,22 @@ export type CapAuditRow = {
   note?: string         // set only for the missing-part case
 }
 
-export type CapAudit = { rows: CapAuditRow[]; flagged: number; budgets: Record<CapKind, number> }
+// A part with a supply-input pin but no decoupling rule pointing at it — a forgotten decoupler.
+export type CoverageGap = { part: string; pin: string }
 
-type Pad = { ref?: string | null; x?: number; y?: number }
+export type CapAudit = {
+  rows: CapAuditRow[]
+  missing: CoverageGap[]       // parts with a supply pin that no rule covers
+  flagged: number              // over-budget rows + missing decouplers — the "wants attention" count
+  budgets: Record<CapKind, number>
+}
+
+type Pad = { ref?: string | null; pin?: string | null; x?: number; y?: number }
+
+// Supply-INPUT pin names that imply a part wants a local decoupler. Deliberately excludes rail
+// labels on connectors (V5 / 3V3 / GND), regulator OUTPUTs (VOUT / V3), and the buzzer's _POS —
+// those touch a rail but aren't a chip's supply entry, so they don't imply a missing cap.
+const SUPPLY_PIN = /^(VCC|VDD|VDDIO|VDDA|AVDD|DVDD|VM|VIN)$/i
 
 // Max pad gap by job (mm) before a cap reads as "drifted from its target". These are
 // placement-tolerance rules of thumb, NOT computed impedance targets: on this plane-decoupled
@@ -86,5 +104,17 @@ export function auditDecoupling(rules: DecouplingRule[], pads: Pad[]): CapAudit 
   // Worst first: flagged (or missing) ahead of clean, then by gap descending — so the
   // panel leads with whatever most wants attention. Missing parts (gap null) sort to the top.
   rows.sort((a, b) => Number(b.over) - Number(a.over) || (b.gap ?? Infinity) - (a.gap ?? Infinity))
-  return { rows, flagged: rows.reduce((n, r) => n + (r.over ? 1 : 0), 0), budgets: { ...BUDGETS } }
+
+  // Coverage — the other direction: a part with a supply-input pin should be some rule's target.
+  const covered = new Set(rules.map((r) => r.near))
+  const supplyPin = new Map<string, string>() // part -> its (first) supply-input pin name
+  for (const p of pads) {
+    if (p.ref && p.pin && SUPPLY_PIN.test(p.pin) && !supplyPin.has(p.ref)) supplyPin.set(p.ref, p.pin)
+  }
+  const missing: CoverageGap[] = []
+  for (const [part, pin] of supplyPin) if (!covered.has(part)) missing.push({ part, pin })
+  missing.sort((a, b) => a.part.localeCompare(b.part))
+
+  const flagged = rows.reduce((n, r) => n + (r.over ? 1 : 0), 0) + missing.length
+  return { rows, missing, flagged, budgets: { ...BUDGETS } }
 }

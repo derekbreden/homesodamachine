@@ -51,7 +51,7 @@
  * viewer's board chip reports this floor live (clearance.ts -> picks.json).
  */
 import { at, Cap, Res, Jst, ulnOUT } from "./carrier_parts"
-import { Uln2803, Mcp23017, Ds3231Smd, Thvd1426, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn } from "./pcba_parts"
+import { Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn } from "./pcba_parts"
 import { AMS1117_3_3 } from "./imports/AMS1117_3_3"
 import { KF301_5_0_2P } from "./imports/KF301_5_0_2P"
 import { DRV8870DDAR as Drv8870 } from "./imports/DRV8870DDAR"
@@ -67,6 +67,7 @@ import { USBLC6_2SC6 as Usblc6 } from "./imports/USBLC6_2SC6"
 import { TS_1187A_B_A_B as Tact } from "./imports/TS_1187A_B_A_B"
 import { S8050_J3Y_RANGE_200_350_ as S8050 } from "./imports/S8050_J3Y_RANGE_200_350_"
 import type { DecouplingRule } from "./cap-audit"
+import type { AmpacityRule } from "./ampacity-audit"
 
 // Identity stamp version (commit date + short SHA), computed once per render.
 const ID = boardVersionParts()
@@ -93,7 +94,7 @@ export const decoupling: DecouplingRule[] = [
   { cap: "C11", near: "U1", role: "WROOM 3V3 bulk", kind: "bulk" },
   { cap: "C12", near: "U1", role: "EN power-on RC", kind: "rc" },
   { cap: "C6", near: "U6", role: "DS3231 VCC", kind: "hf" },
-  { cap: "C7", near: "U7", role: "THVD1426 VCC", kind: "hf" },
+  { cap: "C7", near: "U7", role: "COS13487 VCC", kind: "hf" },
   { cap: "C4", near: "U2", role: "MCP 0x20 VDD", kind: "hf" },
   { cap: "C5", near: "U3", role: "MCP 0x21 VDD", kind: "hf" },
   { cap: "C21", near: "U13", role: "CH340C 3V3", kind: "hf" },
@@ -101,6 +102,19 @@ export const decoupling: DecouplingRule[] = [
   { cap: "C1", near: "U5", role: "V12 island HF (ULN B)", kind: "hf" },
   { cap: "C2", near: "U4", role: "V12 island HF (ULN A)", kind: "hf" },
   { cap: "C3", near: "U4", role: "V12 470uF bulk reservoir", kind: "reservoir" },
+]
+
+// ── Ampacity audit ──────────────────────────────────────────────────────────────────────
+// Current-carrying SIGNAL traces and the width they want (cap-audit's sibling — ampacity-audit.ts
+// checks the routed width against this). The power RAILS need no entry: V12/V5/GND are poured
+// planes, picked up at the barrel. What does: the peristaltic-pump motor outputs, ~0.8A peak
+// (Kamoer KPHM400-SW). The autorouter lays every trace at the 0.2mm floor, so these want calling
+// out — 0.3mm is the IPC-2221 rule of thumb for ~0.8A at a ~10°C rise on 1oz (tighter on inner
+// 0.5oz copper). The valve/fan outputs (U4/U5.OUT) also carry coil current but their solenoid
+// spec isn't pinned down here — add rules once it is; `pin` is an endpoint-pin prefix.
+export const ampacity: AmpacityRule[] = [
+  { pin: "U11.OUT", minWidthMm: 0.3, role: "pump A motor (~0.8A)" },
+  { pin: "U12.OUT", minWidthMm: 0.3, role: "pump B motor (~0.8A)" },
 ]
 
 export default () => (
@@ -131,11 +145,11 @@ export default () => (
     <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-58.5} y={-14.0} rot={90} />
     <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-53.5} y={-14.0} rot={90} side="E" />
     <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-44} y={12} rot={270} side="E" />
-    {/* RS-485 to the front display (J9). THVD1426 auto-direction transceiver (U7):
+    {/* RS-485 to the front display (J9). COS13487EESA-3.3 auto-direction transceiver (U7):
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
-        only D (from ESP TX) and R (to ESP RX) are driven. R6 = 120R line termination
+        only DI (from ESP TX) and RO (to ESP RX) are driven. R6 = 120R line termination
         across A/B; D1 = SM712 ESD array at the J9 cable entry; C7 decouples VCC. */}
-    <Thvd1426 name="U7" x={-50} y={-22} />
+    <Cos13487 name="U7" x={-50} y={-22} />
     <resistor name="R6" resistance="120" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22787"] }} {...at(-44.6, -22.55)} />
     <Sm712 name="D1" x={-44} y={-25.95} rot={0} />
     <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-50} y={-17} rot={90} side="E" />
@@ -302,7 +316,10 @@ export default () => (
         A0 -> GND on U2, A0 -> 3V3 on U3. /RESET tied high (unused). INTA/INTB unused
         (firmware polls). One 0.1uF decoupler per chip across VDD/VSS. The strap pins,
         VDD, VSS and the cap pads are all poured-net SMD pads, so they auto-stitch to
-        their planes (plane-stitching.md) — none of this routes. */}
+        their planes (plane-stitching.md) — none of this routes. The unused GPB inputs
+        (U2 GPB4-7, U3 GPB6-7) have no board pull — firmware must enable each MCP's GPPU
+        on them (or drive them as outputs) so they don't float and draw input-buffer
+        crossover current. */}
     <trace from=".U2 > .A0" to="net.GND" />
     <trace from=".U2 > .A1" to="net.GND" />
     <trace from=".U2 > .A2" to="net.GND" />
@@ -353,13 +370,13 @@ export default () => (
     <trace from=".U2 > .SCL" to="net.SCL" />
     <trace from=".U3 > .SCL" to="net.SCL" />
 
-    {/* RS485 TTL side -> ESP UART. R (the receiver output) lands on IO34 — the ESP
-        UART RX, an input-only pin, all an RX needs; D (the driver input) is fed by
+    {/* RS485 TTL side -> ESP UART. RO (the receiver output) lands on IO34 — the ESP
+        UART RX, an input-only pin, all an RX needs; DI (the driver input) is fed by
         IO32 — the ESP UART TX, which must be output-capable (IO34/35/36/39 can't
-        drive). 3.3 V VCC keeps R's swing safe for input-only IO34. /RE -> GND keeps
-        the receiver always on; auto-direction is driven entirely off the D pin. */}
-    <trace from=".U7 > .R" to=".U1 > .IO34" />
-    <trace from=".U7 > .D" to=".U1 > .IO32" />
+        drive). 3.3 V VCC keeps RO's swing safe for input-only IO34. /RE -> GND keeps
+        the receiver always on; auto-direction is driven entirely off the DI pin. */}
+    <trace from=".U7 > .RO" to=".U1 > .IO34" />
+    <trace from=".U7 > .DI" to=".U1 > .IO32" />
     <trace from=".U7 > .RE" to="net.GND" />
     <trace from=".U7 > .GND" to="net.GND" />
     <trace from=".C7 > .pin2" to="net.GND" />

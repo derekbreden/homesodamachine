@@ -4,16 +4,22 @@
  * served path-confined by web/lib/viewer-routes.js. Positions are board millimetres; the
  * viewer maps mm onto the Gerber SVG at unitsPerMm (1 mm = 1000 units).
  *
- * Identity (pads/vias/traces) is what the pad picker hit-tests. Readout (size) and checks
- * (clearance, errors, capAudit) are what the board chip and Board-checks panel show. The check
- * shapes are defined with their analyses in hardware/pcb/pcba/ — ClearancePair/BoardError in clearance.ts, CapAudit in
- * cap-audit.ts — and gathered here so the whole file has one definition.
+ * Identity (pads/vias/traces) is what the pad picker hit-tests. Readout (size, fab) and checks
+ * (clearance, errors, capAudit, connectors, ampacity) are what the board chip and Board-checks
+ * panel show. The check shapes are defined with their analyses in hardware/pcb/pcba/ —
+ * ClearancePair/BoardError in clearance.ts, CapAudit in cap-audit.ts, ConnectorAudit in
+ * connector-audit.ts, AmpacityAudit in ampacity-audit.ts — and gathered here so the whole file has
+ * one definition. (Fab is a plain readout with no analysis of its own, so it's defined inline.)
  */
 import type { ClearancePair, BoardError } from "../../hardware/pcb/pcba/clearance"
 import type { CapAudit } from "../../hardware/pcb/pcba/cap-audit"
+import type { ConnectorAudit } from "../../hardware/pcb/pcba/connector-audit"
+import type { AmpacityAudit } from "../../hardware/pcb/pcba/ampacity-audit"
 
 export type { ClearancePair, BoardError } from "../../hardware/pcb/pcba/clearance"
-export type { CapAudit, CapAuditRow } from "../../hardware/pcb/pcba/cap-audit"
+export type { CapAudit, CapAuditRow, CoverageGap } from "../../hardware/pcb/pcba/cap-audit"
+export type { ConnectorAudit, ConnectorRow } from "../../hardware/pcb/pcba/connector-audit"
+export type { AmpacityAudit, AmpacityRow } from "../../hardware/pcb/pcba/ampacity-audit"
 
 /** A pad's identity, resolved pcb_port → source_port → component; null where a pad has no port. */
 export type PadIdentity = {
@@ -59,6 +65,15 @@ export type BoardSize = { width: number; height: number }
  *  analyzeClearance also returns errors; those ride at the top level of the file. */
 export type ClearanceReadout = { floor: number | null; tight: ClearancePair[] }
 
+/** Manufacturability readout: BOM sourcing + the tightest drill/annular the fab must hit. */
+export type FabStats = {
+  layers: number | null
+  partsSourced: { sourced: number; total: number }
+  unsourced: string[]              // ref-des of placed parts carrying no JLCPCB #
+  minDrillMm: number | null
+  minAnnularMm: number | null
+}
+
 /** out/<board>.picks.json in full. */
 export type PicksFile = {
   board: string
@@ -70,4 +85,7 @@ export type PicksFile = {
   clearance: ClearanceReadout
   errors: BoardError[]
   capAudit: CapAudit | null
+  connectors: ConnectorAudit
+  ampacity: AmpacityAudit | null
+  fab: FabStats
 }
