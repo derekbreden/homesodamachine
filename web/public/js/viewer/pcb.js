@@ -286,6 +286,28 @@ function makeRow(cls, left, right) {
   if (right != null) row.appendChild(Object.assign(document.createElement("span"), { className: "v", textContent: right }));
   return row;
 }
+// Append `rows` (ready row elements) to `card`, showing the first `limit` and tucking the rest
+// behind a "Show N more" toggle. Keeps a long report glanceable — the worst few show, the tail
+// expands on demand. Callers sort so anything that must stay visible (flagged rows) is up top
+// and pass a `limit` that covers it.
+function addCollapsibleRows(card, rows, limit) {
+  const shown = Math.min(Math.max(limit, 0), rows.length);
+  for (let i = 0; i < shown; i++) card.appendChild(rows[i]);
+  const rest = rows.slice(shown);
+  if (!rest.length) return;
+  const more = document.createElement("div");
+  more.className = "pcb-checks-more";
+  more.hidden = true;
+  for (const r of rest) more.appendChild(r);
+  card.appendChild(more);
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "pcb-checks-toggle";
+  const sync = () => { toggle.textContent = more.hidden ? `Show ${rest.length} more ▾` : "Show less ▴"; };
+  sync();
+  toggle.addEventListener("click", (e) => { e.stopPropagation(); more.hidden = !more.hidden; sync(); });
+  card.appendChild(toggle);
+}
 function openChecksModal(wrapper, picks) {
   closeChecksModal(wrapper);
   const clearance = (picks && picks.clearance) || {};
@@ -306,22 +328,25 @@ function openChecksModal(wrapper, picks) {
   head.appendChild(x);
   card.appendChild(head);
 
-  // Clearance floor + tightest pairs.
+  // Clearance floor + tightest pairs — collapsed to the tightest few (the floor is row 1).
   if (typeof clearance.floor === "number") {
     card.appendChild(Object.assign(document.createElement("div"), { className: "pcb-checks-h", textContent: `Clearance floor — ${clearance.floor.toFixed(3)} mm` }));
-    for (const p of (clearance.tight || [])) card.appendChild(makeRow("pcb-checks-row", `${p.a} ↔ ${p.b}`, `${p.gap.toFixed(3)} mm`));
+    const rows = (clearance.tight || []).map((p) => makeRow("pcb-checks-row", `${p.a} ↔ ${p.b}`, `${p.gap.toFixed(3)} mm`));
+    addCollapsibleRows(card, rows, 3);
   }
 
   // Cap decoupling audit (cap-audit.ts): each declared support cap's real pad gap to the part
   // it serves, worst first. Amber rows drifted past their budget; the rest are within it.
+  // Collapsed to the worst few, but the limit never hides a flagged row (they sort to the top).
   const audit = (picks && picks.capAudit) || null;
   if (audit && Array.isArray(audit.rows) && audit.rows.length) {
-    card.appendChild(Object.assign(document.createElement("div"), { className: "pcb-checks-h", textContent: audit.flagged ? `Decoupling — ${audit.flagged} too far` : "Decoupling" }));
-    for (const r of audit.rows) {
+    card.appendChild(Object.assign(document.createElement("div"), { className: "pcb-checks-h", textContent: audit.flagged ? `Decoupling — ${audit.flagged} too far` : `Decoupling (${audit.rows.length})` }));
+    const rows = audit.rows.map((r) => {
       const left = r.role ? `${r.cap} → ${r.near} · ${r.role}` : `${r.cap} → ${r.near}`;
       const right = r.gap == null ? (r.note || "not placed") : `${r.gap.toFixed(2)} mm${r.over ? ` > ${r.budget}` : ""}`;
-      card.appendChild(makeRow("pcb-checks-row" + (r.over ? " warn" : ""), left, right));
-    }
+      return makeRow("pcb-checks-row" + (r.over ? " warn" : ""), left, right);
+    });
+    addCollapsibleRows(card, rows, Math.max(3, audit.flagged));
   }
 
   // Genuine overlap / DRC errors.
