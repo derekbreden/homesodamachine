@@ -40,7 +40,7 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | R5 — Q1 base | 1 kΩ ±1% | 0603 | C21190 | Basic | 6,282,722 | $0.0023 |
 | U6 — RTC | DS3231SN, TCXO RTC (±2 ppm) | SOIC-16 (300 mil) | C9866 | Extended | 335 | $6.14 |
 | BT1 — RTC backup | CR2032 coin base, 2-pin THT (horizontal) | THT plugin ~25×23 mm | C5365915 | Extended | 11,888 (2026-06-30) | $0.135 |
-| U7 — RS485 to display | THVD1426, auto-direction transceiver, 3.3 V | SOIC-8 | C5215922 | Extended | 5,945 | $1.84 |
+| U7 — RS485 to display | COS13487EESA-3.3, auto-direction transceiver, 3.3 V | SOP-8 (= SOIC-8) | C51949447 | Extended | 530 (2026-07-03) | $0.55 |
 | D1 — RS485 line ESD | SM712, RS485 TVS array (−7/+12 V) | SOT-23 | C12067 | Extended | 35,585 | $0.41 |
 | R6 — RS485 termination | 120 Ω ±1% | 0603 | C22787 | Basic | 1,728,584 | $0.0022 |
 | U9 — 5V→3V3 LDO | AMS1117-3.3, fixed 3.3 V LDO | SOT-223 | C6186 | Basic | 1,843,633 (2026-07-02) | $0.1979 |
@@ -69,6 +69,18 @@ CC0805KRX7R9BB104; C845537 = UMW (Youtai) ULN2803A; C47023 = Microchip MCP23017-
 C94598 = Jiangsu Huaneng MLT-5020; C2146 = JSCJ S8050 J3Y; C474881 = Cixi Kefa Elec
 KF301-5.0-2P screw terminal; XH2.54 connectors = XUNPU WAFER-XH2.54-{n}PZZ, one vendor
 across the six pin counts used (3/4/5/6/7/9P), vertical THT.
+
+**U7 is `C51949447` (COSINE COS13487EESA-3.3), a native-3.3 V auto-direction RS-485
+transceiver** — a MAX13487E-equivalent whose datasheet pin map (1 RO, 2 /RE, 3 /SHDN,
+4 DI, 5 GND, 6 A, 7 B, 8 VCC) the board wires directly: /RE→GND (always receive), /SHDN→VCC
+(always on), and the driver auto-enables on TX off the DI pin — so there is no host DE/RE
+line and no ESP GPIO is spent on direction (the pin budget is why an auto-direction part is
+required, not a plain DE/RE one). Single-3.3 V supply keeps RO's swing safe for the input-only
+IO34; ±15 kV ESD, −7..+12 V common-mode (matches the SM712 clamp). SOP-8 lands on the generic
+`soic8` footprint (1.27 mm pitch, so the /RE and /SHDN plane-stitch vias clear — a 0.5 mm-pitch
+SOT would collide them). Extended, and stock runs shallow (~530 at 2026-07-03) — a COSINE
+second-source, so glance at stock and consider a genuine TI THVD1426DR (`C5215921`, SOIC-8,
+same pinout) if a run needs deeper supply than COSINE carries.
 
 **The "XH2.54" connectors are physically 2.5 mm pitch.** Genuine JST XH is 2.50 mm; the
 ubiquitous "2.54 mm JST-XH" kits/housings are that same 2.50 mm part with a rounded label,
