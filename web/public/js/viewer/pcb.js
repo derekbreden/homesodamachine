@@ -243,9 +243,9 @@ function updateDimsChip(wrapper, picks) {
   closeChecksModal(wrapper);
   const text = [boardDimsText(picks, wrapper), viaCountText(picks), clearanceText(picks)].filter(Boolean).join(" · ");
   const errors = (picks && Array.isArray(picks.errors)) ? picks.errors : null;
-  const audit = (picks && picks.capAudit) || null;
+  const warns = advisoryCount(picks);
   let el = wrapper.querySelector(".pcb-dims");
-  if (!text && !errors && !audit) { if (el) el.remove(); return; }
+  if (!text && !errors && !warns) { if (el) el.remove(); return; }
   if (!el) {
     el = document.createElement("div");
     el.className = "pcb-dims";
@@ -253,19 +253,18 @@ function updateDimsChip(wrapper, picks) {
   }
   el.textContent = "";
   if (text) el.appendChild(Object.assign(document.createElement("span"), { className: "pcb-dims-text", textContent: text }));
-  if (errors || audit) {
-    // Three states, worst wins: red for hard DRC errors, amber for advisory cap-decoupling
-    // drift (a cap too far from what it serves), green when both are clean. `has-issues`
-    // tracks DRC errors ONLY, so it stays the manufacturability signal.
+  if (errors || warns) {
+    // Three states, worst wins: red for hard DRC errors (incl. floating pads), amber for the
+    // soft advisories (decoupling / connectors / ampacity / sourcing), green when both are clean.
+    // `has-issues` tracks DRC errors ONLY, so it stays the manufacturability signal.
     const nErr = errors ? errors.length : 0;
-    const nWarn = audit ? (audit.flagged || 0) : 0;
     const badge = document.createElement("button");
     badge.type = "button";
-    badge.className = "pcb-checks" + (nErr ? " has-issues" : nWarn ? " has-warns" : "");
+    badge.className = "pcb-checks" + (nErr ? " has-issues" : warns ? " has-warns" : "");
     badge.textContent = nErr ? `⚠ ${nErr} issue${nErr === 1 ? "" : "s"}`
-      : nWarn ? `⚠ ${nWarn} cap${nWarn === 1 ? "" : "s"}`
+      : warns ? `⚠ ${warns} advisor${warns === 1 ? "y" : "ies"}`
       : "✓ clean";
-    badge.title = "Clearance floor · DRC · cap decoupling";
+    badge.title = "Clearance · DRC · decoupling · connectors · ampacity · fab";
     badge.addEventListener("click", (e) => { e.stopPropagation(); openChecksModal(wrapper, picks); });
     el.appendChild(badge);
   }
@@ -285,6 +284,21 @@ function makeRow(cls, left, right) {
   row.appendChild(Object.assign(document.createElement("span"), { className: "k", textContent: left }));
   if (right != null) row.appendChild(Object.assign(document.createElement("span"), { className: "v", textContent: right }));
   return row;
+}
+function checkHead(text) {
+  return Object.assign(document.createElement("div"), { className: "pcb-checks-h", textContent: text });
+}
+// Count the advisory (amber) flags across every soft check — decoupling drift + missing
+// decouplers (both in capAudit.flagged), tight connectors, thin current traces, unsourced parts.
+// Separate from picks.errors, which are the hard (red) DRC failures.
+function advisoryCount(picks) {
+  if (!picks) return 0;
+  let n = 0;
+  if (picks.capAudit) n += picks.capAudit.flagged || 0;
+  if (picks.connectors) n += picks.connectors.flagged || 0;
+  if (picks.ampacity) n += picks.ampacity.flagged || 0;
+  if (picks.fab && Array.isArray(picks.fab.unsourced)) n += picks.fab.unsourced.length;
+  return n;
 }
 // Append `rows` (ready row elements) to `card`, showing the first `limit` and tucking the rest
 // behind a "Show N more" toggle. Keeps a long report glanceable — the worst few show, the tail
@@ -330,32 +344,59 @@ function openChecksModal(wrapper, picks) {
 
   // Clearance floor + tightest pairs — collapsed to the tightest few (the floor is row 1).
   if (typeof clearance.floor === "number") {
-    card.appendChild(Object.assign(document.createElement("div"), { className: "pcb-checks-h", textContent: `Clearance floor — ${clearance.floor.toFixed(3)} mm` }));
+    card.appendChild(checkHead(`Clearance floor — ${clearance.floor.toFixed(3)} mm`));
     const rows = (clearance.tight || []).map((p) => makeRow("pcb-checks-row", `${p.a} ↔ ${p.b}`, `${p.gap.toFixed(3)} mm`));
     addCollapsibleRows(card, rows, 3);
   }
 
-  // Cap decoupling audit (cap-audit.ts): each declared support cap's real pad gap to the part
-  // it serves, worst first. Amber rows drifted past their budget; the rest are within it.
-  // Collapsed to the worst few, but the limit never hides a flagged row (they sort to the top).
+  // Hard DRC errors (clearance.ts) — floating pads, pour shorts, blind vias, courtyard overlaps…
+  // These drive the red badge, so they sit near the top: a failing board leads with what's wrong.
+  card.appendChild(checkHead(errors.length ? `Issues (${errors.length})` : "Issues"));
+  if (!errors.length) card.appendChild(Object.assign(document.createElement("div"), { className: "pcb-checks-clean", textContent: "No overlap, floating-pad, or DRC errors." }));
+  else for (const er of errors) card.appendChild(makeRow("pcb-checks-row issue", er.text, er.kind));
+
+  // Decoupling (cap-audit.ts): each declared cap's pad gap to its target vs its per-job budget,
+  // plus any chip missing a decoupler. Coverage gaps (amber) show first; placement rows collapse.
   const audit = (picks && picks.capAudit) || null;
   if (audit && Array.isArray(audit.rows) && audit.rows.length) {
-    card.appendChild(Object.assign(document.createElement("div"), { className: "pcb-checks-h", textContent: audit.flagged ? `Decoupling — ${audit.flagged} too far` : `Decoupling (${audit.rows.length})` }));
+    card.appendChild(checkHead(audit.flagged ? `Decoupling — ${audit.flagged} to review` : `Decoupling (${audit.rows.length})`));
+    for (const m of (audit.missing || [])) card.appendChild(makeRow("pcb-checks-row warn", `${m.part} · ${m.pin}`, "no decoupler declared"));
     const rows = audit.rows.map((r) => {
       const left = r.role ? `${r.cap} → ${r.near} · ${r.role}` : `${r.cap} → ${r.near}`;
-      // Show gap against its budget so the per-job tolerance is visible (amber when over).
       const right = r.gap == null ? (r.note || "not placed") : `${r.gap.toFixed(2)} / ${r.budget} mm`;
       return makeRow("pcb-checks-row" + (r.over ? " warn" : ""), left, right);
     });
-    addCollapsibleRows(card, rows, Math.max(3, audit.flagged));
+    addCollapsibleRows(card, rows, Math.max(3, audit.rows.filter((r) => r.over).length));
   }
 
-  // Genuine overlap / DRC errors.
-  card.appendChild(Object.assign(document.createElement("div"), { className: "pcb-checks-h", textContent: errors.length ? `Issues (${errors.length})` : "Issues" }));
-  if (!errors.length) {
-    card.appendChild(Object.assign(document.createElement("div"), { className: "pcb-checks-clean", textContent: "No clearance or overlap errors." }));
-  } else {
-    for (const er of errors) card.appendChild(makeRow("pcb-checks-row issue", er.text, er.kind));
+  // Connectors (connector-audit.ts): each connector body's smallest gap to the edge / neighbours /
+  // mounting holes. Amber when notably tight; a negative gap is a collision or edge overhang.
+  const conn = (picks && picks.connectors) || null;
+  if (conn && Array.isArray(conn.rows) && conn.rows.length) {
+    card.appendChild(checkHead(conn.flagged ? `Connectors — ${conn.flagged} tight` : `Connectors (${conn.rows.length})`));
+    const rows = conn.rows.map((r) => makeRow("pcb-checks-row" + (r.over ? " warn" : ""), `${r.ref} ↔ ${r.to}`, `${r.clearance.toFixed(2)} mm`));
+    addCollapsibleRows(card, rows, Math.max(3, conn.flagged));
+  }
+
+  // Ampacity (ampacity-audit.ts): declared current-carrying traces vs the width they want.
+  const amp = (picks && picks.ampacity) || null;
+  if (amp && Array.isArray(amp.rows) && amp.rows.length) {
+    card.appendChild(checkHead(amp.flagged ? `Ampacity — ${amp.flagged} thin` : `Ampacity (${amp.rows.length})`));
+    const rows = amp.rows.map((r) => makeRow("pcb-checks-row" + (r.over ? " warn" : ""), `${r.label} · ${r.role}`, `${r.width.toFixed(2)} / ${r.minWidth} mm`));
+    addCollapsibleRows(card, rows, Math.max(3, amp.flagged));
+  }
+
+  // Fab readout (pick-data.ts): BOM sourcing + the tightest drill/annular the fab must hit.
+  const fab = (picks && picks.fab) || null;
+  if (fab) {
+    card.appendChild(checkHead("Fab"));
+    const ps = fab.partsSourced || { sourced: 0, total: 0 };
+    const unsourced = Array.isArray(fab.unsourced) ? fab.unsourced : [];
+    card.appendChild(makeRow("pcb-checks-row" + (unsourced.length ? " warn" : ""), "Parts sourced", `${ps.sourced} / ${ps.total}`));
+    if (unsourced.length) card.appendChild(makeRow("pcb-checks-row warn", "Unsourced", unsourced.join(", ")));
+    if (fab.layers != null) card.appendChild(makeRow("pcb-checks-row", "Layers", String(fab.layers)));
+    if (fab.minDrillMm != null) card.appendChild(makeRow("pcb-checks-row", "Min drill", `${fab.minDrillMm.toFixed(2)} mm`));
+    if (fab.minAnnularMm != null) card.appendChild(makeRow("pcb-checks-row", "Min annular", `${fab.minAnnularMm.toFixed(2)} mm`));
   }
 
   modal.appendChild(card);
