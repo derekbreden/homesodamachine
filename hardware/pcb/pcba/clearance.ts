@@ -169,12 +169,56 @@ export function analyzeClearance(circuit: any[]): ClearanceReport {
   pairs.sort((x, y) => x.gap - y.gap)
 
   const errors = [
+    ...floatingPadErrors(circuit, netById, netOfPort, refPin, traceNet),
     ...pourShortErrors(circuit, LAYERS, netByKey, netById, netOfPort, refPin, netOfTrace, traceNet),
     ...viaSpanErrors(circuit),
     ...sliverErrors(circuit, netById),
     ...genuineErrors(circuit, pcbPort, smtpadByPort),
   ]
   return { floor: isFinite(floor) ? round(floor) : null, tight: pairs.slice(0, TIGHT_MAX), errors }
+}
+
+// FLOATING PAD — an SMD pad whose net is poured on a DIFFERENT layer connects to that plane
+// only through a stitch via (plane-stitching.md): the pad is copper on one layer, the plane on
+// another, and nothing joins them but the via. If that via is missing or bare-netted, the pad
+// silently floats — a dead VCC/GND/rail pin — and NO other check sees it (the pour is blind, the
+// gerbers look right, DRC passes). So verify the stitch: every poured-net SMD pad not already on
+// its plane's layer must have a same-net via landing within it. (A through via spans the whole
+// stack, so a via on the pad = a reach to the plane.) This is the referee for the core patch that
+// drops those vias — it catches a regression where a pad's stitch goes missing or loses its net.
+function floatingPadErrors(
+  circuit: any[], netById: Record<string, string>,
+  netOfPort: (id?: string) => string, refPin: (id?: string) => string,
+  traceNet: Record<string, string>,
+): BoardError[] {
+  // net name -> the layer its plane/island is poured on
+  const pourLayer: Record<string, string> = {}
+  for (const e of circuit) if (e.type === "pcb_copper_pour") {
+    const net = netById[e.source_net_id]
+    if (net && !(net in pourLayer)) pourLayer[net] = e.layer
+  }
+  if (!Object.keys(pourLayer).length) return []
+  // every netted via, as a point (through vias reach every layer, so a via in the pad stitches it)
+  const vias: { net: string; x: number; y: number }[] = []
+  for (const e of circuit) if (e.type === "pcb_via") {
+    const net = traceNet[e.pcb_trace_id]
+    if (net) vias.push({ net, x: e.x, y: e.y })
+  }
+  const bad: string[] = []
+  for (const e of circuit) {
+    if (e.type !== "pcb_smtpad") continue
+    const net = netOfPort(e.pcb_port_id)
+    const pl = pourLayer[net]
+    if (!pl) continue            // net isn't a poured plane — it connects by trace, not by stitch
+    if (e.layer === pl) continue // pad already sits on its plane's layer (e.g. a top V12 pad)
+    const hw = (e.width || 0) / 2 + 0.05, hh = (e.height || 0) / 2 + 0.05
+    const stitched = vias.some((v) => v.net === net && Math.abs(v.x - e.x) <= hw && Math.abs(v.y - e.y) <= hh)
+    if (!stitched) bad.push(`${refPin(e.pcb_port_id)} (${netLabel(net)}) — no stitch via to the ${pl} plane`)
+  }
+  const out: BoardError[] = []
+  for (const b of bad.slice(0, ERR_CAP)) out.push({ kind: "floating-pad", text: `Floating pad — ${b}` })
+  if (bad.length > ERR_CAP) out.push({ kind: "floating-pad", text: `…and ${bad.length - ERR_CAP} more floating pads` })
+  return out
 }
 
 // POUR — a solid copperpour covering foreign-net copper is a short (see file header). For each

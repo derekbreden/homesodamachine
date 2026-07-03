@@ -97,23 +97,26 @@ export const Ds3231Smd = ({ name, x, y, rot = 0 }: { name: string; x: number; y:
   />
 )
 
-// ---- THVD1426 — RS-485 transceiver, SOIC-8, auto-direction -------------------
-// C5215922 (TI THVD1426DRLR). 3.0-5.5 V, 12 Mbps, internal auto-direction off the
-// D pin — no host DE/RE. NOT the MAX485 pinout: 1 R (RX out), 2 /RE (tie GND =
-// always receive), 3 /SHDN (tie VCC = always on), 4 D (TX in), 5 GND, 6 A, 7 B,
-// 8 VCC. R/D are the TTL side to the ESP UART; A/B the differential line to J9.
-const thvdPinLabels = {
-  pin1: "R", pin2: "RE", pin3: "SHDN", pin4: "D",
+// ---- COS13487EESA-3.3 — RS-485 transceiver, SOP-8 (= SOIC-8), 3.3 V, auto-direction ----
+// C51949447 (COSINE COS13487E-3.3): a native-3.3 V MAX13487E-equivalent, ±15 kV ESD,
+// -7..+12 V common-mode (matches the SM712 clamp). Auto-direction — the driver auto-
+// enables on TX off the DI pin, so there is no host DE/RE line to drive. Pinout
+// (datasheet Fig.1) is the MAX13487/THVD1426 map: 1 RO (RX out -> ESP), 2 /RE (tie GND =
+// always receive), 3 /SHDN (tie VCC = always on), 4 DI (TX in <- ESP), 5 GND, 6 A, 7 B,
+// 8 VCC. RO/DI are the TTL side to the ESP UART; A/B the differential line to J9. In stock
+// at JLCPCB but shallow (~530, Extended) — glance at it before a large run.
+const cos13487PinLabels = {
+  pin1: "RO", pin2: "RE", pin3: "SHDN", pin4: "DI",
   pin5: "GND", pin6: "A", pin7: "B", pin8: "VCC",
 }
 
-export const Thvd1426 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => (
+export const Cos13487 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => (
   <chip
     name={name}
     footprint="soic8"
     pcbRotation={rot}
-    pinLabels={thvdPinLabels}
-    supplierPartNumbers={{ jlcpcb: ["C5215922"] }}
+    pinLabels={cos13487PinLabels}
+    supplierPartNumbers={{ jlcpcb: ["C51949447"] }}
     {...at(x, y)}
   />
 )

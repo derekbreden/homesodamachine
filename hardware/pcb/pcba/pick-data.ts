@@ -25,7 +25,9 @@ import path from "node:path"
 import { pathToFileURL } from "node:url"
 import { analyzeClearance } from "./clearance"
 import { auditDecoupling, type DecouplingRule } from "./cap-audit"
-import type { PicksFile, Pad, Via, Trace, PadIdentity } from "../../../web/contracts/picks-schema"
+import { auditConnectors } from "./connector-audit"
+import { auditAmpacity, type AmpacityRule } from "./ampacity-audit"
+import type { PicksFile, Pad, Via, Trace, PadIdentity, FabStats } from "../../../web/contracts/picks-schema"
 
 const arg = process.argv[2]
 if (!arg) {
@@ -51,8 +53,8 @@ try {
     })
   }
   const circuit = JSON.parse(readFileSync(cjAbs, "utf8"))
-  const decoupling = await loadDecoupling(boardFile)
-  const data = distill(circuit, decoupling)
+  const { decoupling, ampacity } = await loadBoardTables(boardFile)
+  const data = distill(circuit, decoupling, ampacity)
   const outPath = path.join(dir, "out", `${board}.picks.json`)
   writeFileSync(outPath, JSON.stringify(data))
   console.log(`[${board}] wrote ${board}.picks.json — ${data.pads.length} pads`)
@@ -60,19 +62,23 @@ try {
   if (!given) rmSync(cjAbs, { force: true })
 }
 
-// A board may export a `decoupling` table (which support cap serves which part). Import it
-// from the board module so the audit's intent lives with the design, not here — this distiller
-// stays board-agnostic. Best-effort: a board that exports none simply gets no cap audit.
-async function loadDecoupling(file: string): Promise<DecouplingRule[]> {
+// A board may export intent tables the audits consume — `decoupling` (cap → part it serves) and
+// `ampacity` (current-carrying trace → wanted width). Import them from the board module so that
+// intent lives with the design, not here — this distiller stays board-agnostic. Best-effort: a
+// board that exports none simply gets no such audit.
+async function loadBoardTables(file: string): Promise<{ decoupling: DecouplingRule[]; ampacity: AmpacityRule[] }> {
   try {
     const mod: any = await import(pathToFileURL(file).href)
-    return Array.isArray(mod.decoupling) ? mod.decoupling : []
+    return {
+      decoupling: Array.isArray(mod.decoupling) ? mod.decoupling : [],
+      ampacity: Array.isArray(mod.ampacity) ? mod.ampacity : [],
+    }
   } catch {
-    return []
+    return { decoupling: [], ampacity: [] }
   }
 }
 
-function distill(circuit: any[], decoupling: DecouplingRule[] = []): PicksFile {
+function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRules: AmpacityRule[] = []): PicksFile {
   const compName: Record<string, string> = {}
   const srcPort: Record<string, any> = {}
   const pcbPort: Record<string, any> = {}
@@ -181,7 +187,49 @@ function distill(circuit: any[], decoupling: DecouplingRule[] = []): PicksFile {
   // from the DRC `errors`, which are manufacturability.
   const capAudit = decoupling.length ? auditDecoupling(decoupling, pads) : null
 
-  return { board, unitsPerMm: 1000, size, pads, vias, traces, clearance: { floor, tight }, errors, capAudit }
+  // Fab / manufacturability readout: BOM sourcing + the tightest drill/annular the fab must hit.
+  const fab = fabStats(circuit)
+
+  // Placement / electrical intent checks: connector bodies clear of the edge & each other
+  // (connector-audit.ts), and current-carrying traces routed wide enough (ampacity-audit.ts).
+  const connectors = auditConnectors(circuit)
+  const ampacity = ampacityRules.length ? auditAmpacity(ampacityRules, traces) : null
+
+  return { board, unitsPerMm: 1000, size, pads, vias, traces, clearance: { floor, tight }, errors, capAudit, connectors, ampacity, fab }
+}
+
+// Manufacturability numbers, straight off the circuit-json. `partsSourced` is the JLCPCB-assembly
+// check (an unsourced placed part can't be picked); minDrill / minAnnular are the DFM floors the
+// fab must meet (JLCPCB standard: 0.2mm drill, ~0.13mm annular). All advisory, not hard errors.
+function fabStats(circuit: any[]): FabStats {
+  const boardEl = circuit.find((e) => e.type === "pcb_board")
+  const scById: Record<string, any> = {}
+  for (const e of circuit) if (e.type === "source_component") scById[e.source_component_id] = e
+  let total = 0, sourced = 0
+  const unsourced: string[] = []
+  for (const e of circuit) {
+    if (e.type !== "pcb_component") continue
+    const sc = scById[e.source_component_id]
+    if (!sc) continue
+    total++
+    if (sc.supplier_part_numbers?.jlcpcb?.length) sourced++
+    else unsourced.push(sc.name ?? "?")
+  }
+  let minDrill = Infinity, minAnnular = Infinity
+  for (const e of circuit) {
+    if (e.type !== "pcb_plated_hole" && e.type !== "pcb_via") continue
+    const hole = e.hole_diameter ?? e.hole_width
+    const outer = e.outer_diameter ?? e.outer_width
+    if (typeof hole === "number") minDrill = Math.min(minDrill, hole)
+    if (typeof hole === "number" && typeof outer === "number") minAnnular = Math.min(minAnnular, (outer - hole) / 2)
+  }
+  return {
+    layers: boardEl?.num_layers ?? null,
+    partsSourced: { sourced, total },
+    unsourced,
+    minDrillMm: isFinite(minDrill) ? round(minDrill) : null,
+    minAnnularMm: isFinite(minAnnular) ? round(minAnnular) : null,
+  }
 }
 
 function round(n: number) {
