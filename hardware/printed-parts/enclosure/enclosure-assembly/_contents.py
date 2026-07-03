@@ -72,6 +72,30 @@ SEAM_CLEAR_LIFT = 3.0
 # seat content against the seam lip's inner face, one wall in from the inner wall.
 WALL = 3.0
 
+# --- Rear-panel ports (Zone B: the back wall ABOVE the cold core) ----------
+# The appliance's external connections penetrate the back wall in the band above
+# the cold core — the cold core's own +Y rear stays clean (foam-shell README).
+# enclosure.py cuts these holes into the back half (back_wall_ports below); the
+# receptacle / bulkhead BODIES that seat through them are a Zone-B packing task
+# still open (the back-adjacent trays sit where the bodies land). Hole inventory
+# and specs: ../back-panel/README.md.
+#   * 3x faucet umbilical (1 carb-water + 2 flavor) — JG 1/4" bulkheads in a
+#     triangular cluster, carb-water (blue-ringed) at the top vertex.
+#   * 1x tap-water inlet — JG 1/4" bulkhead.
+#   * 1x C14 mains inlet (rectangular) — kept high and off to one side, above the
+#     water ports, so condensate/leak off the cold lines (which runs down) stays
+#     clear of the mains.
+# (The BiB syrup port in ../back-panel/README.md is omitted here — its hole size
+# is TBD there, pending the Supply Depot connector spec.)
+PORT_BULKHEAD_D = 18.0        # JG 1/4" bulkhead panel hole (clears the Ø17.14 barrel)
+PORT_C14_W, PORT_C14_H = 25.0, 19.0   # C14 body 24x18 cross-section + 0.5/side clearance
+PORT_BAND_LIFT = 14.0         # base port row, this far above the cold core top
+UMBIL_PITCH = 21.0            # umbilical triangular-cluster center pitch (Ø18 + gap)
+UMBIL_CLUSTER_X = 60.0        # umbilical cluster carb-water vertex, lateral (X)
+WATER_PORT_X = 130.0          # tap-water inlet, lateral (X)
+C14_PORT_X = 210.0            # C14 mains inlet, lateral (X)
+C14_PORT_RISE = 6.0           # mains lifted this far above the umbilical top vertex
+
 
 # --- Colors ---------------------------------------------------------------
 COLORS = {
@@ -173,3 +197,28 @@ def build():
     placed["power-tray"]    = _at(pw, 207.0, 85.0, 244.0)
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
+
+
+def back_wall_ports():
+    """Through-holes the rear panel needs, in the Zone-B band above the cold
+    core: (kind, x, z, *size) in world coords — 'round' (a diameter) or 'rect'
+    (x, z size). enclosure.py cuts these through the back half's +Y wall. The
+    band bottom rides one PORT_BAND_LIFT above the cold-core top, so no port ever
+    breaks into the cold core's clean rear. Inventory: ../back-panel/README.md."""
+    placed = build()
+    foam_top = placed["foam-shell"][0].BoundingBox().zmax
+    z0 = foam_top + PORT_BAND_LIFT                 # base row, above the cold core top
+    dz = UMBIL_PITCH * (3.0 ** 0.5) / 2.0          # triangular-cluster vertical span
+    d = PORT_BULKHEAD_D
+    return [
+        # Faucet umbilical: two flavor bulkheads on the base row, the carb-water
+        # (blue-ringed) bulkhead at the top vertex — the densest-three-circle
+        # triangle the tube bundle packs into (back-panel README §"Bulkhead array").
+        ("round", UMBIL_CLUSTER_X - UMBIL_PITCH / 2.0, z0, d),   # flavor A
+        ("round", UMBIL_CLUSTER_X + UMBIL_PITCH / 2.0, z0, d),   # flavor B
+        ("round", UMBIL_CLUSTER_X, z0 + dz, d),                  # carb-water (top vertex)
+        # Tap-water inlet.
+        ("round", WATER_PORT_X, z0, d),
+        # C14 mains inlet — high and to the side, above every water port.
+        ("rect", C14_PORT_X, z0 + dz + C14_PORT_RISE, PORT_C14_W, PORT_C14_H),
+    ]
