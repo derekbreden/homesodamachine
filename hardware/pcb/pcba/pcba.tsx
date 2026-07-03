@@ -145,9 +145,9 @@ export default () => (
         the SMD pads auto-stitch to their planes. Each cap flanks the LDO at the pin of its
         own net: C13 (10uF V5 input) hard by VIN on the east, C14 (22uF 3V3 output) under the
         VOUT tab on the west — so each closes a tight local loop like C15/C16 flank U10. */}
-    <AMS1117_3_3 name="U9" pcbRotation={0} {...at(-10.27, 28.45)} />
-    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-3.05} y={30.75} rot={0} side="S" />
-    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-13} y={23} rot={0} side="S" />
+    <AMS1117_3_3 name="U9" pcbRotation={0} {...at(-9.02, 30.35)} />
+    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-1.8} y={32.65} rot={0} side="S" />
+    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-11.75} y={24.9} rot={0} side="S" />
     <Buck5 name="U10" x={22.81} y={-25.95} />
     <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={13.88} y={-26.9} rot={0} side="S" />
     <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={30.66} y={-25.65} rot={270} side="E" />
@@ -157,16 +157,16 @@ export default () => (
         OCP/OTP/UVLO. VM->12V (the top SMD pad lands directly on the V12 island), GND/PAD->GND,
         ISEN->GND, VREF->3V3, IN1/IN2 from the ESP north-edge pins, OUT1/OUT2 to PUMPS. 10uF +
         0.1uF VM decoupling per chip. */}
-    <Drv8870 name="U11" pcbX={-26.15} pcbY={22} pcbRotation={0} />
-    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-29.8} y={15.65} rot={0} side="S" />
-    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-24.75} y={15.7} rot={0} side="S" />
-    <Drv8870 name="U12" pcbX={-19.2} pcbY={22} pcbRotation={0} />
-    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-19.25} y={15.7} rot={0} side="S" />
-    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-14.2} y={15.7} rot={0} side="S" />
+    <Drv8870 name="U11" pcbX={-24.9} pcbY={22} pcbRotation={0} />
+    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-28.55} y={15.65} rot={0} side="S" />
+    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-23.5} y={15.7} rot={0} side="S" />
+    <Drv8870 name="U12" pcbX={-17.95} pcbY={22} pcbRotation={0} />
+    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-18} y={15.7} rot={0} side="S" />
+    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-12.95} y={15.7} rot={0} side="S" />
     <Mcp23017 name="U2" x={4.48} y={21.3} addr="0x20" rot={270} />
     <Mcp23017 name="U3" x={6.53} y={-21.35} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={18.48} y={11.65} />
-    <Uln2803 name="U5" x={18.58} y={-8.6} />
+    <Uln2803 name="U5" x={18.58} y={-8.53} />
     <Buzzer name="U8" x={-36.3} y={-8.4} />
     <Npn name="Q1" x={-35.8} y={-2.35} />
     <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-40.7} y={-1.65} rot={180} side="N" />
@@ -177,14 +177,14 @@ export default () => (
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
-    <Jst name="J13" x={-22.78} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} rot={0} label="PUMPS" side="N" />
+    <Jst name="J13" x={-21.53} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} rot={0} label="PUMPS" side="N" />
     <Jst name="J3" x={-30.5} y={-32} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" side="S" />
     <Jst name="J4" x={-14.6} y={-32} count={6} labels={["GND", "V5", "IO25", "IO26", "IO27", "3V3"]} rot={0} label="SENSORS" side="S" />
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
         (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
         IO19 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
-    <Jst name="J5" x={-36.18} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} rot={0} label="RELAYS" side="N" />
-    <Jst name="J6" x={9.23} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" side="N" />
+    <Jst name="J5" x={-34.93} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} rot={0} label="RELAYS" side="N" />
+    <Jst name="J6" x={8.96} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" side="N" />
     <Jst name="J7" x={5.05} y={-32.05} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" side="S" />
     <Jst name="J8" x={22.2} y={-32} count={4} labels={["GND", "3V3", "SDA", "SCL"]} rot={0} label="I2C" side="S" />
     <Jst name="J9" x={-42.65} y={-32} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" side="S" />
@@ -440,10 +440,10 @@ export default () => (
 
 
     {/* REEDS A (reservoir A) -> 0x20 GPB inputs; J6 sits directly above U2 and fans down. */}
-    <trace from=".J6 > .RA1" to=".U2 > .GPB0" />
-    <trace from=".J6 > .RA2" to=".U2 > .GPB1" />
-    <trace from=".J6 > .RA3" to=".U2 > .GPB2" />
-    <trace from=".J6 > .RA4" to=".U2 > .GPB3" />
+    <trace from=".U2 > .GPB0" to=".J6 > .RA1" pcbFan="rowToRow" />
+    <trace from=".U2 > .GPB1" to=".J6 > .RA2" pcbFan="rowToRow" />
+    <trace from=".U2 > .GPB2" to=".J6 > .RA3" pcbFan="rowToRow" />
+    <trace from=".U2 > .GPB3" to=".J6 > .RA4" pcbFan="rowToRow" />
     <trace from=".J6 > .GND" to="net.GND" />
 
     {/* REEDS B (reservoir B + carbonator low/high) -> 0x21 GPB inputs; J7 sits below U3 and fans up. */}
@@ -603,12 +603,12 @@ export default () => (
     <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-48.6} y={24.9} rot={90} side="E" />
     <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-44} y={24.85} rot={90} side="E" />
     {/* EN branch (west): U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
-    <resistor name="R17" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-55.1, 12.85)} />
+    <resistor name="R17" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-56.3, 12.4)} />
     <S8050 name="Q2" pcbX={-63.8} pcbY={13} pcbRotation={0} />
     <silkscreentext text="Q2" fontSize="0.8mm" anchorAlignment="center" pcbX={-61.7} pcbY={13} />
     <Tact name="SW2" pcbX={-62} pcbY={27} pcbRotation={0} />
     {/* IO0 branch (east): U13.RTS -> R18 -> Q3.base; U13.DTR -> Q3.emitter; Q3.collector -> IO0; SW1 */}
-    <resistor name="R18" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-51.1, 12.85)} />
+    <resistor name="R18" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-52.3, 12.4)} />
     <S8050 name="Q3" pcbX={-43} pcbY={19.55} pcbRotation={0} />
     <silkscreentext text="Q3" fontSize="0.8mm" anchorAlignment="center" pcbX={-40.9} pcbY={19.55} />
     <Tact name="SW1" pcbX={-62} pcbY={20} pcbRotation={0} />
