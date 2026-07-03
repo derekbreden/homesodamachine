@@ -17,6 +17,7 @@ import { ULN2803A } from "./imports/ULN2803A"
 import { MCP23017_E_SO } from "./imports/MCP23017_E_SO"
 import { DS3231SN_T_R } from "./imports/DS3231SN_T_R"
 import { COS13487EESA_3_3 } from "./imports/COS13487EESA_3_3"
+import { SM712_TCT } from "./imports/SM712_TCT"
 
 // ---- ULN2803A — SOIC-18 (300 mil wide) -------------------------------------
 // Octal Darlington sink driver. C845537 (UMW ULN2803A, SOP-18-300mil). Pinout:
@@ -127,15 +128,15 @@ export const Cos13487 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: 
 // common-mode range, sits at the J9 cable entry. 1 A line, 2 B line, 3 GND.
 const sm712PinLabels = { pin1: "A", pin2: "B", pin3: "GND" }
 
+// JLCPCB-imported footprint (./imports/SM712_TCT, C12067) for the correct CPL rotation. SOT-23,
+// so it calibrates separately from the SOICs: rot 180 seats A/B on the west column (toward U7 and
+// the J9 line entry) and GND on the east, reproducing the generic orientation. The import's
+// A11/A12/K labels are overridden with our A/B/GND; {NAME} silk stripped for the manual ref-des.
 export const Sm712 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => (
-  <chip
-    name={name}
-    footprint="sot23"
-    pcbRotation={rot}
-    pinLabels={sm712PinLabels}
-    supplierPartNumbers={{ jlcpcb: ["C12067"] }}
-    {...at(x, y)}
-  />
+  <>
+    <SM712_TCT name={name} pinLabels={sm712PinLabels} pcbRotation={rot} {...at(x, y)} />
+    <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x} pcbY={y} />
+  </>
 )
 
 // ---- labeled wrappers for imported parts -----------------------------------
