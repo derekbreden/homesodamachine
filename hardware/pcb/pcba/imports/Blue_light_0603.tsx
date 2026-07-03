@@ -12,9 +12,13 @@ export const Blue_light_0603 = (props: LedProps) => {
   ]
 }}
       manufacturerPartNumber="Blue_light_0603"
+      // pin1 = ANODE (+x pad), pin2 = CATHODE (-x, silk cathode bracket). tscircuit's <led>
+      // hard-aliases anode->pin1, and the EasyEDA source for this KENTO part numbers the
+      // cathode as pad 1 — so the pin1/pin2 portHints are swapped from the raw import to match
+      // the anode=pin1 convention (and the red KT-0603R). Keep this if re-importing C2288.
       footprint={<footprint>
-        <smtpad portHints={["pin2"]} pcbX="0.7489952mm" pcbY="0.000127mm" width="0.7999984mm" height="0.7999984mm" shape="rect" />
-<smtpad portHints={["pin1"]} pcbX="-0.7489952mm" pcbY="-0.000127mm" width="0.7999984mm" height="0.7999984mm" shape="rect" />
+        <smtpad portHints={["pin1"]} pcbX="0.7489952mm" pcbY="0.000127mm" width="0.7999984mm" height="0.7999984mm" shape="rect" />
+<smtpad portHints={["pin2"]} pcbX="-0.7489952mm" pcbY="-0.000127mm" width="0.7999984mm" height="0.7999984mm" shape="rect" />
 <silkscreenpath route={[{"x":0.22042119999991883,"y":-0.3235197999999855},{"x":0.21046439999986433,"y":-0.3235197999999855},{"x":-0.11958320000007916,"y":0.006527799999958006}]} />
 <silkscreenpath route={[{"x":0.22042119999991883,"y":0.3565143999999236},{"x":0.22042119999991883,"y":0.346532199999956},{"x":-0.11958320000007916,"y":0.006527799999958006}]} />
 <silkscreenpath route={[{"x":0.22042119999991883,"y":0.3565143999999236},{"x":0.22042119999991883,"y":-0.3235197999999855}]} />

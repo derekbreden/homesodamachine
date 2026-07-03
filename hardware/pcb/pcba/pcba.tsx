@@ -546,16 +546,18 @@ export default () => (
         AND the 5V buck + 3V3 LDO are up — the board is alive before firmware runs). 470R (C23179) per
         LED; ref-des silk stripped from the LED imports (it collides at this pitch), so meaning
         is by colour + position (see esp32-scope.md). */}
-    {/* left — firmware R/G/B; anode toward its R (outboard, -x): D2 red rot 180, D3/D4 native */}
+    {/* left — firmware R/G/B; anode toward its R (outboard, -x). Every KT-0603 import carries
+        pin1=anode on the +x pad, so all three rot 180 to swing the anode pad outboard-left. */}
     <LedRed name="D2" pcbRotation={180} {...at(-31.5, -15.05)} />
-    <LedGrn name="D3" {...at(-31.5, -17.55)} />
-    <LedBlu name="D4" {...at(-31.5, -20.05)} />
+    <LedGrn name="D3" pcbRotation={180} {...at(-31.5, -17.55)} />
+    <LedBlu name="D4" pcbRotation={180} {...at(-31.5, -20.05)} />
     <resistor name="R10" resistance="470" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23179"] }} {...at(-36, -15.05)} />
     <resistor name="R11" resistance="470" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23179"] }} {...at(-36, -17.55)} />
     <resistor name="R12" resistance="470" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23179"] }} {...at(-36, -20.05)} />
-    {/* right — power rails (green), anode toward its R (outboard, +x): both rot 180 */}
-    <LedGrn name="D5" pcbRotation={180} {...at(-21.5, -17)} />
-    <LedGrn name="D6" pcbRotation={180} {...at(-21.5, -20)} />
+    {/* right — power rails (green); anode toward its R (outboard, +x). pin1=anode is already on
+        the +x pad, so these stay native (rot 0) to face the anode pad outboard-right at its R. */}
+    <LedGrn name="D5" {...at(-21.5, -17)} />
+    <LedGrn name="D6" {...at(-21.5, -20)} />
     <Res name="R13" resistance="470" footprint="0603" jlcpcb="C23179" x={-17} y={-17} rot={180} side="N" />
     <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={-17} y={-20} rot={180} side="N" />
     
