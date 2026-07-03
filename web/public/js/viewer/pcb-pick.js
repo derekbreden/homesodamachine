@@ -21,6 +21,7 @@
 // in PanZoom's CSS transform), so a miss still yields a coordinate.
 
 import { state } from "./state.js";
+import { HSM_EVENTS } from "/contracts/client-events.js";
 
 const SVGNS = "http://www.w3.org/2000/svg";
 const LS_KEY = "pcb-pad-pick";
@@ -348,12 +349,12 @@ export function setPadPickEnabled(on) {
   if (!enabled) clearSelection();
   // Arming Inspect disarms Edit (and vice versa) so their overlays don't both
   // claim a click. Only announce on arm, so disarming can't ping-pong.
-  if (enabled) window.dispatchEvent(new CustomEvent("hsm:pcb-tool", { detail: "inspect" }));
+  if (enabled) window.dispatchEvent(new CustomEvent(HSM_EVENTS.PCB_TOOL, { detail: "inspect" }));
 }
 export function isPadPickEnabled() { return enabled; }
 
 // Another tool (the component editor) armed itself — stand down if it wasn't us.
-window.addEventListener("hsm:pcb-tool", (e) => {
+window.addEventListener(HSM_EVENTS.PCB_TOOL, (e) => {
   if (e.detail !== "inspect" && enabled) {
     enabled = false;
     try { localStorage.setItem(LS_KEY, "0"); } catch {}

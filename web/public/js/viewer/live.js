@@ -28,6 +28,7 @@ import { renderMmdThumbnail, refetchOpenMmd } from "./mermaid.js";
 import { renderDrawingThumbnail, refetchOpenDrawing } from "./drawings.js";
 import { renderPcbThumbnail, refetchOpenPcb } from "./pcb.js";
 import { fetchFiles } from "./main.js";
+import { HSM_EVENTS } from "/contracts/client-events.js";
 
 function refreshStepCard(file) {
   // The export pipeline rewrote this part's committed thumbnail before the
@@ -107,7 +108,7 @@ function isOpenAs(type, file) {
   return state.currentDetail && state.currentDetail.type === type && state.currentDetail.file === file;
 }
 
-window.addEventListener("hsm:files-changed", (e) => {
+window.addEventListener(HSM_EVENTS.FILES_CHANGED, (e) => {
   for (const file of (e.detail && e.detail.files) || []) {
     if (file.endsWith(".step")) {
       refreshStepCard(file);
@@ -145,7 +146,7 @@ function reloadOpenDetail() {
   else if (d.type === "pcb") refetchOpenPcb(d.file);
 }
 
-window.addEventListener("hsm:deploy", (e) => {
+window.addEventListener(HSM_EVENTS.DEPLOY, (e) => {
   // commitChanged === false means a same-commit reconnect blip (nothing
   // actually shipped): just re-list to catch any add/remove, cheaply.
   // Anything else is a real new build — wipe the caches so every

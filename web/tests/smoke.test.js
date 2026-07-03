@@ -101,6 +101,13 @@ const routes = [
   { path: "/pan-zoom.js",         expect: 200, ct: "application/javascript" },
   { path: "/content-viewer.js",   expect: 200, ct: "application/javascript" },
   { path: "/glass-animation.js",  expect: 200, ct: "application/javascript" },
+
+  // Contract definitions served to the browser: web/contracts/ mounted at
+  // /contracts. The viewer imports HSM_EVENTS + WS from these at runtime, so a
+  // 404 here breaks boot.js and the pickers with a module-load error. (Only the
+  // .js contracts are browser-imported; the .ts ones are builder-side.)
+  { path: "/contracts/client-events.js", expect: 200, ct: "application/javascript" },
+  { path: "/contracts/ws-frames.js",     expect: 200, ct: "application/javascript" },
 ];
 
 for (const r of routes) {
