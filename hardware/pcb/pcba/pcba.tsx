@@ -154,7 +154,7 @@ export default () => (
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
         only DI (from ESP TX) and RO (to ESP RX) are driven. R6 = 120R line termination
         across A/B; D1 = SM712 ESD array at the J9 cable entry; C7 decouples VCC. */}
-    <Cos13487 name="U7" x={-50} y={-22} />
+    <Cos13487 name="U7" x={-50} y={-22} rot={270} />
     <resistor name="R6" resistance="120" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22787"] }} {...at(-44.6, -22.55)} />
     <Sm712 name="D1" x={-44} y={-25.95} rot={0} />
     <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-50} y={-17} rot={90} side="E" />
