@@ -1,6 +1,6 @@
 /**
- * pour-clearance.ts — net-class clearance over the exported circuit-json, the seam pretty-router
- * works in. A pour declares it on the board, beside its outline:
+ * pour-clearance.ts — net-class clearance applied over the exported circuit-json. A pour
+ * declares it on the board, beside its outline:
  *
  *   <copperpour connectsTo="net.V12" netClearance="0.5mm from V3V3, V5, SDA, SCL" ... />
  *
