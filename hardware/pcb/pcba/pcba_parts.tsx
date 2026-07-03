@@ -16,6 +16,7 @@ import { S8050_J3Y_RANGE_200_350_ } from "./imports/S8050_J3Y_RANGE_200_350_"
 import { ULN2803A } from "./imports/ULN2803A"
 import { MCP23017_E_SO } from "./imports/MCP23017_E_SO"
 import { DS3231SN_T_R } from "./imports/DS3231SN_T_R"
+import { COS13487EESA_3_3 } from "./imports/COS13487EESA_3_3"
 
 // ---- ULN2803A — SOIC-18 (300 mil wide) -------------------------------------
 // Octal Darlington sink driver. C845537 (UMW ULN2803A, SOP-18-300mil). Pinout:
@@ -110,15 +111,15 @@ const cos13487PinLabels = {
   pin5: "GND", pin6: "A", pin7: "B", pin8: "VCC",
 }
 
+// JLCPCB-imported footprint (./imports/COS13487EESA_3_3, C51949447) for the correct CPL rotation.
+// rot 270 seats RO/RE/SHDN/DI on the west column (toward the ESP UART) and VCC/B/A/GND on the east
+// (toward J9 / the R6 termination / the D1 ESD array), reproducing the generic orientation. The
+// import's labels already match ours; {NAME} silk stripped for the upright manual ref-des.
 export const Cos13487 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => (
-  <chip
-    name={name}
-    footprint="soic8"
-    pcbRotation={rot}
-    pinLabels={cos13487PinLabels}
-    supplierPartNumbers={{ jlcpcb: ["C51949447"] }}
-    {...at(x, y)}
-  />
+  <>
+    <COS13487EESA_3_3 name={name} pinLabels={cos13487PinLabels} pcbRotation={rot} {...at(x, y)} />
+    <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x} pcbY={y} />
+  </>
 )
 
 // ---- SM712 — RS-485 ESD/TVS array, SOT-23 -----------------------------------
