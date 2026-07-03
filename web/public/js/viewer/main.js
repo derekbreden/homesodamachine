@@ -21,8 +21,9 @@ state.gridEl = document.getElementById("grid");
 // Exposed for headless render tooling (tools/render/render-step.js,
 // render-dxf.js, render-step-side-by-side.js). Tiny escape hatch so
 // Puppeteer can pose the camera and trigger a render without needing
-// to drive OrbitControls via synthetic events. Shape is load-bearing
-// for those tools — keep it stable.
+// to drive OrbitControls via synthetic events. Shape defined in
+// web/contracts/hsm-globals.js and load-bearing for those tools —
+// keep this object in sync with that typedef.
 window.__hsm = {
   THREE, renderer, scene, camera, controls,
   loadStepFile, loadDxfFile,
