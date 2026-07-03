@@ -14,6 +14,7 @@ import { KH_CR2032_2_1 } from "./imports/KH_CR2032_2_1"
 import { NXB_25V470_10_12_5 } from "./imports/NXB_25V470_10_12_5"
 import { S8050_J3Y_RANGE_200_350_ } from "./imports/S8050_J3Y_RANGE_200_350_"
 import { ULN2803A } from "./imports/ULN2803A"
+import { MCP23017_E_SO } from "./imports/MCP23017_E_SO"
 
 // ---- ULN2803A — SOIC-18 (300 mil wide) -------------------------------------
 // Octal Darlington sink driver. C845537 (UMW ULN2803A, SOP-18-300mil). Pinout:
@@ -55,19 +56,17 @@ const mcpPinLabels = {
   pin25: "GPA4", pin26: "GPA5", pin27: "GPA6", pin28: "GPA7",
 }
 
-// The soic28 footprint is `_norefdes` (its auto ref-des locks to the chip's 90°/270°
-// rotation and reads sideways), so the ref-des is drawn here, upright and centred on
-// the body — a pure function of (x,y), so it rides when the chip is moved.
+// JLCPCB-imported footprint (./imports/MCP23017_E_SO, C47023) so the CPL rotation matches
+// JLCPCB's library orientation — the generic soic28 placed the body mis-rotated on the pads.
+// Its built-in GPB0/GPA7 pin labels are overridden with ours (VCC/GND for VDD/VSS, NC/INT pins
+// dropped) so the net wiring is unchanged. Imported rot 0 seats GPA on the north row / GPB on the
+// south; the caller's rot is that value directly (rot 180 mirrors that for U2's GPA-south seating,
+// rot 0 for U3's GPA-north). The import's own {NAME} silk is stripped (it rides the chip rotation
+// and reads sideways/upside-down); the ref-des is drawn here upright and centred on the body — a
+// pure function of (x,y), so it rides when the chip is moved.
 export const Mcp23017 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; addr?: string; rot?: number }) => (
   <>
-    <chip
-      name={name}
-      footprint="soic28_w7.5mm_p1.27mm_norefdes"
-      pcbRotation={rot}
-      pinLabels={mcpPinLabels}
-      supplierPartNumbers={{ jlcpcb: ["C47023"] }}
-      {...at(x, y)}
-    />
+    <MCP23017_E_SO name={name} pinLabels={mcpPinLabels} pcbRotation={rot} {...at(x, y)} />
     <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x} pcbY={y} />
   </>
 )

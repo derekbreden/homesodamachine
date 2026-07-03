@@ -164,11 +164,11 @@ export default () => (
         the SMD pads auto-stitch to their planes. Each cap flanks the LDO at the pin of its
         own net: C13 (10uF V5 input) hard by VIN on the east, C14 (22uF 3V3 output) under the
         VOUT tab on the west — so each closes a tight local loop like C15/C16 flank U10. */}
-    <AMS1117_3_3 name="U9" pcbRotation={0} {...at(-9.02, 30.35)} />
+    <AMS1117_3_3 name="U9" pcbRotation={0} {...at(-9.02, 31.4)} />
     <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-1.8} y={32.65} rot={0} side="S" />
     <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-11.75} y={24.9} rot={0} side="S" />
     <Buck5 name="U10" x={22.81} y={-25.95} />
-    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={14.38} y={-26.9} rot={0} side="S" />
+    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={30.0} y={-30.0} rot={0} side="S" />
     <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={30.66} y={-25.65} rot={270} side="E" />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
         pump (Kamoer KPHM400-SW, 12V brushed DC, 0.8A at full speed per the datasheet — PWM'd well below that at the
@@ -182,17 +182,17 @@ export default () => (
     <Drv8870 name="U12" pcbX={-17.95} pcbY={22} pcbRotation={0} />
     <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-18} y={15.7} rot={0} side="S" />
     <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-12.95} y={15.7} rot={0} side="S" />
-    <Mcp23017 name="U2" x={4.48} y={21.3} addr="0x20" rot={270} />
-    <Mcp23017 name="U3" x={6.53} y={-21.35} addr="0x21" rot={90} />
-    <Uln2803 name="U4" x={18.48} y={11.65} rot={270} />
+    <Mcp23017 name="U2" x={4.48} y={21.3} addr="0x20" rot={180} />
+    <Mcp23017 name="U3" x={6.53} y={-21.35} addr="0x21" rot={0} />
+    <Uln2803 name="U4" x={20.3} y={11.65} rot={270} />
     <Uln2803 name="U5" x={18.58} y={-8.53} rot={270} />
     <Buzzer name="U8" x={-36.3} y={-8.4} />
     <Npn name="Q1" x={-35.8} y={-2.35} />
     <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-40.7} y={-1.65} rot={180} side="N" />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
-    <Jst name="J1" x={28.28} y={12.45} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" side="E" />
-    <Jst name="J2" x={28.33} y={-9.7} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" side="E" />
+    <Jst name="J1" x={30.4} y={12.45} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" side="E" />
+    <Jst name="J2" x={30.4} y={-9.7} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" side="E" />
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
@@ -333,8 +333,8 @@ export default () => (
     <trace from=".U3 > .A1" to="net.GND" />
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
-    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={2.18} y={15.2} rot={0} side="S" />
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9.5} y={-26.9} rot={180} side="S" />
+    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={2.18} y={13.4} rot={0} side="S" />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9.5} y={-29.1} rot={180} side="S" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
