@@ -8,6 +8,33 @@
  * manifold connector reuses, and the `Jst` field connector — the one through-hole
  * part class, the off-board loom headers (J1-J12), specified for JLCPCB assembly.
  */
+import { WAFER_XH2_54_3PZZ } from "./imports/WAFER_XH2_54_3PZZ"
+import { WAFER_XH2_54_4PZZ } from "./imports/WAFER_XH2_54_4PZZ"
+import { WAFER_XH2_54_5PZZ } from "./imports/WAFER_XH2_54_5PZZ"
+import { WAFER_XH2_54_6PZZ } from "./imports/WAFER_XH2_54_6PZZ"
+import { WAFER_XH2_54_7PZZ } from "./imports/WAFER_XH2_54_7PZZ"
+import { WAFER_XH2_54_9PZZ } from "./imports/WAFER_XH2_54_9PZZ"
+
+// JLCPCB-imported XH2.54 wafer footprints keyed by pin count — the real body + holes + 3D model,
+// so the CPL rotation matches JLCPCB's library (the generic pinrow placed the wafer body
+// mis-rotated). JLCPCB's own footprints for this series are NOT uniform, which is what made the
+// slots look random:
+//   PITCH — 2.5 mm for 3/5/6/9P but 2.54 mm for 4/7P (each label row is drawn at its own pitch).
+//   OPEN  — the mating opening (the tall shroud side) faces +Y at rot 0 for 3/4/9P but -Y for
+//           5/6/7P. The Jst helper reads this to rotate each connector so its opening faces the
+//           board edge it sits on (`side`), uniform across the board.
+const WAFER_BY_COUNT: Record<number, (props: any) => any> = {
+  3: WAFER_XH2_54_3PZZ, 4: WAFER_XH2_54_4PZZ, 5: WAFER_XH2_54_5PZZ,
+  6: WAFER_XH2_54_6PZZ, 7: WAFER_XH2_54_7PZZ, 9: WAFER_XH2_54_9PZZ,
+}
+const WAFER_PITCH: Record<number, number> = { 3: 2.5, 4: 2.54, 5: 2.5, 6: 2.5, 7: 2.54, 9: 2.5 }
+// intrinsic opening direction at rot 0: +1 = +Y (north), -1 = -Y (south)
+const WAFER_OPEN: Record<number, number> = { 3: 1, 4: 1, 5: -1, 6: -1, 7: -1, 9: 1 }
+// which end pin 1 sits at, at rot 0 — WEST (-X) for the whole series EXCEPT the 7P, whose JLCPCB
+// footprint numbers from the EAST. Used to keep every net on the same physical pin as before.
+const WAFER_PIN1_WEST: Record<number, boolean> = { 3: true, 4: true, 5: true, 6: true, 7: false, 9: true }
+// how far the body extends on the opening side (mm) — the survive block clears it
+const WAFER_BODY_OUT: Record<number, number> = { 3: 3.45, 4: 3.72, 5: 3.77, 6: 3.69, 7: 3.76, 9: 3.76 }
 
 // pcbX/pcbY for the PCB, with a matching schematic spot so the schematic view
 // doesn't pile every part on the origin.
@@ -71,99 +98,57 @@ export const Res = ({ name, resistance, footprint, jlcpcb, x, y, rot = 0, side }
   )
 }
 
-// A stroked rectangle on the silk layer — a part's PCB outline / fence.
-export const Outline = ({ x, y, w, h }: { x: number; y: number; w: number; h: number }) => (
-  <silkscreenpath
-    strokeWidth="0.2mm"
-    route={[
-      { x: x - w / 2, y: y - h / 2 },
-      { x: x + w / 2, y: y - h / 2 },
-      { x: x + w / 2, y: y + h / 2 },
-      { x: x - w / 2, y: y + h / 2 },
-      { x: x - w / 2, y: y - h / 2 },
-    ]}
-  />
-)
-
-// XH2.54 vertical THT male wafer connectors (JLCPCB assembly), keyed by pin count.
-// The "2.54" is the market label; the parts are genuine 2.5 mm-pitch XH (mate with
-// standard female JST-XH 2.54 housings). One vendor for every count — XUNPU's
-// WAFER-XH2.54-{n}PZZ series — so every wafer seats the same way and its pin-1 (square)
-// pad sits at the same end (no per-vendor 3D-rotation offset to compensate). See
-// jlcpcb-parts.md.
-const XH254_BY_COUNT: Record<number, string> = {
-  2: "C5359631", 3: "C5374805", 4: "C5359632", 5: "C5359633",
-  6: "C5359634", 7: "C5359635", 9: "C5359637",
-}
-
 // ---- JST trunk connector ---------------------------------------------------
-// A board header (the off-board loom cable plugs in): a fence holding the pin
-// row, the function label, the pin labels and the ref-des. Laid out for a
-// horizontal row — function label one side, pin labels + ref-des the other —
-// then placed for the connector's orientation so a vertical one is the horizontal
-// turned a quarter-turn and every label reads the same way (bottom-to-top
-// vertical, left-to-right horizontal). The pin labels are drawn here, not by the
-// footprint (whose auto labels lock vertical rows to top-to-bottom); the footprint
-// string is pads-only. Margins to the fence are even on all four sides.
-//
-// A seated wafer hides everything inside the fence, so a second copy of BOTH the pin
-// labels and the function label is drawn OUTBOARD of the fence — in the margin between
-// the fence and the board edge — where they survive assembly. `side` is the board edge
-// this connector faces (N/S/E/W); it picks which fence edge is outboard. The board is
-// sized so every connector's fence sits the same distance from its edge, so that outboard
-// block reads identically on all four sides.
-export const Jst = ({ name, x, y, count, labels, rot = 0, label, side, jlcpcb }: { name: string; x: number; y: number; count: number; labels: string[]; rot?: number; label: string; side: "N" | "S" | "E" | "W"; jlcpcb?: string }) => {
-  const vertical = rot % 180 !== 0
-  const pitch = 2.5, padR = 0.825                   // XH 2.5 mm pitch, 1.65 mm pad radius
-  const bigHalf = 0.42, smHalf = 0.24               // ink cap half-heights (0.6 × font size)
-  const G = 0.45, M = 0.6                            // even tier gap; even content -> fence margin
-  // A vertical connector is the horizontal layout turned a quarter-turn CCW (the
-  // rotation that makes the text read bottom-to-top), so the function label sits on
-  // the -X side — the side that reads as ABOVE the pins once the board is turned to
-  // read it — and the pin labels + ref-des on +X. Uniform across all connectors so
-  // they're consistent.
-  const perpDir = vertical ? -1 : 1
-  const bigOff = padR + G + bigHalf                 // row -> function label
-  const labelOff = padR + G + smHalf                // row -> pin label
-  const refOff = labelOff + smHalf + G + smHalf     // row -> ref-des (one tier beyond pin labels)
-  const uc = ((bigOff + bigHalf) - (refOff + smHalf)) / 2     // fence centre, perpendicular
-  const dep = (bigOff + bigHalf) + (refOff + smHalf) + 2 * M + 0.2  // +0.2 fence stroke
-  // The fence is the true XH wafer body along the pin axis — JST-XH housing width
-  // A = pitch·(count-1) + 4.9 mm (2.45 mm of plastic past each outer pin), NOT a
-  // pad-derived margin. A pad-margin fence reads ~0.9 mm narrow per end, so a gap
-  // measured fence-to-fence understates the real body-to-body clearance by ~1.85 mm.
-  const len = (count - 1) * pitch + 4.9
-  const [w, h] = vertical ? [dep, len] : [len, dep]
-  const P = (u: number, v: number): [number, number] => (vertical ? [perpDir * u, v] : [v, perpDir * u])
-  const [bdx, bdy] = P(bigOff, 0)
-  const [rdx, rdy] = P(-refOff, 0)
-  const [fdx, fdy] = P(uc, 0)
-  // Survives-assembly block: with the wafer seated over the fence, a second copy of the
-  // pin labels and the function label is drawn OUTBOARD of the fence, in the margin to the
-  // board edge, so both stay readable on the populated board. Everything is referenced to
-  // the fence's own outboard silk edge — `outU` is which way that is in the P() frame (+u
-  // toward N/W, -u toward S/E) — so the block clears the fence by the same G tiers on every
-  // connector: pin labels one tier out, the function label the tier beyond.
-  const outU = side === "N" || side === "W" ? 1 : -1
-  const fenceOut = dep / 2 + 0.1 + outU * uc          // pin row -> fence outboard silk edge (+0.1 = half stroke)
-  const pinSurviveOff = fenceOut + G + smHalf          // -> survives pin-label row
-  const labelSurviveOff = pinSurviveOff + smHalf + G + bigHalf   // -> survives function label
-  const [sdx, sdy] = P(outU * labelSurviveOff, 0)
-  const part = jlcpcb ?? XH254_BY_COUNT[count]
+// A board header for an off-board loom (the cable plugs in). The imported wafer footprint
+// (WAFER_BY_COUNT) carries the real body + holes + 3D model; this helper rotates it so the mating
+// opening faces the board edge it sits on (`side`), accounting for the series' inconsistent
+// intrinsic opening (WAFER_OPEN). It then draws the pin labels, function label and ref-des INBOARD
+// (toward the interior, readable on the bare board), plus a "survives-assembly" copy OUTBOARD past
+// the body toward the edge (visible once a wafer is seated over the inboard set). `labels[i]` is the
+// net on pin i+1 (pin 1 at the footprint's -X end); each label is drawn at its pin's rotated
+// position so it always tracks the pin, whatever the seating rotation. `rot`/`jlcpcb` are ignored
+// (kept for call-site compatibility): the rotation is derived, the part rides in the footprint.
+export const Jst = ({ name, x, y, count, labels, label, side }: { name: string; x: number; y: number; count: number; labels: string[]; rot?: number; label: string; side: "N" | "S" | "E" | "W"; jlcpcb?: string }) => {
+  const Wafer = WAFER_BY_COUNT[count]
+  const pitch = WAFER_PITCH[count] ?? 2.5
+  const smHalf = 0.24, bigHalf = 0.42, padR = 0.825, G = 0.45   // ink cap half-heights; pad radius; tier gap
+  // Rotate the wafer so its opening (intrinsic +Y or -Y, WAFER_OPEN) faces the board edge `side`.
+  const openAngle = WAFER_OPEN[count] > 0 ? 90 : 270              // intrinsic opening angle (deg CCW)
+  const wantAngle: Record<"N" | "S" | "E" | "W", number> = { N: 90, S: 270, E: 0, W: 180 }
+  const rot = ((wantAngle[side] - openAngle) % 360 + 360) % 360
+  // Keep every net on the same PHYSICAL pin as the pre-import design (loom pinout + IC->connector
+  // fans unchanged; only the wafer body turns to face the edge). Two things reverse the pin order
+  // along the edge: a rotation flip (rot 180 on a N/S edge, 270 on E/W) and the 7P footprint that
+  // numbers from the east. When exactly one applies, reverse the label list.
+  const pin1West = WAFER_PIN1_WEST[count] ?? true
+  const flip = (rot === 180 || rot === 270) !== !pin1West
+  const L = flip ? [...labels].reverse() : labels
+  const pinLabelObj = Object.fromEntries(L.map((l, i) => [`pin${i + 1}`, l]))
+  const rad = (rot * Math.PI) / 180, c = Math.cos(rad), s = Math.sin(rad)
+  const R = (ax: number, ay: number): [number, number] => [ax * c - ay * s, ax * s + ay * c]  // CCW
+  const OUT: Record<"N" | "S" | "E" | "W", [number, number]> = { N: [0, 1], S: [0, -1], E: [1, 0], W: [-1, 0] }
+  const [ox, oy] = OUT[side]                          // unit vector toward the edge (outboard)
+  const textRot = side === "E" || side === "W" ? 90 : 0        // vertical rows read bottom-to-top
+  const pinOff = padR + G + smHalf                    // pin row -> pin label (inboard)
+  const refOff = pinOff + smHalf + G + smHalf          // -> ref-des (inboard, next tier)
+  const funcOff = refOff + smHalf + G + bigHalf         // -> function label (inboard, past the body)
+  const survPinOff = WAFER_BODY_OUT[count] + G + smHalf                   // outboard, clear of the body
+  const survFuncOff = survPinOff + smHalf + G + bigHalf                   // outboard function, next tier
+  const span = ((count - 1) * pitch) / 2
+  const pinAt = (i: number): [number, number] => R(pin1West ? -span + i * pitch : span - i * pitch, 0)  // pin i+1 local->world
   return (
     <>
-      <pinheader name={name} pinCount={count} pitch="2.5mm" gender="male" footprint={`pinrow${count}_p2.5mm_id1.1mm_od1.65mm_nopinlabels_norefdes`} pcbRotation={rot} pinLabels={labels} supplierPartNumbers={part ? { jlcpcb: [part] } : undefined} {...at(x, y)} />
-      <Outline x={x + fdx} y={y + fdy} w={w} h={h} />
-      {labels.map((lbl, i) => {
-        const [dx, dy] = P(-labelOff, (i - (count - 1) / 2) * pitch)
-        return <silkscreentext key={i} text={lbl} fontSize="0.8mm" pcbX={x + dx} pcbY={y + dy} pcbRotation={rot} />
+      <Wafer name={name} pcbRotation={rot} pinLabels={pinLabelObj} {...at(x, y)} />
+      {L.map((lbl, i) => {
+        const [px, py] = pinAt(i)
+        return <silkscreentext key={`p${i}`} text={lbl} fontSize="0.8mm" pcbX={x + px - ox * pinOff} pcbY={y + py - oy * pinOff} pcbRotation={textRot} />
       })}
-      <silkscreentext text={label} fontSize="1.4mm" pcbX={x + bdx} pcbY={y + bdy} pcbRotation={rot} />
-      <silkscreentext text={name} fontSize="0.8mm" pcbX={x + rdx} pcbY={y + rdy} pcbRotation={rot} />
-      <silkscreentext text={label} fontSize="1.4mm" pcbX={x + sdx} pcbY={y + sdy} pcbRotation={rot} />
-      {labels.map((lbl, i) => {
-        const [dx, dy] = P(outU * pinSurviveOff, (i - (count - 1) / 2) * pitch)
-        return <silkscreentext key={i} text={lbl} fontSize="0.8mm" pcbX={x + dx} pcbY={y + dy} pcbRotation={rot} />
+      <silkscreentext text={label} fontSize="1.4mm" pcbX={x - ox * funcOff} pcbY={y - oy * funcOff} pcbRotation={textRot} />
+      <silkscreentext text={name} fontSize="0.8mm" pcbX={x - ox * refOff} pcbY={y - oy * refOff} pcbRotation={textRot} />
+      <silkscreentext text={label} fontSize="1.4mm" pcbX={x + ox * survFuncOff} pcbY={y + oy * survFuncOff} pcbRotation={textRot} />
+      {L.map((lbl, i) => {
+        const [px, py] = pinAt(i)
+        return <silkscreentext key={`s${i}`} text={lbl} fontSize="0.8mm" pcbX={x + px + ox * survPinOff} pcbY={y + py + oy * survPinOff} pcbRotation={textRot} />
       })}
     </>
   )

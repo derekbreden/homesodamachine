@@ -82,19 +82,23 @@ SOT would collide them). Extended, and stock runs shallow (~530 at 2026-07-03) �
 second-source, so glance at stock and consider a genuine TI THVD1426DR (`C5215921`, SOIC-8,
 same pinout) if a run needs deeper supply than COSINE carries.
 
-**The "XH2.54" connectors are physically 2.5 mm pitch.** Genuine JST XH is 2.50 mm; the
-ubiquitous "2.54 mm JST-XH" kits/housings are that same 2.50 mm part with a rounded label,
-and the JLCPCB XH2.54 wafers measure 2.50 mm (holes at ±6.25/±3.75/±1.25 mm on the 6P). So
-the board header is 2.5 mm, not 2.54 — the `Jst` footprint is `pinrow${n}_p2.5mm_id1.1mm_od1.65mm`
-to match the wafer land pattern exactly (clean IoU), and it mates with the standard female
-XH housings the wiring kits use. Every XH2.54 part in the library is Extended (no Basic
-option), and every count used comes from **one vendor — XUNPU's WAFER-XH2.54-{n}PZZ
-series** — so every wafer's 3D model seats the same way at a given CPL rotation and its
-pin-1 (square) pad sits at the same end, with no per-part rotation offset to maintain.
-(A single vendor was preferred over the cheapest-per-count mix precisely so the assembled
-board reads uniformly; the only watch-out is the 9P, `C5359637`, which runs lower stock —
-~380 at 2026-06-30 vs tens of thousands for the rest — but it's the lone MANIFOLD A
-connector, so fine for a build; glance at it before a large run.)
+**The XH2.54 connectors use per-count imported footprints (XUNPU WAFER-XH2.54-{n}PZZ).** The
+`Jst` helper places the tsci-imported footprint for each count (`./imports/WAFER_XH2_54_{n}PZZ`),
+so the CPL rotation matches JLCPCB's library and the 3D wafer body seats on the pads (the old
+generic `pinrow` placed the body mis-rotated). These mate with the standard female XH housings
+the wiring kits use. Every XH2.54 part is Extended (no Basic option); the 9P `C5359637` runs
+lower stock (~380 at 2026-06-30 vs tens of thousands for the rest) — the lone MANIFOLD A
+connector, fine for a build, glance at it before a large run.
+
+**JLCPCB's footprints for this "series" are NOT uniform** — the thing that made the connector
+orientations look random before the import. Three axes vary by count, and the `Jst` helper
+carries a lookup for each (see `carrier_parts.tsx`): hole PITCH is 2.5 mm for 3/5/6/9P but
+2.54 mm for 4/7P (`WAFER_PITCH`); the mating OPENING faces +Y at rot 0 for 3/4/9P but −Y for
+5/6/7P (`WAFER_OPEN`); and PIN 1 sits at the west end for all but the 7P, which numbers from the
+east (`WAFER_PIN1_WEST`). From these the helper derives each connector's rotation so its opening
+faces the board edge it sits on, and reverses the label list wherever the pin order flips — so
+every net keeps the same physical pin and every IC→connector fan stays uncrossed. Pin order on
+the looms is not depended on anywhere (the board drives the field), so the reversals are free.
 
 **J10 is a KF301-5.0-2P screw terminal (`C474881`), not an XH wafer.** The 12 V inlet
 carries the whole board — both pumps priming + a few valves + the condenser fan ≈ 3.3 A
