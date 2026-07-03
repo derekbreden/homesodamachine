@@ -15,6 +15,7 @@ import { NXB_25V470_10_12_5 } from "./imports/NXB_25V470_10_12_5"
 import { S8050_J3Y_RANGE_200_350_ } from "./imports/S8050_J3Y_RANGE_200_350_"
 import { ULN2803A } from "./imports/ULN2803A"
 import { MCP23017_E_SO } from "./imports/MCP23017_E_SO"
+import { DS3231SN_T_R } from "./imports/DS3231SN_T_R"
 
 // ---- ULN2803A — SOIC-18 (300 mil wide) -------------------------------------
 // Octal Darlington sink driver. C845537 (UMW ULN2803A, SOP-18-300mil). Pinout:
@@ -83,15 +84,17 @@ const ds3231PinLabels = {
   pin13: "GND", pin14: "VBAT", pin15: "SDA", pin16: "SCL",
 }
 
+// JLCPCB-imported footprint (./imports/DS3231SN_T_R, C9866) for the correct CPL rotation.
+// Nearly all pins are poured nets (VCC/GND/SDA/SCL auto-stitch) or run to the coin cell
+// (VBAT->BT1), so seating rotation is a fit choice, not a routing one; rot 270 keeps the
+// long axis vertical as before. The import's built-in 32kHz/INTSQW labels are overridden with
+// ours (NC pins 5-12 dropped). Its {NAME} silk is stripped (sideways at rot 270); the ref-des
+// is drawn here upright, centred on the body — a pure function of (x,y).
 export const Ds3231Smd = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => (
-  <chip
-    name={name}
-    footprint="soic16_w7.5mm_p1.27mm"
-    pcbRotation={rot}
-    pinLabels={ds3231PinLabels}
-    supplierPartNumbers={{ jlcpcb: ["C9866"] }}
-    {...at(x, y)}
-  />
+  <>
+    <DS3231SN_T_R name={name} pinLabels={ds3231PinLabels} pcbRotation={rot} {...at(x, y)} />
+    <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x} pcbY={y} />
+  </>
 )
 
 // ---- COS13487EESA-3.3 — RS-485 transceiver, SOP-8 (= SOIC-8), 3.3 V, auto-direction ----
