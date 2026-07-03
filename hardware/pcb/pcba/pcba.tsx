@@ -184,8 +184,8 @@ export default () => (
     <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-12.95} y={15.7} rot={0} side="S" />
     <Mcp23017 name="U2" x={4.48} y={21.3} addr="0x20" rot={270} />
     <Mcp23017 name="U3" x={6.53} y={-21.35} addr="0x21" rot={90} />
-    <Uln2803 name="U4" x={18.48} y={11.65} />
-    <Uln2803 name="U5" x={18.58} y={-8.53} />
+    <Uln2803 name="U4" x={18.48} y={11.65} rot={270} />
+    <Uln2803 name="U5" x={18.58} y={-8.53} rot={270} />
     <Buzzer name="U8" x={-36.3} y={-8.4} />
     <Npn name="Q1" x={-35.8} y={-2.35} />
     <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-40.7} y={-1.65} rot={180} side="N" />
