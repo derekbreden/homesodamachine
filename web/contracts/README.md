@@ -3,7 +3,9 @@
 The definitions that cross between the builders, the server, and the browser viewer — the shapes,
 tags, and file conventions each side has to agree on. Homed here so a change to one sits beside its
 siblings. Each entry names its producer and consumers; a definition is written in the language its
-code imports (`.ts` where the tscircuit builders share it, `.js` everywhere else).
+code imports (`.ts` where the tscircuit builders share it, `.js` everywhere else). The `.js`
+definitions are served to the browser at `/contracts` (`web/server.js`), so the viewer imports the
+same file the server does — Node by path, the browser by URL, one source either way.
 
 ## Builder → viewer data
 
@@ -34,7 +36,8 @@ code imports (`.ts` where the tscircuit builders share it, `.js` everywhere else
 ## Lives with its code
 
 - **pick-format.js** (`web/public/js/viewer/pick-format.js`) — the clipboard grammar the pickers emit
-  and an agent pastes back. Stays in `public/` because the browser loads it at runtime; pinned by
+  and an agent pastes back. Viewer logic (a parser + geometry matcher), not just a shape, so it lives
+  with the viewer rather than here; imported by both the browser and its Node test,
   `web/tests/pick-format.test.js`.
 
 ## Conventions (enforced in code, no shared module)
