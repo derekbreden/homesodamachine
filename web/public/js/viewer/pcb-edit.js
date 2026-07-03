@@ -30,6 +30,7 @@
 // the shared "hsm:pcb-tool" event) so their overlays never fight for a click.
 
 import { state } from "./state.js";
+import { HSM_EVENTS } from "/contracts/client-events.js";
 
 const SVGNS = "http://www.w3.org/2000/svg";
 const LS_KEY = "pcb-edit";
@@ -716,12 +717,12 @@ export function setEditEnabled(on) {
   applyEnabled();
   // Arming Edit disarms Inspect (and vice versa) so their overlays don't both
   // claim a click. Only announce on arm, so disarming can't ping-pong.
-  if (enabled) window.dispatchEvent(new CustomEvent("hsm:pcb-tool", { detail: "edit" }));
+  if (enabled) window.dispatchEvent(new CustomEvent(HSM_EVENTS.PCB_TOOL, { detail: "edit" }));
 }
 export function isEditEnabled() { return enabled; }
 
 // Another tool armed itself — stand down if it wasn't us.
-window.addEventListener("hsm:pcb-tool", (e) => {
+window.addEventListener(HSM_EVENTS.PCB_TOOL, (e) => {
   if (e.detail !== "edit" && enabled) {
     enabled = false;
     try { localStorage.setItem(LS_KEY, "0"); } catch {}
