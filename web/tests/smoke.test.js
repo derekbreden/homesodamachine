@@ -126,6 +126,28 @@ for (const r of routes) {
   });
 }
 
+// The WebSocket senders must emit frame types via the WS contract, exactly as
+// the client matches them (web/contracts/ws-frames.js). A reintroduced literal
+// would still work today but drift silently if a tag is ever renamed in one
+// place. events.js is guarded implicitly (it imports WS or fails to boot);
+// these broadcasters only fire on a dev save or a prod deploy diff, so a source
+// check is the cheap guard.
+test("WebSocket broadcasters emit frame types via the WS contract", () => {
+  for (const rel of ["server.js", "dev-server/server.js"]) {
+    const src = fs.readFileSync(path.join(WEB_ROOT, rel), "utf8");
+    assert.match(
+      src,
+      /import\s*\{[^}]*\bWS\b[^}]*\}\s*from\s*["'][^"']*contracts\/ws-frames\.js["']/,
+      `${rel} must import WS from the ws-frames contract`,
+    );
+    assert.doesNotMatch(
+      src,
+      /broadcast\(\s*\{\s*type:\s*["'](?:files-changed|posts-changed)["']/,
+      `${rel} broadcasts a frame type by literal instead of WS`,
+    );
+  }
+});
+
 // Blog infinite-scroll contract. /blog/posts hands the client rendered
 // HTML plus the cursor for the next request; the client appends html and
 // stops when hasMore goes false. Shape has to hold even on an empty tree

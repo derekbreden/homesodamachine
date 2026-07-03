@@ -29,6 +29,7 @@ import {
   findBoardsTransitivelyImporting,
   findScriptsConsumingStep,
 } from "./deps.js";
+import { WS } from "../contracts/ws-frames.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // dev-server lives at /web/dev-server; the cad-venv used to run
@@ -140,7 +141,7 @@ async function runScript(pyFilePath) {
       producedSteps.push(entry);
       const relFile = relForBroadcast(full);
       console.log(`  -> ${relFile}`);
-      broadcast({ type: "files-changed", files: [relFile] });
+      broadcast({ type: WS.FILES_CHANGED, files: [relFile] });
     }
   } catch (e) {
     if (e.name === "AbortError") return;
@@ -236,7 +237,7 @@ async function runPcbRender(tsxPath) {
           if (line.trim() === "RENDER_PHASE=placement" && !superseded) {
             const relFile = relForBroadcast(tsxPath);
             console.log(`  -> ${relFile} (placement preview)`);
-            broadcast({ type: "files-changed", files: [relFile] });
+            broadcast({ type: WS.FILES_CHANGED, files: [relFile] });
           }
         }
       });
@@ -254,7 +255,7 @@ async function runPcbRender(tsxPath) {
     }
     const relFile = relForBroadcast(tsxPath);
     console.log(`  -> ${relFile}`);
-    broadcast({ type: "files-changed", files: [relFile] });
+    broadcast({ type: WS.FILES_CHANGED, files: [relFile] });
   } catch (e) {
     console.log(`  ↪ board render failed: ${e.message}`);
   } finally {
@@ -333,7 +334,7 @@ watcher.on("change", (absPath) => {
         debounce.delete(absPath);
         const relFile = relForBroadcast(absPath);
         console.log(`Mermaid changed: ${relFile}`);
-        broadcast({ type: "files-changed", files: [relFile] });
+        broadcast({ type: WS.FILES_CHANGED, files: [relFile] });
       }, 300),
     );
     return;
@@ -349,7 +350,7 @@ watcher.on("change", (absPath) => {
         debounce.delete(absPath);
         const relFile = relForBroadcast(absPath);
         console.log(`DXF changed: ${relFile}`);
-        broadcast({ type: "files-changed", files: [relFile] });
+        broadcast({ type: WS.FILES_CHANGED, files: [relFile] });
       }, 300),
     );
     return;
@@ -366,7 +367,7 @@ watcher.on("change", (absPath) => {
         debounce.delete(absPath);
         const relFile = relForBroadcast(absPath);
         console.log(`Drawing changed: ${relFile}`);
-        broadcast({ type: "files-changed", files: [relFile] });
+        broadcast({ type: WS.FILES_CHANGED, files: [relFile] });
       }, 300),
     );
     return;
@@ -386,7 +387,7 @@ watcher.on("change", (absPath) => {
         const baseAbs = absPath.replace(/\.json$/, "");
         const relFile = relForBroadcast(baseAbs);
         console.log(`Sidecar changed: ${relForLog(absPath)} -> refresh ${relFile}`);
-        broadcast({ type: "files-changed", files: [relFile] });
+        broadcast({ type: WS.FILES_CHANGED, files: [relFile] });
       }, 300),
     );
     return;

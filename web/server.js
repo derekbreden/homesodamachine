@@ -25,6 +25,7 @@ import {
   notifyFilesChanged,
 } from "./lib/push.js";
 import { mountNotificationsRoutes } from "./lib/notifications.js";
+import { WS } from "./contracts/ws-frames.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // Web app lives at /web; hardware/ and posts/ stay at the repo root
@@ -324,10 +325,10 @@ export async function start({ dev = false, port, hardwareDir, liteDir } = {}) {
         // up via hello.
         const ts = Date.now();
         if (changedFiles.length > 0) {
-          broadcast({ type: "files-changed", commit, files: changedFiles });
+          broadcast({ type: WS.FILES_CHANGED, commit, files: changedFiles });
         }
         if (changedPosts.length > 0) {
-          broadcast({ type: "posts-changed", commit, posts: changedPosts });
+          broadcast({ type: WS.POSTS_CHANGED, commit, posts: changedPosts });
         }
         const snapshot = { commit, ts };
         if (changedFiles.length > 0) snapshot.files = changedFiles;
