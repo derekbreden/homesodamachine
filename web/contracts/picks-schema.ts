@@ -9,11 +9,11 @@
  * shapes are defined with their analyses in hardware/pcb/pcba/ — ClearancePair/BoardError in clearance.ts, CapAudit in
  * cap-audit.ts — and gathered here so the whole file has one definition.
  */
-import type { ClearancePair, BoardError } from "../hardware/pcb/pcba/clearance"
-import type { CapAudit } from "../hardware/pcb/pcba/cap-audit"
+import type { ClearancePair, BoardError } from "../../hardware/pcb/pcba/clearance"
+import type { CapAudit } from "../../hardware/pcb/pcba/cap-audit"
 
-export type { ClearancePair, BoardError } from "../hardware/pcb/pcba/clearance"
-export type { CapAudit, CapAuditRow } from "../hardware/pcb/pcba/cap-audit"
+export type { ClearancePair, BoardError } from "../../hardware/pcb/pcba/clearance"
+export type { CapAudit, CapAuditRow } from "../../hardware/pcb/pcba/cap-audit"
 
 /** A pad's identity, resolved pcb_port → source_port → component; null where a pad has no port. */
 export type PadIdentity = {
