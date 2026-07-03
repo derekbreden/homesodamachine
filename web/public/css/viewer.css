@@ -679,6 +679,12 @@
   background: color-mix(in srgb, var(--err) 20%, transparent);
   color: var(--err);
 }
+/* Amber: no DRC errors, but a decoupling cap drifted past its budget (advisory). */
+.pcb-dims .pcb-checks.has-warns {
+  border-color: color-mix(in srgb, var(--warn) 60%, transparent);
+  background: color-mix(in srgb, var(--warn) 20%, transparent);
+  color: var(--warn);
+}
 .pcb-dims .pcb-checks:hover { filter: brightness(1.2); }
 /* Phone: dims + via count + clearance floor + the checks badge together overrun
    a narrow bottom bar and bury the corner Inspect / Reset pills. Lift the readout
@@ -755,6 +761,9 @@
 .pcb-checks-row .v { color: var(--text-2); white-space: nowrap; }
 .pcb-checks-row.issue .k { color: var(--err); }
 .pcb-checks-row.issue .v { color: var(--text-3); text-transform: uppercase; font-size: 10px; align-self: center; }
+/* A decoupling cap past its budget — amber on both the label and the gap readout. */
+.pcb-checks-row.warn .k { color: var(--warn); }
+.pcb-checks-row.warn .v { color: var(--warn); }
 .pcb-checks-clean { color: var(--ok); padding: 2px 0; }
 .pcb-pick-layer {
   pointer-events: none;

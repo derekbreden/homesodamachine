@@ -22,7 +22,9 @@
 import { execFileSync } from "node:child_process"
 import { readFileSync, writeFileSync, rmSync } from "node:fs"
 import path from "node:path"
+import { pathToFileURL } from "node:url"
 import { analyzeClearance } from "./clearance"
+import { auditDecoupling, type DecouplingRule } from "./cap-audit"
 
 const arg = process.argv[2]
 if (!arg) {
@@ -48,7 +50,8 @@ try {
     })
   }
   const circuit = JSON.parse(readFileSync(cjAbs, "utf8"))
-  const data = distill(circuit)
+  const decoupling = await loadDecoupling(boardFile)
+  const data = distill(circuit, decoupling)
   const outPath = path.join(dir, "out", `${board}.picks.json`)
   writeFileSync(outPath, JSON.stringify(data))
   console.log(`[${board}] wrote ${board}.picks.json — ${data.pads.length} pads`)
@@ -56,7 +59,19 @@ try {
   if (!given) rmSync(cjAbs, { force: true })
 }
 
-function distill(circuit: any[]) {
+// A board may export a `decoupling` table (which support cap serves which part). Import it
+// from the board module so the audit's intent lives with the design, not here — this distiller
+// stays board-agnostic. Best-effort: a board that exports none simply gets no cap audit.
+async function loadDecoupling(file: string): Promise<DecouplingRule[]> {
+  try {
+    const mod: any = await import(pathToFileURL(file).href)
+    return Array.isArray(mod.decoupling) ? mod.decoupling : []
+  } catch {
+    return []
+  }
+}
+
+function distill(circuit: any[], decoupling: DecouplingRule[] = []) {
   const compName: Record<string, string> = {}
   const srcPort: Record<string, any> = {}
   const pcbPort: Record<string, any> = {}
@@ -160,7 +175,12 @@ function distill(circuit: any[]) {
   // viewer's board readout. Both derive from the same routed circuit-json.
   const { floor, tight, errors } = analyzeClearance(circuit)
 
-  return { board, unitsPerMm: 1000, size, pads, vias, traces, clearance: { floor, tight }, errors }
+  // Cap decoupling audit (cap-audit.ts): how close each declared support cap sits to the part
+  // it serves, measured from the same placed pads. Advisory placement quality — kept separate
+  // from the DRC `errors`, which are manufacturability.
+  const capAudit = decoupling.length ? auditDecoupling(decoupling, pads) : null
+
+  return { board, unitsPerMm: 1000, size, pads, vias, traces, clearance: { floor, tight }, errors, capAudit }
 }
 
 function round(n: number) {

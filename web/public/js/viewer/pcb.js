@@ -243,8 +243,9 @@ function updateDimsChip(wrapper, picks) {
   closeChecksModal(wrapper);
   const text = [boardDimsText(picks, wrapper), viaCountText(picks), clearanceText(picks)].filter(Boolean).join(" · ");
   const errors = (picks && Array.isArray(picks.errors)) ? picks.errors : null;
+  const audit = (picks && picks.capAudit) || null;
   let el = wrapper.querySelector(".pcb-dims");
-  if (!text && !errors) { if (el) el.remove(); return; }
+  if (!text && !errors && !audit) { if (el) el.remove(); return; }
   if (!el) {
     el = document.createElement("div");
     el.className = "pcb-dims";
@@ -252,13 +253,19 @@ function updateDimsChip(wrapper, picks) {
   }
   el.textContent = "";
   if (text) el.appendChild(Object.assign(document.createElement("span"), { className: "pcb-dims-text", textContent: text }));
-  if (errors) {
-    const n = errors.length;
+  if (errors || audit) {
+    // Three states, worst wins: red for hard DRC errors, amber for advisory cap-decoupling
+    // drift (a cap too far from what it serves), green when both are clean. `has-issues`
+    // tracks DRC errors ONLY, so it stays the manufacturability signal.
+    const nErr = errors ? errors.length : 0;
+    const nWarn = audit ? (audit.flagged || 0) : 0;
     const badge = document.createElement("button");
     badge.type = "button";
-    badge.className = "pcb-checks" + (n ? " has-issues" : "");
-    badge.textContent = n ? `⚠ ${n} issue${n === 1 ? "" : "s"}` : "✓ clean";
-    badge.title = "Clearance floor + DRC checks";
+    badge.className = "pcb-checks" + (nErr ? " has-issues" : nWarn ? " has-warns" : "");
+    badge.textContent = nErr ? `⚠ ${nErr} issue${nErr === 1 ? "" : "s"}`
+      : nWarn ? `⚠ ${nWarn} cap${nWarn === 1 ? "" : "s"}`
+      : "✓ clean";
+    badge.title = "Clearance floor · DRC · cap decoupling";
     badge.addEventListener("click", (e) => { e.stopPropagation(); openChecksModal(wrapper, picks); });
     el.appendChild(badge);
   }
@@ -303,6 +310,18 @@ function openChecksModal(wrapper, picks) {
   if (typeof clearance.floor === "number") {
     card.appendChild(Object.assign(document.createElement("div"), { className: "pcb-checks-h", textContent: `Clearance floor — ${clearance.floor.toFixed(3)} mm` }));
     for (const p of (clearance.tight || [])) card.appendChild(makeRow("pcb-checks-row", `${p.a} ↔ ${p.b}`, `${p.gap.toFixed(3)} mm`));
+  }
+
+  // Cap decoupling audit (cap-audit.ts): each declared support cap's real pad gap to the part
+  // it serves, worst first. Amber rows drifted past their budget; the rest are within it.
+  const audit = (picks && picks.capAudit) || null;
+  if (audit && Array.isArray(audit.rows) && audit.rows.length) {
+    card.appendChild(Object.assign(document.createElement("div"), { className: "pcb-checks-h", textContent: audit.flagged ? `Decoupling — ${audit.flagged} too far` : "Decoupling" }));
+    for (const r of audit.rows) {
+      const left = r.role ? `${r.cap} → ${r.near} · ${r.role}` : `${r.cap} → ${r.near}`;
+      const right = r.gap == null ? (r.note || "not placed") : `${r.gap.toFixed(2)} mm${r.over ? ` > ${r.budget}` : ""}`;
+      card.appendChild(makeRow("pcb-checks-row" + (r.over ? " warn" : ""), left, right));
+    }
   }
 
   // Genuine overlap / DRC errors.
