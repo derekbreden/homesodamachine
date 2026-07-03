@@ -45,6 +45,7 @@ const BASE_CSS = `
   --accent: #4488ff;
   --ok: #5fb56f;
   --err: #d97070;
+  --warn: #d9a24c;
   --chart-pink: #e64c80;
   --chart-purple: #994ce6;
 }

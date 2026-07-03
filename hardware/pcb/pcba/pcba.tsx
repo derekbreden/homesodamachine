@@ -66,9 +66,41 @@ import { TYPE_C_31_M_12 as UsbC } from "./imports/TYPE_C_31_M_12"
 import { USBLC6_2SC6 as Usblc6 } from "./imports/USBLC6_2SC6"
 import { TS_1187A_B_A_B as Tact } from "./imports/TS_1187A_B_A_B"
 import { S8050_J3Y_RANGE_200_350_ as S8050 } from "./imports/S8050_J3Y_RANGE_200_350_"
+import type { DecouplingRule } from "./cap-audit"
 
 // Identity stamp version (commit date + short SHA), computed once per render.
 const ID = boardVersionParts()
+
+// ── Decoupling audit ────────────────────────────────────────────────────────────────────
+// The single source of truth for which support cap serves which part, and the role it plays.
+// The web viewer's Board-checks panel reads this table (pick-data.ts → cap-audit.ts) and
+// measures each cap's real pad-to-pad gap to its target from the placed geometry, flagging any
+// that drifted past budget. Intent only — NO coordinates here, so it re-measures every render
+// and can never fall out of sync with a move. `budget` overrides the ~6 mm default (cap-audit.ts)
+// for the one cap that is far by design: C3, the 470 µF V12 reservoir, sits central to feed the
+// whole valve block, not hard by any single chip. See each cap's placement comment below.
+export const decoupling: DecouplingRule[] = [
+  { cap: "C13", near: "U9", role: "AMS1117 V5 input" },
+  { cap: "C14", near: "U9", role: "AMS1117 3V3 output" },
+  { cap: "C15", near: "U10", role: "K7805 buck input" },
+  { cap: "C16", near: "U10", role: "K7805 buck output" },
+  { cap: "C17", near: "U11", role: "DRV8870 VM bulk" },
+  { cap: "C18", near: "U11", role: "DRV8870 VM HF" },
+  { cap: "C19", near: "U12", role: "DRV8870 VM bulk" },
+  { cap: "C20", near: "U12", role: "DRV8870 VM HF" },
+  { cap: "C10", near: "U1", role: "WROOM 3V3 HF" },
+  { cap: "C11", near: "U1", role: "WROOM 3V3 bulk" },
+  { cap: "C12", near: "U1", role: "EN power-on RC" },
+  { cap: "C6", near: "U6", role: "DS3231 VCC" },
+  { cap: "C7", near: "U7", role: "THVD1426 VCC" },
+  { cap: "C4", near: "U2", role: "MCP 0x20 VDD" },
+  { cap: "C5", near: "U3", role: "MCP 0x21 VDD" },
+  { cap: "C21", near: "U13", role: "CH340C 3V3" },
+  { cap: "C22", near: "U14", role: "USBLC6 VBUS" },
+  { cap: "C1", near: "U5", role: "V12 island HF (ULN B)" },
+  { cap: "C2", near: "U4", role: "V12 island HF (ULN A)" },
+  { cap: "C3", near: "U4", role: "V12 470uF bulk reservoir", budget: 16 },
+]
 
 export default () => (
   <board layers={6} schematicDisabled outline={[{ x: -67.5, y: -38.57 }, { x: 34.9, y: -38.57 }, { x: 34.9, y: 37 }, { x: -67.5, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.15, viaMode: "through-hole" }}>
