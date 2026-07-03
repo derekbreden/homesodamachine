@@ -11,13 +11,7 @@
 // that reconnects catches up on anything it missed via the `recent`
 // snapshot on the next hello (below).
 //
-// Wire shape (JSON over text frames):
-//   server -> client:
-//     {type: "hello", commit, time, recent?}          — sent on every connect
-//     {type: "ping", t}                                — every 30s, used as a heartbeat
-//     {type: "files-changed", commit, files: [...]}   — broadcast on file change
-//     {type: "posts-changed", commit, posts: [...]}   — broadcast on post change
-//   client -> server: none (the boot.js client never sends).
+// Wire shape (the four frame types + the client-never-sends rule): web/contracts/ws-frames.js.
 //
 // `recent` snapshot: latest boot-diff result, set by server.js after
 // the production hash-diff completes. Piggy-backed onto every hello so
@@ -26,6 +20,8 @@
 // stable connection that already saw the deploy ignores it.
 
 import { WebSocketServer } from "ws";
+
+import { WS } from "../contracts/ws-frames.js";
 
 export function mountEvents(server, { commit = "unknown" } = {}) {
   const wss = new WebSocketServer({ server, path: "/ws" });
@@ -62,7 +58,7 @@ export function mountEvents(server, { commit = "unknown" } = {}) {
     ws.isAlive = true;
     ws.on("pong", () => { ws.isAlive = true; });
 
-    const helloMsg = { type: "hello", commit, time: Date.now() };
+    const helloMsg = { type: WS.HELLO, commit, time: Date.now() };
     if (recent) helloMsg.recent = recent;
     send(ws, helloMsg);
   });
@@ -86,7 +82,7 @@ export function mountEvents(server, { commit = "unknown" } = {}) {
       ws.isAlive = false;
       try {
         ws.ping();
-        send(ws, { type: "ping", t: Date.now() });
+        send(ws, { type: WS.PING, t: Date.now() });
       } catch {}
     }
   }, 30_000);
