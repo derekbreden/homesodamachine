@@ -79,22 +79,29 @@ WALL = 3.0
 # receptacle / bulkhead BODIES that seat through them are a Zone-B packing task
 # still open (the back-adjacent trays sit where the bodies land). Hole inventory
 # and specs: ../back-panel/README.md.
-#   * 3x faucet umbilical (1 carb-water + 2 flavor) — JG 1/4" bulkheads in a
-#     triangular cluster, carb-water (blue-ringed) at the top vertex.
-#   * 1x tap-water inlet — JG 1/4" bulkhead.
-#   * 1x C14 mains inlet (rectangular) — kept high and off to one side, above the
-#     water ports, so condensate/leak off the cold lines (which runs down) stays
-#     clear of the mains.
-# (The BiB syrup port in ../back-panel/README.md is omitted here — its hole size
-# is TBD there, pending the Supply Depot connector spec.)
+#   * C14 mains inlet (rect) — the +X/+Z corner of the back face, the usual spot
+#     for an appliance mains inlet (viewed from behind, facing the panel, it
+#     reads top-left). Held clear of the corner cross-pin brace + the print
+#     fillet, and up out of the way of the fluid lines (any condensate/leak runs
+#     down, toward the water ports, away from the mains).
+#   * The fluid ports condense on the -X side, centered in the band's height: the
+#     3-tube faucet umbilical (carb-water + 2 flavor) as a triangular cluster
+#     (carb-water at the top vertex), the tap-water inlet, and 2 BiB syrup ports.
 PORT_BULKHEAD_D = 18.0        # JG 1/4" bulkhead panel hole (clears the Ø17.14 barrel)
+PORT_BIB_D = 9.525            # BiB syrup port — presumed 3/8" for a 3/8" barb (placeholder)
 PORT_C14_W, PORT_C14_H = 25.0, 19.0   # C14 body 24x18 cross-section + 0.5/side clearance
-PORT_BAND_LIFT = 14.0         # base port row, this far above the cold core top
-UMBIL_PITCH = 21.0            # umbilical triangular-cluster center pitch (Ø18 + gap)
-UMBIL_CLUSTER_X = 60.0        # umbilical cluster carb-water vertex, lateral (X)
-WATER_PORT_X = 130.0          # tap-water inlet, lateral (X)
-C14_PORT_X = 210.0            # C14 mains inlet, lateral (X)
-C14_PORT_RISE = 6.0           # mains lifted this far above the umbilical top vertex
+# C14 in the +X/+Z corner: center inboard/down from the +X wall / ceiling, enough
+# to clear the corner cross-pin brace (its -Z face sits ~9 mm below the ceiling)
+# and the vertical print fillet.
+C14_INSET_X = 16.0            # C14 center, this far -X (inboard) of the +X inner wall
+C14_DROP_Z = 26.0            # C14 center, this far -Z (down) from the ceiling
+# Fluid-port cluster: columns measured +X from the -X inner wall, all riding the
+# band's vertical center. Umbilical triangle, then tap-water, then the BiB pair.
+UMBIL_COL_X = 33.0            # umbilical triangle center column
+UMBIL_PITCH = 24.0           # umbilical center pitch (Ø18 hole + bulkhead-nut gap)
+WATER_COL_X = 66.0           # tap-water inlet column
+BIB_COL_X = 90.0             # BiB pair column
+BIB_PAIR_DZ = 13.0           # BiB pair vertical half-separation
 
 
 # --- Colors ---------------------------------------------------------------
@@ -203,22 +210,34 @@ def back_wall_ports():
     """Through-holes the rear panel needs, in the Zone-B band above the cold
     core: (kind, x, z, *size) in world coords — 'round' (a diameter) or 'rect'
     (x, z size). enclosure.py cuts these through the back half's +Y wall. The
-    band bottom rides one PORT_BAND_LIFT above the cold-core top, so no port ever
-    breaks into the cold core's clean rear. Inventory: ../back-panel/README.md."""
+    band runs from the cold-core top up to the ceiling; every port sits inside it,
+    so none breaks into the cold core's clean rear. Inventory:
+    ../back-panel/README.md."""
     placed = build()
+    bbs = [s.BoundingBox() for s, _c in placed.values()]
     foam_top = placed["foam-shell"][0].BoundingBox().zmax
-    z0 = foam_top + PORT_BAND_LIFT                 # base row, above the cold core top
-    dz = UMBIL_PITCH * (3.0 ** 0.5) / 2.0          # triangular-cluster vertical span
+    ceil_z = max(b.zmax for b in bbs)              # enclosure ceiling (interior_clearance 0)
+    x_lo = min(b.xmin for b in bbs)                # -X inner wall
+    x_hi = max(b.xmax for b in bbs)                # +X inner wall
+    z_mid = (foam_top + ceil_z) / 2.0              # band vertical center
+
     d = PORT_BULKHEAD_D
+    p = UMBIL_PITCH
+    dz = p * (3.0 ** 0.5) / 2.0                    # triangular-cluster vertical span
+    ux = x_lo + UMBIL_COL_X
     return [
-        # Faucet umbilical: two flavor bulkheads on the base row, the carb-water
+        # Faucet umbilical: two flavor bulkheads on the lower row, the carb-water
         # (blue-ringed) bulkhead at the top vertex — the densest-three-circle
         # triangle the tube bundle packs into (back-panel README §"Bulkhead array").
-        ("round", UMBIL_CLUSTER_X - UMBIL_PITCH / 2.0, z0, d),   # flavor A
-        ("round", UMBIL_CLUSTER_X + UMBIL_PITCH / 2.0, z0, d),   # flavor B
-        ("round", UMBIL_CLUSTER_X, z0 + dz, d),                  # carb-water (top vertex)
+        ("round", ux - p / 2.0, z_mid - dz / 2.0, d),   # flavor A
+        ("round", ux + p / 2.0, z_mid - dz / 2.0, d),   # flavor B
+        ("round", ux,           z_mid + dz / 2.0, d),   # carb-water (top vertex)
         # Tap-water inlet.
-        ("round", WATER_PORT_X, z0, d),
-        # C14 mains inlet — high and to the side, above every water port.
-        ("rect", C14_PORT_X, z0 + dz + C14_PORT_RISE, PORT_C14_W, PORT_C14_H),
+        ("round", x_lo + WATER_COL_X, z_mid, d),
+        # Two BiB syrup ports (3/8" barb), a vertical pair beside the water lines.
+        ("round", x_lo + BIB_COL_X, z_mid + BIB_PAIR_DZ, PORT_BIB_D),
+        ("round", x_lo + BIB_COL_X, z_mid - BIB_PAIR_DZ, PORT_BIB_D),
+        # C14 mains inlet — the +X/+Z corner of the back face (the usual spot),
+        # clear of the corner cross-pin brace and the vertical print fillet.
+        ("rect", x_hi - C14_INSET_X, ceil_z - C14_DROP_Z, PORT_C14_W, PORT_C14_H),
     ]
