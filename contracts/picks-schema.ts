@@ -1,19 +1,19 @@
 /**
  * The shape of out/<board>.picks.json — the board sidecar the web viewer reads.
- * Produced by pick-data.ts; consumed by web/public/js/viewer/{pcb,pcb-pick,pcb-edit}.js,
+ * Produced by hardware/pcb/pcba/pick-data.ts; consumed by web/public/js/viewer/{pcb,pcb-pick,pcb-edit}.js,
  * served path-confined by web/lib/viewer-routes.js. Positions are board millimetres; the
  * viewer maps mm onto the Gerber SVG at unitsPerMm (1 mm = 1000 units).
  *
  * Identity (pads/vias/traces) is what the pad picker hit-tests. Readout (size) and checks
  * (clearance, errors, capAudit) are what the board chip and Board-checks panel show. The check
- * shapes are defined with their analyses — ClearancePair/BoardError in clearance.ts, CapAudit in
+ * shapes are defined with their analyses in hardware/pcb/pcba/ — ClearancePair/BoardError in clearance.ts, CapAudit in
  * cap-audit.ts — and gathered here so the whole file has one definition.
  */
-import type { ClearancePair, BoardError } from "./clearance"
-import type { CapAudit } from "./cap-audit"
+import type { ClearancePair, BoardError } from "../hardware/pcb/pcba/clearance"
+import type { CapAudit } from "../hardware/pcb/pcba/cap-audit"
 
-export type { ClearancePair, BoardError } from "./clearance"
-export type { CapAudit, CapAuditRow } from "./cap-audit"
+export type { ClearancePair, BoardError } from "../hardware/pcb/pcba/clearance"
+export type { CapAudit, CapAuditRow } from "../hardware/pcb/pcba/cap-audit"
 
 /** A pad's identity, resolved pcb_port → source_port → component; null where a pad has no port. */
 export type PadIdentity = {

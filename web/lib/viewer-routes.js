@@ -3,7 +3,7 @@ import path from "path";
 import fs from "fs";
 
 import { walkFiles, walkFilesUnderDir, walkPcbBoards } from "./walk.js";
-import { VIEW_REQUEST_RE, PICKS_REQUEST_RE } from "./pcb-out.js";
+import { VIEW_REQUEST_RE, PICKS_REQUEST_RE } from "../../contracts/pcb-out.js";
 
 function safeFile(rootDir, rel, ext) {
   if (rel.includes("..")) return null;

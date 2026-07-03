@@ -25,7 +25,7 @@ import path from "node:path"
 import { pathToFileURL } from "node:url"
 import { analyzeClearance } from "./clearance"
 import { auditDecoupling, type DecouplingRule } from "./cap-audit"
-import type { PicksFile, Pad, Via, Trace, PadIdentity } from "./picks-schema"
+import type { PicksFile, Pad, Via, Trace, PadIdentity } from "../../../contracts/picks-schema"
 
 const arg = process.argv[2]
 if (!arg) {
