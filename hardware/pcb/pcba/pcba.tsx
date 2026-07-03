@@ -112,9 +112,9 @@ export default () => (
         the SMD pads auto-stitch to their planes. Each cap flanks the LDO at the pin of its
         own net: C13 (10uF V5 input) hard by VIN on the east, C14 (22uF 3V3 output) under the
         VOUT tab on the west — so each closes a tight local loop like C15/C16 flank U10. */}
-    <AMS1117_3_3 name="U9" pcbRotation={0} {...at(-9.17, 28.45)} />
-    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-1.95} y={30.75} rot={0} side="S" />
-    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-11.9} y={23} rot={0} side="S" />
+    <AMS1117_3_3 name="U9" pcbRotation={0} {...at(-10.27, 28.45)} />
+    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-3.05} y={30.75} rot={0} side="S" />
+    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-13} y={23} rot={0} side="S" />
     <Buck5 name="U10" x={22.81} y={-25.95} />
     <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={13.88} y={-26.9} rot={0} side="S" />
     <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={30.66} y={-25.65} rot={270} side="E" />
@@ -130,9 +130,9 @@ export default () => (
     <Drv8870 name="U12" pcbX={-19.2} pcbY={22} pcbRotation={0} />
     <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-19.25} y={15.7} rot={0} side="S" />
     <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-14.2} y={15.7} rot={0} side="S" />
-    <Mcp23017 name="U2" x={4.48} y={18.1} addr="0x20" rot={270} />
+    <Mcp23017 name="U2" x={4.48} y={21.3} addr="0x20" rot={270} />
     <Mcp23017 name="U3" x={6.53} y={-21.35} addr="0x21" rot={90} />
-    <Uln2803 name="U4" x={18.48} y={8.45} />
+    <Uln2803 name="U4" x={18.48} y={11.65} />
     <Uln2803 name="U5" x={18.58} y={-8.35} />
     <Buzzer name="U8" x={-36.3} y={-8.4} />
     <Npn name="Q1" x={-35.8} y={-2.35} />
@@ -278,7 +278,7 @@ export default () => (
     <trace from=".U3 > .A1" to="net.GND" />
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
-    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={2.18} y={12} rot={0} side="S" />
+    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={2.18} y={15.2} rot={0} side="S" />
     <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9} y={-26.9} rot={180} side="S" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
@@ -289,22 +289,22 @@ export default () => (
         valve mapping is unchanged; inside the ULN, channel j is IN_j -> OUT_j -> J.OUT_j
         (valve-control.mmd). Each MCP sits immediately left of its ULN, so the eight pairs
         cross straight across. */}
-    <trace from=".U2 > .GPA0" to=".U4 > .IN8" />
-    <trace from=".U2 > .GPA1" to=".U4 > .IN7" />
-    <trace from=".U2 > .GPA2" to=".U4 > .IN6" />
-    <trace from=".U2 > .GPA3" to=".U4 > .IN5" />
-    <trace from=".U2 > .GPA4" to=".U4 > .IN4" />
-    <trace from=".U2 > .GPA5" to=".U4 > .IN3" />
-    <trace from=".U2 > .GPA6" to=".U4 > .IN2" />
-    <trace from=".U2 > .GPA7" to=".U4 > .IN1" />
-    <trace from=".U3 > .GPA0" to=".U5 > .IN8" />
-    <trace from=".U3 > .GPA1" to=".U5 > .IN7" />
-    <trace from=".U3 > .GPA2" to=".U5 > .IN6" />
-    <trace from=".U3 > .GPA3" to=".U5 > .IN5" />
-    <trace from=".U3 > .GPA4" to=".U5 > .IN4" />
-    <trace from=".U3 > .GPA5" to=".U5 > .IN3" />
-    <trace from=".U3 > .GPA6" to=".U5 > .IN2" />
-    <trace from=".U3 > .GPA7" to=".U5 > .IN1" />
+    <trace from=".U2 > .GPA0" to=".U4 > .IN8" pretty="rowToColumn" />
+    <trace from=".U2 > .GPA1" to=".U4 > .IN7" pretty="rowToColumn" />
+    <trace from=".U2 > .GPA2" to=".U4 > .IN6" pretty="rowToColumn" />
+    <trace from=".U2 > .GPA3" to=".U4 > .IN5" pretty="rowToColumn" />
+    <trace from=".U2 > .GPA4" to=".U4 > .IN4" pretty="rowToColumn" />
+    <trace from=".U2 > .GPA5" to=".U4 > .IN3" pretty="rowToColumn" />
+    <trace from=".U2 > .GPA6" to=".U4 > .IN2" pretty="rowToColumn" />
+    <trace from=".U2 > .GPA7" to=".U4 > .IN1" pretty="columnToRow" />
+    <trace from=".U3 > .GPA0" to=".U5 > .IN8" pretty="rowToColumn" />
+    <trace from=".U3 > .GPA1" to=".U5 > .IN7" pretty="rowToColumn" />
+    <trace from=".U3 > .GPA2" to=".U5 > .IN6" pretty="rowToColumn" />
+    <trace from=".U3 > .GPA3" to=".U5 > .IN5" pretty="rowToColumn" />
+    <trace from=".U3 > .GPA4" to=".U5 > .IN4" pretty="rowToColumn" />
+    <trace from=".U3 > .GPA5" to=".U5 > .IN3" pretty="rowToColumn" />
+    <trace from=".U3 > .GPA6" to=".U5 > .IN2" pretty="rowToColumn" />
+    <trace from=".U3 > .GPA7" to=".U5 > .IN1" pretty="rowToColumn" />
 
     {/* I2C bus — SDA and SCL are high-fan-out nets, so they are POURED (inner3 / inner4),
         not routed: every SDA/SCL pin is put on its net and commons to that plane (the SMD
@@ -332,21 +332,21 @@ export default () => (
     <trace from=".C7 > .pin2" to="net.GND" />
 
     {/* manifold JSTs: ULN outputs -> valve looms */}
-    <trace from=".U4 > .OUT1" to=".J1 > .OUT1" />
-    <trace from=".U4 > .OUT2" to=".J1 > .OUT2" />
-    <trace from=".U4 > .OUT3" to=".J1 > .OUT3" />
-    <trace from=".U4 > .OUT4" to=".J1 > .OUT4" />
-    <trace from=".U4 > .OUT5" to=".J1 > .OUT5" />
-    <trace from=".U4 > .OUT6" to=".J1 > .OUT6" />
-    <trace from=".U4 > .OUT7" to=".J1 > .OUT7" />
-    <trace from=".U4 > .OUT8" to=".J1 > .OUT8" />
+    <trace from=".U4 > .OUT1" to=".J1 > .OUT1" pretty="rowToColumn" />
+    <trace from=".U4 > .OUT2" to=".J1 > .OUT2" pretty="columnToColumn" />
+    <trace from=".U4 > .OUT3" to=".J1 > .OUT3" pretty="columnToColumn" />
+    <trace from=".U4 > .OUT4" to=".J1 > .OUT4" pretty="columnToColumn" />
+    <trace from=".U4 > .OUT5" to=".J1 > .OUT5" pretty="columnToColumn" />
+    <trace from=".U4 > .OUT6" to=".J1 > .OUT6" pretty="columnToColumn" />
+    <trace from=".U4 > .OUT7" to=".J1 > .OUT7" pretty="columnToColumn" />
+    <trace from=".U4 > .OUT8" to=".J1 > .OUT8" pretty="columnToColumn" />
     <trace from=".J1 > .COM" to="net.V12" />
     {/* MANIFOLD B: 4 valves on U5 ch1-4, condenser FAN on U5 ch5, COM = 12V flyback. */}
-    <trace from=".U5 > .OUT1" to=".J2 > .OUT1" />
-    <trace from=".U5 > .OUT2" to=".J2 > .OUT2" />
-    <trace from=".U5 > .OUT3" to=".J2 > .OUT3" />
-    <trace from=".U5 > .OUT4" to=".J2 > .OUT4" />
-    <trace from=".U5 > .OUT5" to=".J2 > .FAN" />
+    <trace from=".U5 > .OUT1" to=".J2 > .OUT1" pretty="columnToColumn" />
+    <trace from=".U5 > .OUT2" to=".J2 > .OUT2" pretty="columnToColumn" />
+    <trace from=".U5 > .OUT3" to=".J2 > .OUT3" pretty="columnToColumn" />
+    <trace from=".U5 > .OUT4" to=".J2 > .OUT4" pretty="columnToColumn" />
+    <trace from=".U5 > .OUT5" to=".J2 > .FAN" pretty="columnToColumn" />
     <trace from=".J2 > .COM" to="net.V12" />
 
     {/* FAUCET UART — IO33 TX (output-capable) / IO35 RX (input-only), both S-edge pins;
@@ -481,8 +481,8 @@ export default () => (
         GND plane — no routing, no vias, barrel pickup like every power pin; the top V12
         island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
     <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={21.08} y={-16.6} rot={0} side="S" />
-    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={20.98} y={0.2} rot={0} side="S" />
-    <BulkCap name="C3" x={6.824} y={-0.606} />
+    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={20.98} y={3.2} rot={0} side="S" />
+    <BulkCap name="C3" x={6.82} y={1.74} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
     <trace from=".C2 > .pin1" to="net.V12" />
@@ -563,19 +563,19 @@ export default () => (
         VBUS, C21 rides U13's 3V3. East column on x=-44, 4 mm pitch: C6 / R8 / Q3 / C21 (with
         R15 above), R8 the IO0 pull-up spun vertical into the stack. */}
     <UsbC name="J14" pcbX={-51.5} pcbY={31.3} pcbRotation={180} />
-    <Usblc6 name="U14" pcbX={-51.5} pcbY={25.7} pcbRotation={180} />
-    <CH340C name="U13" pcbX={-51.5} pcbY={19.3} pcbRotation={180} />
+    <Usblc6 name="U14" pcbX={-52.4} pcbY={24.9} pcbRotation={180} />
+    <CH340C name="U13" pcbX={-51.5} pcbY={18.15} pcbRotation={180} />
     <resistor name="R16" resistance="5.1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23186"] }} {...at(-58.9, 34.7)} />
     <resistor name="R15" resistance="5.1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23186"] }} {...at(-44, 34.7)} />
-    <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-47.5} y={25.7} rot={90} side="E" />
-    <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-44} y={23.95} rot={90} side="E" />
+    <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-48.6} y={24.9} rot={90} side="E" />
+    <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-44} y={24.85} rot={90} side="E" />
     {/* EN branch (west): U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
-    <resistor name="R17" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-55.1, 14)} />
-    <S8050 name="Q2" pcbX={-59.25} pcbY={13} pcbRotation={0} />
+    <resistor name="R17" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-55.1, 12.85)} />
+    <S8050 name="Q2" pcbX={-63.8} pcbY={13} pcbRotation={0} />
     <silkscreentext text="Q2" fontSize="0.8mm" anchorAlignment="center" pcbX={-57.15} pcbY={13} />
     <Tact name="SW2" pcbX={-62} pcbY={27} pcbRotation={0} />
     {/* IO0 branch (east): U13.RTS -> R18 -> Q3.base; U13.DTR -> Q3.emitter; Q3.collector -> IO0; SW1 */}
-    <resistor name="R18" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-51.1, 14)} />
+    <resistor name="R18" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-51.1, 12.85)} />
     <S8050 name="Q3" pcbX={-43} pcbY={19.55} pcbRotation={0} />
     <silkscreentext text="Q3" fontSize="0.8mm" anchorAlignment="center" pcbX={-40.9} pcbY={19.55} />
     <Tact name="SW1" pcbX={-62} pcbY={20} pcbRotation={0} />
