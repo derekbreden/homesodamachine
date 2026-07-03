@@ -10,7 +10,7 @@
 import path from "path";
 import fs from "fs";
 
-import { viewFile, picksFile, innerViewRe } from "../../contracts/pcb-out.js";
+import { viewFile, picksFile, innerViewRe } from "../contracts/pcb-out.js";
 
 export function walkFiles(rootDir, exts) {
   const extList = Array.isArray(exts) ? exts : [exts];
