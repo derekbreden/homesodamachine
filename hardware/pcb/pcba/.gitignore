@@ -11,8 +11,10 @@ dist
 # views + gerbers + picks). Everything else is regenerable and an upload
 # decoy — other tsci export formats, the empty render of the carrier_parts
 # footprint helper (it has no board), and any _-prefixed scratch board. So:
-# ignore all of out/, then whitelist exactly pcba's artifacts (top/bottom/overlay
-# plus every inner-plane view, pcba.inner* — however many layers the board has).
+# ignore all of out/, then whitelist exactly pcba's artifacts (top/bottom/overlay,
+# every inner-plane view pcba.inner* — however many layers the board has — and the
+# top/bottom solder-mask views). A new view kind must be whitelisted here or it is
+# committed nowhere and the deployed viewer's toggle finds no file to offer.
 out/*
 !out/pcba.top.svg
 !out/pcba.top.png
@@ -22,6 +24,10 @@ out/*
 !out/pcba.overlay.png
 !out/pcba.inner*.svg
 !out/pcba.inner*.png
+!out/pcba.topmask.svg
+!out/pcba.topmask.png
+!out/pcba.bottommask.svg
+!out/pcba.bottommask.png
 !out/pcba.gerbers.zip
 !out/pcba.picks.json
 !out/pcba.bom.csv
