@@ -714,7 +714,10 @@
   backdrop-filter: blur(2px);
 }
 .pcb-checks-card {
-  max-width: min(520px, 92%);
+  /* Explicit width (not just max-width) so the card is a consistent, roomy panel instead of
+     shrink-wrapping to its longest row — that kept it narrow and let rows wrap on tight
+     viewports. 94% keeps it inside a small board wrapper. */
+  width: min(640px, 94%);
   max-height: 80%;
   overflow: auto;
   background: var(--surface);
@@ -765,6 +768,20 @@
 .pcb-checks-row.warn .k { color: var(--warn); }
 .pcb-checks-row.warn .v { color: var(--warn); }
 .pcb-checks-clean { color: var(--ok); padding: 2px 0; }
+/* Per-section "Show N more / less" toggle — a muted full-width control under a collapsed
+   list (clearance pairs, decoupling rows). The hidden tail is a plain block wrapper. */
+.pcb-checks-toggle {
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+  color: var(--text-2);
+  font: inherit;
+  padding: 5px 0 3px;
+}
+.pcb-checks-toggle:hover { color: var(--text); }
 .pcb-pick-layer {
   pointer-events: none;
 }
