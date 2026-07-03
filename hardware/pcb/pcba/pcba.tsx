@@ -128,9 +128,9 @@ export default () => (
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
         pin2 (-> GND); the cell is retained by the molded base, not SMT clips. */}
-    <CoinHolder name="BT1" x={-14.4} y={-2} />
-    <Ds3231Smd name="U6" x={-32.7} y={7.1} />
-    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-38.65} y={8} rot={90} />
+    <CoinHolder name="BT1" x={-10.4} y={-2} />
+    <Ds3231Smd name="U6" x={-31.5} y={7.1} rot={270} />
+    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-41} y={8} rot={90} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio, antenna keepout
         pointing west off the board edge. Usable GPIO sit on the north and south
         castellations only (the east edge is the module's flash); the relay/pump/buzzer/
@@ -716,9 +716,13 @@ export default () => (
         block (its L outline below): top-layer 12V pads sit directly on it, through-hole 12V
         pins pick it up at the barrel. Point-to-point signals route on top and bottom. */}
     <trace from=".J10 > .V12" to="net.V12" />
+    {/* West edge stops at x -24.5, not -37: the top band only needs to reach the pump driver's
+        V12 pad (U11.VM at x -23). Sweeping further west put the island over the RTC's north pads
+        (U6, whose long imported pill pads straddle the y=11 island edge and can't be cleanly
+        antipadded), so the empty NW corner x[-37,-24.5] y[11,35] is dropped. */}
     <copperpour name="V12ISLAND" layer="top" connectsTo="net.V12" netClearance="0.5mm from V3V3, V5, SDA, SCL"
-      outline={[{ x: -37, y: 35 }, { x: 33, y: 35 }, { x: 33, y: -37 }, { x: -8, y: -37 },
-                { x: -8, y: 11 }, { x: -37, y: 11 }]} />
+      outline={[{ x: -24.5, y: 35 }, { x: 33, y: 35 }, { x: 33, y: -37 }, { x: -8, y: -37 },
+                { x: -8, y: 11 }, { x: -24.5, y: 11 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
     <copperpour name="SDAPLANE" layer="inner3" connectsTo="net.SDA" boardEdgeMargin="0.5mm" />
