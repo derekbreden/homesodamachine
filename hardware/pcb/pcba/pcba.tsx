@@ -133,7 +133,7 @@ export default () => (
     <Mcp23017 name="U2" x={4.48} y={21.3} addr="0x20" rot={270} />
     <Mcp23017 name="U3" x={6.53} y={-21.35} addr="0x21" rot={90} />
     <Uln2803 name="U4" x={18.48} y={11.65} />
-    <Uln2803 name="U5" x={18.58} y={-8.35} />
+    <Uln2803 name="U5" x={18.58} y={-8.6} />
     <Buzzer name="U8" x={-36.3} y={-8.4} />
     <Npn name="Q1" x={-35.8} y={-2.35} />
     <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-40.7} y={-1.65} rot={180} side="N" />
@@ -480,7 +480,7 @@ export default () => (
         soaking the inrush + flyback dump the ceramics can't. Every pin1 -> V12, pin2 ->
         GND plane — no routing, no vias, barrel pickup like every power pin; the top V12
         island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
-    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={21.08} y={-16.6} rot={0} side="S" />
+    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={21.08} y={-16.85} rot={0} side="S" />
     <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={20.98} y={3.2} rot={0} side="S" />
     <BulkCap name="C3" x={6.82} y={1.74} />
     <trace from=".C1 > .pin1" to="net.V12" />
@@ -572,7 +572,7 @@ export default () => (
     {/* EN branch (west): U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
     <resistor name="R17" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-55.1, 12.85)} />
     <S8050 name="Q2" pcbX={-63.8} pcbY={13} pcbRotation={0} />
-    <silkscreentext text="Q2" fontSize="0.8mm" anchorAlignment="center" pcbX={-57.15} pcbY={13} />
+    <silkscreentext text="Q2" fontSize="0.8mm" anchorAlignment="center" pcbX={-61.7} pcbY={13} />
     <Tact name="SW2" pcbX={-62} pcbY={27} pcbRotation={0} />
     {/* IO0 branch (east): U13.RTS -> R18 -> Q3.base; U13.DTR -> Q3.emitter; Q3.collector -> IO0; SW1 */}
     <resistor name="R18" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-51.1, 12.85)} />
