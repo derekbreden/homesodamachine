@@ -216,10 +216,10 @@ export default () => (
         for DOUT). The midpoint taps right into the ESP; AOUT: R1/R2 -> IO39, DOUT:
         R3/R4 -> IO36. IO36/IO39 are the ADC1 input-only pins at the west end of the ESP
         south edge; the dividers sit just below them, the GAS connector below the dividers. */}
-    <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={-59} y={-25} rot={180} side="S" />
-    <resistor name="R2" resistance="3.3k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22978"] }} pcbRotation={0} {...at(-59, -21.3)} />
-    <resistor name="R3" resistance="2.2k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C4190"] }} pcbRotation={0} {...at(-63, -25)} />
-    <resistor name="R4" resistance="3.3k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22978"] }} pcbRotation={0} {...at(-63, -21.3)} />
+    <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={-59} y={-25} rot={180} side="N" />
+    <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={-59} y={-21.3} rot={0} side="N" />
+    <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={-63} y={-25} rot={0} side="N" />
+    <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={-63} y={-21.3} rot={0} side="N" />
 
     {/* 3V3 rail -> inner1 plane, sourced by the AMS1117 LDO (U9) off the 5V rail. The I2C
         devices (both MCPs, DS3231), RS485, the WROOM, and the sensor loom all common to it at
