@@ -10,6 +10,8 @@
 import path from "path";
 import fs from "fs";
 
+import { viewFile, picksFile, innerViewRe } from "./pcb-out.js";
+
 export function walkFiles(rootDir, exts) {
   const extList = Array.isArray(exts) ? exts : [exts];
   const out = [];
@@ -85,15 +87,13 @@ export function walkPcbBoards(rootDir) {
       // A board counts only once its views exist; the overlay is the tell.
       if (!fs.existsSync(path.join(dir, "out", `${name}.overlay.svg`))) continue;
       const relDir = path.relative(rootDir, dir).split(path.sep).join("/");
-      const view = (v) => `${relDir}/out/${name}.${v}.svg`;
+      const view = (v) => viewFile(relDir, name, v);
       // Inner copper planes of a multi-layer board: out/<name>.inner<N>.svg,
       // returned in stack order (inner1 nearest the top). Discovered, not
       // assumed — a 2-layer board has none, so the viewer only offers planes
       // that were actually rendered. The name is escaped before it goes into
       // the matcher so a dotted board name can't widen the match.
-      const nameRe = new RegExp(
-        `^${name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\.inner(\\d+)\\.svg$`,
-      );
+      const nameRe = innerViewRe(name);
       let inners = [];
       try {
         inners = fs.readdirSync(path.join(dir, "out"))
@@ -104,7 +104,7 @@ export function walkPcbBoards(rootDir) {
       } catch {}
       // The pad picker's semantic data (pads + identity), when the distiller
       // has produced it; older boards without it simply have no picker.
-      const picksRel = `${relDir}/out/${name}.picks.json`;
+      const picksRel = picksFile(relDir, name);
       const hasPicks = fs.existsSync(path.join(dir, "out", `${name}.picks.json`));
       boards.push({
         source: `${relDir}/${entry.name}`,
