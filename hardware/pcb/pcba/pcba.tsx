@@ -105,16 +105,21 @@ export const decoupling: DecouplingRule[] = [
 ]
 
 // ── Ampacity audit ──────────────────────────────────────────────────────────────────────
-// Current-carrying SIGNAL traces and the width they want (cap-audit's sibling — ampacity-audit.ts
-// checks the routed width against this). The power RAILS need no entry: V12/V5/GND are poured
-// planes, picked up at the barrel. What does: the peristaltic-pump motor outputs, ~0.8A peak
-// (Kamoer KPHM400-SW). The autorouter lays every trace at the 0.2mm floor, so these want calling
-// out — 0.3mm is the IPC-2221 rule of thumb for ~0.8A at a ~10°C rise on 1oz (tighter on inner
-// 0.5oz copper). The valve/fan outputs (U4/U5.OUT) also carry coil current but their solenoid
-// spec isn't pinned down here — add rules once it is; `pin` is an endpoint-pin prefix.
+// Current-carrying SIGNAL traces and the min width they want (cap-audit's sibling — ampacity-
+// audit.ts checks the routed width against this). Each such trace carries an explicit `thickness`
+// below so the router lays it wide instead of the 0.2mm floor it gives every logic line. The power
+// RAILS need no entry: V12/V5/GND are poured planes picked up at the barrel. What does:
+//   pump motors (U11/U12.OUT → J13) — ~0.8A peak (Kamoer KPHM400-SW). Routed 0.4mm, want ≥0.3mm
+//     (IPC-2221 rule of thumb for ~0.8A at ~10°C rise on 1oz; more on inner 0.5oz — kept short).
+//   manifold valves + condenser fan (U4/U5.OUT → J1/J2) — sunk by the ULN2803, so ≤0.5A/channel.
+//     Routed 0.3mm, want ≥0.25mm.
+// `pin` is an endpoint-pin prefix (U11.OUT matches U11.OUT1/OUT2, etc.). Rules of thumb, not a
+// thermal model — enough to catch a fat path left on the 0.2mm floor.
 export const ampacity: AmpacityRule[] = [
   { pin: "U11.OUT", minWidthMm: 0.3, role: "pump A motor (~0.8A)" },
   { pin: "U12.OUT", minWidthMm: 0.3, role: "pump B motor (~0.8A)" },
+  { pin: "U4.OUT", minWidthMm: 0.25, role: "MANIFOLD A valves (ULN, ≤0.5A)" },
+  { pin: "U5.OUT", minWidthMm: 0.25, role: "MANIFOLD B valves + fan (ULN, ≤0.5A)" },
 ]
 
 export default () => (
@@ -382,21 +387,21 @@ export default () => (
     <trace from=".C7 > .pin2" to="net.GND" />
 
     {/* manifold JSTs: ULN outputs -> valve looms */}
-    <trace from=".U4 > .OUT1" to=".J1 > .OUT1" pcbFan="rowToColumn" />
-    <trace from=".U4 > .OUT2" to=".J1 > .OUT2" pcbFan="columnToColumn" />
-    <trace from=".U4 > .OUT3" to=".J1 > .OUT3" pcbFan="columnToColumn" />
-    <trace from=".U4 > .OUT4" to=".J1 > .OUT4" pcbFan="columnToColumn" />
-    <trace from=".U4 > .OUT5" to=".J1 > .OUT5" pcbFan="columnToColumn" />
-    <trace from=".U4 > .OUT6" to=".J1 > .OUT6" pcbFan="columnToColumn" />
-    <trace from=".U4 > .OUT7" to=".J1 > .OUT7" pcbFan="columnToColumn" />
-    <trace from=".U4 > .OUT8" to=".J1 > .OUT8" pcbFan="columnToColumn" />
+    <trace from=".U4 > .OUT1" to=".J1 > .OUT1" pcbFan="rowToColumn" thickness="0.3mm" />
+    <trace from=".U4 > .OUT2" to=".J1 > .OUT2" pcbFan="columnToColumn" thickness="0.3mm" />
+    <trace from=".U4 > .OUT3" to=".J1 > .OUT3" pcbFan="columnToColumn" thickness="0.3mm" />
+    <trace from=".U4 > .OUT4" to=".J1 > .OUT4" pcbFan="columnToColumn" thickness="0.3mm" />
+    <trace from=".U4 > .OUT5" to=".J1 > .OUT5" pcbFan="columnToColumn" thickness="0.3mm" />
+    <trace from=".U4 > .OUT6" to=".J1 > .OUT6" pcbFan="columnToColumn" thickness="0.3mm" />
+    <trace from=".U4 > .OUT7" to=".J1 > .OUT7" pcbFan="columnToColumn" thickness="0.3mm" />
+    <trace from=".U4 > .OUT8" to=".J1 > .OUT8" pcbFan="columnToColumn" thickness="0.3mm" />
     <trace from=".J1 > .COM" to="net.V12" />
     {/* MANIFOLD B: 4 valves on U5 ch1-4, condenser FAN on U5 ch5, COM = 12V flyback. */}
-    <trace from=".U5 > .OUT1" to=".J2 > .OUT1" pcbFan="columnToColumn" />
-    <trace from=".U5 > .OUT2" to=".J2 > .OUT2" pcbFan="columnToColumn" />
-    <trace from=".U5 > .OUT3" to=".J2 > .OUT3" pcbFan="columnToColumn" />
-    <trace from=".U5 > .OUT4" to=".J2 > .OUT4" pcbFan="columnToColumn" />
-    <trace from=".U5 > .OUT5" to=".J2 > .FAN" pcbFan="columnToColumn" />
+    <trace from=".U5 > .OUT1" to=".J2 > .OUT1" pcbFan="columnToColumn" thickness="0.3mm" />
+    <trace from=".U5 > .OUT2" to=".J2 > .OUT2" pcbFan="columnToColumn" thickness="0.3mm" />
+    <trace from=".U5 > .OUT3" to=".J2 > .OUT3" pcbFan="columnToColumn" thickness="0.3mm" />
+    <trace from=".U5 > .OUT4" to=".J2 > .OUT4" pcbFan="columnToColumn" thickness="0.3mm" />
+    <trace from=".U5 > .OUT5" to=".J2 > .FAN" pcbFan="columnToColumn" thickness="0.3mm" />
     <trace from=".J2 > .COM" to="net.V12" />
 
     {/* FAUCET UART — IO33 TX (output-capable) / IO35 RX (input-only), both S-edge pins;
@@ -429,8 +434,8 @@ export default () => (
     <trace from=".U11 > .PAD" to="net.GND" />
     <trace from=".U11 > .ISEN" to="net.GND" />
     <trace from=".U11 > .VREF" to="net.V3V3" />
-    <trace from=".U11 > .OUT1" to=".J13 > .AM1" />
-    <trace from=".U11 > .OUT2" to=".J13 > .AM2" />
+    <trace from=".U11 > .OUT1" to=".J13 > .AM1" thickness="0.4mm" />
+    <trace from=".U11 > .OUT2" to=".J13 > .AM2" thickness="0.4mm" />
     <trace from=".C17 > .pin1" to="net.V12" />
     <trace from=".C17 > .pin2" to="net.GND" />
     <trace from=".C18 > .pin1" to="net.V12" />
@@ -442,8 +447,8 @@ export default () => (
     <trace from=".U12 > .PAD" to="net.GND" />
     <trace from=".U12 > .ISEN" to="net.GND" />
     <trace from=".U12 > .VREF" to="net.V3V3" />
-    <trace from=".U12 > .OUT1" to=".J13 > .BM1" />
-    <trace from=".U12 > .OUT2" to=".J13 > .BM2" />
+    <trace from=".U12 > .OUT1" to=".J13 > .BM1" thickness="0.4mm" />
+    <trace from=".U12 > .OUT2" to=".J13 > .BM2" thickness="0.4mm" />
     <trace from=".C19 > .pin1" to="net.V12" />
     <trace from=".C19 > .pin2" to="net.GND" />
     <trace from=".C20 > .pin1" to="net.V12" />
