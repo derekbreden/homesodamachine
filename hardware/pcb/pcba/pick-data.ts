@@ -25,6 +25,7 @@ import path from "node:path"
 import { pathToFileURL } from "node:url"
 import { analyzeClearance } from "./clearance"
 import { auditDecoupling, type DecouplingRule } from "./cap-audit"
+import type { PicksFile, Pad, Via, Trace, PadIdentity } from "./picks-schema"
 
 const arg = process.argv[2]
 if (!arg) {
@@ -71,7 +72,7 @@ async function loadDecoupling(file: string): Promise<DecouplingRule[]> {
   }
 }
 
-function distill(circuit: any[], decoupling: DecouplingRule[] = []) {
+function distill(circuit: any[], decoupling: DecouplingRule[] = []): PicksFile {
   const compName: Record<string, string> = {}
   const srcPort: Record<string, any> = {}
   const pcbPort: Record<string, any> = {}
@@ -90,7 +91,7 @@ function distill(circuit: any[], decoupling: DecouplingRule[] = []) {
 
   // Resolve a pcb pad's identity through pcb_port -> source_port -> component,
   // and its net through the port's shared connectivity key.
-  const identify = (pcbPortId: string | undefined) => {
+  const identify = (pcbPortId: string | undefined): PadIdentity => {
     const pp = pcbPortId ? pcbPort[pcbPortId] : null
     const sp = pp ? srcPort[pp.source_port_id] : null
     if (!sp) return { ref: null, pin: null, pinNum: null, net: null }
@@ -102,7 +103,7 @@ function distill(circuit: any[], decoupling: DecouplingRule[] = []) {
     }
   }
 
-  const pads: any[] = []
+  const pads: Pad[] = []
   for (const e of circuit) {
     if (e.type === "pcb_plated_hole") {
       const id = identify(e.pcb_port_id)
@@ -131,7 +132,7 @@ function distill(circuit: any[], decoupling: DecouplingRule[] = []) {
   // polyline is every route point; layer hops at vias are flattened away.
   const traceNet = (t: any) => netById[t.connection_name] ?? t.connection_name ?? null
   const traceNetByPcbId: Record<string, string | null> = {}
-  const traces: any[] = []
+  const traces: Trace[] = []
   for (const e of circuit) {
     if (e.type !== "pcb_trace") continue
     traceNetByPcbId[e.pcb_trace_id] = traceNet(e)
@@ -145,12 +146,12 @@ function distill(circuit: any[], decoupling: DecouplingRule[] = []) {
       from: a && a.ref ? `${a.ref}.${a.pin}` : null,
       to: b && b.ref ? `${b.ref}.${b.pin}` : null,
       width: wire[0]?.width ?? null,
-      points: wire.map((r: any) => [round(r.x), round(r.y)]),
+      points: wire.map((r: any): [number, number] => [round(r.x), round(r.y)]),
     })
   }
 
   // Vias are points; their net comes from the trace they belong to.
-  const vias: any[] = []
+  const vias: Via[] = []
   for (const e of circuit) {
     if (e.type !== "pcb_via") continue
     vias.push({
