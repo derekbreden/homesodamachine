@@ -1,5 +1,5 @@
 // Per-page boot script loaded on every server-rendered page via the
-// <script src="/boot.js" defer> tag in lib/shell.js HEAD_TAGS. Three
+// <script type="module" src="/boot.js"> tag in lib/shell.js HEAD_TAGS. Three
 // responsibilities, run in this order:
 //
 //   1. SW → page navigate-message bridge.
@@ -65,6 +65,12 @@
 // the notification mirror until the next /api/notifications fetch
 // re-populated state.items.
 
+// Event names and WebSocket frame tags come from the homed contracts so this
+// client and the server that dispatches/broadcasts them read one definition
+// (web/contracts/), served to the browser at /contracts by web/server.js.
+import { HSM_EVENTS } from "/contracts/client-events.js";
+import { WS } from "/contracts/ws-frames.js";
+
 (function () {
   // ===== 1. SW → page navigate bridge =====
   if ("serviceWorker" in navigator) {
@@ -127,7 +133,7 @@
     var bell = document.querySelector(".nav-bell");
     if (bell) bell.classList.toggle("has-unread", unread > 0);
     window.dispatchEvent(
-      new CustomEvent("hsm:notifications-updated", {
+      new CustomEvent(HSM_EVENTS.NOTIFICATIONS_UPDATED, {
         detail: { items: state.items.slice(), unread: unread },
       }),
     );
@@ -246,7 +252,7 @@
       });
     }
   }
-  window.addEventListener("hsm:notifications-updated", renderToast);
+  window.addEventListener(HSM_EVENTS.NOTIFICATIONS_UPDATED, renderToast);
 
   // ----- Warm-tap auto-redirect -----
   // Only for "page just (re)gained focus" events, NOT for live
@@ -425,7 +431,7 @@
     lastActivityAt = Date.now();
     var msg;
     try { msg = JSON.parse(ev.data); } catch (e) { return; }
-    if (msg.type === "hello") {
+    if (msg.type === WS.HELLO) {
       if (seenCommit === null) {
         seenCommit = msg.commit;
         noteCommit(msg.commit);
@@ -443,33 +449,33 @@
       seenCommit = msg.commit;
       noteCommit(msg.commit);
       dbg("hello (reconnect)", msg.commit, "changed=" + commitChanged);
-      window.dispatchEvent(new CustomEvent("hsm:deploy", { detail: { commit: msg.commit, reconnect: true, commitChanged: commitChanged } }));
+      window.dispatchEvent(new CustomEvent(HSM_EVENTS.DEPLOY, { detail: { commit: msg.commit, reconnect: true, commitChanged: commitChanged } }));
       if (msg.recent && msg.recent.commit && msg.recent.commit !== seenRecentCommit) {
         seenRecentCommit = msg.recent.commit;
         if (msg.recent.files) {
-          window.dispatchEvent(new CustomEvent("hsm:files-changed", { detail: { files: msg.recent.files } }));
+          window.dispatchEvent(new CustomEvent(HSM_EVENTS.FILES_CHANGED, { detail: { files: msg.recent.files } }));
         }
         if (msg.recent.posts) {
-          window.dispatchEvent(new CustomEvent("hsm:posts-changed", { detail: { posts: msg.recent.posts } }));
+          window.dispatchEvent(new CustomEvent(HSM_EVENTS.POSTS_CHANGED, { detail: { posts: msg.recent.posts } }));
         }
       }
       fetchNotifications();
       return;
     }
-    if (msg.type === "files-changed") {
-      window.dispatchEvent(new CustomEvent("hsm:files-changed", { detail: { files: msg.files || [] } }));
+    if (msg.type === WS.FILES_CHANGED) {
+      window.dispatchEvent(new CustomEvent(HSM_EVENTS.FILES_CHANGED, { detail: { files: msg.files || [] } }));
       fetchNotifications();
       return;
     }
-    if (msg.type === "posts-changed") {
-      window.dispatchEvent(new CustomEvent("hsm:posts-changed", { detail: { posts: msg.posts || [] } }));
+    if (msg.type === WS.POSTS_CHANGED) {
+      window.dispatchEvent(new CustomEvent(HSM_EVENTS.POSTS_CHANGED, { detail: { posts: msg.posts || [] } }));
       fetchNotifications();
       return;
     }
     // type === "ping" and anything else: lastActivityAt already bumped at
     // the top of this handler. Log the 30s heartbeat so the panel's
     // "seconds since last frame" reads as a visible pulse.
-    if (msg.type === "ping") dbg("ping");
+    if (msg.type === WS.PING) dbg("ping");
   }
 
   function clearReconnectTimer() {
@@ -564,7 +570,7 @@
         // Advance first so repeated activations don't re-fire while a soft
         // viewer refresh is still settling.
         bootCommit = commit;
-        window.dispatchEvent(new CustomEvent("hsm:deploy", {
+        window.dispatchEvent(new CustomEvent(HSM_EVENTS.DEPLOY, {
           detail: { commit: commit, reconnect: false, commitChanged: true, source: "version" },
         }));
       })
@@ -574,13 +580,13 @@
   // Default deploy/posts handler for any page that hasn't claimed the
   // refresh itself. The viewer sets window.__hsmDeploySoft (it refreshes
   // in place, preserving camera + open modal); content pages reload.
-  window.addEventListener("hsm:deploy", function (e) {
+  window.addEventListener(HSM_EVENTS.DEPLOY, function (e) {
     if (window.__hsmDeploySoft) return;
     if (e.detail && e.detail.commitChanged === false) return; // socket blip, not a deploy
     dbg("deploy -> reload");
     window.location.reload();
   });
-  window.addEventListener("hsm:posts-changed", function () {
+  window.addEventListener(HSM_EVENTS.POSTS_CHANGED, function () {
     if (window.__hsmDeploySoft) return;
     dbg("posts-changed -> reload");
     window.location.reload();

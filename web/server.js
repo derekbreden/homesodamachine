@@ -34,6 +34,12 @@ const REPO_ROOT = path.join(__dirname, "..");
 const DEFAULT_HARDWARE_DIR = path.join(REPO_ROOT, "hardware");
 const POSTS_DIR = path.join(REPO_ROOT, "posts");
 const LANDING_PUBLIC = path.join(__dirname, "public");
+// The cross-boundary contract definitions (web/contracts/) are served to the
+// browser at /contracts, so the viewer modules import the same event names and
+// wire tags the server and builders do instead of re-declaring them. Node code
+// imports these by relative path; the browser imports them by this URL — the
+// same file either way.
+const CONTRACTS_DIR = path.join(__dirname, "contracts");
 
 function makePool() {
   if (!process.env.DATABASE_URL) return null;
@@ -274,6 +280,7 @@ export async function start({ dev = false, port, hardwareDir, liteDir } = {}) {
     res.json({ commit });
   });
 
+  app.use("/contracts", express.static(CONTRACTS_DIR));
   app.use(express.static(LANDING_PUBLIC));
 
   // Production-only: deploy-change push. Hash STEP + mermaid + posts in
