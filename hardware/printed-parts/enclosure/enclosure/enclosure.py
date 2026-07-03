@@ -527,6 +527,21 @@ def build_back_half(dims=None):
     back = back.intersect(_rounded_outer(outer))
     for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
         back = back.cut(_screw_cut(x_ext, sx, z_boss, yb))
+    # Rear-panel through-holes for the appliance's external connections — the
+    # faucet umbilical (carb-water + two flavor), the tap-water inlet, and the C14
+    # mains inlet — cut through the back wall in the Zone-B band ABOVE the cold
+    # core (its own rear stays clean). _contents owns the port layout, since it
+    # places the contents the band is measured from (../back-panel/README.md).
+    y0, y1 = inner[3] - 5.0, outer[3] + 5.0
+    for hole in _contents.back_wall_ports():
+        kind, hx, hz = hole[0], hole[1], hole[2]
+        if kind == "round":
+            cutter = cq.Solid.makeCylinder(hole[3] / 2.0, y1 - y0,
+                                           cq.Vector(hx, y0, hz), cq.Vector(0, 1, 0))
+        else:
+            wx, wz = hole[3], hole[4]
+            cutter = _ybox(hx - wx / 2.0, hx + wx / 2.0, y0, y1, hz - wz / 2.0, hz + wz / 2.0)
+        back = back.cut(cutter)
     return cq.Workplane(obj=back)
 
 
