@@ -1,4 +1,4 @@
-// Conformance test for the picks.json contract (contracts/picks-schema.ts).
+// Conformance test for the picks.json contract (web/contracts/picks-schema.ts).
 //
 // The board sidecar crosses from the tscircuit builder (pick-data.ts, TS) to the browser
 // viewer (pcb.js / pcb-pick.js / pcb-edit.js, untyped JS). TS pins the producer end; this pins
