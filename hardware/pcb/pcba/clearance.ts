@@ -34,8 +34,11 @@
  * board carries every render: the ~90 "missing a connection to smtpad" trace errors are a
  * pad-alias/pour artifact (the pad IS reached — tested against the routed copper) and the "via
  * outside the board boundary" placement errors are false (the stitch vias land post-DRC,
- * inside). What survives is copper overlaps / too-close, courtyard overlaps, real opens, and
- * any other placement error.
+ * inside). A third false positive: tscircuit's pad_pad DRC is rotation-blind, so every column of
+ * rotated pill pads on an imported SOIC/SOP reads "0 mm apart"; each such pair is refereed against
+ * this file's own rotation-aware geometry (padGap) and dropped when it really clears its minimum.
+ * What survives is copper overlaps / too-close, courtyard overlaps, real opens, and any other
+ * placement error.
  */
 
 type Pt = [number, number]
@@ -156,6 +159,18 @@ export function analyzeClearance(circuit: any[]): ClearanceReport {
   }
   const shareLayer = (A: Feat, B: Feat) => { for (const l of A.layers) if (B.layers.has(l)) return true; return false }
 
+  // Pad/hole feature keyed by its "Comp.Pin" label (traces/vias carry an "... on <net>" label, so
+  // they're excluded). Used to referee the native pad_pad DRC below against this file's rotation-
+  // aware geometry: tscircuit's own DRC treats every pill pad as axis-aligned, so a column of
+  // rotated pills reads "0 mm apart" when they're really at full pitch. `padGap` returns the true
+  // edge-to-edge gap so those false positives can be dropped without hiding a genuinely tight pair.
+  const padFeatByLabel: Record<string, Feat> = {}
+  for (const f of feats) { if (f.label.includes(" on ")) continue; if (!(f.label in padFeatByLabel)) padFeatByLabel[f.label] = f }
+  const padGap = (a: string, b: string): number | null => {
+    const A = padFeatByLabel[a], B = padFeatByLabel[b]
+    return A && B ? dist(A, B) : null
+  }
+
   let floor = Infinity
   const pairs: ClearancePair[] = []
   for (let i = 0; i < feats.length; i++) for (let j = i + 1; j < feats.length; j++) {
@@ -173,7 +188,7 @@ export function analyzeClearance(circuit: any[]): ClearanceReport {
     ...pourShortErrors(circuit, LAYERS, netByKey, netById, netOfPort, refPin, netOfTrace, traceNet),
     ...viaSpanErrors(circuit),
     ...sliverErrors(circuit, netById),
-    ...genuineErrors(circuit, pcbPort, smtpadByPort),
+    ...genuineErrors(circuit, pcbPort, smtpadByPort, padGap),
   ]
   return { floor: isFinite(floor) ? round(floor) : null, tight: pairs.slice(0, TIGHT_MAX), errors }
 }
@@ -371,7 +386,7 @@ function sliverErrors(circuit: any[], _netById: Record<string, string>): BoardEr
 }
 
 // Filter the routed circuit's *_error rows down to the genuine ones (see file header).
-function genuineErrors(circuit: any[], pcbPort: Record<string, any>, smtpadByPort: Record<string, any>): BoardError[] {
+function genuineErrors(circuit: any[], pcbPort: Record<string, any>, smtpadByPort: Record<string, any>, padGap: (a: string, b: string) => number | null): BoardError[] {
   const verts: Pt[] = []
   for (const e of circuit) if (e.type === "pcb_trace") for (const r of e.route) if (r.x != null) verts.push([r.x, r.y])
   const reached = (pad: any) => { const hw = (pad.width || 0) / 2 + 0.05, hh = (pad.height || 0) / 2 + 0.05; return verts.some((v) => Math.abs(v[0] - pad.x) <= hw && Math.abs(v[1] - pad.y) <= hh) }
@@ -383,7 +398,15 @@ function genuineErrors(circuit: any[], pcbPort: Record<string, any>, smtpadByPor
       const m = /missing a connection to smtpad\[([^\]]+)\]/.exec(msg)
       if (m) { const pad = smtpadByPort[(e.pcb_port_ids || [])[0]]; if (pad && reached(pad)) continue; out.push({ kind: "open", text: `Unrouted: ${m[1]}` }); continue }
       out.push({ kind: "overlap", text: msg })
-    } else if (e.type === "pcb_pad_pad_clearance_error" || e.type === "pcb_pad_trace_clearance_error") {
+    } else if (e.type === "pcb_pad_pad_clearance_error") {
+      // Referee against this file's rotation-aware geometry: tscircuit's DRC treats pill pads as
+      // axis-aligned, flagging a column of rotated pills (an imported SOIC/SOP) as "0 mm apart".
+      // If padGap says the pair really clears its own minimum, it's that false positive — drop it.
+      const ports = [...msg.matchAll(/pcb_port\[\.(\w+) > \.(\w+)\]/g)].map((m) => `${m[1]}.${m[2]}`)
+      const min = parseFloat(/minimum:\s*([\d.]+)\s*mm/.exec(msg)?.[1] ?? "0")
+      if (ports.length === 2) { const g = padGap(ports[0], ports[1]); if (g != null && g >= min - 1e-6) continue }
+      out.push({ kind: "clearance", text: msg })
+    } else if (e.type === "pcb_pad_trace_clearance_error") {
       out.push({ kind: "clearance", text: msg })
     } else if (e.type === "pcb_courtyard_overlap_error") {
       out.push({ kind: "courtyard", text: msg })
