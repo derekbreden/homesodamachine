@@ -168,7 +168,7 @@ export default () => (
     <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-1.8} y={32.65} rot={0} side="S" />
     <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-11.75} y={24.9} rot={0} side="S" />
     <Buck5 name="U10" x={22.81} y={-25.95} />
-    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={30.0} y={-30.0} rot={0} side="S" />
+    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={30.7} y={-30.0} rot={0} side="S" />
     <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={30.66} y={-25.65} rot={270} side="E" />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
         pump (Kamoer KPHM400-SW, 12V brushed DC, 0.8A at full speed per the datasheet — PWM'd well below that at the
@@ -183,7 +183,7 @@ export default () => (
     <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-18} y={15.7} rot={0} side="S" />
     <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-12.95} y={15.7} rot={0} side="S" />
     <Mcp23017 name="U2" x={4.48} y={21.3} addr="0x20" rot={180} />
-    <Mcp23017 name="U3" x={6.53} y={-21.35} addr="0x21" rot={0} />
+    <Mcp23017 name="U3" x={6.53} y={-20.9} addr="0x21" rot={0} />
     <Uln2803 name="U4" x={20.3} y={11.65} rot={270} />
     <Uln2803 name="U5" x={18.58} y={-8.53} rot={270} />
     <Buzzer name="U8" x={-36.3} y={-8.4} />
@@ -334,7 +334,7 @@ export default () => (
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
     <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={2.18} y={13.4} rot={0} side="S" />
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9.5} y={-29.1} rot={180} side="S" />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9.5} y={-28.1} rot={180} side="S" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />

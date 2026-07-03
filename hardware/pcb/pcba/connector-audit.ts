@@ -87,17 +87,26 @@ export function auditConnectors(circuit: any[]): ConnectorAudit {
   for (const [compId, name] of Object.entries(nameOf)) {
     if (!/^J\d/.test(name)) continue
     const cy = outlineByComp[compId]
-    if (cy) { bodies.push({ ref: name, rect: cy }); continue } // real body courtyard (USB-C, screw terminal)
     const pads = padsByComp[compId]
-    if (!pads || !pads.length) continue
-    const minx = Math.min(...pads.map((p) => p.x)), maxx = Math.max(...pads.map((p) => p.x))
-    const miny = Math.min(...pads.map((p) => p.y)), maxy = Math.max(...pads.map((p) => p.y))
-    // pin row = the longer pad span; reconstruct the XH wafer body around the pins
-    const along = (maxx - minx) >= (maxy - miny) ? "x" : "y"
-    const rect: Rect = along === "x"
-      ? { minx: minx - XH_END, maxx: maxx + XH_END, miny: miny - XH_HALF_DEPTH, maxy: maxy + XH_HALF_DEPTH }
-      : { minx: minx - XH_HALF_DEPTH, maxx: maxx + XH_HALF_DEPTH, miny: miny - XH_END, maxy: maxy + XH_END }
-    bodies.push({ ref: name, rect })
+    let rect: Rect | null = null
+    if (pads && pads.length) {
+      const minx = Math.min(...pads.map((p) => p.x)), maxx = Math.max(...pads.map((p) => p.x))
+      const miny = Math.min(...pads.map((p) => p.y)), maxy = Math.max(...pads.map((p) => p.y))
+      // pin row = the longer pad span. An XH wafer is >=3 pads at ~2.5 mm pitch: reconstruct its
+      // true housing from the pins (the imported wafer footprint carries a courtyard, but it's
+      // pad-margin-inflated wider than the real plastic — this audit measures plastic-to-plastic).
+      // Non-row connectors (the USB-C, the screw terminal) keep their accurate courtyard.
+      const along = (maxx - minx) >= (maxy - miny) ? "x" : "y"
+      const span = along === "x" ? maxx - minx : maxy - miny
+      const isXhRow = pads.length >= 3 && span > 0 && Math.abs(span / (pads.length - 1) - XH_PITCH) < 0.2
+      if (isXhRow || !cy) {
+        rect = along === "x"
+          ? { minx: minx - XH_END, maxx: maxx + XH_END, miny: miny - XH_HALF_DEPTH, maxy: maxy + XH_HALF_DEPTH }
+          : { minx: minx - XH_HALF_DEPTH, maxx: maxx + XH_HALF_DEPTH, miny: miny - XH_END, maxy: maxy + XH_END }
+      }
+    }
+    if (!rect && cy) rect = cy   // real body courtyard (USB-C, screw terminal)
+    if (rect) bodies.push({ ref: name, rect })
   }
 
   const rows: ConnectorRow[] = []
