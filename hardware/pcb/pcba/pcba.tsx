@@ -149,7 +149,7 @@ export default () => (
     <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-1.8} y={32.65} rot={0} side="S" />
     <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-11.75} y={24.9} rot={0} side="S" />
     <Buck5 name="U10" x={22.81} y={-25.95} />
-    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={13.88} y={-26.9} rot={0} side="S" />
+    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={14.38} y={-26.9} rot={0} side="S" />
     <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={30.66} y={-25.65} rot={270} side="E" />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
         pump (Kamoer KPHM400-SW, 12V brushed DC, 0.8A at full speed per the datasheet — PWM'd well below that at the
@@ -312,7 +312,7 @@ export default () => (
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
     <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={2.18} y={15.2} rot={0} side="S" />
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9} y={-26.9} rot={180} side="S" />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9.5} y={-26.9} rot={180} side="S" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
@@ -447,12 +447,12 @@ export default () => (
     <trace from=".J6 > .GND" to="net.GND" />
 
     {/* REEDS B (reservoir B + carbonator low/high) -> 0x21 GPB inputs; J7 sits below U3 and fans up. */}
-    <trace from=".J7 > .RB1" to=".U3 > .GPB0" />
-    <trace from=".J7 > .RB2" to=".U3 > .GPB1" />
-    <trace from=".J7 > .RB3" to=".U3 > .GPB2" />
-    <trace from=".J7 > .RB4" to=".U3 > .GPB3" />
-    <trace from=".J7 > .CLO" to=".U3 > .GPB4" />
-    <trace from=".J7 > .CHI" to=".U3 > .GPB5" />
+    <trace from=".U3 > .GPB0" to=".J7 > .RB1" pcbFan="rowToRow" />
+    <trace from=".U3 > .GPB1" to=".J7 > .RB2" pcbFan="rowToRow" />
+    <trace from=".U3 > .GPB2" to=".J7 > .RB3" pcbFan="rowToRow" />
+    <trace from=".U3 > .GPB3" to=".J7 > .RB4" pcbFan="rowToRow" />
+    <trace from=".U3 > .GPB4" to=".J7 > .CLO" pcbFan="rowToRow" />
+    <trace from=".U3 > .GPB5" to=".J7 > .CHI" pcbFan="rowToRow" />
     <trace from=".J7 > .GND" to="net.GND" />
     <trace from=".U3 > .GND" to="net.GND" />
 
@@ -556,8 +556,9 @@ export default () => (
     {/* right — power rails (green), anode toward its R (outboard, +x): both rot 180 */}
     <LedGrn name="D5" pcbRotation={180} {...at(-21.5, -17)} />
     <LedGrn name="D6" pcbRotation={180} {...at(-21.5, -20)} />
-    <resistor name="R13" resistance="470" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23179"] }} {...at(-17, -17)} />
-    <resistor name="R14" resistance="470" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23179"] }} {...at(-17, -20)} />
+    <Res name="R13" resistance="470" footprint="0603" jlcpcb="C23179" x={-17} y={-17} rot={180} side="N" />
+    <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={-17} y={-20} rot={180} side="N" />
+    
     {/* firmware: GPIO -> R -> anode, cathode -> GND */}
     <trace from=".U1 > .IO14" to=".R10 > .pin1" />
     <trace from=".R10 > .pin2" to=".D2 > .anode" />
@@ -603,12 +604,12 @@ export default () => (
     <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-48.6} y={24.9} rot={90} side="E" />
     <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-44} y={24.85} rot={90} side="E" />
     {/* EN branch (west): U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
-    <resistor name="R17" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-56.3, 12.4)} />
+    <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-56.3} y={12.4} rot={0} side="S" />
     <S8050 name="Q2" pcbX={-63.8} pcbY={13} pcbRotation={0} />
     <silkscreentext text="Q2" fontSize="0.8mm" anchorAlignment="center" pcbX={-61.7} pcbY={13} />
     <Tact name="SW2" pcbX={-62} pcbY={27} pcbRotation={0} />
     {/* IO0 branch (east): U13.RTS -> R18 -> Q3.base; U13.DTR -> Q3.emitter; Q3.collector -> IO0; SW1 */}
-    <resistor name="R18" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-52.3, 12.4)} />
+    <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-52.3} y={12.4} rot={0} side="S" />
     <S8050 name="Q3" pcbX={-43} pcbY={19.55} pcbRotation={0} />
     <silkscreentext text="Q3" fontSize="0.8mm" anchorAlignment="center" pcbX={-40.9} pcbY={19.55} />
     <Tact name="SW1" pcbX={-62} pcbY={20} pcbRotation={0} />
