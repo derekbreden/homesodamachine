@@ -90,18 +90,19 @@ WALL = 3.0
 PORT_BULKHEAD_D = 18.0        # JG 1/4" bulkhead panel hole (clears the Ø17.14 barrel)
 PORT_BIB_D = 9.525            # BiB syrup port — presumed 3/8" for a 3/8" barb (placeholder)
 PORT_C14_W, PORT_C14_H = 25.0, 19.0   # C14 body 24x18 cross-section + 0.5/side clearance
-# C14 in the +X/+Z corner: center inboard/down from the +X wall / ceiling, enough
-# to clear the corner cross-pin brace (its -Z face sits ~9 mm below the ceiling)
-# and the vertical print fillet.
-C14_INSET_X = 16.0            # C14 center, this far -X (inboard) of the +X inner wall
-C14_DROP_Z = 26.0            # C14 center, this far -Z (down) from the ceiling
-# Fluid-port cluster: columns measured +X from the -X inner wall, all riding the
-# band's vertical center. Umbilical triangle, then tap-water, then the BiB pair.
-UMBIL_COL_X = 33.0            # umbilical triangle center column
-UMBIL_PITCH = 24.0           # umbilical center pitch (Ø18 hole + bulkhead-nut gap)
-WATER_COL_X = 66.0           # tap-water inlet column
-BIB_COL_X = 90.0             # BiB pair column
-BIB_PAIR_DZ = 13.0           # BiB pair vertical half-separation
+# The panel-clamping NUT / flange footprints are far wider than the through-holes,
+# so the cluster is spaced to the NUTS (not the holes) or the real hardware fouls.
+# Measured off the reference STEPs: JG bulkhead nut 22.86 sq (jg-bulkhead-union),
+# C14 flange 30.5 x 23.5 (iec-c14-inlet). BiB nut is TBD — presumed = the JG nut.
+PORT_NUT_D = 22.86           # JG bulkhead nut, across the panel face (measured)
+PORT_NUT_GAP = 7.0           # clear gap between adjacent bulkhead nuts (the margin)
+PORT_GROUP_GAP = 9.0         # equal clear gap between the umbilical / water / BiB nut groups
+PORT_CLUSTER_INSET_X = 6.0   # -X-most nut, this far off the -X inner wall
+# C14 in the +X/+Z corner: center inboard/down enough that its 30.5 x 23.5 FLANGE
+# (not just the cutout) clears the +X wall, the corner cross-pin brace (its -Z face
+# sits ~9 mm below the ceiling), and the vertical print fillet.
+C14_INSET_X = 19.5           # C14 center, this far -X (inboard) of the +X inner wall
+C14_DROP_Z = 28.0            # C14 center, this far -Z (down) from the ceiling
 
 
 # --- Colors ---------------------------------------------------------------
@@ -222,9 +223,16 @@ def back_wall_ports():
     z_mid = (foam_top + ceil_z) / 2.0              # band vertical center
 
     d = PORT_BULKHEAD_D
-    p = UMBIL_PITCH
+    r = PORT_NUT_D / 2.0
+    p = PORT_NUT_D + PORT_NUT_GAP                  # umbilical pitch: nut + margin, so nuts clear
     dz = p * (3.0 ** 0.5) / 2.0                    # triangular-cluster vertical span
-    ux = x_lo + UMBIL_COL_X
+    # Three nut-groups, left→right in +X, with EQUAL nut-envelope gaps between
+    # them: umbilical triangle, then tap-water, then the BiB pair. Chain each
+    # group's center off the previous group's +X nut edge + one PORT_GROUP_GAP.
+    ux = x_lo + PORT_CLUSTER_INSET_X + r + p / 2.0        # umbilical column (flavor-A nut off the wall)
+    wx = ux + p / 2.0 + r + PORT_GROUP_GAP + r            # tap-water, one group-gap past the triangle
+    bx = wx + r + PORT_GROUP_GAP + r                      # BiB pair, one group-gap past the water nut
+    bib_dz = (PORT_NUT_D + PORT_NUT_GAP) / 2.0            # BiB pair vertical half-sep (nut + margin)
     return [
         # Faucet umbilical: two flavor bulkheads on the lower row, the carb-water
         # (blue-ringed) bulkhead at the top vertex — the densest-three-circle
@@ -233,10 +241,10 @@ def back_wall_ports():
         ("round", ux + p / 2.0, z_mid - dz / 2.0, d),   # flavor B
         ("round", ux,           z_mid + dz / 2.0, d),   # carb-water (top vertex)
         # Tap-water inlet.
-        ("round", x_lo + WATER_COL_X, z_mid, d),
+        ("round", wx, z_mid, d),
         # Two BiB syrup ports (3/8" barb), a vertical pair beside the water lines.
-        ("round", x_lo + BIB_COL_X, z_mid + BIB_PAIR_DZ, PORT_BIB_D),
-        ("round", x_lo + BIB_COL_X, z_mid - BIB_PAIR_DZ, PORT_BIB_D),
+        ("round", bx, z_mid + bib_dz, PORT_BIB_D),
+        ("round", bx, z_mid - bib_dz, PORT_BIB_D),
         # C14 mains inlet — the +X/+Z corner of the back face (the usual spot),
         # clear of the corner cross-pin brace and the vertical print fillet.
         ("rect", x_hi - C14_INSET_X, ceil_z - C14_DROP_Z, PORT_C14_W, PORT_C14_H),
