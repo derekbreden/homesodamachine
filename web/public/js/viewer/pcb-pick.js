@@ -203,12 +203,18 @@ function focusBoardPoint(xmm, ymm) {
   pz.setTransform({ scale, panX: vw / 2 - p.x * scale, panY: vh / 2 - p.y * scale });
 }
 
+// Arm the Inspect tool (and sync its toggle) so a reveal's highlight + identity panel
+// read as a normal pick. No-op if it's already on.
+function armInspect() {
+  if (!enabled) { setPadPickEnabled(true); if (toggleRefresh) toggleRefresh(); }
+}
+
 // A Board-checks clearance row was clicked: arm Inspect, select one end (preferring a
 // discrete via/pad over a whole-net trace), and pan so the pinch — the midpoint of the
 // ends — is centred. `ends` is the two-element ClearancePair.ends from clearance.ts.
 export function revealClearance(ends) {
   if (!ctx || !Array.isArray(ends) || !ends.length) return;
-  if (!enabled) { setPadPickEnabled(true); if (toggleRefresh) toggleRefresh(); }
+  armInspect();
   const rank = { via: 0, pad: 1, trace: 2 };
   let hit = null;
   for (const end of [...ends].sort((a, b) => (rank[a.kind] ?? 3) - (rank[b.kind] ?? 3))) {
@@ -219,6 +225,34 @@ export function revealClearance(ends) {
   const cx = ends.reduce((s, e) => s + e.x, 0) / ends.length;
   const cy = ends.reduce((s, e) => s + e.y, 0) / ends.length;
   focusBoardPoint(cx, cy);
+}
+
+// Reveal a component by ref-des — a Footprint or Decoupling row. Selects a representative
+// pad (the named pin if given, else the part's first pad) and centres on it: enough to
+// land on the part without hunting, and the pad panel names it. No-op if it isn't placed.
+export function revealComponent(ref, pin) {
+  if (!ctx || !ref) return;
+  let idx = -1;
+  if (pin != null) idx = (ctx.pads || []).findIndex((p) => p.ref === ref && String(p.pin) === String(pin));
+  if (idx < 0) idx = (ctx.pads || []).findIndex((p) => p.ref === ref);
+  if (idx < 0) return;
+  armInspect();
+  select("pad", idx);
+  const p = ctx.pads[idx];
+  focusBoardPoint(p.x, p.y);
+}
+
+// Reveal a routed trace by its "from → to" label — an Ampacity row. Selects the trace and
+// centres on the midpoint of its polyline (the whole route highlights). No-op on no match.
+export function revealTraceRoute(label) {
+  if (!ctx || !label) return;
+  const i = (ctx.traces || []).findIndex((t) => t.from && t.to && `${t.from} → ${t.to}` === label);
+  if (i < 0) return;
+  armInspect();
+  select("trace", i);
+  const pts = ctx.traces[i].points || [];
+  const mid = pts[Math.floor(pts.length / 2)];
+  if (mid) focusBoardPoint(mid[0], mid[1]);
 }
 
 // Map a viewport (client) point to board mm. Undo PanZoom's CSS transform
