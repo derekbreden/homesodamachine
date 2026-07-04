@@ -344,22 +344,22 @@ export default () => (
         valve mapping is unchanged; inside the ULN, channel j is IN_j -> OUT_j -> J.OUT_j
         (valve-control.mmd). Each MCP sits immediately left of its ULN, so the eight pairs
         cross straight across. */}
-    <trace from=".U2 > .GPA0" to=".U4 > .IN8" pcbFan="rowToColumn" />
-    <trace from=".U2 > .GPA1" to=".U4 > .IN7" pcbFan="rowToColumn" />
-    <trace from=".U2 > .GPA2" to=".U4 > .IN6" pcbFan="rowToColumn" />
-    <trace from=".U2 > .GPA3" to=".U4 > .IN5" pcbFan="rowToColumn" />
-    <trace from=".U2 > .GPA4" to=".U4 > .IN4" pcbFan="rowToColumn" />
-    <trace from=".U2 > .GPA5" to=".U4 > .IN3" pcbFan="rowToColumn" />
-    <trace from=".U2 > .GPA6" to=".U4 > .IN2" pcbFan="rowToColumn" />
-    <trace from=".U2 > .GPA7" to=".U4 > .IN1" pcbFan="columnToRow" />
-    <trace from=".U3 > .GPA0" to=".U5 > .IN8" pcbFan="rowToColumn" />
-    <trace from=".U3 > .GPA1" to=".U5 > .IN7" pcbFan="rowToColumn" />
-    <trace from=".U3 > .GPA2" to=".U5 > .IN6" pcbFan="rowToColumn" />
-    <trace from=".U3 > .GPA3" to=".U5 > .IN5" pcbFan="rowToColumn" />
-    <trace from=".U3 > .GPA4" to=".U5 > .IN4" pcbFan="rowToColumn" />
-    <trace from=".U3 > .GPA5" to=".U5 > .IN3" pcbFan="rowToColumn" />
-    <trace from=".U3 > .GPA6" to=".U5 > .IN2" pcbFan="rowToColumn" />
-    <trace from=".U3 > .GPA7" to=".U5 > .IN1" pcbFan="rowToColumn" />
+    <trace from=".U2 > .GPA0" to=".U4 > .IN8" pcbComb="rowToColumn" />
+    <trace from=".U2 > .GPA1" to=".U4 > .IN7" pcbComb="rowToColumn" />
+    <trace from=".U2 > .GPA2" to=".U4 > .IN6" pcbComb="rowToColumn" />
+    <trace from=".U2 > .GPA3" to=".U4 > .IN5" pcbComb="rowToColumn" />
+    <trace from=".U2 > .GPA4" to=".U4 > .IN4" pcbComb="rowToColumn" />
+    <trace from=".U2 > .GPA5" to=".U4 > .IN3" pcbComb="rowToColumn" />
+    <trace from=".U2 > .GPA6" to=".U4 > .IN2" pcbComb="rowToColumn" />
+    <trace from=".U2 > .GPA7" to=".U4 > .IN1" pcbComb="columnToRow" />
+    <trace from=".U3 > .GPA0" to=".U5 > .IN8" pcbComb="rowToColumn" />
+    <trace from=".U3 > .GPA1" to=".U5 > .IN7" pcbComb="rowToColumn" />
+    <trace from=".U3 > .GPA2" to=".U5 > .IN6" pcbComb="rowToColumn" />
+    <trace from=".U3 > .GPA3" to=".U5 > .IN5" pcbComb="rowToColumn" />
+    <trace from=".U3 > .GPA4" to=".U5 > .IN4" pcbComb="rowToColumn" />
+    <trace from=".U3 > .GPA5" to=".U5 > .IN3" pcbComb="rowToColumn" />
+    <trace from=".U3 > .GPA6" to=".U5 > .IN2" pcbComb="rowToColumn" />
+    <trace from=".U3 > .GPA7" to=".U5 > .IN1" pcbComb="rowToColumn" />
 
     {/* I2C bus — SDA and SCL are high-fan-out nets, so they are POURED (inner3 / inner4),
         not routed: every SDA/SCL pin is put on its net and commons to that plane (the SMD
@@ -387,21 +387,21 @@ export default () => (
     <trace from=".C7 > .pin2" to="net.GND" />
 
     {/* manifold JSTs: ULN outputs -> valve looms */}
-    <trace from=".U4 > .OUT1" to=".J1 > .OUT1" pcbFan="rowToColumn" thickness="0.3mm" />
-    <trace from=".U4 > .OUT2" to=".J1 > .OUT2" pcbFan="columnToColumn" thickness="0.3mm" />
-    <trace from=".U4 > .OUT3" to=".J1 > .OUT3" pcbFan="columnToColumn" thickness="0.3mm" />
-    <trace from=".U4 > .OUT4" to=".J1 > .OUT4" pcbFan="columnToColumn" thickness="0.3mm" />
-    <trace from=".U4 > .OUT5" to=".J1 > .OUT5" pcbFan="columnToColumn" thickness="0.3mm" />
-    <trace from=".U4 > .OUT6" to=".J1 > .OUT6" pcbFan="columnToColumn" thickness="0.3mm" />
-    <trace from=".U4 > .OUT7" to=".J1 > .OUT7" pcbFan="columnToColumn" thickness="0.3mm" />
-    <trace from=".U4 > .OUT8" to=".J1 > .OUT8" pcbFan="columnToColumn" thickness="0.3mm" />
+    <trace from=".U4 > .OUT1" to=".J1 > .OUT1" pcbComb="rowToColumn" thickness="0.3mm" />
+    <trace from=".U4 > .OUT2" to=".J1 > .OUT2" pcbComb="columnToColumn" thickness="0.3mm" />
+    <trace from=".U4 > .OUT3" to=".J1 > .OUT3" pcbComb="columnToColumn" thickness="0.3mm" />
+    <trace from=".U4 > .OUT4" to=".J1 > .OUT4" pcbComb="columnToColumn" thickness="0.3mm" />
+    <trace from=".U4 > .OUT5" to=".J1 > .OUT5" pcbComb="columnToColumn" thickness="0.3mm" />
+    <trace from=".U4 > .OUT6" to=".J1 > .OUT6" pcbComb="columnToColumn" thickness="0.3mm" />
+    <trace from=".U4 > .OUT7" to=".J1 > .OUT7" pcbComb="columnToColumn" thickness="0.3mm" />
+    <trace from=".U4 > .OUT8" to=".J1 > .OUT8" pcbComb="columnToColumn" thickness="0.3mm" />
     <trace from=".J1 > .COM" to="net.V12" />
     {/* MANIFOLD B: 4 valves on U5 ch1-4, condenser FAN on U5 ch5, COM = 12V flyback. */}
-    <trace from=".U5 > .OUT1" to=".J2 > .OUT1" pcbFan="columnToColumn" thickness="0.3mm" />
-    <trace from=".U5 > .OUT2" to=".J2 > .OUT2" pcbFan="columnToColumn" thickness="0.3mm" />
-    <trace from=".U5 > .OUT3" to=".J2 > .OUT3" pcbFan="columnToColumn" thickness="0.3mm" />
-    <trace from=".U5 > .OUT4" to=".J2 > .OUT4" pcbFan="columnToColumn" thickness="0.3mm" />
-    <trace from=".U5 > .OUT5" to=".J2 > .FAN" pcbFan="columnToColumn" thickness="0.3mm" />
+    <trace from=".U5 > .OUT1" to=".J2 > .OUT1" pcbComb="columnToColumn" thickness="0.3mm" />
+    <trace from=".U5 > .OUT2" to=".J2 > .OUT2" pcbComb="columnToColumn" thickness="0.3mm" />
+    <trace from=".U5 > .OUT3" to=".J2 > .OUT3" pcbComb="columnToColumn" thickness="0.3mm" />
+    <trace from=".U5 > .OUT4" to=".J2 > .OUT4" pcbComb="columnToColumn" thickness="0.3mm" />
+    <trace from=".U5 > .OUT5" to=".J2 > .FAN" pcbComb="columnToColumn" thickness="0.3mm" />
     <trace from=".J2 > .COM" to="net.V12" />
 
     {/* FAUCET UART — IO33 TX (output-capable) / IO35 RX (input-only), both S-edge pins;
@@ -462,19 +462,19 @@ export default () => (
 
 
     {/* REEDS A (reservoir A) -> 0x20 GPB inputs; J6 sits directly above U2 and fans down. */}
-    <trace from=".U2 > .GPB0" to=".J6 > .RA1" pcbFan="rowToRow" />
-    <trace from=".U2 > .GPB1" to=".J6 > .RA2" pcbFan="rowToRow" />
-    <trace from=".U2 > .GPB2" to=".J6 > .RA3" pcbFan="rowToRow" />
-    <trace from=".U2 > .GPB3" to=".J6 > .RA4" pcbFan="rowToRow" />
+    <trace from=".U2 > .GPB0" to=".J6 > .RA1" pcbComb="rowToRow" />
+    <trace from=".U2 > .GPB1" to=".J6 > .RA2" pcbComb="rowToRow" />
+    <trace from=".U2 > .GPB2" to=".J6 > .RA3" pcbComb="rowToRow" />
+    <trace from=".U2 > .GPB3" to=".J6 > .RA4" pcbComb="rowToRow" />
     <trace from=".J6 > .GND" to="net.GND" />
 
     {/* REEDS B (reservoir B + carbonator low/high) -> 0x21 GPB inputs; J7 sits below U3 and fans up. */}
-    <trace from=".U3 > .GPB0" to=".J7 > .RB1" pcbFan="rowToRow" />
-    <trace from=".U3 > .GPB1" to=".J7 > .RB2" pcbFan="rowToRow" />
-    <trace from=".U3 > .GPB2" to=".J7 > .RB3" pcbFan="rowToRow" />
-    <trace from=".U3 > .GPB3" to=".J7 > .RB4" pcbFan="rowToRow" />
-    <trace from=".U3 > .GPB4" to=".J7 > .CLO" pcbFan="rowToRow" />
-    <trace from=".U3 > .GPB5" to=".J7 > .CHI" pcbFan="rowToRow" />
+    <trace from=".U3 > .GPB0" to=".J7 > .RB1" pcbComb="rowToRow" />
+    <trace from=".U3 > .GPB1" to=".J7 > .RB2" pcbComb="rowToRow" />
+    <trace from=".U3 > .GPB2" to=".J7 > .RB3" pcbComb="rowToRow" />
+    <trace from=".U3 > .GPB3" to=".J7 > .RB4" pcbComb="rowToRow" />
+    <trace from=".U3 > .GPB4" to=".J7 > .CLO" pcbComb="rowToRow" />
+    <trace from=".U3 > .GPB5" to=".J7 > .CHI" pcbComb="rowToRow" />
     <trace from=".J7 > .GND" to="net.GND" />
     <trace from=".U3 > .GND" to="net.GND" />
 
