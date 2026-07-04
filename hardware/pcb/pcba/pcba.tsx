@@ -222,11 +222,11 @@ export default () => (
         the fence toward the edge, at the same absolute Y as the north JSTs (pin labels 34.605,
         function 35.715) so all four read identically; the ref-des sits inside the fence (hidden
         under the body once populated), exactly where the JSTs tuck theirs. */}
-    <KF301_5_0_2P name="J10" pinLabels={{ pin1: ["GND"], pin2: ["V12"] }} pcbRotation={180} {...at(23.4, 30.115)} />
-    <silkscreentext text="GND" fontSize="0.8mm" anchorAlignment="center" pcbX={25.9} pcbY={34.605} />
-    <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={20.9} pcbY={34.605} />
-    <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={23.4} pcbY={35.715} />
-    <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={23.4} pcbY={27.0} />
+    <KF301_5_0_2P name="J10" pinLabels={{ pin1: ["GND"], pin2: ["V12"] }} pcbRotation={180} {...at(22.35, 30.65)} />
+    <silkscreentext text="GND" fontSize="0.8mm" anchorAlignment="center" pcbX={24.85} pcbY={34.84} />
+    <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={19.85} pcbY={34.84} />
+    <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={22.35} pcbY={35.8} />
+    <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={22.35} pcbY={27.61} />
     <Jst name="J11" x={-54.8} y={-32} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} rot={0} label="GAS" side="S" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
