@@ -12,7 +12,7 @@
 
 import { state } from "./state.js";
 import { makeResetButton, makeMinimap } from "./pan-zoom-extras.js";
-import { installPadPicker, clearPadPicker, clearPadSelection, makePadPickToggle, revealClearance } from "./pcb-pick.js";
+import { installPadPicker, clearPadPicker, clearPadSelection, makePadPickToggle, revealClearance, revealComponent, revealTraceRoute } from "./pcb-pick.js";
 import { installEditOverlay, clearEditOverlay, makeEditToggle, fetchEditComponents } from "./pcb-edit.js";
 
 // Every board has these three; inner planes (inner1, inner2, …) are per-board,
@@ -259,7 +259,7 @@ function updateDimsChip(wrapper, picks) {
   if (text) el.appendChild(Object.assign(document.createElement("span"), { className: "pcb-dims-text", textContent: text }));
   if (errors || warns) {
     // Three states, worst wins: red for hard DRC errors (incl. floating pads), amber for the
-    // soft advisories (decoupling / connectors / ampacity / sourcing), green when both are clean.
+    // soft advisories (decoupling / ampacity / sourcing), green when both are clean.
     // `has-issues` tracks DRC errors ONLY, so it stays the manufacturability signal.
     const nErr = errors ? errors.length : 0;
     const badge = document.createElement("button");
@@ -268,7 +268,7 @@ function updateDimsChip(wrapper, picks) {
     badge.textContent = nErr ? `⚠ ${nErr} issue${nErr === 1 ? "" : "s"}`
       : warns ? `⚠ ${warns} advisor${warns === 1 ? "y" : "ies"}`
       : "✓ clean";
-    badge.title = "Clearance · DRC · decoupling · connectors · ampacity · fab";
+    badge.title = "Clearance · DRC · decoupling · ampacity · fab";
     badge.addEventListener("click", (e) => { e.stopPropagation(); openChecksModal(wrapper, picks); });
     el.appendChild(badge);
   }
@@ -292,36 +292,44 @@ function makeRow(cls, left, right) {
 function checkHead(text) {
   return Object.assign(document.createElement("div"), { className: "pcb-checks-h", textContent: text });
 }
-// A clearance-pair row that names where it pinches and, when the pair carries the
-// witness ends (clearance.ts), is clickable: closes the modal and reveals it — panning
-// the board to the pinch and selecting one end in the inspector. Pairs without `ends`
-// (an older sidecar, or the footprint body pairs) render as a plain, static row.
-function makeClearanceRow(p, wrapper) {
-  const ends = Array.isArray(p.ends) ? p.ends : null;
-  const row = makeRow("pcb-checks-row", `${p.a} ↔ ${p.b}`, `${p.gap.toFixed(3)} mm`);
-  if (!ends) return row;
-  const mx = ends.reduce((s, e) => s + e.x, 0) / ends.length;
-  const my = ends.reduce((s, e) => s + e.y, 0) / ends.length;
-  row.querySelector(".k").appendChild(Object.assign(document.createElement("span"), {
-    className: "pcb-checks-at", textContent: `  ${mx.toFixed(2)}, ${my.toFixed(2)} mm`,
-  }));
+// A checks row that, given a `reveal` action, closes the modal and jumps the board to the
+// thing it names (pan/zoom + select in the inspector). `reveal` null → a plain static row
+// (nothing placed to jump to). Shared by every jumpable section: clearance, footprint,
+// decoupling, ampacity.
+function makeActionRow(cls, left, right, wrapper, reveal) {
+  const row = makeRow(cls, left, right);
+  if (!reveal) return row;
   row.classList.add("clickable");
   row.title = "Show on board";
   row.addEventListener("click", (e) => {
     e.stopPropagation();
     closeChecksModal(wrapper);
-    revealClearance(ends);
+    reveal();
   });
   return row;
 }
+// A clearance-pair row: names where it pinches (the witness coordinate) and, when the pair
+// carries its ends (clearance.ts), jumps to that pinch. Pairs without `ends` (an older
+// sidecar) render static.
+function makeClearanceRow(p, wrapper) {
+  const ends = Array.isArray(p.ends) ? p.ends : null;
+  const row = makeActionRow("pcb-checks-row", `${p.a} ↔ ${p.b}`, `${p.gap.toFixed(3)} mm`, wrapper, ends ? () => revealClearance(ends) : null);
+  if (ends) {
+    const mx = ends.reduce((s, e) => s + e.x, 0) / ends.length;
+    const my = ends.reduce((s, e) => s + e.y, 0) / ends.length;
+    row.querySelector(".k").appendChild(Object.assign(document.createElement("span"), {
+      className: "pcb-checks-at", textContent: `  ${mx.toFixed(2)}, ${my.toFixed(2)} mm`,
+    }));
+  }
+  return row;
+}
 // Count the advisory (amber) flags across every soft check — decoupling drift + missing
-// decouplers (both in capAudit.flagged), tight connectors, thin current traces, unsourced parts.
+// decouplers (both in capAudit.flagged), thin current traces, unsourced parts.
 // Separate from picks.errors, which are the hard (red) DRC failures.
 function advisoryCount(picks) {
   if (!picks) return 0;
   let n = 0;
   if (picks.capAudit) n += picks.capAudit.flagged || 0;
-  if (picks.connectors) n += picks.connectors.flagged || 0;
   if (picks.ampacity) n += picks.ampacity.flagged || 0;
   if (picks.fab && Array.isArray(picks.fab.unsourced)) n += picks.fab.unsourced.length;
   return n;
@@ -390,7 +398,7 @@ function openChecksModal(wrapper, picks) {
   const foot = (picks && picks.footprints) || null;
   if (foot && typeof foot.floor === "number") {
     card.appendChild(checkHead(`Footprint clearance floor — ${foot.floor.toFixed(3)} mm`));
-    const rows = (foot.tight || []).map((p) => makeRow("pcb-checks-row", `${p.a} ↔ ${p.b}`, `${p.gap.toFixed(3)} mm`));
+    const rows = (foot.tight || []).map((p) => makeActionRow("pcb-checks-row", `${p.a} ↔ ${p.b}`, `${p.gap.toFixed(3)} mm`, wrapper, () => revealComponent(p.a)));
     addCollapsibleRows(card, rows, 3);
   }
 
@@ -405,29 +413,22 @@ function openChecksModal(wrapper, picks) {
   const audit = (picks && picks.capAudit) || null;
   if (audit && Array.isArray(audit.rows) && audit.rows.length) {
     card.appendChild(checkHead(audit.flagged ? `Decoupling — ${audit.flagged} to review` : `Decoupling (${audit.rows.length})`));
-    for (const m of (audit.missing || [])) card.appendChild(makeRow("pcb-checks-row warn", `${m.part} · ${m.pin}`, "no decoupler declared"));
+    for (const m of (audit.missing || [])) card.appendChild(makeActionRow("pcb-checks-row warn", `${m.part} · ${m.pin}`, "no decoupler declared", wrapper, () => revealComponent(m.part, m.pin)));
     const rows = audit.rows.map((r) => {
       const left = r.role ? `${r.cap} → ${r.near} · ${r.role}` : `${r.cap} → ${r.near}`;
       const right = r.gap == null ? (r.note || "not placed") : `${r.gap.toFixed(2)} / ${r.budget} mm`;
-      return makeRow("pcb-checks-row" + (r.over ? " warn" : ""), left, right);
+      // gap null = a part isn't placed, so there's nothing on the board to jump to.
+      return makeActionRow("pcb-checks-row" + (r.over ? " warn" : ""), left, right, wrapper, r.gap == null ? null : () => revealComponent(r.cap));
     });
     addCollapsibleRows(card, rows, Math.max(3, audit.rows.filter((r) => r.over).length));
   }
 
-  // Connectors (connector-audit.ts): each connector body's smallest gap to the edge / neighbours /
-  // mounting holes. Amber when notably tight; a negative gap is a collision or edge overhang.
-  const conn = (picks && picks.connectors) || null;
-  if (conn && Array.isArray(conn.rows) && conn.rows.length) {
-    card.appendChild(checkHead(conn.flagged ? `Connectors — ${conn.flagged} tight` : `Connectors (${conn.rows.length})`));
-    const rows = conn.rows.map((r) => makeRow("pcb-checks-row" + (r.over ? " warn" : ""), `${r.ref} ↔ ${r.to}`, `${r.clearance.toFixed(2)} mm`));
-    addCollapsibleRows(card, rows, Math.max(3, conn.flagged));
-  }
-
   // Ampacity (ampacity-audit.ts): declared current-carrying traces vs the width they want.
+  // Each row jumps to (and selects) the trace it names.
   const amp = (picks && picks.ampacity) || null;
   if (amp && Array.isArray(amp.rows) && amp.rows.length) {
     card.appendChild(checkHead(amp.flagged ? `Ampacity — ${amp.flagged} thin` : `Ampacity (${amp.rows.length})`));
-    const rows = amp.rows.map((r) => makeRow("pcb-checks-row" + (r.over ? " warn" : ""), `${r.label} · ${r.role}`, `${r.width.toFixed(2)} / ${r.minWidth} mm`));
+    const rows = amp.rows.map((r) => makeActionRow("pcb-checks-row" + (r.over ? " warn" : ""), `${r.label} · ${r.role}`, `${r.width.toFixed(2)} / ${r.minWidth} mm`, wrapper, () => revealTraceRoute(r.label)));
     addCollapsibleRows(card, rows, Math.max(3, amp.flagged));
   }
 
