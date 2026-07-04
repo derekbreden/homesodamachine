@@ -34,7 +34,7 @@ The capacity path splices the waypoint into that connection and routes through i
 - **Offsets are absolute board coordinates** when the `<tracehint>` is a direct child of
   `<board>` (they are taken through the hint's own transform, which is identity there).
 
-## Deterministic: `pcbPath` / `pcbFan` / `pcbStraightLine`
+## Deterministic: `pcbPath` / `pcbComb` / `pcbStraightLine`
 
 When you need a *guaranteed* result — a specific path, a via at a point, a chosen layer — use
 the manual-trace props. They lay fixed copper in the manual-trace phase *before* the
@@ -45,13 +45,14 @@ board's pump-bus fan-out already uses):
 - **`pcbPath={[{ x, y }, { x, y, via: true, toLayer: "inner2" }, …]}`** — a full manual path:
   waypoints, real vias with `fromLayer` / `toLayer`, per-segment layer. The only hint-like
   tool that can force a via and a landing layer.
-- **`pcbFan`** — computed straight→45°→straight fan for pin-line bundles (our core fork;
-  upstreamed as `pcbComb`). See [`FORKS.md`](FORKS.md).
+- **`pcbComb`** — computed straight→45°→straight comb for pin-line bundles (our core fork;
+  open upstream PR [tscircuit/core#2567](https://github.com/tscircuit/core/pull/2567)). See
+  [`FORKS.md`](FORKS.md).
 
 ## Which to reach for
 
 - Router made a mess in one spot, just needs a nudge → `<tracehint>`.
-- Need an exact path, a via, or a specific layer → `pcbPath` (or `pcbFan` for a bundle).
+- Need an exact path, a via, or a specific layer → `pcbPath` (or `pcbComb` for a bundle).
 - `pcbRouteHints` prop → never, on this board.
 
 Why the two hint spellings differ, and why only one reaches the capacity router, is written up
