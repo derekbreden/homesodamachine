@@ -111,7 +111,7 @@ export const Res = ({ name, resistance, footprint, jlcpcb, x, y, rot = 0, side }
 export const Jst = ({ name, x, y, count, labels, label, side }: { name: string; x: number; y: number; count: number; labels: string[]; rot?: number; label: string; side: "N" | "S" | "E" | "W"; jlcpcb?: string }) => {
   const Wafer = WAFER_BY_COUNT[count]
   const pitch = WAFER_PITCH[count] ?? 2.5
-  const smHalf = 0.24, bigHalf = 0.42, padR = 0.825, G = 0.45   // ink cap half-heights; pad radius; tier gap
+  const smHalf = 0.24, bigHalf = 0.42, padR = 0.825, G = 0.25   // ink cap half-heights; pad radius; tier gap
   // Rotate the wafer so its opening (intrinsic +Y or -Y, WAFER_OPEN) faces the board edge `side`.
   const openAngle = WAFER_OPEN[count] > 0 ? 90 : 270              // intrinsic opening angle (deg CCW)
   const wantAngle: Record<"N" | "S" | "E" | "W", number> = { N: 90, S: 270, E: 0, W: 180 }
@@ -130,9 +130,8 @@ export const Jst = ({ name, x, y, count, labels, label, side }: { name: string; 
   const [ox, oy] = OUT[side]                          // unit vector toward the edge (outboard)
   const textRot = side === "E" || side === "W" ? 90 : 0        // vertical rows read bottom-to-top
   const pinOff = padR + G + smHalf                    // pin row -> pin label (inboard)
-  const refOff = pinOff + smHalf + G + smHalf          // -> ref-des (inboard, next tier)
-  const funcOff = refOff + smHalf + G + bigHalf         // -> function label (inboard, past the body)
-  const survPinOff = WAFER_BODY_OUT[count] + G + smHalf                   // outboard, clear of the body
+  const refOff = -pinOff          // -> ref-des (inboard, next tier)
+  const survPinOff = WAFER_BODY_OUT[count] + G                   // outboard, clear of the body
   const survFuncOff = survPinOff + smHalf + G + bigHalf                   // outboard function, next tier
   const span = ((count - 1) * pitch) / 2
   const pinAt = (i: number): [number, number] => R(pin1West ? -span + i * pitch : span - i * pitch, 0)  // pin i+1 local->world
@@ -143,7 +142,6 @@ export const Jst = ({ name, x, y, count, labels, label, side }: { name: string; 
         const [px, py] = pinAt(i)
         return <silkscreentext key={`p${i}`} text={lbl} fontSize="0.8mm" pcbX={x + px - ox * pinOff} pcbY={y + py - oy * pinOff} pcbRotation={textRot} />
       })}
-      <silkscreentext text={label} fontSize="1.4mm" pcbX={x - ox * funcOff} pcbY={y - oy * funcOff} pcbRotation={textRot} />
       <silkscreentext text={name} fontSize="0.8mm" pcbX={x - ox * refOff} pcbY={y - oy * refOff} pcbRotation={textRot} />
       <silkscreentext text={label} fontSize="1.4mm" pcbX={x + ox * survFuncOff} pcbY={y + oy * survFuncOff} pcbRotation={textRot} />
       {L.map((lbl, i) => {
