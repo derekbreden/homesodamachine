@@ -767,6 +767,11 @@
 /* A decoupling cap past its budget — amber on both the label and the gap readout. */
 .pcb-checks-row.warn .k { color: var(--warn); }
 .pcb-checks-row.warn .v { color: var(--warn); }
+/* A clearance pair that can be shown on the board — clickable, with the pinch location
+   trailing its label in a muted tone. Hover tints the row so it reads as a control. */
+.pcb-checks-row.clickable { cursor: pointer; }
+.pcb-checks-row.clickable:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.pcb-checks-row .pcb-checks-at { color: var(--text-3); white-space: nowrap; }
 .pcb-checks-clean { color: var(--ok); padding: 2px 0; }
 /* Per-section "Show N more / less" toggle — a muted full-width control under a collapsed
    list (clearance pairs, decoupling rows). The hidden tail is a plain block wrapper. */
