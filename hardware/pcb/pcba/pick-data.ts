@@ -26,6 +26,7 @@ import { pathToFileURL } from "node:url"
 import { analyzeClearance } from "./clearance"
 import { auditDecoupling, type DecouplingRule } from "./cap-audit"
 import { auditConnectors } from "./connector-audit"
+import { auditFootprints } from "./footprint-audit"
 import { auditAmpacity, type AmpacityRule } from "./ampacity-audit"
 import type { PicksFile, Pad, Via, Trace, PadIdentity, FabStats } from "../../../web/contracts/picks-schema"
 
@@ -195,7 +196,12 @@ function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRule
   const connectors = auditConnectors(circuit)
   const ampacity = ampacityRules.length ? auditAmpacity(ampacityRules, traces) : null
 
-  return { board, unitsPerMm: 1000, size, pads, vias, traces, clearance: { floor, tight }, errors, capAudit, connectors, ampacity, fab }
+  // Component-body clearance readout (footprint-audit.ts): the tightest part-body gaps — the
+  // body-to-body sibling of the copper `clearance` floor, catching physical collisions copper is
+  // blind to. Informational, like the copper floor (real overlaps ride in `errors`).
+  const footprints = auditFootprints(circuit)
+
+  return { board, unitsPerMm: 1000, size, pads, vias, traces, clearance: { floor, tight }, errors, capAudit, connectors, footprints, ampacity, fab }
 }
 
 // Manufacturability numbers, straight off the circuit-json. `partsSourced` is the JLCPCB-assembly
