@@ -5,20 +5,23 @@
  * viewer maps mm onto the Gerber SVG at unitsPerMm (1 mm = 1000 units).
  *
  * Identity (pads/vias/traces) is what the pad picker hit-tests. Readout (size, fab) and checks
- * (clearance, errors, capAudit, connectors, ampacity) are what the board chip and Board-checks
- * panel show. The check shapes are defined with their analyses in hardware/pcb/pcba/ —
+ * (clearance, errors, capAudit, connectors, footprints, ampacity) are what the board chip and
+ * Board-checks panel show. The check shapes are defined with their analyses in hardware/pcb/pcba/ —
  * ClearancePair/BoardError in clearance.ts, CapAudit in cap-audit.ts, ConnectorAudit in
- * connector-audit.ts, AmpacityAudit in ampacity-audit.ts — and gathered here so the whole file has
- * one definition. (Fab is a plain readout with no analysis of its own, so it's defined inline.)
+ * connector-audit.ts, FootprintAudit in footprint-audit.ts, AmpacityAudit in ampacity-audit.ts —
+ * and gathered here so the whole file has one definition. (Fab is a plain readout with no analysis
+ * of its own, so it's defined inline.)
  */
 import type { ClearancePair, BoardError } from "../../hardware/pcb/pcba/clearance"
 import type { CapAudit } from "../../hardware/pcb/pcba/cap-audit"
 import type { ConnectorAudit } from "../../hardware/pcb/pcba/connector-audit"
+import type { FootprintAudit } from "../../hardware/pcb/pcba/footprint-audit"
 import type { AmpacityAudit } from "../../hardware/pcb/pcba/ampacity-audit"
 
 export type { ClearancePair, BoardError } from "../../hardware/pcb/pcba/clearance"
 export type { CapAudit, CapAuditRow, CoverageGap } from "../../hardware/pcb/pcba/cap-audit"
 export type { ConnectorAudit, ConnectorRow } from "../../hardware/pcb/pcba/connector-audit"
+export type { FootprintAudit, FootprintPair } from "../../hardware/pcb/pcba/footprint-audit"
 export type { AmpacityAudit, AmpacityRow } from "../../hardware/pcb/pcba/ampacity-audit"
 
 /** A pad's identity, resolved pcb_port → source_port → component; null where a pad has no port. */
@@ -86,6 +89,7 @@ export type PicksFile = {
   errors: BoardError[]
   capAudit: CapAudit | null
   connectors: ConnectorAudit
+  footprints: FootprintAudit
   ampacity: AmpacityAudit | null
   fab: FabStats
 }
