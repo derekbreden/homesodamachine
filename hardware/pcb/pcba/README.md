@@ -28,4 +28,7 @@ checked on every build rather than assembled at the end.
 - [`plane-stitching.md`](plane-stitching.md) — how SMD pads on a plane net are auto-stitched
   to the plane (and why a stitch via must carry the net), since DRC is pour-blind and won't
   flag a floating pad.
+- [`route-hints.md`](route-hints.md) — how to influence PCB routing on this board: why the
+  `pcbRouteHints` prop is inert under our capacity autorouter, `<tracehint>` for soft nudges,
+  and `pcbPath` / `pcbFan` for deterministic paths, vias, and layers.
 - Per-step specs (`uln2803.md`, `mcp23017.md`, …).
