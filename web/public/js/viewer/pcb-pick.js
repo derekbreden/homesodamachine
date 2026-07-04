@@ -146,6 +146,81 @@ function select(kind, index) {
   showPanel(selection);
 }
 
+// --- reveal a clearance-check endpoint (driven by the Board-checks modal) ---
+
+// Board-mm distance from point (x, y) to segment a→b.
+function segPointDist(a, b, x, y) {
+  const dx = b[0] - a[0], dy = b[1] - a[1], L2 = dx * dx + dy * dy;
+  let t = L2 > 0 ? ((x - a[0]) * dx + (y - a[1]) * dy) / L2 : 0;
+  t = Math.max(0, Math.min(1, t));
+  return Math.hypot(a[0] + t * dx - x, a[1] + t * dy - y);
+}
+
+// Resolve a clearance end { kind, label, x, y } (from clearance.ts) to a live
+// { kind, index } into the pick arrays. Each kind is matched the way it's best
+// identified: a via by its centre (a unique position), a pad by its ref.pin label, a
+// trace by which polyline the witness point lands on. null if nothing's within reach.
+function resolveEnd(end) {
+  if (!ctx || !end) return null;
+  if (end.kind === "via") {
+    let best = -1, bd = Infinity;
+    (ctx.vias || []).forEach((v, i) => { const d = Math.hypot(v.x - end.x, v.y - end.y); if (d < bd) { bd = d; best = i; } });
+    return bd <= 0.06 ? { kind: "via", index: best } : null;
+  }
+  if (end.kind === "pad") {
+    const i = (ctx.pads || []).findIndex((p) => `${p.ref}.${p.pin}` === end.label);
+    return i >= 0 ? { kind: "pad", index: i } : null;
+  }
+  if (end.kind === "trace") {
+    let best = -1, bd = Infinity;
+    (ctx.traces || []).forEach((t, i) => {
+      if (!t.points || t.points.length < 2) return;
+      let d = Infinity;
+      for (let k = 0; k + 1 < t.points.length; k++) d = Math.min(d, segPointDist(t.points[k], t.points[k + 1], end.x, end.y));
+      if (d < bd) { bd = d; best = i; }
+    });
+    return bd <= 0.12 ? { kind: "trace", index: best } : null;
+  }
+  return null;
+}
+
+// Pan + zoom so board-mm (xmm, ymm) sits at the viewport centre, framed ~FOCUS_SPAN_MM
+// across. Inverts clientToMm's own pipeline: map the point through the pick layer's CTM
+// to SVG-viewport px, then solve PanZoom's screen = px·scale + pan for the pan that
+// centres it. PanZoom clamps scale/pan, so a point near the board edge lands as centred
+// as the board allows — no overscroll into empty space.
+const FOCUS_SPAN_MM = 12;
+function focusBoardPoint(xmm, ymm) {
+  if (!ctx || !ctx.layer || !ctx.wrapper) return;
+  const pz = state.currentPcbPz;
+  if (!pz) return;
+  const ctm = ctx.layer.getCTM();
+  if (!ctm) return;
+  const p = new DOMPoint(xmm * 1000, ymm * 1000).matrixTransform(ctm);
+  const vw = ctx.wrapper.clientWidth || 1, vh = ctx.wrapper.clientHeight || 1;
+  const ctmScale = Math.hypot(ctm.a, ctm.b) || 1;
+  const scale = Math.min(vw, vh) / (FOCUS_SPAN_MM * 1000 * ctmScale);
+  pz.setTransform({ scale, panX: vw / 2 - p.x * scale, panY: vh / 2 - p.y * scale });
+}
+
+// A Board-checks clearance row was clicked: arm Inspect, select one end (preferring a
+// discrete via/pad over a whole-net trace), and pan so the pinch — the midpoint of the
+// ends — is centred. `ends` is the two-element ClearancePair.ends from clearance.ts.
+export function revealClearance(ends) {
+  if (!ctx || !Array.isArray(ends) || !ends.length) return;
+  if (!enabled) { setPadPickEnabled(true); if (toggleRefresh) toggleRefresh(); }
+  const rank = { via: 0, pad: 1, trace: 2 };
+  let hit = null;
+  for (const end of [...ends].sort((a, b) => (rank[a.kind] ?? 3) - (rank[b.kind] ?? 3))) {
+    hit = resolveEnd(end);
+    if (hit) break;
+  }
+  if (hit) select(hit.kind, hit.index);
+  const cx = ends.reduce((s, e) => s + e.x, 0) / ends.length;
+  const cy = ends.reduce((s, e) => s + e.y, 0) / ends.length;
+  focusBoardPoint(cx, cy);
+}
+
 // Map a viewport (client) point to board mm. Undo PanZoom's CSS transform
 // manually to reach SVG viewport coordinates, then use getCTM() (which
 // excludes CSS transforms) to map into the <g>'s local coordinate system.

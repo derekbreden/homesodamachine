@@ -12,7 +12,7 @@
 
 import { state } from "./state.js";
 import { makeResetButton, makeMinimap } from "./pan-zoom-extras.js";
-import { installPadPicker, clearPadPicker, clearPadSelection, makePadPickToggle } from "./pcb-pick.js";
+import { installPadPicker, clearPadPicker, clearPadSelection, makePadPickToggle, revealClearance } from "./pcb-pick.js";
 import { installEditOverlay, clearEditOverlay, makeEditToggle, fetchEditComponents } from "./pcb-edit.js";
 
 // Every board has these three; inner planes (inner1, inner2, …) are per-board,
@@ -292,6 +292,28 @@ function makeRow(cls, left, right) {
 function checkHead(text) {
   return Object.assign(document.createElement("div"), { className: "pcb-checks-h", textContent: text });
 }
+// A clearance-pair row that names where it pinches and, when the pair carries the
+// witness ends (clearance.ts), is clickable: closes the modal and reveals it — panning
+// the board to the pinch and selecting one end in the inspector. Pairs without `ends`
+// (an older sidecar, or the footprint body pairs) render as a plain, static row.
+function makeClearanceRow(p, wrapper) {
+  const ends = Array.isArray(p.ends) ? p.ends : null;
+  const row = makeRow("pcb-checks-row", `${p.a} ↔ ${p.b}`, `${p.gap.toFixed(3)} mm`);
+  if (!ends) return row;
+  const mx = ends.reduce((s, e) => s + e.x, 0) / ends.length;
+  const my = ends.reduce((s, e) => s + e.y, 0) / ends.length;
+  row.querySelector(".k").appendChild(Object.assign(document.createElement("span"), {
+    className: "pcb-checks-at", textContent: `  ${mx.toFixed(2)}, ${my.toFixed(2)} mm`,
+  }));
+  row.classList.add("clickable");
+  row.title = "Show on board";
+  row.addEventListener("click", (e) => {
+    e.stopPropagation();
+    closeChecksModal(wrapper);
+    revealClearance(ends);
+  });
+  return row;
+}
 // Count the advisory (amber) flags across every soft check — decoupling drift + missing
 // decouplers (both in capAudit.flagged), tight connectors, thin current traces, unsourced parts.
 // Separate from picks.errors, which are the hard (red) DRC failures.
@@ -349,7 +371,7 @@ function openChecksModal(wrapper, picks) {
   // Clearance floor + tightest pairs — collapsed to the tightest few (the floor is row 1).
   if (typeof clearance.floor === "number") {
     card.appendChild(checkHead(`Clearance floor — ${clearance.floor.toFixed(3)} mm`));
-    const rows = (clearance.tight || []).map((p) => makeRow("pcb-checks-row", `${p.a} ↔ ${p.b}`, `${p.gap.toFixed(3)} mm`));
+    const rows = (clearance.tight || []).map((p) => makeClearanceRow(p, wrapper));
     addCollapsibleRows(card, rows, 3);
   }
 
