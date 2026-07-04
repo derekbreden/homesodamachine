@@ -334,7 +334,7 @@ export default () => (
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
     <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={0.03} y={12.65} rot={0} side="S" />
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9.5} y={-29.4} rot={180} side="S" />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={10.5} y={-29.4} rot={180} side="S" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
