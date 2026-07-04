@@ -17,6 +17,7 @@ import { composeViews, SCHEMES } from "./gerber-compose"
 import { backSilkBoardTsx } from "./bottom-silk"
 import { dedupDrill } from "./dedup-drill"
 import { widenPourVoids, findPourClearanceRules, antennaKeepout, dropPourSlivers } from "./pour-clearance"
+import { shoveTracesOffPads } from "./shove-traces"
 import { singleflight } from "./run-lock"
 import { convertSoupToGerberCommands, stringifyGerberCommandLayers, convertSoupToExcellonDrillCommands, stringifyExcellonDrill } from "circuit-json-to-gerber"
 import { convertCircuitJsonToBomRows, convertBomRowsToCsv } from "circuit-json-to-bom-csv"
@@ -203,6 +204,13 @@ const antN = antennaKeepout(circuit)
 if (antN) console.log(`[${board}] antenna keepout: cleared the WROOM antenna box from ${antN} pour(s)`)
 const slivN = dropPourSlivers(circuit)
 if (slivN) console.log(`[${board}] pour slivers: dropped ${slivN} sub-min-feature floating fragment(s)`)
+// The capacity autorouter's high-density stage draws copper blind to foreign pads (it holds
+// trace↔trace clearance but not trace↔pad), so a trace can land grazing a pad it doesn't connect
+// to. Nudge any such segment out to the clearance floor — safe/monotonic, never makes the board
+// worse (see shove-traces.ts). Runs on the shared circuit-json, so gerbers + the clearance readout
+// both see the repaired copper.
+const shoveN = shoveTracesOffPads(circuit)
+if (shoveN) console.log(`[${board}] pad clearance: nudged ${shoveN} trace segment(s) off foreign pads`)
 
 // Generate the fabrication set (gerbers + drill + BOM + CPL) from that circuit-json with
 // the standalone converters — the SAME ones tscircuit's CLI uses, but with no autorouter
