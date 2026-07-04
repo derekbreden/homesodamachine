@@ -43,60 +43,89 @@ export const at = (px: number, py: number) => ({ pcbX: px, pcbY: py, schX: px / 
 // MANIFOLD A's connector reuses the ULN output order (ch1-8 + the 12 V flyback COM).
 export const ulnOUT = ["OUT1", "OUT2", "OUT3", "OUT4", "OUT5", "OUT6", "OUT7", "OUT8", "COM"]
 
-// ---- SMD capacitor with a hand-drawn ref-des -------------------------------
-// A 2-pad ceramic whose ref-des is drawn here, not by the footprint. tscircuit's
-// auto ref-des locks a vertical part's label to top-to-bottom; every connector
-// label on this board reads bottom-to-top (the Jst helper hand-draws its labels
-// for the same reason). So we suppress the footprint ref-des (`_norefdes`, which
-// keeps the silkscreen fence) and redraw it: rot 90 for a vertical part (reads
-// bottom-to-top), rot 0 for a horizontal one.
+// ---- SMD passives (resistor / capacitor) with hand-drawn silk --------------
+// Every 2-terminal chip passive on the board — resistor AND capacitor — goes
+// through here, so they read identically: one clean, symmetric two-line mark
+// between the pads plus an upright ref-des that rides with (x,y).
 //
-// `side` is which edge of the fence the ref-des sits beside — pick whichever is
-// clear of neighbouring traces/parts; the default is the connector convention
-// (W for a vertical part, N for a horizontal one). The OFFSET is not hand-tuned:
-// it's derived from the part's actual PRINTED fence — the silkscreen path, not
-// the (larger) courtyard outline — so every label clears the fence by exactly the
-// margin the footprint's own auto ref-des uses. Footprinter centres its ref-des at
-// `fence + 0.5 mm` (measured from its output, font-independent); matching that is
-// what makes a hand-drawn label read as clean as a stock one like C12's.
-const CAP_FENCE_HALF: Record<string, number> = { "0603": 0.875, "0805": 1.1, "1206": 1.1 }
-const REFDES_GAP = 0.5 // printed fence edge -> ref-des centre (footprinter's own margin)
-export const Cap = ({ name, capacitance, footprint, jlcpcb, x, y, rot = 90, side }: {
-  name: string; capacitance: string; footprint: string; jlcpcb: string
-  x: number; y: number; rot?: number; side?: "N" | "S" | "E" | "W"
-}) => {
+// Why not the footprint's own silk? Footprinter draws a capacitor (and a
+// `_norefdes`-suffixed resistor) as an ASYMMETRIC three-sided box, tied to the
+// part rotation — so when one part in a group is flipped 180° for routing, its
+// box points the other way and the row looks wrong. And a bare resistor's silk
+// (two lines) differs from that box, so R's and C's on the same board disagree.
+// We drop the footprint silk wholesale (`_nosilkscreen`, pads only) and redraw
+// it here: the KiCad nonpolarized pair — two short lines just clear of the pads,
+// mirror-symmetric so it's INVARIANT under a 180° flip (a flipped part looks
+// like its neighbours), rotated with the part (rot 90/270 → a vertical pair) so
+// it always sits between the pads. Identical geometry for a resistor and a
+// capacitor of the same size: one mark, one rule.
+//
+// `side` (N/S/E/W) is which edge of the part the ref-des sits beside — same
+// meaning and same default for both R and C (W for a vertical part, N for a
+// horizontal one). The offset is DERIVED, not hand-tuned: the part's real
+// half-extent in that board direction (`ax` = pad reach along the pad axis,
+// `pe` = mark reach across it) + a fixed gap, so the label clears the part by
+// the same margin whichever side is chosen and whichever way the part is turned.
+type Side = "N" | "S" | "E" | "W"
+const REFDES_GAP = 0.5 // part edge -> ref-des centre
+const SILK_STROKE = 0.12
+// Per size: len/yOut place the two-line mark (x∈[-len,len], y=±yOut — the KiCad
+// nonpolarized-resistor silk); ax/pe are the half-extents used to place the
+// ref-des (ax = p/2+pw/2 to the pad's outer edge, pe = yOut across the part).
+const PASSIVE_SIZE: Record<string, { len: number; yOut: number; ax: number; pe: number }> = {
+  "0402": { len: 0.153641, yOut: 0.38, ax: 0.78, pe: 0.38 },
+  "0603": { len: 0.237258, yOut: 0.5225, ax: 1.225, pe: 0.5225 },
+  "0805": { len: 0.227064, yOut: 0.735, ax: 1.425, pe: 0.735 },
+  "1206": { len: 0.727064, yOut: 0.91, ax: 2.025, pe: 0.91 },
+}
+
+// Shared silk for a passive at (x,y), seating rotation `rot`, ref-des on `side`.
+const passiveSilk = (name: string, footprint: string, x: number, y: number, rot: number, side?: Side) => {
+  const sz = PASSIVE_SIZE[footprint] ?? PASSIVE_SIZE["0603"]!
   const vertical = rot % 180 !== 0
   const s = side ?? (vertical ? "W" : "N")
-  const off = (CAP_FENCE_HALF[footprint] ?? 1.1) + REFDES_GAP
+  const rad = (rot * Math.PI) / 180, c = Math.cos(rad), sn = Math.sin(rad)
+  const R = (px: number, py: number) => ({ x: x + px * c - py * sn, y: y + px * sn + py * c })  // local->world, CCW
+  const mark = (yy: number) => [R(-sz.len, yy), R(sz.len, yy)]
+  // ref-des offset: the part's half-extent in the chosen board direction + gap.
+  // A vertical part swaps its along-axis (ax) and across-axis (pe) extents. On the
+  // pad-AXIS side, the ref-des reads parallel to the pads (it's turned to match the
+  // part), so its own half-length reaches back toward the part — add it so the text
+  // clears the pad instead of landing on it. On the across side the text's narrow
+  // dimension faces the part and the gap already covers it.
+  const ns = s === "N" || s === "S"
+  const axisSide = vertical ? ns : !ns
+  const textHalfLen = name.length * 0.3   // ref-des reads ~0.6·fontSize per glyph
+  const off = (ns ? (vertical ? sz.ax : sz.pe) : (vertical ? sz.pe : sz.ax)) + REFDES_GAP + (axisSide ? textHalfLen : 0)
   const [lx, ly] = s === "N" ? [0, off] : s === "S" ? [0, -off] : s === "E" ? [off, 0] : [-off, 0]
   return (
     <>
-      <capacitor name={name} capacitance={capacitance} footprint={`${footprint}_norefdes`} supplierPartNumbers={{ jlcpcb: [jlcpcb] }} pcbRotation={rot} {...at(x, y)} />
+      <silkscreenpath route={mark(sz.yOut)} strokeWidth={`${SILK_STROKE}mm`} />
+      <silkscreenpath route={mark(-sz.yOut)} strokeWidth={`${SILK_STROKE}mm`} />
       <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x + lx} pcbY={y + ly} pcbRotation={vertical ? 90 : 0} />
     </>
   )
 }
 
-// ---- SMD resistor with a hand-drawn ref-des -------------------------------
-// Same idea as Cap: a resistor rotated 180° for routing prints its footprint
-// ref-des upside-down, so suppress it (`_norefdes`, keeps the silk fence) and
-// redraw it upright, at a fence-derived offset that rides with (x,y).
-const RES_FENCE_HALF: Record<string, number> = { "0402": 0.65, "0603": 0.875, "0805": 1.1 }
+export const Cap = ({ name, capacitance, footprint, jlcpcb, x, y, rot = 90, side }: {
+  name: string; capacitance: string; footprint: string; jlcpcb: string
+  x: number; y: number; rot?: number; side?: Side
+}) => (
+  <>
+    <capacitor name={name} capacitance={capacitance} footprint={`${footprint}_nosilkscreen`} supplierPartNumbers={{ jlcpcb: [jlcpcb] }} pcbRotation={rot} {...at(x, y)} />
+    {passiveSilk(name, footprint, x, y, rot, side)}
+  </>
+)
+
 export const Res = ({ name, resistance, footprint, jlcpcb, x, y, rot = 0, side }: {
   name: string; resistance: string; footprint: string; jlcpcb: string
-  x: number; y: number; rot?: number; side?: "N" | "S" | "E" | "W"
-}) => {
-  const vertical = rot % 180 !== 0
-  const s = side ?? (vertical ? "W" : "N")
-  const off = (RES_FENCE_HALF[footprint] ?? 0.875) + REFDES_GAP
-  const [lx, ly] = s === "N" ? [0, off] : s === "S" ? [0, -off] : s === "E" ? [off, 0] : [-off, 0]
-  return (
-    <>
-      <resistor name={name} resistance={resistance} footprint={`${footprint}_norefdes`} supplierPartNumbers={{ jlcpcb: [jlcpcb] }} pcbRotation={rot} {...at(x, y)} />
-      <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x + lx} pcbY={y + ly} pcbRotation={vertical ? 90 : 0} />
-    </>
-  )
-}
+  x: number; y: number; rot?: number; side?: Side
+}) => (
+  <>
+    <resistor name={name} resistance={resistance} footprint={`${footprint}_nosilkscreen`} supplierPartNumbers={{ jlcpcb: [jlcpcb] }} pcbRotation={rot} {...at(x, y)} />
+    {passiveSilk(name, footprint, x, y, rot, side)}
+  </>
+)
 
 // ---- JST trunk connector ---------------------------------------------------
 // A board header for an off-board loom (the cable plugs in). The imported wafer footprint

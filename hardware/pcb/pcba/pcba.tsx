@@ -145,8 +145,8 @@ export default () => (
     {/* WROOM support south of U1: the EN power-on RC (R7 + C12) stacked at the far-west,
         hard by U1's EN pin so the EN trace stays short; the supply decouplers C10 + C11
         share the lane just east of them. */}
-    <capacitor name="C12" capacitance="1uF" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C15849"] }} {...at(-63.5, -13.5)} />
-    <resistor name="R7" resistance="10k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C25804"] }} {...at(-63.5, -17.5)} />
+    <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={-63.5} y={-13.5} rot={0} side="N" />
+    <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={-63.5} y={-17.5} rot={0} side="N" />
     <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-58.5} y={-14.0} rot={90} />
     <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-53.5} y={-14.0} rot={90} side="E" />
     <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-44} y={12} rot={270} side="E" />
@@ -155,7 +155,7 @@ export default () => (
         only DI (from ESP TX) and RO (to ESP RX) are driven. R6 = 120R line termination
         across A/B; D1 = SM712 ESD array at the J9 cable entry; C7 decouples VCC. */}
     <Cos13487 name="U7" x={-50} y={-22} rot={270} />
-    <resistor name="R6" resistance="120" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22787"] }} {...at(-44.5, -22.55)} />
+    <Res name="R6" resistance="120" footprint="0603" jlcpcb="C22787" x={-44.5} y={-22.55} rot={0} side="N" />
     <Sm712 name="D1" x={-43.9} y={-25.95} rot={180} />
     <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-50} y={-17} rot={90} side="E" />
     {/* On-board supplies. U10 = K7805 (12V->5V, 2A) SIP module (pin1 Vin / pin2 GND / pin3
@@ -556,7 +556,7 @@ export default () => (
         ac-wiring-schedule SIG-1). The bus runs ~600 mm out to the cold-core probes, too
         far for the ESP's ~45k internal pull-up, so the 1-wire bus gets its proper external
         pull-up on-board, at the SENSORS connector where the probe loom leaves the board. */}
-    <resistor name="R9" resistance="4.7k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23162"] }} {...at(-16, -28)} />
+    <Res name="R9" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-16} y={-28} rot={0} side="N" />
     <trace from=".R9 > .pin1" to="net.V3V3" />
     <trace from=".R9 > .pin2" to=".J4 > .IO26" />
 
@@ -573,9 +573,9 @@ export default () => (
     <LedRed name="D2" pcbRotation={180} {...at(-31.5, -15.05)} />
     <LedGrn name="D3" pcbRotation={180} {...at(-31.5, -17.55)} />
     <LedBlu name="D4" pcbRotation={180} {...at(-31.5, -20.05)} />
-    <resistor name="R10" resistance="470" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23179"] }} {...at(-36, -15.05)} />
-    <resistor name="R11" resistance="470" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23179"] }} {...at(-36, -17.55)} />
-    <resistor name="R12" resistance="470" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23179"] }} {...at(-36, -20.05)} />
+    <Res name="R10" resistance="470" footprint="0603" jlcpcb="C23179" x={-36} y={-15.05} rot={0} side="N" />
+    <Res name="R11" resistance="470" footprint="0603" jlcpcb="C23179" x={-36} y={-17.55} rot={0} side="N" />
+    <Res name="R12" resistance="470" footprint="0603" jlcpcb="C23179" x={-36} y={-20.05} rot={0} side="N" />
     {/* right — power rails (green); anode toward its R (outboard, +x). pin1=anode is already on
         the +x pad, so these stay native (rot 0) to face the anode pad outboard-right at its R. */}
     <LedGrn name="D5" {...at(-21.5, -17)} />
@@ -623,8 +623,8 @@ export default () => (
     <UsbC name="J14" pcbX={-51.5} pcbY={31.3} pcbRotation={180} />
     <Usblc6 name="U14" pcbX={-52.4} pcbY={24.9} pcbRotation={180} />
     <CH340C name="U13" pcbX={-51.5} pcbY={18.15} pcbRotation={180} />
-    <resistor name="R16" resistance="5.1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23186"] }} {...at(-58.9, 34.7)} />
-    <resistor name="R15" resistance="5.1k" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C23186"] }} {...at(-44, 34.7)} />
+    <Res name="R16" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-58.9} y={34.7} rot={0} side="N" />
+    <Res name="R15" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-44} y={34.7} rot={0} side="N" />
     <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-48.6} y={24.9} rot={90} side="E" />
     <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-44} y={24.85} rot={90} side="E" />
     {/* EN branch (west): U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
