@@ -25,9 +25,9 @@
     "@tscircuit/capacity-autorouter": "github:derekbreden/tscircuit-autorouter#6e39391df777f89fa4b1965f6b276462b17a4f98",
     "@tscircuit/cli": "github:derekbreden/cli#9a36c81e9291d2bae209c77cdf0d7116321ca34d",
     "@tscircuit/copper-pour-solver": "github:derekbreden/copper-pour-solver#c68dcef975bdb1723227ba7da16bed4470b673be",
-    "@tscircuit/core": "github:derekbreden/core#3b867f96ce3393aca5b73b6d935106993d95bd88",
+    "@tscircuit/core": "github:derekbreden/core#a8d17061107a7ad8f214b6291a590891e80126bc",
     "@tscircuit/footprinter": "github:derekbreden/footprinter#c8eadb7b7ba9366b5f00d457a3bec2209bb73913",
-    "@tscircuit/props": "github:derekbreden/props#cefcffbc3f7477476cbde8a4845dfdd5e9dc222b",
+    "@tscircuit/props": "github:derekbreden/props#cfe263f57f526ec74ad4ec6704d7367ed89bcea3",
     "circuit-json-to-gerber": "github:derekbreden/circuit-json-to-gerber#8aceadcace30a2b4d3a9fdc2c8e2634d2b1af0f7",
   },
   "packages": {
@@ -245,7 +245,7 @@
 
     "@tscircuit/copper-pour-solver": ["@tscircuit/copper-pour-solver@github:derekbreden/copper-pour-solver#c68dcef", { "dependencies": { "manifold-3d": "^3.4.1" }, "peerDependencies": { "typescript": "^5" } }, "derekbreden-copper-pour-solver-c68dcef"],
 
-    "@tscircuit/core": ["@tscircuit/core@github:derekbreden/core#3b867f9", { "dependencies": { "@flatten-js/core": "^1.6.2", "@lume/kiwi": "^0.4.3", "calculate-cell-boundaries": "^0.0.13", "calculate-packing": "0.0.75", "css-select": "5.1.0", "format-si-unit": "^0.0.7", "nanoid": "^5.0.7", "performance-now": "^2.1.0", "react-reconciler": "^0.32.0", "svg-path-commander": "^2.1.11", "transformation-matrix": "^2.16.1", "zod": "^3.25.67" }, "peerDependencies": { "@tscircuit/capacity-autorouter": "*", "@tscircuit/checks": "*", "@tscircuit/circuit-json-util": "*", "@tscircuit/footprinter": "*", "@tscircuit/infgrid-ijump-astar": "*", "@tscircuit/matchpack": "*", "@tscircuit/math-utils": "*", "@tscircuit/props": "*", "@tscircuit/schematic-match-adapt": "*", "bpc-graph": "*", "circuit-json": "*", "circuit-json-to-bpc": "*", "circuit-json-to-connectivity-map": "*", "schematic-symbols": "*", "typescript": "^5.0.0" } }, "derekbreden-core-3b867f9"],
+    "@tscircuit/core": ["@tscircuit/core@github:derekbreden/core#a8d1706", { "dependencies": { "@flatten-js/core": "^1.6.2", "@lume/kiwi": "^0.4.3", "calculate-cell-boundaries": "^0.0.13", "calculate-packing": "0.0.75", "css-select": "5.1.0", "format-si-unit": "^0.0.7", "nanoid": "^5.0.7", "performance-now": "^2.1.0", "react-reconciler": "^0.32.0", "svg-path-commander": "^2.1.11", "transformation-matrix": "^2.16.1", "zod": "^3.25.67" }, "peerDependencies": { "@tscircuit/capacity-autorouter": "*", "@tscircuit/checks": "*", "@tscircuit/circuit-json-util": "*", "@tscircuit/footprinter": "*", "@tscircuit/infgrid-ijump-astar": "*", "@tscircuit/matchpack": "*", "@tscircuit/math-utils": "*", "@tscircuit/props": "*", "@tscircuit/schematic-match-adapt": "*", "bpc-graph": "*", "circuit-json": "*", "circuit-json-to-bpc": "*", "circuit-json-to-connectivity-map": "*", "schematic-symbols": "*", "typescript": "^5.0.0" } }, "derekbreden-core-a8d1706"],
 
     "@tscircuit/eval": ["@tscircuit/eval@0.0.948", "", { "peerDependencies": { "@tscircuit/core": "*", "circuit-json": "*", "typescript": "^5.0.0", "zod": "3" } }, "sha512-4RQZA10dNB1H3oY5CWok/2ftnhHZbTGswsosu9ZCH3wRSUurfIk6TXPwIx5uw2Kp2fYFuQIEAhz0+b0R7XwQ0A=="],
 
@@ -271,7 +271,7 @@
 
     "@tscircuit/ngspice-spice-engine": ["@tscircuit/ngspice-spice-engine@0.0.18", "", { "peerDependencies": { "@tscircuit/props": "*", "circuit-json": "*", "typescript": "^5" } }, "sha512-2Yb5nDlZvcBtjAhQuW2VkZmz+tmIDRyxR7cxH7ucioU+hyq7DkihFUp6rITQEY+2+5qKuoXgjVFOv7LxiTgreA=="],
 
-    "@tscircuit/props": ["@tscircuit/props@github:derekbreden/props#cefcffb", { "peerDependencies": { "circuit-json": "*", "react": "*", "zod": "*" } }, "derekbreden-props-cefcffb"],
+    "@tscircuit/props": ["@tscircuit/props@github:derekbreden/props#cfe263f", { "peerDependencies": { "circuit-json": "*", "react": "*", "zod": "*" } }, "derekbreden-props-cfe263f"],
 
     "@tscircuit/runframe": ["@tscircuit/runframe@0.0.2107", "", { "dependencies": { "@tscircuit/eval": "^0.0.946", "@tscircuit/solver-utils": "^0.0.7" } }, "sha512-iFi5Fy64WGW/udHCuR0ayNfaLxBiStb+zM5TipPutYjOw78zGmG4uennbJz4qxmQnbUVLMCvto+ooeOJiIWKAA=="],
 

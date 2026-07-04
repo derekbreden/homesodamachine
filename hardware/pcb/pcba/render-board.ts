@@ -171,8 +171,8 @@ async function placementPreview() {
 }
 
 // Export a board .tsx to circuit-json via tsci (one autoroute + pour pass). A <trace> with
-// pcbFan="<orientation>" is routed natively by tscircuit as a fixed straight → 45° → straight
-// fan in its manual-trace phase — before the autorouter — so it lands as real copper the rest
+// pcbComb="<orientation>" is routed natively by tscircuit as a fixed straight → 45° → straight
+// comb in its manual-trace phase — before the autorouter — so it lands as real copper the rest
 // of the board routes around and the pour clears. Nothing 2nd-pass happens here.
 const exportCircuitJson = async (name: string) => {
   const out = `_build-${name}.cj.tmp.json`
@@ -193,7 +193,7 @@ if (process.env.RENDER_SOURCE === "dev-server") {
   }
 }
 
-// The COMPLETE routed circuit-json in ONE render: tscircuit places every pcbFan trace as
+// The COMPLETE routed circuit-json in ONE render: tscircuit places every pcbComb trace as
 // fixed copper before autorouting, routes the rest around it, and solves the pours against
 // all of it. The post-export passes below only widen/clean pours the solver already cut.
 const circuit = await exportCircuitJson(board)
