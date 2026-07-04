@@ -24,7 +24,7 @@
   "overrides": {
     "@tscircuit/capacity-autorouter": "github:derekbreden/tscircuit-autorouter#93b38996ec8011cf0ecdcf21c0733aa8690f7b8f",
     "@tscircuit/cli": "github:derekbreden/cli#9a36c81e9291d2bae209c77cdf0d7116321ca34d",
-    "@tscircuit/copper-pour-solver": "github:derekbreden/copper-pour-solver#c68dcef975bdb1723227ba7da16bed4470b673be",
+    "@tscircuit/copper-pour-solver": "github:derekbreden/copper-pour-solver#659b70b66fa4b86c9e0be6323d3a094c9da152d2",
     "@tscircuit/core": "github:derekbreden/core#a8d17061107a7ad8f214b6291a590891e80126bc",
     "@tscircuit/footprinter": "github:derekbreden/footprinter#c8eadb7b7ba9366b5f00d457a3bec2209bb73913",
     "@tscircuit/props": "github:derekbreden/props#cfe263f57f526ec74ad4ec6704d7367ed89bcea3",
@@ -243,7 +243,7 @@
 
     "@tscircuit/cli": ["@tscircuit/cli@github:derekbreden/cli#9a36c81", { "peerDependencies": { "tscircuit": "*" }, "bin": { "tscircuit-cli": "./cli/entrypoint.js" } }, "derekbreden-cli-9a36c81"],
 
-    "@tscircuit/copper-pour-solver": ["@tscircuit/copper-pour-solver@github:derekbreden/copper-pour-solver#c68dcef", { "dependencies": { "manifold-3d": "^3.4.1" }, "peerDependencies": { "typescript": "^5" } }, "derekbreden-copper-pour-solver-c68dcef"],
+    "@tscircuit/copper-pour-solver": ["@tscircuit/copper-pour-solver@github:derekbreden/copper-pour-solver#659b70b", { "dependencies": { "manifold-3d": "^3.4.1" }, "peerDependencies": { "typescript": "^5" } }, "derekbreden-copper-pour-solver-659b70b"],
 
     "@tscircuit/core": ["@tscircuit/core@github:derekbreden/core#a8d1706", { "dependencies": { "@flatten-js/core": "^1.6.2", "@lume/kiwi": "^0.4.3", "calculate-cell-boundaries": "^0.0.13", "calculate-packing": "0.0.75", "css-select": "5.1.0", "format-si-unit": "^0.0.7", "nanoid": "^5.0.7", "performance-now": "^2.1.0", "react-reconciler": "^0.32.0", "svg-path-commander": "^2.1.11", "transformation-matrix": "^2.16.1", "zod": "^3.25.67" }, "peerDependencies": { "@tscircuit/capacity-autorouter": "*", "@tscircuit/checks": "*", "@tscircuit/circuit-json-util": "*", "@tscircuit/footprinter": "*", "@tscircuit/infgrid-ijump-astar": "*", "@tscircuit/matchpack": "*", "@tscircuit/math-utils": "*", "@tscircuit/props": "*", "@tscircuit/schematic-match-adapt": "*", "bpc-graph": "*", "circuit-json": "*", "circuit-json-to-bpc": "*", "circuit-json-to-connectivity-map": "*", "schematic-symbols": "*", "typescript": "^5.0.0" } }, "derekbreden-core-a8d1706"],
 
