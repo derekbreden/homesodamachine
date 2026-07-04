@@ -356,6 +356,15 @@ function openChecksModal(wrapper, picks) {
   const modal = document.createElement("div");
   modal.className = "pcb-checks-modal";
   modal.addEventListener("click", () => closeChecksModal(wrapper));
+  // The modal overlays the board but lives INSIDE the PanZoom container, so pointer and
+  // wheel events over it otherwise bubble to PanZoom — the wheel zooms the board behind
+  // it, and (because PanZoom takes pointer capture on pointerdown) a captured pointer
+  // never delivers its click to a row's <div>, so the rows can't be clicked. Swallow
+  // those events at the overlay: the card scrolls natively and rows get their clicks.
+  // `click` is left to bubble so a backdrop click still closes.
+  for (const ev of ["pointerdown", "pointermove", "pointerup", "wheel"]) {
+    modal.addEventListener(ev, (e) => e.stopPropagation());
+  }
   const card = document.createElement("div");
   card.className = "pcb-checks-card";
   card.addEventListener("click", (e) => e.stopPropagation());
