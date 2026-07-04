@@ -30,12 +30,12 @@ export type ConnectorRow = {
 export type ConnectorAudit = { rows: ConnectorRow[]; flagged: number; target: number }
 
 // Minimum acceptable body-to-body / body-to-hole clearance (mm) before housings risk fouling.
-// The board is spaced to a ~1 mm design intent (with real 0.98–1.01 variation), so this sits
-// below that — it flags a connector that has drifted notably tight or collides, not the intended
-// spacing. Edge proximity is judged separately (overhang only): a connector is allowed to sit AT
-// the board edge (the USB-C opening and the screw-terminal throats are meant to), so only a body
-// that actually crosses the outline is flagged.
-export const CONNECTOR_TARGET = 0.8
+// The design intent is >=1 mm between connector plastic and any neighbour connector or mounting
+// hole (a seated wafer's shroud plus the screw head/standoff at a corner both need the room), so
+// the audit flags anything under it. Edge proximity is judged separately (overhang only): a
+// connector is allowed to sit AT the board edge (the USB-C opening and the screw-terminal throats
+// are meant to), so only a body that actually crosses the outline is flagged.
+export const CONNECTOR_TARGET = 1.0
 const XH_PITCH = 2.5
 const XH_END = 2.45      // plastic past each outer pin, along the row (JST-XH housing A = pitch·(n−1)+4.9)
 const XH_HALF_DEPTH = 3.1 // ~half the silk fence depth, across the row (symmetric approximation)
@@ -74,7 +74,11 @@ export function auditConnectors(circuit: any[]): ConnectorAudit {
     }
     if (e.type === "pcb_plated_hole") {
       const hn = nameOf[e.pcb_component_id] ?? ""
-      if (/^MH/.test(hn)) holes.push({ name: hn, x: e.x, y: e.y, r: (e.outer_diameter ?? e.hole_diameter ?? 1) / 2 })
+      const od = e.outer_diameter ?? e.hole_diameter ?? 0
+      // Mounting hole: named MH*, OR any large (>=3 mm) standalone plated hole. A bare <platedhole>
+      // lands in circuit-json with no component/name, so size is the reliable tell (signal + XH pin
+      // holes are <2 mm); a screw head / standoff needs clearance to a connector body like a pin does.
+      if (/^MH/.test(hn) || od >= 3) holes.push({ name: hn || `MH@${e.x.toFixed(0)},${e.y.toFixed(0)}`, x: e.x, y: e.y, r: od / 2 })
     }
     if (e.type === "pcb_courtyard_outline" && e.outline?.length) {
       const xs = e.outline.map((p: any) => p.x), ys = e.outline.map((p: any) => p.y)
