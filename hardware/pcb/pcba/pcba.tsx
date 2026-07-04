@@ -129,7 +129,7 @@ export default () => (
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
         pin2 (-> GND); the cell is retained by the molded base, not SMT clips. */}
     <CoinHolder name="BT1" x={-11.6} y={-2} />
-    <Ds3231Smd name="U6" x={-31.5} y={7.1} rot={270} />
+    <Ds3231Smd name="U6" x={-32.0} y={7.1} rot={270} />
     <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-41} y={8} rot={90} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio, antenna keepout
         pointing west off the board edge. Usable GPIO sit on the north and south
@@ -155,8 +155,8 @@ export default () => (
         only DI (from ESP TX) and RO (to ESP RX) are driven. R6 = 120R line termination
         across A/B; D1 = SM712 ESD array at the J9 cable entry; C7 decouples VCC. */}
     <Cos13487 name="U7" x={-50} y={-22} rot={270} />
-    <resistor name="R6" resistance="120" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22787"] }} {...at(-44.6, -22.55)} />
-    <Sm712 name="D1" x={-44} y={-25.95} rot={180} />
+    <resistor name="R6" resistance="120" footprint="0603" supplierPartNumbers={{ jlcpcb: ["C22787"] }} {...at(-44.5, -22.55)} />
+    <Sm712 name="D1" x={-43.9} y={-25.95} rot={180} />
     <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-50} y={-17} rot={90} side="E" />
     {/* On-board supplies. U10 = K7805 (12V->5V, 2A) SIP module (pin1 Vin / pin2 GND / pin3
         +Vo), 10uF input + 22uF output cap. U9 = AMS1117-3.3 (C6186, SOT-223 LDO) makes 3V3
@@ -182,9 +182,9 @@ export default () => (
     <Drv8870 name="U12" pcbX={-17.95} pcbY={22} pcbRotation={0} />
     <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-18} y={15.7} rot={0} side="S" />
     <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-12.95} y={15.7} rot={0} side="S" />
-    <Mcp23017 name="U2" x={2.33} y={21.3} addr="0x20" rot={180} />
+    <Mcp23017 name="U2" x={2.33} y={20.55} addr="0x20" rot={180} />
     <Mcp23017 name="U3" x={5.73} y={-21.35} addr="0x21" rot={0} />
-    <Uln2803 name="U4" x={18.15} y={11.65} rot={270} />
+    <Uln2803 name="U4" x={18.15} y={9.75} rot={270} />
     <Uln2803 name="U5" x={17.78} y={-8.53} rot={270} />
     <Buzzer name="U8" x={-36.3} y={-8.4} />
     <Npn name="Q1" x={-35.8} y={-2.35} />
@@ -333,7 +333,7 @@ export default () => (
     <trace from=".U3 > .A1" to="net.GND" />
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
-    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={0.03} y={13.4} rot={0} side="S" />
+    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={0.03} y={12.65} rot={0} side="S" />
     <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9.5} y={-29.4} rot={180} side="S" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
@@ -535,8 +535,8 @@ export default () => (
         soaking the inrush + flyback dump the ceramics can't. Every pin1 -> V12, pin2 ->
         GND plane — no routing, no vias, barrel pickup like every power pin; the top V12
         island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
-    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={20.28} y={-16.85} rot={0} side="S" />
-    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={18.83} y={3.2} rot={0} side="S" />
+    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={21.63} y={-16.5} rot={0} side="S" />
+    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={22.03} y={1.85} rot={0} side="S" />
     <BulkCap name="C3" x={5.97} y={1.74} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
