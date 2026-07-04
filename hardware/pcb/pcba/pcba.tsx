@@ -167,9 +167,9 @@ export default () => (
     <AMS1117_3_3 name="U9" pcbRotation={0} {...at(-9.02, 31.9)} />
     <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-2.4} y={33.15} rot={90} side="S" />
     <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-11.75} y={25.4} rot={0} side="S" />
-    <Buck5 name="U10" x={22.81} y={-25.95} />
+    <Buck5 name="U10" x={22.81} y={-27.35} />
     <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={32.0} y={-28.5} rot={0} side="S" />
-    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={30.66} y={-25.65} rot={270} side="E" />
+    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={32.0} y={-25} rot={180} side="S" />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
         pump (Kamoer KPHM400-SW, 12V brushed DC, 0.8A at full speed per the datasheet — PWM'd well below that at the
         1:20 dispense ratio; prime/clean is where it hits 0.8A), 45V/3.6A SMD with internal freewheeling +
@@ -191,8 +191,8 @@ export default () => (
     <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-40.7} y={-1.65} rot={180} side="N" />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
-    <Jst name="J1" x={28.25} y={12.45} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" side="E" />
-    <Jst name="J2" x={28.32} y={-9.7} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" side="E" />
+    <Jst name="J1" x={30.48} y={12.45} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" side="E" />
+    <Jst name="J2" x={30.55} y={-9.7} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" side="E" />
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
