@@ -353,6 +353,16 @@ function openChecksModal(wrapper, picks) {
     addCollapsibleRows(card, rows, 3);
   }
 
+  // Footprint (component-body) clearance floor + tightest body pairs (footprint-audit.ts) — the
+  // body-to-body sibling of the copper floor above, catching parts whose plastic/courtyard fouls a
+  // neighbour even when the copper clears. Informational (a true overlap rides in Issues below).
+  const foot = (picks && picks.footprints) || null;
+  if (foot && typeof foot.floor === "number") {
+    card.appendChild(checkHead(`Footprint clearance floor — ${foot.floor.toFixed(3)} mm`));
+    const rows = (foot.tight || []).map((p) => makeRow("pcb-checks-row", `${p.a} ↔ ${p.b}`, `${p.gap.toFixed(3)} mm`));
+    addCollapsibleRows(card, rows, 3);
+  }
+
   // Hard DRC errors (clearance.ts) — floating pads, pour shorts, blind vias, courtyard overlaps…
   // These drive the red badge, so they sit near the top: a failing board leads with what's wrong.
   card.appendChild(checkHead(errors.length ? `Issues (${errors.length})` : "Issues"));
