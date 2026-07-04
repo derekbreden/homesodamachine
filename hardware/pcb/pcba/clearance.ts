@@ -43,8 +43,14 @@
  */
 
 type Pt = [number, number]
-type Feat = { edges: Pt[][]; r: number; layers: Set<string>; net: string; label: string; minx: number; maxx: number; miny: number; maxy: number }
-export type ClearancePair = { gap: number; a: string; b: string }
+type Kind = "pad" | "via" | "trace"
+type Feat = { edges: Pt[][]; r: number; layers: Set<string>; net: string; label: string; kind: Kind; minx: number; maxx: number; miny: number; maxy: number }
+// One end of a tight pair, resolvable back to a pickable entity in the viewer: its
+// kind + label say what it is, (x, y) is the witness point where it pinches (board
+// mm) — a via/pad centre or the point on a trace nearest its neighbour. The viewer
+// pans there and selects the entity when the check row is clicked.
+export type ClearanceEnd = { kind: Kind; label: string; x: number; y: number }
+export type ClearancePair = { gap: number; a: string; b: string; ends: [ClearanceEnd, ClearanceEnd] }
 export type BoardError = { kind: string; text: string }
 export type ClearanceReport = { floor: number | null; tight: ClearancePair[]; errors: BoardError[] }
 
@@ -100,10 +106,10 @@ export function analyzeClearance(circuit: any[]): ClearanceReport {
   }
 
   const feats: Feat[] = []
-  const push = (edges: Pt[][], r: number, layers: string[], net: string, label: string) => {
+  const push = (edges: Pt[][], r: number, layers: string[], net: string, label: string, kind: Kind) => {
     let minx = Infinity, maxx = -Infinity, miny = Infinity, maxy = -Infinity
     for (const e of edges) for (const p of e) { minx = Math.min(minx, p[0]); maxx = Math.max(maxx, p[0]); miny = Math.min(miny, p[1]); maxy = Math.max(maxy, p[1]) }
-    feats.push({ edges, r, layers: new Set(layers), net, label, minx: minx - r, maxx: maxx + r, miny: miny - r, maxy: maxy + r })
+    feats.push({ edges, r, layers: new Set(layers), net, label, kind, minx: minx - r, maxx: maxx + r, miny: miny - r, maxy: maxy + r })
   }
   const rectEdges = (x: number, y: number, w: number, h: number, deg: number): Pt[][] => {
     const a = deg * Math.PI / 180, c = Math.cos(a), s = Math.sin(a)
@@ -115,29 +121,29 @@ export function analyzeClearance(circuit: any[]): ClearanceReport {
   for (const e of circuit) {
     if (e.type === "pcb_smtpad") {
       const net = netOfPort(e.pcb_port_id), label = refPin(e.pcb_port_id)
-      if (e.shape === "rect") push(rectEdges(e.x, e.y, e.width, e.height, e.ccw_rotation || 0), 0, [e.layer], net, label)
+      if (e.shape === "rect") push(rectEdges(e.x, e.y, e.width, e.height, e.ccw_rotation || 0), 0, [e.layer], net, label, "pad")
       else { // pill / rotated_pill — a capsule along its long axis
         const w = e.width, h = e.height, r = e.radius ?? Math.min(w, h) / 2
         const half = Math.max(0, (Math.max(w, h) - 2 * r) / 2)
         const ang = ((h >= w ? 90 : 0) + (e.ccw_rotation || 0)) * Math.PI / 180
-        push(seg(e.x - Math.cos(ang) * half, e.y - Math.sin(ang) * half, e.x + Math.cos(ang) * half, e.y + Math.sin(ang) * half), r, [e.layer], net, label)
+        push(seg(e.x - Math.cos(ang) * half, e.y - Math.sin(ang) * half, e.x + Math.cos(ang) * half, e.y + Math.sin(ang) * half), r, [e.layer], net, label, "pad")
       }
     } else if (e.type === "pcb_plated_hole") {
-      push(seg(e.x, e.y, e.x, e.y), (e.outer_diameter ?? e.hole_diameter) / 2, LAYERS, netOfPort(e.pcb_port_id), refPin(e.pcb_port_id))
+      push(seg(e.x, e.y, e.x, e.y), (e.outer_diameter ?? e.hole_diameter) / 2, LAYERS, netOfPort(e.pcb_port_id), refPin(e.pcb_port_id), "pad")
     }
   }
   const traceNet: Record<string, string> = {}
   for (const e of circuit) if (e.type === "pcb_trace") traceNet[e.pcb_trace_id] = netOfTrace(e)
   for (const e of circuit) if (e.type === "pcb_via") {
     const net = traceNet[e.pcb_trace_id] || `__v${uniq++}`
-    push(seg(e.x, e.y, e.x, e.y), e.outer_diameter / 2, LAYERS, net, `via on ${netLabel(net)}`)
+    push(seg(e.x, e.y, e.x, e.y), e.outer_diameter / 2, LAYERS, net, `via on ${netLabel(net)}`, "via")
   }
   for (const e of circuit) if (e.type === "pcb_trace") {
     const net = traceNet[e.pcb_trace_id] || `__t${uniq++}`, rt = e.route
     for (let i = 0; i + 1 < rt.length; i++) {
       const a = rt[i], b = rt[i + 1]
       if (a.x == null || b.x == null || a.layer !== b.layer || (a.x === b.x && a.y === b.y)) continue
-      push(seg(a.x, a.y, b.x, b.y), (a.width ?? 0.2) / 2, [a.layer], net, `trace on ${netLabel(net)}`)
+      push(seg(a.x, a.y, b.x, b.y), (a.width ?? 0.2) / 2, [a.layer], net, `trace on ${netLabel(net)}`, "trace")
     }
   }
 
@@ -159,6 +165,29 @@ export function analyzeClearance(circuit: any[]): ClearanceReport {
     return m - A.r - B.r
   }
   const shareLayer = (A: Feat, B: Feat) => { for (const l of A.layers) if (B.layers.has(l)) return true; return false }
+
+  // The witness points of the closest edge pair — same s,t solve as segSeg, but
+  // keeping the two points so a tight pair can say WHERE it pinches (on the centre-
+  // lines; a via/point feature witnesses at its centre). Only run for the handful of
+  // pairs kept for the readout, so the extra work is negligible.
+  const segSegPts = (p1: Pt, p2: Pt, p3: Pt, p4: Pt) => {
+    const d1x = p2[0] - p1[0], d1y = p2[1] - p1[1], d2x = p4[0] - p3[0], d2y = p4[1] - p3[1]
+    const rx = p1[0] - p3[0], ry = p1[1] - p3[1]
+    const a = d1x * d1x + d1y * d1y, e = d2x * d2x + d2y * d2y, f = d2x * rx + d2y * ry
+    const cl = (v: number) => Math.max(0, Math.min(1, v)), E = 1e-12
+    let s = 0, t = 0
+    if (a <= E && e <= E) { s = 0; t = 0 }
+    else if (a <= E) { s = 0; t = cl(f / e) }
+    else { const c = d1x * rx + d1y * ry; if (e <= E) { t = 0; s = cl(-c / a) } else { const b = d1x * d2x + d1y * d2y, den = a * e - b * b; s = den > E ? cl((b * f - c * e) / den) : 0; t = (b * s + f) / e; if (t < 0) { t = 0; s = cl(-c / a) } else if (t > 1) { t = 1; s = cl((b - c) / a) } } }
+    const ax = p1[0] + d1x * s, ay = p1[1] + d1y * s, bx = p3[0] + d2x * t, by = p3[1] + d2y * t
+    return { d: Math.hypot(ax - bx, ay - by), ax, ay, bx, by }
+  }
+  const nearest = (A: Feat, B: Feat) => {
+    let best = { d: Infinity, ax: 0, ay: 0, bx: 0, by: 0 }
+    for (const ea of A.edges) for (const eb of B.edges) { const c = segSegPts(ea[0], ea[1], eb[0], eb[1]); if (c.d < best.d) best = c }
+    return best
+  }
+  const endOf = (F: Feat, x: number, y: number): ClearanceEnd => ({ kind: F.kind, label: F.label, x: round(x), y: round(y) })
 
   // Pad/hole feature keyed by its "Comp.Pin" label (traces/vias carry an "... on <net>" label, so
   // they're excluded). Used to referee the native pad_pad DRC below against this file's rotation-
@@ -191,7 +220,10 @@ export function analyzeClearance(circuit: any[]): ClearanceReport {
     if (A.minx > B.maxx + AABB_CAP || B.minx > A.maxx + AABB_CAP || A.miny > B.maxy + AABB_CAP || B.miny > A.maxy + AABB_CAP) continue
     const d = dist(A, B)
     if (d < floor) floor = d
-    if (d < 0.35) pairs.push({ gap: round(d), a: A.label, b: B.label })
+    if (d < 0.35) {
+      const n = nearest(A, B)
+      pairs.push({ gap: round(d), a: A.label, b: B.label, ends: [endOf(A, n.ax, n.ay), endOf(B, n.bx, n.by)] })
+    }
   }
   pairs.sort((x, y) => x.gap - y.gap)
 
