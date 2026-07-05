@@ -20,8 +20,10 @@ export const WAFER_XH2_54_3PZZ = (props: ChipProps<typeof pinLabels>) => {
         <platedhole  portHints={["pin1"]} pcbX="-2.499995mm" pcbY="0mm" outerDiameter="1.524mm" holeDiameter="0.9144mm" shape="circle" />
 <platedhole  portHints={["pin2"]} pcbX="0.000127mm" pcbY="0mm" outerDiameter="1.524mm" holeDiameter="0.9144mm" shape="circle" />
 <platedhole  portHints={["pin3"]} pcbX="2.499995mm" pcbY="0mm" outerDiameter="1.524mm" holeDiameter="0.9144mm" shape="circle" />
-<silkscreenpath route={[{"x":-1.3204443999999285,"y":-2.9209999999999354},{"x":1.2700000000002092,"y":-2.9209999999999354},{"x":1.2700000000002092,"y":-2.399995200000035}]} />
-<silkscreenpath route={[{"x":-1.3204443999999285,"y":-2.399995200000035},{"x":-1.3204443999999285,"y":-2.9209999999999354}]} />
+{/* The stock EasyEDA footprint for this SKU drew a spurious 2.6 mm tab protruding 0.5 mm
+    past the south wall (y -2.40 -> -2.92) — no such feature exists on the real XUNPU molding
+    (confirmed against the WAFER-XH2.54-NPZZ datasheet: a plain rectangular shroud). Removed,
+    so J9's body reads as the clean rectangle it is. The four walls below are the real outline. */}
 <silkscreenpath route={[{"x":4.999990000000025,"y":3.1999935999999707},{"x":4.999990000000025,"y":-2.399995200000035}]} />
 <silkscreenpath route={[{"x":-4.999990000000025,"y":3.1999935999999707},{"x":-4.999990000000025,"y":-2.399995200000035}]} />
 <silkscreenpath route={[{"x":4.999990000000025,"y":-2.399995200000035},{"x":-4.999990000000025,"y":-2.399995200000035}]} />
