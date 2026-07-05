@@ -34,7 +34,12 @@ import { HSM_EVENTS } from "/contracts/client-events.js";
 
 const SVGNS = "http://www.w3.org/2000/svg";
 const LS_KEY = "pcb-edit";
-const SNAP_MM = 0.05;          // drag snap grid (matches the prototype editor)
+const SNAP_MM = 0.25;          // drag snap grid, in board mm
+const SNAP_ABSOLUTE = true;    // true: each component lands on the fixed board-mm grid
+                               // (round its own position, so a move re-aligns it to the
+                               // grid wherever it started); false: snap the shared drag
+                               // delta so a grabbed group translates rigidly, preserving
+                               // relative spacing but never landing on an absolute line.
 const PAD_MM = 0.6;            // grow the pad bbox so the handle clears the copper
 const MIN_BOX_MM = 1.6;        // floor for tiny / colinear footprints, so they stay grabbable
 const AXIS_LOCK_PX = 4;        // pointer travel (screen px) before a modifier-drag latches its axis
@@ -315,22 +320,37 @@ function onPointerMove(e) {
     if (dragging.lockAxis === "x") dy = 0; else dx = 0;
   }
 
-  // Snap the shared delta (not each absolute position) so the group translates
-  // rigidly — relative spacing is preserved no matter how many are grabbed.
-  if (SNAP_MM > 0) {
-    dx = Math.round(dx / SNAP_MM) * SNAP_MM;
-    dy = Math.round(dy / SNAP_MM) * SNAP_MM;
+  // Land each grabbed component on the grid. Two modes (SNAP_ABSOLUTE):
+  //   • absolute — round each component's own position onto the fixed board-mm
+  //     grid, so a move re-aligns it wherever it started. A locked axis stays
+  //     frozen at its original value rather than snapping sideways.
+  //   • delta — round the shared drag vector instead, so a group translates
+  //     rigidly and relative spacing is kept but nothing lands on an absolute line.
+  if (SNAP_ABSOLUTE) {
+    const freezeX = dragging.lockAxis === "y", freezeY = dragging.lockAxis === "x";
+    for (const it of dragging.items) {
+      it.newX = freezeX ? it.ox : snap(it.ox + dx);
+      it.newY = freezeY ? it.oy : snap(it.oy + dy);
+      it.g.setAttribute("transform", `translate(${(it.newX - it.ox) * 1000},${(it.newY - it.oy) * 1000})`);
+    }
+  } else {
+    dx = snap(dx); dy = snap(dy);
+    for (const it of dragging.items) {
+      it.newX = it.ox + dx;
+      it.newY = it.oy + dy;
+      it.g.setAttribute("transform", `translate(${dx * 1000},${dy * 1000})`);
+    }
   }
-  for (const it of dragging.items) {
-    it.newX = it.ox + dx;
-    it.newY = it.oy + dy;
-    it.g.setAttribute("transform", `translate(${dx * 1000},${dy * 1000})`);
+  // A drag (vs a selection click) is any gesture that actually shifted a component
+  // to a new position; sticky, so returning exactly home still counts as a move.
+  if (!dragging.moved && dragging.items.some((it) => it.newX !== it.ox || it.newY !== it.oy)) {
+    dragging.moved = true;
   }
-  if (!dragging.moved && (dx !== 0 || dy !== 0)) dragging.moved = true;
 
   const axisTag = dragging.lockAxis === "x" ? "↔ " : dragging.lockAxis === "y" ? "↕ " : "";
   if (dragging.items.length > 1) {
-    setStatus(`${axisTag}${dragging.items.length} comps  Δx=${fmt(dx)}  Δy=${fmt(dy)}`);
+    const p = dragging.items.find((it) => it.ref === dragging.primaryRef) || dragging.items[0];
+    setStatus(`${axisTag}${dragging.items.length} comps  Δx=${fmt(p.newX - p.ox)}  Δy=${fmt(p.newY - p.oy)}`);
   } else {
     const it = dragging.items[0];
     setStatus(`${axisTag}${it.ref}  x=${fmt(it.newX)}  y=${fmt(it.newY)}`);
