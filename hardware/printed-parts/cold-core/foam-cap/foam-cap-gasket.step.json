@@ -1,6 +1,0 @@
-{
-  "thickness_mm": 2.0,
-  "material": "Bambu TPU 90A",
-  "process": "3D-print",
-  "notes": "Perimeter ring gasket between foam-cap mating edge and outer-shell mating face; compressed by M3 SHCS into ruthex heat-set inserts. Printed twice (one per cap). See _foam_shell_geometry.build_foam_cap_gasket for geometry."
-}
