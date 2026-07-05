@@ -20,15 +20,17 @@ import { WAFER_XH2_54_9PZZ } from "./imports/WAFER_XH2_54_9PZZ"
 // so the CPL rotation matches JLCPCB's library (the generic pinrow placed the wafer body
 // mis-rotated). JLCPCB's own footprints for this series are NOT uniform, which is what made the
 // slots look random:
-//   PITCH — 2.5 mm for 3/5/6/9P but 2.54 mm for 4/7P (each label row is drawn at its own pitch).
 //   OPEN  — the mating opening (the tall shroud side) faces +Y at rot 0 for 3/4/9P but -Y for
 //           5/6/7P. The Jst helper reads this to rotate each connector so its opening faces the
 //           board edge it sits on (`side`), uniform across the board.
+// PITCH is a uniform 2.5 mm across the series (XH2.54 is a 2.5 mm-pitch part — the "2.54" is the
+// nominal name, not the drawn pitch). JLCPCB's 4/7P footprints were drawn at 2.54 while their outer
+// shroud walls were sized for 2.5 (B = pin-span + 5.0), so their pins were pulled to 2.5 to match.
 const WAFER_BY_COUNT: Record<number, (props: any) => any> = {
   3: WAFER_XH2_54_3PZZ, 4: WAFER_XH2_54_4PZZ, 5: WAFER_XH2_54_5PZZ,
   6: WAFER_XH2_54_6PZZ, 7: WAFER_XH2_54_7PZZ, 9: WAFER_XH2_54_9PZZ,
 }
-const WAFER_PITCH: Record<number, number> = { 3: 2.5, 4: 2.54, 5: 2.5, 6: 2.5, 7: 2.54, 9: 2.5 }
+const WAFER_PITCH: Record<number, number> = { 3: 2.5, 4: 2.5, 5: 2.5, 6: 2.5, 7: 2.5, 9: 2.5 }
 // intrinsic opening direction at rot 0: +1 = +Y (north), -1 = -Y (south)
 const WAFER_OPEN: Record<number, number> = { 3: 1, 4: 1, 5: -1, 6: -1, 7: -1, 9: 1 }
 // which end pin 1 sits at, at rot 0 — WEST (-X) for the whole series EXCEPT the 7P, whose JLCPCB

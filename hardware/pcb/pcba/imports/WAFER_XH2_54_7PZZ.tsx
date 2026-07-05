@@ -21,17 +21,17 @@ export const WAFER_XH2_54_7PZZ = (props: ChipProps<typeof pinLabels>) => {
 }}
       manufacturerPartNumber="WAFER_XH2_54_7PZZ"
       footprint={<footprint>
-        <platedhole  portHints={["pin7"]} pcbX="-7.62mm" pcbY="0mm" outerDiameter="1.7999964mm" holeDiameter="1.1000232mm" shape="circle" />
-<platedhole  portHints={["pin6"]} pcbX="-5.08mm" pcbY="0mm" outerDiameter="1.7999964mm" holeDiameter="1.1000232mm" shape="circle" />
-<platedhole  portHints={["pin5"]} pcbX="-2.54mm" pcbY="0mm" outerDiameter="1.7999964mm" holeDiameter="1.1000232mm" shape="circle" />
+        <platedhole  portHints={["pin7"]} pcbX="-7.50mm" pcbY="0mm" outerDiameter="1.7999964mm" holeDiameter="1.1000232mm" shape="circle" />
+<platedhole  portHints={["pin6"]} pcbX="-5.00mm" pcbY="0mm" outerDiameter="1.7999964mm" holeDiameter="1.1000232mm" shape="circle" />
+<platedhole  portHints={["pin5"]} pcbX="-2.50mm" pcbY="0mm" outerDiameter="1.7999964mm" holeDiameter="1.1000232mm" shape="circle" />
 <platedhole  portHints={["pin4"]} pcbX="-0mm" pcbY="0mm" outerDiameter="1.7999964mm" holeDiameter="1.1000232mm" shape="circle" />
-<platedhole  portHints={["pin3"]} pcbX="2.54mm" pcbY="0mm" outerDiameter="1.7999964mm" holeDiameter="1.1000232mm" shape="circle" />
-<platedhole  portHints={["pin2"]} pcbX="5.08mm" pcbY="0mm" outerDiameter="1.7999964mm" holeDiameter="1.1000232mm" shape="circle" />
-<platedhole  portHints={["pin1"]} pcbX="7.62mm" pcbY="0mm" outerDiameter="1.7999964mm" holeDiameter="1.1000232mm" shape="circle" />
-<silkscreenpath route={[{"x":7.039990999999873,"y":1.7999964000000546},{"x":7.039990999999873,"y":2.4349964000000455}]} />
-<silkscreenpath route={[{"x":8.055051199999752,"y":1.7779237999999395},{"x":8.055051199999752,"y":2.412923800000044}]} />
-<silkscreenpath route={[{"x":-8.039989000000105,"y":1.699996599999963},{"x":-8.039989000000105,"y":2.399995199999921}]} />
-<silkscreenpath route={[{"x":-7.0399910000001,"y":2.399995199999921},{"x":-7.0384162000001425,"y":1.6870172000000139}]} />
+<platedhole  portHints={["pin3"]} pcbX="2.50mm" pcbY="0mm" outerDiameter="1.7999964mm" holeDiameter="1.1000232mm" shape="circle" />
+<platedhole  portHints={["pin2"]} pcbX="5.00mm" pcbY="0mm" outerDiameter="1.7999964mm" holeDiameter="1.1000232mm" shape="circle" />
+<platedhole  portHints={["pin1"]} pcbX="7.50mm" pcbY="0mm" outerDiameter="1.7999964mm" holeDiameter="1.1000232mm" shape="circle" />
+<silkscreenpath route={[{"x":6.919990999999873,"y":1.7999964000000546},{"x":6.919990999999873,"y":2.4349964000000455}]} />
+<silkscreenpath route={[{"x":7.935051199999752,"y":1.7779237999999395},{"x":7.935051199999752,"y":2.412923800000044}]} />
+<silkscreenpath route={[{"x":-7.919989000000105,"y":1.699996599999963},{"x":-7.919989000000105,"y":2.399995199999921}]} />
+<silkscreenpath route={[{"x":-6.9199910000001,"y":2.399995199999921},{"x":-6.9184162000001425,"y":1.6870172000000139}]} />
 <silkscreenpath route={[{"x":4.192270000000008,"y":-2.6924000000000206},{"x":8.999981999999818,"y":-2.6924000000000206},{"x":8.999981999999818,"y":1.6764000000000578}]} />
 <silkscreenpath route={[{"x":4.159046799999942,"y":1.6764000000000578},{"x":8.999981999999818,"y":1.6764000000000578}]} />
 <silkscreenpath route={[{"x":4.159046799999942,"y":1.6764000000000578},{"x":-9.396730000000048,"y":1.6764000000000578},{"x":-9.396730000000048,"y":-2.6924000000000206},{"x":4.192270000000008,"y":-2.6924000000000206}]} />
