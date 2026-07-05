@@ -155,9 +155,9 @@ export default () => (
         only DI (from ESP TX) and RO (to ESP RX) are driven. R6 = 120R line termination
         across A/B; D1 = SM712 ESD array at the J9 cable entry; C7 decouples VCC. */}
     <Cos13487 name="U7" x={-50} y={-22} rot={270} />
-    <Res name="R6" resistance="120" footprint="0603" jlcpcb="C22787" x={-44.5} y={-22.55} rot={0} side="N" />
+    <Res name="R6" resistance="120" footprint="0603" jlcpcb="C22787" x={-43.8} y={-22.55} rot={0} side="N" />
     <Sm712 name="D1" x={-43.9} y={-25.95} rot={180} />
-    <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-50} y={-17} rot={90} side="E" />
+    <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-50} y={-16.2} rot={90} side="E" />
     {/* On-board supplies. U10 = K7805 (12V->5V, 2A) SIP module (pin1 Vin / pin2 GND / pin3
         +Vo), 10uF input + 22uF output cap. U9 = AMS1117-3.3 (C6186, SOT-223 LDO) makes 3V3
         from the 5V rail: VIN off V5, VOUT1 + VOUT2 (tab) to 3V3, GND to the bottom plane;
@@ -625,7 +625,7 @@ export default () => (
     <CH340C name="U13" pcbX={-51.5} pcbY={18.15} pcbRotation={180} />
     <Res name="R16" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-58.9} y={34.7} rot={0} side="N" />
     <Res name="R15" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-44} y={34.7} rot={0} side="N" />
-    <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-48.6} y={24.9} rot={90} side="E" />
+    <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-47.4} y={24.9} rot={90} side="E" />
     <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-44} y={24.85} rot={90} side="E" />
     {/* EN branch (west): U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
     <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-56.3} y={12.4} rot={0} side="S" />
