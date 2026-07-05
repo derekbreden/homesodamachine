@@ -8,6 +8,7 @@
  * manifold connector reuses, and the `Jst` field connector — the one through-hole
  * part class, the off-board loom headers (J1-J12), specified for JLCPCB assembly.
  */
+import { passiveImport } from "./imports/passives"
 import { WAFER_XH2_54_3PZZ } from "./imports/WAFER_XH2_54_3PZZ"
 import { WAFER_XH2_54_4PZZ } from "./imports/WAFER_XH2_54_4PZZ"
 import { WAFER_XH2_54_5PZZ } from "./imports/WAFER_XH2_54_5PZZ"
@@ -107,25 +108,35 @@ const passiveSilk = (name: string, footprint: string, x: number, y: number, rot:
   )
 }
 
+// Each passive rides its JLCPCB-imported footprint (pads + origin + 3D model) keyed by its
+// `jlcpcb` part number — so the CPL rotation matches JLCPCB's library, like every other part.
+// The import carries no silk (passiveSilk draws the shared mark + ref-des); `footprint` (the
+// size) still sizes that mark. See ./imports/passives.
 export const Cap = ({ name, capacitance, footprint, jlcpcb, x, y, rot = 90, side }: {
   name: string; capacitance: string; footprint: string; jlcpcb: string
   x: number; y: number; rot?: number; side?: Side
-}) => (
-  <>
-    <capacitor name={name} capacitance={capacitance} footprint={`${footprint}_nosilkscreen`} supplierPartNumbers={{ jlcpcb: [jlcpcb] }} pcbRotation={rot} {...at(x, y)} />
-    {passiveSilk(name, footprint, x, y, rot, side)}
-  </>
-)
+}) => {
+  const imp = passiveImport(jlcpcb)
+  return (
+    <>
+      <capacitor name={name} capacitance={capacitance} footprint={imp.footprint()} cadModel={imp.cadModel} supplierPartNumbers={{ jlcpcb: [jlcpcb] }} pcbRotation={rot} {...at(x, y)} />
+      {passiveSilk(name, footprint, x, y, rot, side)}
+    </>
+  )
+}
 
 export const Res = ({ name, resistance, footprint, jlcpcb, x, y, rot = 0, side }: {
   name: string; resistance: string; footprint: string; jlcpcb: string
   x: number; y: number; rot?: number; side?: Side
-}) => (
-  <>
-    <resistor name={name} resistance={resistance} footprint={`${footprint}_nosilkscreen`} supplierPartNumbers={{ jlcpcb: [jlcpcb] }} pcbRotation={rot} {...at(x, y)} />
-    {passiveSilk(name, footprint, x, y, rot, side)}
-  </>
-)
+}) => {
+  const imp = passiveImport(jlcpcb)
+  return (
+    <>
+      <resistor name={name} resistance={resistance} footprint={imp.footprint()} cadModel={imp.cadModel} supplierPartNumbers={{ jlcpcb: [jlcpcb] }} pcbRotation={rot} {...at(x, y)} />
+      {passiveSilk(name, footprint, x, y, rot, side)}
+    </>
+  )
+}
 
 // ---- JST trunk connector ---------------------------------------------------
 // A board header for an off-board loom (the cable plugs in). The imported wafer footprint
