@@ -26,8 +26,15 @@ export type Rect = { minx: number; maxx: number; miny: number; maxy: number }
 export type Body = { ref: string; rect: Rect; kind: "wafer" | "courtyard" | "pads" }
 export type Hole = { name: string; x: number; y: number; r: number }
 
+// Provenance: the XUNPU WAFER-XH2.54-nPZZ parts the board sources (LCSC C5359632 4P etc.).
+// PITCH and END are on the vendor spec: C5359632 lists "Pitch 2.5 mm" and "X-Length of Bottom
+// Edge on Board 12.5 mm" for the 4P → 12.5 = (4−1)·2.5 + 2·2.5, i.e. 2.5 mm of plastic past each
+// outer pin. OPEN/BASE (the across-row depths) are read off the imported EasyEDA footprint
+// courtyard (imports/WAFER_XH2_54_4PZZ.tsx: +3.72 toward the opening, −2.70 toward the base from
+// the pin row) less the ~0.25 mm pad-clearance the courtyard inflates by, giving the plastic-only
+// housing depth the connector audit measures.
 export const XH_PITCH = 2.5      // JST-XH pin pitch (mm)
-export const XH_END = 2.5        // plastic past each outer pin, along the row (housing B = pitch·(n−1)+5.0)
+export const XH_END = 2.5        // plastic past each outer pin, along the row (housing = pitch·(n−1)+5.0)
 export const XH_OPEN_DEPTH = 3.5 // pin row -> mating-opening face, across the row (faces the board edge)
 export const XH_BASE_DEPTH = 2.4 // pin row -> base face, across the row (faces the interior)
 

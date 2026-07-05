@@ -193,29 +193,29 @@ export default () => (
     <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-44.5} y={-4.5} rot={180} side="N" />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
-    <Jst name="J1" x={20.75} y={12.5} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" side="E" />
-    <Jst name="J2" x={20.75} y={-11} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" side="E" />
+    <Jst name="J1" x={21} y={12.5} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" side="E" />
+    <Jst name="J2" x={21} y={-10.75} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" side="E" />
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
-    <Jst name="J13" x={-23} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" side="N" />
-    <Jst name="J3" x={-41} y={-32.75} count={4} labels={["GND", "V5", "IO35", "IO33"]} label="FAUCET" side="S" />
-    <Jst name="J4" x={-24.75} y={-32.75} count={6} labels={["3V3", "GND", "V5", "IO25", "IO26", "IO27"]} label="SENSORS" side="S" />
+    <Jst name="J13" x={-22.25} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" side="N" />
+    <Jst name="J3" x={-40.75} y={-33.0} count={4} labels={["GND", "V5", "IO35", "IO33"]} label="FAUCET" side="S" />
+    <Jst name="J4" x={-24.5} y={-33.0} count={6} labels={["3V3", "GND", "V5", "IO25", "IO26", "IO27"]} label="SENSORS" side="S" />
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
         (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
         IO19 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
     <Jst name="J5" x={-36.5} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} label="RELAYS" side="N" />
-    <Jst name="J6" x={-7.5} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" side="N" />
-    <Jst name="J7" x={-5} y={-32.75} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" side="S" />
-    <Jst name="J8" x={14} y={-32.75} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" side="S" />
-    <Jst name="J9" x={-53.4} y={-32.75} count={3} labels={["B", "A", "ERTH"]} label="SCREEN" side="S" />
+    <Jst name="J6" x={-7.0} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" side="N" />
+    <Jst name="J7" x={-4.5} y={-33.0} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" side="S" />
+    <Jst name="J8" x={13.0} y={-33.0} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" side="S" />
+    <Jst name="J9" x={-53.25} y={-33.0} count={3} labels={["B", "A", "ERTH"]} label="SCREEN" side="S" />
     {/* 12V inlet — KF301-5.0-2P 2-pin 5.0mm screw terminal (C474881, 17A/250V), the board's
         power inlet. Sized for the ~3.3A peak (both pumps priming + a few valves + the condenser
         fan) with margin the 3A XH wafer didn't have. pcbRotation 180 aims the wire throats at the
         north board edge, so the field loom feeds in from OUTSIDE the board. y=30.39 seats the body so
         its north plastic (courtyard) sits 2.5 mm from the board edge — the same plastic-to-edge as
         the north JST mating openings (pin row + 3.5 mm), so J10 reads uniform with J5/J6/J13.
-        pin1->GND, pin2->V12; the 180 seats GND on the east pad (x 13.78) and V12 on the west (x 8.78) —
+        pin1->GND, pin2->V12; the 180 seats GND on the east pad (x 10.75) and V12 on the west (x 5.75) —
         reversing 12V would cook the polarised bulk cap (C3), the bucks, and the drivers. THT
         barrels pick up their nets: V12 off the top island, GND off the bottom plane (the pour
         antipads the GND barrel clear of the V12 island). Traces unchanged (.J10 > .GND / .V12).
@@ -229,7 +229,7 @@ export default () => (
     <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={5.75} pcbY={34.84} />
     <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={8.25} pcbY={35.8} />
     <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={8.25} pcbY={27.35} />
-    <Jst name="J11" x={-62} y={-25.75} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} label="GAS" side="W" />
+    <Jst name="J11" x={-62} y={-25.25} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} label="GAS" side="W" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
         a vertical 2-resistor series: 2.2k (input, bottom) -> midpoint -> 3.3k (to
@@ -572,12 +572,12 @@ export default () => (
         is by colour + position (see esp32-scope.md). */}
     {/* left — firmware R/G/B; anode toward its R (outboard, -x). Every KT-0603 import carries
         pin1=anode on the +x pad, so all three rot 180 to swing the anode pad outboard-left. */}
-    <LedRed name="D2" pcbRotation={180} {...at(-34.25, -15.05)} />
-    <LedGrn name="D3" pcbRotation={180} {...at(-34.25, -17.55)} />
-    <LedBlu name="D4" pcbRotation={180} {...at(-34.25, -20.05)} />
-    <Res name="R10" resistance="470" footprint="0603" jlcpcb="C23179" x={-38.75} y={-15.05} rot={0} side="N" />
-    <Res name="R11" resistance="470" footprint="0603" jlcpcb="C23179" x={-38.75} y={-17.55} rot={0} side="N" />
-    <Res name="R12" resistance="470" footprint="0603" jlcpcb="C23179" x={-38.75} y={-20.05} rot={0} side="N" />
+    <LedRed name="D2" pcbRotation={180} {...at(-34.25, -15.0)} />
+    <LedGrn name="D3" pcbRotation={180} {...at(-34.25, -17.5)} />
+    <LedBlu name="D4" pcbRotation={180} {...at(-34.25, -20.0)} />
+    <Res name="R10" resistance="470" footprint="0603" jlcpcb="C23179" x={-38.75} y={-15.0} rot={0} side="N" />
+    <Res name="R11" resistance="470" footprint="0603" jlcpcb="C23179" x={-38.75} y={-17.5} rot={0} side="N" />
+    <Res name="R12" resistance="470" footprint="0603" jlcpcb="C23179" x={-38.75} y={-20.0} rot={0} side="N" />
     {/* right — power rails (green); anode toward its R (outboard, +x). pin1=anode is already on
         the +x pad, so these stay native (rot 0) to face the anode pad outboard-right at its R. */}
     <LedGrn name="D5" {...at(-24.25, -17)} />
@@ -692,7 +692,11 @@ export default () => (
         bridge a power plane (GND connects on the bottom plane; V12 / 3V3 / 5V / SDA / SCL
         antipad). A symmetric rectangle: every hole is inset 3.5 mm from both of its board
         edges, so the four stay centred on the board and clear of the nearest connector at
-        each corner. */}
+        each corner. 3.2 mm hole / 4.0 mm pad (r 2.0): an M3 screw head (socket-cap or pan,
+        ~5.5 mm ⌀ → r ~2.75) overhangs the pad by ~0.75 mm, and an M3 hex standoff (5.5 mm A/F,
+        r ~3.2) or washer (~7 mm ⌀, r ~3.5) more — so the nearest corner connector housing is
+        held ≥2 mm off the pad edge (the seated head + standoff clear it), the tightest being
+        J8→MH3 and J11→MH4. The connector audit (connector-audit.ts) measures this each render. */}
     <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.5} pcbY={33.5} />
     <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={23.5} pcbY={33.5} />
     <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={23.5} pcbY={-35.5} />
@@ -720,15 +724,15 @@ export default () => (
     <trace from=".J10 > .V12" to="net.V12" />
     {/* V12 top island — an L over the 12 V block: the two pump drivers (U11/U12) in the NW, and the
         ULN commons + manifolds (U4/U5, J1/J2), the buck input (U10/C15) and the bulk reservoir (C3)
-        down the east. The top band runs west to x -28.4 so it sits fully under the pump-driver group
-        (not halfway through U11); the east column stops at y -28.5, just past the southmost V12 part
-        (U10/C15), so it doesn't flood the south connector row. It sits 0.5 mm off the north and east
-        board edges (x 29.5 / y 36.5) — the same margin the plane pours take — so J10 (the 12 V inlet)
-        and J1/J2 seat on it fully. The SW notch (x[-28.4,-8], y[-28.5,11]) keeps it off the LED/logo/
-        nameplate cluster. Foreign barrels crossing it (J13/J6, the MCPs, the GND mounting hole) antipad. */}
+        down the east. The NW arm runs west to x -30.75 so it sits fully under the pump-driver group,
+        past C17's V12 pad at x -29.75; the east column runs down to y -29.5, past the southmost V12
+        pad (C15 at y -28.75). It sits 0.5 mm off the north and east board edges (y 36.5 / x 26.5) —
+        the same margin the plane pours take — so J10 (the 12 V inlet) and J1/J2 seat on it fully. The
+        SW notch (x[-30.75,-8], y[-29.5,11]) keeps it off the LED/logo/nameplate cluster. Foreign
+        barrels crossing it (J13/J6, the MCPs, the GND mounting hole) antipad. */}
     <copperpour name="V12ISLAND" layer="top" connectsTo="net.V12" netClearance="0.5mm from V3V3, V5, SDA, SCL"
-      outline={[{ x: -28.4, y: 36.5 }, { x: 29.5, y: 36.5 }, { x: 29.5, y: -28.5 }, { x: -8, y: -28.5 },
-                { x: -8, y: 11 }, { x: -28.4, y: 11 }]} />
+      outline={[{ x: -30.75, y: 36.5 }, { x: 26.5, y: 36.5 }, { x: 26.5, y: -29.5 }, { x: -8, y: -29.5 },
+                { x: -8, y: 11 }, { x: -30.75, y: 11 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
     <copperpour name="SDAPLANE" layer="inner3" connectsTo="net.SDA" boardEdgeMargin="0.5mm" />
