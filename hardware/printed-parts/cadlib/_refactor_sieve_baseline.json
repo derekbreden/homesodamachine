@@ -1,35 +1,31 @@
 {
   "byte_hashed_steps": {
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step": "77b49d311fcedc336fdc480e684693acaadc6537ea32be767cfe894e3ae9cdce",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step": "3b0ccca5f42aeb6d82f87bd93d1639374beb221a2b36f5bebf646a03e8ddaf5c",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step": "4a2c4d590f2dcbcf0abea8e5b36fa1697ceef3c20c3a837c8c262c6b86804d04",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step": "2668a6ac9a65e2dc5385b426803929c9e8ea072fa269f85a64523946a3048fa3",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step": "db38e8f7b4fea4f6abebbe6874467c0168aff1e8d3690498cff280b49311357f",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step": "47ec7cbfd30e0566cb1d73094002b43c9fa2bc6a4956fd2d41f94bbaa60f4d6e",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step": "33196a3bff02d4224b747f5d4974ac7fb2fe3b359ebd3a0c8b40b9d932252ad2",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step": "ded7683232f9afadaf9544157da6ce82bcca763f2e890fe29fc75ff8f7196fbb",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step": "596434717808bed7d6c2b0bb40088916798e2a07b8c92323bf9ae78c200b525e",
-    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step": "073495de8532bf1425bf10dc5c9dec3f0493e4bbee05e293fa7c3930f4942e63",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "946cfdf70d38cf2851276d55735c916d02065e1085fd0e458c07ea3e863e90b3",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step": "1f59c96b6d4a8f9f4906f9258116168c31669deffe21fbd0bbb8df026b98395a",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step": "5c19b923b39ed016fd81e7c4d168573859176cd07accd5aff460a54ad20aa65a",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step": "03684366b6089ba8f0491d9d41da76120f9fee223e04c3ec1f82906539b0cbda",
+    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step": "f7d63a2c8bf5af5ef9efa8b976b1b616e4c29e2e0c4e36790f930393160a8e0a",
+    "hardware/printed-parts/cold-core/foam-lid/foam-lid.step": "d1f90962877e4d2c8caa632f85131e46220299c8b014484650638f8d13a5c418",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "74afef5ccebfe2c063ee866751e848321b6e14323d896081c43026de4026591b",
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step": "73f043f31775cc1be01fe73d82e9cc523ec54e508ba72966f3e5b4fb50b19561",
     "hardware/printed-parts/flavor/cap-sense-sleeve/cap-sense-sleeve-neg-y.step": "f8ab883439223401a89df993c9804161d8dead2be96bc2847722f73fc5ef927a",
     "hardware/printed-parts/flavor/cap-sense-sleeve/cap-sense-sleeve-pos-y.step": "ba58bca947c5d87316b4d55b87eadc9af1b9c7940ac5f76bc5cfdac6d1c7bfe5",
     "hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step": "70a6020b4059216ddd69ac37d62cc0f8ba9a5b257ebdcb8335dc494204e9af40",
-    "hardware/printed-parts/valve-manifold/bag-circuit-tray/bag-circuit-assembly.step": "077b8095fddbf6d36f542ba45fc93f42b2ef91801b7e629f0f051767a9a70fcd",
-    "hardware/printed-parts/valve-manifold/bag-circuit-tray/bag-circuit-tray.step": "e0efe679e6d6b0dc95635098d71d7ab94065ab1cb81c03f88e80314188b39f96",
-    "hardware/printed-parts/valve-manifold/bib-gate-tray/bib-gate-assembly.step": "dbcd6d506b96d346c8e401a4babde554505242be0a04c9cc9bee46a1d290b5f6",
-    "hardware/printed-parts/valve-manifold/bib-gate-tray/bib-gate-tray.step": "f3ac1aea164d3e788d310d38f63e56f84c2f95e84950e4f08a4ae175f1edb864",
-    "hardware/printed-parts/valve-manifold/nozzle-gate-tray/nozzle-gate-assembly.step": "64d90063125ad19d9d9969e24cd27e1572e676413c65ce7c92155c07fe22d57d",
-    "hardware/printed-parts/valve-manifold/nozzle-gate-tray/nozzle-gate-tray.step": "33e205ed80cb26108ddc71e8ec6e57e79ca7af65bbdf299356c476cb6c67efa0",
+    "hardware/printed-parts/valve-manifold/bag-circuit-tray/bag-circuit-assembly.step": "8295f88e42b45932938c06ff9a4bab9931d05466c4e335b2e5302b6bbf5fae31",
+    "hardware/printed-parts/valve-manifold/bag-circuit-tray/bag-circuit-tray.step": "4d5c8f685bbe4a22696d9162822957cd657a640acc01bea101d1f91dd14d9c90",
+    "hardware/printed-parts/valve-manifold/bib-gate-tray/bib-gate-assembly.step": "bf0cccf7cfe6aea084c19d1302c1296b346600ff901da60f4fcf57af7a699617",
+    "hardware/printed-parts/valve-manifold/bib-gate-tray/bib-gate-tray.step": "981bf6cef9ea8dd35323bc08a730a51597f0bd7dd1f6a648afa837719fc3f2af",
+    "hardware/printed-parts/valve-manifold/nozzle-gate-tray/nozzle-gate-assembly.step": "0ea43323722ec012bc9b922a7953497cfa4b8b50ef879267f929c7abcc53bd12",
+    "hardware/printed-parts/valve-manifold/nozzle-gate-tray/nozzle-gate-tray.step": "981bf6cef9ea8dd35323bc08a730a51597f0bd7dd1f6a648afa837719fc3f2af",
     "hardware/printed-parts/valve-manifold/single-tray/single-tray.step": "1766d5700b1e68692c19760e4edc03172796b00241716069df4980afdd713771",
-    "hardware/printed-parts/valve-manifold/source-select-tray/source-select-assembly.step": "a11ecfb2a8faf91e195a1311b0167ca8dac95709c1727c932bde74d62aa3be7e",
-    "hardware/printed-parts/valve-manifold/source-select-tray/source-select-tray.step": "53f931d057a01be9dc2aa3c2ea92388d5710d28ec26748bb0ce86632d40f8be0",
+    "hardware/printed-parts/valve-manifold/source-select-tray/source-select-assembly.step": "ca0796476251f2071903542305e2296e0bd7d347869d70250b63d46cf8fde7bf",
+    "hardware/printed-parts/valve-manifold/source-select-tray/source-select-tray.step": "bc539ca78db88a7dde19832fc7ab90fe0b1c34970b8e35b0186d590458079b1a",
     "hardware/reference/beduan-solenoid/beduan-solenoid.step": "387a00acf9fa173cdc812c89b38756b1a13076f7401126307a9fd5dbe4dfd878",
     "hardware/reference/co2-coupling-body/co2-coupling-body.step": "6c647a645ee4f99ca3c84a39f85e36ef3d249d387c071229e58e8937f5020313",
     "hardware/reference/jg-bulkhead-union/jg-bulkhead-union.step": "abd56c3925693a5caa252ec65a34594b8fa82a559dfe9b6f272620dcdfc7a95f",
     "hardware/reference/servo-valve-mock/coupling-detail.step": "bfbb93e62737d4eb9dd64314dc83368007a00a0a8bd524e322cbeacfb2adb620",
     "hardware/reference/servo-valve-mock/servo-valve-mock.step": "fb320633385ccfee8a073aec547e8c77a97b1737a52a2dd2c4b47f52cd35b13c",
-    "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step": "99fe5547e5ff121190bc5676b8c22b917b1d7a5cf8d749cacec62ffc578eadc8",
+    "hardware/reference/touch-flo-faucet/faucet-assembly/touch-flo-faucet-assembly.step": "cdb1f50267574a28c20da4de8905f6f32b3356c88d40956ec9194aa94056e5a9",
     "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step": "9a888589a4479351a13177a8885c9748da287e05d215bc5e541c1ae20acfe892",
     "hardware/reference/water-test-cup/water-test-cup.step": "019a9cb3d87939e35549f12d59f8e81c7282eb5809fd97248fdcf2525a99b6f0"
   },
@@ -102,35 +98,35 @@
   "faucet_parts": {
     "mounting_gasket": {
       "bbox": {
-        "xmax": 33.4461,
-        "xmin": -33.4461,
+        "xmax": 34.3498,
+        "xmin": -34.3498,
         "ymax": 25.45,
-        "ymin": -33.65,
+        "ymin": -34.55,
         "zmax": -4.0,
         "zmin": -6.0
       },
       "com": {
-        "x": 0.0,
-        "y": -0.5458,
+        "x": -0.0,
+        "y": -0.8139,
         "z": -5.0
       },
-      "volume_mm3": 4072.6218
+      "volume_mm3": 4247.5453
     },
     "mounting_plate": {
       "bbox": {
-        "xmax": 33.4461,
-        "xmin": -33.4461,
+        "xmax": 34.3498,
+        "xmin": -34.3498,
         "ymax": 25.45,
-        "ymin": -33.65,
-        "zmax": 7.5,
+        "ymin": -34.55,
+        "zmax": 7.0,
         "zmin": -4.0
       },
       "com": {
-        "x": 0.0,
-        "y": -1.5609,
-        "z": -0.7922
+        "x": -0.0,
+        "y": -1.7779,
+        "z": -0.8511
       },
-      "volume_mm3": 9943.5707
+      "volume_mm3": 10302.6158
     },
     "tpu_o_ring": {
       "bbox": {
@@ -161,10 +157,10 @@
       },
       "com": {
         "x": 35.0,
-        "y": 36.0427,
-        "z": 35.5361
+        "y": 36.0518,
+        "z": 35.5196
       },
-      "volume_mm3": 162518.4649
+      "volume_mm3": 162571.3784
     },
     "cap": {
       "bbox": {
@@ -194,11 +190,11 @@
         "zmin": 24.6
       },
       "com": {
-        "x": -84.9767,
-        "y": -0.0536,
-        "z": 98.0602
+        "x": -84.9735,
+        "y": 0.0301,
+        "z": 98.09
       },
-      "volume_mm3": 313413.9583
+      "volume_mm3": 313250.1154
     },
     "body_right": {
       "bbox": {
@@ -210,11 +206,11 @@
         "zmin": 24.6
       },
       "com": {
-        "x": 84.9767,
-        "y": -0.0536,
-        "z": 98.0602
+        "x": 84.9735,
+        "y": 0.0301,
+        "z": 98.09
       },
-      "volume_mm3": 313413.9583
+      "volume_mm3": 313250.1154
     },
     "bulkhead_seal_dry": {
       "bbox": {
@@ -255,14 +251,14 @@
         "ymax": 70.0,
         "ymin": -70.0,
         "zmax": 9.0,
-        "zmin": -4.0
+        "zmin": -2.0
       },
       "com": {
-        "x": -88.8505,
-        "y": -0.3252,
-        "z": 5.6398
+        "x": -88.8708,
+        "y": 0.2571,
+        "z": 5.6529
       },
-      "volume_mm3": 46855.4903
+      "volume_mm3": 46784.1761
     },
     "cap_right": {
       "bbox": {
@@ -271,14 +267,14 @@
         "ymax": 70.0,
         "ymin": -70.0,
         "zmax": 9.0,
-        "zmin": -4.0
+        "zmin": -2.0
       },
       "com": {
-        "x": 88.8505,
-        "y": -0.3252,
-        "z": 5.6398
+        "x": 88.8708,
+        "y": 0.2571,
+        "z": 5.6529
       },
-      "volume_mm3": 46855.4903
+      "volume_mm3": 46784.1761
     },
     "gasket": {
       "bbox": {
@@ -316,8 +312,8 @@
   "shell": {
     "bottom": {
       "bbox": {
-        "xmax": 33.4461,
-        "xmin": -33.4461,
+        "xmax": 34.3498,
+        "xmin": -34.3498,
         "ymax": 25.45,
         "ymin": -60.5359,
         "zmax": 201.2283,
@@ -325,58 +321,58 @@
       },
       "com": {
         "x": 0.0,
-        "y": -4.6046,
-        "z": 76.6631
+        "y": -4.6346,
+        "z": 75.8031
       },
-      "volume_mm3": 77684.8254
+      "volume_mm3": 78697.3055
     },
     "full": {
       "bbox": {
-        "xmax": 33.4461,
-        "xmin": -33.4461,
+        "xmax": 34.3498,
+        "xmin": -34.3498,
         "ymax": 25.45,
-        "ymin": -145.3341,
-        "zmax": 228.6282,
+        "ymin": -151.0411,
+        "zmax": 230.6794,
         "zmin": -0.0
       },
       "com": {
         "x": 0.0,
-        "y": -30.783,
-        "z": 115.9725
+        "y": -33.3645,
+        "z": 117.8208
       },
-      "volume_mm3": 112039.8366
+      "volume_mm3": 116463.1243
     },
     "middle": {
       "bbox": {
-        "xmax": 10.7,
-        "xmin": -10.7,
-        "ymax": -32.1026,
-        "ymin": -129.2644,
-        "zmax": 228.6282,
-        "zmin": 173.8426
+        "xmax": 14.36,
+        "xmin": -14.36,
+        "ymax": -32.1675,
+        "ymin": -134.9714,
+        "zmax": 230.6794,
+        "zmin": 173.8801
       },
       "com": {
         "x": 0.0,
-        "y": -75.5581,
-        "z": 208.6213
+        "y": -80.2073,
+        "z": 209.7336
       },
-      "volume_mm3": 23602.3488
+      "volume_mm3": 26301.3523
     },
     "top": {
       "bbox": {
-        "xmax": 10.7,
-        "xmin": -10.7,
-        "ymax": -100.8083,
-        "ymin": -145.3341,
-        "zmax": 221.9088,
+        "xmax": 14.36,
+        "xmin": -14.36,
+        "ymax": -100.837,
+        "ymin": -151.0411,
+        "zmax": 219.565,
         "zmin": 174.5313
       },
       "com": {
         "x": 0.0,
-        "y": -123.9416,
-        "z": 196.2705
+        "y": -125.9756,
+        "z": 195.2156
       },
-      "volume_mm3": 10118.3218
+      "volume_mm3": 10769.0515
     }
   }
 }
