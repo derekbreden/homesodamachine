@@ -44,7 +44,7 @@ const WAFER_BODY_OUT: Record<number, number> = { 3: 3.45, 4: 3.72, 5: 3.77, 6: 3
 export const at = (px: number, py: number) => ({ pcbX: px, pcbY: py, schX: px / 6, schY: py / 6 })
 
 // MANIFOLD A's connector reuses the ULN output order (ch1-8 + the 12 V flyback COM).
-export const ulnOUT = ["OUT1", "OUT2", "OUT3", "OUT4", "OUT5", "OUT6", "OUT7", "OUT8", "COM"]
+export const ulnOUT = ["COM", "OUT1", "OUT2", "OUT3", "OUT4", "OUT5", "OUT6", "OUT7", "OUT8"]
 
 // ---- SMD passives (resistor / capacitor) with hand-drawn silk --------------
 // Every 2-terminal chip passive on the board — resistor AND capacitor — goes
