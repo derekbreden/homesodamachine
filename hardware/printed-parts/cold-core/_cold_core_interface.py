@@ -103,17 +103,26 @@ outer_shell_y_length = 2 * (
 )
 
 
-foam_cap_interior_height = outer_shell_foam_gap
-foam_cap_height = foam_cap_interior_height + wall_and_floor_thickness
+# Foam-lid thickness — the thin PETG cover that closes the body's open +Z top
+# over the cured body-pour foam. The pre-soldered reed columns drop into the
+# open top first; the lid then caps it. No foam, no gasket — it just keeps the
+# cured foam covered and carries the CO2 tube pass-through.
+foam_lid_thickness = 3.0
 
-foam_cap_lid_pour_radius = 10.0
-foam_cap_lid_vent_radius = 3.0
-foam_cap_lid_hole_inset = 30.0
+# CO2 inlet tube pass-through (through the foam lid): the 1/4" OD LLDPE CO2 line
+# enters from above at x=0, its Y midway between the centerward-wall band and the
+# support-ring band, then routes down through the body foam to the internal ⌀16
+# elbow doorway (the doorway itself is cut in _port_cuts, not here). Only the
+# tube traverses the lid.
+co2_inlet_tube_radius = port_hole_radius
+_co2_centerward_mid_r = pocket_centerward_arc_outer_radius - wall_and_floor_thickness / 2
+_co2_support_ring_outer_r = pocket_centerward_arc_outer_radius - wall_and_floor_thickness
+_co2_support_ring_mid_r = _co2_support_ring_outer_r - support_ring_radial_width / 2
+co2_inlet_y = -(_co2_centerward_mid_r + _co2_support_ring_mid_r) / 2
 
-# Cap-to-outer-shell joinery: ruthex M3 heat-set inserts + M3 SHCS,
-# 6 attachment points per face × 2 faces = 12 inserts / 12 screws.
-# Gasket compresses between each cap's mating edge and the outer shell
-# (foam-cap-gasket.step). See bom.md for hardware SKUs.
+# Lid-to-outer-shell joinery: 6 ruthex M3 heat-set inserts in the shell's
+# TOP-face bosses + 6 M3 SHCS through the lid (the bottom face carries no
+# inserts — there is no bottom cap). See bom.md for hardware SKUs.
 screw_clearance_radius = 1.95  # ⌀[3.9](SCREW_CLEARANCE_DIAMETER) clearance for M3 SHCS shank
 insert_pocket_radius = 2.0  # ⌀[4](INSERT_POCKET_DIAMETER) for ruthex M3 short heat-set
 insert_pocket_depth = 8.0  # 4 mm insert engagement + 4 mm relief
@@ -136,7 +145,7 @@ _corner_boss_y = _corner_arc_y + _corner_boss_diag_offset
 # slot at x=0; opposite signs at ±Y preserve 180° rotational symmetry
 # around the Z axis (balanced gasket compression).
 mid_screw_x_offset = 15.0
-foam_cap_attachment_xy_positions = (
+attachment_xy_positions = (
     [(x_sign * _corner_boss_x, y_sign * _corner_boss_y)
      for x_sign in (1, -1) for y_sign in (1, -1)]
     + [(y_sign * mid_screw_x_offset,

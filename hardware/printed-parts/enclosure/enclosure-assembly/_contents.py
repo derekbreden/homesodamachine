@@ -1,16 +1,17 @@
 """Kitchen Edition enclosure contents — every internal subsystem packed.
 
-Detailed STEP imports where they exist (cold-core foam shell, the four
-valve-manifold tray assemblies with their seated valves, two pump assemblies
-(Kamoer pump + outlet elbows), the compressor shroud). Placeholder boxes for
-parts that have no STEP yet (condenser+fan, SeaFlo diaphragm pump).
+Detailed STEP imports where they exist (cold-core foam assembly — the shell
+with its thin top lid — the four valve-manifold tray assemblies with their
+seated valves, two pump assemblies (Kamoer pump + outlet elbows), the
+compressor shroud). Placeholder boxes for parts that have no STEP yet
+(condenser+fan, SeaFlo diaphragm pump).
 
 Coordinate frame: +X right, +Y back, +Z up. Origin at the lower-front-left
 corner.
 
 Layout follows the enclosure zone map (see ../../README.md), a roughly-packed
 stand-in (not collision-validated):
-  * Zone A (back-bottom):  cold core (foam shell), on the floor, its −Y
+  * Zone A (back-bottom):  cold core (foam assembly), on the floor, its −Y
     dispense/service ports facing forward toward the front zones.
   * Zone D (front-bottom): compressor shroud + condenser/fan + SeaFlo pump.
   * Zone C (front-top):    the two flavor pumps (under the funnel).
@@ -27,7 +28,7 @@ _hw = _repo / "hardware"
 
 
 # --- Source STEPs ---------------------------------------------------------
-FOAM_SHELL    = _hw / "printed-parts" / "cold-core" / "foam-shell" / "foam-shell.step"
+FOAM_ASSEMBLY = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
 COMP_SHROUD   = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
 PUMP_ASSEMBLY = _hw / "reference" / "kamoer-kphm400" / "pump-assembly.step"
 _VM = _hw / "printed-parts" / "valve-manifold"
@@ -107,7 +108,7 @@ C14_DROP_Z = 28.0            # C14 center, this far -Z (down) from the ceiling
 
 # --- Colors ---------------------------------------------------------------
 COLORS = {
-    "foam-shell":        cq.Color(0.55, 0.75, 0.95, 0.55),
+    "foam-assembly":     cq.Color(0.55, 0.75, 0.95, 0.55),
     "compressor-shroud": cq.Color(0.60, 0.62, 0.66),
     "condenser+fan":     cq.Color(0.78, 0.55, 0.35),
     "seaflo-pump":       cq.Color(0.20, 0.35, 0.55),
@@ -146,9 +147,9 @@ def _cycle_xyz_to_yzx(shape):
 def build():
     placed = {}
 
-    foam = _load(FOAM_SHELL)
+    foam = _load(FOAM_ASSEMBLY)
     fb = foam.BoundingBox()
-    cold_w, cold_h = fb.xlen, fb.zlen          # ~283 wide, ~213 tall
+    cold_w, cold_h = fb.xlen, fb.zlen          # ~283 wide, ~216 tall (shell + thin top lid)
     top_z = cold_h + LAYER_GAP                  # front top-layer floor
     # The lifted cold core's top rises into the back-top tray band; the trays
     # sit just above it (a smaller gap than LAYER_GAP, to stay under the ceiling).
@@ -156,7 +157,7 @@ def build():
 
     # --- Zone A: cold core, back, lifted clear of the back half's floor braces.
     # Seated behind the front block; its −Y service/dispense ports face forward.
-    placed["foam-shell"] = _at(foam, 0.0, FRONT_DEPTH, FOAM_LIFT)
+    placed["foam-assembly"] = _at(foam, 0.0, FRONT_DEPTH, FOAM_LIFT)
 
     # --- Zone D: refrigeration on the floor — compressor shroud front-left,
     # condenser/fan as a panel front-right (airflow axis across X). Both inset
@@ -216,7 +217,7 @@ def back_wall_ports():
     ../back-panel/README.md."""
     placed = build()
     bbs = [s.BoundingBox() for s, _c in placed.values()]
-    foam_top = placed["foam-shell"][0].BoundingBox().zmax
+    foam_top = placed["foam-assembly"][0].BoundingBox().zmax
     ceil_z = max(b.zmax for b in bbs)              # enclosure ceiling (interior_clearance 0)
     x_lo = min(b.xmin for b in bbs)                # -X inner wall
     x_hi = max(b.xmax for b in bbs)                # +X inner wall

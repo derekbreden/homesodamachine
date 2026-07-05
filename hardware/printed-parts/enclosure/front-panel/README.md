@@ -10,7 +10,7 @@ Opening the cabinet door and looking at the front of the appliance shows the cus
 |---|---|---|---|
 | 1 | ESP32-S3 config display | Waveshare ESP32-S3-Touch-LCD-4.3B (B0D925SBYF) | Set into the front face, angled up toward the standing user. 4.3" 800×480 capacitive touchscreen. Default state shows the selected flavor; touch reaches flavor-image/ratio tuning, clean cycles, pump priming, factory reset, and advanced settings, and bridges the iOS app over BLE. 7–36 V screw-terminal power off the 12 V bus; RS485 to the base ESP32. |
 | 2 | Front-dispense spout | TBD | The customer's drill-trigger moment — a visible thing on the front you press, soda comes out (currently-selected flavor, set on the S3). Internal plumbing taps the carbonator outlet + flavor-pump junction before the umbilical, with its own valve and a front-panel nozzle. Lever vs button vs glass-press TBD. |
-| 3 | CO2 line inlet | DERPIPE 5/16"-tube × 1/4" NPT push-to-connect | Customer's CGA-320 primary regulator hose ([~12"](CGA_TETHER_L) short tether per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §4) lands here. Downstream: GASHER 1/4" NPT SS check valve + WR1110 [fixed-90 PSI](REGULATOR_PRESSURE) secondary regulator before the cold-core CO2 input at the foam-cap top. Red accent ring at the panel opening per §"CO2 inlet — red color-coding" below. Possibly migrated to the furthest-forward edge of a side face — see §"CO2 inlet placement" below. |
+| 3 | CO2 line inlet | DERPIPE 5/16"-tube × 1/4" NPT push-to-connect | Customer's CGA-320 primary regulator hose ([~12"](CGA_TETHER_L) short tether per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §4) lands here. Downstream: GASHER 1/4" NPT SS check valve + WR1110 [fixed-90 PSI](REGULATOR_PRESSURE) secondary regulator before the cold-core CO2 input at the foam-lid (+Z top). Red accent ring at the panel opening per §"CO2 inlet — red color-coding" below. Possibly migrated to the furthest-forward edge of a side face — see §"CO2 inlet placement" below. |
 
 ## CO2 inlet placement
 
@@ -36,7 +36,7 @@ The internal 1/4" LLDPE between the front-panel CO2 PTC and the vessel-side TAIS
 
 ## Internal routing — WR1110 placement
 
-Downstream of the front-panel CO2 inlet stack: GASHER check → WR1110 secondary regulator → first PP010822E PTC × NPT M adapter → 1/4" OD LLDPE routed up through the electronics-shelf zone → cold-core CO2 input at the foam-cap top (+Z). Procedure detail in [`/hardware/assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §1.
+Downstream of the front-panel CO2 inlet stack: GASHER check → WR1110 secondary regulator → first PP010822E PTC × NPT M adapter → 1/4" OD LLDPE routed up through the electronics-shelf zone → cold-core CO2 input at the foam-lid (+Z top). Procedure detail in [`/hardware/assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §1.
 
 The WR1110 mounts on a printed bracket somewhere along the CO2 path between the front-panel inlet and the foam-shell top. Exact bracket location is flexible per [`/hardware/printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md) "What is flexible".
 

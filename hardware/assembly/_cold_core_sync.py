@@ -18,16 +18,13 @@ sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
 
 from _cold_core_interface import (  # noqa: E402
-    foam_cap_interior_height,
-    foam_cap_lid_pour_radius,
-    foam_cap_lid_vent_radius,
+    co2_inlet_y,
     foam_shell_outer_height,
     insert_pocket_depth,
     insert_pocket_radius,
     outer_shell_x_length,
     outer_shell_y_length,
     port_hole_radius,
-    screw_boss_size,
     wall_and_floor_thickness,
 )
 
@@ -43,16 +40,11 @@ def _load_module(name: str, file_path: Path):
     return module
 
 
-_foam_cap_gen = _load_module(
-    "cold_core_foam_cap_gen",
-    _hw / "printed-parts" / "cold-core" / "foam-cap" / "foam_cap.py",
-)
 _coil_mandrel_gen = _load_module(
     "cold_core_coil_mandrel_gen",
     _hw / "printed-parts" / "cold-core" / "coil-mandrel" / "coil_mandrel.py",
 )
 
-import _foam_cap  # noqa: E402
 import _port_cuts  # noqa: E402
 from docgen import substitute_md, substitute_py_comments  # noqa: E402
 
@@ -71,10 +63,6 @@ def main():
         "PITCH": f"{_coil_mandrel_gen.pitch:.2f} mm",
         "PLUG_INLET_Y": f"{_coil_mandrel_gen.plug_inlet_y:.4g}",
         "PLUG_OUTLET_Y": f"{_coil_mandrel_gen.plug_outlet_y:.4g}",
-        # ─── Cap pour (step 2, line 53) ───────────────────────────────
-        "CAP_H": f"{foam_cap_interior_height:.4g} mm",
-        "POUR_D": f"{foam_cap_lid_pour_radius * 2:.4g} mm",
-        "VENT_D": f"{foam_cap_lid_vent_radius * 2:.4g} mm",
         # ─── Inserts (step 3, line 59) ────────────────────────────────
         # insert_pocket_depth is the FULL printed-pocket depth = insert
         # engagement (half) + relief (half).
@@ -85,10 +73,7 @@ def main():
         # bulkheads, CO2 tube clearance through cap+lid).
         "TUBE_HOLE_D": f"{port_hole_radius * 2:.4g} mm",
         # CO2 inlet Z coordinate in the foam-shell frame.
-        "COTWO_INLET_Z": f"{_foam_cap_gen.co2_inlet_y:.4g}",
-        # ─── Final assembly (step 6, line 90) ─────────────────────────
-        # Screw-boss square footprint that the TPU gasket's pads sit on.
-        "BOSS": f"{screw_boss_size:.4g} × {screw_boss_size:.4g} mm",
+        "COTWO_INLET_Z": f"{co2_inlet_y:.4g}",
         # ─── Output envelope (line 113) ───────────────────────────────
         "OUTER_X": f"{outer_shell_x_length:.4g} mm",
         "CCORE_OUTER_Y": f"{outer_shell_y_length:.4g}",
@@ -108,14 +93,10 @@ def main():
             "PITCH": 1,
             "PLUG_INLET_Y": 1,
             "PLUG_OUTLET_Y": 1,
-            "CAP_H": 1,
-            "POUR_D": 1,
-            "VENT_D": 1,
             "INSERT_POCKET_D": 1,
             "INSERT_HALF_DEPTH": 2,
             "TUBE_HOLE_D": 3,
             "COTWO_INLET_Z": 1,
-            "BOSS": 1,
             "OUTER_X": 1,
             "CCORE_OUTER_Y": 1,
             "OUTER_H": 1,
@@ -144,16 +125,6 @@ def main():
         },
     )
     print("-> _port_cuts.py")
-
-    # Pin the foam-cap interior height in _foam_cap.py's docstring.
-    substitute_py_comments(
-        Path(_foam_cap.__file__),
-        variables={
-            "FOAM_CAP_INTERIOR_HEIGHT": f"{foam_cap_interior_height:.4g} mm",
-        },
-        expected_counts={"FOAM_CAP_INTERIOR_HEIGHT": 1},
-    )
-    print("-> _foam_cap.py")
 
 
 if __name__ == "__main__":
