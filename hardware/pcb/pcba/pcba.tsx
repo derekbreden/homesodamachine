@@ -123,7 +123,7 @@ export const ampacity: AmpacityRule[] = [
 ]
 
 export default () => (
-  <board layers={6} schematicDisabled outline={[{ x: -67.5, y: -40.6 }, { x: 37.2, y: -40.6 }, { x: 37.2, y: 37 }, { x: -67.5, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.15, viaMode: "through-hole" }}>
+  <board layers={6} schematicDisabled outline={[{ x: -68, y: -41 }, { x: 38, y: -41 }, { x: 38, y: 37 }, { x: -68, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.15, viaMode: "through-hole" }}>
     {/* DS3231SN RTC + CR2032 backup, east of the ESP. U6 (the SOIC) sits high with its
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
@@ -141,14 +141,14 @@ export default () => (
         power-on RC (R7 10k pull-up + C12 1uF) sit at the south edge by the 3V3/EN pins; R8
         (10k) pulls IO0 up; the WROOM is flashed over the USB-C programming block above it
         (CH340 bridge on TX0/RX0, auto-reset on EN/IO0) — see that block below. */}
-    <Wroom name="U1" pcbX={-56.45} pcbY={0} pcbRotation={0} />
+    <Wroom name="U1" pcbX={-57} pcbY={0} pcbRotation={0} />
     {/* WROOM support south of U1: the EN power-on RC (R7 + C12) stacked at the far-west,
         hard by U1's EN pin so the EN trace stays short; the supply decouplers C10 + C11
         share the lane just east of them. */}
-    <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={-63.5} y={-13.5} rot={0} side="N" />
-    <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={-63.5} y={-17.5} rot={0} side="N" />
-    <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-58.5} y={-14.0} rot={90} />
-    <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-53.5} y={-14.0} rot={90} side="E" />
+    <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={-64.5} y={-11.75} rot={180} side="N" />
+    <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={-64.5} y={-14} rot={180} side="N" />
+    <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-54} y={-14} rot={90} />
+    <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-51} y={-14} rot={90} side="E" />
     <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-44} y={12} rot={270} side="E" />
     {/* RS-485 to the front display (J9). COS13487EESA-3.3 auto-direction transceiver (U7):
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
@@ -157,7 +157,7 @@ export default () => (
     <Cos13487 name="U7" x={-50} y={-22} rot={270} />
     <Res name="R6" resistance="120" footprint="0603" jlcpcb="C22787" x={-43.8} y={-22.55} rot={0} side="N" />
     <Sm712 name="D1" x={-43.9} y={-25.95} rot={180} />
-    <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-50} y={-16.2} rot={90} side="E" />
+    <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-47.5} y={-16.2} rot={90} side="E" />
     {/* On-board supplies. U10 = K7805 (12V->5V, 2A) SIP module (pin1 Vin / pin2 GND / pin3
         +Vo), 10uF input + 22uF output cap. U9 = AMS1117-3.3 (C6186, SOT-223 LDO) makes 3V3
         from the 5V rail: VIN off V5, VOUT1 + VOUT2 (tab) to 3V3, GND to the bottom plane;
@@ -235,10 +235,10 @@ export default () => (
         for DOUT). The midpoint taps right into the ESP; AOUT: R1/R2 -> IO39, DOUT:
         R3/R4 -> IO36. IO36/IO39 are the ADC1 input-only pins at the west end of the ESP
         south edge; the dividers sit just below them, the GAS connector below the dividers. */}
-    <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={-59} y={-25} rot={180} side="N" />
-    <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={-59} y={-21.3} rot={0} side="N" />
-    <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={-63} y={-25} rot={0} side="N" />
-    <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={-63} y={-21.3} rot={0} side="N" />
+    <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={-60.75} y={-18.5} rot={180} side="N" />
+    <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={-60.75} y={-16.25} rot={0} side="N" />
+    <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={-64.5} y={-18.5} rot={0} side="N" />
+    <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={-64.5} y={-16.25} rot={180} side="N" />
 
     {/* 3V3 rail -> inner1 plane, sourced by the AMS1117 LDO (U9) off the 5V rail. The I2C
         devices (both MCPs, DS3231), RS485, the WROOM, and the sensor loom all common to it at
@@ -691,10 +691,10 @@ export default () => (
         antipad). A symmetric rectangle: every hole is inset 3.5 mm from both of its board
         edges, so the four stay centred on the board and clear of the nearest connector at
         each corner. */}
-    <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.0} pcbY={33.5} />
-    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={33.7} pcbY={33.5} />
-    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={33.7} pcbY={-37.1} />
-    <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.0} pcbY={-37.1} />
+    <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.5} pcbY={33.5} />
+    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={34.5} pcbY={33.5} />
+    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={34.5} pcbY={-37.5} />
+    <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.5} pcbY={-37.5} />
 
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
         monocolor silk via logo.ts) over the centered name + version, a compact
