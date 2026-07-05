@@ -34,7 +34,9 @@ The CadQuery script uses an explicit XY plane with +Z normal
 - **Evaporator coil** — 1/4" OD × 0.187" ID × 0.031" wall ACR copper,
   hand-wound helically around the vessel exterior, bonded with 3M 425
   aluminum foil tape. ~6.35 mm radial occupancy plus tolerance — budgeted
-  at [7 mm](COIL_GAP).
+  at [7 mm](COIL_GAP). The coil is embedded in the inner slice of the
+  cylinder's foam blanket; pour foam fills the helical gaps between wraps
+  and out to the reservoir wall.
 - **Tank-port fittings** — 1/4" NPT 90° elbows on every port, turning the
   line laterally. ~[30 mm](ELBOW_ENV) vertical envelope per elbow above
   and below the tank. An additional **John Guest PP0308E 1/4" PTC 90° elbow**
@@ -56,16 +58,24 @@ across the YZ plane. Each pocket is a four-walled enclosure (open at
 +Z; the outer_shell's floor closes the bottom; the shell's open +Z
 top receives the foam pour):
 
-- **Far ±X wall** — outboard face at x = ±[123.5 mm](POCKET_X_OUTER), cavity face at
-  x = ±[121.5 mm](POCKET_X_INNER).
-- **+Y wall** — outboard face at y = +[72.5 mm](POCKET_ARC_R), cavity face at y = +[70.5 mm](POCKET_ARC_INNER_R).
-- **−Y wall** — outboard face at y = −[72.5 mm](POCKET_ARC_R), cavity face at y = −[70.5 mm](POCKET_ARC_INNER_R).
+- **Far ±X wall** — outboard face at x = ±[131.5 mm](POCKET_X_OUTER), cavity face at
+  x = ±[129.5 mm](POCKET_X_INNER).
+- **+Y wall** — outboard face at y = +[72.5 mm](POCKET_Y_OUTER), cavity face at y = +[70.5 mm](POCKET_Y_INNER).
+- **−Y wall** — outboard face at y = −[72.5 mm](POCKET_Y_OUTER), cavity face at y = −[70.5 mm](POCKET_Y_INNER).
+  The ±Y half-width is the reservoir's own standalone flavor-charge
+  dimension (the window that holds 2 × SodaStream 0.44 L bottles); it
+  is not derived from the centerward-arc radius, so growing the
+  cylinder's foam blanket slides the pocket outward without resizing
+  or splaying the reservoir.
 - **Centerward wall** — the only curved wall. Its cavity-side face
-  rides on a cylinder of radius **[72.5 mm](POCKET_ARC_R)** (centered on the
+  rides on a cylinder of radius **[80.5 mm](POCKET_ARC_R)** (centered on the
   cold-core Z axis); its tank-side face is concentric one wall-thickness
-  inboard. The [7 mm](COIL_GAP) of radial clearance between the
-  tank's outer face (R = [63.5 mm](TANK_R)) and the wall's tank-side
-  face fits the 1/4" ACR copper coil + thermal tape + slack.
+  inboard. That tank-side face is the reservoir's tank-facing wall, and
+  because it is a concentric arc the span from the cylinder OD
+  (R = [63.5 mm](TANK_R)) out to it is a uniform 15 mm of foam around the
+  wrapped arc — the cylinder's designed foam blanket, with the 1/4" ACR
+  copper coil ([7 mm](COIL_GAP) radial) embedded in its inner slice and
+  pour foam filling everywhere the copper isn't.
 
 The centerward wall is one continuous curved wall built from three
 arc segments along its length:
@@ -90,9 +100,10 @@ around the corner.
 
 The pocket is **open along its centerward face into the foam zone
 inside the centerward arc envelope** — there's no wall at radius
-R < [70.5 mm](POCKET_ARC_INNER_R). During operation, that interior region
-holds the tank + copper coil, and the foam pour fills the gap
-between the coil and the wall's tank-side face.
+R < [78.5 mm](POCKET_ARC_INNER_R). During operation, that interior region
+holds the tank + copper coil, and the foam pour fills the full 15 mm
+blanket from the cylinder OD out to the wall's tank-side face —
+around and between the embedded helical wraps.
 
 The four walls of each pocket are traced as a single connected
 outer-perimeter polyline (with the matching cavity-perimeter polyline
@@ -103,11 +114,12 @@ its mirror across YZ. Total assembly height = [213.4 mm](OUTER_H).
 ### tank_support_ring
 
 Annular ring sitting inside the lower portion of the assembly,
-holding the tank up by its outer rim. The ring's outer face is
-coincident with the centerward wall's tank-side face; its inner
-face sits [9 mm](SUPPORT_RING_W) inboard. The top face is a flat
-annular plateau where the tank's outer rim rests, [30 mm](SUPPORT_RING_H)
-tall above the floor.
+holding the tank up by its outer rim. The ring's outer face sits on
+the tank+coil envelope (R = 70.5, the tank OD plus the coil radial
+clearance) — inboard of the pocket's centerward wall, which has moved
+outward with the foam blanket. Its inner face sits [9 mm](SUPPORT_RING_W)
+inboard. The top face is a flat annular plateau where the tank's outer
+rim rests, [30 mm](SUPPORT_RING_H) tall above the floor.
 
 Inboard of the ring's inner face (R < [61.5 mm](SUPPORT_RING_INNER_R))
 is open volume — so the tank's bottom-plate fittings have unobstructed
@@ -123,10 +135,15 @@ floor regardless of which cavity it enters from.
 Outer rectangular cup framing the whole foam-shell: floor + four
 perimeter walls + six ⌀[8 mm](BOSS_D) cylindrical bosses. Total height
 matches the foam-shell outer height of [213.4 mm](OUTER_H).
-Outer footprint [283 mm](OUTER_X) × [181](FSHELL_OUTER_Y),
-sized to leave [16 mm](OUTER_GAP) of foam-pour zone
-between the outer_shell's inner face and the outermost reservoir-
-pocket walls on each side.
+Outer footprint [283 mm](OUTER_X) × [181](FSHELL_OUTER_Y). The outboard
+foam-pour gap is split by direction: the ±Y (front/back) faces leave
+[16 mm](OUTER_GAP) of foam-pour zone between the outer_shell's inner
+face and the pocket's ±Y walls, while on the ±X (reservoir) side there
+is no outboard foam — the reservoir's reed channel butts the outer
+shell wall. The 283 mm outer width is held that way: the reservoir,
+shifted outward by the cylinder's foam blanket, lands with its reed
+channel against the shell wall, and the foam that would otherwise sit
+outboard of the reed has moved to the cylinder side.
 
 The four vertical corners are rounded — the exterior wall is a true
 [12 mm](CORNER_ROUND_R)-radius quarter-arc on the outer face, the inner
@@ -222,7 +239,7 @@ and high), the water inlet, and the PRV vent. The slot is
 top extends past the wall top so no sliver of wall material remains
 above the slot — the four plugs can slide down into the slot from
 above during assembly. With the centerward wall extending only to
-y = ±[72.5 mm](POCKET_ARC_R) (where it meets the ±Y walls via the
+y = ±[72.5 mm](POCKET_Y_OUTER) (where it meets the ±Y walls via the
 transition arcs), the slot pierces only this one outer −Y wall.
 
 Pass-through Z heights (centers, measured from the **top of the
@@ -320,17 +337,18 @@ parallel:
 
 - the **two reservoir-pocket cavities** (each open at +Z, fully
   enclosed below and on its four sides);
-- the **surrounding foam zone** — a single connected volume wrapping
-  around the pockets between the outer_shell and the pockets'
-  outboard walls. This zone reaches the centerward space around the
-  tank+coil through the gap at x ∈ [−39.7, +39.7] where the pockets'
-  ±Y walls end (y = ±72.5) and the centerward walls' transition arcs
-  swing in to join them.
+- the **surrounding foam zone** — a single connected volume between
+  the outer_shell and the pockets' ±Y walls (the front/back foam-pour
+  gap; the ±X reservoir side has no outboard foam, its reed channel
+  butting the shell wall). This zone reaches the centerward space
+  around the tank+coil through the gap at the pockets' ±Y ends (y = ±72.5),
+  where the ±Y walls stop and the centerward walls' transition arcs swing
+  in to join them.
 
-The longest required slot traverse for the foam is the ~0.5 mm
-radial gap between the coil and the centerward wall's tank-side
-face at the ±X azimuths — ~110 mm of arc to reach around the back
-of the coil from the ±Y entry.
+The longest required traverse for the foam is around the back of the
+coil at the ±X azimuths — the foam has to work through the embedded
+helical wraps and fill the 15 mm blanket out to the centerward wall's
+tank-side face, ~110 mm of arc to reach around from the ±Y entry.
 
 Foam expansion may push a small amount of material out through the
 clearance bands around tubes in the −Y slot and through the tight-fit
@@ -352,21 +370,24 @@ After union, that boundary is one wall's worth of material (2 mm).
 
 This drives several dimension choices:
 
-- Each **reservoir pocket's ±Y outboard face** sits at
-  y = ±`pocket_centerward_arc_outer_radius` (= ±72.5), tangent to the
-  cylinder the centerward arc rides on. The ±Y walls meet the
-  centerward wall's transition arcs along that tangent.
-- The **tank_support_ring**'s outer face sits at
-  `pocket_centerward_arc_outer_radius − wall_and_floor_thickness`
-  (= 70.5), coincident with each pocket's centerward wall on its
-  tank-side face.
+- Each **reservoir pocket's ±Y outboard face** stands on the
+  reservoir's own half-width (its flavor-charge dimension), not on the
+  centerward-arc radius. Growing the cylinder's foam blanket slides the
+  whole pocket outward without resizing or splaying the reservoir, so
+  the ±Y walls keep their standalone width and meet the centerward
+  wall's transition arcs there.
+- The **tank_support_ring**'s outer face sits on the tank+coil envelope
+  (`tank_coil_envelope_radius` = 70.5, the tank OD plus the coil radial
+  clearance) — inboard of the pocket's centerward wall, which has moved
+  outward with the foam blanket.
 - Each **reservoir pocket's four walls** are traced as a single
   connected outer-perimeter polyline (with one cavity-perimeter
   polyline cut from it), so the four walls union into one solid by
   construction.
 - The **outer_shell**'s inner face sits [16 mm](OUTER_GAP)
-  outboard of the outermost reservoir-pocket walls — the outer
-  foam-pour zone.
+  outboard of the pocket's ±Y walls — the outer foam-pour zone. On the
+  ±X (reservoir) side there is no outboard foam; the reservoir's reed
+  channel butts the shell wall instead.
 
 ## Print settings
 
@@ -414,11 +435,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1055708.660 mm³](FSHELL_VOLUME) |
+| volume | [1037357.637 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](FSHELL_BBOX_X) |
 | bbox z | [0.000 to 213.400 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.000006, 0.616261, 88.144801) mm](CENTROID) |
+| centroid | [(0.000006, 0.627162, 87.827647) mm](CENTROID) |
 
 Quick reproduction:
 

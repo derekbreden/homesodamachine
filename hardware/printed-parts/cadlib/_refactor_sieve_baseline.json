@@ -5,8 +5,8 @@
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step": "5c19b923b39ed016fd81e7c4d168573859176cd07accd5aff460a54ad20aa65a",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step": "03684366b6089ba8f0491d9d41da76120f9fee223e04c3ec1f82906539b0cbda",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step": "f7d63a2c8bf5af5ef9efa8b976b1b616e4c29e2e0c4e36790f930393160a8e0a",
-    "hardware/printed-parts/cold-core/foam-lid/foam-lid.step": "d1f90962877e4d2c8caa632f85131e46220299c8b014484650638f8d13a5c418",
-    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "74afef5ccebfe2c063ee866751e848321b6e14323d896081c43026de4026591b",
+    "hardware/printed-parts/cold-core/foam-lid/foam-lid.step": "27744c60f09371c596c6cc1832c5ec9293dd55dbe692407ab107410605b9aedd",
+    "hardware/printed-parts/cold-core/foam-shell/foam-shell.step": "022f7cdfbc1836eeca27637bbb6460b65ffdd1fb1e238284db74138e044a345d",
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step": "73f043f31775cc1be01fe73d82e9cc523ec54e508ba72966f3e5b4fb50b19561",
     "hardware/printed-parts/flavor/cap-sense-sleeve/cap-sense-sleeve-neg-y.step": "f8ab883439223401a89df993c9804161d8dead2be96bc2847722f73fc5ef927a",
     "hardware/printed-parts/flavor/cap-sense-sleeve/cap-sense-sleeve-pos-y.step": "ba58bca947c5d87316b4d55b87eadc9af1b9c7940ac5f76bc5cfdac6d1c7bfe5",
@@ -182,35 +182,35 @@
   "reservoir": {
     "body_left": {
       "bbox": {
-        "xmax": -40.3141,
-        "xmin": -121.0,
+        "xmax": -52.9322,
+        "xmin": -129.0,
         "ymax": 70.0,
         "ymin": -70.0,
         "zmax": 201.9,
         "zmin": 24.6
       },
       "com": {
-        "x": -84.9735,
-        "y": 0.0301,
-        "z": 98.09
+        "x": -95.0633,
+        "y": 0.0314,
+        "z": 97.9726
       },
-      "volume_mm3": 313250.1154
+      "volume_mm3": 300558.9974
     },
     "body_right": {
       "bbox": {
-        "xmax": 121.0,
-        "xmin": 40.3141,
+        "xmax": 129.0,
+        "xmin": 52.9322,
         "ymax": 70.0,
         "ymin": -70.0,
         "zmax": 201.9,
         "zmin": 24.6
       },
       "com": {
-        "x": 84.9735,
-        "y": 0.0301,
-        "z": 98.09
+        "x": 95.0633,
+        "y": 0.0314,
+        "z": 97.9726
       },
-      "volume_mm3": 313250.1154
+      "volume_mm3": 300558.9974
     },
     "bulkhead_seal_dry": {
       "bbox": {
@@ -246,51 +246,51 @@
     },
     "cap_left": {
       "bbox": {
-        "xmax": -40.3141,
-        "xmin": -121.0,
+        "xmax": -52.9322,
+        "xmin": -129.0,
         "ymax": 70.0,
         "ymin": -70.0,
         "zmax": 9.0,
         "zmin": -2.0
       },
       "com": {
-        "x": -88.8708,
-        "y": 0.2571,
-        "z": 5.6529
+        "x": -98.107,
+        "y": 0.2648,
+        "z": 5.6546
       },
-      "volume_mm3": 46784.1761
+      "volume_mm3": 45423.9106
     },
     "cap_right": {
       "bbox": {
-        "xmax": 121.0,
-        "xmin": 40.3141,
+        "xmax": 129.0,
+        "xmin": 52.9322,
         "ymax": 70.0,
         "ymin": -70.0,
         "zmax": 9.0,
         "zmin": -2.0
       },
       "com": {
-        "x": 88.8708,
-        "y": 0.2571,
-        "z": 5.6529
+        "x": 98.107,
+        "y": 0.2648,
+        "z": 5.6546
       },
-      "volume_mm3": 46784.1761
+      "volume_mm3": 45423.9106
     },
     "gasket": {
       "bbox": {
-        "xmax": 121.0,
-        "xmin": 40.3141,
+        "xmax": 129.0,
+        "xmin": 52.9322,
         "ymax": 70.0,
         "ymin": -70.0,
         "zmax": 2.0,
         "zmin": 0.0
       },
       "com": {
-        "x": 86.553,
+        "x": 96.2713,
         "y": -0.0,
         "z": 1.0
       },
-      "volume_mm3": 4646.5753
+      "volume_mm3": 4505.8659
     },
     "retaining_ring": {
       "bbox": {
