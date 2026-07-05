@@ -191,22 +191,22 @@ export default () => (
     <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-40.7} y={-1.65} rot={180} side="N" />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
-    <Jst name="J1" x={30.48} y={12.45} count={9} labels={[...ulnOUT].reverse()} rot={90} label="MANIFOLD A" side="E" />
-    <Jst name="J2" x={30.55} y={-9.7} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} rot={90} label="MANIFOLD B" side="E" />
+    <Jst name="J1" x={30.48} y={12.45} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" side="E" />
+    <Jst name="J2" x={30.55} y={-9.7} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" side="E" />
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
-    <Jst name="J13" x={-21.1} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} rot={0} label="PUMPS" side="N" />
-    <Jst name="J3" x={-29.58} y={-34.03} count={4} labels={["GND", "V5", "IO35", "IO33"]} rot={0} label="FAUCET" side="S" />
-    <Jst name="J4" x={-13.42} y={-34.03} count={6} labels={["GND", "V5", "IO25", "IO26", "IO27", "3V3"]} rot={0} label="SENSORS" side="S" />
+    <Jst name="J13" x={-21.1} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" side="N" />
+    <Jst name="J3" x={-29.58} y={-34.03} count={4} labels={["GND", "V5", "IO35", "IO33"]} label="FAUCET" side="S" />
+    <Jst name="J4" x={-13.42} y={-34.03} count={6} labels={["GND", "V5", "IO25", "IO26", "IO27", "3V3"]} label="SENSORS" side="S" />
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
         (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
         IO19 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
-    <Jst name="J5" x={-35.35} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} rot={0} label="RELAYS" side="N" />
-    <Jst name="J6" x={7.61} y={30.82} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} rot={0} label="REEDS A" side="N" />
-    <Jst name="J7" x={6.55} y={-34.08} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} rot={0} label="REEDS B" side="S" />
-    <Jst name="J8" x={24.08} y={-34.03} count={4} labels={["GND", "3V3", "SDA", "SCL"]} rot={0} label="I2C" side="S" />
-    <Jst name="J9" x={-41.99} y={-34.18} count={3} labels={["A", "B", "ERTH"]} rot={0} label="SCREEN" side="S" />
+    <Jst name="J5" x={-35.35} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} label="RELAYS" side="N" />
+    <Jst name="J6" x={7.61} y={30.82} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" side="N" />
+    <Jst name="J7" x={6.55} y={-34.08} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" side="S" />
+    <Jst name="J8" x={24.08} y={-34.03} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" side="S" />
+    <Jst name="J9" x={-41.99} y={-34.18} count={3} labels={["A", "B", "ERTH"]} label="SCREEN" side="S" />
     {/* 12V inlet — KF301-5.0-2P 2-pin 5.0mm screw terminal (C474881, 17A/250V), the board's
         power inlet. Sized for the ~3.3A peak (both pumps priming + a few valves + the condenser
         fan) with margin the 3A XH wafer didn't have. pcbRotation 180 aims the wire throats at the
@@ -227,7 +227,7 @@ export default () => (
     <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={19.85} pcbY={34.84} />
     <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={22.35} pcbY={35.8} />
     <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={22.35} pcbY={27.61} />
-    <Jst name="J11" x={-54.4} y={-34.03} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} rot={0} label="GAS" side="S" />
+    <Jst name="J11" x={-54.4} y={-34.03} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} label="GAS" side="S" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
         a vertical 2-resistor series: 2.2k (input, bottom) -> midpoint -> 3.3k (to

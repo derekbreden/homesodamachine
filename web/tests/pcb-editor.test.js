@@ -62,10 +62,28 @@ test("rotation: rewrites an existing pcbRotation, leaving position untouched", (
   assert.equal(out, `    <Wroom name="U1" pcbX={-31.15} pcbY={-1} pcbRotation={270} />`);
 });
 
-test("rotation: rewrites the Cap/Jst `rot` shorthand", () => {
+test("rotation: rewrites the Cap `rot` shorthand", () => {
   const src = `    <Cap name="C10" x={-20.5} y={15.42} rot={90} />`;
   const out = updateRotationInTsx(src, "C10", 0);
   assert.equal(out, `    <Cap name="C10" x={-20.5} y={15.42} rot={0} />`);
+});
+
+test("rotation: a Jst rotates by cycling `side`, not a rot literal", () => {
+  // A Jst's pose is which edge it faces; carrier_parts derives the wafer angle
+  // from `side`. The editor rotate posts an angle; the write-back maps it to a
+  // side (0° = the E-facing edge) and rewrites `side` in place — no rot literal.
+  const src = `    <Jst name="J11" x={-54.4} y={-34.03} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} label="GAS" side="S" />`;
+  const out = updateRotationInTsx(src, "J11", 0);
+  assert.equal(out, `    <Jst name="J11" x={-54.4} y={-34.03} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} label="GAS" side="E" />`);
+});
+
+test("rotation: repeated +90 steps a Jst S→E→N→W→S", () => {
+  // side S reads back as 270°, so the client posts normRot(270+90)=0, then 90/180/270.
+  let src = `    <Jst name="J3" count={4} {...at(-29.58, -34.03)} label="FAUCET" side="S" />`;
+  src = updateRotationInTsx(src, "J3", 0);   assert.ok(src.includes(`side="E"`));
+  src = updateRotationInTsx(src, "J3", 90);  assert.ok(src.includes(`side="N"`));
+  src = updateRotationInTsx(src, "J3", 180); assert.ok(src.includes(`side="W"`));
+  src = updateRotationInTsx(src, "J3", 270); assert.ok(src.includes(`side="S"`));
 });
 
 test("rotation: inserts pcbRotation on a bare {...at()} component that has none", () => {
