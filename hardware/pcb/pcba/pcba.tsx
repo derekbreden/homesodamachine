@@ -167,9 +167,9 @@ export default () => (
     <AMS1117_3_3 name="U9" pcbRotation={0} {...at(10, 21.25)} />
     <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={17.5} y={21} rot={0} side="N" />
     <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={17.5} y={24} rot={0} side="N" />
-    <Buck5 name="U10" x={17} y={-27.25} />
-    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={24.75} y={-27.25} rot={90} side="E" />
-    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={24.75} y={-22.25} rot={270} side="E" />
+    <Buck5 name="U10" x={17} y={-26.25} />
+    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={24.75} y={-26.25} rot={90} side="E" />
+    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={24.75} y={-21.25} rot={270} side="E" />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
         pump (Kamoer KPHM400-SW, 12V brushed DC, 0.8A at full speed per the datasheet — PWM'd well below that at the
         1:20 dispense ratio; prime/clean is where it hits 0.8A), 45V/3.6A SMD with internal freewheeling +
@@ -191,8 +191,8 @@ export default () => (
     <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-44.5} y={-4.5} rot={180} side="N" />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
-    <Jst name="J1" x={23.75} y={11.5} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" side="E" />
-    <Jst name="J2" x={23.75} y={-10.5} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" side="E" />
+    <Jst name="J1" x={23.75} y={12.5} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" side="E" />
+    <Jst name="J2" x={23.75} y={-9.5} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" side="E" />
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
