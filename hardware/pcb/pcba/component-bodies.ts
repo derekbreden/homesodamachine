@@ -6,10 +6,13 @@
  *
  *   WAFER  — a JST-XH pinheader (>=3 pads at ~2.5 mm pitch). Its imported footprint DOES carry a
  *            courtyard, but that courtyard is pad-margin-inflated wider than the real plastic, so we
- *            reconstruct the true housing from the pin row instead: along the row the shroud runs
- *            (n−1)·2.5 + 4.9 mm (2.45 mm of plastic past each outer pin), ~6.2 mm across. The
- *            along-row span — the one that governs same-edge neighbour spacing — is exact; the cross
- *            span is a symmetric approximation of the label-tiered silk fence, plenty as a proxy.
+ *            reconstruct the true housing from the pin row instead. ALONG the row the shroud runs
+ *            (n−1)·2.5 + 5.0 mm (2.5 mm of plastic past each outer pin) — exact, and it governs
+ *            same-edge neighbour spacing. ACROSS the row the housing is ASYMMETRIC: the pin row sits
+ *            3.5 mm from the tall mating-opening face and 2.4 mm from the base face. Every connector
+ *            is placed with its opening toward the board edge it serves, so we put the 3.5 mm side
+ *            toward the nearest edge and the 2.4 mm side toward the interior — matching the real
+ *            plastic a neighbour (or a cross-row part like the buck) actually has to clear.
  *   COURTYARD — any other part that has a real courtyard outline (the ICs, the USB-C, the screw
  *            terminal, the battery holder): the IPC courtyard IS the body-plus-assembly extent.
  *   PADS   — a part with neither (the 0402/0603 passives carry no courtyard in circuit-json): the
@@ -24,8 +27,9 @@ export type Body = { ref: string; rect: Rect; kind: "wafer" | "courtyard" | "pad
 export type Hole = { name: string; x: number; y: number; r: number }
 
 export const XH_PITCH = 2.5      // JST-XH pin pitch (mm)
-export const XH_END = 2.45       // plastic past each outer pin, along the row (housing A = pitch·(n−1)+4.9)
-export const XH_HALF_DEPTH = 3.1 // ~half the silk fence depth, across the row (symmetric approximation)
+export const XH_END = 2.5        // plastic past each outer pin, along the row (housing B = pitch·(n−1)+5.0)
+export const XH_OPEN_DEPTH = 3.5 // pin row -> mating-opening face, across the row (faces the board edge)
+export const XH_BASE_DEPTH = 2.4 // pin row -> base face, across the row (faces the interior)
 
 // Edge-to-edge gap between two axis-aligned rects; negative = penetration depth of an overlap.
 export const gapRect = (a: Rect, b: Rect): number => {
@@ -80,9 +84,21 @@ export function collectBodies(circuit: any[]): { bodies: Body[]; edge: Rect | nu
       const span = along === "x" ? maxx - minx : maxy - miny
       const isXhRow = pads.length >= 3 && span > 0 && Math.abs(span / (pads.length - 1) - XH_PITCH) < 0.2
       if (isXhRow) {
-        bodies.push({ ref: name, kind: "wafer", rect: along === "x"
-          ? { minx: minx - XH_END, maxx: maxx + XH_END, miny: miny - XH_HALF_DEPTH, maxy: maxy + XH_HALF_DEPTH }
-          : { minx: minx - XH_HALF_DEPTH, maxx: maxx + XH_HALF_DEPTH, miny: miny - XH_END, maxy: maxy + XH_END } })
+        // Across-row depth is asymmetric: the 3.5 mm mating-opening face points at the nearest board
+        // edge (every connector is seated that way), the 2.4 mm base face at the interior.
+        let rect: Rect
+        if (along === "x") {   // horizontal row -> N/S edge; opening is +y (north) or -y (south)
+          const openNorth = !edge || (edge.maxy - maxy) <= (miny - edge.miny)
+          rect = { minx: minx - XH_END, maxx: maxx + XH_END,
+                   miny: miny - (openNorth ? XH_BASE_DEPTH : XH_OPEN_DEPTH),
+                   maxy: maxy + (openNorth ? XH_OPEN_DEPTH : XH_BASE_DEPTH) }
+        } else {               // vertical row -> E/W edge; opening is +x (east) or -x (west)
+          const openEast = !edge || (edge.maxx - maxx) <= (minx - edge.minx)
+          rect = { minx: minx - (openEast ? XH_BASE_DEPTH : XH_OPEN_DEPTH),
+                   maxx: maxx + (openEast ? XH_OPEN_DEPTH : XH_BASE_DEPTH),
+                   miny: miny - XH_END, maxy: maxy + XH_END }
+        }
+        bodies.push({ ref: name, kind: "wafer", rect })
         continue
       }
       if (cy) { bodies.push({ ref: name, kind: "courtyard", rect: cy }); continue }
