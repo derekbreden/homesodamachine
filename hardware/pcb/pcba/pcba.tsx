@@ -125,7 +125,7 @@ export const ampacity: AmpacityRule[] = [
 ]
 
 export default () => (
-  <board layers={6} schematicDisabled outline={[{ x: -68, y: -39 }, { x: 30, y: -39 }, { x: 30, y: 37 }, { x: -68, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.13, viaMode: "through-hole" }}>
+  <board layers={6} schematicDisabled outline={[{ x: -68, y: -39 }, { x: 30, y: -39 }, { x: 30, y: 37 }, { x: -68, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.15, viaMode: "through-hole" }}>
     {/* DS3231SN RTC + CR2032 backup, east of the ESP. U6 (the SOIC) sits high with its
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
@@ -170,8 +170,8 @@ export default () => (
     <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={17.5} y={21} rot={0} side="N" />
     <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={17.5} y={24} rot={0} side="N" />
     <Buck5 name="U10" x={17} y={-26.25} />
-    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={24.75} y={-26.25} rot={90} side="E" />
-    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={24.75} y={-21.25} rot={270} side="E" />
+    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={24.75} y={-27.75} rot={90} side="E" />
+    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={24.75} y={-22.75} rot={270} side="E" />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
         pump (Kamoer KPHM400-SW, 12V brushed DC, 0.8A at full speed per the datasheet — PWM'd well below that at the
         1:20 dispense ratio; prime/clean is where it hits 0.8A), 45V/3.6A SMD with internal freewheeling +
@@ -185,16 +185,16 @@ export default () => (
     <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-19.5} y={14.75} rot={90} side="E" />
     <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-16.5} y={14.75} rot={90} side="E" />
     <Mcp23017 name="U2" x={-5} y={20.25} addr="0x20" rot={180} />
-    <Mcp23017 name="U3" x={-2.25} y={-21.25} addr="0x21" rot={0} />
+    <Mcp23017 name="U3" x={-3.5} y={-21.25} addr="0x21" rot={0} />
     <Uln2803 name="U4" x={12.25} y={10.5} rot={270} />
-    <Uln2803 name="U5" x={12.5} y={-8.5} rot={270} />
+    <Uln2803 name="U5" x={12.5} y={-9.75} rot={270} />
     <Buzzer name="U8" x={-43.5} y={-11.25} />
     <Npn name="Q1" x={-40} y={-5.5} />
     <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-44.5} y={-4.5} rot={180} side="N" />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
-    <Jst name="J1" x={23.75} y={14.05} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" side="E" />
-    <Jst name="J2" x={23.75} y={-9.5} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" side="E" />
+    <Jst name="J1" x={23.75} y={12.5} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" side="E" />
+    <Jst name="J2" x={23.75} y={-11} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" side="E" />
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
@@ -336,7 +336,7 @@ export default () => (
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
     <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-7.25} y={12.5} rot={0} side="N" />
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9} y={-25} rot={270} side="E" />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={7.75} y={-25} rot={270} side="E" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
@@ -537,7 +537,7 @@ export default () => (
         soaking the inrush + flyback dump the ceramics can't. Every pin1 -> V12, pin2 ->
         GND plane — no routing, no vias, barrel pickup like every power pin; the top V12
         island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
-    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={16.25} y={-16.5} rot={0} side="N" />
+    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={16.25} y={-17.75} rot={0} side="N" />
     <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={16} y={2.5} rot={0} side="N" />
     <BulkCap name="C3" x={0.75} y={1.74} />
     <trace from=".C1 > .pin1" to="net.V12" />
