@@ -84,7 +84,7 @@ Confirm: the fan's flow direction matches the donor's native orientation per [`/
 
 ### 5. Seat the cold core at the rear
 
-With the compressor + condenser + fan now anchored, lower the cold core into the rear of the enclosure as a single pre-assembled unit. The cold core lands on the printed support ring at the back of the enclosure floor — the ring captures the foam-shell's outer bottom-cap footprint ([283](FOAM_SHELL_X) × [181](FOAM_SHELL_Y) per [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "outer_shell" + "foam_cap and foam_cap_lid").
+With the compressor + condenser + fan now anchored, lower the cold core into the rear of the enclosure as a single pre-assembled unit. The cold core lands on the printed support ring at the back of the enclosure floor — the ring captures the foam-shell's own outer footprint ([283](FOAM_SHELL_X) × [181](FOAM_SHELL_Y) per [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "outer_shell" + "foam_lid").
 
 The coil stubs are already brazed into the donor loop (suction line + cap-tube join) per [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) step 4–5 — no brazing work happens here. Confirm no tension is induced on the refrigerant lines as the cold core seats; the compressor + condenser were placed first specifically so the cold core can land on the support ring without dragging the brazed joints. Re-check the BPV31 cap is tight (the appliance's single permanent service-access point per [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) "Output condition").
 

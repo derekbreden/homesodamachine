@@ -11,19 +11,16 @@ them. Several of these parts have prior individual prints (the reservoir
 gasket + bulkhead seals were in the 2026-05-30 watertight test — see
 [`cold-core/reservoir/print-log.md`](/hardware/printed-parts/cold-core/reservoir/print-log.md)).
 
-## Plate composition (9 instances, 5 distinct parts)
+## Plate composition (8 instances, 4 distinct parts)
 
 | Part (STEP) | Source | × | Footprint | CAD material |
 | --- | --- | --- | --- | --- |
-| `foam-cap-gasket` | [`cold-core/foam-cap/foam_cap.py`](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py) | 1 | 4480 mm² | TPU 90A |
 | `reservoir-gasket` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 2323 mm² | TPU 85A |
 | `touch-flo-mounting-gasket` | [`faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py`](/hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch_flo_mounting_gasket.py) | 2 | 2065 mm² | TPU 90A |
 | `reservoir-bulkhead-seal-dry` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 67.7 mm² | TPU washer |
 | `reservoir-retaining-ring` | [`cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py) | 2 | 77.4 mm² | TPU 90A |
 
 Part roles (geometry authoritative in the sources above):
-- **foam-cap-gasket** — compresses between the foam-cap tray and the
-  outer-shell mating face during the pour-in-place foam cure.
 - **reservoir-gasket** — 2.0 mm flat gasket, 5 mm-wide perimeter ring,
   between the reservoir body wall top and the cap base, clamped by six M3.
 - **touch-flo-mounting-gasket** — Ø54.35 mm × 2.0 mm disc between the
@@ -37,7 +34,7 @@ Part roles (geometry authoritative in the sources above):
   into the Ø13.2 mm vent-filter pocket (0.1 mm interference/side).
 
 The CAD docstrings spec a mix of hardnesses (reservoir-gasket TPU 85A;
-foam-cap-gasket, touch-flo-mounting-gasket, retaining-ring TPU 90A; the dry
+touch-flo-mounting-gasket, retaining-ring TPU 90A; the dry
 bulkhead washer unspecified). This plate prints all of them from the single
 loaded TPU 85A spool.
 

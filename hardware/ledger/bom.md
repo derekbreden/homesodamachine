@@ -129,8 +129,7 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
 | Cold-core inner shell (foam-shell) | 1 | PETG | 1.340 | $15.01 |
-| Cold-core foam cap — top | 1 | PETG | 0.171 | $1.92 |
-| Cold-core foam cap — bottom | 1 | PETG | 0.170 | $1.91 |
+| Cold-core foam lid (thin 3 mm cover) | 1 | PETG | 0.194 | $2.18 |
 | Copper-plug stack (4 plugs) | 4 | PETG | 0.006 | $0.06 |
 | PRV shroud | 1 | PETG | 0.008 | $0.09 |
 | Flavor reservoir body — left | 1 | PETG | 0.398 | $4.46 |
@@ -148,11 +147,11 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Valve tray — nozzle-gate | 1 | PETG | 0.043 | $0.48 |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.151 | $5.94 |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.51 |
-| **Printed parts total** | | | **~5.66** | **[$68.10](BOM_SEC7)** |
+| **Printed parts total** | | | **~5.51** | **[$68.10](BOM_SEC7)** |
 
-By material: PETG ≈ 5.50 kg / $61.65, PET-CF ≈ 0.16 kg / $6.45.
+By material: PETG ≈ 5.35 kg / $60.00, PET-CF ≈ 0.16 kg / $6.45.
 
-Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× foam-cap gasket, 2× reservoir gasket, 2× reservoir bulkhead dry washer, 2× reservoir vent retaining ring, 1× faucet mounting gasket, 1× faucet TPU o-ring. The hopper funnel is cast platinum-cure silicone (flavor subsystem). Printed tooling does not ship: the coil-winding mandrel, the foam-pour cap lids, the two-piece hopper-funnel silicone mold, and the single-valve cradle.
+Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× reservoir gasket, 2× reservoir bulkhead dry washer, 2× reservoir vent retaining ring, 1× faucet mounting gasket, 1× faucet TPU o-ring. The hopper funnel is cast platinum-cure silicone (flavor subsystem). Printed tooling does not ship: the coil-winding mandrel, the two-piece hopper-funnel silicone mold, and the single-valve cradle.
 
 ## 8. Flavor subsystem
 
@@ -254,7 +253,7 @@ The same reed-and-float pattern is used in three places: the carbonator vessel (
 
 Heat-set + screw retention appears in three places:
 
-1. **Foam-bag-shell caps** clamped to the `outer_shell` via [12](FOAM_INSERTS) ruthex inserts + [12](FOAM_SCREWS) BNUOK M3×25 SHCS, TPU 90A gasket compressing per cap — procedure in [`assembly/cold-core.md`](/hardware/assembly/cold-core.md).
+1. **Foam lid** clamped to the `outer_shell` top face via [6](FOAM_INSERTS) ruthex inserts + [6](FOAM_SCREWS) BNUOK M3×12 304 SS SHCS, no gasket (the lid is a cover, not a pressure seal) — procedure in [`assembly/cold-core.md`](/hardware/assembly/cold-core.md).
 2. **Reservoir cap** clamped to each reservoir body via [6](RES_INSERTS_PER_CAP) ruthex inserts + 6 BNUOK M3×12 304 SS SHCS per cap, TPU gasket — geometry + screw spec in [`printed-parts/cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py).
 3. **Touch-flo mounting plate** bolted up into the shell's three base pods via [3](TOUCHFLO_INSERTS) ruthex inserts + [3](TOUCHFLO_SCREWS) BNUOK M3×12 black-oxide SHCS — procedure in [`printed-parts/faucet/touch-flo-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md).
 
@@ -264,9 +263,8 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set](https://www.amazon.com/dp/B0D39W228K) | M3 × 4 mm L × 4.2 mm OD knurled brass; [27](TOTAL_M3_INSERTS) per build ([12](FOAM_INSERTS) foam-bag-shell + [12](RES_INSERTS) reservoir caps + [3](TOUCHFLO_INSERTS) touch-flo base pods); Amazon 112-4234665 May 10: $9.99 + $0.72 tax = $10.71 ÷ 100 = $0.1071/ea | [27](TOTAL_M3_INSERTS) (of 100 pk) | $0.11 | $2.89 |
-| [BNUOK M3 × 25 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 60 pc](https://www.amazon.com/dp/B0DJQGF665) | foam-bag-shell cap clamp screws (6 top + 6 bottom); Amazon 112-2495614 May 10: $7.99 + $0.58 tax = $8.57 ÷ 60 = $0.1428/ea | [12](FOAM_SCREWS) (of 60 pk) | $0.14 | $1.71 |
-| [BNUOK M3 × 12 mm DIN 912 socket head cap, 304 stainless steel (18-8), 120 pc](https://www.amazon.com/dp/B0DJQGMQZM) | reservoir-cap clamp screws (reservoir lid/body joint); Amazon 112-3709957 Jun 2: $8.07 + $0.59 tax = $8.66 ÷ 120 = $0.0722/ea | [12](RES_SCREWS) (of 120 pk) | $0.07 | $0.87 |
+| [ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set](https://www.amazon.com/dp/B0D39W228K) | M3 × 4 mm L × 4.2 mm OD knurled brass; [21](TOTAL_M3_INSERTS) per build ([6](FOAM_INSERTS) foam-lid + [12](RES_INSERTS) reservoir caps + [3](TOUCHFLO_INSERTS) touch-flo base pods); Amazon 112-4234665 May 10: $9.99 + $0.72 tax = $10.71 ÷ 100 = $0.1071/ea | [21](TOTAL_M3_INSERTS) (of 100 pk) | $0.11 | $2.89 |
+| [BNUOK M3 × 12 mm DIN 912 socket head cap, 304 stainless steel (18-8), 120 pc](https://www.amazon.com/dp/B0DJQGMQZM) | reservoir-cap clamp screws ([12](RES_SCREWS), reservoir lid/body joint) + foam-lid clamp screws ([6](FOAM_SCREWS), lid into top-face inserts) — same SKU serves both, 18/build; Amazon 112-3709957 Jun 2: $8.07 + $0.59 tax = $8.66 ÷ 120 = $0.0722/ea | 18 (of 120 pk) | $0.07 | $1.30 |
 | [BNUOK M3 × 12 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGVK8S) | touch-flo plate-to-shell screws; Amazon 112-0144900 May 10: $7.99 + $0.58 tax = $8.57 ÷ 120 = $0.0714/ea | [3](TOUCHFLO_SCREWS) (of 120 pk) | $0.07 | $0.21 |
 | [LVDALAB PTFE Membrane Filter, ø13 mm × 0.45 µm, 100 pc, non-sterile](https://www.amazon.com/dp/B0D41KT345) | hydrophobic PTFE membrane in the reservoir-cap vent pocket; architecture + sizing in [`printed-parts/cold-core/reservoir/vent.md`](/hardware/printed-parts/cold-core/reservoir/vent.md); [2](VENT_FILTERS) per build (1 per cap × 2 caps); Amazon 112-4393734 May 11: $12.99 − $0.65 promo + $0.89 tax = $13.23 ÷ 100 = $0.1323/ea | [2](VENT_FILTERS) (of 100 pk) | $0.13 | $0.26 |
 

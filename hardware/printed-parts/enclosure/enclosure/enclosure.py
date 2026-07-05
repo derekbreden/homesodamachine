@@ -178,7 +178,7 @@ def _dims():
     _fa, _fn, _fo, _fdy, _fdz = _facet_geom(outer)
     facet_back_y = oy0 + _fdy + display_facet_thickness * math.sqrt(2.0)
     y_joint = facet_back_y + 2.0
-    cold_front_y = placed["foam-shell"][0].BoundingBox().ymin
+    cold_front_y = placed["foam-assembly"][0].BoundingBox().ymin
     return inner, outer, y_joint, cold_front_y
 
 
@@ -587,7 +587,7 @@ def _report_split(front, back):
     print(f"  front ∩ back:     {overlap:.1f} mm³  ({'CLEAR slip-fit' if overlap < 5 else 'INTERFERENCE'})")
     inner, _o, y_joint, _c = _dims()
     yb = _y_boss(y_joint)
-    cold = _contents.build()["foam-shell"][0]
+    cold = _contents.build()["foam-assembly"][0]
     clash = sum(
         cold.intersect(
             _back_plug(x_ext, sx, z_boss, yb, y_joint).fuse(

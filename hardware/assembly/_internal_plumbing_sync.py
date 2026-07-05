@@ -17,15 +17,6 @@ sys.path.insert(
     str(
         next(p for p in _here.parents if p.name == "hardware")
         / "printed-parts"
-        / "cold-core"
-        / "foam-cap"
-    ),
-)
-sys.path.insert(
-    0,
-    str(
-        next(p for p in _here.parents if p.name == "hardware")
-        / "printed-parts"
         / "cadlib"
     ),
 )
@@ -38,19 +29,19 @@ sys.path.insert(
     ),
 )
 
-import foam_cap as foam_cap_gen  # noqa: E402
+from _cold_core_interface import co2_inlet_y, co2_inlet_tube_radius  # noqa: E402
 
 from docgen import substitute_md  # noqa: E402
 
 
 def main():
     variables = {
-        # Foam-cap CO2 inlet coordinate (Y, in cold-core foam-shell
-        # coordinates) and the tube-clearance hole diameter for 1/4" OD
-        # LLDPE through cap + lid. Source: `co2_inlet_y` and
-        # `2 × co2_tube_clearance_radius` in foam-cap/foam_cap.py.
-        "COTWO_INLET_Y": f"{foam_cap_gen.co2_inlet_y:.4g} mm",
-        "COTWO_TUBE_D": f"{2 * foam_cap_gen.co2_tube_clearance_radius:.4g} mm",
+        # CO2 inlet coordinate (Y, in cold-core foam-shell coordinates) and the
+        # tube-clearance hole diameter for the 1/4" OD LLDPE through the foam lid.
+        # Source: `co2_inlet_y` and `2 × co2_inlet_tube_radius` in
+        # _cold_core_interface.py.
+        "COTWO_INLET_Y": f"{co2_inlet_y:.4g} mm",
+        "COTWO_TUBE_D": f"{2 * co2_inlet_tube_radius:.4g} mm",
     }
 
     substitute_md(
