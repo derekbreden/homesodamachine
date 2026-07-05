@@ -181,7 +181,7 @@ export const CoinHolder = ({ name, x, y }: Labeled) => (
 export const BulkCap = ({ name, x, y }: Labeled) => (
   <>
     <NXB_25V470_10_12_5 name={name} pcbRotation={0} {...at(x, y)} />
-    {refdes(name, x + 1.75, y - 6.3)}
+    {refdes(name, x, y)}
   </>
 )
 

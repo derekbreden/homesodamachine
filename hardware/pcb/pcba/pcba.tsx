@@ -123,14 +123,14 @@ export const ampacity: AmpacityRule[] = [
 ]
 
 export default () => (
-  <board layers={6} schematicDisabled outline={[{ x: -68, y: -41 }, { x: 38, y: -41 }, { x: 38, y: 37 }, { x: -68, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.15, viaMode: "through-hole" }}>
+  <board layers={6} schematicDisabled outline={[{ x: -68, y: -39 }, { x: 30, y: -39 }, { x: 30, y: 37 }, { x: -68, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.15, viaMode: "through-hole" }}>
     {/* DS3231SN RTC + CR2032 backup, east of the ESP. U6 (the SOIC) sits high with its
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
         pin2 (-> GND); the cell is retained by the molded base, not SMT clips. */}
-    <CoinHolder name="BT1" x={-11.6} y={-2} />
-    <Ds3231Smd name="U6" x={-32.0} y={7.1} rot={270} />
-    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-41} y={8} rot={90} />
+    <CoinHolder name="BT1" x={-16.75} y={-2} />
+    <Ds3231Smd name="U6" x={-36.75} y={3.75} rot={270} />
+    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-44.5} y={6.75} rot={90} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio, antenna keepout
         pointing west off the board edge. Usable GPIO sit on the north and south
         castellations only (the east edge is the module's flash); the relay/pump/buzzer/
@@ -145,68 +145,68 @@ export default () => (
     {/* WROOM support south of U1: the EN power-on RC (R7 + C12) stacked at the far-west,
         hard by U1's EN pin so the EN trace stays short; the supply decouplers C10 + C11
         share the lane just east of them. */}
-    <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={-64.5} y={-11.75} rot={180} side="N" />
-    <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={-64.5} y={-14} rot={180} side="N" />
-    <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-54} y={-14} rot={90} />
-    <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-51} y={-14} rot={90} side="E" />
-    <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-44} y={12} rot={270} side="E" />
+    <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={-65.5} y={-12.75} rot={180} side="N" />
+    <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={-61.75} y={-12.75} rot={180} side="N" />
+    <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-57.5} y={-12.75} rot={90} side="N" />
+    <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-50.25} y={-16.75} rot={0} side="N" />
+    <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-44} y={17.5} rot={0} side="N" />
     {/* RS-485 to the front display (J9). COS13487EESA-3.3 auto-direction transceiver (U7):
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
         only DI (from ESP TX) and RO (to ESP RX) are driven. R6 = 120R line termination
         across A/B; D1 = SM712 ESD array at the J9 cable entry; C7 decouples VCC. */}
-    <Cos13487 name="U7" x={-50} y={-22} rot={270} />
-    <Res name="R6" resistance="120" footprint="0603" jlcpcb="C22787" x={-43.8} y={-22.55} rot={0} side="N" />
-    <Sm712 name="D1" x={-43.9} y={-25.95} rot={180} />
-    <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-47.5} y={-16.2} rot={90} side="E" />
+    <Cos13487 name="U7" x={-56} y={-19} rot={180} />
+    <Res name="R6" resistance="120" footprint="0603" jlcpcb="C22787" x={-56} y={-24} rot={0} side="N" />
+    <Sm712 name="D1" x={-56.5} y={-27.5} rot={180} />
+    <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-50.25} y={-19.75} rot={0} side="N" />
     {/* On-board supplies. U10 = K7805 (12V->5V, 2A) SIP module (pin1 Vin / pin2 GND / pin3
         +Vo), 10uF input + 22uF output cap. U9 = AMS1117-3.3 (C6186, SOT-223 LDO) makes 3V3
         from the 5V rail: VIN off V5, VOUT1 + VOUT2 (tab) to 3V3, GND to the bottom plane;
         the SMD pads auto-stitch to their planes. Each cap flanks the LDO at the pin of its
         own net: C13 (10uF V5 input) hard by VIN on the east, C14 (22uF 3V3 output) under the
         VOUT tab on the west — so each closes a tight local loop like C15/C16 flank U10. */}
-    <AMS1117_3_3 name="U9" pcbRotation={0} {...at(-9.02, 31.9)} />
-    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-2.4} y={33.15} rot={90} side="S" />
-    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-11.75} y={25.4} rot={0} side="S" />
-    <Buck5 name="U10" x={22.81} y={-27.35} />
-    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={32.0} y={-28.5} rot={0} side="S" />
-    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={32.0} y={-25} rot={180} side="S" />
+    <AMS1117_3_3 name="U9" pcbRotation={0} {...at(10, 21.25)} />
+    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={17.5} y={21} rot={0} side="N" />
+    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={17.5} y={24} rot={0} side="N" />
+    <Buck5 name="U10" x={17} y={-27.25} />
+    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={24.75} y={-27.25} rot={90} side="E" />
+    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={24.75} y={-22.25} rot={270} side="E" />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
         pump (Kamoer KPHM400-SW, 12V brushed DC, 0.8A at full speed per the datasheet — PWM'd well below that at the
         1:20 dispense ratio; prime/clean is where it hits 0.8A), 45V/3.6A SMD with internal freewheeling +
         OCP/OTP/UVLO. VM->12V (the top SMD pad lands directly on the V12 island), GND/PAD->GND,
         ISEN->GND, VREF->3V3, IN1/IN2 from the ESP north-edge pins, OUT1/OUT2 to PUMPS. 10uF +
         0.1uF VM decoupling per chip. */}
-    <Drv8870 name="U11" pcbX={-24.9} pcbY={22} pcbRotation={0} />
-    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-28.55} y={15.65} rot={0} side="S" />
-    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-23.5} y={15.7} rot={0} side="S" />
-    <Drv8870 name="U12" pcbX={-17.95} pcbY={22} pcbRotation={0} />
-    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-18} y={15.7} rot={0} side="S" />
-    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-12.95} y={15.7} rot={0} side="S" />
-    <Mcp23017 name="U2" x={2.33} y={20.55} addr="0x20" rot={180} />
-    <Mcp23017 name="U3" x={5.73} y={-21.35} addr="0x21" rot={0} />
-    <Uln2803 name="U4" x={18.15} y={9.75} rot={270} />
-    <Uln2803 name="U5" x={17.78} y={-8.53} rot={270} />
-    <Buzzer name="U8" x={-36.3} y={-8.4} />
-    <Npn name="Q1" x={-35.8} y={-2.35} />
-    <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-40.7} y={-1.65} rot={180} side="N" />
+    <Drv8870 name="U11" pcbX={-24.9} pcbY={22.5} pcbRotation={0} />
+    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-26.5} y={14.75} rot={90} side="E" />
+    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-23.5} y={14.75} rot={90} side="E" />
+    <Drv8870 name="U12" pcbX={-17.95} pcbY={22.5} pcbRotation={0} />
+    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-19.5} y={14.75} rot={90} side="E" />
+    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-16.5} y={14.75} rot={90} side="E" />
+    <Mcp23017 name="U2" x={-5} y={20.25} addr="0x20" rot={180} />
+    <Mcp23017 name="U3" x={-2.25} y={-21.25} addr="0x21" rot={0} />
+    <Uln2803 name="U4" x={12.25} y={10.5} rot={270} />
+    <Uln2803 name="U5" x={12.5} y={-8.5} rot={270} />
+    <Buzzer name="U8" x={-43.5} y={-11.25} />
+    <Npn name="Q1" x={-40} y={-5.5} />
+    <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-44.5} y={-4.5} rot={180} side="N" />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
-    <Jst name="J1" x={30.48} y={12.45} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" side="E" />
-    <Jst name="J2" x={30.48} y={-9.7} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" side="E" />
+    <Jst name="J1" x={23.75} y={11.5} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" side="E" />
+    <Jst name="J2" x={23.75} y={-10.5} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" side="E" />
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
     <Jst name="J13" x={-21.1} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" side="N" />
-    <Jst name="J3" x={-29.58} y={-34.03} count={4} labels={["GND", "V5", "IO35", "IO33"]} label="FAUCET" side="S" />
-    <Jst name="J4" x={-13.42} y={-34.03} count={6} labels={["GND", "V5", "IO25", "IO26", "IO27", "3V3"]} label="SENSORS" side="S" />
+    <Jst name="J3" x={-40.75} y={-32.75} count={4} labels={["GND", "V5", "IO35", "IO33"]} label="FAUCET" side="S" />
+    <Jst name="J4" x={-23.5} y={-32.75} count={6} labels={["IO25", "IO26", "IO27", "3V3", "GND", "V5"]} label="SENSORS" side="S" />
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
         (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
         IO19 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
     <Jst name="J5" x={-35.35} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} label="RELAYS" side="N" />
-    <Jst name="J6" x={7.61} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" side="N" />
-    <Jst name="J7" x={6.55} y={-34.03} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" side="S" />
-    <Jst name="J8" x={24.08} y={-34.03} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" side="S" />
-    <Jst name="J9" x={-41.99} y={-34.03} count={3} labels={["A", "B", "ERTH"]} label="SCREEN" side="S" />
+    <Jst name="J6" x={-3.5} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" side="N" />
+    <Jst name="J7" x={-2.5} y={-32.75} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" side="S" />
+    <Jst name="J8" x={15} y={-32.75} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" side="S" />
+    <Jst name="J9" x={-53.75} y={-32.75} count={3} labels={["B", "A", "ERTH"]} label="SCREEN" side="S" />
     {/* 12V inlet — KF301-5.0-2P 2-pin 5.0mm screw terminal (C474881, 17A/250V), the board's
         power inlet. Sized for the ~3.3A peak (both pumps priming + a few valves + the condenser
         fan) with margin the 3A XH wafer didn't have. pcbRotation 180 aims the wire throats at the
@@ -222,12 +222,12 @@ export default () => (
         the fence toward the edge, at the same absolute Y as the north JSTs (pin labels 34.605,
         function 35.715) so all four read identically; the ref-des sits inside the fence (hidden
         under the body once populated), exactly where the JSTs tuck theirs. */}
-    <KF301_5_0_2P name="J10" pinLabels={{ pin1: ["GND"], pin2: ["V12"] }} pcbRotation={180} {...at(22.35, 30.65)} />
-    <silkscreentext text="GND" fontSize="0.8mm" anchorAlignment="center" pcbX={24.85} pcbY={34.84} />
-    <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={19.85} pcbY={34.84} />
-    <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={22.35} pcbY={35.8} />
-    <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={22.35} pcbY={27.61} />
-    <Jst name="J11" x={-54.4} y={-34.03} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} label="GAS" side="S" />
+    <KF301_5_0_2P name="J10" pinLabels={{ pin1: ["GND"], pin2: ["V12"] }} pcbRotation={180} {...at(12, 30.65)} />
+    <silkscreentext text="GND" fontSize="0.8mm" anchorAlignment="center" pcbX={14.5} pcbY={34.84} />
+    <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={9.5} pcbY={34.84} />
+    <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={12} pcbY={35.8} />
+    <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={12} pcbY={27.61} />
+    <Jst name="J11" x={-62} y={-25.75} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} label="GAS" side="W" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
         a vertical 2-resistor series: 2.2k (input, bottom) -> midpoint -> 3.3k (to
@@ -235,10 +235,10 @@ export default () => (
         for DOUT). The midpoint taps right into the ESP; AOUT: R1/R2 -> IO39, DOUT:
         R3/R4 -> IO36. IO36/IO39 are the ADC1 input-only pins at the west end of the ESP
         south edge; the dividers sit just below them, the GAS connector below the dividers. */}
-    <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={-60.75} y={-18.5} rot={180} side="N" />
-    <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={-60.75} y={-16.25} rot={0} side="N" />
-    <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={-64.5} y={-18.5} rot={0} side="N" />
-    <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={-64.5} y={-16.25} rot={180} side="N" />
+    <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={-61.75} y={-17.25} rot={180} side="N" />
+    <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={-61.75} y={-15} rot={0} side="N" />
+    <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={-65.5} y={-17.25} rot={0} side="N" />
+    <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={-65.5} y={-15} rot={180} side="N" />
 
     {/* 3V3 rail -> inner1 plane, sourced by the AMS1117 LDO (U9) off the 5V rail. The I2C
         devices (both MCPs, DS3231), RS485, the WROOM, and the sensor loom all common to it at
@@ -333,8 +333,8 @@ export default () => (
     <trace from=".U3 > .A1" to="net.GND" />
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
-    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={0.03} y={12.65} rot={0} side="S" />
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={10.5} y={-29.4} rot={180} side="S" />
+    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-7.25} y={12.5} rot={0} side="N" />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={9} y={-25} rot={270} side="E" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
@@ -535,9 +535,9 @@ export default () => (
         soaking the inrush + flyback dump the ceramics can't. Every pin1 -> V12, pin2 ->
         GND plane — no routing, no vias, barrel pickup like every power pin; the top V12
         island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
-    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={21.63} y={-16.5} rot={0} side="S" />
-    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={22.03} y={1.85} rot={0} side="S" />
-    <BulkCap name="C3" x={5.97} y={1.74} />
+    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={16.25} y={-16.5} rot={0} side="N" />
+    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={16} y={2.5} rot={0} side="N" />
+    <BulkCap name="C3" x={0.75} y={1.74} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
     <trace from=".C2 > .pin1" to="net.V12" />
@@ -556,7 +556,7 @@ export default () => (
         ac-wiring-schedule SIG-1). The bus runs ~600 mm out to the cold-core probes, too
         far for the ESP's ~45k internal pull-up, so the 1-wire bus gets its proper external
         pull-up on-board, at the SENSORS connector where the probe loom leaves the board. */}
-    <Res name="R9" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-16} y={-28} rot={0} side="N" />
+    <Res name="R9" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-30.75} y={-28.5} rot={0} side="N" />
     <trace from=".R9 > .pin1" to="net.V3V3" />
     <trace from=".R9 > .pin2" to=".J4 > .IO26" />
 
@@ -621,21 +621,21 @@ export default () => (
         VBUS, C21 rides U13's 3V3. East column on x=-44, 4 mm pitch: C6 / R8 / Q3 / C21 (with
         R15 above), R8 the IO0 pull-up spun vertical into the stack. */}
     <UsbC name="J14" pcbX={-51.5} pcbY={31.3} pcbRotation={180} />
-    <Usblc6 name="U14" pcbX={-52.4} pcbY={24.9} pcbRotation={180} />
-    <CH340C name="U13" pcbX={-51.5} pcbY={18.15} pcbRotation={180} />
-    <Res name="R16" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-58.9} y={34.7} rot={0} side="N" />
-    <Res name="R15" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-44} y={34.7} rot={0} side="N" />
-    <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-47.4} y={24.9} rot={90} side="E" />
-    <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-44} y={24.85} rot={90} side="E" />
+    <Usblc6 name="U14" pcbX={-52.75} pcbY={22.25} pcbRotation={180} />
+    <CH340C name="U13" pcbX={-51.5} pcbY={16} pcbRotation={180} />
+    <Res name="R16" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-58} y={34.75} rot={270} side="E" />
+    <Res name="R15" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-45} y={34.5} rot={270} side="E" />
+    <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-46.25} y={25} rot={0} side="N" />
+    <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-43.5} y={14.75} rot={0} side="N" />
     {/* EN branch (west): U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
-    <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-56.3} y={12.4} rot={0} side="S" />
-    <S8050 name="Q2" pcbX={-63.8} pcbY={13} pcbRotation={0} />
-    <silkscreentext text="Q2" fontSize="0.8mm" anchorAlignment="center" pcbX={-61.7} pcbY={13} />
+    <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-59.5} y={13.25} rot={0} side="N" />
+    <S8050 name="Q2" pcbX={-64} pcbY={14.5} pcbRotation={0} />
+    <silkscreentext text="Q2" fontSize="0.8mm" anchorAlignment="center" pcbX={-64} pcbY={14.5} />
     <Tact name="SW2" pcbX={-62} pcbY={27} pcbRotation={0} />
     {/* IO0 branch (east): U13.RTS -> R18 -> Q3.base; U13.DTR -> Q3.emitter; Q3.collector -> IO0; SW1 */}
-    <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-52.3} y={12.4} rot={0} side="S" />
-    <S8050 name="Q3" pcbX={-43} pcbY={19.55} pcbRotation={0} />
-    <silkscreentext text="Q3" fontSize="0.8mm" anchorAlignment="center" pcbX={-40.9} pcbY={19.55} />
+    <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-59.5} y={15.5} rot={0} side="N" />
+    <S8050 name="Q3" pcbX={-43.5} pcbY={21} pcbRotation={0} />
+    <silkscreentext text="Q3" fontSize="0.8mm" anchorAlignment="center" pcbX={-43.5} pcbY={21} />
     <Tact name="SW1" pcbX={-62} pcbY={20} pcbRotation={0} />
     {/* USB-C: GND (pin13/14) + shield ears (pin1-4) to plane; VBUS (pin15/16) to the ESD
         rail only (not board power); CC1 (pin6) / CC2 (pin12) each to a 5.1k Rd; D+ = pin8+pin10,
@@ -692,9 +692,9 @@ export default () => (
         edges, so the four stay centred on the board and clear of the nearest connector at
         each corner. */}
     <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.5} pcbY={33.5} />
-    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={34.5} pcbY={33.5} />
-    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={34.5} pcbY={-37.5} />
-    <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.5} pcbY={-37.5} />
+    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={26.5} pcbY={33.5} />
+    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={26.5} pcbY={-35.5} />
+    <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.5} pcbY={-35.5} />
 
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
         monocolor silk via logo.ts) over the centered name + version, a compact
