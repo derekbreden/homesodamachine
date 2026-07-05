@@ -11,6 +11,8 @@ from _cold_core_interface import (
     foam_shell_outer_height,
     bag_pocket_corner_inner_radius,
     bag_pocket_outermost_x,
+    bag_pocket_y_inner_max,
+    bag_pocket_width,
 )
 
 w = wall_and_floor_thickness
@@ -29,7 +31,9 @@ transition_tank_r = 8.0
 # wall. The +Y side is described; the −Y side mirrors in y.
 arc_cavity_r = pocket_centerward_arc_outer_radius
 arc_tank_r = arc_cavity_r - w
-y_inner = arc_cavity_r - w
+# ±Y wall position — the reservoir's own half-width, NOT the arc radius, so the
+# centerward wall can move out (bigger foam blanket) without splaying the pocket.
+y_inner = bag_pocket_y_inner_max
 middle_tank_x = math.sqrt(arc_tank_r**2 - pocket_centerward_arc_transition_y**2)
 middle_cavity_x = math.sqrt(arc_cavity_r**2 - pocket_centerward_arc_transition_y**2)
 _chord_half_y = (y_inner - pocket_centerward_arc_transition_y) / 2.0
@@ -80,7 +84,7 @@ def build_reservoir_pocket_walls():
 
     far_x_outer = bag_pocket_outermost_x
     far_x_inner = far_x_outer - w
-    y_outer = pocket_centerward_arc_outer_radius
+    y_outer = bag_pocket_width / 2  # ±Y outer wall — reservoir half-width, not the arc radius
     corner_inner_r = bag_pocket_corner_inner_radius
     corner_outer_r = corner_inner_r + w
     arc_y = pocket_centerward_arc_transition_y

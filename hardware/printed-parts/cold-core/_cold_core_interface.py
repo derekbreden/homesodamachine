@@ -20,14 +20,24 @@ wall_and_floor_thickness = 2.0
 hole_shift_from_edge = 15.0
 
 
-# Reservoir-pocket centerward arc. Each pocket's axis-facing wall is curved;
-# its cavity-side face rides on a cylinder of this radius centered on the
-# cold-core axis. [7 mm](COIL_RADIAL_CLEARANCE) of radial clearance between
-# the tank and the wall holds the 1/4" ACR copper coil + thermal tape.
+# The cold cylinder + its evaporator coil. [7 mm](COIL_RADIAL_CLEARANCE) of
+# radial clearance out from the cylinder OD holds the 1/4" ACR copper coil +
+# thermal tape; the tank support ring cradles the tank rim at this envelope.
 tank_outer_radius = 63.5
 coil_radial_clearance = 7.0
+tank_coil_envelope_radius = tank_outer_radius + coil_radial_clearance
+
+# Foam blanket around the cylinder — the pour-foam standoff measured from the
+# cylinder OD out to the reservoir's tank-facing wall, uniform around the wrapped
+# arc (that wall is a concentric arc), with the coil embedded in its inner slice
+# (so it must be >= coil_radial_clearance). This VALUE is not a thermal target:
+# it is set so the reservoir, shifted out by it, keeps the 283 mm outer width
+# (outer_shell_x_length below) with its reed channel butted against the outer
+# wall — i.e. the foam that used to sit outboard of the reed moved to the
+# cylinder side. The reservoir-facing (cavity) face is one wall further out.
+foam_thickness_around_cylinder = 15.0
 pocket_centerward_arc_outer_radius = (
-    tank_outer_radius + coil_radial_clearance + wall_and_floor_thickness
+    tank_outer_radius + foam_thickness_around_cylinder + wall_and_floor_thickness
 )
 
 # Foam-shell outer height. Tank height + [30 mm](ABOVE_TANK_ELBOWS_HEIGHT) above for top-side elbow
@@ -47,12 +57,18 @@ support_ring_radial_width = 9.0
 # (water outlet, reservoir bulkheads, reed cable holes, CO2 tube clearance).
 port_hole_radius = 3.25
 
-# Bag pocket. Width tracks pocket_centerward_arc_outer_radius so the
-# pocket's ±Y outboard faces are tangent to the cylinder the centerward
-# arc rides on. Each reservoir's usable window (Reed 1 low warning → Reed 4
-# full, 135 mm of float travel) holds 2 × SodaStream 0.44 L bottles =
-# 0.88 L usable.
-bag_pocket_width = pocket_centerward_arc_outer_radius * 2
+# Reed-channel cavity depth (radial, out from the bag-pocket far wall). The reed
+# column drops into this cavity; the outer_shell X width is sized so the cavity +
+# its wall butt the outer shell wall (see outer_shell_x_length). Consumed by
+# _reed_channels.py too.
+reed_x_depth = 6.0
+
+# Bag pocket. Width and depth are the reservoir's own dimensions — sized to the
+# flavor charge it carries (each usable window, Reed 1 low → Reed 4 full over
+# 135 mm of float travel, holds 2 × SodaStream 0.44 L bottles). They are NOT tied
+# to the tank geometry: the ±Y width stands on its own so growing the cylinder's
+# foam blanket slides the pocket outward without resizing the reservoir.
+bag_pocket_width = 145.0
 bag_pocket_depth = 49 + 2 * wall_and_floor_thickness
 bag_pocket_far_inner_x = (
     pocket_centerward_arc_outer_radius + bag_pocket_depth - 2 * wall_and_floor_thickness
@@ -88,18 +104,20 @@ reservoir_bulkhead_port_x = (bag_pocket_far_inner_x + pocket_centerward_arc_oute
 # of the bag-pocket −Y (front, toward the user) wall outer face.
 reservoir_bulkhead_port_y = -(bag_pocket_width / 2 - 10)
 
-# Outer footprint shared by the outer shell, the foam cap, and the
-# foam cap lid — must be coplanar at the corners so the screw bosses
-# line up at each attachment position.
-outer_shell_foam_gap = 16.0
+# Outer footprint. The ±Y (front/back) gap is the tank's foam blanket out to the
+# shell wall. The ±X width is set by the reservoir + its reed channel butted
+# against the shell wall — no outboard foam there; it moved to the cylinder side.
+outer_shell_foam_gap = 16.0  # ±Y front/back foam-pour gap
 bag_pocket_outermost_x = (
     pocket_centerward_arc_outer_radius + bag_pocket_depth - wall_and_floor_thickness
 )
+# ±X: reservoir far wall + reed cavity + reed wall + shell wall (reed butted).
 outer_shell_x_length = 2 * (
-    bag_pocket_outermost_x + outer_shell_foam_gap + wall_and_floor_thickness
+    bag_pocket_outermost_x + reed_x_depth + 2 * wall_and_floor_thickness
 )
+# ±Y: reservoir side wall (its own half-width) + front/back foam + shell wall.
 outer_shell_y_length = 2 * (
-    pocket_centerward_arc_outer_radius + outer_shell_foam_gap + wall_and_floor_thickness
+    bag_pocket_width / 2 + outer_shell_foam_gap + wall_and_floor_thickness
 )
 
 
@@ -116,7 +134,7 @@ foam_lid_thickness = 3.0
 # tube traverses the lid.
 co2_inlet_tube_radius = port_hole_radius
 _co2_centerward_mid_r = pocket_centerward_arc_outer_radius - wall_and_floor_thickness / 2
-_co2_support_ring_outer_r = pocket_centerward_arc_outer_radius - wall_and_floor_thickness
+_co2_support_ring_outer_r = tank_coil_envelope_radius  # the ring sits on the tank+coil envelope
 _co2_support_ring_mid_r = _co2_support_ring_outer_r - support_ring_radial_width / 2
 co2_inlet_y = -(_co2_centerward_mid_r + _co2_support_ring_mid_r) / 2
 

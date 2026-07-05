@@ -9,6 +9,7 @@ from _cold_core_interface import (
     reservoir_bulkhead_port_y,
     bulkhead_elbow_exit_z,
     port_hole_radius,
+    reed_x_depth,
     make_box,
     build_hole_punch,
 )
@@ -20,8 +21,8 @@ w = wall_and_floor_thickness
 reeds_per_reservoir = 4
 
 # Reed channel cavity is open through the top of the foam shell; reeds
-# drop in from above through the cap.
-reed_x_depth = 6.0
+# drop in from above before the lid goes on. Cavity depth (reed_x_depth) is
+# shared via the interface — the outer_shell X width is sized to butt it.
 
 # Matches the reservoir's ROD_POSITION_Y: reeds sit opposite the
 # float-on-rod across the bag-pocket wall.
