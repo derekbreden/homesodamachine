@@ -146,9 +146,10 @@ export const Res = ({ name, resistance, footprint, jlcpcb, x, y, rot = 0, side }
 // (toward the interior, readable on the bare board), plus a "survives-assembly" copy OUTBOARD past
 // the body toward the edge (visible once a wafer is seated over the inboard set). `labels[i]` is the
 // net on pin i+1 (pin 1 at the footprint's -X end); each label is drawn at its pin's rotated
-// position so it always tracks the pin, whatever the seating rotation. `rot`/`jlcpcb` are ignored
-// (kept for call-site compatibility): the rotation is derived, the part rides in the footprint.
-export const Jst = ({ name, x, y, count, labels, label, side }: { name: string; x: number; y: number; count: number; labels: string[]; rot?: number; label: string; side: "N" | "S" | "E" | "W"; jlcpcb?: string }) => {
+// position so it always tracks the pin, whatever the seating rotation. Orientation is `side` ALONE:
+// the wafer's real rotation is DERIVED from it (per-part, absorbing the manufacturer differences
+// noted above), so there's no free `rot` to set — a Jst faces an edge, and that edge is its pose.
+export const Jst = ({ name, x, y, count, labels, label, side }: { name: string; x: number; y: number; count: number; labels: string[]; label: string; side: "N" | "S" | "E" | "W" }) => {
   const Wafer = WAFER_BY_COUNT[count]
   const pitch = WAFER_PITCH[count] ?? 2.5
   const smHalf = 0.24, bigHalf = 0.42, padR = 0.825, G = 0.25   // ink cap half-heights; pad radius; tier gap

@@ -8,54 +8,6 @@ import path from "path";
 
 const PCB_DIR = "pcb";
 
-// ---- Imported constant resolver --------------------------------------------
-
-// Resolve simple exported const values from imported local files so that
-// expressions like labels={[...ulnOUT].reverse()} can be expanded.
-function resolveImportedConstants(tsx, boardDir) {
-  const consts = {};
-
-  // Parse import { A, B } from "./file" declarations for local files.
-  const importRe = /import\s+\{([^}]+)\}\s+from\s+"(\.\/[^"]+)"/g;
-  for (const m of tsx.matchAll(importRe)) {
-    const names = m[1].split(",").map((s) => {
-      const trim = s.trim();
-      // Handle "as" renames: "Foo as Bar"
-      const asMatch = trim.match(/^(\w+)\s+as\s+(\w+)$/);
-      return asMatch ? { src: asMatch[1], alias: asMatch[2] } : { src: trim, alias: trim };
-    });
-    const filePath = path.join(boardDir, m[2]);
-    // Try .tsx, .ts, then bare (for index files or files without explicit ext).
-    const tryPaths = filePath.endsWith(".tsx") || filePath.endsWith(".ts")
-      ? [filePath]
-      : [filePath + ".tsx", filePath + ".ts", filePath];
-    let fileSrc = null;
-    for (const fp of tryPaths) {
-      try { fileSrc = fs.readFileSync(fp, "utf-8"); break; } catch {}
-    }
-    if (!fileSrc) continue;
-
-    for (const { src, alias } of names) {
-      // export const Foo = [...]
-      const arrRe = new RegExp(`export\\s+const\\s+${src.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*=\\s*\\[([^\\]]*)\\]`);
-      const arrMatch = fileSrc.match(arrRe);
-      if (arrMatch) {
-        const items = [...arrMatch[1].matchAll(/"([^"]*)"/g)].map((x) => x[1]);
-        consts[alias] = items;
-        continue;
-      }
-      // export const Foo = "..."
-      const strRe = new RegExp(`export\\s+const\\s+${src.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*=\\s*"([^"]*)"`);
-      const strMatch = fileSrc.match(strRe);
-      if (strMatch) {
-        consts[alias] = strMatch[1];
-      }
-    }
-  }
-
-  return consts;
-}
-
 // ---- TSX parser -----------------------------------------------------------
 
 function findSelfClosingElements(tsx) {
@@ -136,6 +88,14 @@ const FP_SIZES = {
   "1206": { w: 3.2, h: 1.6 },
 };
 
+// A Jst's orientation isn't a free rotation — it's `side`, the board edge its
+// opening faces, from which carrier_parts.tsx derives the wafer's real (per-part)
+// angle. The editor rotates a Jst by cycling `side`; these map a side to its
+// opening-facing angle (matching the helper's `wantAngle`), so a generic +90°
+// rotate steps to the next edge and wraps: S→E→N→W→S.
+const JST_SIDE_ANGLE = { E: 0, N: 90, W: 180, S: 270 };
+const JST_ANGLE_SIDE = { 0: "E", 90: "N", 180: "W", 270: "S" };
+
 function componentShape(tag, footprint, count) {
   if (tag === "Jst" || tag === "pinheader") {
     const n = Math.max(count || 1, 1);
@@ -150,62 +110,7 @@ function componentShape(tag, footprint, count) {
   return { cat: "unknown", size: { w: 5, h: 5 } };
 }
 
-// Jst connector silk generation — replicates the layout math in carrier_parts.tsx
-// so the editor can draw the fence + labels without expanding the component.
-function jstSilk({ x, y, count, labels, rot, name, label }) {
-  const silk = [];
-  const vertical = rot % 180 !== 0;
-  const pitch = 2.5, padR = 0.825;
-  const bigHalf = 0.42, smHalf = 0.24;
-  const G = 0.45, M = 0.6;
-  const perpDir = vertical ? -1 : 1;
-  const bigOff = padR + G + bigHalf;
-  const labelOff = padR + G + smHalf;
-  const refOff = labelOff + smHalf + G + smHalf;
-  const uc = ((bigOff + bigHalf) - (refOff + smHalf)) / 2;
-  const dep = (bigOff + bigHalf) + (refOff + smHalf) + 2 * M + 0.2;
-  const len = (count - 1) * pitch + 2 * (padR + M + 0.1);
-  const [w, h] = vertical ? [dep, len] : [len, dep];
-  const P = (u, v) => (vertical ? [perpDir * u, v] : [v, perpDir * u]);
-  const [bdx, bdy] = P(bigOff, 0);
-  const [rdx, rdy] = P(-refOff, 0);
-  const [fdx, fdy] = P(uc, 0);
-
-  // Fence rectangle
-  silk.push({
-    kind: "fence",
-    x: x + fdx, y: y + fdy, w, h, rot: 0,
-    strokeWidth: 0.2,
-  });
-
-  // Pin labels
-  for (let i = 0; i < labels.length; i++) {
-    const [dx, dy] = P(-labelOff, (i - (count - 1) / 2) * pitch);
-    silk.push({
-      kind: "text", text: labels[i], fontSize: 0.8,
-      x: x + dx, y: y + dy, rot,
-      anchor: null,
-    });
-  }
-
-  // Function label
-  silk.push({
-    kind: "text", text: label, fontSize: 1.4,
-    x: x + bdx, y: y + bdy, rot,
-    anchor: null,
-  });
-
-  // Ref-des label
-  silk.push({
-    kind: "text", text: name, fontSize: 0.8,
-    x: x + rdx, y: y + rdy, rot,
-    anchor: null,
-  });
-
-  return silk;
-}
-
-function parseBoardTsx(tsx, consts) {
+function parseBoardTsx(tsx) {
   const elements = findSelfClosingElements(tsx);
   const components = [];
   const silk = [];
@@ -291,33 +196,24 @@ function parseBoardTsx(tsx, consts) {
 
     if (x === null) continue;
 
-    // Rotation
-    let rot = 0;
-    const rotMatch = body.match(/(?:pcbRotation|rot)=\{(-?\d+)\}/);
-    if (rotMatch) rot = parseInt(rotMatch[1], 10);
-
     // Pin count for connectors
     let count = null;
     const cntMatch = body.match(/\bcount=\{(\d+)\}/);
     if (cntMatch) count = parseInt(cntMatch[1], 10);
 
-    // Connector labels
-    let labels = null, jstLabel = null;
-    const labelsMatch = body.match(/\blabels=\{(\[[^\]]*\])(?:\.[^}\s]+)?\}/) || body.match(/\blabels=\{\[([^\]]*)\]\}/);
-    if (labelsMatch) {
-      const raw = labelsMatch[1] || labelsMatch[2] || "";
-      labels = [...raw.matchAll(/"([^"]*)"/g)].map((m) => m[1]);
+    // Orientation. A Jst has no free rotation — it faces a board edge (`side`),
+    // and carrier_parts.tsx derives the wafer's real angle from that. Report the
+    // side's opening-facing angle, so the editor's model matches the board and a
+    // 90° rotate steps to the next edge. Everything else reads its rotation literal.
+    let side = null, rot = 0;
+    if (tag === "Jst") {
+      const sideMatch = body.match(/\bside="([NSEW])"/);
+      if (sideMatch) side = sideMatch[1];
+      if (side != null && JST_SIDE_ANGLE[side] != null) rot = JST_SIDE_ANGLE[side];
+    } else {
+      const rotMatch = body.match(/(?:pcbRotation|rot)=\{(-?\d+)\}/);
+      if (rotMatch) rot = parseInt(rotMatch[1], 10);
     }
-    // Fall back to resolving imported-constant spreads, e.g. [...ulnOUT].reverse()
-    if ((!labels || !labels.length) && consts && count) {
-      const spreadMatch = body.match(/labels=\{\.\.\.(\w+)\}/) || body.match(/labels=\{\[\.\.\.(\w+)\]\.reverse\(\)\}/);
-      if (spreadMatch && consts[spreadMatch[1]]) {
-        const arr = consts[spreadMatch[1]];
-        labels = body.includes(".reverse()") ? [...arr].reverse() : [...arr];
-      }
-    }
-    const labelMatch = body.match(/\blabel=["{]([^"}]+)["}]/);
-    if (labelMatch) jstLabel = labelMatch[1];
 
     // Footprint for passives
     let footprint = null;
@@ -335,13 +231,8 @@ function parseBoardTsx(tsx, consts) {
 
     components.push({
       tag, ref, x: Math.round(x * 100) / 100, y: Math.round(y * 100) / 100,
-      rot, posKind, cat, size, footprint, count, extra,
+      rot, side, posKind, cat, size, footprint, count, extra,
     });
-
-    // Generate silk for Jst connectors
-    if ((tag === "Jst" || tag === "pinheader") && jstLabel && count) {
-      silk.push(...jstSilk({ x, y, count, labels: labels || [], rot, name: ref, label: jstLabel }));
-    }
   }
 
   return { components, silk, outline };
@@ -405,19 +296,32 @@ export function updatePositionInTsx(tsx, ref, oldX, oldY, newX, newY) {
   );
 }
 
-// Set a component's rotation in the source TSX. Replaces an existing rotation
-// literal (pcbRotation preferred, else the Cap/Jst `rot` shorthand); when a
-// component carries no rotation yet — e.g. a bare `{...at()}` placement — one is
-// inserted just before the closing `/>`. The prop name follows the component:
-// the Cap/Jst wrappers read `rot`, while builtins (capacitor/resistor/…) and the
-// ChipProps imports read `pcbRotation`. Matched by ref alone, so it composes
-// after a position rewrite has already moved the same line.
+// Set a component's rotation in the source TSX. A Jst is special: it has no free
+// rotation — its pose is `side` (the board edge it faces) — so a rotate rewrites
+// `side`, mapping the requested angle to the matching edge. Everything else edits
+// a rotation literal: pcbRotation, else the Cap `rot` shorthand; when a component
+// carries none yet (e.g. a bare `{...at()}`) one is inserted before the `/>` (the
+// Cap wrapper takes `rot`; builtins and ChipProps imports take `pcbRotation`).
+// Matched by ref alone, so it composes after a position rewrite of the same line.
 export function updateRotationInTsx(tsx, ref, newRot) {
-  const r = Math.round(Number(newRot));
+  const r = ((Math.round(Number(newRot)) % 360) + 360) % 360;
   const lines = tsx.split("\n");
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     if (!line.includes(`name="${ref}"`) && !line.includes(`name={${ref}}`)) continue;
+
+    const tagM = line.match(/<\s*(\w+)/);
+    const tag = tagM ? tagM[1] : "";
+
+    // A Jst faces a board edge; its pose is `side`, not a rotation literal. Map the
+    // requested angle to the edge whose opening points that way and rewrite `side`.
+    if (tag === "Jst") {
+      const side = JST_ANGLE_SIDE[r];
+      if (!side) throw new Error(`Jst ${ref}: ${r}° is not a cardinal edge`);
+      if (!/\bside="[NSEW]"/.test(line)) throw new Error(`Jst ${ref} has no side= to rotate`);
+      lines[i] = line.replace(/\bside="[NSEW]"/, `side="${side}"`);
+      return lines.join("\n");
+    }
 
     if (/\bpcbRotation=\{-?\d+\}/.test(line)) {
       lines[i] = line.replace(/\bpcbRotation=\{-?\d+\}/, `pcbRotation={${r}}`);
@@ -428,9 +332,7 @@ export function updateRotationInTsx(tsx, ref, newRot) {
       return lines.join("\n");
     }
 
-    const tagM = line.match(/<\s*(\w+)/);
-    const tag = tagM ? tagM[1] : "";
-    const prop = (tag === "Cap" || tag === "Jst") ? "rot" : "pcbRotation";
+    const prop = tag === "Cap" ? "rot" : "pcbRotation";
     const tail = line.match(/\s*\/>\s*$/);
     if (tail) {
       lines[i] = line.slice(0, tail.index) + ` ${prop}={${r}} />`;
@@ -503,8 +405,7 @@ export function mountPcbEditorRoutes(app, hardwareDir) {
     if (!tsxPath) return res.status(404).json({ error: `Board not found: ${name}` });
 
     const tsx = fs.readFileSync(tsxPath, "utf-8");
-    const consts = resolveImportedConstants(tsx, path.dirname(tsxPath));
-    const { components, silk, outline } = parseBoardTsx(tsx, consts);
+    const { components, silk, outline } = parseBoardTsx(tsx);
     res.json({
       name,
       tsxPath: path.relative(hardwareDir, tsxPath),
