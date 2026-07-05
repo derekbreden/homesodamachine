@@ -1,14 +1,14 @@
 """Annular ring sitting at the bottom of the foam-shell's central
-zone, holding the tank up by its outer rim. The ring's outer face is
-coincident with the reservoir pockets' centerward wall on its tank-
-side face."""
+zone, holding the tank up by its outer rim. The ring's outer face sits
+on the tank+coil envelope — inboard of the reservoir pockets' centerward
+wall, which stands off from it by the cylinder's foam blanket."""
 
 import cadquery as cq
 
 from _cold_core_interface import (
     xz_plane_y_down,
     wall_and_floor_thickness,
-    pocket_centerward_arc_outer_radius,
+    tank_coil_envelope_radius,
     tank_support_ring_height,
     support_ring_radial_width,
 )
@@ -39,7 +39,7 @@ def revolve_rect(r_range, z_range, angle=360):
 def build_tank_support_ring():
     """Annular ring with equal-spaced angular slots cut through it; slot
     boundaries lie on the same cylinders as the ring faces."""
-    r_outer = pocket_centerward_arc_outer_radius - wall_and_floor_thickness
+    r_outer = tank_coil_envelope_radius
     r_inner = r_outer - support_ring_radial_width
     z_bottom = wall_and_floor_thickness
     z_top = z_bottom + tank_support_ring_height

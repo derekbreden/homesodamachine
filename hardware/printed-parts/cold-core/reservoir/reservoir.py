@@ -65,9 +65,9 @@ reservoir_wall_thickness = reservoir_floor_thickness
 
 # Fillets where the centerward curve meets the ±Y walls. At
 # y = ±[70 mm](OUTER_Y_MAX) the outer centerward curve (radius
-# [73 mm](OUTER_CENTERWARD_R)) meets the outer ±Y walls at a [16°](OUTER_TAB_ANGLE)
+# [81 mm](OUTER_CENTERWARD_R)) meets the outer ±Y walls at a [30°](OUTER_TAB_ANGLE)
 # interior-angle tab; at y = ±[67 mm](INNER_Y_MAX) the inner centerward curve
-# meets the inner ±Y walls inside the syrup volume at [28°](INNER_CORNER_ANGLE).
+# meets the inner ±Y walls inside the syrup volume at [37°](INNER_CORNER_ANGLE).
 # [6 mm](OUTER_FILLET_R) is at least body_boss_radius ([5 mm](BODY_BOSS_R)), so the
 # corner bosses (positions 4/5, centered on the outer fillet) sit fully inside
 # the post-fillet wall material.
@@ -399,8 +399,8 @@ inner_centerward_radius = outer_centerward_radius + reservoir_wall_thickness
 # Interior angles of the corners where the centerward arc meets the ±Y walls
 # — DERIVED from the geometry, not eyeballed. The arc tangent crosses the
 # horizontal ±Y wall at acos(y_max / R): a sharp "pointy tab" on the outer
-# envelope ([16°](OUTER_TAB_ANGLE)) and a gentler corner on the inner cavity
-# boundary ([28°](INNER_CORNER_ANGLE)).
+# envelope ([30°](OUTER_TAB_ANGLE)) and a gentler corner on the inner cavity
+# boundary ([37°](INNER_CORNER_ANGLE)).
 outer_tab_interior_angle = math.degrees(math.acos(outer_y_max / outer_centerward_radius))
 inner_corner_interior_angle = math.degrees(math.acos(inner_y_max / inner_centerward_radius))
 
@@ -518,7 +518,7 @@ insert_positions_for_side_plus_1 = [
 # above, cut below. Bosses 4/5 (corner-of-curve positions) use a
 # virtual pivot 2 mm along wall_dir from the boss center because the
 # literal inner-wall corner is too far for a sensible cut depth (a
-# [10.86 mm](CORNER_CURVE_DIST) cut depth would eat into the 7 mm heat-set pocket).
+# [8.794 mm](CORNER_CURVE_DIST) cut depth would eat into the 7 mm heat-set pocket).
 #
 # Values stored for side=+1; the x component is multiplied by `side`
 # in the body-boss loop to mirror across x=0 for side=−1.
@@ -533,9 +533,9 @@ _inv_sqrt2 = 1.0 / math.sqrt(2.0)
 # at the closest point on the curve along the inward radial line.
 # Pointing at the corner is the same pattern bosses 1 / 2 use (their
 # cuts slope down away from the +X × ±Y inner corner). For boss 4
-# the corner is at (≈[35.87 mm](INNER_CORNER_CURVE_X), [67 mm](INNER_Y_MAX)),
-# [10.86 mm](CORNER_CURVE_DIST) from the boss in the (−X, +Y) direction — too
-# far to use as a literal pivot (a [10.86 mm](CORNER_CURVE_DIST) cut depth would
+# the corner is at (≈[50.67 mm](INNER_CORNER_CURVE_X), [67 mm](INNER_Y_MAX)),
+# [8.794 mm](CORNER_CURVE_DIST) from the boss in the (−X, +Y) direction — too
+# far to use as a literal pivot (a [8.794 mm](CORNER_CURVE_DIST) cut depth would
 # eat into the 7 mm heat-set pocket). Instead, take
 # the unit vector toward the corner as wall_dir, and place the pivot
 # VIRTUALLY at 2 mm along that direction from the boss center, so
@@ -634,12 +634,12 @@ def build_reservoir_body(side=1):
     # Fillet the four sharp corners where the centerward concave curve
     # meets the ±Y walls — applied to the bare wall geometry BEFORE
     # unioning the insert bosses, because two of the inner corners
-    # coincide with boss positions ([35.87 mm](INNER_CORNER_CURVE_X), ±[67 mm](INNER_Y_MAX)) and unioning a cylinder
+    # coincide with boss positions ([50.67 mm](INNER_CORNER_CURVE_X), ±[67 mm](INNER_Y_MAX)) and unioning a cylinder
     # there would replace the sharp edge with a curved boss-to-wall
     # transition that the fillet operation can't pick up.
     #
-    # Exterior corners (outer perimeter, [16°](OUTER_TAB_ANGLE) interior angle) are pointy
-    # tabs. Interior corners (cavity boundary, [28°](INNER_CORNER_ANGLE) interior angle) are
+    # Exterior corners (outer perimeter, [30°](OUTER_TAB_ANGLE) interior angle) are pointy
+    # tabs. Interior corners (cavity boundary, [37°](INNER_CORNER_ANGLE) interior angle) are
     # sharp inside the syrup volume. Both get rounded with the same
     # radius for visual consistency.
     z_mid_body = (outer_z_range[0] + outer_z_range[1]) / 2
