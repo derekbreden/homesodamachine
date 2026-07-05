@@ -91,19 +91,22 @@ lower stock (~380 at 2026-06-30 vs tens of thousands for the rest) — the lone 
 connector, fine for a build, glance at it before a large run.
 
 **JLCPCB's footprints for this "series" are NOT uniform** — the thing that made the connector
-orientations look random before the import. Three axes vary by count, and the `Jst` helper
-carries a lookup for each (see `carrier_parts.tsx`): hole PITCH is 2.5 mm for 3/5/6/9P but
-2.54 mm for 4/7P (`WAFER_PITCH`); the mating OPENING faces +Y at rot 0 for 3/4/9P but −Y for
-5/6/7P (`WAFER_OPEN`); and PIN 1 sits at the west end for all but the 7P, which numbers from the
-east (`WAFER_PIN1_WEST`). From these the helper derives each connector's rotation so its opening
-faces the board edge it sits on, and reverses the label list wherever the pin order flips — so
-every net keeps the same physical pin and every IC→connector fan stays uncrossed. Pin order on
-the looms is not depended on anywhere (the board drives the field), so the reversals are free.
+orientations look random before the import. Two axes vary by count, and the `Jst` helper
+carries a lookup for each (see `carrier_parts.tsx`): the mating OPENING faces +Y at rot 0 for
+3/4/9P but −Y for 5/6/7P (`WAFER_OPEN`); and PIN 1 sits at the west end for all but the 7P,
+which numbers from the east (`WAFER_PIN1_WEST`). From these the helper derives each connector's
+rotation so its opening faces the board edge it sits on, and reverses the label list wherever the
+pin order flips — so every net keeps the same physical pin and every IC→connector fan stays
+uncrossed. Pin order on the looms is not depended on anywhere (the board drives the field), so the
+reversals are free. The hole PITCH is a uniform 2.5 mm across the series (`WAFER_PITCH` = 2.5 for
+every count): the "2.54" in the part name is the nominal series name, not the drawn pitch — the
+XUNPU spec lists 2.5 mm (LCSC C5359632: "Pitch 2.5 mm", "X-Length of Bottom Edge on Board 12.5 mm"
+for the 4P, i.e. 2.5 mm of plastic past each outer pin, `XH_END` in `component-bodies.ts`).
 
 **J10 is a KF301-5.0-2P screw terminal (`C474881`), not an XH wafer.** The 12 V inlet
 carries the whole board — both pumps priming + a few valves + the condenser fan ≈ 3.3 A
-peak — and the XH wafer contact is only rated 3 A, so it was the one connector running
-its rating. The KF301 is a 5.0 mm-pitch 2-pole block rated 17 A / 250 V, 14–22 AWG (Cixi
+peak — and the XUNPU XH wafer contact is rated 2 A (LCSC C5359632, "Current Rating 2A"), so
+it was the one connector running well over its rating. The KF301 is a 5.0 mm-pitch 2-pole block rated 17 A / 250 V, 14–22 AWG (Cixi
 Kefa Elec): real margin, and it lands the 16–18 AWG power feed on a screw instead of a
 crimp. Extended (every screw terminal in the library is), deep stock (165k at 2026-07-02,
 $0.0995/1+); wave-soldered THT, so it rides the same through-hole assembly the XH wafers +
@@ -111,7 +114,7 @@ coin base already require (no new process, no JLCPCB assembly-difficulty flag).
 Footprint pulled with `tsci import C474881` (→ `imports/KF301_5_0_2P.tsx`), then its auto
 ref-des was stripped so the label block is hand-drawn upright as a Jst survive-block: `12V`
 (1.4 mm function label) + `GND`/`V12` (0.8 mm pin labels) sit OUTBOARD of the fence toward the
-board edge, and the part is positioned (`y=30.115`) so its body/fence top edge lands on the
+board edge, and the part is positioned (`y=30.39`) so its body/fence top edge lands on the
 same line as the north JST fences — labels and fence read at the same Y as J5/J6/J13, uniform
 across the edge. It's placed `pcbRotation={180}` so the wire throats face the north board edge
 — the loom feeds in from outside — with pin1 → GND on the east pad, pin2 → V12 on the west,
