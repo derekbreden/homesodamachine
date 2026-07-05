@@ -43,12 +43,14 @@
  *
  * `autorouter.traceClearance` (the homesodamachine core patch feeds it to the capacity
  * solver's obstacle margin) is the packing target, and its realized floor is counter-
- * intuitive: too HIGH and the router can't meet it in the dense pump-driver comb, crams the
- * leftover space, and the realized min copper gap COLLAPSES. On this board (164 vias) 0.15
- * holds a 0.115 mm floor; keep it in the ~0.12–0.15 low zone, don't raise it toward 0.25+.
- * That 0.115 floor is a via hugging the WROOM/pump-driver pads (U12) — traceClearance won't
- * beat it; only spreading the comb will (all six layers already carry signal). The web
- * viewer's board chip reports this floor live (clearance.ts -> picks.json).
+ * intuitive AND non-monotonic: too HIGH and the router can't meet it in the dense fan-outs,
+ * crams the leftover space, and the realized min copper gap COLLAPSES. On this placement the
+ * realized floor peaks sharply at traceClearance 0.13 (0.129 mm); 0.12 -> 0.120, 0.14 -> 0.119,
+ * 0.15 -> 0.111. Keep it in the ~0.12–0.14 low zone at the peak, don't raise it toward 0.25+.
+ * That 0.129 floor is a trace hugging the WROOM 3V3-decoupling fan-out (C10, off U1's ~38-pin
+ * west castellation comb) — traceClearance won't beat it, only spreading that comb will (all six
+ * layers already carry signal). The web viewer's board chip reports this floor live
+ * (clearance.ts -> picks.json).
  */
 import { at, Cap, Res, Jst, ulnOUT } from "./carrier_parts"
 import { Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn } from "./pcba_parts"
@@ -123,7 +125,7 @@ export const ampacity: AmpacityRule[] = [
 ]
 
 export default () => (
-  <board layers={6} schematicDisabled outline={[{ x: -68, y: -39 }, { x: 30, y: -39 }, { x: 30, y: 37 }, { x: -68, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.15, viaMode: "through-hole" }}>
+  <board layers={6} schematicDisabled outline={[{ x: -68, y: -39 }, { x: 30, y: -39 }, { x: 30, y: 37 }, { x: -68, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.13, viaMode: "through-hole" }}>
     {/* DS3231SN RTC + CR2032 backup, east of the ESP. U6 (the SOIC) sits high with its
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
@@ -191,29 +193,29 @@ export default () => (
     <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-44.5} y={-4.5} rot={180} side="N" />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
-    <Jst name="J1" x={23.75} y={12.5} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" side="E" />
+    <Jst name="J1" x={23.75} y={14.05} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" side="E" />
     <Jst name="J2" x={23.75} y={-9.5} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" side="E" />
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
-    <Jst name="J13" x={-21.1} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" side="N" />
-    <Jst name="J3" x={-40.75} y={-32.75} count={4} labels={["GND", "V5", "IO35", "IO33"]} label="FAUCET" side="S" />
-    <Jst name="J4" x={-23.5} y={-32.75} count={6} labels={["IO25", "IO26", "IO27", "3V3", "GND", "V5"]} label="SENSORS" side="S" />
+    <Jst name="J13" x={-20.55} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" side="N" />
+    <Jst name="J3" x={-39.85} y={-32.75} count={4} labels={["GND", "V5", "IO35", "IO33"]} label="FAUCET" side="S" />
+    <Jst name="J4" x={-22.55} y={-32.75} count={6} labels={["IO25", "IO26", "IO27", "3V3", "GND", "V5"]} label="SENSORS" side="S" />
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
         (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
         IO19 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
     <Jst name="J5" x={-35.35} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} label="RELAYS" side="N" />
-    <Jst name="J6" x={-3.5} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" side="N" />
-    <Jst name="J7" x={-2.5} y={-32.75} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" side="S" />
-    <Jst name="J8" x={15} y={-32.75} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" side="S" />
-    <Jst name="J9" x={-53.75} y={-32.75} count={3} labels={["B", "A", "ERTH"]} label="SCREEN" side="S" />
+    <Jst name="J6" x={-4.5} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" side="N" />
+    <Jst name="J7" x={-1.5} y={-32.75} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" side="S" />
+    <Jst name="J8" x={17.05} y={-32.75} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" side="S" />
+    <Jst name="J9" x={-53.4} y={-32.75} count={3} labels={["B", "A", "ERTH"]} label="SCREEN" side="S" />
     {/* 12V inlet — KF301-5.0-2P 2-pin 5.0mm screw terminal (C474881, 17A/250V), the board's
         power inlet. Sized for the ~3.3A peak (both pumps priming + a few valves + the condenser
         fan) with margin the 3A XH wafer didn't have. pcbRotation 180 aims the wire throats at the
-        north board edge, so the field loom feeds in from OUTSIDE the board. y=30.115 seats the body
-        (fence) top edge on the same line as the north JST fences (33.815) — every north connector's
-        fence sits the same distance from the edge, so J10 reads uniform with J5/J6/J13. pin1->GND,
-        pin2->V12; the 180 seats GND on the east pad (x 18.4) and V12 on the west (x 13.4) —
+        north board edge, so the field loom feeds in from OUTSIDE the board. y=30.39 seats the body so
+        its north plastic (courtyard) sits 2.5 mm from the board edge — the same plastic-to-edge as
+        the north JST mating openings (pin row + 3.5 mm), so J10 reads uniform with J5/J6/J13.
+        pin1->GND, pin2->V12; the 180 seats GND on the east pad (x 13.78) and V12 on the west (x 8.78) —
         reversing 12V would cook the polarised bulk cap (C3), the bucks, and the drivers. THT
         barrels pick up their nets: V12 off the top island, GND off the bottom plane (the pour
         antipads the GND barrel clear of the V12 island). Traces unchanged (.J10 > .GND / .V12).
@@ -222,11 +224,11 @@ export default () => (
         the fence toward the edge, at the same absolute Y as the north JSTs (pin labels 34.605,
         function 35.715) so all four read identically; the ref-des sits inside the fence (hidden
         under the body once populated), exactly where the JSTs tuck theirs. */}
-    <KF301_5_0_2P name="J10" pinLabels={{ pin1: ["GND"], pin2: ["V12"] }} pcbRotation={180} {...at(12, 30.65)} />
-    <silkscreentext text="GND" fontSize="0.8mm" anchorAlignment="center" pcbX={14.5} pcbY={34.84} />
-    <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={9.5} pcbY={34.84} />
-    <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={12} pcbY={35.8} />
-    <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={12} pcbY={27.61} />
+    <KF301_5_0_2P name="J10" pinLabels={{ pin1: ["GND"], pin2: ["V12"] }} pcbRotation={180} {...at(11.28, 30.39)} />
+    <silkscreentext text="GND" fontSize="0.8mm" anchorAlignment="center" pcbX={13.78} pcbY={34.84} />
+    <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={8.78} pcbY={34.84} />
+    <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={11.28} pcbY={35.8} />
+    <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={11.28} pcbY={27.35} />
     <Jst name="J11" x={-62} y={-25.75} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} label="GAS" side="W" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
@@ -716,13 +718,17 @@ export default () => (
         block (its L outline below): top-layer 12V pads sit directly on it, through-hole 12V
         pins pick it up at the barrel. Point-to-point signals route on top and bottom. */}
     <trace from=".J10 > .V12" to="net.V12" />
-    {/* West edge stops at x -24.5, not -37: the top band only needs to reach the pump driver's
-        V12 pad (U11.VM at x -23). Sweeping further west put the island over the RTC's north pads
-        (U6, whose long imported pill pads straddle the y=11 island edge and can't be cleanly
-        antipadded), so the empty NW corner x[-37,-24.5] y[11,35] is dropped. */}
+    {/* V12 top island — an L over the 12 V block: the two pump drivers (U11/U12) in the NW, and the
+        ULN commons + manifolds (U4/U5, J1/J2), the buck input (U10/C15) and the bulk reservoir (C3)
+        down the east. The top band runs west to x -28.4 so it sits fully under the pump-driver group
+        (not halfway through U11); the east column stops at y -28.5, just past the southmost V12 part
+        (U10/C15), so it doesn't flood the south connector row. It sits 0.5 mm off the north and east
+        board edges (x 29.5 / y 36.5) — the same margin the plane pours take — so J10 (the 12 V inlet)
+        and J1/J2 seat on it fully. The SW notch (x[-28.4,-8], y[-28.5,11]) keeps it off the LED/logo/
+        nameplate cluster. Foreign barrels crossing it (J13/J6, the MCPs, the GND mounting hole) antipad. */}
     <copperpour name="V12ISLAND" layer="top" connectsTo="net.V12" netClearance="0.5mm from V3V3, V5, SDA, SCL"
-      outline={[{ x: -24.5, y: 35 }, { x: 33, y: 35 }, { x: 33, y: -37 }, { x: -8, y: -37 },
-                { x: -8, y: 11 }, { x: -24.5, y: 11 }]} />
+      outline={[{ x: -28.4, y: 36.5 }, { x: 29.5, y: 36.5 }, { x: 29.5, y: -28.5 }, { x: -8, y: -28.5 },
+                { x: -8, y: 11 }, { x: -28.4, y: 11 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
     <copperpour name="SDAPLANE" layer="inner3" connectsTo="net.SDA" boardEdgeMargin="0.5mm" />
