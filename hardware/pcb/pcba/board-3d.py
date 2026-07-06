@@ -52,7 +52,7 @@ from OCP.BRepBndLib import BRepBndLib
 
 HERE = Path(__file__).resolve().parent
 CDN_UA = "homesodamachine-board-3d/1.0"
-BOARD_GREEN = Quantity_Color(0.05, 0.35, 0.12, Quantity_TOC_sRGB)
+BOARD_GREEN = Quantity_Color(0.10, 0.48, 0.20, Quantity_TOC_sRGB)
 
 
 # tscircuit's rotation convention (@tscircuit/cli dist/cli/main.js `rotateVector`):
