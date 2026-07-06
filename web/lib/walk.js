@@ -56,14 +56,20 @@ export function walkFilesUnderDir(rootDir, exts, parentDirName) {
   return out;
 }
 
-// PCB boards: a board is a tscircuit source (`pcb/<dir>/<name>.tsx`) whose
-// copper views have been rendered into a sibling `out/` by render-board.ts.
-// Returns one object per board — `{source, name, dir, top, bottom, overlay,
-// inners, picks}`, the view fields being root-relative SVG paths and `inners`
-// the board's inner-plane views in stack order — so callers list boards (not
-// raw SVGs) with their views attached. Scoped to `<root>/pcb` and skips
-// node_modules so we never recurse the tscircuit toolchain's dependency tree.
-// Shared by the /api/pcb route and the deploy-time change diff (lib/push.js).
+// PCB boards: a board is the tscircuit source named for its own directory —
+// `pcb/<dir>/<dir>.tsx`, e.g. pcb/pcba/pcba.tsx — rendered into a sibling `out/`
+// by render-board.ts. The name-matches-dir rule is the whole gate: helper sources
+// that share the directory (carrier_parts.tsx, pcba_parts.tsx) and scratch/decoy
+// boards (_b15.tmp.tsx and friends) are not the board and never appear, so nothing
+// can masquerade as a board no matter what got rendered into out/. This is the same
+// kind of structural discriminator the other walkers use — drawings by parent-dir
+// name, posts by filename pattern — not an out/ allowlist. Returns one object per
+// board — `{source, name, dir, top, bottom, overlay, inners, picks}`, the view
+// fields being root-relative SVG paths and `inners` the board's inner-plane views
+// in stack order — so callers list boards (not raw SVGs) with their views attached.
+// Scoped to `<root>/pcb` and skips node_modules so we never recurse the tscircuit
+// toolchain's dependency tree. Shared by the /api/pcb route and the deploy-time
+// change diff (lib/push.js).
 export function walkPcbBoards(rootDir) {
   const pcbDir = path.join(rootDir, "pcb");
   if (!fs.existsSync(pcbDir)) return [];
@@ -84,6 +90,9 @@ export function walkPcbBoards(rootDir) {
       }
       if (!entry.name.endsWith(".tsx")) continue;
       const name = entry.name.replace(/\.tsx$/, "");
+      // The board is the source named for its directory; helper and scratch .tsx
+      // that share the dir are not boards (see header).
+      if (name !== path.basename(dir)) continue;
       // A board counts only once its views exist; the overlay is the tell.
       if (!fs.existsSync(path.join(dir, "out", `${name}.overlay.svg`))) continue;
       const relDir = path.relative(rootDir, dir).split(path.sep).join("/");
