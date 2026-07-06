@@ -31,9 +31,11 @@ import { fetchFiles } from "./main.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 
 function refreshStepCard(file) {
-  // The export pipeline rewrote this part's committed thumbnail before the
-  // watcher broadcast the change (its atexit render finishes before the
-  // python process closes), so just re-fetch the PNG past the browser cache.
+  // Re-fetch the committed PNG past the browser cache. On a real deploy the
+  // thumbnail ships committed alongside the STEP, so it's fresh immediately. On
+  // the dev watcher the STEP broadcast races ahead of its background thumbnail
+  // render (dev-server/server.js flushThumbnails), so the card may briefly show
+  // the prior PNG, then repaints when the render re-broadcasts this same file.
   // Drop the client-render cache too, in case this card is on the missing-
   // thumbnail fallback path.
   state.thumbnailCache.delete(file);
