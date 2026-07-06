@@ -208,7 +208,7 @@ export default () => (
     <Jst name="J6" x={-7.0} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" side="N" />
     <Jst name="J7" x={-3.0} y={-33} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" side="S" />
     <Jst name="J8" x={8.5} y={31} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" side="N" />
-    <Jst name="J9" x={-20.25} y={-33} count={4} labels={["B", "A", "GND", "V12"]} label="SCREEN" side="S" />
+    <Jst name="J9" x={-20.25} y={-33} count={4} labels={["B", "A", "GND", "V12"]} label="DISPLAY" side="S" />
     {/* 12V inlet — KF301-5.0-2P 2-pin 5.0mm screw terminal (C474881, 17A/250V), the board's power
         inlet on the south edge (east end, over the V12 island). Sized for the ~3.3A peak
         (both pumps priming + a few valves + the condenser fan) with margin the 2A XH wafer didn't
