@@ -19,6 +19,7 @@ export function walkFiles(rootDir, exts) {
     if (!fs.existsSync(dir)) return;
     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
       if (entry.name.startsWith(".")) continue; // skip dotfiles (orphaned atomic-write temps, etc.)
+      if (entry.name === "node_modules") continue; // never surface dependency artifacts
       const full = path.join(dir, entry.name);
       if (entry.isDirectory()) walk(full, path.join(rel, entry.name));
       else if (extList.some((e) => entry.name.endsWith(e))) {
