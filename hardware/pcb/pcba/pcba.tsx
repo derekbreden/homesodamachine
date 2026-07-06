@@ -156,10 +156,10 @@ export default () => (
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
         only DI (from ESP TX) and RO (to ESP RX) are driven. R6 = 120R line termination
         across A/B; D1 = SM712 ESD array at the J9 cable entry; C7 decouples VCC. */}
-    <Cos13487 name="U7" x={-19} y={-23} rot={180} />
-    <Res name="R6" resistance="120" footprint="0603" jlcpcb="C22787" x={-19} y={-28} rot={0} side="N" />
-    <Sm712 name="D1" x={-24.5} y={-27.5} rot={180} />
-    <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-18.5} y={-17.75} rot={0} side="N" />
+    <Cos13487 name="U7" x={-51} y={-23} rot={180} />
+    <Res name="R6" resistance="120" footprint="0603" jlcpcb="C22787" x={-51} y={-28} rot={0} side="N" />
+    <Sm712 name="D1" x={-56.5} y={-27.5} rot={180} />
+    <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.5} y={-20} rot={0} side="N" />
     {/* On-board supplies. U10 = K7805 (12V->5V, 2A) SIP module (pin1 Vin / pin2 GND / pin3
         +Vo), 10uF input + 22uF output cap. U9 = AMS1117-3.3 (C6186, SOT-223 LDO) makes 3V3
         from the 5V rail: VIN off V5, VOUT1 + VOUT2 (tab) to 3V3, GND to the bottom plane;
@@ -169,9 +169,9 @@ export default () => (
     <AMS1117_3_3 name="U9" pcbRotation={0} {...at(7, 21.25)} />
     <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={14.5} y={21} rot={0} side="N" />
     <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={14.5} y={24} rot={0} side="N" />
-    <Buck5 name="U10" x={15.25} y={-25} />
-    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={23} y={-27} rot={90} side="E" />
-    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={23} y={-22} rot={270} side="E" />
+    <Buck5 name="U10" x={14} y={-26.25} />
+    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={21.75} y={-27.75} rot={90} side="E" />
+    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={21.75} y={-22.75} rot={270} side="E" />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
         pump (Kamoer KPHM400-SW, 12V brushed DC, 0.8A at full speed per the datasheet — PWM'd well below that at the
         1:20 dispense ratio; prime/clean is where it hits 0.8A), 45V/3.6A SMD with internal freewheeling +
@@ -185,30 +185,30 @@ export default () => (
     <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-22.75} y={14.75} rot={90} side="E" />
     <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-19.75} y={14.75} rot={90} side="E" />
     <Mcp23017 name="U2" x={-8} y={20.25} addr="0x20" rot={180} />
-    <Mcp23017 name="U3" x={-4} y={-21.75} addr="0x21" rot={0} />
+    <Mcp23017 name="U3" x={-6.25} y={-20.25} addr="0x21" rot={0} />
     <Uln2803 name="U4" x={9.25} y={9.5} rot={270} />
-    <Uln2803 name="U5" x={9.5} y={-9} rot={270} />
+    <Uln2803 name="U5" x={9.5} y={-9.75} rot={270} />
     <Buzzer name="U8" x={-38.5} y={-9.75} />
     <Npn name="Q1" x={-44} y={-8} />
     <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-44.5} y={-4.5} rot={180} side="N" />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
-    <Jst name="J1" x={21} y={13.75} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" side="E" />
-    <Jst name="J2" x={21} y={-9.5} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" side="E" />
+    <Jst name="J1" x={21} y={12.5} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" side="E" />
+    <Jst name="J2" x={21} y={-10.75} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" side="E" />
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
     <Jst name="J13" x={-22.25} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" side="N" />
-    <Jst name="J3" x={-52.5} y={-33} count={4} labels={["GND", "V5", "IO35", "IO33"]} label="FAUCET" side="S" />
-    <Jst name="J4" x={-36.5} y={-33} count={6} labels={["3V3", "GND", "V5", "IO25", "IO26", "IO27"]} label="SENSORS" side="S" />
+    <Jst name="J3" x={-40.75} y={-33.0} count={4} labels={["GND", "V5", "IO35", "IO33"]} label="FAUCET" side="S" />
+    <Jst name="J4" x={-24.5} y={-33.0} count={6} labels={["3V3", "GND", "V5", "IO25", "IO26", "IO27"]} label="SENSORS" side="S" />
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
         (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
         IO19 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
     <Jst name="J5" x={-36.5} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} label="RELAYS" side="N" />
     <Jst name="J6" x={-7.0} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" side="N" />
-    <Jst name="J7" x={-1} y={-33} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" side="S" />
-    <Jst name="J8" x={8.5} y={31} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" side="N" />
-    <Jst name="J9" x={-21.75} y={-33} count={3} labels={["B", "A", "ERTH"]} label="SCREEN" side="S" />
+    <Jst name="J7" x={-4.5} y={-33.0} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" side="S" />
+    <Jst name="J8" x={13.0} y={-33.0} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" side="S" />
+    <Jst name="J9" x={-53.25} y={-33.0} count={3} labels={["B", "A", "ERTH"]} label="SCREEN" side="S" />
     {/* 12V inlet — KF301-5.0-2P 2-pin 5.0mm screw terminal (C474881, 17A/250V), the board's
         power inlet. Sized for the ~3.3A peak (both pumps priming + a few valves + the condenser
         fan) with margin the 3A XH wafer didn't have. pcbRotation 180 aims the wire throats at the
@@ -224,7 +224,7 @@ export default () => (
         the fence toward the edge, at the same absolute Y as the north JSTs (pin labels 34.605,
         function 35.715) so all four read identically; the ref-des sits inside the fence (hidden
         under the body once populated), exactly where the JSTs tuck theirs. */}
-    <KF301_5_0_2P name="J10" pinLabels={{ pin1: ["GND"], pin2: ["V12"] }} pcbRotation={0} {...at(14.75, -32.75)} />
+    <KF301_5_0_2P name="J10" pinLabels={{ pin1: ["GND"], pin2: ["V12"] }} pcbRotation={180} {...at(8.25, 30.39)} />
     <silkscreentext text="GND" fontSize="0.8mm" anchorAlignment="center" pcbX={10.75} pcbY={34.84} />
     <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={5.75} pcbY={34.84} />
     <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={8.25} pcbY={35.8} />
@@ -336,7 +336,7 @@ export default () => (
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
     <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-10.25} y={12.5} rot={0} side="N" />
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={7.25} y={-26.25} rot={270} side="E" />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={5} y={-24} rot={270} side="E" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
@@ -537,7 +537,7 @@ export default () => (
         soaking the inrush + flyback dump the ceramics can't. Every pin1 -> V12, pin2 ->
         GND plane — no routing, no vias, barrel pickup like every power pin; the top V12
         island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
-    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={13.25} y={-17} rot={0} side="N" />
+    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={13.25} y={-17.75} rot={0} side="N" />
     <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={13} y={1.5} rot={0} side="N" />
     <BulkCap name="C3" x={-3} y={-1.25} />
     <trace from=".C1 > .pin1" to="net.V12" />
@@ -558,7 +558,7 @@ export default () => (
         ac-wiring-schedule SIG-1). The bus runs ~600 mm out to the cold-core probes, too
         far for the ESP's ~45k internal pull-up, so the 1-wire bus gets its proper external
         pull-up on-board, at the SENSORS connector where the probe loom leaves the board. */}
-    <Res name="R9" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-34.25} y={-28.25} rot={0} side="N" />
+    <Res name="R9" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-23} y={-28.25} rot={0} side="N" />
     <trace from=".R9 > .pin1" to="net.V3V3" />
     <trace from=".R9 > .pin2" to=".J4 > .IO26" />
 
@@ -572,18 +572,18 @@ export default () => (
         is by colour + position (see esp32-scope.md). */}
     {/* left — firmware R/G/B; anode toward its R (outboard, -x). Every KT-0603 import carries
         pin1=anode on the +x pad, so all three rot 180 to swing the anode pad outboard-left. */}
-    <LedRed name="D2" pcbRotation={180} {...at(-39.75, -15)} />
-    <LedGrn name="D3" pcbRotation={180} {...at(-39.75, -17.5)} />
-    <LedBlu name="D4" pcbRotation={180} {...at(-39.75, -20)} />
-    <Res name="R10" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-15} rot={0} side="N" />
-    <Res name="R11" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-17.5} rot={0} side="N" />
-    <Res name="R12" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-20} rot={0} side="N" />
+    <LedRed name="D2" pcbRotation={180} {...at(-34.25, -15.0)} />
+    <LedGrn name="D3" pcbRotation={180} {...at(-34.25, -17.5)} />
+    <LedBlu name="D4" pcbRotation={180} {...at(-34.25, -20.0)} />
+    <Res name="R10" resistance="470" footprint="0603" jlcpcb="C23179" x={-38.75} y={-15.0} rot={0} side="N" />
+    <Res name="R11" resistance="470" footprint="0603" jlcpcb="C23179" x={-38.75} y={-17.5} rot={0} side="N" />
+    <Res name="R12" resistance="470" footprint="0603" jlcpcb="C23179" x={-38.75} y={-20.0} rot={0} side="N" />
     {/* right — power rails (green); anode toward its R (outboard, +x). pin1=anode is already on
         the +x pad, so these stay native (rot 0) to face the anode pad outboard-right at its R. */}
-    <LedGrn name="D5" {...at(-29.75, -17)} />
-    <LedGrn name="D6" {...at(-29.75, -20)} />
-    <Res name="R13" resistance="470" footprint="0603" jlcpcb="C23179" x={-25.25} y={-17} rot={180} side="N" />
-    <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={-25.25} y={-20} rot={180} side="N" />
+    <LedGrn name="D5" {...at(-24.25, -17)} />
+    <LedGrn name="D6" {...at(-24.25, -20)} />
+    <Res name="R13" resistance="470" footprint="0603" jlcpcb="C23179" x={-19.75} y={-17} rot={180} side="N" />
+    <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={-19.75} y={-20} rot={180} side="N" />
     
     {/* firmware: GPIO -> R -> anode, cathode -> GND */}
     <trace from=".U1 > .IO14" to=".R10 > .pin1" />
