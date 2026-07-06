@@ -34,7 +34,9 @@
  * is clear, and emit those vias top<->bottom (JLCPCB drills through-holes only, no blind/buried —
  * see patches/capacity-autorouter-fork/). Each poured plane carves clearance around the inner-layer
  * signals crossing it and every via is a manufacturable through-hole; the DRC (clearance.ts)
- * proves no blind/buried via and no barrel crossing foreign copper survives.
+ * proves no blind/buried via and no barrel crossing foreign copper survives. `viaInPad` (below)
+ * then pulls each route's terminal transition via back onto its pad wherever the barrel column and
+ * the replacement segment clear all foreign copper — via-in-pad, so order filled+capped vias.
  *
  * `schematicDisabled` on the board: this is a fab-only PCB (its canonical "schematic" is
  * esp32-pinout.mmd). tscircuit's schematic-trace-solver — NOT the PCB autorouter — hangs on
@@ -118,7 +120,7 @@ export const ampacity: AmpacityRule[] = [
 ]
 
 export default () => (
-  <board layers={6} schematicDisabled outline={[{ x: -68, y: -39 }, { x: 27, y: -39 }, { x: 27, y: 37 }, { x: -68, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.15, viaMode: "through-hole" }}>
+  <board layers={6} schematicDisabled outline={[{ x: -68, y: -39 }, { x: 27, y: -39 }, { x: 27, y: 37 }, { x: -68, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm" }} autorouter={{ traceClearance: 0.15, viaMode: "through-hole", viaInPad: true }}>
     {/* DS3231SN RTC + CR2032 backup, east of the ESP. U6 (the SOIC) sits high with its
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is

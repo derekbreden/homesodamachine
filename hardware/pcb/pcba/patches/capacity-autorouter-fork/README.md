@@ -60,6 +60,30 @@ via-capable test to be correct). `@tscircuit/props` (still a bun patch,
 The board DRC (`../../clearance.ts`) independently asserts that no blind/buried via and no barrel
 crossing foreign copper on any layer survives.
 
+## viaInPad — pull terminal transition vias onto their pads
+
+The same "the mesh never births a via in a pad" rule that keeps through-hole vias off pads also
+produces the *ugliness* the eye catches: a route leaving a top pad for the inner copper can't drop
+its via on the pad (the pad occupies that column), so the transition via lands a short hop *into*
+the trace. Triggered by **`autorouter={{ viaInPad: true }}`** (props → `SimpleRouteJson.viaInPad`),
+a post-routing pass (`lib/utils/pullTerminalViasIntoPads.ts`, run in
+`AutoroutingPipeline4`'s `getOutputSimplifiedPcbTraces`) moves each route's first/last
+layer-transition via back onto its terminal SMD pad — but only where it is provably safe:
+
+- The terminal must be a same-net single-layer SMD pad the via is within `maxPullDistance` (3 mm)
+  of — genuine mid-channel vias, and offset escape-vias, are farther and stay put.
+- The moved via (a full-column barrel) and the replacement segment that reaches the old via XY on
+  the routing layer must clear every **foreign** pad / plated-hole / trace / via the router knows
+  about by the board clearance. Same-net copper (the pad itself) is fine.
+- Pours aren't the router's concern: a top↔bottom via is antipadded by every foreign pour
+  downstream (copper-pour-solver), and an inner-layer segment is carved by the pour like any inner
+  signal — so a pull can neither short the via nor the segment on a plane.
+
+Off by default → identical to upstream. On this board it moved 22 offset vias onto pads with the
+clearance floor, tight-pair set, and error count all unchanged (`clearance.ts` is the referee).
+It is via-in-pad, so order the PCBA with filled+capped vias (already required for the auto-stitch
+vias — see `../../plane-stitching.md`).
+
 ## How it ships
 
 Both routing forks are real GitHub forks. `main` tracks upstream; our change lives on the
