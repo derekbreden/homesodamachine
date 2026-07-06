@@ -31,15 +31,15 @@
  * is a floating acid-trap the pour solver left behind; flagged as a fab risk, not a short.
  *
  * ERRORS — the above, plus the genuine DRC findings filtered out of the pour-blind noise the
- * board carries every render: the ~90 "missing a connection to smtpad" trace errors are a
- * pad-alias/pour artifact (the pad IS reached — tested against the routed copper) and the "via
- * outside the board boundary" placement errors are false (the stitch vias land post-DRC,
- * inside). A third false positive: tscircuit's clearance DRC is rotation-blind — it reads a rotated
- * pill pad as axis-aligned, so a column of imported SOIC/SOP pads reads "0 mm apart" (pad_pad) and a
- * trace cleanly threading past them reads as a contact (pad_trace). Each such error is refereed
- * against this file's own rotation-aware geometry (padGap / padMinClearance) and dropped only when
- * the pad really clears its minimum. What survives is genuine copper overlaps / too-close, courtyard
- * overlaps, real opens, and any other placement error.
+ * board carries every render: the "missing a connection to smtpad" trace errors read only direct
+ * trace copper, blind to the plane and via paths most nets take, so they drop here — net continuity
+ * is judged in full by connectivity.ts. The "via outside the board boundary" placement errors are
+ * false (the stitch vias land post-DRC, inside). A third: tscircuit's clearance DRC is rotation-blind
+ * — it reads a rotated pill pad as axis-aligned, so a column of imported SOIC/SOP pads reads "0 mm
+ * apart" (pad_pad) and a trace cleanly threading past them reads as a contact (pad_trace). Each such
+ * error is refereed against this file's own rotation-aware geometry (padGap / padMinClearance) and
+ * dropped only when the pad really clears its minimum. What survives is genuine copper overlaps /
+ * too-close, courtyard overlaps, and any other placement error.
  */
 
 type Pt = [number, number]
@@ -75,13 +75,11 @@ export function analyzeClearance(circuit: any[]): ClearanceReport {
   const compName: Record<string, string> = {}
   const netByKey: Record<string, string> = {}, netById: Record<string, string> = {}
   const stNet: Record<string, string> = {}
-  const smtpadByPort: Record<string, any> = {}
   for (const e of circuit) {
     if (e.type === "source_port") srcPort[e.source_port_id] = e
     else if (e.type === "pcb_port") pcbPort[e.pcb_port_id] = e
     else if (e.type === "source_component") compName[e.source_component_id] = e.name
     else if (e.type === "source_net") { netByKey[e.subcircuit_connectivity_map_key] = e.name; netById[e.source_net_id] = e.name }
-    else if (e.type === "pcb_smtpad" && e.pcb_port_id) smtpadByPort[e.pcb_port_id] = e
   }
   for (const e of circuit) if (e.type === "source_trace")
     stNet[e.source_trace_id] = (e.subcircuit_connectivity_map_key && netByKey[e.subcircuit_connectivity_map_key]) || netById[e.connected_source_net_ids?.[0]] || e.subcircuit_connectivity_map_key || ""
@@ -232,7 +230,7 @@ export function analyzeClearance(circuit: any[]): ClearanceReport {
     ...pourShortErrors(circuit, LAYERS, netByKey, netById, netOfPort, refPin, netOfTrace, traceNet),
     ...viaSpanErrors(circuit),
     ...sliverErrors(circuit, netById),
-    ...genuineErrors(circuit, pcbPort, smtpadByPort, padGap, padMinClearance),
+    ...genuineErrors(circuit, pcbPort, padGap, padMinClearance),
   ]
   return { floor: isFinite(floor) ? round(floor) : null, tight: pairs.slice(0, TIGHT_MAX), errors }
 }
@@ -430,17 +428,15 @@ function sliverErrors(circuit: any[], _netById: Record<string, string>): BoardEr
 }
 
 // Filter the routed circuit's *_error rows down to the genuine ones (see file header).
-function genuineErrors(circuit: any[], pcbPort: Record<string, any>, smtpadByPort: Record<string, any>, padGap: (a: string, b: string) => number | null, padMinClearance: (label: string) => number | null): BoardError[] {
-  const verts: Pt[] = []
-  for (const e of circuit) if (e.type === "pcb_trace") for (const r of e.route) if (r.x != null) verts.push([r.x, r.y])
-  const reached = (pad: any) => { const hw = (pad.width || 0) / 2 + 0.05, hh = (pad.height || 0) / 2 + 0.05; return verts.some((v) => Math.abs(v[0] - pad.x) <= hw && Math.abs(v[1] - pad.y) <= hh) }
+function genuineErrors(circuit: any[], pcbPort: Record<string, any>, padGap: (a: string, b: string) => number | null, padMinClearance: (label: string) => number | null): BoardError[] {
   const out: BoardError[] = []
   for (const e of circuit) {
     if (typeof e.type !== "string" || !e.type.endsWith("_error")) continue
     const msg: string = e.message || ""
     if (e.type === "pcb_trace_error") {
-      const m = /missing a connection to smtpad\[([^\]]+)\]/.exec(msg)
-      if (m) { const pad = smtpadByPort[(e.pcb_port_ids || [])[0]]; if (pad && reached(pad)) continue; out.push({ kind: "open", text: `Unrouted: ${m[1]}` }); continue }
+      // "missing a connection to smtpad": tscircuit's trace-only reachability, blind to plane/via
+      // paths — net continuity is judged in full by connectivity.ts.
+      if (/missing a connection to smtpad/.test(msg)) continue
       // "trace ... too close to / overlaps pcb_smtpad [.C > .P]": referee the pad against real geometry.
       const pm = /pcb_smtpad "?pcb_port\[\.(\w+) > \.(\w+)\]"?/.exec(msg)
       if (pm) { const c = padMinClearance(`${pm[1]}.${pm[2]}`); if (c != null && c >= 0.1 - 1e-6) continue }

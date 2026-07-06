@@ -24,6 +24,7 @@ import { readFileSync, writeFileSync, rmSync } from "node:fs"
 import path from "node:path"
 import { pathToFileURL } from "node:url"
 import { analyzeClearance } from "./clearance"
+import { analyzeConnectivity, connectivityErrors } from "./connectivity"
 import { auditDecoupling, type DecouplingRule } from "./cap-audit"
 import { auditConnectors } from "./connector-audit"
 import { auditFootprints } from "./footprint-audit"
@@ -183,6 +184,10 @@ function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRule
   // viewer's board readout. Both derive from the same routed circuit-json.
   const { floor, tight, errors } = analyzeClearance(circuit)
 
+  // Net continuity (connectivity.ts): a net whose pads don't all reach each other in copper is an
+  // open. These lead the error list — an open ships a dead pin the clearance floor can't see.
+  const opens = connectivityErrors(analyzeConnectivity(circuit))
+
   // Cap decoupling audit (cap-audit.ts): how close each declared support cap sits to the part
   // it serves, measured from the same placed pads. Advisory placement quality — kept separate
   // from the DRC `errors`, which are manufacturability.
@@ -201,7 +206,7 @@ function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRule
   // blind to. Informational, like the copper floor (real overlaps ride in `errors`).
   const footprints = auditFootprints(circuit)
 
-  return { board, unitsPerMm: 1000, size, pads, vias, traces, clearance: { floor, tight }, errors, capAudit, connectors, footprints, ampacity, fab }
+  return { board, unitsPerMm: 1000, size, pads, vias, traces, clearance: { floor, tight }, errors: [...opens, ...errors], capAudit, connectors, footprints, ampacity, fab }
 }
 
 // Manufacturability numbers, straight off the circuit-json. `partsSourced` is the JLCPCB-assembly
