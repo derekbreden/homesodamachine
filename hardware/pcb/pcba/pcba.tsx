@@ -623,11 +623,11 @@ export default () => (
         VBUS, C21 rides U13's 3V3. East column on x=-44, 4 mm pitch: C6 / R8 / Q3 / C21 (with
         R15 above), R8 the IO0 pull-up spun vertical into the stack. */}
     <UsbC name="J14" pcbX={-62} pcbY={17.75} pcbRotation={270} />
-    <Usblc6 name="U14" pcbX={-56} pcbY={17.75} pcbRotation={270} />
-    <CH340C name="U13" pcbX={-49.5} pcbY={17.5} pcbRotation={270} />
+    <Usblc6 name="U14" pcbX={-55.25} pcbY={17.75} pcbRotation={270} />
+    <CH340C name="U13" pcbX={-48.25} pcbY={17.5} pcbRotation={270} />
     <Res name="R16" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-63.5} y={11.5} rot={0} side="E" />
     <Res name="R15" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-63.5} y={24} rot={0} side="E" />
-    <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56} y={21.5} rot={0} side="N" />
+    <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-55.25} y={21.5} rot={0} side="N" />
     <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-47.5} y={24.5} rot={0} side="N" />
     {/* EN branch (west): U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
     <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-63.5} y={26.25} rot={0} side="N" />
