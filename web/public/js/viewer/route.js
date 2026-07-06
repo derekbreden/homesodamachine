@@ -14,6 +14,7 @@ import { state } from "./state.js";
 import {
   openDetail,
   openDxfDetail,
+  openGlbDetail,
   closeCadDetail,
 } from "./cad-detail.js";
 import { openMmdDetail, closeMmdDetail } from "./mermaid.js";
@@ -22,8 +23,8 @@ import { openPcbDetail, closePcbDetail } from "./pcb.js";
 
 // Browser/OS back button: navigate to whatever the new hash represents.
 // ContentViewer handles Escape / X / backdrop / swipe-down on its own.
-const HASH_PREFIXES = { "step:": "step", "dxf:": "dxf", "mmd:": "mmd", "svg:": "drawing", "pcb:": "pcb" };
-const OPENERS = { step: openDetail, dxf: openDxfDetail, mmd: openMmdDetail, drawing: openDrawingDetail, pcb: openPcbDetail };
+const HASH_PREFIXES = { "step:": "step", "dxf:": "dxf", "glb:": "glb", "mmd:": "mmd", "svg:": "drawing", "pcb:": "pcb" };
+const OPENERS = { step: openDetail, dxf: openDxfDetail, glb: openGlbDetail, mmd: openMmdDetail, drawing: openDrawingDetail, pcb: openPcbDetail };
 
 window.addEventListener("popstate", () => {
   const hash = location.hash ? decodeURIComponent(location.hash.slice(1)) : "";
@@ -60,6 +61,8 @@ export function applyInitialRoute(occtPromise) {
       setTimeout(() => openMmdDetail(initialFile, true), 100);
     } else if (initialFile.endsWith(".dxf")) {
       setTimeout(() => openDxfDetail(initialFile, true), 100);
+    } else if (initialFile.endsWith(".glb")) {
+      setTimeout(() => openGlbDetail(initialFile, true), 100);
     } else if (initialFile.endsWith(".svg")) {
       setTimeout(() => openDrawingDetail(initialFile, true), 100);
     } else if (initialFile.endsWith(".tsx")) {
@@ -75,6 +78,9 @@ export function applyInitialRoute(occtPromise) {
     } else if (hash.startsWith("dxf:")) {
       const file = hash.slice(4);
       setTimeout(() => openDxfDetail(file, false), 100);
+    } else if (hash.startsWith("glb:")) {
+      const file = hash.slice(4);
+      setTimeout(() => openGlbDetail(file, false), 100);
     } else if (hash.startsWith("mmd:")) {
       const file = hash.slice(4);
       setTimeout(() => openMmdDetail(file, false), 100);

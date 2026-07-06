@@ -18,6 +18,7 @@ export const state = {
   allFiles: [],       // STEP files (paths)
   mmdFiles: [],       // Mermaid files
   dxfFiles: [],       // DXF files
+  glbFiles: [],       // GLB assemblies (board 3D models)
   drawingFiles: [],   // Line-art SVG files (drawings/ convention)
   pcbBoards: [],      // PCB boards: {source, name, dir, top, bottom, overlay, inners, picks}
   currentDetail: null,
@@ -45,10 +46,12 @@ export const state = {
   thumbnailCache: new Map(),  // STEP file -> dataURL
   mmdThumbCache: new Map(),   // Mermaid file -> svgHTML
   dxfThumbCache: new Map(),   // DXF file -> dataURL
+  glbThumbCache: new Map(),   // GLB file -> dataURL
   drawingThumbCache: new Map(),// Drawing file -> svgText (used for both thumbnail and detail)
   pcbThumbCache: new Map(),   // PCB board source -> Top-view svgText (thumbnail)
   stepEtags: new Map(),       // file -> last loaded ETag (for refetch dedupe)
   dxfEtags: new Map(),        // file -> last loaded ETag
+  glbEtags: new Map(),        // GLB file -> last loaded ETag
   dxfMeta: new Map(),         // DXF file -> {thickness_mm, material} from sidecar (hardware/README.md)
   gridEl: null,               // set by main.js after DOM ready
 };

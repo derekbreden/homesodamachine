@@ -24,6 +24,7 @@ import { state } from "./state.js";
 import { loadStepFile } from "./step.js";
 import { paintStepThumb } from "./grid.js";
 import { loadDxfFile, renderDxfThumbnail } from "./dxf.js";
+import { loadGlbFile, renderGlbThumbnail } from "./glb.js";
 import { renderMmdThumbnail, refetchOpenMmd } from "./mermaid.js";
 import { renderDrawingThumbnail, refetchOpenDrawing } from "./drawings.js";
 import { renderPcbThumbnail, refetchOpenPcb } from "./pcb.js";
@@ -57,6 +58,32 @@ function refreshDxfCard(file) {
     img.replaceWith(ph);
   }
   renderDxfThumbnail(file).then((url) => {
+    if (!url) return;
+    const target = card.querySelector(".placeholder");
+    if (target) {
+      const newImg = document.createElement("img");
+      newImg.src = url;
+      target.replaceWith(newImg);
+    } else {
+      const existing = card.querySelector("img");
+      if (existing) existing.src = url;
+    }
+  });
+}
+
+function refreshGlbCard(file) {
+  state.glbThumbCache.delete(file);
+  const card = state.gridEl.querySelector(`.card[data-type="glb"][data-file="${CSS.escape(file)}"]`);
+  if (!card) { fetchFiles(); return; }
+  const img = card.querySelector("img");
+  if (img) {
+    const ph = document.createElement("div");
+    ph.className = "placeholder";
+    ph.dataset.file = file;
+    ph.textContent = "updating...";
+    img.replaceWith(ph);
+  }
+  renderGlbThumbnail(file).then((url) => {
     if (!url) return;
     const target = card.querySelector(".placeholder");
     if (target) {
@@ -118,6 +145,9 @@ window.addEventListener(HSM_EVENTS.FILES_CHANGED, (e) => {
     } else if (file.endsWith(".dxf")) {
       refreshDxfCard(file);
       if (isOpenAs("dxf", file)) loadDxfFile(file, { preserveCamera: true });
+    } else if (file.endsWith(".glb")) {
+      refreshGlbCard(file);
+      if (isOpenAs("glb", file)) loadGlbFile(file, { preserveCamera: true });
     } else if (file.endsWith(".mmd")) {
       refreshMmdCard(file);
       if (isOpenAs("mmd", file)) refetchOpenMmd(file);
@@ -143,6 +173,7 @@ function reloadOpenDetail() {
   if (!d) return;
   if (d.type === "step") loadStepFile(d.file, { preserveCamera: true });
   else if (d.type === "dxf") loadDxfFile(d.file, { preserveCamera: true });
+  else if (d.type === "glb") loadGlbFile(d.file, { preserveCamera: true });
   else if (d.type === "mmd") refetchOpenMmd(d.file);
   else if (d.type === "drawing") refetchOpenDrawing(d.file);
   else if (d.type === "pcb") refetchOpenPcb(d.file);
@@ -157,11 +188,13 @@ window.addEventListener(HSM_EVENTS.DEPLOY, (e) => {
   if (newBuild) {
     state.thumbnailCache.clear();
     state.dxfThumbCache.clear();
+    state.glbThumbCache.clear();
     state.mmdThumbCache.clear();
     state.drawingThumbCache.clear();
     state.pcbThumbCache.clear();
     state.stepEtags.clear();
     state.dxfEtags.clear();
+    state.glbEtags.clear();
   }
   fetchFiles();
   if (newBuild) reloadOpenDetail();
