@@ -20,7 +20,7 @@
     "tscircuit": "^0.0.1927"
   },
   "overrides": {
-    "@tscircuit/capacity-autorouter": "github:derekbreden/tscircuit-autorouter#b955cff1de400fa8cc78dcaecd818b1645d4895f",
+    "@tscircuit/capacity-autorouter": "github:derekbreden/tscircuit-autorouter#a059916b382a8c1d59f9dc6e0f0dd7c78ade1332",
     "@tscircuit/core": "github:derekbreden/core#d6d67afe26e73e5e55ccdda1eacf05dcb8c05bba",
     "@tscircuit/props": "github:derekbreden/props#b8d1e856e212ee9472a34f3ee3c7213dd1d9d357",
     "@tscircuit/copper-pour-solver": "github:derekbreden/copper-pour-solver#659b70b66fa4b86c9e0be6323d3a094c9da152d2",
