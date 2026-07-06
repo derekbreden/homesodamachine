@@ -79,10 +79,18 @@ layer-transition via back onto its terminal SMD pad — but only where it is pro
   downstream (copper-pour-solver), and an inner-layer segment is carved by the pour like any inner
   signal — so a pull can neither short the via nor the segment on a plane.
 
-Off by default → identical to upstream. On this board it moved 22 offset vias onto pads with the
-clearance floor, tight-pair set, and error count all unchanged (`clearance.ts` is the referee).
-It is via-in-pad, so order the PCBA with filled+capped vias (already required for the auto-stitch
-vias — see `../../plane-stitching.md`).
+Moving the via isn't enough on its own: the wire still carried the down-then-up *detour* that only
+existed to reach the off-pad via spot, so a pulled via left a vestigial dip. After each pull,
+`tautenRunFromPad` straightens the run leaving the pad — dropping the redundant leading vertices
+whose straight shortcut from the pad's via-exit clears foreign copper, bounded to within
+`maxPullDistance` of the pad (a local cleanup, not a global re-route). Where the shortcut is
+blocked by foreign copper the detour is kept (the dip is then genuinely necessary).
+
+Off by default → identical to upstream. On this board it moved 22 offset vias onto pads and, with
+the taut-string, cut the sharp trace detours from 18 to 8 (−38 mm of wire) — the clearance floor,
+tight-pair set, and error count all unchanged (`clearance.ts` is the referee). It is via-in-pad, so
+order the PCBA with filled+capped vias (already required for the auto-stitch vias — see
+`../../plane-stitching.md`).
 
 ## How it ships
 
