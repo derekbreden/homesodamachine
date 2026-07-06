@@ -36,7 +36,7 @@ port_center_z = valve.port_center_z
 boss_start_z = valve.boss_z_range[0]  # posts-only band tops out here
 
 # --- Tray parameters -----------------------------------------
-socket_clearance = 0.15  # radial offset for the corner bosses
+socket_clearance = 0.4  # radial offset for the corner bosses
 saddle_clearance = 0.2   # radial play for the port
 wall = 3.0               # material outboard of the body footprint in X
 floor = 3.0              # under the sockets and the saddle
