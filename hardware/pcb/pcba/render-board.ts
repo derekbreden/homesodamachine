@@ -84,8 +84,10 @@ const zip = path.join(outDir, `${board}.gerbers.zip`)
 const zipRel = path.join("out", `${board}.gerbers.zip`)
 const tsci = path.join(dir, "node_modules", ".bin", "tsci")
 
-// Temp files/dirs to remove on exit (normal OR superseded — process.exit fires
-// the `exit` handler), tracked as they're created so cleanup needs no scope.
+// Temp files/dirs to remove on clean exit, tracked as they're created so cleanup
+// needs no scope. Best-effort only — the dev watcher supersede-kills a render on the
+// next save (by design, and often) and a kill skips this handler, so the authoritative
+// cleanup is the start-of-render sweep below: it runs regardless of how the prior run died.
 const temps = new Set<string>()
 const track = (p: string) => (temps.add(p), p)
 process.on("exit", () => { for (const p of temps) try { rmSync(p, { recursive: true, force: true }) } catch {} })
@@ -95,6 +97,17 @@ process.on("exit", () => { for (const p of temps) try { rmSync(p, { recursive: t
 let child: ChildProcess | null = null
 const lock = singleflight(board, process.env.RENDER_SOURCE || "manual")
 lock.setChildKiller(() => { try { child?.kill("SIGKILL") } catch {} })
+
+// Sweep this board's build scratch left by a dead prior run. Every dir-scratch this
+// script writes is _build-<board>.*-prefixed (the placement + back-silk boards, the
+// circuit-json exports, the picks input) in dir/ and out/. We now hold the single-flight
+// lock, so any leftover is a superseded run's orphan, not a live peer's — clear it before
+// we write. The real artifacts (out/<board>.*) and any other-named scratch are untouched.
+for (const base of [dir, outDir]) {
+  let names: string[] = []
+  try { names = readdirSync(base) } catch {}
+  for (const f of names) if (f.startsWith("_build-")) try { rmSync(path.join(base, f), { recursive: true, force: true }) } catch {}
+}
 
 // Async exec that mimics execFileSync's throw-on-nonzero (e.status/stdout/stderr)
 // while keeping the event loop free, so a supersede signal lands immediately and
