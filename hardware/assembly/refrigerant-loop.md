@@ -35,8 +35,8 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 | Drier (spare / contingency only) | Supco SUD8358 + Supco D111 | The factory drier stays in service (see step 3 + harvested README "Filter-drier"); SUD8358 and D111 kept on the shelf as spares for any future loop-open service that requires replacement. Not consumed in the production procedure. |
 | R-600a refrigerant | Enviro-Safe B0CGG1WH1N (3-pack + brass charging gauge) | [~40 g](SYSTEM_CHARGE) per system, mass-metered; one 3-can pack covers ~12 recharges |
 | Supco BPV31 bullet-piercing valve | B00DM8J3MI | Single permanent service-access point for the life of the appliance — taps the compressor process tube to vent factory R-600a (step 2), feeds argon during the entire loop-open period (step 3 onward), and serves as the manifold connection for vacuum (step 6) + recharge (step 7). Clamped permanently. |
-| BCuP-5 silver brazing alloy, 15 % Ag, 1/16" × 1 troy oz | B0DQ3ZMHK7 | Phosphorus-bearing self-fluxing filler for copper-to-copper joints; ~10 g per build, ~3 builds per rod |
-| 3M Scotch-Brite Maroon hand pads | B07CGPCTHT | Abrasive prep on 1/4" ACR copper OD + fitting sockets before flux + braze; ~2 of 20 pads per build |
+| BCuP-5 silver brazing alloy, 15 % Ag, 1/16" × 1 troy oz | B0DQ3ZMHK7 | Phosphorus self-fluxing filler. Every loop joint is copper-to-copper, so all are brazed **dry — no flux**; the phosphorus is the fluxing agent. ~10 g per build, ~3 builds per rod |
+| 3M Scotch-Brite Maroon hand pads | B07CGPCTHT | Abrasive prep on 1/4" ACR copper OD + fitting sockets before braze; ~2 of 20 pads per build |
 | Argon | Welder cylinder + Uniweld RHP400 brazing-purge regulator | Continuous low-pressure flow through the loop during the entire loop-open period (step 3 through step 6); no new cylinder needed |
 | BOJACK SF76E [77 °C](SF76E_TEMP) SEFUSE thermal fuse + ACEIRMC MQ-6 LPG sensor module | B07Y61YTTK + B0978JSCZ8 | Hardware-only fire-safety backstops — SF76E inside the compressor shroud (in series with the AC primary feeding the compressor), MQ-6 module low on the rear interior enclosure wall (see Safety section above) |
 
@@ -51,8 +51,8 @@ Tooling — all committed in [`/hardware/ledger/purchases.md`](/hardware/ledger/
 - **Vacuum pump + gauges:** Orion Motor Tech 4 CFM 1/3 HP single-stage vacuum pump (150 µ ultimate) + Orion Motor Tech HVAC A/C manifold gauge set, 1/4" SAE.
 - **Mass scale:** Smart Weigh Pro digital pocket scale, 2000 g × 0.1 g (well under the [±1 g](RECHARGE_TOL) recharge target).
 - **Brazing heat:** Bernzomatic TS8000 high-intensity torch head + MAP-Pro 3-can kit.
-- **Filler + flux:** BCuP-5 15 % silver brazing alloy + Harris SSWF7 Stay Silv white brazing flux.
-- **Copper prep:** 3M Scotch-Brite Maroon General Purpose Hand Pads (cut into strips for ACR copper OD prior to flux + braze).
+- **Filler:** BCuP-5 15 % silver brazing alloy — phosphorus self-fluxes on copper, so every (copper-to-copper) loop joint is brazed **dry, no flux**. Brazing flux is only needed for a dissimilar-metal joint (copper-to-brass/steel), of which the loop has none; flux residue left inside a sealed refrigeration loop is corrosive and can plug the cap tube or drier screen, so it is deliberately omitted.
+- **Copper prep:** 3M Scotch-Brite Maroon General Purpose Hand Pads (cut into strips for ACR copper OD prior to braze).
 - **Argon purge rig:** Uniweld RHP400 CGA-580 regulator (swaps onto the existing argon cylinder already feeding the laser welder) + Joywayus brass 1/4" SAE 45° flare nut (clamps flared 1/4" ACR stub onto RHP400 outlet + HVAC charging hose). No nitrogen cylinder needed.
 - **Leak detector:** Toptes PT520A refrigerant/hydrocarbon gas leak detector.
 
@@ -85,7 +85,7 @@ The factory finger-plate evaporator (cold plate) and the hot-gas bypass solenoid
 
 ### 4. Tie in the suction line
 
-Position the cold core's coil-outlet stub (top of the wound coil — refrigerant exits as low-pressure gas heading to the compressor) next to the factory suction line cut. Join the two with the HVAC 1/4" OD ACR-grade slip coupling, sweat × sweat. Both lines are 1/4" OD, so the coupling is a direct sweat join. Braze under the continuous argon flow established in step 3.
+Position the cold core's coil-outlet stub (top of the wound coil — refrigerant exits as low-pressure gas heading to the compressor) next to the factory suction line cut. Join the two with the HVAC 1/4" OD ACR-grade slip coupling, sweat × sweat. Both lines are 1/4" OD, so the coupling is a direct sweat join. Braze dry — no flux (BCuP-5 self-fluxes on copper; see Inputs) — under the continuous argon flow established in step 3.
 
 ### 5. Tie in the capillary tube via pinch-swage
 

@@ -105,7 +105,7 @@ Used during fabrication but not allocated per-unit in bom.md. Welding practice s
 | **304 SS 0.04" practice coupons (4 pc)** | [B0C5LWVLCD](https://www.amazon.com/dp/B0C5LWVLCD), [purchases.md §1](/hardware/ledger/purchases.md) | Welding practice; matches body thickness. |
 | **ESCO Institute EPA Section 608 Preparatory Manual** | [1930044607](https://www.amazon.com/dp/1930044607), [purchases.md §6](/hardware/ledger/purchases.md) | General refrigeration reference. Section 608 cert not required for R-600a (natural-refrigerant carveout). |
 | **Hgnova 1064 nm laser protective lens (15 pc)** | [B0FF38DY1Z](https://www.amazon.com/dp/B0FF38DY1Z), [purchases.md §1](/hardware/ledger/purchases.md) | Replacement protective windows for the X1 Pro welding head; consumable after splatter/contamination. |
-| **3M Scotch-Brite Maroon hand pads (20 pk)** | [B07CGPCTHT](https://www.amazon.com/dp/B07CGPCTHT), [purchases.md §6](/hardware/ledger/purchases.md) | Cleaning 1/4" ACR copper OD + fitting sockets prior to flux + braze. |
+| **3M Scotch-Brite Maroon hand pads (20 pk)** | [B07CGPCTHT](https://www.amazon.com/dp/B07CGPCTHT), [purchases.md §6](/hardware/ledger/purchases.md) | Cleaning 1/4" ACR copper OD + fitting sockets prior to braze. |
 | **Shineboc wet/dry sanding sponge set (20 pc)** | [B0D8ZC6HKY](https://www.amazon.com/dp/B0D8ZC6HKY), [purchases.md §13](/hardware/ledger/purchases.md) | Foam-backed silicon-carbide; post-print finishing of PET-CF parts at the support-contact zones. |
 
 ## Prototype / test-bench

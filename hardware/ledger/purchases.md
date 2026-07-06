@@ -224,7 +224,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Wisscool 1/4" handheld tube straightener. Order #114-8354589-7380236, placed April 19, 2026 | [B0F6BPTW3T](https://www.amazon.com/dp/B0F6BPTW3T) | 1 | $26.80 | ACQUIRED |
 | ESCO Institute EPA Section 608 Preparatory Manual. Order #114-6029405-6913037, placed April 21, 2026 | [1930044607](https://www.amazon.com/dp/1930044607) | 1 | $22.47 | ACQUIRED |
 | Bernzomatic TS8000 high-intensity torch head + MAP-Pro 3-can kit. Order #112-4778025-6157043, placed April 22, 2026 | [B0BPMVTJ1R](https://www.amazon.com/dp/B0BPMVTJ1R) | 1 | $117.96 | ACQUIRED |
-| Harris SSWF7 Stay Silv white brazing flux, 6.5 oz. Order #112-4658706-3333801, placed April 22, 2026 | [B002BYLU52](https://www.amazon.com/dp/B002BYLU52) | 1 | $12.78 | ACQUIRED |
+| Harris SSWF7 Stay Silv white brazing flux, 6.5 oz. Order #112-4658706-3333801, placed April 22, 2026 | [B002BYLU52](https://www.amazon.com/dp/B002BYLU52) | 1 | $12.78 | ACQUIRED (not used in build — every refrigerant-loop joint is copper-to-copper; BCuP-5 self-fluxes on copper, so joints are brazed dry) |
 | Uniweld RHP400 CGA-580 regulator, 1/4" male flare, 0–400 psi delivery. Order #112-1965509-6778648, placed April 22, 2026 | [B008HQ6GXO](https://www.amazon.com/dp/B008HQ6GXO) | 1 | $96.76 | ACQUIRED |
 | RIDGID 31622 Model 150 constant-swing tubing cutter, 1/8"–1-1/8". Order #112-4658706-3333801, placed April 22, 2026 | [B0009W6T8G](https://www.amazon.com/dp/B0009W6T8G) | 1 | $34.31 | ACQUIRED |
 | RIDGID 23332 Model 345 flaring tool, 45° SAE. Order #112-4658706-3333801, placed April 22, 2026 | [B000X4K9KO](https://www.amazon.com/dp/B000X4K9KO) | 1 | $107.24 | ACQUIRED |
