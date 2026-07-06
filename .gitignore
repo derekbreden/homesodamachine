@@ -22,6 +22,12 @@ node_modules/
 hardware/cartridge/scripts/output/*.step
 hardware/cartridge/scripts/output/*.stl
 
+# board-3d.py: the component-model download cache (manufacturer STEPs keyed by
+# LCSC) and the on-demand full B-rep assembly are regenerable and large. The
+# committed out/<board>.glb is the viewer artifact.
+hardware/pcb/pcba/.cad-cache/
+hardware/pcb/pcba/out/*.step
+
 # Atomic-export temp files: hardware/_cadq_export.py writes a
 # `.NAME.EXT.RANDOM.EXT` sibling then renames it atomically onto the target.
 # A hard-killed run (SIGKILL/SIGTERM mid-write) can orphan one — never commit it.

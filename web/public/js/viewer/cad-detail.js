@@ -28,6 +28,7 @@ import {
 } from "./scene.js";
 import { loadStepFile } from "./step.js";
 import { loadDxfFile, resetDxfCamera } from "./dxf.js";
+import { loadGlbFile } from "./glb.js";
 import { makeRulerToggle } from "./rulers.js";
 import { makeXrayToggle } from "./xray.js";
 import { makeEdgePickToggle, clearEdgePicker } from "./edge-picker.js";
@@ -108,6 +109,7 @@ function shortName(file, ext = ".step") {
 const CAD_KINDS = {
   step: { ext: ".step", hashPrefix: "step:", loader: loadStepFile },
   dxf:  { ext: ".dxf",  hashPrefix: "dxf:",  loader: loadDxfFile  },
+  glb:  { ext: ".glb",  hashPrefix: "glb:",  loader: loadGlbFile  },
 };
 
 export function openCadDetail(type, file, pushHistory = true) {
@@ -232,5 +234,6 @@ export function closeCadDetail(pushHistory = true) {
 // still use the old per-format names.
 export function openDetail(file, pushHistory = true)    { openCadDetail("step", file, pushHistory); }
 export function openDxfDetail(file, pushHistory = true) { openCadDetail("dxf",  file, pushHistory); }
+export function openGlbDetail(file, pushHistory = true) { openCadDetail("glb",  file, pushHistory); }
 export function closeDetail(pushHistory = true)         { closeCadDetail(pushHistory); }
 export function closeDxfDetail(pushHistory = true)      { closeCadDetail(pushHistory); }

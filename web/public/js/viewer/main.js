@@ -51,14 +51,16 @@ function setupNav() {
 }
 
 export async function fetchFiles() {
-  const [stepResp, mmdResp, dxfResp, drawingResp, pcbResp] = await Promise.all([
+  const [stepResp, mmdResp, dxfResp, drawingResp, pcbResp, glbResp] = await Promise.all([
     fetch("/api/steps"),
     fetch("/api/mermaid"),
     fetch("/api/dxf"),
     fetch("/api/drawings"),
     fetch("/api/pcb"),
+    fetch("/api/glbs"),
   ]);
   state.allFiles = (await stepResp.json()).sort();
+  state.glbFiles = (await glbResp.json()).sort();
   state.mmdFiles = (await mmdResp.json()).sort();
   // PCB boards arrive pre-sorted from the server (by source path).
   state.pcbBoards = await pcbResp.json();

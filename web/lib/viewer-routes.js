@@ -59,6 +59,10 @@ export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
     res.json(walkFiles(rootFor(req), ".step"));
   });
 
+  app.get("/api/glbs", (req, res) => {
+    res.json(walkFiles(rootFor(req), ".glb"));
+  });
+
   app.get("/api/mermaid", (req, res) => {
     res.json(walkFiles(rootFor(req), ".mmd"));
   });
@@ -170,6 +174,13 @@ export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
 
   app.get("/steps/*", (req, res) => {
     const abs = safeFile(rootFor(req), req.params[0], ".step");
+    if (!abs) return res.status(400).send("Invalid path");
+    if (!fs.existsSync(abs)) return res.status(404).send("Not found");
+    streamFile(res, abs);
+  });
+
+  app.get("/models/*", (req, res) => {
+    const abs = safeFile(rootFor(req), req.params[0], ".glb");
     if (!abs) return res.status(400).send("Invalid path");
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     streamFile(res, abs);
