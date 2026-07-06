@@ -418,8 +418,8 @@ def _atomic_write(target_path, write_fn):
 # /thumbs/<file>.step.png) so browsing the catalog downloads small images
 # instead of fetching every STEP and rendering it in the browser. The PNG is a
 # pure function of the STEP, so it's regenerated here, right where the STEP is
-# produced — meaning any run that writes a STEP, by any trigger (dev-server
-# watcher, an agent, by hand), refreshes its own thumbnail.
+# produced — meaning a direct run that writes a STEP (an agent, by hand, a batch
+# build) refreshes its own thumbnail.
 #
 # Rendering is deferred to one batch at process exit (tools/render/
 # render-thumbnails.js boots the viewer + a headless browser once per run, not
@@ -427,7 +427,9 @@ def _atomic_write(target_path, write_fn):
 # being absent — so no-op regenerations cost nothing. It's best-effort: a
 # missing Node/render toolchain logs a warning and is skipped, never failing
 # the STEP export itself. Set HSM_SKIP_THUMBNAILS=1 to skip entirely (fast CAD
-# iteration / Python-only CI).
+# iteration / Python-only CI). The dev-server watcher sets it and rebuilds
+# thumbnails off its own critical path instead, so a live save never blocks on a
+# browser boot (web/dev-server/server.js).
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 _THUMBNAIL_TOOL = _REPO_ROOT / "tools" / "render" / "render-thumbnails.js"

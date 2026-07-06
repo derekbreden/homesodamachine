@@ -108,11 +108,22 @@ async function runScript(pyFilePath) {
       // watcher bug. stdout is still suppressed: generators print
       // diagnostic dimensions on every run and those are noise once
       // the script is working.
+      //
+      // HSM_SKIP_THUMBNAILS: a generator otherwise renders its grid PNG at
+      // process exit (hardware/scripts/_cadq_export.py), which boots a headless
+      // browser (render-thumbnails.js → puppeteer) for seconds to tens of
+      // seconds. Inside a watcher-spawned generator that freezes the whole
+      // cascade with no output until the browser finishes — and since we
+      // supersede with the SIGKILL above (uncatchable), a generator killed
+      // mid-render orphans that browser, stacking them up under rapid saves. So
+      // the watcher skips the in-generator render and rebuilds thumbnails itself,
+      // off this critical path — see queueThumbnail below.
       const proc = spawn(PYTHON_BIN, [pyFilePath], {
         cwd: scriptDir,
         stdio: ["ignore", "ignore", "inherit"],
         signal: ac.signal,
         killSignal: "SIGKILL",
+        env: { ...process.env, HSM_SKIP_THUMBNAILS: "1" },
       });
       console.log(`  ↪ PID: ${proc.pid}`);
       proc.on("close", resolve);
@@ -142,6 +153,7 @@ async function runScript(pyFilePath) {
       const relFile = relForBroadcast(full);
       console.log(`  -> ${relFile}`);
       broadcast({ type: WS.FILES_CHANGED, files: [relFile] });
+      queueThumbnail(full);
     }
   } catch (e) {
     if (e.name === "AbortError") return;
@@ -172,6 +184,65 @@ async function runScript(pyFilePath) {
     console.log(`  ↪ dependent: ${relForLog(depScript)}`);
     await runScript(depScript);
   }
+}
+
+// --- Background thumbnail renderer ---
+//
+// Each grid card shows a committed PNG per STEP (served at /thumbs/<file>.step
+// .png). A generator normally renders its own at process exit
+// (hardware/scripts/_cadq_export.py), but that boots a headless browser
+// (tools/render/render-thumbnails.js → puppeteer) — which is why running it
+// inside a watcher-spawned generator froze the cascade (see the
+// HSM_SKIP_THUMBNAILS note in runScript). Generators the watcher spawns skip it,
+// and we render here instead, off the critical path, so the watcher stays
+// responsive and never orphans a browser on a SIGKILL supersede.
+//
+// Single-flight: one render-thumbnails.js at a time. STEPs produced while a
+// render runs wait in `pendingThumbs` and drain as the next batch when it
+// closes, so a burst of saves coalesces instead of stacking browsers. Each STEP
+// is re-broadcast once its PNG lands so the card repaints against fresh bytes
+// (live.js refreshStepCard, cache-busted); the STEP itself is unchanged, so an
+// open modal's refetch 304s.
+const THUMBNAIL_TOOL = path.join(PROJECT_ROOT, "tools", "render", "render-thumbnails.js");
+const pendingThumbs = new Set(); // abs .step paths whose PNG needs a rebuild
+let thumbInFlight = false;
+
+function queueThumbnail(absStepPath) {
+  pendingThumbs.add(absStepPath);
+  flushThumbnails();
+}
+
+function flushThumbnails() {
+  if (thumbInFlight || pendingThumbs.size === 0) return;
+  const steps = [...pendingThumbs];
+  pendingThumbs.clear();
+  thumbInFlight = true;
+  console.log(`  ↪ thumbnails: rendering ${steps.length} in background`);
+  const proc = spawn("node", [THUMBNAIL_TOOL, ...steps], {
+    cwd: PROJECT_ROOT,
+    // stderr inherited so render-thumbnails' per-file warnings land in the log;
+    // stdout (its ✓/done chatter) suppressed, matching the generator spawn.
+    stdio: ["ignore", "ignore", "inherit"],
+  });
+  const finish = () => {
+    thumbInFlight = false;
+    let landed = 0;
+    for (const step of steps) {
+      // Best-effort: a STEP render-thumbnails couldn't draw leaves no PNG, so
+      // only re-broadcast the ones that actually landed.
+      if (fs.existsSync(step + ".png")) {
+        broadcast({ type: WS.FILES_CHANGED, files: [relForBroadcast(step)] });
+        landed++;
+      }
+    }
+    console.log(`  ↪ thumbnails: done (${landed}/${steps.length})`);
+    flushThumbnails(); // drain any saves that arrived mid-render
+  };
+  proc.on("close", finish);
+  proc.on("error", (e) => {
+    thumbInFlight = false;
+    console.log(`  ↪ thumbnails: spawn failed (${e.message})`);
+  });
 }
 
 // --- PCB board renderer ---
