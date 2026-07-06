@@ -7,31 +7,16 @@ dist
 *.tsbuildinfo
 .cache
 
-# out/ keeps ONLY the real board's render outputs (render-board.ts: the copper
-# views + gerbers + picks). Everything else is regenerable and an upload
-# decoy — other tsci export formats, the empty render of the carrier_parts
-# footprint helper (it has no board), and any _-prefixed scratch board. So:
-# ignore all of out/, then whitelist exactly pcba's artifacts (top/bottom/overlay,
-# every inner-plane view pcba.inner* — however many layers the board has — and the
-# top/bottom solder-mask views). A new view kind must be whitelisted here or it is
-# committed nowhere and the deployed viewer's toggle finds no file to offer.
-out/*
-!out/pcba.top.svg
-!out/pcba.top.png
-!out/pcba.bottom.svg
-!out/pcba.bottom.png
-!out/pcba.overlay.svg
-!out/pcba.overlay.png
-!out/pcba.inner*.svg
-!out/pcba.inner*.png
-!out/pcba.topmask.svg
-!out/pcba.topmask.png
-!out/pcba.bottommask.svg
-!out/pcba.bottommask.png
-!out/pcba.gerbers.zip
-!out/pcba.picks.json
-!out/pcba.bom.csv
-!out/pcba.cpl.csv
+# out/ is the committed deploy payload: render-board.ts writes the real board's
+# artifacts as out/<board>.* (copper views + inner planes + solder masks + gerbers +
+# BOM/CPL + picks). A board is <dir>/<dir>.tsx (walkPcbBoards in web/lib/walk.js), so
+# the only non-scratch files here are <board>.* for the real board — they commit
+# automatically, every view kind, with no per-kind allowlist to forget (that gap once
+# shipped the mask views' code but not their artifacts, so the deployed viewer's toggle
+# found no file). Ignore only underscore-prefixed scratch: this render's build
+# intermediates (out/_build-<board>.*, swept at the start of each render by
+# render-board.ts) and any abandoned experiment outputs (_comb.*, _r_auto.*, _b*.tmp.*).
+out/_*
 
 # tscircuit circuit-json is a regenerable intermediate — render-board re-exports
 # it every run for the back-silk + pick synthesis, so it drifts and bloats.
