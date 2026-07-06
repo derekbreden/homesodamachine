@@ -51,7 +51,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 
 | Tool | Source | Notes | $ |
 |---|---|---|---:|
-| **Bernzomatic TS8000 + MAP-Pro 3-can kit** | [B0BPMVTJ1R](https://www.amazon.com/dp/B0BPMVTJ1R), [purchases.md §6](/hardware/ledger/purchases.md) | High-intensity torch head; reaches ~650 °C+ needed for BCuP-5 silver brazing. | [$117.96](T_TORCH) |
+| **Bernzomatic TS8000 + MAP-Pro 3-can kit** | [B0BPMVTJ1R](https://www.amazon.com/dp/B0BPMVTJ1R), [purchases.md §6](/hardware/ledger/purchases.md) | High-intensity torch head; reaches the ~800 °C (1300–1500 °F) brazing range needed to flow BCuP-5 (liquidus 802 °C). | [$117.96](T_TORCH) |
 | **Orion Motor Tech 4 CFM vacuum pump** | [B08P1WRZ1S](https://www.amazon.com/dp/B08P1WRZ1S), [purchases.md §6](/hardware/ledger/purchases.md) | 1/3 HP single-stage, 150 µ ultimate. Refrigerant-loop evacuation post-braze. | [$78.28](T_VAC_PUMP) |
 | **Orion Motor Tech HVAC manifold gauge set** | [B07CZB2SHZ](https://www.amazon.com/dp/B07CZB2SHZ), [purchases.md §6](/hardware/ledger/purchases.md) | 1/4" SAE. Paired with the vacuum pump for evacuation + charge. | [$48.24](T_MANIFOLD) |
 | **Smart Weigh Pro digital scale** | [B00IZ1YHZK](https://www.amazon.com/dp/B00IZ1YHZK), [purchases.md §6](/hardware/ledger/purchases.md) | 2000 g × 0.1 g. R-600a mass-metered recharge by Δ-mass of the can. Well under the ±1 g recharge tolerance. | [$19.25](T_SCALE) |
