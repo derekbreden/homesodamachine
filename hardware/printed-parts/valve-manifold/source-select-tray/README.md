@@ -30,7 +30,7 @@ The 6 valve/divider bodies are clash-free.
 ## The tray
 
 A frame plate (Z [-3](TRAY_BOT_Z) → [6](TRAY_TOP_Z)) that **pinches in the middle** — overall envelope
-**[207](SRC_PLATE_W) × [93](SRC_PLATE_D) × [63](STACK_PITCH) mm**. At each valve end the floor **follows the
+**[208](SRC_PLATE_W) × [93](SRC_PLATE_D) × [63](STACK_PITCH) mm**. At each valve end the floor **follows the
 walls** — the tall walls' slanted outer faces and the connecting-wall inner
 faces — going full width only across the back where the rear sockets sit. A
 **narrow central bridge** between the ends hugs the dividers, only as wide in Y
