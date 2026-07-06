@@ -22,7 +22,7 @@
     },
   },
   "overrides": {
-    "@tscircuit/capacity-autorouter": "github:derekbreden/tscircuit-autorouter#8db3e30c7276e4a5b653dcae8751df67c11d706d",
+    "@tscircuit/capacity-autorouter": "github:derekbreden/tscircuit-autorouter#8f06eb9e8ed61218fa25f4c4d8947dcd553b6587",
     "@tscircuit/cli": "github:derekbreden/cli#9a36c81e9291d2bae209c77cdf0d7116321ca34d",
     "@tscircuit/copper-pour-solver": "github:derekbreden/copper-pour-solver#659b70b66fa4b86c9e0be6323d3a094c9da152d2",
     "@tscircuit/core": "github:derekbreden/core#a8d17061107a7ad8f214b6291a590891e80126bc",
@@ -235,7 +235,7 @@
 
     "@tscircuit/alphabet": ["@tscircuit/alphabet@0.0.25", "", { "peerDependencies": { "typescript": "^5.0.0" } }, "sha512-PWLjptI6AlLEtF/wjN1N8uC+n3G7vtg0j3xKE1fgWHDhahtnlQRqHDrtPSLlkIR9aJjRfjplzLuaUEaCRvJmZA=="],
 
-    "@tscircuit/capacity-autorouter": ["@tscircuit/capacity-autorouter@github:derekbreden/tscircuit-autorouter#8db3e30", { "dependencies": { "fast-json-stable-stringify": "^2.1.0", "object-hash": "^3.0.0", "stack-svgs": "^0.0.1" } }, "derekbreden-tscircuit-autorouter-8db3e30"],
+    "@tscircuit/capacity-autorouter": ["@tscircuit/capacity-autorouter@github:derekbreden/tscircuit-autorouter#8f06eb9", { "dependencies": { "fast-json-stable-stringify": "^2.1.0", "object-hash": "^3.0.0", "stack-svgs": "^0.0.1" } }, "derekbreden-tscircuit-autorouter-8f06eb9"],
 
     "@tscircuit/checks": ["@tscircuit/checks@0.0.138", "", { "peerDependencies": { "@flatten-js/core": "*", "@tscircuit/math-utils": "*", "circuit-json": "*", "circuit-json-to-connectivity-map": "*", "typescript": "^5.5.3" } }, "sha512-NN84PSdV5Tem9+NpNrereoXHwDg8FHssdY8x1l7Bz8lO5gkYc8HzgUrEpjIhwBqgpe4oELMnwnQ6r3ebXTAs0Q=="],
 
