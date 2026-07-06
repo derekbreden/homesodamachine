@@ -38,6 +38,9 @@ out/*
 # Never committed (same policy as the tsci exports above).
 *.circuit.json
 
+# manual circuit-json export scratch (bunx tsci export -f circuit-json ... -o _cjtmp.json)
+_cjtmp.json
+
 # misc
 *.circuit.tmp.json
 *.tgz
