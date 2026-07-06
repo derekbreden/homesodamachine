@@ -16,6 +16,8 @@ import {
   contentRoots,
   findGenerateScripts,
   findScriptsConsumingStep,
+  findRunnableScriptsTransitivelyImporting,
+  affectedBuildOrder,
   buildProducerMap,
   dependencyGraph,
   buildOrder,
@@ -115,4 +117,58 @@ test("short basenames don't substring-match longer step names (collision regress
     !consumers.some(ends("flavor/pump-case/pump_case_assembly.py")),
     "pump-case assembly only names pump-case-assembly.step",
   );
+});
+
+test("the import walk continues THROUGH a generator that doubles as a base module (regression)", () => {
+  // single_tray is imported by bag_circuit_tray, which is itself imported by
+  // bib_gate_tray / nozzle_gate_tray / source_select_tray (they build on the
+  // tray's python, not its .step — so the STEP-load cascade can't catch them).
+  // Stopping the walk at the first runnable left bib-gate-tray.step stale when
+  // single_tray changed; the walk must recurse past bag_circuit_tray.
+  const deps = findRunnableScriptsTransitivelyImporting("single_tray", ROOTS);
+  for (const downstream of [
+    "bag-circuit-tray/bag_circuit_tray.py",
+    "bib-gate-tray/bib_gate_tray.py",
+    "bib-gate-tray/bib_gate_assembly.py",
+    "nozzle-gate-tray/nozzle_gate_tray.py",
+    "source-select-tray/source_select_tray.py",
+  ]) {
+    assert.ok(
+      deps.some(ends(downstream)),
+      `expected ${downstream} among single_tray's transitive dependents; got:\n${deps.map(rel).join("\n")}`,
+    );
+  }
+});
+
+test("affectedBuildOrder: one edit's wave lists each script once, seeds first, producers before consumers", () => {
+  // Seed the wave the way the watcher does for a single_tray edit: the file plus
+  // every runnable that transitively imports it.
+  const single = findGenerateScripts(ROOTS).find(ends("single-tray/single_tray.py"));
+  const seeds = [single, ...findRunnableScriptsTransitivelyImporting("single_tray", ROOTS).filter((s) => s !== single)];
+  const { order, loadsOf } = affectedBuildOrder(seeds, ROOTS);
+  const seedSet = new Set(seeds);
+
+  // Run-once: no script appears twice (the old recursive cascade re-ran a shared
+  // consumer once per producer).
+  assert.equal(order.length, new Set(order).size, "a script is listed more than once");
+
+  // Every seed is present, and every seed precedes every non-seed (the parts
+  // being edited rebuild before the heavy downstream that only loads them).
+  for (const s of seeds) assert.ok(order.includes(s), `seed missing from order: ${rel(s)}`);
+  const lastSeed = order.reduce((m, s, i) => (seedSet.has(s) ? i : m), -1);
+  const firstNonSeed = order.findIndex((s) => !seedSet.has(s));
+  assert.ok(firstNonSeed === -1 || lastSeed < firstNonSeed, "a non-seed is ordered before a seed");
+
+  // The enclosure loads all four tray assemblies, yet appears exactly once.
+  const encl = order.filter(ends("hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py"));
+  assert.equal(encl.length, 1, "hardware enclosure-assembly should appear exactly once");
+
+  // Producer before consumer over a real STEP-load edge: enclosure_assembly loads
+  // enclosure.step, so enclosure.py must be built first.
+  const idx = (suffix) => order.findIndex(ends(suffix));
+  const enclosure = idx("hardware/printed-parts/enclosure/enclosure/enclosure.py");
+  const enclosureAssembly = idx("hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py");
+  if (enclosure !== -1 && enclosureAssembly !== -1) {
+    assert.ok(enclosure < enclosureAssembly, "enclosure.py must precede the enclosure-assembly that loads its STEP");
+  }
 });

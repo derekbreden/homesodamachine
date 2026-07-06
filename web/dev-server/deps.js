@@ -113,11 +113,16 @@ export function findRunnableScriptsTransitivelyImporting(moduleName, roots) {
       const importsIt = importRe.test(source);
       const runsViaBlender = source.includes("--python") && scriptRefRe.test(source);
       if (!importsIt && !runsViaBlender) continue;
-      if (isRunnableScript(pyFile)) {
-        dependents.add(pyFile);
-      } else {
-        queue.push(path.basename(pyFile, ".py"));
-      }
+      if (isRunnableScript(pyFile)) dependents.add(pyFile);
+      // Keep walking THROUGH this file whether or not it's runnable: a generator
+      // can double as a base module that other generators import as its python
+      // (`bag_circuit_tray` is both a tray and the geometry `bib_gate_tray`,
+      // `nozzle_gate_tray`, and `source_select_tray` build on). Stopping at the
+      // first runnable would leave those downstream trays stale when the root
+      // module changes — and they can't be caught by the STEP-load cascade
+      // either, since they import the tray's python, not its .step. `visited`
+      // dedupes, so re-queuing a shared basename is safe.
+      queue.push(path.basename(pyFile, ".py"));
     }
   }
 
@@ -287,4 +292,55 @@ export function buildOrder(roots) {
   }
   for (const node of deps.keys()) visit(node);
   return order;
+}
+
+// The scoped, reactive slice of buildOrder the live watcher walks for one edit.
+// Given the SEED scripts that must rebuild (the transitive import closure of the
+// edited module), return { order, loadsOf }:
+//   - `order`: the seeds PLUS every script that transitively LOADS a seed's STEP
+//     output, sorted producers-before-consumers, each script exactly once.
+//   - `loadsOf`: script -> Set(STEP basenames it consumes), so the caller can
+//     skip a pure STEP-load consumer whose inputs didn't actually change.
+// This is what lets a base-part edit rebuild the whole downstream tree without
+// the old recursive cascade re-running a shared consumer once per producer — the
+// enclosure that loads all four tray assemblies rebuilds once, after them, not
+// four times interleaved. Import-only seeds carry no STEP-load edge, so their
+// order among themselves is arbitrary (correct: a Python import reads the
+// dependency's source at run time, independent of its STEP).
+export function affectedBuildOrder(seeds, roots) {
+  const producerOf = buildProducerMap(roots);
+  const loadsOf = new Map();     // consumer script -> Set(step basename it loads)
+  const consumersOf = new Map(); // producer script -> Set(consumer scripts)
+  for (const [stepBase, producer] of producerOf) {
+    for (const consumer of findScriptsConsumingStep(stepBase, roots, producerOf)) {
+      if (consumer === producer) continue;
+      if (!loadsOf.has(consumer)) loadsOf.set(consumer, new Set());
+      loadsOf.get(consumer).add(stepBase);
+      if (!consumersOf.has(producer)) consumersOf.set(producer, new Set());
+      consumersOf.get(producer).add(consumer);
+    }
+  }
+  // Everything the seeds can reach forward over producer→consumer STEP-load edges.
+  // (Not closed backward over producers — a producer a consumer loads but that
+  // itself didn't change stays out; its committed STEP is the correct input.)
+  const affected = new Set(seeds);
+  const queue = [...seeds];
+  while (queue.length > 0) {
+    const s = queue.shift();
+    for (const c of consumersOf.get(s) || []) {
+      if (!affected.has(c)) {
+        affected.add(c);
+        queue.push(c);
+      }
+    }
+  }
+  // Seeds first, then their STEP-load consumers — each group in buildOrder's
+  // producers-first order. Seeds are the upstream parts the user is editing, so
+  // they rebuild first (fast feedback) and the heavy downstream (enclosures) is
+  // deferred. Safe because a seed never STEP-loads a consumer's output (that
+  // would be a cycle: consumers are strictly downstream of the seeds).
+  const topo = buildOrder(roots).filter((s) => affected.has(s));
+  const seedSet = new Set(seeds);
+  const order = [...topo.filter((s) => seedSet.has(s)), ...topo.filter((s) => !seedSet.has(s))];
+  return { order, loadsOf };
 }

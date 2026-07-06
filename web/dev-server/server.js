@@ -24,10 +24,10 @@ import { start } from "../server.js";
 import { mountPcbEditorRoutes } from "../lib/pcb-editor-routes.js";
 import {
   isRunnableScript,
-  findGenerateScripts,
   findRunnableScriptsTransitivelyImporting,
   findBoardsTransitivelyImporting,
-  findScriptsConsumingStep,
+  affectedBuildOrder,
+  buildOrder,
 } from "./deps.js";
 import { WS } from "../contracts/ws-frames.js";
 
@@ -76,6 +76,13 @@ function relForLog(absPath) {
 // passed CONTENT_ROOTS at each call site.
 
 // --- Script runner ---
+//
+// runScript runs ONE generator and returns the basenames of the STEPs it
+// (re)wrote — nothing more. Ordering the rebuild and cascading STEP-load
+// dependents is the caller's job (runWave), so a shared consumer is never
+// rebuilt more than once per edit. runScript only owns the process lifecycle:
+// spawn, supersede an in-flight run of the same file, broadcast + queue
+// thumbnails for what changed.
 const running = new Map(); // pyFilePath -> AbortController
 
 async function runScript(pyFilePath) {
@@ -135,7 +142,7 @@ async function runScript(pyFilePath) {
       });
     });
 
-    if (code !== 0) return;
+    if (code !== 0) return producedSteps;
 
     // Broadcast STEP files in scriptDir that were rewritten since startTime.
     // The atomic-write helper in hardware/scripts/_cadq_export.py renames into place,
@@ -156,7 +163,7 @@ async function runScript(pyFilePath) {
       queueThumbnail(full);
     }
   } catch (e) {
-    if (e.name === "AbortError") return;
+    if (e.name === "AbortError") return producedSteps;
     // Script failed — leave any prior committed STEP in place.
     console.log(`  ↪ failed: ${e.message}`);
   } finally {
@@ -168,21 +175,32 @@ async function runScript(pyFilePath) {
     if (running.get(pyFilePath) === ac) running.delete(pyFilePath);
   }
 
-  if (producedSteps.length === 0) return;
+  return producedSteps;
+}
 
-  // Cascade: rebuild scripts that consume (load) the STEPs we just produced —
-  // following STEP-load edges through imported `_contents.py`, not just direct
-  // importStep calls (see deps.js).
-  const dependents = new Set();
-  for (const stepName of producedSteps) {
-    for (const depScript of findScriptsConsumingStep(stepName, CONTENT_ROOTS)) {
-      if (depScript === pyFilePath) continue;
-      dependents.add(depScript);
+// Rebuild one edit's wave: the SEED scripts (the edited file + every runnable
+// that transitively imports it — their python changed, so they always run) plus
+// every script that transitively LOADS a seed's STEP output. affectedBuildOrder
+// sequences them producers-before-consumers and hands back what each one loads;
+// we run each ONCE, skipping a pure STEP-load consumer unless a step it loads
+// actually changed this wave. That reactive, run-once pass is why editing a base
+// part (single_tray) now rebuilds the whole downstream tree — the other trays,
+// their assemblies, the enclosures that load those assemblies — while the
+// enclosure, a consumer of all four tray assemblies, still rebuilds only once.
+async function runWave(seeds) {
+  const { order, loadsOf } = affectedBuildOrder(seeds, CONTENT_ROOTS);
+  const seedSet = new Set(seeds);
+  const changed = new Set(); // STEP basenames rewritten this wave
+  for (const script of order) {
+    if (seedSet.has(script)) {
+      console.log(`  Running ${relForLog(script)}`);
+    } else {
+      // Pure STEP-load consumer: skip unless something it loads changed.
+      const loads = loadsOf.get(script);
+      if (!loads || ![...loads].some((s) => changed.has(s))) continue;
+      console.log(`  ↪ dependent: ${relForLog(script)}`);
     }
-  }
-  for (const depScript of dependents) {
-    console.log(`  ↪ dependent: ${relForLog(depScript)}`);
-    await runScript(depScript);
+    for (const step of await runScript(script)) changed.add(step);
   }
 }
 
@@ -381,15 +399,12 @@ watcher.on("change", (absPath) => {
       setTimeout(async () => {
         debounce.delete("cadlib");
         console.log(`Shared lib changed: ${relForLog(absPath)}`);
-        for (const f of findGenerateScripts(CONTENT_ROOTS)) {
+        // A shared lib can feed anything, so rebuild every generator — but in
+        // dependency order (producers before the scripts that load their STEPs),
+        // each once, so a consumer isn't rebuilt against a stale input.
+        for (const f of buildOrder(CONTENT_ROOTS)) {
           console.log(`  Rebuilding ${relForLog(f)}`);
-          try {
-            await runScript(f);
-          } catch (e) {
-            // Newer change aborted this run; bail out and let the new
-            // change's cascade redo everything.
-            break;
-          }
+          await runScript(f);
         }
       }, 500),
     );
@@ -492,15 +507,17 @@ watcher.on("change", (absPath) => {
     return;
   }
 
-  // Any .py change. The runnable set is:
+  // Any .py change. The SEED scripts that must rebuild are:
   //   1. The file itself, if it's a runnable script (generator or drawing).
   //   2. Every other runnable script that transitively imports the file's
-  //      module — covers shared `_foo.py` modules anywhere under hardware/,
-  //      plus the cross-tree case where a generator like
-  //      `co2_coupling_body.py` is consumed by a drawing's `_appliance_model`
-  //      and needs to cascade all the way to the `enclosure-iso-*` SVGs.
-  // The cadlib handler at the top of this listener is the shotgun version
-  // of step 2: anything in `/cadlib/` rebuilds every generator, no walk.
+  //      module — covers shared `_foo.py` modules anywhere under hardware/, a
+  //      generator that doubles as a base module (`bag_circuit_tray`, imported
+  //      by the other trays), and the cross-tree case where `co2_coupling_body`
+  //      feeds a drawing's `_appliance_model` → the `enclosure-iso-*` SVGs.
+  // runWave then extends those seeds along STEP-load edges (the enclosures that
+  // load the tray assemblies) and runs the lot once each, producers first.
+  // The cadlib handler at the top of this listener is the shotgun version of
+  // step 2: anything in `/cadlib/` rebuilds every generator, no walk.
   if (absPath.endsWith(".py")) {
     const moduleName = path.basename(absPath, ".py");
     if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
@@ -508,24 +525,14 @@ watcher.on("change", (absPath) => {
       absPath,
       setTimeout(async () => {
         debounce.delete(absPath);
-        const toRun = [];
-        if (isRunnableScript(absPath)) toRun.push(absPath);
+        const seeds = [];
+        if (isRunnableScript(absPath)) seeds.push(absPath);
         for (const dep of findRunnableScriptsTransitivelyImporting(moduleName, CONTENT_ROOTS)) {
-          if (dep !== absPath) toRun.push(dep);
+          if (dep !== absPath) seeds.push(dep);
         }
-        if (toRun.length === 0) return;
+        if (seeds.length === 0) return;
         console.log(`Changed: ${relForLog(absPath)}`);
-        for (const dep of toRun) {
-          console.log(`  Running ${relForLog(dep)}`);
-          try {
-            await runScript(dep);
-          } catch (e) {
-            // A newer change aborted this run; the new change's
-            // cascade will rebuild from scratch. Stop this cascade so
-            // we don't keep chasing a moving target.
-            break;
-          }
-        }
+        await runWave(seeds);
       }, 500),
     );
     return;
