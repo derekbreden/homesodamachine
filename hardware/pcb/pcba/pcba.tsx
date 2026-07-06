@@ -151,7 +151,7 @@ export default () => (
     <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={-61.75} y={-12.75} rot={180} side="N" />
     <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.5} y={-14} rot={180} side="N" />
     <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-56.5} y={-17} rot={0} side="N" />
-    <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-48} y={27} rot={0} side="N" />
+    <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-48} y={28.25} rot={0} side="N" />
     {/* RS-485 to the front display (J9). COS13487EESA-3.3 auto-direction transceiver (U7):
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
         only DI (from ESP TX) and RO (to ESP RX) are driven. R6 = 120R line termination
@@ -622,23 +622,23 @@ export default () => (
         by IO0 — with R17/R18 between. CC pulldowns sit in the top corners; C22 rides U14's
         VBUS, C21 rides U13's 3V3. East column on x=-44, 4 mm pitch: C6 / R8 / Q3 / C21 (with
         R15 above), R8 the IO0 pull-up spun vertical into the stack. */}
-    <UsbC name="J14" pcbX={-62} pcbY={17.75} pcbRotation={270} />
-    <Usblc6 name="U14" pcbX={-56} pcbY={17.75} pcbRotation={270} />
-    <CH340C name="U13" pcbX={-49.5} pcbY={17.5} pcbRotation={270} />
-    <Res name="R16" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-63.5} y={11.5} rot={0} side="E" />
-    <Res name="R15" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-63.5} y={24} rot={0} side="E" />
-    <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56} y={21.5} rot={0} side="N" />
-    <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-47.5} y={24.5} rot={0} side="N" />
+    <UsbC name="J14" pcbX={-62.5} pcbY={18.5} pcbRotation={270} />
+    <Usblc6 name="U14" pcbX={-56} pcbY={18.5} pcbRotation={270} />
+    <CH340C name="U13" pcbX={-49.25} pcbY={18.25} pcbRotation={270} />
+    <Res name="R16" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-65.5} y={12.25} rot={0} side="E" />
+    <Res name="R15" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-65.5} y={24.75} rot={0} side="E" />
+    <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56} y={22.25} rot={0} side="N" />
+    <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-47.5} y={25.25} rot={0} side="N" />
     {/* EN branch (west): U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
-    <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-63.5} y={26.25} rot={0} side="N" />
-    <S8050 name="Q2" pcbX={-59.5} pcbY={26} pcbRotation={270} />
+    <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-65.5} y={27} rot={0} side="N" />
+    <S8050 name="Q2" pcbX={-59.5} pcbY={27.25} pcbRotation={270} />
     <silkscreentext text="Q2" fontSize="0.8mm" anchorAlignment="center" pcbX={-64} pcbY={14.5} />
-    <Tact name="SW2" pcbX={-57.25} pcbY={31.5} pcbRotation={0} />
+    <Tact name="SW2" pcbX={-56.75} pcbY={32.5} pcbRotation={0} />
     {/* IO0 branch (east): U13.RTS -> R18 -> Q3.base; U13.DTR -> Q3.emitter; Q3.collector -> IO0; SW1 */}
-    <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-55.75} y={25} rot={0} side="N" />
-    <S8050 name="Q3" pcbX={-52} pcbY={26} pcbRotation={270} />
+    <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-55.75} y={26.25} rot={0} side="N" />
+    <S8050 name="Q3" pcbX={-52} pcbY={27.25} pcbRotation={270} />
     <silkscreentext text="Q3" fontSize="0.8mm" anchorAlignment="center" pcbX={-43.5} pcbY={21} />
-    <Tact name="SW1" pcbX={-47.5} pcbY={31.5} pcbRotation={0} />
+    <Tact name="SW1" pcbX={-48} pcbY={32.5} pcbRotation={0} />
     {/* USB-C: GND (pin13/14) + shield ears (pin1-4) to plane; VBUS (pin15/16) to the ESD
         rail only (not board power); CC1 (pin6) / CC2 (pin12) each to a 5.1k Rd; D+ = pin8+pin10,
         D- = pin7+pin9 (both orientations tied). */}
