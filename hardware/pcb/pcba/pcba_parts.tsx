@@ -18,6 +18,12 @@ import { MCP23017_E_SO } from "./imports/MCP23017_E_SO"
 import { DS3231SN_T_R } from "./imports/DS3231SN_T_R"
 import { COS13487EESA_3_3 } from "./imports/COS13487EESA_3_3"
 import { SM712_TCT } from "./imports/SM712_TCT"
+import { ESP32_WROOM_32E_N4 } from "./imports/ESP32_WROOM_32E_N4"
+import { AMS1117_3_3 } from "./imports/AMS1117_3_3"
+import { CH340C } from "./imports/CH340C"
+import { USBLC6_2SC6 } from "./imports/USBLC6_2SC6"
+import { TYPE_C_31_M_12 } from "./imports/TYPE_C_31_M_12"
+import { DRV8870DDAR } from "./imports/DRV8870DDAR"
 
 // ---- ULN2803A — SOIC-18 (300 mil wide) -------------------------------------
 // Octal Darlington sink driver. C845537 (UMW ULN2803A, SOP-18-300mil). Pinout:
@@ -38,8 +44,13 @@ const ulnPinLabels = {
 // library orientation. Its own pin labels (Input1/Output1) are overridden with ours so the
 // net wiring is unchanged. Imported rot 0 is HORIZONTAL (pins on N/S rows); the caller's rot
 // is that value directly (rot 270 for the vertical IN-west/OUT-east seating used on U4/U5).
+// The import's {NAME} silk is stripped (it rode the seating rotation, reading top-to-bottom at
+// rot 270); the ref-des is drawn here upright and centred on the body — a pure function of (x,y).
 export const Uln2803 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => (
-  <ULN2803A name={name} pinLabels={ulnPinLabels} pcbRotation={rot} {...at(x, y)} />
+  <>
+    <ULN2803A name={name} pinLabels={ulnPinLabels} pcbRotation={rot} {...at(x, y)} />
+    <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x} pcbY={y} />
+  </>
 )
 
 // ---- MCP23017 — SOIC-28 (300 mil) ------------------------------------------
@@ -160,12 +171,13 @@ export const Buck5 = ({ name, x, y }: Labeled) => (
   </>
 )
 
-// MLT-5020 magnetic buzzer (seats rot 90): label in the open lane to the west
-// (Q1 sits north, an LED resistor south).
+// MLT-5020 magnetic buzzer (seats rot 90): label on the body, nudged west of centre so it
+// clears the +/- polarity silk (which the rot-90 seating throws to the east) while staying
+// well inside the footprint — reads as the buzzer's own, not the neighbour Q1's to the west.
 export const Buzzer = ({ name, x, y }: Labeled) => (
   <>
     <MLT_5020 name={name} pcbRotation={90} {...at(x, y)} />
-    {refdes(name, x - 4.2, y)}
+    {refdes(name, x - 1.8, y)}
   </>
 )
 
@@ -185,11 +197,33 @@ export const BulkCap = ({ name, x, y }: Labeled) => (
   </>
 )
 
-// S8050 NPN (seats rot 180; its import ref-des is stripped so it isn't drawn
-// upside-down): label upright just north of the body (R5 sits to the west).
-export const Npn = ({ name, x, y }: Labeled) => (
+// S8050 NPN in a SOT-23 (auto-reset Q2/Q3 + buzzer-drive Q1). Its import ref-des is stripped,
+// so the ref-des is drawn here upright and centred on the body — a pure function of (x,y), so it
+// rides when the part is moved, whatever the seating rotation (rot 180 for Q1, 270 for Q2/Q3).
+export const Npn = ({ name, x, y, rot = 180 }: Labeled & { rot?: number }) => (
   <>
-    <S8050_J3Y_RANGE_200_350_ name={name} pcbRotation={180} {...at(x, y)} />
-    {refdes(name, x, y + 2.85)}
+    <S8050_J3Y_RANGE_200_350_ name={name} pcbRotation={rot} {...at(x, y)} />
+    {refdes(name, x, y)}
   </>
 )
+
+// ---- centred-ref-des SMD chips ---------------------------------------------
+// The remaining imported chips carry their own pin labels/nets, so all a wrapper
+// adds is seating + a clean ref-des. Each has its footprint {NAME} silk stripped
+// (it rode the seating rotation — sideways/upside-down at rot 270 — and sat offset
+// toward a neighbour) and gets an upright ref-des centred on the body, a pure
+// function of (x,y) so it rides when the part moves, exactly like U2/U3 (Mcp23017).
+const centred = (Part: (props: any) => any) =>
+  ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => (
+    <>
+      <Part name={name} pcbRotation={rot} {...at(x, y)} />
+      <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x} pcbY={y} />
+    </>
+  )
+
+export const Esp32 = centred(ESP32_WROOM_32E_N4)   // U1  — bare WROOM module
+export const Ams1117 = centred(AMS1117_3_3)         // U9  — 3V3 LDO (SOT-223)
+export const Ch340 = centred(CH340C)                // U13 — USB-UART bridge (SOP-16)
+export const Usblc6 = centred(USBLC6_2SC6)          // U14 — USB ESD array (SOT-23-6)
+export const UsbC = centred(TYPE_C_31_M_12)         // J14 — USB-C receptacle
+export const Drv8870 = centred(DRV8870DDAR)         // U11/U12 — pump H-bridges (SOP-8)

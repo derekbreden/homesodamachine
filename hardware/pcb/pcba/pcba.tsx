@@ -53,21 +53,14 @@
  * (clearance.ts -> picks.json).
  */
 import { at, Cap, Res, Jst, ulnOUT } from "./carrier_parts"
-import { Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn } from "./pcba_parts"
-import { AMS1117_3_3 } from "./imports/AMS1117_3_3"
+import { Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870 } from "./pcba_parts"
 import { KF301_5_0_2P } from "./imports/KF301_5_0_2P"
-import { DRV8870DDAR as Drv8870 } from "./imports/DRV8870DDAR"
 import { boardVersionParts } from "./board-version"
 import { logoRoutes } from "./logo"
-import { ESP32_WROOM_32E_N4 as Wroom } from "./imports/ESP32_WROOM_32E_N4"
 import { KT_0603R as LedRed } from "./imports/KT_0603R"
 import { KT_0603G as LedGrn } from "./imports/KT_0603G"
 import { Blue_light_0603 as LedBlu } from "./imports/Blue_light_0603"
-import { CH340C } from "./imports/CH340C"
-import { TYPE_C_31_M_12 as UsbC } from "./imports/TYPE_C_31_M_12"
-import { USBLC6_2SC6 as Usblc6 } from "./imports/USBLC6_2SC6"
 import { TS_1187A_B_A_B as Tact } from "./imports/TS_1187A_B_A_B"
-import { S8050_J3Y_RANGE_200_350_ as S8050 } from "./imports/S8050_J3Y_RANGE_200_350_"
 import type { DecouplingRule } from "./cap-audit"
 import type { AmpacityRule } from "./ampacity-audit"
 
@@ -143,7 +136,7 @@ export default () => (
         power-on RC (R7 10k pull-up + C12 1uF) sit at the south edge by the 3V3/EN pins; R8
         (10k) pulls IO0 up; the WROOM is flashed over the USB-C programming block above it
         (CH340 bridge on TX0/RX0, auto-reset on EN/IO0) — see that block below. */}
-    <Wroom name="U1" pcbX={-57} pcbY={0} pcbRotation={0} />
+    <Esp32 name="U1" x={-57} y={0} rot={0} />
     {/* WROOM support south of U1: the EN power-on RC (R7 + C12) stacked at the far-west,
         hard by U1's EN pin so the EN trace stays short; the supply decouplers C10 + C11
         share the lane just east of them. */}
@@ -166,7 +159,7 @@ export default () => (
         the SMD pads auto-stitch to their planes. Each cap flanks the LDO at the pin of its
         own net: C13 (10uF V5 input) hard by VIN on the east, C14 (22uF 3V3 output) under the
         VOUT tab on the west — so each closes a tight local loop like C15/C16 flank U10. */}
-    <AMS1117_3_3 name="U9" pcbRotation={0} {...at(7, 21.25)} />
+    <Ams1117 name="U9" x={7} y={21.25} rot={0} />
     <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={14.5} y={21} rot={0} side="N" />
     <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={14.5} y={24} rot={0} side="N" />
     <Buck5 name="U10" x={15.25} y={-25} />
@@ -178,10 +171,10 @@ export default () => (
         OCP/OTP/UVLO. VM->12V (the top SMD pad lands directly on the V12 island), GND/PAD->GND,
         ISEN->GND, VREF->3V3, IN1/IN2 from the ESP north-edge pins, OUT1/OUT2 to PUMPS. 10uF +
         0.1uF VM decoupling per chip. */}
-    <Drv8870 name="U11" pcbX={-28.25} pcbY={22.5} pcbRotation={0} />
+    <Drv8870 name="U11" x={-28.25} y={22.5} rot={0} />
     <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-29.75} y={14.75} rot={90} side="E" />
     <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-26.75} y={14.75} rot={90} side="E" />
-    <Drv8870 name="U12" pcbX={-21.25} pcbY={22.5} pcbRotation={0} />
+    <Drv8870 name="U12" x={-21.25} y={22.5} rot={0} />
     <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-22.75} y={14.75} rot={90} side="E" />
     <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-19.75} y={14.75} rot={90} side="E" />
     <Mcp23017 name="U2" x={-8} y={20.25} addr="0x20" rot={180} />
@@ -622,22 +615,20 @@ export default () => (
         by IO0 — with R17/R18 between. CC pulldowns sit in the top corners; C22 rides U14's
         VBUS, C21 rides U13's 3V3. East column on x=-44, 4 mm pitch: C6 / R8 / Q3 / C21 (with
         R15 above), R8 the IO0 pull-up spun vertical into the stack. */}
-    <UsbC name="J14" pcbX={-62} pcbY={17.75} pcbRotation={270} />
-    <Usblc6 name="U14" pcbX={-55.25} pcbY={17.75} pcbRotation={270} />
-    <CH340C name="U13" pcbX={-48.25} pcbY={17.5} pcbRotation={270} />
+    <UsbC name="J14" x={-62} y={17.75} rot={270} />
+    <Usblc6 name="U14" x={-55.25} y={17.75} rot={270} />
+    <Ch340 name="U13" x={-48.25} y={17.5} rot={270} />
     <Res name="R16" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-63.5} y={11.5} rot={0} side="N" />
     <Res name="R15" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-63.5} y={24} rot={0} side="N" />
     <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-55.25} y={21.5} rot={0} side="N" />
     <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-47.5} y={24.5} rot={0} side="N" />
     {/* EN branch (west): U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
     <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-63.5} y={26.25} rot={0} side="N" />
-    <S8050 name="Q2" pcbX={-59.5} pcbY={26} pcbRotation={270} />
-    <silkscreentext text="Q2" fontSize="0.8mm" anchorAlignment="center" pcbX={-59.5} pcbY={26} />
+    <Npn name="Q2" x={-59.5} y={26} rot={270} />
     <Tact name="SW2" pcbX={-57.25} pcbY={31.5} pcbRotation={0} />
     {/* IO0 branch (east): U13.RTS -> R18 -> Q3.base; U13.DTR -> Q3.emitter; Q3.collector -> IO0; SW1 */}
     <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-55.75} y={25} rot={0} side="N" />
-    <S8050 name="Q3" pcbX={-52} pcbY={26} pcbRotation={270} />
-    <silkscreentext text="Q3" fontSize="0.8mm" anchorAlignment="center" pcbX={-52} pcbY={26} />
+    <Npn name="Q3" x={-52} y={26} rot={270} />
     <Tact name="SW1" pcbX={-47.5} pcbY={31.5} pcbRotation={0} />
     {/* USB-C: GND (pin13/14) + shield ears (pin1-4) to plane; VBUS (pin15/16) to the ESD
         rail only (not board power); CC1 (pin6) / CC2 (pin12) each to a 5.1k Rd; D+ = pin8+pin10,
