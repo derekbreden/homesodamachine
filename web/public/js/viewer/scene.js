@@ -22,6 +22,7 @@
 
 import * as THREE from "three";
 import { TrackballControls } from "three/addons/controls/TrackballControls.js";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { state } from "./state.js";
 
 // --- Detail view: Three.js setup ---
@@ -49,6 +50,14 @@ scene.add(dirLight);
 const dirLight2 = new THREE.DirectionalLight(0xffffff, 0.3);
 dirLight2.position.set(-1, -0.5, -1);
 scene.add(dirLight2);
+// Omnidirectional fill so no face reads as black when it faces away from the
+// two directionals (the GLB assemblies have parts pointing every direction).
+scene.add(new THREE.HemisphereLight(0xffffff, 0x333340, 0.5));
+// A neutral studio environment gives metallic PBR materials (the GLB
+// component models — connectors, cans, ICs) something to reflect; without it
+// they render black. STEP parts (near-non-metallic) pick up only a faint sheen.
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
 // --- ViewCube ---
 // Each cube face's projected hit area is roughly gizmoSize/2 — Apple HIG
