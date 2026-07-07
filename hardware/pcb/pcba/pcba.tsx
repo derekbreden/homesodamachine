@@ -453,7 +453,7 @@ export default () => (
     <trace from=".U1 > .IO18" to=".U11 > .IN2" pcbPathRelativeTo=".U1 > .IO18"
       pcbPath={[u1p(-56.13, 9), u1p(-56.13, 11.0), u1p(-54.0, 12.0), ...drop(u1p, -44.0, 12.0), u1p(-38.0, 13.0), u1p(-30.0, 17.0), ...rise(u1p, -28.89, 19.73)]} />
     <trace from=".U1 > .IO17" to=".U11 > .IN1" pcbPathRelativeTo=".U1 > .IO17"
-      pcbPath={[u1p(-53.59, 9), u1p(-53.59, 10.5), u1p(-52.5, 11.25), ...drop(u1p, -44.0, 11.25), u1p(-38.0, 12.0), u1p(-28.5, 16.0), ...rise(u1p, -27.61, 19.73)]} />
+      pcbPath={[u1p(-53.59, 9), u1p(-53.1, 10.6), u1p(-52.5, 11.25), ...drop(u1p, -44.0, 11.25), u1p(-38.0, 12.0), u1p(-28.5, 16.0), ...rise(u1p, -27.61, 19.73)]} />
     <trace from=".U11 > .VM" to="net.V12" />
     <trace from=".U11 > .GND" to="net.GND" />
     <trace from=".U11 > .PAD" to="net.GND" />
@@ -466,9 +466,9 @@ export default () => (
     <trace from=".C18 > .pin1" to="net.V12" />
     <trace from=".C18 > .pin2" to="net.GND" />
     <trace from=".U1 > .IO16" to=".U12 > .IN2" pcbPathRelativeTo=".U1 > .IO16"
-      pcbPath={[u1p(-52.32, 9), u1p(-52.32, 10.2), u1p(-51.0, 10.5), ...drop(u1p, -44.0, 10.5), u1p(-38.0, 11.0), u1p(-23.0, 15.0), ...rise(u1p, -21.89, 19.73)]} />
+      pcbPath={[u1p(-52.32, 9), u1p(-52.32, 10.2), u1p(-51.0, 10.5), ...drop(u1p, -44.0, 10.5), u1p(-38.0, 11.0), u1p(-24.8, 14.2), ...rise(u1p, -21.89, 19.73)]} />
     <trace from=".U1 > .IO4" to=".U12 > .IN1" pcbPathRelativeTo=".U1 > .IO4"
-      pcbPath={[u1p(-51.05, 9), u1p(-51.05, 9.8), u1p(-49.5, 9.9), ...drop(u1p, -44.0, 9.9), u1p(-38.0, 10.2), u1p(-22.0, 14.0), ...rise(u1p, -20.61, 19.73)]} />
+      pcbPath={[u1p(-51.05, 9), u1p(-51.05, 9.8), u1p(-49.3, 9.9), ...drop(u1p, -44.0, 9.9), u1p(-38.0, 10.2), u1p(-22.0, 14.0), ...rise(u1p, -20.61, 19.73)]} />
     <trace from=".U12 > .VM" to="net.V12" />
     <trace from=".U12 > .GND" to="net.GND" />
     <trace from=".U12 > .PAD" to="net.GND" />
