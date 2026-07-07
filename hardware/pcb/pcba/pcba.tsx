@@ -706,8 +706,9 @@ export default () => (
     <trace from=".U14 > .pin5" to=".C22 > .pin1" pcbPathRelativeTo=".U14 > .pin5"
       pcbPath={[up(-54.25, 17.9), up(-54.94, 17.9), up(-54.94, 20.19)]} />
     <trace from=".C22 > .pin2" to="net.GND" />
-    {/* ESD -> bridge: U14's host-side D+/D- duck to the bottom between U14 and U13 so the WROOM's
-        north-castellation fan-out (pump/relay/I2C nets) keeps the top lanes here. */}
+    {/* ESD -> bridge: U14's host-side D+/D- hop U14->U13 on inner1 (full-stack via, plane antipads).
+        The inner layer keeps them clear of the WROOM's north-castellation fan-out on top and the
+        UART pair on the bottom, so the two escapes never share a layer at U13's congested west face. */}
     <trace from=".U14 > .pin6" to=".U13 > .D_POS" pcbPathRelativeTo=".U14 > .pin6"
       pcbPath={[up(-54.1, 18.7), { ...up(-54.1, 18.7), via: true, toLayer: "inner1" }, up(-54.1, 18.7),
         up(-52.6, 17.6), up(-51.12, 16.87), { ...up(-51.12, 16.87), via: true, toLayer: "top" }, up(-51.12, 16.87)]} />
@@ -721,9 +722,10 @@ export default () => (
     <trace from=".U13 > .GND" to="net.GND" />
     <trace from=".C21 > .pin1" to="net.V3V3" />
     <trace from=".C21 > .pin2" to="net.GND" />
-    {/* UART to the WROOM: the bridge's TXD/RXD land on the ESP's north-castellation IO3/IO1,
-        which sit mid-fanout — so, like the autorouter's original, they drop to the bottom right at
-        U13 and run under the flip-short + the castellation fanout, surfacing in-pad at the ESP. */}
+    {/* UART to the WROOM: the bridge's TXD/RXD land on the ESP's north-castellation IO3/IO1, dropping
+        to the bottom at U13 and running under the flip-short + castellation fanout to surface in-pad
+        at the ESP. TXD keeps west of U13's V3 stitch via; RXD takes a short inner1 jog at the pin exit
+        to pass over TXD (their pin order at U13 and pin order at U1 force one crossing). */}
     <trace from=".U13 > .TXD" to=".U1 > .IO3" pcbPathRelativeTo=".U13 > .TXD"
       pcbPath={[u13v(-51.12, 20.68, "bottom"), u13p(-51.7, 19.2), u13p(-51.7, 13.0), u13p(-58.0, 11.0), u13v(-61.21, 9.0, "top")]} />
     <trace from=".U13 > .RXD" to=".U1 > .IO1" pcbPathRelativeTo=".U13 > .RXD"
