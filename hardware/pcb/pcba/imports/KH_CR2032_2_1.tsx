@@ -37,7 +37,12 @@ export const KH_CR2032_2_1 = (props: ChipProps<typeof pinLabels>) => {
       cadModel={{
         objUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C5365915.obj?uuid=97e47c867b624ee8a0b22f9881406067",
         stepUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C5365915.step?uuid=97e47c867b624ee8a0b22f9881406067",
-        pcbRotationOffset: 0,
+        // tsci import imports this part with pcbRotationOffset 0, but EasyEDA's 3D STEP for C5365915
+        // is authored 180° about Z from its own 2D footprint — so the snap-fit stub renders east in
+        // 3D while the courtyard/silk put it west. Correct the MODEL orientation only (3D preview);
+        // this feeds cad_component.rotation, NOT the pick-and-place rotation, so gerbers/CPL/BOM and
+        // the assembled +/- are unchanged (pin1 = the silk-"+" post = east, -> VBAT).
+        pcbRotationOffset: 180,
         modelOriginPosition: { x: 1.1987103000001111, y: 0.0021124999999999616, z: -0.000006999999999646178 },
       }}
       {...props}
