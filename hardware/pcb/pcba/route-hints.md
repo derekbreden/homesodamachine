@@ -10,8 +10,10 @@ opt-in `sequential-trace` router and are silently inert here.
 > deterministic global re-optimization with zero solution-locality, so a change anywhere
 > ripples everywhere — repeatably. Do not blame ripples on nondeterminism, and do not
 > re-discover this. Proof, mechanism, and consequences:
-> [`autorouter-is-deterministic.md`](autorouter-is-deterministic.md). The manual-trace props
-> below are how you take a net *out* of that global solve.
+> [`autorouter-is-deterministic.md`](autorouter-is-deterministic.md). The *procedure* for moving
+> the board onto manual traces — own a region, evict any interfering autorouter trace, re-add the
+> router one trace at a time — is [`routing-procedure.md`](routing-procedure.md). The manual-trace
+> props below are the tools it uses to take a net *out* of that global solve.
 
 ## The trap: `pcbRouteHints` does nothing here
 
