@@ -539,4 +539,38 @@ watcher.on("change", (absPath) => {
   }
 });
 
+// --- Viewer source hot-reload ---
+//
+// The watcher above covers what the viewer SERVES (hardware artifacts). This
+// covers the viewer's own render CODE: editing a leaf loader module (glb.js /
+// step.js / dxf.js — the set web/public/js/viewer/loaders.js knows how to
+// re-import) shows up live without a manual browser reload, the same in-place
+// way an artifact change does. We broadcast CODE_CHANGED with a fresh token;
+// the client (live.js) re-imports that leaf under the token and re-renders the
+// open modal, keeping the camera and the live Three.js scene.
+//
+// Scoped to the hot-swappable leaves on purpose: a change to shared infra
+// (scene.js, state.js) or the shell (main.js, grid.js, cad-detail.js) can't be
+// swapped without rebuilding the renderer, so we don't pretend — those still
+// need a manual refresh. express.static serves the edited file's new bytes on
+// the next request, so no server restart is involved for client JS.
+const VIEWER_JS_DIR = path.resolve(__dirname, "../public/js/viewer");
+const HOT_LEAVES = new Set(["glb.js", "step.js", "dxf.js"]); // keep in sync with loaders.js
+const codeDebounce = new Map();
+chokidar
+  .watch(VIEWER_JS_DIR, { ignoreInitial: true, usePolling: true, interval: 200 })
+  .on("change", (absPath) => {
+    const base = path.basename(absPath);
+    if (!HOT_LEAVES.has(base)) return;
+    if (codeDebounce.has(base)) clearTimeout(codeDebounce.get(base));
+    codeDebounce.set(
+      base,
+      setTimeout(() => {
+        codeDebounce.delete(base);
+        console.log(`Viewer code changed: ${relForLog(absPath)}`);
+        broadcast({ type: WS.CODE_CHANGED, version: String(Date.now()) });
+      }, 200),
+    );
+  });
+
 console.log("Watching for changes...");

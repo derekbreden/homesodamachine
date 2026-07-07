@@ -8,10 +8,12 @@ export const WS = {
   PING: "ping",                   // 30s heartbeat: { type, t }
   FILES_CHANGED: "files-changed", // { type, commit?, files: string[] } — CAD/board artifact paths
   POSTS_CHANGED: "posts-changed", // { type, commit?, posts: object[] } — blog entries
+  CODE_CHANGED: "code-changed",   // { type, version } — dev-only: a viewer render module was edited (web/dev-server watches web/public/js/viewer); version is the cache-bust token the client re-imports the leaf loader under
 };
 
 /** @typedef {{ type: "hello", commit: string, time: number, recent?: Recent }} Hello */
 /** @typedef {{ type: "ping", t: number }} Ping */
 /** @typedef {{ type: "files-changed", commit?: string, files: string[] }} FilesChanged */
 /** @typedef {{ type: "posts-changed", commit?: string, posts: object[] }} PostsChanged post item shape: describeChangedPosts in web/lib/push.js */
+/** @typedef {{ type: "code-changed", version: string }} CodeChanged dev viewer-source hot-reload signal */
 /** @typedef {{ commit: string, ts: number, files?: string[], posts?: object[] }} Recent latest boot-diff, replayed on reconnect */
