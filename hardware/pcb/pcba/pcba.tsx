@@ -493,10 +493,7 @@ export default () => (
     {/* EVICTED — the autorouter drove both IO19 and IO23 with a full-stack via straight through
         my hand-owned UART corridor (worst floor −0.243 at the TXD run). Tabled; reintroduce one
         at a time after the corner is clean, hand-routing whichever the router fubars. */}
-    {/* IO23 reintroduced clean (autorouter finds a non-fouling path). IO19's pad (-57.4,9) opens
-        into the densest corridor congestion; reintroducing it re-solves globally and fouls the
-        corner (floor -0.291). Deferred as its own focused hand-route.
-    <trace from=".J5 > .IO19" to=".U1 > .IO19" /> */}
+    <trace from=".J5 > .IO19" to=".U1 > .IO19" />
     <trace from=".J5 > .IO23" to=".U1 > .IO23" />
     <trace from=".J5 > .V5" to="net.V5" />
     <trace from=".J5 > .GND" to="net.GND" />
@@ -711,12 +708,9 @@ export default () => (
     {/* pin15 is the SOUTH J14 VBUS pad (y15.35), pin16 the NORTH (y20.15). Chain pin5-pin15-C22-pin16,
         no column traversal: pin5 ducks south to the south pad; pin16 hops north to C22 on top; pin15
         runs up the west free zone to C22 on the bottom. */}
-    <trace from=".U14 > .pin5" to=".J14 > .pin15" pcbPathRelativeTo=".U14 > .pin5"
-      pcbPath={[...drop(up, -54.1, 17.75), up(-54.1, 15.5), up(-58.0, 15.7), ...rise(up, -59.83, 15.35)]} />
-    <trace from=".J14 > .pin16" to=".C22 > .pin1" pcbPathRelativeTo=".J14 > .pin16"
-      pcbPath={[jp(-59.83, 20.15), jp(-57.3, 20.4), jp(-56.25, 21.5)]} />
-    <trace from=".J14 > .pin15" to=".C22 > .pin1" pcbPathRelativeTo=".J14 > .pin15"
-      pcbPath={[...drop(jp, -59.83, 15.35), jp(-58.0, 16.0), jp(-58.0, 20.5), ...rise(jp, -56.25, 21.5)]} />
+    <trace from=".U14 > .pin5" to=".J14 > .pin15" />
+    <trace from=".J14 > .pin16" to=".C22 > .pin1" />
+    <trace from=".J14 > .pin15" to=".C22 > .pin1" />
     <trace from=".C22 > .pin2" to="net.GND" />
     {/* host-D pair — hand-routed on TOP, U14 east side to U13 west side (own target 1). */}
     <trace from=".U14 > .pin6" to=".U13 > .D_POS" pcbPathRelativeTo=".U14 > .pin6"
@@ -736,7 +730,7 @@ export default () => (
     {/* Owning RXD (target 3): BOTTOM, dives south and wraps under TXD to reach IO1 from the SW,
         so the UART pair never shares a crossing on one layer. */}
     <trace from=".U13 > .RXD" to=".U1 > .IO1" pcbPathRelativeTo=".U13 > .RXD"
-      pcbPath={[...drop(u13p, -51.12, 19.41), u13p(-52.0, 19.0), u13p(-52.0, 10.5), u13p(-61.0, 7.8), ...rise(u13p, -62.48, 9.0)]} />
+      pcbPath={[...drop(u13p, -51.12, 19.41), u13p(-52.0, 19.0), u13p(-52.0, 10.5), u13p(-56.5, 8.2), u13p(-61.0, 7.8), ...rise(u13p, -62.48, 9.0)]} />
     {/* Auto-reset cross-coupled pair (see block header for the truth table). */}
     <trace from=".U13 > .DTR" to=".R17 > .pin1" />
     <trace from=".R17 > .pin2" to=".Q2 > .B" />
