@@ -309,8 +309,12 @@ export default () => (
     <trace from=".C11 > .pin1" to="net.V3V3" />
     <trace from=".C11 > .pin2" to="net.GND" />
     <trace from=".R7 > .pin2" to="net.V3V3" />
-    <trace from=".R7 > .pin1" to=".U1 > .EN" />
-    <trace from=".C12 > .pin1" to=".U1 > .EN" />
+    {/* EVICTED — the whole EN node (R7/C12 RC high side + the auto-reset Q2.C/SW2 legs) is one
+        net; the autorouter squeezed it into my UART corridor with a via at (−57.1,10.7). Tabled
+        end-to-end; own EN as a unit once the corner floor is clean. R7.pin2/C12.pin2 keep their
+        rail ties so only the EN node floats. */}
+    {/* <trace from=".R7 > .pin1" to=".U1 > .EN" /> */}
+    {/* <trace from=".C12 > .pin1" to=".U1 > .EN" /> */}
     <trace from=".C12 > .pin2" to="net.GND" />
     <trace from=".R8 > .pin2" to="net.V3V3" />
     {/* TABLED — crosses the pump bus in the corner-south band; evicted, own/reintroduce later.
@@ -453,7 +457,7 @@ export default () => (
     <trace from=".U1 > .IO18" to=".U11 > .IN2" pcbPathRelativeTo=".U1 > .IO18"
       pcbPath={[u1p(-56.13, 9), u1p(-56.13, 11.0), u1p(-54.0, 12.0), ...drop(u1p, -44.0, 12.0), u1p(-38.0, 13.0), u1p(-30.0, 17.0), ...rise(u1p, -28.89, 19.73)]} />
     <trace from=".U1 > .IO17" to=".U11 > .IN1" pcbPathRelativeTo=".U1 > .IO17"
-      pcbPath={[u1p(-53.59, 9), u1p(-53.1, 10.6), u1p(-52.5, 11.25), ...drop(u1p, -44.0, 11.25), u1p(-38.0, 12.0), u1p(-28.5, 16.0), ...rise(u1p, -27.61, 19.73)]} />
+      pcbPath={[u1p(-53.59, 9), u1p(-53.1, 10.6), u1p(-52.5, 11.25), ...drop(u1p, -44.0, 11.25), u1p(-38.0, 12.0), u1p(-30.5, 14.3), u1p(-28.5, 16.0), ...rise(u1p, -27.61, 19.73)]} />
     <trace from=".U11 > .VM" to="net.V12" />
     <trace from=".U11 > .GND" to="net.GND" />
     <trace from=".U11 > .PAD" to="net.GND" />
@@ -465,10 +469,15 @@ export default () => (
     <trace from=".C17 > .pin2" to="net.GND" />
     <trace from=".C18 > .pin1" to="net.V12" />
     <trace from=".C18 > .pin2" to="net.GND" />
+    {/* IO16 top lane pushed north (y10.8) through x[-51,-48] to open a clean channel for IO4 to
+        cross OVER the IO0 pad (IO4 is jammed against IO0 with only a 0.32 mm inter-pad gap). */}
     <trace from=".U1 > .IO16" to=".U12 > .IN2" pcbPathRelativeTo=".U1 > .IO16"
-      pcbPath={[u1p(-52.32, 9), u1p(-52.32, 10.2), u1p(-51.0, 10.5), ...drop(u1p, -44.0, 10.5), u1p(-38.0, 11.0), u1p(-24.8, 14.2), ...rise(u1p, -21.89, 19.73)]} />
+      pcbPath={[u1p(-52.32, 9), u1p(-52.32, 10.4), u1p(-51.0, 10.8), u1p(-48.0, 10.8), ...drop(u1p, -44.0, 10.8), u1p(-38.0, 11.0), u1p(-24.8, 14.2), ...rise(u1p, -21.89, 19.73)]} />
+    {/* IO4 (easternmost bus pad, jammed against IO0) rises to y10.35 to clear the IO0 pad's north
+        edge (y10.05) by 0.2 mm, crosses OVER it on top through the channel IO16 opened, then drops
+        back to y9.9 east of IO0 and onto the bottom plane as the southmost lane. */}
     <trace from=".U1 > .IO4" to=".U12 > .IN1" pcbPathRelativeTo=".U1 > .IO4"
-      pcbPath={[u1p(-51.05, 9), u1p(-51.05, 9.8), u1p(-49.3, 9.9), ...drop(u1p, -44.0, 9.9), u1p(-38.0, 10.2), u1p(-22.0, 14.0), ...rise(u1p, -20.61, 19.73)]} />
+      pcbPath={[u1p(-51.05, 9), u1p(-51.05, 9.6), u1p(-50.9, 10.35), u1p(-48.9, 10.35), u1p(-46.0, 9.9), ...drop(u1p, -44.0, 9.9), u1p(-38.0, 10.2), u1p(-22.0, 14.0), ...rise(u1p, -20.61, 19.73)]} />
     <trace from=".U12 > .VM" to="net.V12" />
     <trace from=".U12 > .GND" to="net.GND" />
     <trace from=".U12 > .PAD" to="net.GND" />
@@ -482,8 +491,11 @@ export default () => (
     <trace from=".C20 > .pin2" to="net.GND" />
 
     {/* RELAYS (J5): logic out to the two external opto-isolated relay modules + their V5 coil supply. */}
-    <trace from=".J5 > .IO19" to=".U1 > .IO19" />
-    <trace from=".J5 > .IO23" to=".U1 > .IO23" />
+    {/* EVICTED — the autorouter drove both IO19 and IO23 with a full-stack via straight through
+        my hand-owned UART corridor (worst floor −0.243 at the TXD run). Tabled; reintroduce one
+        at a time after the corner is clean, hand-routing whichever the router fubars. */}
+    {/* <trace from=".J5 > .IO19" to=".U1 > .IO19" /> */}
+    {/* <trace from=".J5 > .IO23" to=".U1 > .IO23" /> */}
     <trace from=".J5 > .V5" to="net.V5" />
     <trace from=".J5 > .GND" to="net.GND" />
 
@@ -678,10 +690,12 @@ export default () => (
     <trace from=".R15 > .pin2" to="net.GND" />
     <trace from=".J14 > .pin12" to=".R16 > .pin1" />
     <trace from=".R16 > .pin2" to="net.GND" />
+    {/* D+ = A6+B6, D- = A7+B7 (both connector orientations tied). Only ONE pad of each pair
+        runs onward to U14; its twin ties to it with a short jumper, not a second full path. */}
     <trace from=".J14 > .pin8" to=".U14 > .pin1" />
-    <trace from=".J14 > .pin10" to=".U14 > .pin1" />
+    <trace from=".J14 > .pin10" to=".J14 > .pin8" />
     <trace from=".J14 > .pin7" to=".U14 > .pin3" />
-    <trace from=".J14 > .pin9" to=".U14 > .pin3" />
+    <trace from=".J14 > .pin9" to=".J14 > .pin7" />
     {/* TABLED — crossed my host-D− on top; evicted (own VBUS later). <trace from=".J14 > .pin15" to=".U14 > .pin5" /> */}
     {/* TABLED — crossed my host-D− on top; evicted (own VBUS later). <trace from=".J14 > .pin16" to=".U14 > .pin5" /> */}
     {/* ESD array: GND + VBUS rail + bypass cap; D+/D- pass through to the bridge. */}
@@ -722,7 +736,7 @@ export default () => (
     <trace from=".U13 > .DTR" to=".R17 > .pin1" />
     <trace from=".R17 > .pin2" to=".Q2 > .B" />
     <trace from=".U13 > .RTS" to=".Q2 > .E" />
-    <trace from=".Q2 > .C" to=".U1 > .EN" />
+    {/* EVICTED with the rest of the EN node (see R7/C12 above). <trace from=".Q2 > .C" to=".U1 > .EN" /> */}
     <trace from=".U13 > .RTS" to=".R18 > .pin1" />
     <trace from=".R18 > .pin2" to=".Q3 > .B" />
     <trace from=".U13 > .DTR" to=".Q3 > .E" />
@@ -732,7 +746,7 @@ export default () => (
     {/* TABLED — crosses the pump bus in the band; evicted, own/reintroduce later.
         <trace from=".SW1 > .pin1" to=".U1 > .IO0" /> */}
     <trace from=".SW1 > .pin4" to="net.GND" />
-    <trace from=".SW2 > .pin1" to=".U1 > .EN" />
+    {/* EVICTED with the rest of the EN node (see R7/C12 above). <trace from=".SW2 > .pin1" to=".U1 > .EN" /> */}
     <trace from=".SW2 > .pin4" to="net.GND" />
 
     {/* ── M3 mounting holes, one per corner, plated and tied to GND so a metal screw can't
