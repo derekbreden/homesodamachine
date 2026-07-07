@@ -683,8 +683,50 @@ export default () => (
         (x-58.0, up to y20.5). Left to the autorouter until VBUS is re-choreographed to free it. */}
     {/* <trace from=".J14 > .pin8" to=".U14 > .pin1" /> */}
     {/* <trace from=".J14 > .pin10" to=".J14 > .pin8" /> */}
+    <trace
+        from="U14.pin1"
+        to="J14.pin10"
+        pcbPath={[
+            "U14.pin1",
+            { x: -0.95, y: -0.35},
+            { x: 1.5, y: -0.35},
+            { x: 1.5, y: -3.5},
+            { x: 0.75, y: -3.5},
+            "J14.pin10"
+        ]}
+    />
+    <trace
+        from="J14.pin10"
+        to="J14.pin8"
+        pcbPath={[
+            "J14.pin10",
+            { x: 0.75, y: 1.2},
+            { x: -0.2, y: 1.2},
+            "J14.pin8"
+        ]}
+    />
     {/* <trace from=".J14 > .pin9" to=".U14 > .pin3" /> */}
     {/* <trace from=".J14 > .pin7" to=".J14 > .pin9" /> */}
+    <trace
+        from="U14.pin3"
+        to="J14.pin9"
+        pcbPath={[
+            "U14.pin3",
+            { x: 0.95, y: -3},
+            { x: 0.25, y: -3},
+            "J14.pin9"
+        ]}
+    />
+    <trace
+        from="U14.pin3"
+        to="J14.pin7"
+        pcbPath={[
+            "U14.pin3",
+            { x: 0.95, y: -3},
+            { x: -0.75, y: -3},
+            "J14.pin7"
+        ]}
+    />
     {/* TABLED — crossed my host-D− on top; evicted (own VBUS later). <trace from=".J14 > .pin15" to=".U14 > .pin5" /> */}
     {/* TABLED — crossed my host-D− on top; evicted (own VBUS later). <trace from=".J14 > .pin16" to=".U14 > .pin5" /> */}
     {/* ESD array: GND + VBUS rail + bypass cap; D+/D- pass through to the bridge. */}
@@ -696,8 +738,40 @@ export default () => (
         no column traversal: pin5 ducks south to the south pad; pin16 hops north to C22 on top; pin15
         runs up the west free zone to C22 on the bottom. */}
     {/* <trace from=".U14 > .pin5" to=".J14 > .pin15" /> */}
+    <trace
+        from="U14.pin5"
+        to="C22.pin1"
+        pcbPath={[
+            "U14.pin5",
+            { x: 0, y: 0.35},
+            { x: -2.7, y: 0.35},
+            { x: -2.7, y: -1},
+            "C22.pin1"
+        ]}
+    />
     {/* <trace from=".J14 > .pin16" to=".C22 > .pin1" /> */}
+    <trace
+        from="C22.pin1"
+        to="J14.pin16"
+        pcbPath={[
+            "C22.pin1",
+            { x: -3.5, y: 0},
+            { x: -3.5, y: -1.35},
+            "J14.pin16"
+        ]}
+    />
     {/* <trace from=".J14 > .pin15" to=".C22 > .pin1" /> */}
+    <trace
+        from="U14.pin5"
+        to="J14.pin15"
+        pcbPath={[
+            "U14.pin5",
+            { x: 0, y: 0.35},
+            { x: 2.4, y: 0.35},
+            { x: 2.4, y: -1},
+            "J14.pin15"
+        ]}
+    />
     <trace from=".C22 > .pin2" to="net.GND" />
     <trace from=".U14 > .pin6" to=".U13 > .D_POS" />
     <trace from=".U14 > .pin4" to=".U13 > .D_NEG" />
