@@ -83,6 +83,7 @@ const ID = boardVersionParts()
 const jp = (x: number, y: number) => ({ x: 17.75 - y, y: x + 62 })      // J14 @ (-62, 17.75)
 const up = (x: number, y: number) => ({ x: 17.75 - y, y: x + 55.25 })   // U14 @ (-55.25, 17.75)
 const u13p = (x: number, y: number) => ({ x: 17.5 - y, y: x + 48.25 })  // U13 @ (-48.25, 17.5)
+const u1p = (x: number, y: number) => ({ x: x + 57, y })                // U1 (ESP32) @ (-57, 0), rot 0 → local = board − center
 type Frame = (x: number, y: number) => { x: number; y: number }
 // A full-stack via at (x,y) landing on `toLayer`, in frame `p`.
 const via = (p: Frame, x: number, y: number, toLayer: "top" | "bottom") =>
@@ -312,7 +313,8 @@ export default () => (
     <trace from=".C12 > .pin1" to=".U1 > .EN" />
     <trace from=".C12 > .pin2" to="net.GND" />
     <trace from=".R8 > .pin2" to="net.V3V3" />
-    <trace from=".R8 > .pin1" to=".U1 > .IO0" />
+    {/* TABLED — crosses the pump bus in the corner-south band; evicted, own/reintroduce later.
+        <trace from=".R8 > .pin1" to=".U1 > .IO0" /> */}
 
     {/* 5V rail -> inner2 plane, now sourced by the K7805 buck (U10). Faucet, sensors, and
         gas common to it at their barrels; the buzzer high side (U8 +) auto-stitches to it.
@@ -446,10 +448,12 @@ export default () => (
         H-bridge polarity, so the firmware picks the forward sense). OUT1/OUT2 to the PUMPS
         connector. VM off 12V; GND + thermal PAD to the plane; ISEN to GND, VREF to 3V3; VM
         decoupled by C17/C18 (U11) and C19/C20 (U12). IO5 and IO15 are the only free GPIO. */}
-    {/* TABLED — pump transit net; the autorouter drives it across host-D even with the corner full,
-        so it must be hand-owned around the corner (pending). <trace from=".U1 > .IO18" to=".U11 > .IN2" /> */}
-    {/* TABLED — the autorouter drove this far-away pump-control net across my host-D corner.
-        Evicted, no negotiation. <trace from=".U1 > .IO17" to=".U11 > .IN1" /> */}
+    {/* Owning IO18 (pump transit): exits its top pad NORTH over the bottom UART, crosses east past
+        TXD/RXD's bottom corridors on top, drops to the clear bottom plane, then runs east to U11. */}
+    <trace from=".U1 > .IO18" to=".U11 > .IN2" pcbPathRelativeTo=".U1 > .IO18"
+      pcbPath={[u1p(-56.13, 9), u1p(-56.13, 11.0), u1p(-54.0, 12.0), ...drop(u1p, -44.0, 12.0), u1p(-38.0, 13.0), u1p(-30.0, 17.0), ...rise(u1p, -28.89, 19.73)]} />
+    <trace from=".U1 > .IO17" to=".U11 > .IN1" pcbPathRelativeTo=".U1 > .IO17"
+      pcbPath={[u1p(-53.59, 9), u1p(-53.59, 10.5), u1p(-52.5, 11.25), ...drop(u1p, -44.0, 11.25), u1p(-38.0, 12.0), u1p(-28.5, 16.0), ...rise(u1p, -27.61, 19.73)]} />
     <trace from=".U11 > .VM" to="net.V12" />
     <trace from=".U11 > .GND" to="net.GND" />
     <trace from=".U11 > .PAD" to="net.GND" />
@@ -461,8 +465,10 @@ export default () => (
     <trace from=".C17 > .pin2" to="net.GND" />
     <trace from=".C18 > .pin1" to="net.V12" />
     <trace from=".C18 > .pin2" to="net.GND" />
-    <trace from=".U1 > .IO16" to=".U12 > .IN2" />
-    <trace from=".U1 > .IO4" to=".U12 > .IN1" />
+    <trace from=".U1 > .IO16" to=".U12 > .IN2" pcbPathRelativeTo=".U1 > .IO16"
+      pcbPath={[u1p(-52.32, 9), u1p(-52.32, 10.2), u1p(-51.0, 10.5), ...drop(u1p, -44.0, 10.5), u1p(-38.0, 11.0), u1p(-23.0, 15.0), ...rise(u1p, -21.89, 19.73)]} />
+    <trace from=".U1 > .IO4" to=".U12 > .IN1" pcbPathRelativeTo=".U1 > .IO4"
+      pcbPath={[u1p(-51.05, 9), u1p(-51.05, 9.8), u1p(-49.5, 9.9), ...drop(u1p, -44.0, 9.9), u1p(-38.0, 10.2), u1p(-22.0, 14.0), ...rise(u1p, -20.61, 19.73)]} />
     <trace from=".U12 > .VM" to="net.V12" />
     <trace from=".U12 > .GND" to="net.GND" />
     <trace from=".U12 > .PAD" to="net.GND" />
@@ -720,9 +726,11 @@ export default () => (
     <trace from=".U13 > .RTS" to=".R18 > .pin1" />
     <trace from=".R18 > .pin2" to=".Q3 > .B" />
     <trace from=".U13 > .DTR" to=".Q3 > .E" />
-    <trace from=".Q3 > .C" to=".U1 > .IO0" />
+    {/* TABLED — crosses the pump bus in the band; evicted, own/reintroduce later.
+        <trace from=".Q3 > .C" to=".U1 > .IO0" /> */}
     {/* Manual BOOT (IO0) / RESET (EN) — diagonal switch pads = the two terminals. */}
-    <trace from=".SW1 > .pin1" to=".U1 > .IO0" />
+    {/* TABLED — crosses the pump bus in the band; evicted, own/reintroduce later.
+        <trace from=".SW1 > .pin1" to=".U1 > .IO0" /> */}
     <trace from=".SW1 > .pin4" to="net.GND" />
     <trace from=".SW2 > .pin1" to=".U1 > .EN" />
     <trace from=".SW2 > .pin4" to="net.GND" />
