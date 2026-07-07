@@ -65,7 +65,8 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | J10 — 12 V inlet | KF301-5.0-2P screw terminal, 2P 5.0 mm, 17 A / 250 V, 14–22 AWG | THT block, 5.0 mm pitch | C474881 | Extended | 165,152 (2026-07-02) | $0.0995 |
 | U15 — phone-demo 5V→12V boost | MT3608, 2 A step-up | SOT-23-6 | C84817 | Extended | 278,021 (2026-07-06) | $0.06 |
 | L1 — boost inductor | FNR4030S4R7MT, 4.7 µH shielded power inductor | SMD 4×4 mm | C167874 | Extended | 290,424 (2026-07-06) | — |
-| D7, D8 — boost rectifier / VBUS→V5 iso | SS34, 40 V / 3 A Schottky | SMA (DO-214AC) | C8678 | Basic | 3,282,802 (2026-07-06) | — |
+| D7 — boost rectifier / D8 — USB-C VBUS→V5 entry | SS34, 40 V / 3 A Schottky | SMA (DO-214AC) | C8678 | Basic | 3,282,802 (2026-07-06) | — |
+| R22 — buck-input link (0Ω prod / DNP demo) | 0 Ω jumper | 0805 | C17477 | Basic | 2,429,720 (2026-07-06) | — |
 | R19 — boost FB top | 180 kΩ ±1% | 0603 | C22827 | Basic | 232,606 (2026-07-06) | — |
 | R21 — valve-reservoir isolation (demo 4.7 Ω / prod 0 Ω) | 4.7 Ω ±5% | 0805 | C2907327 | (FRC) | 360,473 (2026-07-06) | — |
 | C23 — boost VIN | 10 µF 25V (see C11) | 0805 | C15850 | Basic | — | — |
@@ -78,13 +79,17 @@ C94598 = Jiangsu Huaneng MLT-5020; C2146 = JSCJ S8050 J3Y; C474881 = Cixi Kefa E
 KF301-5.0-2P screw terminal; XH2.54 connectors = XUNPU WAFER-XH2.54-{n}PZZ, one vendor
 across the six pin counts used (3/4/5/6/7/9P), vertical THT.
 
-**Phone-powered-demo boost stage (U15/L1/D7/D8/R19/R20/R21/C23/C24)** — populated ONLY on a
-demonstration build (pie-in-the-sky/phone-powered-demo.md). MT3608 (`C84817`) boosts an iPhone's
-USB-C VBUS to ~11.4 V (V12D) to drive the display + click a valve; SS34s (`C8678`) are the boost
-rectifier (D7) and the VBUS→V5 reverse-isolation diode (D8). Footprints pulled from the JLCPCB
-library into `imports/` (MT3608 SOT-23-6, SS34 SMA, FNR4030 4×4). For a full-power PRODUCTION
-board on external 12 V, leave the boost DNP and stuff R21 = 0 Ω so the manifold valves see stiff
-12 V (on the demo board R21 = 4.7 Ω isolates the valve reservoir C3 from the display supply).
+**Phone-powered-demo stage (pie-in-the-sky/phone-powered-demo.md).** D8 (SS34, `C8678`) is the USB-C
+power entry — VBUS→V5 — populated on EVERY board (a production board with no 12 V inlet still flashes/
+talks over USB through it). The BOOST (U15/L1/D7/C23/C24/R19/R20) is populated ONLY on a demonstration
+build: MT3608 (`C84817`) boosts the **5 V rail** to ~11.4 V (V12D) to drive the display + click a
+valve; D7 is the SS34 boost rectifier. All silicon footprints pulled from the JLCPCB library with
+`tsci import <C#>` into `imports/` (so CPL rotation + pad polarity match JLCPCB's library exactly —
+never hand-drawn). Two 0 Ω / DNP links flip a board between demo and production: **R22** (buck input) —
+0 Ω on production (buck runs off J10's 12 V), DNP on demo (isolates the buck so V5→boost→12V can't
+loop); **R21** (valve reservoir) — 0 Ω on production (stiff valves), 4.7 Ω on demo (isolates the C3
+reservoir from the display). Production = buck + R21/R22 0 Ω, boost DNP; demo = boost + R21 4.7 Ω,
+R22 DNP.
 
 **U7 is `C51949447` (COSINE COS13487EESA-3.3), a native-3.3 V auto-direction RS-485
 transceiver** — a MAX13487E-equivalent whose datasheet pin map (1 RO, 2 /RE, 3 /SHDN,
