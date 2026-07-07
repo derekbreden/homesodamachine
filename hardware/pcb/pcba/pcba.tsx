@@ -684,9 +684,9 @@ export default () => (
         D+'s alone — both data pads fan up to U14.pin1 on top, converging from the north-west to
         clear the large GND pad (U14.pin2) that sits just south of pin1. 0 vias. */}
     <trace from=".J14 > .pin8" to=".U14 > .pin1" pcbPathRelativeTo=".J14 > .pin8"
-      pcbPath={[jp(-58.5, 18.0), jp(-57.0, 18.5)]} />
-    <trace from=".J14 > .pin10" to=".U14 > .pin1" pcbPathRelativeTo=".J14 > .pin10"
-      pcbPath={[jp(-57.9, 17.0), jp(-57.3, 18.4), jp(-56.85, 18.62)]} />
+      pcbPath={[jp(-57.5, 18.3)]} />
+    <trace from=".J14 > .pin10" to=".J14 > .pin8" pcbPathRelativeTo=".J14 > .pin10"
+      pcbPath={[jp(-58.3, 17.0), jp(-58.3, 18.0)]} />
     {/* D- (pin7+pin9): the data pads interleave the D+ pair, so each escapes ~1mm east and drops
         through a full-stack via just past the pad tips, crosses under the D+ fan on the bottom, and
         rises once in-pad at U14.pin3 (pin7 rides pin9's landing via). */}
@@ -709,9 +709,11 @@ export default () => (
     {/* ESD -> bridge: U14's host-side D+/D- duck to the bottom between U14 and U13 so the WROOM's
         north-castellation fan-out (pump/relay/I2C nets) keeps the top lanes here. */}
     <trace from=".U14 > .pin6" to=".U13 > .D_POS" pcbPathRelativeTo=".U14 > .pin6"
-      pcbPath={[...drop(up, -54.1, 18.7), up(-52.6, 17.6), ...rise(up, -51.12, 16.87)]} />
+      pcbPath={[up(-54.1, 18.7), { ...up(-54.1, 18.7), via: true, toLayer: "inner1" }, up(-54.1, 18.7),
+        up(-52.6, 17.6), up(-51.12, 16.87), { ...up(-51.12, 16.87), via: true, toLayer: "top" }, up(-51.12, 16.87)]} />
     <trace from=".U14 > .pin4" to=".U13 > .D_NEG" pcbPathRelativeTo=".U14 > .pin4"
-      pcbPath={[...drop(up, -54.1, 16.8), up(-52.6, 16.1), ...rise(up, -51.12, 15.6)]} />
+      pcbPath={[up(-54.1, 16.8), { ...up(-54.1, 16.8), via: true, toLayer: "inner1" }, up(-54.1, 16.8),
+        up(-52.6, 16.1), up(-51.12, 15.6), { ...up(-51.12, 15.6), via: true, toLayer: "top" }, up(-51.12, 15.6)]} />
     {/* CH340C: 3V3 supply (VCC + V3 tied for 3.3 V op) + 0.1uF decoupling; UART crossed to
         the WROOM (bridge TXD -> ESP RXD0/IO3, bridge RXD -> ESP TXD0/IO1). */}
     <trace from=".U13 > .VCC" to="net.V3V3" />
@@ -723,9 +725,10 @@ export default () => (
         which sit mid-fanout — so, like the autorouter's original, they drop to the bottom right at
         U13 and run under the flip-short + the castellation fanout, surfacing in-pad at the ESP. */}
     <trace from=".U13 > .TXD" to=".U1 > .IO3" pcbPathRelativeTo=".U13 > .TXD"
-      pcbPath={[u13v(-51.12, 20.68, "bottom"), u13p(-51.5, 13.0), u13p(-58.0, 11.0), u13v(-61.21, 9.0, "top")]} />
+      pcbPath={[u13v(-51.12, 20.68, "bottom"), u13p(-51.7, 19.2), u13p(-51.7, 13.0), u13p(-58.0, 11.0), u13v(-61.21, 9.0, "top")]} />
     <trace from=".U13 > .RXD" to=".U1 > .IO1" pcbPathRelativeTo=".U13 > .RXD"
-      pcbPath={[u13v(-51.12, 19.41, "bottom"), u13p(-52.0, 13.5), u13p(-59.0, 11.5), u13v(-62.48, 9.0, "top")]} />
+      pcbPath={[u13v(-51.12, 19.41, "inner1"), u13p(-52.2, 18.6), u13v(-52.2, 18.6, "bottom"),
+        u13p(-52.7, 13.5), u13p(-59.0, 11.5), u13v(-62.48, 9.0, "top")]} />
     {/* Auto-reset cross-coupled pair (see block header for the truth table). */}
     <trace from=".U13 > .DTR" to=".R17 > .pin1" />
     <trace from=".R17 > .pin2" to=".Q2 > .B" />
