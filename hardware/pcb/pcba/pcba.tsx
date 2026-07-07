@@ -449,8 +449,8 @@ export default () => (
         decoupled by C17/C18 (U11) and C19/C20 (U12). IO5 and IO15 are the only free GPIO. */}
     {/* Owning IO18 (pump transit): exits its top pad NORTH over the bottom UART, crosses east past
         TXD/RXD's bottom corridors on top, drops to the clear bottom plane, then runs east to U11. */}
-    <trace from=".U1 > .IO18" to=".U11 > .IN2" />
-    <trace from=".U1 > .IO17" to=".U11 > .IN1" />
+    {/* <trace from=".U1 > .IO18" to=".U11 > .IN2" />
+    <trace from=".U1 > .IO17" to=".U11 > .IN1" /> */}
     <trace from=".U11 > .VM" to="net.V12" />
     <trace from=".U11 > .GND" to="net.GND" />
     <trace from=".U11 > .PAD" to="net.GND" />
@@ -480,8 +480,8 @@ export default () => (
     {/* EVICTED — the autorouter drove both IO19 and IO23 with a full-stack via straight through
         my hand-owned UART corridor (worst floor −0.243 at the TXD run). Tabled; reintroduce one
         at a time after the corner is clean, hand-routing whichever the router fubars. */}
-    <trace from=".J5 > .IO19" to=".U1 > .IO19" />
-    <trace from=".J5 > .IO23" to=".U1 > .IO23" />
+    {/* <trace from=".J5 > .IO19" to=".U1 > .IO19" />
+    <trace from=".J5 > .IO23" to=".U1 > .IO23" /> */}
     <trace from=".J5 > .V5" to="net.V5" />
     <trace from=".J5 > .GND" to="net.GND" />
 
@@ -681,10 +681,10 @@ export default () => (
         connector-side tie of either pair must hop a different-net pad — needing a via — and the
         only bottom escape channel east of the tips is occupied by the VBUS pin15->C22 run
         (x-58.0, up to y20.5). Left to the autorouter until VBUS is re-choreographed to free it. */}
-    <trace from=".J14 > .pin8" to=".U14 > .pin1" />
-    <trace from=".J14 > .pin10" to=".J14 > .pin8" />
-    <trace from=".J14 > .pin9" to=".U14 > .pin3" />
-    <trace from=".J14 > .pin7" to=".J14 > .pin9" />
+    {/* <trace from=".J14 > .pin8" to=".U14 > .pin1" /> */}
+    {/* <trace from=".J14 > .pin10" to=".J14 > .pin8" /> */}
+    {/* <trace from=".J14 > .pin9" to=".U14 > .pin3" /> */}
+    {/* <trace from=".J14 > .pin7" to=".J14 > .pin9" /> */}
     {/* TABLED — crossed my host-D− on top; evicted (own VBUS later). <trace from=".J14 > .pin15" to=".U14 > .pin5" /> */}
     {/* TABLED — crossed my host-D− on top; evicted (own VBUS later). <trace from=".J14 > .pin16" to=".U14 > .pin5" /> */}
     {/* ESD array: GND + VBUS rail + bypass cap; D+/D- pass through to the bridge. */}
@@ -695,9 +695,9 @@ export default () => (
     {/* pin15 is the SOUTH J14 VBUS pad (y15.35), pin16 the NORTH (y20.15). Chain pin5-pin15-C22-pin16,
         no column traversal: pin5 ducks south to the south pad; pin16 hops north to C22 on top; pin15
         runs up the west free zone to C22 on the bottom. */}
-    <trace from=".U14 > .pin5" to=".J14 > .pin15" />
-    <trace from=".J14 > .pin16" to=".C22 > .pin1" />
-    <trace from=".J14 > .pin15" to=".C22 > .pin1" />
+    {/* <trace from=".U14 > .pin5" to=".J14 > .pin15" /> */}
+    {/* <trace from=".J14 > .pin16" to=".C22 > .pin1" /> */}
+    {/* <trace from=".J14 > .pin15" to=".C22 > .pin1" /> */}
     <trace from=".C22 > .pin2" to="net.GND" />
     <trace from=".U14 > .pin6" to=".U13 > .D_POS" />
     <trace from=".U14 > .pin4" to=".U13 > .D_NEG" />
@@ -709,13 +709,13 @@ export default () => (
     <trace from=".C21 > .pin1" to="net.V3V3" />
     <trace from=".C21 > .pin2" to="net.GND" />
     {/* UART crossed to the WROOM (bridge TXD -> ESP RXD0/IO3, bridge RXD -> ESP TXD0/IO1). */}
-    <trace from=".U13 > .TXD" to=".U1 > .IO3" />
-    <trace from=".U13 > .RXD" to=".U1 > .IO1" />
+    {/* <trace from=".U13 > .TXD" to=".U1 > .IO3" /> */}
+    {/* <trace from=".U13 > .RXD" to=".U1 > .IO1" /> */}
     {/* Auto-reset cross-coupled pair (see block header for the truth table). */}
     <trace from=".U13 > .DTR" to=".R17 > .pin1" />
     <trace from=".R17 > .pin2" to=".Q2 > .B" />
     <trace from=".U13 > .RTS" to=".Q2 > .E" />
-    <trace from=".Q2 > .C" to=".U1 > .EN" />
+    {/* <trace from=".Q2 > .C" to=".U1 > .EN" /> */}
     <trace from=".U13 > .RTS" to=".R18 > .pin1" />
     <trace from=".R18 > .pin2" to=".Q3 > .B" />
     <trace from=".U13 > .DTR" to=".Q3 > .E" />
@@ -723,7 +723,7 @@ export default () => (
     {/* Manual BOOT (IO0) / RESET (EN) — diagonal switch pads = the two terminals. */}
     <trace from=".SW1 > .pin1" to=".U1 > .IO0" />
     <trace from=".SW1 > .pin4" to="net.GND" />
-    <trace from=".SW2 > .pin1" to=".U1 > .EN" />
+    {/* <trace from=".SW2 > .pin1" to=".U1 > .EN" /> */}
     <trace from=".SW2 > .pin4" to="net.GND" />
 
     {/* ── M3 mounting holes, one per corner, plated and tied to GND so a metal screw can't
