@@ -28,6 +28,10 @@ checked on every build rather than assembled at the end.
 - [`plane-stitching.md`](plane-stitching.md) — how SMD pads on a plane net are auto-stitched
   to the plane (and why a stitch via must carry the net), since DRC is pour-blind and won't
   flag a floating pad.
+- [`autorouter-is-deterministic.md`](autorouter-is-deterministic.md) — the capacity autorouter
+  is deterministic (same input → byte-identical output); the "whack-a-mole" is a deterministic
+  global re-solve with zero locality, not randomness. Read before reasoning about why a trace
+  moved. Proof + reproduction + what it means for method.
 - [`route-hints.md`](route-hints.md) — how to influence PCB routing on this board: why the
   `pcbRouteHints` prop is inert under our capacity autorouter, `<tracehint>` for soft nudges,
   and `pcbPath` / `pcbComb` for deterministic paths, vias, and layers.

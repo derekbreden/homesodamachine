@@ -5,6 +5,14 @@
 routing controls actually do anything: a few tscircuit knobs are wired only to the *other*,
 opt-in `sequential-trace` router and are silently inert here.
 
+> **The capacity autorouter is deterministic** — same input, byte-identical output, every
+> render. The "whack-a-mole" (pin one trace, three others move) is *not* randomness: it is a
+> deterministic global re-optimization with zero solution-locality, so a change anywhere
+> ripples everywhere — repeatably. Do not blame ripples on nondeterminism, and do not
+> re-discover this. Proof, mechanism, and consequences:
+> [`autorouter-is-deterministic.md`](autorouter-is-deterministic.md). The manual-trace props
+> below are how you take a net *out* of that global solve.
+
 ## The trap: `pcbRouteHints` does nothing here
 
 The `<trace pcbRouteHints={[…]}>` prop is **silently ignored by the capacity autorouter**.
