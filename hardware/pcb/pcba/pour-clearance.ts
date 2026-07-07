@@ -119,45 +119,6 @@ export function antennaKeepout(circuit: any[]): number {
   return n
 }
 
-/** Carve a local void around the DS3231 RTC (U6) out of any top pour that floods over it. V12D is
- *  one clean full-height rectangle in the source, so it sheets straight over U6 — but 12 V must never
- *  touch the RTC's pads or its coin-cell / VBAT net (U6.GND, U6.VBAT and the NC pins are backfed by
- *  the pour otherwise). The base solver antipads foreign pads whose net is poured on THIS layer, but
- *  U6's nets live on other layers (GND on bottom, VBAT on BT1), so their top pads sit un-antipadded
- *  under V12D. We punch one rectangle around U6's pad field (+0.5 mm) so the source outline stays a
- *  clean rectangle that survives moves, and the void tracks U6 automatically. Returns pours cut. */
-export function rtcKeepout(circuit: any[]): number {
-  const by = (t: string) => circuit.filter((e) => e.type === t)
-  const sc = by("source_component").find(
-    (c) => c.name === "U6" || c.manufacturer_part_number === "DS3231SN_T_R" || c.supplier_part_numbers?.jlcpcb?.includes("C9866"),
-  )
-  if (!sc) return 0
-  const pc = by("pcb_component").find((p) => p.source_component_id === sc.source_component_id)
-  if (!pc) return 0
-  const pads = by("pcb_smtpad").filter((p) => p.pcb_component_id === pc.pcb_component_id)
-  if (!pads.length) return 0
-  const m = 0.5 // 12 V ≥0.5 mm off every DS3231 pad
-  const x0 = Math.min(...pads.map((p) => p.x - p.width / 2)) - m
-  const x1 = Math.max(...pads.map((p) => p.x + p.width / 2)) + m
-  const y0 = Math.min(...pads.map((p) => p.y - p.height / 2)) - m
-  const y1 = Math.max(...pads.map((p) => p.y + p.height / 2)) + m
-  let n = 0
-  for (const pour of by("pcb_copper_pour")) {
-    if (pour.shape !== "brep" || !pour.brep_shape || pour.layer !== "top") continue
-    const outer: Vert[] = pour.brep_shape.outer_ring?.vertices
-    if (!outer?.length) continue
-    const px0 = Math.min(...outer.map((v) => v.x)), px1 = Math.max(...outer.map((v) => v.x))
-    const py0 = Math.min(...outer.map((v) => v.y)), py1 = Math.max(...outer.map((v) => v.y))
-    if (px1 < x0 || px0 > x1 || py1 < y0 || py0 > y1) continue // pour doesn't reach U6
-    pour.brep_shape.inner_rings = pour.brep_shape.inner_rings || []
-    pour.brep_shape.inner_rings.push({ vertices: [
-      { x: x0, y: y0 }, { x: x1, y: y0 }, { x: x1, y: y1 }, { x: x0, y: y1 },
-    ] })
-    n++
-  }
-  return n
-}
-
 /** Drop poured fragments the solver pinched off below the fab minimum feature width — tiny
  *  floating acid-traps (a near-zero-area triangle, a sub-0.1 mm strip) left by its polygon
  *  boolean ops. Gated on BOTH thinness (2·area/perimeter) AND small area so a legitimately

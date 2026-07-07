@@ -16,7 +16,7 @@
 import { composeViews, SCHEMES } from "./gerber-compose"
 import { backSilkBoardTsx } from "./bottom-silk"
 import { dedupDrill } from "./dedup-drill"
-import { widenPourVoids, findPourClearanceRules, antennaKeepout, rtcKeepout, dropPourSlivers } from "./pour-clearance"
+import { widenPourVoids, findPourClearanceRules, antennaKeepout, dropPourSlivers } from "./pour-clearance"
 import { singleflight } from "./run-lock"
 import { convertSoupToGerberCommands, stringifyGerberCommandLayers, convertSoupToExcellonDrillCommands, stringifyExcellonDrill } from "circuit-json-to-gerber"
 import { convertCircuitJsonToBomRows, convertBomRowsToCsv } from "circuit-json-to-bom-csv"
@@ -214,8 +214,6 @@ const clr = widenPourVoids(circuit, findPourClearanceRules(readFileSync(boardFil
 if (clr.added) console.log(`[${board}] pour-clearance: widened ${clr.added} antipad void(s) across ${Object.keys(clr.perPour).length} pour(s)`)
 const antN = antennaKeepout(circuit)
 if (antN) console.log(`[${board}] antenna keepout: cleared the WROOM antenna box from ${antN} pour(s)`)
-const rtcN = rtcKeepout(circuit)
-if (rtcN) console.log(`[${board}] RTC keepout: carved the DS3231 (U6) void from ${rtcN} pour(s)`)
 const slivN = dropPourSlivers(circuit)
 if (slivN) console.log(`[${board}] pour slivers: dropped ${slivN} sub-min-feature floating fragment(s)`)
 
