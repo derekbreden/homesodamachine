@@ -31,7 +31,10 @@ mermaid.initialize({
 // {scale,panX,panY} per-file in localStorage and restore on reopen. The
 // wrapper / SVG host stays mounted so re-renders can swap the SVG
 // without recreating PanZoom (preserves the user's pan/zoom).
-let mmdRenderCounter = 0;
+//
+// The render-id counter lives in `state` (state.mmdRenderSeq), not module scope,
+// so it stays unique across a hot re-import of this module rather than resetting
+// and reusing an id mermaid may still have in the DOM.
 
 function mmdTransformKey(file) { return `mmd-transform:${file}`; }
 
@@ -51,7 +54,7 @@ export function mmdLoadTransform(file) {
 // Render `content` to an SVG element with explicit width/height (so PanZoom
 // can measure natural size). Returns the SVGSVGElement, or throws.
 export async function mmdRenderSvg(content) {
-  const id = `mmd-detail-${++mmdRenderCounter}`;
+  const id = `mmd-detail-${state.mmdRenderSeq += 1}`;
   const { svg } = await mermaid.render(id, content);
   const tmp = document.createElement("div");
   tmp.innerHTML = svg;
