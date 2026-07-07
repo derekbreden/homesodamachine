@@ -217,6 +217,13 @@ if (antN) console.log(`[${board}] antenna keepout: cleared the WROOM antenna box
 const slivN = dropPourSlivers(circuit)
 if (slivN) console.log(`[${board}] pour slivers: dropped ${slivN} sub-min-feature floating fragment(s)`)
 
+// Persist the routed circuit-json for the 3D assembly step. board-3d.py's ensure_circuit_json
+// reuses out/<board>.circuit.json when it's newer than the board .tsx — so writing it here lets
+// the dev-server's background GLB rebuild skip a second full autoroute pass and just read our
+// already-routed board. It's a gitignored regenerable intermediate (never committed), and the
+// watcher ignores out/, so this write neither bloats commits nor re-triggers a render.
+writeFileSync(path.join(outDir, `${board}.circuit.json`), JSON.stringify(circuit))
+
 // Generate the fabrication set (gerbers + drill + BOM + CPL) from that circuit-json with
 // the standalone converters — the SAME ones tscircuit's CLI uses, but with no autorouter
 // in the loop. Write into a scratch dir for compose + back-silk, then zip to out/.
