@@ -2,8 +2,9 @@
  * Discrete-copper clearance + genuine-error analysis of a routed circuit-json, for the
  * web viewer's board readout (folded into picks.json by pick-data.ts).
  *
- * FLOOR — the smallest edge-to-edge gap between any two pieces of copper on different nets
- * that share a layer. Copper is pads, plated-hole barrels, vias, and trace segments; every
+ * FLOOR — the smallest edge-to-edge gap between two pieces of copper that must not run that
+ * close: any two DIFFERENT-net shapes on a shared layer, PLUS same-net trace copper that is
+ * REDUNDANT (see below). Copper is pads, plated-hole barrels, vias, and trace segments; every
  * shape reduces to a rounded polyline (a rect is 4 zero-radius edges, a pill/circle/via/
  * trace a segment with a radius), so a gap is `min segment-segment distance − r1 − r2`.
  * A plated hole and a through-via are conductive on EVERY copper layer (the barrel), not just
@@ -15,6 +16,16 @@
  * Net identity groups by net NAME first (a plane spans several connectivity keys the pour
  * joins), then connectivity key (one signal net), then unique (unconnected copper). Stitch
  * and mst pcb_traces carry no ports, so their net comes from their source_trace.
+ *
+ * REDUNDANT — same-net copper is allowed to TOUCH (that is how a trace joins its pad, or taps
+ * a sibling), so the different-net floor above skips every same-net pair. But that skip is too
+ * coarse: two DISTINCT same-net traces whose copper runs coincident over a LENGTH (not a point
+ * junction) are redundant — wasteful, and usually a routing defect (e.g. two legs to one pad
+ * laid on top of each other instead of meeting once). A junction contributes ~0 length; a
+ * parallel overlap contributes real length, so any same-net trace-vs-trace coincidence longer
+ * than REDUNDANT_MIN_LEN is caught, folded into the FLOOR, and surfaced as an error — the floor
+ * can no longer read "clean" over a copper-on-copper overlap. Pads/vias are excluded (a trace
+ * legitimately terminates inside its own pad/via); only two separate traces overlapping counts.
  *
  * POUR — a solid copperpour must not cover foreign-net copper: for every pcb_copper_pour
  * (an outer ring minus its antipad void rings) any discrete copper of a DIFFERENT net whose
@@ -59,6 +70,7 @@ const TIGHT_MAX = 8  // how many of the tightest pairs to keep for the readout
 const MIN_FEATURE_WIDTH = 0.1 // fab minimum copper feature width (mm) — thinner pours are slivers
 const SLIVER_MAX_AREA = 0.15 // mm² — a thin fragment this small is a floating sliver, not a thin-waisted plane
 const ERR_CAP = 24 // cap on how many pour/via findings to keep (dedup + summary handle the rest)
+const REDUNDANT_MIN_LEN = 0.4 // mm — same-net trace copper coincident longer than this is redundant, not a junction
 
 // A net name is a real signal name unless it's a synthetic id (__u/__t/__v) or a raw
 // connectivity key — those read as "signal" in the human-facing readout.
@@ -67,6 +79,22 @@ const netLabel = (net: string) => (net.startsWith("__") || /connectivity_net/.te
 // The copper layer stack a barrel spans, top→inner→bottom, for a board of `n` layers.
 const copperLayers = (n: number): string[] =>
   n <= 2 ? ["top", "bottom"] : ["top", ...Array.from({ length: n - 2 }, (_, i) => `inner${i + 1}`), "bottom"]
+
+// A route's copper as [a, b, layer] segments. A via point carries from_layer/to_layer but no
+// `layer`; the copper LEAVING a via runs on its to_layer and the copper ENTERING one on its
+// from_layer. Attribute a via-adjacent segment to that layer instead of skipping it — dropping it
+// (as an `a.layer !== b.layer` guard did) makes the copper immediately after every via invisible
+// to the floor, which is exactly where a manual drop-and-run crosses another net.
+const traceSegs = (rt: any[]): [any, any, string][] => {
+  const out: [any, any, string][] = []
+  for (let i = 0; i + 1 < rt.length; i++) {
+    const a = rt[i], b = rt[i + 1]
+    if (a.x == null || b.x == null || (a.x === b.x && a.y === b.y)) continue
+    const layer = a.route_type === "via" ? a.to_layer : b.route_type === "via" ? a.layer : a.layer === b.layer ? a.layer : null
+    if (layer != null) out.push([a, b, layer])
+  }
+  return out
+}
 
 export function analyzeClearance(circuit: any[]): ClearanceReport {
   const boardEl = circuit.find((e) => e.type === "pcb_board")
@@ -137,12 +165,9 @@ export function analyzeClearance(circuit: any[]): ClearanceReport {
     push(seg(e.x, e.y, e.x, e.y), e.outer_diameter / 2, LAYERS, net, `via on ${netLabel(net)}`, "via")
   }
   for (const e of circuit) if (e.type === "pcb_trace") {
-    const net = traceNet[e.pcb_trace_id] || `__t${uniq++}`, rt = e.route
-    for (let i = 0; i + 1 < rt.length; i++) {
-      const a = rt[i], b = rt[i + 1]
-      if (a.x == null || b.x == null || a.layer !== b.layer || (a.x === b.x && a.y === b.y)) continue
-      push(seg(a.x, a.y, b.x, b.y), (a.width ?? 0.2) / 2, [a.layer], net, `trace on ${netLabel(net)}`, "trace")
-    }
+    const net = traceNet[e.pcb_trace_id] || `__t${uniq++}`
+    for (const [a, b, layer] of traceSegs(e.route))
+      push(seg(a.x, a.y, b.x, b.y), (a.width ?? b.width ?? 0.2) / 2, [layer], net, `trace on ${netLabel(net)}`, "trace")
   }
 
   // Min distance between segments p1p2 and p3p4 (handles zero-length = point).
@@ -223,9 +248,15 @@ export function analyzeClearance(circuit: any[]): ClearanceReport {
       pairs.push({ gap: round(d), a: A.label, b: B.label, ends: [endOf(A, n.ax, n.ay), endOf(B, n.bx, n.by)] })
     }
   }
+  // Same-net redundant overlap folds into the floor + tight readout, so the floor can't read
+  // "clean" over a same-net copper-on-copper overlap the different-net pass above skips.
+  const redundant = redundantCopperErrors(circuit, traceNet, refPin)
+  for (const p of redundant.pairs) pairs.push(p)
+  if (redundant.minGap < floor) floor = redundant.minGap
   pairs.sort((x, y) => x.gap - y.gap)
 
   const errors = [
+    ...redundant.errors,
     ...floatingPadErrors(circuit, netById, netOfPort, refPin, traceNet),
     ...pourShortErrors(circuit, LAYERS, netByKey, netById, netOfPort, refPin, netOfTrace, traceNet),
     ...viaSpanErrors(circuit),
@@ -353,11 +384,8 @@ function pourShortErrors(
       const net = netOfTrace(e)
       // Sample each segment along its length; a signal crossing a plane rides an antipad void.
       const byLayer = new Map<string, Pt[]>()
-      const rt = e.route
-      for (let i = 0; i + 1 < rt.length; i++) {
-        const a = rt[i], b = rt[i + 1]
-        if (a.x == null || b.x == null || a.layer !== b.layer) continue
-        const arr = byLayer.get(a.layer) ?? byLayer.set(a.layer, []).get(a.layer)!
+      for (const [a, b, layer] of traceSegs(e.route)) {
+        const arr = byLayer.get(layer) ?? byLayer.set(layer, []).get(layer)!
         const steps = Math.max(2, Math.ceil(Math.hypot(b.x - a.x, b.y - a.y) / 0.3))
         for (let s = 0; s <= steps; s++) arr.push([a.x + ((b.x - a.x) * s) / steps, a.y + ((b.y - a.y) * s) / steps])
       }
@@ -425,6 +453,70 @@ function sliverErrors(circuit: any[], _netById: Record<string, string>): BoardEr
   }
   if (n) out.push({ kind: "sliver", text: `${n} floating pour fragment${n === 1 ? "" : "s"} thinner than ${MIN_FEATURE_WIDTH} mm (acid trap / DFM)` })
   return out
+}
+
+// REDUNDANT — two DISTINCT same-net traces whose copper coincides over a length (see file header).
+// The different-net FLOOR skips same-net pairs because same-net copper may TOUCH at a junction;
+// this catches the case that skip hides — a sustained parallel overlap. Only trace-vs-trace: a
+// trace terminating inside its own pad/via is the intended connection, not redundancy. Returns the
+// findings, tight-pair rows (so the viewer can pan to the overlap), and the worst (most negative)
+// edge gap so the caller can fold it into the floor.
+function redundantCopperErrors(
+  circuit: any[], traceNet: Record<string, string>, refPin: (id?: string) => string,
+): { errors: BoardError[]; pairs: ClearancePair[]; minGap: number } {
+  type Seg = { a: Pt; b: Pt; r: number; layer: string }
+  type Tr = { net: string; label: string; segs: Seg[]; minx: number; maxx: number; miny: number; maxy: number }
+  const traces: Tr[] = []
+  for (const e of circuit) {
+    if (e.type !== "pcb_trace") continue
+    const net = traceNet[e.pcb_trace_id]
+    if (!net || net.startsWith("__")) continue // only real, named nets (unconnected copper is a different check)
+    const rt = e.route
+    const segs: Seg[] = []
+    let minx = Infinity, maxx = -Infinity, miny = Infinity, maxy = -Infinity
+    for (let i = 0; i + 1 < rt.length; i++) {
+      const a = rt[i], b = rt[i + 1]
+      if (a.x == null || b.x == null || a.layer !== b.layer || (a.x === b.x && a.y === b.y)) continue
+      segs.push({ a: [a.x, a.y], b: [b.x, b.y], r: (a.width ?? 0.2) / 2, layer: a.layer })
+      minx = Math.min(minx, a.x, b.x); maxx = Math.max(maxx, a.x, b.x); miny = Math.min(miny, a.y, b.y); maxy = Math.max(maxy, a.y, b.y)
+    }
+    if (!segs.length) continue
+    const s = rt.find((r: any) => r.start_pcb_port_id)?.start_pcb_port_id
+    const en = rt.find((r: any) => r.end_pcb_port_id)?.end_pcb_port_id
+    traces.push({ net, label: s || en ? `${refPin(s)}→${refPin(en)}` : netLabel(net), segs, minx, maxx, miny, maxy })
+  }
+  const ptSeg = (p: Pt, a: Pt, b: Pt) => {
+    const dx = b[0] - a[0], dy = b[1] - a[1], L = dx * dx + dy * dy
+    const t = L <= 1e-12 ? 0 : Math.max(0, Math.min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / L))
+    return Math.hypot(p[0] - (a[0] + dx * t), p[1] - (a[1] + dy * t))
+  }
+  const errors: BoardError[] = []
+  const pairs: ClearancePair[] = []
+  let minGap = Infinity
+  for (let i = 0; i < traces.length; i++) for (let j = i + 1; j < traces.length; j++) {
+    const A = traces[i], B = traces[j]
+    if (A.net !== B.net) continue
+    if (A.maxx < B.minx - 0.5 || B.maxx < A.minx - 0.5 || A.maxy < B.miny - 0.5 || B.maxy < A.miny - 0.5) continue
+    // Walk B's copper; accumulate the length within (rA+rB) of A's copper on the same layer — the
+    // span where the two traces' copper physically coincides. Min over A avoids double-counting.
+    let coincident = 0, worst = Infinity, wx = 0, wy = 0
+    for (const sb of B.segs) {
+      const len = Math.hypot(sb.b[0] - sb.a[0], sb.b[1] - sb.a[1])
+      const N = Math.max(1, Math.ceil(len / 0.02))
+      for (let k = 0; k <= N; k++) {
+        const t = k / N, p: Pt = [sb.a[0] + (sb.b[0] - sb.a[0]) * t, sb.a[1] + (sb.b[1] - sb.a[1]) * t]
+        let d = Infinity, rr = 0
+        for (const sa of A.segs) { if (sa.layer !== sb.layer) continue; const dd = ptSeg(p, sa.a, sa.b); if (dd < d) { d = dd; rr = sa.r + sb.r } }
+        if (d < rr) { coincident += len / N; const gap = d - rr; if (gap < worst) { worst = gap; wx = p[0]; wy = p[1] } }
+      }
+    }
+    if (coincident > REDUNDANT_MIN_LEN) {
+      if (worst < minGap) minGap = worst
+      errors.push({ kind: "redundant", text: `Redundant same-net copper — ${A.label} and ${B.label} (${netLabel(A.net)}) run coincident over ${round(coincident)} mm near (${round(wx)}, ${round(wy)})` })
+      pairs.push({ gap: round(worst), a: A.label, b: B.label, ends: [{ kind: "trace", label: A.label, x: round(wx), y: round(wy) }, { kind: "trace", label: B.label, x: round(wx), y: round(wy) }] })
+    }
+  }
+  return { errors: errors.slice(0, ERR_CAP), pairs, minGap: isFinite(minGap) ? minGap : Infinity }
 }
 
 // Filter the routed circuit's *_error rows down to the genuine ones (see file header).
