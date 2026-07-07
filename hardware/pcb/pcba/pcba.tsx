@@ -692,12 +692,15 @@ export default () => (
     <trace from=".R15 > .pin2" to="net.GND" />
     <trace from=".J14 > .pin12" to=".R16 > .pin1" />
     <trace from=".R16 > .pin2" to="net.GND" />
-    {/* D+ = A6+B6, D- = A7+B7 (both connector orientations tied). Only ONE pad of each pair
-        runs onward to U14; its twin ties to it with a short jumper, not a second full path. */}
+    {/* D+ = A6(pin8)+B6(pin10), D- = A7(pin9)+B7(pin7); both connector orientations tied. The
+        pads interleave D-/D+/D-/D+ (B7 18.5, A6 18.0, A7 17.5, B6 17.0) at 0.5 mm pitch, so a
+        connector-side tie of either pair must hop a different-net pad — needing a via — and the
+        only bottom escape channel east of the tips is occupied by the VBUS pin15->C22 run
+        (x-58.0, up to y20.5). Left to the autorouter until VBUS is re-choreographed to free it. */}
     <trace from=".J14 > .pin8" to=".U14 > .pin1" />
     <trace from=".J14 > .pin10" to=".J14 > .pin8" />
-    <trace from=".J14 > .pin7" to=".U14 > .pin3" />
-    <trace from=".J14 > .pin9" to=".J14 > .pin7" />
+    <trace from=".J14 > .pin9" to=".U14 > .pin3" />
+    <trace from=".J14 > .pin7" to=".J14 > .pin9" />
     {/* TABLED — crossed my host-D− on top; evicted (own VBUS later). <trace from=".J14 > .pin15" to=".U14 > .pin5" /> */}
     {/* TABLED — crossed my host-D− on top; evicted (own VBUS later). <trace from=".J14 > .pin16" to=".U14 > .pin5" /> */}
     {/* ESD array: GND + VBUS rail + bypass cap; D+/D- pass through to the bridge. */}
