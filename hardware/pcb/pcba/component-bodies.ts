@@ -89,7 +89,12 @@ export function collectBodies(circuit: any[]): { bodies: Body[]; edge: Rect | nu
       const miny = Math.min(...pads.map((p) => p.y)), maxy = Math.max(...pads.map((p) => p.y))
       const along = maxx - minx >= maxy - miny ? "x" : "y"
       const span = along === "x" ? maxx - minx : maxy - miny
-      const isXhRow = pads.length >= 3 && span > 0 && Math.abs(span / (pads.length - 1) - XH_PITCH) < 0.2
+      // Only a connector (J-ref) gets the reconstructed-wafer housing. The buck U10 (K7805) is a
+      // 3-pin through-hole module whose 2.54 mm pin row matches XH's ~2.5 mm pitch, so without the
+      // connector gate it was mistaken for a wafer and modeled with a phantom mating-opening shroud
+      // (jutting 3.5 mm past the pin row) instead of its real courtyard — a spurious −0.238 mm
+      // "overlap" with J10 that the true courtyards clear by +0.73 mm.
+      const isXhRow = /^J/.test(name) && pads.length >= 3 && span > 0 && Math.abs(span / (pads.length - 1) - XH_PITCH) < 0.2
       if (isXhRow) {
         // Across-row depth is asymmetric: the 3.5 mm mating-opening face points at the nearest board
         // edge (every connector is seated that way), the 2.4 mm base face at the interior.
