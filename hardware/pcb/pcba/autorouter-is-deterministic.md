@@ -9,6 +9,10 @@ file changed, a dependency bumped — the router did not.
 Stop re-discovering this. It is settled, and it is proven below. Treating it as an open question,
 or blaming a ripple on nondeterminism, is the recurring mistake this file exists to end.
 
+This doc is the *fact*. What you **do** about it — the complete procedure for moving the board onto
+manual traces — is [`routing-procedure.md`](routing-procedure.md). Determinism is not a license to
+"run experiments" or "characterize the failure"; it is what makes that procedure followable.
+
 ## Proven, not assumed
 
 Two byte-identical board inputs route byte-identically across **all 197 nets** — every waypoint,
@@ -46,18 +50,20 @@ identical moles, not new ones.
 
 - **Do not re-litigate determinism, and do not attribute a ripple to randomness.** Output is a
   pure function of input. A net that moved, moved *because of the one thing you changed*.
-- **You can therefore run real controlled experiments.** Change exactly one thing, re-render, and
-  every difference is *causally* that change. This is the only way to actually characterize where
-  and why the autorouter fails against manual copper — single-variable perturbation on a
-  deterministic system. Two-variable renders (change a trace *and* let the router re-solve
-  globally, then reason about the result) teach nothing.
+- **Determinism is what makes the routing procedure followable — not a license to run
+  experiments.** The goal is never to *characterize* where the autorouter fails; it is to *route
+  the board* ([`routing-procedure.md`](routing-procedure.md)). Because output is a pure function of
+  input, that procedure's pivotal step — add the autorouter's traces back one at a time and see
+  which one fails — gives a definite, repeatable yes/no, and every "comment out the offending
+  trace" decision stays stable across renders. Use determinism to route, not to write reports.
 - **A ripple is working-as-designed, not a bug.** A pin 3 mm away legitimately moving a net across
-  the board is what a global optimizer does. Expect it, measure it, decide whether you can live
-  with it — don't be surprised by it and don't declare the router broken.
-- **To stop the whack-a-mole, remove nets from the solve.** Every net you hand-route (`pcbPath` /
-  `pcbComb` — see [`route-hints.md`](route-hints.md)) leaves the autorouter's domain and shrinks
-  the coupled problem. Until a net is pinned it is fair game to move on any render where anything
-  else changed. The only way a net stays put is to own it.
+  the board is what a global optimizer does. Expect it, don't be surprised by it, and don't declare
+  the router broken.
+- **To stop the whack-a-mole, take nets out of the solve — don't negotiate with it.** Every net you
+  hand-route (`pcbPath` / `pcbComb` — see [`route-hints.md`](route-hints.md)) leaves the
+  autorouter's domain. When an autorouter trace interferes with copper you're owning, the move is
+  not to reason about it or route around it — it is to **comment that trace out** (evict it) and, if
+  it's a net you need, own it too. The only way a net stays put is to own it.
 
 ## Own a region completely or not at all
 
