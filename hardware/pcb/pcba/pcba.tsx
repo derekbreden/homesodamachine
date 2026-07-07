@@ -19,15 +19,17 @@
  * LDO / 5V buck (U9 top, U10 bottom) and the 12V inlet (J10) frame the right column.
  *
  * SIX layers, stackup top->bottom:
- *   L1 top    — signals + the V12 island
+ *   L1 top    — signals + the V12D / V12S islands
  *   L2 inner1 — 3V3 plane (full flood)
  *   L3 inner2 — 5V plane (full flood)
  *   L4 inner3 — SDA plane (full flood)
  *   L5 inner4 — SCL plane (full flood)
  *   L6 bottom — GND plane (full flood)
  * 3V3/5V/SDA/SCL/GND are full-flood planes: each pin commons to its plane at the barrel
- * (through-hole) or an auto-stitched via (SMD). V12 is a top-copper island over the valve/
- * buck/driver block (the rectangle at the pours): top-layer 12V pads sit on it directly,
+ * (through-hole) or an auto-stitched via (SMD). The 12 V region is TWO top-copper islands — V12D
+ * (distribution: inlet J10, pumps, buck input, display, boost output) and V12S (the valve
+ * reservoir), bridged only by R21 so a demo solenoid click can't sag the display (see the pours
+ * below and pie-in-the-sky/phone-powered-demo.md): top-layer 12V pads sit on their island directly,
  * through-hole 12V pins pick it up at the barrel. Point-to-point signals route on ALL six
  * layers: `autorouter.viaMode="through-hole"` (below) tells the homesodamachine capacity-autorouter
  * fork to use the inner copper but make a mesh node via-capable only where the full board column
@@ -55,7 +57,7 @@
  * (clearance.ts -> picks.json).
  */
 import { at, Cap, Res, Jst, ulnOUT } from "./carrier_parts"
-import { Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870 } from "./pcba_parts"
+import { Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870, Boost, Schottky, Inductor } from "./pcba_parts"
 import { KF301_5_0_2P } from "./imports/KF301_5_0_2P"
 import { boardVersionParts } from "./board-version"
 import { logoRoutes } from "./logo"
@@ -96,9 +98,11 @@ export const decoupling: DecouplingRule[] = [
   { cap: "C5", near: "U3", role: "MCP 0x21 VDD", kind: "hf" },
   { cap: "C21", near: "U13", role: "CH340C 3V3", kind: "hf" },
   { cap: "C22", near: "U14", role: "USBLC6 VBUS", kind: "hf" },
-  { cap: "C1", near: "U5", role: "V12 island HF (ULN B)", kind: "hf" },
-  { cap: "C2", near: "U4", role: "V12 island HF (ULN A)", kind: "hf" },
-  { cap: "C3", near: "U4", role: "V12 470uF bulk reservoir", kind: "reservoir" },
+  { cap: "C1", near: "U5", role: "V12S island HF (ULN B)", kind: "hf" },
+  { cap: "C2", near: "U4", role: "V12S island HF (ULN A)", kind: "hf" },
+  { cap: "C3", near: "U4", role: "V12S 470uF valve reservoir", kind: "reservoir" },
+  { cap: "C23", near: "U15", role: "MT3608 VIN input", kind: "bulk" },
+  { cap: "C24", near: "U15", role: "MT3608 boost output", kind: "bulk" },
 ]
 
 // ── Ampacity audit ──────────────────────────────────────────────────────────────────────
@@ -248,10 +252,10 @@ export default () => (
     <trace from=".C13 > .pin2" to="net.GND" />
     <trace from=".C14 > .pin1" to="net.V3V3" />
     <trace from=".C14 > .pin2" to="net.GND" />
-    <trace from=".U10 > .pin1" to="net.V12" />
+    <trace from=".U10 > .pin1" to="net.V12D" />
     <trace from=".U10 > .pin2" to="net.GND" />
     <trace from=".U10 > .pin3" to="net.V5" />
-    <trace from=".C15 > .pin1" to="net.V12" />
+    <trace from=".C15 > .pin1" to="net.V12D" />
     <trace from=".C15 > .pin2" to="net.GND" />
     <trace from=".C16 > .pin1" to="net.V5" />
     <trace from=".C16 > .pin2" to="net.GND" />
@@ -389,14 +393,14 @@ export default () => (
     <trace from=".U4 > .OUT6" to=".J1 > .OUT6" pcbComb="columnToColumn" thickness="0.3mm" />
     <trace from=".U4 > .OUT7" to=".J1 > .OUT7" pcbComb="columnToColumn" thickness="0.3mm" />
     <trace from=".U4 > .OUT8" to=".J1 > .OUT8" pcbComb="columnToColumn" thickness="0.3mm" />
-    <trace from=".J1 > .COM" to="net.V12" />
+    <trace from=".J1 > .COM" to="net.V12S" />
     {/* MANIFOLD B: 4 valves on U5 ch1-4, condenser FAN on U5 ch5, COM = 12V flyback. */}
     <trace from=".U5 > .OUT1" to=".J2 > .OUT1" pcbComb="columnToColumn" thickness="0.3mm" />
     <trace from=".U5 > .OUT2" to=".J2 > .OUT2" pcbComb="columnToColumn" thickness="0.3mm" />
     <trace from=".U5 > .OUT3" to=".J2 > .OUT3" pcbComb="columnToColumn" thickness="0.3mm" />
     <trace from=".U5 > .OUT4" to=".J2 > .OUT4" pcbComb="columnToColumn" thickness="0.3mm" />
     <trace from=".U5 > .OUT5" to=".J2 > .FAN" pcbComb="columnToColumn" thickness="0.3mm" />
-    <trace from=".J2 > .COM" to="net.V12" />
+    <trace from=".J2 > .COM" to="net.V12S" />
 
     {/* FAUCET UART — IO33 TX (output-capable) / IO35 RX (input-only), both S-edge pins;
         the connector sits in the bottom row below them. */}
@@ -423,29 +427,29 @@ export default () => (
         decoupled by C17/C18 (U11) and C19/C20 (U12). IO5 and IO15 are the only free GPIO. */}
     <trace from=".U1 > .IO18" to=".U11 > .IN2" />
     <trace from=".U1 > .IO17" to=".U11 > .IN1" />
-    <trace from=".U11 > .VM" to="net.V12" />
+    <trace from=".U11 > .VM" to="net.V12D" />
     <trace from=".U11 > .GND" to="net.GND" />
     <trace from=".U11 > .PAD" to="net.GND" />
     <trace from=".U11 > .ISEN" to="net.GND" />
     <trace from=".U11 > .VREF" to="net.V3V3" />
     <trace from=".U11 > .OUT1" to=".J13 > .AM1" thickness="0.4mm" />
     <trace from=".U11 > .OUT2" to=".J13 > .AM2" thickness="0.4mm" />
-    <trace from=".C17 > .pin1" to="net.V12" />
+    <trace from=".C17 > .pin1" to="net.V12D" />
     <trace from=".C17 > .pin2" to="net.GND" />
-    <trace from=".C18 > .pin1" to="net.V12" />
+    <trace from=".C18 > .pin1" to="net.V12D" />
     <trace from=".C18 > .pin2" to="net.GND" />
     <trace from=".U1 > .IO16" to=".U12 > .IN2" />
     <trace from=".U1 > .IO4" to=".U12 > .IN1" />
-    <trace from=".U12 > .VM" to="net.V12" />
+    <trace from=".U12 > .VM" to="net.V12D" />
     <trace from=".U12 > .GND" to="net.GND" />
     <trace from=".U12 > .PAD" to="net.GND" />
     <trace from=".U12 > .ISEN" to="net.GND" />
     <trace from=".U12 > .VREF" to="net.V3V3" />
     <trace from=".U12 > .OUT1" to=".J13 > .BM1" thickness="0.4mm" />
     <trace from=".U12 > .OUT2" to=".J13 > .BM2" thickness="0.4mm" />
-    <trace from=".C19 > .pin1" to="net.V12" />
+    <trace from=".C19 > .pin1" to="net.V12D" />
     <trace from=".C19 > .pin2" to="net.GND" />
-    <trace from=".C20 > .pin1" to="net.V12" />
+    <trace from=".C20 > .pin1" to="net.V12D" />
     <trace from=".C20 > .pin2" to="net.GND" />
 
     {/* RELAYS (J5): logic out to the two external opto-isolated relay modules + their V5 coil supply. */}
@@ -486,11 +490,11 @@ export default () => (
     <trace from=".U7 > .B" to=".D1 > .B" />
     <trace from=".D1 > .GND" to="net.GND" />
     <trace from=".J9 > .GND" to="net.GND" />
-    <trace from=".J9 > .V12" to="net.V12" />
+    <trace from=".J9 > .V12" to="net.V12D" />
 
-    {/* 12V in: J10 feeds the ULN flyback commons (net.V12). */}
-    <trace from=".U4 > .COM" to="net.V12" />
-    <trace from=".U5 > .COM" to="net.V12" />
+    {/* ULN flyback commons -> the valve-reservoir island (net.V12S). */}
+    <trace from=".U4 > .COM" to="net.V12S" />
+    <trace from=".U5 > .COM" to="net.V12S" />
     <trace from=".J10 > .GND" to="net.GND" />
     <trace from=".U5 > .GND" to="net.GND" />
 
@@ -525,22 +529,33 @@ export default () => (
     <trace from=".R4 > .pin2" to="net.GND" />
     <trace from=".J11 > .GND" to="net.GND" />
 
-    {/* V12 decoupling. HF: two 0.1uF ceramics (C1 y-16.6, C2 y0.2) on the V12 island
-        by the ULN/manifold block, snubbing the fast solenoid-turn-off edge. BULK: a
-        470uF low-ESR electrolytic (C3, BOM 1) at the board centre between the two MCP
-        stacks (U2 north, U3 south), west of the ULNs it feeds across the V12 island,
-        soaking the inrush + flyback dump the ceramics can't. Every pin1 -> V12, pin2 ->
-        GND plane — no routing, no vias, barrel pickup like every power pin; the top V12
-        island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
+    {/* V12S (valve-reservoir island) decoupling. HF: two 0.1uF ceramics (C1 y-16.6, C2 y0.2)
+        on the V12S island by the ULN/manifold block, snubbing the fast solenoid-turn-off edge.
+        BULK/RESERVOIR: the 470uF low-ESR electrolytic (C3, BOM 1) at the board centre between the
+        two MCP stacks (U2 north, U3 south) — on the phone demo it is the local energy tank that
+        sources a solenoid click, refilling slowly through R21 so the click never sags the display
+        on V12D. Every pin1 -> V12S, pin2 -> GND plane; the V12S island floods the valve block.
+        C3 is polarized: pin1 (+) is V12S. */}
     <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={13.25} y={-17} rot={0} side="N" />
     <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={13} y={1.5} rot={0} side="N" />
     <BulkCap name="C3" x={-3} y={-1.25} />
-    <trace from=".C1 > .pin1" to="net.V12" />
+    <trace from=".C1 > .pin1" to="net.V12S" />
     <trace from=".C1 > .pin2" to="net.GND" />
-    <trace from=".C2 > .pin1" to="net.V12" />
+    <trace from=".C2 > .pin1" to="net.V12S" />
     <trace from=".C2 > .pin2" to="net.GND" />
-    <trace from=".C3 > .pin1" to="net.V12" />
+    <trace from=".C3 > .pin1" to="net.V12S" />
     <trace from=".C3 > .pin2" to="net.GND" />
+
+    {/* R21 — valve-reservoir isolation. Bridges the distribution rail (V12D) to the valve
+        island (V12S): the ONLY feed into V12S. On the phone-powered demo it is 4.7 ohm, so a
+        solenoid click is sourced by C3 while R21 caps the current drawn from V12D — the display
+        (also on V12D) stays up — and C3 refills slowly through it. For a full-power production
+        board on external 12 V, stuff R21 = 0 ohm so the valves see stiff 12 V (the demo boost is
+        DNP there). Sits in the open centre pocket between C3/BT1 (north) and U3 (south); pin1 ->
+        V12D, pin2 -> V12S. */}
+    <Res name="R21" resistance="4.7" footprint="0805" jlcpcb="C2907327" x={-7} y={-9} rot={0} side="S" />
+    <trace from=".R21 > .pin1" to="net.V12D" />
+    <trace from=".R21 > .pin2" to="net.V12S" />
 
     {/* SMD GND legs (C1/C2 pin2, R2/R4 pin2) stitch to the bottom GND plane: an SMD pad
         has no through-hole barrel, so a pad whose net is poured on another layer would
@@ -632,9 +647,9 @@ export default () => (
     <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-55.75} y={25} rot={0} side="N" />
     <Npn name="Q3" x={-52} y={26} rot={270} />
     <Tact name="SW1" pcbX={-47.5} pcbY={31.5} pcbRotation={0} />
-    {/* USB-C: GND (pin13/14) + shield ears (pin1-4) to plane; VBUS (pin15/16) to the ESD
-        rail only (not board power); CC1 (pin6) / CC2 (pin12) each to a 5.1k Rd; D+ = pin8+pin10,
-        D- = pin7+pin9 (both orientations tied). */}
+    {/* USB-C: GND (pin13/14) + shield ears (pin1-4) to plane; VBUS (pin15/16) -> net.VBUS
+        (the ESD clamp U14.pin5 AND, on the phone-powered demo, the boost input — see the boost
+        block below); CC1 (pin6) / CC2 (pin12) each to a 5.1k Rd; D+ = pin8+pin10, D- = pin7+pin9. */}
     <trace from=".J14 > .pin13" to="net.GND" />
     <trace from=".J14 > .pin14" to="net.GND" />
     <trace from=".J14 > .pin1" to="net.GND" />
@@ -649,11 +664,12 @@ export default () => (
     <trace from=".J14 > .pin10" to=".U14 > .pin1" />
     <trace from=".J14 > .pin7" to=".U14 > .pin3" />
     <trace from=".J14 > .pin9" to=".U14 > .pin3" />
-    <trace from=".J14 > .pin15" to=".U14 > .pin5" />
-    <trace from=".J14 > .pin16" to=".U14 > .pin5" />
+    <trace from=".J14 > .pin15" to="net.VBUS" />
+    <trace from=".J14 > .pin16" to="net.VBUS" />
     {/* ESD array: GND + VBUS rail + bypass cap; D+/D- pass through to the bridge. */}
     <trace from=".U14 > .pin2" to="net.GND" />
-    <trace from=".C22 > .pin1" to=".U14 > .pin5" />
+    <trace from=".U14 > .pin5" to="net.VBUS" />
+    <trace from=".C22 > .pin1" to="net.VBUS" />
     <trace from=".C22 > .pin2" to="net.GND" />
     <trace from=".U14 > .pin6" to=".U13 > .D_POS" />
     <trace from=".U14 > .pin4" to=".U13 > .D_NEG" />
@@ -680,6 +696,47 @@ export default () => (
     <trace from=".SW1 > .pin4" to="net.GND" />
     <trace from=".SW2 > .pin1" to=".U1 > .EN" />
     <trace from=".SW2 > .pin4" to="net.GND" />
+
+    {/* ── Phone-powered demo: 5V→12V boost + VBUS reverse isolation ───────────────────────
+        (pie-in-the-sky/phone-powered-demo.md) An iPhone's USB-C VBUS (5 V, a few W) runs the whole
+        board: the boost re-creates the 12 V rail (V12D) from VBUS to drive the display and click a
+        valve; D8 feeds the 5 V rail directly for the logic. POPULATED ONLY on a demonstration build —
+        a production board runs off J10's 12 V and leaves this stage DNP, so the synthesized 12 V never
+        contends with the real inlet (guard 4). Sits in the open pocket west of the pump drivers.
+          BOOST: MT3608 (U15). VBUS → L1 (4.7 µH) → SW; SW → D7 (SS34 rectifier) → V12D + C24 (22 µF
+          out). U15.VIN/EN off VBUS with C23 (10 µF in). FB set by R19 (180k) / R20 (10k) → Vout ≈
+          0.6·(1+180/10) ≈ 11.4 V — held UNDER J10's 12 V so J10 dominates whenever both are present.
+          ISOLATION: D8 (SS34) VBUS → V5, reverse-blocking so V5 can't back-feed the phone; idle in
+          production (the buck holds V5 at 5.0 V). The boost draws from VBUS (not V5), so the chain
+          VBUS→boost→12V→buck→V5 is feed-FORWARD — no latch loop, hence no buck-isolation part. */}
+    <Inductor name="L1" x={-41.5} y={20} rot={0} />
+    <Boost name="U15" x={-37} y={21} rot={0} />
+    <Schottky name="D7" x={-33} y={22} rot={90} />
+    <Schottky name="D8" x={-41.5} y={14} rot={90} />
+    <Cap name="C23" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-41.5} y={24.5} rot={0} side="N" />
+    <Cap name="C24" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-32.5} y={15.5} rot={90} side="E" />
+    <Res name="R19" resistance="180k" footprint="0603" jlcpcb="C22827" x={-35.5} y={17} rot={180} side="S" />
+    <Res name="R20" resistance="10k" footprint="0603" jlcpcb="C25804" x={-37} y={14.5} rot={180} side="S" />
+    {/* boost power path: VBUS → L1 → SW → D7 → V12D */}
+    <trace from=".L1 > .pin1" to="net.VBUS" thickness="0.35mm" />
+    <trace from=".L1 > .pin2" to=".U15 > .SW" thickness="0.4mm" />
+    <trace from=".U15 > .SW" to=".D7 > .A" thickness="0.4mm" />
+    <trace from=".D7 > .K" to="net.V12D" thickness="0.4mm" />
+    <trace from=".U15 > .VIN" to="net.VBUS" thickness="0.35mm" />
+    <trace from=".U15 > .EN" to="net.VBUS" />
+    <trace from=".U15 > .GND" to="net.GND" />
+    <trace from=".C23 > .pin1" to="net.VBUS" />
+    <trace from=".C23 > .pin2" to="net.GND" />
+    <trace from=".C24 > .pin1" to="net.V12D" thickness="0.4mm" />
+    <trace from=".C24 > .pin2" to="net.GND" />
+    {/* FB divider: V12D → R19 → FB → R20 → GND */}
+    <trace from=".R19 > .pin1" to="net.V12D" />
+    <trace from=".R19 > .pin2" to=".U15 > .FB" />
+    <trace from=".R20 > .pin1" to=".U15 > .FB" />
+    <trace from=".R20 > .pin2" to="net.GND" />
+    {/* D8: VBUS → V5 reverse isolation (anode = VBUS, cathode = V5) */}
+    <trace from=".D8 > .A" to="net.VBUS" thickness="0.35mm" />
+    <trace from=".D8 > .K" to="net.V5" thickness="0.35mm" />
 
     {/* ── M3 mounting holes, one per corner, plated and tied to GND so a metal screw can't
         bridge a power plane (GND connects on the bottom plane; V12 / 3V3 / 5V / SDA / SCL
@@ -714,21 +771,35 @@ export default () => (
         an auto-stitched via (SMD). V12 is a top-copper island over the valve/buck/driver
         block (the rectangle below): top-layer 12V pads sit directly on it, through-hole 12V
         pins pick it up at the barrel. Point-to-point signals route on top and bottom. */}
-    <trace from=".J10 > .V12" to="net.V12" />
-    {/* V12 top island — a plain rectangle over the whole 12 V region (pump drivers, ULN commons +
-        manifolds, buck, bulk cap), x[-31.75,26.5] running the FULL board depth y[-38.5,36.5]. V12 is
-        an ISLAND, not a plane, so a barrel only picks it up where the pour physically covers it — and
-        a connector's barrel row (J7's reeds, J9's own pins) is a wall of near-touching antipads that
-        no pour can thread. So instead of reaching for each south-edge 12 V barrel with a finger (which
-        those walls chop into disconnected scraps), the sheet just swallows them: because it fills the
-        strip BELOW the barrel rows too (down to y -38.5), V12 flows UNDER every connector and around
-        the walls, reaching J10's inlet barrel (x 16) and J9's display-feed barrel (x -16.5) alike.
-        One dumb connected rectangle, 0.5 mm off the north/east/south edges; its west edge x -31.75
-        clears the LED/logo/nameplate cluster. Everything foreign inside it (the barrels, the MCPs,
-        BT1, the signal fan-out, the SE GND mounting hole) is just a hole in the sheet. */}
-    <copperpour name="V12ISLAND" layer="top" connectsTo="net.V12" netClearance="0.5mm from V3V3, V5, SDA, SCL"
-      outline={[{ x: -31.75, y: 36.5 }, { x: 26.5, y: 36.5 }, { x: 26.5, y: -38.5 },
-                { x: -31.75, y: -38.5 }]} />
+    <trace from=".J10 > .V12" to="net.V12D" />
+    {/* V12 top islands — the 12 V region is split into TWO top pours so the phone-powered demo can
+        buffer a solenoid click without collapsing the display supply (pie-in-the-sky/phone-powered-demo.md):
+          V12D — DISTRIBUTION (the big sheet): the board inlet (J10), the pumps (U11/U12.VM), the buck
+                 input (U10.Vin), the display feed (J9.V12), and the demo boost output all common here.
+                 J10 feeds it DIRECTLY — no series element — so a production board on external 12 V is
+                 unpenalised. On the phone demo the boost re-creates this rail from VBUS.
+          V12S — the SOLENOID/valve reservoir (the east-centre block over U4/U5 + C1/C2/C3 + J1/J2.COM):
+                 fed from V12D only through R21, with C3 (470 µF) as the local reservoir. A valve click
+                 drains C3, R21 caps the draw seen by V12D, and C3 refills slowly — so the click never
+                 sags the display on V12D. (R21 = 4.7 Ω on the demo build; 0 Ω for a full-power
+                 production build, where the valves want stiff 12 V — see R21 below.)
+        Each is an ISLAND, not a plane, so a barrel only picks it up where the pour physically covers it;
+        both fill the strip BELOW the south barrel rows (down to y -38.5 / their own edges) so V12D flows
+        UNDER every connector to reach J10 (x 16) and J9 (x -16.5). V12D is the full-depth rectangle with
+        an east-centre BITE removed (x[-8.5,26.5] y[-18.5,25.5]); V12S fills that bite (x[-8,26.5]
+        y[-18,25], 0.5 mm off V12D on every side), reaching the east edge so the bite opens outward (no
+        enclosed hole). V12D also grows a small WEST tab (x[-35,-31.75] y[13.5,26.5]) into the boost
+        pocket so the boost output (D7/C24) and the FB top (R19) common to it directly. The R21 bump
+        (x[-7.3,-8.5] y[-6.5,-11.5]) carries V12D east under R21 to meet the V12S recess. Everything
+        foreign inside either (barrels, MCPs, BT1, the fan-out, the SE GND hole) is just a hole. */}
+    <copperpour name="V12DISLAND" layer="top" connectsTo="net.V12D" netClearance="0.5mm from V3V3, V5, SDA, SCL, V12S"
+      outline={[{ x: -31.75, y: 36.5 }, { x: 26.5, y: 36.5 }, { x: 26.5, y: 25.5 }, { x: -8.5, y: 25.5 },
+                { x: -8.5, y: -6.5 }, { x: -7.3, y: -6.5 }, { x: -7.3, y: -11.5 }, { x: -8.5, y: -11.5 },
+                { x: -8.5, y: -18.5 }, { x: 26.5, y: -18.5 }, { x: 26.5, y: -38.5 }, { x: -31.75, y: -38.5 },
+                { x: -31.75, y: 13.5 }, { x: -35, y: 13.5 }, { x: -35, y: 26.5 }, { x: -31.75, y: 26.5 }]} />
+    <copperpour name="V12SISLAND" layer="top" connectsTo="net.V12S" netClearance="0.5mm from V3V3, V5, SDA, SCL, V12D"
+      outline={[{ x: -8, y: 25 }, { x: 26.5, y: 25 }, { x: 26.5, y: -18 }, { x: -8, y: -18 },
+                { x: -8, y: -11.5 }, { x: -6.8, y: -11.5 }, { x: -6.8, y: -6.5 }, { x: -8, y: -6.5 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
     <copperpour name="SDAPLANE" layer="inner3" connectsTo="net.SDA" boardEdgeMargin="0.5mm" />
