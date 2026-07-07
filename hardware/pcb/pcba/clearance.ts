@@ -471,18 +471,17 @@ function redundantCopperErrors(
     if (e.type !== "pcb_trace") continue
     const net = traceNet[e.pcb_trace_id]
     if (!net || net.startsWith("__")) continue // only real, named nets (unconnected copper is a different check)
-    const rt = e.route
     const segs: Seg[] = []
     let minx = Infinity, maxx = -Infinity, miny = Infinity, maxy = -Infinity
-    for (let i = 0; i + 1 < rt.length; i++) {
-      const a = rt[i], b = rt[i + 1]
-      if (a.x == null || b.x == null || a.layer !== b.layer || (a.x === b.x && a.y === b.y)) continue
-      segs.push({ a: [a.x, a.y], b: [b.x, b.y], r: (a.width ?? 0.2) / 2, layer: a.layer })
+    // Via-aware, same builder the different-net floor uses — so the copper leaving a via is
+    // visible here too; a same-net overlap on a via-drop segment is exactly the redundancy to catch.
+    for (const [a, b, layer] of traceSegs(e.route)) {
+      segs.push({ a: [a.x, a.y], b: [b.x, b.y], r: (a.width ?? b.width ?? 0.2) / 2, layer })
       minx = Math.min(minx, a.x, b.x); maxx = Math.max(maxx, a.x, b.x); miny = Math.min(miny, a.y, b.y); maxy = Math.max(maxy, a.y, b.y)
     }
     if (!segs.length) continue
-    const s = rt.find((r: any) => r.start_pcb_port_id)?.start_pcb_port_id
-    const en = rt.find((r: any) => r.end_pcb_port_id)?.end_pcb_port_id
+    const s = e.route.find((r: any) => r.start_pcb_port_id)?.start_pcb_port_id
+    const en = e.route.find((r: any) => r.end_pcb_port_id)?.end_pcb_port_id
     traces.push({ net, label: s || en ? `${refPin(s)}→${refPin(en)}` : netLabel(net), segs, minx, maxx, miny, maxy })
   }
   const ptSeg = (p: Pt, a: Pt, b: Pt) => {
