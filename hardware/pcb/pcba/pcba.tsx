@@ -309,12 +309,11 @@ export default () => (
     <trace from=".C11 > .pin1" to="net.V3V3" />
     <trace from=".C11 > .pin2" to="net.GND" />
     <trace from=".R7 > .pin2" to="net.V3V3" />
-    {/* EVICTED — the whole EN node (R7/C12 RC high side + the auto-reset Q2.C/SW2 legs) is one
-        net; the autorouter squeezed it into my UART corridor with a via at (−57.1,10.7). Tabled
-        end-to-end; own EN as a unit once the corner floor is clean. R7.pin2/C12.pin2 keep their
-        rail ties so only the EN node floats. */}
-    {/* <trace from=".R7 > .pin1" to=".U1 > .EN" /> */}
-    {/* <trace from=".C12 > .pin1" to=".U1 > .EN" /> */}
+    {/* EN node (R7/C12 RC + the auto-reset Q2.C/SW2 legs, one net -> U1.EN). The autorouter
+        drives it through the UART corridor (floor -0.337); deferred as a focused hand-route with
+        IO19. R7.pin2/C12.pin2 keep their rail ties so only the EN node floats.
+    <trace from=".R7 > .pin1" to=".U1 > .EN" />
+    <trace from=".C12 > .pin1" to=".U1 > .EN" /> */}
     <trace from=".C12 > .pin2" to="net.GND" />
     <trace from=".R8 > .pin2" to="net.V3V3" />
     {/* TABLED — crosses the pump bus in the corner-south band; evicted, own/reintroduce later.
@@ -494,8 +493,11 @@ export default () => (
     {/* EVICTED — the autorouter drove both IO19 and IO23 with a full-stack via straight through
         my hand-owned UART corridor (worst floor −0.243 at the TXD run). Tabled; reintroduce one
         at a time after the corner is clean, hand-routing whichever the router fubars. */}
-    {/* <trace from=".J5 > .IO19" to=".U1 > .IO19" /> */}
-    {/* <trace from=".J5 > .IO23" to=".U1 > .IO23" /> */}
+    {/* IO23 reintroduced clean (autorouter finds a non-fouling path). IO19's pad (-57.4,9) opens
+        into the densest corridor congestion; reintroducing it re-solves globally and fouls the
+        corner (floor -0.291). Deferred as its own focused hand-route.
+    <trace from=".J5 > .IO19" to=".U1 > .IO19" /> */}
+    <trace from=".J5 > .IO23" to=".U1 > .IO23" />
     <trace from=".J5 > .V5" to="net.V5" />
     <trace from=".J5 > .GND" to="net.GND" />
 
@@ -736,7 +738,7 @@ export default () => (
     <trace from=".U13 > .DTR" to=".R17 > .pin1" />
     <trace from=".R17 > .pin2" to=".Q2 > .B" />
     <trace from=".U13 > .RTS" to=".Q2 > .E" />
-    {/* EVICTED with the rest of the EN node (see R7/C12 above). <trace from=".Q2 > .C" to=".U1 > .EN" /> */}
+    {/* deferred with the EN node (see R7/C12 above). <trace from=".Q2 > .C" to=".U1 > .EN" /> */}
     <trace from=".U13 > .RTS" to=".R18 > .pin1" />
     <trace from=".R18 > .pin2" to=".Q3 > .B" />
     <trace from=".U13 > .DTR" to=".Q3 > .E" />
@@ -746,7 +748,7 @@ export default () => (
     {/* TABLED — crosses the pump bus in the band; evicted, own/reintroduce later.
         <trace from=".SW1 > .pin1" to=".U1 > .IO0" /> */}
     <trace from=".SW1 > .pin4" to="net.GND" />
-    {/* EVICTED with the rest of the EN node (see R7/C12 above). <trace from=".SW2 > .pin1" to=".U1 > .EN" /> */}
+    {/* deferred with the EN node (see R7/C12 above). <trace from=".SW2 > .pin1" to=".U1 > .EN" /> */}
     <trace from=".SW2 > .pin4" to="net.GND" />
 
     {/* ── M3 mounting holes, one per corner, plated and tied to GND so a metal screw can't
