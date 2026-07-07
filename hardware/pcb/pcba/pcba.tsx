@@ -74,30 +74,6 @@ import type { AmpacityRule } from "./ampacity-audit"
 // Identity stamp version (commit date + short SHA), computed once per render.
 const ID = boardVersionParts()
 
-// ── USB-C corner hand-routing (pcbPath) ───────────────────────────────────────────────────
-// The D+/D-/VBUS flip-short around J14 is hand-routed instead of left to the capacity-
-// autorouter, which quagmires on the interleaved data pads and fragments the inner planes.
-// A `pcbPath`'s numeric points are laid in the ANCHOR COMPONENT's own transform frame (origin =
-// its center, pre-rotation footprint axes) — every USB trace below anchors to J14 (centered at
-// (-62, 17.75), rot 270), so `jp` maps an absolute board (x,y) into that frame and `jv` marks a
-// through-hole via landing on `toLayer`. Vias span the full stack top<->bottom (JLCPCB drills
-// through-holes only); the pour solver antipads them like any other via.
-const jp = (x: number, y: number) => ({ x: 17.75 - y, y: x + 62 })
-// Same, for traces anchored to U14 (centered at (-55.25, 17.75)) and U13 (centered at (-48.25, 17.5)).
-const up = (x: number, y: number) => ({ x: 17.75 - y, y: x + 55.25 })
-const u13p = (x: number, y: number) => ({ x: 17.5 - y, y: x + 48.25 })
-const u13v = (x: number, y: number, toLayer: "top" | "bottom") =>
-  ({ ...u13p(x, y), via: true as const, toLayer })
-// A full-stack top<->bottom via at (x,y), emitted with a co-located wire point on each side so it
-// lands exactly on its route vertices (the checks' misaligned-via rule) and a real wire is drawn
-// through it. `p` is the anchor frame mapper (jp/up/u13p); `drop` dives to the bottom, `rise`
-// returns to the top. Spread into a pcbPath: [...drop(jp, x, y), jp(x2, y2), ...rise(jp, x3, y3)].
-type Frame = (x: number, y: number) => { x: number; y: number }
-const drop = (p: Frame, x: number, y: number) =>
-  [p(x, y), { ...p(x, y), via: true as const, toLayer: "bottom" as const }, p(x, y)]
-const rise = (p: Frame, x: number, y: number) =>
-  [p(x, y), { ...p(x, y), via: true as const, toLayer: "top" as const }, p(x, y)]
-
 // ── Decoupling audit ────────────────────────────────────────────────────────────────────
 // The single source of truth for which support cap serves which part, its role, and its job
 // class (`kind`). The web viewer's Board-checks panel reads this table (pick-data.ts →
@@ -670,51 +646,22 @@ export default () => (
     <trace from=".J14 > .pin2" to="net.GND" />
     <trace from=".J14 > .pin3" to="net.GND" />
     <trace from=".J14 > .pin4" to="net.GND" />
-    {/* CC1 (pin6 -> 5.1k Rd R15): threads up around the connector's north peg + shield-ear, then
-        west to R15 — the mirror of CC2's south path. All top. */}
-    <trace from=".J14 > .pin6" to=".R15 > .pin1" pcbPathRelativeTo=".J14 > .pin6"
-      pcbPath={[jp(-58.6, 19.0), ...drop(jp, -58.6, 20.0), ...rise(jp, -58.6, 21.2), jp(-59.9, 23.0), jp(-63.5, 23.0)]} />
+    <trace from=".J14 > .pin6" to=".R15 > .pin1" />
     <trace from=".R15 > .pin2" to="net.GND" />
-    {/* CC2 (pin12 -> 5.1k Rd R16): threads down around the connector's south peg + shield-ear,
-        then west to R16. All top. */}
-    <trace from=".J14 > .pin12" to=".R16 > .pin1" pcbPathRelativeTo=".J14 > .pin12"
-      pcbPath={[jp(-58.6, 16.0), jp(-58.6, 13.5), jp(-59.9, 12.5), jp(-63.5, 12.5)]} />
+    <trace from=".J14 > .pin12" to=".R16 > .pin1" />
     <trace from=".R16 > .pin2" to="net.GND" />
-    {/* D+ (pin8+pin10): D- drops to the bottom right at the pads (below), so the east channel is
-        D+'s alone — both data pads fan up to U14.pin1 on top, converging from the north-west to
-        clear the large GND pad (U14.pin2) that sits just south of pin1. 0 vias. */}
-    <trace from=".J14 > .pin8" to=".U14 > .pin1" pcbPathRelativeTo=".J14 > .pin8"
-      pcbPath={[jp(-57.5, 18.3)]} />
-    <trace from=".J14 > .pin10" to=".J14 > .pin8" pcbPathRelativeTo=".J14 > .pin10"
-      pcbPath={[jp(-58.3, 17.0), jp(-58.3, 18.0)]} />
-    {/* D- (pin7+pin9): the data pads interleave the D+ pair, so each escapes ~1mm east and drops
-        through a full-stack via just past the pad tips, crosses under the D+ fan on the bottom, and
-        rises once in-pad at U14.pin3 (pin7 rides pin9's landing via). */}
-    <trace from=".J14 > .pin9" to=".U14 > .pin3" pcbPathRelativeTo=".J14 > .pin9"
-      pcbPath={[...drop(jp, -58.9, 17.5), jp(-57.5, 16.9), ...rise(jp, -56.4, 16.8)]} />
-    <trace from=".J14 > .pin7" to=".U14 > .pin3" pcbPathRelativeTo=".J14 > .pin7"
-      pcbPath={[...drop(jp, -58.9, 18.5), jp(-57.8, 17.2), jp(-56.6, 16.85)]} />
-    {/* VBUS (pin15+pin16 both tie, for either cable orientation, feeding U14's ESD rail + C22):
-        the two VBUS pads bridge on the bottom under the pad row; pin16 then carries VBUS up to C22
-        and on to U14.pin5 (below). VBUS powers nothing here. */}
-    <trace from=".J14 > .pin15" to=".J14 > .pin16" pcbPathRelativeTo=".J14 > .pin15"
-      pcbPath={[...drop(jp, -59.83, 15.35), ...rise(jp, -59.83, 20.15)]} />
-    <trace from=".J14 > .pin16" to=".C22 > .pin1" pcbPathRelativeTo=".J14 > .pin16"
-      pcbPath={[jp(-58.2, 20.5), jp(-57.0, 21.2)]} />
+    <trace from=".J14 > .pin8" to=".U14 > .pin1" />
+    <trace from=".J14 > .pin10" to=".U14 > .pin1" />
+    <trace from=".J14 > .pin7" to=".U14 > .pin3" />
+    <trace from=".J14 > .pin9" to=".U14 > .pin3" />
+    <trace from=".J14 > .pin15" to=".U14 > .pin5" />
+    <trace from=".J14 > .pin16" to=".U14 > .pin5" />
     {/* ESD array: GND + VBUS rail + bypass cap; D+/D- pass through to the bridge. */}
     <trace from=".U14 > .pin2" to="net.GND" />
-    <trace from=".U14 > .pin5" to=".C22 > .pin1" pcbPathRelativeTo=".U14 > .pin5"
-      pcbPath={[up(-54.25, 17.9), up(-54.94, 17.9), up(-54.94, 20.19)]} />
+    <trace from=".C22 > .pin1" to=".U14 > .pin5" />
     <trace from=".C22 > .pin2" to="net.GND" />
-    {/* ESD -> bridge: U14's host-side D+/D- hop U14->U13 on inner1 (full-stack via, plane antipads).
-        The inner layer keeps them clear of the WROOM's north-castellation fan-out on top and the
-        UART pair on the bottom, so the two escapes never share a layer at U13's congested west face. */}
-    <trace from=".U14 > .pin6" to=".U13 > .D_POS" pcbPathRelativeTo=".U14 > .pin6"
-      pcbPath={[up(-54.1, 18.7), { ...up(-54.1, 18.7), via: true, toLayer: "inner1" }, up(-54.1, 18.7),
-        up(-52.6, 17.6), up(-51.12, 16.87), { ...up(-51.12, 16.87), via: true, toLayer: "top" }, up(-51.12, 16.87)]} />
-    <trace from=".U14 > .pin4" to=".U13 > .D_NEG" pcbPathRelativeTo=".U14 > .pin4"
-      pcbPath={[up(-54.1, 16.8), { ...up(-54.1, 16.8), via: true, toLayer: "inner1" }, up(-54.1, 16.8),
-        up(-52.6, 16.1), up(-51.12, 15.6), { ...up(-51.12, 15.6), via: true, toLayer: "top" }, up(-51.12, 15.6)]} />
+    <trace from=".U14 > .pin6" to=".U13 > .D_POS" />
+    <trace from=".U14 > .pin4" to=".U13 > .D_NEG" />
     {/* CH340C: 3V3 supply (VCC + V3 tied for 3.3 V op) + 0.1uF decoupling; UART crossed to
         the WROOM (bridge TXD -> ESP RXD0/IO3, bridge RXD -> ESP TXD0/IO1). */}
     <trace from=".U13 > .VCC" to="net.V3V3" />
@@ -722,15 +669,8 @@ export default () => (
     <trace from=".U13 > .GND" to="net.GND" />
     <trace from=".C21 > .pin1" to="net.V3V3" />
     <trace from=".C21 > .pin2" to="net.GND" />
-    {/* UART to the WROOM: the bridge's TXD/RXD land on the ESP's north-castellation IO3/IO1, dropping
-        to the bottom at U13 and running under the flip-short + castellation fanout to surface in-pad
-        at the ESP. TXD keeps west of U13's V3 stitch via; RXD takes a short inner1 jog at the pin exit
-        to pass over TXD (their pin order at U13 and pin order at U1 force one crossing). */}
-    <trace from=".U13 > .TXD" to=".U1 > .IO3" pcbPathRelativeTo=".U13 > .TXD"
-      pcbPath={[u13v(-51.12, 20.68, "bottom"), u13p(-51.7, 19.2), u13p(-51.7, 13.0), u13p(-58.0, 11.0), u13v(-61.21, 9.0, "top")]} />
-    <trace from=".U13 > .RXD" to=".U1 > .IO1" pcbPathRelativeTo=".U13 > .RXD"
-      pcbPath={[u13v(-51.12, 19.41, "inner1"), u13p(-52.2, 18.6), u13v(-52.2, 18.6, "bottom"),
-        u13p(-52.7, 13.5), u13p(-59.0, 11.5), u13v(-62.48, 9.0, "top")]} />
+    <trace from=".U13 > .TXD" to=".U1 > .IO3" />
+    <trace from=".U13 > .RXD" to=".U1 > .IO1" />
     {/* Auto-reset cross-coupled pair (see block header for the truth table). */}
     <trace from=".U13 > .DTR" to=".R17 > .pin1" />
     <trace from=".R17 > .pin2" to=".Q2 > .B" />
