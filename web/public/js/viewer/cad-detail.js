@@ -26,9 +26,8 @@ import {
   camera,
   controls,
 } from "./scene.js";
-import { loadStepFile } from "./step.js";
-import { loadDxfFile, resetDxfCamera } from "./dxf.js";
-import { loadGlbFile } from "./glb.js";
+import { resetDxfCamera } from "./dxf.js";
+import { getLoader } from "./loaders.js";
 import { makeRulerToggle } from "./rulers.js";
 import { makeXrayToggle } from "./xray.js";
 import { makeEdgePickToggle, clearEdgePicker } from "./edge-picker.js";
@@ -106,10 +105,12 @@ function shortName(file, ext = ".step") {
   return { name, dir };
 }
 
+// ext + hashPrefix per kind; the loader is resolved at open time via
+// getLoader(type) (loaders.js) so a fresh modal always runs current code.
 const CAD_KINDS = {
-  step: { ext: ".step", hashPrefix: "step:", loader: loadStepFile },
-  dxf:  { ext: ".dxf",  hashPrefix: "dxf:",  loader: loadDxfFile  },
-  glb:  { ext: ".glb",  hashPrefix: "glb:",  loader: loadGlbFile  },
+  step: { ext: ".step", hashPrefix: "step:" },
+  dxf:  { ext: ".dxf",  hashPrefix: "dxf:"  },
+  glb:  { ext: ".glb",  hashPrefix: "glb:"  },
 };
 
 export function openCadDetail(type, file, pushHistory = true) {
@@ -208,7 +209,9 @@ export function openCadDetail(type, file, pushHistory = true) {
     },
   });
 
-  kind.loader(file).then(() => applyCameraState(file));
+  // Resolve the loader now (current-build code) rather than binding it at
+  // import time, so opening a part after a code edit / deploy runs fresh code.
+  getLoader(type).then((load) => load(file)).then(() => applyCameraState(file));
 }
 
 // closeCadDetail is the entry point for the popstate path; UI-driven

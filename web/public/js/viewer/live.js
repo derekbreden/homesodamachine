@@ -21,10 +21,10 @@
 // so the same handler covers .step, .dxf, .mmd, and drawing .svg.
 
 import { state } from "./state.js";
-import { loadStepFile } from "./step.js";
+import { getLoader } from "./loaders.js";
 import { paintStepThumb } from "./grid.js";
-import { loadDxfFile, renderDxfThumbnail } from "./dxf.js";
-import { loadGlbFile, renderGlbThumbnail } from "./glb.js";
+import { renderDxfThumbnail } from "./dxf.js";
+import { renderGlbThumbnail } from "./glb.js";
 import { renderMmdThumbnail, refetchOpenMmd } from "./mermaid.js";
 import { renderDrawingThumbnail, refetchOpenDrawing } from "./drawings.js";
 import { renderPcbThumbnail, refetchOpenPcb } from "./pcb.js";
@@ -137,17 +137,25 @@ function isOpenAs(type, file) {
   return state.currentDetail && state.currentDetail.type === type && state.currentDetail.file === file;
 }
 
+// Re-load a CAD part into the open modal, in place, camera preserved. Resolves
+// the loader through getLoader so a code edit / deploy is reflected — the fresh
+// leaf talks to the same live scene + state, so nothing is torn down.
+async function reloadCad(type, file) {
+  const load = await getLoader(type);
+  return load(file, { preserveCamera: true });
+}
+
 window.addEventListener(HSM_EVENTS.FILES_CHANGED, (e) => {
   for (const file of (e.detail && e.detail.files) || []) {
     if (file.endsWith(".step")) {
       refreshStepCard(file);
-      if (isOpenAs("step", file)) loadStepFile(file, { preserveCamera: true });
+      if (isOpenAs("step", file)) reloadCad("step", file);
     } else if (file.endsWith(".dxf")) {
       refreshDxfCard(file);
-      if (isOpenAs("dxf", file)) loadDxfFile(file, { preserveCamera: true });
+      if (isOpenAs("dxf", file)) reloadCad("dxf", file);
     } else if (file.endsWith(".glb")) {
       refreshGlbCard(file);
-      if (isOpenAs("glb", file)) loadGlbFile(file, { preserveCamera: true });
+      if (isOpenAs("glb", file)) reloadCad("glb", file);
     } else if (file.endsWith(".mmd")) {
       refreshMmdCard(file);
       if (isOpenAs("mmd", file)) refetchOpenMmd(file);
@@ -171,9 +179,7 @@ window.__hsmDeploySoft = true;
 function reloadOpenDetail() {
   const d = state.currentDetail;
   if (!d) return;
-  if (d.type === "step") loadStepFile(d.file, { preserveCamera: true });
-  else if (d.type === "dxf") loadDxfFile(d.file, { preserveCamera: true });
-  else if (d.type === "glb") loadGlbFile(d.file, { preserveCamera: true });
+  if (d.type === "step" || d.type === "dxf" || d.type === "glb") reloadCad(d.type, d.file);
   else if (d.type === "mmd") refetchOpenMmd(d.file);
   else if (d.type === "drawing") refetchOpenDrawing(d.file);
   else if (d.type === "pcb") refetchOpenPcb(d.file);
@@ -186,6 +192,10 @@ window.addEventListener(HSM_EVENTS.DEPLOY, (e) => {
   // thumbnail and the open modal re-render against the new bytes.
   const newBuild = !e.detail || e.detail.commitChanged !== false;
   if (newBuild) {
+    // Adopt the new build's commit as the code-bust token so the open modal and
+    // any subsequent open re-import the leaf loaders as the new deploy's code,
+    // not the code this tab loaded at boot.
+    if (e.detail && e.detail.commit) state.codeVersion = String(e.detail.commit);
     state.thumbnailCache.clear();
     state.dxfThumbCache.clear();
     state.glbThumbCache.clear();
@@ -198,4 +208,20 @@ window.addEventListener(HSM_EVENTS.DEPLOY, (e) => {
   }
   fetchFiles();
   if (newBuild) reloadOpenDetail();
+});
+
+// Dev viewer-source hot-reload: a leaf render module (glb.js / step.js / dxf.js)
+// was edited. The artifact bytes are unchanged — only the code moved — so adopt
+// the change nonce as the code-bust token, drop the ETags (so the loader doesn't
+// 304-short-circuit and actually re-parses through the fresh code), and re-render
+// the open modal in place. No card refresh or list re-fetch: nothing on disk that
+// the grid reads changed. A modal opened after this naturally re-imports fresh
+// via getLoader. No-op if nothing is open.
+window.addEventListener(HSM_EVENTS.CODE_CHANGED, (e) => {
+  const version = e.detail && e.detail.version;
+  if (version) state.codeVersion = String(version);
+  state.stepEtags.clear();
+  state.dxfEtags.clear();
+  state.glbEtags.clear();
+  reloadOpenDetail();
 });
