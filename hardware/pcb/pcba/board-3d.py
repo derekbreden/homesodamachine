@@ -24,6 +24,7 @@ import argparse
 import gzip
 import json
 import math
+import shutil
 import subprocess
 import sys
 import time
@@ -278,6 +279,14 @@ def main():
     gz = len(gzip.compress(glb_path.read_bytes())) / 1024 / 1024
     tag = f", {failed} without a model" if failed else ""
     print(f"[{board_name}] wrote out/{glb_path.name} — {placed} placed{tag}, {mb:.1f} MB ({gz:.1f} MB gzipped)")
+
+    # Green-soldermask face textures the viewer lays over the board (needs the fab
+    # gerbers from a prior render-board.ts). Best-effort — the GLB stands without them.
+    bun = shutil.which("bun") or str(Path.home() / ".bun" / "bin" / "bun")
+    try:
+        subprocess.run([bun, "board-texture.ts", board_name], cwd=HERE, check=True)
+    except Exception as e:
+        print(f"[{board_name}] board-texture skipped ({e}) — run: bun board-texture.ts {board_name}", file=sys.stderr)
 
     if args.step:
         Interface_Static.SetCVal_s("write.step.schema", "AP214")

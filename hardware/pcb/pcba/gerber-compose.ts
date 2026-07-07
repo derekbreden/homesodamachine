@@ -80,6 +80,23 @@ export const SCHEMES: Record<string, Scheme> = {
     bottomOpacity: 0.8,
     copperFillOpacity: 0.2,
   },
+  // Green soldermask with gold copper and white silk — the face texture for the
+  // 3D board (board-texture.ts). Pours wash green (low copperFillOpacity) while
+  // traces and pads stay solid gold.
+  board3d: {
+    fr4: "#0e5a2c",
+    top: "#e8b24a",
+    bottom: "#e8b24a",
+    inner: ["#c98f3a", "#a87a30"],
+    mask: "#f2d78c",
+    drill: "#06210f",
+    edge: "#083a1d",
+    silk: "#ffffff",
+    silkOpacity: 0.92,
+    topOpacity: 1,
+    bottomOpacity: 1,
+    copperFillOpacity: 0.12,
+  },
 }
 
 // A layer rendered by gerber-to-svg, reduced to what we need to re-frame it:
