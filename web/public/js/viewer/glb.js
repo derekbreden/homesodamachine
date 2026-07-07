@@ -1,7 +1,8 @@
 // GLB-format module. Loads a glTF-binary assembly (the board's 3D model,
 // board body + placed component meshes — see hardware/pcb/pcba/board-3d.py)
-// into the shared Three.js scene via GLTFLoader, plus an offscreen thumbnail
-// renderer (reusing step.js's thumbScene). Materials + colors come baked in
+// into the shared Three.js scene via GLTFLoader, lays the green-soldermask
+// face textures (board-texture.ts) over the board slab, and renders offscreen
+// thumbnails (reusing step.js's thumbScene). Materials + colors are baked in
 // the GLB; no occt parse.
 
 import * as THREE from "three";
@@ -11,19 +12,59 @@ import { scene, resetCamera } from "./scene.js";
 import { thumbRenderer, thumbScene, thumbCam } from "./step.js";
 
 const loader = new GLTFLoader();
+const texLoader = new THREE.TextureLoader();
 
 function parseGlb(buffer) {
   return new Promise((resolve, reject) => loader.parse(buffer, "", resolve, reject));
 }
 
-// glTF is Y-up; the scene (resetCamera, the thumbnail camera) is +Z-up like the
-// STEP parts. Wrap the loaded content in a group tipped +90° about X so the
-// board's normal points up in this scene the way a Z-up STEP would.
+// RWGltf writes the board Z-up (board plane in X-Y, faces at ±z) — the scene's
+// convention already, so no reorientation. The group is just a handle scene.add
+// and teardown operate on.
 function toZupGroup(gltf) {
   const group = new THREE.Group();
   group.add(gltf.scene);
-  group.rotation.x = Math.PI / 2;
   return group;
+}
+
+// The board is the largest flat mesh (its 95×76 face dwarfs every part). Float a
+// copper+silk plane just off each ±z face — top3d over the top, bottom3d under
+// (mirrored, since it's drawn as seen down through the board).
+function addBoardFaces(group, file) {
+  group.updateMatrixWorld(true);
+  const bb = new THREE.Box3();
+  let best = 0, foot = null;
+  group.traverse((o) => {
+    if (!o.isMesh) return;
+    bb.setFromObject(o);
+    const dx = bb.max.x - bb.min.x, dy = bb.max.y - bb.min.y, dz = bb.max.z - bb.min.z;
+    if (dz < Math.min(dx, dy) * 0.2 && dx * dy > best) {
+      best = dx * dy;
+      foot = { w: dx, h: dy, cx: (bb.min.x + bb.max.x) / 2, cy: (bb.min.y + bb.max.y) / 2, z: (bb.min.z + bb.max.z) / 2 };
+    }
+  });
+  if (!foot) return;
+
+  const half = Math.max(Math.abs(foot.z), 1e-4); // board is centred on z=0; faces at ±half
+  const lift = half * 0.25;
+  const base = `/thumbs/${file.replace(/\.glb$/, "")}`;
+  const face = (url, z, mirror) => {
+    const mesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(foot.w, foot.h),
+      new THREE.MeshStandardMaterial({ roughness: 0.85, metalness: 0.0 }),
+    );
+    mesh.position.set(foot.cx, foot.cy, z);
+    if (mirror) mesh.rotation.y = Math.PI; // face -Z + horizontal mirror (bottom seen from below)
+    texLoader.load(
+      url,
+      (tex) => { tex.colorSpace = THREE.SRGBColorSpace; mesh.material.map = tex; mesh.material.needsUpdate = true; },
+      undefined,
+      () => group.remove(mesh), // no texture rendered yet — drop the blank plane
+    );
+    group.add(mesh);
+  };
+  face(`${base}.top3d.png`, half + lift, false);
+  face(`${base}.bottom3d.png`, -half - lift, true);
 }
 
 export async function loadGlbFile(file, { preserveCamera = false } = {}) {
@@ -49,6 +90,7 @@ export async function loadGlbFile(file, { preserveCamera = false } = {}) {
     }
     state.currentGroup = toZupGroup(gltf);
     scene.add(state.currentGroup);
+    addBoardFaces(state.currentGroup, file);
     state.mountedDetail = { type: "glb", file };
     if (!preserveCamera) resetCamera(state.currentGroup);
   } finally {
