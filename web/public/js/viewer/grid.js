@@ -5,9 +5,12 @@
 
 import { state } from "./state.js";
 import { openDetail, openDxfDetail, openGlbDetail } from "./cad-detail.js";
-import { openMmdDetail, renderMmdThumbnail } from "./mermaid.js";
-import { openDrawingDetail, renderDrawingThumbnail } from "./drawings.js";
-import { openPcbDetail, renderPcbThumbnail } from "./pcb.js";
+// Card-click openers come from detail-shims.js so opening a part after a code
+// edit runs fresh code; thumbnail renderers stay from the modules (static).
+import { openMmdDetail, openDrawingDetail, openPcbDetail } from "./detail-shims.js";
+import { renderMmdThumbnail } from "./mermaid.js";
+import { renderDrawingThumbnail } from "./drawings.js";
+import { renderPcbThumbnail } from "./pcb.js";
 import { renderThumbnail } from "./step.js";
 import { renderDxfThumbnail } from "./dxf.js";
 import { renderGlbThumbnail } from "./glb.js";

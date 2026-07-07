@@ -54,8 +54,14 @@ export const state = {
   glbEtags: new Map(),        // GLB file -> last loaded ETag
   dxfMeta: new Map(),         // DXF file -> {thickness_mm, material} from sidecar (hardware/README.md)
   gridEl: null,               // set by main.js after DOM ready
-  codeVersion: null,          // cache-bust token for re-importing the leaf render modules (loaders.js);
-                              // null = page-load code is current. Set to the build commit on a prod
-                              // deploy (live.js DEPLOY) and to a change nonce on a dev viewer-source
-                              // save (live.js CODE_CHANGED), so a code edit is picked up in place.
+  codeVersion: null,          // cache-bust token for re-importing the render modules (loaders.js /
+                              // detail-shims.js); null = page-load code is current. Set to the build
+                              // commit on a prod deploy (live.js DEPLOY) and to a change nonce on a dev
+                              // viewer-source save (live.js CODE_CHANGED), so a code edit is picked up
+                              // in place.
+  svgIdSeq: 0,                // monotonic token source for pcb.js's per-instance SVG id rewrite; lives
+                              // here (not module-local) so it stays unique across a hot re-import of
+                              // pcb.js — a reset counter would re-issue "__b1" and collide with a grid
+                              // card's ids (the mask-clearance bug pcb.js's uniquifySvgIds guards).
+  mmdRenderSeq: 0,            // same, for mermaid.js's transient render ids.
 };

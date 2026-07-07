@@ -25,9 +25,13 @@ import { getLoader } from "./loaders.js";
 import { paintStepThumb } from "./grid.js";
 import { renderDxfThumbnail } from "./dxf.js";
 import { renderGlbThumbnail } from "./glb.js";
-import { renderMmdThumbnail, refetchOpenMmd } from "./mermaid.js";
-import { renderDrawingThumbnail, refetchOpenDrawing } from "./drawings.js";
-import { renderPcbThumbnail, refetchOpenPcb } from "./pcb.js";
+// Open-modal refresh resolves through detail-shims.js (hot); thumbnail renderers
+// stay static — a code edit rarely touches the tiny card render and re-importing
+// for it isn't worth it (matches the CAD kinds keeping renderGlbThumbnail static).
+import { refetchOpenMmd, refetchOpenDrawing, refetchOpenPcb } from "./detail-shims.js";
+import { renderMmdThumbnail } from "./mermaid.js";
+import { renderDrawingThumbnail } from "./drawings.js";
+import { renderPcbThumbnail } from "./pcb.js";
 import { fetchFiles } from "./main.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 
@@ -185,6 +189,21 @@ function reloadOpenDetail() {
   else if (d.type === "pcb") refetchOpenPcb(d.file);
 }
 
+// Force the open detail to fully re-render on the next reloadOpenDetail rather
+// than short-circuit on unchanged content — used when the render CODE moved even
+// though the artifact bytes didn't (a deploy or a dev code edit). Each kind gates
+// re-render on a "same as last time" check: CAD loaders on the ETag, the PanZoom
+// kinds on the last content string / view set. Dropping those makes the freshly
+// imported module actually re-parse and re-mount.
+function forceDetailRerender() {
+  state.stepEtags.clear();
+  state.dxfEtags.clear();
+  state.glbEtags.clear();
+  state.currentMmdContent = null;
+  state.currentDrawingContent = null;
+  state.currentPcbViews = null;
+}
+
 window.addEventListener(HSM_EVENTS.DEPLOY, (e) => {
   // commitChanged === false means a same-commit reconnect blip (nothing
   // actually shipped): just re-list to catch any add/remove, cheaply.
@@ -202,26 +221,24 @@ window.addEventListener(HSM_EVENTS.DEPLOY, (e) => {
     state.mmdThumbCache.clear();
     state.drawingThumbCache.clear();
     state.pcbThumbCache.clear();
-    state.stepEtags.clear();
-    state.dxfEtags.clear();
-    state.glbEtags.clear();
+    // New build may carry new render code too, so force a full re-render (this
+    // drops the ETags the pre-code-version deploy path already cleared).
+    forceDetailRerender();
   }
   fetchFiles();
   if (newBuild) reloadOpenDetail();
 });
 
-// Dev viewer-source hot-reload: a leaf render module (glb.js / step.js / dxf.js)
-// was edited. The artifact bytes are unchanged — only the code moved — so adopt
-// the change nonce as the code-bust token, drop the ETags (so the loader doesn't
-// 304-short-circuit and actually re-parses through the fresh code), and re-render
+// Dev viewer-source hot-reload: a render module (glb/step/dxf leaf, or a
+// mermaid/drawing/pcb detail module) was edited. The artifact bytes are
+// unchanged — only the code moved — so adopt the change nonce as the code-bust
+// token, force a full re-render past the unchanged-content guards, and re-render
 // the open modal in place. No card refresh or list re-fetch: nothing on disk that
 // the grid reads changed. A modal opened after this naturally re-imports fresh
-// via getLoader. No-op if nothing is open.
+// (getLoader / detail-shims). No-op if nothing is open.
 window.addEventListener(HSM_EVENTS.CODE_CHANGED, (e) => {
   const version = e.detail && e.detail.version;
   if (version) state.codeVersion = String(version);
-  state.stepEtags.clear();
-  state.dxfEtags.clear();
-  state.glbEtags.clear();
+  forceDetailRerender();
   reloadOpenDetail();
 });

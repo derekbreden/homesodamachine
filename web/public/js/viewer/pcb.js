@@ -135,12 +135,15 @@ function boardForSource(source) {
 // copper gets masked by the wrong board's clearance (the "big hole" that only
 // appeared from the /pcb grid, not a direct deep-link). Rewrite every id and its
 // references to a per-instance token so each inlined SVG is self-contained.
-let _svgIdSeq = 0;
+// The per-instance token counter lives in `state` (state.svgIdSeq), not module
+// scope, so it stays globally monotonic across a hot re-import of this module —
+// a reset counter would re-issue "__b1" and shadow a grid card's ids in the
+// document, resurfacing the wrong-mask "big hole" this function exists to prevent.
 function uniquifySvgIds(svgText) {
   const ids = new Set();
   for (const m of svgText.matchAll(/\bid="([^"]+)"/g)) ids.add(m[1]);
   if (!ids.size) return svgText;
-  const tok = "__b" + ++_svgIdSeq;
+  const tok = "__b" + (state.svgIdSeq += 1);
   let out = svgText;
   for (const id of ids) {
     const esc = id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
