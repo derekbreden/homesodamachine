@@ -345,11 +345,63 @@ async function runPcbRender(tsxPath) {
     const relFile = relForBroadcast(tsxPath);
     console.log(`  -> ${relFile}`);
     broadcast({ type: WS.FILES_CHANGED, files: [relFile] });
+    // The copper render is done and broadcast; now kick the slow 3D (GLB) rebuild off the
+    // freshly-routed circuit-json render-board just wrote. Fire-and-forget so this path — and the
+    // agents iterating the PCB — never waits on OCCT; the viewer hot-swaps the model when it lands.
+    runBoard3d(tsxPath);
   } catch (e) {
     console.log(`  ↪ board render failed: ${e.message}`);
   } finally {
     if (pcbRunning.get(tsxPath) === killer) pcbRunning.delete(tsxPath);
   }
+}
+
+const glbRunning = new Map(); // tsx path -> kill fn for the in-flight background 3D (GLB) build
+
+// Background 3D-assembly rebuild. board-3d.py turns the routed circuit-json into out/<board>.glb
+// (the /3d viewer model) plus its face textures. It's SLOW — STEP model reads + OCCT meshing + a
+// board-texture.ts pass — and purely a preview artifact, so it runs detached AFTER the copper
+// render, never blocking it: a save's gerbers/preview land immediately and the GLB catches up a
+// few seconds later, when the viewer hot-swaps it (live.js reloads on the .glb files-changed).
+// It reads out/<board>.circuit.json (which render-board just wrote) directly, so it does NOT run a
+// second autoroute. Single-flight per board: a newer save supersedes an in-flight build by killing
+// its process GROUP (SIGTERM then a backstop SIGKILL), mirroring runPcbRender. Best-effort — any
+// failure just leaves the previous GLB in place.
+function runBoard3d(tsxPath) {
+  const scriptDir = path.dirname(tsxPath);
+  const py = path.join(scriptDir, "board-3d.py");
+  if (!fs.existsSync(py)) return; // no 3D generator beside this board
+  const board = path.basename(tsxPath).replace(/\.tsx$/, "");
+  const cjRel = path.join("out", `${board}.circuit.json`);
+  if (!fs.existsSync(path.join(scriptDir, cjRel))) return; // render-board writes this; without it board-3d.py would re-route
+
+  glbRunning.get(tsxPath)?.(); // supersede an in-flight build of this board
+  console.log(`  ↪ rebuilding 3D (GLB): ${relForLog(tsxPath)}`);
+  let superseded = false;
+  // Pass the .circuit.json target so board-3d.py skips ensure_circuit_json (no re-route). Own
+  // process group so the supersede kill reaps board-3d.py AND its board-texture.ts child together.
+  const proc = spawn(PYTHON_BIN, ["board-3d.py", cjRel], {
+    cwd: scriptDir,
+    stdio: ["ignore", "ignore", "inherit"], // progress/errors ride stderr into the dev log
+    detached: true,
+  });
+  const killer = () => {
+    superseded = true;
+    try { process.kill(-proc.pid, "SIGTERM"); } catch {}
+    setTimeout(() => { try { process.kill(-proc.pid, "SIGKILL"); } catch {} }, 2000).unref();
+  };
+  glbRunning.set(tsxPath, killer);
+  proc.on("close", (code) => {
+    if (glbRunning.get(tsxPath) === killer) glbRunning.delete(tsxPath);
+    if (superseded || code !== 0) return;
+    const relFile = relForBroadcast(path.join(scriptDir, "out", `${board}.glb`));
+    console.log(`  -> ${relFile} (3D)`);
+    broadcast({ type: WS.FILES_CHANGED, files: [relFile] });
+  });
+  proc.on("error", (e) => {
+    if (glbRunning.get(tsxPath) === killer) glbRunning.delete(tsxPath);
+    console.log(`  ↪ 3D (GLB) rebuild failed to spawn: ${e.message}`);
+  });
 }
 
 // --- File watcher ---
