@@ -54,10 +54,17 @@ function addBoardFaces(group, file) {
       new THREE.MeshStandardMaterial({ roughness: 0.85, metalness: 0.0 }),
     );
     mesh.position.set(foot.cx, foot.cy, z);
-    if (mirror) mesh.rotation.y = Math.PI; // face -Z + horizontal mirror (bottom seen from below)
+    if (mirror) mesh.rotation.y = Math.PI; // turn the plane to face -Z (down)
     texLoader.load(
       url,
-      (tex) => { tex.colorSpace = THREE.SRGBColorSpace; mesh.material.map = tex; mesh.material.needsUpdate = true; },
+      (tex) => {
+        tex.colorSpace = THREE.SRGBColorSpace;
+        // Facing -Z flips the texture's U; undo it so the bottom maps board→(x,y)
+        // like the top and so its (already glyph-mirrored) silk reads forward from below.
+        if (mirror) { tex.wrapS = THREE.RepeatWrapping; tex.repeat.x = -1; tex.offset.x = 1; }
+        mesh.material.map = tex;
+        mesh.material.needsUpdate = true;
+      },
       undefined,
       () => group.remove(mesh), // no texture rendered yet — drop the blank plane
     );
