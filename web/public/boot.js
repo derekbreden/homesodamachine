@@ -472,6 +472,12 @@ import { WS } from "/contracts/ws-frames.js";
       fetchNotifications();
       return;
     }
+    if (msg.type === WS.CODE_CHANGED) {
+      // Dev-only viewer-source edit. The parts viewer re-imports the open
+      // detail's loader under this token (live.js); no other page listens.
+      window.dispatchEvent(new CustomEvent(HSM_EVENTS.CODE_CHANGED, { detail: { version: msg.version } }));
+      return;
+    }
     // type === "ping" and anything else: lastActivityAt already bumped at
     // the top of this handler. Log the 30s heartbeat so the panel's
     // "seconds since last frame" reads as a visible pulse.
