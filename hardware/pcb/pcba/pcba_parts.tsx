@@ -26,7 +26,7 @@ import { TYPE_C_31_M_12 } from "./imports/TYPE_C_31_M_12"
 import { DRV8870DDAR } from "./imports/DRV8870DDAR"
 import { MT3608 } from "./imports/MT3608"
 import { SS34 } from "./imports/SS34"
-import { FNR4030 } from "./imports/FNR4030"
+import { FNR4030S4R7MT } from "./imports/FNR4030S4R7MT"
 
 // ---- ULN2803A — SOIC-18 (300 mil wide) -------------------------------------
 // Octal Darlington sink driver. C845537 (UMW ULN2803A, SOP-18-300mil). Pinout:
@@ -231,5 +231,5 @@ export const Usblc6 = centred(USBLC6_2SC6)          // U14 — USB ESD array (SO
 export const UsbC = centred(TYPE_C_31_M_12)         // J14 — USB-C receptacle
 export const Drv8870 = centred(DRV8870DDAR)         // U11/U12 — pump H-bridges (SOP-8)
 export const Boost = centred(MT3608)                // U15 — 5V->12V boost (SOT-23-6)
-export const Schottky = centred(SS34)               // D7/D8 — SS34 rectifier / VBUS iso (SMA)
-export const Inductor = centred(FNR4030)            // L1 — boost inductor (4x4)
+export const Schottky = centred(SS34)               // D7/D8 — SS34 Schottky diode (SMA); pin1=K, pin2=A
+export const Inductor = centred(FNR4030S4R7MT)      // L1 — boost inductor (4x4)
