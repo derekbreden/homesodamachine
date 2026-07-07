@@ -17,9 +17,14 @@ import {
   openGlbDetail,
   closeCadDetail,
 } from "./cad-detail.js";
-import { openMmdDetail, closeMmdDetail } from "./mermaid.js";
-import { openDrawingDetail, closeDrawingDetail } from "./drawings.js";
-import { openPcbDetail, closePcbDetail } from "./pcb.js";
+// Non-CAD detail kinds resolve their open/close through detail-shims.js so a
+// viewer-code edit is picked up (open re-imports fresh; close is the static,
+// synchronous teardown — see detail-shims.js).
+import {
+  openMmdDetail, closeMmdDetail,
+  openDrawingDetail, closeDrawingDetail,
+  openPcbDetail, closePcbDetail,
+} from "./detail-shims.js";
 
 // Browser/OS back button: navigate to whatever the new hash represents.
 // ContentViewer handles Escape / X / backdrop / swipe-down on its own.
