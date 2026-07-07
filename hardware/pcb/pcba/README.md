@@ -39,4 +39,8 @@ checked on every build rather than assembled at the end.
 - [`route-hints.md`](route-hints.md) — how to influence PCB routing on this board: why the
   `pcbRouteHints` prop is inert under our capacity autorouter, `<tracehint>` for soft nudges,
   and `pcbPath` / `pcbComb` for deterministic paths, vias, and layers.
+- [`hand-routing.md`](hand-routing.md) — placing manual `pcbPath` copper correctly: the
+  coordinate frame (points are in the `from` component's resolved center + rotation, *not* board
+  coordinates), the `frame` helper (`.at` board / `.off` local), moving a component tighter as a
+  one-line change, and the render→floor verify loop. Read before writing a `pcbPath`.
 - Per-step specs (`uln2803.md`, `mcp23017.md`, …).
