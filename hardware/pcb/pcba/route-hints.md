@@ -54,7 +54,10 @@ board's pump-bus fan-out already uses):
 - **`pcbStraightLine`** — force a straight trace between two pads.
 - **`pcbPath={[{ x, y }, { x, y, via: true, toLayer: "inner2" }, …]}`** — a full manual path:
   waypoints, real vias with `fromLayer` / `toLayer`, per-segment layer. The only hint-like
-  tool that can force a via and a landing layer.
+  tool that can force a via and a landing layer. **Its numeric points are in the `from`
+  component's own frame (resolved center + rotation), not board coordinates** — the coordinate
+  system, the `frame` helper, and how to move a component tighter are in
+  [`hand-routing.md`](hand-routing.md).
 - **`pcbComb`** — computed straight→45°→straight comb for pin-line bundles (our core fork;
   open upstream PR [tscircuit/core#2567](https://github.com/tscircuit/core/pull/2567)). See
   [`FORKS.md`](FORKS.md).

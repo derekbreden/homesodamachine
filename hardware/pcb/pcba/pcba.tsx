@@ -75,25 +75,39 @@ import type { AmpacityRule } from "./ampacity-audit"
 const ID = boardVersionParts()
 
 // ── USB-C corner hand-routing (pcbPath) ──────────────────────────────────────────────
-// A pcbPath's numeric points are in the ANCHOR COMPONENT's own frame (origin = its center,
-// pre-rotation footprint axes). All three corner anchors are rot 270, so board (x,y) maps to
-// local as { x: cy - y, y: x - cx }. Manual vias are full-stack top<->bottom ONLY (JLCPCB drills
-// through-holes; inner layers are reachable by the autorouter, not by a hand path). So every
-// hand-routed wire lives on top or bottom.
-const jp = (x: number, y: number) => ({ x: 17.75 - y, y: x + 62 })      // J14 @ (-62, 17.75)
-const up = (x: number, y: number) => ({ x: 17.75 - y, y: x + 55.25 })   // U14 @ (-55.25, 17.75)
-const u13p = (x: number, y: number) => ({ x: 17.5 - y, y: x + 48.25 })  // U13 @ (-48.25, 17.5)
-const u1p = (x: number, y: number) => ({ x: x + 57, y })                // U1 (ESP32) @ (-57, 0), rot 0 → local = board − center
-type Frame = (x: number, y: number) => { x: number; y: number }
-// A full-stack via at (x,y) landing on `toLayer`, in frame `p`.
-const via = (p: Frame, x: number, y: number, toLayer: "top" | "bottom") =>
-  ({ ...p(x, y), via: true as const, toLayer })
-// Via down to bottom / back up to top, with a co-located wire point each side so the via lands on
-// a route vertex. Spread into a pcbPath: [...drop(u13p, x, y), u13p(x2, y2), ...rise(u13p, x3, y3)].
-const drop = (p: Frame, x: number, y: number) =>
-  [p(x, y), { ...p(x, y), via: true as const, toLayer: "bottom" as const }, p(x, y)]
-const rise = (p: Frame, x: number, y: number) =>
-  [p(x, y), { ...p(x, y), via: true as const, toLayer: "top" as const }, p(x, y)]
+// A pcbPath's numeric {x,y} points are in the FROM component's OWN frame: board = center +
+// R(rotation)·local, where `center` is the component's RESOLVED pcb center (its placement x/y
+// PLUS the footprint's own offset — read it from a render; it is NOT always the JSX x/y) and
+// `rotation` is its `rot`. Get the center or rotation wrong and every point lands off — that is
+// the single thing that makes hand routing here go sideways. (See routing-procedure.md.) Manual
+// vias are full-stack top<->bottom ONLY, so hand paths live on the top or bottom layer.
+//
+// `frame(cx, cy, rot)` captures one component's resolved center + rotation and offers two ways to
+// author a point, so intent is explicit and survives moving the component:
+//   .at(bx, by)  — a fixed BOARD point. Stays put when THIS component moves. Use it for the far
+//                  end of a run, the part shaped against ANOTHER (stationary) component's pads.
+//   .off(dx, dy) — a raw local OFFSET. Travels WITH this component. Use it for the near end, the
+//                  part shaped against this component's own body/pads.
+// To move a component, change only its placement const below: .at() points auto-recompute to hold
+// their board position and .off() points ride along — no waypoint retuning by hand.
+type Pt = { x: number; y: number }
+const frame = (cx: number, cy: number, rot: number) => {
+  const t = (rot * Math.PI) / 180, cos = Math.cos(t), sin = Math.sin(t)
+  return {
+    off: (dx: number, dy: number): Pt => ({ x: dx, y: dy }),
+    at: (bx: number, by: number): Pt => {          // board -> local: R(-rot)·(board - center)
+      const dx = bx - cx, dy = by - cy
+      return { x: cos * dx + sin * dy, y: -sin * dx + cos * dy }
+    },
+  }
+}
+// Resolved pcb centers. Keep the *_X/_Y in sync with the JSX placements below — the frame and the
+// <Component> read the same const, so a move can't desync them.
+const U14_X = -56.25, U14_Y = 17.75      // Usblc6, footprint offset 0 → center = placement
+const C22_X = -56.5, C22_Y = 21.0        // 0805 cap, footprint offset 0 → center = placement
+const U14f = frame(U14_X, U14_Y, 270)
+const J14f = frame(-62.45, 17.75, 270)   // UsbC: placement -62 + footprint x-offset -0.45
+const C22f = frame(C22_X, C22_Y, 0)
 
 // ── Decoupling audit ────────────────────────────────────────────────────────────────────
 // The single source of truth for which support cap serves which part, its role, and its job
@@ -649,11 +663,11 @@ export default () => (
         VBUS, C21 rides U13's 3V3. East column on x=-44, 4 mm pitch: C6 / R8 / Q3 / C21 (with
         R15 above), R8 the IO0 pull-up spun vertical into the stack. */}
     <UsbC name="J14" x={-62} y={17.75} rot={270} />
-    <Usblc6 name="U14" x={-55.25} y={17.75} rot={270} />
+    <Usblc6 name="U14" x={U14_X} y={U14_Y} rot={270} />
     <Ch340 name="U13" x={-48.25} y={17.5} rot={270} />
     <Res name="R16" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-63.5} y={11.5} rot={0} side="N" />
     <Res name="R15" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-63.5} y={24} rot={0} side="N" />
-    <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-55.25} y={21.5} rot={0} side="N" />
+    <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={C22_X} y={C22_Y} rot={0} side="N" />
     <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-47.5} y={24.5} rot={0} side="N" />
     {/* EN branch (west): U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
     <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-63.5} y={26.25} rot={0} side="N" />
@@ -676,22 +690,20 @@ export default () => (
     <trace from=".R15 > .pin2" to="net.GND" />
     <trace from=".J14 > .pin12" to=".R16 > .pin1" />
     <trace from=".R16 > .pin2" to="net.GND" />
-    {/* D+ = A6(pin8)+B6(pin10), D- = A7(pin9)+B7(pin7); both connector orientations tied. The
-        pads interleave D-/D+/D-/D+ (B7 18.5, A6 18.0, A7 17.5, B6 17.0) at 0.5 mm pitch, so a
-        connector-side tie of either pair must hop a different-net pad — needing a via — and the
-        only bottom escape channel east of the tips is occupied by the VBUS pin15->C22 run
-        (x-58.0, up to y20.5). Left to the autorouter until VBUS is re-choreographed to free it. */}
-    {/* <trace from=".J14 > .pin8" to=".U14 > .pin1" /> */}
-    {/* <trace from=".J14 > .pin10" to=".J14 > .pin8" /> */}
+    {/* D+ = J14 pin8(A6)+pin10(B6), D- = J14 pin9(A7)+pin7(B7); the connector ties both USB-C
+        orientations. The pads interleave D-/D+/D-/D+ (B7 18.5 / A6 18.0 / A7 17.5 / B6 17.0) at
+        0.5 mm pitch. Each pair is hand-routed on top with no vias: one pad runs through to U14, the
+        flip pad ties on with a short jumper — D+ ties pin10->pin8 at the connector, D- fans from
+        U14.pin3 to both pins. Coordinates use the frame helper above (.at = board, .off = local). */}
     <trace
         from="U14.pin1"
         to="J14.pin10"
         pcbPath={[
             "U14.pin1",
-            { x: -0.95, y: -0.35},
-            { x: 1.5, y: -0.35},
-            { x: 1.5, y: -3.5},
-            { x: 0.75, y: -3.5},
+            U14f.off(-0.95, -0.35),   // exit east, hopping around U14.pin2 (GND)
+            U14f.off(1.5, -0.35),     // drop south of U14's body
+            U14f.at(-58.75, 16.25),   // west in the pin11/pin12 gap, clear of the pad column
+            U14f.at(-58.75, 17.0),    // up to pin10's row, then straight in
             "J14.pin10"
         ]}
     />
@@ -700,20 +712,18 @@ export default () => (
         to="J14.pin8"
         pcbPath={[
             "J14.pin10",
-            { x: 0.75, y: 1.2},
-            { x: -0.2, y: 1.2},
+            J14f.off(0.75, 1.2),      // one small "U" west of the D+ pads ties pin10->pin8
+            J14f.off(-0.2, 1.2),
             "J14.pin8"
         ]}
     />
-    {/* <trace from=".J14 > .pin9" to=".U14 > .pin3" /> */}
-    {/* <trace from=".J14 > .pin7" to=".J14 > .pin9" /> */}
     <trace
         from="U14.pin3"
         to="J14.pin9"
         pcbPath={[
             "U14.pin3",
-            { x: 0.95, y: -3},
-            { x: 0.25, y: -3},
+            U14f.at(-58.25, 16.8),    // west from pin3
+            U14f.at(-58.25, 17.5),    // up to pin9's row, then in
             "J14.pin9"
         ]}
     />
@@ -722,53 +732,46 @@ export default () => (
         to="J14.pin7"
         pcbPath={[
             "U14.pin3",
-            { x: 0.95, y: -3},
-            { x: -0.75, y: -3},
+            U14f.at(-58.25, 16.8),    // shares pin3's exit; D- fans from one pad to both
+            U14f.at(-58.25, 18.5),    // up to pin7's row, then in
             "J14.pin7"
         ]}
     />
-    {/* TABLED — crossed my host-D− on top; evicted (own VBUS later). <trace from=".J14 > .pin15" to=".U14 > .pin5" /> */}
-    {/* TABLED — crossed my host-D− on top; evicted (own VBUS later). <trace from=".J14 > .pin16" to=".U14 > .pin5" /> */}
     {/* ESD array: GND + VBUS rail + bypass cap; D+/D- pass through to the bridge. */}
     <trace from=".U14 > .pin2" to="net.GND" />
-    {/* Owning VBUS (target 4): hand-route only the crux leg out of the sandwiched pin5 — BOTTOM,
-        ducks south of U14 into the freed west zone to J14.pin16. The rest of the net (J14.pin15, C22)
-        is away from host-D, so it goes back to the autorouter, reintroduced one at a time below. */}
-    {/* pin15 is the SOUTH J14 VBUS pad (y15.35), pin16 the NORTH (y20.15). Chain pin5-pin15-C22-pin16,
-        no column traversal: pin5 ducks south to the south pad; pin16 hops north to C22 on top; pin15
-        runs up the west free zone to C22 on the bottom. */}
-    {/* <trace from=".U14 > .pin5" to=".J14 > .pin15" /> */}
+    {/* VBUS, hand-routed on top with no vias. J14 pin16 is the north VBUS pad (y20.15), pin15 the
+        south (y15.35). From U14.pin5 the net fans two ways: NORTH through the window between the D+
+        exit and C22 to the bypass cap C22.pin1, which carries on west to pin16; and SOUTH below the
+        pad column to pin15. */}
     <trace
         from="U14.pin5"
         to="C22.pin1"
         pcbPath={[
             "U14.pin5",
-            { x: 0, y: 0.35},
-            { x: -2.7, y: 0.35},
-            { x: -2.7, y: -1},
+            U14f.off(0, 0.35),        // VBUS fan point, just west of pin5
+            U14f.at(-55.9, 19.5),     // north into the window between the D+ exit and C22
+            U14f.at(C22_X - 1.0, 19.5), // west to under C22.pin1 (follows C22), clear of pin2/GND
             "C22.pin1"
         ]}
     />
-    {/* <trace from=".J14 > .pin16" to=".C22 > .pin1" /> */}
     <trace
         from="C22.pin1"
         to="J14.pin16"
         pcbPath={[
             "C22.pin1",
-            { x: -3.5, y: 0},
-            { x: -3.5, y: -1.35},
+            C22f.at(-58.75, 20.5),    // west from C22 toward J14's north VBUS pad
+            C22f.at(-58.75, 20.15),   // down to pin16's row, then in
             "J14.pin16"
         ]}
     />
-    {/* <trace from=".J14 > .pin15" to=".C22 > .pin1" /> */}
     <trace
         from="U14.pin5"
         to="J14.pin15"
         pcbPath={[
             "U14.pin5",
-            { x: 0, y: 0.35},
-            { x: 2.4, y: 0.35},
-            { x: 2.4, y: -1},
+            U14f.off(0, 0.35),        // shared VBUS fan point
+            U14f.off(2.4, 0.35),      // south below the pad column to pin15's row
+            U14f.at(-57.25, 15.35),   // west along pin15's row, then in
             "J14.pin15"
         ]}
     />
