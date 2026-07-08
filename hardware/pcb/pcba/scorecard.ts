@@ -41,6 +41,7 @@ export type Scorecard = {
   gatesPass: boolean      // every gate check passes → fab-ready on the hard rules
   manualPct: number       // signal nets hand-clean / total, 0..100 — the headline progress number
   signalNets: number      // signal nets that carry discrete copper (the conversion universe)
+  deferred: number        // connections commented out of source — routing work set aside, tracked
 }
 
 /** Everything the scorecard reads. The gate inputs are what pick-data already computed; the goal
@@ -48,6 +49,7 @@ export type Scorecard = {
 export type ScorecardInput = {
   circuit: any[]
   planeNets: Set<string>
+  deferred: { from: string; to: string }[]  // connections commented out of source (deferred work)
   floor: number | null
   clearanceErrors: { kind: string; text: string }[]  // clearance.ts DRC findings (overlap/courtyard/sliver)
   opens: { kind: string; text: string }[]            // connectivity.ts open nets
@@ -183,8 +185,12 @@ export function buildScorecard(inp: ScorecardInput): Scorecard {
     `${innerNets.length} net`, "0",
     innerNets.map((n) => `${n}: ${innerByNet.get(n)} inner-layer pt`))
 
+  goal("deferred", "No deferred connections (commented out of source)", inp.deferred.length === 0,
+    `${inp.deferred.length} deferred`, "0",
+    inp.deferred.map((d) => `${d.from} → ${d.to}`))
+
   const gatesPass = checks.every((c) => c.kind !== "gate" || c.status === "pass")
-  return { checks, gatesPass, manualPct, signalNets: signalNets.length }
+  return { checks, gatesPass, manualPct, signalNets: signalNets.length, deferred: inp.deferred.length }
 }
 
 /** Render the scorecard as an aligned terminal block — the build's closing verdict. */
@@ -202,7 +208,7 @@ export function formatScorecard(board: string, sc: Scorecard): string {
   rows.push(`── ${board} scorecard ${"─".repeat(Math.max(0, 44 - board.length))}`)
   rows.push(`GATES (fab-ready)      ${passed}/${gates.length} pass${sc.gatesPass ? "" : "   ✗ BOARD NOT FAB-READY"}`)
   gates.forEach(line)
-  rows.push(`GOAL (100% hand-routed)   ${sc.manualPct}% of ${sc.signalNets} signal nets`)
+  rows.push(`GOAL (100% hand-routed)   ${sc.manualPct}% of ${sc.signalNets} routed nets${sc.deferred ? ` · ${sc.deferred} deferred` : ""}`)
   goals.forEach(line)
   rows.push("─".repeat(48))
   return rows.join("\n")

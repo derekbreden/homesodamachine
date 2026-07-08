@@ -57,8 +57,10 @@ try {
   }
   const circuit = JSON.parse(readFileSync(cjAbs, "utf8"))
   const { decoupling, ampacity } = await loadBoardTables(boardFile)
-  const planeNets = planeNetsFromSource(readFileSync(boardFile, "utf8"))
-  const data = distill(circuit, decoupling, ampacity, planeNets)
+  const src = readFileSync(boardFile, "utf8")
+  const planeNets = planeNetsFromSource(src)
+  const deferred = deferredTracesFromSource(src)
+  const data = distill(circuit, decoupling, ampacity, planeNets, deferred)
   const outPath = path.join(dir, "out", `${board}.picks.json`)
   writeFileSync(outPath, JSON.stringify(data))
   console.log(`[${board}] wrote ${board}.picks.json — ${data.pads.length} pads`)
@@ -83,7 +85,7 @@ async function loadBoardTables(file: string): Promise<{ decoupling: DecouplingRu
   }
 }
 
-function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRules: AmpacityRule[] = [], planeNets: Set<string> = new Set()): PicksFile {
+function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRules: AmpacityRule[] = [], planeNets: Set<string> = new Set(), deferred: { from: string; to: string }[] = []): PicksFile {
   const compName: Record<string, string> = {}
   const srcPort: Record<string, any> = {}
   const pcbPort: Record<string, any> = {}
@@ -213,7 +215,7 @@ function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRule
   // metrics (manual-routing conversion) derived from the raw copper + the poured plane nets. One
   // verdict, printed on build and shown in the modal — the same result from the same geometry.
   const scorecard = buildScorecard({
-    circuit, planeNets, floor, clearanceErrors: errors, opens,
+    circuit, planeNets, deferred, floor, clearanceErrors: errors, opens,
     footprints, connectors, ampacity, capAudit,
     fab: { partsSourced: fab.partsSourced, minDrillMm: fab.minDrillMm, minViaAnnularMm: fab.minViaAnnularMm, minPadAnnularMm: fab.minPadAnnularMm, unsourced: fab.unsourced },
   })
@@ -227,6 +229,24 @@ function planeNetsFromSource(src: string): Set<string> {
   const nets = new Set<string>()
   for (const m of src.matchAll(/<copperpour\b[^>]*\bconnectsTo="net\.([A-Za-z0-9_]+)"/g)) if (m[1]) nets.add(m[1])
   return nets
+}
+
+// Commented-out <trace> elements are DEFERRED connections. Commenting a trace deletes its net
+// entirely, so no audit can see the missing link — the intent survives only as the source comment.
+// Parse those comments (JSX/C block `/* … */`, incl. `{/* … */}`, and `//` lines) so the scorecard
+// tracks routing work set aside — including whatever an agent evicts to hand-route a region.
+function deferredTracesFromSource(src: string): { from: string; to: string }[] {
+  const out: { from: string; to: string }[] = []
+  const spans = [...src.matchAll(/\/\*[\s\S]*?\*\//g), ...src.matchAll(/\/\/[^\n]*/g)].map((m) => m[0])
+  for (const span of spans)
+    // `[\s\S]*?` not `[^>]*?`: a selector value carries `>` (".U1 > .IO18"), so stopping at the
+    // first `>` would truncate the tag before its closing `/>`.
+    for (const tag of span.matchAll(/<trace\b[\s\S]*?\/>/g)) {
+      const from = tag[0].match(/\bfrom="([^"]*)"/)?.[1]
+      const to = tag[0].match(/\bto="([^"]*)"/)?.[1]
+      if (from && to) out.push({ from, to })
+    }
+  return out
 }
 
 // Manufacturability numbers, straight off the circuit-json. `partsSourced` is the JLCPCB-assembly
