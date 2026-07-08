@@ -127,32 +127,20 @@ const pcbFan = (srcF: Frame, srcPin: string, exit: [number, number], destF: Fram
     to: destF.ref(d),
     pcbPath: [srcF.ref(srcPin), srcF.fromPin(srcPin, ...exit), srcF.at(laneX, destF.pin(d).y), destF.ref(d)],
   }))
-// Clean-angle routing: keep every corner at 90° or 45°, never an arbitrary slope. `step45` returns
-// the single interior corner of a two-segment path from board point a to b — run along the dominant
-// axis, then one 45° diagonal into b.
-const step45 = (a: Pt, b: Pt): Pt => {
-  const dx = b.x - a.x, dy = b.y - a.y, ax = Math.abs(dx), ay = Math.abs(dy)
-  return ay >= ax ? { x: a.x, y: b.y - Math.sign(dy) * ax } : { x: b.x - Math.sign(dx) * ay, y: a.y }
+// Orthogonal (90°-only) hand routing — every corner is a right angle, no diagonals. `orthoTap` taps
+// a midpoint pad up to a U1 pin: jog H to `laneX` (past the pad's own top resistor), V up to just
+// below the U1 row (`apY`), H across to the pin's column, then V into the pad. The H-across collapses
+// when `laneX` already equals the pin's x (a straight H → V into the pad).
+const orthoTap = (fromF: Frame, pin: string, laneX: number, toF: Frame, toPin: string, apY = -9.7): (Pt | string)[] => {
+  const p = fromF.pin(pin), q = toF.pin(toPin), path: Pt[] = [{ x: laneX, y: p.y }]
+  if (Math.abs(laneX - q.x) > 1e-6) path.push({ x: laneX, y: apY }, { x: q.x, y: apY })
+  return [fromF.ref(pin), ...path.map((v) => fromF.at(v.x, v.y)), toF.ref(toPin)]
 }
-// A midpoint tap to a U1 pin, clean angles only. Default: a 45° diagonal from the pad up to the
-// pin's column (absorbing the x-shift while still south of U1, clear of the tight pad row), then a
-// straight vertical into the pad. Pass `laneX` for the case where the pin sits nearly above its own
-// column (no room to clear the top resistor with a 45°): jog horizontally to the lane, V up, 45° in.
-const tapTo = (fromF: Frame, pin: string, toF: Frame, toPin: string, laneX?: number): (Pt | string)[] => {
+// `orthoDrop` drops a pad straight down (at its own column, or `dropX` to clear an obstacle) to the
+// target's row, then H straight into it — for the J11 connector inputs. Two segments, one 90° corner.
+const orthoDrop = (fromF: Frame, pin: string, toF: Frame, toPin: string, dropX?: number): (Pt | string)[] => {
   const p = fromF.pin(pin), q = toF.pin(toPin)
-  if (laneX == null) {
-    const corner = { x: q.x, y: p.y + Math.sign(q.y - p.y) * Math.abs(q.x - p.x) }
-    return [fromF.ref(pin), fromF.at(corner.x, corner.y), toF.ref(toPin)]
-  }
-  const lane = { x: laneX, y: p.y }, c = step45(lane, q)
-  return [fromF.ref(pin), fromF.at(lane.x, lane.y), fromF.at(c.x, c.y), toF.ref(toPin)]
-}
-// A clean pad-to-pad link (no lane jog): one axis run + one 45° into the far pad. Optional board
-// waypoints `via` are inserted first (e.g. drop straight down before heading to a connector pin).
-const link = (fromF: Frame, pin: string, toF: Frame, toPin: string, via: Pt[] = []): (Pt | string)[] => {
-  const start = via.length ? via[via.length - 1]! : fromF.pin(pin)
-  const c = step45(start, toF.pin(toPin))
-  return [fromF.ref(pin), ...via.map((v) => fromF.at(v.x, v.y)), fromF.at(c.x, c.y), toF.ref(toPin)]
+  return [fromF.ref(pin), fromF.at(dropX ?? p.x, q.y), toF.ref(toPin)]
 }
 // Resolved pcb centers + footprint-local pin offsets (read from a render; regenerate if a footprint
 // changes). Keep *_X/_Y in sync with the JSX placements below — same const, so a move can't desync.
@@ -403,10 +391,11 @@ export default () => (
     <trace from=".C10 > .pin2" to="net.GND" />
     <trace from=".C11 > .pin1" to="net.V3V3" />
     <trace from=".C11 > .pin2" to="net.GND" />
-    {/* EN network hand-routed: R7.pin1↔C12.pin1 vertical tie (EN node), C12.pin1 taps to U1.EN via a
-        clean lane jog + 45° (tapTo). R7.pin2→V3V3 and C12.pin2→GND stitch to their planes. */}
+    {/* EN network hand-routed: R7.pin1↔C12.pin1 vertical tie (EN node), C12.pin1 taps to U1.EN — up
+        the channel between U1.3V3 and the DOUT column, then steps over (orthoTap, 90° only).
+        R7.pin2→V3V3 and C12.pin2→GND stitch to their planes. */}
     <trace from="R7.pin1" to="C12.pin1" pcbPath={[R7f.ref("pin1"), C12f.ref("pin1")]} />
-    <trace from="C12.pin1" to="U1.EN" pcbPath={tapTo(C12f, "pin1", U1f, "EN", -64.26)} />
+    <trace from="C12.pin1" to="U1.EN" pcbPath={orthoTap(C12f, "pin1", -64.26, U1f, "EN")} />
     <trace from=".R7 > .pin2" to="net.V3V3" />
     <trace from=".C12 > .pin2" to="net.GND" />
     <trace from=".R8 > .pin2" to="net.V3V3" />
@@ -643,17 +632,17 @@ export default () => (
         unambiguous. DOUT is the signal a firmware-INDEPENDENT compressor interlock
         must consume; that interlock (a 74LVC1G08 gating the compressor relay line IO19 -> J5)
         is NOT yet on this board — it needs two bench-verified polarities first (see notes). */}
-    {/* AOUT/DOUT dividers — vertical midpoint ties; taps jog east past the top resistor then 45°/up
-        to U1 in order (tapTo); plane stitches; J11 inputs drop south with clean 45° corners (link).
-        R3→DOUT drops down the west side first, clear of the AOUT pad. */}
+    {/* AOUT/DOUT dividers — vertical midpoint ties; taps jog east past the top resistor then step up
+        to U1 in order (orthoTap, 90° only); plane stitches; J11 inputs drop straight down and turn
+        into the hole (orthoDrop). R3→DOUT drops down the west side, clear of the AOUT pad. */}
     <trace from="R1.pin2" to="R2.pin1" pcbPath={[R1f.ref("pin2"), R2f.ref("pin1")]} />
     <trace from="R3.pin2" to="R4.pin1" pcbPath={[R3f.ref("pin2"), R4f.ref("pin1")]} />
     <trace from=".R2 > .pin2" to="net.GND" />
     <trace from=".R4 > .pin2" to="net.GND" />
-    <trace from="R2.pin1" to="U1.IO39" pcbPath={tapTo(R2f, "pin1", U1f, "IO39", -60.8)} />
-    <trace from="R4.pin1" to="U1.IO36" pcbPath={tapTo(R4f, "pin1", U1f, "IO36")} />
-    <trace from="R1.pin1" to="J11.AOUT" pcbPath={link(R1f, "pin1", J11f, "AOUT")} />
-    <trace from="R3.pin1" to="J11.DOUT" pcbPath={link(R3f, "pin1", J11f, "DOUT", [{ x: -63.5, y: -21.8 }])} />
+    <trace from="R2.pin1" to="U1.IO39" pcbPath={orthoTap(R2f, "pin1", -60.7, U1f, "IO39")} />
+    <trace from="R4.pin1" to="U1.IO36" pcbPath={orthoTap(R4f, "pin1", -62.48, U1f, "IO36")} />
+    <trace from="R1.pin1" to="J11.AOUT" pcbPath={orthoDrop(R1f, "pin1", J11f, "AOUT")} />
+    <trace from="R3.pin1" to="J11.DOUT" pcbPath={orthoDrop(R3f, "pin1", J11f, "DOUT", -63.5)} />
     <trace from=".J11 > .GND" to="net.GND" />
 
     {/* V12 decoupling. HF: two 0.1uF ceramics (C1 y-16.6, C2 y0.2) on the V12 island
