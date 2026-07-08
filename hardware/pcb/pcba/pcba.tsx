@@ -141,12 +141,22 @@ const J14f = frame("J14", -62.45, 17.75, 270, {   // UsbC: placement -62 + footp
 })
 const C22f = frame("C22", C22_X, C22_Y, 0, { pin1: [-1.0, 0], pin2: [1.0, 0] })
 
-// ── GAS divider region hand-routing (pcbPath) ────────────────────────────────────────
-// AOUT divider R1/R2 (stacked at x=-61.75): R1.pin2 (-62.503,-17.25) and R2.pin1 (-62.503,-15)
-// share an x, so their tie is a straight vertical top-layer segment. Owning this region means the
-// autorouter's traces through C12/R7/R1-R4 are evicted (commented below, tracked as deferred).
-const R1f = frame("R1", -61.75, -17.25, 180, { pin1: [-0.753, 0], pin2: [0.753, 0] })
-const R2f = frame("R2", -61.75, -15, 0, { pin1: [-0.753, 0], pin2: [0.753, 0] })
+// ── GAS/EN divider grid (pcbPath hand-routing) ───────────────────────────────────────
+// Six 0603s (the AOUT divider R1/R2, DOUT divider R3/R4, EN network R7/C12) packed NW into a tight
+// 2-col × 3-row grid in the slot between U1 (taps EN/IO36/IO39 to the north at y=-9) and open space.
+// One const per axis so a tighten is a one-line move and the frames + placements can't desync
+// (hand-routing.md). Rotations put each divider pair's midpoint on the east pads (toward the U1
+// taps) and its input/GND on the west. Pin offsets are footprint-local (rotation-independent).
+const GX_E = -62.5, GX_W = -66.0                  // east / west columns (0603 courtyard ~3.3 wide → 3.5 pitch)
+const GY_N = -11.7, GY_M = -13.75, GY_S = -15.8   // north / mid / south rows (courtyard ~1.8 tall → 2.05 pitch; N clears U1)
+const R0603: Record<string, [number, number]> = { pin1: [-0.753, 0], pin2: [0.753, 0] }
+const R1f = frame("R1", GX_E, GY_S, 0, R0603)     // AOUT in (pin1 W) → midpoint (pin2 E)
+const R2f = frame("R2", GX_E, GY_M, 180, R0603)   // midpoint (pin1 E) → GND (pin2 W)
+const R7f = frame("R7", GX_E, GY_N, 0, R0603)     // EN node (pin1 W) → V3V3 (pin2 E)
+const R3f = frame("R3", GX_W, GY_S, 0, R0603)     // DOUT in (pin1 W) → midpoint (pin2 E)
+const R4f = frame("R4", GX_W, GY_M, 180, R0603)   // midpoint (pin1 E) → GND (pin2 W)
+const C12f = frame("C12", GX_W, GY_N, 180, R0603) // EN node (pin1 E) → GND (pin2 W)
+const U1f = frame("U1", -57, 0, 0, { EN: [-6.75, -9], IO36: [-5.48, -9], IO39: [-4.21, -9] }) // ESP32 south-edge taps
 
 // ── Decoupling audit ────────────────────────────────────────────────────────────────────
 // The single source of truth for which support cap serves which part, its role, and its job
@@ -221,8 +231,8 @@ export default () => (
     {/* WROOM support south of U1: the EN power-on RC (R7 + C12) stacked at the far-west,
         hard by U1's EN pin so the EN trace stays short; the supply decouplers C10 + C11
         share the lane just east of them. */}
-    <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={-65.5} y={-12.75} rot={180} side="N" />
-    <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={-61.75} y={-12.75} rot={180} side="N" />
+    <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={GX_W} y={GY_N} rot={180} side="N" />
+    <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={GX_E} y={GY_N} rot={0} side="N" />
     <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.5} y={-14} rot={180} side="N" />
     <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-56.5} y={-17} rot={0} side="N" />
     <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-48} y={27} rot={0} side="N" />
@@ -308,10 +318,10 @@ export default () => (
         for DOUT). The midpoint taps right into the ESP; AOUT: R1/R2 -> IO39, DOUT:
         R3/R4 -> IO36. IO36/IO39 are the ADC1 input-only pins at the west end of the ESP
         south edge; the dividers sit just below them, the GAS connector below the dividers. */}
-    <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={-61.75} y={-17.25} rot={180} side="N" />
-    <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={-61.75} y={-15} rot={0} side="N" />
-    <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={-65.5} y={-17.25} rot={0} side="N" />
-    <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={-65.5} y={-15} rot={180} side="N" />
+    <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={GX_E} y={GY_S} rot={0} side="N" />
+    <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={GX_E} y={GY_M} rot={180} side="N" />
+    <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={GX_W} y={GY_S} rot={0} side="N" />
+    <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={GX_W} y={GY_M} rot={180} side="N" />
 
     {/* 3V3 rail -> inner1 plane, sourced by the AMS1117 LDO (U9) off the 5V rail. The I2C
         devices (both MCPs, DS3231), RS485, the WROOM, and the sensor loom all common to it at
@@ -361,11 +371,12 @@ export default () => (
     <trace from=".C10 > .pin2" to="net.GND" />
     <trace from=".C11 > .pin1" to="net.V3V3" />
     <trace from=".C11 > .pin2" to="net.GND" />
-    {/* Evicted to own the GAS/EN region for hand-routing R1→R2 (deferred, see scorecard):
+    {/* EN network hand-routed: R7.pin1↔C12.pin1 tie (EN node), R7.pin1 taps up to U1.EN.
+        R7.pin2→V3V3 and C12.pin2→GND stitch to their planes. */}
+    <trace from="R7.pin1" to="C12.pin1" pcbPath={[R7f.ref("pin1"), C12f.ref("pin1")]} />
+    <trace from="R7.pin1" to="U1.EN" pcbPath={[R7f.ref("pin1"), U1f.ref("EN")]} />
     <trace from=".R7 > .pin2" to="net.V3V3" />
-    <trace from=".R7 > .pin1" to=".U1 > .EN" />
-    <trace from=".C12 > .pin1" to=".U1 > .EN" />
-    <trace from=".C12 > .pin2" to="net.GND" /> */}
+    <trace from=".C12 > .pin2" to="net.GND" />
     <trace from=".R8 > .pin2" to="net.V3V3" />
     <trace from=".R8 > .pin1" to=".U1 > .IO0" />
 
@@ -600,16 +611,16 @@ export default () => (
         unambiguous. DOUT is the signal a firmware-INDEPENDENT compressor interlock
         must consume; that interlock (a 74LVC1G08 gating the compressor relay line IO19 -> J5)
         is NOT yet on this board — it needs two bench-verified polarities first (see notes). */}
-    {/* R1→R2 hand-routed: straight top-layer vertical, both pads at x=-62.503, no via. */}
+    {/* AOUT/DOUT dividers — hand-routed midpoint ties (vertical) + plane stitches. */}
     <trace from="R1.pin2" to="R2.pin1" pcbPath={[R1f.ref("pin2"), R2f.ref("pin1")]} />
-    {/* Evicted to own the GAS region for the hand route above (deferred, see scorecard):
+    <trace from="R3.pin2" to="R4.pin1" pcbPath={[R3f.ref("pin2"), R4f.ref("pin1")]} />
+    <trace from=".R2 > .pin2" to="net.GND" />
+    <trace from=".R4 > .pin2" to="net.GND" />
+    {/* Deferred (see scorecard) — midpoint taps to U1 + the J11 divider inputs (harder, next):
     <trace from=".J11 > .AOUT" to=".R1 > .pin1" />
     <trace from=".R1 > .pin2" to=".U1 > .IO39" />
-    <trace from=".R2 > .pin2" to="net.GND" />
     <trace from=".J11 > .DOUT" to=".R3 > .pin1" />
-    <trace from=".R3 > .pin2" to=".R4 > .pin1" />
-    <trace from=".R3 > .pin2" to=".U1 > .IO36" />
-    <trace from=".R4 > .pin2" to="net.GND" /> */}
+    <trace from=".R3 > .pin2" to=".U1 > .IO36" /> */}
     <trace from=".J11 > .GND" to="net.GND" />
 
     {/* V12 decoupling. HF: two 0.1uF ceramics (C1 y-16.6, C2 y0.2) on the V12 island
