@@ -5,6 +5,39 @@ manual copper. Read [`routing-procedure.md`](routing-procedure.md) first for *ho
 territory (own a region, evict — never negotiate); this doc is about *placing the copper
 correctly* once you do, which is where hand routing on this board actually goes wrong.
 
+## Routing principles — the bar this board is held to
+
+Passing DRC is the floor, not the goal. Every trace is an *engineered, intentional* choice; a
+board reads as amateur the moment a segment sits somewhere "because that's where it ended up."
+The rules below are what "engineered" means here — the helpers encode them so they're the path of
+least resistance, but the helpers only matter if the *intent* is right.
+
+1. **Right angles only.** Corners are 90° (or, where a channel is too tight for a square corner,
+   45°) — never an arbitrary slope. A 2° slope is a bug, usually a wrong pad offset (resistor
+   0603 pads are ±0.753 mm, cap 0603 are ±0.7 — use the right one). `orthoTap` / `orthoDrop`
+   produce 90°-only paths; verify with the angle check (all segments 0°/90°).
+
+2. **Pads exit along their own face.** A trace leaves a pad *perpendicular to its edge, away from
+   the body* — never attached to the pad's side. U1's south-edge pins exit **south** on a clean
+   stub before any turn; a stacked resistor's midpoint escapes **sideways** past its own body.
+   Side-entry is a defect: it looks sloppy and crowds the pad. (`orthoTap`'s `apY` holds the U1
+   south stub; the source pad's H-jog is its sideways escape.)
+
+3. **Jog in open space, not at a pad.** The horizontal offset happens out in the clear, away from
+   pads and vias — so the pad connection stays clean and the turn isn't cramped. Do the jog low
+   (near the source) and run straight into the far pad, as the DOUT→IO36 tap does.
+
+4. **Clearance is a resource — allocate it, never spend it by accident.** A run through a corridor
+   between two parts is either **centred** (maximise clearance to both walls) or **deliberately
+   biased to one wall to reserve the other side** as an open channel for a future trace. Hugging a
+   wall for *no reason* is the worst outcome — it both shrinks clearance and blocks the corridor,
+   for nothing. `channel(a, b, bias)` makes the choice explicit: `bias 0` centres, `±1` reserves.
+   If you can't say why a segment sits at a given x, centre it.
+
+These are priorities, in order: correctness (connected, DRC-clean, no vias) first, then these
+intent rules. Where clearance is free, take it — the floor is a gate you pass, not a number you
+sit on.
+
 ## The one thing that trips everyone up: the coordinate frame
 
 A `pcbPath`'s numeric `{x, y}` points are **not board coordinates**. They are in the **`from`
@@ -84,6 +117,19 @@ Built on the frame primitives — add your own (a comb, a serpentine) the same w
   `x=laneX`, then to its dest pad's row and in. Returns one `{ to, pcbPath }` per dest — `.map`
   them onto `<trace>`. The D− pair is
   `pcbFan(U14f, "pin3", [-0.85, 0], J14f, ["pin9", "pin7"], -58.25)`.
+
+Orthogonal helpers (90°-only, the routing-principles bar above):
+
+- **`channel(a, b, bias)`** — an x for a run in the corridor between column centres `a` and `b`:
+  `bias 0` centres it, `−1`/`+1` reserves one side (principle 4). The GAS EN tap lane is
+  `channel(CX_EN, CX_DOUT)` — centred in the R7/R3 corridor, not hugging either.
+- **`orthoTap(fromF, pin, laneX, toF, toPin, apY?)`** — a midpoint→U1 tap that obeys the pad-exit
+  and jog rules: H to `laneX`, V up, H across below U1 (`apY`, default −10.8), then a **south stub**
+  into the pad. Pass `laneX = pin's x` and the H-across collapses to a straight south run (the
+  cleanest — the DOUT tap is `orthoTap(R4f, "pin1", -62.48, U1f, "IO36")`).
+- **`orthoDrop(fromF, pin, toF, toPin, dropX?)`** — a pad straight down to a connector row then one
+  90° into the hole; `dropX` moves the drop lane to clear an obstacle (the J11 DOUT input drops at
+  `-63.5` to miss the AOUT pad).
 
 ## Moving a component tighter
 
