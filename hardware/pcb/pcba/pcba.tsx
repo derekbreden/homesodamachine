@@ -127,6 +127,33 @@ const pcbFan = (srcF: Frame, srcPin: string, exit: [number, number], destF: Fram
     to: destF.ref(d),
     pcbPath: [srcF.ref(srcPin), srcF.fromPin(srcPin, ...exit), srcF.at(laneX, destF.pin(d).y), destF.ref(d)],
   }))
+// Clean-angle routing: keep every corner at 90° or 45°, never an arbitrary slope. `step45` returns
+// the single interior corner of a two-segment path from board point a to b — run along the dominant
+// axis, then one 45° diagonal into b.
+const step45 = (a: Pt, b: Pt): Pt => {
+  const dx = b.x - a.x, dy = b.y - a.y, ax = Math.abs(dx), ay = Math.abs(dy)
+  return ay >= ax ? { x: a.x, y: b.y - Math.sign(dy) * ax } : { x: b.x - Math.sign(dx) * ay, y: a.y }
+}
+// A midpoint tap to a U1 pin, clean angles only. Default: a 45° diagonal from the pad up to the
+// pin's column (absorbing the x-shift while still south of U1, clear of the tight pad row), then a
+// straight vertical into the pad. Pass `laneX` for the case where the pin sits nearly above its own
+// column (no room to clear the top resistor with a 45°): jog horizontally to the lane, V up, 45° in.
+const tapTo = (fromF: Frame, pin: string, toF: Frame, toPin: string, laneX?: number): (Pt | string)[] => {
+  const p = fromF.pin(pin), q = toF.pin(toPin)
+  if (laneX == null) {
+    const corner = { x: q.x, y: p.y + Math.sign(q.y - p.y) * Math.abs(q.x - p.x) }
+    return [fromF.ref(pin), fromF.at(corner.x, corner.y), toF.ref(toPin)]
+  }
+  const lane = { x: laneX, y: p.y }, c = step45(lane, q)
+  return [fromF.ref(pin), fromF.at(lane.x, lane.y), fromF.at(c.x, c.y), toF.ref(toPin)]
+}
+// A clean pad-to-pad link (no lane jog): one axis run + one 45° into the far pad. Optional board
+// waypoints `via` are inserted first (e.g. drop straight down before heading to a connector pin).
+const link = (fromF: Frame, pin: string, toF: Frame, toPin: string, via: Pt[] = []): (Pt | string)[] => {
+  const start = via.length ? via[via.length - 1]! : fromF.pin(pin)
+  const c = step45(start, toF.pin(toPin))
+  return [fromF.ref(pin), ...via.map((v) => fromF.at(v.x, v.y)), fromF.at(c.x, c.y), toF.ref(toPin)]
+}
 // Resolved pcb centers + footprint-local pin offsets (read from a render; regenerate if a footprint
 // changes). Keep *_X/_Y in sync with the JSX placements below — same const, so a move can't desync.
 const U14_X = -56.25, U14_Y = 17.75
@@ -142,27 +169,26 @@ const J14f = frame("J14", -62.45, 17.75, 270, {   // UsbC: placement -62 + footp
 const C22f = frame("C22", C22_X, C22_Y, 0, { pin1: [-1.0, 0], pin2: [1.0, 0] })
 
 // ── GAS/EN divider grid (pcbPath hand-routing) ───────────────────────────────────────
-// Six 0603s (the AOUT divider R1/R2, DOUT divider R3/R4, EN network R7/C12) packed NW into a tight
-// 2-col × 3-row grid in the slot between U1 (taps EN/IO36/IO39 to the north at y=-9) and open space.
-// One const per axis so a tighten is a one-line move and the frames + placements can't desync
-// (hand-routing.md). Rotations put each divider pair's midpoint on the east pads (toward the U1
-// taps) and its input/GND on the west. Pin offsets are footprint-local (rotation-independent).
-// Vertical (rot90) 0603s in 3 columns ordered EN·DOUT·AOUT west→east to match U1's tap pins
-// (EN -63.75 · IO36 -62.48 · IO39 -61.21), so each divider's midpoint taps up without crossing a
-// neighbour. Each column is a pair: input resistor south (toward J11), GND/V3V3 resistor north; the
-// midpoint sits between the two and jogs east past the top part up to U1. Column pitch 2.0 (rot90
-// courtyard ~1.8 wide); row pitch 3.5 (courtyard ~3.3 tall). One const per axis → one-line tighten.
+// Six 0603s (AOUT divider R1/R2, DOUT divider R3/R4, EN network R7/C12) as vertical (rot90) parts in
+// 3 columns ordered EN·DOUT·AOUT west→east to match U1's tap pins (EN -63.75 · IO36 -62.48 · IO39
+// -61.21), so each divider's midpoint taps straight up in order — no crossings. Each column is a
+// pair: input/pullup south (toward J11), GND/V3V3 north; the midpoint jogs east past the top part up
+// to U1. Column pitch 2.0 (rot90 courtyard ~1.8 wide — the middle tap needs the 0.2 mm lane, so this
+// is the floor); row pitch 3.5 (courtyard ~3.3 tall). Grid pulled north to the U1 courtyard so J11
+// can follow it up. One const per axis → one-line move; frames + placements read the same const.
 const CX_EN = -65.5, CX_DOUT = -63.5, CX_AOUT = -61.5   // columns W→E
-const CY_BOT = -16.5, CY_TOP = -13.0                    // input (south) / GND·V3V3 (north) rows
-const R0603: Record<string, [number, number]> = { pin1: [-0.753, 0], pin2: [0.753, 0] }
+const CY_BOT = -15.8, CY_TOP = -12.3                    // input (south) / GND·V3V3 (north) rows (N clears U1 courtyard -10.05)
+const R0603: Record<string, [number, number]> = { pin1: [-0.753, 0], pin2: [0.753, 0] } // resistor 0603
+const C0603: Record<string, [number, number]> = { pin1: [-0.7, 0], pin2: [0.7, 0] }     // cap 0603 (slightly shorter pads)
 const R1f = frame("R1", CX_AOUT, CY_BOT, 90, R0603)   // AOUT in (pin1 S) → midpoint (pin2 N)
 const R2f = frame("R2", CX_AOUT, CY_TOP, 90, R0603)   // midpoint (pin1 S) → GND (pin2 N)
 const R3f = frame("R3", CX_DOUT, CY_BOT, 90, R0603)   // DOUT in (pin1 S) → midpoint (pin2 N)
 const R4f = frame("R4", CX_DOUT, CY_TOP, 90, R0603)   // midpoint (pin1 S) → GND (pin2 N)
 const R7f = frame("R7", CX_EN, CY_BOT, 270, R0603)    // EN node (pin1 N) → V3V3 (pin2 S)
-const C12f = frame("C12", CX_EN, CY_TOP, 90, R0603)   // EN node (pin1 S) → GND (pin2 N); C12 sits north, near U1.EN
+const C12f = frame("C12", CX_EN, CY_TOP, 90, C0603)   // EN node (pin1 S) → GND (pin2 N); C12 sits north, near U1.EN
 const U1f = frame("U1", -57, 0, 0, { EN: [-6.75, -9], IO36: [-5.48, -9], IO39: [-4.21, -9] }) // ESP32 south-edge taps
-const J11f = frame("J11", -62, -25.25, 90, { AOUT: [3.75, 0], DOUT: [1.25, 0] })                // GAS connector (south)
+const J11_Y = -24.3
+const J11f = frame("J11", -62, J11_Y, 90, { AOUT: [3.75, 0], DOUT: [1.25, 0] })                 // GAS connector, pulled north
 
 // ── Decoupling audit ────────────────────────────────────────────────────────────────────
 // The single source of truth for which support cap serves which part, its role, and its job
@@ -316,7 +342,7 @@ export default () => (
     <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={16.0} pcbY={-36.94} />
     <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={13.5} pcbY={-38.0} />
     <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={13.5} pcbY={-29.6} />
-    <Jst name="J11" x={-62} y={-25.25} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} label="GAS" side="W" />
+    <Jst name="J11" x={-62} y={J11_Y} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} label="GAS" side="W" />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
         a vertical 2-resistor series: 2.2k (input, bottom) -> midpoint -> 3.3k (to
@@ -377,10 +403,10 @@ export default () => (
     <trace from=".C10 > .pin2" to="net.GND" />
     <trace from=".C11 > .pin1" to="net.V3V3" />
     <trace from=".C11 > .pin2" to="net.GND" />
-    {/* EN network hand-routed: R7.pin1↔C12.pin1 vertical tie (EN node), C12.pin1 jogs east past C12
-        then up to U1.EN. R7.pin2→V3V3 and C12.pin2→GND stitch to their planes. */}
+    {/* EN network hand-routed: R7.pin1↔C12.pin1 vertical tie (EN node), C12.pin1 taps to U1.EN via a
+        clean lane jog + 45° (tapTo). R7.pin2→V3V3 and C12.pin2→GND stitch to their planes. */}
     <trace from="R7.pin1" to="C12.pin1" pcbPath={[R7f.ref("pin1"), C12f.ref("pin1")]} />
-    <trace from="C12.pin1" to="U1.EN" pcbPath={[C12f.ref("pin1"), C12f.at(-64.8, -13.75), C12f.at(-64.0, -10.0), U1f.ref("EN")]} />
+    <trace from="C12.pin1" to="U1.EN" pcbPath={tapTo(C12f, "pin1", U1f, "EN", -64.26)} />
     <trace from=".R7 > .pin2" to="net.V3V3" />
     <trace from=".C12 > .pin2" to="net.GND" />
     <trace from=".R8 > .pin2" to="net.V3V3" />
@@ -617,17 +643,17 @@ export default () => (
         unambiguous. DOUT is the signal a firmware-INDEPENDENT compressor interlock
         must consume; that interlock (a 74LVC1G08 gating the compressor relay line IO19 -> J5)
         is NOT yet on this board — it needs two bench-verified polarities first (see notes). */}
-    {/* AOUT/DOUT dividers — vertical midpoint ties; each tap jogs east past its top (GND) resistor
-        and up to U1 (AOUT→IO39, DOUT→IO36, now in-order so no crossing); plane stitches; J11 inputs
-        drop south. */}
+    {/* AOUT/DOUT dividers — vertical midpoint ties; taps jog east past the top resistor then 45°/up
+        to U1 in order (tapTo); plane stitches; J11 inputs drop south with clean 45° corners (link).
+        R3→DOUT drops down the west side first, clear of the AOUT pad. */}
     <trace from="R1.pin2" to="R2.pin1" pcbPath={[R1f.ref("pin2"), R2f.ref("pin1")]} />
     <trace from="R3.pin2" to="R4.pin1" pcbPath={[R3f.ref("pin2"), R4f.ref("pin1")]} />
     <trace from=".R2 > .pin2" to="net.GND" />
     <trace from=".R4 > .pin2" to="net.GND" />
-    <trace from="R2.pin1" to="U1.IO39" pcbPath={[R2f.ref("pin1"), R2f.at(-60.8, -13.75), R2f.at(-60.8, -10.0), U1f.ref("IO39")]} />
-    <trace from="R4.pin1" to="U1.IO36" pcbPath={[R4f.ref("pin1"), R4f.at(-62.6, -13.75), R4f.at(-62.6, -10.0), U1f.ref("IO36")]} />
-    <trace from="R1.pin1" to="J11.AOUT" pcbPath={[R1f.ref("pin1"), J11f.ref("AOUT")]} />
-    <trace from="R3.pin1" to="J11.DOUT" pcbPath={[R3f.ref("pin1"), R3f.at(-63.5, -23.5), J11f.ref("DOUT")]} />
+    <trace from="R2.pin1" to="U1.IO39" pcbPath={tapTo(R2f, "pin1", U1f, "IO39", -60.8)} />
+    <trace from="R4.pin1" to="U1.IO36" pcbPath={tapTo(R4f, "pin1", U1f, "IO36")} />
+    <trace from="R1.pin1" to="J11.AOUT" pcbPath={link(R1f, "pin1", J11f, "AOUT")} />
+    <trace from="R3.pin1" to="J11.DOUT" pcbPath={link(R3f, "pin1", J11f, "DOUT", [{ x: -63.5, y: -21.8 }])} />
     <trace from=".J11 > .GND" to="net.GND" />
 
     {/* V12 decoupling. HF: two 0.1uF ceramics (C1 y-16.6, C2 y0.2) on the V12 island
