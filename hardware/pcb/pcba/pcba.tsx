@@ -147,15 +147,20 @@ const C22f = frame("C22", C22_X, C22_Y, 0, { pin1: [-1.0, 0], pin2: [1.0, 0] })
 // One const per axis so a tighten is a one-line move and the frames + placements can't desync
 // (hand-routing.md). Rotations put each divider pair's midpoint on the east pads (toward the U1
 // taps) and its input/GND on the west. Pin offsets are footprint-local (rotation-independent).
-const GX_E = -62.5, GX_W = -66.0                  // east / west columns (0603 courtyard ~3.3 wide → 3.5 pitch)
-const GY_N = -11.7, GY_M = -13.75, GY_S = -15.8   // north / mid / south rows (courtyard ~1.8 tall → 2.05 pitch; N clears U1)
+// Vertical (rot90) 0603s in 3 columns ordered EN·DOUT·AOUT west→east to match U1's tap pins
+// (EN -63.75 · IO36 -62.48 · IO39 -61.21), so each divider's midpoint taps up without crossing a
+// neighbour. Each column is a pair: input resistor south (toward J11), GND/V3V3 resistor north; the
+// midpoint sits between the two and jogs east past the top part up to U1. Column pitch 2.0 (rot90
+// courtyard ~1.8 wide); row pitch 3.5 (courtyard ~3.3 tall). One const per axis → one-line tighten.
+const CX_EN = -65.5, CX_DOUT = -63.5, CX_AOUT = -61.5   // columns W→E
+const CY_BOT = -16.5, CY_TOP = -13.0                    // input (south) / GND·V3V3 (north) rows
 const R0603: Record<string, [number, number]> = { pin1: [-0.753, 0], pin2: [0.753, 0] }
-const R1f = frame("R1", GX_E, GY_S, 0, R0603)     // AOUT in (pin1 W) → midpoint (pin2 E)
-const R2f = frame("R2", GX_E, GY_M, 180, R0603)   // midpoint (pin1 E) → GND (pin2 W)
-const R7f = frame("R7", GX_E, GY_N, 0, R0603)     // EN node (pin1 W) → V3V3 (pin2 E)
-const R3f = frame("R3", GX_W, GY_S, 0, R0603)     // DOUT in (pin1 W) → midpoint (pin2 E)
-const R4f = frame("R4", GX_W, GY_M, 180, R0603)   // midpoint (pin1 E) → GND (pin2 W)
-const C12f = frame("C12", GX_W, GY_N, 180, R0603) // EN node (pin1 E) → GND (pin2 W)
+const R1f = frame("R1", CX_AOUT, CY_BOT, 90, R0603)   // AOUT in (pin1 S) → midpoint (pin2 N)
+const R2f = frame("R2", CX_AOUT, CY_TOP, 90, R0603)   // midpoint (pin1 S) → GND (pin2 N)
+const R3f = frame("R3", CX_DOUT, CY_BOT, 90, R0603)   // DOUT in (pin1 S) → midpoint (pin2 N)
+const R4f = frame("R4", CX_DOUT, CY_TOP, 90, R0603)   // midpoint (pin1 S) → GND (pin2 N)
+const R7f = frame("R7", CX_EN, CY_BOT, 270, R0603)    // EN node (pin1 N) → V3V3 (pin2 S)
+const C12f = frame("C12", CX_EN, CY_TOP, 90, R0603)   // EN node (pin1 S) → GND (pin2 N); C12 sits north, near U1.EN
 const U1f = frame("U1", -57, 0, 0, { EN: [-6.75, -9], IO36: [-5.48, -9], IO39: [-4.21, -9] }) // ESP32 south-edge taps
 const J11f = frame("J11", -62, -25.25, 90, { AOUT: [3.75, 0], DOUT: [1.25, 0] })                // GAS connector (south)
 
@@ -232,8 +237,8 @@ export default () => (
     {/* WROOM support south of U1: the EN power-on RC (R7 + C12) stacked at the far-west,
         hard by U1's EN pin so the EN trace stays short; the supply decouplers C10 + C11
         share the lane just east of them. */}
-    <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={GX_W} y={GY_N} rot={180} side="N" />
-    <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={GX_E} y={GY_N} rot={0} side="N" />
+    <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={CX_EN} y={CY_TOP} rot={90} side="N" />
+    <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={CX_EN} y={CY_BOT} rot={270} side="N" />
     <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.5} y={-14} rot={180} side="N" />
     <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-56.5} y={-17} rot={0} side="N" />
     <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-48} y={27} rot={0} side="N" />
@@ -319,10 +324,10 @@ export default () => (
         for DOUT). The midpoint taps right into the ESP; AOUT: R1/R2 -> IO39, DOUT:
         R3/R4 -> IO36. IO36/IO39 are the ADC1 input-only pins at the west end of the ESP
         south edge; the dividers sit just below them, the GAS connector below the dividers. */}
-    <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={GX_E} y={GY_S} rot={0} side="N" />
-    <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={GX_E} y={GY_M} rot={180} side="N" />
-    <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={GX_W} y={GY_S} rot={0} side="N" />
-    <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={GX_W} y={GY_M} rot={180} side="N" />
+    <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={CX_AOUT} y={CY_BOT} rot={90} side="N" />
+    <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={CX_AOUT} y={CY_TOP} rot={90} side="N" />
+    <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={CX_DOUT} y={CY_BOT} rot={90} side="N" />
+    <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={CX_DOUT} y={CY_TOP} rot={90} side="N" />
 
     {/* 3V3 rail -> inner1 plane, sourced by the AMS1117 LDO (U9) off the 5V rail. The I2C
         devices (both MCPs, DS3231), RS485, the WROOM, and the sensor loom all common to it at
@@ -372,10 +377,10 @@ export default () => (
     <trace from=".C10 > .pin2" to="net.GND" />
     <trace from=".C11 > .pin1" to="net.V3V3" />
     <trace from=".C11 > .pin2" to="net.GND" />
-    {/* EN network hand-routed: R7.pin1↔C12.pin1 tie (EN node), R7.pin1 taps up to U1.EN.
-        R7.pin2→V3V3 and C12.pin2→GND stitch to their planes. */}
+    {/* EN network hand-routed: R7.pin1↔C12.pin1 vertical tie (EN node), C12.pin1 jogs east past C12
+        then up to U1.EN. R7.pin2→V3V3 and C12.pin2→GND stitch to their planes. */}
     <trace from="R7.pin1" to="C12.pin1" pcbPath={[R7f.ref("pin1"), C12f.ref("pin1")]} />
-    <trace from="R7.pin1" to="U1.EN" pcbPath={[R7f.ref("pin1"), U1f.ref("EN")]} />
+    <trace from="C12.pin1" to="U1.EN" pcbPath={[C12f.ref("pin1"), C12f.at(-64.8, -13.75), C12f.at(-64.0, -10.0), U1f.ref("EN")]} />
     <trace from=".R7 > .pin2" to="net.V3V3" />
     <trace from=".C12 > .pin2" to="net.GND" />
     <trace from=".R8 > .pin2" to="net.V3V3" />
@@ -612,18 +617,17 @@ export default () => (
         unambiguous. DOUT is the signal a firmware-INDEPENDENT compressor interlock
         must consume; that interlock (a 74LVC1G08 gating the compressor relay line IO19 -> J5)
         is NOT yet on this board — it needs two bench-verified polarities first (see notes). */}
-    {/* AOUT/DOUT dividers — hand-routed midpoint ties (vertical) + plane stitches. */}
+    {/* AOUT/DOUT dividers — vertical midpoint ties; each tap jogs east past its top (GND) resistor
+        and up to U1 (AOUT→IO39, DOUT→IO36, now in-order so no crossing); plane stitches; J11 inputs
+        drop south. */}
     <trace from="R1.pin2" to="R2.pin1" pcbPath={[R1f.ref("pin2"), R2f.ref("pin1")]} />
     <trace from="R3.pin2" to="R4.pin1" pcbPath={[R3f.ref("pin2"), R4f.ref("pin1")]} />
     <trace from=".R2 > .pin2" to="net.GND" />
     <trace from=".R4 > .pin2" to="net.GND" />
-    {/* AOUT midpoint tap R2.pin1→U1.IO39 (threads east of R7.pin2); J11 divider inputs south. */}
-    <trace from="R2.pin1" to="U1.IO39" pcbPath={[R2f.ref("pin1"), R2f.at(-61.0, -12.8), R2f.at(-61.0, -10.2), U1f.ref("IO39")]} />
+    <trace from="R2.pin1" to="U1.IO39" pcbPath={[R2f.ref("pin1"), R2f.at(-60.8, -13.75), R2f.at(-60.8, -10.0), U1f.ref("IO39")]} />
+    <trace from="R4.pin1" to="U1.IO36" pcbPath={[R4f.ref("pin1"), R4f.at(-62.6, -13.75), R4f.at(-62.6, -10.0), U1f.ref("IO36")]} />
     <trace from="R1.pin1" to="J11.AOUT" pcbPath={[R1f.ref("pin1"), J11f.ref("AOUT")]} />
-    <trace from="R3.pin1" to="J11.DOUT" pcbPath={[R3f.ref("pin1"), J11f.ref("DOUT")]} />
-    {/* Deferred (see scorecard) — the DOUT midpoint tap to U1.IO36 must cross the EN tap on the
-        top layer to reach IO36 (east of EN). Needs a layout change (EN/DOUT/AOUT W→E order):
-    <trace from=".R3 > .pin2" to=".U1 > .IO36" /> */}
+    <trace from="R3.pin1" to="J11.DOUT" pcbPath={[R3f.ref("pin1"), R3f.at(-63.5, -23.5), J11f.ref("DOUT")]} />
     <trace from=".J11 > .GND" to="net.GND" />
 
     {/* V12 decoupling. HF: two 0.1uF ceramics (C1 y-16.6, C2 y0.2) on the V12 island
