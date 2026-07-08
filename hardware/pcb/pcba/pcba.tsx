@@ -127,11 +127,17 @@ const pcbFan = (srcF: Frame, srcPin: string, exit: [number, number], destF: Fram
     to: destF.ref(d),
     pcbPath: [srcF.ref(srcPin), srcF.fromPin(srcPin, ...exit), srcF.at(laneX, destF.pin(d).y), destF.ref(d)],
   }))
-// Orthogonal (90°-only) hand routing — every corner is a right angle, no diagonals. `orthoTap` taps
-// a midpoint pad up to a U1 pin: jog H to `laneX` (past the pad's own top resistor), V up to just
-// below the U1 row (`apY`), H across to the pin's column, then V into the pad. The H-across collapses
-// when `laneX` already equals the pin's x (a straight H → V into the pad).
-const orthoTap = (fromF: Frame, pin: string, laneX: number, toF: Frame, toPin: string, apY = -9.7): (Pt | string)[] => {
+// Place a run in a corridor between two column centres `a` and `b`: centre it (bias 0) to maximise
+// clearance to both walls, or bias to one (−1 hug a / +1 hug b) to deliberately leave the other side
+// open for a future trace. A corridor run is NEVER at an arbitrary offset — clearance is a resource,
+// allocated on purpose (centre or reserve), never spent by accident. (See hand-routing.md.)
+const channel = (a: number, b: number, bias = 0): number => (a + b) / 2 + bias * (Math.abs(b - a) / 2 - 0.6)
+// Orthogonal (90°-only) tap from a midpoint pad up to a U1 pin. Every pad exits along its own face:
+// the source pad escapes sideways past its own top resistor, and — because the H-across (`apY`) sits
+// well below U1 — the U1 pad exits *south* on a clean stub before any jog, never from its E/W side.
+// orthoTap jogs H to `laneX` (its escape / corridor lane), V up to `apY`, H across to the pin's
+// column, V into the pad. The H-across collapses when `laneX` already sits under the pin (straight up).
+const orthoTap = (fromF: Frame, pin: string, laneX: number, toF: Frame, toPin: string, apY = -10.8): (Pt | string)[] => {
   const p = fromF.pin(pin), q = toF.pin(toPin), path: Pt[] = [{ x: laneX, y: p.y }]
   if (Math.abs(laneX - q.x) > 1e-6) path.push({ x: laneX, y: apY }, { x: q.x, y: apY })
   return [fromF.ref(pin), ...path.map((v) => fromF.at(v.x, v.y)), toF.ref(toPin)]
@@ -392,10 +398,10 @@ export default () => (
     <trace from=".C11 > .pin1" to="net.V3V3" />
     <trace from=".C11 > .pin2" to="net.GND" />
     {/* EN network hand-routed: R7.pin1↔C12.pin1 vertical tie (EN node), C12.pin1 taps to U1.EN — up
-        the channel between U1.3V3 and the DOUT column, then steps over (orthoTap, 90° only).
+        the R7/R3 corridor centred (channel), then a south stub into EN (orthoTap, 90° only).
         R7.pin2→V3V3 and C12.pin2→GND stitch to their planes. */}
     <trace from="R7.pin1" to="C12.pin1" pcbPath={[R7f.ref("pin1"), C12f.ref("pin1")]} />
-    <trace from="C12.pin1" to="U1.EN" pcbPath={orthoTap(C12f, "pin1", -64.26, U1f, "EN")} />
+    <trace from="C12.pin1" to="U1.EN" pcbPath={orthoTap(C12f, "pin1", channel(CX_EN, CX_DOUT), U1f, "EN")} />
     <trace from=".R7 > .pin2" to="net.V3V3" />
     <trace from=".C12 > .pin2" to="net.GND" />
     <trace from=".R8 > .pin2" to="net.V3V3" />
