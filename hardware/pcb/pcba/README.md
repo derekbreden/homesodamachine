@@ -22,6 +22,11 @@ checked on every build rather than assembled at the end.
 
 ## Files
 
+- [`requirements.md`](requirements.md) — the board's requirements enumerated: the fab-ready
+  **gates** (clearance, DFM, sourcing, …) and the manual-routing **goals** (every signal net
+  hand-routed on outer copper, no vias). Each is an executable check in [`scorecard.ts`](scorecard.ts),
+  printed on every build and shown at the top of the viewer's Board-checks panel — one verdict, from
+  the same geometry, that no report can narrate around.
 - [`esp32-scope.md`](esp32-scope.md) — what the base ESP32 uses, and the SMD block.
 - [`jlcpcb-parts.md`](jlcpcb-parts.md) — the JLCPCB parts library reference: the LCSC
   part each component maps to, library type, and how each was found.

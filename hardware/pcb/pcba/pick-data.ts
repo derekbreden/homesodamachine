@@ -29,6 +29,7 @@ import { auditDecoupling, type DecouplingRule } from "./cap-audit"
 import { auditConnectors } from "./connector-audit"
 import { auditFootprints } from "./footprint-audit"
 import { auditAmpacity, type AmpacityRule } from "./ampacity-audit"
+import { buildScorecard, formatScorecard } from "./scorecard"
 import type { PicksFile, Pad, Via, Trace, PadIdentity, FabStats } from "../../../web/contracts/picks-schema"
 
 const arg = process.argv[2]
@@ -56,10 +57,12 @@ try {
   }
   const circuit = JSON.parse(readFileSync(cjAbs, "utf8"))
   const { decoupling, ampacity } = await loadBoardTables(boardFile)
-  const data = distill(circuit, decoupling, ampacity)
+  const planeNets = planeNetsFromSource(readFileSync(boardFile, "utf8"))
+  const data = distill(circuit, decoupling, ampacity, planeNets)
   const outPath = path.join(dir, "out", `${board}.picks.json`)
   writeFileSync(outPath, JSON.stringify(data))
   console.log(`[${board}] wrote ${board}.picks.json — ${data.pads.length} pads`)
+  console.log(formatScorecard(board, data.scorecard))
 } finally {
   if (!given) rmSync(cjAbs, { force: true })
 }
@@ -80,7 +83,7 @@ async function loadBoardTables(file: string): Promise<{ decoupling: DecouplingRu
   }
 }
 
-function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRules: AmpacityRule[] = []): PicksFile {
+function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRules: AmpacityRule[] = [], planeNets: Set<string> = new Set()): PicksFile {
   const compName: Record<string, string> = {}
   const srcPort: Record<string, any> = {}
   const pcbPort: Record<string, any> = {}
@@ -206,12 +209,31 @@ function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRule
   // blind to. Informational, like the copper floor (real overlaps ride in `errors`).
   const footprints = auditFootprints(circuit)
 
-  return { board, unitsPerMm: 1000, size, pads, vias, traces, clearance: { floor, tight }, errors: [...opens, ...errors], capAudit, connectors, footprints, ampacity, fab }
+  // The requirements scorecard (scorecard.ts): the gate checks fed from the audits above, the goal
+  // metrics (manual-routing conversion) derived from the raw copper + the poured plane nets. One
+  // verdict, printed on build and shown in the modal — the same result from the same geometry.
+  const scorecard = buildScorecard({
+    circuit, planeNets, floor, clearanceErrors: errors, opens,
+    footprints, connectors, ampacity, capAudit,
+    fab: { partsSourced: fab.partsSourced, minDrillMm: fab.minDrillMm, minViaAnnularMm: fab.minViaAnnularMm, minPadAnnularMm: fab.minPadAnnularMm, unsourced: fab.unsourced },
+  })
+
+  return { board, unitsPerMm: 1000, size, pads, vias, traces, clearance: { floor, tight }, errors: [...opens, ...errors], capAudit, connectors, footprints, ampacity, fab, scorecard }
+}
+
+// The poured plane nets — a <copperpour connectsTo="net.X"> makes X a plane, so its vias are
+// stitches (exempt from the signal "no via" goal). Parsed from source so it tracks the pours.
+function planeNetsFromSource(src: string): Set<string> {
+  const nets = new Set<string>()
+  for (const m of src.matchAll(/<copperpour\b[^>]*\bconnectsTo="net\.([A-Za-z0-9_]+)"/g)) if (m[1]) nets.add(m[1])
+  return nets
 }
 
 // Manufacturability numbers, straight off the circuit-json. `partsSourced` is the JLCPCB-assembly
 // check (an unsourced placed part can't be picked); minDrill / minAnnular are the DFM floors the
-// fab must meet (JLCPCB standard: 0.2mm drill, ~0.13mm annular). All advisory, not hard errors.
+// fab must meet. Annular is split by hole type because JLCPCB's floors differ: a component (THT)
+// pad wants ≥ 0.13 mm ring, but a via is fine at JLCPCB's recommended 0.5 mm pad / 0.3 mm hole =
+// 0.1 mm ring. A single floor would false-flag every via. All advisory here; gated in scorecard.ts.
 function fabStats(circuit: any[]): FabStats {
   const boardEl = circuit.find((e) => e.type === "pcb_board")
   const scById: Record<string, any> = {}
@@ -226,20 +248,27 @@ function fabStats(circuit: any[]): FabStats {
     if (sc.supplier_part_numbers?.jlcpcb?.length) sourced++
     else unsourced.push(sc.name ?? "?")
   }
-  let minDrill = Infinity, minAnnular = Infinity
+  let minDrill = Infinity, minViaAnnular = Infinity, minPadAnnular = Infinity
   for (const e of circuit) {
     if (e.type !== "pcb_plated_hole" && e.type !== "pcb_via") continue
     const hole = e.hole_diameter ?? e.hole_width
     const outer = e.outer_diameter ?? e.outer_width
     if (typeof hole === "number") minDrill = Math.min(minDrill, hole)
-    if (typeof hole === "number" && typeof outer === "number") minAnnular = Math.min(minAnnular, (outer - hole) / 2)
+    if (typeof hole === "number" && typeof outer === "number") {
+      const ring = (outer - hole) / 2
+      if (e.type === "pcb_via") minViaAnnular = Math.min(minViaAnnular, ring)
+      else minPadAnnular = Math.min(minPadAnnular, ring)
+    }
   }
+  const minAnnular = Math.min(minViaAnnular, minPadAnnular)
   return {
     layers: boardEl?.num_layers ?? null,
     partsSourced: { sourced, total },
     unsourced,
     minDrillMm: isFinite(minDrill) ? round(minDrill) : null,
     minAnnularMm: isFinite(minAnnular) ? round(minAnnular) : null,
+    minViaAnnularMm: isFinite(minViaAnnular) ? round(minViaAnnular) : null,
+    minPadAnnularMm: isFinite(minPadAnnular) ? round(minPadAnnular) : null,
   }
 }
 
