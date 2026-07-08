@@ -141,6 +141,13 @@ const J14f = frame("J14", -62.45, 17.75, 270, {   // UsbC: placement -62 + footp
 })
 const C22f = frame("C22", C22_X, C22_Y, 0, { pin1: [-1.0, 0], pin2: [1.0, 0] })
 
+// ── GAS divider region hand-routing (pcbPath) ────────────────────────────────────────
+// AOUT divider R1/R2 (stacked at x=-61.75): R1.pin2 (-62.503,-17.25) and R2.pin1 (-62.503,-15)
+// share an x, so their tie is a straight vertical top-layer segment. Owning this region means the
+// autorouter's traces through C12/R7/R1-R4 are evicted (commented below, tracked as deferred).
+const R1f = frame("R1", -61.75, -17.25, 180, { pin1: [-0.753, 0], pin2: [0.753, 0] })
+const R2f = frame("R2", -61.75, -15, 0, { pin1: [-0.753, 0], pin2: [0.753, 0] })
+
 // ── Decoupling audit ────────────────────────────────────────────────────────────────────
 // The single source of truth for which support cap serves which part, its role, and its job
 // class (`kind`). The web viewer's Board-checks panel reads this table (pick-data.ts →
@@ -354,10 +361,11 @@ export default () => (
     <trace from=".C10 > .pin2" to="net.GND" />
     <trace from=".C11 > .pin1" to="net.V3V3" />
     <trace from=".C11 > .pin2" to="net.GND" />
+    {/* Evicted to own the GAS/EN region for hand-routing R1→R2 (deferred, see scorecard):
     <trace from=".R7 > .pin2" to="net.V3V3" />
     <trace from=".R7 > .pin1" to=".U1 > .EN" />
     <trace from=".C12 > .pin1" to=".U1 > .EN" />
-    <trace from=".C12 > .pin2" to="net.GND" />
+    <trace from=".C12 > .pin2" to="net.GND" /> */}
     <trace from=".R8 > .pin2" to="net.V3V3" />
     <trace from=".R8 > .pin1" to=".U1 > .IO0" />
 
@@ -592,14 +600,16 @@ export default () => (
         unambiguous. DOUT is the signal a firmware-INDEPENDENT compressor interlock
         must consume; that interlock (a 74LVC1G08 gating the compressor relay line IO19 -> J5)
         is NOT yet on this board — it needs two bench-verified polarities first (see notes). */}
+    {/* R1→R2 hand-routed: straight top-layer vertical, both pads at x=-62.503, no via. */}
+    <trace from="R1.pin2" to="R2.pin1" pcbPath={[R1f.ref("pin2"), R2f.ref("pin1")]} />
+    {/* Evicted to own the GAS region for the hand route above (deferred, see scorecard):
     <trace from=".J11 > .AOUT" to=".R1 > .pin1" />
-    <trace from=".R1 > .pin2" to=".R2 > .pin1" />
     <trace from=".R1 > .pin2" to=".U1 > .IO39" />
     <trace from=".R2 > .pin2" to="net.GND" />
     <trace from=".J11 > .DOUT" to=".R3 > .pin1" />
     <trace from=".R3 > .pin2" to=".R4 > .pin1" />
     <trace from=".R3 > .pin2" to=".U1 > .IO36" />
-    <trace from=".R4 > .pin2" to="net.GND" />
+    <trace from=".R4 > .pin2" to="net.GND" /> */}
     <trace from=".J11 > .GND" to="net.GND" />
 
     {/* V12 decoupling. HF: two 0.1uF ceramics (C1 y-16.6, C2 y0.2) on the V12 island
