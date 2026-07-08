@@ -157,6 +157,7 @@ const R3f = frame("R3", GX_W, GY_S, 0, R0603)     // DOUT in (pin1 W) → midpoi
 const R4f = frame("R4", GX_W, GY_M, 180, R0603)   // midpoint (pin1 E) → GND (pin2 W)
 const C12f = frame("C12", GX_W, GY_N, 180, R0603) // EN node (pin1 E) → GND (pin2 W)
 const U1f = frame("U1", -57, 0, 0, { EN: [-6.75, -9], IO36: [-5.48, -9], IO39: [-4.21, -9] }) // ESP32 south-edge taps
+const J11f = frame("J11", -62, -25.25, 90, { AOUT: [3.75, 0], DOUT: [1.25, 0] })                // GAS connector (south)
 
 // ── Decoupling audit ────────────────────────────────────────────────────────────────────
 // The single source of truth for which support cap serves which part, its role, and its job
@@ -616,10 +617,12 @@ export default () => (
     <trace from="R3.pin2" to="R4.pin1" pcbPath={[R3f.ref("pin2"), R4f.ref("pin1")]} />
     <trace from=".R2 > .pin2" to="net.GND" />
     <trace from=".R4 > .pin2" to="net.GND" />
-    {/* Deferred (see scorecard) — midpoint taps to U1 + the J11 divider inputs (harder, next):
-    <trace from=".J11 > .AOUT" to=".R1 > .pin1" />
-    <trace from=".R1 > .pin2" to=".U1 > .IO39" />
-    <trace from=".J11 > .DOUT" to=".R3 > .pin1" />
+    {/* AOUT midpoint tap R2.pin1→U1.IO39 (threads east of R7.pin2); J11 divider inputs south. */}
+    <trace from="R2.pin1" to="U1.IO39" pcbPath={[R2f.ref("pin1"), R2f.at(-61.0, -12.8), R2f.at(-61.0, -10.2), U1f.ref("IO39")]} />
+    <trace from="R1.pin1" to="J11.AOUT" pcbPath={[R1f.ref("pin1"), J11f.ref("AOUT")]} />
+    <trace from="R3.pin1" to="J11.DOUT" pcbPath={[R3f.ref("pin1"), J11f.ref("DOUT")]} />
+    {/* Deferred (see scorecard) — the DOUT midpoint tap to U1.IO36 must cross the EN tap on the
+        top layer to reach IO36 (east of EN). Needs a layout change (EN/DOUT/AOUT W→E order):
     <trace from=".R3 > .pin2" to=".U1 > .IO36" /> */}
     <trace from=".J11 > .GND" to="net.GND" />
 
