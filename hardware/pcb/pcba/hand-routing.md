@@ -38,54 +38,71 @@ autorouter's). So a hand path lives on **top or bottom** — you cannot hop to a
 
 ## The `frame` helper (in `pcba.tsx`)
 
-`frame(cx, cy, rot)` captures one component's resolved center + rotation and gives two ways to
-author a point, so intent is explicit **and survives moving the component**:
+`frame(name, cx, cy, rot, pins)` captures a component and turns pin geometry into path points. It
+knows each pad's footprint-local offset (the `pins` table, read once from a render and
+movement-invariant), so it can **divine where a pad actually is** — not just where the center is.
+Every method returns a point in the trace's **`from`** frame:
 
-- **`.at(bx, by)`** — a fixed **board** point. Stays put when *this* component moves. Use it for
-  the far end of a run, the part shaped against **another** (stationary) component's pads.
-- **`.off(dx, dy)`** — a raw **local offset**. Travels **with** this component. Use it for the
-  near end, the part shaped against **this** component's own body/pads.
+| call | returns | how it moves |
+|---|---|---|
+| `.ref(pin)` | the string anchor `"U14.pin1"` | — (use for a pcbPath's endpoints) |
+| `.pin(pin)` | the pad's **board** `{x,y}` | — |
+| `.at(bx, by)` | a fixed **board** point | stays put when this component moves |
+| `.off(dx, dy)` | a raw **local** offset | rides this component |
+| `.fromPin(pin, bx, by)` | a point `bx,by` mm (board axes) from **this** frame's own pad | **rides** the pad — an exit stub follows its pad |
+| `.toPin(f, pin, bx, by)` | a point `bx,by` mm from **another** frame `f`'s pad | board-fixed, but **follows** that pad if `f` moves |
 
 ```tsx
-const U14_X = -56.25, U14_Y = 17.75      // one source of truth for the placement
-const U14f = frame(U14_X, U14_Y, 270)
-const J14f = frame(-62.45, 17.75, 270)   // resolved center: placement -62 + footprint -0.45
+const U14_X = -56.25, U14_Y = 17.75          // one source of truth for the placement
+const U14f = frame("U14", U14_X, U14_Y, 270, { pin1: [-0.95, -1.149], /* … */ })
+const J14f = frame("J14", -62.45, 17.75, 270, { pin10: [0.75, 2.624], /* … */ })
 
 <trace from="U14.pin1" to="J14.pin10" pcbPath={[
-  "U14.pin1",
-  U14f.off(-0.95, -0.35),   // exit, shaped against U14 — rides U14 when it moves
-  U14f.off(1.5, -0.35),
-  U14f.at(-58.75, 16.25),   // approach, shaped against J14's pads — stays board-fixed
-  U14f.at(-58.75, 17.0),
-  "J14.pin10",
+  U14f.ref("pin1"),
+  U14f.fromPin("pin1", 0.8, 0),        // exit 0.8 mm east of pin1 — rides pin1
+  U14f.fromPin("pin1", 0.8, -2.45),    // drop south of U14's body
+  U14f.at(-58.75, 16.25),              // thread the gap by the pad column (board-fixed)
+  U14f.toPin(J14f, "pin10", 1.08, 0),  // approach pin10 — tracks it if J14 moves
+  J14f.ref("pin10"),
 ]} />
 ```
 
-Pad references are plain strings (`"U14.pin1"`); numeric points are frame calls. All numeric
-points in one `pcbPath` are in the **`from`** component's frame regardless of which helper you
-name — `J14f.off(...)` inside a `from="U14…"` trace still resolves in U14's frame, so keep the
-helper you call matching the trace's `from`.
+All numeric points in one `pcbPath` resolve in the **`from`** frame regardless of which helper
+name you call — it's the receiver (`U14f.toPin(...)`) that matters, and it must be the `from`
+frame. The `pins` offsets are footprint-baked; regenerate them (and the resolved center) from a
+render if a footprint changes (`plot-region.py`, or read `pcb_smtpad`).
+
+## Pattern helpers
+
+Built on the frame primitives — add your own (a comb, a serpentine) the same way:
+
+- **`pcbU(f, a, b, [dx, dy])`** — a no-via "U" tie between two pads of the same connector: out from
+  `a` by the board stub `[dx,dy]`, across to `b`, back in. One jumper, not a second full path. The
+  D+ tie is `pcbU(J14f, "pin10", "pin8", [-1.4, 0])` (bulges 1.4 mm west of the pad row).
+- **`pcbFan(srcF, srcPin, [ex,ey], destF, destPins, laneX)`** — fan one source pad to several dest
+  pads sharing an approach lane: each branch exits the source the same way, runs to board
+  `x=laneX`, then to its dest pad's row and in. Returns one `{ to, pcbPath }` per dest — `.map`
+  them onto `<trace>`. The D− pair is
+  `pcbFan(U14f, "pin3", [-0.85, 0], J14f, ["pin9", "pin7"], -58.25)`.
 
 ## Moving a component tighter
 
-This is the workflow that makes packing the board a one-line change instead of a waypoint
-rewrite:
+Packing the board is a **one-line change**, not a waypoint rewrite:
 
 1. Change only the component's placement const (`U14_X`, `C22_X/Y`). The `<Component>` and its
-   `frame` both read it, so they can't desync.
-2. **`.at()` points hold their board position; `.off()` points ride along.** No retuning of the
-   waypoints that shape a run against fixed pads.
-3. Retune only the **cross-component approach** — a point on one component's trace that targets
-   *another moving* component. Express it in terms of that component's const so it follows, e.g.
-   `U14f.at(C22_X - 1.0, 19.5)` puts a point under `C22.pin1` wherever C22 goes.
-4. Re-render and check the floor. If it went negative, read *which* pair — your own pad vs your
-   own trace is a real geometric limit (fix the trace or accept the position); an autorouter
-   trace in your corridor is something to **evict**, per the procedure.
+   `frame` read the same const, so they can't desync.
+2. **Every point auto-recomputes** — `.fromPin` exits ride their pad, `.toPin` approaches track
+   their target, `.at` gap points hold, `.off` rides. Nothing to retune by hand.
+3. Re-render and step the placement outward until the floor breaks; the last clean value is the
+   limit. Read *why* it broke: your own pad vs your own trace, or a **courtyard** overlap, is a
+   real geometric limit (accept the last-clean position); an autorouter trace in your corridor is
+   something to **evict**, per the procedure.
 
-Real limits found doing exactly this at the USB-C corner: U14 pulls ~1.0 mm west before its own
-D+ pad crowds the interleaved D− escape lane; C22 pulls ~0.5 mm south before its **courtyard**
-(not its copper) overlaps U14's. Copper clearance and courtyard keep-out are different limits —
-the floor catches the first, `picks.json` `errors` catches the second.
+Verified limits at the corner: U14 → ~1.0 mm west (its own D+ pad crowds the D− escape lane);
+C22 → 1.25 mm west + 0.5 mm south (west ends at J14's courtyard, south at U14's). Both were found
+by changing one const and re-rendering — the traces followed on their own. Note copper clearance
+and courtyard keep-out are different limits: the floor catches the first, `picks.json` `errors`
+the second (a courtyard overlap can flag while the floor still reads clean).
 
 ## The verify loop
 
