@@ -245,7 +245,7 @@ function clearanceText(picks) {
 function manualText(picks) {
   const sc = picks && picks.scorecard;
   if (!sc || typeof sc.manualPct !== "number") return null;
-  return `${sc.manualPct}% hand-routed`;
+  return `${sc.manualPct}% hand-routed${sc.deferred ? ` · ${sc.deferred} deferred` : ""}`;
 }
 
 // Create or update the bottom-centre dimensions chip in `wrapper`. The chip carries the
@@ -377,7 +377,7 @@ function appendScorecard(card, picks) {
   const gates = sc.checks.filter((c) => c.kind === "gate");
   const goals = sc.checks.filter((c) => c.kind === "goal");
   const passed = gates.filter((c) => c.status === "pass").length;
-  card.appendChild(checkHead(`Requirements — gates ${passed}/${gates.length}${sc.gatesPass ? "" : " ✗ not fab-ready"} · ${sc.manualPct}% hand-routed`));
+  card.appendChild(checkHead(`Requirements — gates ${passed}/${gates.length}${sc.gatesPass ? "" : " ✗ not fab-ready"} · ${sc.manualPct}% hand-routed${sc.deferred ? ` · ${sc.deferred} deferred` : ""}`));
   for (const c of gates)
     card.appendChild(makeRow("pcb-checks-row" + (c.status === "pass" ? "" : " issue"), `${mark[c.status]} ${c.label}`, c.value));
   for (const c of goals) {
