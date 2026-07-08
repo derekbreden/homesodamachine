@@ -17,12 +17,14 @@ import type { CapAudit } from "../../hardware/pcb/pcba/cap-audit"
 import type { ConnectorAudit } from "../../hardware/pcb/pcba/connector-audit"
 import type { FootprintAudit } from "../../hardware/pcb/pcba/footprint-audit"
 import type { AmpacityAudit } from "../../hardware/pcb/pcba/ampacity-audit"
+import type { Scorecard } from "../../hardware/pcb/pcba/scorecard"
 
 export type { ClearancePair, BoardError } from "../../hardware/pcb/pcba/clearance"
 export type { CapAudit, CapAuditRow, CoverageGap } from "../../hardware/pcb/pcba/cap-audit"
 export type { ConnectorAudit, ConnectorRow } from "../../hardware/pcb/pcba/connector-audit"
 export type { FootprintAudit, FootprintPair } from "../../hardware/pcb/pcba/footprint-audit"
 export type { AmpacityAudit, AmpacityRow } from "../../hardware/pcb/pcba/ampacity-audit"
+export type { Scorecard, Check } from "../../hardware/pcb/pcba/scorecard"
 
 /** A pad's identity, resolved pcb_port → source_port → component; null where a pad has no port. */
 export type PadIdentity = {
@@ -74,7 +76,9 @@ export type FabStats = {
   partsSourced: { sourced: number; total: number }
   unsourced: string[]              // ref-des of placed parts carrying no JLCPCB #
   minDrillMm: number | null
-  minAnnularMm: number | null
+  minAnnularMm: number | null      // overall min ring (min of the two below) — the readout number
+  minViaAnnularMm: number | null   // tightest via ring (JLCPCB via floor 0.1 mm)
+  minPadAnnularMm: number | null   // tightest THT-pad ring (JLCPCB pad floor 0.13 mm)
 }
 
 /** out/<board>.picks.json in full. */
@@ -92,4 +96,5 @@ export type PicksFile = {
   footprints: FootprintAudit
   ampacity: AmpacityAudit | null
   fab: FabStats
+  scorecard: Scorecard   // the requirements verdict — gate checks + manual-routing progress
 }

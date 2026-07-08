@@ -240,6 +240,13 @@ function clearanceText(picks) {
   if (typeof f !== "number") return null;
   return `${f.toFixed(3)} mm floor`;
 }
+// Manual-routing progress for the chip — % of signal nets hand-routed on outer copper with no
+// vias (scorecard.ts). The headline number of the effort to take the board off the autorouter.
+function manualText(picks) {
+  const sc = picks && picks.scorecard;
+  if (!sc || typeof sc.manualPct !== "number") return null;
+  return `${sc.manualPct}% hand-routed`;
+}
 
 // Create or update the bottom-centre dimensions chip in `wrapper`. The chip carries the
 // glanceable readout (dims · vias · floor) plus a clickable checks badge — green when the
@@ -248,7 +255,7 @@ function clearanceText(picks) {
 function updateDimsChip(wrapper, picks) {
   if (!wrapper) return;
   closeChecksModal(wrapper);
-  const text = [boardDimsText(picks, wrapper), viaCountText(picks), clearanceText(picks)].filter(Boolean).join(" · ");
+  const text = [boardDimsText(picks, wrapper), viaCountText(picks), clearanceText(picks), manualText(picks)].filter(Boolean).join(" · ");
   const errors = (picks && Array.isArray(picks.errors)) ? picks.errors : null;
   const warns = advisoryCount(picks);
   let el = wrapper.querySelector(".pcb-dims");
@@ -359,6 +366,26 @@ function addCollapsibleRows(card, rows, limit) {
   toggle.addEventListener("click", (e) => { e.stopPropagation(); more.hidden = !more.hidden; sync(); });
   card.appendChild(toggle);
 }
+// The requirements scorecard (scorecard.ts) at the top of the panel: the board's rules as
+// pass/fail, the same verdict the build prints in the terminal. Gates (must hold to fab) lead
+// with ✓/✗; the manual-routing goal shows % hand-routed with its backlog nets tucked behind a
+// toggle. One result, from the same geometry both audiences read.
+function appendScorecard(card, picks) {
+  const sc = picks && picks.scorecard;
+  if (!sc || !Array.isArray(sc.checks)) return;
+  const mark = { pass: "✓", fail: "✗", warn: "•" };
+  const gates = sc.checks.filter((c) => c.kind === "gate");
+  const goals = sc.checks.filter((c) => c.kind === "goal");
+  const passed = gates.filter((c) => c.status === "pass").length;
+  card.appendChild(checkHead(`Requirements — gates ${passed}/${gates.length}${sc.gatesPass ? "" : " ✗ not fab-ready"} · ${sc.manualPct}% hand-routed`));
+  for (const c of gates)
+    card.appendChild(makeRow("pcb-checks-row" + (c.status === "pass" ? "" : " issue"), `${mark[c.status]} ${c.label}`, c.value));
+  for (const c of goals) {
+    card.appendChild(makeRow("pcb-checks-row", `${mark[c.status]} ${c.label}`, c.value));
+    const rows = (c.detail || []).map((d) => makeRow("pcb-checks-row", `— ${d}`, null));
+    if (rows.length) addCollapsibleRows(card, rows, 0);
+  }
+}
 function openChecksModal(wrapper, picks) {
   closeChecksModal(wrapper);
   const clearance = (picks && picks.clearance) || {};
@@ -387,6 +414,9 @@ function openChecksModal(wrapper, picks) {
   x.addEventListener("click", () => closeChecksModal(wrapper));
   head.appendChild(x);
   card.appendChild(head);
+
+  // The requirements scorecard leads the panel — the board's verdict before the detail sections.
+  appendScorecard(card, picks);
 
   // Clearance floor + tightest pairs — collapsed to the tightest few (the floor is row 1).
   if (typeof clearance.floor === "number") {
