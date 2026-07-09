@@ -58,10 +58,9 @@ try {
   const circuit = JSON.parse(readFileSync(cjAbs, "utf8"))
   const { decoupling, ampacity } = await loadBoardTables(boardFile)
   const src = readFileSync(boardFile, "utf8")
-  const planeNets = planeNetsFromSource(src)
   const deferred = deferredTracesFromSource(src)
   const authored = authoredTracesFromSource(src)
-  const data = distill(circuit, decoupling, ampacity, planeNets, deferred, authored)
+  const data = distill(circuit, decoupling, ampacity, deferred, authored)
   const outPath = path.join(dir, "out", `${board}.picks.json`)
   writeFileSync(outPath, JSON.stringify(data))
   console.log(`[${board}] wrote ${board}.picks.json — ${data.pads.length} pads`)
@@ -86,7 +85,7 @@ async function loadBoardTables(file: string): Promise<{ decoupling: DecouplingRu
   }
 }
 
-function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRules: AmpacityRule[] = [], planeNets: Set<string> = new Set(), deferred: { from: string; to: string }[] = [], authored: { from: string; to: string }[] = []): PicksFile {
+function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRules: AmpacityRule[] = [], deferred: { from: string; to: string }[] = [], authored: { from: string; to: string | null; kind: "path" | "comb" }[] = []): PicksFile {
   const compName: Record<string, string> = {}
   const srcPort: Record<string, any> = {}
   const pcbPort: Record<string, any> = {}
@@ -216,7 +215,7 @@ function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRule
   // metrics (manual-routing conversion) derived from the raw copper + the poured plane nets. One
   // verdict, printed on build and shown in the modal — the same result from the same geometry.
   const scorecard = buildScorecard({
-    circuit, planeNets, deferred, authored, floor, clearanceErrors: errors, opens,
+    circuit, deferred, authored, floor, clearanceErrors: errors, opens,
     footprints, connectors, ampacity, capAudit,
     fab: { partsSourced: fab.partsSourced, minDrillMm: fab.minDrillMm, minViaAnnularMm: fab.minViaAnnularMm, minPadAnnularMm: fab.minPadAnnularMm, unsourced: fab.unsourced },
   })
@@ -224,13 +223,6 @@ function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRule
   return { board, unitsPerMm: 1000, size, pads, vias, traces, clearance: { floor, tight }, errors: [...opens, ...errors], capAudit, connectors, footprints, ampacity, fab, scorecard }
 }
 
-// The poured plane nets — a <copperpour connectsTo="net.X"> makes X a plane, so its vias are
-// stitches (exempt from the signal "no via" goal). Parsed from source so it tracks the pours.
-function planeNetsFromSource(src: string): Set<string> {
-  const nets = new Set<string>()
-  for (const m of src.matchAll(/<copperpour\b[^>]*\bconnectsTo="net\.([A-Za-z0-9_]+)"/g)) if (m[1]) nets.add(m[1])
-  return nets
-}
 
 // Commented-out <trace> elements are DEFERRED connections. Commenting a trace deletes its net
 // entirely, so no audit can see the missing link — the intent survives only as the source comment.
@@ -250,19 +242,23 @@ function deferredTracesFromSource(src: string): { from: string; to: string }[] {
   return out
 }
 
-// Live <trace> elements carrying a manual routing prop (pcbPath / pcbComb / pcbStraightLine) are
-// AUTHORED by hand. The circuit-json has no manual flag, so authorship survives only in the source.
-// Without this the scorecard credits any autorouted net that happens to render clean (single outer
-// layer, no via) as "hand-routed" — inflating the headline. Comment spans are stripped first so an
-// evicted/deferred trace never counts as authored. Matched to nets in scorecard.ts via display_name.
-function authoredTracesFromSource(src: string): { from: string; to: string }[] {
+// Live <trace> elements carrying a manual routing prop are AUTHORED by hand — the circuit-json has
+// no manual flag, so authorship survives only in the source. `kind` splits the two authoring styles
+// the score weights differently: `path` (pcbPath / pcbStraightLine — explicit waypoints, weight 1)
+// vs `comb` (pcbComb — a bundle strategy, weight ½: condensing will later split some into paths).
+// A pcbFan-style trace has a literal `from` but a dynamic `to={…}` (a .map), so `to` is null and the
+// scorecard matches it by `from` pin. Comment spans are stripped first so an evicted/deferred trace
+// never counts. Matched to rendered connections in scorecard.ts via source_trace.display_name.
+function authoredTracesFromSource(src: string): { from: string; to: string | null; kind: "path" | "comb" }[] {
   const live = src.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/[^\n]*/g, "")
-  const out: { from: string; to: string }[] = []
+  const out: { from: string; to: string | null; kind: "path" | "comb" }[] = []
   for (const tag of live.matchAll(/<trace\b[\s\S]*?\/>/g)) {
-    if (!/\b(?:pcbPath|pcbComb|pcbStraightLine)\b/.test(tag[0])) continue
-    const from = tag[0].match(/\bfrom="([^"]*)"/)?.[1]
-    const to = tag[0].match(/\bto="([^"]*)"/)?.[1]
-    if (from && to) out.push({ from, to })
+    const t = tag[0]
+    const kind = /\bpcbComb\b/.test(t) ? "comb" : /\b(?:pcbPath|pcbStraightLine)\b/.test(t) ? "path" : null
+    if (!kind) continue
+    const from = t.match(/\bfrom="([^"]*)"/)?.[1]
+    const to = t.match(/\bto="([^"]*)"/)?.[1] ?? null
+    if (from) out.push({ from, to, kind })
   }
   return out
 }

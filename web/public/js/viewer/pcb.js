@@ -240,12 +240,12 @@ function clearanceText(picks) {
   if (typeof f !== "number") return null;
   return `${f.toFixed(3)} mm floor`;
 }
-// Manual-routing progress for the chip — % of signal nets hand-routed on outer copper with no
-// vias (scorecard.ts). The headline number of the effort to take the board off the autorouter.
+// Manual-routing conversion for the chip — the authored-connection counts and the score (scorecard.ts).
+// The headline of the effort to take the board off the autorouter onto deliberate hand copper.
 function manualText(picks) {
   const sc = picks && picks.scorecard;
-  if (!sc || typeof sc.manualPct !== "number") return null;
-  return `${sc.manualPct}% hand-routed${sc.deferred ? ` · ${sc.deferred} deferred` : ""}`;
+  if (!sc || typeof sc.score !== "number") return null;
+  return `${sc.pcbPath} pcbPath · ${sc.pcbComb} pcbComb · ${sc.score}% score`;
 }
 
 // Create or update the bottom-centre dimensions chip in `wrapper`. The chip carries the
@@ -368,8 +368,8 @@ function addCollapsibleRows(card, rows, limit) {
 }
 // The requirements scorecard (scorecard.ts) at the top of the panel: the board's rules as
 // pass/fail, the same verdict the build prints in the terminal. Gates (must hold to fab) lead
-// with ✓/✗; the manual-routing goal shows % hand-routed with its backlog nets tucked behind a
-// toggle. One result, from the same geometry both audiences read.
+// with ✓/✗; the manual-routing goals show the conversion score and its backlog (auto/deferred
+// connections) tucked behind a toggle. One result, from the same geometry both audiences read.
 function appendScorecard(card, picks) {
   const sc = picks && picks.scorecard;
   if (!sc || !Array.isArray(sc.checks)) return;
@@ -377,7 +377,7 @@ function appendScorecard(card, picks) {
   const gates = sc.checks.filter((c) => c.kind === "gate");
   const goals = sc.checks.filter((c) => c.kind === "goal");
   const passed = gates.filter((c) => c.status === "pass").length;
-  card.appendChild(checkHead(`Requirements — gates ${passed}/${gates.length}${sc.gatesPass ? "" : " ✗ not fab-ready"} · ${sc.manualPct}% hand-routed${sc.deferred ? ` · ${sc.deferred} deferred` : ""}`));
+  card.appendChild(checkHead(`Requirements — gates ${passed}/${gates.length}${sc.gatesPass ? "" : " ✗ not fab-ready"} · ${sc.score}% score`));
   for (const c of gates)
     card.appendChild(makeRow("pcb-checks-row" + (c.status === "pass" ? "" : " issue"), `${mark[c.status]} ${c.label}`, c.value));
   for (const c of goals) {

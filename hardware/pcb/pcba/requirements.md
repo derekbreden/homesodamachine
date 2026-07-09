@@ -6,8 +6,8 @@ The rules this board must meet, enumerated. Each one is an executable check in
 geometry, so neither audience can narrate around it:
 
 - **The terminal** — printed at the end of `bun render-board.ts pcba.tsx` (what an agent sees).
-- **The modal** — the top of the viewer's Board-checks panel, and the `% hand-routed` on the
-  board chip (what you see).
+- **The modal** — the top of the viewer's Board-checks panel, and the `pcbPath · pcbComb · % score`
+  on the board chip (what you see).
 
 Requirements come in two kinds. **Gates** must hold for the board to fab; a failing gate is a
 broken board. **Goals** are the manual-routing conversion this effort exists to drive — progress,
@@ -38,29 +38,39 @@ all 123 of them red.
 
 The autorouter cannot deliver traces that meet these requirements, so the board is going **100%
 manual**. The poured planes carry power and ground (`<copperpour>`: V12, V3V3, V5, SDA, SCL, GND);
-every **signal** net becomes hand-routed outer copper with **no vias**. See
-[`hand-routing.md`](hand-routing.md) for how to place that copper.
+every **signal** connection becomes hand-authored copper — a `<trace>` with `pcbPath`,
+`pcbStraightLine`, or `pcbComb`. See [`hand-routing.md`](hand-routing.md) for how to place it.
 
-| Goal | Target | Meaning |
+The headline is a single **score**, counted per rendered signal *connection* (a `source_trace`):
+
+```
+score = 100 · (pcbPath·1 + pcbComb·½) / (pcbPath + pcbComb + deferred + auto)
+```
+
+| Bucket | Weight | Meaning |
 |---|---|---|
-| Signal nets hand-routed on outer copper | 100% | The headline — `% hand-routed`. A signal net is "hand-clean" when all its copper is on one outer layer (top/bottom) with no via |
-| No vias on signal nets | 0 | Planes stitch to their pads; signals don't hop layers. A signal via means the trace dodged a plane instead of routing around it |
-| No signal copper on inner layers | 0 | Inner layers are planes only. Inner-layer signal copper is autorouter copper by definition |
+| `pcbPath` | 1.0 | Connections on explicit hand paths (`pcbPath` / `pcbStraightLine`) — done |
+| `pcbComb` | 0.5 | Connections on a comb *strategy* (`pcbComb`) — off the autorouter but not condensed. The tightening pass will split some into explicit paths, so they count half |
+| `deferred` | 0 | Connections commented out of source — routing work set aside, still to do |
+| `auto` | 0 | Live signal connections still on the autorouter — the work remaining |
 
-**How the split is measured.** There is no "manual" flag in the circuit-json, so the split is by
-**authorship**, read from source. A net counts as hand-routed only when *every* trace carrying its
-copper was authored by hand — a `<trace>` with `pcbPath`, `pcbComb`, or `pcbStraightLine` — **and**
-its copper is clean (one outer layer, zero vias, zero inner-layer points). Geometry alone is not
-enough: the autorouter routes most short nets clean-shaped by accident, and crediting that as
-"hand-routed" would count the autorouter's own copper as progress toward removing it. Authored traces
-are matched to nets through `source_trace.display_name` (`"<from> to <to>"`); poured plane nets are
-exempt (their vias are plane stitches), identified from the `<copperpour connectsTo="net.X">` tags so
-the exemption tracks the pours. Converting a net off the autorouter — i.e. giving it a hand path —
-*automatically* moves the number; nothing to mark by hand.
+`score` reaches 100% only when every connection is an explicit hand path: no `auto`, no `deferred`,
+and every comb condensed. The four counts ride the chip (`15 pcbPath · 39 pcbComb · 32% score`) and
+the terminal, with `auto` and `deferred` expanded as the actionable backlog.
+
+**How the split is measured.** There is no "manual" flag in the circuit-json, so authorship is read
+from source. Each hand-authored `<trace>` (a `pcbPath`/`pcbStraightLine` is `path`; a `pcbComb` is
+`comb`) is matched to its rendered connection through `source_trace.display_name` (`"<from> to <to>"`),
+normalising both endpoints to an unordered pin-pair key. A `pcbFan`-style trace has a literal `from`
+but a dynamic `to={…}` (a `.map`), so it's matched by its `from` pin. Connections **to a net**
+(`"X to net.Y"`) are plane stitches — outside the routing universe. Everything not matched to an
+authored trace is `auto`. Giving a connection a hand path *automatically* moves the score — nothing
+to mark by hand — and crediting clean-looking autorouter copper (which the router produces by
+accident) is impossible, because the credit follows authorship, not shape.
 
 ## The gate is permission; the goal is the work
 
 Green gates mean **fab-ready**, not **done**. `≥ 0.14 mm, zero errors` is permission to proceed —
-the goal is a tight, hand-routed board that doesn't read as autorouted. Handing a net back to the
-autorouter to make a number go green is the exact failure this whole effort exists to end. The
-`% hand-routed` is the only number that measures the real work; watch that one.
+the goal is a tight, hand-routed board that doesn't read as autorouted. Handing a connection back to
+the autorouter to make a number go green is the exact failure this whole effort exists to end. The
+`score` is the number that measures the real work; watch that one.
