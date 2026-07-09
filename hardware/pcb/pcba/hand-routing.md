@@ -39,12 +39,14 @@ sit on.
 ## Writing a path: `route` (in [`routing.ts`](routing.ts))
 
 A hand trace is a `route(...)`: pad anchors at the ends, one-dimensional constraints between.
-`F.col(pin, dx)` is the vertical line `dx` east of a pad's **centre**, `F.row(pin, dy)` the
-horizontal line `dy` north of it. To run a lane hugging a pad **edge**, use `F.east/west(pin,
-gap)` or `F.above/below(pin, gap)`: they read the pad's real rectangle from the footprint and set
-the line `gap` clear of that face — so you write the clearance you mean, never a guessed
-half-width (the pad's true size, e.g. U13's 1.745 mm-tall pads, is used for you). A corridor lane
-is a bare `{ col: x }`. Consecutive constraints intersect into
+Every constraint reads in the **part's own frame**: `F.col(pin, d)` steps `d` along the part's
+local-x from a pad, `F.row(pin, d)` along local-y; `F.east/west/above/below(pin, gap)` sit `gap`
+clear of the pad's own +x/−x/+y/−y **edge** (real footprint size, so you write the clearance you
+mean — never a guessed half-width; the frame reads each pad's true rectangle). The part's placement
+rotation drops each onto a board col or row, so at rot 0 they *are* the plain board lines, but when
+the part turns the whole trace turns with it — a cluster can be rotated and nothing inside it moves.
+A corridor lane is a bare `{ col: x }` — board-absolute, anchored to no part, so it does **not**
+ride. Consecutive constraints intersect into
 the waypoints, and the closing turn into each pad comes from the pad itself — so every corner is
 90° by construction, no point is ever written as a two-coordinate pair, and every coordinate
 derives from the pad (or corridor) that shapes it. The path rides any move of its parts, alone or
@@ -53,9 +55,9 @@ as a group.
 ```tsx
 <trace from="U14.pin1" to="J14.pin10" pcbPathRelativeTo="board" pcbPath={route(
     "U14.pin1",
-    U14f.col("pin1", 0.8),     // east of pin1
-    U14f.row("pin1", -2.45),   // down past the body
-    J14f.col("pin10", 1.08),   // up into pin10
+    U14f.row("pin1", 0.8),     // U14 sits at rot 270, so a local row lands board-east of pin1
+    U14f.col("pin1", 2.45),    // a local col lands board-south, down past the body
+    J14f.row("pin10", 1.08),   // up into pin10
     "J14.pin10",
 )} />
 ```
@@ -67,7 +69,7 @@ what the viewer and [`plot-region.py`](plot-region.py) read. Vias are full-stack
 
 `frame(el)` supplies the pads: centre, rotation, and pad geometry all derive from the placed
 element and its imported footprint, so the placement is the single source of truth. `.pin(p)` is
-the pad's board `{x, y}`; `.col`/`.row` are the lines through its centre, `.east`/`.west`/`.above`/`.below(p, gap)` the lines `gap` clear of its edges. Frames register by name —
+the pad's board `{x, y}`; `.col`/`.row` step along the part's local x / y from that centre, and `.east`/`.west`/`.above`/`.below(p, gap)` clear its local edges — all in the part's frame, so they ride when it turns. Frames register by name —
 `route`'s `"U14.pin1"` anchors resolve through the registry.
 
 **`channel(a, b, bias)`** gives a corridor run its x: `bias 0` centres between the column centres

@@ -92,7 +92,7 @@ const C22f = frame(C22El)
 const R16f = frame(R16El)
 const R15f = frame(R15El)
 const U13f = frame(U13El)
-const dMinusLane = U14f.col("pin3", -0.85)
+const dMinusLane = U14f.row("pin3", -0.85)
 
 // ── Auto-reset lattice ────────────────────────────────────────────────────────────────
 // Cross-coupled NPN pair north of U13 (Q2 drives EN, Q3 drives IO0). rot90 aims each collector
@@ -597,7 +597,7 @@ export default () => (
     <trace from=".R4 > .pin2" to="net.GND" />
     <trace from="R2.pin1" to="U1.IO39" pcbPathRelativeTo="board" pcbPath={route(
         "R2.pin1",
-        R2f.col("pin1", 0.8),
+        R2f.row("pin1", -0.8),
         U1f.below("IO39", 0.75),
         U1f.col("IO39", 0),
         "U1.IO39",
@@ -721,7 +721,7 @@ export default () => (
         "R15.pin1",
         R15f.col("pin1", -1),
         R15f.row("pin1", 0.2),
-        J14f.col("pin6", -2.3),
+        J14f.row("pin6", -2.3),
         "J14.pin6",
     )} />
     <trace from=".R15 > .pin2" to="net.GND" />
@@ -729,7 +729,7 @@ export default () => (
         "R16.pin1",
         R16f.col("pin1", -1),
         R16f.row("pin1", -1.9),
-        J14f.col("pin12", -2.3),
+        J14f.row("pin12", -2.3),
         "J14.pin12",
     )} />
     <trace from=".R16 > .pin2" to="net.GND" />
@@ -738,12 +738,12 @@ export default () => (
         pitch. All top, no vias. */}
     <trace from="U14.pin1" to="J14.pin10" pcbPathRelativeTo="board" pcbPath={route(
         "U14.pin1",
-        U14f.col("pin1", 0.8),
-        U14f.row("pin1", -2.45),
-        J14f.col("pin10", 1.08),
+        U14f.row("pin1", 0.8),
+        U14f.col("pin1", 2.45),
+        J14f.row("pin10", 1.08),
         "J14.pin10",
     )} />
-    <trace from="J14.pin10" to="J14.pin8" pcbPathRelativeTo="board" pcbPath={route("J14.pin10", J14f.col("pin10", -1.4), "J14.pin8")} />
+    <trace from="J14.pin10" to="J14.pin8" pcbPathRelativeTo="board" pcbPath={route("J14.pin10", J14f.row("pin10", -1.4), "J14.pin8")} />
     <trace from="U14.pin3" to="J14.pin9" pcbPathRelativeTo="board" pcbPath={route("U14.pin3", dMinusLane, "J14.pin9")} />
     <trace from="U14.pin3" to="J14.pin7" pcbPathRelativeTo="board" pcbPath={route("U14.pin3", dMinusLane, "J14.pin7")} />
     {/* ESD array: GND + VBUS rail + bypass cap; D+/D- pass through to the bridge. */}
@@ -751,27 +751,27 @@ export default () => (
     {/* J14 VBUS pads: pin16 is the NORTH pad (y 20.15), pin15 the SOUTH (y 15.35). Top, no vias. */}
     <trace from="U14.pin5" to="C22.pin1" pcbPathRelativeTo="board" pcbPath={route(
         "U14.pin5",
-        U14f.col("pin5", -0.8),
+        U14f.row("pin5", -0.8),
         C22f.row("pin1", -1.5),
         "C22.pin1",
     )} />
     <trace from="C22.pin1" to="J14.pin16" pcbPathRelativeTo="board" pcbPath={route(
         "C22.pin1",
         C22f.col("pin1", -1.25),
-        J14f.row("pin16", 0),
+        J14f.col("pin16", 0),
         "J14.pin16",
     )} />
     <trace from="U14.pin5" to="J14.pin15" pcbPathRelativeTo="board" pcbPath={route(
         "U14.pin5",
-        U14f.col("pin5", -0.8),
+        U14f.row("pin5", -0.8),
         "J14.pin15"
     )} />
     <trace from=".C22 > .pin2" to="net.GND" />
     <trace from="U14.pin6" to="U13.D_POS" pcbPathRelativeTo="board" pcbPath={route(
-        "U14.pin6", U14f.col("pin6", 0.95), U13f.below("D_POS", 0.3775), U13f.col("D_POS"), "U13.D_POS",
+        "U14.pin6", U14f.row("pin6", 0.95), U13f.below("D_POS", 0.3775), U13f.col("D_POS"), "U13.D_POS",
     )} />
     <trace from="U14.pin4" to="U13.D_NEG" pcbPathRelativeTo="board" pcbPath={route(
-        "U14.pin4", U14f.col("pin4", 1.35), U13f.below("D_NEG", 0.7775), U13f.col("D_NEG"), "U13.D_NEG",
+        "U14.pin4", U14f.row("pin4", 1.35), U13f.below("D_NEG", 0.7775), U13f.col("D_NEG"), "U13.D_NEG",
     )} />
     {/* CH340C: 3V3 supply (VCC + V3 tied for 3.3 V op) + 0.1uF decoupling; UART crossed to
         the WROOM (bridge TXD -> ESP RXD0/IO3, bridge RXD -> ESP TXD0/IO1). */}
@@ -795,27 +795,27 @@ export default () => (
     <trace from="U13.RTS" to="R18.pin2" pcbPathRelativeTo="board" pcbPath={route(
         "U13.RTS",
         U13f.row("DTR", 1.5),
-        R18f.col("pin2"),
+        R18f.row("pin2"),
         "R18.pin2")
     } />
     <trace from="R18.pin2" to="Q2.E" pcbPathRelativeTo="board" pcbPath={route(
         "R18.pin2",
-        R18f.row("pin2", 0.75),
-        Q2f.col("E"),
+        R18f.col("pin2", 0.75),
+        Q2f.row("E"),
         "Q2.E"
     )} />
     <trace from="U13.DTR" to="Q3.E" pcbPathRelativeTo="board" pcbPath={route(
         "U13.DTR",
         U13f.row("DTR", -1.7),
         U13f.col("DTR", -9.75),
-        Q3f.row("E", -1),
-        Q3f.col("E"),
+        Q3f.col("E", -1),
+        Q3f.row("E"),
         "Q3.E"
     )} />
     <trace from="Q3.E" to="R17.pin2" pcbPathRelativeTo="board" pcbPath={route(
         "Q3.E",
-        R17f.row("pin2", -0.75),
-        R17f.col("pin2"),
+        R17f.col("pin2", -0.75),
+        R17f.row("pin2"),
         "R17.pin2"
     )} />
     {/* <trace from=".Q2 > .C" to=".U1 > .EN" /> */}
@@ -830,9 +830,9 @@ export default () => (
         stay deferred until their corridors are known. */}
     <trace from="SW1.pin1" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={route(
         "SW1.pin1",
-        SW1f.col("pin1", 1),
+        SW1f.col("pin1", -1),
         U13f.below("D_NEG", 1.1775),   // third lane under the D-pair, hugging U13's south edge
-        U14f.col("pin4", 1.75),
+        U14f.row("pin4", 1.75),
         U1f.above("IO0", 0.475),      // Q3.C's lane — the twin — and share its run into IO0
         "U1.IO0",
     )} />
