@@ -90,13 +90,14 @@ export const pcbFan = (srcF: Frame, srcPin: string, exit: [number, number], dest
 export const channel = (a: number, b: number, bias = 0): number => (a + b) / 2 + bias * (Math.abs(b - a) / 2 - 0.6)
 
 // Orthogonal (90°-only) tap from a midpoint pad up to a U1 pin. Every pad exits along its own face:
-// the source pad escapes sideways past its own top resistor, and — because the H-across (`apY`) sits
-// well below U1 — the U1 pad exits *south* on a clean stub before any jog, never from its E/W side.
-// orthoTap jogs H to `laneX` (its escape / corridor lane), V up to `apY`, H across to the pin's
-// column, V into the pad. The H-across collapses when `laneX` already sits under the pin (straight up).
-export const orthoTap = (fromF: Frame, pin: string, laneX: number, toF: Frame, toPin: string, apY = -10.8): (Pt | string)[] => {
+// the source pad escapes sideways past its own top resistor, and — because the H-across sits on a
+// stub row 1.8 mm below the target pin — the U1 pad exits *south* clean before any jog, never from
+// its E/W side. orthoTap jogs H to `laneX` (its escape / corridor lane), V up to the stub row, H
+// across to the pin's column, V into the pad. The H-across collapses when `laneX` already sits
+// under the pin (straight up).
+export const orthoTap = (fromF: Frame, pin: string, laneX: number, toF: Frame, toPin: string, apY?: number): (Pt | string)[] => {
   const p = fromF.pin(pin), q = toF.pin(toPin), path: Pt[] = [{ x: laneX, y: p.y }]
-  if (Math.abs(laneX - q.x) > 1e-6) path.push({ x: laneX, y: apY }, { x: q.x, y: apY })
+  if (Math.abs(laneX - q.x) > 1e-6) path.push({ x: laneX, y: apY ?? q.y - 1.8 }, { x: q.x, y: apY ?? q.y - 1.8 })
   return [fromF.ref(pin), ...path, toF.ref(toPin)]
 }
 

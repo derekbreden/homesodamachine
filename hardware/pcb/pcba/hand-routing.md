@@ -56,9 +56,11 @@ from the element and its imported footprint, so the placement is the single sour
 | `.pin(pin)` | the pad's board `{x, y}` | follows |
 | `.fromPin(pin, dx, dy)` | the point `(dx, dy)` mm from that pad | **rides** the pad |
 
-A plain `{ x, y }` literal holds its board position no matter what moves — use it for a point
-shaped against the *board* (a gap being threaded, a lane), and `fromPin` for a point shaped
-against a *pad* (an exit stub, an approach).
+Every coordinate is shaped by something — derive it from the pad that shapes it, and the path
+survives any move of that part, alone or in a group. `fromPin` when both coordinates come from
+one pad; compose from two pads when a corner joins their runs. A bare number holds its board
+position no matter what moves, so it is only right when the shaping feature really is the board
+(an edge, a keepout) — which is rare.
 
 ```tsx
 const U14El = <Usblc6 name="U14" x={-56.25} y={17.75} rot={270} />
@@ -66,9 +68,10 @@ const U14f = frame(U14El)
 
 <trace from="U14.pin1" to="J14.pin10" pcbPathRelativeTo="board" pcbPath={[
   U14f.ref("pin1"),
-  U14f.fromPin("pin1", 0.8, 0),       // rides pin1
-  { x: -58.75, y: 16.25 },            // holds — a board point in the pad-column gap
-  J14f.fromPin("pin10", 1.08, 0),     // rides pin10
+  U14f.fromPin("pin1", 0.8, 0),                                  // rides pin1
+  U14f.fromPin("pin1", 0.8, -2.45),                              // drop clear of U14's body
+  { x: J14f.pin("pin10").x + 1.08, y: U14f.pin("pin1").y - 2.45 },  // corner: pin10's lane × pin1's corridor
+  J14f.fromPin("pin10", 1.08, 0),                                // rides pin10
   J14f.ref("pin10"),
 ]} />
 ```
@@ -86,9 +89,10 @@ Built on the frame primitives — add your own the same way. All emit board poin
   `bias 0` centres it, `−1`/`+1` reserves one side (principle 4). The GAS EN tap lane is
   `channel(CX_EN, CX_DOUT)` — centred in the R7/R3 corridor, not hugging either.
 - **`orthoTap(fromF, pin, laneX, toF, toPin, apY?)`** — a midpoint→U1 tap that obeys the pad-exit
-  and jog rules: H to `laneX`, V up, H across below U1 (`apY`, default −10.8), then a **south stub**
-  into the pad. Pass `laneX = pin's x` and the H-across collapses to a straight south run (the
-  cleanest — the DOUT tap is `orthoTap(R4f, "pin1", -62.48, U1f, "IO36")`).
+  and jog rules: H to `laneX`, V up, H across on the stub row (`apY`, default 1.8 below the target
+  pin), then a **south stub** into the pad. Pass `laneX` = the pin's own column and the H-across
+  collapses to a straight south run (the cleanest — the DOUT tap is
+  `orthoTap(R4f, "pin1", U1f.pin("IO36").x, U1f, "IO36")`).
 - **`orthoDrop(fromF, pin, toF, toPin, dropX?)`** — a pad straight down to a connector row then one
   90° into the hole; `dropX` moves the drop lane to clear an obstacle (the J11 DOUT input drops at
   `-63.5` to miss the AOUT pad).
@@ -100,8 +104,8 @@ Packing the board is a **one-line change**, not a waypoint rewrite:
 1. Change the number on the component's element tag (or its shared grid const). The placement and
    its `frame` read the same element, so they can't desync — and the drag editor rewrites the same
    literal.
-2. **`fromPin` points ride their pads; `{x, y}` literals hold.** Nothing to retune unless a held
-   board point was shaped against the part that moved.
+2. **Every pad-derived point rides its pad** — a lone part or a whole group can move and the
+   paths follow. Nothing to retune.
 3. Re-render and step the placement outward until the floor breaks; the last clean value is the
    limit. Read *why* it broke: your own pad vs your own trace, or a **courtyard** overlap, is a
    real geometric limit (accept the last-clean position); an autorouter trace in your corridor is
