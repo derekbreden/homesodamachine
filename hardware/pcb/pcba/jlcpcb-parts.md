@@ -92,12 +92,13 @@ connector, fine for a build, glance at it before a large run.
 
 **JLCPCB's footprints for this "series" are NOT uniform** — the thing that made the connector
 orientations look random before the import. Two axes vary by count, and the `Jst` helper
-carries a lookup for each (see `carrier_parts.tsx`): the mating OPENING faces +Y at rot 0 for
+carries a lookup for each (see `parts.tsx`): the mating OPENING faces +Y at rot 0 for
 3/4/9P but −Y for 5/6/7P (`WAFER_OPEN`); and PIN 1 sits at the west end for all but the 7P,
-which numbers from the east (`WAFER_PIN1_WEST`). From these the helper derives each connector's
-rotation so its opening faces the board edge it sits on, and reverses the label list wherever the
-pin order flips — so every net keeps the same physical pin and every IC→connector fan stays
-uncrossed. Pin order on the looms is not depended on anywhere (the board drives the field), so the
+which numbers from the east (`WAFER_PIN1_WEST`). The caller gives an ordinary numeric `rot` in a
+UNIFORM convention (0 = opening faces north, CCW); the helper offsets it by `WAFER_OPEN` so `rot`
+means the same thing for every count — the wafer's real pcbRotation absorbs the intrinsic opening —
+and reverses the label list wherever the pin order flips, so every net keeps the same physical pin
+and every IC→connector fan stays uncrossed. Pin order on the looms is not depended on anywhere (the board drives the field), so the
 reversals are free. The hole PITCH is a uniform 2.5 mm across the series (`WAFER_PITCH` = 2.5 for
 every count): the "2.54" in the part name is the nominal series name, not the drawn pitch — the
 XUNPU spec lists 2.5 mm (LCSC C5359632: "Pitch 2.5 mm", "X-Length of Bottom Edge on Board 12.5 mm"
