@@ -106,9 +106,9 @@ const R17El = <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" 
 const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-60.5} y={28.75} rot={90} side="N" />
 
 // ── Buzzer chain (IO13 → R5 → Q1 → U8) ────────────────────────────────────────────────
-const R5El = <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-45.3} y={-4.445} rot={180} side="N" />
-const Q1El = <Npn name="Q1" x={-41.6} y={-5.395} rot={180} />
-const U8El = <Buzzer name="U8" x={-37.9} y={-10.575} />
+const R5El = <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-45.228} y={-4.445} rot={180} side="N" />
+const Q1El = <Npn name="Q1" x={-41.45} y={-5.395} rot={180} />
+const U8El = <Buzzer name="U8" x={-37.9} y={-10.72} />
 const R5f = frame(R5El), Q1f = frame(Q1El), U8f = frame(U8El)
 const Q2f = frame(Q2El), Q3f = frame(Q3El), R17f = frame(R17El), R18f = frame(R18El)
 
@@ -194,7 +194,7 @@ export default () => (
         pin2 (-> GND); the cell is retained by the molded base, not SMT clips. */}
     <CoinHolder name="BT1" x={-20.5} y={-1.25} />
     <Ds3231Smd name="U6" x={-40.5} y={2.5} rot={270} />
-    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-37.5} y={-4.75} rot={0} />
+    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-37.2} y={-4.75} rot={0} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio, antenna keepout
         pointing west off the board edge. Usable GPIO sit on the north and south
         castellations only (the east edge is the module's flash); the relay/pump/buzzer/
@@ -646,12 +646,12 @@ export default () => (
         is by colour + position (see esp32-scope.md). */}
     {/* left — firmware R/G/B; anode toward its R (outboard, -x). Every KT-0603 import carries
         pin1=anode on the +x pad, so all three rot 180 to swing the anode pad outboard-left. */}
-    <LedRed name="D2" pcbRotation={180} {...at(-39.75, -15)} />
-    <LedGrn name="D3" pcbRotation={180} {...at(-39.75, -17.5)} />
-    <LedBlu name="D4" pcbRotation={180} {...at(-39.75, -20)} />
-    <Res name="R10" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-15} rot={0} side="N" />
-    <Res name="R11" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-17.5} rot={0} side="N" />
-    <Res name="R12" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-20} rot={0} side="N" />
+    <LedRed name="D2" pcbRotation={180} {...at(-39.75, -15.5)} />
+    <LedGrn name="D3" pcbRotation={180} {...at(-39.75, -18)} />
+    <LedBlu name="D4" pcbRotation={180} {...at(-39.75, -20.5)} />
+    <Res name="R10" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-15.5} rot={0} side="N" />
+    <Res name="R11" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-18} rot={0} side="N" />
+    <Res name="R12" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-20.5} rot={0} side="N" />
     {/* right — power rails (green); anode toward its R (outboard, +x). pin1=anode is already on
         the +x pad, so these stay native (rot 0) to face the anode pad outboard-right at its R. */}
     <LedGrn name="D5" {...at(-29.75, -17)} />
