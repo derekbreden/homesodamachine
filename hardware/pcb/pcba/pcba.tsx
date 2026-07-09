@@ -87,7 +87,7 @@ const J14El = <UsbC name="J14" x={-62} y={17.75} rot={270} />
 const U14f = frame(U14El)
 const J14f = frame(J14El)
 const C22f = frame(C22El)
-const [dMinusToPin9, dMinusToPin7] = pcbFan(U14f, "pin3", [-0.85, 0], J14f, ["pin9", "pin7"], -58.25)
+const [dMinusToPin9, dMinusToPin7] = pcbFan(U14f, "pin3", [-0.85, 0], J14f, ["pin9", "pin7"], U14f.pin("pin3").x - 0.85)
 
 // ── GAS/EN divider grid (pcbPath hand-routing) ───────────────────────────────────────
 // Six 0603s (AOUT divider R1/R2, DOUT divider R3/R4, EN network R7/C12) as vertical (rot90) parts in
@@ -564,15 +564,15 @@ export default () => (
         is NOT yet on this board — it needs two bench-verified polarities first (see notes). */}
     {/* AOUT/DOUT dividers — vertical midpoint ties; taps jog east past the top resistor then step up
         to U1 in order (orthoTap, 90° only); plane stitches; J11 inputs drop straight down and turn
-        into the hole (orthoDrop). R3→DOUT drops down the west side, clear of the AOUT pad. */}
+        into the hole (orthoDrop). */}
     <trace from="R1.pin2" to="R2.pin1" pcbPath={[R1f.ref("pin2"), R2f.ref("pin1")]} />
     <trace from="R3.pin2" to="R4.pin1" pcbPath={[R3f.ref("pin2"), R4f.ref("pin1")]} />
     <trace from=".R2 > .pin2" to="net.GND" />
     <trace from=".R4 > .pin2" to="net.GND" />
-    <trace from="R2.pin1" to="U1.IO39" pcbPathRelativeTo="board" pcbPath={orthoTap(R2f, "pin1", -60.7, U1f, "IO39")} />
-    <trace from="R4.pin1" to="U1.IO36" pcbPathRelativeTo="board" pcbPath={orthoTap(R4f, "pin1", -62.48, U1f, "IO36")} />
+    <trace from="R2.pin1" to="U1.IO39" pcbPathRelativeTo="board" pcbPath={orthoTap(R2f, "pin1", R2f.pin("pin1").x + 0.8, U1f, "IO39")} />
+    <trace from="R4.pin1" to="U1.IO36" pcbPathRelativeTo="board" pcbPath={orthoTap(R4f, "pin1", U1f.pin("IO36").x, U1f, "IO36")} />
     <trace from="R1.pin1" to="J11.AOUT" pcbPathRelativeTo="board" pcbPath={orthoDrop(R1f, "pin1", J11f, "AOUT")} />
-    <trace from="R3.pin1" to="J11.DOUT" pcbPathRelativeTo="board" pcbPath={orthoDrop(R3f, "pin1", J11f, "DOUT", -63.5)} />
+    <trace from="R3.pin1" to="J11.DOUT" pcbPathRelativeTo="board" pcbPath={orthoDrop(R3f, "pin1", J11f, "DOUT")} />
     <trace from=".J11 > .GND" to="net.GND" />
 
     {/* V12 decoupling. HF: two 0.1uF ceramics (C1 y-16.6, C2 y0.2) on the V12 island
@@ -696,7 +696,7 @@ export default () => (
         U14f.ref("pin1"),
         U14f.fromPin("pin1", 0.8, 0),
         U14f.fromPin("pin1", 0.8, -2.45),
-        { x: -58.75, y: 16.25 },
+        { x: J14f.pin("pin10").x + 1.08, y: U14f.pin("pin1").y - 2.45 },
         J14f.fromPin("pin10", 1.08, 0),
         J14f.ref("pin10"),
     ]} />
@@ -709,7 +709,7 @@ export default () => (
     <trace from="U14.pin5" to="C22.pin1" pcbPathRelativeTo="board" pcbPath={[
         U14f.ref("pin5"),
         U14f.fromPin("pin5", -0.8, 0),
-        { x: -55.9, y: 19.5 },
+        { x: U14f.pin("pin5").x - 0.8, y: C22f.pin("pin1").y - 1.5 },
         C22f.fromPin("pin1", 0, -1.5),
         C22f.ref("pin1"),
     ]} />
@@ -722,8 +722,7 @@ export default () => (
     <trace from="U14.pin5" to="J14.pin15" pcbPathRelativeTo="board" pcbPath={[
         U14f.ref("pin5"),
         U14f.fromPin("pin5", -0.8, 0),
-        U14f.fromPin("pin5", -0.8, -2.4),
-        { x: -57.25, y: 15.35 },
+        { x: U14f.pin("pin5").x - 0.8, y: J14f.pin("pin15").y },
         J14f.ref("pin15"),
     ]} />
     <trace from=".C22 > .pin2" to="net.GND" />
