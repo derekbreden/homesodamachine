@@ -767,8 +767,12 @@ export default () => (
         "J14.pin15"
     )} />
     <trace from=".C22 > .pin2" to="net.GND" />
-    <trace from="U14.pin6" to="U13.D_POS" pcbComb="columnToRow" />
-    <trace from="U14.pin4" to="U13.D_NEG" pcbComb="columnToRow" />
+    <trace from="U14.pin6" to="U13.D_POS" pcbPathRelativeTo="board" pcbPath={route(
+        "U14.pin6", U14f.col("pin6", 0.95), U13f.row("D_POS", -1.25), U13f.col("D_POS"), "U13.D_POS",
+    )} />
+    <trace from="U14.pin4" to="U13.D_NEG" pcbPathRelativeTo="board" pcbPath={route(
+        "U14.pin4", U14f.col("pin4", 1.35), U13f.row("D_NEG", -1.65), U13f.col("D_NEG"), "U13.D_NEG",
+    )} />
     {/* CH340C: 3V3 supply (VCC + V3 tied for 3.3 V op) + 0.1uF decoupling; UART crossed to
         the WROOM (bridge TXD -> ESP RXD0/IO3, bridge RXD -> ESP TXD0/IO1). */}
     <trace from=".U13 > .VCC" to="net.V3V3" />
@@ -827,7 +831,8 @@ export default () => (
     <trace from="SW1.pin1" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={route(
         "SW1.pin1",
         SW1f.col("pin1", 1),
-        U1f.row("IO0", 1),
+        U13f.row("D_NEG", -2.05),   // third lane under the D-pair, hugging U13's south edge
+        U1f.col("IO0"),
         "U1.IO0",
     )} />
     <trace from=".SW1 > .pin4" to="net.GND" />
