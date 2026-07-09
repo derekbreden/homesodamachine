@@ -356,7 +356,7 @@ export default () => (
     <trace from="C12.pin1" to="U1.EN" pcbPathRelativeTo="board" pcbPath={route(
         "C12.pin1",
         { col: channel(CX_EN, CX_DOUT) },
-        U1f.row("EN", -1.8),
+        U1f.below("EN", 0.75),
         U1f.col("EN", 0),
         "U1.EN",
     )} />
@@ -598,7 +598,7 @@ export default () => (
     <trace from="R2.pin1" to="U1.IO39" pcbPathRelativeTo="board" pcbPath={route(
         "R2.pin1",
         R2f.col("pin1", 0.8),
-        U1f.row("IO39", -1.8),
+        U1f.below("IO39", 0.75),
         U1f.col("IO39", 0),
         "U1.IO39",
     )} />
@@ -768,10 +768,10 @@ export default () => (
     )} />
     <trace from=".C22 > .pin2" to="net.GND" />
     <trace from="U14.pin6" to="U13.D_POS" pcbPathRelativeTo="board" pcbPath={route(
-        "U14.pin6", U14f.col("pin6", 0.95), U13f.row("D_POS", -1.25), U13f.col("D_POS"), "U13.D_POS",
+        "U14.pin6", U14f.col("pin6", 0.95), U13f.below("D_POS", 0.3775), U13f.col("D_POS"), "U13.D_POS",
     )} />
     <trace from="U14.pin4" to="U13.D_NEG" pcbPathRelativeTo="board" pcbPath={route(
-        "U14.pin4", U14f.col("pin4", 1.35), U13f.row("D_NEG", -1.65), U13f.col("D_NEG"), "U13.D_NEG",
+        "U14.pin4", U14f.col("pin4", 1.35), U13f.below("D_NEG", 0.7775), U13f.col("D_NEG"), "U13.D_NEG",
     )} />
     {/* CH340C: 3V3 supply (VCC + V3 tied for 3.3 V op) + 0.1uF decoupling; UART crossed to
         the WROOM (bridge TXD -> ESP RXD0/IO3, bridge RXD -> ESP TXD0/IO1). */}
@@ -822,7 +822,7 @@ export default () => (
     <trace from="Q3.C" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={route(
         "Q3.C",
         { col: channel(U1f.pin("IO1").x, U1f.pin("IO22").x) },   // drop the west lane, clear of the CC/J14 block
-        U1f.row("IO0", 1.525),                                   // corridor centred in the lane between U1's tall north pads and the CC2 dip
+        U1f.above("IO0", 0.475),                                 // corridor centred in the lane between U1's tall north pads and the CC2 dip
         "U1.IO0",
     )} />
     {/* Manual BOOT (IO0) / RESET (EN) — diagonal switch pads = the two terminals. SW1's boot line
@@ -831,9 +831,9 @@ export default () => (
     <trace from="SW1.pin1" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={route(
         "SW1.pin1",
         SW1f.col("pin1", 1),
-        U13f.row("D_NEG", -2.05),   // third lane under the D-pair, hugging U13's south edge
+        U13f.below("D_NEG", 1.1775),   // third lane under the D-pair, hugging U13's south edge
         U14f.col("pin4", 1.75),
-        U1f.row("IO0", 1.525),      // Q3.C's lane — the twin — and share its run into IO0
+        U1f.above("IO0", 0.475),      // Q3.C's lane — the twin — and share its run into IO0
         "U1.IO0",
     )} />
     <trace from=".SW1 > .pin4" to="net.GND" />
