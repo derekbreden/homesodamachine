@@ -8,14 +8,14 @@
  * under a JST wafer, two SOICs whose packages kiss, a regression that nudges one part into its
  * neighbour — copper DRC passes, and nothing standing catches it. This measures the bodies.
  *
- * Each part's body is the shared component-body model (component-bodies.ts) — courtyard where the
- * footprint has one, reconstructed plastic for the XH wafers, copper envelope for the bare passives
- * — so a connector reads the same size here as in the connector audit. It reports the FLOOR (the
- * single tightest body-to-body gap on the board) and the tightest few pairs, exactly as the copper
- * readout does. It is informational, not a flag: a true body OVERLAP already surfaces as a red
- * pcb_courtyard_overlap_error, and dense-but-fine SMD (courtyards carry IPC assembly margin, so a
- * 0.4 mm courtyard gap is ~0.9 mm of real package air, well within the fab's ~0.2 mm placement) is
- * expected on a packed board — the point is visibility into how close the closest bodies sit.
+ * Each part's body is the shared component-body model (component-bodies.ts): the IPC-7351 keep-out —
+ * its max-material extent plus courtyard excess CYE — floored so no part reads smaller than its copper
+ * envelope grown by CYE (a stingy or inverted footprint courtyard can't under-report). A connector
+ * reads the same size here as in the connector audit. It reports the FLOOR (the single tightest
+ * keep-out gap) and the tightest few pairs. A gap ≥ 0 clears IPC Nominal; a small NEGATIVE gap is a
+ * pair packed below Nominal density whose copper still clears — real, worth surfacing, but not a
+ * collision (a true body overlap cuts past −2·CYE and also fires a red pcb_courtyard_overlap_error).
+ * The scorecard fab-ready gate fails only on a genuine overlap; sub-Nominal pairs are an advisory.
  */
 import { collectBodies, gapRect } from "./component-bodies"
 

@@ -2,7 +2,9 @@
  * Shared component-body geometry — the one physical-extent model both the connector audit and the
  * footprint-clearance readout measure against, so they never disagree about how big a part is.
  *
- * A "body" is the rectangle a placed part actually occupies, by the most accurate source available:
+ * A "body" is the assembly KEEP-OUT a placed part occupies — its max-material (copper/plastic) extent
+plus the IPC-7351 courtyard excess (CYE) — by the most accurate source available, then floored so no
+part reads smaller than its copper envelope grown by CYE (see the CYE note below):
  *
  *   WAFER  — a JST-XH pinheader (>=3 pads at ~2.5 mm pitch). Its imported footprint DOES carry a
  *            courtyard, but that courtyard is pad-margin-inflated wider than the real plastic, so we
@@ -38,6 +40,16 @@ export const XH_END = 2.5        // plastic past each outer pin, along the row (
 export const XH_OPEN_DEPTH = 3.5 // pin row -> mating-opening face, across the row (faces the board edge)
 export const XH_BASE_DEPTH = 2.4 // pin row -> base face, across the row (faces the interior)
 
+// IPC-7351 courtyard excess — the assembly keep-out a part needs past its max-material (copper/body)
+// boundary, by density level: Most (A) 0.5 mm, Nominal (B) 0.25 mm, Least (C) 0.1 mm. A footprint's
+// shipped courtyard is meant to be body+excess, but on this board they are inconsistent — some barely
+// clear the copper, and a few (U3) sit INSIDE it — so we do not trust them blindly. Instead every
+// body is floored at its copper envelope grown by CYE: a part with a genuinely larger courtyard or
+// reconstructed plastic (the modules, the connectors) keeps it; a stingy or inverted courtyard is
+// lifted to the IPC minimum. Nominal is the default JLCPCB-class assembly density.
+export const CYE_MOST = 0.5, CYE_NOMINAL = 0.25, CYE_LEAST = 0.1
+export const CYE = CYE_NOMINAL
+
 // Edge-to-edge gap between two axis-aligned rects; negative = penetration depth of an overlap.
 export const gapRect = (a: Rect, b: Rect): number => {
   const dx = Math.max(a.minx - b.maxx, b.minx - a.maxx, 0)
@@ -63,11 +75,19 @@ export function collectBodies(circuit: any[]): { bodies: Body[]; edge: Rect | nu
   // Copper (pads + plated holes) per component, and courtyards per component; large standalone
   // plated holes are mounting holes (a bare <platedhole> lands nameless, so size is the tell).
   const padsByComp: Record<string, { x: number; y: number }[]> = {}
+  const copperByComp: Record<string, Rect> = {}   // copper EXTENT (pad edges), for the IPC floor
   const outlineByComp: Record<string, Rect> = {}
   const holes: Hole[] = []
   for (const e of circuit) {
     if (e.type === "pcb_smtpad" || e.type === "pcb_plated_hole") {
-      if (typeof e.x === "number" && e.pcb_component_id) (padsByComp[e.pcb_component_id] ??= []).push({ x: e.x, y: e.y })
+      if (typeof e.x === "number" && e.pcb_component_id) {
+        (padsByComp[e.pcb_component_id] ??= []).push({ x: e.x, y: e.y })
+        const hw = (e.width ?? e.outer_diameter ?? e.hole_diameter ?? 0) / 2
+        const hh = (e.height ?? e.outer_diameter ?? e.hole_diameter ?? 0) / 2
+        const r = (copperByComp[e.pcb_component_id] ??= { minx: Infinity, maxx: -Infinity, miny: Infinity, maxy: -Infinity })
+        r.minx = Math.min(r.minx, e.x - hw); r.maxx = Math.max(r.maxx, e.x + hw)
+        r.miny = Math.min(r.miny, e.y - hh); r.maxy = Math.max(r.maxy, e.y + hh)
+      }
     }
     if (e.type === "pcb_plated_hole") {
       const hn = nameOf[e.pcb_component_id] ?? ""
@@ -78,6 +98,16 @@ export function collectBodies(circuit: any[]): { bodies: Body[]; edge: Rect | nu
       const xs = e.outline.map((p: any) => p.x), ys = e.outline.map((p: any) => p.y)
       outlineByComp[e.pcb_component_id] = { minx: Math.min(...xs), maxx: Math.max(...xs), miny: Math.min(...ys), maxy: Math.max(...ys) }
     }
+  }
+
+  // Floor any body at the IPC keep-out: at least CYE past the copper envelope on every side. A
+  // larger reconstructed body (wafer) or a genuinely bigger courtyard already exceeds this and is
+  // kept as-is; a stingy or inverted courtyard, or the bare-pad envelope, is lifted to the minimum.
+  const floorRect = (rect: Rect, compId: string): Rect => {
+    const cu = copperByComp[compId]
+    if (!cu || !isFinite(cu.minx)) return rect
+    return { minx: Math.min(rect.minx, cu.minx - CYE), maxx: Math.max(rect.maxx, cu.maxx + CYE),
+             miny: Math.min(rect.miny, cu.miny - CYE), maxy: Math.max(rect.maxy, cu.maxy + CYE) }
   }
 
   const bodies: Body[] = []
@@ -110,14 +140,14 @@ export function collectBodies(circuit: any[]): { bodies: Body[]; edge: Rect | nu
                    maxx: maxx + (openEast ? XH_OPEN_DEPTH : XH_BASE_DEPTH),
                    miny: miny - XH_END, maxy: maxy + XH_END }
         }
-        bodies.push({ ref: name, kind: "wafer", rect })
+        bodies.push({ ref: name, kind: "wafer", rect: floorRect(rect, compId) })
         continue
       }
-      if (cy) { bodies.push({ ref: name, kind: "courtyard", rect: cy }); continue }
-      bodies.push({ ref: name, kind: "pads", rect: { minx, maxx, miny, maxy } })
+      if (cy) { bodies.push({ ref: name, kind: "courtyard", rect: floorRect(cy, compId) }); continue }
+      bodies.push({ ref: name, kind: "pads", rect: floorRect({ minx, maxx, miny, maxy }, compId) })
       continue
     }
-    if (cy) bodies.push({ ref: name, kind: "courtyard", rect: cy })
+    if (cy) bodies.push({ ref: name, kind: "courtyard", rect: floorRect(cy, compId) })
   }
   return { bodies, edge, holes }
 }
