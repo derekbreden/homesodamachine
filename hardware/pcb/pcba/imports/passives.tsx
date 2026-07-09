@@ -5,7 +5,7 @@
  * CPL rotation matches JLCPCB's library — the same silent-flip guarantee every other part on
  * the board already has. (For a symmetric 2-pad passive there is in fact no rotation offset —
  * the pads are pin-1-west/horizontal exactly like the generic footprint — so this is belt-and-
- * suspenders: zero exceptions to reason about.) The imported silk is dropped; carrier_parts'
+ * suspenders: zero exceptions to reason about.) The imported silk is dropped; parts.tsx'
  * Cap/Res helper draws the shared symmetric two-line mark + upright ref-des. The pads + courtyard
  * are kept (the courtyard feeds footprint-audit's body model). Three JLCPCB lands cover every
  * value: res 0603 (±0.753), cap 0805 (±1.000), cap 0603 (±0.700).

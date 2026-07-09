@@ -18,7 +18,7 @@ checked on every build rather than assembled at the end.
 - Field connectors through-hole, JLCPCB-assembled.
 - Two deferred items: gas/compressor interlock, input protection.
 - Parts map to in-stock LCSC numbers, Basic-first; `tsci import <LCSC#>` for footprints.
-  SMD footprints live in `pcba_parts`.
+  Part wrappers live in `parts.tsx`.
 
 ## Files
 

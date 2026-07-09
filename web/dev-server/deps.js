@@ -131,7 +131,7 @@ export function findRunnableScriptsTransitivelyImporting(moduleName, roots) {
 
 // A board is a tscircuit source that declares a `<board>` — the renderable that
 // `render-board.ts` turns into Gerbers + copper views. Sibling `.tsx` files
-// without a `<board>` (e.g. `carrier_parts.tsx`) are includes: footprint
+// without a `<board>` (e.g. `parts.tsx`) are includes: footprint
 // libraries and rosters the boards import, never rendered on their own.
 function isBoardTsx(source) {
   return /<board\b/.test(source);
@@ -139,8 +139,8 @@ function isBoardTsx(source) {
 
 // Walk the board import graph backward from a changed `.tsx` to every board that
 // transitively imports it, scoped to the `pcb/` tree the file lives in. A change
-// to a shared include (`carrier_parts.tsx`) thus rebuilds the boards that pull it
-// in (`mini.tsx`), mirroring the Python cascade — rendering the include itself
+// to a shared include (`parts.tsx`) thus rebuilds the boards that pull it
+// in (`pcba.tsx`), mirroring the Python cascade — rendering the include itself
 // would only fail ("no renderable layers"), since an include has no `<board>`.
 // If the changed file is itself a board, it's returned as the sole dependent.
 export function findBoardsTransitivelyImporting(changedTsxPath, pcbRoot) {
@@ -162,8 +162,8 @@ export function findBoardsTransitivelyImporting(changedTsxPath, pcbRoot) {
     if (visited.has(mod)) continue;
     visited.add(mod);
 
-    // A relative import names the module by basename: `from "./carrier_parts"`
-    // (or a deeper `../foo/carrier_parts`), with or without the `.tsx` suffix.
+    // A relative import names the module by basename: `from "./parts"`
+    // (or a deeper `../foo/parts`), with or without the `.tsx` suffix.
     const importRe = new RegExp(`from\\s+["'][^"']*\\b${escapeRegExp(mod)}(?:\\.tsx)?["']`, "m");
     for (const tsx of allTsx) {
       if (path.basename(tsx, ".tsx") === mod) continue; // don't match a file to itself

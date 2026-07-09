@@ -2,7 +2,8 @@
  * esp32-mcp-mini — the controller carrier. Off-the-shelf modules plug into
  * 2.54 mm header sockets; the board is the interconnect, and every off-board
  * interface lands on a labeled edge connector (J1-J11). Footprint geometry
- * lives in ./carrier_parts; placement + routing are declared here.
+ * lives in ./parts (the part wrappers) and ./routing (hand-routing geometry); placement + routing
+ * are declared here.
  *
  * The ESP32 sits at the far-left, antenna off-board. Its usable GPIO are nearly all on the
  * north and south castellations (the east edge is flash + the lone GPIO IO13), so every
@@ -59,9 +60,9 @@
  * layers already carry signal). The web viewer's board chip reports this floor live
  * (clearance.ts -> picks.json).
  */
-import { at, Cap, Res, Jst, ulnOUT } from "./carrier_parts"
-import { Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870 } from "./pcba_parts"
+import { at, Cap, Res, Jst, ulnOUT, Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870 } from "./parts"
 import { KF301_5_0_2P } from "./imports/KF301_5_0_2P"
+import { frame, pcbU, pcbFan, channel, orthoTap, orthoDrop } from "./routing"
 import { boardVersionParts } from "./board-version"
 import { logoRoutes } from "./logo"
 import { KT_0603R as LedRed } from "./imports/KT_0603R"
@@ -74,93 +75,18 @@ import type { AmpacityRule } from "./ampacity-audit"
 // Identity stamp version (commit date + short SHA), computed once per render.
 const ID = boardVersionParts()
 
-// ── USB-C corner hand-routing (pcbPath) ──────────────────────────────────────────────
-// A pcbPath's numeric {x,y} points are in the FROM component's OWN frame: board = center +
-// R(rotation)·local, where `center` is the component's RESOLVED pcb center (its placement x/y
-// PLUS the footprint's own offset — read it from a render; it is NOT always the JSX x/y) and
-// `rotation` is its `rot`. Get the center or rotation wrong and every point lands off — that is
-// the single thing that makes hand routing here go sideways. (See routing-procedure.md.) Manual
-// vias are full-stack top<->bottom ONLY, so hand paths live on the top or bottom layer.
-//
-// `frame(name, cx, cy, rot, pins)` captures a component and turns pin geometry into path points.
-// `pins` maps a pin to its footprint-local offset (movement-invariant; read from a render), so the
-// frame can *divine* where a pad actually is, not just where the component's center is. Every
-// method returns a point in THIS (the trace's `from`) frame:
-//   .ref(pin)             the pad string anchor, e.g. "U14.pin1" — use for a pcbPath's endpoints
-//   .pin(pin)             the pad's BOARD position {x,y}
-//   .at(bx, by)           a fixed BOARD point — stays put when THIS component moves
-//   .off(dx, dy)          a raw LOCAL offset — rides THIS component
-//   .fromPin(pin, bx, by) a point (bx,by) mm (board axes) from THIS frame's own pad — RIDES this
-//                         component, so an exit stub follows its pad when the part moves
-//   .toPin(f, pin, bx,by) a point (bx,by) mm from ANOTHER frame f's pad — board-fixed, and FOLLOWS
-//                         that pad if f moves, so an approach tracks its target
-// To move a component, change only its placement const below; every point auto-recomputes.
-type Pt = { x: number; y: number }
-const frame = (name: string, cx: number, cy: number, rot: number, pins: Record<string, [number, number]> = {}) => {
-  const t = (rot * Math.PI) / 180, cos = Math.cos(t), sin = Math.sin(t)
-  const at = (bx: number, by: number): Pt => {     // board -> this frame's local: R(-rot)·(board - center)
-    const dx = bx - cx, dy = by - cy
-    return { x: cos * dx + sin * dy, y: -sin * dx + cos * dy }
-  }
-  const pin = (p: string): Pt => {                 // this frame's pad, in board coords
-    const [ox, oy] = pins[p]
-    return { x: cx + cos * ox - sin * oy, y: cy + sin * ox + cos * oy }
-  }
-  return {
-    at, pin,
-    ref: (p: string) => `${name}.${p}`,
-    off: (dx: number, dy: number): Pt => ({ x: dx, y: dy }),
-    fromPin: (p: string, bx = 0, by = 0): Pt => { const b = pin(p); return at(b.x + bx, b.y + by) },
-    toPin: (f: { pin: (p: string) => Pt }, p: string, bx = 0, by = 0): Pt => { const b = f.pin(p); return at(b.x + bx, b.y + by) },
-  }
-}
-type Frame = ReturnType<typeof frame>
-// A no-via "U" that ties two pads of the same connector `f`: out from `a` by the board stub, across
-// to `b`, back in — one jumper, not a second full path. Returns a whole pcbPath.
-const pcbU = (f: Frame, a: string, b: string, stub: [number, number]) =>
-  [f.ref(a), f.fromPin(a, ...stub), f.fromPin(b, ...stub), f.ref(b)]
-// A fan from one source pad to several dest pads that share an approach lane: each branch exits the
-// source the same way, runs to board x=`laneX`, then to its dest pad's row and in. Returns one
-// { to, pcbPath } per dest — map them onto <trace from={...}>. No vias.
-const pcbFan = (srcF: Frame, srcPin: string, exit: [number, number], destF: Frame, destPins: string[], laneX: number) =>
-  destPins.map((d) => ({
-    to: destF.ref(d),
-    pcbPath: [srcF.ref(srcPin), srcF.fromPin(srcPin, ...exit), srcF.at(laneX, destF.pin(d).y), destF.ref(d)],
-  }))
-// Place a run in a corridor between two column centres `a` and `b`: centre it (bias 0) to maximise
-// clearance to both walls, or bias to one (−1 hug a / +1 hug b) to deliberately leave the other side
-// open for a future trace. A corridor run is NEVER at an arbitrary offset — clearance is a resource,
-// allocated on purpose (centre or reserve), never spent by accident. (See hand-routing.md.)
-const channel = (a: number, b: number, bias = 0): number => (a + b) / 2 + bias * (Math.abs(b - a) / 2 - 0.6)
-// Orthogonal (90°-only) tap from a midpoint pad up to a U1 pin. Every pad exits along its own face:
-// the source pad escapes sideways past its own top resistor, and — because the H-across (`apY`) sits
-// well below U1 — the U1 pad exits *south* on a clean stub before any jog, never from its E/W side.
-// orthoTap jogs H to `laneX` (its escape / corridor lane), V up to `apY`, H across to the pin's
-// column, V into the pad. The H-across collapses when `laneX` already sits under the pin (straight up).
-const orthoTap = (fromF: Frame, pin: string, laneX: number, toF: Frame, toPin: string, apY = -10.8): (Pt | string)[] => {
-  const p = fromF.pin(pin), q = toF.pin(toPin), path: Pt[] = [{ x: laneX, y: p.y }]
-  if (Math.abs(laneX - q.x) > 1e-6) path.push({ x: laneX, y: apY }, { x: q.x, y: apY })
-  return [fromF.ref(pin), ...path.map((v) => fromF.at(v.x, v.y)), toF.ref(toPin)]
-}
-// `orthoDrop` drops a pad straight down (at its own column, or `dropX` to clear an obstacle) to the
-// target's row, then H straight into it — for the J11 connector inputs. Two segments, one 90° corner.
-const orthoDrop = (fromF: Frame, pin: string, toF: Frame, toPin: string, dropX?: number): (Pt | string)[] => {
-  const p = fromF.pin(pin), q = toF.pin(toPin)
-  return [fromF.ref(pin), fromF.at(dropX ?? p.x, q.y), toF.ref(toPin)]
-}
-// Resolved pcb centers + footprint-local pin offsets (read from a render; regenerate if a footprint
-// changes). Keep *_X/_Y in sync with the JSX placements below — same const, so a move can't desync.
-const U14_X = -56.25, U14_Y = 17.75
-const C22_X = -56.5, C22_Y = 21.0
-const U14f = frame("U14", U14_X, U14_Y, 270, {
-  pin1: [-0.95, -1.149], pin2: [0, -1.149], pin3: [0.95, -1.149],
-  pin4: [0.95, 1.149], pin5: [0, 1.149], pin6: [-0.95, 1.149],
-})
-const J14f = frame("J14", -62.45, 17.75, 270, {   // UsbC: placement -62 + footprint x-offset -0.45
-  pin7: [-0.75, 2.624], pin8: [-0.25, 2.624], pin9: [0.25, 2.624], pin10: [0.75, 2.624],
-  pin15: [2.4, 2.624], pin16: [-2.4, 2.624],
-})
-const C22f = frame("C22", C22_X, C22_Y, 0, { pin1: [-1.0, 0], pin2: [1.0, 0] })
+// Hand-routing geometry (frame / pcbPath helpers) lives in ./routing.
+
+// Each framed part is placed here as an element carrying literal x/y on the tag (the drag editor needs
+// a numeric x={…}/y={…} on the component's own line — web/lib/pcb-editor-routes.js parses/rewrites it),
+// then rendered below via {U14El}/… `frame(el)` derives centre, rotation, AND pad geometry from that one
+// element, so a drag moves the part and its routing follows — nothing to keep in sync by hand.
+const U14El = <Usblc6 name="U14" x={-56.25} y={17.75} rot={270} />
+const C22El = <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.5} y={21.0} rot={0} side="N" />
+const J14El = <UsbC name="J14" x={-62} y={17.75} rot={270} />
+const U14f = frame(U14El)
+const J14f = frame(J14El)
+const C22f = frame(C22El)
 
 // ── GAS/EN divider grid (pcbPath hand-routing) ───────────────────────────────────────
 // Six 0603s (AOUT divider R1/R2, DOUT divider R3/R4, EN network R7/C12) as vertical (rot90) parts in
@@ -172,16 +98,20 @@ const C22f = frame("C22", C22_X, C22_Y, 0, { pin1: [-1.0, 0], pin2: [1.0, 0] })
 // can follow it up. One const per axis → one-line move; frames + placements read the same const.
 const CX_EN = -65.5, CX_DOUT = -63.5, CX_AOUT = -61.5   // columns W→E
 const CY_BOT = -15.8, CY_TOP = -12.3                    // input (south) / GND·V3V3 (north) rows (N clears U1 courtyard -10.05)
-const R0603: Record<string, [number, number]> = { pin1: [-0.753, 0], pin2: [0.753, 0] } // resistor 0603
-const C0603: Record<string, [number, number]> = { pin1: [-0.7, 0], pin2: [0.7, 0] }     // cap 0603 (slightly shorter pads)
-const R1f = frame("R1", CX_AOUT, CY_BOT, 90, R0603)   // AOUT in (pin1 S) → midpoint (pin2 N)
-const R2f = frame("R2", CX_AOUT, CY_TOP, 90, R0603)   // midpoint (pin1 S) → GND (pin2 N)
-const R3f = frame("R3", CX_DOUT, CY_BOT, 90, R0603)   // DOUT in (pin1 S) → midpoint (pin2 N)
-const R4f = frame("R4", CX_DOUT, CY_TOP, 90, R0603)   // midpoint (pin1 S) → GND (pin2 N)
-const R7f = frame("R7", CX_EN, CY_BOT, 270, R0603)    // EN node (pin1 N) → V3V3 (pin2 S)
-const C12f = frame("C12", CX_EN, CY_TOP, 90, C0603)   // EN node (pin1 S) → GND (pin2 N); C12 sits north, near U1.EN
-const U1f = frame("U1", -57, 0, 0, { EN: [-6.75, -9], IO36: [-5.48, -9], IO39: [-4.21, -9] }) // ESP32 south-edge taps
+// Placed here (not down in the return) so each frame derives from its own element; rendered below
+// via {R1El}… The grid parts ride the CX/CY consts, so a one-line const move still slides the lattice.
+const R1El = <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={CX_AOUT} y={CY_BOT} rot={90} side="N" />   // AOUT in (pin1 S) → midpoint (pin2 N)
+const R2El = <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={CX_AOUT} y={CY_TOP} rot={90} side="N" />  // midpoint (pin1 S) → GND (pin2 N)
+const R3El = <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={CX_DOUT} y={CY_BOT} rot={90} side="N" />   // DOUT in (pin1 S) → midpoint (pin2 N)
+const R4El = <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={CX_DOUT} y={CY_TOP} rot={90} side="N" />  // midpoint (pin1 S) → GND (pin2 N)
+const R7El = <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={CX_EN} y={CY_BOT} rot={270} side="N" />    // EN node (pin1 N) → V3V3 (pin2 S)
+const C12El = <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={CX_EN} y={CY_TOP} rot={90} side="N" />  // EN node (pin1 S) → GND (pin2 N); near U1.EN
+const R1f = frame(R1El), R2f = frame(R2El), R3f = frame(R3El), R4f = frame(R4El), R7f = frame(R7El), C12f = frame(C12El)
+const U1El = <Esp32 name="U1" x={-57} y={0} rot={0} />
+const U1f = frame(U1El)                               // ESP32; taps by label (EN/IO36/IO39)
 const J11_Y = -24.3
+// J11 stays explicit: AOUT/DOUT are the Jst's board-assigned `labels` (see the <Jst> below), not
+// footprint pins — the wafer import only knows pin1…pin4, at ±1.25/±3.75 on the 2.5 mm pitch.
 const J11f = frame("J11", -62, J11_Y, 90, { AOUT: [3.75, 0], DOUT: [1.25, 0] })                 // GAS connector, pulled north
 
 // ── Decoupling audit ────────────────────────────────────────────────────────────────────
@@ -253,12 +183,12 @@ export default () => (
         power-on RC (R7 10k pull-up + C12 1uF) sit at the south edge by the 3V3/EN pins; R8
         (10k) pulls IO0 up; the WROOM is flashed over the USB-C programming block above it
         (CH340 bridge on TX0/RX0, auto-reset on EN/IO0) — see that block below. */}
-    <Esp32 name="U1" x={-57} y={0} rot={0} />
+    {U1El}
     {/* WROOM support south of U1: the EN power-on RC (R7 + C12) stacked at the far-west,
         hard by U1's EN pin so the EN trace stays short; the supply decouplers C10 + C11
         share the lane just east of them. */}
-    <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={CX_EN} y={CY_TOP} rot={90} side="N" />
-    <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={CX_EN} y={CY_BOT} rot={270} side="N" />
+    {C12El}
+    {R7El}
     <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.5} y={-14} rot={180} side="N" />
     <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-56.5} y={-17} rot={0} side="N" />
     <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-48} y={27} rot={0} side="N" />
@@ -303,22 +233,22 @@ export default () => (
     <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-44.5} y={-4.5} rot={180} side="N" />
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
-    <Jst name="J1" x={21} y={13.75} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" side="E" />
-    <Jst name="J2" x={21} y={-9.5} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" side="E" />
+    <Jst name="J1" x={21} y={13.75} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" rot={270} />
+    <Jst name="J2" x={21} y={-9.5} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" rot={270} />
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
-    <Jst name="J13" x={-22.25} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" side="N" />
-    <Jst name="J3" x={-52.25} y={-33} count={4} labels={["GND", "V5", "IO35", "IO33"]} label="FAUCET" side="S" />
-    <Jst name="J4" x={-36.25} y={-33} count={6} labels={["3V3", "GND", "V5", "IO25", "IO26", "IO27"]} label="SENSORS" side="S" />
+    <Jst name="J13" x={-22.25} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" rot={0} />
+    <Jst name="J3" x={-52.25} y={-33} count={4} labels={["GND", "V5", "IO35", "IO33"]} label="FAUCET" rot={180} />
+    <Jst name="J4" x={-36.25} y={-33} count={6} labels={["3V3", "GND", "V5", "IO25", "IO26", "IO27"]} label="SENSORS" rot={180} />
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
         (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
         IO19 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
-    <Jst name="J5" x={-36.5} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} label="RELAYS" side="N" />
-    <Jst name="J6" x={-7.0} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" side="N" />
-    <Jst name="J7" x={-3.0} y={-33} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" side="S" />
-    <Jst name="J8" x={8.5} y={31} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" side="N" />
-    <Jst name="J9" x={-20.25} y={-33} count={4} labels={["B", "A", "GND", "V12"]} label="DISPLAY" side="S" />
+    <Jst name="J5" x={-36.5} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} label="RELAYS" rot={0} />
+    <Jst name="J6" x={-7.0} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" rot={0} />
+    <Jst name="J7" x={-3.0} y={-33} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" rot={180} />
+    <Jst name="J8" x={8.5} y={31} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" rot={0} />
+    <Jst name="J9" x={-20.25} y={-33} count={4} labels={["B", "A", "GND", "V12"]} label="DISPLAY" rot={180} />
     {/* 12V inlet — KF301-5.0-2P 2-pin 5.0mm screw terminal (C474881, 17A/250V), the board's power
         inlet on the south edge (east end, over the V12 island). Sized for the ~3.3A peak
         (both pumps priming + a few valves + the condenser fan) with margin the 2A XH wafer didn't
@@ -336,7 +266,7 @@ export default () => (
     <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={16.0} pcbY={-36.94} />
     <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={13.5} pcbY={-38.0} />
     <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={13.5} pcbY={-29.6} />
-    <Jst name="J11" x={-62} y={J11_Y} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} label="GAS" side="W" />
+    <Jst name="J11" x={-62} y={J11_Y} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} label="GAS" rot={90} />
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
         a vertical 2-resistor series: 2.2k (input, bottom) -> midpoint -> 3.3k (to
@@ -344,10 +274,10 @@ export default () => (
         for DOUT). The midpoint taps right into the ESP; AOUT: R1/R2 -> IO39, DOUT:
         R3/R4 -> IO36. IO36/IO39 are the ADC1 input-only pins at the west end of the ESP
         south edge; the dividers sit just below them, the GAS connector below the dividers. */}
-    <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={CX_AOUT} y={CY_BOT} rot={90} side="N" />
-    <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={CX_AOUT} y={CY_TOP} rot={90} side="N" />
-    <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={CX_DOUT} y={CY_BOT} rot={90} side="N" />
-    <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={CX_DOUT} y={CY_TOP} rot={90} side="N" />
+    {R1El}
+    {R2El}
+    {R3El}
+    {R4El}
 
     {/* 3V3 rail -> inner1 plane, sourced by the AMS1117 LDO (U9) off the 5V rail. The I2C
         devices (both MCPs, DS3231), RS485, the WROOM, and the sensor loom all common to it at
@@ -743,12 +673,12 @@ export default () => (
         by IO0 — with R17/R18 between. CC pulldowns sit in the top corners; C22 rides U14's
         VBUS, C21 rides U13's 3V3. East column on x=-44, 4 mm pitch: C6 / R8 / Q3 / C21 (with
         R15 above), R8 the IO0 pull-up spun vertical into the stack. */}
-    <UsbC name="J14" x={-62} y={17.75} rot={270} />
-    <Usblc6 name="U14" x={U14_X} y={U14_Y} rot={270} />
+    {J14El}
+    {U14El}
     <Ch340 name="U13" x={-48.25} y={17.5} rot={270} />
     <Res name="R16" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-63.5} y={11.5} rot={0} side="N" />
     <Res name="R15" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-63.5} y={24} rot={0} side="N" />
-    <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={C22_X} y={C22_Y} rot={0} side="N" />
+    {C22El}
     <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-47.5} y={24.5} rot={0} side="N" />
     {/* EN branch (west): U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
     <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-63.5} y={26.25} rot={0} side="N" />

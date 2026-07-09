@@ -60,7 +60,7 @@ export function walkFilesUnderDir(rootDir, exts, parentDirName) {
 // PCB boards: a board is the tscircuit source named for its own directory —
 // `pcb/<dir>/<dir>.tsx`, e.g. pcb/pcba/pcba.tsx — rendered into a sibling `out/`
 // by render-board.ts. The name-matches-dir rule is the whole gate: helper sources
-// that share the directory (carrier_parts.tsx, pcba_parts.tsx) and scratch/decoy
+// that share the directory (parts.tsx, routing.ts) and scratch/decoy
 // boards (_b15.tmp.tsx and friends) are not the board and never appear, so nothing
 // can masquerade as a board no matter what got rendered into out/. This is the same
 // kind of structural discriminator the other walkers use — drawings by parent-dir

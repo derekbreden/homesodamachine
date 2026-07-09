@@ -533,8 +533,8 @@ watcher.on("change", (absPath) => {
 
   // PCB source changed — re-render the board(s) it feeds and broadcast each so
   // the viewer refreshes the card + open modal. A board source renders itself; a
-  // shared include (`carrier_parts.tsx`) follows the import chain to the boards
-  // that pull it in (`mini.tsx`), since the include has no `<board>` of its own.
+  // shared include (`parts.tsx`) follows the import chain to the boards
+  // that pull it in (`pcba.tsx`), since the include has no `<board>` of its own.
   // (node_modules is already filtered by the watcher's `ignored`.)
   if (absPath.endsWith(".tsx") && absPath.split(path.sep).includes("pcb")) {
     // Skip build temp files (_build-*.tmp.tsx) written by the PCB render
