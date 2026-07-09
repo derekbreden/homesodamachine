@@ -8,20 +8,22 @@
  * Two kinds of check:
  *   - GATE — a manufacturability / electrical requirement that must hold to fab. Every gate passes
  *            today; a failing gate is a broken board, and (once gating is turned on) a red build.
- *   - GOAL — the manual-routing progress this whole effort exists to drive: every signal net
- *            hand-routed on outer copper with NO vias (the planes carry power/ground). Shown as
- *            progress toward 100%, not a gate — the board still fabs while it converts.
+ *   - GOAL — the manual-routing conversion this whole effort exists to drive: take every signal
+ *            connection off the autorouter onto deliberate hand copper. Reported as a `score`, not a
+ *            gate — the board still fabs while it converts.
  *
- * The manual/auto split is by AUTHORSHIP, not geometry. The circuit-json carries no manual flag, so
- * authorship comes from the source: a net is hand-routed only if every trace that carries its copper
- * was authored by hand (a <trace> with pcbPath / pcbComb / pcbStraightLine — passed in as `authored`
- * and matched to nets via source_trace.display_name) AND its copper is clean (one outer layer, no
- * via). Geometry alone is not enough: the autorouter routes most short nets clean-shaped by accident,
- * and crediting that as "hand-routed" would count the autorouter's work as progress toward removing
- * it. Poured plane nets (the <copperpour> connectsTo nets, `planeNets`) are exempt — their vias are
- * plane stitches, not routing.
+ * The split is by AUTHORSHIP, counted per rendered CONNECTION (a source_trace), not by geometry — the
+ * circuit-json has no manual flag, so a clean-looking shape can't be trusted (the autorouter routes
+ * most short nets clean by accident, and crediting that would count its work as progress toward
+ * removing it). Authorship comes from source: a <trace> carrying pcbPath / pcbStraightLine (`path`)
+ * or pcbComb (`comb`) is hand-authored (`authored`), matched to connections via source_trace.
+ * display_name. Connections to a net ("X to net.Y") are plane stitches — outside the routing universe.
  *
- * Canonical prose for these requirements — the why behind each — is in requirements.md.
+ *   score = 100·(pcbPath·1 + pcbComb·½) / (pcbPath + pcbComb + deferred + auto)
+ *
+ * pcbComb counts half: it's off the autorouter but not condensed — the tightening pass will split
+ * some combs into explicit paths. deferred (commented out) and auto (still autorouted) are the work
+ * left. Canonical prose for these requirements — the why behind each — is in requirements.md.
  */
 import type { FootprintAudit } from "./footprint-audit"
 import type { ConnectorAudit } from "./connector-audit"
@@ -44,17 +46,20 @@ export type Check = {
 export type Scorecard = {
   checks: Check[]
   gatesPass: boolean      // every gate check passes → fab-ready on the hard rules
-  manualPct: number       // signal nets hand-clean / total, 0..100 — the headline progress number
-  signalNets: number      // signal nets that carry discrete copper (the conversion universe)
-  deferred: number        // connections commented out of source — routing work set aside, tracked
+  // The manual-routing conversion, counted by rendered connection (not net). The score is the
+  // headline: done + half-done over everything still to do. See the `score` formula below.
+  pcbPath: number         // explicit-path traces (pcbPath / pcbStraightLine) — done, weight 1.0
+  pcbComb: number         // comb-strategy traces (pcbComb) — half done, weight 0.5 (condensing splits some)
+  deferred: number        // connections commented out of source — routing work set aside
+  auto: number            // live signal connections still on the autorouter — the work remaining
+  score: number           // 100·(pcbPath + ½·pcbComb) / (pcbPath + pcbComb + deferred + auto), 0..100
 }
 
 /** Everything the scorecard reads. The gate inputs are what pick-data already computed; the goal
- *  metrics are derived here from the raw circuit + the set of poured plane nets. */
+ *  metrics are derived here from the raw circuit + the hand-authored connections read from source. */
 export type ScorecardInput = {
   circuit: any[]
-  planeNets: Set<string>
-  authored: { from: string; to: string }[]  // <trace>s carrying a manual routing prop (hand-authored)
+  authored: { from: string; to: string | null; kind: "path" | "comb" }[]  // hand-authored <trace>s (to=null: dynamic pcbFan)
   deferred: { from: string; to: string }[]  // connections commented out of source (deferred work)
   floor: number | null
   clearanceErrors: { kind: string; text: string }[]  // clearance.ts DRC findings (overlap/courtyard/sliver)
@@ -79,73 +84,41 @@ const CLEARANCE_FLOOR = 0.14
 const BODY_WARN = 0.4
 const DETAIL_MAX = 8
 
-const INNER = new Set(["inner1", "inner2", "inner3", "inner4"])
-
-/** Resolve a pcb_trace to its net name the same way pick-data does: connection_name if it's a
- *  source_net id, else the trace's source_trace's first connected net, else a readable fallback. */
-function netResolver(circuit: any[]) {
-  const netName: Record<string, string> = {}
-  const srcTrace: Record<string, any> = {}
-  for (const e of circuit) {
-    if (e.type === "source_net") netName[e.source_net_id] = e.name
-    else if (e.type === "source_trace") srcTrace[e.source_trace_id] = e
-  }
-  return (t: any): string => {
-    const byConn = t.connection_name ? netName[t.connection_name] : undefined
-    if (byConn) return byConn
-    const s = srcTrace[t.source_trace_id]
-    const nid = s?.connected_source_net_ids?.[0]
-    if (nid) return netName[nid] ?? nid
-    return s?.display_name ?? t.pcb_trace_id
-  }
-}
-
 export function buildScorecard(inp: ScorecardInput): Scorecard {
-  const { circuit, planeNets } = inp
+  const { circuit } = inp
 
-  // ── Manual-routing metrics (the goal) — per signal net, from raw copper geometry + authorship ──
-  const traceNet = netResolver(circuit)
-  // Authorship map: a net is authored only if EVERY pcb_trace carrying its copper came from a
-  // hand-authored <trace>. Authored connections (from source) and each source_trace's endpoints
-  // (its display_name, "<from> to <to>") are normalised to an unordered pin-pair key and matched.
+  // ── Manual-routing conversion (the goal) — counted per rendered signal CONNECTION, by authorship ──
+  // The circuit-json has no manual flag, so authorship is read from source: each hand-authored <trace>
+  // (`authored`, split into `path`/`comb`) and each rendered source_trace's endpoints (its
+  // display_name, "<from> to <to>") normalise to an unordered pin-pair key and match. A pcbFan trace
+  // has a dynamic `to`, so it's keyed by its `from` pin instead. Connections to a net (a plane stitch,
+  // "X to net.Y") are outside the routing universe — planes carry power/ground, not signals.
   const norm = (s: string) => s.replace(/[\s.>]/g, "")
   const connKey = (a: string, b: string) => [norm(a), norm(b)].sort().join("|")
-  const authoredConns = new Set(inp.authored.map((d) => connKey(d.from, d.to)))
-  const stConn: Record<string, string> = {}
+  const isNet = (s: string) => s.trim().startsWith("net.")
+  const pathKeys = new Set<string>(), combKeys = new Set<string>(), pathFromPins = new Set<string>()
+  for (const a of inp.authored) {
+    if (a.to == null) { if (a.kind === "path") pathFromPins.add(norm(a.from)); continue }
+    ;(a.kind === "comb" ? combKeys : pathKeys).add(connKey(a.from, a.to))
+  }
+
+  let pcbPath = 0, pcbComb = 0, auto = 0
+  const autoList: string[] = []
   for (const e of circuit) {
     if (e.type !== "source_trace" || !e.display_name) continue
     const [a, b, ...rest] = String(e.display_name).split(" to ")
-    if (a && b && rest.length === 0) stConn[e.source_trace_id] = connKey(a, b)
+    if (!a || !b || rest.length) continue
+    if (isNet(a) || isNet(b)) continue
+    const k = connKey(a, b)
+    if (combKeys.has(k)) pcbComb++
+    else if (pathKeys.has(k) || pathFromPins.has(norm(a))) pcbPath++
+    else { auto++; autoList.push(e.display_name) }
   }
-  const netAuthored = new Map<string, boolean>()  // true only if every trace on the net is authored
-
-  const viaByNet = new Map<string, number>()
-  const innerByNet = new Map<string, number>()
-  const netHasTrace = new Set<string>()
-  const netByTraceId: Record<string, string> = {}
-  for (const e of circuit) {
-    if (e.type !== "pcb_trace") continue
-    const n = traceNet(e)
-    netByTraceId[e.pcb_trace_id] = n
-    netHasTrace.add(n)
-    const key = stConn[e.source_trace_id]
-    const isAuth = key != null && authoredConns.has(key)
-    netAuthored.set(n, (netAuthored.get(n) ?? true) && isAuth)
-    for (const r of e.route) if (INNER.has(r.layer)) innerByNet.set(n, (innerByNet.get(n) ?? 0) + 1)
-  }
-  for (const e of circuit) {
-    if (e.type !== "pcb_via") continue
-    const n = netByTraceId[e.pcb_trace_id] ?? "?"
-    viaByNet.set(n, (viaByNet.get(n) ?? 0) + 1)
-  }
-
-  const signalNets = [...netHasTrace].filter((n) => !planeNets.has(n)).sort()
-  const viaNets = signalNets.filter((n) => (viaByNet.get(n) ?? 0) > 0)
-  const innerNets = signalNets.filter((n) => (innerByNet.get(n) ?? 0) > 0)
-  const handClean = signalNets.filter((n) =>
-    (netAuthored.get(n) ?? false) && (viaByNet.get(n) ?? 0) === 0 && (innerByNet.get(n) ?? 0) === 0)
-  const signalVias = viaNets.reduce((s, n) => s + (viaByNet.get(n) ?? 0), 0)
-  const manualPct = signalNets.length ? Math.round((100 * handClean.length) / signalNets.length) : 100
+  const deferredN = inp.deferred.length
+  const routingTotal = pcbPath + pcbComb + deferredN + auto
+  // Score: a finished (pcbPath) connection counts full; a comb counts half (condensing will split
+  // some of them into explicit paths later); deferred and auto both count as not-yet-done.
+  const score = routingTotal ? Math.round((100 * (pcbPath + 0.5 * pcbComb)) / routingTotal) : 100
 
   const checks: Check[] = []
   const gate = (id: string, label: string, ok: boolean, value: string, target: string, detail?: string[]) =>
@@ -196,25 +169,19 @@ export function buildScorecard(inp: ScorecardInput): Scorecard {
       [...inp.capAudit.rows.filter((r) => r.over).map((r) => `${r.cap}→${r.near}: ${r.gap ?? "?"} > ${r.budget} mm`),
        ...inp.capAudit.missing.map((m) => `${m.part}.${m.pin} has no decoupler`)])
 
-  // ── GOALS — the manual-routing conversion (planes exempt; signal nets only) ──
-  goal("manual-coverage", "Signal nets hand-routed on outer copper", handClean.length === signalNets.length,
-    `${handClean.length}/${signalNets.length} nets (${manualPct}%)`, "100%",
-    signalNets.filter((n) => !handClean.includes(n)))
+  // ── GOALS — the manual-routing conversion, by connection. The score is the headline; auto and
+  // deferred are the actionable backlogs. pcbPath/pcbComb counts ride the score row's detail. ──
+  goal("routing-score", "Signal routing converted (pcbPath ×1 + pcbComb ×½)", score === 100,
+    `${score}%`, "100%",
+    [`${pcbPath} pcbPath (done) + ${pcbComb} pcbComb (half) of ${routingTotal} — ${deferredN} deferred, ${auto} auto still to do`])
 
-  goal("signal-vias", "No vias on signal nets (planes stitch, signals don't)", signalVias === 0,
-    `${signalVias} via on ${viaNets.length} net`, "0",
-    viaNets.map((n) => `${n}: ${viaByNet.get(n)} via`))
+  goal("auto", "Signal connections still on the autorouter", auto === 0, `${auto}`, "0", autoList)
 
-  goal("outer-only", "No signal copper on inner layers (inner = planes)", innerNets.length === 0,
-    `${innerNets.length} net`, "0",
-    innerNets.map((n) => `${n}: ${innerByNet.get(n)} inner-layer pt`))
-
-  goal("deferred", "No deferred connections (commented out of source)", inp.deferred.length === 0,
-    `${inp.deferred.length} deferred`, "0",
-    inp.deferred.map((d) => `${d.from} → ${d.to}`))
+  goal("deferred", "Deferred connections (commented out of source)", deferredN === 0,
+    `${deferredN}`, "0", inp.deferred.map((d) => `${d.from} → ${d.to}`))
 
   const gatesPass = checks.every((c) => c.kind !== "gate" || c.status === "pass")
-  return { checks, gatesPass, manualPct, signalNets: signalNets.length, deferred: inp.deferred.length }
+  return { checks, gatesPass, pcbPath, pcbComb, deferred: deferredN, auto, score }
 }
 
 /** Render the scorecard as an aligned terminal block — the build's closing verdict. */
@@ -232,7 +199,7 @@ export function formatScorecard(board: string, sc: Scorecard): string {
   rows.push(`── ${board} scorecard ${"─".repeat(Math.max(0, 44 - board.length))}`)
   rows.push(`GATES (fab-ready)      ${passed}/${gates.length} pass${sc.gatesPass ? "" : "   ✗ BOARD NOT FAB-READY"}`)
   gates.forEach(line)
-  rows.push(`GOAL (100% hand-routed)   ${sc.manualPct}% of ${sc.signalNets} routed nets${sc.deferred ? ` · ${sc.deferred} deferred` : ""}`)
+  rows.push(`GOAL (100% converted)   ${sc.score}% score · ${sc.pcbPath} pcbPath · ${sc.pcbComb} pcbComb · ${sc.deferred} deferred · ${sc.auto} auto`)
   goals.forEach(line)
   rows.push("─".repeat(48))
   return rows.join("\n")
