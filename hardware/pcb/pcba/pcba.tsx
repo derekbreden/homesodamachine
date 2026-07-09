@@ -60,7 +60,7 @@
  * layers already carry signal). The web viewer's board chip reports this floor live
  * (clearance.ts -> picks.json).
  */
-import { at, Cap, Res, Jst, ulnOUT, Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870 } from "./parts"
+import { at, Cap, Res, Jst, jstPins, ulnOUT, Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870 } from "./parts"
 import { KF301_5_0_2P } from "./imports/KF301_5_0_2P"
 import { frame, pcbU, pcbFan, channel, orthoTap, orthoDrop } from "./routing"
 import { boardVersionParts } from "./board-version"
@@ -87,6 +87,7 @@ const J14El = <UsbC name="J14" x={-62} y={17.75} rot={270} />
 const U14f = frame(U14El)
 const J14f = frame(J14El)
 const C22f = frame(C22El)
+const [dMinusToPin9, dMinusToPin7] = pcbFan(U14f, "pin3", [-0.85, 0], J14f, ["pin9", "pin7"], -58.25)
 
 // ── GAS/EN divider grid (pcbPath hand-routing) ───────────────────────────────────────
 // Six 0603s (AOUT divider R1/R2, DOUT divider R3/R4, EN network R7/C12) as vertical (rot90) parts in
@@ -109,10 +110,8 @@ const C12El = <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849"
 const R1f = frame(R1El), R2f = frame(R2El), R3f = frame(R3El), R4f = frame(R4El), R7f = frame(R7El), C12f = frame(C12El)
 const U1El = <Esp32 name="U1" x={-57} y={0} rot={0} />
 const U1f = frame(U1El)                               // ESP32; taps by label (EN/IO36/IO39)
-const J11_Y = -24.3
-// J11 stays explicit: AOUT/DOUT are the Jst's board-assigned `labels` (see the <Jst> below), not
-// footprint pins — the wafer import only knows pin1…pin4, at ±1.25/±3.75 on the 2.5 mm pitch.
-const J11f = frame("J11", -62, J11_Y, 90, { AOUT: [3.75, 0], DOUT: [1.25, 0] })                 // GAS connector, pulled north
+const J11El = <Jst name="J11" x={-62} y={-24.3} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} label="GAS" rot={90} />
+const J11f = frame("J11", J11El.props.x, J11El.props.y, 0, Object.fromEntries(jstPins(J11El.props).pins))
 
 // ── Decoupling audit ────────────────────────────────────────────────────────────────────
 // The single source of truth for which support cap serves which part, its role, and its job
@@ -266,7 +265,7 @@ export default () => (
     <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={16.0} pcbY={-36.94} />
     <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={13.5} pcbY={-38.0} />
     <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={13.5} pcbY={-29.6} />
-    <Jst name="J11" x={-62} y={J11_Y} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} label="GAS" rot={90} />
+    {J11El}
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
         a vertical 2-resistor series: 2.2k (input, bottom) -> midpoint -> 3.3k (to
@@ -331,7 +330,7 @@ export default () => (
         the R7/R3 corridor centred (channel), then a south stub into EN (orthoTap, 90° only).
         R7.pin2→V3V3 and C12.pin2→GND stitch to their planes. */}
     <trace from="R7.pin1" to="C12.pin1" pcbPath={[R7f.ref("pin1"), C12f.ref("pin1")]} />
-    <trace from="C12.pin1" to="U1.EN" pcbPath={orthoTap(C12f, "pin1", channel(CX_EN, CX_DOUT), U1f, "EN")} />
+    <trace from="C12.pin1" to="U1.EN" pcbPathRelativeTo="board" pcbPath={orthoTap(C12f, "pin1", channel(CX_EN, CX_DOUT), U1f, "EN")} />
     <trace from=".R7 > .pin2" to="net.V3V3" />
     <trace from=".C12 > .pin2" to="net.GND" />
     <trace from=".R8 > .pin2" to="net.V3V3" />
@@ -469,8 +468,6 @@ export default () => (
         H-bridge polarity, so the firmware picks the forward sense). OUT1/OUT2 to the PUMPS
         connector. VM off 12V; GND + thermal PAD to the plane; ISEN to GND, VREF to 3V3; VM
         decoupled by C17/C18 (U11) and C19/C20 (U12). IO5 and IO15 are the only free GPIO. */}
-    {/* Owning IO18 (pump transit): exits its top pad NORTH over the bottom UART, crosses east past
-        TXD/RXD's bottom corridors on top, drops to the clear bottom plane, then runs east to U11. */}
     {/* <trace from=".U1 > .IO18" to=".U11 > .IN2" />
     <trace from=".U1 > .IO17" to=".U11 > .IN1" /> */}
     <trace from=".U11 > .VM" to="net.V12" />
@@ -499,9 +496,6 @@ export default () => (
     <trace from=".C20 > .pin2" to="net.GND" />
 
     {/* RELAYS (J5): logic out to the two external opto-isolated relay modules + their V5 coil supply. */}
-    {/* EVICTED — the autorouter drove both IO19 and IO23 with a full-stack via straight through
-        my hand-owned UART corridor (worst floor −0.243 at the TXD run). Tabled; reintroduce one
-        at a time after the corner is clean, hand-routing whichever the router fubars. */}
     {/* <trace from=".J5 > .IO19" to=".U1 > .IO19" />
     <trace from=".J5 > .IO23" to=".U1 > .IO23" /> */}
     <trace from=".J5 > .V5" to="net.V5" />
@@ -575,10 +569,10 @@ export default () => (
     <trace from="R3.pin2" to="R4.pin1" pcbPath={[R3f.ref("pin2"), R4f.ref("pin1")]} />
     <trace from=".R2 > .pin2" to="net.GND" />
     <trace from=".R4 > .pin2" to="net.GND" />
-    <trace from="R2.pin1" to="U1.IO39" pcbPath={orthoTap(R2f, "pin1", -60.7, U1f, "IO39")} />
-    <trace from="R4.pin1" to="U1.IO36" pcbPath={orthoTap(R4f, "pin1", -62.48, U1f, "IO36")} />
-    <trace from="R1.pin1" to="J11.AOUT" pcbPath={orthoDrop(R1f, "pin1", J11f, "AOUT")} />
-    <trace from="R3.pin1" to="J11.DOUT" pcbPath={orthoDrop(R3f, "pin1", J11f, "DOUT", -63.5)} />
+    <trace from="R2.pin1" to="U1.IO39" pcbPathRelativeTo="board" pcbPath={orthoTap(R2f, "pin1", -60.7, U1f, "IO39")} />
+    <trace from="R4.pin1" to="U1.IO36" pcbPathRelativeTo="board" pcbPath={orthoTap(R4f, "pin1", -62.48, U1f, "IO36")} />
+    <trace from="R1.pin1" to="J11.AOUT" pcbPathRelativeTo="board" pcbPath={orthoDrop(R1f, "pin1", J11f, "AOUT")} />
+    <trace from="R3.pin1" to="J11.DOUT" pcbPathRelativeTo="board" pcbPath={orthoDrop(R3f, "pin1", J11f, "DOUT", -63.5)} />
     <trace from=".J11 > .GND" to="net.GND" />
 
     {/* V12 decoupling. HF: two 0.1uF ceramics (C1 y-16.6, C2 y0.2) on the V12 island
@@ -667,12 +661,6 @@ export default () => (
         Both-asserted or both-idle => Vbe=0 => off. R17/R18 are the base resistors; the pull
         sides are the EN RC (R7/C12) and the IO0 pull-up (R8). BOOT (SW1) and RESET (SW2) tacts
         are the manual overrides (diagonal pads = the two switch terminals). */}
-    {/* Layout: J14 / U14 / U13 stack on x=-51.5, D+/D- running down the column. BOOT/RESET
-        tacts stack on the west edge (x=-62). The auto-reset pair straddles the CH340's
-        south-edge DTR/RTS — Q2 west (collector to the WROOM EN pin at the SW corner), Q3 east
-        by IO0 — with R17/R18 between. CC pulldowns sit in the top corners; C22 rides U14's
-        VBUS, C21 rides U13's 3V3. East column on x=-44, 4 mm pitch: C6 / R8 / Q3 / C21 (with
-        R15 above), R8 the IO0 pull-up spun vertical into the stack. */}
     {J14El}
     {U14El}
     <Ch340 name="U13" x={-48.25} y={17.5} rot={270} />
@@ -703,44 +691,39 @@ export default () => (
     <trace from=".R16 > .pin2" to="net.GND" />
     {/* D+ = J14 pin8(A6)+pin10(B6), D- = J14 pin9(A7)+pin7(B7); the connector ties both USB-C
         orientations. Pads interleave D-/D+/D-/D+ (B7 18.5 / A6 18.0 / A7 17.5 / B6 17.0) at 0.5 mm
-        pitch. Hand-routed on top, no vias: D+ runs pin1->pin10 then ties pin10->pin8 with a pcbU
-        jumper; D- fans from U14.pin3 to pin9 and pin7 (pcbFan). Helpers in hand-routing.md. */}
-    <trace from="U14.pin1" to="J14.pin10" pcbPath={[
+        pitch. All top, no vias. */}
+    <trace from="U14.pin1" to="J14.pin10" pcbPathRelativeTo="board" pcbPath={[
         U14f.ref("pin1"),
-        U14f.fromPin("pin1", 0.8, 0),        // exit east of pin1, hopping around U14.pin2 (GND)
-        U14f.fromPin("pin1", 0.8, -2.45),    // drop south of U14's body
-        U14f.at(-58.75, 16.25),              // west in the pin11/pin12 gap, clear of the pad column
-        U14f.toPin(J14f, "pin10", 1.08, 0),  // up to pin10's row, then straight in
+        U14f.fromPin("pin1", 0.8, 0),
+        U14f.fromPin("pin1", 0.8, -2.45),
+        { x: -58.75, y: 16.25 },
+        J14f.fromPin("pin10", 1.08, 0),
         J14f.ref("pin10"),
     ]} />
-    <trace from="J14.pin10" to="J14.pin8" pcbPath={pcbU(J14f, "pin10", "pin8", [-1.4, 0])} />
-    {pcbFan(U14f, "pin3", [-0.85, 0], J14f, ["pin9", "pin7"], -58.25).map((b) => (
-        <trace key={b.to} from="U14.pin3" to={b.to} pcbPath={b.pcbPath} />
-    ))}
+    <trace from="J14.pin10" to="J14.pin8" pcbPathRelativeTo="board" pcbPath={pcbU(J14f, "pin10", "pin8", [-1.4, 0])} />
+    <trace from="U14.pin3" to="J14.pin9" pcbPathRelativeTo="board" pcbPath={dMinusToPin9} />
+    <trace from="U14.pin3" to="J14.pin7" pcbPathRelativeTo="board" pcbPath={dMinusToPin7} />
     {/* ESD array: GND + VBUS rail + bypass cap; D+/D- pass through to the bridge. */}
     <trace from=".U14 > .pin2" to="net.GND" />
-    {/* VBUS, hand-routed on top with no vias. J14 pin16 is the north VBUS pad (y20.15), pin15 the
-        south (y15.35). From U14.pin5 the net fans two ways: NORTH through the window between the D+
-        exit and C22 to the bypass cap C22.pin1, which carries on west to pin16; and SOUTH below the
-        pad column to pin15. */}
-    <trace from="U14.pin5" to="C22.pin1" pcbPath={[
+    {/* J14 VBUS pads: pin16 is the NORTH pad (y 20.15), pin15 the SOUTH (y 15.35). Top, no vias. */}
+    <trace from="U14.pin5" to="C22.pin1" pcbPathRelativeTo="board" pcbPath={[
         U14f.ref("pin5"),
-        U14f.fromPin("pin5", -0.8, 0),      // VBUS fan point, just west of pin5
-        U14f.at(-55.9, 19.5),               // north into the window between the D+ exit and C22
-        U14f.toPin(C22f, "pin1", 0, -1.5),  // up under C22.pin1 (follows C22), clear of pin2/GND
+        U14f.fromPin("pin5", -0.8, 0),
+        { x: -55.9, y: 19.5 },
+        C22f.fromPin("pin1", 0, -1.5),
         C22f.ref("pin1"),
     ]} />
-    <trace from="C22.pin1" to="J14.pin16" pcbPath={[
+    <trace from="C22.pin1" to="J14.pin16" pcbPathRelativeTo="board" pcbPath={[
         C22f.ref("pin1"),
-        C22f.fromPin("pin1", -1.25, -0.5),  // west+down from C22 toward J14's north VBUS pad
-        C22f.toPin(J14f, "pin16", 1.08, 0), // to pin16's row, then in
+        C22f.fromPin("pin1", -1.25, -0.5),
+        J14f.fromPin("pin16", 1.08, 0),
         J14f.ref("pin16"),
     ]} />
-    <trace from="U14.pin5" to="J14.pin15" pcbPath={[
+    <trace from="U14.pin5" to="J14.pin15" pcbPathRelativeTo="board" pcbPath={[
         U14f.ref("pin5"),
-        U14f.fromPin("pin5", -0.8, 0),      // shared VBUS fan point
-        U14f.fromPin("pin5", -0.8, -2.4),   // south below the pad column to pin15's row
-        U14f.at(-57.25, 15.35),             // west along pin15's row, then in
+        U14f.fromPin("pin5", -0.8, 0),
+        U14f.fromPin("pin5", -0.8, -2.4),
+        { x: -57.25, y: 15.35 },
         J14f.ref("pin15"),
     ]} />
     <trace from=".C22 > .pin2" to="net.GND" />
@@ -753,7 +736,6 @@ export default () => (
     <trace from=".U13 > .GND" to="net.GND" />
     <trace from=".C21 > .pin1" to="net.V3V3" />
     <trace from=".C21 > .pin2" to="net.GND" />
-    {/* UART crossed to the WROOM (bridge TXD -> ESP RXD0/IO3, bridge RXD -> ESP TXD0/IO1). */}
     {/* <trace from=".U13 > .TXD" to=".U1 > .IO3" /> */}
     {/* <trace from=".U13 > .RXD" to=".U1 > .IO1" /> */}
     {/* Auto-reset cross-coupled pair (see block header for the truth table). */}
