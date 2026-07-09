@@ -2,8 +2,11 @@
  * routing — the hand-routing geometry kit pcba.tsx builds pcbPaths with.
  *
  * A hand trace is a `route(...)`: pad anchors at the ends, one-dimensional constraints between.
- * `F.col(pin, dx)` is the vertical line dx east of a pad; `F.row(pin, dy)` the horizontal line dy
- * north of it; a corridor lane is a bare `{ col: x }`. Consecutive constraints intersect into the
+ * `F.col(pin, dx)` is the vertical line dx east of a pad's CENTRE; `F.row(pin, dy)` the horizontal
+ * line dy north of it. To hug a pad EDGE instead, `F.east/west(pin, gap)` and `F.above/below(pin,
+ * gap)` place the line `gap` clear of that face of the real pad rectangle (from the footprint, so
+ * the pad's true size is used — no guessed half-width). A corridor lane is a bare `{ col: x }`.
+ * Consecutive constraints intersect into the
  * waypoints, and the closing turn into each pad falls out of the pad itself — so every corner is
  * 90° by construction, every coordinate derives from the pad (or corridor) that shapes it, and the
  * path rides any move of its parts, alone or as a group. Points are board coordinates: each trace
@@ -13,11 +16,19 @@
 
 export type Pt = { x: number; y: number }
 type Constraint = { col: number } | { row: number }
+// A pad in the part's board-axes frame: centre offset from the part centre, plus the half-width /
+// half-height of its board-axis bounding box (so an edge is `pin ± half ± gap`, exact from the
+// footprint — never a guessed extent).
+type PadGeom = { off: [number, number]; hw: number; hh: number }
 export type Frame = {
   name: string
   pin: (p: string) => Pt
-  col: (p: string, dx?: number) => { col: number }
-  row: (p: string, dy?: number) => { row: number }
+  col: (p: string, dx?: number) => { col: number }   // vertical line dx east of the pad CENTRE
+  row: (p: string, dy?: number) => { row: number }    // horizontal line dy north of the pad CENTRE
+  east: (p: string, gap?: number) => { col: number }  // vertical line gap east of the pad's east EDGE
+  west: (p: string, gap?: number) => { col: number }  // …west of the west edge
+  above: (p: string, gap?: number) => { row: number } // horizontal line gap north of the north edge
+  below: (p: string, gap?: number) => { row: number } // …south of the south edge
 }
 
 // Derive a part's pad offsets (board-axes mm from the part's centre) by walking its placed element
@@ -29,8 +40,8 @@ export type Frame = {
 // seats its MLT-5020 at 90). Every pad is keyed by its portHints id (`pin1`…) AND by each of the
 // chip's pinLabels aliases (`EN`, `VBUS`, `IO36`…), so routing taps a pad by whichever name reads
 // clearest.
-const framePins = (node: any): Record<string, [number, number]> => {
-  const out: Record<string, [number, number]> = {}
+const framePins = (node: any): Record<string, PadGeom> => {
+  const out: Record<string, PadGeom> = {}
   const mm = (v: number | string) => typeof v === "number" ? v : parseFloat(v)
   let labels: Record<string, string[]> = {}
   const walk = (n: any, rot: number) => {
@@ -44,8 +55,12 @@ const framePins = (node: any): Record<string, [number, number]> => {
       const t = (r * Math.PI) / 180, cos = Math.cos(t), sin = Math.sin(t)
       const [px, py] = [mm(props.pcbX), mm(props.pcbY)]
       const off: [number, number] = [cos * px - sin * py, sin * px + cos * py]
-      out[props.portHints[0]] = off
-      for (const alias of labels[props.portHints[0]] ?? []) out[alias] = off
+      // The pad rectangle rotated by r: its board-axis bounding half-extents. (Axis-aligned at 0/90/
+      // 180/270 — which every part here is — so this is the pad's own half-width / half-height.)
+      const [w, h] = [props.width != null ? mm(props.width) : 0, props.height != null ? mm(props.height) : 0]
+      const geom: PadGeom = { off, hw: Math.abs(cos) * w / 2 + Math.abs(sin) * h / 2, hh: Math.abs(sin) * w / 2 + Math.abs(cos) * h / 2 }
+      out[props.portHints[0]] = geom
+      for (const alias of labels[props.portHints[0]] ?? []) out[alias] = geom
     }
     if (props.footprint) walk(props.footprint, r)
     if (props.children) walk(props.children, r)
@@ -66,20 +81,29 @@ export function frame(el: any): Frame
 export function frame(name: string, cx: number, cy: number, rot: number, pins?: Record<string, [number, number]>): Frame
 export function frame(a: any, cx = 0, cy = 0, rot = 0, pins: Record<string, [number, number]> = {}): Frame {
   let name: string
+  let geoms: Record<string, PadGeom>
   if (a && typeof a === "object" && a.props) {     // placed element → derive centre and pad geometry
     name = a.props.name; cx = a.props.x; cy = a.props.y
     rot = 0                                        // framePins offsets arrive fully rotated
-    pins = framePins(a)
-  } else name = a
+    geoms = framePins(a)
+  } else {                                         // explicit form: board-assigned offsets, no pad size
+    name = a
+    geoms = Object.fromEntries(Object.entries(pins).map(([k, off]) => [k, { off, hw: 0, hh: 0 }]))
+  }
   const t = (rot * Math.PI) / 180, cos = Math.cos(t), sin = Math.sin(t)
-  const pin = (p: string): Pt => {                 // this frame's pad, in board coords
-    const [ox, oy] = pins[p] ?? (() => { throw new Error(`${name}: no pad ${p}`) })()
+  const geom = (p: string): PadGeom => geoms[p] ?? (() => { throw new Error(`${name}: no pad ${p}`) })()
+  const pin = (p: string): Pt => {                 // this frame's pad centre, in board coords
+    const [ox, oy] = geom(p).off
     return { x: cx + cos * ox - sin * oy, y: cy + sin * ox + cos * oy }
   }
   const f: Frame = {
     name, pin,
-    col: (p: string, dx = 0) => ({ col: pin(p).x + dx }),
-    row: (p: string, dy = 0) => ({ row: pin(p).y + dy }),
+    col: (p, dx = 0) => ({ col: pin(p).x + dx }),
+    row: (p, dy = 0) => ({ row: pin(p).y + dy }),
+    east: (p, gap = 0) => ({ col: pin(p).x + geom(p).hw + gap }),
+    west: (p, gap = 0) => ({ col: pin(p).x - geom(p).hw - gap }),
+    above: (p, gap = 0) => ({ row: pin(p).y + geom(p).hh + gap }),
+    below: (p, gap = 0) => ({ row: pin(p).y - geom(p).hh - gap }),
   }
   frames[name] = f
   return f
