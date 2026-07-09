@@ -60,7 +60,7 @@
  * layers already carry signal). The web viewer's board chip reports this floor live
  * (clearance.ts -> picks.json).
  */
-import { at, Cap, Res, Jst, jstPins, ulnOUT, Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870 } from "./parts"
+import { at, Cap, Res, Jst, jstPins, ulnOUT, Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870, Tact } from "./parts"
 import { KF301_5_0_2P } from "./imports/KF301_5_0_2P"
 import { frame, route, channel } from "./routing"
 import { boardVersionParts } from "./board-version"
@@ -68,7 +68,6 @@ import { logoRoutes } from "./logo"
 import { KT_0603R as LedRed } from "./imports/KT_0603R"
 import { KT_0603G as LedGrn } from "./imports/KT_0603G"
 import { Blue_light_0603 as LedBlu } from "./imports/Blue_light_0603"
-import { TS_1187A_B_A_B as Tact } from "./imports/TS_1187A_B_A_B"
 import type { DecouplingRule } from "./cap-audit"
 import type { AmpacityRule } from "./ampacity-audit"
 
@@ -104,6 +103,9 @@ const Q2El = <Npn name="Q2" x={-65.5} y={24.75} rot={90} />
 const Q3El = <Npn name="Q3" x={-61.5} y={24.75} rot={90} />
 const R17El = <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-64.5} y={28.75} rot={90} side="N" />
 const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-60.5} y={28.75} rot={90} side="N" />
+// BOOT override tact (IO0 branch). rot180 seats pin1 (signal) on the SE corner so it exits south,
+// clear of U13, down to IO0; pin4 (NW) is the diagonal contact to GND. SW2 (RESET/EN) stays inline.
+const SW1El = <Tact name="SW1" x={-47.5} y={33.5} rot={180} />
 
 // ── Buzzer chain (IO13 → R5 → Q1 → U8) ────────────────────────────────────────────────
 const R5El = <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-45.228} y={-4.445} rot={180} side="N" />
@@ -111,6 +113,7 @@ const Q1El = <Npn name="Q1" x={-41.45} y={-5.395} rot={180} />
 const U8El = <Buzzer name="U8" x={-37.9} y={-10.72} />
 const R5f = frame(R5El), Q1f = frame(Q1El), U8f = frame(U8El)
 const Q2f = frame(Q2El), Q3f = frame(Q3El), R17f = frame(R17El), R18f = frame(R18El)
+const SW1f = frame(SW1El)
 
 // ── GAS/EN divider grid (pcbPath hand-routing) ───────────────────────────────────────
 // Six 0603s (AOUT divider R1/R2, DOUT divider R3/R4, EN network R7/C12) as vertical (rot90) parts in
@@ -507,8 +510,8 @@ export default () => (
     <trace from=".C17 > .pin2" to="net.GND" />
     <trace from=".C18 > .pin1" to="net.V12" />
     <trace from=".C18 > .pin2" to="net.GND" />
-    {/* <trace from=".U1 > .IO16" to=".U12 > .IN2" /> */}
-    <trace from=".U1 > .IO4" to=".U12 > .IN1" />
+    {/* <trace from=".U1 > .IO16" to=".U12 > .IN2" />
+    <trace from=".U1 > .IO4" to=".U12 > .IN1" /> */}
     <trace from=".U12 > .VM" to="net.V12" />
     <trace from=".U12 > .GND" to="net.GND" />
     <trace from=".U12 > .PAD" to="net.GND" />
@@ -700,11 +703,11 @@ export default () => (
     {/* EN branch: U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
     {R17El}
     {Q2El}
-    <Tact name="SW2" pcbX={-57.25} pcbY={33.5} pcbRotation={0} />
+    <Tact name="SW2" x={-57.25} y={33.5} rot={0} />
     {/* IO0 branch: U13.RTS -> R18 -> Q3.base; U13.DTR -> Q3.emitter; Q3.collector -> IO0; SW1 */}
     {R18El}
     {Q3El}
-    <Tact name="SW1" pcbX={-47.5} pcbY={33.5} pcbRotation={0} />
+    {SW1El}
     {/* USB-C: GND (pin13/14) + shield ears (pin1-4) to plane; VBUS (pin15/16) to the ESD
         rail only (not board power); CC1 (pin6) / CC2 (pin12) each to a 5.1k Rd; D+ = pin8+pin10,
         D- = pin7+pin9 (both orientations tied). */}
@@ -812,9 +815,15 @@ export default () => (
     )} />
     {/* <trace from=".Q2 > .C" to=".U1 > .EN" /> */}
     {/* <trace from=".Q3 > .C" to=".U1 > .IO0" /> */}
-    {/* Manual BOOT (IO0) / RESET (EN) — diagonal switch pads = the two terminals. IO0's reach-outs
-        (R8 pull-up, SW1 boot, Q3.C collector) are deferred with the rest of IO0's network. */}
-    {/* <trace from=".SW1 > .pin1" to=".U1 > .IO0" /> */}
+    {/* Manual BOOT (IO0) / RESET (EN) — diagonal switch pads = the two terminals. SW1's boot line
+        drops just east of U13 to IO0 (below); IO0's other reach-outs (R8 pull-up, Q3.C collector)
+        stay deferred until their corridors are known. */}
+    <trace from="SW1.pin1" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={route(
+        "SW1.pin1",
+        SW1f.col("pin1", 1),
+        U1f.row("IO0", 1),
+        "U1.IO0",
+    )} />
     <trace from=".SW1 > .pin4" to="net.GND" />
     {/* <trace from=".SW2 > .pin1" to=".U1 > .EN" /> */}
     <trace from=".SW2 > .pin4" to="net.GND" />
