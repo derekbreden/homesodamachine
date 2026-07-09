@@ -153,7 +153,7 @@ async function placementPreview() {
   // anywhere below and swallow whatever sits between. Real trace/pour elements carry no `<` between
   // their tag and `/>`, so `[^<]*?` matches them exactly and stops a stray comment cold. Replace
   // with an empty fragment, not "", so a trace returned from an arrow — `.map((b) => (<trace/>))`
-  // (pcbFan / logoRoutes) — collapses to `(<></>)` and stays valid instead of an empty `() => ()`.
+  // (logoRoutes) — collapses to `(<></>)` and stays valid instead of an empty `() => ()`.
   const placementSrc = readFileSync(boardFile, "utf8")
     .replace(/<trace\b[^<]*?\/>/g, "<></>")
     .replace(/<copperpour\b[^<]*?\/>/g, "<></>")

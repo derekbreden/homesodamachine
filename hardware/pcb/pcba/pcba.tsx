@@ -62,7 +62,7 @@
  */
 import { at, Cap, Res, Jst, jstPins, ulnOUT, Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870 } from "./parts"
 import { KF301_5_0_2P } from "./imports/KF301_5_0_2P"
-import { frame, pcbU, pcbFan, channel, orthoTap, orthoDrop } from "./routing"
+import { frame, route, channel } from "./routing"
 import { boardVersionParts } from "./board-version"
 import { logoRoutes } from "./logo"
 import { KT_0603R as LedRed } from "./imports/KT_0603R"
@@ -87,7 +87,7 @@ const J14El = <UsbC name="J14" x={-62} y={17.75} rot={270} />
 const U14f = frame(U14El)
 const J14f = frame(J14El)
 const C22f = frame(C22El)
-const [dMinusToPin9, dMinusToPin7] = pcbFan(U14f, "pin3", [-0.85, 0], J14f, ["pin9", "pin7"], U14f.pin("pin3").x - 0.85)
+const dMinusLane = U14f.col("pin3", -0.85)
 
 // ── GAS/EN divider grid (pcbPath hand-routing) ───────────────────────────────────────
 // Six 0603s (AOUT divider R1/R2, DOUT divider R3/R4, EN network R7/C12) as vertical (rot90) parts in
@@ -326,11 +326,14 @@ export default () => (
     <trace from=".C10 > .pin2" to="net.GND" />
     <trace from=".C11 > .pin1" to="net.V3V3" />
     <trace from=".C11 > .pin2" to="net.GND" />
-    {/* EN network hand-routed: R7.pin1↔C12.pin1 vertical tie (EN node), C12.pin1 taps to U1.EN — up
-        the R7/R3 corridor centred (channel), then a south stub into EN (orthoTap, 90° only).
-        R7.pin2→V3V3 and C12.pin2→GND stitch to their planes. */}
-    <trace from="R7.pin1" to="C12.pin1" pcbPath={[R7f.ref("pin1"), C12f.ref("pin1")]} />
-    <trace from="C12.pin1" to="U1.EN" pcbPathRelativeTo="board" pcbPath={orthoTap(C12f, "pin1", channel(CX_EN, CX_DOUT), U1f, "EN")} />
+    <trace from="R7.pin1" to="C12.pin1" pcbPath={route("R7.pin1", "C12.pin1")} />
+    <trace from="C12.pin1" to="U1.EN" pcbPathRelativeTo="board" pcbPath={route(
+        "C12.pin1",
+        { col: channel(CX_EN, CX_DOUT) },
+        U1f.row("EN", -1.8),
+        U1f.col("EN", 0),
+        "U1.EN",
+    )} />
     <trace from=".R7 > .pin2" to="net.V3V3" />
     <trace from=".C12 > .pin2" to="net.GND" />
     <trace from=".R8 > .pin2" to="net.V3V3" />
@@ -562,17 +565,20 @@ export default () => (
         unambiguous. DOUT is the signal a firmware-INDEPENDENT compressor interlock
         must consume; that interlock (a 74LVC1G08 gating the compressor relay line IO19 -> J5)
         is NOT yet on this board — it needs two bench-verified polarities first (see notes). */}
-    {/* AOUT/DOUT dividers — vertical midpoint ties; taps jog east past the top resistor then step up
-        to U1 in order (orthoTap, 90° only); plane stitches; J11 inputs drop straight down and turn
-        into the hole (orthoDrop). */}
-    <trace from="R1.pin2" to="R2.pin1" pcbPath={[R1f.ref("pin2"), R2f.ref("pin1")]} />
-    <trace from="R3.pin2" to="R4.pin1" pcbPath={[R3f.ref("pin2"), R4f.ref("pin1")]} />
+    <trace from="R1.pin2" to="R2.pin1" pcbPath={route("R1.pin2", "R2.pin1")} />
+    <trace from="R3.pin2" to="R4.pin1" pcbPath={route("R3.pin2", "R4.pin1")} />
     <trace from=".R2 > .pin2" to="net.GND" />
     <trace from=".R4 > .pin2" to="net.GND" />
-    <trace from="R2.pin1" to="U1.IO39" pcbPathRelativeTo="board" pcbPath={orthoTap(R2f, "pin1", R2f.pin("pin1").x + 0.8, U1f, "IO39")} />
-    <trace from="R4.pin1" to="U1.IO36" pcbPathRelativeTo="board" pcbPath={orthoTap(R4f, "pin1", U1f.pin("IO36").x, U1f, "IO36")} />
-    <trace from="R1.pin1" to="J11.AOUT" pcbPathRelativeTo="board" pcbPath={orthoDrop(R1f, "pin1", J11f, "AOUT")} />
-    <trace from="R3.pin1" to="J11.DOUT" pcbPathRelativeTo="board" pcbPath={orthoDrop(R3f, "pin1", J11f, "DOUT")} />
+    <trace from="R2.pin1" to="U1.IO39" pcbPathRelativeTo="board" pcbPath={route(
+        "R2.pin1",
+        R2f.col("pin1", 0.8),
+        U1f.row("IO39", -1.8),
+        U1f.col("IO39", 0),
+        "U1.IO39",
+    )} />
+    <trace from="R4.pin1" to="U1.IO36" pcbPathRelativeTo="board" pcbPath={route("R4.pin1", U1f.col("IO36", 0), "U1.IO36")} />
+    <trace from="R1.pin1" to="J11.AOUT" pcbPathRelativeTo="board" pcbPath={route("R1.pin1", J11f.row("AOUT", 0), "J11.AOUT")} />
+    <trace from="R3.pin1" to="J11.DOUT" pcbPathRelativeTo="board" pcbPath={route("R3.pin1", J11f.row("DOUT", 0), "J11.DOUT")} />
     <trace from=".J11 > .GND" to="net.GND" />
 
     {/* V12 decoupling. HF: two 0.1uF ceramics (C1 y-16.6, C2 y0.2) on the V12 island
@@ -692,39 +698,32 @@ export default () => (
     {/* D+ = J14 pin8(A6)+pin10(B6), D- = J14 pin9(A7)+pin7(B7); the connector ties both USB-C
         orientations. Pads interleave D-/D+/D-/D+ (B7 18.5 / A6 18.0 / A7 17.5 / B6 17.0) at 0.5 mm
         pitch. All top, no vias. */}
-    <trace from="U14.pin1" to="J14.pin10" pcbPathRelativeTo="board" pcbPath={[
-        U14f.ref("pin1"),
-        U14f.fromPin("pin1", 0.8, 0),
-        U14f.fromPin("pin1", 0.8, -2.45),
-        { x: J14f.pin("pin10").x + 1.08, y: U14f.pin("pin1").y - 2.45 },
-        J14f.fromPin("pin10", 1.08, 0),
-        J14f.ref("pin10"),
-    ]} />
-    <trace from="J14.pin10" to="J14.pin8" pcbPathRelativeTo="board" pcbPath={pcbU(J14f, "pin10", "pin8", [-1.4, 0])} />
-    <trace from="U14.pin3" to="J14.pin9" pcbPathRelativeTo="board" pcbPath={dMinusToPin9} />
-    <trace from="U14.pin3" to="J14.pin7" pcbPathRelativeTo="board" pcbPath={dMinusToPin7} />
+    <trace from="U14.pin1" to="J14.pin10" pcbPathRelativeTo="board" pcbPath={route(
+        "U14.pin1",
+        U14f.col("pin1", 0.8),
+        U14f.row("pin1", -2.45),
+        J14f.col("pin10", 1.08),
+        "J14.pin10",
+    )} />
+    <trace from="J14.pin10" to="J14.pin8" pcbPathRelativeTo="board" pcbPath={route("J14.pin10", J14f.col("pin10", -1.4), "J14.pin8")} />
+    <trace from="U14.pin3" to="J14.pin9" pcbPathRelativeTo="board" pcbPath={route("U14.pin3", dMinusLane, "J14.pin9")} />
+    <trace from="U14.pin3" to="J14.pin7" pcbPathRelativeTo="board" pcbPath={route("U14.pin3", dMinusLane, "J14.pin7")} />
     {/* ESD array: GND + VBUS rail + bypass cap; D+/D- pass through to the bridge. */}
     <trace from=".U14 > .pin2" to="net.GND" />
     {/* J14 VBUS pads: pin16 is the NORTH pad (y 20.15), pin15 the SOUTH (y 15.35). Top, no vias. */}
-    <trace from="U14.pin5" to="C22.pin1" pcbPathRelativeTo="board" pcbPath={[
-        U14f.ref("pin5"),
-        U14f.fromPin("pin5", -0.8, 0),
-        { x: U14f.pin("pin5").x - 0.8, y: C22f.pin("pin1").y - 1.5 },
-        C22f.fromPin("pin1", 0, -1.5),
-        C22f.ref("pin1"),
-    ]} />
-    <trace from="C22.pin1" to="J14.pin16" pcbPathRelativeTo="board" pcbPath={[
-        C22f.ref("pin1"),
-        C22f.fromPin("pin1", -1.25, -0.5),
-        J14f.fromPin("pin16", 1.08, 0),
-        J14f.ref("pin16"),
-    ]} />
-    <trace from="U14.pin5" to="J14.pin15" pcbPathRelativeTo="board" pcbPath={[
-        U14f.ref("pin5"),
-        U14f.fromPin("pin5", -0.8, 0),
-        { x: U14f.pin("pin5").x - 0.8, y: J14f.pin("pin15").y },
-        J14f.ref("pin15"),
-    ]} />
+    <trace from="U14.pin5" to="C22.pin1" pcbPathRelativeTo="board" pcbPath={route(
+        "U14.pin5",
+        U14f.col("pin5", -0.8),
+        C22f.row("pin1", -1.5),
+        "C22.pin1",
+    )} />
+    <trace from="C22.pin1" to="J14.pin16" pcbPathRelativeTo="board" pcbPath={route(
+        "C22.pin1",
+        C22f.col("pin1", -1.25),
+        J14f.row("pin16", 0),
+        "J14.pin16",
+    )} />
+    <trace from="U14.pin5" to="J14.pin15" pcbPathRelativeTo="board" pcbPath={route("U14.pin5", U14f.col("pin5", -0.8), "J14.pin15")} />
     <trace from=".C22 > .pin2" to="net.GND" />
     <trace from=".U14 > .pin6" to=".U13 > .D_POS" />
     <trace from=".U14 > .pin4" to=".U13 > .D_NEG" />
