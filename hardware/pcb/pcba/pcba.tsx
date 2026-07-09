@@ -92,7 +92,19 @@ const J14f = frame(J14El)
 const C22f = frame(C22El)
 const R16f = frame(R16El)
 const R15f = frame(R15El)
+const U13f = frame(U13El)
 const dMinusLane = U14f.col("pin3", -0.85)
+
+// ── Auto-reset lattice ────────────────────────────────────────────────────────────────
+// Cross-coupled NPN pair north of U13 (Q2 drives EN, Q3 drives IO0). rot90 aims each collector
+// SOUTH, toward its U1 load; base resistors sit directly north of each base. DTR/RTS drive the pair
+// from U13's east edge. Collector reaches (EN, IO0) are long traces out to U1 — deferred until their
+// corridors are known.
+const Q2El = <Npn name="Q2" x={-58.5} y={25} rot={90} />
+const Q3El = <Npn name="Q3" x={-54} y={25} rot={90} />
+const R17El = <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-57.55} y={28.9} rot={90} side="N" />
+const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-53.05} y={28.9} rot={90} side="N" />
+const Q2f = frame(Q2El), Q3f = frame(Q3El), R17f = frame(R17El), R18f = frame(R18El)
 
 // ── GAS/EN divider grid (pcbPath hand-routing) ───────────────────────────────────────
 // Six 0603s (AOUT divider R1/R2, DOUT divider R3/R4, EN network R7/C12) as vertical (rot90) parts in
@@ -342,7 +354,7 @@ export default () => (
     <trace from=".R7 > .pin2" to="net.V3V3" />
     <trace from=".C12 > .pin2" to="net.GND" />
     <trace from=".R8 > .pin2" to="net.V3V3" />
-    <trace from=".R8 > .pin1" to=".U1 > .IO0" />
+    {/* <trace from=".R8 > .pin1" to=".U1 > .IO0" /> */}
 
     {/* 5V rail -> inner2 plane, now sourced by the K7805 buck (U10). Faucet, sensors, and
         gas common to it at their barrels; the buzzer high side (U8 +) auto-stitches to it.
@@ -489,7 +501,7 @@ export default () => (
     <trace from=".C17 > .pin2" to="net.GND" />
     <trace from=".C18 > .pin1" to="net.V12" />
     <trace from=".C18 > .pin2" to="net.GND" />
-    <trace from=".U1 > .IO16" to=".U12 > .IN2" />
+    {/* <trace from=".U1 > .IO16" to=".U12 > .IN2" /> */}
     <trace from=".U1 > .IO4" to=".U12 > .IN1" />
     <trace from=".U12 > .VM" to="net.V12" />
     <trace from=".U12 > .GND" to="net.GND" />
@@ -679,14 +691,14 @@ export default () => (
     {R15El}
     {C22El}
     <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-47.5} y={24.5} rot={0} side="N" />
-    {/* EN branch (west): U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
-    <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-63.5} y={26.25} rot={0} side="N" />
-    <Npn name="Q2" x={-59.5} y={26} rot={270} />
-    <Tact name="SW2" pcbX={-57.25} pcbY={31.5} pcbRotation={0} />
-    {/* IO0 branch (east): U13.RTS -> R18 -> Q3.base; U13.DTR -> Q3.emitter; Q3.collector -> IO0; SW1 */}
-    <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-55.75} y={25} rot={0} side="N" />
-    <Npn name="Q3" x={-52} y={26} rot={270} />
-    <Tact name="SW1" pcbX={-47.5} pcbY={31.5} pcbRotation={0} />
+    {/* EN branch: U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
+    {R17El}
+    {Q2El}
+    <Tact name="SW2" pcbX={-57.25} pcbY={33.5} pcbRotation={0} />
+    {/* IO0 branch: U13.RTS -> R18 -> Q3.base; U13.DTR -> Q3.emitter; Q3.collector -> IO0; SW1 */}
+    {R18El}
+    {Q3El}
+    <Tact name="SW1" pcbX={-47.5} pcbY={33.5} pcbRotation={0} />
     {/* USB-C: GND (pin13/14) + shield ears (pin1-4) to plane; VBUS (pin15/16) to the ESD
         rail only (not board power); CC1 (pin6) / CC2 (pin12) each to a 5.1k Rd; D+ = pin8+pin10,
         D- = pin7+pin9 (both orientations tied). */}
@@ -757,17 +769,24 @@ export default () => (
     <trace from=".C21 > .pin2" to="net.GND" />
     {/* <trace from=".U13 > .TXD" to=".U1 > .IO3" /> */}
     {/* <trace from=".U13 > .RXD" to=".U1 > .IO1" /> */}
-    {/* Auto-reset cross-coupled pair (see block header for the truth table). */}
-    <trace from=".U13 > .DTR" to=".R17 > .pin1" />
-    <trace from=".R17 > .pin2" to=".Q2 > .B" />
-    <trace from=".U13 > .RTS" to=".Q2 > .E" />
+    {/* Auto-reset cross-coupled pair (see block header for the truth table). Owning the region:
+        the six internal DTR/RTS connections are hand-routed below; the collector reaches to EN and
+        IO0 are long traces out to U1, deferred until their corridors are known. */}
+    {/* base nodes: each transistor's base to the near (south) pin of its base resistor */}
+    <trace from="Q2.B" to="R17.pin1" pcbPathRelativeTo="board" pcbPath={route("Q2.B", "R17.pin1")} />
+    <trace from="Q3.B" to="R18.pin1" pcbPathRelativeTo="board" pcbPath={route("Q3.B", "R18.pin1")} />
+    {/* Cross-coupled pair, planar on top. The two trunks leave U13 on OPPOSITE sides so they never
+        cross: RTS exits east and runs the high rail (y30.8) to R18.pin2 then on to Q2.E; DTR exits
+        west and runs low (y22.75, along U13's north edge) to Q3.E, which links up to R17.pin2. */}
+    <trace from="U13.RTS" to="R18.pin2" pcbPathRelativeTo="board" pcbPath={route("U13.RTS", U13f.col("RTS", 1.4), { row: 30.8 }, R18f.col("pin2"), "R18.pin2")} />
+    <trace from="R18.pin2" to="Q2.E" pcbPathRelativeTo="board" pcbPath={route("R18.pin2", { row: 30.8 }, Q2f.col("E"), "Q2.E")} />
+    <trace from="U13.DTR" to="Q3.E" pcbPathRelativeTo="board" pcbPath={route("U13.DTR", U13f.col("DTR", -1.25), { row: 22.75 }, Q3f.col("E"), "Q3.E")} />
+    <trace from="Q3.E" to="R17.pin2" pcbPathRelativeTo="board" pcbPath={route("Q3.E", { row: 30.2 }, R17f.col("pin2"), "R17.pin2")} />
     {/* <trace from=".Q2 > .C" to=".U1 > .EN" /> */}
-    <trace from=".U13 > .RTS" to=".R18 > .pin1" />
-    <trace from=".R18 > .pin2" to=".Q3 > .B" />
-    <trace from=".U13 > .DTR" to=".Q3 > .E" />
-    <trace from=".Q3 > .C" to=".U1 > .IO0" />
-    {/* Manual BOOT (IO0) / RESET (EN) — diagonal switch pads = the two terminals. */}
-    <trace from=".SW1 > .pin1" to=".U1 > .IO0" />
+    {/* <trace from=".Q3 > .C" to=".U1 > .IO0" /> */}
+    {/* Manual BOOT (IO0) / RESET (EN) — diagonal switch pads = the two terminals. IO0's reach-outs
+        (R8 pull-up, SW1 boot, Q3.C collector) are deferred with the rest of IO0's network. */}
+    {/* <trace from=".SW1 > .pin1" to=".U1 > .IO0" /> */}
     <trace from=".SW1 > .pin4" to="net.GND" />
     {/* <trace from=".SW2 > .pin1" to=".U1 > .EN" /> */}
     <trace from=".SW2 > .pin4" to="net.GND" />
