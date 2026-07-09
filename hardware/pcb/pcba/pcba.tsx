@@ -779,8 +779,9 @@ export default () => (
     {/* <trace from=".U13 > .TXD" to=".U1 > .IO3" /> */}
     {/* <trace from=".U13 > .RXD" to=".U1 > .IO1" /> */}
     {/* Auto-reset cross-coupled pair (see block header for the truth table). Owning the region:
-        the six internal DTR/RTS connections are hand-routed below; the collector reaches to EN and
-        IO0 are long traces out to U1, deferred until their corridors are known. */}
+        the six internal DTR/RTS connections are hand-routed below; Q3's collector reaches IO0 down
+        the far-west lane into U1's north-edge corridor. Q2's collector reach to EN stays deferred —
+        EN sits on U1's south edge, behind the module, reachable only from the south. */}
     {/* base nodes: each transistor's base to the near (south) pin of its base resistor */}
     <trace from="Q2.B" to="R17.pin1" pcbPathRelativeTo="board" pcbPath={route("Q2.B", "R17.pin1")} />
     <trace from="Q3.B" to="R18.pin1" pcbPathRelativeTo="board" pcbPath={route("Q3.B", "R18.pin1")} />
@@ -814,7 +815,12 @@ export default () => (
         "R17.pin2"
     )} />
     {/* <trace from=".Q2 > .C" to=".U1 > .EN" /> */}
-    {/* <trace from=".Q3 > .C" to=".U1 > .IO0" /> */}
+    <trace from="Q3.C" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={route(
+        "Q3.C",
+        { col: channel(U1f.pin("IO1").x, U1f.pin("IO22").x) },   // drop the west lane, clear of the CC/J14 block
+        U1f.row("IO0", 1.525),                                   // corridor centred in the lane between U1's tall north pads and the CC2 dip
+        "U1.IO0",
+    )} />
     {/* Manual BOOT (IO0) / RESET (EN) — diagonal switch pads = the two terminals. SW1's boot line
         drops just east of U13 to IO0 (below); IO0's other reach-outs (R8 pull-up, Q3.C collector)
         stay deferred until their corridors are known. */}
