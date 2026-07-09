@@ -832,7 +832,8 @@ export default () => (
         "SW1.pin1",
         SW1f.col("pin1", 1),
         U13f.row("D_NEG", -2.05),   // third lane under the D-pair, hugging U13's south edge
-        U1f.col("IO0"),
+        U13f.col("TXD", 0.4),       // run west past the pocket centre, then drop onto
+        U1f.row("IO0", 1.525),      // Q3.C's lane — the twin — and share its run into IO0
         "U1.IO0",
     )} />
     <trace from=".SW1 > .pin4" to="net.GND" />
