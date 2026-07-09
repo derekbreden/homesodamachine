@@ -29,6 +29,7 @@ import type { FootprintAudit } from "./footprint-audit"
 import type { ConnectorAudit } from "./connector-audit"
 import type { AmpacityAudit } from "./ampacity-audit"
 import type { CapAudit } from "./cap-audit"
+import { CYE } from "./component-bodies"
 
 export type CheckStatus = "pass" | "fail" | "warn"
 
@@ -136,10 +137,17 @@ export function buildScorecard(inp: ScorecardInput): Scorecard {
   gate("drc", "No copper overlaps / courtyard faults / slivers", inp.clearanceErrors.length === 0,
     `${inp.clearanceErrors.length} error`, "0 error", inp.clearanceErrors.map((e) => e.text))
 
+  // Body clearance is measured as IPC-7351 keep-outs — copper envelope + courtyard excess CYE
+  // (component-bodies.ts). A gap ≥ 0 clears IPC Nominal density; a small negative gap is sub-Nominal
+  // packing where the copper still clears (not a collision). A true body overlap cuts past −2·CYE
+  // (the copper itself overlaps) and independently fires a courtyard fault in the DRC gate above — so
+  // fab-ready fails only on a real overlap here; the sub-Nominal pairs are surfaced as an advisory.
   const bf = inp.footprints.floor
-  gate("bodies", "No part-body overlaps", bf == null || bf >= 0,
-    bf != null ? `${bf} mm gap` : "—", "≥ 0 mm",
-    bf != null && bf < BODY_WARN ? [`tightest body gap ${bf} mm (< ${BODY_WARN} advisory)`] : undefined)
+  const subNominal = inp.footprints.tight.filter((p) => p.gap < 0)
+  gate("bodies", "Part keep-outs clear (IPC-7351 courtyard)", bf == null || bf > -2 * CYE,
+    bf != null ? `${bf} mm` : "—", "no overlap",
+    subNominal.length ? subNominal.map((p) => `${p.a}–${p.b}: ${p.gap} mm — below IPC Nominal (${CYE} mm); copper clears`)
+      : (bf != null && bf < BODY_WARN ? [`tightest keep-out ${bf} mm`] : undefined))
 
   gate("connectors", "Connector bodies clear of edge & neighbours", inp.connectors.flagged === 0,
     `${inp.connectors.flagged} flagged`, "0 flagged",
@@ -194,7 +202,9 @@ export function formatScorecard(board: string, sc: Scorecard): string {
   const rows: string[] = []
   const line = (c: Check) => {
     rows.push(`  ${mark[c.status]} ${c.label.padEnd(w)}  ${c.value}  (want ${c.target})`)
-    for (const d of c.detail ?? []) if (c.status !== "pass") rows.push(`      – ${d}`)
+    // Show detail whenever present — offending items on a failing gate, and advisories (e.g. the
+    // sub-Nominal body pairs) on a passing one. Passing gates without detail stay quiet.
+    for (const d of c.detail ?? []) rows.push(`      – ${d}`)
   }
   rows.push(`── ${board} scorecard ${"─".repeat(Math.max(0, 44 - board.length))}`)
   rows.push(`GATES (fab-ready)      ${passed}/${gates.length} pass${sc.gatesPass ? "" : "   ✗ BOARD NOT FAB-READY"}`)

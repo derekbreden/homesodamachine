@@ -378,8 +378,13 @@ function appendScorecard(card, picks) {
   const goals = sc.checks.filter((c) => c.kind === "goal");
   const passed = gates.filter((c) => c.status === "pass").length;
   card.appendChild(checkHead(`Requirements — gates ${passed}/${gates.length}${sc.gatesPass ? "" : " ✗ not fab-ready"} · ${sc.score}% score`));
-  for (const c of gates)
+  for (const c of gates) {
     card.appendChild(makeRow("pcb-checks-row" + (c.status === "pass" ? "" : " issue"), `${mark[c.status]} ${c.label}`, c.value));
+    // Detail on a gate is either its offending items (when failing) or an advisory such as the
+    // sub-Nominal body pairs (when passing); show it collapsibly either way.
+    const drows = (c.detail || []).map((d) => makeRow("pcb-checks-row", `— ${d}`, null));
+    if (drows.length) addCollapsibleRows(card, drows, 0);
+  }
   for (const c of goals) {
     card.appendChild(makeRow("pcb-checks-row", `${mark[c.status]} ${c.label}`, c.value));
     const rows = (c.detail || []).map((d) => makeRow("pcb-checks-row", `— ${d}`, null));
