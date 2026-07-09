@@ -30,6 +30,7 @@ import { CH340C } from "./imports/CH340C"
 import { USBLC6_2SC6 } from "./imports/USBLC6_2SC6"
 import { TYPE_C_31_M_12 } from "./imports/TYPE_C_31_M_12"
 import { DRV8870DDAR } from "./imports/DRV8870DDAR"
+import { TS_1187A_B_A_B } from "./imports/TS_1187A_B_A_B"
 
 // pcbX/pcbY for the PCB, with a matching schematic spot so the schematic view
 // doesn't pile every part on the origin.
@@ -398,6 +399,13 @@ export const Npn = ({ name, x, y, rot = 180 }: Labeled & { rot?: number }) => (
     <S8050_J3Y_RANGE_200_350_ name={name} pcbRotation={rot} {...at(x, y)} />
     {refdes(name, x, y)}
   </>
+)
+
+// TS-1187A 6 mm SMD tact (SW1/SW2 BOOT/RESET). The import self-labels and carries its own pin
+// hints, so the wrapper only seats it. pin1↔pin4 is one diagonal switch contact (pin2↔pin3 the
+// other), so a press shorts pin1 (signal) to pin4 (GND) whatever the internal terminal split.
+export const Tact = ({ name, x, y, rot = 0 }: Labeled & { rot?: number }) => (
+  <TS_1187A_B_A_B name={name} pcbRotation={rot} {...at(x, y)} />
 )
 
 // ---- centred-ref-des SMD chips ---------------------------------------------
