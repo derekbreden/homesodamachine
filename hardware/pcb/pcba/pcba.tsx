@@ -104,6 +104,12 @@ const Q2El = <Npn name="Q2" x={-65.5} y={24.75} rot={90} />
 const Q3El = <Npn name="Q3" x={-61.5} y={24.75} rot={90} />
 const R17El = <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-64.5} y={28.75} rot={90} side="N" />
 const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-60.5} y={28.75} rot={90} side="N" />
+
+// ── Buzzer chain (IO13 → R5 → Q1 → U8) ────────────────────────────────────────────────
+const R5El = <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-45.3} y={-4.445} rot={180} side="N" />
+const Q1El = <Npn name="Q1" x={-41.6} y={-5.395} rot={180} />
+const U8El = <Buzzer name="U8" x={-37.9} y={-10.575} />
+const R5f = frame(R5El), Q1f = frame(Q1El), U8f = frame(U8El)
 const Q2f = frame(Q2El), Q3f = frame(Q3El), R17f = frame(R17El), R18f = frame(R18El)
 
 // ── GAS/EN divider grid (pcbPath hand-routing) ───────────────────────────────────────
@@ -188,7 +194,7 @@ export default () => (
         pin2 (-> GND); the cell is retained by the molded base, not SMT clips. */}
     <CoinHolder name="BT1" x={-20.5} y={-1.25} />
     <Ds3231Smd name="U6" x={-40.5} y={2.5} rot={270} />
-    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-38.75} y={-4.75} rot={0} />
+    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-37.5} y={-4.75} rot={0} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio, antenna keepout
         pointing west off the board edge. Usable GPIO sit on the north and south
         castellations only (the east edge is the module's flash); the relay/pump/buzzer/
@@ -244,9 +250,9 @@ export default () => (
     <Mcp23017 name="U3" x={-1.75} y={-21.75} addr="0x21" rot={0} />
     <Uln2803 name="U4" x={9.25} y={9.5} rot={270} />
     <Uln2803 name="U5" x={9.5} y={-9} rot={270} />
-    <Buzzer name="U8" x={-38.5} y={-9.75} />
-    <Npn name="Q1" x={-44} y={-8} />
-    <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-44.5} y={-4.5} rot={180} side="N" />
+    {U8El}
+    {Q1El}
+    {R5El}
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
     <Jst name="J1" x={21} y={13.75} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" rot={270} />
@@ -567,10 +573,10 @@ export default () => (
         GPIO) -> R5 (1k base) -> Q1 base; Q1 collector sinks U8 -, emitter to the GND plane;
         U8 + on the 5 V plane. IO13 is a plain GPIO (not a strapping pin), so it boots high-Z
         and the transducer stays silent until firmware drives it. */}
-    <trace from=".U8 > ._NEG" to=".Q1 > .C" />
+    <trace from="Q1.C" to="U8._NEG" pcbPathRelativeTo="board" pcbPath={route("Q1.C", U8f.row("_NEG", 0), "U8._NEG")} />
     <trace from=".Q1 > .E" to="net.GND" />
-    <trace from=".Q1 > .B" to=".R5 > .pin1" />
-    <trace from=".R5 > .pin2" to=".U1 > .IO13" />
+    <trace from="R5.pin1" to="Q1.B" pcbPathRelativeTo="board" pcbPath={route("R5.pin1", "Q1.B")} />
+    <trace from="R5.pin2" to="U1.IO13" pcbPathRelativeTo="board" pcbPath={route("R5.pin2", "U1.IO13")} />
 
     {/* GAS: ACEIRMC MQ-6 combustible / refrigerant-leak sensor, mounted low on the
         rear cabinet floor (catches dense R-600a pooling). 5 V heater supply. BOTH
