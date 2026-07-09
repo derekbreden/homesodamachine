@@ -13,9 +13,8 @@ The rules below are what "engineered" means here — the helpers encode them so 
 least resistance, but the helpers only matter if the *intent* is right.
 
 1. **Right angles only.** Corners are 90° (or, where a channel is too tight for a square corner,
-   45°) — never an arbitrary slope. A 2° slope is a bug, usually a wrong pad reference.
-   `orthoTap` / `orthoDrop` produce 90°-only paths; verify with the angle check (all segments
-   0°/90°).
+   45°) — never an arbitrary slope. A 2° slope is a bug, usually a wrong pad reference. `route`
+   produces 90°-only paths by construction; verify with the angle check (all segments 0°/90°).
 
 2. **Pads exit along their own face.** A trace leaves a pad *perpendicular to its edge, away from
    the body* — never attached to the pad's side. U1's south-edge pins exit **south** on a clean
@@ -37,65 +36,39 @@ These are priorities, in order: correctness (connected, DRC-clean, no vias) firs
 intent rules. Where clearance is free, take it — the floor is a gate you pass, not a number you
 sit on.
 
-## Coordinates
+## Writing a path: `route` (in [`routing.ts`](routing.ts))
 
-A `pcbPath`'s points are **board coordinates** — every trace carrying numeric points declares
-`pcbPathRelativeTo="board"`, so a `{ x, y }` literal lands exactly where the viewer and
-[`plot-region.py`](plot-region.py) read it. String points (`"U14.pin1"`) are pad anchors. Vias
-are full-stack top↔bottom only (JLCPCB drills through-holes), so a hand path lives on **top or
-bottom**.
-
-## The `frame` helper (in [`routing.ts`](routing.ts))
-
-`frame(el)` captures a placed component element — centre, rotation, and pad geometry all derive
-from the element and its imported footprint, so the placement is the single source of truth.
-
-| call | returns | when the part moves |
-|---|---|---|
-| `.ref(pin)` | the string anchor `"U14.pin1"` — a pcbPath's endpoints | — |
-| `.pin(pin)` | the pad's board `{x, y}` | follows |
-| `.fromPin(pin, dx, dy)` | the point `(dx, dy)` mm from that pad | **rides** the pad |
-
-Every coordinate is shaped by something — derive it from the pad that shapes it, and the path
-survives any move of that part, alone or in a group. `fromPin` when both coordinates come from
-one pad; compose from two pads when a corner joins their runs. A bare number holds its board
-position no matter what moves, so it is only right when the shaping feature really is the board
-(an edge, a keepout) — which is rare.
+A hand trace is a `route(...)`: pad anchors at the ends, one-dimensional constraints between.
+`F.col(pin, dx)` is the vertical line `dx` east of a pad; `F.row(pin, dy)` the horizontal line
+`dy` north of one; a corridor lane is a bare `{ col: x }`. Consecutive constraints intersect into
+the waypoints, and the closing turn into each pad comes from the pad itself — so every corner is
+90° by construction, no point is ever written as a two-coordinate pair, and every coordinate
+derives from the pad (or corridor) that shapes it. The path rides any move of its parts, alone or
+as a group.
 
 ```tsx
-const U14El = <Usblc6 name="U14" x={-56.25} y={17.75} rot={270} />
-const U14f = frame(U14El)
-
-<trace from="U14.pin1" to="J14.pin10" pcbPathRelativeTo="board" pcbPath={[
-  U14f.ref("pin1"),
-  U14f.fromPin("pin1", 0.8, 0),                                  // rides pin1
-  U14f.fromPin("pin1", 0.8, -2.45),                              // drop clear of U14's body
-  { x: J14f.pin("pin10").x + 1.08, y: U14f.pin("pin1").y - 2.45 },  // corner: pin10's lane × pin1's corridor
-  J14f.fromPin("pin10", 1.08, 0),                                // rides pin10
-  J14f.ref("pin10"),
-]} />
+<trace from="U14.pin1" to="J14.pin10" pcbPathRelativeTo="board" pcbPath={route(
+    "U14.pin1",
+    U14f.col("pin1", 0.8),     // east of pin1
+    U14f.row("pin1", -2.45),   // down past the body
+    J14f.col("pin10", 1.08),   // up into pin10
+    "J14.pin10",
+)} />
 ```
 
-## Pattern helpers
+With no constraints, `route("R7.pin1", "C12.pin1")` is the straight pad-to-pad tie. The
+`pcbPathRelativeTo="board"` on the trace makes the numeric points board coordinates — exactly
+what the viewer and [`plot-region.py`](plot-region.py) read. Vias are full-stack top↔bottom only
+(JLCPCB drills through-holes), so a hand path lives on **top or bottom**.
 
-Built on the frame primitives — add your own the same way. All emit board points.
+`frame(el)` supplies the pads: centre, rotation, and pad geometry all derive from the placed
+element and its imported footprint, so the placement is the single source of truth. `.pin(p)` is
+the pad's board `{x, y}`; `.col`/`.row` are the lines through it. Frames register by name —
+`route`'s `"U14.pin1"` anchors resolve through the registry.
 
-- **`pcbU(f, a, b, [dx, dy])`** — a no-via "U" tie between two pads of the same connector: out from
-  `a` by the stub, across to `b`, back in. The D+ tie is `pcbU(J14f, "pin10", "pin8", [-1.4, 0])`.
-- **`pcbFan(srcF, srcPin, [ex, ey], destF, destPins, laneX)`** — fan one source pad to several dest
-  pads sharing an approach lane; returns one pcbPath per dest. The D− pair is
-  `pcbFan(U14f, "pin3", [-0.85, 0], J14f, ["pin9", "pin7"], -58.25)`.
-- **`channel(a, b, bias)`** — an x for a run in the corridor between column centres `a` and `b`:
-  `bias 0` centres it, `−1`/`+1` reserves one side (principle 4). The GAS EN tap lane is
-  `channel(CX_EN, CX_DOUT)` — centred in the R7/R3 corridor, not hugging either.
-- **`orthoTap(fromF, pin, laneX, toF, toPin, apY?)`** — a midpoint→U1 tap that obeys the pad-exit
-  and jog rules: H to `laneX`, V up, H across on the stub row (`apY`, default 1.8 below the target
-  pin), then a **south stub** into the pad. Pass `laneX` = the pin's own column and the H-across
-  collapses to a straight south run (the cleanest — the DOUT tap is
-  `orthoTap(R4f, "pin1", U1f.pin("IO36").x, U1f, "IO36")`).
-- **`orthoDrop(fromF, pin, toF, toPin, dropX?)`** — a pad straight down to a connector row then one
-  90° into the hole; `dropX` moves the drop lane to clear an obstacle (the J11 DOUT input drops at
-  `-63.5` to miss the AOUT pad).
+**`channel(a, b, bias)`** gives a corridor run its x: `bias 0` centres between the column centres
+`a` and `b`, `−1`/`+1` hugs one wall to reserve the other side (principle 4). The GAS EN tap runs
+`{ col: channel(CX_EN, CX_DOUT) }` — centred in the R7/R3 corridor, not hugging either.
 
 ## Moving a component tighter
 
