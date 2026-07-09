@@ -84,7 +84,7 @@ const ID = boardVersionParts()
 const U14El = <Usblc6 name="U14" x={-56.25} y={16} rot={270} />
 const C22El = <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.25} y={19.5} rot={0} side="N" />
 const J14El = <UsbC name="J14" x={-62} y={16.5} rot={270} />
-const U13El = <Ch340 name="U13" x={-48.25} y={17.5} rot={270} />
+const U13El = <Ch340 name="U13" x={-49.25} y={26} rot={0} />
 const R16El = <Res name="R16" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-56.75} y={13} rot={0} side="N" />
 const R15El = <Res name="R15" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-56.75} y={21.75} rot={0} side="N" />
 const U14f = frame(U14El)
@@ -100,10 +100,10 @@ const dMinusLane = U14f.col("pin3", -0.85)
 // SOUTH, toward its U1 load; base resistors sit directly north of each base. DTR/RTS drive the pair
 // from U13's east edge. Collector reaches (EN, IO0) are long traces out to U1 — deferred until their
 // corridors are known.
-const Q2El = <Npn name="Q2" x={-58.5} y={25} rot={90} />
-const Q3El = <Npn name="Q3" x={-54} y={25} rot={90} />
-const R17El = <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-57.55} y={28.9} rot={90} side="N" />
-const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-53.05} y={28.9} rot={90} side="N" />
+const Q2El = <Npn name="Q2" x={-65.5} y={24.75} rot={90} />
+const Q3El = <Npn name="Q3" x={-61.5} y={24.75} rot={90} />
+const R17El = <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-64.5} y={28.75} rot={90} side="N" />
+const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-60.5} y={28.75} rot={90} side="N" />
 const Q2f = frame(Q2El), Q3f = frame(Q3El), R17f = frame(R17El), R18f = frame(R18El)
 
 // ── GAS/EN divider grid (pcbPath hand-routing) ───────────────────────────────────────
@@ -207,7 +207,7 @@ export default () => (
     {R7El}
     <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.5} y={-14} rot={180} side="N" />
     <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-56.5} y={-17} rot={0} side="N" />
-    <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-48} y={27} rot={0} side="N" />
+    <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-58.25} y={28.75} rot={270} side="N" />
     {/* RS-485 to the front display (J9). COS13487EESA-3.3 auto-direction transceiver (U7):
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
         only DI (from ESP TX) and RO (to ESP RX) are driven. R6 = 120R line termination
@@ -690,7 +690,7 @@ export default () => (
     {R16El}
     {R15El}
     {C22El}
-    <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-47.5} y={24.5} rot={0} side="N" />
+    <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-57.25} y={25.5} rot={180} side="N" />
     {/* EN branch: U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
     {R17El}
     {Q2El}
@@ -758,8 +758,8 @@ export default () => (
         "J14.pin15"
     )} />
     <trace from=".C22 > .pin2" to="net.GND" />
-    <trace from="U14.pin6" to="U13.D_POS" pcbComb="columnToColumn" />
-    <trace from="U14.pin4" to="U13.D_NEG" pcbComb="columnToColumn" />
+    <trace from="U14.pin6" to="U13.D_POS" pcbComb="columnToRow" />
+    <trace from="U14.pin4" to="U13.D_NEG" pcbComb="columnToRow" />
     {/* CH340C: 3V3 supply (VCC + V3 tied for 3.3 V op) + 0.1uF decoupling; UART crossed to
         the WROOM (bridge TXD -> ESP RXD0/IO3, bridge RXD -> ESP TXD0/IO1). */}
     <trace from=".U13 > .VCC" to="net.V3V3" />
@@ -778,10 +778,32 @@ export default () => (
     {/* Cross-coupled pair, planar on top. The two trunks leave U13 on OPPOSITE sides so they never
         cross: RTS exits east and runs the high rail (y30.8) to R18.pin2 then on to Q2.E; DTR exits
         west and runs low (y22.75, along U13's north edge) to Q3.E, which links up to R17.pin2. */}
-    <trace from="U13.RTS" to="R18.pin2" pcbPathRelativeTo="board" pcbPath={route("U13.RTS", U13f.col("RTS", 1.4), { row: 30.8 }, R18f.col("pin2"), "R18.pin2")} />
-    <trace from="R18.pin2" to="Q2.E" pcbPathRelativeTo="board" pcbPath={route("R18.pin2", { row: 30.8 }, Q2f.col("E"), "Q2.E")} />
-    <trace from="U13.DTR" to="Q3.E" pcbPathRelativeTo="board" pcbPath={route("U13.DTR", U13f.col("DTR", -1.25), { row: 22.75 }, Q3f.col("E"), "Q3.E")} />
-    <trace from="Q3.E" to="R17.pin2" pcbPathRelativeTo="board" pcbPath={route("Q3.E", { row: 30.2 }, R17f.col("pin2"), "R17.pin2")} />
+    <trace from="U13.RTS" to="R18.pin2" pcbPathRelativeTo="board" pcbPath={route(
+        "U13.RTS",
+        U13f.row("DTR", 1.5),
+        R18f.col("pin2"),
+        "R18.pin2")
+    } />
+    <trace from="R18.pin2" to="Q2.E" pcbPathRelativeTo="board" pcbPath={route(
+        "R18.pin2",
+        R18f.row("pin2", 0.75),
+        Q2f.col("E"),
+        "Q2.E"
+    )} />
+    <trace from="U13.DTR" to="Q3.E" pcbPathRelativeTo="board" pcbPath={route(
+        "U13.DTR",
+        U13f.row("DTR", -1.7),
+        U13f.col("DTR", -9.75),
+        Q3f.row("E", -1),
+        Q3f.col("E"),
+        "Q3.E"
+    )} />
+    <trace from="Q3.E" to="R17.pin2" pcbPathRelativeTo="board" pcbPath={route(
+        "Q3.E",
+        R17f.row("pin2", -0.75),
+        R17f.col("pin2"),
+        "R17.pin2"
+    )} />
     {/* <trace from=".Q2 > .C" to=".U1 > .EN" /> */}
     {/* <trace from=".Q3 > .C" to=".U1 > .IO0" /> */}
     {/* Manual BOOT (IO0) / RESET (EN) — diagonal switch pads = the two terminals. IO0's reach-outs
