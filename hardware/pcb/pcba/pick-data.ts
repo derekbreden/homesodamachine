@@ -60,7 +60,8 @@ try {
   const src = readFileSync(boardFile, "utf8")
   const planeNets = planeNetsFromSource(src)
   const deferred = deferredTracesFromSource(src)
-  const data = distill(circuit, decoupling, ampacity, planeNets, deferred)
+  const authored = authoredTracesFromSource(src)
+  const data = distill(circuit, decoupling, ampacity, planeNets, deferred, authored)
   const outPath = path.join(dir, "out", `${board}.picks.json`)
   writeFileSync(outPath, JSON.stringify(data))
   console.log(`[${board}] wrote ${board}.picks.json — ${data.pads.length} pads`)
@@ -85,7 +86,7 @@ async function loadBoardTables(file: string): Promise<{ decoupling: DecouplingRu
   }
 }
 
-function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRules: AmpacityRule[] = [], planeNets: Set<string> = new Set(), deferred: { from: string; to: string }[] = []): PicksFile {
+function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRules: AmpacityRule[] = [], planeNets: Set<string> = new Set(), deferred: { from: string; to: string }[] = [], authored: { from: string; to: string }[] = []): PicksFile {
   const compName: Record<string, string> = {}
   const srcPort: Record<string, any> = {}
   const pcbPort: Record<string, any> = {}
@@ -215,7 +216,7 @@ function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRule
   // metrics (manual-routing conversion) derived from the raw copper + the poured plane nets. One
   // verdict, printed on build and shown in the modal — the same result from the same geometry.
   const scorecard = buildScorecard({
-    circuit, planeNets, deferred, floor, clearanceErrors: errors, opens,
+    circuit, planeNets, deferred, authored, floor, clearanceErrors: errors, opens,
     footprints, connectors, ampacity, capAudit,
     fab: { partsSourced: fab.partsSourced, minDrillMm: fab.minDrillMm, minViaAnnularMm: fab.minViaAnnularMm, minPadAnnularMm: fab.minPadAnnularMm, unsourced: fab.unsourced },
   })
@@ -246,6 +247,23 @@ function deferredTracesFromSource(src: string): { from: string; to: string }[] {
       const to = tag[0].match(/\bto="([^"]*)"/)?.[1]
       if (from && to) out.push({ from, to })
     }
+  return out
+}
+
+// Live <trace> elements carrying a manual routing prop (pcbPath / pcbComb / pcbStraightLine) are
+// AUTHORED by hand. The circuit-json has no manual flag, so authorship survives only in the source.
+// Without this the scorecard credits any autorouted net that happens to render clean (single outer
+// layer, no via) as "hand-routed" — inflating the headline. Comment spans are stripped first so an
+// evicted/deferred trace never counts as authored. Matched to nets in scorecard.ts via display_name.
+function authoredTracesFromSource(src: string): { from: string; to: string }[] {
+  const live = src.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/[^\n]*/g, "")
+  const out: { from: string; to: string }[] = []
+  for (const tag of live.matchAll(/<trace\b[\s\S]*?\/>/g)) {
+    if (!/\b(?:pcbPath|pcbComb|pcbStraightLine)\b/.test(tag[0])) continue
+    const from = tag[0].match(/\bfrom="([^"]*)"/)?.[1]
+    const to = tag[0].match(/\bto="([^"]*)"/)?.[1]
+    if (from && to) out.push({ from, to })
+  }
   return out
 }
 

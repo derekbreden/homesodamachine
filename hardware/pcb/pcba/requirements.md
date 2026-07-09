@@ -47,12 +47,16 @@ every **signal** net becomes hand-routed outer copper with **no vias**. See
 | No vias on signal nets | 0 | Planes stitch to their pads; signals don't hop layers. A signal via means the trace dodged a plane instead of routing around it |
 | No signal copper on inner layers | 0 | Inner layers are planes only. Inner-layer signal copper is autorouter copper by definition |
 
-**How the split is measured.** There is no "manual" flag in the circuit-json — the classification is
-structural. A net is counted hand-clean when it carries discrete copper with zero vias and zero
-inner-layer route points. Poured plane nets are exempt (their vias are plane stitches), and are
-identified from the `<copperpour connectsTo="net.X">` tags in source, so the exemption tracks the
-pours. This means converting a net off the autorouter *automatically* moves the number — nothing to
-mark by hand.
+**How the split is measured.** There is no "manual" flag in the circuit-json, so the split is by
+**authorship**, read from source. A net counts as hand-routed only when *every* trace carrying its
+copper was authored by hand — a `<trace>` with `pcbPath`, `pcbComb`, or `pcbStraightLine` — **and**
+its copper is clean (one outer layer, zero vias, zero inner-layer points). Geometry alone is not
+enough: the autorouter routes most short nets clean-shaped by accident, and crediting that as
+"hand-routed" would count the autorouter's own copper as progress toward removing it. Authored traces
+are matched to nets through `source_trace.display_name` (`"<from> to <to>"`); poured plane nets are
+exempt (their vias are plane stitches), identified from the `<copperpour connectsTo="net.X">` tags so
+the exemption tracks the pours. Converting a net off the autorouter — i.e. giving it a hand path —
+*automatically* moves the number; nothing to mark by hand.
 
 ## The gate is permission; the goal is the work
 

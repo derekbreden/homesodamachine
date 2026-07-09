@@ -12,9 +12,14 @@
  *            hand-routed on outer copper with NO vias (the planes carry power/ground). Shown as
  *            progress toward 100%, not a gate — the board still fabs while it converts.
  *
- * The manual/auto split is structural, not a flag in the circuit-json: a signal net is "hand-clean"
- * when all its copper sits on one outer layer with no via. Poured plane nets (the <copperpour>
- * connectsTo nets, passed in as `planeNets`) are exempt — their vias are plane stitches, not routing.
+ * The manual/auto split is by AUTHORSHIP, not geometry. The circuit-json carries no manual flag, so
+ * authorship comes from the source: a net is hand-routed only if every trace that carries its copper
+ * was authored by hand (a <trace> with pcbPath / pcbComb / pcbStraightLine — passed in as `authored`
+ * and matched to nets via source_trace.display_name) AND its copper is clean (one outer layer, no
+ * via). Geometry alone is not enough: the autorouter routes most short nets clean-shaped by accident,
+ * and crediting that as "hand-routed" would count the autorouter's work as progress toward removing
+ * it. Poured plane nets (the <copperpour> connectsTo nets, `planeNets`) are exempt — their vias are
+ * plane stitches, not routing.
  *
  * Canonical prose for these requirements — the why behind each — is in requirements.md.
  */
@@ -49,6 +54,7 @@ export type Scorecard = {
 export type ScorecardInput = {
   circuit: any[]
   planeNets: Set<string>
+  authored: { from: string; to: string }[]  // <trace>s carrying a manual routing prop (hand-authored)
   deferred: { from: string; to: string }[]  // connections commented out of source (deferred work)
   floor: number | null
   clearanceErrors: { kind: string; text: string }[]  // clearance.ts DRC findings (overlap/courtyard/sliver)
@@ -97,8 +103,22 @@ function netResolver(circuit: any[]) {
 export function buildScorecard(inp: ScorecardInput): Scorecard {
   const { circuit, planeNets } = inp
 
-  // ── Manual-routing metrics (the goal) — per signal net, from raw copper geometry ──
+  // ── Manual-routing metrics (the goal) — per signal net, from raw copper geometry + authorship ──
   const traceNet = netResolver(circuit)
+  // Authorship map: a net is authored only if EVERY pcb_trace carrying its copper came from a
+  // hand-authored <trace>. Authored connections (from source) and each source_trace's endpoints
+  // (its display_name, "<from> to <to>") are normalised to an unordered pin-pair key and matched.
+  const norm = (s: string) => s.replace(/[\s.>]/g, "")
+  const connKey = (a: string, b: string) => [norm(a), norm(b)].sort().join("|")
+  const authoredConns = new Set(inp.authored.map((d) => connKey(d.from, d.to)))
+  const stConn: Record<string, string> = {}
+  for (const e of circuit) {
+    if (e.type !== "source_trace" || !e.display_name) continue
+    const [a, b, ...rest] = String(e.display_name).split(" to ")
+    if (a && b && rest.length === 0) stConn[e.source_trace_id] = connKey(a, b)
+  }
+  const netAuthored = new Map<string, boolean>()  // true only if every trace on the net is authored
+
   const viaByNet = new Map<string, number>()
   const innerByNet = new Map<string, number>()
   const netHasTrace = new Set<string>()
@@ -108,6 +128,9 @@ export function buildScorecard(inp: ScorecardInput): Scorecard {
     const n = traceNet(e)
     netByTraceId[e.pcb_trace_id] = n
     netHasTrace.add(n)
+    const key = stConn[e.source_trace_id]
+    const isAuth = key != null && authoredConns.has(key)
+    netAuthored.set(n, (netAuthored.get(n) ?? true) && isAuth)
     for (const r of e.route) if (INNER.has(r.layer)) innerByNet.set(n, (innerByNet.get(n) ?? 0) + 1)
   }
   for (const e of circuit) {
@@ -119,7 +142,8 @@ export function buildScorecard(inp: ScorecardInput): Scorecard {
   const signalNets = [...netHasTrace].filter((n) => !planeNets.has(n)).sort()
   const viaNets = signalNets.filter((n) => (viaByNet.get(n) ?? 0) > 0)
   const innerNets = signalNets.filter((n) => (innerByNet.get(n) ?? 0) > 0)
-  const handClean = signalNets.filter((n) => (viaByNet.get(n) ?? 0) === 0 && (innerByNet.get(n) ?? 0) === 0)
+  const handClean = signalNets.filter((n) =>
+    (netAuthored.get(n) ?? false) && (viaByNet.get(n) ?? 0) === 0 && (innerByNet.get(n) ?? 0) === 0)
   const signalVias = viaNets.reduce((s, n) => s + (viaByNet.get(n) ?? 0), 0)
   const manualPct = signalNets.length ? Math.round((100 * handClean.length) / signalNets.length) : 100
 
