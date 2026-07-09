@@ -88,14 +88,6 @@ const FP_SIZES = {
   "1206": { w: 3.2, h: 1.6 },
 };
 
-// A Jst's orientation isn't a free rotation — it's `side`, the board edge its
-// opening faces, from which carrier_parts.tsx derives the wafer's real (per-part)
-// angle. The editor rotates a Jst by cycling `side`; these map a side to its
-// opening-facing angle (matching the helper's `wantAngle`), so a generic +90°
-// rotate steps to the next edge and wraps: S→E→N→W→S.
-const JST_SIDE_ANGLE = { E: 0, N: 90, W: 180, S: 270 };
-const JST_ANGLE_SIDE = { 0: "E", 90: "N", 180: "W", 270: "S" };
-
 function componentShape(tag, footprint, count) {
   if (tag === "Jst" || tag === "pinheader") {
     const n = Math.max(count || 1, 1);
@@ -201,19 +193,10 @@ function parseBoardTsx(tsx) {
     const cntMatch = body.match(/\bcount=\{(\d+)\}/);
     if (cntMatch) count = parseInt(cntMatch[1], 10);
 
-    // Orientation. A Jst has no free rotation — it faces a board edge (`side`),
-    // and carrier_parts.tsx derives the wafer's real angle from that. Report the
-    // side's opening-facing angle, so the editor's model matches the board and a
-    // 90° rotate steps to the next edge. Everything else reads its rotation literal.
-    let side = null, rot = 0;
-    if (tag === "Jst") {
-      const sideMatch = body.match(/\bside="([NSEW])"/);
-      if (sideMatch) side = sideMatch[1];
-      if (side != null && JST_SIDE_ANGLE[side] != null) rot = JST_SIDE_ANGLE[side];
-    } else {
-      const rotMatch = body.match(/(?:pcbRotation|rot)=\{(-?\d+)\}/);
-      if (rotMatch) rot = parseInt(rotMatch[1], 10);
-    }
+    // Orientation: every part (Jst included) carries its rotation as a literal.
+    let rot = 0;
+    const rotMatch = body.match(/(?:pcbRotation|rot)=\{(-?\d+)\}/);
+    if (rotMatch) rot = parseInt(rotMatch[1], 10);
 
     // Footprint for passives
     let footprint = null;
@@ -231,7 +214,7 @@ function parseBoardTsx(tsx) {
 
     components.push({
       tag, ref, x: Math.round(x * 100) / 100, y: Math.round(y * 100) / 100,
-      rot, side, posKind, cat, size, footprint, count, extra,
+      rot, posKind, cat, size, footprint, count, extra,
     });
   }
 
@@ -296,13 +279,11 @@ export function updatePositionInTsx(tsx, ref, oldX, oldY, newX, newY) {
   );
 }
 
-// Set a component's rotation in the source TSX. A Jst is special: it has no free
-// rotation — its pose is `side` (the board edge it faces) — so a rotate rewrites
-// `side`, mapping the requested angle to the matching edge. Everything else edits
-// a rotation literal: pcbRotation, else the Cap `rot` shorthand; when a component
-// carries none yet (e.g. a bare `{...at()}`) one is inserted before the `/>` (the
-// Cap wrapper takes `rot`; builtins and ChipProps imports take `pcbRotation`).
-// Matched by ref alone, so it composes after a position rewrite of the same line.
+// Set a component's rotation in the source TSX. Edits a rotation literal: pcbRotation, else the
+// wrapper `rot` shorthand; when a component carries none yet (e.g. a bare `{...at()}`) one is
+// inserted before the `/>` (the parts.tsx wrappers — Cap/Res/Jst/… — take `rot`; builtins and raw
+// ChipProps imports take `pcbRotation`). Matched by ref alone, so it composes after a position
+// rewrite of the same line.
 export function updateRotationInTsx(tsx, ref, newRot) {
   const r = ((Math.round(Number(newRot)) % 360) + 360) % 360;
   const lines = tsx.split("\n");
@@ -313,16 +294,6 @@ export function updateRotationInTsx(tsx, ref, newRot) {
     const tagM = line.match(/<\s*(\w+)/);
     const tag = tagM ? tagM[1] : "";
 
-    // A Jst faces a board edge; its pose is `side`, not a rotation literal. Map the
-    // requested angle to the edge whose opening points that way and rewrite `side`.
-    if (tag === "Jst") {
-      const side = JST_ANGLE_SIDE[r];
-      if (!side) throw new Error(`Jst ${ref}: ${r}° is not a cardinal edge`);
-      if (!/\bside="[NSEW]"/.test(line)) throw new Error(`Jst ${ref} has no side= to rotate`);
-      lines[i] = line.replace(/\bside="[NSEW]"/, `side="${side}"`);
-      return lines.join("\n");
-    }
-
     if (/\bpcbRotation=\{-?\d+\}/.test(line)) {
       lines[i] = line.replace(/\bpcbRotation=\{-?\d+\}/, `pcbRotation={${r}}`);
       return lines.join("\n");
@@ -332,7 +303,7 @@ export function updateRotationInTsx(tsx, ref, newRot) {
       return lines.join("\n");
     }
 
-    const prop = tag === "Cap" ? "rot" : "pcbRotation";
+    const prop = tag === "Cap" || tag === "Jst" ? "rot" : "pcbRotation";
     const tail = line.match(/\s*\/>\s*$/);
     if (tail) {
       lines[i] = line.slice(0, tail.index) + ` ${prop}={${r}} />`;

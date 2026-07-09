@@ -147,9 +147,16 @@ const writeViews = (svgs: Record<string, string>) => {
 // out/ with the routed copper and the watcher broadcasts again. Best-effort: any
 // failure here just skips the preview; the full render still runs.
 async function placementPreview() {
+  // Drop every netlist trace + pour so the preview has nothing to route. `[^<]` (not `[\s\S]`)
+  // keeps the match from spanning across real code: a doc comment or string that MENTIONS an open
+  // `<trace from={…}>` (no `/>`) would otherwise let the non-greedy `*?` run to the next `/>`
+  // anywhere below and swallow whatever sits between. Real trace/pour elements carry no `<` between
+  // their tag and `/>`, so `[^<]*?` matches them exactly and stops a stray comment cold. Replace
+  // with an empty fragment, not "", so a trace returned from an arrow — `.map((b) => (<trace/>))`
+  // (pcbFan / logoRoutes) — collapses to `(<></>)` and stays valid instead of an empty `() => ()`.
   const placementSrc = readFileSync(boardFile, "utf8")
-    .replace(/<trace\b[\s\S]*?\/>/g, "")      // drop every netlist trace
-    .replace(/<copperpour\b[\s\S]*?\/>/g, "") // drop every pour
+    .replace(/<trace\b[^<]*?\/>/g, "<></>")
+    .replace(/<copperpour\b[^<]*?\/>/g, "<></>")
   const name = `_build-${board}.placement.tmp`
   track(path.join(dir, `${name}.tsx`))
   writeFileSync(path.join(dir, `${name}.tsx`), placementSrc)

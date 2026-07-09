@@ -69,12 +69,15 @@ local = R(−rotation) · (board − center)
 Vias are **full-stack top↔bottom only** (JLCPCB drills through-holes; the inner layers are the
 autorouter's). So a hand path lives on **top or bottom** — you cannot hop to an inner layer.
 
-## The `frame` helper (in `pcba.tsx`)
+## The `frame` helper (in `routing.ts`)
 
-`frame(name, cx, cy, rot, pins)` captures a component and turns pin geometry into path points. It
-knows each pad's footprint-local offset (the `pins` table, read once from a render and
-movement-invariant), so it can **divine where a pad actually is** — not just where the center is.
-Every method returns a point in the trace's **`from`** frame:
+`frame(el)` — pass the **placed element** — captures a component and turns pin geometry into path
+points. Centre, rotation, and every pad's footprint-local offset are **derived from the element**
+(its props + its imported footprint's `<smtpad>`s, via `framePins`), so there's no hand-copied table
+to drift: it **divines where a pad actually is**, keyed by pad id (`pin1`) or pinLabels alias
+(`VBUS`, `EN`). (An explicit `frame(name, cx, cy, rot, pins)` form exists for a part whose pad names
+aren't footprint pins — e.g. a Jst's board-assigned `AOUT`/`DOUT`.) Every method returns a point in
+the trace's **`from`** frame:
 
 | call | returns | how it moves |
 |---|---|---|
@@ -86,9 +89,10 @@ Every method returns a point in the trace's **`from`** frame:
 | `.toPin(f, pin, bx, by)` | a point `bx,by` mm from **another** frame `f`'s pad | board-fixed, but **follows** that pad if `f` moves |
 
 ```tsx
-const U14_X = -56.25, U14_Y = 17.75          // one source of truth for the placement
-const U14f = frame("U14", U14_X, U14_Y, 270, { pin1: [-0.95, -1.149], /* … */ })
-const J14f = frame("J14", -62.45, 17.75, 270, { pin10: [0.75, 2.624], /* … */ })
+const U14El = <Usblc6 name="U14" x={-56.25} y={17.75} rot={270} />  // placement = one source of truth
+const J14El = <UsbC name="J14" x={-62} y={17.75} rot={270} />
+const U14f = frame(U14El)   // centre, rotation, pins all derived from the element
+const J14f = frame(J14El)
 
 <trace from="U14.pin1" to="J14.pin10" pcbPath={[
   U14f.ref("pin1"),
@@ -102,8 +106,8 @@ const J14f = frame("J14", -62.45, 17.75, 270, { pin10: [0.75, 2.624], /* … */ 
 
 All numeric points in one `pcbPath` resolve in the **`from`** frame regardless of which helper
 name you call — it's the receiver (`U14f.toPin(...)`) that matters, and it must be the `from`
-frame. The `pins` offsets are footprint-baked; regenerate them (and the resolved center) from a
-render if a footprint changes (`plot-region.py`, or read `pcb_smtpad`).
+frame. Pad offsets are read from the part's imported footprint at build time, so a footprint change
+flows through automatically — nothing to regenerate by hand.
 
 ## Pattern helpers
 
