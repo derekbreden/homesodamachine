@@ -90,7 +90,6 @@ const R15El = <Res name="R15" resistance="5.1k" footprint="0603" jlcpcb="C23186"
 const U14f = frame(U14El)
 const J14f = frame(J14El)
 const C22f = frame(C22El)
-const U13f = frame(U13El)
 const R16f = frame(R16El)
 const R15f = frame(R15El)
 const dMinusLane = U14f.col("pin3", -0.85)
@@ -617,7 +616,7 @@ export default () => (
         pull-up on-board, at the SENSORS connector where the probe loom leaves the board. */}
     <Res name="R9" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-34.25} y={-28.25} rot={0} side="N" />
     <trace from=".R9 > .pin1" to="net.V3V3" />
-    <trace from=".R9 > .pin2" to=".J4 > .IO26" />
+    {/* <trace from=".R9 > .pin2" to=".J4 > .IO26" /> */}
 
     {/* ── Indicator LEDs flanking the brand logo ─────────────────────────────────────
         LEFT — firmware status, three otherwise-idle ESP GPIO, active-high to GND, boot-safe:
@@ -697,7 +696,6 @@ export default () => (
     <trace from=".J14 > .pin2" to="net.GND" />
     <trace from=".J14 > .pin3" to="net.GND" />
     <trace from=".J14 > .pin4" to="net.GND" />
-    {/* <trace from=".J14 > .pin6" to=".R15 > .pin1" /> */}
     <trace from="R15.pin1" to="J14.pin6" pcbPathRelativeTo="board" pcbPath={route(
         "R15.pin1",
         R15f.col("pin1", -1),
@@ -706,7 +704,6 @@ export default () => (
         "J14.pin6",
     )} />
     <trace from=".R15 > .pin2" to="net.GND" />
-    {/* <trace from=".J14 > .pin12" to=".R16 > .pin1" /> */}
     <trace from="R16.pin1" to="J14.pin12" pcbPathRelativeTo="board" pcbPath={route(
         "R16.pin1",
         R16f.col("pin1", -1),
@@ -749,21 +746,7 @@ export default () => (
         "J14.pin15"
     )} />
     <trace from=".C22 > .pin2" to="net.GND" />
-    {/* <trace from=".U14 > .pin6" to=".U13 > .D_POS" /> */}
-    {/* <trace from="U14.pin6" to="U13.D_POS" pcbPathRelativeTo="board" pcbPath={route(
-        "U14.pin6",
-        U14f.col("pin6", 0.5),
-        U13f.col("D_POS", -1.1),
-        "U13.D_POS",
-    )} /> */}
     <trace from="U14.pin6" to="U13.D_POS" pcbComb="columnToColumn" />
-    {/* <trace from=".U14 > .pin4" to=".U13 > .D_NEG" /> */}
-    {/* <trace from="U14.pin4" to="U13.D_NEG" pcbPathRelativeTo="board" pcbPath={route(
-        "U14.pin4",
-        U14f.col("pin4", 0.5),
-        U13f.col("D_NEG", -1.4),
-        "U13.D_NEG",
-    )} /> */}
     <trace from="U14.pin4" to="U13.D_NEG" pcbComb="columnToColumn" />
     {/* CH340C: 3V3 supply (VCC + V3 tied for 3.3 V op) + 0.1uF decoupling; UART crossed to
         the WROOM (bridge TXD -> ESP RXD0/IO3, bridge RXD -> ESP TXD0/IO1). */}
