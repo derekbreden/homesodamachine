@@ -20,30 +20,37 @@ export type Frame = {
   row: (p: string, dy?: number) => { row: number }
 }
 
-// Derive a part's pad offsets (footprint-local mm, pre-rotation) by walking its placed element down
-// to the <smtpad>s — INVOKING each component wrapper on the way (Usblc6 → centred → USBLC6_2SC6 →
-// <footprint>), so the footprint tscircuit actually places is the one source of truth and no hand-
-// copied table can drift. Every pad is keyed by its portHints id (`pin1`…) AND by each of the chip's
-// pinLabels aliases (`EN`, `VBUS`, `IO36`…), so routing taps a pad by whichever name reads clearest.
+// Derive a part's pad offsets (board-axes mm from the part's centre) by walking its placed element
+// down to the <smtpad>s — INVOKING each component wrapper on the way (Usblc6 → centred →
+// USBLC6_2SC6 → <footprint>), so the footprint tscircuit actually places is the one source of truth
+// and no hand-copied table can drift. Every `pcbRotation` on an intrinsic element composes on the
+// way down (a wrapper's rotation prop is forwarded to an intrinsic, so it counts exactly once) —
+// the returned offsets are fully rotated, including a wrapper's own intrinsic rotation (Buzzer
+// seats its MLT-5020 at 90). Every pad is keyed by its portHints id (`pin1`…) AND by each of the
+// chip's pinLabels aliases (`EN`, `VBUS`, `IO36`…), so routing taps a pad by whichever name reads
+// clearest.
 const framePins = (node: any): Record<string, [number, number]> => {
   const out: Record<string, [number, number]> = {}
   const mm = (v: number | string) => typeof v === "number" ? v : parseFloat(v)
   let labels: Record<string, string[]> = {}
-  const walk = (n: any) => {
+  const walk = (n: any, rot: number) => {
     if (!n || typeof n !== "object") return
-    if (Array.isArray(n)) return n.forEach(walk)
+    if (Array.isArray(n)) return n.forEach((c) => walk(c, rot))
     const { type, props = {} } = n
-    if (typeof type === "function") { try { walk(type(props)) } catch {} return }  // open the wrapper
+    if (typeof type === "function") { try { walk(type(props), rot) } catch {} return }  // open the wrapper
+    const r = rot + (props.pcbRotation != null ? mm(props.pcbRotation) : 0)
     if (props.pinLabels) labels = props.pinLabels
     if (type === "smtpad" && props.portHints?.length) {
-      const off: [number, number] = [mm(props.pcbX), mm(props.pcbY)]
+      const t = (r * Math.PI) / 180, cos = Math.cos(t), sin = Math.sin(t)
+      const [px, py] = [mm(props.pcbX), mm(props.pcbY)]
+      const off: [number, number] = [cos * px - sin * py, sin * px + cos * py]
       out[props.portHints[0]] = off
       for (const alias of labels[props.portHints[0]] ?? []) out[alias] = off
     }
-    if (props.footprint) walk(props.footprint)
-    if (props.children) walk(props.children)
+    if (props.footprint) walk(props.footprint, r)
+    if (props.children) walk(props.children, r)
   }
-  walk(node)
+  walk(node, 0)
   return out
 }
 
@@ -59,9 +66,9 @@ export function frame(el: any): Frame
 export function frame(name: string, cx: number, cy: number, rot: number, pins?: Record<string, [number, number]>): Frame
 export function frame(a: any, cx = 0, cy = 0, rot = 0, pins: Record<string, [number, number]> = {}): Frame {
   let name: string
-  if (a && typeof a === "object" && a.props) {     // placed element → derive centre, rotation, pins
+  if (a && typeof a === "object" && a.props) {     // placed element → derive centre and pad geometry
     name = a.props.name; cx = a.props.x; cy = a.props.y
-    rot = a.props.rot ?? a.props.pcbRotation ?? 0
+    rot = 0                                        // framePins offsets arrive fully rotated
     pins = framePins(a)
   } else name = a
   const t = (rot * Math.PI) / 180, cos = Math.cos(t), sin = Math.sin(t)
