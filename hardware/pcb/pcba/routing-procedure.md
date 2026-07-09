@@ -64,6 +64,6 @@ assigned to it — a through-net (e.g. a UART on its way to the WROOM) that cros
 must itself be owned or it will short into it. The autorouter is left holding only what it can route
 without ever conflicting with owned copper; re-adding any held trace produces no new failure; the
 board is deterministic and DRC-clean; and there is no manual/autorouter coexistence left anywhere to
-thrash. The manual copper accretes reusable emitters as it goes (`pcbFan`, `pcbComb`, `drop`/`rise`
-— see [`route-hints.md`](route-hints.md)), so "how we move to manual traces" becomes a small library,
+thrash. The manual copper accretes reusable emitters as it goes (the pattern helpers in
+[`hand-routing.md`](hand-routing.md)), so "how we move to manual traces" becomes a small library,
 not a one-off grind.

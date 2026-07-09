@@ -167,45 +167,53 @@ const WAFER_BODY_OUT: Record<number, number> = { 3: 3.45, 4: 3.72, 5: 3.77, 6: 3
 // "survives-assembly" copy OUTBOARD past the body (visible once a wafer is seated over the inboard
 // set). `labels[i]` is the net on pin i+1 (pin 1 at the -X end at rot 0), drawn at its pin's rotated
 // position so it tracks the pin whatever the seating rotation.
-export const Jst = ({ name, x, y, count, labels, label, rot = 0 }: { name: string; x: number; y: number; count: number; labels: string[]; label: string; rot?: number }) => {
-  const Wafer = WAFER_BY_COUNT[count]
+// A Jst's label→pin geometry at the uniform `rot`: `wafRot` is the wafer's real pcbRotation
+// (absorbing the series' inconsistent intrinsic opening), and `pins` pairs each label with its
+// board-axes offset from the wafer centre, in physical pin order. Keeping every net on the same
+// PHYSICAL pin as the pre-import design means two things reverse the label order along the edge —
+// a wafer rotation of 180/270, and the 7P footprint that numbers from the east; when exactly one
+// applies, the list reverses. One copy of this math: the Jst silk below and routing's connector
+// frames both read it.
+export const jstPins = ({ count, labels, rot = 0 }: { count: number; labels: string[]; rot?: number }) => {
   const pitch = WAFER_PITCH[count] ?? 2.5
-  const smHalf = 0.24, bigHalf = 0.42, padR = 0.825, G = 0.25   // ink cap half-heights; pad radius; tier gap
-  // Uniform rot (0 = opening north) -> the wafer's real pcbRotation, offsetting the intrinsic opening.
   const openAngle = WAFER_OPEN[count] > 0 ? 90 : 270
   const wafRot = (((rot + 90) - openAngle) % 360 + 360) % 360
-  // Keep every net on the same PHYSICAL pin as the pre-import design (loom pinout + IC->connector
-  // fans unchanged; only the wafer body turns to face the edge). Two things reverse the pin order
-  // along the edge: a wafer rotation of 180/270, and the 7P footprint that numbers from the east.
-  // When exactly one applies, reverse the label list.
   const pin1West = WAFER_PIN1_WEST[count] ?? true
   const flip = (wafRot === 180 || wafRot === 270) !== !pin1West
   const L = flip ? [...labels].reverse() : labels
-  const pinLabelObj = Object.fromEntries(L.map((l, i) => [`pin${i + 1}`, l]))
   const rad = (wafRot * Math.PI) / 180, c = Math.cos(rad), s = Math.sin(rad)
-  const R = (ax: number, ay: number): [number, number] => [ax * c - ay * s, ax * s + ay * c]  // CCW
+  const span = ((count - 1) * pitch) / 2
+  const pins: [string, [number, number]][] = L.map((lbl, i) => {
+    const along = pin1West ? -span + i * pitch : span - i * pitch
+    return [lbl, [along * c, along * s]]
+  })
+  return { wafRot, pins }
+}
+
+export const Jst = ({ name, x, y, count, labels, label, rot = 0 }: { name: string; x: number; y: number; count: number; labels: string[]; label: string; rot?: number }) => {
+  const Wafer = WAFER_BY_COUNT[count]
+  const smHalf = 0.24, bigHalf = 0.42, padR = 0.825, G = 0.25   // ink cap half-heights; pad radius; tier gap
+  const { wafRot, pins } = jstPins({ count, labels, rot })
+  const pinLabelObj = Object.fromEntries(pins.map(([lbl], i) => [`pin${i + 1}`, lbl]))
+  const rad = (wafRot * Math.PI) / 180
   // Outboard (toward the board edge) = the opening direction: the intrinsic ±Y opening turned by wafRot.
-  const [ox, oy] = R(0, WAFER_OPEN[count])                      // unit vector toward the edge (outboard)
+  const ox = -WAFER_OPEN[count] * Math.sin(rad), oy = WAFER_OPEN[count] * Math.cos(rad)
   const textRot = Math.abs(ox) > Math.abs(oy) ? 90 : 0         // vertical rows (E/W edges) read bottom-to-top
   const pinOff = padR + G + smHalf                    // pin row -> pin label (inboard)
   const refOff = -pinOff          // -> ref-des (inboard, next tier)
   const survPinOff = WAFER_BODY_OUT[count] + G                   // outboard, clear of the body
   const survFuncOff = survPinOff + smHalf + G + bigHalf                   // outboard function, next tier
-  const span = ((count - 1) * pitch) / 2
-  const pinAt = (i: number): [number, number] => R(pin1West ? -span + i * pitch : span - i * pitch, 0)  // pin i+1 local->world
   return (
     <>
       <Wafer name={name} pcbRotation={wafRot} pinLabels={pinLabelObj} {...at(x, y)} />
-      {L.map((lbl, i) => {
-        const [px, py] = pinAt(i)
-        return <silkscreentext key={`p${i}`} text={lbl} fontSize="0.8mm" pcbX={x + px - ox * pinOff} pcbY={y + py - oy * pinOff} pcbRotation={textRot} />
-      })}
+      {pins.map(([lbl, [px, py]], i) => (
+        <silkscreentext key={`p${i}`} text={lbl} fontSize="0.8mm" pcbX={x + px - ox * pinOff} pcbY={y + py - oy * pinOff} pcbRotation={textRot} />
+      ))}
       <silkscreentext text={name} fontSize="0.8mm" pcbX={x - ox * refOff} pcbY={y - oy * refOff} pcbRotation={textRot} />
       <silkscreentext text={label} fontSize="1.4mm" pcbX={x + ox * survFuncOff} pcbY={y + oy * survFuncOff} pcbRotation={textRot} />
-      {L.map((lbl, i) => {
-        const [px, py] = pinAt(i)
-        return <silkscreentext key={`s${i}`} text={lbl} fontSize="0.8mm" pcbX={x + px + ox * survPinOff} pcbY={y + py + oy * survPinOff} pcbRotation={textRot} />
-      })}
+      {pins.map(([lbl, [px, py]], i) => (
+        <silkscreentext key={`s${i}`} text={lbl} fontSize="0.8mm" pcbX={x + px + ox * survPinOff} pcbY={y + py + oy * survPinOff} pcbRotation={textRot} />
+      ))}
     </>
   )
 }
