@@ -2,10 +2,13 @@
  * routing — the hand-routing geometry kit pcba.tsx builds pcbPaths with.
  *
  * A hand trace is a `route(...)`: pad anchors at the ends, one-dimensional constraints between.
- * `F.col(pin, dx)` is the vertical line dx east of a pad's CENTRE; `F.row(pin, dy)` the horizontal
- * line dy north of it. To hug a pad EDGE instead, `F.east/west(pin, gap)` and `F.above/below(pin,
- * gap)` place the line `gap` clear of that face of the real pad rectangle (from the footprint, so
- * the pad's true size is used — no guessed half-width). A corridor lane is a bare `{ col: x }`.
+ * Every `F.*` constraint reads in the PART's OWN frame: `F.col(pin, d)` steps d along the part's
+ * local-x from a pad, `F.row(pin, d)` along local-y; `F.east/west/above/below(pin, gap)` sit `gap`
+ * clear of the pad's own +x/−x/+y/−y face (real footprint size, no guessed half-width). The part's
+ * placement rotation drops each onto a board col or row — so at rot 0 they ARE the plain board
+ * lines, but when the part turns the whole trace turns with it (positions already rode a rotation;
+ * now the directions do too, so a cluster can be rotated and nothing inside it changes). A corridor
+ * lane is a bare `{ col: x }` — board-absolute, anchored to no part, so it deliberately does NOT ride.
  * Consecutive constraints intersect into the
  * waypoints, and the closing turn into each pad falls out of the pad itself — so every corner is
  * 90° by construction, every coordinate derives from the pad (or corridor) that shapes it, and the
@@ -16,19 +19,21 @@
 
 export type Pt = { x: number; y: number }
 type Constraint = { col: number } | { row: number }
-// A pad in the part's board-axes frame: centre offset from the part centre, plus the half-width /
-// half-height of its board-axis bounding box (so an edge is `pin ± half ± gap`, exact from the
-// footprint — never a guessed extent).
+// A pad in the part's own frame: centre offset (already rotated into board coords), plus the pad's
+// half-width / half-height in that frame (footprint dims, un-rotated — the frame rotates them).
 type PadGeom = { off: [number, number]; hw: number; hh: number }
+// Every method reads in the PART's frame and returns a board constraint: for a rotated part a `col`
+// (a line along local-x) can land on a board row, which is exactly what lets a trace ride the part
+// when it turns. At rot 0 they are the plain board col/row/edges.
 export type Frame = {
   name: string
   pin: (p: string) => Pt
-  col: (p: string, dx?: number) => { col: number }   // vertical line dx east of the pad CENTRE
-  row: (p: string, dy?: number) => { row: number }    // horizontal line dy north of the pad CENTRE
-  east: (p: string, gap?: number) => { col: number }  // vertical line gap east of the pad's east EDGE
-  west: (p: string, gap?: number) => { col: number }  // …west of the west edge
-  above: (p: string, gap?: number) => { row: number } // horizontal line gap north of the north edge
-  below: (p: string, gap?: number) => { row: number } // …south of the south edge
+  col: (p: string, d?: number) => Constraint    // line d along the part's local-x from the pad CENTRE
+  row: (p: string, d?: number) => Constraint    // line d along the part's local-y from the pad CENTRE
+  east: (p: string, gap?: number) => Constraint // line gap beyond the pad's local +x EDGE
+  west: (p: string, gap?: number) => Constraint // …its local −x edge
+  above: (p: string, gap?: number) => Constraint // …its local +y edge
+  below: (p: string, gap?: number) => Constraint // …its local −y edge
 }
 
 // Derive a part's pad offsets (board-axes mm from the part's centre) by walking its placed element
@@ -55,10 +60,11 @@ const framePins = (node: any): Record<string, PadGeom> => {
       const t = (r * Math.PI) / 180, cos = Math.cos(t), sin = Math.sin(t)
       const [px, py] = [mm(props.pcbX), mm(props.pcbY)]
       const off: [number, number] = [cos * px - sin * py, sin * px + cos * py]
-      // The pad rectangle rotated by r: its board-axis bounding half-extents. (Axis-aligned at 0/90/
-      // 180/270 — which every part here is — so this is the pad's own half-width / half-height.)
+      // The pad's own half-width / half-height, in the PART's frame (the footprint dims). The part's
+      // placement rotation is NOT baked in here — the frame's direction methods apply it — so an edge
+      // stays the pad's own face and rides when the part turns.
       const [w, h] = [props.width != null ? mm(props.width) : 0, props.height != null ? mm(props.height) : 0]
-      const geom: PadGeom = { off, hw: Math.abs(cos) * w / 2 + Math.abs(sin) * h / 2, hh: Math.abs(sin) * w / 2 + Math.abs(cos) * h / 2 }
+      const geom: PadGeom = { off, hw: w / 2, hh: h / 2 }
       out[props.portHints[0]] = geom
       for (const alias of labels[props.portHints[0]] ?? []) out[alias] = geom
     }
@@ -81,13 +87,15 @@ export function frame(el: any): Frame
 export function frame(name: string, cx: number, cy: number, rot: number, pins?: Record<string, [number, number]>): Frame
 export function frame(a: any, cx = 0, cy = 0, rot = 0, pins: Record<string, [number, number]> = {}): Frame {
   let name: string
+  let placeRot: number                             // placement rotation — turns local offset directions into board col/row
   let geoms: Record<string, PadGeom>
   if (a && typeof a === "object" && a.props) {     // placed element → derive centre and pad geometry
     name = a.props.name; cx = a.props.x; cy = a.props.y
+    placeRot = a.props.rot ?? a.props.pcbRotation ?? 0
     rot = 0                                        // framePins offsets arrive fully rotated
     geoms = framePins(a)
   } else {                                         // explicit form: board-assigned offsets, no pad size
-    name = a
+    name = a; placeRot = rot
     geoms = Object.fromEntries(Object.entries(pins).map(([k, off]) => [k, { off, hw: 0, hh: 0 }]))
   }
   const t = (rot * Math.PI) / 180, cos = Math.cos(t), sin = Math.sin(t)
@@ -96,14 +104,21 @@ export function frame(a: any, cx = 0, cy = 0, rot = 0, pins: Record<string, [num
     const [ox, oy] = geom(p).off
     return { x: cx + cos * ox - sin * oy, y: cy + sin * ox + cos * oy }
   }
+  // Part-LOCAL constraint lines. `lx`/`ly` step `d` along the part's own x / y axis, then the
+  // placement rotation drops the result onto a board col or row — so the SAME call rides the part
+  // when it turns (positions already ride; now the directions do too). Only 0/90/180/270 are used,
+  // so `pc`/`ps` are ±1 or 0 and every local axis lands cleanly on a board axis.
+  const pr = (placeRot * Math.PI) / 180, pc = Math.cos(pr), ps = Math.sin(pr)
+  const lx = (p: string, d: number): Constraint => Math.abs(pc) > 0.5 ? { col: pin(p).x + d * pc } : { row: pin(p).y + d * ps }
+  const ly = (p: string, d: number): Constraint => Math.abs(pc) > 0.5 ? { row: pin(p).y + d * pc } : { col: pin(p).x - d * ps }
   const f: Frame = {
     name, pin,
-    col: (p, dx = 0) => ({ col: pin(p).x + dx }),
-    row: (p, dy = 0) => ({ row: pin(p).y + dy }),
-    east: (p, gap = 0) => ({ col: pin(p).x + geom(p).hw + gap }),
-    west: (p, gap = 0) => ({ col: pin(p).x - geom(p).hw - gap }),
-    above: (p, gap = 0) => ({ row: pin(p).y + geom(p).hh + gap }),
-    below: (p, gap = 0) => ({ row: pin(p).y - geom(p).hh - gap }),
+    col: (p, d = 0) => lx(p, d),
+    row: (p, d = 0) => ly(p, d),
+    east: (p, gap = 0) => lx(p, geom(p).hw + gap),
+    west: (p, gap = 0) => lx(p, -(geom(p).hw + gap)),
+    above: (p, gap = 0) => ly(p, geom(p).hh + gap),
+    below: (p, gap = 0) => ly(p, -(geom(p).hh + gap)),
   }
   frames[name] = f
   return f
