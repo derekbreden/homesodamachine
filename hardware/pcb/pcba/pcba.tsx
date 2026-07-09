@@ -81,12 +81,18 @@ const ID = boardVersionParts()
 // a numeric x={…}/y={…} on the component's own line — web/lib/pcb-editor-routes.js parses/rewrites it),
 // then rendered below via {U14El}/… `frame(el)` derives centre, rotation, AND pad geometry from that one
 // element, so a drag moves the part and its routing follows — nothing to keep in sync by hand.
-const U14El = <Usblc6 name="U14" x={-56.25} y={17.75} rot={270} />
-const C22El = <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.5} y={21.0} rot={0} side="N" />
-const J14El = <UsbC name="J14" x={-62} y={17.75} rot={270} />
+const U14El = <Usblc6 name="U14" x={-56.25} y={16} rot={270} />
+const C22El = <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.25} y={19.5} rot={0} side="N" />
+const J14El = <UsbC name="J14" x={-62} y={16.5} rot={270} />
+const U13El = <Ch340 name="U13" x={-48.25} y={17.5} rot={270} />
+const R16El = <Res name="R16" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-56.75} y={13} rot={0} side="N" />
+const R15El = <Res name="R15" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-56.75} y={21.75} rot={0} side="N" />
 const U14f = frame(U14El)
 const J14f = frame(J14El)
 const C22f = frame(C22El)
+const U13f = frame(U13El)
+const R16f = frame(R16El)
+const R15f = frame(R15El)
 const dMinusLane = U14f.col("pin3", -0.85)
 
 // ── GAS/EN divider grid (pcbPath hand-routing) ───────────────────────────────────────
@@ -170,7 +176,7 @@ export default () => (
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
         pin2 (-> GND); the cell is retained by the molded base, not SMT clips. */}
     <CoinHolder name="BT1" x={-20.5} y={-1.25} />
-    <Ds3231Smd name="U6" x={-40.5} y={2.25} rot={270} />
+    <Ds3231Smd name="U6" x={-40.5} y={2.5} rot={270} />
     <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-38.75} y={-4.75} rot={0} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio, antenna keepout
         pointing west off the board edge. Usable GPIO sit on the north and south
@@ -378,7 +384,7 @@ export default () => (
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
     <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-10.25} y={12.5} rot={0} side="N" />
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-12.5} y={-25.5} rot={270} side="E" />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-12.75} y={-25.5} rot={270} side="E" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
@@ -669,9 +675,9 @@ export default () => (
         are the manual overrides (diagonal pads = the two switch terminals). */}
     {J14El}
     {U14El}
-    <Ch340 name="U13" x={-48.25} y={17.5} rot={270} />
-    <Res name="R16" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-63.5} y={11.5} rot={0} side="N" />
-    <Res name="R15" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-63.5} y={24} rot={0} side="N" />
+    {U13El}
+    {R16El}
+    {R15El}
     {C22El}
     <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-47.5} y={24.5} rot={0} side="N" />
     {/* EN branch (west): U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
@@ -691,9 +697,23 @@ export default () => (
     <trace from=".J14 > .pin2" to="net.GND" />
     <trace from=".J14 > .pin3" to="net.GND" />
     <trace from=".J14 > .pin4" to="net.GND" />
-    <trace from=".J14 > .pin6" to=".R15 > .pin1" />
+    {/* <trace from=".J14 > .pin6" to=".R15 > .pin1" /> */}
+    <trace from="R15.pin1" to="J14.pin6" pcbPathRelativeTo="board" pcbPath={route(
+        "R15.pin1",
+        R15f.col("pin1", -1),
+        R15f.row("pin1", 0.2),
+        J14f.col("pin6", -2.3),
+        "J14.pin6",
+    )} />
     <trace from=".R15 > .pin2" to="net.GND" />
-    <trace from=".J14 > .pin12" to=".R16 > .pin1" />
+    {/* <trace from=".J14 > .pin12" to=".R16 > .pin1" /> */}
+    <trace from="R16.pin1" to="J14.pin12" pcbPathRelativeTo="board" pcbPath={route(
+        "R16.pin1",
+        R16f.col("pin1", -1),
+        R16f.row("pin1", -1.9),
+        J14f.col("pin12", -2.3),
+        "J14.pin12",
+    )} />
     <trace from=".R16 > .pin2" to="net.GND" />
     {/* D+ = J14 pin8(A6)+pin10(B6), D- = J14 pin9(A7)+pin7(B7); the connector ties both USB-C
         orientations. Pads interleave D-/D+/D-/D+ (B7 18.5 / A6 18.0 / A7 17.5 / B6 17.0) at 0.5 mm
@@ -723,10 +743,28 @@ export default () => (
         J14f.row("pin16", 0),
         "J14.pin16",
     )} />
-    <trace from="U14.pin5" to="J14.pin15" pcbPathRelativeTo="board" pcbPath={route("U14.pin5", U14f.col("pin5", -0.8), "J14.pin15")} />
+    <trace from="U14.pin5" to="J14.pin15" pcbPathRelativeTo="board" pcbPath={route(
+        "U14.pin5",
+        U14f.col("pin5", -0.8),
+        "J14.pin15"
+    )} />
     <trace from=".C22 > .pin2" to="net.GND" />
-    <trace from=".U14 > .pin6" to=".U13 > .D_POS" />
-    <trace from=".U14 > .pin4" to=".U13 > .D_NEG" />
+    {/* <trace from=".U14 > .pin6" to=".U13 > .D_POS" /> */}
+    {/* <trace from="U14.pin6" to="U13.D_POS" pcbPathRelativeTo="board" pcbPath={route(
+        "U14.pin6",
+        U14f.col("pin6", 0.5),
+        U13f.col("D_POS", -1.1),
+        "U13.D_POS",
+    )} /> */}
+    <trace from="U14.pin6" to="U13.D_POS" pcbComb="columnToColumn" />
+    {/* <trace from=".U14 > .pin4" to=".U13 > .D_NEG" /> */}
+    {/* <trace from="U14.pin4" to="U13.D_NEG" pcbPathRelativeTo="board" pcbPath={route(
+        "U14.pin4",
+        U14f.col("pin4", 0.5),
+        U13f.col("D_NEG", -1.4),
+        "U13.D_NEG",
+    )} /> */}
+    <trace from="U14.pin4" to="U13.D_NEG" pcbComb="columnToColumn" />
     {/* CH340C: 3V3 supply (VCC + V3 tied for 3.3 V op) + 0.1uF decoupling; UART crossed to
         the WROOM (bridge TXD -> ESP RXD0/IO3, bridge RXD -> ESP TXD0/IO1). */}
     <trace from=".U13 > .VCC" to="net.V3V3" />
