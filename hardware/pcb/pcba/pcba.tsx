@@ -1,7 +1,7 @@
 /**
- * esp32-mcp-mini — the controller carrier. Off-the-shelf modules plug into
- * 2.54 mm header sockets; the board is the interconnect, and every off-board
- * interface lands on a labeled edge connector (J1-J11). Footprint geometry
+ * pcba — the controller board, ordered fully assembled from JLCPCB. Every active
+ * part is bare silicon on this board (no modules, nothing hand-soldered), and every
+ * off-board interface lands on a labeled edge connector (J1-J14). Footprint geometry
  * lives in ./parts (the part wrappers) and ./routing (hand-routing geometry); placement + routing
  * are declared here.
  *
@@ -822,7 +822,6 @@ export default () => (
     <trace from=".U3 > .GPB4" to=".J7 > .CLO" pcbComb="rowToRow" />
     <trace from=".U3 > .GPB5" to=".J7 > .CHI" pcbComb="rowToRow" />
     <trace from=".J7 > .GND" to="net.GND" />
-    <trace from=".U3 > .GND" to="net.GND" />
 
     {/* DISPLAY: the front 4.3" config panel's whole loom lands on J9 — RS485 signal AND the panel's
         7-36 V supply. The differential pair fans U7.A/B -> J9, tapped by the 120R termination (R6) and
@@ -959,8 +958,9 @@ export default () => (
 
     {/* ── Indicator LEDs flanking the brand logo ─────────────────────────────────────
         LEFT — firmware status, three otherwise-idle ESP GPIO, active-high to GND, boot-safe:
-        RED = fault (IO14, not a strap), GREEN = ready/heartbeat (IO2, wants low at boot),
-        BLUE = activity (IO12 / MTDI, wants low at boot — LED-to-GND only, never tied high).
+        RED = fault (IO15 / MTDO, runs high during boot — a glint at reset, harmless),
+        GREEN = ready/heartbeat (IO12 / MTDI, wants low at boot — LED-to-GND only, never
+        tied high), BLUE = activity (IO14, not a strap).
         RIGHT — power rails, each off its plane through a series R: 3V3 + 5V (3V3 lit ⇒ 12 V in
         AND the 5V buck + 3V3 LDO are up — the board is alive before firmware runs). 470R (C23179) per
         LED; ref-des silk stripped from the LED imports (it collides at this pitch), so meaning
@@ -1149,12 +1149,9 @@ export default () => (
             "U1.IO1",
         ]
     })()} />
-    {/* RXD/TXD (UART0, fixed to IO1/IO3 — the west-north pins) are deferred: their bottom lane west
-        would cross the pump comb's north exits, so the USB corner is re-planned before they land. */}
-    {/* Auto-reset cross-coupled pair (see block header for the truth table). Owning the region:
-        the six internal DTR/RTS connections are hand-routed below; Q3's collector reaches IO0 down
-        the far-west lane into U1's north-edge corridor. Q2's collector reach to EN stays deferred —
-        EN sits on U1's south edge, behind the module, reachable only from the south. */}
+    {/* Auto-reset cross-coupled pair (see block header for the truth table): the six internal
+        DTR/RTS connections, then each collector's reach — Q3 down the far-west lane into U1's
+        north-edge corridor to IO0; Q2 around the far-west flank to EN on the south edge. */}
     {/* base nodes: each transistor's base to the near (south) pin of its base resistor */}
     <trace from="Q2.B" to="R17.pin1" pcbPathRelativeTo="board" pcbPath={route("Q2.B", "R17.pin1")} />
     <trace from="Q3.B" to="R18.pin1" pcbPathRelativeTo="board" pcbPath={route("Q3.B", "R18.pin1")} />

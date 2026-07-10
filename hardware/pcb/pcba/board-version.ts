@@ -9,7 +9,7 @@
  * commit's own date; `+` is that commit plus uncommitted source edits. Off-repo,
  * the build date + "unknown".
  *
- * Computed at render time (mini.tsx calls boardVersion() for its identity silk),
+ * Computed at render time (pcba.tsx calls boardVersionParts() for its identity silk),
  * the board analogue of pre_build.py generating fw_version.h before a firmware
  * build.
  */
@@ -40,7 +40,7 @@ export function boardVersion(): string {
       .split("\n")
       .map((l) => l.slice(3))
       .some((p) => p && !regenerated.test(p))
-    return `${date} ${rev}`
+    return `${date} ${rev}${sourceDirty ? "+" : ""}`
   } catch {
     return `${buildDate()} unknown`
   }

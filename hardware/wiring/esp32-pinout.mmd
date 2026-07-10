@@ -5,24 +5,26 @@ flowchart LR
   %% assignment here without changing pcba.tsx first.
   %%
   %% ESP32-WROOM-32E GPIO assignments, mirroring the board's edge connectors.
-  %% Pumps now run on two on-board DRV8870 H-bridges (no L298N); the sensor loom,
-  %% relays, and the 1-wire bus moved off the old L298 pins onto the SENSORS /
-  %% RELAYS connectors. The six inputs sit on input-only / boot-safe pads.
+  %% Pumps run on two on-board DRV8870 H-bridges; the sensor loom and relays land
+  %% on the SENSORS / RELAYS connectors. The six inputs sit on input-only /
+  %% boot-safe pads.
   %% Valves + reeds ride the MCP23017 expanders (MCP -> ULN2803A), not direct GPIO.
   %% Current plan:
   %%   GPIO 19 drives the Teyleten relay #1 (compressor AC).
-  %%   GPIO 23 drives the Teyleten relay #2 (diaphragm pump 12 V, refill).
+  %%   GPIO 2 drives the Teyleten relay #2 (diaphragm pump 12 V, refill) — boot-safe:
+  %%     the opto module's LED load holds it low, which download mode also wants.
   %%   GPIO 26 hosts the DS18B20 1-wire bus (tank-wall + evap-suction probes).
   %%   GPIO 25 reads the DIGITEN flow meter (pulse input).
   %%   GPIO 27 reads the backflow drip-pan moisture sensor (SIG-9).
-  %%   GPIO 13 drives the passive piezo buzzer (PWM tone via LEDC; off-board).
+  %%   GPIO 13 drives the on-board buzzer (U8 magnetic transducer, PWM tone via
+  %%     LEDC, low-side switched by Q1).
   %%   GPIO 39 reads the MQ-6 gas / refrigerant-leak sensor AOUT (analog, ADC1) and
   %%     GPIO 36 reads its DOUT (LM393 comparator trip). MQ-6 outputs swing 0-5 V,
   %%     divided to 3.3 V on-board (36/39 are not 5 V tolerant). DOUT is the
   %%     hardware gas-trip signal (sensor low on the rear cabinet floor).
-  %%   Pumps: two on-board DRV8870 H-bridges — A on 18/17 (IN2/IN1, U11),
-  %%     B on 16/4 (IN2/IN1, U12). IN1/IN2 set H-bridge polarity (firmware picks
-  %%     the forward sense); there is no separate EN pin.
+  %%   Pumps: two on-board DRV8870 H-bridges, single-direction drive — A IN1 on
+  %%     GPIO 17 (U11), B IN1 on GPIO 4 (U12); each IN2 is tied to GND on-board
+  %%     (peristaltic tubing occlusion stops backflow, so no reverse).
   %% All 10 reed switches — 8 flavor-reservoir (4 per reservoir) + 2 carbonator
   %% (low/high) — are read through the I2C MCP23017 expanders, not direct ESP32
   %% GPIO, so every reed rides the MCP internal pull-up (no external resistors):
@@ -42,11 +44,14 @@ flowchart LR
   %%   GPIO 33/35 = Serial2, direct TTL UART -> 1.47" faucet display
   %%                (up the umbilical; the 1.47" breaks out TTL UART).
   %%   On-board status LEDs (active-high to GND, boot-safe), flanking the brand logo:
-  %%     RED on 14 (fault), GREEN on 2 (ready), BLUE on 12 (activity); 3V3 + 5V rail
-  %%     greens light straight off their planes (no GPIO).
-  %% Freed GPIOs still available:
-  %%   GPIO 15  - free (was the flow-meter pin)
-  %%   GPIO 5   - free (bootstrap-sensitive; was an L298 pump pin)
+  %%     RED on 15 (fault; high during boot — a glint at reset), GREEN on 12 (ready),
+  %%     BLUE on 14 (activity); 3V3 + 5V rail greens light straight off their planes
+  %%     (no GPIO).
+  %% Free GPIOs:
+  %%   GPIO 5   - free (bootstrap-sensitive; high at boot)
+  %%   GPIO 16  - free
+  %%   GPIO 18  - free
+  %%   GPIO 23  - free
   %% Programming — on-board USB-C block (J14 receptacle + U13 CH340C USB-UART bridge):
   %%   GPIO 0   boot strap (R8 pull-up to 3V3, BOOT button, DTR auto-reset via Q3)
   %%   GPIO 1   U0TXD (-> CH340 RXD)
@@ -68,10 +73,8 @@ flowchart LR
       P22["GPIO 22  SCL"]
     end
 
-    subgraph Pump_Pins["Pump H-bridges  (2× DRV8870)"]
-      P18["GPIO 18  pump A IN2  (U11)"]
+    subgraph Pump_Pins["Pump H-bridges  (2× DRV8870, single-direction: IN2s grounded on-board)"]
       P17["GPIO 17  pump A IN1  (U11)"]
-      P16["GPIO 16  pump B IN2  (U12)"]
       P4["GPIO 4   pump B IN1  (U12)"]
     end
 
@@ -88,7 +91,7 @@ flowchart LR
     end
 
     subgraph Carbonator_Pins["Carbonator Water"]
-      P23["GPIO 23  Diaphragm pump relay  (refill)"]
+      P2["GPIO 2   Diaphragm pump relay  (refill)"]
     end
 
     subgraph Alert_Pins["User Feedback"]
@@ -96,9 +99,9 @@ flowchart LR
     end
 
     subgraph LED_Pins["Status LEDs  (on-board, flanking the logo)"]
-      P14["GPIO 14  RED status LED (fault)"]
-      P2["GPIO 2   GREEN status LED (ready)"]
-      P12["GPIO 12  BLUE status LED (activity)"]
+      P15["GPIO 15  RED status LED (fault)"]
+      P12["GPIO 12  GREEN status LED (ready)"]
+      P14["GPIO 14  BLUE status LED (activity)"]
     end
   end
 
@@ -120,7 +123,7 @@ flowchart LR
 
   GAS["MQ-6 combustible-gas /\nR-600a leak sensor\n(rear cabinet floor)"]
 
-  BUZZER["DIYables passive\npiezo buzzer\n(prime / refill cues)"]
+  BUZZER["On-board buzzer U8\n(MLT-5020 magnetic transducer,\n prime / refill cues)"]
 
   VALVE_CHAIN["MCP23017 0x20 (8 valve outputs + 4 reed inputs)\nMCP23017 0x21 (4 valves + fan outputs + 6 reed inputs)\n  ↓\n2× ULN2803A → 12 valves + condenser fan\n  ↑\n10 reed switches\n(8 reservoir + 2 carbonator;\nsee valve-control)"]
 
@@ -137,8 +140,8 @@ flowchart LR
   P33 & P35 <-->|"Serial2 UART\n(direct TTL,\n up the umbilical)"| FAUCET
   P21 & P22 <-->|"I2C"| I2C_DEVICES
 
-  P18 & P17 -->|"Pump A"| DRV
-  P16 & P4 -->|"Pump B"| DRV
+  P17 -->|"Pump A IN1"| DRV
+  P4 -->|"Pump B IN1"| DRV
   DRV ==>|"Channel A"| PUMP1
   DRV ==>|"Channel B"| PUMP2
 
@@ -147,7 +150,7 @@ flowchart LR
   P19 -->|"3.3V drive"| RELAY
   RELAY ==>|"switched 120VAC"| COMP_AC
 
-  P23 -->|"3.3V drive"| DIA_RELAY
+  P2 -->|"3.3V drive"| DIA_RELAY
   DIA_RELAY ==>|"switched 12V"| DIA_PUMP
 
   DS_PROBES -->|"1-wire data"| P26
