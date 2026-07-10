@@ -19,11 +19,12 @@
  * or pcbComb (`comb`) is hand-authored (`authored`), matched to connections via source_trace.
  * display_name. Connections to a net ("X to net.Y") are plane stitches — outside the routing universe.
  *
- *   score = 100·(pcbPath·1 + pcbComb·½) / (pcbPath + pcbComb + deferred + auto)
+ *   score = 100·(pcbPath + pcbComb) / (pcbPath + pcbComb + deferred + auto)
  *
- * pcbComb counts half: it's off the autorouter but not condensed — the tightening pass will split
- * some combs into explicit paths. deferred (commented out) and auto (still autorouted) are the work
- * left. Canonical prose for these requirements — the why behind each — is in requirements.md.
+ * pcbComb counts full: a comb is deliberate hand-authored routing, same as an explicit path — the
+ * two are interchangeable forms (use whichever reads nicer / packs denser). deferred (commented
+ * out) and auto (still autorouted) are the work left. Canonical prose for these requirements —
+ * the why behind each — is in requirements.md.
  */
 import type { FootprintAudit } from "./footprint-audit"
 import type { ConnectorAudit } from "./connector-audit"
@@ -50,10 +51,10 @@ export type Scorecard = {
   // The manual-routing conversion, counted by rendered connection (not net). The score is the
   // headline: done + half-done over everything still to do. See the `score` formula below.
   pcbPath: number         // explicit-path traces (pcbPath / pcbStraightLine) — done, weight 1.0
-  pcbComb: number         // comb-strategy traces (pcbComb) — half done, weight 0.5 (condensing splits some)
+  pcbComb: number         // comb-strategy traces (pcbComb) — done, weight 1.0 (a comb is hand routing too)
   deferred: number        // connections commented out of source — routing work set aside
   auto: number            // live signal connections still on the autorouter — the work remaining
-  score: number           // 100·(pcbPath + ½·pcbComb) / (pcbPath + pcbComb + deferred + auto), 0..100
+  score: number           // 100·(pcbPath + pcbComb) / (pcbPath + pcbComb + deferred + auto), 0..100
 }
 
 /** Everything the scorecard reads. The gate inputs are what pick-data already computed; the goal
@@ -117,9 +118,9 @@ export function buildScorecard(inp: ScorecardInput): Scorecard {
   }
   const deferredN = inp.deferred.length
   const routingTotal = pcbPath + pcbComb + deferredN + auto
-  // Score: a finished (pcbPath) connection counts full; a comb counts half (condensing will split
-  // some of them into explicit paths later); deferred and auto both count as not-yet-done.
-  const score = routingTotal ? Math.round((100 * (pcbPath + 0.5 * pcbComb)) / routingTotal) : 100
+  // Score: every hand-authored connection counts full — an explicit path and a comb are both
+  // deliberate routing; deferred and auto both count as not-yet-done.
+  const score = routingTotal ? Math.round((100 * (pcbPath + pcbComb)) / routingTotal) : 100
 
   const checks: Check[] = []
   const gate = (id: string, label: string, ok: boolean, value: string, target: string, detail?: string[]) =>
@@ -179,9 +180,9 @@ export function buildScorecard(inp: ScorecardInput): Scorecard {
 
   // ── GOALS — the manual-routing conversion, by connection. The score is the headline; auto and
   // deferred are the actionable backlogs. pcbPath/pcbComb counts ride the score row's detail. ──
-  goal("routing-score", "Signal routing converted (pcbPath ×1 + pcbComb ×½)", score === 100,
+  goal("routing-score", "Signal routing hand-authored (pcbPath + pcbComb)", score === 100,
     `${score}%`, "100%",
-    [`${pcbPath} pcbPath (done) + ${pcbComb} pcbComb (half) of ${routingTotal} — ${deferredN} deferred, ${auto} auto still to do`])
+    [`${pcbPath} pcbPath + ${pcbComb} pcbComb (both done) of ${routingTotal} — ${deferredN} deferred, ${auto} auto still to do`])
 
   goal("auto", "Signal connections still on the autorouter", auto === 0, `${auto}`, "0", autoList)
 

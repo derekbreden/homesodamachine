@@ -45,19 +45,21 @@ paths). See [`hand-routing.md`](hand-routing.md) for how to place it.
 The headline is a single **score**, counted per rendered signal *connection* (a `source_trace`):
 
 ```
-score = 100 · (pcbPath·1 + pcbComb·½) / (pcbPath + pcbComb + deferred + auto)
+score = 100 · (pcbPath + pcbComb) / (pcbPath + pcbComb + deferred + auto)
 ```
 
 | Bucket | Weight | Meaning |
 |---|---|---|
 | `pcbPath` | 1.0 | Connections on explicit hand paths (`pcbPath` / `pcbStraightLine`) — done |
-| `pcbComb` | 0.5 | Connections on a comb *strategy* (`pcbComb`) — off the autorouter but not condensed. The tightening pass will split some into explicit paths, so they count half |
+| `pcbComb` | 1.0 | Connections on a comb *strategy* (`pcbComb`) — done. A comb is deliberate hand routing, interchangeable with an explicit path: use whichever reads nicer and packs denser |
 | `deferred` | 0 | Connections commented out of source — routing work set aside, still to do |
 | `auto` | 0 | Live signal connections still on the autorouter — the work remaining |
 
-`score` reaches 100% only when every connection is an explicit hand path: no `auto`, no `deferred`,
-and every comb condensed. The four counts ride the chip (`15 pcbPath · 39 pcbComb · 32% score`) and
-the terminal, with `auto` and `deferred` expanded as the actionable backlog.
+`score` reaches 100% only when every connection is hand-authored: no `auto`, no `deferred`. The
+four counts ride the chip (`15 pcbPath · 39 pcbComb · 32% score`) and the terminal, with `auto`
+and `deferred` expanded as the actionable backlog. Past 100, the work is **tightening** — pulling
+components into denser bundles, toward a smaller board: the real size floor is the board-edge
+parts (JSTs, screw terminal, USB-C, buttons, antenna) and the interior those edges enclose.
 
 **How the split is measured.** There is no "manual" flag in the circuit-json, so authorship is read
 from source. Each hand-authored `<trace>` (a `pcbPath`/`pcbStraightLine` is `path`; a `pcbComb` is

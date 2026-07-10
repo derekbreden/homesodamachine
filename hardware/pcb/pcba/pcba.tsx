@@ -153,9 +153,9 @@ const U11El = <Drv8870 name="U11" x={-28.25} y={22.5} rot={0} />
 const U12El = <Drv8870 name="U12" x={-21.25} y={22.5} rot={0} />
 const U11f = frame(U11El), U12f = frame(U12El)
 // Firmware status-LED resistors, framed for the GPIO-feed routing below.
-const R10El = <Res name="R10" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-15.5} rot={0} side="N" />
-const R11El = <Res name="R11" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-18} rot={0} side="N" />
-const R12El = <Res name="R12" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-20.5} rot={0} side="N" />
+const R10El = <Res name="R10" resistance="470" footprint="0603" jlcpcb="C23179" x={-43.2} y={-15.5} rot={0} side="N" />
+const R11El = <Res name="R11" resistance="470" footprint="0603" jlcpcb="C23179" x={-43.2} y={-18} rot={0} side="N" />
+const R12El = <Res name="R12" resistance="470" footprint="0603" jlcpcb="C23179" x={-43.2} y={-20.5} rot={0} side="N" />
 const R10f = frame(R10El), R11f = frame(R11El), R12f = frame(R12El)
 // RS485 display block, framed for the A/B pair routing below.
 const U7El = <Cos13487 name="U7" x={-19} y={-23} rot={180} />
@@ -179,8 +179,8 @@ const D4El = <LedBlu name="D4" pcbRotation={180} {...at(-39.75, -20.5)} />
 const D5El = <LedGrn name="D5" {...at(-29.75, -17)} />
 const D6El = <LedGrn name="D6" {...at(-29.75, -20)} />
 const D2f = frame(D2El), D3f = frame(D3El), D4f = frame(D4El), D5f = frame(D5El), D6f = frame(D6El)
-const R13El = <Res name="R13" resistance="470" footprint="0603" jlcpcb="C23179" x={-25.25} y={-17} rot={180} side="N" />
-const R14El = <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={-25.25} y={-20} rot={180} side="N" />
+const R13El = <Res name="R13" resistance="470" footprint="0603" jlcpcb="C23179" x={-26.4} y={-17} rot={180} side="N" />
+const R14El = <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={-26.4} y={-20} rot={180} side="N" />
 const R13f = frame(R13El), R14f = frame(R14El)
 
 // ── I2C bus (SDA / SCL as routeInner traces on the plane layers) ─────────────────────────
@@ -304,12 +304,12 @@ export default () => (
     {/* On-board supplies. U10 = K7805 (12V->5V, 2A) SIP module (pin1 Vin / pin2 GND / pin3
         +Vo), 10uF input + 22uF output cap. U9 = AMS1117-3.3 (C6186, SOT-223 LDO) makes 3V3
         from the 5V rail: VIN off V5, VOUT1 + VOUT2 (tab) to 3V3, GND to the bottom plane;
-        the SMD pads auto-stitch to their planes. Each cap flanks the LDO at the pin of its
-        own net: C13 (10uF V5 input) hard by VIN on the east, C14 (22uF 3V3 output) under the
-        VOUT tab on the west — so each closes a tight local loop like C15/C16 flank U10. */}
+        the SMD pads auto-stitch to their planes. C13 (10uF V5 input) + C14 (22uF 3V3
+        output) stand as a vertical pair hard against U9's east pin column — each closes a
+        tight local loop like C15/C16 flank U10. */}
     <Ams1117 name="U9" x={7} y={21.25} rot={0} />
-    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={14.5} y={21} rot={0} side="N" />
-    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={14.5} y={24} rot={0} side="N" />
+    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={13.3} y={18.6} rot={90} side="E" />
+    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={13.3} y={23.15} rot={90} side="E" />
     <Buck5 name="U10" x={15.25} y={-25} />
     <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={23} y={-27} rot={90} side="E" />
     <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={23} y={-22} rot={270} side="E" />
@@ -323,11 +323,11 @@ export default () => (
         only IN1 PWM'd from the ESP. That halves the IN bus to one trace per pump and frees IO16/IO18.
         (Reversible: re-add IN2->IO16/IO18 if a reverse/anti-drip mode is ever wanted.) */}
     {U11El}
-    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-29.75} y={14.75} rot={90} side="E" />
-    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-26.5} y={14.75} rot={90} side="E" />
+    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-29.75} y={16.3} rot={90} side="E" />
+    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-26.5} y={16.3} rot={90} side="E" />
     {U12El}
-    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-22.75} y={14.75} rot={90} side="E" />
-    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-19.5} y={14.75} rot={90} side="E" />
+    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-22.75} y={16.3} rot={90} side="E" />
+    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-19.5} y={16.3} rot={90} side="E" />
     {U2El}
     {U3El}
     {U4El}
@@ -649,9 +649,8 @@ export default () => (
         OUT1-6 rise to their barrels, OUT7-8 drop. Each 0.3mm line exits its pad east, turns
         in its own lane column, and closes east into the barrel. Riser lanes step east as the
         rows descend (J1x-4.4 .. J1x-1.4, pitch 0.6) so every riser passes only landing rows
-        above its own; the westmost lane starts east of C13's pad (edge x16.2). The two
-        fallers turn west of the risers — their short columns are y-disjoint below the fan
-        (OUT8 reuses the -4.4 lane column under OUT1's riser). */}
+        above its own. The two fallers turn west of the risers — their short columns are
+        y-disjoint below the fan (OUT8 reuses the -4.4 lane column under OUT1's riser). */}
     <trace from="U4.OUT1" to="J1.OUT1" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT1", J1f.col("OUT1", -4.4), J1f.row("OUT1"), "J1.OUT1")} />
     <trace from="U4.OUT2" to="J1.OUT2" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT2", J1f.col("OUT2", -3.8), J1f.row("OUT2"), "J1.OUT2")} />
     <trace from="U4.OUT3" to="J1.OUT3" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT3", J1f.col("OUT3", -3.2), J1f.row("OUT3"), "J1.OUT3")} />
