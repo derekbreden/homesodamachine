@@ -56,14 +56,16 @@ const framePins = (node: any): Record<string, PadGeom> => {
     if (typeof type === "function") { try { walk(type(props), rot) } catch {} return }  // open the wrapper
     const r = rot + (props.pcbRotation != null ? mm(props.pcbRotation) : 0)
     if (props.pinLabels) labels = props.pinLabels
-    if (type === "smtpad" && props.portHints?.length) {
+    if ((type === "smtpad" || type === "platedhole") && props.portHints?.length) {
       const t = (r * Math.PI) / 180, cos = Math.cos(t), sin = Math.sin(t)
       const [px, py] = [mm(props.pcbX), mm(props.pcbY)]
       const off: [number, number] = [cos * px - sin * py, sin * px + cos * py]
       // The pad's own half-width / half-height, in the PART's frame (the footprint dims). The part's
       // placement rotation is NOT baked in here — the frame's direction methods apply it — so an edge
-      // stays the pad's own face and rides when the part turns.
-      const [w, h] = [props.width != null ? mm(props.width) : 0, props.height != null ? mm(props.height) : 0]
+      // stays the pad's own face and rides when the part turns. A plated hole's copper is its
+      // outer ring, so its "pad size" is the outer diameter.
+      const w = props.width != null ? mm(props.width) : props.outerDiameter != null ? mm(props.outerDiameter) : props.outerWidth != null ? mm(props.outerWidth) : 0
+      const h = props.height != null ? mm(props.height) : props.outerDiameter != null ? mm(props.outerDiameter) : props.outerHeight != null ? mm(props.outerHeight) : 0
       const geom: PadGeom = { off, hw: w / 2, hh: h / 2 }
       out[props.portHints[0]] = geom
       // pinLabels values are a string OR an array of aliases — normalise, or a bare string
