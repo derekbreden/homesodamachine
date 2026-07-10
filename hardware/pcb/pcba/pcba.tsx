@@ -62,7 +62,7 @@
  */
 import { at, Cap, Res, Jst, jstPins, ulnOUT, Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870, Tact } from "./parts"
 import { KF301_5_0_2P } from "./imports/KF301_5_0_2P"
-import { frame, route, channel } from "./routing"
+import { frame, route, routeBottom, channel } from "./routing"
 import { boardVersionParts } from "./board-version"
 import { logoRoutes } from "./logo"
 import { KT_0603R as LedRed } from "./imports/KT_0603R"
@@ -793,7 +793,15 @@ export default () => (
     <trace from=".C21 > .pin1" to="net.V3V3" />
     <trace from=".C21 > .pin2" to="net.GND" />
     {/* <trace from=".U13 > .TXD" to=".U1 > .IO3" /> */}
-    {/* <trace from=".U13 > .RXD" to=".U1 > .IO1" /> */}
+    {/* Bridge RXD ← ESP TX0 (IO1). The top face here is walled (USB-C block + reset lattice), so this
+        drops to the BOTTOM plane: via on RXD, a lane at y-10.5 (under J14's pin1 pill, clear of the
+        stitch vias), west to IO1's column, via back up on IO1. Pad-via-to-pad-via, bottom-only. */}
+    <trace from="U13.RXD" to="U1.IO1" pcbPathRelativeTo="board" pcbPath={routeBottom(
+        "U13.RXD",
+        { row: 10.5 },
+        U1f.col("IO1"),
+        "U1.IO1",
+    )} />
     {/* Auto-reset cross-coupled pair (see block header for the truth table). Owning the region:
         the six internal DTR/RTS connections are hand-routed below; Q3's collector reaches IO0 down
         the far-west lane into U1's north-edge corridor. Q2's collector reach to EN stays deferred —

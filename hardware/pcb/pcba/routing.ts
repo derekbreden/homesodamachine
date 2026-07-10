@@ -134,21 +134,23 @@ export const channel = (a: number, b: number, bias = 0): number => (a + b) / 2 +
 // supplies the one coordinate it is responsible for; the other carries over from the point before,
 // and the closing turn into the far pad comes from the pad itself. "U14.pin1" anchors resolve
 // through the frame registry.
+// Resolve an "Comp.pad" anchor to its board {x, y} through the frame registry.
+const padAt = (anchor: string): Pt => {
+  const [name, pad] = [anchor.slice(0, anchor.indexOf(".")), anchor.slice(anchor.indexOf(".") + 1)]
+  const f = frames[name] ?? (() => { throw new Error(`no frame ${name}`) })()
+  return f.pin(pad)
+}
+
 export const route = (from: string, ...rest: [...Constraint[], string]): (Pt | string)[] => {
   const to = rest[rest.length - 1] as string
   const constraints = rest.slice(0, -1) as Constraint[]
-  const at = (anchor: string): Pt => {
-    const [name, pad] = [anchor.slice(0, anchor.indexOf(".")), anchor.slice(anchor.indexOf(".") + 1)]
-    const f = frames[name] ?? (() => { throw new Error(`route: no frame ${name}`) })()
-    return f.pin(pad)
-  }
   const pts: Pt[] = []
-  let cur = at(from)
+  let cur = padAt(from)
   for (const c of constraints) {
     cur = "col" in c ? { x: c.col, y: cur.y } : { x: cur.x, y: c.row }
     pts.push(cur)
   }
-  const end = at(to)
+  const end = padAt(to)
   if (constraints.length) {
     const last = constraints[constraints.length - 1]!
     const close = "col" in last ? { x: cur.x, y: end.y } : { x: end.x, y: cur.y }
@@ -156,4 +158,32 @@ export const route = (from: string, ...rest: [...Constraint[], string]): (Pt | s
       pts.push(close)
   }
   return [from, ...pts, to]
+}
+
+// A via-point in a pcbPath: a full-stack top<->bottom through-hole at (x,y) that switches the copper
+// onto `toLayer` for the segments that follow (tscircuit's manual-trace renderer honours this).
+export type ViaPt = { x: number; y: number; via: true; toLayer: "top" | "bottom" }
+export type PathPt = Pt | ViaPt
+
+// A BOTTOM-layer path with a via on each end pad — Derek's "pad via to pad via". Same orthogonal
+// geometry as route(), but the run lives on the bottom plane: a via drops on the FROM pad, the
+// waypoints carry on the bottom, and a via climbs back to top on the TO pad (the trace's own from/to
+// close it on top). The two pads are the ONLY vias. Reach for this only once the top face is proven
+// blocked and the bottom corridor is clear — the GND pour antipads this copper like any crossing
+// signal, and any autorouter trace it fouls is deferred, never negotiated. Corridor lanes here are
+// board-absolute ({row}/{col}) because they thread board-fixed obstacles (vias, plated holes).
+export const routeBottom = (from: string, ...rest: [...Constraint[], string]): PathPt[] => {
+  const to = rest[rest.length - 1] as string
+  const mids = route(from, ...rest).slice(1, -1) as Pt[]   // reuse route()'s orthogonal waypoints
+  const a = padAt(from), b = padAt(to)
+  // A via must be a zero-length transition: the wire on each side has to sit AT the via's point
+  // (tscircuit's via-alignment check), so each via is bracketed by a coincident wire on the new layer
+  // — exactly the `wire@p, via@p, wire@p, …` shape the autorouter emits.
+  return [
+    { x: a.x, y: a.y, via: true, toLayer: "bottom" },
+    { x: a.x, y: a.y },
+    ...mids,
+    { x: b.x, y: b.y },
+    { x: b.x, y: b.y, via: true, toLayer: "top" },
+  ]
 }
