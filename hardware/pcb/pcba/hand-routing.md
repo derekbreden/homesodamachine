@@ -64,8 +64,11 @@ as a group.
 
 With no constraints, `route("R7.pin1", "C12.pin1")` is the straight pad-to-pad tie. The
 `pcbPathRelativeTo="board"` on the trace makes the numeric points board coordinates — exactly
-what the viewer and [`plot-region.py`](plot-region.py) read. Vias are full-stack top↔bottom only
-(JLCPCB drills through-holes), so a hand path lives on **top or bottom**.
+what the viewer and [`plot-region.py`](plot-region.py) read. Every via is one full-stack
+through-hole **drill** (JLCPCB drills no blind/buried); the copper may enter and leave it on
+any layer — `route` stays on top, `routeBottom` pairs top pads through the bottom, and
+`routeInner` drops onto a plane layer (the barrel record spans the whole column, so pours
+antipad it on every plane it crosses).
 
 `frame(el)` supplies the pads: centre, rotation, and pad geometry all derive from the placed
 element and its imported footprint, so the placement is the single source of truth. `.pin(p)` is

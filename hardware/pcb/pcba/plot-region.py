@@ -10,7 +10,7 @@ circuit-json; run `bun render-board.ts pcba.tsx` first.
 e.g. the USB-C corner:
     tools/cad-venv/bin/python plot-region.py out/pcba.circuit.json -63 -52 13 23 /tmp/corner.png
 
-Coordinates are board mm (north is up). Legend: red=top blue=bottom gray=inner green=via gold=pad.
+Coordinates are board mm (north is up). Legend: red=top blue=bottom teal=inner1 orange=inner2 green=via gold=pad.
 """
 import json, sys, math
 from PIL import Image, ImageDraw, ImageFont
@@ -32,7 +32,7 @@ except Exception: font = ImageFont.load_default()
 
 c = json.load(open(path))
 LAYER = {"top": (235, 70, 60), "bottom": (70, 120, 235),
-         "inner1": (90, 90, 95), "inner2": (90, 90, 95), "inner3": (90, 90, 95), "inner4": (90, 90, 95)}
+         "inner1": (60, 190, 165), "inner2": (225, 150, 60)}  # teal SDA/3V3 layer, orange SCL/5V layer
 
 for gx in range(math.ceil(x0), math.floor(x1) + 1):
     d.line([P(gx, y0), P(gx, y1)], fill=(55, 55, 62) if gx % 5 == 0 else (32, 32, 38))

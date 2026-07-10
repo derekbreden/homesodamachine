@@ -13,8 +13,10 @@
  * waypoints, and the closing turn into each pad falls out of the pad itself — so every corner is
  * 90° by construction, every coordinate derives from the pad (or corridor) that shapes it, and the
  * path rides any move of its parts, alone or as a group. Points are board coordinates: each trace
- * declares pcbPathRelativeTo="board". Manual vias are full-stack top<->bottom ONLY, so hand paths
- * live on the top or bottom layer.
+ * declares pcbPathRelativeTo="board". Every manual via is one full-stack through-hole DRILL; the
+ * copper may enter and leave it on any layer (routeBottom pairs top pads through the bottom,
+ * routeInner drops onto a trace-free inner plane layer), so a hand path lives on whichever
+ * layers its via points name.
  */
 
 export type Pt = { x: number; y: number }
@@ -165,9 +167,12 @@ export const route = (from: string, ...rest: [...Constraint[], string]): (Pt | s
   return [from, ...pts, to]
 }
 
-// A via-point in a pcbPath: a full-stack top<->bottom through-hole at (x,y) that switches the copper
-// onto `toLayer` for the segments that follow (tscircuit's manual-trace renderer honours this).
-export type ViaPt = { x: number; y: number; via: true; toLayer: "top" | "bottom" }
+// A via-point in a pcbPath: one full-stack through-hole DRILL at (x,y) that switches the copper
+// onto `toLayer` for the segments that follow (tscircuit's manual-trace renderer honours this;
+// the core fork records the barrel as spanning every layer, so pours antipad it on each plane
+// it crosses even when the copper transition ends on an inner layer).
+export type Layer = "top" | "inner1" | "inner2" | "bottom"
+export type ViaPt = { x: number; y: number; via: true; toLayer: Layer }
 export type PathPt = Pt | ViaPt
 
 // A BOTTOM-layer path with a via on each end pad — Derek's "pad via to pad via". Same orthogonal
@@ -193,5 +198,26 @@ export const routeBottom = (from: string, ...rest: [...Constraint[], string]): P
     ...mids,
     { x: b.x, y: b.y },
     { x: b.x, y: b.y, via: true, toLayer: "top" },
+  ]
+}
+
+// A path from an SMD pad to a plated-hole BARREL — the I2C bus-edge shape. A via drops on the
+// FROM pad (via-in-pad, one full-stack drill), the run rides `layer` — the plane layers are the
+// widest corridors on the board, carrying no other traces — and the path simply ENDS at the
+// barrel: a plated hole conducts on every layer, so the far end needs no via at all. That
+// asymmetry is what lets a multi-drop net share one junction (each SMD pad carries exactly one
+// via; every edge meets at the barrel) with no two drills ever landing on the same point —
+// closing INTO a barrel with a via (routeBottom's shape) would put a via drill inside the
+// connector's drill, a coincident-hit DFM fault. `layer` may also be "bottom": the same
+// barrel-terminated shape one layer down (a connector-bound routeBottom). The same shadow
+// discipline as routeBottom applies: a pad's footprint is via territory through the whole
+// stack, so lanes stay out of foreign pad shadows and 0.14 clear of every barrel.
+export const routeInner = (layer: "inner1" | "inner2" | "bottom", from: string, ...rest: [...Constraint[], string]): PathPt[] => {
+  const a = padAt(from)
+  const mids = route(from, ...rest).slice(1, -1) as Pt[]   // reuse route()'s orthogonal waypoints
+  return [
+    { x: a.x, y: a.y, via: true, toLayer: layer },
+    { x: a.x, y: a.y },
+    ...mids,
   ]
 }

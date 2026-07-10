@@ -292,9 +292,9 @@ const ds3231PinLabels = {
 }
 
 // JLCPCB-imported footprint (./imports/DS3231SN_T_R, C9866) for the correct CPL rotation.
-// Nearly all pins are poured nets (VCC/GND/SDA/SCL auto-stitch) or run to the coin cell
-// (VBAT->BT1), so seating rotation is a fit choice, not a routing one; rot 270 keeps the
-// long axis vertical as before. The import's built-in 32kHz/INTSQW labels are overridden with
+// VCC/GND auto-stitch to their planes, SDA/SCL ride the I2C routeInner edges (pcba.tsx),
+// and VBAT runs to the coin cell (BT1); rot 270 keeps the
+// long axis vertical. The import's built-in 32kHz/INTSQW labels are overridden with
 // ours (NC pins 5-12 dropped). Its {NAME} silk is stripped (sideways at rot 270); the ref-des
 // is drawn here upright, centred on the body — a pure function of (x,y).
 export const Ds3231Smd = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => (

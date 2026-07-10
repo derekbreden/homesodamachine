@@ -33,9 +33,10 @@
  * circles but silently drops pill shapes, so USB-C shield slots and DRV8870 pill pads sit in
  * solid plane copper. Same-net overlap is the intended connection and is skipped.
  *
- * VIA SPAN — JLCPCB standard assembly drills through-holes only. Any pcb_via whose two
- * endpoints are not exactly {top, bottom} is a blind/buried via and is flagged: the router
- * routes multi-layer and every via must end up a full-column through-hole.
+ * VIA SPAN — JLCPCB standard assembly drills through-holes only. Any pcb_via whose BARREL
+ * (`layers`) does not reach both outer layers is a blind/buried via and is flagged: every
+ * via must be one full-column drill. The copper transition (from_layer/to_layer) may end on
+ * an inner layer (routeInner) — the through barrel conducts on every layer it crosses.
  *
  * SLIVER — a poured fragment thinner than the fab's minimum feature width (2·area/perimeter)
  * is a floating acid-trap the pour solver left behind; flagged as a fab risk, not a short.
@@ -430,15 +431,18 @@ function pourShortErrors(
   return out
 }
 
-// VIA SPAN — flag any via that is not a full-column through-hole (endpoints {top, bottom}).
+// VIA SPAN — flag any via whose BARREL is not a full-column through-hole. The drill is what
+// `layers` describes; a barrel that doesn't reach both outer layers is a blind/buried via.
+// The copper transition (from_layer/to_layer) may legitimately end on an inner layer
+// (routeInner) — a through barrel conducts on every layer it crosses.
 function viaSpanErrors(circuit: any[]): BoardError[] {
   const out: BoardError[] = []
   const bad: string[] = []
   for (const e of circuit) {
     if (e.type !== "pcb_via") continue
-    const ends = new Set([e.from_layer, e.to_layer].filter(Boolean))
-    const through = ends.has("top") && ends.has("bottom") && ends.size === 2
-    if (!through) bad.push(`${e.from_layer}↔${e.to_layer} @(${round(e.x)},${round(e.y)})`)
+    const span = new Set(e.layers ?? [])
+    const through = span.has("top") && span.has("bottom")
+    if (!through) bad.push(`${(e.layers?.length ? e.layers : [e.from_layer, e.to_layer]).join("→")} @(${round(e.x)},${round(e.y)})`)
   }
   if (bad.length) {
     for (const b of bad.slice(0, ERR_CAP)) out.push({ kind: "blind-via", text: `Blind/buried via ${b} — JLCPCB drills through-holes only` })
