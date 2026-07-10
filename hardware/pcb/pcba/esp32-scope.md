@@ -9,7 +9,7 @@ UART hub:
   faucet).
 - Flashed over serial (`pio run -e esp32dev -t upload`): UART0 + EN/IO0.
 
-## Connected pins (`mini.tsx`)
+## Connected pins (`pcba.tsx`)
 
 Pins are assigned by which WROOM edge faces their connector — north-edge GPIO feed the
 top connectors, south-edge GPIO the bottom — so each connector's traces comb straight to
