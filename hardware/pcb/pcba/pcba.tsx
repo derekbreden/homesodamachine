@@ -499,10 +499,34 @@ export default () => (
         pull-up to 3V3 on-board (R9 above), not the ESP's weak internal one; flow uses the
         internal pull-up (open-collector). 3V3 powers the DS18B20 probes + the moisture
         module; V5 the flow sensor. */}
-    {/* SENSORS IO25/26/27 evicted — owning the north region (step 5); re-add / hand-route in rebuild. */}
-    {/* <trace from=".J4 > .IO25" to=".U1 > .IO25" />
-    <trace from=".J4 > .IO26" to=".U1 > .IO26" />
-    <trace from=".J4 > .IO27" to=".U1 > .IO27" /> */}
+    {/* SENSORS IO25/26/27 — owned: a nested 3-lane top comb from U1's south row to J4. Stubs exit
+        each pad SOUTH; lanes stack IO27/IO26/IO25 top-to-bottom (0.6 pitch, above the buzzer pads)
+        so no stub crosses a foreign lane, and the W→E pin order lands J4's W→E order uncrossed.
+        Drops: IO25 can't use its own column (R9.pin1 squats on it, U8._POS pinches beside it, and
+        the LED cathode column blocks the J4.GND/V5 channel), so it drops early in the open corridor
+        between J3.IO33's column and the R10-R12 field, then runs the low band east under R9 into
+        the barrel; IO26 drops straight down its barrel column (R9's tap is the same net); IO27
+        drops centred in the D6.pin2/D5.pin1 channel, closing west into its barrel below the LEDs. */}
+    <trace from="U1.IO25" to="J4.IO25" pcbPathRelativeTo="board" pcbPath={route(
+        "U1.IO25",
+        U1f.below("IO25", 1.65),                            // bottom lane
+        { col: channel(-48.5, -45) },                       // drop between J3.IO33's column and the R field
+        J4f.row("IO25", 1.2),                               // low band: under R9, over the barrel row
+        "J4.IO25",
+    )} />
+    <trace from="U1.IO26" to="J4.IO26" pcbPathRelativeTo="board" pcbPath={route(
+        "U1.IO26",
+        U1f.below("IO26", 1.05),                            // middle lane
+        J4f.col("IO26"),                                    // straight down the barrel column
+        "J4.IO26",
+    )} />
+    <trace from="U1.IO27" to="J4.IO27" pcbPathRelativeTo="board" pcbPath={route(
+        "U1.IO27",
+        U1f.below("IO27", 0.45),                            // top lane
+        J4f.col("IO27", 0.25),                              // centred in the D6.pin2/D5.pin1 channel
+        J4f.row("IO27", 1.5),                               // below the LED rows, west into the barrel
+        "J4.IO27",
+    )} />
     <trace from=".J4 > .GND" to="net.GND" />
 
     {/* PUMP DRIVERS — the two DRV8870 H-bridges (U11 pump A, U12 pump B). Single-direction drive:
@@ -710,13 +734,13 @@ export default () => (
     <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={-25.25} y={-20} rot={180} side="N" />
     
     {/* firmware: GPIO -> R -> anode, cathode -> GND */}
-    <trace from=".U1 > .IO14" to=".R10 > .pin1" />
+    {/* <trace from=".U1 > .IO14" to=".R10 > .pin1" /> */}{/* evicted — owning the sensor corridor (step 5); re-add in rebuild */}
     <trace from=".R10 > .pin2" to=".D2 > .anode" />
     <trace from=".D2 > .cathode" to="net.GND" />
-    <trace from=".U1 > .IO2" to=".R11 > .pin1" />
+    {/* <trace from=".U1 > .IO2" to=".R11 > .pin1" /> */}{/* evicted — owning the sensor corridor (step 5); re-add in rebuild */}
     <trace from=".R11 > .pin2" to=".D3 > .anode" />
     <trace from=".D3 > .cathode" to="net.GND" />
-    <trace from=".U1 > .IO12" to=".R12 > .pin1" />
+    {/* <trace from=".U1 > .IO12" to=".R12 > .pin1" /> */}{/* evicted — owning the sensor corridor (step 5); re-add in rebuild */}
     <trace from=".R12 > .pin2" to=".D4 > .anode" />
     <trace from=".D4 > .cathode" to="net.GND" />
     {/* rails: plane -> R -> anode, cathode -> GND (R/LED pads auto-stitch to their planes) */}
