@@ -171,7 +171,10 @@ export type PathPt = Pt | ViaPt
 // close it on top). The two pads are the ONLY vias. Reach for this only once the top face is proven
 // blocked and the bottom corridor is clear — the GND pour antipads this copper like any crossing
 // signal, and any autorouter trace it fouls is deferred, never negotiated. Corridor lanes here are
-// board-absolute ({row}/{col}) because they thread board-fixed obstacles (vias, plated holes).
+// board-absolute ({row}/{col}) because they thread board-fixed obstacles (vias, plated holes) —
+// and they stay OUT of foreign pad shadows: a pad's footprint is via territory through the whole
+// stack (stitch vias and pad-vias land there), so a lane under a pad row is a pad-shadow error
+// (clearance.ts), not a shortcut.
 export const routeBottom = (from: string, ...rest: [...Constraint[], string]): PathPt[] => {
   const to = rest[rest.length - 1] as string
   const mids = route(from, ...rest).slice(1, -1) as Pt[]   // reuse route()'s orthogonal waypoints

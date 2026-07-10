@@ -86,6 +86,14 @@ didn't void it). Reach for it only once the **top face is proven blocked** — t
 and the bottom corridor is clear; its lanes are board-absolute `{ row }`/`{ col }` because they thread
 board-fixed obstacles (plated holes, stitch vias), and any autorouter trace it fouls is deferred.
 
+**Pad shadows are walls on every layer.** A pad's footprint is reserved through the ENTIRE stack —
+the plane stitcher lands a via-in-pad on every poured-net pad, and pad-via-to-pad-via is how any
+signal pad gets to the bottom — so a bottom (or inner) lane never crosses under a foreign pad's
+outline. A lane through a pad row spends every crossed pad's via column and walls those pins off
+the bottom for good. The `pad-shadow` rows in `errors` gate this ([`clearance.ts`](clearance.ts));
+[`trace-check.py`](trace-check.py) reports the same approaches as `shadow`. Thread *between* pad
+columns, or take a lane clear of the row's y-band entirely.
+
 ## Moving a component tighter
 
 Packing the board is a **one-line change**, not a waypoint rewrite:
@@ -114,8 +122,8 @@ bun render-board.ts pcba.tsx          # writes out/pcba.circuit.json + out/pcba.
 ```
 
 - **Floor + errors:** `out/pcba.picks.json` → `clearance.floor` (target **≥ 0.14**) and
-  `errors` (must be empty — includes courtyard/placement, not just clearance). This is the
-  board's own DRC ([`clearance.ts`](clearance.ts)), and it measures copper leaving vias.
+  `errors` (must be empty — includes courtyard/placement/pad-shadow, not just clearance). This is
+  the board's own DRC ([`clearance.ts`](clearance.ts)), and it measures copper leaving vias.
 - **Zoom in** — the failure mode is routing from coordinates you can't see. Plot a region:
 
   ```

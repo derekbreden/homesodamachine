@@ -13,7 +13,10 @@ For every hand-authored trace touching the filter, it prints each sub-floor appr
 segment of your trace, what it hits (a segment of another net — flagged AUTO/hand — or a pad
 comp.pin), the gap, and the point. The tail groups fouls by other-net with a verdict: an AUTO net is
 `evict`; a hand net or pad is `fix`. Vias are full-stack; a trace segment near a foreign via is
-reported like a pad. Copper on different layers never conflicts.
+reported like a pad. Copper on different layers never conflicts — with one exception: a pad's
+footprint projects through the ENTIRE stack (plane stitches and pad-via-to-pad-via both land a
+barrel in it), so a cross-layer approach inside a foreign pad's outline reports as `shadow`, same
+floor. clearance.ts gates the same rule as `pad-shadow` errors.
 """
 import json, sys, argparse, math
 
@@ -48,7 +51,8 @@ def seg_rect_dist(a, b, rx, ry, hw, hh, rot_deg=0):
     (exact for rectangles; a slight over-estimate for pills, i.e. conservative)."""
     t = -math.radians(rot_deg); cs, sn = math.cos(t), math.sin(t)
     best = 1e9
-    for k in (i / 24 for i in range(25)):
+    n = max(24, int(math.hypot(b[0] - a[0], b[1] - a[1]) / 0.35) + 1)  # step ≤ 0.35 mm so no pad slips between samples
+    for k in (i / n for i in range(n + 1)):
         px, py = a[0] + k * (b[0] - a[0]) - rx, a[1] + k * (b[1] - a[1]) - ry
         lx, ly = cs * px - sn * py, sn * px + cs * py
         ddx, ddy = max(abs(lx) - hw, 0), max(abs(ly) - hh, 0)
@@ -165,12 +169,14 @@ def main():
                     if gap < a.floor:
                         findings.append((gap, "trace", t, s, u["disp"], u["auth"], u["key"], s2, pt))
             for pd in pads:
-                if layer not in pd["layers"]: continue
                 if pd["net"] is not None and pd["net"] == t["key"]: continue
+                # cross-layer only ever reaches here for a single-layer pad (vias/holes span every
+                # layer): that's the pad's through-stack SHADOW — via-in-pad territory
+                shadow = layer not in pd["layers"]
                 g = seg_rect_dist((ax, ay), (bx, by), pd["x"], pd["y"], pd["hw"], pd["hh"], pd.get("rot", 0))
                 gap = g - half
                 if gap < a.floor:
-                    findings.append((gap, "pad", t, s, pd["name"], False, pd["net"], None, (pd["x"], pd["y"])))
+                    findings.append((gap, "shadow" if shadow else "pad", t, s, pd["name"], False, pd["net"], None, (pd["x"], pd["y"])))
     findings.sort(key=lambda f: f[0])
     print(f"# {len(focus)} hand trace(s) in filter; floor {a.floor} mm\n")
     for gap, kind, t, s, other, auth, okey, s2, pt in findings:
@@ -180,6 +186,9 @@ def main():
             tag = "AUTO" if not auth else "hand"
             print(f"{gap:+.3f}mm  MINE [{t['disp']}] seg {seg}")
             print(f"          x {tag} [{other}] {where}")
+        elif kind == "shadow":
+            print(f"{gap:+.3f}mm  MINE [{t['disp']}] seg {seg}")
+            print(f"          x SHADOW of pad {other} {where} (cross-layer: its column is via territory)")
         else:
             print(f"{gap:+.3f}mm  MINE [{t['disp']}] seg {seg}")
             print(f"          x pad {other} {where}")
@@ -189,11 +198,14 @@ def main():
     for gap, kind, t, s, other, auth, okey, s2, pt in findings:
         if kind == "trace":
             k = (other, "AUTO" if not auth else "hand")
+        elif kind == "shadow":
+            k = (f"pad {other}", "shadow")
         else:
             k = (f"pad {other}", "pad")
         g = grp.setdefault(k, [1e9, 0]); g[0] = min(g[0], gap); g[1] += 1
     for (name, cls), (worst, n) in sorted(grp.items(), key=lambda kv: kv[1][0]):
-        verdict = "EVICT its net" if cls == "AUTO" else ("fix your trace" if cls == "hand" else "nudge off pad")
+        verdict = ("EVICT its net" if cls == "AUTO" else "fix your trace" if cls == "hand"
+                   else "leave its column — pad projects through the stack" if cls == "shadow" else "nudge off pad")
         print(f"  {worst:+.3f}mm x{n}  [{name}] ({cls}) -> {verdict}")
 
 if __name__ == "__main__":

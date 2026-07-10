@@ -17,6 +17,15 @@
  * joins), then connectivity key (one signal net), then unique (unconnected copper). Stitch
  * and mst pcb_traces carry no ports, so their net comes from their source_trace.
  *
+ * SHADOW — a pad's footprint is reserved through the ENTIRE stack, not just its own copper layer.
+ * On this board the column under a pad is barrel territory: the plane stitcher drops a via-in-pad
+ * on every poured-net SMD pad, and pad-via-to-pad-via (routeBottom) is the sanctioned move onto
+ * the bottom for signals — so any pad, stitched or not, is one net-assignment or one routeBottom
+ * away from being a through-hole. Foreign-net trace copper crossing a pad's projected outline on a
+ * layer the pad is NOT on shares no layer with it, so the FLOOR never pairs them — yet it spends
+ * the pad's via column and threads the stitch field at fab-floor gaps. Flagged when the trace
+ * copper is inside the projection or within the 0.1 mm fab floor of it.
+ *
  * POUR — a solid copperpour must not cover foreign-net copper: for every pcb_copper_pour
  * (an outer ring minus its antipad void rings) any discrete copper of a DIFFERENT net whose
  * body lands in the SOLID region is a short (the pour floods it with no antipad). This is the
@@ -60,6 +69,7 @@ const TIGHT_MAX = 8  // how many of the tightest pairs to keep for the readout
 const MIN_FEATURE_WIDTH = 0.1 // fab minimum copper feature width (mm) — thinner pours are slivers
 const SLIVER_MAX_AREA = 0.15 // mm² — a thin fragment this small is a floating sliver, not a thin-waisted plane
 const ERR_CAP = 24 // cap on how many pour/via findings to keep (dedup + summary handle the rest)
+const SHADOW_CLEARANCE = 0.1 // fab min clearance, applied to a pad's through-stack projection (SHADOW)
 
 // A net name is a real signal name unless it's a synthetic id (__u/__t/__v) or a raw
 // connectivity key — those read as "signal" in the human-facing readout.
@@ -239,8 +249,32 @@ export function analyzeClearance(circuit: any[]): ClearanceReport {
   }
   pairs.sort((x, y) => x.gap - y.gap)
 
+  // SHADOW (see file header) — foreign-net trace copper crossing a pad's through-stack projection
+  // on a layer the pad is not on. Single-layer pad feats only: a plated-hole barrel is real copper
+  // on every layer and already lives in the FLOOR. Same-layer approaches are likewise the FLOOR's
+  // axis; this pairs exactly what the FLOOR structurally cannot.
+  const shadows: { gap: number; text: string }[] = []
+  const shadowSeen = new Set<string>()
+  for (const P of feats) {
+    if (P.kind !== "pad" || P.layers.size !== 1) continue
+    for (const T of feats) {
+      if (T.kind !== "trace" || T.net === P.net || shareLayer(P, T)) continue
+      if (P.minx > T.maxx + SHADOW_CLEARANCE || T.minx > P.maxx + SHADOW_CLEARANCE || P.miny > T.maxy + SHADOW_CLEARANCE || T.miny > P.maxy + SHADOW_CLEARANCE) continue
+      const d = dist(P, T)
+      if (d >= SHADOW_CLEARANCE) continue
+      const key = `${P.label}|${T.net}|${[...T.layers].join()}`
+      if (shadowSeen.has(key)) continue
+      shadowSeen.add(key)
+      shadows.push({ gap: d, text: `Pad shadow — ${T.label} (${[...T.layers].join("/")}) in ${P.label}'s through-stack shadow (${[...P.layers].join("/")} pad, gap ${round(d)} mm)` })
+    }
+  }
+  shadows.sort((a, b) => a.gap - b.gap)
+  const shadowErrors: BoardError[] = shadows.slice(0, ERR_CAP).map((s) => ({ kind: "pad-shadow", text: s.text }))
+  if (shadows.length > ERR_CAP) shadowErrors.push({ kind: "pad-shadow", text: `…and ${shadows.length - ERR_CAP} more pad-shadow crossings` })
+
   const errors = [
     ...floatingPadErrors(circuit, netById, netOfPort, refPin, traceNet),
+    ...shadowErrors,
     ...pourShortErrors(circuit, LAYERS, netByKey, netById, netOfPort, refPin, netOfTrace, traceNet),
     ...viaSpanErrors(circuit),
     ...sliverErrors(circuit, netById),

@@ -19,7 +19,7 @@ not a gate: the board still fabs while it converts.
 |---|---|---|---|---|
 | 1 | Every net fully connected in copper | 0 opens | An open ships a dead pin the clearance floor can't see | [`connectivity.ts`](connectivity.ts) |
 | 2 | Copper-to-copper clearance | ≥ 0.14 mm | Below the fab's etch tolerance nets bridge | [`clearance.ts`](clearance.ts) |
-| 3 | No overlaps / courtyard faults / slivers | 0 errors | Genuine DRC failures — shorts, part collisions, acid traps | [`clearance.ts`](clearance.ts) |
+| 3 | No overlaps / courtyard faults / slivers / pad shadows | 0 errors | Genuine DRC failures — shorts, part collisions, acid traps, and foreign trace copper inside a pad's through-stack shadow (every pad's column is via-in-pad territory: plane stitches and pad-via-to-pad-via land there) | [`clearance.ts`](clearance.ts) |
 | 4 | Part keep-outs clear (IPC-7351 courtyard) | no overlap | Bodies measured as copper + IPC courtyard excess (Nominal 0.25 mm); a real overlap can't be assembled. Sub-Nominal-but-copper-clears pairs are an advisory, not a fab-blocker | [`footprint-audit.ts`](footprint-audit.ts) |
 | 5 | Connector bodies clear of edge & neighbours | 0 flagged | Housings must physically seat and mate | [`connector-audit.ts`](connector-audit.ts) |
 | 6 | Every placed part carries a JLCPCB # | all sourced | An unsourced placed part can't be assembled | fab stats |
