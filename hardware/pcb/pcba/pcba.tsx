@@ -154,6 +154,13 @@ const R10El = <Res name="R10" resistance="470" footprint="0603" jlcpcb="C23179" 
 const R11El = <Res name="R11" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-18} rot={0} side="N" />
 const R12El = <Res name="R12" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-20.5} rot={0} side="N" />
 const R10f = frame(R10El), R11f = frame(R11El), R12f = frame(R12El)
+// RS485 display block, framed for the A/B pair routing below.
+const U7El = <Cos13487 name="U7" x={-19} y={-23} rot={180} />
+const R6El = <Res name="R6" resistance="120" footprint="0603" jlcpcb="C22787" x={-19} y={-28} rot={0} side="N" />
+const D1El = <Sm712 name="D1" x={-24.5} y={-27.5} rot={180} />
+const J9El = <Jst name="J9" x={-20.25} y={-33} count={4} labels={["B", "A", "GND", "V12"]} label="DISPLAY" rot={180} />
+const U7f = frame(U7El), R6f = frame(R6El), D1f = frame(D1El)
+const J9f = frame("J9", J9El.props.x, J9El.props.y, 0, Object.fromEntries(jstPins(J9El.props).pins))
 
 // ── Decoupling audit ────────────────────────────────────────────────────────────────────
 // The single source of truth for which support cap serves which part, its role, and its job
@@ -237,9 +244,9 @@ export default () => (
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
         only DI (from ESP TX) and RO (to ESP RX) are driven. R6 = 120R line termination
         across A/B; D1 = SM712 ESD array at the J9 cable entry; C7 decouples VCC. */}
-    <Cos13487 name="U7" x={-19} y={-23} rot={180} />
-    <Res name="R6" resistance="120" footprint="0603" jlcpcb="C22787" x={-19} y={-28} rot={0} side="N" />
-    <Sm712 name="D1" x={-24.5} y={-27.5} rot={180} />
+    {U7El}
+    {R6El}
+    {D1El}
     <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-18.5} y={-17.75} rot={0} side="N" />
     {/* On-board supplies. U10 = K7805 (12V->5V, 2A) SIP module (pin1 Vin / pin2 GND / pin3
         +Vo), 10uF input + 22uF output cap. U9 = AMS1117-3.3 (C6186, SOT-223 LDO) makes 3V3
@@ -292,7 +299,7 @@ export default () => (
     <Jst name="J6" x={-7.0} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" rot={0} />
     <Jst name="J7" x={-3.0} y={-33} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" rot={180} />
     <Jst name="J8" x={8.5} y={31} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" rot={0} />
-    <Jst name="J9" x={-20.25} y={-33} count={4} labels={["B", "A", "GND", "V12"]} label="DISPLAY" rot={180} />
+    {J9El}
     {/* 12V inlet — KF301-5.0-2P 2-pin 5.0mm screw terminal (C474881, 17A/250V), the board's power
         inlet on the south edge (east end, over the V12 island). Sized for the ~3.3A peak
         (both pumps priming + a few valves + the condenser fan) with margin the 2A XH wafer didn't
@@ -621,14 +628,47 @@ export default () => (
         power return, and the cable earth all in one; V12 (pin4) feeds the panel its 12 V. Since V12
         is a top island (not a plane), J9.V12's barrel only picks it up where the pour physically covers
         it — the V12 rectangle (below) floods under the whole south edge, covering J9's V12 barrel. */}
-    {/* RS485 A/B pair + termination + ESD — evicted while owning the north region (step 5); these
-        re-add / hand-route in the rebuild. */}
-    {/* <trace from=".U7 > .A" to=".J9 > .A" />
-    <trace from=".U7 > .B" to=".J9 > .B" />
-    <trace from=".U7 > .A" to=".R6 > .pin1" />
-    <trace from=".U7 > .B" to=".R6 > .pin2" />
-    <trace from=".U7 > .A" to=".D1 > .A" />
-    <trace from=".U7 > .B" to=".D1 > .B" /> */}
+    {/* The pair's pin order SWAPS between ends (A west of B at U7/R6, east of B at J9), so a
+        planar route inside the pocket is impossible — B escapes it: east through the J9 GND/V12
+        barrel channel, along the strip south of the connector row, into J9.B by its south face.
+        A stays inside: down R6.pin1's column, west over the barrel row, into J9.A. R6 hangs
+        directly under the pair (each pin a straight drop off its transceiver pad's column); D1
+        taps A in the U7-row/D1.GND channel and feeds J9.B's barrel from its own B pad. */}
+    <trace from="U7.A" to="R6.pin1" pcbPathRelativeTo="board" pcbPath={route(
+        "U7.A",
+        U7f.col("A"),               // straight down; the closing jog lands inside pin1
+        "R6.pin1",
+    )} />
+    <trace from="U7.B" to="R6.pin2" pcbPathRelativeTo="board" pcbPath={route(
+        "U7.B",
+        U7f.col("B"),
+        "R6.pin2",
+    )} />
+    <trace from="U7.A" to="D1.A" pcbPathRelativeTo="board" pcbPath={route(
+        "U7.A",
+        U7f.above("A", 0.275),      // U7 sits rot 180: its local "above" is board-south — centred between the pad row and D1.GND's stitch
+        D1f.col("A"),
+        "D1.A",
+    )} />
+    <trace from="R6.pin1" to="J9.A" pcbPathRelativeTo="board" pcbPath={route(
+        "R6.pin1",
+        J9f.row("A", 2),            // west over the barrel row
+        J9f.col("A"),
+        "J9.A",
+    )} />
+    <trace from="R6.pin2" to="J9.B" pcbPathRelativeTo="board" pcbPath={route(
+        "R6.pin2",
+        R6f.below("pin2", 0.97),    // clear of the pad before the east jog
+        { col: channel(J9f.pin("GND").x, J9f.pin("V12").x) }, // the GND/V12 barrel channel
+        J9f.row("B", -2.2),         // the strip south of the connector row
+        J9f.col("B"),
+        "J9.B",
+    )} />
+    <trace from="D1.B" to="J9.B" pcbPathRelativeTo="board" pcbPath={route(
+        "D1.B",
+        J9f.row("B", 1.5),          // east under D1, down into the barrel's north face
+        "J9.B",
+    )} />
     <trace from=".D1 > .GND" to="net.GND" />
     <trace from=".J9 > .GND" to="net.GND" />
     <trace from=".J9 > .V12" to="net.V12" />
