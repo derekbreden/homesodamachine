@@ -126,6 +126,9 @@ const SW1f = frame(SW1El)
 // to U1. Column pitch 2.0 (rot90 courtyard ~1.8 wide — the middle tap needs the 0.2 mm lane, so this
 // is the floor); row pitch 3.5 (courtyard ~3.3 tall). Grid pulled north to the U1 courtyard so J11
 // can follow it up. One const per axis → one-line move; frames + placements read the same const.
+// Ref-des sit E (the vertical preference): R2's tap rises east of its label (the -2.1 jog), C12's
+// W dodges the EN riser in its channel, and R4's E crosses the IO36 tap hairline — the one channel
+// R4 has (EN riser west, column link south, the module north), a deliberate least-collision pick.
 const CX_EN = -65.5, CX_DOUT = -63.5, CX_AOUT = -61.5   // columns W→E
 const CY_BOT = -15.8, CY_TOP = -12.3                    // input (south) / GND·V3V3 (north) rows (N clears U1 courtyard -10.05)
 // Placed here (not down in the return) so each frame derives from its own element; rendered below
@@ -135,7 +138,7 @@ const R2El = <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x
 const R3El = <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={CX_DOUT} y={CY_BOT} rot={90} side="E" />   // DOUT in (pin1 S) → midpoint (pin2 N)
 const R4El = <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={CX_DOUT} y={CY_TOP} rot={90} side="E" />  // midpoint (pin1 S) → GND (pin2 N)
 const R7El = <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={CX_EN} y={CY_BOT} rot={270} side="E" />    // EN node (pin1 N) → V3V3 (pin2 S)
-const C12El = <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={CX_EN} y={CY_TOP} rot={90} side="E" />  // EN node (pin1 S) → GND (pin2 N); near U1.EN
+const C12El = <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={CX_EN} y={CY_TOP} rot={90} side="W" />  // EN node (pin1 S) → GND (pin2 N); near U1.EN
 const R1f = frame(R1El), R2f = frame(R2El), R3f = frame(R3El), R4f = frame(R4El), R7f = frame(R7El), C12f = frame(C12El)
 const U1El = <Esp32 name="U1" x={-57} y={0} rot={0} />
 const U1f = frame(U1El)                               // ESP32; taps by label (EN/IO36/IO39)
@@ -945,7 +948,7 @@ export default () => (
     <trace from=".R4 > .pin2" to="net.GND" />
     <trace from="R2.pin1" to="U1.IO39" pcbPathRelativeTo="board" pcbPath={route(
         "R2.pin1",
-        R2f.row("pin1", -0.8),
+        R2f.row("pin1", -2.1),      // rise east of R2's ref-des (the E label owns the near channel)
         U1f.below("IO39", 0.75),
         U1f.col("IO39", 0),
         "U1.IO39",
