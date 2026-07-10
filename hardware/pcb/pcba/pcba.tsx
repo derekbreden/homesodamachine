@@ -138,6 +138,11 @@ const U1El = <Esp32 name="U1" x={-57} y={0} rot={0} />
 const U1f = frame(U1El)                               // ESP32; taps by label (EN/IO36/IO39)
 const J11El = <Jst name="J11" x={-62} y={-24.3} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} label="GAS" rot={90} />
 const J11f = frame("J11", J11El.props.x, J11El.props.y, 0, Object.fromEntries(jstPins(J11El.props).pins))
+// SENSORS connector + its 1-wire pull-up (R9), framed for the R9→IO26 tap below.
+const R9El = <Res name="R9" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-34.25} y={-28.25} rot={0} side="N" />
+const R9f = frame(R9El)
+const J4El = <Jst name="J4" x={-36.25} y={-33} count={6} labels={["3V3", "GND", "V5", "IO25", "IO26", "IO27"]} label="SENSORS" rot={180} />
+const J4f = frame("J4", J4El.props.x, J4El.props.y, 0, Object.fromEntries(jstPins(J4El.props).pins))
 
 // ── Decoupling audit ────────────────────────────────────────────────────────────────────
 // The single source of truth for which support cap serves which part, its role, and its job
@@ -265,7 +270,7 @@ export default () => (
         combs straight up to its own side of J13 with no crossing. */}
     <Jst name="J13" x={-22.25} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" rot={0} />
     <Jst name="J3" x={-52.25} y={-33} count={4} labels={["GND", "V5", "IO35", "IO33"]} label="FAUCET" rot={180} />
-    <Jst name="J4" x={-36.25} y={-33} count={6} labels={["3V3", "GND", "V5", "IO25", "IO26", "IO27"]} label="SENSORS" rot={180} />
+    {J4El}
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
         (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
         IO19 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
@@ -635,9 +640,16 @@ export default () => (
         ac-wiring-schedule SIG-1). The bus runs ~600 mm out to the cold-core probes, too
         far for the ESP's ~45k internal pull-up, so the 1-wire bus gets its proper external
         pull-up on-board, at the SENSORS connector where the probe loom leaves the board. */}
-    <Res name="R9" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-34.25} y={-28.25} rot={0} side="N" />
+    {R9El}
     <trace from=".R9 > .pin1" to="net.V3V3" />
-    {/* <trace from=".R9 > .pin2" to=".J4 > .IO26" /> */}
+    {/* 1-wire pull-up tap: R9.pin2 drops onto IO26 at the SENSORS connector, sharing the pad with
+        the IO26 run to U1 — the external 4.7k sits right where the DS18B20 probe loom leaves the
+        board. Exit pin2's east face, ~1 mm jog, straight south into the pad. */}
+    <trace from="R9.pin2" to="J4.IO26" pcbPathRelativeTo="board" pcbPath={route(
+        "R9.pin2",
+        J4f.col("IO26", 0),
+        "J4.IO26",
+    )} />
 
     {/* ── Indicator LEDs flanking the brand logo ─────────────────────────────────────
         LEFT — firmware status, three otherwise-idle ESP GPIO, active-high to GND, boot-safe:
