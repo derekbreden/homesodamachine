@@ -149,6 +149,11 @@ const J5f = frame("J5", J5El.props.x, J5El.props.y, 0, Object.fromEntries(jstPin
 const U11El = <Drv8870 name="U11" x={-28.25} y={22.5} rot={0} />
 const U12El = <Drv8870 name="U12" x={-21.25} y={22.5} rot={0} />
 const U11f = frame(U11El), U12f = frame(U12El)
+// Firmware status-LED resistors, framed for the GPIO-feed routing below.
+const R10El = <Res name="R10" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-15.5} rot={0} side="N" />
+const R11El = <Res name="R11" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-18} rot={0} side="N" />
+const R12El = <Res name="R12" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-20.5} rot={0} side="N" />
+const R10f = frame(R10El), R11f = frame(R11El), R12f = frame(R12El)
 
 // ── Decoupling audit ────────────────────────────────────────────────────────────────────
 // The single source of truth for which support cap serves which part, its role, and its job
@@ -723,9 +728,9 @@ export default () => (
     <LedRed name="D2" pcbRotation={180} {...at(-39.75, -15.5)} />
     <LedGrn name="D3" pcbRotation={180} {...at(-39.75, -18)} />
     <LedBlu name="D4" pcbRotation={180} {...at(-39.75, -20.5)} />
-    <Res name="R10" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-15.5} rot={0} side="N" />
-    <Res name="R11" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-18} rot={0} side="N" />
-    <Res name="R12" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-20.5} rot={0} side="N" />
+    {R10El}
+    {R11El}
+    {R12El}
     {/* right — power rails (green); anode toward its R (outboard, +x). pin1=anode is already on
         the +x pad, so these stay native (rot 0) to face the anode pad outboard-right at its R. */}
     <LedGrn name="D5" {...at(-29.75, -17)} />
@@ -734,13 +739,32 @@ export default () => (
     <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={-25.25} y={-20} rot={180} side="N" />
     
     {/* firmware: GPIO -> R -> anode, cathode -> GND */}
-    {/* <trace from=".U1 > .IO14" to=".R10 > .pin1" /> */}{/* evicted — owning the sensor corridor (step 5); re-add in rebuild */}
+    {/* LED feeds — the top band south of U1 is the sensor comb's, so all three ride the BOTTOM as
+        nested pad-via L's; the GPIO→colour map is firmware's, so pins are assigned by geometry:
+        IO2 comes down U1's east flank (between the GND corner pad and R5.pin2) and takes the top
+        row, entering R10.pin1 by its north face; IO12/IO14 drop south off the pad row and nest
+        into R11/R12 by their west faces — east pin to upper row, so nothing crosses. */}
+    <trace from="U1.IO2" to="R10.pin1" pcbPathRelativeTo="board" pcbPath={routeBottom(
+        "U1.IO2",
+        { col: -46.85 },        // east-flank lane: between U1's GND corner pad and R5.pin2 shadows
+        { row: -14.6 },         // north of the R row, over to pin1's column
+        R10f.col("pin1"),
+        "R10.pin1",
+    )} />
     <trace from=".R10 > .pin2" to=".D2 > .anode" />
     <trace from=".D2 > .cathode" to="net.GND" />
-    {/* <trace from=".U1 > .IO2" to=".R11 > .pin1" /> */}{/* evicted — owning the sensor corridor (step 5); re-add in rebuild */}
+    <trace from="U1.IO12" to="R11.pin1" pcbPathRelativeTo="board" pcbPath={routeBottom(
+        "U1.IO12",
+        R11f.row("pin1"),
+        "R11.pin1",
+    )} />
     <trace from=".R11 > .pin2" to=".D3 > .anode" />
     <trace from=".D3 > .cathode" to="net.GND" />
-    {/* <trace from=".U1 > .IO12" to=".R12 > .pin1" /> */}{/* evicted — owning the sensor corridor (step 5); re-add in rebuild */}
+    <trace from="U1.IO14" to="R12.pin1" pcbPathRelativeTo="board" pcbPath={routeBottom(
+        "U1.IO14",
+        R12f.row("pin1"),
+        "R12.pin1",
+    )} />
     <trace from=".R12 > .pin2" to=".D4 > .anode" />
     <trace from=".D4 > .cathode" to="net.GND" />
     {/* rails: plane -> R -> anode, cathode -> GND (R/LED pads auto-stitch to their planes) */}
