@@ -173,6 +173,21 @@ const J9f = frame("J9", J9El.props.x, J9El.props.y, 0, Object.fromEntries(jstPin
 // Faucet UART connector, framed for the IO33/IO35 routing below.
 const J3El = <Jst name="J3" x={-52.25} y={-33} count={4} labels={["GND", "V5", "IO35", "IO33"]} label="FAUCET" rot={180} />
 const J3f = frame("J3", J3El.props.x, J3El.props.y, 0, Object.fromEntries(jstPins(J3El.props).pins))
+// Pumps connector + RTC block + status LEDs, framed for the last hand routes below.
+const J13El = <Jst name="J13" x={-22.25} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" rot={0} />
+const J13f = frame("J13", J13El.props.x, J13El.props.y, 0, Object.fromEntries(jstPins(J13El.props).pins))
+const BT1El = <CoinHolder name="BT1" x={-20.5} y={-1.25} />
+const U6El = <Ds3231Smd name="U6" x={-40.5} y={2.5} rot={270} />
+const BT1f = frame(BT1El), U6f = frame(U6El)
+const D2El = <LedRed name="D2" pcbRotation={180} {...at(-39.75, -15.5)} />
+const D3El = <LedGrn name="D3" pcbRotation={180} {...at(-39.75, -18)} />
+const D4El = <LedBlu name="D4" pcbRotation={180} {...at(-39.75, -20.5)} />
+const D5El = <LedGrn name="D5" {...at(-29.75, -17)} />
+const D6El = <LedGrn name="D6" {...at(-29.75, -20)} />
+const D2f = frame(D2El), D3f = frame(D3El), D4f = frame(D4El), D5f = frame(D5El), D6f = frame(D6El)
+const R13El = <Res name="R13" resistance="470" footprint="0603" jlcpcb="C23179" x={-25.25} y={-17} rot={180} side="N" />
+const R14El = <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={-25.25} y={-20} rot={180} side="N" />
+const R13f = frame(R13El), R14f = frame(R14El)
 
 // ── Decoupling audit ────────────────────────────────────────────────────────────────────
 // The single source of truth for which support cap serves which part, its role, and its job
@@ -230,8 +245,8 @@ export default () => (
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
         pin2 (-> GND); the cell is retained by the molded base, not SMT clips. */}
-    <CoinHolder name="BT1" x={-20.5} y={-1.25} />
-    <Ds3231Smd name="U6" x={-40.5} y={2.5} rot={270} />
+    {BT1El}
+    {U6El}
     <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-37.2} y={-4.75} rot={0} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio, antenna keepout
         pointing west off the board edge. Usable GPIO sit on the north and south
@@ -301,7 +316,7 @@ export default () => (
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
-    <Jst name="J13" x={-22.25} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" rot={0} />
+    {J13El}
     {J3El}
     {J4El}
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
@@ -418,8 +433,13 @@ export default () => (
     <trace from=".U6 > .GND" to="net.GND" />
     <trace from=".C6 > .pin2" to="net.GND" />
 
-    {/* RTC backup: CR2032 + (pin1) -> VBAT; - (pin2) -> GND. */}
-    <trace from=".U6 > .VBAT" to=".BT1 > .pin1" />
+    {/* RTC backup: CR2032 + (pin1) -> VBAT; - (pin2) -> GND. VBAT exits its east-row pad and
+        runs its own row east under the holder body, dropping into the + post from the north. */}
+    <trace from="U6.VBAT" to="BT1.pin1" pcbPathRelativeTo="board" pcbPath={route(
+        "U6.VBAT",
+        BT1f.col("pin1"),
+        "BT1.pin1",
+    )} />
     <trace from=".BT1 > .pin2" to="net.GND" />
 
 
@@ -603,8 +623,21 @@ export default () => (
     <trace from=".U11 > .PAD" to="net.GND" />
     <trace from=".U11 > .ISEN" to="net.GND" />
     <trace from=".U11 > .VREF" to="net.V3V3" />
-    <trace from=".U11 > .OUT1" to=".J13 > .AM1" thickness="0.4mm" />
-    <trace from=".U11 > .OUT2" to=".J13 > .AM2" thickness="0.4mm" />
+    {/* Pump OUT comb — the four 0.4mm motor lines fan north-east into J13, whose label order
+        already matches the pads' W→E order, so the rows just descend eastward (pitch 0.7) and
+        every riser/drop pair stays y-disjoint. */}
+    <trace from="U11.OUT2" to="J13.AM2" thickness="0.4mm" pcbPathRelativeTo="board" pcbPath={route(
+        "U11.OUT2",
+        J13f.row("AM2", -1.15),
+        J13f.col("AM2"),
+        "J13.AM2",
+    )} />
+    <trace from="U11.OUT1" to="J13.AM1" thickness="0.4mm" pcbPathRelativeTo="board" pcbPath={route(
+        "U11.OUT1",
+        J13f.row("AM1", -1.85),
+        J13f.col("AM1"),
+        "J13.AM1",
+    )} />
     <trace from=".C17 > .pin1" to="net.V12" />
     <trace from=".C17 > .pin2" to="net.GND" />
     <trace from=".C18 > .pin1" to="net.V12" />
@@ -625,8 +658,18 @@ export default () => (
     <trace from=".U12 > .PAD" to="net.GND" />
     <trace from=".U12 > .ISEN" to="net.GND" />
     <trace from=".U12 > .VREF" to="net.V3V3" />
-    <trace from=".U12 > .OUT1" to=".J13 > .BM1" thickness="0.4mm" />
-    <trace from=".U12 > .OUT2" to=".J13 > .BM2" thickness="0.4mm" />
+    <trace from="U12.OUT2" to="J13.BM2" thickness="0.4mm" pcbPathRelativeTo="board" pcbPath={route(
+        "U12.OUT2",
+        J13f.row("BM2", -2.55),
+        J13f.col("BM2"),
+        "J13.BM2",
+    )} />
+    <trace from="U12.OUT1" to="J13.BM1" thickness="0.4mm" pcbPathRelativeTo="board" pcbPath={route(
+        "U12.OUT1",
+        J13f.row("BM1", -3.25),
+        J13f.col("BM1"),
+        "J13.BM1",
+    )} />
     <trace from=".C19 > .pin1" to="net.V12" />
     <trace from=".C19 > .pin2" to="net.GND" />
     <trace from=".C20 > .pin1" to="net.V12" />
@@ -827,18 +870,18 @@ export default () => (
         is by colour + position (see esp32-scope.md). */}
     {/* left — firmware R/G/B; anode toward its R (outboard, -x). Every KT-0603 import carries
         pin1=anode on the +x pad, so all three rot 180 to swing the anode pad outboard-left. */}
-    <LedRed name="D2" pcbRotation={180} {...at(-39.75, -15.5)} />
-    <LedGrn name="D3" pcbRotation={180} {...at(-39.75, -18)} />
-    <LedBlu name="D4" pcbRotation={180} {...at(-39.75, -20.5)} />
+    {D2El}
+    {D3El}
+    {D4El}
     {R10El}
     {R11El}
     {R12El}
     {/* right — power rails (green); anode toward its R (outboard, +x). pin1=anode is already on
         the +x pad, so these stay native (rot 0) to face the anode pad outboard-right at its R. */}
-    <LedGrn name="D5" {...at(-29.75, -17)} />
-    <LedGrn name="D6" {...at(-29.75, -20)} />
-    <Res name="R13" resistance="470" footprint="0603" jlcpcb="C23179" x={-25.25} y={-17} rot={180} side="N" />
-    <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={-25.25} y={-20} rot={180} side="N" />
+    {D5El}
+    {D6El}
+    {R13El}
+    {R14El}
     
     {/* firmware: GPIO -> R -> anode, cathode -> GND */}
     {/* LED feeds — the top band south of U1 is the sensor comb's, so all three ride the BOTTOM as
@@ -854,28 +897,28 @@ export default () => (
         R10f.col("pin1"),
         "R10.pin1",
     )} />
-    <trace from=".R10 > .pin2" to=".D2 > .anode" />
+    <trace from="R10.pin2" to="D2.pin1" pcbPathRelativeTo="board" pcbPath={route("R10.pin2", "D2.pin1")} />
     <trace from=".D2 > .cathode" to="net.GND" />
     <trace from="U1.IO12" to="R11.pin1" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO12",
         R11f.row("pin1"),
         "R11.pin1",
     )} />
-    <trace from=".R11 > .pin2" to=".D3 > .anode" />
+    <trace from="R11.pin2" to="D3.pin1" pcbPathRelativeTo="board" pcbPath={route("R11.pin2", "D3.pin1")} />
     <trace from=".D3 > .cathode" to="net.GND" />
     <trace from="U1.IO14" to="R12.pin1" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO14",
         R12f.row("pin1"),
         "R12.pin1",
     )} />
-    <trace from=".R12 > .pin2" to=".D4 > .anode" />
+    <trace from="R12.pin2" to="D4.pin1" pcbPathRelativeTo="board" pcbPath={route("R12.pin2", "D4.pin1")} />
     <trace from=".D4 > .cathode" to="net.GND" />
     {/* rails: plane -> R -> anode, cathode -> GND (R/LED pads auto-stitch to their planes) */}
     <trace from=".R13 > .pin1" to="net.V3V3" />
-    <trace from=".R13 > .pin2" to=".D5 > .anode" />
+    <trace from="R13.pin2" to="D5.pin1" pcbPathRelativeTo="board" pcbPath={route("R13.pin2", "D5.pin1")} />
     <trace from=".D5 > .cathode" to="net.GND" />
     <trace from=".R14 > .pin1" to="net.V5" />
-    <trace from=".R14 > .pin2" to=".D6 > .anode" />
+    <trace from="R14.pin2" to="D6.pin1" pcbPathRelativeTo="board" pcbPath={route("R14.pin2", "D6.pin1")} />
     <trace from=".D6 > .cathode" to="net.GND" />
 
     {/* ── USB-C programming block ─────────────────────────────────────────────────────
