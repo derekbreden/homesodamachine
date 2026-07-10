@@ -76,6 +76,16 @@ the pad's board `{x, y}`; `.col`/`.row` step along the part's local x / y from t
 `a` and `b`, `−1`/`+1` hugs one wall to reserve the other side (principle 4). The GAS EN tap runs
 `{ col: channel(CX_EN, CX_DOUT) }` — centred in the R7/R3 corridor, not hugging either.
 
+**`routeBottom(from, …, to)`** is `route`'s bottom-layer twin: same orthogonal waypoints, but the run
+lives on the **bottom plane** between a via on the `from` pad and a via back up on the `to` pad — the
+two pads are the *only* vias ("pad via to pad via"). Each via is a zero-length transition bracketed by a
+coincident wire (tscircuit's via-alignment check wants a wire sitting on the via from both sides), which
+`routeBottom` emits for you. The bottom GND pour antipads this copper like any signal crossing it, so a
+clean render shows **0 errors** (a `pour-short` in `picks.json` means the trace is malformed or the pour
+didn't void it). Reach for it only once the **top face is proven blocked** — top is always preferred —
+and the bottom corridor is clear; its lanes are board-absolute `{ row }`/`{ col }` because they thread
+board-fixed obstacles (plated holes, stitch vias), and any autorouter trace it fouls is deferred.
+
 ## Moving a component tighter
 
 Packing the board is a **one-line change**, not a waypoint rewrite:
