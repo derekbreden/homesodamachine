@@ -259,10 +259,10 @@ export default () => (
         (Reversible: re-add IN2->IO16/IO18 if a reverse/anti-drip mode is ever wanted.) */}
     {U11El}
     <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-29.75} y={14.75} rot={90} side="E" />
-    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-26.75} y={14.75} rot={90} side="E" />
+    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-26.5} y={14.75} rot={90} side="E" />
     {U12El}
     <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-22.75} y={14.75} rot={90} side="E" />
-    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-19.75} y={14.75} rot={90} side="E" />
+    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-19.5} y={14.75} rot={90} side="E" />
     <Mcp23017 name="U2" x={-8} y={20.25} addr="0x20" rot={180} />
     <Mcp23017 name="U3" x={-1.75} y={-21.75} addr="0x21" rot={0} />
     <Uln2803 name="U4" x={9.25} y={9.5} rot={270} />
@@ -464,8 +464,8 @@ export default () => (
         IO32 — the ESP UART TX, which must be output-capable (IO34/35/36/39 can't
         drive). 3.3 V VCC keeps RO's swing safe for input-only IO34. /RE -> GND keeps
         the receiver always on; auto-direction is driven entirely off the DI pin. */}
-    <trace from=".U7 > .RO" to=".U1 > .IO34" />
-    <trace from=".U7 > .DI" to=".U1 > .IO32" />
+    {/* <trace from=".U7 > .RO" to=".U1 > .IO34" /> */}{/* deferred: autoroute shadowed U1.IO35/D6 under the north-comb re-solve */}
+    {/* <trace from=".U7 > .DI" to=".U1 > .IO32" /> */}{/* evicted — owning the north region (routing-procedure step 5) */}
     <trace from=".U7 > .RE" to="net.GND" />
     <trace from=".U7 > .GND" to="net.GND" />
     <trace from=".C7 > .pin2" to="net.GND" />
@@ -490,8 +490,8 @@ export default () => (
 
     {/* FAUCET UART — IO33 TX (output-capable) / IO35 RX (input-only), both S-edge pins;
         the connector sits in the bottom row below them. */}
-    <trace from=".J3 > .IO33" to=".U1 > .IO33" />
-    <trace from=".J3 > .IO35" to=".U1 > .IO35" />
+    {/* <trace from=".J3 > .IO33" to=".U1 > .IO33" />
+    <trace from=".J3 > .IO35" to=".U1 > .IO35" /> */}{/* faucet UART evicted — owning the north region (step 5) */}
     <trace from=".J3 > .GND" to="net.GND" />
 
     {/* SENSORS: flow (IO25) / 1-wire temps (IO26) / backflow drip-pan moisture
@@ -499,9 +499,10 @@ export default () => (
         pull-up to 3V3 on-board (R9 above), not the ESP's weak internal one; flow uses the
         internal pull-up (open-collector). 3V3 powers the DS18B20 probes + the moisture
         module; V5 the flow sensor. */}
-    <trace from=".J4 > .IO25" to=".U1 > .IO25" />
+    {/* SENSORS IO25/26/27 evicted — owning the north region (step 5); re-add / hand-route in rebuild. */}
+    {/* <trace from=".J4 > .IO25" to=".U1 > .IO25" />
     <trace from=".J4 > .IO26" to=".U1 > .IO26" />
-    <trace from=".J4 > .IO27" to=".U1 > .IO27" />
+    <trace from=".J4 > .IO27" to=".U1 > .IO27" /> */}
     <trace from=".J4 > .GND" to="net.GND" />
 
     {/* PUMP DRIVERS — the two DRV8870 H-bridges (U11 pump A, U12 pump B). Single-direction drive:
@@ -510,7 +511,14 @@ export default () => (
         VREF to 3V3; VM decoupled by C17/C18 (U11) and C19/C20 (U12). With IN2 grounded, IO16/IO18
         (and IO5) are free GPIO. */}
     <trace from=".U11 > .IN2" to="net.GND" />
-    {/* <trace from=".U1 > .IO17" to=".U11 > .IN1" /> */}
+    {/* IO17 pump-A PWM — middle lane of the north-edge comb: exit IO17's pad NORTH on the bottom to
+        y13 (above the pad-shadow band), east, then north into U11.IN1. */}
+    <trace from="U1.IO17" to="U11.IN1" pcbPathRelativeTo="board" pcbPath={routeBottom(
+        "U1.IO17",
+        { row: 11.5 },
+        U11f.col("IN1"),
+        "U11.IN1",
+    )} />
     <trace from=".U11 > .VM" to="net.V12" />
     <trace from=".U11 > .GND" to="net.GND" />
     <trace from=".U11 > .PAD" to="net.GND" />
@@ -523,7 +531,16 @@ export default () => (
     <trace from=".C18 > .pin1" to="net.V12" />
     <trace from=".C18 > .pin2" to="net.GND" />
     <trace from=".U12 > .IN2" to="net.GND" />
-    {/* <trace from=".U1 > .IO4" to=".U12 > .IN1" /> */}
+    {/* IO4 pump-B PWM — eastmost/bottom lane of the north-edge comb. IO4 sits just east of RXD's old
+        lane, so it exits its pad NORTH on the bottom to y12 (above the pad-shadow band, boot wall is
+        top), runs east under the open corridor, then north into U12.IN1 (the VM caps are top-only, a
+        stitch via 0.86 mm off). */}
+    <trace from="U1.IO4" to="U12.IN1" pcbPathRelativeTo="board" pcbPath={routeBottom(
+        "U1.IO4",
+        { row: 11 },
+        U12f.col("IN1"),
+        "U12.IN1",
+    )} />
     <trace from=".U12 > .VM" to="net.V12" />
     <trace from=".U12 > .GND" to="net.GND" />
     <trace from=".U12 > .PAD" to="net.GND" />
@@ -537,14 +554,13 @@ export default () => (
     <trace from=".C20 > .pin2" to="net.GND" />
 
     {/* RELAYS (J5): logic out to the two external opto-isolated relay modules + their V5 coil supply. */}
-    {/* IO19 relay line: the north edge is walled up top — the Q3.C/SW1→IO0 boot run is a continuous
-        y-10.53 wall across IO19's only east escape (verified with topreach.py: top exists but is a snake
-        up through the pocket). So it takes the BOTTOM plane: via on IO19, an east lane at y-9.5 that
-        slips under both the boot wall and RXD's y-10.5 lane, north up the west flank of the V12 island,
-        ending on J5.IO19's through-hole barrel. */}
+    {/* IO19 relay — westmost/top lane of the north-edge BOTTOM comb (IO19, IO17, IO4 fan east in
+        order to J5 / U11 / U12, so they nest without crossing). The boot wall is TOP copper, so on the
+        bottom IO19 exits its pad NORTH to y14 — clear above the pad row's shadow band (pads end y10.05)
+        and above the R16 stitch via at (-56,13) — then east and north onto J5.IO19's barrel. */}
     <trace from="U1.IO19" to="J5.IO19" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO19",
-        { row: 9.5 },
+        { row: 12 },
         J5f.col("IO19"),
         "J5.IO19",
     )} />
@@ -576,12 +592,14 @@ export default () => (
         power return, and the cable earth all in one; V12 (pin4) feeds the panel its 12 V. Since V12
         is a top island (not a plane), J9.V12's barrel only picks it up where the pour physically covers
         it — the V12 rectangle (below) floods under the whole south edge, covering J9's V12 barrel. */}
-    <trace from=".U7 > .A" to=".J9 > .A" />
+    {/* RS485 A/B pair + termination + ESD — evicted while owning the north region (step 5); these
+        re-add / hand-route in the rebuild. */}
+    {/* <trace from=".U7 > .A" to=".J9 > .A" />
     <trace from=".U7 > .B" to=".J9 > .B" />
     <trace from=".U7 > .A" to=".R6 > .pin1" />
     <trace from=".U7 > .B" to=".R6 > .pin2" />
     <trace from=".U7 > .A" to=".D1 > .A" />
-    <trace from=".U7 > .B" to=".D1 > .B" />
+    <trace from=".U7 > .B" to=".D1 > .B" /> */}
     <trace from=".D1 > .GND" to="net.GND" />
     <trace from=".J9 > .GND" to="net.GND" />
     <trace from=".J9 > .V12" to="net.V12" />
@@ -810,15 +828,9 @@ export default () => (
     <trace from=".C21 > .pin1" to="net.V3V3" />
     <trace from=".C21 > .pin2" to="net.GND" />
     {/* <trace from=".U13 > .TXD" to=".U1 > .IO3" /> */}
-    {/* Bridge RXD ← ESP TX0 (IO1). The top face here is walled (USB-C block + reset lattice), so this
-        drops to the BOTTOM plane: via on RXD, a lane at y-10.5 (under J14's pin1 pill, clear of the
-        stitch vias), west to IO1's column, via back up on IO1. Pad-via-to-pad-via, bottom-only. */}
-    <trace from="U13.RXD" to="U1.IO1" pcbPathRelativeTo="board" pcbPath={routeBottom(
-        "U13.RXD",
-        { row: 10.5 },
-        U1f.col("IO1"),
-        "U1.IO1",
-    )} />
+    {/* <trace from=".U13 > .RXD" to=".U1 > .IO1" /> */}
+    {/* RXD/TXD (UART0, fixed to IO1/IO3 — the west-north pins) are deferred: their bottom lane west
+        would cross the pump comb's north exits, so the USB corner is re-planned before they land. */}
     {/* Auto-reset cross-coupled pair (see block header for the truth table). Owning the region:
         the six internal DTR/RTS connections are hand-routed below; Q3's collector reaches IO0 down
         the far-west lane into U1's north-edge corridor. Q2's collector reach to EN stays deferred —
