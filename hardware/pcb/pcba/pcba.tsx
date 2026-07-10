@@ -143,7 +143,7 @@ const R9El = <Res name="R9" resistance="4.7k" footprint="0603" jlcpcb="C23162" x
 const R9f = frame(R9El)
 const J4El = <Jst name="J4" x={-36.25} y={-33} count={6} labels={["3V3", "GND", "V5", "IO25", "IO26", "IO27"]} label="SENSORS" rot={180} />
 const J4f = frame("J4", J4El.props.x, J4El.props.y, 0, Object.fromEntries(jstPins(J4El.props).pins))
-const J5El = <Jst name="J5" x={-36.5} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} label="RELAYS" rot={0} />
+const J5El = <Jst name="J5" x={-36.5} y={31} count={4} labels={["GND", "V5", "IO2", "IO19"]} label="RELAYS" rot={0} />
 const J5f = frame("J5", J5El.props.x, J5El.props.y, 0, Object.fromEntries(jstPins(J5El.props).pins))
 // Pump H-bridges, framed for the IN-bus routing below.
 const U11El = <Drv8870 name="U11" x={-28.25} y={22.5} rot={0} />
@@ -296,8 +296,10 @@ export default () => (
     {J3El}
     {J4El}
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
-        (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
-        IO19 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
+        (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO2/
+        IO19 drive them (IO2 is boot-safe into an opto input: the module's LED load holds it
+        low, which is also what download mode wants); V5 feeds the relay modules' coil/opto
+        supply; GND returns. */}
     {J5El}
     <Jst name="J6" x={-7.0} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" rot={0} />
     <Jst name="J7" x={-3.0} y={-33} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" rot={180} />
@@ -633,7 +635,26 @@ export default () => (
         J5f.col("IO19"),
         "J5.IO19",
     )} />
-    {/* <trace from=".J5 > .IO23" to=".U1 > .IO23" /> */}
+    {/* IO2 relay — up the east corridor, split across layers: TOP from the pad through the
+        U13 RI/DSR (and D_NEG/pin7) column channel, stopping under the SW1→IO0 run at y21.08;
+        one via; BOTTOM up the same channel's pad-shadow gap (the pump comb owns the bottom's
+        y11-12 band only west of here, and the switch row is top copper), over the J5 barrels
+        at y32.4, dropping into IO2's barrel from the north. Mixed-layer, so the path is
+        assembled from the same frame-derived coordinates route() would use. */}
+    <trace from="U1.IO2" to="J5.IO2" pcbPathRelativeTo="board" pcbPath={(() => {
+        const col = channel(-47.055, -46.365)  // U13 RI/DSR (= D_NEG/pin7) column channel
+        const y0 = U1f.pin("IO2").y            // exit the pad east on its own row
+        return [
+            "U1.IO2",
+            { x: col, y: y0 },
+            { x: col, y: 20.55 },              // under the SW1→IO0 top run at y21.08
+            { x: col, y: 20.55, via: true, toLayer: "bottom" } as const,
+            { x: col, y: 20.55 },
+            { x: col, y: 32.4 },               // bottom: through the U13 shadow channels, over the switches
+            { x: J5f.pin("IO2").x, y: 32.4 },
+            "J5.IO2",
+        ]
+    })()} />
     <trace from=".J5 > .V5" to="net.V5" />
     <trace from=".J5 > .GND" to="net.GND" />
 
@@ -814,11 +835,12 @@ export default () => (
     {/* firmware: GPIO -> R -> anode, cathode -> GND */}
     {/* LED feeds — the top band south of U1 is the sensor comb's, so all three ride the BOTTOM as
         nested pad-via L's; the GPIO→colour map is firmware's, so pins are assigned by geometry:
-        IO2 comes down U1's east flank (between the GND corner pad and R5.pin2) and takes the top
-        row, entering R10.pin1 by its north face; IO12/IO14 drop south off the pad row and nest
+        IO15 comes down U1's east flank (between the GND corner pad and R5.pin2) and takes the
+        top row, entering R10.pin1 by its north face (IO15 runs high during boot — a red glint
+        at reset, harmless on a status LED); IO12/IO14 drop south off the pad row and nest
         into R11/R12 by their west faces — east pin to upper row, so nothing crosses. */}
-    <trace from="U1.IO2" to="R10.pin1" pcbPathRelativeTo="board" pcbPath={routeBottom(
-        "U1.IO2",
+    <trace from="U1.IO15" to="R10.pin1" pcbPathRelativeTo="board" pcbPath={routeBottom(
+        "U1.IO15",
         { col: -46.85 },        // east-flank lane: between U1's GND corner pad and R5.pin2 shadows
         { row: -14.6 },         // north of the R row, over to pin1's column
         R10f.col("pin1"),

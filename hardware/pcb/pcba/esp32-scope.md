@@ -18,16 +18,16 @@ its pins instead of crossing the fan.
 - I²C: IO21 (SDA), IO22 (SCL)
 - UART → RS485 config display: IO32 (TX), IO34 (RX, input-only) — south edge
 - UART → faucet display: IO33 (TX), IO35 (RX, input-only) — south edge
-- Pumps → on-board DRV8870 H-bridges: IO18→A.IN2, IO17→A.IN1, IO16→B.IN2, IO4→B.IN1 — north edge, one bus, ordered west-to-east so the four IN traces comb up with no crossing (IN1/IN2 only set H-bridge polarity; firmware picks the forward sense)
-- Relays (off-board modules) → IO23, IO19 — north edge
+- Pumps → on-board DRV8870 H-bridges, single-direction drive: IO17→A.IN1, IO4→B.IN1 (each IN2 is tied to the GND plane; peristaltic tubing occlusion stops backflow, so no reverse)
+- Relays (off-board modules) → IO2, IO19 (IO2 is boot-safe into an opto input: the module's LED load holds it low, which download mode also wants)
 - Sensors: IO26 (1-wire, 4.7k external pull-up to 3V3 — R9), IO25 (flow), IO27 (backflow) — three adjacent south-edge pins
-- Status LEDs: IO14 (red/fault), IO2 (green/ready), IO12 (blue/activity) — on-board, active-high to GND, boot-safe
+- Status LEDs: IO15 (red/fault), IO12 (green/ready), IO14 (blue/activity) — on-board, active-high to GND (IO15 runs high during boot: a red glint at reset, harmless)
 - Gas dividers: IO39 (AOUT), IO36 (DOUT) — south-edge ADC1, input-only
 - Buzzer: IO13 (the lone usable east-edge GPIO, not a strapping pin → silent at boot)
 - Power / reset: 3V3, V5, GND, EN
 
 Programming: TX0 (IO1), RX0 (IO3), IO0, EN — to the on-board USB-C block. Unconnected:
-IO5, IO15. IO6–IO11 are the module's internal flash.
+IO5, IO16, IO18, IO23. IO6–IO11 are the module's internal flash.
 
 ## SMD block
 
@@ -47,7 +47,8 @@ the pull sides.
 Strapping pins:
 - IO0 — pull-up + BOOT button + auto-reset (boot select)
 - IO5 — unconnected; high at boot
-- IO15 — unconnected; high at boot
-- IO2, IO12 — status-LED outputs; low / floating at boot
+- IO15 — red status LED; high at boot (brief glint at reset)
+- IO2 — relay drive; the opto module's input load holds it low at boot (download-safe)
+- IO12 — green status LED; low / floating at boot
 
 Radio unused; the WROOM antenna keepout stays.
