@@ -145,6 +145,10 @@ const J4El = <Jst name="J4" x={-36.25} y={-33} count={6} labels={["3V3", "GND", 
 const J4f = frame("J4", J4El.props.x, J4El.props.y, 0, Object.fromEntries(jstPins(J4El.props).pins))
 const J5El = <Jst name="J5" x={-36.5} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} label="RELAYS" rot={0} />
 const J5f = frame("J5", J5El.props.x, J5El.props.y, 0, Object.fromEntries(jstPins(J5El.props).pins))
+// Pump H-bridges, framed for the IN-bus routing below.
+const U11El = <Drv8870 name="U11" x={-28.25} y={22.5} rot={0} />
+const U12El = <Drv8870 name="U12" x={-21.25} y={22.5} rot={0} />
+const U11f = frame(U11El), U12f = frame(U12El)
 
 // ── Decoupling audit ────────────────────────────────────────────────────────────────────
 // The single source of truth for which support cap serves which part, its role, and its job
@@ -248,12 +252,15 @@ export default () => (
         pump (Kamoer KPHM400-SW, 12V brushed DC, 0.8A at full speed per the datasheet — PWM'd well below that at the
         1:20 dispense ratio; prime/clean is where it hits 0.8A), 45V/3.6A SMD with internal freewheeling +
         OCP/OTP/UVLO. VM->12V (the top SMD pad lands directly on the V12 island), GND/PAD->GND,
-        ISEN->GND, VREF->3V3, IN1/IN2 from the ESP north-edge pins, OUT1/OUT2 to PUMPS. 10uF +
-        0.1uF VM decoupling per chip. */}
-    <Drv8870 name="U11" x={-28.25} y={22.5} rot={0} />
+        ISEN->GND, VREF->3V3, OUT1/OUT2 to PUMPS. 10uF + 0.1uF VM decoupling per chip.
+        DRIVE: the dosing pumps run ONE direction (dispense — peristaltic tubing occlusion stops
+        backflow, no reverse-purge), so this is single-direction fast-decay drive: IN2 tied to GND,
+        only IN1 PWM'd from the ESP. That halves the IN bus to one trace per pump and frees IO16/IO18.
+        (Reversible: re-add IN2->IO16/IO18 if a reverse/anti-drip mode is ever wanted.) */}
+    {U11El}
     <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-29.75} y={14.75} rot={90} side="E" />
     <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-26.75} y={14.75} rot={90} side="E" />
-    <Drv8870 name="U12" x={-21.25} y={22.5} rot={0} />
+    {U12El}
     <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-22.75} y={14.75} rot={90} side="E" />
     <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-19.75} y={14.75} rot={90} side="E" />
     <Mcp23017 name="U2" x={-8} y={20.25} addr="0x20" rot={180} />
@@ -497,15 +504,13 @@ export default () => (
     <trace from=".J4 > .IO27" to=".U1 > .IO27" />
     <trace from=".J4 > .GND" to="net.GND" />
 
-    {/* PUMP DRIVERS — the two DRV8870 H-bridges (U11 pump A, U12 pump B). IN pins fed from
-        the ESP north-edge bus, ordered so the four traces comb up west-to-east with no
-        crossing: IO18->U11.IN2, IO17->U11.IN1, IO16->U12.IN2, IO4->U12.IN1 (the WROOM pins
-        run IO18/IO17/IO16/IO4 west-to-east, the IN2/IN1 pads west-to-east — IN1/IN2 only set
-        H-bridge polarity, so the firmware picks the forward sense). OUT1/OUT2 to the PUMPS
-        connector. VM off 12V; GND + thermal PAD to the plane; ISEN to GND, VREF to 3V3; VM
-        decoupled by C17/C18 (U11) and C19/C20 (U12). IO5 and IO15 are the only free GPIO. */}
-    {/* <trace from=".U1 > .IO18" to=".U11 > .IN2" />
-    <trace from=".U1 > .IO17" to=".U11 > .IN1" /> */}
+    {/* PUMP DRIVERS — the two DRV8870 H-bridges (U11 pump A, U12 pump B). Single-direction drive:
+        IN2 -> GND plane (auto-stitched, no route), only IN1 carries PWM from a WROOM north pin.
+        OUT1/OUT2 to the PUMPS connector. VM off 12V; GND + thermal PAD to the plane; ISEN to GND,
+        VREF to 3V3; VM decoupled by C17/C18 (U11) and C19/C20 (U12). With IN2 grounded, IO16/IO18
+        (and IO5) are free GPIO. */}
+    <trace from=".U11 > .IN2" to="net.GND" />
+    {/* <trace from=".U1 > .IO17" to=".U11 > .IN1" /> */}
     <trace from=".U11 > .VM" to="net.V12" />
     <trace from=".U11 > .GND" to="net.GND" />
     <trace from=".U11 > .PAD" to="net.GND" />
@@ -517,8 +522,8 @@ export default () => (
     <trace from=".C17 > .pin2" to="net.GND" />
     <trace from=".C18 > .pin1" to="net.V12" />
     <trace from=".C18 > .pin2" to="net.GND" />
-    {/* <trace from=".U1 > .IO16" to=".U12 > .IN2" />
-    <trace from=".U1 > .IO4" to=".U12 > .IN1" /> */}
+    <trace from=".U12 > .IN2" to="net.GND" />
+    {/* <trace from=".U1 > .IO4" to=".U12 > .IN1" /> */}
     <trace from=".U12 > .VM" to="net.V12" />
     <trace from=".U12 > .GND" to="net.GND" />
     <trace from=".U12 > .PAD" to="net.GND" />
