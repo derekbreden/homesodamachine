@@ -476,8 +476,23 @@ export default () => (
         IO32 — the ESP UART TX, which must be output-capable (IO34/35/36/39 can't
         drive). 3.3 V VCC keeps RO's swing safe for input-only IO34. /RE -> GND keeps
         the receiver always on; auto-direction is driven entirely off the DI pin. */}
-    {/* <trace from=".U7 > .RO" to=".U1 > .IO34" /> */}{/* deferred: autoroute shadowed U1.IO35/D6 under the north-comb re-solve */}
-    {/* <trace from=".U7 > .DI" to=".U1 > .IO32" /> */}{/* evicted — owning the north region (routing-procedure step 5) */}
+    {/* RO/DI — the ~40mm west haul to U1's south row. The top face is the sensor comb's (its
+        drops wall x-46.75/-32.5/-29.75 through the whole band), so both ride the BOTTOM as
+        parallel lanes: IO34 drops its own clear column, IO32 threads the C10 pin1/pin2 channel
+        (its own column sits in C10.pin2's shadow), and each closes north into a pad-via on U7's
+        north row. Lane pitch 0.6; the C11/C10 stitch barrels flank the channel at 0.65. */}
+    <trace from="U1.IO34" to="U7.RO" pcbPathRelativeTo="board" pcbPath={routeBottom(
+        "U1.IO34",
+        { row: -23.7 },             // south lane, clear under the LED L's and R13/R14
+        "U7.RO",
+    )} />
+    <trace from="U1.IO32" to="U7.DI" pcbPathRelativeTo="board" pcbPath={routeBottom(
+        "U1.IO32",
+        { row: -11.5 },             // clear of the pad row before jogging east
+        { col: -56.5 },             // the C10/C11 pin1-pin2 channel
+        { row: -23.1 },             // north lane of the pair
+        "U7.DI",
+    )} />
     <trace from=".U7 > .RE" to="net.GND" />
     <trace from=".U7 > .GND" to="net.GND" />
     <trace from=".C7 > .pin2" to="net.GND" />
