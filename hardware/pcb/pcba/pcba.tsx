@@ -161,6 +161,9 @@ const D1El = <Sm712 name="D1" x={-24.5} y={-27.5} rot={180} />
 const J9El = <Jst name="J9" x={-20.25} y={-33} count={4} labels={["B", "A", "GND", "V12"]} label="DISPLAY" rot={180} />
 const U7f = frame(U7El), R6f = frame(R6El), D1f = frame(D1El)
 const J9f = frame("J9", J9El.props.x, J9El.props.y, 0, Object.fromEntries(jstPins(J9El.props).pins))
+// Faucet UART connector, framed for the IO33/IO35 routing below.
+const J3El = <Jst name="J3" x={-52.25} y={-33} count={4} labels={["GND", "V5", "IO35", "IO33"]} label="FAUCET" rot={180} />
+const J3f = frame("J3", J3El.props.x, J3El.props.y, 0, Object.fromEntries(jstPins(J3El.props).pins))
 
 // ── Decoupling audit ────────────────────────────────────────────────────────────────────
 // The single source of truth for which support cap serves which part, its role, and its job
@@ -290,7 +293,7 @@ export default () => (
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
     <Jst name="J13" x={-22.25} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" rot={0} />
-    <Jst name="J3" x={-52.25} y={-33} count={4} labels={["GND", "V5", "IO35", "IO33"]} label="FAUCET" rot={180} />
+    {J3El}
     {J4El}
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
         (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
@@ -516,9 +519,24 @@ export default () => (
     <trace from=".J2 > .COM" to="net.V12" />
 
     {/* FAUCET UART — IO33 TX (output-capable) / IO35 RX (input-only), both S-edge pins;
-        the connector sits in the bottom row below them. */}
-    {/* <trace from=".J3 > .IO33" to=".U1 > .IO33" />
-    <trace from=".J3 > .IO35" to=".U1 > .IO35" /> */}{/* faucet UART evicted — owning the north region (step 5) */}
+        the connector sits in the bottom row below them. Both run the TOP as a nested pair:
+        IO35's own column is clear all the way down (west of the C10/C11 pads); IO33's column
+        sits inside C10.pin1, so it jogs into the C10/C11 pin1-pin2 channel (DI rides the same
+        channel on the BOTTOM). Both east runs stop west of the sensor comb's IO25 drop. */}
+    <trace from="U1.IO35" to="J3.IO35" pcbPathRelativeTo="board" pcbPath={route(
+        "U1.IO35",
+        J3f.row("IO35", 2),         // south lane of the pair, over the barrel row
+        J3f.col("IO35"),
+        "J3.IO35",
+    )} />
+    <trace from="U1.IO33" to="J3.IO33" pcbPathRelativeTo="board" pcbPath={route(
+        "U1.IO33",
+        { row: -12 },               // clear of the pad row before the jog west
+        { col: -56.5 },             // the C10/C11 pin1-pin2 channel (top)
+        J3f.row("IO33", 3),         // north lane of the pair
+        J3f.col("IO33"),
+        "J3.IO33",
+    )} />
     <trace from=".J3 > .GND" to="net.GND" />
 
     {/* SENSORS: flow (IO25) / 1-wire temps (IO26) / backflow drip-pan moisture
