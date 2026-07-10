@@ -134,7 +134,7 @@ export function buildScorecard(inp: ScorecardInput): Scorecard {
   gate("clearance", "Copper-to-copper clearance floor", inp.floor != null && inp.floor >= CLEARANCE_FLOOR,
     inp.floor != null ? `${inp.floor} mm` : "—", `≥ ${CLEARANCE_FLOOR} mm`)
 
-  gate("drc", "No copper overlaps / courtyard faults / slivers", inp.clearanceErrors.length === 0,
+  gate("drc", "No overlaps / courtyard / slivers / pad shadows", inp.clearanceErrors.length === 0,
     `${inp.clearanceErrors.length} error`, "0 error", inp.clearanceErrors.map((e) => e.text))
 
   // Body clearance is measured as IPC-7351 keep-outs — copper envelope + courtyard excess CYE
