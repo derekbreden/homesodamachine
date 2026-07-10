@@ -66,7 +66,10 @@ const framePins = (node: any): Record<string, PadGeom> => {
       const [w, h] = [props.width != null ? mm(props.width) : 0, props.height != null ? mm(props.height) : 0]
       const geom: PadGeom = { off, hw: w / 2, hh: h / 2 }
       out[props.portHints[0]] = geom
-      for (const alias of labels[props.portHints[0]] ?? []) out[alias] = geom
+      // pinLabels values are a string OR an array of aliases — normalise, or a bare string
+      // char-iterates ("RO" would register as "R" and "O", never "RO").
+      const aliases = labels[props.portHints[0]]
+      for (const alias of Array.isArray(aliases) ? aliases : aliases != null ? [aliases] : []) out[alias] = geom
     }
     if (props.footprint) walk(props.footprint, r)
     if (props.children) walk(props.children, r)
