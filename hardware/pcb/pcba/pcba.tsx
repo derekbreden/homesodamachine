@@ -40,7 +40,7 @@
  * crosses, and the DRC (clearance.ts) flags any barrel that isn't full-column. Every pad-via
  * is via-in-pad, so order filled+capped vias.
  *
- * Every signal connection is hand-authored (pcbPath/pcbComb) — the autorouter owns nothing.
+ * Every signal connection is an explicit hand path (pcbPath) — the autorouter owns nothing.
  * Its config on the board tag (`viaMode="through-hole"`, `viaInPad`, `viaRingKeepout`,
  * `traceClearance`) still governs the mesh should a connection ever be handed back to it;
  * keep `traceClearance` in the ~0.12-0.14 zone (the realized-floor peak) if that day comes.
@@ -201,6 +201,20 @@ const R19El = <Res name="R19" resistance="4.7k" footprint="0603" jlcpcb="C23162"
 const R20El = <Res name="R20" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={10.6} y={26.4} rot={180} side="N" />
 const R19f = frame(R19El), R20f = frame(R20El)
 
+// ── Valve/reed fan frames — the ULNs, manifolds, and reed connectors, framed for the
+// nested fan routes below (each MCP↔ULN↔manifold column and its reed connector). ─────────
+const U4El = <Uln2803 name="U4" x={9.25} y={9.5} rot={270} />
+const U5El = <Uln2803 name="U5" x={9.5} y={-9} rot={270} />
+const U4f = frame(U4El), U5f = frame(U5El)
+const J1El = <Jst name="J1" x={21} y={13.75} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" rot={270} />
+const J2El = <Jst name="J2" x={21} y={-9.5} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" rot={270} />
+const J6El = <Jst name="J6" x={-7.0} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" rot={0} />
+const J7El = <Jst name="J7" x={-3.0} y={-33} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" rot={180} />
+const J1f = frame("J1", J1El.props.x, J1El.props.y, 0, Object.fromEntries(jstPins(J1El.props).pins))
+const J2f = frame("J2", J2El.props.x, J2El.props.y, 0, Object.fromEntries(jstPins(J2El.props).pins))
+const J6f = frame("J6", J6El.props.x, J6El.props.y, 0, Object.fromEntries(jstPins(J6El.props).pins))
+const J7f = frame("J7", J7El.props.x, J7El.props.y, 0, Object.fromEntries(jstPins(J7El.props).pins))
+
 // ── Decoupling audit ────────────────────────────────────────────────────────────────────
 // The single source of truth for which support cap serves which part, its role, and its job
 // class (`kind`). The web viewer's Board-checks panel reads this table (pick-data.ts →
@@ -316,15 +330,15 @@ export default () => (
     <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-19.5} y={14.75} rot={90} side="E" />
     {U2El}
     {U3El}
-    <Uln2803 name="U4" x={9.25} y={9.5} rot={270} />
-    <Uln2803 name="U5" x={9.5} y={-9} rot={270} />
+    {U4El}
+    {U5El}
     {U8El}
     {Q1El}
     {R5El}
     {/* Manifolds sit immediately right of their ULNs so OUT1-8/COM are straight shots
         across (J1 pin order = ULN output pin order, reversed). */}
-    <Jst name="J1" x={21} y={13.75} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" rot={270} />
-    <Jst name="J2" x={21} y={-9.5} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" rot={270} />
+    {J1El}
+    {J2El}
     {/* Pump-motor outputs — one PUMPS connector. Pin order is AM2/AM1/BM2/BM1, left to
         right, matching the drivers' OUT pads west-to-east (U11 then U12) so each pair
         combs straight up to its own side of J13 with no crossing. */}
@@ -337,8 +351,8 @@ export default () => (
         low, which is also what download mode wants); V5 feeds the relay modules' coil/opto
         supply; GND returns. */}
     {J5El}
-    <Jst name="J6" x={-7.0} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" rot={0} />
-    <Jst name="J7" x={-3.0} y={-33} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" rot={180} />
+    {J6El}
+    {J7El}
     {J8El}
     {R19El}
     {R20El}
@@ -478,7 +492,8 @@ export default () => (
     <trace from=".U3 > .A1" to="net.GND" />
     <trace from=".U3 > .A2" to="net.GND" />
     <trace from=".U3 > .RESET" to="net.V3V3" />
-    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-10.25} y={12.5} rot={0} side="N" />
+    {/* C4 sits west of GPA0's drop column (the fan's westmost lane) — east pad edge 0.31 clear. */}
+    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-10.75} y={12.5} rot={0} side="N" />
     <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-12.75} y={-25.5} rot={270} side="E" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
@@ -487,24 +502,28 @@ export default () => (
 
     {/* GPA -> ULN inputs, GPA_k -> IN_{8-k} (GPA0->IN8 ... GPA7->IN1), so the firmware
         valve mapping is unchanged; inside the ULN, channel j is IN_j -> OUT_j -> J.OUT_j
-        (valve-control.mmd). Each MCP sits immediately left of its ULN, so the eight pairs
-        cross straight across. */}
-    <trace from=".U2 > .GPA0" to=".U4 > .IN8" pcbComb="rowToColumn" />
-    <trace from=".U2 > .GPA1" to=".U4 > .IN7" pcbComb="rowToColumn" />
-    <trace from=".U2 > .GPA2" to=".U4 > .IN6" pcbComb="rowToColumn" />
-    <trace from=".U2 > .GPA3" to=".U4 > .IN5" pcbComb="rowToColumn" />
-    <trace from=".U2 > .GPA4" to=".U4 > .IN4" pcbComb="rowToColumn" />
-    <trace from=".U2 > .GPA5" to=".U4 > .IN3" pcbComb="rowToColumn" />
-    <trace from=".U2 > .GPA6" to=".U4 > .IN2" pcbComb="rowToColumn" />
-    <trace from=".U2 > .GPA7" to=".U4 > .IN1" pcbComb="columnToRow" />
-    <trace from=".U3 > .GPA0" to=".U5 > .IN8" pcbComb="rowToColumn" />
-    <trace from=".U3 > .GPA1" to=".U5 > .IN7" pcbComb="rowToColumn" />
-    <trace from=".U3 > .GPA2" to=".U5 > .IN6" pcbComb="rowToColumn" />
-    <trace from=".U3 > .GPA3" to=".U5 > .IN5" pcbComb="rowToColumn" />
-    <trace from=".U3 > .GPA4" to=".U5 > .IN4" pcbComb="rowToColumn" />
-    <trace from=".U3 > .GPA5" to=".U5 > .IN3" pcbComb="rowToColumn" />
-    <trace from=".U3 > .GPA6" to=".U5 > .IN2" pcbComb="rowToColumn" />
-    <trace from=".U3 > .GPA7" to=".U5 > .IN1" pcbComb="rowToColumn" />
+        (valve-control.mmd). Each MCP sits immediately left of its ULN, and the pin orders
+        anti-align (U2's westmost GPA pairs with U4's southmost IN), so the eight L's nest
+        by construction: each GPA exits its pad away from the body, runs its own column to
+        its IN pad's row, and closes east into the pad's west face — every lane at the pads'
+        own 1.27 pitch, no lane crossing a foreign column. U4/U5 sit rot 270, so F.col(pin)
+        is the board ROW through the pad. */}
+    <trace from="U2.GPA0" to="U4.IN8" pcbPathRelativeTo="board" pcbPath={route("U2.GPA0", U4f.col("IN8"), "U4.IN8")} />
+    <trace from="U2.GPA1" to="U4.IN7" pcbPathRelativeTo="board" pcbPath={route("U2.GPA1", U4f.col("IN7"), "U4.IN7")} />
+    <trace from="U2.GPA2" to="U4.IN6" pcbPathRelativeTo="board" pcbPath={route("U2.GPA2", U4f.col("IN6"), "U4.IN6")} />
+    <trace from="U2.GPA3" to="U4.IN5" pcbPathRelativeTo="board" pcbPath={route("U2.GPA3", U4f.col("IN5"), "U4.IN5")} />
+    <trace from="U2.GPA4" to="U4.IN4" pcbPathRelativeTo="board" pcbPath={route("U2.GPA4", U4f.col("IN4"), "U4.IN4")} />
+    <trace from="U2.GPA5" to="U4.IN3" pcbPathRelativeTo="board" pcbPath={route("U2.GPA5", U4f.col("IN3"), "U4.IN3")} />
+    <trace from="U2.GPA6" to="U4.IN2" pcbPathRelativeTo="board" pcbPath={route("U2.GPA6", U4f.col("IN2"), "U4.IN2")} />
+    <trace from="U2.GPA7" to="U4.IN1" pcbPathRelativeTo="board" pcbPath={route("U2.GPA7", U4f.col("IN1"), "U4.IN1")} />
+    <trace from="U3.GPA0" to="U5.IN8" pcbPathRelativeTo="board" pcbPath={route("U3.GPA0", U5f.col("IN8"), "U5.IN8")} />
+    <trace from="U3.GPA1" to="U5.IN7" pcbPathRelativeTo="board" pcbPath={route("U3.GPA1", U5f.col("IN7"), "U5.IN7")} />
+    <trace from="U3.GPA2" to="U5.IN6" pcbPathRelativeTo="board" pcbPath={route("U3.GPA2", U5f.col("IN6"), "U5.IN6")} />
+    <trace from="U3.GPA3" to="U5.IN5" pcbPathRelativeTo="board" pcbPath={route("U3.GPA3", U5f.col("IN5"), "U5.IN5")} />
+    <trace from="U3.GPA4" to="U5.IN4" pcbPathRelativeTo="board" pcbPath={route("U3.GPA4", U5f.col("IN4"), "U5.IN4")} />
+    <trace from="U3.GPA5" to="U5.IN3" pcbPathRelativeTo="board" pcbPath={route("U3.GPA5", U5f.col("IN3"), "U5.IN3")} />
+    <trace from="U3.GPA6" to="U5.IN2" pcbPathRelativeTo="board" pcbPath={route("U3.GPA6", U5f.col("IN2"), "U5.IN2")} />
+    <trace from="U3.GPA7" to="U5.IN1" pcbPathRelativeTo="board" pcbPath={route("U3.GPA7", U5f.col("IN1"), "U5.IN1")} />
 
     {/* I2C bus — SDA rides inner1 (the 3V3 plane layer), SCL rides inner2 (the 5V plane
         layer) as routeInner traces: the plane layers carry no other trace copper, so each
@@ -625,22 +644,32 @@ export default () => (
     <trace from=".U7 > .GND" to="net.GND" />
     <trace from=".C7 > .pin2" to="net.GND" />
 
-    {/* manifold JSTs: ULN outputs -> valve looms */}
-    <trace from=".U4 > .OUT1" to=".J1 > .OUT1" pcbComb="rowToColumn" thickness="0.3mm" />
-    <trace from=".U4 > .OUT2" to=".J1 > .OUT2" pcbComb="columnToColumn" thickness="0.3mm" />
-    <trace from=".U4 > .OUT3" to=".J1 > .OUT3" pcbComb="columnToColumn" thickness="0.3mm" />
-    <trace from=".U4 > .OUT4" to=".J1 > .OUT4" pcbComb="columnToColumn" thickness="0.3mm" />
-    <trace from=".U4 > .OUT5" to=".J1 > .OUT5" pcbComb="columnToColumn" thickness="0.3mm" />
-    <trace from=".U4 > .OUT6" to=".J1 > .OUT6" pcbComb="columnToColumn" thickness="0.3mm" />
-    <trace from=".U4 > .OUT7" to=".J1 > .OUT7" pcbComb="columnToColumn" thickness="0.3mm" />
-    <trace from=".U4 > .OUT8" to=".J1 > .OUT8" pcbComb="columnToColumn" thickness="0.3mm" />
+    {/* manifold JSTs: ULN outputs -> valve looms. J1's pin order matches U4's OUT order,
+        but the barrel pitch (2.5) is double the pad pitch (1.27), so the pairs diverge:
+        OUT1-6 rise to their barrels, OUT7-8 drop. Each 0.3mm line exits its pad east, turns
+        in its own lane column, and closes east into the barrel. Riser lanes step east as the
+        rows descend (J1x-4.4 .. J1x-1.4, pitch 0.6) so every riser passes only landing rows
+        above its own; the westmost lane starts east of C13's pad (edge x16.2). The two
+        fallers turn west of the risers — their short columns are y-disjoint below the fan
+        (OUT8 reuses the -4.4 lane column under OUT1's riser). */}
+    <trace from="U4.OUT1" to="J1.OUT1" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT1", J1f.col("OUT1", -4.4), J1f.row("OUT1"), "J1.OUT1")} />
+    <trace from="U4.OUT2" to="J1.OUT2" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT2", J1f.col("OUT2", -3.8), J1f.row("OUT2"), "J1.OUT2")} />
+    <trace from="U4.OUT3" to="J1.OUT3" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT3", J1f.col("OUT3", -3.2), J1f.row("OUT3"), "J1.OUT3")} />
+    <trace from="U4.OUT4" to="J1.OUT4" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT4", J1f.col("OUT4", -2.6), J1f.row("OUT4"), "J1.OUT4")} />
+    <trace from="U4.OUT5" to="J1.OUT5" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT5", J1f.col("OUT5", -2.0), J1f.row("OUT5"), "J1.OUT5")} />
+    <trace from="U4.OUT6" to="J1.OUT6" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT6", J1f.col("OUT6", -1.4), J1f.row("OUT6"), "J1.OUT6")} />
+    <trace from="U4.OUT7" to="J1.OUT7" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT7", J1f.col("OUT7", -5.0), J1f.row("OUT7"), "J1.OUT7")} />
+    <trace from="U4.OUT8" to="J1.OUT8" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT8", J1f.col("OUT8", -4.4), J1f.row("OUT8"), "J1.OUT8")} />
     <trace from=".J1 > .COM" to="net.V12" />
-    {/* MANIFOLD B: 4 valves on U5 ch1-4, condenser FAN on U5 ch5, COM = 12V flyback. */}
-    <trace from=".U5 > .OUT1" to=".J2 > .OUT1" pcbComb="columnToColumn" thickness="0.3mm" />
-    <trace from=".U5 > .OUT2" to=".J2 > .OUT2" pcbComb="columnToColumn" thickness="0.3mm" />
-    <trace from=".U5 > .OUT3" to=".J2 > .OUT3" pcbComb="columnToColumn" thickness="0.3mm" />
-    <trace from=".U5 > .OUT4" to=".J2 > .OUT4" pcbComb="columnToColumn" thickness="0.3mm" />
-    <trace from=".U5 > .OUT5" to=".J2 > .FAN" pcbComb="columnToColumn" thickness="0.3mm" />
+    {/* MANIFOLD B: 4 valves on U5 ch1-4, condenser FAN on U5 ch5, COM = 12V flyback.
+        Same nested-Z pattern as J1: OUT1 rises, OUT2..FAN drop away with the doubled
+        barrel pitch — deeper fallers turn earlier (west, pitch 0.8), so each landing row
+        passes south of every foreign column. */}
+    <trace from="U5.OUT1" to="J2.OUT1" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U5.OUT1", J2f.col("OUT1", -2.0), J2f.row("OUT1"), "J2.OUT1")} />
+    <trace from="U5.OUT2" to="J2.OUT2" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U5.OUT2", J2f.col("OUT2", -2.8), J2f.row("OUT2"), "J2.OUT2")} />
+    <trace from="U5.OUT3" to="J2.OUT3" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U5.OUT3", J2f.col("OUT3", -3.6), J2f.row("OUT3"), "J2.OUT3")} />
+    <trace from="U5.OUT4" to="J2.OUT4" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U5.OUT4", J2f.col("OUT4", -4.4), J2f.row("OUT4"), "J2.OUT4")} />
+    <trace from="U5.OUT5" to="J2.FAN" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U5.OUT5", J2f.col("FAN", -5.2), J2f.row("FAN"), "J2.FAN")} />
     <trace from=".J2 > .COM" to="net.V12" />
 
     {/* FAUCET UART — IO33 TX (output-capable) / IO35 RX (input-only), both S-edge pins;
@@ -807,20 +836,30 @@ export default () => (
     <trace from=".J5 > .GND" to="net.GND" />
 
 
-    {/* REEDS A (reservoir A) -> 0x20 GPB inputs; J6 sits directly above U2 and fans down. */}
-    <trace from=".U2 > .GPB0" to=".J6 > .RA1" pcbComb="rowToRow" />
-    <trace from=".U2 > .GPB1" to=".J6 > .RA2" pcbComb="rowToRow" />
-    <trace from=".U2 > .GPB2" to=".J6 > .RA3" pcbComb="rowToRow" />
-    <trace from=".U2 > .GPB3" to=".J6 > .RA4" pcbComb="rowToRow" />
+    {/* REEDS A (reservoir A) -> 0x20 GPB inputs; J6 sits above U2's north row and the four
+        staircases fan up-west (the doubled barrel pitch walks each target west of its pad).
+        The NEAREST pair takes the lane closest to the barrels (J6y-1.65) and lanes step
+        back toward the pad row as reach grows (pitch 0.85, ending 0.24 clear of the row's
+        2.3-long pads): every barrel drop then spans only lanes above its own, and no lane
+        crosses a foreign riser. */}
+    <trace from="U2.GPB0" to="J6.RA1" pcbPathRelativeTo="board" pcbPath={route("U2.GPB0", J6f.row("RA1", -1.65), J6f.col("RA1"), "J6.RA1")} />
+    <trace from="U2.GPB1" to="J6.RA2" pcbPathRelativeTo="board" pcbPath={route("U2.GPB1", J6f.row("RA2", -2.5), J6f.col("RA2"), "J6.RA2")} />
+    <trace from="U2.GPB2" to="J6.RA3" pcbPathRelativeTo="board" pcbPath={route("U2.GPB2", J6f.row("RA3", -3.35), J6f.col("RA3"), "J6.RA3")} />
+    <trace from="U2.GPB3" to="J6.RA4" pcbPathRelativeTo="board" pcbPath={route("U2.GPB3", J6f.row("RA4", -4.2), J6f.col("RA4"), "J6.RA4")} />
     <trace from=".J6 > .GND" to="net.GND" />
 
-    {/* REEDS B (reservoir B + carbonator low/high) -> 0x21 GPB inputs; J7 sits below U3 and fans up. */}
-    <trace from=".U3 > .GPB0" to=".J7 > .RB1" pcbComb="rowToRow" />
-    <trace from=".U3 > .GPB1" to=".J7 > .RB2" pcbComb="rowToRow" />
-    <trace from=".U3 > .GPB2" to=".J7 > .RB3" pcbComb="rowToRow" />
-    <trace from=".U3 > .GPB3" to=".J7 > .RB4" pcbComb="rowToRow" />
-    <trace from=".U3 > .GPB4" to=".J7 > .CLO" pcbComb="rowToRow" />
-    <trace from=".U3 > .GPB5" to=".J7 > .CHI" pcbComb="rowToRow" />
+    {/* REEDS B (reservoir B + carbonator low/high) -> 0x21 GPB inputs; J7 sits below U3's
+        south row and six staircases fan down (the doubled barrel pitch walks the targets
+        east; RB1 alone steps 0.5 west). The FURTHEST pair takes the lane closest to the
+        pad row (J7y+4.7, 0.24 clear of the row's 2.3-long pads) and lanes step toward the
+        barrels as reach shortens (pitch 0.7), so every barrel drop spans only lanes below
+        its own and no lane crosses a foreign drop. */}
+    <trace from="U3.GPB0" to="J7.RB1" pcbPathRelativeTo="board" pcbPath={route("U3.GPB0", J7f.row("RB1", 1.2), J7f.col("RB1"), "J7.RB1")} />
+    <trace from="U3.GPB1" to="J7.RB2" pcbPathRelativeTo="board" pcbPath={route("U3.GPB1", J7f.row("RB2", 1.9), J7f.col("RB2"), "J7.RB2")} />
+    <trace from="U3.GPB2" to="J7.RB3" pcbPathRelativeTo="board" pcbPath={route("U3.GPB2", J7f.row("RB3", 2.6), J7f.col("RB3"), "J7.RB3")} />
+    <trace from="U3.GPB3" to="J7.RB4" pcbPathRelativeTo="board" pcbPath={route("U3.GPB3", J7f.row("RB4", 3.3), J7f.col("RB4"), "J7.RB4")} />
+    <trace from="U3.GPB4" to="J7.CLO" pcbPathRelativeTo="board" pcbPath={route("U3.GPB4", J7f.row("CLO", 4.0), J7f.col("CLO"), "J7.CLO")} />
+    <trace from="U3.GPB5" to="J7.CHI" pcbPathRelativeTo="board" pcbPath={route("U3.GPB5", J7f.row("CHI", 4.7), J7f.col("CHI"), "J7.CHI")} />
     <trace from=".J7 > .GND" to="net.GND" />
 
     {/* DISPLAY: the front 4.3" config panel's whole loom lands on J9 — RS485 signal AND the panel's
