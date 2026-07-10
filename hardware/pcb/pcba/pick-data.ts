@@ -244,8 +244,8 @@ function deferredTracesFromSource(src: string): { from: string; to: string }[] {
 
 // Live <trace> elements carrying a manual routing prop are AUTHORED by hand — the circuit-json has
 // no manual flag, so authorship survives only in the source. `kind` splits the two authoring styles
-// the score weights differently: `path` (pcbPath / pcbStraightLine — explicit waypoints, weight 1)
-// vs `comb` (pcbComb — a bundle strategy, weight ½: condensing will later split some into paths).
+// (both weight 1 in the score — interchangeable forms of deliberate routing): `path` (pcbPath /
+// pcbStraightLine — explicit waypoints) vs `comb` (pcbComb — a nesting bundle strategy).
 // A pcbFan-style trace has a literal `from` but a dynamic `to={…}` (a .map), so `to` is null and the
 // scorecard matches it by `from` pin. Comment spans are stripped first so an evicted/deferred trace
 // never counts. Matched to rendered connections in scorecard.ts via source_trace.display_name.
