@@ -95,14 +95,14 @@ const dMinusLane = U14f.row("pin3", -0.85)
 // runs the far-west flank to EN, tapped by SW2's reset line.
 const Q2El = <Npn name="Q2" x={-65.5} y={24.75} rot={90} />
 const Q3El = <Npn name="Q3" x={-61.5} y={24.75} rot={90} />
-const R17El = <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-64.5} y={28.75} rot={90} side="N" />
-const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-60.5} y={28.75} rot={90} side="N" />
+const R17El = <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-64.5} y={28.75} rot={90} side="W" />
+const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-60.5} y={28.75} rot={90} side="E" />
 // IO0's 10k pull-up, parked in the pocket east of U13's body where the corridor down to the pad
 // row is empty — every slot nearer the lattice is fenced by the DTR/RTS runs, J14's courtyard,
 // and the switch row (whose band the relay's bottom lane also crosses). pin1 (rot90: south) drops
 // the corridor and crosses to IO0 on the bottom, under the relay's top rise; pin2 (3V3) stitches
 // to its plane.
-const R8El = <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-42.7} y={26} rot={90} side="N" />
+const R8El = <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-42.7} y={26} rot={90} side="E" />
 const R8f = frame(R8El)
 // BOOT override tact (IO0 branch). rot180 seats pin1 (signal) on the SE corner so it exits south,
 // clear of U13, down to IO0; pin4 (NW) is the diagonal contact to GND. SW2 (RESET/EN) stays inline.
@@ -130,12 +130,12 @@ const CX_EN = -65.5, CX_DOUT = -63.5, CX_AOUT = -61.5   // columns W→E
 const CY_BOT = -15.8, CY_TOP = -12.3                    // input (south) / GND·V3V3 (north) rows (N clears U1 courtyard -10.05)
 // Placed here (not down in the return) so each frame derives from its own element; rendered below
 // via {R1El}… The grid parts ride the CX/CY consts, so a one-line const move still slides the lattice.
-const R1El = <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={CX_AOUT} y={CY_BOT} rot={90} side="N" />   // AOUT in (pin1 S) → midpoint (pin2 N)
-const R2El = <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={CX_AOUT} y={CY_TOP} rot={90} side="N" />  // midpoint (pin1 S) → GND (pin2 N)
-const R3El = <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={CX_DOUT} y={CY_BOT} rot={90} side="N" />   // DOUT in (pin1 S) → midpoint (pin2 N)
-const R4El = <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={CX_DOUT} y={CY_TOP} rot={90} side="N" />  // midpoint (pin1 S) → GND (pin2 N)
-const R7El = <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={CX_EN} y={CY_BOT} rot={270} side="N" />    // EN node (pin1 N) → V3V3 (pin2 S)
-const C12El = <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={CX_EN} y={CY_TOP} rot={90} side="N" />  // EN node (pin1 S) → GND (pin2 N); near U1.EN
+const R1El = <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={CX_AOUT} y={CY_BOT} rot={90} side="E" />   // AOUT in (pin1 S) → midpoint (pin2 N)
+const R2El = <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={CX_AOUT} y={CY_TOP} rot={90} side="E" />  // midpoint (pin1 S) → GND (pin2 N)
+const R3El = <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={CX_DOUT} y={CY_BOT} rot={90} side="E" />   // DOUT in (pin1 S) → midpoint (pin2 N)
+const R4El = <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={CX_DOUT} y={CY_TOP} rot={90} side="E" />  // midpoint (pin1 S) → GND (pin2 N)
+const R7El = <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={CX_EN} y={CY_BOT} rot={270} side="E" />    // EN node (pin1 N) → V3V3 (pin2 S)
+const C12El = <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={CX_EN} y={CY_TOP} rot={90} side="E" />  // EN node (pin1 S) → GND (pin2 N); near U1.EN
 const R1f = frame(R1El), R2f = frame(R2El), R3f = frame(R3El), R4f = frame(R4El), R7f = frame(R7El), C12f = frame(C12El)
 const U1El = <Esp32 name="U1" x={-57} y={0} rot={0} />
 const U1f = frame(U1El)                               // ESP32; taps by label (EN/IO36/IO39)

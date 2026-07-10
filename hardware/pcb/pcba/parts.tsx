@@ -57,8 +57,10 @@ export const ulnOUT = ["COM", "OUT1", "OUT2", "OUT3", "OUT4", "OUT5", "OUT6", "O
 // capacitor of the same size: one mark, one rule.
 //
 // `side` (N/S/E/W) is which edge of the part the ref-des sits beside — same
-// meaning and same default for both R and C (W for a vertical part, N for a
-// horizontal one). The offset is DERIVED, not hand-tuned: the part's real
+// meaning and same default for both R and C. The preferred sides: N for a
+// horizontal part, E for a vertical one (the defaults); W and S are the
+// dodge fallbacks when the preferred side has copper or other ink.
+// The offset is DERIVED, not hand-tuned: the part's real
 // half-extent in that board direction (`ax` = pad reach along the pad axis,
 // `pe` = mark reach across it) + a fixed gap, so the label clears the part by
 // the same margin whichever side is chosen and whichever way the part is turned.
@@ -79,7 +81,7 @@ const PASSIVE_SIZE: Record<string, { len: number; yOut: number; ax: number; pe: 
 const passiveSilk = (name: string, footprint: string, x: number, y: number, rot: number, side?: Side) => {
   const sz = PASSIVE_SIZE[footprint] ?? PASSIVE_SIZE["0603"]!
   const vertical = rot % 180 !== 0
-  const s = side ?? (vertical ? "W" : "N")
+  const s = side ?? (vertical ? "E" : "N")
   const rad = (rot * Math.PI) / 180, c = Math.cos(rad), sn = Math.sin(rad)
   const R = (px: number, py: number) => ({ x: x + px * c - py * sn, y: y + px * sn + py * c })  // local->world, CCW
   const mark = (yy: number) => [R(-sz.len, yy), R(sz.len, yy)]
@@ -404,8 +406,14 @@ export const Npn = ({ name, x, y, rot = 180 }: Labeled & { rot?: number }) => (
 // TS-1187A 6 mm SMD tact (SW1/SW2 BOOT/RESET). The import self-labels and carries its own pin
 // hints, so the wrapper only seats it. pin1↔pin4 is one diagonal switch contact (pin2↔pin3 the
 // other), so a press shorts pin1 (signal) to pin4 (GND) whatever the internal terminal split.
+// The import's {NAME} silk is stripped (it rode the seating rotation — upside-down at SW1's
+// rot 180, off the board edge at SW2's rot 0); the ref-des is drawn upright and centred on
+// the button body like the centred chips — the top-edge reset trace walls the north side.
 export const Tact = ({ name, x, y, rot = 0 }: Labeled & { rot?: number }) => (
-  <TS_1187A_B_A_B name={name} pcbRotation={rot} {...at(x, y)} />
+  <>
+    <TS_1187A_B_A_B name={name} pcbRotation={rot} {...at(x, y)} />
+    <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x} pcbY={y} />
+  </>
 )
 
 // ---- centred-ref-des SMD chips ---------------------------------------------
