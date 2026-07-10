@@ -3,19 +3,27 @@ flowchart TD
   %% Power Distribution (current plan).
   %% 120 VAC mains in via C14 inlet; Mean Well 12 V PSU supplies the
   %% 12 V bus for everything except the compressor itself, which runs
-  %% on switched mains via Teyleten relay #1 (ESP32 GPIO 17). The 12 V
-  %% diaphragm pump is gated by Teyleten relay #2 (ESP32 GPIO 16) so
-  %% firmware can keep refill off during an active dispense.
-  %% The 5 V logic rail is the L298N Board A onboard 7805/78M05, made
-  %% from the 12 V at its VS input; it powers the base ESP32, the relay
-  %% VCC, and the faucet display (5 V up the umbilical). The ESP32's
-  %% onboard AMS1117 supplies 3.3 V on its 3V3
-  %% pin to the I2C devices.
+  %% on switched mains via Teyleten relay #1 (PCBA RELAYS J5, ESP32
+  %% GPIO 19). The 12 V diaphragm pump is gated by Teyleten relay #2
+  %% (PCBA RELAYS J5, ESP32 GPIO 2) so firmware can keep refill off
+  %% during an active dispense. Both relay modules take their coil/opto
+  %% 5 V from RELAYS J5.
+  %% The 12 V bus feeds the controller PCBA at its screw inlet (J10).
+  %% The board makes its own logic rails — 5 V from the on-board K7805
+  %% buck (U10), 3.3 V from the on-board AMS1117 LDO (U9, off the 5 V
+  %% rail) — and carries the WROOM, both MCP23017s, the RTC, both
+  %% ULN2803As, and the two DRV8870 pump H-bridges. Off-board 12 V
+  %% loads draw through the board: solenoid valves + condenser fan
+  %% through the ULN channels (MANIFOLD A/B), peristaltic pumps through
+  %% the DRV8870s (PUMPS J13), and the 4.3B config display through its
+  %% loom connector (DISPLAY J9 carries RS485 + 12 V). The faucet
+  %% display takes 5 V up the umbilical (FAUCET J3); the sensor loom
+  %% (SENSORS J4) and the MQ-6 heater (GAS J11) draw 5 V / 3.3 V off
+  %% the same on-board rails.
   %% Physical placement:
-  %% - The C14 inlet, AC distribution, PSU, both Teyleten relays, the
-  %%   ESP32, MCP23017, ULN2803A pair, and L298N all sit on a single
-  %%   electronics shelf at the top-back of the enclosure, behind the
-  %%   rear-panel C14 inlet.
+  %% - The C14 inlet, AC distribution, PSU, both Teyleten relays, and
+  %%   the controller PCBA sit on a single electronics shelf at the
+  %%   top-back of the enclosure, behind the rear-panel C14 inlet.
   %% - The compressor sits middle-bottom inside a fire-rated metal
   %%   shroud (because the appliance is going into kitchens used by
   %%   friends, family, and customers the founder knows by name, and
@@ -34,9 +42,9 @@ flowchart TD
   %%   to drive it (factory wiring was never AC on the fan itself),
   %%   so on harvest we discard the donor PCB and drive the fan
   %%   from our own 12 V bus. Low-side switched via one channel of
-  %%   ULN2803A #2 driven from MCP23017 0x21 PA3 — same pattern as
-  %%   the solenoid valves. Firmware turns it on/off in lockstep
-  %%   with the compressor.
+  %%   ULN2803A #2 (MANIFOLD B FAN pin, driven from MCP23017 0x21
+  %%   PA3) — same pattern as the solenoid valves. Firmware turns it
+  %%   on/off in lockstep with the compressor.
   %% See `ac-wiring-schedule.md` for run-by-run gauges + lengths and
   %% `../cut-parts/compressor-shroud/` for the shroud part.
 
@@ -49,89 +57,70 @@ flowchart TD
   end
 
   subgraph Refrigeration["Refrigeration  (harvested ice-maker)"]
-    RELAY["Teyleten 3.3 V relay #1\n(opto-isolated, GPIO 17)\nLOCATION: electronics shelf"]
+    RELAY["Teyleten 3.3 V relay #1\n(opto-isolated, GPIO 19)\nLOCATION: electronics shelf"]
     COMP_AC["AC hermetic compressor\n+ clip-on PTC start relay/overload\n(Frigidaire EFIC117-SS donor)\nLOCATION: inside compressor shroud"]
     COND_FAN["Condenser fan motor\n12 V DC brushless axial, ~0.35 A\n(donor PCB discarded; driven from 12 V bus)\nLOCATION: side of enclosure (side-to-side airflow path)"]
-    RELAY ==>|"switched AC hot\n(through shroud grommet)"| COMP_AC
-  end
-
-  subgraph Valve_Power["Valve Array + Condenser Fan"]
-    ULN["2× ULN2803A\nCOM pin → 12 V"]
-    VALVES["12× Beduan solenoid\n12 V normally closed\n~300 mA each"]
-    ULN ==> VALVES
   end
 
   subgraph Carbonation["Carbonation"]
-    DIA_RELAY["Teyleten 3.3 V relay #2\n(opto-isolated, GPIO 16)"]
+    DIA_RELAY["Teyleten 3.3 V relay #2\n(opto-isolated, GPIO 2)"]
     DIA_PUMP["SeaFlo diaphragm pump\n12 V, 100 PSI"]
-    DIA_RELAY ==>|"switched 12 V"| DIA_PUMP
   end
 
-  subgraph Regulation["Logic Rails"]
-    REG_5V["5 V rail\nL298N Board A onboard 7805/78M05\n(tapped off its 12 V feed)"]
-    REG_3V3["3.3 V rail\nESP32 onboard AMS1117 (3V3 pin)"]
+  subgraph Board["Controller PCBA  (12 V in at J10)"]
+    PCBA["ESP32-WROOM-32E + 2× MCP23017 + DS3231\n2× ULN2803A + 2× DRV8870 on-board\n12 V island feeds valves / pumps / display"]
+    REG_5V["5 V rail\nK7805 buck (U10, on-board)"]
+    REG_3V3["3.3 V rail\nAMS1117 LDO (U9, on-board, off 5 V)"]
   end
 
-  subgraph Flavor["Flavor Injection"]
-    direction TB
-    L298["L298N Board A\n12 V input"]
+  subgraph Dispense["Dispense Loads"]
+    VALVES["12× Beduan solenoid\n12 V normally closed\n~300 mA each"]
     PUMP_A["Kamoer Pump A\n12 V peristaltic"]
     PUMP_B["Kamoer Pump B\n12 V peristaltic"]
-    L298 ==> PUMP_A
-    L298 ==> PUMP_B
   end
 
-  %% Condenser fan rides the same low-side switching pattern as the
-  %% solenoid valves: one ULN2803A #2 channel (driven from MCP23017
-  %% 0x21 PA3) sinks the fan's return when commanded. Crossing the
-  %% subgraph boundary is intentional — the fan is semantically part
-  %% of Refrigeration, but its switching topology is the valve pattern.
-  ULN ==>|"switched 12 V (low-side)"| COND_FAN
+  CFG["ESP32-S3-Touch-LCD-4.3B\n(config display + BLE,\n 12 V off DISPLAY J9)"]
 
-  subgraph MCUs["Controllers"]
-    ESP32["ESP32-DevKitC-32E\n(main)"]
-  end
+  FAUCET["ESP32-S3-Touch-LCD-1.47\n(faucet display,\n 5 V up the umbilical)"]
 
-  CFG["ESP32-S3-Touch-LCD-4.3B\n(config display + BLE,\n 12 V screw input off the bus)"]
-
-  FAUCET["ESP32-S3-Touch-LCD-1.47\n(faucet display + BLE,\n 5 V up the umbilical)"]
-
-  subgraph I2C_Devices["I2C Devices"]
-    RTC["DS3231 RTC"]
-    MCP["MCP23017\nGPIO Expander"]
-  end
+  MPR["MPR121 cap-sense\n(off-board, 3.3 V via I2C J8)"]
 
   %% AC distribution (hot leg)
   C14 ==>|"120 VAC"| RELAY
   C14 ==>|"120 VAC"| PSU
+  RELAY ==>|"switched AC hot\n(through shroud grommet)"| COMP_AC
 
   %% 12 V distribution
+  PSU ==>|"12 V trunk (J10 screw inlet)"| PCBA
   PSU ==>|"12 V"| DIA_RELAY
-  PSU ==>|"12 V"| L298
-  PSU ==>|"12 V"| ULN
-  PSU ==>|"12 V"| CFG
+  DIA_RELAY ==>|"switched 12 V"| DIA_PUMP
+  PCBA ==>|"MANIFOLD A/B\n(ULN low-side)"| VALVES
+  PCBA ==>|"MANIFOLD B FAN\n(ULN low-side)"| COND_FAN
+  PCBA ==>|"PUMPS J13\n(DRV8870 OUT)"| PUMP_A
+  PCBA ==>|"PUMPS J13\n(DRV8870 OUT)"| PUMP_B
+  PCBA ==>|"12 V\n(DISPLAY J9 loom)"| CFG
 
-  %% Logic rails (derived on-board, not dedicated parts)
-  L298 -->|"5 V (onboard 7805/78M05)"| REG_5V
-  REG_5V -->|"5 V"| MCUs
-  REG_5V -->|"5 V (up umbilical)"| FAUCET
-  ESP32 -->|"3.3 V (3V3 pin)"| REG_3V3
-  REG_3V3 -->|"3.3 V"| I2C_Devices
+  %% Logic rails (made on the PCBA)
+  PCBA -->|"K7805 buck"| REG_5V
+  REG_5V -->|"5 V (FAUCET J3,\n up umbilical)"| FAUCET
+  REG_5V -->|"AMS1117 LDO"| REG_3V3
+  REG_3V3 -->|"3.3 V (I2C J8)"| MPR
 
   %% Power paths (red, thick).
-  %% 0    = relay #1 -> compressor (switched AC, through shroud)
-  %% 1    = Teyleten relay #2 -> diaphragm pump (switched 12 V)
-  %% 2-3  = L298 -> peristaltic pumps
-  %% 4    = ULN2803A -> solenoid valves
-  %% 5    = ULN2803A -> condenser fan (switched 12 V, low-side)
-  %% 6-7  = C14 -> relay #1, C14 -> PSU (AC mains)
-  %% 8-10 = PSU 12 V trunk to diaphragm relay, L298N, ULN2803A
-  %% 11   = PSU 12 V -> 4.3B config display
-  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11 stroke:#c44,stroke-width:3px
-  %% Logic rails (5 V, 3.3 V), derived on-board: white workhorse.
-  %% 12 = L298N onboard reg -> 5 V rail
-  %% 13 = 5 V rail -> base ESP32
-  %% 14 = 5 V rail -> faucet display (up umbilical)
-  %% 15 = ESP32 onboard AMS1117 (3V3 pin) -> 3.3 V rail
-  %% 16 = 3.3 V rail -> I2C devices
-  linkStyle 12,13,14,15,16 stroke:#ccc,stroke-width:2px
+  %% 0    = C14 -> relay #1 (AC mains)
+  %% 1    = C14 -> PSU (AC mains)
+  %% 2    = relay #1 -> compressor (switched AC, through shroud)
+  %% 3    = PSU 12 V trunk -> PCBA (J10)
+  %% 4    = PSU 12 V -> diaphragm relay #2
+  %% 5    = relay #2 -> diaphragm pump (switched 12 V)
+  %% 6    = PCBA -> solenoid valves (ULN low-side)
+  %% 7    = PCBA -> condenser fan (ULN low-side)
+  %% 8-9  = PCBA -> peristaltic pumps (DRV8870)
+  %% 10   = PCBA -> 4.3B config display (12 V off J9)
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10 stroke:#c44,stroke-width:3px
+  %% Logic rails (5 V, 3.3 V), made on the PCBA: white workhorse.
+  %% 11 = K7805 buck -> 5 V rail
+  %% 12 = 5 V rail -> faucet display (up umbilical)
+  %% 13 = AMS1117 -> 3.3 V rail
+  %% 14 = 3.3 V rail -> off-board MPR121 (I2C header)
+  linkStyle 11,12,13,14 stroke:#ccc,stroke-width:2px
