@@ -97,15 +97,24 @@ const dMinusLane = U14f.row("pin3", -0.85)
 // ── Auto-reset lattice ────────────────────────────────────────────────────────────────
 // Cross-coupled NPN pair north of U13 (Q2 drives EN, Q3 drives IO0). rot90 aims each collector
 // SOUTH, toward its U1 load; base resistors sit directly north of each base. DTR/RTS drive the pair
-// from U13's east edge. Collector reaches (EN, IO0) are long traces out to U1 — deferred until their
-// corridors are known.
+// from U13's east edge. Q3's collector runs the boot wall to IO0 (through R8's pull-up pad); Q2's
+// runs the far-west flank to EN, tapped by SW2's reset line.
 const Q2El = <Npn name="Q2" x={-65.5} y={24.75} rot={90} />
 const Q3El = <Npn name="Q3" x={-61.5} y={24.75} rot={90} />
 const R17El = <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-64.5} y={28.75} rot={90} side="N" />
 const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-60.5} y={28.75} rot={90} side="N" />
+// IO0's 10k pull-up, parked in the pocket east of U13's body where the corridor down to the pad
+// row is empty — every slot nearer the lattice is fenced by the DTR/RTS runs, J14's courtyard,
+// and the switch row (whose band the relay's bottom lane also crosses). pin1 (rot90: south) drops
+// the corridor and crosses to IO0 on the bottom, under the relay's top rise; pin2 (3V3) stitches
+// to its plane.
+const R8El = <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-42.7} y={26} rot={90} side="N" />
+const R8f = frame(R8El)
 // BOOT override tact (IO0 branch). rot180 seats pin1 (signal) on the SE corner so it exits south,
 // clear of U13, down to IO0; pin4 (NW) is the diagonal contact to GND. SW2 (RESET/EN) stays inline.
 const SW1El = <Tact name="SW1" x={-47.5} y={33.5} rot={180} />
+const SW2El = <Tact name="SW2" x={-57.25} y={33.5} rot={0} />
+const SW2f = frame(SW2El)
 
 // ── Buzzer chain (IO13 → R5 → Q1 → U8) ────────────────────────────────────────────────
 const R5El = <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-45.228} y={-4.445} rot={180} side="N" />
@@ -242,7 +251,7 @@ export default () => (
     {R7El}
     <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.5} y={-14} rot={180} side="N" />
     <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-56.5} y={-17} rot={0} side="N" />
-    <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-58.25} y={28.75} rot={270} side="N" />
+    {R8El}
     {/* RS-485 to the front display (J9). COS13487EESA-3.3 auto-direction transceiver (U7):
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
         only DI (from ESP TX) and RO (to ESP RX) are driven. R6 = 120R line termination
@@ -394,7 +403,6 @@ export default () => (
     <trace from=".R7 > .pin2" to="net.V3V3" />
     <trace from=".C12 > .pin2" to="net.GND" />
     <trace from=".R8 > .pin2" to="net.V3V3" />
-    {/* <trace from=".R8 > .pin1" to=".U1 > .IO0" /> */}
 
     {/* 5V rail -> inner2 plane, now sourced by the K7805 buck (U10). Faucet, sensors, and
         gas common to it at their barrels; the buzzer high side (U8 +) auto-stitches to it.
@@ -893,7 +901,7 @@ export default () => (
     {/* EN branch: U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
     {R17El}
     {Q2El}
-    <Tact name="SW2" x={-57.25} y={33.5} rot={0} />
+    {SW2El}
     {/* IO0 branch: U13.RTS -> R18 -> Q3.base; U13.DTR -> Q3.emitter; Q3.collector -> IO0; SW1 */}
     {R18El}
     {Q3El}
@@ -970,8 +978,37 @@ export default () => (
     <trace from=".U13 > .GND" to="net.GND" />
     <trace from=".C21 > .pin1" to="net.V3V3" />
     <trace from=".C21 > .pin2" to="net.GND" />
-    {/* <trace from=".U13 > .TXD" to=".U1 > .IO3" /> */}
-    {/* <trace from=".U13 > .RXD" to=".U1 > .IO1" /> */}
+    {/* The programming UART, on the BOTTOM — the pair anti-nests (TXD west pad → the east
+        target, RXD east pad → the west target), so RXD detours around TXD through the module's
+        NE window (the pad-free band between IO2's shadow and the north row's) while TXD takes
+        the short nested Z west under R16 and the shell pill into IO3. */}
+    <trace from="U13.TXD" to="U1.IO3" pcbPathRelativeTo="board" pcbPath={routeBottom(
+        "U13.TXD",
+        { row: 13.7 },               // south past the comb's band, under R16's shadow
+        { col: -58.3 },              // between R16.pin1's shadow and its J14 route's column
+        { row: 10.45 },              // the low tier, under EH2's pill
+        "U1.IO3",
+    )} />
+    <trace from="U13.RXD" to="U1.IO1" pcbPathRelativeTo="board" pcbPath={(() => {
+        // Bottom out of the pad block and east past TXD's column; the pump comb owns the bottom's
+        // y10.9-12.1 band clear across, so the crossing vias to the TOP at 12.55 (above IO19's
+        // lane) and descends the D_NEG/pin7 channel's east side — the boot wall ends at IO0, so
+        // the top is open here — then west through the NE window into IO1's pad, no second via.
+        const hop = { x: -47.3, y: 12.55 }
+        return [
+            "U13.RXD",
+            { x: -51.16, y: 23.13, via: true, toLayer: "bottom" } as const,
+            { x: -51.16, y: 23.13 },
+            { x: -51.16, y: 19.9 },
+            { x: hop.x, y: 19.9 },
+            hop,
+            { ...hop, via: true, toLayer: "top" } as const,
+            hop,
+            { x: hop.x, y: 6.55 },
+            { x: U1f.pin("IO1").x, y: 6.55 },
+            "U1.IO1",
+        ]
+    })()} />
     {/* RXD/TXD (UART0, fixed to IO1/IO3 — the west-north pins) are deferred: their bottom lane west
         would cross the pump comb's north exits, so the USB corner is re-planned before they land. */}
     {/* Auto-reset cross-coupled pair (see block header for the truth table). Owning the region:
@@ -1010,16 +1047,43 @@ export default () => (
         R17f.row("pin2"),
         "R17.pin2"
     )} />
-    {/* <trace from=".Q2 > .C" to=".U1 > .EN" /> */}
+    {/* Q2's collector reach to EN — the far-west flank, the one column the USB shell pills and
+        the reset lattice leave open: west out of the pad, south between the board edge and the
+        module's west pad column (outside the antenna box), east along the module's south strip,
+        down into EN from the north (C12's RC feed enters the same pad from the south). */}
+    <trace from="Q2.C" to="U1.EN" pcbPathRelativeTo="board" pcbPath={route(
+        "Q2.C",
+        { col: -67.3 },              // the flank: clear of the antenna box, the shell pills, and the GND column
+        { row: -6.5 },               // across the module's south strip, north of the pad row
+        U1f.col("EN"),
+        "U1.EN",
+    )} />
     <trace from="Q3.C" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={route(
         "Q3.C",
         { col: channel(U1f.pin("IO1").x, U1f.pin("IO22").x) },   // drop the west lane, clear of the CC/J14 block
         U1f.above("IO0", 0.475),                                 // corridor centred in the lane between U1's tall north pads and the CC2 dip
         "U1.IO0",
     )} />
+    {/* R8's pull-up reach — down the empty corridor east of SW1 on top, then a bottom hop for the
+        last stretch: the relay's top rise walls x-46.71 and the comb's bottom lanes start north of
+        y10.9, so the crossing lives at y9.6 on the bottom, up into IO0's pad by its own via. */}
+    <trace from="R8.pin1" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={(() => {
+        const p1 = { x: R8f.pin("pin1").x, y: 9.6 }
+        const io0 = U1f.pin("IO0")
+        return [
+            "R8.pin1",
+            p1,
+            { ...p1, via: true, toLayer: "bottom" } as const,
+            p1,
+            { x: io0.x, y: 9.6 },
+            { x: io0.x, y: io0.y },
+            { x: io0.x, y: io0.y, via: true, toLayer: "top" } as const,
+            "U1.IO0",
+        ]
+    })()} />
     {/* Manual BOOT (IO0) / RESET (EN) — diagonal switch pads = the two terminals. SW1's boot line
-        drops just east of U13 to IO0 (below); IO0's other reach-outs (R8 pull-up, Q3.C collector)
-        stay deferred until their corridors are known. */}
+        drops just east of U13 to IO0 (below), sharing the wall's tail; SW2's reset line rides the
+        top edge west and drops the same far-west flank as Q2's EN reach, one corner apart. */}
     <trace from="SW1.pin1" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={route(
         "SW1.pin1",
         SW1f.col("pin1", -1),
@@ -1029,7 +1093,13 @@ export default () => (
         "U1.IO0",
     )} />
     <trace from=".SW1 > .pin4" to="net.GND" />
-    {/* <trace from=".SW2 > .pin1" to=".U1 > .EN" /> */}
+    <trace from="SW2.pin1" to="Q2.C" pcbPathRelativeTo="board" pcbPath={route(
+        "SW2.pin1",
+        { row: 36.3 },               // along the top edge, over the switch row
+        { col: -67.3 },              // the far-west flank, above Q2's own corner
+        { row: 24.5 },               // east over Q2.C, down into its north face
+        "Q2.C",
+    )} />
     <trace from=".SW2 > .pin4" to="net.GND" />
 
     {/* ── M3 mounting holes, one per corner, plated and tied to GND so a metal screw can't
