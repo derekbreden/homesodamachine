@@ -83,7 +83,7 @@ const CLEARANCE_FLOOR = 0.14
 // Body-clearance advisory: a positive gap under this warns (tight), a negative gap is a real
 // overlap and already rides in the clearance errors as a courtyard fault.
 const BODY_WARN = 0.4
-const DETAIL_MAX = 8
+const DETAIL_MAX = 99
 
 export function buildScorecard(inp: ScorecardInput): Scorecard {
   const { circuit } = inp
