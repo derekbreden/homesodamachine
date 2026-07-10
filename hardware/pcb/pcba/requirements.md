@@ -37,9 +37,10 @@ all 123 of them red.
 ## Goals — the manual-routing conversion
 
 The autorouter cannot deliver traces that meet these requirements, so the board is going **100%
-manual**. The poured planes carry power and ground (`<copperpour>`: V12, V3V3, V5, SDA, SCL, GND);
+manual**. The poured planes carry power and ground (`<copperpour>`: V12, V3V3, V5, GND);
 every **signal** connection becomes hand-authored copper — a `<trace>` with `pcbPath`,
-`pcbStraightLine`, or `pcbComb`. See [`hand-routing.md`](hand-routing.md) for how to place it.
+`pcbStraightLine`, or `pcbComb` (the I2C bus rides the inner plane layers as `routeInner`
+paths). See [`hand-routing.md`](hand-routing.md) for how to place it.
 
 The headline is a single **score**, counted per rendered signal *connection* (a `source_trace`):
 
