@@ -143,6 +143,8 @@ const R9El = <Res name="R9" resistance="4.7k" footprint="0603" jlcpcb="C23162" x
 const R9f = frame(R9El)
 const J4El = <Jst name="J4" x={-36.25} y={-33} count={6} labels={["3V3", "GND", "V5", "IO25", "IO26", "IO27"]} label="SENSORS" rot={180} />
 const J4f = frame("J4", J4El.props.x, J4El.props.y, 0, Object.fromEntries(jstPins(J4El.props).pins))
+const J5El = <Jst name="J5" x={-36.5} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} label="RELAYS" rot={0} />
+const J5f = frame("J5", J5El.props.x, J5El.props.y, 0, Object.fromEntries(jstPins(J5El.props).pins))
 
 // ── Decoupling audit ────────────────────────────────────────────────────────────────────
 // The single source of truth for which support cap serves which part, its role, and its job
@@ -274,7 +276,7 @@ export default () => (
     {/* RELAYS — logic-level control out to the two external opto-isolated relay modules
         (compressor AC switch + carbonator diaphragm-pump 12V gate, both off-board). IO23/
         IO19 drive them; V5 feeds the relay modules' coil/opto supply; GND returns. */}
-    <Jst name="J5" x={-36.5} y={31} count={4} labels={["GND", "V5", "IO23", "IO19"]} label="RELAYS" rot={0} />
+    {J5El}
     <Jst name="J6" x={-7.0} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" rot={0} />
     <Jst name="J7" x={-3.0} y={-33} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" rot={180} />
     <Jst name="J8" x={8.5} y={31} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" rot={0} />
@@ -530,8 +532,18 @@ export default () => (
     <trace from=".C20 > .pin2" to="net.GND" />
 
     {/* RELAYS (J5): logic out to the two external opto-isolated relay modules + their V5 coil supply. */}
-    {/* <trace from=".J5 > .IO19" to=".U1 > .IO19" />
-    <trace from=".J5 > .IO23" to=".U1 > .IO23" /> */}
+    {/* IO19 relay line: the north edge is walled up top — the Q3.C/SW1→IO0 boot run is a continuous
+        y-10.53 wall across IO19's only east escape (verified with topreach.py: top exists but is a snake
+        up through the pocket). So it takes the BOTTOM plane: via on IO19, an east lane at y-9.5 that
+        slips under both the boot wall and RXD's y-10.5 lane, north up the west flank of the V12 island,
+        ending on J5.IO19's through-hole barrel. */}
+    <trace from="U1.IO19" to="J5.IO19" pcbPathRelativeTo="board" pcbPath={routeBottom(
+        "U1.IO19",
+        { row: 9.5 },
+        J5f.col("IO19"),
+        "J5.IO19",
+    )} />
+    {/* <trace from=".J5 > .IO23" to=".U1 > .IO23" /> */}
     <trace from=".J5 > .V5" to="net.V5" />
     <trace from=".J5 > .GND" to="net.GND" />
 
