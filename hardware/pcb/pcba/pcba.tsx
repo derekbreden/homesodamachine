@@ -19,50 +19,44 @@
  * manifolds immediately to their right and the V12 bulk/HF decoupling between them; the 3V3
  * LDO / 5V buck (U9 top, U10 bottom) and the 12V inlet (J10) frame the right column.
  *
- * SIX layers, stackup top->bottom:
+ * FOUR layers, stackup top->bottom:
  *   L1 top    — signals + the V12 island
- *   L2 inner1 — 3V3 plane (full flood)
- *   L3 inner2 — 5V plane (full flood)
- *   L4 inner3 — SDA plane (full flood)
- *   L5 inner4 — SCL plane (full flood)
- *   L6 bottom — GND plane (full flood)
- * 3V3/5V/SDA/SCL/GND are full-flood planes: each pin commons to its plane at the barrel
+ *   L2 inner1 — 3V3 plane (full flood) + the SDA bus trace
+ *   L3 inner2 — 5V plane (full flood) + the SCL bus trace
+ *   L4 bottom — GND plane (full flood) + signals
+ * 3V3/5V/GND are full-flood planes: each pin commons to its plane at the barrel
  * (through-hole) or an auto-stitched via (SMD). V12 is a top-copper island over the valve/
  * buck/driver block (the rectangle at the pours): top-layer 12V pads sit on it directly,
- * through-hole 12V pins pick it up at the barrel. Point-to-point signals route on ALL six
- * layers: `autorouter.viaMode="through-hole"` (below) tells the homesodamachine capacity-autorouter
- * fork to use the inner copper but make a mesh node via-capable only where the full board column
- * is clear, and emit those vias top<->bottom (JLCPCB drills through-holes only, no blind/buried —
- * see patches/capacity-autorouter-fork/). Each poured plane carves clearance around the inner-layer
- * signals crossing it and every via is a manufacturable through-hole; the DRC (clearance.ts)
- * proves no blind/buried via and no barrel crossing foreign copper survives. `viaInPad` (below)
- * then pulls each route's terminal transition via back onto its pad wherever the barrel column and
- * the replacement segment clear all foreign copper — via-in-pad, so order filled+capped vias.
- * `viaRingKeepout={false}` (below) drops the mesh-level via-ring carve: through-hole via-capability
- * still requires a clear full-stack column, but pad-adjacent full-stack mesh nodes are no longer
- * shattered per-layer to reserve the via annular ring. That carve ~doubled the mesh (8842 vs 4237
- * nodes here) and the autoroute (~93 -> ~26 s) without binding — the DRC (clearance.ts) already
- * proves via-ring-to-pad clearance holds (floor 0.155, 0 errors), so it enforces the ring instead.
+ * through-hole 12V pins pick it up at the barrel. The I2C bus (SDA / SCL) rides the two
+ * plane layers as hand traces (routeInner, I2C block below): the planes carry no other
+ * trace copper, so each bus net crosses a near-empty layer and its pour carves clearance
+ * around the trace as it does around any foreign copper. All other signals are hand copper
+ * on top and bottom.
+ *
+ * Every via is ONE full-stack through-hole drill — JLCPCB standard assembly drills no
+ * blind/buried vias. A routeBottom via transitions top<->bottom; a routeInner via enters on
+ * its pad and leaves on an inner layer — the barrel still spans the whole column (the core
+ * fork records `pcb_via.layers` as the full stack), the pours antipad it on every plane it
+ * crosses, and the DRC (clearance.ts) flags any barrel that isn't full-column. Every pad-via
+ * is via-in-pad, so order filled+capped vias.
+ *
+ * Every signal connection is hand-authored (pcbPath/pcbComb) — the autorouter owns nothing.
+ * Its config on the board tag (`viaMode="through-hole"`, `viaInPad`, `viaRingKeepout`,
+ * `traceClearance`) still governs the mesh should a connection ever be handed back to it;
+ * keep `traceClearance` in the ~0.12-0.14 zone (the realized-floor peak) if that day comes.
  *
  * `schematicDisabled` on the board: this is a fab-only PCB (its canonical "schematic" is
  * esp32-pinout.mmd). tscircuit's schematic-trace-solver — NOT the PCB autorouter — hangs on
  * this dense layout whenever a net is added; the capacity-autorouter handles the PCB fine.
  * Disabling the schematic removes the hang and speeds every render; the gerbers are unaffected.
  *
- * `autorouter.traceClearance` (the homesodamachine core patch feeds it to the capacity
- * solver's obstacle margin) is the packing target, and its realized floor is counter-
- * intuitive AND non-monotonic: too HIGH and the router can't meet it in the dense fan-outs,
- * crams the leftover space, and the realized min copper gap COLLAPSES. On this placement the
- * realized floor peaks sharply at traceClearance 0.13 (0.129 mm); 0.12 -> 0.120, 0.14 -> 0.119,
- * 0.15 -> 0.111. Keep it in the ~0.12–0.14 low zone at the peak, don't raise it toward 0.25+.
- * That 0.129 floor is a trace hugging the WROOM 3V3-decoupling fan-out (C10, off U1's ~38-pin
- * west castellation comb) — traceClearance won't beat it, only spreading that comb will (all six
- * layers already carry signal). The web viewer's board chip reports this floor live
+ * The clearance floor (0.159) is a hand trace threading the WROOM 3V3-decoupling fan-out
+ * (C10, off U1's west castellation comb); the web viewer's board chip reports it live
  * (clearance.ts -> picks.json).
  */
 import { at, Cap, Res, Jst, jstPins, ulnOUT, Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870, Tact } from "./parts"
 import { KF301_5_0_2P } from "./imports/KF301_5_0_2P"
-import { frame, route, routeBottom, channel } from "./routing"
+import { frame, route, routeBottom, routeInner, channel } from "./routing"
 import { boardVersionParts } from "./board-version"
 import { logoRoutes } from "./logo"
 import { KT_0603R as LedRed } from "./imports/KT_0603R"
@@ -189,6 +183,24 @@ const R13El = <Res name="R13" resistance="470" footprint="0603" jlcpcb="C23179" 
 const R14El = <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={-25.25} y={-20} rot={180} side="N" />
 const R13f = frame(R13El), R14f = frame(R14El)
 
+// ── I2C bus (SDA / SCL as routeInner traces on the plane layers) ─────────────────────────
+// The bus members (U2/U3 MCPs, U6 RTC, J8 → the off-board MPR121) framed for the routeInner
+// edges below. R19/R20 are the bus pull-ups (4.7k → 3V3): every device on the bus is
+// open-drain with no pull-up of its own, and the ESP32's ~45k internal ones are too weak for
+// a board-length multi-drop bus. They park in the open pocket south of J8 (north of C14/U10,
+// west of J1), pin2 stitching to the 3V3 plane. Both seat HORIZONTAL in the one open band
+// (y≈26.4: U9's and C14's courtyards fence everything south of ~25.5; J8's body everything
+// north of ~28.5), pin1 toward its hub barrel: R19 rot0 (pin1 WEST), R20 rot180 (pin1 EAST),
+// each rising into the north corridor and closing on its barrel.
+const U2El = <Mcp23017 name="U2" x={-8} y={20.25} addr="0x20" rot={180} />
+const U3El = <Mcp23017 name="U3" x={-1.75} y={-21.75} addr="0x21" rot={0} />
+const U2f = frame(U2El), U3f = frame(U3El)
+const J8El = <Jst name="J8" x={8.5} y={31} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" rot={0} />
+const J8f = frame("J8", J8El.props.x, J8El.props.y, 0, Object.fromEntries(jstPins(J8El.props).pins))
+const R19El = <Res name="R19" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={15} y={26.4} rot={0} side="N" />
+const R20El = <Res name="R20" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={10.6} y={26.4} rot={180} side="N" />
+const R19f = frame(R19El), R20f = frame(R20El)
+
 // ── Decoupling audit ────────────────────────────────────────────────────────────────────
 // The single source of truth for which support cap serves which part, its role, and its job
 // class (`kind`). The web viewer's Board-checks panel reads this table (pick-data.ts →
@@ -240,7 +252,7 @@ export const ampacity: AmpacityRule[] = [
 ]
 
 export default () => (
-  <board layers={6} schematicDisabled outline={[{ x: -68, y: -39 }, { x: 27, y: -39 }, { x: 27, y: 37 }, { x: -68, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm", viaPadDiameter: "0.5mm", viaHoleDiameter: "0.3mm" }} autorouter={{ traceClearance: 0.15, viaMode: "through-hole", viaInPad: true, viaRingKeepout: false }}>
+  <board layers={4} schematicDisabled outline={[{ x: -68, y: -39 }, { x: 27, y: -39 }, { x: 27, y: 37 }, { x: -68, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm", viaPadDiameter: "0.5mm", viaHoleDiameter: "0.3mm" }} autorouter={{ traceClearance: 0.15, viaMode: "through-hole", viaInPad: true, viaRingKeepout: false }}>
     {/* DS3231SN RTC + CR2032 backup, east of the ESP. U6 (the SOIC) sits high with its
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
@@ -302,8 +314,8 @@ export default () => (
     {U12El}
     <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-22.75} y={14.75} rot={90} side="E" />
     <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-19.5} y={14.75} rot={90} side="E" />
-    <Mcp23017 name="U2" x={-8} y={20.25} addr="0x20" rot={180} />
-    <Mcp23017 name="U3" x={-1.75} y={-21.75} addr="0x21" rot={0} />
+    {U2El}
+    {U3El}
     <Uln2803 name="U4" x={9.25} y={9.5} rot={270} />
     <Uln2803 name="U5" x={9.5} y={-9} rot={270} />
     {U8El}
@@ -327,7 +339,9 @@ export default () => (
     {J5El}
     <Jst name="J6" x={-7.0} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" rot={0} />
     <Jst name="J7" x={-3.0} y={-33} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" rot={180} />
-    <Jst name="J8" x={8.5} y={31} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" rot={0} />
+    {J8El}
+    {R19El}
+    {R20El}
     {J9El}
     {/* 12V inlet — KF301-5.0-2P 2-pin 5.0mm screw terminal (C474881, 17A/250V), the board's power
         inlet on the south edge (east end, over the V12 island). Sized for the ~3.3A peak
@@ -380,12 +394,14 @@ export default () => (
     <trace from=".C15 > .pin2" to="net.GND" />
     <trace from=".C16 > .pin1" to="net.V5" />
     <trace from=".C16 > .pin2" to="net.GND" />
-    {/* I2C expansion header (J8) for the off-board MPR121 cap-sense controller — all four
-        pins land on plane pours (stitch vias), so the connector places anywhere. */}
+    {/* I2C expansion header (J8) for the off-board MPR121 cap-sense controller. GND/3V3 land
+        on their plane pours at the barrel; the SDA/SCL barrels are the BUS JUNCTIONS — every
+        routeInner edge of the I2C block (below) terminates at them, so the connector's spot
+        anchors the whole bus tree. R19/R20 pull-up high sides stitch to the 3V3 plane. */}
     <trace from=".J8 > .GND" to="net.GND" />
     <trace from=".J8 > .3V3" to="net.V3V3" />
-    <trace from=".J8 > .SDA" to="net.SDA" />
-    <trace from=".J8 > .SCL" to="net.SCL" />
+    <trace from=".R19 > .pin2" to="net.V3V3" />
+    <trace from=".R20 > .pin2" to="net.V3V3" />
     <trace from=".U2 > .VCC" to="net.V3V3" />
     <trace from=".U3 > .VCC" to="net.V3V3" />
     <trace from=".U6 > .VCC" to="net.V3V3" />
@@ -490,19 +506,98 @@ export default () => (
     <trace from=".U3 > .GPA6" to=".U5 > .IN2" pcbComb="rowToColumn" />
     <trace from=".U3 > .GPA7" to=".U5 > .IN1" pcbComb="rowToColumn" />
 
-    {/* I2C bus — SDA and SCL are high-fan-out nets, so they are POURED (inner3 / inner4),
-        not routed: every SDA/SCL pin is put on its net and commons to that plane (the SMD
-        pads auto-stitch a via to the inner layer). net.SDA = U1.IO21 + U6/U2/U3.SDA;
-        net.SCL = U1.IO22 + U6/U2/U3.SCL. The router excludes poured nets, so nothing here
-        routes. */}
-    <trace from=".U1 > .IO21" to="net.SDA" />
-    <trace from=".U6 > .SDA" to="net.SDA" />
-    <trace from=".U2 > .SDA" to="net.SDA" />
-    <trace from=".U3 > .SDA" to="net.SDA" />
-    <trace from=".U1 > .IO22" to="net.SCL" />
-    <trace from=".U6 > .SCL" to="net.SCL" />
-    <trace from=".U2 > .SCL" to="net.SCL" />
-    <trace from=".U3 > .SCL" to="net.SCL" />
+    {/* I2C bus — SDA rides inner1 (the 3V3 plane layer), SCL rides inner2 (the 5V plane
+        layer) as routeInner traces: the plane layers carry no other trace copper, so each
+        net crosses a near-empty layer and the pour carves clearance around it. The tree is a
+        STAR at J8's barrels: each SMD drop is exactly one pad-via (via-in-pad, full-stack
+        drill), every edge terminates AT its J8 barrel — the one junction structure that
+        conducts on every layer without a via — so no pad ever carries two drills. The two
+        nets mirror each other's geometry on their own layers (same-plan crossings between
+        them are layer-separated by the core):
+          · the WROOM corridor {row 10.6} — north of the U1 pad-row shadows (y ≤ 10.15),
+            south of J14's shell rings (y ≥ 11.67);
+          · the mid-board riser {col 2.45} — west of U4's IN-pad wall (a solid shadow
+            y 3.6..15.4: 1.62mm pads at 1.27 pitch overlap in projection) and of U9's tab;
+          · the north corridor {row 28.2} — above U2's pad row (y ≤ 26.46), below the
+            J6/J8 barrel rings (y ≥ 30.2);
+          · U3's edges exit SOUTH of its pad row and rise between U3's east flank and U4's
+            IN wall (SDA x 7.3, SCL x 7.7 — offset only so the plots read).
+        U6.SDA exits WEST (its own column is squatted by U6.SCL's pad shadow); U6.SCL rises
+        its own clear column. R19/R20 pin1 edges drop from the pull-up pads into the same
+        north corridor. */}
+    <trace from="U1.IO21" to="J8.SDA" pcbPathRelativeTo="board" pcbPath={routeInner("inner1",
+        "U1.IO21",
+        { row: 10.6 },
+        { col: 2.45 },
+        { row: 28.2 },
+        J8f.col("SDA"),
+        "J8.SDA",
+    )} />
+    <trace from="U6.SDA" to="J8.SDA" pcbPathRelativeTo="board" pcbPath={routeInner("inner1",
+        "U6.SDA",
+        U6f.below("SDA", 0.35),     // board-WEST of the pad row (rot270: local -y), clear of U6.SCL's shadow
+        { row: 10.6 },
+        { col: 2.45 },
+        { row: 28.2 },
+        J8f.col("SDA"),
+        "J8.SDA",
+    )} />
+    <trace from="U2.SDA" to="J8.SDA" pcbPathRelativeTo="board" pcbPath={routeInner("inner1",
+        "U2.SDA",
+        { row: 28.2 },
+        J8f.col("SDA"),
+        "J8.SDA",
+    )} />
+    <trace from="U3.SDA" to="J8.SDA" pcbPathRelativeTo="board" pcbPath={routeInner("inner1",
+        "U3.SDA",
+        U3f.below("SDA", 0.35),     // south exit under the pad row
+        { col: 7.3 },
+        { row: 28.2 },
+        J8f.col("SDA"),
+        "J8.SDA",
+    )} />
+    <trace from="R19.pin1" to="J8.SDA" pcbPathRelativeTo="board" pcbPath={routeInner("inner1",
+        "R19.pin1",
+        { row: 28.2 },
+        J8f.col("SDA"),
+        "J8.SDA",
+    )} />
+    <trace from="U1.IO22" to="J8.SCL" pcbPathRelativeTo="board" pcbPath={routeInner("inner2",
+        "U1.IO22",
+        { row: 10.6 },
+        { col: 2.45 },
+        { row: 28.2 },
+        J8f.col("SCL"),
+        "J8.SCL",
+    )} />
+    <trace from="U6.SCL" to="J8.SCL" pcbPathRelativeTo="board" pcbPath={routeInner("inner2",
+        "U6.SCL",
+        { row: 10.6 },
+        { col: 2.45 },
+        { row: 28.2 },
+        J8f.col("SCL"),
+        "J8.SCL",
+    )} />
+    <trace from="U2.SCL" to="J8.SCL" pcbPathRelativeTo="board" pcbPath={routeInner("inner2",
+        "U2.SCL",
+        { row: 28.2 },
+        J8f.col("SCL"),
+        "J8.SCL",
+    )} />
+    <trace from="U3.SCL" to="J8.SCL" pcbPathRelativeTo="board" pcbPath={routeInner("inner2",
+        "U3.SCL",
+        U3f.below("SCL", 0.35),     // south exit under the pad row
+        { col: 7.7 },
+        { row: 28.2 },
+        J8f.col("SCL"),
+        "J8.SCL",
+    )} />
+    <trace from="R20.pin1" to="J8.SCL" pcbPathRelativeTo="board" pcbPath={routeInner("inner2",
+        "R20.pin1",
+        { row: 28.2 },
+        J8f.col("SCL"),
+        "J8.SCL",
+    )} />
 
     {/* RS485 TTL side -> ESP UART. RO (the receiver output) lands on IO34 — the ESP
         UART RX, an input-only pin, all an RX needs; DI (the driver input) is fed by
@@ -679,8 +774,10 @@ export default () => (
     {/* IO19 relay — westmost/top lane of the north-edge BOTTOM comb (IO19, IO17, IO4 fan east in
         order to J5 / U11 / U12, so they nest without crossing). The boot wall is TOP copper, so on the
         bottom IO19 exits its pad NORTH to y14 — clear above the pad row's shadow band (pads end y10.05)
-        and above the R16 stitch via at (-56,13) — then east and north onto J5.IO19's barrel. */}
-    <trace from="U1.IO19" to="J5.IO19" pcbPathRelativeTo="board" pcbPath={routeBottom(
+        and above the R16 stitch via at (-56,13) — then east and north onto J5.IO19's barrel, ENDING
+        there (routeInner: the barrel conducts every layer — a closing via would drill inside J5's
+        drill, a coincident hit). */}
+    <trace from="U1.IO19" to="J5.IO19" pcbPathRelativeTo="board" pcbPath={routeInner("bottom",
         "U1.IO19",
         { row: 12 },
         J5f.col("IO19"),
@@ -1146,7 +1243,7 @@ export default () => (
     <trace from=".SW2 > .pin4" to="net.GND" />
 
     {/* ── M3 mounting holes, one per corner, plated and tied to GND so a metal screw can't
-        bridge a power plane (GND connects on the bottom plane; V12 / 3V3 / 5V / SDA / SCL
+        bridge a power plane (GND connects on the bottom plane; V12 / 3V3 / 5V
         antipad). A symmetric rectangle: every hole is inset 3.5 mm from both of its board
         edges, so the four stay centred on the board and clear of the nearest connector at
         each corner. 3.2 mm hole / 4.0 mm pad (r 2.0): an M3 screw head (socket-cap or pan,
@@ -1172,12 +1269,13 @@ export default () => (
     <silkscreentext text="HOME SODA MACHINE" fontSize="1.6mm" anchorAlignment="center" pcbX={-34.75} pcbY={-23.0} />
     <silkscreentext text={`${ID.date}.${ID.rev}`} fontSize="1.6mm" anchorAlignment="center" pcbX={-34.75} pcbY={-25.0} />
 
-    {/* Power/bus pours — SIX layers, top->bottom: top (signals + the V12 island), 3V3
-        (inner1), 5V (inner2), SDA (inner3), SCL (inner4), GND (bottom). 3V3/5V/SDA/SCL/GND
-        are full-flood planes; each pin commons to its plane at its through-hole barrel or
-        an auto-stitched via (SMD). V12 is a top-copper island over the valve/buck/driver
-        block (the rectangle below): top-layer 12V pads sit directly on it, through-hole 12V
-        pins pick it up at the barrel. Point-to-point signals route on top and bottom. */}
+    {/* Power pours — FOUR layers, top->bottom: top (signals + the V12 island), 3V3 (inner1),
+        5V (inner2), GND (bottom). 3V3/5V/GND are full-flood planes; each pin commons to its
+        plane at its through-hole barrel or an auto-stitched via (SMD). V12 is a top-copper
+        island over the valve/buck/driver block (the rectangle below): top-layer 12V pads sit
+        directly on it, through-hole 12V pins pick it up at the barrel. The SDA/SCL bus traces
+        ride inner1/inner2 (routeInner, I2C block above); each plane carves clearance around
+        its bus trace and its via barrels like any other foreign copper. */}
     <trace from=".J10 > .V12" to="net.V12" />
     {/* V12 top island — a plain rectangle over the whole 12 V region (pump drivers, ULN commons +
         manifolds, buck, bulk cap), x[-31.75,26.5] running the FULL board depth y[-38.5,36.5]. V12 is
@@ -1195,8 +1293,6 @@ export default () => (
                 { x: -31.75, y: -38.5 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
-    <copperpour name="SDAPLANE" layer="inner3" connectsTo="net.SDA" boardEdgeMargin="0.5mm" />
-    <copperpour name="SCLPLANE" layer="inner4" connectsTo="net.SCL" boardEdgeMargin="0.5mm" />
     <copperpour name="GNDPLANE" layer="bottom" connectsTo="net.GND" boardEdgeMargin="0.5mm" />
   </board>
 )

@@ -120,7 +120,7 @@ def load(circuit_path, tsx_path):
         hint = (ph.get("port_hints") or ["?"])[0]
         r = ph.get("outer_diameter", ph.get("radius", 0.5) * 2) / 2
         pads.append({"name": f"{nm}.{hint}", "x": ph["x"], "y": ph["y"], "hw": r, "hh": r,
-                     "rot": 0, "layers": ["top", "bottom", "inner1", "inner2", "inner3", "inner4"],
+                     "rot": 0, "layers": ["top", "bottom", "inner1", "inner2"],
                      "net": pcbport_net(ph.get("pcb_port_id"))})
     for v in by("pcb_via"):
         r = v.get("outer_diameter", 0.5) / 2
