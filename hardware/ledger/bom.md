@@ -18,7 +18,7 @@ First-pass draft. **Pricing convention: delivered cost** (product + shipping + t
 | [L298N Dual H-Bridge (4-pack)](https://www.amazon.com/dp/B0C5JCF5RS) | 1 driver per unit drives both peristaltic pumps (dual H-bridge); its onboard 7805/78M05 supplies the 5 V logic rail to the MCUs and relay VCC; 1 of 4 per unit ($10.71/4) | 1 (of 4 pk) | $2.68 | $2.68 |
 | [Waveshare MCP23017 I2C GPIO expander](https://www.amazon.com/dp/B07P2H1NZG) | expands ESP32 I2C into 16 GPIO for solenoid bank | 1 | $12.99 | $12.99 |
 | [DORHEA DS3231 AT24C32 RTC module (2-pk)](https://www.amazon.com/dp/B09LLMYBM1) | I2C RTC at 0x68, referenced in `wiring/esp32-pinout.mmd` and `wiring/valve-control.mmd`; I²C pins broken out as a single inline VCC/GND/SDA/SCL row for a clean 4-pin XH; 1 of 2 per unit ($7.07/2) | 1 (of 2 pk) | $3.54 | $3.54 |
-| [EDGELEC 4.7 kΩ 1/4 W 1% metal-film resistor (100-pk)](https://www.amazon.com/dp/B07HDFHPP3) | DS18B20 1-wire bus pull-up between DATA and 3.3 V; 1 of 100 per unit ($5.89/100) | 1 (of 100 pk) | $0.06 | $0.06 |
+| [EDGELEC 4.7 kΩ 1/4 W 1% metal-film resistor (100-pk)](https://www.amazon.com/dp/B07HDFHPP3) | 1-wire bus pull-up between DATA and 3.3 V — the single shared IO26 bus carrying both temperature probes (DS18B20 tank 0x28 + DS18S20 coil 0x10); 1 of 100 per unit ($5.89/100) | 1 (of 100 pk) | $0.06 | $0.06 |
 | [Chanzon 2.2 kΩ 1/4 W 1% metal-film resistor (100-pk)](https://www.amazon.com/dp/B08QRPRVMJ) | MQ-6 gas-sensor output divider, top leg (R1/R3): the MQ-6 runs on 5 V so its AOUT/DOUT swing 0–5 V; a 2.2 kΩ/3.3 kΩ divider on each steps them to ~3.0 V before ESP32 GPIO 39/36, which are NOT 5 V tolerant. 2 of 100 per unit ($5.49/100) | 2 (of 100 pk) | $0.05 | $0.11 |
 | [Chanzon 3.3 kΩ 1/4 W 1% metal-film resistor (100-pk)](https://www.amazon.com/dp/B08QRG7JBY) | MQ-6 gas-sensor output divider, bottom leg (R2/R4): pairs with the 2.2 kΩ top leg on each MQ-6 output (AOUT→IO39, DOUT→IO36) to step 0–5 V down to ~3.0 V. 2 of 100 per unit ($5.49/100) | 2 (of 100 pk) | $0.05 | $0.11 |
 | [Rubycon 470 µF 25 V low-ESR radial electrolytic capacitor, 10×12.5 mm (15-pk)](https://www.amazon.com/dp/B0F8BZVBKF) | bulk (low-frequency) decoupling on the 12 V solenoid rail; C3, a radial at the board centre between the two MCP stacks, west of the ULN drivers it feeds across the V12 island, soaking the inrush + flyback dump. pin1 (+)→V12 (the V12 island pour, widened to flood the whole valve block, covers it), pin2→GND plane. Pairs with the 0.1 µF HF ceramics (C1/C2 below); 1 of 15 per unit ($7.40/15) | 1 (of 15 pk) | $0.49 | $0.49 |
@@ -97,7 +97,8 @@ The appliance ships with the water filter included. **Placement (internal vs. ex
 | [GOORY 1/4" OD × 50 ft ACR copper coil (evaporator)](https://www.amazon.com/dp/B0DKSW5VL9) | single-layer wrap on 5" OD vessel at 1/8" gap pitch yields ~22 ft of wrap per unit + ~2 ft each end for compressor + suction-line tie-ins ≈ ~24 ft consumed per unit; one 50 ft roll comfortably covers 2 units, so 1/2 roll allocated per unit ($68.63/2) | 1/2 roll | $34.32 | $34.32 |
 | [Supco SUD8358 filter-drier, 1/4" sweat × cap-tube outlet, XH-9 molecular sieve, integrated Schrader access port](https://www.amazon.com/dp/B009AX2O5W) | replacement filter-drier installed during refrigerant-loop assembly; spec rationale in [`assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) Inputs | 1 | $13.40 | $13.40 |
 | [Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5-pk)](https://www.amazon.com/dp/B07XGZSYJV) | two relays per unit: relay #1 switches the compressor's 120 VAC hot leg (ESP32 GPIO 17), relay #2 gates 12 V to the SeaFlo diaphragm pump for firmware-controlled refill (ESP32 GPIO 16); 2 of 5 per unit | 2 (of 5 pk) | $2.60 | $5.20 |
-| [HiLetgo DS18B20 waterproof 1-wire probe, 1 m SS sheath (5-pk)](https://www.amazon.com/dp/B00M1PM55K) | 2 probes per unit: tank wall (compressor cycling setpoint) + evaporator coil (freeze-protect cutout); 2 of 5 per unit ($11.79/5 × 2) | 2 (of 5 pk) | $2.36 | $4.72 |
+| [TIEXYE DS18B20 TO-92 1-wire sensor (10-pk)](https://www.amazon.com/dp/B0FKG3HT9Q) | **Tank-wall probe** — compressor-cycling setpoint, 1-wire family code **0x28**. Bare TO-92, leads heat-shrunk, foil-taped to the vessel OD and potted in the cold-core foam. Shares the IO26 1-wire bus with the DS18S20 coil probe; firmware tells the two apart by family code (no per-unit ID map). 1 of 10 per unit ($8.59/10) | 1 (of 10 pk) | $0.86 | $0.86 |
+| [DigiKey DS18S20+ TO-92 1-wire sensor (DS18S20+-ND)](https://www.digikey.com/en/products/detail/analog-devices-inc-maxim-integrated/DS18S20/1017697) | **Evaporator-coil / suction-line probe** — freeze-protect cutout, 1-wire family code **0x10**. Deliberately a different family from the tank probe's 0x28 so firmware keys the −8 °C freeze cutoff to it deterministically at cold boot — no stored map, no thermal-signature inference. Bare TO-92, leads heat-shrunk, tucked under the 3M 425 foil tape at the coil's suction end and potted in the foam. 1 of 10 per unit (landed $92.95/10 incl. tariff + FedEx Ground + tax) | 1 (of 10 pk) | $9.30 | $9.30 |
 | [MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10-pk)](https://www.amazon.com/dp/B07DCXKNXQ) | rear-panel mains inlet; accepts standard NEMA 5-15P-to-C13 line cord; 1 of 10 per unit ($6.96/10) | 1 (of 10 pk) | $0.70 | $0.70 |
 | [Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed (6-pk)](https://www.amazon.com/dp/B08VS8D4WC) | ships in the box so the customer can plug the appliance into a standard US wall outlet; 1 of 6 per unit ($24.00/6) | 1 (of 6 pk) | $4.00 | $4.00 |
 | [Enviro-Safe R-600a 3-pack + brass charging gauge](https://www.amazon.com/dp/B0CGG1WH1N) | pure R-600a; refills the sealed loop after venting factory charge; ~40 g per system × ~12 recharges per 3-can bundle; 1/12 of $72.92 delivered; brass gauge stays with tools (see purchases.md) | 1 | $6.08 | $6.08 |
@@ -147,7 +148,7 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Valve tray — nozzle-gate | 1 | PETG | 0.043 | $0.48 |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.151 | $5.94 |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.51 |
-| **Printed parts total** | | | **~5.51** | **[$68.10](BOM_SEC7)** |
+| **Printed parts total** | | | **~5.51** | **[$66.45](BOM_SEC7)** |
 
 By material: PETG ≈ 5.35 kg / $60.00, PET-CF ≈ 0.16 kg / $6.45.
 
@@ -280,21 +281,21 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 
 | Section | $ |
 |---|---:|
-| 1. Controllers + electronics | [$169.76](BOM_SEC1) |
+| 1. Controllers + electronics | [$169.80](BOM_SEC1) |
 | 2. Carbonator vessel (plan A, 316L) | [$240.69](BOM_SEC2) |
 | 3. Water inlet | [$240.21](BOM_SEC3) |
 | 4. CO2 subsystem | [$172.20](BOM_SEC4) |
-| 5. Refrigeration | [$194.67](BOM_SEC5) |
+| 5. Refrigeration | [$204.86](BOM_SEC5) |
 | 6. Cold core insulation | [$52.38](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$68.10](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$66.45](BOM_SEC7) |
 | 8. Flavor subsystem | [$257.94](BOM_SEC8) |
 | 9. Dispensing | [$56.83](BOM_SEC9) |
 | 10. UI | [$3.21](BOM_SEC10) |
-| 11. Wiring | [$34.45](BOM_SEC11) |
+| 11. Wiring | [$48.26](BOM_SEC11) |
 | 12. Level sensing | [$69.78](BOM_SEC12) |
-| 13. Mechanical attach hardware + reservoir-cap vent filter | [$5.94](BOM_SEC13) |
+| 13. Mechanical attach hardware + reservoir-cap vent filter | [$4.66](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,570.45](BOM_GRAND)** |
+| **Total** | **[$1,591.56](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

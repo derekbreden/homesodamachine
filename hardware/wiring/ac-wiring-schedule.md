@@ -89,7 +89,7 @@ Three looms fan out from single connectors: SENSORS J4 carries SIG-1 / SIG-4 / S
 
 | # | From | To | Conductors | AWG | Approx. length | Notes |
 |---|---|---|---|---|---|---|
-| SIG-1 | SENSORS J4 `IO26` + `3V3` + `GND` | DS18B20 1-wire bus (tank wall + evap suction probes) | data + [3.3 V](V_IO) + GND, parallel-bussed | [22](AWG_SIG) | [~600 mm](LEN_COLD_CORE) to back of cold core | The [4.7 kΩ](DS18B20_PULLUP) data pull-up is on-board (R9) — nothing in the loom. |
+| SIG-1 | SENSORS J4 `IO26` + `3V3` + `GND` | 1-wire temp bus — DS18B20 (0x28, tank wall) + DS18S20 (0x10, evap suction) | data + [3.3 V](V_IO) + GND, parallel-bussed | [22](AWG_SIG) | [~600 mm](LEN_COLD_CORE) to back of cold core | The [4.7 kΩ](DS18B20_PULLUP) data pull-up is on-board (R9) — nothing in the loom. |
 | SIG-2 | REEDS B J7 `CLO` + `GND` | Reed switch — low (carbonator) | switch + shared GND | [24](AWG_LV) | [~600 mm](LEN_COLD_CORE) | MCP23017 0x21 PB4, INPUT_PULLUP. |
 | SIG-3 | REEDS B J7 `CHI` + shared GND | Reed switch — high (carbonator) | switch | [24](AWG_LV) | [~600 mm](LEN_COLD_CORE) | MCP23017 0x21 PB5, INPUT_PULLUP. |
 | SIG-4 | SENSORS J4 `IO25` + `V5` + `GND` | DIGITEN flow meter (Zone B, on the carbonated-water line where it exits the cold core near the shelf) | pulse + [5 V](V_LOGIC) + GND | [24](AWG_LV) | [~150 mm](LEN_MID) (internal, within the electronics-shelf zone) | Pulse interrupt; flow detection is internal — does not leave the enclosure. |
