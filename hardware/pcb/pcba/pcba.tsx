@@ -164,10 +164,10 @@ const R11El = <Res name="R11" resistance="470" footprint="0603" jlcpcb="C23179" 
 const R12El = <Res name="R12" resistance="470" footprint="0603" jlcpcb="C23179" x={-43.2} y={-20.5} rot={0} side="N" />
 const R10f = frame(R10El), R11f = frame(R11El), R12f = frame(R12El)
 // RS485 display block, framed for the A/B pair routing below.
-const U7El = <Cos13487 name="U7" x={-19.5} y={-23} rot={180} />
-const R6El = <Res name="R6" resistance="120" footprint="0603" jlcpcb="C22787" x={-19.5} y={-28} rot={0} side="N" />
-const D1El = <Sm712 name="D1" x={-24.7} y={-27.55} rot={180} />
-const J9El = <Jst name="J9" x={-20.25} y={-32.2} count={4} labels={["B", "A", "GND", "V12"]} label="DISPLAY" rot={180} />
+const U7El = <Cos13487 name="U7" x={-19.5} y={-19.65} rot={180} />
+const R6El = <Res name="R6" resistance="120" footprint="0603" jlcpcb="C22787" x={-19.5} y={-26.1} rot={0} side="N" />
+const D1El = <Sm712 name="D1" x={-23.1} y={-25.6} rot={90} />
+const J9El = <Jst name="J9" x={-20.25} y={-30.3} count={4} labels={["B", "A", "GND", "V12"]} label="DISPLAY" rot={180} />
 const U7f = frame(U7El), R6f = frame(R6El), D1f = frame(D1El)
 const J9f = frame("J9", J9El.props.x, J9El.props.y, 0, Object.fromEntries(jstPins(J9El.props).pins))
 // Faucet UART connector, framed for the IO33/IO35 routing below.
@@ -306,7 +306,7 @@ export default () => (
     {U7El}
     {R6El}
     {D1El}
-    <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-19.3} y={-17.4} rot={0} side="N" />
+    <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-19.3} y={-14.05} rot={0} side="S" />
     {/* On-board supplies. U10 = K7805 (12V->5V, 2A) SIP module (pin1 Vin / pin2 GND / pin3
         +Vo), 10uF input + 22uF output cap. U9 = AMS1117-3.3 (C6186, SOT-223 LDO) makes 3V3
         from the 5V rail: VIN off V5, VOUT1 + VOUT2 (tab) to 3V3, GND to the bottom plane;
@@ -645,13 +645,18 @@ export default () => (
     {/* RO/DI — the ~40mm west haul to U1's south row. The top face is the sensor comb's (its
         drops wall x-46.75/-32.5/-29.75 through the whole band), so both ride the BOTTOM as
         parallel lanes: IO34 drops its own clear column, IO32 threads the C10 pin1/pin2 channel
-        (its own column sits in C10.pin2's shadow), and each closes north into a pad-via on U7's
-        north row. Lane pitch 0.6; the C11/C10 stitch barrels flank the channel at 0.65. */}
+        (its own column sits in C10.pin2's shadow). The lanes cross U10's column south of its
+        pin1 barrel: RO's runs under the pocket and rises through U7's VCC/B pad channel, DI's
+        stops short of U7.GND's through-stack shadow and rises along the pad row's west flank;
+        both close north into a pad-via on U7's north row from the lane between the pad rows.
+        Lane pitch 0.6; the C11/C10 stitch barrels flank the channel at 0.65. */}
     <trace from="U1.IO34" to="U7.RO" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO34",
         { row: -27.9 },             // south detour under the relocated U9 cluster
         { col: -45.7 },             // rise east of the cluster, west of the LED resistors
-        { row: -23.7 },             // the original south lane into RO
+        { row: -23.7 },             // south lane, under the RS485 pocket
+        { col: -18.3 },             // rise through U7's VCC/B pad channel, west of the VCC via
+        { row: -21.1 },             // between U7's pad rows, east into the RO pad-via
         "U7.RO",
     )} />
     <trace from="U1.IO32" to="U7.DI" pcbPathRelativeTo="board" pcbPath={routeBottom(
@@ -660,7 +665,9 @@ export default () => (
         { col: -56.5 },             // the C10/C11 pin1-pin2 channel
         { row: -27.5 },             // south detour under the U9 cluster
         { col: -46.2 },             // rise east of the cluster, paired lane
-        { row: -23.1 },             // north lane of the pair into DI
+        { row: -23.1 },             // north lane of the pair, ending west of U7.GND's shadow
+        { col: -21.95 },            // rise along the pad row's west flank, clear of the GND via
+        { row: -21.1 },             // between U7's pad rows, east into the DI pad-via
         "U7.DI",
     )} />
     <trace from=".U7 > .RE" to="net.GND" />
@@ -901,7 +908,8 @@ export default () => (
         barrel channel, along the strip south of the connector row, into J9.B by its south face.
         A stays inside: down R6.pin1's column, west over the barrel row, into J9.A. R6 hangs
         directly under the pair (each pin a straight drop off its transceiver pad's column); D1
-        taps A in the U7-row/D1.GND channel and feeds J9.B's barrel from its own B pad. */}
+        stands rot 90 in the bay west of R6 — A/B pads on its north row, GND south toward J9 —
+        taps A in the lane south of U7's pad row and drops B straight into J9.B's barrel. */}
     <trace from="U7.A" to="R6.pin1" pcbPathRelativeTo="board" pcbPath={route(
         "U7.A",
         U7f.col("A"),               // straight down; the closing jog lands inside pin1
@@ -914,8 +922,8 @@ export default () => (
     )} />
     <trace from="U7.A" to="D1.A" pcbPathRelativeTo="board" pcbPath={route(
         "U7.A",
-        U7f.above("A", 0.305),      // U7 sits rot 180: its local "above" is board-south — the lane between the pad row and D1.GND
-        D1f.col("A"),
+        U7f.above("A", 0.305),      // U7 sits rot 180: its local "above" is board-south — the lane under the pad row
+        D1f.row("A"),               // D1 sits rot 90: its local "row" is the board column into A
         "D1.A",
     )} />
     <trace from="R6.pin1" to="J9.A" pcbPathRelativeTo="board" pcbPath={route(
@@ -934,7 +942,7 @@ export default () => (
     )} />
     <trace from="D1.B" to="J9.B" pcbPathRelativeTo="board" pcbPath={route(
         "D1.B",
-        J9f.row("B", 1.5),          // east under D1, down into the barrel's north face
+        J9f.row("B", 1.5),          // straight drop off B's column, into the barrel's north face
         "J9.B",
     )} />
     <trace from=".D1 > .GND" to="net.GND" />

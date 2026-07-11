@@ -336,9 +336,10 @@ export const Cos13487 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: 
 const sm712PinLabels = { pin1: "A", pin2: "B", pin3: "GND" }
 
 // JLCPCB-imported footprint (./imports/SM712_TCT, C12067) for the correct CPL rotation. SOT-23,
-// so it calibrates separately from the SOICs: rot 180 seats A/B on the west column (toward U7 and
-// the J9 line entry) and GND on the east, reproducing the generic orientation. The import's
-// A11/A12/K labels are overridden with our A/B/GND; {NAME} silk stripped for the manual ref-des.
+// so it calibrates separately from the SOICs: rot 180 seats A/B on the west column and GND on
+// the east, reproducing the generic orientation (rot 90 turns that to A/B north, GND south).
+// The import's A11/A12/K labels are overridden with our A/B/GND; {NAME} silk stripped for the
+// manual ref-des.
 export const Sm712 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => (
   <>
     <SM712_TCT name={name} pinLabels={sm712PinLabels} pcbRotation={rot} {...at(x, y)} />
