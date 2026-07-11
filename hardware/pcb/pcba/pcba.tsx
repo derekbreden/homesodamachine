@@ -102,7 +102,7 @@ const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" 
 // and the switch row (whose band the relay's bottom lane also crosses). pin1 (rot90: south) drops
 // the corridor and crosses to IO0 on the bottom, under the relay's top rise; pin2 (3V3) stitches
 // to its plane.
-const R8El = <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-42.7} y={26} rot={90} side="E" />
+const R8El = <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-43.0} y={26} rot={90} side="E" />
 const R8f = frame(R8El)
 // BOOT override tact (IO0 branch). rot180 seats pin1 (signal) on the SE corner so it exits south,
 // clear of U13, down to IO0; pin4 (NW) is the diagonal contact to GND. SW2 (RESET/EN) stays inline.
@@ -154,8 +154,8 @@ const J5f = frame("J5", J5El.props.x, J5El.props.y, 0, Object.fromEntries(jstPin
 // Pump H-bridges, framed for the IN-bus routing below. The whole pump pod (U11/U12,
 // their VM caps, and J13 above) is one rigid cluster — J13 sits at U12+1, U11 at J13-6,
 // caps at driver∓1.5/+1.75 — so a pod move preserves every internal route exactly.
-const U11El = <Drv8870 name="U11" x={-15.5} y={22.75} rot={0} />
-const U12El = <Drv8870 name="U12" x={-8.5} y={22.75} rot={0} />
+const U11El = <Drv8870 name="U11" x={-16.7} y={22.75} rot={0} />
+const U12El = <Drv8870 name="U12" x={-9.7} y={22.75} rot={0} />
 const U11f = frame(U11El), U12f = frame(U12El)
 // Firmware status-LED resistors, framed for the GPIO-feed routing below.
 const R10El = <Res name="R10" resistance="470" footprint="0603" jlcpcb="C23179" x={-43.2} y={-15.5} rot={0} side="N" />
@@ -163,9 +163,9 @@ const R11El = <Res name="R11" resistance="470" footprint="0603" jlcpcb="C23179" 
 const R12El = <Res name="R12" resistance="470" footprint="0603" jlcpcb="C23179" x={-43.2} y={-20.5} rot={0} side="N" />
 const R10f = frame(R10El), R11f = frame(R11El), R12f = frame(R12El)
 // RS485 display block, framed for the A/B pair routing below.
-const U7El = <Cos13487 name="U7" x={-19} y={-23} rot={180} />
-const R6El = <Res name="R6" resistance="120" footprint="0603" jlcpcb="C22787" x={-19} y={-28} rot={0} side="N" />
-const D1El = <Sm712 name="D1" x={-24.5} y={-27.5} rot={180} />
+const U7El = <Cos13487 name="U7" x={-19.5} y={-23} rot={180} />
+const R6El = <Res name="R6" resistance="120" footprint="0603" jlcpcb="C22787" x={-19.5} y={-28} rot={0} side="N" />
+const D1El = <Sm712 name="D1" x={-25.15} y={-27.5} rot={180} />
 const J9El = <Jst name="J9" x={-20.25} y={-33} count={4} labels={["B", "A", "GND", "V12"]} label="DISPLAY" rot={180} />
 const U7f = frame(U7El), R6f = frame(R6El), D1f = frame(D1El)
 const J9f = frame("J9", J9El.props.x, J9El.props.y, 0, Object.fromEntries(jstPins(J9El.props).pins))
@@ -198,21 +198,21 @@ const R13f = frame(R13El), R14f = frame(R14El)
 // north of ~28.5), pin1 toward its hub barrel: R19 rot0 (pin1 WEST), R20 rot180 (pin1 EAST),
 // each rising into the north corridor and closing on its barrel.
 const U2El = <Mcp23017 name="U2" x={-31.4} y={20.25} addr="0x20" rot={180} />
-const U3El = <Mcp23017 name="U3" x={-1.75} y={-21.75} addr="0x21" rot={0} />
+const U3El = <Mcp23017 name="U3" x={-7.2} y={-21.75} addr="0x21" rot={0} />
 const U2f = frame(U2El), U3f = frame(U3El)
 const J8El = <Jst name="J8" x={4.1} y={31} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" rot={0} />
 const J8f = frame("J8", J8El.props.x, J8El.props.y, 0, Object.fromEntries(jstPins(J8El.props).pins))
-const R19El = <Res name="R19" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={10.6} y={26.4} rot={0} side="N" />
-const R20El = <Res name="R20" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={5.4} y={26.4} rot={180} side="N" />
+const R19El = <Res name="R19" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={13.2} y={27.6} rot={0} side="N" />
+const R20El = <Res name="R20" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={2.3} y={26.2} rot={180} side="N" />
 const R19f = frame(R19El), R20f = frame(R20El)
 
 // ── Valve/reed fan frames — the ULNs, manifolds, and reed connectors, framed for the
 // nested fan routes below (each MCP↔ULN↔manifold column and its reed connector). ─────────
-const U4El = <Uln2803 name="U4" x={9.25} y={9.5} rot={270} />
-const U5El = <Uln2803 name="U5" x={9.5} y={-9} rot={270} />
+const U4El = <Uln2803 name="U4" x={-0.75} y={9.5} rot={270} />
+const U5El = <Uln2803 name="U5" x={-0.5} y={-9} rot={270} />
 const U4f = frame(U4El), U5f = frame(U5El)
-const J1El = <Jst name="J1" x={21} y={13.75} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" rot={270} />
-const J2El = <Jst name="J2" x={21} y={-9.5} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" rot={270} />
+const J1El = <Jst name="J1" x={11} y={13.75} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" rot={270} />
+const J2El = <Jst name="J2" x={11} y={-9.5} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" rot={270} />
 const J6El = <Jst name="J6" x={-24.35} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" rot={0} />
 const J7El = <Jst name="J7" x={-3.0} y={-33} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" rot={180} />
 const J1f = frame("J1", J1El.props.x, J1El.props.y, 0, Object.fromEntries(jstPins(J1El.props).pins))
@@ -249,7 +249,7 @@ export const decoupling: DecouplingRule[] = [
   { cap: "C22", near: "U14", role: "USBLC6 VBUS", kind: "hf" },
   { cap: "C1", near: "U5", role: "V12 island HF (ULN B)", kind: "hf" },
   { cap: "C2", near: "U4", role: "V12 island HF (ULN A)", kind: "hf" },
-  { cap: "C3", near: "U4", role: "V12 470uF bulk reservoir", kind: "reservoir" },
+  { cap: "C3", near: "U5", role: "V12 470uF bulk reservoir", kind: "reservoir" },
 ]
 
 // ── Ampacity audit ──────────────────────────────────────────────────────────────────────
@@ -305,7 +305,7 @@ export default () => (
     {U7El}
     {R6El}
     {D1El}
-    <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-18.5} y={-17.75} rot={0} side="N" />
+    <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-19.3} y={-17.4} rot={0} side="N" />
     {/* On-board supplies. U10 = K7805 (12V->5V, 2A) SIP module (pin1 Vin / pin2 GND / pin3
         +Vo), 10uF input + 22uF output cap. U9 = AMS1117-3.3 (C6186, SOT-223 LDO) makes 3V3
         from the 5V rail: VIN off V5, VOUT1 + VOUT2 (tab) to 3V3, GND to the bottom plane;
@@ -318,12 +318,12 @@ export default () => (
         straddle them). C15/C16 stand as a vertical pair on its east flank (C16 output cap
         north by pin3, C15 input cap south toward pin1, pads clear of the DI row); every pin
         is a plane pickup, so the buck cluster carries no routed copper at all. */}
-    <Ams1117 name="U9" x={7} y={21.25} rot={0} />
-    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={13.3} y={18.6} rot={90} side="E" />
-    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={13.3} y={23.15} rot={90} side="E" />
+    <Ams1117 name="U9" x={21.5} y={8} rot={0} />
+    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={18.5} y={14.2} rot={90} side="E" />
+    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={22.5} y={14.2} rot={0} side="N" />
     <Buck5 name="U10" x={-30.8} y={-19.2} rot={90} />
-    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-23.7} y={-20.35} rot={90} side="E" />
-    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-23.7} y={-15.4} rot={90} side="E" />
+    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-23.8} y={-20.35} rot={90} side="E" />
+    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-23.8} y={-15.4} rot={90} side="E" />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
         pump (Kamoer KPHM400-SW, 12V brushed DC, 0.8A at full speed per the datasheet — PWM'd well below that at the
         1:20 dispense ratio; prime/clean is where it hits 0.8A), 45V/3.6A SMD with internal freewheeling +
@@ -334,11 +334,11 @@ export default () => (
         only IN1 PWM'd from the ESP. That halves the IN bus to one trace per pump and frees IO16/IO18.
         (Reversible: re-add IN2->IO16/IO18 if a reverse/anti-drip mode is ever wanted.) */}
     {U11El}
-    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-17} y={16.55} rot={90} side="E" />
-    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-13.75} y={16.55} rot={90} side="E" />
+    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-18.2} y={16.55} rot={90} side="E" />
+    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-14.95} y={16.55} rot={90} side="E" />
     {U12El}
-    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-10} y={16.55} rot={90} side="E" />
-    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-6.75} y={16.55} rot={90} side="E" />
+    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-11.2} y={16.55} rot={90} side="E" />
+    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-7.95} y={16.55} rot={90} side="E" />
     {U2El}
     {U3El}
     {U4El}
@@ -505,8 +505,8 @@ export default () => (
         south band over the IO-rows are both too shallow for an 0805 courtyard. 4.2mm from
         U2's nearest pad, serving VDD through the 3V3 plane like the original south-side
         seat did. */}
-    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-20.6} y={20.25} rot={90} side="E" />
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-12.75} y={-25.5} rot={270} side="E" />
+    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-41.9} y={17.5} rot={90} side="E" />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={3.5} y={-20} rot={270} side="E" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
@@ -549,20 +549,20 @@ export default () => (
           · the WROOM corridor {row 10.95} — north of the U1 pad-row shadows (y ≤ 10.15)
             and the boot line's bottom-hop vias (y 10.45), south of J14's shell-slot copper
             (y ≥ 11.175);
-          · the mid-board riser {col 2.45} — west of U4's IN-pad wall (a solid shadow
+          · the mid-board riser {col -20.5} — west of U4's IN-pad wall (a solid shadow
             y 3.6..15.4: 1.62mm pads at 1.27 pitch overlap in projection) and of U9's tab;
           · the north corridor {row 28.2} — above U2's pad row (y ≤ 26.46), below the
             J6/J8 barrel rings (y ≥ 30.2);
           · U3's edges exit SOUTH of its pad row and rise between U3's east flank and U4's
-            IN wall (SDA x 7.3, SCL x 7.7 — offset only so the plots read); R20 parks west
-            of those columns so its pad-vias stay clear of them.
+            IN wall (SDA x 0.425, SCL x -0.85), each threading BOTH of U3's own pad-column
+            gaps and the strap vias on the shared x-grid.
         U6.SDA exits WEST (its own column is squatted by U6.SCL's pad shadow); U6.SCL rises
         its own clear column. R19/R20 pin1 edges drop from the pull-up pads into the same
         north corridor. */}
     <trace from="U1.IO21" to="J8.SDA" pcbPathRelativeTo="board" pcbPath={routeInner("inner1",
         "U1.IO21",
         { row: 10.95 },
-        { col: 2.45 },
+        { col: -20.5 },
         { row: 28.2 },
         J8f.col("SDA"),
         "J8.SDA",
@@ -571,7 +571,7 @@ export default () => (
         "U6.SDA",
         U6f.below("SDA", 0.35),     // board-WEST of the pad row (rot270: local -y), clear of U6.SCL's shadow
         { row: 10.95 },
-        { col: 2.45 },
+        { col: -20.5 },
         { row: 28.2 },
         J8f.col("SDA"),
         "J8.SDA",
@@ -585,7 +585,7 @@ export default () => (
     <trace from="U3.SDA" to="J8.SDA" pcbPathRelativeTo="board" pcbPath={routeInner("inner1",
         "U3.SDA",
         U3f.below("SDA", 0.35),     // south exit under the pad row
-        { col: 7.3 },
+        { col: 0.425 },
         { row: 28.2 },
         J8f.col("SDA"),
         "J8.SDA",
@@ -599,7 +599,7 @@ export default () => (
     <trace from="U1.IO22" to="J8.SCL" pcbPathRelativeTo="board" pcbPath={routeInner("inner2",
         "U1.IO22",
         { row: 10.95 },
-        { col: 2.45 },
+        { col: -20.5 },
         { row: 28.2 },
         J8f.col("SCL"),
         "J8.SCL",
@@ -607,7 +607,7 @@ export default () => (
     <trace from="U6.SCL" to="J8.SCL" pcbPathRelativeTo="board" pcbPath={routeInner("inner2",
         "U6.SCL",
         { row: 10.95 },
-        { col: 2.45 },
+        { col: -20.5 },
         { row: 28.2 },
         J8f.col("SCL"),
         "J8.SCL",
@@ -621,7 +621,7 @@ export default () => (
     <trace from="U3.SCL" to="J8.SCL" pcbPathRelativeTo="board" pcbPath={routeInner("inner2",
         "U3.SCL",
         U3f.below("SCL", 0.35),     // south exit under the pad row
-        { col: 7.7 },
+        { col: -0.85 },
         { row: 28.2 },
         J8f.col("SCL"),
         "J8.SCL",
@@ -983,9 +983,9 @@ export default () => (
         soaking the inrush + flyback dump the ceramics can't. Every pin1 -> V12, pin2 ->
         GND plane — no routing, no vias, barrel pickup like every power pin; the top V12
         island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
-    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={13.25} y={-17} rot={0} side="N" />
-    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={13} y={1.5} rot={0} side="N" />
-    <BulkCap name="C3" x={-3} y={-1.25} />
+    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={7.0} y={-15.5} rot={90} side="E" />
+    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={3} y={1.5} rot={0} side="N" />
+    <BulkCap name="C3" x={21.5} y={-5} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
     <trace from=".C2 > .pin1" to="net.V12" />
