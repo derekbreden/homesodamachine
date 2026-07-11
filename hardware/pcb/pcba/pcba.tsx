@@ -75,7 +75,7 @@ const ID = boardVersionParts()
 // a numeric x={…}/y={…} on the component's own line — web/lib/pcb-editor-routes.js parses/rewrites it),
 // then rendered below via {U14El}/… `frame(el)` derives centre, rotation, AND pad geometry from that one
 // element, so a drag moves the part and its routing follows — nothing to keep in sync by hand.
-const U14El = <Usblc6 name="U14" x={-56.25} y={16} rot={270} />
+const U14El = <Usblc6 name="U14" x={-56.25} y={16} rot={270} ly={1.9} />  // ref-des north: the centre row is the GND/VBUS pads
 const C22El = <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.25} y={19.35} rot={0} side="N" />
 const J14El = <UsbC name="J14" x={-62} y={16.5} rot={270} />
 const U13El = <Ch340 name="U13" x={-49.25} y={24.55} rot={0} />
@@ -141,7 +141,7 @@ const R4El = <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x
 const R7El = <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={CX_EN} y={CY_BOT} rot={270} side="E" />    // EN node (pin1 N) → V3V3 (pin2 S)
 const C12El = <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={CX_EN} y={CY_TOP} rot={90} side="W" />  // EN node (pin1 S) → GND (pin2 N); near U1.EN
 const R1f = frame(R1El), R2f = frame(R2El), R3f = frame(R3El), R4f = frame(R4El), R7f = frame(R7El), C12f = frame(C12El)
-const U1El = <Esp32 name="U1" x={-57} y={0} rot={0} />
+const U1El = <Esp32 name="U1" x={-57} y={0} rot={0} ly={4} />  // ref-des north of the centre GND thermal-pad array
 const U1f = frame(U1El)                               // ESP32; taps by label (EN/IO36/IO39)
 const J11El = <Jst name="J11" x={-62} y={-23.85} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} label="GAS" rot={90} />
 const J11f = frame("J11", J11El.props.x, J11El.props.y, 0, Object.fromEntries(jstPins(J11El.props).pins))
@@ -157,8 +157,8 @@ const J5f = frame("J5", J5El.props.x, J5El.props.y, 0, Object.fromEntries(jstPin
 // Pump H-bridges, framed for the IN-bus routing below. The whole pump pod (U11/U12,
 // their VM caps, and J13 above) is one rigid cluster — J13 sits at U12+1, U11 at J13-6,
 // caps at driver∓1.5/+1.75 — so a pod move preserves every internal route exactly.
-const U11El = <Drv8870 name="U11" x={-16.5} y={22.75} rot={0} />
-const U12El = <Drv8870 name="U12" x={-9.5} y={22.75} rot={0} />
+const U11El = <Drv8870 name="U11" x={-16.5} y={22.75} rot={0} ly={4.75} />  // ref-des north, clear of the thermal PAD
+const U12El = <Drv8870 name="U12" x={-9.5} y={22.75} rot={0} ly={4.75} />  // ref-des north, clear of the thermal PAD
 const U11f = frame(U11El), U12f = frame(U12El)
 // Firmware status-LED resistors, framed for the GPIO-feed routing below.
 const R10El = <Res name="R10" resistance="470" footprint="0603" jlcpcb="C23179" x={-43.2} y={-15.5} rot={0} side="N" />
@@ -341,10 +341,10 @@ export default () => (
         (Reversible: re-add IN2->IO16/IO18 if a reverse/anti-drip mode is ever wanted.) */}
     {U11El}
     <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-20.72} y={22.75} rot={90} side="E" />
-    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-18.2} y={17.7} rot={180} side="N" />
+    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-18.2} y={17.7} rot={180} side="S" />{/* S: N grazes U11's GND pad */}
     {U12El}
     <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-5.4} y={22.75} rot={90} side="E" />
-    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-11.2} y={17.7} rot={180} side="N" />
+    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-11.2} y={17.7} rot={180} side="S" />{/* S: N grazes U12's GND pad */}
     {U2El}
     {U3El}
     {U4El}
@@ -511,7 +511,7 @@ export default () => (
         south band over the IO-rows are both too shallow for an 0805 courtyard. 4.2mm from
         U2's nearest pad, serving VDD through the 3V3 plane like the original south-side
         seat did. */}
-    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-41.9} y={17.5} rot={90} side="E" />
+    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-41.9} y={17.5} rot={90} side="W" />{/* W: E grazes U2's fence */}
     <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={3.35} y={-16.15} rot={270} side="E" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
