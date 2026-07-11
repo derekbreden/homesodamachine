@@ -1,0 +1,41 @@
+#!/bin/sh
+# Keep the PCBA's 3D assembly (out/pcba.glb + top3d/bottom3d face textures) in lock-step with
+# what's being committed, WITHOUT taxing every render.
+#
+# render-board.ts deliberately skips the ~14 s CadQuery 3D build so board iteration stays fast,
+# which lets out/pcba.glb drift behind the gerbers during a work session. This hook is the single
+# place that reconciles it: on a commit that touches the board, if the GLB is behind the gerbers,
+# rebuild it once and stage it — so the 3D never lands stale, and nobody waits on it mid-iteration.
+#
+# Best-effort by design: it never blocks a commit. It no-ops instantly unless (a) the commit
+# touches hardware/pcb/pcba/ and (b) the GLB is actually behind the gerbers; any failure (no
+# cad-venv, board-3d.py error) prints a warning and lets the commit through.
+
+root=$(git rev-parse --show-toplevel) || exit 0
+pcba="$root/hardware/pcb/pcba"
+
+# (a) only when this commit changes the board
+git diff --cached --name-only -- "hardware/pcb/pcba/" | grep -q . || exit 0
+
+# (b) only when the GLB is behind the gerbers (render ran since the last 3D build)
+[ -f "$pcba/out/pcba.gerbers.zip" ] || exit 0
+if [ -f "$pcba/out/pcba.glb" ] && [ ! "$pcba/out/pcba.gerbers.zip" -nt "$pcba/out/pcba.glb" ]; then
+  exit 0  # GLB already current
+fi
+
+py="$root/tools/cad-venv/bin/python"
+if [ ! -x "$py" ]; then
+  echo "pre-commit: no cad-venv — out/pcba.glb may be stale (run: tools/cad-venv/bin/python board-3d.py)" >&2
+  exit 0
+fi
+
+echo "pre-commit: out/pcba.glb is behind the gerbers — rebuilding the 3D (one-time, ~14 s)…" >&2
+if ( cd "$pcba" && "$py" board-3d.py ) >&2; then
+  git -C "$root" add \
+    hardware/pcb/pcba/out/pcba.glb \
+    hardware/pcb/pcba/out/pcba.top3d.png \
+    hardware/pcb/pcba/out/pcba.bottom3d.png
+else
+  echo "pre-commit: board-3d failed — committing a possibly-stale GLB (rerun: tools/cad-venv/bin/python board-3d.py)" >&2
+fi
+exit 0
