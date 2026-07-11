@@ -147,7 +147,12 @@ export function ledKnockoutGerber(circuit: any[]): string {
   // 2) knock the letters + LED-pad antipads out of the fills
   L.push("%LPC*%", `%ADD${STROKE_APERTURE}C,${STROKE.toFixed(6)}*%`, `D${STROKE_APERTURE}*`)
   const padEast = Math.max(...rows[0].pads.map((q) => q.x + q.w / 2)) + PAD_CLEAR
-  const textCx = (padEast + arcX) / 2 // centre the label between the LED and the round cap
+  // Centre the label across the whole span east of the LED, INCLUDING the round cap: on the badge's
+  // vertical centreline the cap reaches all the way to EAST, so that width is text space, not
+  // something to sit west of. Balance to the rightmost point (a small inset keeps letters off the
+  // very tip of the curve) — so the label has equal air to the LED on its west and the cap on its east.
+  const CAP_INSET = 0.3
+  const textCx = (padEast + (EAST - CAP_INSET)) / 2
   for (const { cy, text } of rows) {
     for (const [a, b] of centeredStrokes(HERSHEY, text, textCx, cy)) {
       L.push(`${at(a[0], a[1])}D02*`, `${at(b[0], b[1])}D01*`)
