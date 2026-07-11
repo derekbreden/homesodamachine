@@ -377,13 +377,16 @@ export const Buck5 = ({ name, x, y, rot = 180 }: Labeled & { rot?: number }) => 
   )
 }
 
-// MLT-5020 magnetic buzzer (seats rot 90): label on the body, nudged west of centre so it
-// clears the +/- polarity silk (which the rot-90 seating throws to the east) while staying
-// well inside the footprint — reads as the buzzer's own, not the neighbour Q1's to the west.
+// MLT-5020 magnetic buzzer (seats rot 90): ref-des on the body, nudged west of centre so it
+// reads as the buzzer's own, not the neighbour Q1's to the west. The import's own +/- polarity
+// silk is dropped (oversized 2 mm marks that landed on the _POS pad + fence); a single clean "+"
+// is redrawn here in board coords just EAST of the _POS pad — clear of the pad and the fence —
+// where the rot-90 seating puts _POS (pin 1). A pure function of (x, y) at the fixed rot 90.
 export const Buzzer = ({ name, x, y }: Labeled) => (
   <>
     <MLT_5020 name={name} pcbRotation={90} {...at(x, y)} />
     {refdes(name, x - 1.8, y)}
+    <silkscreentext text="+" fontSize="1mm" anchorAlignment="center" pcbX={x + 3.15} pcbY={y - 2.3} />
   </>
 )
 
@@ -432,11 +435,15 @@ export const Tact = ({ name, x, y, rot = 0 }: Labeled & { rot?: number }) => (
 // (it rode the seating rotation — sideways/upside-down at rot 270 — and sat offset
 // toward a neighbour) and gets an upright ref-des centred on the body, a pure
 // function of (x,y) so it rides when the part moves, exactly like U2/U3 (Mcp23017).
+// `lx`/`ly` shift the ref-des off the body centre (default 0 = centred): a part whose
+// centre is EXPOSED COPPER — a DRV8870's thermal PAD, the WROOM's ground array, a
+// SOT-23-6's centre-row pads — can't carry silk there (ink on bare copper), so those
+// instances push the ref-des to a clear side (north preferred; N/S stay horizontal).
 const centred = (Part: (props: any) => any) =>
-  ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => (
+  ({ name, x, y, rot = 0, lx = 0, ly = 0 }: { name: string; x: number; y: number; rot?: number; lx?: number; ly?: number }) => (
     <>
       <Part name={name} pcbRotation={rot} {...at(x, y)} />
-      <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x} pcbY={y} />
+      <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x + lx} pcbY={y + ly} />
     </>
   )
 
