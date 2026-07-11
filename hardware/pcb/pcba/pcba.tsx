@@ -181,11 +181,11 @@ const BT1f = frame(BT1El), U6f = frame(U6El)
 const D2El = <LedRed name="D2" pcbRotation={180} {...at(-39.75, -15.5)} />
 const D3El = <LedGrn name="D3" pcbRotation={180} {...at(-39.75, -18)} />
 const D4El = <LedBlu name="D4" pcbRotation={180} {...at(-39.75, -20.5)} />
-const D5El = <LedGrn name="D5" {...at(23, -20.5)} />
-const D6El = <LedGrn name="D6" {...at(23, -25.5)} />
+const D5El = <LedGrn name="D5" pcbRotation={270} {...at(6.0, -19.6)} />
+const D6El = <LedGrn name="D6" pcbRotation={270} {...at(6.0, -26.65)} />
 const D2f = frame(D2El), D3f = frame(D3El), D4f = frame(D4El), D5f = frame(D5El), D6f = frame(D6El)
-const R13El = <Res name="R13" resistance="470" footprint="0603" jlcpcb="C23179" x={23} y={-23} rot={0} side="N" />
-const R14El = <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={23} y={-28} rot={0} side="N" />
+const R13El = <Res name="R13" resistance="470" footprint="0603" jlcpcb="C23179" x={6.0} y={-23.15} rot={90} side="E" />
+const R14El = <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={3.75} y={-29.3} rot={0} side="N" />
 const R13f = frame(R13El), R14f = frame(R14El)
 
 // ── I2C bus (SDA / SCL as routeInner traces on the plane layers) ─────────────────────────
@@ -203,7 +203,7 @@ const U2f = frame(U2El), U3f = frame(U3El)
 const J8El = <Jst name="J8" x={4.1} y={31} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" rot={0} />
 const J8f = frame("J8", J8El.props.x, J8El.props.y, 0, Object.fromEntries(jstPins(J8El.props).pins))
 const R19El = <Res name="R19" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={13.2} y={27.6} rot={0} side="N" />
-const R20El = <Res name="R20" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={2.3} y={26.2} rot={180} side="N" />
+const R20El = <Res name="R20" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-4.8} y={26.2} rot={180} side="N" />
 const R19f = frame(R19El), R20f = frame(R20El)
 
 // ── Valve/reed fan frames — the ULNs, manifolds, and reed connectors, framed for the
@@ -249,7 +249,7 @@ export const decoupling: DecouplingRule[] = [
   { cap: "C22", near: "U14", role: "USBLC6 VBUS", kind: "hf" },
   { cap: "C1", near: "U5", role: "V12 island HF (ULN B)", kind: "hf" },
   { cap: "C2", near: "U4", role: "V12 island HF (ULN A)", kind: "hf" },
-  { cap: "C3", near: "U5", role: "V12 470uF bulk reservoir", kind: "reservoir" },
+  { cap: "C3", near: "U4", role: "V12 470uF bulk reservoir", kind: "reservoir" },
 ]
 
 // ── Ampacity audit ──────────────────────────────────────────────────────────────────────
@@ -271,7 +271,7 @@ export const ampacity: AmpacityRule[] = [
 ]
 
 export default () => (
-  <board layers={4} schematicDisabled outline={[{ x: -68, y: -39 }, { x: 27, y: -39 }, { x: 27, y: 37 }, { x: -68, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm", viaPadDiameter: "0.5mm", viaHoleDiameter: "0.3mm" }} autorouter={{ traceClearance: 0.15, viaMode: "through-hole", viaInPad: true, viaRingKeepout: false }}>
+  <board layers={4} schematicDisabled outline={[{ x: -68, y: -39 }, { x: 17, y: -39 }, { x: 17, y: 37 }, { x: -68, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm", viaPadDiameter: "0.5mm", viaHoleDiameter: "0.3mm" }} autorouter={{ traceClearance: 0.15, viaMode: "through-hole", viaInPad: true, viaRingKeepout: false }}>
     {/* DS3231SN RTC + CR2032 backup, east of the ESP. U6 (the SOIC) sits high with its
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
@@ -318,9 +318,9 @@ export default () => (
         straddle them). C15/C16 stand as a vertical pair on its east flank (C16 output cap
         north by pin3, C15 input cap south toward pin1, pads clear of the DI row); every pin
         is a plane pickup, so the buck cluster carries no routed copper at all. */}
-    <Ams1117 name="U9" x={21.5} y={8} rot={0} />
-    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={18.5} y={14.2} rot={90} side="E" />
-    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={22.5} y={14.2} rot={0} side="N" />
+    <Ams1117 name="U9" x={-51.5} y={-23.8} rot={0} />
+    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-52.4} y={-17.6} rot={90} side="E" />
+    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-52.6} y={-28.95} rot={0} side="N" />
     <Buck5 name="U10" x={-30.8} y={-19.2} rot={90} />
     <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-23.8} y={-20.35} rot={90} side="E" />
     <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-23.8} y={-15.4} rot={90} side="E" />
@@ -554,8 +554,8 @@ export default () => (
           · the north corridor {row 28.2} — above U2's pad row (y ≤ 26.46), below the
             J6/J8 barrel rings (y ≥ 30.2);
           · U3's edges exit SOUTH of its pad row and rise between U3's east flank and U4's
-            IN wall (SDA x 0.425, SCL x -0.85), each threading BOTH of U3's own pad-column
-            gaps and the strap vias on the shared x-grid.
+            IN wall (SDA x 1.95, SCL x 2.35), rising east of U3's pad rows between C3's
+            barrels, clear of C2 and C5.
         U6.SDA exits WEST (its own column is squatted by U6.SCL's pad shadow); U6.SCL rises
         its own clear column. R19/R20 pin1 edges drop from the pull-up pads into the same
         north corridor. */}
@@ -585,7 +585,7 @@ export default () => (
     <trace from="U3.SDA" to="J8.SDA" pcbPathRelativeTo="board" pcbPath={routeInner("inner1",
         "U3.SDA",
         U3f.below("SDA", 0.35),     // south exit under the pad row
-        { col: 0.425 },
+        { col: 1.95 },
         { row: 28.2 },
         J8f.col("SDA"),
         "J8.SDA",
@@ -621,7 +621,7 @@ export default () => (
     <trace from="U3.SCL" to="J8.SCL" pcbPathRelativeTo="board" pcbPath={routeInner("inner2",
         "U3.SCL",
         U3f.below("SCL", 0.35),     // south exit under the pad row
-        { col: -0.85 },
+        { col: 2.35 },
         { row: 28.2 },
         J8f.col("SCL"),
         "J8.SCL",
@@ -645,14 +645,18 @@ export default () => (
         north row. Lane pitch 0.6; the C11/C10 stitch barrels flank the channel at 0.65. */}
     <trace from="U1.IO34" to="U7.RO" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO34",
-        { row: -23.7 },             // south lane, clear under the LED L's and R13/R14
+        { row: -27.9 },             // south detour under the relocated U9 cluster
+        { col: -45.7 },             // rise east of the cluster, west of the LED resistors
+        { row: -23.7 },             // the original south lane into RO
         "U7.RO",
     )} />
     <trace from="U1.IO32" to="U7.DI" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO32",
         { row: -11.5 },             // clear of the pad row before jogging east
         { col: -56.5 },             // the C10/C11 pin1-pin2 channel
-        { row: -23.1 },             // north lane of the pair
+        { row: -27.5 },             // south detour under the relocated U9 cluster
+        { col: -46.2 },             // rise east of the cluster, paired lane
+        { row: -23.1 },             // north lane of the pair into DI
         "U7.DI",
     )} />
     <trace from=".U7 > .RE" to="net.GND" />
@@ -984,8 +988,8 @@ export default () => (
         GND plane — no routing, no vias, barrel pickup like every power pin; the top V12
         island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
     <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={7.0} y={-15.5} rot={90} side="E" />
-    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={3} y={1.5} rot={0} side="N" />
-    <BulkCap name="C3" x={21.5} y={-5} />
+    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={0.4} y={1.1} rot={90} side="E" />
+    <BulkCap name="C3" x={2.6} y={21.2} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
     <trace from=".C2 > .pin1" to="net.V12" />
@@ -1324,8 +1328,8 @@ export default () => (
         held ≥2 mm off the pad edge (the seated head + standoff clear it), the tightest being
         J8→MH3 and J11→MH4. The connector audit (connector-audit.ts) measures this each render. */}
     <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.5} pcbY={33.5} />
-    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={23.5} pcbY={33.5} />
-    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={23.5} pcbY={-35.5} />
+    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={13.5} pcbY={33.5} />
+    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={13.5} pcbY={-35.5} />
     <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.5} pcbY={-35.5} />
 
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
@@ -1365,7 +1369,7 @@ export default () => (
         barrels, the MCPs, BT1, the signal fan-out, the SE GND mounting hole) is just a hole in
         the sheet. */}
     <copperpour name="V12ISLAND" layer="top" connectsTo="net.V12" netClearance="0.5mm from V3V3, V5, SDA, SCL"
-      outline={[{ x: -31.75, y: 36.5 }, { x: 26.5, y: 36.5 }, { x: 26.5, y: -38.5 },
+      outline={[{ x: -31.75, y: 36.5 }, { x: 16.5, y: 36.5 }, { x: 16.5, y: -38.5 },
                 { x: -31.75, y: -38.5 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
