@@ -75,9 +75,9 @@ const ID = boardVersionParts()
 // then rendered below via {U14El}/… `frame(el)` derives centre, rotation, AND pad geometry from that one
 // element, so a drag moves the part and its routing follows — nothing to keep in sync by hand.
 const U14El = <Usblc6 name="U14" x={-56.25} y={16} rot={270} />
-const C22El = <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.25} y={19.5} rot={0} side="N" />
+const C22El = <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.25} y={19.35} rot={0} side="N" />
 const J14El = <UsbC name="J14" x={-62} y={16.5} rot={270} />
-const U13El = <Ch340 name="U13" x={-49.25} y={25.0} rot={0} />
+const U13El = <Ch340 name="U13" x={-49.25} y={24.55} rot={0} />
 const R16El = <Res name="R16" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-56.75} y={13} rot={0} side="N" />
 const R15El = <Res name="R15" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-56.75} y={21.75} rot={0} side="N" />
 const U14f = frame(U14El)
@@ -149,7 +149,7 @@ const R9El = <Res name="R9" resistance="4.7k" footprint="0603" jlcpcb="C23162" x
 const R9f = frame(R9El)
 const J4El = <Jst name="J4" x={-36.25} y={-30.3} count={6} labels={["3V3", "GND", "V5", "IO25", "IO26", "IO27"]} label="SENSORS" rot={180} />
 const J4f = frame("J4", J4El.props.x, J4El.props.y, 0, Object.fromEntries(jstPins(J4El.props).pins))
-const J5El = <Jst name="J5" x={-39.2} y={31.45} count={4} labels={["GND", "V5", "IO2", "IO19"]} label="RELAYS" rot={0} />
+const J5El = <Jst name="J5" x={-39.2} y={31.0} count={4} labels={["GND", "V5", "IO2", "IO19"]} label="RELAYS" rot={0} />
 const J5f = frame("J5", J5El.props.x, J5El.props.y, 0, Object.fromEntries(jstPins(J5El.props).pins))
 // Pump H-bridges, framed for the IN-bus routing below. The whole pump pod (U11/U12,
 // their VM caps, and J13 above) is one rigid cluster — J13 sits at U12+1, U11 at J13-6,
@@ -271,7 +271,7 @@ export const ampacity: AmpacityRule[] = [
 ]
 
 export default () => (
-  <board layers={4} schematicDisabled outline={[{ x: -68, y: -36.3 }, { x: 17, y: -36.3 }, { x: 17, y: 37 }, { x: -68, y: 37 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm", viaPadDiameter: "0.5mm", viaHoleDiameter: "0.3mm" }} autorouter={{ traceClearance: 0.15, viaMode: "through-hole", viaInPad: true, viaRingKeepout: false }}>
+  <board layers={4} schematicDisabled outline={[{ x: -68, y: -36.3 }, { x: 17, y: -36.3 }, { x: 17, y: 36.5 }, { x: -68, y: 36.5 }]} minTraceWidth="0.2mm" minViaHoleDiameter="0.3mm" minViaPadDiameter="0.5mm" pcbStyle={{ silkscreenFontSize: "0.8mm", viaPadDiameter: "0.5mm", viaHoleDiameter: "0.3mm" }} autorouter={{ traceClearance: 0.15, viaMode: "through-hole", viaInPad: true, viaRingKeepout: false }}>
     {/* DS3231SN RTC + CR2032 backup, east of the ESP. U6 (the SOIC) sits high with its
         0.1uF decoupler (C6) to its west and the buzzer column below it; the 20 mm THT coin
         base (BT1) is the bulk to U6's east. + is pin1 (the silk-marked post -> VBAT), - is
@@ -1101,7 +1101,7 @@ export default () => (
     {R16El}
     {R15El}
     {C22El}
-    <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-57.25} y={25.5} rot={180} side="N" />
+    <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-57.25} y={25.05} rot={180} side="N" />
     {/* EN branch: U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
     {R17El}
     {Q2El}
@@ -1201,8 +1201,8 @@ export default () => (
         const hop = { x: -47.3, y: 12.55 }
         return [
             "U13.RXD",
-            { x: -51.16, y: 22.13, via: true, toLayer: "bottom" } as const,
-            { x: -51.16, y: 22.13 },
+            { x: -51.16, y: 21.68, via: true, toLayer: "bottom" } as const,
+            { x: -51.16, y: 21.68 },
             { x: -51.16, y: 19.9 },
             { x: hop.x, y: 19.9 },
             hop,
@@ -1312,7 +1312,7 @@ export default () => (
     <trace from=".SW1 > .pin4" to="net.GND" />
     <trace from="SW2.pin1" to="Q2.C" pcbPathRelativeTo="board" pcbPath={route(
         "SW2.pin1",
-        { row: 36.3 },               // along the top edge, over the switch row
+        { row: 35.8 },               // along the top edge, over the switch row
         { col: -67.3 },              // the far-west flank, above Q2's own corner
         { row: 24.5 },               // east over Q2.C, down into its north face
         "Q2.C",
@@ -1328,8 +1328,8 @@ export default () => (
         r ~3.2) or washer (~7 mm ⌀, r ~3.5) more — so the nearest corner connector housing is
         held ≥2 mm off the pad edge (the seated head + standoff clear it), the tightest being
         J8→MH3 and J11→MH4. The connector audit (connector-audit.ts) measures this each render. */}
-    <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.5} pcbY={33.5} />
-    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={13.5} pcbY={33.5} />
+    <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.5} pcbY={33.0} />
+    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={13.5} pcbY={33.0} />
     <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={13.5} pcbY={-33.3} />
     <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.5} pcbY={-33.3} />
 
@@ -1370,7 +1370,7 @@ export default () => (
         barrels, the MCPs, BT1, the signal fan-out, the SE GND mounting hole) is just a hole in
         the sheet. */}
     <copperpour name="V12ISLAND" layer="top" connectsTo="net.V12" netClearance="0.5mm from V3V3, V5, SDA, SCL"
-      outline={[{ x: -31.75, y: 36.5 }, { x: 16.5, y: 36.5 }, { x: 16.5, y: -35.8 },
+      outline={[{ x: -31.75, y: 36.0 }, { x: 16.5, y: 36.0 }, { x: 16.5, y: -35.8 },
                 { x: -31.75, y: -35.8 }]} />
     <copperpour name="V3V3PLANE" layer="inner1" connectsTo="net.V3V3" boardEdgeMargin="0.5mm" />
     <copperpour name="V5PLANE" layer="inner2" connectsTo="net.V5" boardEdgeMargin="0.5mm" />
