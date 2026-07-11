@@ -191,12 +191,21 @@ def main():
     texts = [e for e in circuit if e["type"] == "pcb_silkscreen_text"]
     paths = [e for e in circuit if e["type"] == "pcb_silkscreen_path"]
 
-    # pads split by the copper layer(s) they expose (plated hole = a through barrel = both sides)
+    # Copper that silk must clear, split by the layer(s) it exposes (plated hole / through via =
+    # a barrel on both sides). Vias are included and treated as exposed — most fabs tent small
+    # vias, but silk over a via is poor practice either way, and this stays a 0-noise regression
+    # guard as long as no label rides one.
     top_pads, bot_pads = [], []
     for e in circuit:
-        if e["type"] not in ("pcb_smtpad", "pcb_plated_hole"): continue
-        sh = pad_shape(e); entry = (sh, pad_bbox(sh), refpin(e.get("pcb_port_id")))
-        layers = e.get("layers") or [e.get("layer", "top")]
+        if e["type"] in ("pcb_smtpad", "pcb_plated_hole"):
+            sh = pad_shape(e); entry = (sh, pad_bbox(sh), refpin(e.get("pcb_port_id")))
+            layers = e.get("layers") or [e.get("layer", "top")]
+        elif e["type"] == "pcb_via":
+            sh = ("circle", (e["x"], e["y"]), e["outer_diameter"]/2)
+            entry = (sh, pad_bbox(sh), f"via@({e['x']:.1f},{e['y']:.1f})")
+            layers = e.get("layers") or ["top", "bottom"]
+        else:
+            continue
         if "top" in layers: top_pads.append(entry)
         if "bottom" in layers: bot_pads.append(entry)
 
