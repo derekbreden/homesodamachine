@@ -145,8 +145,10 @@ const U1El = <Esp32 name="U1" x={-57} y={0} rot={0} />
 const U1f = frame(U1El)                               // ESP32; taps by label (EN/IO36/IO39)
 const J11El = <Jst name="J11" x={-62} y={-23.85} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} label="GAS" rot={90} />
 const J11f = frame("J11", J11El.props.x, J11El.props.y, 0, Object.fromEntries(jstPins(J11El.props).pins))
-// SENSORS connector + its 1-wire pull-up (R9), framed for the R9→IO26 tap below.
-const R9El = <Res name="R9" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-36.4} y={-25.8} rot={0} side="N" />
+// SENSORS connector + its 1-wire pull-up (R9), framed for the R9→IO26 tap below. R9 seats
+// in the band between U10's courtyard and J4's, straddling the IO26 drop column (pads thread
+// it at 0.245 a side) with pin2 — the tap — east; ref-des east, riding the IO26/IO27 gap.
+const R9El = <Res name="R9" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-32.5} y={-26.45} rot={0} side="E" />
 const R9f = frame(R9El)
 const J4El = <Jst name="J4" x={-36.25} y={-30.3} count={6} labels={["3V3", "GND", "V5", "IO25", "IO26", "IO27"]} label="SENSORS" rot={180} />
 const J4f = frame("J4", J4El.props.x, J4El.props.y, 0, Object.fromEntries(jstPins(J4El.props).pins))
@@ -182,11 +184,11 @@ const BT1f = frame(BT1El), U6f = frame(U6El)
 const D2El = <LedRed name="D2" pcbRotation={180} {...at(-39.75, -15.5)} />
 const D3El = <LedGrn name="D3" pcbRotation={180} {...at(-39.75, -18)} />
 const D4El = <LedBlu name="D4" pcbRotation={180} {...at(-39.75, -20.5)} />
-const D5El = <LedGrn name="D5" pcbRotation={270} {...at(6.0, -17.0)} />
-const D6El = <LedGrn name="D6" pcbRotation={270} {...at(6.0, -24.05)} />
+const D5El = <LedGrn name="D5" pcbRotation={180} {...at(-39.75, -23.0)} />
+const D6El = <LedGrn name="D6" pcbRotation={180} {...at(-39.75, -25.5)} />
 const D2f = frame(D2El), D3f = frame(D3El), D4f = frame(D4El), D5f = frame(D5El), D6f = frame(D6El)
-const R13El = <Res name="R13" resistance="470" footprint="0603" jlcpcb="C23179" x={6.0} y={-20.55} rot={90} side="E" />
-const R14El = <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={4.05} y={-21.5} rot={270} side="E" />
+const R13El = <Res name="R13" resistance="470" footprint="0603" jlcpcb="C23179" x={-43.2} y={-23.0} rot={0} side="N" />
+const R14El = <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={-43.2} y={-25.5} rot={0} side="N" />
 const R13f = frame(R13El), R14f = frame(R14El)
 
 // ── I2C bus (SDA / SCL as routeInner traces on the plane layers) ─────────────────────────
@@ -379,14 +381,14 @@ export default () => (
         loom feeds in from OUTSIDE the board. pin1->GND on the south pin, pin2->V12 on the north —
         reversing 12V would cook the polarised bulk cap (C3), the bucks, and the drivers. THT barrels
         pick up their nets: V12 off the top island (the rectangle floods under the barrel), GND off
-        the bottom plane (the pour antipads the GND barrel clear of the island). Labels are hand-drawn:
-        the pin labels (0.8mm, bottom-to-top) sit OUTBOARD east of the throats where the wires land,
-        "12V" (1.4mm) + the ref-des read upright in the band north of the body. */}
+        the bottom plane (the pour antipads the GND barrel clear of the island). Labels are hand-drawn,
+        all bottom-to-top (the east-edge convention): the pin labels (0.8mm) sit OUTBOARD east of the
+        throats where the wires land, "12V" (1.4mm) + the ref-des in the strip west of the body. */}
     <KF301_5_0_2P name="J10" pinLabels={{ pin1: ["GND"], pin2: ["V12"] }} pcbRotation={90} {...at(12.35, -24.4)} />
     <silkscreentext text="GND" fontSize="0.8mm" anchorAlignment="center" pcbX={16.45} pcbY={-26.9} pcbRotation={90} />
     <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={16.45} pcbY={-21.9} pcbRotation={90} />
-    <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={9.85} pcbY={-17.5} />
-    <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={14.85} pcbY={-17.5} />
+    <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={7.3} pcbY={-21.5} pcbRotation={90} />
+    <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={7.3} pcbY={-25.2} pcbRotation={90} />
     {J11El}
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
@@ -645,16 +647,21 @@ export default () => (
     {/* RO/DI — the ~40mm west haul to U1's south row. The top face is the sensor comb's (its
         drops wall x-46.75/-32.5/-29.75 through the whole band), so both ride the BOTTOM as
         parallel lanes: IO34 drops its own clear column, IO32 threads the C10 pin1/pin2 channel
-        (its own column sits in C10.pin2's shadow). The lanes cross U10's column south of its
-        pin1 barrel: RO's runs under the pocket and rises through U7's VCC/B pad channel, DI's
-        stops short of U7.GND's through-stack shadow and rises along the pad row's west flank;
-        both close north into a pad-via on U7's north row from the lane between the pad rows.
-        Lane pitch 0.6; the C11/C10 stitch barrels flank the channel at 0.65. */}
+        (its own column sits in C10.pin2's shadow). Through the LED field the pair runs low,
+        threading between the PWR row's pad-vias and the 5V row's; east of the field each jogs
+        one tier north (IO32 first at -36.5, IO34 nested at -35.5) to the pocket rows that
+        cross U10's column south of its pin1 barrel and clear D1's pads. RO's rises through
+        U7's VCC/B pad channel, DI's stops short of U7.GND's through-stack shadow and rises
+        along the pad row's west flank; both close north into a pad-via on U7's north row from
+        the lane between the pad rows. Lane pitch 0.6 everywhere; the C11/C10 stitch barrels
+        flank the channel at 0.65. */}
     <trace from="U1.IO34" to="U7.RO" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO34",
         { row: -27.9 },             // south detour under the relocated U9 cluster
         { col: -45.7 },             // rise east of the cluster, west of the LED resistors
-        { row: -23.7 },             // south lane, under the RS485 pocket
+        { row: -24.4 },             // south lane of the pair, over the 5V LED row
+        { col: -35.5 },             // jog north east of the LED field (nested inside IO32's)
+        { row: -23.7 },             // south pocket lane, under D1's A/B pads
         { col: -18.3 },             // rise through U7's VCC/B pad channel, west of the VCC via
         { row: -21.1 },             // between U7's pad rows, east into the RO pad-via
         "U7.RO",
@@ -665,7 +672,9 @@ export default () => (
         { col: -56.5 },             // the C10/C11 pin1-pin2 channel
         { row: -27.5 },             // south detour under the U9 cluster
         { col: -46.2 },             // rise east of the cluster, paired lane
-        { row: -23.1 },             // north lane of the pair, ending west of U7.GND's shadow
+        { row: -23.8 },             // north lane of the pair, under the PWR LED row
+        { col: -36.5 },             // jog north east of the LED field, before IO34's
+        { row: -23.1 },             // north pocket lane, ending west of U7.GND's shadow
         { col: -21.95 },            // rise along the pad row's west flank, clear of the GND via
         { row: -21.1 },             // between U7's pad rows, east into the DI pad-via
         "U7.DI",
@@ -730,16 +739,17 @@ export default () => (
     {/* SENSORS IO25/26/27 — owned: a nested 3-lane top comb from U1's south row to J4. Stubs exit
         each pad SOUTH; lanes stack IO27/IO26/IO25 top-to-bottom (0.6 pitch, above the buzzer pads)
         so no stub crosses a foreign lane, and the W→E pin order lands J4's W→E order uncrossed.
-        Drops: IO25 can't use its own column (R9.pin1 squats on it, U8._POS pinches beside it, and
-        the LED cathode column blocks the J4.GND/V5 channel), so it drops early in the open corridor
-        between J3.IO33's column and the R10-R12 field, then runs the low band east under R9 into
-        the barrel; IO26 drops straight down its barrel column (R9's tap is the same net); IO27
-        drops centred in the D6.pin2/D5.pin1 channel, closing west into its barrel below the LEDs. */}
+        Drops: IO25 can't use its own column (U8._POS pinches beside it, and the LED cathode-via
+        column blocks the J4.GND/V5 channel), so it drops early in the open corridor between
+        J3.IO33's column and the R10-R14 field, then runs the low band east into the barrel;
+        IO26 drops straight down its barrel column, threading R9's pads on the way (R9's tap is
+        the same net); IO27 drops just east of U10's pin barrels — the board's 0.15 floor pair —
+        and turns west into its barrel above J4. */}
     <trace from="U1.IO25" to="J4.IO25" pcbPathRelativeTo="board" pcbPath={route(
         "U1.IO25",
         U1f.below("IO25", 1.65),                            // bottom lane
         { col: channel(-48.5, -45) },                       // drop between J3.IO33's column and the R field
-        J4f.row("IO25", 1.2),                               // low band: under R9, over the barrel row
+        J4f.row("IO25", 1.2),                               // low band: over the barrel row
         "J4.IO25",
     )} />
     <trace from="U1.IO26" to="J4.IO26" pcbPathRelativeTo="board" pcbPath={route(
@@ -751,8 +761,8 @@ export default () => (
     <trace from="U1.IO27" to="J4.IO27" pcbPathRelativeTo="board" pcbPath={route(
         "U1.IO27",
         U1f.below("IO27", 0.45),                            // top lane
-        J4f.col("IO27", 0.25),                              // centred in the D6.pin2/D5.pin1 channel
-        J4f.row("IO27", 1.5),                               // below the LED rows, west into the barrel
+        J4f.col("IO27", 0.25),                              // just east of U10's pin barrels (the 0.15 floor)
+        J4f.row("IO27", 1.5),                               // west into the barrel above J4
         "J4.IO27",
     )} />
     <trace from=".J4 > .GND" to="net.GND" />
@@ -1025,37 +1035,44 @@ export default () => (
     <trace from=".R9 > .pin1" to="net.V3V3" />
     {/* 1-wire pull-up tap: R9.pin2 drops onto IO26 at the SENSORS connector, sharing the pad with
         the IO26 run to U1 — the external 4.7k sits right where the DS18B20 probe loom leaves the
-        board. Exit pin2's east face, ~1 mm jog, straight south into the pad. */}
+        board. Exit pin2's west face, a 0.75 mm jog onto the column, straight south into the pad. */}
     <trace from="R9.pin2" to="J4.IO26" pcbPathRelativeTo="board" pcbPath={route(
         "R9.pin2",
         J4f.col("IO26", 0),
         "J4.IO26",
     )} />
 
-    {/* ── Indicator LEDs ─────────────────────────────────────────────────────────────
-        LEFT — firmware status, three otherwise-idle ESP GPIO, active-high to GND, boot-safe:
-        RED = fault (IO15 / MTDO, runs high during boot — a glint at reset, harmless),
-        GREEN = ready/heartbeat (IO12 / MTDI, wants low at boot — LED-to-GND only, never
-        tied high), BLUE = activity (IO14, not a strap).
-        EAST strip — power rails, each off its plane through a series R: 3V3 + 5V (3V3 lit ⇒
-        12 V in AND the 5V buck + 3V3 LDO are up — the board is alive before firmware runs);
-        the column rides the strip below MANIFOLD B. 470R (C23179) per LED; ref-des silk
-        stripped from the LED imports (it collides at this pitch), so meaning is by colour +
-        position (see esp32-scope.md). */}
-    {/* left — firmware R/G/B; anode toward its R (outboard, -x). Every KT-0603 import carries
-        pin1=anode on the +x pad, so all three rot 180 to swing the anode pad outboard-left. */}
+    {/* ── Indicator LEDs — one labelled column on the west edge ──────────────────────
+        Five rows at 2.5 pitch (LEDs x -39.75, their 470R C23179 resistors x -43.2), each
+        named by a 1.4mm silk label east of its LED:
+          ERR (red, IO15 / MTDO — runs high during boot: a glint at reset, harmless)
+          RUN (green, IO12 / MTDI — heartbeat; wants low at boot, LED-to-GND only, never tied high)
+          ACT (blue, IO14 — activity, not a strap)
+          PWR (green, 3V3 rail)   5V (green, 5V rail)
+        The firmware rows drive three otherwise-idle, boot-safe ESP GPIO, active-high to
+        GND; the rail rows hang off their planes through the series R (PWR lit ⇒ 12 V in
+        AND the 5V buck + 3V3 LDO are up — the board is alive before firmware runs).
+        Ref-des silk is stripped from the LED imports (it collides at this pitch); the
+        labels name the rows (see esp32-scope.md). The RO/DI bottom lanes thread the
+        PWR/5V row gap (RS485 block above). */}
+    {/* anode toward its R (outboard, -x). Every KT-0603 import carries pin1=anode on the
+        +x pad, so all five seat rot 180 to swing the anode pad outboard-left. */}
     {D2El}
     {D3El}
     {D4El}
     {R10El}
     {R11El}
     {R12El}
-    {/* power rails (green); anode toward its R. */}
     {D5El}
     {D6El}
     {R13El}
     {R14El}
-    
+    <silkscreentext text="ERR" fontSize="1.4mm" anchorAlignment="center" pcbX={-35.9} pcbY={-15.5} />
+    <silkscreentext text="RUN" fontSize="1.4mm" anchorAlignment="center" pcbX={-35.9} pcbY={-18} />
+    <silkscreentext text="ACT" fontSize="1.4mm" anchorAlignment="center" pcbX={-35.9} pcbY={-20.5} />
+    <silkscreentext text="PWR" fontSize="1.4mm" anchorAlignment="center" pcbX={-35.9} pcbY={-23.0} />
+    <silkscreentext text="5V" fontSize="1.4mm" anchorAlignment="center" pcbX={-35.9} pcbY={-25.5} />
+
     {/* firmware: GPIO -> R -> anode, cathode -> GND */}
     {/* LED feeds — the top band south of U1 is the sensor comb's, so all three ride the BOTTOM as
         nested pad-via L's; the GPIO→colour map is firmware's, so pins are assigned by geometry:

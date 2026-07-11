@@ -351,23 +351,31 @@ export const Sm712 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: num
 // These imports either carry no footprint ref-des (coin holder, bulk cap, buzzer)
 // or one that reads upside-down at the part's seating rotation (the rot-180 buck +
 // transistor). Each wrapper draws an upright ref-des whose position is a pure
-// function of (x,y) — so it rides with the part when moved, the Cap/Jst convention —
-// and bakes in the fixed seating rotation. `dx/dy` place the label just off the
-// printed body: outside it for the tall through-hole parts (coin, bulk cap, buzzer),
-// inside the fence above the pin row for the buck (matches U9). The buzzer/coin/bulk
-// bodies stand over the board, so their labels sit clear of the footprint.
+// function of the seating (x, y — and rot for the buck) — so it rides with the part
+// when moved, the Cap/Jst convention — and bakes in the fixed seating rotation.
+// `dx/dy` place the label just off the printed body: outside it for the tall
+// through-hole parts (coin, bulk cap, buzzer), on the body block clear of the pin
+// row for the buck. The buzzer/coin/bulk bodies stand over the board, so their
+// labels sit clear of the footprint.
 type Labeled = { name: string; x: number; y: number }
 const refdes = (name: string, x: number, y: number) =>
   <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x} pcbY={y} />
 
-// K7805 5 V buck (seats rot 180 horizontal by default; rot 90/270 stands it vertical):
-// label upright and centred on the body, the chip-family convention.
-export const Buck5 = ({ name, x, y, rot = 180 }: Labeled & { rot?: number }) => (
-  <>
-    <K7805_2000R3 name={name} pcbRotation={rot} {...at(x, y)} />
-    {refdes(name, x, y)}
-  </>
-)
+// K7805 5 V buck (seats rot 180 horizontal by default; rot 90/270 stands it vertical).
+// The SIP-3 footprint anchors on its pin row with the body block hanging to one side
+// (silk body centre 1.6mm past the row; the 1.6mm pin pads reach 0.8mm past it), so the
+// ref-des seats 2.4mm beyond the row, rotated with the seating — centred on the body
+// block, clear of the pin pads, the chip-family convention.
+export const Buck5 = ({ name, x, y, rot = 180 }: Labeled & { rot?: number }) => {
+  const dx = rot === 90 ? 2.4 : rot === 270 ? -2.4 : 0
+  const dy = rot === 0 ? -2.4 : rot === 180 ? 2.4 : 0
+  return (
+    <>
+      <K7805_2000R3 name={name} pcbRotation={rot} {...at(x, y)} />
+      {refdes(name, x + dx, y + dy)}
+    </>
+  )
+}
 
 // MLT-5020 magnetic buzzer (seats rot 90): label on the body, nudged west of centre so it
 // clears the +/- polarity silk (which the rot-90 seating throws to the east) while staying
