@@ -359,11 +359,12 @@ type Labeled = { name: string; x: number; y: number }
 const refdes = (name: string, x: number, y: number) =>
   <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x} pcbY={y} />
 
-// K7805 5 V buck (seats rot 180): label upright inside the fence, above the pins.
-export const Buck5 = ({ name, x, y }: Labeled) => (
+// K7805 5 V buck (seats rot 180 horizontal by default; rot 90/270 stands it vertical):
+// label upright and centred on the body, the chip-family convention.
+export const Buck5 = ({ name, x, y, rot = 180 }: Labeled & { rot?: number }) => (
   <>
-    <K7805_2000R3 name={name} pcbRotation={180} {...at(x, y)} />
-    {refdes(name, x, y + 3)}
+    <K7805_2000R3 name={name} pcbRotation={rot} {...at(x, y)} />
+    {refdes(name, x, y)}
   </>
 )
 

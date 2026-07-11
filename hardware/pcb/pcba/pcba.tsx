@@ -179,11 +179,11 @@ const BT1f = frame(BT1El), U6f = frame(U6El)
 const D2El = <LedRed name="D2" pcbRotation={180} {...at(-39.75, -15.5)} />
 const D3El = <LedGrn name="D3" pcbRotation={180} {...at(-39.75, -18)} />
 const D4El = <LedBlu name="D4" pcbRotation={180} {...at(-39.75, -20.5)} />
-const D5El = <LedGrn name="D5" {...at(-29.75, -17)} />
-const D6El = <LedGrn name="D6" {...at(-29.75, -20)} />
+const D5El = <LedGrn name="D5" {...at(23, -20.5)} />
+const D6El = <LedGrn name="D6" {...at(23, -25.5)} />
 const D2f = frame(D2El), D3f = frame(D3El), D4f = frame(D4El), D5f = frame(D5El), D6f = frame(D6El)
-const R13El = <Res name="R13" resistance="470" footprint="0603" jlcpcb="C23179" x={-26.4} y={-17} rot={180} side="N" />
-const R14El = <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={-26.4} y={-20} rot={180} side="N" />
+const R13El = <Res name="R13" resistance="470" footprint="0603" jlcpcb="C23179" x={23} y={-23} rot={0} side="N" />
+const R14El = <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={23} y={-28} rot={0} side="N" />
 const R13f = frame(R13El), R14f = frame(R14El)
 
 // ── I2C bus (SDA / SCL as routeInner traces on the plane layers) ─────────────────────────
@@ -308,14 +308,20 @@ export default () => (
         +Vo), 10uF input + 22uF output cap. U9 = AMS1117-3.3 (C6186, SOT-223 LDO) makes 3V3
         from the 5V rail: VIN off V5, VOUT1 + VOUT2 (tab) to 3V3, GND to the bottom plane;
         the SMD pads auto-stitch to their planes. C13 (10uF V5 input) + C14 (22uF 3V3
-        output) stand as a vertical pair hard against U9's east pin column — each closes a
-        tight local loop like C15/C16 flank U10. */}
+        output) stand as a vertical pair hard against U9's east pin column — a tight local
+        loop. U10 stands vertical (rot 90, pin column at x -30.8, body east) in the bay west
+        of BT1: the pin column threads BETWEEN the IO26 and IO27 sensor drop columns (0.15+
+        pad-shadow clear of each) so the pins sit on the island without the pour edge moving,
+        and the whole column sits north of both RS485 bottom rows (the 2.54 pin pitch can't
+        straddle them). C15/C16 stand as a vertical pair on its east flank (C16 output cap
+        north by pin3, C15 input cap south toward pin1, pads clear of the DI row); every pin
+        is a plane pickup, so the buck cluster carries no routed copper at all. */}
     <Ams1117 name="U9" x={7} y={21.25} rot={0} />
     <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={13.3} y={18.6} rot={90} side="E" />
     <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={13.3} y={23.15} rot={90} side="E" />
-    <Buck5 name="U10" x={15.25} y={-25} />
-    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={23} y={-27} rot={90} side="E" />
-    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={23} y={-22} rot={270} side="E" />
+    <Buck5 name="U10" x={-30.8} y={-19.2} rot={90} />
+    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-23.7} y={-20.35} rot={90} side="E" />
+    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-23.7} y={-15.4} rot={90} side="E" />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
         pump (Kamoer KPHM400-SW, 12V brushed DC, 0.8A at full speed per the datasheet — PWM'd well below that at the
         1:20 dispense ratio; prime/clean is where it hits 0.8A), 45V/3.6A SMD with internal freewheeling +
@@ -361,22 +367,20 @@ export default () => (
     {R20El}
     {J9El}
     {/* 12V inlet — KF301-5.0-2P 2-pin 5.0mm screw terminal (C474881, 17A/250V), the board's power
-        inlet on the south edge (east end, over the V12 island). Sized for the ~3.3A peak
-        (both pumps priming + a few valves + the condenser fan) with margin the 2A XH wafer didn't
-        have. pcbRotation 0 aims the wire throats at the south board edge, so the field loom feeds in
-        from OUTSIDE the board. y=-32.5 seats the body so its south plastic (courtyard) sits ~2.4 mm
-        from the board edge, reading uniform with the south JSTs. pin1->GND, pin2->V12; the 0 seats
-        GND on the west pad (x 11.0) and V12 on the east (x 16.0) — reversing 12V would cook the
-        polarised bulk cap (C3), the bucks, and the drivers. THT barrels pick up their nets: V12 off
-        the top island (the rectangle floods under the barrel), GND off the bottom plane (the pour antipads
-        the GND barrel clear of the island). Labels ARE the Jst survive-block: the import's own ref-des
-        is suppressed, "12V" (1.4mm) + the pin labels (0.8mm) are hand-drawn upright OUTBOARD toward the
-        edge at the same absolute Y as the south JSTs; the ref-des sits inside the fence. */}
-    <KF301_5_0_2P name="J10" pinLabels={{ pin1: ["GND"], pin2: ["V12"] }} pcbRotation={0} {...at(13.5, -32.5)} />
-    <silkscreentext text="GND" fontSize="0.8mm" anchorAlignment="center" pcbX={11.0} pcbY={-36.94} />
-    <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={16.0} pcbY={-36.94} />
-    <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={13.5} pcbY={-38.0} />
-    <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={13.5} pcbY={-29.6} />
+        inlet on the east edge (south end, below MANIFOLD B, over the V12 island). Sized for the
+        ~3.3A peak (both pumps priming + a few valves + the condenser fan) with margin the 2A XH
+        wafer didn't have. pcbRotation 90 aims the wire throats at the east board edge, so the field
+        loom feeds in from OUTSIDE the board. pin1->GND on the south pin, pin2->V12 on the north —
+        reversing 12V would cook the polarised bulk cap (C3), the bucks, and the drivers. THT barrels
+        pick up their nets: V12 off the top island (the rectangle floods under the barrel), GND off
+        the bottom plane (the pour antipads the GND barrel clear of the island). Labels are hand-drawn:
+        the pin labels (0.8mm, bottom-to-top) sit OUTBOARD east of the throats where the wires land,
+        "12V" (1.4mm) + the ref-des read upright in the band north of the body. */}
+    <KF301_5_0_2P name="J10" pinLabels={{ pin1: ["GND"], pin2: ["V12"] }} pcbRotation={90} {...at(12.35, -26.5)} />
+    <silkscreentext text="GND" fontSize="0.8mm" anchorAlignment="center" pcbX={16.45} pcbY={-29} pcbRotation={90} />
+    <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={16.45} pcbY={-24} pcbRotation={90} />
+    <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={9.85} pcbY={-19.6} />
+    <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={14.85} pcbY={-19.6} />
     {J11El}
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
@@ -997,15 +1001,16 @@ export default () => (
         "J4.IO26",
     )} />
 
-    {/* ── Indicator LEDs flanking the brand logo ─────────────────────────────────────
+    {/* ── Indicator LEDs ─────────────────────────────────────────────────────────────
         LEFT — firmware status, three otherwise-idle ESP GPIO, active-high to GND, boot-safe:
         RED = fault (IO15 / MTDO, runs high during boot — a glint at reset, harmless),
         GREEN = ready/heartbeat (IO12 / MTDI, wants low at boot — LED-to-GND only, never
         tied high), BLUE = activity (IO14, not a strap).
-        RIGHT — power rails, each off its plane through a series R: 3V3 + 5V (3V3 lit ⇒ 12 V in
-        AND the 5V buck + 3V3 LDO are up — the board is alive before firmware runs). 470R (C23179) per
-        LED; ref-des silk stripped from the LED imports (it collides at this pitch), so meaning
-        is by colour + position (see esp32-scope.md). */}
+        EAST strip — power rails, each off its plane through a series R: 3V3 + 5V (3V3 lit ⇒
+        12 V in AND the 5V buck + 3V3 LDO are up — the board is alive before firmware runs);
+        the column rides the strip below MANIFOLD B. 470R (C23179) per LED; ref-des silk
+        stripped from the LED imports (it collides at this pitch), so meaning is by colour +
+        position (see esp32-scope.md). */}
     {/* left — firmware R/G/B; anode toward its R (outboard, -x). Every KT-0603 import carries
         pin1=anode on the +x pad, so all three rot 180 to swing the anode pad outboard-left. */}
     {D2El}
@@ -1014,8 +1019,7 @@ export default () => (
     {R10El}
     {R11El}
     {R12El}
-    {/* right — power rails (green); anode toward its R (outboard, +x). pin1=anode is already on
-        the +x pad, so these stay native (rot 0) to face the anode pad outboard-right at its R. */}
+    {/* power rails (green); anode toward its R. */}
     {D5El}
     {D6El}
     {R13El}
@@ -1296,16 +1300,17 @@ export default () => (
 
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
         monocolor silk via logo.ts) over the centered name + version, a compact
-        stack in the open lower-centre, flanked by the indicator LEDs (the firmware
-        R/G/B column to its west, the power pair to its east) with the name + version
-        dropping below them. The version is the firmware scheme (firmware/pre_build.py):
-        commit date + short SHA, a trailing `+` from uncommitted edits — a pure function
-        of the commit, naming which source tree a fabbed board came from. */}
-    {logoRoutes(-34.75, -18.0, 6).map((route, i) => (
+        stack in the west band above FAUCET (J3), between the IO33 channel and the
+        IO35 column (the text lines are wider than the band and cross those two
+        hairlines as mask-covered ink — same call as R4's label). The version is the
+        firmware scheme (firmware/pre_build.py): commit date + short SHA, a trailing
+        `+` from uncommitted edits — a pure function of the commit, naming which
+        source tree a fabbed board came from. */}
+    {logoRoutes(-53.75, -21.5, 6).map((route, i) => (
       <silkscreenpath key={`logo${i}`} strokeWidth="0.15mm" route={route} />
     ))}
-    <silkscreentext text="HOME SODA MACHINE" fontSize="1.6mm" anchorAlignment="center" pcbX={-34.75} pcbY={-23.0} />
-    <silkscreentext text={`${ID.date}.${ID.rev}`} fontSize="1.6mm" anchorAlignment="center" pcbX={-34.75} pcbY={-25.0} />
+    <silkscreentext text="HOME SODA MACHINE" fontSize="1.6mm" anchorAlignment="center" pcbX={-53.75} pcbY={-25.5} />
+    <silkscreentext text={`${ID.date}.${ID.rev}`} fontSize="1.6mm" anchorAlignment="center" pcbX={-53.75} pcbY={-27.4} />
 
     {/* Power pours — FOUR layers, top->bottom: top (signals + the V12 island), 3V3 (inner1),
         5V (inner2), GND (bottom). 3V3/5V/GND are full-flood planes; each pin commons to its
@@ -1324,8 +1329,11 @@ export default () => (
         strip BELOW the barrel rows too (down to y -38.5), V12 flows UNDER every connector and around
         the walls, reaching J10's inlet barrel (x 16) and J9's display-feed barrel (x -16.5) alike.
         One dumb connected rectangle, 0.5 mm off the north/east/south edges; its west edge x -31.75
-        clears the LED/logo/nameplate cluster. Everything foreign inside it (the barrels, the MCPs,
-        BT1, the signal fan-out, the SE GND mounting hole) is just a hole in the sheet. */}
+        clears the LED column, U6/C6/U8, and the nameplate, while the buck cluster's pins (U10's
+        column at x -30.8, C15's V12 pad) sit fully inside it — a pour boundary through a pad is a
+        DRC fault, so the edge threads BETWEEN pad columns. Everything foreign inside it (the
+        barrels, the MCPs, BT1, the signal fan-out, the SE GND mounting hole) is just a hole in
+        the sheet. */}
     <copperpour name="V12ISLAND" layer="top" connectsTo="net.V12" netClearance="0.5mm from V3V3, V5, SDA, SCL"
       outline={[{ x: -31.75, y: 36.5 }, { x: 26.5, y: 36.5 }, { x: 26.5, y: -38.5 },
                 { x: -31.75, y: -38.5 }]} />
