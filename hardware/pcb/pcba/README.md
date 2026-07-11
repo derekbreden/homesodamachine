@@ -9,6 +9,26 @@ Every render writes the JLCPCB BOM + placements (`out/pcba.{bom,cpl}.csv`) and l
 the wired count (parts carrying a JLCPCB #), so the fab package is generated and
 checked on every build rather than assembled at the end.
 
+## Building
+
+```sh
+bun render-board.ts pcba.tsx
+```
+
+regenerates **everything committed under `out/`** in one command: the fab gerbers +
+drill (`out/pcba.gerbers.zip`), the 2D copper/mask views (`out/pcba.{top,bottom,overlay,
+…}.{svg,png}`), the routed circuit-json, the BOM/CPL, `picks.json`, **and** the 3D
+assembly (`out/pcba.glb` + the `top3d/bottom3d` face textures) — it calls
+[`board-3d.py`](board-3d.py) at the end. So a bare render leaves `out/` fully consistent;
+commit it as one unit.
+
+The one exception: under the dev-server (`RENDER_SOURCE=dev-server`) the 3D step is
+skipped so the live preview stays fast — the server rebuilds the GLB in the background
+instead. To rebuild only the 3D by hand (e.g. after editing `board-3d.py`):
+`tools/cad-venv/bin/python board-3d.py`. Silk that's injected into the gerber rather than
+authored in circuit-json (the LED knockout badges, [`led-knockout.ts`](led-knockout.ts))
+still reaches the 3D, because the face textures are composed from those gerbers.
+
 ## Scope
 
 - Active parts are silicon: ESP32 (bare WROOM), 2×MCP23017, 2×ULN2803A, DS3231,
