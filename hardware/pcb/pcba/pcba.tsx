@@ -11,13 +11,13 @@
  * pin run. NORTH / top: RELAYS (J5) at the edge, the USB-C programming block (J14 + the CH340
  * bridge, above the WROOM) at the top-left, and — combed up from the north
  * pins as one parallel bus — the two pump drivers (U11/U12) feeding PUMPS. SOUTH / bottom: an
- * edge row of cable connectors — GAS (J11), SCREEN (J9), FAUCET (J3), SENSORS (J4) — with their
- * on-board conditioning in a second row just above (the R1-R4 gas dividers, the U7 RS485
- * transceiver). The buzzer (U8/Q1/R5) sits east of the ESP by its IO13 pin. Center: DS3231 +
- * coin cell; the two MCPs stacked through the middle (0x20 north, 0x21 south) with their reed
- * inputs on REEDS A (above) / REEDS B (below). Right block: the two ULNs with the valve
- * manifolds immediately to their right and the V12 bulk/HF decoupling between them; the 3V3
- * LDO / 5V buck (U9 top, U10 bottom) and the 12V inlet (J10) frame the right column.
+ * edge row of cable connectors — GAS (J11), FAUCET (J3), SENSORS (J4), DISPLAY (J9) — with
+ * their on-board conditioning just above (the R1-R4 gas dividers under the WROOM, the 3V3 LDO
+ * U9 above FAUCET, the U7 RS485 transceiver above DISPLAY). The buzzer (U8/Q1/R5) sits east of
+ * the ESP by its IO13 pin; the 5V buck (U10) below the coin cell, in the logo's bay. Center:
+ * DS3231 + coin cell; the two MCPs stacked through the middle (0x20 north, 0x21 south) with
+ * their reed inputs on REEDS A (above) / REEDS B (below). Right block: the two ULNs with the
+ * valve manifolds immediately to their right, and the 12V inlet (J10) at the south-east corner.
  *
  * FOUR layers, stackup top->bottom:
  *   L1 top    — signals + the V12 island
@@ -50,8 +50,8 @@
  * this dense layout whenever a net is added; the capacity-autorouter handles the PCB fine.
  * Disabling the schematic removes the hang and speeds every render; the gerbers are unaffected.
  *
- * The clearance floor (0.159) is a hand trace threading the WROOM 3V3-decoupling fan-out
- * (C10, off U1's west castellation comb); the web viewer's board chip reports it live
+ * The clearance floor (0.15) is a hand trace threading the buck cluster's pad column
+ * (U10, in the logo bay); the web viewer's board chip reports it live
  * (clearance.ts -> picks.json).
  */
 import { at, Cap, Res, Jst, jstPins, ulnOUT, Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870, Tact } from "./parts"
