@@ -21,7 +21,7 @@ its pins instead of crossing the fan.
 - UART → faucet display: IO33 (TX), IO35 (RX, input-only) — south edge
 - Pumps → on-board DRV8870 H-bridges, single-direction drive: IO17→A.IN1, IO4→B.IN1 (each IN2 is tied to the GND plane; peristaltic tubing occlusion stops backflow, so no reverse)
 - Relays (off-board modules) → IO2, IO19 (IO2 is boot-safe into an opto input: the module's LED load holds it low, which download mode also wants)
-- Sensors: IO26 (1-wire, 4.7k external pull-up to 3V3 — R9), IO25 (flow), IO27 (backflow) — three adjacent south-edge pins
+- Sensors: IO26 (1-wire, 4.7k external pull-up to 3V3 — R9; two probes on the one bus, told apart by family code — DS18B20 `0x28` = tank-wall / compressor setpoint, DS18S20 `0x10` = evaporator-coil / freeze-protect cutout), IO25 (flow), IO27 (backflow) — three adjacent south-edge pins
 - Status LEDs: IO15 (red/fault), IO12 (green/ready), IO14 (blue/activity) — on-board, active-high to GND (IO15 runs high during boot: a red glint at reset, harmless)
 - Gas dividers: IO39 (AOUT), IO36 (DOUT) — south-edge ADC1, input-only
 - Buzzer: IO13 (the lone usable east-edge GPIO, not a strapping pin → silent at boot)

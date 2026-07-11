@@ -14,10 +14,10 @@ Out:
 
 - Both MCUs (ESP32-DevKitC for main control, ESP32-S3 for the front-face detachable rotary display — sole interaction surface) flashed with the current firmware on `main`.
 - First DC power-on under PSU control succeeds with no smoke, no breaker trip, no thermal-fuse open.
-- Sensor health passes: both DS18B20 probes addressed on the 1-wire bus and reporting within [±2 °C](AMBIENT_TOL) of room ambient; all [10](REEDS_TOTAL) reed switches ([2](REEDS_CARB) carbonator + [4](REEDS_PER_RSVR) per flavor reservoir × [2](RSVR_COUNT) reservoirs) settled to their no-magnet "empty" baseline; the DIGITEN flow meter ticks pulses when its impeller is rotated by hand; the MQ-6 hydrocarbon sensor on the rear interior enclosure wall has reached operating temperature and reads its clean-air baseline; the backflow drip-pan moisture sensor reads dry.
+- Sensor health passes: both 1-wire probes addressed on the bus — one DS18B20 (tank, family 0x28) + one DS18S20 (coil, family 0x10) — and reporting within [±2 °C](AMBIENT_TOL) of room ambient; all [10](REEDS_TOTAL) reed switches ([2](REEDS_CARB) carbonator + [4](REEDS_PER_RSVR) per flavor reservoir × [2](RSVR_COUNT) reservoirs) settled to their no-magnet "empty" baseline; the DIGITEN flow meter ticks pulses when its impeller is rotated by hand; the MQ-6 hydrocarbon sensor on the rear interior enclosure wall has reached operating temperature and reads its clean-air baseline; the backflow drip-pan moisture sensor reads dry.
 - Both MCP23017 GPIO expanders ACK on the I²C bus at [0x20](MCP_VALVES) and [0x21](MCP_RESERVOIRS), with the DS3231 RTC at [0x68](RTC_ADDR) also responsive.
 - Valve self-test pass: each of the [12](VALVE_COUNT) Beduan solenoids clicks once with audible / visual confirmation, and both Kamoer peristaltic pumps spin briefly under L298N Board A drive.
-- Relay #1 verified switching the compressor's AC leg under a deliberate firmware override: the suction-line DS18B20 reads a few degrees lower within a couple of minutes of the override starting (running dry, no water in the carbonator), confirming the relay is making AND that DS18B20 #2 is on the correct probe.
+- Relay #1 verified switching the compressor's AC leg under a deliberate firmware override: the suction-line probe (the DS18S20, family 0x10) reads a few degrees lower within a couple of minutes of the override starting (running dry, no water in the carbonator), confirming the relay is making AND that the DS18S20 is physically mounted on the suction line (its identity among the two probes is already fixed by family code, not by this test).
 - Firmware setpoints loaded with factory defaults: **tank target [2 °C](TANK_TARGET), hysteresis [±2 °C](HYSTERESIS)** (compressor off at [2 °C](COMP_OFF_TEMP), on at [4 °C](COMP_ON_TEMP)), **freeze-protect cutoff [−8 °C](FREEZE_CUTOFF)** on the suction-line probe, **[3-minute](MIN_OFF_TIME) minimum off-time** for the compressor start capacitor, refill threshold on the carbonator's low-level reed.
 - Per-serial commissioning log archived (sensor readings, I²C ACK list, valve click confirmation, compressor-cycle suction-line ΔT).
 
@@ -104,7 +104,7 @@ pio device monitor -e esp32dev
 The default firmware periodically prints a sensor-health frame. Step through each line:
 
 - **I²C scan** — expect ACKs at [0x20](MCP_VALVES) (MCP23017 valves + Reservoir A reeds), [0x21](MCP_RESERVOIRS) (Reservoir B reeds + carbonator reeds + condenser-fan driver bit), [0x68](RTC_ADDR) (DS3231 RTC). Any missing ACK is a wiring or solder defect at that device.
-- **DS18B20 bus** — expect exactly two devices addressed on the 1-wire bus on [GPIO 26](GPIO_ONEWIRE) (tank-wall probe + suction-line probe). Both should report within [±2 °C](AMBIENT_TOL) of room ambient with the compressor de-energized. If only one address enumerates, suspect a parasitic-power miswire or the [4.7 kΩ](ONEWIRE_PULLUP) pull-up.
+- **1-wire temperature bus** — expect exactly two devices on the bus on [GPIO 26](GPIO_ONEWIRE): one DS18B20 (family `0x28`, tank-wall) and one DS18S20 (family `0x10`, suction-line). Firmware routes each reading by family code, so the `0x28`/`0x10` split is itself the pass criterion — two same-family devices, or a missing family, is a wrong-part or mounting error. Both should report within [±2 °C](AMBIENT_TOL) of room ambient with the compressor de-energized. If only one address enumerates, suspect a parasitic-power miswire or the [4.7 kΩ](ONEWIRE_PULLUP) pull-up.
 - **Carbonator reeds** (MCP23017 [0x21 PB4](REED_LOW) low, [0x21 PB5](REED_HIGH) high) — both on the MCP internal pull-up, both reading high (no magnet present, no float installed yet). Bring a small bench magnet near each reed in turn and confirm it pulls low.
 - **Reservoir reeds** — all 8 (Reservoir A on MCP23017 [0x20](MCP_VALVES) PB[4:7], Reservoir B on [0x21](MCP_RESERVOIRS) PA[0:3]) reading their no-magnet baseline. Architecture and calibration in [`/hardware/printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md). Same bench-magnet check per reed.
 - **DIGITEN flow meter** ([GPIO 25](GPIO_FLOW)) — manually rotate the impeller with a clean implement; expect a pulse count increment per rotation in the serial output.
@@ -134,7 +134,7 @@ Watch for, in order:
 1. **PSU current bump** at the inline meter — the relay coil pulls ~70 mA additional through the 5 V rail; small but visible.
 2. **Compressor audible start** — the PTC start relay clicks and the hermetic compressor's motor spins up. The clip-on overload should not trip on a healthy compressor; if the overload opens, kill the override immediately and return to [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) for diagnosis.
 3. **Current draw at the AC side** — within nameplate (a couple of amps RMS on the 120 VAC leg for the harvested ice-maker compressor). Verify with a clamp meter on the switched-hot run AC-4 if the build bench has one.
-4. **Suction-line DS18B20 temperature** — drops a few degrees within a couple of minutes. The cold core has no water to absorb heat, so the suction line cools faster than it will in normal operation; this is the intended diagnostic, not normal-operation behavior.
+4. **Suction-line probe (DS18S20) temperature** — drops a few degrees within a couple of minutes. The cold core has no water to absorb heat, so the suction line cools faster than it will in normal operation; this is the intended diagnostic, not normal-operation behavior.
 
 After 30–60 seconds, send the firmware-override compressor-off command. The compressor de-energizes, the suction-line probe begins warming back toward ambient, and the [3-minute](MIN_OFF_TIME) minimum off-time guard re-arms.
 
@@ -155,7 +155,7 @@ These are baked into the firmware on `main` as factory defaults; no per-unit set
 
 ### 10. Archive the per-serial commissioning log
 
-Snapshot the serial-monitor output from steps 6–9 into a per-serial log file. At minimum capture: firmware build ID (`fw_version.h`), I²C ACK list, DS18B20 addresses + first-read temperatures, all [10](REEDS_TOTAL) reed baselines, flow-meter pulse count, air-switch press count, MQ-6 baseline, drip-pan baseline, valve self-test pass/fail per channel, suction-line probe temperatures before/during/after the relay #1 verification.
+Snapshot the serial-monitor output from steps 6–9 into a per-serial log file. At minimum capture: firmware build ID (`fw_version.h`), I²C ACK list, 1-wire probe addresses + family codes (0x28 tank / 0x10 coil) + first-read temperatures, all [10](REEDS_TOTAL) reed baselines, flow-meter pulse count, air-switch press count, MQ-6 baseline, drip-pan baseline, valve self-test pass/fail per channel, suction-line probe temperatures before/during/after the relay #1 verification.
 
 Where this log lives — local file under `/commissioning/<serial>/`, uploaded to cloud, both — is an Open item below. Working position: keep the file locally on the build host until that decision lands.
 
@@ -165,7 +165,7 @@ A commissioned unit is:
 
 - Both MCUs flashed with current `main` firmware; build IDs captured in the per-serial log
 - First DC power-on passed clean: [12 V](RAIL_12V) / [5 V](RAIL_5V) / [3.3 V](RAIL_33V) rails in tolerance, no smoke, no trip, no thermal fuse open
-- Both MCP23017s ACK'd at [0x20](MCP_VALVES) + [0x21](MCP_RESERVOIRS), DS3231 ACK'd at [0x68](RTC_ADDR), both DS18B20 probes addressed on the 1-wire bus
+- Both MCP23017s ACK'd at [0x20](MCP_VALVES) + [0x21](MCP_RESERVOIRS), DS3231 ACK'd at [0x68](RTC_ADDR), both temperature probes addressed on the 1-wire bus (DS18B20 0x28 + DS18S20 0x10)
 - All [10](REEDS_TOTAL) reed switches verified at no-magnet baseline and verified pull-low under a bench magnet
 - DIGITEN flow meter pulses on hand rotation; S3 rotary encoder advances the flavor display on each detent
 - MQ-6 warmed to operating temperature and reads clean-air baseline; drip-pan moisture sensor reads dry
