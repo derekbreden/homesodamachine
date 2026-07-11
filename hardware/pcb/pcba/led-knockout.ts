@@ -130,14 +130,14 @@ export function ledKnockoutGerber(circuit: any[]): string {
     rows.push({ cy, text, pads: p })
     L.push(
       "G36*",
-      `${at(WEST, cy + r)}D02*`,          // NW
-      `${at(WEST, cy - r)}D01*`,          // ↓ flat west edge to SW
-      `${at(arcX, cy - r)}D01*`,          // → bottom edge to the cap
-      "G03*",                              // CCW: bottom → east → top, in two quadrant arcs
-      `${at(arcX, cy)}I0J${u(r)}D01*`,    //   SE quadrant to the east point (centre offset 0,+r)
-      `${at(arcX, cy + r)}I${u(-r)}J0D01*`, //   NE quadrant to the top (centre offset -r,0)
+      `${at(WEST, cy + r)}D02*`,             // NW
+      `${at(WEST, cy - r)}D01*`,             // ↓ flat west edge to SW
+      `${at(arcX, cy - r)}D01*`,             // → bottom edge to where the cap begins
+      "G03*",                                 // one full-height semicircle (r = height/2), bulging east,
+      `${at(arcX + r, cy)}I0J${u(r)}D01*`,   //   as two 90° quarters about (arcX, cy): SW→E point,
+      `${at(arcX, cy + r)}I${u(-r)}J0D01*`,  //   then E point→top — together a single smooth radius
       "G01*",
-      `${at(WEST, cy + r)}D01*`,          // ← top edge back to NW
+      `${at(WEST, cy + r)}D01*`,             // ← top edge back to NW
       "G37*",
     )
   }
