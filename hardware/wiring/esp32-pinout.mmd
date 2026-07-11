@@ -13,7 +13,7 @@ flowchart LR
   %%   GPIO 19 drives the Teyleten relay #1 (compressor AC).
   %%   GPIO 2 drives the Teyleten relay #2 (diaphragm pump 12 V, refill) — boot-safe:
   %%     the opto module's LED load holds it low, which download mode also wants.
-  %%   GPIO 26 hosts the DS18B20 1-wire bus (tank-wall + evap-suction probes).
+  %%   GPIO 26 hosts the 1-wire temp bus: DS18B20 (0x28, tank-wall) + DS18S20 (0x10, evap-suction), told apart by family code.
   %%   GPIO 25 reads the DIGITEN flow meter (pulse input).
   %%   GPIO 27 reads the backflow drip-pan moisture sensor (SIG-9).
   %%   GPIO 13 drives the on-board buzzer (U8 magnetic transducer, PWM tone via
@@ -87,7 +87,7 @@ flowchart LR
 
     subgraph Refrigeration_Pins["Refrigeration"]
       P19["GPIO 19  Teyleten relay  (compressor AC)"]
-      P26["GPIO 26  DS18B20 1-wire bus"]
+      P26["GPIO 26  1-wire temp bus (DS18B20 + DS18S20)"]
     end
 
     subgraph Carbonator_Pins["Carbonator Water"]
@@ -133,7 +133,7 @@ flowchart LR
   DIA_RELAY["Teyleten 3.3V relay #2\n(diaphragm pump 12 V)"]
   DIA_PUMP["SeaFlo diaphragm pump\n  12 V, ~5 A peak\n  (carbonator refill)"]
 
-  DS_PROBES["2× DS18B20 1-wire probes:\n  tank wall (cycle setpoint)\n  evap suction (freeze cutout)"]
+  DS_PROBES["2× 1-wire probes (told apart by family code):\n  DS18B20 0x28 tank wall (cycle setpoint)\n  DS18S20 0x10 evap suction (freeze cutout)"]
 
   %% ── Connections ──
   P32 & P34 <-->|"Serial1 115200 baud\nvia ALMOCN RS485"| S3

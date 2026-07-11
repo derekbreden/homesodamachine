@@ -21,6 +21,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 | Carbonator vessel | Output of [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) | Hydro-tested + passivated |
 | GOORY 1/4" OD × 0.031" wall ACR copper tubing | B0DKSW5VL9 | ~24 ft per vessel for coil wrap + tie-in stubs (1/2 of 50 ft roll per build) — ACQUIRED |
 | 3M 425 aluminum foil tape | B07BTW7C2N | Coil-to-vessel thermal interface; applied as continuous skin under the coil; one 180 ft roll covers ~12 builds — ACQUIRED |
+| DS18B20 TO-92 (tank, family 0x28) + DS18S20 TO-92 (coil, family 0x10) 1-wire sensors | B0FKG3HT9Q / DigiKey DS18S20+-ND | Two bare TO-92 temperature sensors, leads heat-shrunk; potted into the foam against their metal surfaces. Distinct 1-wire family codes let firmware tell them apart deterministically (no per-unit ID map) — see [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §6 — ON-ORDER |
 | Coil-winding mandrel (printed PETG) | [`/hardware/printed-parts/cold-core/coil-mandrel/`](/hardware/printed-parts/cold-core/coil-mandrel/) | Print, reusable across builds |
 | Foam-shell (printed PETG) | [`/hardware/printed-parts/cold-core/foam-shell/`](/hardware/printed-parts/cold-core/foam-shell/) | Print, Bambu H2C, 0.8 mm nozzle |
 | Foam lid × 1 (printed PETG) | Same | Print |
@@ -41,6 +42,8 @@ Wind GOORY 1/4" OD × 0.031" wall ACR copper tubing as a single-layer helical co
 
 Bond the coil to the vessel OD with 3M 425 aluminum foil tape applied as a continuous skin between vessel and coil.
 
+Before closing the foil skin over the coil's outlet (high) end — the suction side, refrigerant leaving as low-pressure gas, the coldest metal — tuck the **DS18S20 coil probe** (bare TO-92, family 0x10, leads heat-shrunk) flat against the copper and tape it down under the foil. This is the freeze-protect sensor; thermally bonding it to the suction-end copper is what lets the −8 °C cutoff see the coldest point. Lead its 3-conductor cable toward the +Z penetration slot for routing in step 3.
+
 Wind around the printed [coil-mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py) — hollow PETG cylinder with a shallow [1 mm](GROOVE_DEPTH) helical guide groove, mandrel OD [123 mm](MANDREL_OD), tank OD [127 mm](TANK_OD), net coil undersize [3 mm](NET_UNDERSIZE). Wind length [120.4 mm](WIND_LENGTH), [9.687](TOTAL_WRAPS) wraps, pitch [12.43 mm](PITCH). Inlet aligns with the foam-shell copper plug at Y=[46](PLUG_INLET_Y); outlet at Y=[166.4](PLUG_OUTLET_Y). Pull the wound coil off the mandrel and slip it onto the foil-taped vessel. Coil springback: 1–3 mm radial.
 
 Dev-phase summary: [`/hardware/handwork.md`](/hardware/assembly/handwork.md) "Bend copper around the pressure vessel".
@@ -56,6 +59,7 @@ Geometry detail at [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/h
 With the outer shell open-top-up on the bench, install every internal component:
 
 - **Pressure vessel + coil** (per step 1; coil stubs exit through the foam-shell's copper-plug holes) lowered into the cylindrical center cavity, seated on the printed-in `tank_support_ring`
+- **Temperature probes** — tape the **DS18B20 tank-wall probe** (bare TO-92, family 0x28, leads heat-shrunk) flat against the vessel OD under a patch of 3M 425 foil tape; this is the compressor-cycling setpoint sensor, so it reads the vessel wall, not the coil. The **DS18S20 coil probe** (0x10) is already tucked under the coil foil tape at the suction end (step 1). Route both 3-conductor leads up and out through the shared +Z slot alongside the other penetrations; at the cold-core exit they join SIG-1, the IO26 1-wire bus, per [`wiring.md`](/hardware/assembly/wiring.md). Seat the leads so the copper-plug clamp and the foam over-pour close around them — no air path may follow the leads inward (that path, not the sensor itself, is the only way condensation reaches a potted probe).
 - **Reservoirs** seated into the two ±X bag pockets
 - **Penetrations routed through the outer shell walls:**
   - CO2 inlet → enters from above through the foam-lid Ø[6.5 mm](TUBE_HOLE_D) hole at (x=0, z=[-68.75](COTWO_INLET_Z)); inside the cavity, a John Guest PP0308E 1/4" PTC 90° elbow seats in the Ø16 doorway in the −Z support arch, and the line continues to the vessel's bottom-plate TAISHER NPT elbow via a PP010822E 1/4" PTC × 1/4" NPT M adapter
@@ -73,6 +77,8 @@ All fitting-size transitions (3/8" → 1/4", larger fittings) happen on the warm
 Mix the two-part PU foam 1:1. Pour the liquid directly into the body's open +Y top, all at once. Foam falls into the body and reaches every cavity in parallel: outer foam gap, bag pockets, corner pockets at ±Z, and the tank cavity inside the cylinder. Geometry: [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Assembly and foam pour".
 
 Foam expansion may push small amounts of material out through the 0.5 mm clearance bands around tubes in the +Z slot and the tight-fit tube exits at other penetrations. Trim flush after cure.
+
+The pour encapsulates both temperature probes and their leads against the cold metal. Potted in closed-cell foam with no air gap, they need no separate waterproofing — the foam is the vapor barrier. Ensure the pour fully wets around each probe and up its lead entry with no void: a void is a trapped-air pocket that will condense and frost against the cold surface, and is the only path by which moisture reaches a probe. A void at a probe is an insulation defect first and a probe-fouling risk second.
 
 ### 5. Final assembly
 
@@ -94,6 +100,7 @@ A finished cold core:
 
 - The body foam pour cured, flush-trimmed at visible surfaces and tube exits
 - Vessel + bonded coil installed, seated in the cylinder cavity, surrounded by foam; coil inlet/outlet stubs (~2 ft each) protruding through the foam-shell's copper-plug exits
+- Both temperature probes potted in the foam against their metal surfaces — DS18B20 (tank-wall, 0x28) on the vessel OD, DS18S20 (coil, 0x10) at the suction end of the coil — leads routed out the +Z slot and sealed, joining SIG-1 at the cold-core exit
 - Both reservoirs seated in their bag pockets
 - All seven penetrations routed through their designated holes / slot
 - Reed columns dropped into the reed channels
