@@ -14,7 +14,8 @@
  * edge row of cable connectors — GAS (J11), FAUCET (J3), SENSORS (J4), DISPLAY (J9) — with
  * their on-board conditioning just above (the R1-R4 gas dividers under the WROOM, the 3V3 LDO
  * U9 above FAUCET, the U7 RS485 transceiver above DISPLAY). The buzzer (U8/Q1/R5) sits east of
- * the ESP by its IO13 pin; the 5V buck (U10) below the coin cell, in the logo's bay. Center:
+ * the ESP by its IO13 pin; the 5V buck (U10) below the coin cell; the identity nameplate
+ * in the bay north of U9. Center:
  * DS3231 + coin cell; the two MCPs stacked through the middle (0x20 north, 0x21 south) with
  * their reed inputs on REEDS A (above) / REEDS B (below). Right block: the two ULNs with the
  * valve manifolds immediately to their right, and the 12V inlet (J10) at the south-east corner.
@@ -51,7 +52,7 @@
  * Disabling the schematic removes the hang and speeds every render; the gerbers are unaffected.
  *
  * The clearance floor (0.15) is a hand trace threading the buck cluster's pad column
- * (U10, in the logo bay); the web viewer's board chip reports it live
+ * (U10, below the coin cell); the web viewer's board chip reports it live
  * (clearance.ts -> picks.json).
  */
 import { at, Cap, Res, Jst, jstPins, ulnOUT, Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870, Tact } from "./parts"
@@ -310,17 +311,20 @@ export default () => (
         +Vo), 10uF input + 22uF output cap. U9 = AMS1117-3.3 (C6186, SOT-223 LDO) makes 3V3
         from the 5V rail: VIN off V5, VOUT1 + VOUT2 (tab) to 3V3, GND to the bottom plane;
         the SMD pads auto-stitch to their planes. C13 (10uF V5 input) + C14 (22uF 3V3
-        output) stand as a vertical pair hard against U9's east pin column — a tight local
-        loop. U10 stands vertical (rot 90, pin column at x -30.8, body east) in the bay west
-        of BT1: the pin column threads BETWEEN the IO26 and IO27 sensor drop columns (0.15+
-        pad-shadow clear of each) so the pins sit on the island without the pour edge moving,
-        and the whole column sits north of both RS485 bottom rows (the 2.54 pin pitch can't
-        straddle them). C15/C16 stand as a vertical pair on its east flank (C16 output cap
+        output) stand as a vertical column on U9's west flank beside the VOUT tab,
+        threading between the IO35 column and the IO33 channel (pads 0.27+ clear of
+        each); C13's ref-des sits west of the pair, crossing the IO35 hairline as
+        mask-covered ink. U10 stands vertical (rot 90, pin column at x -30.8, body east)
+        in the bay west of BT1: the pin column threads BETWEEN the IO26 and IO27 sensor
+        drop columns (0.15+ pad-shadow clear of each) so the pins sit on the island
+        without the pour edge moving, and the whole column sits north of both RS485
+        bottom rows (the 2.54 pin pitch can't straddle them). C15/C16 stand as a
+        vertical pair on its east flank (C16 output cap
         north by pin3, C15 input cap south toward pin1, pads clear of the DI row); every pin
         is a plane pickup, so the buck cluster carries no routed copper at all. */}
     <Ams1117 name="U9" x={-51.43} y={-23.8} rot={0} />
-    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-52.9} y={-15.1} rot={90} side="E" />
-    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-57.55} y={-24.8} rot={90} side="E" />
+    <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-57.55} y={-20.59} rot={90} side="W" />
+    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-57.55} y={-25.25} rot={90} side="E" />
     <Buck5 name="U10" x={-30.8} y={-19.2} rot={90} />
     <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-23.8} y={-20.35} rot={90} side="E" />
     <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-23.8} y={-15.4} rot={90} side="E" />
@@ -1334,18 +1338,23 @@ export default () => (
     <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.5} pcbY={-33.3} />
 
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
-        monocolor silk via logo.ts) over the centered name + version, a compact
-        stack in the west band above FAUCET (J3), between the IO33 channel and the
-        IO35 column (the text lines are wider than the band and cross those two
-        hairlines as mask-covered ink — same call as R4's label). The version is the
-        firmware scheme (firmware/pre_build.py): commit date + short SHA, a trailing
-        `+` from uncommitted edits — a pure function of the commit, naming which
-        source tree a fabbed board came from. */}
-    {logoRoutes(-53.75, -21.5, 6).map((route, i) => (
+        monocolor silk via logo.ts) beside the two-line name, over MACHINE and the
+        two-line version stamp, filling the bay north of U9 (C10/C11 column west,
+        the R10-R12 bank east, the IO25/26/27 top runs north). Every element sits
+        on bare laminate except MACHINE's east end, which crosses the IO25 drop
+        column as mask-covered ink — same call as R4's label; the IO12/IO14 runs
+        under the bay are bottom copper. The version is the firmware scheme
+        (firmware/pre_build.py): commit date + short SHA, a trailing `+` from
+        uncommitted edits — a pure function of the commit, naming which source
+        tree a fabbed board came from. */}
+    {logoRoutes(-52.9, -13.6, 3).map((route, i) => (
       <silkscreenpath key={`logo${i}`} strokeWidth="0.15mm" route={route} />
     ))}
-    <silkscreentext text="HOME SODA MACHINE" fontSize="1.6mm" anchorAlignment="center" pcbX={-53.75} pcbY={-25.5} />
-    <silkscreentext text={`${ID.date}.${ID.rev}`} fontSize="1.6mm" anchorAlignment="center" pcbX={-53.75} pcbY={-27.4} />
+    <silkscreentext text="HOME" fontSize="1.4mm" anchorAlignment="center" pcbX={-49.2} pcbY={-12.75} />
+    <silkscreentext text="SODA" fontSize="1.4mm" anchorAlignment="center" pcbX={-49.2} pcbY={-14.55} />
+    <silkscreentext text="MACHINE" fontSize="1.4mm" anchorAlignment="center" pcbX={-50.2} pcbY={-16.35} />
+    <silkscreentext text={ID.date} fontSize="0.8mm" anchorAlignment="center" pcbX={-50.2} pcbY={-18.05} />
+    <silkscreentext text={ID.rev} fontSize="0.8mm" anchorAlignment="center" pcbX={-50.2} pcbY={-19.15} />
 
     {/* Power pours — FOUR layers, top->bottom: top (signals + the V12 island), 3V3 (inner1),
         5V (inner2), GND (bottom). 3V3/5V/GND are full-flood planes; each pin commons to its
