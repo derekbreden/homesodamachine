@@ -212,7 +212,7 @@ const R19f = frame(R19El), R20f = frame(R20El)
 // ── Valve/reed fan frames — the ULNs, manifolds, and reed connectors, framed for the
 // nested fan routes below (each MCP↔ULN↔manifold column and its reed connector). ─────────
 const U4El = <Uln2803 name="U4" x={-0.75} y={9.9} rot={270} />
-const U5El = <Uln2803 name="U5" x={-0.5} y={-7.75} rot={270} />
+const U5El = <Uln2803 name="U5" x={-0.5} y={-7.35} rot={270} />
 const U4f = frame(U4El), U5f = frame(U5El)
 const J1El = <Jst name="J1" x={11} y={13.75} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" rot={270} />
 const J2El = <Jst name="J2" x={11} y={-8.6} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" rot={270} />
@@ -542,7 +542,10 @@ export default () => (
     <trace from="U3.GPA4" to="U5.IN4" pcbPathRelativeTo="board" pcbPath={route("U3.GPA4", U5f.col("IN4"), "U5.IN4")} />
     <trace from="U3.GPA5" to="U5.IN3" pcbPathRelativeTo="board" pcbPath={route("U3.GPA5", U5f.col("IN3"), "U5.IN3")} />
     <trace from="U3.GPA6" to="U5.IN2" pcbPathRelativeTo="board" pcbPath={route("U3.GPA6", U5f.col("IN2"), "U5.IN2")} />
-    <trace from="U3.GPA7" to="U5.IN1" pcbPathRelativeTo="board" pcbPath={route("U3.GPA7", U5f.col("IN1"), "U5.IN1")} />
+    {/* IN1 is the northmost run, in BT1.pin1's latitude: hold the east haul low at {row -2.8}
+        (clearing the + post's south edge -2.25, riding a touch nearer its IN2 sibling), step
+        north at {col -9} once east of the post, then close into the pad. */}
+    <trace from="U3.GPA7" to="U5.IN1" pcbPathRelativeTo="board" pcbPath={route("U3.GPA7", { row: -2.8 }, { col: -9 }, U5f.col("IN1"), "U5.IN1")} />
 
     {/* I2C bus — SDA rides inner1 (the 3V3 plane layer), SCL rides inner2 (the 5V plane
         layer) as routeInner traces: the plane layers carry no other trace copper, so each
@@ -1003,15 +1006,15 @@ export default () => (
     <trace from="R3.pin1" to="J11.DOUT" pcbPathRelativeTo="board" pcbPath={route("R3.pin1", J11f.row("DOUT", 0), "J11.DOUT")} />
     <trace from=".J11 > .GND" to="net.GND" />
 
-    {/* V12 decoupling. HF: two 0.1uF ceramics (C1 y-16.6, C2 y0.2) on the V12 island
+    {/* V12 decoupling. HF: two 0.1uF ceramics (C1/C2 aligned at y1.33) on the V12 island
         by the ULN/manifold block, snubbing the fast solenoid-turn-off edge. BULK: a
         470uF low-ESR electrolytic (C3, BOM 1) at the board centre between the two MCP
         stacks (U2 north, U3 south), west of the ULNs it feeds across the V12 island,
         soaking the inrush + flyback dump the ceramics can't. Every pin1 -> V12, pin2 ->
         GND plane — no routing, no vias, barrel pickup like every power pin; the top V12
         island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
-    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={3.3} y={0.75} rot={270} side="W" />
-    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={0.4} y={1.1} rot={90} side="W" />
+    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={3.3} y={1.33} rot={270} side="W" />
+    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={0.4} y={1.33} rot={90} side="W" />
     <BulkCap name="C3" x={2.6} y={22.95} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
@@ -1067,11 +1070,14 @@ export default () => (
     {D6El}
     {R13El}
     {R14El}
-    <silkscreentext text="ERR" fontSize="1.4mm" anchorAlignment="center" pcbX={-35.9} pcbY={-15.5} />
-    <silkscreentext text="RUN" fontSize="1.4mm" anchorAlignment="center" pcbX={-35.9} pcbY={-18} />
-    <silkscreentext text="ACT" fontSize="1.4mm" anchorAlignment="center" pcbX={-35.9} pcbY={-20.5} />
-    <silkscreentext text="PWR" fontSize="1.4mm" anchorAlignment="center" pcbX={-35.9} pcbY={-23.0} />
-    <silkscreentext text="5V" fontSize="1.4mm" anchorAlignment="center" pcbX={-35.9} pcbY={-25.5} />
+    {/* The five LED names (ERR/RUN/ACT/PWR/5V) are drawn as KNOCKOUT badges — the label is the
+        bare board showing through a filled silk background, D-shaped (flat west, round east),
+        each background reaching west to wrap its LED (pads antipadded, no silk on copper). That
+        needs a filled silk region with pad clearances, which circuit-json can't express, so the
+        badges are emitted straight into F_SilkScreen by led-knockout.ts (injected in
+        render-board.ts). The LED positions it wraps come from D2–D6 above; edit the text/geometry
+        there. The LED footprint silk (diode glyph) is stripped from the imports so it doesn't sit
+        under the fill. */}
 
     {/* firmware: GPIO -> R -> anode, cathode -> GND */}
     {/* LED feeds — the top band south of U1 is the sensor comb's, so all three ride the BOTTOM as
