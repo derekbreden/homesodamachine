@@ -35,8 +35,8 @@ const LABELS: { text: string; led: string }[] = [
 
 // Badge shape (board mm).
 const FONT = 1.4          // label cap size (matches the old plain labels)
-const WEST = -41.3        // flat west edge — wraps the LED (pads to -40.9), clears the R to its west (-42.05)
-const EAST = -33.4        // rightmost point of the round cap
+const WEST = -41.7        // flat west edge — silk margin west of the LED (pads to -40.9), clears the R pad to its west (-42.04)
+const EAST = -34.4        // rightmost point of the round cap — kept close to the text so the badge isn't east-heavy
 const HEIGHT = 2.2        // badge height; row pitch is 2.5, so ~0.3 mm of board shows between badges
 const PAD_CLEAR = 0.15    // silk pulled back this far from every LED pad edge
 const STROKE = 0.15       // knockout letter stroke width
