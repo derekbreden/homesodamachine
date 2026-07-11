@@ -97,13 +97,13 @@ const dMinusLane = U14f.row("pin3", -0.85)
 const Q2El = <Npn name="Q2" x={-65.5} y={24.75} rot={90} />
 const Q3El = <Npn name="Q3" x={-61.5} y={24.75} rot={90} />
 const R17El = <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-64.5} y={28.75} rot={90} side="W" />
-const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-60.5} y={28.75} rot={90} side="E" />
+const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-60.5} y={28.75} rot={90} side="W" />
 // IO0's 10k pull-up, parked in the pocket east of U13's body where the corridor down to the pad
 // row is empty — every slot nearer the lattice is fenced by the DTR/RTS runs, J14's courtyard,
 // and the switch row (whose band the relay's bottom lane also crosses). pin1 (rot90: south) drops
 // the corridor and crosses to IO0 on the bottom, under the relay's top rise; pin2 (3V3) stitches
 // to its plane.
-const R8El = <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-43.0} y={26} rot={90} side="E" />
+const R8El = <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-42.65} y={26} rot={90} side="W" />  // nudged E so the W ref-des clears U13's fence; trace stairsteps back to the -43 lane
 const R8f = frame(R8El)
 // BOOT override tact (IO0 branch). rot180 seats pin1 (signal) on the SE corner so it exits south,
 // clear of U13, down to IO0; pin4 (NW) is the diagonal contact to GND. SW2 (RESET/EN) stays inline.
@@ -134,11 +134,11 @@ const CX_EN = -65.5, CX_DOUT = -63.5, CX_AOUT = -61.5   // columns W→E
 const CY_BOT = -15.65, CY_TOP = -12.15                    // input (south) / GND·V3V3 (north) rows (N clears U1 courtyard -10.05)
 // Placed here (not down in the return) so each frame derives from its own element; rendered below
 // via {R1El}… The grid parts ride the CX/CY consts, so a one-line const move still slides the lattice.
-const R1El = <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={CX_AOUT} y={CY_BOT} rot={90} side="E" />   // AOUT in (pin1 S) → midpoint (pin2 N)
-const R2El = <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={CX_AOUT} y={CY_TOP} rot={90} side="E" />  // midpoint (pin1 S) → GND (pin2 N)
-const R3El = <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={CX_DOUT} y={CY_BOT} rot={90} side="E" />   // DOUT in (pin1 S) → midpoint (pin2 N)
-const R4El = <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={CX_DOUT} y={CY_TOP} rot={90} side="E" />  // midpoint (pin1 S) → GND (pin2 N)
-const R7El = <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={CX_EN} y={CY_BOT} rot={270} side="E" />    // EN node (pin1 N) → V3V3 (pin2 S)
+const R1El = <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={CX_AOUT} y={CY_BOT} rot={90} side="W" />   // AOUT in (pin1 S) → midpoint (pin2 N)
+const R2El = <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={CX_AOUT} y={CY_TOP} rot={90} side="W" />  // midpoint (pin1 S) → GND (pin2 N)
+const R3El = <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={CX_DOUT} y={CY_BOT} rot={90} side="W" />   // DOUT in (pin1 S) → midpoint (pin2 N)
+const R4El = <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={CX_DOUT} y={CY_TOP} rot={90} side="W" />  // midpoint (pin1 S) → GND (pin2 N)
+const R7El = <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={CX_EN} y={CY_BOT} rot={270} side="W" />    // EN node (pin1 N) → V3V3 (pin2 S)
 const C12El = <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={CX_EN} y={CY_TOP} rot={90} side="W" />  // EN node (pin1 S) → GND (pin2 N); near U1.EN
 const R1f = frame(R1El), R2f = frame(R2El), R3f = frame(R3El), R4f = frame(R4El), R7f = frame(R7El), C12f = frame(C12El)
 const U1El = <Esp32 name="U1" x={-57} y={0} rot={0} ly={4} />  // ref-des north of the centre GND thermal-pad array
@@ -308,7 +308,7 @@ export default () => (
     {U7El}
     {R6El}
     {D1El}
-    <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-19.3} y={-14.05} rot={0} side="S" />
+    <Cap name="C7" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-19.3} y={-14.05} rot={0} side="N" />
     {/* On-board supplies. U10 = K7805 (12V->5V, 2A) SIP module (pin1 Vin / pin2 GND / pin3
         +Vo), 10uF input + 22uF output cap. U9 = AMS1117-3.3 (C6186, SOT-223 LDO) makes 3V3
         from the 5V rail: VIN off V5, VOUT1 + VOUT2 (tab) to 3V3, GND to the bottom plane;
@@ -326,10 +326,10 @@ export default () => (
         is a plane pickup, so the buck cluster carries no routed copper at all. */}
     <Ams1117 name="U9" x={-51.43} y={-23.8} rot={0} />
     <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-57.55} y={-20.59} rot={90} side="W" />
-    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-57.55} y={-25.25} rot={90} side="E" />
+    <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-57.55} y={-25.25} rot={90} side="W" />
     <Buck5 name="U10" x={-30.8} y={-19.2} rot={90} />
-    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-23.8} y={-20.35} rot={90} side="E" />
-    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-23.8} y={-15.4} rot={90} side="E" />
+    <Cap name="C15" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-23.8} y={-20.35} rot={90} side="W" />
+    <Cap name="C16" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-23.8} y={-15.4} rot={90} side="W" />
     {/* Pump drivers, in the second row behind the top-edge connectors: one DRV8870 H-bridge per peristaltic flavor
         pump (Kamoer KPHM400-SW, 12V brushed DC, 0.8A at full speed per the datasheet — PWM'd well below that at the
         1:20 dispense ratio; prime/clean is where it hits 0.8A), 45V/3.6A SMD with internal freewheeling +
@@ -340,11 +340,11 @@ export default () => (
         only IN1 PWM'd from the ESP. That halves the IN bus to one trace per pump and frees IO16/IO18.
         (Reversible: re-add IN2->IO16/IO18 if a reverse/anti-drip mode is ever wanted.) */}
     {U11El}
-    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-20.72} y={22.75} rot={90} side="E" />
-    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-18.2} y={17.7} rot={180} side="S" />{/* S: N grazes U11's GND pad */}
+    <Cap name="C17" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-20.72} y={22.75} rot={90} side="W" />
+    <Cap name="C18" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-18.2} y={17.35} rot={180} side="N" />{/* nudged S so the N ref-des clears U11's GND pad */}
     {U12El}
-    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-5.4} y={22.75} rot={90} side="E" />
-    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-11.2} y={17.7} rot={180} side="S" />{/* S: N grazes U12's GND pad */}
+    <Cap name="C19" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-5.4} y={22.75} rot={90} side="W" />
+    <Cap name="C20" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-11.2} y={17.35} rot={180} side="N" />{/* nudged S so the N ref-des clears U12's GND pad */}
     {U2El}
     {U3El}
     {U4El}
@@ -512,7 +512,7 @@ export default () => (
         U2's nearest pad, serving VDD through the 3V3 plane like the original south-side
         seat did. */}
     <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-41.9} y={17.5} rot={90} side="W" />{/* W: E grazes U2's fence */}
-    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={3.35} y={-16.15} rot={270} side="E" />
+    <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={3.35} y={-16.15} rot={270} side="W" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
     <trace from=".C5 > .pin1" to="net.V3V3" />
@@ -1010,8 +1010,8 @@ export default () => (
         soaking the inrush + flyback dump the ceramics can't. Every pin1 -> V12, pin2 ->
         GND plane — no routing, no vias, barrel pickup like every power pin; the top V12
         island floods the whole valve block. C3 is polarized: pin1 (+) is V12. */}
-    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={3.3} y={0.75} rot={270} side="E" />
-    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={0.4} y={1.1} rot={90} side="E" />
+    <Cap name="C1" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={3.3} y={0.75} rot={270} side="W" />
+    <Cap name="C2" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={0.4} y={1.1} rot={90} side="W" />
     <BulkCap name="C3" x={2.6} y={22.95} />
     <trace from=".C1 > .pin1" to="net.V12" />
     <trace from=".C1 > .pin2" to="net.GND" />
@@ -1299,10 +1299,12 @@ export default () => (
         last stretch: the relay's top rise walls x-46.71 and the comb's bottom lanes start north of
         y10.9, so the crossing lives at y9.6 on the bottom, up into IO0's pad by its own via. */}
     <trace from="R8.pin1" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={(() => {
-        const p1 = { x: R8f.pin("pin1").x, y: 9.6 }
+        const laneX = -43  // the pull-up's original corridor lane; R8's ref-des nudge moved its pad
+        const p1 = { x: laneX, y: 9.6 }  // E of this, so the drop stairsteps back here and the run below is unchanged
         const io0 = U1f.pin("IO0")
         return [
             "R8.pin1",
+            { x: laneX, y: R8f.pin("pin1").y },  // stairstep W from the nudged pad into the lane
             p1,
             { ...p1, via: true, toLayer: "bottom" } as const,
             p1,
