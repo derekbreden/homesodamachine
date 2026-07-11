@@ -326,4 +326,21 @@ if (circuit) {
   rmSync(path.join(dir, picksTmp), { force: true })
 }
 
+// Rebuild the 3D assembly so a single `bun render-board.ts` leaves out/ fully consistent —
+// GLB + the top/bottom face textures (which board-texture.ts composes from the gerbers above,
+// so they carry the same silk this render just wrote). The dev-server rebuilds the GLB on its
+// own in the background, so skip it there to keep the live preview fast; every other caller
+// (a bare manual run, build-all) is producing committed artifacts and must not leave the GLB
+// stale. The circuit-json we wrote above is newer than the .tsx, so board-3d.py reuses it (no
+// second autoroute). Best-effort: a 3D failure (e.g. a new part's STEP not yet cached, offline)
+// must not fail the fab render — the gerbers/views are already written.
+if (process.env.RENDER_SOURCE !== "dev-server") {
+  const py = path.join(dir, "..", "..", "..", "tools", "cad-venv", "bin", "python")
+  try {
+    await sh(py, [path.join(dir, "board-3d.py")], { cwd: dir, inherit: true })
+  } catch (e: any) {
+    console.error(`[${board}] board-3d failed — out/${board}.glb + 3D textures may be stale (rerun: tools/cad-venv/bin/python board-3d.py): ${e?.message || e}`)
+  }
+}
+
 lock.release()
