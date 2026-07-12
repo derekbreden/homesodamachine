@@ -32,7 +32,7 @@ Flash with `tools/flash.sh`.
 
 The pcba board (`hardware/pcb/pcba`) consumes forked `@tscircuit/*` packages (and `circuit-json-to-gerber`) via git-dependency `overrides` in its `package.json`. The local working trees are at `~/Developer/tscircuit-forks/<pkg>` — branch `homesodamachine/through-hole-vias`, with an `upstream` remote for syncing. See `hardware/pcb/pcba/FORKS.md`.
 
-The board's **capacity autorouter is deterministic** — same input, byte-identical output. The "whack-a-mole" (pin one trace, others move) is a deterministic global re-solve with zero locality, not randomness. Do not re-discover this or blame ripples on nondeterminism. See `hardware/pcb/pcba/autorouter-is-deterministic.md`. The complete procedure for moving the board onto manual traces — own a region, evict any interfering autorouter trace (related or not), re-add the router one trace at a time and hand-route whatever it fails — is `hardware/pcb/pcba/routing-procedure.md`. Follow it; do not invent a "characterize the failure" experiment in its place.
+The pcba board is **100% hand-routed** — every signal connection is an explicit `pcbPath`; the capacity autorouter owns no copper. To author or move traces, see `hardware/pcb/pcba/hand-routing.md` (the `route`/`routeBottom`/`routeInner` frame idiom and the render→floor verify loop).
 
 ## Amazon Prime
 

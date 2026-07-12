@@ -56,19 +56,8 @@ composed from those gerbers.
 - [`plane-stitching.md`](plane-stitching.md) — how SMD pads on a plane net are auto-stitched
   to the plane (and why a stitch via must carry the net), since DRC is pour-blind and won't
   flag a floating pad.
-- [`routing-procedure.md`](routing-procedure.md) — the complete, followable procedure for moving
-  the board off the autorouter onto manual traces: own a region, evict any autorouter trace that
-  interferes (related or not), get the target clean, then re-add the router one trace at a time and
-  hand-route whatever it fails. Output is a routed board, not a report.
-- [`autorouter-is-deterministic.md`](autorouter-is-deterministic.md) — the capacity autorouter
-  is deterministic (same input → byte-identical output); the "whack-a-mole" is a deterministic
-  global re-solve with zero locality, not randomness. Read before reasoning about why a trace
-  moved. Proof + reproduction; the *fact* behind the procedure above.
-- [`route-hints.md`](route-hints.md) — how to influence PCB routing on this board: why the
-  `pcbRouteHints` prop is inert under our capacity autorouter, `<tracehint>` for soft nudges,
-  and `pcbPath` / `pcbComb` for deterministic paths, vias, and layers.
 - [`hand-routing.md`](hand-routing.md) — placing manual `pcbPath` copper correctly: the
-  coordinate frame (points are in the `from` component's resolved center + rotation, *not* board
-  coordinates), the `frame` helper (`.at` board / `.off` local), moving a component tighter as a
-  one-line change, and the render→floor verify loop. Read before writing a `pcbPath`.
+  `route`/`routeBottom`/`routeInner` frame idiom (every waypoint derives from a pad and rides its
+  part), pad shadows as through-stack walls, moving a component tighter as a one-line change, and
+  the render→floor verify loop. Read before writing a `pcbPath`.
 - Per-step specs (`uln2803.md`, `mcp23017.md`, …).
