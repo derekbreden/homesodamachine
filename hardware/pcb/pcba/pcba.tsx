@@ -776,17 +776,19 @@ export default () => (
         "J4.IO27",
     )} />
     <trace from=".J4 > .GND" to="net.GND" />
-    {/* IO23 — the switched moisture VCC's haul to J4 pin 7. Every nearer north-row escape is
-        fenced (the pump-comb rows and the boot wall own the bottom and top bands east of it),
-        so the line rides the far-west flank: pad-via to the BOTTOM, north over the rim band,
-        west past the corner GND pad, down the antenna-box column (the same flank Q2's EN
-        reach rides on top), east along the lane between J11/J3's ring bottoms and the pour
-        margin, ending AT the new barrel (the barrel conducts every layer — no closing via). */}
-    <trace from="U1.IO23" to="J4.IO23" pcbPathRelativeTo="board" pcbPath={routeInner("bottom",
+    {/* IO23 — the switched moisture VCC's haul to J4 pin 7. IO23 is a north-row pad, so its
+        pad-via drops STRAIGHT INTO the module interior on the 3V3 plane (inner1) — the west
+        room of that plane, W of the centre GND thermal-pad array, is a clear channel. The line
+        runs S off the pad into the interior, E under the body (S of the thermal pads, N of the
+        south row), drops below the E GND corner pad, exits past the module's east column, and
+        rides inner1 down the east flank (clear of the IO15 feed, which is on the bottom) into
+        the south lane and the barrel. One via, never the antenna keepout — the interior IS the
+        crossing. (The nearer top/bottom escapes are fenced by the boot wall and the pump comb.) */}
+    <trace from="U1.IO23" to="J4.IO23" pcbPathRelativeTo="board" pcbPath={routeInner("inner1",
         "U1.IO23",
-        { row: 10.6 },              // north of the rim band, south of J14's shell copper
-        { col: -67.3 },             // the far-west flank (Q2.C's column, bottom side)
-        { row: -29.0 },             // the south lane: 0.4+ clear of every ring top
+        { row: -6.6 },              // S off the pad into the interior's south strip (below the E GND corner pad's latitude; SDA/SCL are at y10.95, N — uncrossed)
+        { col: -46 },               // E through the interior and clear past the module's east pad column
+        { row: -29 },               // S the east flank on inner1 — the IO15 feed rides the bottom, so this lane is clear
         J4f.col("IO23"),
         "J4.IO23",
     )} />
