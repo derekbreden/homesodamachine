@@ -173,4 +173,4 @@ is the on-board USB-C block — J14 + U13 (CH340C), auto-reset onto EN/IO0 (see
 [`esp32-scope.md`](esp32-scope.md)). The bare module's IO pins are SMD pads, single-layer
 endpoints: a net that needs the bottom layer lands its run up onto the top pad through a
 via-in-pad, capped like the plane stitches; every signal on the board is a hand-routed
-`pcbPath` (see [`routing-procedure.md`](routing-procedure.md)).
+`pcbPath` (see [`hand-routing.md`](hand-routing.md)).

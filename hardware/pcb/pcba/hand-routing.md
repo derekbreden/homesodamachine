@@ -1,9 +1,10 @@
 # Hand-routing manual traces (`pcbPath`)
 
-This is the foundation for moving nets off the autorouter onto clean, tight, deterministic
-manual copper. Read [`routing-procedure.md`](routing-procedure.md) first for *how* to take
-territory (own a region, evict — never negotiate); this doc is about *placing the copper
-correctly* once you do.
+Every signal on this board is hand-authored copper — a `pcbPath` (`pcbStraightLine` for a bare
+pad-to-pad tie; `pcbComb` for a pin-line bundle, see [`FORKS.md`](FORKS.md)) — laid before the
+router and excluded from it, so the result is fixed and deterministic. This doc is about *placing
+that copper correctly*. (The `pcbRouteHints` prop is inert here — it reaches only tscircuit's
+opt-in sequential router, not the capacity router — so never reach for it.)
 
 ## Routing principles — the bar this board is held to
 
@@ -87,7 +88,7 @@ coincident wire (tscircuit's via-alignment check wants a wire sitting on the via
 clean render shows **0 errors** (a `pour-short` in `picks.json` means the trace is malformed or the pour
 didn't void it). Reach for it only once the **top face is proven blocked** — top is always preferred —
 and the bottom corridor is clear; its lanes are board-absolute `{ row }`/`{ col }` because they thread
-board-fixed obstacles (plated holes, stitch vias), and any autorouter trace it fouls is deferred.
+board-fixed obstacles (plated holes, stitch vias).
 
 **Pad shadows are walls on every layer.** A pad's footprint is reserved through the ENTIRE stack —
 the plane stitcher lands a via-in-pad on every poured-net pad, and pad-via-to-pad-via is how any
@@ -108,8 +109,7 @@ Packing the board is a **one-line change**, not a waypoint rewrite:
    paths follow. Nothing to retune.
 3. Re-render and step the placement outward until the floor breaks; the last clean value is the
    limit. Read *why* it broke: your own pad vs your own trace, or a **courtyard** overlap, is a
-   real geometric limit (accept the last-clean position); an autorouter trace in your corridor is
-   something to **evict**, per the procedure.
+   real geometric limit — accept the last-clean position.
 
 Verified limits at the corner: U14 → ~1.0 mm west (its own D+ pad crowds the D− escape lane);
 C22 → 1.25 mm west + 0.5 mm south (west ends at J14's courtyard, south at U14's). Note copper
@@ -141,8 +141,7 @@ bun render-board.ts pcba.tsx          # writes out/pcba.circuit.json + out/pcba.
 ## Rules of thumb
 
 - The floor is a **gate**, not a score. `≥ 0.14` with zero errors is *permission to proceed*,
-  not the goal — the goal is a tight, hand-routed board. Handing a net back to the autorouter to
-  make a number go green is the failure this whole effort exists to end.
+  not the goal — the goal is a tight, hand-routed board.
 - One `pcbPath` per connection. A pad tie is one small jumper (D+ is `pin10→pin8` on top, one
   "U"); do not draw a second full path over copper that is already connected.
 - Keep hand paths on top/bottom and off the inner planes; that discipline is the point (tighter
