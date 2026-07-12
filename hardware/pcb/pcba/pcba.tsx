@@ -78,7 +78,7 @@ const ID = boardVersionParts()
 const U14El = <Usblc6 name="U14" x={-56.25} y={16} rot={270} ly={1.9} />  // ref-des north: the centre row is the GND/VBUS pads
 const C22El = <Cap name="C22" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.25} y={19.35} rot={0} side="N" />
 const J14El = <UsbC name="J14" x={-62} y={16.5} rot={270} />
-const U13El = <Ch340 name="U13" x={-49.25} y={24.55} rot={0} />
+const U13El = <Ch340 name="U13" x={-48.25} y={23.55} rot={0} />  // slid E 1.0 (clear of C22's SW-corner overlap) + S 1.0 to open the tact strip
 const R16El = <Res name="R16" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-56.75} y={13} rot={0} side="N" />
 const R15El = <Res name="R15" resistance="5.1k" footprint="0603" jlcpcb="C23186" x={-56.75} y={21.75} rot={0} side="N" />
 const U14f = frame(U14El)
@@ -103,7 +103,7 @@ const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" 
 // and the switch row (whose band the relay's bottom lane also crosses). pin1 (rot90: south) drops
 // the corridor and crosses to IO0 on the bottom, under the relay's top rise; pin2 (3V3) stitches
 // to its plane.
-const R8El = <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-42.65} y={26} rot={90} side="W" />  // nudged E so the W ref-des clears U13's fence; trace stairsteps back to the -43 lane
+const R8El = <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-46} y={15.5} rot={90} side="E" />  // moved to the open pocket S of U13 (was the E fence blocking U13's east slide); pin1 drops S to IO0
 const R8f = frame(R8El)
 // BOOT (SW1) and RESET (SW2) tacts stand rotated in the strip between U13 and the north edge,
 // pads N/S (the rotation narrows each to the strip's width; south pads clear the RTS rail at
@@ -112,8 +112,8 @@ const R8f = frame(R8El)
 // down the J5 GND/V5 ring channel to IO0), GND pin1 (SW); SW2 signal pin3 (NW, a bottom drop to
 // Q2.C), GND pin2 (SE). GND sits on a SOUTH pad on both — a north-pad stitch via would tangent
 // the GND pour's 0.5 board-edge margin.
-const SW1El = <Tact name="SW1" x={-51.75} y={32.75} rot={90} />
-const SW2El = <Tact name="SW2" x={-57.75} y={32.75} rot={270} />
+const SW1El = <Tact name="SW1" x={-51.75} y={31.75} rot={90} />
+const SW2El = <Tact name="SW2" x={-57.75} y={31.75} rot={270} />
 const SW2f = frame(SW2El)
 
 // ── Buzzer chain (IO13 → R5 → Q1 → U8) ────────────────────────────────────────────────
@@ -515,7 +515,7 @@ export default () => (
         south band over the IO-rows are both too shallow for an 0805 courtyard. 4.2mm from
         U2's nearest pad, serving VDD through the 3V3 plane like the original south-side
         seat did. */}
-    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-41.9} y={17.5} rot={90} side="W" />{/* W: E grazes U2's fence */}
+    <Cap name="C4" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-41.9} y={16.5} rot={90} side="W" />{/* W: E grazes U2's fence; dropped S 1.0 to clear U13's SE corner as it slid east */}
     <Cap name="C5" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={3.35} y={-16.15} rot={270} side="W" />
     <trace from=".C4 > .pin1" to="net.V3V3" />
     <trace from=".C4 > .pin2" to="net.GND" />
@@ -893,10 +893,10 @@ export default () => (
             { x: col1, y: y0 },
             { x: col1, y: 9.3 },               // above U6's pads, below the IO0 approach lane
             { x: col2, y: 9.3 },
-            { x: col2, y: 20.4 },              // short of U13's south pad row (y20.8)
-            { x: col2, y: 20.4, via: true, toLayer: "bottom" } as const,
-            { x: col2, y: 20.4 },
-            { x: J5f.pin("IO2").x, y: 20.4 },  // bottom: east under U13's south row
+            { x: col2, y: 19.5 },              // short of U13's south pad row (its shadow now reaches y19.8 after U13's south slide)
+            { x: col2, y: 19.5, via: true, toLayer: "bottom" } as const,
+            { x: col2, y: 19.5 },
+            { x: J5f.pin("IO2").x, y: 19.5 },  // bottom: east clear of U13's south-pad shadows
             "J5.IO2",
         ]
     })()} />
@@ -1255,13 +1255,14 @@ export default () => (
         // y10.9-12.1 band clear across, so the crossing vias to the TOP at 12.55 (above IO19's
         // lane) and descends the D_NEG/pin7 channel's east side — the boot wall ends at IO0, so
         // the top is open here — then west through the NE window into IO1's pad, no second via.
+        const rxd = U13f.pin("RXD")          // rides U13 (moved E/S) — the via is on the pad, not a hand literal
         const hop = { x: -47.3, y: 12.55 }
         return [
             "U13.RXD",
-            { x: -51.16, y: 21.68, via: true, toLayer: "bottom" } as const,
-            { x: -51.16, y: 21.68 },
-            { x: -51.16, y: 19.9 },
-            { x: hop.x, y: 19.9 },
+            { x: rxd.x, y: rxd.y, via: true, toLayer: "bottom" } as const,
+            { x: rxd.x, y: rxd.y },
+            { x: rxd.x, y: 19.0 },           // drop below U13's (moved) south pad shadows
+            { x: hop.x, y: 19.0 },
             hop,
             { ...hop, via: true, toLayer: "top" } as const,
             hop,
@@ -1287,8 +1288,9 @@ export default () => (
         to Q3.E, which links up to R17.pin2 along its row. */}
     <trace from="U13.RTS" to="R18.pin2" pcbPathRelativeTo="board" pcbPath={route(
         "U13.RTS",
-        U13f.row("DTR", 1.5),
-        R18f.row("pin2"),
+        { row: 27.7 },               // rise into the clear band between U13's north pads and the tacts' south pads
+        { col: -60.5 },              // west under the tacts, east of SW2's west pad and R18
+        { row: 29.5 },               // up the R18/SW2 flank to R18.pin2's level
         "R18.pin2")
     } />
     <trace from="R18.pin2" to="Q2.E" pcbPathRelativeTo="board" pcbPath={routeBottom(
@@ -1300,9 +1302,11 @@ export default () => (
     )} />
     <trace from="U13.DTR" to="Q3.E" pcbPathRelativeTo="board" pcbPath={route(
         "U13.DTR",
-        U13f.row("DTR", -1.19),
-        U13f.col("DTR", -9.75),
-        Q3f.col("E", -1),
+        { row: 25.3 },               // drop below U13's (moved) north-pad shadow
+        { col: -55.15 },             // west to just east of C21 (clears C21.pin1 by 0.2+)
+        { row: 23.9 },               // duck below C21's band (starts 24.375)
+        { col: -59.7 },              // west, clear of C21, east of Q3.B's column
+        Q3f.col("E", -1),            // rise into the Q3.B/Q3.C gap — the proven Q3.E approach
         Q3f.row("E"),
         "Q3.E"
     )} />
@@ -1329,25 +1333,15 @@ export default () => (
         U1f.above("IO0", 0.475),                                 // corridor centred in the lane between U1's tall north pads and the CC2 dip
         "U1.IO0",
     )} />
-    {/* R8's pull-up reach — down the empty corridor east of SW1 on top, then a bottom hop for the
-        last stretch: the relay's top rise walls x-46.71 and the comb's bottom lanes start north of
-        y10.9, so the crossing lives at y9.6 on the bottom, up into IO0's pad by its own via. */}
-    <trace from="R8.pin1" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={(() => {
-        const laneX = -43  // the pull-up's original corridor lane; R8's ref-des nudge moved its pad
-        const p1 = { x: laneX, y: 9.6 }  // E of this, so the drop stairsteps back here and the run below is unchanged
-        const io0 = U1f.pin("IO0")
-        return [
-            "R8.pin1",
-            { x: laneX, y: R8f.pin("pin1").y },  // stairstep W from the nudged pad into the lane
-            p1,
-            { ...p1, via: true, toLayer: "bottom" } as const,
-            p1,
-            { x: io0.x, y: 9.6 },
-            { x: io0.x, y: io0.y },
-            { x: io0.x, y: io0.y, via: true, toLayer: "top" } as const,
-            "U1.IO0",
-        ]
-    })()} />
+    {/* R8's pull-up reach — R8 now sits in the pocket S of U13, close above IO0: pin1 drops S off
+        its pad into the clear band above the pump comb, then W to IO0's column and straight down
+        into the pad (all IO0 net, so the boot wall it meets there is the same net). */}
+    <trace from="R8.pin1" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={route(
+        "R8.pin1",
+        { row: 13.5 },               // drop S off pin1, above the pump-comb band
+        { col: U1f.pin("IO0").x },   // W to IO0's column
+        "U1.IO0",
+    )} />
     {/* Manual BOOT (IO0) / RESET (EN) — each tact connects one diagonal pad pair (see the
         placement block). SW1's boot line exits pin4 (NE) east over J5's body, drops the J5
         GND/V5 ring channel, jogs into U13's pin9/pin10–pin7/pin8 column gap (east of the
