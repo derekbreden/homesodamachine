@@ -34,11 +34,11 @@ wants ≥ 0.13 mm of ring, but a via is fine at the recommended 0.5 mm pad / 0.3
 Every via on this board sits at exactly 0.1 — intentional, not a defect. A single floor would paint
 all 123 of them red.
 
-## Goals — the manual-routing conversion
+## Goals — hand-routed, and kept that way
 
-The autorouter cannot deliver traces that meet these requirements, so the board is going **100%
-manual**. The poured planes carry power and ground (`<copperpour>`: V12, V3V3, V5, GND);
-every **signal** connection becomes hand-authored copper — a `<trace>` with `pcbPath`,
+The autorouter cannot deliver traces that meet these requirements, so the board is **100%
+hand-routed**. The poured planes carry power and ground (`<copperpour>`: V12, V3V3, V5, GND);
+every **signal** connection is hand-authored copper — a `<trace>` with `pcbPath`,
 `pcbStraightLine`, or `pcbComb` (the I2C bus rides the inner plane layers as `routeInner`
 paths). See [`hand-routing.md`](hand-routing.md) for how to place it.
 
@@ -52,14 +52,15 @@ score = 100 · (pcbPath + pcbComb) / (pcbPath + pcbComb + deferred + auto)
 |---|---|---|
 | `pcbPath` | 1.0 | Connections on explicit hand paths (`pcbPath` / `pcbStraightLine`) — done |
 | `pcbComb` | 1.0 | Connections on a comb *strategy* (`pcbComb`) — done. A comb is deliberate hand routing, interchangeable with an explicit path: use whichever reads nicer and packs denser |
-| `deferred` | 0 | Connections commented out of source — routing work set aside, still to do |
-| `auto` | 0 | Live signal connections still on the autorouter — the work remaining |
+| `deferred` | 0 | A connection commented out of source — drops the score; none on this board |
+| `auto` | 0 | A live signal left to the autorouter — drops the score; none on this board |
 
-`score` reaches 100% only when every connection is hand-authored: no `auto`, no `deferred`. The
-four counts ride the chip (`15 pcbPath · 39 pcbComb · 32% score`) and the terminal, with `auto`
-and `deferred` expanded as the actionable backlog. Past 100, the work is **tightening** — pulling
-components into denser bundles, toward a smaller board: the real size floor is the board-edge
-parts (JSTs, screw terminal, USB-C, buttons, antenna) and the interior those edges enclose.
+`score` is 100 only when every connection is hand-authored — no `auto`, no `deferred` — which is
+where this board sits (`115 pcbPath · 0 pcbComb · 100% score`). The counts ride the chip and the
+terminal; an `auto` or `deferred` reappearing is a regression to fix, not a backlog to burn down.
+The live work is **tightening** — pulling components into denser bundles, toward a smaller board:
+the real size floor is the board-edge parts (JSTs, screw terminal, USB-C, buttons, antenna) and
+the interior those edges enclose.
 
 **How the split is measured.** There is no "manual" flag in the circuit-json, so authorship is read
 from source. Each hand-authored `<trace>` (a `pcbPath`/`pcbStraightLine` is `path`; a `pcbComb` is
@@ -74,6 +75,6 @@ accident) is impossible, because the credit follows authorship, not shape.
 ## The gate is permission; the goal is the work
 
 Green gates mean **fab-ready**, not **done**. `≥ 0.14 mm, zero errors` is permission to proceed —
-the goal is a tight, hand-routed board that doesn't read as autorouted. Handing a connection back to
-the autorouter to make a number go green is the exact failure this whole effort exists to end. The
-`score` is the number that measures the real work; watch that one.
+the goal is a tight, hand-routed board that doesn't read as autorouted. The `score` guards that
+every connection stays hand-authored; the tightening toward a smaller board is the work that
+remains.
