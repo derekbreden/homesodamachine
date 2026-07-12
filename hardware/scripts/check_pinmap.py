@@ -24,7 +24,8 @@ This check reads the board, then FAILS (exit 1) if a derived artifact disagrees:
      with no pin/pad). New electrical parts must be added to CROSS below.
 
 Run:  python3 hardware/scripts/check_pinmap.py     (exit 0 = in sync, 1 = drift)
-This is the BOM<->pinout<->PCB reconciliation check; wire it into CI.
+This is the BOM<->pinout<->PCB reconciliation check; `.githooks/pre-commit` runs
+it on every commit that touches hardware/.
 """
 
 import re
@@ -53,8 +54,13 @@ shelf = SHELF_SYNC.read_text()
 fw = FW_SYNC.read_text()
 
 # ── 1. Pinout coverage ────────────────────────────────────────────────────
-# Board GPIO set: every ESP socket pin (.U1 > .IOxx) named in a trace.
-board_gpios = {int(n) for n in re.findall(r"\.U1[AB]? > \.IO(\d+)", board)}
+# Board GPIO set: every ESP pin named in a trace — `U1.IOxx` in from/to
+# attributes (also echoed in pcbPath route() strings, same pins), plus the
+# `.U1 > .IOxx` port-selector form.
+board_gpios = {
+    int(m.group(1) or m.group(2))
+    for m in re.finditer(r"\bU1\.IO(\d+)|\.U1[AB]? > \.IO(\d+)", board)
+}
 
 # Documented GPIOs + role text, from the pinout node defs and the header comment.
 doc_roles: dict[int, str] = {}
@@ -66,7 +72,7 @@ doc_gpios = set(doc_roles)
 free_gpios = {int(n) for n in re.findall(r"GPIO (\d+)\s*-\s*free", pinout)}
 
 for g in sorted(board_gpios - doc_gpios):
-    fail(f"GPIO{g}: used on the board (mini.tsx) but NOT documented in esp32-pinout.mmd")
+    fail(f"GPIO{g}: used on the board (pcba.tsx) but NOT documented in esp32-pinout.mmd")
 for g in sorted(doc_gpios - board_gpios - free_gpios):
     fail(f"GPIO{g}: documented in esp32-pinout.mmd (role {doc_roles[g]!r}) but NOT used on the board")
 
@@ -105,16 +111,17 @@ for text, var, kw in SYNC_CHECKS:
 # regex). The marker must be present in BOTH the board and the BOM. Add a new
 # pin-driven part here when you add it to the BOM.
 CROSS = [
-    ("piezo buzzer",        r"\.U8 > \._NEG",    r"[Pp]iezo|[Bb]uzzer"),
+    ("piezo buzzer",        r"U8\._NEG",         r"[Pp]iezo|[Bb]uzzer"),
     ("gas sensor",          r'label="GAS"',      r"MQ-6|combustible gas"),
     ("moisture sensor",     r"backflow",         r"moisture|water sensor"),
     ("flow sensor",         r"\.IO25",           r"DIGITEN|flow sensor"),
-    ("DS18B20 temps",       r"\.IO26",           r"DS18B20"),
+    ("DS18B20 tank temp",   r"\.IO26",           r"DS18B20"),
+    ("DS18S20 coil temp",   r"\.IO26",           r"DS18S20"),
     ("compressor relay",    r"\.IO19",           r"[Tt]eyleten"),
-    ("diaphragm pump relay",r"\.IO23",           r"SEAFLO|diaphragm"),
+    ("diaphragm pump relay",r"\.IO2\b",          r"SEAFLO|diaphragm"),
     ("pump driver",         r'label="PUMPS"',    r"Kamoer|L298|DRV8870"),
     ("solenoid valves",     r"MANIFOLD",         r"Beduan|solenoid"),
-    ("config display",      r'label="SCREEN"',   r"4\.3B|ALMOCN|RS485|RS-485"),
+    ("config display",      r'label="DISPLAY"',  r"4\.3B|ALMOCN|RS485|RS-485"),
     ("faucet display",      r'label="FAUCET"',   r"1\.47"),
     ("reed switches",       r"REEDS",            r"[Rr]eed"),
     ("gas divider resistors",r'resistance="2.2k"',r"gas-sensor output divider"),

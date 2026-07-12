@@ -1,41 +1,96 @@
 #!/bin/sh
-# Keep the PCBA's 3D assembly (out/pcba.glb + top3d/bottom3d face textures) in lock-step with
-# what's being committed, WITHOUT taxing every render.
+# Board-commit gates + 3D freshness for the PCBA.
 #
-# render-board.ts deliberately skips the ~14 s CadQuery 3D build so board iteration stays fast,
-# which lets out/pcba.glb drift behind the gerbers during a work session. This hook is the single
-# place that reconciles it: on a commit that touches the board, if the GLB is behind the gerbers,
-# rebuild it once and stage it — so the 3D never lands stale, and nobody waits on it mid-iteration.
+# Two jobs, in order:
 #
-# Best-effort by design: it never blocks a commit. It no-ops instantly unless (a) the commit
-# touches hardware/pcb/pcba/ and (b) the GLB is actually behind the gerbers; any failure (no
-# cad-venv, board-3d.py error) prints a warning and lets the commit through.
+#   1. GATES (hard fail — a red check blocks the commit):
+#      - commit touches hardware/           → check_pinmap.py, the BOM<->pinout<->PCB
+#        drift guard (pcba.tsx is canonical; pinout/BOM/sync-drivers are derived and
+#        hand-maintained, so they drift).
+#      - commit touches hardware/pcb/pcba/  → the render scorecard's fab-ready gates
+#        (out/pcba.picks.json scorecard.gatesPass), silk-audit.py (label ink on bare
+#        copper), part-orientation-audit.py (3D model vs footprint, ~8 s). These read
+#        the out/ artifacts of the last render — a red gate means the board being
+#        committed is not fab-ready.
+#      Gates print one ✓ line each on pass and dump their full output on red.
+#
+#   2. GLB freshness (best-effort — never blocks): render-board.ts deliberately skips
+#      the ~14 s CadQuery 3D build so board iteration stays fast, which lets
+#      out/pcba.glb drift behind the gerbers during a work session. This hook is the
+#      single place that reconciles it: on a board-touching commit whose GLB is behind
+#      the gerbers, rebuild it once and stage it — the 3D never lands stale, and
+#      nobody waits on it mid-iteration. Any failure here (no cad-venv, board-3d.py
+#      error) prints a warning and lets the commit through.
 
 root=$(git rev-parse --show-toplevel) || exit 0
 pcba="$root/hardware/pcb/pcba"
-
-# (a) only when this commit changes the board
-git diff --cached --name-only -- "hardware/pcb/pcba/" | grep -q . || exit 0
-
-# (b) only when the GLB is behind the gerbers (render ran since the last 3D build)
-[ -f "$pcba/out/pcba.gerbers.zip" ] || exit 0
-if [ -f "$pcba/out/pcba.glb" ] && [ ! "$pcba/out/pcba.gerbers.zip" -nt "$pcba/out/pcba.glb" ]; then
-  exit 0  # GLB already current
-fi
-
 py="$root/tools/cad-venv/bin/python"
-if [ ! -x "$py" ]; then
-  echo "pre-commit: no cad-venv — out/pcba.glb may be stale (run: tools/cad-venv/bin/python board-3d.py)" >&2
-  exit 0
+
+touches_hw=false
+touches_board=false
+git diff --cached --name-only -- "hardware/" | grep -q . && touches_hw=true
+git diff --cached --name-only -- "hardware/pcb/pcba/" | grep -q . && touches_board=true
+
+fail=0
+
+# gate <name> <cmd…> — run a check; one ✓ line on pass, full output + red line on fail.
+gate() {
+  _name=$1; shift
+  if _out=$("$@" 2>&1); then
+    echo "pre-commit: $_name ✓" >&2
+  else
+    echo "$_out" >&2
+    echo "pre-commit: GATE RED — $_name (commit blocked)" >&2
+    fail=1
+  fi
+}
+
+# ── 1. Gates ──────────────────────────────────────────────────────────────
+if $touches_hw; then
+  gate "pin-map drift check" python3 "$root/hardware/scripts/check_pinmap.py"
 fi
 
-echo "pre-commit: out/pcba.glb is behind the gerbers — rebuilding the 3D (one-time, ~14 s)…" >&2
-if ( cd "$pcba" && "$py" board-3d.py ) >&2; then
-  git -C "$root" add \
-    hardware/pcb/pcba/out/pcba.glb \
-    hardware/pcb/pcba/out/pcba.top3d.png \
-    hardware/pcb/pcba/out/pcba.bottom3d.png
-else
-  echo "pre-commit: board-3d failed — committing a possibly-stale GLB (rerun: tools/cad-venv/bin/python board-3d.py)" >&2
+if $touches_board; then
+  gate "scorecard fab-ready gates" python3 -c '
+import json, sys
+p = sys.argv[1]
+try:
+    sc = json.load(open(p))["scorecard"]
+except Exception as e:
+    sys.exit("cannot read the render scorecard in " + p + " (" + repr(e) + ") - run: bun render-board.ts pcba.tsx")
+if not sc["gatesPass"]:
+    for c in sc["checks"]:
+        if c.get("kind") == "gate" and c["status"] != "pass":
+            print("  gate red:", c["label"], "-", c["value"], "(target", c["target"] + ")", file=sys.stderr)
+    sys.exit("BOARD NOT FAB-READY per the render scorecard")
+' "$pcba/out/pcba.picks.json"
+
+  gate "silk-audit" sh -c "cd \"$pcba\" && python3 silk-audit.py"
+
+  if [ -x "$py" ]; then
+    gate "part-orientation-audit" sh -c "cd \"$pcba\" && \"$py\" part-orientation-audit.py"
+  else
+    echo "pre-commit: no cad-venv — part-orientation-audit skipped" >&2
+  fi
 fi
-exit 0
+
+# ── 2. GLB freshness (only worth doing when the commit will go through) ───
+if [ "$fail" -eq 0 ] && $touches_board && [ -f "$pcba/out/pcba.gerbers.zip" ]; then
+  if [ ! -f "$pcba/out/pcba.glb" ] || [ "$pcba/out/pcba.gerbers.zip" -nt "$pcba/out/pcba.glb" ]; then
+    if [ -x "$py" ]; then
+      echo "pre-commit: out/pcba.glb is behind the gerbers — rebuilding the 3D (one-time, ~14 s)…" >&2
+      if ( cd "$pcba" && "$py" board-3d.py ) >&2; then
+        git -C "$root" add \
+          hardware/pcb/pcba/out/pcba.glb \
+          hardware/pcb/pcba/out/pcba.top3d.png \
+          hardware/pcb/pcba/out/pcba.bottom3d.png
+      else
+        echo "pre-commit: board-3d failed — committing a possibly-stale GLB (rerun: tools/cad-venv/bin/python board-3d.py)" >&2
+      fi
+    else
+      echo "pre-commit: no cad-venv — out/pcba.glb may be stale (run: tools/cad-venv/bin/python board-3d.py)" >&2
+    fi
+  fi
+fi
+
+exit $fail
