@@ -187,7 +187,7 @@ Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× reserv
 
 ## 10. User interface
 
-The audible alarm is on the controller PCBA — an MLT-5020 magnetic transducer (U8) low-side-switched by an S8050 (Q1) from IO13, JLCPCB-assembled with the board (see [`pcb/pcba/jlcpcb-parts.md`](/hardware/pcb/pcba/jlcpcb-parts.md)).
+The buzzer is on the controller PCBA — an MLT-5020 magnetic transducer (U8) low-side-switched by an S8050 (Q1) from IO13, JLCPCB-assembled with the board (see [`pcb/pcba/jlcpcb-parts.md`](/hardware/pcb/pcba/jlcpcb-parts.md)).
 
 ## 11. Wiring + fasteners
 
