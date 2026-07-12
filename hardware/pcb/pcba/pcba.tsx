@@ -1318,17 +1318,40 @@ export default () => (
         R17f.row("pin2"),            // rise, east along R17's row into pin2
         "R17.pin2"
     )} />
-    {/* Q2's collector reach to EN — the far-west flank, the one column the USB shell pills and
-        the reset lattice leave open: west out of the pad, south between the board edge and the
-        module's west pad column (outside the antenna box), east along the module's south strip,
-        down into EN from the north (C12's RC feed enters the same pad from the south). */}
-    <trace from="Q2.C" to="U1.EN" pcbPathRelativeTo="board" pcbPath={route(
-        "Q2.C",
-        { col: -67.3 },              // the flank: clear of the antenna box, the shell pills, and the GND column
-        { row: -6.5 },               // across the module's south strip, north of the pad row
-        U1f.col("EN"),
-        "U1.EN",
-    )} />
+    {/* Q2's collector reach to EN — off the antenna keepout entirely (the far-west flank crossed the
+        WROOM antenna box). Q2.C drops onto inner2 (the 5V plane, empty here but for SCL) at its own
+        pad, runs the clear lane north of SCL east to the one open top window — between the IO2 riser
+        (x−43.17) and U6 (x−35.75) — hops up over the stacked wall (comb y11–12 · SCL · SDA, all on
+        other layers) and back to inner2 south of it, descends the Q1.C/C6 gap (0.93 mm), and runs west
+        under the module (north of the south-pad row, clear of IO23 on inner1) up into EN from the
+        north. C12's RC feed still enters EN from the south. Board-absolute lanes: they thread
+        board-fixed copper (SCL, the comb, the module pads), so they anchor to no part. */}
+    <trace from="Q2.C" to="U1.EN" pcbPathRelativeTo="board" pcbPath={(() => {
+        const c = Q2f.pin("C"), en = U1f.pin("EN")
+        const eastLane = 11.75       // inner2, N of SCL (10.95), under the comb (11–12, bottom): the clear east run
+        const cross = -39.37         // top-hop + descent column: clear top window, and the Q1.C↔C6 gap (0.93 mm) below
+        const viaN = 12.8            // via up, N of the comb's north row (IO19, y12)
+        const viaS = 10.0            // via down, S of SCL (10.95)
+        const underLane = -7.4       // inner2, under the module: N of the south pads (−7.95), clear of IO23 (inner1, −6.6)
+        return [
+            "Q2.C",
+            { x: c.x, y: c.y, via: true, toLayer: "inner2" } as const,    // onto inner2 at the pad (shares SW2's drill)
+            { x: c.x, y: c.y },
+            { x: c.x, y: eastLane },                                      // down Q2.C's column to the east lane
+            { x: cross, y: eastLane },                                    // east on empty inner2, N of SCL
+            { x: cross, y: viaN },                                        // rise N of the comb for a clean via
+            { x: cross, y: viaN, via: true, toLayer: "top" } as const,    // up to top — the clear window
+            { x: cross, y: viaN },
+            { x: cross, y: viaS },                                        // top crosses S over comb / SCL / SDA
+            { x: cross, y: viaS, via: true, toLayer: "inner2" } as const, // back to inner2, S of SCL
+            { x: cross, y: viaS },
+            { x: cross, y: underLane },                                   // descend the Q1.C/C6 gap
+            { x: en.x, y: underLane },                                    // west under the module to EN's column
+            { x: en.x, y: underLane, via: true, toLayer: "top" } as const,// up to top, N of the pad
+            { x: en.x, y: underLane },
+            "U1.EN",                                                      // top stub S into EN (C12 enters from the S)
+        ]
+    })()} />
     <trace from="Q3.C" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={route(
         "Q3.C",
         { col: channel(U1f.pin("IO1").x, U1f.pin("IO22").x) },   // drop the west lane, clear of the CC/J14 block
