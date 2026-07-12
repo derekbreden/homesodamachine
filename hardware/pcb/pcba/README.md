@@ -34,9 +34,10 @@ composed from those gerbers.
 ## Scope
 
 - Active parts are silicon: ESP32 (bare WROOM), 2×MCP23017, 2×ULN2803A, DS3231,
-  RS485, buzzer, 2× DRV8870 pump-motor H-bridges, 2× K78xx bucks. The MQ-6, displays,
-  reeds, pump motors, relays, and solenoids stay off-board on the connectors.
-- Single 12 V inlet; 3V3 and 5 V both made on-board (K7803 / K7805 switching bucks).
+  RS485, buzzer, 2× DRV8870 pump-motor H-bridges, K7805 buck, AMS1117 LDO. The MQ-6,
+  displays, reeds, pump motors, relays, and solenoids stay off-board on the connectors.
+- Single 12 V inlet; 5 V made on-board (K7805 switching buck), 3V3 by the AMS1117
+  LDO (U9) off the 5 V rail.
 - Field connectors through-hole, JLCPCB-assembled.
 - Two deferred items: gas/compressor interlock, input protection.
 - Parts map to in-stock LCSC numbers, Basic-first; `tsci import <LCSC#>` for footprints.
