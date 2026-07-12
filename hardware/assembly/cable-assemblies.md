@@ -46,7 +46,7 @@ Conductor counts are the board connector pin counts (`pcba.tsx` J1–J11 = {9, 6
 | Manifold B | J2 | 6 (4 OUT + FAN + COM) | jacketed KWANGIL | Fastons at 4 valves + fan; COM → **221-420** | 3/4" |
 | Reservoir A reeds | J6 | 5 (4 reed + GND) | 24 AWG black | reed leads; GND → **221-415** at the reservoir | 1/4" |
 | Reservoir B + carb reeds | J7 | 7 (6 reed + GND) | 24 AWG black | reed leads; GND → **221-420** | 1/4" |
-| Sensors | J4 | 6 | 22 / 24 AWG black | DS18B20 / flow / moisture; GND → **221-415** near the shelf | 1/4" |
+| Sensors | J4 | 7 | 22 / 24 AWG black | DS18B20 / flow / moisture (DO + switched VCC); GND → **221-415** near the shelf | 1/4" |
 | Driver | J5 | 9 | 22 AWG black | XH / screw to L298N + both relays; GND → **221-415** | 1/2" |
 | Faucet display | J3 / SIG-6 | 4 (TX / RX / 5 V / GND) | 28 AWG ribbon | TTL UART up the umbilical | jacketed ribbon |
 | Config display | J9 / SIG-7 | 3 (RS485 A / B / earth) | 22 AWG black | A/B to the 4.3B transceiver; display 12 V is a separate power run | 1/2" |

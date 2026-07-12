@@ -96,7 +96,7 @@ Cabinet-side runs leaving the shelf:
 - **SIG-4** — DIGITEN flow meter, [24 AWG](AWG_SIGNAL), short internal run. Pulse interrupt at the ESP32. The flow meter sits in Zone B on the carbonated-water line where it exits the cold core near the electronics shelf — flow detection is internal, so SIG-4 stays in the enclosure and never enters the umbilical.
 - **SIG-6** — direct TTL UART to the gooseneck-mounted ESP32-S3-Touch-LCD-1.47 faucet display, on the BNTECHGO 28 AWG 4-conductor ribbon (TX / RX / [5 V](LOGIC_V) / GND). From the ESP32 (GPIO 33 TX / 35 RX), [~1 m](SIG_UMBILICAL_LEN) up the umbilical to the display, which breaks out TTL UART (no transceiver).
 - **SIG-7** — RS485 config-display link to the front-face ESP32-S3-Touch-LCD-4.3B. Runs from the ESP32 (GPIO 32 TX / 34 RX) through the TTL-to-RS485 transceiver, then the RS485 A/B pair + [12 V](DC_BUS_V) + GND to the fixed 4.3B on the front face. The run is internal to the appliance; shelf end terminates via a JST XH pigtail into the ESP32, display end lands on the 4.3B's RS485 + power screw terminals.
-- **SIG-9** — backflow vent moisture sensor, [24 AWG](AWG_SIGNAL), [~600 mm](SIG_COLD_CORE_LEN) to the drip pan inside the cabinet. the ESP32 end lands on GPIO 13 per [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd).
+- **SIG-9** — backflow vent moisture sensor, [24 AWG](AWG_SIGNAL), [~600 mm](SIG_COLD_CORE_LEN) to the drip pan inside the cabinet. Three conductors on SENSORS J4: GPIO 23 (switched VCC, driven only while sampling), GPIO 27 (DO), GND, per [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd).
 
 Continuity-test each signal run end-to-end before zip-tying down.
 
@@ -133,8 +133,7 @@ The chassis is the input to [`firmware-and-commissioning.md`](/hardware/assembly
 
 1. **Switched-hot vs unswitched-hot color convention.** [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) does not specify color-coding for switched-hot (AC-4) vs unswitched-hot (AC-3). Pick a convention and roll it into the AC schedule.
 2. **Strain relief for bundles crossing the cold-core boundary.** The shelf-to-cold-core bundle enters the foam-shell at a printed pass-through. Pick a strain-relief method and roll it into the foam-shell or the electronics-shelf printed parts.
-3. **SIG-9 pin assignment.** Per [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd) the backflow-vent moisture sensor's ESP32 GPIO is not yet committed. Land the assignment before unit 1 wiring.
-4. **AC distribution-block hardware.** Open per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "What's not yet decided": Wago 221 vs. screw terminal block vs. PCB-mounted block. Same question applies to the [12 V](DC_BUS_V) distribution block. This procedure assumes Wago 221; pick the production form before unit 1.
+3. **AC distribution-block hardware.** Open per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "What's not yet decided": Wago 221 vs. screw terminal block vs. PCB-mounted block. Same question applies to the [12 V](DC_BUS_V) distribution block. This procedure assumes Wago 221; pick the production form before unit 1.
 
 ## Sources
 [value](NAME) texts are updated by:
