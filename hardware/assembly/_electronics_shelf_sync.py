@@ -17,7 +17,7 @@ from docgen import substitute_md
 # ─── ESP32 GPIO pin assignments ────────────────────────────────────────
 # Source: ../wiring/esp32-pinout.mmd.
 relay_compressor_gpio = 19              # ESP32 GPIO -> Teyleten relay #1 (compressor AC)
-relay_diaphragm_gpio = 23               # ESP32 GPIO -> Teyleten relay #2 (diaphragm pump 12 V)
+relay_diaphragm_gpio = 2                # ESP32 GPIO -> Teyleten relay #2 (diaphragm pump 12 V)
 
 # ─── PSU spec (Mean Well IRM-90-12ST) ──────────────────────────────────
 psu_power_w = 80                        # rated output
