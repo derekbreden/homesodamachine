@@ -17,7 +17,7 @@ import { composeViews, SCHEMES } from "./gerber-compose"
 import { backSilkBoardTsx } from "./bottom-silk"
 import { ledKnockoutGerber } from "./led-knockout"
 import { dedupDrill } from "./dedup-drill"
-import { widenPourVoids, findPourClearanceRules, antennaKeepout, dropPourSlivers } from "./pour-clearance"
+import { widenPourVoids, findPourClearanceRules, antennaKeepout, dropPourSlivers, widenFastenerAnnuli, findFastenerAnnuli } from "./pour-clearance"
 import { singleflight } from "./run-lock"
 import { convertSoupToGerberCommands, stringifyGerberCommandLayers, convertSoupToExcellonDrillCommands, stringifyExcellonDrill } from "circuit-json-to-gerber"
 import { convertCircuitJsonToBomRows, convertBomRowsToCsv } from "circuit-json-to-bom-csv"
@@ -219,8 +219,11 @@ if (process.env.RENDER_SOURCE === "dev-server") {
 // fixed copper before autorouting, routes the rest around it, and solves the pours against
 // all of it. The post-export passes below only widen/clean pours the solver already cut.
 const circuit = await exportCircuitJson(board)
-const clr = widenPourVoids(circuit, findPourClearanceRules(readFileSync(boardFile, "utf8")))
+const boardSrc = readFileSync(boardFile, "utf8")
+const clr = widenPourVoids(circuit, findPourClearanceRules(boardSrc))
 if (clr.added) console.log(`[${board}] pour-clearance: widened ${clr.added} antipad void(s) across ${Object.keys(clr.perPour).length} pour(s)`)
+const ann = widenFastenerAnnuli(circuit, findFastenerAnnuli(boardSrc))
+if (ann.added) console.log(`[${board}] fastener annuli: cleared ${ann.added} outer-layer pour region(s) under mounting hardware (${ann.pads.join(", ")})`)
 const antN = antennaKeepout(circuit)
 if (antN) console.log(`[${board}] antenna keepout: cleared the WROOM antenna box from ${antN} pour(s)`)
 const slivN = dropPourSlivers(circuit)

@@ -56,7 +56,7 @@ The appliance ships with the water filter included. **Placement (internal vs. ex
 | [brewhardware FFL38BARB38 swivel flare adapter, 3/8" FFL × 3/8" OD SS hose barb](https://www.brewhardware.com/product_p/ffl38barb38.htm) | single-piece adapter on the Multiplex 19-0897 MFL outlet; 304 SS wetted barb, chrome-plated brass swivel nut never touches water; brewhardware #156209 May 16: 5 @ $4.99 = $24.95 + $14.47 ship = $39.42 ÷ 5 = $7.88/ea | 1 (of 5 pk) | $7.88 | $7.88 |
 | [JoyTube 3/8" ID × 1/2" OD food-grade silicone tubing, 10 ft](https://www.amazon.com/dp/B089YGDB55) | 3/8" ID food-grade silicone hose, ~12" per build between the brewhardware FFL38BARB38 hose-barb adapter (Multiplex 19-0897 MFL outlet side) and the SeaFlo 22-Series pump's 3/8" hose-barb inlet; covers the entire suction-side hose run with no diameter step-down. JoyTube ACQUIRED per `purchases.md:140`: $11.99 + $0.87 tax = $12.86 ÷ 10 builds = $1.286/build (10 ft × ~12"/build) | 1/10 roll (~12") | $1.29 | $1.29 |
 | [Sealproof 1/4" ID × 3/8" OD clear PVC, 10 ft](https://www.amazon.com/dp/B07D9DK94V) (vent telltale) | | 1 | $8.46 | $8.46 |
-| [Shutao 6-pc water sensor module, LM393, 3.3–5 V](https://www.amazon.com/dp/B0B2W76MB1) | Backflow drip-pan telltale: the Multiplex 19-0897 vent weeps to the internal drip pan; this module's flat conductivity plate sits in the pan and water bridging it trips the LM393 (a wet pan flags cross-contamination). Run VCC at **3.3 V** (J4.3V3) so DO is ESP-safe; DO is active-low when wet → ESP32 GPIO 13 (SIG-9) per [`wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd); "drip pan dry" is a required check in [`assembly/acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md). Bare electrodes electroplate under continuous DC, so firmware should pulse VCC only when sampling; the 6-pack gives spares. Order #112-2621523-2281840 Jun 25: $6.99 + $0.51 tax = $7.50 ÷ 6 = $1.25/ea. Amazon's Choice, Prime. | 1 (of 6 pk) | $1.25 | $1.25 |
+| [Shutao 6-pc water sensor module, LM393, 3.3–5 V](https://www.amazon.com/dp/B0B2W76MB1) | Backflow drip-pan telltale: the Multiplex 19-0897 vent weeps to the internal drip pan; this module's flat conductivity plate sits in the pan and water bridging it trips the LM393 (a wet pan flags cross-contamination). Run VCC at **3.3 V** (J4.3V3) so DO is ESP-safe; DO is active-low when wet → ESP32 IO27 (SIG-9) per [`wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd); "drip pan dry" is a required check in [`assembly/acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md). Bare electrodes electroplate under continuous DC, so firmware should pulse VCC only when sampling; the 6-pack gives spares. Order #112-2621523-2281840 Jun 25: $6.99 + $0.51 tax = $7.50 ÷ 6 = $1.25/ea. Amazon's Choice, Prime. | 1 (of 6 pk) | $1.25 | $1.25 |
 | [LOKMAN 304 SS worm-gear clamps, 10–16 mm (20-pk)](https://www.amazon.com/dp/B076Q7QVNM) | vent line clamps; 4 of 20 per unit | 4 (of 20 pk) | $1.80 | $1.80 |
 | [SEAFLO 22-Series 12V 1.3 GPM 100 psi diaphragm pump (3/8" hose-barb ports)](https://www.amazon.com/dp/B0166UBJX4) | | 1 | $48.25 | $48.25 |
 | [MAACFLOW SS 1/4" NPT M × 3/8" hose barb (4-pk)](https://www.amazon.com/dp/B0DMP77B6S) | adapts pump 3/8" hose-barb output to 1/4" NPT plumbing for the check valve and top-plate port; 1 of 4 per unit (also used in §8) | 1 (of 4 pk) | $3.24 | $3.24 |
@@ -96,7 +96,7 @@ The appliance ships with the water filter included. **Placement (internal vs. ex
 | [Frigidaire EFIC117-SS ice-maker donor (compressor/condenser/cap-tube/drier)](https://www.amazon.com/dp/B07PCZKG94) | | 1 | $78.70 | $78.70 |
 | [GOORY 1/4" OD × 50 ft ACR copper coil (evaporator)](https://www.amazon.com/dp/B0DKSW5VL9) | single-layer wrap on 5" OD vessel at 1/8" gap pitch yields ~22 ft of wrap per unit + ~2 ft each end for compressor + suction-line tie-ins ≈ ~24 ft consumed per unit; one 50 ft roll comfortably covers 2 units, so 1/2 roll allocated per unit ($68.63/2) | 1/2 roll | $34.32 | $34.32 |
 | [Supco SUD8358 filter-drier, 1/4" sweat × cap-tube outlet, XH-9 molecular sieve, integrated Schrader access port](https://www.amazon.com/dp/B009AX2O5W) | replacement filter-drier installed during refrigerant-loop assembly; spec rationale in [`assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) Inputs | 1 | $13.40 | $13.40 |
-| [Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5-pk)](https://www.amazon.com/dp/B07XGZSYJV) | two relays per unit: relay #1 switches the compressor's 120 VAC hot leg (ESP32 GPIO 17), relay #2 gates 12 V to the SeaFlo diaphragm pump for firmware-controlled refill (ESP32 GPIO 16); 2 of 5 per unit | 2 (of 5 pk) | $2.60 | $5.20 |
+| [Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5-pk)](https://www.amazon.com/dp/B07XGZSYJV) | two relays per unit: relay #1 switches the compressor's 120 VAC hot leg (ESP32 IO19), relay #2 gates 12 V to the SeaFlo diaphragm pump for firmware-controlled refill (ESP32 IO2); 2 of 5 per unit | 2 (of 5 pk) | $2.60 | $5.20 |
 | [TIEXYE DS18B20 TO-92 1-wire sensor (10-pk)](https://www.amazon.com/dp/B0FKG3HT9Q) | **Tank-wall probe** — compressor-cycling setpoint, 1-wire family code **0x28**. Bare TO-92, leads heat-shrunk, foil-taped to the vessel OD and potted in the cold-core foam. Shares the IO26 1-wire bus with the DS18S20 coil probe; firmware tells the two apart by family code (no per-unit ID map). 1 of 10 per unit ($8.59/10) | 1 (of 10 pk) | $0.86 | $0.86 |
 | [DigiKey DS18S20+ TO-92 1-wire sensor (DS18S20+-ND)](https://www.digikey.com/en/products/detail/analog-devices-inc-maxim-integrated/DS18S20/1017697) | **Evaporator-coil / suction-line probe** — freeze-protect cutout, 1-wire family code **0x10**. Deliberately a different family from the tank probe's 0x28 so firmware keys the −8 °C freeze cutoff to it deterministically at cold boot — no stored map, no thermal-signature inference. Bare TO-92, leads heat-shrunk, tucked under the 3M 425 foil tape at the coil's suction end and potted in the foam. 1 of 10 per unit (landed $92.95/10 incl. tariff + FedEx Ground + tax) | 1 (of 10 pk) | $9.30 | $9.30 |
 | [MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10-pk)](https://www.amazon.com/dp/B07DCXKNXQ) | rear-panel mains inlet; accepts standard NEMA 5-15P-to-C13 line cord; 1 of 10 per unit ($6.96/10) | 1 (of 10 pk) | $0.70 | $0.70 |
@@ -187,9 +187,7 @@ Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× reserv
 
 ## 10. User interface
 
-| Part | Notes | Qty | Unit $ | Line $ |
-|---|---|---:|---:|---:|
-| [DIYables Passive Piezo Buzzer Module, 5 V (2-pack)](https://www.amazon.com/dp/B0DYDN31PV) | audible-alarm output — PWM tone from ESP32 GPIO 4 (LEDC); plugs into the carrier at U8 (3-pin GND/IO/VCC). 1 of 2 per unit ($6.42/2) | 1 (of 2 pk) | $3.21 | $3.21 |
+The audible alarm is on the controller PCBA — an MLT-5020 magnetic transducer (U8) low-side-switched by an S8050 (Q1) from IO13, JLCPCB-assembled with the board (see [`pcb/pcba/jlcpcb-parts.md`](/hardware/pcb/pcba/jlcpcb-parts.md)).
 
 ## 11. Wiring + fasteners
 
@@ -290,12 +288,12 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 7. Printed parts (PETG + PET-CF) | [$66.45](BOM_SEC7) |
 | 8. Flavor subsystem | [$257.94](BOM_SEC8) |
 | 9. Dispensing | [$56.83](BOM_SEC9) |
-| 10. UI | [$3.21](BOM_SEC10) |
+| 10. UI | [$0.00](BOM_SEC10) |
 | 11. Wiring | [$48.26](BOM_SEC11) |
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$4.66](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,591.56](BOM_GRAND)** |
+| **Total** | **[$1,588.35](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
