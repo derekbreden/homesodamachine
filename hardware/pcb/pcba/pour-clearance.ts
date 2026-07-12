@@ -83,6 +83,59 @@ function keepoutRing(cx: number, cy: number, hx: number, hy: number): { vertices
 
 export type WidenStats = { added: number; perPour: Record<string, number>; pads: string[] }
 
+export type FastenerAnnulus = { name: string; rMm: number; net: string | null }
+
+// Read each plated hole's `fastenerAnnulus="<mm>mm"` — the radius its fastener stack (screw
+// head / standoff / washer) sweeps on the two outer faces — plus the hole's name and declared
+// net (connectsTo). Carried in the source attribute and parsed here, exactly like netClearance
+// above (tscircuit's platedhole schema strips the unknown prop).
+export function findFastenerAnnuli(src: string): FastenerAnnulus[] {
+  const out: FastenerAnnulus[] = []
+  for (const el of src.match(/<platedhole\b[\s\S]*?\/>/g) || []) {
+    const r = (el.match(/\bfastenerAnnulus="([\d.]+)\s*mm"/) || [])[1]
+    const name = (el.match(/\bname="([^"]*)"/) || [])[1]
+    if (!r || !name) continue
+    const net = (el.match(/\bconnectsTo="net\.([^"]*)"/) || [])[1] ?? null
+    out.push({ name, rMm: parseFloat(r), net })
+  }
+  return out
+}
+
+/** Clear every outer-layer pour out from under mounting hardware. The solver's antipad around a
+ *  plated hole is pad + one trace clearance — hardware sweeps wider, and solder mask is not a
+ *  fastener-rated insulator, so foreign copper must not sit inside the stack's footprint. For each
+ *  declared hole (matched by port_hints name), every brep pour on `top`/`bottom` whose net differs
+ *  from the hole's own gets a square keepout ring (same geometry as widenPourVoids') of half-extent
+ *  rMm — so the guaranteed clearance is rMm on the axes and more on the diagonals, and a pour edge
+ *  nearer than rMm is crossed outright, leaving no crescent scrap between ring and edge. Inner
+ *  planes keep the solver's antipad: no fastener reaches them, and their copper is plane budget.
+ *  A pour on the hole's OWN net stays — that copper is what the hardware is meant to touch.
+ *  Mutates `circuit` in place; same stats shape as widenPourVoids. */
+export function widenFastenerAnnuli(circuit: any[], annuli: FastenerAnnulus[]): WidenStats {
+  const stats: WidenStats = { added: 0, perPour: {}, pads: [] }
+  if (!annuli.length) return stats
+  const by = (t: string) => circuit.filter((e) => e.type === t)
+  const netById: Record<string, string> = Object.fromEntries(by("source_net").map((n) => [n.source_net_id, n.name]))
+  const holes = by("pcb_plated_hole")
+  for (const a of annuli) {
+    const hole = holes.find((h) => (h.port_hints || []).includes(a.name))
+    if (!hole) continue
+    for (const pour of by("pcb_copper_pour")) {
+      if (pour.shape !== "brep" || !pour.brep_shape) continue
+      if (pour.layer !== "top" && pour.layer !== "bottom") continue // fasteners only touch the outer faces
+      if (netById[pour.source_net_id] === a.net) continue
+      const outer: Vert[] = pour.brep_shape.outer_ring?.vertices
+      if (!outer?.length || !pointInPolygon(hole.x, hole.y, outer)) continue
+      pour.brep_shape.inner_rings = pour.brep_shape.inner_rings || []
+      pour.brep_shape.inner_rings.push(keepoutRing(hole.x, hole.y, a.rMm, a.rMm))
+      stats.added++
+      stats.perPour[pour.pcb_copper_pour_id] = (stats.perPour[pour.pcb_copper_pour_id] || 0) + 1
+      stats.pads.push(`${a.name}→${netById[pour.source_net_id]}@${pour.layer}`)
+    }
+  }
+  return stats
+}
+
 /**
  * The ESP32-WROOM antenna fires off the west board edge, and its keepout box (the
  * footprint's silk antenna outline, part-frame x −16.764…−10.48 at rot 0) must carry no

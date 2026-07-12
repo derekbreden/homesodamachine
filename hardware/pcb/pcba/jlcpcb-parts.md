@@ -49,6 +49,7 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | C13/C15/C17/C19 — buck/LDO/driver decouple | 10 µF 25V X5R | 0805 | C15850 | Basic | (see C11) | $0.01 |
 | C14, C16 — 3V3 LDO / 5V buck output | 22 µF 25V X5R | 0805 | C45783 | Basic | — | $0.02 |
 | C18/C20 — driver VM HF | 0.1 µF 50V X7R | 0805 | C49678 | Basic | (see C1/C2) | $0.0136 |
+| D2 — fault LED (red) | KT-0603R, 0603 | 0603 | C2286 | Extended | — | — |
 | D3, D5, D6 — status/rail LEDs (green) | KT-0603G, 0603 | 0603 | C12624 | Extended | 325,847 (2026-07-02) | $0.0121 |
 | D4 — activity LED (blue) | KT-0603B, 0603 | 0603 | C2288 | Extended | 178,594 (2026-07-02) | $0.0102 |
 | U1 — base controller | ESP32-WROOM-32E-N4, no radio | SMD module 18×25.5 mm | C701341 | Extended | 22,002 (2026-06-28) | $3.77 |
@@ -56,10 +57,9 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | C10 — ESP 3V3 decouple | 0.1 µF 50V X7R | 0805 | C49678 | Basic | (see C1/C2) | $0.0136 |
 | C11 — ESP 3V3 bulk | 10 µF 25V X5R | 0805 | C15850 | Basic | (see C8) | $0.01 |
 | C12 — EN power-on RC | 1 µF 50V X5R | 0603 | C15849 | Basic | 6,521,627 | $0.036 |
-| J9 — 3-pin (SCREEN / RS485) | XH2.54 3P | wafer, 2.5 mm | C5374805 | Extended | 9,613 (2026-06-30) | $0.0218 |
-| J3, J5, J11, J13 — 4-pin (FAUCET, RELAYS, GAS, PUMPS) | XH2.54 4P | wafer, 2.5 mm | C5359632 | Extended | 39,475 (2026-06-30) | $0.0116 |
+| J3, J5, J8, J9, J11, J13 — 4-pin (FAUCET, RELAYS, I2C, DISPLAY, GAS, PUMPS) | XH2.54 4P | wafer, 2.5 mm | C5359632 | Extended | 39,475 (2026-06-30) | $0.0116 |
 | J6 — 5-pin (REEDS A) | XH2.54 5P | wafer, 2.5 mm | C5359633 | Extended | 14,791 | $0.0294 |
-| J2, J4, J12 — 6-pin (MANIFOLD B, SENSORS, PROG) | XH2.54 6P | wafer, 2.5 mm | C5359634 | Extended | 42,550 | $0.0254 |
+| J2, J4 — 6-pin (MANIFOLD B, SENSORS) | XH2.54 6P | wafer, 2.5 mm | C5359634 | Extended | 42,550 | $0.0254 |
 | J7 — 7-pin (REEDS B) | XH2.54 7P | wafer, 2.5 mm | C5359635 | Extended | 16,231 | $0.0278 |
 | J1 — 9-pin (MANIFOLD A) | XH2.54 9P | wafer, 2.5 mm | C5359637 | Extended | 380 (2026-06-30) | $0.0400 |
 | J10 — 12 V inlet | KF301-5.0-2P screw terminal, 2P 5.0 mm, 17 A / 250 V, 14–22 AWG | THT block, 5.0 mm pitch | C474881 | Extended | 165,152 (2026-07-02) | $0.0995 |
@@ -68,7 +68,7 @@ Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C49678 = YAGE
 CC0805KRX7R9BB104; C845537 = UMW (Youtai) ULN2803A; C47023 = Microchip MCP23017-E/SO;
 C94598 = Jiangsu Huaneng MLT-5020; C2146 = JSCJ S8050 J3Y; C474881 = Cixi Kefa Elec
 KF301-5.0-2P screw terminal; XH2.54 connectors = XUNPU WAFER-XH2.54-{n}PZZ, one vendor
-across the six pin counts used (3/4/5/6/7/9P), vertical THT.
+across the five pin counts used (4/5/6/7/9P), vertical THT.
 
 **U7 is `C51949447` (COSINE COS13487EESA-3.3), a native-3.3 V auto-direction RS-485
 transceiver** — a MAX13487E-equivalent whose datasheet pin map (1 RO, 2 /RE, 3 /SHDN,
@@ -113,15 +113,14 @@ crimp. Extended (every screw terminal in the library is), deep stock (165k at 20
 $0.0995/1+); wave-soldered THT, so it rides the same through-hole assembly the XH wafers +
 coin base already require (no new process, no JLCPCB assembly-difficulty flag).
 Footprint pulled with `tsci import C474881` (→ `imports/KF301_5_0_2P.tsx`), then its auto
-ref-des was stripped so the label block is hand-drawn upright as a Jst survive-block: `12V`
-(1.4 mm function label) + `GND`/`V12` (0.8 mm pin labels) sit OUTBOARD of the fence toward the
-board edge, and the part is positioned (`y=30.39`) so its body/fence top edge lands on the
-same line as the north JST fences — labels and fence read at the same Y as J5/J6/J13, uniform
-across the edge. It's placed `pcbRotation={180}` so the wire throats face the north board edge
-— the loom feeds in from outside — with pin1 → GND on the east pad, pin2 → V12 on the west,
-the polarity silked at each screw because reversing 12 V would cook the polarised bulk cap
-(C3), the bucks, and the DRV8870s. The 2-pin XH wafer (`C5359631`) it replaced is no longer
-on the board.
+ref-des was stripped so the label block is hand-drawn, all reading bottom-to-top (the
+east-edge convention): the `GND`/`V12` pin labels (0.8 mm) sit OUTBOARD east of the throats
+where the wires land, `12V` (1.4 mm function label) + the ref-des in the strip west of the
+body. It sits at the south end of the east edge (below MANIFOLD B, over the V12 island),
+placed `pcbRotation={90}` so the wire throats face the east board edge — the loom feeds in
+from outside — with pin1 → GND on the south pad, pin2 → V12 on the north, the polarity
+silked at each screw because reversing 12 V would cook the polarised bulk cap (C3), the
+K7805, and the DRV8870s.
 
 **U4/U5 are `C845537`** (UMW ULN2803A, SOP-18-300mil wide body). No Basic ULN2803 SOIC
 exists in the library — every ULN2803 part is Extended — so the feeder fee is unavoidable;
@@ -141,10 +140,10 @@ $0.060), `C47023111` (D8×L10, $0.050), `C3445246` (90 mΩ / 5000 h, $0.091); or
 bank (several 25V MLCCs — lower bulk, far lower ESR, wants checking against the solenoid inrush).
 
 **U8 is a passive buzzer + transistor, not an active buzzer.** The firmware generates the
-tone on IO4 (LEDC), so the part must be externally driven — `C94598` (MLT-5020) is passive
+tone on IO13 (LEDC), so the part must be externally driven — `C94598` (MLT-5020) is passive
 electromagnetic. Every passive SMD buzzer in the library is Extended; `C94598` has the deepest
 stock at 5×5 mm. Its ~100 mA coil exceeds the ESP32 GPIO's ~12 mA source, so it is **low-side
-switched** by Q1 (`C2146`, S8050 NPN, Basic): IO4 → R5 (1 kΩ base) → Q1 base; Q1 collector
+switched** by Q1 (`C2146`, S8050 NPN, Basic): IO13 → R5 (1 kΩ base) → Q1 base; Q1 collector
 sinks the buzzer's − leg, emitter to the GND plane, the + leg on the 5 V plane. No flyback
 diode (per the step spec); the S8050's 25 V Vce(o) is the only clamp on the coil's turn-off
 spike — the first thing to add if the transistor shows stress. Q1 emitter and U8 + are SMD
@@ -162,14 +161,16 @@ molded base. `tsci import` pulled the real land pattern (→ `imports/KH_CR2032_
 
 **U1 is the bare ESP32-WROOM-32E-N4 (`C701341`, Extended), the ESP32 base part.**
 The only ESP32 base part the design needs — radio unused, so the cheapest WROOM-32E variant
-(4 MB, N4) is fine; the keepout silk stays but no plane is carved (no RF). Placed `rot 180`
-so the module's pin geography falls into two rows (ADC/UART/pump-A north,
-I2C/pump-B/buzzer/IO0 south), keeping the driver and faucet route corridors clean. It is **3V3-only** — no onboard regulator, no V5 pin — drawing the WiFi-idle ~110 mA
-peak from the 3V3 buck plane through its single 3V3 stitch via, with C10 (0.1 µF) + C11
+(4 MB, N4) is fine; the keepout silk stays but no plane is carved (no RF). Placed `rot 0`,
+putting the ADC/UART/sensor pins on the south row toward the bottom connector row and the
+I²C/pump/boot lines on the north row (the buzzer's IO13 on the east column), keeping the
+driver and faucet route corridors clean. It is **3V3-only** — no onboard regulator, no V5 pin — drawing the WiFi-idle ~110 mA
+peak from the 3V3 plane through its single 3V3 stitch via, with C10 (0.1 µF) + C11
 (10 µF bulk) at the pin. The 3 castellated GND pads + the 9-pad centre thermal pad all share
 one `GND` port and each auto-stitches to the bottom plane. EN power-on RC: R7 (10 kΩ, `C25804`
-Basic) up to 3V3, C12 (1 µF, `C15849` Basic) to GND. IO0 held high by R8 (10 kΩ). J12 is the
-6-pin serial bootloader header (TX0/RX0/IO0/EN/GND/3V3) on the same XH wafer as the field
-connectors. The bare module's IO pins are SMD pads, so the maze router was taught to take SMD
-pads as single-layer endpoints (a barrel-free via lands a bottom run up onto the top pad);
-8 such maze nets land via-in-pad, capped like the plane stitches.
+Basic) up to 3V3, C12 (1 µF, `C15849` Basic) to GND. IO0 held high by R8 (10 kΩ). Programming
+is the on-board USB-C block — J14 + U13 (CH340C), auto-reset onto EN/IO0 (see
+[`esp32-scope.md`](esp32-scope.md)). The bare module's IO pins are SMD pads, single-layer
+endpoints: a net that needs the bottom layer lands its run up onto the top pad through a
+via-in-pad, capped like the plane stitches; every signal on the board is a hand-routed
+`pcbPath` (see [`routing-procedure.md`](routing-procedure.md)).

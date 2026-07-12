@@ -1364,11 +1364,15 @@ export default () => (
         ~5.5 mm ⌀ → r ~2.75) overhangs the pad by ~0.75 mm, and an M3 hex standoff (5.5 mm A/F,
         r ~3.2) or washer (~7 mm ⌀, r ~3.5) more — so the nearest corner connector housing is
         held ≥2 mm off the pad edge (the seated head + standoff clear it), the tightest being
-        J8→MH3 and J11→MH4. The connector audit (connector-audit.ts) measures this each render. */}
-    <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.5} pcbY={33.0} />
-    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={13.5} pcbY={33.0} />
-    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={13.5} pcbY={-33.3} />
-    <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" pcbX={-64.5} pcbY={-33.3} />
+        J8→MH3 and J11→MH4. The connector audit (connector-audit.ts) measures this each render.
+        fastenerAnnulus (parsed by pour-clearance.ts, like the pours' netClearance) keeps every
+        outer-layer pour of a foreign net ≥3.75 mm (washer r ~3.5 + 0.25) off each hole centre:
+        the hardware seats on mask over bare laminate, never over live copper — the V12 island
+        at MH2/MH3 is the pour this cuts. */}
+    <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" fastenerAnnulus="3.75mm" pcbX={-64.5} pcbY={33.0} />
+    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" fastenerAnnulus="3.75mm" pcbX={13.5} pcbY={33.0} />
+    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" fastenerAnnulus="3.75mm" pcbX={13.5} pcbY={-33.3} />
+    <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" fastenerAnnulus="3.75mm" pcbX={-64.5} pcbY={-33.3} />
 
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
         monocolor silk via logo.ts) beside the two-line name, over MACHINE and the
