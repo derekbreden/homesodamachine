@@ -135,28 +135,37 @@ export function widenFastenerAnnuli(circuit: any[], annuli: FastenerAnnulus[]): 
 }
 
 /**
- * The ESP32-WROOM antenna fires off the west board edge, and its keepout box (the
- * footprint's silk antenna outline, part-frame x −16.764…−10.48 at rot 0) must carry no
- * copper. The module's two GND corner pads sit only ~1.2 mm east of the box, so the
- * planes can't be pulled far back — this punches the box (carried a touch east of it,
- * stopping ~0.2 mm short of those pads) out of every pour, so no plane floods under the
- * antenna. Derived from the WROOM's placed centre (its supplier part is C701341); it
- * assumes the design's rot-0 placement (antenna due west). Returns how many pours it cut.
+ * The ESP32-WROOM antenna keepout box, in board mm — the region no copper may enter: every pour is
+ * carved out of it (antennaKeepout, below) AND no signal trace or via may cross it (the DRC enforces
+ * that in clearance.ts, reading this same box, so pours and signals answer to one keepout). The box
+ * is the footprint's silk antenna outline (part-frame x −16.764…−10.48 at rot 0), carried a touch
+ * east: east edge cx−10.0, past the outline and ~0.2 mm shy of the module's GND corner pads (west
+ * edge ~cx−9.77) that sit just east of it; west edge cx−11.5, off the west board edge. Derived from
+ * the WROOM's placed centre (supplier part C701341), assuming the design's rot-0 placement (antenna
+ * due west). Returns null if the module isn't placed.
  */
-export function antennaKeepout(circuit: any[]): number {
+export type Box = { x0: number; y0: number; x1: number; y1: number }
+export function antennaKeepoutBox(circuit: any[]): Box | null {
   const by = (t: string) => circuit.filter((e) => e.type === t)
   const sc = by("source_component").find(
     (c) => c.manufacturer_part_number === "ESP32_WROOM_32E_N4" || c.supplier_part_numbers?.jlcpcb?.includes("C701341"),
   )
-  if (!sc) return 0
+  if (!sc) return null
   const pc = by("pcb_component").find((p) => p.source_component_id === sc.source_component_id)
-  if (!pc?.center) return 0
+  if (!pc?.center) return null
   const cx = pc.center.x, cy = pc.center.y
-  // antenna box east edge is cx−10.48, the GND pad west edge ~cx−9.77; carve to cx−10.0
-  // (past the box, ~0.2 mm shy of the pads) and from cx−11.5 (just off the west edge).
-  const x0 = cx - 11.5, x1 = cx - 10.0, y0 = cy - 10, y1 = cy + 10
+  return { x0: cx - 11.5, y0: cy - 10, x1: cx - 10.0, y1: cy + 10 }
+}
+
+/** Punch the antenna keepout box out of every pour that reaches it, so no plane floods under the
+ *  antenna (the module's GND corner pads sit ~1.2 mm east, too close to pull the planes back by
+ *  clearance alone). Mutates `circuit`; returns how many pours it cut. */
+export function antennaKeepout(circuit: any[]): number {
+  const box = antennaKeepoutBox(circuit)
+  if (!box) return 0
+  const { x0, y0, x1, y1 } = box
   let n = 0
-  for (const pour of by("pcb_copper_pour")) {
+  for (const pour of circuit.filter((e) => e.type === "pcb_copper_pour")) {
     if (pour.shape !== "brep" || !pour.brep_shape) continue
     const outer: Vert[] = pour.brep_shape.outer_ring?.vertices
     if (!outer?.length) continue
