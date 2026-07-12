@@ -379,7 +379,7 @@ export default () => (
         ~3.3A peak (both pumps priming + a few valves + the condenser fan) with margin the 2A XH
         wafer didn't have. pcbRotation 90 aims the wire throats at the east board edge, so the field
         loom feeds in from OUTSIDE the board. pin1->GND on the south pin, pin2->V12 on the north —
-        reversing 12V would cook the polarised bulk cap (C3), the bucks, and the drivers. THT barrels
+        reversing 12V would cook the polarised bulk cap (C3), the K7805, and the drivers. THT barrels
         pick up their nets: V12 off the top island (the rectangle floods under the barrel), GND off
         the bottom plane (the pour antipads the GND barrel clear of the island). Labels are hand-drawn,
         all bottom-to-top (the east-edge convention): the pin labels (0.8mm) sit OUTBOARD east of the
@@ -1118,7 +1118,7 @@ export default () => (
     <trace from=".D6 > .cathode" to="net.GND" />
 
     {/* ── USB-C programming block ─────────────────────────────────────────────────────
-        USB-C receptacle (J14, north edge above the WROOM, opening flush to the board edge) +
+        USB-C receptacle (J14, west edge above the WROOM, opening flush to the west board edge) +
         CH340C USB-UART bridge (U13) flash the WROOM over a plain USB-C cable. Data only: the
         bridge runs off the board 3V3, VBUS powers nothing. CC1/CC2 carry 5.1k Rd pulldowns
         (R15/R16); U14 (USBLC6) clamps D+/D-; both D+ / both D- pads tie for either cable
