@@ -96,7 +96,7 @@ const dMinusLane = U14f.row("pin3", -0.85)
 // runs the far-west flank to EN, tapped by SW2's reset line.
 const Q2El = <Npn name="Q2" x={-65.5} y={24.75} rot={90} />
 const Q3El = <Npn name="Q3" x={-61.5} y={24.75} rot={90} />
-const R17El = <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-64.5} y={28.75} rot={90} side="W" />
+const R17El = <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-64.5} y={28.75} rot={0} side="W" />
 const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-60.5} y={28.75} rot={90} side="W" />
 // IO0's 10k pull-up, parked in the pocket east of U13's body where the corridor down to the pad
 // row is empty — every slot nearer the lattice is fenced by the DTR/RTS runs, J14's courtyard,
@@ -107,8 +107,8 @@ const R8El = <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x=
 const R8f = frame(R8El)
 // BOOT override tact (IO0 branch). rot180 seats pin1 (signal) on the SE corner so it exits south,
 // clear of U13, down to IO0; pin4 (NW) is the diagonal contact to GND. SW2 (RESET/EN) stays inline.
-const SW1El = <Tact name="SW1" x={-50} y={33.5} rot={180} />
-const SW2El = <Tact name="SW2" x={-58} y={33.5} rot={0} />
+const SW1El = <Tact name="SW1" x={-49.5} y={33.5} rot={180} />
+const SW2El = <Tact name="SW2" x={-57.5} y={33.5} rot={0} />
 const SW2f = frame(SW2El)
 
 // ── Buzzer chain (IO13 → R5 → Q1 → U8) ────────────────────────────────────────────────
@@ -1252,13 +1252,17 @@ export default () => (
         DTR/RTS connections, then each collector's reach — Q3 down the far-west lane into U1's
         north-edge corridor to IO0; Q2 around the far-west flank to EN on the south edge. */}
     {/* base nodes: each transistor's base to the near (south) pin of its base resistor */}
-    <trace from="Q2.B" to="R17.pin1" pcbPathRelativeTo="board" pcbPath={route("Q2.B", "R17.pin1")} />
+    <trace from="Q2.B" to="R17.pin1" pcbPathRelativeTo="board" pcbPath={route(
+        "Q2.B",
+        R17f.row("pin1"),            // rise B's column, between R17's pads, west into pin1
+        "R17.pin1"
+    )} />
     <trace from="Q3.B" to="R18.pin1" pcbPathRelativeTo="board" pcbPath={route("Q3.B", "R18.pin1")} />
     {/* Cross-coupled pair. The two trunks leave U13 on OPPOSITE sides so they never
         cross: RTS exits east and runs the high rail to R18.pin2, then hops to Q2.E on the
-        bottom (routeBottom, under MH1's fastener sweep); DTR exits west and runs the lane
-        between C21/Q3's pad tops and U13's dropped north row (y26.77) to Q3.E, which links
-        up to R17.pin2 from the south. */}
+        bottom (routeBottom, down the corridor east of R18 and west along the collector-row
+        lane); DTR exits west and runs the lane between C21/Q3's pad tops and U13's dropped
+        north row (y26.77) to Q3.E, which links up to R17.pin2 along its row. */}
     <trace from="U13.RTS" to="R18.pin2" pcbPathRelativeTo="board" pcbPath={route(
         "U13.RTS",
         U13f.row("DTR", 1.5),
@@ -1267,7 +1271,8 @@ export default () => (
     } />
     <trace from="R18.pin2" to="Q2.E" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "R18.pin2",
-        R18f.col("pin2", 0.75),
+        { col: -59.8 },              // out the pad's east side, clear of R18's shadow column
+        { row: 24.75 },              // the lane between the collector row and the B/E pads
         Q2f.row("E"),
         "Q2.E"
     )} />
@@ -1281,8 +1286,7 @@ export default () => (
     )} />
     <trace from="Q3.E" to="R17.pin2" pcbPathRelativeTo="board" pcbPath={route(
         "Q3.E",
-        R17f.col("pin2", -0.75),
-        R17f.row("pin2"),
+        R17f.row("pin2"),            // rise E's column, west along R17's row into pin2
         "R17.pin2"
     )} />
     {/* Q2's collector reach to EN — the far-west flank, the one column the USB shell pills and
@@ -1326,9 +1330,9 @@ export default () => (
         threads DOWN through U13's pin7/pin8 column gap (east of the D+/D-/DTR rivers, west of
         R8 and the IO2 column), then hops to the BOTTOM at y10.45 — between R8's 9.6 hop row
         and the IO4 comb, below RXD's bottom column — runs west, and rises by its own via just
-        north of IO0's pad (R8's pad-via already owns the pad's drill). SW2's reset line rides
-        the top edge west and drops the far-west flank as before, one corner from Q2's EN
-        reach. */}
+        north of IO0's pad (R8's pad-via already owns the pad's drill). SW2's reset line hops
+        to the bottom at its own pad (routeBottom), runs the corridor east of R18/Q3.B, crosses
+        under the collector row, and rises into Q2.C's pad via from the south. */}
     <trace from="SW1.pin1" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={(() => {
         const p1 = SW1f.pin("pin1")
         const col = U13f.pin("pin8").x - 0.635  // the pin7/pin8 gap
@@ -1350,8 +1354,9 @@ export default () => (
     <trace from=".SW1 > .pin4" to="net.GND" />
     <trace from="SW2.pin1" to="Q2.C" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "SW2.pin1",
-        { col: -67.3 },              // west out of the button pad, the far-west flank one layer down
-        Q2f.col("C"),                // east along C's row into the pad via
+        { col: -59.4 },              // east out of the button pad, down the corridor east of R18/Q3.B
+        { row: 22.7 },               // under the collector row, over J14's shell legs
+        Q2f.row("C"),                // up into the pad via from the south
         "Q2.C",
     )} />
     <trace from=".SW2 > .pin4" to="net.GND" />
@@ -1368,9 +1373,7 @@ export default () => (
         J8→MH3 and J11→MH4. The connector audit (connector-audit.ts) measures this each render.
         fastenerAnnulus (parsed by pour-clearance.ts, like the pours' netClearance) holds every
         top-face pour ≥3.75 mm (washer r ~3.5 + 0.25) off each hole centre — the V12 island at
-        MH2/MH3 is the pour this cuts. At MH1 the reset cluster's nearest pad copper (R17.pin2,
-        SW2.C) sits r ~3.1 from the hole centre: a bare head clears, and a washer or standoff
-        on MH1's top face is nylon. */}
+        MH2/MH3 is the pour this cuts. */}
     <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" fastenerAnnulus="3.75mm top" pcbX={-64.5} pcbY={33.0} />
     <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" fastenerAnnulus="3.75mm top" pcbX={13.5} pcbY={33.0} />
     <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" fastenerAnnulus="3.75mm top" pcbX={13.5} pcbY={-33.3} />
