@@ -41,6 +41,10 @@
  * SLIVER — a poured fragment thinner than the fab's minimum feature width (2·area/perimeter)
  * is a floating acid-trap the pour solver left behind; flagged as a fab risk, not a short.
  *
+ * ANTENNA KEEPOUT — the WROOM antenna box must carry no signal copper, not just no pour
+ * (pour-clearance.ts carves it from the planes). Any trace or via whose copper enters that same
+ * box (antennaKeepoutBox) is an error — a trace under the antenna detunes it.
+ *
  * ERRORS — the above, plus the genuine DRC findings filtered out of the pour-blind noise the
  * board carries every render: the "missing a connection to smtpad" trace errors read only direct
  * trace copper, blind to the plane and via paths most nets take, so they drop here — net continuity
@@ -52,6 +56,8 @@
  * dropped only when the pad really clears its minimum. What survives is genuine copper overlaps /
  * too-close, courtyard overlaps, and any other placement error.
  */
+
+import { antennaKeepoutBox } from "./pour-clearance"
 
 type Pt = [number, number]
 type Kind = "pad" | "via" | "trace"
@@ -273,8 +279,37 @@ export function analyzeClearance(circuit: any[]): ClearanceReport {
   const shadowErrors: BoardError[] = shadows.slice(0, ERR_CAP).map((s) => ({ kind: "pad-shadow", text: s.text }))
   if (shadows.length > ERR_CAP) shadowErrors.push({ kind: "pad-shadow", text: `…and ${shadows.length - ERR_CAP} more pad-shadow crossings` })
 
+  // ANTENNA KEEPOUT — the WROOM antenna box must carry no signal copper (a trace or via there detunes
+  // the antenna), not just no pour. pour-clearance.ts carves it from the planes; here we flag any
+  // trace/via whose copper enters the SAME box (antennaKeepoutBox), so pours and signals answer to one
+  // keepout. Reject fast by (already-radius-grown) bbox, then clip each raw edge (Liang–Barsky) against
+  // the box grown by the feature's copper radius. One error per intruding trace/via.
+  const segInBox = (p: Pt, q: Pt, xmin: number, ymin: number, xmax: number, ymax: number): boolean => {
+    const P = [-(q[0] - p[0]), q[0] - p[0], -(q[1] - p[1]), q[1] - p[1]]
+    const Q = [p[0] - xmin, xmax - p[0], p[1] - ymin, ymax - p[1]]
+    let t0 = 0, t1 = 1
+    for (let i = 0; i < 4; i++) {
+      if (P[i] === 0) { if (Q[i] < 0) return false }        // parallel to this edge and outside it
+      else { const t = Q[i] / P[i]; if (P[i] < 0) { if (t > t1) return false; if (t > t0) t0 = t } else { if (t < t0) return false; if (t < t1) t1 = t } }
+    }
+    return t0 <= t1
+  }
+  const antennaErrors: BoardError[] = []
+  const antBox = antennaKeepoutBox(circuit)
+  if (antBox) {
+    const seen = new Set<string>()
+    for (const F of feats) {
+      if ((F.kind !== "trace" && F.kind !== "via") || seen.has(F.label)) continue
+      if (F.maxx < antBox.x0 || F.minx > antBox.x1 || F.maxy < antBox.y0 || F.miny > antBox.y1) continue
+      if (!F.edges.some(([p, q]) => segInBox(p, q, antBox.x0 - F.r, antBox.y0 - F.r, antBox.x1 + F.r, antBox.y1 + F.r))) continue
+      seen.add(F.label)
+      antennaErrors.push({ kind: "antenna-keepout", text: `Antenna keepout — ${F.label} enters the WROOM antenna box (x[${round(antBox.x0)}, ${round(antBox.x1)}] y[${round(antBox.y0)}, ${round(antBox.y1)}])` })
+    }
+  }
+
   const errors = [
     ...floatingPadErrors(circuit, netById, netOfPort, refPin, traceNet),
+    ...antennaErrors,
     ...shadowErrors,
     ...pourShortErrors(circuit, LAYERS, netByKey, netById, netOfPort, refPin, netOfTrace, traceNet),
     ...viaSpanErrors(circuit),
