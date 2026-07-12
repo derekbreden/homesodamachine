@@ -97,7 +97,7 @@ const dMinusLane = U14f.row("pin3", -0.85)
 const Q2El = <Npn name="Q2" x={-65.5} y={24.75} rot={90} />
 const Q3El = <Npn name="Q3" x={-61.5} y={24.75} rot={90} />
 const R17El = <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-64.5} y={28.75} rot={0} side="W" />
-const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-60.5} y={28.75} rot={90} side="W" />
+const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-61.9} y={28.75} rot={90} side="W" />
 // IO0's 10k pull-up, parked in the pocket east of U13's body where the corridor down to the pad
 // row is empty — every slot nearer the lattice is fenced by the DTR/RTS runs, J14's courtyard,
 // and the switch row (whose band the relay's bottom lane also crosses). pin1 (rot90: south) drops
@@ -105,10 +105,15 @@ const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" 
 // to its plane.
 const R8El = <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-42.65} y={26} rot={90} side="W" />  // nudged E so the W ref-des clears U13's fence; trace stairsteps back to the -43 lane
 const R8f = frame(R8El)
-// BOOT override tact (IO0 branch). rot180 seats pin1 (signal) on the SE corner so it exits south,
-// clear of U13, down to IO0; pin4 (NW) is the diagonal contact to GND. SW2 (RESET/EN) stays inline.
-const SW1El = <Tact name="SW1" x={-49.5} y={33.5} rot={180} />
-const SW2El = <Tact name="SW2" x={-57.5} y={33.5} rot={0} />
+// BOOT (SW1) and RESET (SW2) tacts stand rotated in the strip between U13 and the north edge,
+// pads N/S (the rotation narrows each to the strip's width; south pads clear the RTS rail at
+// y28.9, north pads stay inside the board-edge pour margin). Each connects one DIAGONAL pair —
+// the only pairing that is a switch whatever the internal terminal split: SW1 signal pin4 (NE,
+// down the J5 GND/V5 ring channel to IO0), GND pin1 (SW); SW2 signal pin3 (NW, a bottom drop to
+// Q2.C), GND pin2 (SE). GND sits on a SOUTH pad on both — a north-pad stitch via would tangent
+// the GND pour's 0.5 board-edge margin.
+const SW1El = <Tact name="SW1" x={-51.75} y={32.75} rot={90} />
+const SW2El = <Tact name="SW2" x={-57.75} y={32.75} rot={270} />
 const SW2f = frame(SW2El)
 
 // ── Buzzer chain (IO13 → R5 → Q1 → U8) ────────────────────────────────────────────────
@@ -152,11 +157,10 @@ const R9El = <Res name="R9" resistance="4.7k" footprint="0603" jlcpcb="C23162" x
 const R9f = frame(R9El)
 const J4El = <Jst name="J4" x={-36.25} y={-30.3} count={6} labels={["3V3", "GND", "V5", "IO25", "IO26", "IO27"]} label="SENSORS" rot={180} />
 const J4f = frame("J4", J4El.props.x, J4El.props.y, 0, Object.fromEntries(jstPins(J4El.props).pins))
-const J5El = <Jst name="J5" x={-39.2} y={31.0} count={4} labels={["GND", "V5", "IO2", "IO19"]} label="RELAYS" rot={0} />
+const J5El = <Jst name="J5" x={-41.95} y={31.0} count={4} labels={["GND", "V5", "IO2", "IO19"]} label="RELAYS" rot={0} />
 const J5f = frame("J5", J5El.props.x, J5El.props.y, 0, Object.fromEntries(jstPins(J5El.props).pins))
-// Pump H-bridges, framed for the IN-bus routing below. The whole pump pod (U11/U12,
-// their VM caps, and J13 above) is one rigid cluster — J13 sits at U12+1, U11 at J13-6,
-// caps at driver∓1.5/+1.75 — so a pod move preserves every internal route exactly.
+// Pump H-bridges, framed for the IN-bus routing below. J13 sits centred over the driver
+// pair (U11+4.25 / U12-2.75); the VM caps flank each driver at ∓1.5/+1.75.
 const U11El = <Drv8870 name="U11" x={-16.5} y={22.75} rot={0} ly={4.75} />  // ref-des north, clear of the thermal PAD
 const U12El = <Drv8870 name="U12" x={-9.5} y={22.75} rot={0} ly={4.75} />  // ref-des north, clear of the thermal PAD
 const U11f = frame(U11El), U12f = frame(U12El)
@@ -176,7 +180,7 @@ const J9f = frame("J9", J9El.props.x, J9El.props.y, 0, Object.fromEntries(jstPin
 const J3El = <Jst name="J3" x={-52.25} y={-30.3} count={4} labels={["GND", "V5", "IO35", "IO33"]} label="FAUCET" rot={180} />
 const J3f = frame("J3", J3El.props.x, J3El.props.y, 0, Object.fromEntries(jstPins(J3El.props).pins))
 // Pumps connector + RTC block + status LEDs, framed for the last hand routes below.
-const J13El = <Jst name="J13" x={-9.5} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" rot={0} />
+const J13El = <Jst name="J13" x={-12.25} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" rot={0} />
 const J13f = frame("J13", J13El.props.x, J13El.props.y, 0, Object.fromEntries(jstPins(J13El.props).pins))
 const BT1El = <CoinHolder name="BT1" x={-20.5} y={-1.25} />
 const U6El = <Ds3231Smd name="U6" x={-40.5} y={2.5} rot={270} />
@@ -195,17 +199,17 @@ const R13f = frame(R13El), R14f = frame(R14El)
 // The bus members (U2/U3 MCPs, U6 RTC, J8 → the off-board MPR121) framed for the routeInner
 // edges below. R19/R20 are the bus pull-ups (4.7k → 3V3): every device on the bus is
 // open-drain with no pull-up of its own, and the ESP32's ~45k internal ones are too weak for
-// a board-length multi-drop bus. They park in the open pocket south of J8 (north of C14/U10,
-// west of J1), pin2 stitching to the 3V3 plane. Both seat HORIZONTAL in the one open band
-// (y≈26.4: U9's and C14's courtyards fence everything south of ~25.5; J8's body everything
-// north of ~28.5), pin1 toward its hub barrel: R19 rot0 (pin1 WEST), R20 rot180 (pin1 EAST),
-// each rising into the north corridor and closing on its barrel.
+// a board-length multi-drop bus. Each parks with pin1 rising into the row-28.2 corridor and
+// closing on its hub barrel, pin2 stitching to the 3V3 plane. R19 stands VERTICAL (rot 270,
+// pin1 NORTH) on U11's west flank above C17 — east of the col -21.7 SDA/SCL risers, under
+// J6's south face; R20 HORIZONTAL (rot 180, pin1 EAST) in the band under J8's bay (y≈26.2:
+// U12's courtyard fences everything south, J8's body everything north of ~28.5).
 const U2El = <Mcp23017 name="U2" x={-31.4} y={20.25} addr="0x20" rot={180} />
 const U3El = <Mcp23017 name="U3" x={-7.2} y={-20.15} addr="0x21" rot={0} />
 const U2f = frame(U2El), U3f = frame(U3El)
-const J8El = <Jst name="J8" x={4.1} y={31} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" rot={0} />
+const J8El = <Jst name="J8" x={1.35} y={31} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" rot={0} />
 const J8f = frame("J8", J8El.props.x, J8El.props.y, 0, Object.fromEntries(jstPins(J8El.props).pins))
-const R19El = <Res name="R19" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={13.2} y={27.6} rot={0} side="N" />
+const R19El = <Res name="R19" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-20.7} y={26.67} rot={270} side="W" />
 const R20El = <Res name="R20" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-4.8} y={26.2} rot={180} side="N" />
 const R19f = frame(R19El), R20f = frame(R20El)
 
@@ -216,7 +220,7 @@ const U5El = <Uln2803 name="U5" x={-0.5} y={-7.35} rot={270} />
 const U4f = frame(U4El), U5f = frame(U5El)
 const J1El = <Jst name="J1" x={11} y={13.75} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" rot={270} />
 const J2El = <Jst name="J2" x={11} y={-8.6} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" rot={270} />
-const J6El = <Jst name="J6" x={-24.35} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" rot={0} />
+const J6El = <Jst name="J6" x={-27.1} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" rot={0} />
 const J7El = <Jst name="J7" x={-3.0} y={-30.3} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" rot={180} />
 const J1f = frame("J1", J1El.props.x, J1El.props.y, 0, Object.fromEntries(jstPins(J1El.props).pins))
 const J2f = frame("J2", J2El.props.x, J2El.props.y, 0, Object.fromEntries(jstPins(J2El.props).pins))
@@ -859,10 +863,10 @@ export default () => (
     {/* IO2 relay — up the east corridor, split across layers: TOP from the pad through the
         module/U6 channel (the original col), jogging east at y9.3 (above U6's pads, below the
         IO0 lane) into the column just east of U13's pad rows, stopping short of the south row
-        at y20.55; one via; BOTTOM up the same column (the bottom's y11-12 pump-comb band is
-        west-only here), over the J5 barrels at y32.85, dropping into IO2's barrel from the
-        north. Mixed-layer, so the path is assembled from the same frame-derived coordinates
-        route() would use. */}
+        at y20.4; one via; BOTTOM east under U13's south row (0.2 south of the pad shadows),
+        then up IO2's own barrel column — west of U2's pad block, east of IO19's y29.5 jog —
+        entering the barrel from the south. Mixed-layer, so the path is assembled from the
+        same frame-derived coordinates route() would use. */}
     <trace from="U1.IO2" to="J5.IO2" pcbPathRelativeTo="board" pcbPath={(() => {
         const col1 = channel(-47.055, -46.365) // the module-east / U6-west pad channel
         const col2 = U13f.pin("pin8").x + 0.635 // just east of U13's pad rows, west of R8
@@ -872,11 +876,10 @@ export default () => (
             { x: col1, y: y0 },
             { x: col1, y: 9.3 },               // above U6's pads, below the IO0 approach lane
             { x: col2, y: 9.3 },
-            { x: col2, y: 20.55 },             // short of U13's south pad row (y22.13)
-            { x: col2, y: 20.55, via: true, toLayer: "bottom" } as const,
-            { x: col2, y: 20.55 },
-            { x: col2, y: 32.85 },             // bottom: east of U13, over the J5 barrels
-            { x: J5f.pin("IO2").x, y: 32.85 },
+            { x: col2, y: 20.4 },              // short of U13's south pad row (y20.8)
+            { x: col2, y: 20.4, via: true, toLayer: "bottom" } as const,
+            { x: col2, y: 20.4 },
+            { x: J5f.pin("IO2").x, y: 20.4 },  // bottom: east under U13's south row
             "J5.IO2",
         ]
     })()} />
@@ -884,16 +887,16 @@ export default () => (
     <trace from=".J5 > .GND" to="net.GND" />
 
 
-    {/* REEDS A (reservoir A) -> 0x20 GPB inputs; J6 sits above U2's north row and the four
-        staircases fan up-EAST (the doubled barrel pitch walks each target east of its pad;
-        GPB3→RA4 is a near-straight rise). The FURTHEST pair (GPB0→RA1) takes the lane
-        closest to the pad row (J6y-3.4) and lanes step toward the barrels as reach shortens
-        (pitch 0.7): every barrel drop then spans only lanes below its own, and no lane
-        crosses a foreign drop. */}
-    <trace from="U2.GPB0" to="J6.RA1" pcbPathRelativeTo="board" pcbPath={route("U2.GPB0", J6f.row("RA1", -3.4), J6f.col("RA1"), "J6.RA1")} />
-    <trace from="U2.GPB1" to="J6.RA2" pcbPathRelativeTo="board" pcbPath={route("U2.GPB1", J6f.row("RA2", -2.7), J6f.col("RA2"), "J6.RA2")} />
-    <trace from="U2.GPB2" to="J6.RA3" pcbPathRelativeTo="board" pcbPath={route("U2.GPB2", J6f.row("RA3", -2.0), J6f.col("RA3"), "J6.RA3")} />
-    <trace from="U2.GPB3" to="J6.RA4" pcbPathRelativeTo="board" pcbPath={route("U2.GPB3", J6f.row("RA4", -1.3), J6f.col("RA4"), "J6.RA4")} />
+    {/* REEDS A (reservoir A) -> 0x20 GPB inputs; J6 sits above U2's north row. GPB0→RA1
+        still steps east; the other three targets sit WEST of their pads, so the west-going
+        lanes nest the other way: the FURTHEST west (GPB3→RA4) takes the lane closest to the
+        pad row (J6y-3.4) and lanes step toward the barrels as the reach shortens (pitch 0.7).
+        A west lane then passes only stubs east of its own start and only drops whose spans
+        begin above it — no lane crosses a foreign stub or drop. */}
+    <trace from="U2.GPB0" to="J6.RA1" pcbPathRelativeTo="board" pcbPath={route("U2.GPB0", J6f.row("RA1", -1.3), J6f.col("RA1"), "J6.RA1")} />
+    <trace from="U2.GPB1" to="J6.RA2" pcbPathRelativeTo="board" pcbPath={route("U2.GPB1", J6f.row("RA2", -2.0), J6f.col("RA2"), "J6.RA2")} />
+    <trace from="U2.GPB2" to="J6.RA3" pcbPathRelativeTo="board" pcbPath={route("U2.GPB2", J6f.row("RA3", -2.7), J6f.col("RA3"), "J6.RA3")} />
+    <trace from="U2.GPB3" to="J6.RA4" pcbPathRelativeTo="board" pcbPath={route("U2.GPB3", J6f.row("RA4", -3.4), J6f.col("RA4"), "J6.RA4")} />
     <trace from=".J6 > .GND" to="net.GND" />
 
     {/* REEDS B (reservoir B + carbonator low/high) -> 0x21 GPB inputs; J7 sits below U3's
@@ -1260,9 +1263,9 @@ export default () => (
     <trace from="Q3.B" to="R18.pin1" pcbPathRelativeTo="board" pcbPath={route("Q3.B", "R18.pin1")} />
     {/* Cross-coupled pair. The two trunks leave U13 on OPPOSITE sides so they never
         cross: RTS exits east and runs the high rail to R18.pin2, then hops to Q2.E on the
-        bottom (routeBottom, down the corridor east of R18 and west along the collector-row
-        lane); DTR exits west and runs the lane between C21/Q3's pad tops and U13's dropped
-        north row (y26.77) to Q3.E, which links up to R17.pin2 along its row. */}
+        bottom (routeBottom, west past R17's column and down to the emitter row); DTR exits
+        west and runs the lane between C21/Q3's pad tops and U13's dropped north row (y26.77)
+        to Q3.E, which links up to R17.pin2 along its row. */}
     <trace from="U13.RTS" to="R18.pin2" pcbPathRelativeTo="board" pcbPath={route(
         "U13.RTS",
         U13f.row("DTR", 1.5),
@@ -1271,9 +1274,9 @@ export default () => (
     } />
     <trace from="R18.pin2" to="Q2.E" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "R18.pin2",
-        { col: -59.8 },              // out the pad's east side, clear of R18's shadow column
-        { row: 24.75 },              // the lane between the collector row and the B/E pads
-        Q2f.row("E"),
+        { col: -63.0 },              // out the pad's west side, between R17's column and Q3
+        { row: 24.75 },              // the lane below the B/E pad row, clear of B's and C's shadows
+        { col: Q2f.pin("E").x },     // west under the pad row, rising only at E's own column
         "Q2.E"
     )} />
     <trace from="U13.DTR" to="Q3.E" pcbPathRelativeTo="board" pcbPath={route(
@@ -1286,7 +1289,8 @@ export default () => (
     )} />
     <trace from="Q3.E" to="R17.pin2" pcbPathRelativeTo="board" pcbPath={route(
         "Q3.E",
-        R17f.row("pin2"),            // rise E's column, west along R17's row into pin2
+        { col: -63.05 },             // jog west off the pad, clear of R18's pin1 column
+        R17f.row("pin2"),            // rise, east along R17's row into pin2
         "R17.pin2"
     )} />
     {/* Q2's collector reach to EN — the far-west flank, the one column the USB shell pills and
@@ -1325,23 +1329,26 @@ export default () => (
             "U1.IO0",
         ]
     })()} />
-    {/* Manual BOOT (IO0) / RESET (EN) — diagonal switch pads = the two terminals. SW1's boot
-        line exits pin1 south to the lane between U13's north pads and J5's barrels, runs west,
-        threads DOWN through U13's pin7/pin8 column gap (east of the D+/D-/DTR rivers, west of
-        R8 and the IO2 column), then hops to the BOTTOM at y10.45 — between R8's 9.6 hop row
-        and the IO4 comb, below RXD's bottom column — runs west, and rises by its own via just
-        north of IO0's pad (R8's pad-via already owns the pad's drill). SW2's reset line hops
-        to the bottom at its own pad (routeBottom), runs the corridor east of R18/Q3.B, crosses
-        under the collector row, and rises into Q2.C's pad via from the south. */}
-    <trace from="SW1.pin1" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={(() => {
-        const p1 = SW1f.pin("pin1")
-        const col = U13f.pin("pin8").x - 0.635  // the pin7/pin8 gap
+    {/* Manual BOOT (IO0) / RESET (EN) — each tact connects one diagonal pad pair (see the
+        placement block). SW1's boot line exits pin4 (NE) east over J5's body, drops the J5
+        GND/V5 ring channel, jogs into U13's pin9/pin10–pin7/pin8 column gap (east of the
+        D+/D-/DTR rivers, west of R8 and the IO2 column), then hops to the BOTTOM at y10.45 —
+        between R8's 9.6 hop row and the IO4 comb, below RXD's bottom column — runs west, and
+        rises by its own via just north of IO0's pad (R8's pad-via already owns the pad's
+        drill). SW2's reset line hops to the bottom at pin3 (NW), drops straight down its own
+        column east of R18's seat, crosses under the collector row, and rises into Q2.C's pad
+        via from the south. */}
+    <trace from="SW1.pin4" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={(() => {
+        const p4 = SW1f.pin("pin4")
+        const ringCol = channel(J5f.pin("GND").x, J5f.pin("V5").x)  // the J5 GND/V5 ring channel
+        const col = U13f.pin("pin8").x - 0.635  // the pin9/pin10 = pin7/pin8 gap column
         const io0 = U1f.pin("IO0")
         const lane = 10.45                      // bottom lane: over the pad row, under the combs
         return [
-            "SW1.pin1",
-            { x: p1.x, y: p1.y - 1.9 },
-            { x: col, y: p1.y - 1.9 },
+            "SW1.pin4",
+            { x: ringCol, y: p4.y },
+            { x: ringCol, y: 29.3 },            // below the barrel rings, above U13's north pads
+            { x: col, y: 29.3 },
             { x: col, y: lane },
             { x: col, y: lane, via: true, toLayer: "bottom" } as const,
             { x: col, y: lane },
@@ -1351,15 +1358,15 @@ export default () => (
             "U1.IO0",
         ]
     })()} />
-    <trace from=".SW1 > .pin4" to="net.GND" />
-    <trace from="SW2.pin1" to="Q2.C" pcbPathRelativeTo="board" pcbPath={routeBottom(
-        "SW2.pin1",
-        { col: -59.4 },              // east out of the button pad, down the corridor east of R18/Q3.B
+    <trace from=".SW1 > .pin1" to="net.GND" />
+    <trace from="SW2.pin3" to="Q2.C" pcbPathRelativeTo="board" pcbPath={routeBottom(
+        "SW2.pin3",
+        { col: -57.25 },             // east off the pad, down the C21 pad-pair channel
         { row: 22.7 },               // under the collector row, over J14's shell legs
         Q2f.row("C"),                // up into the pad via from the south
         "Q2.C",
     )} />
-    <trace from=".SW2 > .pin4" to="net.GND" />
+    <trace from=".SW2 > .pin2" to="net.GND" />
 
     {/* ── M3 mounting holes, one per corner, electrically isolated: no net attaches, and
         every plane antipads the barrel. The screws drive into printed PETG bosses (the
