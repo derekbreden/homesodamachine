@@ -64,7 +64,7 @@ export type ScorecardInput = {
   authored: { from: string; to: string | null; kind: "path" | "comb" }[]  // hand-authored <trace>s (to=null: dynamic pcbFan)
   deferred: { from: string; to: string }[]  // connections commented out of source (deferred work)
   floor: number | null
-  clearanceErrors: { kind: string; text: string }[]  // clearance.ts DRC findings (overlap/courtyard/sliver)
+  clearanceErrors: { kind: string; text: string }[]  // clearance.ts DRC findings (overlap/courtyard/sliver/shadow/antenna-keepout)
   opens: { kind: string; text: string }[]            // connectivity.ts open nets
   footprints: FootprintAudit
   connectors: ConnectorAudit
@@ -135,7 +135,7 @@ export function buildScorecard(inp: ScorecardInput): Scorecard {
   gate("clearance", "Copper-to-copper clearance floor", inp.floor != null && inp.floor >= CLEARANCE_FLOOR,
     inp.floor != null ? `${inp.floor} mm` : "—", `≥ ${CLEARANCE_FLOOR} mm`)
 
-  gate("drc", "No overlaps / courtyard / slivers / pad shadows", inp.clearanceErrors.length === 0,
+  gate("drc", "No overlaps / courtyard / slivers / shadows / keepouts", inp.clearanceErrors.length === 0,
     `${inp.clearanceErrors.length} error`, "0 error", inp.clearanceErrors.map((e) => e.text))
 
   // Body clearance is measured as IPC-7351 keep-outs — copper envelope + courtyard excess CYE
