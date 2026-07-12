@@ -16,6 +16,9 @@ flowchart LR
   %%   GPIO 26 hosts the 1-wire temp bus: DS18B20 (0x28, tank-wall) + DS18S20 (0x10, evap-suction), told apart by family code.
   %%   GPIO 25 reads the DIGITEN flow meter (pulse input).
   %%   GPIO 27 reads the backflow drip-pan moisture sensor (SIG-9).
+  %%   GPIO 23 sources the moisture module's VCC (switched: driven only while sampling,
+  %%     so the always-wet drip-pan electrodes sit unpowered between samples — no
+  %%     electrolytic corrosion from a continuously energized probe).
   %%   GPIO 13 drives the on-board buzzer (U8 magnetic transducer, PWM tone via
   %%     LEDC, low-side switched by Q1).
   %%   GPIO 39 reads the MQ-6 gas / refrigerant-leak sensor AOUT (analog, ADC1) and
@@ -51,7 +54,6 @@ flowchart LR
   %%   GPIO 5   - free (bootstrap-sensitive; high at boot)
   %%   GPIO 16  - free
   %%   GPIO 18  - free
-  %%   GPIO 23  - free
   %% Programming — on-board USB-C block (J14 receptacle + U13 CH340C USB-UART bridge):
   %%   GPIO 0   boot strap (R8 pull-up to 3V3, BOOT button, DTR auto-reset via Q3)
   %%   GPIO 1   U0TXD (-> CH340 RXD)
@@ -81,6 +83,7 @@ flowchart LR
     subgraph Input_Pins["Sensor Inputs"]
       P25["GPIO 25  Flow Meter"]
       P27["GPIO 27  Backflow moisture"]
+      P23["GPIO 23  Backflow moisture VCC (switched)"]
       P39["GPIO 39  Gas sensor AOUT (ADC1)"]
       P36["GPIO 36  Gas sensor DOUT (trip)"]
     end
@@ -157,6 +160,7 @@ flowchart LR
 
   I2C_DEVICES -->|"MCP23017"| VALVE_CHAIN
   MOIST -->|"INPUT"| P27
+  P23 -->|"switched VCC\n(powered only while sampling)"| MOIST
   P13 -->|"PWM tone"| BUZZER
   GAS -->|"AOUT (analog)"| P39
   GAS -->|"DOUT (trip)"| P36
