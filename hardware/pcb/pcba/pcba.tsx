@@ -1254,17 +1254,18 @@ export default () => (
     {/* base nodes: each transistor's base to the near (south) pin of its base resistor */}
     <trace from="Q2.B" to="R17.pin1" pcbPathRelativeTo="board" pcbPath={route("Q2.B", "R17.pin1")} />
     <trace from="Q3.B" to="R18.pin1" pcbPathRelativeTo="board" pcbPath={route("Q3.B", "R18.pin1")} />
-    {/* Cross-coupled pair, planar on top. The two trunks leave U13 on OPPOSITE sides so they never
-        cross: RTS exits east and runs the high rail to R18.pin2 then on to Q2.E; DTR exits
-        west and runs the lane between C21/Q3's pad tops and U13's dropped north row (y26.77)
-        to Q3.E, which links up to R17.pin2. */}
+    {/* Cross-coupled pair. The two trunks leave U13 on OPPOSITE sides so they never
+        cross: RTS exits east and runs the high rail to R18.pin2, then hops to Q2.E on the
+        bottom (routeBottom, under MH1's fastener sweep); DTR exits west and runs the lane
+        between C21/Q3's pad tops and U13's dropped north row (y26.77) to Q3.E, which links
+        up to R17.pin2 from the south. */}
     <trace from="U13.RTS" to="R18.pin2" pcbPathRelativeTo="board" pcbPath={route(
         "U13.RTS",
         U13f.row("DTR", 1.5),
         R18f.row("pin2"),
         "R18.pin2")
     } />
-    <trace from="R18.pin2" to="Q2.E" pcbPathRelativeTo="board" pcbPath={route(
+    <trace from="R18.pin2" to="Q2.E" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "R18.pin2",
         R18f.col("pin2", 0.75),
         Q2f.row("E"),
@@ -1347,32 +1348,33 @@ export default () => (
         ]
     })()} />
     <trace from=".SW1 > .pin4" to="net.GND" />
-    <trace from="SW2.pin1" to="Q2.C" pcbPathRelativeTo="board" pcbPath={route(
+    <trace from="SW2.pin1" to="Q2.C" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "SW2.pin1",
-        { row: 35.8 },               // along the top edge, over the switch row
-        { col: -67.3 },              // the far-west flank, above Q2's own corner
-        { row: 24.5 },               // east over Q2.C, down into its north face
+        { col: -67.3 },              // west out of the button pad, the far-west flank one layer down
+        Q2f.col("C"),                // east along C's row into the pad via
         "Q2.C",
     )} />
     <trace from=".SW2 > .pin4" to="net.GND" />
 
-    {/* ── M3 mounting holes, one per corner, plated and tied to GND so a metal screw can't
-        bridge a power plane (GND connects on the bottom plane; V12 / 3V3 / 5V
-        antipad). A symmetric rectangle: every hole is inset 3.5 mm from both of its board
+    {/* ── M3 mounting holes, one per corner, electrically isolated: no net attaches, and
+        every plane antipads the barrel. The screws drive into printed PETG bosses (the
+        tray/enclosure) — the bottom face seats on plastic; the head and any washer seat on
+        the top face. A symmetric rectangle: every hole is inset 3.5 mm from both of its board
         edges, so the four stay centred on the board and clear of the nearest connector at
         each corner. 3.2 mm hole / 4.0 mm pad (r 2.0): an M3 screw head (socket-cap or pan,
         ~5.5 mm ⌀ → r ~2.75) overhangs the pad by ~0.75 mm, and an M3 hex standoff (5.5 mm A/F,
         r ~3.2) or washer (~7 mm ⌀, r ~3.5) more — so the nearest corner connector housing is
         held ≥2 mm off the pad edge (the seated head + standoff clear it), the tightest being
         J8→MH3 and J11→MH4. The connector audit (connector-audit.ts) measures this each render.
-        fastenerAnnulus (parsed by pour-clearance.ts, like the pours' netClearance) keeps every
-        outer-layer pour of a foreign net ≥3.75 mm (washer r ~3.5 + 0.25) off each hole centre:
-        the hardware seats on mask over bare laminate, never over live copper — the V12 island
-        at MH2/MH3 is the pour this cuts. */}
-    <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" fastenerAnnulus="3.75mm" pcbX={-64.5} pcbY={33.0} />
-    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" fastenerAnnulus="3.75mm" pcbX={13.5} pcbY={33.0} />
-    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" fastenerAnnulus="3.75mm" pcbX={13.5} pcbY={-33.3} />
-    <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" connectsTo="net.GND" fastenerAnnulus="3.75mm" pcbX={-64.5} pcbY={-33.3} />
+        fastenerAnnulus (parsed by pour-clearance.ts, like the pours' netClearance) holds every
+        top-face pour ≥3.75 mm (washer r ~3.5 + 0.25) off each hole centre — the V12 island at
+        MH2/MH3 is the pour this cuts. At MH1 the reset cluster's nearest pad copper (R17.pin2,
+        SW2.C) sits r ~3.1 from the hole centre: a bare head clears, and a washer or standoff
+        on MH1's top face is nylon. */}
+    <platedhole name="MH1" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" fastenerAnnulus="3.75mm top" pcbX={-64.5} pcbY={33.0} />
+    <platedhole name="MH2" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" fastenerAnnulus="3.75mm top" pcbX={13.5} pcbY={33.0} />
+    <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" fastenerAnnulus="3.75mm top" pcbX={13.5} pcbY={-33.3} />
+    <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" fastenerAnnulus="3.75mm top" pcbX={-64.5} pcbY={-33.3} />
 
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
         monocolor silk via logo.ts) beside the two-line name, over MACHINE and the
@@ -1413,7 +1415,7 @@ export default () => (
         clears the LED column, U6/C6/U8, and the nameplate, while the buck cluster's pins (U10's
         column at x -30.8, C15's V12 pad) sit fully inside it — a pour boundary through a pad is a
         DRC fault, so the edge threads BETWEEN pad columns. Everything foreign inside it (the
-        barrels, the MCPs, BT1, the signal fan-out, the SE GND mounting hole) is just a hole in
+        barrels, the MCPs, BT1, the signal fan-out, the SE mounting hole) is just a hole in
         the sheet. */}
     <copperpour name="V12ISLAND" layer="top" connectsTo="net.V12" netClearance="0.5mm from V3V3, V5, SDA, SCL"
       outline={[{ x: -31.75, y: 36.0 }, { x: 16.5, y: 36.0 }, { x: 16.5, y: -35.8 },

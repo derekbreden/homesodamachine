@@ -83,33 +83,31 @@ function keepoutRing(cx: number, cy: number, hx: number, hy: number): { vertices
 
 export type WidenStats = { added: number; perPour: Record<string, number>; pads: string[] }
 
-export type FastenerAnnulus = { name: string; rMm: number; net: string | null }
+export type FastenerAnnulus = { name: string; rMm: number; net: string | null; face: "top" | "bottom" | null }
 
-// Read each plated hole's `fastenerAnnulus="<mm>mm"` — the radius its fastener stack (screw
-// head / standoff / washer) sweeps on the two outer faces — plus the hole's name and declared
-// net (connectsTo). Carried in the source attribute and parsed here, exactly like netClearance
-// above (tscircuit's platedhole schema strips the unknown prop).
+// Read each plated hole's `fastenerAnnulus="<mm>mm[ <face>]"` — the radius its fastener stack
+// (screw head / standoff / washer) sweeps, and the face it sweeps ("top" / "bottom"; omitted =
+// both outer faces) — plus the hole's name and declared net (connectsTo). Carried in the source
+// attribute and parsed here, exactly like netClearance above (tscircuit's platedhole schema
+// strips the unknown prop).
 export function findFastenerAnnuli(src: string): FastenerAnnulus[] {
   const out: FastenerAnnulus[] = []
   for (const el of src.match(/<platedhole\b[\s\S]*?\/>/g) || []) {
-    const r = (el.match(/\bfastenerAnnulus="([\d.]+)\s*mm"/) || [])[1]
+    const m = el.match(/\bfastenerAnnulus="([\d.]+)\s*mm(?:\s+(top|bottom))?"/)
     const name = (el.match(/\bname="([^"]*)"/) || [])[1]
-    if (!r || !name) continue
+    if (!m || !name) continue
     const net = (el.match(/\bconnectsTo="net\.([^"]*)"/) || [])[1] ?? null
-    out.push({ name, rMm: parseFloat(r), net })
+    out.push({ name, rMm: parseFloat(m[1]!), net, face: (m[2] as "top" | "bottom") ?? null })
   }
   return out
 }
 
-/** Clear every outer-layer pour out from under mounting hardware. The solver's antipad around a
- *  plated hole is pad + one trace clearance — hardware sweeps wider, and solder mask is not a
- *  fastener-rated insulator, so foreign copper must not sit inside the stack's footprint. For each
- *  declared hole (matched by port_hints name), every brep pour on `top`/`bottom` whose net differs
- *  from the hole's own gets a square keepout ring (same geometry as widenPourVoids') of half-extent
- *  rMm — so the guaranteed clearance is rMm on the axes and more on the diagonals, and a pour edge
- *  nearer than rMm is crossed outright, leaving no crescent scrap between ring and edge. Inner
- *  planes keep the solver's antipad: no fastener reaches them, and their copper is plane budget.
- *  A pour on the hole's OWN net stays — that copper is what the hardware is meant to touch.
+/** Cut each declared hole's fastener keepout into the pours. For each hole (matched by
+ *  port_hints name), every brep pour on the declared face — both outer faces when none is
+ *  declared — whose net differs from the hole's own gets a square keepout ring (keepoutRing,
+ *  widenPourVoids' geometry) of half-extent rMm: clearance is rMm on the axes, more on the
+ *  diagonals, and a pour edge nearer than rMm is crossed outright — no crescent scrap survives
+ *  between ring and edge. Undeclared faces and the inner planes keep the solver's antipad.
  *  Mutates `circuit` in place; same stats shape as widenPourVoids. */
 export function widenFastenerAnnuli(circuit: any[], annuli: FastenerAnnulus[]): WidenStats {
   const stats: WidenStats = { added: 0, perPour: {}, pads: [] }
@@ -122,7 +120,7 @@ export function widenFastenerAnnuli(circuit: any[], annuli: FastenerAnnulus[]): 
     if (!hole) continue
     for (const pour of by("pcb_copper_pour")) {
       if (pour.shape !== "brep" || !pour.brep_shape) continue
-      if (pour.layer !== "top" && pour.layer !== "bottom") continue // fasteners only touch the outer faces
+      if (a.face ? pour.layer !== a.face : pour.layer !== "top" && pour.layer !== "bottom") continue
       if (netById[pour.source_net_id] === a.net) continue
       const outer: Vert[] = pour.brep_shape.outer_ring?.vertices
       if (!outer?.length || !pointInPolygon(hole.x, hole.y, outer)) continue
