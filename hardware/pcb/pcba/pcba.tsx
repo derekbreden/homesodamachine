@@ -155,7 +155,7 @@ const J11f = frame("J11", J11El.props.x, J11El.props.y, 0, Object.fromEntries(js
 // it at 0.245 a side) with pin2 — the tap — east; ref-des east, riding the IO26/IO27 gap.
 const R9El = <Res name="R9" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-32.5} y={-26.45} rot={0} side="E" />
 const R9f = frame(R9El)
-const J4El = <Jst name="J4" x={-36.25} y={-30.3} count={6} labels={["3V3", "GND", "V5", "IO25", "IO26", "IO27"]} label="SENSORS" rot={180} />
+const J4El = <Jst name="J4" x={-35.0} y={-30.3} count={7} labels={["3V3", "GND", "V5", "IO25", "IO26", "IO27", "IO23"]} label="SENSORS" rot={180} />
 const J4f = frame("J4", J4El.props.x, J4El.props.y, 0, Object.fromEntries(jstPins(J4El.props).pins))
 const J5El = <Jst name="J5" x={-41.95} y={31.0} count={4} labels={["GND", "V5", "IO2", "IO19"]} label="RELAYS" rot={0} />
 const J5f = frame("J5", J5El.props.x, J5El.props.y, 0, Object.fromEntries(jstPins(J5El.props).pins))
@@ -173,7 +173,7 @@ const R10f = frame(R10El), R11f = frame(R11El), R12f = frame(R12El)
 const U7El = <Cos13487 name="U7" x={-19.5} y={-19.65} rot={180} />
 const R6El = <Res name="R6" resistance="120" footprint="0603" jlcpcb="C22787" x={-19.5} y={-26.1} rot={0} side="N" />
 const D1El = <Sm712 name="D1" x={-23.1} y={-25.6} rot={90} />
-const J9El = <Jst name="J9" x={-20.25} y={-30.3} count={4} labels={["B", "A", "GND", "V12"]} label="DISPLAY" rot={180} />
+const J9El = <Jst name="J9" x={-17.75} y={-30.3} count={4} labels={["B", "A", "GND", "V12"]} label="DISPLAY" rot={180} />
 const U7f = frame(U7El), R6f = frame(R6El), D1f = frame(D1El)
 const J9f = frame("J9", J9El.props.x, J9El.props.y, 0, Object.fromEntries(jstPins(J9El.props).pins))
 // Faucet UART connector, framed for the IO33/IO35 routing below.
@@ -221,7 +221,7 @@ const U4f = frame(U4El), U5f = frame(U5El)
 const J1El = <Jst name="J1" x={11} y={16.48} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" rot={270} />
 const J2El = <Jst name="J2" x={11} y={-5.77} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" rot={270} />
 const J6El = <Jst name="J6" x={-27.1} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" rot={0} />
-const J7El = <Jst name="J7" x={-3.0} y={-30.3} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" rot={180} />
+const J7El = <Jst name="J7" x={-0.5} y={-30.3} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" rot={180} />
 const J1f = frame("J1", J1El.props.x, J1El.props.y, 0, Object.fromEntries(jstPins(J1El.props).pins))
 const J2f = frame("J2", J2El.props.x, J2El.props.y, 0, Object.fromEntries(jstPins(J2El.props).pins))
 const J6f = frame("J6", J6El.props.x, J6El.props.y, 0, Object.fromEntries(jstPins(J6El.props).pins))
@@ -740,11 +740,12 @@ export default () => (
     )} />
     <trace from=".J3 > .GND" to="net.GND" />
 
-    {/* SENSORS: flow (IO25) / 1-wire temps (IO26) / backflow drip-pan moisture
-        (IO27) — three adjacent S-edge GPIOs. The 1-wire bus gets a proper 4.7k external
-        pull-up to 3V3 on-board (R9 above), not the ESP's weak internal one; flow uses the
-        internal pull-up (open-collector). 3V3 powers the DS18B20 probes + the moisture
-        module; V5 the flow sensor. */}
+    {/* SENSORS: flow (IO25) / 1-wire temps (IO26) / backflow drip-pan moisture signal
+        (IO27) — three adjacent S-edge GPIOs — plus the moisture module's switched VCC on
+        IO23 (pin 7): GPIO-sourced so the electrodes sit unpowered between samples. The
+        1-wire bus gets a proper 4.7k external pull-up to 3V3 on-board (R9 above), not the
+        ESP's weak internal one; flow uses the internal pull-up (open-collector). 3V3 powers
+        the DS18B20 probes; V5 the flow sensor. J4 and J7 share the 7P housing. */}
     {/* SENSORS IO25/26/27 — owned: a nested 3-lane top comb from U1's south row to J4. Stubs exit
         each pad SOUTH; lanes stack IO27/IO26/IO25 top-to-bottom (0.6 pitch, above the buzzer pads)
         so no stub crosses a foreign lane, and the W→E pin order lands J4's W→E order uncrossed.
@@ -775,6 +776,20 @@ export default () => (
         "J4.IO27",
     )} />
     <trace from=".J4 > .GND" to="net.GND" />
+    {/* IO23 — the switched moisture VCC's haul to J4 pin 7. Every nearer north-row escape is
+        fenced (the pump-comb rows and the boot wall own the bottom and top bands east of it),
+        so the line rides the far-west flank: pad-via to the BOTTOM, north over the rim band,
+        west past the corner GND pad, down the antenna-box column (the same flank Q2's EN
+        reach rides on top), east along the lane between J11/J3's ring bottoms and the pour
+        margin, ending AT the new barrel (the barrel conducts every layer — no closing via). */}
+    <trace from="U1.IO23" to="J4.IO23" pcbPathRelativeTo="board" pcbPath={routeInner("bottom",
+        "U1.IO23",
+        { row: 10.6 },              // north of the rim band, south of J14's shell copper
+        { col: -67.3 },             // the far-west flank (Q2.C's column, bottom side)
+        { row: -29.0 },             // the south lane: 0.4+ clear of every ring top
+        J4f.col("IO23"),
+        "J4.IO23",
+    )} />
 
     {/* PUMP DRIVERS — the two DRV8870 H-bridges (U11 pump A, U12 pump B). Single-direction drive:
         IN2 -> GND plane (auto-stitched, no route), only IN1 carries PWM from a WROOM north pin.
@@ -903,11 +918,13 @@ export default () => (
 
     {/* REEDS B (reservoir B + carbonator low/high) -> 0x21 GPB inputs; J7 sits below U3's
         south row and six staircases fan down (the doubled barrel pitch walks the targets
-        east; RB1 alone steps 0.5 west). The FURTHEST pair takes the lane closest to the
-        pad row (J7y+4.7, 0.24 clear of the row's 2.3-long pads) and lanes step toward the
-        barrels as reach shortens (pitch 0.7), so every barrel drop spans only lanes below
-        its own and no lane crosses a foreign drop. */}
-    <trace from="U3.GPB0" to="J7.RB1" pcbPathRelativeTo="board" pcbPath={route("U3.GPB0", J7f.row("RB1", 1.24), J7f.col("RB1"), "J7.RB1")} />
+        east). The FURTHEST pair takes the lane closest to the pad row (J7y+4.7, 0.24 clear
+        of the row's 2.3-long pads) and lanes step toward the barrels as reach shortens
+        (pitch 0.7), so every barrel drop spans only lanes below its own and no lane crosses
+        a foreign drop. GPB0's descent jogs east to -14.6 — off its own pad column, which
+        J9.B's escape channel now occupies — threading between that channel and GPB1's
+        column, and passing under RB2's lane start. */}
+    <trace from="U3.GPB0" to="J7.RB1" pcbPathRelativeTo="board" pcbPath={route("U3.GPB0", U3f.below("GPB0", 0.35), { col: -14.6 }, J7f.row("RB1", 1.24), J7f.col("RB1"), "J7.RB1")} />
     <trace from="U3.GPB1" to="J7.RB2" pcbPathRelativeTo="board" pcbPath={route("U3.GPB1", J7f.row("RB2", 1.73), J7f.col("RB2"), "J7.RB2")} />
     <trace from="U3.GPB2" to="J7.RB3" pcbPathRelativeTo="board" pcbPath={route("U3.GPB2", J7f.row("RB3", 2.22), J7f.col("RB3"), "J7.RB3")} />
     <trace from="U3.GPB3" to="J7.RB4" pcbPathRelativeTo="board" pcbPath={route("U3.GPB3", J7f.row("RB4", 2.71), J7f.col("RB4"), "J7.RB4")} />
