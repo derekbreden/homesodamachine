@@ -207,7 +207,7 @@ const R13f = frame(R13El), R14f = frame(R14El)
 const U2El = <Mcp23017 name="U2" x={-31.4} y={20.25} addr="0x20" rot={180} />
 const U3El = <Mcp23017 name="U3" x={-7.2} y={-20.15} addr="0x21" rot={0} />
 const U2f = frame(U2El), U3f = frame(U3El)
-const J8El = <Jst name="J8" x={1.35} y={31} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" rot={0} />
+const J8El = <Jst name="J8" x={1.3} y={31} count={4} labels={["GND", "3V3", "SDA", "SCL"]} label="I2C" rot={0} />
 const J8f = frame("J8", J8El.props.x, J8El.props.y, 0, Object.fromEntries(jstPins(J8El.props).pins))
 const R19El = <Res name="R19" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-20.7} y={26.67} rot={270} side="W" />
 const R20El = <Res name="R20" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-4.8} y={26.2} rot={180} side="N" />
@@ -218,8 +218,8 @@ const R19f = frame(R19El), R20f = frame(R20El)
 const U4El = <Uln2803 name="U4" x={-0.75} y={9.9} rot={270} />
 const U5El = <Uln2803 name="U5" x={-0.5} y={-7.35} rot={270} />
 const U4f = frame(U4El), U5f = frame(U5El)
-const J1El = <Jst name="J1" x={11} y={13.75} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" rot={270} />
-const J2El = <Jst name="J2" x={11} y={-8.6} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" rot={270} />
+const J1El = <Jst name="J1" x={11} y={16.48} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" rot={270} />
+const J2El = <Jst name="J2" x={11} y={-5.77} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" rot={270} />
 const J6El = <Jst name="J6" x={-27.1} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" rot={0} />
 const J7El = <Jst name="J7" x={-3.0} y={-30.3} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" rot={180} />
 const J1f = frame("J1", J1El.props.x, J1El.props.y, 0, Object.fromEntries(jstPins(J1El.props).pins))
@@ -388,11 +388,11 @@ export default () => (
         the bottom plane (the pour antipads the GND barrel clear of the island). Labels are hand-drawn,
         all bottom-to-top (the east-edge convention): the pin labels (0.8mm) sit OUTBOARD east of the
         throats where the wires land, "12V" (1.4mm) + the ref-des in the strip west of the body. */}
-    <KF301_5_0_2P name="J10" pinLabels={{ pin1: ["GND"], pin2: ["V12"] }} pcbRotation={90} {...at(12.35, -24.4)} />
-    <silkscreentext text="GND" fontSize="0.8mm" anchorAlignment="center" pcbX={16.45} pcbY={-26.9} pcbRotation={90} />
-    <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={16.45} pcbY={-21.9} pcbRotation={90} />
-    <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={7.3} pcbY={-21.5} pcbRotation={90} />
-    <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={7.3} pcbY={-25.2} pcbRotation={90} />
+    <KF301_5_0_2P name="J10" pinLabels={{ pin1: ["GND"], pin2: ["V12"] }} pcbRotation={90} {...at(12.35, -21.5)} />
+    <silkscreentext text="GND" fontSize="0.8mm" anchorAlignment="center" pcbX={16.45} pcbY={-24.0} pcbRotation={90} />
+    <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={16.45} pcbY={-19.0} pcbRotation={90} />
+    <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={7.3} pcbY={-18.6} pcbRotation={90} />
+    <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={7.3} pcbY={-22.3} pcbRotation={90} />
     {J11El}
     {/* GAS dividers: step the MQ-6's 0-5 V AOUT/DOUT down to ~3.0 V on-board, so a
         plain sensor cable is safe (IO36/IO39 are NOT 5 V tolerant). Each output is
@@ -692,26 +692,28 @@ export default () => (
 
     {/* manifold JSTs: ULN outputs -> valve looms. J1's pin order matches U4's OUT order,
         but the barrel pitch (2.5) is double the pad pitch (1.27), so the pairs diverge:
-        OUT1-6 rise to their barrels, OUT7-8 drop. Each 0.3mm line exits its pad east, turns
-        in its own lane column, and closes east into the barrel. Riser lanes step east as the
-        rows descend (J1x-4.4 .. J1x-1.4, pitch 0.6) so every riser passes only landing rows
-        above its own. The two fallers turn west of the risers — their short columns are
-        y-disjoint below the fan (OUT8 reuses the -4.4 lane column under OUT1's riser). */}
+        OUT1-6 rise to their barrels; OUT7-8's barrels sit barely above their pads. Each
+        0.3mm line exits its pad east, turns in its own lane column, and closes east into
+        the barrel. Riser lanes step east as the rows descend (J1x-4.4 .. J1x-1.4, pitch
+        0.6) so every riser passes only landing rows above its own. OUT8 hooks up west of
+        the riser wall; OUT7 runs its pad row east PAST the wall and hooks up at J1x-0.7,
+        just west of its own ring — its pad row crosses no riser (all start north of it). */}
     <trace from="U4.OUT1" to="J1.OUT1" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT1", J1f.col("OUT1", -4.4), J1f.row("OUT1"), "J1.OUT1")} />
     <trace from="U4.OUT2" to="J1.OUT2" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT2", J1f.col("OUT2", -3.8), J1f.row("OUT2"), "J1.OUT2")} />
     <trace from="U4.OUT3" to="J1.OUT3" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT3", J1f.col("OUT3", -3.2), J1f.row("OUT3"), "J1.OUT3")} />
     <trace from="U4.OUT4" to="J1.OUT4" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT4", J1f.col("OUT4", -2.6), J1f.row("OUT4"), "J1.OUT4")} />
     <trace from="U4.OUT5" to="J1.OUT5" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT5", J1f.col("OUT5", -2.0), J1f.row("OUT5"), "J1.OUT5")} />
     <trace from="U4.OUT6" to="J1.OUT6" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT6", J1f.col("OUT6", -1.4), J1f.row("OUT6"), "J1.OUT6")} />
-    <trace from="U4.OUT7" to="J1.OUT7" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT7", J1f.col("OUT7", -5.0), J1f.row("OUT7"), "J1.OUT7")} />
+    <trace from="U4.OUT7" to="J1.OUT7" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT7", J1f.col("OUT7", -0.7), J1f.row("OUT7"), "J1.OUT7")} />
     <trace from="U4.OUT8" to="J1.OUT8" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U4.OUT8", J1f.col("OUT8", -5.6), J1f.row("OUT8"), "J1.OUT8")} />
     <trace from=".J1 > .COM" to="net.V12" />
     {/* MANIFOLD B: 4 valves on U5 ch1-4, condenser FAN on U5 ch5, COM = 12V flyback.
-        Same nested-Z pattern as J1: OUT1 rises, OUT2..FAN drop away with the doubled
+        Same nested-Z pattern as J1: OUT1-3 rise, OUT4/FAN drop away with the doubled
         barrel pitch — deeper fallers turn earlier (west, pitch 0.8), so each landing row
-        passes south of every foreign column. */}
+        passes south of every foreign column. OUT2's barrel sits above OUT1's pad row, so
+        it hooks up east of OUT1's riser (J2x-1.2), clear of the whole lane fan. */}
     <trace from="U5.OUT1" to="J2.OUT1" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U5.OUT1", J2f.col("OUT1", -2.0), J2f.row("OUT1"), "J2.OUT1")} />
-    <trace from="U5.OUT2" to="J2.OUT2" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U5.OUT2", J2f.col("OUT2", -2.8), J2f.row("OUT2"), "J2.OUT2")} />
+    <trace from="U5.OUT2" to="J2.OUT2" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U5.OUT2", J2f.col("OUT2", -1.2), J2f.row("OUT2"), "J2.OUT2")} />
     <trace from="U5.OUT3" to="J2.OUT3" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U5.OUT3", J2f.col("OUT3", -3.6), J2f.row("OUT3"), "J2.OUT3")} />
     <trace from="U5.OUT4" to="J2.OUT4" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U5.OUT4", J2f.col("OUT4", -4.4), J2f.row("OUT4"), "J2.OUT4")} />
     <trace from="U5.OUT5" to="J2.FAN" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U5.OUT5", J2f.col("FAN", -5.2), J2f.row("FAN"), "J2.FAN")} />
