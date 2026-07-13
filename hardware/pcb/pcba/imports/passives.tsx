@@ -42,6 +42,15 @@ const RES_0402 = () => (
     <courtyardoutline outline={[{"x":-1.1897999999998774,"y":0.7580000000000382},{"x":1.189799999999991,"y":0.7580000000000382},{"x":1.189799999999991,"y":-0.7326000000000477},{"x":-1.1897999999998774,"y":-0.7326000000000477},{"x":-1.1897999999998774,"y":0.7580000000000382}]} />
   </footprint>
 )
+// 0402 capacitor land (Samsung CL05 series) — the interlock's VCC decoupler (C23) fits an 0402 in
+// the shallow band N of U15 where a 0603 would foul U13's south row. Same land family as RES_0402.
+const CAP_0402 = () => (
+  <footprint>
+    <smtpad portHints={["pin1"]} pcbX="-0.48mm" pcbY="0mm" width="0.56mm" height="0.6mm" shape="rect" />
+    <smtpad portHints={["pin2"]} pcbX="0.48mm" pcbY="0mm" width="0.56mm" height="0.6mm" shape="rect" />
+    <courtyardoutline outline={[{"x":-1.02,"y":0.78},{"x":1.02,"y":0.78},{"x":1.02,"y":-0.78},{"x":-1.02,"y":-0.78},{"x":-1.02,"y":0.78}]} />
+  </footprint>
+)
 
 // per-part 3D model (its own JLCPCB/EasyEDA asset)
 const CAD: Record<string, any> = {
@@ -146,7 +155,9 @@ const LAND: Record<string, () => any> = {
   C15849: CAP_0603,
   C25900: RES_0402,
   C11702: RES_0402,
-  C60491: RES_0402,   // 100k (YAGEO RC0402FR-07100KL) — R23 gate pulldown on the reverse-polarity FET
+  C60491: RES_0402,   // 100k (YAGEO RC0402FR-07100KL) — R23 gate pulldown + R24 interlock B-node pulldown
+  C17168: RES_0402,   // 0Ω (UNI-ROYAL 0402WGF0000) — R25 DOUT-polarity invert-select link
+  C1525: CAP_0402,    // 0.1µF (Samsung CL05B104KO5NNNC) — C23 interlock VCC decoupler
 }
 
 export const passiveImport = (jlcpcb: string): { footprint: () => any; cadModel: any } => ({
