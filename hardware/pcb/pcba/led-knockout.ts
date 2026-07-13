@@ -40,7 +40,6 @@ const EAST = -34.4        // rightmost point of the round cap — kept close to 
 const HEIGHT = 2.2        // badge height; row pitch is 2.5, so ~0.3 mm of board shows between badges
 const PAD_CLEAR = 0.15    // silk pulled back this far from every LED pad edge
 const STROKE = 0.15       // knockout letter stroke width
-const STROKE_APERTURE = 70 // a fresh D-code for the knockout stroke (added in the fragment)
 
 const CAP = 0.7 // circuit-json-to-gerber CAP_HEIGHT_SCALE
 
@@ -89,6 +88,16 @@ function centeredStrokes(HERSHEY: ReturnType<typeof loadHershey>, text: string, 
 const u = (v: number) => Math.round(v * 1e6)
 const at = (x: number, y: number) => `X${u(x)}Y${u(y)}`
 
+// The knockout stroke needs one aperture of its own. Pick a D-code above every %ADD<n> already in
+// the silk layer we splice into, so it can never duplicate a base aperture — a repeated %ADD number
+// is a Gerber spec violation with viewer-dependent behaviour. Aperture D-codes start at 10 (0–9 are
+// reserved for the standard commands), so seeding max at 9 keeps the floor right on an empty scan.
+const freshDCode = (layer: string) => {
+  let max = 9
+  for (const m of layer.matchAll(/%ADD(\d+)/g)) max = Math.max(max, Number(m[1]))
+  return max + 1
+}
+
 // LED pad centres/sizes, by component name, from circuit-json.
 function ledPads(circuit: any[]): Record<string, { x: number; y: number; w: number; h: number }[]> {
   const compName: Record<string, string> = {}, pcbToSrc: Record<string, string> = {}
@@ -113,11 +122,16 @@ function ledPads(circuit: any[]): Record<string, { x: number; y: number; w: numb
   return out
 }
 
-/** RS-274X fragment for the five LED knockout badges, to splice into F_SilkScreen before M02*. */
-export function ledKnockoutGerber(circuit: any[]): string {
+/**
+ * RS-274X fragment for the five LED knockout badges, to splice into F_SilkScreen before M02*.
+ * `baseSilk` is the layer string this fragment splices into: its highest %ADD<n> sets the knockout
+ * stroke's aperture (max+1), so the injected D-code is always fresh and never duplicates a base one.
+ */
+export function ledKnockoutGerber(circuit: any[], baseSilk: string): string {
   const HERSHEY = loadHershey()
   const pads = ledPads(circuit)
   const r = HEIGHT / 2, arcX = EAST - r // straight part runs to arcX, then a semicircle of radius r
+  const strokeAperture = freshDCode(baseSilk)
   const L: string[] = []
 
   // 1) the dark D fills (default LPD)
@@ -145,7 +159,7 @@ export function ledKnockoutGerber(circuit: any[]): string {
   if (!rows.length) return ""
 
   // 2) knock the letters + LED-pad antipads out of the fills
-  L.push("%LPC*%", `%ADD${STROKE_APERTURE}C,${STROKE.toFixed(6)}*%`, `D${STROKE_APERTURE}*`)
+  L.push("%LPC*%", `%ADD${strokeAperture}C,${STROKE.toFixed(6)}*%`, `D${strokeAperture}*`)
   const padEast = Math.max(...rows[0].pads.map((q) => q.x + q.w / 2)) + PAD_CLEAR
   // Centre the label across the whole span east of the LED, INCLUDING the round cap: on the badge's
   // vertical centreline the cap reaches all the way to EAST, so that width is text space, not
