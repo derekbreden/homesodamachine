@@ -55,7 +55,7 @@
  * (U10, below the coin cell); the web viewer's board chip reports it live
  * (clearance.ts -> picks.json).
  */
-import { at, Cap, Res, Jst, jstPins, ulnOUT, Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870, Tact } from "./parts"
+import { at, Cap, Res, Jst, jstPins, ulnOUT, Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870, Tact, Diode } from "./parts"
 import { KF301_5_0_2P } from "./imports/KF301_5_0_2P"
 import { frame, route, routeBottom, routeInner, channel } from "./routing"
 import { boardVersionParts } from "./board-version"
@@ -120,7 +120,13 @@ const SW2f = frame(SW2El)
 const R5El = <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-45.228} y={-4.445} rot={180} side="N" />
 const Q1El = <Npn name="Q1" x={-41.45} y={-5.395} rot={180} />
 const U8El = <Buzzer name="U8" x={-37.9} y={-10.72} />
-const R5f = frame(R5El), Q1f = frame(Q1El), U8f = frame(U8El)
+// D7 — buzzer-coil flyback clamp (1N4148W SOD-123). Stands vertical (rot 270: pin1 CATHODE north,
+// pin2 anode south) in the strip S of the buzzer, between the LED column (west) and BT1/U10 (east).
+// Cathode commons to the 5V plane at its stitch via (the same node as U8._POS); the anode → U8._NEG
+// (Q1.C) tap must cross the IO26 top trace (y-11.1, which runs between the two coil pads), so it
+// hops to the bottom — the one clear layer in that column — and climbs a via back into _NEG.
+const D7El = <Diode name="D7" x={-36.0} y={-17.0} rot={270} ly={-3.0} />
+const R5f = frame(R5El), Q1f = frame(Q1El), U8f = frame(U8El), D7f = frame(D7El)
 const Q2f = frame(Q2El), Q3f = frame(Q3El), R17f = frame(R17El), R18f = frame(R18El)
 const SW1f = frame(SW1El)
 
@@ -1002,6 +1008,19 @@ export default () => (
     <trace from=".Q1 > .E" to="net.GND" />
     <trace from="R5.pin1" to="Q1.B" pcbPathRelativeTo="board" pcbPath={route("R5.pin1", "Q1.B")} />
     <trace from="R5.pin2" to="U1.IO13" pcbPathRelativeTo="board" pcbPath={route("R5.pin2", "U1.IO13")} />
+    {/* D7 flyback clamp across the coil. pin1 (cathode) commons to the 5V plane at its own stitch
+        via — the same node as U8._POS (which stitches there too), so no top tap is needed and the
+        freewheel loop closes through the plane. pin2 (anode) → U8._NEG (Q1.C): _NEG sits N of the
+        IO26 top trace (y-11.1, which runs between the two coil pads), so this tap drops onto the
+        bottom at pin2, runs the clear column (x-35.1, E of D7's stitch via and the _POS via) N
+        under IO26, and climbs a via into _NEG. */}
+    {D7El}
+    <trace from=".D7 > .pin1" to="net.V5" />
+    <trace from="D7.pin2" to="U8._NEG" pcbPathRelativeTo="board" pcbPath={routeBottom(
+        "D7.pin2",
+        { col: -35.1 },             // E of D7's stitch via + the _POS via, under the IO26 top trace
+        "U8._NEG",
+    )} />
 
     {/* GAS: ACEIRMC MQ-6 combustible / refrigerant-leak sensor, mounted low on the
         rear cabinet floor (catches dense R-600a pooling). 5 V heater supply. BOTH

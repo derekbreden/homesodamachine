@@ -31,6 +31,7 @@ import { USBLC6_2SC6 } from "./imports/USBLC6_2SC6"
 import { TYPE_C_31_M_12 } from "./imports/TYPE_C_31_M_12"
 import { DRV8870DDAR } from "./imports/DRV8870DDAR"
 import { TS_1187A_B_A_B } from "./imports/TS_1187A_B_A_B"
+import { A_1N4148W } from "./imports/A_1N4148W"
 
 // pcbX/pcbY for the PCB, with a matching schematic spot so the schematic view
 // doesn't pile every part on the origin.
@@ -453,3 +454,8 @@ export const Ch340 = centred(CH340C)                // U13 — USB-UART bridge (
 export const Usblc6 = centred(USBLC6_2SC6)          // U14 — USB ESD array (SOT-23-6)
 export const UsbC = centred(TYPE_C_31_M_12)         // J14 — USB-C receptacle
 export const Drv8870 = centred(DRV8870DDAR)         // U11/U12 — pump H-bridges (SOP-8)
+
+// 1N4148W switching diode, SOD-123 (C81598). The import keeps its cathode-band silk (pin1 =
+// cathode, the banded end, per JLCPCB's library) so polarity survives assembly; only its {NAME}
+// silk is stripped for the upright wrapper ref-des. lx/ly push that ref-des off the tiny body.
+export const Diode = centred(A_1N4148W)             // D7 — buzzer-coil flyback clamp
