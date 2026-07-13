@@ -234,7 +234,10 @@ const U4f = frame(U4El), U5f = frame(U5El)
 const J1El = <Jst name="J1" x={11} y={16.48} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" rot={270} />
 const J2El = <Jst name="J2" x={11} y={-5.77} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" rot={270} />
 const J6El = <Jst name="J6" x={-27.1} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" rot={0} />
-const J7El = <Jst name="J7" x={-0.5} y={-30.3} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" rot={180} />
+// J7 is a JST-EH (not XH) wafer: REEDS B carries only dry-reed signals, and J4 SENSORS is the same 7P
+// grid — keying J7 to a non-intermating EH housing makes a loom swap (which would drive 5V/3V3 into MCP
+// inputs) physically impossible. Same holes/pitch as XH, so every reed net stays on its barrel.
+const J7El = <Jst name="J7" x={-0.5} y={-30.3} count={7} labels={["RB1", "RB2", "RB3", "RB4", "CLO", "CHI", "GND"]} label="REEDS B" rot={180} series="EH" />
 const J1f = frame("J1", J1El.props.x, J1El.props.y, 0, Object.fromEntries(jstPins(J1El.props).pins))
 const J2f = frame("J2", J2El.props.x, J2El.props.y, 0, Object.fromEntries(jstPins(J2El.props).pins))
 const J6f = frame("J6", J6El.props.x, J6El.props.y, 0, Object.fromEntries(jstPins(J6El.props).pins))
