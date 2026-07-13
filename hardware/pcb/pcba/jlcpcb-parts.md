@@ -71,8 +71,10 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | R24 — interlock B-node pulldown | 100 kΩ ±1% | 0402 | C60491 | Basic | (see R23) | $0.0005 |
 | R25 — DOUT invert-select link | 0 Ω jumper | 0402 | C17168 | Basic | 18,421,967 (2026-07-13) | $0.0003 |
 | C23 — U15 VCC decouple | 0.1 µF 50V X7R | 0402 | C1525 | Basic | 54,323,629 (2026-07-13) | $0.0018 |
+| R26, R27 — faucet-UART series backstop (IO33/IO35) | 220 Ω ±1% | 0402 | C25091 | Basic | 100,000,000+ (2026-07-13) | $0.0003 |
 
-Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C49678 = YAGEO
+Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C11702 / C25900 / C25091
+= UNI-ROYAL 0402WGF series (the 0402 R21/R22/R26/R27 family); C49678 = YAGEO
 CC0805KRX7R9BB104; C845537 = UMW (Youtai) ULN2803A; C47023 = Microchip MCP23017-E/SO;
 C94598 = Jiangsu Huaneng MLT-5020; C2146 = JSCJ S8050 J3Y; C474881 = Cixi Kefa Elec
 KF301-5.0-2P screw terminal; XH2.54 connectors = XUNPU WAFER-XH2.54-{n}PZZ, one vendor
@@ -174,6 +176,18 @@ seats E of the WROOM on the old IO19→J5 corridor, so A/Y are the two halves of
 haul; only B is a new run, around the module's SE and up the east flank (a 0.15 mm U6 nudge opened
 the flank for it — see the pcba.tsx GAS block). No relay-side firmware change: the ESP still drives
 IO19, the gate just vetoes it on gas.
+
+**R26/R27 — faucet-UART series backstop (`C25091`, 220 Ω 0402, Basic).** One resistor in series in
+each TTL line to the faucet flavor LCD (R26 in IO33/TX, R27 in IO35/RX), at the driver end: series
+damping on the ~1 m umbilical's edges + a current-limit into the ESP32 pin under an ESD strike. They
+are the **driver-end backstop only** — the primary faucet ESD protection is a pair of low-capacitance
+ESD TVS at the faucet-display connector end of the umbilical (at the user-touch source), specified in
+`assembly/cable-assemblies.md` (SIG-6) and `assembly/faucet-and-umbilical.md`, because that end is a
+stock Waveshare module and this board's J3 barrel row has no room for a clamp. Same UNI-ROYAL 0402WGF
+family as R21/R22 (`C11702`/`C25900`); deep Basic stock. Placement is tight against the WROOM south
+cap column — R27 rides IO35's own drop in the west sliver (the IO34 RS485 bottom haul is nudged one
+drop-column W to open it), R26 the open top pocket E of the caps / N of U9; see the pcba.tsx FAUCET
+block.
 
 **U4/U5 are `C845537`** (UMW ULN2803A, SOP-18-300mil wide body). No Basic ULN2803 SOIC
 exists in the library — every ULN2803 part is Extended — so the feeder fee is unavoidable;

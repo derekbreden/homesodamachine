@@ -224,6 +224,19 @@ const J9f = frame("J9", J9El.props.x, J9El.props.y, 0, Object.fromEntries(jstPin
 // Faucet UART connector, framed for the IO33/IO35 routing below.
 const J3El = <Jst name="J3" x={-52.25} y={-30.3} count={4} labels={["GND", "V5", "IO35", "IO33"]} label="FAUCET" rot={180} />
 const J3f = frame("J3", J3El.props.x, J3El.props.y, 0, Object.fromEntries(jstPins(J3El.props).pins))
+// Faucet-UART series resistors (R26 in IO33, R27 in IO35) — the driver-end backstop for the ~1 m
+// umbilical to the faucet display: series damping on the TTL edges + a current-limit into the
+// board's own pin under an ESD strike. Each ~220Ω 0402 splits its line like R21 splits IO25 — the
+// U1-side trace ends at pin1, the far pad carries on to J3. Both sit OFF J3 (the barrel row has no
+// room) in the only two homes the dense cap column leaves: R26 (rot 0, pin1 W) in the open top
+// pocket E of the caps / N of U9 (x biased W of the WROOM pin-column bottom haul at −51.05), reached
+// by jogging IO33 E below C11; R27 (rot 270, pin1 N) in the west sliver on IO35's own drop, between
+// the C10 courtyard and IO34's RS485 bottom haul — that haul is nudged one drop-column W (see the
+// IO34→U7.RO route) to open the sliver. The PRIMARY faucet ESD clamps live at the display connector
+// end of the umbilical, at the user-touch source (see cable-assemblies.md); these are the backstop.
+const R26El = <Res name="R26" resistance="220" footprint="0402" jlcpcb="C25091" x={-52.5} y={-18.7} rot={0} side="S" />    // IO33: pin1 (W) ← U1, pin2 (E) → J3 (W end of the bay: clears the −51.05 bottom haul E + C11 courtyard W; version stamp's date/rev shifted E to clear its ref-des)
+const R27El = <Res name="R27" resistance="220" footprint="0402" jlcpcb="C25091" x={-59.65} y={-13.5} rot={270} side="E" /> // IO35: pin1 (N) ← U1, pin2 (S) → J3
+const R26f = frame(R26El), R27f = frame(R27El)
 // Pumps connector + RTC block + status LEDs, framed for the last hand routes below.
 const J13El = <Jst name="J13" x={-12.25} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" rot={0} />
 const J13f = frame("J13", J13El.props.x, J13El.props.y, 0, Object.fromEntries(jstPins(J13El.props).pins))
@@ -725,6 +738,8 @@ export default () => (
         flank the channel at 0.65. */}
     <trace from="U1.IO34" to="U7.RO" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO34",
+        { row: -11 },               // clear the pad row, then step the drop column W
+        { col: -60.35 },            // drop nudged W of IO35's column — opens the sliver for R27 (IO35 series-R)
         { row: -27.9 },             // south detour under the relocated U9 cluster
         { col: -45.7 },             // rise east of the cluster, west of the LED resistors
         { row: -24.4 },             // south lane of the pair, over the 5V LED row
@@ -780,23 +795,41 @@ export default () => (
     <trace from="U5.OUT5" to="J2.FAN" thickness="0.3mm" pcbPathRelativeTo="board" pcbPath={route("U5.OUT5", J2f.col("FAN", -5.2), J2f.row("FAN"), "J2.FAN")} />
     <trace from=".J2 > .COM" to="net.V12" />
 
-    {/* FAUCET UART — IO33 TX (output-capable) / IO35 RX (input-only), both S-edge pins;
-        the connector sits in the bottom row below them. Both run the TOP as a nested pair:
-        IO35's own column is clear all the way down (west of the C10/C11 pads); IO33's column
-        sits inside C10.pin1, so it jogs into the C10/C11 pin1-pin2 channel (DI rides the same
-        channel on the BOTTOM). Both east runs stop west of the sensor comb's IO25 drop. */}
-    <trace from="U1.IO35" to="J3.IO35" pcbPathRelativeTo="board" pcbPath={route(
+    {/* FAUCET UART — IO33 TX (output-capable) / IO35 RX (input-only), both S-edge pins, the J3
+        connector in the bottom row below them. Each line carries a ~220Ω series resistor at the
+        driver end (R26 in IO33, R27 in IO35 — see the FAUCET block up top) as the display-cable
+        ESD/damping backstop, so each line is TWO hops: U1 → series-R, then series-R → J3 barrel.
+        IO35 keeps its own clear west column (west of the C10/C11 pads); IO33 threads the C10/C11
+        pin1-pin2 channel on the TOP (IO32 rides that same channel on the BOTTOM). */}
+    {/* IO35 splits across R27 (220Ω series): U1.IO35 drops below its pad row, jogs W into the sliver
+        (opened by the IO34-haul nudge) onto R27.pin1 (N); pin2 (S) carries the tail down its own
+        clear column, then E along the east-run S of U9 into the barrel. */}
+    <trace from="U1.IO35" to="R27.pin1" pcbPathRelativeTo="board" pcbPath={route(
         "U1.IO35",
-        J3f.row("IO35", 2),         // south lane of the pair, over the barrel row
-        J3f.col("IO35"),
+        { row: -11 },               // clear the U1 pad row before the jog west
+        R27f.row("pin1"),           // W onto R27's column (rot 270 → its board col, x -59.65)
+        "R27.pin1",
+    )} />
+    <trace from="R27.pin2" to="J3.IO35" pcbPathRelativeTo="board" pcbPath={route(
+        "R27.pin2",
+        J3f.row("IO35", 2),         // down the sliver column to the east-run, S of U9
+        J3f.col("IO35"),            // E into the barrel column
         "J3.IO35",
     )} />
-    <trace from="U1.IO33" to="J3.IO33" pcbPathRelativeTo="board" pcbPath={route(
+    {/* IO33 splits across R26 (220Ω series): U1.IO33 down the C10/C11 channel, then E below C11 into
+        the open pocket at R26.pin1 (W); pin2 (E) drops under the U9 body to the low band, then E
+        into the barrel (approached from the W, S of the U9 pin column). */}
+    <trace from="U1.IO33" to="R26.pin1" pcbPathRelativeTo="board" pcbPath={route(
         "U1.IO33",
         { row: -12 },               // clear of the pad row before the jog west
         { col: -56.5 },             // the C10/C11 pin1-pin2 channel (top)
-        J3f.row("IO33", 2.8),       // north lane of the pair, under C14
-        J3f.col("IO33"),
+        R26f.row("pin1"),           // drop to R26's row (y -18.7), then E straight into pin1
+        "R26.pin1",
+    )} />
+    <trace from="R26.pin2" to="J3.IO33" pcbPathRelativeTo="board" pcbPath={route(
+        "R26.pin2",
+        { row: -27.5 },             // S under the U9 body (between the tab and the pin column) to the low band
+        J3f.col("IO33"),            // E along the low band into the barrel column
         "J3.IO33",
     )} />
     <trace from=".J3 > .GND" to="net.GND" />
@@ -1225,6 +1258,8 @@ export default () => (
     {R9El}
     {R21El}
     {R22El}
+    {R26El}
+    {R27El}
     <trace from=".R9 > .pin1" to="net.V3V3" />
     {/* 1-wire pull-up tap: R9.pin2 drops onto IO26 at the SENSORS connector, sharing the pad with
         the IO26 run to U1 — the external 4.7k sits right where the DS18B20 probe loom leaves the
@@ -1617,8 +1652,8 @@ export default () => (
     <silkscreentext text="HOME" fontSize="1.4mm" anchorAlignment="center" pcbX={-49.2} pcbY={-12.75} />
     <silkscreentext text="SODA" fontSize="1.4mm" anchorAlignment="center" pcbX={-49.2} pcbY={-14.55} />
     <silkscreentext text="MACHINE" fontSize="1.4mm" anchorAlignment="center" pcbX={-50.2} pcbY={-16.35} />
-    <silkscreentext text={ID.date} fontSize="0.8mm" anchorAlignment="center" pcbX={-50.2} pcbY={-18.05} />
-    <silkscreentext text={ID.rev} fontSize="0.8mm" anchorAlignment="center" pcbX={-50.2} pcbY={-19.15} />
+    <silkscreentext text={ID.date} fontSize="0.8mm" anchorAlignment="center" pcbX={-49.2} pcbY={-18.05} />
+    <silkscreentext text={ID.rev} fontSize="0.8mm" anchorAlignment="center" pcbX={-49.2} pcbY={-19.15} />
 
     {/* Power pours — FOUR layers, top->bottom: top (signals + the V12 island), 3V3 (inner1),
         5V (inner2), GND (bottom). 3V3/5V/GND are full-flood planes; each pin commons to its
