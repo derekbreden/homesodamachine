@@ -227,3 +227,16 @@ is the on-board USB-C block — J14 + U13 (CH340C), auto-reset onto EN/IO0 (see
 endpoints: a net that needs the bottom layer lands its run up onto the top pad through a
 via-in-pad, capped like the plane stitches; every signal on the board is a hand-routed
 `pcbPath` (see [`hand-routing.md`](hand-routing.md)).
+
+**Global fiducials (FID1–FID3) are bare-copper fab features, not assembly parts.** Three
+non-collinear 1 mm copper dots with a 2 mm solder-mask opening (tscircuit native `<fiducial
+padDiameter="1mm">`) give the assembler's vision system its registration targets. They carry no
+LCSC/JLCPCB number and no BOM/CPL row (no `source_component` — they never reach the parts count or
+the pin-map cross-table); the fab images them straight off the copper + mask layers, nothing is
+placed. FID1 (15, −28.3) SE and FID2 (16, 27.5) NE sit **inside the V12 top island**: the pour
+antipads ~0.5 mm around each netless dot (verified clean — no sliver, no pour-short), so their
+nearest copper is the V12 pour edge — below JLCPCB's ideal 1 mm fiducial keep-ring but a deliberate
+DFM tradeoff, since the island floods x[−31.75, 16.5] and leaves no clear east-corner laminate, and
+it stays well clear of the board's 0.14 mm copper floor. FID3 (−59.5, −34.8) SW sits on open west
+laminate near MH4. The native fiducial emits a paste aperture on each dot — harmless on a
+no-component target, and it keeps the every-top-SMD-pad-has-paste gate honest (359/359).
