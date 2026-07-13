@@ -63,6 +63,10 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | J7 — 7-pin (REEDS B), **keyed EH** | JST-EH 7P (B7B-EH-A), 2.5 mm | wafer, 2.5 mm | C160254 | Extended | 12,140 (2026-07-13) | $0.0395 |
 | J1 — 9-pin (MANIFOLD A) | XH2.54 9P | wafer, 2.5 mm | C5359637 | Extended | 380 (2026-06-30) | $0.0400 |
 | J10 — 12 V inlet | KF301-5.0-2P screw terminal, 2P 5.0 mm, 17 A / 250 V, 14–22 AWG | THT block, 5.0 mm pitch | C474881 | Extended | 165,152 (2026-07-02) | $0.0995 |
+| Q4 — reverse-polarity pass FET | AO3407 P-ch, −30 V, **±20 V Vgs**, ~60 mΩ | SOT-23 | C181093 | Extended | 176,290 (2026-07-13) | $0.03 |
+| D8 — 12 V inlet surge clamp | SMAJ15A, 400 W uni TVS, 15 V standoff / 24.4 V clamp | SMA (DO-214AC) | C571368 | Extended | 2,440 (2026-07-13) | $0.038 |
+| D9 — Q4 Vgs clamp | BZT52C15 (MDD), 15 V / 0.5 W Zener | SOD-123 | C173427 | Extended | 182,800 (2026-07-13) | $0.016 |
+| R23 — Q4 gate pulldown | 100 kΩ ±1% | 0402 | C60491 | Basic | 3,594,500 (2026-07-13) | $0.0005 |
 
 Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C49678 = YAGEO
 CC0805KRX7R9BB104; C845537 = UMW (Youtai) ULN2803A; C47023 = Microchip MCP23017-E/SO;
@@ -128,11 +132,28 @@ Footprint pulled with `tsci import C474881` (→ `imports/KF301_5_0_2P.tsx`), th
 ref-des was stripped so the label block is hand-drawn, all reading bottom-to-top (the
 east-edge convention): the `GND`/`V12` pin labels (0.8 mm) sit OUTBOARD east of the throats
 where the wires land, `12V` (1.4 mm function label) + the ref-des in the strip west of the
-body. It sits at the south end of the east edge (below MANIFOLD B, over the V12 island),
-placed `pcbRotation={90}` so the wire throats face the east board edge — the loom feeds in
-from outside — with pin1 → GND on the south pad, pin2 → V12 on the north, the polarity
-silked at each screw because reversing 12 V would cook the polarised bulk cap (C3), the
-K7805, and the DRV8870s.
+body. It sits at the south end of the east edge (below MANIFOLD B), placed `pcbRotation={90}`
+so the wire throats face the east board edge — the loom feeds in from outside — with pin1 → GND
+on the south pad, pin2 → V12 on the north, the polarity silked at each screw. The V12 barrel now
+lands on `net.V12IN` (the raw inlet), upstream of the Q4 reverse-polarity block below — so a
+reversed loom no longer cooks the polarised bulk cap (C3), the K7805, or the DRV8870s.
+
+**Q4/D8/D9/R23 — J10 reverse-polarity + surge block.** The incoming 12 V passes through a
+P-channel high-side pass FET (**Q4, AO3407, `C181093`, SOT-23**) before it reaches the V12 island,
+in the slot west of J10 (C5 east → J10 body). DRAIN → `net.V12IN` (the J10 barrel, via a wide
+1.6 mm top stub carrying the ~3.3 A board peak), SOURCE → the V12 island (the island floods the
+source pad directly — the source→island tie is pour copper, not a trace). A P-channel body diode
+points **drain→source**, so with drain=input / source=load it conducts input→load in normal
+polarity (channel enhancing, Vgs ≈ −12 V within the **±20 V** rating — an AO3401A's ±12 V would be
+marginal) and BLOCKS load→input under reverse polarity, body diode reverse-biased: the board sees
+no current. **R23 (100 kΩ 0402, `C60491`, Basic)** pulls the gate to GND so an unplugged/loose
+terminal can't float it. **D9 (BZT52C15 15 V Zener, `C173427`, SOD-123)** clamps Vgs (cathode→
+source, anode→gate) short of the ±20 V gate-oxide limit. **D8 (SMAJ15A, `C571368`, SMA)** clamps
+the surge the board sees, island→GND at the inlet: 15 V standoff (no leakage on the 12 V rail),
+24.4 V clamp under C3's 25 V rating. Q4/D8/D9 have no tscircuit CDN 3D model (absent from the 3D
+preview only); footprints (pads + courtyard + silk) and the fab output are complete. Q4's SOT-23
+sits a touch tighter than IPC-Nominal against C5/J10 (courtyard advisory ~−0.08 mm; copper clears
+at the 0.15 mm floor). D8's `C571368` runs shallow at JLCPCB (~2,440) — glance before a large run.
 
 **U4/U5 are `C845537`** (UMW ULN2803A, SOP-18-300mil wide body). No Basic ULN2803 SOIC
 exists in the library — every ULN2803 part is Extended — so the feeder fee is unavoidable;

@@ -146,6 +146,7 @@ const LAND: Record<string, () => any> = {
   C15849: CAP_0603,
   C25900: RES_0402,
   C11702: RES_0402,
+  C60491: RES_0402,   // 100k (YAGEO RC0402FR-07100KL) — R23 gate pulldown on the reverse-polarity FET
 }
 
 export const passiveImport = (jlcpcb: string): { footprint: () => any; cadModel: any } => ({
