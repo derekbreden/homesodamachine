@@ -37,6 +37,7 @@ import { AO3407 } from "./imports/AO3407"
 import { SMAJ15A } from "./imports/SMAJ15A"
 import { BZT52C15 } from "./imports/BZT52C15"
 import { SN74LVC1G08 } from "./imports/SN74LVC1G08"
+import { ESD9B3_3ST5G } from "./imports/ESD9B3_3ST5G"
 
 // pcbX/pcbY for the PCB, with a matching schematic spot so the schematic view
 // doesn't pile every part on the origin.
@@ -487,3 +488,14 @@ export const Pfet = centred(AO3407)                 // Q4 — reverse-polarity p
 export const Tvs = centred(SMAJ15A)                 // D8 — 12V input surge clamp (SMA)
 export const Zener = centred(BZT52C15)              // D9 — Vgs clamp on the pass FET (SOD-123)
 export const And2 = centred(SN74LVC1G08)            // U15 — gas→compressor interlock AND gate (SOT-353)
+
+// D10/D11 — faucet-UART on-board ESD/TVS (SOD-923, bidirectional). Same seat-plus-upright-ref-des
+// shape as centred(), but a 0.6 mm ref-des: these clamps sit in the board's tightest silk gaps (the
+// WROOM south rim, between the module caps / R27 / the branding block), where the standard 0.8 mm
+// mark would ink a neighbour's pad or fence. lx/ly place that mark in the clear gap by each part.
+export const EsdClamp = ({ name, x, y, rot = 0, lx = 0, ly = 0 }: { name: string; x: number; y: number; rot?: number; lx?: number; ly?: number }) => (
+  <>
+    <ESD9B3_3ST5G name={name} pcbRotation={rot} {...at(x, y)} />
+    <silkscreentext text={name} fontSize="0.6mm" anchorAlignment="center" pcbX={x + lx} pcbY={y + ly} />
+  </>
+)

@@ -71,7 +71,8 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | R24 — interlock B-node pulldown | 100 kΩ ±1% | 0402 | C60491 | Basic | (see R23) | $0.0005 |
 | R25 — DOUT invert-select link | 0 Ω jumper | 0402 | C17168 | Basic | 18,421,967 (2026-07-13) | $0.0003 |
 | C23 — U15 VCC decouple | 0.1 µF 50V X7R | 0402 | C1525 | Basic | 54,323,629 (2026-07-13) | $0.0018 |
-| R26, R27 — faucet-UART series backstop (IO33/IO35) | 220 Ω ±1% | 0402 | C25091 | Basic | 100,000,000+ (2026-07-13) | $0.0003 |
+| R26, R27 — faucet-UART series R, feeds D10/D11 (IO33/IO35) | 220 Ω ±1% | 0402 | C25091 | Basic | 100,000,000+ (2026-07-13) | $0.0003 |
+| D10, D11 — faucet-UART ESD clamp (IO33/IO35) | ESD9B3.3ST5G, low-cap bidirectional TVS, 3.3 V / ~15 pF | SOD-923 | C96512 | Extended | 28,355 (2026-07-13) | $0.02 |
 
 Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C11702 / C25900 / C25091
 = UNI-ROYAL 0402WGF series (the 0402 R21/R22/R26/R27 family); C49678 = YAGEO
@@ -177,17 +178,32 @@ haul; only B is a new run, around the module's SE and up the east flank (a 0.15 
 the flank for it — see the pcba.tsx GAS block). No relay-side firmware change: the ESP still drives
 IO19, the gate just vetoes it on gas.
 
-**R26/R27 — faucet-UART series backstop (`C25091`, 220 Ω 0402, Basic).** One resistor in series in
-each TTL line to the faucet flavor LCD (R26 in IO33/TX, R27 in IO35/RX), at the driver end: series
-damping on the ~1 m umbilical's edges + a current-limit into the ESP32 pin under an ESD strike. They
-are the **driver-end backstop only** — the primary faucet ESD protection is a pair of low-capacitance
-ESD TVS at the faucet-display connector end of the umbilical (at the user-touch source), specified in
-`assembly/cable-assemblies.md` (SIG-6) and `assembly/faucet-and-umbilical.md`, because that end is a
-stock Waveshare module and this board's J3 barrel row has no room for a clamp. Same UNI-ROYAL 0402WGF
-family as R21/R22 (`C11702`/`C25900`); deep Basic stock. Placement is tight against the WROOM south
-cap column — R27 rides IO35's own drop in the west sliver (the IO34 RS485 bottom haul is nudged one
-drop-column W to open it), R26 the open top pocket E of the caps / N of U9; see the pcba.tsx FAUCET
-block.
+**R26/R27 — faucet-UART series R (`C25091`, 220 Ω 0402, Basic).** One resistor in series in each TTL
+line to the faucet flavor LCD (R26 in IO33/TX, R27 in IO35/RX), at the driver end: series damping on
+the ~1 m umbilical's edges + the current-limit that lets the on-board ESD clamp do its job. They are
+the **series element of the on-board clamp topology** — J3 → 220 Ω → clamp-at-the-IC (D10/D11) → U1 —
+not a standalone backstop. Same UNI-ROYAL 0402WGF family as R21/R22 (`C11702`/`C25900`); deep Basic
+stock. Placement is tight against the WROOM south cap column — R27 rides IO35's own drop in the west
+sliver (the IO34 RS485 bottom haul is nudged one drop-column W to open it), R26 the open top pocket E
+of the caps / N of U9; see the pcba.tsx FAUCET block.
+
+**D10/D11 — faucet-UART ESD clamp (`C96512`, onsemi ESD9B3.3ST5G, SOD-923, Extended, ~28k stock).**
+The **primary** faucet-display ESD protection, on the board at the WROOM south rim. A bidirectional
+low-capacitance TVS (3.3 V working, ~15 pF, so the 115200-baud UART edges are not loaded) clamps each
+TTL line: **D10 on IO33/TX, D11 on IO35/RX**. Each taps the **U1-side** of its 220 Ω series resistor
+and shunts to the GND plane through a **via-in-pad** (POFV), the shortest possible loop — loop
+inductance is what sets clamp effectiveness. So the topology is J3 → 220 Ω → clamp → U1: a strike up
+the ribbon is current-limited by R26/R27 and clamped to ~3.3 V at the ESP32 pin, and the former
+cable-end faucet TVS drops to optional (see `assembly/cable-assemblies.md` SIG-6 /
+`assembly/faucet-and-umbilical.md`). Bidirectional, so pin1/pin2 are interchangeable — one taps the
+signal, the other via-in-pads to GND. Placement: **D11** (rot 90) sits in the west sliver just below
+the IO35→R27 jog, tapping **R27.pin1** — the clamp right at the WROOM beside the U1.IO35 pad. **D10**
+(rot 0) sits in the open R25↔R26 corridor E of the C10/C11 module caps, tapping **R26.pin1** (the
+IO33 U1-side node, i.e. the series-R output): the IO33 pad's own rim is walled on every side by the
+C10/C11 courtyards and the IO33/IO34 drop column, so a SOD-923 will not fit there, and R26.pin1 is
+the nearest clean home on that net (the 220 Ω sits between the strike and this node, so the clamp
+still catches the surge at the series-R output). Both are TOP-side; ref-des are a 0.6 mm mark tucked
+into the one silk-clear gap by each (the board's tightest silk region). See the pcba.tsx FAUCET block.
 
 **U4/U5 are `C845537`** (UMW ULN2803A, SOP-18-300mil wide body). No Basic ULN2803 SOIC
 exists in the library — every ULN2803 part is Extended — so the feeder fee is unavoidable;

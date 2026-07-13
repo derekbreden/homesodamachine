@@ -55,7 +55,7 @@
  * (U10, below the coin cell); the web viewer's board chip reports it live
  * (clearance.ts -> picks.json).
  */
-import { at, Cap, Res, Jst, jstPins, ulnOUT, Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870, Tact, Diode, Pfet, Tvs, Zener, And2 } from "./parts"
+import { at, Cap, Res, Jst, jstPins, ulnOUT, Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870, Tact, Diode, Pfet, Tvs, Zener, And2, EsdClamp } from "./parts"
 import { KF301_5_0_2P } from "./imports/KF301_5_0_2P"
 import { frame, route, routeBottom, routeInner, channel } from "./routing"
 import { boardVersionParts } from "./board-version"
@@ -232,11 +232,24 @@ const J3f = frame("J3", J3El.props.x, J3El.props.y, 0, Object.fromEntries(jstPin
 // pocket E of the caps / N of U9 (x biased W of the WROOM pin-column bottom haul at −51.05), reached
 // by jogging IO33 E below C11; R27 (rot 270, pin1 N) in the west sliver on IO35's own drop, between
 // the C10 courtyard and IO34's RS485 bottom haul — that haul is nudged one drop-column W (see the
-// IO34→U7.RO route) to open the sliver. The PRIMARY faucet ESD clamps live at the display connector
-// end of the umbilical, at the user-touch source (see cable-assemblies.md); these are the backstop.
+// IO34→U7.RO route) to open the sliver. The series-R feeds the on-board ESD clamp on each line (D10/
+// D11 below) — the topology is J3 → 220Ω → clamp-at-the-IC → U1.
 const R26El = <Res name="R26" resistance="220" footprint="0402" jlcpcb="C25091" x={-52.5} y={-18.7} rot={0} side="S" />    // IO33: pin1 (W) ← U1, pin2 (E) → J3 (W end of the bay: clears the −51.05 bottom haul E + C11 courtyard W; version stamp's date/rev shifted E to clear its ref-des)
 const R27El = <Res name="R27" resistance="220" footprint="0402" jlcpcb="C25091" x={-59.65} y={-13.5} rot={270} side="E" /> // IO35: pin1 (N) ← U1, pin2 (S) → J3
 const R26f = frame(R26El), R27f = frame(R27El)
+// Faucet-UART on-board ESD clamps (D11 in IO35, D10 in IO33) — the PRIMARY faucet-display ESD
+// protection, now on the board at the WROOM. Each bidirectional low-cap TVS (ESD9B3.3ST5G, SOD-923,
+// 3.3 V, ~15 pF) shunts the U1-side of its 220Ω series resistor to the GND plane with a via-in-pad —
+// the shortest loop, POFV like the rest of the board — so the clamp sits at the series-R node the
+// IC pin rides. The clamps land at the two clean homes on those nets closest to U1: D11 (rot 90) in
+// the west sliver below the IO35→R27 jog, tapping R27.pin1 (the IO35 U1-side node) right by
+// U1.IO35; D10 (rot 0) in the open R25↔R26 corridor E of the caps, tapping R26.pin1 (the IO33
+// U1-side node) — the IO33 pad's own rim is walled by the C10/C11 caps and the IO33/IO34 drop
+// column (both at x −56.5), so its nearest clean clamp home is the series-R output. Bidirectional
+// part, so the signal/GND pad split is a placement choice, not a polarity.
+const D11El = <EsdClamp name="D11" x={-58.0} y={-11.8} rot={90} ly={1.25} />    // IO35 clamp: pin1(S)→R27.pin1, pin2(N)→GND; ref-des N in the U1.pin7/pin8 gap (between the GND via and the pad row)
+const D10El = <EsdClamp name="D10" x={-53.1} y={-15.5} rot={0} lx={-0.55} ly={-1.7} />  // IO33 clamp: pin2(E)→R26.pin1, pin1(W)→GND; ref-des in the C11↔R26 gap, below the "MACHINE" branding band
+const D10f = frame(D10El), D11f = frame(D11El)
 // Pumps connector + RTC block + status LEDs, framed for the last hand routes below.
 const J13El = <Jst name="J13" x={-12.25} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" rot={0} />
 const J13f = frame("J13", J13El.props.x, J13El.props.y, 0, Object.fromEntries(jstPins(J13El.props).pins))
@@ -832,6 +845,22 @@ export default () => (
         J3f.col("IO33"),            // E along the low band into the barrel column
         "J3.IO33",
     )} />
+    {/* On-board faucet ESD clamps — each TVS shunts the U1-side of its series resistor to the GND
+        plane with a via-in-pad (POFV), the shortest loop. D11 taps R27.pin1 (the IO35 U1-side node)
+        from the east; D10 taps R26.pin1 (the IO33 U1-side node) from the north. The inner pad of
+        each via-in-pads straight to GND. */}
+    <trace from="D11.pin1" to="R27.pin1" pcbPathRelativeTo="board" pcbPath={route(
+        "D11.pin1",
+        { row: -13.07 },            // down to R27.pin1's row, then W into the pad (east entry — clears the U1.IO35 north approach)
+        "R27.pin1",
+    )} />
+    <trace from=".D11 > .pin2" to="net.GND" />
+    <trace from="D10.pin2" to="R26.pin1" pcbPathRelativeTo="board" pcbPath={route(
+        "D10.pin2",
+        { col: -52.93 },            // jog E onto R26.pin1's column, then straight S into the pad (north entry)
+        "R26.pin1",
+    )} />
+    <trace from=".D10 > .pin1" to="net.GND" />
     <trace from=".J3 > .GND" to="net.GND" />
 
     {/* SENSORS: flow (IO25) / 1-wire temps (IO26) / backflow drip-pan moisture signal
@@ -1260,6 +1289,8 @@ export default () => (
     {R22El}
     {R26El}
     {R27El}
+    {D10El}
+    {D11El}
     <trace from=".R9 > .pin1" to="net.V3V3" />
     {/* 1-wire pull-up tap: R9.pin2 drops onto IO26 at the SENSORS connector, sharing the pad with
         the IO26 run to U1 — the external 4.7k sits right where the DS18B20 probe loom leaves the
