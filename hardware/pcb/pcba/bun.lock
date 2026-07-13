@@ -28,7 +28,7 @@
     "@tscircuit/core": "github:derekbreden/core#51c5dc91b9e23900e6d4c12a5d4f345494be9db5",
     "@tscircuit/footprinter": "github:derekbreden/footprinter#c8eadb7b7ba9366b5f00d457a3bec2209bb73913",
     "@tscircuit/props": "github:derekbreden/props#3c499d886eb08fdd020edff41ae40b39c7589797",
-    "circuit-json-to-gerber": "github:derekbreden/circuit-json-to-gerber#8aceadcace30a2b4d3a9fdc2c8e2634d2b1af0f7",
+    "circuit-json-to-gerber": "github:derekbreden/circuit-json-to-gerber#232911239f5f281b26eee4b4edee13a7db77f9fb",
   },
   "packages": {
     "@babel/code-frame": ["@babel/code-frame@7.29.7", "", { "dependencies": { "@babel/helper-validator-identifier": "^7.29.7", "js-tokens": "^4.0.0", "picocolors": "^1.1.1" } }, "sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw=="],
@@ -355,7 +355,7 @@
 
     "circuit-json-to-connectivity-map": ["circuit-json-to-connectivity-map@0.0.23", "", { "dependencies": { "@tscircuit/math-utils": "^0.0.9" }, "peerDependencies": { "typescript": "^5.9.3" } }, "sha512-DSOiXaXOTvjU+7et8ITXb2LjgKto6cQzLv3hReYdXuUNtLw2GVnpOly1G83VcIBcSQ4hRVHI4VMKRyZB3XVzdg=="],
 
-    "circuit-json-to-gerber": ["circuit-json-to-gerber@github:derekbreden/circuit-json-to-gerber#8aceadc", { "dependencies": { "@tscircuit/alphabet": "^0.0.25", "fast-json-stable-stringify": "^2.1.0", "transformation-matrix": "^3.0.0" }, "peerDependencies": { "circuit-json": "*", "tscircuit": "*", "typescript": "^5.0.0" }, "bin": { "circuit-to-gerber": "./dist/cli.js" } }, "derekbreden-circuit-json-to-gerber-8aceadc"],
+    "circuit-json-to-gerber": ["circuit-json-to-gerber@github:derekbreden/circuit-json-to-gerber#2329112", { "dependencies": { "@tscircuit/alphabet": "^0.0.25", "fast-json-stable-stringify": "^2.1.0", "transformation-matrix": "^3.0.0" }, "peerDependencies": { "circuit-json": "*", "tscircuit": "*", "typescript": "^5.0.0" }, "bin": { "circuit-to-gerber": "./dist/cli.js" } }, "derekbreden-circuit-json-to-gerber-2329112"],
 
     "circuit-json-to-gltf": ["circuit-json-to-gltf@0.0.105", "", { "dependencies": { "@jscad/modeling": "^2.12.6", "earcut": "^3.0.2", "jscad-electronics": "^0.0.135", "jscad-to-gltf": "^0.0.5", "occt-import-js": "^0.0.23" }, "peerDependencies": { "@resvg/resvg-js": "2", "@resvg/resvg-wasm": "2", "@tscircuit/circuit-json-util": "*", "circuit-json": "*", "circuit-to-svg": "*", "typescript": "^5" }, "optionalPeers": ["@resvg/resvg-js", "@resvg/resvg-wasm"] }, "sha512-0p9o8QQL2PmI7nn9YuBFUJkZgOLXnvUnaslTfS9/YJnkTR2RVI6dnkSyxFS/4Nbu8y2MIVzXID8nWydQluGHqg=="],
 

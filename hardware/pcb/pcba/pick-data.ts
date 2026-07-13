@@ -30,6 +30,7 @@ import { auditConnectors } from "./connector-audit"
 import { auditFootprints } from "./footprint-audit"
 import { auditAmpacity, type AmpacityRule } from "./ampacity-audit"
 import { buildScorecard, formatScorecard } from "./scorecard"
+import { convertSoupToGerberCommands, stringifyGerberCommandLayers } from "circuit-json-to-gerber"
 import type { PicksFile, Pad, Via, Trace, PadIdentity, FabStats } from "../../../web/contracts/picks-schema"
 
 const arg = process.argv[2]
@@ -211,6 +212,11 @@ function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRule
   // blind to. Informational, like the copper floor (real overlaps ride in `errors`).
   const footprints = auditFootprints(circuit)
 
+  // Solder-paste coverage: regenerate the paste layer with the board's own gerber converter and
+  // confirm every top-side SMD pad has a flash landing within its copper. Reads the real F_Paste the
+  // fab cuts the stencil from, so a converter regression that drops a pad's opening is caught here.
+  const pasteCoverage = auditPasteCoverage(circuit, identify)
+
   // The requirements scorecard (scorecard.ts): the gate checks fed from the audits above, the goal
   // metrics (manual-routing conversion) derived from the raw copper + the poured plane nets. One
   // verdict, printed on build and shown in the modal — the same result from the same geometry.
@@ -218,6 +224,7 @@ function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRule
     circuit, deferred, authored, floor, clearanceErrors: errors, opens,
     footprints, connectors, ampacity, capAudit,
     fab: { partsSourced: fab.partsSourced, minDrillMm: fab.minDrillMm, minViaAnnularMm: fab.minViaAnnularMm, minPadAnnularMm: fab.minPadAnnularMm, unsourced: fab.unsourced },
+    pasteCoverage,
   })
 
   return { board, unitsPerMm: 1000, size, pads, vias, traces, clearance: { floor, tight }, errors: [...opens, ...errors], capAudit, connectors, footprints, ampacity, fab, scorecard }
@@ -304,6 +311,45 @@ function fabStats(circuit: any[]): FabStats {
     minViaAnnularMm: isFinite(minViaAnnular) ? round(minViaAnnular) : null,
     minPadAnnularMm: isFinite(minPadAnnular) ? round(minPadAnnular) : null,
   }
+}
+
+// Regenerate F_Paste with the board's gerber converter and check each top-side SMD pad has a paste
+// flash inside its copper. A pad with none is placed on bare solder mask and reflows dry. Uses the
+// same converter that writes the fab set, so the gate measures the stencil the fab actually cuts.
+function auditPasteCoverage(circuit: any[], identify: (id: string | undefined) => PadIdentity): { topPads: number; uncovered: string[] } {
+  const gerber = stringifyGerberCommandLayers(convertSoupToGerberCommands(circuit as any, { flip_y_axis: false })).F_Paste ?? ""
+  const flashes: { x: number; y: number }[] = []
+  for (const line of gerber.split("\n")) {
+    const m = line.match(/^X(-?\d+)Y(-?\d+)D0?3\*$/)
+    if (m) flashes.push({ x: Number(m[1]) / 1e6, y: Number(m[2]) / 1e6 })
+  }
+  const uncovered: string[] = []
+  let topPads = 0
+  for (const e of circuit) {
+    if (e.type !== "pcb_smtpad" || e.layer !== "top") continue
+    topPads++
+    const bb = padAABB(e)
+    if (!flashes.some((f) => f.x >= bb.minX && f.x <= bb.maxX && f.y >= bb.minY && f.y <= bb.maxY)) {
+      const id = identify(e.pcb_port_id)
+      uncovered.push(id.ref ? `${id.ref}.${id.pin ?? "?"}` : e.pcb_smtpad_id)
+    }
+  }
+  return { topPads, uncovered }
+}
+
+// A pad's axis-aligned copper extent (mm). rect/pill use width×height rotated by ccw_rotation; a
+// circle uses its radius; a polygon spans its points.
+function padAABB(pad: any): { minX: number; maxX: number; minY: number; maxY: number } {
+  if (pad.shape === "polygon" && Array.isArray(pad.points) && pad.points.length) {
+    const xs = pad.points.map((p: any) => p.x), ys = pad.points.map((p: any) => p.y)
+    return { minX: Math.min(...xs), maxX: Math.max(...xs), minY: Math.min(...ys), maxY: Math.max(...ys) }
+  }
+  const w = pad.shape === "circle" ? (pad.radius ?? 0) * 2 : (pad.width ?? 0)
+  const h = pad.shape === "circle" ? (pad.radius ?? 0) * 2 : (pad.height ?? 0)
+  const rot = ((pad.ccw_rotation ?? 0) * Math.PI) / 180
+  const c = Math.abs(Math.cos(rot)), s = Math.abs(Math.sin(rot))
+  const hw = (w * c + h * s) / 2, hh = (w * s + h * c) / 2
+  return { minX: pad.x - hw, maxX: pad.x + hw, minY: pad.y - hh, maxY: pad.y + hh }
 }
 
 function round(n: number) {
