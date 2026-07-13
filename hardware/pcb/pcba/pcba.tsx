@@ -161,6 +161,13 @@ const J11f = frame("J11", J11El.props.x, J11El.props.y, 0, Object.fromEntries(js
 // it at 0.245 a side) with pin2 — the tap — east; ref-des east, riding the IO26/IO27 gap.
 const R9El = <Res name="R9" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-32.5} y={-26.45} rot={0} side="E" />
 const R9f = frame(R9El)
+// IO25 flow-input hardening (IO25 is NOT 5V-tolerant). Two 0402s stack in the SENSORS pocket W of
+// R9: R21 (1k) in SERIES between the U1.IO25 haul and J4.IO25, R22 (4.7k) pulls the J4-side up to
+// 3V3 — the same protection R9 gives the IO26 1-wire line. Both horizontal; R21 south (haul enters
+// pin1 from the low band, pin2 drops to the barrel), R22 north (pin1→3V3 plane, pin2 taps R21.pin2).
+const R21El = <Res name="R21" resistance="1k" footprint="0402" jlcpcb="C11702" x={-35.9} y={-26.55} rot={0} side="S" />
+const R22El = <Res name="R22" resistance="4.7k" footprint="0402" jlcpcb="C25900" x={-35.9} y={-24.9} rot={0} side="N" />
+const R21f = frame(R21El), R22f = frame(R22El)
 const J4El = <Jst name="J4" x={-35.0} y={-30.3} count={7} labels={["3V3", "GND", "V5", "IO25", "IO26", "IO27", "IO23"]} label="SENSORS" rot={180} />
 const J4f = frame("J4", J4El.props.x, J4El.props.y, 0, Object.fromEntries(jstPins(J4El.props).pins))
 const J5El = <Jst name="J5" x={-41.95} y={31.0} count={4} labels={["GND", "V5", "IO2", "IO19"]} label="RELAYS" rot={0} />
@@ -760,14 +767,24 @@ export default () => (
         J3.IO33's column and the R10-R14 field, then runs the low band east into the barrel;
         IO26 drops straight down its barrel column, threading R9's pads on the way (R9's tap is
         the same net); IO27 drops just east of U10's pin barrels — the board's 0.15 floor pair —
-        and turns west into its barrel above J4. */}
-    <trace from="U1.IO25" to="J4.IO25" pcbPathRelativeTo="board" pcbPath={route(
+        and turns west into its barrel above J4. IO25's haul now ends at R21 (1k series) instead of
+        the barrel; R21.pin2 → J4.IO25, with R22 (4.7k) pulling that J4-side node to 3V3. */}
+    <trace from="U1.IO25" to="R21.pin1" pcbPathRelativeTo="board" pcbPath={route(
         "U1.IO25",
         U1f.below("IO25", 1.65),                            // bottom lane
         { col: channel(-48.5, -45) },                       // drop between J3.IO33's column and the R field
-        J4f.row("IO25", 1.2),                               // low band: over the barrel row
+        J4f.row("IO25", 1.2),                               // low band east under the LED field
+        R21f.col("pin1"),                                   // rise into R21.pin1's column
+        "R21.pin1",
+    )} />
+    {/* R21 series output → J4.IO25 barrel; R22 pull-up taps that same node and stitches to 3V3. */}
+    <trace from="R21.pin2" to="J4.IO25" pcbPathRelativeTo="board" pcbPath={route(
+        "R21.pin2",
+        J4f.col("IO25"),                                    // E onto the barrel column, then S into it
         "J4.IO25",
     )} />
+    <trace from="R22.pin2" to="R21.pin2" pcbPathRelativeTo="board" pcbPath={route("R22.pin2", "R21.pin2")} />
+    <trace from=".R22 > .pin1" to="net.V3V3" />
     <trace from="U1.IO26" to="J4.IO26" pcbPathRelativeTo="board" pcbPath={route(
         "U1.IO26",
         U1f.below("IO26", 1.05),                            // middle lane
@@ -1078,6 +1095,8 @@ export default () => (
         far for the ESP's ~45k internal pull-up, so the 1-wire bus gets its proper external
         pull-up on-board, at the SENSORS connector where the probe loom leaves the board. */}
     {R9El}
+    {R21El}
+    {R22El}
     <trace from=".R9 > .pin1" to="net.V3V3" />
     {/* 1-wire pull-up tap: R9.pin2 drops onto IO26 at the SENSORS connector, sharing the pad with
         the IO26 run to U1 — the external 4.7k sits right where the DS18B20 probe loom leaves the

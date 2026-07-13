@@ -33,6 +33,15 @@ const CAP_0603 = () => (
     <courtyardoutline outline={[{"x":-1.647000000000162,"y":0.9612000000000762},{"x":1.6216000000000577,"y":0.9612000000000762},{"x":1.6216000000000577,"y":-0.9611999999999625},{"x":-1.647000000000162,"y":-0.9611999999999625},{"x":-1.647000000000162,"y":0.9612000000000762}]} />
   </footprint>
 )
+// 0402 resistor land (UNI-ROYAL 0402WGF series, same family as the 0603s) — the tight SENSORS
+// pocket only fits two 0402s where a 0603 would crowd R9/U10/J4. PASSIVE_SIZE already carries "0402".
+const RES_0402 = () => (
+  <footprint>
+    <smtpad portHints={["pin1"]} pcbX="-0.432816mm" pcbY="0mm" width="0.565658mm" height="0.540004mm" shape="rect" />
+    <smtpad portHints={["pin2"]} pcbX="0.432816mm" pcbY="0mm" width="0.565658mm" height="0.540004mm" shape="rect" />
+    <courtyardoutline outline={[{"x":-1.1897999999998774,"y":0.7580000000000382},{"x":1.189799999999991,"y":0.7580000000000382},{"x":1.189799999999991,"y":-0.7326000000000477},{"x":-1.1897999999998774,"y":-0.7326000000000477},{"x":-1.1897999999998774,"y":0.7580000000000382}]} />
+  </footprint>
+)
 
 // per-part 3D model (its own JLCPCB/EasyEDA asset)
 const CAD: Record<string, any> = {
@@ -108,6 +117,18 @@ const CAD: Record<string, any> = {
     pcbRotationOffset: 0,
     modelOriginPosition: { x: 0, y: 0, z: -0.4 },
   },
+  C25900: {
+    objUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C25900.obj?uuid=026a4a15ab5c4a92ac0e421d6d013717",
+    stepUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C25900.step?uuid=026a4a15ab5c4a92ac0e421d6d013717",
+    pcbRotationOffset: 0,
+    modelOriginPosition: { x: 0, y: -0.000012700000070253736, z: 0 },
+  },
+  C11702: {
+    objUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C11702.obj?uuid=026a4a15ab5c4a92ac0e421d6d013717",
+    stepUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C11702.step?uuid=026a4a15ab5c4a92ac0e421d6d013717",
+    pcbRotationOffset: 0,
+    modelOriginPosition: { x: 0, y: -0.000012700000070253736, z: 0 },
+  },
 }
 
 const LAND: Record<string, () => any> = {
@@ -123,6 +144,8 @@ const LAND: Record<string, () => any> = {
   C15850: CAP_0805,
   C45783: CAP_0805,
   C15849: CAP_0603,
+  C25900: RES_0402,
+  C11702: RES_0402,
 }
 
 export const passiveImport = (jlcpcb: string): { footprint: () => any; cadModel: any } => ({
