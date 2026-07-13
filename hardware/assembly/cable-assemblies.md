@@ -48,11 +48,36 @@ Conductor counts are the board connector pin counts (`pcba.tsx` J1–J11 = {9, 6
 | Reservoir B + carb reeds | J7 | 7 (6 reed + GND) | 24 AWG black | reed leads; **female JST-EH housing (EHR-7) + EH contacts, NOT XH** — J7 is keyed EH so this loom cannot cross-plug into SENSORS (J4, XH); GND → **221-420** | 1/4" |
 | Sensors | J4 | 7 | 22 / 24 AWG black | DS18B20 / flow / moisture (DO + switched VCC); GND → **221-415** near the shelf | 1/4" |
 | Driver | J5 | 9 | 22 AWG black | XH / screw to L298N + both relays; GND → **221-415** | 1/2" |
-| Faucet display | J3 / SIG-6 | 4 (TX / RX / 5 V / GND) | 28 AWG ribbon | TTL UART up the umbilical | jacketed ribbon |
+| Faucet display | J3 / SIG-6 | 4 (TX / RX / 5 V / GND) | 28 AWG ribbon | TTL UART up the umbilical; **2× low-cap ESD TVS to GND at the faucet-display end** (see the ESD note below) | jacketed ribbon |
 | Config display | J9 / SIG-7 | 3 (RS485 A / B / earth) | 22 AWG black | A/B to the 4.3B transceiver; display 12 V is a separate power run | 1/2" |
 | Gas sensor | J11 | 4 (GND / V5 / AOUT / DOUT) | 24 AWG black | MQ-6 leads | 1/4" |
 | 5 V / 12 V inputs | J8 / J10 | 2 each | 16 / 18 AWG | power feed-in to the board | — |
 | AC mains | AC-1…6 | per run | 16 / 18 AWG (black/white/green) + SJOOW | ferrules → **221-413**; Fastons at compressor; rings to ground | SJOOW jacket on the shroud lead |
+
+## Faucet-display ESD protection (SIG-6) — build requirement
+
+The faucet flavor LCD is the one user-touched surface at the far end of a ~1 m umbilical, so its
+TTL UART pins are the board's most exposed ESD path. The **primary** clamp lives at the
+**faucet-display connector end** of the umbilical — at the user-touch source, before a strike ever
+enters the ribbon — because that end is where the energy arrives and because the main PCBA's J3 barrel
+row has no room for a clamp. Build both ends:
+
+- **At the faucet-display end (primary — required):** mount **2× low-capacitance ESD TVS diodes**,
+  **one from IO33 (TX) to GND and one from IO35 (RX) to GND**, on the last ~10 mm of the ribbon at the
+  faucet-display connector (on the connector's carrier/adapter PCB, or a small dead-bug/flex tab if the
+  stock Waveshare ESP32-S3-Touch-LCD-1.47 module carries no spare pad). Use a **low-cap** part so the
+  115200-baud UART edges are not loaded: **ESD9B3.3-class or PESD3V3-class, ≤ 15 pF, SOD-923** (3.3 V
+  working / bidirectional, e.g. onsemi ESD9B3.3ST5G or Nexperia PESD3V3L1BA). Cathode/IO side to the
+  signal, anode to the faucet-side GND (the ribbon's GND conductor) with the **shortest possible loop**
+  to that GND — clamp effectiveness is set by loop inductance, so keep the stub < 5 mm.
+- **At the driver (main PCBA) end (backstop — already on the board):** R26 (IO33) and R27 (IO35),
+  ~220 Ω 0402 in series in each line, give series damping on the long-cable edges and current-limit the
+  ESP32 pin under a strike. They do **not** replace the faucet-end TVS — a series R alone cannot clamp
+  the surge to a safe voltage; it only limits the follow-through. See `pcb/pcba/jlcpcb-parts.md`
+  (R26/R27) and `pcb/pcba/pcba.tsx` (FAUCET block).
+
+The 5 V and GND ribbon conductors need no clamp (5 V is a rail, GND is the return); only the two TTL
+signals are protected. This mirrors the RS485 side, where D1 (SM712) clamps the A/B pair at J9.
 
 ## Open items
 
