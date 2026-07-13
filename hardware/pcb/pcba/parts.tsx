@@ -36,6 +36,7 @@ import { A_1N4148W } from "./imports/A_1N4148W"
 import { AO3407 } from "./imports/AO3407"
 import { SMAJ15A } from "./imports/SMAJ15A"
 import { BZT52C15 } from "./imports/BZT52C15"
+import { SN74LVC1G08 } from "./imports/SN74LVC1G08"
 
 // pcbX/pcbY for the PCB, with a matching schematic spot so the schematic view
 // doesn't pile every part on the origin.
@@ -485,3 +486,4 @@ export const Diode = centred(A_1N4148W)             // D7 — buzzer-coil flybac
 export const Pfet = centred(AO3407)                 // Q4 — reverse-polarity pass FET (SOT-23)
 export const Tvs = centred(SMAJ15A)                 // D8 — 12V input surge clamp (SMA)
 export const Zener = centred(BZT52C15)              // D9 — Vgs clamp on the pass FET (SOD-123)
+export const And2 = centred(SN74LVC1G08)            // U15 — gas→compressor interlock AND gate (SOT-353)

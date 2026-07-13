@@ -39,7 +39,9 @@ composed from those gerbers.
 - Single 12 V inlet; 5 V made on-board (K7805 switching buck), 3V3 by the AMS1117
   LDO (U9) off the 5 V rail.
 - Field connectors through-hole, JLCPCB-assembled.
-- Two deferred items: gas/compressor interlock, input protection.
+- Safety hardening is on-board: a firmware-independent gas→compressor interlock (U15, a
+  74LVC1G08 AND gate that lets IO19 reach the relay only while the MQ-6 reads clear) and
+  reverse-polarity + surge protection at the 12 V inlet (Q4 pass-FET, D8 TVS, D9 Vgs clamp).
 - Parts map to in-stock LCSC numbers, Basic-first; `tsci import <LCSC#>` for footprints.
   Part wrappers live in `parts.tsx`.
 
