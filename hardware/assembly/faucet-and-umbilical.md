@@ -30,8 +30,33 @@ The dispense head is the printed touch-flo-shell's gooseneck channel. The three 
 | CARGEN nitrile foam pipe insulation, 1/4" ID × 3/8" wall, 1-ft segments | B0D2XFK337 ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §9) | **Cold tube only.** Foam ships as 1-ft segments and is installed segment-at-a-time. Segment count per umbilical TBD pending cabinet-routing-length spec |
 | Cable sleeve (braided polyester or spiral wrap) | TBD per [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md) "Umbilical bundle construction" | Single sleeve over all three tubes + the signal cable from just above the under-counter plate down to ~3" above the rear-panel bulkheads |
 | Umbilical signal cable (BNTECHGO 28 AWG 4-conductor ribbon) | B07PNPHWMG ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §9) | Single run from the gooseneck faucet display down to the electronics shelf, carrying SIG-6 (faucet display: TX / RX / 5 V / GND). |
+| 2× low-capacitance ESD TVS (ESD9B3.3-class / PESD3V3-class, SOD-923) | onsemi ESD9B3.3ST5G or Nexperia PESD3V3L1BA (≤ 15 pF, 3.3 V, bidirectional) | **Faucet-display-end ESD clamp — primary protection.** One from IO33 (TX) to GND, one from IO35 (RX) to GND, mounted at the faucet-display connector (see the ESD note below). |
 
 Tooling (per-build-amortized only; single-asset tools live in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md), not here): Mudder PEX/PE tube cutter (also in the installer's install kit, [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §14 — same cutter SKU lives in both places).
+
+### Faucet-display ESD protection (required)
+
+The faucet flavor LCD is the one user-touched surface on the appliance, at the far end of a ~1 m
+umbilical — so its two TTL UART lines are the most ESD-exposed nets on the board, and the **primary**
+clamp must sit at the **faucet-display connector end**, at the user-touch source, not at the main
+PCBA (whose J3 barrel row has no room, and which sees the strike only after it has already run the
+ribbon). Build requirement:
+
+- Fit **2× low-capacitance ESD TVS diodes** at the faucet-display connector: **one from IO33 (TX) to
+  GND and one from IO35 (RX) to GND**. Use an **ESD9B3.3-class / PESD3V3-class** part (3.3 V working,
+  bidirectional, **≤ 15 pF**, **SOD-923**) so the UART edges are not loaded — e.g. onsemi
+  ESD9B3.3ST5G or Nexperia PESD3V3L1BA.
+- Mount them on the last ~10 mm of ribbon at the display connector — on the connector's carrier/adapter
+  PCB, or a small flex/dead-bug tab, since the stock **Waveshare ESP32-S3-Touch-LCD-1.47** module
+  carries no spare pad. Keep each part's GND stub **< 5 mm** to the ribbon's GND conductor: the clamp
+  is only as good as its return-loop inductance.
+- The 5 V and GND conductors are not clamped (rail + return); only the two TTL signals.
+
+This is the **primary** ESD path. The main PCBA carries the **driver-end backstop** — R26 (IO33) and
+R27 (IO35), ~220 Ω 0402 in series — which damps the long-cable edges and current-limits the ESP32 pin,
+but does **not** replace the faucet-end TVS (a series R cannot clamp the surge voltage). Full spec and
+part rationale: [`/hardware/assembly/cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)
+"Faucet-display ESD protection (SIG-6)".
 
 ## Procedure
 
