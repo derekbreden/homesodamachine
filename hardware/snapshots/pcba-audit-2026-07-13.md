@@ -88,6 +88,40 @@ The faucet display is a stock Waveshare ESP32-S3-Touch-LCD-1.47 on a ~1 m umbili
 
 Unchanged from the 2026-07-11 snapshot and out of scope for this pass: `firmware/src/main.cpp` is the L298N prototype's; the port encodes the interlock's assumed polarities, the GPPU enables, the ≤3-valve simultaneity, and the refill interlock. The board's wiring is self-consistent and boot-safe; nothing exercises it until a board exists.
 
+## Later 2026-07-13 — independent re-audit (F1 PPTC + order spec)
+
+A fresh independent audit re-ran against this board (fitness-for-purpose + JLCPCB manufacturability),
+took the gerbers through a byte-level parse + per-layer render (**clean — no blocker; both prior
+toolchain bugs, the empty pill-pad paste and the D70 silk-aperture collision, confirmed fixed in the
+output**), and added:
+
+- **F1 — 12 V-inlet resettable PPTC** (`SMD1812P200TF16`, `C20812`, 1812, **2 A hold / 4 A trip / 16 V**,
+  100 mΩ post-trip), in series at the inlet ahead of Q4: `J10.V12 → net.V12RAW → F1 → net.V12IN → Q4.D →
+  V12 island` (traced in source, `pcba.tsx:1728-1733`; V12RAW and V12IN are separate nets bridged only by
+  F1 — no bypass). Closes the sustained-fault band the 6.7 A Mean Well supply ignores (a partially-shorted
+  valve/pump coil, a stalled Kamoer, a chafed 12 V loom drawing between the ~3.3 A board peak and the
+  6.7 A OLP) and protects Q4 (no forward-overcurrent limit of its own) + the V12 copper; auto-recovers, so
+  a transient fault is not a dead unit. D8 (SMAJ15A) relocated to the open V12 island by C1/C2 to free the
+  slot — still island(V12)→GND. **No board growth (85.05 × 72.85), GATES 12/12.** Commit `76c80142`.
+  (Extended, ~33 k stock; no 2 A-hold SMD PPTC is Basic.)
+- **[`order.md`](/hardware/pcb/pcba/order.md)** — the JLCPCB order-form parameters not encoded in the
+  gerber/BOM: **POFV epoxy-filled-&-capped vias (must-select — 89 vias are via-in-pad)**, ENIG finish,
+  4-layer stackup / 1.6 mm / 1 oz outer, SMT-top + THT assembly, the two gerber-preview sanity checks
+  (USB-C cutouts render as slots; corner holes plated), and panelization.
+- **Stock-risk / designated second-source checklist** in `pcb/pcba/jlcpcb-parts.md` — the shallow
+  Extended parts (C3 ~91 the tightest, plus DS3231, COS13487, SMAJ15A, 74LVC1G08, XH-9P) each get a
+  fallback; ~28 unique Extended parts = 28 stock dependencies to re-verify the week of ordering.
+- **`FORKS.md`** corrected — the `circuit-json-to-gerber` fork carries the F_Paste-from-copper fix (not
+  just the Hershey font), so reverting it to upstream reintroduces the 9-unpasted-IC bug; the
+  capacity-autorouter fork is dormant (board is 100 % hand-routed).
+
+**Reaffirmed open (the one real fitness gate):** the **ULN2803 U4/U5 thermal** measurement on a
+first-article board, at the 40–55 °C shelf ambient (not a 25 °C bench) and at real fill durations — U4
+transiently exceeds Tj(max) at cold-inrush and U5 runs continuously fan-warmed, neither with thermal
+shutdown. Deferring it is acceptable **only if the measurement actually happens before committing to
+production**. Minor: the gas-interlock fail-safe covers a broken/unplugged sensor but not an MQ-6 drifted
+to a false "clear" (a defense-in-depth layer whose primary safety is the low charge + shroud).
+
 ## What this snapshot is NOT
 
 - Not the board's requirements — that is `pcb/pcba/requirements.md` and its scorecard.
