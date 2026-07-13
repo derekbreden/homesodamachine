@@ -67,6 +67,10 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | D8 — 12 V inlet surge clamp | SMAJ15A, 400 W uni TVS, 15 V standoff / 24.4 V clamp | SMA (DO-214AC) | C571368 | Extended | 2,440 (2026-07-13) | $0.038 |
 | D9 — Q4 Vgs clamp | BZT52C15 (MDD), 15 V / 0.5 W Zener | SOD-123 | C173427 | Extended | 182,800 (2026-07-13) | $0.016 |
 | R23 — Q4 gate pulldown | 100 kΩ ±1% | 0402 | C60491 | Basic | 3,594,500 (2026-07-13) | $0.0005 |
+| U15 — gas→compressor interlock | 74LVC1G08GW, single 2-input AND gate | SOT-353 (SC-70-5) | C12512 | Extended | 1,263 (2026-07-13) | $0.045 |
+| R24 — interlock B-node pulldown | 100 kΩ ±1% | 0402 | C60491 | Basic | (see R23) | $0.0005 |
+| R25 — DOUT invert-select link | 0 Ω jumper | 0402 | C17168 | Basic | 18,421,967 (2026-07-13) | $0.0003 |
+| C23 — U15 VCC decouple | 0.1 µF 50V X7R | 0402 | C1525 | Basic | 54,323,629 (2026-07-13) | $0.0018 |
 
 Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C49678 = YAGEO
 CC0805KRX7R9BB104; C845537 = UMW (Youtai) ULN2803A; C47023 = Microchip MCP23017-E/SO;
@@ -154,6 +158,22 @@ the surge the board sees, island→GND at the inlet: 15 V standoff (no leakage o
 preview only); footprints (pads + courtyard + silk) and the fab output are complete. Q4's SOT-23
 sits a touch tighter than IPC-Nominal against C5/J10 (courtyard advisory ~−0.08 mm; copper clears
 at the 0.15 mm floor). D8's `C571368` runs shallow at JLCPCB (~2,440) — glance before a large run.
+
+**U15/R24/R25/C23 — gas→compressor interlock.** A firmware-independent AND gate on the compressor
+relay line: **U15 (74LVC1G08GW, `C12512`, SOT-353)** takes the ESP compressor command on A (← IO19)
+and the divided MQ-6 DOUT on B, and only its output Y reaches the relay (→ J5.IO19), so a gas trip
+opens the compressor in hardware even if firmware is hung (Y = A·B). B defaults LOW through **R24
+(100 kΩ 0402, `C60491`, Basic)** at the gate pad, so a broken B-haul, an unpowered ESP, or a gate
+with no VCC all fail safe (relay OFF). Two polarities wait on bench truth: **R25 (0 Ω 0402, `C17168`,
+Basic)** is the invert-select link in series from the DOUT node (default pass-through); and the
+pin-identical **74LVC1G00 NAND (`C12508`, same SOT-353 land)** drops in for an active-LOW relay
+module with no layout change. **C23 (0.1 µF 0402, `C1525`, Basic)** decouples VCC. U15 has no
+tscircuit CDN 3D model (footprint + fab output complete); `C12512` is Extended and ran ~1,263 at
+JLCPCB (2026-07-13) — glance before a large run, or the NAND `C12508` if depleted. The interlock
+seats E of the WROOM on the old IO19→J5 corridor, so A/Y are the two halves of an already-clean
+haul; only B is a new run, around the module's SE and up the east flank (a 0.15 mm U6 nudge opened
+the flank for it — see the pcba.tsx GAS block). No relay-side firmware change: the ESP still drives
+IO19, the gate just vetoes it on gas.
 
 **U4/U5 are `C845537`** (UMW ULN2803A, SOP-18-300mil wide body). No Basic ULN2803 SOIC
 exists in the library — every ULN2803 part is Extended — so the feeder fee is unavoidable;

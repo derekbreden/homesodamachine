@@ -55,7 +55,7 @@
  * (U10, below the coin cell); the web viewer's board chip reports it live
  * (clearance.ts -> picks.json).
  */
-import { at, Cap, Res, Jst, jstPins, ulnOUT, Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870, Tact, Diode, Pfet, Tvs, Zener } from "./parts"
+import { at, Cap, Res, Jst, jstPins, ulnOUT, Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870, Tact, Diode, Pfet, Tvs, Zener, And2 } from "./parts"
 import { KF301_5_0_2P } from "./imports/KF301_5_0_2P"
 import { frame, route, routeBottom, routeInner, channel } from "./routing"
 import { boardVersionParts } from "./board-version"
@@ -103,8 +103,26 @@ const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" 
 // and the switch row (whose band the relay's bottom lane also crosses). pin1 (rot90: south) drops
 // the corridor and crosses to IO0 on the bottom, under the relay's top rise; pin2 (3V3) stitches
 // to its plane.
-const R8El = <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-46} y={15.5} rot={90} side="E" />  // moved to the open pocket S of U13 (was the E fence blocking U13's east slide); pin1 drops S to IO0
+const R8El = <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-50.5} y={15} rot={90} side="W" />  // W of IO0 (pin1 drops S then E into IO0); vacated its old (-46) seat for U15 + R24
 const R8f = frame(R8El)
+// ── Gas→compressor interlock (U15 74LVC1G08 AND gate) ─────────────────────────────────────────
+// The firmware-INDEPENDENT compressor interlock the GAS block calls out: U15 gates the ESP compressor
+// command (A ← U1.IO19) with the MQ-6 hardware gas-clear line (B ← divided DOUT), driving the relay
+// (Y → J5.IO19). Y = A·B, so the compressor energizes ONLY when firmware asks AND the sensor reads
+// clear — a gas trip cuts the relay in hardware even if firmware is hung. It seats in the pocket E of
+// the WROOM (x>-47, off the castellation rim) ON the old IO19→J5 corridor: A and Y are the two halves
+// of a haul that already routed clean, and only B is a new run — around the WROOM's SE, never across
+// the module. SOT-353 rot0: A(pin2)/B(pin1)/GND(pin3) south, Y(pin4)/VCC(pin5) north. Truth + fail-safe
+// + invert provisions in the GAS-block comment below.
+const U15El = <And2 name="U15" x={-45.9} y={15.5} rot={0} />  // ref-des on the body centre (SOT-353 has no centre pad), between the pad rows
+// R24 (100k) pulls the gate-B node LOW at the gate, so a broken B-haul fails safe (B→0 ⇒ Y→0 ⇒ relay
+// OFF ⇒ compressor off). R25 (0Ω) is the DOUT-polarity invert-select link in series from the divider
+// node; C23 (0.1µF) decouples VCC. R24 sits just W of B in the flank; C23 N of the gate by VCC.
+const R24El = <Res name="R24" resistance="100k" footprint="0402" jlcpcb="C60491" x={-48.2} y={14.6} rot={90} side="W" />  // B-node pulldown (fail-safe): pin1 S → B, pin2 N → GND; in the flank W of U15
+const C23El = <Cap name="C23" capacitance="0.1uF" footprint="0402" jlcpcb="C1525" x={-45.5} y={17.9} rot={0} side="N" />   // VCC decoupler, N of the gate
+const R25El = <Res name="R25" resistance="0" footprint="0402" jlcpcb="C17168" x={-52.7} y={-12.6} rot={0} side="S" />       // DOUT invert-select series link (clear top spot E of C10; pin1 W→DOUT, pin2 E→B)
+const R25f = frame(R25El)
+const U15f = frame(U15El), R24f = frame(R24El), C23f = frame(C23El)
 // BOOT (SW1) and RESET (SW2) tacts stand rotated in the strip between U13 and the north edge,
 // pads N/S (the rotation narrows each to the strip's width; south pads clear the RTS rail at
 // y28.9, north pads stay inside the board-edge pour margin). Each connects one DIAGONAL pair —
@@ -210,7 +228,7 @@ const J3f = frame("J3", J3El.props.x, J3El.props.y, 0, Object.fromEntries(jstPin
 const J13El = <Jst name="J13" x={-12.25} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" rot={0} />
 const J13f = frame("J13", J13El.props.x, J13El.props.y, 0, Object.fromEntries(jstPins(J13El.props).pins))
 const BT1El = <CoinHolder name="BT1" x={-20.5} y={-1.25} />
-const U6El = <Ds3231Smd name="U6" x={-40.5} y={2.5} rot={270} />
+const U6El = <Ds3231Smd name="U6" x={-40.35} y={2.5} rot={270} />  // nudged 0.15 E (clear of BT1): opens the WROOM↔U6 flank for the interlock B-haul beside the IO15→R10 feed
 const BT1f = frame(BT1El), U6f = frame(U6El)
 const D2El = <LedRed name="D2" pcbRotation={180} {...at(-39.75, -15.5)} />
 const D3El = <LedGrn name="D3" pcbRotation={180} {...at(-39.75, -18)} />
@@ -284,6 +302,7 @@ export const decoupling: DecouplingRule[] = [
   { cap: "C5", near: "U3", role: "MCP 0x21 VDD", kind: "hf" },
   { cap: "C21", near: "U13", role: "CH340C 3V3", kind: "hf" },
   { cap: "C22", near: "U14", role: "USBLC6 VBUS", kind: "hf" },
+  { cap: "C23", near: "U15", role: "interlock AND-gate VCC", kind: "hf" },
   { cap: "C1", near: "U5", role: "V12 island HF (ULN B)", kind: "hf" },
   { cap: "C2", near: "U4", role: "V12 island HF (ULN A)", kind: "hf" },
   { cap: "C3", near: "U4", role: "V12 470uF bulk reservoir", kind: "reservoir" },
@@ -917,19 +936,40 @@ export default () => (
     <trace from=".C20 > .pin2" to="net.GND" />
 
     {/* RELAYS (J5): logic out to the two external opto-isolated relay modules + their V5 coil supply. */}
-    {/* IO19 relay — westmost/top lane of the north-edge BOTTOM comb (IO19, IO17, IO4 fan east in
-        order to J5 / U11 / U12, so they nest without crossing). The boot wall is TOP copper, so on the
-        bottom IO19 exits its pad NORTH to y14 — clear above the pad row's shadow band (pads end y10.05)
-        and above the R16 stitch via at (-56,13) — then east and north onto J5.IO19's barrel, ENDING
-        there (routeInner: the barrel conducts every layer — a closing via would drill inside J5's
-        drill, a coincident hit). */}
-    <trace from="U1.IO19" to="J5.IO19" pcbPathRelativeTo="board" pcbPath={routeInner("bottom",
+    {/* IO19 relay — now GATED by the U15 interlock (declared up top; truth table in the GAS block).
+        U15 seats E of the WROOM (x-45.9) in the RXD↔SW1-boot gap, ON the old IO19→J5 corridor, so the
+        haul splits into two clean halves and the module is never crossed:
+          A ← IO19 — the WEST half, BOTTOM at y12 (the lane the direct haul already used).
+          Y → J5.IO19 — the EAST half, BOTTOM: jog E off Y's north pad, drop to the y13 corridor
+            (S of C4/U13, N of A's y12), E to U2's RESET/INTB pad-column gap, up it, onto J5.IO19's
+            barrel (routeInner ends there — the barrel conducts every layer, no closing drill).
+        VCC (pin5) / GND (pin3) auto-stitch to their planes; C23 decouples VCC just N of the gate. */}
+    {U15El}{R24El}{C23El}
+    <trace from="U1.IO19" to="U15.A" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO19",
         { row: 12 },
+        U15f.col("A"),
+        "U15.A",
+    )} />
+    <trace from="U15.Y" to="J5.IO19" pcbPathRelativeTo="board" pcbPath={routeInner("bottom",
+        "U15.Y",
+        U15f.east("Y", 0.4),        // jog E off the north pad onto the bottom, clear of GND's pad-via
+        { row: 13.5 },              // the E-bound corridor: S of C4/U13, N of A's y12 haul + the Q2.C hop via
         U2f.col("RESET", -0.635),   // riser threads the RESET/INTB pad-column gap (both U2 rows align)
         { row: 29.5 },              // jog under J5's barrel row, over to the IO19 column
         J5f.col("IO19"),
         "J5.IO19",
+    )} />
+    <trace from=".U15 > .VCC" to="net.V3V3" />
+    <trace from=".U15 > .GND" to="net.GND" />
+    <trace from=".C23 > .pin1" to="net.V3V3" />
+    <trace from=".C23 > .pin2" to="net.GND" />
+    <trace from=".R24 > .pin2" to="net.GND" />
+    <trace from="R24.pin1" to="U15.B" pcbPathRelativeTo="board" pcbPath={route(
+        "R24.pin1",
+        { row: 13.9 },              // S off pin1 into the flank lane
+        { col: U15f.pin("B").x },   // E (over RXD on the bottom) to B's column, then N into B's S face
+        "U15.B",
     )} />
     {/* IO2 relay — up the east corridor, split across layers: TOP from the pad through the
         module/U6 channel (the original col), jogging east at y9.3 (above U6's pads, below the
@@ -940,7 +980,7 @@ export default () => (
         same frame-derived coordinates route() would use. */}
     <trace from="U1.IO2" to="J5.IO2" pcbPathRelativeTo="board" pcbPath={(() => {
         const col1 = channel(-47.055, -46.365) // the module-east / U6-west pad channel
-        const col2 = U13f.pin("pin8").x + 0.635 // just east of U13's pad rows, west of R8
+        const col2 = U13f.pin("pin8").x + 0.635 // just east of U13's pad rows, west of C4
         const y0 = U1f.pin("IO2").y            // exit the pad east on its own row
         return [
             "U1.IO2",
@@ -1075,9 +1115,19 @@ export default () => (
           AOUT (analog level)          -> R1/R2 -> IO39 (ADC1) — trend + warm-up sense
           DOUT (LM393 comparator trip) -> R3/R4 -> IO36       — the hardware gas trip
         Own connector, isolated from the SENSORS loom, so the fire-safety run is
-        unambiguous. DOUT is the signal a firmware-INDEPENDENT compressor interlock
-        must consume; that interlock (a 74LVC1G08 gating the compressor relay line IO19 -> J5)
-        is NOT yet on this board — it needs two bench-verified polarities first (see notes). */}
+        unambiguous. The divided DOUT node (R3.pin2/R4.pin1, ~3.0 V, the same node feeding IO36)
+        drives the firmware-INDEPENDENT compressor interlock now ON the board: U15 (74LVC1G08 AND,
+        declared up top, seated E of the WROOM) takes DOUT on B and the ESP compressor command IO19
+        on A, and only its output Y reaches the relay (J5.IO19). Y = A·B, so:
+          truth (IO19, gas) -> J5.IO19:  (on, clear) -> ON,  (on, GAS) -> OFF,  (off, *) -> OFF
+        Fail-safe is THREE-WAY — B defaults LOW (R24 100k pulldown AT the gate-B pad), so a broken
+        B-haul, an unpowered/unprogrammed ESP (A low), OR a gate with no VCC each leave the relay OFF
+        (compressor off). Assumed polarity (to bench-confirm): DOUT HIGH = gas clear, relay active-HIGH.
+        Two provisions cover the polarities that need bench truth:
+          · R25 (0Ω) is the DOUT-polarity invert-select, in series from the divider node — default
+            pass-through; if DOUT reads active-HIGH-on-gas, feed B from an inverted source in its place.
+          · if the relay module is active-LOW, drop in the pin-identical 74LVC1G00 NAND (C12508) —
+            same SOT-353 land, no layout change. */}
     <trace from="R1.pin2" to="R2.pin1" pcbPath={route("R1.pin2", "R2.pin1")} />
     <trace from="R3.pin2" to="R4.pin1" pcbPath={route("R3.pin2", "R4.pin1")} />
     <trace from=".R2 > .pin2" to="net.GND" />
@@ -1094,6 +1144,55 @@ export default () => (
     <trace from="R1.pin1" to="J11.AOUT" pcbPathRelativeTo="board" pcbPath={route("R1.pin1", J11f.row("AOUT", 0), "J11.AOUT")} />
     <trace from="R3.pin1" to="J11.DOUT" pcbPathRelativeTo="board" pcbPath={route("R3.pin1", J11f.row("DOUT", 0), "J11.DOUT")} />
     <trace from=".J11 > .GND" to="net.GND" />
+    {/* Interlock B-side (truth table above): the divided-DOUT node → R25 (0Ω) → the B-haul → U15.B,
+        with R24 pulling B low at the gate. R25 sits in the clear S band E of the divider. Its DOUT
+        tap runs the BOTTOM W to R4.pin1 (S of the divider midpoint pads); the B-haul runs the BOTTOM
+        E along the south perimeter, clears the module's SE corner, climbs the WROOM's E flank (E of
+        the east pads, W of U6), and pops to TOP just below B — never crossing a castellation rim. */}
+    {R25El}
+    {/* Both B-side hauls ride INNER2 (the 5V plane) across the south region — the emptiest layer here,
+        so they clear the top/bottom fan + RS485 congestion, weaving only the sparse divider/GND-via
+        pads. The lane sits at y-11 (S of the module pad shadow, N of the divider midpoint pads/GND
+        vias). The B-haul climbs the flank on inner2 to y10 (S of the y11 wall's SCL/Q2.C), then pops
+        to TOP into B (crossing the wall on top, E of IO2's -46.7 column). */}
+    <trace from="R4.pin1" to="R25.pin1" pcbPathRelativeTo="board" pcbPath={(() => {
+        const a = R4f.pin("pin1"), r = R25f.pin("pin1")
+        const lane = -10.6
+        return [
+            "R4.pin1",
+            { x: a.x, y: a.y, via: true, toLayer: "inner2" } as const,
+            { x: a.x, y: a.y },
+            { x: -62.3, y: a.y },                                    // E off R4.pin1 (past the same-net IO36 tap), clear of R4.pin2's GND-via column
+            { x: -62.3, y: lane },                                   // N to the clear inner2 lane (N of the divider GND vias, S of the pad shadows)
+            { x: r.x, y: lane },                                     // E along the lane to R25.pin1's column
+            { x: r.x, y: r.y },                                      // S into R25.pin1
+            { x: r.x, y: r.y, via: true, toLayer: "top" } as const,
+            "R25.pin1",
+        ]
+    })()} />
+    <trace from="R25.pin2" to="U15.B" pcbPathRelativeTo="board" pcbPath={(() => {
+        const r = R25f.pin("pin2"), b = U15f.pin("B")
+        const lane = -10.6          // inner2 E-bound lane (the LED feeds here ride the bottom, so inner2 is clear)
+        const transX = -46.5        // inner2→bottom via column, midway between IO23's inner1 descent (-46.0) and IO15→R10 (-46.95)
+        const flankX = -46.6        // bottom climb column: 0.15 off IO15→R10, 0.17 off R5.pin2, 0.20 off U6's shadow
+        const popY = 9.85           // bottom→top, in the gap between IO2's y9.3 turn and SW1.D (10.45)
+        return [
+            "R25.pin2",
+            { x: r.x, y: r.y, via: true, toLayer: "inner2" } as const,
+            { x: r.x, y: r.y },
+            { x: r.x, y: lane },                                     // N to the inner2 E-bound lane
+            { x: transX, y: lane },                                  // E on inner2 to the transition column
+            { x: transX, y: -8.0 },                                 // N into the clear top-gap (S of Q2.C, N of IO27)
+            { x: transX, y: -8.0, via: true, toLayer: "bottom" } as const, // inner2→bottom, clear of IO15→R10
+            { x: transX, y: -8.0 },
+            { x: flankX, y: -8.0 },                                 // jog E to the climb column
+            { x: flankX, y: popY },                                 // N up the flank on the BOTTOM, beside IO15→R10 (crosses R5/IO23/Q2.C off-layer)
+            { x: flankX, y: popY, via: true, toLayer: "top" } as const, // bottom→top, S of SW1.D (10.45) / the wall
+            { x: flankX, y: popY },
+            { x: flankX, y: b.y },                                  // top up past the wall (E of IO2's -46.71 column)
+            "U15.B",                                                 // W into B's pad
+        ]
+    })()} />
 
     {/* V12 decoupling. HF: two 0.1uF ceramics (C1/C2 aligned at y1.33) on the V12 island
         by the ULN/manifold block, snubbing the fast solenoid-turn-off edge. BULK: a
@@ -1179,7 +1278,7 @@ export default () => (
         into R11/R12 by their west faces — east pin to upper row, so nothing crosses. */}
     <trace from="U1.IO15" to="R10.pin1" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO15",
-        { col: -46.85 },        // east-flank lane: between U1's GND corner pad and R5.pin2 shadows
+        { col: -46.99 },        // east-flank lane, hugging U1's east pads — leaves the U6 side of the flank for the interlock B-haul
         { row: -14.6 },         // north of the R row, over to pin1's column
         R10f.col("pin1"),
         "R10.pin1",
@@ -1425,9 +1524,9 @@ export default () => (
         U1f.above("IO0", 0.475),                                 // corridor centred in the lane between U1's tall north pads and the CC2 dip
         "U1.IO0",
     )} />
-    {/* R8's pull-up reach — R8 now sits in the pocket S of U13, close above IO0: pin1 drops S off
-        its pad into the clear band above the pump comb, then W to IO0's column and straight down
-        into the pad (all IO0 net, so the boot wall it meets there is the same net). */}
+    {/* R8's pull-up reach — R8 sits S of U13, just W of IO0's column (it vacated its old -46 seat for
+        the U15 interlock): pin1 drops S off its pad into the clear band above the pump comb, then E to
+        IO0's column and straight down into the pad (all IO0 net, so the boot wall it meets is same-net). */}
     <trace from="R8.pin1" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={route(
         "R8.pin1",
         { row: 13.5 },               // drop S off pin1, above the pump-comb band
@@ -1437,10 +1536,9 @@ export default () => (
     {/* Manual BOOT (IO0) / RESET (EN) — each tact connects one diagonal pad pair (see the
         placement block). SW1's boot line exits pin4 (NE) east over J5's body, drops the J5
         GND/V5 ring channel, jogs into U13's pin9/pin10–pin7/pin8 column gap (east of the
-        D+/D-/DTR rivers, west of R8 and the IO2 column), then hops to the BOTTOM at y10.45 —
-        between R8's 9.6 hop row and the IO4 comb, below RXD's bottom column — runs west, and
-        rises by its own via just north of IO0's pad (R8's pad-via already owns the pad's
-        drill). SW2's reset line hops to the bottom at pin3 (NW), drops straight down its own
+        D+/D-/DTR rivers, west of the IO2 column), then hops to the BOTTOM at y10.45 — over the
+        pad row, under the pump comb, below RXD's bottom column — runs west to IO0's column, and
+        rises by its own via just north of IO0's pad. SW2's reset line hops to the bottom at pin3 (NW), drops straight down its own
         column east of R18's seat, crosses under the collector row, and rises into Q2.C's pad
         via from the south. */}
     <trace from="SW1.pin4" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={(() => {
