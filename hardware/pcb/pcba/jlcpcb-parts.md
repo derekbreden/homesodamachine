@@ -60,7 +60,7 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | J3, J5, J8, J9, J11, J13 — 4-pin (FAUCET, RELAYS, I2C, DISPLAY, GAS, PUMPS) | XH2.54 4P | wafer, 2.5 mm | C5359632 | Extended | 39,475 (2026-06-30) | $0.0116 |
 | J6 — 5-pin (REEDS A) | XH2.54 5P | wafer, 2.5 mm | C5359633 | Extended | 14,791 | $0.0294 |
 | J2, J4 — 6-pin (MANIFOLD B, SENSORS) | XH2.54 6P | wafer, 2.5 mm | C5359634 | Extended | 42,550 | $0.0254 |
-| J7 — 7-pin (REEDS B) | XH2.54 7P | wafer, 2.5 mm | C5359635 | Extended | 16,231 | $0.0278 |
+| J7 — 7-pin (REEDS B), **keyed EH** | JST-EH 7P (B7B-EH-A), 2.5 mm | wafer, 2.5 mm | C160254 | Extended | 12,140 (2026-07-13) | $0.0395 |
 | J1 — 9-pin (MANIFOLD A) | XH2.54 9P | wafer, 2.5 mm | C5359637 | Extended | 380 (2026-06-30) | $0.0400 |
 | J10 — 12 V inlet | KF301-5.0-2P screw terminal, 2P 5.0 mm, 17 A / 250 V, 14–22 AWG | THT block, 5.0 mm pitch | C474881 | Extended | 165,152 (2026-07-02) | $0.0995 |
 
@@ -68,7 +68,8 @@ Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C49678 = YAGE
 CC0805KRX7R9BB104; C845537 = UMW (Youtai) ULN2803A; C47023 = Microchip MCP23017-E/SO;
 C94598 = Jiangsu Huaneng MLT-5020; C2146 = JSCJ S8050 J3Y; C474881 = Cixi Kefa Elec
 KF301-5.0-2P screw terminal; XH2.54 connectors = XUNPU WAFER-XH2.54-{n}PZZ, one vendor
-across the five pin counts used (4/5/6/7/9P), vertical THT.
+across the four XH pin counts used (4/5/6/9P), vertical THT. J7 (7-pin REEDS B) is a keyed
+JST-EH (B7B-EH-A, C160254), not XH — see the keying note below.
 
 **U7 is `C51949447` (COSINE COS13487EESA-3.3), a native-3.3 V auto-direction RS-485
 transceiver** — a MAX13487E-equivalent whose datasheet pin map (1 RO, 2 /RE, 3 /SHDN,
@@ -103,6 +104,17 @@ reversals are free. The hole PITCH is a uniform 2.5 mm across the series (`WAFER
 every count): the "2.54" in the part name is the nominal series name, not the drawn pitch — the
 XUNPU spec lists 2.5 mm (LCSC C5359632: "Pitch 2.5 mm", "X-Length of Bottom Edge on Board 12.5 mm"
 for the 4P, i.e. 2.5 mm of plastic past each outer pin, `XH_END` in `component-bodies.ts`).
+
+**J7 (REEDS B) is a keyed JST-EH, not XH.** J4 (SENSORS) and J7 are both 7-pin on the same
+2.5 mm grid, so as XH they are cross-mateable — and a loom swap would drive SENSORS' 5V/3V3 rails
+into the MCP reed inputs. J7 carries only dry-reed signals, so it takes a JST-EH housing
+(B7B-EH-A, `C160254`): the same single-row 2.5 mm hole grid, but an EH housing cannot mate an XH
+loom (or vice versa) — the swap is now mechanically impossible. The `Jst` helper carries an EH
+branch (`series="EH"`, `EH_*` lookups in `parts.tsx`); the EH footprint numbers pin 1 from the
+WEST (opposite the XH 7P), so `EH_PIN1_WEST[7]=true` keeps every reed net on the barrel it used as
+XH — a body/footprint/silk swap with no reroute. Top-entry B7B-EH-A (the side-entry S7B-EH is out
+of stock at JLCPCB); it has no STEP model on the tscircuit CDN, so J7 alone is absent from the 3D
+preview — its footprint (pads + courtyard + silk) and the fab output are complete.
 
 **J10 is a KF301-5.0-2P screw terminal (`C474881`), not an XH wafer.** The 12 V inlet
 carries the whole board — both pumps priming + a few valves + the condenser fan ≈ 3.3 A
