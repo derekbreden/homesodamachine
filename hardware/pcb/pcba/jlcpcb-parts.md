@@ -270,3 +270,28 @@ DFM tradeoff, since the island floods x[−31.75, 16.5] and leaves no clear east
 it stays well clear of the board's 0.14 mm copper floor. FID3 (−59.5, −34.8) SW sits on open west
 laminate near MH4. The native fiducial emits a paste aperture on each dot — harmless on a
 no-component target, and it keeps the every-top-SMD-pad-has-paste gate honest (359/359).
+
+## Stock risk & designated second-sources
+
+Every stock/price figure above is **point-in-time** and must be re-checked the week of ordering. This
+board carries **~28 unique Extended parts** — each is both a one-time JLCPCB feeder/setup fee (~$3
+apiece, ~$80–90 total) *and* a stock dependency: any single Extended part out of stock stalls the whole
+assembly order. Before releasing an order, re-verify each row and lock an in-stock fallback for the
+shallow ones below.
+
+| Part | LCSC | Recorded stock | Risk | Designated fallback (confirm in-stock at order) |
+|---|---|---|---|---|
+| **C3** — 470 µF/25 V bulk (THT radial) | `C350206` | **~91** (2026-06-27) | **Highest** — lowest stock on the board | Drop-in: any 470 µF/25 V radial, D10×12.5 mm / 5.08 mm pitch, in the THT-assembly library. Eliminate-the-THT-part path (needs a footprint swap to SMD — small respin): `C3351` / `C47023111` / `C3445246` (470 µF/25 V SMD). Re-verify `C350206` first. |
+| **U6** — DS3231SN RTC | `C9866` | ~335, **$6.14** | Med stock + the board's priciest part (~40 % of BOM) | Drop-in: another DS3231SN (SOIC-16). *Cost note (owner's call, not a defect):* a ±2 ppm TCXO RTC is over-spec if the appliance only needs coarse timekeeping — a plain RTC, or ESP32 internal time, would cut ~$6/unit. |
+| **U7** — COS13487 RS-485 | `C51949447` | ~530 (2026-07-03) | Med — a second-source clone, shallow | Genuine TI **THVD1426DR** (`C5215921`, SOIC-8, same pinout) — deeper supply. |
+| **D8** — SMAJ15A input surge TVS | `C571368` | ~2,440 (2026-07-13) | Med | Any SMAJ15A in SMA (many vendors); or an SMA uni-TVS with ≤24.4 V clamp (under C3's 25 V). |
+| **U15** — 74LVC1G08 interlock gate | `C12512` | ~1,263 (2026-07-13) | Med | Another 74LVC1G08 in SC-70-5 / SOT-353 (TI/Diodes). **Not** the NAND `C12508` — that is pin-identical but the *active-LOW-relay* variant, not a like-for-like AND second-source. |
+| **J1** — XH-9P (MANIFOLD A) | `C5359637` | ~380 (2026-06-30) | Med | Another 9-pin XH2.54 vertical wafer (2.5 mm) in the library. |
+
+**Unrecorded stock (verify at order — low risk).** `U2`/`U3` MCP23017 (`C47023`), `U10` K7805-2000R3
+(`C18212380`), `D2` red LED (`C2286`) show "—" in the table above only because the figure was never
+filled in — all three are high-volume commodity parts virtually always in JLCPCB stock, so the blank is
+a missing note, not a scarcity signal. Confirm at order like every other row.
+
+Full order-form checklist (POFV, finish, stackup, assembly, the two preview sanity-checks) is in
+[`order.md`](order.md).
