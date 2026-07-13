@@ -138,6 +138,12 @@ const CAD: Record<string, any> = {
     pcbRotationOffset: 0,
     modelOriginPosition: { x: 0, y: -0.000012700000070253736, z: 0 },
   },
+  C25091: {
+    objUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C25091.obj?uuid=026a4a15ab5c4a92ac0e421d6d013717",
+    stepUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C25091.step?uuid=026a4a15ab5c4a92ac0e421d6d013717",
+    pcbRotationOffset: 0,
+    modelOriginPosition: { x: 0, y: -0.000012700000070253736, z: 0 },
+  },
 }
 
 const LAND: Record<string, () => any> = {
@@ -155,6 +161,7 @@ const LAND: Record<string, () => any> = {
   C15849: CAP_0603,
   C25900: RES_0402,
   C11702: RES_0402,
+  C25091: RES_0402,   // 220Ω (UNI-ROYAL 0402WGF2200) — R26/R27 faucet-UART series backstop
   C60491: RES_0402,   // 100k (YAGEO RC0402FR-07100KL) — R23 gate pulldown + R24 interlock B-node pulldown
   C17168: RES_0402,   // 0Ω (UNI-ROYAL 0402WGF0000) — R25 DOUT-polarity invert-select link
   C1525: CAP_0402,    // 0.1µF (Samsung CL05B104KO5NNNC) — C23 interlock VCC decoupler
