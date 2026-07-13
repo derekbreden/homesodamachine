@@ -1589,6 +1589,18 @@ export default () => (
     <platedhole name="MH3" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" fastenerAnnulus="3.75mm top" pcbX={13.5} pcbY={-33.3} />
     <platedhole name="MH4" shape="circle" holeDiameter="3.2mm" outerDiameter="4.0mm" fastenerAnnulus="3.75mm top" pcbX={-64.5} pcbY={-33.3} />
 
+    {/* Global fiducials — three non-collinear 1 mm bare-copper dots (2 mm mask opening) for the
+        assembler's vision system to register the panel. FID1 (SE) + FID2 (NE) sit INSIDE the V12
+        top island: the pour voids 0.5 mm around each netless dot (its netClearance), so their
+        nearest copper is the V12 pour edge at ~0.5 mm — below JLC's ideal 1 mm keep-ring but a
+        deliberate DFM tradeoff on a board with no clear east-corner laminate (the island floods
+        x[-31.75,16.5]). FID3 (SW) sits on clear west laminate near MH4. Not a BOM part (no source
+        component, no JLCPCB #); the paste aperture the native fiducial carries is harmless on a
+        no-component dot. */}
+    <fiducial name="FID1" padDiameter="1mm" pcbX={15} pcbY={-28.3} />
+    <fiducial name="FID2" padDiameter="1mm" pcbX={16} pcbY={27.5} />
+    <fiducial name="FID3" padDiameter="1mm" pcbX={-59.5} pcbY={-34.8} />
+
     {/* Board identity nameplate — the soda-glass brand mark (ios/AppIcon.svg,
         monocolor silk via logo.ts) beside the two-line name, over MACHINE and the
         two-line version stamp, filling the bay north of U9 (C10/C11 column west,
