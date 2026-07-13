@@ -25,7 +25,7 @@
     "@tscircuit/props": "github:derekbreden/props#3c499d886eb08fdd020edff41ae40b39c7589797",
     "@tscircuit/copper-pour-solver": "github:derekbreden/copper-pour-solver#659b70b66fa4b86c9e0be6323d3a094c9da152d2",
     "@tscircuit/footprinter": "github:derekbreden/footprinter#c8eadb7b7ba9366b5f00d457a3bec2209bb73913",
-    "circuit-json-to-gerber": "github:derekbreden/circuit-json-to-gerber#8aceadcace30a2b4d3a9fdc2c8e2634d2b1af0f7",
+    "circuit-json-to-gerber": "github:derekbreden/circuit-json-to-gerber#232911239f5f281b26eee4b4edee13a7db77f9fb",
     "@tscircuit/cli": "github:derekbreden/cli#9a36c81e9291d2bae209c77cdf0d7116321ca34d"
   }
 }
