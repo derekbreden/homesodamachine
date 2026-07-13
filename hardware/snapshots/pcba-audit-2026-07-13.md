@@ -8,7 +8,7 @@
 - A fresh-eyes pass over the 2026-07-11 board (thermal, DFM, external-interface protection) found **one fab blocker** and a set of protection/robustness gaps the earlier audit had not reached. This snapshot records the board with them resolved and lists the residual bench and DFM items.
 - **Fab blocker (resolved):** the exported solder-paste layer covered only rect pads — 148 of 330 top-side SMD lead pads (all gull-wing SOIC/SSOP leads across U2/U3, U4/U5, U6, U7, U11/U12, U13) had **no paste aperture**. A stencil cut from that layer would place nine ICs on paste-free pads. The `circuit-json-to-gerber` fork now derives F_Paste from `pcb_smtpad` copper, and a `paste-coverage` gate holds it.
 - **Protections now on the board:** reverse-polarity P-FET + surge clamp at the J10 12 V inlet; a firmware-independent gas→compressor interlock; a buzzer flyback clamp; faucet-UART series backstop + IO25 flow-input hardening; J4/J7 anti-misplug keying; three assembler fiducials.
-- **Residual:** bench-gated polarities/thermals (below), a handful of cosmetic silk items, and the faucet-end ESD TVS (specified in the cable assembly, not on this board — no top-side room at J3).
+- **Residual:** bench-gated polarities/thermals (below) and a handful of cosmetic silk items. *(The faucet-end ESD TVS once listed here as a residual moved on-board later 2026-07-13 — D10/D11 shunt clamps at U1, commit `a8f55a44`; see the Faucet UART section.)*
 
 ## Source-data state
 
@@ -33,6 +33,7 @@ Three parallel read-only passes over the 2026-07-11 board — thermal/power-inte
 | 7 | FID1–FID3 global fiducials (1 mm copper dot) | (bare-copper features) | `7eb423ef` |
 | 8 | R26/R27 faucet-UART series backstop (IO33/IO35) | 220 Ω 0402 `C25091` | `9df5986f` |
 | 9 | Faucet-end ESD TVS specified at the display connector (docs) | (cable-assembly spec) | `ec664903` |
+| 10 | On-board faucet-UART ESD — 2× shunt clamps at U1.IO33/IO35 (supersedes #9 as primary; same day) | ESD9B3.3ST5G SOD-923 `C96512` | `a8f55a44` |
 
 ## Protection circuits — as-built (traced in source)
 
@@ -80,6 +81,8 @@ The faucet display is a stock Waveshare ESP32-S3-Touch-LCD-1.47 on a ~1 m umbili
 
 - **Driver-end backstop (this board):** R26/R27 (220 Ω) in series on IO33/IO35 — ESD current limiting into the ESP clamp diodes and edge damping for the 1 m line.
 - **Primary ESD (cable assembly):** 2× low-capacitance ESD TVS (ESD9B3.3-class, SOD-923) from IO33 and IO35 to GND at the faucet-display connector end of the umbilical — protection at the user-touch source. Specified in `assembly/cable-assemblies.md` (SIG-6) and `assembly/faucet-and-umbilical.md`.
+
+**Resolved later 2026-07-13 (`a8f55a44`):** the primary clamp moved on-board. D11 (ESD9B3.3ST5G, `C96512`) shunts IO35→GND at R27.pin1 beside the U1.IO35 pad (−58.67, −9); D10 shunts IO33→GND at R26.pin1 (the 220 Ω output — the IO33 pad rim is boxed by the C10/C11 module-cap courtyards and the IO33/IO34 drop column at x −56.5). Both top-side (single-side assembly preserved), each GND pad a via-in-pad straight to the plane, board outline 85.05 × 72.85 unchanged, gates 12/12. R26/R27 remain the series element of the on-board clamp; the cable-end TVS drops to optional defence-in-depth. `cable-assemblies.md` and `faucet-and-umbilical.md` now carry the on-board topology as primary.
 
 ## Firmware ↔ board
 
