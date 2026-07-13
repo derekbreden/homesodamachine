@@ -23,8 +23,9 @@ First-pass draft. **Pricing convention: delivered cost** (product + shipping + t
 | [Chanzon 3.3 kΩ 1/4 W 1% metal-film resistor (100-pk)](https://www.amazon.com/dp/B08QRG7JBY) | MQ-6 gas-sensor output divider, bottom leg (R2/R4): pairs with the 2.2 kΩ top leg on each MQ-6 output (AOUT→IO39, DOUT→IO36) to step 0–5 V down to ~3.0 V. 2 of 100 per unit ($5.49/100) | 2 (of 100 pk) | $0.05 | $0.11 |
 | [Rubycon 470 µF 25 V low-ESR radial electrolytic capacitor, 10×12.5 mm (15-pk)](https://www.amazon.com/dp/B0F8BZVBKF) | bulk (low-frequency) decoupling on the 12 V solenoid rail; C3, a radial at the board centre between the two MCP stacks, west of the ULN drivers it feeds across the V12 island, soaking the inrush + flyback dump. pin1 (+)→V12 (the V12 island pour, widened to flood the whole valve block, covers it), pin2→GND plane. Pairs with the 0.1 µF HF ceramics (C1/C2 below); 1 of 15 per unit ($7.40/15) | 1 (of 15 pk) | $0.49 | $0.49 |
 | [Chanzon 0.1 µF 50 V ceramic disc capacitor, 2.54 mm lead pitch (100-pk)](https://www.amazon.com/dp/B07PTNB3CR) | high-frequency V12-rail decoupling — C1/C2, two through-hole 0.1 µF set into the right-edge connector stack and centered across the MANIFOLD fence (C2 above the 12 V inlet, C1 below MANIFOLD B), snubbing the fast solenoid-turn-off edge the bulk electrolytic can't. pin1→V12 pour, pin2→GND plane. 2 of 100 per unit | 2 (of 100 pk) | $0.02 | $0.04 |
-| [AO3407 P-channel MOSFET, SOT-23 (LCSC C181093)](https://www.lcsc.com/product-detail/C181093.html) | Q4 — reverse-polarity high-side pass FET at the J10 12 V inlet, in the slot west of the screw terminal. VDS −30 V, **VGS ±20 V** (an AO3401A's ±12 V would be marginal on the 12 V rail), RDS(on) ~60 mΩ. DRAIN→J10.V12IN (raw inlet), SOURCE→V12 island (load): the P-channel body diode points drain→source, so it conducts input→load in normal polarity and blocks load→input when the supply is reversed. GATE→GND through R23. ~$0.03 JLCPCB | 1 | $0.03 | $0.03 |
-| [SMAJ15A TVS diode, SMA/DO-214AC (LCSC C571368)](https://www.lcsc.com/product-detail/C571368.html) | D8 — 400 W unidirectional surge clamp across the V12 island → GND at the J10 inlet. 15 V stand-off (no leakage on the 12 V rail), 24.4 V clamp at 16.4 A — under C3's 25 V rating. Cathode→island, anode→GND plane. ~$0.08 JLCPCB | 1 | $0.08 | $0.08 |
+| [SMD1812P200TF16 resettable PPTC fuse, 1812 (LCSC C20812)](https://www.lcsc.com/product-detail/C20812.html) | F1 — 12 V inlet overcurrent protection, in series J10.V12→F1→Q4→island (the slot west of the screw terminal). RUILON PPTC: **2 A hold / 4 A trip / 16 V**, 100 mΩ post-trip, 800 mW. Rides the ~3.3 A board peak on thermal inertia, trips on a sustained ~4 A fault the 6.7 A Mean Well supply ignores, and auto-recovers — bounding a downstream 12 V short before it cooks Q4 or the island copper (16 V clears the 12 V rail with margin). pin1→V12RAW (J10 barrel), pin2→V12IN (Q4 drain). ~$0.11 JLCPCB | 1 | $0.11 | $0.11 |
+| [AO3407 P-channel MOSFET, SOT-23 (LCSC C181093)](https://www.lcsc.com/product-detail/C181093.html) | Q4 — reverse-polarity high-side pass FET at the J10 12 V inlet, in the slot west of the screw terminal (downstream of F1). VDS −30 V, **VGS ±20 V** (an AO3401A's ±12 V would be marginal on the 12 V rail), RDS(on) ~60 mΩ. DRAIN→V12IN (F1 output), SOURCE→V12 island (load): the P-channel body diode points drain→source, so it conducts input→load in normal polarity and blocks load→input when the supply is reversed. GATE→GND through R23. ~$0.03 JLCPCB | 1 | $0.03 | $0.03 |
+| [SMAJ15A TVS diode, SMA/DO-214AC (LCSC C571368)](https://www.lcsc.com/product-detail/C571368.html) | D8 — 400 W unidirectional surge clamp across the V12 island → GND. 15 V stand-off (no leakage on the 12 V rail), 24.4 V clamp at 16.4 A — under C3's 25 V rating. Sits on the island between U4 and U5 (the surge clamp only needs the V12 node; F1 now fills the inlet slot). Cathode→island, anode→GND plane. ~$0.08 JLCPCB | 1 | $0.08 | $0.08 |
 | [BZT52C15 15 V Zener, SOD-123 (LCSC C173427)](https://www.lcsc.com/product-detail/C173427.html) | D9 — clamps the pass FET's Vgs short of its ±20 V gate-oxide rating. Cathode→Q4 source (V12), anode→Q4 gate; in normal polarity Vgs ≈ −12 V sits below the 15 V knee (no conduction). MDD, 182k stock. ~$0.02 JLCPCB | 1 | $0.02 | $0.02 |
 | [YAGEO 100 kΩ ±1% 0402 resistor (LCSC C60491)](https://www.lcsc.com/product-detail/C60491.html) | R23 — gate pulldown on Q4: holds the pass FET's gate at GND so an unplugged/loose J10 terminal can't float it into an undefined state. pin→Q4 gate, pin→GND plane. ~$0.001 JLCPCB | 1 | $0.001 | $0.001 |
 | [74LVC1G08GW single AND gate, SOT-353 (LCSC C12512)](https://www.lcsc.com/product-detail/C12512.html) | U15 — firmware-independent gas→compressor interlock. Y = A·B with A ← ESP compressor command (IO19) and B ← divided MQ-6 DOUT; only Y reaches the relay (J5.IO19), so a gas trip opens the compressor in hardware regardless of firmware. Pin-identical 74LVC1G00 NAND (C12508) is the drop-in for an active-LOW relay module. ~$0.045 JLCPCB (Extended, ~1.3k stock — glance before a large run) | 1 | $0.045 | $0.045 |
@@ -289,7 +290,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 
 | Section | $ |
 |---|---:|
-| 1. Controllers + electronics | [$169.80](BOM_SEC1) |
+| 1. Controllers + electronics | [$170.12](BOM_SEC1) |
 | 2. Carbonator vessel (plan A, 316L) | [$240.69](BOM_SEC2) |
 | 3. Water inlet | [$240.21](BOM_SEC3) |
 | 4. CO2 subsystem | [$172.20](BOM_SEC4) |
@@ -303,7 +304,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$4.66](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,588.35](BOM_GRAND)** |
+| **Total** | **[$1,588.67](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
