@@ -71,6 +71,8 @@ export type ScorecardInput = {
   ampacity: AmpacityAudit | null
   capAudit: CapAudit | null
   fab: { partsSourced: { sourced: number; total: number }; minDrillMm: number | null; minViaAnnularMm: number | null; minPadAnnularMm: number | null; unsourced: string[] }
+  // Top-side SMD pads and the ones the generated paste layer leaves with no opening (pick-data.ts).
+  pasteCoverage: { topPads: number; uncovered: string[] }
 }
 
 // Fab DFM floors (JLCPCB). Drill ≥ 0.2 mm. Annular splits by hole type: a THT/component pad wants
@@ -166,6 +168,12 @@ export function buildScorecard(inp: ScorecardInput): Scorecard {
 
   gate("via-annular", "Via annular ring meets JLCPCB DFM", inp.fab.minViaAnnularMm == null || inp.fab.minViaAnnularMm >= MIN_VIA_ANNULAR,
     inp.fab.minViaAnnularMm != null ? `${inp.fab.minViaAnnularMm} mm` : "—", `≥ ${MIN_VIA_ANNULAR} mm`)
+
+  // The stencil is cut from F_Paste; a top-side SMD pad with no opening in it is placed on bare
+  // solder mask and reflows dry. pick-data checks each pad against the generated paste layer.
+  const pc = inp.pasteCoverage
+  gate("paste-coverage", "Every top-side SMD pad has solder paste", pc.uncovered.length === 0,
+    `${pc.topPads - pc.uncovered.length}/${pc.topPads} covered`, `${pc.topPads}/${pc.topPads}`, pc.uncovered)
 
   if (inp.ampacity)
     gate("ampacity", "Current-carrying traces wide enough", inp.ampacity.flagged === 0,
