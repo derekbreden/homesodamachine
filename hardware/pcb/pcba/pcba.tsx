@@ -112,13 +112,14 @@ const R8f = frame(R8El)
 // clear — a gas trip cuts the relay in hardware even if firmware is hung. It seats in the pocket E of
 // the WROOM (x>-47, off the castellation rim) ON the old IO19→J5 corridor: A and Y are the two halves
 // of a haul that already routed clean, and only B is a new run — around the WROOM's SE, never across
-// the module. SOT-353 rot0: A(pin2)/B(pin1)/GND(pin3) south, Y(pin4)/VCC(pin5) north. Truth + fail-safe
+// the module. The genuine SC-70-5 land carries its 3-pin face on one long side; rot270 seats that
+// face south, so A(pin2)/B(pin1)/GND(pin3) land south and Y(pin4)/VCC(pin5) north. Truth + fail-safe
 // + invert provisions in the GAS-block comment below.
-const U15El = <And2 name="U15" x={-45.9} y={15.5} rot={0} />  // ref-des on the body centre (SOT-353 has no centre pad), between the pad rows
+const U15El = <And2 name="U15" x={-45.9} y={15.5} rot={270} />  // ref-des on the body centre (SOT-353 has no centre pad), between the pad rows
 // R24 (100k) pulls the gate-B node LOW at the gate, so a broken B-haul fails safe (B→0 ⇒ Y→0 ⇒ relay
 // OFF ⇒ compressor off). R25 (0Ω) is the DOUT-polarity invert-select link in series from the divider
 // node; C23 (0.1µF) decouples VCC. R24 sits just W of B in the flank; C23 N of the gate by VCC.
-const R24El = <Res name="R24" resistance="100k" footprint="0402" jlcpcb="C60491" x={-48.2} y={14.6} rot={90} side="W" />  // B-node pulldown (fail-safe): pin1 S → B, pin2 N → GND; in the flank W of U15
+const R24El = <Res name="R24" resistance="100k" footprint="0402" jlcpcb="C60491" x={-48.5} y={14.6} rot={90} side="W" />  // B-node pulldown (fail-safe): pin1 S → B, pin2 N → GND; in the flank W of U15 (clear of its SC-70-5 courtyard)
 const C23El = <Cap name="C23" capacitance="0.1uF" footprint="0402" jlcpcb="C1525" x={-45.5} y={17.9} rot={0} side="N" />   // VCC decoupler, N of the gate
 const R25El = <Res name="R25" resistance="0" footprint="0402" jlcpcb="C17168" x={-52.7} y={-12.6} rot={0} side="S" />       // DOUT invert-select series link (clear top spot E of C10; pin1 W→DOUT, pin2 E→B)
 const R25f = frame(R25El)
@@ -1012,12 +1013,12 @@ export default () => (
     <trace from="U1.IO19" to="U15.A" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO19",
         { row: 12 },
-        U15f.col("A"),
+        U15f.row("A"),              // rot270: row() lands on A's board column — the y12→A riser
         "U15.A",
     )} />
     <trace from="U15.Y" to="J5.IO19" pcbPathRelativeTo="board" pcbPath={routeInner("bottom",
         "U15.Y",
-        U15f.east("Y", 0.4),        // jog E off the north pad onto the bottom, clear of GND's pad-via
+        U15f.above("Y", 0.4),       // rot270: above() lands E of Y's board edge — jog E off the north pad onto the bottom, clear of GND's pad-via
         { row: 13.5 },              // the E-bound corridor: S of C4/U13, N of A's y12 haul + the Q2.C hop via
         U2f.col("RESET", -0.635),   // riser threads the RESET/INTB pad-column gap (both U2 rows align)
         { row: 29.5 },              // jog under J5's barrel row, over to the IO19 column
