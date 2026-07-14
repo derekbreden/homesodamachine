@@ -55,7 +55,7 @@
  * (U10, below the coin cell); the web viewer's board chip reports it live
  * (clearance.ts -> picks.json).
  */
-import { at, Cap, Res, Jst, jstPins, ulnOUT, Tbd62083, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870, Tact, Diode, Pfet, Tvs, Zener, And2, Ptc, EsdClamp } from "./parts"
+import { at, Cap, Res, Jst, jstPins, ulnOUT, Tbd62083, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870, Tact, Diode, Pfet, Tvs, Zener, And2, EsdClamp } from "./parts"
 import { KF301_5_0_2P } from "./imports/KF301_5_0_2P"
 import { frame, route, routeBottom, routeInner, channel } from "./routing"
 import { boardVersionParts } from "./board-version"
@@ -186,22 +186,18 @@ const R9f = frame(R9El)
 const R21El = <Res name="R21" resistance="1k" footprint="0402" jlcpcb="C11702" x={-35.9} y={-26.55} rot={0} side="S" />
 const R22El = <Res name="R22" resistance="4.7k" footprint="0402" jlcpcb="C25900" x={-35.9} y={-24.9} rot={0} side="N" />
 const R21f = frame(R21El), R22f = frame(R22El)
-// ── J10 12V input protection: overcurrent PPTC + reverse-polarity pass FET + surge clamp ──────
-// Series order at the inlet: J10.V12 → F1 (PPTC fuse) → Q4 (pass FET) → V12 island. F1
-// (SMD1812P200TF16, 1812 resettable fuse, 2A hold / 4A trip / 16V) stands VERTICAL (rot 90) in the
-// slot west of J10 (x 3.75→8.11, D9/R23 west to J10 body), carrying the full ~3.3A board peak; it
-// trips on a sustained sub-PSU-limit fault (~4A the 6.7A Mean Well ignores) and auto-recovers. Q4
-// (AO3407 P-FET, SOT-23) sits high beside C5, drain SOUTH toward F1; its narrow profile threads the
-// C5↔J10 slot. D8 (SMAJ15A TVS, SMA) is the surge clamp — it only needs island(V12)→GND, so it sits
-// in the open pocket between U4 and U5 (east of the coin, west of C1/C2), clear of the packed inlet.
-// D9 (BZT52C15 Zener) + R23 (100k gate pulldown) stack in the west column east of U3. Wiring + the
-// V12RAW→V12IN island split are in the return, by the J10 block.
+// ── J10 12V input protection: reverse-polarity pass FET + surge clamp ──────
+// Series order at the inlet: J10.V12 → Q4 (pass FET) → V12 island. Q4 (AO3407 P-FET, SOT-23) sits
+// high beside C5, drain (east tab) toward J10; its narrow profile threads the C5↔J10 slot and carries
+// the full ~3.3A board peak from the screw terminal to the V12 island at its source. D8 (SMAJ15A TVS,
+// SMA) is the surge clamp — it only needs island(V12)→GND, so it sits in the open pocket between U4
+// and U5 (east of the coin, west of C1/C2), clear of the inlet. D9 (BZT52C15 Zener) + R23 (100k gate
+// pulldown) stack in the west column east of U3. Wiring is in the return, by the J10 block.
 const Q4El = <Pfet name="Q4" x={6.3} y={-15.8} rot={180} />
-const F1El = <Ptc name="F1" x={6.1} y={-21.35} rot={90} />
 const D8El = <Tvs name="D8" x={-4.85} y={1.36} rot={0} />
 const D9El = <Zener name="D9" x={3.2} y={-23.5} rot={90} />
 const R23El = <Res name="R23" resistance="100k" footprint="0402" jlcpcb="C60491" x={3.2} y={-19.7} rot={90} side="E" />
-const Q4f = frame(Q4El), F1f = frame(F1El), D8f = frame(D8El), D9f = frame(D9El), R23f = frame(R23El)
+const Q4f = frame(Q4El), D8f = frame(D8El), D9f = frame(D9El), R23f = frame(R23El)
 // J10 (KF301 screw terminal) is placed inline in the return; frame it here so the V12RAW trace can
 // route into the V12 barrel. rot 90 puts pin1/GND south (12.35,-24), pin2/V12 north (12.35,-19).
 const J10f = frame("J10", 12.35, -21.5, 90, { V12: [2.5, 0], GND: [-2.5, 0] })
@@ -348,10 +344,10 @@ export const decoupling: DecouplingRule[] = [
 //     (IPC-2221 rule of thumb for ~0.8A at ~10°C rise on 1oz; more on inner 0.5oz — kept short).
 //   manifold valves + condenser fan (U4/U5.OUT → J1/J2) — sunk by the TBD62083 DMOS array, so ≤0.5A/channel.
 //     Routed 0.3mm, want ≥0.25mm.
-//   J10 inlet series → the PPTC + pass FET (J10.V12 → F1 → Q4.D) — the two 12V segments that aren't a
-//     pour: the whole board's ~3.3A peak (both pumps priming + valves + fan) crosses BOTH. Routed
-//     1.6mm, want ≥1.5mm (IPC-2221, ~1.57mm for 3.3A at 10°C rise on 1oz external — the peak is
-//     transient). The Q4 source→island side needs no rule: the island floods the source pad directly.
+//   J10 inlet series → the pass FET (J10.V12 → Q4.D) — the 12V segment that isn't a pour: the whole
+//     board's ~3.3A peak (both pumps priming + valves + fan) crosses it. Routed 1.6mm, want ≥1.5mm
+//     (IPC-2221, ~1.57mm for 3.3A at 10°C rise on 1oz external — the peak is transient). The Q4
+//     source→island side needs no rule: the island floods the source pad directly.
 // `pin` is an endpoint-pin prefix (U11.OUT matches U11.OUT1/OUT2, etc.). Rules of thumb, not a
 // thermal model — enough to catch a fat path left on the 0.2mm floor.
 export const ampacity: AmpacityRule[] = [
@@ -359,8 +355,7 @@ export const ampacity: AmpacityRule[] = [
   { pin: "U12.OUT", minWidthMm: 0.3, role: "pump B motor (~0.8A)" },
   { pin: "U4.OUT", minWidthMm: 0.25, role: "MANIFOLD A valves (ULN, ≤0.5A)" },
   { pin: "U5.OUT", minWidthMm: 0.25, role: "MANIFOLD B valves + fan (ULN, ≤0.5A)" },
-  { pin: "F1", minWidthMm: 1.5, role: "12V inlet PPTC series copper — J10→F1→Q4 (~3.3A board peak)" },
-  { pin: "Q4.D", minWidthMm: 1.5, role: "12V inlet pass-FET drain stub (~3.3A board peak)" },
+  { pin: "Q4.D", minWidthMm: 1.5, role: "12V inlet pass-FET series copper — J10.V12→Q4.D (~3.3A board peak)" },
 ]
 
 export default () => (
@@ -469,24 +464,21 @@ export default () => (
         priming + a few valves + the condenser fan) with margin the 2A XH wafer didn't have.
         pcbRotation 90 aims the wire throats at the east board edge, so the field loom feeds in from
         OUTSIDE the board. pin1->GND on the south pin, pin2->V12 on the north. The barrel lands on
-        net.V12RAW, the raw inlet node — the incoming 12V passes through the F1 PPTC fuse and the Q4
-        reverse-polarity pass FET before it reaches the V12 island, so an overcurrent fault or a
-        mis-wired loom no longer cooks C3, the K7805, or the drivers (F1 trips on sustained overcurrent
-        and auto-recovers; Q4 blocks reverse current; D8 clamps the surge). THT barrels pick up their
-        nets: V12RAW off the wide top trace to F1.pin1 (the island voids around the barrel), GND off
-        the bottom plane (the pour antipads the GND barrel clear of the island). Labels are
-        hand-drawn, all bottom-to-top (the east-edge convention): the pin labels (0.8mm) sit OUTBOARD
-        east of the throats where the wires land; "12V" (1.4mm) + the ref-des drop into the open
-        laminate SOUTH of the inlet block (F1 now fills the slot west of the body). */}
+        net.V12RAW, the raw inlet node — the incoming 12V passes through the Q4 reverse-polarity pass
+        FET to reach the V12 island (D8 clamps the surge island→GND). THT barrels pick up their nets:
+        V12RAW off the wide top trace to Q4's drain (the island voids around the barrel), GND off the
+        bottom plane (the pour antipads the GND barrel clear of the island). Labels are hand-drawn, all
+        bottom-to-top (the east-edge convention): the
+        pin labels (0.8mm) sit OUTBOARD east of the throats where the wires land; "12V" (1.4mm) + the
+        ref-des drop into the open laminate SOUTH of the inlet block. */}
     <KF301_5_0_2P name="J10" pinLabels={{ pin1: ["GND"], pin2: ["V12"] }} pcbRotation={90} {...at(12.35, -21.5)} />
     <silkscreentext text="GND" fontSize="0.8mm" anchorAlignment="center" pcbX={16.45} pcbY={-24.0} pcbRotation={90} />
     <silkscreentext text="V12" fontSize="0.8mm" anchorAlignment="center" pcbX={16.45} pcbY={-19.0} pcbRotation={90} />
     <silkscreentext text="12V" fontSize="1.4mm" anchorAlignment="center" pcbX={5.6} pcbY={-25.8} pcbRotation={90} />
     <silkscreentext text="J10" fontSize="0.8mm" anchorAlignment="center" pcbX={7.0} pcbY={-25.8} pcbRotation={90} />
-    {/* Inlet protection block: PPTC (F1) + reverse-polarity FET (Q4) + Vgs zener (D9) + gate
-        pulldown (R23) in the slot west of J10; the D8 surge clamp lives out on the island by C1/C2
-        (placed with the V12 decoupling below). Wiring/pour split is in the return. */}
-    {F1El}
+    {/* Inlet protection block: reverse-polarity FET (Q4) + Vgs zener (D9) + gate pulldown (R23) in
+        the slot west of J10; the D8 surge clamp lives out on the island by C1/C2 (placed with the
+        V12 decoupling below). Wiring/pour split is in the return. */}
     {Q4El}
     {D9El}
     {R23El}
@@ -1711,26 +1703,20 @@ export default () => (
         directly on it, through-hole 12V pins pick it up at the barrel. The SDA/SCL bus traces
         ride inner1/inner2 (routeInner, I2C block above); each plane carves clearance around
         its bus trace and its via barrels like any other foreign copper. */}
-    {/* J10 12V input protection wiring — series: J10.V12 → F1 (PPTC) → Q4 (pass FET) → V12 island.
-        The screw-terminal barrel lands on net.V12RAW (the raw inlet); a wide (1.6mm) top trace carries
-        the full ~3.3A board peak from the barrel to F1.pin1, west of J10's GND barrel. F1 (2A hold /
-        4A trip / 16V resettable fuse) passes it to net.V12IN at pin2; a second 1.6mm trace runs V12IN
-        up to Q4's DRAIN. F1 opens on a sustained downstream overcurrent the 6.7A supply ignores (and
-        auto-recovers), so a 12V short can no longer cook Q4 or the island copper. Q4 (AO3407 P-FET)
-        then passes V12IN to the V12 island at its SOURCE — the island floods the source pad directly
+    {/* J10 12V input protection wiring — series: J10.V12 → Q4 (pass FET) → V12 island. The
+        screw-terminal barrel lands on net.V12RAW (the raw inlet); a wide (1.6mm) top trace carries the
+        full ~3.3A board peak from the barrel — west along V12's row, then north into Q4's DRAIN (east
+        tab). Q4 (AO3407 P-FET) passes V12RAW to the V12 island at its SOURCE — the island floods the source pad directly
         (unlimited pour copper), so the source→island tie needs no trace. Body-diode orientation is the
         crux: a P-channel body diode points DRAIN→SOURCE, so with drain=input / source=load it conducts
         input→load in normal polarity (channel enhances, Vgs≈-12V within the ±20V rating) and BLOCKS
         load→input under reverse polarity (body diode reverse-biased). R23 (100k) pulls the GATE to GND
         so an unplugged terminal can't float it; D9 (Zener 15V) clamps Vgs (cathode→source, anode→gate)
-        short of the ±20V gate-oxide rating. The V12 island voids around the V12RAW/V12IN barrels +
-        traces + F1's pads and every foreign VGATE/GND pad, exactly as for the signal fan-out. */}
+        short of the ±20V gate-oxide rating. The V12 island voids around the V12RAW barrel + trace and
+        every foreign VGATE/GND pad, exactly as for the signal fan-out. */}
     <trace from=".J10 > .V12" to="net.V12RAW" />
-    <trace from=".F1 > .pin1" to="net.V12RAW" />
-    <trace from="J10.V12" to="F1.pin1" thickness="1.6mm" pcbPathRelativeTo="board" pcbPath={route("J10.V12", { col: 9.5 }, { row: F1f.pin("pin1").y }, "F1.pin1")} />
-    <trace from=".F1 > .pin2" to="net.V12IN" />
-    <trace from=".Q4 > .D" to="net.V12IN" />
-    <trace from="F1.pin2" to="Q4.D" thickness="1.6mm" pcbPathRelativeTo="board" pcbPath={route("F1.pin2", { col: Q4f.pin("D").x }, "Q4.D")} />
+    <trace from=".Q4 > .D" to="net.V12RAW" />
+    <trace from="J10.V12" to="Q4.D" thickness="1.6mm" pcbPathRelativeTo="board" pcbPath={route("J10.V12", { col: Q4f.pin("D").x }, "Q4.D")} />
     <trace from=".Q4 > .S" to="net.V12" />
     <trace from="Q4.G" to="R23.pin1" pcbPathRelativeTo="board" pcbPath={route("Q4.G", { col: 4.3 }, { row: R23f.pin("pin1").y }, "R23.pin1")} />
     <trace from="R23.pin1" to="D9.pin2" pcbPathRelativeTo="board" pcbPath={route("R23.pin1", "D9.pin2")} />

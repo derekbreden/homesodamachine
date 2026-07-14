@@ -64,7 +64,6 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | J7 — 7-pin (REEDS B), **keyed EH** | JST-EH 7P (B7B-EH-A), 2.5 mm | wafer, 2.5 mm | C160254 | Extended | 12,140 (2026-07-13) | $0.0395 |
 | J1 — 9-pin (MANIFOLD A) | XH2.54 9P | wafer, 2.5 mm | C5359637 | Extended | 380 (2026-06-30) | $0.0400 |
 | J10 — 12 V inlet | KF301-5.0-2P screw terminal, 2P 5.0 mm, 17 A / 250 V, 14–22 AWG | THT block, 5.0 mm pitch | C474881 | Extended | 165,152 (2026-07-02) | $0.0995 |
-| F1 — 12 V inlet overcurrent | SMD1812P200TF16 (RUILON) PPTC, **2 A hold / 4 A trip / 16 V**, 100 mΩ post-trip, 800 mW | 1812 | C20812 | Extended | 33,070 (2026-07-13) | $0.113 |
 | Q4 — reverse-polarity pass FET | AO3407 P-ch, −30 V, **±20 V Vgs**, ~60 mΩ | SOT-23 | C181093 | Extended | 176,290 (2026-07-13) | $0.03 |
 | D8 — 12 V inlet surge clamp | SMAJ15A, 400 W uni TVS, 15 V standoff / 24.4 V clamp | SMA (DO-214AC) | C571368 | Extended | 2,440 (2026-07-13) | $0.038 |
 | D9 — Q4 Vgs clamp | BZT52C15 (MDD), 15 V / 0.5 W Zener | SOD-123 | C173427 | Extended | 182,800 (2026-07-13) | $0.016 |
@@ -144,30 +143,23 @@ where the wires land, `12V` (1.4 mm function label) + the ref-des in the strip w
 body. It sits at the south end of the east edge (below MANIFOLD B), placed `pcbRotation={90}`
 so the wire throats face the east board edge — the loom feeds in from outside — with pin1 → GND
 on the south pad, pin2 → V12 on the north, the polarity silked at each screw. The V12 barrel lands
-on `net.V12RAW` (the raw inlet), upstream of the F1 PPTC + Q4 reverse-polarity block below — so an
-overcurrent fault or a reversed loom no longer cooks the polarised bulk cap (C3), the K7805, or the
-DRV8870s.
+on `net.V12RAW` (the raw inlet), upstream of the Q4 reverse-polarity block below.
 
-**F1/Q4/D9/R23 — J10 overcurrent + reverse-polarity block; D8 surge clamp on the island.** Series
-order at the inlet is **J10.V12 → F1 (PPTC) → Q4 (pass FET) → V12 island**. **F1
-(SMD1812P200TF16, `C20812`, 1812 resettable fuse — 2 A hold / 4 A trip / 16 V)** stands vertical in
-the slot west of J10, carrying the full ~3.3 A board peak on `net.V12RAW`→`net.V12IN` (two 1.6 mm
-traces); it rides the transient peak on thermal inertia, trips on a sustained ~4 A fault the 6.7 A
-Mean Well supply ignores, and auto-recovers — bounding a downstream 12 V short before it can cook Q4
-or the island copper (16 V clears the 12 V rail with margin). The incoming 12 V then passes through a
-P-channel high-side pass FET (**Q4, AO3407, `C181093`, SOT-23**) before it reaches the V12 island.
-DRAIN → `net.V12IN` (F1.pin2), SOURCE → the V12 island (the island floods the
-source pad directly — the source→island tie is pour copper, not a trace). A P-channel body diode
-points **drain→source**, so with drain=input / source=load it conducts input→load in normal
-polarity (channel enhancing, Vgs ≈ −12 V within the **±20 V** rating — an AO3401A's ±12 V would be
-marginal) and BLOCKS load→input under reverse polarity, body diode reverse-biased: the board sees
-no current. **R23 (100 kΩ 0402, `C60491`, Basic)** pulls the gate to GND so an unplugged/loose
-terminal can't float it. **D9 (BZT52C15 15 V Zener, `C173427`, SOD-123)** clamps Vgs (cathode→
-source, anode→gate) short of the ±20 V gate-oxide limit. **D8 (SMAJ15A, `C571368`, SMA)** clamps
-the surge the board sees, island→GND: 15 V standoff (no leakage on the 12 V rail), 24.4 V clamp
-under C3's 25 V rating. The surge clamp only needs the V12 node, so D8 sits out on the island in the
-open pocket between U4 and U5 (west of C1/C2, east of the coin) rather than the packed inlet slot,
-which F1 now fills. F1/Q4/D8/D9 have no tscircuit CDN 3D model (absent from the 3D preview only);
+**Q4/D9/R23 — J10 reverse-polarity block; D8 surge clamp on the island.** Series order at the inlet
+is **J10.V12 → Q4 (pass FET) → V12 island**. The incoming 12 V passes through a P-channel high-side
+pass FET (**Q4, AO3407, `C181093`, SOT-23**) to reach the V12 island, carrying the full ~3.3 A board
+peak on `net.V12RAW` (one 1.6 mm trace, J10.V12 → Q4 drain). DRAIN → `net.V12RAW` (J10 inlet),
+SOURCE → the V12 island (the island floods the source pad directly — the source→island tie is pour
+copper, not a trace). A P-channel body diode points **drain→source**, so with drain=input /
+source=load it conducts input→load in normal polarity (channel enhancing, Vgs ≈ −12 V within the
+**±20 V** rating — an AO3401A's ±12 V would be marginal) and BLOCKS load→input under reverse
+polarity, body diode reverse-biased: the board sees no current. **R23 (100 kΩ 0402, `C60491`,
+Basic)** pulls the gate to GND so an unplugged/loose terminal can't float it. **D9 (BZT52C15 15 V
+Zener, `C173427`, SOD-123)** clamps Vgs (cathode→source, anode→gate) short of the ±20 V gate-oxide
+limit. **D8 (SMAJ15A, `C571368`, SMA)** clamps the surge the board sees, island→GND: 15 V standoff
+(no leakage on the 12 V rail), 24.4 V clamp under C3's 25 V rating. The surge clamp only needs the
+V12 node, so D8 sits out on the island in the open pocket between U4 and U5 (west of C1/C2, east of
+the coin), clear of the inlet slot. Q4/D8/D9 have no tscircuit CDN 3D model (absent from the 3D preview only);
 footprints (pads + courtyard + silk) and the fab output are complete. Q4's SOT-23 sits a touch
 tighter than IPC-Nominal against C5/J10 (courtyard advisory ~−0.08 mm; copper clears at the 0.14 mm
 floor). D8's `C571368` runs shallow at JLCPCB (~2,440) — glance before a large run.
@@ -332,7 +324,6 @@ point-in-time — re-check the week of ordering.
 | Q4 — AO3407 P-ch pass FET | `C181093` | SOT-23 (GDS) | P-channel SOT-23, ≥−30 V Vds **and ±20 V Vgs**, ≤~60 mΩ. ~176k stock. **Do not** drop in a ±12 V-Vgs part (e.g. AO3401A) — the −12 V gate drive needs the ±20 V rating. |
 | D9 — BZT52C15 Vgs Zener | `C173427` | SOD-123 | Any 15 V 0.5 W Zener in SOD-123 (BZT52C15, any vendor) — same land / cathode band. ~183k stock. |
 | D10/D11 — ESD9B3.3ST5G UART ESD | `C96512` | SOD-923 | Another SOD-923 **bidirectional low-cap (≤~15 pF)** TVS, ~3.3 V working (onsemi ESD9B/ESD9L) — same tiny land; keep it low-cap so the 115200-baud UART edges aren't loaded. ~28k stock. |
-| F1 — SMD1812P200TF16 PPTC | `C20812` | 1812 | Another 1812 resettable fuse, **hold ≥2 A / V ≥16 V** (Bourns MF-MSMF200, Littelfuse 1812L200) — same 1812 land; the rating floor keeps it from nuisance-tripping the ~3.3 A peak while still clearing the 12 V rail. ~33k stock. |
 | J10 — KF301-5.0-2P screw terminal | `C474881` | THT block, 5.0 mm-pitch 2P | Another 5.0 mm-pitch 2-pole THT screw terminal (KF301 / KF128 / DG301 family) — same 2-hole 5.0 mm land; confirm pin dia ≤ the imported hole and the body clears the courtyard. ~165k stock. |
 | J2/J3/J4/J5/J6/J8/J9/J11/J13 — XH2.54 wafers (J7 is EH — separate row) | `C5359632/33/34/35/37` | XH2.54 vertical THT, 2.5 mm | Any same-count XH2.54 vertical wafer (2.5 mm) — the land is a plain n-hole 2.5 mm row, so a different-vendor XH mounts in the same holes (JLC re-derives CPL rotation per part; not a board change). J1 (9P) is the shallow one — see the first table. |
 | J7 — B7B-EH-A (REEDS B) | `C160254` | JST-EH 7P, 2.5 mm THT | Another EH 7P top-entry (B7B-EH-A) — same 7-hole 2.5 mm land. **Keep it EH:** the keying is deliberate (anti-cross-mate vs the XH looms) — an XH 7P (`C5359635`) fits the holes but restores the cross-mate hazard. Side-entry S7B-EH is out of stock at JLC. ~12k stock. |

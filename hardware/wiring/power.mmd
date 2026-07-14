@@ -9,15 +9,11 @@ flowchart TD
   %% during an active dispense. Both relay modules take their coil/opto
   %% 5 V from RELAYS J5.
   %% The 12 V bus feeds the controller PCBA at its screw inlet (J10).
-  %% The inlet is protected in series: a resettable PPTC fuse (F1,
-  %% SMD1812P200TF16, 2 A hold / 4 A trip / 16 V) provides overcurrent
-  %% protection — it trips on a sustained ~4 A board-side fault the 6.7 A
-  %% supply ignores and auto-recovers; then a P-channel MOSFET (Q4, AO3407)
+  %% The inlet is protected in series: a P-channel MOSFET (Q4, AO3407)
   %% in the high side blocks reverse polarity before the 12 V reaches the
   %% island; and a 15 V TVS (D8, SMAJ15A) clamps input surges the board
-  %% sees to under C3's 25 V rating — so an overcurrent fault, a mis-wired
-  %% loom, or a transient-laden supply can no longer cook the bulk cap,
-  %% the K7805, or the drivers.
+  %% sees to under C3's 25 V rating. Overcurrent is bounded by the Mean
+  %% Well supply's own 6.7 A OCP.
   %% The board makes its own logic rails — 5 V from the on-board K7805
   %% buck (U10), 3.3 V from the on-board AMS1117 LDO (U9, off the 5 V
   %% rail) — and carries the WROOM, both MCP23017s, the RTC, both
@@ -77,7 +73,7 @@ flowchart TD
   end
 
   subgraph Board["Controller PCBA  (protected 12 V in at J10)"]
-    PCBA["ESP32-WROOM-32E + 2× MCP23017 + DS3231\n2× TBD62083 + 2× DRV8870 on-board\nJ10 → F1 PPTC → Q4 reverse-polarity FET → 12 V island (D8 TVS clamps)\n12 V island feeds valves / pumps / display"]
+    PCBA["ESP32-WROOM-32E + 2× MCP23017 + DS3231\n2× TBD62083 + 2× DRV8870 on-board\nJ10 → Q4 reverse-polarity FET → 12 V island (D8 TVS clamps)\n12 V island feeds valves / pumps / display"]
     REG_5V["5 V rail\nK7805 buck (U10, on-board)"]
     REG_3V3["3.3 V rail\nAMS1117 LDO (U9, on-board, off 5 V)"]
   end
