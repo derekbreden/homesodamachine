@@ -123,7 +123,7 @@ const U15El = <And2 name="U15" x={-45.9} y={15.5} rot={270} />  // ref-des on th
 // node; C23 (0.1µF) decouples VCC. R24 sits just W of B in the flank; C23 N of the gate by VCC.
 const R24El = <Res name="R24" resistance="100k" footprint="0402" jlcpcb="C60491" x={-48.5} y={14.6} rot={90} side="W" />  // B-node pulldown (fail-safe): pin1 S → B, pin2 N → GND; in the flank W of U15 (clear of its SC-70-5 courtyard)
 const C23El = <Cap name="C23" capacitance="0.1uF" footprint="0402" jlcpcb="C1525" x={-45.5} y={17.9} rot={0} side="N" />   // VCC decoupler, N of the gate
-const R25El = <Res name="R25" resistance="0" footprint="0402" jlcpcb="C17168" x={-52.7} y={-12.6} rot={0} side="N" />       // DOUT invert-select series link (clear top spot E of C10; pin1 W→DOUT, pin2 E→B); ref-des N over its own mask-covered IO escapes, off the logo glass below
+const R25El = <Res name="R25" resistance="0" footprint="0402" jlcpcb="C17168" x={-45.242} y={-9.03} rot={90} side="E" />     // DOUT invert-select 0-ohm link: pin1 (S) → DOUT, pin2 (N) → the interlock B input
 const R25f = frame(R25El)
 const U15f = frame(U15El), R24f = frame(R24El), C23f = frame(C23El)
 // BOOT (SW1) and RESET (SW2) tacts stand rotated in the strip between U13 and the north edge,
@@ -1219,47 +1219,37 @@ export default () => (
         E along the south perimeter, clears the module's SE corner, climbs the WROOM's E flank (E of
         the east pads, W of U6), and pops to TOP just below B — never crossing a castellation rim. */}
     {R25El}
-    {/* Both B-side hauls ride INNER2 (the 5V plane) across the south region — the emptiest layer here,
-        so they clear the top/bottom fan + RS485 congestion, weaving only the sparse divider/GND-via
-        pads. The lane sits at y-11 (S of the module pad shadow, N of the divider midpoint pads/GND
-        vias). The B-haul climbs the flank on inner2 to y10 (S of the y11 wall's SCL/Q2.C), then pops
-        to TOP into B (crossing the wall on top, E of IO2's -46.7 column). */}
+    {/* R25 sits just E of U15, so B (pin2) climbs straight up the flank into U15.B; DOUT (pin1)
+        runs W under U1's south pads on the inner plane to the divider. */}
     <trace from="R4.pin1" to="R25.pin1" pcbPathRelativeTo="board" pcbPath={(() => {
         const a = R4f.pin("pin1"), r = R25f.pin("pin1")
-        const lane = U1f.pin("IO25").y - 1.6
+        const lane = U1f.pin("IO25").y - 1.6           // inner2 lane, S of the module pad shadows
         return [
             "R4.pin1",
             { x: a.x, y: a.y, via: true, toLayer: "inner2" } as const,
             { x: a.x, y: a.y },
-            { x: a.x + 1.2, y: a.y },                                    // E off R4.pin1 (past the same-net IO36 tap), clear of R4.pin2's GND-via column
-            { x: a.x + 1.2, y: lane },                                   // N to the clear inner2 lane (N of the divider GND vias, S of the pad shadows)
-            { x: r.x, y: lane },                                     // E along the lane to R25.pin1's column
-            { x: r.x, y: r.y },                                      // S into R25.pin1
+            { x: a.x + 1.2, y: a.y },                  // E off R4.pin1, clear of R4.pin2's GND-via column
+            { x: a.x + 1.2, y: lane },                 // N to the clear inner2 lane
+            { x: r.x, y: lane },                       // E along the lane, under U1's south pads, to R25.pin1's column
+            { x: r.x, y: r.y },                        // N into R25.pin1
             { x: r.x, y: r.y, via: true, toLayer: "top" } as const,
             "R25.pin1",
         ]
     })()} />
     <trace from="R25.pin2" to="U15.B" pcbPathRelativeTo="board" pcbPath={(() => {
         const r = R25f.pin("pin2"), b = U15f.pin("B")
-        const lane = U1f.pin("IO25").y - 1.6          // inner2 E-bound lane (the LED feeds here ride the bottom, so inner2 is clear)
-        const transX = R10f.pin("pin1").x - 1.49       // inner2→bottom via column, E of IO15→R10, W of IO23's inner1 descent
-        const flankX = R10f.pin("pin1").x - 1.6        // bottom climb column: 0.15 off IO15→R10, 0.17 off R5.pin2, 0.20 off U6's shadow
-        const popY = U1f.pin("IO0").y + 0.85           // bottom→top, in the gap between IO2's y9.3 turn and SW1.D (10.45)
+        const flankX = R10f.pin("pin1").x - 1.6        // bottom climb column, W of the IO15→R10 feed
+        const popY = U1f.pin("IO0").y + 0.85           // bottom→top, N of the pad row
         return [
             "R25.pin2",
-            { x: r.x, y: r.y, via: true, toLayer: "inner2" } as const,
+            { x: r.x, y: r.y, via: true, toLayer: "bottom" } as const,
             { x: r.x, y: r.y },
-            { x: r.x, y: lane },                                     // N to the inner2 E-bound lane
-            { x: transX, y: lane },                                  // E on inner2 to the transition column
-            { x: transX, y: U1f.pin("IO25").y + 1.0 },                                 // N into the clear top-gap (S of Q2.C, N of IO27)
-            { x: transX, y: U1f.pin("IO25").y + 1.0, via: true, toLayer: "bottom" } as const, // inner2→bottom, clear of IO15→R10
-            { x: transX, y: U1f.pin("IO25").y + 1.0 },
-            { x: flankX, y: U1f.pin("IO25").y + 1.0 },                                 // jog E to the climb column
-            { x: flankX, y: popY },                                 // N up the flank on the BOTTOM, beside IO15→R10 (crosses R5/IO23/Q2.C off-layer)
-            { x: flankX, y: popY, via: true, toLayer: "top" } as const, // bottom→top, S of SW1.D (10.45) / the wall
+            { x: flankX, y: r.y },                     // W to the flank column
+            { x: flankX, y: popY },                    // N up the flank on the bottom (crosses the y11 wall off-layer)
+            { x: flankX, y: popY, via: true, toLayer: "top" } as const,
             { x: flankX, y: popY },
-            { x: flankX, y: b.y },                                  // top up past the wall (E of IO2's -46.71 column)
-            "U15.B",                                                 // W into B's pad
+            { x: flankX, y: b.y },                     // top up to B's row, then W into the pad
+            "U15.B",
         ]
     })()} />
 
