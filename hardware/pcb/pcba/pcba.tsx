@@ -256,7 +256,7 @@ const R26f = frame(R26El), R27f = frame(R27El)
 // column (both at x −56.5), so its nearest clean clamp home is the series-R output. Bidirectional
 // part, so the signal/GND pad split is a placement choice, not a polarity.
 const D11El = <EsdClamp name="D11" x={-58.0} y={-11.8} rot={90} ly={1.25} />    // IO35 clamp: pin1(S)→R27.pin1, pin2(N)→GND; ref-des N in the U1.pin7/pin8 gap (between the GND via and the pad row)
-const D10El = <EsdClamp name="D10" x={-53.1} y={-15.5} rot={0} lx={-0.55} ly={-1.7} />  // IO33 clamp: pin2(E)→R26.pin1, pin1(W)→GND; ref-des in the C11↔R26 gap, below the "MACHINE" branding band
+const D10El = <EsdClamp name="D10" x={-52.8} y={-18.75} rot={180} lx={0} ly={-1.2} />  // IO33 clamp, E of R26 at its row: pin2 (W) → R26.pin1, pin1 (E) → GND; ref-des S
 const D10f = frame(D10El), D11f = frame(D11El)
 // Pumps connector + RTC block + status LEDs, framed for the last hand routes below.
 const J13El = <Jst name="J13" x={-12.25} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" rot={0} />
@@ -846,8 +846,9 @@ export default () => (
     )} />
     <trace from="R26.pin2" to="J3.IO33" pcbPathRelativeTo="board" pcbPath={route(
         "R26.pin2",
-        U9f.col("VOUT2", 2),
-        { row: U9f.pin("GND").y - 1.4 },   // under the U9 cluster to the low band
+        { row: R26f.pin("pin2").y - 1.45 },   // exit S out of R26.pin2, below D10's row (clears D10)
+        U9f.col("VOUT2", 2),                   // then E, below D10, clear of U9's tab
+        { row: U9f.pin("GND").y - 1.4 },       // S under the U9 cluster to the low band
         J3f.col("IO33"),
         "J3.IO33",
     )} />
@@ -1673,12 +1674,12 @@ export default () => (
         (firmware/pre_build.py): commit date + short SHA, a trailing `+` from
         uncommitted edits — a pure function of the commit, naming which source
         tree a fabbed board came from. */}
-    {logoRoutes(-52.9, -14.1, 2.2).map((route, i) => (
+    {logoRoutes(-52.9, -13.6, 3).map((route, i) => (
       <silkscreenpath key={`logo${i}`} strokeWidth="0.15mm" route={route} />
     ))}
     <silkscreentext text="HOME" fontSize="1.4mm" anchorAlignment="center" pcbX={-49.2} pcbY={-12.75} />
     <silkscreentext text="SODA" fontSize="1.4mm" anchorAlignment="center" pcbX={-49.2} pcbY={-14.55} />
-    <silkscreentext text="MACHINE" fontSize="1.4mm" anchorAlignment="center" pcbX={-50.2} pcbY={-16.35} />
+    <silkscreentext text="MACHINE" fontSize="1.4mm" anchorAlignment="center" pcbX={-49.2} pcbY={-16.35} />
     <silkscreentext text={ID.date} fontSize="0.8mm" anchorAlignment="center" pcbX={-49.2} pcbY={-18.05} />
     <silkscreentext text={ID.rev} fontSize="0.8mm" anchorAlignment="center" pcbX={-49.2} pcbY={-19.15} />
 
