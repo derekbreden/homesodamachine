@@ -1,9 +1,11 @@
 import type { ChipProps } from "@tscircuit/props"
 
 // B7B-EH-A (C160254) — JST-EH 7P, the keyed alternative to the XH reeds header (see parts.tsx).
-// The {NAME} silk is stripped (the Jst wrapper draws the ref-des). No cadModel: the tscircuit CDN
-// has no STEP for C160254 (its .step 404s, failing the part-orientation audit's model load); the
-// footprint (pads + courtyard + silk) is complete and fab-correct, only the 3D preview omits this body.
+// The {NAME} silk is stripped (the Jst wrapper draws the ref-des). The model CDN has an OBJ for
+// C160254 but no STEP (.obj 200, .step 404), so the cadModel carries objUrl only — board-3d.py
+// builds the 3D body from the OBJ mesh (its STEP-less twin path), and the STEP-based orientation
+// audit skips it. modelOriginPosition / pcbRotationOffset are `tsci import`'s and place the OBJ
+// (same EasyEDA geometry/frame the STEP would use).
 
 const pinLabels = {
   pin1: ["pin1"],
@@ -44,6 +46,11 @@ export const B7B_EH_A_LF__SN_ = (props: ChipProps<typeof pinLabels>) => {
 <silkscreenpath route={[{"x":10.09967499999999,"y":-0.8001000000000005},{"x":9.098915000000005,"y":-0.8001000000000005},{"x":9.098915000000005,"y":-2.298700000000011}]} />
 <courtyardoutline outline={[{"x":-10.391584999999992,"y":2.002599999999987},{"x":10.403014999999996,"y":2.002599999999987},{"x":10.403014999999996,"y":-2.586800000000025},{"x":-10.391584999999992,"y":-2.586800000000025},{"x":-10.391584999999992,"y":2.002599999999987}]} />
       </footprint>}
+      cadModel={{
+        objUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C160254.obj?uuid=66590d75cddd41bfa876d1dd5d046a34",
+        pcbRotationOffset: 0,
+        modelOriginPosition: { x: -0.0009905999999944015, y: 0.29999940000001857, z: 0.2999930000000002 },
+      }}
       {...props}
     />
   )

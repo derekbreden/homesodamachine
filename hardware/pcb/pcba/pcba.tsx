@@ -193,7 +193,7 @@ const R21El = <Res name="R21" resistance="1k" footprint="0402" jlcpcb="C11702" x
 const R22El = <Res name="R22" resistance="4.7k" footprint="0402" jlcpcb="C25900" x={-34} y={-26.5} rot={180} side="N" />
 const R21f = frame(R21El), R22f = frame(R22El)
 // ── J10 12V input protection: reverse-polarity pass FET + surge clamp ──────
-// Series order at the inlet: J10.V12 → Q4 (pass FET) → V12 island. Q4 (AO3407 P-FET, SOT-23) sits
+// Series order at the inlet: J10.V12 → Q4 (pass FET) → V12 island. Q4 (AO3407A P-FET, SOT-23) sits
 // high beside C5, drain (east tab) toward J10; its narrow profile threads the C5↔J10 slot and carries
 // the full ~3.3A board peak from the screw terminal to the V12 island at its source. D8 (SMAJ15A TVS,
 // SMA) is the surge clamp — it only needs island(V12)→GND, so it sits in the open pocket between U4
@@ -1693,7 +1693,7 @@ export default () => (
     {/* J10 12V input protection wiring — series: J10.V12 → Q4 (pass FET) → V12 island. The
         screw-terminal barrel lands on net.V12RAW (the raw inlet); a wide (1.6mm) top trace carries the
         full ~3.3A board peak from the barrel — west along V12's row, then north into Q4's DRAIN (east
-        tab). Q4 (AO3407 P-FET) passes V12RAW to the V12 island at its SOURCE — the island floods the source pad directly
+        tab). Q4 (AO3407A P-FET) passes V12RAW to the V12 island at its SOURCE — the island floods the source pad directly
         (unlimited pour copper), so the source→island tie needs no trace. Body-diode orientation is the
         crux: a P-channel body diode points DRAIN→SOURCE, so with drain=input / source=load it conducts
         input→load in normal polarity (channel enhances, Vgs≈-12V within the ±20V rating) and BLOCKS

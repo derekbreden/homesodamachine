@@ -33,7 +33,7 @@ import { TYPE_C_31_M_12 } from "./imports/TYPE_C_31_M_12"
 import { DRV8870DDAR } from "./imports/DRV8870DDAR"
 import { TS_1187A_B_A_B } from "./imports/TS_1187A_B_A_B"
 import { A_1N4148W } from "./imports/A_1N4148W"
-import { AO3407 } from "./imports/AO3407"
+import { AO3407A } from "./imports/AO3407A"
 import { SMAJ15A } from "./imports/SMAJ15A"
 import { BZT52C15 } from "./imports/BZT52C15"
 import { SN74LVC1G08 } from "./imports/SN74LVC1G08"
@@ -489,7 +489,7 @@ export const Drv8870 = centred(DRV8870DDAR)         // U11/U12 — pump H-bridge
 // cathode, the banded end, per JLCPCB's library) so polarity survives assembly; only its {NAME}
 // silk is stripped for the upright wrapper ref-des. lx/ly push that ref-des off the tiny body.
 export const Diode = centred(A_1N4148W)             // D7 — buzzer-coil flyback clamp
-export const Pfet = centred(AO3407)                 // Q4 — reverse-polarity pass FET (SOT-23)
+export const Pfet = centred(AO3407A)                // Q4 — reverse-polarity pass FET (SOT-23)
 export const Tvs = centred(SMAJ15A)                 // D8 — 12V input surge clamp (SMA)
 export const Zener = centred(BZT52C15)              // D9 — Vgs clamp on the pass FET (SOD-123)
 export const And2 = centred(SN74LVC1G08)            // U15 — gas→compressor interlock AND gate (SOT-353)
