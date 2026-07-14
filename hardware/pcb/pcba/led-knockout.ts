@@ -35,8 +35,10 @@ const LABELS: { text: string; led: string }[] = [
 
 // Badge shape (board mm).
 const FONT = 1.4          // label cap size (matches the old plain labels)
-const WEST = -41.7        // flat west edge — silk margin west of the LED (pads to -40.9), clears the R pad to its west (-42.04)
-const EAST = -34.4        // rightmost point of the round cap — kept close to the text so the badge isn't east-heavy
+// West/east edges are offsets from the LED column's own x (found from the D2–D6 pads in
+// ledKnockoutGerber), so each badge rides its LED on both axes — move the column and its ink follows.
+const WEST_OFF = -1.95    // flat west edge, west of the LED: wraps the LED pad, clears the R column further west
+const EAST_OFF = 5.35     // rightmost point of the round cap: the text span east of the LED
 const HEIGHT = 2.2        // badge height; row pitch is 2.5, so ~0.3 mm of board shows between badges
 const PAD_CLEAR = 0.15    // silk pulled back this far from every LED pad edge
 const STROKE = 0.15       // knockout letter stroke width
@@ -130,6 +132,9 @@ function ledPads(circuit: any[]): Record<string, { x: number; y: number; w: numb
 export function ledKnockoutGerber(circuit: any[], baseSilk: string): string {
   const HERSHEY = loadHershey()
   const pads = ledPads(circuit)
+  const ledX = LABELS.flatMap(({ led }) => (pads[led] ?? []).map((p) => p.x))
+  const ledCx = ledX.reduce((s, x) => s + x, 0) / (ledX.length || 1)
+  const WEST = ledCx + WEST_OFF, EAST = ledCx + EAST_OFF
   const r = HEIGHT / 2, arcX = EAST - r // straight part runs to arcX, then a semicircle of radius r
   const strokeAperture = freshDCode(baseSilk)
   const L: string[] = []
