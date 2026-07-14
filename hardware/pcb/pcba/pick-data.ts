@@ -28,6 +28,7 @@ import { analyzeConnectivity, connectivityErrors } from "./connectivity"
 import { auditDecoupling, type DecouplingRule } from "./cap-audit"
 import { auditConnectors } from "./connector-audit"
 import { auditFootprints } from "./footprint-audit"
+import { auditImportProvenance } from "./import-provenance-audit"
 import { auditAmpacity, type AmpacityRule } from "./ampacity-audit"
 import { buildScorecard, formatScorecard } from "./scorecard"
 import { convertSoupToGerberCommands, stringifyGerberCommandLayers } from "circuit-json-to-gerber"
@@ -212,6 +213,10 @@ function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRule
   // blind to. Informational, like the copper floor (real overlaps ride in `errors`).
   const footprints = auditFootprints(circuit)
 
+  // Import-provenance gate (import-provenance-audit.ts): every footprint in imports/ must be the
+  // fab's real land pulled with `tsci import`, not a hand-drawn one — read from the source geometry.
+  const provenance = auditImportProvenance(path.join(dir, "imports"))
+
   // Solder-paste coverage: regenerate the paste layer with the board's own gerber converter and
   // confirm every top-side SMD pad has a flash landing within its copper. Reads the real F_Paste the
   // fab cuts the stencil from, so a converter regression that drops a pad's opening is caught here.
@@ -222,7 +227,7 @@ function distill(circuit: any[], decoupling: DecouplingRule[] = [], ampacityRule
   // verdict, printed on build and shown in the modal — the same result from the same geometry.
   const scorecard = buildScorecard({
     circuit, deferred, authored, floor, clearanceErrors: errors, opens,
-    footprints, connectors, ampacity, capAudit,
+    footprints, provenance, connectors, ampacity, capAudit,
     fab: { partsSourced: fab.partsSourced, minDrillMm: fab.minDrillMm, minViaAnnularMm: fab.minViaAnnularMm, minPadAnnularMm: fab.minPadAnnularMm, unsourced: fab.unsourced },
     pasteCoverage,
   })
