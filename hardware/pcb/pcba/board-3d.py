@@ -2,10 +2,11 @@
 """Build a 3D model of the whole board — the board body plus every component's real
 3D model, placed — from a tscircuit circuit-json.
 
-Each `cad_component` carries the part's `position`, `rotation`, a `model_step_url`,
-and a `model_origin_position` (the center-of-component-on-board-surface point in the
-raw model). Fetch each distinct STEP once (cached by LCSC under .cad-cache/), read it
-as a prototype, instance it once per placement — recentered by its model_origin_position,
+Each `cad_component` carries the part's `position`, `rotation`, a `model_step_url`
+(or, for the few CDN parts that ship only an OBJ, a `model_obj_url`), and a
+`model_origin_position` (the center-of-component-on-board-surface point in the raw
+model). Fetch each distinct model once (cached by LCSC under .cad-cache/), read it as a
+prototype, instance it once per placement — recentered by its model_origin_position,
 rotated by the tscircuit convention, resting on the board surface — and add a slab built
 from the pcb_board outline with the drilled holes cut. Colors come from the component
 models; the board is green.
@@ -35,7 +36,10 @@ import cadquery as cq
 from OCP.STEPCAFControl import STEPCAFControl_Reader, STEPCAFControl_Writer
 from OCP.IFSelect import IFSelect_RetDone
 from OCP.Interface import Interface_Static
-from OCP.gp import gp_Trsf
+from OCP.gp import gp_Trsf, gp_Pnt
+from OCP.BRepBuilderAPI import (
+    BRepBuilderAPI_MakePolygon, BRepBuilderAPI_MakeFace, BRepBuilderAPI_Sewing,
+)
 from OCP.TopLoc import TopLoc_Location
 from OCP.TDocStd import TDocStd_Document
 from OCP.TCollection import TCollection_ExtendedString, TCollection_AsciiString
@@ -102,15 +106,88 @@ def lcsc_from_url(url):
     return url.rsplit("/", 1)[-1].split("?", 1)[0].rsplit(".", 1)[0]
 
 
-def ensure_cached(url, cache_dir):
-    """Fetch a component STEP keyed by LCSC; reused on later runs."""
-    dest = cache_dir / f"{lcsc_from_url(url)}.step"
+def ensure_cached(url, cache_dir, ext="step"):
+    """Fetch a component model (STEP or OBJ) keyed by LCSC; reused on later runs."""
+    dest = cache_dir / f"{lcsc_from_url(url)}.{ext}"
     if dest.exists() and dest.stat().st_size > 0:
         return dest
     req = urllib.request.Request(url, headers={"User-Agent": CDN_UA})
     with urllib.request.urlopen(req, timeout=60) as r:
         dest.write_bytes(r.read())
     return dest
+
+
+# --- OBJ mesh models -------------------------------------------------------------------------
+# A few EasyEDA parts ship an OBJ but no STEP on the model CDN (e.g. J7's B7B-EH-A, C160254:
+# .obj 200, .step 404). The OBJ is the same geometry in the same board-referenced frame as the
+# STEP would be, so the imported model_origin_position / pcbRotationOffset place it identically.
+# We parse it into per-colour sewn shells (OBJ faces here are plain triangles with inline
+# newmtl/Kd materials) and hand XCAF a small coloured sub-assembly — the STEP path's twin, so
+# placement, meshing and GLB export downstream treat an OBJ-only part like any other.
+def parse_obj(text):
+    """(verts, groups): verts is a 1-indexed vertex list; groups maps an (r,g,b) colour to its
+    triangles (i,j,k). Reads inline materials (newmtl/Kd) and usemtl switches; ignores
+    normals/texcoords (faces are `a// b// c//`)."""
+    verts, mats, groups = [], {}, {}
+    cur_name, cur_col = None, (0.6, 0.6, 0.6)
+    for line in text.splitlines():
+        p = line.split()
+        if not p:
+            continue
+        if p[0] == "v":
+            verts.append((float(p[1]), float(p[2]), float(p[3])))
+        elif p[0] == "newmtl":
+            cur_name = p[1] if len(p) > 1 else ""
+        elif p[0] == "Kd" and cur_name is not None:
+            mats[cur_name] = (float(p[1]), float(p[2]), float(p[3]))
+        elif p[0] == "usemtl":
+            cur_col = mats.get(p[1] if len(p) > 1 else "", (0.6, 0.6, 0.6))
+        elif p[0] == "f":
+            idx = [int(tok.split("/")[0]) for tok in p[1:]]
+            g = groups.setdefault(cur_col, [])
+            for i in range(1, len(idx) - 1):  # fan-triangulate (already triangles)
+                g.append((idx[0], idx[i], idx[i + 1]))
+    return verts, groups
+
+
+def obj_shells(verts, groups):
+    """One sewn shell per material colour: [(shape, (r,g,b)), …]."""
+    out = []
+    for color, tris in groups.items():
+        sew = BRepBuilderAPI_Sewing(1e-3)
+        n = 0
+        for a, b, c in tris:
+            pa, pb, pc = verts[a - 1], verts[b - 1], verts[c - 1]
+            if pa == pb or pb == pc or pa == pc:
+                continue
+            poly = BRepBuilderAPI_MakePolygon(gp_Pnt(*pa), gp_Pnt(*pb), gp_Pnt(*pc), True)
+            if not poly.IsDone():
+                continue
+            face = BRepBuilderAPI_MakeFace(poly.Wire())
+            if not face.IsDone():
+                continue
+            sew.Add(face.Face())
+            n += 1
+        if n:
+            sew.Perform()
+            out.append((sew.SewedShape(), color))
+    return out
+
+
+def obj_prototype(url, cache_dir, sht, ctool):
+    """Read an OBJ into a coloured XCAF sub-assembly prototype; returns its label (instanced by
+    the caller at each placement, exactly like a STEP prototype)."""
+    verts, groups = parse_obj(ensure_cached(url, cache_dir, "obj").read_text())
+    shells = obj_shells(verts, groups)
+    if not shells:
+        raise RuntimeError("OBJ yielded no faces")
+    proto = sht.NewShape()
+    for shape, color in shells:
+        lbl = sht.AddShape(shape, False, True)
+        ctool.SetColor(lbl, Quantity_Color(*color, Quantity_TOC_sRGB),
+                       XCAFDoc_ColorType.XCAFDoc_ColorSurf)
+        sht.AddComponent(proto, lbl, TopLoc_Location(gp_Trsf()))
+    return proto
 
 
 def build_board(cj, cut_vias):
@@ -167,10 +244,12 @@ def build_board(cj, cut_vias):
 
 def build_assembly(cj, cache_dir, cut_vias):
     """One XCAF assembly: each distinct component model read once as a prototype (with
-    its colors), instanced at every placement; board slab added with a green color."""
+    its colors), instanced at every placement; board slab added with a green color.
+    A part's model is its STEP when it has one, else its OBJ (some CDN parts ship only OBJ)."""
     layer = {e["pcb_component_id"]: e.get("layer", "top")
              for e in cj if e.get("type") == "pcb_component"}
-    cads = [e for e in cj if e.get("type") == "cad_component" and e.get("model_step_url")]
+    src = lambda cad: cad.get("model_step_url") or cad.get("model_obj_url")  # noqa: E731
+    cads = [e for e in cj if e.get("type") == "cad_component" and src(e)]
 
     app = XCAFApp_Application.GetApplication_s()
     doc = TDocStd_Document(TCollection_ExtendedString("BinXCAF"))
@@ -183,30 +262,39 @@ def build_assembly(cj, cache_dir, cut_vias):
         sht.GetFreeShapes(s)
         return {s.Value(i).Tag(): s.Value(i) for i in range(1, s.Length() + 1)}
 
-    proto = {}  # model_step_url -> prototype label
+    proto = {}  # model source url (STEP preferred, else OBJ) -> prototype label
     for cad in cads:
-        url = cad["model_step_url"]
-        if url in proto:
+        key = src(cad)
+        if key in proto:
             continue
-        try:
-            before = set(free_tags())
-            r = STEPCAFControl_Reader()
-            r.SetColorMode(True)
-            r.SetNameMode(True)
-            if r.ReadFile(str(ensure_cached(url, cache_dir))) != IFSelect_RetDone:
-                raise RuntimeError("OCCT could not read model")
-            r.Transfer(doc)
-            new = [lbl for tag, lbl in free_tags().items() if tag not in before]
-            if not new:
-                raise RuntimeError("no shape transferred")
-            proto[url] = new[-1]
-        except Exception as e:
-            print(f"  ! {lcsc_from_url(url)}: {e}", file=sys.stderr)
+        step_url, obj_url, label = cad.get("model_step_url"), cad.get("model_obj_url"), None
+        if step_url:  # STEP: read the colored B-rep prototype (as-transferred)
+            try:
+                before = set(free_tags())
+                r = STEPCAFControl_Reader()
+                r.SetColorMode(True)
+                r.SetNameMode(True)
+                if r.ReadFile(str(ensure_cached(step_url, cache_dir))) != IFSelect_RetDone:
+                    raise RuntimeError("OCCT could not read model")
+                r.Transfer(doc)
+                new = [lbl for tag, lbl in free_tags().items() if tag not in before]
+                if not new:
+                    raise RuntimeError("no shape transferred")
+                label = new[-1]
+            except Exception as e:
+                print(f"  ! {lcsc_from_url(step_url)}: {e}", file=sys.stderr)
+        if label is None and obj_url:  # no/failed STEP → build from the OBJ mesh
+            try:
+                label = obj_prototype(obj_url, cache_dir, sht, ctool)
+            except Exception as e:
+                print(f"  ! {lcsc_from_url(obj_url)} (obj): {e}", file=sys.stderr)
+        if label is not None:
+            proto[key] = label
 
     asm = sht.NewShape()
     placed = failed = 0
     for cad in cads:
-        label = proto.get(cad["model_step_url"])
+        label = proto.get(src(cad))
         if label is None:
             failed += 1
             continue
@@ -260,7 +348,8 @@ def main():
 
     t0 = time.time()
     cj = json.loads(cj_path.read_text())
-    n = sum(1 for e in cj if e.get("type") == "cad_component" and e.get("model_step_url"))
+    n = sum(1 for e in cj if e.get("type") == "cad_component"
+            and (e.get("model_step_url") or e.get("model_obj_url")))
     print(f"[{board_name}] {n} components, board + drills…")
     doc, top, placed, failed = build_assembly(cj, cache_dir, args.vias)
 
