@@ -20,7 +20,7 @@ import { MLT_5020 } from "./imports/MLT_5020"
 import { KH_CR2032_2_1 } from "./imports/KH_CR2032_2_1"
 import { NXB_25V470_10_12_5 } from "./imports/NXB_25V470_10_12_5"
 import { S8050_J3Y_RANGE_200_350_ } from "./imports/S8050_J3Y_RANGE_200_350_"
-import { ULN2803A } from "./imports/ULN2803A"
+import { TBD62083AFWG_EL } from "./imports/TBD62083AFWG_EL"
 import { MCP23017_E_SO } from "./imports/MCP23017_E_SO"
 import { DS3231SN_T_R } from "./imports/DS3231SN_T_R"
 import { COS13487EESA_3_3 } from "./imports/COS13487EESA_3_3"
@@ -248,13 +248,18 @@ export const Jst = ({ name, x, y, count, labels, label, rot = 0, series = "XH" }
   )
 }
 
-// ---- ULN2803A — SOIC-18 (300 mil wide) -------------------------------------
-// Octal Darlington sink driver. C845537 (UMW ULN2803A, SOP-18-300mil). Pinout:
-// 1-8 IN1-IN8 (left, toward the MCP GPA banks), 9 GND, 10 COM (12 V flyback
-// common), 11-18 OUT8-OUT1 (right, toward the manifold JSTs). Default
-// orientation already runs IN on -X / OUT on +X, so the GPA->IN->OUT->valve flow
-// is left-to-right with no row reversal. GND (pin 9, an SMD pad) auto-stitches to
-// the bottom GND plane; COM (pin 10) lands on net.V12 under the top V12 island.
+// ---- TBD62083AFWG — SOIC-18 (300 mil wide) ---------------------------------
+// Toshiba TBD62083 octal DMOS sink driver. C165895 (TBD62083AFWG,EL, SOP-18-300mil).
+// A pin- and footprint-compatible DMOS-array replacement for the ULN2803A Darlington:
+// each channel is a ~325 mOhm low-side DMOS switch, so at the ≤0.5 A/channel valve
+// current it dissipates far less than the Darlington's ~1.1-1.5 V V_CE(sat) drop —
+// the driver runs cooler for the same job. Pinout: 1-8 IN1-IN8 (left, toward the MCP
+// GPA banks), 9 GND, 10 COM (the common cathode of the internal freewheel diodes,
+// tied to the 12 V load supply exactly like the ULN's flyback common), 11-18
+// OUT8-OUT1 (right, toward the manifold JSTs). Default orientation already runs IN on
+// -X / OUT on +X, so the GPA->IN->OUT->valve flow is left-to-right with no row
+// reversal. GND (pin 9, an SMD pad) auto-stitches to the bottom GND plane; COM
+// (pin 10) lands on net.V12 under the top V12 island.
 const ulnPinLabels = {
   pin1: "IN1", pin2: "IN2", pin3: "IN3", pin4: "IN4",
   pin5: "IN5", pin6: "IN6", pin7: "IN7", pin8: "IN8",
@@ -263,15 +268,15 @@ const ulnPinLabels = {
   pin15: "OUT4", pin16: "OUT3", pin17: "OUT2", pin18: "OUT1",
 }
 
-// JLCPCB-imported footprint (./imports/ULN2803A) so the CPL rotation matches JLCPCB's
-// library orientation. Its own pin labels (Input1/Output1) are overridden with ours so the
+// JLCPCB-imported footprint (./imports/TBD62083AFWG_EL) so the CPL rotation matches JLCPCB's
+// library orientation. Its own pin labels (I1/O1) are overridden with ours so the
 // net wiring is unchanged. Imported rot 0 is HORIZONTAL (pins on N/S rows); the caller's rot
 // is that value directly (rot 270 for the vertical IN-west/OUT-east seating used on U4/U5).
 // The import's {NAME} silk is stripped (it rode the seating rotation, reading top-to-bottom at
 // rot 270); the ref-des is drawn here upright and centred on the body — a pure function of (x,y).
-export const Uln2803 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => (
+export const Tbd62083 = ({ name, x, y, rot = 0 }: { name: string; x: number; y: number; rot?: number }) => (
   <>
-    <ULN2803A name={name} pinLabels={ulnPinLabels} pcbRotation={rot} {...at(x, y)} />
+    <TBD62083AFWG_EL name={name} pinLabels={ulnPinLabels} pcbRotation={rot} {...at(x, y)} />
     <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x} pcbY={y} />
   </>
 )

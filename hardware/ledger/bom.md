@@ -34,7 +34,7 @@ First-pass draft. **Pricing convention: delivered cost** (product + shipping + t
 | [Samsung 0.1 µF 50V X7R 0402 MLCC (LCSC C1525)](https://www.lcsc.com/product-detail/C1525.html) | C23 — VCC decoupler for U15, just N of the gate. ~$0.002 JLCPCB | 1 | $0.002 | $0.002 |
 | [UNI-ROYAL 220 Ω ±1% 0402 resistor (LCSC C25091)](https://www.lcsc.com/product-detail/C25091.html) | R26/R27 — faucet-UART series resistors, one ~220 Ω in series in each TTL line to the faucet flavor LCD over the ~1 m umbilical: R26 in IO33 (TX), R27 in IO35 (RX), both at the driver (this-board) end. Series damping on the long-cable edges + the current-limit that lets the on-board ESD clamp do its job. They are the series element of the on-board clamp topology (J3 → 220 Ω → clamp-at-the-IC → U1): each feeds a low-capacitance ESD TVS at the ESP32 (D10/D11, below) that shunts the U1-side node to the GND plane. Same UNI-ROYAL 0402WGF family as R21/R22. ~$0.0003 JLCPCB | 2 | $0.0003 | $0.0006 |
 | [onsemi ESD9B3.3ST5G low-cap ESD TVS, SOD-923 (LCSC C96512)](https://www.lcsc.com/product-detail/C96512.html) | D10/D11 — the PRIMARY faucet-UART ESD clamps, on the board at U1. Bidirectional low-capacitance TVS (3.3 V working, ~15 pF so the 115200-baud UART edges aren't loaded), one per TTL line: D10 on IO33 (TX), D11 on IO35 (RX). Each shunts the U1-side of its 220 Ω series resistor (R26/R27) to the GND plane through a via-in-pad, the shortest possible loop (topology: J3 → 220 Ω → clamp-at-the-IC → U1). These are the required clamp; the former cable-end faucet TVS is now optional (see [`assembly/cable-assemblies.md`](/hardware/assembly/cable-assemblies.md) SIG-6 and [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md)). ~$0.02 JLCPCB | 2 | $0.02 | $0.04 |
-| [ULN2803A high-current driver module (2-pc)](https://www.amazon.com/dp/B0F872W528) | 2 modules drive 12 solenoids from MCP23017 outputs; 1 full 2-pack per unit | 1 pk | $6.59 | $6.59 |
+| [TBD62083AFWG octal DMOS sink driver, SOIC-18 (LCSC C165895)](https://www.lcsc.com/product-detail/C165895.html) | U4/U5 — the two on-PCBA solenoid/fan sink-driver arrays, driving all 12 solenoid valves + the condenser fan (U5 ch5) from the MCP23017 outputs (2 per unit). Octal **DMOS**, ~325 mΩ/channel: a pin- and footprint-identical drop-in for the ULN2803A Darlington that dissipates ~8× less at the ≤0.5 A/channel valve current, so U4/U5 (the board's hottest parts) run far cooler. Same-MPN deeper-stock JLC codes C108880 / C4153828 and the ULN2803A C845537 (thermal benefit forfeited) are order-time fallbacks. ≈$0.40/ea JLCPCB (verify at order) | 2 | $0.40 | $0.80 |
 | [Mean Well IRM-90-12ST, 80 W / 12 V / 6.7 A, encapsulated](https://www.amazon.com/dp/B0CNRST18V) | 12 V supply for the low-voltage bus; IEC 60335-1 household-appliance safety listed | 1 | $31.66 | $31.66 |
 
 ## 2. Carbonator vessel (custom fabrication — plan A: round tube + 1/4" plates, 316L)
@@ -290,7 +290,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 
 | Section | $ |
 |---|---:|
-| 1. Controllers + electronics | [$170.12](BOM_SEC1) |
+| 1. Controllers + electronics | [$164.33](BOM_SEC1) |
 | 2. Carbonator vessel (plan A, 316L) | [$240.69](BOM_SEC2) |
 | 3. Water inlet | [$240.21](BOM_SEC3) |
 | 4. CO2 subsystem | [$172.20](BOM_SEC4) |
@@ -304,7 +304,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$69.78](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$4.66](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,588.67](BOM_GRAND)** |
+| **Total** | **[$1,582.88](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

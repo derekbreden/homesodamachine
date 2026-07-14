@@ -21,9 +21,9 @@ flowchart TD
   %% The board makes its own logic rails — 5 V from the on-board K7805
   %% buck (U10), 3.3 V from the on-board AMS1117 LDO (U9, off the 5 V
   %% rail) — and carries the WROOM, both MCP23017s, the RTC, both
-  %% ULN2803As, and the two DRV8870 pump H-bridges. Off-board 12 V
+  %% TBD62083s, and the two DRV8870 pump H-bridges. Off-board 12 V
   %% loads draw through the board: solenoid valves + condenser fan
-  %% through the ULN channels (MANIFOLD A/B), peristaltic pumps through
+  %% through the TBD62083 channels (MANIFOLD A/B), peristaltic pumps through
   %% the DRV8870s (PUMPS J13), and the 4.3B config display through its
   %% loom connector (DISPLAY J9 carries RS485 + 12 V). The faucet
   %% display takes 5 V up the umbilical (FAUCET J3); the sensor loom
@@ -51,7 +51,7 @@ flowchart TD
   %%   to drive it (factory wiring was never AC on the fan itself),
   %%   so on harvest we discard the donor PCB and drive the fan
   %%   from our own 12 V bus. Low-side switched via one channel of
-  %%   ULN2803A #2 (MANIFOLD B FAN pin, driven from MCP23017 0x21
+  %%   TBD62083 #2 (MANIFOLD B FAN pin, driven from MCP23017 0x21
   %%   PA3) — same pattern as the solenoid valves. Firmware turns it
   %%   on/off in lockstep with the compressor.
   %% See `ac-wiring-schedule.md` for run-by-run gauges + lengths and
@@ -77,7 +77,7 @@ flowchart TD
   end
 
   subgraph Board["Controller PCBA  (protected 12 V in at J10)"]
-    PCBA["ESP32-WROOM-32E + 2× MCP23017 + DS3231\n2× ULN2803A + 2× DRV8870 on-board\nJ10 → F1 PPTC → Q4 reverse-polarity FET → 12 V island (D8 TVS clamps)\n12 V island feeds valves / pumps / display"]
+    PCBA["ESP32-WROOM-32E + 2× MCP23017 + DS3231\n2× TBD62083 + 2× DRV8870 on-board\nJ10 → F1 PPTC → Q4 reverse-polarity FET → 12 V island (D8 TVS clamps)\n12 V island feeds valves / pumps / display"]
     REG_5V["5 V rail\nK7805 buck (U10, on-board)"]
     REG_3V3["3.3 V rail\nAMS1117 LDO (U9, on-board, off 5 V)"]
   end
@@ -103,8 +103,8 @@ flowchart TD
   PSU ==>|"12 V trunk (J10 screw inlet)"| PCBA
   PSU ==>|"12 V"| DIA_RELAY
   DIA_RELAY ==>|"switched 12 V"| DIA_PUMP
-  PCBA ==>|"MANIFOLD A/B\n(ULN low-side)"| VALVES
-  PCBA ==>|"MANIFOLD B FAN\n(ULN low-side)"| COND_FAN
+  PCBA ==>|"MANIFOLD A/B\n(TBD62083 low-side)"| VALVES
+  PCBA ==>|"MANIFOLD B FAN\n(TBD62083 low-side)"| COND_FAN
   PCBA ==>|"PUMPS J13\n(DRV8870 OUT)"| PUMP_A
   PCBA ==>|"PUMPS J13\n(DRV8870 OUT)"| PUMP_B
   PCBA ==>|"12 V\n(DISPLAY J9 loom)"| CFG
@@ -122,8 +122,8 @@ flowchart TD
   %% 3    = PSU 12 V trunk -> PCBA (J10)
   %% 4    = PSU 12 V -> diaphragm relay #2
   %% 5    = relay #2 -> diaphragm pump (switched 12 V)
-  %% 6    = PCBA -> solenoid valves (ULN low-side)
-  %% 7    = PCBA -> condenser fan (ULN low-side)
+  %% 6    = PCBA -> solenoid valves (TBD62083 low-side)
+  %% 7    = PCBA -> condenser fan (TBD62083 low-side)
   %% 8-9  = PCBA -> peristaltic pumps (DRV8870)
   %% 10   = PCBA -> 4.3B config display (12 V off J9)
   linkStyle 0,1,2,3,4,5,6,7,8,9,10 stroke:#c44,stroke-width:3px

@@ -33,7 +33,7 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | R2, R4 — gas divider, bottom leg | 3.3 kΩ ±1% | 0603 | C22978 | Basic | 1,028,999 | $0.0023 |
 | C1, C2 — V12 HF decouple | 0.1 µF 50V X7R | 0805 | C49678 | Basic | 8,182,736 | $0.0136 |
 | C3 — V12 bulk | 470 µF 25V | radial THT, D10×12.5, 5.08 mm | C350206 | Extended | 91 | $0.105 |
-| U4, U5 — valve/fan sink drivers | ULN2803A, 8-ch Darlington | SOIC-18 (300 mil) | C845537 | Extended | 350,244 | $0.089 |
+| U4, U5 — valve/fan sink drivers | TBD62083AFWG, 8-ch DMOS (325 mΩ) | SOIC-18 (300 mil) | C165895 | Extended | 2,961 (2026-07-13) | ~$0.40 (verify) |
 | U2, U3 — I²C GPIO expanders | MCP23017, 16-bit | SOIC-28 (300 mil) | C47023 | Extended | — | — |
 | U8 — alarm/tone buzzer | MLT-5020, passive magnetic (external drive), 4 kHz/75 dB, ~100 mA | SMD 5×5 mm | C94598 | Extended | 104,490 | $0.434 |
 | Q1 — U8 low-side driver | S8050 (J3Y), NPN 25 V/500 mA | SOT-23 | C2146 | Basic | 554,300 | $0.015 |
@@ -77,7 +77,7 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 
 Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C11702 / C25900 / C25091
 = UNI-ROYAL 0402WGF series (the 0402 R21/R22/R26/R27 family); C49678 = YAGEO
-CC0805KRX7R9BB104; C845537 = UMW (Youtai) ULN2803A; C47023 = Microchip MCP23017-E/SO;
+CC0805KRX7R9BB104; C165895 = Toshiba TBD62083AFWG (octal DMOS sink driver); C47023 = Microchip MCP23017-E/SO;
 C94598 = Jiangsu Huaneng MLT-5020; C2146 = JSCJ S8050 J3Y; C474881 = Cixi Kefa Elec
 KF301-5.0-2P screw terminal; XH2.54 connectors = XUNPU WAFER-XH2.54-{n}PZZ, one vendor
 across the four XH pin counts used (4/5/6/9P), vertical THT. J7 (7-pin REEDS B) is a keyed
@@ -214,11 +214,25 @@ the nearest clean home on that net (the 220 Ω sits between the strike and this 
 still catches the surge at the series-R output). Both are TOP-side; ref-des are a 0.6 mm mark tucked
 into the one silk-clear gap by each (the board's tightest silk region). See the pcba.tsx FAUCET block.
 
-**U4/U5 are `C845537`** (UMW ULN2803A, SOP-18-300mil wide body). No Basic ULN2803 SOIC
-exists in the library — every ULN2803 part is Extended — so the feeder fee is unavoidable;
-C845537 is the cheapest with deep stock (genuine-TI ULN2803ADWR is `C9683`, ~$4.40). The
-generic `soic18_w7.5mm_p1.27mm` footprint matches the 300-mil land pattern (no IoU warning),
-so no `tsci import`. Pins 1-8 IN1-IN8, 9 GND, 10 COM (12 V flyback common), 11-18 OUT8-OUT1.
+**U4/U5 are `C165895`** (Toshiba TBD62083AFWG,EL, SOP-18-300mil wide body) — an octal
+**DMOS** sink driver, ~325 mΩ per channel. It replaces the ULN2803A Darlington that shared the
+footprint: at the ≤0.5 A/channel valve current the DMOS's I·R drop dissipates roughly 8× less
+than the Darlington's ~1.1–1.5 V V_CE(sat), so U4/U5 (the board's hottest parts — U5 ch5 also
+runs the always-on condenser fan) run far cooler for the same job. Pin- and package-identical
+to the ULN2803A: same SOP-18-300mil body, 1.27 mm pitch, and pinout — 1-8 IN1-IN8, 9 GND,
+10 COM (the common cathode of the internal freewheel diodes, tied to the 12 V load supply
+exactly like the ULN flyback common), 11-18 OUT8-OUT1. The imported footprint
+(`imports/TBD62083AFWG_EL`, pulled with `tsci import C165895` for the CPL rotation + 3D model)
+lands on the standard ULN SOIC-18-300mil pad pattern — JLCPCB's own C165895 library land uses
+0.485 mm-longer pads that break this packed board's clearance floor and the V12 pour voids, so
+the pads are set to the proven 300-mil land (same package → solders identically), keeping the
+thermal-only swap a pad-for-pad drop-in with zero copper disturbance.
+
+Every ULN2803/TBD62083 SOIC part is Extended, so the feeder fee is unavoidable regardless.
+Deeper-stock same-MPN JLC codes `C108880` (~6,640) and `C4153828` (~10,761) are alternates —
+**verify each is the DMOS TBD62083 (not a ULN Darlington) at order.** The original ULN2803A
+`C845537` (~350k stock, UMW/Youtai) remains a same-footprint, same-pinout drop-in fallback that
+only forfeits the thermal benefit — a zero-board-change sourcing hedge if C165895 is short.
 
 **C3 is wired as a THT radial — `C350206`** (SamYoung NXB, D10×12.5 mm, 5.08 mm pitch,
 53 mΩ ESR / 1.36 A ripple / 4000 h @105 °C), placed by JLCPCB through-hole assembly; its

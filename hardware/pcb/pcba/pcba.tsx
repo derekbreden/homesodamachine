@@ -55,7 +55,7 @@
  * (U10, below the coin cell); the web viewer's board chip reports it live
  * (clearance.ts -> picks.json).
  */
-import { at, Cap, Res, Jst, jstPins, ulnOUT, Uln2803, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870, Tact, Diode, Pfet, Tvs, Zener, And2, Ptc, EsdClamp } from "./parts"
+import { at, Cap, Res, Jst, jstPins, ulnOUT, Tbd62083, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870, Tact, Diode, Pfet, Tvs, Zener, And2, Ptc, EsdClamp } from "./parts"
 import { KF301_5_0_2P } from "./imports/KF301_5_0_2P"
 import { frame, route, routeBottom, routeInner, channel } from "./routing"
 import { boardVersionParts } from "./board-version"
@@ -291,8 +291,8 @@ const R19f = frame(R19El), R20f = frame(R20El)
 
 // ── Valve/reed fan frames — the ULNs, manifolds, and reed connectors, framed for the
 // nested fan routes below (each MCP↔ULN↔manifold column and its reed connector). ─────────
-const U4El = <Uln2803 name="U4" x={-0.75} y={9.9} rot={270} />
-const U5El = <Uln2803 name="U5" x={-0.5} y={-7.35} rot={270} />
+const U4El = <Tbd62083 name="U4" x={-0.75} y={9.9} rot={270} />
+const U5El = <Tbd62083 name="U5" x={-0.5} y={-7.35} rot={270} />
 const U4f = frame(U4El), U5f = frame(U5El)
 const J1El = <Jst name="J1" x={11} y={16.48} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" rot={270} />
 const J2El = <Jst name="J2" x={11} y={-5.77} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" rot={270} />
@@ -346,7 +346,7 @@ export const decoupling: DecouplingRule[] = [
 // RAILS need no entry: V12/V5/GND are poured planes picked up at the barrel. What does:
 //   pump motors (U11/U12.OUT → J13) — ~0.8A peak (Kamoer KPHM400-SW). Routed 0.4mm, want ≥0.3mm
 //     (IPC-2221 rule of thumb for ~0.8A at ~10°C rise on 1oz; more on inner 0.5oz — kept short).
-//   manifold valves + condenser fan (U4/U5.OUT → J1/J2) — sunk by the ULN2803, so ≤0.5A/channel.
+//   manifold valves + condenser fan (U4/U5.OUT → J1/J2) — sunk by the TBD62083 DMOS array, so ≤0.5A/channel.
 //     Routed 0.3mm, want ≥0.25mm.
 //   J10 inlet series → the PPTC + pass FET (J10.V12 → F1 → Q4.D) — the two 12V segments that aren't a
 //     pour: the whole board's ~3.3A peak (both pumps priming + valves + fan) crosses BOTH. Routed
