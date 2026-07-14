@@ -171,6 +171,9 @@ const R4El = <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x
 const R7El = <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={-65.5} y={-15.65} rot={270} side="W" />    // EN col; EN node (pin1 N) → V3V3 (pin2 S)
 const C12El = <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={-65.5} y={-12.15} rot={90} side="W" />  // EN col; EN node (pin1 S) → GND (pin2 N); near U1.EN
 const R1f = frame(R1El), R2f = frame(R2El), R3f = frame(R3El), R4f = frame(R4El), R7f = frame(R7El), C12f = frame(C12El)
+const C10El = <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.5} y={-14} rot={180} side="N" />
+const C11El = <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-56.5} y={-16.5} rot={0} side="N" />
+const C10f = frame(C10El), C11f = frame(C11El)
 const U1El = <Esp32 name="U1" x={-57} y={0} rot={0} ly={4} />  // ref-des north of the centre GND thermal-pad array
 const U1f = frame(U1El)                               // ESP32; taps by label (EN/IO36/IO39)
 const J11El = <Jst name="J11" x={-62} y={-23.85} count={4} labels={["GND", "V5", "DOUT", "AOUT"]} label="GAS" rot={90} />
@@ -385,8 +388,8 @@ export default () => (
         share the lane just east of them. */}
     {C12El}
     {R7El}
-    <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.5} y={-14} rot={180} side="N" />
-    <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-56.5} y={-16.5} rot={0} side="N" />
+    {C10El}
+    {C11El}
     {R8El}
     {/* RS-485 to the front display (J9). COS13487EESA-3.3 auto-direction transceiver (U7):
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
@@ -755,24 +758,24 @@ export default () => (
         flank the channel at 0.65. */}
     <trace from="U1.IO34" to="U7.RO" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO34",
-        { row: -11 },               // clear the pad row, then step the drop column W
-        { col: -60.35 },            // drop nudged W of IO35's column — opens the sliver for R27 (IO35 series-R)
-        { row: -27.9 },             // south detour under the relocated U9 cluster
-        { col: -45.7 },             // rise east of the cluster, west of the LED resistors
-        { row: -23.7 },             // south pocket lane, under D1's A/B pads
-        { col: -18.3 },             // rise through U7's VCC/B pad channel, west of the VCC via
-        { row: -21.1 },             // between U7's pad rows, east into the RO pad-via
+        { row: U1f.pin("IO34").y - 2 },            // clear the pad row, then step the drop column W
+        { col: R27f.pin("pin1").x - 0.7 },         // drop nudged W of R27 (IO35 series-R) — opens the sliver
+        { row: U9f.pin("GND").y - 1.8 },           // south detour under the U9 cluster
+        { col: R14f.pin("pin1").x - 0.7 },         // rise east of the cluster, west of the LED resistors
+        { row: D1f.pin("A").y + 0.8 },             // south pocket lane, under D1's A/B pads
+        { col: U7f.pin("VCC").x - 0.71 },          // rise through U7's VCC/B pad channel, west of the VCC via
+        { row: U7f.pin("GND").y + 1.26 },          // between U7's pad rows, east into the RO pad-via
         "U7.RO",
     )} />
     <trace from="U1.IO32" to="U7.DI" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO32",
-        { row: -11.5 },             // clear of the pad row before jogging east
-        { col: -56.5 },             // the C10/C11 pin1-pin2 channel
-        { row: -27.5 },             // south detour under the U9 cluster
-        { col: -46.2 },             // rise east of the cluster, paired lane
-        { row: -23.1 },             // north pocket lane, ending west of U7.GND's shadow
-        { col: -21.95 },            // rise along the pad row's west flank, clear of the GND via
-        { row: -21.1 },             // between U7's pad rows, east into the DI pad-via
+        { row: U1f.pin("IO32").y - 2.5 },          // clear of the pad row before jogging east
+        { col: channel(C10f.pin("pin2").x, C10f.pin("pin1").x) },  // the C10/C11 pin1-pin2 channel
+        { row: U9f.pin("GND").y - 1.4 },           // south detour under the U9 cluster
+        { col: R14f.pin("pin1").x - 1.2 },         // rise east of the cluster, paired lane
+        { row: U7f.pin("GND").y - 0.74 },          // north pocket lane, ending west of U7.GND's shadow
+        { col: U7f.pin("GND").x - 0.54 },          // rise along the pad row's west flank, clear of the GND via
+        { row: U7f.pin("GND").y + 1.26 },          // between U7's pad rows, east into the DI pad-via
         "U7.DI",
     )} />
     <trace from=".U7 > .RE" to="net.GND" />
