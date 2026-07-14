@@ -85,6 +85,8 @@ const U14f = frame(U14El)
 const J14f = frame(J14El)
 const C22f = frame(C22El)
 const R16f = frame(R16El)
+const C21El = <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-57.25} y={25.05} rot={180} side="N" />
+const C21f = frame(C21El)
 const R15f = frame(R15El)
 const U13f = frame(U13El)
 const dMinusLane = U14f.row("pin3", -0.85)
@@ -923,9 +925,9 @@ export default () => (
         crossing. (The nearer top/bottom escapes are fenced by the boot wall and the pump comb.) */}
     <trace from="U1.IO23" to="J4.IO23" pcbPathRelativeTo="board" pcbPath={routeInner("inner1",
         "U1.IO23",
-        { row: -6.6 },              // S off the pad into the interior's south strip (below the E GND corner pad's latitude; SDA/SCL are at y10.95, N — uncrossed)
-        { col: -46 },               // E through the interior and clear past the module's east pad column
-        { row: -29 },               // S the east flank on inner1 — the IO15 feed rides the bottom, so this lane is clear
+        { row: U1f.pin("IO25").y + 2.4 },  // S off the pad into the interior's south strip (below the E GND corner pad's latitude)
+        { col: U1f.pin("IO0").x + 3.78 },  // E through the interior and clear past the module's east pad column
+        { row: J4f.pin("IO23").y + 1.3 },  // S the east flank on inner1 — the IO15 feed rides the bottom, so this lane is clear
         J4f.col("IO23"),
         "J4.IO23",
     )} />
@@ -940,7 +942,7 @@ export default () => (
         y13 (above the pad-shadow band), east, then north into U11.IN1. */}
     <trace from="U1.IO17" to="U11.IN1" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO17",
-        { row: 11.5 },
+        { row: U1f.pin("IO17").y + 2.5 },   // above the pad-shadow band
         U11f.col("IN1"),
         "U11.IN1",
     )} />
@@ -975,7 +977,7 @@ export default () => (
         stitch via 0.86 mm off). */}
     <trace from="U1.IO4" to="U12.IN1" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO4",
-        { row: 11 },
+        { row: U1f.pin("IO4").y + 2 },      // above the pad-shadow band
         U12f.col("IN1"),
         "U12.IN1",
     )} />
@@ -1013,16 +1015,16 @@ export default () => (
     {U15El}{R24El}{C23El}
     <trace from="U1.IO19" to="U15.A" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO19",
-        { row: 12 },
+        { row: U1f.pin("IO19").y + 3 },     // clear the pad-shadow band
         U15f.row("A"),              // rot270: row() lands on A's board column — the y12→A riser
         "U15.A",
     )} />
     <trace from="U15.Y" to="J5.IO19" pcbPathRelativeTo="board" pcbPath={routeInner("bottom",
         "U15.Y",
         U15f.above("Y", 0.4),       // rot270: above() lands E of Y's board edge — jog E off the north pad onto the bottom, clear of GND's pad-via
-        { row: 13.5 },              // the E-bound corridor: S of C4/U13, N of A's y12 haul + the Q2.C hop via
+        { row: U1f.pin("IO19").y + 4.5 },  // the E-bound corridor: S of C4/U13, N of A's y12 haul + the Q2.C hop via
         U2f.col("RESET", -0.635),   // riser threads the RESET/INTB pad-column gap (both U2 rows align)
-        { row: 29.5 },              // jog under J5's barrel row, over to the IO19 column
+        { row: J5f.pin("IO19").y - 1.5 },  // jog under J5's barrel row, over to the IO19 column
         J5f.col("IO19"),
         "J5.IO19",
     )} />
@@ -1033,7 +1035,7 @@ export default () => (
     <trace from=".R24 > .pin2" to="net.GND" />
     <trace from="R24.pin1" to="U15.B" pcbPathRelativeTo="board" pcbPath={route(
         "R24.pin1",
-        { row: 13.9 },              // S off pin1 into the flank lane
+        { row: R24f.pin("pin1").y - 0.27 },  // S off pin1 into the flank lane
         { col: U15f.pin("B").x },   // E (over RXD on the bottom) to B's column, then N into B's S face
         "U15.B",
     )} />
@@ -1084,7 +1086,7 @@ export default () => (
         a foreign drop. GPB0's descent jogs east to -14.6 — off its own pad column, which
         J9.B's escape channel now occupies — threading between that channel and GPB1's
         column, and passing under RB2's lane start. */}
-    <trace from="U3.GPB0" to="J7.RB1" pcbPathRelativeTo="board" pcbPath={route("U3.GPB0", U3f.below("GPB0", 0.35), { col: -14.6 }, J7f.row("RB1", 1.24), J7f.col("RB1"), "J7.RB1")} />
+    <trace from="U3.GPB0" to="J7.RB1" pcbPathRelativeTo="board" pcbPath={route("U3.GPB0", U3f.below("GPB0", 0.35), { col: J7f.pin("RB1").x - 6.6 }, J7f.row("RB1", 1.24), J7f.col("RB1"), "J7.RB1")} />
     <trace from="U3.GPB1" to="J7.RB2" pcbPathRelativeTo="board" pcbPath={route("U3.GPB1", J7f.row("RB2", 1.73), J7f.col("RB2"), "J7.RB2")} />
     <trace from="U3.GPB2" to="J7.RB3" pcbPathRelativeTo="board" pcbPath={route("U3.GPB2", J7f.row("RB3", 2.22), J7f.col("RB3"), "J7.RB3")} />
     <trace from="U3.GPB3" to="J7.RB4" pcbPathRelativeTo="board" pcbPath={route("U3.GPB3", J7f.row("RB4", 2.71), J7f.col("RB4"), "J7.RB4")} />
@@ -1200,7 +1202,7 @@ export default () => (
     <trace from="R2.pin1" to="U1.IO39" pcbPathRelativeTo="board" pcbPath={route(
         "R2.pin1",
         R2f.row("pin1", -1.16),     // the lane between R2's pads and R1's north pad
-        { col: -60.8 },             // ascend east of the grid's east pad column
+        { col: R2f.pin("pin1").x + 0.7 },  // ascend east of the grid's east pad column
         U1f.below("IO39", 0.55),
         U1f.col("IO39", 0),
         "U1.IO39",
@@ -1355,8 +1357,8 @@ export default () => (
         into R11/R12 by their west faces — east pin to upper row, so nothing crosses. */}
     <trace from="U1.IO15" to="R10.pin1" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO15",
-        { col: -46.99 },        // east-flank lane, hugging U1's east pads — leaves the U6 side of the flank for the interlock B-haul
-        { row: -14.6 },         // north of the R row, over to pin1's column
+        { col: U1f.pin("IO0").x + 2.79 },  // east-flank lane, hugging U1's east pads — leaves the U6 side for the interlock B-haul
+        { row: R10f.pin("pin1").y + 0.15 },  // north of the R row, over to pin1's column
         R10f.col("pin1"),
         "R10.pin1",
     )} />
@@ -1403,7 +1405,7 @@ export default () => (
     {R16El}
     {R15El}
     {C22El}
-    <Cap name="C21" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-57.25} y={25.05} rot={180} side="N" />
+    {C21El}
     {/* EN branch: U13.DTR -> R17 -> Q2.base; U13.RTS -> Q2.emitter; Q2.collector -> EN; SW2 */}
     {R17El}
     {Q2El}
@@ -1490,9 +1492,9 @@ export default () => (
         the short nested Z west under R16 and the shell pill into IO3. */}
     <trace from="U13.TXD" to="U1.IO3" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U13.TXD",
-        { row: 13.7 },               // south past the comb's band, under R16's shadow
-        { col: -58.3 },              // between R16.pin1's shadow and its J14 route's column
-        { row: 10.45 },              // the low tier, under EH2's pill
+        { row: R16f.pin("pin1").y + 0.7 },  // south past the comb's band, under R16's shadow
+        { col: R16f.pin("pin1").x - 0.8 },  // between R16.pin1's shadow and its J14 route's column
+        { row: U1f.pin("IO3").y + 1.45 },   // the low tier, under J14's shell pill
         "U1.IO3",
     )} />
     <trace from="U13.RXD" to="U1.IO1" pcbPathRelativeTo="board" pcbPath={(() => {
@@ -1533,31 +1535,31 @@ export default () => (
         to Q3.E, which links up to R17.pin2 along its row. */}
     <trace from="U13.RTS" to="R18.pin2" pcbPathRelativeTo="board" pcbPath={route(
         "U13.RTS",
-        { row: 27.7 },               // rise into the clear band between U13's north pads and the tacts' south pads
-        { col: -60.5 },              // west under the tacts, east of SW2's west pad and R18
-        { row: 29.5 },               // up the R18/SW2 flank to R18.pin2's level
+        { row: U13f.pin("pin16").y + 1.28 },  // clear band between U13's north pads and the tacts' south pads
+        { col: R18f.pin("pin1").x + 1.4 },   // west under the tacts, east of SW2's west pad and R18
+        { row: R18f.pin("pin2").y },         // up the R18/SW2 flank to R18.pin2's level
         "R18.pin2")
     } />
     <trace from="R18.pin2" to="Q2.E" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "R18.pin2",
-        { col: -63.0 },              // out the pad's west side, between R17's column and Q3
-        { row: 24.75 },              // the lane below the B/E pad row, clear of B's and C's shadows
+        { col: R17f.pin("pin2").x + 0.75 },  // out the pad's west side, between R17's column and Q3
+        { row: Q2f.pin("E").y - 1.1 },       // the lane below the B/E pad row, clear of B's and C's shadows
         { col: Q2f.pin("E").x },     // west under the pad row, rising only at E's own column
         "Q2.E"
     )} />
     <trace from="U13.DTR" to="Q3.E" pcbPathRelativeTo="board" pcbPath={route(
         "U13.DTR",
-        { row: 25.3 },               // drop below U13's (moved) north-pad shadow
-        { col: -55.15 },             // west to just east of C21 (clears C21.pin1 by 0.2+)
-        { row: 23.9 },               // duck below C21's band (starts 24.375)
-        { col: -59.7 },              // west, clear of C21, east of Q3.B's column
+        { row: U13f.pin("pin16").y - 1.12 },  // drop below U13's (moved) north-pad shadow
+        { col: C21f.pin("pin1").x + 1.1 },   // west to just east of C21
+        { row: C21f.pin("pin1").y - 1.15 },  // duck below C21's band
+        { col: Q3f.pin("B").x + 0.85 },      // west, clear of C21, east of Q3.B's column
         Q3f.col("E", -1),            // rise into the Q3.B/Q3.C gap — the proven Q3.E approach
         Q3f.row("E"),
         "Q3.E"
     )} />
     <trace from="Q3.E" to="R17.pin2" pcbPathRelativeTo="board" pcbPath={route(
         "Q3.E",
-        { col: -63.05 },             // jog west off the pad, clear of R18's pin1 column
+        { col: R18f.pin("pin1").x - 1.15 },  // jog west off the pad, clear of R18's pin1 column
         R17f.row("pin2"),            // rise, east along R17's row into pin2
         "R17.pin2"
     )} />
@@ -1609,7 +1611,7 @@ export default () => (
         IO0's column and straight down into the pad (all IO0 net, so the boot wall it meets is same-net). */}
     <trace from="R8.pin1" to="U1.IO0" pcbPathRelativeTo="board" pcbPath={route(
         "R8.pin1",
-        { row: 13.5 },               // drop S off pin1, above the pump-comb band
+        { row: U1f.pin("IO0").y + 4.5 },  // drop S off pin1, above the pump-comb band
         { col: U1f.pin("IO0").x },   // W to IO0's column
         "U1.IO0",
     )} />
@@ -1644,8 +1646,8 @@ export default () => (
     <trace from=".SW1 > .pin1" to="net.GND" />
     <trace from="SW2.pin3" to="Q2.C" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "SW2.pin3",
-        { col: -57.25 },             // east off the pad, down the C21 pad-pair channel
-        { row: 22.7 },               // under the collector row, over J14's shell legs
+        { col: channel(C21f.pin("pin2").x, C21f.pin("pin1").x) },  // down the C21 pad-pair channel
+        { row: Q2f.pin("C").y - 0.95 },  // under the collector row, over J14's shell legs
         Q2f.row("C"),                // up into the pad via from the south
         "Q2.C",
     )} />
@@ -1722,7 +1724,7 @@ export default () => (
     <trace from=".Q4 > .D" to="net.V12RAW" />
     <trace from="J10.V12" to="Q4.D" thickness="1.6mm" pcbPathRelativeTo="board" pcbPath={route("J10.V12", { col: Q4f.pin("D").x }, "Q4.D")} />
     <trace from=".Q4 > .S" to="net.V12" />
-    <trace from="Q4.G" to="R23.pin1" pcbPathRelativeTo="board" pcbPath={route("Q4.G", { col: 4.3 }, { row: R23f.pin("pin1").y }, "R23.pin1")} />
+    <trace from="Q4.G" to="R23.pin1" pcbPathRelativeTo="board" pcbPath={route("Q4.G", { col: Q4f.pin("G").x - 1.0 }, { row: R23f.pin("pin1").y }, "R23.pin1")} />
     <trace from="R23.pin1" to="D9.pin2" pcbPathRelativeTo="board" pcbPath={route("R23.pin1", "D9.pin2")} />
     <trace from=".R23 > .pin2" to="net.GND" />
     <trace from=".D9 > .pin1" to="net.V12" />
