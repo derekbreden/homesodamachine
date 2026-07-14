@@ -136,15 +136,15 @@ const SW2El = <Tact name="SW2" x={-57.75} y={31.75} rot={270} />
 const SW2f = frame(SW2El)
 
 // ── Buzzer chain (IO13 → R5 → Q1 → U8) ────────────────────────────────────────────────
-const R5El = <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-45.228} y={-4.445} rot={180} side="N" />
-const Q1El = <Npn name="Q1" x={-41.45} y={-5.395} rot={180} />
-const U8El = <Buzzer name="U8" x={-42.25} y={-11} />
+const R5El = <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-43.75} y={-4.44} rot={180} side="N" />
+const Q1El = <Npn name="Q1" x={-40} y={-5.39} rot={180} />
+const U8El = <Buzzer name="U8" x={-40.75} y={-11} />
 // D7 — buzzer-coil flyback clamp (1N4148W SOD-123). Stands vertical (rot 270: pin1 CATHODE north,
 // pin2 anode south) in the strip S of the buzzer, between the LED column (west) and BT1/U10 (east).
 // Cathode commons to the 5V plane at its stitch via (the same node as U8._POS); the anode → U8._NEG
 // (Q1.C) tap must cross the IO26 top trace (y-11.1, which runs between the two coil pads), so it
 // hops to the bottom — the one clear layer in that column — and climbs a via back into _NEG.
-const D7El = <Diode name="D7" x={-36.75} y={-10.5} rot={90} ly={-3.0} />
+const D7El = <Diode name="D7" x={-36.25} y={-10.5} rot={90} ly={-3.0} />
 const R5f = frame(R5El), Q1f = frame(Q1El), U8f = frame(U8El), D7f = frame(D7El)
 const Q2f = frame(Q2El), Q3f = frame(Q3El), R17f = frame(R17El), R18f = frame(R18El)
 const SW1f = frame(SW1El)
@@ -256,7 +256,7 @@ const D10f = frame(D10El), D11f = frame(D11El)
 const J13El = <Jst name="J13" x={-12.25} y={31} count={4} labels={["AM2", "AM1", "BM2", "BM1"]} label="PUMPS" rot={0} />
 const J13f = frame("J13", J13El.props.x, J13El.props.y, 0, Object.fromEntries(jstPins(J13El.props).pins))
 const BT1El = <CoinHolder name="BT1" x={-20.5} y={-1.25} />
-const U6El = <Ds3231Smd name="U6" x={-40.35} y={2.5} rot={270} />  // nudged 0.15 E (clear of BT1): opens the WROOM↔U6 flank for the interlock B-haul beside the IO15→R10 feed
+const U6El = <Ds3231Smd name="U6" x={-40.35} y={3.5} rot={270} />  // nudged 0.15 E (clear of BT1): opens the WROOM↔U6 flank for the interlock B-haul beside the IO15→R10 feed
 const BT1f = frame(BT1El), U6f = frame(U6El)
 const D2El = <LedRed name="D2" pcbRotation={180} {...at(-40.75, -15.5)} />
 const D3El = <LedGrn name="D3" pcbRotation={180} {...at(-40.75, -18)} />
@@ -367,7 +367,7 @@ export default () => (
         pin2 (-> GND); the cell is retained by the molded base, not SMT clips. */}
     {BT1El}
     {U6El}
-    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-37.2} y={-4.75} rot={0} />
+    <Cap name="C6" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-36} y={-4.75} rot={90} />
     {/* Base controller — bare ESP32-WROOM-32E (U1, C701341), no radio, antenna keepout
         pointing west off the board edge. Usable GPIO sit on the north and south
         castellations only (the east edge is the module's flash); the relay/pump/buzzer/
@@ -1571,7 +1571,7 @@ export default () => (
     <trace from="Q2.C" to="U1.EN" pcbPathRelativeTo="board" pcbPath={(() => {
         const c = Q2f.pin("C"), en = U1f.pin("EN")
         const eastLane = 11.75       // inner2, N of SCL (10.95), under the comb (11–12, bottom): the clear east run
-        const cross = -39.37         // top-hop + descent column: clear top window, and the Q1.C↔C6 gap (0.93 mm) below
+        const cross = -40         // top-hop + descent column: clear top window, and the Q1.C↔C6 gap (0.93 mm) below
         const viaN = 12.8            // via up, N of the comb's north row (IO19, y12)
         const viaS = 10.0            // via down, S of SCL (10.95)
         const underLane = -7.4       // inner2, under the module: N of the south pads (−7.95), clear of IO23 (inner1, −6.6)
