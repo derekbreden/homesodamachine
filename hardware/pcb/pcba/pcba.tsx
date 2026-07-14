@@ -1560,31 +1560,34 @@ export default () => (
         R17f.row("pin2"),            // rise, east along R17's row into pin2
         "R17.pin2"
     )} />
-    {/* Q2's collector reach to EN — off the antenna keepout entirely (the far-west flank crossed the
-        WROOM antenna box). Q2.C drops onto inner2 (the 5V plane, empty here but for SCL) at its own
-        pad, runs the clear lane north of SCL east to the one open top window — between the IO2 riser
-        (x−43.17) and U6 (x−35.75) — hops up over the stacked wall (comb y11–12 · SCL · SDA, all on
-        other layers) and back to inner2 south of it, descends the Q1.C/C6 gap (0.93 mm), and runs west
-        under the module (north of the south-pad row, clear of IO23 on inner1) up into EN from the
-        north. C12's RC feed still enters EN from the south. Board-absolute lanes: they thread
-        board-fixed copper (SCL, the comb, the module pads), so they anchor to no part. */}
+    {/* Q2's collector reach to EN, on inner2 (the 5V plane, empty here but for SCL). Both west and
+        east lanes anchor to J14's SW mounting ear (pin2): the west lane runs W of the ear holes
+        (which reach ~0.7 mm off their -64.77 centres), the east lane S of the south ears' holes (drill
+        edge ~11.78) and N of SCL (10.95) — so the run clears J14's plated holes by ~0.2 mm and tracks
+        the connector if it moves. It then hops the SCL/SDA + bottom-copper wall at the one open top
+        window (x -40, between the IO2 riser and U6) and runs west under the module into EN from the N.
+        The east lane must sit LOW (under the ears) but the top-hop via must sit HIGH (N of the
+        bottom-layer 11.5/13.5 runs it would otherwise drill into), so the short rise at the via is
+        load-bearing, not slack. C12's RC feed still enters EN from the south. */}
     <trace from="Q2.C" to="U1.EN" pcbPathRelativeTo="board" pcbPath={(() => {
-        const c = Q2f.pin("C"), en = U1f.pin("EN")
-        const eastLane = 11.75       // inner2, N of SCL (10.95), under the comb (11–12, bottom): the clear east run
-        const cross = -40         // top-hop + descent column: clear top window, and the Q1.C↔C6 gap (0.93 mm) below
-        const viaN = 12.8            // via up, N of the comb's north row (IO19, y12)
-        const viaS = 10.0            // via down, S of SCL (10.95)
-        const underLane = -7.4       // inner2, under the module: N of the south pads (−7.95), clear of IO23 (inner1, −6.6)
+        const c = Q2f.pin("C"), en = U1f.pin("EN"), ear = J14f.pin("pin2")
+        const westLane = ear.x - 1.05   // W of J14's mounting-ear holes (ear centre -64.77, hole reaches ~-65.47)
+        const eastLane = ear.y - 0.70   // S of the south ears' holes (drill edge ~11.78), N of SCL (10.95)
+        const cross = -40               // the one open top window (between the IO2 riser and U6)
+        const viaN = 12.2               // top-hop via, N of the bottom-layer 11.5 run (the ear-low east lane can't reach it)
+        const viaS = 10.0               // back to inner2, S of SCL (10.95)
+        const underLane = -7.4          // inner2 under the module, N of the south-pad row (−7.95), clear of IO23 (inner1, −6.6)
         return [
             "Q2.C",
             { x: c.x, y: c.y, via: true, toLayer: "inner2" } as const,    // onto inner2 at the pad (shares SW2's drill)
             { x: c.x, y: c.y },
-            { x: c.x, y: eastLane },                                      // down Q2.C's column to the east lane
-            { x: cross, y: eastLane },                                    // east on empty inner2, N of SCL
-            { x: cross, y: viaN },                                        // rise N of the comb for a clean via
+            { x: westLane, y: c.y },                                      // jog W under Q2's body to the clear west lane
+            { x: westLane, y: eastLane },                                 // down the west lane, W of the ear holes
+            { x: cross, y: eastLane },                                    // east under J14's south ears, N of SCL
+            { x: cross, y: viaN },                                        // rise to clear the bottom-layer runs at the via
             { x: cross, y: viaN, via: true, toLayer: "top" } as const,    // up to top — the clear window
             { x: cross, y: viaN },
-            { x: cross, y: viaS },                                        // top crosses S over comb / SCL / SDA
+            { x: cross, y: viaS },                                        // top crosses S over SCL / SDA
             { x: cross, y: viaS, via: true, toLayer: "inner2" } as const, // back to inner2, S of SCL
             { x: cross, y: viaS },
             { x: cross, y: underLane },                                   // descend the Q1.C/C6 gap
