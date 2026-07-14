@@ -888,7 +888,7 @@ export default () => (
     <trace from="U1.IO25" to="R21.pin1" pcbPathRelativeTo="board" pcbPath={route(
         "U1.IO25",
         U1f.below("IO25", 1.65),                            // bottom lane
-        { col: channel(-48.5, -45) },                       // drop between J3.IO33's column and the R field
+        { col: channel(J3f.pin("IO33").x, R10f.pin("pin1").x) },  // drop between J3.IO33's column and the R field
         J4f.row("IO25", 1.2),                               // low band east under the LED field
         R21f.col("pin1"),                                   // rise into R21.pin1's column
         "R21.pin1",
