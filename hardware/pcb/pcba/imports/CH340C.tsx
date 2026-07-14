@@ -19,13 +19,18 @@ const pinLabels = {
   pin16: ["VCC"]
 } as const
 
+// Supplier code points at C7464026, not the original C84681: both are the same
+// CH340C (SOP-16, identical die/pinout), but C84681 read "Unavailable" at JLCPCB
+// (2026-07-13, no assembly stock) while C7464026 sat at ~23,441 — a pure sourcing-
+// code swap. The land + 3D model below are retained from the identical-MPN C84681
+// (they solder C7464026 identically), so this disturbs zero copper. See jlcpcb-parts.md.
 export const CH340C = (props: ChipProps<typeof pinLabels>) => {
   return (
     <chip
       pinLabels={pinLabels}
       supplierPartNumbers={{
   "jlcpcb": [
-    "C84681"
+    "C7464026"
   ]
 }}
       manufacturerPartNumber="CH340C"
