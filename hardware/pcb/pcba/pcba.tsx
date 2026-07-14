@@ -156,20 +156,20 @@ const SW1f = frame(SW1El)
 // pair: input/pullup south (toward J11), GND/V3V3 north; the midpoint jogs east past the top part up
 // to U1. Column pitch 2.0 (rot90 courtyard ~1.8 wide — the middle tap needs the 0.2 mm lane, so this
 // is the floor); row pitch 3.5 (courtyard ~3.3 tall). Grid pulled north to the U1 courtyard so J11
-// can follow it up. One const per axis → one-line move; frames + placements read the same const.
+// can follow it up.
 // Ref-des sit E (the vertical preference): R2's tap rises east of its label (the -2.1 jog), C12's
 // W dodges the EN riser in its channel, and R4's E crosses the IO36 tap hairline — the one channel
 // R4 has (EN riser west, column link south, the module north), a deliberate least-collision pick.
-const CX_EN = -65.5, CX_DOUT = -63.5, CX_AOUT = -61.5   // columns W→E
-const CY_BOT = -15.65, CY_TOP = -12.15                    // input (south) / GND·V3V3 (north) rows (N clears U1 courtyard -10.05)
-// Placed here (not down in the return) so each frame derives from its own element; rendered below
-// via {R1El}… The grid parts ride the CX/CY consts, so a one-line const move still slides the lattice.
-const R1El = <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={CX_AOUT} y={CY_BOT} rot={90} side="W" />   // AOUT in (pin1 S) → midpoint (pin2 N)
-const R2El = <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={CX_AOUT} y={CY_TOP} rot={90} side="W" />  // midpoint (pin1 S) → GND (pin2 N)
-const R3El = <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={CX_DOUT} y={CY_BOT} rot={90} side="W" />   // DOUT in (pin1 S) → midpoint (pin2 N)
-const R4El = <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={CX_DOUT} y={CY_TOP} rot={90} side="W" />  // midpoint (pin1 S) → GND (pin2 N)
-const R7El = <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={CX_EN} y={CY_BOT} rot={270} side="W" />    // EN node (pin1 N) → V3V3 (pin2 S)
-const C12El = <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={CX_EN} y={CY_TOP} rot={90} side="W" />  // EN node (pin1 S) → GND (pin2 N); near U1.EN
+// Columns W→E: EN -65.5 · DOUT -63.5 · AOUT -61.5; rows input/pullup south -15.65, GND·V3V3 north
+// -12.15 (N clears U1 courtyard -10.05). Each part carries its own literal x/y so it stays
+// individually selectable in the editor. Placed here (not in the return) so each frame derives from
+// its own element; rendered below via {R1El}….
+const R1El = <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={-61.5} y={-15.65} rot={90} side="W" />   // AOUT col; AOUT in (pin1 S) → midpoint (pin2 N)
+const R2El = <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={-61.5} y={-12.15} rot={90} side="W" />  // AOUT col; midpoint (pin1 S) → GND (pin2 N)
+const R3El = <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={-63.5} y={-15.65} rot={90} side="W" />   // DOUT col; DOUT in (pin1 S) → midpoint (pin2 N)
+const R4El = <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={-63.5} y={-12.15} rot={90} side="W" />  // DOUT col; midpoint (pin1 S) → GND (pin2 N)
+const R7El = <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={-65.5} y={-15.65} rot={270} side="W" />    // EN col; EN node (pin1 N) → V3V3 (pin2 S)
+const C12El = <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={-65.5} y={-12.15} rot={90} side="W" />  // EN col; EN node (pin1 S) → GND (pin2 N); near U1.EN
 const R1f = frame(R1El), R2f = frame(R2El), R3f = frame(R3El), R4f = frame(R4El), R7f = frame(R7El), C12f = frame(C12El)
 const U1El = <Esp32 name="U1" x={-57} y={0} rot={0} ly={4} />  // ref-des north of the centre GND thermal-pad array
 const U1f = frame(U1El)                               // ESP32; taps by label (EN/IO36/IO39)
@@ -549,7 +549,7 @@ export default () => (
     <trace from="R7.pin1" to="C12.pin1" pcbPath={route("R7.pin1", "C12.pin1")} />
     <trace from="C12.pin1" to="U1.EN" pcbPathRelativeTo="board" pcbPath={route(
         "C12.pin1",
-        { col: channel(CX_EN, CX_DOUT) },
+        { col: channel(C12f.pin("pin1").x, R4f.pin("pin1").x) },   // lane between C12's (EN) and R4's (DOUT) columns
         U1f.below("EN", 0.45),
         U1f.col("EN", 0),
         "U1.EN",
