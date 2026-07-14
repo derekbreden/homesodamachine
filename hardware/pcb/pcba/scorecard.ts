@@ -27,6 +27,7 @@
  * the why behind each — is in requirements.md.
  */
 import type { FootprintAudit } from "./footprint-audit"
+import type { ImportProvenanceAudit } from "./import-provenance-audit"
 import type { ConnectorAudit } from "./connector-audit"
 import type { AmpacityAudit } from "./ampacity-audit"
 import type { CapAudit } from "./cap-audit"
@@ -67,6 +68,7 @@ export type ScorecardInput = {
   clearanceErrors: { kind: string; text: string }[]  // clearance.ts DRC findings (overlap/courtyard/sliver/shadow/antenna-keepout)
   opens: { kind: string; text: string }[]            // connectivity.ts open nets
   footprints: FootprintAudit
+  provenance: ImportProvenanceAudit
   connectors: ConnectorAudit
   ampacity: AmpacityAudit | null
   capAudit: CapAudit | null
@@ -155,6 +157,12 @@ export function buildScorecard(inp: ScorecardInput): Scorecard {
   gate("connectors", "Connector bodies clear of edge & neighbours", inp.connectors.flagged === 0,
     `${inp.connectors.flagged} flagged`, "0 flagged",
     inp.connectors.rows.filter((r) => r.over).map((r) => `${r.ref}: ${r.clearance} mm to ${r.to}`))
+
+  // Every footprint must be the fab's real land, pulled with `tsci import <LCSC#>` — a hand-drawn
+  // land (round-number pads, no raw-float geometry) is caught by import-provenance-audit.ts. See §6.
+  gate("footprint-provenance", "Every footprint imported (tsci import), not hand-drawn", inp.provenance.flagged === 0,
+    `${inp.provenance.flagged} hand-drawn`, "0 hand-drawn",
+    inp.provenance.rows.filter((r) => r.handDrawn).map((r) => `${r.file}: no imported land — re-run 'tsci import <LCSC#>'`))
 
   const { sourced, total } = inp.fab.partsSourced
   gate("sourcing", "Every placed part carries a JLCPCB #", sourced === total,
