@@ -1576,10 +1576,10 @@ export default () => (
         const c = Q2f.pin("C"), en = U1f.pin("EN"), ear = J14f.pin("pin2")
         const westLane = ear.x - 1.05   // W of J14's mounting-ear holes (ear centre -64.77, hole reaches ~-65.47)
         const eastLane = ear.y - 0.70   // S of the south ears' holes (drill edge ~11.78), N of SCL (10.95)
-        const cross = -40               // the one open top window (between the IO2 riser and U6)
-        const viaN = 12.2               // top-hop via, N of the bottom-layer 11.5 run (the ear-low east lane can't reach it)
-        const viaS = 10.0               // back to inner2, S of SCL (10.95)
-        const underLane = -7.4          // inner2 under the module, N of the south-pad row (−7.95), clear of IO23 (inner1, −6.6)
+        const cross = U1f.pin("IO2").x + 8.28   // the one open top window (E of the IO2 riser)
+        const viaN = U1f.pin("IO19").y + 3.2    // top-hop via, N of the bottom-layer 11.5 run (the ear-low east lane can't reach it)
+        const viaS = U1f.pin("IO19").y + 1.0    // back to inner2, S of SCL
+        const underLane = U1f.pin("IO25").y + 1.6  // inner2 under the module, N of the south-pad row
         return [
             "Q2.C",
             { x: c.x, y: c.y, via: true, toLayer: "inner2" } as const,    // onto inner2 at the pad (shares SW2's drill)
