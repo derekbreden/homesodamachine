@@ -6,20 +6,20 @@ flowchart LR
   %%
   %% ═══════════════════════════════════════
   %%  Valve Control + Flavor-Reservoir Level Sensing
-  %%  MCP23017 ×2 + ULN2803A ×2 (valves), reed inputs
+  %%  MCP23017 ×2 + TBD62083 ×2 (valves), reed inputs
   %% ═══════════════════════════════════════
   %%
   %% Two MCP23017 expanders on the shared I2C bus. Each one splits cleanly —
-  %% Port A drives its own ULN2803A (outputs), Port B reads reeds (inputs):
-  %%   0x20  8 valve outputs (V-A..V-H) on Port A -> ULN2803A #1 -> MANIFOLD A;
+  %% Port A drives its own TBD62083 (outputs), Port B reads reeds (inputs):
+  %%   0x20  8 valve outputs (V-A..V-H) on Port A -> TBD62083 #1 -> MANIFOLD A;
   %%         4 reservoir-A reed inputs on Port B[0:3]; PB[4:7] spare.
   %%   0x21  4 valve outputs (V-I/V-J/V-K-A/V-K-B) on Port A[4:7] + condenser fan
-  %%         on PA3 -> ULN2803A #2 (ch 1-5) -> MANIFOLD B; PA[0:2] spare;
+  %%         on PA3 -> TBD62083 #2 (ch 1-5) -> MANIFOLD B; PA[0:2] spare;
   %%         4 reservoir-B reed inputs on Port B[0:3]; 2 carbonator reeds on
   %%         PB[4:5]; PB[6:7] spare.
   %%
-  %%  Bit order: the ULN2803A modules mount silk-side-up, which reverses their
-  %%  input row, so on the board GPA_k drives ULN channel (8-k) — the GPA bit
+  %%  Bit order: the board routes each GPA_k to IN_{8−k}, so GPA_k drives channel
+  %%  (8-k) — the GPA bit
   %%  order runs OPPOSITE the channel/valve order (0x20 GPA0->V-H .. GPA7->V-A;
   %%  0x21 GPA7->V-I .. GPA3->fan, GPA[0:2] spare). Port B (reeds) is unaffected.
   %%
@@ -27,7 +27,7 @@ flowchart LR
   %% the 8 reservoir reeds (4 per reservoir × 2) plus the 2 carbonator reeds,
   %% 10 reed inputs total. Reservoir A's 4 reeds land on 0x20 PB[0:3]; Reservoir
   %% B's 4 reeds on 0x21 PB[0:3]; the carbonator's low/high reeds on 0x21 PB[4:5].
-  %% PA3 of 0x21 drives the condenser fan via ULN2803A #2 channel 5 (the fan is a
+  %% PA3 of 0x21 drives the condenser fan via TBD62083 #2 channel 5 (the fan is a
   %% 12 V DC brushless axial — see `power.mmd`).
   %%
   %% Architecture detail at
@@ -102,7 +102,7 @@ flowchart LR
     end
   end
 
-  subgraph Darlingtons["ULN2803A Darlington Arrays"]
+  subgraph Drivers["TBD62083 DMOS Arrays"]
     direction TB
 
     subgraph U1["U1 — Channels 1-8"]

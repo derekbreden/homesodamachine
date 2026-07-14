@@ -1,0 +1,80 @@
+import type { ChipProps } from "@tscircuit/props"
+
+// TBD62083AFWG,EL — Toshiba octal DMOS sink driver, C165895, SOIC-18 (300 mil).
+// A pin- and package-compatible DMOS replacement for the ULN2803A Darlington
+// (imports/ULN2803A.tsx): identical SOP-18-300mil body, 1.27 mm lead pitch, and
+// pinout (1-8 IN, 9 GND, 10 COM, 11-18 OUT8-OUT1). C165895 is wired for U4/U5 in
+// parts.tsx (`Tbd62083`), which overrides the pin labels below.
+//
+// Land pattern: this footprint uses the exact ULN2803A SOIC-18-300mil land (same
+// smtpad coordinates/sizes/origin + courtyard) rather than JLCPCB's C165895 library
+// land. Both parts are the same SOP-18-300mil package on the same 1.27 mm pitch, so
+// the standard ULN land solders the TBD62083 identically — and keeping the land
+// pad-for-pad identical means the thermal-only ULN→TBD swap disturbs zero copper on
+// this hand-routed, tightly-packed board (no trace, floor, or courtyard change). The
+// C165895 3D model (below) and supplier number are the TBD62083's own.
+const pinLabels = {
+  pin1: ["I1"],
+  pin2: ["I2"],
+  pin3: ["I3"],
+  pin4: ["I4"],
+  pin5: ["I5"],
+  pin6: ["I6"],
+  pin7: ["I7"],
+  pin8: ["I8"],
+  pin9: ["GND"],
+  pin10: ["COMMON"],
+  pin11: ["O8"],
+  pin12: ["O7"],
+  pin13: ["O6"],
+  pin14: ["O5"],
+  pin15: ["O4"],
+  pin16: ["O3"],
+  pin17: ["O2"],
+  pin18: ["O1"]
+} as const
+
+export const TBD62083AFWG_EL = (props: ChipProps<typeof pinLabels>) => {
+  return (
+    <chip
+      pinLabels={pinLabels}
+      supplierPartNumbers={{
+  "jlcpcb": [
+    "C165895"
+  ]
+}}
+      manufacturerPartNumber="TBD62083AFWG"
+      footprint={<footprint>
+        <smtpad portHints={["pin1"]} pcbX="-5.08mm" pcbY="-4.957572mm" width="0.6299962mm" height="1.6150082mm" radius="0.3149981mm" shape="pill" />
+<smtpad portHints={["pin2"]} pcbX="-3.81mm" pcbY="-4.957572mm" width="0.6299962mm" height="1.6150082mm" radius="0.3149981mm" shape="pill" />
+<smtpad portHints={["pin3"]} pcbX="-2.54mm" pcbY="-4.957572mm" width="0.6299962mm" height="1.6150082mm" radius="0.3149981mm" shape="pill" />
+<smtpad portHints={["pin4"]} pcbX="-1.27mm" pcbY="-4.957572mm" width="0.6299962mm" height="1.6150082mm" radius="0.3149981mm" shape="pill" />
+<smtpad portHints={["pin5"]} pcbX="0mm" pcbY="-4.957572mm" width="0.6299962mm" height="1.6150082mm" radius="0.3149981mm" shape="pill" />
+<smtpad portHints={["pin6"]} pcbX="1.27mm" pcbY="-4.957572mm" width="0.6299962mm" height="1.6150082mm" radius="0.3149981mm" shape="pill" />
+<smtpad portHints={["pin7"]} pcbX="2.54mm" pcbY="-4.957572mm" width="0.6299962mm" height="1.6150082mm" radius="0.3149981mm" shape="pill" />
+<smtpad portHints={["pin8"]} pcbX="3.81mm" pcbY="-4.957572mm" width="0.6299962mm" height="1.6150082mm" radius="0.3149981mm" shape="pill" />
+<smtpad portHints={["pin9"]} pcbX="5.08mm" pcbY="-4.957572mm" width="0.6299962mm" height="1.6150082mm" radius="0.3149981mm" shape="pill" />
+<smtpad portHints={["pin18"]} pcbX="-5.08mm" pcbY="4.957572mm" width="0.6299962mm" height="1.6150082mm" radius="0.3149981mm" shape="pill" />
+<smtpad portHints={["pin17"]} pcbX="-3.81mm" pcbY="4.957572mm" width="0.6299962mm" height="1.6150082mm" radius="0.3149981mm" shape="pill" />
+<smtpad portHints={["pin16"]} pcbX="-2.54mm" pcbY="4.957572mm" width="0.6299962mm" height="1.6150082mm" radius="0.3149981mm" shape="pill" />
+<smtpad portHints={["pin15"]} pcbX="-1.27mm" pcbY="4.957572mm" width="0.6299962mm" height="1.6150082mm" radius="0.3149981mm" shape="pill" />
+<smtpad portHints={["pin14"]} pcbX="0mm" pcbY="4.957572mm" width="0.6299962mm" height="1.6150082mm" radius="0.3149981mm" shape="pill" />
+<smtpad portHints={["pin13"]} pcbX="1.27mm" pcbY="4.957572mm" width="0.6299962mm" height="1.6150082mm" radius="0.3149981mm" shape="pill" />
+<smtpad portHints={["pin12"]} pcbX="2.54mm" pcbY="4.957572mm" width="0.6299962mm" height="1.6150082mm" radius="0.3149981mm" shape="pill" />
+<smtpad portHints={["pin11"]} pcbX="3.81mm" pcbY="4.957572mm" width="0.6299962mm" height="1.6150082mm" radius="0.3149981mm" shape="pill" />
+<smtpad portHints={["pin10"]} pcbX="5.08mm" pcbY="4.957572mm" width="0.6299962mm" height="1.6150082mm" radius="0.3149981mm" shape="pill" />
+<silkscreenpath route={[{"x":-5.826201200000014,"y":-3.5713923999999224},{"x":-5.826201200000014,"y":3.5713923999999224},{"x":5.826201200000014,"y":3.5713923999999224},{"x":5.826201200000014,"y":-3.5713923999999224},{"x":-5.826201200000014,"y":-3.5713923999999224}]} />
+<silkscreenpath route={[{"x":-4.929886000000124,"y":-2.8188920000000053},{"x":-4.935001010512565,"y":-2.8577443621364864},{"x":-4.949997462536317,"y":-2.893948999999907},{"x":-4.973853372648932,"y":-2.925038627351114},{"x":-5.004943000000026,"y":-2.9488945374637296},{"x":-5.04114763786356,"y":-2.9638909894873677},{"x":-5.080000000000041,"y":-2.969005999999922},{"x":-5.118852362136636,"y":-2.9638909894873677},{"x":-5.15505700000017,"y":-2.9488945374637296},{"x":-5.186146627351036,"y":-2.925038627351114},{"x":-5.210002537463652,"y":-2.893948999999907},{"x":-5.224998989487631,"y":-2.8577443621364864},{"x":-5.230114000000071,"y":-2.8188920000000053},{"x":-5.224998989487631,"y":-2.7800396378634105},{"x":-5.210002537463652,"y":-2.7438349999998763},{"x":-5.186146627351036,"y":-2.7127453726488966},{"x":-5.15505700000017,"y":-2.688889462536281},{"x":-5.118852362136636,"y":-2.6738930105124155},{"x":-5.080000000000041,"y":-2.668777999999975},{"x":-5.04114763786356,"y":-2.6738930105124155},{"x":-5.004943000000026,"y":-2.688889462536281},{"x":-4.973853372648932,"y":-2.7127453726488966},{"x":-4.949997462536317,"y":-2.7438349999998763},{"x":-4.935001010512565,"y":-2.7800396378634105},{"x":-4.929886000000124,"y":-2.8188920000000053}]} />
+<silkscreenpath route={[{"x":-5.697220000000016,"y":-4.957572000000027},{"x":-5.70233501051257,"y":-4.9964243621365085},{"x":-5.7173314625364355,"y":-5.032629000000043},{"x":-5.741187372649051,"y":-5.063718627351136},{"x":-5.772277000000031,"y":-5.087574537463752},{"x":-5.808481637863451,"y":-5.1025709894875035},{"x":-5.847334000000046,"y":-5.107685999999944},{"x":-5.886186362136641,"y":-5.1025709894875035},{"x":-5.922391000000175,"y":-5.087574537463752},{"x":-5.953480627351155,"y":-5.063718627351136},{"x":-5.977336537463771,"y":-5.032629000000043},{"x":-5.992332989487636,"y":-4.9964243621365085},{"x":-5.997448000000077,"y":-4.957572000000027},{"x":-5.992332989487636,"y":-4.918719637863433},{"x":-5.977336537463771,"y":-4.8825149999998985},{"x":-5.953480627351155,"y":-4.851425372648919},{"x":-5.922391000000175,"y":-4.827569462536303},{"x":-5.886186362136641,"y":-4.812573010512438},{"x":-5.847334000000046,"y":-4.807457999999997},{"x":-5.808481637863451,"y":-4.812573010512438},{"x":-5.772277000000031,"y":-4.827569462536303},{"x":-5.741187372649051,"y":-4.851425372648919},{"x":-5.7173314625364355,"y":-4.8825149999998985},{"x":-5.70233501051257,"y":-4.918719637863433},{"x":-5.697220000000016,"y":-4.957572000000027}]} />
+<courtyardoutline outline={[{"x":-6.2444000000000415,"y":5.711000000000013},{"x":6.06659999999988,"y":5.711000000000013},{"x":6.06659999999988,"y":-5.939599999999928},{"x":-6.2444000000000415,"y":-5.939599999999928},{"x":-6.2444000000000415,"y":5.711000000000013}]} />
+      </footprint>}
+      cadModel={{
+        objUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C165895.obj?uuid=fc3a93654c1b420498d6b79940c8e856",
+        stepUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C165895.step?uuid=fc3a93654c1b420498d6b79940c8e856",
+        pcbRotationOffset: 0,
+        modelOriginPosition: { x: 0, y: 0, z: -0.049425 },
+      }}
+      {...props}
+    />
+  )
+}
