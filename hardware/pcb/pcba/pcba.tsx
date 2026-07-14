@@ -121,7 +121,7 @@ const U15El = <And2 name="U15" x={-45.9} y={15.5} rot={270} />  // ref-des on th
 // node; C23 (0.1µF) decouples VCC. R24 sits just W of B in the flank; C23 N of the gate by VCC.
 const R24El = <Res name="R24" resistance="100k" footprint="0402" jlcpcb="C60491" x={-48.5} y={14.6} rot={90} side="W" />  // B-node pulldown (fail-safe): pin1 S → B, pin2 N → GND; in the flank W of U15 (clear of its SC-70-5 courtyard)
 const C23El = <Cap name="C23" capacitance="0.1uF" footprint="0402" jlcpcb="C1525" x={-45.5} y={17.9} rot={0} side="N" />   // VCC decoupler, N of the gate
-const R25El = <Res name="R25" resistance="0" footprint="0402" jlcpcb="C17168" x={-52.7} y={-12.6} rot={0} side="S" />       // DOUT invert-select series link (clear top spot E of C10; pin1 W→DOUT, pin2 E→B)
+const R25El = <Res name="R25" resistance="0" footprint="0402" jlcpcb="C17168" x={-52.7} y={-12.6} rot={0} side="N" />       // DOUT invert-select series link (clear top spot E of C10; pin1 W→DOUT, pin2 E→B); ref-des N over its own mask-covered IO escapes, off the logo glass below
 const R25f = frame(R25El)
 const U15f = frame(U15El), R24f = frame(R24El), C23f = frame(C23El)
 // BOOT (SW1) and RESET (SW2) tacts stand rotated in the strip between U13 and the north edge,
@@ -1687,7 +1687,7 @@ export default () => (
         (firmware/pre_build.py): commit date + short SHA, a trailing `+` from
         uncommitted edits — a pure function of the commit, naming which source
         tree a fabbed board came from. */}
-    {logoRoutes(-52.9, -13.6, 3).map((route, i) => (
+    {logoRoutes(-52.9, -14.1, 2.2).map((route, i) => (
       <silkscreenpath key={`logo${i}`} strokeWidth="0.15mm" route={route} />
     ))}
     <silkscreentext text="HOME" fontSize="1.4mm" anchorAlignment="center" pcbX={-49.2} pcbY={-12.75} />
