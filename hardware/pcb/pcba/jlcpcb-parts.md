@@ -64,7 +64,7 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | J7 — 7-pin (REEDS B), **keyed EH** | JST-EH 7P (B7B-EH-A), 2.5 mm | wafer, 2.5 mm | C160254 | Extended | 12,140 (2026-07-13) | $0.0395 |
 | J1 — 9-pin (MANIFOLD A) | XH2.54 9P | wafer, 2.5 mm | C5359637 | Extended | 380 (2026-06-30) | $0.0400 |
 | J10 — 12 V inlet | KF301-5.0-2P screw terminal, 2P 5.0 mm, 17 A / 250 V, 14–22 AWG | THT block, 5.0 mm pitch | C474881 | Extended | 165,152 (2026-07-02) | $0.0995 |
-| Q4 — reverse-polarity pass FET | AO3407 P-ch, −30 V, **±20 V Vgs**, ~60 mΩ | SOT-23 | C181093 | Extended | 176,290 (2026-07-13) | $0.03 |
+| Q4 — reverse-polarity pass FET | AO3407A P-ch, −30 V, **±20 V Vgs**, ~55 mΩ | SOT-23 | C347478 | Extended | 81,006 (2026-07-14) | $0.034 |
 | D8 — 12 V inlet surge clamp | SMAJ15A, 400 W uni TVS, 15 V standoff / 24.4 V clamp | SMA (DO-214AC) | C571368 | Extended | 2,440 (2026-07-13) | $0.038 |
 | D9 — Q4 Vgs clamp | BZT52C15 (MDD), 15 V / 0.5 W Zener | SOD-123 | C173427 | Extended | 182,800 (2026-07-13) | $0.016 |
 | R23 — Q4 gate pulldown | 100 kΩ ±1% | 0402 | C60491 | Basic | 3,594,500 (2026-07-13) | $0.0005 |
@@ -147,7 +147,7 @@ on `net.V12RAW` (the raw inlet), upstream of the Q4 reverse-polarity block below
 
 **Q4/D9/R23 — J10 reverse-polarity block; D8 surge clamp on the island.** Series order at the inlet
 is **J10.V12 → Q4 (pass FET) → V12 island**. The incoming 12 V passes through a P-channel high-side
-pass FET (**Q4, AO3407, `C181093`, SOT-23**) to reach the V12 island, carrying the full ~3.3 A board
+pass FET (**Q4, AO3407A, `C347478`, SOT-23**) to reach the V12 island, carrying the full ~3.3 A board
 peak on `net.V12RAW` (one 1.6 mm trace, J10.V12 → Q4 drain). DRAIN → `net.V12RAW` (J10 inlet),
 SOURCE → the V12 island (the island floods the source pad directly — the source→island tie is pour
 copper, not a trace). A P-channel body diode points **drain→source**, so with drain=input /
@@ -321,7 +321,7 @@ point-in-time — re-check the week of ordering.
 | J14 — USB-C receptacle | `C165948` | SMD 16P + THT shield tabs | `TYPE-C-31-M-12` is the de-facto-standard 16P USB-C land; pin-identical receptacles from many vendors. ~126k stock. |
 | U1 — ESP32-WROOM-32E-N4 | `C701341` | WROOM-32 SMD module | Same module footprint/pinout — ESP32-WROOM-32E-**N8/-N16** differ only in flash (functional superset); -32D pin-compatible. (Not -32UE: same land, but its U.FL connector changes the keepout.) Radio unused, so flash size is the only spec that matters. ~22k stock. |
 | D1 — SM712 RS-485 TVS | `C12067` | SOT-23 (3-pin) | Another SM712 (RS-485 TVS array, −7/+12 V, SOT-23, same 3-pin arrangement) — Semtech + clones. ~36k stock. |
-| Q4 — AO3407 P-ch pass FET | `C181093` | SOT-23 (GDS) | P-channel SOT-23, ≥−30 V Vds **and ±20 V Vgs**, ≤~60 mΩ. ~176k stock. **Do not** drop in a ±12 V-Vgs part (e.g. AO3401A) — the −12 V gate drive needs the ±20 V rating. |
+| Q4 — AO3407A P-ch pass FET | `C347478` | SOT-23 (GDS) | P-channel SOT-23, ≥−30 V Vds **and ±20 V Vgs**, ≤~60 mΩ. ~81k stock (the plain AO3407, `C181093`, is the same die and an electrical drop-in, but ships no 3D model). **Do not** drop in a ±12 V-Vgs part (e.g. AO3401A) — the −12 V gate drive needs the ±20 V rating. |
 | D9 — BZT52C15 Vgs Zener | `C173427` | SOD-123 | Any 15 V 0.5 W Zener in SOD-123 (BZT52C15, any vendor) — same land / cathode band. ~183k stock. |
 | D10/D11 — ESD9B3.3ST5G UART ESD | `C96512` | SOD-923 | Another SOD-923 **bidirectional low-cap (≤~15 pF)** TVS, ~3.3 V working (onsemi ESD9B/ESD9L) — same tiny land; keep it low-cap so the 115200-baud UART edges aren't loaded. ~28k stock. |
 | J10 — KF301-5.0-2P screw terminal | `C474881` | THT block, 5.0 mm-pitch 2P | Another 5.0 mm-pitch 2-pole THT screw terminal (KF301 / KF128 / DG301 family) — same 2-hole 5.0 mm land; confirm pin dia ≤ the imported hole and the body clears the courtyard. ~165k stock. |
