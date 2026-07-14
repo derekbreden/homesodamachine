@@ -38,7 +38,7 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | U8 — alarm/tone buzzer | MLT-5020, passive magnetic (external drive), 4 kHz/75 dB, ~100 mA | SMD 5×5 mm | C94598 | Extended | 104,490 | $0.434 |
 | Q1 — U8 low-side driver | S8050 (J3Y), NPN 25 V/500 mA | SOT-23 | C2146 | Basic | 554,300 | $0.015 |
 | R5 — Q1 base | 1 kΩ ±1% | 0603 | C21190 | Basic | 6,282,722 | $0.0023 |
-| U6 — RTC | DS3231SN, TCXO RTC (±2 ppm) | SOIC-16 (300 mil) | C9866 | Extended | 335 | $6.14 |
+| U6 — RTC | DS3231SN, TCXO RTC (±2 ppm) | SOIC-16 (300 mil) | C9866 | Extended | 4,322 (2026-07-13) | $7.83 |
 | BT1 — RTC backup | CR2032 coin base, 2-pin THT (horizontal) | THT plugin ~25×23 mm | C5365915 | Extended | 11,888 (2026-06-30) | $0.135 |
 | U7 — RS485 to display | COS13487EESA-3.3, auto-direction transceiver, 3.3 V | SOP-8 (= SOIC-8) | C51949447 | Extended | 530 (2026-07-03) | $0.55 |
 | D1 — RS485 line ESD | SM712, RS485 TVS array (−7/+12 V) | SOT-23 | C12067 | Extended | 35,585 | $0.41 |
@@ -59,7 +59,8 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | C12 — EN power-on RC | 1 µF 50V X5R | 0603 | C15849 | Basic | 6,521,627 | $0.036 |
 | J3, J5, J8, J9, J11, J13 — 4-pin (FAUCET, RELAYS, I2C, DISPLAY, GAS, PUMPS) | XH2.54 4P | wafer, 2.5 mm | C5359632 | Extended | 39,475 (2026-06-30) | $0.0116 |
 | J6 — 5-pin (REEDS A) | XH2.54 5P | wafer, 2.5 mm | C5359633 | Extended | 14,791 | $0.0294 |
-| J2, J4 — 6-pin (MANIFOLD B, SENSORS) | XH2.54 6P | wafer, 2.5 mm | C5359634 | Extended | 42,550 | $0.0254 |
+| J2 — 6-pin (MANIFOLD B) | XH2.54 6P | wafer, 2.5 mm | C5359634 | Extended | 42,550 | $0.0254 |
+| J4 — 7-pin (SENSORS) | XH2.54 7P | wafer, 2.5 mm | C5359635 | Extended | 14,819 (2026-07-13) | $0.0279 |
 | J7 — 7-pin (REEDS B), **keyed EH** | JST-EH 7P (B7B-EH-A), 2.5 mm | wafer, 2.5 mm | C160254 | Extended | 12,140 (2026-07-13) | $0.0395 |
 | J1 — 9-pin (MANIFOLD A) | XH2.54 9P | wafer, 2.5 mm | C5359637 | Extended | 380 (2026-06-30) | $0.0400 |
 | J10 — 12 V inlet | KF301-5.0-2P screw terminal, 2P 5.0 mm, 17 A / 250 V, 14–22 AWG | THT block, 5.0 mm pitch | C474881 | Extended | 165,152 (2026-07-02) | $0.0995 |
@@ -80,7 +81,7 @@ Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C11702 / C259
 CC0805KRX7R9BB104; C165895 = Toshiba TBD62083AFWG (octal DMOS sink driver); C47023 = Microchip MCP23017-E/SO;
 C94598 = Jiangsu Huaneng MLT-5020; C2146 = JSCJ S8050 J3Y; C474881 = Cixi Kefa Elec
 KF301-5.0-2P screw terminal; XH2.54 connectors = XUNPU WAFER-XH2.54-{n}PZZ, one vendor
-across the four XH pin counts used (4/5/6/9P), vertical THT. J7 (7-pin REEDS B) is a keyed
+across the five XH pin counts used (4/5/6/7/9P), vertical THT. J7 (7-pin REEDS B) is a keyed
 JST-EH (B7B-EH-A, C160254), not XH — see the keying note below.
 
 **U7 is `C51949447` (COSINE COS13487EESA-3.3), a native-3.3 V auto-direction RS-485
@@ -297,24 +298,55 @@ no-component target, and it keeps the every-top-SMD-pad-has-paste gate honest (3
 ## Stock risk & designated second-sources
 
 Every stock/price figure above is **point-in-time** and must be re-checked the week of ordering. This
-board carries **~28 unique Extended parts** — each is both a one-time JLCPCB feeder/setup fee (~$3
+board carries **29 unique Extended parts** — each is both a one-time JLCPCB feeder/setup fee (~$3
 apiece, ~$80–90 total) *and* a stock dependency: any single Extended part out of stock stalls the whole
-assembly order. Before releasing an order, re-verify each row and lock an in-stock fallback for the
-shallow ones below.
+assembly order. **Every Extended part has a documented same-footprint, same-pinout fallback below, so an
+out-of-stock code is a BOM swap, never a board respin.** The genuinely shallow / single-source parts
+carry a *specific* designated alternate (first table); the deep commodity types carry a *type* alternate
+(second table). Before releasing an order, re-verify every row and lock the fallback for the shallow ones.
 
 | Part | LCSC | Recorded stock | Risk | Designated fallback (confirm in-stock at order) |
 |---|---|---|---|---|
-| **C3** — 470 µF/25 V bulk (THT radial) | `C350206` | **~91** (2026-06-27) | **Highest** — lowest stock on the board | Drop-in: any 470 µF/25 V radial, D10×12.5 mm / 5.08 mm pitch, in the THT-assembly library. Eliminate-the-THT-part path (needs a footprint swap to SMD — small respin): `C3351` / `C47023111` / `C3445246` (470 µF/25 V SMD). Re-verify `C350206` first. |
-| **U6** — DS3231SN RTC | `C9866` | ~335, **$6.14** | Med stock + the board's priciest part (~40 % of BOM) | Drop-in: another DS3231SN (SOIC-16). *Cost note (owner's call, not a defect):* a ±2 ppm TCXO RTC is over-spec if the appliance only needs coarse timekeeping — a plain RTC, or ESP32 internal time, would cut ~$6/unit. |
-| **U7** — COS13487 RS-485 | `C51949447` | ~530 (2026-07-03) | Med — a second-source clone, shallow | Genuine TI **THVD1426DR** (`C5215921`, SOIC-8, same pinout) — deeper supply. |
+| **U13** — CH340C USB-UART | `C84681` | **0 — reads "Unavailable" (2026-07-13)** | **Currently out** — JLC shows no assembly stock for this code | Same-MPN drop-in: **`C7464026`** (CH340C, SOP-16, ~23,441 in stock 2026-07-13, $0.63) — same die/package/pinout, a pure BOM code swap. CH340B (SOP-16, internal clock) is also pin-compatible; **not** CH340G (needs an external crystal this board omits) or the SOP-8 CH340N. |
+| **C3** — 470 µF/25 V bulk (THT radial) | `C350206` | **~91** (2026-06-27) | **Highest of the in-stock parts** — lowest stock on the board | Drop-in: any 470 µF/25 V radial, D10×12.5 mm / 5.08 mm pitch, in the THT-assembly library (the 5.0 mm lead pitch is the load-bearing dimension; a taller D10 body still seats). Eliminate-the-THT-part path (needs a footprint swap to SMD — small respin): `C3351` / `C47023111` / `C3445246` (470 µF/25 V SMD). Re-verify `C350206` first. |
+| **U6** — DS3231SN RTC | `C9866` | ~4,322 (2026-07-13), **$7.83** | Low-Med — genuine Maxim/ADI part (stock recovered), but the board's priciest (~40 % of BOM) | Drop-in: another DS3231SN; or the pin-compatible **DS3231M** (SOIC-16-300mil, MEMS ±5 ppm — looser but ample for an appliance) if a DS3231SN code is short — verify its JLC code at order. *Cost note (owner's call, not a defect):* a ±2 ppm TCXO RTC is over-spec if the appliance only needs coarse timekeeping — a plain RTC, or ESP32 internal time, would cut ~$7/unit. |
+| **U7** — COS13487 RS-485 | `C51949447` | ~530 (2026-07-03) | Med — a second-source clone, shallow | Genuine TI **THVD1426DR** (`C5215921`, SOIC-8, auto-direction, ~2,956 in stock 2026-07-13) — same pinout, deeper supply. *(verified in-library, SOIC-8, "Automatic direction control")* |
 | **D8** — SMAJ15A input surge TVS | `C571368` | ~2,440 (2026-07-13) | Med | Any SMAJ15A in SMA (many vendors); or an SMA uni-TVS with ≤24.4 V clamp (under C3's 25 V). |
 | **U15** — 74LVC1G08 interlock gate | `C12512` | ~1,263 (2026-07-13) | Med | Another 74LVC1G08 in SC-70-5 / SOT-353 (TI/Diodes). **Not** the NAND `C12508` — that is pin-identical but the *active-LOW-relay* variant, not a like-for-like AND second-source. |
 | **J1** — XH-9P (MANIFOLD A) | `C5359637` | ~380 (2026-06-30) | Med | Another 9-pin XH2.54 vertical wafer (2.5 mm) in the library. |
 
-**Unrecorded stock (verify at order — low risk).** `U2`/`U3` MCP23017 (`C47023`), `U10` K7805-2000R3
-(`C18212380`), `D2` red LED (`C2286`) show "—" in the table above only because the figure was never
-filled in — all three are high-volume commodity parts virtually always in JLCPCB stock, so the blank is
-a missing note, not a scarcity signal. Confirm at order like every other row.
+**Deep commodities — same-footprint alternates abundant in the JLC library.** The remaining Extended
+parts are high-volume commodity types: each has many same-footprint, same-pinout substitutes in the
+assembly library, so an out-of-stock code is a BOM swap, not a respin. Named stock figures are
+point-in-time — re-check the week of ordering.
+
+| Part(s) | LCSC | Footprint | Same-footprint drop-in (verify stock at order) |
+|---|---|---|---|
+| U2/U3 — MCP23017 I²C GPIO | `C47023` | SOIC-28-300mil | Another MCP23017 (SOIC-28-300mil, same pinout) — Microchip + wide stock. **Not** the MCP23S17 (SPI variant — different function on the same land). |
+| U11/U12 — DRV8870 H-bridge | `C86590` | HSOP-8-EP (PowerPAD) | Deep (~35k). Same-MPN is the clean swap; TI **DRV8871DDAR** shares the HSOP-8-EP land + family pinout — verify the pin map before substituting. |
+| U10 — K7805-2000R3 buck | `C18212380` | SIP-3 (THT) | SIP-3 switcher, Vin/GND/Vout pinout — Mornsun K78xx-2000R3 family or Recom R-78E5.0-1.0 (same SIP-3 land); match ≥ the 5 V-rail load. Verify pin order (some SIP-3 regs differ). |
+| U14 — USBLC6-2SC6 USB ESD | `C2687116` | SOT-23-6 | Industry-standard USB ESD array; pin-identical parts (ST/UMW/clones) on the same SOT-23-6 land. ~100k stock. |
+| J14 — USB-C receptacle | `C165948` | SMD 16P + THT shield tabs | `TYPE-C-31-M-12` is the de-facto-standard 16P USB-C land; pin-identical receptacles from many vendors. ~126k stock. |
+| U1 — ESP32-WROOM-32E-N4 | `C701341` | WROOM-32 SMD module | Same module footprint/pinout — ESP32-WROOM-32E-**N8/-N16** differ only in flash (functional superset); -32D pin-compatible. (Not -32UE: same land, but its U.FL connector changes the keepout.) Radio unused, so flash size is the only spec that matters. ~22k stock. |
+| D1 — SM712 RS-485 TVS | `C12067` | SOT-23 (3-pin) | Another SM712 (RS-485 TVS array, −7/+12 V, SOT-23, same 3-pin arrangement) — Semtech + clones. ~36k stock. |
+| Q4 — AO3407 P-ch pass FET | `C181093` | SOT-23 (GDS) | P-channel SOT-23, ≥−30 V Vds **and ±20 V Vgs**, ≤~60 mΩ. ~176k stock. **Do not** drop in a ±12 V-Vgs part (e.g. AO3401A) — the −12 V gate drive needs the ±20 V rating. |
+| D9 — BZT52C15 Vgs Zener | `C173427` | SOD-123 | Any 15 V 0.5 W Zener in SOD-123 (BZT52C15, any vendor) — same land / cathode band. ~183k stock. |
+| D10/D11 — ESD9B3.3ST5G UART ESD | `C96512` | SOD-923 | Another SOD-923 **bidirectional low-cap (≤~15 pF)** TVS, ~3.3 V working (onsemi ESD9B/ESD9L) — same tiny land; keep it low-cap so the 115200-baud UART edges aren't loaded. ~28k stock. |
+| F1 — SMD1812P200TF16 PPTC | `C20812` | 1812 | Another 1812 resettable fuse, **hold ≥2 A / V ≥16 V** (Bourns MF-MSMF200, Littelfuse 1812L200) — same 1812 land; the rating floor keeps it from nuisance-tripping the ~3.3 A peak while still clearing the 12 V rail. ~33k stock. |
+| J10 — KF301-5.0-2P screw terminal | `C474881` | THT block, 5.0 mm-pitch 2P | Another 5.0 mm-pitch 2-pole THT screw terminal (KF301 / KF128 / DG301 family) — same 2-hole 5.0 mm land; confirm pin dia ≤ the imported hole and the body clears the courtyard. ~165k stock. |
+| J2/J3/J4/J5/J6/J8/J9/J11/J13 — XH2.54 wafers (J7 is EH — separate row) | `C5359632/33/34/35/37` | XH2.54 vertical THT, 2.5 mm | Any same-count XH2.54 vertical wafer (2.5 mm) — the land is a plain n-hole 2.5 mm row, so a different-vendor XH mounts in the same holes (JLC re-derives CPL rotation per part; not a board change). J1 (9P) is the shallow one — see the first table. |
+| J7 — B7B-EH-A (REEDS B) | `C160254` | JST-EH 7P, 2.5 mm THT | Another EH 7P top-entry (B7B-EH-A) — same 7-hole 2.5 mm land. **Keep it EH:** the keying is deliberate (anti-cross-mate vs the XH looms) — an XH 7P (`C5359635`) fits the holes but restores the cross-mate hazard. Side-entry S7B-EH is out of stock at JLC. ~12k stock. |
+| U8 — MLT-5020 buzzer | `C94598` | SMD 5×5 mm, 2-pad | Another **passive** (externally driven) magnetic SMD buzzer on the 5×5 mm 2-pad land — verify the pad geometry (buzzer footprints vary). Must be passive: an active buzzer would not take the LEDC tone drive. ~104k stock. |
+| D2/D3/D4/D5/D6 — status LEDs | `C2286 / C12624 / C2288` | 0603 | Any 0603 LED of the same colour (red / green / blue) — one of the deepest categories in the library (millions in stock). |
+| BT1 — CR2032 coin base | `C5365915` | THT 2-pin base, 20 mm post span | **Footprint-specific — not a generic drop-in.** Coin-holder lands vary by vendor, so a zero-change swap is the same MPN (Kinghelm KH-CR2032-2-1) under another code; a different holder needs a footprint re-import (small respin). Low risk (~12k stock, stable LCSC brand). Avoid the flagged bent-leg SMT clips (see the BT1 note above). |
+
+**U4/U5** (`C165895`, TBD62083): fallback already documented above — the pin-identical ULN2803A
+(`C845537`, ~350k) plus the deeper-stock same-MPN codes `C108880` / `C4153828` (verify each is the DMOS
+TBD62083, not a ULN Darlington, at order).
+
+All live stock figures here and above are point-in-time; JLC assembly stock swings week to week — this
+pass alone caught `C84681` (CH340C) reading zero while its same-MPN twin `C7464026` sat deep — so
+re-verify every Extended code the week of ordering, not just the shallow ones.
 
 Full order-form checklist (POFV, finish, stackup, assembly, the two preview sanity-checks) is in
 [`order.md`](order.md).
