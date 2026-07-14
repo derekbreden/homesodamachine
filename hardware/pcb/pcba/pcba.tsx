@@ -1047,18 +1047,20 @@ export default () => (
         entering the barrel from the south. Mixed-layer, so the path is assembled from the
         same frame-derived coordinates route() would use. */}
     <trace from="U1.IO2" to="J5.IO2" pcbPathRelativeTo="board" pcbPath={(() => {
-        const col1 = channel(-47.055, -46.365) // the module-east / U6-west pad channel
+        const col1 = channel(U1f.pin("IO0").x + 2.725, U6f.pin("VCC").x - 1.265) // the module-east / U6-west pad channel
         const col2 = U13f.pin("pin8").x + 0.635 // just east of U13's pad rows, west of C4
         const y0 = U1f.pin("IO2").y            // exit the pad east on its own row
+        const midY = U1f.pin("IO0").y + 0.3    // above U6's pads, below the IO0 approach lane
+        const dropY = U13f.pin("RXD").y - 1.18 // short of U13's south pad row
         return [
             "U1.IO2",
             { x: col1, y: y0 },
-            { x: col1, y: 9.3 },               // above U6's pads, below the IO0 approach lane
-            { x: col2, y: 9.3 },
-            { x: col2, y: 19.5 },              // short of U13's south pad row (its shadow now reaches y19.8 after U13's south slide)
-            { x: col2, y: 19.5, via: true, toLayer: "bottom" } as const,
-            { x: col2, y: 19.5 },
-            { x: J5f.pin("IO2").x, y: 19.5 },  // bottom: east clear of U13's south-pad shadows
+            { x: col1, y: midY },               // above U6's pads, below the IO0 approach lane
+            { x: col2, y: midY },
+            { x: col2, y: dropY },              // short of U13's south pad row (its shadow now reaches y19.8 after U13's south slide)
+            { x: col2, y: dropY, via: true, toLayer: "bottom" } as const,
+            { x: col2, y: dropY },
+            { x: J5f.pin("IO2").x, y: dropY },  // bottom: east clear of U13's south-pad shadows
             "J5.IO2",
         ]
     })()} />
@@ -1224,13 +1226,13 @@ export default () => (
         to TOP into B (crossing the wall on top, E of IO2's -46.7 column). */}
     <trace from="R4.pin1" to="R25.pin1" pcbPathRelativeTo="board" pcbPath={(() => {
         const a = R4f.pin("pin1"), r = R25f.pin("pin1")
-        const lane = -10.6
+        const lane = U1f.pin("IO25").y - 1.6
         return [
             "R4.pin1",
             { x: a.x, y: a.y, via: true, toLayer: "inner2" } as const,
             { x: a.x, y: a.y },
-            { x: -62.3, y: a.y },                                    // E off R4.pin1 (past the same-net IO36 tap), clear of R4.pin2's GND-via column
-            { x: -62.3, y: lane },                                   // N to the clear inner2 lane (N of the divider GND vias, S of the pad shadows)
+            { x: a.x + 1.2, y: a.y },                                    // E off R4.pin1 (past the same-net IO36 tap), clear of R4.pin2's GND-via column
+            { x: a.x + 1.2, y: lane },                                   // N to the clear inner2 lane (N of the divider GND vias, S of the pad shadows)
             { x: r.x, y: lane },                                     // E along the lane to R25.pin1's column
             { x: r.x, y: r.y },                                      // S into R25.pin1
             { x: r.x, y: r.y, via: true, toLayer: "top" } as const,
@@ -1239,20 +1241,20 @@ export default () => (
     })()} />
     <trace from="R25.pin2" to="U15.B" pcbPathRelativeTo="board" pcbPath={(() => {
         const r = R25f.pin("pin2"), b = U15f.pin("B")
-        const lane = -10.6          // inner2 E-bound lane (the LED feeds here ride the bottom, so inner2 is clear)
-        const transX = -46.5        // inner2→bottom via column, midway between IO23's inner1 descent (-46.0) and IO15→R10 (-46.95)
-        const flankX = -46.6        // bottom climb column: 0.15 off IO15→R10, 0.17 off R5.pin2, 0.20 off U6's shadow
-        const popY = 9.85           // bottom→top, in the gap between IO2's y9.3 turn and SW1.D (10.45)
+        const lane = U1f.pin("IO25").y - 1.6          // inner2 E-bound lane (the LED feeds here ride the bottom, so inner2 is clear)
+        const transX = R10f.pin("pin1").x - 1.49       // inner2→bottom via column, E of IO15→R10, W of IO23's inner1 descent
+        const flankX = R10f.pin("pin1").x - 1.6        // bottom climb column: 0.15 off IO15→R10, 0.17 off R5.pin2, 0.20 off U6's shadow
+        const popY = U1f.pin("IO0").y + 0.85           // bottom→top, in the gap between IO2's y9.3 turn and SW1.D (10.45)
         return [
             "R25.pin2",
             { x: r.x, y: r.y, via: true, toLayer: "inner2" } as const,
             { x: r.x, y: r.y },
             { x: r.x, y: lane },                                     // N to the inner2 E-bound lane
             { x: transX, y: lane },                                  // E on inner2 to the transition column
-            { x: transX, y: -8.0 },                                 // N into the clear top-gap (S of Q2.C, N of IO27)
-            { x: transX, y: -8.0, via: true, toLayer: "bottom" } as const, // inner2→bottom, clear of IO15→R10
-            { x: transX, y: -8.0 },
-            { x: flankX, y: -8.0 },                                 // jog E to the climb column
+            { x: transX, y: U1f.pin("IO25").y + 1.0 },                                 // N into the clear top-gap (S of Q2.C, N of IO27)
+            { x: transX, y: U1f.pin("IO25").y + 1.0, via: true, toLayer: "bottom" } as const, // inner2→bottom, clear of IO15→R10
+            { x: transX, y: U1f.pin("IO25").y + 1.0 },
+            { x: flankX, y: U1f.pin("IO25").y + 1.0 },                                 // jog E to the climb column
             { x: flankX, y: popY },                                 // N up the flank on the BOTTOM, beside IO15→R10 (crosses R5/IO23/Q2.C off-layer)
             { x: flankX, y: popY, via: true, toLayer: "top" } as const, // bottom→top, S of SW1.D (10.45) / the wall
             { x: flankX, y: popY },
@@ -1503,18 +1505,18 @@ export default () => (
         // lane) and descends the D_NEG/pin7 channel's east side — the boot wall ends at IO0, so
         // the top is open here — then west through the NE window into IO1's pad, no second via.
         const rxd = U13f.pin("RXD")          // rides U13 (moved E/S) — the via is on the pad, not a hand literal
-        const hop = { x: -47.3, y: 12.55 }
+        const hop = { x: U1f.pin("IO2").x + 0.98, y: U1f.pin("IO19").y + 3.55 }
         return [
             "U13.RXD",
             { x: rxd.x, y: rxd.y, via: true, toLayer: "bottom" } as const,
             { x: rxd.x, y: rxd.y },
-            { x: rxd.x, y: 19.0 },           // drop below U13's (moved) south pad shadows
-            { x: hop.x, y: 19.0 },
+            { x: rxd.x, y: U13f.pin("RXD").y - 1.68 },           // drop below U13's (moved) south pad shadows
+            { x: hop.x, y: U13f.pin("RXD").y - 1.68 },
             hop,
             { ...hop, via: true, toLayer: "top" } as const,
             hop,
-            { x: hop.x, y: 6.55 },
-            { x: U1f.pin("IO1").x, y: 6.55 },
+            { x: hop.x, y: U1f.pin("IO1").y - 2.45 },
+            { x: U1f.pin("IO1").x, y: U1f.pin("IO1").y - 2.45 },
             "U1.IO1",
         ]
     })()} />
@@ -1628,12 +1630,12 @@ export default () => (
         const ringCol = channel(J5f.pin("GND").x, J5f.pin("V5").x)  // the J5 GND/V5 ring channel
         const col = U13f.pin("pin8").x - 0.635  // the pin9/pin10 = pin7/pin8 gap column
         const io0 = U1f.pin("IO0")
-        const lane = 10.45                      // bottom lane: over the pad row, under the combs
+        const lane = U1f.pin("IO0").y + 1.45                      // bottom lane: over the pad row, under the combs
         return [
             "SW1.pin4",
             { x: ringCol, y: p4.y },
-            { x: ringCol, y: 29.3 },            // below the barrel rings, above U13's north pads
-            { x: col, y: 29.3 },
+            { x: ringCol, y: J5f.pin("IO19").y - 1.7 },            // below the barrel rings, above U13's north pads
+            { x: col, y: J5f.pin("IO19").y - 1.7 },
             { x: col, y: lane },
             { x: col, y: lane, via: true, toLayer: "bottom" } as const,
             { x: col, y: lane },
