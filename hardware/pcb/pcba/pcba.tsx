@@ -643,7 +643,7 @@ export default () => (
     {/* IN1 is the northmost run, in BT1.pin1's latitude: hold the east haul low at {row -2.8}
         (clearing the + post's south edge -2.25, riding a touch nearer its IN2 sibling), step
         north at {col -9} once east of the post, then close into the pad. */}
-    <trace from="U3.GPA7" to="U5.IN1" pcbPathRelativeTo="board" pcbPath={route("U3.GPA7", { row: -2.8 }, { col: -9 }, U5f.col("IN1"), "U5.IN1")} />
+    <trace from="U3.GPA7" to="U5.IN1" pcbPathRelativeTo="board" pcbPath={route("U3.GPA7", { row: BT1f.pin("pin1").y - 1.55 }, { col: BT1f.pin("pin1").x + 1.5 }, U5f.col("IN1"), "U5.IN1")} />
 
     {/* I2C bus — SDA rides inner1 (the 3V3 plane layer), SCL rides inner2 (the 5V plane
         layer) as routeInner traces: the plane layers carry no other trace copper, so each
@@ -668,74 +668,74 @@ export default () => (
         north corridor. */}
     <trace from="U1.IO21" to="J8.SDA" pcbPathRelativeTo="board" pcbPath={routeInner("inner1",
         "U1.IO21",
-        { row: 10.95 },
-        { col: -21.7 },
-        { row: 28.2 },
+        { row: U1f.pin("IO19").y + 1.95 },   // WROOM corridor: N of U1's north pads, S of J14's ears
+        { col: U4f.pin("IN1").x - 15.99 },   // mid-board riser, W of U4's IN-pad wall
+        { row: U2f.pin("SDA").y + 2.89 },    // N corridor, above U2's pad row, below the J6/J8 barrels
         J8f.col("SDA"),
         "J8.SDA",
     )} />
     <trace from="U6.SDA" to="J8.SDA" pcbPathRelativeTo="board" pcbPath={routeInner("inner1",
         "U6.SDA",
         U6f.below("SDA", 0.35),     // board-WEST of the pad row (rot270: local -y), clear of U6.SCL's shadow
-        { row: 10.95 },
-        { col: -21.7 },
-        { row: 28.2 },
+        { row: U1f.pin("IO19").y + 1.95 },   // WROOM corridor: N of U1's north pads, S of J14's ears
+        { col: U4f.pin("IN1").x - 15.99 },   // mid-board riser, W of U4's IN-pad wall
+        { row: U2f.pin("SDA").y + 2.89 },    // N corridor, above U2's pad row, below the J6/J8 barrels
         J8f.col("SDA"),
         "J8.SDA",
     )} />
     <trace from="U2.SDA" to="J8.SDA" pcbPathRelativeTo="board" pcbPath={routeInner("inner1",
         "U2.SDA",
-        { row: 28.2 },
+        { row: U2f.pin("SDA").y + 2.89 },    // N corridor, above U2's pad row, below the J6/J8 barrels
         J8f.col("SDA"),
         "J8.SDA",
     )} />
     <trace from="U3.SDA" to="J8.SDA" pcbPathRelativeTo="board" pcbPath={routeInner("inner1",
         "U3.SDA",
         U3f.below("SDA", 0.35),     // south exit under the pad row
-        { col: 1.95 },
-        { row: 28.2 },
+        { col: U3f.pin("SDA").x + 2.16 },    // rise E of U3's pad rows, between C3's barrels
+        { row: U2f.pin("SDA").y + 2.89 },    // N corridor, above U2's pad row, below the J6/J8 barrels
         J8f.col("SDA"),
         "J8.SDA",
     )} />
     <trace from="R19.pin1" to="J8.SDA" pcbPathRelativeTo="board" pcbPath={routeInner("inner1",
         "R19.pin1",
-        { row: 28.2 },
+        { row: U2f.pin("SDA").y + 2.89 },    // N corridor, above U2's pad row, below the J6/J8 barrels
         J8f.col("SDA"),
         "J8.SDA",
     )} />
     <trace from="U1.IO22" to="J8.SCL" pcbPathRelativeTo="board" pcbPath={routeInner("inner2",
         "U1.IO22",
-        { row: 10.95 },
-        { col: -21.7 },
-        { row: 28.2 },
+        { row: U1f.pin("IO19").y + 1.95 },   // WROOM corridor: N of U1's north pads, S of J14's ears
+        { col: U4f.pin("IN1").x - 15.99 },   // mid-board riser, W of U4's IN-pad wall
+        { row: U2f.pin("SDA").y + 2.89 },    // N corridor, above U2's pad row, below the J6/J8 barrels
         J8f.col("SCL"),
         "J8.SCL",
     )} />
     <trace from="U6.SCL" to="J8.SCL" pcbPathRelativeTo="board" pcbPath={routeInner("inner2",
         "U6.SCL",
-        { row: 10.95 },
-        { col: -21.7 },
-        { row: 28.2 },
+        { row: U1f.pin("IO19").y + 1.95 },   // WROOM corridor: N of U1's north pads, S of J14's ears
+        { col: U4f.pin("IN1").x - 15.99 },   // mid-board riser, W of U4's IN-pad wall
+        { row: U2f.pin("SDA").y + 2.89 },    // N corridor, above U2's pad row, below the J6/J8 barrels
         J8f.col("SCL"),
         "J8.SCL",
     )} />
     <trace from="U2.SCL" to="J8.SCL" pcbPathRelativeTo="board" pcbPath={routeInner("inner2",
         "U2.SCL",
-        { row: 28.2 },
+        { row: U2f.pin("SDA").y + 2.89 },    // N corridor, above U2's pad row, below the J6/J8 barrels
         J8f.col("SCL"),
         "J8.SCL",
     )} />
     <trace from="U3.SCL" to="J8.SCL" pcbPathRelativeTo="board" pcbPath={routeInner("inner2",
         "U3.SCL",
         U3f.below("SCL", 0.35),     // south exit under the pad row
-        { col: 2.35 },
-        { row: 28.2 },
+        { col: U3f.pin("SCL").x + 3.84 },    // rise E of U3's pad rows, between C3's barrels
+        { row: U2f.pin("SDA").y + 2.89 },    // N corridor, above U2's pad row, below the J6/J8 barrels
         J8f.col("SCL"),
         "J8.SCL",
     )} />
     <trace from="R20.pin1" to="J8.SCL" pcbPathRelativeTo="board" pcbPath={routeInner("inner2",
         "R20.pin1",
-        { row: 28.2 },
+        { row: U2f.pin("SDA").y + 2.89 },    // N corridor, above U2's pad row, below the J6/J8 barrels
         J8f.col("SCL"),
         "J8.SCL",
     )} />
@@ -822,7 +822,7 @@ export default () => (
         clear column, then E along the east-run S of U9 into the barrel. */}
     <trace from="U1.IO35" to="R27.pin1" pcbPathRelativeTo="board" pcbPath={route(
         "U1.IO35",
-        { row: -11 },               // clear the U1 pad row before the jog west
+        { row: U1f.pin("IO35").y - 2 },  // clear the U1 pad row before the jog west
         R27f.row("pin1"),           // W onto R27's column (rot 270 → its board col, x -59.65)
         "R27.pin1",
     )} />
@@ -837,16 +837,16 @@ export default () => (
         into the barrel (approached from the W, S of the U9 pin column). */}
     <trace from="U1.IO33" to="R26.pin1" pcbPathRelativeTo="board" pcbPath={route(
         "U1.IO33",
-        { row: -12 },               // clear of the pad row before the jog west
-        { col: -56.5 },             // the C10/C11 pin1-pin2 channel (top)
+        { row: U1f.pin("IO33").y - 3 },  // clear of the pad row before the jog west
+        { col: channel(C10f.pin("pin2").x, C10f.pin("pin1").x) },  // the C10/C11 pin1-pin2 channel (top)
         R26f.row("pin1"),           // drop to R26's row (y -18.7), then E straight into pin1
         "R26.pin1",
     )} />
     <trace from="R26.pin2" to="J3.IO33" pcbPathRelativeTo="board" pcbPath={route(
         "R26.pin2",
         U9f.col("VOUT2", 2),
-        { row: -27.5 },
-        J3f.col("IO33"), 
+        { row: U9f.pin("GND").y - 1.4 },   // under the U9 cluster to the low band
+        J3f.col("IO33"),
         "J3.IO33",
     )} />
     {/* On-board faucet ESD clamps — each TVS shunts the U1-side of its series resistor to the GND
@@ -855,7 +855,7 @@ export default () => (
         each via-in-pads straight to GND. */}
     <trace from="D11.pin1" to="R27.pin1" pcbPathRelativeTo="board" pcbPath={route(
         "D11.pin1",
-        { row: -13.07 },            // down to R27.pin1's row, then W into the pad (east entry — clears the U1.IO35 north approach)
+        { row: R27f.pin("pin1").y },  // down to R27.pin1's row, then W into the pad (east entry — clears the U1.IO35 north approach)
         "R27.pin1",
     )} />
     <trace from=".D11 > .pin2" to="net.GND" />
