@@ -136,9 +136,9 @@ const SW2El = <Tact name="SW2" x={-57.75} y={31.75} rot={270} />
 const SW2f = frame(SW2El)
 
 // ── Buzzer chain (IO13 → R5 → Q1 → U8) ────────────────────────────────────────────────
-const R5El = <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-43.75} y={-4.44} rot={180} side="N" />
-const Q1El = <Npn name="Q1" x={-40} y={-5.39} rot={180} />
-const U8El = <Buzzer name="U8" x={-40.75} y={-11} />
+const R5El = <Res name="R5" resistance="1k" footprint="0603" jlcpcb="C21190" x={-43.75} y={-3.5} rot={180} side="N" />
+const Q1El = <Npn name="Q1" x={-40} y={-4.5} rot={180} />
+const U8El = <Buzzer name="U8" x={-40.75} y={-10.25} />
 // D7 — buzzer-coil flyback clamp (1N4148W SOD-123). Stands vertical (rot 270: pin1 CATHODE north,
 // pin2 anode south) in the strip S of the buzzer, between the LED column (west) and BT1/U10 (east).
 // Cathode commons to the 5V plane at its stitch via (the same node as U8._POS); the anode → U8._NEG
@@ -178,14 +178,14 @@ const J11f = frame("J11", J11El.props.x, J11El.props.y, 0, Object.fromEntries(js
 // SENSORS connector + its 1-wire pull-up (R9), framed for the R9→IO26 tap below. R9 seats
 // in the band between U10's courtyard and J4's, straddling the IO26 drop column (pads thread
 // it at 0.245 a side) with pin2 — the tap — east; ref-des east, riding the IO26/IO27 gap.
-const R9El = <Res name="R9" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-32.5} y={-26.45} rot={0} side="E" />
+const R9El = <Res name="R9" resistance="4.7k" footprint="0603" jlcpcb="C23162" x={-29.75} y={-26.5} rot={180} side="E" />
 const R9f = frame(R9El)
 // IO25 flow-input hardening (IO25 is NOT 5V-tolerant). Two 0402s stack in the SENSORS pocket W of
 // R9: R21 (1k) in SERIES between the U1.IO25 haul and J4.IO25, R22 (4.7k) pulls the J4-side up to
 // 3V3 — the same protection R9 gives the IO26 1-wire line. Both horizontal; R21 south (haul enters
 // pin1 from the low band, pin2 drops to the barrel), R22 north (pin1→3V3 plane, pin2 taps R21.pin2).
-const R21El = <Res name="R21" resistance="1k" footprint="0402" jlcpcb="C11702" x={-36.75} y={-26.55} rot={0} side="S" />
-const R22El = <Res name="R22" resistance="4.7k" footprint="0402" jlcpcb="C25900" x={-36.75} y={-24.9} rot={0} side="N" />
+const R21El = <Res name="R21" resistance="1k" footprint="0402" jlcpcb="C11702" x={-36.75} y={-26.5} rot={0} side="S" />
+const R22El = <Res name="R22" resistance="4.7k" footprint="0402" jlcpcb="C25900" x={-34} y={-26.5} rot={180} side="N" />
 const R21f = frame(R21El), R22f = frame(R22El)
 // ── J10 12V input protection: reverse-polarity pass FET + surge clamp ──────
 // Series order at the inlet: J10.V12 → Q4 (pass FET) → V12 island. Q4 (AO3407 P-FET, SOT-23) sits
@@ -212,16 +212,17 @@ const U11El = <Drv8870 name="U11" x={-16.5} y={22.75} rot={0} ly={4.75} />  // r
 const U12El = <Drv8870 name="U12" x={-9.5} y={22.75} rot={0} ly={4.75} />  // ref-des north, clear of the thermal PAD
 const U11f = frame(U11El), U12f = frame(U12El)
 // Firmware status-LED resistors, framed for the GPIO-feed routing below.
-const R10El = <Res name="R10" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-15.5} rot={0} side="N" />
-const R11El = <Res name="R11" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-18} rot={0} side="N" />
-const R12El = <Res name="R12" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-20.5} rot={0} side="N" />
+const R10El = <Res name="R10" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-14.75} rot={0} side="N" />
+const R11El = <Res name="R11" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-17.25} rot={0} side="N" />
+const R12El = <Res name="R12" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-19.75} rot={0} side="N" />
 const R10f = frame(R10El), R11f = frame(R11El), R12f = frame(R12El)
 // RS485 display block, framed for the A/B pair routing below.
 const U7El = <Cos13487 name="U7" x={-19.5} y={-19.65} rot={180} />
+const U9El = <Ams1117 name="U9" x={-51.43} y={-23.8} rot={0} />
 const R6El = <Res name="R6" resistance="120" footprint="0603" jlcpcb="C22787" x={-19.5} y={-26.1} rot={0} side="N" />
 const D1El = <Sm712 name="D1" x={-23.1} y={-25.6} rot={90} />
 const J9El = <Jst name="J9" x={-17.75} y={-30.3} count={4} labels={["B", "A", "GND", "V12"]} label="DISPLAY" rot={180} />
-const U7f = frame(U7El), R6f = frame(R6El), D1f = frame(D1El)
+const U7f = frame(U7El), R6f = frame(R6El), D1f = frame(D1El), U9f = frame(U9El)
 const J9f = frame("J9", J9El.props.x, J9El.props.y, 0, Object.fromEntries(jstPins(J9El.props).pins))
 // Faucet UART connector, framed for the IO33/IO35 routing below.
 const J3El = <Jst name="J3" x={-52.25} y={-30.3} count={4} labels={["GND", "V5", "IO35", "IO33"]} label="FAUCET" rot={180} />
@@ -236,7 +237,7 @@ const J3f = frame("J3", J3El.props.x, J3El.props.y, 0, Object.fromEntries(jstPin
 // the C10 courtyard and IO34's RS485 bottom haul — that haul is nudged one drop-column W (see the
 // IO34→U7.RO route) to open the sliver. The series-R feeds the on-board ESD clamp on each line (D10/
 // D11 below) — the topology is J3 → 220Ω → clamp-at-the-IC → U1.
-const R26El = <Res name="R26" resistance="220" footprint="0402" jlcpcb="C25091" x={-52.5} y={-18.7} rot={0} side="S" />    // IO33: pin1 (W) ← U1, pin2 (E) → J3 (W end of the bay: clears the −51.05 bottom haul E + C11 courtyard W; version stamp's date/rev shifted E to clear its ref-des)
+const R26El = <Res name="R26" resistance="220" footprint="0402" jlcpcb="C25091" x={-55} y={-18.75} rot={0} side="S" />    // IO33: pin1 (W) ← U1, pin2 (E) → J3 (W end of the bay: clears the −51.05 bottom haul E + C11 courtyard W; version stamp's date/rev shifted E to clear its ref-des)
 const R27El = <Res name="R27" resistance="220" footprint="0402" jlcpcb="C25091" x={-59.65} y={-13.5} rot={270} side="E" /> // IO35: pin1 (N) ← U1, pin2 (S) → J3
 const R26f = frame(R26El), R27f = frame(R27El)
 // Faucet-UART on-board ESD clamps (D11 in IO35, D10 in IO33) — the PRIMARY faucet-display ESD
@@ -258,14 +259,14 @@ const J13f = frame("J13", J13El.props.x, J13El.props.y, 0, Object.fromEntries(js
 const BT1El = <CoinHolder name="BT1" x={-20.5} y={-1.25} />
 const U6El = <Ds3231Smd name="U6" x={-40.35} y={3.5} rot={270} />  // nudged 0.15 E (clear of BT1): opens the WROOM↔U6 flank for the interlock B-haul beside the IO15→R10 feed
 const BT1f = frame(BT1El), U6f = frame(U6El)
-const D2El = <LedRed name="D2" pcbRotation={180} {...at(-40.75, -15.5)} />
-const D3El = <LedGrn name="D3" pcbRotation={180} {...at(-40.75, -18)} />
-const D4El = <LedBlu name="D4" pcbRotation={180} {...at(-40.75, -20.5)} />
-const D5El = <LedGrn name="D5" pcbRotation={180} {...at(-40.75, -23)} />
-const D6El = <LedGrn name="D6" pcbRotation={180} {...at(-40.75, -25.5)} />
+const D2El = <LedRed name="D2" pcbRotation={180} {...at(-40.75, -14.75)} />
+const D3El = <LedGrn name="D3" pcbRotation={180} {...at(-40.75, -17.25)} />
+const D4El = <LedBlu name="D4" pcbRotation={180} {...at(-40.75, -19.75)} />
+const D5El = <LedGrn name="D5" pcbRotation={180} {...at(-40.75, -22.25)} />
+const D6El = <LedGrn name="D6" pcbRotation={180} {...at(-40.75, -24.75)} />
 const D2f = frame(D2El), D3f = frame(D3El), D4f = frame(D4El), D5f = frame(D5El), D6f = frame(D6El)
-const R13El = <Res name="R13" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-23} rot={0} side="N" />
-const R14El = <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-25.5} rot={0} side="N" />
+const R13El = <Res name="R13" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-22.25} rot={0} side="N" />
+const R14El = <Res name="R14" resistance="470" footprint="0603" jlcpcb="C23179" x={-44.25} y={-24.75} rot={0} side="N" />
 const R13f = frame(R13El), R14f = frame(R14El)
 
 // ── I2C bus (SDA / SCL as routeInner traces on the plane layers) ─────────────────────────
@@ -385,7 +386,7 @@ export default () => (
     {C12El}
     {R7El}
     <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.5} y={-14} rot={180} side="N" />
-    <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-56.5} y={-17} rot={0} side="N" />
+    <Cap name="C11" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-56.5} y={-16.5} rot={0} side="N" />
     {R8El}
     {/* RS-485 to the front display (J9). COS13487EESA-3.3 auto-direction transceiver (U7):
         no host DE/RE — /RE tied low (always receive), /SHDN tied high (always on),
@@ -410,7 +411,7 @@ export default () => (
         vertical pair on its east flank (C16 output cap
         north by pin3, C15 input cap south toward pin1, pads clear of the DI row); every pin
         is a plane pickup, so the buck cluster carries no routed copper at all. */}
-    <Ams1117 name="U9" x={-51.43} y={-23.8} rot={0} />
+    {U9El}
     <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-57.55} y={-20.59} rot={90} side="W" />
     <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-57.55} y={-25.25} rot={90} side="W" />
     <Buck5 name="U10" x={-27.75} y={-19.2} rot={270} />
@@ -758,8 +759,6 @@ export default () => (
         { col: -60.35 },            // drop nudged W of IO35's column — opens the sliver for R27 (IO35 series-R)
         { row: -27.9 },             // south detour under the relocated U9 cluster
         { col: -45.7 },             // rise east of the cluster, west of the LED resistors
-        { row: -24.4 },             // south lane of the pair, over the 5V LED row
-        { col: -35.5 },             // jog north east of the LED field (nested inside IO32's)
         { row: -23.7 },             // south pocket lane, under D1's A/B pads
         { col: -18.3 },             // rise through U7's VCC/B pad channel, west of the VCC via
         { row: -21.1 },             // between U7's pad rows, east into the RO pad-via
@@ -771,8 +770,6 @@ export default () => (
         { col: -56.5 },             // the C10/C11 pin1-pin2 channel
         { row: -27.5 },             // south detour under the U9 cluster
         { col: -46.2 },             // rise east of the cluster, paired lane
-        { row: -23.8 },             // north lane of the pair, under the PWR LED row
-        { col: -36.5 },             // jog north east of the LED field, before IO34's
         { row: -23.1 },             // north pocket lane, ending west of U7.GND's shadow
         { col: -21.95 },            // rise along the pad row's west flank, clear of the GND via
         { row: -21.1 },             // between U7's pad rows, east into the DI pad-via
@@ -844,8 +841,9 @@ export default () => (
     )} />
     <trace from="R26.pin2" to="J3.IO33" pcbPathRelativeTo="board" pcbPath={route(
         "R26.pin2",
-        { row: -27.5 },             // S under the U9 body (between the tab and the pin column) to the low band
-        J3f.col("IO33"),            // E along the low band into the barrel column
+        U9f.col("VOUT2", 2),
+        { row: -27.5 },
+        J3f.col("IO33"), 
         "J3.IO33",
     )} />
     {/* On-board faucet ESD clamps — each TVS shunts the U1-side of its series resistor to the GND
@@ -860,7 +858,7 @@ export default () => (
     <trace from=".D11 > .pin2" to="net.GND" />
     <trace from="D10.pin2" to="R26.pin1" pcbPathRelativeTo="board" pcbPath={route(
         "D10.pin2",
-        { col: -52.93 },            // jog E onto R26.pin1's column, then straight S into the pad (north entry)
+        R26f.row("pin1", 1),
         "R26.pin1",
     )} />
     <trace from=".D10 > .pin1" to="net.GND" />
