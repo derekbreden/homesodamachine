@@ -1221,37 +1221,25 @@ export default () => (
     {R25El}
     {/* R25 sits just E of U15, so B (pin2) climbs straight up the flank into U15.B; DOUT (pin1)
         runs W under U1's south pads on the inner plane to the divider. */}
-    <trace from="R4.pin1" to="R25.pin1" pcbPathRelativeTo="board" pcbPath={(() => {
-        const a = R4f.pin("pin1"), r = R25f.pin("pin1")
-        const lane = U1f.pin("IO25").y - 1.6           // inner2 lane, S of the module pad shadows
-        return [
-            "R4.pin1",
-            { x: a.x, y: a.y, via: true, toLayer: "inner2" } as const,
-            { x: a.x, y: a.y },
-            { x: a.x + 1.2, y: a.y },                  // E off R4.pin1, clear of R4.pin2's GND-via column
-            { x: a.x + 1.2, y: lane },                 // N to the clear inner2 lane
-            { x: r.x, y: lane },                       // E along the lane, under U1's south pads, to R25.pin1's column
-            { x: r.x, y: r.y },                        // N into R25.pin1
-            { x: r.x, y: r.y, via: true, toLayer: "top" } as const,
-            "R25.pin1",
-        ]
-    })()} />
-    <trace from="R25.pin2" to="U15.B" pcbPathRelativeTo="board" pcbPath={(() => {
-        const r = R25f.pin("pin2"), b = U15f.pin("B")
-        const flankX = R10f.pin("pin1").x - 1.6        // bottom climb column, W of the IO15→R10 feed
-        const popY = U1f.pin("IO0").y + 0.85           // bottom→top, N of the pad row
-        return [
-            "R25.pin2",
-            { x: r.x, y: r.y, via: true, toLayer: "bottom" } as const,
-            { x: r.x, y: r.y },
-            { x: flankX, y: r.y },                     // W to the flank column
-            { x: flankX, y: popY },                    // N up the flank on the bottom (crosses the y11 wall off-layer)
-            { x: flankX, y: popY, via: true, toLayer: "top" } as const,
-            { x: flankX, y: popY },
-            { x: flankX, y: b.y },                     // top up to B's row, then W into the pad
-            "U15.B",
-        ]
-    })()} />
+    <trace from="R4.pin1" to="R25.pin1" pcbPathRelativeTo="board" pcbPath={route(
+        "R4.pin1",
+        { via: "inner2" },                             // drop onto the inner plane at R4.pin1
+        { col: R4f.pin("pin1").x + 1.2 },              // E off R4.pin1, clear of R4.pin2's GND-via column
+        { row: U1f.pin("IO25").y - 1.6 },              // N to the clear inner2 lane, S of the module pad shadows
+        { col: R25f.pin("pin1").x },                   // E along the lane, under U1's south pads, to R25.pin1's column
+        { row: R25f.pin("pin1").y },                   // N into R25.pin1's row
+        { via: "top" },                                // back to top at the pad
+        "R25.pin1",
+    )} />
+    <trace from="R25.pin2" to="U15.B" pcbPathRelativeTo="board" pcbPath={route(
+        "R25.pin2",
+        { via: "bottom" },                             // drop onto the bottom at R25.pin2
+        { col: R10f.pin("pin1").x - 1.6 },             // W to the flank column, W of the IO15→R10 feed
+        { row: U1f.pin("IO0").y + 0.85 },              // N up the flank on the bottom (crosses the y11 wall off-layer)
+        { via: "top" },                                // back to top, N of the wall
+        { row: U15f.pin("B").y },                      // N to B's row, then W into the pad
+        "U15.B",
+    )} />
 
     {/* V12 decoupling. HF: two 0.1uF ceramics (C1/C2 aligned at y1.33) on the V12 island
         by the ULN/manifold block, snubbing the fast solenoid-turn-off edge. BULK: a

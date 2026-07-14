@@ -20,7 +20,15 @@
  */
 
 export type Pt = { x: number; y: number }
-type Constraint = { col: number } | { row: number }
+// A via-point in a pcbPath: one full-stack through-hole DRILL at (x,y) that switches the copper onto
+// `toLayer` for the segments that follow (tscircuit's manual-trace renderer honours this; the core
+// fork records the barrel as spanning every layer, so pours antipad it on each plane it crosses even
+// when the copper transition ends on an inner layer). A `{ via }` constraint drops one at the path's
+// current point, so a route() can change layers inline instead of dropping into raw {x,y} points.
+export type Layer = "top" | "inner1" | "inner2" | "bottom"
+export type ViaPt = { x: number; y: number; via: true; toLayer: Layer }
+export type PathPt = Pt | ViaPt
+type Constraint = { col: number } | { row: number } | { via: Layer }
 // A pad in the part's own frame: centre offset (already rotated into board coords), plus the pad's
 // half-width / half-height in that frame (footprint dims, un-rotated — the frame rotates them).
 type PadGeom = { off: [number, number]; hw: number; hh: number }
@@ -148,32 +156,32 @@ const padAt = (anchor: string): Pt => {
   return f.pin(pad)
 }
 
-export const route = (from: string, ...rest: [...Constraint[], string]): (Pt | string)[] => {
+export const route = (from: string, ...rest: [...Constraint[], string]): (PathPt | string)[] => {
   const to = rest[rest.length - 1] as string
   const constraints = rest.slice(0, -1) as Constraint[]
-  const pts: Pt[] = []
+  const pts: PathPt[] = []
   let cur = padAt(from)
+  let lastAxis: "col" | "row" | null = null   // the closing turn ignores vias (they don't move the point)
   for (const c of constraints) {
-    cur = "col" in c ? { x: c.col, y: cur.y } : { x: cur.x, y: c.row }
-    pts.push(cur)
+    if ("via" in c) {
+      // a zero-length layer transition at the current point, bracketed by a coincident wire on the
+      // new layer (tscircuit's via-alignment check wants wire@p on both sides of via@p)
+      pts.push({ x: cur.x, y: cur.y, via: true, toLayer: c.via }, { x: cur.x, y: cur.y })
+    } else if ("col" in c) {
+      cur = { x: c.col, y: cur.y }; pts.push(cur); lastAxis = "col"
+    } else {
+      cur = { x: cur.x, y: c.row }; pts.push(cur); lastAxis = "row"
+    }
   }
   const end = padAt(to)
-  if (constraints.length) {
-    const last = constraints[constraints.length - 1]!
-    const close = "col" in last ? { x: cur.x, y: end.y } : { x: end.x, y: cur.y }
+  if (lastAxis) {
+    const close = lastAxis === "col" ? { x: cur.x, y: end.y } : { x: end.x, y: cur.y }
     if (Math.hypot(close.x - cur.x, close.y - cur.y) > 1e-9 && Math.hypot(close.x - end.x, close.y - end.y) > 1e-9)
       pts.push(close)
   }
   return [from, ...pts, to]
 }
 
-// A via-point in a pcbPath: one full-stack through-hole DRILL at (x,y) that switches the copper
-// onto `toLayer` for the segments that follow (tscircuit's manual-trace renderer honours this;
-// the core fork records the barrel as spanning every layer, so pours antipad it on each plane
-// it crosses even when the copper transition ends on an inner layer).
-export type Layer = "top" | "inner1" | "inner2" | "bottom"
-export type ViaPt = { x: number; y: number; via: true; toLayer: Layer }
-export type PathPt = Pt | ViaPt
 
 // A BOTTOM-layer path with a via on each end pad — Derek's "pad via to pad via". Same orthogonal
 // geometry as route(), but the run lives on the bottom plane: a via drops on the FROM pad, the
@@ -187,7 +195,7 @@ export type PathPt = Pt | ViaPt
 // (clearance.ts), not a shortcut.
 export const routeBottom = (from: string, ...rest: [...Constraint[], string]): PathPt[] => {
   const to = rest[rest.length - 1] as string
-  const mids = route(from, ...rest).slice(1, -1) as Pt[]   // reuse route()'s orthogonal waypoints
+  const mids = route(from, ...rest).slice(1, -1) as PathPt[]   // reuse route()'s orthogonal waypoints
   const a = padAt(from), b = padAt(to)
   // A via must be a zero-length transition: the wire on each side has to sit AT the via's point
   // (tscircuit's via-alignment check), so each via is bracketed by a coincident wire on the new layer
@@ -214,7 +222,7 @@ export const routeBottom = (from: string, ...rest: [...Constraint[], string]): P
 // stack, so lanes stay out of foreign pad shadows and 0.14 clear of every barrel.
 export const routeInner = (layer: "inner1" | "inner2" | "bottom", from: string, ...rest: [...Constraint[], string]): PathPt[] => {
   const a = padAt(from)
-  const mids = route(from, ...rest).slice(1, -1) as Pt[]   // reuse route()'s orthogonal waypoints
+  const mids = route(from, ...rest).slice(1, -1) as PathPt[]   // reuse route()'s orthogonal waypoints
   return [
     { x: a.x, y: a.y, via: true, toLayer: layer },
     { x: a.x, y: a.y },
