@@ -1,6 +1,6 @@
 """Reference solid for the ALMOCN TTL-to-RS485 auto-direction transceiver
-(bom: B09998FY4X), 1x on the controller tray — base side of the SIG-7 link to
-the front 4.3" config display (the 4.3B has onboard RS485).
+(lite-bom: B09998FY4X), 1x on the Lite logic tray — base side of the Lite's
+SIG-7 link to the front 4.3" config display (the 4.3B has onboard RS485).
 
 Geometry calipered from the physical board: a blue PCB with a 3-position 5.08 mm
 screw-terminal block (A+ / B- / Earth) on one short end and a 4-pin 2.54 mm
@@ -13,7 +13,7 @@ the chip GND.
 Frame follows the module_tray convention: X = length = the 51.85 mm long axis,
 Y = width = the 22.75 mm short axis, Z up from the PCB underside; origin at the
 footprint centre, Z = 0 the standoff plane. (length = X, width = Y is what
-controller_tray / logic_tray / module_tray consume.)
+logic_tray / module_tray consume.)
 
   Footprint     51.85 (X, length) x 22.75 (Y, width)
   Mount holes   4x dia 2.0 (M2) in the corners at (+/-23.8, +/-9.5)

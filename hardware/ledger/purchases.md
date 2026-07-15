@@ -280,7 +280,7 @@ Ice-maker donor units and copper coil for the chill loop.
 | Waveshare MCP23017 I2C I/O expansion board. Order #112-7245467-6557007, placed April 26, 2026 | [B07P2H1NZG](https://www.amazon.com/dp/B07P2H1NZG) | 1 | $13.93 | ACQUIRED |
 | BOJACK ULN2803 Darlington driver IC (10 pk). Order #112-2110462-6265038, placed April 15, 2026 | [B08CX79JSQ](https://www.amazon.com/dp/B08CX79JSQ) | 1 pk | $7.50 | ACQUIRED |
 | ULN2803A high-current driver module (2 pc). Order #112-7245467-6557007, placed April 26, 2026 | [B0F872W528](https://www.amazon.com/dp/B0F872W528) | 1 pk | $7.07 | ACQUIRED |
-| BOJACK L298N dual H-bridge motor driver (4-pack). Order #114-1015191-6799441, placed February 18, 2026 | [B0C5JCF5RS](https://www.amazon.com/dp/B0C5JCF5RS) | 1 pk | $10.71 | ACQUIRED |
+| BOJACK L298N dual H-bridge motor driver (4-pack) — drives the legacy prototype's pumps; the appliance PCBA carries on-board DRV8870s. Order #114-1015191-6799441, placed February 18, 2026 | [B0C5JCF5RS](https://www.amazon.com/dp/B0C5JCF5RS) | 1 pk | $10.71 | ACQUIRED |
 | DS3231 AT24C32 RTC module (2 pk). Order #114-2813251-8225805, placed March 16, 2026 | [B09LLMYBM1](https://www.amazon.com/dp/B09LLMYBM1) | 1 pk | $7.07 | ACQUIRED |
 | HiLetgo DS3231 high-precision RTC (5 pk). Order #114-5764473-1322614, placed March 16, 2026 | [B01N1LZSK3](https://www.amazon.com/dp/B01N1LZSK3) | 1 pk | $16.08 | ACQUIRED |
 | EDGELEC 4.7 kΩ 1/4 W 1% metal-film resistor (100 pk). Order #112-0915506-0821038, placed April 26, 2026 | [B07HDFHPP3](https://www.amazon.com/dp/B07HDFHPP3) | 1 pk | $5.89 | ACQUIRED |

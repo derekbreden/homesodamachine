@@ -37,7 +37,7 @@ against the PSU, so the floor re-packs tighter.
 The PSU (turned 90°) and Wago column **pack flush** against each other (no
 inter-part gaps), with the ground ring-stack in the open space above the PSU.
 Off this tray: the **GFCI** (tabled), the **C14 inlet** (back panel), and the
-controller modules (a separate controller tray).
+controller modules (the [logic tray](/pie-in-the-sky/lite/printed-parts/electronics/logic-tray/)).
 
 ## Retention
 

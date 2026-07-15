@@ -1,6 +1,6 @@
 """Reference solid for the L298N dual H-bridge motor-driver module
-(bom: B0C5JCF5RS), 1x on the driver tray — drives both Kamoer peristaltic pumps
-and makes the onboard 5 V logic rail.
+(purchases: B0C5JCF5RS), 1x on the Lite logic tray — drives both Kamoer
+peristaltic pumps and makes the onboard 5 V logic rail.
 
 The classic red L298N module: ~43.5 mm square, tall finned heatsink, 4 corner
 mounting holes. Footprint + hole pattern are well established; the heatsink

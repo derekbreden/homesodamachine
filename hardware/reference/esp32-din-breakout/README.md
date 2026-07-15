@@ -1,7 +1,9 @@
 # ESP32-DevKitC-32E on DIN-rail breakout — reference solid
 
-The controller-tray MCU (`hardware/ledger/bom.md`: ESP32 **B09MQJWQN2** on the
-breakout **B0BW4SJ5X2** — the "ESP32 Super Breakout Board DIN Rail Mount").
+The Lite logic-tray MCU carrier (`pie-in-the-sky/lite/lite-bom.md`: ESP32
+**B09MQJWQN2** on the breakout **B0BW4SJ5X2** — the "ESP32 Super Breakout Board
+DIN Rail Mount"). The Kitchen edition's MCU is the bare WROOM on the
+[controller PCBA](/hardware/pcb/pcba/).
 
 The carrier sockets the DevKitC into 2×19 @ 2.54 mm rows, has 3.81 mm screw
 terminals down both edges, and **ships with a bracket for 35 mm DIN rail**.

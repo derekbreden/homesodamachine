@@ -49,8 +49,8 @@ The working requirement is that the donut **ride against the cavity far wall**, 
 
 [4](REEDS_PER_RES) reeds × 2 reservoirs = **8 input GPIOs needed** for the flavor reservoir level sensing. Allocation:
 
-- **Reservoir A's [4](REEDS_PER_RES) reeds** → existing MCP23017 0x20 PB[4:7] (the chip's spare bits after 12 valves). No firmware change beyond reading [4](REEDS_PER_RES) new bits.
-- **Reservoir B's [4](REEDS_PER_RES) reeds** → new MCP23017 at I²C address 0x21, PA[0:3]. The chip also carries the condenser-fan driver bit (PA4) and the 2 carbonator reeds (PB[0:1]), leaving 9 spare bits for future expansion. Same I²C driver as 0x20.
+- **Reservoir A's [4](REEDS_PER_RES) reeds** → MCP23017 0x20 PB[0:3] (Port B inputs beside the chip's 8 valve outputs on Port A). Both expanders are on the controller PCBA; the reeds reach them on the J6 / J7 looms.
+- **Reservoir B's [4](REEDS_PER_RES) reeds** → MCP23017 0x21 PB[0:3]. The chip also carries the 4 MANIFOLD-B valve outputs (PA[4:7]), the condenser-fan bit (PA3), and the 2 carbonator reeds (PB[4:5]), leaving 5 spare bits. Map in [`/hardware/wiring/valve-control.mmd`](/hardware/wiring/valve-control.mmd).
 
 ## Parts (per build)
 
@@ -59,7 +59,8 @@ Per-build additions for the flavor-reservoir level sensing are tracked in [`/har
 - **8 Gebildet reed switches** (B0CW9418F6) for the flavor reservoirs — same SKU as the carbonator's 2 reeds; 2 × 6-pack covers all 10 reeds per build (2 carbonator + 8 flavor) with 2 spares.
 - **2 DEVMO MINI floats** (B07T18PGJ4) — one per flavor reservoir. Donor donut + its ferrite magnet kept; switch body / cable discarded. With the reed column inside the foam-shell channel (~6 mm magnet-to-reed path), no neodymium upgrade needed. The carbonator's existing 1 unit becomes 3 units per build (1 carbonator + 2 reservoirs).
 - **2 multi-conductor cables** for the harnesses (≥ 5 conductors each: 4 reed signals + 1 common return per reservoir). Research candidate under evaluation at the time of writing: KWANGIL 22 AWG 12-conductor UL2464 ([B0CSD5QZ21](https://www.amazon.com/dp/B0CSD5QZ21)) — characterize once it arrives.
-- **1 second MCP23017** GPIO expander (B07P2H1NZG) — same SKU as the existing expander, at I²C address 0x21.
+
+The reed inputs land on the controller PCBA's MCP23017s (bom.md §1) via the J6 / J7 looms — no expander hardware in this subsystem.
 
 ## Calibration
 

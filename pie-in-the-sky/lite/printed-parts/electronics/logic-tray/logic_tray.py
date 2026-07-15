@@ -3,8 +3,8 @@
 One tray carries the whole low-voltage logic set: the ESP32 (on its DIN-rail
 breakout), the MCP23017 I2C GPIO expander, both ULN2803A solenoid drivers, the
 L298N pump driver, the DS3231 RTC, and the TTL-to-RS485 transceiver. The Lite
-folds the Kitchen edition's two trays (controller + driver) into one — it has a
-single MCP23017, so the combined set fits one compact frame.
+keeps module-board electronics (the Kitchen edition runs its consolidated
+controller PCBA instead) — a single MCP23017, so the set fits one compact frame.
 
 Same idioms as the rest of the shelf: boards pack flush, a single
 convex-outline floor, no walls, heat-set standoff bosses (M3 per board, M2 for

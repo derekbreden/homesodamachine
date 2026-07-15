@@ -1,8 +1,11 @@
 # L298N dual H-bridge module — reference solid
 
-The peristaltic-pump driver on the driver tray (`hardware/ledger/bom.md`:
-**B0C5JCF5RS**) — drives both Kamoer pumps; its onboard 78M05 also makes the 5 V
-logic rail.
+The peristaltic-pump driver on the legacy under-counter prototype and the Lite
+logic tray (**B0C5JCF5RS**, [purchases.md](/hardware/ledger/purchases.md) §9) —
+drives both Kamoer pumps; its onboard 78M05 also makes those builds' 5 V logic
+rail. The Kitchen appliance's [controller PCBA](/hardware/pcb/pcba/) drives the
+pumps with on-board DRV8870 H-bridges (U11/U12); this module serves the
+prototype and the Lite only.
 
 The classic red L298N module — footprint and hole pattern are well documented
 across multiple sources; heatsink height is approximate.

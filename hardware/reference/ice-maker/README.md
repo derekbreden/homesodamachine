@@ -109,8 +109,8 @@ Safety:
 - **Minimum off-time of 3 minutes** between power-off and power-on is a hard rule. The high-side pressure has to bleed through the capillary tube and equalize with the low side before restart, or the motor stalls against head pressure until the overload trips.
 
 For ESP32 control:
-- **Reserved GPIO: pin 17** (Relay #1) on the main ESP32-DevKitC-32E. Not a strap pin, not input-only, not reserved for flash/PSRAM. See `hardware/wiring/esp32-pinout.mmd` for the full pin map.
-- **Switching element: Teyleten 3.3 V opto-isolated relay module** (10 A @ 250 VAC, ASIN B07XGZSYJV). ESP32 GPIO drives the input pin directly — 3.3 V coil side, opto-coupled, mechanical contact on the AC hot leg. ~$2.60/unit at 5-pack pricing. The same relay model gates 12 V to the SeaFlo diaphragm pump (see `hardware/wiring/power.mmd` and `hardware/bom.md` §5).
+- **Reserved GPIO: IO19** (Relay #1) on the base ESP32 (the controller PCBA's WROOM, reaching the relay through the on-board gas-interlock gate). Not a strap pin, not input-only, not reserved for flash/PSRAM. See `hardware/wiring/esp32-pinout.mmd` for the full pin map.
+- **Switching element: Teyleten 3.3 V opto-isolated relay module** (10 A @ 250 VAC, ASIN B07XGZSYJV). ESP32 GPIO drives the input pin directly — 3.3 V coil side, opto-coupled, mechanical contact on the AC hot leg. ~$2.60/unit at 5-pack pricing. The same relay model gates 12 V to the SeaFlo diaphragm pump (see `hardware/wiring/power.mmd` and `hardware/ledger/bom.md` §5).
 - **Firmware enforces the 3-minute minimum-off-time** as a guard. Wrap the ON/OFF call behind a "can I switch right now?" check against the last-transition timestamp. A hysteresis band around the temperature setpoint (e.g., ±1 °C) keeps cycles long.
 
 ### Summary — keep vs discard for this unit

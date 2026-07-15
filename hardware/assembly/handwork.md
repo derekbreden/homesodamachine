@@ -6,17 +6,6 @@ Companion to [bom.md](/hardware/ledger/bom.md) (per-unit parts) and [purchases.m
 
 Order isn't strict — pressure-testing waits on tap + weld being complete on the same vessel; the others run independently.
 
-## Solder JST connectors to boards
-
-Solder male JST-XH 2.54 mm headers to module pin-header rows so field-crimped female housings (loose terminals + bonded ribbons + Keszoox pre-crimped pigtails) plug in. Rule of thumb: **JST-XH every module-to-module logic connection that lands on pin headers; leave screw-terminal connections as-is** — they're already vibration-secure (the ESP32 DIN-rail breakout's terminals, the L298N power/motor terminals, the Teyleten relay modules' in/out terminals). Some boards ship their headers **pre-soldered** (MCP23017 GPIO rows, L298N control row) — desolder the stock pins first, then solder the XH header; the ULN2803A ships its headers **loose**, so its XH headers solder straight on. Four pin counts per [bom.md §11](/hardware/ledger/bom.md):
-
-- **4-pin** (B0B2RB524Y) — the 4-wire I²C / UART hops: the DS3231 RTC's I²C (VCC/GND/SDA/SCL — SQW/32K unused) and the UART trunk to the front-face ESP32-S3 display. ESP32 ends land on the DIN-breakout screw terminals; the MCP23017 I²C side is **PH2.0**, not XH. ~3 connectors per unit.
-- **6-pin** (B0B2R8Q1JL) — L298N control row (ENA / IN1 / IN2 / IN3 / IN4 / ENB), the six lines driving the two peristaltic pumps. ~1 connector per unit.
-- **9-pin** (B0B2R73RQB) — ULN2803A module sides (8 channels + COM/GND); 2 ULNs × 2 sides, ~4 connectors per unit.
-- **10-pin** (B0B2R93CV3) — MCP23017 Port A/B GPIO rows (**VCC + GND + 8 GPIO**). The row is 10 holes, so a 10-pin fills it and can't seat off-by-one; a 9-pin would drop VCC and float on the row. ~4 per unit.
-
-Hakko station, 60/40 leaded solder, ESD mat — all already in [purchases.md §14](/hardware/ledger/purchases.md).
-
 ## Bend copper around the pressure vessel
 
 Wind the GOORY 1/4" OD × 0.031" wall ACR copper tubing tight around the vessel OD as the evaporator coil. The 0.031" wall resists kink at the bend radius required around the 5" OD vessel. Single-layer wrap at ~1/8" pitch yields ~22 ft of wrap per vessel + ~2 ft each end for compressor and suction-line tie-ins ([bom.md §5](/hardware/ledger/bom.md)). Bonded to the tank OD with 3M 425 aluminum foil tape — applied as a continuous skin under the coil so the tape spans the tank ↔ coil thermal interface ([future.md](/hardware/future.md) "Refrigeration subsystem").
