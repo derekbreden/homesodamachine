@@ -33,7 +33,7 @@ composed from those gerbers.
 
 ## Scope
 
-- Active parts are silicon: ESP32 (bare WROOM), 2×MCP23017, 2×ULN2803A, DS3231,
+- Active parts are silicon: ESP32 (bare WROOM), 2×MCP23017, 2×TBD62083A, DS3231,
   RS485, buzzer, 2× DRV8870 pump-motor H-bridges, K7805 buck, AMS1117 LDO. The MQ-6,
   displays, reeds, pump motors, relays, and solenoids stay off-board on the connectors.
 - Single 12 V inlet; 5 V made on-board (K7805 switching buck), 3V3 by the AMS1117
@@ -48,8 +48,8 @@ composed from those gerbers.
 ## Files
 
 - [`requirements.md`](requirements.md) — the board's requirements enumerated: the fab-ready
-  **gates** (clearance, DFM, sourcing, …) and the manual-routing **goals** (every signal net
-  hand-routed on outer copper, no vias). Each is an executable check in [`scorecard.ts`](scorecard.ts),
+  **gates** (clearance, DFM, sourcing, …) and the manual-routing **goals** (every signal
+  connection hand-authored — `pcbPath`, `routeBottom`, `routeInner`). Each is an executable check in [`scorecard.ts`](scorecard.ts),
   printed on every build and shown at the top of the viewer's Board-checks panel — one verdict, from
   the same geometry, that no report can narrate around.
 - [`esp32-scope.md`](esp32-scope.md) — what the base ESP32 uses, and the SMD block.
