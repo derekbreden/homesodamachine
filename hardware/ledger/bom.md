@@ -34,7 +34,7 @@ An earlier racetrack-body alternative (304 SS body half-sheets + dished racetrac
 | [Millrose 70894 Nickel Guard anti-seize PTFE tape](https://www.amazon.com/dp/B07C9ZV4PG) | The unit's PTFE anti-seize / thread-seal tape (10% nickel flake, for SS-on-SS anti-galling), a 1/2" × 600" roll — the production thread tape for **every** NPT joint in the build, not just the vessel: the [4](VESSEL_PORTS) SS-into-SS vessel ports taped twice (hydro-test plugs + final fittings, per [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)) plus the ≥8 water/CO2 plumbing joints (per [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md)) ≈ ~16 taped joints × ~4–5" ≈ ~75"/build, so the 600" roll covers ~8 builds. Amazon 112-0019658 Apr 4: $21.52 ÷ 8 = $2.69/build | ~1/8 roll (~75") | $2.69 | $2.69 |
 | [Tap Magic EP-Xtra pipe-tap cutting fluid, 16 oz (size variant on listing B00DHMHSGM)](https://www.amazon.com/dp/B00DHMHSGM) | required for hand-tapping 1/4" NPT into 1/4"-thick 316 SS plate; ~$0.50 of fluid per vessel | 1 | $0.50 | $0.50 |
 | [Control Devices SV-125 safety valve, 1/4" NPT, 125 psi set pressure, 49 SCFM relief, brass](https://www.amazon.com/dp/B01G2F6EMY) | Port 4 tank PRV (top plate, dedicated); sizing rationale in [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md). Amazon 112-6323725 May 13: $7.49 + $0.54 tax = $8.03 | 1 | $8.03 | $8.03 |
-| [Cambro 6 QT polycarbonate square container](https://www.amazon.com/dp/B001BZEQ44) | citric acid passivation soak tub, one-time-use per unit | 1 | $20.00 | $20.00 |
+| [Cambro 6 QT polycarbonate square container](https://www.amazon.com/dp/B001BZEQ44) | citric acid passivation soak tub — holds the ~1 qt of 4% citric solution the vessel soaks in during passivation (the acid is its own line below). Reused build-to-build, not consumed — the per-unit item is the fresh solution, not the tub; the polycarbonate is replaced only when repeated soaks craze/cloud it, ~20 builds conservatively. Amazon 112-5291452 Apr 12: $21.45 ÷ 20 = $1.07/build | 1 (of ~20) | $1.07 | $1.07 |
 | [Viva Doria food-grade citric acid, 2 lb bag](https://www.amazon.com/dp/B0C5NQM8S1) | passivation: ~1 qt of 4% solution per tank; 1/20 of $9.99 bag | 1 | $0.50 | $0.50 |
 | [STARTECHWELD ER316L .030 MIG wire, 10-lb spool](https://www.amazon.com/dp/B09BKFBXT9) | filler for the plate-to-tube and float-rod-to-plate laser welds; filler-alloy rationale in [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md); ~12 g of wire per ~32" of weld per vessel × ~378 builds per 10-lb spool; $129.50/378 | 1 (of 378) | $0.34 | $0.34 |
 
@@ -265,7 +265,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | Section | $ |
 |---|---:|
 | 1. Controllers + electronics | [$178.46](BOM_SEC1) |
-| 2. Carbonator vessel (plan A, 316L) | [$223.31](BOM_SEC2) |
+| 2. Carbonator vessel (plan A, 316L) | [$204.38](BOM_SEC2) |
 | 3. Water inlet | [$240.21](BOM_SEC3) |
 | 4. CO2 subsystem | [$172.20](BOM_SEC4) |
 | 5. Refrigeration | [$204.86](BOM_SEC5) |
@@ -278,7 +278,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$56.79](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$6.25](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,549.86](BOM_GRAND)** |
+| **Total** | **[$1,530.93](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
