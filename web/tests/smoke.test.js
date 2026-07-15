@@ -60,6 +60,7 @@ const routes = [
   { path: "/3d",       expect: 200, ct: "text/html" },
   { path: "/charts",   expect: 200, ct: "text/html" },
   { path: "/drawings", expect: 200, ct: "text/html" },
+  { path: "/cost",     expect: 200, ct: "text/html" },
   { path: "/blog",     expect: 200, ct: "text/html" },
   { path: "/settings", expect: 200, ct: "text/html" },
 

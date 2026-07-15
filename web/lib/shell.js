@@ -6,22 +6,22 @@
 //   - body base styles (font, background)
 //   - The top nav, including the gear that links to /settings
 //   - Dev-mode flag: html.dev-mode reveals Parts / Charts / Drawings /
-//     Boards in the public nav; flag is persisted in localStorage and applied
-//     by an inline head script before first paint to avoid a flash.
+//     Boards / Cost in the public nav; flag is persisted in localStorage and
+//     applied by an inline head script before first paint to avoid a flash.
 //   - The .ios-toggle pill primitive (shared between /settings rows and
 //     anywhere else that wants the same delightful slide).
 //
-// Two surfaces:
-//   "public" — civilian: Home, Updates [+ Parts, Charts, Drawings, Boards when
-//              dev mode], Settings
+// All primary links are icon-only (Home + Updates included). Two surfaces:
+//   "public" — civilian: Home, Updates [+ Parts, Charts, Drawings, Boards,
+//              Cost when dev mode], Settings
 //   "dev"    — engineering: Home, Updates, Parts, Charts, Drawings, Boards,
-//              Settings (always)
+//              Cost, Settings (always)
 //
 // Render flow:
 //   res.send(renderHead({title, ...}) + renderNav({surface, active}) +
 //            <body content> + renderFooter());
 
-import { PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
+import { HOME_SVG, UPDATES_SVG, PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
 
 function escape(s) {
   return String(s)
@@ -131,18 +131,21 @@ html.notifs-enabled .site-nav .nav-bell { display: inline-flex; }
   box-sizing: content-box;
 }
 
-/* Public nav hides Parts / Charts / Drawings / Boards unless html.dev-mode is
-   set. The dev surface (.site-nav-dev) always shows them. */
+/* Public nav hides Parts / Charts / Drawings / Boards / Cost unless
+   html.dev-mode is set. The dev surface (.site-nav-dev) always shows them.
+   Home and Updates are never gated. */
 .site-nav-public a[data-nav="parts"],
 .site-nav-public a[data-nav="charts"],
 .site-nav-public a[data-nav="drawings"],
-.site-nav-public a[data-nav="pcb"] {
+.site-nav-public a[data-nav="pcb"],
+.site-nav-public a[data-nav="cost"] {
   display: none;
 }
 html.dev-mode .site-nav-public a[data-nav="parts"],
 html.dev-mode .site-nav-public a[data-nav="charts"],
 html.dev-mode .site-nav-public a[data-nav="drawings"],
-html.dev-mode .site-nav-public a[data-nav="pcb"] {
+html.dev-mode .site-nav-public a[data-nav="pcb"],
+html.dev-mode .site-nav-public a[data-nav="cost"] {
   display: inline-flex;
 }
 
@@ -322,34 +325,28 @@ ${pageHead}
 // kind=step / kind=mermaid rows in /notifications use the same cube and
 // bar-chart icons as the Parts / Charts nav items.
 
-// Layout: text labels (Home, Updates) on the left, then icon-only links
-// (Parts, Charts) — they're icons rather than text so the nav fits a
-// phone PWA viewport without overflow. The right cluster (bell + gear)
-// is wrapped in .nav-right with margin-left: auto, so a single auto
-// margin pushes both icons to the right edge as a unit (two siblings
-// each with margin-left: auto would split the available space and leave
-// a big gap between them).
+// Layout: every primary link is icon-only — Home and Updates included — so the
+// nav fits a phone PWA viewport without overflow. (Adding Boards, and now Cost,
+// to a row that still carried "Home"/"Updates" as text is exactly what pushed
+// it past the edge on mobile.) The right cluster (bell + gear) is wrapped in
+// .nav-right with margin-left: auto, so a single auto margin pushes both icons
+// to the right edge as a unit (two siblings each with margin-left: auto would
+// split the available space and leave a big gap between them).
 //
-// On the public surface, Parts / Charts are present in the markup but
-// hidden by CSS unless html.dev-mode is set (see BASE_CSS). On the dev
-// surface, they're always visible.
+// Home and Updates are always visible. Parts / Charts / Drawings / Boards /
+// Cost are present in the markup but, on the public surface, hidden by CSS
+// unless html.dev-mode is set (see BASE_CSS). On the dev surface, all are
+// always visible.
 export function renderNav({ surface = "public", active = null }) {
-  const textLinks = [
-    { href: "/", name: "home", label: "Home" },
-    { href: "/blog", name: "updates", label: "Updates" },
-  ];
   const iconLinks = [
+    { href: "/", name: "home", label: "Home", svg: HOME_SVG },
+    { href: "/blog", name: "updates", label: "Updates", svg: UPDATES_SVG },
     { href: "/3d", name: "parts", label: "Parts", svg: PARTS_SVG },
     { href: "/charts", name: "charts", label: "Charts", svg: CHARTS_SVG },
     { href: "/drawings", name: "drawings", label: "Drawings", svg: DRAWINGS_SVG },
     { href: "/pcb", name: "pcb", label: "Boards", svg: PCB_SVG },
+    { href: "/cost", name: "cost", label: "Cost", svg: DOLLAR_SVG },
   ];
-  const textItems = textLinks
-    .map((l) => {
-      const cls = l.name === active ? ' class="active"' : "";
-      return `  <a href="${l.href}"${cls} data-nav="${l.name}">${escape(l.label)}</a>`;
-    })
-    .join("\n");
   const iconItems = iconLinks
     .map((l) => {
       const activeCls = l.name === active ? " active" : "";
@@ -360,7 +357,6 @@ export function renderNav({ surface = "public", active = null }) {
   const gearActive = active === "settings" ? " active" : "";
   const bellActive = active === "notifications" ? " active" : "";
   return `<nav class="site-nav ${surfaceCls}" id="site-nav" aria-label="Primary">
-${textItems}
 ${iconItems}
   <div class="nav-right">
     <a href="/notifications" class="nav-icon nav-bell${bellActive}" data-nav="notifications" aria-label="Notifications">${BELL_SVG}</a>
