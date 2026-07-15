@@ -14,7 +14,6 @@ import { WAFER_XH2_54_5PZZ } from "./imports/WAFER_XH2_54_5PZZ"
 import { WAFER_XH2_54_6PZZ } from "./imports/WAFER_XH2_54_6PZZ"
 import { WAFER_XH2_54_7PZZ } from "./imports/WAFER_XH2_54_7PZZ"
 import { WAFER_XH2_54_9PZZ } from "./imports/WAFER_XH2_54_9PZZ"
-import { B7B_EH_A_LF__SN_ } from "./imports/B7B_EH_A_LF__SN_"
 import { K7805_2000R3 } from "./imports/K7805_2000R3"
 import { MLT_5020 } from "./imports/MLT_5020"
 import { KH_CR2032_2_1 } from "./imports/KH_CR2032_2_1"
@@ -166,23 +165,6 @@ const WAFER_PIN1_WEST: Record<number, boolean> = { 3: true, 4: true, 5: true, 6:
 // how far the body extends on the opening side (mm) — the survive block clears it
 const WAFER_BODY_OUT: Record<number, number> = { 3: 3.45, 4: 3.72, 5: 3.77, 6: 3.69, 7: 3.76, 9: 3.76 }
 
-// ---- JST-EH 7P — the keyed alternative to XH ------------------------------------------------
-// EH is a 2.5 mm-pitch single-row wafer on the SAME hole grid as XH, but a physically NON-INTERMATING
-// housing: J7 (REEDS B, dry-reed signals) uses it so a SENSORS(J4, XH)↔REEDS-B(J7) loom swap — which
-// would inject 5V/3V3 into MCP inputs — is mechanically impossible. Top-entry B7B-EH-A (C160254, in
-// stock; the side-entry S7B-EH is out of stock). Its footprint numbers pin 1 from the WEST (opposite
-// the XH 7P), so EH_PIN1_WEST[7]=true keeps every reed net on the barrel it already used. Same OPEN
-// convention as the XH 7P (−1) so the caller's `rot` means the same thing. One count (7P) for now.
-const EH_BY_COUNT: Record<number, (props: any) => any> = { 7: B7B_EH_A_LF__SN_ }
-const EH_OPEN: Record<number, number> = { 7: -1 }
-const EH_PIN1_WEST: Record<number, boolean> = { 7: true }
-const EH_BODY_OUT: Record<number, number> = { 7: 2.6 }   // EH housing is shallower than XH (courtyard ~2.6 past the pins)
-
-export type WaferSeries = "XH" | "EH"
-const seriesTables = (series: WaferSeries) => series === "EH"
-  ? { byCount: EH_BY_COUNT, open: EH_OPEN, pin1West: EH_PIN1_WEST, bodyOut: EH_BODY_OUT }
-  : { byCount: WAFER_BY_COUNT, open: WAFER_OPEN, pin1West: WAFER_PIN1_WEST, bodyOut: WAFER_BODY_OUT }
-
 // A board header for an off-board loom (the cable plugs in). The imported wafer footprint
 // (WAFER_BY_COUNT) carries the real body + holes + 3D model. `rot` is the ordinary seating rotation
 // (CCW degrees) every part on the board takes — for a Jst, the UNIFORM convention is rot 0 = the
@@ -201,12 +183,11 @@ const seriesTables = (series: WaferSeries) => series === "EH"
 // a wafer rotation of 180/270, and the 7P footprint that numbers from the east; when exactly one
 // applies, the list reverses. One copy of this math: the Jst silk below and routing's connector
 // frames both read it.
-export const jstPins = ({ count, labels, rot = 0, series = "XH" }: { count: number; labels: string[]; rot?: number; series?: WaferSeries }) => {
-  const t = seriesTables(series)
+export const jstPins = ({ count, labels, rot = 0 }: { count: number; labels: string[]; rot?: number }) => {
   const pitch = WAFER_PITCH[count] ?? 2.5
-  const openAngle = t.open[count] > 0 ? 90 : 270
+  const openAngle = WAFER_OPEN[count] > 0 ? 90 : 270
   const wafRot = (((rot + 90) - openAngle) % 360 + 360) % 360
-  const pin1West = t.pin1West[count] ?? true
+  const pin1West = WAFER_PIN1_WEST[count] ?? true
   const flip = (wafRot === 180 || wafRot === 270) !== !pin1West
   const L = flip ? [...labels].reverse() : labels
   const rad = (wafRot * Math.PI) / 180, c = Math.cos(rad), s = Math.sin(rad)
@@ -218,19 +199,18 @@ export const jstPins = ({ count, labels, rot = 0, series = "XH" }: { count: numb
   return { wafRot, pins }
 }
 
-export const Jst = ({ name, x, y, count, labels, label, rot = 0, series = "XH" }: { name: string; x: number; y: number; count: number; labels: string[]; label: string; rot?: number; series?: WaferSeries }) => {
-  const t = seriesTables(series)
-  const Wafer = t.byCount[count]
+export const Jst = ({ name, x, y, count, labels, label, rot = 0 }: { name: string; x: number; y: number; count: number; labels: string[]; label: string; rot?: number }) => {
+  const Wafer = WAFER_BY_COUNT[count]
   const smHalf = 0.24, bigHalf = 0.42, padR = 0.825, G = 0.25   // ink cap half-heights; pad radius; tier gap
-  const { wafRot, pins } = jstPins({ count, labels, rot, series })
+  const { wafRot, pins } = jstPins({ count, labels, rot })
   const pinLabelObj = Object.fromEntries(pins.map(([lbl], i) => [`pin${i + 1}`, lbl]))
   const rad = (wafRot * Math.PI) / 180
   // Outboard (toward the board edge) = the opening direction: the intrinsic ±Y opening turned by wafRot.
-  const ox = -t.open[count] * Math.sin(rad), oy = t.open[count] * Math.cos(rad)
+  const ox = -WAFER_OPEN[count] * Math.sin(rad), oy = WAFER_OPEN[count] * Math.cos(rad)
   const textRot = Math.abs(ox) > Math.abs(oy) ? 90 : 0         // vertical rows (E/W edges) read bottom-to-top
   const pinOff = padR + G + smHalf                    // pin row -> pin label (inboard)
   const refOff = -pinOff          // -> ref-des (inboard, next tier)
-  const survPinOff = t.bodyOut[count] + G                   // outboard, clear of the body
+  const survPinOff = WAFER_BODY_OUT[count] + G                   // outboard, clear of the body
   const survFuncOff = survPinOff + smHalf + G + bigHalf                   // outboard function, next tier
   return (
     <>
