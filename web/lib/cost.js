@@ -57,15 +57,36 @@ function prettifyTag(tag) {
   return tag.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-// Parse bom.md → { total, itemCount, cats: [{ tag, name, sum, count, items:[{section,cost,name}] }] }
-// sorted by cost descending. Mirrors the row-selection logic in
-// _bom_categories.py (numbered sections only; header / separator / totals rows
-// skipped; category tag + last-cell cost per row).
+function parseMoney(cell) {
+  const m = cell.match(MONEY_RE);
+  return m ? parseFloat(m[1].replace(/,/g, "")) : 0;
+}
+
+// A BOM qty cell → a discrete piece count, or null when it's a measure sold by
+// length / weight / fraction ("~5 ft", "1/2 roll", "78 g"). The leading integer
+// covers "2 (of 10 pk)", "18 (2 bags of 10)", and the [N](ANCHOR) sync markers.
+function parseCount(qtyCell) {
+  if (!qtyCell) return null;
+  if (/[/]|\b(ft|kg|g|m|oz|roll|pair)\b/i.test(qtyCell)) return null;
+  const m = qtyCell.match(/^\s*\[?~?\s*(\d+)\b/);
+  return m ? parseInt(m[1], 10) : null;
+}
+
+// Parse bom.md → { total, rowCount, cats: [{ tag, name, sum, parts:[{ name, qty,
+// countable, unit, cost, sections }] }] }, sorted by cost descending. Identical
+// parts — the same SKU used in more than one subsystem, e.g. the PP010822E
+// adapter that appears in §3, §4 and §8 — are AGGREGATED into one line, so the
+// itemization shows the true per-unit quantity (×6) and total ($10.44) instead
+// of three look-alike $3.48 rows. Row selection mirrors _bom_categories.py;
+// column positions match _bom_totals.py (qty 3rd-last, unit 2nd-last, line last)
+// except §7's printed-parts table (Part | Qty | Material | Mass | $), whose qty
+// is the second cell and which has no per-each price.
 export function readCostRollup(hardwareDir) {
   const bomPath = path.join(hardwareDir, "ledger", "bom.md");
   const text = fs.readFileSync(bomPath, "utf-8");
   const byTag = new Map();
   let section = null;
+  let rowCount = 0;
 
   for (const raw of text.split("\n")) {
     if (raw.startsWith("## ")) {
@@ -81,25 +102,39 @@ export function readCostRollup(hardwareDir) {
     const tm = raw.match(TAG_RE);
     if (!tm) continue; // untagged — shouldn't happen (pre-commit enforces coverage)
     const tag = tm[1];
-    const mm = cells[cells.length - 1].match(MONEY_RE);
-    const cost = mm ? parseFloat(mm[1].replace(/,/g, "")) : 0;
+    const cost = parseMoney(cells[cells.length - 1]);
     // Part-name cell for display: drop the markdown link target + brackets.
     const name = cells[0].replace(/\]\([^)]*\)/g, "]").replace(/[[\]]/g, "");
+    const qtyRaw = section === 7 ? (cells[1] || "") : (cells[cells.length - 3] || "");
+    const unitCell = section === 7 ? "" : (cells[cells.length - 2] || "");
+    const count = parseCount(qtyRaw);
+    const unit = unitCell.includes("/") ? null : (parseMoney(unitCell) || null); // "$/ft" is a rate, not a per-each
+    rowCount += 1;
 
     if (!byTag.has(tag)) {
-      byTag.set(tag, { tag, name: CATEGORY_NAMES[tag] || prettifyTag(tag), sum: 0, count: 0, items: [] });
+      byTag.set(tag, { tag, name: CATEGORY_NAMES[tag] || prettifyTag(tag), sum: 0, parts: new Map() });
     }
     const b = byTag.get(tag);
     b.sum += cost;
-    b.count += 1;
-    b.items.push({ section, cost, name });
+
+    let p = b.parts.get(name);
+    if (!p) { p = { name, qty: 0, countable: true, unit, cost: 0, rawQty: qtyRaw, sections: new Set() }; b.parts.set(name, p); }
+    p.cost += cost;
+    p.sections.add(section);
+    if (count === null) p.countable = false;
+    else p.qty += count;
+    // Drop a per-each price that isn't consistent across the aggregated rows.
+    if (p.unit != null && unit != null && Math.abs(p.unit - unit) > 0.005) p.unit = null;
   }
 
-  const cats = [...byTag.values()].sort((a, b) => b.sum - a.sum);
-  for (const c of cats) c.items.sort((a, b) => b.cost - a.cost);
+  const cats = [...byTag.values()].map((b) => ({
+    tag: b.tag,
+    name: b.name,
+    sum: b.sum,
+    parts: [...b.parts.values()].sort((a, b) => b.cost - a.cost),
+  })).sort((a, b) => b.sum - a.sum);
   const total = cats.reduce((s, c) => s + c.sum, 0);
-  const itemCount = cats.reduce((s, c) => s + c.count, 0);
-  return { total, itemCount, cats };
+  return { total, rowCount, cats };
 }
 
 const COST_CSS = `
@@ -134,10 +169,11 @@ const COST_CSS = `
 .cost-cat[open] summary::after { content: "\\2013"; }
 .cost-dt { font-weight: 400; color: var(--text-2); font-size: 0.78rem; font-variant-numeric: tabular-nums; }
 .cost-items { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
-.cost-items td { padding: 0.4rem 1rem; border-top: 1px solid var(--border); color: var(--text-2); }
-.cost-items td:nth-child(2) { color: var(--text); }
-.cost-sec { color: var(--text-3); white-space: nowrap; }
-.cost-num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cost-items td { padding: 0.45rem 1rem; border-top: 1px solid var(--border); color: var(--text); vertical-align: top; }
+.cost-items td.cost-qty { text-align: right; white-space: nowrap; color: var(--text-2); font-variant-numeric: tabular-nums; }
+.cost-items td.cost-num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--text); }
+.cost-ea { color: var(--text-3); }
+.cost-secs { color: var(--text-3); font-size: 0.85em; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .cost-total { display: flex; justify-content: space-between; align-items: baseline; padding: 0.9rem 1rem; margin-top: 0.75rem; border-top: 2px solid var(--border); font-weight: 700; }
 .cost-total .v { color: var(--accent); font-variant-numeric: tabular-nums; }
 @media (max-width: 560px) {
@@ -147,7 +183,7 @@ const COST_CSS = `
 `;
 
 function renderCostBody(rollup) {
-  const { total, itemCount, cats } = rollup;
+  const { total, rowCount, cats } = rollup;
   const mx = Math.max(...cats.map((c) => c.sum), 1);
 
   const bars = cats.map((c) => {
@@ -161,10 +197,21 @@ function renderCostBody(rollup) {
   }).join("\n");
 
   const details = cats.map((c) => {
-    const rows = c.items.map((it) =>
-      `<tr><td class="cost-sec">&sect;${it.section}</td><td>${escape(it.name)}</td><td class="cost-num">${money(it.cost)}</td></tr>`
-    ).join("");
-    return `<details class="cost-cat"><summary>${escape(c.name)} <span class="cost-dt">${money(c.sum)} &middot; ${c.count}</span></summary>
+    const rows = c.parts.map((p) => {
+      let qty;
+      if (p.countable) {
+        qty = "&times;" + p.qty;
+        if (p.qty > 1 && p.unit != null) qty += ` <span class="cost-ea">@ ${money(p.unit)}</span>`;
+      } else {
+        qty = escape(p.rawQty || "");
+      }
+      const secs = p.sections.size > 1
+        ? ` <span class="cost-secs">§${[...p.sections].sort((a, b) => a - b).join(",")}</span>`
+        : "";
+      return `<tr><td>${escape(p.name)}${secs}</td><td class="cost-qty">${qty}</td><td class="cost-num">${money(p.cost)}</td></tr>`;
+    }).join("");
+    const n = c.parts.length;
+    return `<details class="cost-cat"><summary>${escape(c.name)} <span class="cost-dt">${money(c.sum)} &middot; ${n} part${n === 1 ? "" : "s"}</span></summary>
       <table class="cost-items"><tbody>${rows}</tbody></table></details>`;
   }).join("\n");
 
@@ -172,9 +219,9 @@ function renderCostBody(rollup) {
   <h1 class="cost-title">Cost by category</h1>
   <div class="cost-hero">
     <div class="cost-big">${money(total)}</div>
-    <div class="cost-lbl">delivered cost per finished unit &mdash; ${itemCount} line items across ${cats.length} part-type categories, amortized per unit</div>
+    <div class="cost-lbl">delivered cost per finished unit &mdash; ${rowCount} ledger lines across ${cats.length} part-type categories, amortized per unit</div>
   </div>
-  <p class="cost-note">Every BOM row carries a hidden category tag; this view rolls the ledger up by that tag and stays true to it. Ranked by per-unit cost.</p>
+  <p class="cost-note">Every BOM row carries a hidden category tag; this view rolls the ledger up by that tag and stays true to it. Identical parts used across subsystems are combined, so the quantity shown is the true per-unit count. Ranked by per-unit cost.</p>
   <h2 class="cost-h2">All categories, ranked</h2>
   <div class="cost-chart">
 ${bars}
