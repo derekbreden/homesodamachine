@@ -32,19 +32,19 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | R1, R3 — gas divider, top leg | 2.2 kΩ ±1% | 0603 | C4190 | Basic | 2,358,134 | $0.0019 |
 | R2, R4 — gas divider, bottom leg | 3.3 kΩ ±1% | 0603 | C22978 | Basic | 1,028,999 | $0.0023 |
 | C1, C2 — V12 HF decouple | 0.1 µF 50V X7R | 0805 | C49678 | Basic | 8,182,736 | $0.0136 |
-| C3 — V12 bulk | 470 µF 25V | radial THT, D10×12.5, 5.08 mm | C350206 | Extended | 91 | $0.105 |
-| U4, U5 — valve/fan sink drivers | TBD62083AFWG, 8-ch DMOS (325 mΩ) | SOIC-18 (300 mil) | C165895 | Extended | 2,961 (2026-07-13) | ~$0.40 (verify) |
-| U2, U3 — I²C GPIO expanders | MCP23017, 16-bit | SOIC-28 (300 mil) | C47023 | Extended | — | — |
+| C3 — V12 bulk | 470 µF 25V | radial THT, D10×12.5, 5.08 mm | C350206 | Extended | 586 (2026-07-14) | $0.105 |
+| U4, U5 — valve/fan sink drivers | TBD62083AFWG, 8-ch DMOS (325 mΩ) | SOIC-18 (300 mil) | C165895 | Extended | 2,996 (2026-07-14) | ~$0.40 (verify) |
+| U2, U3 — I²C GPIO expanders | MCP23017, 16-bit | SOIC-28 (300 mil) | C47023 | Extended | 1,774 (2026-07-14) | — |
 | U8 — alarm/tone buzzer | MLT-5020, passive magnetic (external drive), 4 kHz/75 dB, ~100 mA | SMD 5×5 mm | C94598 | Extended | 104,490 | $0.434 |
 | Q1 — U8 low-side driver | S8050 (J3Y), NPN 25 V/500 mA | SOT-23 | C2146 | Basic | 554,300 | $0.015 |
 | R5 — Q1 base | 1 kΩ ±1% | 0603 | C21190 | Basic | 6,282,722 | $0.0023 |
-| U6 — RTC | DS3231SN, TCXO RTC (±2 ppm) | SOIC-16 (300 mil) | C9866 | Extended | 4,322 (2026-07-13) | $7.83 |
+| U6 — RTC | DS3231SN, TCXO RTC (±2 ppm) | SOIC-16 (300 mil) | C9866 | Extended | 3,987 (2026-07-14) | $7.83 |
 | BT1 — RTC backup | CR2032 coin base, 2-pin THT (horizontal) | THT plugin ~25×23 mm | C5365915 | Extended | 11,888 (2026-06-30) | $0.135 |
-| U7 — RS485 to display | COS13487EESA-3.3, auto-direction transceiver, 3.3 V | SOP-8 (= SOIC-8) | C51949447 | Extended | 530 (2026-07-03) | $0.55 |
+| U7 — RS485 to display | COS13487EESA-3.3, auto-direction transceiver, 3.3 V | SOP-8 (= SOIC-8) | C51949447 | Extended | 431 (2026-07-14) | $0.55 |
 | D1 — RS485 line ESD | SM712, RS485 TVS array (−7/+12 V) | SOT-23 | C12067 | Extended | 35,585 | $0.41 |
 | R6 — RS485 termination | 120 Ω ±1% | 0603 | C22787 | Basic | 1,728,584 | $0.0022 |
 | U9 — 5V→3V3 LDO | AMS1117-3.3, fixed 3.3 V LDO | SOT-223 | C6186 | Basic | 1,843,633 (2026-07-02) | $0.1979 |
-| U10 — 12V→5V buck | K7805-2000R3, 2 A non-isolated switcher | SIP-3 (THT) | C18212380 | Extended | — | — |
+| U10 — 12V→5V buck | K7805-2000R3, 2 A non-isolated switcher | SIP-3 (THT) | C18212380 | Extended | 3,780 (2026-07-14) | — |
 | U11, U12 — pump H-bridges | DRV8870DDAR, single H-bridge, 45 V / 3.6 A, 565 mΩ | HSOP-8-EP (PowerPAD) | C86590 | Extended | 34,907 (2026-07-02) | $0.41 |
 | C13/C15/C17/C19 — buck/LDO/driver decouple | 10 µF 25V X5R | 0805 | C15850 | Basic | (see C11) | $0.01 |
 | C14, C16 — 3V3 LDO / 5V buck output | 22 µF 25V X5R | 0805 | C45783 | Basic | — | $0.02 |
@@ -52,23 +52,23 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | D2 — fault LED (red) | KT-0603R, 0603 | 0603 | C2286 | Extended | — | — |
 | D3, D5, D6 — status/rail LEDs (green) | KT-0603G, 0603 | 0603 | C12624 | Extended | 325,847 (2026-07-02) | $0.0121 |
 | D4 — activity LED (blue) | KT-0603B, 0603 | 0603 | C2288 | Extended | 178,594 (2026-07-02) | $0.0102 |
-| U1 — base controller | ESP32-WROOM-32E-N4, no radio | SMD module 18×25.5 mm | C701341 | Extended | 22,002 (2026-06-28) | $3.77 |
+| U1 — base controller | ESP32-WROOM-32E-N4, no radio | SMD module 18×25.5 mm | C701341 | Extended | 30,929 (2026-07-14) | $3.77 |
 | R7, R8 — EN / IO0 pull-ups | 10 kΩ ±1% | 0603 | C25804 | Basic | 3,845,978 | $0.0013 |
 | C10 — ESP 3V3 decouple | 0.1 µF 50V X7R | 0805 | C49678 | Basic | (see C1/C2) | $0.0136 |
 | C11 — ESP 3V3 bulk | 10 µF 25V X5R | 0805 | C15850 | Basic | (see C8) | $0.01 |
 | C12 — EN power-on RC | 1 µF 50V X5R | 0603 | C15849 | Basic | 6,521,627 | $0.036 |
-| J3, J5, J8, J9, J11, J13 — 4-pin (FAUCET, RELAYS, I2C, DISPLAY, GAS, PUMPS) | XH2.54 4P | wafer, 2.5 mm | C5359632 | Extended | 39,475 (2026-06-30) | $0.0116 |
+| J3, J5, J8, J9, J11, J13 — 4-pin (FAUCET, RELAYS, I2C, DISPLAY, GAS, PUMPS) | XH2.54 4P | wafer, 2.5 mm | C5359632 | Extended | 26,726 (2026-07-14) | $0.0116 |
 | J6 — 5-pin (REEDS A) | XH2.54 5P | wafer, 2.5 mm | C5359633 | Extended | 14,791 | $0.0294 |
 | J2 — 6-pin (MANIFOLD B) | XH2.54 6P | wafer, 2.5 mm | C5359634 | Extended | 42,550 | $0.0254 |
-| J4 — 7-pin (SENSORS) | XH2.54 7P | wafer, 2.5 mm | C5359635 | Extended | 14,819 (2026-07-13) | $0.0279 |
-| J7 — 7-pin (REEDS B) | XH2.54 7P | wafer, 2.5 mm | C5359635 | Extended | 14,819 (2026-07-13) | $0.0279 |
-| J1 — 9-pin (MANIFOLD A) | XH2.54 9P | wafer, 2.5 mm | C5359637 | Extended | 380 (2026-06-30) | $0.0400 |
+| J4 — 7-pin (SENSORS) | XH2.54 7P | wafer, 2.5 mm | C5359635 | Extended | 14,969 (2026-07-14) | $0.0279 |
+| J7 — 7-pin (REEDS B) | XH2.54 7P | wafer, 2.5 mm | C5359635 | Extended | 14,969 (2026-07-14) | $0.0279 |
+| J1 — 9-pin (MANIFOLD A) | XH2.54 9P | wafer, 2.5 mm | C5359637 | Extended | 330 (2026-07-14) | $0.0400 |
 | J10 — 12 V inlet | KF301-5.0-2P screw terminal, 2P 5.0 mm, 17 A / 250 V, 14–22 AWG | THT block, 5.0 mm pitch | C474881 | Extended | 165,152 (2026-07-02) | $0.0995 |
-| Q4 — reverse-polarity pass FET | AO3407A P-ch, −30 V, **±20 V Vgs**, ~55 mΩ | SOT-23 | C347478 | Extended | 81,006 (2026-07-14) | $0.034 |
+| Q4 — reverse-polarity pass FET | AO3407A P-ch, −30 V, **±20 V Vgs**, ~55 mΩ | SOT-23 | C347478 | Extended | 128,493 (2026-07-14) | $0.034 |
 | D8 — 12 V inlet surge clamp | SMAJ15A, 400 W uni TVS, 15 V standoff / 24.4 V clamp | SMA (DO-214AC) | C571368 | Extended | 2,440 (2026-07-13) | $0.038 |
 | D9 — Q4 Vgs clamp | BZT52C15 (MDD), 15 V / 0.5 W Zener | SOD-123 | C173427 | Extended | 182,800 (2026-07-13) | $0.016 |
 | R23 — Q4 gate pulldown | 100 kΩ ±1% | 0402 | C60491 | Basic | 3,594,500 (2026-07-13) | $0.0005 |
-| U15 — gas→compressor interlock | 74LVC1G08GW, single 2-input AND gate | SOT-353 (SC-70-5) | C12512 | Extended | 1,263 (2026-07-13) | $0.045 |
+| U15 — gas→compressor interlock | 74LVC1G08GW, single 2-input AND gate | SOT-353 (SC-70-5) | C12512 | Extended | 25,363 (2026-07-14) | $0.045 |
 | R24 — interlock B-node pulldown | 100 kΩ ±1% | 0402 | C60491 | Basic | (see R23) | $0.0005 |
 | R25 — DOUT invert-select link | 0 Ω jumper | 0402 | C17168 | Basic | 18,421,967 (2026-07-13) | $0.0003 |
 | C23 — U15 VCC decouple | 0.1 µF 50V X7R | 0402 | C1525 | Basic | 54,323,629 (2026-07-13) | $0.0018 |
@@ -90,8 +90,8 @@ line and no ESP GPIO is spent on direction (the pin budget is why an auto-direct
 required, not a plain DE/RE one). Single-3.3 V supply keeps RO's swing safe for the input-only
 IO34; ±15 kV ESD, −7..+12 V common-mode (matches the SM712 clamp). SOP-8 lands on the generic
 `soic8` footprint (1.27 mm pitch, so the /RE and /SHDN plane-stitch vias clear — a 0.5 mm-pitch
-SOT would collide them). Extended, and stock runs shallow (~530 at 2026-07-03) — a COSINE
-second-source, so glance at stock and consider a genuine TI THVD1426DR (`C5215921`, SOIC-8,
+SOT would collide them). Extended, and stock runs shallow (~431 at 2026-07-14, drifting down) — a
+COSINE second-source, so glance at stock and consider a genuine TI THVD1426DR (`C5215921`, SOIC-8,
 same pinout) if a run needs deeper supply than COSINE carries.
 
 **The XH2.54 connectors use per-count imported footprints (XUNPU WAFER-XH2.54-{n}PZZ).** The
@@ -99,7 +99,7 @@ same pinout) if a run needs deeper supply than COSINE carries.
 so the CPL rotation matches JLCPCB's library and the 3D wafer body seats on the pads (the old
 generic `pinrow` placed the body mis-rotated). These mate with the standard female XH housings
 the wiring kits use. Every XH2.54 part is Extended (no Basic option); the 9P `C5359637` runs
-lower stock (~380 at 2026-06-30 vs tens of thousands for the rest) — the lone MANIFOLD A
+lower stock (~330 at 2026-07-14 vs tens of thousands for the rest) — the lone MANIFOLD A
 connector, fine for a build, glance at it before a large run.
 
 **JLCPCB's footprints for this "series" are NOT uniform** — the thing that made the connector
@@ -161,8 +161,8 @@ with no VCC all fail safe (relay OFF). Two polarities wait on bench truth: **R25
 Basic)** is the invert-select link in series from the DOUT node (default pass-through); and the
 pin-identical **74LVC1G00 NAND (`C12508`, same SOT-353 land)** drops in for an active-LOW relay
 module with no layout change. **C23 (0.1 µF 0402, `C1525`, Basic)** decouples VCC. U15 has no
-tscircuit CDN 3D model (footprint + fab output complete); `C12512` is Extended and ran ~1,263 at
-JLCPCB (2026-07-13) — glance before a large run, or the NAND `C12508` if depleted. The interlock
+tscircuit CDN 3D model (footprint + fab output complete); `C12512` is Extended, ~25,363 at
+JLCPCB (2026-07-14) — or the NAND `C12508` if depleted. The interlock
 seats E of the WROOM on the old IO19→J5 corridor, so A/Y are the two halves of an already-clean
 haul; only B is a new run, around the module's SE and up the east flank (a 0.15 mm U6 nudge opened
 the flank for it — see the pcba.tsx GAS block). No relay-side firmware change: the ESP still drives
@@ -278,7 +278,7 @@ no-component target, and it keeps the every-top-SMD-pad-has-paste gate honest (3
 ## Stock risk & designated second-sources
 
 Every stock/price figure above is **point-in-time** and must be re-checked the week of ordering. This
-board carries **29 unique Extended parts** — each is both a one-time JLCPCB feeder/setup fee (~$3
+board carries **28 unique Extended parts** — each is both a one-time JLCPCB feeder/setup fee (~$3
 apiece, ~$80–90 total) *and* a stock dependency: any single Extended part out of stock stalls the whole
 assembly order. **Every Extended part has a documented same-footprint, same-pinout fallback below, so an
 out-of-stock code is a BOM swap, never a board respin.** The genuinely shallow / single-source parts
@@ -287,13 +287,13 @@ carry a *specific* designated alternate (first table); the deep commodity types 
 
 | Part | LCSC | Recorded stock | Risk | Designated fallback (confirm in-stock at order) |
 |---|---|---|---|---|
-| **U13** — CH340C USB-UART | `C84681` | **0 — reads "Unavailable" (2026-07-13)** | **Currently out** — JLC shows no assembly stock for this code | Same-MPN drop-in: **`C7464026`** (CH340C, SOP-16, ~23,441 in stock 2026-07-13, $0.63) — same die/package/pinout, a pure BOM code swap. CH340B (SOP-16, internal clock) is also pin-compatible; **not** CH340G (needs an external crystal this board omits) or the SOP-8 CH340N. |
-| **C3** — 470 µF/25 V bulk (THT radial) | `C350206` | **~91** (2026-06-27) | **Highest of the in-stock parts** — lowest stock on the board | Drop-in: any 470 µF/25 V radial, D10×12.5 mm / 5.08 mm pitch, in the THT-assembly library (the 5.0 mm lead pitch is the load-bearing dimension; a taller D10 body still seats). Eliminate-the-THT-part path (needs a footprint swap to SMD — small respin): `C3351` / `C47023111` / `C3445246` (470 µF/25 V SMD). Re-verify `C350206` first. |
-| **U6** — DS3231SN RTC | `C9866` | ~4,322 (2026-07-13), **$7.83** | Low-Med — genuine Maxim/ADI part (stock recovered), but the board's priciest (~40 % of BOM) | Drop-in: another DS3231SN; or the pin-compatible **DS3231M** (SOIC-16-300mil, MEMS ±5 ppm — looser but ample for an appliance) if a DS3231SN code is short — verify its JLC code at order. *Cost note (owner's call, not a defect):* a ±2 ppm TCXO RTC is over-spec if the appliance only needs coarse timekeeping — a plain RTC, or ESP32 internal time, would cut ~$7/unit. |
-| **U7** — COS13487 RS-485 | `C51949447` | ~530 (2026-07-03) | Med — a second-source clone, shallow | Genuine TI **THVD1426DR** (`C5215921`, SOIC-8, auto-direction, ~2,956 in stock 2026-07-13) — same pinout, deeper supply. *(verified in-library, SOIC-8, "Automatic direction control")* |
+| **U13** — CH340C USB-UART | `C7464026` | ~23,441 (2026-07-13) | Low — deep. (The original code `C84681` read **0 / "Unavailable"** on 2026-07-13; the board now carries `C7464026`, the same-MPN twin.) | Another CH340C SOP-16 code, or CH340B (SOP-16, internal clock) — pin-compatible. **Not** CH340G (needs an external crystal this board omits) or the SOP-8 CH340N. |
+| **C3** — 470 µF/25 V bulk (THT radial) | `C350206` | **~586** (2026-07-14) | Med — restocked (read ~91 on 2026-06-27), but a single-vendor THT electrolytic that has run near-zero once | Drop-in: any 470 µF/25 V radial, D10×12.5 mm / 5.08 mm pitch, in the THT-assembly library (the 5.0 mm lead pitch is the load-bearing dimension; a taller D10 body still seats). Eliminate-the-THT-part path (needs a footprint swap to SMD — small respin): `C3351` / `C47023111` / `C3445246` (470 µF/25 V SMD). Re-verify `C350206` first. |
+| **U6** — DS3231SN RTC | `C9866` | ~3,987 (2026-07-14), **$7.83** | Low-Med — genuine Maxim/ADI part (stock recovered), but the board's priciest (~40 % of BOM) | Drop-in: another DS3231SN; or the pin-compatible **DS3231M** (SOIC-16-300mil, MEMS ±5 ppm — looser but ample for an appliance) if a DS3231SN code is short — verify its JLC code at order. *Cost note (owner's call, not a defect):* a ±2 ppm TCXO RTC is over-spec if the appliance only needs coarse timekeeping — a plain RTC, or ESP32 internal time, would cut ~$7/unit. |
+| **U7** — COS13487 RS-485 | `C51949447` | ~431 (2026-07-14) | Med — a second-source clone, shallow and drifting down | Genuine TI **THVD1426DR** (`C5215921`, SOIC-8, auto-direction, ~2,956 in stock 2026-07-13) — same pinout, deeper supply. *(verified in-library, SOIC-8, "Automatic direction control")* |
 | **D8** — SMAJ15A input surge TVS | `C571368` | ~2,440 (2026-07-13) | Med | Any SMAJ15A in SMA (many vendors); or an SMA uni-TVS with ≤24.4 V clamp (under C3's 25 V). |
-| **U15** — 74LVC1G08 interlock gate | `C12512` | ~1,263 (2026-07-13) | Med | Another 74LVC1G08 in SC-70-5 / SOT-353 (TI/Diodes). **Not** the NAND `C12508` — that is pin-identical but the *active-LOW-relay* variant, not a like-for-like AND second-source. |
-| **J1** — XH-9P (MANIFOLD A) | `C5359637` | ~380 (2026-06-30) | Med | Another 9-pin XH2.54 vertical wafer (2.5 mm) in the library. |
+| **U15** — 74LVC1G08 interlock gate | `C12512` | ~25,363 (2026-07-14) | Low — restocked | Another 74LVC1G08 in SC-70-5 / SOT-353 (TI/Diodes). **Not** the NAND `C12508` — that is pin-identical but the *active-LOW-relay* variant, not a like-for-like AND second-source. |
+| **J1** — XH-9P (MANIFOLD A) | `C5359637` | ~330 (2026-07-14) | Med — the shallowest code on the board | Another 9-pin XH2.54 vertical wafer (2.5 mm) in the library. |
 
 **Deep commodities — same-footprint alternates abundant in the JLC library.** The remaining Extended
 parts are high-volume commodity types: each has many same-footprint, same-pinout substitutes in the
@@ -307,9 +307,9 @@ point-in-time — re-check the week of ordering.
 | U10 — K7805-2000R3 buck | `C18212380` | SIP-3 (THT) | SIP-3 switcher, Vin/GND/Vout pinout — Mornsun K78xx-2000R3 family or Recom R-78E5.0-1.0 (same SIP-3 land); match ≥ the 5 V-rail load. Verify pin order (some SIP-3 regs differ). |
 | U14 — USBLC6-2SC6 USB ESD | `C2687116` | SOT-23-6 | Industry-standard USB ESD array; pin-identical parts (ST/UMW/clones) on the same SOT-23-6 land. ~100k stock. |
 | J14 — USB-C receptacle | `C165948` | SMD 16P + THT shield tabs | `TYPE-C-31-M-12` is the de-facto-standard 16P USB-C land; pin-identical receptacles from many vendors. ~126k stock. |
-| U1 — ESP32-WROOM-32E-N4 | `C701341` | WROOM-32 SMD module | Same module footprint/pinout — ESP32-WROOM-32E-**N8/-N16** differ only in flash (functional superset); -32D pin-compatible. (Not -32UE: same land, but its U.FL connector changes the keepout.) Radio unused, so flash size is the only spec that matters. ~22k stock. |
+| U1 — ESP32-WROOM-32E-N4 | `C701341` | WROOM-32 SMD module | Same module footprint/pinout — ESP32-WROOM-32E-**N8/-N16** differ only in flash (functional superset); -32D pin-compatible. (Not -32UE: same land, but its U.FL connector changes the keepout.) Radio unused, so flash size is the only spec that matters. ~31k stock. |
 | D1 — SM712 RS-485 TVS | `C12067` | SOT-23 (3-pin) | Another SM712 (RS-485 TVS array, −7/+12 V, SOT-23, same 3-pin arrangement) — Semtech + clones. ~36k stock. |
-| Q4 — AO3407A P-ch pass FET | `C347478` | SOT-23 (GDS) | P-channel SOT-23, ≥−30 V Vds **and ±20 V Vgs**, ≤~60 mΩ. ~81k stock (the plain AO3407, `C181093`, is the same die and an electrical drop-in, but ships no 3D model). **Do not** drop in a ±12 V-Vgs part (e.g. AO3401A) — the −12 V gate drive needs the ±20 V rating. |
+| Q4 — AO3407A P-ch pass FET | `C347478` | SOT-23 (GDS) | P-channel SOT-23, ≥−30 V Vds **and ±20 V Vgs**, ≤~60 mΩ. ~128k stock (the plain AO3407, `C181093`, is the same die and an electrical drop-in, but ships no 3D model). **Do not** drop in a ±12 V-Vgs part (e.g. AO3401A) — the −12 V gate drive needs the ±20 V rating. |
 | D9 — BZT52C15 Vgs Zener | `C173427` | SOD-123 | Any 15 V 0.5 W Zener in SOD-123 (BZT52C15, any vendor) — same land / cathode band. ~183k stock. |
 | D10/D11 — ESD9B3.3ST5G UART ESD | `C96512` | SOD-923 | Another SOD-923 **bidirectional low-cap (≤~15 pF)** TVS, ~3.3 V working (onsemi ESD9B/ESD9L) — same tiny land; keep it low-cap so the 115200-baud UART edges aren't loaded. ~28k stock. |
 | J10 — KF301-5.0-2P screw terminal | `C474881` | THT block, 5.0 mm-pitch 2P | Another 5.0 mm-pitch 2-pole THT screw terminal (KF301 / KF128 / DG301 family) — same 2-hole 5.0 mm land; confirm pin dia ≤ the imported hole and the body clears the courtyard. ~165k stock. |
