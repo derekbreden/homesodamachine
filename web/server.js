@@ -9,6 +9,7 @@ import { mountViewerRoutes } from "./lib/viewer-routes.js";
 import { mountBlogRoutes } from "./lib/blog.js";
 import { mountLandingRoutes } from "./lib/landing.js";
 import { mountViewerPages } from "./lib/viewer-pages.js";
+import { mountCostRoutes } from "./lib/cost.js";
 import { mountSettingsRoutes } from "./lib/settings.js";
 import { mountEvents } from "./lib/events.js";
 import {
@@ -268,6 +269,7 @@ export async function start({ dev = false, port, hardwareDir, liteDir } = {}) {
   mountFirebaseConfig(app);
   mountLandingRoutes(app);
   mountViewerPages(app);
+  mountCostRoutes(app, { hardwareDir: HARDWARE_DIR });
   mountSettingsRoutes(app);
   attachSubscribe(app, pool);
 
