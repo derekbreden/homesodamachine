@@ -70,11 +70,19 @@ Whether JLCPCB adds assembly edge rails is a function of the **PCBA tier**, not 
 This board cannot dodge the requirement on the Standard path: JLC's clamp rule wants component bodies
 ≥ 2.5 mm off the board edge, and **all four edges are inside it** — SW1/SW2 north faces 1.38 mm off the
 north edge, the WROOM body 1.23 mm off the west edge (with the antenna silk overhanging it), the south
-wafer bodies ~1.8 mm, J10/J1/J2 + FID1/FID2 near the east edge. So on a Standard order, **constrain the
-rail placement in the order remark: rails on the NORTH/SOUTH (85.05 mm) edges only, never the west** —
-the flush USB-C receptacle and the WROOM antenna overhang make a coplanar west rail physically
-incompatible (JLC's own stated preference is the longer sides, which is N/S here, but say it anyway).
-FID1–FID3 satisfy the fiducial half on-board; on the Standard path JLC adds rail fiducials regardless.
+wafer bodies ~1.8 mm, J10/J1/J2 + FID1/FID2 near the east edge. FID1–FID3 satisfy the fiducial half
+on-board; on the Standard path JLC adds rail fiducials regardless.
+
+**What the checkout actually does (observed on the first assembled order):** it auto-adds the rails and
+states the delivered size — *"The board size is modified to be 85mm\*82.8mm due to adding two 5mm edge
+rails on the shorter sides."* Read the **numbers**, not the phrase: 85 × 82.8 means the 72.85 mm
+dimension grew by 2 × 5 mm, i.e. **the rails ride the NORTH/SOUTH (85.05 mm long) edges** and the west
+edge stays rail-free — the wanted placement (JLC puts rails along the longer sides so the board doesn't
+bounce during placement). Their "shorter sides" means the shorter *dimension* being extended, not the
+shorter edges; rails on the E/W edges would have read 95 × 72.8 instead. Boards arrive with the rails
+**attached** (removal is a paid add-on): mouse-bites on the N/S edges, nothing overhangs them — snap and
+file flush. The useful board is 85.05 × 72.85 after de-railing, not the 82.85 as-delivered height (the
+PCBA tray fits the de-railed board).
 
 ## Panelization
 
