@@ -97,14 +97,14 @@ const dMinusLane = U14f.row("pin3", -0.85)
 // runs the far-west flank to EN, tapped by SW2's reset line.
 const Q2El = <Npn name="Q2" x={-65.5} y={24.75} rot={90} />
 const Q3El = <Npn name="Q3" x={-61.5} y={24.75} rot={90} />
-const R17El = <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C25804" x={-64.5} y={28.75} rot={0} side="W" />
-const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C25804" x={-61.9} y={28.75} rot={90} side="W" />
+const R17El = <Res name="R17" resistance="10k" footprint="0603" jlcpcb="C98220" x={-64.5} y={28.75} rot={0} side="W" />
+const R18El = <Res name="R18" resistance="10k" footprint="0603" jlcpcb="C98220" x={-61.9} y={28.75} rot={90} side="W" />
 // IO0's 10k pull-up, parked in the pocket east of U13's body where the corridor down to the pad
 // row is empty — every slot nearer the lattice is fenced by the DTR/RTS runs, J14's courtyard,
 // and the switch row (whose band the relay's bottom lane also crosses). pin1 (rot90: south) drops
 // the corridor and crosses to IO0 on the bottom, under the relay's top rise; pin2 (3V3) stitches
 // to its plane.
-const R8El = <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C25804" x={-50.5} y={15} rot={90} side="W" />  // W of IO0 (pin1 drops S then E into IO0); vacated its old (-46) seat for U15 + R24
+const R8El = <Res name="R8" resistance="10k" footprint="0603" jlcpcb="C98220" x={-50.5} y={15} rot={90} side="W" />  // W of IO0 (pin1 drops S then E into IO0); vacated its old (-46) seat for U15 + R24
 const R8f = frame(R8El)
 // ── Gas→compressor interlock (U15 74LVC1G08 AND gate) ─────────────────────────────────────────
 // The firmware-INDEPENDENT compressor interlock the GAS block calls out: U15 gates the ESP compressor
@@ -169,7 +169,7 @@ const R1El = <Res name="R1" resistance="2.2k" footprint="0603" jlcpcb="C4190" x=
 const R2El = <Res name="R2" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={-61.5} y={-12.15} rot={90} side="W" />  // AOUT col; midpoint (pin1 S) → GND (pin2 N)
 const R3El = <Res name="R3" resistance="2.2k" footprint="0603" jlcpcb="C4190" x={-63.5} y={-15.65} rot={90} side="W" />   // DOUT col; DOUT in (pin1 S) → midpoint (pin2 N)
 const R4El = <Res name="R4" resistance="3.3k" footprint="0603" jlcpcb="C22978" x={-63.5} y={-12.15} rot={90} side="W" />  // DOUT col; midpoint (pin1 S) → GND (pin2 N)
-const R7El = <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C25804" x={-65.5} y={-15.65} rot={270} side="W" />    // EN col; EN node (pin1 N) → V3V3 (pin2 S)
+const R7El = <Res name="R7" resistance="10k" footprint="0603" jlcpcb="C98220" x={-65.5} y={-15.65} rot={270} side="W" />    // EN col; EN node (pin1 N) → V3V3 (pin2 S)
 const C12El = <Cap name="C12" capacitance="1uF" footprint="0603" jlcpcb="C15849" x={-65.5} y={-12.15} rot={90} side="W" />  // EN col; EN node (pin1 S) → GND (pin2 N); near U1.EN
 const R1f = frame(R1El), R2f = frame(R2El), R3f = frame(R3El), R4f = frame(R4El), R7f = frame(R7El), C12f = frame(C12El)
 const C10El = <Cap name="C10" capacitance="0.1uF" footprint="0805" jlcpcb="C49678" x={-56.5} y={-14} rot={180} side="N" />

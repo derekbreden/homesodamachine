@@ -53,7 +53,7 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | D3, D5, D6 — status/rail LEDs (green) | KT-0603G, 0603 | 0603 | C12624 | Extended | 325,847 (2026-07-02) | $0.0121 |
 | D4 — activity LED (blue) | KT-0603B, 0603 | 0603 | C2288 | Extended | 178,594 (2026-07-02) | $0.0102 |
 | U1 — base controller | ESP32-WROOM-32E-N4, no radio | SMD module 18×25.5 mm | C701341 | Extended | 30,929 (2026-07-14) | $3.77 |
-| R7, R8 — EN / IO0 pull-ups | 10 kΩ ±1% | 0603 | C25804 | Basic | 3,845,978 | $0.0013 |
+| R7, R8, R17, R18 — EN/IO0 pull-ups + auto-reset base R | 10 kΩ ±1% | 0603 | C98220 | Extended | 5,755,691 (2026-07-14) | $0.0058 |
 | C10 — ESP 3V3 decouple | 0.1 µF 50V X7R | 0805 | C49678 | Basic | (see C1/C2) | $0.0136 |
 | C11 — ESP 3V3 bulk | 10 µF 25V X5R | 0805 | C15850 | Basic | (see C8) | $0.01 |
 | C12 — EN power-on RC | 1 µF 50V X5R | 0603 | C15849 | Basic | 6,521,627 | $0.036 |
@@ -75,7 +75,7 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | R26, R27 — faucet-UART series R, feeds D10/D11 (IO33/IO35) | 220 Ω ±1% | 0402 | C25091 | Basic | 100,000,000+ (2026-07-13) | $0.0003 |
 | D10, D11 — faucet-UART ESD clamp (IO33/IO35) | ESD9B3.3ST5G, low-cap bidirectional TVS, 3.3 V / ~15 pF | SOD-923 | C96512 | Extended | 28,355 (2026-07-13) | $0.02 |
 
-Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C11702 / C25900 / C25091
+Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C98220 = YAGEO RC0603FR-0710KL (10 kΩ, R7/R8/R17/R18); C11702 / C25900 / C25091
 = UNI-ROYAL 0402WGF series (the 0402 R21/R22/R26/R27 family); C49678 = YAGEO
 CC0805KRX7R9BB104; C165895 = Toshiba TBD62083AFWG (octal DMOS sink driver); C47023 = Microchip MCP23017-E/SO;
 C94598 = Jiangsu Huaneng MLT-5020; C2146 = JSCJ S8050 J3Y; C474881 = Cixi Kefa Elec
@@ -254,8 +254,8 @@ I²C/pump/boot lines on the north row (the buzzer's IO13 on the east column), ke
 driver and faucet route corridors clean. It is **3V3-only** — no onboard regulator, no V5 pin — drawing the WiFi-idle ~110 mA
 peak from the 3V3 plane through its single 3V3 stitch via, with C10 (0.1 µF) + C11
 (10 µF bulk) at the pin. The 3 castellated GND pads + the 9-pad centre thermal pad all share
-one `GND` port and each auto-stitches to the bottom plane. EN power-on RC: R7 (10 kΩ, `C25804`
-Basic) up to 3V3, C12 (1 µF, `C15849` Basic) to GND. IO0 held high by R8 (10 kΩ). Programming
+one `GND` port and each auto-stitches to the bottom plane. EN power-on RC: R7 (10 kΩ, `C98220`
+Extended) up to 3V3, C12 (1 µF, `C15849` Basic) to GND. IO0 held high by R8 (10 kΩ). Programming
 is the on-board USB-C block — J14 + U13 (CH340C), auto-reset onto EN/IO0 (see
 [`esp32-scope.md`](esp32-scope.md)). The bare module's IO pins are SMD pads, single-layer
 endpoints: a net that needs the bottom layer lands its run up onto the top pad through a
@@ -278,7 +278,7 @@ no-component target, and it keeps the every-top-SMD-pad-has-paste gate honest (3
 ## Stock risk & designated second-sources
 
 Every stock/price figure above is **point-in-time** and must be re-checked the week of ordering. This
-board carries **28 unique Extended parts** — each is both a one-time JLCPCB feeder/setup fee (~$3
+board carries **29 unique Extended parts** — each is both a one-time JLCPCB feeder/setup fee (~$3
 apiece, ~$80–90 total) *and* a stock dependency: any single Extended part out of stock stalls the whole
 assembly order. **Every Extended part has a documented same-footprint, same-pinout fallback below, so an
 out-of-stock code is a BOM swap, never a board respin.** The genuinely shallow / single-source parts
