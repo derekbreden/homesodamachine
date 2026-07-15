@@ -31,7 +31,7 @@ An earlier racetrack-body alternative (304 SS body half-sheets + dished racetrac
 | [TAISHER 2PCS 316L SS 90° Barstock Street Elbow, 1/4" NPT M × 1/4" NPT F](https://www.amazon.com/dp/B0CZ38MYL1) | all four vessel-port elbows (water inlet + carbonated-water outlet + CO2 inlet + PRV port); design rationale in [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md). [4](VESSEL_PORTS) elbows per build = 2 packs/build. Amazon 112-6323725 May 13: $20.99 + $1.52 tax = $22.51 ($11.26/ea × 4 = $45.04) | 4 (2 pk) | $11.26 | $45.04 |
 | [FERRODAY 0.5 µm sintered 316 SS sparge stone, 1/4" barb input (2-set)](https://www.amazon.com/dp/B091C5Y6L9) | internal sparge stone, hangs in water column on silicone tube from port-1 barb adapter; 1 of 2 per unit ($14.97/2) | 1 (of 2) | $7.49 | $7.49 |
 | Food-grade silicone tube stub, 1/4" ID × ~3" long (cut from existing Metaland 1/4" silicone B08L1ST6ST stock in §5) | connects port-1 barb to sparge stone inside vessel | — | ~$0.20 | $0.20 |
-| [Millrose 70894 Nickel Guard anti-seize PTFE tape](https://www.amazon.com/dp/B07C9ZV4PG) | anti-seize for SS-into-SS NPT joints ([4](VESSEL_PORTS) ports per unit) | 1 | $20.07 | $20.07 |
+| [Millrose 70894 Nickel Guard anti-seize PTFE tape](https://www.amazon.com/dp/B07C9ZV4PG) | The unit's PTFE anti-seize / thread-seal tape (10% nickel flake, for SS-on-SS anti-galling), a 1/2" × 600" roll — the production thread tape for **every** NPT joint in the build, not just the vessel: the [4](VESSEL_PORTS) SS-into-SS vessel ports taped twice (hydro-test plugs + final fittings, per [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)) plus the ≥8 water/CO2 plumbing joints (per [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md)) ≈ ~16 taped joints × ~4–5" ≈ ~75"/build, so the 600" roll covers ~8 builds. Amazon 112-0019658 Apr 4: $21.52 ÷ 8 = $2.69/build | ~1/8 roll (~75") | $2.69 | $2.69 |
 | [Tap Magic EP-Xtra pipe-tap cutting fluid, 16 oz (size variant on listing B00DHMHSGM)](https://www.amazon.com/dp/B00DHMHSGM) | required for hand-tapping 1/4" NPT into 1/4"-thick 316 SS plate; ~$0.50 of fluid per vessel | 1 | $0.50 | $0.50 |
 | [Control Devices SV-125 safety valve, 1/4" NPT, 125 psi set pressure, 49 SCFM relief, brass](https://www.amazon.com/dp/B01G2F6EMY) | Port 4 tank PRV (top plate, dedicated); sizing rationale in [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md). Amazon 112-6323725 May 13: $7.49 + $0.54 tax = $8.03 | 1 | $8.03 | $8.03 |
 | [Cambro 6 QT polycarbonate square container](https://www.amazon.com/dp/B001BZEQ44) | citric acid passivation soak tub, one-time-use per unit | 1 | $20.00 | $20.00 |
@@ -265,7 +265,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | Section | $ |
 |---|---:|
 | 1. Controllers + electronics | [$178.46](BOM_SEC1) |
-| 2. Carbonator vessel (plan A, 316L) | [$240.69](BOM_SEC2) |
+| 2. Carbonator vessel (plan A, 316L) | [$223.31](BOM_SEC2) |
 | 3. Water inlet | [$240.21](BOM_SEC3) |
 | 4. CO2 subsystem | [$172.20](BOM_SEC4) |
 | 5. Refrigeration | [$204.86](BOM_SEC5) |
@@ -278,7 +278,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$56.79](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$6.25](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,567.24](BOM_GRAND)** |
+| **Total** | **[$1,549.86](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
