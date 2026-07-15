@@ -9,7 +9,7 @@ the ULN2803A SOIC-18 centred, a 9-pin 2.54 mm header along each long edge
 Frame follows the module_tray convention: X = length = the 24 mm axis (the two
 9-pin rows run along X), Y = width = the 23 mm axis (the rows sit at Y = +/-10),
 Z up from the PCB underside; origin at the footprint centre, Z = 0 the standoff
-plane. (length = X, width = Y is what driver_tray / module_tray consume.)
+plane. (length = X, width = Y is what logic_tray / module_tray consume.)
 
   Footprint     24 (X, length) x 23 (Y, width)
   Mount holes   2x dia 3.0 at (+/-8.75, 0) -- on the Y=0 centreline, 17.5 apart in X

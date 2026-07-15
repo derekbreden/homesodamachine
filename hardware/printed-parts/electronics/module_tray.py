@@ -1,4 +1,5 @@
-"""Shared engine for flat-board electronics trays (controller, driver).
+"""Shared engine for flat-board electronics trays (the pcba tray, the Lite
+logic tray).
 
 Same idioms as the power tray: tight flush packing, a single convex-outline
 floor, no walls, heat-set M3 boss mounting. A board reference exposes ``length``
@@ -60,11 +61,16 @@ def _posts(m):
 
 
 def build_module_tray(mounts):
-    """Single convex-outline floor under every board footprint, plus a heat-set
-    standoff boss (M2 or M3, sized per board) at each mounting hole. No walls."""
+    """Single convex-outline floor under every board footprint — grown where a
+    mounting hole sits nearer a board edge than its boss radius, so every boss
+    lands fully on the floor — plus a heat-set standoff boss (M2 or M3, sized
+    per board) at each mounting hole. No walls."""
     pts = []
     for m in mounts:
         pts += _rect_corners(m.c[0], m.c[1], m.ref.length, m.ref.width, m.rot)
+        r = _boss_spec(getattr(m.ref, "hole_dia", 3.2))[0] / 2.0
+        for px, py in _posts(m):
+            pts += [(px - r, py - r), (px + r, py - r), (px + r, py + r), (px - r, py + r)]
     tray = cq.Workplane("XY").polyline(_convex_hull(pts)).close().extrude(floor_t)
     for m in mounts:
         boss_d, bore_d, depth = _boss_spec(getattr(m.ref, "hole_dia", 3.2))
@@ -75,14 +81,7 @@ def build_module_tray(mounts):
 
 TRAY_COLOR = cq.Color(0.85, 0.78, 0.62)
 _COLORS = {
-    "esp32": cq.Color(0.20, 0.45, 0.75),
-    "mcp": cq.Color(0.25, 0.55, 0.40),
-    "ds3231": cq.Color(0.55, 0.30, 0.55),
-    "rs485": cq.Color(0.75, 0.55, 0.20),
-    "uln": cq.Color(0.25, 0.55, 0.40),
-    "l298n": cq.Color(0.65, 0.22, 0.22),
-    "relay": cq.Color(0.20, 0.45, 0.75),
-    "dcdist": cq.Color(0.45, 0.45, 0.50),
+    "pcba": cq.Color(0.13, 0.35, 0.22),
 }
 
 

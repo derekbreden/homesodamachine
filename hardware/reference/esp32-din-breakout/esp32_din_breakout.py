@@ -1,5 +1,5 @@
 """Reference solid for the ESP32-DevKitC-32E on its DIN-rail terminal breakout
-(bom: B09MQJWQN2 on B0BW4SJ5X2), the controller-tray MCU.
+(lite-bom: B09MQJWQN2 on B0BW4SJ5X2), the Lite logic-tray MCU carrier.
 
 The carrier is the "ESP32 Super Breakout Board DIN Rail Mount" (naughtystarts,
 B0BW4SJ5X2): the DevKitC sockets into 2x19 2.54 mm rows, with 3.81 mm screw

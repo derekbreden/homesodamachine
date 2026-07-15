@@ -8,7 +8,7 @@ flowchart LR
   %% Pumps run on two on-board DRV8870 H-bridges; the sensor loom and relays land
   %% on the SENSORS / RELAYS connectors. The six inputs sit on input-only /
   %% boot-safe pads.
-  %% Valves + reeds ride the MCP23017 expanders (MCP -> ULN2803A), not direct GPIO.
+  %% Valves + reeds ride the MCP23017 expanders (MCP -> TBD62083), not direct GPIO.
   %% Current plan:
   %%   GPIO 19 drives the Teyleten relay #1 (compressor AC).
   %%   GPIO 2 drives the Teyleten relay #2 (diaphragm pump 12 V, refill) — boot-safe:
@@ -128,7 +128,7 @@ flowchart LR
 
   BUZZER["On-board buzzer U8\n(MLT-5020 magnetic transducer,\n prime / refill cues)"]
 
-  VALVE_CHAIN["MCP23017 0x20 (8 valve outputs + 4 reed inputs)\nMCP23017 0x21 (4 valves + fan outputs + 6 reed inputs)\n  ↓\n2× ULN2803A → 12 valves + condenser fan\n  ↑\n10 reed switches\n(8 reservoir + 2 carbonator;\nsee valve-control)"]
+  VALVE_CHAIN["MCP23017 0x20 (8 valve outputs + 4 reed inputs)\nMCP23017 0x21 (4 valves + fan outputs + 6 reed inputs)\n  ↓\n2× TBD62083 → 12 valves + condenser fan\n  ↑\n10 reed switches\n(8 reservoir + 2 carbonator;\nsee valve-control)"]
 
   RELAY["Teyleten 3.3V relay #1\n(compressor AC)"]
   COMP_AC["AC hermetic compressor\n  (Frigidaire EFIC117-SS donor,\n  120 VAC)"]
