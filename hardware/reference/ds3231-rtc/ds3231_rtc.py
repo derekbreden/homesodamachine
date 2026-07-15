@@ -5,7 +5,7 @@ DS3231 + AT24C32 board), 1x on the controller tray — the I2C real-time clock a
 Geometry calipered from the physical board. Frame follows the module_tray
 convention: X = length = the 38.5 mm long axis, Y = width = the 21.3 mm short
 axis, Z up from the PCB underside; origin at the footprint centre, Z = 0 the
-standoff plane. (length = X, width = Y is what controller_tray / module_tray
+standoff plane. (length = X, width = Y is what logic_tray / module_tray
 consume — keep it that way so the floor outline and bosses align.)
 
   Footprint     38.5 (X, length) x 21.3 (Y, width)

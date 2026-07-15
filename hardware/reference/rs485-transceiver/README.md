@@ -1,7 +1,9 @@
 # ALMOCN TTL-to-RS485 transceiver — reference solid
 
-Base side of the SIG-7 link to the front 4.3″ config display (`hardware/ledger/bom.md`:
-**B09998FY4X**). The 4.3B carries its own RS485 transceiver at the far end.
+Base side of the Lite edition's SIG-7 link to the front 4.3″ config display
+(`pie-in-the-sky/lite/lite-bom.md`: **B09998FY4X**); the 4.3B carries its own
+RS485 transceiver at the far end. The Kitchen appliance's base-side RS485 is on
+the [controller PCBA](/hardware/pcb/pcba/) (U7).
 
 Geometry **calipered from the physical board**. Frame matches the `module_tray`
 convention: **X = length = the 51.85 mm long axis, Y = width = the 22.75 mm short

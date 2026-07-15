@@ -1316,7 +1316,7 @@ def main():
             "ROD_DIAMETER": 2,
             "ROD_POSITION_X": 2,
             "ROD_POSITION_Y": 1,
-            "REEDS_PER_RES": 10,
+            "REEDS_PER_RES": 9,
             "RESERVOIR_ROD_LEN": 1,
         },
     )

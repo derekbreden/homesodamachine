@@ -119,9 +119,9 @@ CROSS = [
     ("DS18S20 coil temp",   r"\.IO26",           r"DS18S20"),
     ("compressor relay",    r"\.IO19",           r"[Tt]eyleten"),
     ("diaphragm pump relay",r"\.IO2\b",          r"SEAFLO|diaphragm"),
-    ("pump driver",         r'label="PUMPS"',    r"Kamoer|L298|DRV8870"),
+    ("pump driver",         r'label="PUMPS"',    r"Kamoer|DRV8870"),
     ("solenoid valves",     r"MANIFOLD",         r"Beduan|solenoid"),
-    ("config display",      r'label="DISPLAY"',  r"4\.3B|ALMOCN|RS485|RS-485"),
+    ("config display",      r'label="DISPLAY"',  r"4\.3B|RS485|RS-485"),
     ("faucet display",      r'label="FAUCET"',   r"1\.47"),
     ("reed switches",       r"REEDS",            r"[Rr]eed"),
     ("gas divider resistors",r'resistance="2.2k"',r"gas-sensor output divider"),
@@ -135,7 +135,7 @@ for name, mk, bk in CROSS:
 # Electrical BOM parts that legitimately need NO dedicated board signal pin:
 # the SMD silicon / expanders / driver chips that carry their own pins, plus the
 # power supply. Matched against the part NAME.
-NO_PIN = r"ESP32-DevKitC|ESP32-WROOM|DIN Rail|MCP23017|DS3231|ULN2803|Mean Well"
+NO_PIN = r"ESP32-WROOM|MCP23017|DS3231|Mean Well"
 
 # Enforce the piezo failure mode away: every BOM line whose PART NAME looks like a
 # controller-facing electrical part must be covered by a CROSS bom-marker or the

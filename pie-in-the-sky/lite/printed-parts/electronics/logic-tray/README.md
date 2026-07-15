@@ -1,10 +1,11 @@
 # Logic tray (controller + driver group) — Lite
 
 The low-voltage logic block of the Lite electronics shelf — the MCU, its I²C bus,
-the DS3231 clock, and the 12 V drivers — on one printed frame. The Lite folds the
-Kitchen edition's two trays ([controller](/hardware/printed-parts/electronics/controller-tray/) +
-[driver](/hardware/printed-parts/electronics/driver-tray/)) into a single tray: it
-carries one MCP23017, so the whole logic set packs onto one floor.
+the DS3231 clock, and the 12 V drivers — on one printed frame. The Lite keeps
+module-board electronics (the Kitchen edition runs the consolidated
+[controller PCBA](/hardware/pcb/pcba/) on its
+[pcba tray](/hardware/printed-parts/electronics/pcba-tray/) instead): one
+MCP23017, so the whole logic set packs onto one floor.
 
 Built by the shared [`module_tray`](/hardware/printed-parts/electronics/module_tray.py)
 engine, same idioms as the [power tray](/pie-in-the-sky/lite/printed-parts/electronics/power-tray/):
