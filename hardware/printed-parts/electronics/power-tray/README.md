@@ -33,7 +33,7 @@ PSU turned 90° for a wide/shallow footprint:
 The PSU (turned 90°), relay, and Wago column **pack flush** against each other
 (no inter-part gaps), with the ground ring-stack in the open space above the PSU.
 Off this tray: the **GFCI** (tabled), the **C14 inlet** (back panel), and the
-controller modules (a separate controller tray).
+controller PCBA (the [pcba-tray](/hardware/printed-parts/electronics/pcba-tray/)).
 
 The build is parameterised by a `Layout` (component centres + Z rotations) and
 the geometry engine (`build_tray`, the floor/boss/slot helpers) is shared with
