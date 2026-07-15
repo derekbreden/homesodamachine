@@ -48,6 +48,7 @@ gate() {
 # ── 1. Gates ──────────────────────────────────────────────────────────────
 if $touches_hw; then
   gate "pin-map drift check" python3 "$root/hardware/scripts/check_pinmap.py"
+  gate "bom category tags" python3 "$root/hardware/scripts/_bom_categories.py" --check
 fi
 
 if $touches_board; then
