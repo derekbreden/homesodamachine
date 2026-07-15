@@ -373,8 +373,8 @@ const refdes = (name: string, x: number, y: number) =>
   <silkscreentext text={name} fontSize="0.8mm" anchorAlignment="center" pcbX={x} pcbY={y} />
 
 // K7805 5 V buck (seats rot 180 horizontal by default; rot 90/270 stands it vertical).
-// The SIP-3 footprint anchors on its pin row with the body block hanging to one side
-// (silk body centre 1.6mm past the row; the 1.6mm pin pads reach 0.8mm past it), so the
+// The SIP-3 footprint anchors on its pin row with the 9 mm body block hanging to one side
+// (silk body centre 2.35mm past the row; the 1.6mm pin pads reach 0.8mm past it), so the
 // ref-des seats 2.4mm beyond the row, rotated with the seating — centred on the body
 // block, clear of the pin pads, the chip-family convention.
 export const Buck5 = ({ name, x, y, rot = 180 }: Labeled & { rot?: number }) => {

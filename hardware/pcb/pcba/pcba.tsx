@@ -51,9 +51,8 @@
  * this dense layout whenever a net is added; the capacity-autorouter handles the PCB fine.
  * Disabling the schematic removes the hang and speeds every render; the gerbers are unaffected.
  *
- * The clearance floor (0.15) is a hand trace threading the buck cluster's pad column
- * (U10, below the coin cell); the web viewer's board chip reports it live
- * (clearance.ts -> picks.json).
+ * The clearance floor (0.147) is the RTS lane skimming U13's north pad row; the web
+ * viewer's board chip reports it live (clearance.ts -> picks.json).
  */
 import { at, Cap, Res, Jst, jstPins, ulnOUT, Tbd62083, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870, Tact, Diode, Pfet, Tvs, Zener, And2, EsdClamp } from "./parts"
 import { KF301_5_0_2P } from "./imports/KF301_5_0_2P"
@@ -405,14 +404,14 @@ export default () => (
         output) stand as a vertical column on U9's west flank beside the VOUT tab,
         threading between the IO35 column and the IO33 channel (pads 0.27+ clear of
         each); C13's ref-des sits west of the pair, crossing the IO35 hairline as
-        mask-covered ink. U10 stands vertical (rot 90, pin column at x -30.8, body east)
-        in the bay west of BT1: the pin column threads BETWEEN the IO26 and IO27 sensor
-        drop columns (0.15+ pad-shadow clear of each) so the pins sit on the island
-        without the pour edge moving, and the whole column sits north of both RS485
-        bottom rows (the 2.54 pin pitch can't straddle them). C15/C16 stand as a
-        vertical pair on its east flank (C16 output cap
-        north by pin3, C15 input cap south toward pin1, pads clear of the DI row); every pin
-        is a plane pickup, so the buck cluster carries no routed copper at all. */}
+        mask-covered ink. U10 stands vertical (rot 270, pin column at x -27.75 — VIN
+        north, +Vo south — the 9 mm body hanging west over the IO26/IO27 drop columns,
+        which run beneath the standing brick) in the bay west of BT1: the pins sit on
+        the island without the pour edge moving, and the whole column sits north of both
+        RS485 bottom rows (the 2.54 pin pitch can't straddle them). C15/C16 stand as a
+        vertical pair on its east flank (C16 output cap north, C15 input cap south, pads
+        clear of the DI row); every pin is a plane pickup, so the buck cluster carries
+        no routed copper at all. */}
     {U9El}
     <Cap name="C13" capacitance="10uF" footprint="0805" jlcpcb="C15850" x={-57.55} y={-20.59} rot={90} side="W" />
     <Cap name="C14" capacitance="22uF" footprint="0805" jlcpcb="C45783" x={-57.55} y={-25.25} rot={90} side="W" />
@@ -880,8 +879,8 @@ export default () => (
         column blocks the J4.GND/V5 channel), so it drops early in the open corridor between
         J3.IO33's column and the R10-R14 field, then runs the low band east into the barrel;
         IO26 drops straight down its barrel column, threading R9's pads on the way (R9's tap is
-        the same net); IO27 drops just east of U10's pin barrels — the board's 0.15 floor pair —
-        and turns west into its barrel above J4. IO25's haul now ends at R21 (1k series) instead of
+        the same net); IO27 drops under U10's standing body just west of its pin barrels and
+        turns west into its own barrel above J4. IO25's haul now ends at R21 (1k series) instead of
         the barrel; R21.pin2 → J4.IO25, with R22 (4.7k) pulling that J4-side node to 3V3. */}
     <trace from="U1.IO25" to="R21.pin1" pcbPathRelativeTo="board" pcbPath={route(
         "U1.IO25",
@@ -1707,12 +1706,12 @@ export default () => (
     <trace from=".R23 > .pin2" to="net.GND" />
     <trace from=".D9 > .pin1" to="net.V12" />
     {/* V12 top island — a plain rectangle over the whole 12 V region (pump drivers, ULN commons +
-        manifolds, buck, bulk cap), x[-31.75,26.5] running the FULL board depth y[-38.5,36.5]. V12 is
+        manifolds, buck, bulk cap), x[-31.75,16.5] running the FULL board depth y[-35.8,36.0]. V12 is
         an ISLAND, not a plane, so a barrel only picks it up where the pour physically covers it — and
         a connector's barrel row (J7's reeds, J9's own pins) is a wall of near-touching antipads that
         no pour can thread. So instead of reaching for each south-edge 12 V barrel with a finger (which
         those walls chop into disconnected scraps), the sheet just swallows them: because it fills the
-        strip BELOW the barrel rows too (down to y -38.5), V12 flows UNDER every connector and around
+        strip BELOW the barrel rows too (down to y -35.8), V12 flows UNDER every connector and around
         the walls, reaching J10's inlet barrel (x 16) and J9's display-feed barrel (x -16.5) alike.
         One dumb connected rectangle, 0.5 mm off the north/east/south edges; its west edge x -31.75
         clears the LED column, U6/C6/U8, and the nameplate, while the buck cluster's pins (U10's

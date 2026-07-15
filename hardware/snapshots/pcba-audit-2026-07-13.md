@@ -35,6 +35,10 @@ Three parallel read-only passes over the 2026-07-11 board — thermal/power-inte
 | 9 | Faucet-end ESD TVS specified at the display connector (docs) | (cable-assembly spec) | `ec664903` |
 | 10 | On-board faucet-UART ESD — 2× shunt clamps at U1.IO33/IO35 (supersedes #9 as primary; same day) | ESD9B3.3ST5G SOD-923 `C96512` | `a8f55a44` |
 
+*(Change #4 was reversed 2026-07-14, `20b6efb5`: J7 unified back to XH2.54 7P — the same wafer as
+J4 — trading the EH keying for a one-family connector BOM; the misplug guard is now loom labelling,
+per `assembly/cable-assemblies.md`.)*
+
 ## Protection circuits — as-built (traced in source)
 
 - **Reverse-polarity block (J10 inlet).** `pcba.tsx:1532-1541`. J10.V12 → `net.V12IN` → Q4 **drain**; Q4 **source** → the V12 island; gate → R23 (100 k) → GND; D9 (15 V zener) cathode→source / anode→gate; D8 (SMAJ15A) island→GND. A P-channel body diode points drain→source, so with drain=inlet / source=load it conducts inlet→load in normal polarity (channel then enhances, Vgs ≈ −12 V within the AO3407 ±20 V rating) and blocks load→inlet under reverse polarity. The drain stub carries the ~3.3 A board peak on 1.6 mm copper (ampacity rule `pcba.tsx:312`, gate: 0 narrow). D8 clamps to 24.4 V, under C3's 25 V rating.
@@ -104,6 +108,8 @@ output**), and added:
   a transient fault is not a dead unit. D8 (SMAJ15A) relocated to the open V12 island by C1/C2 to free the
   slot — still island(V12)→GND. **No board growth (85.05 × 72.85), GATES 12/12.** Commit `76c80142`.
   (Extended, ~33 k stock; no 2 A-hold SMD PPTC is Basic.)
+  *(F1 was dropped the next day, 2026-07-14, `5193b708`: the Mean Well supply's own 6.7 A OCP bounds
+  inlet overcurrent, so the inlet protection is Q4 + D8 and the board carries no fuse.)*
 - **[`order.md`](/hardware/pcb/pcba/order.md)** — the JLCPCB order-form parameters not encoded in the
   gerber/BOM: **POFV epoxy-filled-&-capped vias (must-select — 89 vias are via-in-pad)**, ENIG finish,
   4-layer stackup / 1.6 mm / 1 oz outer, SMT-top + THT assembly, the two gerber-preview sanity checks

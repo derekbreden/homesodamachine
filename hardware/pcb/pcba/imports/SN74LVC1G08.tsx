@@ -24,7 +24,10 @@ export const SN74LVC1G08 = (props: ChipProps<typeof pinLabels>) => {
     <chip
       pinLabels={pinLabels}
       supplierPartNumbers={{ jlcpcb: ["C12512"] }}
-      manufacturerPartNumber="74LVC1G08GW,125"
+      // Nexperia's MPN is "74LVC1G08GW,125" — the comma is spelled as a dash because the BOM CSV
+      // writer does not quote fields, and a raw comma splits the U15 row so JLCPCB reads the wrong
+      // column as the part number. JLC matches by the C# either way.
+      manufacturerPartNumber="74LVC1G08GW-125"
       footprint={<footprint>
         <smtpad portHints={["pin1"]} pcbX="0.844296mm" pcbY="-0.649986mm" width="0.8385048mm" height="0.3150108mm" shape="rect" />
 <smtpad portHints={["pin2"]} pcbX="0.844296mm" pcbY="0mm" width="0.8385048mm" height="0.3150108mm" shape="rect" />

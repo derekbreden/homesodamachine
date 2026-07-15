@@ -22,17 +22,19 @@ not a gate: the board still fabs while it converts.
 | 3 | No overlaps / courtyard faults / slivers / pad shadows | 0 errors | Genuine DRC failures — shorts, part collisions, acid traps, and foreign trace copper inside a pad's through-stack shadow (every pad's column is via-in-pad territory: plane stitches and pad-via-to-pad-via land there) | [`clearance.ts`](clearance.ts) |
 | 4 | Part keep-outs clear (IPC-7351 courtyard) | no overlap | Bodies measured as copper + IPC courtyard excess (Nominal 0.25 mm); a real overlap can't be assembled. Sub-Nominal-but-copper-clears pairs are an advisory, not a fab-blocker | [`footprint-audit.ts`](footprint-audit.ts) |
 | 5 | Connector bodies clear of edge & neighbours | 0 flagged | Housings must physically seat and mate | [`connector-audit.ts`](connector-audit.ts) |
-| 6 | Every placed part carries a JLCPCB # | all sourced | An unsourced placed part can't be assembled | fab stats |
-| 7 | Min drill | ≥ 0.2 mm | JLCPCB standard drill floor | fab stats |
-| 8 | THT-pad annular ring | ≥ 0.13 mm | JLCPCB component-pad ring floor | fab stats |
-| 9 | Via annular ring | ≥ 0.1 mm | JLCPCB's recommended via is 0.5/0.3 = 0.1 mm ring; split from #8 so it doesn't false-flag every via | fab stats |
-| 10 | Current-carrying traces wide enough | 0 narrow | A 0.2 mm logic trace melts under a motor's amps | [`ampacity-audit.ts`](ampacity-audit.ts) |
-| 11 | Support caps within budget of their part | 0 flagged | A decoupler far from its pin doesn't decouple | [`cap-audit.ts`](cap-audit.ts) |
+| 6 | Every footprint imported (`tsci import`), not hand-drawn | 0 hand-drawn | A hand-drawn land is a guess about the part JLCPCB ships; the import is the library's own geometry | [`import-provenance-audit.ts`](import-provenance-audit.ts) |
+| 7 | Every placed part carries a JLCPCB # | all sourced | An unsourced placed part can't be assembled | fab stats |
+| 8 | Min drill | ≥ 0.2 mm | JLCPCB standard drill floor | fab stats |
+| 9 | THT-pad annular ring | ≥ 0.13 mm | JLCPCB component-pad ring floor | fab stats |
+| 10 | Via annular ring | ≥ 0.1 mm | JLCPCB's recommended via is 0.5/0.3 = 0.1 mm ring; split from #9 so it doesn't false-flag every via | fab stats |
+| 11 | Every top-side SMD pad has solder paste | all covered | A pad with no stencil aperture reflows its IC on bare copper (the gerber fork derives F_Paste from the copper) | fab stats |
+| 12 | Current-carrying traces wide enough | 0 narrow | A 0.2 mm logic trace melts under a motor's amps | [`ampacity-audit.ts`](ampacity-audit.ts) |
+| 13 | Support caps within budget of their part | 0 flagged | A decoupler far from its pin doesn't decouple | [`cap-audit.ts`](cap-audit.ts) |
 
-Gates 8 and 9 are split because JLCPCB's annular floors differ by hole type: a component (THT) pad
+Gates 9 and 10 are split because JLCPCB's annular floors differ by hole type: a component (THT) pad
 wants ≥ 0.13 mm of ring, but a via is fine at the recommended 0.5 mm pad / 0.3 mm hole = 0.1 mm ring.
 Every via on this board sits at exactly 0.1 — intentional, not a defect. A single floor would paint
-all 123 of them red.
+all 152 of them red.
 
 ## Goals — hand-routed, and kept that way
 
@@ -56,7 +58,7 @@ score = 100 · (pcbPath + pcbComb) / (pcbPath + pcbComb + deferred + auto)
 | `auto` | 0 | A live signal left to the autorouter — drops the score; none on this board |
 
 `score` is 100 only when every connection is hand-authored — no `auto`, no `deferred` — which is
-where this board sits (`115 pcbPath · 0 pcbComb · 100% score`). The counts ride the chip and the
+where this board sits (`130 pcbPath · 0 pcbComb · 100% score`). The counts ride the chip and the
 terminal; an `auto` or `deferred` reappearing is a regression to fix, not a backlog to burn down.
 The live work is **tightening** — pulling components into denser bundles, toward a smaller board:
 the real size floor is the board-edge parts (JSTs, screw terminal, USB-C, buttons, antenna) and
