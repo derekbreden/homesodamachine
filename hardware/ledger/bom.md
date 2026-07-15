@@ -24,7 +24,8 @@ All controller, driver, and logic-rail electronics ride the JLCPCB-assembled con
 | [TBD62083AFWG octal DMOS sink driver, SOIC-18 (LCSC C165895)](https://www.lcsc.com/product-detail/C165895.html) | U4/U5 — the two on-PCBA solenoid/fan sink-driver arrays, driving all 12 solenoid valves + the condenser fan (U5 ch5) from the MCP23017 outputs (2 per unit). Octal **DMOS**, ~325 mΩ/channel: a pin- and footprint-identical drop-in for the ULN2803A Darlington that dissipates ~8× less at the ≤0.5 A/channel valve current, so U4/U5 (the board's hottest parts) run far cooler. Same-MPN deeper-stock JLC codes C108880 / C4153828 and the ULN2803A C845537 (thermal benefit forfeited) are order-time fallbacks. $1.02/ea as-billed (Jul 15, 2026) | 2 | $1.02 | $2.04 |
 | [MLT-5020 passive magnetic buzzer, SMD 5×5 mm (LCSC C94598)](https://www.lcsc.com/product-detail/C94598.html) | U8 — the alarm/tone buzzer (§10); externally driven (LEDC tone on IO13), low-side switched by Q1 (S8050, in the SMD fill row below). $0.34 as-billed | 1 | $0.34 | $0.34 |
 | USB-C programming block — [TYPE-C-31-M-12 receptacle (LCSC C165948)](https://www.lcsc.com/product-detail/C165948.html) + [CH340C (LCSC C7464026)](https://www.lcsc.com/product-detail/C7464026.html) + [USBLC6-2SC6 (LCSC C2687116)](https://www.lcsc.com/product-detail/C2687116.html) | J14 + U13 + U14 — bench programming port on the west board edge (auto-reset onto EN/IO0, USB ESD array); no loom, USB cable only. Per [`pcb/pcba/esp32-scope.md`](/hardware/pcb/pcba/esp32-scope.md). $0.77/set as-billed (Jul 15, 2026: J14 $0.18 + U13 $0.51 + U14 $0.07) | 1 set | $0.77 | $0.77 |
-| [KH-CR2032-2-1 coin-cell base, THT (LCSC C5365915)](https://www.lcsc.com/product-detail/C5365915.html) | BT1 — DS3231 backup-cell holder (the JLC-flagged bent-leg SMT clips are avoided). The CR2032 cell itself is not in the JLC order — source with consumables. $0.15 as-billed | 1 | $0.15 | $0.15 |
+| [KH-CR2032-2-1 coin-cell base, THT (LCSC C5365915)](https://www.lcsc.com/product-detail/C5365915.html) | BT1 — DS3231 backup-cell holder (the JLC-flagged bent-leg SMT clips are avoided). The cell itself is the row below — not in the JLC order. $0.15 as-billed | 1 | $0.15 | $0.15 |
+| [Duracell CR2032 3 V lithium cell (9-ct)](https://www.amazon.com/dp/B0C15WJXL2) | BT1's cell — the DS3231 timekeeping backup, retained by the KH-CR2032-2-1 base above; ships in the unit, seated at bench test. Order #114-3384762-6934634 Feb 22: $12.00 ÷ 9 = $1.33/ea | 1 (of 9 pk) | $1.33 | $1.33 |
 | [SamYoung NXB 470 µF 25 V radial, D10×12.5, THT (LCSC C350206)](https://www.lcsc.com/product-detail/C350206.html) | C3 — bulk (low-frequency) decoupling on the V12 island at the board centre, soaking the solenoid inrush + flyback dump; JLCPCB THT-assembled (no Basic SMD 470 µF exists — see jlcpcb-parts.md for the SMD alternates). Shallow single-vendor stock — re-verify at order. $0.20 as-billed | 1 | $0.20 | $0.20 |
 | [YAGEO 0.1 µF 50 V X7R 0805 (LCSC C49678)](https://www.lcsc.com/product-detail/C49678.html) | C1/C2 — high-frequency V12-rail decoupling in the east connector stack (C2 above the 12 V inlet, C1 below MANIFOLD B), snubbing the fast solenoid-turn-off edge the bulk electrolytic can't. $0.034/ea as-billed (reel + attrition) | 2 | $0.034 | $0.07 |
 | MQ-6 gas-sensor output divider — [2.2 kΩ 0603 (LCSC C4190)](https://www.lcsc.com/product-detail/C4190.html) + [3.3 kΩ 0603 (LCSC C22978)](https://www.lcsc.com/product-detail/C22978.html) | R1/R3 (top) + R2/R4 (bottom) — the MQ-6 runs on 5 V so its AOUT/DOUT swing 0–5 V; a 2.2 kΩ/3.3 kΩ divider on each steps them to ~3.0 V before IO39/IO36 (not 5 V-tolerant), on the PCBA at J11. $0.008/ea as-billed | 4 | $0.008 | $0.03 |
@@ -218,7 +219,7 @@ The buzzer is on the controller PCBA — an MLT-5020 magnetic transducer (U8) lo
 | [CQRobot JST XH 2.54 mm 4-pin connector kit (50 sets)](https://www.amazon.com/dp/B0B2RB524Y) | 4-pin XH — female housings + crimp terminals for the six 4P board looms (FAUCET J3, RELAYS J5, I2C J8, DISPLAY J9, GAS J11, PUMPS J13); the male wafers are on the PCBA, so the kits' loose housings/terminals are what's consumed. ~6/unit; $8.45/50 × 6 | 6 (of 50 pk) | $0.17 | $1.01 |
 | [CQRobot JST XH 2.54 mm 6-pin connector kit (50 sets)](https://www.amazon.com/dp/B0B2R8Q1JL) | 6-pin XH — MANIFOLD B (J2) loom housing + terminals; ~1/unit; $9.19/50 | 1 (of 50 pk) | $0.18 | $0.18 |
 | [CQRobot JST XH 2.54 mm 9-pin connector kit (30 sets)](https://www.amazon.com/dp/B0B2R73RQB) | 9-pin XH — MANIFOLD A (J1) loom housing + terminals; ~1/unit; $9.19/30 | 1 (of 30 pk) | $0.31 | $0.31 |
-| JST XH 2.54 mm 5-pin + 7-pin housings + terminals | REEDS A (J6, 5P) + SENSORS (J4, 7P) + REEDS B (J7, 7P) loom housings (XHP-5 ×1, XHP-7 ×2). The on-hand CQRobot kits cover 4/6/9/10P only — source a 5P + 7P kit or loose housings before loom fabrication ([`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)) | 3 | — | — |
+| [CQRobot JST XH 2.54 mm 5-pin kit (50 sets)](https://www.amazon.com/dp/B0B2R9P2TS) + [7-pin kit (50 sets)](https://www.amazon.com/dp/B0B2R96VS3) | REEDS A (J6, XHP-5 ×1) + SENSORS (J4) / REEDS B (J7) (XHP-7 ×2) loom housings + terminals — the on-hand kits cover 4/6/9P only, so these two same-family kits close the set. **Forward-plan, not yet purchased** — order before loom fabrication ([`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)). List $8.29/50 + $8.99/50: (1 × $0.166) + (2 × $0.18) | 3 sets | — | $0.52 |
 | [BNTECHGO 16 AWG silicone wire, 5-color kit (25 ft ea)](https://www.amazon.com/dp/B06Y557TCL) | AC pigtails (black line / white neutral / green ground, ~6 ft across AC-1…AC-6) + the 12 V trunk and branches DC-1…DC-4 (red +/black −, ~2 ft) per [`wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md). 252-strand silicone, 600 V. $38.29/125 ft = $0.31/ft; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §9) | ~8 ft | $0.31/ft | $2.48 |
 | [BNTECHGO 18 AWG silicone wire, red 25 ft + black 25 ft](https://www.amazon.com/dp/B07HGTKQ89) | 18 AWG AC branch stock (AC-2…AC-5 per [`wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md)) + spare DC branch stock; black used for DC per the all-black convention. 150-strand silicone, 600 V. $14.99/50 ft = $0.30/ft; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §9) | ~6 ft | $0.30/ft | $1.80 |
 | [WAGO 221-420 lever-nut, 10-conductor (box of 15)](https://www.amazon.com/dp/B0H1MW1LCX) | 10-way lever nut for the controller-PCB connector fan-outs wider than 5 conductors (Wago 221 tops out at 5): J1 MANIFOLD A COM → 8 valves (9-conductor node), J2 MANIFOLD B COM → 4 valves + fan (6), J7 REEDS B GND → 6 reeds (7). Solid + stranded, 24–12 AWG. $28.90/15 paid; 3/build ([purchases.md](/hardware/ledger/purchases.md) §11) | 3 (of 15 box) | $1.93 | $5.78 |
@@ -228,6 +229,7 @@ The buzzer is on the controller PCBA — an MLT-5020 magnetic transducer (U8) lo
 | [BNTECHGO 24 AWG silicone, 100 ft black spool](https://www.amazon.com/dp/B01K4TLR1W) | Bulk all-black cut-to-length hookup for the reed + sensor runs (SIG-1/2/3/4/8/9). 24 AWG sits below the spade range, so it lands on screw terminals / Wago / XH. Stranded tinned-copper silicone, 600 V. $13.38/100 ft = $0.13/ft | ~15 ft | $0.13/ft | $2.01 |
 | [Alex Tech PET expandable braided sleeve, black — 1/4" + 1/2" + 3/4"](https://www.amazon.com/dp/B074GMNW7T) | Per-zone harness bundling — **replaces spiral wrap**. Black braided sleeve over every bundle, ends finished with heat-shrink. 1/2" for most bundles, 3/4" for the manifold trunk, 1/4" for thin runs. ([3/4"](https://www.amazon.com/dp/B074GMCGZX), [1/4"](https://www.amazon.com/dp/B071JH14WZ).) Blended ~$0.19/ft | ~8 ft (mixed) | $0.19/ft | $1.52 |
 | Insulated bootlace ferrules, 16/18/22/24 AWG (from the Preciva kit) | Conductor landings into the Wago 221 lever nuts + screw terminals — DIN-style insulated cord-end ferrules. The crimper is tooling ([tools.md](/hardware/ledger/tools.md)); the 950-ferrule stock comes with it, so per-unit ferrule cost is negligible. | ~35 (of 950) | — | $0.50 |
+| DC distribution block — 12 V +/− rails for the DC-2/DC-4 fan-out | **Hardware TBD** (screw-terminal barrier strip or a printed Wago carrier) — relay #2 and this block have no committed bay yet; staged beside the power-tray per [`assembly/electronics-shelf.md`](/hardware/assembly/electronics-shelf.md) Open items | 1 | — | — |
 
 ## 12. Level sensing (external reed + internal magnetic float on 316L SS rod, shared SKU across carbonator + reservoirs)
 
@@ -272,9 +274,10 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set](https://www.amazon.com/dp/B0D39W228K) | M3 × 4 mm L × 4.2 mm OD knurled brass; [21](TOTAL_M3_INSERTS) per build ([6](FOAM_INSERTS) foam-lid + [12](RES_INSERTS) reservoir caps + [3](TOUCHFLO_INSERTS) touch-flo base pods); Amazon 112-4234665 May 10: $9.99 + $0.72 tax = $10.71 ÷ 100 = $0.1071/ea | [21](TOTAL_M3_INSERTS) (of 100 pk) | $0.11 | $2.89 |
+| [ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set](https://www.amazon.com/dp/B0D39W228K) | M3 × 4 mm L × 4.2 mm OD knurled brass; [34](TOTAL_M3_INSERTS) per build ([6](FOAM_INSERTS) foam-lid + [12](RES_INSERTS) reservoir caps + [3](TOUCHFLO_INSERTS) touch-flo base pods + [13](SHELF_INSERTS) electronics-shelf tray bosses: pcba-tray 4, power-tray 9); Amazon 112-4234665 May 10: $9.99 + $0.72 tax = $10.71 ÷ 100 = $0.1071/ea | [34](TOTAL_M3_INSERTS) (of 100 pk) | $0.11 | $3.64 |
 | [BNUOK M3 × 12 mm DIN 912 socket head cap, 304 stainless steel (18-8), 120 pc](https://www.amazon.com/dp/B0DJQGMQZM) | reservoir-cap clamp screws ([12](RES_SCREWS), reservoir lid/body joint) + foam-lid clamp screws ([6](FOAM_SCREWS), lid into top-face inserts) — same SKU serves both, 18/build; Amazon 112-3709957 Jun 2: $8.07 + $0.59 tax = $8.66 ÷ 120 = $0.0722/ea | 18 (of 120 pk) | $0.07 | $1.30 |
 | [BNUOK M3 × 12 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGVK8S) | touch-flo plate-to-shell screws; Amazon 112-0144900 May 10: $7.99 + $0.58 tax = $8.57 ÷ 120 = $0.0714/ea | [3](TOUCHFLO_SCREWS) (of 120 pk) | $0.07 | $0.21 |
+| [BNUOK M3 × 8 mm DIN 912 socket head cap, 304 stainless steel (18-8), 120 pc](https://www.amazon.com/dp/B0DJQGRVLV) | electronics-shelf screws, [13](SHELF_SCREWS)/build: 4 PCBA hold-downs (through the board's MH1–MH4 into the pcba-tray inserts) + 4 PSU + 4 relay #1 + 1 ground-stack clamp, all into ruthex inserts per [`assembly/electronics-shelf.md`](/hardware/assembly/electronics-shelf.md). **Forward-plan, not yet purchased** — list $7.64 ÷ 120 = $0.0637/ea | [13](SHELF_SCREWS) (of 120 pk) | $0.06 | $0.83 |
 | [LVDALAB PTFE Membrane Filter, ø13 mm × 0.45 µm, 100 pc, non-sterile](https://www.amazon.com/dp/B0D41KT345) | hydrophobic PTFE membrane in the reservoir-cap vent pocket; architecture + sizing in [`printed-parts/cold-core/reservoir/vent.md`](/hardware/printed-parts/cold-core/reservoir/vent.md); [2](VENT_FILTERS) per build (1 per cap × 2 caps); Amazon 112-4393734 May 11: $12.99 − $0.65 promo + $0.89 tax = $13.23 ÷ 100 = $0.1323/ea | [2](VENT_FILTERS) (of 100 pk) | $0.13 | $0.26 |
 
 ## 14. Install kit (per-appliance install-kit tools)
@@ -289,7 +292,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 
 | Section | $ |
 |---|---:|
-| 1. Controllers + electronics | [$177.14](BOM_SEC1) |
+| 1. Controllers + electronics | [$178.47](BOM_SEC1) |
 | 2. Carbonator vessel (plan A, 316L) | [$240.69](BOM_SEC2) |
 | 3. Water inlet | [$240.21](BOM_SEC3) |
 | 4. CO2 subsystem | [$172.20](BOM_SEC4) |
@@ -299,11 +302,11 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 8. Flavor subsystem | [$257.94](BOM_SEC8) |
 | 9. Dispensing | [$56.83](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
-| 11. Wiring | [$29.73](BOM_SEC11) |
+| 11. Wiring | [$30.25](BOM_SEC11) |
 | 12. Level sensing | [$56.79](BOM_SEC12) |
-| 13. Mechanical attach hardware + reservoir-cap vent filter | [$4.66](BOM_SEC13) |
+| 13. Mechanical attach hardware + reservoir-cap vent filter | [$6.24](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,563.81](BOM_GRAND)** |
+| **Total** | **[$1,567.24](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
