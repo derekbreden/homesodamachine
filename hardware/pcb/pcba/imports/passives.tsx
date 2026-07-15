@@ -54,9 +54,9 @@ const CAP_0402 = () => (
 
 // per-part 3D model (its own JLCPCB/EasyEDA asset)
 const CAD: Record<string, any> = {
-  C25804: {
-    objUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C25804.obj?uuid=6bd5cd867e9542ebae21caaf5d2d4c4d",
-    stepUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C25804.step?uuid=6bd5cd867e9542ebae21caaf5d2d4c4d",
+  C98220: {  // 10k 0603 (YAGEO RC0603FR-0710KL) — R7/R8/R17/R18; shared 0603 resistor body
+    objUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C98220.obj?uuid=6bd5cd867e9542ebae21caaf5d2d4c4d",
+    stepUrl: "https://modelcdn.tscircuit.com/easyeda_models/assets/C98220.step?uuid=6bd5cd867e9542ebae21caaf5d2d4c4d",
     pcbRotationOffset: 90,
     modelOriginPosition: { x: -0.004999999999999977, y: 0, z: -0.01 },
   },
@@ -165,7 +165,7 @@ const CAD: Record<string, any> = {
 }
 
 const LAND: Record<string, () => any> = {
-  C25804: RES_0603,
+  C98220: RES_0603,
   C22787: RES_0603,
   C23162: RES_0603,
   C23179: RES_0603,
