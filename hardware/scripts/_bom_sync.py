@@ -87,11 +87,22 @@ reservoir_cap_screws_per_build = reservoir_cap_inserts_per_build  # 1:1
 touchflo_inserts_per_build = len(base_pod_centers)
 touchflo_screws_per_build = touchflo_inserts_per_build  # 1:1
 
-# Combined heat-set insert count across the appliance (21).
+# Electronics-shelf tray hardware (Zone B, assembly/electronics-shelf.md):
+# ruthex M3 inserts in the printed tray bosses, one M3 × 8 SHCS per insert.
+# pcba-tray: four board hold-down bosses under MH1–MH4 (pcba_tray.py
+# `_holes_pcb`). power-tray: PSU ledge ×4 + relay #1 standoff ×4 +
+# ground-stud ×1 (power_tray.py "Retention").
+pcba_tray_inserts_per_build = 4
+power_tray_inserts_per_build = 9
+shelf_inserts_per_build = pcba_tray_inserts_per_build + power_tray_inserts_per_build
+shelf_screws_per_build = shelf_inserts_per_build  # 1:1, all M3 × 8
+
+# Combined heat-set insert count across the appliance (34).
 total_m3_inserts_per_build = (
     foam_lid_inserts_per_build
     + reservoir_cap_inserts_per_build
     + touchflo_inserts_per_build
+    + shelf_inserts_per_build
 )
 
 # Reservoir-cap vent filters per build (2).
@@ -125,6 +136,8 @@ def main():
         "RES_SCREWS": f"{reservoir_cap_screws_per_build:.4g}",
         "TOUCHFLO_INSERTS": f"{touchflo_inserts_per_build:.4g}",
         "TOUCHFLO_SCREWS": f"{touchflo_screws_per_build:.4g}",
+        "SHELF_INSERTS": f"{shelf_inserts_per_build:.4g}",
+        "SHELF_SCREWS": f"{shelf_screws_per_build:.4g}",
         "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
         # Vent filters.
         "VENT_FILTERS": f"{vent_filters_per_build:.4g}",
@@ -154,6 +167,8 @@ def main():
             "RES_SCREWS": 1,
             "TOUCHFLO_INSERTS": 2,
             "TOUCHFLO_SCREWS": 2,
+            "SHELF_INSERTS": 1,
+            "SHELF_SCREWS": 2,
             "TOTAL_M3_INSERTS": 2,
             "VENT_FILTERS": 3,
         },
