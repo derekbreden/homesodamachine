@@ -79,10 +79,19 @@ rails on the shorter sides."* Read the **numbers**, not the phrase: 85 × 82.8 m
 dimension grew by 2 × 5 mm, i.e. **the rails ride the NORTH/SOUTH (85.05 mm long) edges** and the west
 edge stays rail-free — the wanted placement (JLC puts rails along the longer sides so the board doesn't
 bounce during placement). Their "shorter sides" means the shorter *dimension* being extended, not the
-shorter edges; rails on the E/W edges would have read 95 × 72.8 instead. Boards arrive with the rails
-**attached** (removal is a paid add-on): mouse-bites on the N/S edges, nothing overhangs them — snap and
-file flush. The useful board is 85.05 × 72.85 after de-railing, not the 82.85 as-delivered height (the
-PCBA tray fits the de-railed board).
+shorter edges; rails on the E/W edges would have read 95 × 72.8 instead. Rails-attached is JLC's
+default; the first order selected **"Depanel boards & edge rail before delivery: Yes"**, so boards
+arrive de-railed at the true 85.05 × 72.85 outline (the PCBA tray fits that).
+
+## As ordered — first assembled batch
+
+Order **W2026071513250534** (2026-07-15, qty 10, $702.00 all-in = $70.20/board — full as-paid
+breakdown in [`ledger/purchases.md`](/hardware/ledger/purchases.md)): PCB sub-order Y5-12927587A
+($60.13) + Standard-PCBA sub-order SMT026071560539 ($377.79). Every selection above confirmed on the
+order: POFV epoxy-filled-&-capped, ENIG 1U", 4-layer 1.6 mm, 1 oz outer / 0.5 oz inner, black mask /
+white silk, flying-probe full test, "Require Full Quantity," top-side SMT with every THT part tagged
+[Wave Soldering], edge rails added by JLCPCB (85 × 82.8, N/S) and depaneled before delivery. All 50
+BOM lines matched, 0 unselected; U15 matched to `C12512` and the 10 k pull-ups to `C98220`.
 
 ## Panelization
 
