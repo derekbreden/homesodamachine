@@ -61,7 +61,7 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | J6 — 5-pin (REEDS A) | XH2.54 5P | wafer, 2.5 mm | C5359633 | Extended | 14,791 | $0.0294 |
 | J2 — 6-pin (MANIFOLD B) | XH2.54 6P | wafer, 2.5 mm | C5359634 | Extended | 42,550 | $0.0254 |
 | J4 — 7-pin (SENSORS) | XH2.54 7P | wafer, 2.5 mm | C5359635 | Extended | 14,819 (2026-07-13) | $0.0279 |
-| J7 — 7-pin (REEDS B), **keyed EH** | JST-EH 7P (B7B-EH-A), 2.5 mm | wafer, 2.5 mm | C160254 | Extended | 12,140 (2026-07-13) | $0.0395 |
+| J7 — 7-pin (REEDS B) | XH2.54 7P | wafer, 2.5 mm | C5359635 | Extended | 14,819 (2026-07-13) | $0.0279 |
 | J1 — 9-pin (MANIFOLD A) | XH2.54 9P | wafer, 2.5 mm | C5359637 | Extended | 380 (2026-06-30) | $0.0400 |
 | J10 — 12 V inlet | KF301-5.0-2P screw terminal, 2P 5.0 mm, 17 A / 250 V, 14–22 AWG | THT block, 5.0 mm pitch | C474881 | Extended | 165,152 (2026-07-02) | $0.0995 |
 | Q4 — reverse-polarity pass FET | AO3407A P-ch, −30 V, **±20 V Vgs**, ~55 mΩ | SOT-23 | C347478 | Extended | 81,006 (2026-07-14) | $0.034 |
@@ -80,8 +80,7 @@ Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C11702 / C259
 CC0805KRX7R9BB104; C165895 = Toshiba TBD62083AFWG (octal DMOS sink driver); C47023 = Microchip MCP23017-E/SO;
 C94598 = Jiangsu Huaneng MLT-5020; C2146 = JSCJ S8050 J3Y; C474881 = Cixi Kefa Elec
 KF301-5.0-2P screw terminal; XH2.54 connectors = XUNPU WAFER-XH2.54-{n}PZZ, one vendor
-across the five XH pin counts used (4/5/6/7/9P), vertical THT. J7 (7-pin REEDS B) is a keyed
-JST-EH (B7B-EH-A, C160254), not XH — see the keying note below.
+across the five XH pin counts used (4/5/6/7/9P), vertical THT.
 
 **U7 is `C51949447` (COSINE COS13487EESA-3.3), a native-3.3 V auto-direction RS-485
 transceiver** — a MAX13487E-equivalent whose datasheet pin map (1 RO, 2 /RE, 3 /SHDN,
@@ -116,17 +115,6 @@ reversals are free. The hole PITCH is a uniform 2.5 mm across the series (`WAFER
 every count): the "2.54" in the part name is the nominal series name, not the drawn pitch — the
 XUNPU spec lists 2.5 mm (LCSC C5359632: "Pitch 2.5 mm", "X-Length of Bottom Edge on Board 12.5 mm"
 for the 4P, i.e. 2.5 mm of plastic past each outer pin, `XH_END` in `component-bodies.ts`).
-
-**J7 (REEDS B) is a keyed JST-EH, not XH.** J4 (SENSORS) and J7 are both 7-pin on the same
-2.5 mm grid, so as XH they are cross-mateable — and a loom swap would drive SENSORS' 5V/3V3 rails
-into the MCP reed inputs. J7 carries only dry-reed signals, so it takes a JST-EH housing
-(B7B-EH-A, `C160254`): the same single-row 2.5 mm hole grid, but an EH housing cannot mate an XH
-loom (or vice versa) — the swap is now mechanically impossible. The `Jst` helper carries an EH
-branch (`series="EH"`, `EH_*` lookups in `parts.tsx`); the EH footprint numbers pin 1 from the
-WEST (opposite the XH 7P), so `EH_PIN1_WEST[7]=true` keeps every reed net on the barrel it used as
-XH — a body/footprint/silk swap with no reroute. Top-entry B7B-EH-A (the side-entry S7B-EH is out
-of stock at JLCPCB); it has no STEP model on the tscircuit CDN, so J7 alone is absent from the 3D
-preview — its footprint (pads + courtyard + silk) and the fab output are complete.
 
 **J10 is a KF301-5.0-2P screw terminal (`C474881`), not an XH wafer.** The 12 V inlet
 carries the whole board — both pumps priming + a few valves + the condenser fan ≈ 3.3 A
@@ -325,8 +313,7 @@ point-in-time — re-check the week of ordering.
 | D9 — BZT52C15 Vgs Zener | `C173427` | SOD-123 | Any 15 V 0.5 W Zener in SOD-123 (BZT52C15, any vendor) — same land / cathode band. ~183k stock. |
 | D10/D11 — ESD9B3.3ST5G UART ESD | `C96512` | SOD-923 | Another SOD-923 **bidirectional low-cap (≤~15 pF)** TVS, ~3.3 V working (onsemi ESD9B/ESD9L) — same tiny land; keep it low-cap so the 115200-baud UART edges aren't loaded. ~28k stock. |
 | J10 — KF301-5.0-2P screw terminal | `C474881` | THT block, 5.0 mm-pitch 2P | Another 5.0 mm-pitch 2-pole THT screw terminal (KF301 / KF128 / DG301 family) — same 2-hole 5.0 mm land; confirm pin dia ≤ the imported hole and the body clears the courtyard. ~165k stock. |
-| J2/J3/J4/J5/J6/J8/J9/J11/J13 — XH2.54 wafers (J7 is EH — separate row) | `C5359632/33/34/35/37` | XH2.54 vertical THT, 2.5 mm | Any same-count XH2.54 vertical wafer (2.5 mm) — the land is a plain n-hole 2.5 mm row, so a different-vendor XH mounts in the same holes (JLC re-derives CPL rotation per part; not a board change). J1 (9P) is the shallow one — see the first table. |
-| J7 — B7B-EH-A (REEDS B) | `C160254` | JST-EH 7P, 2.5 mm THT | Another EH 7P top-entry (B7B-EH-A) — same 7-hole 2.5 mm land. **Keep it EH:** the keying is deliberate (anti-cross-mate vs the XH looms) — an XH 7P (`C5359635`) fits the holes but restores the cross-mate hazard. Side-entry S7B-EH is out of stock at JLC. ~12k stock. |
+| J2/J3/J4/J5/J6/J7/J8/J9/J11/J13 — XH2.54 wafers | `C5359632/33/34/35/37` | XH2.54 vertical THT, 2.5 mm | Any same-count XH2.54 vertical wafer (2.5 mm) — the land is a plain n-hole 2.5 mm row, so a different-vendor XH mounts in the same holes (JLC re-derives CPL rotation per part; not a board change). J1 (9P) is the shallow one — see the first table. |
 | U8 — MLT-5020 buzzer | `C94598` | SMD 5×5 mm, 2-pad | Another **passive** (externally driven) magnetic SMD buzzer on the 5×5 mm 2-pad land — verify the pad geometry (buzzer footprints vary). Must be passive: an active buzzer would not take the LEDC tone drive. ~104k stock. |
 | D2/D3/D4/D5/D6 — status LEDs | `C2286 / C12624 / C2288` | 0603 | Any 0603 LED of the same colour (red / green / blue) — one of the deepest categories in the library (millions in stock). |
 | BT1 — CR2032 coin base | `C5365915` | THT 2-pin base, 20 mm post span | **Footprint-specific — not a generic drop-in.** Coin-holder lands vary by vendor, so a zero-change swap is the same MPN (Kinghelm KH-CR2032-2-1) under another code; a different holder needs a footprint re-import (small respin). Low risk (~12k stock, stable LCSC brand). Avoid the flagged bent-leg SMT clips (see the BT1 note above). |
