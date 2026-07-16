@@ -162,7 +162,7 @@ Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× reserv
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [VALVENTO 1/4" OD compression × 1/4" NPT adapter (2-pk)](https://www.amazon.com/dp/B0DXZZBK7D) | joins bottom-plate 1/4" NPT outlet port (port 3) to 1/4" tubing run; 1 of 2 per unit (pack delivered $12.85/2) | 1 (of 2) | $6.42 | $6.42 <!--@plumbing--> |
+| [John Guest PP010822E 1/4" OD × 1/4" NPT male connector, black polypropylene (10-pk)](https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-black-polypropylene-1-4-x-1-4-nptf) | Carbonated-water outlet adapter — threads onto the bottom-plate Port 3 TAISHER elbow (1/4" NPT F), 1/4" PTC accepts the blue LLDPE riser. Same PTC×NPT SKU as the §3/§4 slot transitions; PTC suits soft LLDPE better than a compression ferrule. FWS WEBFWS100675224 May 15: $17.41 ÷ 10 = $1.741/ea | 1 (of 10 pk) | $1.74 | $1.74 <!--@plumbing--> |
 | [Westbrass A2031-NL-62 8" Touch-Flo dispenser faucet, matte black](https://www.amazon.com/dp/B0BXFW1J38) | donor faucet; family-equivalence + interchangeable-finish notes in [`printed-parts/faucet/touch-flo-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md) "Adjacent parts" | 1 | $32.18 | $32.18 <!--@faucet--> |
 | SendCutSend 0.060" 316 SS under-counter plate (`touch_flo_under_counter_plate.dxf`) | dimensions + role in [`printed-parts/faucet/touch-flo-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md) "Adjacent parts"; SCS S064D925 May 10: 10 @ $2.85 + $5.00 ship + $2.79 tax = $36.29 ÷ 10 = $3.63/ea | 1 | $3.63 | $3.63 <!--@cut-parts--> |
 | [DIGITEN G1/4" Hall-effect flow sensor, 0.3–10 L/min](https://www.amazon.com/dp/B07QRXLRTH) | flow detection on the carbonated-water dispense path; ACQUIRED ×4 ([purchases.md](/hardware/ledger/purchases.md) §7) | 1 | $10.18 | $10.18 <!--@sensors--> |
@@ -264,13 +264,13 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
 | 7. Printed parts (PETG + PET-CF) | [$65.61](BOM_SEC7) |
 | 8. Flavor subsystem | [$197.95](BOM_SEC8) |
-| 9. Dispensing | [$56.83](BOM_SEC9) |
+| 9. Dispensing | [$52.15](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
 | 11. Wiring | [$29.28](BOM_SEC11) |
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$6.25](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,328.67](BOM_GRAND)** |
+| **Total** | **[$1,323.99](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
