@@ -117,7 +117,7 @@ Feed-water inlet, filter, ASSE 1022 backflow preventer and its vent-line hardwar
 | Lifevant 32.8 ft 1/4" OD water tubing + 12 quick-connects. Order #114-5825243-4744249, placed February 12, 2026 | [B0DKCZ5W66](https://www.amazon.com/dp/B0DKCZ5W66) | 1 | $10.71 | ACQUIRED |
 | Fresh Water Systems order WEBFWS100673540 — black LLDPE tubing: 3/8" OD 25 ft + 1/4" OD 100 ft | [freshwatersystems.com](https://www.freshwatersystems.com/) | 1 order | $43.29 | ACQUIRED (delivered May 13) |
 | John Guest 1/4" OD × 1/8" NPT male push-fit. Order #114-5825243-4744249, placed February 12, 2026 | [B07V6XKZG9](https://www.amazon.com/dp/B07V6XKZG9) | 1 | $5.36 | ACQUIRED |
-| John Guest PI1208S acetal bulkhead union (1/4" QC). Order #114-5825243-4744249, placed February 12, 2026 — superseded at the §3 water inlet by the NSF 51/61 PP1208E; the 2 on hand are general 1/4" QC bulkhead stock | [B0C1F3QR7N](https://www.amazon.com/dp/B0C1F3QR7N) | 2 | $12.32 ea | ACQUIRED |
+| John Guest PI1208S acetal bulkhead union (1/4" QC). Order #114-5825243-4744249, placed February 12, 2026 — general 1/4" QC bulkhead stock (2 on hand) | [B0C1F3QR7N](https://www.amazon.com/dp/B0C1F3QR7N) | 2 | $12.32 ea | ACQUIRED |
 | SAMSUNG HAF-QIN-3P carbon block refrigerator filter (3 pk). Order #114-8784211-4965832, placed January 25, 2026 | [B09HR7H8X7](https://www.amazon.com/dp/B09HR7H8X7) | 1 pk | $97.10 | ACQUIRED |
 | Yetaha RO 1/4" water flow-adjust valve. Order #114-2734195-8455414, placed March 15, 2026 | [B07GDFWB8R](https://www.amazon.com/dp/B07GDFWB8R) | 1 | $12.86 | ACQUIRED |
 | SEAFLO 22-Series 12V 1.3 GPM 100 psi on-demand pump. Order #114-4512279-7485822, placed April 1, 2026 | [B0166UBJX4](https://www.amazon.com/dp/B0166UBJX4) | 1 | $48.25 | ACQUIRED |
