@@ -45,10 +45,11 @@ solenoid_count = 10
 y_divider_count = 2
 tee_count = 6
 
-# Rear-panel umbilical port: 3 bulkheads on the back panel
-# (1 carbonated water + 2 flavor). The same PP1208E SKU is reused
-# for the reservoir-cap outlet ports (1 per reservoir).
+# Rear-panel PP1208E bulkheads. Umbilical port: 3 on the back panel
+# (1 carbonated water + 2 flavor). Water inlet: 1 more, same SKU and
+# panel hole (the customer-facing 1/4" QC potable-water inlet).
 panel_umbilical_bulkheads = 3
+panel_water_inlet_bulkheads = 1
 
 # Per-cap insert counts.
 # Foam-lid: `attachment_xy_positions` is the list of (x, y) pairs for the
@@ -69,10 +70,10 @@ vent_filters_per_reservoir_cap = 1
 reservoir_reeds_total = reeds_per_reservoir * reservoirs_per_build
 total_reeds_per_build = reeds_per_carbonator + reservoir_reeds_total
 
-# PP1208E (panel-umbilical only). The reservoir-cap outlet uses the
-# PureSec B0968K4JRN single-piece 90° PTC bulkhead, so PP1208E serves
-# only the rear-panel umbilical cluster.
-pp1208e_per_build = panel_umbilical_bulkheads
+# PP1208E per build: umbilical cluster (3) + water inlet (1) = 4. The
+# reservoir-cap outlet uses the PureSec B0968K4JRN single-piece 90° PTC
+# bulkhead, not PP1208E.
+pp1208e_per_build = panel_umbilical_bulkheads + panel_water_inlet_bulkheads
 
 # Foam-lid hardware (6 inserts + 6 M3 screws, top face only).
 foam_lid_inserts_per_build = inserts_per_foam_lid
@@ -127,6 +128,7 @@ def main():
         "Y_DIVIDERS": f"{y_divider_count:.4g}",
         "TEES": f"{tee_count:.4g}",
         "PP1208E_PANEL": f"{panel_umbilical_bulkheads:.4g}",
+        "PP1208E_INLET": f"{panel_water_inlet_bulkheads:.4g}",
         "PP1208E_TOTAL": f"{pp1208e_per_build:.4g}",
         # Heat-set insert + screw hardware.
         "FOAM_INSERTS": f"{foam_lid_inserts_per_build:.4g}",
@@ -158,7 +160,8 @@ def main():
             "SOLENOIDS": 2,
             "Y_DIVIDERS": 2,
             "TEES": 2,
-            "PP1208E_PANEL": 1,
+            "PP1208E_PANEL": 2,
+            "PP1208E_INLET": 1,
             "PP1208E_TOTAL": 1,
             "FOAM_INSERTS": 2,
             "FOAM_SCREWS": 2,
