@@ -203,14 +203,14 @@ The same reed-and-float pattern is used in three places: the carbonator vessel (
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [DEVMO MINI float switch (donor — harvest donut + ferrite magnet)](https://www.amazon.com/dp/B07T18PGJ4) | float slides on the welded SS rod; only the float is shipped product, the rest of the donor unit is discarded | 1 | $13.93 | $13.93 <!--@sensors--> |
+| [YXQ 45 mm SS float switch (donor — harvest 316 float ball + ferrite magnet)](https://www.amazon.com/dp/B08HWRMRQR) | float slides on the welded SS rod; only the float is shipped product, the rest of the donor unit is discarded. Amazon 112-8193263 Jul 16: 4 @ $6.99 = $27.96 + $2.04 tax = $30.00 ÷ 4 = $7.50/ea | 1 | $7.50 | $7.50 <!--@sensors--> |
 
 ### Flavor reservoirs ([4](REEDS_PER_RES) reeds per reservoir × [2](RESERVOIRS) reservoirs = [8](RES_REEDS_TOTAL) reeds, ~13-serving-step granularity)
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | Pre-soldered reed-and-wire column | [4](REEDS_PER_RES) Gebildet reeds hand-soldered to a laced bundle of 5 × 24 AWG black silicone conductors (4 reed signals + 1 shared common return) — the reservoir end of the J6/J7 REEDS runs per [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md), dropped into the foam-shell channel from above before the cap. Same wire as every other reed/sensor run, no jacketed cable — the conductors are cut from the §11 24 AWG silicone stock (not a separate line). Architecture in [`printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md). Reeds in shared §12 line below | 2 columns per build | — | — <!--@sensors--> |
-| [DEVMO MINI float switch (donor — harvest donut + ferrite magnet)](https://www.amazon.com/dp/B07T18PGJ4) | donor donut + its ferrite magnet kept (switch body / cable discarded); slides on the 1/8" 316L SS rod inside each reservoir. Architecture + magnet-strength rationale in [`printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) | 2 (1 per reservoir) | $13.93 | $27.86 <!--@sensors--> |
+| [YXQ 45 mm SS float switch (donor — harvest 316 float ball + ferrite magnet)](https://www.amazon.com/dp/B08HWRMRQR) | donor float ball + its ferrite magnet kept (switch body / cable discarded); slides on the 1/8" 316L SS rod inside each reservoir. 316 SS float ball, same 45 mm-mini form as the carbonator donor. Architecture + magnet-strength rationale in [`printed-parts/cold-core/reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) | 2 (1 per reservoir) | $7.50 | $15.00 <!--@sensors--> |
 
 ### Float-guide rod (shared SKU across carbonator + flavor reservoirs)
 
@@ -267,10 +267,10 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 9. Dispensing | [$56.83](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
 | 11. Wiring | [$29.28](BOM_SEC11) |
-| 12. Level sensing | [$56.79](BOM_SEC12) |
+| 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$6.25](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,357.94](BOM_GRAND)** |
+| **Total** | **[$1,338.65](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

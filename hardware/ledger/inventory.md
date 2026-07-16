@@ -76,7 +76,7 @@ Harvest sources. Disassembled for specific subassemblies; remainder discarded or
 | **Westbrass R2031-NL-12 Touch-Flo faucet, oil-rubbed bronze** | [B01N5LVNQA](https://www.amazon.com/dp/B01N5LVNQA), [purchases.md §7](/hardware/ledger/purchases.md) | Valve body harvest for the printed PET-CF gooseneck. See [reference/touch-flo-faucet/README.md](/hardware/reference/touch-flo-faucet/README.md). |
 | **Westbrass A2031-NL-62 8" Touch-Flo faucet (already owned)** | [B0BXFW1J38](https://www.amazon.com/dp/B0BXFW1J38), [purchases.md §7](/hardware/ledger/purchases.md) | Not a harvest donor; pre-existing stock. R2031-NL-12 pattern is the chosen donor. |
 | **Westbrass D203-NL-62 6" Touch-Flo faucet (already owned)** | [B01MZ6JPXW](https://www.amazon.com/dp/B01MZ6JPXW), [purchases.md §7](/hardware/ledger/purchases.md) | Same — pre-existing stock, not a harvest donor. |
-| **DEVMO MINI vertical float switch** | [B07T18PGJ4](https://www.amazon.com/dp/B07T18PGJ4), [purchases.md §9](/hardware/ledger/purchases.md) | Magnetic donut float harvested; switch body discarded. Float slides on the welded 316L SS rod inside the carbonator vessel. |
+| **DEVMO MINI vertical float switch** | [B07T18PGJ4](https://www.amazon.com/dp/B07T18PGJ4), [purchases.md §9](/hardware/ledger/purchases.md) | On hand. Shipped units harvest the YXQ float (bom.md §12); the harvested float slides on the 316L SS rod inside the carbonator vessel and each reservoir. |
 | **Lillium under-counter carbonator** | Liliumfaucet order 1566, [purchases.md §2](/hardware/ledger/purchases.md) | Current prototype cold-carbonated water source. Replaced by the integrated cold core in the production design. |
 
 ## Fab fixture
