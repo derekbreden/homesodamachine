@@ -16,7 +16,7 @@ Out:
 - First DC power-on under PSU control succeeds with no smoke, no breaker trip, no thermal-fuse open.
 - Sensor health passes: both 1-wire probes addressed on the bus — one DS18B20 (tank, family 0x28) + one DS18S20 (coil, family 0x10) — and reporting within [±2 °C](AMBIENT_TOL) of room ambient; all [10](REEDS_TOTAL) reed switches ([2](REEDS_CARB) carbonator + [4](REEDS_PER_RSVR) per flavor reservoir × [2](RSVR_COUNT) reservoirs) settled to their no-magnet "empty" baseline; the DIGITEN flow meter ticks pulses when its impeller is rotated by hand; the MQ-6 hydrocarbon sensor on the rear interior enclosure wall has reached operating temperature and reads its clean-air baseline; the backflow drip-pan moisture sensor reads dry.
 - Both MCP23017 GPIO expanders ACK on the I²C bus at [0x20](MCP_VALVES) and [0x21](MCP_RESERVOIRS), with the DS3231 RTC at [0x68](RTC_ADDR) and the off-board MPR121 at 0x5A also responsive.
-- Valve self-test pass: each of the [12](VALVE_COUNT) Beduan solenoids clicks once with audible / visual confirmation, and both Kamoer peristaltic pumps spin briefly under DRV8870 drive.
+- Valve self-test pass: each of the [10](VALVE_COUNT) Beduan solenoids clicks once with audible / visual confirmation, and both Kamoer peristaltic pumps spin briefly under DRV8870 drive.
 - Relay #1 verified switching the compressor's AC leg under a deliberate firmware override: the suction-line probe (the DS18S20, family 0x10) reads a few degrees lower within a couple of minutes of the override starting (running dry, no water in the carbonator), confirming the relay is making AND that the DS18S20 is physically mounted on the suction line (its identity among the two probes is already fixed by family code, not by this test).
 - Firmware setpoints loaded with factory defaults: **tank target [2 °C](TANK_TARGET), hysteresis [±2 °C](HYSTERESIS)** (compressor off at [2 °C](COMP_OFF_TEMP), on at [4 °C](COMP_ON_TEMP)), **freeze-protect cutoff [−8 °C](FREEZE_CUTOFF)** on the suction-line probe, **[3-minute](MIN_OFF_TIME) minimum off-time** for the compressor start capacitor, refill threshold on the carbonator's low-level reed.
 - Per-serial commissioning log archived (sensor readings, I²C ACK list, valve click confirmation, compressor-cycle suction-line ΔT).
@@ -121,9 +121,9 @@ Record each reading in the per-serial commissioning log. Any out-of-bounds readi
 
 ### 7. Valve and peristaltic-pump self-test
 
-The firmware exposes a self-test command over the serial console that walks each of the [12](VALVE_COUNT) Beduan solenoids individually and then spins each peristaltic pump briefly. Trigger it from the monitor prompt.
+The firmware exposes a self-test command over the serial console that walks each of the [10](VALVE_COUNT) Beduan solenoids individually and then spins each peristaltic pump briefly. Trigger it from the monitor prompt.
 
-- **Solenoid sequence** — the firmware drives each valve output in turn: [0x20](MCP_VALVES) PA through TBD62083 U4, [0x21](MCP_RESERVOIRS) PA[4:7] through U5 (V-A through V-K-B; see [`/hardware/wiring/valve-control.mmd`](/hardware/wiring/valve-control.mmd)). Each coil energizes for ~250 ms then releases. Expected: [12](VALVE_COUNT) distinct clicks. Listen for stuck-on coils (no audible release click).
+- **Solenoid sequence** — the firmware drives each valve output in turn: [0x20](MCP_VALVES) PA through TBD62083 U4, [0x21](MCP_RESERVOIRS) PA[6:7] through U5 (V-A through V-J; see [`/hardware/wiring/valve-control.mmd`](/hardware/wiring/valve-control.mmd)). Each coil energizes for ~250 ms then releases. Expected: [10](VALVE_COUNT) distinct clicks. Listen for stuck-on coils (no audible release click).
 - **Condenser fan** — driven by MCP23017 [0x21](MCP_RESERVOIRS) PA3 through TBD62083 U5 channel 5. The self-test gives the fan a brief 1-second run. Expected: audible spin-up of the [12 V](RAIL_12V) DC brushless axial mounted to the enclosure side wall, then coast-down.
 - **Peristaltic pumps** — driven by the on-board DRV8870 H-bridges (U11/U12) through J13. The self-test spins Pump A forward for ~1 s, then Pump B. Expected: each silicone tube head rotates visibly. No flavor is loaded yet; the head turns dry.
 
@@ -175,7 +175,7 @@ A commissioned unit is:
 - All [10](REEDS_TOTAL) reed switches verified at no-magnet baseline and verified pull-low under a bench magnet
 - DIGITEN flow meter pulses on hand rotation; the faucet display's touch toggle switches the selected flavor
 - MQ-6 warmed to operating temperature and reads clean-air baseline; drip-pan moisture sensor reads dry
-- All [12](VALVE_COUNT) solenoid valves clicked individually under firmware self-test; both peristaltic pumps spun dry under DRV8870 drive; condenser fan spun briefly
+- All [10](VALVE_COUNT) solenoid valves clicked individually under firmware self-test; both peristaltic pumps spun dry under DRV8870 drive; condenser fan spun briefly
 - Relay #1 verified switching the compressor's AC leg under firmware override; suction-line probe drops a few degrees within a couple of minutes; relay de-energizes cleanly and the [3-minute](MIN_OFF_TIME) guard re-arms
 - Factory-default setpoints ([2 °C](TANK_TARGET) target, [±2 °C](HYSTERESIS) hysteresis, [−8 °C](FREEZE_CUTOFF) freeze cutoff, [3-min](MIN_OFF_TIME_HYPHEN) minimum off-time, low-reed refill threshold) confirmed loaded
 - Per-serial commissioning log archived

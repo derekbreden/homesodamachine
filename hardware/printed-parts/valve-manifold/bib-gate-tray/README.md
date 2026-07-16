@@ -1,6 +1,8 @@
 # BiB-gate tray (2 valves + 4 Tees)
 
-The [fluid-topology](/hardware/topology/fluid-topology.md) BiB gates: V-K-A →
+> **De-scoped from the shipping product.** The bag-in-box path is not part of the current single-configuration appliance — the shipping [`bom.md`](/hardware/ledger/bom.md) §8 and the [fluid topology](/hardware/topology/fluid-topology.md) carry the 10-valve, hopper-only manifold. This tray (V-K-A/V-K-B gates + the Y-KA/Y-KB merge Tees) is retained here for a possible future commercial/office SKU; the board keeps its two now-unused MANIFOLD-B outputs.
+
+The bag-in-box (BiB) gates: V-K-A →
 Y-KA → Y-C and V-K-B → Y-KB → Y-F, a near-valve Tee and a far Tee per row.
 
 ```

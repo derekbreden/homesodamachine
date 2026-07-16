@@ -37,13 +37,13 @@ reservoirs_per_build = 2
 # `_reed_channels.py`.
 reeds_per_carbonator = 2
 
-# 12-valve manifold (V-A/B/C/D/E/F/G/H/I/J/KA/KB) per
-# `topology/fluid-topology-trays.mmd`. Ten 3-port junctions split by
-# geometry: 2 Y-dividers (Y-A/B, source-select trident) + 8 Tees
-# (Y-C/D/E/F/G/H/KA/KB, in-line run + branch).
-solenoid_count = 12
+# 10-valve manifold (V-A/B/C/D/E/F/G/H/I/J) per
+# `topology/fluid-topology-trays.mmd`. Eight 3-port junctions split by
+# geometry: 2 Y-dividers (Y-A/B, source-select trident) + 6 Tees
+# (Y-C/D/E/F/G/H, in-line run + branch).
+solenoid_count = 10
 y_divider_count = 2
-tee_count = 8
+tee_count = 6
 
 # Rear-panel umbilical port: 3 bulkheads on the back panel
 # (1 carbonated water + 2 flavor). The same PP1208E SKU is reused

@@ -137,7 +137,7 @@ def _wall_corner(vx, vy, a, nout, off, t):
 
 def place_valve(vx, vy, dx, dy, flip=False):
     # The aimed port (local +Y) is the outlet for V-A/V-B feeding Y-A; for
-    # V-C/V-D it is the inlet drawing from Y-B (flow out to Y-KA/Y-KB), flipped 180.
+    # V-C/V-D it is the inlet drawing from Y-B (flow out to Y-C/Y-F), flipped 180.
     ang = _aim_phi(vx, vy, dx, dy) + (180.0 if flip else 0.0)
     return (
         cell.valve.build_beduan_solenoid()

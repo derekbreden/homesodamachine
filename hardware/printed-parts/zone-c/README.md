@@ -15,8 +15,6 @@ The frequent-access piece sits over the rare-access piece, so one opening serves
 
 One shared funnel, sized to take a pour from a SodaStream concentrate bottle without splash. Silicone, removable, dishwasher-safe. Its outlet feeds the pump inlet; a source-selection solenoid routes the pour to the correct internal flavor reservoir, so one funnel serves both flavors — the valve manifold, not the funnel, picks the channel. Valve states: [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md).
 
-The rear bag-in-box adapter ([`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md)) is the alternative fill path for customers running commercial syrup; it feeds the same reservoirs through the pump and bypasses the funnel.
-
 ## The pumps
 
 Two Kamoer peristaltic pumps (1/4" OD LLDPE through the head), off-the-shelf assemblies. The pumps pull flavor from the internal hard reservoirs nested in the cold core (Zone A, [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/)) and inject it at the dispense nozzle alongside the carbonated water. Direction is forward-only; fill, dispense, and clean are selected by the valve manifold. The silicone pump tubing is the wear item — the reason the pumps are what you reach when the funnel comes out. The enclosure mount is an open item.

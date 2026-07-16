@@ -24,11 +24,7 @@ flowchart LR
     YH{{"Y-H"}}
   end
 
-  subgraph Tray3["Tray 3 — BiB Gates"]
-    VKA["V-K-A"]
-    VKB["V-K-B"]
-    YKA{{"Y-KA"}}
-    YKB{{"Y-KB"}}
+  subgraph Tray3["Tray 3 — Pump-Inlet Tees"]
     YC{{"Y-C"}}
     YF{{"Y-F"}}
   end
@@ -40,7 +36,7 @@ flowchart LR
     YG{{"Y-G"}}
   end
 
-  %% ---- On-tray seats (blue, links 0-14) ----
+  %% ---- On-tray seats (blue, links 0-10) ----
   VA --> YA
   VB --> YA
   YA --> YB
@@ -50,16 +46,12 @@ flowchart LR
   YE --> VE
   VI --> YH
   YH --> VH
-  VKA --> YKA
-  VKB --> YKB
-  YKA --> YC
-  YKB --> YF
   YD --> VG
   YG --> VJ
 
-  %% ---- Between trays (gray, links 15-20) ----
-  VC --> YKA
-  VD --> YKB
+  %% ---- Between trays (gray, links 11-16) ----
+  VC --> YC
+  VD --> YF
   VE --> YC
   VH --> YF
   YD --> VF
@@ -67,6 +59,6 @@ flowchart LR
 
   %% ---- Styling ----
   classDef tee fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
-  class YE,YH,YKA,YKB,YC,YF,YD,YG tee;
-  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14 stroke:#09f,stroke-width:2px
-  linkStyle 15,16,17,18,19,20 stroke:#888,stroke-width:2px
+  class YE,YH,YC,YF,YD,YG tee;
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10 stroke:#09f,stroke-width:2px
+  linkStyle 11,12,13,14,15,16 stroke:#888,stroke-width:2px
