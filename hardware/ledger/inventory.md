@@ -110,11 +110,11 @@ Used during fabrication but not allocated per-unit in bom.md. Welding practice s
 
 ## Prototype / test-bench
 
-Items used on the running prototype or test bench but not in the shipped BOM. The shipped appliance expects the customer to supply these (CO2 cylinder, primary regulator) or has them embedded differently (the customer's tap water rather than a filtered prototype source).
+Items used on the running prototype or test bench but not in the shipped BOM. The shipped appliance expects the customer to supply these (CO2 cylinder) or has them embedded differently (the customer's tap water rather than a filtered prototype source).
 
 | Item | Source | Role |
 |---|---|---|
-| **TAPRITE E-T742 CO2 primary regulator (CGA-320)** | [B00L38DRD0](https://www.amazon.com/dp/B00L38DRD0), [purchases.md §2](/hardware/ledger/purchases.md) | Prototype's primary regulator. In shipped units the customer supplies a CGA-320 primary; the in-appliance WR1110 secondary handles setpoint normalization. |
+| **TAPRITE E-T742 CO2 primary regulator (CGA-320)** | [B00L38DRD0](https://www.amazon.com/dp/B00L38DRD0), [purchases.md §2](/hardware/ledger/purchases.md) | Prototype's primary regulator. Shipped units carry the Wellbom CGA-320 primary (bom.md §4); the in-appliance WR1110 secondary handles setpoint normalization. |
 | **Airgas prototype CO2 cylinder, 5 lb aluminum food-grade CGA-320** | Airgas #8160436286, [purchases.md §2](/hardware/ledger/purchases.md) | Prototype's operational cylinder, in service feeding the prototype's dispense. |
 | **Airgas testing CO2 cylinder, 5 lb aluminum food-grade CGA-320** | Airgas #8162013342, [purchases.md §2](/hardware/ledger/purchases.md) | Test-bench cylinder; vessel carbonation experiments, sparge/saturation tests. |
 | **HAOCHEN brass angle stop add-a-tee, 3/8"×3/8"×1/4"** | [B0DLKHHGL6](https://www.amazon.com/dp/B0DLKHHGL6), [purchases.md §3](/hardware/ledger/purchases.md) | Used as the prototype tap-water source adapter; also committed as **install-kit tee scenario B (older home)** in [`bom.md §3`](/hardware/ledger/bom.md). For older kitchens with a 3/8" angle stop and a braided compression supply line to the faucet, this tee threads between the angle stop and its existing line, exposing a 1/4" compression outlet for the appliance's LLDPE. The matching scenario A tee for modern 1/4"-LLDPE-already-under-sink homes is the JG PP0208E (black, FWS-sourced) — see `bom.md §3`. |

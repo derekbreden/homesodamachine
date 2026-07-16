@@ -40,7 +40,7 @@ Tooling (per-vessel-amortized only — single-asset tools live in [`/hardware/le
 
 ## CO2 supply (sets working pressure)
 
-The 90 PSI working pressure this procedure is sized against is set by an in-appliance Interstate Pneumatics WR1110 1/4" NPT fixed-90 PSI secondary regulator (B07J2L8LF3, [`bom.md`](/hardware/ledger/bom.md) §4) between the customer's CGA-320 primary regulator and the vessel CO2 port. The WR1110 holds the appliance-side pressure at 90 PSI regardless of where the customer sets their primary, eliminating customer-setpoint variance and adding a layer of safety on the highest-energy path in the appliance (the CO2-bottle pressure reservoir). Customer guidance: set the primary regulator anywhere in the 70–100 PSI range; the WR1110 takes care of the rest.
+The 90 PSI working pressure this procedure is sized against is set by an in-appliance Interstate Pneumatics WR1110 1/4" NPT fixed-90 PSI secondary regulator (B07J2L8LF3, [`bom.md`](/hardware/ledger/bom.md) §4) between the shipped Wellbom CGA-320 primary regulator (mounted on the customer's tank) and the vessel CO2 port. The WR1110 holds the appliance-side pressure at 90 PSI regardless of where the primary is set, eliminating customer-setpoint variance and adding a layer of safety on the highest-energy path in the appliance (the CO2-bottle pressure reservoir). Customer guidance: set the primary regulator anywhere in the 70–100 PSI range; the WR1110 takes care of the rest.
 
 At the 5" OD × 0.065" wall geometry, hoop stress at 90 PSI is ~3,461 PSI — a ~5.8× safety factor against the 20,000 PSI allowable for 316L SS in vessel-grade service. The 35 PSI margin between the 90 PSI working setpoint and the SV-125 PRV (above) is the safety margin sized for normal-operation excursions.
 
