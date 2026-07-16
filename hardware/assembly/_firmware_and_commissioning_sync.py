@@ -26,7 +26,7 @@ gpio_relay2 = 2             # Teyleten relay #2 (diaphragm pump 12 V refill)
 # 7-bit addresses on the shared SDA/SCL bus (GPIO 21/22).
 
 mcp_valves_addr = 0x20      # MCP23017: 8 valves on PA[0:7] -> TBD62083 U4, Rsvr A reeds on PB[0:3]
-mcp_reservoirs_addr = 0x21  # MCP23017: 4 valves PA[4:7] + cond-fan PA3 -> TBD62083 U5; Rsvr B reeds PB[0:3], carbonator reeds PB[4:5]
+mcp_reservoirs_addr = 0x21  # MCP23017: 2 valves PA[6:7] + cond-fan PA3 -> TBD62083 U5 (PA[4:5] spare); Rsvr B reeds PB[0:3], carbonator reeds PB[4:5]
 rtc_addr = 0x68             # DS3231 RTC
 
 # Carbonator reeds ride the 0x21 MCP23017 on its internal pull-ups (no externals).
@@ -35,7 +35,7 @@ reed_high_loc = "0x21 PB5"  # Carbonator reed high (full threshold)
 
 # ─── Sensor inventory ─────────────────────────────────────────────────
 
-valve_count = 12            # Beduan solenoids: 8 on 0x20 + 4 on 0x21 → TBD62083 U4/U5
+valve_count = 10            # Beduan solenoids: 8 on 0x20 + 2 on 0x21 (PA[4:5] spare) → TBD62083 U4/U5
 reservoir_count = 2         # Flavor reservoirs (A + B)
 reeds_per_reservoir = 4     # Float-rod reeds per reservoir
 reeds_carbonator = 2        # Carbonator low + high reeds

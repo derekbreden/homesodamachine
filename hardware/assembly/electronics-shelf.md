@@ -52,7 +52,7 @@ Cut and prep the AC pigtails for AC-1 through AC-6 per [`/hardware/wiring/ac-wir
 - **AC-3** — H pigtail from the H Wago block to the relay #1 contact input ("common" terminal), [~50 mm](PIGTAIL_SHORT), ferrule one end, crimp fork the other.
 - **AC-4/5/6** — pigtails from the relay #1 contact output (AC-4 switched H, [~400 mm](PIGTAIL_COMPRESSOR)), the N Wago block (AC-5, [~400 mm](PIGTAIL_COMPRESSOR)), and the ground bus (AC-6, [~400 mm](PIGTAIL_COMPRESSOR)). Each carries a female disconnect at the compressor-side end and is left coiled with a labeled flag for routing through the compressor-shroud grommet at [`wiring.md`](/hardware/assembly/wiring.md).
 
-Land the solid-copper ground bus on its power-tray boss. Stage short green 16 AWG pigtails with ring terminals at the bus end for each exposed-metal load: PSU chassis (lands at PSU mounting in step 3), pressure vessel, faucet SS plate, compressor body / shroud, BiB adapter plate. Leave the load-side end of each pigtail un-terminated and labeled; those land at [`wiring.md`](/hardware/assembly/wiring.md). Bus-to-chassis stud connection lands at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md).
+Land the solid-copper ground bus on its power-tray boss. Stage short green 16 AWG pigtails with ring terminals at the bus end for each exposed-metal load: PSU chassis (lands at PSU mounting in step 3), pressure vessel, faucet SS plate, compressor body / shroud. Leave the load-side end of each pigtail un-terminated and labeled; those land at [`wiring.md`](/hardware/assembly/wiring.md). Bus-to-chassis stud connection lands at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md).
 
 ### 3. Mount the PSU, relays, and PCBA
 

@@ -6,8 +6,6 @@ flowchart LR
   subgraph Sources["Sources"]
     Tap["Tap Water"]
     Hopper["Hopper"]
-    BiBA["BiB A"]
-    BiBB["BiB B"]
   end
 
   subgraph Pumps["Pumps"]
@@ -39,10 +37,6 @@ flowchart LR
       YB{{"Y-B"}}
       VC["V-C"]
       VD["V-D"]
-      VKA["V-K-A"]
-      VKB["V-K-B"]
-      YKA{{"Y-KA"}}
-      YKB{{"Y-KB"}}
     end
 
     subgraph MfPumps["Pump Junctions"]
@@ -73,14 +67,10 @@ flowchart LR
     YA --> YB
     YB --> VC
     YB --> VD
-    VC --> YKA
-    VKA --> YKA
-    VD --> YKB
-    VKB --> YKB
 
     %% Pump Junctions connections
-    YKA --> YC
-    YKB --> YF
+    VC --> YC
+    VD --> YF
     YD --> VG
     YD --> VF
     YG --> VJ
@@ -100,8 +90,6 @@ flowchart LR
   %% =========================
   Tap --> Reg
   Hopper --> VB
-  BiBA --> VKA
-  BiBB --> VKB
 
   YC --> PA --> YD
   YF --> PB --> YG
@@ -118,15 +106,15 @@ flowchart LR
   %% the valve's own downstream poppet void (sub-mL). This is what makes the
   %% manifold a manifold rather than a network of tube runs, and why there are
   %% no meaningful stagnant side-pockets at the Y-junctions.
-  %% 0-21 = Source Selection + Pump Junctions + Bag Circuit interior edges.
-  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 stroke:#09f,stroke-width:2px
+  %% 0-17 = Source Selection + Pump Junctions + Bag Circuit interior edges.
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17 stroke:#09f,stroke-width:2px
   %% Tube runs between the manifold and remote components: white. These are
   %% the only real lengths of tube in the diagram; everything else is
   %% manifold-internal.
-  %% 22-33 = sources -> manifold inlets, manifold -> pumps/bags/nozzles.
-  linkStyle 22,23,24,25,26,27,28,29,30,31,32,33 stroke:#ccc,stroke-width:2px
+  %% 18-27 = sources -> manifold inlets, manifold -> pumps/bags/nozzles.
+  linkStyle 18,19,20,21,22,23,24,25,26,27 stroke:#ccc,stroke-width:2px
 
   %% Junction geometry: Y-A/Y-B are PP2308E Y-dividers (source-select); the
-  %% other eight are PP0208E Tees (in-line run + branch). Orange = Tee.
+  %% other six are PP0208E Tees (in-line run + branch). Orange = Tee.
   classDef tee fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
-  class YC,YD,YE,YF,YG,YH,YKA,YKB tee;
+  class YC,YD,YE,YF,YG,YH tee;

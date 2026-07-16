@@ -4,7 +4,7 @@ Printed clamshell that wraps a 1/4" OD ([6.35 mm](TUBE_OD)) LLDPE
 flavor tube and seats two copper-foil ring electrodes against the
 tube wall. Pairs with an MPR121 capacitive touch controller on the
 existing I2C bus to sense liquid presence inside the tube (segment 4,
-hopper feed in the manifold; can also live on the BiB-feed segments).
+hopper feed in the manifold).
 The MPR121 reads capacitance between the two foil rings; water in the
 tube (~80 dielectric) gives a much larger reading than air (~1).
 
