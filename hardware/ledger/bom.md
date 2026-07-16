@@ -106,7 +106,7 @@ Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration modul
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [Fiberglass Supply Depot 2 lb 2-part closed-cell pour-in-place PU foam, 1 qt kit](https://www.amazon.com/dp/B08R7TX8QJ) | 1.25 ft³ yield covers inner + outer shells with margin; Amazon 112-5359790 May 15: $39.99 + $2.90 tax = $42.89 | 1 kit | $42.89 | $42.89 <!--@insulation--> |
+| [Fiberglass Supply Depot 2 lb 2-part closed-cell pour-in-place PU foam, 1 qt kit](https://www.amazon.com/dp/B08R7TX8QJ) | Cold-core pour-in-place foam — one build consumes ~5 L filling the shells around the vessel, coil, and 2 reservoirs (~4 L cavity + pour waste); the 1 qt kit's ~35 L (1.25 ft³) yield covers ~7 builds. Amazon 112-5359790 May 15: $39.99 + $2.90 tax = $42.89 ÷ 7 = $6.13/build | 1/7 kit (~0.14 qt) | $6.13 | $6.13 <!--@insulation--> |
 | [3M 425 aluminum foil tape, 2" × 180 ft](https://www.amazon.com/dp/B07BTW7C2N) | thermally conductive aluminum foil bonding the evaporator coil to the vessel OD; applied during refrigerant-loop assembly step 4; one 180 ft roll covers ~12 builds at ~15 ft/build; 1/12 of $88.97 | 1 | $7.41 | $7.41 <!--@insulation--> |
 | [Pouring Masters 5 oz / 150 mL graduated mixing cups (50-pk)](https://www.amazon.com/dp/B08JHH1DBF) | foam-pour consumable; 4 cups per build for batching the 2-part PU foam in measured shots; $20.37/50 × 4 | 4 (of 50 pk) | $0.41 | $1.63 <!--@consumables--> |
 | [JMU 6" tongue depressors, individually wrapped (100-pk)](https://www.amazon.com/dp/B09H6ZP447) | foam-pour consumable; 4 stir sticks per build for hand-mixing 2-part PU foam in the graduated cups; $7.50/100 × 4 | 4 (of 100 pk) | $0.08 | $0.30 <!--@consumables--> |
@@ -261,7 +261,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 3. Water inlet | [$213.82](BOM_SEC3) |
 | 4. CO2 subsystem | [$123.80](BOM_SEC4) |
 | 5. Refrigeration | [$204.86](BOM_SEC5) |
-| 6. Cold core insulation | [$52.38](BOM_SEC6) |
+| 6. Cold core insulation | [$15.62](BOM_SEC6) |
 | 7. Printed parts (PETG + PET-CF) | [$65.61](BOM_SEC7) |
 | 8. Flavor subsystem | [$197.95](BOM_SEC8) |
 | 9. Dispensing | [$56.83](BOM_SEC9) |
@@ -270,7 +270,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$56.79](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$6.25](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,394.70](BOM_GRAND)** |
+| **Total** | **[$1,357.94](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
