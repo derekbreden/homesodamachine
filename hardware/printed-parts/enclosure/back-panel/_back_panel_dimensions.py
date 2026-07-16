@@ -18,8 +18,8 @@ from docgen import substitute_md
 ac_inlet_recess_depth_min = 3.0
 ac_inlet_recess_depth_max = 5.0
 
-# Bulkhead panel-hole diameter. The John Guest 1/4" body family
-# (PI1208S water inlet + PP1208E umbilical-port unions) share this
+# Bulkhead panel-hole diameter. All four PP1208E bulkheads on this
+# panel (1 water inlet + 3 umbilical-port unions) share this
 # panel-hole spec — JG catalog 0.67" for the 1/4" body family. Same
 # bulkhead family, same panel hole as the cold-core reservoir cap
 # (bulkhead_panel_hole_diameter in cold-core/reservoir/reservoir.py).
