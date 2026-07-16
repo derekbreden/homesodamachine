@@ -14,25 +14,21 @@
 | V-H | Bag B → Pump B inlet |
 | V-I | Pump B outlet → Bag B |
 | V-J | Pump B outlet → Nozzle B |
-| V-K-A | BiB A inlet gate (channel A) |
-| V-K-B | BiB B inlet gate (channel B) |
 
 All valves are normally closed solenoid valves. Flow direction is inlet (I) to outlet (O) only.
 
 ## Junctions
 
-Ten 3-port junctions. **Y-A and Y-B are PP2308E Y-dividers** (the source-select tray's trident fittings); the other eight — **Y-C, Y-D, Y-E, Y-F, Y-G, Y-H, Y-KA, Y-KB** — are **PP0208E Tees** (in-line run + branch). The `Y-` prefix is a stable identifier, not a claim that the fitting is a Y. Per-tray grouping is in [fluid-topology-trays.mmd](/hardware/topology/fluid-topology-trays.mmd).
+Eight 3-port junctions. **Y-A and Y-B are PP2308E Y-dividers** (the source-select tray's trident fittings); the other six — **Y-C, Y-D, Y-E, Y-F, Y-G, Y-H** — are **PP0208E Tees** (in-line run + branch). The `Y-` prefix is a stable identifier, not a claim that the fitting is a Y. Per-tray grouping is in [fluid-topology-trays.mmd](/hardware/topology/fluid-topology-trays.mmd).
 
 | Junction | Port 1 | Port 2 | Port 3 |
 |---|---|---|---|
 | Y-A | V-A-O (tap water) | V-B-O (hopper) | Y-B-1 (to channel split) |
 | Y-B | Y-A-3 (from tap/hopper merge) | V-C-I (channel A select) | V-D-I (channel B select) |
-| Y-KA | V-C-O (channel A shared source) | V-K-A-O (channel A BiB) | Y-C-1 (to pump A inlet) |
-| Y-C | Y-KA-3 (channel A source merge) | V-E-O (bag A to pump return) | P-A-I (pump A inlet) |
+| Y-C | V-C-O (channel A shared source) | V-E-O (bag A to pump return) | P-A-I (pump A inlet) |
 | Y-D | P-A-O (pump A outlet) | V-F-I (pump to bag A) | V-G-I (pump to nozzle A) |
 | Y-E | V-F-O (pump to bag A return) | Bag A port | V-E-I (bag A to pump) |
-| Y-KB | V-D-O (channel B shared source) | V-K-B-O (channel B BiB) | Y-F-1 (to pump B inlet) |
-| Y-F | Y-KB-3 (channel B source merge) | V-H-O (bag B to pump return) | P-B-I (pump B inlet) |
+| Y-F | V-D-O (channel B shared source) | V-H-O (bag B to pump return) | P-B-I (pump B inlet) |
 | Y-G | P-B-O (pump B outlet) | V-I-I (pump to bag B) | V-J-I (pump to nozzle B) |
 | Y-H | V-I-O (pump to bag B return) | Bag B port | V-H-I (bag B to pump) |
 
@@ -55,37 +51,31 @@ Ten 3-port junctions. **Y-A and Y-B are PP2308E Y-dividers** (the source-select 
 
 | # | From | To | Notes |
 |---|---|---|---|
-| 9 | BiB A connector | V-K-A-I | |
-| 10 | V-K-A-O | Y-KA-2 | |
-| 11 | V-C-O | Y-KA-1 | |
-| 12 | Y-KA-3 | Y-C-1 | |
-| 13 | V-E-O | Y-C-2 | |
-| 14 | Y-C-3 | P-A-I | |
-| 15 | P-A-O | Y-D-1 | |
-| 16 | Y-D-2 | V-F-I | |
-| 17 | V-F-O | Y-E-1 | |
-| 18 | Bag A port | Y-E-2 | |
-| 19 | Y-E-3 | V-E-I | |
-| 20 | Y-D-3 | V-G-I | |
-| 21 | V-G-O | Nozzle A | |
+| 9 | V-C-O | Y-C-1 | |
+| 10 | V-E-O | Y-C-2 | |
+| 11 | Y-C-3 | P-A-I | |
+| 12 | P-A-O | Y-D-1 | |
+| 13 | Y-D-2 | V-F-I | |
+| 14 | V-F-O | Y-E-1 | |
+| 15 | Bag A port | Y-E-2 | |
+| 16 | Y-E-3 | V-E-I | |
+| 17 | Y-D-3 | V-G-I | |
+| 18 | V-G-O | Nozzle A | |
 
 ### Channel B
 
 | # | From | To | Notes |
 |---|---|---|---|
-| 22 | BiB B connector | V-K-B-I | |
-| 23 | V-K-B-O | Y-KB-2 | |
-| 24 | V-D-O | Y-KB-1 | |
-| 25 | Y-KB-3 | Y-F-1 | |
-| 26 | V-H-O | Y-F-2 | |
-| 27 | Y-F-3 | P-B-I | |
-| 28 | P-B-O | Y-G-1 | |
-| 29 | Y-G-2 | V-I-I | |
-| 30 | V-I-O | Y-H-1 | |
-| 31 | Bag B port | Y-H-2 | |
-| 32 | Y-H-3 | V-H-I | |
-| 33 | Y-G-3 | V-J-I | |
-| 34 | V-J-O | Nozzle B | |
+| 19 | V-D-O | Y-F-1 | |
+| 20 | V-H-O | Y-F-2 | |
+| 21 | Y-F-3 | P-B-I | |
+| 22 | P-B-O | Y-G-1 | |
+| 23 | Y-G-2 | V-I-I | |
+| 24 | V-I-O | Y-H-1 | |
+| 25 | Bag B port | Y-H-2 | |
+| 26 | Y-H-3 | V-H-I | |
+| 27 | Y-G-3 | V-J-I | |
+| 28 | V-J-O | Nozzle B | |
 
 ---
 
@@ -93,7 +83,7 @@ Ten 3-port junctions. **Y-A and Y-B are PP2308E Y-dividers** (the source-select 
 
 Open valves listed; all others closed.
 
-This table is canonical for the integrated flavor manifold. Pumps run forward only. Valve state selects whether a pump draws from a bag, hopper, BiB input, or tap-water source and whether the outlet returns to a bag or goes to the nozzle. Normally closed solenoid valves define the closed state and keep the dispense paths primed.
+This table is canonical for the integrated flavor manifold. Pumps run forward only. Valve state selects whether a pump draws from a bag, hopper, or tap-water source and whether the outlet returns to a bag or goes to the nozzle. Normally closed solenoid valves define the closed state and keep the dispense paths primed.
 
 ### Dispense A
 
@@ -118,18 +108,6 @@ This table is canonical for the integrated flavor manifold. Pumps run forward on
 - Open: V-B, V-D, V-I
 - Pump B: ON
 - Path: Hopper → V-B → V-D → P-B → V-I → Bag B
-
-### Fill from BiB → Bag A
-
-- Open: V-K-A, V-F
-- Pump A: ON
-- Path: BiB A → V-K-A → P-A → V-F → Bag A
-
-### Fill from BiB → Bag B
-
-- Open: V-K-B, V-I
-- Pump B: ON
-- Path: BiB B → V-K-B → P-B → V-I → Bag B
 
 ### Clean Water Fill → Bag A
 
