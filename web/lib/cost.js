@@ -57,6 +57,21 @@ function prettifyTag(tag) {
   return tag.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+// Drop the purchase pack size from a display name — both the parenthetical form
+// ("(20-pk)", "(2-pack)", "(bag of 10)") and the inline form (", 100 pc",
+// ", 120 pc"). The itemization shows the true per-unit quantity next to the
+// name, so the pack size only muddies "×4". ASINs / part numbers in parens
+// ("(B0FCF1MGT3)", "(NC)") have no pack word and are left alone; lengths and
+// dimensions ("100 ft spool", "10–16 mm", "× 8 mm") aren't pc/pk and survive.
+function stripPack(name) {
+  return name
+    .replace(/\s*\([^()]*\b(?:pk|pack|pcs?|ct|sets?|pieces?|count|bag)\b[^()]*\)/gi, "")
+    .replace(/,\s*\d+\s*(?:pc|pcs|pk|pack)\b/gi, "")
+    .replace(/\s{2,}/g, " ")
+    .replace(/\s*,\s*$/g, "")
+    .trim();
+}
+
 function parseMoney(cell) {
   const m = cell.match(MONEY_RE);
   return m ? parseFloat(m[1].replace(/,/g, "")) : 0;
@@ -73,14 +88,15 @@ function parseCount(qtyCell) {
 }
 
 // Parse bom.md → { total, rowCount, cats: [{ tag, name, sum, parts:[{ name, qty,
-// countable, unit, cost, sections }] }] }, sorted by cost descending. Identical
+// countable, cost, rawQty, sections }] }] }, sorted by cost descending. Identical
 // parts — the same SKU used in more than one subsystem, e.g. the PP010822E
 // adapter that appears in §3, §4 and §8 — are AGGREGATED into one line, so the
 // itemization shows the true per-unit quantity (×6) and total ($10.44) instead
-// of three look-alike $3.48 rows. Row selection mirrors _bom_categories.py;
-// column positions match _bom_totals.py (qty 3rd-last, unit 2nd-last, line last)
-// except §7's printed-parts table (Part | Qty | Material | Mass | $), whose qty
-// is the second cell and which has no per-each price.
+// of three look-alike $3.48 rows. Row selection mirrors _bom_categories.py; qty
+// is the 3rd-last cell and the line cost the last, except §7's printed-parts
+// table (Part | Qty | Material | Mass | $) whose qty is the second cell. The
+// per-each the VIEW shows is derived as total ÷ quantity — never read from the
+// ledger's Unit $ column, so a mis-entered unit can't make the display lie.
 export function readCostRollup(hardwareDir) {
   const bomPath = path.join(hardwareDir, "ledger", "bom.md");
   const text = fs.readFileSync(bomPath, "utf-8");
@@ -106,9 +122,7 @@ export function readCostRollup(hardwareDir) {
     // Part-name cell for display: drop the markdown link target + brackets.
     const name = cells[0].replace(/\]\([^)]*\)/g, "]").replace(/[[\]]/g, "");
     const qtyRaw = section === 7 ? (cells[1] || "") : (cells[cells.length - 3] || "");
-    const unitCell = section === 7 ? "" : (cells[cells.length - 2] || "");
     const count = parseCount(qtyRaw);
-    const unit = unitCell.includes("/") ? null : (parseMoney(unitCell) || null); // "$/ft" is a rate, not a per-each
     rowCount += 1;
 
     if (!byTag.has(tag)) {
@@ -118,13 +132,11 @@ export function readCostRollup(hardwareDir) {
     b.sum += cost;
 
     let p = b.parts.get(name);
-    if (!p) { p = { name, qty: 0, countable: true, unit, cost: 0, rawQty: qtyRaw, sections: new Set() }; b.parts.set(name, p); }
+    if (!p) { p = { name, qty: 0, countable: true, cost: 0, rawQty: qtyRaw, sections: new Set() }; b.parts.set(name, p); }
     p.cost += cost;
     p.sections.add(section);
     if (count === null) p.countable = false;
     else p.qty += count;
-    // Drop a per-each price that isn't consistent across the aggregated rows.
-    if (p.unit != null && unit != null && Math.abs(p.unit - unit) > 0.005) p.unit = null;
   }
 
   const cats = [...byTag.values()].map((b) => ({
@@ -201,14 +213,20 @@ function renderCostBody(rollup) {
       let qty;
       if (p.countable) {
         qty = "&times;" + p.qty;
-        if (p.qty > 1 && p.unit != null) qty += ` <span class="cost-ea">@ ${money(p.unit)}</span>`;
+        if (p.qty > 1) {
+          const each = Math.round((p.cost / p.qty) * 100) / 100;
+          // Show a per-each only when it multiplies back to the total exactly;
+          // otherwise (a sub-cent amortized price) the row would look like it
+          // doesn't add up. Derived from total ÷ qty — never the Unit $ column.
+          if (Math.abs(each * p.qty - p.cost) < 0.005) qty += ` <span class="cost-ea">@ ${money(each)}</span>`;
+        }
       } else {
         qty = escape(p.rawQty || "");
       }
       const secs = p.sections.size > 1
         ? ` <span class="cost-secs">§${[...p.sections].sort((a, b) => a - b).join(",")}</span>`
         : "";
-      return `<tr><td>${escape(p.name)}${secs}</td><td class="cost-qty">${qty}</td><td class="cost-num">${money(p.cost)}</td></tr>`;
+      return `<tr><td>${escape(stripPack(p.name))}${secs}</td><td class="cost-qty">${qty}</td><td class="cost-num">${money(p.cost)}</td></tr>`;
     }).join("");
     const n = c.parts.length;
     return `<details class="cost-cat"><summary>${escape(c.name)} <span class="cost-dt">${money(c.sum)} &middot; ${n} part${n === 1 ? "" : "s"}</span></summary>
