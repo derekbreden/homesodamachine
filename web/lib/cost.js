@@ -215,10 +215,15 @@ function renderCostBody(rollup) {
         qty = "&times;" + p.qty;
         if (p.qty > 1) {
           const each = Math.round((p.cost / p.qty) * 100) / 100;
-          // Show a per-each only when it multiplies back to the total exactly;
-          // otherwise (a sub-cent amortized price) the row would look like it
-          // doesn't add up. Derived from total ÷ qty — never the Unit $ column.
-          if (Math.abs(each * p.qty - p.cost) < 0.005) qty += ` <span class="cost-ea">@ ${money(each)}</span>`;
+          // Per-each is total ÷ qty — never the ledger's Unit $ column, which
+          // can be mis-entered. Amortized pack-fraction costs don't always
+          // divide to the cent, so mark those "~" rather than hiding the
+          // per-each (which left multi-qty rows looking like they were missing
+          // one). Skip only a per-each that would round to $0.00.
+          if (each >= 0.01) {
+            const approx = Math.abs(each * p.qty - p.cost) >= 0.005;
+            qty += ` <span class="cost-ea">@ ${approx ? "~" : ""}${money(each)}</span>`;
+          }
         }
       } else {
         qty = escape(p.rawQty || "");
@@ -239,7 +244,7 @@ function renderCostBody(rollup) {
     <div class="cost-big">${money(total)}</div>
     <div class="cost-lbl">delivered cost per finished unit &mdash; ${rowCount} ledger lines across ${cats.length} part-type categories, amortized per unit</div>
   </div>
-  <p class="cost-note">Every BOM row carries a hidden category tag; this view rolls the ledger up by that tag and stays true to it. Identical parts used across subsystems are combined, so the quantity shown is the true per-unit count. Ranked by per-unit cost.</p>
+  <p class="cost-note">Every BOM row carries a hidden category tag; this view rolls the ledger up by that tag and stays true to it. Identical parts used across subsystems are combined into one line with the true per-unit quantity; the per-each is amortized from the purchase pack, with ~ where it doesn&rsquo;t divide evenly to the cent. Ranked by per-unit cost.</p>
   <h2 class="cost-h2">All categories, ranked</h2>
   <div class="cost-chart">
 ${bars}
