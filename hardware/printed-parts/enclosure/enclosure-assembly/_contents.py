@@ -118,20 +118,29 @@ IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # SeaFlo 22-Series diaphragm pump, body only (sans mounting brackets).
 SEAFLO_DIMS = (75.0, 60.0, 175.0)
-# Multiplex 19-0897 ASSE 1022 backflow preventer — body along its flow axis
-# plus the downward atmospheric-vent barb. Listing-photo estimate, not yet
-# calipered.
-MULTIPLEX_D, MULTIPLEX_L = 44.0, 112.0
+# Multiplex 19-0897 ASSE 1022 backflow preventer (= Anderson Brass ABF-1) — a
+# small inline brass hex, ~65 mm along the flow axis with a ~28 mm across-flats
+# hex (Welbilt spec sheet 5030A: 2.55" long, 1.12" max hex; ~136 g shipping
+# weight rules out anything Ø44 × 112). Modeled as a bounding cylinder at the
+# hex's ~33 mm across-corners Ø, plus the radial atmospheric-vent barb pointing
+# down into the drip pan.
+MULTIPLEX_D, MULTIPLEX_L = 33.0, 65.0
 MULTIPLEX_VENT_D, MULTIPLEX_VENT_L = 8.0, 10.5
-# Interstate Pneumatics WR1110 fixed 90 PSI secondary regulator (1.31" hex,
-# 3.19" long per its listing) and the GASHER 1/4" NPT SS check valves.
-WR1110_D, WR1110_L = 33.4, 81.0
-GASHER_D, GASHER_L = 22.0, 57.0
-# Printed drip pan under the Multiplex vent (no CAD yet) and the Shutao
-# moisture-sensor pad inside it. Depth stops short of the SeaFlo's pulled-in
-# front face.
+# Interstate Pneumatics WR1110 fixed 90 PSI secondary regulator — a "Mini Body
+# Series" fixed preset with no adjustment knob (only two wrench hexes + a flush
+# vent hole): ~Ø21 across the hex corners × 57 mm. The old 1.31"/3.19" figures
+# were the package, not the part (the ~45 g item weight confirms the small
+# body). GASHER 1/4" NPT check valves — ~Ø17 × 40 mm, read off the
+# manufacturer's dimensioned drawing (a hex barrel).
+WR1110_D, WR1110_L = 21.0, 57.0
+GASHER_D, GASHER_L = 17.0, 40.0
+# Printed drip pan under the Multiplex vent (no CAD yet). Depth stops short of
+# the SeaFlo's pulled-in front face. The Shutao water sensor is a two-board
+# LM393 module; its interdigitated FR-4 probe plate (~54 × 40 × 1.6 mm) is the
+# half that lies flat in the pan under the vent — the comparator board mounts
+# off elsewhere.
 PAN_X, PAN_Y, PAN_Z, PAN_WALL, PAN_FLOOR = 130.0, 66.0, 22.0, 2.5, 3.0
-MOIST_X, MOIST_Y, MOIST_Z = 40.0, 16.0, 8.0
+MOIST_X, MOIST_Y, MOIST_Z = 54.0, 40.0, 1.6
 # ACEIRMC MQ-6 combustible-gas sensor module.
 MQ6_X, MQ6_Y, MQ6_Z = 32.0, 20.0, 22.0
 
@@ -202,8 +211,11 @@ C14_BACK_Z = 295.0
 CO2_INLET_X = 46.0
 CO2_INLET_Z = 234.0
 CO2_HOLE_D = 14.5            # clears the DERPIPE's 1/4" NPT shank (Ø~13.7 major)
-DERPIPE_SHANK_D, DERPIPE_SHANK_L = 13.7, 18.0   # NPT stub, wall + inboard thread
-DERPIPE_BODY_D, DERPIPE_BODY_L = 20.0, 18.0     # 5/16" PTC collet body, outboard
+# ~27 mm overall (AirTAC NPC5/16-1/4 class ref: 1.06" long, 9/16" hex, 0.39"
+# thread) — Ø13.7 NPT major is right, but the old collet Ø20/lengths were the
+# package, not the fitting.
+DERPIPE_SHANK_D, DERPIPE_SHANK_L = 13.7, 10.0   # 1/4" NPT stub, ~10 thread
+DERPIPE_BODY_D, DERPIPE_BODY_L = 16.0, 17.0     # 5/16" PTC hex + collet, ~Ø16 corners
 
 
 # --- Colors ---------------------------------------------------------------
@@ -303,15 +315,15 @@ def build():
     cond_top_z = SEAM_CLEAR_LIFT + CONDENSER_FACE_A
     placed["mq6-sensor"] = _at(_box(MQ6_X, MQ6_Y, MQ6_Z), 100.0, 134.0, SEAM_CLEAR_LIFT)
 
-    # --- Water deck, on the compressor top: the drip pan + moisture sensor
-    # along the left wall, the Multiplex over the pan with its vent barb
-    # reaching down into it, the SeaFlo lying flat behind them against the
-    # cold-core front (suction from the Multiplex outlet, discharge up to the
-    # cold-core top). The water-path GASHER check and the DIGITEN flow sensor
-    # (inline on the carb-water riser's path to the rear umbilical) ride the
-    # SeaFlo's top.
+    # --- Water deck, on the compressor top: the drip pan along the left wall
+    # with the sensor probe plate lying flat in it, the Multiplex over the pan
+    # with its vent barb reaching down onto that plate, the SeaFlo lying flat
+    # behind them against the cold-core front (suction from the Multiplex
+    # outlet, discharge up to the cold-core top). The water-path GASHER check
+    # and the DIGITEN flow sensor (inline on the carb-water riser's path to the
+    # rear umbilical) ride the SeaFlo's top.
     placed["drip-pan"] = _at(_drip_pan(), SIDE_RIB_INSET, 3.0, comp_top_z)
-    placed["moisture-sensor"] = _at(_box(MOIST_X, MOIST_Y, MOIST_Z), 30.0, 47.0, comp_top_z + PAN_FLOOR)
+    placed["moisture-sensor"] = _at(_box(MOIST_X, MOIST_Y, MOIST_Z), 30.0, 15.0, comp_top_z + PAN_FLOOR)
     placed["multiplex"] = _at(_multiplex(), 25.0, 21.0, comp_top_z + PAN_Z - 17.0)
     sf_w, sf_d, sf_h = SEAFLO_DIMS                      # [75 x 60 x 175](SEAFLO_DIMS)
     seaflo = _box(sf_h, sf_w, sf_d)                    # 175 x 75 x 60, long axis along X
