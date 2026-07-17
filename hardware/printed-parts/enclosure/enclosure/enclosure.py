@@ -94,7 +94,7 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
 # Hopper funnel opening (Zone C) — one rectangular opening through the top
 # wall spanning the whole zone right of the display, where the removable
 # silicone funnel basin (../../zone-c/hopper-funnel/) drops in and floors
-# just above the power deck. The nominals below are oversized so the cut
+# just above the front towers. The nominals below are oversized so the cut
 # derives to everything its neighbors allow: the display end-wall gusset
 # left, the top-right corner pod's inboard end, the Y-seam lip band behind
 # — and a front ledge kept along the front edge, so a wall frame remains
