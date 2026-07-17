@@ -1,37 +1,34 @@
 # Hopper funnel
 
-The removable dishwasher-safe silicone catch bowl + funnel that stands on the
-Zone C top surface, right of the display, draining through the top-wall throat.
-Pour SodaStream concentrate into it; lift it out by hand for the dishwasher and
-to reach the pumps beneath. Zone framing:
+The removable dishwasher-safe silicone basin that fills the Zone C top-wall
+opening right of the display. Pour a full 440 mL SodaStream flavor bottle
+into it in one go; lift it out by hand for the dishwasher and to reach the
+pumps beneath. Zone framing:
 [`../README.md`](/hardware/printed-parts/zone-c/README.md).
 
 ## Shape
 
-The through-hole in the top wall is boxed in on every side — the display
-housing left, the electronics stack right, the Y-seam lip band behind — so the
-pour target lives above the surface: a wide bowl spanning the whole top zone
-right of the display, riding the solid wall over the electronics stack and
-back across the Y seam (it lifts off before the pieces do). Built top to
+One rectangular basin — the whole opening is the pour target. Built top to
 bottom in enclosure world coordinates so it drops straight into the opening:
 
-- **Catch bowl.** A [150 × 159 mm](HOPPER_BOWL) shallow rectangular basin
-  standing [22 mm](HOPPER_BOWL_H) proud of the enclosure top, flat underside
-  resting on the top wall, vertical rim walls, its floor sloping from every
-  side into the throat so it drains dry.
-- **Throat.** A straight rectangular section — vertical walls, no slope —
-  [27 mm](HOPPER_CHUTE) from the enclosure top surface down to where the ramp
-  starts. Its top press-fits the 3 mm top wall; the rest hangs down into the
-  reserve as a straight rectangular drop.
-- **Ramp + spout.** Below the throat a shallow ramp narrows to a round
-  [6.35 mm](HOPPER_SPOUT_ID) spout (1/4", matching the pump tubing), the spout
-  offset in +X off the throat center toward the clear column beside the pumps.
-  The ramp necks down to just above the tallest content under the mouth (read
-  live), then a short straight spout tube carries the exit down to skim it,
-  where the delivery tube picks it up. Total drop [65 mm](HOPPER_DROP) below
-  the bowl rim.
+- **Stepped tub.** The lower body, [148 × 111 mm](HOPPER_BASIN), drops
+  through the opening (press-fitting the 3 mm top wall) and floors just
+  above the power deck; at the top surface the walls step outward to a
+  [160 × 121 mm](HOPPER_CURB) curb whose underside rests on the wall frame
+  around the opening — the step carries the load, and the curb stands
+  [18 mm](HOPPER_PROUD) proud as the pour rim. Capacity to the rim is
+  [707 mL](HOPPER_CAPACITY) — a full 440 mL bottle with margin, dumped, not
+  metered.
+- **Floor.** Slopes from every side into the throat mouth so the basin
+  drains dry.
+- **Throat.** A rectangular slot dropping straight down the clear column
+  between the two pumps.
+- **Ramp + spout.** Below the throat a short ramp necks to a round
+  [6.35 mm](HOPPER_SPOUT_ID) spout (1/4", matching the pump tubing), ending
+  just above the tallest content under the throat (read live), where the
+  V-B pickup tube meets it. Total drop [151 mm](HOPPER_DROP) below the rim.
 
-The throat footprint is taken from the enclosure's opening rectangle
+The body footprint is taken from the enclosure's opening rectangle
 (`enclosure.py` `_hopper_hole`), so the funnel and hole always match.
 
 ## Regenerate

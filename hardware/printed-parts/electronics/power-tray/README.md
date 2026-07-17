@@ -1,6 +1,6 @@
 # Power tray (PSU + AC distribution)
 
-The AC-in / 12 V-out block of the electronics stack — the first of the
+The AC-in / 12 V-out block of the electronics shelf — the first of the
 electronics trays. It carries the mains-side parts on one printed frame:
 
 PSU turned 90° for a wide/shallow footprint:
