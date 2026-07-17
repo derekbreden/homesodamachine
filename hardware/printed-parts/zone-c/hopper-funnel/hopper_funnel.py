@@ -1,23 +1,26 @@
 """Zone C hopper funnel — the removable dishwasher-safe silicone insert.
 
-One rectangular basin filling the whole top-wall opening right of the display
-(cut by ../../enclosure/enclosure/enclosure.py via `_hopper_hole`), sized to
-take a full 440 mL SodaStream flavor bottle poured in one go — capacity to
-the rim is printed at export and runs well past the bottle. Top to bottom:
+The same idiom as the Lite edition's funnel
+(/pie-in-the-sky/lite/printed-parts/funnel/): a wide flush funnel that drops
+into the top-wall opening right of the display (cut by
+../../enclosure/enclosure/enclosure.py via `_hopper_hole`) — nothing stands
+on the enclosure top but a flat brim. Pour a full 440 mL SodaStream flavor
+bottle into it in one go; capacity to the brim is printed at export and runs
+past the bottle. Top to bottom:
 
-  * a stepped tub: the lower body drops through the opening (press-fitting
-    the 3 mm top wall) and floors just above the power deck; at the top
-    surface the walls step outward to a wider curb whose underside rests on
-    the wall frame around the opening — the step carries the load and the
-    curb stands proud as the pour rim;
-  * the basin floor, sloping from every side into the throat mouth;
-  * a rectangular throat dropping down the clear column between the two
-    pumps;
+  * a flat brim that overhangs the opening all around and rests on the
+    enclosure top surface;
+  * a straight rectangular chute — vertical walls, no slope — press-fitting
+    the 3 mm top wall and dropping to a floor just above the power deck;
+  * the floor, sloping from every side into the throat mouth so the basin
+    drains dry;
+  * a rectangular throat dropping straight down the clear column between
+    pump 1 and the power deck's edge;
   * a short ramp necking to a 1/4" round spout just above the tallest
     content under the throat (read live), where the V-B pickup tube meets
     it.
 
-The funnel shares the opening rectangle with the enclosure, so the body
+The funnel shares the opening rectangle with the enclosure, so the chute
 always matches the hole. It is built in enclosure world coordinates
 (+X right, +Y back, +Z up), so it seats straight into the opening.
 """
@@ -38,22 +41,16 @@ from docgen import substitute_md
 import enclosure as E
 
 # --- funnel parameters ------------------------------------------------------
-bowl_proud = 18.0       # curb rim height above the enclosure top surface
-bowl_wall = 5.5         # basin wall — chunky, for grip when lifting the funnel
-curb_out = {            # curb overhang past the opening, per side — the ledge
-    "left": 3.0,        # the step rests on (left: only the strip between the
-    "right": 8.0,       # display gusset and the opening; back: shy of the
-    "front": 6.0,       # Y-seam line on the top surface)
-    "back": 4.0,
-}
-floor_wall = 4.0        # basin floor slab thickness
+brim_overhang = 3.0     # brim flange reach past the opening, all around
+brim_thickness = 3.0    # flange thickness, resting on the enclosure top
+collar_wall = 3.0       # straight press-fit chute wall (opening − bore)
+floor_wall = 3.0        # basin floor thickness
 floor_gap = 2.5         # floor underside clearance over the content below it
 slope_drop = 8.0        # basin floor fall, walls to the throat mouth
 throat_w = 27.0         # throat slot width (X) — the clear column between
                         # pump 1 and the power deck's edge
-throat_y0, throat_y1 = 25.0, 100.0   # throat slot span (Y), inside the opening
+throat_y0, throat_y1 = 15.0, 110.0   # throat slot span (Y), inside the opening
 throat_cx = 178.5       # throat slot center (X), mid-column
-throat_wall = 3.0       # throat + ramp wall
 ramp_top_z = 250.0      # throat bottom / ramp start
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
@@ -117,19 +114,15 @@ def build_solids():
     """The funnel's outer envelope and inner bore as separate solids, plus a
     metrics dict. This is the source the silicone-mold generator consumes: the
     mold cavity is the negative of `solid` and the mold core is `cavity`. The
-    exterior only ever widens going up (lower body → curb), so both mold
-    halves still pull straight vertically. See ../hopper-funnel-mold/."""
+    exterior only ever widens going up (spout → throat → chute → brim), so
+    both mold halves pull straight vertically. See ../hopper-funnel-mold/."""
     inner, outer, yj, _cf = E._dims()
     oz1 = outer[5]
     x0, x1, y0, y1 = E._hopper_hole(inner, outer, yj)
-    w, d = x1 - x0, y1 - y0                            # lower body = the opening
+    w, d = x1 - x0, y1 - y0                            # chute = the opening
     cx, cy = (x0 + x1) / 2.0, (y0 + y1) / 2.0
-    # The curb: the opening grown per side, resting on the wall frame.
-    ux0, ux1 = x0 - curb_out["left"], x1 + curb_out["right"]
-    uy0, uy1 = y0 - curb_out["front"], y1 + curb_out["back"]
-    uw, ud = ux1 - ux0, uy1 - uy0
-    ucx, ucy = (ux0 + ux1) / 2.0, (uy0 + uy1) / 2.0
-    top_z = oz1 + bowl_proud                           # curb rim = outermost point
+    bw, bd = w + 2.0 * brim_overhang, d + 2.0 * brim_overhang
+    top_z = oz1 + brim_thickness                       # brim top = outermost point
 
     # The basin floors just above the tallest content under the opening (the
     # power deck); the spout necks to just above the content under the throat
@@ -144,35 +137,33 @@ def build_solids():
     neck_z = end_z + spout_tube
     spout_or = spout_id / 2.0 + spout_wall
 
-    # Outer: lower body sunk through the opening to the floor slab, the wider
-    # curb from the top surface up to the rim, the throat slot dropping the
-    # pump column, the ramp necking to the spout, the spout tube.
+    # Outer: the flat brim on the top surface, the straight chute sunk
+    # through the opening to the floor, the throat slot dropping the pump
+    # column, the ramp necking to the spout, the spout tube.
     solid = (
-        _box(w, d, floor_out_z, oz1 + 1.0, cx, cy)
-        .fuse(_box(uw, ud, oz1, top_z, ucx, ucy))
+        _box(bw, bd, oz1, top_z, cx, cy)
+        .fuse(_box(w, d, floor_out_z, oz1 + 1.0, cx, cy))
         .fuse(_box(throat_w, td, ramp_top_z, floor_out_z + 1.0, throat_cx, tcy))
         .fuse(_loft_rc(throat_w, td, throat_cx, tcy, ramp_top_z, spout_or, throat_cx, tcy, neck_z))
         .fuse(_cyl(spout_or, neck_z, end_z, throat_cx, tcy))
     )
-    # Bore: the curb basin, the step down to the lower basin (vertical walls,
-    # then the floor sloping from every side into the throat mouth), the
-    # throat bore, the ramp, the spout tube.
-    bw, bd = w - 2.0 * bowl_wall, d - 2.0 * bowl_wall
-    ubw, ubd = uw - 2.0 * bowl_wall, ud - 2.0 * bowl_wall
-    tbw, tbd = throat_w - 2.0 * throat_wall, td - 2.0 * throat_wall
+    # Bore: the basin (vertical chute walls, then the floor sloping from
+    # every side into the throat mouth), the throat bore, the ramp, the
+    # spout tube.
+    cw, cd = w - 2.0 * collar_wall, d - 2.0 * collar_wall
+    tbw, tbd = throat_w - 2.0 * collar_wall, td - 2.0 * collar_wall
     cavity = (
-        _box(ubw, ubd, oz1, top_z + 1.0, ucx, ucy)
-        .fuse(_box(bw, bd, slope_z, oz1 + 1.0, cx, cy))
-        .fuse(_loft_rr(bw, bd, cx, cy, slope_z, tbw, tbd, throat_cx, tcy, mouth_z))
+        _box(cw, cd, slope_z, top_z + 1.0, cx, cy)
+        .fuse(_loft_rr(cw, cd, cx, cy, slope_z, tbw, tbd, throat_cx, tcy, mouth_z))
         .fuse(_box(tbw, tbd, ramp_top_z, mouth_z + 1.0, throat_cx, tcy))
         .fuse(_loft_rc(tbw, tbd, throat_cx, tcy, ramp_top_z, spout_id / 2.0, throat_cx, tcy, neck_z))
         .fuse(_cyl(spout_id / 2.0, neck_z, end_z - 1.0, throat_cx, tcy))
     )
     meta = {
         "w": w, "d": d, "cx": cx, "cy": tcy, "ncx": throat_cx,
-        "bore_w": bw, "bore_d": bd,
-        "out_w": uw, "out_d": ud, "out_cx": ucx, "out_cy": ucy,
-        "rim_ring": bowl_wall, "collar_wall": throat_wall,
+        "bore_w": cw, "bore_d": cd,
+        "out_w": bw, "out_d": bd, "out_cx": cx, "out_cy": cy,
+        "rim_ring": collar_wall + brim_overhang, "collar_wall": collar_wall,
         "spout_id": spout_id, "spout_or": spout_or,
         "top_z": top_z, "oz1": oz1, "ramp_top_z": ramp_top_z,
         "neck_z": neck_z, "end_z": end_z, "floor_z": floor_out_z,
@@ -182,7 +173,7 @@ def build_solids():
 
 def build():
     solid, cavity, m = build_solids()
-    # Capacity filled to the curb rim: the cavity between the spout exit and rim top.
+    # Capacity filled to the brim: the cavity between the spout exit and brim top.
     fill = cavity.intersect(
         _box(600.0, 600.0, m["end_z"], m["top_z"], m["cx"], m["cy"])
     ).Volume()
@@ -192,30 +183,29 @@ def build():
 
 
 def main():
-    funnel, (w, d, uw, ud, drop, end_z, fill) = build()
+    funnel, (w, d, bw, bd, drop, end_z, fill) = build()
     out = _here.parent / "hopper-funnel.step"
     export_step(funnel, str(out))
     print(f"-> {out.name}")
     b = funnel.val().BoundingBox()
-    print(f"  basin:   {w:.1f} × {d:.1f} mm through the opening, curb {uw:.1f} × {ud:.1f}, "
-          f"{bowl_proud:g} mm proud, top z={b.zmax:.1f}")
-    print(f"  bore:    {w - 2*bowl_wall:.1f} × {d - 2*bowl_wall:.1f} mm at the floor")
+    print(f"  basin:   {w:.1f} × {d:.1f} mm through the opening, brim {bw:.1f} × {bd:.1f}, "
+          f"{brim_thickness:g} mm proud, top z={b.zmax:.1f}")
+    print(f"  bore:    {w - 2*collar_wall:.1f} × {d - 2*collar_wall:.1f} mm at the chute")
     print(f"  throat:  {throat_w:g} × {throat_y1 - throat_y0:g} mm slot down the pump column")
     print(f"  spout:   Ø{spout_id:g} bore to z={end_z:.1f}, total drop {drop:.1f} mm")
-    print(f"  capacity to rim: {fill:.0f} mm³ = {fill / 1000.0:.0f} mL "
+    print(f"  capacity to brim: {fill:.0f} mm³ = {fill / 1000.0:.0f} mL "
           f"({fill / 440000.0:.2f}× a 440 mL SodaStream bottle)")
 
     substitute_md(
         _here.parent / "README.md",
         variables={
             "HOPPER_BASIN": f"{w:.0f} × {d:.0f} mm",
-            "HOPPER_CURB": f"{uw:.0f} × {ud:.0f} mm",
-            "HOPPER_PROUD": f"{bowl_proud:g} mm",
+            "HOPPER_BRIM": f"{brim_thickness:g} mm",
             "HOPPER_CAPACITY": f"{fill / 1000.0:.0f} mL",
             "HOPPER_SPOUT_ID": f"{spout_id:g} mm",
             "HOPPER_DROP": f"{drop:.0f} mm",
         },
-        expected_counts={"HOPPER_BASIN": 1, "HOPPER_CURB": 1, "HOPPER_PROUD": 1,
+        expected_counts={"HOPPER_BASIN": 1, "HOPPER_BRIM": 1,
                          "HOPPER_CAPACITY": 1, "HOPPER_SPOUT_ID": 1, "HOPPER_DROP": 1},
     )
     print("-> README.md")
