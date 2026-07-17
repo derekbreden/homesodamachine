@@ -84,13 +84,12 @@ Two parts in the touch-flo stack aren't joined by this sub-assembly but
 sit immediately adjacent to it, so their spec lives here for one-stop
 reference:
 
-**Donor faucet body — Westbrass R2031-NL family.** The BOM SKU is
-R2031-NL-62 (matte black, B07KH285GJ). Any finish variant in the
-R2031-NL series is interchangeable for this build because the finish is
-fully hidden by the printed touch-flo-shell — only the mechanism +
-shank are exposed. R2031-NL-12 (oil-rubbed bronze, B01N5LVNQA) is the
-same mechanism with a different finish. Pick whichever is cheaper /
-Prime-available at order time.
+**Donor faucet body — Westbrass 8" touch-flo family (A2031-NL / R2031-NL,
+interchangeable).** The BOM SKU is A2031-NL-62 (matte black, B0BXFW1J38).
+Any finish variant in the A2031-NL / R2031-NL series is interchangeable
+for this build because the finish is fully hidden by the printed
+touch-flo-shell — only the mechanism + shank are exposed. Pick whichever
+is cheaper / Prime-available at order time.
 
 **Under-counter plate — SendCutSend 0.060" 316 SS, keyhole design
 (order qty 1).** File `touch_flo_under_counter_plate.dxf` (generated

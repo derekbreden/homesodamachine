@@ -1,6 +1,6 @@
 # Front panel
 
-3D-printed front face of the under-counter enclosure. Carries the ESP32-S3 config display, the front-dispense spout, and the CO2 line inlet. Printed in **Bambu PET-CF**, matching the rest of the enclosure exterior.
+3D-printed front face of the under-counter enclosure. Carries the ESP32-S3 config display, the front-dispense spout, and the CO2 line inlet. Printed in **PETG**, matching the rest of the enclosure exterior.
 
 Opening the cabinet door and looking at the front of the appliance shows the customer the display (touch reaches settings), the dispense spout, and the CO2 connection. Pump access is on top in Zone C, beneath the removable funnel under the single top door ([`/hardware/printed-parts/zone-c/README.md`](/hardware/printed-parts/zone-c/README.md)). See [`/hardware/printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md) "What is on the front face" for the architectural framing.
 
@@ -47,7 +47,7 @@ The WR1110 mounts on a printed bracket somewhere along the CO2 path between the 
 - [`/hardware/future.md`](/hardware/future.md) — front-face config display.
 - [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §1 — ESP32-S3 module source.
 - [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §4 — CO2 path (DERPIPE bulkhead, GASHER check, WR1110, 5/16" short tether).
-- [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md) — sister exterior panel; identification-ring pattern, PET-CF material rationale.
+- [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md) — sister exterior panel; identification-ring pattern, PETG material.
 - [`/hardware/assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §1 — CO2 path install procedure.
 
 ## Open items
