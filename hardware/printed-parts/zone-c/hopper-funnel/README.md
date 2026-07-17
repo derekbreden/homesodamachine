@@ -1,34 +1,36 @@
 # Hopper funnel
 
-The removable dishwasher-safe silicone basin that fills the Zone C top-wall
-opening right of the display. Pour a full 440 mL SodaStream flavor bottle
-into it in one go; lift it out by hand for the dishwasher and to reach the
-pumps beneath. Zone framing:
-[`../README.md`](/hardware/printed-parts/zone-c/README.md).
+The removable dishwasher-safe silicone funnel that drops into the Zone C
+top-wall opening right of the display — flush with the enclosure top, nothing
+standing above it but its flat brim. Pour a full 440 mL SodaStream flavor
+bottle into it in one go; lift it out by hand for the dishwasher and to reach
+the pumps beneath. Same idiom as the Lite edition's funnel
+([/pie-in-the-sky/lite/printed-parts/funnel/](/pie-in-the-sky/lite/printed-parts/funnel/README.md)).
+Zone framing: [`../README.md`](/hardware/printed-parts/zone-c/README.md).
 
 ## Shape
 
-One rectangular basin — the whole opening is the pour target. Built top to
-bottom in enclosure world coordinates so it drops straight into the opening:
+One rectangular basin sunk through the opening — from above, a clean flush
+rectangle. Built top to bottom in enclosure world coordinates so it drops
+straight into the opening:
 
-- **Stepped tub.** The lower body, [148 × 111 mm](HOPPER_BASIN), drops
-  through the opening (press-fitting the 3 mm top wall) and floors just
-  above the power deck; at the top surface the walls step outward to a
-  [160 × 121 mm](HOPPER_CURB) curb whose underside rests on the wall frame
-  around the opening — the step carries the load, and the curb stands
-  [18 mm](HOPPER_PROUD) proud as the pour rim. Capacity to the rim is
-  [707 mL](HOPPER_CAPACITY) — a full 440 mL bottle with margin, dumped, not
+- **Brim.** A flat [3 mm](HOPPER_BRIM) flange overhanging the opening all
+  around, resting on the enclosure top surface.
+- **Chute.** A straight [148 × 111 mm](HOPPER_BASIN) rectangular basin —
+  vertical walls, no slope — press-fitting the 3 mm top wall and dropping to
+  a floor just above the power deck. Capacity to the brim is
+  [537 mL](HOPPER_CAPACITY) — a full 440 mL bottle with margin, dumped, not
   metered.
 - **Floor.** Slopes from every side into the throat mouth so the basin
   drains dry.
 - **Throat.** A rectangular slot dropping straight down the clear column
-  between the two pumps.
+  between pump 1 and the power deck's edge.
 - **Ramp + spout.** Below the throat a short ramp necks to a round
   [6.35 mm](HOPPER_SPOUT_ID) spout (1/4", matching the pump tubing), ending
   just above the tallest content under the throat (read live), where the
-  V-B pickup tube meets it. Total drop [151 mm](HOPPER_DROP) below the rim.
+  V-B pickup tube meets it. Total drop [136 mm](HOPPER_DROP) below the brim.
 
-The body footprint is taken from the enclosure's opening rectangle
+The chute footprint is taken from the enclosure's opening rectangle
 (`enclosure.py` `_hopper_hole`), so the funnel and hole always match.
 
 ## Regenerate

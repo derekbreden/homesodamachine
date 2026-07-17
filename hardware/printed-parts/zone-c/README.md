@@ -12,7 +12,8 @@ One rectangular opening spans the top wall right of the display
 `_hopper_hole`). In it, top to bottom:
 
 - **The funnel.** A silicone basin that fills the opening as the hopper —
-  its curb is the visible top surface of the zone. It lifts out by hand for
+  flush with the enclosure top, a flat brim its only visible edge. It lifts
+  out by hand for
   the dishwasher — flavor concentrate is sticky, so the cleanable interface
   has to come all the way out. Weekly-touch item. Detail:
   [`hopper-funnel/`](/hardware/printed-parts/zone-c/hopper-funnel/).
