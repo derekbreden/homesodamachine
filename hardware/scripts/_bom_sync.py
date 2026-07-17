@@ -75,6 +75,14 @@ total_reeds_per_build = reeds_per_carbonator + reservoir_reeds_total
 # bulkhead, not PP1208E.
 pp1208e_per_build = panel_umbilical_bulkheads + panel_water_inlet_bulkheads
 
+# PP0308E union elbows per build: one in-cavity CO2 bend at the foam-shell
+# CO2 doorway, one on every valve's outer tray port (= solenoid_count),
+# two on each of the two Kamoer pump outlets.
+pp0308e_co2_incavity = 1
+pp0308e_valve_elbows = solenoid_count
+pp0308e_pump_elbows = 4
+pp0308e_per_build = pp0308e_co2_incavity + pp0308e_valve_elbows + pp0308e_pump_elbows
+
 # Foam-lid hardware (6 inserts + 6 M3 screws, top face only).
 foam_lid_inserts_per_build = inserts_per_foam_lid
 foam_lid_screws_per_build = foam_lid_inserts_per_build  # 1:1
@@ -130,6 +138,10 @@ def main():
         "PP1208E_PANEL": f"{panel_umbilical_bulkheads:.4g}",
         "PP1208E_INLET": f"{panel_water_inlet_bulkheads:.4g}",
         "PP1208E_TOTAL": f"{pp1208e_per_build:.4g}",
+        "PP0308E_CO2": f"{pp0308e_co2_incavity:.4g}",
+        "PP0308E_VALVE": f"{pp0308e_valve_elbows:.4g}",
+        "PP0308E_PUMP": f"{pp0308e_pump_elbows:.4g}",
+        "PP0308E_TOTAL": f"{pp0308e_per_build:.4g}",
         # Heat-set insert + screw hardware.
         "FOAM_INSERTS": f"{foam_lid_inserts_per_build:.4g}",
         "FOAM_SCREWS": f"{foam_lid_screws_per_build:.4g}",
@@ -163,6 +175,10 @@ def main():
             "PP1208E_PANEL": 2,
             "PP1208E_INLET": 1,
             "PP1208E_TOTAL": 1,
+            "PP0308E_CO2": 2,
+            "PP0308E_VALVE": 2,
+            "PP0308E_PUMP": 2,
+            "PP0308E_TOTAL": 2,
             "FOAM_INSERTS": 2,
             "FOAM_SCREWS": 2,
             "RES_INSERTS_PER_CAP": 1,
