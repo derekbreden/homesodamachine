@@ -57,7 +57,7 @@ The 3× PP1208E umbilical-port bulkheads are arranged in a **triangular cluster*
 
 ## Panel material
 
-The rear panel — and the rest of the enclosure exterior — is printed in **Bambu PET-CF**. PET-CF prints with no visible layer lines, a consistent matte surface finish, and dimensional stability across cabinet temperature swings. Carbon-fiber reinforcement carries the threaded-insert and bulkhead clamp loads (3× PP1208E push-to-connect bulkheads on this panel alone) without creep. Service temperature is well above the ~30–40 °C cabinet ambient. $85/kg.
+The rear panel — and the rest of the enclosure exterior — is printed in **PETG** ($11.20/kg), the same material as the enclosure halves ([`bom.md`](/hardware/ledger/bom.md) §7). Service temperature is above the ~30–40 °C cabinet ambient.
 
 ## Open items
 
