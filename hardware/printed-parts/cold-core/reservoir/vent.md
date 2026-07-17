@@ -18,8 +18,8 @@ Geometry constants in `reservoir.py` in this directory lines 192–270 (`vent_po
 ## Function
 
 The reservoir is non-pressurized; the vent equalizes the air space
-above the liquid as syrup drains out the bottom outlet (PP1208E
-bulkhead) and as the hopper-fill cycle refills it from above.
+above the liquid as syrup drains out the bottom outlet (PureSec 90°
+elbow bulkhead) and as the hopper-fill cycle refills it from above.
 
 The hydrophobic PTFE membrane passes air freely and blocks aqueous
 syrup at the membrane surface. The splash-baffle cylinder forces any
