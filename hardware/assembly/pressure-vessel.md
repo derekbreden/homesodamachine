@@ -29,7 +29,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §2 (
 | **Control Devices SV-125 safety valve, 1/4" NPT, 125 PSI** | B01G2F6EMY (size SV-125) | **Port 4 dedicated PRV — installed after passivation per step 9 below, via the SS 90° elbow to orient the body laterally.** 125 PSI set pressure gives 1.39× margin over the 90 PSI working pressure. 49 SCFM relief capacity. |
 | Millrose PTFE thread-seal tape | B07C9ZV4PG | Anti-seize for 4 NPT ports (test plugs during hydro + final fittings after passivation) |
 | ER316L .030 filler wire | STARTECHWELD B09BKFBXT9 | Matches 316L parent metal. |
-| Cambro 6 QT polycarbonate square container | B001BZEQ44 | One-time-use passivation soak tub per vessel |
+| Cambro 6 QT polycarbonate square container | B001BZEQ44 | Passivation soak tub, reused build-to-build (one on hand); a mild citric soak doesn't consume it |
 | Viva Doria food-grade citric acid | B0C5NQM8S1 | Made up to ~4 % solution, ~1 qt per vessel (~1/20 of 2 lb bag) |
 | Tap Magic EP-Xtra cutting fluid | B00DHMHSGM | ~$0.50 of fluid per vessel for NPT tapping |
 | Cantesco P101S-A red visible dye penetrant (solvent-removable, aerosol) | B00T46ZH5E | Dye-penetrant (PT) weld inspection — step 6. One can does many vessels. |
@@ -105,7 +105,7 @@ Hold pressure: **180 PSI for 30 minutes** (~2× the 90 PSI working pressure). Be
 
 ### 8. Citric acid passivation
 
-One-time soak in ~4 % food-grade citric acid solution, 30-60 minutes, in a disposable plastic tub sized for the vessel. Followed by thorough water rinse.
+One-time soak in ~4 % food-grade citric acid solution, 30-60 minutes, in the reusable polycarbonate tub sized for the vessel. Followed by thorough water rinse.
 
 Restores the chromium oxide layer at the weld zones — what makes 316L resistant to pitting from carbonic acid in long-life carbonated-water service. The yellow/brown weld coloration from step 3/5 dissolves out during this soak. Same treatment commercial brewery bright tanks and commercial carbonators receive.
 

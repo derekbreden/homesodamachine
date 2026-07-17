@@ -8,8 +8,8 @@ A wide funnel that drops into the top-wall opening to the right of the display
   * a tall straight rectangular chute — vertical walls, no slope — pressing the
     3 mm top wall at its top and hanging on down into the reserve;
   * a shallow ramp from the bottom of that chute down to a 1/4" round spout. The
-    spout is offset in −X and necks one mm above the tallest content below (the
-    bib-gate tray, read live), then a short straight tube carries the exit on down.
+    spout is offset in −X and necks down beside the tallest content under the
+    mouth (read live), then a short straight tube carries the exit on down.
 
 The funnel shares the opening rectangle with the enclosure, so the collar always
 matches the hole. It is built in enclosure world coordinates (+X right, +Y back,
@@ -100,8 +100,9 @@ def build_solids():
     ncx = cx + neck_dx                                  # spout/neck, shifted in X
     ramp_top_z = top_z - chute_h                        # straight chute bottom = ramp start
 
-    # The ramp necks to the round spout one mm above the bib-gate tray (read live);
-    # a straight spout tube then carries the Ø6.35 exit straight down past the neck.
+    # The ramp necks to the round spout beside the top of the tallest content
+    # under the mouth (read live); a straight spout tube then carries the Ø6.35
+    # exit straight down past the neck.
     neck_z = _content_top(x0, x1, y0, y1) - 5
     end_z = neck_z - spout_tube
 
