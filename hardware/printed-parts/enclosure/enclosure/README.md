@@ -92,13 +92,16 @@ with the slab. The display reference is seated in the housing in
 
 ## Hopper opening
 
-A rectangular opening is punched through the top wall to the right of the display
+A rectangular throat is punched through the top wall to the right of the display
 housing and flush to the front, where the removable silicone hopper funnel
 ([`../../zone-c/hopper-funnel/`](/hardware/printed-parts/zone-c/hopper-funnel/))
-drops in — its brim resting on the top, its collar press-fitting the opening. The
-opening is sized to the room right of the display; its +X edge is clamped clear of
-the top-right corner pod. The funnel derives its collar from the same rectangle
-(`_hopper_hole`), so the two always match.
+drops in — its wide catch bowl standing on the top surface (spanning the zone
+right of the display, over the solid wall above the electronics stack), its
+collar press-fitting the opening. The throat is boxed in by its neighbors: the
+display housing left, the electronics stack right (the funnel necks to the
+tallest content under its mouth, so the hole must not reach over them), the
+Y-seam lip band behind, the corner pod at +X. The funnel derives its collar
+from the same rectangle (`_hopper_hole`), so the two always match.
 
 ## Regenerate
 

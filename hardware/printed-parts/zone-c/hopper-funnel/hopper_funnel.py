@@ -1,18 +1,24 @@
 """Zone C hopper funnel — the removable dishwasher-safe silicone insert.
 
-A wide funnel that drops into the top-wall opening to the right of the display
-(cut by ../../enclosure/enclosure/enclosure.py via `_hopper_hole`). Top to bottom:
+A wide catch bowl standing on the enclosure top, draining through the top-wall
+throat to the right of the display (cut by ../../enclosure/enclosure/enclosure.py
+via `_hopper_hole`). The through-hole is boxed in on every side — the display
+housing left, the electronics stack right, the Y-seam lip band behind — so the
+pour target lives ABOVE the surface: the bowl spans the whole top zone right of
+the display, riding the solid wall over the electronics and back across the Y
+seam (it lifts off before the pieces do). Top to bottom:
 
-  * a flat brim that overhangs the opening all around and rests on the enclosure
-    top surface;
-  * a tall straight rectangular chute — vertical walls, no slope — pressing the
-    3 mm top wall at its top and hanging on down into the reserve;
-  * a shallow ramp from the bottom of that chute down to a 1/4" round spout. The
-    spout is offset in +X toward the clear column beside the pumps and necks
-    down to just above the tallest content under the mouth (read live), then a
-    short straight tube carries the exit down to skim it.
+  * the catch bowl — a shallow rectangular basin, vertical rim walls, its floor
+    sloping from every side into the throat, its flat underside resting on the
+    enclosure top surface;
+  * a straight rectangular throat — vertical walls, no slope — press-fitting
+    the 3 mm top wall and dropping on down into the reserve;
+  * a shallow ramp from the bottom of that throat down to a 1/4" round spout.
+    The spout is offset in +X toward the clear column beside the pumps and
+    necks down to just above the tallest content under the mouth (read live),
+    then a short straight tube carries the exit down to skim it.
 
-The funnel shares the opening rectangle with the enclosure, so the collar always
+The funnel shares the throat rectangle with the enclosure, so the collar always
 matches the hole. It is built in enclosure world coordinates (+X right, +Y back,
 +Z up), so it seats straight into the opening.
 """
@@ -33,11 +39,19 @@ from docgen import substitute_md
 import enclosure as E
 
 # --- funnel parameters ------------------------------------------------------
-brim_overhang = 3.0     # brim flange reach past the opening, all around
-brim_thickness = 3.0    # flange thickness, resting on the enclosure top
-collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
-chute_h = 30.0          # straight rectangular chute height — brim top down to the ramp start
-neck_dx = 24.0          # neck (ramp foot + spout) shift in X off the opening center,
+bowl_h = 22.0           # catch-bowl rim height above the enclosure top surface
+bowl_wall = 5.5         # bowl rim wall — chunky, for grip when lifting the funnel
+bowl_band = 8.0         # vertical inner wall below the rim, before the floor slope
+bowl_drop = 2.0         # the floor slope lands this far below the enclosure top,
+                        # inside the throat, so the bowl drains dry
+bowl_x_inset = 15.0     # bowl's +X rim, in from the interior +X wall — shy of the
+                        # box's rounded top edge
+bowl_y1 = 158.0         # bowl's back rim — on the solid top wall over the foam,
+                        # just short of the tray band below
+collar_wall = 3.0       # straight press-fit collar wall (throat opening − bore)
+throat_h = 27.0         # straight rectangular throat — enclosure top surface down
+                        # to the ramp start
+neck_dx = 24.0          # neck (ramp foot + spout) shift in X off the throat center,
                         # aiming the drop into the clear column between the two pumps
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
@@ -68,6 +82,18 @@ def _loft_rc(w0, d0, cx0, cy0, z0, r1, cx1, cy1, z1):
     )
 
 
+def _loft_rr(w0, d0, cx0, cy0, z0, w1, d1, cx1, cy1, z1):
+    """Loft from a rectangle down to a rectangle (centers may differ)."""
+    return (
+        cq.Workplane("XY", origin=(cx0, cy0, z0))
+        .rect(w0, d0)
+        .workplane(offset=z1 - z0).center(cx1 - cx0, cy1 - cy0)
+        .rect(w1, d1)
+        .loft(combine=True)
+        .val()
+    )
+
+
 def _cyl(r, z_top, z_bot, cx, cy):
     return cq.Solid.makeCylinder(r, z_top - z_bot, cq.Vector(cx, cy, z_bot), cq.Vector(0, 0, 1))
 
@@ -91,16 +117,24 @@ def build_solids():
     mold cavity is the negative of `solid` and the mold core is `cavity`. Keeping
     it here, beside the funnel, keeps the mold in lockstep with the part.
     See ../hopper-funnel-mold/."""
-    inner, outer, _yj, _cf = E._dims()
+    inner, outer, yj, _cf = E._dims()
     iz1, oz1 = inner[5], outer[5]
-    x0, x1, y0, y1 = E._hopper_hole(inner, outer)
+    x0, x1, y0, y1 = E._hopper_hole(inner, outer, yj)
     w, d = x1 - x0, y1 - y0
     cx, cy = (x0 + x1) / 2.0, (y0 + y1) / 2.0
     bore_w, bore_d = w - 2.0 * collar_wall, d - 2.0 * collar_wall
-    top_z = oz1 + brim_thickness                       # brim top = outermost point
+    # The catch bowl's footprint: from just left of the throat (the display
+    # housing bounds it) across the whole top zone — over the solid wall above
+    # the electronics stack — to shy of the box's rounded +X top edge, and
+    # from the front edge back over the Y seam to the tray band.
+    bx0, bx1 = x0 - 1.0, inner[1] - bowl_x_inset
+    by0, by1 = y0 - 1.0, bowl_y1
+    bw, bd = bx1 - bx0, by1 - by0
+    bcx, bcy = (bx0 + bx1) / 2.0, (by0 + by1) / 2.0
+    top_z = oz1 + bowl_h                               # bowl rim = outermost point
     spout_or = spout_id / 2.0 + spout_wall
     ncx = cx + neck_dx                                  # spout/neck, shifted in X
-    ramp_top_z = top_z - chute_h                        # straight chute bottom = ramp start
+    ramp_top_z = oz1 - throat_h                         # straight throat bottom = ramp start
 
     # The ramp necks to the round spout just above the tallest content under
     # the mouth (read live); a straight spout tube then carries the Ø6.35 exit
@@ -109,24 +143,31 @@ def build_solids():
     neck_z = _content_top(x0, x1, y0, y1) + spout_tube
     end_z = neck_z - spout_tube
 
-    # Outer: brim flange, a tall straight rectangular chute, a shallow ramp down to
-    # the −X-offset spout, straight spout tube.
+    # Outer: the bowl block seated flat on the enclosure top, the straight
+    # rectangular throat through the wall, a shallow ramp down to the
+    # +X-offset spout, straight spout tube.
     solid = (
-        _box(w + 2.0 * brim_overhang, d + 2.0 * brim_overhang, oz1, top_z, cx, cy)
+        _box(bw, bd, oz1, top_z, bcx, bcy)
         .fuse(_box(w, d, ramp_top_z, oz1, cx, cy))
         .fuse(_loft_rc(w, d, cx, cy, ramp_top_z, spout_or, ncx, cy, neck_z))
         .fuse(_cyl(spout_or, neck_z, end_z, ncx, cy))
     )
-    # Bore: the same chain, one wall in, open at the top and out through the tube.
+    # Bore: the basin (vertical rim band, then the floor sloping from every
+    # side into the throat), the throat bore, the ramp, the spout tube.
+    slope_top = oz1 + bowl_band
     cavity = (
-        _box(bore_w, bore_d, ramp_top_z, top_z + 1.0, cx, cy)
+        _box(bw - 2.0 * bowl_wall, bd - 2.0 * bowl_wall, slope_top, top_z + 1.0, bcx, bcy)
+        .fuse(_loft_rr(bw - 2.0 * bowl_wall, bd - 2.0 * bowl_wall, bcx, bcy, slope_top,
+                       bore_w, bore_d, cx, cy, oz1 - bowl_drop))
+        .fuse(_box(bore_w, bore_d, ramp_top_z, oz1 - bowl_drop + 1.0, cx, cy))
         .fuse(_loft_rc(bore_w, bore_d, cx, cy, ramp_top_z, spout_id / 2.0, ncx, cy, neck_z))
         .fuse(_cyl(spout_id / 2.0, neck_z, end_z - 1.0, ncx, cy))
     )
     meta = {
         "w": w, "d": d, "cx": cx, "cy": cy, "ncx": ncx,
         "bore_w": bore_w, "bore_d": bore_d,
-        "brim_overhang": brim_overhang, "collar_wall": collar_wall,
+        "out_w": bw, "out_d": bd, "out_cx": bcx, "out_cy": bcy,
+        "rim_ring": bowl_wall, "collar_wall": collar_wall,
         "spout_id": spout_id, "spout_or": spout_or,
         "top_z": top_z, "oz1": oz1, "ramp_top_z": ramp_top_z,
         "neck_z": neck_z, "end_z": end_z,
@@ -136,34 +177,37 @@ def build_solids():
 
 def build():
     solid, cavity, m = build_solids()
-    # Capacity filled to the brim rim: the cavity between the spout exit and brim top.
+    # Capacity filled to the bowl rim: the cavity between the spout exit and rim top.
     fill = cavity.intersect(
         _box(600.0, 600.0, m["end_z"], m["top_z"], m["cx"], m["cy"])
     ).Volume()
     return cq.Workplane(obj=solid.cut(cavity)), (
-        m["w"], m["d"], m["top_z"] - m["end_z"], m["end_z"], fill,
+        m["w"], m["d"], m["out_w"], m["out_d"], m["top_z"] - m["end_z"], m["end_z"], fill,
     )
 
 
 def main():
-    funnel, (w, d, drop, end_z, fill) = build()
+    funnel, (w, d, bw, bd, drop, end_z, fill) = build()
     out = _here.parent / "hopper-funnel.step"
     export_step(funnel, str(out))
     print(f"-> {out.name}")
     b = funnel.val().BoundingBox()
-    print(f"  brim:    {b.xlen:.1f} × {b.ylen:.1f} mm, top z={b.zmax:.1f}")
-    print(f"  mouth:   {w:.1f} × {d:.1f} mm (collar), bore {w - 2*collar_wall:.1f} × {d - 2*collar_wall:.1f}")
-    print(f"  spout:   Ø{spout_id:g} bore, centered, to z={end_z:.1f}, total drop {drop:.1f} mm")
-    print(f"  capacity to brim: {fill:.0f} mm³ = {fill / 1000.0:.2f} mL")
+    print(f"  bowl:    {bw:.1f} × {bd:.1f} mm rim, {bowl_h:g} mm proud, top z={b.zmax:.1f}")
+    print(f"  throat:  {w:.1f} × {d:.1f} mm (collar), bore {w - 2*collar_wall:.1f} × {d - 2*collar_wall:.1f}")
+    print(f"  spout:   Ø{spout_id:g} bore, +X-offset, to z={end_z:.1f}, total drop {drop:.1f} mm")
+    print(f"  capacity to rim: {fill:.0f} mm³ = {fill / 1000.0:.2f} mL")
 
     substitute_md(
         _here.parent / "README.md",
         variables={
+            "HOPPER_BOWL": f"{bw:.0f} × {bd:.0f} mm",
+            "HOPPER_BOWL_H": f"{bowl_h:g} mm",
             "HOPPER_SPOUT_ID": f"{spout_id:g} mm",
-            "HOPPER_CHUTE": f"{chute_h:g} mm",
+            "HOPPER_CHUTE": f"{throat_h:g} mm",
             "HOPPER_DROP": f"{drop:.0f} mm",
         },
-        expected_counts={"HOPPER_SPOUT_ID": 1, "HOPPER_CHUTE": 1, "HOPPER_DROP": 1},
+        expected_counts={"HOPPER_BOWL": 1, "HOPPER_BOWL_H": 1,
+                         "HOPPER_SPOUT_ID": 1, "HOPPER_CHUTE": 1, "HOPPER_DROP": 1},
     )
     print("-> README.md")
 
