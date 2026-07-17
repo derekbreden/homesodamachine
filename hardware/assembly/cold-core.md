@@ -6,7 +6,7 @@ Foam-pour geometry, shell architecture, copper-plug binder-clip cross-section, a
 
 ## Scope
 
-In: one hydro-tested + passivated carbonator vessel (output of [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)); GOORY 1/4" OD × 0.031" wall ACR copper tubing for the evaporator coil; 3M 425 aluminum foil tape; the printed coil-winding mandrel; the printed PETG shell stack (foam-shell, foam-lid × 1, copper-plug × 3, reservoir × 2); pour-in-place 2 lb closed-cell polyurethane foam (two-part 1:1); M3 × 12 SHCS × 6 and ruthex M3 inserts × 6 for the lid.
+In: one hydro-tested + passivated carbonator vessel (output of [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)); GOORY 1/4" OD × 0.031" wall ACR copper tubing for the evaporator coil; 3M 425 aluminum foil tape; the printed coil-winding mandrel; the printed PETG shell stack (foam-shell, foam-lid × 1, copper-plug × 4, reservoir × 2); pour-in-place 2 lb closed-cell polyurethane foam (two-part 1:1); M3 × 12 SHCS × 6 and ruthex M3 inserts × 6 for the lid.
 
 Out: a fully foam-poured cold core, closed on top by the thin foam lid, with the wound evaporator coil bonded around the vessel and its inlet/outlet stubs (~2 ft each) protruding through the foam-shell's copper-plug exits.
 
