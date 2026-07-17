@@ -91,16 +91,18 @@ display_pcb_slope = 69.0         # PCB body through-hole, up the 45° slope
 display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
                                  # corner pod clean through (it overhangs the hole otherwise)
 
-# Hopper funnel opening (Zone C) — a rectangular hole through the top wall, right
-# of the display housing and flush to the front, where the removable silicone
-# funnel (../../zone-c/hopper-funnel/) drops in: its brim rests on the top, its
-# straight collar press-fits the opening, and its bore ramps down to a spout
-# inside. Spans the room between the display and the termination stack on the
-# pump-2 column — the funnel necks to the tallest content under its mouth, so
-# the opening must not reach over the electronics; the +X edge is also clamped
-# clear of the top-right corner pod.
-hopper_hole_x = 74.0    # opening width (X), nominal before the corner-pod clamp
-hopper_hole_y = 80.0    # opening depth (Y), from the inner front wall back
+# Hopper funnel opening (Zone C) — a rectangular hole through the top wall,
+# right of the display housing and flush to the front — the THROAT the
+# removable silicone funnel (../../zone-c/hopper-funnel/) drops through. The
+# funnel's wide catch bowl stands on the top surface above it and spans the
+# whole zone right of the display; this hole is only the drain under the
+# bowl, and it is boxed in on every side: the display housing left, the
+# electronics stack on the pump-2 column right (the funnel necks to the
+# tallest content under its mouth, so the opening must not reach over the
+# electronics), the Y-seam lip band in the top wall behind, the corner pod
+# at +X.
+hopper_hole_x = 74.0    # throat width (X), nominal before the corner-pod clamp
+hopper_hole_y = 115.0   # throat depth (Y), nominal before the Y-seam clamp
 
 # Split + boss parameters — every dimension sized to its function, nothing
 # inherited from the faucet. The seam is a Y plane; the front half's full-wall
@@ -329,23 +331,26 @@ def _facet_end_wall(inner, outer):
 
 # --- hopper funnel opening (Zone C) -----------------------------------------
 
-def _hopper_hole(inner, outer):
-    """Rectangle (x0, x1, y0, y1) of the funnel opening in the top wall: its −X
+def _hopper_hole(inner, outer, y_joint):
+    """Rectangle (x0, x1, y0, y1) of the funnel throat in the top wall: its −X
     edge flush past the display end-wall gusset (right of the facet), its −Y edge
     flush with the inner front wall, width/depth from the hopper parameters — the
-    +X edge clamped to clear the top-right corner pod's inboard end. The companion
-    funnel (../../zone-c/hopper-funnel/) derives its collar from this same rect."""
+    +X edge clamped to clear the top-right corner pod's inboard end, the +Y edge
+    clamped ahead of the Y-seam lip band (the hole must live whole in the
+    front-top piece). The companion funnel (../../zone-c/hopper-funnel/) derives
+    its collar from this same rect."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     x0 = ox0 + display_facet_x + wall                  # just past the facet gusset
     pod_in = ix1 + wall - (head_cbore_depth + screw_len + socket_cap)
     x1 = min(x0 + hopper_hole_x, pod_in - 1.0)         # clear the top-right pod
-    return x0, x1, iy0, iy0 + hopper_hole_y
+    y1 = min(iy0 + hopper_hole_y, y_joint - wall - 2.0)  # clear the Y-seam lip
+    return x0, x1, iy0, y1
 
 
-def _hopper_cut(inner, outer):
-    """The funnel opening punched clean through the top wall."""
-    x0, x1, y0, y1 = _hopper_hole(inner, outer)
+def _hopper_cut(inner, outer, y_joint):
+    """The funnel throat punched clean through the top wall."""
+    x0, x1, y0, y1 = _hopper_hole(inner, outer, y_joint)
     return _ybox(x0, x1, y0, y1, inner[5] - 1.0, outer[5] + 1.0)
 
 
@@ -661,8 +666,8 @@ def build_front_half(dims=None, split=None):
     # Let the display into the facet (bezel counterbore + PCB through-hole); this
     # also clears whatever rib/wall material sits behind the facet in its path.
     front = front.cut(_display_cuts(outer))
-    # Punch the hopper funnel opening through the top wall, right of the display.
-    front = front.cut(_hopper_cut(inner, outer))
+    # Punch the hopper funnel throat through the top wall, right of the display.
+    front = front.cut(_hopper_cut(inner, outer, y_joint))
     # Front-panel through-holes — the CO2 inlet the DERPIPE threads through.
     # _contents owns the port layout (mirrors the back-wall ports).
     y0, y1 = outer[2] - 5.0, inner[2] + 5.0

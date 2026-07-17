@@ -11,17 +11,17 @@ halves are those Booleaned out of blocks. Change the funnel and the mold follows
 
 ## The two halves
 
-- **Cavity** ([96.0 × 102.0 × 55.6 mm](CAVITY_DIMS)). A block with the funnel exterior
-  carved out, opening up. The brim sits in a recess at the top rim; the spout
+- **Cavity** ([165.5 × 175.0 × 74.6 mm](CAVITY_DIMS)). A block with the funnel exterior
+  carved out, opening up. The catch bowl sits in a recess at the top rim; the spout
   pokes down through a register hole in the floor. Wall [8 mm](MOLD_WALL) around
   the part, floor [10 mm](MOLD_BASE) under the spout.
-- **Core** ([108.0 × 114.0 × 65.6 mm](CORE_DIMS)). The funnel interior (the bore) as a plug,
-  hanging from a [10 mm](PLATE_THK) top plate that forms the brim's top face and
+- **Core** ([177.5 × 187.0 × 84.6 mm](CORE_DIMS)). The funnel interior (the bore) as a plug,
+  hanging from a [10 mm](PLATE_THK) top plate that forms the bowl rim's top face and
   registers over the cavity by a skirt that drops over its outside. A pin —
   tapered at the tip so it self-centers — continues the [6.35 mm](SPOUT_BORE)
   spout bore down through the cavity floor, holding the thin spout wall
   concentric. A [4 mm](FILL_D) pour port and [5](N_VENTS) [2.5 mm](VENT_D)
-  vents pass through the plate, set over the brim flange ring so they open into
+  vents pass through the plate, set over the bowl's rim ring so they open into
   the silicone.
 
 Because the part is a funnel — everything narrows downward — both halves pull
@@ -44,8 +44,8 @@ platinum-compatible release film.
   face can stay as-printed. Full procedure — seal, release, coupon-test — in the
   lite mold's [README "Finish the core"](/pie-in-the-sky/lite/printed-parts/funnel-mold/README.md).
 - **Critical bridge:** printed opening-up, the cavity's flange-seat ledge (the
-  downward-facing shelf where the brim recess meets the chute) is a short bridge
-  that forms the brim seal — verify it prints clean.
+  downward-facing shelf where the bowl recess meets the throat) is a short bridge
+  that forms the bowl-rim seal — verify it prints clean.
 - No supports needed; the pour port and vents are vertical through-holes.
 
 ## Cast
@@ -56,7 +56,7 @@ platinum-compatible release film.
    the press-fit collar, and flexes to clean — and the funnel never has to be
    self-supporting, since the rigid opening cradles it during a pour. Select for
    **high tear-strength / elongation**; the 2 mm spout wall is the weak link on
-   demold. One funnel is about [34 mL](SIL_VOLUME) of silicone. BBDINO rates it
+   demold. One funnel is about [152 mL](SIL_VOLUME) of silicone. BBDINO rates it
    food-contact safe for **fat-free foods** — fine here: the concentrate is a
    sugar/sucralose syrup with no fat.
 2. **Release + inhibition.** Platinum silicone is cure-poisoned by sulfur, tin,
@@ -74,7 +74,7 @@ platinum-compatible release film.
    (Fallback: seat the core and pour through the fill port — but the deep spout
    casts voids this way; use only with no chamber.)
 4. **Clamp.** Hold the plate down with clamps or weight through the plate while it
-   cures; a loosely-held plate flashes a soft fill at the brim parting line.
+   cures; a loosely-held plate flashes a soft fill at the rim parting line.
 5. **Cure, then post-cure bake.** BBDINO 40A cures at room temperature (~5 h to
    demold, no post-cure in its instructions) and is rated to **230 °C / 446 °F**
    once cured — so the bake below sits well within its limit. For food contact,
