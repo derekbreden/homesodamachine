@@ -2,17 +2,16 @@
 Zone C hopper funnel ([../hopper-funnel/](../hopper-funnel/README.md)) in
 food-grade platinum silicone.
 
-The funnel is a hollow silicone shell (catch bowl + throat + spout), so the
-silicone forms in the gap between two printed halves:
+The funnel is a hollow 3 mm shell, so the silicone forms in the gap between two
+printed halves:
 
-  * CAVITY — a block with the funnel *exterior* carved out, opening up. The
-    catch bowl sits in a recess at the top rim; the spout pokes down through a
-    pin-register hole in the floor.
-  * CORE — the funnel *interior* (the basin + bore) as a plug, hanging from a
-    top plate that forms the bowl rim's top face and registers over the cavity
-    via a skirt. A pin continues the Ø6.35 spout bore down through the cavity
-    floor, fixing the thin spout wall concentric. Vents + a pour port pass
-    through the plate, over the rim ring.
+  * CAVITY — a block with the funnel *exterior* carved out, opening up. The brim
+    sits in a recess at the top rim; the spout pokes down through a pin-register
+    hole in the floor.
+  * CORE — the funnel *interior* (the bore) as a plug, hanging from a top plate
+    that forms the brim's top face and registers over the cavity via a skirt. A
+    pin continues the Ø6.35 spout bore down through the cavity floor, fixing the
+    thin spout wall concentric. Vents + a pour port pass through the plate.
 
 Both halves pull straight up — a funnel is its own draft. The geometry is read
 live from the funnel: `hopper_funnel.build_solids()` returns the exterior and
@@ -76,13 +75,13 @@ def build():
     ocx, ocy = m["out_cx"], m["out_cy"]
     top_z, end_z = m["top_z"], m["end_z"]
     pin_r = m["spout_id"] / 2.0
-    out_w, out_d = m["out_w"], m["out_d"]         # the bowl = the part's outer footprint
+    out_w, out_d = m["out_w"], m["out_d"]         # the brim = the part's outer footprint
     block_w, block_d = out_w + 2.0 * mold_wall, out_d + 2.0 * mold_wall
     plate_w, plate_d = block_w + 2.0 * skirt_wall, block_d + 2.0 * skirt_wall
     floor_z = end_z - mold_base
 
-    # CAVITY: block from floor to bowl-rim top, funnel exterior carved out
-    # (opens up), with a through-hole in the floor that registers the spout pin.
+    # CAVITY: block from floor to brim top, funnel exterior carved out (opens
+    # up), with a through-hole in the floor that registers the spout pin.
     cavity = (
         _box(block_w, block_d, floor_z, top_z, ocx, ocy)
         .cut(solid)
@@ -106,9 +105,9 @@ def build():
     )
     core = bore.fuse(pin).fuse(plate).fuse(skirt)
 
-    # Pour port + vents through the plate, set over the bowl's rim ring (the
-    # silicone wall between the basin mouth and the bowl's outer edge) so they
-    # open into the silicone, not the plug.
+    # Pour port + vents through the plate, set over the brim's rim ring (the
+    # flange + collar band between the bore mouth and the brim's outer edge)
+    # so they open into the silicone, not the plug.
     ring_w = m["rim_ring"]
     assert fill_port_csink <= ring_w, f"fill-port csink {fill_port_csink} > rim ring {ring_w:.1f} mm"
     rx = out_w / 2.0 - ring_w / 2.0
