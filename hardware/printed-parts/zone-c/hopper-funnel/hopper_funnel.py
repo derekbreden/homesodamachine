@@ -8,8 +8,9 @@ A wide funnel that drops into the top-wall opening to the right of the display
   * a tall straight rectangular chute — vertical walls, no slope — pressing the
     3 mm top wall at its top and hanging on down into the reserve;
   * a shallow ramp from the bottom of that chute down to a 1/4" round spout. The
-    spout is offset in −X and necks down beside the tallest content under the
-    mouth (read live), then a short straight tube carries the exit on down.
+    spout is offset in +X toward the clear column beside the pumps and necks
+    down to just above the tallest content under the mouth (read live), then a
+    short straight tube carries the exit down to skim it.
 
 The funnel shares the opening rectangle with the enclosure, so the collar always
 matches the hole. It is built in enclosure world coordinates (+X right, +Y back,
@@ -36,7 +37,7 @@ brim_overhang = 3.0     # brim flange reach past the opening, all around
 brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 chute_h = 30.0          # straight rectangular chute height — brim top down to the ramp start
-neck_dx = -12.0         # neck (ramp foot + spout) shift in X off the opening center,
+neck_dx = 24.0          # neck (ramp foot + spout) shift in X off the opening center,
                         # aiming the drop into the clear column between the two pumps
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
@@ -101,10 +102,11 @@ def build_solids():
     ncx = cx + neck_dx                                  # spout/neck, shifted in X
     ramp_top_z = top_z - chute_h                        # straight chute bottom = ramp start
 
-    # The ramp necks to the round spout beside the top of the tallest content
-    # under the mouth (read live); a straight spout tube then carries the Ø6.35
-    # exit straight down past the neck.
-    neck_z = _content_top(x0, x1, y0, y1) - 5
+    # The ramp necks to the round spout just above the tallest content under
+    # the mouth (read live); a straight spout tube then carries the Ø6.35 exit
+    # down to skim that content, where the delivery tube picks it up over the
+    # clear column beside it.
+    neck_z = _content_top(x0, x1, y0, y1) + spout_tube
     end_z = neck_z - spout_tube
 
     # Outer: brim flange, a tall straight rectangular chute, a shallow ramp down to

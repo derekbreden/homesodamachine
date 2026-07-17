@@ -18,9 +18,11 @@ straight into the opening:
   rectangular drop.
 - **Ramp + spout.** Below the chute a shallow ramp narrows to a round
   [6.35 mm](HOPPER_SPOUT_ID) spout (1/4", matching the pump tubing), the spout
-  offset in −X off the opening center. The ramp necks down beside the tallest
-  content under the mouth (read live), then a short straight spout tube carries
-  the exit on down. Total drop [82 mm](HOPPER_DROP) below the brim.
+  offset in +X off the opening center toward the clear column beside the pumps.
+  The ramp necks down to just above the tallest content under the mouth (read
+  live), then a short straight spout tube carries the exit down to skim it,
+  where the delivery tube picks it up. Total drop [46 mm](HOPPER_DROP) below
+  the brim.
 
 The chute footprint is taken from the enclosure's opening rectangle
 (`enclosure.py` `_hopper_hole`), so the funnel and hole always match.

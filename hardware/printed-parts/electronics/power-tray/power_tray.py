@@ -1,4 +1,4 @@
-"""Power tray — the AC + PSU block of the Zone-B electronics shelf.
+"""Power tray — the AC + PSU block of the electronics stack.
 
 Mounts the Mean Well IRM-90-12ST PSU, relay #1, and the three Wago 221-413 AC
 distribution connectors (H / N / G), plus a ground-bus tie point.
@@ -20,7 +20,7 @@ footprint; the relay and the Wago column pack flush to its right and the ground
 ring-stack sits above the PSU. The components pack **flush** (no inter-part
 gaps), and the floor is the single convex outline of every footprint. The build
 is parameterised by a ``Layout`` (component centres + Z rotations). GFCI is
-tabled; the C14 inlet lives on the back panel. Local frame: X right, Y deep,
+tabled; the C14 inlet lives on the right side panel. Local frame: X right, Y deep,
 Z up; origin at the floor's bottom-left corner, Z = 0 the floor underside, floor
 top at ``floor_t``.
 """

@@ -3,10 +3,13 @@
 A PETG box, 3 mm walls, sized live to the bounding box of the contents placed
 by [`../enclosure-assembly/_contents.py`](/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py),
 **split into four printable pieces** — front/back × bottom/top, every piece
-inside the H2C bed — that telescope and screw together. The back-bottom piece
-houses the cold core; the back-top carries the Zone-B trays, the electronics
-shelf, and every rear-panel port; the front pieces split at the same plane,
-machines below, pumps + funnel + display above.
+inside the H2C bed — that telescope and screw together. The Y seam sits as
+close to the box's midpoint as the cold core allows, and each column takes its
+bottom↔top seam at its own height (the seams stagger like a brick bond): the
+back-bottom piece houses the cold core, the back-top carries the Zone-B trays
+and every rear- and side-panel port; the front column splits at its waist over
+the condenser — refrigeration below, pumps + electronics stack + funnel +
+display above.
 
 `enclosure.py` exports the four printable pieces (`enclosure-front-bottom`,
 `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`) plus
@@ -20,14 +23,18 @@ mouth, plugs, and screw bores aligned to the front coupon's lip and sockets.
 
 ## Seams + bosses
 
-Two seams, one joint idiom. Front↔back: the front pieces' full-wall rear lip
+Three seams, one joint idiom. Front↔back: the front pieces' full-wall rear lip
 telescopes into the back pieces; one cross-pin per side wall per level — the
-lower pair tucked just under the Z seam, the upper pair under the ceiling —
-fastens the columns with M3 screws driven from the ±X exterior. Bottom↔top:
-the same joint rotated 90° at `z_joint` (between the cold core's foam-cap top
-and the tray band) — the bottom pieces carry a 3-sided lip + socket pods, the
-top pieces carry the D-pins and the braces that back them, four more X-axis
-screws crossing the seam. Each cross-pin mates the walls of its overlap (the
+lower pair tucked just under the front Z seam (so it pins the two bottom
+pieces), the upper pair under the ceiling — fastens the columns with M3 screws
+driven from the ±X exterior. Bottom↔top, per column: the same joint rotated
+90°, at `z_joint_front` (the front stack's waist, above the condenser) and
+`z_joint_back` (the one back-wall band left open between the cold core's
+foam-cap top and the rear bulkhead field) — the bottom pieces carry a 3-sided
+lip + socket pods, the top pieces carry the D-pins and the braces that back
+them, four more X-axis screws crossing each seam. The front pair joins, the
+back pair joins, then the front assembly telescopes into the back as one.
+Each cross-pin mates the walls of its overlap (the
 pin's mouth-side face on the receiving mouth, the socket pod's rim-side face
 on the lip rim) and the two are coaxial by construction, so the **overlap
 depth is derived from those matings**, not chosen — it works out to
