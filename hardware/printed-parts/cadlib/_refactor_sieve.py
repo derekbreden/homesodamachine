@@ -62,7 +62,11 @@ _baseline_path = _here / "_refactor_sieve_baseline.json"
 _byte_hashed_step_paths = [
     # cold-core
     "hardware/printed-parts/cold-core/foam-shell/foam-shell.step",
-    "hardware/printed-parts/cold-core/foam-lid/foam-lid.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-top.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-bottom.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-top.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-lid-bottom.step",
+    "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step",
@@ -96,7 +100,7 @@ _byte_hashed_step_paths = [
 
 _cold_core_generators = [
     "hardware/printed-parts/cold-core/foam-shell/foam_shell.py",
-    "hardware/printed-parts/cold-core/foam-lid/foam_lid.py",
+    "hardware/printed-parts/cold-core/foam-cap/foam_cap.py",
     "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py",
     "hardware/printed-parts/cold-core/reservoir/reservoir.py",
     "hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py",

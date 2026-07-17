@@ -1,5 +1,6 @@
 """Kitchen Edition enclosure — a PETG box sized to the placed contents, split
-into two printable halves (front + back) that telescope and cross-pin together.
+into four printable pieces (front/back × bottom/top) that telescope and
+cross-pin together.
 
 Dimensions follow the contents at build time: the bounding box of the parts
 placed by `../enclosure-assembly/_contents.py` is computed live, padded by an
@@ -7,23 +8,30 @@ interior clearance, then walled out. Features:
 
   * A flat 45° display-mounting facet (a solid surface) chamfered into the
     top-front-left corner, flush to the −X edge.
-  * A front↔back split: the front half's rear wall telescopes (a full-wall
-    lip, nothing shaved) into the back half, and four interlocking screw
-    bosses cross the seam — one in each top/bottom corner, on the ±X (left /
-    right) side walls. Each boss is on an X axis: the screw drives in from the
-    left/right EXTERIOR face, and the boss is tucked into the corner so it is
-    part of the top/bottom (±Z) wall. The BACK half carries the PLUG (faucet
-    mounting-plate idiom): a cylinder reaching inward from the corner with a
-    screw clearance through it — no web tail. The FRONT half's lip carries the
-    SOCKET (faucet shell-bottom idiom): a pod bored to receive the plug, open
-    on its +Y face so the plug drops in as the halves close, with a ruthex M3
-    heat-set at the deep end. An M3 SHCS from the ±X exterior passes through the
-    plug into the heat-set, cross-pinning the two halves. The back half is
-    sized so the cold core seats behind the bosses, clear.
+  * A front↔back split (a Y-plane seam ahead of the cold core): the front
+    pieces' rear walls telescope (a full-wall lip, nothing shaved) into the
+    back pieces, and four interlocking screw bosses cross the seam — one per
+    ±X side wall per level, the bottom pair tucked just under the Z seam,
+    the top pair under the ceiling. Each boss is on an X axis: the screw
+    drives in from the left/right EXTERIOR face. The BACK piece carries the
+    PLUG (faucet mounting-plate idiom): a cylinder reaching inward from the
+    corner with a screw clearance through it, backed by a corner brace. The
+    FRONT piece's lip carries the SOCKET (faucet shell-bottom idiom): a pod
+    bored to receive the plug, open on its +Y face so the plug drops in as
+    the pieces close, with a ruthex M3 heat-set at the deep end.
+  * A bottom↔top split (a Z-plane seam at `z_joint`, between the cold core's
+    foam-cap top and the Zone-B tray band): the same joint rotated 90°. The
+    BOTTOM pieces carry the lip — a 3-sided band (their outer ±Y wall + both
+    side walls, stopping short of the Y-seam overlap) telescoping +Z into
+    the top pieces — with the socket pods; the TOP pieces carry the D-pins,
+    their tabs rising to the lip rim where corner braces back them. Four
+    X-axis screws cross this seam (one per side wall per Y column: front
+    pins at the front-wall corners, back pins just behind the Y-seam mouth).
 
-main() exports the two printable halves (enclosure-front.step,
-enclosure-back.step) plus enclosure.step — the two halves as separate solids
-in assembled position, seams intact (mirrors `touch_flo_shell.py`).
+main() exports the four printable pieces (enclosure-front-bottom.step,
+enclosure-front-top.step, enclosure-back-bottom.step, enclosure-back-top.step)
+plus enclosure.step — the four as separate solids in assembled position,
+seams intact (mirrors `touch_flo_shell.py`).
 """
 
 import math
@@ -96,7 +104,6 @@ hopper_hole_y = 80.0    # opening depth (Y), from the inner front wall back
 # registers in the front socket bore, with a flat tab running +Y to the lip rim
 # where the back-half corner brace backs it. The screw spans the head seat to the
 # front heat-set, so the pin body is screw_len − heatset_depth long.
-boss_to_coldcore = 14.0      # clear gap from the lip's +Y tip back to the cold core
 split_slip = 0.40            # diametral slide fit, plug into socket bore
 screw_clear_dia = 3.9        # M3 shank clearance
 head_cbore_dia = 6.15        # M3 SHCS head counterbore
@@ -114,6 +121,15 @@ socket_cap = wall            # one wall capping the insert's deep end
 # With y_boss = y_joint + plug_dia/2 (plug −Y on the mouth), the pod's +Y face
 # (y_boss + socket_r) lands on the rim iff lip_len = plug_dia/2 + socket_r.
 lip_len = plug_dia / 2.0 + socket_r              # = (plug+bore)/2 + wall = 13.1
+
+# The bottom↔top seam plane: between the cold core's foam-cap top and the
+# Zone-B tray band, so the cold core rides entirely in the back-bottom piece
+# and the tray + electronics strata in the back-top. Every printed piece's
+# bed face (X × its Z span) fits the H2C envelope with this cut.
+z_joint = 266.0
+# The Z lip stops this short of the Y-seam overlap on each side, so the two
+# telescopes never share a wall surface.
+z_lip_y_margin = 2.0
 
 
 # --- primitives -------------------------------------------------------------
@@ -336,21 +352,31 @@ def _hopper_cut(inner, outer):
 # The head seats in the back wall; the shank crosses the pin body into the front
 # heat-set, cross-pinning the two halves along X.
 
-def _bosses(inner):
-    """Per-boss tuple (x_in, x_ext, sx, z_boss, sz): the inner ±X wall face the
-    screw passes through, its matching exterior face, sx = +1 (left) / −1
-    (right) inboard, the bore-axis height (bottom one wall above the floor, top
-    one wall below the ceiling), and sz = +1 (bottom) / −1 (top) for the ±Z
-    wall the boss is integral with."""
+def _bosses(inner, split=None, brace_y_short=None):
+    """Per-boss tuple (x_in, x_ext, sx, z_boss, pod_z, zc, brace_z, brace_y1):
+    the inner ±X wall face the screw passes through, its matching exterior
+    face, sx = +1 (left) / −1 (right) inboard, the bore-axis height, the
+    socket pod's z-span + the box corner it rounds to (None mid-wall), and the
+    back brace's z-span + its +Y reach. Two levels per side: with a Z seam
+    (`split`) the lower pair rides just under it — the floor corners stay
+    clear for the cold core, and the lower braces stop ahead of it
+    (`brace_y_short`); without one (the coupon) the lower pair sits one wall
+    above the floor."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
-    zb = iz0 + wall + socket_bore_dia / 2.0   # bottom
-    zt = iz1 - wall - socket_bore_dia / 2.0   # top
-    return [
-        (ix0, ix0 - wall, +1.0, zb, +1.0),  # bottom-left
-        (ix1, ix1 + wall, -1.0, zb, +1.0),  # bottom-right
-        (ix0, ix0 - wall, +1.0, zt, -1.0),  # top-left
-        (ix1, ix1 + wall, -1.0, zt, -1.0),  # top-right
-    ]
+    r = socket_bore_dia / 2.0
+    zt = iz1 - wall - r
+    top = ((zt - socket_r, iz1), iz1, (zt - plug_dia / 2.0, iz1), None)
+    if split is None:
+        zb = iz0 + wall + r
+        bot = ((iz0, zb + socket_r), iz0, (iz0, zb + plug_dia / 2.0), None)
+    else:
+        zb = split - wall - r
+        bot = ((zb - socket_r, split), None, (zb - plug_dia / 2.0, split), brace_y_short)
+    out = []
+    for z_boss, (pod_z, zc, brace_z, by1) in ((zb, bot), (zt, top)):
+        out.append((ix0, ix0 - wall, +1.0, z_boss, pod_z, zc, brace_z, by1))
+        out.append((ix1, ix1 + wall, -1.0, z_boss, pod_z, zc, brace_z, by1))
+    return out
 
 
 def _boss_x(x_ext, sx):
@@ -378,38 +404,40 @@ def _back_plug(x_ext, sx, z_boss, y_boss, y_joint):
     return cyl.fuse(tab)
 
 
-def _front_pod(x_in, x_ext, sx, z_boss, sz, y_joint, inner):
-    """FRONT socket pod (solid): a corner rib bounded by the faces it mates — in
-    Y from the front wall's inner face (iy0) all the way to the rim, in X the
-    side wall to the cap, in Z the bore out to the floor/ceiling. Running full
-    depth to the front wall, it has no −Y overhang when the front half prints
-    −Y-down — it grows straight up from the wall. Bore / heat-set / channel are
-    cut afterwards; the facet trims the top-front-left pod back to its plane."""
+def _front_pod(x_in, x_ext, sx, pod_z, zc, y_joint, inner):
+    """FRONT socket pod (solid): a rib bounded by the faces it mates — in Y
+    from the front wall's inner face (iy0) all the way to the rim, in X the
+    side wall to the cap, in Z the pod's span (out to the floor/ceiling when
+    it lives in a box corner). Running full depth to the front wall, it has no
+    −Y overhang when the front piece prints −Y-down — it grows straight up
+    from the wall. Bore / heat-set / channel are cut afterwards; the facet
+    trims the top-front-left pod back to its plane."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_cap))
-    za, zb = (iz0, z_boss + socket_r) if sz > 0 else (z_boss - socket_r, iz1)
+    za, zb = pod_z
+    pod = _ybox(xa, xb, iy0, y_joint + lip_len, za, zb)
+    if zc is None:
+        return pod
     # Round the outer corner (the one at the side wall) concentric with the
     # cavity, one wall in, so the pod's telescoping reach fits the back's rounded
     # corner instead of fouling it.
-    zc = iz0 if sz > 0 else iz1
-    return _round_corner_y(_ybox(xa, xb, iy0, y_joint + lip_len, za, zb),
-                           x_in, zc, corner_round - wall)
+    return _round_corner_y(pod, x_in, zc, corner_round - wall)
 
 
-def _back_brace(x_in, x_ext, sx, z_boss, sz, y_joint, outer, inner):
-    """BACK corner brace (solid): a corner rib in each top/bottom corner of the
-    ±X side walls, running the back half's free Y length — from the lip rim (where
-    the telescoped front lip + sockets stop, so it never fouls them) to the rear
-    wall. Sized to the pin it backs (in X to the pin's inboard end, in Z to the
-    pin — no further toward centre) and butting the pin's flat tab at the rim, so
-    it supports the X-axis pin in Y and anchors the corner against peeling."""
-    ix0, ix1, iy0, iy1, iz0, iz1 = inner
+def _back_brace(x_in, x_ext, sx, brace_z, brace_y1, y_joint, outer):
+    """BACK brace (solid): a rib on the ±X side wall behind each pin, running
+    the back piece's free Y length — from the lip rim (where the telescoped
+    front lip + sockets stop, so it never fouls them) to the rear wall, or to
+    `brace_y1` where the cold core stands in the way. Sized to the pin it
+    backs (in X to the pin's inboard end, in Z to the pin — no further toward
+    centre) and butting the pin's flat tab at the rim, so it supports the
+    X-axis pin in Y and anchors the wall against peeling."""
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_tip))
-    za, zb = (iz0, z_boss + plug_dia / 2.0) if sz > 0 else (z_boss - plug_dia / 2.0, iz1)
-    return _ybox(xa, xb, y_joint + lip_len, oy1, za, zb)
+    za, zb = brace_z
+    return _ybox(xa, xb, y_joint + lip_len, brace_y1 if brace_y1 is not None else oy1, za, zb)
 
 
 def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint):
@@ -477,6 +505,113 @@ def _y_boss(y_joint):
     return y_joint + plug_dia / 2.0
 
 
+# --- bottom↔top joint: the same telescoping lip + X-axis pins, rotated ------
+#
+# The BOTTOM pieces carry the lip and the socket pods; the TOP pieces carry
+# the D-pins and the braces that back them from above. The pin axis sits at
+# z_pin = z_joint + plug_dia/2 (pin −Z face on the top piece's mouth), the
+# pod's +Z face lands on the lip rim at z_joint + lip_len, and the top piece
+# slides down over the lip — the pin dropping into the pod's +Z-open channel.
+
+
+def _z_pin_z():
+    return z_joint + plug_dia / 2.0
+
+
+def _z_stations(inner, y_joint):
+    """X-axis pin stations along the Z seam, one per ±X wall per Y column:
+    front pins in the front-wall corners (their pods grow from the front
+    wall), back pins just behind the Y-seam mouth (their pods and braces
+    start where the telescoped front lip stops)."""
+    ix0, ix1, iy0, iy1, iz0, iz1 = inner
+    yf = iy0 + wall + socket_bore_dia / 2.0
+    yb = y_joint + lip_len + wall + socket_bore_dia / 2.0
+    return [
+        (ix0, ix0 - wall, +1.0, yf, "front"),
+        (ix1, ix1 + wall, -1.0, yf, "front"),
+        (ix0, ix0 - wall, +1.0, yb, "back"),
+        (ix1, ix1 + wall, -1.0, yb, "back"),
+    ]
+
+
+def _z_lip(inner, y_joint):
+    """The bottom pieces' seam lip: a full-wall band whose outer faces are
+    flush with the body's inner walls, running one wall down into the body
+    (the fusion shoulder) and up over the overlap to the rim. The segment
+    crossing the Y-seam overlap is dropped, so each piece carries a 3-sided
+    lip and the two telescopes never stack on one wall surface."""
+    ix0, ix1, iy0, iy1, iz0, iz1 = inner
+    z0, z1 = z_joint - wall, z_joint + lip_len
+    ring = _ybox(ix0, ix1, iy0, iy1, z0, z1).cut(
+        _ybox(ix0 + wall, ix1 - wall, iy0 + wall, iy1 - wall, z0 - 1.0, z1 + 1.0))
+    gap = _ybox(ix0 - 1.0, ix1 + 1.0,
+                y_joint - wall - z_lip_y_margin, y_joint + lip_len + z_lip_y_margin,
+                z0 - 1.0, z1 + 1.0)
+    return ring.cut(gap)
+
+
+def _z_pod(x_in, x_ext, sx, ys, col, y_joint, inner):
+    """BOTTOM socket pod: the Y-pod rotated — a rib on the ±X wall reaching
+    +Z to the lip rim. The front-column pod grows from the front wall (no
+    print overhang, front pieces printing −Y-down); the back-column pod
+    starts where the lip does, behind the Y-seam overlap."""
+    ix0, ix1, iy0, iy1, iz0, iz1 = inner
+    _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
+    xa, xb = sorted((x_in, x_cap))
+    za = _z_pin_z() - socket_r
+    zb = z_joint + lip_len
+    if col == "front":
+        ya, yb = iy0, ys + socket_r
+    else:
+        ya, yb = y_joint + lip_len + z_lip_y_margin, ys + socket_r
+    return _ybox(xa, xb, ya, yb, za, zb)
+
+
+def _z_pin(x_ext, sx, ys):
+    """TOP D-pin: a round cylinder from the ±X exterior to the heat-set, fused
+    to a flat tab rising +Z to the lip rim, where the top piece's brace backs
+    it. The tab is the pin diameter wide and slides down the socket's +Z
+    channel as the pieces close."""
+    _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
+    zp = _z_pin_z()
+    cyl = _xcyl(plug_dia / 2.0, ys, zp, x_ext, x_tip)
+    xa, xb = sorted((x_ext, x_tip))
+    tab = _ybox(xa, xb, ys - plug_dia / 2.0, ys + plug_dia / 2.0,
+                zp, z_joint + lip_len)
+    return cyl.fuse(tab)
+
+
+def _z_brace(x_in, x_ext, sx, ys, col, inner, outer):
+    """TOP brace: a rib on the ±X wall over each pin, from the lip rim up to
+    the ceiling. The front-column brace grows from the front wall; the back
+    column's stands alone behind the mouth."""
+    ix0, ix1, iy0, iy1, iz0, iz1 = inner
+    ox0, ox1, oy0, oy1, oz0, oz1 = outer
+    _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
+    xa, xb = sorted((x_in, x_tip))
+    if col == "front":
+        ya, yb = iy0, ys + plug_dia / 2.0
+    else:
+        ya, yb = ys - plug_dia / 2.0, ys + plug_dia / 2.0
+    return _ybox(xa, xb, ya, yb, z_joint + lip_len, oz1)
+
+
+def _z_pod_cuts(x_in, x_ext, sx, ys):
+    """Bottom-pod inner cuts: the bore that receives the pin, the heat-set
+    pocket at the deep end, and a +Z channel for the slide-down. The slip
+    lives on the +Z (slide-in) side: the bore is shifted +slip/2 so its −Z
+    wall registers on the pin's −Z face at the mouth."""
+    _xs, x_tip, x_heat, _xc = _boss_x(x_ext, sx)
+    zp = _z_pin_z()
+    bore_z = zp + split_slip / 2.0
+    bore = _xcyl(socket_bore_dia / 2.0, ys, bore_z, x_in, x_tip)
+    heat = _xcyl(heatset_dia / 2.0, ys, zp, x_tip, x_heat)
+    bx0, bx1 = sorted((x_in, x_tip))
+    chan = _ybox(bx0, bx1, ys - socket_bore_dia / 2.0, ys + socket_bore_dia / 2.0,
+                 bore_z, z_joint + lip_len + 1.0)
+    return bore.fuse(heat).fuse(chan)
+
+
 def coupon_dims():
     """Dims for the front-half test-print coupon — a reduced-size box carrying
     every feature (display housing, telescoping lip, the four corner bosses, the
@@ -490,14 +625,15 @@ def coupon_dims():
     return inner, outer, y_joint, None
 
 
-def build_front_half(dims=None):
+def build_front_half(dims=None, split=None):
     inner, outer, y_joint, _ = dims if dims is not None else _dims()
     shell = _shell_with_facet(inner, outer).val()
     front = shell.intersect(_ybox(outer[0], outer[1], outer[2], y_joint, outer[4], outer[5]))
     front = front.fuse(_front_lip(inner, y_joint))
     yb = _y_boss(y_joint)
-    for x_in, x_ext, sx, z_boss, sz in _bosses(inner):
-        front = front.fuse(_front_pod(x_in, x_ext, sx, z_boss, sz, y_joint, inner))
+    bosses = _bosses(inner, split=split)
+    for x_in, x_ext, sx, _zb, pod_z, zc, _bz, _by1 in bosses:
+        front = front.fuse(_front_pod(x_in, x_ext, sx, pod_z, zc, y_joint, inner))
     # The full-depth pods can poke into the display facet; trim them to its plane.
     front = front.cut(_facet_wedge(outer))
     # Close the facet recess at its +X edge (the −X edge is sealed by the left wall).
@@ -507,8 +643,8 @@ def build_front_half(dims=None):
     front = front.cut(_display_cuts(outer))
     # Punch the hopper funnel opening through the top wall, right of the display.
     front = front.cut(_hopper_cut(inner, outer))
-    # Front-panel through-holes — the CO2 inlet the coupling body threads
-    # through. _contents owns the port layout (mirrors the back-wall ports).
+    # Front-panel through-holes — the CO2 inlet the DERPIPE threads through.
+    # _contents owns the port layout (mirrors the back-wall ports).
     y0, y1 = outer[2] - 5.0, inner[2] + 5.0
     for hole in _contents.front_wall_ports():
         kind, hx, hz = hole[0], hole[1], hole[2]
@@ -518,31 +654,33 @@ def build_front_half(dims=None):
         else:
             wx, wz = hole[3], hole[4]
             front = front.cut(_ybox(hx - wx / 2.0, hx + wx / 2.0, y0, y1, hz - wz / 2.0, hz + wz / 2.0))
-    for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
+    for x_in, x_ext, sx, z_boss, _pz, _zc, _bz, _by1 in bosses:
         front = front.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb, y_joint))
     # Clip any corner feature that pokes past the rounded print silhouette.
     front = front.intersect(_rounded_outer(outer))
     return cq.Workplane(obj=front)
 
 
-def build_back_half(dims=None):
+def build_back_half(dims=None, split=None, brace_y_short=None):
     inner, outer, y_joint, _ = dims if dims is not None else _dims()
     shell = _shell_with_facet(inner, outer).val()
     back = shell.intersect(_ybox(outer[0], outer[1], y_joint, outer[3], outer[4], outer[5]))
     yb = _y_boss(y_joint)
-    for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
+    bosses = _bosses(inner, split=split, brace_y_short=brace_y_short)
+    for x_in, x_ext, sx, z_boss, _pz, _zc, _bz, _by1 in bosses:
         back = back.fuse(_back_plug(x_ext, sx, z_boss, yb, y_joint))
-    for x_in, x_ext, sx, z_boss, sz in _bosses(inner):
-        back = back.fuse(_back_brace(x_in, x_ext, sx, z_boss, sz, y_joint, outer, inner))
+    for x_in, x_ext, sx, _zb, _pz, _zc, brace_z, brace_y1 in bosses:
+        back = back.fuse(_back_brace(x_in, x_ext, sx, brace_z, brace_y1, y_joint, outer))
     # Clip any corner feature that pokes past the rounded print silhouette.
     back = back.intersect(_rounded_outer(outer))
-    for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
+    for x_in, x_ext, sx, z_boss, _pz, _zc, _bz, _by1 in bosses:
         back = back.cut(_screw_cut(x_ext, sx, z_boss, yb))
     # Rear-panel through-holes for the appliance's external connections — the
-    # faucet umbilical (carb-water + two flavor), the tap-water inlet, and the C14
-    # mains inlet — cut through the back wall in the Zone-B band ABOVE the cold
-    # core (its own rear stays clean). _contents owns the port layout, since it
-    # places the contents the band is measured from (../back-panel/README.md).
+    # faucet umbilical (carb-water + two flavor), the tap-water inlet, and the
+    # C14 mains inlet — cut through the back wall in the windows the pack
+    # leaves against it, off the cold core's clean rear. _contents owns the
+    # port layout, since it places the contents the windows are measured from
+    # (../back-panel/README.md).
     y0, y1 = inner[3] - 5.0, outer[3] + 5.0
     for hole in _contents.back_wall_ports():
         kind, hx, hz = hole[0], hole[1], hole[2]
@@ -554,6 +692,51 @@ def build_back_half(dims=None):
             cutter = _ybox(hx - wx / 2.0, hx + wx / 2.0, y0, y1, hz - wz / 2.0, hz + wz / 2.0)
         back = back.cut(cutter)
     return cq.Workplane(obj=back)
+
+
+def build_piece(y_side, z_side, dims=None, halves_cache=None):
+    """One of the four printable pieces: the full front/back column split at
+    z_joint, the bottom taking the Z lip + socket pods, the top taking the
+    D-pins + braces + X-axis screw bores."""
+    dims = dims if dims is not None else _dims()
+    inner, outer, y_joint, cold_front_y = dims
+    ox0, ox1, oy0, oy1, oz0, oz1 = outer
+    short = (cold_front_y - 2.0) if cold_front_y is not None else None
+    if halves_cache is not None and y_side in halves_cache:
+        half = halves_cache[y_side]
+    else:
+        half = (build_front_half(dims, split=z_joint) if y_side == "front"
+                else build_back_half(dims, split=z_joint, brace_y_short=short))
+        if halves_cache is not None:
+            halves_cache[y_side] = half
+    solid = half.val()
+    stations = [s for s in _z_stations(inner, y_joint)
+                if (s[4] == "front") == (y_side == "front")]
+    if z_side == "bottom":
+        piece = solid.intersect(_ybox(ox0 - 1.0, ox1 + 1.0, oy0 - 1.0, oy1 + 1.0,
+                                      oz0 - 1.0, z_joint))
+        col = _ybox(ox0 - 1.0, ox1 + 1.0,
+                    oy0 - 1.0 if y_side == "front" else y_joint,
+                    y_joint if y_side == "front" else oy1 + 1.0,
+                    oz0 - 1.0, oz1 + 1.0)
+        piece = piece.fuse(_z_lip(inner, y_joint).intersect(col))
+        for x_in, x_ext, sx, ys, c in stations:
+            piece = piece.fuse(_z_pod(x_in, x_ext, sx, ys, c, y_joint, inner))
+        for x_in, x_ext, sx, ys, _c in stations:
+            piece = piece.cut(_z_pod_cuts(x_in, x_ext, sx, ys))
+    else:
+        piece = solid.intersect(_ybox(ox0 - 1.0, ox1 + 1.0, oy0 - 1.0, oy1 + 1.0,
+                                      z_joint, oz1 + 1.0))
+        for x_in, x_ext, sx, ys, c in stations:
+            piece = piece.fuse(_z_pin(x_ext, sx, ys))
+            piece = piece.fuse(_z_brace(x_in, x_ext, sx, ys, c, inner, outer))
+        if y_side == "front":
+            # The braces near the facet corner trim to its plane + display cuts.
+            piece = piece.cut(_facet_wedge(outer)).cut(_display_cuts(outer))
+        for x_in, x_ext, sx, ys, _c in stations:
+            piece = piece.cut(_screw_cut(x_ext, sx, _z_pin_z(), ys))
+    piece = piece.intersect(_rounded_outer(outer))
+    return cq.Workplane(obj=piece)
 
 
 # --- reporting --------------------------------------------------------------
@@ -583,55 +766,58 @@ def _report_facet(half):
           f"(target {display_facet_x:g} × {display_facet_slope:g})")
 
 
-def _report_split(front, back):
-    fb = front.val().BoundingBox()
-    bb = back.val().BoundingBox()
-    print(f"  front half:       Y[{fb.ymin:.0f}, {fb.ymax:.0f}] = {fb.ylen:.0f} mm  "
-          f"({fb.xlen:.0f}×{fb.zlen:.0f} face)")
-    print(f"  back half:        Y[{bb.ymin:.0f}, {bb.ymax:.0f}] = {bb.ylen:.0f} mm  "
-          f"({bb.xlen:.0f}×{bb.zlen:.0f} face)")
-    for tag, h in (("front", front), ("back", back)):
-        b = h.val().BoundingBox()
+def _report_split(pieces):
+    for name, p in pieces.items():
+        b = p.val().BoundingBox()
         fits = b.xlen <= H2C_X + 1 and b.ylen <= H2C_Y + 1 and b.zlen <= H2C_Z + 1
-        print(f"  {tag} fits H2C bed: {fits}")
-    overlap = front.val().intersect(back.val()).Volume()
-    print(f"  front ∩ back:     {overlap:.1f} mm³  ({'CLEAR slip-fit' if overlap < 5 else 'INTERFERENCE'})")
-    inner, _o, y_joint, _c = _dims()
-    yb = _y_boss(y_joint)
+        print(f"  {name + ':':14s} X {b.xlen:5.0f} × Y {b.ylen:5.0f} × Z {b.zlen:5.0f} mm  "
+              f"(Y[{b.ymin:.0f},{b.ymax:.0f}] Z[{b.zmin:.0f},{b.zmax:.0f}])  "
+              f"H2C bed: {'fits' if fits else 'OVER'}")
+    names = list(pieces)
+    for i, a in enumerate(names):
+        for b in names[i + 1:]:
+            v = pieces[a].val().intersect(pieces[b].val()).Volume()
+            tag = "CLEAR slip-fit" if v < 5 else "INTERFERENCE"
+            print(f"  {a} ∩ {b}: {v:.1f} mm³  ({tag})")
     cold = _contents.build()["foam-assembly"][0]
-    clash = sum(
-        cold.intersect(
-            _back_plug(x_ext, sx, z_boss, yb, y_joint).fuse(
-                _front_pod(x_in, x_ext, sx, z_boss, sz, y_joint, inner))
-        ).Volume()
-        for x_in, x_ext, sx, z_boss, sz in _bosses(inner)
-    )
-    print(f"  cold core vs bosses: {clash:.1f} mm³ overlap  ({'CLEAR' if clash < 1 else 'CLASH'})")
+    clash = max(cold.intersect(p.val()).Volume() for p in pieces.values())
+    print(f"  cold core vs pieces: {clash:.1f} mm³ max overlap  ({'CLEAR' if clash < 1 else 'CLASH'})")
 
 
 def main():
-    front = build_front_half()
-    back = build_back_half()
+    dims = _dims()
+    cache = {}
+    pieces = {
+        "front-bottom": build_piece("front", "bottom", dims, cache),
+        "front-top":    build_piece("front", "top", dims, cache),
+        "back-bottom":  build_piece("back", "bottom", dims, cache),
+        "back-top":     build_piece("back", "top", dims, cache),
+    }
 
     assy = cq.Assembly(name="enclosure")
-    assy.add(front, name="enclosure_front", color=cq.Color(0.80, 0.84, 0.90))
-    assy.add(back, name="enclosure_back", color=cq.Color(0.70, 0.74, 0.82))
+    piece_colors = {
+        "front-bottom": cq.Color(0.80, 0.84, 0.90),
+        "front-top":    cq.Color(0.86, 0.89, 0.94),
+        "back-bottom":  cq.Color(0.70, 0.74, 0.82),
+        "back-top":     cq.Color(0.76, 0.80, 0.87),
+    }
+    for name, p in pieces.items():
+        assy.add(p, name=f"enclosure_{name.replace('-', '_')}", color=piece_colors[name])
 
     coupon = build_front_half(coupon_dims())
     coupon_back = build_back_half(coupon_dims())
 
-    export_step(front, str(_here.parent / "enclosure-front.step"))
-    export_step(back, str(_here.parent / "enclosure-back.step"))
+    for name, p in pieces.items():
+        export_step(p, str(_here.parent / f"enclosure-{name}.step"))
+        print(f"-> enclosure-{name}.step")
     export_assembly(assy, str(_here.parent / "enclosure.step"))
     export_step(coupon, str(_here.parent / "enclosure-front-coupon.step"))
     export_step(coupon_back, str(_here.parent / "enclosure-back-coupon.step"))
-    print("-> enclosure-front.step")
-    print("-> enclosure-back.step")
-    print("-> enclosure.step (assembled halves)")
+    print("-> enclosure.step (assembled pieces)")
     print("-> enclosure-front-coupon.step (test print)")
     print("-> enclosure-back-coupon.step (test print)")
-    _report_facet(front)
-    _report_split(front, back)
+    _report_facet(pieces["front-top"])
+    _report_split(pieces)
     for tag, c in (("front coupon", coupon), ("back coupon", coupon_back)):
         b = c.val().BoundingBox()
         print(f"  {tag}:     {b.xlen:.0f}×{b.ylen:.0f}×{b.zlen:.0f} mm, {len(c.val().Solids())} solid")

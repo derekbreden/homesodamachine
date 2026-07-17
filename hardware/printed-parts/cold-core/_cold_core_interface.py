@@ -121,26 +121,31 @@ outer_shell_y_length = 2 * (
 )
 
 
-# Foam-lid thickness — the thin PETG cover that closes the body's open +Z top
-# over the cured body-pour foam. The pre-soldered reed columns drop into the
-# open top first; the lid then caps it. No foam, no gasket — it just keeps the
-# cured foam covered and carries the CO2 tube pass-through.
-foam_lid_thickness = 3.0
+# Foam-cap stack — the pour trays that close both ends of the shell (one
+# mouth-up on top, one mouth-down underneath), each with a thin pour lid.
+# The interior height is the cap's foam depth; the printed cup adds one
+# floor.
+foam_cap_interior_height = outer_shell_foam_gap
+foam_cap_height = foam_cap_interior_height + wall_and_floor_thickness
+foam_cap_lid_pour_radius = 10.0
+foam_cap_lid_vent_radius = 3.0
+foam_cap_lid_hole_inset = 30.0
 
-# CO2 inlet tube pass-through (through the foam lid): the 1/4" OD LLDPE CO2 line
-# enters from above at x=0, its Y midway between the centerward-wall band and the
-# support-ring band, then routes down through the body foam to the internal ⌀16
-# elbow doorway (the doorway itself is cut in _port_cuts, not here). Only the
-# tube traverses the lid.
+# CO2 inlet tube pass-through (through the top cap + its lid): the 1/4" OD
+# LLDPE CO2 line enters from above at x=0, its Y midway between the
+# centerward-wall band and the support-ring band, then routes down through
+# the body foam to the internal ⌀16 elbow doorway (the doorway itself is cut
+# in _port_cuts, not here). Only the tube traverses the cap stack.
 co2_inlet_tube_radius = port_hole_radius
 _co2_centerward_mid_r = pocket_centerward_arc_outer_radius - wall_and_floor_thickness / 2
 _co2_support_ring_outer_r = tank_coil_envelope_radius  # the ring sits on the tank+coil envelope
 _co2_support_ring_mid_r = _co2_support_ring_outer_r - support_ring_radial_width / 2
 co2_inlet_y = -(_co2_centerward_mid_r + _co2_support_ring_mid_r) / 2
 
-# Lid-to-outer-shell joinery: 6 ruthex M3 heat-set inserts in the shell's
-# TOP-face bosses + 6 M3 SHCS through the lid (the bottom face carries no
-# inserts — there is no bottom cap). See bom.md for hardware SKUs.
+# Cap-to-outer-shell joinery: 6 attachment points per face × 2 faces =
+# 12 inserts / 12 M3×25 SHCS, each screw passing lid + cap into an insert
+# pressed from the shell face it mates. TPU gasket per cap
+# (foam-cap-gasket.step). See bom.md for hardware SKUs.
 screw_clearance_radius = 1.95  # ⌀[3.9](SCREW_CLEARANCE_DIAMETER) clearance for M3 SHCS shank
 insert_pocket_radius = 2.0  # ⌀[4](INSERT_POCKET_DIAMETER) for ruthex M3 short heat-set
 insert_pocket_depth = 8.0  # 4 mm insert engagement + 4 mm relief
