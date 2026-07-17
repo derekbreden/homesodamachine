@@ -24,9 +24,12 @@ import argparse
 import gzip
 import json
 import math
+import os
 import shutil
+import struct
 import subprocess
 import sys
+import tempfile
 import time
 import urllib.request
 from pathlib import Path
@@ -237,6 +240,83 @@ def ensure_circuit_json(board_name):
     return cj_path
 
 
+def canonicalize_glb(glb_path: Path) -> None:
+    """Rewrite the GLB in a byte-stable canonical form so identical geometry
+    yields identical bytes across runs — the same reason
+    hardware/scripts/_cadq_export.py canonicalizes STEP/DXF/PDF output.
+
+    OCCT's RWGltf_CafWriter computes each accessor's min/max bounds in a
+    precision finer than the float32 vertex data it stores, and that
+    computation is not run-to-run stable: two runs emit a byte-identical
+    vertex buffer (the BIN chunk) yet a handful of accessor min/max values
+    differ in their last double ULP — e.g. -0.0601943076 vs
+    -0.060194307600000004, which round to the SAME float32. Left alone this
+    flips ~32 bytes every run, churning git (`out/<board>.glb` is committed)
+    and burning agent tokens chasing a non-change.
+
+    Fix: round every accessor min/max to 9 decimal places — nanometre
+    precision at the GLB's metre scale, far below the float32 the data is
+    stored in, so the sub-ULP jitter collapses while the bound stays exact
+    for any real purpose — then re-serialize the JSON chunk compactly and
+    deterministically. The BIN chunk is copied through untouched. Written
+    atomically, and skipped entirely when the canonical bytes already match
+    the file on disk (a true no-op leaves mtime alone). Best-effort: any
+    parse failure leaves the writer's own output in place."""
+    try:
+        data = glb_path.read_bytes()
+        if len(data) < 12 or data[:4] != b"glTF":
+            return
+        _magic, version, _total = struct.unpack_from("<4sII", data, 0)
+        if version != 2:
+            return
+        off = 12
+        chunks = []  # [type_bytes, data_bytes] per GLB chunk, in file order
+        while off + 8 <= len(data):
+            clen, ctype = struct.unpack_from("<I4s", data, off)
+            off += 8
+            chunks.append([ctype, data[off:off + clen]])
+            off += clen
+        json_idx = next((i for i, (t, _) in enumerate(chunks) if t == b"JSON"), None)
+        if json_idx is None:
+            return
+        gltf = json.loads(chunks[json_idx][1])
+
+        for acc in gltf.get("accessors", []):
+            for key in ("min", "max"):
+                vals = acc.get(key)
+                if isinstance(vals, list):
+                    acc[key] = [round(v, 9) if isinstance(v, float) else v for v in vals]
+
+        new_json = json.dumps(
+            gltf, separators=(",", ":"), ensure_ascii=False, allow_nan=False
+        ).encode("utf-8")
+        new_json += b"\x20" * ((-len(new_json)) % 4)  # pad to 4 bytes with spaces
+        chunks[json_idx][1] = new_json
+
+        body = bytearray()
+        for ctype, cdata in chunks:
+            body += struct.pack("<I4s", len(cdata), ctype)
+            body += cdata
+        out = struct.pack("<4sII", b"glTF", 2, 12 + len(body)) + bytes(body)
+
+        if out == data:
+            return  # already canonical — no write keeps mtime stable
+        fd, tmp = tempfile.mkstemp(prefix=f".{glb_path.name}.", suffix=".tmp",
+                                   dir=str(glb_path.parent))
+        try:
+            with os.fdopen(fd, "wb") as f:
+                f.write(out)
+            os.replace(tmp, glb_path)
+        except BaseException:
+            try:
+                os.unlink(tmp)
+            except FileNotFoundError:
+                pass
+            raise
+    except Exception as e:
+        print(f"  ! GLB canonicalization skipped: {e}", file=sys.stderr)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("target", nargs="?", help="board.tsx or a .circuit.json (default: this dir's board)")
@@ -271,6 +351,9 @@ def main():
     writer = RWGltf_CafWriter(TCollection_AsciiString(str(glb_path)), True)
     if not writer.Perform(doc, TColStd_IndexedDataMapOfStringString(), Message_ProgressRange()):
         sys.exit("GLB write failed")
+    # OCCT's glTF writer emits run-to-run-unstable accessor bounds; normalize so
+    # an unchanged board re-exports byte-identical (out/<board>.glb is committed).
+    canonicalize_glb(glb_path)
 
     bb = Bnd_Box()
     BRepBndLib.Add_s(top, bb)
