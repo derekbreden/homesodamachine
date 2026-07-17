@@ -28,8 +28,7 @@ bodies are clash-free.
 A frame plate (Z [-3](TRAY_BOT_Z) → [6](TRAY_TOP_Z)), **[38](NOZ_PLATE_W) × [74](NOZ_PLATE_D) × [63](STACK_PITCH) mm**, hugging the single
 −X valve column with a **solid floor**: one valve cradle (four sockets + a port
 saddle). The Tees still seat in the assembly, but the tray no longer floors or
-grooves them — which leaves it **identical to the [bib-gate
-tray](/hardware/printed-parts/valve-manifold/bib-gate-tray/)**. Two **side
+grooves them — the floor carries only the valve cradle. Two **side
 walls** (±Y) rise to Z = [60](WALL_TOP_Z) for a **[63](STACK_PITCH) mm stack pitch**; the X-ends stay
 open for the ports and the outlet elbows.
 

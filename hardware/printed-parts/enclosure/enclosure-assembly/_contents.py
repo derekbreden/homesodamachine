@@ -7,12 +7,10 @@ DC distribution block, the DIGITEN flow sensor, the panel bulkheads + C14).
 Placeholder primitives for parts that have no STEP yet (condenser+fan,
 SeaFlo diaphragm pump, Multiplex backflow preventer, WR1110 regulator,
 GASHER check valves, DERPIPE CO2 inlet, drip pan + moisture sensor, MQ-6
-gas sensor, SUD8358 filter-drier). Not everything is packed: the three
-valve-manifold trays (source-select, bag-circuit, nozzle-gate) have no
-placement yet — the fluid topology (/hardware/topology/fluid-topology.md)
-defines what each plumbs to — and the bib-gate tray is not packed because
-the bag-in-box path is de-scoped from the shipping product (its README),
-so the rear panel carries no BiB ports.
+gas sensor). Not everything is packed: the three valve-manifold trays
+(source-select, bag-circuit, nozzle-gate) have no placement yet — the
+fluid topology (/hardware/topology/fluid-topology.md) defines what each
+plumbs to — and are deferred here while their in-box homes are settled.
 
 Components only: no tubes, no wires, no mount features. enclosure_assembly.py
 verifies the pack pairwise non-intersecting at every export.
@@ -54,9 +52,9 @@ enclosure world coordinates:
 
 Strata, floor to ceiling:
   * Floor:   compressor shroud (front-left) + condenser/fan (front-right,
-             cross-flow along X), the SUD8358 filter-drier standing in the
-             gap between them, the MQ-6 on the floor between the compressor
-             and the cold core (isobutane sinks).
+             cross-flow along X; the donor's factory filter-drier is brazed
+             to its outlet, inside this harvested block), the MQ-6 on the
+             floor between the compressor and the cold core (isobutane sinks).
   * Zone A:  cold core (foam assembly: bottom cap + shell + top cap) on the
              floor at the back, its −Y dispense/service ports facing
              forward.
@@ -109,9 +107,13 @@ JG_BULKHEAD    = _hw / "reference" / "jg-bulkhead-union" / "jg-bulkhead-union.st
 IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 
 # --- Placeholder dimensions ----------------------------------------------
-# Condenser + fan harvested from the donor ice maker. Two dimensions match
-# the compressor envelope (face flush against the same shroud plane); the
-# third (airflow axis) is the fan + finstack stack depth, calipered [56 mm](CONDENSER_AIRFLOW)
+# Condenser + fan harvested from the donor ice maker, with the donor's own
+# factory filter-drier + capillary-tube subassembly brazed to its outlet and
+# kept in service (hardware/reference/ice-maker/README.md "Filter-drier" — the
+# small donor drier, NOT the shelf-spare Supco SUD8358): one harvested block,
+# so the drier is not packed as its own solid. Two dimensions match the
+# compressor envelope (face flush against the same shroud plane); the third
+# (airflow axis) is the fan + finstack stack depth, calipered [56 mm](CONDENSER_AIRFLOW)
 # combined.
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # SeaFlo 22-Series diaphragm pump, body only (sans mounting brackets).
@@ -125,9 +127,6 @@ MULTIPLEX_VENT_D, MULTIPLEX_VENT_L = 8.0, 10.5
 # 3.19" long per its listing) and the GASHER 1/4" NPT SS check valves.
 WR1110_D, WR1110_L = 33.4, 81.0
 GASHER_D, GASHER_L = 22.0, 57.0
-# Supco SUD8358 filter-drier body (brazed into the refrigerant loop between
-# the condenser outlet and the cap tube).
-DRIER_D, DRIER_L = 19.0, 95.0
 # Printed drip pan under the Multiplex vent (no CAD yet) and the Shutao
 # moisture-sensor pad inside it. Depth stops short of the SeaFlo's pulled-in
 # front face.
@@ -212,7 +211,6 @@ COLORS = {
     "foam-assembly":     cq.Color(0.55, 0.75, 0.95, 0.55),
     "compressor-shroud": cq.Color(0.60, 0.62, 0.66),
     "condenser+fan":     cq.Color(0.78, 0.55, 0.35),
-    "filter-drier":      cq.Color(0.72, 0.60, 0.45),
     "mq6-sensor":        cq.Color(0.30, 0.45, 0.85),
     "drip-pan":          cq.Color(0.90, 0.90, 0.92),
     "moisture-sensor":   cq.Color(0.25, 0.55, 0.85),
@@ -293,16 +291,16 @@ def build():
 
     # --- Floor: compressor shroud front-left, condenser/fan as a panel
     # front-right (airflow axis across X), both inset from their side walls to
-    # clear the front pieces' corner ribs. The filter-drier stands in the gap
-    # between them; the MQ-6 sits on the floor between the compressor and the
-    # cold core, low, where leaked isobutane pools.
+    # clear the front pieces' corner ribs. The donor's factory filter-drier
+    # rides the condenser block (brazed to its outlet), not packed separately;
+    # the MQ-6 sits on the floor between the compressor and the cold core, low,
+    # where leaked isobutane pools.
     comp = _rot(_load(COMP_SHROUD), (0, 0, 1), 90.0)   # 178 x 133 x 151
     placed["compressor-shroud"] = _at(comp, SIDE_RIB_INSET, 0.0, SEAM_CLEAR_LIFT)
     comp_top_z = SEAM_CLEAR_LIFT + comp.BoundingBox().zlen
     cond = _box(CONDENSER_AIRFLOW, CONDENSER_FACE_B, CONDENSER_FACE_A)  # 56 x 151 x 178
     placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW - SIDE_RIB_INSET, 0.0, SEAM_CLEAR_LIFT)
     cond_top_z = SEAM_CLEAR_LIFT + CONDENSER_FACE_A
-    placed["filter-drier"] = _at(_cyl(DRIER_D, DRIER_L, (0, 0, 1)), 193.0, 8.0, SEAM_CLEAR_LIFT)
     placed["mq6-sensor"] = _at(_box(MQ6_X, MQ6_Y, MQ6_Z), 100.0, 134.0, SEAM_CLEAR_LIFT)
 
     # --- Water deck, on the compressor top: the drip pan + moisture sensor

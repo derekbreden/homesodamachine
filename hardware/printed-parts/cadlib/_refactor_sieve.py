@@ -80,8 +80,6 @@ _byte_hashed_step_paths = [
     # valve-manifold (each tray and its named assembly)
     "hardware/printed-parts/valve-manifold/bag-circuit-tray/bag-circuit-tray.step",
     "hardware/printed-parts/valve-manifold/bag-circuit-tray/bag-circuit-assembly.step",
-    "hardware/printed-parts/valve-manifold/bib-gate-tray/bib-gate-tray.step",
-    "hardware/printed-parts/valve-manifold/bib-gate-tray/bib-gate-assembly.step",
     "hardware/printed-parts/valve-manifold/nozzle-gate-tray/nozzle-gate-tray.step",
     "hardware/printed-parts/valve-manifold/nozzle-gate-tray/nozzle-gate-assembly.step",
     "hardware/printed-parts/valve-manifold/source-select-tray/source-select-tray.step",
@@ -127,8 +125,6 @@ _flavor_generators = [
 _valve_manifold_generators = [
     "hardware/printed-parts/valve-manifold/bag-circuit-tray/bag_circuit_tray.py",
     "hardware/printed-parts/valve-manifold/bag-circuit-tray/bag_circuit_assembly.py",
-    "hardware/printed-parts/valve-manifold/bib-gate-tray/bib_gate_tray.py",
-    "hardware/printed-parts/valve-manifold/bib-gate-tray/bib_gate_assembly.py",
     "hardware/printed-parts/valve-manifold/nozzle-gate-tray/nozzle_gate_tray.py",
     "hardware/printed-parts/valve-manifold/nozzle-gate-tray/nozzle_gate_assembly.py",
     "hardware/printed-parts/valve-manifold/source-select-tray/source_select_tray.py",
