@@ -25,10 +25,13 @@ from docgen import substitute_md
 # shell's footprint at the back.
 APPLIANCE_W = outer_shell_x_length
 
-# Zone D (front-bottom) lives in front of the foam shell. The condenser
-# is the deepest item in Zone D and drives the appliance depth.
+# Zone D (front-bottom) lives in front of the foam shell; the condenser is
+# its deepest item. The rear service plenum (mirrors
+# enclosure-assembly/_contents.py PLENUM_DEPTH) sits behind the shell.
+# Together the three strata drive the appliance depth.
 CONDENSER_DEPTH = 150.0
-APPLIANCE_D = outer_shell_y_length + CONDENSER_DEPTH
+REAR_PLENUM_DEPTH = 30.0
+APPLIANCE_D = outer_shell_y_length + CONDENSER_DEPTH + REAR_PLENUM_DEPTH
 
 
 def main():

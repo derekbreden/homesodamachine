@@ -7,8 +7,8 @@ The foam shell's envelope at the back (Zone A) is the one volume that cannot mov
 ## The 4 zones
 
 - **Zone A (back-bottom):** The cold core — foam shell (~[283](FOAM_SHELL_X) × [181](FOAM_SHELL_Y) × [213.4](FOAM_SHELL_Z) mm) plus its foam-cap stacks top and bottom — occupies the volume entirely. Penetrations on the −Y front wall (facing the appliance front / the user) and the +Z top only — the +Y rear, sides, and bottom are clean. Geometry source: [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md).
-- **Zone B (back-top):** The Zone-B valve trays on the foam-cap top, the electronics shelf above them, and the back-panel terminations. The CO2 line traverses through here on its way from the front face to the foam-cap's +Z top entry. Tray detail: [`/hardware/printed-parts/electronics/`](/hardware/printed-parts/electronics/). Back panel: [`back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md).
-- **Zone C (front-top):** The flavor funnel over the two peristaltic pumps under a single centered top door — the removable silicone funnel seats on top, the pumps sit beneath it. Detail: [`/hardware/printed-parts/zone-c/README.md`](/hardware/printed-parts/zone-c/README.md).
+- **Zone B (back-top):** The Zone-B valve trays on the foam-cap top, and behind the cold core the rear service plenum — a full-width, full-height bay carrying the controller PCBA and DC distribution block against the rear wall, plus every panel termination: the faucet umbilical, the tap-water inlet, and the C14 mains inlet all penetrate the rear face in the band above the cold core. The CO2 line traverses through here on its way from the front face to the foam-cap's +Z top entry. Tray detail: [`/hardware/printed-parts/electronics/`](/hardware/printed-parts/electronics/). Back panel: [`back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md).
+- **Zone C (front-top):** The flavor funnel over the two peristaltic pumps — one open rectangular basin filling the top wall right of the display, lifting out by hand to reach the pumps beneath it. The power assembly rides the pump-2 column under the basin's floor. Detail: [`/hardware/printed-parts/zone-c/README.md`](/hardware/printed-parts/zone-c/README.md).
 - **Zone D (front-bottom):** Compressor + condenser + fan + water-inlet plumbing subsystem. Compressor sits on the floor in its sheet-metal shroud in front of the foam shell. Condenser along one ±X side wall with the fan axis crossing side-to-side. The Multiplex backflow preventer + drip pan + moisture sensor + SeaFlo pump live here as a co-located plumbing cluster. Compressor shroud: [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md).
 
 ## Constraints the layout respects
@@ -17,7 +17,7 @@ The zone arrangement above is the current pack — a working layout. It is free 
 
 - The foam shell is the largest single solid; it cannot move or compress. Its penetrations are on the −Y front and +Z top only — the +Y rear, sides, and bottom stay clean.
 - Appliance width follows foam shell width (~[283 mm](APPLIANCE_WIDTH)); the shell is the widest object.
-- Appliance depth carries the foam shell plus the compressor/condenser block stacked along Y (currently ~[331 mm](APPLIANCE_DEPTH)).
+- Appliance depth carries the foam shell, the compressor/condenser block in front of it, and the rear service plenum behind it, stacked along Y (currently ~[361 mm](APPLIANCE_DEPTH)).
 - The condenser and fan need side-to-side cross-flow airflow to reject heat — fan axis between the two ±X side walls.
 - The compressor shroud is a fixed-size sheet-metal part enclosing the terminal block + PTC relay/overload (UL 60335-2-89, 130 × 175 × 150 mm interior, the only metal part in the enclosure).
 - The flavor funnel feeds the pumps from above and stays top-removable for cleaning.

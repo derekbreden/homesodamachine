@@ -6,10 +6,11 @@ by [`../enclosure-assembly/_contents.py`](/hardware/printed-parts/enclosure/encl
 inside the H2C bed — that telescope and screw together. The Y seam sits as
 close to the box's midpoint as the cold core allows, and each column takes its
 bottom↔top seam at its own height (the seams stagger like a brick bond): the
-back-bottom piece houses the cold core, the back-top carries the Zone-B trays
-and every rear- and side-panel port; the front column splits at its waist over
-the condenser — refrigeration below, pumps + electronics stack + funnel +
-display above.
+back-bottom piece houses the cold core and the rear service plenum behind it,
+the back-top carries the Zone-B trays and every panel port (the whole
+external-connection inventory penetrates its rear wall, above the cold core);
+the front column splits at its waist over the condenser — refrigeration below,
+pumps + power deck + funnel + display above.
 
 `enclosure.py` exports the four printable pieces (`enclosure-front-bottom`,
 `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`) plus
@@ -92,16 +93,16 @@ with the slab. The display reference is seated in the housing in
 
 ## Hopper opening
 
-A rectangular throat is punched through the top wall to the right of the display
-housing and flush to the front, where the removable silicone hopper funnel
+One rectangular opening spans the top wall right of the display housing, where
+the removable silicone funnel basin
 ([`../../zone-c/hopper-funnel/`](/hardware/printed-parts/zone-c/hopper-funnel/))
-drops in — its wide catch bowl standing on the top surface (spanning the zone
-right of the display, over the solid wall above the electronics stack), its
-collar press-fitting the opening. The throat is boxed in by its neighbors: the
-display housing left, the electronics stack right (the funnel necks to the
-tallest content under its mouth, so the hole must not reach over them), the
-Y-seam lip band behind, the corner pod at +X. The funnel derives its collar
-from the same rectangle (`_hopper_hole`), so the two always match.
+drops in — its lower body press-fitting the opening and flooring just above
+the power deck, its wider curb resting on the wall frame left around the cut.
+The opening derives to everything its neighbors allow: the display end-wall
+gusset left, the top-right corner pod's inboard end, the Y-seam lip band
+behind (the hole lives whole in the front-top piece), and a kept front ledge.
+The funnel derives its body from the same rectangle (`_hopper_hole`), so the
+two always match.
 
 ## Regenerate
 
