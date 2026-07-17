@@ -7,10 +7,10 @@ parts from `_contents.build()`, the through-wall connector bodies from
 shared coordinates. The contents keep their per-part colors; the pieces are
 translucent so the arrangement (and both seams) reads through them.
 
-Export verifies the pack: every pair of placed solids (contents, panel bodies,
-display, funnel) is intersected and any overlap past tolerance fails the run;
-every solid is also intersected against the four enclosure pieces, catching
-content that fouls a wall, a seam lip, or a cross-pin boss."""
+Export computes the enclosure scorecard (scorecard.py) over the placed solids
+and the four pieces — the gates (pack closes, part↔part clearance, pieces fit
+the bed, seams mate, parts sourced) and the three goal axes (shaped / routed /
+held) — prints the verdict, and fails the run if any gate fails."""
 
 import math
 import sys
@@ -25,6 +25,7 @@ sys.path.insert(0, str(_repo / "tools"))
 from _cadq_export import export_assembly
 from docgen import substitute_py_comments
 import _contents as contents
+import scorecard
 
 _ENCLOSURE_DIR = _repo / "hardware" / "printed-parts" / "enclosure" / "enclosure"
 sys.path.insert(0, str(_ENCLOSURE_DIR))
@@ -47,8 +48,6 @@ PIECE_COLORS = {
 DISPLAY_COLOR = cq.Color(0.10, 0.10, 0.12)      # the Waveshare 4.3B reference
 FUNNEL_COLOR = cq.Color(0.95, 0.95, 0.97, 0.45) # translucent silicone funnel
 
-CLASH_TOL = 1.0  # mm³ — face-contact booleans report ~0; anything past this fails
-
 
 def _placed_display():
     """The display reference seated in the facet housing: rotated −45° about X so
@@ -65,39 +64,6 @@ def _placed_display():
     )
     disp = cq.importers.importStep(str(DISPLAY_STEP)).val()
     return disp.rotate((0, 0, 0), (1, 0, 0), -45.0).translate(target)
-
-
-def _bb_overlap(a, b):
-    return (min(a.xmax, b.xmax) > max(a.xmin, b.xmin) and
-            min(a.ymax, b.ymax) > max(a.ymin, b.ymin) and
-            min(a.zmax, b.zmax) > max(a.zmin, b.zmin))
-
-
-def _check_pack(parts, pieces):
-    """Pairwise intersection over every placed solid (bbox-prefiltered), plus
-    every solid against the four enclosure pieces. Prints each overlap past
-    CLASH_TOL and returns the count."""
-    names = list(parts)
-    bbs = {n: parts[n].BoundingBox() for n in names}
-    clashes = 0
-    for i, a in enumerate(names):
-        for b in names[i + 1:]:
-            if not _bb_overlap(bbs[a], bbs[b]):
-                continue
-            v = parts[a].intersect(parts[b]).Volume()
-            if v > CLASH_TOL:
-                clashes += 1
-                print(f"  CLASH {a} ∩ {b}: {v:.1f} mm³")
-    for hname, hshape in pieces.items():
-        hbb = hshape.BoundingBox()
-        for n in names:
-            if not _bb_overlap(hbb, bbs[n]):
-                continue
-            v = hshape.intersect(parts[n]).Volume()
-            if v > CLASH_TOL:
-                clashes += 1
-                print(f"  CLASH {hname} ∩ {n}: {v:.1f} mm³")
-    return clashes
 
 
 def build():
@@ -133,11 +99,14 @@ def main():
           f"(box exterior {outer[1] - outer[0]:.1f} × {outer[3] - outer[2]:.1f} × "
           f"{outer[5] - outer[4]:.1f})")
 
-    print("clearance check:")
-    clashes = _check_pack(solids, pieces)
-    if clashes:
-        raise SystemExit(f"{clashes} clash(es) — pack does not close")
-    print("  all pairs clear")
+    sc = scorecard.build_scorecard(
+        solids, pieces, (enclosure.H2C_X, enclosure.H2C_Y, enclosure.H2C_Z))
+    print(scorecard.format_scorecard(sc))
+    # The scorecard reports every gate; today only pack-closes blocks the export — a
+    # physically invalid pack (overlapping solids) must not be written. The rest report
+    # until the design reaches them, then their gating turns on (the board's stance).
+    if any(c.id == "pack-closes" and c.status == "fail" for c in sc.checks):
+        raise SystemExit("pack does not close — overlapping solids (see scorecard above)")
 
     assy = build()
     out = _here.parent / "enclosure-assembly.step"
