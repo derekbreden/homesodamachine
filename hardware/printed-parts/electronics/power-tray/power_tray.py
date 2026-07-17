@@ -20,8 +20,8 @@ footprint; the relay and the Wago column pack flush to its right and the ground
 ring-stack sits above the PSU. The components pack **flush** (no inter-part
 gaps), and the floor is the single convex outline of every footprint. The build
 is parameterised by a ``Layout`` (component centres + Z rotations). GFCI is
-tabled; the C14 inlet lives on the rear panel, its cordage arriving along the
-+X riser channel. Local frame: X right, Y deep,
+tabled; the C14 inlet lives on the rear panel, its cordage arriving over the
+foam-cap top from the rear wall. Local frame: X right, Y deep,
 Z up; origin at the floor's bottom-left corner, Z = 0 the floor underside, floor
 top at ``floor_t``.
 """
