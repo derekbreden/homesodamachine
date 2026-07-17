@@ -84,14 +84,13 @@ The appliance ships with the water filter included. **Placement (internal vs. ex
 |---|---|---:|---:|---:|
 | [Frigidaire EFIC117-SS ice-maker donor (compressor/condenser/cap-tube/drier)](https://www.amazon.com/dp/B07PCZKG94) | | 1 | $78.70 | $78.70 <!--@refrigeration--> |
 | [GOORY 1/4" OD × 50 ft ACR copper coil (evaporator)](https://www.amazon.com/dp/B0DKSW5VL9) | single-layer wrap on 5" OD vessel at 1/8" gap pitch yields ~22 ft of wrap per unit + ~2 ft each end for compressor + suction-line tie-ins ≈ ~24 ft consumed per unit; one 50 ft roll comfortably covers 2 units, so 1/2 roll allocated per unit ($68.63/2) | 1/2 roll | $34.32 | $34.32 <!--@refrigeration--> |
-| [Supco SUD8358 filter-drier, 1/4" sweat × cap-tube outlet, XH-9 molecular sieve, integrated Schrader access port](https://www.amazon.com/dp/B009AX2O5W) | replacement filter-drier installed during refrigerant-loop assembly; spec rationale in [`assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) Inputs | 1 | $13.40 | $13.40 <!--@refrigeration--> |
 | [Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5-pk)](https://www.amazon.com/dp/B07XGZSYJV) | two relays per unit: relay #1 switches the compressor's 120 VAC hot leg (ESP32 IO19), relay #2 gates 12 V to the SeaFlo diaphragm pump for firmware-controlled refill (ESP32 IO2); 2 of 5 per unit | 2 (of 5 pk) | $2.60 | $5.20 <!--@electronics--> |
 | [TIEXYE DS18B20 TO-92 1-wire sensor (10-pk)](https://www.amazon.com/dp/B0FKG3HT9Q) | **Tank-wall probe** — compressor-cycling setpoint, 1-wire family code **0x28**. Bare TO-92, leads heat-shrunk, foil-taped to the vessel OD and potted in the cold-core foam. Shares the IO26 1-wire bus with the DS18S20 coil probe; firmware tells the two apart by family code (no per-unit ID map). 1 of 10 per unit ($8.59/10) | 1 (of 10 pk) | $0.86 | $0.86 <!--@sensors--> |
 | [DS18S20+ TO-92 1-wire sensor, family 0x10 (LCSC C52574)](https://www.lcsc.com/product-detail/Temperature-Sensors_Analog-Devices-Inc-Maxim-Integrated-DS18S20_C52574.html) | **Evaporator-coil / suction-line probe** — freeze-protect cutout, 1-wire family code **0x10** (distinct from the tank probe's 0x28, so firmware keys the −8 °C freeze cutoff by family code at cold boot). Bare TO-92, leads heat-shrunk, tucked under the 3M 425 foil tape at the coil's suction end and potted in the foam. Genuine MAXIM silicon from an authorized channel — marketplace "DS18S20" are relabeled DS18B20 clones reporting 0x28. LCSC C52574: $1.78/ea @ qty 10, rides a JLCPCB/LCSC order at ~$1.80 landed. On-hand DigiKey stock (purchases.md, $9.30/ea landed) covers prototype builds. | 1 (of 10 pk) | $1.80 | $1.80 <!--@sensors--> |
 | [MXR IEC 60320 C14 panel-mount AC inlet, 10 A / 250 VAC (10-pk)](https://www.amazon.com/dp/B07DCXKNXQ) | rear-panel mains inlet; accepts standard NEMA 5-15P-to-C13 line cord; 1 of 10 per unit ($6.96/10) | 1 (of 10 pk) | $0.70 | $0.70 <!--@ac-mains--> |
 | [Monoprice NEMA 5-15P → IEC C13 line cord, 18 AWG, 6 ft, UL-listed (6-pk)](https://www.amazon.com/dp/B08VS8D4WC) | ships in the box so the customer can plug the appliance into a standard US wall outlet; 1 of 6 per unit ($24.00/6) | 1 (of 6 pk) | $4.00 | $4.00 <!--@ac-mains--> |
 | [Enviro-Safe R-600a 3-pack + brass charging gauge](https://www.amazon.com/dp/B0CGG1WH1N) | pure R-600a; refills the sealed loop after venting factory charge; ~40 g per system × ~12 recharges per 3-can bundle; 1/12 of $72.92 delivered; brass gauge stays with tools (see purchases.md) | 1 | $6.08 | $6.08 <!--@refrigeration--> |
-| [Supco BPV31 bullet-piercing valve](https://www.amazon.com/dp/B00DM8J3MI) | taps the compressor process tube to vent the factory R-600a charge before brazing in the replacement drier; left clamped on the cut stub after teardown; single-use per build | 1 | $7.37 | $7.37 <!--@refrigeration--> |
+| [Supco BPV31 bullet-piercing valve](https://www.amazon.com/dp/B00DM8J3MI) | taps the compressor process tube to vent the factory R-600a charge, then feeds the argon purge and serves as the permanent vacuum / recharge / service port; clamped permanently on the process tube per [`assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md); 1 per appliance | 1 | $7.37 | $7.37 <!--@refrigeration--> |
 | [BCuP-5 15% Ag silver brazing alloy, 1/16" × 1 troy oz rod](https://www.amazon.com/dp/B0DQ3ZMHK7) | filler for copper-to-copper refrigeration joints; ~10 g per build × ~3 builds per 31 g rod; $18.99/3 | 1 (of 3) | $6.33 | $6.33 <!--@refrigeration--> |
 | [3M Scotch-Brite Maroon General Purpose Hand Pads, 6" × 9" (1-pack of 20)](https://www.amazon.com/dp/B07CGPCTHT) | abrasive pads cut into strips to clean 1/4" ACR copper OD + fitting sockets before braze on the 2–3 refrigeration-loop joints; 2 of 20 per build ($28.85/20 × 2) | 2 (of 20 pk) | $1.44 | $2.89 <!--@refrigeration--> |
 | SendCutSend compressor shroud (`cut-parts/compressor-shroud/`) | 0.059" G90 hot-dipped galvanized steel; 5-sided open-bottom box, interior 130 × 175 × 150 mm, 4 bends; design + rationale at [`cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md). SendCutSend quote 2026-06-03: $278.30 / qty 10 = $27.83/part. AC pass-through strain relief listed separately below (SS 1/2"-NPT cable gland) | 1 | $27.83 | $27.83 <!--@cut-parts--> |
@@ -258,7 +257,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 2. Carbonator vessel (plan A, 316L) | [$204.38](BOM_SEC2) |
 | 3. Water inlet | [$211.34](BOM_SEC3) |
 | 4. CO2 subsystem | [$123.80](BOM_SEC4) |
-| 5. Refrigeration | [$197.36](BOM_SEC5) |
+| 5. Refrigeration | [$183.96](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
 | 7. Printed parts (PETG + PET-CF) | [$65.61](BOM_SEC7) |
 | 8. Flavor subsystem | [$197.95](BOM_SEC8) |
@@ -268,7 +267,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$6.25](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,323.66](BOM_GRAND)** |
+| **Total** | **[$1,310.26](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
