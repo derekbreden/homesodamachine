@@ -156,7 +156,9 @@ SHELF_LIFT = 12.0
 #     vertex), the tap-water inlet, and 2 BiB syrup ports.
 PORT_BULKHEAD_D = 18.0        # JG 1/4" bulkhead panel hole (clears the Ø17.14 barrel)
 PORT_BIB_D = 9.525            # BiB syrup port — presumed 3/8" for a 3/8" barb (placeholder)
-PORT_C14_W, PORT_C14_H = 25.0, 19.0   # C14 body 24x18 cross-section + 0.5/side clearance
+PORT_C14_W, PORT_C14_H = 28.5, 23.5   # C14 through-body 27.5x22.5 (measured off the
+                                      # reference STEP) + 0.5/side; the 30.5-wide flange
+                                      # seats proud on the outer face
 # The panel-clamping NUT / flange footprints are far wider than the through-holes,
 # so the cluster is spaced to the NUTS (not the holes) or the real hardware fouls.
 # Measured off the reference STEPs: JG bulkhead nut 22.86 sq (jg-bulkhead-union),
@@ -176,7 +178,7 @@ C14_DROP_Z = 28.0            # C14 center, this far -Z (down) from the ceiling
 # underside crosses this height at z ≈ 304 + y); the inlet height and the
 # chain's inboard stagger keep the chain under it.
 CO2_INLET_X = 46.0
-CO2_INLET_Z = 304.5
+CO2_INLET_Z = 300.0
 CO2_HOLE_D = 14.5            # clears the coupling's 1/4" NPT shank (Ø~13.7 major)
 
 
@@ -288,9 +290,9 @@ def build():
     # down into it, the SeaFlo lying flat behind them against the cold-core
     # front (suction from the Multiplex outlet, discharge up to the cold-core
     # top), and the water-path GASHER check riding on the SeaFlo's top.
-    placed["drip-pan"] = _at(_drip_pan(), SIDE_RIB_INSET, 5.0, comp_top_z)
+    placed["drip-pan"] = _at(_drip_pan(), SIDE_RIB_INSET, 3.0, comp_top_z)
     placed["moisture-sensor"] = _at(_box(MOIST_X, MOIST_Y, MOIST_Z), 55.0, 30.0, comp_top_z + PAN_FLOOR)
-    placed["multiplex"] = _at(_multiplex(), 25.0, 21.0, comp_top_z + PAN_Z - 10.0)
+    placed["multiplex"] = _at(_multiplex(), 25.0, 21.0, comp_top_z + PAN_Z - 14.0)
     sf_w, sf_d, sf_h = SEAFLO_DIMS                      # [75 x 60 x 175](SEAFLO_DIMS)
     seaflo = _box(sf_h, sf_w, sf_d)                    # 175 x 75 x 60, long axis along X
     placed["seaflo-pump"] = _at(seaflo, SIDE_RIB_INSET, 79.0, comp_top_z + 0.5)
@@ -302,7 +304,7 @@ def build():
     # left column instead, above the Multiplex and under the CO2 chain.
     placed["bib-gate"]    = _at(_load(TRAY_STEPS["bib-gate"]), 154.0, 0.0, cond_top_z + SEAM_CLEAR_LIFT)
     placed["nozzle-gate"] = _at(_rot(_load(TRAY_STEPS["nozzle-gate"]), (0, 0, 1), 90.0),
-                                15.0, 0.0, 223.5)
+                                15.0, 0.0, 218.0)
     right_deck_top = cond_top_z + SEAM_CLEAR_LIFT + 63.0
 
     # --- Zone C: the two flavor pumps side by side directly under the funnel
@@ -424,8 +426,8 @@ def panel_bodies():
     for hole in back_wall_ports():
         kind, hx, hz = hole[0], hole[1], hole[2]
         if kind == "rect":
-            # C14 flange (its own y −3→0) seated on the panel's outer face.
-            bodies["c14-inlet"] = _load(IEC_C14).translate((hx, y_out + 3.0, hz))
+            # C14 flange seated on the panel's outer face, body through the hole.
+            bodies["c14-inlet"] = _load(IEC_C14).translate((hx, y_out, hz))
         elif hole[3] == PORT_BULKHEAD_D:
             name = umb_names.pop(0) if umb_names else "bulkhead-water"
             bodies[name] = jg.translate((hx, y_out, hz))
