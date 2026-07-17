@@ -4,11 +4,11 @@ Detailed STEP imports where they exist (cold-core foam assembly — the shell
 with its thin top lid — the four valve-manifold tray assemblies with their
 seated valves, two pump assemblies (Kamoer pump + outlet elbows), the
 compressor shroud, the PCBA assembly, the power assembly, the DC distribution
-block, the DIGITEN flow sensor, the rear-panel bulkheads + C14, the CO2
-coupling body). Placeholder primitives for parts that have no STEP yet
-(condenser+fan, SeaFlo diaphragm pump, Multiplex backflow preventer, WR1110
-regulator, GASHER check valves, drip pan + moisture sensor, MQ-6 gas sensor,
-SUD8358 filter-drier).
+block, the DIGITEN flow sensor, the rear-panel bulkheads + C14). Placeholder
+primitives for parts that have no STEP yet (condenser+fan, SeaFlo diaphragm
+pump, Multiplex backflow preventer, WR1110 regulator, GASHER check valves,
+DERPIPE CO2 inlet, drip pan + moisture sensor, MQ-6 gas sensor, SUD8358
+filter-drier).
 
 Components only: no tubes, no wires, no mount features. enclosure_assembly.py
 verifies the pack pairwise non-intersecting at every export.
@@ -32,7 +32,7 @@ Strata, floor to ceiling (zone map: ../../README.md):
              them, its outlet check riding on top.
   * Right deck (condenser top): the bib-gate tray.
   * Left column (stacked over the Multiplex): the nozzle-gate tray turned
-             90°, then the CO2 chain — off the front-panel coupling body's
+             90°, then the CO2 chain — off the front-panel DERPIPE inlet's
              inboard NPT stub, GASHER check → WR1110 secondary regulator
              running +Y, left of the pumps. The DIGITEN flow sensor sits
              behind them against the cold-core front face, on the carb-water
@@ -76,7 +76,6 @@ DC_DIST        = _hw / "reference" / "dc-dist-block" / "dc-dist-block.step"
 DIGITEN_FLOW   = _hw / "reference" / "digiten-flow-sensor" / "digiten-flow-sensor.step"
 JG_BULKHEAD    = _hw / "reference" / "jg-bulkhead-union" / "jg-bulkhead-union.step"
 IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
-CO2_COUPLING   = _hw / "reference" / "co2-coupling-body" / "co2-coupling-body.step"
 
 # --- Placeholder dimensions ----------------------------------------------
 # Condenser + fan harvested from the donor ice maker. Two dimensions match
@@ -173,14 +172,17 @@ PORT_CLUSTER_INSET_X = 6.0   # -X-most nut, this far off the -X inner wall
 # sits ~9 mm below the ceiling), and the vertical print fillet.
 C14_INSET_X = 19.5           # C14 center, this far -X (inboard) of the +X inner wall
 C14_DROP_Z = 28.0            # C14 center, this far -Z (down) from the ceiling
-# CO2 inlet — the CPC coupling body on the front panel, front-left, at the
-# height of its inboard GASHER → WR1110 chain. The display housing's 19 mm
-# facet wall runs a 45° wedge down the interior of the front wall (its
-# underside crosses this height at z ≈ 304 + y); the inlet height and the
-# chain's inboard stagger keep the chain under it.
+# CO2 inlet — the DERPIPE 5/16"-tube PTC × 1/4" NPT M fitting on the front
+# panel, front-left, NPT side facing inboard to carry its GASHER → WR1110
+# chain (internal-plumbing.md §1). The display housing's 19 mm facet wall
+# runs a 45° wedge down the interior of the front wall (its underside crosses
+# this height at z ≈ 304 + y); the inlet height and the chain's inboard
+# stagger keep the chain under it.
 CO2_INLET_X = 46.0
 CO2_INLET_Z = 300.0
-CO2_HOLE_D = 14.5            # clears the coupling's 1/4" NPT shank (Ø~13.7 major)
+CO2_HOLE_D = 14.5            # clears the DERPIPE's 1/4" NPT shank (Ø~13.7 major)
+DERPIPE_SHANK_D, DERPIPE_SHANK_L = 13.7, 18.0   # NPT stub, wall + inboard thread
+DERPIPE_BODY_D, DERPIPE_BODY_L = 20.0, 18.0     # 5/16" PTC collet body, outboard
 
 
 # --- Colors ---------------------------------------------------------------
@@ -216,7 +218,7 @@ COLORS = {
     "bib-port-1":        cq.Color(0.45, 0.45, 0.48),
     "bib-port-2":        cq.Color(0.45, 0.45, 0.48),
     "c14-inlet":         cq.Color(0.12, 0.12, 0.14),
-    "co2-coupling":      cq.Color(0.85, 0.35, 0.30),
+    "co2-inlet":         cq.Color(0.85, 0.35, 0.30),
 }
 
 
@@ -319,7 +321,7 @@ def build():
     placed["pump-assembly-1"] = _at(pa1, 95.0, 4.0, pump_z)
     placed["pump-assembly-2"] = _at(pa2, 206.0, 4.0, pump_z)
 
-    # --- CO2 chain, front-left: the coupling body's inboard NPT stub carries
+    # --- CO2 chain, front-left: the DERPIPE inlet's inboard NPT stub carries
     # the GASHER check, then the WR1110 secondary regulator, running +Y in the
     # clear column left of the pumps. The DIGITEN flow sensor sits behind the
     # chain against the cold-core front face, on the carb-water riser's path
@@ -413,8 +415,8 @@ def front_wall_ports():
 def panel_bodies():
     """The connector bodies seated through the enclosure walls — four JG
     bulkhead unions + two BiB barrels + the C14 receptacle on the rear panel
-    (at the back_wall_ports coordinates), the CPC CO2 coupling body on the
-    front panel. Their outboard ends stand proud of the walls, and enclosure.py
+    (at the back_wall_ports coordinates), the DERPIPE CO2 inlet on the front
+    panel. Their outboard ends stand proud of the walls, and enclosure.py
     sizes the box from build()'s bbox — so they place here and
     enclosure_assembly.py adds them to the rendered assembly."""
     _x_lo, _x_hi, _tt, _ceil, y_wall = _port_frame()
@@ -440,10 +442,13 @@ def panel_bodies():
                 (hx, y_out - WALL - BIB_BODY_L, hz))
             bodies[f"bib-port-{bib_n}"] = shank.fuse(body)
 
-    # CO2 coupling on the front panel: mouth facing −Y (outward), mounting
-    # plane (the back face of its hex) on the panel's outer face, NPT stub
-    # reaching inboard toward the GASHER → WR1110 chain.
-    co2 = _rot(_load(CO2_COUPLING), (0, 0, 1), 180.0)
-    bodies["co2-coupling"] = co2.translate((CO2_INLET_X, -WALL, CO2_INLET_Z))
+    # DERPIPE CO2 inlet on the front panel: 5/16" PTC collet body outboard,
+    # NPT stub through the hole reaching inboard toward the GASHER → WR1110
+    # chain.
+    shank = _cyl(DERPIPE_SHANK_D, DERPIPE_SHANK_L, (0, 1, 0)).translate(
+        (CO2_INLET_X, -WALL - 2.0, CO2_INLET_Z))
+    collet = _cyl(DERPIPE_BODY_D, DERPIPE_BODY_L, (0, 1, 0)).translate(
+        (CO2_INLET_X, -WALL - 2.0 - DERPIPE_BODY_L, CO2_INLET_Z))
+    bodies["co2-inlet"] = shank.fuse(collet)
 
     return {n: (s, COLORS[n]) for n, s in bodies.items()}
