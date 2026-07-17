@@ -128,8 +128,10 @@ def main():
     ix = max(b.xmax for b in inner_bbs) - min(b.xmin for b in inner_bbs)
     iy = max(b.ymax for b in inner_bbs) - min(b.ymin for b in inner_bbs)
     iz = max(b.zmax for b in inner_bbs)
+    _i, outer, _yj, _cf = enclosure._dims()
     print(f"pack interior: {ix:.1f} × {iy:.1f} × {iz:.1f} mm "
-          f"(exterior {ix + 6:.1f} × {iy + 6:.1f} × {iz + 6:.1f})")
+          f"(box exterior {outer[1] - outer[0]:.1f} × {outer[3] - outer[2]:.1f} × "
+          f"{outer[5] - outer[4]:.1f})")
 
     print("clearance check:")
     clashes = _check_pack(solids, pieces)

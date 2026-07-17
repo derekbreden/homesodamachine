@@ -17,7 +17,7 @@ verifies the pack pairwise non-intersecting at every export.
 
 The Waterdrop 15UC-UF inline filter (~Ø63 × 311 mm) mounts outside the
 enclosure, inline on the customer's 1/4" LLDPE feed upstream of the
-side-panel water-inlet bulkhead (/hardware/assembly/internal-plumbing.md §2).
+rear-panel water-inlet bulkhead (/hardware/assembly/internal-plumbing.md §2).
 
 Coordinate frame: +X right, +Y back, +Z up. Origin at the lower-front-left
 corner. The enclosure is four printed pieces — a Y seam as far back as the
@@ -26,6 +26,16 @@ the condenser in the front pieces, above the foam-cap top in the back
 (enclosure.py `z_joint_front` / `z_joint_back`) — whose lips and cross-pin
 pods hug the walls; the wall-adjacent insets below keep content clear of
 them.
+
+Behind the cold core, a rear service plenum (PLENUM_DEPTH) runs the full
+width and height between the foam's back face and the rear wall. It is the
+appliance's termination bay: every external connection (the faucet
+umbilical, the C14 mains inlet, the tap-water inlet) penetrates the rear
+wall above the cold core and its body hangs in the plenum, the PCBA and the
+DC distribution block stand on its floor against the rear wall, and the
+riser channel's tube-and-cord traffic terminates in it. The plenum is what
+lets the rear wall carry every port: the bulkhead and receptacle bodies
+reach ~28–35 mm inboard, which no content-adjacent wall band offers.
 
 The cold core's tube connections are defined by the foam shell's
 penetrations (/hardware/printed-parts/cold-core/foam-shell/README.md
@@ -43,9 +53,9 @@ enclosure world coordinates:
 Each tray sits nearest the things its valves plumb to
 (/hardware/topology/fluid-topology.md):
   * source-select (V-A tap + V-B hopper in, V-C/V-D out to the pump-inlet
-    Tees) rides the foam-cap top's front row — under the funnel spout's
-    drop, over the water deck where the V-A branch taps in, its outputs a
-    short drop to the pump inlets ahead of it.
+    Tees) rides the foam-cap top's front row — a short run behind the
+    funnel spout's drop, over the water deck where the V-A branch taps in,
+    its outputs a short drop to the pump inlets ahead of it.
   * bag-circuit (V-E/V-F + V-H/V-I, the reservoir fill/return loops) rides
     the foam-cap top's back row; its four reservoir lines drop down the
     foam front face to the ±X wall exits.
@@ -74,13 +84,17 @@ Strata, floor to ceiling:
   * Zone B:  source-select + bag-circuit rows seated on the foam-cap top —
              the tray tops are the ceiling. The source row leaves the
              umbilical riser channel along the +X wall.
-  * Termination stack (front-right, on the pump-2 column): the power
-             assembly flat on pump 2, the PCBA + DC distribution block on
-             the power assembly — nothing rides above the trays. Ports: the
-             umbilical triangle in the back-wall window right of the
-             bag-circuit row; the C14 and tap-water inlet through the +X
-             side wall behind the source row, where the C14's cordage drops
-             beside the electronics stack it feeds.
+  * Power deck (front-right, on the pump-2 column): the power assembly
+             flat on pump 2 — the tallest front content, still under the
+             tray tops. The top wall right of the display is one open
+             rectangle over this column: the funnel basin drops through it
+             and floors just above the power assembly, its throat falling
+             the clear column between the two pumps.
+  * Rear plenum: the PCBA standing against the rear wall (its depth sets
+             PLENUM_DEPTH), the DC distribution block flat on the floor
+             beside it, and every panel body reaching in from the rear
+             wall — the umbilical triangle, the tap-water bulkhead, and
+             the C14, all in the band above the cold core.
 """
 
 from pathlib import Path
@@ -171,23 +185,19 @@ SOURCE_WALL_INSET = 4.5
 # Vertical gap between a stratum's tallest part and the parts seated above it.
 STACK_GAP = 2.5
 
-# --- Rear-panel ports -------------------------------------------------------
-# The appliance's external connections penetrate the back wall around the
-# Zone-B trays — off the cold core's clean rear (foam-shell README), each in
-# a window the pack leaves against the back wall. enclosure.py cuts these
-# holes into the back pieces (back_wall_ports below); panel_bodies() seats
-# the receptacle / bulkhead bodies through them. Hole inventory and specs:
+# --- Rear plenum + rear-panel ports ----------------------------------------
+# The service bay behind the cold core: full-width, full-height, this deep.
+# Sized to the PCBA standing flat against the rear wall (27.1 thick) plus
+# working clearance off the foam's back face. The plenum floor carries the
+# PCBA and the DC distribution block; the band above the cold core carries
+# every panel body; the riser channel's traffic lands in it.
+PLENUM_DEPTH = 30.0
+# Every external connection penetrates the REAR wall (back_wall_ports
+# below), in the band above the cold core (the foam tops out at ~263; the
+# rear Z-seam lip band tops out at ~279) — their bodies hang in the plenum.
+# enclosure.py cuts the holes into the back pieces; panel_bodies() seats the
+# receptacle / bulkhead bodies through them. Hole inventory and specs:
 # ../back-panel/README.md.
-#   * The 3-tube faucet umbilical (carb-water + 2 flavor) as a triangular
-#     cluster (carb-water at the top vertex), in the window right of the
-#     bag-circuit row — the only back-wall band the foam core (touching the
-#     wall to z ~263) and the Z-seam lip leave open.
-#   * The tap-water inlet and the C14 mains inlet moved to the +X SIDE wall
-#     (side_wall_ports below), in the window behind the source-select row:
-#     with the ceiling pulled down to the tray band there is no back-wall
-#     room above the trays, and the bag row runs too close to the back wall
-#     for bulkhead bodies behind it. The side window (bag row ends at
-#     x 218.5; the trays stop a channel short of the +X wall) is clear.
 PORT_BULKHEAD_D = 18.0        # JG 1/4" bulkhead panel hole (clears the Ø17.14 barrel)
 PORT_C14_W, PORT_C14_H = 28.5, 25.5   # C14 through-body 27.5 wide, z −10.2/+12.2 about
                                       # its axis (measured off the reference STEP) +
@@ -199,19 +209,19 @@ PORT_C14_W, PORT_C14_H = 28.5, 25.5   # C14 through-body 27.5 wide, z −10.2/+1
 # C14 flange 30.5 x 23.5 (iec-c14-inlet).
 PORT_NUT_D = 22.86           # JG bulkhead nut, across the panel face (measured)
 PORT_NUT_GAP = 7.0           # clear gap between adjacent bulkhead nuts (the margin)
-UMBILICAL_WINDOW_GAP = 3.5   # bag-row edge → flavor-A nut edge
 UMBILICAL_Z_FLOOR = 281.0    # lowest bulkhead-nut edge: the rear Z-seam lip band
                              # tops out at z_joint_back + lip_len (~279) on the back wall
-# The C14 and tap-water inlet share one Y station on the +X wall, stacked
-# vertically — behind the source row's Y span, ahead of the umbilical
-# bulkhead bodies reaching in from the back wall. The tap-water bulkhead
-# rides just above the Z-seam lip band; the C14 above it; its cordage drops
-# beside the electronics stack it feeds.
-C14_SIDE_Y = 275.0
-C14_SIDE_Z = 315.0
-WATER_SIDE_Y = 275.0         # tap-water feed drops the rear window and runs the
-                             # foam-face slab to the Multiplex on the water deck
-WATER_SIDE_Z = 290.0
+# Rear-wall stations, left to right: the umbilical triangle mid-panel, then
+# the tap-water bulkhead, then the C14 — the two utility feeds nearest the
+# +X riser channel their cord and tube run forward in. The C14 sits in the
+# clear band right of the bag-circuit row: its body reaches deepest (~35)
+# and must clear the row's back edge; the shallower JG bodies clear it
+# anywhere above the trays.
+UMBILICAL_X = 150.0          # triangle column center
+WATER_BACK_X = 195.0
+WATER_BACK_Z = 293.0         # nut rides just above the rear Z-seam lip band
+C14_BACK_X = 245.0           # right of the bag row's end (x 218.5)
+C14_BACK_Z = 295.0
 # CO2 inlet — the DERPIPE 5/16"-tube PTC × 1/4" NPT M fitting on the front
 # panel, front-left, NPT side facing inboard to carry its GASHER → WR1110
 # chain (internal-plumbing.md §1), below the front pieces' Z-seam band; the
@@ -378,75 +388,64 @@ def build():
     placed["source-select"] = _at(_load(TRAY_STEPS["source-select"]), SOURCE_WALL_INSET, 160.0, tray_z)
     placed["bag-circuit"]   = _at(_load(TRAY_STEPS["bag-circuit"]),   TRAY_WALL_INSET, 256.0, tray_z)
 
-    # --- Termination stack, on the pump-2 column: the electronics ride the
-    # front-right tower instead of a shelf over the trays. The power assembly
-    # lies flat on pump 2 (terminal/Wago end toward the +X wall wire channel,
-    # where the C14 feeds it from the side panel); the PCBA lies on the power
-    # assembly, USB-C edge forward; the DC distribution block beside it on the
-    # same deck. The stack's top stays below the Zone-B tray tops, so the
-    # trays — not the electronics — set the ceiling.
+    # --- Power deck, on the pump-2 column: the power assembly lies flat on
+    # pump 2 (terminal/Wago end toward the +X wall wire channel, where the
+    # C14's cordage arrives from the rear plenum), the tallest front content,
+    # under the Zone-B tray tops. Nothing rides on it: the top wall above
+    # this column is the funnel basin's floor clearance.
     power_z = cond_top_z + SEAM_CLEAR_LIFT + 89.5 + STACK_GAP     # pump-2 top + gap
     pw = _rot(_load(POWER_ASSEMBLY), (0, 0, 1), 90.0)
     placed["power-tray"] = _at(pw, 194.6, 0.0, power_z)
-    pcba_z = power_z + 40.5 + STACK_GAP
-    placed["pcba"]    = _at(_rot(_load(PCBA_ASSEMBLY), (0, 0, 1), 90.0), 195.2, 4.0, pcba_z)
-    placed["dc-dist"] = _at(_load(DC_DIST), 200.0, 98.0, pcba_z)
+
+    # --- Rear plenum: the PCBA stands on the floor flat against the rear
+    # wall (board plane vertical, facing the cavity), the DC distribution
+    # block flat on the floor beside it — both clear below every rear-wall
+    # port body. The PCBA's back face defines the plenum's rear extent, so
+    # the box wall lands one PLENUM_DEPTH behind the foam.
+    foam_back = FRONT_DEPTH + fb.ylen                  # the foam's +Y face
+    plenum_wall = foam_back + PLENUM_DEPTH             # rear inner wall
+    pcba = _rot(_load(PCBA_ASSEMBLY), (1, 0, 0), 90.0)
+    pcba_d = pcba.BoundingBox().ylen
+    placed["pcba"]    = _at(pcba, 100.0, plenum_wall - pcba_d, SEAM_CLEAR_LIFT)
+    placed["dc-dist"] = _at(_load(DC_DIST), 210.0, foam_back + 2.0, SEAM_CLEAR_LIFT)
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
 
 
 def _port_frame():
-    """The shared port-band geometry: (x_lo, x_hi, bag_xmax, tray_top, ceil_z,
-    y_wall). The ports land in the back-wall windows the pack leaves open —
-    right of the bag-circuit row, and above the tray tops."""
+    """The shared port-band geometry: (x_lo, x_hi, y_wall) — the pack's inner
+    walls the panel bodies seat against."""
     placed = build()
     bbs = [s.BoundingBox() for s, _c in placed.values()]
-    bag_xmax = placed["bag-circuit"][0].BoundingBox().xmax
-    tray_top = max(placed[n][0].BoundingBox().zmax for n in ("bag-circuit", "source-select"))
-    ceil_z = max(b.zmax for b in bbs)              # enclosure ceiling (interior_clearance 0)
     x_lo = min(b.xmin for b in bbs)                # -X inner wall
     x_hi = max(b.xmax for b in bbs)                # +X inner wall
-    y_wall = max(b.ymax for b in bbs)              # +Y inner wall
-    return x_lo, x_hi, bag_xmax, tray_top, ceil_z, y_wall
+    y_wall = max(b.ymax for b in bbs)              # +Y inner wall (the plenum's rear)
+    return x_lo, x_hi, y_wall
 
 
 def back_wall_ports():
     """Through-holes the rear panel needs: (kind, x, z, *size) in world
     coords — 'round' (a diameter) or 'rect' (x, z size). enclosure.py cuts
-    these through the back pieces' +Y wall. Inventory:
-    ../back-panel/README.md."""
-    _x_lo, _x_hi, bag_xmax, _tray_top, _ceil_z, _y = _port_frame()
-
+    these through the back pieces' +Y wall. Every external connection lands
+    here, in the band above the cold core; the bodies hang in the rear
+    plenum. Inventory: ../back-panel/README.md."""
     d = PORT_BULKHEAD_D
     r = PORT_NUT_D / 2.0
     p = PORT_NUT_D + PORT_NUT_GAP                  # umbilical pitch: nut + margin, so nuts clear
     dz = p * (3.0 ** 0.5) / 2.0                    # triangular-cluster vertical span
-    # Umbilical triangle in the window right of the bag-circuit row: flavor-A
-    # nut one window-gap off the row's edge, the lower (flavor) nuts riding
-    # just above the rear Z-seam lip band.
-    ux = bag_xmax + UMBILICAL_WINDOW_GAP + r + p / 2.0    # umbilical column center
-    z_mid = UMBILICAL_Z_FLOOR + r + dz / 2.0
+    z_mid = UMBILICAL_Z_FLOOR + r + dz / 2.0       # lower nuts ride the lip band
     return [
         # Faucet umbilical: two flavor bulkheads on the lower row, the carb-water
         # (blue-ringed) bulkhead at the top vertex — the densest-three-circle
         # triangle the tube bundle packs into (back-panel README §"Bulkhead array").
-        ("round", ux - p / 2.0, z_mid - dz / 2.0, d),   # flavor A
-        ("round", ux + p / 2.0, z_mid - dz / 2.0, d),   # flavor B
-        ("round", ux,           z_mid + dz / 2.0, d),   # carb-water (top vertex)
-    ]
-
-
-def side_wall_ports():
-    """Through-holes in the +X side wall: (kind, y, z, *size), same shapes as
-    back_wall_ports but in the wall's Y–Z plane. enclosure.py cuts these
-    through the back pieces' +X wall. The C14 mains inlet and the tap-water
-    bulkhead live here, in the window behind the source-select row — the
-    trays stop a channel short of this wall, the bag row ends well clear of
-    it, and both centers sit above the Z-seam lip band and below the tray
-    tops."""
-    return [
-        ("rect", C14_SIDE_Y, C14_SIDE_Z, PORT_C14_W, PORT_C14_H),
-        ("round", WATER_SIDE_Y, WATER_SIDE_Z, PORT_BULKHEAD_D),
+        ("round", UMBILICAL_X - p / 2.0, z_mid - dz / 2.0, d),   # flavor A
+        ("round", UMBILICAL_X + p / 2.0, z_mid - dz / 2.0, d),   # flavor B
+        ("round", UMBILICAL_X,           z_mid + dz / 2.0, d),   # carb-water (top vertex)
+        # The utility pair, nearest the +X riser channel: the tap-water
+        # bulkhead, then the C14 mains inlet in the clear band right of the
+        # bag-circuit row.
+        ("round", WATER_BACK_X, WATER_BACK_Z, d),
+        ("rect", C14_BACK_X, C14_BACK_Z, PORT_C14_W, PORT_C14_H),
     ]
 
 
@@ -458,30 +457,25 @@ def front_wall_ports():
 
 
 def panel_bodies():
-    """The connector bodies seated through the enclosure walls — three JG
-    bulkhead unions on the rear panel (the faucet umbilical), the C14
-    receptacle + tap-water bulkhead on the +X side panel, the DERPIPE CO2
-    inlet on the front panel. Their outboard ends stand proud of the walls,
-    and enclosure.py sizes the box from build()'s bbox — so they place here
-    and enclosure_assembly.py adds them to the rendered assembly."""
-    _x_lo, x_hi, _bx, _tt, _ceil, y_wall = _port_frame()
+    """The connector bodies seated through the enclosure walls — four JG
+    bulkhead unions and the C14 receptacle on the rear panel (the faucet
+    umbilical, the tap-water inlet, the mains inlet), the DERPIPE CO2 inlet
+    on the front panel. Their outboard ends stand proud of the walls, and
+    enclosure.py sizes the box from build()'s bbox — so they place here and
+    enclosure_assembly.py adds them to the rendered assembly."""
+    _x_lo, _x_hi, y_wall = _port_frame()
     y_out = y_wall + WALL                          # rear-panel outer face
-    x_out = x_hi + WALL                            # +X side-panel outer face
     bodies = {}
 
     jg = _load(JG_BULKHEAD)                        # +Y outward, origin on the panel face
-    umb_names = ["bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb"]
+    names = ["bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb",
+             "bulkhead-water", "c14-inlet"]
     for hole in back_wall_ports():
-        _kind, hx, hz = hole[0], hole[1], hole[2]
-        bodies[umb_names.pop(0)] = jg.translate((hx, y_out, hz))
-
-    # Side-panel bodies: the same parts rotated to face +X outward.
-    for hole in side_wall_ports():
-        kind, hy, hz = hole[0], hole[1], hole[2]
+        kind, hx, hz = hole[0], hole[1], hole[2]
         if kind == "rect":
-            bodies["c14-inlet"] = _rot(_load(IEC_C14), (0, 0, 1), -90.0).translate((x_out, hy, hz))
+            bodies[names.pop(0)] = _load(IEC_C14).translate((hx, y_out, hz))
         else:
-            bodies["bulkhead-water"] = _rot(jg, (0, 0, 1), -90.0).translate((x_out, hy, hz))
+            bodies[names.pop(0)] = jg.translate((hx, y_out, hz))
 
     # DERPIPE CO2 inlet on the front panel: 5/16" PTC collet body outboard,
     # NPT stub through the hole reaching inboard toward the GASHER → WR1110

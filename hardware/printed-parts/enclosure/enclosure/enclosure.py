@@ -91,18 +91,17 @@ display_pcb_slope = 69.0         # PCB body through-hole, up the 45° slope
 display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
                                  # corner pod clean through (it overhangs the hole otherwise)
 
-# Hopper funnel opening (Zone C) — a rectangular hole through the top wall,
-# right of the display housing and flush to the front — the THROAT the
-# removable silicone funnel (../../zone-c/hopper-funnel/) drops through. The
-# funnel's wide catch bowl stands on the top surface above it and spans the
-# whole zone right of the display; this hole is only the drain under the
-# bowl, and it is boxed in on every side: the display housing left, the
-# electronics stack on the pump-2 column right (the funnel necks to the
-# tallest content under its mouth, so the opening must not reach over the
-# electronics), the Y-seam lip band in the top wall behind, the corner pod
-# at +X.
-hopper_hole_x = 74.0    # throat width (X), nominal before the corner-pod clamp
-hopper_hole_y = 115.0   # throat depth (Y), nominal before the Y-seam clamp
+# Hopper funnel opening (Zone C) — one rectangular opening through the top
+# wall spanning the whole zone right of the display, where the removable
+# silicone funnel basin (../../zone-c/hopper-funnel/) drops in and floors
+# just above the power deck. The nominals below are oversized so the cut
+# derives to everything its neighbors allow: the display end-wall gusset
+# left, the top-right corner pod's inboard end, the Y-seam lip band behind
+# — and a front ledge kept along the front edge, so a wall frame remains
+# all around for the basin's rim flange to rest on.
+hopper_hole_x = 200.0   # opening width (X), nominal before the corner-pod clamp
+hopper_hole_y = 200.0   # opening depth (Y), nominal before the Y-seam clamp
+hopper_front_ledge = 8.0  # top wall kept along the front edge
 
 # Split + boss parameters — every dimension sized to its function, nothing
 # inherited from the faucet. The seam is a Y plane; the front half's full-wall
@@ -197,9 +196,19 @@ def _dims():
     iy0, iy1 = cymin - interior_clearance, cymax + interior_clearance
     # The floor is a fixed Z=0 datum, not the lowest content — so parts can stand
     # on feet above it (the floor, seam lip, and braces stay put). The ceiling
-    # still follows the tallest content.
+    # still follows the tallest content — EXCEPT along the ±X walls, where the
+    # Y-seam's top cross-pin pods hug the ceiling and reach one boss chain
+    # inboard: content inside that reach sets the ceiling at its top plus the
+    # pod stack, so the pods never land on it. (The Zone-B trays run wall to
+    # wall; this is what actually fixes the box height.)
     iz0 = min(czmin, 0.0) - interior_clearance
     iz1 = czmax + interior_clearance
+    boss_in = head_cbore_depth + screw_len + socket_cap - wall   # pod reach inboard of the wall
+    pod_stack = wall + socket_bore_dia / 2.0 + socket_r + 1.5    # ceiling → pod bottom + margin
+    wall_band_top = max(
+        (b.zmax for b in bbs if b.xmin < ix0 + boss_in or b.xmax > ix1 - boss_in),
+        default=iz0)
+    iz1 = max(iz1, wall_band_top + pod_stack)
     ox0, ox1 = ix0 - wall, ix1 + wall
     oy0, oy1 = iy0 - wall, iy1 + wall
     oz0, oz1 = iz0 - wall, iz1 + wall
@@ -332,20 +341,21 @@ def _facet_end_wall(inner, outer):
 # --- hopper funnel opening (Zone C) -----------------------------------------
 
 def _hopper_hole(inner, outer, y_joint):
-    """Rectangle (x0, x1, y0, y1) of the funnel throat in the top wall: its −X
-    edge flush past the display end-wall gusset (right of the facet), its −Y edge
-    flush with the inner front wall, width/depth from the hopper parameters — the
-    +X edge clamped to clear the top-right corner pod's inboard end, the +Y edge
-    clamped ahead of the Y-seam lip band (the hole must live whole in the
-    front-top piece). The companion funnel (../../zone-c/hopper-funnel/) derives
-    its collar from this same rect."""
+    """Rectangle (x0, x1, y0, y1) of the funnel opening in the top wall: its
+    −X edge flush past the display end-wall gusset (right of the facet), its
+    −Y edge one front ledge behind the inner front wall, width/depth from the
+    hopper parameters — the +X edge clamped to clear the top-right corner
+    pod's inboard end, the +Y edge clamped ahead of the Y-seam lip band (the
+    hole must live whole in the front-top piece). The companion funnel
+    (../../zone-c/hopper-funnel/) derives its basin from this same rect."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     x0 = ox0 + display_facet_x + wall                  # just past the facet gusset
     pod_in = ix1 + wall - (head_cbore_depth + screw_len + socket_cap)
     x1 = min(x0 + hopper_hole_x, pod_in - 1.0)         # clear the top-right pod
-    y1 = min(iy0 + hopper_hole_y, y_joint - wall - 2.0)  # clear the Y-seam lip
-    return x0, x1, iy0, y1
+    y0 = iy0 + hopper_front_ledge
+    y1 = min(y0 + hopper_hole_y, y_joint - wall - 2.0)  # clear the Y-seam lip
+    return x0, x1, y0, y1
 
 
 def _hopper_cut(inner, outer, y_joint):
@@ -701,12 +711,11 @@ def build_back_half(dims=None, split=None, brace_y_short=None):
     for x_in, x_ext, sx, z_boss, _pz, _zc, _bz, _by1 in bosses:
         back = back.cut(_screw_cut(x_ext, sx, z_boss, yb))
     # Panel through-holes for the appliance's external connections — the
-    # faucet umbilical (carb-water + two flavor) through the back wall in
-    # the window the pack leaves right of the bag row, then the C14 mains
-    # inlet and the tap-water inlet through the +X side wall behind the
-    # source row — all off the cold core's clean rear. _contents owns the
-    # port layout, since it places the contents the windows are measured
-    # from (../back-panel/README.md).
+    # faucet umbilical (carb-water + two flavor), the tap-water inlet, and
+    # the C14 mains inlet, all through the back wall in the band above the
+    # cold core; their bodies hang in the rear plenum. _contents owns the
+    # port layout, since it places the contents the band is measured from
+    # (../back-panel/README.md).
     y0, y1 = inner[3] - 5.0, outer[3] + 5.0
     for hole in _contents.back_wall_ports():
         kind, hx, hz = hole[0], hole[1], hole[2]
@@ -716,19 +725,6 @@ def build_back_half(dims=None, split=None, brace_y_short=None):
         else:
             wx, wz = hole[3], hole[4]
             cutter = _ybox(hx - wx / 2.0, hx + wx / 2.0, y0, y1, hz - wz / 2.0, hz + wz / 2.0)
-        back = back.cut(cutter)
-    # +X side-panel through-holes — the C14 mains inlet and the tap-water
-    # bulkhead, in the window behind the source-select row. _contents owns
-    # the layout here too.
-    x0s, x1s = inner[1] - 5.0, outer[1] + 5.0
-    for hole in _contents.side_wall_ports():
-        kind, hy, hz = hole[0], hole[1], hole[2]
-        if kind == "round":
-            cutter = cq.Solid.makeCylinder(hole[3] / 2.0, x1s - x0s,
-                                           cq.Vector(x0s, hy, hz), cq.Vector(1, 0, 0))
-        else:
-            wy, wz = hole[3], hole[4]
-            cutter = _ybox(x0s, x1s, hy - wy / 2.0, hy + wy / 2.0, hz - wz / 2.0, hz + wz / 2.0)
         back = back.cut(cutter)
     return cq.Workplane(obj=back)
 
