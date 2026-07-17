@@ -8,10 +8,11 @@ interior clearance, then walled out. Features:
 
   * A flat 45° display-mounting facet (a solid surface) chamfered into the
     top-front-left corner, flush to the −X edge.
-  * A front↔back split (a Y-plane seam ahead of the cold core): the front
-    pieces' rear walls telescope (a full-wall lip, nothing shaved) into the
-    back pieces, and four interlocking screw bosses cross the seam — one per
-    ±X side wall per level, the bottom pair tucked just under the Z seam,
+  * A front↔back split (a Y-plane seam pushed as far back as the cold core
+    allows): the front pieces' rear walls telescope (a full-wall lip,
+    nothing shaved) into the back pieces, and four interlocking screw
+    bosses cross the seam — one per ±X side wall per level, the bottom pair
+    tucked just under the front Z seam (so it pins the two bottom pieces),
     the top pair under the ceiling. Each boss is on an X axis: the screw
     drives in from the left/right EXTERIOR face. The BACK piece carries the
     PLUG (faucet mounting-plate idiom): a cylinder reaching inward from the
@@ -19,14 +20,16 @@ interior clearance, then walled out. Features:
     FRONT piece's lip carries the SOCKET (faucet shell-bottom idiom): a pod
     bored to receive the plug, open on its +Y face so the plug drops in as
     the pieces close, with a ruthex M3 heat-set at the deep end.
-  * A bottom↔top split (a Z-plane seam at `z_joint`, between the cold core's
-    foam-cap top and the Zone-B tray band): the same joint rotated 90°. The
-    BOTTOM pieces carry the lip — a 3-sided band (their outer ±Y wall + both
-    side walls, stopping short of the Y-seam overlap) telescoping +Z into
-    the top pieces — with the socket pods; the TOP pieces carry the D-pins,
-    their tabs rising to the lip rim where corner braces back them. Four
-    X-axis screws cross this seam (one per side wall per Y column: front
-    pins at the front-wall corners, back pins just behind the Y-seam mouth).
+  * A bottom↔top split per column — the same joint rotated 90°, at a
+    different height each side of the Y seam (the seams stagger like a
+    brick bond; the front pair joins, the back pair joins, then the front
+    assembly telescopes into the back). The BOTTOM pieces carry the lip — a
+    3-sided band (their outer ±Y wall + both side walls, stopping short of
+    the Y-seam overlap) telescoping +Z into the top pieces — with the
+    socket pods; the TOP pieces carry the D-pins, their tabs rising to the
+    lip rim where corner braces back them. Four X-axis screws cross each
+    seam (one per side wall per Y column: front pins at the front-wall
+    corners, back pins just behind the Y-seam mouth).
 
 main() exports the four printable pieces (enclosure-front-bottom.step,
 enclosure-front-top.step, enclosure-back-bottom.step, enclosure-back-top.step)
@@ -92,9 +95,11 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
 # of the display housing and flush to the front, where the removable silicone
 # funnel (../../zone-c/hopper-funnel/) drops in: its brim rests on the top, its
 # straight collar press-fits the opening, and its bore ramps down to a spout
-# inside. Sized to the room to the right of the display; the +X edge is clamped
+# inside. Spans the room between the display and the termination stack on the
+# pump-2 column — the funnel necks to the tallest content under its mouth, so
+# the opening must not reach over the electronics; the +X edge is also clamped
 # clear of the top-right corner pod.
-hopper_hole_x = 150.0   # opening width (X), nominal before the corner-pod clamp
+hopper_hole_x = 74.0    # opening width (X), nominal before the corner-pod clamp
 hopper_hole_y = 80.0    # opening depth (Y), from the inner front wall back
 
 # Split + boss parameters — every dimension sized to its function, nothing
@@ -122,11 +127,21 @@ socket_cap = wall            # one wall capping the insert's deep end
 # (y_boss + socket_r) lands on the rim iff lip_len = plug_dia/2 + socket_r.
 lip_len = plug_dia / 2.0 + socket_r              # = (plug+bore)/2 + wall = 13.1
 
-# The bottom↔top seam plane: between the cold core's foam-cap top and the
-# Zone-B tray band, so the cold core rides entirely in the back-bottom piece
-# and the tray + electronics strata in the back-top. Every printed piece's
-# bed face (X × its Z span) fits the H2C envelope with this cut.
-z_joint = 266.0
+# The bottom↔top seam planes, one per Y column. The seam machinery (a
+# one-wall lip + the cross-pin pods) protrudes into the cavity at the walls,
+# so each seam must cross a band the contents leave open there.
+#   * Back: the cold core spans the full interior width and touches the ±X
+#     and rear walls all the way up to its foam-cap top, and the rear
+#     bulkhead field begins just above the lip rim (_contents
+#     UMBILICAL_Z_FLOOR is derived from it) — the seam sits in the one band
+#     between foam and ports.
+#   * Front: at the front stack's waist — above the condenser (which stands
+#     against the front wall), below the pump-2/electronics tower — which
+#     also splits the front column's height far more evenly than the back's
+#     foam-locked seam can.
+# Every printed piece's bed face fits the H2C envelope with these cuts.
+z_joint_front = 186.0
+z_joint_back = 266.0
 # The Z lip stops this short of the Y-seam overlap on each side, so the two
 # telescopes never share a wall surface.
 z_lip_y_margin = 2.0
@@ -186,15 +201,19 @@ def _dims():
     ox0, ox1 = ix0 - wall, ix1 + wall
     oy0, oy1 = iy0 - wall, iy1 + wall
     oz0, oz1 = iz0 - wall, iz1 + wall
-    # Split plane: as far forward as the print allows — just behind the display
-    # housing, so the whole facet stays in the front half. The floor parts are
-    # raised clear of the seam lip, so nothing on the floor limits it.
+    # Split plane: as close to the box's Y midpoint as its neighbors allow,
+    # for four near-quarter pieces. The display housing bounds it from the
+    # front (the whole facet stays in the front pieces); the cold core bounds
+    # it from the back — the back Z-seam pods sit behind the Y-seam mouth
+    # (bore axis at lip_len + wall + bore radius past y_joint, pod reaching
+    # socket_r further) and must stop ahead of the foam.
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ox0, ox1, oy0, oy1, oz0, oz1)
     _fa, _fn, _fo, _fdy, _fdz = _facet_geom(outer)
     facet_back_y = oy0 + _fdy + display_facet_thickness * math.sqrt(2.0)
-    y_joint = facet_back_y + 2.0
     cold_front_y = placed["foam-assembly"][0].BoundingBox().ymin
+    y_free = cold_front_y - 2.0 - (lip_len + wall + socket_bore_dia / 2.0 + socket_r)
+    y_joint = max(facet_back_y + 2.0, min((iy0 + iy1) / 2.0, y_free))
     return inner, outer, y_joint, cold_front_y
 
 
@@ -514,15 +533,16 @@ def _y_boss(y_joint):
 # slides down over the lip — the pin dropping into the pod's +Z-open channel.
 
 
-def _z_pin_z():
-    return z_joint + plug_dia / 2.0
+def _z_pin_z(zj):
+    return zj + plug_dia / 2.0
 
 
 def _z_stations(inner, y_joint):
-    """X-axis pin stations along the Z seam, one per ±X wall per Y column:
+    """X-axis pin stations along the Z seams, one per ±X wall per Y column:
     front pins in the front-wall corners (their pods grow from the front
     wall), back pins just behind the Y-seam mouth (their pods and braces
-    start where the telescoped front lip stops)."""
+    start where the telescoped front lip stops). Each column's stations ride
+    that column's own seam height."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     yf = iy0 + wall + socket_bore_dia / 2.0
     yb = y_joint + lip_len + wall + socket_bore_dia / 2.0
@@ -534,14 +554,14 @@ def _z_stations(inner, y_joint):
     ]
 
 
-def _z_lip(inner, y_joint):
+def _z_lip(inner, y_joint, zj):
     """The bottom pieces' seam lip: a full-wall band whose outer faces are
     flush with the body's inner walls, running one wall down into the body
     (the fusion shoulder) and up over the overlap to the rim. The segment
     crossing the Y-seam overlap is dropped, so each piece carries a 3-sided
     lip and the two telescopes never stack on one wall surface."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
-    z0, z1 = z_joint - wall, z_joint + lip_len
+    z0, z1 = zj - wall, zj + lip_len
     ring = _ybox(ix0, ix1, iy0, iy1, z0, z1).cut(
         _ybox(ix0 + wall, ix1 - wall, iy0 + wall, iy1 - wall, z0 - 1.0, z1 + 1.0))
     gap = _ybox(ix0 - 1.0, ix1 + 1.0,
@@ -550,7 +570,7 @@ def _z_lip(inner, y_joint):
     return ring.cut(gap)
 
 
-def _z_pod(x_in, x_ext, sx, ys, col, y_joint, inner):
+def _z_pod(x_in, x_ext, sx, ys, col, y_joint, inner, zj):
     """BOTTOM socket pod: the Y-pod rotated — a rib on the ±X wall reaching
     +Z to the lip rim. The front-column pod grows from the front wall (no
     print overhang, front pieces printing −Y-down); the back-column pod
@@ -558,8 +578,8 @@ def _z_pod(x_in, x_ext, sx, ys, col, y_joint, inner):
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_cap))
-    za = _z_pin_z() - socket_r
-    zb = z_joint + lip_len
+    za = _z_pin_z(zj) - socket_r
+    zb = zj + lip_len
     if col == "front":
         ya, yb = iy0, ys + socket_r
     else:
@@ -567,21 +587,21 @@ def _z_pod(x_in, x_ext, sx, ys, col, y_joint, inner):
     return _ybox(xa, xb, ya, yb, za, zb)
 
 
-def _z_pin(x_ext, sx, ys):
+def _z_pin(x_ext, sx, ys, zj):
     """TOP D-pin: a round cylinder from the ±X exterior to the heat-set, fused
     to a flat tab rising +Z to the lip rim, where the top piece's brace backs
     it. The tab is the pin diameter wide and slides down the socket's +Z
     channel as the pieces close."""
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
-    zp = _z_pin_z()
+    zp = _z_pin_z(zj)
     cyl = _xcyl(plug_dia / 2.0, ys, zp, x_ext, x_tip)
     xa, xb = sorted((x_ext, x_tip))
     tab = _ybox(xa, xb, ys - plug_dia / 2.0, ys + plug_dia / 2.0,
-                zp, z_joint + lip_len)
+                zp, zj + lip_len)
     return cyl.fuse(tab)
 
 
-def _z_brace(x_in, x_ext, sx, ys, col, inner, outer):
+def _z_brace(x_in, x_ext, sx, ys, col, inner, outer, zj):
     """TOP brace: a rib on the ±X wall over each pin, from the lip rim up to
     the ceiling. The front-column brace grows from the front wall; the back
     column's stands alone behind the mouth."""
@@ -593,22 +613,22 @@ def _z_brace(x_in, x_ext, sx, ys, col, inner, outer):
         ya, yb = iy0, ys + plug_dia / 2.0
     else:
         ya, yb = ys - plug_dia / 2.0, ys + plug_dia / 2.0
-    return _ybox(xa, xb, ya, yb, z_joint + lip_len, oz1)
+    return _ybox(xa, xb, ya, yb, zj + lip_len, oz1)
 
 
-def _z_pod_cuts(x_in, x_ext, sx, ys):
+def _z_pod_cuts(x_in, x_ext, sx, ys, zj):
     """Bottom-pod inner cuts: the bore that receives the pin, the heat-set
     pocket at the deep end, and a +Z channel for the slide-down. The slip
     lives on the +Z (slide-in) side: the bore is shifted +slip/2 so its −Z
     wall registers on the pin's −Z face at the mouth."""
     _xs, x_tip, x_heat, _xc = _boss_x(x_ext, sx)
-    zp = _z_pin_z()
+    zp = _z_pin_z(zj)
     bore_z = zp + split_slip / 2.0
     bore = _xcyl(socket_bore_dia / 2.0, ys, bore_z, x_in, x_tip)
     heat = _xcyl(heatset_dia / 2.0, ys, zp, x_tip, x_heat)
     bx0, bx1 = sorted((x_in, x_tip))
     chan = _ybox(bx0, bx1, ys - socket_bore_dia / 2.0, ys + socket_bore_dia / 2.0,
-                 bore_z, z_joint + lip_len + 1.0)
+                 bore_z, zj + lip_len + 1.0)
     return bore.fuse(heat).fuse(chan)
 
 
@@ -675,12 +695,13 @@ def build_back_half(dims=None, split=None, brace_y_short=None):
     back = back.intersect(_rounded_outer(outer))
     for x_in, x_ext, sx, z_boss, _pz, _zc, _bz, _by1 in bosses:
         back = back.cut(_screw_cut(x_ext, sx, z_boss, yb))
-    # Rear-panel through-holes for the appliance's external connections — the
-    # faucet umbilical (carb-water + two flavor), the tap-water inlet, and the
-    # C14 mains inlet — cut through the back wall in the windows the pack
-    # leaves against it, off the cold core's clean rear. _contents owns the
-    # port layout, since it places the contents the windows are measured from
-    # (../back-panel/README.md).
+    # Panel through-holes for the appliance's external connections — the
+    # faucet umbilical (carb-water + two flavor) through the back wall in
+    # the window the pack leaves right of the bag row, then the C14 mains
+    # inlet and the tap-water inlet through the +X side wall behind the
+    # source row — all off the cold core's clean rear. _contents owns the
+    # port layout, since it places the contents the windows are measured
+    # from (../back-panel/README.md).
     y0, y1 = inner[3] - 5.0, outer[3] + 5.0
     for hole in _contents.back_wall_ports():
         kind, hx, hz = hole[0], hole[1], hole[2]
@@ -691,22 +712,39 @@ def build_back_half(dims=None, split=None, brace_y_short=None):
             wx, wz = hole[3], hole[4]
             cutter = _ybox(hx - wx / 2.0, hx + wx / 2.0, y0, y1, hz - wz / 2.0, hz + wz / 2.0)
         back = back.cut(cutter)
+    # +X side-panel through-holes — the C14 mains inlet and the tap-water
+    # bulkhead, in the window behind the source-select row. _contents owns
+    # the layout here too.
+    x0s, x1s = inner[1] - 5.0, outer[1] + 5.0
+    for hole in _contents.side_wall_ports():
+        kind, hy, hz = hole[0], hole[1], hole[2]
+        if kind == "round":
+            cutter = cq.Solid.makeCylinder(hole[3] / 2.0, x1s - x0s,
+                                           cq.Vector(x0s, hy, hz), cq.Vector(1, 0, 0))
+        else:
+            wy, wz = hole[3], hole[4]
+            cutter = _ybox(x0s, x1s, hy - wy / 2.0, hy + wy / 2.0, hz - wz / 2.0, hz + wz / 2.0)
+        back = back.cut(cutter)
     return cq.Workplane(obj=back)
 
 
 def build_piece(y_side, z_side, dims=None, halves_cache=None):
     """One of the four printable pieces: the full front/back column split at
-    z_joint, the bottom taking the Z lip + socket pods, the top taking the
-    D-pins + braces + X-axis screw bores."""
+    its own z_joint (front at z_joint_front, back at z_joint_back — the
+    staggered seams), the bottom taking the Z lip + socket pods, the top
+    taking the D-pins + braces + X-axis screw bores. The Y-seam bosses'
+    bottom pair sits under the LOWER seam (the front's), so it lands in — and
+    pins — the two bottom pieces."""
     dims = dims if dims is not None else _dims()
     inner, outer, y_joint, cold_front_y = dims
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
+    zj = z_joint_front if y_side == "front" else z_joint_back
     short = (cold_front_y - 2.0) if cold_front_y is not None else None
     if halves_cache is not None and y_side in halves_cache:
         half = halves_cache[y_side]
     else:
-        half = (build_front_half(dims, split=z_joint) if y_side == "front"
-                else build_back_half(dims, split=z_joint, brace_y_short=short))
+        half = (build_front_half(dims, split=z_joint_front) if y_side == "front"
+                else build_back_half(dims, split=z_joint_front, brace_y_short=short))
         if halves_cache is not None:
             halves_cache[y_side] = half
     solid = half.val()
@@ -714,27 +752,27 @@ def build_piece(y_side, z_side, dims=None, halves_cache=None):
                 if (s[4] == "front") == (y_side == "front")]
     if z_side == "bottom":
         piece = solid.intersect(_ybox(ox0 - 1.0, ox1 + 1.0, oy0 - 1.0, oy1 + 1.0,
-                                      oz0 - 1.0, z_joint))
+                                      oz0 - 1.0, zj))
         col = _ybox(ox0 - 1.0, ox1 + 1.0,
                     oy0 - 1.0 if y_side == "front" else y_joint,
                     y_joint if y_side == "front" else oy1 + 1.0,
                     oz0 - 1.0, oz1 + 1.0)
-        piece = piece.fuse(_z_lip(inner, y_joint).intersect(col))
+        piece = piece.fuse(_z_lip(inner, y_joint, zj).intersect(col))
         for x_in, x_ext, sx, ys, c in stations:
-            piece = piece.fuse(_z_pod(x_in, x_ext, sx, ys, c, y_joint, inner))
+            piece = piece.fuse(_z_pod(x_in, x_ext, sx, ys, c, y_joint, inner, zj))
         for x_in, x_ext, sx, ys, _c in stations:
-            piece = piece.cut(_z_pod_cuts(x_in, x_ext, sx, ys))
+            piece = piece.cut(_z_pod_cuts(x_in, x_ext, sx, ys, zj))
     else:
         piece = solid.intersect(_ybox(ox0 - 1.0, ox1 + 1.0, oy0 - 1.0, oy1 + 1.0,
-                                      z_joint, oz1 + 1.0))
+                                      zj, oz1 + 1.0))
         for x_in, x_ext, sx, ys, c in stations:
-            piece = piece.fuse(_z_pin(x_ext, sx, ys))
-            piece = piece.fuse(_z_brace(x_in, x_ext, sx, ys, c, inner, outer))
+            piece = piece.fuse(_z_pin(x_ext, sx, ys, zj))
+            piece = piece.fuse(_z_brace(x_in, x_ext, sx, ys, c, inner, outer, zj))
         if y_side == "front":
             # The braces near the facet corner trim to its plane + display cuts.
             piece = piece.cut(_facet_wedge(outer)).cut(_display_cuts(outer))
         for x_in, x_ext, sx, ys, _c in stations:
-            piece = piece.cut(_screw_cut(x_ext, sx, _z_pin_z(), ys))
+            piece = piece.cut(_screw_cut(x_ext, sx, _z_pin_z(zj), ys))
     piece = piece.intersect(_rounded_outer(outer))
     return cq.Workplane(obj=piece)
 

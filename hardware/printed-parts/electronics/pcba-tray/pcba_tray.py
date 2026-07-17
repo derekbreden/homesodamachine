@@ -1,4 +1,4 @@
-"""PCBA tray — the controller-board mount of the Zone-B electronics shelf.
+"""PCBA tray — the controller-board mount of the electronics stack.
 
 Carries the JLCPCB-assembled controller PCBA ([`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx),
 85.05 × 72.85 mm as fabbed): four M3 heat-set standoff bosses under the board's

@@ -40,7 +40,7 @@ An earlier racetrack-body alternative (304 SS body half-sheets + dished racetrac
 
 ## 3. Water inlet (tap → filter → backflow → pump → top-plate port)
 
-The appliance ships with the water filter included, mounted **external to the enclosure**: the customer mounts it inline upstream of the rear-panel inlet, the familiar fridge-line install pattern. The ~Ø63 × 311 mm cartridge is longer than the enclosure's 283 mm interior width, and annual replacement happens on the customer's side of the rear panel, no tools. In the box, sized to the customer's 1/4" OD line, on our side of "the kit includes everything you need."
+The appliance ships with the water filter included, mounted **external to the enclosure**: the customer mounts it inline upstream of the side-panel inlet, the familiar fridge-line install pattern. The ~Ø63 × 311 mm cartridge is longer than the enclosure's 283 mm interior width, and annual replacement happens on the customer's side of the panel, no tools. In the box, sized to the customer's 1/4" OD line, on our side of "the kit includes everything you need."
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
