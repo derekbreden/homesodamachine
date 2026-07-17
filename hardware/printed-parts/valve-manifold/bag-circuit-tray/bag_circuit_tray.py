@@ -14,7 +14,7 @@ through a notch in the central hug wall.
 This module also holds the shared parallel-tray base — `place_valve`, `place_tee`
 (and its branch-reorient variants `place_tee_hung`, `place_tee_branch_out`,
 `place_tee_branch_to_xport`), `build_tray`, and the common geometry — imported by
-the all-Tee gate-tray variants in `../nozzle-gate-tray/` and `../bib-gate-tray/`.
+the all-Tee gate-tray variant in `../nozzle-gate-tray/`.
 
 Origin = cell center, Z = 0 the valve mounting plane, ports at Z = 11.3.
 """
