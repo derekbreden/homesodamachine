@@ -19,6 +19,7 @@ throats east — the tray leaves both edges open.
 """
 
 import json
+import struct
 import sys
 from pathlib import Path
 from types import SimpleNamespace
@@ -39,36 +40,58 @@ _outline_y = (-36.3, 36.5)
 _holes_pcb = ((-64.5, 33.0), (13.5, 33.0), (13.5, -33.3), (-64.5, -33.3))
 _centre = (sum(_outline_x) / 2.0, sum(_outline_y) / 2.0)
 _thickness = 1.6
-_CIRCUIT_JSON = _hw / "pcb" / "pcba" / "out" / "pcba.circuit.json"
+_GLB = _hw / "pcb" / "pcba" / "out" / "pcba.glb"
 
 
-def _component_height(name):
-    """Approximate body heights above the board, by reference designator —
-    the connector bodies dominate the envelope; everything else rides low."""
-    if name.startswith("J14"):
-        return 3.5     # USB-C receptacle
-    if name.startswith("J10"):
-        return 10.5    # 12 V screw block
-    if name.startswith("J"):
-        return 7.5     # JST XH wafers
-    if name == "U1":
-        return 3.5     # ESP32-WROOM-32E shield can
-    if name.startswith("BT"):
-        return 5.5     # CR2032 base + cell
-    if name.startswith("SW"):
-        return 4.0
-    if name.startswith(("BZ", "LS")):
-        return 2.5     # buzzer
-    if name.startswith("U"):
-        return 2.0
-    return 0.9
+def _glb_component_boxes():
+    """Every component's axis-aligned bounding box out of the fab model
+    `hardware/pcb/pcba/out/pcba.glb` — one (xmin, xmax, ymin, ymax, zmin,
+    zmax) per mesh node, in pcb frame, mm. The glTF POSITION accessors carry
+    per-primitive min/max, so no mesh decoding: a node's bbox is its
+    translation (+rotation/scale if any) applied to those extremes."""
+    raw = _GLB.read_bytes()
+    assert raw[:4] == b"glTF", "not a GLB"
+    jlen = struct.unpack("<I", raw[12:16])[0]
+    g = json.loads(raw[20:20 + jlen])
+    accs, meshes = g["accessors"], g["meshes"]
+    boxes = []
+    for node in g.get("nodes", []):
+        if "mesh" not in node:
+            continue
+        t = node.get("translation", (0.0, 0.0, 0.0))
+        s = node.get("scale", (1.0, 1.0, 1.0))
+        r = node.get("rotation")  # quaternion (x, y, z, w)
+        lo = [float("inf")] * 3
+        hi = [float("-inf")] * 3
+        for prim in meshes[node["mesh"]]["primitives"]:
+            a = accs[prim["attributes"]["POSITION"]]
+            mn, mx = a["min"], a["max"]
+            for corner in range(8):
+                p = [mn[i] if corner >> i & 1 else mx[i] for i in range(3)]
+                p = [p[i] * s[i] for i in range(3)]
+                if r is not None:
+                    x, y, z = p
+                    qx, qy, qz, qw = r
+                    p = [
+                        x * (1 - 2 * (qy * qy + qz * qz)) + y * 2 * (qx * qy - qz * qw) + z * 2 * (qx * qz + qy * qw),
+                        x * 2 * (qx * qy + qz * qw) + y * (1 - 2 * (qx * qx + qz * qz)) + z * 2 * (qy * qz - qx * qw),
+                        x * 2 * (qx * qz - qy * qw) + y * 2 * (qy * qz + qx * qw) + z * (1 - 2 * (qx * qx + qy * qy)),
+                    ]
+                for i in range(3):
+                    v = p[i] + t[i]
+                    lo[i] = min(lo[i], v)
+                    hi[i] = max(hi[i], v)
+        boxes.append(tuple(1000.0 * v for v in (lo[0], hi[0], lo[1], hi[1], lo[2], hi[2])))
+    return boxes
 
 
 def _build_board():
     """The controller board as a simplified populated model: the fabbed
-    outline slab + one box per placed component at its pcb footprint and an
-    approximate height, read from `hardware/pcb/pcba/out/pcba.circuit.json`
-    (the full component 3D is out/pcba.glb)."""
+    outline slab + one box per component at the axis-aligned bounding box of
+    its actual 3D model in `hardware/pcb/pcba/out/pcba.glb` (the full mesh
+    detail stays in the glb; this carries every body's true footprint and
+    height). The glb board slab itself is skipped — the outline slab with its
+    MH1–MH4 holes stands in for it."""
     slab = cq.Workplane("XY").box(
         _outline_x[1] - _outline_x[0], _outline_y[1] - _outline_y[0], _thickness,
         centered=(True, True, False))
@@ -76,22 +99,24 @@ def _build_board():
         slab = slab.cut(
             cq.Workplane("XY").cylinder(_thickness + 1, 3.2 / 2.0, centered=(True, True, False))
             .translate((hx - _centre[0], hy - _centre[1], -0.5)))
-    data = json.loads(_CIRCUIT_JSON.read_text())
-    names = {e["source_component_id"]: e.get("name", "")
-             for e in data if e["type"] == "source_component"}
-    for pc in data:
-        if pc["type"] != "pcb_component":
+    board_x = _outline_x[1] - _outline_x[0]
+    board_y = _outline_y[1] - _outline_y[0]
+    glb_top = 0.7  # glb board frame: slab mid at z=0, 1.4 thick fab board
+    for x0, x1, y0, y1, z0, z1 in _glb_component_boxes():
+        w, d = x1 - x0, y1 - y0
+        if w < 0.2 or d < 0.2 or (z1 - z0) < 0.2:
             continue
-        w, h = pc["width"], pc["height"]
-        if w < 0.1 or h < 0.1:
-            continue
-        ht = _component_height(names.get(pc["source_component_id"], ""))
-        cx = pc["center"]["x"] - _centre[0]
-        cy = pc["center"]["y"] - _centre[1]
-        z0 = -ht if pc.get("layer") == "bottom" else _thickness
+        if w > board_x * 0.95 and d > board_y * 0.95:
+            continue  # the glb's own board slab
+        if z1 > glb_top + 0.05:      # body above the board top
+            zb, ht = _thickness, z1 - glb_top
+        elif z0 < -glb_top - 0.05:   # bottom-side body
+            zb, ht = z0 + glb_top, -glb_top - z0
+        else:
+            continue                 # embedded/through geometry only
         slab = slab.union(
-            cq.Workplane("XY").box(w, h, ht, centered=(True, True, False))
-            .translate((cx, cy, z0)))
+            cq.Workplane("XY").box(w, d, ht, centered=(False, False, False))
+            .translate((x0 - _centre[0], y0 - _centre[1], zb)))
     return slab
 
 
