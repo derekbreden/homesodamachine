@@ -156,9 +156,10 @@ SHELF_LIFT = 12.0
 #     vertex), the tap-water inlet, and 2 BiB syrup ports.
 PORT_BULKHEAD_D = 18.0        # JG 1/4" bulkhead panel hole (clears the Ø17.14 barrel)
 PORT_BIB_D = 9.525            # BiB syrup port — presumed 3/8" for a 3/8" barb (placeholder)
-PORT_C14_W, PORT_C14_H = 28.5, 23.5   # C14 through-body 27.5x22.5 (measured off the
-                                      # reference STEP) + 0.5/side; the 30.5-wide flange
-                                      # seats proud on the outer face
+PORT_C14_W, PORT_C14_H = 28.5, 25.5   # C14 through-body 27.5 wide, z −10.2/+12.2 about
+                                      # its axis (measured off the reference STEP) +
+                                      # clearance; the 30.5-wide flange seats proud on
+                                      # the outer face
 # The panel-clamping NUT / flange footprints are far wider than the through-holes,
 # so the cluster is spaced to the NUTS (not the holes) or the real hardware fouls.
 # Measured off the reference STEPs: JG bulkhead nut 22.86 sq (jg-bulkhead-union),
@@ -291,7 +292,7 @@ def build():
     # front (suction from the Multiplex outlet, discharge up to the cold-core
     # top), and the water-path GASHER check riding on the SeaFlo's top.
     placed["drip-pan"] = _at(_drip_pan(), SIDE_RIB_INSET, 3.0, comp_top_z)
-    placed["moisture-sensor"] = _at(_box(MOIST_X, MOIST_Y, MOIST_Z), 55.0, 30.0, comp_top_z + PAN_FLOOR)
+    placed["moisture-sensor"] = _at(_box(MOIST_X, MOIST_Y, MOIST_Z), 35.0, 30.0, comp_top_z + PAN_FLOOR)
     placed["multiplex"] = _at(_multiplex(), 25.0, 21.0, comp_top_z + PAN_Z - 14.0)
     sf_w, sf_d, sf_h = SEAFLO_DIMS                      # [75 x 60 x 175](SEAFLO_DIMS)
     seaflo = _box(sf_h, sf_w, sf_d)                    # 175 x 75 x 60, long axis along X

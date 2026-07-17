@@ -71,10 +71,7 @@ def main():
         "AWG_AC_BRANCH_U": f"{_sched_awg_ac_branch:.4g} AWG",
         "AWG_DC_BRANCH": f"{_sched_awg_sig:.4g} AWG",
         "AWG_SIGNAL": f"{_sched_awg_lv:.4g} AWG",
-        "AWG_TRIPLE": (
-            f"{_sched_awg_mains:.4g}/{_sched_awg_ac_branch:.4g}/"
-            f"{_sched_awg_sig:.4g} AWG"
-        ),
+        "AWG_TRIPLE": f"{_sched_awg_mains:.4g}/{_sched_awg_sig:.4g} AWG",
         # Voltages.
         "AC_LINE_V": f"{_sched_line_voltage_v:.4g} VAC",
         "DC_BUS_V": f"{_sched_v_rail_dc:.4g} V",
