@@ -1,6 +1,6 @@
 # PCBA tray (controller-board mount)
 
-The controller-board mount of the Zone-B electronics shelf — the printed
+The controller-board mount of the electronics stack — the printed
 plastic under the JLCPCB-assembled controller PCBA. Built by the shared
 [`module_tray`](/hardware/printed-parts/electronics/module_tray.py) engine,
 same idioms as the [power tray](/hardware/printed-parts/electronics/power-tray/):
