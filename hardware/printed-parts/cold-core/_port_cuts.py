@@ -60,7 +60,7 @@ def cut_circular_port_holes(foam_shell):
 
 
 def cut_co2_inlet(foam_shell):
-    """CO2 inlet — a doorway-shaped cut at x = 0, y = [70.5](CO2_DOORWAY_Y): a [⌀18](CO2_INLET_BORE_D)
+    """CO2 inlet — a doorway-shaped cut at x = 0, y = [78.5](CO2_DOORWAY_Y): a [⌀18](CO2_INLET_BORE_D)
     round bore at z = [16](CO2_INLET_BORE_Z) (seating the JG PP0308E elbow's ⌀15 body for
     its in-cavity 90° turn) over a rectangular slot down to the floor's
     top face at z = [2](FLOOR_TOP_Z), the elbow entered at an angle from above. The

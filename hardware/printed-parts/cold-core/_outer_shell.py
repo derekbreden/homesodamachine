@@ -36,7 +36,7 @@ def build_attachment_bosses(height):
     """The ⌀screw_boss_size cylindrical boss + teardrop corner-fill webs at
     each of the 6 attachment positions, extruded to `height` and trimmed
     flush to the rounded footprint. Shared by the outer shell and the
-    foam lid — every mating part's boss cross-section is identical.
+    foam-cap stack — every mating part's boss cross-section is identical.
 
     The webs are the cylinder + corner-fill idiom of the reservoir
     pocket-corner supports: each is one boss radius wide off the boss center
@@ -88,16 +88,17 @@ def build_outer_shell():
 
 
 def cut_insert_pockets(foam_shell):
-    """Heat-set insert pockets in the corner/mid bosses on the TOP face only —
-    the six M3 SHCS that fasten the foam lid thread into inserts pressed from
-    the top face. The bottom face carries no inserts: there is no bottom cap,
-    and the shell's own floor closes the underside."""
-    top_pockets = (
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=foam_shell_outer_height - insert_pocket_depth)
-        .pushPoints(attachment_xy_positions)
-        .circle(insert_pocket_radius)
-        .extrude(insert_pocket_depth)
-        .unwrap()
-    )
-    return foam_shell.cut(top_pockets)
+    """Heat-set insert pockets in the corner/mid bosses on both faces — each
+    cap's M3 SHCS threads into an insert pressed from its own face, so every
+    boss carries a pocket at z=0 and another at z=foam_shell_outer_height."""
+    def insert_pockets_at(z_floor):
+        return (
+            WorldWorkplane(xy_plane_z_up)
+            .workplane(offset=z_floor)
+            .pushPoints(attachment_xy_positions)
+            .circle(insert_pocket_radius)
+            .extrude(insert_pocket_depth)
+        )
+    bottom_pockets = insert_pockets_at(0).unwrap()
+    top_pockets = insert_pockets_at(foam_shell_outer_height - insert_pocket_depth).unwrap()
+    return foam_shell.cut(bottom_pockets).cut(top_pockets)

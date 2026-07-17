@@ -20,7 +20,7 @@ straight into the opening:
   [6.35 mm](HOPPER_SPOUT_ID) spout (1/4", matching the pump tubing), the spout
   offset in −X off the opening center. The ramp necks down beside the tallest
   content under the mouth (read live), then a short straight spout tube carries
-  the exit on down. Total drop [61 mm](HOPPER_DROP) below the brim.
+  the exit on down. Total drop [79 mm](HOPPER_DROP) below the brim.
 
 The chute footprint is taken from the enclosure's opening rectangle
 (`enclosure.py` `_hopper_hole`), so the funnel and hole always match.

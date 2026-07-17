@@ -1,17 +1,16 @@
-"""Kitchen Edition enclosure assembly — the two enclosure halves wrapped
+"""Kitchen Edition enclosure assembly — the four enclosure pieces wrapped
 around the contents.
 
-Combines `../enclosure/enclosure-front.step` and `enclosure-back.step` with the
-placed parts from `_contents.build()`, the through-wall connector bodies from
-`_contents.panel_bodies()`, the display, and the hopper funnel, in their shared
-coordinates. The contents keep their per-part colors; the halves are
-translucent so the arrangement (and the front↔back split) reads through them.
+Combines the four `../enclosure/enclosure-*.step` pieces with the placed
+parts from `_contents.build()`, the through-wall connector bodies from
+`_contents.panel_bodies()`, the display, and the hopper funnel, in their
+shared coordinates. The contents keep their per-part colors; the pieces are
+translucent so the arrangement (and both seams) reads through them.
 
 Export verifies the pack: every pair of placed solids (contents, panel bodies,
 display, funnel) is intersected and any overlap past tolerance fails the run;
-the panel bodies are also intersected against the two halves, catching a body
-that misses its wall hole.
-"""
+every solid is also intersected against the four enclosure pieces, catching
+content that fouls a wall, a seam lip, or a cross-pin boss."""
 
 import math
 import sys
@@ -31,12 +30,20 @@ _ENCLOSURE_DIR = _repo / "hardware" / "printed-parts" / "enclosure" / "enclosure
 sys.path.insert(0, str(_ENCLOSURE_DIR))
 import enclosure  # facet geometry, to seat the display in the housing
 
-FRONT_STEP = _ENCLOSURE_DIR / "enclosure-front.step"
-BACK_STEP = _ENCLOSURE_DIR / "enclosure-back.step"
+PIECES = {
+    "enclosure_front_bottom": _ENCLOSURE_DIR / "enclosure-front-bottom.step",
+    "enclosure_front_top":    _ENCLOSURE_DIR / "enclosure-front-top.step",
+    "enclosure_back_bottom":  _ENCLOSURE_DIR / "enclosure-back-bottom.step",
+    "enclosure_back_top":     _ENCLOSURE_DIR / "enclosure-back-top.step",
+}
 DISPLAY_STEP = _repo / "hardware" / "reference" / "waveshare-43b-display" / "waveshare-43b-display.step"
 FUNNEL_STEP = _repo / "hardware" / "printed-parts" / "zone-c" / "hopper-funnel" / "hopper-funnel.step"
-FRONT_COLOR = cq.Color(0.85, 0.92, 1.00, 0.22)  # transparent PETG, front half
-BACK_COLOR = cq.Color(0.80, 0.88, 0.98, 0.22)   # transparent PETG, back half
+PIECE_COLORS = {
+    "enclosure_front_bottom": cq.Color(0.85, 0.92, 1.00, 0.22),  # transparent PETG
+    "enclosure_front_top":    cq.Color(0.88, 0.94, 1.00, 0.22),
+    "enclosure_back_bottom":  cq.Color(0.80, 0.88, 0.98, 0.22),
+    "enclosure_back_top":     cq.Color(0.83, 0.90, 0.99, 0.22),
+}
 DISPLAY_COLOR = cq.Color(0.10, 0.10, 0.12)      # the Waveshare 4.3B reference
 FUNNEL_COLOR = cq.Color(0.95, 0.95, 0.97, 0.45) # translucent silicone funnel
 
@@ -66,10 +73,10 @@ def _bb_overlap(a, b):
             min(a.zmax, b.zmax) > max(a.zmin, b.zmin))
 
 
-def _check_pack(parts, halves):
+def _check_pack(parts, pieces):
     """Pairwise intersection over every placed solid (bbox-prefiltered), plus
-    panel bodies against the halves. Prints each overlap past CLASH_TOL and
-    returns the count."""
+    every solid against the four enclosure pieces. Prints each overlap past
+    CLASH_TOL and returns the count."""
     names = list(parts)
     bbs = {n: parts[n].BoundingBox() for n in names}
     clashes = 0
@@ -81,11 +88,9 @@ def _check_pack(parts, halves):
             if v > CLASH_TOL:
                 clashes += 1
                 print(f"  CLASH {a} ∩ {b}: {v:.1f} mm³")
-    for hname, hshape in halves.items():
+    for hname, hshape in pieces.items():
         hbb = hshape.BoundingBox()
         for n in names:
-            if not n.startswith(("bulkhead-", "bib-port-", "c14-", "co2-")):
-                continue
             if not _bb_overlap(hbb, bbs[n]):
                 continue
             v = hshape.intersect(parts[n]).Volume()
@@ -98,12 +103,11 @@ def _check_pack(parts, halves):
 def build():
     placed = dict(contents.build())
     placed.update(contents.panel_bodies())
-    front = cq.importers.importStep(str(FRONT_STEP)).val()
-    back = cq.importers.importStep(str(BACK_STEP)).val()
 
     assy = cq.Assembly(name="kitchen-edition-enclosure-assembly")
-    assy.add(front, name="enclosure_front", color=FRONT_COLOR)
-    assy.add(back, name="enclosure_back", color=BACK_COLOR)
+    for name, path in PIECES.items():
+        assy.add(cq.importers.importStep(str(path)).val(), name=name,
+                 color=PIECE_COLORS[name])
     for name, (shape, color) in placed.items():
         assy.add(shape, name=name, color=color)
     assy.add(_placed_display(), name="display", color=DISPLAY_COLOR)
@@ -118,10 +122,7 @@ def main():
     solids = {n: s for n, (s, _c) in placed.items()}
     solids["display"] = _placed_display()
     solids["hopper-funnel"] = cq.importers.importStep(str(FUNNEL_STEP)).val()
-    halves = {
-        "enclosure_front": cq.importers.importStep(str(FRONT_STEP)).val(),
-        "enclosure_back": cq.importers.importStep(str(BACK_STEP)).val(),
-    }
+    pieces = {n: cq.importers.importStep(str(p)).val() for n, p in PIECES.items()}
 
     inner_bbs = [s.BoundingBox() for s, _c in contents.build().values()]
     ix = max(b.xmax for b in inner_bbs) - min(b.xmin for b in inner_bbs)
@@ -131,7 +132,7 @@ def main():
           f"(exterior {ix + 6:.1f} × {iy + 6:.1f} × {iz + 6:.1f})")
 
     print("clearance check:")
-    clashes = _check_pack(solids, halves)
+    clashes = _check_pack(solids, pieces)
     if clashes:
         raise SystemExit(f"{clashes} clash(es) — pack does not close")
     print("  all pairs clear")

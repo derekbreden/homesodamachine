@@ -36,7 +36,8 @@ brim_overhang = 3.0     # brim flange reach past the opening, all around
 brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 chute_h = 30.0          # straight rectangular chute height — brim top down to the ramp start
-neck_dx = -6.0          # neck (ramp foot + spout) shift in X off the opening center
+neck_dx = -12.0         # neck (ramp foot + spout) shift in X off the opening center,
+                        # aiming the drop into the clear column between the two pumps
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
 spout_tube = 6.0       # straight spout tube below the ramp tip — its length sets

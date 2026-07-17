@@ -19,6 +19,9 @@ sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
 
 from _cold_core_interface import (  # noqa: E402
     co2_inlet_y,
+    foam_cap_interior_height,
+    foam_cap_lid_pour_radius,
+    foam_cap_lid_vent_radius,
     foam_shell_outer_height,
     insert_pocket_depth,
     insert_pocket_radius,
@@ -63,7 +66,11 @@ def main():
         "PITCH": f"{_coil_mandrel_gen.pitch:.2f} mm",
         "PLUG_INLET_Y": f"{_coil_mandrel_gen.plug_inlet_y:.4g}",
         "PLUG_OUTLET_Y": f"{_coil_mandrel_gen.plug_outlet_y:.4g}",
-        # ─── Inserts (step 3, line 59) ────────────────────────────────
+        # ─── Cap pour (step 2) ────────────────────────────────────────
+        "CAP_H": f"{foam_cap_interior_height:.4g} mm",
+        "POUR_D": f"{foam_cap_lid_pour_radius * 2:.4g} mm",
+        "VENT_D": f"{foam_cap_lid_vent_radius * 2:.4g} mm",
+        # ─── Inserts (step 3) ─────────────────────────────────────────
         # insert_pocket_depth is the FULL printed-pocket depth = insert
         # engagement (half) + relief (half).
         "INSERT_POCKET_D": f"{insert_pocket_radius * 2:.4g} mm",
@@ -93,6 +100,9 @@ def main():
             "PITCH": 1,
             "PLUG_INLET_Y": 1,
             "PLUG_OUTLET_Y": 1,
+            "CAP_H": 1,
+            "POUR_D": 1,
+            "VENT_D": 1,
             "INSERT_POCKET_D": 1,
             "INSERT_HALF_DEPTH": 2,
             "TUBE_HOLE_D": 3,

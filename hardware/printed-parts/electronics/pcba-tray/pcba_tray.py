@@ -18,6 +18,7 @@ face the board edges: USB-C (J14) flush on the west edge, the J10 12 V screw
 throats east — the tray leaves both edges open.
 """
 
+import json
 import sys
 from pathlib import Path
 from types import SimpleNamespace
@@ -38,11 +39,36 @@ _outline_y = (-36.3, 36.5)
 _holes_pcb = ((-64.5, 33.0), (13.5, 33.0), (13.5, -33.3), (-64.5, -33.3))
 _centre = (sum(_outline_x) / 2.0, sum(_outline_y) / 2.0)
 _thickness = 1.6
+_CIRCUIT_JSON = _hw / "pcb" / "pcba" / "out" / "pcba.circuit.json"
+
+
+def _component_height(name):
+    """Approximate body heights above the board, by reference designator —
+    the connector bodies dominate the envelope; everything else rides low."""
+    if name.startswith("J14"):
+        return 3.5     # USB-C receptacle
+    if name.startswith("J10"):
+        return 10.5    # 12 V screw block
+    if name.startswith("J"):
+        return 7.5     # JST XH wafers
+    if name == "U1":
+        return 3.5     # ESP32-WROOM-32E shield can
+    if name.startswith("BT"):
+        return 5.5     # CR2032 base + cell
+    if name.startswith("SW"):
+        return 4.0
+    if name.startswith(("BZ", "LS")):
+        return 2.5     # buzzer
+    if name.startswith("U"):
+        return 2.0
+    return 0.9
 
 
 def _build_board():
-    """Bare-outline stand-in for the assembly view (the true 3D is
-    hardware/pcb/pcba/out/pcba.glb)."""
+    """The controller board as a simplified populated model: the fabbed
+    outline slab + one box per placed component at its pcb footprint and an
+    approximate height, read from `hardware/pcb/pcba/out/pcba.circuit.json`
+    (the full component 3D is out/pcba.glb)."""
     slab = cq.Workplane("XY").box(
         _outline_x[1] - _outline_x[0], _outline_y[1] - _outline_y[0], _thickness,
         centered=(True, True, False))
@@ -50,6 +76,22 @@ def _build_board():
         slab = slab.cut(
             cq.Workplane("XY").cylinder(_thickness + 1, 3.2 / 2.0, centered=(True, True, False))
             .translate((hx - _centre[0], hy - _centre[1], -0.5)))
+    data = json.loads(_CIRCUIT_JSON.read_text())
+    names = {e["source_component_id"]: e.get("name", "")
+             for e in data if e["type"] == "source_component"}
+    for pc in data:
+        if pc["type"] != "pcb_component":
+            continue
+        w, h = pc["width"], pc["height"]
+        if w < 0.1 or h < 0.1:
+            continue
+        ht = _component_height(names.get(pc["source_component_id"], ""))
+        cx = pc["center"]["x"] - _centre[0]
+        cy = pc["center"]["y"] - _centre[1]
+        z0 = -ht if pc.get("layer") == "bottom" else _thickness
+        slab = slab.union(
+            cq.Workplane("XY").box(w, h, ht, centered=(True, True, False))
+            .translate((cx, cy, z0)))
     return slab
 
 
