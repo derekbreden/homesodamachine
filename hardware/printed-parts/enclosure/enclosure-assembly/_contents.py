@@ -84,18 +84,16 @@ Strata, floor to ceiling:
   * Zone B:  source-select + bag-circuit rows seated on the foam-cap top —
              the tray tops are the ceiling. The source row leaves the
              umbilical riser channel along the +X wall.
-  * Power deck (front-right, on the pump-2 column): the power assembly
-             flat on pump 2 — the tallest front content, still under the
-             tray tops. The top wall right of the display is one open
-             rectangle over this column: the flush funnel basin drops
-             through it and floors just above the power assembly, its
-             throat falling the clear column between pump 1 and this
-             deck's edge.
-  * Rear plenum: the PCBA standing against the rear wall (its depth sets
-             PLENUM_DEPTH), the DC distribution block flat on the floor
-             beside it, and every panel body reaching in from the rear
-             wall — the umbilical triangle, the tap-water bulkhead, and
-             the C14, all in the band above the cold core.
+  * Zone C top: the top wall right of the display is one open rectangle —
+             the flush funnel basin drops through it and floors just above
+             pump 1, its spout necking down the clear column between the
+             two pumps. Nothing else lives above the front towers.
+  * Rear plenum: the whole electronics shelf standing on the floor
+             against the rear wall — DC distribution block, power assembly
+             (its depth sets PLENUM_DEPTH), and PCBA in one row — and
+             every panel body reaching in from the rear wall: the
+             umbilical triangle, the tap-water bulkhead, and the C14, all
+             in the band above the cold core, above the shelf row.
 """
 
 from pathlib import Path
@@ -188,11 +186,13 @@ STACK_GAP = 2.5
 
 # --- Rear plenum + rear-panel ports ----------------------------------------
 # The service bay behind the cold core: full-width, full-height, this deep.
-# Sized to the PCBA standing flat against the rear wall (27.1 thick) plus
-# working clearance off the foam's back face. The plenum floor carries the
-# PCBA and the DC distribution block; the band above the cold core carries
-# every panel body; the riser channel's traffic lands in it.
-PLENUM_DEPTH = 30.0
+# Sized to the power assembly standing on its long edge against the rear
+# wall (40.5 thick) plus working clearance off the foam's back face. The
+# plenum floor carries the whole electronics shelf — power assembly, PCBA,
+# and DC distribution block in one row below the port band — so the C14
+# feeds the AC hub right where its cordage enters; the band above the cold
+# core carries every panel body; the riser channel's traffic lands in it.
+PLENUM_DEPTH = 44.0
 # Every external connection penetrates the REAR wall (back_wall_ports
 # below), in the band above the cold core (the foam tops out at ~263; the
 # rear Z-seam lip band tops out at ~279) — their bodies hang in the plenum.
@@ -212,16 +212,14 @@ PORT_NUT_D = 22.86           # JG bulkhead nut, across the panel face (measured)
 PORT_NUT_GAP = 7.0           # clear gap between adjacent bulkhead nuts (the margin)
 UMBILICAL_Z_FLOOR = 281.0    # lowest bulkhead-nut edge: the rear Z-seam lip band
                              # tops out at z_joint_back + lip_len (~279) on the back wall
-# Rear-wall stations, left to right: the umbilical triangle mid-panel, then
-# the tap-water bulkhead, then the C14 — the two utility feeds nearest the
-# +X riser channel their cord and tube run forward in. The C14 sits in the
-# clear band right of the bag-circuit row: its body reaches deepest (~35)
-# and must clear the row's back edge; the shallower JG bodies clear it
-# anywhere above the trays.
-UMBILICAL_X = 150.0          # triangle column center
-WATER_BACK_X = 195.0
+# Rear-wall stations, left to right: the C14 over the power assembly's row
+# station (its cordage drops straight down the plenum to the AC hub), then
+# the tap-water bulkhead, then the umbilical triangle — every body hangs in
+# the plenum, clear above the shelf row and behind the Zone-B trays.
+UMBILICAL_X = 210.0          # triangle column center
+WATER_BACK_X = 145.0
 WATER_BACK_Z = 293.0         # nut rides just above the rear Z-seam lip band
-C14_BACK_X = 245.0           # right of the bag row's end (x 218.5)
+C14_BACK_X = 90.0            # over the power assembly, mid-row
 C14_BACK_Z = 295.0
 # CO2 inlet — the DERPIPE 5/16"-tube PTC × 1/4" NPT M fitting on the front
 # panel, front-left, NPT side facing inboard to carry its GASHER → WR1110
@@ -389,26 +387,24 @@ def build():
     placed["source-select"] = _at(_load(TRAY_STEPS["source-select"]), SOURCE_WALL_INSET, 160.0, tray_z)
     placed["bag-circuit"]   = _at(_load(TRAY_STEPS["bag-circuit"]),   TRAY_WALL_INSET, 256.0, tray_z)
 
-    # --- Power deck, on the pump-2 column: the power assembly lies flat on
-    # pump 2 (terminal/Wago end toward the +X wall wire channel, where the
-    # C14's cordage arrives from the rear plenum), the tallest front content,
-    # under the Zone-B tray tops. Nothing rides on it: the top wall above
-    # this column is the funnel basin's floor clearance.
-    power_z = cond_top_z + SEAM_CLEAR_LIFT + 89.5 + STACK_GAP     # pump-2 top + gap
-    pw = _rot(_load(POWER_ASSEMBLY), (0, 0, 1), 90.0)
-    placed["power-tray"] = _at(pw, 194.6, 0.0, power_z)
-
-    # --- Rear plenum: the PCBA stands on the floor flat against the rear
-    # wall (board plane vertical, facing the cavity), the DC distribution
-    # block flat on the floor beside it — both clear below every rear-wall
-    # port body. The PCBA's back face defines the plenum's rear extent, so
-    # the box wall lands one PLENUM_DEPTH behind the foam.
+    # --- Rear plenum: the whole electronics shelf stands on the floor in
+    # one row against the rear wall, every part on edge (board / tray plane
+    # vertical, facing the cavity), all below the rear-wall port bodies —
+    # the DC distribution block by the −X wall (lifted over the cavity's
+    # print-corner arc), the power assembly mid-row where the C14's cordage
+    # drops straight to it, the PCBA at +X. The power assembly's back face
+    # defines the plenum's rear extent, so the box wall lands one
+    # PLENUM_DEPTH behind the foam.
     foam_back = FRONT_DEPTH + fb.ylen                  # the foam's +Y face
     plenum_wall = foam_back + PLENUM_DEPTH             # rear inner wall
+    power = _rot(_load(POWER_ASSEMBLY), (1, 0, 0), 90.0)
+    power_d = power.BoundingBox().ylen
+    placed["power-tray"] = _at(power, 33.0, plenum_wall - power_d, SEAM_CLEAR_LIFT)
     pcba = _rot(_load(PCBA_ASSEMBLY), (1, 0, 0), 90.0)
     pcba_d = pcba.BoundingBox().ylen
-    placed["pcba"]    = _at(pcba, 100.0, plenum_wall - pcba_d, SEAM_CLEAR_LIFT)
-    placed["dc-dist"] = _at(_load(DC_DIST), 210.0, foam_back + 2.0, SEAM_CLEAR_LIFT)
+    placed["pcba"]    = _at(pcba, 188.0, plenum_wall - pcba_d, SEAM_CLEAR_LIFT)
+    dc = _rot(_rot(_load(DC_DIST), (0, 0, 1), 90.0), (1, 0, 0), 90.0)
+    placed["dc-dist"] = _at(dc, 3.0, plenum_wall - 19.0, FOAM_CORNER_LIFT)
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
 
@@ -442,9 +438,8 @@ def back_wall_ports():
         ("round", UMBILICAL_X - p / 2.0, z_mid - dz / 2.0, d),   # flavor A
         ("round", UMBILICAL_X + p / 2.0, z_mid - dz / 2.0, d),   # flavor B
         ("round", UMBILICAL_X,           z_mid + dz / 2.0, d),   # carb-water (top vertex)
-        # The utility pair, nearest the +X riser channel: the tap-water
-        # bulkhead, then the C14 mains inlet in the clear band right of the
-        # bag-circuit row.
+        # The utility pair: the tap-water bulkhead mid-panel, and the C14
+        # mains inlet over the power assembly its cordage drops to.
         ("round", WATER_BACK_X, WATER_BACK_Z, d),
         ("rect", C14_BACK_X, C14_BACK_Z, PORT_C14_W, PORT_C14_H),
     ]

@@ -10,7 +10,7 @@ back-bottom piece houses the cold core and the rear service plenum behind it,
 the back-top carries the Zone-B trays and every panel port (the whole
 external-connection inventory penetrates its rear wall, above the cold core);
 the front column splits at its waist over the condenser — refrigeration below,
-pumps + power deck + funnel + display above.
+pumps + funnel + display above.
 
 `enclosure.py` exports the four printable pieces (`enclosure-front-bottom`,
 `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`) plus
@@ -97,7 +97,7 @@ One rectangular opening spans the top wall right of the display housing, where
 the removable silicone funnel basin
 ([`../../zone-c/hopper-funnel/`](/hardware/printed-parts/zone-c/hopper-funnel/))
 drops in — flush with the top surface, its chute press-fitting the opening
-and flooring just above the power deck, its flat brim resting on the wall
+and flooring just above the front towers, its flat brim resting on the wall
 frame left around the cut.
 The opening derives to everything its neighbors allow: the display end-wall
 gusset left, the top-right corner pod's inboard end, the Y-seam lip band

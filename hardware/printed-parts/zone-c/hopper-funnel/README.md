@@ -18,17 +18,16 @@ straight into the opening:
   around, resting on the enclosure top surface.
 - **Chute.** A straight [148 × 111 mm](HOPPER_BASIN) rectangular basin —
   vertical walls, no slope — press-fitting the 3 mm top wall and dropping to
-  a floor just above the power deck. Capacity to the brim is
-  [537 mL](HOPPER_CAPACITY) — a full 440 mL bottle with margin, dumped, not
-  metered.
-- **Floor.** Slopes from every side into the throat mouth so the basin
-  drains dry.
-- **Throat.** A rectangular slot dropping straight down the clear column
-  between pump 1 and the power deck's edge.
-- **Ramp + spout.** Below the throat a short ramp necks to a round
-  [6.35 mm](HOPPER_SPOUT_ID) spout (1/4", matching the pump tubing), ending
-  just above the tallest content under the throat (read live), where the
-  V-B pickup tube meets it. Total drop [136 mm](HOPPER_DROP) below the brim.
+  a floor just above the tallest content under the opening (read live).
+  Capacity to the brim is [576 mL](HOPPER_CAPACITY) — a full 440 mL bottle
+  with margin, dumped, not metered.
+- **Floor.** Dishes gently from every side into the drain mouth so the
+  basin drains dry.
+- **Mouth + spout.** Under the floor a short taper necks the drain mouth to
+  a round [6.35 mm](HOPPER_SPOUT_ID) spout (1/4", matching the pump tubing)
+  in the clear column between the two pumps — a stub, not a chute — where
+  the V-B pickup tube lands. Total drop [74 mm](HOPPER_DROP) below the
+  brim.
 
 The chute footprint is taken from the enclosure's opening rectangle
 (`enclosure.py` `_hopper_hole`), so the funnel and hole always match.

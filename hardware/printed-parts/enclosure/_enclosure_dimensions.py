@@ -30,7 +30,7 @@ APPLIANCE_W = outer_shell_x_length
 # enclosure-assembly/_contents.py PLENUM_DEPTH) sits behind the shell.
 # Together the three strata drive the appliance depth.
 CONDENSER_DEPTH = 150.0
-REAR_PLENUM_DEPTH = 30.0
+REAR_PLENUM_DEPTH = 44.0
 APPLIANCE_D = outer_shell_y_length + CONDENSER_DEPTH + REAR_PLENUM_DEPTH
 
 
