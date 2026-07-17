@@ -25,6 +25,19 @@ core and a Z seam above its foam-cap top (enclosure.py `z_joint`) — whose
 lips and cross-pin pods hug the walls; the wall-adjacent insets below keep
 content clear of them.
 
+The cold core's tube connections are defined by the foam shell's
+penetrations (/hardware/printed-parts/cold-core/foam-shell/README.md
+§Penetrations), all on its −Y front wall except the CO2 top entry — in
+enclosure world coordinates:
+  * carbonated-water outlet at (141.5, 155, 46.5) — the riser runs up the
+    foam front face past the DIGITEN flow sensor to the rear umbilical;
+  * reservoir (bag) lines at (44.5, 155, 35.5) and (238.5, 155, 35.5) —
+    up the front face to the bag-circuit tray;
+  * the shared slot at x 141.5 spanning z ~72–246 — both copper evaporator
+    stubs (to the compressor), the water inlet (from the SeaFlo discharge),
+    and the PRV vent;
+  * CO2 entry down through the foam-cap top at (141.5, 172.8).
+
 Each tray sits nearest the things its valves plumb to
 (/hardware/topology/fluid-topology.md):
   * source-select (V-A tap + V-B hopper in, V-C/V-D out to the pump-inlet
@@ -32,7 +45,8 @@ Each tray sits nearest the things its valves plumb to
     drop, over the water deck where the V-A branch taps in, its outputs a
     short drop to the pump inlets ahead of it.
   * bag-circuit (V-E/V-F + V-H/V-I, the reservoir fill/return loops) rides
-    the foam-cap top's back row, over the reservoir caps it plumbs.
+    the foam-cap top's back row; its four reservoir lines drop down the
+    foam front face to the ±X wall exits.
   * nozzle-gate (V-G/V-J, pump outlets → nozzle risers) stands in the
     front-left column beside the pump outlets.
 
@@ -182,9 +196,10 @@ C14_DROP_Z = 28.0            # C14 center, down from the ceiling (clears the cor
                              # above it and the carb-water nut below)
 # CO2 inlet — the DERPIPE 5/16"-tube PTC × 1/4" NPT M fitting on the front
 # panel, front-left, NPT side facing inboard to carry its GASHER → WR1110
-# chain (internal-plumbing.md §1), below the front pieces' Z-seam band.
+# chain (internal-plumbing.md §1), below the front pieces' Z-seam band; the
+# chain's outlet tube runs on to the foam-cap top entry at (141.5, 172.8).
 CO2_INLET_X = 46.0
-CO2_INLET_Z = 240.0
+CO2_INLET_Z = 234.0
 CO2_HOLE_D = 14.5            # clears the DERPIPE's 1/4" NPT shank (Ø~13.7 major)
 DERPIPE_SHANK_D, DERPIPE_SHANK_L = 13.7, 18.0   # NPT stub, wall + inboard thread
 DERPIPE_BODY_D, DERPIPE_BODY_L = 20.0, 18.0     # 5/16" PTC collet body, outboard
@@ -287,6 +302,7 @@ def build():
     comp_top_z = SEAM_CLEAR_LIFT + comp.BoundingBox().zlen
     cond = _box(CONDENSER_AIRFLOW, CONDENSER_FACE_B, CONDENSER_FACE_A)  # 56 x 151 x 178
     placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW - SIDE_RIB_INSET, 0.0, SEAM_CLEAR_LIFT)
+    cond_top_z = SEAM_CLEAR_LIFT + CONDENSER_FACE_A
     placed["filter-drier"] = _at(_cyl(DRIER_D, DRIER_L, (0, 0, 1)), 193.0, 8.0, SEAM_CLEAR_LIFT)
     placed["mq6-sensor"] = _at(_box(MQ6_X, MQ6_Y, MQ6_Z), 100.0, 134.0, SEAM_CLEAR_LIFT)
 
@@ -299,7 +315,7 @@ def build():
     # SeaFlo's top.
     placed["drip-pan"] = _at(_drip_pan(), SIDE_RIB_INSET, 3.0, comp_top_z)
     placed["moisture-sensor"] = _at(_box(MOIST_X, MOIST_Y, MOIST_Z), 30.0, 55.0, comp_top_z + PAN_FLOOR)
-    placed["multiplex"] = _at(_multiplex(), 25.0, 21.0, comp_top_z + PAN_Z - 10.0)
+    placed["multiplex"] = _at(_multiplex(), 25.0, 21.0, comp_top_z + PAN_Z - 17.0)
     sf_w, sf_d, sf_h = SEAFLO_DIMS                      # [75 x 60 x 175](SEAFLO_DIMS)
     seaflo = _box(sf_h, sf_w, sf_d)                    # 175 x 75 x 60, long axis along X
     placed["seaflo-pump"] = _at(seaflo, SIDE_RIB_INSET, 79.0, comp_top_z + 1.0)
@@ -318,18 +334,18 @@ def build():
     # --- Nozzle-gate tray, turned 90°, standing over the CO2 chain beside the
     # pump outlets; its nozzle risers run up to the rear umbilical.
     placed["nozzle-gate"] = _at(_rot(_load(TRAY_STEPS["nozzle-gate"]), (0, 0, 1), 90.0),
-                                14.0, 40.0, 258.5)
+                                14.0, 40.0, 252.5)
 
-    # --- Zone C: the two flavor pumps spanning the front width over the water
-    # deck, directly under the funnel opening. hopper_funnel.py necks its
+    # --- Zone C: the two flavor pumps spanning the front width, directly
+    # under the funnel opening, each seated on what is under it — pump 1 on
+    # the SeaFlo's top, pump 2 on the condenser's. hopper_funnel.py necks its
     # spout to the tallest content under its mouth (the pump tops, read live)
     # and its loft + spout tube drop into the column between the two pumps —
     # the pump spacing keeps that column clear.
-    pump_z = seaflo_top + STACK_GAP + 0.5
     pa1 = _rot(_load(PUMP_ASSEMBLY), (1, 0, 0), 90.0)  # depth axis along Y, elbows up
     pa2 = _rot(_load(PUMP_ASSEMBLY), (1, 0, 0), 90.0)
-    placed["pump-assembly-1"] = _at(pa1, 91.0, 4.0, pump_z)
-    placed["pump-assembly-2"] = _at(pa2, 197.0, 4.0, pump_z)
+    placed["pump-assembly-1"] = _at(pa1, 91.0, 4.0, seaflo_top + 0.5)
+    placed["pump-assembly-2"] = _at(pa2, 197.0, 4.0, cond_top_z + SEAM_CLEAR_LIFT)
 
     # --- Zone B: the two long trays seated on the foam-cap top — the
     # source-select row at the front, the bag-circuit row behind it over the
