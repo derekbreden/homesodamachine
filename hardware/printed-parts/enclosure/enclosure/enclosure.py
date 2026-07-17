@@ -507,6 +507,17 @@ def build_front_half(dims=None):
     front = front.cut(_display_cuts(outer))
     # Punch the hopper funnel opening through the top wall, right of the display.
     front = front.cut(_hopper_cut(inner, outer))
+    # Front-panel through-holes — the CO2 inlet the coupling body threads
+    # through. _contents owns the port layout (mirrors the back-wall ports).
+    y0, y1 = outer[2] - 5.0, inner[2] + 5.0
+    for hole in _contents.front_wall_ports():
+        kind, hx, hz = hole[0], hole[1], hole[2]
+        if kind == "round":
+            front = front.cut(cq.Solid.makeCylinder(hole[3] / 2.0, y1 - y0,
+                                                    cq.Vector(hx, y0, hz), cq.Vector(0, 1, 0)))
+        else:
+            wx, wz = hole[3], hole[4]
+            front = front.cut(_ybox(hx - wx / 2.0, hx + wx / 2.0, y0, y1, hz - wz / 2.0, hz + wz / 2.0))
     for x_in, x_ext, sx, z_boss, _sz in _bosses(inner):
         front = front.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb, y_joint))
     # Clip any corner feature that pokes past the rounded print silhouette.
