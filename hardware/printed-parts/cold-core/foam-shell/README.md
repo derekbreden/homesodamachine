@@ -41,7 +41,7 @@ The CadQuery script uses an explicit XY plane with +Z normal
   line laterally. ~[30 mm](ELBOW_ENV) vertical envelope per elbow above
   and below the tank. An additional **John Guest PP0308E 1/4" PTC 90° elbow**
   seats in the Ø16 CO2 inlet bore at x = 0, y = −70.5, where the CO2 line
-  entering from above through the foam-lid transitions 90° into a horizontal
+  entering from above through the foam-cap stack transitions 90° into a horizontal
   run that connects to the vessel-port TAISHER elbow via a PP010822E 1/4" PTC
   × 1/4" NPT M adapter.
 
@@ -161,9 +161,8 @@ boss sits against two walls (a far ±X wall and an end ±Y wall), so it gets
 two webs — one toward each — with the diagonal-inboard quadrant left open
 for foam. A mid-side boss sits against one wall, so it gets a single web
 toward it (a D: flat to the wall, round toward the foam). Each boss carries
-a heat-set insert pocket at the top (drilled down from the top face) — six
-inserts total, on the top face only, for fastening the foam_lid. The bottom
-face carries no inserts.
+a heat-set insert pocket at each end (drilled in from each face) — twelve
+inserts total, six per face, for fastening the foam-cap stacks.
 
 The outer −Y wall carries the shared copper/water-inlet slot, the
 two ⌀[6.5 mm](TUBE_HOLE_D) reservoir-line holes, the two reed-cable holes,
@@ -171,39 +170,65 @@ and the water-outlet hole. See Penetrations. (The CO2 inlet bore is
 internal to the assembly — it cuts down through the support ring at
 +Y (the rear), not through any outer wall.)
 
-### foam_lid
+### foam_cap and foam_cap_lid
 
-The `foam_lid` is a thin 3 mm PETG cover matching the outer
-shell's footprint. It is not foam-filled — it is a plain cover that closes
-the shell's open +Z top over the cured body foam. It carries six
-screw-clearance holes at the shell's boss positions plus the CO2 tube
-pass-through; it has no pour hole and no vent holes.
+The `foam_cap` is a [16 mm](CAP_H)-tall cup matching the outer
+shell's footprint, printed twice. The top cap opens +Z (mouth up);
+the bottom cap is the same cup built mouth-down so its open ceiling
+faces −Z. Each seats with its floor against the shell's end face and
+its open mouth + lid pointing outward — the lid is the outermost
+(extreme-Z) layer at that end, most +Z on top and most −Z on the
+bottom. Both share the one screw pattern (below), so the mouth-down
+bottom cap lands its screws on the shell's existing bottom-face
+inserts with no rotation. The cap interior receives the foam pour
+through the pour and vent holes in the lid.
 
-The lid carries the **same six ⌀[8 mm](BOSS_D) boss positions** as the outer
-shell (four at the corners and two at the mid-points of the long edges, one
-near the +Y wall and one near the −Y wall, offset in X by ±[15 mm](MID_BOSS_OFFSET)
+The `foam_cap_lid` is a flat [2 mm](FSHELL_WALL_T) plate matching the same
+outer footprint, covering a cap's open mouth during its foam pour. It
+has the pour hole (Ø [20 mm](POUR_D)) and two vent holes
+(Ø [6 mm](VENT_D)).
+
+Both the cap and the lid carry the **same six ⌀[8 mm](BOSS_D) bosses with
+teardrop corner-fill webs** as the outer shell (built from the one shared
+boss builder, so every mating part's boss cross-section is identical) —
+four at the corners and two at the mid-points of the long edges (one near
+the +Y wall and one near the −Y wall, offset in X by ±[15 mm](MID_BOSS_OFFSET)
 with opposite signs at +Y vs −Y for 180° rotational symmetry). Each position
-passes a clearance hole for an M3 cap screw straight through the lid. See
-"Lid-to-outer-shell joinery" below.
+passes a clearance hole for an M3 cap screw all the way through the part.
+See "Cap-to-outer-shell joinery" below.
 
-## Lid-to-outer-shell joinery
+### foam_cap_gasket
 
-The foam_lid is fastened to the outer_shell with **six M3 × 12 mm DIN 912
-socket head cap screws, 304 stainless steel (18-8)**
-([BNUOK B0DJQGMQZM](https://www.amazon.com/dp/B0DJQGMQZM) — the same SKU the
-reservoir caps use) threading into **six ruthex M3 short heat-set inserts**
+A TPU 90A gasket, printed twice — one between each cap and its
+mating face on the outer_shell. Outer envelope matches the cap's
+footprint; [2 mm](GASKET_T) thick (flat 2D shape throughout — no 3D
+features). The shape is a **[5 mm](GASKET_W)-wide perimeter ring +
+a boss-shaped pad at each of the six screw positions**, the pads using the
+same ⌀[8 mm](BOSS_D) boss + teardrop-web shape as the cap and shell above
+and below. The pads carry the screw clamp force across the full boss
+footprint; the perimeter ring seals along the wall sections away from the
+bosses.
+
+## Cap-to-outer-shell joinery
+
+Each cap (top and bottom) is fastened to the outer_shell with **six
+M3 × 25 mm DIN 912 socket head cap screws, 12.9 alloy steel, black
+oxide finish** ([BNUOK B0DJQGF665](https://www.amazon.com/dp/B0DJQGF665))
+threading into **six ruthex M3 short heat-set inserts**
 ([B09ZHSGHXD](https://www.amazon.com/dp/B09ZHSGHXD) — same insert
-spec as in `touch-flo-shell`) pressed into the **top face** of the
-outer_shell. **Six inserts and six screws total per outer_shell**, all on
-the top face; the bottom face carries none. The lid is not a pressure seal —
-there is no gasket under it.
+spec as in `touch-flo-shell`; per-build insert counts in
+[`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13) pressed into the
+corresponding face of the outer_shell. **Twelve inserts and twelve screws
+total per outer_shell:** six on the top face accepting the top-cap screws
+threading down from above, six on the bottom face accepting the bottom-cap
+screws threading up from below.
 
 Each screw engages a heat-set insert in the outer_shell with a small relief
-below the insert for tip clearance. See `_foam_lid.py` and
+below the insert for tip clearance. See `_foam_cap.py` and
 `_cold_core_interface.py` for the values that set the screw length.
 
 Insert pocket: Ø 4.0 mm × [8 mm](INSERT_DEPTH) deep (insert
-engagement + tip-relief), drilled down into the top face.
+engagement + tip-relief), drilled in from each face.
 
 ## Penetrations
 
@@ -295,9 +320,9 @@ of the four tubes) gets filled by the body foam pour.
 
 Production-procedure framing at [`/hardware/assembly/cold-core.md`](/hardware/assembly/cold-core.md). The geometry detail below is the source-of-truth for the shells and the pour paths; the assembly doc is the production-cadence wrapper that places this pour in the appliance build sequence.
 
-The cold core is foam-filled in **one pour operation** — the body
-pour into the shell's open +Z top. The foam_lid is a thin PETG cover,
-not a foam-filled part; it is screwed on after the body foam cures.
+The cold core is foam-filled in **three pour operations** — one per cap
+(each a self-contained cup + lid pour, done in parallel on the bench) and
+the body pour into the shell's open +Z top.
 
 ### Body pour (after all body-side assembly)
 
@@ -325,7 +350,7 @@ Every internal component is installed first:
 - Reservoir LLDPE lines routed through holes #1 and #2 in the
   reservoir-pocket far ±X walls.
 - Water outlet through hole #4 in the outer_shell −Y wall.
-- CO2 inlet enters from above through the foam-lid hole at
+- CO2 inlet enters from above through the foam-cap boss + cap-lid hole at
   (x=0, y=−68.75); the line drops to z=17 inside the cavity and
   bends 90° at a PP0308E push-to-connect elbow seated in the Ø16
   CO2 inlet bore at x = 0, y = −70.5.
@@ -357,10 +382,11 @@ tube exits at the other penetrations. Trim flush after cure.
 ### Final assembly (after the body foam pour has cured)
 
 Drop the pre-soldered reed columns into the still-open reed channels,
-then screw the thin foam_lid onto the body's top edge with six
-M3 × 12 SHCS into the top-face inserts (no gasket — the lid is a
-cover, not a pressure seal). See the screw / insert spec under
-"Lid-to-outer-shell joinery" above.
+then seat a TPU gasket + the foam-filled top cap onto the body's top edge
+with six M3 × 25 SHCS into the top-face inserts, and a second gasket + the
+bottom cap (mouth-down) under the body with six more into the bottom-face
+inserts. See the screw / insert spec under "Cap-to-outer-shell joinery"
+above.
 
 ## Coincident-wall principle
 
@@ -394,8 +420,9 @@ This drives several dimension choices:
 **Print with stock Bambu Studio defaults.**
 
 Plate contents (when slicing): `foam-shell` + `copper-plug-lower` +
-`copper-plug-middle` + `copper-plug-upper` together; `foam-lid` on a
-separate plate.
+`copper-plug-middle` + `copper-plug-upper` together; the two `foam-cap`s +
+their two lids on a separate plate (the TPU gaskets on their own TPU
+plate).
 
 ### Printer / profile
 
@@ -435,11 +462,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1037357.637 mm³](FSHELL_VOLUME) |
+| volume | [1036754.451 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](FSHELL_BBOX_X) |
 | bbox z | [0.000 to 213.400 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.000006, 0.627162, 87.827647) mm](CENTROID) |
+| centroid | [(0.000006, 0.627527, 87.876419) mm](CENTROID) |
 
 Quick reproduction:
 

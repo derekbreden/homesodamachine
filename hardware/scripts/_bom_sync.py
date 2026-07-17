@@ -52,12 +52,13 @@ panel_umbilical_bulkheads = 3
 panel_water_inlet_bulkheads = 1
 
 # Per-cap insert counts.
-# Foam-lid: `attachment_xy_positions` is the list of (x, y) pairs for the
-# shell's TOP face (4 corners + 2 mid-long-side = 6); the thin foam lid
-# fastens there. There is no bottom cap, so only the one face.
+# Foam caps: `attachment_xy_positions` is the list of (x, y) pairs for one
+# shell face (4 corners + 2 mid-long-side = 6); a cap stack fastens on each
+# face (top mouth-up, bottom mouth-down), inserts pressed from each face.
 # Reservoir: `insert_positions_for_side_plus_1` is the list of (x, z)
 # pairs for one reservoir cap (6 per cap).
-inserts_per_foam_lid = len(attachment_xy_positions)
+foam_cap_faces = 2
+inserts_per_foam_cap_face = len(attachment_xy_positions)
 inserts_per_reservoir_cap = len(insert_positions_for_side_plus_1)
 
 # Reservoir cap vent filter: one ø13 PTFE membrane per cap.
@@ -83,9 +84,9 @@ pp0308e_valve_elbows = solenoid_count
 pp0308e_pump_elbows = 4
 pp0308e_per_build = pp0308e_co2_incavity + pp0308e_valve_elbows + pp0308e_pump_elbows
 
-# Foam-lid hardware (6 inserts + 6 M3 screws, top face only).
-foam_lid_inserts_per_build = inserts_per_foam_lid
-foam_lid_screws_per_build = foam_lid_inserts_per_build  # 1:1
+# Foam-cap hardware (6 inserts + 6 M3 × 25 screws per face, both faces).
+foam_cap_inserts_per_build = inserts_per_foam_cap_face * foam_cap_faces
+foam_cap_screws_per_build = foam_cap_inserts_per_build  # 1:1
 
 # Reservoir-cap hardware (12 inserts + 12 M3 × 12 screws).
 reservoir_cap_inserts_per_build = inserts_per_reservoir_cap * reservoirs_per_build
@@ -106,9 +107,9 @@ power_tray_inserts_per_build = 9
 shelf_inserts_per_build = pcba_tray_inserts_per_build + power_tray_inserts_per_build
 shelf_screws_per_build = shelf_inserts_per_build  # 1:1, all M3 × 8
 
-# Combined heat-set insert count across the appliance (34).
+# Combined heat-set insert count across the appliance (40).
 total_m3_inserts_per_build = (
-    foam_lid_inserts_per_build
+    foam_cap_inserts_per_build
     + reservoir_cap_inserts_per_build
     + touchflo_inserts_per_build
     + shelf_inserts_per_build
@@ -143,8 +144,8 @@ def main():
         "PP0308E_PUMP": f"{pp0308e_pump_elbows:.4g}",
         "PP0308E_TOTAL": f"{pp0308e_per_build:.4g}",
         # Heat-set insert + screw hardware.
-        "FOAM_INSERTS": f"{foam_lid_inserts_per_build:.4g}",
-        "FOAM_SCREWS": f"{foam_lid_screws_per_build:.4g}",
+        "FOAM_INSERTS": f"{foam_cap_inserts_per_build:.4g}",
+        "FOAM_SCREWS": f"{foam_cap_screws_per_build:.4g}",
         "RES_INSERTS_PER_CAP": f"{inserts_per_reservoir_cap:.4g}",
         "RES_INSERTS": f"{reservoir_cap_inserts_per_build:.4g}",
         "RES_SCREWS": f"{reservoir_cap_screws_per_build:.4g}",

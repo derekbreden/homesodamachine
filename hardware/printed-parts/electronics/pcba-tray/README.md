@@ -36,6 +36,8 @@ west and east edges unobstructed on the shelf: the USB-C programming port
 (J14) is flush on the west edge, and the J10 12 V screw throats face east.
 
 `pcba_tray.py` → `pcba-tray.step`; `pcba_assembly.py` → `pcba-assembly.step`
-(board shown as a bare outline slab — the true 3D is
+(the board as a simplified populated model — the outline slab + one box per
+component at its placed footprint and an approximate height, read from
+`hardware/pcb/pcba/out/pcba.circuit.json`; the full component 3D is
 [`/hardware/pcb/pcba/out/pcba.glb`](/hardware/pcb/pcba/)). Regenerate with
 `tools/cad-venv/bin/python <script>`.
