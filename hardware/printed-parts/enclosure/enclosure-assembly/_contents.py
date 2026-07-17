@@ -87,9 +87,10 @@ Strata, floor to ceiling:
   * Power deck (front-right, on the pump-2 column): the power assembly
              flat on pump 2 — the tallest front content, still under the
              tray tops. The top wall right of the display is one open
-             rectangle over this column: the funnel basin drops through it
-             and floors just above the power assembly, its throat falling
-             the clear column between the two pumps.
+             rectangle over this column: the flush funnel basin drops
+             through it and floors just above the power assembly, its
+             throat falling the clear column between pump 1 and this
+             deck's edge.
   * Rear plenum: the PCBA standing against the rear wall (its depth sets
              PLENUM_DEPTH), the DC distribution block flat on the floor
              beside it, and every panel body reaching in from the rear

@@ -96,8 +96,9 @@ with the slab. The display reference is seated in the housing in
 One rectangular opening spans the top wall right of the display housing, where
 the removable silicone funnel basin
 ([`../../zone-c/hopper-funnel/`](/hardware/printed-parts/zone-c/hopper-funnel/))
-drops in — its lower body press-fitting the opening and flooring just above
-the power deck, its wider curb resting on the wall frame left around the cut.
+drops in — flush with the top surface, its chute press-fitting the opening
+and flooring just above the power deck, its flat brim resting on the wall
+frame left around the cut.
 The opening derives to everything its neighbors allow: the display end-wall
 gusset left, the top-right corner pod's inboard end, the Y-seam lip band
 behind (the hole lives whole in the front-top piece), and a kept front ledge.
