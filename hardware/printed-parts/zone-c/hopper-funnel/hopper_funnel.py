@@ -11,14 +11,13 @@ past the bottle. Top to bottom:
   * a flat brim that overhangs the opening all around and rests on the
     enclosure top surface;
   * a straight rectangular chute — vertical walls, no slope — press-fitting
-    the 3 mm top wall and dropping to a floor just above the power deck;
-  * the floor, sloping from every side into the throat mouth so the basin
-    drains dry;
-  * a rectangular throat dropping straight down the clear column between
-    pump 1 and the power deck's edge;
-  * a short ramp necking to a 1/4" round spout just above the tallest
-    content under the throat (read live), where the V-B pickup tube meets
-    it.
+    the 3 mm top wall and dropping to a floor just above the tallest
+    content under the opening (read live);
+  * the floor, dishing gently from every side into the drain mouth so the
+    basin drains dry;
+  * a short taper necking the mouth to a 1/4" round spout in the clear
+    column between the two pumps — a stub under the floor, not a chute —
+    where the V-B pickup tube meets it.
 
 The funnel shares the opening rectangle with the enclosure, so the chute
 always matches the hole. It is built in enclosure world coordinates
@@ -46,17 +45,17 @@ brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit chute wall (opening − bore)
 floor_wall = 3.0        # basin floor thickness
 floor_gap = 2.5         # floor underside clearance over the content below it
-slope_drop = 8.0        # basin floor fall, walls to the throat mouth
-throat_w = 27.0         # throat slot width (X) — the clear column between
-                        # pump 1 and the power deck's edge
-throat_y0, throat_y1 = 15.0, 110.0   # throat slot span (Y), inside the opening
-throat_cx = 178.5       # throat slot center (X), mid-column
-ramp_top_z = 250.0      # throat bottom / ramp start
+slope_drop = 5.0        # basin floor fall, walls to the drain mouth
+mouth_w = 24.0          # drain mouth (X) — inside the clear column between
+                        # the two pumps
+mouth_d = 28.0          # drain mouth (Y)
+mouth_cx = 179.5        # drain mouth center (X), mid-column
+mouth_cy = 60.0         # drain mouth center (Y)
+taper_h = 21.0          # mouth → spout necking taper below the floor
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
-spout_tube = 6.0        # straight spout tube below the ramp — its length sets
-                        # how far the Ø6.35 exit drops toward the V-B pickup
-tip_clearance = 1.0     # gap left above the tallest content under the throat
+spout_tube = 12.0       # straight spout tube below the taper — the barb stub
+                        # the V-B pickup tube lands on
 
 
 # --- primitives -------------------------------------------------------------
@@ -101,20 +100,20 @@ def _cyl(r, z_top, z_bot, cx, cy):
 
 def _content_top(x0, x1, y0, y1):
     """The tallest placed content whose footprint underlies the given
-    rectangle, plus clearance — read live, so the funnel tracks the packing."""
+    rectangle — read live, so the funnel tracks the packing."""
     top = 0.0
     for shape, _c in E._contents.build().values():
         b = shape.BoundingBox()
         if min(b.xmax, x1) > max(b.xmin, x0) and min(b.ymax, y1) > max(b.ymin, y0):
             top = max(top, b.zmax)
-    return top + tip_clearance
+    return top
 
 
 def build_solids():
     """The funnel's outer envelope and inner bore as separate solids, plus a
     metrics dict. This is the source the silicone-mold generator consumes: the
     mold cavity is the negative of `solid` and the mold core is `cavity`. The
-    exterior only ever widens going up (spout → throat → chute → brim), so
+    exterior only ever widens going up (spout → taper → chute → brim), so
     both mold halves pull straight vertically. See ../hopper-funnel-mold/."""
     inner, outer, yj, _cf = E._dims()
     oz1 = outer[5]
@@ -124,48 +123,43 @@ def build_solids():
     bw, bd = w + 2.0 * brim_overhang, d + 2.0 * brim_overhang
     top_z = oz1 + brim_thickness                       # brim top = outermost point
 
-    # The basin floors just above the tallest content under the opening (the
-    # power deck); the spout necks to just above the content under the throat
-    # slot (the water deck), read live.
+    # The basin floors just above the tallest content under the opening
+    # (pump 1), read live; the mouth taper and spout stub hang below it in
+    # the clear column between the two pumps.
     floor_out_z = _content_top(x0, x1, y0, y1) + floor_gap
-    mouth_z = floor_out_z + floor_wall                 # throat mouth (floor low point)
-    slope_z = mouth_z + slope_drop                     # floor slope start at the walls
-    tcy = (throat_y0 + throat_y1) / 2.0
-    td = throat_y1 - throat_y0
-    end_z = _content_top(throat_cx - throat_w / 2.0, throat_cx + throat_w / 2.0,
-                         throat_y0, throat_y1)
-    neck_z = end_z + spout_tube
+    mouth_z = floor_out_z + floor_wall                 # drain mouth (floor low point)
+    slope_z = mouth_z + slope_drop                     # floor dish start at the walls
+    neck_z = mouth_z - taper_h
+    end_z = neck_z - spout_tube
     spout_or = spout_id / 2.0 + spout_wall
 
     # Outer: the flat brim on the top surface, the straight chute sunk
-    # through the opening to the floor, the throat slot dropping the pump
-    # column, the ramp necking to the spout, the spout tube.
+    # through the opening to the floor, the mouth taper necking to the
+    # spout under the floor, the spout tube.
     solid = (
         _box(bw, bd, oz1, top_z, cx, cy)
         .fuse(_box(w, d, floor_out_z, oz1 + 1.0, cx, cy))
-        .fuse(_box(throat_w, td, ramp_top_z, floor_out_z + 1.0, throat_cx, tcy))
-        .fuse(_loft_rc(throat_w, td, throat_cx, tcy, ramp_top_z, spout_or, throat_cx, tcy, neck_z))
-        .fuse(_cyl(spout_or, neck_z, end_z, throat_cx, tcy))
+        .fuse(_loft_rc(mouth_w + 2.0 * collar_wall, mouth_d + 2.0 * collar_wall,
+                       mouth_cx, mouth_cy, floor_out_z + 1.0, spout_or, mouth_cx, mouth_cy, neck_z))
+        .fuse(_cyl(spout_or, neck_z, end_z, mouth_cx, mouth_cy))
     )
-    # Bore: the basin (vertical chute walls, then the floor sloping from
-    # every side into the throat mouth), the throat bore, the ramp, the
-    # spout tube.
+    # Bore: the basin (vertical chute walls, then the floor dishing from
+    # every side into the drain mouth), the taper, the spout tube.
     cw, cd = w - 2.0 * collar_wall, d - 2.0 * collar_wall
-    tbw, tbd = throat_w - 2.0 * collar_wall, td - 2.0 * collar_wall
     cavity = (
         _box(cw, cd, slope_z, top_z + 1.0, cx, cy)
-        .fuse(_loft_rr(cw, cd, cx, cy, slope_z, tbw, tbd, throat_cx, tcy, mouth_z))
-        .fuse(_box(tbw, tbd, ramp_top_z, mouth_z + 1.0, throat_cx, tcy))
-        .fuse(_loft_rc(tbw, tbd, throat_cx, tcy, ramp_top_z, spout_id / 2.0, throat_cx, tcy, neck_z))
-        .fuse(_cyl(spout_id / 2.0, neck_z, end_z - 1.0, throat_cx, tcy))
+        .fuse(_loft_rr(cw, cd, cx, cy, slope_z, mouth_w, mouth_d, mouth_cx, mouth_cy, mouth_z))
+        .fuse(_loft_rc(mouth_w, mouth_d, mouth_cx, mouth_cy, mouth_z + 1.0,
+                       spout_id / 2.0, mouth_cx, mouth_cy, neck_z))
+        .fuse(_cyl(spout_id / 2.0, neck_z, end_z - 1.0, mouth_cx, mouth_cy))
     )
     meta = {
-        "w": w, "d": d, "cx": cx, "cy": tcy, "ncx": throat_cx,
+        "w": w, "d": d, "cx": cx, "cy": mouth_cy, "ncx": mouth_cx,
         "bore_w": cw, "bore_d": cd,
         "out_w": bw, "out_d": bd, "out_cx": cx, "out_cy": cy,
         "rim_ring": collar_wall + brim_overhang, "collar_wall": collar_wall,
         "spout_id": spout_id, "spout_or": spout_or,
-        "top_z": top_z, "oz1": oz1, "ramp_top_z": ramp_top_z,
+        "top_z": top_z, "oz1": oz1,
         "neck_z": neck_z, "end_z": end_z, "floor_z": floor_out_z,
     }
     return solid, cavity, meta
@@ -191,7 +185,7 @@ def main():
     print(f"  basin:   {w:.1f} × {d:.1f} mm through the opening, brim {bw:.1f} × {bd:.1f}, "
           f"{brim_thickness:g} mm proud, top z={b.zmax:.1f}")
     print(f"  bore:    {w - 2*collar_wall:.1f} × {d - 2*collar_wall:.1f} mm at the chute")
-    print(f"  throat:  {throat_w:g} × {throat_y1 - throat_y0:g} mm slot down the pump column")
+    print(f"  mouth:   {mouth_w:g} × {mouth_d:g} mm drain over the pump column")
     print(f"  spout:   Ø{spout_id:g} bore to z={end_z:.1f}, total drop {drop:.1f} mm")
     print(f"  capacity to brim: {fill:.0f} mm³ = {fill / 1000.0:.0f} mL "
           f"({fill / 440000.0:.2f}× a 440 mL SodaStream bottle)")
