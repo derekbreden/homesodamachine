@@ -102,6 +102,12 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
 hopper_hole_x = 200.0   # opening width (X), nominal before the corner-pod clamp
 hopper_hole_y = 200.0   # opening depth (Y), nominal before the Y-seam clamp
 hopper_front_ledge = 8.0  # top wall kept along the front edge
+# The funnel's basin depth is a ceiling law: the interior reserves this much
+# height above the tallest content under the opening (the pump-1 tower, read
+# in _dims the same way hopper_funnel.py reads it), so the basin — straight
+# chute + drain loft — swallows a full 440 mL SodaStream bottle poured in one
+# go (hopper_funnel.py prints the real capacity at export).
+hopper_min_depth = 41.0
 
 # Split + boss parameters — every dimension sized to its function, nothing
 # inherited from the faucet. The seam is a Y plane; the front half's full-wall
@@ -196,11 +202,11 @@ def _dims():
     iy0, iy1 = cymin - interior_clearance, cymax + interior_clearance
     # The floor is a fixed Z=0 datum, not the lowest content — so parts can stand
     # on feet above it (the floor, seam lip, and braces stay put). The ceiling
-    # still follows the tallest content — EXCEPT along the ±X walls, where the
+    # follows the tallest content — EXCEPT along the ±X walls, where the
     # Y-seam's top cross-pin pods hug the ceiling and reach one boss chain
     # inboard: content inside that reach sets the ceiling at its top plus the
-    # pod stack, so the pods never land on it. (The Zone-B trays run wall to
-    # wall; this is what actually fixes the box height.)
+    # pod stack, so the pods never land on it. What actually fixes the box
+    # height is the hopper law below: the funnel's basin is content too.
     iz0 = min(czmin, 0.0) - interior_clearance
     iz1 = czmax + interior_clearance
     boss_in = head_cbore_depth + screw_len + socket_cap - wall   # pod reach inboard of the wall
@@ -211,20 +217,32 @@ def _dims():
     iz1 = max(iz1, wall_band_top + pod_stack)
     ox0, ox1 = ix0 - wall, ix1 + wall
     oy0, oy1 = iy0 - wall, iy1 + wall
-    oz0, oz1 = iz0 - wall, iz1 + wall
     # Split plane: as close to the box's Y midpoint as its neighbors allow,
     # for four near-quarter pieces. The display housing bounds it from the
     # front (the whole facet stays in the front pieces); the cold core bounds
     # it from the back — the back Z-seam pods sit behind the Y-seam mouth
     # (bore axis at lip_len + wall + bore radius past y_joint, pod reaching
-    # socket_r further) and must stop ahead of the foam.
+    # socket_r further) and must stop ahead of the foam. (No Z terms: the
+    # provisional tuples below are final in X and Y.)
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
-    outer = (ox0, ox1, oy0, oy1, oz0, oz1)
+    outer = (ox0, ox1, oy0, oy1, iz0 - wall, iz1 + wall)
     _fa, _fn, _fo, _fdy, _fdz = _facet_geom(outer)
     facet_back_y = oy0 + _fdy + display_facet_thickness * math.sqrt(2.0)
     cold_front_y = placed["foam-assembly"][0].BoundingBox().ymin
     y_free = cold_front_y - 2.0 - (lip_len + wall + socket_bore_dia / 2.0 + socket_r)
     y_joint = max(facet_back_y + 2.0, min((iy0 + iy1) / 2.0, y_free))
+    # The hopper ceiling law: the top wall right of the display is one open
+    # rectangle the funnel drops through, and the interior keeps
+    # hopper_min_depth of basin above the tallest content under it.
+    hx0, hx1, hy0, hy1 = _hopper_hole(inner, outer, y_joint)
+    under_top = max(
+        (b.zmax for b in bbs
+         if min(b.xmax, hx1) > max(b.xmin, hx0)
+         and min(b.ymax, hy1) > max(b.ymin, hy0)),
+        default=iz0)
+    iz1 = max(iz1, under_top + hopper_min_depth)
+    inner = (ix0, ix1, iy0, iy1, iz0, iz1)
+    outer = (ox0, ox1, oy0, oy1, iz0 - wall, iz1 + wall)
     return inner, outer, y_joint, cold_front_y
 
 
@@ -713,9 +731,9 @@ def build_back_half(dims=None, split=None, brace_y_short=None):
     # Panel through-holes for the appliance's external connections — the
     # faucet umbilical (carb-water + two flavor), the tap-water inlet, and
     # the C14 mains inlet, all through the back wall in the band above the
-    # cold core; their bodies hang in the rear plenum. _contents owns the
-    # port layout, since it places the contents the band is measured from
-    # (../back-panel/README.md).
+    # cold core; their bodies hang in the band's open rear half. _contents
+    # owns the port layout, since it places the contents the band is
+    # measured from (../back-panel/README.md).
     y0, y1 = inner[3] - 5.0, outer[3] + 5.0
     for hole in _contents.back_wall_ports():
         kind, hx, hz = hole[0], hole[1], hole[2]

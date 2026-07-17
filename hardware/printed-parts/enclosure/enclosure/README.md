@@ -6,8 +6,8 @@ by [`../enclosure-assembly/_contents.py`](/hardware/printed-parts/enclosure/encl
 inside the H2C bed — that telescope and screw together. The Y seam sits as
 close to the box's midpoint as the cold core allows, and each column takes its
 bottom↔top seam at its own height (the seams stagger like a brick bond): the
-back-bottom piece houses the cold core and the rear service plenum behind it,
-the back-top carries the Zone-B trays and every panel port (the whole
+back-bottom piece houses the cold core, the back-top covers the band above it
+— the electronics shelf on the foam-cap top and every panel port (the whole
 external-connection inventory penetrates its rear wall, above the cold core);
 the front column splits at its waist over the condenser — refrigeration below,
 pumps + funnel + display above.
@@ -94,16 +94,17 @@ with the slab. The display reference is seated in the housing in
 ## Hopper opening
 
 One rectangular opening spans the top wall right of the display housing, where
-the removable silicone funnel basin
+the removable silicone funnel
 ([`../../zone-c/hopper-funnel/`](/hardware/printed-parts/zone-c/hopper-funnel/))
-drops in — flush with the top surface, its chute press-fitting the opening
-and flooring just above the front towers, its flat brim resting on the wall
-frame left around the cut.
+drops in — its straight chute press-fitting the opening, its whole floor one
+ramp falling to the spout over the pump column, its flat brim resting on the
+wall frame left around the cut.
 The opening derives to everything its neighbors allow: the display end-wall
 gusset left, the top-right corner pod's inboard end, the Y-seam lip band
 behind (the hole lives whole in the front-top piece), and a kept front ledge.
-The funnel derives its body from the same rectangle (`_hopper_hole`), so the
-two always match.
+The funnel derives its body from the same rectangle (`_hopper_hole`), and the
+ceiling reserves the basin's depth over the front towers (`hopper_min_depth`),
+so the two always match.
 
 ## Regenerate
 

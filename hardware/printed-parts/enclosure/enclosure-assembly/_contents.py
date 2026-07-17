@@ -1,16 +1,18 @@
-"""Kitchen Edition enclosure contents — every internal subsystem packed.
+"""Kitchen Edition enclosure contents — the core subsystems packed.
 
 Detailed STEP imports where they exist (cold-core foam assembly — shell +
-top/bottom foam-cap stacks — the three shipping valve-manifold tray
-assemblies with their seated valves, two pump assemblies (Kamoer pump +
-outlet elbows), the compressor shroud, the PCBA assembly, the power
-assembly, the DC distribution block, the DIGITEN flow sensor, the
-panel bulkheads + C14). Placeholder primitives for parts that have no
-STEP yet (condenser+fan, SeaFlo diaphragm pump, Multiplex backflow
-preventer, WR1110 regulator, GASHER check valves, DERPIPE CO2 inlet, drip
-pan + moisture sensor, MQ-6 gas sensor, SUD8358 filter-drier). The bib-gate
-tray is not packed — the bag-in-box path is de-scoped from the shipping
-product (its README), and the rear panel carries no BiB ports.
+top/bottom foam-cap stacks — two pump assemblies (Kamoer pump + outlet
+elbows), the compressor shroud, the PCBA assembly, the power assembly, the
+DC distribution block, the DIGITEN flow sensor, the panel bulkheads + C14).
+Placeholder primitives for parts that have no STEP yet (condenser+fan,
+SeaFlo diaphragm pump, Multiplex backflow preventer, WR1110 regulator,
+GASHER check valves, DERPIPE CO2 inlet, drip pan + moisture sensor, MQ-6
+gas sensor, SUD8358 filter-drier). Not everything is packed: the three
+valve-manifold trays (source-select, bag-circuit, nozzle-gate) have no
+placement yet — the fluid topology (/hardware/topology/fluid-topology.md)
+defines what each plumbs to — and the bib-gate tray is not packed because
+the bag-in-box path is de-scoped from the shipping product (its README),
+so the rear panel carries no BiB ports.
 
 Components only: no tubes, no wires, no mount features. enclosure_assembly.py
 verifies the pack pairwise non-intersecting at every export.
@@ -27,15 +29,15 @@ the condenser in the front pieces, above the foam-cap top in the back
 pods hug the walls; the wall-adjacent insets below keep content clear of
 them.
 
-Behind the cold core, a rear service plenum (PLENUM_DEPTH) runs the full
-width and height between the foam's back face and the rear wall. It is the
-appliance's termination bay: every external connection (the faucet
-umbilical, the C14 mains inlet, the tap-water inlet) penetrates the rear
-wall above the cold core and its body hangs in the plenum, the PCBA and the
-DC distribution block stand on its floor against the rear wall, and the
-riser channel's tube-and-cord traffic terminates in it. The plenum is what
-lets the rear wall carry every port: the bulkhead and receptacle bodies
-reach ~28–35 mm inboard, which no content-adjacent wall band offers.
+The band above the cold core — foam-cap top to ceiling, the foam's full
+footprint — is the appliance's service bay. The electronics shelf (power
+assembly, PCBA, DC distribution block) lies flat on the foam-cap top in
+its front half, and every external connection (the faucet umbilical, the
+C14 mains inlet, the tap-water inlet) penetrates the rear wall above the
+cold core, its body reaching ~28–35 mm forward into the band's open rear
+half. The risers' tube-and-cord traffic climbs the foam's front face and
+crosses the band to those terminations. The cold core seats directly
+against the rear wall.
 
 The cold core's tube connections are defined by the foam shell's
 penetrations (/hardware/printed-parts/cold-core/foam-shell/README.md
@@ -44,23 +46,11 @@ enclosure world coordinates:
   * carbonated-water outlet at (141.5, 155, 46.5) — the riser runs up the
     foam front face past the DIGITEN flow sensor to the rear umbilical;
   * reservoir (bag) lines at (44.5, 155, 35.5) and (238.5, 155, 35.5) —
-    up the front face to the bag-circuit tray;
+    they climb the foam front face to the bag-circuit loops;
   * the shared slot at x 141.5 spanning z ~72–246 — both copper evaporator
     stubs (to the compressor), the water inlet (from the SeaFlo discharge),
     and the PRV vent;
   * CO2 entry down through the foam-cap top at (141.5, 172.8).
-
-Each tray sits nearest the things its valves plumb to
-(/hardware/topology/fluid-topology.md):
-  * source-select (V-A tap + V-B hopper in, V-C/V-D out to the pump-inlet
-    Tees) rides the foam-cap top's front row — a short run behind the
-    funnel spout's drop, over the water deck where the V-A branch taps in,
-    its outputs a short drop to the pump inlets ahead of it.
-  * bag-circuit (V-E/V-F + V-H/V-I, the reservoir fill/return loops) rides
-    the foam-cap top's back row; its four reservoir lines drop down the
-    foam front face to the ±X wall exits.
-  * nozzle-gate (V-G/V-J, pump outlets → nozzle risers) stands in the
-    front-left column beside the pump outlets.
 
 Strata, floor to ceiling:
   * Floor:   compressor shroud (front-left) + condenser/fan (front-right,
@@ -77,23 +67,24 @@ Strata, floor to ceiling:
              its top.
   * Front-left column: the CO2 chain — off the front-panel DERPIPE inlet's
              inboard NPT stub, GASHER check → WR1110 secondary regulator
-             running +Y — with the nozzle-gate tray above it.
+             running +Y.
   * Zone C:  the two flavor pumps spanning the front width above the water
              deck, directly under the funnel opening; the funnel's loft +
              spout drop into the clear column between them.
-  * Zone B:  source-select + bag-circuit rows seated on the foam-cap top —
-             the tray tops are the ceiling. The source row leaves the
-             umbilical riser channel along the +X wall.
+  * Zone B (the band above the cold core): the electronics shelf lying
+             flat on the foam-cap top in the band's front half — power
+             assembly at −X, PCBA at +X, the DC distribution block behind
+             the power row — leaving the CO2 top entry in open air ahead
+             of it; the rear half open for the panel bodies reaching in
+             from the rear wall (the umbilical triangle, the tap-water
+             bulkhead, and the C14) and the riser traffic crossing to
+             them.
   * Zone C top: the top wall right of the display is one open rectangle —
-             the flush funnel basin drops through it and floors just above
-             pump 1, its spout necking down the clear column between the
-             two pumps. Nothing else lives above the front towers.
-  * Rear plenum: the whole electronics shelf standing on the floor
-             against the rear wall — DC distribution block, power assembly
-             (its depth sets PLENUM_DEPTH), and PCBA in one row — and
-             every panel body reaching in from the rear wall: the
-             umbilical triangle, the tap-water bulkhead, and the C14, all
-             in the band above the cold core, above the shelf row.
+             the funnel's straight chute hangs through it, its loft
+             necking to the spout just above pump 1's top, down the clear
+             column between the two pumps. Nothing else lives above the
+             front towers; the funnel's basin depth is what sets the box
+             height (enclosure.py `hopper_min_depth`).
 """
 
 from pathlib import Path
@@ -109,12 +100,6 @@ _hw = _repo / "hardware"
 FOAM_ASSEMBLY = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
 COMP_SHROUD   = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
 PUMP_ASSEMBLY = _hw / "reference" / "kamoer-kphm400" / "pump-assembly.step"
-_VM = _hw / "printed-parts" / "valve-manifold"
-TRAY_STEPS = {
-    "source-select": _VM / "source-select-tray" / "source-select-assembly.step",
-    "bag-circuit":   _VM / "bag-circuit-tray"   / "bag-circuit-assembly.step",
-    "nozzle-gate":   _VM / "nozzle-gate-tray"   / "nozzle-gate-assembly.step",
-}
 # AC/PSU tray — wide-shallow layout (PSU turned 90°).
 POWER_ASSEMBLY = _hw / "printed-parts" / "electronics" / "power-tray" / "power-assembly.step"
 PCBA_ASSEMBLY  = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-assembly.step"
@@ -172,33 +157,23 @@ FOAM_CORNER_LIFT = 9.5
 # Enclosure wall thickness (mirrors ../enclosure/enclosure.py `wall`) — used to
 # seat content against the seam lips' inner faces, one wall in from the walls.
 WALL = 3.0
-# The Z-seam lip band hugs the walls from z_joint − wall up ~16 (lip_len +
-# slip); trays on the foam-cap top are inset one lip reach + a gap off the
-# ±X walls to clear it (enclosure.py `z_joint_back`).
-TRAY_WALL_INSET = 6.5
-# The source-select row hugs the −X wall at just the lip reach + slip, leaving
-# a full tube-width strip along the +X wall — the umbilical riser channel: the
-# carb-water + flavor lines run the foam-face slab to the +X end, climb this
-# strip past the tray, and cross the rear window to their bulkheads.
-SOURCE_WALL_INSET = 4.5
 # Vertical gap between a stratum's tallest part and the parts seated above it.
 STACK_GAP = 2.5
 
-# --- Rear plenum + rear-panel ports ----------------------------------------
-# The service bay behind the cold core: full-width, full-height, this deep.
-# Sized to the power assembly standing on its long edge against the rear
-# wall (40.5 thick) plus working clearance off the foam's back face. The
-# plenum floor carries the whole electronics shelf — power assembly, PCBA,
-# and DC distribution block in one row below the port band — so the C14
-# feeds the AC hub right where its cordage enters; the band above the cold
-# core carries every panel body; the riser channel's traffic lands in it.
-PLENUM_DEPTH = 44.0
+# --- Electronics shelf + rear-panel ports -----------------------------------
+# The shelf lies flat on the foam-cap top in the front half of the band
+# above the cold core — the rear-wall port bodies reach ~28–35 mm forward
+# into the band's rear half, and the shelf may not stand under them (the
+# assembly check intersects the real bodies). The shelf parts also stay
+# inset off the ±X walls (the Z-seam lip band hugs the walls at the
+# foam-top level, and the corner-boss chains reach ~14 in), and clear of
+# the CO2 top entry at (141.5, 172.8), which stays in open air.
 # Every external connection penetrates the REAR wall (back_wall_ports
 # below), in the band above the cold core (the foam tops out at ~263; the
-# rear Z-seam lip band tops out at ~279) — their bodies hang in the plenum.
-# enclosure.py cuts the holes into the back pieces; panel_bodies() seats the
-# receptacle / bulkhead bodies through them. Hole inventory and specs:
-# ../back-panel/README.md.
+# rear Z-seam lip band tops out at ~279) — their bodies hang in the band's
+# open rear half. enclosure.py cuts the holes into the back pieces;
+# panel_bodies() seats the receptacle / bulkhead bodies through them. Hole
+# inventory and specs: ../back-panel/README.md.
 PORT_BULKHEAD_D = 18.0        # JG 1/4" bulkhead panel hole (clears the Ø17.14 barrel)
 PORT_C14_W, PORT_C14_H = 28.5, 25.5   # C14 through-body 27.5 wide, z −10.2/+12.2 about
                                       # its axis (measured off the reference STEP) +
@@ -212,10 +187,10 @@ PORT_NUT_D = 22.86           # JG bulkhead nut, across the panel face (measured)
 PORT_NUT_GAP = 7.0           # clear gap between adjacent bulkhead nuts (the margin)
 UMBILICAL_Z_FLOOR = 281.0    # lowest bulkhead-nut edge: the rear Z-seam lip band
                              # tops out at z_joint_back + lip_len (~279) on the back wall
-# Rear-wall stations, left to right: the C14 over the power assembly's row
-# station (its cordage drops straight down the plenum to the AC hub), then
-# the tap-water bulkhead, then the umbilical triangle — every body hangs in
-# the plenum, clear above the shelf row and behind the Zone-B trays.
+# Rear-wall stations, left to right: the C14 on the power assembly's column
+# (its cordage drops the rear wall and runs forward over the foam top to
+# the AC hub), then the tap-water bulkhead, then the umbilical triangle —
+# every body hangs in the band's open rear half, behind the shelf row.
 UMBILICAL_X = 210.0          # triangle column center
 WATER_BACK_X = 145.0
 WATER_BACK_Z = 293.0         # nut rides just above the rear Z-seam lip band
@@ -249,9 +224,6 @@ COLORS = {
     "digiten-flow":      cq.Color(0.25, 0.25, 0.28),
     "pump-assembly-1":   cq.Color(0.45, 0.45, 0.50),
     "pump-assembly-2":   cq.Color(0.55, 0.55, 0.60),
-    "source-select":     cq.Color(0.45, 0.70, 0.45),
-    "bag-circuit":       cq.Color(0.90, 0.66, 0.32),
-    "nozzle-gate":       cq.Color(0.84, 0.42, 0.42),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "dc-dist":           cq.Color(0.20, 0.20, 0.22),
@@ -312,7 +284,7 @@ def build():
     foam = _load(FOAM_ASSEMBLY)
     fb = foam.BoundingBox()
     cold_w = fb.xlen                            # ~283 wide (shell + cap stacks, 253.4 tall)
-    foam_top = FOAM_CORNER_LIFT + fb.zlen       # ~262.9 — the Zone-B tray floor
+    foam_top = FOAM_CORNER_LIFT + fb.zlen       # ~262.9 — the shelf floor
 
     # --- Zone A: cold core on the floor at the back, seated above the cavity
     # corner arcs (the back pieces' cross-pin braces sit at the Z-seam, above
@@ -361,11 +333,6 @@ def build():
     placed["wr1110"] = _at(_cyl(WR1110_D, WR1110_L, (0, 1, 0)),
                            CO2_INLET_X - WR1110_D / 2.0, 14.0 + GASHER_L + 1.0, CO2_INLET_Z - WR1110_D / 2.0)
 
-    # --- Nozzle-gate tray, turned 90°, standing over the CO2 chain beside the
-    # pump outlets; its nozzle risers run up to the rear umbilical.
-    placed["nozzle-gate"] = _at(_rot(_load(TRAY_STEPS["nozzle-gate"]), (0, 0, 1), 90.0),
-                                14.0, 40.0, 252.5)
-
     # --- Zone C: the two flavor pumps spanning the front width, directly
     # under the funnel opening, each seated on what is under it — pump 1 on
     # the SeaFlo's top, pump 2 on the condenser's. hopper_funnel.py necks its
@@ -377,34 +344,17 @@ def build():
     placed["pump-assembly-1"] = _at(pa1, 91.0, 4.0, seaflo_top + 0.5)
     placed["pump-assembly-2"] = _at(pa2, 197.0, 4.0, cond_top_z + SEAM_CLEAR_LIFT)
 
-    # --- Zone B: the two long trays seated on the foam-cap top — the
-    # source-select row at the front, the bag-circuit row behind it over the
-    # reservoir caps — inset off the ±X walls to clear the Z-seam lip. The
-    # source row hugs the −X side one lip-reach in; the strip it leaves along
-    # the +X wall is the umbilical riser channel (the carb + flavor lines climb
-    # it from the foam-face slab to the rear bulkhead window).
-    tray_z = foam_top + STACK_GAP
-    placed["source-select"] = _at(_load(TRAY_STEPS["source-select"]), SOURCE_WALL_INSET, 160.0, tray_z)
-    placed["bag-circuit"]   = _at(_load(TRAY_STEPS["bag-circuit"]),   TRAY_WALL_INSET, 256.0, tray_z)
-
-    # --- Rear plenum: the whole electronics shelf stands on the floor in
-    # one row against the rear wall, every part on edge (board / tray plane
-    # vertical, facing the cavity), all below the rear-wall port bodies —
-    # the DC distribution block by the −X wall (lifted over the cavity's
-    # print-corner arc), the power assembly mid-row where the C14's cordage
-    # drops straight to it, the PCBA at +X. The power assembly's back face
-    # defines the plenum's rear extent, so the box wall lands one
-    # PLENUM_DEPTH behind the foam.
-    foam_back = FRONT_DEPTH + fb.ylen                  # the foam's +Y face
-    plenum_wall = foam_back + PLENUM_DEPTH             # rear inner wall
-    power = _rot(_load(POWER_ASSEMBLY), (1, 0, 0), 90.0)
-    power_d = power.BoundingBox().ylen
-    placed["power-tray"] = _at(power, 33.0, plenum_wall - power_d, SEAM_CLEAR_LIFT)
-    pcba = _rot(_load(PCBA_ASSEMBLY), (1, 0, 0), 90.0)
-    pcba_d = pcba.BoundingBox().ylen
-    placed["pcba"]    = _at(pcba, 188.0, plenum_wall - pcba_d, SEAM_CLEAR_LIFT)
-    dc = _rot(_rot(_load(DC_DIST), (0, 0, 1), 90.0), (1, 0, 0), 90.0)
-    placed["dc-dist"] = _at(dc, 3.0, plenum_wall - 19.0, FOAM_CORNER_LIFT)
+    # --- Zone B, the band above the cold core: the electronics shelf lying
+    # flat on the foam-cap top, tray/board planes horizontal, everything in
+    # the band's front half (so the rear-wall port bodies hang in open air
+    # behind it) — the power assembly at −X on the
+    # C14's column, the PCBA beside it at +X, the DC distribution block
+    # behind the power row. The power row starts behind the CO2 top entry
+    # at (141.5, 172.8), which stays open to the tube dropping into it.
+    shelf_z = foam_top + STACK_GAP
+    placed["power-tray"] = _at(_load(POWER_ASSEMBLY), 24.0, 185.0, shelf_z)
+    placed["pcba"]       = _at(_load(PCBA_ASSEMBLY), 185.0, 165.0, shelf_z)
+    placed["dc-dist"]    = _at(_load(DC_DIST), 24.0, 265.0, shelf_z)
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
 
@@ -416,7 +366,7 @@ def _port_frame():
     bbs = [s.BoundingBox() for s, _c in placed.values()]
     x_lo = min(b.xmin for b in bbs)                # -X inner wall
     x_hi = max(b.xmax for b in bbs)                # +X inner wall
-    y_wall = max(b.ymax for b in bbs)              # +Y inner wall (the plenum's rear)
+    y_wall = max(b.ymax for b in bbs)              # +Y inner wall (the foam's back face)
     return x_lo, x_hi, y_wall
 
 
@@ -424,8 +374,8 @@ def back_wall_ports():
     """Through-holes the rear panel needs: (kind, x, z, *size) in world
     coords — 'round' (a diameter) or 'rect' (x, z size). enclosure.py cuts
     these through the back pieces' +Y wall. Every external connection lands
-    here, in the band above the cold core; the bodies hang in the rear
-    plenum. Inventory: ../back-panel/README.md."""
+    here, in the band above the cold core; the bodies hang in the band's
+    open rear half. Inventory: ../back-panel/README.md."""
     d = PORT_BULKHEAD_D
     r = PORT_NUT_D / 2.0
     p = PORT_NUT_D + PORT_NUT_GAP                  # umbilical pitch: nut + margin, so nuts clear
