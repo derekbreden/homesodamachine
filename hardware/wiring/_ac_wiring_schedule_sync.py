@@ -22,15 +22,14 @@ line_voltage_v = 120
 ac_primary_fuse_a = 5
 
 # ─── Conductor gauges ─────────────────────────────────────────────────
-# Four AWG classes used across the schedule:
-#   - mains-side (AC-1 and AC-6 ground bond, 12 V trunk + branches)
-#   - AC branch (PSU primary, compressor leads, relay legs)
-#   - signal (pump motor pairs, manifold trunks, DS18B20 bus)
-#   - low-voltage logic (relay drive loom, reeds, displays, I2C, gas)
+# Two AWG classes: power (16) — AC mains feed + branches + ground bond,
+# 12 V trunk + branches; signal (22) — board-driven DC actuators + every
+# sensor / reed / display / logic run. The AC-branch and LV runs share
+# the power and signal gauge respectively but keep their own markers.
 awg_mains = 16          # AC-1, AC-6, DC-1/DC-2/DC-3/DC-4, ground bus
-awg_ac_branch = 18      # AC-2/AC-3/AC-4/AC-5
+awg_ac_branch = 16      # AC-2/AC-3/AC-4/AC-5 (power gauge)
 awg_sig = 22            # DC-5/DC-6/DC-7/DC-8, SIG-1
-awg_lv = 24             # LV-1/2/3, SIG-2/3/4/7/8/9/10/11/12
+awg_lv = 22             # LV-1/2/3, SIG-2/3/4/7/8/9/10/11/12 (signal gauge)
 
 # ─── PSU (Mean Well IRM-90-12ST) ──────────────────────────────────────
 psu_primary_a = 0.67    # primary-side current at full load (80 W ÷ 120 V)
