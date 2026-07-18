@@ -3,11 +3,11 @@
 Detailed STEP imports where they exist (cold-core foam assembly — shell +
 top/bottom foam-cap stacks — two pump assemblies (Kamoer pump + outlet
 elbows), the compressor shroud, the PCBA assembly, the power assembly, the
-DC distribution block, the DIGITEN flow sensor, the GASHER check valves,
-the panel bulkheads + C14). Placeholder primitives for parts that have no
-STEP yet (condenser+fan, SeaFlo diaphragm pump, Multiplex backflow
-preventer, WR1110 regulator, DERPIPE CO2 inlet, drip pan + moisture sensor,
-MQ-6 gas sensor). Not everything is packed: the three valve-manifold trays
+DC distribution block, the DIGITEN flow sensor, the GASHER check valves, the
+Multiplex + WR1110 regulators, the DERPIPE CO2 inlet, the MQ-6 + moisture
+sensors, the panel bulkheads + C14). Placeholder primitives for the parts that
+have no STEP yet (condenser+fan, SeaFlo diaphragm pump, the drip pan). Not
+everything is packed: the three valve-manifold trays
 (source-select, bag-circuit, nozzle-gate) have no placement yet — the
 fluid topology (/hardware/topology/fluid-topology.md) defines what each
 plumbs to — and are deferred here while their in-box homes are settled.
@@ -111,6 +111,7 @@ MOISTURE_STEP  = _hw / "reference" / "shutao-moisture-plate" / "shutao-moisture-
 DERPIPE_STEP   = _hw / "reference" / "derpipe-co2-inlet" / "derpipe-co2-inlet.step"
 JG_BULKHEAD    = _hw / "reference" / "jg-bulkhead-union" / "jg-bulkhead-union.step"
 IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
+DRIP_PAN_STEP  = _hw / "printed-parts" / "enclosure" / "drip-pan" / "drip-pan.step"
 
 # --- Placeholder dimensions + placement-reference constants ---------------
 # The parts still packed as primitives (condenser+fan, SeaFlo, the drip pan).
@@ -132,10 +133,10 @@ SEAFLO_DIMS = (75.0, 60.0, 175.0)
 # valve, and GASHER_L spaces the WR1110 one check-valve length down the chain.
 WR1110_D = 21.0
 GASHER_D, GASHER_L = 17.0, 40.0
-# Printed drip pan under the Multiplex vent (no CAD yet). Depth stops short of
-# the SeaFlo's pulled-in front face. PAN_FLOOR/PAN_Z also seat the moisture
-# plate and the Multiplex above the pan floor.
-PAN_X, PAN_Y, PAN_Z, PAN_WALL, PAN_FLOOR = 130.0, 66.0, 22.0, 2.5, 3.0
+# Drip pan — a real printed part now (printed-parts/enclosure/drip-pan). PAN_FLOOR
+# and PAN_Z stay as placement references: they seat the moisture plate on the pan
+# floor and the Multiplex above it.
+PAN_Z, PAN_FLOOR = 22.0, 3.0
 
 # Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it.
 # With the floor parts raised clear of the seam lip, the cold core pulls in to
@@ -262,14 +263,6 @@ def _cyl(d, length, axis):
     return cq.Solid.makeCylinder(d / 2.0, length, cq.Vector(0, 0, 0), cq.Vector(*axis))
 
 
-def _drip_pan():
-    """Open-top pan: outer box minus the cavity, floor PAN_FLOOR thick."""
-    outer = _box(PAN_X, PAN_Y, PAN_Z)
-    cavity = _box(PAN_X - 2 * PAN_WALL, PAN_Y - 2 * PAN_WALL, PAN_Z).translate(
-        (PAN_WALL, PAN_WALL, PAN_FLOOR))
-    return outer.cut(cavity)
-
-
 def build():
     placed = {}
 
@@ -308,7 +301,7 @@ def build():
     # outlet, discharge up to the cold-core top). The water-path GASHER check
     # and the DIGITEN flow sensor (inline on the carb-water riser's path to the
     # rear umbilical) ride the SeaFlo's top.
-    placed["drip-pan"] = _at(_drip_pan(), SIDE_RIB_INSET, 3.0, comp_top_z)
+    placed["drip-pan"] = _at(_load(DRIP_PAN_STEP), SIDE_RIB_INSET, 3.0, comp_top_z)
     placed["moisture-sensor"] = _at(_load(MOISTURE_STEP), 30.0, 15.0, comp_top_z + PAN_FLOOR)
     placed["multiplex"] = _at(_load(MULTIPLEX_STEP), 25.0, 21.0, comp_top_z + PAN_Z - 17.0)
     sf_w, sf_d, sf_h = SEAFLO_DIMS                      # [75 x 60 x 175](SEAFLO_DIMS)

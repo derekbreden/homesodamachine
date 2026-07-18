@@ -109,7 +109,7 @@ COMPONENTS = [
     _c("condenser+fan",     "placeholder", True,  "none", "harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)"),
     _c("mq6-sensor",        "real",        True,  "none", "MQ-6 module STEP (PCB + sensor can + header); floor gas sensor, no mount"),
     # Water deck
-    _c("drip-pan",          "placeholder", False, "none", "printed pan, no CAD yet — dims estimated, part+design TBD (enclosure-mechanical Open #4)"),
+    _c("drip-pan",          "real",        True,  "none", "printed catch basin STEP (rounded basin + floor cove); rests on the compressor top, mount TBD (held)"),
     _c("moisture-sensor",   "real",        True,  "none", "Shutao probe plate STEP (flat board + lead holes); lies in the pan, unfastened"),
     _c("multiplex",         "real",        True,  "none", "ASSE 1022 backflow preventer (hex-barrel STEP + vent barb); floats over the pan, no mount"),
     _c("seaflo-pump",       "placeholder", True,  "none", "diaphragm pump; feet splay to ~98, no mount modeled"),
