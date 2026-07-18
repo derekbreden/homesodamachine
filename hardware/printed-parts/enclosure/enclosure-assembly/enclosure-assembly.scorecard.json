@@ -1,7 +1,7 @@
 {
   "gatesPass": true,
   "placed": 12,
-  "located": 88,
+  "located": 100,
   "shaped": 92,
   "routed": 0,
   "held": 28,
@@ -108,8 +108,8 @@
       "id": "located",
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
-      "status": "warn",
-      "value": "88% (22/25)",
+      "status": "pass",
+      "value": "100% (25/25)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
@@ -988,6 +988,306 @@
       "mates": "12 V DC pump power (level/faucet interlock)",
       "status": "ok",
       "note": "2-wire lead; PROVISIONAL \u2014 placeholder box"
+    },
+    {
+      "component": "pcba",
+      "name": "J1-manifold-a",
+      "kind": "electrical",
+      "pos": [
+        269.8,
+        218.28,
+        292.5
+      ],
+      "face": "z+",
+      "diam": 10.0,
+      "mates": "8 manifold-A solenoids (DC-6)",
+      "status": "ok",
+      "note": "9-cond JST XH"
+    },
+    {
+      "component": "pcba",
+      "name": "J2-manifold-b",
+      "kind": "electrical",
+      "pos": [
+        269.8,
+        196.03,
+        292.5
+      ],
+      "face": "z+",
+      "diam": 8.0,
+      "mates": "4 manifold-B solenoids + condenser fan (DC-7/DC-8)",
+      "status": "ok",
+      "note": "6-cond JST XH"
+    },
+    {
+      "component": "pcba",
+      "name": "J3-faucet",
+      "kind": "electrical",
+      "pos": [
+        206.55,
+        171.5,
+        292.5
+      ],
+      "face": "z+",
+      "diam": 6.0,
+      "mates": "faucet display UART up the umbilical (SIG-6)",
+      "status": "ok",
+      "note": "4-cond JST XH"
+    },
+    {
+      "component": "pcba",
+      "name": "J4-sensors",
+      "kind": "electrical",
+      "pos": [
+        223.8,
+        171.5,
+        292.5
+      ],
+      "face": "z+",
+      "diam": 8.0,
+      "mates": "temp bus + DIGITEN flow + moisture (SIG-1/4/9)",
+      "status": "ok",
+      "note": "7-cond JST XH"
+    },
+    {
+      "component": "pcba",
+      "name": "J5-relays",
+      "kind": "electrical",
+      "pos": [
+        216.85,
+        232.8,
+        292.5
+      ],
+      "face": "z+",
+      "diam": 6.0,
+      "mates": "both Teyleten relay modules (LV-1/2/3)",
+      "status": "ok",
+      "note": "4-cond JST XH"
+    },
+    {
+      "component": "pcba",
+      "name": "J6-reeds-a",
+      "kind": "electrical",
+      "pos": [
+        231.7,
+        232.8,
+        292.5
+      ],
+      "face": "z+",
+      "diam": 7.0,
+      "mates": "foam-assembly reed-cable-A \u2014 reservoir A reeds (SIG-10)",
+      "status": "ok",
+      "note": "5-cond JST XH"
+    },
+    {
+      "component": "pcba",
+      "name": "J7-reeds-b",
+      "kind": "electrical",
+      "pos": [
+        258.3,
+        171.5,
+        292.5
+      ],
+      "face": "z+",
+      "diam": 8.0,
+      "mates": "foam-assembly reed-cable-B \u2014 reservoir B + carbonator reeds (SIG-2/3/11)",
+      "status": "ok",
+      "note": "7-cond JST XH"
+    },
+    {
+      "component": "pcba",
+      "name": "J8-i2c",
+      "kind": "electrical",
+      "pos": [
+        260.1,
+        232.8,
+        292.5
+      ],
+      "face": "z+",
+      "diam": 6.0,
+      "mates": "off-board MPR121 cap-sense (SIG-8)",
+      "status": "ok",
+      "note": "4-cond JST XH"
+    },
+    {
+      "component": "pcba",
+      "name": "J9-display",
+      "kind": "electrical",
+      "pos": [
+        241.05,
+        171.5,
+        292.5
+      ],
+      "face": "z+",
+      "diam": 6.0,
+      "mates": "display harness \u2014 4.3B RS485 + 12 V (SIG-7)",
+      "status": "ok",
+      "note": "4-cond JST XH"
+    },
+    {
+      "component": "pcba",
+      "name": "J10-12v",
+      "kind": "electrical",
+      "pos": [
+        271.15,
+        180.3,
+        292.5
+      ],
+      "face": "z+",
+      "diam": 5.0,
+      "mates": "dc-dist 12 V block \u2014 board power inlet (DC-4)",
+      "status": "ok",
+      "note": "2-pole 5.0 mm screw block"
+    },
+    {
+      "component": "pcba",
+      "name": "J11-gas",
+      "kind": "electrical",
+      "pos": [
+        196.8,
+        177.95,
+        292.5
+      ],
+      "face": "z+",
+      "diam": 6.0,
+      "mates": "mq6-sensor header \u2014 MQ-6 gas/leak sensor (SIG-12)",
+      "status": "ok",
+      "note": "4-cond JST XH"
+    },
+    {
+      "component": "pcba",
+      "name": "J13-pumps",
+      "kind": "electrical",
+      "pos": [
+        246.55,
+        232.8,
+        292.5
+      ],
+      "face": "z+",
+      "diam": 6.0,
+      "mates": "Kamoer pump A + B motors (DC-5)",
+      "status": "ok",
+      "note": "4-cond JST XH"
+    },
+    {
+      "component": "pcba",
+      "name": "J14-usb",
+      "kind": "electrical",
+      "pos": [
+        196.8,
+        218.3,
+        292.5
+      ],
+      "face": "z+",
+      "diam": 9.0,
+      "mates": "USB-C programming port (bench only, no loom)",
+      "status": "ok",
+      "note": "USB-C receptacle"
+    },
+    {
+      "component": "dc-dist",
+      "name": "in",
+      "kind": "electrical",
+      "pos": [
+        34.0,
+        278.0,
+        283.0
+      ],
+      "face": "z+",
+      "diam": 6.0,
+      "mates": "PSU 12 V output (DC-1)",
+      "status": "ok",
+      "note": "16 AWG; PROVISIONAL terminal position"
+    },
+    {
+      "component": "dc-dist",
+      "name": "to-board",
+      "kind": "electrical",
+      "pos": [
+        49.0,
+        278.0,
+        283.0
+      ],
+      "face": "z+",
+      "diam": 5.0,
+      "mates": "board J10 12 V inlet (DC-4)",
+      "status": "ok",
+      "note": "16 AWG; PROVISIONAL terminal position"
+    },
+    {
+      "component": "dc-dist",
+      "name": "to-relay2",
+      "kind": "electrical",
+      "pos": [
+        64.0,
+        278.0,
+        283.0
+      ],
+      "face": "z+",
+      "diam": 6.0,
+      "mates": "Teyleten relay #2 contact \u2014 SeaFlo gate (DC-2)",
+      "status": "ok",
+      "note": "16 AWG; PROVISIONAL terminal position"
+    },
+    {
+      "component": "power-tray",
+      "name": "ac-in",
+      "kind": "electrical",
+      "pos": [
+        30.0,
+        185.0,
+        290.0
+      ],
+      "face": "y-",
+      "diam": 8.0,
+      "mates": "C14 mains inlet \u2014 H+N+G (AC-1)",
+      "status": "ok",
+      "note": "16 AWG mains; PROVISIONAL"
+    },
+    {
+      "component": "power-tray",
+      "name": "compressor-feed",
+      "kind": "electrical",
+      "pos": [
+        175.0,
+        220.0,
+        290.0
+      ],
+      "face": "x+",
+      "diam": 8.0,
+      "mates": "compressor terminal block \u2014 switched-H + N + G through the shroud grommet (AC-4/5/6)",
+      "status": "ok",
+      "note": "16 AWG; PROVISIONAL"
+    },
+    {
+      "component": "power-tray",
+      "name": "dc-out",
+      "kind": "electrical",
+      "pos": [
+        100.0,
+        258.9,
+        290.0
+      ],
+      "face": "y+",
+      "diam": 6.0,
+      "mates": "dc-dist 12 V block (DC-1)",
+      "status": "ok",
+      "note": "16 AWG; PROVISIONAL"
+    },
+    {
+      "component": "power-tray",
+      "name": "relay-ctrl",
+      "kind": "electrical",
+      "pos": [
+        130.0,
+        185.0,
+        290.0
+      ],
+      "face": "y-",
+      "diam": 6.0,
+      "mates": "board J5 RELAYS control loom (LV-1/2/3)",
+      "status": "ok",
+      "note": "4-cond; PROVISIONAL"
     }
   ]
 }
