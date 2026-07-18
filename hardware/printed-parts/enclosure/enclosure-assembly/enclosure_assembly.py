@@ -68,6 +68,17 @@ def _placed_display():
     return disp.rotate((0, 0, 0), (1, 0, 0), -45.0).translate(target)
 
 
+def _placed_funnel():
+    """The static funnel (hopper_funnel.py, its own frame: collar-centre origin,
+    z 0 = brim underside) seated in the top-wall opening: translated to
+    _contents.FUNNEL_CX/CY with the brim underside on the box's outer top. The
+    opening is cut from the same placement (enclosure._hopper_hole), so funnel
+    and hole cannot drift apart."""
+    _i, outer, _yj, _cf = enclosure._dims()
+    return (cq.importers.importStep(str(FUNNEL_STEP)).val()
+            .translate((contents.FUNNEL_CX, contents.FUNNEL_CY, outer[5])))
+
+
 def build():
     placed = dict(contents.build())
     placed.update(contents.panel_bodies())
@@ -79,8 +90,7 @@ def build():
     for name, (shape, color) in placed.items():
         assy.add(shape, name=name, color=color)
     assy.add(_placed_display(), name="display", color=DISPLAY_COLOR)
-    funnel = cq.importers.importStep(str(FUNNEL_STEP)).val()
-    assy.add(funnel, name="hopper-funnel", color=FUNNEL_COLOR)
+    assy.add(_placed_funnel(), name="hopper-funnel", color=FUNNEL_COLOR)
     # The authored runs (_lines.py), in the pack's coordinates. Lines, not components: outside
     # the component registry and its gates.
     for name, (shape, color) in _lines.build().items():
@@ -93,7 +103,7 @@ def main():
     placed.update(contents.panel_bodies())
     solids = {n: s for n, (s, _c) in placed.items()}
     solids["display"] = _placed_display()
-    solids["hopper-funnel"] = cq.importers.importStep(str(FUNNEL_STEP)).val()
+    solids["hopper-funnel"] = _placed_funnel()
     pieces = {n: cq.importers.importStep(str(p)).val() for n, p in PIECES.items()}
 
     inner_bbs = [s.BoundingBox() for s, _c in contents.build().values()]

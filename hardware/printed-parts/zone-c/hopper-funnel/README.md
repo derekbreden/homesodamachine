@@ -3,37 +3,41 @@
 The removable dishwasher-safe silicone funnel that seats in the Zone C top-wall
 opening, right of the display and flush to the front. Pour a full 440 mL
 SodaStream flavor bottle into it in one go; lift it out by hand for the
-dishwasher and to reach the valve tray beneath. Same idiom as the Lite edition's
-funnel ([/pie-in-the-sky/lite/printed-parts/funnel/](/pie-in-the-sky/lite/printed-parts/funnel/README.md)).
+dishwasher and to reach the source-select assembly beneath. Same idiom as the
+Lite edition's funnel
+([/pie-in-the-sky/lite/printed-parts/funnel/](/pie-in-the-sky/lite/printed-parts/funnel/README.md)).
 Zone framing: [`../README.md`](/hardware/printed-parts/zone-c/README.md).
 
 ## Shape
 
-A wide funnel, built top to bottom in enclosure world coordinates so it drops
-straight into the opening:
+A static part in its own frame — origin at the collar-rectangle center, z = 0
+the brim underside — placed by the enclosure assembly
+(`_contents.FUNNEL_CX/CY`, brim on the box top). The drain is defined in this
+frame and rides the part. Top to bottom:
 
-- **Brim.** A flat flange overhanging the opening 3 mm all around, resting on the
+- **Brim.** A flat flange overhanging the collar 3 mm all around, resting on the
   enclosure top surface.
 - **Chute.** A tall straight rectangular section — vertical walls, no slope —
   [30 mm](HOPPER_CHUTE) from the brim top down to where the ramp starts. Its top
-  press-fits the 3 mm top wall; the rest hangs down into the reserve as a straight
+  press-fits the 3 mm top wall; the rest hangs down into the box as a straight
   rectangular drop.
 - **Ramp + spout.** Below the chute a shallow ramp narrows to a round
   [6.35 mm](HOPPER_SPOUT_ID) spout (1/4", matching the manifold tubing), the
-  spout offset in −X off the opening center over V-B's inlet on the
-  source-select tray. The whole floor is the ramp — every surface of it falls
-  toward the spout, no flat anywhere, so the basin drains dry. The ramp necks
-  down to just above the tallest content under the mouth (read live) — the
-  tray's top — then a short straight spout tube carries the exit down to skim
-  it, where V-B picks the pour up. Total drop [115 mm](HOPPER_DROP) below the
-  brim.
+  spout offset in +X (`neck_dx`) off the collar center. The whole floor is the
+  ramp — every surface of it falls toward the spout, no flat anywhere, so the
+  basin drains dry. A straight spout tube carries the exit down to the drain,
+  descending into the V-gap between the source-select assembly's east valves
+  and stopping ~25 mm **above** V-B's up-facing inlet collet nearby — segment 4
+  is the gravity drain and the air-purge path, so the tube from drain to V-B
+  must only fall. The pack is measured on the real solids by the enclosure
+  scorecard's `near` rules. Total drop [82 mm](HOPPER_DROP) below the brim.
 
-Capacity to the brim is [860 mL](HOPPER_CAP) — a full 440 mL bottle dumped,
-not metered. The enclosure reserves the basin's depth over the tray
-(`enclosure.py` `hopper_min_depth`).
+Capacity to the brim is [687 mL](HOPPER_CAP) — a full 440 mL bottle dumped,
+not metered.
 
-The chute footprint is taken from the enclosure's opening rectangle
-(`enclosure.py` `_hopper_hole`), so the funnel and hole always match.
+The enclosure cuts its top-wall opening from this collar at the funnel's
+placement (`enclosure.py` `_hopper_hole`), asserting the top-wall frame
+accommodates it — funnel and hole cannot drift apart.
 
 ## Regenerate
 

@@ -113,10 +113,7 @@ COMPONENTS = [
     _c("condenser+fan",     "placeholder", True,  "none", "harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)"),
     _c("mq6-sensor",        "real",        True,  "none", "MQ-6 module STEP (PCB + sensor can + header); floor gas sensor, no mount"),
     # Valve manifold
-    _c("source-select-tray", "placeholder", False, "none", "Tray 1 — 4x Beduan 12 V 1/4\" NC solenoid (V-A..V-D, sourced) + 2x JG PP2308E Y-divider (Y-A/Y-B, sourced) on a printed carrier; the carrier is undesigned — box seeded, calipers pending"),
-    # CO2 chain
-    _c("gasher-co2",        "real",        True,  "none", "GASHER check valve (hex barrel STEP); on the CO2 inlet chain, unfastened"),
-    _c("wr1110",            "real",        True,  "none", "WR1110 regulator STEP (body between two wrench hexes); bracket geometry TBD (front-panel README)"),
+    _c("source-select-assembly", "real",   True,  "none", "Tray 1 — printed tray + 4 Beduan NC solenoids + 2 PP2308E Y-dividers + 4 outlet elbows (valve-manifold/source-select-tray); hangs under the display + funnel, holder TBD"),
     # Electronics shelf
     _c("power-tray",        "real",        True,  "none", "printed tray holds its boards; tray-to-shell joinery deferred (power-tray README)"),
     _c("pcba",              "real",        True,  "none", "printed tray holds the board; tray-to-shell joinery deferred (pcba-tray README)"),
@@ -139,13 +136,9 @@ COMPONENTS = [
 # Ratifying this set (and the floor above) is the first directed step.
 TOUCHING_OK = {
     frozenset(p) for p in [
-        ("compressor-shroud", "source-select-tray"),  # tray seats on the compressor top
-        ("source-select-tray", "hopper-funnel"),      # spout tip skims tip_clearance over the tray top
         ("foam-assembly", "power-tray"),        # electronics shelf on the foam-cap top
         ("foam-assembly", "pcba"),
         ("foam-assembly", "dc-dist"),
-        ("gasher-co2", "wr1110"),               # CO2 chain adjacency
-        ("gasher-co2", "co2-inlet"),            # check valve on the DERPIPE inboard stub
     ]
 }
 
@@ -204,16 +197,28 @@ def load_connections() -> list[Connection]:
     return conns
 
 
-# ── Placement rules (the placed axis) — measured face-to-datum expectations ──
-# Each component's INTENDED placement, written as measurements the scorecard checks
-# against the enclosure interior datum (enclosure._dims() `inner`): (face, max_mm) means
-# the component's `face` must sit within max_mm of the interior's same face. iz0 is the
-# fixed Z=0 floor (not content-derived), so "z-" is a true "how far off the floor" check;
-# the other interior faces hug the content, so "within a millimeter of x-/x+/y+" reads as
-# "this part is the one against that wall". A component is `placed` when it has rules AND
-# every rule holds; rules defined but violated are a visible drift; no rules yet = not
-# started. Seeded for the three floor/back parts; every component earns rules eventually.
-# Faces: x-/x+ = left/right walls, y-/y+ = front/back walls, z-/z+ = floor/ceiling.
+# ── Placement rules (the placed axis) — measured expectations, two forms ──
+# Each component's INTENDED placement, written as measurements the scorecard checks:
+#   (face, max_mm)          — face-to-datum: the component's `face` must sit within
+#                             max_mm of the enclosure interior's same face
+#                             (enclosure._dims() `inner`). iz0 is the fixed Z=0 floor
+#                             (not content-derived), so "z-" is a true "how far off the
+#                             floor" check; the other interior faces hug the content, so
+#                             "within a millimeter of x-/x+/y+" reads as "this part is
+#                             the one against that wall".
+#   ("near", other, max_mm) — part-to-part: the exact solid-to-solid gap to `other`
+#                             must be at most max_mm. This is how a pack relation is
+#                             stated — "receives the funnel" — measured on the real
+#                             solids, not their boxes (the clearance-floor gate bounds
+#                             the same gap from below).
+#   ("clear", other, min_mm) — part-to-part keep-out: the exact solid-to-solid gap to
+#                             `other` must be at least min_mm. This is how a held-open
+#                             working space is stated — "the under-display channel
+#                             stays open" — a deliberate reservation, not an accident
+#                             of the pack.
+# A component is `placed` when it has rules AND every rule holds; rules defined but
+# violated are a visible drift; no rules yet = not started. Every component earns rules
+# eventually. Faces: x-/x+ = left/right walls, y-/y+ = front/back walls, z-/z+ = floor/ceiling.
 PLACEMENT_RULES = {
     # "Foam is against the back-bottom, full width" — the canonical example.
     "foam-assembly":     [("y+", 1.0), ("x-", 1.0), ("x+", 1.0), ("z-", 10.0)],
@@ -221,20 +226,23 @@ PLACEMENT_RULES = {
     "compressor-shroud": [("y-", 1.0), ("z-", 4.0), ("x-", 15.0)],
     # "Condenser is front-right on the floor" (inset one corner-rib chain off the right wall).
     "condenser+fan":     [("y-", 1.0), ("z-", 4.0), ("x+", 15.0)],
-    # "The source-select tray fronts the box" — within one Z-seam lip clearance of the
-    # front wall (what a front-column part crossing z_joint_front can hold). Its other
-    # governing relations — seated on the compressor top, +X edge shared with the
-    # compressor's, V-B under the funnel spout — are part-to-part and port-to-port,
-    # which the face-to-datum vocabulary cannot express; they are held by construction
-    # in _contents (comp_top_z / comp_x1) and read through the located axis.
-    "source-select-tray": [("y-", 6.0)],
+    # "The assembly hangs where the funnel can reach into it, and holds the under-display
+    # channel open": the funnel's spout descends into its east V-gap (an exact-gap bound
+    # on the real solids), while its west bank stays a working channel's depth below the
+    # display for the harness drop + CO2-chain crossing (a keep-out bound on the same
+    # real solids).
+    "source-select-assembly": [("near", "hopper-funnel", 6.0), ("clear", "display", 7.0)],
+    # "The funnel rides the top wall" — brim top one brim thickness + one wall above the
+    # interior ceiling — "and reaches into the source-select assembly below".
+    "hopper-funnel":     [("z+", 6.1), ("near", "source-select-assembly", 6.0)],
 }
 
 
 def placement_audit(solids: dict, inner: tuple) -> list[tuple[str, bool, list]]:
-    """For each component that has placement rules, measure every rule against the interior
-    datum and return (name, all_hold, [(face, gap, max_mm, ok)]). Components without rules
-    are not returned — they are simply not-yet-placed."""
+    """For each component that has placement rules, measure every rule and return
+    (name, all_hold, [(label, gap, bound_mm, ok)]) — label is the face for a face-to-datum
+    rule, "near <other>" / "clear <other>" for the part-to-part forms. Components without
+    rules are not returned — they are simply not-yet-placed."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     datum = {"x-": ix0, "x+": ix1, "y-": iy0, "y+": iy1, "z-": iz0, "z+": iz1}
     out = []
@@ -243,7 +251,23 @@ def placement_audit(solids: dict, inner: tuple) -> list[tuple[str, bool, list]]:
             continue
         bb = solids[name].BoundingBox()
         val = {"x-": bb.xmin, "x+": bb.xmax, "y-": bb.ymin, "y+": bb.ymax, "z-": bb.zmin, "z+": bb.zmax}
-        checks = [(f, abs(val[f] - datum[f]), mx, abs(val[f] - datum[f]) <= mx) for f, mx in rules]
+        checks = []
+        for rule in rules:
+            if rule[0] == "near":
+                _tag, other, mx = rule
+                gap = _solid_gap(solids[name], solids[other]) if other in solids else float("inf")
+                checks.append((f"near {other}", gap, mx, gap <= mx))
+            elif rule[0] == "clear":
+                # A keep-out against an absent neighbor is an authoring error, not a
+                # vacuously-held rule — it must flag, same as `near`.
+                _tag, other, mn = rule
+                present = other in solids
+                gap = _solid_gap(solids[name], solids[other]) if present else float("inf")
+                checks.append((f"clear {other}", gap, mn, present and gap >= mn))
+            else:
+                f, mx = rule
+                g = abs(val[f] - datum[f])
+                checks.append((f, g, mx, g <= mx))
         out.append((name, all(c[3] for c in checks), checks))
     return out
 
@@ -313,18 +337,11 @@ PORTS = [
     _p("refrig-inlet",  "condenser+fan", "refrigerant", (213.0, 5.5, 175.5),   "x-", 6.35, "compressor-shroud discharge", "1/4\" ACR copper"),
     _p("refrig-outlet", "condenser+fan", "refrigerant", (213.0, 145.5, 8.5),   "x-", 6.35, "filter-drier → cap tube → foam-assembly evaporator inlet", "1/4\" ACR copper"),
     _p("fan-power",     "condenser+fan", "electrical",  (269.0, 75.5, 92.0),   "x+", 4.0,  "J2 MANIFOLD B FAN + COM (DC-8, 12 V)", "DC pigtail 2-wire (estimate); +X exhaust face (fan centered); airflow −X→+X"),
-    # CO2 chain (front-left column) — the DERPIPE front-panel inlet carries the line inboard,
-    # through the GASHER check and the WR1110 regulator, up to the foam-cap co2-in. All run the
-    # +Y flow axis (fitting flow-face centers from the placed bboxes); the DERPIPE steps the
-    # customer's 5/16" PTC down to the 1/4" NPT chain, everything downstream 1/4". This is the
-    # second connection with both ends of every segment located — the CO2 spine, like the
-    # refrigerant loop before it.
+    # CO2 inlet (front panel) — the DERPIPE steps the customer's 5/16" PTC down to the 1/4"
+    # NPT stub inboard. The chain it feeds (GASHER check → WR1110 → foam co2-in) is deferred
+    # from the pack — its old front-left column is the source-select assembly's west bank.
     _p("tube-in",  "co2-inlet", "fluid", (46.0, -22.0, 234.0),  "y-", 7.94, "customer CO2 supply — 5/16\" push-to-connect (rear umbilical)", "5/16\" PTC collet, outboard"),
-    _p("npt-out",  "co2-inlet", "fluid", (46.0, 5.0, 234.0),    "y+", 6.35, "gasher-co2 in", "1/4\" NPT shank, inboard"),
-    _p("in",  "gasher-co2", "fluid", (46.0, 14.0, 232.85), "y-", 6.35, "co2-inlet npt-out", "1/4\" NPT stub"),
-    _p("out", "gasher-co2", "fluid", (46.0, 54.0, 232.85), "y+", 6.35, "wr1110 in", "1/4\" NPT stub"),
-    _p("in",  "wr1110", "fluid", (46.0, 55.0, 233.0),  "y-", 6.35, "gasher-co2 out", "1/4\" CO2 inlet hex"),
-    _p("out", "wr1110", "fluid", (46.0, 112.0, 233.0), "y+", 6.35, "foam-assembly co2-in (CO2 line up to the foam-cap top)", "1/4\" CO2 outlet hex"),
+    _p("npt-out",  "co2-inlet", "fluid", (46.0, 5.0, 234.0),    "y+", 6.35, "CO2 chain (GASHER check → WR1110, deferred) → foam-assembly co2-in", "1/4\" NPT shank, inboard"),
     # Rear-panel through-wall bodies — each JG bulkhead union is a 1/4" tube port each side of the
     # rear wall (Y = tube-flow axis, +Y = outward to the rear umbilical, −Y = inward to the
     # subsystem it feeds). The C14 mains inlet carries one 3-wire harness inboard from the panel
@@ -342,20 +359,22 @@ PORTS = [
     # MQ-6 header pins down (−Z) at the board floor.
     _p("header", "mq6-sensor", "electrical", (116.0, 144.0, 3.0), "z-", 8.0, "PCBA gas-sensor input — VCC/GND/DO/AO (SIG)", "4-pin 2.54 mm header, pins down"),
     # Hopper funnel — the removable silicone basin's single drain: the spout-tube exit annulus,
-    # feeding the shared source (V-B hopper gate). One fluid port. The spout carries
-    # hopper_funnel.py's `neck_dx` −14 off the opening centre, over V-B's inlet on the
-    # source-select tray, so the drain sits at the spout, not at the basin's bbox centre.
-    _p("drain", "hopper-funnel", "fluid", (179.75, 63.3, 222.5), "z-", 6.35, "V-B hopper gate → shared source (channel split)", "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"),
-    # Source-select tray (Tray 1) — the manifold's four boundary connectors on the placeholder
-    # box, all 1/4" (the Beduan valves' port size). PROVISIONAL positions — the carrier is
-    # undesigned; they pin down with the tray design. V-B's inlet faces up, directly under the
-    # funnel spout (the segment-4 gravity drop); the other three sit on the +Y back face toward
-    # the deferred water chain and pump columns. On-tray plumbing (segments 3/5/6/7/8) is
-    # interior to the tray and carries no port here.
-    _p("V-A-I", "source-select-tray", "fluid", (100.0, 109.0, 200.0),  "y+", 6.35, "tap-water chain (bulkhead-water → BFP, deferred) — segment 2", "1/4\" PTC; PROVISIONAL — placeholder box"),
-    _p("V-B-I", "source-select-tray", "fluid", (179.75, 63.3, 221.5),  "z+", 6.35, "hopper-funnel drain — segment 4 (gravity drop)", "1/4\" PTC; PROVISIONAL — placeholder box, directly under the spout"),
-    _p("V-C-O", "source-select-tray", "fluid", (135.0, 109.0, 180.0),  "y+", 6.35, "Y-C-1 (Tray 3 pump-inlet tees, deferred) — segment 9", "1/4\" PTC; PROVISIONAL — placeholder box"),
-    _p("V-D-O", "source-select-tray", "fluid", (165.0, 109.0, 180.0),  "y+", 6.35, "Y-F-1 (Tray 3 pump-inlet tees, deferred) — segment 19", "1/4\" PTC; PROVISIONAL — placeholder box"),
+    # feeding V-B by tube (segment 4). Defined in the funnel's own frame
+    # (hopper_funnel.drain_local = (neck_dx, 0, −drop)) + its placement (FUNNEL_CX/CY, brim on
+    # the box top), so it rides the part. The spout descends into the V-gap between the
+    # assembly's east valves and ends ~25 mm ABOVE V-B-I's collet — segment 4 is the gravity
+    # drain + air-purge path, and the tube from here to V-B must only fall.
+    _p("drain", "hopper-funnel", "fluid", (247.75, 63.3, 255.72), "z-", 6.35, "V-B-I by falling tube — segment 4 (hopper gate → shared source)", "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"),
+    # Source-select assembly (Tray 1) — the manifold's four boundary connectors: the outlet
+    # elbows' free collets, all facing +Z, measured off the built assembly
+    # (source_select_tray.build_assembly() top-opening centres, local (±128.33, ±36.73, 30.86))
+    # carried through the 180° flip + SRC_SEL_POS. V-A/V-B east (under the funnel's reach),
+    # V-C/V-D west. On-tray plumbing (segments 3/5/6/7/8 — valve↔divider tubes) is interior
+    # to the assembly and carries no port here.
+    _p("V-A-I", "source-select-assembly", "fluid", (275.33, 26.57, 230.86),  "z+", 6.35, "tap-water chain (bulkhead-water → BFP, deferred) — segment 2 (pressurized; length-tolerant)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-B-I", "source-select-assembly", "fluid", (275.33, 100.03, 230.86), "z+", 6.35, "hopper-funnel drain by falling tube — segment 4", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-C-O", "source-select-assembly", "fluid", (18.67, 26.57, 230.86),   "z+", 6.35, "Y-C-1 (Tray 3 pump-inlet tees, deferred) — segment 9", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-D-O", "source-select-assembly", "fluid", (18.67, 100.03, 230.86),  "z+", 6.35, "Y-F-1 (Tray 3 pump-inlet tees, deferred) — segment 19", "JG elbow collet, 1/4\" tube, facing up"),
     # Waveshare display — its data/power connector is NOT in the imported STEP (only the four
     # corner mounts are), so this one harness port is placed provisionally on the interior (+Y)
     # back face at the PCB centre. A viewer pick would pin it exactly.
@@ -693,7 +712,9 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     placed_pct = _pct(len(placed_held), total)
 
     def _fmt(cks):
-        return " ".join(f"{f} {g:.1f}" + ("" if ok else f"(>{mx:g})") for f, g, mx, ok in cks)
+        return " ".join(
+            f"{f} {g:.1f}" + ("" if ok else (f"(<{mx:g})" if f.startswith("clear") else f"(>{mx:g})"))
+            for f, g, mx, ok in cks)
     placed_detail = [f"{'✓' if ok else '✗'} {name}: {_fmt(cks)} mm" for name, ok, cks in pa]
     placed_detail.append(f"{total - len(pa)} components: no placement rules defined yet")
     goal("placed", "Placement criteria defined and held (face-to-datum)", placed_pct == 100,
