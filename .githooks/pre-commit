@@ -1,5 +1,5 @@
 #!/bin/sh
-# Board-commit gates + 3D freshness for the PCBA.
+# Commit-time gates + 3D freshness for the PCBA and the enclosure.
 #
 # Two jobs, in order:
 #
@@ -12,6 +12,13 @@
 #        copper), part-orientation-audit.py (3D model vs footprint, ~8 s). These read
 #        the out/ artifacts of the last render — a red gate means the board being
 #        committed is not fab-ready.
+#      - commit touches enclosure           → the one enclosure gate that is turned on
+#        today: pack-closes (no overlapping solids) from the committed scorecard sidecar,
+#        the same invariant enclosure_assembly.py's own SystemExit enforces. The other
+#        enclosure gates report-only until their gating turns on (see the enclosure
+#        requirements.md "Gating" section), so they do not block here yet. When the
+#        checker itself (scorecard.py) changes, its self-test runs — inject-defect +
+#        control — so a refactor can't quietly blind a gate.
 #      Gates print one ✓ line each on pass and dump their full output on red.
 #
 #   2. GLB freshness (best-effort — never blocks): render-board.ts deliberately skips
@@ -24,12 +31,15 @@
 
 root=$(git rev-parse --show-toplevel) || exit 0
 pcba="$root/hardware/pcb/pcba"
+enc="$root/hardware/printed-parts/enclosure/enclosure-assembly"
 py="$root/tools/cad-venv/bin/python"
 
 touches_hw=false
 touches_board=false
+touches_enclosure=false
 git diff --cached --name-only -- "hardware/" | grep -q . && touches_hw=true
 git diff --cached --name-only -- "hardware/pcb/pcba/" | grep -q . && touches_board=true
+git diff --cached --name-only -- "hardware/printed-parts/enclosure/" | grep -q . && touches_enclosure=true
 
 fail=0
 
@@ -72,6 +82,51 @@ if not sc["gatesPass"]:
     gate "part-orientation-audit" sh -c "cd \"$pcba\" && \"$py\" part-orientation-audit.py"
   else
     echo "pre-commit: no cad-venv — part-orientation-audit skipped" >&2
+  fi
+fi
+
+if $touches_enclosure; then
+  # pack-closes — the one gate turned on today (a physically invalid pack must never
+  # land). Read from the committed sidecar, the same verdict enclosure_assembly.py
+  # wrote; the dev server regenerates it on every enclosure edit and CI's build:check
+  # backstops its freshness. If the sidecar is behind its sources, warn (below) — the
+  # gate still runs against what's committed.
+  gate "enclosure pack closes" python3 -c '
+import json, sys
+p = sys.argv[1]
+try:
+    sc = json.load(open(p))
+except Exception as e:
+    sys.exit("cannot read the enclosure scorecard sidecar " + p + " (" + repr(e)
+             + ") - run: tools/cad-venv/bin/python enclosure_assembly.py")
+pack = next((c for c in sc.get("checks", []) if c.get("id") == "pack-closes"), None)
+if pack is None:
+    sys.exit("enclosure sidecar has no pack-closes check - stale? rebuild it")
+if pack["status"] != "pass":
+    print("  gate red:", pack["label"], "-", pack["value"], file=sys.stderr)
+    sys.exit("ENCLOSURE PACK DOES NOT CLOSE per the scorecard sidecar")
+' "$enc/enclosure-assembly.scorecard.json"
+
+  # Freshness nudge (never blocks): if a scorecard source is newer than the committed
+  # sidecar, the gate above may have read a stale verdict. CI build:check is the hard
+  # backstop; this just surfaces it at commit time.
+  for src in "$enc/_contents.py" "$enc/scorecard.py" "$enc/enclosure_assembly.py" \
+             "$root/hardware/printed-parts/enclosure/enclosure/enclosure.py"; do
+    if [ -f "$src" ] && [ "$src" -nt "$enc/enclosure-assembly.scorecard.json" ]; then
+      echo "pre-commit: enclosure scorecard sidecar may be behind $(basename "$src") — rebuild: tools/cad-venv/bin/python enclosure_assembly.py" >&2
+      break
+    fi
+  done
+
+  # When the checker itself changes, prove its gates still fire (inject-defect + control).
+  if git diff --cached --name-only -- \
+       "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py" \
+       "hardware/printed-parts/enclosure/enclosure-assembly/scorecard_selftest.py" | grep -q .; then
+    if [ -x "$py" ]; then
+      gate "enclosure scorecard self-test" sh -c "cd \"$enc\" && \"$py\" scorecard_selftest.py"
+    else
+      echo "pre-commit: no cad-venv — enclosure scorecard self-test skipped" >&2
+    fi
   fi
 fi
 
