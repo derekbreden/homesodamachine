@@ -787,6 +787,133 @@
   padding: 5px 0 3px;
 }
 .pcb-checks-toggle:hover { color: var(--text); }
+
+/* ── 3D-model scorecard: the enclosure requirements verdict as a thin bottom bar + a
+   drill-down modal, mirroring the PCB board-checks UI (.pcb-dims / .pcb-checks*) inside the
+   STEP viewer's .cad-wrapper. Built by public/js/viewer/scorecard-3d.js. ── */
+.cad-wrapper > .sc-bar {
+  position: absolute;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  width: max-content;
+  max-width: calc(100vw - 24px);
+  padding: 5px 10px;
+  background: rgba(35, 35, 66, 0.85);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, sans-serif;
+  text-align: center;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  pointer-events: none; /* glance-only; the badge re-enables */
+}
+.sc-bar .sc-badge {
+  pointer-events: auto;
+  cursor: pointer;
+  font: inherit;
+  padding: 1px 7px;
+  border-radius: 6px;
+  border: 1px solid color-mix(in srgb, var(--ok) 55%, transparent);
+  background: color-mix(in srgb, var(--ok) 18%, transparent);
+  color: var(--ok);
+}
+.sc-bar .sc-badge.has-issues {
+  border-color: color-mix(in srgb, var(--err) 60%, transparent);
+  background: color-mix(in srgb, var(--err) 20%, transparent);
+  color: var(--err);
+}
+.sc-bar .sc-badge:hover { filter: brightness(1.2); }
+/* Phone: the STEP viewer stacks four Inspect pills bottom-left and a Reset pill bottom-right;
+   lift the bar onto its own row above them. */
+@media (max-width: 600px) {
+  .cad-wrapper > .sc-bar {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 16px + 44px);
+  }
+}
+.cad-wrapper > .sc-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(10, 10, 24, 0.55);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+.sc-card {
+  width: min(640px, 94%);
+  max-height: 80%;
+  overflow: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font: 12.5px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: var(--text);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+.sc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.sc-x {
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--text-2);
+  font-size: 15px;
+  line-height: 1;
+}
+.sc-x:hover { color: var(--text); }
+.sc-h {
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 10.5px;
+  margin: 12px 0 5px;
+}
+.sc-h:first-of-type { margin-top: 0; }
+.sc-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 3px 0;
+  border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+}
+.sc-row .sc-k { color: var(--text); overflow-wrap: anywhere; }
+.sc-row .sc-v { color: var(--text-2); white-space: nowrap; }
+.sc-row.sub .sc-k { color: var(--text-2); }
+.sc-row.issue .sc-k { color: var(--err); }
+.sc-row.issue .sc-v { color: var(--err); white-space: nowrap; }
+.sc-row.warn .sc-k { color: var(--warn); }
+.sc-row.warn .sc-v { color: var(--warn); }
+.sc-row.gray .sc-k, .sc-row.gray .sc-v { color: var(--text-3); }
+.sc-toggle {
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+  color: var(--text-2);
+  font: inherit;
+  padding: 5px 0 3px;
+}
+.sc-toggle:hover { color: var(--text); }
 .pcb-pick-layer {
   pointer-events: none;
 }

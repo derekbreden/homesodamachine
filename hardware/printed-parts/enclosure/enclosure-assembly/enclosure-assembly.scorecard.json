@@ -1,0 +1,154 @@
+{
+  "gatesPass": false,
+  "placed": 12,
+  "shaped": 60,
+  "routed": 0,
+  "held": 28,
+  "checks": [
+    {
+      "id": "coverage",
+      "label": "Every placed part declared in the registry",
+      "kind": "gate",
+      "status": "pass",
+      "value": "25/25 placed declared",
+      "target": "all declared",
+      "detail": [],
+      "active": true
+    },
+    {
+      "id": "pack-closes",
+      "label": "No two solids overlap (pack closes)",
+      "kind": "gate",
+      "status": "pass",
+      "value": "0 clash",
+      "target": "0 clash",
+      "detail": [],
+      "active": true
+    },
+    {
+      "id": "clearance-floor",
+      "label": "Part\u2194part clearance \u2265 floor (unless a declared contact)",
+      "kind": "gate",
+      "status": "pass",
+      "value": "1.00 mm",
+      "target": "\u2265 1.0 mm",
+      "detail": [
+        "compressor-shroud \u2014 drip-pan: 0.00 mm \u2014 CONTACT (declared ok)",
+        "drip-pan \u2014 moisture-sensor: 0.00 mm \u2014 CONTACT (declared ok)",
+        "seaflo-pump \u2014 gasher-water: 0.00 mm \u2014 CONTACT (declared ok)",
+        "moisture-sensor \u2014 multiplex: 0.40 mm \u2014 CONTACT (declared ok)",
+        "seaflo-pump \u2014 digiten-flow: 0.50 mm \u2014 CONTACT (declared ok)",
+        "seaflo-pump \u2014 pump-assembly-1: 0.50 mm \u2014 CONTACT (declared ok)",
+        "foam-assembly \u2014 mq6-sensor: 1.00 mm",
+        "foam-assembly \u2014 digiten-flow: 1.00 mm",
+        "compressor-shroud \u2014 seaflo-pump: 1.00 mm",
+        "gasher-co2 \u2014 wr1110: 1.00 mm \u2014 CONTACT (declared ok)",
+        "compressor-shroud \u2014 mq6-sensor: 1.00 mm",
+        "digiten-flow \u2014 pump-assembly-1: 1.12 mm",
+        "drip-pan \u2014 multiplex: 2.00 mm \u2014 CONTACT (declared ok)",
+        "foam-assembly \u2014 power-tray: 2.50 mm \u2014 CONTACT (declared ok)",
+        "foam-assembly \u2014 pcba: 2.50 mm \u2014 CONTACT (declared ok)",
+        "foam-assembly \u2014 dc-dist: 2.50 mm \u2014 CONTACT (declared ok)",
+        "compressor-shroud \u2014 moisture-sensor: 3.00 mm",
+        "drip-pan \u2014 seaflo-pump: 3.00 mm",
+        "condenser+fan \u2014 pump-assembly-2: 3.00 mm \u2014 CONTACT (declared ok)",
+        "foam-assembly \u2014 condenser+fan: 4.00 mm",
+        "display \u2014 hopper-funnel: 4.49 mm",
+        "compressor-shroud \u2014 multiplex: 5.00 mm"
+      ],
+      "active": true
+    },
+    {
+      "id": "pieces-fit-bed",
+      "label": "Each printed piece fits the H2C bed (325\u00d7320\u00d7320)",
+      "kind": "gate",
+      "status": "pass",
+      "value": "4/4 fit",
+      "target": "4/4",
+      "detail": [],
+      "active": true
+    },
+    {
+      "id": "seams-mate",
+      "label": "Printed pieces mate to a slide fit",
+      "kind": "gate",
+      "status": "pass",
+      "value": "0 interfering",
+      "target": "0 interfering",
+      "detail": [],
+      "active": true
+    },
+    {
+      "id": "parts-sourced",
+      "label": "Every component is a selected real part / finished print",
+      "kind": "gate",
+      "status": "fail",
+      "value": "24/25",
+      "target": "25/25",
+      "detail": [
+        "drip-pan: printed pan, no CAD yet \u2014 dims estimated, part+design TBD (enclosure-mechanical Open #4)"
+      ],
+      "active": true
+    },
+    {
+      "id": "placed",
+      "label": "Placement criteria defined and held (face-to-datum)",
+      "kind": "goal",
+      "status": "warn",
+      "value": "12% (3/25)",
+      "target": "100%",
+      "detail": [
+        "\u2713 foam-assembly: y+ 0.0 x- 0.0 x+ 0.0 z- 9.5 mm",
+        "\u2713 compressor-shroud: y- 0.0 z- 3.0 x- 14.0 mm",
+        "\u2713 condenser+fan: y- 0.0 z- 3.0 x+ 14.0 mm",
+        "22 components: no placement rules defined yet"
+      ],
+      "active": true
+    },
+    {
+      "id": "shaped",
+      "label": "Components modeled as real geometry (not a placeholder box)",
+      "kind": "goal",
+      "status": "warn",
+      "value": "60% (15/25)",
+      "target": "100%",
+      "detail": [
+        "condenser+fan: still a placeholder \u2014 harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)",
+        "mq6-sensor: still a placeholder \u2014 floor gas sensor; no mount",
+        "drip-pan: still a placeholder \u2014 printed pan, no CAD yet \u2014 dims estimated, part+design TBD (enclosure-mechanical Open #4)",
+        "moisture-sensor: still a placeholder \u2014 Shutao probe plate; lies in the pan, unfastened",
+        "multiplex: still a placeholder \u2014 ASSE 1022 backflow preventer; floats over the pan, no mount",
+        "seaflo-pump: still a placeholder \u2014 diaphragm pump; feet splay to ~98, no mount modeled",
+        "gasher-water: still a placeholder \u2014 outlet check valve; rests on the seaflo top, unfastened",
+        "gasher-co2: still a placeholder \u2014 CO2 check valve; on the inlet chain, unfastened",
+        "wr1110: still a placeholder \u2014 secondary regulator; bracket geometry TBD (front-panel README)",
+        "co2-inlet: still a placeholder \u2014 DERPIPE PTC: front-wall hole + its own 1/4\" NPT thread"
+      ],
+      "active": true
+    },
+    {
+      "id": "routed",
+      "label": "Connections modeled as real 3D paths (fluid + electrical)",
+      "kind": "goal",
+      "status": "warn",
+      "value": "0% (0/56)",
+      "target": "100%",
+      "detail": [
+        "28 fluid segments + 28 electrical runs, none routed \u2014 the fluid path waits on the unplaced valve-manifold trays"
+      ],
+      "active": false
+    },
+    {
+      "id": "held",
+      "label": "Components in a printed holder fastened to the enclosure",
+      "kind": "goal",
+      "status": "warn",
+      "value": "28% (7/25)",
+      "target": "100%",
+      "detail": [
+        "7 held (through-wall bodies + display); 18 loose internal parts unheld"
+      ],
+      "active": false
+    }
+  ]
+}
