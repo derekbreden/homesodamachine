@@ -436,6 +436,25 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     return Scorecard(checks, gates_pass, placed_pct, shaped, routed, held)
 
 
+def scorecard_dict(sc: Scorecard) -> dict:
+    """The verdict as a JSON-serializable dict — the web sidecar written next to
+    enclosure-assembly.step (enclosure-assembly.scorecard.json). This is the SAME `sc`
+    the terminal prints, so the build and the viewer read one verdict, not two. Shape
+    pinned by web/contracts/scorecard-sidecar.js and its conformance test."""
+    return {
+        "gatesPass": sc.gates_pass,
+        "placed": sc.placed,
+        "shaped": sc.shaped,
+        "routed": sc.routed,
+        "held": sc.held,
+        "checks": [
+            {"id": c.id, "label": c.label, "kind": c.kind, "status": c.status,
+             "value": c.value, "target": c.target, "detail": list(c.detail), "active": c.active}
+            for c in sc.checks
+        ],
+    }
+
+
 def format_scorecard(sc: Scorecard) -> str:
     """Render the verdict as a terminal block. Gates read green (pass) / red (fail); the
     two focus goals read green (100%) / yellow (in progress); the two deferred goals render

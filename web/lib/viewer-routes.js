@@ -5,6 +5,7 @@ import fs from "fs";
 import { walkFiles, walkFilesUnderDir, walkPcbBoards } from "./walk.js";
 import { VIEW_REQUEST_RE, PICKS_REQUEST_RE } from "../contracts/pcb-out.js";
 import { sidecarFields } from "../contracts/sidecar.js";
+import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
 
 function safeFile(rootDir, rel, ext) {
   if (rel.includes("..")) return null;
@@ -150,6 +151,19 @@ export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
     if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     // Re-rendered in lockstep with the views above — same no-cache so the pad
     // picker's hit targets don't lag a stale render.
+    res.set("Cache-Control", "no-cache");
+    res.type("application/json").send(fs.readFileSync(abs, "utf-8"));
+  });
+
+  // The 3D-model scorecard sidecar — the requirements verdict beside a STEP
+  // (e.g. enclosure-assembly.scorecard.json, written by enclosure_assembly.py). Read by
+  // the 3D viewer's scorecard bar + modal (public/js/viewer/scorecard-3d.js). Confined to
+  // *.scorecard.json under the edition root; a 404 is normal — a model with no scorecard
+  // just gets no bar. no-cache so a live regen isn't shown stale.
+  app.get("/api/step-scorecard/*", (req, res) => {
+    const abs = safeFile(rootFor(req), req.params[0], SCORECARD_SUFFIX);
+    if (!abs) return res.status(400).send("Invalid path");
+    if (!fs.existsSync(abs)) return res.status(404).send("Not found");
     res.set("Cache-Control", "no-cache");
     res.type("application/json").send(fs.readFileSync(abs, "utf-8"));
   });
