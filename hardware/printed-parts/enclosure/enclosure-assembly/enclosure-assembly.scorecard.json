@@ -1,7 +1,7 @@
 {
   "gatesPass": true,
   "placed": 12,
-  "located": 60,
+  "located": 64,
   "shaped": 92,
   "routed": 0,
   "held": 28,
@@ -109,7 +109,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "60% (15/25)",
+      "value": "64% (16/25)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
@@ -778,6 +778,21 @@
       "mates": "PCBA moisture input \u2014 2-pin (SIG + GND)",
       "status": "ok",
       "note": "2-pin lead header on the plate; \u00d8 est"
+    },
+    {
+      "component": "hopper-funnel",
+      "name": "drain",
+      "kind": "fluid",
+      "pos": [
+        193.75,
+        63.3,
+        306.5
+      ],
+      "face": "z-",
+      "diam": 6.35,
+      "mates": "V-B hopper gate \u2192 shared source (channel split)",
+      "status": "ok",
+      "note": "funnel drain; bottom-centre of the basin, line \u00d8 est"
     }
   ]
 }
