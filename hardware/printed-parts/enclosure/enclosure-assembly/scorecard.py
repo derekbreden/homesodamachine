@@ -351,6 +351,16 @@ PORTS = [
     # Hopper funnel — the removable silicone basin's single drain at the bottom-centre of its
     # envelope, feeding the shared source (V-B hopper gate). One fluid port.
     _p("drain", "hopper-funnel", "fluid", (193.75, 63.3, 306.5), "z-", 6.35, "V-B hopper gate → shared source (channel split)", "funnel drain; bottom-centre of the basin, line Ø est"),
+    # Flavor pumps (Kamoer KPHM400, P-A + P-B) — each pump's two JG PP0308E elbow collets point
+    # +Z (tube pushes down in); the collet-face centres are extracted from the placed geometry
+    # (the barbs sit on the pump body, the elbows turn the line up). The 2-wire DC motor lead
+    # exits the motor end (+Y). in/out follow the flavor manifold (P-A: Y-C→Y-D, P-B: Y-F→Y-G).
+    _p("inlet",  "pump-assembly-1", "fluid",      (98.4, 103.3, 305.5),  "z+", 6.35, "Y-C → P-A-I (channel A source select)", "JG PP0308E elbow collet; 1/4\" flavor line"),
+    _p("outlet", "pump-assembly-1", "fluid",      (155.4, 103.3, 305.5), "z+", 6.35, "P-A-O → Y-D (channel A to bag/nozzle)", "JG PP0308E elbow collet; 1/4\" flavor line"),
+    _p("motor",  "pump-assembly-1", "electrical", (126.8, 130.9, 260.0), "y+", 4.0,  "L298N channel A / 12 V DC drive", "2-wire DC motor lead; Ø est"),
+    _p("inlet",  "pump-assembly-2", "fluid",      (204.4, 103.3, 273.5), "z+", 6.35, "Y-F → P-B-I (channel B source select)", "JG PP0308E elbow collet; 1/4\" flavor line"),
+    _p("outlet", "pump-assembly-2", "fluid",      (261.4, 103.3, 273.5), "z+", 6.35, "P-B-O → Y-G (channel B to bag/nozzle)", "JG PP0308E elbow collet; 1/4\" flavor line"),
+    _p("motor",  "pump-assembly-2", "electrical", (232.8, 130.9, 228.75), "y+", 4.0, "L298N channel B / 12 V DC drive", "2-wire DC motor lead; Ø est"),
 ]
 
 

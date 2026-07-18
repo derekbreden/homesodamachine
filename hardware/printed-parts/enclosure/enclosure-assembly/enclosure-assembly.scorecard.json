@@ -1,7 +1,7 @@
 {
   "gatesPass": true,
   "placed": 12,
-  "located": 64,
+  "located": 72,
   "shaped": 92,
   "routed": 0,
   "held": 28,
@@ -109,7 +109,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "64% (16/25)",
+      "value": "72% (18/25)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
@@ -793,6 +793,96 @@
       "mates": "V-B hopper gate \u2192 shared source (channel split)",
       "status": "ok",
       "note": "funnel drain; bottom-centre of the basin, line \u00d8 est"
+    },
+    {
+      "component": "pump-assembly-1",
+      "name": "inlet",
+      "kind": "fluid",
+      "pos": [
+        98.4,
+        103.3,
+        305.5
+      ],
+      "face": "z+",
+      "diam": 6.35,
+      "mates": "Y-C \u2192 P-A-I (channel A source select)",
+      "status": "ok",
+      "note": "JG PP0308E elbow collet; 1/4\" flavor line"
+    },
+    {
+      "component": "pump-assembly-1",
+      "name": "outlet",
+      "kind": "fluid",
+      "pos": [
+        155.4,
+        103.3,
+        305.5
+      ],
+      "face": "z+",
+      "diam": 6.35,
+      "mates": "P-A-O \u2192 Y-D (channel A to bag/nozzle)",
+      "status": "ok",
+      "note": "JG PP0308E elbow collet; 1/4\" flavor line"
+    },
+    {
+      "component": "pump-assembly-1",
+      "name": "motor",
+      "kind": "electrical",
+      "pos": [
+        126.8,
+        130.9,
+        260.0
+      ],
+      "face": "y+",
+      "diam": 4.0,
+      "mates": "L298N channel A / 12 V DC drive",
+      "status": "ok",
+      "note": "2-wire DC motor lead; \u00d8 est"
+    },
+    {
+      "component": "pump-assembly-2",
+      "name": "inlet",
+      "kind": "fluid",
+      "pos": [
+        204.4,
+        103.3,
+        273.5
+      ],
+      "face": "z+",
+      "diam": 6.35,
+      "mates": "Y-F \u2192 P-B-I (channel B source select)",
+      "status": "ok",
+      "note": "JG PP0308E elbow collet; 1/4\" flavor line"
+    },
+    {
+      "component": "pump-assembly-2",
+      "name": "outlet",
+      "kind": "fluid",
+      "pos": [
+        261.4,
+        103.3,
+        273.5
+      ],
+      "face": "z+",
+      "diam": 6.35,
+      "mates": "P-B-O \u2192 Y-G (channel B to bag/nozzle)",
+      "status": "ok",
+      "note": "JG PP0308E elbow collet; 1/4\" flavor line"
+    },
+    {
+      "component": "pump-assembly-2",
+      "name": "motor",
+      "kind": "electrical",
+      "pos": [
+        232.8,
+        130.9,
+        228.75
+      ],
+      "face": "y+",
+      "diam": 4.0,
+      "mates": "L298N channel B / 12 V DC drive",
+      "status": "ok",
+      "note": "2-wire DC motor lead; \u00d8 est"
     }
   ]
 }
