@@ -71,7 +71,11 @@ gray) until the focus is met:
   positioned, on-surface, *and* sized. This is the `placed` discipline applied to the
   connections instead of the body — "against the wall" becomes "the suction stub is *here*,
   and it is 1/4" copper." The full inventory — every port's coordinate + bore — is emitted as
-  a structured `ports[]` block in the scorecard sidecar, so the audit reads it directly.
+  a structured `ports[]` block in the scorecard sidecar, so the audit reads it directly. A part
+  that carries no tube or wire at all (a passive body — the drip pan is a catch basin that drains
+  nowhere) is declared connector-free in `PASSIVE_NO_PORTS` and counts once; declaring the
+  absence is the honest analogue of declaring a position, and it lets the axis reach 100% without
+  inventing a port.
 - **shaped** *(focus)* — real geometry, not a placeholder box or cylinder. A placeholder
   with the right *dimensions* is still a box; the real silhouette is what other parts must
   be packed against.

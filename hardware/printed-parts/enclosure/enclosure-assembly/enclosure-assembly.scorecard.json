@@ -1,7 +1,7 @@
 {
   "gatesPass": true,
   "placed": 12,
-  "located": 72,
+  "located": 76,
   "shaped": 92,
   "routed": 0,
   "held": 28,
@@ -109,7 +109,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "72% (18/25)",
+      "value": "76% (19/25)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",

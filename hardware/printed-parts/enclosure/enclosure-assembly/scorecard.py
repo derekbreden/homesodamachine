@@ -364,6 +364,15 @@ PORTS = [
 ]
 
 
+# Components that carry NO tube or wire connector at all — a passive body, located trivially
+# once declared connector-free. The drip pan is a catch basin: the Multiplex vent drips INTO it
+# (that penetration is the Multiplex's port, not the pan's), and it drains nowhere. Declaring the
+# absence is the honest analogue of declaring a position — never a silent gap, and it lets the
+# located axis reach 100% without inventing a port. A name here must own no PORTS entry (asserted
+# in ports_audit); if the pan ever gains a drain, move it out and give it that port.
+PASSIVE_NO_PORTS = frozenset({"drip-pan"})
+
+
 def _on_surface(pos, bb, tol) -> bool:
     """True when `pos` lies on the bounding box's surface: inside (+tol) on every axis AND
     flush against at least one face (so a point floating in the body's interior fails)."""
@@ -384,6 +393,8 @@ def ports_audit(solids: dict, tol: float = 2.0) -> list[tuple[str, bool, list]]:
     by_comp: dict[str, list[Port]] = {}
     for p in PORTS:
         by_comp.setdefault(p.component, []).append(p)
+    contradiction = PASSIVE_NO_PORTS & by_comp.keys()
+    assert not contradiction, f"declared connector-free but has ports: {sorted(contradiction)}"
     out = []
     for comp, ports in by_comp.items():
         bb = solids[comp].BoundingBox() if comp in solids else None
@@ -590,9 +601,11 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
 
     # located — FOCUS: every connector (tube + wire) has a position AND a bore on the component.
     # A connection has no path until both ends are located, so this is the precondition to routed.
+    # A declared connector-free part (PASSIVE_NO_PORTS) counts once — it has nothing to locate.
     pta = ports_audit(solids)
+    passive = [c for c in COMPONENTS if c.name in PASSIVE_NO_PORTS]
     located_comps = [r for r in pta if r[1]]
-    located_pct = _pct(len(located_comps), total)
+    located_pct = _pct(len(located_comps) + len(passive), total)
     _pstat = {"off-surface": "⚠ off-surface", "no-pos": "needs a position", "no-diam": "needs a bore Ø"}
     located_detail = []
     for comp, ok, prows in pta:
@@ -603,9 +616,12 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
             od = f"Ø{pt.diam:g}" if pt.diam is not None else "Ø?"
             tag = "" if s == "ok" else f"  — {_pstat[s]}"
             located_detail.append(f"    – {comp}:{pt.name} ({pt.kind}) {xyz} {od} → {pt.mates}{tag}")
-    located_detail.append(f"{total - len(pta)} components: no connector positions defined yet")
+    for c in passive:
+        located_detail.append(f"✓ {c.name}: no connectors (passive body)")
+    unlocated = total - len(pta) - len(passive)
+    located_detail.append(f"{unlocated} components: no connector positions defined yet")
     goal("located", "Connectors located on the component — position + bore Ø (tubes + wires)", located_pct == 100,
-         f"{located_pct}% ({len(located_comps)}/{total})", "100%", located_detail, active=True)
+         f"{located_pct}% ({len(located_comps) + len(passive)}/{total})", "100%", located_detail, active=True)
 
     # shaped — FOCUS: real geometry, not a placeholder box/cylinder.
     real = [c for c in COMPONENTS if c.is_real]
