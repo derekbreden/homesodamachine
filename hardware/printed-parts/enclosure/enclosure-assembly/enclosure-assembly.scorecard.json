@@ -1,7 +1,7 @@
 {
   "gatesPass": false,
   "placed": 12,
-  "located": 8,
+  "located": 12,
   "shaped": 88,
   "routed": 0,
   "held": 28,
@@ -111,15 +111,12 @@
       "label": "Connectors positioned on the component (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "8% (2/25)",
+      "value": "12% (3/25)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
         "\u2713 compressor-shroud: 4/4 connectors located",
-        "\u2717 condenser+fan: 0/3 connectors located",
-        "    \u2013 condenser+fan:refrig-inlet (refrigerant) needs a position \u2192 compressor-shroud discharge",
-        "    \u2013 condenser+fan:refrig-outlet (refrigerant) needs a position \u2192 filter-drier \u2192 cap tube \u2192 foam-assembly evaporator inlet",
-        "    \u2013 condenser+fan:fan-power (electrical) needs a position \u2192 J2 MANIFOLD B FAN + COM (DC-8, 12 V)",
+        "\u2713 condenser+fan: 3/3 connectors located",
         "22 components: no connector positions defined yet"
       ],
       "active": true
