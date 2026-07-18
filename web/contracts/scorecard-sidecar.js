@@ -32,14 +32,28 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  */
 
 /**
+ * @typedef {Object} ScorecardPort  one connector in the audit-readable inventory
+ * @property {string} component  the component name it sits on
+ * @property {string} name       connector id, unique within its component
+ * @property {"fluid"|"refrigerant"|"electrical"} kind
+ * @property {number[]|null} pos [x, y, z] world mm, or null = not yet located
+ * @property {string} face       body face it exits: x-/x+/y-/y+/z-/z+ ("" when unlocated)
+ * @property {number|null} diam  nominal bore Ø mm (the mating dimension), or null = not yet sized
+ * @property {string} mates      the other end, human-readable
+ * @property {"ok"|"off-surface"|"no-pos"|"no-diam"} status
+ * @property {string} note
+ */
+
+/**
  * @typedef {Object} Scorecard
  * @property {boolean} gatesPass  every gate passes
  * @property {number} placed   0..100 — placement criteria defined and held
- * @property {number} located  0..100 — every connector positioned on the component
+ * @property {number} located  0..100 — every connector positioned AND sized on the component
  * @property {number} shaped   0..100 — real geometry, not a placeholder box
  * @property {number} routed   0..100 — connections modeled as real 3D paths
  * @property {number} held     0..100 — a printed holder fastens each component
  * @property {ScorecardCheck[]} checks
+ * @property {ScorecardPort[]} ports  the full connector inventory: every port's coordinate + bore
  */
 
 // True when `o` has the shape the viewer reads. Used by the conformance test and as a client
@@ -51,7 +65,7 @@ export function isScorecard(o) {
     if (typeof o[k] !== "number") return false;
   }
   if (!Array.isArray(o.checks)) return false;
-  return o.checks.every(
+  const checksOk = o.checks.every(
     (c) =>
       c &&
       typeof c.label === "string" &&
@@ -60,4 +74,22 @@ export function isScorecard(o) {
       typeof c.value === "string" &&
       Array.isArray(c.detail),
   );
+  if (!checksOk) return false;
+  // ports is the connector inventory. Present on current sidecars; validated when present so an
+  // older sidecar without it still reads (draws the bar, just no port table).
+  if (o.ports !== undefined) {
+    if (!Array.isArray(o.ports)) return false;
+    const portsOk = o.ports.every(
+      (p) =>
+        p &&
+        typeof p.component === "string" &&
+        typeof p.name === "string" &&
+        (p.pos === null || (Array.isArray(p.pos) && p.pos.length === 3 && p.pos.every((n) => typeof n === "number"))) &&
+        (p.diam === null || typeof p.diam === "number") &&
+        typeof p.mates === "string" &&
+        typeof p.status === "string",
+    );
+    if (!portsOk) return false;
+  }
+  return true;
 }

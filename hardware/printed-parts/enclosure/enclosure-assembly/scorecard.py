@@ -244,15 +244,18 @@ def placement_audit(solids: dict, inner: tuple) -> list[tuple[str, bool, list]]:
     return out
 
 
-# ── Ports (the located axis) — where every connector sits on the component ───
-# A connection has no path until BOTH its ends have a position on a real body. This is the
-# located axis: each component's tube/wire connectors, declared with a world position and the
-# body face it exits, then checked to actually sit on the placed solid's surface. Positions are
-# DERIVED where the part documents its penetrations (foam-shell README §Penetrations;
-# compressor_shroud.py hole centers carried through _contents' rotate+placement). `pos=None`
-# marks a connector whose position is still unknown — a placeholder body, or a real part whose
-# port the donor teardown hasn't pinned — a visible "needs a position", never a silent gap. A
-# component is `located` when it has ports AND every one is positioned and on-surface.
+# ── Ports (the located axis) — where every connector sits on the component, and how big ──
+# A connection has no path until BOTH its ends have a position AND a bore on a real body. This
+# is the located axis: each component's tube/wire connectors, declared with a world position,
+# the body face it exits, and a nominal bore Ø, then checked to actually sit on the placed
+# solid's surface. Positions are DERIVED where the part documents its penetrations (foam-shell
+# README §Penetrations; compressor_shroud.py hole centers carried through _contents'
+# rotate+placement) and PICKED off the model where it doesn't; Ø comes from the line/fitting the
+# port carries (1/4" ACR copper = 6.35, 3/8" hose barb = 9.525, a cable gland, …). `pos=None`
+# marks a connector whose position is still unknown, `diam=None` one still unsized — each a
+# visible "needs a value", never a silent gap. A component is `located` when it has ports AND
+# every one is positioned, on-surface, AND sized — the specificity the PCBA had per pad, so both
+# our routing and the audit can read every coordinate and bore.
 @dataclass
 class Port:
     name: str            # connector id, unique within its component
@@ -260,43 +263,52 @@ class Port:
     kind: str            # "fluid" | "refrigerant" | "electrical"
     pos: tuple | None    # (x, y, z) world coords, or None = not yet located
     face: str            # body face it exits: x-/x+/y-/y+/z-/z+ ("" when pos is None)
+    diam: float | None   # nominal bore Ø in mm — the flow/conductor opening at the port: a
+                         # tube/fitting nominal (1/4"=6.35, 3/8"=9.525), a copper OD, or a
+                         # cable-gland passage. None = not yet sized. This is the mating and
+                         # routing dimension — a coordinate says WHERE a line lands, the Ø says
+                         # WHAT fits there; the PCBA pad-size analog. A port is fully specified
+                         # (and its component `located`) only with both a position AND a Ø.
     mates: str           # the other end, human-readable
     note: str = ""
 
 
-def _p(name, component, kind, pos, face, mates, note=""):
-    return Port(name, component, kind, pos, face, mates, note)
+def _p(name, component, kind, pos, face, diam, mates, note=""):
+    return Port(name, component, kind, pos, face, diam, mates, note)
 
 
 PORTS = [
     # foam-assembly — 8 tube penetrations (foam-shell README §Penetrations, world coords via
     # _contents' placement) + 2 reed-cable exits on the −Y front wall. All on −Y except the CO2
-    # inlet, which drops through the +Z foam-cap top.
-    _p("carb-water-out", "foam-assembly", "fluid",       (141.5, 155.0, 46.5),  "y-", "dispense faucet (carb-water riser to the rear umbilical)"),
-    _p("reservoir-A",    "foam-assembly", "fluid",       (238.5, 155.0, 35.5),  "y-", "reservoir A ↔ peristaltic pump A (bag circuit)"),
-    _p("reservoir-B",    "foam-assembly", "fluid",       (44.5,  155.0, 35.5),  "y-", "reservoir B ↔ peristaltic pump B (bag circuit)"),
-    _p("co2-in",         "foam-assembly", "fluid",       (141.5, 172.8, 262.9), "z+", "CO2 chain (WR1110 → foam-cap top entry)"),
-    _p("evap-inlet",     "foam-assembly", "refrigerant", (141.5, 155.0, 72.0),  "y-", "condenser+fan outlet (liquid line via drier + cap tube)"),
-    _p("evap-outlet",    "foam-assembly", "refrigerant", (141.5, 155.0, 191.0), "y-", "compressor-shroud suction"),
-    _p("water-in",       "foam-assembly", "fluid",       (141.5, 155.0, 223.0), "y-", "SeaFlo diaphragm-pump discharge"),
-    _p("prv-vent",       "foam-assembly", "fluid",       (141.5, 155.0, 231.0), "y-", "appliance interior (relief-event discharge only)"),
-    _p("reed-cable-A",   "foam-assembly", "electrical",  (254.5, 155.0, 35.5),  "y-", "J6 REEDS A — reservoir A level reeds (SIG-10)", "16 mm outboard of reservoir-A (_port_cuts.py)"),
-    _p("reed-cable-B",   "foam-assembly", "electrical",  (28.5,  155.0, 35.5),  "y-", "J7 REEDS B — reservoir B level reeds (SIG-11)", "16 mm outboard of reservoir-B (_port_cuts.py)"),
+    # inlet, which drops through the +Z foam-cap top. Ø: the beverage/flavor lines run the foam
+    # shell's Ø6.5 port-holes (_cold_core_interface.port_hole_radius 3.25) sized for 1/4" tube;
+    # the water-in takes the SeaFlo's 3/8" discharge; the copper legs are 1/4" ACR = 6.35.
+    _p("carb-water-out", "foam-assembly", "fluid",       (141.5, 155.0, 46.5),  "y-", 6.35,  "dispense faucet (carb-water riser to the rear umbilical)", "1/4\" tank NPT elbow line"),
+    _p("reservoir-A",    "foam-assembly", "fluid",       (238.5, 155.0, 35.5),  "y-", 6.35,  "reservoir A ↔ peristaltic pump A (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
+    _p("reservoir-B",    "foam-assembly", "fluid",       (44.5,  155.0, 35.5),  "y-", 6.35,  "reservoir B ↔ peristaltic pump B (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
+    _p("co2-in",         "foam-assembly", "fluid",       (141.5, 172.8, 262.9), "z+", 6.35,  "CO2 chain (WR1110 → foam-cap top entry)", "1/4\" PTC CO2 line; seats in the Ø16 foam-cap bore"),
+    _p("evap-inlet",     "foam-assembly", "refrigerant", (141.5, 155.0, 72.0),  "y-", 6.35,  "condenser+fan outlet (liquid line via drier + cap tube)", "1/4\" ACR copper"),
+    _p("evap-outlet",    "foam-assembly", "refrigerant", (141.5, 155.0, 191.0), "y-", 6.35,  "compressor-shroud suction", "1/4\" ACR copper"),
+    _p("water-in",       "foam-assembly", "fluid",       (141.5, 155.0, 223.0), "y-", 9.525, "SeaFlo diaphragm-pump discharge", "3/8\" hose barb (SeaFlo 22-series port)"),
+    _p("prv-vent",       "foam-assembly", "fluid",       (141.5, 155.0, 231.0), "y-", 6.35,  "appliance interior (relief-event discharge only)", "1/4\" relief discharge"),
+    _p("reed-cable-A",   "foam-assembly", "electrical",  (254.5, 155.0, 35.5),  "y-", 6.5,   "J6 REEDS A — reservoir A level reeds (SIG-10)", "reed cable through the Ø6.5 pass-through, 16 mm outboard of reservoir-A (_port_cuts.py)"),
+    _p("reed-cable-B",   "foam-assembly", "electrical",  (28.5,  155.0, 35.5),  "y-", 6.5,   "J7 REEDS B — reservoir B level reeds (SIG-11)", "reed cable through the Ø6.5 pass-through, 16 mm outboard of reservoir-B (_port_cuts.py)"),
     # compressor-shroud — compressor_shroud.py local hole centers carried through _contents'
     # _rot((0,0,1),−90) + _at(14,0,3). Both copper stubs share the one face → world +Y (toward
     # the foam/cold core they mate to); the AC gland + earth bond ride the +X face (into the
-    # inter-part channel). suction/discharge assigned by world x per the physical loop.
-    _p("ac-mains",        "compressor-shroud", "electrical",  (192.0, 66.5, 78.0),  "x+", "Teyleten relay #1 / AC distribution (AC-4 switched-H + AC-5 N, 3-wire gland)"),
-    _p("earth-bond",      "compressor-shroud", "electrical",  (192.0, 31.5, 78.0),  "x+", "electronics-shelf ground bus (AC-6)"),
-    _p("refrig-suction",  "compressor-shroud", "refrigerant", (59.25, 133.0, 78.0), "y+", "foam-assembly evaporator outlet"),
-    _p("refrig-discharge","compressor-shroud", "refrigerant", (146.75, 133.0, 78.0),"y+", "condenser+fan inlet"),
+    # inter-part channel). suction/discharge assigned by world x per the physical loop. Copper is
+    # 1/4" ACR; the AC gland Ø and earth-stud Ø are estimates pending the shroud teardown.
+    _p("ac-mains",        "compressor-shroud", "electrical",  (192.0, 66.5, 78.0),  "x+", 10.0,  "Teyleten relay #1 / AC distribution (AC-4 switched-H + AC-5 N, 3-wire gland)", "gland bore ~Ø10 for 3-wire mains (estimate — confirm at shroud teardown)"),
+    _p("earth-bond",      "compressor-shroud", "electrical",  (192.0, 31.5, 78.0),  "x+", 5.0,   "electronics-shelf ground bus (AC-6)", "M5 earth stud/ring (estimate — confirm at shroud teardown)"),
+    _p("refrig-suction",  "compressor-shroud", "refrigerant", (59.25, 133.0, 78.0), "y+", 6.35,  "foam-assembly evaporator outlet", "1/4\" ACR copper"),
+    _p("refrig-discharge","compressor-shroud", "refrigerant", (146.75, 133.0, 78.0),"y+", 6.35,  "condenser+fan inlet", "1/4\" ACR copper"),
     # condenser+fan — placeholder box harvested from the donor; ports located from step-viewer
     # picks (2026-07-17). Both refrigerant ports on the −X face (toward the compressor): inlet
     # top-front, outlet bottom-back (drier + cap-tube hang off it). The fan is on the opposite
-    # +X face; airflow runs −X → +X.
-    _p("refrig-inlet",  "condenser+fan", "refrigerant", (213.0, 5.5, 175.5),   "x-", "compressor-shroud discharge"),
-    _p("refrig-outlet", "condenser+fan", "refrigerant", (213.0, 145.5, 8.5),   "x-", "filter-drier → cap tube → foam-assembly evaporator inlet"),
-    _p("fan-power",     "condenser+fan", "electrical",  (269.0, 75.5, 92.0),   "x+", "J2 MANIFOLD B FAN + COM (DC-8, 12 V)", "+X exhaust face (fan centered); airflow −X→+X"),
+    # +X face; airflow runs −X → +X. Copper is 1/4" ACR; the fan pigtail Ø is an estimate.
+    _p("refrig-inlet",  "condenser+fan", "refrigerant", (213.0, 5.5, 175.5),   "x-", 6.35, "compressor-shroud discharge", "1/4\" ACR copper"),
+    _p("refrig-outlet", "condenser+fan", "refrigerant", (213.0, 145.5, 8.5),   "x-", 6.35, "filter-drier → cap tube → foam-assembly evaporator inlet", "1/4\" ACR copper"),
+    _p("fan-power",     "condenser+fan", "electrical",  (269.0, 75.5, 92.0),   "x+", 4.0,  "J2 MANIFOLD B FAN + COM (DC-8, 12 V)", "DC pigtail 2-wire (estimate); +X exhaust face (fan centered); airflow −X→+X"),
 ]
 
 
@@ -312,10 +324,11 @@ def _on_surface(pos, bb, tol) -> bool:
 
 def ports_audit(solids: dict, tol: float = 2.0) -> list[tuple[str, bool, list]]:
     """Group PORTS by component; return (component, all_located, [(port, status)]) where status
-    is 'ok' (positioned + on the placed body's surface), 'off-surface' (a position not on the
-    solid — a drifted/typo'd port), or 'no-pos' (not yet located). A component is located only
-    when every port is 'ok'. Components with no ports declared are not returned — like placement
-    rules, they are simply not-yet-authored."""
+    is 'ok' (positioned + on the placed body's surface + sized), 'off-surface' (a position not on
+    the solid — a drifted/typo'd port), 'no-pos' (not yet located), or 'no-diam' (located but its
+    bore Ø is still unknown). A component is located only when every port is 'ok' — a full
+    coordinate AND bore, the PCBA per-pad specificity. Components with no ports declared are not
+    returned — like placement rules, they are simply not-yet-authored."""
     by_comp: dict[str, list[Port]] = {}
     for p in PORTS:
         by_comp.setdefault(p.component, []).append(p)
@@ -328,6 +341,8 @@ def ports_audit(solids: dict, tol: float = 2.0) -> list[tuple[str, bool, list]]:
                 rows.append((p, "no-pos"))
             elif bb is None or not _on_surface(p.pos, bb, tol):
                 rows.append((p, "off-surface"))
+            elif p.diam is None:
+                rows.append((p, "no-diam"))
             else:
                 rows.append((p, "ok"))
         out.append((comp, all(s == "ok" for _pt, s in rows), rows))
@@ -442,6 +457,11 @@ class Scorecard:
     shaped: int
     routed: int
     held: int
+    ports: list = field(default_factory=list)   # the full connector inventory — every port's
+                                                # component, position, face, bore Ø, mate, and
+                                                # status. Uncapped (unlike check.detail, which
+                                                # DETAIL_MAX trims), so the audit reads every
+                                                # coordinate + diameter straight from the sidecar.
 
 
 def _pct(done: int, total: int) -> int:
@@ -516,21 +536,23 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     goal("placed", "Placement criteria defined and held (face-to-datum)", placed_pct == 100,
          f"{placed_pct}% ({len(placed_held)}/{total})", "100%", placed_detail, active=True)
 
-    # located — FOCUS: every connector (tube + wire) has a position on the component. A
-    # connection has no path until both ends are located, so this is the precondition to routed.
+    # located — FOCUS: every connector (tube + wire) has a position AND a bore on the component.
+    # A connection has no path until both ends are located, so this is the precondition to routed.
     pta = ports_audit(solids)
     located_comps = [r for r in pta if r[1]]
     located_pct = _pct(len(located_comps), total)
-    _pstat = {"off-surface": "⚠ off-surface", "no-pos": "needs a position"}
+    _pstat = {"off-surface": "⚠ off-surface", "no-pos": "needs a position", "no-diam": "needs a bore Ø"}
     located_detail = []
     for comp, ok, prows in pta:
         n_ok = sum(1 for _pt, s in prows if s == "ok")
         located_detail.append(f"{'✓' if ok else '✗'} {comp}: {n_ok}/{len(prows)} connectors located")
         for pt, s in prows:
-            if s != "ok":
-                located_detail.append(f"    – {comp}:{pt.name} ({pt.kind}) {_pstat[s]} → {pt.mates}")
+            xyz = f"({pt.pos[0]:g}, {pt.pos[1]:g}, {pt.pos[2]:g}) {pt.face}" if pt.pos else "no position"
+            od = f"Ø{pt.diam:g}" if pt.diam is not None else "Ø?"
+            tag = "" if s == "ok" else f"  — {_pstat[s]}"
+            located_detail.append(f"    – {comp}:{pt.name} ({pt.kind}) {xyz} {od} → {pt.mates}{tag}")
     located_detail.append(f"{total - len(pta)} components: no connector positions defined yet")
-    goal("located", "Connectors positioned on the component (tubes + wires)", located_pct == 100,
+    goal("located", "Connectors located on the component — position + bore Ø (tubes + wires)", located_pct == 100,
          f"{located_pct}% ({len(located_comps)}/{total})", "100%", located_detail, active=True)
 
     # shaped — FOCUS: real geometry, not a placeholder box/cylinder.
@@ -560,8 +582,18 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
          [f"{len(held_done)} held (through-wall bodies + display); {total - len(held_done)} loose internal parts unheld"],
          active=False)
 
+    # The full connector inventory as structured rows — the audit-readable port table. Every
+    # declared port, with its world coordinate and bore Ø, so the audit reads them directly
+    # (the check.detail strings are a capped human summary; this is the complete record).
+    ports_table = [
+        {"component": comp, "name": pt.name, "kind": pt.kind,
+         "pos": [round(v, 3) for v in pt.pos] if pt.pos else None, "face": pt.face,
+         "diam": pt.diam, "mates": pt.mates, "status": s, "note": pt.note}
+        for comp, _ok, prows in pta for pt, s in prows
+    ]
+
     gates_pass = all(c.status == "pass" for c in checks if c.kind == "gate")
-    return Scorecard(checks, gates_pass, placed_pct, located_pct, shaped, routed, held)
+    return Scorecard(checks, gates_pass, placed_pct, located_pct, shaped, routed, held, ports_table)
 
 
 def scorecard_dict(sc: Scorecard) -> dict:
@@ -581,6 +613,7 @@ def scorecard_dict(sc: Scorecard) -> dict:
              "value": c.value, "target": c.target, "detail": list(c.detail), "active": c.active}
             for c in sc.checks
         ],
+        "ports": list(sc.ports),
     }
 
 
