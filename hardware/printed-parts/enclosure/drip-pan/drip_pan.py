@@ -4,13 +4,11 @@ condensate, or overflow pools in the basin and wets the probe, tripping the
 moisture alarm. Watertight (no drain) — the basin is emptied on service.
 
 Open-top rounded-corner basin: 130 × 66 outer × 22 tall, 2.5 mm walls on a 3 mm
-floor, with the inner corners and the floor-to-wall junction filleted so water
-sheets to the probe and the print cleans easily. Mounting to the compressor top
-is deferred (the held axis) — no bosses or tabs yet.
+floor, with the inner corners and the floor-to-wall junction filleted. No mount
+features; the pan rests on the compressor top.
 
 Frame: +X long axis, +Y depth, +Z up; origin at the lower-front-left outer
-corner, so the assembly's _at() drops it by its bbox min exactly as the
-placeholder basin did. Open top (+Z).
+corner. Open top (+Z).
 
 Run:
     tools/cad-venv/bin/python hardware/printed-parts/enclosure/drip-pan/drip_pan.py

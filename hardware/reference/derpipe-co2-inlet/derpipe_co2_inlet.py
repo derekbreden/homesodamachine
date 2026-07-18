@@ -3,14 +3,13 @@ appliance's `co2-inlet` on the front panel. The NPT stub threads through the
 front-wall hole and carries the CO2 chain inboard (→ GASHER → WR1110); the PTC
 collet stands proud outboard where the customer's 5/16" CO2 tube pushes in.
 
-External envelope only — a PTC collet body, a wrench hex, and a plain-cylinder
-NPT shank (the repo's no-thread-helix convention). AirTAC NPC5/16-1/4 class
-reference: ~1.06" overall, 9/16" hex, 1/4" NPT. The old placeholder was two
-plain cylinders (collet + shank) that omitted the hex entirely; this adds it.
+External envelope only — a PTC collet body, a 9/16" wrench hex, and a
+plain-cylinder NPT shank. AirTAC NPC5/16-1/4 class reference: 1.06" overall,
+1/4" NPT.
 
-Frame: +Y = flow axis (matches the enclosure placement, _cyl(..., (0, 1, 0)));
-the PTC collet is at the -Y end (outboard), the NPT shank at +Y (inboard,
-through the wall). Centered on X/Z, +Z up.
+Frame: +Y = flow axis (matches the enclosure placement); the PTC collet is at
+the -Y end (outboard), the NPT shank at +Y (inboard, through the wall).
+Centered on X/Z, +Z up.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/derpipe-co2-inlet/derpipe_co2_inlet.py

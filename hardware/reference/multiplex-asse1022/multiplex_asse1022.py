@@ -3,15 +3,12 @@ ABF-1) — the appliance's `multiplex` in the enclosure pack, inline on the wate
 path over the drip pan, its atmospheric-vent barb pointing down into the pan.
 
 External envelope only. A brass hex barrel along the flow axis with a radial
-atmospheric-vent barb. The internal dual-check + vent mechanism is not modeled,
-and the threaded ends aren't broken out of the hex (envelope only, cf.
-gasher-check-valve / co2-coupling-body). Dimensions off the Welbilt spec sheet
-5030A: 2.55" long, 1.12" max across-flats hex. The hex inscribes the old Ø33
-across-corners placeholder cylinder, so the real shape is strictly smaller.
+atmospheric-vent barb; the internal dual-check + vent mechanism and the threaded
+ends are not modeled. Dimensions off the Welbilt spec sheet 5030A: 2.55" long,
+Ø33 across the hex corners (1.12" across flats).
 
-Frame — matches the enclosure placement this replaces (a hex body raised on a
-downward vent barb): +X = flow axis; the vent barb runs down to Z = 0 (its tip,
-the bbox floor, seats toward the pan); body centered on Y. +Z up.
+Frame: +X = flow axis; the vent barb runs down to Z = 0 (its tip, the bbox
+floor, seats toward the pan); body centered on Y. +Z up.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/multiplex-asse1022/multiplex_asse1022.py
@@ -27,7 +24,7 @@ _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 from _cadq_export import export_step
 
-HEX_ACROSS_CORNERS = 33.0   # inscribes the old Ø33 placeholder cylinder (28.6 across flats)
+HEX_ACROSS_CORNERS = 33.0   # hex circumdiameter (28.6 across flats)
 BODY_LENGTH = 65.0          # along the flow axis (2.55")
 VENT_D = 8.0                # atmospheric-vent barb Ø
 VENT_DROP = 10.5            # barb reach below the body bottom, to the pan

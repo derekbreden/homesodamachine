@@ -5,8 +5,8 @@ top/bottom foam-cap stacks — two pump assemblies (Kamoer pump + outlet
 elbows), the compressor shroud, the PCBA assembly, the power assembly, the
 DC distribution block, the DIGITEN flow sensor, the GASHER check valves, the
 Multiplex + WR1110 regulators, the DERPIPE CO2 inlet, the MQ-6 + moisture
-sensors, the panel bulkheads + C14). Placeholder primitives for the parts that
-have no STEP yet (condenser+fan, SeaFlo diaphragm pump, the drip pan). Not
+sensors, the drip pan, the panel bulkheads + C14). Placeholder primitives for
+the parts that have no STEP yet (condenser+fan, SeaFlo diaphragm pump). Not
 everything is packed: the three valve-manifold trays
 (source-select, bag-circuit, nozzle-gate) have no placement yet — the
 fluid topology (/hardware/topology/fluid-topology.md) defines what each
@@ -113,10 +113,10 @@ JG_BULKHEAD    = _hw / "reference" / "jg-bulkhead-union" / "jg-bulkhead-union.st
 IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 DRIP_PAN_STEP  = _hw / "printed-parts" / "enclosure" / "drip-pan" / "drip-pan.step"
 
-# --- Placeholder dimensions + placement-reference constants ---------------
-# The parts still packed as primitives (condenser+fan, SeaFlo, the drip pan).
-# The other former placeholders are real STEPs now (reference/*, loaded above);
-# a few of their nominal dims stay below purely to anchor their placements.
+# --- Primitive dimensions + placement anchors ----------------------------
+# Condenser+fan and the SeaFlo pump are packed as primitive boxes (dimensions
+# below); the rest are placement anchors — nominal dims that position the
+# STEP-loaded parts against their datums.
 # Condenser + fan harvested from the donor ice maker, with the donor's own
 # factory filter-drier + capillary-tube subassembly brazed to its outlet and
 # kept in service (hardware/reference/ice-maker/README.md "Filter-drier" — the
@@ -128,14 +128,13 @@ DRIP_PAN_STEP  = _hw / "printed-parts" / "enclosure" / "drip-pan" / "drip-pan.st
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # SeaFlo 22-Series diaphragm pump, body only (sans mounting brackets).
 SEAFLO_DIMS = (75.0, 60.0, 175.0)
-# CO2-chain placement anchors (the fittings themselves are real STEPs now):
-# WR1110_D centers the regulator on the inlet axis, GASHER_D centers the check
-# valve, and GASHER_L spaces the WR1110 one check-valve length down the chain.
+# CO2-chain placement anchors: WR1110_D centers the regulator on the inlet
+# axis, GASHER_D centers the check valve, GASHER_L spaces the WR1110 one
+# check-valve length down the chain.
 WR1110_D = 21.0
 GASHER_D, GASHER_L = 17.0, 40.0
-# Drip pan — a real printed part now (printed-parts/enclosure/drip-pan). PAN_FLOOR
-# and PAN_Z stay as placement references: they seat the moisture plate on the pan
-# floor and the Multiplex above it.
+# Drip-pan placement anchors: PAN_FLOOR seats the moisture plate on the pan
+# floor, PAN_Z the Multiplex above it.
 PAN_Z, PAN_FLOOR = 22.0, 3.0
 
 # Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it.
@@ -205,9 +204,8 @@ C14_BACK_Z = 295.0
 CO2_INLET_X = 46.0
 CO2_INLET_Z = 234.0
 CO2_HOLE_D = 14.5            # clears the DERPIPE's 1/4" NPT shank (Ø~13.7 major)
-# The DERPIPE fitting is a real STEP now (reference/derpipe-co2-inlet).
-# DERPIPE_BODY_L stays as the outboard reach that seats the collet face proud
-# of the front wall (the model's outboard face is at its Y origin).
+# DERPIPE_BODY_L: the outboard reach that seats the collet face proud of the
+# front wall (the model's outboard face is at its Y origin).
 DERPIPE_BODY_L = 17.0
 
 

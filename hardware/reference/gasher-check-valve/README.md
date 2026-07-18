@@ -13,19 +13,15 @@ Fluid roles are in `hardware/topology/fluid-topology.md`.
 
 External envelope only — a hex barrel with a male NPT stub each end. The
 internal spring + poppet is not modeled, and the NPT threads are plain
-cylinders at the nominal major Ø (the repo's no-thread-helix convention, as in
-`jg-bulkhead-union` and `co2-coupling-body`).
+cylinders at the nominal major Ø.
 
 | dimension | value | note |
 |---|---|---|
 | flow-axis length | 40 mm | off the manufacturer's dimensioned drawing |
-| hex across corners | 17 mm | inscribes the old Ø17 placeholder cylinder |
+| hex across corners | 17 mm | circumdiameter |
 | hex across flats | 14.72 mm | 17 · √3/2 |
 | hex barrel length | 18 mm | |
 | NPT stub | Ø13.7 × 11 mm each | 1/4" NPT major Ø, simplified |
-
-The hex is strictly smaller than the Ø17 cylinder it replaced, so swapping it
-into the pack only relaxes clearance.
 
 Frame: **+Y = flow axis** (matches the enclosure placement), centered on X/Z,
 +Z up.
