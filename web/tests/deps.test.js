@@ -121,16 +121,18 @@ test("short basenames don't substring-match longer step names (collision regress
 
 test("the import walk continues THROUGH a generator that doubles as a base module (regression)", () => {
   // single_tray is imported by bag_circuit_tray, which is itself imported by
-  // bib_gate_tray / nozzle_gate_tray / source_select_tray (they build on the
-  // tray's python, not its .step — so the STEP-load cascade can't catch them).
-  // Stopping the walk at the first runnable left bib-gate-tray.step stale when
-  // single_tray changed; the walk must recurse past bag_circuit_tray.
+  // bag_circuit_assembly / nozzle_gate_tray / source_select_tray (they build on
+  // the tray's python, not its .step — so the STEP-load cascade can't catch
+  // them), and nozzle_gate_tray is in turn imported by nozzle_gate_assembly.
+  // Stopping the walk at the first runnable would leave nozzle-gate-tray.step
+  // stale when single_tray changed; the walk must recurse past bag_circuit_tray
+  // (and then past nozzle_gate_tray) even though both are runnable generators.
   const deps = findRunnableScriptsTransitivelyImporting("single_tray", ROOTS);
   for (const downstream of [
     "bag-circuit-tray/bag_circuit_tray.py",
-    "bib-gate-tray/bib_gate_tray.py",
-    "bib-gate-tray/bib_gate_assembly.py",
+    "bag-circuit-tray/bag_circuit_assembly.py",
     "nozzle-gate-tray/nozzle_gate_tray.py",
+    "nozzle-gate-tray/nozzle_gate_assembly.py",
     "source-select-tray/source_select_tray.py",
   ]) {
     assert.ok(
