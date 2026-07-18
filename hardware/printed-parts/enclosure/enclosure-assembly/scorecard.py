@@ -51,6 +51,10 @@ from pathlib import Path
 # to an approximation rather than crashing.
 try:
     from OCP.BRepExtrema import BRepExtrema_DistShapeShape
+    from OCP.BRepBuilderAPI import BRepBuilderAPI_MakeVertex
+    from OCP.BRep import BRep_Builder
+    from OCP.TopoDS import TopoDS_Compound
+    from OCP.gp import gp_Pnt
     _HAVE_EXACT = True
 except Exception:  # pragma: no cover - environment guard
     _HAVE_EXACT = False
@@ -351,16 +355,19 @@ PORTS = [
     # Hopper funnel — the removable silicone basin's single drain at the bottom-centre of its
     # envelope, feeding the shared source (V-B hopper gate). One fluid port.
     _p("drain", "hopper-funnel", "fluid", (193.75, 63.3, 306.5), "z-", 6.35, "V-B hopper gate → shared source (channel split)", "funnel drain; bottom-centre of the basin, line Ø est"),
-    # Flavor pumps (Kamoer KPHM400, P-A + P-B) — each pump's two JG PP0308E elbow collets point
-    # +Z (tube pushes down in); the collet-face centres are extracted from the placed geometry
-    # (the barbs sit on the pump body, the elbows turn the line up). The 2-wire DC motor lead
-    # exits the motor end (+Y). in/out follow the flavor manifold (P-A: Y-C→Y-D, P-B: Y-F→Y-G).
-    _p("inlet",  "pump-assembly-1", "fluid",      (98.4, 103.3, 305.5),  "z+", 6.35, "Y-C → P-A-I (channel A source select)", "JG PP0308E elbow collet; 1/4\" flavor line"),
-    _p("outlet", "pump-assembly-1", "fluid",      (155.4, 103.3, 305.5), "z+", 6.35, "P-A-O → Y-D (channel A to bag/nozzle)", "JG PP0308E elbow collet; 1/4\" flavor line"),
-    _p("motor",  "pump-assembly-1", "electrical", (126.8, 130.9, 260.0), "y+", 4.0,  "L298N channel A / 12 V DC drive", "2-wire DC motor lead; Ø est"),
-    _p("inlet",  "pump-assembly-2", "fluid",      (204.4, 103.3, 273.5), "z+", 6.35, "Y-F → P-B-I (channel B source select)", "JG PP0308E elbow collet; 1/4\" flavor line"),
-    _p("outlet", "pump-assembly-2", "fluid",      (261.4, 103.3, 273.5), "z+", 6.35, "P-B-O → Y-G (channel B to bag/nozzle)", "JG PP0308E elbow collet; 1/4\" flavor line"),
-    _p("motor",  "pump-assembly-2", "electrical", (232.8, 130.9, 228.75), "y+", 4.0, "L298N channel B / 12 V DC drive", "2-wire DC motor lead; Ø est"),
+    # Flavor pumps (Kamoer KPHM400, P-A + P-B) — each pump's two JG PP0308E elbows seat their −Z
+    # leg on a barb at the pump body's top and turn the line to −Y, so the tube pushes into the
+    # free collet facing −Y; those two collet-face centres are the elbow solid's only openings
+    # (pump_assembly.py's `_elbow`, measured on the placed geometry). The 2-wire DC motor lead
+    # exits the motor can's far end at −Y — kamoer_kphm400's `motor_body`, the +Z end of the
+    # pump-local depth axis, which _contents' rotate-90-about-X turns to −Y. in/out follow the
+    # flavor manifold (P-A: Y-C→Y-D, P-B: Y-F→Y-G).
+    _p("inlet",  "pump-assembly-1", "fluid",      (98.37, 90.94, 298.17),  "y-", 6.35, "Y-C → P-A-I (channel A source select)", "JG PP0308E elbow collet; 1/4\" flavor line"),
+    _p("outlet", "pump-assembly-1", "fluid",      (155.37, 90.94, 298.17), "y-", 6.35, "P-A-O → Y-D (channel A to bag/nozzle)", "JG PP0308E elbow collet; 1/4\" flavor line"),
+    _p("motor",  "pump-assembly-1", "electrical", (126.87, 4.0, 247.30),   "y-", 4.0,  "L298N channel A / 12 V DC drive", "2-wire DC motor lead off the motor-can end face; Ø est"),
+    _p("inlet",  "pump-assembly-2", "fluid",      (204.37, 90.94, 266.17), "y-", 6.35, "Y-F → P-B-I (channel B source select)", "JG PP0308E elbow collet; 1/4\" flavor line"),
+    _p("outlet", "pump-assembly-2", "fluid",      (261.37, 90.94, 266.17), "y-", 6.35, "P-B-O → Y-G (channel B to bag/nozzle)", "JG PP0308E elbow collet; 1/4\" flavor line"),
+    _p("motor",  "pump-assembly-2", "electrical", (232.87, 4.0, 215.31),   "y-", 4.0, "L298N channel B / 12 V DC drive", "2-wire DC motor lead off the motor-can end face; Ø est"),
     # DIGITEN flow sensor — the dispense-side meter on the carb-water riser. Its two G1/4 PTC
     # collet bodies face ±Y (the +Y one toward the foam front, the −Y toward the umbilical run);
     # the 3-wire pigtail exits +Z. Collet centres extracted from the placed geometry; 1/4" tube
@@ -421,14 +428,41 @@ PORTS = [
 PASSIVE_NO_PORTS = frozenset({"drip-pan"})
 
 
-def _on_surface(pos, bb, tol) -> bool:
+def _on_bbox_surface(pos, bb, tol) -> bool:
     """True when `pos` lies on the bounding box's surface: inside (+tol) on every axis AND
-    flush against at least one face (so a point floating in the body's interior fails)."""
+    flush against at least one face."""
     x, y, z = pos
     axes = ((x, bb.xmin, bb.xmax), (y, bb.ymin, bb.ymax), (z, bb.zmin, bb.zmax))
     inside = all(lo - tol <= v <= hi + tol for v, lo, hi in axes)
     on_face = any(abs(v - lo) <= tol or abs(v - hi) <= tol for v, lo, hi in axes)
     return inside and on_face
+
+
+def _face_shell(solid):
+    """The solid's faces as one compound. Distance to a solid is 0 anywhere inside it; distance
+    to its faces is the distance to its surface, which is what a port sits on."""
+    comp = TopoDS_Compound()
+    builder = BRep_Builder()
+    builder.MakeCompound(comp)
+    for f in solid.Faces():
+        builder.Add(comp, f.wrapped)
+    return comp
+
+
+def _on_surface(pos, solid, shell, diam, tol) -> bool:
+    """True when `pos` sits on the body's real surface. A port names the mouth of the bore it
+    carries, so the allowance is one bore radius — the distance from a bore's centre out to its
+    rim — plus tol. An opening is wherever the body has one: the free collet of an elbow, a
+    connector on a populated board, a hole in a wall. Degrades to the bounding box when the exact
+    kernel is unavailable."""
+    if not _HAVE_EXACT or shell is None:
+        return _on_bbox_surface(pos, solid.BoundingBox(), tol)
+    v = BRepBuilderAPI_MakeVertex(gp_Pnt(*pos)).Vertex()
+    dss = BRepExtrema_DistShapeShape(v, shell)
+    dss.Perform()
+    if not dss.IsDone():
+        return _on_bbox_surface(pos, solid.BoundingBox(), tol)
+    return dss.Value() <= (diam or 0.0) / 2.0 + tol
 
 
 def ports_audit(solids: dict, tol: float = 2.0) -> list[tuple[str, bool, list]]:
@@ -445,12 +479,13 @@ def ports_audit(solids: dict, tol: float = 2.0) -> list[tuple[str, bool, list]]:
     assert not contradiction, f"declared connector-free but has ports: {sorted(contradiction)}"
     out = []
     for comp, ports in by_comp.items():
-        bb = solids[comp].BoundingBox() if comp in solids else None
+        solid = solids.get(comp)
+        shell = _face_shell(solid) if (solid is not None and _HAVE_EXACT) else None
         rows = []
         for p in ports:
             if p.pos is None:
                 rows.append((p, "no-pos"))
-            elif bb is None or not _on_surface(p.pos, bb, tol):
+            elif solid is None or not _on_surface(p.pos, solid, shell, p.diam, tol):
                 rows.append((p, "off-surface"))
             elif p.diam is None:
                 rows.append((p, "no-diam"))

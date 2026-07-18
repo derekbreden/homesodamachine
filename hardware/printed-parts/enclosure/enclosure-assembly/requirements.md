@@ -57,8 +57,11 @@ gray) until the focus is met:
   rules defined but violated are a visible drift; no rules yet is not-started. Rules are
   re-definable as the design iterates — authoring one, and holding it, are the milestones.
 - **located** *(focus)* — every connector (tube *and* wire) has a POSITION **and a bore Ø** on
-  the component: a point the scorecard confirms sits on the placed body's surface, with the
-  body face it exits, the nominal bore of the line it carries, and what it mates to. A
+  the component: a point the scorecard confirms sits on the placed body's real surface — within
+  a bore radius of an actual face, so an opening counts wherever the body has one (the free
+  collet of an elbow, a connector on a populated board) and a point in the open air over a
+  bounding box does not — with the body face it exits, the nominal bore of the line it carries,
+  and what it mates to. A
   coordinate says *where* a line lands; the Ø says *what* fits there — the PCBA had both per
   pad (a position and a copper/drill size), and routing needs both here (a tube's bend and
   clearance depend on its diameter). A connection has no path until *both* its ends are
@@ -186,20 +189,21 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   earns a set of face-to-datum measurements that pin its intended position, and those must
   measurably hold. Rules iterate as the design moves — a redefinition is expected, not a
   failure.
-- **Locate every connector — done (`located` 100%).** All 25 components carry full port sets:
-  73 ports (34 fluid, 6 refrigerant, 33 electrical), each with a position *and a bore Ø*, every
-  one on-surface. Positions are derived from the part's own record where one exists (foam
-  penetrations, compressor holes, the CO2/water fittings' flow-face centres, the Kamoer elbow
-  collets extracted from geometry, the PCBA's 13 edge connectors mapped exactly from `pcba.tsx`
-  through the mounting-hole transform), and Ø from the line or fitting the port carries. The
-  drip pan is declared connector-free (passive). **Follow-ups the inventory flags in its notes,
-  none blocking:** 11 ports are provisional — the SeaFlo's barbs (placeholder box, awaiting the
-  real pump geometry), the display's harness (connector not in the STEP), and the DC-dist +
-  power-tray terminals (device terminals inside the tray not individually modelled); a viewer
-  pick pins any of them. A handful of electrical bores (glands, headers, looms) are noted
-  estimates pending teardown. And the physical CO2 order (DERPIPE → check → regulator, which the
-  ports follow) disagrees with the carbonator schematic (regulator → check) — a placement
-  question, not a port one.
+- **Locate every connector (`located` 80%).** All 25 components carry full port sets — 73 ports
+  (34 fluid, 6 refrigerant, 33 electrical), each with a position *and* a bore Ø — and 56 of them
+  sit on their body's real surface. Positions are derived from the part's own record where one
+  exists (foam penetrations, compressor holes, the CO2/water fittings' flow-face centres, the
+  Kamoer elbows' free collets measured off the placed geometry), and Ø from the line or fitting
+  the port carries. The drip pan is declared connector-free (passive).
+  **17 ports read `off-surface` — a coordinate on the body's bounding box but not on the body:**
+  all 10 of the PCBA's Ø-flagged edge connectors and its 3 neighbours sit at the board's bbox
+  top, ~10.5 mm above the plane the connectors stand on, so the `pcba.tsx` mapping needs its Z
+  re-solved against the board's real top face; the 4 power-tray terminals, the display harness,
+  the hopper drain, and the compressor's AC gland are the provisional ones (device terminals not
+  individually modelled, connector not in the STEP) that a viewer pick pins. A handful of
+  electrical bores (glands, headers, looms) are noted estimates pending teardown. And the
+  physical CO2 order (DERPIPE → check → regulator, which the ports follow) disagrees with the
+  carbonator schematic (regulator → check) — a placement question, not a port one.
 - **Make the placeholders real.** Eight components are boxes/cylinders with real dimensions
   but not real geometry (the condenser, SeaFlo, Multiplex, WR1110, DERPIPE, MQ-6, drip-pan,
   moisture plate). Convert each to real STEP / engineered geometry.
