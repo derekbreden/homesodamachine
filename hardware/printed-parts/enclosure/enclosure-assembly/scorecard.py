@@ -107,17 +107,17 @@ COMPONENTS = [
     _c("foam-assembly",     "real",        True,  "none", "cold core; seats on floor/against walls, support-ring TBD (enclosure-mechanical Open #6)"),
     _c("compressor-shroud", "real",        True,  "none", "floor-boss capture TBD (enclosure-mechanical Open #1)"),
     _c("condenser+fan",     "placeholder", True,  "none", "harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)"),
-    _c("mq6-sensor",        "placeholder", True,  "none", "floor gas sensor; no mount"),
+    _c("mq6-sensor",        "real",        True,  "none", "MQ-6 module STEP (PCB + sensor can + header); floor gas sensor, no mount"),
     # Water deck
     _c("drip-pan",          "placeholder", False, "none", "printed pan, no CAD yet — dims estimated, part+design TBD (enclosure-mechanical Open #4)"),
-    _c("moisture-sensor",   "placeholder", True,  "none", "Shutao probe plate; lies in the pan, unfastened"),
-    _c("multiplex",         "placeholder", True,  "none", "ASSE 1022 backflow preventer; floats over the pan, no mount"),
+    _c("moisture-sensor",   "real",        True,  "none", "Shutao probe plate STEP (flat board + lead holes); lies in the pan, unfastened"),
+    _c("multiplex",         "real",        True,  "none", "ASSE 1022 backflow preventer (hex-barrel STEP + vent barb); floats over the pan, no mount"),
     _c("seaflo-pump",       "placeholder", True,  "none", "diaphragm pump; feet splay to ~98, no mount modeled"),
     _c("gasher-water",      "real",        True,  "none", "GASHER check valve (hex barrel STEP); rides the seaflo top, unfastened"),
     _c("digiten-flow",      "real",        True,  "none", "flow sensor; rests on the seaflo top, unfastened"),
     # CO2 chain
     _c("gasher-co2",        "real",        True,  "none", "GASHER check valve (hex barrel STEP); on the CO2 inlet chain, unfastened"),
-    _c("wr1110",            "placeholder", True,  "none", "secondary regulator; bracket geometry TBD (front-panel README)"),
+    _c("wr1110",            "real",        True,  "none", "WR1110 regulator STEP (body between two wrench hexes); bracket geometry TBD (front-panel README)"),
     # Flavor pumps
     _c("pump-assembly-1",   "real",        True,  "none", "Kamoer pump; rests on the seaflo top, unfastened"),
     _c("pump-assembly-2",   "real",        True,  "none", "Kamoer pump; rests on the condenser top, unfastened"),
@@ -131,7 +131,7 @@ COMPONENTS = [
     _c("bulkhead-carb",     "real",        True,  "wall-capture", "JG bulkhead: rear-wall hole + its own nut"),
     _c("bulkhead-water",    "real",        True,  "wall-capture", "JG bulkhead: rear-wall hole + its own nut"),
     _c("c14-inlet",         "real",        True,  "wall-capture", "C14 mains inlet: rear-wall cutout + its own flange"),
-    _c("co2-inlet",         "placeholder", True,  "wall-capture", "DERPIPE PTC: front-wall hole + its own 1/4\" NPT thread"),
+    _c("co2-inlet",         "real",        True,  "wall-capture", "DERPIPE PTC STEP (collet + wrench hex + NPT shank): front-wall hole + its own 1/4\" NPT thread"),
     # Front-panel / opening
     _c("display",           "real",        True,  "shell-facet", "Waveshare 4.3B: 45° facet housing in the front-top (bezel counterbore + PCB through-hole)"),
     _c("hopper-funnel",     "real",        True,  "none", "removable silicone basin; rests on the top-wall rim ledge, attach mode TBD (enclosure-mechanical Open #3)"),
