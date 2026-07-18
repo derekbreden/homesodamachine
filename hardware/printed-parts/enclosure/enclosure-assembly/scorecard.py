@@ -309,6 +309,18 @@ PORTS = [
     _p("refrig-inlet",  "condenser+fan", "refrigerant", (213.0, 5.5, 175.5),   "x-", 6.35, "compressor-shroud discharge", "1/4\" ACR copper"),
     _p("refrig-outlet", "condenser+fan", "refrigerant", (213.0, 145.5, 8.5),   "x-", 6.35, "filter-drier → cap tube → foam-assembly evaporator inlet", "1/4\" ACR copper"),
     _p("fan-power",     "condenser+fan", "electrical",  (269.0, 75.5, 92.0),   "x+", 4.0,  "J2 MANIFOLD B FAN + COM (DC-8, 12 V)", "DC pigtail 2-wire (estimate); +X exhaust face (fan centered); airflow −X→+X"),
+    # CO2 chain (front-left column) — the DERPIPE front-panel inlet carries the line inboard,
+    # through the GASHER check and the WR1110 regulator, up to the foam-cap co2-in. All run the
+    # +Y flow axis (fitting flow-face centers from the placed bboxes); the DERPIPE steps the
+    # customer's 5/16" PTC down to the 1/4" NPT chain, everything downstream 1/4". This is the
+    # second connection with both ends of every segment located — the CO2 spine, like the
+    # refrigerant loop before it.
+    _p("tube-in",  "co2-inlet", "fluid", (46.0, -22.0, 234.0),  "y-", 7.94, "customer CO2 supply — 5/16\" push-to-connect (rear umbilical)", "5/16\" PTC collet, outboard"),
+    _p("npt-out",  "co2-inlet", "fluid", (46.0, 5.0, 234.0),    "y+", 6.35, "gasher-co2 in", "1/4\" NPT shank, inboard"),
+    _p("in",  "gasher-co2", "fluid", (46.0, 14.0, 232.85), "y-", 6.35, "co2-inlet npt-out", "1/4\" NPT stub"),
+    _p("out", "gasher-co2", "fluid", (46.0, 54.0, 232.85), "y+", 6.35, "wr1110 in", "1/4\" NPT stub"),
+    _p("in",  "wr1110", "fluid", (46.0, 55.0, 233.0),  "y-", 6.35, "gasher-co2 out", "1/4\" CO2 inlet hex"),
+    _p("out", "wr1110", "fluid", (46.0, 112.0, 233.0), "y+", 6.35, "foam-assembly co2-in (CO2 line up to the foam-cap top)", "1/4\" CO2 outlet hex"),
 ]
 
 
