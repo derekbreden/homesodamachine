@@ -2,7 +2,7 @@
   "gatesPass": false,
   "placed": 12,
   "located": 8,
-  "shaped": 68,
+  "shaped": 88,
   "routed": 0,
   "held": 28,
   "checks": [
@@ -129,17 +129,12 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "68% (17/25)",
+      "value": "88% (22/25)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)",
-        "mq6-sensor: still a placeholder \u2014 floor gas sensor; no mount",
         "drip-pan: still a placeholder \u2014 printed pan, no CAD yet \u2014 dims estimated, part+design TBD (enclosure-mechanical Open #4)",
-        "moisture-sensor: still a placeholder \u2014 Shutao probe plate; lies in the pan, unfastened",
-        "multiplex: still a placeholder \u2014 ASSE 1022 backflow preventer; floats over the pan, no mount",
-        "seaflo-pump: still a placeholder \u2014 diaphragm pump; feet splay to ~98, no mount modeled",
-        "wr1110: still a placeholder \u2014 secondary regulator; bracket geometry TBD (front-panel README)",
-        "co2-inlet: still a placeholder \u2014 DERPIPE PTC: front-wall hole + its own 1/4\" NPT thread"
+        "seaflo-pump: still a placeholder \u2014 diaphragm pump; feet splay to ~98, no mount modeled"
       ],
       "active": true
     },
