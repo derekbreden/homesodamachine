@@ -3,11 +3,11 @@
 Detailed STEP imports where they exist (cold-core foam assembly — shell +
 top/bottom foam-cap stacks — two pump assemblies (Kamoer pump + outlet
 elbows), the compressor shroud, the PCBA assembly, the power assembly, the
-DC distribution block, the DIGITEN flow sensor, the panel bulkheads + C14).
-Placeholder primitives for parts that have no STEP yet (condenser+fan,
-SeaFlo diaphragm pump, Multiplex backflow preventer, WR1110 regulator,
-GASHER check valves, DERPIPE CO2 inlet, drip pan + moisture sensor, MQ-6
-gas sensor). Not everything is packed: the three valve-manifold trays
+DC distribution block, the DIGITEN flow sensor, the GASHER check valves,
+the panel bulkheads + C14). Placeholder primitives for parts that have no
+STEP yet (condenser+fan, SeaFlo diaphragm pump, Multiplex backflow
+preventer, WR1110 regulator, DERPIPE CO2 inlet, drip pan + moisture sensor,
+MQ-6 gas sensor). Not everything is packed: the three valve-manifold trays
 (source-select, bag-circuit, nozzle-gate) have no placement yet — the
 fluid topology (/hardware/topology/fluid-topology.md) defines what each
 plumbs to — and are deferred here while their in-box homes are settled.
@@ -103,6 +103,7 @@ POWER_ASSEMBLY = _hw / "printed-parts" / "electronics" / "power-tray" / "power-a
 PCBA_ASSEMBLY  = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-assembly.step"
 DC_DIST        = _hw / "reference" / "dc-dist-block" / "dc-dist-block.step"
 DIGITEN_FLOW   = _hw / "reference" / "digiten-flow-sensor" / "digiten-flow-sensor.step"
+GASHER_CHECK   = _hw / "reference" / "gasher-check-valve" / "gasher-check-valve.step"
 JG_BULKHEAD    = _hw / "reference" / "jg-bulkhead-union" / "jg-bulkhead-union.step"
 IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 
@@ -130,8 +131,10 @@ MULTIPLEX_VENT_D, MULTIPLEX_VENT_L = 8.0, 10.5
 # Series" fixed preset with no adjustment knob (only two wrench hexes + a flush
 # vent hole): ~Ø21 across the hex corners × 57 mm. The old 1.31"/3.19" figures
 # were the package, not the part (the ~45 g item weight confirms the small
-# body). GASHER 1/4" NPT check valves — ~Ø17 × 40 mm, read off the
-# manufacturer's dimensioned drawing (a hex barrel).
+# body). GASHER 1/4" NPT check valves are a real STEP now (a hex barrel,
+# reference/gasher-check-valve); GASHER_D/GASHER_L stay as the nominal
+# envelope for centering the two placements and spacing the WR1110 down the
+# CO2 chain.
 WR1110_D, WR1110_L = 21.0, 57.0
 GASHER_D, GASHER_L = 17.0, 40.0
 # Printed drip pan under the Multiplex vent (no CAD yet). Depth stops short of
@@ -332,13 +335,13 @@ def build():
     # front face; the SeaFlo may not pinch that channel shut.
     placed["seaflo-pump"] = _at(seaflo, SIDE_RIB_INSET, 72.0, comp_top_z + 1.0)
     seaflo_top = comp_top_z + 1.0 + sf_d
-    placed["gasher-water"] = _at(_cyl(GASHER_D, GASHER_L, (0, 1, 0)), 68.0, 84.0, seaflo_top)
+    placed["gasher-water"] = _at(_load(GASHER_CHECK), 68.0, 84.0, seaflo_top)
     placed["digiten-flow"] = _at(_load(DIGITEN_FLOW), 91.0, 132.0, seaflo_top + 0.5)
 
     # --- CO2 chain, front-left: the DERPIPE inlet's inboard NPT stub carries
     # the GASHER check, then the WR1110 secondary regulator, running +Y over
     # the Multiplex.
-    placed["gasher-co2"] = _at(_cyl(GASHER_D, GASHER_L, (0, 1, 0)),
+    placed["gasher-co2"] = _at(_load(GASHER_CHECK),
                                CO2_INLET_X - GASHER_D / 2.0, 14.0, CO2_INLET_Z - GASHER_D / 2.0)
     placed["wr1110"] = _at(_cyl(WR1110_D, WR1110_L, (0, 1, 0)),
                            CO2_INLET_X - WR1110_D / 2.0, 14.0 + GASHER_L + 1.0, CO2_INLET_Z - WR1110_D / 2.0)

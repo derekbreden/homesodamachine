@@ -1,7 +1,7 @@
 {
   "gatesPass": false,
   "placed": 12,
-  "shaped": 60,
+  "shaped": 68,
   "routed": 0,
   "held": 28,
   "checks": [
@@ -110,7 +110,7 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "60% (15/25)",
+      "value": "68% (17/25)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)",
@@ -119,8 +119,6 @@
         "moisture-sensor: still a placeholder \u2014 Shutao probe plate; lies in the pan, unfastened",
         "multiplex: still a placeholder \u2014 ASSE 1022 backflow preventer; floats over the pan, no mount",
         "seaflo-pump: still a placeholder \u2014 diaphragm pump; feet splay to ~98, no mount modeled",
-        "gasher-water: still a placeholder \u2014 outlet check valve; rests on the seaflo top, unfastened",
-        "gasher-co2: still a placeholder \u2014 CO2 check valve; on the inlet chain, unfastened",
         "wr1110: still a placeholder \u2014 secondary regulator; bracket geometry TBD (front-panel README)",
         "co2-inlet: still a placeholder \u2014 DERPIPE PTC: front-wall hole + its own 1/4\" NPT thread"
       ],

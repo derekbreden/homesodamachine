@@ -110,10 +110,10 @@ COMPONENTS = [
     _c("moisture-sensor",   "placeholder", True,  "none", "Shutao probe plate; lies in the pan, unfastened"),
     _c("multiplex",         "placeholder", True,  "none", "ASSE 1022 backflow preventer; floats over the pan, no mount"),
     _c("seaflo-pump",       "placeholder", True,  "none", "diaphragm pump; feet splay to ~98, no mount modeled"),
-    _c("gasher-water",      "placeholder", True,  "none", "outlet check valve; rests on the seaflo top, unfastened"),
+    _c("gasher-water",      "real",        True,  "none", "GASHER check valve (hex barrel STEP); rides the seaflo top, unfastened"),
     _c("digiten-flow",      "real",        True,  "none", "flow sensor; rests on the seaflo top, unfastened"),
     # CO2 chain
-    _c("gasher-co2",        "placeholder", True,  "none", "CO2 check valve; on the inlet chain, unfastened"),
+    _c("gasher-co2",        "real",        True,  "none", "GASHER check valve (hex barrel STEP); on the CO2 inlet chain, unfastened"),
     _c("wr1110",            "placeholder", True,  "none", "secondary regulator; bracket geometry TBD (front-panel README)"),
     # Flavor pumps
     _c("pump-assembly-1",   "real",        True,  "none", "Kamoer pump; rests on the seaflo top, unfastened"),
