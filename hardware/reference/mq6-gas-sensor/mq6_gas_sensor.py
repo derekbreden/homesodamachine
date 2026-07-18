@@ -4,9 +4,7 @@ core where leaked isobutane pools.
 
 External envelope only — the carrier PCB, the cylindrical MQ-6 sensor can on
 top, and the 4-pin header (VCC / GND / DO / AO) below one edge. The comparator
-IC, trim pot and LEDs are flush SMD and not modeled. The old placeholder was a
-solid 32×20×22 box; the real part is a board carrying a round can, so the
-silhouette is a slab + cylinder, not a filled box.
+IC, trim pot and LEDs are flush SMD and not modeled.
 
 Frame: PCB in the XY plane, sensor can up (+Z), header pins down (-Z); the
 header-pin tips sit at Z = 0 (the bbox floor). Origin centered on the PCB.

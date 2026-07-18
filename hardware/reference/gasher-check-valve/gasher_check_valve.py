@@ -3,16 +3,12 @@ threaded stub each end. Two sit in the enclosure pack: the water-pump outlet
 check (gasher-water, on the SeaFlo discharge) and the CO2 inlet check
 (gasher-co2, on the DERPIPE → WR1110 chain).
 
-External envelope only — the internal spring + poppet is not modeled. The
-silhouette is a hex barrel with two threaded stubs, read off the
-manufacturer's dimensioned drawing (~Ø17 across the hex corners × 40 mm along
-the flow axis). The hex inscribes the old Ø17 placeholder cylinder, so the
-real shape is strictly smaller than the box it replaces. 1/4" NPT is a plain
-cylinder at the nominal major Ø — the repo's no-thread-helix convention
-(cf. jg-bulkhead-union's 51055K3-no-threads, co2-coupling-body).
+External envelope only — the internal spring + poppet is not modeled. A hex
+barrel (Ø17 across the corners × 40 mm along the flow axis, off the
+manufacturer's dimensioned drawing) with a male NPT stub each end, the NPT a
+plain cylinder at the nominal major Ø.
 
-Frame: +Y = flow axis (matches the enclosure placement, which laid the
-placeholder as _cyl(..., (0, 1, 0))); centered on X/Z. +Z up.
+Frame: +Y = flow axis (matches the enclosure placement); centered on X/Z. +Z up.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/gasher-check-valve/gasher_check_valve.py
@@ -28,7 +24,7 @@ _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 from _cadq_export import export_step
 
-HEX_ACROSS_CORNERS = 17.0   # inscribes the old Ø17 placeholder cylinder
+HEX_ACROSS_CORNERS = 17.0   # hex circumdiameter (across corners)
 TOTAL_LENGTH = 40.0         # along the flow axis
 THREAD_D = 13.7             # 1/4" NPT major Ø (simplified, no helix)
 STUB_LENGTH = 11.0          # male NPT engagement each end
