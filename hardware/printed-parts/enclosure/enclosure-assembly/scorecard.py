@@ -348,6 +348,9 @@ PORTS = [
     # plate carries a 2-pin lead on its top face.
     _p("header", "mq6-sensor", "electrical", (116.0, 144.0, 3.0), "z-", 8.0, "PCBA gas-sensor input — VCC/GND/DO/AO (SIG)", "4-pin 2.54 mm header, pins down"),
     _p("header", "moisture-sensor", "electrical", (80.0, 35.0, 159.1), "z+", 5.0, "PCBA moisture input — 2-pin (SIG + GND)", "2-pin lead header on the plate; Ø est"),
+    # Hopper funnel — the removable silicone basin's single drain at the bottom-centre of its
+    # envelope, feeding the shared source (V-B hopper gate). One fluid port.
+    _p("drain", "hopper-funnel", "fluid", (193.75, 63.3, 306.5), "z-", 6.35, "V-B hopper gate → shared source (channel split)", "funnel drain; bottom-centre of the basin, line Ø est"),
 ]
 
 
