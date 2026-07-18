@@ -97,14 +97,14 @@ One rectangular opening spans the top wall right of the display housing, where
 the removable silicone funnel
 ([`../../zone-c/hopper-funnel/`](/hardware/printed-parts/zone-c/hopper-funnel/))
 drops in — its straight chute press-fitting the opening, its whole floor one
-ramp falling to the spout over the source-select tray, its flat brim resting
-on the wall frame left around the cut.
-The opening derives to everything its neighbors allow: the display end-wall
-gusset left, the top-right corner pod's inboard end, the Y-seam lip band
-behind (the hole lives whole in the front-top piece), and a kept front ledge.
-The funnel derives its body from the same rectangle (`_hopper_hole`), and the
-ceiling reserves the basin's depth over the front towers (`hopper_min_depth`),
-so the two always match.
+ramp falling to the spout descending toward V-B on the source-select assembly,
+its flat brim resting on the wall frame left around the cut.
+The funnel is a static placed part: the opening is cut at its collar
+(`_hopper_hole` reads the funnel's own dims at `_contents.FUNNEL_CX/CY`), so
+funnel and hole cannot drift apart, and the cut asserts the top-wall frame
+accommodates the placement — the display end-wall gusset left, the top-right
+corner pod's inboard end, the Y-seam lip band behind (the hole lives whole in
+the front-top piece), and the kept front ledge.
 
 ## Regenerate
 

@@ -1,17 +1,17 @@
 {
-  "gatesPass": false,
-  "placed": 22,
-  "located": 78,
-  "shaped": 89,
+  "gatesPass": true,
+  "placed": 31,
+  "located": 75,
+  "shaped": 94,
   "routed": 2,
-  "held": 39,
+  "held": 44,
   "checks": [
     {
       "id": "coverage",
       "label": "Every placed part declared in the registry",
       "kind": "gate",
       "status": "pass",
-      "value": "18/18 placed declared",
+      "value": "16/16 placed declared",
       "target": "all declared",
       "detail": [],
       "active": true
@@ -34,16 +34,14 @@
       "value": "1.00 mm",
       "target": "\u2265 1.0 mm",
       "detail": [
-        "compressor-shroud \u2014 source-select-tray: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 mq6-sensor: 1.00 mm",
-        "gasher-co2 \u2014 wr1110: 1.00 mm \u2014 CONTACT (declared ok)",
-        "source-select-tray \u2014 hopper-funnel: 1.00 mm \u2014 CONTACT (declared ok)",
         "compressor-shroud \u2014 mq6-sensor: 1.00 mm",
         "foam-assembly \u2014 power-tray: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 dc-dist: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 condenser+fan: 4.00 mm",
-        "display \u2014 hopper-funnel: 4.49 mm"
+        "display \u2014 hopper-funnel: 4.49 mm",
+        "source-select-assembly \u2014 hopper-funnel: 4.91 mm"
       ],
       "active": true
     },
@@ -71,12 +69,10 @@
       "id": "parts-sourced",
       "label": "Every component is a selected real part / finished print",
       "kind": "gate",
-      "status": "fail",
-      "value": "17/18",
-      "target": "18/18",
-      "detail": [
-        "source-select-tray: Tray 1 \u2014 4x Beduan 12 V 1/4\" NC solenoid (V-A..V-D, sourced) + 2x JG PP2308E Y-divider (Y-A/Y-B, sourced) on a printed carrier; the carrier is undesigned \u2014 box seeded, calipers pending"
-      ],
+      "status": "pass",
+      "value": "16/16",
+      "target": "16/16",
+      "detail": [],
       "active": true
     },
     {
@@ -84,14 +80,15 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "22% (4/18)",
+      "value": "31% (5/16)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 0.0 x- 0.0 x+ 0.0 z- 9.5 mm",
         "\u2713 compressor-shroud: y- 0.0 z- 3.0 x- 14.0 mm",
         "\u2713 condenser+fan: y- 0.0 z- 3.0 x+ 14.0 mm",
-        "\u2713 source-select-tray: y- 4.0 mm",
-        "14 components: no placement rules defined yet"
+        "\u2713 source-select-assembly: near hopper-funnel 4.9 clear display 8.1 mm",
+        "\u2713 hopper-funnel: z+ 6.0 near source-select-assembly 4.9 mm",
+        "11 components: no placement rules defined yet"
       ],
       "active": true
     },
@@ -100,7 +97,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "78% (14/18)",
+      "value": "75% (12/16)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
@@ -125,13 +122,7 @@
         "    \u2013 condenser+fan:fan-power (electrical) (269, 75.5, 92) x+ \u00d84 \u2192 J2 MANIFOLD B FAN + COM (DC-8, 12 V)",
         "\u2713 co2-inlet: 2/2 connectors located",
         "    \u2013 co2-inlet:tube-in (fluid) (46, -22, 234) y- \u00d87.94 \u2192 customer CO2 supply \u2014 5/16\" push-to-connect (rear umbilical)",
-        "    \u2013 co2-inlet:npt-out (fluid) (46, 5, 234) y+ \u00d86.35 \u2192 gasher-co2 in",
-        "\u2713 gasher-co2: 2/2 connectors located",
-        "    \u2013 gasher-co2:in (fluid) (46, 14, 232.85) y- \u00d86.35 \u2192 co2-inlet npt-out",
-        "    \u2013 gasher-co2:out (fluid) (46, 54, 232.85) y+ \u00d86.35 \u2192 wr1110 in",
-        "\u2713 wr1110: 2/2 connectors located",
-        "    \u2013 wr1110:in (fluid) (46, 55, 233) y- \u00d86.35 \u2192 gasher-co2 out",
-        "    \u2013 wr1110:out (fluid) (46, 112, 233) y+ \u00d86.35 \u2192 foam-assembly co2-in (CO2 line up to the foam-cap top)",
+        "    \u2013 co2-inlet:npt-out (fluid) (46, 5, 234) y+ \u00d86.35 \u2192 CO2 chain (GASHER check \u2192 WR1110, deferred) \u2192 foam-assembly co2-in",
         "\u2713 bulkhead-flavor-a: 2/2 connectors located",
         "    \u2013 bulkhead-flavor-a:tube-out (fluid) (195.05, 348.5, 292.45) y+ \u00d86.35 \u2192 customer flavor A line (rear umbilical)",
         "    \u2013 bulkhead-flavor-a:tube-in (fluid) (195.05, 314.2, 292.45) y- \u00d86.35 \u2192 flavor A internal line (bag/pump circuit A)",
@@ -142,7 +133,13 @@
         "    \u2013 bulkhead-carb:tube-out (fluid) (210, 348.5, 318.3) y+ \u00d86.35 \u2192 carbonated-water line (rear umbilical / faucet)",
         "    \u2013 bulkhead-carb:tube-in (fluid) (210, 314.2, 318.3) y- \u00d86.35 \u2192 carb-water internal riser (DIGITEN \u2192 foam carb-water-out)",
         "\u2713 bulkhead-water: 2/2 connectors located",
-        "    \u2013 bulkhead-water:tube-out (fluid) (145, 348.5, 293) y+ \u00d86.35 \u2192 house tap-water line (rear umbilical)"
+        "    \u2013 bulkhead-water:tube-out (fluid) (145, 348.5, 293) y+ \u00d86.35 \u2192 house tap-water line (rear umbilical)",
+        "    \u2013 bulkhead-water:tube-in (fluid) (145, 314.2, 293) y- \u00d86.35 \u2192 tap-water internal line (to multiplex BFP in)",
+        "\u2713 c14-inlet: 1/1 connectors located",
+        "    \u2013 c14-inlet:mains-in (electrical) (90, 312, 295.5) y- \u00d88 \u2192 AC distribution \u2014 L/N/E to the electronics shelf",
+        "\u2713 mq6-sensor: 1/1 connectors located",
+        "    \u2013 mq6-sensor:header (electrical) (116, 144, 3) z- \u00d88 \u2192 PCBA gas-sensor input \u2014 VCC/GND/DO/AO (SIG)",
+        "\u2713 hopper-funnel: 1/1 connectors located"
       ],
       "active": true
     },
@@ -151,17 +148,16 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "89% (16/18)",
+      "value": "94% (15/16)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)",
-        "source-select-tray: still a placeholder \u2014 Tray 1 \u2014 4x Beduan 12 V 1/4\" NC solenoid (V-A..V-D, sourced) + 2x JG PP2308E Y-divider (Y-A/Y-B, sourced) on a printed carrier; the carrier is undesigned \u2014 box seeded, calipers pending",
         "compressor-shroud: 1 box holds 5% material",
-        "hopper-funnel: 1 box holds 5% material",
+        "hopper-funnel: 1 box holds 6% material",
         "foam-assembly: 5 boxes hold 12% material",
         "display: 2 boxes hold 18% material",
-        "pcba: 2 boxes hold 28% material",
-        "mq6-sensor: 1 box holds 36% material"
+        "source-select-assembly: 11 boxes hold 20% material",
+        "pcba: 2 boxes hold 28% material"
       ],
       "active": true
     },
@@ -185,10 +181,10 @@
       "label": "Components in a printed holder fastened to the enclosure",
       "kind": "goal",
       "status": "warn",
-      "value": "39% (7/18)",
+      "value": "44% (7/16)",
       "target": "100%",
       "detail": [
-        "7 held (through-wall bodies + display); 11 loose internal parts unheld"
+        "7 held (through-wall bodies + display); 9 loose internal parts unheld"
       ],
       "active": false
     }
@@ -475,69 +471,9 @@
       ],
       "face": "y+",
       "diam": 6.35,
-      "mates": "gasher-co2 in",
+      "mates": "CO2 chain (GASHER check \u2192 WR1110, deferred) \u2192 foam-assembly co2-in",
       "status": "ok",
       "note": "1/4\" NPT shank, inboard"
-    },
-    {
-      "component": "gasher-co2",
-      "name": "in",
-      "kind": "fluid",
-      "pos": [
-        46.0,
-        14.0,
-        232.85
-      ],
-      "face": "y-",
-      "diam": 6.35,
-      "mates": "co2-inlet npt-out",
-      "status": "ok",
-      "note": "1/4\" NPT stub"
-    },
-    {
-      "component": "gasher-co2",
-      "name": "out",
-      "kind": "fluid",
-      "pos": [
-        46.0,
-        54.0,
-        232.85
-      ],
-      "face": "y+",
-      "diam": 6.35,
-      "mates": "wr1110 in",
-      "status": "ok",
-      "note": "1/4\" NPT stub"
-    },
-    {
-      "component": "wr1110",
-      "name": "in",
-      "kind": "fluid",
-      "pos": [
-        46.0,
-        55.0,
-        233.0
-      ],
-      "face": "y-",
-      "diam": 6.35,
-      "mates": "gasher-co2 out",
-      "status": "ok",
-      "note": "1/4\" CO2 inlet hex"
-    },
-    {
-      "component": "wr1110",
-      "name": "out",
-      "kind": "fluid",
-      "pos": [
-        46.0,
-        112.0,
-        233.0
-      ],
-      "face": "y+",
-      "diam": 6.35,
-      "mates": "foam-assembly co2-in (CO2 line up to the foam-cap top)",
-      "status": "ok",
-      "note": "1/4\" CO2 outlet hex"
     },
     {
       "component": "bulkhead-flavor-a",
@@ -694,75 +630,75 @@
       "name": "drain",
       "kind": "fluid",
       "pos": [
-        179.75,
+        247.75,
         63.3,
-        222.5
+        255.72
       ],
       "face": "z-",
       "diam": 6.35,
-      "mates": "V-B hopper gate \u2192 shared source (channel split)",
+      "mates": "V-B-I by falling tube \u2014 segment 4 (hopper gate \u2192 shared source)",
       "status": "ok",
       "note": "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"
     },
     {
-      "component": "source-select-tray",
+      "component": "source-select-assembly",
       "name": "V-A-I",
       "kind": "fluid",
       "pos": [
-        100.0,
-        109.0,
-        200.0
-      ],
-      "face": "y+",
-      "diam": 6.35,
-      "mates": "tap-water chain (bulkhead-water \u2192 BFP, deferred) \u2014 segment 2",
-      "status": "ok",
-      "note": "1/4\" PTC; PROVISIONAL \u2014 placeholder box"
-    },
-    {
-      "component": "source-select-tray",
-      "name": "V-B-I",
-      "kind": "fluid",
-      "pos": [
-        179.75,
-        63.3,
-        221.5
+        275.33,
+        26.57,
+        230.86
       ],
       "face": "z+",
       "diam": 6.35,
-      "mates": "hopper-funnel drain \u2014 segment 4 (gravity drop)",
+      "mates": "tap-water chain (bulkhead-water \u2192 BFP, deferred) \u2014 segment 2 (pressurized; length-tolerant)",
       "status": "ok",
-      "note": "1/4\" PTC; PROVISIONAL \u2014 placeholder box, directly under the spout"
+      "note": "JG elbow collet, 1/4\" tube, facing up"
     },
     {
-      "component": "source-select-tray",
+      "component": "source-select-assembly",
+      "name": "V-B-I",
+      "kind": "fluid",
+      "pos": [
+        275.33,
+        100.03,
+        230.86
+      ],
+      "face": "z+",
+      "diam": 6.35,
+      "mates": "hopper-funnel drain by falling tube \u2014 segment 4",
+      "status": "ok",
+      "note": "JG elbow collet, 1/4\" tube, facing up"
+    },
+    {
+      "component": "source-select-assembly",
       "name": "V-C-O",
       "kind": "fluid",
       "pos": [
-        135.0,
-        109.0,
-        180.0
+        18.67,
+        26.57,
+        230.86
       ],
-      "face": "y+",
+      "face": "z+",
       "diam": 6.35,
       "mates": "Y-C-1 (Tray 3 pump-inlet tees, deferred) \u2014 segment 9",
       "status": "ok",
-      "note": "1/4\" PTC; PROVISIONAL \u2014 placeholder box"
+      "note": "JG elbow collet, 1/4\" tube, facing up"
     },
     {
-      "component": "source-select-tray",
+      "component": "source-select-assembly",
       "name": "V-D-O",
       "kind": "fluid",
       "pos": [
-        165.0,
-        109.0,
-        180.0
+        18.67,
+        100.03,
+        230.86
       ],
-      "face": "y+",
+      "face": "z+",
       "diam": 6.35,
       "mates": "Y-F-1 (Tray 3 pump-inlet tees, deferred) \u2014 segment 19",
       "status": "ok",
-      "note": "1/4\" PTC; PROVISIONAL \u2014 placeholder box"
+      "note": "JG elbow collet, 1/4\" tube, facing up"
     },
     {
       "component": "display",
@@ -1298,34 +1234,18 @@
       "declared": "real"
     },
     {
-      "component": "gasher-co2",
-      "boxes": [
-        [
-          37.5,
-          14.0,
-          225.5,
-          54.5,
-          54.0,
-          240.222
-        ]
-      ],
-      "fill": 0.6614,
-      "primitive": false,
-      "declared": "real"
-    },
-    {
       "component": "hopper-funnel",
       "boxes": [
         [
           116.5,
           5.0,
-          222.499,
+          255.72,
           271.0,
           121.6,
           337.72
         ]
       ],
-      "fill": 0.0507,
+      "fill": 0.0558,
       "primitive": false,
       "declared": "real"
     },
@@ -1434,34 +1354,98 @@
       "declared": "real"
     },
     {
-      "component": "source-select-tray",
+      "component": "source-select-assembly",
       "boxes": [
         [
-          57.997,
-          4.0,
-          154.499,
-          191.997,
-          109.0,
-          221.499
-        ]
-      ],
-      "fill": 1.0,
-      "primitive": true,
-      "declared": "placeholder"
-    },
-    {
-      "component": "wr1110",
-      "boxes": [
+          11.305,
+          88.273,
+          203.934,
+          38.903,
+          107.391,
+          230.858
+        ],
         [
-          35.5,
-          55.0,
-          223.5,
-          56.5,
-          112.0,
-          242.5
+          34.887,
+          20.656,
+          200.0,
+          95.613,
+          63.3,
+          256.6
+        ],
+        [
+          198.387,
+          20.656,
+          200.0,
+          259.113,
+          63.3,
+          256.6
+        ],
+        [
+          255.097,
+          19.209,
+          203.934,
+          282.695,
+          38.327,
+          230.858
+        ],
+        [
+          11.305,
+          19.209,
+          203.934,
+          38.903,
+          38.327,
+          230.858
+        ],
+        [
+          34.887,
+          63.3,
+          200.0,
+          95.613,
+          105.944,
+          256.6
+        ],
+        [
+          148.0,
+          47.85,
+          203.2,
+          186.5,
+          78.75,
+          219.4
+        ],
+        [
+          107.5,
+          47.85,
+          203.2,
+          146.0,
+          78.75,
+          219.4
+        ],
+        [
+          43.237,
+          16.859,
+          197.0,
+          250.763,
+          109.741,
+          260.0
+        ],
+        [
+          255.097,
+          88.273,
+          203.934,
+          282.695,
+          107.391,
+          230.858
+        ],
+        [
+          198.387,
+          63.3,
+          200.0,
+          259.113,
+          105.944,
+          256.6
         ]
       ],
-      "fill": 0.7144,
+      "fill": 0.1959,
       "primitive": false,
       "declared": "real"
     }

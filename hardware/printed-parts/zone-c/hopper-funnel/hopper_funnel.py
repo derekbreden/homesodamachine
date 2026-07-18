@@ -1,27 +1,30 @@
 """Zone C hopper funnel — the removable dishwasher-safe silicone insert.
 
-A wide funnel that drops into the top-wall opening to the right of the display
-(cut by ../../enclosure/enclosure/enclosure.py via `_hopper_hole`). Top to bottom:
+A static part in its own frame: origin at the collar-rectangle center, z = 0
+the brim underside — the plane that rests on the enclosure's top surface.
+The enclosure assembly places it (`_contents.FUNNEL_CX/CY` + the box's outer
+top), and the enclosure cuts its top-wall opening from this collar
+(`enclosure.py _hopper_hole`), asserting the placement clears the display
+gusset, the corner pod, and the Y-seam lip. The drain is defined here, in
+the funnel's frame, and rides the part wherever it is placed.
 
-  * a flat brim that overhangs the opening all around and rests on the enclosure
-    top surface;
-  * a tall straight rectangular chute — vertical walls, no slope — pressing the
-    3 mm top wall at its top and hanging on down into the reserve;
+Top to bottom:
+
+  * a flat brim that overhangs the collar all around and rests on the
+    enclosure top surface;
+  * a tall straight rectangular chute — vertical walls, no slope — pressing
+    the 3 mm top wall at its top and hanging on down into the box;
   * a shallow ramp from the bottom of that chute down to a 1/4" round spout —
-    the whole floor is the ramp, every surface of it falling toward the spout,
-    so the basin drains dry. The spout is offset in −X (neck_dx) over V-B's
-    inlet on the source-select tray and necks down to just above the tallest
-    content under the mouth (read live) — that tray's top — then a short
-    straight tube carries the exit down to skim it, where V-B picks the pour
-    up.
+    the whole floor is the ramp, every surface of it falling toward the
+    spout, so the basin drains dry. The spout is offset in +X (neck_dx),
+    descending into the V-gap between the source-select assembly's east
+    valves, and stops ABOVE V-B's up-facing inlet collet nearby — the drain
+    must feed V-B by a falling tube (segment 4 is the gravity drain and the
+    air-purge path; it may not rise). The steep east ramp also sheds syrup
+    toward the drain instead of pooling.
 
 Capacity to the brim is printed at export and runs past a full 440 mL
-SodaStream bottle — the enclosure reserves the basin's depth over the tray
-(enclosure.py `hopper_min_depth`).
-
-The funnel shares the opening rectangle with the enclosure, so the collar always
-matches the hole. It is built in enclosure world coordinates (+X right, +Y back,
-+Z up), so it seats straight into the opening.
+SodaStream bottle.
 """
 
 import sys
@@ -33,24 +36,31 @@ _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_repo / "tools"))
-_ENCL = _repo / "hardware" / "printed-parts" / "enclosure" / "enclosure"
-sys.path.insert(0, str(_ENCL))
 from _cadq_export import export_step
 from docgen import substitute_md
-import enclosure as E
 
 # --- funnel parameters ------------------------------------------------------
-brim_overhang = 3.0     # brim flange reach past the opening, all around
+collar_w = 148.5        # collar footprint (X) — spans the zone-C top opening
+collar_d = 110.6        # collar footprint (Y)
+brim_overhang = 3.0     # brim flange reach past the collar, all around
 brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 chute_h = 30.0          # straight rectangular chute height — brim top down to the ramp start
-neck_dx = -14.0         # neck (ramp foot + spout) shift in X off the opening center,
-                        # aiming the drop at V-B's inlet on the source-select tray
+neck_dx = 54.0          # neck (ramp foot + spout) shift in X off the collar center:
+                        # east, into the V-gap between the source-select assembly's
+                        # east valves, a short falling tube run from V-B's collet
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
-spout_tube = 6.0        # straight spout tube below the ramp tip — its length sets
-                        # how far the Ø6.35 exit drops into the clear column
-tip_clearance = 1.0     # gap left above the tallest content under the mouth
+spout_tube = 6.0        # straight spout tube below the ramp tip
+drop = 79.0             # brim underside (z 0) down to the spout exit — deep enough
+                        # that the ramp runs steep and the drain sits ~25 mm above
+                        # V-B's collet (fall to spare for the segment-4 tube), while
+                        # the spout keeps working clearance in the V-gap below (the
+                        # enclosure scorecard measures the real-solid gap)
+
+# The drain, in the funnel's own frame: the spout exit annulus center. World
+# position = this + the funnel's placement; it rides the part.
+drain_local = (neck_dx, 0.0, -drop)
 
 
 # --- primitives -------------------------------------------------------------
@@ -81,46 +91,27 @@ def _cyl(r, z_top, z_bot, cx, cy):
 
 # --- the funnel -------------------------------------------------------------
 
-def _content_top(x0, x1, y0, y1):
-    """One mm above the tallest placed content whose footprint underlies the given
-    rectangle — read live, so the funnel tracks the packing."""
-    top = 0.0
-    for shape, _c in E._contents.build().values():
-        b = shape.BoundingBox()
-        if min(b.xmax, x1) > max(b.xmin, x0) and min(b.ymax, y1) > max(b.ymin, y0):
-            top = max(top, b.zmax)
-    return top + tip_clearance
-
-
-def build_solids():
+def build_solids(drop=drop):
     """The funnel's outer envelope and inner bore as separate solids, plus a
     metrics dict. This is the source the silicone-mold generator consumes: the
     mold cavity is the negative of `solid` and the mold core is `cavity`. Keeping
     it here, beside the funnel, keeps the mold in lockstep with the part.
     See ../hopper-funnel-mold/."""
-    inner, outer, yj, _cf = E._dims()
-    oz1 = outer[5]
-    x0, x1, y0, y1 = E._hopper_hole(inner, outer, yj)
-    w, d = x1 - x0, y1 - y0
-    cx, cy = (x0 + x1) / 2.0, (y0 + y1) / 2.0
+    w, d = collar_w, collar_d
+    cx = cy = 0.0
     bore_w, bore_d = w - 2.0 * collar_wall, d - 2.0 * collar_wall
-    top_z = oz1 + brim_thickness                       # brim top = outermost point
+    top_z = brim_thickness                              # brim top = outermost point
     spout_or = spout_id / 2.0 + spout_wall
     ncx = cx + neck_dx                                  # spout/neck, shifted in X
     ramp_top_z = top_z - chute_h                        # straight chute bottom = ramp start
-
-    # The ramp necks to the round spout just above the tallest content under
-    # the mouth (read live); a straight spout tube then carries the Ø6.35 exit
-    # down to skim that content, where the delivery tube picks it up over the
-    # clear column beside it.
-    neck_z = _content_top(x0, x1, y0, y1) + spout_tube
-    end_z = neck_z - spout_tube
+    end_z = -drop                                       # spout exit (the drain)
+    neck_z = end_z + spout_tube                         # ramp tip = tube top
 
     # Outer: brim flange, a tall straight rectangular chute, a shallow ramp down to
-    # the −X-offset spout, straight spout tube.
+    # the neck_dx-offset spout, straight spout tube.
     solid = (
-        _box(w + 2.0 * brim_overhang, d + 2.0 * brim_overhang, oz1, top_z, cx, cy)
-        .fuse(_box(w, d, ramp_top_z, oz1, cx, cy))
+        _box(w + 2.0 * brim_overhang, d + 2.0 * brim_overhang, 0.0, top_z, cx, cy)
+        .fuse(_box(w, d, ramp_top_z, 0.0, cx, cy))
         .fuse(_loft_rc(w, d, cx, cy, ramp_top_z, spout_or, ncx, cy, neck_z))
         .fuse(_cyl(spout_or, neck_z, end_z, ncx, cy))
     )
@@ -140,14 +131,14 @@ def build_solids():
         "out_cx": cx, "out_cy": cy,
         "rim_ring": collar_wall + brim_overhang,
         "spout_id": spout_id, "spout_or": spout_or,
-        "top_z": top_z, "oz1": oz1, "ramp_top_z": ramp_top_z,
+        "top_z": top_z, "ramp_top_z": ramp_top_z,
         "neck_z": neck_z, "end_z": end_z,
     }
     return solid, cavity, meta
 
 
-def build():
-    solid, cavity, m = build_solids()
+def build(drop=drop):
+    solid, cavity, m = build_solids(drop)
     # Capacity filled to the brim rim: the cavity between the spout exit and brim top.
     fill = cavity.intersect(
         _box(600.0, 600.0, m["end_z"], m["top_z"], m["cx"], m["cy"])
@@ -158,14 +149,14 @@ def build():
 
 
 def main():
-    funnel, (w, d, drop, end_z, fill) = build()
+    funnel, (w, d, total, end_z, fill) = build()
     out = _here.parent / "hopper-funnel.step"
     export_step(funnel, str(out))
     print(f"-> {out.name}")
     b = funnel.val().BoundingBox()
-    print(f"  brim:    {b.xlen:.1f} × {b.ylen:.1f} mm, top z={b.zmax:.1f}")
+    print(f"  brim:    {b.xlen:.1f} × {b.ylen:.1f} mm, top z={b.zmax:.1f} (local; z 0 = brim underside)")
     print(f"  mouth:   {w:.1f} × {d:.1f} mm (collar), bore {w - 2*collar_wall:.1f} × {d - 2*collar_wall:.1f}")
-    print(f"  spout:   Ø{spout_id:g} bore, to z={end_z:.1f}, total drop {drop:.1f} mm")
+    print(f"  spout:   Ø{spout_id:g} bore, drain at ({drain_local[0]:g}, {drain_local[1]:g}, {drain_local[2]:g}) local, total drop {total:.1f} mm")
     print(f"  capacity to brim: {fill:.0f} mm³ = {fill / 1000.0:.0f} mL "
           f"({fill / 440000.0:.2f}× a 440 mL SodaStream bottle)")
 
@@ -174,7 +165,7 @@ def main():
         variables={
             "HOPPER_SPOUT_ID": f"{spout_id:g} mm",
             "HOPPER_CHUTE": f"{chute_h:g} mm",
-            "HOPPER_DROP": f"{drop:.0f} mm",
+            "HOPPER_DROP": f"{total:.0f} mm",
             "HOPPER_CAP": f"{fill / 1000.0:.0f} mL",
         },
         expected_counts={"HOPPER_SPOUT_ID": 1, "HOPPER_CHUTE": 1, "HOPPER_DROP": 1,

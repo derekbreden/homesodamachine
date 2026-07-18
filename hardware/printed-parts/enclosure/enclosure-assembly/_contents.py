@@ -1,18 +1,19 @@
 """Kitchen Edition enclosure contents — the core subsystems packed.
 
 Detailed STEP imports where they exist (cold-core foam assembly — shell +
-top/bottom foam-cap stacks — the compressor shroud, the PCBA assembly, the
-power assembly, the DC distribution block, the CO2-chain GASHER check +
-WR1110 regulator, the DERPIPE CO2 inlet, the MQ-6 gas sensor, the panel
-bulkheads + C14). Placeholder primitives for the parts that have no STEP or
-finished design yet (condenser+fan, the source-select tray). Not everything
-is packed — deferred, tracked by the fluid topology
+top/bottom foam-cap stacks — the compressor shroud, the source-select
+assembly, the PCBA assembly, the power assembly, the DC distribution block,
+the DERPIPE CO2 inlet, the MQ-6 gas sensor, the panel bulkheads + C14). One
+placeholder primitive remains (condenser+fan). Not everything is packed —
+deferred, tracked by the fluid topology
 (/hardware/topology/fluid-topology.md) and the scorecard's connection
-table, never silently dropped, while the source-select column is settled:
-the water deck (SeaFlo diaphragm pump, Multiplex BFP, drip pan + moisture
-plate, the SeaFlo outlet check), the DIGITEN flow sensor, both Kamoer pump
-assemblies (P-A, P-B), and the other three valve-manifold trays
-(bag-circuit, pump-inlet tees, nozzle-gates).
+table, never silently dropped, while the front column settles around the
+source-select assembly: the water deck (SeaFlo diaphragm pump, Multiplex
+BFP, drip pan + moisture plate, the SeaFlo outlet check), the DIGITEN flow
+sensor, both Kamoer pump assemblies (P-A, P-B), the CO2 chain's GASHER
+check + WR1110 regulator (their front-left column is the assembly's west
+bank; the chain needs a route around it), and the other three
+valve-manifold trays (bag-circuit, pump-inlet tees, nozzle-gates).
 
 Components only: no tubes, no wires, no mount features. enclosure_assembly.py
 verifies the pack pairwise non-intersecting at every export.
@@ -60,15 +61,18 @@ Strata, floor to ceiling:
   * Zone A:  cold core (foam assembly: bottom cap + shell + top cap) on the
              floor at the back, its −Y dispense/service ports facing
              forward.
-  * Zone C (compressor top): the source-select tray — Tray 1 of the valve
-             manifold (V-A, V-B, Y-A, Y-B, V-C, V-D) — seated on the
-             compressor top, its +X edge sharing the compressor's (the
-             192–213 condenser channel stays clear), one seam-lip
-             clearance off the front wall. The funnel spout points into
-             its top face, where V-B's inlet sits.
-  * Front-left column: the CO2 chain — off the front-panel DERPIPE inlet's
-             inboard NPT stub, GASHER check → WR1110 secondary regulator
-             running +Y.
+  * Zone C (the front column's upper band): the source-select assembly —
+             Tray 1 of the valve manifold (V-A, V-B, Y-A, Y-B, V-C, V-D on
+             a printed tray, outlet elbows up) — hung spanning the front
+             width, flipped so V-A/V-B and their up-facing inlet collets
+             sit on the EAST end where the funnel's spout descends into
+             the V-gap between them: the drain ends above V-B's collet
+             with fall to spare for the segment-4 gravity/purge tube. Its
+             wall tops stay below the display's lowest point, keeping the
+             under-display wedge open as the front-left utility channel
+             (display harness, CO2-chain crossing). The compressor and
+             condenser tops below it are open (the deferred water deck
+             returns there). Holder TBD (held).
   * Zone B (the band above the cold core): the electronics shelf lying
              flat on the foam-cap top in the band's front half — power
              assembly at −X, PCBA at +X, the DC distribution block behind
@@ -77,12 +81,12 @@ Strata, floor to ceiling:
              from the rear wall (the umbilical triangle, the tap-water
              bulkhead, and the C14) and the riser traffic crossing to
              them.
-  * Zone C top: the top wall right of the display is one open rectangle —
-             the funnel's straight chute hangs through it, its loft
-             necking to the spout just above the source-select tray's
-             top. The interior reserves `hopper_min_depth` of basin above
-             that tray (enclosure.py's hopper law); the rear-panel port
-             field stands taller still and is what sets the box height.
+  * Zone C top: the top wall right of the display is one open rectangle
+             cut at the placed funnel's collar (enclosure.py
+             `_hopper_hole` reads FUNNEL_CX/CY + the funnel's own dims) —
+             the funnel is a static part (hopper_funnel.py, local frame)
+             whose brim rests on the box top. The rear-panel port field is
+             what sets the box height.
 """
 
 from pathlib import Path
@@ -97,12 +101,11 @@ _hw = _repo / "hardware"
 # --- Source STEPs ---------------------------------------------------------
 FOAM_ASSEMBLY = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
 COMP_SHROUD   = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
+SOURCE_SELECT = _hw / "printed-parts" / "valve-manifold" / "source-select-tray" / "source-select-assembly.step"
 # AC/PSU tray — wide-shallow layout (PSU turned 90°).
 POWER_ASSEMBLY = _hw / "printed-parts" / "electronics" / "power-tray" / "power-assembly.step"
 PCBA_ASSEMBLY  = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-assembly.step"
 DC_DIST        = _hw / "reference" / "dc-dist-block" / "dc-dist-block.step"
-GASHER_CHECK   = _hw / "reference" / "gasher-check-valve" / "gasher-check-valve.step"
-WR1110_STEP    = _hw / "reference" / "wr1110-regulator" / "wr1110-regulator.step"
 MQ6_STEP       = _hw / "reference" / "mq6-gas-sensor" / "mq6-gas-sensor.step"
 DERPIPE_STEP   = _hw / "reference" / "derpipe-co2-inlet" / "derpipe-co2-inlet.step"
 JG_BULKHEAD    = _hw / "reference" / "jg-bulkhead-union" / "jg-bulkhead-union.step"
@@ -121,18 +124,25 @@ IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 # (airflow axis) is the fan + finstack stack depth, calipered [56 mm](CONDENSER_AIRFLOW)
 # combined.
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
-# Source-select tray (Tray 1 — V-A/V-B/Y-A/Y-B/V-C/V-D per
-# fluid-topology-trays.mmd): four Beduan 12 V 1/4" NC solenoid valves
-# (ledger/bom.md @solenoid-valves) + two JG PP2308E Y-dividers on a printed
-# carrier. Box seeded from the valve bodies, calipers pending: four ~30-wide
-# coil bodies across X at ~32 pitch plus carrier walls; ~70 valve flow
-# length along Y plus a divider row; ~62 valve height plus a carrier base.
-TRAY1_DIMS = (134.0, 105.0, 67.0)
-# CO2-chain placement anchors: WR1110_D centers the regulator on the inlet
-# axis, GASHER_D centers the check valve, GASHER_L spaces the WR1110 one
-# check-valve length down the chain.
-WR1110_D = 21.0
-GASHER_D, GASHER_L = 17.0, 40.0
+# The funnel's placement: its collar-rect centre in plan. The static funnel
+# (zone-c/hopper-funnel, local frame) seats here with its brim underside on
+# the box's outer top; enclosure.py cuts the top-wall opening from this same
+# centre + the funnel's own collar dims, and asserts the top-wall frame
+# (display gusset, corner pod, front ledge, Y-seam lip) accommodates it.
+FUNNEL_CX, FUNNEL_CY = 193.75, 63.3
+# The source-select assembly's placement: local origin (cell centre, valve
+# mounting plane) in world, rotated 180° about Z. The flip puts V-A/V-B —
+# and their up-facing inlet collets — on the EAST end, under the funnel's
+# reach, so segment 4 (the gravity drain + air-purge path, the one line
+# that may not rise) falls from the funnel drain into V-B; the pressurized
+# tap line (segment 2) takes the long west run to V-A instead. The height
+# keeps the assembly's wall tops below the display's lowest point, holding
+# the whole under-display wedge open as the front-left utility channel
+# (display harness drop, CO2-chain crossing headroom) — the `clear` display
+# rule and the funnel `near` rule in the scorecard pin both choices. In X
+# the assembly (elbow tip to elbow tip) spans the interior wall-to-wall;
+# its +X elbows stop one wall clearance short of the foam's edge.
+SRC_SEL_POS = (147.0, 63.3, 200.0)
 
 # Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it.
 # With the floor parts raised clear of the seam lip, the cold core pulls in to
@@ -213,9 +223,7 @@ COLORS = {
     "compressor-shroud": cq.Color(0.60, 0.62, 0.66),
     "condenser+fan":     cq.Color(0.78, 0.55, 0.35),
     "mq6-sensor":        cq.Color(0.30, 0.45, 0.85),
-    "source-select-tray": cq.Color(0.60, 0.40, 0.70),
-    "gasher-co2":        cq.Color(0.75, 0.75, 0.78),
-    "wr1110":            cq.Color(0.55, 0.58, 0.62),
+    "source-select-assembly": cq.Color(0.60, 0.40, 0.70),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "dc-dist":           cq.Color(0.20, 0.20, 0.22),
@@ -277,29 +285,19 @@ def build():
     # footprint either way (a Z-rotation of the box), so the pack is unchanged.
     comp = _rot(_load(COMP_SHROUD), (0, 0, 1), -90.0)
     placed["compressor-shroud"] = _at(comp, SIDE_RIB_INSET, 0.0, SEAM_CLEAR_LIFT)
-    comp_bb = comp.BoundingBox()
-    comp_top_z = SEAM_CLEAR_LIFT + comp_bb.zlen
-    comp_x1 = SIDE_RIB_INSET + comp_bb.xlen
     cond = _box(CONDENSER_AIRFLOW, CONDENSER_FACE_B, CONDENSER_FACE_A)  # 56 x 151 x 178
     placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW - SIDE_RIB_INSET, 0.0, SEAM_CLEAR_LIFT)
     placed["mq6-sensor"] = _at(_load(MQ6_STEP), 100.0, 134.0, SEAM_CLEAR_LIFT)
 
-    # --- CO2 chain, front-left: the DERPIPE inlet's inboard NPT stub carries
-    # the GASHER check, then the WR1110 secondary regulator, running +Y.
-    placed["gasher-co2"] = _at(_load(GASHER_CHECK),
-                               CO2_INLET_X - GASHER_D / 2.0, 14.0, CO2_INLET_Z - GASHER_D / 2.0)
-    placed["wr1110"] = _at(_load(WR1110_STEP),
-                           CO2_INLET_X - WR1110_D / 2.0, 14.0 + GASHER_L + 1.0, CO2_INLET_Z - WR1110_D / 2.0)
-
-    # --- Zone C, on the compressor top: the source-select tray (Tray 1 —
-    # V-A/V-B/Y-A/Y-B/V-C/V-D). Its +X edge shares the compressor's, so the
-    # 192–213 condenser channel (and refrig-1's climb through it) stays
-    # clear; y 4 clears the front Z-seam lip the way any front-column part
-    # crossing z_joint_front must. hopper_funnel.py necks its spout to the
-    # tallest content under its mouth (this tray's top, read live) and aims
-    # the drop (neck_dx) at the tray's top face, where V-B's inlet sits.
-    tw, td, th = TRAY1_DIMS
-    placed["source-select-tray"] = _at(_box(tw, td, th), comp_x1 - tw, 4.0, comp_top_z)
+    # --- Zone C: the source-select assembly (Tray 1 — V-A/V-B/Y-A/Y-B/V-C/V-D
+    # on its printed tray, outlet elbows turned +Z), hung spanning the front
+    # width in the column's upper band. Rotated 180° about Z (V-A/V-B east,
+    # toward the funnel) then translated: the assembly's own frame (cell
+    # centre, valve mounting plane) is the placement datum, so SRC_SEL_POS
+    # reads as its world pose. The funnel descends into its east V-gap and
+    # the display channel stays open above its west bank — both held by the
+    # scorecard's `near`/`clear` placement rules against the real solids.
+    placed["source-select-assembly"] = _rot(_load(SOURCE_SELECT), (0, 0, 1), 180.0).translate(SRC_SEL_POS)
 
     # --- Zone B, the band above the cold core: the electronics shelf lying
     # flat on the foam-cap top, tray/board planes horizontal, everything in

@@ -48,9 +48,11 @@ _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_ex
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_repo / "tools"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "enclosure-assembly"))
+sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "hopper-funnel"))
 from _cadq_export import export_step, export_assembly
 from docgen import substitute_md, substitute_py_comments
 import _contents
+import hopper_funnel as _funnel
 
 # Shell parameters.
 wall = 3.0                  # PETG wall thickness
@@ -92,24 +94,14 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
                                  # corner pod clean through (it overhangs the hole otherwise)
 
 # Hopper funnel opening (Zone C) — one rectangular opening through the top
-# wall spanning the whole zone right of the display, where the removable
-# silicone funnel basin (../../zone-c/hopper-funnel/) drops in and floors
-# just above the front towers. The nominals below are oversized so the cut
-# derives to everything its neighbors allow: the display end-wall gusset
-# left, the top-right corner pod's inboard end, the Y-seam lip band behind
-# — and a front ledge kept along the front edge, so a wall frame remains
-# all around for the basin's rim flange to rest on.
-hopper_hole_x = 200.0   # opening width (X), nominal before the corner-pod clamp
-hopper_hole_y = 200.0   # opening depth (Y), nominal before the Y-seam clamp
+# wall right of the display, cut at the placed funnel's collar: the funnel
+# is a static part (../../zone-c/hopper-funnel/, its own frame) placed at
+# _contents.FUNNEL_CX/CY with its brim on the box top, and _hopper_hole
+# asserts the top-wall frame accommodates it (display gusset left, the
+# top-right corner pod, the Y-seam lip band behind, and a front ledge kept
+# along the front edge, so a wall frame remains all around for the basin's
+# rim flange to rest on).
 hopper_front_ledge = 8.0  # top wall kept along the front edge
-# The funnel's basin depth is a ceiling law: the interior reserves this much
-# height above the tallest content under the opening (the source-select tray,
-# read in _dims the same way hopper_funnel.py reads it), so the basin —
-# straight chute + drain loft — swallows a full 440 mL SodaStream bottle
-# poured in one go (hopper_funnel.py prints the real capacity at export).
-# The rear-panel port field (its own ceiling law in _dims) stands taller and
-# is what sets the box height today.
-hopper_min_depth = 41.0
 
 # Split + boss parameters — every dimension sized to its function, nothing
 # inherited from the faucet. The seam is a Y plane; the front half's full-wall
@@ -233,16 +225,6 @@ def _dims():
     cold_front_y = placed["foam-assembly"][0].BoundingBox().ymin
     y_free = cold_front_y - 2.0 - (lip_len + wall + socket_bore_dia / 2.0 + socket_r)
     y_joint = max(facet_back_y + 2.0, min((iy0 + iy1) / 2.0, y_free))
-    # The hopper ceiling law: the top wall right of the display is one open
-    # rectangle the funnel drops through, and the interior keeps
-    # hopper_min_depth of basin above the tallest content under it.
-    hx0, hx1, hy0, hy1 = _hopper_hole(inner, outer, y_joint)
-    under_top = max(
-        (b.zmax for b in bbs
-         if min(b.xmax, hx1) > max(b.xmin, hx0)
-         and min(b.ymax, hy1) > max(b.ymin, hy0)),
-        default=iz0)
-    iz1 = max(iz1, under_top + hopper_min_depth)
     # The rear-panel port field is content too: every clamping nut/flange seats
     # on the outer wall face, so the wall must reach past the field's topmost
     # hardware edge (its bottom edge rides the lip band — _contents
@@ -370,20 +352,29 @@ def _facet_end_wall(inner, outer):
 # --- hopper funnel opening (Zone C) -----------------------------------------
 
 def _hopper_hole(inner, outer, y_joint):
-    """Rectangle (x0, x1, y0, y1) of the funnel opening in the top wall: its
-    −X edge flush past the display end-wall gusset (right of the facet), its
-    −Y edge one front ledge behind the inner front wall, width/depth from the
-    hopper parameters — the +X edge clamped to clear the top-right corner
-    pod's inboard end, the +Y edge clamped ahead of the Y-seam lip band (the
-    hole must live whole in the front-top piece). The companion funnel
-    (../../zone-c/hopper-funnel/) derives its basin from this same rect."""
+    """Rectangle (x0, x1, y0, y1) of the funnel opening in the top wall: the
+    placed funnel's collar — hopper_funnel.py's own dims at
+    _contents.FUNNEL_CX/CY. The placement must clear the display end-wall
+    gusset (right of the facet), the top-right corner pod's inboard end, the
+    front ledge, and the Y-seam lip band behind (the hole must live whole in
+    the front-top piece) — asserted, so a bad placement fails the build
+    instead of silently deforming the hole."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
-    x0 = ox0 + display_facet_x + wall                  # just past the facet gusset
+    x0 = _contents.FUNNEL_CX - _funnel.collar_w / 2.0
+    x1 = _contents.FUNNEL_CX + _funnel.collar_w / 2.0
+    y0 = _contents.FUNNEL_CY - _funnel.collar_d / 2.0
+    y1 = _contents.FUNNEL_CY + _funnel.collar_d / 2.0
     pod_in = ix1 + wall - (head_cbore_depth + screw_len + socket_cap)
-    x1 = min(x0 + hopper_hole_x, pod_in - 1.0)         # clear the top-right pod
-    y0 = iy0 + hopper_front_ledge
-    y1 = min(y0 + hopper_hole_y, y_joint - wall - 2.0)  # clear the Y-seam lip
+    lims = (ox0 + display_facet_x + wall,              # past the facet gusset
+            pod_in - 1.0,                              # clear of the top-right pod
+            iy0 + hopper_front_ledge,                  # behind the front ledge
+            y_joint - wall - 2.0)                      # ahead of the Y-seam lip
+    tol = 1e-6
+    if x0 < lims[0] - tol or x1 > lims[1] + tol or y0 < lims[2] - tol or y1 > lims[3] + tol:
+        raise ValueError(
+            f"funnel collar (x {x0:.2f}..{x1:.2f}, y {y0:.2f}..{y1:.2f}) violates the "
+            f"top-wall frame (x {lims[0]:.2f}..{lims[1]:.2f}, y {lims[2]:.2f}..{lims[3]:.2f})")
     return x0, x1, y0, y1
 
 
@@ -689,7 +680,9 @@ def coupon_dims():
     return inner, outer, y_joint, None
 
 
-def build_front_half(dims=None, split=None):
+def build_front_half(dims=None, split=None, hopper=True):
+    """`hopper=False` skips the funnel opening — the coupon's reduced box does
+    not host the funnel, and the placed collar would not fit its frame."""
     inner, outer, y_joint, _ = dims if dims is not None else _dims()
     shell = _shell_with_facet(inner, outer).val()
     front = shell.intersect(_ybox(outer[0], outer[1], outer[2], y_joint, outer[4], outer[5]))
@@ -706,7 +699,8 @@ def build_front_half(dims=None, split=None):
     # also clears whatever rib/wall material sits behind the facet in its path.
     front = front.cut(_display_cuts(outer))
     # Punch the hopper funnel throat through the top wall, right of the display.
-    front = front.cut(_hopper_cut(inner, outer, y_joint))
+    if hopper:
+        front = front.cut(_hopper_cut(inner, outer, y_joint))
     # Front-panel through-holes — the CO2 inlet the DERPIPE threads through.
     # _contents owns the port layout (mirrors the back-wall ports).
     y0, y1 = outer[2] - 5.0, inner[2] + 5.0
@@ -872,7 +866,7 @@ def main():
     for name, p in pieces.items():
         assy.add(p, name=f"enclosure_{name.replace('-', '_')}", color=piece_colors[name])
 
-    coupon = build_front_half(coupon_dims())
+    coupon = build_front_half(coupon_dims(), hopper=False)
     coupon_back = build_back_half(coupon_dims())
 
     for name, p in pieces.items():
