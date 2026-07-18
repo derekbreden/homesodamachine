@@ -112,19 +112,11 @@ COMPONENTS = [
     _c("compressor-shroud", "real",        True,  "none", "floor-boss capture TBD (enclosure-mechanical Open #1)"),
     _c("condenser+fan",     "placeholder", True,  "none", "harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)"),
     _c("mq6-sensor",        "real",        True,  "none", "MQ-6 module STEP (PCB + sensor can + header); floor gas sensor, no mount"),
-    # Water deck
-    _c("drip-pan",          "real",        True,  "none", "printed catch basin STEP (rounded basin + floor cove); rests on the compressor top, mount TBD (held)"),
-    _c("moisture-sensor",   "real",        True,  "none", "Shutao probe plate STEP (flat board + lead holes); lies in the pan, unfastened"),
-    _c("multiplex",         "real",        True,  "none", "ASSE 1022 backflow preventer (hex-barrel STEP + vent barb); floats over the pan, no mount"),
-    _c("seaflo-pump",       "placeholder", True,  "none", "diaphragm pump; feet splay to ~98, no mount modeled"),
-    _c("gasher-water",      "real",        True,  "none", "GASHER check valve (hex barrel STEP); rides the seaflo top, unfastened"),
-    _c("digiten-flow",      "real",        True,  "none", "flow sensor; rests on the seaflo top, unfastened"),
+    # Valve manifold
+    _c("source-select-tray", "placeholder", False, "none", "Tray 1 — 4x Beduan 12 V 1/4\" NC solenoid (V-A..V-D, sourced) + 2x JG PP2308E Y-divider (Y-A/Y-B, sourced) on a printed carrier; the carrier is undesigned — box seeded, calipers pending"),
     # CO2 chain
     _c("gasher-co2",        "real",        True,  "none", "GASHER check valve (hex barrel STEP); on the CO2 inlet chain, unfastened"),
     _c("wr1110",            "real",        True,  "none", "WR1110 regulator STEP (body between two wrench hexes); bracket geometry TBD (front-panel README)"),
-    # Flavor pumps
-    _c("pump-assembly-1",   "real",        True,  "none", "Kamoer pump; rests on the seaflo top, unfastened"),
-    _c("pump-assembly-2",   "real",        True,  "none", "Kamoer pump; rests on the condenser top, unfastened"),
     # Electronics shelf
     _c("power-tray",        "real",        True,  "none", "printed tray holds its boards; tray-to-shell joinery deferred (power-tray README)"),
     _c("pcba",              "real",        True,  "none", "printed tray holds the board; tray-to-shell joinery deferred (pcba-tray README)"),
@@ -147,14 +139,8 @@ COMPONENTS = [
 # Ratifying this set (and the floor above) is the first directed step.
 TOUCHING_OK = {
     frozenset(p) for p in [
-        ("compressor-shroud", "drip-pan"),      # pan sits on the compressor top
-        ("drip-pan", "moisture-sensor"),        # probe plate lies in the pan
-        ("drip-pan", "multiplex"),              # vent barb reaches down into the pan
-        ("moisture-sensor", "multiplex"),       # vent tip hovers just over the plate (drip-catch)
-        ("seaflo-pump", "gasher-water"),        # check valve rides the seaflo top
-        ("seaflo-pump", "digiten-flow"),        # flow sensor rides the seaflo top
-        ("seaflo-pump", "pump-assembly-1"),     # flavor pump 1 rides the seaflo top
-        ("condenser+fan", "pump-assembly-2"),   # flavor pump 2 rides the condenser top
+        ("compressor-shroud", "source-select-tray"),  # tray seats on the compressor top
+        ("source-select-tray", "hopper-funnel"),      # spout tip skims tip_clearance over the tray top
         ("foam-assembly", "power-tray"),        # electronics shelf on the foam-cap top
         ("foam-assembly", "pcba"),
         ("foam-assembly", "dc-dist"),
@@ -192,8 +178,7 @@ def load_connections() -> list[Connection]:
     """Every connection the box must route: the fluid tube segments (fluid-topology.md,
     `| N | From | To |`), the electrical runs (ac-wiring-schedule.md, `| AC/DC/SIG/LV-N |
     From | To |`), and the sealed refrigerant loop (REFRIGERANT_SEGMENTS). A connection
-    counts as routed only once a real 3D path is modeled — none are today; the fluid segments
-    live in the still-unplaced valve-manifold trays."""
+    counts as routed only once a real 3D path is modeled (_lines.py's authored runs)."""
     conns: list[Connection] = []
     if _TOPOLOGY.is_file():
         row = re.compile(r"^\|\s*(\d+)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|")
@@ -236,6 +221,13 @@ PLACEMENT_RULES = {
     "compressor-shroud": [("y-", 1.0), ("z-", 4.0), ("x-", 15.0)],
     # "Condenser is front-right on the floor" (inset one corner-rib chain off the right wall).
     "condenser+fan":     [("y-", 1.0), ("z-", 4.0), ("x+", 15.0)],
+    # "The source-select tray fronts the box" — within one Z-seam lip clearance of the
+    # front wall (what a front-column part crossing z_joint_front can hold). Its other
+    # governing relations — seated on the compressor top, +X edge shared with the
+    # compressor's, V-B under the funnel spout — are part-to-part and port-to-port,
+    # which the face-to-datum vocabulary cannot express; they are held by construction
+    # in _contents (comp_top_z / comp_x1) and read through the located axis.
+    "source-select-tray": [("y-", 6.0)],
 }
 
 
@@ -346,56 +338,28 @@ PORTS = [
     _p("tube-out", "bulkhead-water", "fluid", (145.0, 348.5, 293.0), "y+", 6.35, "house tap-water line (rear umbilical)", "JG 1/4\" PTC, outward"),
     _p("tube-in",  "bulkhead-water", "fluid", (145.0, 314.2, 293.0), "y-", 6.35, "tap-water internal line (to multiplex BFP in)", "JG 1/4\" PTC, inward"),
     _p("mains-in", "c14-inlet", "electrical", (90.0, 312.0, 295.5), "y-", 8.0, "AC distribution — L/N/E to the electronics shelf", "C14 spade terminals; 3-wire mains harness inboard"),
-    # Water deck — the supply chain's backflow preventer + the SeaFlo outlet check. The Multiplex
-    # ASSE 1022 runs the +X flow axis (tap → BFP → SeaFlo) with its atmospheric-vent barb down
-    # (−Z) into the drip pan; the water GASHER is the SeaFlo's outlet check on the +Y axis to the
-    # carbonator water inlet. Fitting flow-face centers from the placed bboxes.
-    _p("in",   "multiplex", "fluid", (25.0, 37.5, 180.15), "x-", 6.35, "bulkhead-water tube-in (tap water)", "ASSE 1022 inlet; line Ø est"),
-    _p("out",  "multiplex", "fluid", (90.0, 37.5, 180.15), "x+", 6.35, "seaflo-pump water-in", "ASSE 1022 outlet; line Ø est"),
-    _p("vent", "multiplex", "fluid", (57.5, 37.5, 159.5), "z-", 6.0,  "atmospheric vent — discharges into the drip-pan", "vent barb; Ø est"),
-    _p("in",  "gasher-water", "fluid", (76.5, 84.0, 222.85),  "y-", 6.35, "seaflo-pump water-out", "1/4\" NPT (SeaFlo outlet check)"),
-    _p("out", "gasher-water", "fluid", (76.5, 124.0, 222.85), "y+", 6.35, "foam-assembly water-in", "1/4\" NPT"),
-    # Floor + water-deck sensors — a single signal header each (one cable penetration per part,
-    # not one per conductor). MQ-6 header pins down (−Z) at the board floor; the Shutao moisture
-    # plate carries a 2-pin lead on its top face.
+    # Floor sensor — a single signal header (one cable penetration, not one per conductor).
+    # MQ-6 header pins down (−Z) at the board floor.
     _p("header", "mq6-sensor", "electrical", (116.0, 144.0, 3.0), "z-", 8.0, "PCBA gas-sensor input — VCC/GND/DO/AO (SIG)", "4-pin 2.54 mm header, pins down"),
-    _p("header", "moisture-sensor", "electrical", (80.0, 35.0, 159.1), "z+", 5.0, "PCBA moisture input — 2-pin (SIG + GND)", "2-pin lead header on the plate; Ø est"),
     # Hopper funnel — the removable silicone basin's single drain: the spout-tube exit annulus,
     # feeding the shared source (V-B hopper gate). One fluid port. The spout carries
-    # hopper_funnel.py's `neck_dx` −14 off the opening centre, into the clear column between the
-    # two pump towers, so the drain sits at the spout, not at the basin's bbox centre.
-    _p("drain", "hopper-funnel", "fluid", (179.75, 63.3, 306.533), "z-", 6.35, "V-B hopper gate → shared source (channel split)", "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"),
-    # Flavor pumps (Kamoer KPHM400, P-A + P-B) — each pump's two JG PP0308E elbows seat their −Z
-    # leg on a barb at the pump body's top and turn the line to −Y, so the tube pushes into the
-    # free collet facing −Y; those two collet-face centres are the elbow solid's only openings
-    # (pump_assembly.py's `_elbow`, measured on the placed geometry). The 2-wire DC motor lead
-    # exits the motor can's far end at −Y — kamoer_kphm400's `motor_body`, the +Z end of the
-    # pump-local depth axis, which _contents' rotate-90-about-X turns to −Y. in/out follow the
-    # flavor manifold (P-A: Y-C→Y-D, P-B: Y-F→Y-G).
-    _p("inlet",  "pump-assembly-1", "fluid",      (98.37, 90.94, 298.17),  "y-", 6.35, "Y-C → P-A-I (channel A source select)", "JG PP0308E elbow collet; 1/4\" flavor line"),
-    _p("outlet", "pump-assembly-1", "fluid",      (155.37, 90.94, 298.17), "y-", 6.35, "P-A-O → Y-D (channel A to bag/nozzle)", "JG PP0308E elbow collet; 1/4\" flavor line"),
-    _p("motor",  "pump-assembly-1", "electrical", (126.87, 4.0, 247.30),   "y-", 4.0,  "L298N channel A / 12 V DC drive", "2-wire DC motor lead off the motor-can end face; Ø est"),
-    _p("inlet",  "pump-assembly-2", "fluid",      (204.37, 90.94, 266.17), "y-", 6.35, "Y-F → P-B-I (channel B source select)", "JG PP0308E elbow collet; 1/4\" flavor line"),
-    _p("outlet", "pump-assembly-2", "fluid",      (261.37, 90.94, 266.17), "y-", 6.35, "P-B-O → Y-G (channel B to bag/nozzle)", "JG PP0308E elbow collet; 1/4\" flavor line"),
-    _p("motor",  "pump-assembly-2", "electrical", (232.87, 4.0, 215.31),   "y-", 4.0, "L298N channel B / 12 V DC drive", "2-wire DC motor lead off the motor-can end face; Ø est"),
-    # DIGITEN flow sensor — the dispense-side meter on the carb-water riser. Its two G1/4 PTC
-    # collet bodies face ±Y (the +Y one toward the foam front, the −Y toward the umbilical run);
-    # the 3-wire pigtail exits +Z. Collet centres extracted from the placed geometry; 1/4" tube
-    # bore each.
-    _p("in",     "digiten-flow", "fluid",      (121.0, 154.0, 229.0), "y+", 6.35, "foam-assembly carb-water-out (riser)", "G1/4 PTC, 1/4\" tube bore"),
-    _p("out",    "digiten-flow", "fluid",      (121.0, 132.0, 229.0), "y-", 6.35, "carb-water to rear umbilical (bulkhead-carb)", "G1/4 PTC, 1/4\" tube bore"),
-    _p("signal", "digiten-flow", "electrical", (121.0, 143.0, 245.0), "z+", 4.0,  "PCBA flow input — VCC/GND/SIG (Hall pigtail)", "3-wire pigtail; Ø est"),
+    # hopper_funnel.py's `neck_dx` −14 off the opening centre, over V-B's inlet on the
+    # source-select tray, so the drain sits at the spout, not at the basin's bbox centre.
+    _p("drain", "hopper-funnel", "fluid", (179.75, 63.3, 222.5), "z-", 6.35, "V-B hopper gate → shared source (channel split)", "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"),
+    # Source-select tray (Tray 1) — the manifold's four boundary connectors on the placeholder
+    # box, all 1/4" (the Beduan valves' port size). PROVISIONAL positions — the carrier is
+    # undesigned; they pin down with the tray design. V-B's inlet faces up, directly under the
+    # funnel spout (the segment-4 gravity drop); the other three sit on the +Y back face toward
+    # the deferred water chain and pump columns. On-tray plumbing (segments 3/5/6/7/8) is
+    # interior to the tray and carries no port here.
+    _p("V-A-I", "source-select-tray", "fluid", (100.0, 109.0, 200.0),  "y+", 6.35, "tap-water chain (bulkhead-water → BFP, deferred) — segment 2", "1/4\" PTC; PROVISIONAL — placeholder box"),
+    _p("V-B-I", "source-select-tray", "fluid", (179.75, 63.3, 221.5),  "z+", 6.35, "hopper-funnel drain — segment 4 (gravity drop)", "1/4\" PTC; PROVISIONAL — placeholder box, directly under the spout"),
+    _p("V-C-O", "source-select-tray", "fluid", (135.0, 109.0, 180.0),  "y+", 6.35, "Y-C-1 (Tray 3 pump-inlet tees, deferred) — segment 9", "1/4\" PTC; PROVISIONAL — placeholder box"),
+    _p("V-D-O", "source-select-tray", "fluid", (165.0, 109.0, 180.0),  "y+", 6.35, "Y-F-1 (Tray 3 pump-inlet tees, deferred) — segment 19", "1/4\" PTC; PROVISIONAL — placeholder box"),
     # Waveshare display — its data/power connector is NOT in the imported STEP (only the four
     # corner mounts are), so this one harness port is placed provisionally on the interior (+Y)
     # back face at the PCB centre. A viewer pick would pin it exactly.
-    _p("harness", "display", "electrical", (56.75, 62.8, 315.0), "y+", 8.0, "5 V power + display data (PCBA / power bus)", "connector not modeled in STEP; PROVISIONAL on the interior back face — refine with a pick"),
-    # SeaFlo diaphragm pump — still a placeholder box (its real 3/8\"-port geometry is banked at
-    # reference/seaflo-22-pump but not yet wired). Its two 3/8" hose barbs + 12 V lead are placed
-    # provisionally on the −X head end; they move when the real pump is wired in the water-deck
-    # repack (or pinned by a viewer pick).
-    _p("water-in",  "seaflo-pump", "fluid",      (14.0, 100.0, 185.0), "x-", 9.525, "multiplex out (BFP → pump)", "3/8\" hose barb; PROVISIONAL — placeholder box, awaiting the real SeaFlo-22 geometry"),
-    _p("water-out", "seaflo-pump", "fluid",      (14.0, 120.0, 185.0), "x-", 9.525, "gasher-water in (pump → outlet check)", "3/8\" hose barb; PROVISIONAL — placeholder box, awaiting the real SeaFlo-22 geometry"),
-    _p("power",     "seaflo-pump", "electrical", (100.0, 147.0, 185.0), "y+", 5.0, "12 V DC pump power (level/faucet interlock)", "2-wire lead; PROVISIONAL — placeholder box"),
+    _p("harness", "display", "electrical", (56.75, 62.8, 300.2), "y+", 8.0, "5 V power + display data (PCBA / power bus)", "connector not modeled in STEP; PROVISIONAL on the interior back face — refine with a pick"),
     # Controller PCBA — every field loom lands on a labelled JST XH edge connector (J1–J14, no
     # J12; ac-wiring-schedule.md §Board connector map). Positions are EXACT: each connector's
     # pcba.tsx board coordinate mapped world = (x+258.8, y+201.8) — the transform solved from the
@@ -430,12 +394,11 @@ PORTS = [
 
 
 # Components that carry NO tube or wire connector at all — a passive body, located trivially
-# once declared connector-free. The drip pan is a catch basin: the Multiplex vent drips INTO it
-# (that penetration is the Multiplex's port, not the pan's), and it drains nowhere. Declaring the
-# absence is the honest analogue of declaring a position — never a silent gap, and it lets the
-# located axis reach 100% without inventing a port. A name here must own no PORTS entry (asserted
-# in ports_audit); if the pan ever gains a drain, move it out and give it that port.
-PASSIVE_NO_PORTS = frozenset({"drip-pan"})
+# once declared connector-free. Declaring the absence is the honest analogue of declaring a
+# position — never a silent gap, and it lets the located axis reach 100% without inventing a
+# port. Empty today: every packed component carries at least one connector. A name here must
+# own no PORTS entry (asserted in ports_audit).
+PASSIVE_NO_PORTS: frozenset = frozenset()
 
 
 def _on_bbox_surface(pos, bb, tol) -> bool:
@@ -794,8 +757,8 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     routed_done = sum(1 for c in conns if c.routed)
     routed = _pct(routed_done, len(conns))
     routed_detail = [f"{fluid} fluid + {refrig} refrigerant + {wire} electrical; "
-                     f"{routed_done} routed — the fluid path waits on the unplaced valve-manifold "
-                     f"trays, the electrical runs on the components being held"]
+                     f"{routed_done} routed — the fluid path waits on the tray designs and the "
+                     f"deferred pumps/water deck, the electrical runs on the components being held"]
     for r in _lines.build_runs():
         routed_detail.append(f"✓ {r.id}: {r.frm} → {r.to} — Ø{r.diam:g} × {r.length:.1f} mm, "
                              f"{len(r.bends)} bends at R{r.bend:.1f}")

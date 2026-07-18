@@ -9,14 +9,15 @@ A wide funnel that drops into the top-wall opening to the right of the display
     3 mm top wall at its top and hanging on down into the reserve;
   * a shallow ramp from the bottom of that chute down to a 1/4" round spout —
     the whole floor is the ramp, every surface of it falling toward the spout,
-    so the basin drains dry. The spout is offset in −X toward the clear column
-    between the two pumps and necks down to just above the tallest content
-    under the mouth (read live), then a short straight tube carries the exit
-    down to skim it, where the V-B delivery tube picks the pour up.
+    so the basin drains dry. The spout is offset in −X (neck_dx) over V-B's
+    inlet on the source-select tray and necks down to just above the tallest
+    content under the mouth (read live) — that tray's top — then a short
+    straight tube carries the exit down to skim it, where V-B picks the pour
+    up.
 
 Capacity to the brim is printed at export and runs past a full 440 mL
-SodaStream bottle — the enclosure reserves the basin's depth over the pump
-towers (enclosure.py `hopper_min_depth`).
+SodaStream bottle — the enclosure reserves the basin's depth over the tray
+(enclosure.py `hopper_min_depth`).
 
 The funnel shares the opening rectangle with the enclosure, so the collar always
 matches the hole. It is built in enclosure world coordinates (+X right, +Y back,
@@ -44,7 +45,7 @@ brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 chute_h = 30.0          # straight rectangular chute height — brim top down to the ramp start
 neck_dx = -14.0         # neck (ramp foot + spout) shift in X off the opening center,
-                        # aiming the drop into the clear column between the two pumps
+                        # aiming the drop at V-B's inlet on the source-select tray
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
 spout_tube = 6.0        # straight spout tube below the ramp tip — its length sets
