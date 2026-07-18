@@ -104,6 +104,11 @@ PCBA_ASSEMBLY  = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-ass
 DC_DIST        = _hw / "reference" / "dc-dist-block" / "dc-dist-block.step"
 DIGITEN_FLOW   = _hw / "reference" / "digiten-flow-sensor" / "digiten-flow-sensor.step"
 GASHER_CHECK   = _hw / "reference" / "gasher-check-valve" / "gasher-check-valve.step"
+MULTIPLEX_STEP = _hw / "reference" / "multiplex-asse1022" / "multiplex-asse1022.step"
+WR1110_STEP    = _hw / "reference" / "wr1110-regulator" / "wr1110-regulator.step"
+MQ6_STEP       = _hw / "reference" / "mq6-gas-sensor" / "mq6-gas-sensor.step"
+MOISTURE_STEP  = _hw / "reference" / "shutao-moisture-plate" / "shutao-moisture-plate.step"
+DERPIPE_STEP   = _hw / "reference" / "derpipe-co2-inlet" / "derpipe-co2-inlet.step"
 JG_BULKHEAD    = _hw / "reference" / "jg-bulkhead-union" / "jg-bulkhead-union.step"
 IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 
@@ -316,7 +321,7 @@ def build():
     cond = _box(CONDENSER_AIRFLOW, CONDENSER_FACE_B, CONDENSER_FACE_A)  # 56 x 151 x 178
     placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW - SIDE_RIB_INSET, 0.0, SEAM_CLEAR_LIFT)
     cond_top_z = SEAM_CLEAR_LIFT + CONDENSER_FACE_A
-    placed["mq6-sensor"] = _at(_box(MQ6_X, MQ6_Y, MQ6_Z), 100.0, 134.0, SEAM_CLEAR_LIFT)
+    placed["mq6-sensor"] = _at(_load(MQ6_STEP), 100.0, 134.0, SEAM_CLEAR_LIFT)
 
     # --- Water deck, on the compressor top: the drip pan along the left wall
     # with the sensor probe plate lying flat in it, the Multiplex over the pan
@@ -326,8 +331,8 @@ def build():
     # and the DIGITEN flow sensor (inline on the carb-water riser's path to the
     # rear umbilical) ride the SeaFlo's top.
     placed["drip-pan"] = _at(_drip_pan(), SIDE_RIB_INSET, 3.0, comp_top_z)
-    placed["moisture-sensor"] = _at(_box(MOIST_X, MOIST_Y, MOIST_Z), 30.0, 15.0, comp_top_z + PAN_FLOOR)
-    placed["multiplex"] = _at(_multiplex(), 25.0, 21.0, comp_top_z + PAN_Z - 17.0)
+    placed["moisture-sensor"] = _at(_load(MOISTURE_STEP), 30.0, 15.0, comp_top_z + PAN_FLOOR)
+    placed["multiplex"] = _at(_load(MULTIPLEX_STEP), 25.0, 21.0, comp_top_z + PAN_Z - 17.0)
     sf_w, sf_d, sf_h = SEAFLO_DIMS                      # [75 x 60 x 175](SEAFLO_DIMS)
     seaflo = _box(sf_h, sf_w, sf_d)                    # 175 x 75 x 60, long axis along X
     # Pulled to Y 72: the strip it leaves against the cold-core face is the
@@ -343,7 +348,7 @@ def build():
     # the Multiplex.
     placed["gasher-co2"] = _at(_load(GASHER_CHECK),
                                CO2_INLET_X - GASHER_D / 2.0, 14.0, CO2_INLET_Z - GASHER_D / 2.0)
-    placed["wr1110"] = _at(_cyl(WR1110_D, WR1110_L, (0, 1, 0)),
+    placed["wr1110"] = _at(_load(WR1110_STEP),
                            CO2_INLET_X - WR1110_D / 2.0, 14.0 + GASHER_L + 1.0, CO2_INLET_Z - WR1110_D / 2.0)
 
     # --- Zone C: the two flavor pumps spanning the front width, directly
@@ -436,13 +441,11 @@ def panel_bodies():
         else:
             bodies[names.pop(0)] = jg.translate((hx, y_out, hz))
 
-    # DERPIPE CO2 inlet on the front panel: 5/16" PTC collet body outboard,
-    # NPT stub through the hole reaching inboard toward the GASHER → WR1110
-    # chain.
-    shank = _cyl(DERPIPE_SHANK_D, DERPIPE_SHANK_L, (0, 1, 0)).translate(
-        (CO2_INLET_X, -WALL - 2.0, CO2_INLET_Z))
-    collet = _cyl(DERPIPE_BODY_D, DERPIPE_BODY_L, (0, 1, 0)).translate(
+    # DERPIPE CO2 inlet on the front panel: 5/16" PTC collet outboard, wrench
+    # hex, NPT stub through the hole reaching inboard toward the GASHER → WR1110
+    # chain. The reference model's outboard collet face is at its Y origin, so
+    # it seats the same outboard reach the two placeholder cylinders did.
+    bodies["co2-inlet"] = _load(DERPIPE_STEP).translate(
         (CO2_INLET_X, -WALL - 2.0 - DERPIPE_BODY_L, CO2_INLET_Z))
-    bodies["co2-inlet"] = shank.fuse(collet)
 
     return {n: (s, COLORS[n]) for n, s in bodies.items()}
