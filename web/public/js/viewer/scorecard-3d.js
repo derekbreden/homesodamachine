@@ -101,7 +101,7 @@ function openModal(wrapper, sc) {
 
   const focus = goals.filter((c) => c.active);
   const deferred = goals.filter((c) => !c.active);
-  card.appendChild(el("div", "sc-h", `Goal — focus: placed ${sc.placed}% · shaped ${sc.shaped}%`));
+  card.appendChild(el("div", "sc-h", `Goal — focus: placed ${sc.placed}% · located ${sc.located}% · shaped ${sc.shaped}%`));
   for (const c of focus) appendCheck(card, c, false, wrapper, partNames);
   if (deferred.length) {
     card.appendChild(el("div", "sc-h", `Deferred — routed ${sc.routed}% · held ${sc.held}%`));
@@ -123,7 +123,7 @@ function buildBar(wrapper, sc) {
   const g = gateCounts(sc);
   const bar = el("div", "sc-bar");
   bar.appendChild(el("span", "sc-bar-text",
-    `gates ${g.pass}/${g.total} · placed ${sc.placed}% · shaped ${sc.shaped}%`));
+    `gates ${g.pass}/${g.total} · placed ${sc.placed}% · located ${sc.located}% · shaped ${sc.shaped}%`));
   const badge = el("button", "sc-badge" + (g.fail ? " has-issues" : ""),
     g.fail ? `✗ ${g.fail} gate${g.fail === 1 ? "" : "s"}` : "✓ checks");
   badge.type = "button";

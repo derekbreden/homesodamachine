@@ -37,12 +37,13 @@ test("enclosure scorecard sidecar conforms to the contract", (t) => {
     assert.ok(c.detail.every((d) => typeof d === "string"), "detail rows are strings");
   }
 
-  // The four goal axes exist by id, and the focus/deferred split is encoded in `active`.
+  // The five goal axes exist by id, and the focus/deferred split is encoded in `active`.
   const goalById = Object.fromEntries(goals.map((c) => [c.id, c]));
-  for (const id of ["placed", "shaped", "routed", "held"]) {
+  for (const id of ["placed", "located", "shaped", "routed", "held"]) {
     assert.ok(goalById[id], `goal axis ${id} present`);
   }
   assert.equal(goalById.placed.active, true, "placed is a focus axis");
+  assert.equal(goalById.located.active, true, "located is a focus axis");
   assert.equal(goalById.shaped.active, true, "shaped is a focus axis");
   assert.equal(goalById.routed.active, false, "routed is deferred");
   assert.equal(goalById.held.active, false, "held is deferred");
@@ -58,6 +59,6 @@ test("scorecardPathFor maps a STEP path to its sidecar", () => {
 test("isScorecard rejects malformed input", () => {
   assert.equal(isScorecard(null), false);
   assert.equal(isScorecard({}), false);
-  assert.equal(isScorecard({ gatesPass: "yes", placed: 0, shaped: 0, routed: 0, held: 0, checks: [] }), false);
-  assert.equal(isScorecard({ gatesPass: true, placed: 0, shaped: 0, routed: 0, held: 0, checks: [{ kind: "gate" }] }), false);
+  assert.equal(isScorecard({ gatesPass: "yes", placed: 0, located: 0, shaped: 0, routed: 0, held: 0, checks: [] }), false);
+  assert.equal(isScorecard({ gatesPass: true, placed: 0, located: 0, shaped: 0, routed: 0, held: 0, checks: [{ kind: "gate" }] }), false);
 });

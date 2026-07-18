@@ -13,27 +13,30 @@ Modeled on the board's `hardware/pcb/pcba/scorecard.ts`. Two kinds of check:
            `score` (0..100), not a gate — the box still builds while it converts.
 
 The board had ONE goal (take every connection off the autorouter onto deliberate hand
-copper). The enclosure has FOUR axes, one per thing every component owes — and today
-only the first two are the focus (the other two render, dimmed, but are not yet worked):
+copper). The enclosure has FIVE axes, one per thing every component owes — and today
+only the first three are the focus (the other two render, dimmed, but are not yet worked):
 
-    placed — FOCUS. Placement criteria are DEFINED in code (expected face-to-datum
-             measurements) and currently HELD. "Foam is against the back-bottom",
-             with "against" pinned to numbers the scorecard measures.
-    shaped — FOCUS. Real geometry, not a placeholder box/cylinder.
-    routed — deferred. Every connection (fluid segment + electrical run) a real 3D
-             path (bend radius, length, clearance), not endpoints + an external graph.
-    held   — deferred. A printed holder that fastens the component to the enclosure (a
-             few bosses + screws, or a tray-with-bosses that itself fastens) — not a
-             free solid resting in a collision-checked void.
+    placed  — FOCUS. Placement criteria are DEFINED in code (expected face-to-datum
+              measurements) and currently HELD. "Foam is against the back-bottom",
+              with "against" pinned to numbers the scorecard measures.
+    located — FOCUS. Every connector (tube + wire) has a POSITION on the component — a
+              point on the body the scorecard confirms is on-surface. A connection has no
+              path until both its ends are located, so this precedes routed.
+    shaped  — FOCUS. Real geometry, not a placeholder box/cylinder.
+    routed  — deferred. Every connection (fluid + refrigerant + electrical) a real 3D
+              path (bend radius, length, clearance), not endpoints + an external graph.
+    held    — deferred. A printed holder that fastens the component to the enclosure (a
+              few bosses + screws, or a tray-with-bosses that itself fastens) — not a
+              free solid resting in a collision-checked void.
 
-placed + shaped are driven to 100% first; routed + held wait behind them (rendered gray).
+placed + located + shaped are driven to 100% first; routed + held wait behind them (gray).
 The score is by AUTHORSHIP, not by "it doesn't collide": a bounding box that happens not
 to overlap is the enclosure's version of the autorouter's accidentally-clean net —
 crediting it would count the box-thinking this effort exists to remove as progress. So
 `shaped`/`held` are read from the declared COMPONENTS registry, `placed` from measured
-face-to-datum rules that must be authored per component, and `routed` from the fluid +
-wiring topologies (a connection counts only once a real path exists). Prose for the why —
-and the lessons — is in requirements.md.
+face-to-datum rules and `located` from measured port positions (both authored per component),
+and `routed` from the fluid + refrigerant + wiring topologies (a connection counts only once a
+real path exists). Prose for the why — and the lessons — is in requirements.md.
 """
 
 from __future__ import annotations
@@ -167,11 +170,25 @@ class Connection:
     routed: bool = False   # a real 3D path exists (today: none do)
 
 
+# The sealed refrigerant loop — declared here, not parsed. It binds the three floor/back
+# components (compressor, condenser, cold-core evaporator) and lives in NO segment table:
+# fluid-topology.md is the beverage manifold, and the wiring schedule is electrical. Its
+# topology is verified-by-disassembly in reference/ice-maker/README.md and built in
+# assembly/refrigerant-loop.md. Without this the routed axis silently omits the loop the
+# whole cold core exists to run. The drier + capillary tube ride the condenser→evaporator leg.
+REFRIGERANT_SEGMENTS = [
+    ("refrig-1", "compressor-shroud discharge", "condenser+fan inlet"),
+    ("refrig-2", "condenser+fan outlet (drier + cap tube)", "foam-assembly evaporator inlet"),
+    ("refrig-3", "foam-assembly evaporator outlet", "compressor-shroud suction"),
+]
+
+
 def load_connections() -> list[Connection]:
     """Every connection the box must route: the fluid tube segments (fluid-topology.md,
-    `| N | From | To |`) and the electrical runs (ac-wiring-schedule.md, `| AC/DC/SIG/LV-N
-    | From | To |`). A connection counts as routed only once a real 3D path is modeled —
-    none are today; the fluid segments live in the still-unplaced valve-manifold trays."""
+    `| N | From | To |`), the electrical runs (ac-wiring-schedule.md, `| AC/DC/SIG/LV-N |
+    From | To |`), and the sealed refrigerant loop (REFRIGERANT_SEGMENTS). A connection
+    counts as routed only once a real 3D path is modeled — none are today; the fluid segments
+    live in the still-unplaced valve-manifold trays."""
     conns: list[Connection] = []
     if _TOPOLOGY.is_file():
         row = re.compile(r"^\|\s*(\d+)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|")
@@ -185,6 +202,8 @@ def load_connections() -> list[Connection]:
             m = row.match(line)
             if m:
                 conns.append(Connection(m.group(1), "wire", m.group(2).strip(), m.group(3).strip()))
+    for cid, frm, to in REFRIGERANT_SEGMENTS:
+        conns.append(Connection(cid, "refrigerant", frm, to))
     return conns
 
 
@@ -222,6 +241,93 @@ def placement_audit(solids: dict, inner: tuple) -> list[tuple[str, bool, list]]:
         val = {"x-": bb.xmin, "x+": bb.xmax, "y-": bb.ymin, "y+": bb.ymax, "z-": bb.zmin, "z+": bb.zmax}
         checks = [(f, abs(val[f] - datum[f]), mx, abs(val[f] - datum[f]) <= mx) for f, mx in rules]
         out.append((name, all(c[3] for c in checks), checks))
+    return out
+
+
+# ── Ports (the located axis) — where every connector sits on the component ───
+# A connection has no path until BOTH its ends have a position on a real body. This is the
+# located axis: each component's tube/wire connectors, declared with a world position and the
+# body face it exits, then checked to actually sit on the placed solid's surface. Positions are
+# DERIVED where the part documents its penetrations (foam-shell README §Penetrations;
+# compressor_shroud.py hole centers carried through _contents' rotate+placement). `pos=None`
+# marks a connector whose position is still unknown — a placeholder body, or a real part whose
+# port the donor teardown hasn't pinned — a visible "needs a position", never a silent gap. A
+# component is `located` when it has ports AND every one is positioned and on-surface.
+@dataclass
+class Port:
+    name: str            # connector id, unique within its component
+    component: str       # the COMPONENTS name it sits on
+    kind: str            # "fluid" | "refrigerant" | "electrical"
+    pos: tuple | None    # (x, y, z) world coords, or None = not yet located
+    face: str            # body face it exits: x-/x+/y-/y+/z-/z+ ("" when pos is None)
+    mates: str           # the other end, human-readable
+    note: str = ""
+
+
+def _p(name, component, kind, pos, face, mates, note=""):
+    return Port(name, component, kind, pos, face, mates, note)
+
+
+PORTS = [
+    # foam-assembly — 8 tube penetrations (foam-shell README §Penetrations, world coords via
+    # _contents' placement) + 2 reed-cable exits on the −Y front wall. All on −Y except the CO2
+    # inlet, which drops through the +Z foam-cap top.
+    _p("carb-water-out", "foam-assembly", "fluid",       (141.5, 155.0, 46.5),  "y-", "dispense faucet (carb-water riser to the rear umbilical)"),
+    _p("reservoir-A",    "foam-assembly", "fluid",       (238.5, 155.0, 35.5),  "y-", "reservoir A ↔ peristaltic pump A (bag circuit)"),
+    _p("reservoir-B",    "foam-assembly", "fluid",       (44.5,  155.0, 35.5),  "y-", "reservoir B ↔ peristaltic pump B (bag circuit)"),
+    _p("co2-in",         "foam-assembly", "fluid",       (141.5, 172.8, 262.9), "z+", "CO2 chain (WR1110 → foam-cap top entry)"),
+    _p("evap-inlet",     "foam-assembly", "refrigerant", (141.5, 155.0, 72.0),  "y-", "condenser+fan outlet (liquid line via drier + cap tube)"),
+    _p("evap-outlet",    "foam-assembly", "refrigerant", (141.5, 155.0, 191.0), "y-", "compressor-shroud suction"),
+    _p("water-in",       "foam-assembly", "fluid",       (141.5, 155.0, 223.0), "y-", "SeaFlo diaphragm-pump discharge"),
+    _p("prv-vent",       "foam-assembly", "fluid",       (141.5, 155.0, 231.0), "y-", "appliance interior (relief-event discharge only)"),
+    _p("reed-cable-A",   "foam-assembly", "electrical",  (254.5, 155.0, 35.5),  "y-", "J6 REEDS A — reservoir A level reeds (SIG-10)", "16 mm outboard of reservoir-A (_port_cuts.py)"),
+    _p("reed-cable-B",   "foam-assembly", "electrical",  (28.5,  155.0, 35.5),  "y-", "J7 REEDS B — reservoir B level reeds (SIG-11)", "16 mm outboard of reservoir-B (_port_cuts.py)"),
+    # compressor-shroud — compressor_shroud.py local hole centers carried through _contents'
+    # _rot((0,0,1),90) + _at(14,0,3). Both copper stubs share the one (left) face → world −Y
+    # (front); the AC gland + earth bond ride the (back) face → world −X (left wall).
+    _p("ac-mains",        "compressor-shroud", "electrical",  (14.0, 66.5, 78.0),   "x-", "Teyleten relay #1 / AC distribution (AC-4 switched-H + AC-5 N, 3-wire gland)"),
+    _p("earth-bond",      "compressor-shroud", "electrical",  (14.0, 101.5, 78.0),  "x-", "electronics-shelf ground bus (AC-6)"),
+    _p("refrig-suction",  "compressor-shroud", "refrigerant", (146.75, 0.0, 78.0),  "y-", "foam-assembly evaporator outlet (shroud copper-inlet hole)"),
+    _p("refrig-discharge","compressor-shroud", "refrigerant", (59.25, 0.0, 78.0),   "y-", "condenser+fan inlet (shroud copper-outlet hole)"),
+    # condenser+fan — placeholder box harvested from the donor ice maker; its refrigerant and
+    # fan ports are NOT yet located on the block. pos=None until the teardown pins them.
+    _p("refrig-inlet",  "condenser+fan", "refrigerant", None, "", "compressor-shroud discharge"),
+    _p("refrig-outlet", "condenser+fan", "refrigerant", None, "", "filter-drier → cap tube → foam-assembly evaporator inlet"),
+    _p("fan-power",     "condenser+fan", "electrical",  None, "", "J2 MANIFOLD B FAN + COM (DC-8, 12 V)"),
+]
+
+
+def _on_surface(pos, bb, tol) -> bool:
+    """True when `pos` lies on the bounding box's surface: inside (+tol) on every axis AND
+    flush against at least one face (so a point floating in the body's interior fails)."""
+    x, y, z = pos
+    axes = ((x, bb.xmin, bb.xmax), (y, bb.ymin, bb.ymax), (z, bb.zmin, bb.zmax))
+    inside = all(lo - tol <= v <= hi + tol for v, lo, hi in axes)
+    on_face = any(abs(v - lo) <= tol or abs(v - hi) <= tol for v, lo, hi in axes)
+    return inside and on_face
+
+
+def ports_audit(solids: dict, tol: float = 2.0) -> list[tuple[str, bool, list]]:
+    """Group PORTS by component; return (component, all_located, [(port, status)]) where status
+    is 'ok' (positioned + on the placed body's surface), 'off-surface' (a position not on the
+    solid — a drifted/typo'd port), or 'no-pos' (not yet located). A component is located only
+    when every port is 'ok'. Components with no ports declared are not returned — like placement
+    rules, they are simply not-yet-authored."""
+    by_comp: dict[str, list[Port]] = {}
+    for p in PORTS:
+        by_comp.setdefault(p.component, []).append(p)
+    out = []
+    for comp, ports in by_comp.items():
+        bb = solids[comp].BoundingBox() if comp in solids else None
+        rows = []
+        for p in ports:
+            if p.pos is None:
+                rows.append((p, "no-pos"))
+            elif bb is None or not _on_surface(p.pos, bb, tol):
+                rows.append((p, "off-surface"))
+            else:
+                rows.append((p, "ok"))
+        out.append((comp, all(s == "ok" for _pt, s in rows), rows))
     return out
 
 
@@ -329,6 +435,7 @@ class Scorecard:
     checks: list
     gates_pass: bool
     placed: int
+    located: int
     shaped: int
     routed: int
     held: int
@@ -390,7 +497,7 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
          f"{len(COMPONENTS) - len(unsourced)}/{len(COMPONENTS)}", f"{len(COMPONENTS)}/{len(COMPONENTS)}",
          [f"{c.name}: {c.note}" for c in unsourced])
 
-    # ── GOALS — four realization axes. placed + shaped are the focus (rendered live);
+    # ── GOALS — five realization axes. placed + located + shaped are the focus (rendered live);
     # routed + held wait behind them (rendered gray). Scored by authorship, not collision. ──
     total = len(COMPONENTS)
 
@@ -406,6 +513,23 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     goal("placed", "Placement criteria defined and held (face-to-datum)", placed_pct == 100,
          f"{placed_pct}% ({len(placed_held)}/{total})", "100%", placed_detail, active=True)
 
+    # located — FOCUS: every connector (tube + wire) has a position on the component. A
+    # connection has no path until both ends are located, so this is the precondition to routed.
+    pta = ports_audit(solids)
+    located_comps = [r for r in pta if r[1]]
+    located_pct = _pct(len(located_comps), total)
+    _pstat = {"off-surface": "⚠ off-surface", "no-pos": "needs a position"}
+    located_detail = []
+    for comp, ok, prows in pta:
+        n_ok = sum(1 for _pt, s in prows if s == "ok")
+        located_detail.append(f"{'✓' if ok else '✗'} {comp}: {n_ok}/{len(prows)} connectors located")
+        for pt, s in prows:
+            if s != "ok":
+                located_detail.append(f"    – {comp}:{pt.name} ({pt.kind}) {_pstat[s]} → {pt.mates}")
+    located_detail.append(f"{total - len(pta)} components: no connector positions defined yet")
+    goal("located", "Connectors positioned on the component (tubes + wires)", located_pct == 100,
+         f"{located_pct}% ({len(located_comps)}/{total})", "100%", located_detail, active=True)
+
     # shaped — FOCUS: real geometry, not a placeholder box/cylinder.
     real = [c for c in COMPONENTS if c.is_real]
     shaped = _pct(len(real), total)
@@ -413,15 +537,16 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
          f"{shaped}% ({len(real)}/{total})", "100%",
          [f"{c.name}: still a {c.kind} — {c.note}" for c in COMPONENTS if not c.is_real], active=True)
 
-    # routed — DEFERRED: every fluid segment + electrical run a real 3D path.
+    # routed — DEFERRED: every fluid + refrigerant + electrical connection a real 3D path.
     conns = load_connections()
     fluid = sum(1 for c in conns if c.kind == "fluid")
     wire = sum(1 for c in conns if c.kind == "wire")
+    refrig = sum(1 for c in conns if c.kind == "refrigerant")
     routed_done = sum(1 for c in conns if c.routed)
     routed = _pct(routed_done, len(conns))
-    goal("routed", "Connections modeled as real 3D paths (fluid + electrical)", routed == 100 and bool(conns),
+    goal("routed", "Connections modeled as real 3D paths (fluid + refrigerant + electrical)", routed == 100 and bool(conns),
          f"{routed}% ({routed_done}/{len(conns)})", "100%",
-         [f"{fluid} fluid segments + {wire} electrical runs, none routed — the fluid path waits on the unplaced valve-manifold trays"],
+         [f"{fluid} fluid + {refrig} refrigerant + {wire} electrical, none routed — the fluid path waits on the unplaced valve-manifold trays"],
          active=False)
 
     # held — DEFERRED: a printed holder that fastens each component to the enclosure.
@@ -433,7 +558,7 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
          active=False)
 
     gates_pass = all(c.status == "pass" for c in checks if c.kind == "gate")
-    return Scorecard(checks, gates_pass, placed_pct, shaped, routed, held)
+    return Scorecard(checks, gates_pass, placed_pct, located_pct, shaped, routed, held)
 
 
 def scorecard_dict(sc: Scorecard) -> dict:
@@ -444,6 +569,7 @@ def scorecard_dict(sc: Scorecard) -> dict:
     return {
         "gatesPass": sc.gates_pass,
         "placed": sc.placed,
+        "located": sc.located,
         "shaped": sc.shaped,
         "routed": sc.routed,
         "held": sc.held,
@@ -483,11 +609,11 @@ def format_scorecard(sc: Scorecard) -> str:
         for d in c.detail:
             rows.append(f"      – {d}")
 
-    # Goals — the two focus axes live, the two deferred axes gray.
-    focus_met = sc.placed == 100 and sc.shaped == 100
+    # Goals — the three focus axes live, the two deferred axes gray.
+    focus_met = sc.placed == 100 and sc.located == 100 and sc.shaped == 100
     done = sc.gates_pass and focus_met and sc.routed == 100 and sc.held == 100
     tail = col("  ✓ DONE", GREEN) if done else (col("  ✓ FOCUS MET", GREEN) if focus_met else "")
-    rows.append("GOAL   " + col(f"focus: placed {sc.placed}% · shaped {sc.shaped}%", GREEN if focus_met else YELLOW)
+    rows.append("GOAL   " + col(f"focus: placed {sc.placed}% · located {sc.located}% · shaped {sc.shaped}%", GREEN if focus_met else YELLOW)
                 + "   " + col(f"deferred: routed {sc.routed}% · held {sc.held}%", GRAY) + tail)
 
     def render_goal(gid):
@@ -502,7 +628,7 @@ def format_scorecard(sc: Scorecard) -> str:
             for d in c.detail:
                 rows.append(col(f"      – {d}", GRAY))
 
-    for gid in ("placed", "shaped", "routed", "held"):
+    for gid in ("placed", "located", "shaped", "routed", "held"):
         render_goal(gid)
 
     rows.append("─" * 53)

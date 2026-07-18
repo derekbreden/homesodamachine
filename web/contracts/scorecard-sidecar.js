@@ -35,6 +35,7 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  * @typedef {Object} Scorecard
  * @property {boolean} gatesPass  every gate passes
  * @property {number} placed   0..100 — placement criteria defined and held
+ * @property {number} located  0..100 — every connector positioned on the component
  * @property {number} shaped   0..100 — real geometry, not a placeholder box
  * @property {number} routed   0..100 — connections modeled as real 3D paths
  * @property {number} held     0..100 — a printed holder fastens each component
@@ -46,7 +47,7 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
 export function isScorecard(o) {
   if (!o || typeof o !== "object") return false;
   if (typeof o.gatesPass !== "boolean") return false;
-  for (const k of ["placed", "shaped", "routed", "held"]) {
+  for (const k of ["placed", "located", "shaped", "routed", "held"]) {
     if (typeof o[k] !== "number") return false;
   }
   if (!Array.isArray(o.checks)) return false;
