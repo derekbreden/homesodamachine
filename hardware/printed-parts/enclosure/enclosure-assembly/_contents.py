@@ -289,7 +289,11 @@ def build():
     # rides the condenser block (brazed to its outlet), not packed separately;
     # the MQ-6 sits on the floor between the compressor and the cold core, low,
     # where leaked isobutane pools.
-    comp = _rot(_load(COMP_SHROUD), (0, 0, 1), 90.0)   # 178 x 133 x 151
+    # −90° about Z so the shroud's single copper-bearing face (native −X) points +Y,
+    # toward the foam/cold-core it mates to — not −Y toward the removable front shell.
+    # The AC gland (native +Y) then faces +X, into the inter-part channel. Same 178×133×151
+    # footprint either way (a Z-rotation of the box), so the pack is unchanged.
+    comp = _rot(_load(COMP_SHROUD), (0, 0, 1), -90.0)
     placed["compressor-shroud"] = _at(comp, SIDE_RIB_INSET, 0.0, SEAM_CLEAR_LIFT)
     comp_top_z = SEAM_CLEAR_LIFT + comp.BoundingBox().zlen
     cond = _box(CONDENSER_AIRFLOW, CONDENSER_FACE_B, CONDENSER_FACE_A)  # 56 x 151 x 178

@@ -283,17 +283,20 @@ PORTS = [
     _p("reed-cable-A",   "foam-assembly", "electrical",  (254.5, 155.0, 35.5),  "y-", "J6 REEDS A — reservoir A level reeds (SIG-10)", "16 mm outboard of reservoir-A (_port_cuts.py)"),
     _p("reed-cable-B",   "foam-assembly", "electrical",  (28.5,  155.0, 35.5),  "y-", "J7 REEDS B — reservoir B level reeds (SIG-11)", "16 mm outboard of reservoir-B (_port_cuts.py)"),
     # compressor-shroud — compressor_shroud.py local hole centers carried through _contents'
-    # _rot((0,0,1),90) + _at(14,0,3). Both copper stubs share the one (left) face → world −Y
-    # (front); the AC gland + earth bond ride the (back) face → world −X (left wall).
-    _p("ac-mains",        "compressor-shroud", "electrical",  (14.0, 66.5, 78.0),   "x-", "Teyleten relay #1 / AC distribution (AC-4 switched-H + AC-5 N, 3-wire gland)"),
-    _p("earth-bond",      "compressor-shroud", "electrical",  (14.0, 101.5, 78.0),  "x-", "electronics-shelf ground bus (AC-6)"),
-    _p("refrig-suction",  "compressor-shroud", "refrigerant", (146.75, 0.0, 78.0),  "y-", "foam-assembly evaporator outlet (shroud copper-inlet hole)"),
-    _p("refrig-discharge","compressor-shroud", "refrigerant", (59.25, 0.0, 78.0),   "y-", "condenser+fan inlet (shroud copper-outlet hole)"),
-    # condenser+fan — placeholder box harvested from the donor ice maker; its refrigerant and
-    # fan ports are NOT yet located on the block. pos=None until the teardown pins them.
-    _p("refrig-inlet",  "condenser+fan", "refrigerant", None, "", "compressor-shroud discharge"),
-    _p("refrig-outlet", "condenser+fan", "refrigerant", None, "", "filter-drier → cap tube → foam-assembly evaporator inlet"),
-    _p("fan-power",     "condenser+fan", "electrical",  None, "", "J2 MANIFOLD B FAN + COM (DC-8, 12 V)"),
+    # _rot((0,0,1),−90) + _at(14,0,3). Both copper stubs share the one face → world +Y (toward
+    # the foam/cold core they mate to); the AC gland + earth bond ride the +X face (into the
+    # inter-part channel). suction/discharge assigned by world x per the physical loop.
+    _p("ac-mains",        "compressor-shroud", "electrical",  (192.0, 66.5, 78.0),  "x+", "Teyleten relay #1 / AC distribution (AC-4 switched-H + AC-5 N, 3-wire gland)"),
+    _p("earth-bond",      "compressor-shroud", "electrical",  (192.0, 31.5, 78.0),  "x+", "electronics-shelf ground bus (AC-6)"),
+    _p("refrig-suction",  "compressor-shroud", "refrigerant", (59.25, 133.0, 78.0), "y+", "foam-assembly evaporator outlet"),
+    _p("refrig-discharge","compressor-shroud", "refrigerant", (146.75, 133.0, 78.0),"y+", "condenser+fan inlet"),
+    # condenser+fan — placeholder box harvested from the donor; ports located from step-viewer
+    # picks (2026-07-17). Both refrigerant ports on the −X face (toward the compressor): inlet
+    # top-front, outlet bottom-back (drier + cap-tube hang off it). The fan is on the opposite
+    # +X face; airflow runs −X → +X.
+    _p("refrig-inlet",  "condenser+fan", "refrigerant", (213.0, 5.5, 175.5),   "x-", "compressor-shroud discharge"),
+    _p("refrig-outlet", "condenser+fan", "refrigerant", (213.0, 145.5, 8.5),   "x-", "filter-drier → cap tube → foam-assembly evaporator inlet"),
+    _p("fan-power",     "condenser+fan", "electrical",  (269.0, 75.5, 92.0),   "x+", "J2 MANIFOLD B FAN + COM (DC-8, 12 V)", "+X exhaust face (fan centered); airflow −X→+X"),
 ]
 
 
