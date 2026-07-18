@@ -1,7 +1,7 @@
 {
   "gatesPass": true,
   "placed": 12,
-  "located": 12,
+  "located": 24,
   "shaped": 92,
   "routed": 0,
   "held": 28,
@@ -109,7 +109,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "12% (3/25)",
+      "value": "24% (6/25)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
@@ -132,7 +132,16 @@
         "    \u2013 condenser+fan:refrig-inlet (refrigerant) (213, 5.5, 175.5) x- \u00d86.35 \u2192 compressor-shroud discharge",
         "    \u2013 condenser+fan:refrig-outlet (refrigerant) (213, 145.5, 8.5) x- \u00d86.35 \u2192 filter-drier \u2192 cap tube \u2192 foam-assembly evaporator inlet",
         "    \u2013 condenser+fan:fan-power (electrical) (269, 75.5, 92) x+ \u00d84 \u2192 J2 MANIFOLD B FAN + COM (DC-8, 12 V)",
-        "22 components: no connector positions defined yet"
+        "\u2713 co2-inlet: 2/2 connectors located",
+        "    \u2013 co2-inlet:tube-in (fluid) (46, -22, 234) y- \u00d87.94 \u2192 customer CO2 supply \u2014 5/16\" push-to-connect (rear umbilical)",
+        "    \u2013 co2-inlet:npt-out (fluid) (46, 5, 234) y+ \u00d86.35 \u2192 gasher-co2 in",
+        "\u2713 gasher-co2: 2/2 connectors located",
+        "    \u2013 gasher-co2:in (fluid) (46, 14, 232.85) y- \u00d86.35 \u2192 co2-inlet npt-out",
+        "    \u2013 gasher-co2:out (fluid) (46, 54, 232.85) y+ \u00d86.35 \u2192 wr1110 in",
+        "\u2713 wr1110: 2/2 connectors located",
+        "    \u2013 wr1110:in (fluid) (46, 55, 233) y- \u00d86.35 \u2192 gasher-co2 out",
+        "    \u2013 wr1110:out (fluid) (46, 112, 233) y+ \u00d86.35 \u2192 foam-assembly co2-in (CO2 line up to the foam-cap top)",
+        "19 components: no connector positions defined yet"
       ],
       "active": true
     },
@@ -429,6 +438,96 @@
       "mates": "J2 MANIFOLD B FAN + COM (DC-8, 12 V)",
       "status": "ok",
       "note": "DC pigtail 2-wire (estimate); +X exhaust face (fan centered); airflow \u2212X\u2192+X"
+    },
+    {
+      "component": "co2-inlet",
+      "name": "tube-in",
+      "kind": "fluid",
+      "pos": [
+        46.0,
+        -22.0,
+        234.0
+      ],
+      "face": "y-",
+      "diam": 7.94,
+      "mates": "customer CO2 supply \u2014 5/16\" push-to-connect (rear umbilical)",
+      "status": "ok",
+      "note": "5/16\" PTC collet, outboard"
+    },
+    {
+      "component": "co2-inlet",
+      "name": "npt-out",
+      "kind": "fluid",
+      "pos": [
+        46.0,
+        5.0,
+        234.0
+      ],
+      "face": "y+",
+      "diam": 6.35,
+      "mates": "gasher-co2 in",
+      "status": "ok",
+      "note": "1/4\" NPT shank, inboard"
+    },
+    {
+      "component": "gasher-co2",
+      "name": "in",
+      "kind": "fluid",
+      "pos": [
+        46.0,
+        14.0,
+        232.85
+      ],
+      "face": "y-",
+      "diam": 6.35,
+      "mates": "co2-inlet npt-out",
+      "status": "ok",
+      "note": "1/4\" NPT stub"
+    },
+    {
+      "component": "gasher-co2",
+      "name": "out",
+      "kind": "fluid",
+      "pos": [
+        46.0,
+        54.0,
+        232.85
+      ],
+      "face": "y+",
+      "diam": 6.35,
+      "mates": "wr1110 in",
+      "status": "ok",
+      "note": "1/4\" NPT stub"
+    },
+    {
+      "component": "wr1110",
+      "name": "in",
+      "kind": "fluid",
+      "pos": [
+        46.0,
+        55.0,
+        233.0
+      ],
+      "face": "y-",
+      "diam": 6.35,
+      "mates": "gasher-co2 out",
+      "status": "ok",
+      "note": "1/4\" CO2 inlet hex"
+    },
+    {
+      "component": "wr1110",
+      "name": "out",
+      "kind": "fluid",
+      "pos": [
+        46.0,
+        112.0,
+        233.0
+      ],
+      "face": "y+",
+      "diam": 6.35,
+      "mates": "foam-assembly co2-in (CO2 line up to the foam-cap top)",
+      "status": "ok",
+      "note": "1/4\" CO2 outlet hex"
     }
   ]
 }
