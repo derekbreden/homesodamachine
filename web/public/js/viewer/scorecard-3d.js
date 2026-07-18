@@ -2,10 +2,12 @@
 // mirroring the PCB board-checks UI (public/js/viewer/pcb.js) for the STEP viewer. Reads the
 // <model>.scorecard.json sidecar (contracts/scorecard-sidecar.js) written by the build's
 // scorecard.py, and draws a thin bottom bar plus a modal that drills each gate/goal into its
-// detail rows. One verdict, two surfaces: the same data the terminal prints.
+// detail rows. The sidecar's port inventory goes to port-markers.js, which draws each connector
+// on the model. One verdict, two surfaces: the same data the terminal prints.
 
 import { scorecardPathFor, isScorecard } from "/contracts/scorecard-sidecar.js";
 import { scenePartNames, highlightParts, clearHighlight } from "./part-highlight.js";
+import { showPorts, clearPorts, makePortToggle } from "./port-markers.js";
 
 const MARK = { pass: "✓", fail: "✗", warn: "•" };
 
@@ -132,11 +134,14 @@ function buildBar(wrapper, sc) {
   wrapper.appendChild(bar);
 }
 
-// Remove the bar + any open modal — used before a re-mount (live reload) and by teardown.
+// Remove the bar, the port toggle, and any open modal — used before a re-mount (live reload) and
+// by teardown. The markers themselves belong to the model, and go with it (clearPorts).
 export function removeScorecard(wrapper) {
   if (!wrapper) return;
   const b = wrapper.querySelector(".sc-bar");
   if (b) b.remove();
+  const t = wrapper.querySelector(".port-toggle");
+  if (t) t.remove();
   closeModal(wrapper);
 }
 
@@ -154,4 +159,7 @@ export async function mountScorecard(wrapper, file) {
   // wrapper is no longer in the document.
   if (!sc || !isScorecard(sc) || !wrapper.isConnected) return;
   buildBar(wrapper, sc);
+  const ports = Array.isArray(sc.ports) ? sc.ports : [];
+  if (ports.length) wrapper.appendChild(makePortToggle(showPorts(ports, file)));
+  else clearPorts();
 }
