@@ -71,8 +71,8 @@ def test_clearance_floor() -> None:
     check("fires on a sub-floor gap between undeclared parts", len(viol) == 1,
           f"tightest {viol[0][2]:.2f} mm" if viol else "no violation seen")
     # Control: the same 0.5 mm gap, but a declared intentional contact → allowed.
-    contact = sc.part_clearances({"seaflo-pump": box(0, 0, 0),
-                                  "gasher-water": box(0, 0, 10.5)})
+    contact = sc.part_clearances({"compressor-shroud": box(0, 0, 0),
+                                  "source-select-tray": box(0, 0, 10.5)})
     cviol = [r for r in contact if not r[3] and r[2] < sc.CLEARANCE_FLOOR]
     check("silent on a declared TOUCHING_OK contact at the same gap", len(cviol) == 0,
           f"{len(cviol)} spurious violation(s)")

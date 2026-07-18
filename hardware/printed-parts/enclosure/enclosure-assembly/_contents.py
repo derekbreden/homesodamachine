@@ -1,16 +1,18 @@
 """Kitchen Edition enclosure contents — the core subsystems packed.
 
 Detailed STEP imports where they exist (cold-core foam assembly — shell +
-top/bottom foam-cap stacks — two pump assemblies (Kamoer pump + outlet
-elbows), the compressor shroud, the PCBA assembly, the power assembly, the
-DC distribution block, the DIGITEN flow sensor, the GASHER check valves, the
-Multiplex + WR1110 regulators, the DERPIPE CO2 inlet, the MQ-6 + moisture
-sensors, the drip pan, the panel bulkheads + C14). Placeholder primitives for
-the parts that have no STEP yet (condenser+fan, SeaFlo diaphragm pump). Not
-everything is packed: the three valve-manifold trays
-(source-select, bag-circuit, nozzle-gate) have no placement yet — the
-fluid topology (/hardware/topology/fluid-topology.md) defines what each
-plumbs to — and are deferred here while their in-box homes are settled.
+top/bottom foam-cap stacks — the compressor shroud, the PCBA assembly, the
+power assembly, the DC distribution block, the CO2-chain GASHER check +
+WR1110 regulator, the DERPIPE CO2 inlet, the MQ-6 gas sensor, the panel
+bulkheads + C14). Placeholder primitives for the parts that have no STEP or
+finished design yet (condenser+fan, the source-select tray). Not everything
+is packed — deferred, tracked by the fluid topology
+(/hardware/topology/fluid-topology.md) and the scorecard's connection
+table, never silently dropped, while the source-select column is settled:
+the water deck (SeaFlo diaphragm pump, Multiplex BFP, drip pan + moisture
+plate, the SeaFlo outlet check), the DIGITEN flow sensor, both Kamoer pump
+assemblies (P-A, P-B), and the other three valve-manifold trays
+(bag-circuit, pump-inlet tees, nozzle-gates).
 
 Components only: no tubes, no wires, no mount features. enclosure_assembly.py
 verifies the pack pairwise non-intersecting at every export.
@@ -58,17 +60,15 @@ Strata, floor to ceiling:
   * Zone A:  cold core (foam assembly: bottom cap + shell + top cap) on the
              floor at the back, its −Y dispense/service ports facing
              forward.
-  * Water deck (compressor top): drip pan + moisture sensor under the
-             Multiplex's atmospheric-vent barb; SeaFlo lying flat behind
-             them against the cold-core front, its outlet check + the
-             DIGITEN flow sensor (on the carb-water riser's path) riding
-             its top.
+  * Zone C (compressor top): the source-select tray — Tray 1 of the valve
+             manifold (V-A, V-B, Y-A, Y-B, V-C, V-D) — seated on the
+             compressor top, its +X edge sharing the compressor's (the
+             192–213 condenser channel stays clear), one seam-lip
+             clearance off the front wall. The funnel spout points into
+             its top face, where V-B's inlet sits.
   * Front-left column: the CO2 chain — off the front-panel DERPIPE inlet's
              inboard NPT stub, GASHER check → WR1110 secondary regulator
              running +Y.
-  * Zone C:  the two flavor pumps spanning the front width above the water
-             deck, directly under the funnel opening; the funnel's loft +
-             spout drop into the clear column between them.
   * Zone B (the band above the cold core): the electronics shelf lying
              flat on the foam-cap top in the band's front half — power
              assembly at −X, PCBA at +X, the DC distribution block behind
@@ -79,10 +79,10 @@ Strata, floor to ceiling:
              them.
   * Zone C top: the top wall right of the display is one open rectangle —
              the funnel's straight chute hangs through it, its loft
-             necking to the spout just above pump 1's top, down the clear
-             column between the two pumps. Nothing else lives above the
-             front towers; the funnel's basin depth is what sets the box
-             height (enclosure.py `hopper_min_depth`).
+             necking to the spout just above the source-select tray's
+             top. The interior reserves `hopper_min_depth` of basin above
+             that tray (enclosure.py's hopper law); the rear-panel port
+             field stands taller still and is what sets the box height.
 """
 
 from pathlib import Path
@@ -97,21 +97,16 @@ _hw = _repo / "hardware"
 # --- Source STEPs ---------------------------------------------------------
 FOAM_ASSEMBLY = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
 COMP_SHROUD   = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
-PUMP_ASSEMBLY = _hw / "reference" / "kamoer-kphm400" / "pump-assembly.step"
 # AC/PSU tray — wide-shallow layout (PSU turned 90°).
 POWER_ASSEMBLY = _hw / "printed-parts" / "electronics" / "power-tray" / "power-assembly.step"
 PCBA_ASSEMBLY  = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-assembly.step"
 DC_DIST        = _hw / "reference" / "dc-dist-block" / "dc-dist-block.step"
-DIGITEN_FLOW   = _hw / "reference" / "digiten-flow-sensor" / "digiten-flow-sensor.step"
 GASHER_CHECK   = _hw / "reference" / "gasher-check-valve" / "gasher-check-valve.step"
-MULTIPLEX_STEP = _hw / "reference" / "multiplex-asse1022" / "multiplex-asse1022.step"
 WR1110_STEP    = _hw / "reference" / "wr1110-regulator" / "wr1110-regulator.step"
 MQ6_STEP       = _hw / "reference" / "mq6-gas-sensor" / "mq6-gas-sensor.step"
-MOISTURE_STEP  = _hw / "reference" / "shutao-moisture-plate" / "shutao-moisture-plate.step"
 DERPIPE_STEP   = _hw / "reference" / "derpipe-co2-inlet" / "derpipe-co2-inlet.step"
 JG_BULKHEAD    = _hw / "reference" / "jg-bulkhead-union" / "jg-bulkhead-union.step"
 IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
-DRIP_PAN_STEP  = _hw / "printed-parts" / "enclosure" / "drip-pan" / "drip-pan.step"
 
 # --- Primitive dimensions + placement anchors ----------------------------
 # Condenser+fan and the SeaFlo pump are packed as primitive boxes (dimensions
@@ -126,16 +121,18 @@ DRIP_PAN_STEP  = _hw / "printed-parts" / "enclosure" / "drip-pan" / "drip-pan.st
 # (airflow axis) is the fan + finstack stack depth, calipered [56 mm](CONDENSER_AIRFLOW)
 # combined.
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
-# SeaFlo 22-Series diaphragm pump, body only (sans mounting brackets).
-SEAFLO_DIMS = (75.0, 60.0, 175.0)
+# Source-select tray (Tray 1 — V-A/V-B/Y-A/Y-B/V-C/V-D per
+# fluid-topology-trays.mmd): four Beduan 12 V 1/4" NC solenoid valves
+# (ledger/bom.md @solenoid-valves) + two JG PP2308E Y-dividers on a printed
+# carrier. Box seeded from the valve bodies, calipers pending: four ~30-wide
+# coil bodies across X at ~32 pitch plus carrier walls; ~70 valve flow
+# length along Y plus a divider row; ~62 valve height plus a carrier base.
+TRAY1_DIMS = (134.0, 105.0, 67.0)
 # CO2-chain placement anchors: WR1110_D centers the regulator on the inlet
 # axis, GASHER_D centers the check valve, GASHER_L spaces the WR1110 one
 # check-valve length down the chain.
 WR1110_D = 21.0
 GASHER_D, GASHER_L = 17.0, 40.0
-# Drip-pan placement anchors: PAN_FLOOR seats the moisture plate on the pan
-# floor, PAN_Z the Multiplex above it.
-PAN_Z, PAN_FLOOR = 22.0, 3.0
 
 # Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it.
 # With the floor parts raised clear of the seam lip, the cold core pulls in to
@@ -185,6 +182,7 @@ PORT_C14_W, PORT_C14_H = 28.5, 25.5   # C14 through-body 27.5 wide, z −10.2/+1
 # Measured off the reference STEPs: JG bulkhead nut 22.86 sq (jg-bulkhead-union),
 # C14 flange 30.5 x 23.5 (iec-c14-inlet).
 PORT_NUT_D = 22.86           # JG bulkhead nut, across the panel face (measured)
+PORT_C14_FLANGE_H = 23.5     # C14 flange height across the panel face (measured)
 PORT_NUT_GAP = 7.0           # clear gap between adjacent bulkhead nuts (the margin)
 UMBILICAL_Z_FLOOR = 281.0    # lowest bulkhead-nut edge: the rear Z-seam lip band
                              # tops out at z_joint_back + lip_len (~279) on the back wall
@@ -215,16 +213,9 @@ COLORS = {
     "compressor-shroud": cq.Color(0.60, 0.62, 0.66),
     "condenser+fan":     cq.Color(0.78, 0.55, 0.35),
     "mq6-sensor":        cq.Color(0.30, 0.45, 0.85),
-    "drip-pan":          cq.Color(0.90, 0.90, 0.92),
-    "moisture-sensor":   cq.Color(0.25, 0.55, 0.85),
-    "multiplex":         cq.Color(0.80, 0.70, 0.30),
-    "seaflo-pump":       cq.Color(0.20, 0.35, 0.55),
-    "gasher-water":      cq.Color(0.75, 0.75, 0.78),
+    "source-select-tray": cq.Color(0.60, 0.40, 0.70),
     "gasher-co2":        cq.Color(0.75, 0.75, 0.78),
     "wr1110":            cq.Color(0.55, 0.58, 0.62),
-    "digiten-flow":      cq.Color(0.25, 0.25, 0.28),
-    "pump-assembly-1":   cq.Color(0.45, 0.45, 0.50),
-    "pump-assembly-2":   cq.Color(0.55, 0.55, 0.60),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "dc-dist":           cq.Color(0.20, 0.20, 0.22),
@@ -286,50 +277,29 @@ def build():
     # footprint either way (a Z-rotation of the box), so the pack is unchanged.
     comp = _rot(_load(COMP_SHROUD), (0, 0, 1), -90.0)
     placed["compressor-shroud"] = _at(comp, SIDE_RIB_INSET, 0.0, SEAM_CLEAR_LIFT)
-    comp_top_z = SEAM_CLEAR_LIFT + comp.BoundingBox().zlen
+    comp_bb = comp.BoundingBox()
+    comp_top_z = SEAM_CLEAR_LIFT + comp_bb.zlen
+    comp_x1 = SIDE_RIB_INSET + comp_bb.xlen
     cond = _box(CONDENSER_AIRFLOW, CONDENSER_FACE_B, CONDENSER_FACE_A)  # 56 x 151 x 178
     placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW - SIDE_RIB_INSET, 0.0, SEAM_CLEAR_LIFT)
-    cond_top_z = SEAM_CLEAR_LIFT + CONDENSER_FACE_A
     placed["mq6-sensor"] = _at(_load(MQ6_STEP), 100.0, 134.0, SEAM_CLEAR_LIFT)
 
-    # --- Water deck, on the compressor top: the drip pan along the left wall
-    # with the sensor probe plate lying flat in it, the Multiplex over the pan
-    # with its vent barb reaching down onto that plate, the SeaFlo lying flat
-    # behind them against the cold-core front (suction from the Multiplex
-    # outlet, discharge up to the cold-core top). The water-path GASHER check
-    # and the DIGITEN flow sensor (inline on the carb-water riser's path to the
-    # rear umbilical) ride the SeaFlo's top.
-    placed["drip-pan"] = _at(_load(DRIP_PAN_STEP), SIDE_RIB_INSET, 3.0, comp_top_z)
-    placed["moisture-sensor"] = _at(_load(MOISTURE_STEP), 30.0, 15.0, comp_top_z + PAN_FLOOR)
-    placed["multiplex"] = _at(_load(MULTIPLEX_STEP), 25.0, 21.0, comp_top_z + PAN_Z - 17.0)
-    sf_w, sf_d, sf_h = SEAFLO_DIMS                      # [75 x 60 x 175](SEAFLO_DIMS)
-    seaflo = _box(sf_h, sf_w, sf_d)                    # 175 x 75 x 60, long axis along X
-    # Pulled to Y 72: the strip it leaves against the cold-core face is the
-    # reservoir-riser gap — the bag lines exit the foam at z 35.5 and climb the
-    # front face; the SeaFlo may not pinch that channel shut.
-    placed["seaflo-pump"] = _at(seaflo, SIDE_RIB_INSET, 72.0, comp_top_z + 1.0)
-    seaflo_top = comp_top_z + 1.0 + sf_d
-    placed["gasher-water"] = _at(_load(GASHER_CHECK), 68.0, 84.0, seaflo_top)
-    placed["digiten-flow"] = _at(_load(DIGITEN_FLOW), 91.0, 132.0, seaflo_top + 0.5)
-
     # --- CO2 chain, front-left: the DERPIPE inlet's inboard NPT stub carries
-    # the GASHER check, then the WR1110 secondary regulator, running +Y over
-    # the Multiplex.
+    # the GASHER check, then the WR1110 secondary regulator, running +Y.
     placed["gasher-co2"] = _at(_load(GASHER_CHECK),
                                CO2_INLET_X - GASHER_D / 2.0, 14.0, CO2_INLET_Z - GASHER_D / 2.0)
     placed["wr1110"] = _at(_load(WR1110_STEP),
                            CO2_INLET_X - WR1110_D / 2.0, 14.0 + GASHER_L + 1.0, CO2_INLET_Z - WR1110_D / 2.0)
 
-    # --- Zone C: the two flavor pumps spanning the front width, directly
-    # under the funnel opening, each seated on what is under it — pump 1 on
-    # the SeaFlo's top, pump 2 on the condenser's. hopper_funnel.py necks its
-    # spout to the tallest content under its mouth (the pump tops, read live)
-    # and its loft + spout tube drop into the column between the two pumps —
-    # the pump spacing keeps that column clear.
-    pa1 = _rot(_load(PUMP_ASSEMBLY), (1, 0, 0), 90.0)  # depth axis along Y, elbows up
-    pa2 = _rot(_load(PUMP_ASSEMBLY), (1, 0, 0), 90.0)
-    placed["pump-assembly-1"] = _at(pa1, 91.0, 4.0, seaflo_top + 0.5)
-    placed["pump-assembly-2"] = _at(pa2, 197.0, 4.0, cond_top_z + SEAM_CLEAR_LIFT)
+    # --- Zone C, on the compressor top: the source-select tray (Tray 1 —
+    # V-A/V-B/Y-A/Y-B/V-C/V-D). Its +X edge shares the compressor's, so the
+    # 192–213 condenser channel (and refrig-1's climb through it) stays
+    # clear; y 4 clears the front Z-seam lip the way any front-column part
+    # crossing z_joint_front must. hopper_funnel.py necks its spout to the
+    # tallest content under its mouth (this tray's top, read live) and aims
+    # the drop (neck_dx) at the tray's top face, where V-B's inlet sits.
+    tw, td, th = TRAY1_DIMS
+    placed["source-select-tray"] = _at(_box(tw, td, th), comp_x1 - tw, 4.0, comp_top_z)
 
     # --- Zone B, the band above the cold core: the electronics shelf lying
     # flat on the foam-cap top, tray/board planes horizontal, everything in

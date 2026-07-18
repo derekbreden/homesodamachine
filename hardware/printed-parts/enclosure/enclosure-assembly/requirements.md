@@ -75,10 +75,9 @@ gray) until the focus is met:
   connections instead of the body — "against the wall" becomes "the suction stub is *here*,
   and it is 1/4" copper." The full inventory — every port's coordinate + bore — is emitted as
   a structured `ports[]` block in the scorecard sidecar, so the audit reads it directly. A part
-  that carries no tube or wire at all (a passive body — the drip pan is a catch basin that drains
-  nowhere) is declared connector-free in `PASSIVE_NO_PORTS` and counts once; declaring the
-  absence is the honest analogue of declaring a position, and it lets the axis reach 100% without
-  inventing a port.
+  that carries no tube or wire at all (a passive body) is declared connector-free in
+  `PASSIVE_NO_PORTS` and counts once; declaring the absence is the honest analogue of declaring
+  a position, and it lets the axis reach 100% without inventing a port.
 - **shaped** *(focus)* — real geometry, not a placeholder box or cylinder. A placeholder
   with the right *dimensions* is still a box; the real silhouette is what other parts must
   be packed against.
@@ -184,48 +183,58 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
 
 **Focus — placed + located + shaped:**
 
-- **Author placement rules for the remaining components.** Three carry them today
-  (foam-assembly, compressor-shroud, condenser+fan); the other 22 are not-yet-placed. Each
-  earns a set of face-to-datum measurements that pin its intended position, and those must
-  measurably hold. Rules iterate as the design moves — a redefinition is expected, not a
-  failure.
-- **Locate every connector (`located` 80%).** All 25 components carry full port sets — 73 ports
-  (34 fluid, 6 refrigerant, 33 electrical), each with a position *and* a bore Ø — and 56 of them
+- **Author placement rules for the remaining components.** Four carry them today
+  (foam-assembly, compressor-shroud, condenser+fan, source-select-tray); the other 14 are
+  not-yet-placed. Each earns a set of face-to-datum measurements that pin its intended
+  position, and those must measurably hold. Rules iterate as the design moves — a
+  redefinition is expected, not a failure. The tray also exposes a vocabulary gap: its
+  governing relations (seated on the compressor top, +X edge shared with the compressor's,
+  V-B under the funnel drain) are part-to-part and port-to-port, which face-to-datum rules
+  cannot express — they hold by construction in `_contents` until the rules language grows
+  those forms.
+- **Locate every connector (`located` 78%).** All 18 components carry full port sets — 59 ports
+  (25 fluid, 6 refrigerant, 28 electrical), each with a position *and* a bore Ø — and 43 of them
   sit on their body's real surface. Positions are derived from the part's own record where one
-  exists (foam penetrations, compressor holes, the CO2/water fittings' flow-face centres, the
-  Kamoer elbows' free collets measured off the placed geometry), and Ø from the line or fitting
-  the port carries. The drip pan is declared connector-free (passive).
-  **17 ports read `off-surface` — a coordinate on the body's bounding box but not on the body:**
-  all 10 of the PCBA's Ø-flagged edge connectors and its 3 neighbours sit at the board's bbox
-  top, ~10.5 mm above the plane the connectors stand on, so the `pcba.tsx` mapping needs its Z
-  re-solved against the board's real top face; the 4 power-tray terminals, the display harness,
-  the hopper drain, and the compressor's AC gland are the provisional ones (device terminals not
-  individually modelled, connector not in the STEP) that a viewer pick pins. A handful of
-  electrical bores (glands, headers, looms) are noted estimates pending teardown. And the
-  physical CO2 order (DERPIPE → check → regulator, which the ports follow) disagrees with the
-  carbonator schematic (regulator → check) — a placement question, not a port one.
-- **Make the placeholders real.** Eight components are boxes/cylinders with real dimensions
-  but not real geometry (the condenser, SeaFlo, Multiplex, WR1110, DERPIPE, MQ-6, drip-pan,
-  moisture plate). Convert each to real STEP / engineered geometry.
-- **SeaFlo real dimensions + a steeper funnel** — the live repack. The SeaFlo's true body
-  is 80 × 72 × 187 (up from the modeled 75 × 60 × 175); it grows the pump-1 tower and, until
-  the CO2 chain is lifted clear, clashes the regulator. The shape-aware version necks the
-  funnel to the pump's real silhouette (not its bbox) to plunge it and pull the box back
-  down — the canonical shapes-not-boxes exercise, now measured by the scorecard.
-- **drip-pan** — the lone unsourced part (also fails `parts-sourced`): a printed pan with
-  no CAD yet, dimensions estimated.
+  exists (foam penetrations, compressor holes, the CO2 fittings' flow-face centres), and Ø from
+  the line or fitting the port carries.
+  **16 ports read `off-surface` — a coordinate on the body's bounding box but not on the body:**
+  all 10 of the PCBA's Ø-flagged edge connectors sit at the board's bbox top, ~10.5 mm above the
+  plane the connectors stand on, so the `pcba.tsx` mapping needs its Z re-solved against the
+  board's real top face; the 4 power-tray terminals, the display harness, and the compressor's
+  AC gland are the provisional ones (device terminals not individually modelled, connector not
+  in the STEP) that a viewer pick pins. A handful of electrical bores (glands, headers, looms)
+  are noted estimates pending teardown. And the physical CO2 order (DERPIPE → check → regulator,
+  which the ports follow) disagrees with the carbonator schematic (regulator → check) — a
+  placement question, not a port one. The source-select tray's four boundary ports (V-A-I,
+  V-B-I, V-C-O, V-D-O) are PROVISIONAL on the placeholder box — V-B-I directly under the funnel
+  drain — and pin down with the tray design.
+- **Make the placeholders real.** Two components are boxes with real dimensions but not real
+  geometry: the condenser+fan (harvested donor block) and the source-select tray. Convert each
+  to real STEP / engineered geometry.
+- **source-select-tray** — the lone unsourced component (also fails `parts-sourced`): its four
+  Beduan valves and two PP2308E dividers are purchased parts, but the printed carrier that
+  holds them is undesigned — the box is seeded from the valve bodies, calipers pending. The
+  tray design is what closes the gate.
+- **Re-place the deferred front-column subsystems.** The water deck (SeaFlo pump, Multiplex
+  BFP, drip pan + moisture plate, SeaFlo outlet check), the DIGITEN flow sensor, and both
+  Kamoer pump assemblies are deferred from the pack while the source-select column settles —
+  tracked here and in the topology, never dropped. Each returns with a placement that respects
+  the tray's column and the funnel drop. The SeaFlo's true body is 80 × 72 × 187 (the banked
+  reference geometry), larger than the placeholder it last packed as.
 
 **Deferred — behind the focus:**
 
 - **routed** spans the fluid segments, the sealed refrigerant loop, and the electrical runs
   (1/59 — the loop's discharge leg). Paths are authored in [`_lines.py`](_lines.py) with the kit
   in [`_routing.py`](_routing.py); see [`tube-routing.md`](tube-routing.md). The fluid path is
-  blocked on the **three unplaced valve-manifold trays** (source-select, bag-circuit,
-  nozzle-gate); the electrical runs wait on the components being placed, located, and held first.
-  Two of the loop's three legs are in `_lines.BLOCKED`, each with the measurement that blocks it:
-  the liquid leg needs a 3.2 mm lateral jog against a 25.4 mm two-corner minimum, and the suction
-  leg opens into the 8.0 mm strip the SeaFlo leaves against the cold core's front face, against a
-  12.7 mm bend radius. Both clear on a placement move.
+  blocked on the **three unplaced valve-manifold trays** (bag-circuit, pump-inlet tees,
+  nozzle-gates) and the deferred pumps/water deck; segment 4 (funnel → V-B) waits only on the
+  tray design giving V-B a real inlet. The electrical runs wait on the components being placed,
+  located, and held first. Two of the loop's three legs are in `_lines.BLOCKED`, each with the
+  measurement that blocks it: the liquid leg needs a 3.2 mm lateral jog against a 25.4 mm
+  two-corner minimum (a condenser-pick move clears it), and the suction leg's corridor lanes
+  miss by 3.4–8.5 mm — closable by a 45° offset pair at R 12.7, a corner the orthogonal kit
+  cannot yet express.
 - **held** — a printed holder for every internal component. Today only the through-wall
   bodies (wall + their own nut) and the display (shell facet) are held; every loose internal
   part floats. Each needs bosses, a cradle, or a tray that itself fastens.
