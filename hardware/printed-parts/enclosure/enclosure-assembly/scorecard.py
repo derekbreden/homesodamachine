@@ -289,7 +289,7 @@ PORTS = [
     _p("co2-in",         "foam-assembly", "fluid",       (141.5, 172.8, 262.9), "z+", 6.35,  "CO2 chain (WR1110 → foam-cap top entry)", "1/4\" PTC CO2 line; seats in the Ø16 foam-cap bore"),
     _p("evap-inlet",     "foam-assembly", "refrigerant", (141.5, 155.0, 72.0),  "y-", 6.35,  "condenser+fan outlet (liquid line via drier + cap tube)", "1/4\" ACR copper"),
     _p("evap-outlet",    "foam-assembly", "refrigerant", (141.5, 155.0, 191.0), "y-", 6.35,  "compressor-shroud suction", "1/4\" ACR copper"),
-    _p("water-in",       "foam-assembly", "fluid",       (141.5, 155.0, 223.0), "y-", 9.525, "SeaFlo diaphragm-pump discharge", "3/8\" hose barb (SeaFlo 22-series port)"),
+    _p("water-in",       "foam-assembly", "fluid",       (141.5, 155.0, 223.0), "y-", 9.525, "gasher-water out (SeaFlo outlet check → carbonator water inlet)", "3/8\" hose barb (SeaFlo 22-series port)"),
     _p("prv-vent",       "foam-assembly", "fluid",       (141.5, 155.0, 231.0), "y-", 6.35,  "appliance interior (relief-event discharge only)", "1/4\" relief discharge"),
     _p("reed-cable-A",   "foam-assembly", "electrical",  (254.5, 155.0, 35.5),  "y-", 6.5,   "J6 REEDS A — reservoir A level reeds (SIG-10)", "reed cable through the Ø6.5 pass-through, 16 mm outboard of reservoir-A (_port_cuts.py)"),
     _p("reed-cable-B",   "foam-assembly", "electrical",  (28.5,  155.0, 35.5),  "y-", 6.5,   "J7 REEDS B — reservoir B level reeds (SIG-11)", "reed cable through the Ø6.5 pass-through, 16 mm outboard of reservoir-B (_port_cuts.py)"),
@@ -334,6 +334,20 @@ PORTS = [
     _p("tube-out", "bulkhead-water", "fluid", (145.0, 348.5, 293.0), "y+", 6.35, "house tap-water line (rear umbilical)", "JG 1/4\" PTC, outward"),
     _p("tube-in",  "bulkhead-water", "fluid", (145.0, 314.2, 293.0), "y-", 6.35, "tap-water internal line (to multiplex BFP in)", "JG 1/4\" PTC, inward"),
     _p("mains-in", "c14-inlet", "electrical", (90.0, 312.0, 295.5), "y-", 8.0, "AC distribution — L/N/E to the electronics shelf", "C14 spade terminals; 3-wire mains harness inboard"),
+    # Water deck — the supply chain's backflow preventer + the SeaFlo outlet check. The Multiplex
+    # ASSE 1022 runs the +X flow axis (tap → BFP → SeaFlo) with its atmospheric-vent barb down
+    # (−Z) into the drip pan; the water GASHER is the SeaFlo's outlet check on the +Y axis to the
+    # carbonator water inlet. Fitting flow-face centers from the placed bboxes.
+    _p("in",   "multiplex", "fluid", (25.0, 37.5, 180.15), "x-", 6.35, "bulkhead-water tube-in (tap water)", "ASSE 1022 inlet; line Ø est"),
+    _p("out",  "multiplex", "fluid", (90.0, 37.5, 180.15), "x+", 6.35, "seaflo-pump water-in", "ASSE 1022 outlet; line Ø est"),
+    _p("vent", "multiplex", "fluid", (57.5, 37.5, 159.5), "z-", 6.0,  "atmospheric vent — discharges into the drip-pan", "vent barb; Ø est"),
+    _p("in",  "gasher-water", "fluid", (76.5, 84.0, 222.85),  "y-", 6.35, "seaflo-pump water-out", "1/4\" NPT (SeaFlo outlet check)"),
+    _p("out", "gasher-water", "fluid", (76.5, 124.0, 222.85), "y+", 6.35, "foam-assembly water-in", "1/4\" NPT"),
+    # Floor + water-deck sensors — a single signal header each (one cable penetration per part,
+    # not one per conductor). MQ-6 header pins down (−Z) at the board floor; the Shutao moisture
+    # plate carries a 2-pin lead on its top face.
+    _p("header", "mq6-sensor", "electrical", (116.0, 144.0, 3.0), "z-", 8.0, "PCBA gas-sensor input — VCC/GND/DO/AO (SIG)", "4-pin 2.54 mm header, pins down"),
+    _p("header", "moisture-sensor", "electrical", (80.0, 35.0, 159.1), "z+", 5.0, "PCBA moisture input — 2-pin (SIG + GND)", "2-pin lead header on the plate; Ø est"),
 ]
 
 
