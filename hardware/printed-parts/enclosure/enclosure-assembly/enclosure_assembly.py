@@ -26,6 +26,7 @@ sys.path.insert(0, str(_repo / "tools"))
 from _cadq_export import export_assembly
 from docgen import substitute_py_comments
 import _contents as contents
+import _lines
 import scorecard
 
 _ENCLOSURE_DIR = _repo / "hardware" / "printed-parts" / "enclosure" / "enclosure"
@@ -80,6 +81,10 @@ def build():
     assy.add(_placed_display(), name="display", color=DISPLAY_COLOR)
     funnel = cq.importers.importStep(str(FUNNEL_STEP)).val()
     assy.add(funnel, name="hopper-funnel", color=FUNNEL_COLOR)
+    # The authored runs (_lines.py), in the pack's coordinates. Lines, not components: outside
+    # the component registry and its gates.
+    for name, (shape, color) in _lines.build().items():
+        assy.add(shape, name=name, color=color)
     return assy
 
 
@@ -103,6 +108,14 @@ def main():
     sc = scorecard.build_scorecard(
         solids, pieces, (enclosure.H2C_X, enclosure.H2C_Y, enclosure.H2C_Z), inner)
     print(scorecard.format_scorecard(sc))
+
+    # Each authored run, with the tightest gap to a part it does not terminate on.
+    for run, near in _lines.clearances(solids):
+        gap = f"{near[0]:.2f} mm to {near[1]}" if near else "nothing near"
+        print(f"line {run.id}: Ø{run.diam:g} × {run.length:.1f} mm, {len(run.bends)} bends "
+              f"R{run.bend:.1f} — nearest {gap}")
+    for cid, why in sorted(_lines.BLOCKED.items()):
+        print(f"line {cid}: BLOCKED — {why}")
     # The scorecard reports every gate; today only pack-closes blocks the export — a
     # physically invalid pack (overlapping solids) must not be written. The rest report
     # until the design reaches them, then their gating turns on (the board's stance).
