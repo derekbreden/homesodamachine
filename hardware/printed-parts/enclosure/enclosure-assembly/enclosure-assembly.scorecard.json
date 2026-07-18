@@ -1,8 +1,8 @@
 {
-  "gatesPass": false,
+  "gatesPass": true,
   "placed": 12,
   "located": 12,
-  "shaped": 88,
+  "shaped": 92,
   "routed": 0,
   "held": 28,
   "checks": [
@@ -83,12 +83,10 @@
       "id": "parts-sourced",
       "label": "Every component is a selected real part / finished print",
       "kind": "gate",
-      "status": "fail",
-      "value": "24/25",
+      "status": "pass",
+      "value": "25/25",
       "target": "25/25",
-      "detail": [
-        "drip-pan: printed pan, no CAD yet \u2014 dims estimated, part+design TBD (enclosure-mechanical Open #4)"
-      ],
+      "detail": [],
       "active": true
     },
     {
@@ -126,11 +124,10 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "88% (22/25)",
+      "value": "92% (23/25)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)",
-        "drip-pan: still a placeholder \u2014 printed pan, no CAD yet \u2014 dims estimated, part+design TBD (enclosure-mechanical Open #4)",
         "seaflo-pump: still a placeholder \u2014 diaphragm pump; feet splay to ~98, no mount modeled"
       ],
       "active": true
