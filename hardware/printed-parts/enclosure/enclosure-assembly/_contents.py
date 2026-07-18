@@ -112,7 +112,10 @@ DERPIPE_STEP   = _hw / "reference" / "derpipe-co2-inlet" / "derpipe-co2-inlet.st
 JG_BULKHEAD    = _hw / "reference" / "jg-bulkhead-union" / "jg-bulkhead-union.step"
 IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 
-# --- Placeholder dimensions ----------------------------------------------
+# --- Placeholder dimensions + placement-reference constants ---------------
+# The parts still packed as primitives (condenser+fan, SeaFlo, the drip pan).
+# The other former placeholders are real STEPs now (reference/*, loaded above);
+# a few of their nominal dims stay below purely to anchor their placements.
 # Condenser + fan harvested from the donor ice maker, with the donor's own
 # factory filter-drier + capillary-tube subassembly brazed to its outlet and
 # kept in service (hardware/reference/ice-maker/README.md "Filter-drier" — the
@@ -124,33 +127,15 @@ IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # SeaFlo 22-Series diaphragm pump, body only (sans mounting brackets).
 SEAFLO_DIMS = (75.0, 60.0, 175.0)
-# Multiplex 19-0897 ASSE 1022 backflow preventer (= Anderson Brass ABF-1) — a
-# small inline brass hex, ~65 mm along the flow axis with a ~28 mm across-flats
-# hex (Welbilt spec sheet 5030A: 2.55" long, 1.12" max hex; ~136 g shipping
-# weight rules out anything Ø44 × 112). Modeled as a bounding cylinder at the
-# hex's ~33 mm across-corners Ø, plus the radial atmospheric-vent barb pointing
-# down into the drip pan.
-MULTIPLEX_D, MULTIPLEX_L = 33.0, 65.0
-MULTIPLEX_VENT_D, MULTIPLEX_VENT_L = 8.0, 10.5
-# Interstate Pneumatics WR1110 fixed 90 PSI secondary regulator — a "Mini Body
-# Series" fixed preset with no adjustment knob (only two wrench hexes + a flush
-# vent hole): ~Ø21 across the hex corners × 57 mm. The old 1.31"/3.19" figures
-# were the package, not the part (the ~45 g item weight confirms the small
-# body). GASHER 1/4" NPT check valves are a real STEP now (a hex barrel,
-# reference/gasher-check-valve); GASHER_D/GASHER_L stay as the nominal
-# envelope for centering the two placements and spacing the WR1110 down the
-# CO2 chain.
-WR1110_D, WR1110_L = 21.0, 57.0
+# CO2-chain placement anchors (the fittings themselves are real STEPs now):
+# WR1110_D centers the regulator on the inlet axis, GASHER_D centers the check
+# valve, and GASHER_L spaces the WR1110 one check-valve length down the chain.
+WR1110_D = 21.0
 GASHER_D, GASHER_L = 17.0, 40.0
 # Printed drip pan under the Multiplex vent (no CAD yet). Depth stops short of
-# the SeaFlo's pulled-in front face. The Shutao water sensor is a two-board
-# LM393 module; its interdigitated FR-4 probe plate (~54 × 40 × 1.6 mm) is the
-# half that lies flat in the pan under the vent — the comparator board mounts
-# off elsewhere.
+# the SeaFlo's pulled-in front face. PAN_FLOOR/PAN_Z also seat the moisture
+# plate and the Multiplex above the pan floor.
 PAN_X, PAN_Y, PAN_Z, PAN_WALL, PAN_FLOOR = 130.0, 66.0, 22.0, 2.5, 3.0
-MOIST_X, MOIST_Y, MOIST_Z = 54.0, 40.0, 1.6
-# ACEIRMC MQ-6 combustible-gas sensor module.
-MQ6_X, MQ6_Y, MQ6_Z = 32.0, 20.0, 22.0
 
 # Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it.
 # With the floor parts raised clear of the seam lip, the cold core pulls in to
@@ -219,11 +204,10 @@ C14_BACK_Z = 295.0
 CO2_INLET_X = 46.0
 CO2_INLET_Z = 234.0
 CO2_HOLE_D = 14.5            # clears the DERPIPE's 1/4" NPT shank (Ø~13.7 major)
-# ~27 mm overall (AirTAC NPC5/16-1/4 class ref: 1.06" long, 9/16" hex, 0.39"
-# thread) — Ø13.7 NPT major is right, but the old collet Ø20/lengths were the
-# package, not the fitting.
-DERPIPE_SHANK_D, DERPIPE_SHANK_L = 13.7, 10.0   # 1/4" NPT stub, ~10 thread
-DERPIPE_BODY_D, DERPIPE_BODY_L = 16.0, 17.0     # 5/16" PTC hex + collet, ~Ø16 corners
+# The DERPIPE fitting is a real STEP now (reference/derpipe-co2-inlet).
+# DERPIPE_BODY_L stays as the outboard reach that seats the collet face proud
+# of the front wall (the model's outboard face is at its Y origin).
+DERPIPE_BODY_L = 17.0
 
 
 # --- Colors ---------------------------------------------------------------
@@ -284,16 +268,6 @@ def _drip_pan():
     cavity = _box(PAN_X - 2 * PAN_WALL, PAN_Y - 2 * PAN_WALL, PAN_Z).translate(
         (PAN_WALL, PAN_WALL, PAN_FLOOR))
     return outer.cut(cavity)
-
-
-def _multiplex():
-    """Body cylinder along X, the atmospheric-vent barb pointing down at
-    mid-body — the vent tip reaches into the drip pan below."""
-    body = _cyl(MULTIPLEX_D, MULTIPLEX_L, (1, 0, 0)).translate(
-        (0, 0, MULTIPLEX_D / 2.0 + MULTIPLEX_VENT_L))
-    vent = _cyl(MULTIPLEX_VENT_D, MULTIPLEX_VENT_L + 5.0, (0, 0, 1)).translate(
-        (MULTIPLEX_L / 2.0, 0, 0))
-    return body.fuse(vent)
 
 
 def build():
