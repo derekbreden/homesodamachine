@@ -71,8 +71,8 @@ def test_clearance_floor() -> None:
     check("fires on a sub-floor gap between undeclared parts", len(viol) == 1,
           f"tightest {viol[0][2]:.2f} mm" if viol else "no violation seen")
     # Control: the same 0.5 mm gap, but a declared intentional contact → allowed.
-    contact = sc.part_clearances({"compressor-shroud": box(0, 0, 0),
-                                  "source-select-tray": box(0, 0, 10.5)})
+    contact = sc.part_clearances({"foam-assembly": box(0, 0, 0),
+                                  "power-tray": box(0, 0, 10.5)})
     cviol = [r for r in contact if not r[3] and r[2] < sc.CLEARANCE_FLOOR]
     check("silent on a declared TOUCHING_OK contact at the same gap", len(cviol) == 0,
           f"{len(cviol)} spurious violation(s)")
@@ -116,6 +116,40 @@ def test_placement() -> None:
     drow = next((r for r in drift if r[0] == "foam-assembly"), None)
     check("a drifted component reads as NOT placed", bool(drow) and not drow[1],
           "x- rule should break")
+
+    # The part-to-part forms: source-select-assembly carries a `near` rule (funnel gap
+    # ≤ 6 mm) and a `clear` rule (display gap ≥ 7 mm). Funnel 4 away, display 8 away = placed.
+    print("placed (part-to-part `near` + `clear` rules hold)")
+    near_ok = sc.placement_audit({"source-select-assembly": box(0, 0, 0),
+                                  "display": box(0, 0, 18.0),
+                                  "hopper-funnel": box(14.0, 0, 0)}, inner)
+    nrow = next((r for r in near_ok if r[0] == "source-select-assembly"), None)
+    check("a component meeting near + clear reads as placed", bool(nrow) and nrow[1])
+    # Pull the funnel 12 mm away — the near rule (≤6 mm) now fails.
+    near_far = sc.placement_audit({"source-select-assembly": box(0, 0, 0),
+                                   "display": box(0, 0, 18.0),
+                                   "hopper-funnel": box(22.0, 0, 0)}, inner)
+    frow = next((r for r in near_far if r[0] == "source-select-assembly"), None)
+    check("a component drifted off its neighbor reads as NOT placed", bool(frow) and not frow[1],
+          "near hopper-funnel rule should break")
+    # Crowd the display to a 3 mm gap — the clear rule (≥7 mm keep-out) now fails.
+    crowd = sc.placement_audit({"source-select-assembly": box(0, 0, 0),
+                                "display": box(0, 0, 13.0),
+                                "hopper-funnel": box(14.0, 0, 0)}, inner)
+    crow = next((r for r in crowd if r[0] == "source-select-assembly"), None)
+    check("a component crowding its keep-out reads as NOT placed", bool(crow) and not crow[1],
+          "clear display rule should break")
+    # A named neighbor missing from the pack cannot silently pass — either form.
+    near_missing = sc.placement_audit({"source-select-assembly": box(0, 0, 0),
+                                       "display": box(0, 0, 18.0)}, inner)
+    mrow = next((r for r in near_missing if r[0] == "source-select-assembly"), None)
+    check("a near rule against an absent neighbor reads as NOT placed", bool(mrow) and not mrow[1],
+          "missing hopper-funnel must not pass")
+    clear_missing = sc.placement_audit({"source-select-assembly": box(0, 0, 0),
+                                        "hopper-funnel": box(14.0, 0, 0)}, inner)
+    xrow = next((r for r in clear_missing if r[0] == "source-select-assembly"), None)
+    check("a clear rule against an absent neighbor reads as NOT placed", bool(xrow) and not xrow[1],
+          "missing display must not vacuously pass the keep-out")
 
 
 # ── end-to-end: build_scorecard wires a defect through to a red gate ─────────
