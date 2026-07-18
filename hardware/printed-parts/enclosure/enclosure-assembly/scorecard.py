@@ -360,9 +360,11 @@ PORTS = [
     # plate carries a 2-pin lead on its top face.
     _p("header", "mq6-sensor", "electrical", (116.0, 144.0, 3.0), "z-", 8.0, "PCBA gas-sensor input — VCC/GND/DO/AO (SIG)", "4-pin 2.54 mm header, pins down"),
     _p("header", "moisture-sensor", "electrical", (80.0, 35.0, 159.1), "z+", 5.0, "PCBA moisture input — 2-pin (SIG + GND)", "2-pin lead header on the plate; Ø est"),
-    # Hopper funnel — the removable silicone basin's single drain at the bottom-centre of its
-    # envelope, feeding the shared source (V-B hopper gate). One fluid port.
-    _p("drain", "hopper-funnel", "fluid", (193.75, 63.3, 306.5), "z-", 6.35, "V-B hopper gate → shared source (channel split)", "funnel drain; bottom-centre of the basin, line Ø est"),
+    # Hopper funnel — the removable silicone basin's single drain: the spout-tube exit annulus,
+    # feeding the shared source (V-B hopper gate). One fluid port. The spout carries
+    # hopper_funnel.py's `neck_dx` −14 off the opening centre, into the clear column between the
+    # two pump towers, so the drain sits at the spout, not at the basin's bbox centre.
+    _p("drain", "hopper-funnel", "fluid", (179.75, 63.3, 306.533), "z-", 6.35, "V-B hopper gate → shared source (channel split)", "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"),
     # Flavor pumps (Kamoer KPHM400, P-A + P-B) — each pump's two JG PP0308E elbows seat their −Z
     # leg on a barb at the pump body's top and turn the line to −Y, so the tube pushes into the
     # free collet facing −Y; those two collet-face centres are the elbow solid's only openings

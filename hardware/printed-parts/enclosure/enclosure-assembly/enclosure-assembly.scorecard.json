@@ -1,7 +1,7 @@
 {
   "gatesPass": true,
   "placed": 12,
-  "located": 80,
+  "located": 84,
   "shaped": 92,
   "routed": 2,
   "held": 28,
@@ -109,7 +109,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "80% (20/25)",
+      "value": "84% (21/25)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
@@ -793,15 +793,15 @@
       "name": "drain",
       "kind": "fluid",
       "pos": [
-        193.75,
+        179.75,
         63.3,
-        306.5
+        306.533
       ],
       "face": "z-",
       "diam": 6.35,
       "mates": "V-B hopper gate \u2192 shared source (channel split)",
-      "status": "off-surface",
-      "note": "funnel drain; bottom-centre of the basin, line \u00d8 est"
+      "status": "ok",
+      "note": "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"
     },
     {
       "component": "pump-assembly-1",
