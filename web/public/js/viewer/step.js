@@ -10,6 +10,7 @@ import { scene, camera, resetCamera } from "./scene.js";
 import { applyXray } from "./xray.js";
 import { setActiveEdges } from "./edge-picker.js";
 import { clearPickFind } from "./pick-find.js";
+import { clearHighlight } from "./part-highlight.js";
 
 // --- occt-import-js loader (no importmap support, loaded manually) ---
 let occtReady;
@@ -103,6 +104,9 @@ function buildMesh(result) {
     frontMesh.userData.occtIndex = occtIndex;
     frontMesh.userData.side = "front"; // face raycast scans front meshes only
     backMesh.userData.occtIndex = occtIndex;
+    // Carry the component name (backfilled from the STEP assembly node) onto the meshes so
+    // the scorecard's clickable rows can find a solid by name (part-highlight.js).
+    frontMesh.name = backMesh.name = mesh.name || "";
     group.add(frontMesh);
     group.add(backMesh);
   });
@@ -144,6 +148,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     applyXray(state.currentGroup); // ghost + edges if x-ray mode is on
     setActiveEdges(result); // BREP edges for the edge picker (lazy-reconstructed)
     clearPickFind(); // stale find highlights reference the old geometry
+    clearHighlight(); // and a stale scorecard part-highlight does too
     scene.add(state.currentGroup);
     state.mountedDetail = { type: "step", file };
     if (!preserveCamera) resetCamera(state.currentGroup);

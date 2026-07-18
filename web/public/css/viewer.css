@@ -902,6 +902,9 @@
 .sc-row.warn .sc-k { color: var(--warn); }
 .sc-row.warn .sc-v { color: var(--warn); }
 .sc-row.gray .sc-k, .sc-row.gray .sc-v { color: var(--text-3); }
+/* A detail row that names solids in the scene — clickable, highlights them on the model. */
+.sc-row.clickable { cursor: pointer; }
+.sc-row.clickable:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); }
 .sc-toggle {
   width: 100%;
   text-align: left;
