@@ -16,11 +16,11 @@ Two kinds of requirement, split the way the board splits them:
 - **GOAL** — the realization work this whole effort exists to drive, reported as a
   `score` (0–100), not a gate — the box still models while it converts.
 
-**Done** is mechanical, not a matter of opinion: *every gate green, and all four goal
+**Done** is mechanical, not a matter of opinion: *every gate green, and all five goal
 axes at 100%*. Green gates alone are permission to build, not done — the same distinction
-the board draws between "fab-ready" and "a tight, hand-routed board." The four goal axes
-are worked in two waves: **placed + shaped are the current focus** (driven to 100% first);
-**routed + held wait behind them**, rendered gray until the focus is met.
+the board draws between "fab-ready" and "a tight, hand-routed board." The five goal axes
+are worked in two waves: **placed + located + shaped are the current focus** (driven to
+100% first); **routed + held wait behind them**, rendered gray until the focus is met.
 
 ## Gates — permission to build
 
@@ -42,10 +42,10 @@ are worked in two waves: **placed + shaped are the current focus** (driven to 10
 - **parts-sourced** — every component is a selected real part or a finished printed-part
   design. You cannot build what is not yet specified.
 
-## Goals — the four axes
+## Goals — the five axes
 
 The board had one goal: take every connection off the autorouter onto deliberate hand
-copper. The enclosure has four, one per thing every component owes. The first two are the
+copper. The enclosure has five, one per thing every component owes. The first three are the
 current **focus** (rendered live, green/yellow); the last two are **deferred** (rendered
 gray) until the focus is met:
 
@@ -56,13 +56,23 @@ gray) until the focus is met:
   the back-bottom", pinned to numbers. A component counts when it has rules *and* they hold;
   rules defined but violated are a visible drift; no rules yet is not-started. Rules are
   re-definable as the design iterates — authoring one, and holding it, are the milestones.
+- **located** *(focus)* — every connector (tube *and* wire) has a POSITION on the component:
+  a point the scorecard confirms sits on the placed body's surface, with the body face it
+  exits and what it mates to. A connection has no path until *both* its ends are located, so
+  this is the precondition to `routed`. Positions are derived where the part documents its
+  penetrations (a foam-shell penetration table, a sheet-metal generator's hole centers) and
+  carried through the pack's placement transform; a connector with no position yet is a
+  visible `needs a position`, never a silent gap. A component counts when it has ports *and*
+  every one is positioned and on-surface. This is the `placed` discipline applied to the
+  connections instead of the body — "against the wall" becomes "the suction stub is *here*."
 - **shaped** *(focus)* — real geometry, not a placeholder box or cylinder. A placeholder
   with the right *dimensions* is still a box; the real silhouette is what other parts must
   be packed against.
 - **routed** *(deferred)* — every connection modeled as a real 3D path (bend radius, length,
-  clearance), not two endpoints and an external graph. The denominator is both topologies —
-  the fluid tube segments *and* the electrical runs (AC / DC / signal / low-voltage); a
-  connection counts only once a real path exists.
+  clearance), not two endpoints and an external graph. The denominator is all three
+  topologies — the fluid tube segments, the **sealed refrigerant loop** (compressor →
+  condenser → drier/cap-tube → evaporator → compressor), *and* the electrical runs (AC / DC /
+  signal / low-voltage); a connection counts only once a real path exists.
 - **held** *(deferred)* — a printed holder that fastens the component to the enclosure: a few
   bosses and screws, a tray-with-bosses that itself fastens, a wall capture, a shell facet.
   Not a free solid resting in a collision-checked void.
@@ -71,8 +81,9 @@ gray) until the focus is met:
 overlap is the enclosure's version of the autorouter's accidentally-clean net — crediting
 it would count the box-thinking this effort exists to remove as progress. So `shaped` and
 `held` are read from what has actually been modeled and engineered (the registry), `placed`
-from authored face-to-datum rules that must measurably hold, and `routed` from whether a
-real path exists — never inferred from the mere absence of a clash.
+from authored face-to-datum rules that must measurably hold, `located` from declared port
+positions checked on-surface against the real body, and `routed` from whether a real path
+exists — never inferred from the mere absence of a clash.
 
 ## Standards — provisional, awaiting ratification
 
@@ -154,18 +165,25 @@ arc), the transferable discipline:
 
 ## The work queue — the focus, then what waits behind it
 
-The current focus is **placed + shaped to 100%**; `routed` and `held` are parked (gray)
-until then. In the open, so coverage is never misread as done:
+The current focus is **placed + located + shaped to 100%**; `routed` and `held` are parked
+(gray) until then. In the open, so coverage is never misread as done:
 
-**Focus — placed + shaped:**
+**Focus — placed + located + shaped:**
 
 - **Author placement rules for the remaining components.** Three carry them today
   (foam-assembly, compressor-shroud, condenser+fan); the other 22 are not-yet-placed. Each
   earns a set of face-to-datum measurements that pin its intended position, and those must
   measurably hold. Rules iterate as the design moves — a redefinition is expected, not a
   failure.
-- **Make the placeholders real.** Ten components are boxes/cylinders with real dimensions
-  but not real geometry (every recently-sized connector, plus the condenser, MQ-6, drip-pan,
+- **Locate every connector.** Two components carry full port sets today (foam-assembly's ten
+  penetrations, compressor-shroud's four); condenser+fan's three (refrigerant inlet/outlet,
+  fan power) are declared but unpositioned, pending its teardown. The other 22 have no ports
+  yet. Each component earns a position for every tube and wire it terminates — derived from
+  the part's own penetration record where one exists, measured from the donor where it does
+  not. The refrigerant loop is the near-term driver: it binds the three floor/back parts and
+  had no home in any topology until it was declared.
+- **Make the placeholders real.** Eight components are boxes/cylinders with real dimensions
+  but not real geometry (the condenser, SeaFlo, Multiplex, WR1110, DERPIPE, MQ-6, drip-pan,
   moisture plate). Convert each to real STEP / engineered geometry.
 - **SeaFlo real dimensions + a steeper funnel** — the live repack. The SeaFlo's true body
   is 80 × 72 × 187 (up from the modeled 75 × 60 × 175); it grows the pump-1 tower and, until
@@ -177,9 +195,10 @@ until then. In the open, so coverage is never misread as done:
 
 **Deferred — behind the focus:**
 
-- **routed** is blocked on the **three unplaced valve-manifold trays** (source-select,
-  bag-circuit, nozzle-gate). All 28 fluid segments live in them; the 28 electrical runs
-  wait on the components being placed and held first.
+- **routed** spans the fluid segments, the sealed refrigerant loop, and the electrical runs.
+  The fluid path is blocked on the **three unplaced valve-manifold trays** (source-select,
+  bag-circuit, nozzle-gate); the refrigerant loop waits on the condenser's ports being
+  located; the electrical runs wait on the components being placed, located, and held first.
 - **held** — a printed holder for every internal component. Today only the through-wall
   bodies (wall + their own nut) and the display (shell facet) are held; every loose internal
   part floats. Each needs bosses, a cradle, or a tray that itself fastens.
