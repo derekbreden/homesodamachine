@@ -56,15 +56,22 @@ gray) until the focus is met:
   the back-bottom", pinned to numbers. A component counts when it has rules *and* they hold;
   rules defined but violated are a visible drift; no rules yet is not-started. Rules are
   re-definable as the design iterates — authoring one, and holding it, are the milestones.
-- **located** *(focus)* — every connector (tube *and* wire) has a POSITION on the component:
-  a point the scorecard confirms sits on the placed body's surface, with the body face it
-  exits and what it mates to. A connection has no path until *both* its ends are located, so
-  this is the precondition to `routed`. Positions are derived where the part documents its
-  penetrations (a foam-shell penetration table, a sheet-metal generator's hole centers) and
-  carried through the pack's placement transform; a connector with no position yet is a
-  visible `needs a position`, never a silent gap. A component counts when it has ports *and*
-  every one is positioned and on-surface. This is the `placed` discipline applied to the
-  connections instead of the body — "against the wall" becomes "the suction stub is *here*."
+- **located** *(focus)* — every connector (tube *and* wire) has a POSITION **and a bore Ø** on
+  the component: a point the scorecard confirms sits on the placed body's surface, with the
+  body face it exits, the nominal bore of the line it carries, and what it mates to. A
+  coordinate says *where* a line lands; the Ø says *what* fits there — the PCBA had both per
+  pad (a position and a copper/drill size), and routing needs both here (a tube's bend and
+  clearance depend on its diameter). A connection has no path until *both* its ends are
+  located, so this is the precondition to `routed`. Positions are derived where the part
+  documents its penetrations (a foam-shell penetration table, a sheet-metal generator's hole
+  centers) and picked off the model where it doesn't; the Ø comes from the line or fitting the
+  port carries (1/4" ACR copper = 6.35 mm, a 3/8" hose barb = 9.525 mm, a cable gland). A
+  connector with no position yet is a visible `needs a position`, one still unsized a `needs a
+  bore Ø` — never a silent gap. A component counts when it has ports *and* every one is
+  positioned, on-surface, *and* sized. This is the `placed` discipline applied to the
+  connections instead of the body — "against the wall" becomes "the suction stub is *here*,
+  and it is 1/4" copper." The full inventory — every port's coordinate + bore — is emitted as
+  a structured `ports[]` block in the scorecard sidecar, so the audit reads it directly.
 - **shaped** *(focus)* — real geometry, not a placeholder box or cylinder. A placeholder
   with the right *dimensions* is still a box; the real silhouette is what other parts must
   be packed against.
@@ -82,8 +89,8 @@ overlap is the enclosure's version of the autorouter's accidentally-clean net �
 it would count the box-thinking this effort exists to remove as progress. So `shaped` and
 `held` are read from what has actually been modeled and engineered (the registry), `placed`
 from authored face-to-datum rules that must measurably hold, `located` from declared port
-positions checked on-surface against the real body, and `routed` from whether a real path
-exists — never inferred from the mere absence of a clash.
+positions checked on-surface against the real body *plus* a declared bore for each, and
+`routed` from whether a real path exists — never inferred from the mere absence of a clash.
 
 ## Standards — provisional, awaiting ratification
 
@@ -177,12 +184,13 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   failure.
 - **Locate every connector.** The three refrigeration components carry full port sets today
   (foam-assembly's ten penetrations, compressor-shroud's four, condenser+fan's three); the
-  other 22 have no ports yet. Each component earns a position for every tube and wire it
-  terminates — derived from the part's own penetration record where one exists, taken from the
-  donor where it does not. The refrigerant loop drove the first three: it binds the floor/back
-  parts and had no home in any topology until it was declared. A connector's face must point at
-  what it mates to — the compressor's copper faces the cold core (+Y), not the removable front
-  shell — and the scorecard confirms each position sits on the real body.
+  other 22 have no ports yet. Each component earns a position *and a bore Ø* for every tube and
+  wire it terminates — derived from the part's own penetration record where one exists, taken
+  from the donor where it does not, the Ø read from the line or fitting the port carries. The
+  refrigerant loop drove the first three: it binds the floor/back parts and had no home in any
+  topology until it was declared. A connector's face must point at what it mates to — the
+  compressor's copper faces the cold core (+Y), not the removable front shell — and the
+  scorecard confirms each position sits on the real body and each port names its bore.
 - **Make the placeholders real.** Eight components are boxes/cylinders with real dimensions
   but not real geometry (the condenser, SeaFlo, Multiplex, WR1110, DERPIPE, MQ-6, drip-pan,
   moisture plate). Convert each to real STEP / engineered geometry.
