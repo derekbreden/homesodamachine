@@ -157,3 +157,22 @@ And two confirmations on the compressor:
 6. Of the two copper holes, is the **inboard/+X** one (world x=146.75) the **suction** (from
    evaporator) and the **outboard/−X** one (world x=59.25) the **discharge** (to condenser)?
    The shroud calls them "inlet/outlet"; the loop needs suction/discharge assigned.
+
+## Resolution — 2026-07-17 (same day)
+
+All answered and applied; `located` moved 8% → 12% (3/25), the pack still closes.
+
+- **Condenser refrigerant ports on the −X face** (interior side, toward the compressor), from
+  step-viewer picks: **inlet (213, 5.5, 175.5)** top-front, **outlet (213, 145.5, 8.5)**
+  bottom-back — diagonal corners, the drier + cap-tube hanging off the low-back outlet toward
+  the evaporator. **Fan on the +X face**; airflow runs **−X → +X**, so the −X ports side is the
+  intake and the +X fan side the exhaust (the side-wall vent plan follows this).
+- **Compressor re-rotated −90° (was +90°)** so both copper stubs face **+Y, toward the foam /
+  cold core** — not −Y, which faces the removable front shell of that disassembled quadrant.
+  The Q1 rotation finding is resolved: suction now exits toward the evaporator directly. The AC
+  gland moved to the +X face (into the inter-part channel). Same 178×133×151 footprint, so the
+  pack is unchanged. **x=59.25 = suction** (→ evaporator outlet); **x=146.75 = discharge**
+  (→ condenser inlet).
+- **Correction recorded:** "front-facing for service" was wrong — in the four-piece enclosure
+  the −Y face is *toward* the shell that comes off to service this quadrant. A connector's face
+  points at its mate, always; that is now a stated rule in requirements.md (`located`).

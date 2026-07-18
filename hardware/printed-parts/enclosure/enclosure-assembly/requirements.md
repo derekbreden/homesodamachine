@@ -175,13 +175,14 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   earns a set of face-to-datum measurements that pin its intended position, and those must
   measurably hold. Rules iterate as the design moves — a redefinition is expected, not a
   failure.
-- **Locate every connector.** Two components carry full port sets today (foam-assembly's ten
-  penetrations, compressor-shroud's four); condenser+fan's three (refrigerant inlet/outlet,
-  fan power) are declared but unpositioned, pending its teardown. The other 22 have no ports
-  yet. Each component earns a position for every tube and wire it terminates — derived from
-  the part's own penetration record where one exists, measured from the donor where it does
-  not. The refrigerant loop is the near-term driver: it binds the three floor/back parts and
-  had no home in any topology until it was declared.
+- **Locate every connector.** The three refrigeration components carry full port sets today
+  (foam-assembly's ten penetrations, compressor-shroud's four, condenser+fan's three); the
+  other 22 have no ports yet. Each component earns a position for every tube and wire it
+  terminates — derived from the part's own penetration record where one exists, taken from the
+  donor where it does not. The refrigerant loop drove the first three: it binds the floor/back
+  parts and had no home in any topology until it was declared. A connector's face must point at
+  what it mates to — the compressor's copper faces the cold core (+Y), not the removable front
+  shell — and the scorecard confirms each position sits on the real body.
 - **Make the placeholders real.** Eight components are boxes/cylinders with real dimensions
   but not real geometry (the condenser, SeaFlo, Multiplex, WR1110, DERPIPE, MQ-6, drip-pan,
   moisture plate). Convert each to real STEP / engineered geometry.
