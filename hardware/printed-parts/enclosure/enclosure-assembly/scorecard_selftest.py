@@ -138,12 +138,68 @@ def test_scorecard_end_to_end() -> None:
           f"status={packok.status}")
 
 
+# ── routing guards: a path that cannot be made raises ────────────────────────
+def test_routing_guards() -> None:
+    import _routing as R
+
+    print("routing guards (bend radius, ambiguous close, folded close)")
+
+    # Two ports facing each other down a corridor, offset along x: exit stub → across → close.
+    # Hand-built fixture geometry, like the defect boxes above.
+    span, depth = 200.0, 130.0
+    bend = R.BEND_RATIO * 6.35
+
+    def fixture():
+        R._frames.clear()
+        R.frame("A", box(0, 0, 0), {"p": ((0.0, 0.0, 0.0), "y+", 6.35)})
+        R.frame("B", box(0, 0, 0), {"p": ((span, depth, 0.0), "y-", 6.35)})
+
+    # `across` turns perpendicular to the exit stub, so the stub is its own leg; a constraint
+    # continuing the stub's direction straightens into it.
+    across = {"x": span}
+
+    # The control first: a stub of one full bend radius seats its turn, and the run is clean.
+    fixture()
+    try:
+        run = R.route("t", "A.p", across, "B.p")
+        check("silent on legs that clear the bend radius", len(run.bends) >= 2, f"{len(run.bends)} bends")
+    except ValueError as e:
+        check("silent on legs that clear the bend radius", False, str(e)[:70])
+
+    # A stub shorter than the bend radius cannot seat the turn off the port.
+    fixture()
+    try:
+        R.route("t", "A.p", across, "B.p", stub=bend / 3.0)
+        check("fires on a leg too short for its bend radius", False, "no raise")
+    except ValueError as e:
+        check("fires on a leg too short for its bend radius", "tangent" in str(e), str(e)[:58])
+
+    # Two coordinates still differing at the close = an ambiguous corner order.
+    fixture()
+    try:
+        R.route("t", "A.p", "B.p")
+        check("fires when the close is ambiguous (2 coords differ)", False, "no raise")
+    except ValueError as e:
+        check("fires when the close is ambiguous (2 coords differ)",
+              "needs another constraint" in str(e), str(e)[:58])
+
+    # A path nearer the port than its own approach stub would back out and come straight back.
+    fixture()
+    try:
+        R.route("t", "A.p", {"y": depth - bend / 2.0}, across, "B.p", stub=(bend, bend * 2.0))
+        check("fires when the close folds back on itself", False, "no raise")
+    except ValueError as e:
+        check("fires when the close folds back on itself", "folds" in str(e), str(e)[:58])
+    R._frames.clear()
+
+
 def main() -> None:
     print("── enclosure scorecard self-test " + "─" * 20)
     if not sc._HAVE_EXACT:
         print("  note: exact solid-distance kernel unavailable; clearance uses bbox estimate")
     for t in (test_pack_closes, test_clearance_floor, test_fit_bed,
-              test_seams_mate, test_placement, test_scorecard_end_to_end):
+              test_seams_mate, test_placement, test_scorecard_end_to_end,
+              test_routing_guards):
         t()
     print("─" * 53)
     if _failures:
