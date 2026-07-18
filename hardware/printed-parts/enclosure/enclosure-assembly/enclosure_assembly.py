@@ -94,13 +94,13 @@ def main():
     ix = max(b.xmax for b in inner_bbs) - min(b.xmin for b in inner_bbs)
     iy = max(b.ymax for b in inner_bbs) - min(b.ymin for b in inner_bbs)
     iz = max(b.zmax for b in inner_bbs)
-    _i, outer, _yj, _cf = enclosure._dims()
+    inner, outer, _yj, _cf = enclosure._dims()
     print(f"pack interior: {ix:.1f} × {iy:.1f} × {iz:.1f} mm "
           f"(box exterior {outer[1] - outer[0]:.1f} × {outer[3] - outer[2]:.1f} × "
           f"{outer[5] - outer[4]:.1f})")
 
     sc = scorecard.build_scorecard(
-        solids, pieces, (enclosure.H2C_X, enclosure.H2C_Y, enclosure.H2C_Z))
+        solids, pieces, (enclosure.H2C_X, enclosure.H2C_Y, enclosure.H2C_Z), inner)
     print(scorecard.format_scorecard(sc))
     # The scorecard reports every gate; today only pack-closes blocks the export — a
     # physically invalid pack (overlapping solids) must not be written. The rest report
