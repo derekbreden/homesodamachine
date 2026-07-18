@@ -1,7 +1,7 @@
 {
   "gatesPass": true,
   "placed": 12,
-  "located": 76,
+  "located": 88,
   "shaped": 92,
   "routed": 0,
   "held": 28,
@@ -109,7 +109,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "76% (19/25)",
+      "value": "88% (22/25)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
@@ -883,6 +883,111 @@
       "mates": "L298N channel B / 12 V DC drive",
       "status": "ok",
       "note": "2-wire DC motor lead; \u00d8 est"
+    },
+    {
+      "component": "digiten-flow",
+      "name": "in",
+      "kind": "fluid",
+      "pos": [
+        121.0,
+        154.0,
+        229.0
+      ],
+      "face": "y+",
+      "diam": 6.35,
+      "mates": "foam-assembly carb-water-out (riser)",
+      "status": "ok",
+      "note": "G1/4 PTC, 1/4\" tube bore"
+    },
+    {
+      "component": "digiten-flow",
+      "name": "out",
+      "kind": "fluid",
+      "pos": [
+        121.0,
+        132.0,
+        229.0
+      ],
+      "face": "y-",
+      "diam": 6.35,
+      "mates": "carb-water to rear umbilical (bulkhead-carb)",
+      "status": "ok",
+      "note": "G1/4 PTC, 1/4\" tube bore"
+    },
+    {
+      "component": "digiten-flow",
+      "name": "signal",
+      "kind": "electrical",
+      "pos": [
+        121.0,
+        143.0,
+        245.0
+      ],
+      "face": "z+",
+      "diam": 4.0,
+      "mates": "PCBA flow input \u2014 VCC/GND/SIG (Hall pigtail)",
+      "status": "ok",
+      "note": "3-wire pigtail; \u00d8 est"
+    },
+    {
+      "component": "display",
+      "name": "harness",
+      "kind": "electrical",
+      "pos": [
+        56.75,
+        62.8,
+        315.0
+      ],
+      "face": "y+",
+      "diam": 8.0,
+      "mates": "5 V power + display data (PCBA / power bus)",
+      "status": "ok",
+      "note": "connector not modeled in STEP; PROVISIONAL on the interior back face \u2014 refine with a pick"
+    },
+    {
+      "component": "seaflo-pump",
+      "name": "water-in",
+      "kind": "fluid",
+      "pos": [
+        14.0,
+        100.0,
+        185.0
+      ],
+      "face": "x-",
+      "diam": 9.525,
+      "mates": "multiplex out (BFP \u2192 pump)",
+      "status": "ok",
+      "note": "3/8\" hose barb; PROVISIONAL \u2014 placeholder box, awaiting the real SeaFlo-22 geometry"
+    },
+    {
+      "component": "seaflo-pump",
+      "name": "water-out",
+      "kind": "fluid",
+      "pos": [
+        14.0,
+        120.0,
+        185.0
+      ],
+      "face": "x-",
+      "diam": 9.525,
+      "mates": "gasher-water in (pump \u2192 outlet check)",
+      "status": "ok",
+      "note": "3/8\" hose barb; PROVISIONAL \u2014 placeholder box, awaiting the real SeaFlo-22 geometry"
+    },
+    {
+      "component": "seaflo-pump",
+      "name": "power",
+      "kind": "electrical",
+      "pos": [
+        100.0,
+        147.0,
+        185.0
+      ],
+      "face": "y+",
+      "diam": 5.0,
+      "mates": "12 V DC pump power (level/faucet interlock)",
+      "status": "ok",
+      "note": "2-wire lead; PROVISIONAL \u2014 placeholder box"
     }
   ]
 }
