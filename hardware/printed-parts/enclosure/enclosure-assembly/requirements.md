@@ -84,6 +84,27 @@ the first directed step. Context-specific keep-outs grow from there as their own
 way the board grew its gate-set: **tube bend radius** at each port, **tool/wrench access**
 at each fastener, **condenser airflow**, service-withdrawal envelopes.
 
+## Assemblability and serviceability — named, not yet measured
+
+The board's traces are *fabricated*; no hand ever installs one. The enclosure's tubes,
+pumps, and carbonator go in **by a hand, in an order**, and come back out for service. A
+pack that is collision-free in CAD can still be **physically unassemblable** — no order
+threads every part past the others into place — or serviceable only by tearing down half the
+machine to reach one fitting. This is the enclosure's antenna keepout: a real defect that a
+geometry-only scorecard passes in silence, because the guard does not exist.
+
+It is named here as a first-class requirement while it is cheap to name — the
+*deferred-is-not-removed* discipline (below) applied to a requirement, not just a connection:
+an unwritten check that is *named and tracked* is a known gap; one that is simply absent is a
+trap. Today it has **no executable check** — measuring it needs tooling the project does not
+have yet (assembly-order reasoning, tool/hand swept-volume, service-withdrawal envelopes),
+and the `held` axis is only its nearest neighbor: `held` asks whether a holder exists, not
+whether a hand can seat that part *in a valid order* or free it for service without a
+teardown. Until that tooling exists the requirement rides two ways — as a standing review
+question on every placement and holder decision (*what installs before this; what must come
+out to service it*), and as the first candidate to become a scored axis or gate once a check
+can compute it. Absent from the number, present in the design.
+
 ## Gating
 
 The scorecard **reports** every gate; today only **pack-closes** blocks the export — a
@@ -106,7 +127,10 @@ arc), the transferable discipline:
   satisfy real geometry — sufficient clearance beats any box size. Tighten only once the
   design is correct, and re-prove every gate on each tightening step.
 - **Prove every check fires.** A guard that never triggers is worthless. When a new gate
-  is added, inject the defect and watch it flag; add a control that must not.
+  is added, inject the defect and watch it flag; add a control that must not. This is
+  executable: [`scorecard_selftest.py`](scorecard_selftest.py) feeds each geometry gate a
+  hand-built defect and a passing control, and the enclosure pre-commit runs it whenever the
+  checker (`scorecard.py`) changes — so a refactor cannot quietly blind a gate.
 - **The gate-set is living.** Every time something passes while broken, a new proven gate
   is added so it never can again.
 - **Difficulty is a tripwire, not a grind.** When a step demands absurd contortions
@@ -159,3 +183,7 @@ until then. In the open, so coverage is never misread as done:
 - **held** — a printed holder for every internal component. Today only the through-wall
   bodies (wall + their own nut) and the display (shell facet) are held; every loose internal
   part floats. Each needs bosses, a cradle, or a tray that itself fastens.
+- **assemblability + serviceability** — the enclosure's hardest constraint (assembly
+  sequence, service withdrawal) has no executable check yet. It is a named requirement and a
+  standing review question until the tooling to measure it exists — see *Assemblability and
+  serviceability*.
