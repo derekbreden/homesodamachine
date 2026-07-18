@@ -513,6 +513,46 @@ def _solid_gap(a, b) -> float:
     return dss.Value() if dss.IsDone() else _bbox_gap(a.BoundingBox(), b.BoundingBox())
 
 
+# ── Shape (the shaped axis) — the boxes a component really occupies ─────────────────────────
+# A component is a set of bodies, and its boxes are their boxes: one per solid it is built from,
+# following the part's own construction. The single box drawn around all of them is a different
+# object — the compressor shroud's holds twenty times the shroud's material, a flavor pump's holds
+# three times its own, and an elbow's is mostly the air in the corner of the L. `box_fill` is how
+# much of the boxes is material: at 1.0 they are the part, and the lower it runs the less a box
+# stands in for the shape and the more only the solid will answer (`_solid_gap`, `_on_surface`).
+def component_boxes(shape) -> list:
+    """One axis-aligned box per solid the component is built from."""
+    return [s.BoundingBox() for s in shape.Solids()]
+
+
+def _box_vol(bb) -> float:
+    return bb.xlen * bb.ylen * bb.zlen
+
+
+def box_fill(shape) -> float:
+    """Material volume over the volume of the component's boxes."""
+    total = sum(_box_vol(b) for b in component_boxes(shape))
+    return shape.Volume() / total if total > 0 else 0.0
+
+
+def is_primitive(shape) -> bool:
+    """True when the geometry is a bare box or cylinder — makeBox leaves one solid with six
+    planar faces, makeCylinder one solid with three (two planar caps and a round side). Authored
+    geometry carries holes, bosses and fillets on top of that: the flattest real body in the pack,
+    a probe plate with two lead holes, already has eight faces."""
+    if len(shape.Solids()) != 1:
+        return False
+    faces = shape.Faces()
+    planar = sum(1 for f in faces if f.geomType() == "PLANE")
+    return (len(faces) == 6 and planar == 6) or (len(faces) == 3 and planar == 2)
+
+
+def shape_audit(solids: dict) -> dict:
+    """Per component: its boxes, how much of them is material, and whether the geometry is still
+    a bare primitive — what the shaped axis measures the registry's declaration against."""
+    return {n: (component_boxes(s), box_fill(s), is_primitive(s)) for n, s in solids.items()}
+
+
 def pack_clashes(solids: dict, pieces: dict) -> list[tuple[str, str, float]]:
     """Every content pair, plus every content-vs-piece pair, whose overlap volume passes
     CLASH_TOL — the pack-closes gate (the box's original collision check, now the
@@ -608,6 +648,10 @@ class Scorecard:
                                                 # status. Uncapped (unlike check.detail, which
                                                 # DETAIL_MAX trims), so the audit reads every
                                                 # coordinate + diameter straight from the sidecar.
+    shapes: list = field(default_factory=list)  # per component: the boxes it really occupies (one
+                                                # per solid it is built from), how much of them is
+                                                # material, and whether the geometry is still a
+                                                # bare primitive. Also uncapped.
 
 
 def _pct(done: int, total: int) -> int:
@@ -706,12 +750,30 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     goal("located", "Connectors located on the component — position + bore Ø (tubes + wires)", located_pct == 100,
          f"{located_pct}% ({len(located_comps) + len(passive)}/{total})", "100%", located_detail, active=True)
 
-    # shaped — FOCUS: real geometry, not a placeholder box/cylinder.
-    real = [c for c in COMPONENTS if c.is_real]
+    # shaped — FOCUS: real geometry, not a placeholder box/cylinder. The registry declares it and
+    # the geometry has to agree: a bare box or cylinder is a placeholder whatever the entry says,
+    # so a component counts only when it is declared real AND measures as authored geometry.
+    shapes = shape_audit(solids)
+    def _prim(name):
+        return shapes[name][2] if name in shapes else None
+    real = [c for c in COMPONENTS if c.is_real and _prim(c.name) is False]
+    mismatched = [c for c in COMPONENTS if _prim(c.name) is not None and _prim(c.name) == c.is_real]
     shaped = _pct(len(real), total)
-    goal("shaped", "Components modeled as real geometry (not a placeholder box)", shaped == 100,
-         f"{shaped}% ({len(real)}/{total})", "100%",
-         [f"{c.name}: still a {c.kind} — {c.note}" for c in COMPONENTS if not c.is_real], active=True)
+    shaped_detail = [f"{c.name}: still a {c.kind} — {c.note}" for c in COMPONENTS if not c.is_real]
+    shaped_detail += [
+        f"{c.name}: declared {c.kind} but the geometry is "
+        f"{'a bare primitive' if c.is_real else 'authored'} — ⚠ registry disagrees with the shape"
+        for c in mismatched
+    ]
+    # How much of each component's boxes is material — the components a single box describes
+    # worst are the ones whose box must not be read as their shape.
+    loose = sorted(((shapes[c.name][1], c.name) for c in COMPONENTS if c.name in shapes))[:6]
+    shaped_detail += [f"{n}: {len(shapes[n][0])} "
+                      f"{'box holds' if len(shapes[n][0]) == 1 else 'boxes hold'} "
+                      f"{f * 100:.0f}% material" for f, n in loose]
+    goal("shaped", "Components modeled as real geometry (not a placeholder box)",
+         shaped == 100 and not mismatched,
+         f"{shaped}% ({len(real)}/{total})", "100%", shaped_detail, active=True)
 
     # routed — DEFERRED: every fluid + refrigerant + electrical connection a real 3D path.
     conns = load_connections()
@@ -743,8 +805,20 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
         for comp, _ok, prows in pta for pt, s in prows
     ]
 
+    # The boxes each component really occupies, one row per component — the shape record behind
+    # the shaped axis, in the same uncapped form as the port table.
+    shapes_table = [
+        {"component": n,
+         "boxes": [[round(b.xmin, 3), round(b.ymin, 3), round(b.zmin, 3),
+                    round(b.xmax, 3), round(b.ymax, 3), round(b.zmax, 3)] for b in boxes],
+         "fill": round(fill, 4), "primitive": prim,
+         "declared": reg[n].kind if n in reg else None}
+        for n, (boxes, fill, prim) in sorted(shapes.items())
+    ]
+
     gates_pass = all(c.status == "pass" for c in checks if c.kind == "gate")
-    return Scorecard(checks, gates_pass, placed_pct, located_pct, shaped, routed, held, ports_table)
+    return Scorecard(checks, gates_pass, placed_pct, located_pct, shaped, routed, held,
+                     ports_table, shapes_table)
 
 
 def scorecard_dict(sc: Scorecard) -> dict:
@@ -765,6 +839,7 @@ def scorecard_dict(sc: Scorecard) -> dict:
             for c in sc.checks
         ],
         "ports": list(sc.ports),
+        "shapes": list(sc.shapes),
     }
 
 
