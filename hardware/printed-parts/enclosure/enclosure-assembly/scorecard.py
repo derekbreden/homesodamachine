@@ -321,6 +321,19 @@ PORTS = [
     _p("out", "gasher-co2", "fluid", (46.0, 54.0, 232.85), "y+", 6.35, "wr1110 in", "1/4\" NPT stub"),
     _p("in",  "wr1110", "fluid", (46.0, 55.0, 233.0),  "y-", 6.35, "gasher-co2 out", "1/4\" CO2 inlet hex"),
     _p("out", "wr1110", "fluid", (46.0, 112.0, 233.0), "y+", 6.35, "foam-assembly co2-in (CO2 line up to the foam-cap top)", "1/4\" CO2 outlet hex"),
+    # Rear-panel through-wall bodies — each JG bulkhead union is a 1/4" tube port each side of the
+    # rear wall (Y = tube-flow axis, +Y = outward to the rear umbilical, −Y = inward to the
+    # subsystem it feeds). The C14 mains inlet carries one 3-wire harness inboard from the panel
+    # cord entry. Positions are the union/inlet flow-face centers from the placed bboxes.
+    _p("tube-out", "bulkhead-flavor-a", "fluid", (195.05, 348.5, 292.45), "y+", 6.35, "customer flavor A line (rear umbilical)", "JG 1/4\" PTC, outward"),
+    _p("tube-in",  "bulkhead-flavor-a", "fluid", (195.05, 314.2, 292.45), "y-", 6.35, "flavor A internal line (bag/pump circuit A)", "JG 1/4\" PTC, inward"),
+    _p("tube-out", "bulkhead-flavor-b", "fluid", (224.95, 348.5, 292.45), "y+", 6.35, "customer flavor B line (rear umbilical)", "JG 1/4\" PTC, outward"),
+    _p("tube-in",  "bulkhead-flavor-b", "fluid", (224.95, 314.2, 292.45), "y-", 6.35, "flavor B internal line (bag/pump circuit B)", "JG 1/4\" PTC, inward"),
+    _p("tube-out", "bulkhead-carb", "fluid", (210.0, 348.5, 318.3), "y+", 6.35, "carbonated-water line (rear umbilical / faucet)", "JG 1/4\" PTC, outward"),
+    _p("tube-in",  "bulkhead-carb", "fluid", (210.0, 314.2, 318.3), "y-", 6.35, "carb-water internal riser (DIGITEN → foam carb-water-out)", "JG 1/4\" PTC, inward"),
+    _p("tube-out", "bulkhead-water", "fluid", (145.0, 348.5, 293.0), "y+", 6.35, "house tap-water line (rear umbilical)", "JG 1/4\" PTC, outward"),
+    _p("tube-in",  "bulkhead-water", "fluid", (145.0, 314.2, 293.0), "y-", 6.35, "tap-water internal line (to multiplex BFP in)", "JG 1/4\" PTC, inward"),
+    _p("mains-in", "c14-inlet", "electrical", (90.0, 312.0, 295.5), "y-", 8.0, "AC distribution — L/N/E to the electronics shelf", "C14 spade terminals; 3-wire mains harness inboard"),
 ]
 
 

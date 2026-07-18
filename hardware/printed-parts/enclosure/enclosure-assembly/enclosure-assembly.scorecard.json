@@ -1,7 +1,7 @@
 {
   "gatesPass": true,
   "placed": 12,
-  "located": 24,
+  "located": 44,
   "shaped": 92,
   "routed": 0,
   "held": 28,
@@ -109,7 +109,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "24% (6/25)",
+      "value": "44% (11/25)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
@@ -141,7 +141,17 @@
         "\u2713 wr1110: 2/2 connectors located",
         "    \u2013 wr1110:in (fluid) (46, 55, 233) y- \u00d86.35 \u2192 gasher-co2 out",
         "    \u2013 wr1110:out (fluid) (46, 112, 233) y+ \u00d86.35 \u2192 foam-assembly co2-in (CO2 line up to the foam-cap top)",
-        "19 components: no connector positions defined yet"
+        "\u2713 bulkhead-flavor-a: 2/2 connectors located",
+        "    \u2013 bulkhead-flavor-a:tube-out (fluid) (195.05, 348.5, 292.45) y+ \u00d86.35 \u2192 customer flavor A line (rear umbilical)",
+        "    \u2013 bulkhead-flavor-a:tube-in (fluid) (195.05, 314.2, 292.45) y- \u00d86.35 \u2192 flavor A internal line (bag/pump circuit A)",
+        "\u2713 bulkhead-flavor-b: 2/2 connectors located",
+        "    \u2013 bulkhead-flavor-b:tube-out (fluid) (224.95, 348.5, 292.45) y+ \u00d86.35 \u2192 customer flavor B line (rear umbilical)",
+        "    \u2013 bulkhead-flavor-b:tube-in (fluid) (224.95, 314.2, 292.45) y- \u00d86.35 \u2192 flavor B internal line (bag/pump circuit B)",
+        "\u2713 bulkhead-carb: 2/2 connectors located",
+        "    \u2013 bulkhead-carb:tube-out (fluid) (210, 348.5, 318.3) y+ \u00d86.35 \u2192 carbonated-water line (rear umbilical / faucet)",
+        "    \u2013 bulkhead-carb:tube-in (fluid) (210, 314.2, 318.3) y- \u00d86.35 \u2192 carb-water internal riser (DIGITEN \u2192 foam carb-water-out)",
+        "\u2713 bulkhead-water: 2/2 connectors located",
+        "    \u2013 bulkhead-water:tube-out (fluid) (145, 348.5, 293) y+ \u00d86.35 \u2192 house tap-water line (rear umbilical)"
       ],
       "active": true
     },
@@ -528,6 +538,141 @@
       "mates": "foam-assembly co2-in (CO2 line up to the foam-cap top)",
       "status": "ok",
       "note": "1/4\" CO2 outlet hex"
+    },
+    {
+      "component": "bulkhead-flavor-a",
+      "name": "tube-out",
+      "kind": "fluid",
+      "pos": [
+        195.05,
+        348.5,
+        292.45
+      ],
+      "face": "y+",
+      "diam": 6.35,
+      "mates": "customer flavor A line (rear umbilical)",
+      "status": "ok",
+      "note": "JG 1/4\" PTC, outward"
+    },
+    {
+      "component": "bulkhead-flavor-a",
+      "name": "tube-in",
+      "kind": "fluid",
+      "pos": [
+        195.05,
+        314.2,
+        292.45
+      ],
+      "face": "y-",
+      "diam": 6.35,
+      "mates": "flavor A internal line (bag/pump circuit A)",
+      "status": "ok",
+      "note": "JG 1/4\" PTC, inward"
+    },
+    {
+      "component": "bulkhead-flavor-b",
+      "name": "tube-out",
+      "kind": "fluid",
+      "pos": [
+        224.95,
+        348.5,
+        292.45
+      ],
+      "face": "y+",
+      "diam": 6.35,
+      "mates": "customer flavor B line (rear umbilical)",
+      "status": "ok",
+      "note": "JG 1/4\" PTC, outward"
+    },
+    {
+      "component": "bulkhead-flavor-b",
+      "name": "tube-in",
+      "kind": "fluid",
+      "pos": [
+        224.95,
+        314.2,
+        292.45
+      ],
+      "face": "y-",
+      "diam": 6.35,
+      "mates": "flavor B internal line (bag/pump circuit B)",
+      "status": "ok",
+      "note": "JG 1/4\" PTC, inward"
+    },
+    {
+      "component": "bulkhead-carb",
+      "name": "tube-out",
+      "kind": "fluid",
+      "pos": [
+        210.0,
+        348.5,
+        318.3
+      ],
+      "face": "y+",
+      "diam": 6.35,
+      "mates": "carbonated-water line (rear umbilical / faucet)",
+      "status": "ok",
+      "note": "JG 1/4\" PTC, outward"
+    },
+    {
+      "component": "bulkhead-carb",
+      "name": "tube-in",
+      "kind": "fluid",
+      "pos": [
+        210.0,
+        314.2,
+        318.3
+      ],
+      "face": "y-",
+      "diam": 6.35,
+      "mates": "carb-water internal riser (DIGITEN \u2192 foam carb-water-out)",
+      "status": "ok",
+      "note": "JG 1/4\" PTC, inward"
+    },
+    {
+      "component": "bulkhead-water",
+      "name": "tube-out",
+      "kind": "fluid",
+      "pos": [
+        145.0,
+        348.5,
+        293.0
+      ],
+      "face": "y+",
+      "diam": 6.35,
+      "mates": "house tap-water line (rear umbilical)",
+      "status": "ok",
+      "note": "JG 1/4\" PTC, outward"
+    },
+    {
+      "component": "bulkhead-water",
+      "name": "tube-in",
+      "kind": "fluid",
+      "pos": [
+        145.0,
+        314.2,
+        293.0
+      ],
+      "face": "y-",
+      "diam": 6.35,
+      "mates": "tap-water internal line (to multiplex BFP in)",
+      "status": "ok",
+      "note": "JG 1/4\" PTC, inward"
+    },
+    {
+      "component": "c14-inlet",
+      "name": "mains-in",
+      "kind": "electrical",
+      "pos": [
+        90.0,
+        312.0,
+        295.5
+      ],
+      "face": "y-",
+      "diam": 8.0,
+      "mates": "AC distribution \u2014 L/N/E to the electronics shelf",
+      "status": "ok",
+      "note": "C14 spade terminals; 3-wire mains harness inboard"
     }
   ]
 }
