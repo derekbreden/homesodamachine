@@ -12,6 +12,7 @@ and the four pieces — the gates (pack closes, part↔part clearance, pieces fi
 the bed, seams mate, parts sourced) and the three goal axes (shaped / routed /
 held) — prints the verdict, and fails the run if any gate fails."""
 
+import json
 import math
 import sys
 from pathlib import Path
@@ -112,6 +113,11 @@ def main():
     out = _here.parent / "enclosure-assembly.step"
     export_assembly(assy, str(out))
     print(f"-> {out.name}")
+
+    # The scorecard sidecar the 3D viewer reads — the same verdict, beside the model.
+    sc_path = _here.parent / "enclosure-assembly.scorecard.json"
+    sc_path.write_text(json.dumps(scorecard.scorecard_dict(sc), indent=2) + "\n")
+    print(f"-> {sc_path.name}")
 
     # Pin the hand-typed placeholder dimensions in _contents.py's prose.
     substitute_py_comments(

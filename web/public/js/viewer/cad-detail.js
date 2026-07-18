@@ -32,6 +32,7 @@ import { makeRulerToggle } from "./rulers.js";
 import { makeXrayToggle } from "./xray.js";
 import { makeEdgePickToggle, clearEdgePicker } from "./edge-picker.js";
 import { makePickFindToggle, clearPickFind } from "./pick-find.js";
+import { mountScorecard } from "./scorecard-3d.js";
 
 // Reset-view button: re-frames the current part with the format's default
 // isometric framing and clears the per-file saved camera, so a wonky
@@ -144,6 +145,11 @@ export function openCadDetail(type, file, pushHistory = true) {
     wrapper.appendChild(makePickFindToggle());
   }
   wrapper.appendChild(makeResetViewButton());
+
+  // A STEP model may carry a scorecard sidecar (<model>.scorecard.json) — mount its thin
+  // bottom bar + drill-down modal. Async fetch, fire-and-forget: no sidecar → no bar, and
+  // mountScorecard bails if the modal closed before the fetch resolved.
+  if (type === "step") mountScorecard(wrapper, file);
 
   state.currentCadWrapper = wrapper;
 
