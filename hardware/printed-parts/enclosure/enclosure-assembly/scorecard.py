@@ -379,6 +379,36 @@ PORTS = [
     _p("water-in",  "seaflo-pump", "fluid",      (14.0, 100.0, 185.0), "x-", 9.525, "multiplex out (BFP → pump)", "3/8\" hose barb; PROVISIONAL — placeholder box, awaiting the real SeaFlo-22 geometry"),
     _p("water-out", "seaflo-pump", "fluid",      (14.0, 120.0, 185.0), "x-", 9.525, "gasher-water in (pump → outlet check)", "3/8\" hose barb; PROVISIONAL — placeholder box, awaiting the real SeaFlo-22 geometry"),
     _p("power",     "seaflo-pump", "electrical", (100.0, 147.0, 185.0), "y+", 5.0, "12 V DC pump power (level/faucet interlock)", "2-wire lead; PROVISIONAL — placeholder box"),
+    # Controller PCBA — every field loom lands on a labelled JST XH edge connector (J1–J14, no
+    # J12; ac-wiring-schedule.md §Board connector map). Positions are EXACT: each connector's
+    # pcba.tsx board coordinate mapped world = (x+258.8, y+201.8) — the transform solved from the
+    # four mounting holes — with Z at the board's top plane (looms plug from +Z). Ø is the loom
+    # bundle OD by conductor count (est).
+    _p("J1-manifold-a", "pcba", "electrical", (269.8, 218.28, 292.5), "z+", 10.0, "8 manifold-A solenoids (DC-6)", "9-cond JST XH"),
+    _p("J2-manifold-b", "pcba", "electrical", (269.8, 196.03, 292.5), "z+", 8.0,  "4 manifold-B solenoids + condenser fan (DC-7/DC-8)", "6-cond JST XH"),
+    _p("J3-faucet",     "pcba", "electrical", (206.55, 171.5, 292.5), "z+", 6.0,  "faucet display UART up the umbilical (SIG-6)", "4-cond JST XH"),
+    _p("J4-sensors",    "pcba", "electrical", (223.8, 171.5, 292.5),  "z+", 8.0,  "temp bus + DIGITEN flow + moisture (SIG-1/4/9)", "7-cond JST XH"),
+    _p("J5-relays",     "pcba", "electrical", (216.85, 232.8, 292.5), "z+", 6.0,  "both Teyleten relay modules (LV-1/2/3)", "4-cond JST XH"),
+    _p("J6-reeds-a",    "pcba", "electrical", (231.7, 232.8, 292.5),  "z+", 7.0,  "foam-assembly reed-cable-A — reservoir A reeds (SIG-10)", "5-cond JST XH"),
+    _p("J7-reeds-b",    "pcba", "electrical", (258.3, 171.5, 292.5),  "z+", 8.0,  "foam-assembly reed-cable-B — reservoir B + carbonator reeds (SIG-2/3/11)", "7-cond JST XH"),
+    _p("J8-i2c",        "pcba", "electrical", (260.1, 232.8, 292.5),  "z+", 6.0,  "off-board MPR121 cap-sense (SIG-8)", "4-cond JST XH"),
+    _p("J9-display",    "pcba", "electrical", (241.05, 171.5, 292.5), "z+", 6.0,  "display harness — 4.3B RS485 + 12 V (SIG-7)", "4-cond JST XH"),
+    _p("J10-12v",       "pcba", "electrical", (271.15, 180.3, 292.5), "z+", 5.0,  "dc-dist 12 V block — board power inlet (DC-4)", "2-pole 5.0 mm screw block"),
+    _p("J11-gas",       "pcba", "electrical", (196.8, 177.95, 292.5), "z+", 6.0,  "mq6-sensor header — MQ-6 gas/leak sensor (SIG-12)", "4-cond JST XH"),
+    _p("J13-pumps",     "pcba", "electrical", (246.55, 232.8, 292.5), "z+", 6.0,  "Kamoer pump A + B motors (DC-5)", "4-cond JST XH"),
+    _p("J14-usb",       "pcba", "electrical", (196.8, 218.3, 292.5),  "z+", 9.0,  "USB-C programming port (bench only, no loom)", "USB-C receptacle"),
+    # 12 V distribution block (DIN) — the three runs that land on it, on its top face. Terminal
+    # positions along the block are provisional (the block's internal poles aren't modeled).
+    _p("in",       "dc-dist", "electrical", (34.0, 278.0, 283.0), "z+", 6.0, "PSU 12 V output (DC-1)", "16 AWG; PROVISIONAL terminal position"),
+    _p("to-board", "dc-dist", "electrical", (49.0, 278.0, 283.0), "z+", 5.0, "board J10 12 V inlet (DC-4)", "16 AWG; PROVISIONAL terminal position"),
+    _p("to-relay2","dc-dist", "electrical", (64.0, 278.0, 283.0), "z+", 6.0, "Teyleten relay #2 contact — SeaFlo gate (DC-2)", "16 AWG; PROVISIONAL terminal position"),
+    # Power assembly (tray + Mean Well PSU + 2 Teyleten relays + AC-dist block + ground bus) — the
+    # connection groups entering/leaving the tray. Terminal positions are provisional (the device
+    # terminals inside the tray aren't individually modeled).
+    _p("ac-in",           "power-tray", "electrical", (30.0, 185.0, 290.0), "y-", 8.0, "C14 mains inlet — H+N+G (AC-1)", "16 AWG mains; PROVISIONAL"),
+    _p("compressor-feed", "power-tray", "electrical", (175.0, 220.0, 290.0), "x+", 8.0, "compressor terminal block — switched-H + N + G through the shroud grommet (AC-4/5/6)", "16 AWG; PROVISIONAL"),
+    _p("dc-out",          "power-tray", "electrical", (100.0, 258.9, 290.0), "y+", 6.0, "dc-dist 12 V block (DC-1)", "16 AWG; PROVISIONAL"),
+    _p("relay-ctrl",      "power-tray", "electrical", (130.0, 185.0, 290.0), "y-", 6.0, "board J5 RELAYS control loom (LV-1/2/3)", "4-cond; PROVISIONAL"),
 ]
 
 
