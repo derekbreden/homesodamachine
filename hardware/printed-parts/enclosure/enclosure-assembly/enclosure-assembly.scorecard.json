@@ -1,7 +1,7 @@
 {
   "gatesPass": true,
   "placed": 12,
-  "located": 44,
+  "located": 60,
   "shaped": 92,
   "routed": 0,
   "held": 28,
@@ -109,7 +109,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "44% (11/25)",
+      "value": "60% (15/25)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
@@ -119,7 +119,7 @@
         "    \u2013 foam-assembly:co2-in (fluid) (141.5, 172.8, 262.9) z+ \u00d86.35 \u2192 CO2 chain (WR1110 \u2192 foam-cap top entry)",
         "    \u2013 foam-assembly:evap-inlet (refrigerant) (141.5, 155, 72) y- \u00d86.35 \u2192 condenser+fan outlet (liquid line via drier + cap tube)",
         "    \u2013 foam-assembly:evap-outlet (refrigerant) (141.5, 155, 191) y- \u00d86.35 \u2192 compressor-shroud suction",
-        "    \u2013 foam-assembly:water-in (fluid) (141.5, 155, 223) y- \u00d89.525 \u2192 SeaFlo diaphragm-pump discharge",
+        "    \u2013 foam-assembly:water-in (fluid) (141.5, 155, 223) y- \u00d89.525 \u2192 gasher-water out (SeaFlo outlet check \u2192 carbonator water inlet)",
         "    \u2013 foam-assembly:prv-vent (fluid) (141.5, 155, 231) y- \u00d86.35 \u2192 appliance interior (relief-event discharge only)",
         "    \u2013 foam-assembly:reed-cable-A (electrical) (254.5, 155, 35.5) y- \u00d86.5 \u2192 J6 REEDS A \u2014 reservoir A level reeds (SIG-10)",
         "    \u2013 foam-assembly:reed-cable-B (electrical) (28.5, 155, 35.5) y- \u00d86.5 \u2192 J7 REEDS B \u2014 reservoir B level reeds (SIG-11)",
@@ -295,7 +295,7 @@
       ],
       "face": "y-",
       "diam": 9.525,
-      "mates": "SeaFlo diaphragm-pump discharge",
+      "mates": "gasher-water out (SeaFlo outlet check \u2192 carbonator water inlet)",
       "status": "ok",
       "note": "3/8\" hose barb (SeaFlo 22-series port)"
     },
@@ -673,6 +673,111 @@
       "mates": "AC distribution \u2014 L/N/E to the electronics shelf",
       "status": "ok",
       "note": "C14 spade terminals; 3-wire mains harness inboard"
+    },
+    {
+      "component": "multiplex",
+      "name": "in",
+      "kind": "fluid",
+      "pos": [
+        25.0,
+        37.5,
+        180.15
+      ],
+      "face": "x-",
+      "diam": 6.35,
+      "mates": "bulkhead-water tube-in (tap water)",
+      "status": "ok",
+      "note": "ASSE 1022 inlet; line \u00d8 est"
+    },
+    {
+      "component": "multiplex",
+      "name": "out",
+      "kind": "fluid",
+      "pos": [
+        90.0,
+        37.5,
+        180.15
+      ],
+      "face": "x+",
+      "diam": 6.35,
+      "mates": "seaflo-pump water-in",
+      "status": "ok",
+      "note": "ASSE 1022 outlet; line \u00d8 est"
+    },
+    {
+      "component": "multiplex",
+      "name": "vent",
+      "kind": "fluid",
+      "pos": [
+        57.5,
+        37.5,
+        159.5
+      ],
+      "face": "z-",
+      "diam": 6.0,
+      "mates": "atmospheric vent \u2014 discharges into the drip-pan",
+      "status": "ok",
+      "note": "vent barb; \u00d8 est"
+    },
+    {
+      "component": "gasher-water",
+      "name": "in",
+      "kind": "fluid",
+      "pos": [
+        76.5,
+        84.0,
+        222.85
+      ],
+      "face": "y-",
+      "diam": 6.35,
+      "mates": "seaflo-pump water-out",
+      "status": "ok",
+      "note": "1/4\" NPT (SeaFlo outlet check)"
+    },
+    {
+      "component": "gasher-water",
+      "name": "out",
+      "kind": "fluid",
+      "pos": [
+        76.5,
+        124.0,
+        222.85
+      ],
+      "face": "y+",
+      "diam": 6.35,
+      "mates": "foam-assembly water-in",
+      "status": "ok",
+      "note": "1/4\" NPT"
+    },
+    {
+      "component": "mq6-sensor",
+      "name": "header",
+      "kind": "electrical",
+      "pos": [
+        116.0,
+        144.0,
+        3.0
+      ],
+      "face": "z-",
+      "diam": 8.0,
+      "mates": "PCBA gas-sensor input \u2014 VCC/GND/DO/AO (SIG)",
+      "status": "ok",
+      "note": "4-pin 2.54 mm header, pins down"
+    },
+    {
+      "component": "moisture-sensor",
+      "name": "header",
+      "kind": "electrical",
+      "pos": [
+        80.0,
+        35.0,
+        159.1
+      ],
+      "face": "z+",
+      "diam": 5.0,
+      "mates": "PCBA moisture input \u2014 2-pin (SIG + GND)",
+      "status": "ok",
+      "note": "2-pin lead header on the plate; \u00d8 est"
     }
   ]
 }
