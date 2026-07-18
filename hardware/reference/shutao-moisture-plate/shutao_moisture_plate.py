@@ -3,12 +3,9 @@ the two-board LM393 module, the appliance's `moisture-sensor`. It lies flat in
 the drip pan under the Multiplex atmospheric vent (which hovers ~0.4 mm above
 it); the comparator board mounts off elsewhere.
 
-External envelope only. The probe substrate is genuinely a flat FR-4 rectangle
-— the interdigitated comb is flush copper with no height — so the plate is its
-own box. What the placeholder box lacked is the wire's home: two solder holes
-at the -X edge where the leads land. Modeled as the flat plate with those two
-holes, so the bbox is unchanged (it must stay thin under the vent) but the part
-is a real board with a connection point, not a filled slab.
+External envelope only. A flat FR-4 rectangle — the interdigitated comb is
+flush copper with no height — with two solder holes at the -X edge where the
+leads land.
 
 Frame: plate in the XY plane, underside at Z = 0; the two solder holes near the
 -X edge. Origin centered on the plate.

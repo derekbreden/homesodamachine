@@ -4,15 +4,10 @@ appliance's `wr1110` on the CO2 inlet chain (DERPIPE → GASHER → WR1110, runn
 hexes and a flush vent hole.
 
 External envelope only — a round regulator body between two hex wrench
-sections, flow axis along +Y. The internal diaphragm + spring is not modeled;
-the flush vent hole doesn't break the envelope, so it isn't cut. Ø21 across the
-hex corners × 57 mm off the small-body item (the old 1.31"/3.19" figures were
-the package; ~45 g confirms the mini body). The hex sections inscribe the old
-Ø21 placeholder cylinder, so the real shape is no larger than the box it
-replaces.
+sections, flow axis along +Y. The internal diaphragm + spring and the flush
+vent hole are not modeled. Ø21 across the hex corners × 57 mm.
 
-Frame: +Y = flow axis (matches the enclosure placement, _cyl(..., (0, 1, 0)));
-centered on X/Z. +Z up.
+Frame: +Y = flow axis (matches the enclosure placement); centered on X/Z. +Z up.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/wr1110-regulator/wr1110_regulator.py
@@ -28,7 +23,7 @@ _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 from _cadq_export import export_step
 
-HEX_ACROSS_CORNERS = 21.0   # inscribes the old Ø21 placeholder cylinder
+HEX_ACROSS_CORNERS = 21.0   # hex circumdiameter (across corners)
 TOTAL_LENGTH = 57.0         # along the flow axis
 BODY_D = 19.0               # round regulator body between the hexes
 HEX_LENGTH = 15.0           # each wrench hex section
