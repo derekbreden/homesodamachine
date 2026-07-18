@@ -16,9 +16,11 @@ Two kinds of requirement, split the way the board splits them:
 - **GOAL** — the realization work this whole effort exists to drive, reported as a
   `score` (0–100), not a gate — the box still models while it converts.
 
-**Done** is mechanical, not a matter of opinion: *every gate green, and all three goal
+**Done** is mechanical, not a matter of opinion: *every gate green, and all four goal
 axes at 100%*. Green gates alone are permission to build, not done — the same distinction
-the board draws between "fab-ready" and "a tight, hand-routed board."
+the board draws between "fab-ready" and "a tight, hand-routed board." The four goal axes
+are worked in two waves: **placed + shaped are the current focus** (driven to 100% first);
+**routed + held wait behind them**, rendered gray until the focus is met.
 
 ## Gates — permission to build
 
@@ -40,26 +42,37 @@ the board draws between "fab-ready" and "a tight, hand-routed board."
 - **parts-sourced** — every component is a selected real part or a finished printed-part
   design. You cannot build what is not yet specified.
 
-## Goals — the three axes
+## Goals — the four axes
 
 The board had one goal: take every connection off the autorouter onto deliberate hand
-copper. The enclosure has three, one per thing every component owes:
+copper. The enclosure has four, one per thing every component owes. The first two are the
+current **focus** (rendered live, green/yellow); the last two are **deferred** (rendered
+gray) until the focus is met:
 
-- **shaped** — real geometry, not a placeholder box or cylinder. A placeholder with the
-  right *dimensions* is still a box; the real silhouette is what other parts must be
-  packed against.
-- **routed** — every connection modeled as a real 3D path (bend radius, length, clearance),
-  not two endpoints and an external graph. The denominator is the fluid topology's tube
-  segments; a segment counts only once a real path exists.
-- **held** — a printed holder that fastens the component to the enclosure: a few bosses
-  and screws, a tray-with-bosses that itself fastens, a wall capture, a shell facet. Not a
-  free solid resting in a collision-checked void.
+- **placed** *(focus)* — placement criteria are DEFINED in code and currently HELD.
+  A component's intended position is written as measurements against the enclosure interior
+  datum — e.g. "foam Y+ within 1 mm of the back wall, Z- within 10 mm of the floor, X-/X+
+  within 1 mm of the side walls" — and the scorecard measures whether they hold. "Against
+  the back-bottom", pinned to numbers. A component counts when it has rules *and* they hold;
+  rules defined but violated are a visible drift; no rules yet is not-started. Rules are
+  re-definable as the design iterates — authoring one, and holding it, are the milestones.
+- **shaped** *(focus)* — real geometry, not a placeholder box or cylinder. A placeholder
+  with the right *dimensions* is still a box; the real silhouette is what other parts must
+  be packed against.
+- **routed** *(deferred)* — every connection modeled as a real 3D path (bend radius, length,
+  clearance), not two endpoints and an external graph. The denominator is both topologies —
+  the fluid tube segments *and* the electrical runs (AC / DC / signal / low-voltage); a
+  connection counts only once a real path exists.
+- **held** *(deferred)* — a printed holder that fastens the component to the enclosure: a few
+  bosses and screws, a tray-with-bosses that itself fastens, a wall capture, a shell facet.
+  Not a free solid resting in a collision-checked void.
 
 **Score by authorship, never by "it doesn't collide."** A bounding box that happens not to
 overlap is the enclosure's version of the autorouter's accidentally-clean net — crediting
 it would count the box-thinking this effort exists to remove as progress. So `shaped` and
-`held` are read from what has actually been modeled and engineered (the registry), and
-`routed` from whether a real path exists — never inferred from the mere absence of a clash.
+`held` are read from what has actually been modeled and engineered (the registry), `placed`
+from authored face-to-datum rules that must measurably hold, and `routed` from whether a
+real path exists — never inferred from the mere absence of a clash.
 
 ## Standards — provisional, awaiting ratification
 
@@ -115,21 +128,34 @@ arc), the transferable discipline:
   bib-gate tray lingered as a phantom — never let a set-aside thing and a deleted thing
   wear the same label.
 
-## The work queue — deferred, tracked
+## The work queue — the focus, then what waits behind it
 
-What the goal axes are blocked on, in the open, so coverage is never misread as done:
+The current focus is **placed + shaped to 100%**; `routed` and `held` are parked (gray)
+until then. In the open, so coverage is never misread as done:
 
-- **The three valve-manifold trays are unplaced** (source-select, bag-circuit,
-  nozzle-gate). All 28 fluid segments live in them, so **routed is 0% and blocked here** —
-  it cannot move until the trays have in-box homes.
-- **SeaFlo real dimensions + a steeper funnel** — the first directed step. The SeaFlo's
-  true body is 80 × 72 × 187 (up from the modeled 75 × 60 × 175); applying it raises the
-  pump-1 tower into the CO2 regulator and grows the box. The fix is a shape-aware repack
-  (the funnel necking to the pump's real silhouette, not its bbox) that plunges the funnel
-  and pulls the box back down — the canonical shapes-not-boxes exercise, now measured by
-  the scorecard.
-- **drip-pan** — the lone unsourced part: a printed pan with no CAD yet, dimensions
-  estimated. Fails `parts-sourced` until designed.
-- **A printed holder for every internal component** — the `held` frontier. Today only the
-  through-wall bodies (wall + their own nut) and the display (shell facet) are held; every
-  loose internal part floats. Each needs bosses, a cradle, or a tray that itself fastens.
+**Focus — placed + shaped:**
+
+- **Author placement rules for the remaining components.** Three carry them today
+  (foam-assembly, compressor-shroud, condenser+fan); the other 22 are not-yet-placed. Each
+  earns a set of face-to-datum measurements that pin its intended position, and those must
+  measurably hold. Rules iterate as the design moves — a redefinition is expected, not a
+  failure.
+- **Make the placeholders real.** Ten components are boxes/cylinders with real dimensions
+  but not real geometry (every recently-sized connector, plus the condenser, MQ-6, drip-pan,
+  moisture plate). Convert each to real STEP / engineered geometry.
+- **SeaFlo real dimensions + a steeper funnel** — the live repack. The SeaFlo's true body
+  is 80 × 72 × 187 (up from the modeled 75 × 60 × 175); it grows the pump-1 tower and, until
+  the CO2 chain is lifted clear, clashes the regulator. The shape-aware version necks the
+  funnel to the pump's real silhouette (not its bbox) to plunge it and pull the box back
+  down — the canonical shapes-not-boxes exercise, now measured by the scorecard.
+- **drip-pan** — the lone unsourced part (also fails `parts-sourced`): a printed pan with
+  no CAD yet, dimensions estimated.
+
+**Deferred — behind the focus:**
+
+- **routed** is blocked on the **three unplaced valve-manifold trays** (source-select,
+  bag-circuit, nozzle-gate). All 28 fluid segments live in them; the 28 electrical runs
+  wait on the components being placed and held first.
+- **held** — a printed holder for every internal component. Today only the through-wall
+  bodies (wall + their own nut) and the display (shell facet) are held; every loose internal
+  part floats. Each needs bosses, a cradle, or a tray that itself fastens.
