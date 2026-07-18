@@ -186,15 +186,20 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   earns a set of face-to-datum measurements that pin its intended position, and those must
   measurably hold. Rules iterate as the design moves — a redefinition is expected, not a
   failure.
-- **Locate every connector.** The three refrigeration components carry full port sets today
-  (foam-assembly's ten penetrations, compressor-shroud's four, condenser+fan's three); the
-  other 22 have no ports yet. Each component earns a position *and a bore Ø* for every tube and
-  wire it terminates — derived from the part's own penetration record where one exists, taken
-  from the donor where it does not, the Ø read from the line or fitting the port carries. The
-  refrigerant loop drove the first three: it binds the floor/back parts and had no home in any
-  topology until it was declared. A connector's face must point at what it mates to — the
-  compressor's copper faces the cold core (+Y), not the removable front shell — and the
-  scorecard confirms each position sits on the real body and each port names its bore.
+- **Locate every connector — done (`located` 100%).** All 25 components carry full port sets:
+  73 ports (34 fluid, 6 refrigerant, 33 electrical), each with a position *and a bore Ø*, every
+  one on-surface. Positions are derived from the part's own record where one exists (foam
+  penetrations, compressor holes, the CO2/water fittings' flow-face centres, the Kamoer elbow
+  collets extracted from geometry, the PCBA's 13 edge connectors mapped exactly from `pcba.tsx`
+  through the mounting-hole transform), and Ø from the line or fitting the port carries. The
+  drip pan is declared connector-free (passive). **Follow-ups the inventory flags in its notes,
+  none blocking:** 11 ports are provisional — the SeaFlo's barbs (placeholder box, awaiting the
+  real pump geometry), the display's harness (connector not in the STEP), and the DC-dist +
+  power-tray terminals (device terminals inside the tray not individually modelled); a viewer
+  pick pins any of them. A handful of electrical bores (glands, headers, looms) are noted
+  estimates pending teardown. And the physical CO2 order (DERPIPE → check → regulator, which the
+  ports follow) disagrees with the carbonator schematic (regulator → check) — a placement
+  question, not a port one.
 - **Make the placeholders real.** Eight components are boxes/cylinders with real dimensions
   but not real geometry (the condenser, SeaFlo, Multiplex, WR1110, DERPIPE, MQ-6, drip-pan,
   moisture plate). Convert each to real STEP / engineered geometry.
