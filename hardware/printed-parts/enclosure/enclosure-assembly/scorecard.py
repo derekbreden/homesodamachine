@@ -361,6 +361,24 @@ PORTS = [
     _p("inlet",  "pump-assembly-2", "fluid",      (204.4, 103.3, 273.5), "z+", 6.35, "Y-F → P-B-I (channel B source select)", "JG PP0308E elbow collet; 1/4\" flavor line"),
     _p("outlet", "pump-assembly-2", "fluid",      (261.4, 103.3, 273.5), "z+", 6.35, "P-B-O → Y-G (channel B to bag/nozzle)", "JG PP0308E elbow collet; 1/4\" flavor line"),
     _p("motor",  "pump-assembly-2", "electrical", (232.8, 130.9, 228.75), "y+", 4.0, "L298N channel B / 12 V DC drive", "2-wire DC motor lead; Ø est"),
+    # DIGITEN flow sensor — the dispense-side meter on the carb-water riser. Its two G1/4 PTC
+    # collet bodies face ±Y (the +Y one toward the foam front, the −Y toward the umbilical run);
+    # the 3-wire pigtail exits +Z. Collet centres extracted from the placed geometry; 1/4" tube
+    # bore each.
+    _p("in",     "digiten-flow", "fluid",      (121.0, 154.0, 229.0), "y+", 6.35, "foam-assembly carb-water-out (riser)", "G1/4 PTC, 1/4\" tube bore"),
+    _p("out",    "digiten-flow", "fluid",      (121.0, 132.0, 229.0), "y-", 6.35, "carb-water to rear umbilical (bulkhead-carb)", "G1/4 PTC, 1/4\" tube bore"),
+    _p("signal", "digiten-flow", "electrical", (121.0, 143.0, 245.0), "z+", 4.0,  "PCBA flow input — VCC/GND/SIG (Hall pigtail)", "3-wire pigtail; Ø est"),
+    # Waveshare display — its data/power connector is NOT in the imported STEP (only the four
+    # corner mounts are), so this one harness port is placed provisionally on the interior (+Y)
+    # back face at the PCB centre. A viewer pick would pin it exactly.
+    _p("harness", "display", "electrical", (56.75, 62.8, 315.0), "y+", 8.0, "5 V power + display data (PCBA / power bus)", "connector not modeled in STEP; PROVISIONAL on the interior back face — refine with a pick"),
+    # SeaFlo diaphragm pump — still a placeholder box (its real 3/8\"-port geometry is banked at
+    # reference/seaflo-22-pump but not yet wired). Its two 3/8" hose barbs + 12 V lead are placed
+    # provisionally on the −X head end; they move when the real pump is wired in the water-deck
+    # repack (or pinned by a viewer pick).
+    _p("water-in",  "seaflo-pump", "fluid",      (14.0, 100.0, 185.0), "x-", 9.525, "multiplex out (BFP → pump)", "3/8\" hose barb; PROVISIONAL — placeholder box, awaiting the real SeaFlo-22 geometry"),
+    _p("water-out", "seaflo-pump", "fluid",      (14.0, 120.0, 185.0), "x-", 9.525, "gasher-water in (pump → outlet check)", "3/8\" hose barb; PROVISIONAL — placeholder box, awaiting the real SeaFlo-22 geometry"),
+    _p("power",     "seaflo-pump", "electrical", (100.0, 147.0, 185.0), "y+", 5.0, "12 V DC pump power (level/faucet interlock)", "2-wire lead; PROVISIONAL — placeholder box"),
 ]
 
 
