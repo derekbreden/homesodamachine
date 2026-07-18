@@ -8,6 +8,7 @@
 import { scorecardPathFor, isScorecard } from "/contracts/scorecard-sidecar.js";
 import { scenePartNames, highlightParts, clearHighlight } from "./part-highlight.js";
 import { showPorts, clearPorts, makePortToggle } from "./port-markers.js";
+import { showShapeBoxes, clearShapeBoxes, makeShapeBoxToggle } from "./shape-boxes.js";
 
 const MARK = { pass: "✓", fail: "✗", warn: "•" };
 
@@ -140,8 +141,10 @@ export function removeScorecard(wrapper) {
   if (!wrapper) return;
   const b = wrapper.querySelector(".sc-bar");
   if (b) b.remove();
-  const t = wrapper.querySelector(".port-toggle");
-  if (t) t.remove();
+  for (const sel of [".port-toggle", ".shape-box-toggle"]) {
+    const t = wrapper.querySelector(sel);
+    if (t) t.remove();
+  }
   closeModal(wrapper);
 }
 
@@ -162,4 +165,7 @@ export async function mountScorecard(wrapper, file) {
   const ports = Array.isArray(sc.ports) ? sc.ports : [];
   if (ports.length) wrapper.appendChild(makePortToggle(showPorts(ports, file)));
   else clearPorts();
+  const shapes = Array.isArray(sc.shapes) ? sc.shapes : [];
+  if (shapes.length) wrapper.appendChild(makeShapeBoxToggle(showShapeBoxes(shapes, file)));
+  else clearShapeBoxes();
 }

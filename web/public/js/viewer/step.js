@@ -12,6 +12,7 @@ import { setActiveEdges } from "./edge-picker.js";
 import { clearPickFind } from "./pick-find.js";
 import { clearHighlight } from "./part-highlight.js";
 import { clearPortsExcept } from "./port-markers.js";
+import { clearShapeBoxesExcept } from "./shape-boxes.js";
 
 // --- occt-import-js loader (no importmap support, loaded manually) ---
 let occtReady;
@@ -151,6 +152,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     clearPickFind(); // stale find highlights reference the old geometry
     clearHighlight(); // and a stale scorecard part-highlight does too
     clearPortsExcept(file); // port markers for another model don't belong on this one
+    clearShapeBoxesExcept(file); // nor its shape boxes
     scene.add(state.currentGroup);
     state.mountedDetail = { type: "step", file };
     if (!preserveCamera) resetCamera(state.currentGroup);

@@ -177,7 +177,8 @@
    xray 58, edge 100, find 142), same pill styling as their siblings. */
 .cad-wrapper > .edge-pick-toggle,
 .cad-wrapper > .pick-find-toggle,
-.cad-wrapper > .port-toggle {
+.cad-wrapper > .port-toggle,
+.cad-wrapper > .shape-box-toggle {
   position: absolute;
   bottom: calc(env(safe-area-inset-bottom, 0px) + 100px);
   left: calc(env(safe-area-inset-left, 0px) + 16px);
@@ -198,13 +199,18 @@
 .cad-wrapper > .port-toggle {
   bottom: calc(env(safe-area-inset-bottom, 0px) + 184px);
 }
+.cad-wrapper > .shape-box-toggle {
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 226px);
+}
 .cad-wrapper > .edge-pick-toggle:hover,
 .cad-wrapper > .pick-find-toggle:hover,
-.cad-wrapper > .port-toggle:hover {
+.cad-wrapper > .port-toggle:hover,
+.cad-wrapper > .shape-box-toggle:hover {
   background: rgba(58, 58, 90, 0.9);
 }
 .cad-wrapper > .edge-pick-toggle.off,
-.cad-wrapper > .port-toggle.off {
+.cad-wrapper > .port-toggle.off,
+.cad-wrapper > .shape-box-toggle.off {
   opacity: 0.55;
 }
 

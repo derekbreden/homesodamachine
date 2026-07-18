@@ -35,6 +35,7 @@ import { makePickFindToggle, clearPickFind } from "./pick-find.js";
 import { mountScorecard } from "./scorecard-3d.js";
 import { clearHighlight } from "./part-highlight.js";
 import { clearPorts } from "./port-markers.js";
+import { clearShapeBoxes } from "./shape-boxes.js";
 
 // Reset-view button: re-frames the current part with the format's default
 // isometric framing and clears the per-file saved camera, so a wonky
@@ -211,6 +212,7 @@ export function openCadDetail(type, file, pushHistory = true) {
       clearPickFind();   // drop find highlights too
       clearHighlight();  // and any scorecard part-highlight overlay
       clearPorts();      // and the port markers, which belong to the model just dropped
+      clearShapeBoxes(); // and its shape boxes
       state.currentCadWrapper = null;
       state.currentDetail = null;
       state.mountedDetail = null;

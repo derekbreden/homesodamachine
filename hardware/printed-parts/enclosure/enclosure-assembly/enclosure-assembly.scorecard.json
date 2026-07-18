@@ -164,7 +164,13 @@
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)",
-        "seaflo-pump: still a placeholder \u2014 diaphragm pump; feet splay to ~98, no mount modeled"
+        "seaflo-pump: still a placeholder \u2014 diaphragm pump; feet splay to ~98, no mount modeled",
+        "compressor-shroud: 1 box holds 5% material",
+        "hopper-funnel: 1 box holds 7% material",
+        "foam-assembly: 5 boxes hold 12% material",
+        "display: 2 boxes hold 18% material",
+        "drip-pan: 1 box holds 23% material",
+        "pcba: 2 boxes hold 28% material"
       ],
       "active": true
     },
@@ -1288,6 +1294,592 @@
       "mates": "board J5 RELAYS control loom (LV-1/2/3)",
       "status": "off-surface",
       "note": "4-cond; PROVISIONAL"
+    }
+  ],
+  "shapes": [
+    {
+      "component": "bulkhead-carb",
+      "boxes": [
+        [
+          198.57,
+          314.21,
+          306.86,
+          221.43,
+          348.5,
+          329.72
+        ]
+      ],
+      "fill": 0.4633,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "bulkhead-flavor-a",
+      "boxes": [
+        [
+          183.64,
+          314.21,
+          281.0,
+          206.5,
+          348.5,
+          303.86
+        ]
+      ],
+      "fill": 0.4633,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "bulkhead-flavor-b",
+      "boxes": [
+        [
+          213.5,
+          314.21,
+          281.0,
+          236.36,
+          348.5,
+          303.86
+        ]
+      ],
+      "fill": 0.4633,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "bulkhead-water",
+      "boxes": [
+        [
+          133.57,
+          314.21,
+          281.57,
+          156.43,
+          348.5,
+          304.43
+        ]
+      ],
+      "fill": 0.4633,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "c14-inlet",
+      "boxes": [
+        [
+          74.75,
+          312.0,
+          283.75,
+          105.25,
+          350.0,
+          307.25
+        ]
+      ],
+      "fill": 0.5669,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "co2-inlet",
+      "boxes": [
+        [
+          37.75,
+          -22.0,
+          226.0,
+          54.25,
+          5.0,
+          242.0
+        ]
+      ],
+      "fill": 0.6693,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "compressor-shroud",
+      "boxes": [
+        [
+          14.0,
+          0.0,
+          3.0,
+          191.997,
+          132.997,
+          154.499
+        ]
+      ],
+      "fill": 0.0475,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "condenser+fan",
+      "boxes": [
+        [
+          213.0,
+          0.0,
+          3.0,
+          269.0,
+          151.0,
+          181.0
+        ]
+      ],
+      "fill": 1.0,
+      "primitive": true,
+      "declared": "placeholder"
+    },
+    {
+      "component": "dc-dist",
+      "boxes": [
+        [
+          24.0,
+          265.0,
+          265.4,
+          74.0,
+          291.0,
+          283.4
+        ]
+      ],
+      "fill": 0.9876,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "digiten-flow",
+      "boxes": [
+        [
+          117.0,
+          139.0,
+          241.999,
+          125.0,
+          147.0,
+          244.999
+        ],
+        [
+          91.0,
+          137.0,
+          222.999,
+          121.0,
+          149.0,
+          234.999
+        ],
+        [
+          108.0,
+          132.0,
+          215.999,
+          134.0,
+          154.0,
+          241.999
+        ],
+        [
+          121.0,
+          137.0,
+          222.999,
+          151.0,
+          149.0,
+          234.999
+        ]
+      ],
+      "fill": 0.7854,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "display",
+      "boxes": [
+        [
+          0.0,
+          -0.879,
+          292.257,
+          113.5,
+          54.276,
+          347.411
+        ],
+        [
+          4.25,
+          1.95,
+          282.357,
+          110.25,
+          62.761,
+          343.169
+        ]
+      ],
+      "fill": 0.1805,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "drip-pan",
+      "boxes": [
+        [
+          14.0,
+          3.0,
+          154.499,
+          144.0,
+          69.0,
+          176.499
+        ]
+      ],
+      "fill": 0.2336,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "foam-assembly",
+      "boxes": [
+        [
+          0.0,
+          155.0,
+          9.5,
+          283.0,
+          336.0,
+          11.5
+        ],
+        [
+          0.0,
+          155.0,
+          260.9,
+          283.0,
+          336.0,
+          262.9
+        ],
+        [
+          0.0,
+          155.0,
+          29.5,
+          283.0,
+          336.0,
+          242.9
+        ],
+        [
+          0.0,
+          155.0,
+          242.9,
+          283.0,
+          336.0,
+          260.9
+        ],
+        [
+          0.0,
+          155.0,
+          11.5,
+          283.0,
+          336.0,
+          29.5
+        ]
+      ],
+      "fill": 0.1162,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "gasher-co2",
+      "boxes": [
+        [
+          37.5,
+          14.0,
+          225.5,
+          54.5,
+          54.0,
+          240.222
+        ]
+      ],
+      "fill": 0.6614,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "gasher-water",
+      "boxes": [
+        [
+          68.0,
+          84.0,
+          215.499,
+          85.0,
+          124.0,
+          230.221
+        ]
+      ],
+      "fill": 0.6614,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "hopper-funnel",
+      "boxes": [
+        [
+          116.5,
+          5.0,
+          306.533,
+          271.0,
+          121.6,
+          352.533
+        ]
+      ],
+      "fill": 0.0694,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "moisture-sensor",
+      "boxes": [
+        [
+          30.0,
+          15.0,
+          157.499,
+          84.0,
+          55.0,
+          159.099
+        ]
+      ],
+      "fill": 0.999,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "mq6-sensor",
+      "boxes": [
+        [
+          100.0,
+          134.0,
+          3.0,
+          132.0,
+          154.0,
+          24.6
+        ]
+      ],
+      "fill": 0.3619,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "multiplex",
+      "boxes": [
+        [
+          25.0,
+          21.0,
+          159.499,
+          90.0,
+          54.0,
+          200.788
+        ]
+      ],
+      "fill": 0.5263,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "pcba",
+      "boxes": [
+        [
+          185.0,
+          165.5,
+          273.4,
+          275.816,
+          238.3,
+          292.5
+        ],
+        [
+          190.816,
+          165.0,
+          265.4,
+          275.816,
+          238.3,
+          273.4
+        ]
+      ],
+      "fill": 0.2809,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "power-tray",
+      "boxes": [
+        [
+          24.0,
+          185.0,
+          265.4,
+          175.1,
+          258.94,
+          283.143
+        ],
+        [
+          133.0,
+          186.94,
+          270.4,
+          150.0,
+          256.94,
+          289.4
+        ],
+        [
+          37.0,
+          241.096,
+          270.4,
+          55.0,
+          258.785,
+          285.0
+        ],
+        [
+          153.15,
+          236.655,
+          268.4,
+          171.95,
+          255.747,
+          287.492
+        ],
+        [
+          153.15,
+          213.055,
+          268.4,
+          171.95,
+          232.147,
+          287.492
+        ],
+        [
+          153.15,
+          189.455,
+          268.4,
+          171.95,
+          208.547,
+          287.492
+        ],
+        [
+          24.0,
+          186.94,
+          272.4,
+          133.0,
+          238.94,
+          305.9
+        ]
+      ],
+      "fill": 0.4999,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "pump-assembly-1",
+      "boxes": [
+        [
+          95.561,
+          82.0,
+          215.999,
+          158.171,
+          130.88,
+          278.609
+        ],
+        [
+          100.366,
+          61.0,
+          220.804,
+          153.366,
+          82.0,
+          273.804
+        ],
+        [
+          91.0,
+          90.942,
+          278.609,
+          105.732,
+          117.866,
+          305.533
+        ],
+        [
+          109.001,
+          4.0,
+          229.439,
+          144.731,
+          61.0,
+          265.169
+        ],
+        [
+          148.0,
+          90.942,
+          278.609,
+          162.732,
+          117.866,
+          305.533
+        ]
+      ],
+      "fill": 0.8226,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "pump-assembly-2",
+      "boxes": [
+        [
+          201.561,
+          82.0,
+          184.0,
+          264.171,
+          130.88,
+          246.61
+        ],
+        [
+          206.366,
+          61.0,
+          188.805,
+          259.366,
+          82.0,
+          241.805
+        ],
+        [
+          197.0,
+          90.942,
+          246.61,
+          211.732,
+          117.866,
+          273.534
+        ],
+        [
+          215.001,
+          4.0,
+          197.44,
+          250.731,
+          61.0,
+          233.17
+        ],
+        [
+          254.0,
+          90.942,
+          246.61,
+          268.732,
+          117.866,
+          273.534
+        ]
+      ],
+      "fill": 0.8226,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "seaflo-pump",
+      "boxes": [
+        [
+          14.0,
+          72.0,
+          155.499,
+          189.0,
+          147.0,
+          215.499
+        ]
+      ],
+      "fill": 1.0,
+      "primitive": true,
+      "declared": "placeholder"
+    },
+    {
+      "component": "wr1110",
+      "boxes": [
+        [
+          35.5,
+          55.0,
+          223.5,
+          56.5,
+          112.0,
+          242.5
+        ]
+      ],
+      "fill": 0.7144,
+      "primitive": false,
+      "declared": "real"
     }
   ]
 }
