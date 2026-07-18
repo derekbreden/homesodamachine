@@ -103,10 +103,12 @@ hopper_hole_x = 200.0   # opening width (X), nominal before the corner-pod clamp
 hopper_hole_y = 200.0   # opening depth (Y), nominal before the Y-seam clamp
 hopper_front_ledge = 8.0  # top wall kept along the front edge
 # The funnel's basin depth is a ceiling law: the interior reserves this much
-# height above the tallest content under the opening (the pump-1 tower, read
-# in _dims the same way hopper_funnel.py reads it), so the basin — straight
-# chute + drain loft — swallows a full 440 mL SodaStream bottle poured in one
-# go (hopper_funnel.py prints the real capacity at export).
+# height above the tallest content under the opening (the source-select tray,
+# read in _dims the same way hopper_funnel.py reads it), so the basin —
+# straight chute + drain loft — swallows a full 440 mL SodaStream bottle
+# poured in one go (hopper_funnel.py prints the real capacity at export).
+# The rear-panel port field (its own ceiling law in _dims) stands taller and
+# is what sets the box height today.
 hopper_min_depth = 41.0
 
 # Split + boss parameters — every dimension sized to its function, nothing
@@ -241,6 +243,15 @@ def _dims():
          and min(b.ymax, hy1) > max(b.ymin, hy0)),
         default=iz0)
     iz1 = max(iz1, under_top + hopper_min_depth)
+    # The rear-panel port field is content too: every clamping nut/flange seats
+    # on the outer wall face, so the wall must reach past the field's topmost
+    # hardware edge (its bottom edge rides the lip band — _contents
+    # UMBILICAL_Z_FLOOR); the margin mirrors that floor's 2 mm stance.
+    port_top = max(
+        (z + (_contents.PORT_C14_FLANGE_H if kind == "rect" else _contents.PORT_NUT_D) / 2.0
+         for kind, _x, z, *_size in _contents.back_wall_ports()),
+        default=iz0)
+    iz1 = max(iz1, port_top + 2.0)
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ox0, ox1, oy0, oy1, iz0 - wall, iz1 + wall)
     return inner, outer, y_joint, cold_front_y

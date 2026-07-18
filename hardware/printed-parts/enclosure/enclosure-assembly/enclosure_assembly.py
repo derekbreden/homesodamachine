@@ -138,11 +138,9 @@ def main():
         Path(contents.__file__),
         variables={
             "CONDENSER_AIRFLOW": f"{contents.CONDENSER_AIRFLOW:.4g} mm",
-            "SEAFLO_DIMS": "{:g} x {:g} x {:g}".format(*contents.SEAFLO_DIMS),
         },
         expected_counts={
             "CONDENSER_AIRFLOW": 1,
-            "SEAFLO_DIMS": 1,
         },
     )
     print("-> _contents.py")

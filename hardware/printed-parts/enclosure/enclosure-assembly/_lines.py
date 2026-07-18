@@ -43,11 +43,13 @@ BLOCKED = {
         "The condenser is a placeholder box and this outlet is a viewer pick on it; the outlet "
         "at y ≤ 111.8 clears the corridor lane by 2R."),
     "refrig-3": (
-        "foam-assembly.evap-outlet → compressor-shroud.refrig-suction. The SeaFlo's back face "
-        "(y 147) and the cold core's front face (y 155) leave an 8.0 mm strip; the evaporator "
-        "outlet opens into it at z 191. A 1/4\" line turns 12.7 mm off the port, and the SeaFlo "
-        "stands 8.0 mm off it. A Ø6.35 line centred in the strip clears each face by 0.83 mm, "
-        "against a 1.0 mm floor."),
+        "foam-assembly.evap-outlet → compressor-shroud.refrig-suction needs a lateral jog in y "
+        "between the machine corridor's two lanes. The outlet's drop lane sits at y ≤ 142.30 "
+        "(one bend radius off the cold core's front face) and y ≥ 137.18 (a Ø6.35 line clear of "
+        "the compressor's back face); the suction's entry lane sits at y ≥ 145.70 (one bend "
+        "radius off the suction stub's face). The jog is 3.4–8.5 mm: two 90° corners close 8.5 "
+        "at R ≤ 4.26, under any 1/4\" former; a 45° offset pair at R 12.7 needs j ≥ 7.44 and "
+        "fits the window at lane y ≤ 138.26 — a corner the orthogonal kit cannot express."),
 }
 
 

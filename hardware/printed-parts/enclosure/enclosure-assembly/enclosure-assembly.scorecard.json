@@ -1,17 +1,17 @@
 {
-  "gatesPass": true,
-  "placed": 12,
-  "located": 84,
-  "shaped": 92,
+  "gatesPass": false,
+  "placed": 22,
+  "located": 78,
+  "shaped": 89,
   "routed": 2,
-  "held": 28,
+  "held": 39,
   "checks": [
     {
       "id": "coverage",
       "label": "Every placed part declared in the registry",
       "kind": "gate",
       "status": "pass",
-      "value": "25/25 placed declared",
+      "value": "18/18 placed declared",
       "target": "all declared",
       "detail": [],
       "active": true
@@ -34,28 +34,16 @@
       "value": "1.00 mm",
       "target": "\u2265 1.0 mm",
       "detail": [
-        "compressor-shroud \u2014 drip-pan: 0.00 mm \u2014 CONTACT (declared ok)",
-        "drip-pan \u2014 moisture-sensor: 0.00 mm \u2014 CONTACT (declared ok)",
-        "seaflo-pump \u2014 gasher-water: 0.00 mm \u2014 CONTACT (declared ok)",
-        "moisture-sensor \u2014 multiplex: 0.40 mm \u2014 CONTACT (declared ok)",
-        "seaflo-pump \u2014 digiten-flow: 0.50 mm \u2014 CONTACT (declared ok)",
-        "seaflo-pump \u2014 pump-assembly-1: 0.50 mm \u2014 CONTACT (declared ok)",
+        "compressor-shroud \u2014 source-select-tray: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 mq6-sensor: 1.00 mm",
-        "foam-assembly \u2014 digiten-flow: 1.00 mm",
-        "compressor-shroud \u2014 seaflo-pump: 1.00 mm",
         "gasher-co2 \u2014 wr1110: 1.00 mm \u2014 CONTACT (declared ok)",
+        "source-select-tray \u2014 hopper-funnel: 1.00 mm \u2014 CONTACT (declared ok)",
         "compressor-shroud \u2014 mq6-sensor: 1.00 mm",
-        "digiten-flow \u2014 pump-assembly-1: 1.12 mm",
-        "drip-pan \u2014 multiplex: 2.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 power-tray: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 dc-dist: 2.50 mm \u2014 CONTACT (declared ok)",
-        "compressor-shroud \u2014 moisture-sensor: 3.00 mm",
-        "drip-pan \u2014 seaflo-pump: 3.00 mm",
-        "condenser+fan \u2014 pump-assembly-2: 3.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 condenser+fan: 4.00 mm",
-        "display \u2014 hopper-funnel: 4.49 mm",
-        "compressor-shroud \u2014 multiplex: 5.00 mm"
+        "display \u2014 hopper-funnel: 4.49 mm"
       ],
       "active": true
     },
@@ -83,10 +71,12 @@
       "id": "parts-sourced",
       "label": "Every component is a selected real part / finished print",
       "kind": "gate",
-      "status": "pass",
-      "value": "25/25",
-      "target": "25/25",
-      "detail": [],
+      "status": "fail",
+      "value": "17/18",
+      "target": "18/18",
+      "detail": [
+        "source-select-tray: Tray 1 \u2014 4x Beduan 12 V 1/4\" NC solenoid (V-A..V-D, sourced) + 2x JG PP2308E Y-divider (Y-A/Y-B, sourced) on a printed carrier; the carrier is undesigned \u2014 box seeded, calipers pending"
+      ],
       "active": true
     },
     {
@@ -94,13 +84,14 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "12% (3/25)",
+      "value": "22% (4/18)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 0.0 x- 0.0 x+ 0.0 z- 9.5 mm",
         "\u2713 compressor-shroud: y- 0.0 z- 3.0 x- 14.0 mm",
         "\u2713 condenser+fan: y- 0.0 z- 3.0 x+ 14.0 mm",
-        "22 components: no placement rules defined yet"
+        "\u2713 source-select-tray: y- 4.0 mm",
+        "14 components: no placement rules defined yet"
       ],
       "active": true
     },
@@ -109,7 +100,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "84% (21/25)",
+      "value": "78% (14/18)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
@@ -160,17 +151,17 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "92% (23/25)",
+      "value": "89% (16/18)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)",
-        "seaflo-pump: still a placeholder \u2014 diaphragm pump; feet splay to ~98, no mount modeled",
+        "source-select-tray: still a placeholder \u2014 Tray 1 \u2014 4x Beduan 12 V 1/4\" NC solenoid (V-A..V-D, sourced) + 2x JG PP2308E Y-divider (Y-A/Y-B, sourced) on a printed carrier; the carrier is undesigned \u2014 box seeded, calipers pending",
         "compressor-shroud: 1 box holds 5% material",
-        "hopper-funnel: 1 box holds 7% material",
+        "hopper-funnel: 1 box holds 5% material",
         "foam-assembly: 5 boxes hold 12% material",
         "display: 2 boxes hold 18% material",
-        "drip-pan: 1 box holds 23% material",
-        "pcba: 2 boxes hold 28% material"
+        "pcba: 2 boxes hold 28% material",
+        "mq6-sensor: 1 box holds 36% material"
       ],
       "active": true
     },
@@ -182,10 +173,10 @@
       "value": "2% (1/59)",
       "target": "100%",
       "detail": [
-        "28 fluid + 3 refrigerant + 28 electrical; 1 routed \u2014 the fluid path waits on the unplaced valve-manifold trays, the electrical runs on the components being held",
+        "28 fluid + 3 refrigerant + 28 electrical; 1 routed \u2014 the fluid path waits on the tray designs and the deferred pumps/water deck, the electrical runs on the components being held",
         "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 294.8 mm, 4 bends at R12.7",
         "\u2717 refrig-2: BLOCKED \u2014 condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet needs a lateral jog in y. The outlet sits at y 145.5. The last corner before the evaporator inlet sits at y \u2264 142.30 (one bend radius off the cold core's front face) and y \u2265 137.18 (clear of the compressor's back face), putting the jog at 3.2\u20138.3 mm. A leg between two 90\u00b0 corners is 2R = 25.4 mm; the jog closes at R \u2264 1.60 mm, or R \u2264 2.73 mm as a 45\u00b0 offset pair. The condenser is a placeholder box and this outlet is a viewer pick on it; the outlet at y \u2264 111.8 clears the corridor lane by 2R.",
-        "\u2717 refrig-3: BLOCKED \u2014 foam-assembly.evap-outlet \u2192 compressor-shroud.refrig-suction. The SeaFlo's back face (y 147) and the cold core's front face (y 155) leave an 8.0 mm strip; the evaporator outlet opens into it at z 191. A 1/4\" line turns 12.7 mm off the port, and the SeaFlo stands 8.0 mm off it. A \u00d86.35 line centred in the strip clears each face by 0.83 mm, against a 1.0 mm floor."
+        "\u2717 refrig-3: BLOCKED \u2014 foam-assembly.evap-outlet \u2192 compressor-shroud.refrig-suction needs a lateral jog in y between the machine corridor's two lanes. The outlet's drop lane sits at y \u2264 142.30 (one bend radius off the cold core's front face) and y \u2265 137.18 (a \u00d86.35 line clear of the compressor's back face); the suction's entry lane sits at y \u2265 145.70 (one bend radius off the suction stub's face). The jog is 3.4\u20138.5 mm: two 90\u00b0 corners close 8.5 at R \u2264 4.26, under any 1/4\" former; a 45\u00b0 offset pair at R 12.7 needs j \u2265 7.44 and fits the window at lane y \u2264 138.26 \u2014 a corner the orthogonal kit cannot express."
       ],
       "active": false
     },
@@ -194,10 +185,10 @@
       "label": "Components in a printed holder fastened to the enclosure",
       "kind": "goal",
       "status": "warn",
-      "value": "28% (7/25)",
+      "value": "39% (7/18)",
       "target": "100%",
       "detail": [
-        "7 held (through-wall bodies + display); 18 loose internal parts unheld"
+        "7 held (through-wall bodies + display); 11 loose internal parts unheld"
       ],
       "active": false
     }
@@ -684,81 +675,6 @@
       "note": "C14 spade terminals; 3-wire mains harness inboard"
     },
     {
-      "component": "multiplex",
-      "name": "in",
-      "kind": "fluid",
-      "pos": [
-        25.0,
-        37.5,
-        180.15
-      ],
-      "face": "x-",
-      "diam": 6.35,
-      "mates": "bulkhead-water tube-in (tap water)",
-      "status": "ok",
-      "note": "ASSE 1022 inlet; line \u00d8 est"
-    },
-    {
-      "component": "multiplex",
-      "name": "out",
-      "kind": "fluid",
-      "pos": [
-        90.0,
-        37.5,
-        180.15
-      ],
-      "face": "x+",
-      "diam": 6.35,
-      "mates": "seaflo-pump water-in",
-      "status": "ok",
-      "note": "ASSE 1022 outlet; line \u00d8 est"
-    },
-    {
-      "component": "multiplex",
-      "name": "vent",
-      "kind": "fluid",
-      "pos": [
-        57.5,
-        37.5,
-        159.5
-      ],
-      "face": "z-",
-      "diam": 6.0,
-      "mates": "atmospheric vent \u2014 discharges into the drip-pan",
-      "status": "ok",
-      "note": "vent barb; \u00d8 est"
-    },
-    {
-      "component": "gasher-water",
-      "name": "in",
-      "kind": "fluid",
-      "pos": [
-        76.5,
-        84.0,
-        222.85
-      ],
-      "face": "y-",
-      "diam": 6.35,
-      "mates": "seaflo-pump water-out",
-      "status": "ok",
-      "note": "1/4\" NPT (SeaFlo outlet check)"
-    },
-    {
-      "component": "gasher-water",
-      "name": "out",
-      "kind": "fluid",
-      "pos": [
-        76.5,
-        124.0,
-        222.85
-      ],
-      "face": "y+",
-      "diam": 6.35,
-      "mates": "foam-assembly water-in",
-      "status": "ok",
-      "note": "1/4\" NPT"
-    },
-    {
       "component": "mq6-sensor",
       "name": "header",
       "kind": "electrical",
@@ -774,28 +690,13 @@
       "note": "4-pin 2.54 mm header, pins down"
     },
     {
-      "component": "moisture-sensor",
-      "name": "header",
-      "kind": "electrical",
-      "pos": [
-        80.0,
-        35.0,
-        159.1
-      ],
-      "face": "z+",
-      "diam": 5.0,
-      "mates": "PCBA moisture input \u2014 2-pin (SIG + GND)",
-      "status": "ok",
-      "note": "2-pin lead header on the plate; \u00d8 est"
-    },
-    {
       "component": "hopper-funnel",
       "name": "drain",
       "kind": "fluid",
       "pos": [
         179.75,
         63.3,
-        306.533
+        222.5
       ],
       "face": "z-",
       "diam": 6.35,
@@ -804,139 +705,64 @@
       "note": "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"
     },
     {
-      "component": "pump-assembly-1",
-      "name": "inlet",
+      "component": "source-select-tray",
+      "name": "V-A-I",
       "kind": "fluid",
       "pos": [
-        98.37,
-        90.94,
-        298.17
-      ],
-      "face": "y-",
-      "diam": 6.35,
-      "mates": "Y-C \u2192 P-A-I (channel A source select)",
-      "status": "ok",
-      "note": "JG PP0308E elbow collet; 1/4\" flavor line"
-    },
-    {
-      "component": "pump-assembly-1",
-      "name": "outlet",
-      "kind": "fluid",
-      "pos": [
-        155.37,
-        90.94,
-        298.17
-      ],
-      "face": "y-",
-      "diam": 6.35,
-      "mates": "P-A-O \u2192 Y-D (channel A to bag/nozzle)",
-      "status": "ok",
-      "note": "JG PP0308E elbow collet; 1/4\" flavor line"
-    },
-    {
-      "component": "pump-assembly-1",
-      "name": "motor",
-      "kind": "electrical",
-      "pos": [
-        126.87,
-        4.0,
-        247.3
-      ],
-      "face": "y-",
-      "diam": 4.0,
-      "mates": "L298N channel A / 12 V DC drive",
-      "status": "ok",
-      "note": "2-wire DC motor lead off the motor-can end face; \u00d8 est"
-    },
-    {
-      "component": "pump-assembly-2",
-      "name": "inlet",
-      "kind": "fluid",
-      "pos": [
-        204.37,
-        90.94,
-        266.17
-      ],
-      "face": "y-",
-      "diam": 6.35,
-      "mates": "Y-F \u2192 P-B-I (channel B source select)",
-      "status": "ok",
-      "note": "JG PP0308E elbow collet; 1/4\" flavor line"
-    },
-    {
-      "component": "pump-assembly-2",
-      "name": "outlet",
-      "kind": "fluid",
-      "pos": [
-        261.37,
-        90.94,
-        266.17
-      ],
-      "face": "y-",
-      "diam": 6.35,
-      "mates": "P-B-O \u2192 Y-G (channel B to bag/nozzle)",
-      "status": "ok",
-      "note": "JG PP0308E elbow collet; 1/4\" flavor line"
-    },
-    {
-      "component": "pump-assembly-2",
-      "name": "motor",
-      "kind": "electrical",
-      "pos": [
-        232.87,
-        4.0,
-        215.31
-      ],
-      "face": "y-",
-      "diam": 4.0,
-      "mates": "L298N channel B / 12 V DC drive",
-      "status": "ok",
-      "note": "2-wire DC motor lead off the motor-can end face; \u00d8 est"
-    },
-    {
-      "component": "digiten-flow",
-      "name": "in",
-      "kind": "fluid",
-      "pos": [
-        121.0,
-        154.0,
-        229.0
+        100.0,
+        109.0,
+        200.0
       ],
       "face": "y+",
       "diam": 6.35,
-      "mates": "foam-assembly carb-water-out (riser)",
+      "mates": "tap-water chain (bulkhead-water \u2192 BFP, deferred) \u2014 segment 2",
       "status": "ok",
-      "note": "G1/4 PTC, 1/4\" tube bore"
+      "note": "1/4\" PTC; PROVISIONAL \u2014 placeholder box"
     },
     {
-      "component": "digiten-flow",
-      "name": "out",
+      "component": "source-select-tray",
+      "name": "V-B-I",
       "kind": "fluid",
       "pos": [
-        121.0,
-        132.0,
-        229.0
-      ],
-      "face": "y-",
-      "diam": 6.35,
-      "mates": "carb-water to rear umbilical (bulkhead-carb)",
-      "status": "ok",
-      "note": "G1/4 PTC, 1/4\" tube bore"
-    },
-    {
-      "component": "digiten-flow",
-      "name": "signal",
-      "kind": "electrical",
-      "pos": [
-        121.0,
-        143.0,
-        245.0
+        179.75,
+        63.3,
+        221.5
       ],
       "face": "z+",
-      "diam": 4.0,
-      "mates": "PCBA flow input \u2014 VCC/GND/SIG (Hall pigtail)",
+      "diam": 6.35,
+      "mates": "hopper-funnel drain \u2014 segment 4 (gravity drop)",
       "status": "ok",
-      "note": "3-wire pigtail; \u00d8 est"
+      "note": "1/4\" PTC; PROVISIONAL \u2014 placeholder box, directly under the spout"
+    },
+    {
+      "component": "source-select-tray",
+      "name": "V-C-O",
+      "kind": "fluid",
+      "pos": [
+        135.0,
+        109.0,
+        180.0
+      ],
+      "face": "y+",
+      "diam": 6.35,
+      "mates": "Y-C-1 (Tray 3 pump-inlet tees, deferred) \u2014 segment 9",
+      "status": "ok",
+      "note": "1/4\" PTC; PROVISIONAL \u2014 placeholder box"
+    },
+    {
+      "component": "source-select-tray",
+      "name": "V-D-O",
+      "kind": "fluid",
+      "pos": [
+        165.0,
+        109.0,
+        180.0
+      ],
+      "face": "y+",
+      "diam": 6.35,
+      "mates": "Y-F-1 (Tray 3 pump-inlet tees, deferred) \u2014 segment 19",
+      "status": "ok",
+      "note": "1/4\" PTC; PROVISIONAL \u2014 placeholder box"
     },
     {
       "component": "display",
@@ -945,58 +771,13 @@
       "pos": [
         56.75,
         62.8,
-        315.0
+        300.2
       ],
       "face": "y+",
       "diam": 8.0,
       "mates": "5 V power + display data (PCBA / power bus)",
       "status": "off-surface",
       "note": "connector not modeled in STEP; PROVISIONAL on the interior back face \u2014 refine with a pick"
-    },
-    {
-      "component": "seaflo-pump",
-      "name": "water-in",
-      "kind": "fluid",
-      "pos": [
-        14.0,
-        100.0,
-        185.0
-      ],
-      "face": "x-",
-      "diam": 9.525,
-      "mates": "multiplex out (BFP \u2192 pump)",
-      "status": "ok",
-      "note": "3/8\" hose barb; PROVISIONAL \u2014 placeholder box, awaiting the real SeaFlo-22 geometry"
-    },
-    {
-      "component": "seaflo-pump",
-      "name": "water-out",
-      "kind": "fluid",
-      "pos": [
-        14.0,
-        120.0,
-        185.0
-      ],
-      "face": "x-",
-      "diam": 9.525,
-      "mates": "gasher-water in (pump \u2192 outlet check)",
-      "status": "ok",
-      "note": "3/8\" hose barb; PROVISIONAL \u2014 placeholder box, awaiting the real SeaFlo-22 geometry"
-    },
-    {
-      "component": "seaflo-pump",
-      "name": "power",
-      "kind": "electrical",
-      "pos": [
-        100.0,
-        147.0,
-        185.0
-      ],
-      "face": "y+",
-      "diam": 5.0,
-      "mates": "12 V DC pump power (level/faucet interlock)",
-      "status": "ok",
-      "note": "2-wire lead; PROVISIONAL \u2014 placeholder box"
     },
     {
       "component": "pcba",
@@ -1445,82 +1226,26 @@
       "declared": "real"
     },
     {
-      "component": "digiten-flow",
-      "boxes": [
-        [
-          117.0,
-          139.0,
-          241.999,
-          125.0,
-          147.0,
-          244.999
-        ],
-        [
-          91.0,
-          137.0,
-          222.999,
-          121.0,
-          149.0,
-          234.999
-        ],
-        [
-          108.0,
-          132.0,
-          215.999,
-          134.0,
-          154.0,
-          241.999
-        ],
-        [
-          121.0,
-          137.0,
-          222.999,
-          151.0,
-          149.0,
-          234.999
-        ]
-      ],
-      "fill": 0.7854,
-      "primitive": false,
-      "declared": "real"
-    },
-    {
       "component": "display",
       "boxes": [
         [
           0.0,
           -0.879,
-          292.257,
+          277.444,
           113.5,
           54.276,
-          347.411
+          332.598
         ],
         [
           4.25,
           1.95,
-          282.357,
+          267.544,
           110.25,
           62.761,
-          343.169
+          328.356
         ]
       ],
       "fill": 0.1805,
-      "primitive": false,
-      "declared": "real"
-    },
-    {
-      "component": "drip-pan",
-      "boxes": [
-        [
-          14.0,
-          3.0,
-          154.499,
-          144.0,
-          69.0,
-          176.499
-        ]
-      ],
-      "fill": 0.2336,
       "primitive": false,
       "declared": "real"
     },
@@ -1589,50 +1314,18 @@
       "declared": "real"
     },
     {
-      "component": "gasher-water",
-      "boxes": [
-        [
-          68.0,
-          84.0,
-          215.499,
-          85.0,
-          124.0,
-          230.221
-        ]
-      ],
-      "fill": 0.6614,
-      "primitive": false,
-      "declared": "real"
-    },
-    {
       "component": "hopper-funnel",
       "boxes": [
         [
           116.5,
           5.0,
-          306.533,
+          222.499,
           271.0,
           121.6,
-          352.533
+          337.72
         ]
       ],
-      "fill": 0.0694,
-      "primitive": false,
-      "declared": "real"
-    },
-    {
-      "component": "moisture-sensor",
-      "boxes": [
-        [
-          30.0,
-          15.0,
-          157.499,
-          84.0,
-          55.0,
-          159.099
-        ]
-      ],
-      "fill": 0.999,
+      "fill": 0.0507,
       "primitive": false,
       "declared": "real"
     },
@@ -1649,22 +1342,6 @@
         ]
       ],
       "fill": 0.3619,
-      "primitive": false,
-      "declared": "real"
-    },
-    {
-      "component": "multiplex",
-      "boxes": [
-        [
-          25.0,
-          21.0,
-          159.499,
-          90.0,
-          54.0,
-          200.788
-        ]
-      ],
-      "fill": 0.5263,
       "primitive": false,
       "declared": "real"
     },
@@ -1757,111 +1434,15 @@
       "declared": "real"
     },
     {
-      "component": "pump-assembly-1",
+      "component": "source-select-tray",
       "boxes": [
         [
-          95.561,
-          82.0,
-          215.999,
-          158.171,
-          130.88,
-          278.609
-        ],
-        [
-          100.366,
-          61.0,
-          220.804,
-          153.366,
-          82.0,
-          273.804
-        ],
-        [
-          91.0,
-          90.942,
-          278.609,
-          105.732,
-          117.866,
-          305.533
-        ],
-        [
-          109.001,
+          57.997,
           4.0,
-          229.439,
-          144.731,
-          61.0,
-          265.169
-        ],
-        [
-          148.0,
-          90.942,
-          278.609,
-          162.732,
-          117.866,
-          305.533
-        ]
-      ],
-      "fill": 0.8226,
-      "primitive": false,
-      "declared": "real"
-    },
-    {
-      "component": "pump-assembly-2",
-      "boxes": [
-        [
-          201.561,
-          82.0,
-          184.0,
-          264.171,
-          130.88,
-          246.61
-        ],
-        [
-          206.366,
-          61.0,
-          188.805,
-          259.366,
-          82.0,
-          241.805
-        ],
-        [
-          197.0,
-          90.942,
-          246.61,
-          211.732,
-          117.866,
-          273.534
-        ],
-        [
-          215.001,
-          4.0,
-          197.44,
-          250.731,
-          61.0,
-          233.17
-        ],
-        [
-          254.0,
-          90.942,
-          246.61,
-          268.732,
-          117.866,
-          273.534
-        ]
-      ],
-      "fill": 0.8226,
-      "primitive": false,
-      "declared": "real"
-    },
-    {
-      "component": "seaflo-pump",
-      "boxes": [
-        [
-          14.0,
-          72.0,
-          155.499,
-          189.0,
-          147.0,
-          215.499
+          154.499,
+          191.997,
+          109.0,
+          221.499
         ]
       ],
       "fill": 1.0,
