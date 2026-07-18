@@ -32,6 +32,17 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  */
 
 /**
+ * @typedef {Object} ScorecardShape  one component's real boxes — the shape record behind `shaped`
+ * @property {string} component
+ * @property {number[][]} boxes  one [xmin, ymin, zmin, xmax, ymax, zmax] per solid the component
+ *                               is built from. The single box drawn around all of them is a
+ *                               different object, and for a hollow or L-shaped body mostly air.
+ * @property {number} fill       material volume over the boxes' volume; 1.0 = the boxes are the part
+ * @property {boolean} primitive  the geometry is still a bare box or cylinder
+ * @property {string} declared   what the component registry claims: "real" | "placeholder"
+ */
+
+/**
  * @typedef {Object} ScorecardPort  one connector in the audit-readable inventory
  * @property {string} component  the component name it sits on
  * @property {string} name       connector id, unique within its component
@@ -54,6 +65,7 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  * @property {number} held     0..100 — a printed holder fastens each component
  * @property {ScorecardCheck[]} checks
  * @property {ScorecardPort[]} ports  the full connector inventory: every port's coordinate + bore
+ * @property {ScorecardShape[]} shapes  per component, the boxes it really occupies
  */
 
 // True when `o` has the shape the viewer reads. Used by the conformance test and as a client
@@ -90,6 +102,21 @@ export function isScorecard(o) {
         typeof p.status === "string",
     );
     if (!portsOk) return false;
+  }
+  // shapes is the per-component box record. Present on current sidecars; validated when present
+  // so an older sidecar without it still reads.
+  if (o.shapes !== undefined) {
+    if (!Array.isArray(o.shapes)) return false;
+    const shapesOk = o.shapes.every(
+      (s) =>
+        s &&
+        typeof s.component === "string" &&
+        Array.isArray(s.boxes) &&
+        s.boxes.every((b) => Array.isArray(b) && b.length === 6 && b.every((n) => typeof n === "number")) &&
+        typeof s.fill === "number" &&
+        typeof s.primitive === "boolean",
+    );
+    if (!shapesOk) return false;
   }
   return true;
 }
