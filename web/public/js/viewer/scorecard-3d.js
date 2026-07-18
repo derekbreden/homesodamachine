@@ -5,6 +5,7 @@
 // detail rows. One verdict, two surfaces: the same data the terminal prints.
 
 import { scorecardPathFor, isScorecard } from "/contracts/scorecard-sidecar.js";
+import { scenePartNames, highlightParts, clearHighlight } from "./part-highlight.js";
 
 const MARK = { pass: "✓", fail: "✗", warn: "•" };
 
@@ -43,10 +44,24 @@ function addCollapsible(card, rows, limit = 0) {
   card.appendChild(wrap);
 }
 
-function appendCheck(card, c, gray) {
+function appendCheck(card, c, gray, wrapper, partNames) {
   const statusCls = c.status === "fail" ? " issue" : c.status === "warn" ? " warn" : "";
   card.appendChild(row("sc-row" + statusCls + (gray ? " gray" : ""), `${MARK[c.status]} ${c.label}`, c.value));
-  const drows = (c.detail || []).map((d) => row("sc-row sub" + (gray ? " gray" : ""), `— ${d}`, null));
+  // A detail row that names solids in the scene becomes clickable — it closes the modal and
+  // highlights those parts on the model (part-highlight.js). A clearance pair names two.
+  const drows = (c.detail || []).map((d) => {
+    const refs = [...partNames].filter((n) => d.includes(n));
+    const r = row("sc-row sub" + (gray ? " gray" : "") + (refs.length ? " clickable" : ""), `— ${d}`, null);
+    if (refs.length) {
+      r.title = "Show " + refs.join(" + ") + " on the model";
+      r.addEventListener("click", (e) => {
+        e.stopPropagation();
+        closeModal(wrapper);
+        highlightParts(refs);
+      });
+    }
+    return r;
+  });
   addCollapsible(card, drows, 0);
 }
 
@@ -57,6 +72,7 @@ function closeModal(wrapper) {
 
 function openModal(wrapper, sc) {
   closeModal(wrapper);
+  clearHighlight(); // reopening the checks restores the full model
   const modal = el("div", "sc-modal");
   modal.addEventListener("click", () => closeModal(wrapper)); // backdrop closes
   // Don't leak orbit/zoom gestures to the TrackballControls on the canvas behind the modal.
@@ -77,18 +93,19 @@ function openModal(wrapper, sc) {
   const gates = sc.checks.filter((c) => c.kind === "gate");
   const goals = sc.checks.filter((c) => c.kind === "goal");
   const passed = gates.filter((c) => c.status === "pass").length;
+  const partNames = scenePartNames(); // solids in the scene → which rows are clickable
 
   card.appendChild(el("div", "sc-h",
     `Gates — ${passed}/${gates.length} pass` + (sc.gatesPass ? "" : " · not build-ready")));
-  for (const c of gates) appendCheck(card, c, false);
+  for (const c of gates) appendCheck(card, c, false, wrapper, partNames);
 
   const focus = goals.filter((c) => c.active);
   const deferred = goals.filter((c) => !c.active);
   card.appendChild(el("div", "sc-h", `Goal — focus: placed ${sc.placed}% · shaped ${sc.shaped}%`));
-  for (const c of focus) appendCheck(card, c, false);
+  for (const c of focus) appendCheck(card, c, false, wrapper, partNames);
   if (deferred.length) {
     card.appendChild(el("div", "sc-h", `Deferred — routed ${sc.routed}% · held ${sc.held}%`));
-    for (const c of deferred) appendCheck(card, c, true);
+    for (const c of deferred) appendCheck(card, c, true, wrapper, partNames);
   }
 
   modal.appendChild(card);

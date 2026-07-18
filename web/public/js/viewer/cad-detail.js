@@ -33,6 +33,7 @@ import { makeXrayToggle } from "./xray.js";
 import { makeEdgePickToggle, clearEdgePicker } from "./edge-picker.js";
 import { makePickFindToggle, clearPickFind } from "./pick-find.js";
 import { mountScorecard } from "./scorecard-3d.js";
+import { clearHighlight } from "./part-highlight.js";
 
 // Reset-view button: re-frames the current part with the format's default
 // isometric framing and clears the per-file saved camera, so a wonky
@@ -56,6 +57,7 @@ function makeResetViewButton() {
   btn.title = "Reset to default isometric framing";
   btn.addEventListener("click", () => {
     if (!state.mountedDetail || !state.currentGroup) return;
+    clearHighlight(); // a scorecard part-highlight is a temporary focus; reset restores all
     const { type, file } = state.mountedDetail;
     try { localStorage.removeItem(`step-camera:${file}`); } catch {}
 
@@ -206,6 +208,7 @@ export function openCadDetail(type, file, pushHistory = true) {
       }
       clearEdgePicker(); // drop edge data + any selection/hover overlay
       clearPickFind();   // drop find highlights too
+      clearHighlight();  // and any scorecard part-highlight overlay
       state.currentCadWrapper = null;
       state.currentDetail = null;
       state.mountedDetail = null;

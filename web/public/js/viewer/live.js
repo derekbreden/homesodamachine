@@ -33,6 +33,7 @@ import { renderMmdThumbnail } from "./mermaid.js";
 import { renderDrawingThumbnail } from "./drawings.js";
 import { renderPcbThumbnail } from "./pcb.js";
 import { fetchFiles } from "./main.js";
+import { mountScorecard } from "./scorecard-3d.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 
 function refreshStepCard(file) {
@@ -153,7 +154,11 @@ window.addEventListener(HSM_EVENTS.FILES_CHANGED, (e) => {
   for (const file of (e.detail && e.detail.files) || []) {
     if (file.endsWith(".step")) {
       refreshStepCard(file);
-      if (isOpenAs("step", file)) reloadCad("step", file);
+      // Reload the model in place, then re-mount the scorecard bar so a live rebuild's fresh
+      // verdict (the sidecar is rewritten alongside the .step) replaces the stale one.
+      if (isOpenAs("step", file)) {
+        reloadCad("step", file).then(() => mountScorecard(state.currentCadWrapper, file));
+      }
     } else if (file.endsWith(".dxf")) {
       refreshDxfCard(file);
       if (isOpenAs("dxf", file)) reloadCad("dxf", file);

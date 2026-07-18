@@ -109,15 +109,16 @@ def main():
     if any(c.id == "pack-closes" and c.status == "fail" for c in sc.checks):
         raise SystemExit("pack does not close — overlapping solids (see scorecard above)")
 
+    # The scorecard sidecar the 3D viewer reads — the same verdict, beside the model. Written
+    # before the .step so the dev watcher's .step broadcast implies the sidecar is already fresh.
+    sc_path = _here.parent / "enclosure-assembly.scorecard.json"
+    sc_path.write_text(json.dumps(scorecard.scorecard_dict(sc), indent=2) + "\n")
+    print(f"-> {sc_path.name}")
+
     assy = build()
     out = _here.parent / "enclosure-assembly.step"
     export_assembly(assy, str(out))
     print(f"-> {out.name}")
-
-    # The scorecard sidecar the 3D viewer reads — the same verdict, beside the model.
-    sc_path = _here.parent / "enclosure-assembly.scorecard.json"
-    sc_path.write_text(json.dumps(scorecard.scorecard_dict(sc), indent=2) + "\n")
-    print(f"-> {sc_path.name}")
 
     # Pin the hand-typed placeholder dimensions in _contents.py's prose.
     substitute_py_comments(
