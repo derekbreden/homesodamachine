@@ -217,10 +217,15 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
 
 **Deferred — behind the focus:**
 
-- **routed** spans the fluid segments, the sealed refrigerant loop, and the electrical runs.
-  The fluid path is blocked on the **three unplaced valve-manifold trays** (source-select,
-  bag-circuit, nozzle-gate); the refrigerant loop waits on the condenser's ports being
-  located; the electrical runs wait on the components being placed, located, and held first.
+- **routed** spans the fluid segments, the sealed refrigerant loop, and the electrical runs
+  (1/59 — the loop's discharge leg). Paths are authored in [`_lines.py`](_lines.py) with the kit
+  in [`_routing.py`](_routing.py); see [`tube-routing.md`](tube-routing.md). The fluid path is
+  blocked on the **three unplaced valve-manifold trays** (source-select, bag-circuit,
+  nozzle-gate); the electrical runs wait on the components being placed, located, and held first.
+  Two of the loop's three legs are in `_lines.BLOCKED`, each with the measurement that blocks it:
+  the liquid leg needs a 3.2 mm lateral jog against a 25.4 mm two-corner minimum, and the suction
+  leg opens into the 8.0 mm strip the SeaFlo leaves against the cold core's front face, against a
+  12.7 mm bend radius. Both clear on a placement move.
 - **held** — a printed holder for every internal component. Today only the through-wall
   bodies (wall + their own nut) and the display (shell facet) are held; every loose internal
   part floats. Each needs bosses, a cradle, or a tray that itself fastens.

@@ -3,7 +3,7 @@
   "placed": 12,
   "located": 80,
   "shaped": 92,
-  "routed": 0,
+  "routed": 2,
   "held": 28,
   "checks": [
     {
@@ -179,10 +179,13 @@
       "label": "Connections modeled as real 3D paths (fluid + refrigerant + electrical)",
       "kind": "goal",
       "status": "warn",
-      "value": "0% (0/59)",
+      "value": "2% (1/59)",
       "target": "100%",
       "detail": [
-        "28 fluid + 3 refrigerant + 28 electrical, none routed \u2014 the fluid path waits on the unplaced valve-manifold trays"
+        "28 fluid + 3 refrigerant + 28 electrical; 1 routed \u2014 the fluid path waits on the unplaced valve-manifold trays, the electrical runs on the components being held",
+        "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 294.8 mm, 4 bends at R12.7",
+        "\u2717 refrig-2: BLOCKED \u2014 condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet needs a lateral jog in y. The outlet sits at y 145.5. The last corner before the evaporator inlet sits at y \u2264 142.30 (one bend radius off the cold core's front face) and y \u2265 137.18 (clear of the compressor's back face), putting the jog at 3.2\u20138.3 mm. A leg between two 90\u00b0 corners is 2R = 25.4 mm; the jog closes at R \u2264 1.60 mm, or R \u2264 2.73 mm as a 45\u00b0 offset pair. The condenser is a placeholder box and this outlet is a viewer pick on it; the outlet at y \u2264 111.8 clears the corridor lane by 2R.",
+        "\u2717 refrig-3: BLOCKED \u2014 foam-assembly.evap-outlet \u2192 compressor-shroud.refrig-suction. The SeaFlo's back face (y 147) and the cold core's front face (y 155) leave an 8.0 mm strip; the evaporator outlet opens into it at z 191. A 1/4\" line turns 12.7 mm off the port, and the SeaFlo stands 8.0 mm off it. A \u00d86.35 line centred in the strip clears each face by 0.83 mm, against a 1.0 mm floor."
       ],
       "active": false
     },

@@ -171,7 +171,8 @@ class Connection:
     kind: str              # "fluid" | "wire"
     frm: str
     to: str
-    routed: bool = False   # a real 3D path exists (today: none do)
+    routed: bool = False   # a real 3D path exists — set from _lines.py's authored runs
+    blocked: str = ""      # why it cannot be routed as the pack stands (deferred, not removed)
 
 
 # The sealed refrigerant loop — declared here, not parsed. It binds the three floor/back
@@ -208,6 +209,13 @@ def load_connections() -> list[Connection]:
                 conns.append(Connection(m.group(1), "wire", m.group(2).strip(), m.group(3).strip()))
     for cid, frm, to in REFRIGERANT_SEGMENTS:
         conns.append(Connection(cid, "refrigerant", frm, to))
+    # Routed state comes from the paths _lines.py builds. Deferred import: _lines reads PORTS
+    # back out of this module.
+    import _lines
+    done = _lines.routed_ids()
+    for c in conns:
+        c.routed = c.id in done
+        c.blocked = _lines.BLOCKED.get(c.id, "")
     return conns
 
 
@@ -776,16 +784,25 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
          f"{shaped}% ({len(real)}/{total})", "100%", shaped_detail, active=True)
 
     # routed — DEFERRED: every fluid + refrigerant + electrical connection a real 3D path.
+    import _lines                                  # deferred: _lines reads PORTS back out of here
     conns = load_connections()
     fluid = sum(1 for c in conns if c.kind == "fluid")
     wire = sum(1 for c in conns if c.kind == "wire")
     refrig = sum(1 for c in conns if c.kind == "refrigerant")
     routed_done = sum(1 for c in conns if c.routed)
     routed = _pct(routed_done, len(conns))
+    routed_detail = [f"{fluid} fluid + {refrig} refrigerant + {wire} electrical; "
+                     f"{routed_done} routed — the fluid path waits on the unplaced valve-manifold "
+                     f"trays, the electrical runs on the components being held"]
+    for r in _lines.build_runs():
+        routed_detail.append(f"✓ {r.id}: {r.frm} → {r.to} — Ø{r.diam:g} × {r.length:.1f} mm, "
+                             f"{len(r.bends)} bends at R{r.bend:.1f}")
+    # A blocked connection stays counted, with the measurement that blocks it.
+    for c in conns:
+        if c.blocked:
+            routed_detail.append(f"✗ {c.id}: BLOCKED — {c.blocked}")
     goal("routed", "Connections modeled as real 3D paths (fluid + refrigerant + electrical)", routed == 100 and bool(conns),
-         f"{routed}% ({routed_done}/{len(conns)})", "100%",
-         [f"{fluid} fluid + {refrig} refrigerant + {wire} electrical, none routed — the fluid path waits on the unplaced valve-manifold trays"],
-         active=False)
+         f"{routed}% ({routed_done}/{len(conns)})", "100%", routed_detail, active=False)
 
     # held — DEFERRED: a printed holder that fastens each component to the enclosure.
     held_done = [c for c in COMPONENTS if c.is_held]
