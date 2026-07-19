@@ -353,8 +353,8 @@ def _hopper_hole(inner, outer):
     strip of wall there); its +X edge runs flush to the top-right corner pod's
     inboard end; its −Y edge is flush with the inner front wall; its +Y edge is
     clamped to stay just in front of the seam lip, so the deep slot still lives
-    wholly in the front half. Only the short bib/nozzle stack sits beneath the
-    slot — the tall back trays end short of its −X edge — so the chute drops clear
+    wholly in the front half. Only the short nozzle-gate tray and the pump row sit
+    beneath the slot — the tall back trays end short of its −X edge — so the chute drops clear
     (verified in funnel.py against the real solids). The companion funnel
     (../../printed-parts/funnel/) derives its collar from this same rect."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner

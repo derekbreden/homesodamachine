@@ -43,7 +43,7 @@ Unlike the carbonator and Kitchen-reservoir float rods, this is a **tool-free ha
 
 ### 3. Build and stack the valve manifold
 
-Assemble the four manifold trays — source-select, bag-circuit, bib-gate, nozzle-gate — the same tray assemblies as the Kitchen build ([`valve-manifold/`](/hardware/printed-parts/valve-manifold/)), populated with the Beduan solenoids and John Guest dividers / tees / stem-barbs from [`lite-bom.md`](/pie-in-the-sky/lite/lite-bom.md). All four stand vertical (long axis up) in the front zone ahead of the reservoir: source-select and bag-circuit side by side in the back band against the split, bib-gate and nozzle-gate nose-to-tail in the front-right under the hopper, kept low so the funnel above clears a tall chute — per [`_contents.py`](/pie-in-the-sky/lite/printed-parts/enclosure/enclosure-assembly/_contents.py).
+Assemble the three manifold trays — source-select, bag-circuit, nozzle-gate — the same tray assemblies as the Kitchen build ([`valve-manifold/`](/hardware/printed-parts/valve-manifold/)), populated with the Beduan solenoids and John Guest dividers / tees / stem-barbs from [`lite-bom.md`](/pie-in-the-sky/lite/lite-bom.md). All three stand vertical (long axis up) in the front zone ahead of the reservoir: source-select and nozzle-gate side by side in the back band against the split — the short nozzle-gate on source-select's right, kept low so the funnel above it clears a tall chute — and bag-circuit in the left column ahead of them. Per [`_contents.py`](/pie-in-the-sky/lite/printed-parts/enclosure/enclosure-assembly/_contents.py).
 
 ### 4. Mount the pumps
 
@@ -51,7 +51,7 @@ Seat the two Kamoer KPHM400 pumps (the full pump assemblies, with their 90° out
 
 ### 5. Plumb the flavor circuit
 
-Run the clear-PVC and LLDPE lines per [`fluid-topology-manifold.mmd`](/pie-in-the-sky/lite/fluid-topology-manifold.mmd): bag spouts → manifold, the pump loops, hopper spout → V-B, the optional bag-in-box inputs through the 3/8"→1/4" reducers, the Lillium clean-water feed through the flow-control bulkhead (throttled to the manifold's low working pressure), and the two flavor lines up to the faucet nozzle. The visible clear runs are the "green" segments in the topology; the short rigid jumpers between push-connect fittings are the grey LLDPE hops.
+Run the clear-PVC and LLDPE lines per [`fluid-topology-manifold.mmd`](/pie-in-the-sky/lite/fluid-topology-manifold.mmd): bag spouts → manifold, the pump loops, hopper spout → V-B, the Lillium clean-water feed through the flow-control bulkhead (throttled to the manifold's low working pressure), and the two flavor lines up to the faucet nozzle. The visible clear runs are the "green" segments in the topology; the short rigid jumpers between push-connect fittings are the grey LLDPE hops.
 
 ### 6. Mount the funnel
 

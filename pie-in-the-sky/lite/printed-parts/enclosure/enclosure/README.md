@@ -84,8 +84,8 @@ display housing, where the removable hopper
 on the top, its collar press-fitting the opening. Both side edges run flush to
 their neighbours with no dead strip of wall: the −X edge against the display
 gusset, the +X edge against the top-right corner pod; the slot reaches the full
-front-half depth back to the seam lip. Only the short bib/nozzle stack sits
-beneath the slot — the tall back trays end short of its −X edge — so the deep
+front-half depth back to the seam lip. Only the short nozzle-gate tray and the
+pump row sit beneath the slot — the tall back trays end short of its −X edge — so the deep
 slot has a tall clear chute for a big pour buffer (verified in `funnel.py` against
 the real solids). The funnel derives its collar from the same rectangle
 (`_hopper_hole`), so the two always match.
