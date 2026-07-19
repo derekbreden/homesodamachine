@@ -14,19 +14,21 @@ Top to bottom:
     enclosure top surface;
   * a tall straight rectangular chute — vertical walls, no slope — pressing
     the 3 mm top wall at its top and hanging on down into the box;
-  * a shallow ramp from the bottom of that chute down to a 1/4" round spout —
-    the whole floor is the ramp, every surface of it falling toward the
-    spout, so the basin drains dry. The spout is offset off the collar
-    centre (neck_dx); the placement's FUNNEL_ROT picks which side of the
-    box it descends. The drain must feed V-B by a falling tube (segment 4
-    is the gravity drain and the air-purge path; it may not rise), and the
-    offset makes the drain-side ramp steep, shedding syrup instead of
-    pooling.
+  * a shallow ramp from the bottom of that chute down to a 1/4" round spout
+    at the collar centre — the whole floor is the ramp, every surface of it
+    falling toward the spout, so the basin drains dry. The floor's
+    shallowest line (the long X half-run to the neck) holds `ramp_angle`;
+    the shorter front/back runs land steeper. Centring the neck keeps every
+    run short, so the floor reaches its grade with the least depth and the
+    drain rides high: the fall segment 4 needs (the gravity drain and the
+    air-purge path; it may not rise) is banked in the placement below the
+    drain, not spent inside the part.
 
 Capacity to the brim is printed at export and runs past a full 440 mL
 SodaStream bottle.
 """
 
+import math
 import sys
 from pathlib import Path
 
@@ -40,22 +42,27 @@ from _cadq_export import export_step
 from docgen import substitute_md
 
 # --- funnel parameters ------------------------------------------------------
-collar_w = 148.5        # collar footprint (X) — spans the zone-C top opening
-collar_d = 110.6        # collar footprint (Y)
+collar_w = 148.5        # collar footprint (X) — spans the zone-C top opening frame width
+collar_d = 136.0        # collar footprint (Y) — runs the frame's depth, front ledge to
+                        # the Y-seam lip band, so plan area (not depth) carries the volume
 brim_overhang = 3.0     # brim flange reach past the collar, all around
 brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
-chute_h = 30.0          # straight rectangular chute height — brim top down to the ramp start
-neck_dx = 54.0          # neck (ramp foot + spout) shift in X off the collar center;
-                        # the placement's FUNNEL_ROT picks which side of the box
-                        # the drop lands
+chute_h = 33.0          # straight rectangular chute height — brim top down to the ramp start
+neck_dx = 0.0           # neck (ramp foot + spout) on the collar centre — every floor
+                        # run stays short, so the grade costs the least depth
+ramp_angle = 12.0       # deg — the floor's shallowest line (the long X half-run). Grade
+                        # enough for syrup to shed on silicone (a 3° floor pooled as a
+                        # residue shelf), shallow enough to keep the basin — and so the
+                        # drain — high; the front/back runs land steeper on their own
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
 spout_tube = 6.0        # straight spout tube below the ramp tip
-drop = 79.0             # brim underside (z 0) down to the spout exit — deep enough
-                        # that the ramp runs steep and the drain keeps fall to spare
-                        # over V-B's collet (the enclosure scorecard measures the
-                        # real-solid gaps below the spout)
+# The drop stacks the chute below the brim, the ramp rise the shallowest line
+# needs at its grade, and the spout tube.
+_ramp_run = (collar_w - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + neck_dx
+_ramp_rise = _ramp_run * math.tan(math.radians(ramp_angle))
+drop = (chute_h - brim_thickness) + _ramp_rise + spout_tube
 
 # The drain, in the funnel's own frame: the spout exit annulus center. World
 # position = this + the funnel's placement; it rides the part.

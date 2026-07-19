@@ -78,12 +78,12 @@ Strata, floor to ceiling:
              row's crest — the row seated one wall above the front Z-seam
              plane (crossing the wall corners above the seam's boss-pod
              band). P-A's head is nose-in at mid-row; P-B sits one slot
-             east and forward, its elbows under the funnel basin's high
-             east floor, ahead of the source-select east bank. The funnel
-             drain falls between P-A's elbow stations onto its head-top
-             clearance, 1.1 above the V-B-I collet plane far to its
-             aft-east — segment 4's gravity/purge fall is that 1.1
-             (unresolved tension). Holders TBD (held).
+             east and forward, ahead of the source-select east bank. The
+             funnel's centred drain hangs high over the row — its shallow
+             full-frame basin keeps the drain at the top of the band — with
+             ~30 mm of gravity fall banked in open air above the V-B-I
+             collet plane aft-east of it (segment 4, the gravity/purge
+             path). Holders TBD (held).
   * Zone B (the band above the cold core): the electronics shelf lying
              flat on the foam-cap top in the band's front half — power
              assembly at −X, PCBA at +X, the DC distribution block behind
@@ -141,17 +141,20 @@ IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 # finstack stack depth, calipered [56 mm](CONDENSER_AIRFLOW) combined, along X.
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # The funnel's placement: its collar-rect centre in plan, plus a rotation
-# about its own Z — the rectangular collar seats the opening either way, so
-# the rotation picks which side the spout descends. At 180° the spout drops
-# WEST of centre, descending ahead of the tray stack to cap the pump row
-# (the pumps' `clear` keep-out holds its fall corridor open), and the ramp
-# rises eastward. The static funnel (zone-c/hopper-funnel, local frame)
-# seats with its brim underside on the box's outer top; enclosure.py cuts
-# the top-wall opening from this same centre + the funnel's own collar
-# dims, and asserts the top-wall frame (display gusset, corner pod, front
-# ledge, Y-seam lip) accommodates it.
-FUNNEL_CX, FUNNEL_CY = 193.75, 63.3
-FUNNEL_ROT = 180.0
+# about its own Z. The basin runs the top-wall frame's full width AND depth
+# (front ledge to the Y-seam lip band), so plan area — not depth — carries
+# its volume: the shallow floor (hopper_funnel.ramp_angle) and the centred
+# spout's short runs keep the drain high, hanging over the pump row with
+# the segment-4 fall banked in open air below it (the pumps' `clear`
+# keep-out holds that drop corridor open). With the spout centred the
+# rotation picks nothing; 0 keeps the frame axis-aligned. The static
+# funnel (zone-c/hopper-funnel, local frame) seats with its brim underside
+# on the box's outer top; enclosure.py cuts the top-wall opening from this
+# same centre + the funnel's own collar dims, and asserts the top-wall
+# frame (display gusset, corner pod, front ledge, Y-seam lip) accommodates
+# it.
+FUNNEL_CX, FUNNEL_CY = 193.75, 76.8
+FUNNEL_ROT = 0.0
 # The source-select assembly's placement: local origin (cell centre, valve
 # mounting plane) in world, rotated 180° about Z. The flip puts V-A/V-B —
 # and their up-facing inlet collets — on the EAST end, V-C/V-D west; the
@@ -183,18 +186,18 @@ BAG_CIRCUIT_POS = (SRC_SEL_POS[0], SRC_SEL_POS[1], SRC_SEL_POS[2] - 63.0)
 # The POS tuples are the pump's local origin (base-plate bore-opening
 # face, case centre) in world:
 #   * P-A: body envelope x 11.62–138.50, y 33.20–95.81, z 189.00–251.61 —
-#     head nose-in at mid-row, its elbows west of the funnel spout's fall
-#     corridor (the `clear hopper-funnel` rule holds the drain's drop
-#     open over its head), the row's underside one wall above the front
+#     head nose-in at mid-row, the segment-4 drop corridor under the
+#     funnel's high centred drain held open over it (the `clear
+#     hopper-funnel` rule), the row's underside one wall above the front
 #     Z-seam plane so the long body crosses the ±X wall corners ABOVE the
 #     seam's boss-pod band (which reaches ~14 mm inboard below the seam),
 #     aft face one stack gap ahead of the bag tray's front columns (the
 #     `near bag-circuit-assembly` rule).
-#   * P-B: the same pose one slot east — head at the east end, so its
-#     elbows stand under the funnel basin's high east floor — and slid
-#     forward, its aft elbow threading ahead of the source-select east
-#     bank's walls (the `clear source-select-assembly` rule); its row tie
-#     is the nose gap to P-A (the `near pump-a` rule).
+#   * P-B: the same pose one slot east — head at the east end, under the
+#     funnel's floor — and slid forward, its aft elbow threading ahead of
+#     the source-select east bank's walls (the `clear
+#     source-select-assembly` rule); its row tie is the nose gap to P-A
+#     (the `near pump-a` rule).
 PUMP_A_POS = (89.62, 99.51, 185.31)
 PUMP_B_POS = (222.50, 85.51, 185.31)
 

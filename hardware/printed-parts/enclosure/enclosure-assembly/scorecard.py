@@ -241,8 +241,9 @@ PLACEMENT_RULES = {
     # real solids.
     "source-select-assembly": [("near", "foam-assembly", 1.0)],
     # "The funnel rides the top wall" — brim top one brim thickness + one wall above the
-    # interior ceiling. Its spout descends ahead of the tray stack, over the pump
-    # row — the pumps' own `clear` keep-out holds its fall corridor open.
+    # interior ceiling. Its shallow-floored basin runs the top frame's full depth and
+    # its centred drain hangs high over the pump row — the pumps' own `clear` keep-out
+    # holds the segment-4 drop corridor open beneath it.
     "hopper-funnel":     [("z+", 6.1)],
     # "The bag tray carries the source-select tray": stacked one tray pitch
     # below, the tray floor above resting on this tray's column wall tops (a
@@ -254,9 +255,9 @@ PLACEMENT_RULES = {
                              ("clear", "condenser+fan", 2.5)],
     # "P-A stands one stack gap ahead of the stack, under the funnel's
     # drop": its aft face near the bag tray's front columns (the stack's
-    # flat front at the row's height), and the descending spout's fall
-    # corridor held open over its head — a keep-out the funnel's drain
-    # physically depends on.
+    # flat front at the row's height), and the segment-4 drop corridor
+    # under the funnel's high centred drain held open over it — a keep-out
+    # the gravity drain physically depends on.
     "pump-a": [("near", "bag-circuit-assembly", 3.0), ("clear", "hopper-funnel", 4.0)],
     # "P-B rides the row one nose gap east of P-A, its elbows ahead of the
     # east bank": the row tie to its neighbor, and a keep-out holding its
@@ -390,12 +391,12 @@ PORTS = [
     # Hopper funnel — the removable silicone basin's single drain: the spout-tube exit annulus,
     # feeding V-B by tube (segment 4). Defined in the funnel's own frame
     # (hopper_funnel.drain_local = (neck_dx, 0, −drop)) carried through the placement's
-    # FUNNEL_ROT + FUNNEL_CX/CY (brim on the box top), so it rides the part. Rotated 180°,
-    # the spout descends WEST of centre, ahead of the tray stack, into the pump row's nose
-    # gap airspace (the pumps' `clear` keep-out). Segment 4 is the gravity drain + air-purge
-    # path and must only fall; V-B-I's collet plane lies 1.1 below the drain and ~150 mm
-    # aft-east of it (unresolved tension).
-    _p("drain", "hopper-funnel", "fluid", (139.75, 63.3, 255.72), "z-", 6.35, "V-B-I by tube — segment 4 (hopper gate → shared source; must fall)", "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"),
+    # FUNNEL_ROT + FUNNEL_CX/CY (brim on the box top), so it rides the part. The spout sits
+    # on the collar centre and the shallow full-frame floor keeps it high: the drain hangs
+    # over the pump row's crest (the pumps' `clear` keep-out holds the drop corridor open).
+    # Segment 4 is the gravity drain + air-purge path and must only fall; V-B-I's collet
+    # plane lies ~30 below the drain, ~126 mm aft-east of it — fall to spare.
+    _p("drain", "hopper-funnel", "fluid", (193.75, 76.8, 284.23), "z-", 6.35, "V-B-I by tube — segment 4 (hopper gate → shared source; must fall)", "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"),
     # Source-select assembly (Tray 1) — the manifold's four boundary connectors: the outlet
     # elbows' free collets, all facing +Z, measured off the built assembly
     # (source_select_tray.build_assembly() top-opening centres, local (±128.33, ±36.73, 30.86))
@@ -403,7 +404,7 @@ PORTS = [
     # plumbing (segments 3/5/6/7/8 — valve↔divider tubes) is interior to the assembly and
     # carries no port here.
     _p("V-A-I", "source-select-assembly", "fluid", (275.33, 98.82, 254.66),  "z+", 6.35, "tap-water chain (bulkhead-water → BFP, deferred) — segment 2 (pressurized; length-tolerant)", "JG elbow collet, 1/4\" tube, facing up"),
-    _p("V-B-I", "source-select-assembly", "fluid", (275.33, 172.28, 254.66), "z+", 6.35, "hopper-funnel drain by tube — segment 4 (the drain hangs 1.1 above this collet's plane, ~150 mm west-forward)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-B-I", "source-select-assembly", "fluid", (275.33, 172.28, 254.66), "z+", 6.35, "hopper-funnel drain by tube — segment 4 (the drain hangs ~30 above this collet's plane, ~126 mm west-forward)", "JG elbow collet, 1/4\" tube, facing up"),
     _p("V-C-O", "source-select-assembly", "fluid", (18.67, 98.82, 254.66),   "z+", 6.35, "Y-C-1 (Tray 3 pump-inlet tees, deferred) — segment 9", "JG elbow collet, 1/4\" tube, facing up"),
     _p("V-D-O", "source-select-assembly", "fluid", (18.67, 172.28, 254.66),  "z+", 6.35, "Y-F-1 (Tray 3 pump-inlet tees, deferred) — segment 19", "JG elbow collet, 1/4\" tube, facing up"),
     # Bag-circuit assembly (Tray 2) — the manifold's six boundary connectors: the four outlet

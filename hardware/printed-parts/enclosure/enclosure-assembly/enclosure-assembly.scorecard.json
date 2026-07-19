@@ -45,9 +45,7 @@
         "source-select-assembly \u2014 pump-b: 2.73 mm",
         "compressor-shroud \u2014 bag-circuit-assembly: 3.30 mm",
         "condenser+fan \u2014 bag-circuit-assembly: 3.80 mm",
-        "source-select-assembly \u2014 hopper-funnel: 3.89 mm",
         "foam-assembly \u2014 condenser+fan: 4.00 mm",
-        "pump-a \u2014 hopper-funnel: 4.10 mm",
         "display \u2014 hopper-funnel: 4.49 mm",
         "pump-a \u2014 display: 5.65 mm"
       ],
@@ -97,7 +95,7 @@
         "\u2713 source-select-assembly: near foam-assembly 0.0 mm",
         "\u2713 hopper-funnel: z+ 6.0 mm",
         "\u2713 bag-circuit-assembly: near source-select-assembly 0.0 clear compressor-shroud 3.3 clear condenser+fan 3.8 mm",
-        "\u2713 pump-a: near bag-circuit-assembly 2.5 clear hopper-funnel 4.1 mm",
+        "\u2713 pump-a: near bag-circuit-assembly 2.5 clear hopper-funnel 27.4 mm",
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 2.7 mm",
         "11 components: no placement rules defined yet"
       ],
@@ -641,9 +639,9 @@
       "name": "drain",
       "kind": "fluid",
       "pos": [
-        139.75,
-        63.3,
-        255.72
+        193.75,
+        76.8,
+        284.23
       ],
       "face": "z-",
       "diam": 6.35,
@@ -677,7 +675,7 @@
       ],
       "face": "z+",
       "diam": 6.35,
-      "mates": "hopper-funnel drain by tube \u2014 segment 4 (the drain hangs 1.1 above this collet's plane, ~150 mm west-forward)",
+      "mates": "hopper-funnel drain by tube \u2014 segment 4 (the drain hangs ~30 above this collet's plane, ~126 mm west-forward)",
       "status": "ok",
       "note": "JG elbow collet, 1/4\" tube, facing up"
     },
@@ -1495,14 +1493,14 @@
       "boxes": [
         [
           116.5,
-          5.0,
-          255.72,
+          5.8,
+          284.25,
           271.0,
-          121.6,
+          147.8,
           337.72
         ]
       ],
-      "fill": 0.0558,
+      "fill": 0.0611,
       "primitive": false,
       "declared": "real"
     },
