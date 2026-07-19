@@ -5,8 +5,9 @@ connection, its waypoints written against the ports and body faces that shape th
 
 Today: the sealed refrigerant loop (`scorecard.REFRIGERANT_SEGMENTS`) — the discharge and
 liquid legs authored, the suction leg BLOCKED by the tray stack pressed to the cold core (see
-BLOCKED) — and the manifold's two source drops into the hanging pump-inlet tees. Three
-corridors carry the authored legs, each measured off the faces that bound it:
+BLOCKED) — and the manifold's junction column, fully joined: the source drops and the bag
+returns into the hanging pump-inlet tees. Three corridors carry the authored legs, each
+measured off the faces that bound it:
 
   * the machine corridor — 49 mm, compressor back face to cold-core front face — but the
     valve-manifold tray stack stands in its upper band (z 164.8–290.8, to 9.2 off the foam
@@ -18,14 +19,15 @@ corridors carry the authored legs, each measured off the faces that bound it:
     share the lane plane 69 mm apart in z.
   * the junction column — the open air off the trays' west ends, outboard of the west valve
     banks at x 18.67, where both trays' west outlet collets align (the bag tray rides 29.7
-    west of the stack centre for exactly this): the source pair turned down above, the bag
-    pair up below, and the pump-inlet union tees (`tee-y-c`, `tee-y-f`) hanging in-line
-    between them. fluid-9/19 are its authored lines — one tube stub each, collet into tee.
-    The tees' run-down and branch collets anchor the channels' next legs: segments 10/20
-    climb from the bag collets, which sit 19.6 mm aft/forward of the tee axes (source rows
-    ±36.73, bag rows ±17.125 off the stack centre), and segments 11/21 leave the branches
-    east for the pump row — their authors have the elbow-roll DOF (bag_circuit_tray
-    `place_elbow`) to aim the bag collets into the column.
+    west of the stack centre for exactly this): the inverted source tray's pair hanging
+    down above, the bag pair up below, 58.3 mm apart, and the pump-inlet union tees
+    (`tee-y-c`, `tee-y-f`) hanging in-line between them, connected at both run ports.
+    fluid-9/19 drop the source collets into the run-up ports, one coaxial stub each;
+    fluid-10/20 rise from the bag collets into the run-down ports through a two-bend jog —
+    the trays' port rows sit 19.6 mm apart in Y (source ±36.73, bag ±17.125 off the stack
+    centre), closed inside the 16.1 mm rise, which is why these two legs run a tighter
+    former (R7.9, ~1.24×OD — soft LLDPE, the jog the row offset demands) with 8 mm stubs.
+    Segments 11/21 leave the branch collets east for the pump row, unauthored.
 
 Precedent: `pcba.tsx`'s `route(...)` call sites.
 """
@@ -110,17 +112,34 @@ def build_runs() -> list:
     # refrig-3 — see BLOCKED: the tray stack pressed to the cold core owns the
     # evap-outlet's exit space.
 
-    # fluid-9 / fluid-19 — the source drops: V-C-O and V-D-O turn down out of the west bank
-    # and butt the hanging union tees' run-up collets, one tube stub each — the junction
-    # column's first lines. Anchored port-to-port with no constraints: each pair is coaxial
-    # by construction (_contents hangs each tee on its collet's own x, y), so the path is
-    # the straight the two stubs meet in.
+    # fluid-9 / fluid-19 — the source drops: V-C-O and V-D-O hang down out of the inverted
+    # west bank and butt the union tees' run-up collets, one tube stub each. Anchored
+    # port-to-port with no constraints: each pair is coaxial by construction (_contents
+    # hangs each tee on its collet's own x, y), so the path is the straight the stubs meet
+    # in.
     for cid, frm, to, ch in (
         ("fluid-9",  "source-select-assembly.V-C-O", "tee-y-c.Y-C-1", "A"),
         ("fluid-19", "source-select-assembly.V-D-O", "tee-y-f.Y-F-1", "B"),
     ):
         runs.append(route(cid, frm, to, kind="fluid", stub=(1.0, 1.0),
                           note=f"channel {ch} source drop: down collet into the hanging tee"))
+
+    # fluid-10 / fluid-20 — the bag returns: V-E-O and V-H-O rise into the tees' run-down
+    # collets. The trays' port rows are 19.6 mm apart in Y, closed inside the 16.1 mm rise
+    # as a two-bend jog: up one stub, across the offset, up into the port. The 8 mm stubs
+    # and the R7.9 former (~1.24×OD, soft LLDPE) are what seat both bends in that rise —
+    # the one place the row offset is absorbed.
+    tees = {"fluid-10": f["tee-y-c"], "fluid-20": f["tee-y-f"]}
+    for cid, frm, to, port, ch in (
+        ("fluid-10", "bag-circuit-assembly.V-E-O", "tee-y-c.Y-C-2", "Y-C-2", "A"),
+        ("fluid-20", "bag-circuit-assembly.V-H-O", "tee-y-f.Y-F-2", "Y-F-2", "B"),
+    ):
+        runs.append(route(
+            cid, frm,
+            tees[cid].y(port),                              # across the row offset
+            to,
+            kind="fluid", bend=7.9, stub=(8.0, 8.0),
+            note=f"channel {ch} bag return: up collet into the hanging tee's run-down"))
 
     return runs
 
