@@ -410,16 +410,16 @@ PORTS = [
     # Bag-circuit assembly (Tray 2) — the manifold's six boundary connectors: the four outlet
     # elbows' free collets facing +Z (collet-axis centres measured off the built assembly,
     # local (±98.63, ±17.125, 30.86)) and the two Tee bag branches facing outward along ±Y
-    # (branch collet tips, local (0, ±37.19, 11.3)), all carried through BAG_CIRCUIT_POS
-    # (unrotated: V-F/V-I west, V-E/V-H east; Y-E's branch aft toward Bag A's foam port,
-    # Y-H's forward). On-tray plumbing (segments 14/16/24/26 — valve↔Tee port butts) is
-    # interior to the assembly and carries no port here.
-    _p("V-F-I", "bag-circuit-assembly", "fluid", (48.37, 152.68, 191.66),  "z+", 6.35, "Y-D-2 (Tray 3 pump-inlet tees, deferred) — segment 13 (pump A to bag A)", "JG elbow collet, 1/4\" tube, facing up"),
-    _p("V-I-I", "bag-circuit-assembly", "fluid", (48.37, 118.43, 191.66),  "z+", 6.35, "Y-G-2 (Tray 3 pump-inlet tees, deferred) — segment 23 (pump B to bag B)", "JG elbow collet, 1/4\" tube, facing up"),
-    _p("V-E-O", "bag-circuit-assembly", "fluid", (245.63, 152.68, 191.66), "z+", 6.35, "Y-C-2 (Tray 3 pump-inlet tees, deferred) — segment 10 (bag A to pump return)", "JG elbow collet, 1/4\" tube, facing up"),
-    _p("V-H-O", "bag-circuit-assembly", "fluid", (245.63, 118.43, 191.66), "z+", 6.35, "Y-F-2 (Tray 3 pump-inlet tees, deferred) — segment 20 (bag B to pump return)", "JG elbow collet, 1/4\" tube, facing up"),
-    _p("Y-E-2", "bag-circuit-assembly", "fluid", (147.0, 172.74, 172.1),   "y+", 6.35, "Bag A port — foam-assembly reservoir-A line, segment 15", "Tee branch collet, 1/4\" tube, aft through the hug-wall notch"),
-    _p("Y-H-2", "bag-circuit-assembly", "fluid", (147.0, 98.36, 172.1),    "y-", 6.35, "Bag B port — foam-assembly reservoir-B line, segment 25", "Tee branch collet, 1/4\" tube, forward through the hug-wall notch"),
+    # (branch collet tips, local (0, ±37.19, 11.3)), all carried through the 180° flip +
+    # BAG_CIRCUIT_POS (V-E/V-H west under the source-select west bank they tee with, V-F/V-I
+    # east; Y-H's branch aft toward the cold core, Y-E's forward). On-tray plumbing (segments
+    # 14/16/24/26 — valve↔Tee port butts) is interior to the assembly and carries no port here.
+    _p("V-F-I", "bag-circuit-assembly", "fluid", (245.63, 118.42, 191.66), "z+", 6.35, "Y-D-2 (Tray 3 pump-inlet tees, deferred) — segment 13 (pump A to bag A)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-I-I", "bag-circuit-assembly", "fluid", (245.63, 152.67, 191.66), "z+", 6.35, "Y-G-2 (Tray 3 pump-inlet tees, deferred) — segment 23 (pump B to bag B)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-E-O", "bag-circuit-assembly", "fluid", (48.37, 118.42, 191.66),  "z+", 6.35, "Y-C-2 (Tray 3 pump-inlet tees, deferred) — segment 10 (bag A to pump return)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-H-O", "bag-circuit-assembly", "fluid", (48.37, 152.67, 191.66),  "z+", 6.35, "Y-F-2 (Tray 3 pump-inlet tees, deferred) — segment 20 (bag B to pump return)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("Y-E-2", "bag-circuit-assembly", "fluid", (147.0, 98.36, 172.1),    "y-", 6.35, "Bag A port — foam-assembly reservoir-A line, segment 15", "Tee branch collet, 1/4\" tube, forward through the hug-wall notch"),
+    _p("Y-H-2", "bag-circuit-assembly", "fluid", (147.0, 172.74, 172.1),   "y+", 6.35, "Bag B port — foam-assembly reservoir-B line, segment 25", "Tee branch collet, 1/4\" tube, aft through the hug-wall notch"),
     # Pump row — each Kamoer's two boundary connectors are its outlet ELBOWS' free collets
     # (pump_assembly.py seats a PP0308E on each arch_xs outlet), carried through the lying
     # pose (−90° about Y, +90° roll about X) + the POS tuples: the elbows stand on the +Z
