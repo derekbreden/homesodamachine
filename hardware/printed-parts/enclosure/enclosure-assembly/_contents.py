@@ -2,18 +2,18 @@
 
 Detailed STEP imports where they exist (cold-core foam assembly — shell +
 top/bottom foam-cap stacks — the compressor shroud, the source-select
-assembly, the PCBA assembly, the power assembly, the DC distribution block,
-the DERPIPE CO2 inlet, the MQ-6 gas sensor, the panel bulkheads + C14). One
-placeholder primitive remains (condenser+fan). Not everything is packed —
-deferred, tracked by the fluid topology
+assembly, the bag-circuit assembly, the PCBA assembly, the power assembly,
+the DC distribution block, the DERPIPE CO2 inlet, the MQ-6 gas sensor, the
+panel bulkheads + C14). One placeholder primitive remains (condenser+fan).
+Not everything is packed — deferred, tracked by the fluid topology
 (/hardware/topology/fluid-topology.md) and the scorecard's connection
 table, never silently dropped, while the front column settles around the
-source-select assembly: the water deck (SeaFlo diaphragm pump, Multiplex
-BFP, drip pan + moisture plate, the SeaFlo outlet check), the DIGITEN flow
-sensor, both Kamoer pump assemblies (P-A, P-B), the CO2 chain's GASHER
-check + WR1110 regulator (their front-left column is the assembly's west
-bank; the chain needs a route around it), and the other three
-valve-manifold trays (bag-circuit, pump-inlet tees, nozzle-gates).
+tray stack: the water deck (SeaFlo diaphragm pump, Multiplex BFP, drip pan
++ moisture plate, the SeaFlo outlet check), the DIGITEN flow sensor, both
+Kamoer pump assemblies (P-A, P-B), the CO2 chain's GASHER check + WR1110
+regulator (their front-left column is the source-select assembly's west
+bank; the chain needs a route around it), and the other two valve-manifold
+trays (pump-inlet tees, nozzle-gates).
 
 Components only: no tubes, no wires, no mount features. enclosure_assembly.py
 verifies the pack pairwise non-intersecting at every export.
@@ -44,20 +44,23 @@ The cold core's tube connections are defined by the foam shell's
 penetrations (/hardware/printed-parts/cold-core/foam-shell/README.md
 §Penetrations), all on its −Y front wall except the CO2 top entry — in
 enclosure world coordinates:
-  * carbonated-water outlet at (141.5, 155, 46.5) — the riser runs up the
+  * carbonated-water outlet at (141.5, 182, 46.5) — the riser runs up the
     foam front face past the DIGITEN flow sensor to the rear umbilical;
-  * reservoir (bag) lines at (44.5, 155, 35.5) and (238.5, 155, 35.5) —
+  * reservoir (bag) lines at (44.5, 182, 35.5) and (238.5, 182, 35.5) —
     they climb the foam front face to the bag-circuit loops;
   * the shared slot at x 141.5 spanning z ~72–246 — both copper evaporator
     stubs (to the compressor), the water inlet (from the SeaFlo discharge),
     and the PRV vent;
-  * CO2 entry down through the foam-cap top at (141.5, 172.8).
+  * CO2 entry down through the foam-cap top at (141.5, 199.8).
 
 Strata, floor to ceiling:
   * Floor:   compressor shroud (front-left) + condenser/fan (front-right,
-             cross-flow along X; the donor's factory filter-drier is brazed
-             to its outlet, inside this harvested block), the MQ-6 on the
-             floor between the compressor and the cold core (isobutane sinks).
+             cross-flow along X, the donor block tipped on its back so its
+             long dimension runs along Y and the floor stratum tops out
+             level with the compressor; the donor's factory filter-drier is
+             brazed to its outlet, inside this harvested block), the MQ-6
+             on the floor between the compressor and the cold core
+             (isobutane sinks).
   * Zone A:  cold core (foam assembly: bottom cap + shell + top cap) on the
              floor at the back, its −Y dispense/service ports facing
              forward.
@@ -71,9 +74,12 @@ Strata, floor to ceiling:
              the east bank's wall tops. The spout descends over the
              central valley; at this height the drain sits only a hair
              above V-B's collet — the segment-4 gravity/purge fall is
-             nearly exhausted (unresolved tension). The compressor and
-             condenser tops below are open (the deferred water deck
-             returns there). Holder TBD (held).
+             nearly exhausted (unresolved tension). One 63 mm tray pitch
+             below hangs the bag-circuit assembly — Tray 2 of the manifold
+             (V-E/V-F/V-H/V-I + Tees Y-E/Y-H, outlet elbows up, bag
+             branches out ±Y) — its stacking wall tops carrying the
+             source-select tray's floor, the floor stratum one stack gap
+             below its own floor. Holders TBD (held).
   * Zone B (the band above the cold core): the electronics shelf lying
              flat on the foam-cap top in the band's front half — power
              assembly at −X, PCBA at +X, the DC distribution block behind
@@ -103,6 +109,7 @@ _hw = _repo / "hardware"
 FOAM_ASSEMBLY = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
 COMP_SHROUD   = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
 SOURCE_SELECT = _hw / "printed-parts" / "valve-manifold" / "source-select-tray" / "source-select-assembly.step"
+BAG_CIRCUIT   = _hw / "printed-parts" / "valve-manifold" / "bag-circuit-tray" / "bag-circuit-assembly.step"
 # AC/PSU tray — wide-shallow layout (PSU turned 90°).
 POWER_ASSEMBLY = _hw / "printed-parts" / "electronics" / "power-tray" / "power-assembly.step"
 PCBA_ASSEMBLY  = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-assembly.step"
@@ -120,10 +127,12 @@ IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 # factory filter-drier + capillary-tube subassembly brazed to its outlet and
 # kept in service (hardware/reference/ice-maker/README.md "Filter-drier" — the
 # small donor drier, NOT the shelf-spare Supco SUD8358): one harvested block,
-# so the drier is not packed as its own solid. Two dimensions match the
-# compressor envelope (face flush against the same shroud plane); the third
-# (airflow axis) is the fan + finstack stack depth, calipered [56 mm](CONDENSER_AIRFLOW)
-# combined.
+# so the drier is not packed as its own solid. The block lies tipped on its
+# back (a −90° turn about X): FACE_A (178, matching the compressor envelope)
+# runs along Y as the front block's depth, FACE_B (151) stands as the height —
+# topping out level with the compressor, so the whole column above the floor
+# stratum stays open. The airflow axis rides the tip unchanged: the fan +
+# finstack stack depth, calipered [56 mm](CONDENSER_AIRFLOW) combined, along X.
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # The funnel's placement: its collar-rect centre in plan, plus a rotation
 # about its own Z — the rectangular collar seats the opening either way, so
@@ -149,12 +158,22 @@ FUNNEL_ROT = 180.0
 # wall-to-wall; its +X elbows stop one wall clearance short of the foam's
 # edge.
 SRC_SEL_POS = (147.0, 78.3, 223.8)
+# The bag-circuit assembly's placement: local origin (cell centre, valve
+# mounting plane) in world, unrotated — the manifold's designed stack, one
+# tray pitch (bag_circuit_tray stack_pitch, the wall-top-to-floor module)
+# below the source-select assembly, so the source-select tray's floor lands
+# on this tray's column wall tops (the walls exist to carry it — a declared
+# contact). Unrotated, Y-E's bag branch faces aft toward the cold core's
+# reservoir-A port, Y-H's forward; the four outlet elbows turn up, well
+# under the tray above.
+BAG_CIRCUIT_POS = (SRC_SEL_POS[0], SRC_SEL_POS[1], SRC_SEL_POS[2] - 63.0)
 
 # Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it.
 # With the floor parts raised clear of the seam lip, the cold core pulls in to
-# just behind the condenser (the deepest front part), leaving only a small gap
-# ahead of the cold core.
-FRONT_DEPTH = 155.0
+# just behind the condenser (the deepest front part — the tipped donor block's
+# CONDENSER_FACE_A now runs as depth), leaving only a small gap ahead of the
+# cold core.
+FRONT_DEPTH = 182.0
 # The front pieces' corner ribs reach ~12.25 mm inboard from each side wall
 # (the boss chain: head counterbore + heat-set + cap). Front floor content set
 # against a side wall is inset this much, plus a gap, to clear them.
@@ -181,7 +200,7 @@ STACK_GAP = 2.5
 # assembly check intersects the real bodies). The shelf parts also stay
 # inset off the ±X walls (the Z-seam lip band hugs the walls at the
 # foam-top level, and the corner-boss chains reach ~14 in), and clear of
-# the CO2 top entry at (141.5, 172.8), which stays in open air.
+# the CO2 top entry at (141.5, 199.8), which stays in open air.
 # Every external connection penetrates the REAR wall (back_wall_ports
 # below), in the band above the cold core (the foam tops out at ~263; the
 # rear Z-seam lip band tops out at ~279) — their bodies hang in the band's
@@ -230,6 +249,7 @@ COLORS = {
     "condenser+fan":     cq.Color(0.78, 0.55, 0.35),
     "mq6-sensor":        cq.Color(0.30, 0.45, 0.85),
     "source-select-assembly": cq.Color(0.60, 0.40, 0.70),
+    "bag-circuit-assembly":   cq.Color(0.35, 0.62, 0.55),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "dc-dist":           cq.Color(0.20, 0.20, 0.22),
@@ -279,19 +299,22 @@ def build():
     # and ahead of it). Its −Y service/dispense ports face forward.
     placed["foam-assembly"] = _at(foam, 0.0, FRONT_DEPTH, FOAM_CORNER_LIFT)
 
-    # --- Floor: compressor shroud front-left, condenser/fan as a panel
-    # front-right (airflow axis across X), both inset from their side walls to
-    # clear the front pieces' corner ribs. The donor's factory filter-drier
-    # rides the condenser block (brazed to its outlet), not packed separately;
-    # the MQ-6 sits on the floor between the compressor and the cold core, low,
-    # where leaked isobutane pools.
+    # --- Floor: compressor shroud front-left, condenser/fan front-right,
+    # tipped on its back (airflow axis still across X): the donor block's
+    # FACE_A dimension runs along Y — the front block is as deep as it — and
+    # FACE_B stands as the height, level with the compressor top, leaving the
+    # whole front column above the floor stratum open. Both inset from their
+    # side walls to clear the front pieces' corner ribs. The donor's factory
+    # filter-drier rides the condenser block (brazed to its outlet), not packed
+    # separately; the MQ-6 sits on the floor between the compressor and the
+    # cold core, low, where leaked isobutane pools.
     # −90° about Z so the shroud's single copper-bearing face (native −X) points +Y,
     # toward the foam/cold-core it mates to — not −Y toward the removable front shell.
     # The AC gland (native +Y) then faces +X, into the inter-part channel. Same 178×133×151
     # footprint either way (a Z-rotation of the box), so the pack is unchanged.
     comp = _rot(_load(COMP_SHROUD), (0, 0, 1), -90.0)
     placed["compressor-shroud"] = _at(comp, SIDE_RIB_INSET, 0.0, SEAM_CLEAR_LIFT)
-    cond = _box(CONDENSER_AIRFLOW, CONDENSER_FACE_B, CONDENSER_FACE_A)  # 56 x 151 x 178
+    cond = _box(CONDENSER_AIRFLOW, CONDENSER_FACE_A, CONDENSER_FACE_B)  # the tipped block
     placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW - SIDE_RIB_INSET, 0.0, SEAM_CLEAR_LIFT)
     placed["mq6-sensor"] = _at(_load(MQ6_STEP), 100.0, 134.0, SEAM_CLEAR_LIFT)
 
@@ -305,17 +328,25 @@ def build():
     # scorecard's `near`/`clear` placement rules against the real solids.
     placed["source-select-assembly"] = _rot(_load(SOURCE_SELECT), (0, 0, 1), 180.0).translate(SRC_SEL_POS)
 
+    # One tray pitch below it, the bag-circuit assembly (Tray 2 — V-E/V-F/
+    # V-H/V-I + Tees Y-E/Y-H on the dog-bone tray, outlet elbows turned +Z,
+    # bag branches outward along ±Y through the hug-wall notches): the
+    # manifold's designed stack — the source-select tray's floor rests on
+    # this tray's column wall tops (a declared contact), and the floor
+    # stratum below stays one stack gap open under its own floor.
+    placed["bag-circuit-assembly"] = _load(BAG_CIRCUIT).translate(BAG_CIRCUIT_POS)
+
     # --- Zone B, the band above the cold core: the electronics shelf lying
     # flat on the foam-cap top, tray/board planes horizontal, everything in
     # the band's front half (so the rear-wall port bodies hang in open air
     # behind it) — the power assembly at −X on the
     # C14's column, the PCBA beside it at +X, the DC distribution block
     # behind the power row. The power row starts behind the CO2 top entry
-    # at (141.5, 172.8), which stays open to the tube dropping into it.
+    # at (141.5, 199.8), which stays open to the tube dropping into it.
     shelf_z = foam_top + STACK_GAP
-    placed["power-tray"] = _at(_load(POWER_ASSEMBLY), 24.0, 185.0, shelf_z)
-    placed["pcba"]       = _at(_load(PCBA_ASSEMBLY), 185.0, 165.0, shelf_z)
-    placed["dc-dist"]    = _at(_load(DC_DIST), 24.0, 265.0, shelf_z)
+    placed["power-tray"] = _at(_load(POWER_ASSEMBLY), 24.0, 212.0, shelf_z)
+    placed["pcba"]       = _at(_load(PCBA_ASSEMBLY), 185.0, 192.0, shelf_z)
+    placed["dc-dist"]    = _at(_load(DC_DIST), 24.0, 292.0, shelf_z)
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
 

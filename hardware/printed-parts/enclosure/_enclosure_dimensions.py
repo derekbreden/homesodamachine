@@ -26,11 +26,11 @@ from docgen import substitute_md
 APPLIANCE_W = outer_shell_x_length
 
 # Zone D (front-bottom) lives in front of the foam shell; its depth (the
-# condenser + the gap ahead of the foam) mirrors
+# tipped condenser + the gap ahead of the foam) mirrors
 # enclosure-assembly/_contents.py FRONT_DEPTH. The foam shell seats against
 # the rear wall — the band above it carries the electronics shelf and the
 # port bodies — so front block + shell + two walls make the appliance depth.
-FRONT_DEPTH = 155.0
+FRONT_DEPTH = 182.0
 WALL = 3.0
 APPLIANCE_D = FRONT_DEPTH + outer_shell_y_length + 2.0 * WALL
 

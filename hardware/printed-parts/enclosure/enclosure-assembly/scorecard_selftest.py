@@ -138,8 +138,9 @@ def test_placement() -> None:
     check("a near rule against an absent neighbor reads as NOT placed", bool(mrow) and not mrow[1],
           "missing display must not pass")
 
-    # The part-to-part `clear` (keep-out) form — no component carries one today, so it is
-    # proven through an injected probe rule; the form must fire before a design leans on it.
+    # The part-to-part `clear` (keep-out) form — proven through an injected probe rule,
+    # independent of the pack rules that lean on it (the bag-circuit assembly's floor-stratum
+    # keep-outs), so the proof never rides the current pack's numbers.
     print("placed (part-to-part `clear` keep-out fires)")
     sc.PLACEMENT_RULES["clear-probe"] = [("clear", "display", 7.0)]
     try:
