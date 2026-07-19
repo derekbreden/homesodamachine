@@ -230,7 +230,8 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
 **Deferred — behind the focus:**
 
 - **routed** spans the fluid segments, the sealed refrigerant loop, and the electrical runs
-  (2/59 — the loop's discharge and liquid legs in copper). Paths are authored in
+  (4/59 — the loop's discharge and liquid legs in copper, and channel A's pump-inlet run
+  between the two placed trays). Paths are authored in
   [`_lines.py`](_lines.py) with the kit in [`_routing.py`](_routing.py); see
   [`tube-routing.md`](tube-routing.md). Most of the fluid path is blocked on the **two unplaced
   valve-manifold trays** (pump-inlet tees, nozzle-gates) and the deferred water deck — but

@@ -3,7 +3,7 @@
   "placed": 42,
   "located": 79,
   "shaped": 95,
-  "routed": 3,
+  "routed": 7,
   "held": 37,
   "checks": [
     {
@@ -175,12 +175,13 @@
       "label": "Connections modeled as real 3D paths (fluid + refrigerant + electrical)",
       "kind": "goal",
       "status": "warn",
-      "value": "3% (2/59)",
+      "value": "7% (4/59)",
       "target": "100%",
       "detail": [
-        "28 fluid + 3 refrigerant + 28 electrical; 2 routed \u2014 the fluid path waits on the deferred trays (pump-inlet tees, nozzle-gates) and the pumps/water deck, the electrical runs on the components being held",
+        "28 fluid + 3 refrigerant + 28 electrical; 4 routed \u2014 the fluid path waits on the deferred trays (pump-inlet tees, nozzle-gates) and the pumps/water deck, the electrical runs on the components being held",
         "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7",
         "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 289.7 mm, 4 bends at R12.7",
+        "\u2713 fluid-9+10: bag-circuit-assembly.V-E-O \u2192 source-select-assembly.V-C-O \u2014 \u00d86.35 \u00d7 165.2 mm, 5 bends at R12.7",
         "\u2717 refrig-3: BLOCKED \u2014 foam-assembly.evap-outlet \u2192 compressor-shroud.refrig-suction: the evap-outlet exits \u2212Y at (141.5, 182, 191), inside the tray stack's band. The bag-circuit assembly, pressed with the stack to the cold core, reaches y 172.8 (aft walls; valves to 169.8, Tee branch to 172.7) across z 157.8\u2013220.8, leaving 9.2 mm of free corridor off the cold-core face \u2014 less than the 12.7 mm exit stub \u2014 and every drop/cross window inside the band is occupied (valve bodies x 67.9\u2013126.9 and 167.1\u2013226.1, the Y-E branch at x 140.1\u2013153.9 z 162\u2013176, the bridge floor below). The leg waits on a chimney through the stack, a stack move, or an evap-outlet port move."
       ],
       "active": false
@@ -714,8 +715,8 @@
       "name": "V-F-I",
       "kind": "fluid",
       "pos": [
-        48.37,
-        152.68,
+        245.63,
+        118.42,
         191.66
       ],
       "face": "z+",
@@ -729,8 +730,8 @@
       "name": "V-I-I",
       "kind": "fluid",
       "pos": [
-        48.37,
-        118.43,
+        245.63,
+        152.67,
         191.66
       ],
       "face": "z+",
@@ -744,8 +745,8 @@
       "name": "V-E-O",
       "kind": "fluid",
       "pos": [
-        245.63,
-        152.68,
+        48.37,
+        118.42,
         191.66
       ],
       "face": "z+",
@@ -759,8 +760,8 @@
       "name": "V-H-O",
       "kind": "fluid",
       "pos": [
-        245.63,
-        118.43,
+        48.37,
+        152.67,
         191.66
       ],
       "face": "z+",
@@ -775,14 +776,14 @@
       "kind": "fluid",
       "pos": [
         147.0,
-        172.74,
+        98.36,
         172.1
       ],
-      "face": "y+",
+      "face": "y-",
       "diam": 6.35,
       "mates": "Bag A port \u2014 foam-assembly reservoir-A line, segment 15",
       "status": "ok",
-      "note": "Tee branch collet, 1/4\" tube, aft through the hug-wall notch"
+      "note": "Tee branch collet, 1/4\" tube, forward through the hug-wall notch"
     },
     {
       "component": "bag-circuit-assembly",
@@ -790,14 +791,14 @@
       "kind": "fluid",
       "pos": [
         147.0,
-        98.36,
+        172.74,
         172.1
       ],
-      "face": "y-",
+      "face": "y+",
       "diam": 6.35,
       "mates": "Bag B port \u2014 foam-assembly reservoir-B line, segment 25",
       "status": "ok",
-      "note": "Tee branch collet, 1/4\" tube, forward through the hug-wall notch"
+      "note": "Tee branch collet, 1/4\" tube, aft through the hug-wall notch"
     },
     {
       "component": "pump-a",
@@ -1180,42 +1181,10 @@
       "component": "bag-circuit-assembly",
       "boxes": [
         [
-          67.93,
-          101.3,
-          160.8,
-          126.93,
-          135.55,
-          217.4
-        ],
-        [
-          126.934,
-          98.359,
-          165.242,
-          167.066,
-          125.283,
-          178.958
-        ],
-        [
-          226.072,
-          145.309,
-          164.734,
-          252.996,
-          160.041,
-          191.658
-        ],
-        [
-          41.004,
-          145.309,
-          164.734,
-          67.928,
-          160.041,
-          191.658
-        ],
-        [
-          67.93,
+          167.07,
           135.55,
           160.8,
-          126.93,
+          226.07,
           169.8,
           217.4
         ],
@@ -1228,11 +1197,43 @@
           178.958
         ],
         [
+          41.004,
+          111.059,
+          164.734,
+          67.928,
+          125.791,
+          191.658
+        ],
+        [
+          226.072,
+          111.059,
+          164.734,
+          252.996,
+          125.791,
+          191.658
+        ],
+        [
           167.07,
-          135.55,
+          101.3,
           160.8,
           226.07,
-          169.8,
+          135.55,
+          217.4
+        ],
+        [
+          126.934,
+          98.359,
+          165.242,
+          167.066,
+          125.283,
+          178.958
+        ],
+        [
+          67.93,
+          101.3,
+          160.8,
+          126.93,
+          135.55,
           217.4
         ],
         [
@@ -1244,27 +1245,27 @@
           220.8
         ],
         [
-          226.072,
-          111.059,
-          164.734,
-          252.996,
-          125.791,
-          191.658
-        ],
-        [
           41.004,
-          111.059,
+          145.309,
           164.734,
           67.928,
-          125.791,
+          160.041,
           191.658
         ],
         [
-          167.07,
-          101.3,
-          160.8,
-          226.07,
+          226.072,
+          145.309,
+          164.734,
+          252.996,
+          160.041,
+          191.658
+        ],
+        [
+          67.93,
           135.55,
+          160.8,
+          126.93,
+          169.8,
           217.4
         ]
       ],

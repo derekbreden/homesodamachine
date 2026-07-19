@@ -46,6 +46,13 @@ own approach stub. Each guard has a defect and a control in
 Connections the pack does not carry, each recorded with the measurement that blocks it. They stay
 counted against the `routed` axis and print on every run.
 
+## `CARRIES`
+
+One run can answer for more than one connection. A union tee's two RUN ports face each other down
+a single straight path, so the segments butted into them are one piece of authored geometry — the
+run takes an id of its own (`fluid-9+10`) and `CARRIES` names the connections it satisfies. The
+fitting's station along the run is the tray's to pin, not the line's.
+
 ## Running it
 
 ```
