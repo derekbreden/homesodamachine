@@ -16,8 +16,8 @@ top to bottom,
     [3 mm](WALL) top wall at its top and hanging down into the reserve;
   * a shallow ramp from the bottom of that chute down to a round
     [6.35 mm](SPOUT_ID) spout (1/4", matching the pump tubing). The spout exits
-    into the open air above the tallest content below the mouth (read live — the
-    short bib/nozzle stack), with room left below for a tube/barb fitting; a
+    into the open air above the tallest content below the mouth (read live), with
+    room left below for a tube/barb fitting; a
     short flexible tube then carries the pour on to V-B. Like the Kitchen hopper,
     the spout does not land on V-B directly; the topology routes Hopper → V-B
     through the manifold.
@@ -57,7 +57,8 @@ spout_wall = 2.0        # spout wall at the tip
 spout_tube = 6.0        # straight spout tube below the ramp neck (the barb stub)
 # The spout exits HIGH above the content (the chute + short ramp set its height);
 # a flexible tube then carries the Ø6.35 exit the rest of the way down to V-B. Only
-# the short bib/nozzle stack sits below the mouth — the tall back trays end short of
+# the short nozzle-gate tray and the pump row sit below the mouth — the tall back
+# trays end short of
 # its −X edge — so the chute drops clear. build() verifies this against the real
 # solids.
 

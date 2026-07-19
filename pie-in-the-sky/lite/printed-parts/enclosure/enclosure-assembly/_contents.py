@@ -17,11 +17,9 @@ that +X strip:
     outlet elbows), laid on their sides, motor cylinders pointing -X into the
     bag-circuit tray's air gaps (lower motor in the floor band beneath the bag,
     upper motor in the bag's mid gap), heads at +X on the short-tray front.
-  * Back-right:  the two SHORT trays (bib-gate, nozzle-gate) STACKED into one
-    footprint, turned a quarter-turn (shallow in Y), backs on the split. Each tray
-    is linear (tees one end, elbows the other); nozzle is flipped end-for-end, the
-    small ELBOW ends interleaved (overlap STACK_OVERLAP in Z), the bulky tees at the
-    outer ends.
+  * Back-right:  the SHORT tray (nozzle-gate), turned a quarter-turn (shallow in
+    Y), back on the split. The tray is linear — tees one end, elbows the other —
+    and stands elbows-up on the floor lift.
   * Back-left:  the source-select tray stood vertical and turned a quarter-turn,
     its long footprint side along the back wall (wide in X, shallow in Y), back face
     on the split.
@@ -62,7 +60,6 @@ _VM = _hw / "printed-parts" / "valve-manifold"
 TRAY_STEPS = {
     "source-select": _VM / "source-select-tray" / "source-select-assembly.step",
     "bag-circuit":   _VM / "bag-circuit-tray"   / "bag-circuit-assembly.step",
-    "bib-gate":      _VM / "bib-gate-tray"      / "bib-gate-assembly.step",
     "nozzle-gate":   _VM / "nozzle-gate-tray"   / "nozzle-gate-assembly.step",
 }
 # The flavor pumps as full ASSEMBLIES — the Kamoer KPHM400 with its 90 deg outlet
@@ -94,20 +91,21 @@ FLOOR_LIFT = 14.0
 # at the front on the floor, motors pointing -X into the bag-circuit tray's air gaps.
 PUMP_HEAD_X = 164.0        # the pump heads' +X face
 PUMP_UPPER_ZMIN = 93.0     # upper pump zmin (its motor in the bag tray's ~z100-150 air gap)
-PUMP_TO_STACK_GAP = 1.0    # pump heads to the back-row (bib/nozzle) front (Y)
+PUMP_TO_STACK_GAP = 1.0    # pump heads to the back-row (nozzle-gate) front (Y)
 RES_FRONT_Y = 180.0        # split datum: back trays hang off it, seam rides on it
 RES_Y_PULL = 7.0           # reservoir front pulled forward of the datum (-Y); held back
                            # just enough to clear source-select's back fitting at the -X inset
 BAG_SOURCE_GAP = 1.0       # bag-circuit back to the source-select front (Y)
 BAG_Z_LIFT = 5.0           # bag-circuit raised this far above the floor lift
-# The short trays (bib, nozzle) STACK into one footprint at the back-right, turned a
-# quarter-turn (rot +90 about Z, shallow in Y), backs on the split. Each tray is
-# linear — tees at one end, ELBOWS at the other. bib stands elbows-up (rot +90 about
-# Y); nozzle is flipped end-for-end (rot -90 about Y), elbows down onto bib's, the
-# small ELBOW ends interleaved, the bulky tees at the outer ends.
-SHORT_X_MAX = 178.5        # short-tray stack right edge
+# The short tray (nozzle-gate) sits at the back-right, turned a quarter-turn
+# (rot +90 about Z, shallow in Y), back on the split. It is linear — tees at one
+# end, ELBOWS at the other — and stands elbows-up (rot +90 about Y) on the floor
+# lift, sharing the back band with source-select. Its X is set off source-select's
+# +X face, not off a fixed right edge: at the floor lift the two trays sit in the
+# same Z band, so the gap to source-select is the binding constraint and the open
+# strip is on the right.
+SHORT_TO_SRC_GAP = 1.0     # nozzle-gate left face to the source-select right face (X)
 SRC_X_INSET = 12.0         # source-select inset off the -X wall
-STACK_OVERLAP = 32.0       # nozzle drops this far into bib (Z); elbow ends interleave
 RES_TO_SPLIT_GAP = 1.0     # reservoir front behind the split (Y)
 POWER_AHEAD_OF_BAG = 2.0   # power-tray front ahead of the bag-circuit front (Y)
 # The +X strip, right of the reservoir. The logic tray stands vertical at the
@@ -136,7 +134,6 @@ RES_COLOR = cq.Color(0.60, 0.80, 1.00, 0.28)
 COLORS = {
     "source-select": cq.Color(0.45, 0.70, 0.45),  # green
     "bag-circuit":   cq.Color(0.90, 0.66, 0.32),  # amber
-    "bib-gate":      cq.Color(0.62, 0.47, 0.82),  # violet
     "nozzle-gate":   cq.Color(0.84, 0.42, 0.42),  # red
 }
 PUMP_COLORS = {
@@ -179,26 +176,21 @@ def build():
     res_front = RES_FRONT_Y
     split_front = res_front - RES_TO_SPLIT_GAP
 
-    # --- Back-right: bib-gate + nozzle-gate STACKED into one footprint, turned a
-    # quarter-turn (rot +90 about Z), backs on the split. bib elbows-up; nozzle
-    # flipped end-for-end (rot -90 about Y), its elbow end down onto bib's — the small
-    # ELBOW ends interleaved (overlap STACK_OVERLAP in Z), the bulky tees at the
-    # outer ends.
-    bib = _place(_rot(_rot(_load(TRAY_STEPS["bib-gate"]), (0, 1, 0), 90.0), (0, 0, 1), 90.0),
-                 xmax=SHORT_X_MAX, ymax=split_front, zmin=FLOOR_LIFT)
-    bibb = bib.BoundingBox()
-    noz = _place(_rot(_rot(_load(TRAY_STEPS["nozzle-gate"]), (0, 1, 0), -90.0), (0, 0, 1), 90.0),
-                 xmax=SHORT_X_MAX, ymax=split_front, zmin=bibb.zmax - STACK_OVERLAP)
-    placed["bib-gate"] = (bib, COLORS["bib-gate"])
-    placed["nozzle-gate"] = (noz, COLORS["nozzle-gate"])
-    stack_front = min(bibb.ymin, noz.BoundingBox().ymin)   # back-row front
-
     # --- Back-left: source-select stood vertical and turned a quarter-turn (rot +90
     # about Y, then -90 about Z), its long footprint side along the back wall (wide in
-    # X, shallow in Y), back face on the split.
+    # X, shallow in Y), back face on the split. It is placed FIRST: sharing the back
+    # band's floor lift, it is what the nozzle-gate tray's X stands off.
     src = _place(_rot(_rot(_load(TRAY_STEPS["source-select"]), (0, 1, 0), 90.0), (0, 0, 1), -90.0),
                  xmin=SRC_X_INSET, ymax=split_front, zmin=FLOOR_LIFT)
     placed["source-select"] = (src, COLORS["source-select"])
+
+    # --- Back-right: the nozzle-gate tray, turned a quarter-turn (rot +90 about Z),
+    # back on the split, standing elbows-up (rot +90 about Y) on the floor lift, its
+    # left face SHORT_TO_SRC_GAP off source-select's right.
+    noz = _place(_rot(_rot(_load(TRAY_STEPS["nozzle-gate"]), (0, 1, 0), 90.0), (0, 0, 1), 90.0),
+                 xmin=src.BoundingBox().xmax + SHORT_TO_SRC_GAP, ymax=split_front, zmin=FLOOR_LIFT)
+    placed["nozzle-gate"] = (noz, COLORS["nozzle-gate"])
+    stack_front = noz.BoundingBox().ymin                   # back-row front
 
     # --- Left column: bag-circuit stood vertical (rot +90 about Y), narrow in X in
     # the strip left of the pump motors, back BAG_SOURCE_GAP off the source-select

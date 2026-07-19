@@ -13,10 +13,6 @@ flowchart LR
   %%     flow-regulator role.
   %%   - Hopper is a TOP-FILL POUR opening (printed enclosure part), not a tube port:
   %%     concentrate is poured in and routed through the manifold to fill the bags.
-  %%   - BiB is the COMMERCIAL-SYRUP input -- a bag-in-box disconnect, one per channel
-  %%     (two distinct syrups). It dispenses DIRECT: BiB -> pump -> nozzle, no bag
-  %%     pre-load (an operations change: open the nozzle gate, not the bag-fill gate).
-  %%     Same edges as the integrated build.
   %%
   %% Edge color = tube material:
   %%   green = clear NSF-51 PVC — the runs the user reads through the transparent
@@ -25,9 +21,9 @@ flowchart LR
   %%   grey  = JG push-to-connect on LLDPE — hidden manifold routing
   %%   blue  = external source side at the enclosure boundary, up to its port. The
   %%           mechanism varies: Lillium is the customer's push-connect water line
-  %%           into the flow-control bulkhead; each BiB is a commercial syrup bag on a
-  %%           Supply Depot disconnect; the Hopper is a manual top-fill pour. Past the
-  %%           boundary the run becomes green (clear PVC) on the way to the manifold
+  %%           into the flow-control bulkhead; the Hopper is a manual top-fill pour.
+  %%           Past the boundary the run becomes green (clear PVC) on the way to
+  %%           the manifold
   %% Clear runs join the PTC manifold with a neoFit stem-barb (ATBC44-E, 1/4" stem
   %% x 1/4" barb): the stem pushes into each valve / Y port -- and into the Lillium
   %% flow-control bulkhead's inner port -- and the soft PVC rides the barb.
@@ -35,25 +31,20 @@ flowchart LR
   %% Candidate parts: PVCA-0406 clear PVC (1/4" ID x 3/8" OD, NSF-51) on the green runs;
   %% black 1/4" OD LLDPE (neoFlo LLDPE4-BLACK) on the grey internal hops; neoFit ATBC44-E
   %% stem-barb (1/4" stem x 1/4" barb) at each takeoff; JG PP2308E Y-dividers (Y-A/B)
-  %% + JG PP0208E union tees (the other 8 junctions);
+  %% + JG PP0208E union tees (the other 6 junctions);
   %% Beduan 1/4" PTC valves; neoFit ABCVU44-E flow-control bulkhead on the Lillium feed.
-  %% Hopper is a printed top-fill opening; each BiB is a Supply Depot commercial-syrup
-  %% disconnect stepped 3/8->1/4 to clear PVC (one per channel).
+  %% Hopper is a printed top-fill opening.
   %% Open: pump loops are clear only if the pump is visible.
   %% =====================================================================
 
   subgraph Sources["Sources"]
     Lillium["Lillium (clean water)"]
     Hopper["Hopper (top-fill, poured concentrate)"]
-    BiBA["BiB A (commercial syrup)"]
-    BiBB["BiB B (commercial syrup)"]
   end
 
   subgraph EnclosureWall["Enclosure boundary"]
     PortLillium(["Lillium flow-control bulkhead"])
     PortHopper(["Hopper outlet (barb)"])
-    PortBiBA(["BiB A disconnect (Supply Depot)"])
-    PortBiBB(["BiB B disconnect (Supply Depot)"])
   end
 
   subgraph Pumps["Pumps"]
@@ -81,10 +72,6 @@ flowchart LR
       YB{{"Y-B"}}
       VC["V-C"]
       VD["V-D"]
-      VKA["V-K-A"]
-      VKB["V-K-B"]
-      YKA{{"Y-KA"}}
-      YKB{{"Y-KB"}}
     end
 
     subgraph MfPumps["Pump Junctions"]
@@ -108,18 +95,14 @@ flowchart LR
       VI["V-I"]
     end
 
-    %% manifold-internal edges (PTC, grey) — indices 0-16
+    %% manifold-internal edges (PTC, grey) — indices 0-12
     VA --> YA
     VB --> YA
     YA --> YB
     YB --> VC
     YB --> VD
-    VC --> YKA
-    VKA --> YKA
-    VD --> YKB
-    VKB --> YKB
-    YKA --> YC
-    YKB --> YF
+    VC --> YC
+    VD --> YF
     YD --> VG
     YD --> VF
     YG --> VJ
@@ -128,7 +111,7 @@ flowchart LR
     VH --> YF
 
     %% bag-circuit legs: each valve to its bag Y-junction, hidden PTC routing
-    %% (grey) — indices 17-20. (Only the Y-junction-to-bag run is clear.)
+    %% (grey) — indices 13-16. (Only the Y-junction-to-bag run is clear.)
     VF --> YE
     YE --> VE
     VI --> YH
@@ -136,29 +119,25 @@ flowchart LR
   end
 
   %% Each source meets the enclosure boundary at its port (blue) — indices
-  %% 21,23,25,27 — by its own mechanism (Lillium push-connect line, BiB commercial-bag
-  %% disconnect, Hopper top-fill pour). Past the boundary the run becomes a clear PVC
-  %% tube on to its manifold valve (green) — indices 22,24,26,28.
+  %% 17,19 — by its own mechanism (Lillium push-connect line, Hopper top-fill
+  %% pour). Past the boundary the run becomes a clear PVC tube on to its
+  %% manifold valve (green) — indices 18,20.
   Lillium --> PortLillium
   PortLillium --> VA
   Hopper --> PortHopper
   PortHopper --> VB
-  BiBA --> PortBiBA
-  PortBiBA --> VKA
-  BiBB --> PortBiBB
-  PortBiBB --> VKB
 
-  %% pump loops (clear PVC, optional) — indices 29-32
+  %% pump loops (clear PVC, optional) — indices 21-24
   YC --> PA
   PA --> YD
   YF --> PB
   PB --> YG
 
-  %% bag runs (clear PVC) — indices 33-34
+  %% bag runs (clear PVC) — indices 25-26
   YE <--> BagA
   YH <--> BagB
 
-  %% nozzle lines (clear PVC) — indices 35-36
+  %% nozzle lines (clear PVC) — indices 27-28
   VG --> NozzleA
   VJ --> NozzleB
 
@@ -166,13 +145,13 @@ flowchart LR
   %% Edge styling (tube material)
   %% =========================
   %% PTC on LLDPE — hidden manifold routing
-  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 stroke:#888,stroke-width:2px
+  linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 stroke:#888,stroke-width:2px
   %% Clear NSF-51 PVC — visible runs + each wall-port-to-valve clear run
-  linkStyle 22,24,26,28,29,30,31,32,33,34,35,36 stroke:#2ca02c,stroke-width:3px
+  linkStyle 18,20,21,22,23,24,25,26,27,28 stroke:#2ca02c,stroke-width:3px
   %% Customer push-connect — external stub from each source to its enclosure-wall port
-  linkStyle 21,23,25,27 stroke:#09f,stroke-width:2px
+  linkStyle 17,19 stroke:#09f,stroke-width:2px
 
-  %% Junction geometry: Y-A/Y-B are PP2308E Y-dividers; the other eight are
+  %% Junction geometry: Y-A/Y-B are PP2308E Y-dividers; the other six are
   %% PP0208E Tees. Orange = Tee.
   classDef tee fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
-  class YC,YD,YE,YF,YG,YH,YKA,YKB tee;
+  class YC,YD,YE,YF,YG,YH tee;
