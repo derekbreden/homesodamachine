@@ -296,6 +296,12 @@ const R19f = frame(R19El), R20f = frame(R20El)
 const U4El = <Tbd62083 name="U4" x={-0.75} y={9.9} rot={270} />
 const U5El = <Tbd62083 name="U5" x={-0.5} y={-7.35} rot={270} />
 const U4f = frame(U4El), U5f = frame(U5El)
+// The board carries 12 valve channels (J1 ×8 + J2 ×4); the fluid topology
+// (hardware/topology/fluid-topology.md) uses 10 — V-A..V-H on MANIFOLD A,
+// V-I/V-J on J2.OUT1/OUT2. J2.OUT3 / J2.OUT4 are fully routed (U5 ch 3/4,
+// off MCP 0x21 PA[5]/PA[4]) but land on no valve: spare capacity, not a
+// missing connection. Keep them driven-capable; the harness leaves them
+// unpopulated (hardware/assembly/cable-assemblies.md).
 const J1El = <Jst name="J1" x={11} y={16.48} count={9} labels={[...ulnOUT].reverse()} label="MANIFOLD A" rot={270} />
 const J2El = <Jst name="J2" x={11} y={-5.77} count={6} labels={["COM", "FAN", "OUT4", "OUT3", "OUT2", "OUT1"]} label="MANIFOLD B" rot={270} />
 const J6El = <Jst name="J6" x={-27.1} y={31} count={5} labels={["GND", "RA4", "RA3", "RA2", "RA1"]} label="REEDS A" rot={0} />
