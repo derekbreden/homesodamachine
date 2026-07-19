@@ -162,18 +162,28 @@ z_joint_back = 266.0
 # telescopes never share a wall surface.
 z_lip_y_margin = 2.0
 # The manifold's aft-station elbow columns stand against both side walls —
-# the source tray's V-D/V-A pair low and the inverted bag tray's V-H/V-I pair
-# high, the bag tray's west elbow body reaching forward to y 147.1 at the boss
-# chains' x, spanning the back seam machinery's height. Every wall-hugging
-# aft-reaching feature — the Y-seam plugs and pods (via _dims' y_elbows cap on
-# y_joint), the back corner braces, and the back Z-lip's +X segment — stops one
-# margin ahead of them.
+# the source tray's V-D/V-A pair low and the inverted bag tray's V-H high,
+# its west elbow body reaching forward to y 147.1 at the boss chains' x,
+# spanning the back seam machinery's height. Every wall-hugging aft-reaching
+# feature — the Y-seam plugs and pods (via _dims' y_elbows cap on y_joint),
+# the back corner braces, and the back Z-lip's +X segment — stops one margin
+# ahead of them.
 manifold_aft_wall_clear = 146.0
 # The source-select tray floors the stack and spans the interior wall to wall,
 # so its east bank stands against the +X wall inside the front Z-seam's lip
 # band. The lip gaps over the forward station's span, where the valve body and
 # its elbow cross; the aft station sits clear of the band on its own.
 manifold_fwd_wall_gap = (93.0, 105.0)
+# The nozzle-gate tray rides the pocket against the +X wall on the stack's
+# second story, its bare valve port fittings reaching within a couple of
+# millimetres of the wall. Two east-wall accommodations follow: the front
+# Y-seam lip gaps over the z-band where V-G's outer port crosses it (the seam
+# still pins at the corners, as the funnel span's larger top-wall relief
+# already establishes), and the back column's bottom-east Z-pod pulls its aft
+# face ahead of V-J's port fitting (the pin bore stays capped; its aft wall
+# thins past the bore edge).
+manifold_gate_lip_gap = (268.0, 285.0)   # z-band of the front Y-lip's +X gap
+manifold_gate_pod_aft = 144.4            # bottom-east Z-pod aft face (y)
 
 
 # --- primitives -------------------------------------------------------------
@@ -635,7 +645,11 @@ def _front_lip(inner, y_joint):
         _ybox(ix0 + wall, ix1 - wall, y0 + wall, y1 + 1.0, iz0 + wall, iz1 - wall),
         corner_round - 2.0 * wall,
     )
-    return outer.cut(flare.fuse(inner_box))
+    lip = outer.cut(flare.fuse(inner_box))
+    # The nozzle-gate tray's V-G outer port crosses the band at the +X wall —
+    # gap the segment over its z-band (manifold_gate_lip_gap).
+    return lip.cut(_ybox(ix1 - wall - 1.0, ix1 + 1.0, y0 - 1.0, y1 + 1.0,
+                         *manifold_gate_lip_gap))
 
 
 # Boss Y position — one value feeds the plug AND the socket, so they are
@@ -693,8 +707,11 @@ def _z_lip(inner, y_joint, zj):
                 z0 - 1.0, z1 + 1.0)
     ring = ring.cut(gap)
     if zj == z_joint_back:
+        # The +X window opens at the same face the bottom-east Z-pod pulls to
+        # (manifold_gate_pod_aft): V-J's port fitting crosses the band just
+        # ahead of the aft elbow column the window already clears.
         ring = ring.cut(_ybox(ix1 - wall - 1.0, ix1 + 1.0,
-                              manifold_aft_wall_clear, manifold_aft_wall_clear + 19.2,
+                              manifold_gate_pod_aft, manifold_aft_wall_clear + 19.2,
                               z0 - 1.0, z1 + 1.0))
     else:
         ring = ring.cut(_ybox(ix1 - wall - 1.0, ix1 + 1.0,
@@ -716,6 +733,11 @@ def _z_pod(x_in, x_ext, sx, ys, col, y_joint, inner, zj):
         ya, yb = iy0, ys + socket_r
     else:
         ya, yb = y_joint + lip_len + z_lip_y_margin, ys + socket_r
+        if sx < 0 and zj == z_joint_back:
+            # V-J's port fitting stands just aft of this pod — pull the aft
+            # face ahead of it (manifold_gate_pod_aft; the pin bore stays
+            # capped, its aft wall thinned past the bore edge).
+            yb = min(yb, manifold_gate_pod_aft)
     return _ybox(xa, xb, ya, yb, za, zb)
 
 

@@ -1,12 +1,14 @@
 flowchart LR
 
-  %% Valve-manifold fluid topology grouped by physical tray. Each box is a tray;
-  %% the nodes inside are the valves and junction fittings it carries. Hexagons
-  %% are Y-dividers; orange nodes are Tees (in-line run + branch). Blue links are
-  %% on-tray; gray links run between trays. Source, pump, bag, and nozzle
-  %% endpoints are omitted — this is the condensed view; fluid-topology-manifold.mmd
-  %% is the complete one, every endpoint present and every edge labelled with its
-  %% route ID.
+  %% Valve-manifold fluid topology grouped by physical carrier. Each box is a
+  %% printed tray or a tube-hung fitting group; the nodes inside are the valves
+  %% and junction fittings it carries. Hexagons are Y-dividers; orange nodes are
+  %% Tees (in-line run + branch). Blue links are on-tray seats; gray links run
+  %% between carriers. The pump-discharge tees (Y-D/Y-G) are not yet placed —
+  %% their group names the gap, not a carrier. Source, pump, bag, and nozzle
+  %% endpoints are omitted — this is the condensed view; the complete chart is
+  %% fluid-topology-manifold.mmd, every endpoint present and every edge
+  %% labelled with its route ID.
 
   subgraph Tray1["Tray 1 — Source Select"]
     VA["V-A"]
@@ -26,19 +28,22 @@ flowchart LR
     YH{{"Y-H"}}
   end
 
-  subgraph Tray3["Tray 3 — Pump-Inlet Tees"]
+  subgraph Tray3["Tray 3 — Nozzle Gate"]
+    VG["V-G"]
+    VJ["V-J"]
+  end
+
+  subgraph Junction["Junction column — tube-hung"]
     YC{{"Y-C"}}
     YF{{"Y-F"}}
   end
 
-  subgraph Tray4["Tray 4 — Nozzle Gates"]
-    VG["V-G"]
-    VJ["V-J"]
+  subgraph Discharge["Pump-discharge tees — not yet placed"]
     YD{{"Y-D"}}
     YG{{"Y-G"}}
   end
 
-  %% ---- On-tray seats (blue, links 0-10) ----
+  %% ---- On-tray seats (blue, links 0-8) ----
   VA --> YA
   VB --> YA
   YA --> YB
@@ -48,19 +53,19 @@ flowchart LR
   YE --> VE
   VI --> YH
   YH --> VH
-  YD --> VG
-  YG --> VJ
 
-  %% ---- Between trays (gray, links 11-16) ----
+  %% ---- Between carriers (gray, links 9-16) ----
   VC --> YC
   VD --> YF
   VE --> YC
   VH --> YF
   YD --> VF
   YG --> VI
+  YD --> VG
+  YG --> VJ
 
   %% ---- Styling ----
   classDef tee fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
   class YE,YH,YC,YF,YD,YG tee;
-  linkStyle 0,1,2,3,4,5,6,7,8,9,10 stroke:#09f,stroke-width:2px
-  linkStyle 11,12,13,14,15,16 stroke:#888,stroke-width:2px
+  linkStyle 0,1,2,3,4,5,6,7,8 stroke:#09f,stroke-width:2px
+  linkStyle 9,10,11,12,13,14,15,16 stroke:#888,stroke-width:2px

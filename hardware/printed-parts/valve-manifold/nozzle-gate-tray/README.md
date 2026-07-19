@@ -1,39 +1,39 @@
-# Nozzle-gate tray (2 valves + 2 Tees)
+# Nozzle-gate tray (2 valves)
 
-The [fluid-topology](/hardware/topology/fluid-topology.md) nozzle gates: a Tee
-on each row carries V-G / V-J.
+The [fluid-topology](/hardware/topology/fluid-topology.md) nozzle gates —
+V-G / V-J — as a bare two-valve tray.
 
 ```
-   V-G ●╲ Y-D       Y-D branch butts V-G; run swung about X
-   V-J ●╲ Y-G       Y-G branch butts V-J; run swung about X
+   V-G ●    inner port ← Y-D (deferred) · outer port → Nozzle A
+   V-J ●    inner port ← Y-G (deferred) · outer port → Nozzle B
 ```
 
 ## Arrangement
 
-One valve column — **V-G over V-J**, butted, ports along X, no tilt — meets a
-**Tee** on each row. Each Tee plugs its **branch into its valve's inner port** —
-the run no longer butts the valve — then both runs swing the same way about their
-branch (X) axes (parallel), tilted **~64° from vertical** so the lower run port
-stays clear of the tray underside (a mirror would overlap the two inner run
-ports). An **elbow** on each valve's outer (−X nozzle-outlet) port turns that
-line +Z up out of the tray. Valve placement, the Tee placers, and the tray
-builder are shared with the
-[bag-circuit tray](/hardware/printed-parts/valve-manifold/bag-circuit-tray/) via `build_tray`.
+One valve column — **V-G and V-J butted on the two channel rows**, ports along
+X, no tilt — and nothing else: the pump-discharge tees (Y-D / Y-G) that feed
+the inner ports are the enclosure's to pack, and every port runs bare until
+its line lands. The enclosure hangs the tray **INVERTED** (180° about Y, like
+the bag-circuit tray) in the pocket east of the bag assembly, so the inner
+ports face west at the bag tray's own port plane and the outer
+(nozzle-outlet) ports face east. The inverted hang keeps local Y, so V-G
+rides the −Y row (world channel A, forward, beside V-F) and V-J rides +Y.
+Valve placement, the tray builder, and the bare-port accessor's constants are
+shared with the
+[bag-circuit tray](/hardware/printed-parts/valve-manifold/bag-circuit-tray/)
+via `build_tray`.
 
-Origin = cell center, Z = 0 the mounting plane, ports at Z = [11.3](PORT_Z). The four
-bodies are clash-free.
+Origin = cell center, Z = 0 the mounting plane, ports at Z = [11.3](PORT_Z).
 
 ## The tray
 
 A frame plate (Z [-3](TRAY_BOT_Z) → [6](TRAY_TOP_Z)), **[38](NOZ_PLATE_W) × [74](NOZ_PLATE_D) × [63](STACK_PITCH) mm**, hugging the single
 −X valve column with a **solid floor**: one valve cradle (four sockets + a port
-saddle). The Tees still seat in the assembly, but the tray no longer floors or
-grooves them — the floor carries only the valve cradle. Two **side
-walls** (±Y) rise to Z = [60](WALL_TOP_Z) for a **[63](STACK_PITCH) mm stack pitch**; the X-ends stay
-open for the ports and the outlet elbows.
+saddle). Two **side walls** (±Y) rise to Z = [60](WALL_TOP_Z) for a **[63](STACK_PITCH) mm stack pitch**;
+the X-ends stay open for the ports.
 
 `nozzle_gate_tray.py` → `nozzle-gate-tray.step`; `nozzle_gate_assembly.py` →
-`nozzle-gate-assembly.step` (tray + valves + Tees seated). Regenerate with
+`nozzle-gate-assembly.step` (tray + valves seated). Regenerate with
 `tools/cad-venv/bin/python <script>`.
 
 ## Sources
