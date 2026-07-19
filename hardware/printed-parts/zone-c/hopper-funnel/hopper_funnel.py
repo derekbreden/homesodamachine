@@ -16,12 +16,12 @@ Top to bottom:
     the 3 mm top wall at its top and hanging on down into the box;
   * a shallow ramp from the bottom of that chute down to a 1/4" round spout —
     the whole floor is the ramp, every surface of it falling toward the
-    spout, so the basin drains dry. The spout is offset in +X (neck_dx),
-    descending into the V-gap between the source-select assembly's east
-    valves, and stops ABOVE V-B's up-facing inlet collet nearby — the drain
-    must feed V-B by a falling tube (segment 4 is the gravity drain and the
-    air-purge path; it may not rise). The steep east ramp also sheds syrup
-    toward the drain instead of pooling.
+    spout, so the basin drains dry. The spout is offset off the collar
+    centre (neck_dx); the placement's FUNNEL_ROT picks which side of the
+    box it descends. The drain must feed V-B by a falling tube (segment 4
+    is the gravity drain and the air-purge path; it may not rise), and the
+    offset makes the drain-side ramp steep, shedding syrup instead of
+    pooling.
 
 Capacity to the brim is printed at export and runs past a full 440 mL
 SodaStream bottle.
@@ -46,17 +46,16 @@ brim_overhang = 3.0     # brim flange reach past the collar, all around
 brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 chute_h = 30.0          # straight rectangular chute height — brim top down to the ramp start
-neck_dx = 54.0          # neck (ramp foot + spout) shift in X off the collar center:
-                        # east, into the V-gap between the source-select assembly's
-                        # east valves, a short falling tube run from V-B's collet
+neck_dx = 54.0          # neck (ramp foot + spout) shift in X off the collar center;
+                        # the placement's FUNNEL_ROT picks which side of the box
+                        # the drop lands
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
 spout_tube = 6.0        # straight spout tube below the ramp tip
 drop = 79.0             # brim underside (z 0) down to the spout exit — deep enough
-                        # that the ramp runs steep and the drain sits ~25 mm above
-                        # V-B's collet (fall to spare for the segment-4 tube), while
-                        # the spout keeps working clearance in the V-gap below (the
-                        # enclosure scorecard measures the real-solid gap)
+                        # that the ramp runs steep and the drain keeps fall to spare
+                        # over V-B's collet (the enclosure scorecard measures the
+                        # real-solid gaps below the spout)
 
 # The drain, in the funnel's own frame: the spout exit annulus center. World
 # position = this + the funnel's placement; it rides the part.

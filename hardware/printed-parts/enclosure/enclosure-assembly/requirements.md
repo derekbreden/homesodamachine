@@ -54,11 +54,10 @@ gray) until the focus is met:
   forms: **face-to-datum** — a body face within max_mm of the enclosure interior's same
   face ("foam Y+ within 1 mm of the back wall, Z- within 10 mm of the floor") —
   **part-to-part** (`near`) — the exact solid-to-solid gap to a named neighbor at most
-  max_mm, measured on the real shapes, not their boxes ("the funnel reaches into the
-  source-select assembly's east V-gap") — and **part-to-part keep-out** (`clear`) — that
-  gap at least min_mm, a working space held open on purpose ("the under-display channel
-  stays a channel"). "Against the back-bottom", "packed against the funnel", and "leaves
-  the channel", pinned to numbers. A component counts
+  max_mm, measured on the real shapes, not their boxes ("the assembly's wall tops ride
+  one clearance under the display body") — and **part-to-part keep-out** (`clear`) — that
+  gap at least min_mm, a working space held open on purpose. "Against the back-bottom",
+  "pressed to the display", and "leaves the channel", pinned to numbers. A component counts
   when it has rules *and* they hold; rules defined but violated are a visible drift; no
   rules yet is not-started. Rules are re-definable as the design iterates — authoring one,
   and holding it, are the milestones.

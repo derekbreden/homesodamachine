@@ -65,14 +65,14 @@ Strata, floor to ceiling:
              Tray 1 of the valve manifold (V-A, V-B, Y-A, Y-B, V-C, V-D on
              a printed tray, outlet elbows up) — hung spanning the front
              width, flipped so V-A/V-B and their up-facing inlet collets
-             sit on the EAST end where the funnel's spout descends into
-             the V-gap between them: the drain ends above V-B's collet
-             with fall to spare for the segment-4 gravity/purge tube. Its
-             wall tops stay below the display's lowest point, keeping the
-             under-display wedge open as the front-left utility channel
-             (display harness, CO2-chain crossing). The compressor and
-             condenser tops below it are open (the deferred water deck
-             returns there). Holder TBD (held).
+             sit on the EAST end under the funnel's high ramp, and raised
+             to the rise's physical cap: its front tall wall tops ride one
+             clearance under the display PCB body's low-front underside.
+             The rotated funnel's spout descends over the central valley;
+             the drain still falls to V-B's collet for the segment-4
+             gravity/purge tube. The compressor and condenser tops below
+             are open (the deferred water deck returns there). Holder TBD
+             (held).
   * Zone B (the band above the cold core): the electronics shelf lying
              flat on the foam-cap top in the band's front half — power
              assembly at −X, PCBA at +X, the DC distribution block behind
@@ -124,25 +124,32 @@ IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 # (airflow axis) is the fan + finstack stack depth, calipered [56 mm](CONDENSER_AIRFLOW)
 # combined.
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
-# The funnel's placement: its collar-rect centre in plan. The static funnel
-# (zone-c/hopper-funnel, local frame) seats here with its brim underside on
-# the box's outer top; enclosure.py cuts the top-wall opening from this same
-# centre + the funnel's own collar dims, and asserts the top-wall frame
-# (display gusset, corner pod, front ledge, Y-seam lip) accommodates it.
+# The funnel's placement: its collar-rect centre in plan, plus a rotation
+# about its own Z — the rectangular collar seats the opening either way, so
+# the rotation picks which side the spout descends. At 180° the spout drops
+# WEST of centre, over the source-select assembly's central valley, and the
+# ramp rises eastward over V-A/V-B. The static funnel (zone-c/hopper-funnel,
+# local frame) seats with its brim underside on the box's outer top;
+# enclosure.py cuts the top-wall opening from this same centre + the
+# funnel's own collar dims, and asserts the top-wall frame (display gusset,
+# corner pod, front ledge, Y-seam lip) accommodates it.
 FUNNEL_CX, FUNNEL_CY = 193.75, 63.3
+FUNNEL_ROT = 180.0
 # The source-select assembly's placement: local origin (cell centre, valve
 # mounting plane) in world, rotated 180° about Z. The flip puts V-A/V-B —
-# and their up-facing inlet collets — on the EAST end, under the funnel's
-# reach, so segment 4 (the gravity drain + air-purge path, the one line
-# that may not rise) falls from the funnel drain into V-B; the pressurized
-# tap line (segment 2) takes the long west run to V-A instead. The height
-# keeps the assembly's wall tops below the display's lowest point, holding
-# the whole under-display wedge open as the front-left utility channel
-# (display harness drop, CO2-chain crossing headroom) — the `clear` display
-# rule and the funnel `near` rule in the scorecard pin both choices. In X
-# the assembly (elbow tip to elbow tip) spans the interior wall-to-wall;
-# its +X elbows stop one wall clearance short of the foam's edge.
-SRC_SEL_POS = (147.0, 63.3, 200.0)
+# and their up-facing inlet collets — on the EAST end under the funnel's
+# high ramp, V-C/V-D west; the pressurized tap line (segment 2) takes the
+# long west run to V-A. The height is the rise's physical cap: the front
+# tall wall's top rides one clearance under the display PCB body's
+# low-front underside (the scorecard's `near display` rule pins it). The
+# funnel's rotated spout descends over the central valley; its ramp stands
+# off V-A's top-box edge by the gap the display cap leaves (the open
+# nesting question — closing it means moving the assembly out of the
+# display's low-front band, deepening the funnel to the divider crowns, or
+# reshaping a part). In X the assembly (elbow tip to elbow tip) spans the
+# interior wall-to-wall; its +X elbows stop one wall clearance short of
+# the foam's edge.
+SRC_SEL_POS = (147.0, 63.3, 208.9)
 
 # Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it.
 # With the floor parts raised clear of the seam lip, the cold core pulls in to
