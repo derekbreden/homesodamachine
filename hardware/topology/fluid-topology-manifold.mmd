@@ -1,5 +1,14 @@
 flowchart LR
 
+  %% The complete fluid topology: every valve, junction, and endpoint, with each
+  %% edge labelled by its route ID. A route is one numbered tube segment from the
+  %% Tube Segments tables in fluid-topology.md — the same fluid-1 … fluid-28 that
+  %% scorecard.py reads as the connection inventory the enclosure must carry and
+  %% that enclosure-assembly/_lines.py authors port to port. All 28 appear here
+  %% exactly once. Hexagons are Y-dividers; orange nodes are Tees (in-line run +
+  %% branch). The per-tray cut in fluid-topology-trays.mmd is the condensed view:
+  %% valves only, endpoints omitted.
+
   %% =========================
   %% Remote components
   %% =========================
@@ -61,44 +70,46 @@ flowchart LR
     end
 
     %% Source Selection connections
-    Reg --> VA
-    VA --> YA
-    VB --> YA
-    YA --> YB
-    YB --> VC
-    YB --> VD
+    Reg -->|"fluid-2"| VA
+    VA -->|"fluid-3"| YA
+    VB -->|"fluid-5"| YA
+    YA -->|"fluid-6"| YB
+    YB -->|"fluid-7"| VC
+    YB -->|"fluid-8"| VD
 
     %% Pump Junctions connections
-    VC --> YC
-    VD --> YF
-    YD --> VG
-    YD --> VF
-    YG --> VJ
-    YG --> VI
+    VC -->|"fluid-9"| YC
+    VD -->|"fluid-19"| YF
+    YD -->|"fluid-17"| VG
+    YD -->|"fluid-13"| VF
+    YG -->|"fluid-27"| VJ
+    YG -->|"fluid-23"| VI
 
     %% Bag Circuit connections
-    VE --> YC
-    VF --> YE
-    YE --> VE
-    VH --> YF
-    VI --> YH
-    YH --> VH
+    VE -->|"fluid-10"| YC
+    VF -->|"fluid-14"| YE
+    YE -->|"fluid-16"| VE
+    VH -->|"fluid-20"| YF
+    VI -->|"fluid-24"| YH
+    YH -->|"fluid-26"| VH
   end
 
   %% =========================
   %% Tube runs (manifold ↔ remote)
   %% =========================
-  Tap --> Reg
-  Hopper --> VB
+  Tap -->|"fluid-1"| Reg
+  Hopper -->|"fluid-4"| VB
 
-  YC --> PA --> YD
-  YF --> PB --> YG
+  YC -->|"fluid-11"| PA
+  PA -->|"fluid-12"| YD
+  YF -->|"fluid-21"| PB
+  PB -->|"fluid-22"| YG
 
-  YE <--> BagA
-  YH <--> BagB
+  YE <-->|"fluid-15"| BagA
+  YH <-->|"fluid-25"| BagB
 
-  VG --> NozzleA
-  VJ --> NozzleB
+  VG -->|"fluid-18"| NozzleA
+  VJ -->|"fluid-28"| NozzleB
 
   %% Manifold internals: blue. These edges are ZERO LENGTH — valve seats sit
   %% directly at the Y-junctions inside a single machined manifold block. There
