@@ -117,26 +117,23 @@ def test_placement() -> None:
     check("a drifted component reads as NOT placed", bool(drow) and not drow[1],
           "x- rule should break")
 
-    # The part-to-part `near` form: source-select-assembly is pinned by two `near` rules
-    # (funnel + display, each ≤ 1.5 mm). Both 1 away = placed; funnel drifted = flagged;
+    # The part-to-part `near` form: source-select-assembly is pressed to the foam
+    # (`near foam-assembly` ≤ 1.0 mm). A 0.5 mm gap = placed; drifted = flagged;
     # an absent neighbor = flagged.
     print("placed (part-to-part `near` rules hold)")
     near_ok = sc.placement_audit({"source-select-assembly": box(0, 0, 0),
-                                  "hopper-funnel": box(0, 0, 11.0),
-                                  "display": box(11.0, 0, 0)}, inner)
+                                  "foam-assembly": box(0, 0, 10.5)}, inner)
     nrow = next((r for r in near_ok if r[0] == "source-select-assembly"), None)
-    check("a component within its near gaps reads as placed", bool(nrow) and nrow[1])
+    check("a component within its near gap reads as placed", bool(nrow) and nrow[1])
     near_far = sc.placement_audit({"source-select-assembly": box(0, 0, 0),
-                                   "hopper-funnel": box(0, 0, 15.0),
-                                   "display": box(11.0, 0, 0)}, inner)
+                                   "foam-assembly": box(0, 0, 15.0)}, inner)
     frow = next((r for r in near_far if r[0] == "source-select-assembly"), None)
     check("a component drifted off its neighbor reads as NOT placed", bool(frow) and not frow[1],
-          "near hopper-funnel rule should break")
-    near_missing = sc.placement_audit({"source-select-assembly": box(0, 0, 0),
-                                       "hopper-funnel": box(0, 0, 11.0)}, inner)
+          "near foam-assembly rule should break")
+    near_missing = sc.placement_audit({"source-select-assembly": box(0, 0, 0)}, inner)
     mrow = next((r for r in near_missing if r[0] == "source-select-assembly"), None)
     check("a near rule against an absent neighbor reads as NOT placed", bool(mrow) and not mrow[1],
-          "missing display must not pass")
+          "missing foam-assembly must not pass")
 
     # The part-to-part `clear` (keep-out) form — proven through an injected probe rule,
     # independent of the pack rules that lean on it (the bag-circuit assembly's floor-stratum
