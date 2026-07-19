@@ -72,8 +72,9 @@ shroud_wires_outside = 3
 shroud_wires_inside = 5
 
 # Beduan solenoid coils across both manifolds. Cited in DC-4's board
-# load list.
-solenoid_count = 12
+# load list. The board carries 12 channels (J1 ×8, J2 ×4); the manifold
+# uses 10 — J2.OUT3/OUT4 are spare capacity, not a load.
+solenoid_count = 10
 
 # ─── Run-length design targets ────────────────────────────────────────
 # All values mm except where noted.

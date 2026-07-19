@@ -83,7 +83,7 @@ Mount the DC distribution block at its staged position. Land the DC-1 pair (PSU 
 Land the branches per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "12 V distribution":
 
 - **DC-2** — 16 AWG 12 V + to relay #2 contact input; the contact-output pigtail (DC-3) is left coiled with a labeled flag and a female disconnect for the SeaFlo pump landing during [`wiring.md`](/hardware/assembly/wiring.md).
-- **DC-4** — 16 AWG + and GND from the distribution block to the board's J10 screw inlet, ferrules under the clamps. `V12` seats on the east pad, `GND` west, both silked at the screws. Everything the board feeds — 12 valves, both peristaltic pumps, the condenser fan, display 12 V, and both logic rails — draws through this run.
+- **DC-4** — 16 AWG + and GND from the distribution block to the board's J10 screw inlet, ferrules under the clamps. `V12` seats on the east pad, `GND` west, both silked at the screws. Everything the board feeds — 10 valves, both peristaltic pumps, the condenser fan, display 12 V, and both logic rails — draws through this run.
 
 ### 6. Land the RELAYS J5 loom
 

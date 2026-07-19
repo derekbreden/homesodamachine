@@ -150,16 +150,16 @@ Check valves, sparge stone + barb adapter for internal-sparge CO2 carbonation, c
 
 ## 5. Flavor subsystem
 
-Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, barb fittings, bladders, check valves on the flavor side.
+Peristaltic pumps, solenoids, silicone delivery tubing, barb fittings, bladders, check valves on the flavor side.
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
 | Kamoer KPHM400-SW3B25 400 ml/min 12 V peristaltic pump (BPT, sold by Kamoer Fluid Tech Shanghai). Orders #114-1015191-6799441 (Feb 18), #112-0545074-9805025 (Feb 23) | [B09MS6C91D](https://www.amazon.com/dp/B09MS6C91D) | 3 | $34.91 ea | ACQUIRED |
 | Beduan 12 V 1/4" inlet water solenoid (NC). Orders #114-3476722-1893810 (Feb 22, ×1), #112-0933043-5526613 (Feb 23, ×2), #112-9365343-6646655 (Mar 14, ×2), #112-4838242-5164262 (Mar 14, ×1) | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 6 | $9.64 ea | ACQUIRED |
-| Beduan 12 V 1/4" inlet water solenoid (NC). Order #112-3576572-8551422, placed June 14, 2026 | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 8 | $9.64 ea | ACQUIRED (delivered Jun 16; with 6 on hand, covers 12-valve flavor manifold) |
+| Beduan 12 V 1/4" inlet water solenoid (NC). Order #112-3576572-8551422, placed June 14, 2026 | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | 8 | $9.64 ea | ACQUIRED (delivered Jun 16; with 6 on hand, covers the 10-valve flavor manifold with 4 spare) |
 | Hosyond 5-pack MG90S 9 g metal-gear micro servo. Order #112-1012254-8551456, placed June 1, 2026 | [B09V5BR7J5](https://www.amazon.com/dp/B09V5BR7J5) | 1 pk (5) | $15.43 | ACQUIRED (delivered Jun 4) |
 | NeoFit acetal ball valve — push-fit quarter-turn, food-grade PP body + acetal + EPDM O-ring, 1/4" OD tube (5-pack). Order #112-1012254-8551456, placed June 1, 2026 | [B0DDQC7S3B](https://www.amazon.com/dp/B0DDQC7S3B) | 1 pk (5) | $22.80 | ACQUIRED (delivered Jun 4) |
-| Supply Depot Coke-compatible BIB connector, 3/8" red (2 pk). Order #114-4194868-8174607, placed March 2, 2026 | [B0DMFK9B6P](https://www.amazon.com/dp/B0DMFK9B6P) | 1 pk | $21.44 | ACQUIRED |
+| ~~Supply Depot Coke-compatible BIB connector, 3/8" red (2 pk)~~. Order #114-4194868-8174607, placed March 2, 2026 | [B0DMFK9B6P](https://www.amazon.com/dp/B0DMFK9B6P) | 1 pk | $21.44 | ACQUIRED (de-scoped — the bag-in-box flavor path is not in the shipping product) |
 | Platypus SoftBottle 1 L (bladder donor). Order #114-5256389-4238639, placed March 16, 2026 | [B08PG3GMQ8](https://www.amazon.com/dp/B08PG3GMQ8) | 1 | $25.19 | ACQUIRED |
 | Platypus SoftBottle 1 L "Waves" (bladder donor). Order #114-5256389-4238639, placed March 16, 2026 | [B00ZX0ERE2](https://www.amazon.com/dp/B00ZX0ERE2) | 1 | $16.46 | ACQUIRED |
 | Platypus Platy 2 L collapsible bottle (bladder donor). Order #114-2469196-8024255, placed Feb 15, 2026 | [B000J2KEGY](https://www.amazon.com/dp/B000J2KEGY) | 1 | $16.13 | ACQUIRED (delivered Feb 16) |
@@ -188,7 +188,7 @@ Peristaltic pumps, solenoids, bag-in-box connector, silicone delivery tubing, ba
 | TAILONZ push-to-connect 1/4" tube × 1/8" NPT (10 pk). Order #114-5604599-8333023, placed March 16, 2026 | [B07P8784D2](https://www.amazon.com/dp/B07P8784D2) | 1 pk | $10.71 | ACQUIRED |
 | MALIDA 1/8" NPT × 1/4" tube elbow/straight push-fit. Order #114-5604599-8333023, placed March 16, 2026 | [B09MY72KQ7](https://www.amazon.com/dp/B09MY72KQ7) | 1 pk | $8.57 | ACQUIRED |
 | John Guest PP2308E two-way divider, black polypropylene 1/4" | [freshwatersystems.com](https://www.freshwatersystems.com/products/john-guest-two-way-divider-black-polypropylene-1-4) | 2 bags (20 dividers) | $88.43 | ACQUIRED (delivered May 14) |
-| John Guest PP0208E union tee, black polypropylene 1/4" (manifold Tees, Y-C/D/E/F/G/H/KA/KB) | [freshwatersystems.com](https://www.freshwatersystems.com/products/john-guest-union-tee-black-polypropylene-1-4) | 2 bags (20 tees) | $59.99 | ACQUIRED (delivered Jun 10, order WEBFWS100681220) |
+| John Guest PP0208E union tee, black polypropylene 1/4" (manifold Tees, Y-C/D/E/F/G/H) | [freshwatersystems.com](https://www.freshwatersystems.com/products/john-guest-union-tee-black-polypropylene-1-4) | 2 bags (20 tees) | $59.99 | ACQUIRED (delivered Jun 10, order WEBFWS100681220) |
 | John Guest PP0308E union elbow, black polypropylene 1/4" (valve-manifold valve-outlet elbows + Kamoer pump-outlet elbows; see bom.md §4) | [freshwatersystems.com](https://www.freshwatersystems.com/products/john-guest-union-elbow-black-polypropylene-1-4) | 3 bags (30 elbows) | $68.49 | ON-ORDER (placed Jun 20, order WEBFWS100684731) |
 | John Guest Speedfit PP1208E 1/4" OD black polypropylene push-to-connect bulkhead union, 10-pack. Order #112-6407862-0653853, placed May 11, 2026 | [B00JYFU8MM](https://www.amazon.com/dp/B00JYFU8MM) | 1 pk (10) | $24.79 | ACQUIRED (delivered May 12) |
 | PureSec 1/4" RO push-to-connect 90° elbow bulkhead, white polypropylene, 5-pack. Order #112-0924482-7189013, placed May 28, 2026 | [B0968K4JRN](https://www.amazon.com/dp/B0968K4JRN) | 1 pk (5) | $11.79 | ACQUIRED (delivered May 29) |

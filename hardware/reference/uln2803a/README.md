@@ -1,7 +1,7 @@
 # ULN2803A Darlington driver module — reference solid
 
 Used 2× on the driver tray (`hardware/ledger/bom.md`: **B0F872W528**, 2-pc) — sink
-the 12 solenoid coils + the condenser fan to GND; COM tied to 12 V for flyback.
+the 10 solenoid coils + the condenser fan to GND; COM tied to 12 V for flyback.
 
 Geometry **calipered from the physical board**. A small purple SOIC breakout
 (ULN2803A SOIC-18 centred), a 9-pin 2.54 mm header along each long edge, and 2

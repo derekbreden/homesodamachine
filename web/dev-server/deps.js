@@ -116,8 +116,8 @@ export function findRunnableScriptsTransitivelyImporting(moduleName, roots) {
       if (isRunnableScript(pyFile)) dependents.add(pyFile);
       // Keep walking THROUGH this file whether or not it's runnable: a generator
       // can double as a base module that other generators import as its python
-      // (`bag_circuit_tray` is both a tray and the geometry `bib_gate_tray`,
-      // `nozzle_gate_tray`, and `source_select_tray` build on). Stopping at the
+      // (`bag_circuit_tray` is both a tray and the geometry `nozzle_gate_tray`
+      // and `source_select_tray` build on). Stopping at the
       // first runnable would leave those downstream trays stale when the root
       // module changes — and they can't be caught by the STEP-load cascade
       // either, since they import the tray's python, not its .step. `visited`
