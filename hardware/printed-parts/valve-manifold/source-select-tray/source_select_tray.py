@@ -158,11 +158,16 @@ def build_assembly():
     parts = {nm: place_valve(*p, flip=flip[nm]) for nm, p in zip(names, valves)}
     parts["YA"] = place_divider(-divider_x, +1)
     parts["YB"] = place_divider(+divider_x, -1)
-    # An elbow turns each valve's outer (back, away-from-divider) port +Z up.
+    # An elbow turns each valve's outer (back, away-from-divider) port off the
+    # tray: V-A/V-B up (+Z — the tap feed rises to V-A-I, the funnel drain falls
+    # into V-B-I), V-C/V-D rolled 180° so their collets point straight DOWN —
+    # they feed the pump-inlet union tees hanging in-line below the west bank
+    # (enclosure _contents places the tees butted one stub under these collets).
     for nm, (vx, vy, dx, dy) in zip(names, valves):
         ox, oy = vx - dx, vy - dy
         n = math.hypot(ox, oy)
-        parts[f"E{nm}"] = bc.place_elbow(vx, vy, ox / n, oy / n)
+        roll = 180.0 if nm in ("VC", "VD") else 0.0
+        parts[f"E{nm}"] = bc.place_elbow(vx, vy, ox / n, oy / n, roll=roll)
     return parts
 
 

@@ -49,9 +49,10 @@ counted against the `routed` axis and print on every run.
 ## `CARRIES`
 
 One run can answer for more than one connection. A union tee's two RUN ports face each other down
-a single straight path, so the segments butted into them are one piece of authored geometry — the
-run takes an id of its own (`fluid-9+10`) and `CARRIES` names the connections it satisfies. The
-fitting's station along the run is the tray's to pin, not the line's.
+a single straight path, so the segments butted into them can be one piece of authored geometry —
+the run takes an id of its own and `CARRIES` names the connections it satisfies. Empty today: the
+placed union tees (`tee-y-c`, `tee-y-f`) put a collet anchor at every segment end instead, so
+each segment routes on its own id against the fitting's own port.
 
 ## Running it
 
