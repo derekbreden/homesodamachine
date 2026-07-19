@@ -36,7 +36,8 @@
       "detail": [
         "foam-assembly \u2014 mq6-sensor: 1.00 mm",
         "compressor-shroud \u2014 mq6-sensor: 1.00 mm",
-        "source-select-assembly \u2014 display: 1.08 mm",
+        "source-select-assembly \u2014 hopper-funnel: 1.08 mm",
+        "source-select-assembly \u2014 display: 1.15 mm",
         "foam-assembly \u2014 power-tray: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 dc-dist: 2.50 mm \u2014 CONTACT (declared ok)",
@@ -86,8 +87,8 @@
         "\u2713 foam-assembly: y+ 0.0 x- 0.0 x+ 0.0 z- 9.5 mm",
         "\u2713 compressor-shroud: y- 0.0 z- 3.0 x- 14.0 mm",
         "\u2713 condenser+fan: y- 0.0 z- 3.0 x+ 14.0 mm",
-        "\u2713 source-select-assembly: near display 1.1 mm",
-        "\u2713 hopper-funnel: z+ 6.0 mm",
+        "\u2713 source-select-assembly: near hopper-funnel 1.1 near display 1.2 mm",
+        "\u2713 hopper-funnel: z+ 6.0 near source-select-assembly 1.1 mm",
         "11 components: no placement rules defined yet"
       ],
       "active": true
@@ -636,7 +637,7 @@
       ],
       "face": "z-",
       "diam": 6.35,
-      "mates": "V-B-I by falling tube \u2014 segment 4 (hopper gate \u2192 shared source)",
+      "mates": "V-B-I by tube \u2014 segment 4 (hopper gate \u2192 shared source; must fall)",
       "status": "ok",
       "note": "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"
     },
@@ -646,8 +647,8 @@
       "kind": "fluid",
       "pos": [
         275.33,
-        26.57,
-        239.76
+        41.57,
+        254.66
       ],
       "face": "z+",
       "diam": 6.35,
@@ -661,12 +662,12 @@
       "kind": "fluid",
       "pos": [
         275.33,
-        100.03,
-        239.76
+        115.03,
+        254.66
       ],
       "face": "z+",
       "diam": 6.35,
-      "mates": "hopper-funnel drain by falling tube \u2014 segment 4",
+      "mates": "hopper-funnel drain by tube \u2014 segment 4 (the drain sits ~1 mm above this collet)",
       "status": "ok",
       "note": "JG elbow collet, 1/4\" tube, facing up"
     },
@@ -676,8 +677,8 @@
       "kind": "fluid",
       "pos": [
         18.67,
-        26.57,
-        239.76
+        41.57,
+        254.66
       ],
       "face": "z+",
       "diam": 6.35,
@@ -691,8 +692,8 @@
       "kind": "fluid",
       "pos": [
         18.67,
-        100.03,
-        239.76
+        115.03,
+        254.66
       ],
       "face": "z+",
       "diam": 6.35,
@@ -1358,91 +1359,91 @@
       "boxes": [
         [
           11.305,
-          88.273,
-          212.834,
+          103.273,
+          227.734,
           38.903,
-          107.391,
-          239.758
+          122.391,
+          254.658
         ],
         [
           34.887,
-          20.656,
-          208.9,
+          35.656,
+          223.8,
           95.613,
-          63.3,
-          265.5
+          78.3,
+          280.4
         ],
         [
           198.387,
-          20.656,
-          208.9,
+          35.656,
+          223.8,
           259.113,
-          63.3,
-          265.5
+          78.3,
+          280.4
         ],
         [
           255.097,
-          19.209,
-          212.834,
+          34.209,
+          227.734,
           282.695,
-          38.327,
-          239.758
+          53.327,
+          254.658
         ],
         [
           11.305,
-          19.209,
-          212.834,
+          34.209,
+          227.734,
           38.903,
-          38.327,
-          239.758
+          53.327,
+          254.658
         ],
         [
           34.887,
-          63.3,
-          208.9,
+          78.3,
+          223.8,
           95.613,
-          105.944,
-          265.5
+          120.944,
+          280.4
         ],
         [
           148.0,
-          47.85,
-          212.1,
+          62.85,
+          227.0,
           186.5,
-          78.75,
-          228.3
+          93.75,
+          243.2
         ],
         [
           107.5,
-          47.85,
-          212.1,
+          62.85,
+          227.0,
           146.0,
-          78.75,
-          228.3
+          93.75,
+          243.2
         ],
         [
           43.237,
-          16.859,
-          205.9,
+          31.859,
+          220.8,
           250.763,
-          109.741,
-          268.9
+          124.741,
+          283.8
         ],
         [
           255.097,
-          88.273,
-          212.834,
+          103.273,
+          227.734,
           282.695,
-          107.391,
-          239.758
+          122.391,
+          254.658
         ],
         [
           198.387,
-          63.3,
-          208.9,
+          78.3,
+          223.8,
           259.113,
-          105.944,
-          265.5
+          120.944,
+          280.4
         ]
       ],
       "fill": 0.1959,

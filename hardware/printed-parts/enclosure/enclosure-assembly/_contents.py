@@ -65,14 +65,15 @@ Strata, floor to ceiling:
              Tray 1 of the valve manifold (V-A, V-B, Y-A, Y-B, V-C, V-D on
              a printed tray, outlet elbows up) — hung spanning the front
              width, flipped so V-A/V-B and their up-facing inlet collets
-             sit on the EAST end under the funnel's high ramp, and raised
-             to the rise's physical cap: its front tall wall tops ride one
-             clearance under the display PCB body's low-front underside.
-             The rotated funnel's spout descends over the central valley;
-             the drain still falls to V-B's collet for the segment-4
-             gravity/purge tube. The compressor and condenser tops below
-             are open (the deferred water deck returns there). Holder TBD
-             (held).
+             sit on the EAST end under the funnel's high ramp, shifted aft
+             clear of the display body's low-front band, and raised until
+             the rotated funnel's loft caps the rise one clearance over
+             the east bank's wall tops. The spout descends over the
+             central valley; at this height the drain sits only a hair
+             above V-B's collet — the segment-4 gravity/purge fall is
+             nearly exhausted (unresolved tension). The compressor and
+             condenser tops below are open (the deferred water deck
+             returns there). Holder TBD (held).
   * Zone B (the band above the cold core): the electronics shelf lying
              flat on the foam-cap top in the band's front half — power
              assembly at −X, PCBA at +X, the DC distribution block behind
@@ -139,17 +140,15 @@ FUNNEL_ROT = 180.0
 # mounting plane) in world, rotated 180° about Z. The flip puts V-A/V-B —
 # and their up-facing inlet collets — on the EAST end under the funnel's
 # high ramp, V-C/V-D west; the pressurized tap line (segment 2) takes the
-# long west run to V-A. The height is the rise's physical cap: the front
-# tall wall's top rides one clearance under the display PCB body's
-# low-front underside (the scorecard's `near display` rule pins it). The
-# funnel's rotated spout descends over the central valley; its ramp stands
-# off V-A's top-box edge by the gap the display cap leaves (the open
-# nesting question — closing it means moving the assembly out of the
-# display's low-front band, deepening the funnel to the divider crowns, or
-# reshaping a part). In X the assembly (elbow tip to elbow tip) spans the
-# interior wall-to-wall; its +X elbows stop one wall clearance short of
-# the foam's edge.
-SRC_SEL_POS = (147.0, 63.3, 208.9)
+# long west run to V-A. Shifted aft of the funnel's centreline by the
+# minimum that walks its front tall wall out of the display PCB body's
+# low-front underside band, and raised until the rotated funnel's loft
+# caps the rise one clearance over the east bank's wall tops — pinned
+# between funnel above and display ahead (the scorecard's two `near`
+# rules). In X the assembly (elbow tip to elbow tip) spans the interior
+# wall-to-wall; its +X elbows stop one wall clearance short of the foam's
+# edge.
+SRC_SEL_POS = (147.0, 78.3, 223.8)
 
 # Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it.
 # With the floor parts raised clear of the seam lip, the cold core pulls in to
