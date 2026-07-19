@@ -161,6 +161,13 @@ z_joint_back = 266.0
 # The Z lip stops this short of the Y-seam overlap on each side, so the two
 # telescopes never share a wall surface.
 z_lip_y_margin = 2.0
+# The manifold's aft-station elbow columns stand against both side walls at
+# y 172.28 (their tilted legs' forward flanks dip to y ~162.4 at the boss
+# chains' x, spanning the seam machinery's height): every wall-hugging
+# aft-reaching feature — the Y-seam plugs and pods (via _dims' y_elbows cap
+# on y_joint), the back corner braces, and the back Z-lip's +X segment —
+# stops one margin ahead of them.
+manifold_aft_wall_clear = 161.4
 
 
 # --- primitives -------------------------------------------------------------
@@ -239,7 +246,13 @@ def _dims():
     facet_back_y = oy0 - display_pod_reach + _fdy + display_facet_thickness * math.sqrt(2.0)
     cold_front_y = placed["foam-assembly"][0].BoundingBox().ymin
     y_free = cold_front_y - 2.0 - (lip_len + wall + socket_bore_dia / 2.0 + socket_r)
-    y_joint = max(facet_back_y + 2.0, min((iy0 + iy1) / 2.0, y_free))
+    # The Y-seam machinery (mouth, plugs, braces — reaching lip_len + wall +
+    # bore radius + socket_r past y_joint at the ±X walls) must also duck
+    # ahead of the manifold's aft elbow columns: the inverted source tray's
+    # aft-station elbows stand against both side walls at y 172.28, their
+    # bodies from y ~164.9, spanning the braces' whole height band.
+    y_elbows = manifold_aft_wall_clear - (lip_len + wall + socket_bore_dia / 2.0 + socket_r)
+    y_joint = max(facet_back_y + 2.0, min((iy0 + iy1) / 2.0, y_free, y_elbows))
     # The rear-panel port field is content too: every clamping nut/flange seats
     # on the outer wall face, so the wall must reach past the field's topmost
     # hardware edge (its bottom edge rides the lip band — _contents
@@ -416,10 +429,14 @@ def _hopper_hole(inner, outer, y_joint):
     """Rectangle (x0, x1, y0, y1) of the funnel opening in the top wall: the
     placed funnel's collar — hopper_funnel.py's own dims at
     _contents.FUNNEL_CX/CY. The placement must clear the display end-wall
-    gusset (right of the facet), the top-right corner pod's inboard end, the
-    front ledge, and the Y-seam lip band behind (the hole must live whole in
-    the front-top piece) — asserted, so a bad placement fails the build
-    instead of silently deforming the hole."""
+    gusset (right of the facet), the top-right corner pod's inboard end, and
+    the front ledge — asserted, so a bad placement fails the build instead of
+    silently deforming the hole. The hole CROSSES the Y-seam (y_joint ducks
+    ahead of the manifold's aft elbow columns, under the basin): both top
+    pieces take the cut, the top-wall lip/mouth are relieved across the
+    funnel span, and the collar bridges the seam; the seam stays pinned by
+    the corner bosses west of the hole and the top-wall strip east of it —
+    the aft limit is the back piece's rear pod band."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     x0 = _contents.FUNNEL_CX - _funnel.collar_w / 2.0
@@ -430,7 +447,7 @@ def _hopper_hole(inner, outer, y_joint):
     lims = (ox0 + display_facet_x + wall,              # past the facet gusset
             pod_in - 1.0,                              # clear of the top-right pod
             iy0 + hopper_front_ledge,                  # behind the front ledge
-            y_joint - wall - 2.0)                      # ahead of the Y-seam lip
+            _contents.FRONT_DEPTH - 2.0)               # ahead of the cold core's band
     tol = 1e-6
     if x0 < lims[0] - tol or x1 > lims[1] + tol or y0 < lims[2] - tol or y1 > lims[3] + tol:
         raise ValueError(
@@ -440,9 +457,11 @@ def _hopper_hole(inner, outer, y_joint):
 
 
 def _hopper_cut(inner, outer, y_joint):
-    """The funnel throat punched clean through the top wall."""
+    """The funnel throat punched clean through the top wall — one wall deeper
+    than the ceiling, so the Y-seam's top-wall lip/mouth shelf (hanging one
+    wall below it) is relieved across the hole span the seam crosses."""
     x0, x1, y0, y1 = _hopper_hole(inner, outer, y_joint)
-    return _ybox(x0, x1, y0, y1, inner[5] - 1.0, outer[5] + 1.0)
+    return _ybox(x0, x1, y0, y1, inner[5] - wall - 1.0, outer[5] + 1.0)
 
 
 # --- split joint: telescoping lip + X-axis corner cross-pins ----------------
@@ -655,7 +674,10 @@ def _z_lip(inner, y_joint, zj):
     flush with the body's inner walls, running one wall down into the body
     (the fusion shoulder) and up over the overlap to the rim. The segment
     crossing the Y-seam overlap is dropped, so each piece carries a 3-sided
-    lip and the two telescopes never stack on one wall surface."""
+    lip and the two telescopes never stack on one wall surface. The BACK
+    column's lip also drops its +X segment across the manifold's aft elbow
+    column: the inverted source tray's east aft elbow stands 0.75 off that
+    wall through the lip band's height, so the pieces simply butt there."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     z0, z1 = zj - wall, zj + lip_len
     ring = _ybox(ix0, ix1, iy0, iy1, z0, z1).cut(
@@ -663,7 +685,12 @@ def _z_lip(inner, y_joint, zj):
     gap = _ybox(ix0 - 1.0, ix1 + 1.0,
                 y_joint - wall - z_lip_y_margin, y_joint + lip_len + z_lip_y_margin,
                 z0 - 1.0, z1 + 1.0)
-    return ring.cut(gap)
+    ring = ring.cut(gap)
+    if zj == z_joint_back:
+        ring = ring.cut(_ybox(ix1 - wall - 1.0, ix1 + 1.0,
+                              manifold_aft_wall_clear, manifold_aft_wall_clear + 19.2,
+                              z0 - 1.0, z1 + 1.0))
+    return ring
 
 
 def _z_pod(x_in, x_ext, sx, ys, col, y_joint, inner, zj):
@@ -783,10 +810,15 @@ def build_front_half(dims=None, split=None, hopper=True):
     return cq.Workplane(obj=front)
 
 
-def build_back_half(dims=None, split=None, brace_y_short=None):
+def build_back_half(dims=None, split=None, brace_y_short=None, hopper=True):
+    """`hopper=False` skips the funnel opening (the coupon's reduced box).
+    The opening crosses the Y-seam, so the back half takes its share of the
+    cut — the collar bridges the seam."""
     inner, outer, y_joint, _ = dims if dims is not None else _dims()
     shell = _shell_with_facet(inner, outer).val()
     back = shell.intersect(_ybox(outer[0], outer[1], y_joint, outer[3], outer[4], outer[5]))
+    if hopper:
+        back = back.cut(_hopper_cut(inner, outer, y_joint))
     yb = _y_boss(y_joint)
     bosses = _bosses(inner, split=split, brace_y_short=brace_y_short)
     for x_in, x_ext, sx, z_boss, _pz, _zc, _bz, _by1 in bosses:
@@ -827,7 +859,8 @@ def build_piece(y_side, z_side, dims=None, halves_cache=None):
     inner, outer, y_joint, cold_front_y = dims
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     zj = z_joint_front if y_side == "front" else z_joint_back
-    short = (cold_front_y - 2.0) if cold_front_y is not None else None
+    short = (min(cold_front_y - 2.0, manifold_aft_wall_clear)
+             if cold_front_y is not None else None)
     if halves_cache is not None and y_side in halves_cache:
         half = halves_cache[y_side]
     else:
@@ -934,7 +967,7 @@ def main():
         assy.add(p, name=f"enclosure_{name.replace('-', '_')}", color=piece_colors[name])
 
     coupon = build_front_half(coupon_dims(), hopper=False)
-    coupon_back = build_back_half(coupon_dims())
+    coupon_back = build_back_half(coupon_dims(), hopper=False)
 
     for name, p in pieces.items():
         export_step(p, str(_here.parent / f"enclosure-{name}.step"))
