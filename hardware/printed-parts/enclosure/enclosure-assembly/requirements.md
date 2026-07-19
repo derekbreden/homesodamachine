@@ -193,9 +193,11 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   assembly pressed to the cold core's front face by `near` — a declared contact; the
   hopper funnel by z+; the bag-circuit assembly by `near` the source-select tray its
   stacking walls carry — another declared contact — plus `clear` keep-outs holding the
-  floor stratum open under its own floor; both pumps by `near` the bag tray's front
-  columns plus a `clear` keep-out holding the funnel drain's fall corridor open over
-  the row; all measured on the real solids); the other 11 are not-yet-placed. Each
+  floor stratum open under its own floor; pump-a by `near` the bag tray's front columns
+  plus a `clear` keep-out holding the funnel drain's fall corridor open over its head;
+  pump-b by `near` its row neighbor plus a `clear` keep-out ahead of the source-select
+  east bank its elbows thread past; all measured on the real solids); the other 11 are
+  not-yet-placed. Each
   earns a set of measurements that pin its intended position, and those must
   measurably hold. Rules iterate as the design moves — a redefinition is expected,
   not a failure.
@@ -203,7 +205,7 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   (31 fluid, 6 refrigerant, 28 electrical), each with a position *and* a bore Ø — and 49 of them
   sit on their body's real surface. Positions are derived from the part's own record where one
   exists (foam penetrations, compressor holes, both trays' elbow collet centres measured off
-  their built assemblies, the pumps' flush barb seats carried through their lying transform,
+  their built assemblies, the pumps' outlet-elbow collets carried through their lying pose,
   the funnel drain in the funnel's own frame), and Ø from the line or fitting the port carries.
   **16 ports read `off-surface` — a coordinate on the body's bounding box but not on the body:**
   all 10 of the PCBA's Ø-flagged edge connectors sit at the board's bbox top, ~10.5 mm above the

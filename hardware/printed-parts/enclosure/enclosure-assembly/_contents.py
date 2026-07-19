@@ -73,15 +73,17 @@ Strata, floor to ceiling:
              branches out ±Y) one 63 mm tray pitch below, whose own floor
              rides one stack gap over the floor stratum. Ahead of the
              stack, the PUMP ROW: both Kamoer KPHM400 assemblies lying
-             depth-along-X, motors outboard, heads nose-to-nose at the
-             interior's x centre, flush outlet ports facing aft at the
-             stack — the row seated one wall above the front Z-seam plane
-             (crossing the wall corners above the seam's boss-pod band)
-             and capped under the funnel's descending spout. The funnel
-             drain hangs over the row's inter-pump gap, 1.1 above the
-             V-B-I collet plane far to its aft-east — segment 4's
-             gravity/purge fall is that 1.1 (unresolved tension). Holders
-             TBD (held).
+             depth-along-X in one pose — motors west, outlet elbows
+             standing on the +Z faces, free collets facing west at the
+             row's crest — the row seated one wall above the front Z-seam
+             plane (crossing the wall corners above the seam's boss-pod
+             band). P-A's head is nose-in at mid-row; P-B sits one slot
+             east and forward, its elbows under the funnel basin's high
+             east floor, ahead of the source-select east bank. The funnel
+             drain falls between P-A's elbow stations onto its head-top
+             clearance, 1.1 above the V-B-I collet plane far to its
+             aft-east — segment 4's gravity/purge fall is that 1.1
+             (unresolved tension). Holders TBD (held).
   * Zone B (the band above the cold core): the electronics shelf lying
              flat on the foam-cap top in the band's front half — power
              assembly at −X, PCBA at +X, the DC distribution block behind
@@ -174,19 +176,27 @@ SRC_SEL_POS = (147.0, 135.55, 223.8)
 BAG_CIRCUIT_POS = (SRC_SEL_POS[0], SRC_SEL_POS[1], SRC_SEL_POS[2] - 63.0)
 
 # The pump row: both Kamoer KPHM400 assemblies (P-A west, P-B east) lying
-# depth-along-X ahead of the tray stack, motors outboard, heads
-# nose-to-nose about the interior's x centre with a working gap between,
-# flush outlet ports facing aft (+Y) at the stack — the aft port faces
-# stop one stack gap ahead of the bag tray's front columns (the `near
-# bag-circuit-assembly` rule; the source-select's slanted walls above
-# recede farther). The row seats one wall above the front Z-seam plane
-# (enclosure.py z_joint_front), so the long bodies cross the ±X wall
-# corners ABOVE the seam's boss-pod band (which reaches ~14 mm inboard
-# below the seam), and its top stops under the funnel's descending spout
-# (the `clear hopper-funnel` keep-out — the drain's fall corridor).
-PUMP_ROW_Y = 33.2            # body front faces; the aft port faces land at +62.6
-PUMP_ROW_Z = 189.0           # z_joint_front + one wall
-PUMP_A_X, PUMP_B_X = 11.62, 144.5   # west ends: symmetric about x 141.5, 6 mm nose gap
+# depth-along-X ahead of the tray stack, in ONE pose — a −90° turn about Y
+# lays the depth axis west (motor at −X), then a +90° roll about X turns
+# the outlet face up, so each pump's two elbows stand on its +Z face, legs
+# turning west over the head, free collets facing −X at the row's crest.
+# The POS tuples are the pump's local origin (base-plate bore-opening
+# face, case centre) in world:
+#   * P-A: body envelope x 11.62–138.50, y 33.20–95.81, z 189.00–251.61 —
+#     head nose-in at mid-row, its elbows west of the funnel spout's fall
+#     corridor (the `clear hopper-funnel` rule holds the drain's drop
+#     open over its head), the row's underside one wall above the front
+#     Z-seam plane so the long body crosses the ±X wall corners ABOVE the
+#     seam's boss-pod band (which reaches ~14 mm inboard below the seam),
+#     aft face one stack gap ahead of the bag tray's front columns (the
+#     `near bag-circuit-assembly` rule).
+#   * P-B: the same pose one slot east — head at the east end, so its
+#     elbows stand under the funnel basin's high east floor — and slid
+#     forward, its aft elbow threading ahead of the source-select east
+#     bank's walls (the `clear source-select-assembly` rule); its row tie
+#     is the nose gap to P-A (the `near pump-a` rule).
+PUMP_A_POS = (89.62, 99.51, 185.31)
+PUMP_B_POS = (222.50, 85.51, 185.31)
 
 # Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it.
 # With the floor parts raised clear of the seam lip, the cold core pulls in to
@@ -357,15 +367,17 @@ def build():
     # stratum below stays one stack gap open under its own floor.
     placed["bag-circuit-assembly"] = _load(BAG_CIRCUIT).translate(BAG_CIRCUIT_POS)
 
-    # Ahead of the stack, the pump row: both Kamoer assemblies lying
-    # depth-along-X (a ∓90° turn about Y points each motor outboard, flush
-    # +Y outlet ports still facing aft at the stack), seated at the
-    # PUMP_ROW anchors. Each pump's two ports land one above the other on
-    # its aft face; the funnel's spout descends over the nose gap between
-    # the heads, held clear by the pumps' keep-out rule.
+    # Ahead of the stack, the pump row: both Kamoer assemblies in one lying
+    # pose (depth west about Y, then rolled +90° about X so the elbows ride
+    # the +Z face, free collets facing west at the crest), each translated
+    # by its POS tuple. Each pump's two elbow stations straddle its width;
+    # the funnel's spout descends between P-A's stations onto its head-top
+    # clearance, and P-B's forward slide keeps its aft elbow ahead of the
+    # source-select east bank.
     pump = _load(PUMP_ASSEMBLY)
-    placed["pump-a"] = _at(_rot(pump, (0, 1, 0), -90.0), PUMP_A_X, PUMP_ROW_Y, PUMP_ROW_Z)
-    placed["pump-b"] = _at(_rot(pump, (0, 1, 0), 90.0), PUMP_B_X, PUMP_ROW_Y, PUMP_ROW_Z)
+    lay = _rot(_rot(pump, (0, 1, 0), -90.0), (1, 0, 0), 90.0)
+    placed["pump-a"] = lay.translate(PUMP_A_POS)
+    placed["pump-b"] = lay.translate(PUMP_B_POS)
 
     # --- Zone B, the band above the cold core: the electronics shelf lying
     # flat on the foam-cap top, tray/board planes horizontal, everything in

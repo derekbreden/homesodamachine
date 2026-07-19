@@ -38,17 +38,18 @@
         "foam-assembly \u2014 source-select-assembly: 0.01 mm \u2014 CONTACT (declared ok)",
         "compressor-shroud \u2014 mq6-sensor: 1.00 mm",
         "source-select-assembly \u2014 pump-a: 1.98 mm",
-        "bag-circuit-assembly \u2014 pump-a: 2.49 mm",
-        "bag-circuit-assembly \u2014 pump-b: 2.49 mm",
+        "bag-circuit-assembly \u2014 pump-a: 2.48 mm",
         "foam-assembly \u2014 power-tray: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 dc-dist: 2.50 mm \u2014 CONTACT (declared ok)",
+        "source-select-assembly \u2014 pump-b: 2.73 mm",
         "compressor-shroud \u2014 bag-circuit-assembly: 3.30 mm",
         "condenser+fan \u2014 bag-circuit-assembly: 3.80 mm",
         "source-select-assembly \u2014 hopper-funnel: 3.89 mm",
         "foam-assembly \u2014 condenser+fan: 4.00 mm",
+        "pump-a \u2014 hopper-funnel: 4.10 mm",
         "display \u2014 hopper-funnel: 4.49 mm",
-        "source-select-assembly \u2014 pump-b: 5.44 mm"
+        "pump-a \u2014 display: 5.65 mm"
       ],
       "active": true
     },
@@ -96,8 +97,8 @@
         "\u2713 source-select-assembly: near foam-assembly 0.0 mm",
         "\u2713 hopper-funnel: z+ 6.0 mm",
         "\u2713 bag-circuit-assembly: near source-select-assembly 0.0 clear compressor-shroud 3.3 clear condenser+fan 3.8 mm",
-        "\u2713 pump-a: near bag-circuit-assembly 2.5 clear hopper-funnel 7.4 mm",
-        "\u2713 pump-b: near bag-circuit-assembly 2.5 clear hopper-funnel 7.4 mm",
+        "\u2713 pump-a: near bag-circuit-assembly 2.5 clear hopper-funnel 4.1 mm",
+        "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 2.7 mm",
         "11 components: no placement rules defined yet"
       ],
       "active": true
@@ -805,60 +806,60 @@
       "name": "P-A-I",
       "kind": "fluid",
       "pos": [
-        118.12,
-        95.82,
-        191.81
+        98.56,
+        93.01,
+        271.17
       ],
-      "face": "y+",
+      "face": "x-",
       "diam": 6.35,
       "mates": "Y-C-3 (Tray 3 pump-inlet tees, deferred) \u2014 segment 11 (channel A suction)",
       "status": "ok",
-      "note": "flush barb seat, low, facing aft"
+      "note": "PP0308E elbow collet, aft station, facing west"
     },
     {
       "component": "pump-a",
       "name": "P-A-O",
       "kind": "fluid",
       "pos": [
-        118.12,
-        95.82,
-        248.81
+        98.56,
+        36.01,
+        271.17
       ],
-      "face": "y+",
+      "face": "x-",
       "diam": 6.35,
       "mates": "Y-D-1 (Tray 3 pump-inlet tees, deferred) \u2014 segment 12 (channel A discharge)",
       "status": "ok",
-      "note": "flush barb seat, high, facing aft"
+      "note": "PP0308E elbow collet, front station, facing west"
     },
     {
       "component": "pump-b",
       "name": "P-B-I",
       "kind": "fluid",
       "pos": [
-        164.88,
-        95.82,
-        191.81
+        231.44,
+        79.01,
+        271.17
       ],
-      "face": "y+",
+      "face": "x-",
       "diam": 6.35,
       "mates": "Y-F-3 (Tray 3 pump-inlet tees, deferred) \u2014 segment 21 (channel B suction)",
       "status": "ok",
-      "note": "flush barb seat, low, facing aft"
+      "note": "PP0308E elbow collet, aft station, facing west"
     },
     {
       "component": "pump-b",
       "name": "P-B-O",
       "kind": "fluid",
       "pos": [
-        164.88,
-        95.82,
-        248.81
+        231.44,
+        22.01,
+        271.17
       ],
-      "face": "y+",
+      "face": "x-",
       "diam": 6.35,
       "mates": "Y-G-1 (Tray 3 pump-inlet tees, deferred) \u2014 segment 22 (channel B discharge)",
       "status": "ok",
-      "note": "flush barb seat, high, facing aft"
+      "note": "PP0308E elbow collet, front station, facing west"
     },
     {
       "component": "display",
@@ -1614,30 +1615,46 @@
       "boxes": [
         [
           89.62,
-          33.2,
-          189.0,
+          33.205,
+          189.005,
           138.5,
-          95.81,
-          251.61
+          95.815,
+          251.615
         ],
         [
           68.62,
-          38.005,
-          193.805,
+          38.01,
+          193.81,
           89.62,
-          91.005,
-          246.805
+          91.01,
+          246.81
+        ],
+        [
+          98.562,
+          85.644,
+          251.615,
+          125.486,
+          100.376,
+          278.539
         ],
         [
           11.62,
-          46.64,
-          202.44,
+          46.645,
+          202.445,
           68.62,
-          82.37,
-          238.17
+          82.375,
+          238.175
+        ],
+        [
+          98.562,
+          28.644,
+          251.615,
+          125.486,
+          43.376,
+          278.539
         ]
       ],
-      "fill": 0.8528,
+      "fill": 0.8226,
       "primitive": false,
       "declared": "real"
     },
@@ -1645,31 +1662,47 @@
       "component": "pump-b",
       "boxes": [
         [
-          144.5,
-          33.2,
-          189.0,
-          193.38,
-          95.81,
-          251.61
-        ],
-        [
-          193.38,
-          38.005,
-          193.805,
-          214.38,
-          91.005,
-          246.805
-        ],
-        [
-          214.38,
-          46.64,
-          202.44,
+          222.5,
+          19.205,
+          189.005,
           271.38,
-          82.37,
-          238.17
+          81.815,
+          251.615
+        ],
+        [
+          201.5,
+          24.01,
+          193.81,
+          222.5,
+          77.01,
+          246.81
+        ],
+        [
+          231.442,
+          71.644,
+          251.615,
+          258.366,
+          86.376,
+          278.539
+        ],
+        [
+          144.5,
+          32.645,
+          202.445,
+          201.5,
+          68.375,
+          238.175
+        ],
+        [
+          231.442,
+          14.644,
+          251.615,
+          258.366,
+          29.376,
+          278.539
         ]
       ],
-      "fill": 0.8528,
+      "fill": 0.8226,
       "primitive": false,
       "declared": "real"
     },

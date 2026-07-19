@@ -116,8 +116,8 @@ COMPONENTS = [
     _c("source-select-assembly", "real",   True,  "none", "Tray 1 — printed tray + 4 Beduan NC solenoids + 2 PP2308E Y-dividers + 4 outlet elbows (valve-manifold/source-select-tray); hangs under the display + funnel, holder TBD"),
     _c("bag-circuit-assembly",   "real",   True,  "none", "Tray 2 — printed dog-bone tray + 4 Beduan NC solenoids + 2 PP0208E Tees + 4 outlet elbows (valve-manifold/bag-circuit-tray); its stacking walls carry the source-select tray, holder TBD"),
     # Pump row
-    _c("pump-a",            "real",        True,  "none", "Kamoer KPHM400 peristaltic (reference/kamoer-kphm400 pump-assembly, flush +Y ports); lies depth-along-X ahead of the tray stack, motor west, holder TBD"),
-    _c("pump-b",            "real",        True,  "none", "Kamoer KPHM400 peristaltic (reference/kamoer-kphm400 pump-assembly, flush +Y ports); lies depth-along-X ahead of the tray stack, motor east, holder TBD"),
+    _c("pump-a",            "real",        True,  "none", "Kamoer KPHM400 peristaltic + 2 PP0308E outlet elbows (reference/kamoer-kphm400 pump-assembly); lies depth-along-X ahead of the tray stack, motor west, elbows on the +Z face, holder TBD"),
+    _c("pump-b",            "real",        True,  "none", "Kamoer KPHM400 peristaltic + 2 PP0308E outlet elbows (reference/kamoer-kphm400 pump-assembly); same lying pose one slot east, head east under the funnel's high floor, holder TBD"),
     # Electronics shelf
     _c("power-tray",        "real",        True,  "none", "printed tray holds its boards; tray-to-shell joinery deferred (power-tray README)"),
     _c("pcba",              "real",        True,  "none", "printed tray holds the board; tray-to-shell joinery deferred (pcba-tray README)"),
@@ -252,13 +252,16 @@ PLACEMENT_RULES = {
     "bag-circuit-assembly": [("near", "source-select-assembly", 1.0),
                              ("clear", "compressor-shroud", 2.5),
                              ("clear", "condenser+fan", 2.5)],
-    # "The pump row stands one stack gap ahead of the stack, under the
-    # funnel's drop": each pump's aft port face near the bag tray's front
-    # columns (the stack's flat front at the row's height), and the
-    # descending spout's fall corridor held open above the row — a keep-out
-    # the funnel's drain physically depends on.
+    # "P-A stands one stack gap ahead of the stack, under the funnel's
+    # drop": its aft face near the bag tray's front columns (the stack's
+    # flat front at the row's height), and the descending spout's fall
+    # corridor held open over its head — a keep-out the funnel's drain
+    # physically depends on.
     "pump-a": [("near", "bag-circuit-assembly", 3.0), ("clear", "hopper-funnel", 4.0)],
-    "pump-b": [("near", "bag-circuit-assembly", 3.0), ("clear", "hopper-funnel", 4.0)],
+    # "P-B rides the row one nose gap east of P-A, its elbows ahead of the
+    # east bank": the row tie to its neighbor, and a keep-out holding its
+    # aft elbow clear of the source-select east walls it threads past.
+    "pump-b": [("near", "pump-a", 6.5), ("clear", "source-select-assembly", 2.5)],
 }
 
 
@@ -416,16 +419,17 @@ PORTS = [
     _p("V-H-O", "bag-circuit-assembly", "fluid", (245.63, 118.43, 191.66), "z+", 6.35, "Y-F-2 (Tray 3 pump-inlet tees, deferred) — segment 20 (bag B to pump return)", "JG elbow collet, 1/4\" tube, facing up"),
     _p("Y-E-2", "bag-circuit-assembly", "fluid", (147.0, 172.74, 172.1),   "y+", 6.35, "Bag A port — foam-assembly reservoir-A line, segment 15", "Tee branch collet, 1/4\" tube, aft through the hug-wall notch"),
     _p("Y-H-2", "bag-circuit-assembly", "fluid", (147.0, 98.36, 172.1),    "y-", 6.35, "Bag B port — foam-assembly reservoir-B line, segment 25", "Tee branch collet, 1/4\" tube, forward through the hug-wall notch"),
-    # Pump row — each Kamoer's two flush outlet ports (kamoer_kphm400 arch_xs on the body's
-    # +Y face at arch_plane_z, elbow-free per pump_assembly.py), carried through the lying
-    # ∓90° Y-turn + the PUMP_ROW anchors: both of a pump's ports land on its aft (+Y) face,
-    # one above the other, facing the tray stack. Inlet low, outlet high (the peristaltic
-    # direction is firmware's; the assignment is the loom's convention). Ø is the 1/4" line
-    # nominal the barbs carry.
-    _p("P-A-I", "pump-a", "fluid", (118.12, 95.82, 191.81), "y+", 6.35, "Y-C-3 (Tray 3 pump-inlet tees, deferred) — segment 11 (channel A suction)", "flush barb seat, low, facing aft"),
-    _p("P-A-O", "pump-a", "fluid", (118.12, 95.82, 248.81), "y+", 6.35, "Y-D-1 (Tray 3 pump-inlet tees, deferred) — segment 12 (channel A discharge)", "flush barb seat, high, facing aft"),
-    _p("P-B-I", "pump-b", "fluid", (164.88, 95.82, 191.81), "y+", 6.35, "Y-F-3 (Tray 3 pump-inlet tees, deferred) — segment 21 (channel B suction)", "flush barb seat, low, facing aft"),
-    _p("P-B-O", "pump-b", "fluid", (164.88, 95.82, 248.81), "y+", 6.35, "Y-G-1 (Tray 3 pump-inlet tees, deferred) — segment 22 (channel B discharge)", "flush barb seat, high, facing aft"),
+    # Pump row — each Kamoer's two boundary connectors are its outlet ELBOWS' free collets
+    # (pump_assembly.py seats a PP0308E on each arch_xs outlet), carried through the lying
+    # pose (−90° about Y, +90° roll about X) + the POS tuples: the elbows stand on the +Z
+    # face, legs turning west over the head, both free collets facing −X at z 271.17. The
+    # two stations straddle the pump's width; inlet aft, outlet front (the peristaltic
+    # direction is firmware's; the assignment is the loom's convention). Ø is the 1/4"
+    # line nominal.
+    _p("P-A-I", "pump-a", "fluid", (98.56, 93.01, 271.17),  "x-", 6.35, "Y-C-3 (Tray 3 pump-inlet tees, deferred) — segment 11 (channel A suction)", "PP0308E elbow collet, aft station, facing west"),
+    _p("P-A-O", "pump-a", "fluid", (98.56, 36.01, 271.17),  "x-", 6.35, "Y-D-1 (Tray 3 pump-inlet tees, deferred) — segment 12 (channel A discharge)", "PP0308E elbow collet, front station, facing west"),
+    _p("P-B-I", "pump-b", "fluid", (231.44, 79.01, 271.17), "x-", 6.35, "Y-F-3 (Tray 3 pump-inlet tees, deferred) — segment 21 (channel B suction)", "PP0308E elbow collet, aft station, facing west"),
+    _p("P-B-O", "pump-b", "fluid", (231.44, 22.01, 271.17), "x-", 6.35, "Y-G-1 (Tray 3 pump-inlet tees, deferred) — segment 22 (channel B discharge)", "PP0308E elbow collet, front station, facing west"),
     # Waveshare display — its data/power connector is NOT in the imported STEP (only the four
     # corner mounts are), so this one harness port is placed provisionally on the interior (+Y)
     # back face at the PCB centre. A viewer pick would pin it exactly.
