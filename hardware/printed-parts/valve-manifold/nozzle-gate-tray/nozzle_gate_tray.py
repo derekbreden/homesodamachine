@@ -1,17 +1,22 @@
-"""Nozzle-gate tray: 2 axis-aligned Beduan valves + 2 Tee fittings.
+"""Nozzle-gate tray: 2 axis-aligned Beduan valves.
 
 The [fluid-topology](../../../topology/fluid-topology.md) nozzle gates as a
-tray. A single −X column (V-G over V-J) meets a Tee on each row. Each Tee plugs
-its **branch into its valve's inner port** — the run no longer butts the valve —
-then both runs swing the same way about their branch (X) axes (parallel), tilted
-~64° from vertical so the lower run port stays clear of the tray underside.
+tray. A single −X column — V-G and V-J butted on the two channel rows, ports
+along X, no tilt — and nothing else: the pump-discharge tees (Y-D / Y-G) that
+feed the inner ports are the enclosure's to pack, and the ports run bare
+until their lines land. The enclosure hangs this tray INVERTED (180° about
+Y, like the bag-circuit tray) in the pocket east of the bag assembly, so the
+inner ports face west at the bag tray's own port plane and the outer
+(nozzle-outlet) ports face east.
 
-    V-G ●╲ Y-D       Y-D branch butts V-G; run swung about X
-    V-J ●╲ Y-G       Y-G branch butts V-J; run swung about X
+    V-G ●    inner port ← Y-D (deferred) · outer port → Nozzle A
+    V-J ●    inner port ← Y-G (deferred) · outer port → Nozzle B
 
-Valve placement, the Tee placers, and the tray builder are shared with the
+Valve placement and the tray builder are shared with the
 [bag-circuit tray](../bag-circuit-tray/) via `build_tray`. Origin = cell
-center, Z = 0 the mounting plane, ports at Z = 11.3.
+center, Z = 0 the mounting plane, ports at Z = 11.3. The inverted hang keeps
+local Y, so the name↔row assignment puts V-G on the −Y row (world channel A,
+forward, beside V-F) and V-J on +Y (channel B, beside V-I).
 """
 
 import sys
@@ -31,38 +36,33 @@ from _cadq_export import export_step
 from docgen import substitute_md
 import bag_circuit_tray as bc
 
-# One valve column (−X); each row's Tee plugs its branch into its valve's inner
-# port (see build_assembly), so the pairing is row-matched.
-valves = {"VG": (-bc.valve_x, +bc.row_half), "VJ": (-bc.valve_x, -bc.row_half)}
-tee_of = {"VG": "YD", "VJ": "YG"}   # valve -> the Tee on its inner port
-# Run swung this many deg from vertical about the branch (X) axis; past ~62° the
-# lower run port rises clear of the tray underside (bc.bot_z).
-tee_spin = 64.0
+# One valve column (−X), a row per channel. Local −row_half is the enclosure's
+# forward row (the inverted hang keeps local Y), so V-G rides it beside V-F.
+valves = {"VG": (-bc.valve_x, -bc.row_half), "VJ": (-bc.valve_x, +bc.row_half)}
 
 # The tray floors and walls the valves only: it hugs the single −X valve
-# column, symmetric about it. The Tees still seat in the assembly, but the tray
-# no longer extends a floor or grooves under them.
+# column, symmetric about it; the X-ends stay open for the ports.
 plate_x = (-bc.plate_half_x, -bc.valve_x + bc.valve_pad)
 plate_y_half = bc.plate_half_y
 stack_pitch = bc.stack_pitch
 
 
 def build_assembly():
-    # Outlets point -X to the nozzles (the outer ports); inlets are from the
-    # center Tees. The valve flow arrow (local +Y) points -X.
-    parts = {nm: bc.place_valve(*p, 90.0) for nm, p in valves.items()}
-    # Each Tee plugs its branch into its valve's inner (+X-facing) port; both
-    # runs then swing `tee_spin` the same way about their branch (X) axes
-    # (parallel — a mirror would overlap the two inner run ports at the centerline).
-    for vnm, (vx, vy) in valves.items():
-        port_tip = (vx + bc.port_half, vy, bc.port_z)   # valve inner port tip
-        parts[tee_of[vnm]] = bc.place_tee_branch_to_xport(port_tip, tee_spin)
-    # An elbow turns each valve's outer (−X nozzle-outlet) port +Z up out of the tray.
-    parts.update({
-        f"E{nm}": bc.place_elbow(cx, cy, -1.0 if cx < 0 else 1.0, 0.0)
-        for nm, (cx, cy) in valves.items()
-    })
-    return parts
+    # Outlets point −X to the nozzles (the outer ports); the inner (+X) ports
+    # await the pump-discharge tees. The valve flow arrow (local +Y) points −X.
+    return {nm: bc.place_valve(*p, 90.0) for nm, p in valves.items()}
+
+
+def port_collets():
+    """Every valve port's bare collet tip in tray coordinates: {name:
+    (position, outward axis)} — `-I` the inner (tee-side) port, `-O` the
+    outer (nozzle-outlet) port. The tray's boundary — what the enclosure
+    routes lines to — with no fitting yet turned onto either."""
+    out = {}
+    for nm, (cx, cy) in valves.items():
+        out[f"{nm}-O"] = ((cx - bc.port_half, cy, bc.port_z), (-1.0, 0.0, 0.0))
+        out[f"{nm}-I"] = ((cx + bc.port_half, cy, bc.port_z), (+1.0, 0.0, 0.0))
+    return out
 
 
 def build_nozzle_gate_tray():

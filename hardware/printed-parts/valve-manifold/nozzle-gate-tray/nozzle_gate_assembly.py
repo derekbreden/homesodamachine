@@ -1,5 +1,4 @@
-"""Assembled nozzle-gate tray: the tray with its 2 valves + 2 Y-dividers
-seated in place.
+"""Assembled nozzle-gate tray: the tray with its 2 valves seated in place.
 """
 
 import sys

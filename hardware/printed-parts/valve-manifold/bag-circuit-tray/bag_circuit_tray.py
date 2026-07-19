@@ -12,9 +12,8 @@ through a notch in the central hug wall.
     V-I ──┴── V-H      Y-H run; branch → −Y to Bag B
 
 This module also holds the shared parallel-tray base — `place_valve`, `place_tee`
-(and its branch-reorient variants `place_tee_hung`, `place_tee_branch_out`,
-`place_tee_branch_to_xport`), `build_tray`, and the common geometry — imported by
-the all-Tee gate-tray variant in `../nozzle-gate-tray/`.
+(and its branch-reorient variant `place_tee_branch_out`), `build_tray`, and the
+common geometry — imported by the nozzle-gate tray in `../nozzle-gate-tray/`.
 
 Origin = cell center, Z = 0 the valve mounting plane, ports at Z = 11.3.
 """
@@ -92,38 +91,6 @@ def place_tee(cx, cy):
     )
 
 
-def place_tee_hung(target, spin):
-    """Tee perched branch-down on an upward riser: a 180° flip turns its branch
-    from +Z to −Z so the branch port butts the riser top at ``target`` (x, y, z);
-    the run stays horizontal, swung ``spin`` deg about Z. The branch axis is on
-    the Z spin axis, so the butt point holds while the run sweeps."""
-    fit = cq.importers.importStep(str(_tee_path)).val()
-    tx, ty, tz = target
-    return (
-        fit.rotate((0, 0, 0), (0, 1, 0), 90.0)   # run → X, branch → +Z
-        .rotate((0, 0, 0), (1, 0, 0), 90.0)
-        .rotate((0, 0, 0), (1, 0, 0), 180.0)     # flip branch to −Z
-        .rotate((0, 0, 0), (0, 0, 1), spin)      # swing the run in plane
-        .translate((tx, ty, tz + tee_branch_reach))
-    )
-
-
-def place_tee_branch_to_xport(port_tip, spin):
-    """Tee plugged branch-first into a port that faces +X (e.g. a valve's inner
-    port): a −90° turn about Y points the branch −X to oppose the port and stands
-    the run along Z. The branch tip butts ``port_tip`` (x, y, z) and the run is
-    swung ``spin`` deg about the branch (X) axis, which holds the butt point."""
-    fit = cq.importers.importStep(str(_tee_path)).val()
-    tx, ty, tz = port_tip
-    return (
-        fit.rotate((0, 0, 0), (0, 1, 0), 90.0)    # run → X, branch → +Z
-        .rotate((0, 0, 0), (1, 0, 0), 90.0)
-        .rotate((0, 0, 0), (0, 1, 0), -90.0)      # branch +Z → −X, run → +Z
-        .rotate((0, 0, 0), (1, 0, 0), spin)       # swing run about branch (X) axis
-        .translate((tx + tee_branch_reach, ty, tz))
-    )
-
-
 def place_tee_branch_out(cx, cy):
     """Tee, run along X (valve on the −X end), with its branch turned 90° about X
     to point **outward along Y** (away from the row center: +Y for a +Y row, −Y
@@ -177,11 +144,11 @@ def build_assembly():
     parts = {nm: place_valve(*p, -90.0) for nm, p in valves.items()}
     # Each Tee's branch points outward along Y (turned 90° about X) to its bag.
     parts.update({nm: place_tee_branch_out(*p) for nm, p in tees.items()})
-    # An elbow turns each valve's outer (unoccupied) port off the tray, clocked
-    # by `rolls`.
+    # An elbow turns each junction-column valve's outer (unoccupied) port off
+    # the tray, clocked by `rolls`; the east bank's outer ports run bare.
     parts.update({
-        f"E{nm}": place_elbow(cx, cy, *_outer_port(cx), roll=rolls[nm])
-        for nm, (cx, cy) in valves.items()
+        f"E{nm}": place_elbow(*valves[nm], *_outer_port(valves[nm][0]), roll=roll)
+        for nm, roll in rolls.items()
     })
     return parts
 
@@ -193,10 +160,20 @@ def _outer_port(cx):
 
 
 def boundary_collets():
-    """Every outer elbow's free collet in tray coordinates: {name: (position,
-    outward axis)}. The tray's boundary — what the enclosure routes lines to."""
-    return {nm: elbow_collet(cx, cy, *_outer_port(cx), roll=rolls[nm])
-            for nm, (cx, cy) in valves.items()}
+    """Every boundary connector in tray coordinates: {name: (position, outward
+    axis)} — the west bank's outer-elbow free collets (V-E/V-H, the junction
+    column) and the east bank's bare outer-port tips (V-F/V-I, awaiting the
+    pump-discharge tees). The tray's boundary — what the enclosure routes
+    lines to."""
+    out = {}
+    for nm, (cx, cy) in valves.items():
+        ux, uy = _outer_port(cx)
+        if nm in rolls:
+            out[nm] = elbow_collet(cx, cy, ux, uy, roll=rolls[nm])
+        else:
+            out[nm] = ((cx + port_half * ux, cy + port_half * uy, port_z),
+                       (ux, uy, 0.0))
+    return out
 
 
 def bag_branches():
@@ -284,16 +261,15 @@ def _junction_aim():
 
 junction_roll, junction_skew, junction_dx = _junction_aim()
 
-# Per-valve elbow rolls, authored for this tray's INVERTED pose in the
-# enclosure (hung 180° about Y), which turns a local up-turn straight DOWN in
-# world:
-#   * V-E/V-H, the west bank, keep the local up-turn and add the junction aim
-#     — rolled OUTWARD (away from the tray centreline, mirrored per row) so
-#     each collet faces down the line to the source tray's, which rolls the
-#     same amount inward to meet it.
-#   * V-F/V-I, the east bank, roll 180 so their collets face UP in world: the
-#     pump-discharge tees (Y-D / Y-G) feed them from above.
-rolls = {"VE": +junction_roll, "VH": -junction_roll, "VF": 180.0, "VI": 180.0}
+# Per-valve elbow rolls — only the junction column's west bank wears elbows,
+# authored for this tray's INVERTED pose in the enclosure (hung 180° about Y),
+# which turns a local up-turn straight DOWN in world: V-E/V-H keep the local
+# up-turn and add the junction aim — rolled OUTWARD (away from the tray
+# centreline, mirrored per row) so each collet faces down the line to the
+# source tray's, which rolls the same amount inward to meet it. The east
+# bank's outer ports (V-F/V-I) run bare, facing east in world at the
+# nozzle-gate pocket, awaiting the pump-discharge tees (Y-D / Y-G).
+rolls = {"VE": +junction_roll, "VH": -junction_roll}
 
 valve_y_extent = row_half + cell.valve.body_radius  # outer body edge of the butted pair
 plate_half_y = valve_y_extent + wall_clear + wall_thickness

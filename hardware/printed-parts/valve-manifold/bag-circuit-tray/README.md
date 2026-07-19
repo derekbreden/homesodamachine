@@ -18,13 +18,15 @@ connect **in-line through a Tee** ([reference](/hardware/reference/tee-connector
 whose run lies along X, so the inner ports meet the run ports straight-on (no
 jog) with the valves at X = ±[49.57](VALVE_X). Each Tee's **branch is turned 90°
 about X to point outward along Y** to its bag, leaving through a notch in the hug
-wall; the valves' outer ports leave the tray to the pumps, an **elbow** turning
-each +Z up out of the tray.
+wall; the valves' outer ports leave the tray at the X-ends — the +X pair
+(V-E/V-H, the junction column in the enclosure's inverted hang) each wearing
+an **elbow** clocked by the junction aim, the −X pair (V-F/V-I) running
+**bare**, awaiting the pump-discharge tees.
 
-This module also holds the shared parallel-Tee base (`place_valve`,
+This module also holds the shared parallel-tray base (`place_valve`,
 `place_tee`, `build_tray`, common geometry) that the
-[nozzle-gate](/hardware/printed-parts/valve-manifold/nozzle-gate-tray/) gate-tray
-variant imports; it is all-Tee too. Only source-select still uses Y-dividers.
+[nozzle-gate](/hardware/printed-parts/valve-manifold/nozzle-gate-tray/) tray
+imports. Only source-select uses Y-dividers; every other junction is a Tee.
 
 Origin = cell center, Z = 0 the valve mounting plane, ports at Z = [11.3](PORT_Z). The
 six valve/Tee bodies are clash-free.
