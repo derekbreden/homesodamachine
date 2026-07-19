@@ -36,7 +36,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §2 (
 | Cantesco D101-A non-aqueous wet developer (white, aerosol) | B008BJCOLK | PT developer — draws the penetrant back out of a defect as a visible red indication. |
 | Lint-free cleanroom wipes, 9" × 9" (cellulose/polyester) | B0GD16CMYL | PT wipe-off + reading surface. Excess penetrant wiped with isopropyl alcohol (in stock) dampened on a wipe — never sprayed on the part. |
 
-Tooling (per-vessel-amortized only — single-asset tools live in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md), not here): XLaserlab X1 Pro laser welder, WEN 4208T drill press, LingGan M35 cobalt 1/4-18 NPT pipe tap + Drill America DWT adjustable tap wrench, Brown & Sharpe spring tap guide, Drill Hulk 9/64" M35 cobalt drill bit (rod register), argon at the welder, hydro test rig (see step 7).
+Tooling (per-vessel-amortized only — single-asset tools live in [`/hardware/ledger/purchases.md`](/hardware/ledger/purchases.md), not here): XLaserlab X1 Pro laser welder, WEN 4208T drill press, LingGan M35 cobalt 1/4-18 NPT pipe tap + Drill America DWT adjustable tap wrench, Brown & Sharpe spring tap guide, Drill Hulk 9/64" M35 cobalt drill bit (rod register), JNB Pro 82° M35 cobalt countersink set (port-hole chamfer, step 1), Noga NG8150 swivel-blade deburr tool (plate + tube edges, steps 1 and 3), 3M Scotch-Brite 7447 very-fine hand pads (weld-surface prep, step 3), argon at the welder, hydro test rig (see step 7).
 
 ## CO2 supply (sets working pressure)
 
@@ -46,7 +46,9 @@ At the 5" OD × 0.065" wall geometry, hoop stress at 90 PSI is ~3,461 PSI — a 
 
 ## Procedure
 
-### 1. Tap NPT and drill the rod register in both plates
+### 1. Prepare both plates — chamfer ports, tap NPT, drill the rod register, break the OD edge
+
+**Chamfer the port holes before any tap touches them.** The four 7/16" tap-drill holes arrive laser-cut ([`endcap_circular_dxf.py`](/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py)), which leaves a recast lip at the cut. Break both faces of every hole with the JNB Pro 82° countersink under the drill press. Use the 5/8" or 3/4" body — a 1/2" body spans only 0.031" over the 0.438" hole and leaves no room to set chamfer width deliberately. Run the press slow with Tap Magic; the 5-flute grind chatters if crowded. The chamfer clears the cut lip and gives the taper tap a square seat to start in, which is what keeps the first threads concentric with the hole.
 
 Hand-tap 1/4"-18 NPT in all four port positions — 2 ports per plate × 2 plates per vessel. Target 4.5 turns of engagement, with a 1/4" NPT test fitting snug-firm at 2-3 threads showing.
 
@@ -54,11 +56,22 @@ The first-tap rig and hand sequence are captured in [`/hardware/tapping-plan-202
 
 **Rod register (both plates, same drill-press setup, before any welding).** Drill the level-sensing rod register into the **inside** face: a blind **9/64" hole, 0.10" deep to the drill-point tip**, at **(0, −2.007")** — on the −Y cap axis, clear of both ports. Position / diameter / depth are the source-of-truth constants in [`endcap_circular_dxf.py`](/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py); the cap drawing carries the REF callout (Note 6). The 0.10" depth leaves 0.15" of the 1/4" plate intact — **this hole must not break through; it is part of the 90 PSI pressure boundary.** Clamp the disc, run the press at its slowest speed (~740 RPM) with Tap Magic, set the depth stop to 0.10" (to the tip), and prove it on a scrap disc before a real plate. Both plates get the identical hole: the **bottom**-plate register seats and squares the rod for its tack weld (step 2); the **top**-plate register captures the rod tip at closure (step 5). Drilling now — before welding and before the citric passivation (step 8) — lets the fresh-cut 316L passivate with the rest of the vessel.
 
+**Break the plate OD edge — asymmetrically.** Run the Noga NG8150 around the laser-cut perimeter, treating the two faces differently, because only one of them is a weld surface:
+
+- **Inside face** (the register face, above). This edge leads as the plate is pushed down the bore at steps 3 and 5. Chamfer it freely — it is a lead-in that lets the plug find center in the ~0.005" radial slip, and it ends up inside the vessel where no beam reaches it.
+- **Outside face.** Break the burr only, no chamfer. This edge is the fillet root: the corner it forms with the tube bore is exactly what the weld fills at steps 3 and 5. Chamfering it widens the root gap the laser has to bridge, working against the penetration the joint depends on.
+
+The register drilled above is what distinguishes the two faces, so each plate carries its own orientation from this step forward. Mark the outside face if the register is not obvious at a glance on the bench.
+
 ### 2. Tack-weld float rod to bottom plate
 
 Cut the 1/8" 316L rod to [131.1 mm (5.16 in)](ROD_LEN) — tube length − both 1/4" recesses − both 1/4" plates + both 0.10" registers − 1 mm clearance, with each plate recessed 1/4" below its tube end (`_pressure_vessel_sync.py`). Tack-weld it vertically to the inside face of the bottom plate (the side that will face into the vessel), seating its base in the bottom-plate register from step 1 — the register locates the rod on the donut-wall axis and holds it square for the tack. Set the final rod length so that, fully seated at the bottom, its top will enter the top-plate register at closure (step 5) **without** bottoming out and holding the top plate off its seated depth — the rod locates the plate, it must never hold the fillet root open. Done in the same welding session as the plate-to-tube welds in steps 3 and 5 — heat the welder once.
 
 ### 3. Weld bottom plate to tube
+
+**Deburr both tube ends first, ID and OD.** Noga NG8150, both ends in one sitting while the tube is still loose and easy to turn. This is a clearance operation, not a fusion one — the cut edge is not a weld surface, since the fillet sits 1/4" below it. What it buys is insertion: the plate has only ~0.005" of radial slip, and a rolled-over saw burr is enough to catch a plate part-way down and hold it off its seated depth, which the corner geometry below depends on. Keep the chamfer light — the 0.065" wall has little to give.
+
+**Prep the two surfaces the fillet actually sees.** Those are the tube bore, for the 1/4" band below each end, and the plate's outer face out to its perimeter. Not the tube's cut edge and not the plate OD — both are buried in the slip joint. Either the X1 Pro's cleaning mode or a Scotch-Brite 7447 pad reaches both; what the joint needs is clean bare metal, not tooth. Keep the pads segregated as stainless-only: embedded free iron rusts and outlives the citric passivation at step 8.
 
 **Joint — ID-fit plug recessed 1/4", closed with a corner fillet.** The end plate is an ID-fit plug: its OD is sized just under the tube ID for a ~0.005" radial slip ([`endcap_circular_dxf.py`](/hardware/cut-parts/carbonation/endcaps-circular/endcap_circular_dxf.py)). Seat it **recessed 1/4"** — outer face 1/4" below the tube end — so the tube wall stands 1/4" proud and the wall ID plus the plate's outer face form an internal corner. Weld a fillet into that corner. This is the joint the XLaserlab X1 Pro runs best and the most forgiving for a hand weld: the beam fires into the corner onto the thick plate mass — which absorbs the energy and backs the puddle — and washes onto the tube-wall side, instead of trying to fuse the bare 0.065" tube-end edge, which a focused laser tends to cut back rather than fuse. Set the recess depth with a 1/4" spacer / depth-stop on the rim so every plate seats at the same depth (repeatability across the batch). Drive enough penetration to fuse the corner fully and seal the ~0.005" slip gap; the PT check (step 6) + hydro test (step 7) confirm it (a defect weeps up the slip gap to the rim). Keep heat moving — the proud 1/4" lip is unbacked above the weld and will distort if you dwell.
 
