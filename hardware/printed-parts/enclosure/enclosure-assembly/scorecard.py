@@ -226,15 +226,14 @@ PLACEMENT_RULES = {
     "compressor-shroud": [("y-", 1.0), ("z-", 4.0), ("x-", 15.0)],
     # "Condenser is front-right on the floor" (inset one corner-rib chain off the right wall).
     "condenser+fan":     [("y-", 1.0), ("z-", 4.0), ("x+", 15.0)],
-    # "The assembly rides the rise's physical cap": its front tall wall tops one
-    # clearance under the display PCB body's low-front underside — the exact-gap bound
-    # that pins the raised height. Its relation to the funnel above is the open nesting
-    # question (the display cap stops V-A's edge short of the ramp) and carries no rule
-    # until it is resolved.
-    "source-select-assembly": [("near", "display", 1.5)],
+    # "The assembly is pinned between funnel and display": raised until the rotated
+    # funnel's loft caps the rise one clearance over the east bank's wall tops, and
+    # shifted aft only as far as the display body's low-front underside demands — both
+    # exact-gap bounds on the real solids.
+    "source-select-assembly": [("near", "hopper-funnel", 1.5), ("near", "display", 1.5)],
     # "The funnel rides the top wall" — brim top one brim thickness + one wall above the
-    # interior ceiling.
-    "hopper-funnel":     [("z+", 6.1)],
+    # interior ceiling — "and its loft caps the assembly's rise".
+    "hopper-funnel":     [("z+", 6.1), ("near", "source-select-assembly", 1.5)],
 }
 
 
@@ -362,20 +361,21 @@ PORTS = [
     # feeding V-B by tube (segment 4). Defined in the funnel's own frame
     # (hopper_funnel.drain_local = (neck_dx, 0, −drop)) carried through the placement's
     # FUNNEL_ROT + FUNNEL_CX/CY (brim on the box top), so it rides the part. Rotated 180°,
-    # the spout descends WEST of centre, over the assembly's central valley; the drain sits
-    # ~16 mm above V-B-I's collet — segment 4 is the gravity drain + air-purge path, and the
-    # tube from here to V-B must only fall.
-    _p("drain", "hopper-funnel", "fluid", (139.75, 63.3, 255.72), "z-", 6.35, "V-B-I by falling tube — segment 4 (hopper gate → shared source)", "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"),
+    # the spout descends WEST of centre, over the assembly's central valley. At the raised
+    # assembly height the drain sits only ~1 mm above V-B-I's collet — segment 4 is the
+    # gravity drain + air-purge path and must only fall, so its fall budget is nearly
+    # exhausted here (unresolved tension).
+    _p("drain", "hopper-funnel", "fluid", (139.75, 63.3, 255.72), "z-", 6.35, "V-B-I by tube — segment 4 (hopper gate → shared source; must fall)", "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"),
     # Source-select assembly (Tray 1) — the manifold's four boundary connectors: the outlet
     # elbows' free collets, all facing +Z, measured off the built assembly
     # (source_select_tray.build_assembly() top-opening centres, local (±128.33, ±36.73, 30.86))
     # carried through the 180° flip + SRC_SEL_POS. V-A/V-B east (under the funnel's high
     # ramp), V-C/V-D west. On-tray plumbing (segments 3/5/6/7/8 — valve↔divider tubes) is
     # interior to the assembly and carries no port here.
-    _p("V-A-I", "source-select-assembly", "fluid", (275.33, 26.57, 239.76),  "z+", 6.35, "tap-water chain (bulkhead-water → BFP, deferred) — segment 2 (pressurized; length-tolerant)", "JG elbow collet, 1/4\" tube, facing up"),
-    _p("V-B-I", "source-select-assembly", "fluid", (275.33, 100.03, 239.76), "z+", 6.35, "hopper-funnel drain by falling tube — segment 4", "JG elbow collet, 1/4\" tube, facing up"),
-    _p("V-C-O", "source-select-assembly", "fluid", (18.67, 26.57, 239.76),   "z+", 6.35, "Y-C-1 (Tray 3 pump-inlet tees, deferred) — segment 9", "JG elbow collet, 1/4\" tube, facing up"),
-    _p("V-D-O", "source-select-assembly", "fluid", (18.67, 100.03, 239.76),  "z+", 6.35, "Y-F-1 (Tray 3 pump-inlet tees, deferred) — segment 19", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-A-I", "source-select-assembly", "fluid", (275.33, 41.57, 254.66),  "z+", 6.35, "tap-water chain (bulkhead-water → BFP, deferred) — segment 2 (pressurized; length-tolerant)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-B-I", "source-select-assembly", "fluid", (275.33, 115.03, 254.66), "z+", 6.35, "hopper-funnel drain by tube — segment 4 (the drain sits ~1 mm above this collet)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-C-O", "source-select-assembly", "fluid", (18.67, 41.57, 254.66),   "z+", 6.35, "Y-C-1 (Tray 3 pump-inlet tees, deferred) — segment 9", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-D-O", "source-select-assembly", "fluid", (18.67, 115.03, 254.66),  "z+", 6.35, "Y-F-1 (Tray 3 pump-inlet tees, deferred) — segment 19", "JG elbow collet, 1/4\" tube, facing up"),
     # Waveshare display — its data/power connector is NOT in the imported STEP (only the four
     # corner mounts are), so this one harness port is placed provisionally on the interior (+Y)
     # back face at the PCB centre. A viewer pick would pin it exactly.
