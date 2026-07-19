@@ -3,15 +3,19 @@
 [`_routing.py`](_routing.py) is the kit; this file is the authorship: one `route(...)` per
 connection, its waypoints written against the ports and body faces that shape them.
 
-Today: the sealed refrigerant loop (`scorecard.REFRIGERANT_SEGMENTS`), binding the three placed
-components — compressor, condenser, cold-core evaporator. Two corridors carry it, each measured
-off the faces that bound it:
+Today: the sealed refrigerant loop (`scorecard.REFRIGERANT_SEGMENTS`), all three legs, binding
+the three placed components — compressor, condenser, cold-core evaporator. Two corridors carry
+it, each measured off the faces that bound it:
 
-  * the machine corridor — 22 mm, compressor back face to cold-core front face.
-  * the condenser channel — 21 mm, compressor +X face to condenser −X face.
+  * the machine corridor — 49 mm, compressor back face to cold-core front face. Its approach
+    lane rides one bend radius off the cold-core face; refrig-2 crosses it at the floor,
+    refrig-3 drops down it at the suction's station.
+  * the condenser channel — 21 mm, compressor +X face to condenser −X face, one lane wide.
+    refrig-1 crosses at the discharge's height and climbs the tipped block's flank to the
+    back-top inlet; refrig-2 leaves the front-bottom outlet along the channel floor — the two
+    share the lane plane 69 mm apart in z.
 
-A 1/4" line runs one bend radius of straight (12.7 mm) off a fitting before it turns, so each
-corridor carries one lane and the legs sharing it are separated by height.
+A 1/4" line runs one bend radius of straight (12.7 mm) off a fitting before it turns.
 
 Precedent: `pcba.tsx`'s `route(...)` call sites.
 """
@@ -32,25 +36,9 @@ from _routing import route
 COPPER = cq.Color(0.72, 0.45, 0.20)
 
 # Connections the pack does not carry as it stands, each with the measurement that blocks it.
-# They stay counted against the `routed` axis.
-BLOCKED = {
-    "refrig-2": (
-        "condenser+fan.refrig-outlet → foam-assembly.evap-inlet needs a lateral jog in y. The "
-        "outlet sits at y 145.5. The last corner before the evaporator inlet sits at y ≤ 142.30 "
-        "(one bend radius off the cold core's front face) and y ≥ 137.18 (clear of the "
-        "compressor's back face), putting the jog at 3.2–8.3 mm. A leg between two 90° corners "
-        "is 2R = 25.4 mm; the jog closes at R ≤ 1.60 mm, or R ≤ 2.73 mm as a 45° offset pair. "
-        "The condenser is a placeholder box and this outlet is a viewer pick on it; the outlet "
-        "at y ≤ 111.8 clears the corridor lane by 2R."),
-    "refrig-3": (
-        "foam-assembly.evap-outlet → compressor-shroud.refrig-suction needs a lateral jog in y "
-        "between the machine corridor's two lanes. The outlet's drop lane sits at y ≤ 142.30 "
-        "(one bend radius off the cold core's front face) and y ≥ 137.18 (a Ø6.35 line clear of "
-        "the compressor's back face); the suction's entry lane sits at y ≥ 145.70 (one bend "
-        "radius off the suction stub's face). The jog is 3.4–8.5 mm: two 90° corners close 8.5 "
-        "at R ≤ 4.26, under any 1/4\" former; a 45° offset pair at R 12.7 needs j ≥ 7.44 and "
-        "fits the window at lane y ≤ 138.26 — a corner the orthogonal kit cannot express."),
-}
+# They stay counted against the `routed` axis. Empty: every declared refrigerant segment has an
+# authored path.
+BLOCKED: dict = {}
 
 
 def _frames():
@@ -73,23 +61,41 @@ def build_runs() -> list:
     bend = R.BEND_RATIO * 6.35                              # 1/4" ACR copper, the loop's line
 
     # Each lane sits one bend radius off the face its ports turn away from.
-    lane = comp.bb.ymax + bend
     slot = cond.bb.xmin - bend
 
     runs = []
 
     # refrig-1 — hot gas off the compressor's back face onto the corridor lane, across to the
-    # condenser channel, forward the length of the machine, up the channel into the inlet at the
-    # condenser's top-front.
+    # condenser channel, aft along the tipped block's flank, up into the inlet at the
+    # condenser's back-top.
     runs.append(route(
         "refrig-1", "compressor-shroud.refrig-discharge",
         {"x": slot},                                        # across into the condenser channel
-        cond.y("refrig-inlet"),                             # forward to the inlet's station
+        cond.y("refrig-inlet"),                             # aft to the inlet's station
         cond.z("refrig-inlet"),                             # up the channel to its height
         "condenser+fan.refrig-inlet",
         note="hot gas: compressor → condenser"))
 
-    # refrig-2, refrig-3 — see BLOCKED.
+    # refrig-2 — liquid line off the tipped condenser's front-bottom outlet (the donor drier +
+    # cap tube ride this leg, inside the harvested block): along the channel floor, aft to the
+    # corridor's approach lane, across the machine at the floor — 70 mm under refrig-1's channel
+    # crossing — then up the cold-core face into the evaporator inlet at its station.
+    runs.append(route(
+        "refrig-2", "condenser+fan.refrig-outlet",
+        foam.y("evap-inlet", -bend),                        # aft: one bend off the cold-core face
+        foam.x("evap-inlet"),                               # across the machine at the floor
+        foam.z("evap-inlet"),                               # up the cold-core face to the inlet
+        "foam-assembly.evap-inlet",
+        note="liquid: condenser (drier + cap tube) → evaporator"))
+
+    # refrig-3 — suction off the evaporator outlet: across the corridor's approach lane to the
+    # suction's station, down to its height, and forward into the compressor's stub.
+    runs.append(route(
+        "refrig-3", "foam-assembly.evap-outlet",
+        comp.x("refrig-suction"),                           # across to the suction's station
+        comp.z("refrig-suction"),                           # down the corridor to its height
+        "compressor-shroud.refrig-suction",
+        note="suction: evaporator → compressor"))
 
     return runs
 

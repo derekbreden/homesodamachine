@@ -1,17 +1,17 @@
 {
   "gatesPass": true,
-  "placed": 31,
-  "located": 75,
+  "placed": 35,
+  "located": 76,
   "shaped": 94,
-  "routed": 2,
-  "held": 44,
+  "routed": 5,
+  "held": 41,
   "checks": [
     {
       "id": "coverage",
       "label": "Every placed part declared in the registry",
       "kind": "gate",
       "status": "pass",
-      "value": "16/16 placed declared",
+      "value": "17/17 placed declared",
       "target": "all declared",
       "detail": [],
       "active": true
@@ -34,13 +34,15 @@
       "value": "1.00 mm",
       "target": "\u2265 1.0 mm",
       "detail": [
-        "foam-assembly \u2014 mq6-sensor: 1.00 mm",
+        "source-select-assembly \u2014 bag-circuit-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
         "compressor-shroud \u2014 mq6-sensor: 1.00 mm",
         "source-select-assembly \u2014 hopper-funnel: 1.08 mm",
         "source-select-assembly \u2014 display: 1.15 mm",
         "foam-assembly \u2014 power-tray: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 dc-dist: 2.50 mm \u2014 CONTACT (declared ok)",
+        "compressor-shroud \u2014 bag-circuit-assembly: 3.30 mm",
+        "condenser+fan \u2014 bag-circuit-assembly: 3.80 mm",
         "foam-assembly \u2014 condenser+fan: 4.00 mm",
         "display \u2014 hopper-funnel: 4.49 mm"
       ],
@@ -71,8 +73,8 @@
       "label": "Every component is a selected real part / finished print",
       "kind": "gate",
       "status": "pass",
-      "value": "16/16",
-      "target": "16/16",
+      "value": "17/17",
+      "target": "17/17",
       "detail": [],
       "active": true
     },
@@ -81,7 +83,7 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "31% (5/16)",
+      "value": "35% (6/17)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 0.0 x- 0.0 x+ 0.0 z- 9.5 mm",
@@ -89,6 +91,7 @@
         "\u2713 condenser+fan: y- 0.0 z- 3.0 x+ 14.0 mm",
         "\u2713 source-select-assembly: near hopper-funnel 1.1 near display 1.2 mm",
         "\u2713 hopper-funnel: z+ 6.0 near source-select-assembly 1.1 mm",
+        "\u2713 bag-circuit-assembly: near source-select-assembly 0.0 clear compressor-shroud 3.3 clear condenser+fan 3.8 mm",
         "11 components: no placement rules defined yet"
       ],
       "active": true
@@ -98,46 +101,46 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "75% (12/16)",
+      "value": "76% (13/17)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
-        "    \u2013 foam-assembly:carb-water-out (fluid) (141.5, 155, 46.5) y- \u00d86.35 \u2192 dispense faucet (carb-water riser to the rear umbilical)",
-        "    \u2013 foam-assembly:reservoir-A (fluid) (238.5, 155, 35.5) y- \u00d86.35 \u2192 reservoir A \u2194 peristaltic pump A (bag circuit)",
-        "    \u2013 foam-assembly:reservoir-B (fluid) (44.5, 155, 35.5) y- \u00d86.35 \u2192 reservoir B \u2194 peristaltic pump B (bag circuit)",
-        "    \u2013 foam-assembly:co2-in (fluid) (141.5, 172.8, 262.9) z+ \u00d86.35 \u2192 CO2 chain (WR1110 \u2192 foam-cap top entry)",
-        "    \u2013 foam-assembly:evap-inlet (refrigerant) (141.5, 155, 72) y- \u00d86.35 \u2192 condenser+fan outlet (liquid line via drier + cap tube)",
-        "    \u2013 foam-assembly:evap-outlet (refrigerant) (141.5, 155, 191) y- \u00d86.35 \u2192 compressor-shroud suction",
-        "    \u2013 foam-assembly:water-in (fluid) (141.5, 155, 223) y- \u00d89.525 \u2192 gasher-water out (SeaFlo outlet check \u2192 carbonator water inlet)",
-        "    \u2013 foam-assembly:prv-vent (fluid) (141.5, 155, 231) y- \u00d86.35 \u2192 appliance interior (relief-event discharge only)",
-        "    \u2013 foam-assembly:reed-cable-A (electrical) (254.5, 155, 35.5) y- \u00d86.5 \u2192 J6 REEDS A \u2014 reservoir A level reeds (SIG-10)",
-        "    \u2013 foam-assembly:reed-cable-B (electrical) (28.5, 155, 35.5) y- \u00d86.5 \u2192 J7 REEDS B \u2014 reservoir B level reeds (SIG-11)",
+        "    \u2013 foam-assembly:carb-water-out (fluid) (141.5, 182, 46.5) y- \u00d86.35 \u2192 dispense faucet (carb-water riser to the rear umbilical)",
+        "    \u2013 foam-assembly:reservoir-A (fluid) (238.5, 182, 35.5) y- \u00d86.35 \u2192 reservoir A \u2194 peristaltic pump A (bag circuit)",
+        "    \u2013 foam-assembly:reservoir-B (fluid) (44.5, 182, 35.5) y- \u00d86.35 \u2192 reservoir B \u2194 peristaltic pump B (bag circuit)",
+        "    \u2013 foam-assembly:co2-in (fluid) (141.5, 199.8, 262.9) z+ \u00d86.35 \u2192 CO2 chain (WR1110 \u2192 foam-cap top entry)",
+        "    \u2013 foam-assembly:evap-inlet (refrigerant) (141.5, 182, 72) y- \u00d86.35 \u2192 condenser+fan outlet (liquid line via drier + cap tube)",
+        "    \u2013 foam-assembly:evap-outlet (refrigerant) (141.5, 182, 191) y- \u00d86.35 \u2192 compressor-shroud suction",
+        "    \u2013 foam-assembly:water-in (fluid) (141.5, 182, 223) y- \u00d89.525 \u2192 gasher-water out (SeaFlo outlet check \u2192 carbonator water inlet)",
+        "    \u2013 foam-assembly:prv-vent (fluid) (141.5, 182, 231) y- \u00d86.35 \u2192 appliance interior (relief-event discharge only)",
+        "    \u2013 foam-assembly:reed-cable-A (electrical) (254.5, 182, 35.5) y- \u00d86.5 \u2192 J6 REEDS A \u2014 reservoir A level reeds (SIG-10)",
+        "    \u2013 foam-assembly:reed-cable-B (electrical) (28.5, 182, 35.5) y- \u00d86.5 \u2192 J7 REEDS B \u2014 reservoir B level reeds (SIG-11)",
         "\u2717 compressor-shroud: 3/4 connectors located",
         "    \u2013 compressor-shroud:ac-mains (electrical) (192, 66.5, 78) x+ \u00d810 \u2192 Teyleten relay #1 / AC distribution (AC-4 switched-H + AC-5 N, 3-wire gland)  \u2014 \u26a0 off-surface",
         "    \u2013 compressor-shroud:earth-bond (electrical) (192, 31.5, 78) x+ \u00d85 \u2192 electronics-shelf ground bus (AC-6)",
         "    \u2013 compressor-shroud:refrig-suction (refrigerant) (59.25, 133, 78) y+ \u00d86.35 \u2192 foam-assembly evaporator outlet",
         "    \u2013 compressor-shroud:refrig-discharge (refrigerant) (146.75, 133, 78) y+ \u00d86.35 \u2192 condenser+fan inlet",
         "\u2713 condenser+fan: 3/3 connectors located",
-        "    \u2013 condenser+fan:refrig-inlet (refrigerant) (213, 5.5, 175.5) x- \u00d86.35 \u2192 compressor-shroud discharge",
-        "    \u2013 condenser+fan:refrig-outlet (refrigerant) (213, 145.5, 8.5) x- \u00d86.35 \u2192 filter-drier \u2192 cap tube \u2192 foam-assembly evaporator inlet",
-        "    \u2013 condenser+fan:fan-power (electrical) (269, 75.5, 92) x+ \u00d84 \u2192 J2 MANIFOLD B FAN + COM (DC-8, 12 V)",
+        "    \u2013 condenser+fan:refrig-inlet (refrigerant) (213, 172.5, 148.5) x- \u00d86.35 \u2192 compressor-shroud discharge",
+        "    \u2013 condenser+fan:refrig-outlet (refrigerant) (213, 5.5, 8.5) x- \u00d86.35 \u2192 filter-drier \u2192 cap tube \u2192 foam-assembly evaporator inlet",
+        "    \u2013 condenser+fan:fan-power (electrical) (269, 89, 78.5) x+ \u00d84 \u2192 J2 MANIFOLD B FAN + COM (DC-8, 12 V)",
         "\u2713 co2-inlet: 2/2 connectors located",
         "    \u2013 co2-inlet:tube-in (fluid) (46, -22, 234) y- \u00d87.94 \u2192 customer CO2 supply \u2014 5/16\" push-to-connect (rear umbilical)",
         "    \u2013 co2-inlet:npt-out (fluid) (46, 5, 234) y+ \u00d86.35 \u2192 CO2 chain (GASHER check \u2192 WR1110, deferred) \u2192 foam-assembly co2-in",
         "\u2713 bulkhead-flavor-a: 2/2 connectors located",
-        "    \u2013 bulkhead-flavor-a:tube-out (fluid) (195.05, 348.5, 292.45) y+ \u00d86.35 \u2192 customer flavor A line (rear umbilical)",
-        "    \u2013 bulkhead-flavor-a:tube-in (fluid) (195.05, 314.2, 292.45) y- \u00d86.35 \u2192 flavor A internal line (bag/pump circuit A)",
+        "    \u2013 bulkhead-flavor-a:tube-out (fluid) (195.05, 375.5, 292.45) y+ \u00d86.35 \u2192 customer flavor A line (rear umbilical)",
+        "    \u2013 bulkhead-flavor-a:tube-in (fluid) (195.05, 341.2, 292.45) y- \u00d86.35 \u2192 flavor A internal line (bag/pump circuit A)",
         "\u2713 bulkhead-flavor-b: 2/2 connectors located",
-        "    \u2013 bulkhead-flavor-b:tube-out (fluid) (224.95, 348.5, 292.45) y+ \u00d86.35 \u2192 customer flavor B line (rear umbilical)",
-        "    \u2013 bulkhead-flavor-b:tube-in (fluid) (224.95, 314.2, 292.45) y- \u00d86.35 \u2192 flavor B internal line (bag/pump circuit B)",
+        "    \u2013 bulkhead-flavor-b:tube-out (fluid) (224.95, 375.5, 292.45) y+ \u00d86.35 \u2192 customer flavor B line (rear umbilical)",
+        "    \u2013 bulkhead-flavor-b:tube-in (fluid) (224.95, 341.2, 292.45) y- \u00d86.35 \u2192 flavor B internal line (bag/pump circuit B)",
         "\u2713 bulkhead-carb: 2/2 connectors located",
-        "    \u2013 bulkhead-carb:tube-out (fluid) (210, 348.5, 318.3) y+ \u00d86.35 \u2192 carbonated-water line (rear umbilical / faucet)",
-        "    \u2013 bulkhead-carb:tube-in (fluid) (210, 314.2, 318.3) y- \u00d86.35 \u2192 carb-water internal riser (DIGITEN \u2192 foam carb-water-out)",
+        "    \u2013 bulkhead-carb:tube-out (fluid) (210, 375.5, 318.3) y+ \u00d86.35 \u2192 carbonated-water line (rear umbilical / faucet)",
+        "    \u2013 bulkhead-carb:tube-in (fluid) (210, 341.2, 318.3) y- \u00d86.35 \u2192 carb-water internal riser (DIGITEN \u2192 foam carb-water-out)",
         "\u2713 bulkhead-water: 2/2 connectors located",
-        "    \u2013 bulkhead-water:tube-out (fluid) (145, 348.5, 293) y+ \u00d86.35 \u2192 house tap-water line (rear umbilical)",
-        "    \u2013 bulkhead-water:tube-in (fluid) (145, 314.2, 293) y- \u00d86.35 \u2192 tap-water internal line (to multiplex BFP in)",
+        "    \u2013 bulkhead-water:tube-out (fluid) (145, 375.5, 293) y+ \u00d86.35 \u2192 house tap-water line (rear umbilical)",
+        "    \u2013 bulkhead-water:tube-in (fluid) (145, 341.2, 293) y- \u00d86.35 \u2192 tap-water internal line (to multiplex BFP in)",
         "\u2713 c14-inlet: 1/1 connectors located",
-        "    \u2013 c14-inlet:mains-in (electrical) (90, 312, 295.5) y- \u00d88 \u2192 AC distribution \u2014 L/N/E to the electronics shelf",
+        "    \u2013 c14-inlet:mains-in (electrical) (90, 339, 295.5) y- \u00d88 \u2192 AC distribution \u2014 L/N/E to the electronics shelf",
         "\u2713 mq6-sensor: 1/1 connectors located",
         "    \u2013 mq6-sensor:header (electrical) (116, 144, 3) z- \u00d88 \u2192 PCBA gas-sensor input \u2014 VCC/GND/DO/AO (SIG)",
         "\u2713 hopper-funnel: 1/1 connectors located"
@@ -149,7 +152,7 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "94% (15/16)",
+      "value": "94% (16/17)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)",
@@ -158,7 +161,7 @@
         "foam-assembly: 5 boxes hold 12% material",
         "display: 2 boxes hold 18% material",
         "source-select-assembly: 11 boxes hold 20% material",
-        "pcba: 2 boxes hold 28% material"
+        "bag-circuit-assembly: 11 boxes hold 28% material"
       ],
       "active": true
     },
@@ -167,13 +170,13 @@
       "label": "Connections modeled as real 3D paths (fluid + refrigerant + electrical)",
       "kind": "goal",
       "status": "warn",
-      "value": "2% (1/59)",
+      "value": "5% (3/59)",
       "target": "100%",
       "detail": [
-        "28 fluid + 3 refrigerant + 28 electrical; 1 routed \u2014 the fluid path waits on the tray designs and the deferred pumps/water deck, the electrical runs on the components being held",
-        "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 294.8 mm, 4 bends at R12.7",
-        "\u2717 refrig-2: BLOCKED \u2014 condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet needs a lateral jog in y. The outlet sits at y 145.5. The last corner before the evaporator inlet sits at y \u2264 142.30 (one bend radius off the cold core's front face) and y \u2265 137.18 (clear of the compressor's back face), putting the jog at 3.2\u20138.3 mm. A leg between two 90\u00b0 corners is 2R = 25.4 mm; the jog closes at R \u2264 1.60 mm, or R \u2264 2.73 mm as a 45\u00b0 offset pair. The condenser is a placeholder box and this outlet is a viewer pick on it; the outlet at y \u2264 111.8 clears the corridor lane by 2R.",
-        "\u2717 refrig-3: BLOCKED \u2014 foam-assembly.evap-outlet \u2192 compressor-shroud.refrig-suction needs a lateral jog in y between the machine corridor's two lanes. The outlet's drop lane sits at y \u2264 142.30 (one bend radius off the cold core's front face) and y \u2265 137.18 (a \u00d86.35 line clear of the compressor's back face); the suction's entry lane sits at y \u2265 145.70 (one bend radius off the suction stub's face). The jog is 3.4\u20138.5 mm: two 90\u00b0 corners close 8.5 at R \u2264 4.26, under any 1/4\" former; a 45\u00b0 offset pair at R 12.7 needs j \u2265 7.44 and fits the window at lane y \u2264 138.26 \u2014 a corner the orthogonal kit cannot express."
+        "28 fluid + 3 refrigerant + 28 electrical; 3 routed \u2014 the fluid path waits on the deferred trays (pump-inlet tees, nozzle-gates) and the pumps/water deck, the electrical runs on the components being held",
+        "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7",
+        "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 289.7 mm, 4 bends at R12.7",
+        "\u2713 refrig-3: foam-assembly.evap-outlet \u2192 compressor-shroud.refrig-suction \u2014 \u00d86.35 \u00d7 227.9 mm, 3 bends at R12.7"
       ],
       "active": false
     },
@@ -182,10 +185,10 @@
       "label": "Components in a printed holder fastened to the enclosure",
       "kind": "goal",
       "status": "warn",
-      "value": "44% (7/16)",
+      "value": "41% (7/17)",
       "target": "100%",
       "detail": [
-        "7 held (through-wall bodies + display); 9 loose internal parts unheld"
+        "7 held (through-wall bodies + display); 10 loose internal parts unheld"
       ],
       "active": false
     }
@@ -197,7 +200,7 @@
       "kind": "fluid",
       "pos": [
         141.5,
-        155.0,
+        182.0,
         46.5
       ],
       "face": "y-",
@@ -212,7 +215,7 @@
       "kind": "fluid",
       "pos": [
         238.5,
-        155.0,
+        182.0,
         35.5
       ],
       "face": "y-",
@@ -227,7 +230,7 @@
       "kind": "fluid",
       "pos": [
         44.5,
-        155.0,
+        182.0,
         35.5
       ],
       "face": "y-",
@@ -242,7 +245,7 @@
       "kind": "fluid",
       "pos": [
         141.5,
-        172.8,
+        199.8,
         262.9
       ],
       "face": "z+",
@@ -257,7 +260,7 @@
       "kind": "refrigerant",
       "pos": [
         141.5,
-        155.0,
+        182.0,
         72.0
       ],
       "face": "y-",
@@ -272,7 +275,7 @@
       "kind": "refrigerant",
       "pos": [
         141.5,
-        155.0,
+        182.0,
         191.0
       ],
       "face": "y-",
@@ -287,7 +290,7 @@
       "kind": "fluid",
       "pos": [
         141.5,
-        155.0,
+        182.0,
         223.0
       ],
       "face": "y-",
@@ -302,7 +305,7 @@
       "kind": "fluid",
       "pos": [
         141.5,
-        155.0,
+        182.0,
         231.0
       ],
       "face": "y-",
@@ -317,7 +320,7 @@
       "kind": "electrical",
       "pos": [
         254.5,
-        155.0,
+        182.0,
         35.5
       ],
       "face": "y-",
@@ -332,7 +335,7 @@
       "kind": "electrical",
       "pos": [
         28.5,
-        155.0,
+        182.0,
         35.5
       ],
       "face": "y-",
@@ -407,8 +410,8 @@
       "kind": "refrigerant",
       "pos": [
         213.0,
-        5.5,
-        175.5
+        172.5,
+        148.5
       ],
       "face": "x-",
       "diam": 6.35,
@@ -422,7 +425,7 @@
       "kind": "refrigerant",
       "pos": [
         213.0,
-        145.5,
+        5.5,
         8.5
       ],
       "face": "x-",
@@ -437,8 +440,8 @@
       "kind": "electrical",
       "pos": [
         269.0,
-        75.5,
-        92.0
+        89.0,
+        78.5
       ],
       "face": "x+",
       "diam": 4.0,
@@ -482,7 +485,7 @@
       "kind": "fluid",
       "pos": [
         195.05,
-        348.5,
+        375.5,
         292.45
       ],
       "face": "y+",
@@ -497,7 +500,7 @@
       "kind": "fluid",
       "pos": [
         195.05,
-        314.2,
+        341.2,
         292.45
       ],
       "face": "y-",
@@ -512,7 +515,7 @@
       "kind": "fluid",
       "pos": [
         224.95,
-        348.5,
+        375.5,
         292.45
       ],
       "face": "y+",
@@ -527,7 +530,7 @@
       "kind": "fluid",
       "pos": [
         224.95,
-        314.2,
+        341.2,
         292.45
       ],
       "face": "y-",
@@ -542,7 +545,7 @@
       "kind": "fluid",
       "pos": [
         210.0,
-        348.5,
+        375.5,
         318.3
       ],
       "face": "y+",
@@ -557,7 +560,7 @@
       "kind": "fluid",
       "pos": [
         210.0,
-        314.2,
+        341.2,
         318.3
       ],
       "face": "y-",
@@ -572,7 +575,7 @@
       "kind": "fluid",
       "pos": [
         145.0,
-        348.5,
+        375.5,
         293.0
       ],
       "face": "y+",
@@ -587,7 +590,7 @@
       "kind": "fluid",
       "pos": [
         145.0,
-        314.2,
+        341.2,
         293.0
       ],
       "face": "y-",
@@ -602,7 +605,7 @@
       "kind": "electrical",
       "pos": [
         90.0,
-        312.0,
+        339.0,
         295.5
       ],
       "face": "y-",
@@ -702,6 +705,96 @@
       "note": "JG elbow collet, 1/4\" tube, facing up"
     },
     {
+      "component": "bag-circuit-assembly",
+      "name": "V-F-I",
+      "kind": "fluid",
+      "pos": [
+        48.37,
+        95.43,
+        191.66
+      ],
+      "face": "z+",
+      "diam": 6.35,
+      "mates": "Y-D-2 (Tray 3 pump-inlet tees, deferred) \u2014 segment 13 (pump A to bag A)",
+      "status": "ok",
+      "note": "JG elbow collet, 1/4\" tube, facing up"
+    },
+    {
+      "component": "bag-circuit-assembly",
+      "name": "V-I-I",
+      "kind": "fluid",
+      "pos": [
+        48.37,
+        61.18,
+        191.66
+      ],
+      "face": "z+",
+      "diam": 6.35,
+      "mates": "Y-G-2 (Tray 3 pump-inlet tees, deferred) \u2014 segment 23 (pump B to bag B)",
+      "status": "ok",
+      "note": "JG elbow collet, 1/4\" tube, facing up"
+    },
+    {
+      "component": "bag-circuit-assembly",
+      "name": "V-E-O",
+      "kind": "fluid",
+      "pos": [
+        245.63,
+        95.43,
+        191.66
+      ],
+      "face": "z+",
+      "diam": 6.35,
+      "mates": "Y-C-2 (Tray 3 pump-inlet tees, deferred) \u2014 segment 10 (bag A to pump return)",
+      "status": "ok",
+      "note": "JG elbow collet, 1/4\" tube, facing up"
+    },
+    {
+      "component": "bag-circuit-assembly",
+      "name": "V-H-O",
+      "kind": "fluid",
+      "pos": [
+        245.63,
+        61.18,
+        191.66
+      ],
+      "face": "z+",
+      "diam": 6.35,
+      "mates": "Y-F-2 (Tray 3 pump-inlet tees, deferred) \u2014 segment 20 (bag B to pump return)",
+      "status": "ok",
+      "note": "JG elbow collet, 1/4\" tube, facing up"
+    },
+    {
+      "component": "bag-circuit-assembly",
+      "name": "Y-E-2",
+      "kind": "fluid",
+      "pos": [
+        147.0,
+        115.49,
+        172.1
+      ],
+      "face": "y+",
+      "diam": 6.35,
+      "mates": "Bag A port \u2014 foam-assembly reservoir-A line, segment 15",
+      "status": "ok",
+      "note": "Tee branch collet, 1/4\" tube, aft through the hug-wall notch"
+    },
+    {
+      "component": "bag-circuit-assembly",
+      "name": "Y-H-2",
+      "kind": "fluid",
+      "pos": [
+        147.0,
+        41.11,
+        172.1
+      ],
+      "face": "y-",
+      "diam": 6.35,
+      "mates": "Bag B port \u2014 foam-assembly reservoir-B line, segment 25",
+      "status": "ok",
+      "note": "Tee branch collet, 1/4\" tube, forward through the hug-wall notch"
+    },
+    {
       "component": "display",
       "name": "harness",
       "kind": "electrical",
@@ -722,7 +815,7 @@
       "kind": "electrical",
       "pos": [
         269.8,
-        218.28,
+        245.28,
         292.5
       ],
       "face": "z+",
@@ -737,7 +830,7 @@
       "kind": "electrical",
       "pos": [
         269.8,
-        196.03,
+        223.03,
         292.5
       ],
       "face": "z+",
@@ -752,7 +845,7 @@
       "kind": "electrical",
       "pos": [
         206.55,
-        171.5,
+        198.5,
         292.5
       ],
       "face": "z+",
@@ -767,7 +860,7 @@
       "kind": "electrical",
       "pos": [
         223.8,
-        171.5,
+        198.5,
         292.5
       ],
       "face": "z+",
@@ -782,7 +875,7 @@
       "kind": "electrical",
       "pos": [
         216.85,
-        232.8,
+        259.8,
         292.5
       ],
       "face": "z+",
@@ -797,7 +890,7 @@
       "kind": "electrical",
       "pos": [
         231.7,
-        232.8,
+        259.8,
         292.5
       ],
       "face": "z+",
@@ -812,7 +905,7 @@
       "kind": "electrical",
       "pos": [
         258.3,
-        171.5,
+        198.5,
         292.5
       ],
       "face": "z+",
@@ -827,7 +920,7 @@
       "kind": "electrical",
       "pos": [
         260.1,
-        232.8,
+        259.8,
         292.5
       ],
       "face": "z+",
@@ -842,7 +935,7 @@
       "kind": "electrical",
       "pos": [
         241.05,
-        171.5,
+        198.5,
         292.5
       ],
       "face": "z+",
@@ -857,7 +950,7 @@
       "kind": "electrical",
       "pos": [
         271.15,
-        180.3,
+        207.3,
         292.5
       ],
       "face": "z+",
@@ -872,7 +965,7 @@
       "kind": "electrical",
       "pos": [
         196.8,
-        177.95,
+        204.95,
         292.5
       ],
       "face": "z+",
@@ -887,7 +980,7 @@
       "kind": "electrical",
       "pos": [
         246.55,
-        232.8,
+        259.8,
         292.5
       ],
       "face": "z+",
@@ -902,7 +995,7 @@
       "kind": "electrical",
       "pos": [
         196.8,
-        218.3,
+        245.3,
         292.5
       ],
       "face": "z+",
@@ -917,7 +1010,7 @@
       "kind": "electrical",
       "pos": [
         34.0,
-        278.0,
+        305.0,
         283.0
       ],
       "face": "z+",
@@ -932,7 +1025,7 @@
       "kind": "electrical",
       "pos": [
         49.0,
-        278.0,
+        305.0,
         283.0
       ],
       "face": "z+",
@@ -947,7 +1040,7 @@
       "kind": "electrical",
       "pos": [
         64.0,
-        278.0,
+        305.0,
         283.0
       ],
       "face": "z+",
@@ -962,7 +1055,7 @@
       "kind": "electrical",
       "pos": [
         30.0,
-        185.0,
+        212.0,
         290.0
       ],
       "face": "y-",
@@ -977,7 +1070,7 @@
       "kind": "electrical",
       "pos": [
         175.0,
-        220.0,
+        247.0,
         290.0
       ],
       "face": "x+",
@@ -992,7 +1085,7 @@
       "kind": "electrical",
       "pos": [
         100.0,
-        258.9,
+        285.9,
         290.0
       ],
       "face": "y+",
@@ -1007,7 +1100,7 @@
       "kind": "electrical",
       "pos": [
         130.0,
-        185.0,
+        212.0,
         290.0
       ],
       "face": "y-",
@@ -1019,14 +1112,110 @@
   ],
   "shapes": [
     {
+      "component": "bag-circuit-assembly",
+      "boxes": [
+        [
+          67.93,
+          44.05,
+          160.8,
+          126.93,
+          78.3,
+          217.4
+        ],
+        [
+          126.934,
+          41.109,
+          165.242,
+          167.066,
+          68.033,
+          178.958
+        ],
+        [
+          226.072,
+          88.059,
+          164.734,
+          252.996,
+          102.791,
+          191.658
+        ],
+        [
+          41.004,
+          88.059,
+          164.734,
+          67.928,
+          102.791,
+          191.658
+        ],
+        [
+          67.93,
+          78.3,
+          160.8,
+          126.93,
+          112.55,
+          217.4
+        ],
+        [
+          126.934,
+          88.567,
+          165.242,
+          167.066,
+          115.491,
+          178.958
+        ],
+        [
+          167.07,
+          78.3,
+          160.8,
+          226.07,
+          112.55,
+          217.4
+        ],
+        [
+          78.63,
+          41.05,
+          157.8,
+          215.37,
+          115.55,
+          220.8
+        ],
+        [
+          226.072,
+          53.809,
+          164.734,
+          252.996,
+          68.541,
+          191.658
+        ],
+        [
+          41.004,
+          53.809,
+          164.734,
+          67.928,
+          68.541,
+          191.658
+        ],
+        [
+          167.07,
+          44.05,
+          160.8,
+          226.07,
+          78.3,
+          217.4
+        ]
+      ],
+      "fill": 0.279,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
       "component": "bulkhead-carb",
       "boxes": [
         [
           198.57,
-          314.21,
+          341.21,
           306.86,
           221.43,
-          348.5,
+          375.5,
           329.72
         ]
       ],
@@ -1039,10 +1228,10 @@
       "boxes": [
         [
           183.64,
-          314.21,
+          341.21,
           281.0,
           206.5,
-          348.5,
+          375.5,
           303.86
         ]
       ],
@@ -1055,10 +1244,10 @@
       "boxes": [
         [
           213.5,
-          314.21,
+          341.21,
           281.0,
           236.36,
-          348.5,
+          375.5,
           303.86
         ]
       ],
@@ -1071,10 +1260,10 @@
       "boxes": [
         [
           133.57,
-          314.21,
+          341.21,
           281.57,
           156.43,
-          348.5,
+          375.5,
           304.43
         ]
       ],
@@ -1087,10 +1276,10 @@
       "boxes": [
         [
           74.75,
-          312.0,
+          339.0,
           283.75,
           105.25,
-          350.0,
+          377.0,
           307.25
         ]
       ],
@@ -1138,8 +1327,8 @@
           0.0,
           3.0,
           269.0,
-          151.0,
-          181.0
+          178.0,
+          154.0
         ]
       ],
       "fill": 1.0,
@@ -1151,10 +1340,10 @@
       "boxes": [
         [
           24.0,
-          265.0,
+          292.0,
           265.4,
           74.0,
-          291.0,
+          318.0,
           283.4
         ]
       ],
@@ -1191,42 +1380,42 @@
       "boxes": [
         [
           0.0,
-          155.0,
+          182.0,
           9.5,
           283.0,
-          336.0,
+          363.0,
           11.5
         ],
         [
           0.0,
-          155.0,
+          182.0,
           260.9,
           283.0,
-          336.0,
+          363.0,
           262.9
         ],
         [
           0.0,
-          155.0,
+          182.0,
           29.5,
           283.0,
-          336.0,
+          363.0,
           242.9
         ],
         [
           0.0,
-          155.0,
+          182.0,
           242.9,
           283.0,
-          336.0,
+          363.0,
           260.9
         ],
         [
           0.0,
-          155.0,
+          182.0,
           11.5,
           283.0,
-          336.0,
+          363.0,
           29.5
         ]
       ],
@@ -1271,18 +1460,18 @@
       "boxes": [
         [
           185.0,
-          165.5,
+          192.5,
           273.4,
           275.816,
-          238.3,
+          265.3,
           292.5
         ],
         [
           190.816,
-          165.0,
+          192.0,
           265.4,
           275.816,
-          238.3,
+          265.3,
           273.4
         ]
       ],
@@ -1295,58 +1484,58 @@
       "boxes": [
         [
           24.0,
-          185.0,
+          212.0,
           265.4,
           175.1,
-          258.94,
+          285.94,
           283.143
         ],
         [
           133.0,
-          186.94,
+          213.94,
           270.4,
           150.0,
-          256.94,
+          283.94,
           289.4
         ],
         [
           37.0,
-          241.096,
+          268.096,
           270.4,
           55.0,
-          258.785,
+          285.785,
           285.0
         ],
         [
           153.15,
-          236.655,
+          263.655,
           268.4,
           171.95,
-          255.747,
+          282.747,
           287.492
         ],
         [
           153.15,
-          213.055,
+          240.055,
           268.4,
           171.95,
-          232.147,
+          259.147,
           287.492
         ],
         [
           153.15,
-          189.455,
+          216.455,
           268.4,
           171.95,
-          208.547,
+          235.547,
           287.492
         ],
         [
           24.0,
-          186.94,
+          213.94,
           272.4,
           133.0,
-          238.94,
+          265.94,
           305.9
         ]
       ],

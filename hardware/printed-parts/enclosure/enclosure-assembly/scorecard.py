@@ -114,6 +114,7 @@ COMPONENTS = [
     _c("mq6-sensor",        "real",        True,  "none", "MQ-6 module STEP (PCB + sensor can + header); floor gas sensor, no mount"),
     # Valve manifold
     _c("source-select-assembly", "real",   True,  "none", "Tray 1 — printed tray + 4 Beduan NC solenoids + 2 PP2308E Y-dividers + 4 outlet elbows (valve-manifold/source-select-tray); hangs under the display + funnel, holder TBD"),
+    _c("bag-circuit-assembly",   "real",   True,  "none", "Tray 2 — printed dog-bone tray + 4 Beduan NC solenoids + 2 PP0208E Tees + 4 outlet elbows (valve-manifold/bag-circuit-tray); its stacking walls carry the source-select tray, holder TBD"),
     # Electronics shelf
     _c("power-tray",        "real",        True,  "none", "printed tray holds its boards; tray-to-shell joinery deferred (power-tray README)"),
     _c("pcba",              "real",        True,  "none", "printed tray holds the board; tray-to-shell joinery deferred (pcba-tray README)"),
@@ -139,6 +140,9 @@ TOUCHING_OK = {
         ("foam-assembly", "power-tray"),        # electronics shelf on the foam-cap top
         ("foam-assembly", "pcba"),
         ("foam-assembly", "dc-dist"),
+        # The valve-manifold stack: the source-select tray's floor rests on the
+        # bag-circuit tray's column wall tops, one tray pitch apart by design.
+        ("source-select-assembly", "bag-circuit-assembly"),
     ]
 }
 
@@ -234,6 +238,14 @@ PLACEMENT_RULES = {
     # "The funnel rides the top wall" — brim top one brim thickness + one wall above the
     # interior ceiling — "and its loft caps the assembly's rise".
     "hopper-funnel":     [("z+", 6.1), ("near", "source-select-assembly", 1.5)],
+    # "The bag tray carries the source-select tray": stacked one tray pitch
+    # below, the tray floor above resting on this tray's column wall tops (a
+    # declared contact — the `near` holds at zero), while the floor stratum
+    # below stays one stack gap open (the compressor and tipped condenser
+    # tops are the deferred water deck's ground).
+    "bag-circuit-assembly": [("near", "source-select-assembly", 1.0),
+                             ("clear", "compressor-shroud", 2.5),
+                             ("clear", "condenser+fan", 2.5)],
 }
 
 
@@ -310,16 +322,16 @@ PORTS = [
     # inlet, which drops through the +Z foam-cap top. Ø: the beverage/flavor lines run the foam
     # shell's Ø6.5 port-holes (_cold_core_interface.port_hole_radius 3.25) sized for 1/4" tube;
     # the water-in takes the SeaFlo's 3/8" discharge; the copper legs are 1/4" ACR = 6.35.
-    _p("carb-water-out", "foam-assembly", "fluid",       (141.5, 155.0, 46.5),  "y-", 6.35,  "dispense faucet (carb-water riser to the rear umbilical)", "1/4\" tank NPT elbow line"),
-    _p("reservoir-A",    "foam-assembly", "fluid",       (238.5, 155.0, 35.5),  "y-", 6.35,  "reservoir A ↔ peristaltic pump A (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
-    _p("reservoir-B",    "foam-assembly", "fluid",       (44.5,  155.0, 35.5),  "y-", 6.35,  "reservoir B ↔ peristaltic pump B (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
-    _p("co2-in",         "foam-assembly", "fluid",       (141.5, 172.8, 262.9), "z+", 6.35,  "CO2 chain (WR1110 → foam-cap top entry)", "1/4\" PTC CO2 line; seats in the Ø16 foam-cap bore"),
-    _p("evap-inlet",     "foam-assembly", "refrigerant", (141.5, 155.0, 72.0),  "y-", 6.35,  "condenser+fan outlet (liquid line via drier + cap tube)", "1/4\" ACR copper"),
-    _p("evap-outlet",    "foam-assembly", "refrigerant", (141.5, 155.0, 191.0), "y-", 6.35,  "compressor-shroud suction", "1/4\" ACR copper"),
-    _p("water-in",       "foam-assembly", "fluid",       (141.5, 155.0, 223.0), "y-", 9.525, "gasher-water out (SeaFlo outlet check → carbonator water inlet)", "3/8\" hose barb (SeaFlo 22-series port)"),
-    _p("prv-vent",       "foam-assembly", "fluid",       (141.5, 155.0, 231.0), "y-", 6.35,  "appliance interior (relief-event discharge only)", "1/4\" relief discharge"),
-    _p("reed-cable-A",   "foam-assembly", "electrical",  (254.5, 155.0, 35.5),  "y-", 6.5,   "J6 REEDS A — reservoir A level reeds (SIG-10)", "reed cable through the Ø6.5 pass-through, 16 mm outboard of reservoir-A (_port_cuts.py)"),
-    _p("reed-cable-B",   "foam-assembly", "electrical",  (28.5,  155.0, 35.5),  "y-", 6.5,   "J7 REEDS B — reservoir B level reeds (SIG-11)", "reed cable through the Ø6.5 pass-through, 16 mm outboard of reservoir-B (_port_cuts.py)"),
+    _p("carb-water-out", "foam-assembly", "fluid",       (141.5, 182.0, 46.5),  "y-", 6.35,  "dispense faucet (carb-water riser to the rear umbilical)", "1/4\" tank NPT elbow line"),
+    _p("reservoir-A",    "foam-assembly", "fluid",       (238.5, 182.0, 35.5),  "y-", 6.35,  "reservoir A ↔ peristaltic pump A (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
+    _p("reservoir-B",    "foam-assembly", "fluid",       (44.5,  182.0, 35.5),  "y-", 6.35,  "reservoir B ↔ peristaltic pump B (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
+    _p("co2-in",         "foam-assembly", "fluid",       (141.5, 199.8, 262.9), "z+", 6.35,  "CO2 chain (WR1110 → foam-cap top entry)", "1/4\" PTC CO2 line; seats in the Ø16 foam-cap bore"),
+    _p("evap-inlet",     "foam-assembly", "refrigerant", (141.5, 182.0, 72.0),  "y-", 6.35,  "condenser+fan outlet (liquid line via drier + cap tube)", "1/4\" ACR copper"),
+    _p("evap-outlet",    "foam-assembly", "refrigerant", (141.5, 182.0, 191.0), "y-", 6.35,  "compressor-shroud suction", "1/4\" ACR copper"),
+    _p("water-in",       "foam-assembly", "fluid",       (141.5, 182.0, 223.0), "y-", 9.525, "gasher-water out (SeaFlo outlet check → carbonator water inlet)", "3/8\" hose barb (SeaFlo 22-series port)"),
+    _p("prv-vent",       "foam-assembly", "fluid",       (141.5, 182.0, 231.0), "y-", 6.35,  "appliance interior (relief-event discharge only)", "1/4\" relief discharge"),
+    _p("reed-cable-A",   "foam-assembly", "electrical",  (254.5, 182.0, 35.5),  "y-", 6.5,   "J6 REEDS A — reservoir A level reeds (SIG-10)", "reed cable through the Ø6.5 pass-through, 16 mm outboard of reservoir-A (_port_cuts.py)"),
+    _p("reed-cable-B",   "foam-assembly", "electrical",  (28.5,  182.0, 35.5),  "y-", 6.5,   "J7 REEDS B — reservoir B level reeds (SIG-11)", "reed cable through the Ø6.5 pass-through, 16 mm outboard of reservoir-B (_port_cuts.py)"),
     # compressor-shroud — compressor_shroud.py local hole centers carried through _contents'
     # _rot((0,0,1),−90) + _at(14,0,3). Both copper stubs share the one face → world +Y (toward
     # the foam/cold core they mate to); the AC gland + earth bond ride the +X face (into the
@@ -329,13 +341,15 @@ PORTS = [
     _p("earth-bond",      "compressor-shroud", "electrical",  (192.0, 31.5, 78.0),  "x+", 5.0,   "electronics-shelf ground bus (AC-6)", "M5 earth stud/ring (estimate — confirm at shroud teardown)"),
     _p("refrig-suction",  "compressor-shroud", "refrigerant", (59.25, 133.0, 78.0), "y+", 6.35,  "foam-assembly evaporator outlet", "1/4\" ACR copper"),
     _p("refrig-discharge","compressor-shroud", "refrigerant", (146.75, 133.0, 78.0),"y+", 6.35,  "condenser+fan inlet", "1/4\" ACR copper"),
-    # condenser+fan — placeholder box harvested from the donor; ports located from step-viewer
-    # picks (2026-07-17). Both refrigerant ports on the −X face (toward the compressor): inlet
-    # top-front, outlet bottom-back (drier + cap-tube hang off it). The fan is on the opposite
-    # +X face; airflow runs −X → +X. Copper is 1/4" ACR; the fan pigtail Ø is an estimate.
-    _p("refrig-inlet",  "condenser+fan", "refrigerant", (213.0, 5.5, 175.5),   "x-", 6.35, "compressor-shroud discharge", "1/4\" ACR copper"),
-    _p("refrig-outlet", "condenser+fan", "refrigerant", (213.0, 145.5, 8.5),   "x-", 6.35, "filter-drier → cap tube → foam-assembly evaporator inlet", "1/4\" ACR copper"),
-    _p("fan-power",     "condenser+fan", "electrical",  (269.0, 75.5, 92.0),   "x+", 4.0,  "J2 MANIFOLD B FAN + COM (DC-8, 12 V)", "DC pigtail 2-wire (estimate); +X exhaust face (fan centered); airflow −X→+X"),
+    # condenser+fan — placeholder box harvested from the donor, tipped on its back (a −90°
+    # turn about X: donor top → aft, donor front → up); ports are the 2026-07-17 step-viewer
+    # picks carried through the tip. Both refrigerant ports on the −X face (toward the
+    # compressor): inlet back-top, outlet front-bottom (drier + cap-tube hang off it). The
+    # fan is on the opposite +X face; airflow runs −X → +X, unchanged by the tip. Copper is
+    # 1/4" ACR; the fan pigtail Ø is an estimate.
+    _p("refrig-inlet",  "condenser+fan", "refrigerant", (213.0, 172.5, 148.5), "x-", 6.35, "compressor-shroud discharge", "1/4\" ACR copper"),
+    _p("refrig-outlet", "condenser+fan", "refrigerant", (213.0, 5.5, 8.5),     "x-", 6.35, "filter-drier → cap tube → foam-assembly evaporator inlet", "1/4\" ACR copper"),
+    _p("fan-power",     "condenser+fan", "electrical",  (269.0, 89.0, 78.5),   "x+", 4.0,  "J2 MANIFOLD B FAN + COM (DC-8, 12 V)", "DC pigtail 2-wire (estimate); +X exhaust face (fan centered); airflow −X→+X"),
     # CO2 inlet (front panel) — the DERPIPE steps the customer's 5/16" PTC down to the 1/4"
     # NPT stub inboard. The chain it feeds (GASHER check → WR1110 → foam co2-in) is deferred
     # from the pack — its old front-left column is the source-select assembly's west bank.
@@ -345,15 +359,15 @@ PORTS = [
     # rear wall (Y = tube-flow axis, +Y = outward to the rear umbilical, −Y = inward to the
     # subsystem it feeds). The C14 mains inlet carries one 3-wire harness inboard from the panel
     # cord entry. Positions are the union/inlet flow-face centers from the placed bboxes.
-    _p("tube-out", "bulkhead-flavor-a", "fluid", (195.05, 348.5, 292.45), "y+", 6.35, "customer flavor A line (rear umbilical)", "JG 1/4\" PTC, outward"),
-    _p("tube-in",  "bulkhead-flavor-a", "fluid", (195.05, 314.2, 292.45), "y-", 6.35, "flavor A internal line (bag/pump circuit A)", "JG 1/4\" PTC, inward"),
-    _p("tube-out", "bulkhead-flavor-b", "fluid", (224.95, 348.5, 292.45), "y+", 6.35, "customer flavor B line (rear umbilical)", "JG 1/4\" PTC, outward"),
-    _p("tube-in",  "bulkhead-flavor-b", "fluid", (224.95, 314.2, 292.45), "y-", 6.35, "flavor B internal line (bag/pump circuit B)", "JG 1/4\" PTC, inward"),
-    _p("tube-out", "bulkhead-carb", "fluid", (210.0, 348.5, 318.3), "y+", 6.35, "carbonated-water line (rear umbilical / faucet)", "JG 1/4\" PTC, outward"),
-    _p("tube-in",  "bulkhead-carb", "fluid", (210.0, 314.2, 318.3), "y-", 6.35, "carb-water internal riser (DIGITEN → foam carb-water-out)", "JG 1/4\" PTC, inward"),
-    _p("tube-out", "bulkhead-water", "fluid", (145.0, 348.5, 293.0), "y+", 6.35, "house tap-water line (rear umbilical)", "JG 1/4\" PTC, outward"),
-    _p("tube-in",  "bulkhead-water", "fluid", (145.0, 314.2, 293.0), "y-", 6.35, "tap-water internal line (to multiplex BFP in)", "JG 1/4\" PTC, inward"),
-    _p("mains-in", "c14-inlet", "electrical", (90.0, 312.0, 295.5), "y-", 8.0, "AC distribution — L/N/E to the electronics shelf", "C14 spade terminals; 3-wire mains harness inboard"),
+    _p("tube-out", "bulkhead-flavor-a", "fluid", (195.05, 375.5, 292.45), "y+", 6.35, "customer flavor A line (rear umbilical)", "JG 1/4\" PTC, outward"),
+    _p("tube-in",  "bulkhead-flavor-a", "fluid", (195.05, 341.2, 292.45), "y-", 6.35, "flavor A internal line (bag/pump circuit A)", "JG 1/4\" PTC, inward"),
+    _p("tube-out", "bulkhead-flavor-b", "fluid", (224.95, 375.5, 292.45), "y+", 6.35, "customer flavor B line (rear umbilical)", "JG 1/4\" PTC, outward"),
+    _p("tube-in",  "bulkhead-flavor-b", "fluid", (224.95, 341.2, 292.45), "y-", 6.35, "flavor B internal line (bag/pump circuit B)", "JG 1/4\" PTC, inward"),
+    _p("tube-out", "bulkhead-carb", "fluid", (210.0, 375.5, 318.3), "y+", 6.35, "carbonated-water line (rear umbilical / faucet)", "JG 1/4\" PTC, outward"),
+    _p("tube-in",  "bulkhead-carb", "fluid", (210.0, 341.2, 318.3), "y-", 6.35, "carb-water internal riser (DIGITEN → foam carb-water-out)", "JG 1/4\" PTC, inward"),
+    _p("tube-out", "bulkhead-water", "fluid", (145.0, 375.5, 293.0), "y+", 6.35, "house tap-water line (rear umbilical)", "JG 1/4\" PTC, outward"),
+    _p("tube-in",  "bulkhead-water", "fluid", (145.0, 341.2, 293.0), "y-", 6.35, "tap-water internal line (to multiplex BFP in)", "JG 1/4\" PTC, inward"),
+    _p("mains-in", "c14-inlet", "electrical", (90.0, 339.0, 295.5), "y-", 8.0, "AC distribution — L/N/E to the electronics shelf", "C14 spade terminals; 3-wire mains harness inboard"),
     # Floor sensor — a single signal header (one cable penetration, not one per conductor).
     # MQ-6 header pins down (−Z) at the board floor.
     _p("header", "mq6-sensor", "electrical", (116.0, 144.0, 3.0), "z-", 8.0, "PCBA gas-sensor input — VCC/GND/DO/AO (SIG)", "4-pin 2.54 mm header, pins down"),
@@ -376,40 +390,53 @@ PORTS = [
     _p("V-B-I", "source-select-assembly", "fluid", (275.33, 115.03, 254.66), "z+", 6.35, "hopper-funnel drain by tube — segment 4 (the drain sits ~1 mm above this collet)", "JG elbow collet, 1/4\" tube, facing up"),
     _p("V-C-O", "source-select-assembly", "fluid", (18.67, 41.57, 254.66),   "z+", 6.35, "Y-C-1 (Tray 3 pump-inlet tees, deferred) — segment 9", "JG elbow collet, 1/4\" tube, facing up"),
     _p("V-D-O", "source-select-assembly", "fluid", (18.67, 115.03, 254.66),  "z+", 6.35, "Y-F-1 (Tray 3 pump-inlet tees, deferred) — segment 19", "JG elbow collet, 1/4\" tube, facing up"),
+    # Bag-circuit assembly (Tray 2) — the manifold's six boundary connectors: the four outlet
+    # elbows' free collets facing +Z (collet-axis centres measured off the built assembly,
+    # local (±98.63, ±17.125, 30.86)) and the two Tee bag branches facing outward along ±Y
+    # (branch collet tips, local (0, ±37.19, 11.3)), all carried through BAG_CIRCUIT_POS
+    # (unrotated: V-F/V-I west, V-E/V-H east; Y-E's branch aft toward Bag A's foam port,
+    # Y-H's forward). On-tray plumbing (segments 14/16/24/26 — valve↔Tee port butts) is
+    # interior to the assembly and carries no port here.
+    _p("V-F-I", "bag-circuit-assembly", "fluid", (48.37, 95.43, 191.66),  "z+", 6.35, "Y-D-2 (Tray 3 pump-inlet tees, deferred) — segment 13 (pump A to bag A)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-I-I", "bag-circuit-assembly", "fluid", (48.37, 61.18, 191.66),  "z+", 6.35, "Y-G-2 (Tray 3 pump-inlet tees, deferred) — segment 23 (pump B to bag B)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-E-O", "bag-circuit-assembly", "fluid", (245.63, 95.43, 191.66), "z+", 6.35, "Y-C-2 (Tray 3 pump-inlet tees, deferred) — segment 10 (bag A to pump return)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-H-O", "bag-circuit-assembly", "fluid", (245.63, 61.18, 191.66), "z+", 6.35, "Y-F-2 (Tray 3 pump-inlet tees, deferred) — segment 20 (bag B to pump return)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("Y-E-2", "bag-circuit-assembly", "fluid", (147.0, 115.49, 172.1),  "y+", 6.35, "Bag A port — foam-assembly reservoir-A line, segment 15", "Tee branch collet, 1/4\" tube, aft through the hug-wall notch"),
+    _p("Y-H-2", "bag-circuit-assembly", "fluid", (147.0, 41.11, 172.1),   "y-", 6.35, "Bag B port — foam-assembly reservoir-B line, segment 25", "Tee branch collet, 1/4\" tube, forward through the hug-wall notch"),
     # Waveshare display — its data/power connector is NOT in the imported STEP (only the four
     # corner mounts are), so this one harness port is placed provisionally on the interior (+Y)
     # back face at the PCB centre. A viewer pick would pin it exactly.
     _p("harness", "display", "electrical", (56.75, 62.8, 300.2), "y+", 8.0, "5 V power + display data (PCBA / power bus)", "connector not modeled in STEP; PROVISIONAL on the interior back face — refine with a pick"),
     # Controller PCBA — every field loom lands on a labelled JST XH edge connector (J1–J14, no
     # J12; ac-wiring-schedule.md §Board connector map). Positions are EXACT: each connector's
-    # pcba.tsx board coordinate mapped world = (x+258.8, y+201.8) — the transform solved from the
+    # pcba.tsx board coordinate mapped world = (x+258.8, y+228.8) — the transform solved from the
     # four mounting holes — with Z at the board's top plane (looms plug from +Z). Ø is the loom
     # bundle OD by conductor count (est).
-    _p("J1-manifold-a", "pcba", "electrical", (269.8, 218.28, 292.5), "z+", 10.0, "8 manifold-A solenoids (DC-6)", "9-cond JST XH"),
-    _p("J2-manifold-b", "pcba", "electrical", (269.8, 196.03, 292.5), "z+", 8.0,  "4 manifold-B solenoids + condenser fan (DC-7/DC-8)", "6-cond JST XH"),
-    _p("J3-faucet",     "pcba", "electrical", (206.55, 171.5, 292.5), "z+", 6.0,  "faucet display UART up the umbilical (SIG-6)", "4-cond JST XH"),
-    _p("J4-sensors",    "pcba", "electrical", (223.8, 171.5, 292.5),  "z+", 8.0,  "temp bus + DIGITEN flow + moisture (SIG-1/4/9)", "7-cond JST XH"),
-    _p("J5-relays",     "pcba", "electrical", (216.85, 232.8, 292.5), "z+", 6.0,  "both Teyleten relay modules (LV-1/2/3)", "4-cond JST XH"),
-    _p("J6-reeds-a",    "pcba", "electrical", (231.7, 232.8, 292.5),  "z+", 7.0,  "foam-assembly reed-cable-A — reservoir A reeds (SIG-10)", "5-cond JST XH"),
-    _p("J7-reeds-b",    "pcba", "electrical", (258.3, 171.5, 292.5),  "z+", 8.0,  "foam-assembly reed-cable-B — reservoir B + carbonator reeds (SIG-2/3/11)", "7-cond JST XH"),
-    _p("J8-i2c",        "pcba", "electrical", (260.1, 232.8, 292.5),  "z+", 6.0,  "off-board MPR121 cap-sense (SIG-8)", "4-cond JST XH"),
-    _p("J9-display",    "pcba", "electrical", (241.05, 171.5, 292.5), "z+", 6.0,  "display harness — 4.3B RS485 + 12 V (SIG-7)", "4-cond JST XH"),
-    _p("J10-12v",       "pcba", "electrical", (271.15, 180.3, 292.5), "z+", 5.0,  "dc-dist 12 V block — board power inlet (DC-4)", "2-pole 5.0 mm screw block"),
-    _p("J11-gas",       "pcba", "electrical", (196.8, 177.95, 292.5), "z+", 6.0,  "mq6-sensor header — MQ-6 gas/leak sensor (SIG-12)", "4-cond JST XH"),
-    _p("J13-pumps",     "pcba", "electrical", (246.55, 232.8, 292.5), "z+", 6.0,  "Kamoer pump A + B motors (DC-5)", "4-cond JST XH"),
-    _p("J14-usb",       "pcba", "electrical", (196.8, 218.3, 292.5),  "z+", 9.0,  "USB-C programming port (bench only, no loom)", "USB-C receptacle"),
+    _p("J1-manifold-a", "pcba", "electrical", (269.8, 245.28, 292.5), "z+", 10.0, "8 manifold-A solenoids (DC-6)", "9-cond JST XH"),
+    _p("J2-manifold-b", "pcba", "electrical", (269.8, 223.03, 292.5), "z+", 8.0,  "4 manifold-B solenoids + condenser fan (DC-7/DC-8)", "6-cond JST XH"),
+    _p("J3-faucet",     "pcba", "electrical", (206.55, 198.5, 292.5), "z+", 6.0,  "faucet display UART up the umbilical (SIG-6)", "4-cond JST XH"),
+    _p("J4-sensors",    "pcba", "electrical", (223.8, 198.5, 292.5),  "z+", 8.0,  "temp bus + DIGITEN flow + moisture (SIG-1/4/9)", "7-cond JST XH"),
+    _p("J5-relays",     "pcba", "electrical", (216.85, 259.8, 292.5), "z+", 6.0,  "both Teyleten relay modules (LV-1/2/3)", "4-cond JST XH"),
+    _p("J6-reeds-a",    "pcba", "electrical", (231.7, 259.8, 292.5),  "z+", 7.0,  "foam-assembly reed-cable-A — reservoir A reeds (SIG-10)", "5-cond JST XH"),
+    _p("J7-reeds-b",    "pcba", "electrical", (258.3, 198.5, 292.5),  "z+", 8.0,  "foam-assembly reed-cable-B — reservoir B + carbonator reeds (SIG-2/3/11)", "7-cond JST XH"),
+    _p("J8-i2c",        "pcba", "electrical", (260.1, 259.8, 292.5),  "z+", 6.0,  "off-board MPR121 cap-sense (SIG-8)", "4-cond JST XH"),
+    _p("J9-display",    "pcba", "electrical", (241.05, 198.5, 292.5), "z+", 6.0,  "display harness — 4.3B RS485 + 12 V (SIG-7)", "4-cond JST XH"),
+    _p("J10-12v",       "pcba", "electrical", (271.15, 207.3, 292.5), "z+", 5.0,  "dc-dist 12 V block — board power inlet (DC-4)", "2-pole 5.0 mm screw block"),
+    _p("J11-gas",       "pcba", "electrical", (196.8, 204.95, 292.5), "z+", 6.0,  "mq6-sensor header — MQ-6 gas/leak sensor (SIG-12)", "4-cond JST XH"),
+    _p("J13-pumps",     "pcba", "electrical", (246.55, 259.8, 292.5), "z+", 6.0,  "Kamoer pump A + B motors (DC-5)", "4-cond JST XH"),
+    _p("J14-usb",       "pcba", "electrical", (196.8, 245.3, 292.5),  "z+", 9.0,  "USB-C programming port (bench only, no loom)", "USB-C receptacle"),
     # 12 V distribution block (DIN) — the three runs that land on it, on its top face. Terminal
     # positions along the block are provisional (the block's internal poles aren't modeled).
-    _p("in",       "dc-dist", "electrical", (34.0, 278.0, 283.0), "z+", 6.0, "PSU 12 V output (DC-1)", "16 AWG; PROVISIONAL terminal position"),
-    _p("to-board", "dc-dist", "electrical", (49.0, 278.0, 283.0), "z+", 5.0, "board J10 12 V inlet (DC-4)", "16 AWG; PROVISIONAL terminal position"),
-    _p("to-relay2","dc-dist", "electrical", (64.0, 278.0, 283.0), "z+", 6.0, "Teyleten relay #2 contact — SeaFlo gate (DC-2)", "16 AWG; PROVISIONAL terminal position"),
+    _p("in",       "dc-dist", "electrical", (34.0, 305.0, 283.0), "z+", 6.0, "PSU 12 V output (DC-1)", "16 AWG; PROVISIONAL terminal position"),
+    _p("to-board", "dc-dist", "electrical", (49.0, 305.0, 283.0), "z+", 5.0, "board J10 12 V inlet (DC-4)", "16 AWG; PROVISIONAL terminal position"),
+    _p("to-relay2","dc-dist", "electrical", (64.0, 305.0, 283.0), "z+", 6.0, "Teyleten relay #2 contact — SeaFlo gate (DC-2)", "16 AWG; PROVISIONAL terminal position"),
     # Power assembly (tray + Mean Well PSU + 2 Teyleten relays + AC-dist block + ground bus) — the
     # connection groups entering/leaving the tray. Terminal positions are provisional (the device
     # terminals inside the tray aren't individually modeled).
-    _p("ac-in",           "power-tray", "electrical", (30.0, 185.0, 290.0), "y-", 8.0, "C14 mains inlet — H+N+G (AC-1)", "16 AWG mains; PROVISIONAL"),
-    _p("compressor-feed", "power-tray", "electrical", (175.0, 220.0, 290.0), "x+", 8.0, "compressor terminal block — switched-H + N + G through the shroud grommet (AC-4/5/6)", "16 AWG; PROVISIONAL"),
-    _p("dc-out",          "power-tray", "electrical", (100.0, 258.9, 290.0), "y+", 6.0, "dc-dist 12 V block (DC-1)", "16 AWG; PROVISIONAL"),
-    _p("relay-ctrl",      "power-tray", "electrical", (130.0, 185.0, 290.0), "y-", 6.0, "board J5 RELAYS control loom (LV-1/2/3)", "4-cond; PROVISIONAL"),
+    _p("ac-in",           "power-tray", "electrical", (30.0, 212.0, 290.0), "y-", 8.0, "C14 mains inlet — H+N+G (AC-1)", "16 AWG mains; PROVISIONAL"),
+    _p("compressor-feed", "power-tray", "electrical", (175.0, 247.0, 290.0), "x+", 8.0, "compressor terminal block — switched-H + N + G through the shroud grommet (AC-4/5/6)", "16 AWG; PROVISIONAL"),
+    _p("dc-out",          "power-tray", "electrical", (100.0, 285.9, 290.0), "y+", 6.0, "dc-dist 12 V block (DC-1)", "16 AWG; PROVISIONAL"),
+    _p("relay-ctrl",      "power-tray", "electrical", (130.0, 212.0, 290.0), "y-", 6.0, "board J5 RELAYS control loom (LV-1/2/3)", "4-cond; PROVISIONAL"),
 ]
 
 
@@ -779,8 +806,9 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     routed_done = sum(1 for c in conns if c.routed)
     routed = _pct(routed_done, len(conns))
     routed_detail = [f"{fluid} fluid + {refrig} refrigerant + {wire} electrical; "
-                     f"{routed_done} routed — the fluid path waits on the tray designs and the "
-                     f"deferred pumps/water deck, the electrical runs on the components being held"]
+                     f"{routed_done} routed — the fluid path waits on the deferred trays "
+                     f"(pump-inlet tees, nozzle-gates) and the pumps/water deck, the "
+                     f"electrical runs on the components being held"]
     for r in _lines.build_runs():
         routed_detail.append(f"✓ {r.id}: {r.frm} → {r.to} — Ø{r.diam:g} × {r.length:.1f} mm, "
                              f"{len(r.bends)} bends at R{r.bend:.1f}")

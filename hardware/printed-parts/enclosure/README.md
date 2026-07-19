@@ -17,7 +17,7 @@ The zone arrangement above is the current pack — a working layout. It is free 
 
 - The foam shell is the largest single solid; it cannot move or compress. Its penetrations are on the −Y front and +Z top only — the +Y rear, sides, and bottom stay clean.
 - Appliance width follows foam shell width (~[283 mm](APPLIANCE_WIDTH)); the shell is the widest object.
-- Appliance depth carries the compressor/condenser block and the foam shell seated against the rear wall behind it, stacked along Y (currently ~[342 mm](APPLIANCE_DEPTH)).
+- Appliance depth carries the compressor/condenser block and the foam shell seated against the rear wall behind it, stacked along Y (currently ~[369 mm](APPLIANCE_DEPTH)).
 - The condenser and fan need side-to-side cross-flow airflow to reject heat — fan axis between the two ±X side walls.
 - The compressor shroud is a fixed-size sheet-metal part enclosing the terminal block + PTC relay/overload (UL 60335-2-89, 130 × 175 × 150 mm interior, the only metal part in the enclosure).
 - The flavor funnel feeds the pumps from above and stays top-removable for cleaning.
