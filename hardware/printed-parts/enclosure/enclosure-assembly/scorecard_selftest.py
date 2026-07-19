@@ -117,39 +117,43 @@ def test_placement() -> None:
     check("a drifted component reads as NOT placed", bool(drow) and not drow[1],
           "x- rule should break")
 
-    # The part-to-part forms: source-select-assembly carries a `near` rule (funnel gap
-    # ≤ 6 mm) and a `clear` rule (display gap ≥ 7 mm). Funnel 4 away, display 8 away = placed.
-    print("placed (part-to-part `near` + `clear` rules hold)")
+    # The part-to-part `near` form: source-select-assembly carries one `near` rule
+    # (display gap ≤ 1.5 mm). Display 1 away = placed; 5 away = drifted; absent = flagged.
+    print("placed (part-to-part `near` rule holds)")
     near_ok = sc.placement_audit({"source-select-assembly": box(0, 0, 0),
-                                  "display": box(0, 0, 18.0),
-                                  "hopper-funnel": box(14.0, 0, 0)}, inner)
+                                  "display": box(0, 0, 11.0)}, inner)
     nrow = next((r for r in near_ok if r[0] == "source-select-assembly"), None)
-    check("a component meeting near + clear reads as placed", bool(nrow) and nrow[1])
-    # Pull the funnel 12 mm away — the near rule (≤6 mm) now fails.
+    check("a component within its near gap reads as placed", bool(nrow) and nrow[1])
     near_far = sc.placement_audit({"source-select-assembly": box(0, 0, 0),
-                                   "display": box(0, 0, 18.0),
-                                   "hopper-funnel": box(22.0, 0, 0)}, inner)
+                                   "display": box(0, 0, 15.0)}, inner)
     frow = next((r for r in near_far if r[0] == "source-select-assembly"), None)
     check("a component drifted off its neighbor reads as NOT placed", bool(frow) and not frow[1],
-          "near hopper-funnel rule should break")
-    # Crowd the display to a 3 mm gap — the clear rule (≥7 mm keep-out) now fails.
-    crowd = sc.placement_audit({"source-select-assembly": box(0, 0, 0),
-                                "display": box(0, 0, 13.0),
-                                "hopper-funnel": box(14.0, 0, 0)}, inner)
-    crow = next((r for r in crowd if r[0] == "source-select-assembly"), None)
-    check("a component crowding its keep-out reads as NOT placed", bool(crow) and not crow[1],
-          "clear display rule should break")
-    # A named neighbor missing from the pack cannot silently pass — either form.
-    near_missing = sc.placement_audit({"source-select-assembly": box(0, 0, 0),
-                                       "display": box(0, 0, 18.0)}, inner)
+          "near display rule should break")
+    near_missing = sc.placement_audit({"source-select-assembly": box(0, 0, 0)}, inner)
     mrow = next((r for r in near_missing if r[0] == "source-select-assembly"), None)
     check("a near rule against an absent neighbor reads as NOT placed", bool(mrow) and not mrow[1],
-          "missing hopper-funnel must not pass")
-    clear_missing = sc.placement_audit({"source-select-assembly": box(0, 0, 0),
-                                        "hopper-funnel": box(14.0, 0, 0)}, inner)
-    xrow = next((r for r in clear_missing if r[0] == "source-select-assembly"), None)
-    check("a clear rule against an absent neighbor reads as NOT placed", bool(xrow) and not xrow[1],
-          "missing display must not vacuously pass the keep-out")
+          "missing display must not pass")
+
+    # The part-to-part `clear` (keep-out) form — no component carries one today, so it is
+    # proven through an injected probe rule; the form must fire before a design leans on it.
+    print("placed (part-to-part `clear` keep-out fires)")
+    sc.PLACEMENT_RULES["clear-probe"] = [("clear", "display", 7.0)]
+    try:
+        held_clear = sc.placement_audit({"clear-probe": box(0, 0, 0),
+                                         "display": box(0, 0, 18.0)}, inner)
+        hrow = next((r for r in held_clear if r[0] == "clear-probe"), None)
+        check("a component honoring its keep-out reads as placed", bool(hrow) and hrow[1])
+        crowd = sc.placement_audit({"clear-probe": box(0, 0, 0),
+                                    "display": box(0, 0, 13.0)}, inner)
+        crow = next((r for r in crowd if r[0] == "clear-probe"), None)
+        check("a component crowding its keep-out reads as NOT placed", bool(crow) and not crow[1],
+              "clear display rule should break")
+        clear_missing = sc.placement_audit({"clear-probe": box(0, 0, 0)}, inner)
+        xrow = next((r for r in clear_missing if r[0] == "clear-probe"), None)
+        check("a clear rule against an absent neighbor reads as NOT placed", bool(xrow) and not xrow[1],
+              "missing display must not vacuously pass the keep-out")
+    finally:
+        del sc.PLACEMENT_RULES["clear-probe"]
 
 
 # ── end-to-end: build_scorecard wires a defect through to a red gate ─────────
