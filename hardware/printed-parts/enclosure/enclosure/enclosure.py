@@ -136,10 +136,12 @@ lip_len = plug_dia / 2.0 + socket_r              # = (plug+bore)/2 + wall = 13.1
 #     bulkhead field begins just above the lip rim (_contents
 #     UMBILICAL_Z_FLOOR is derived from it) — the seam sits in the one band
 #     between foam and ports.
-#   * Front: at the front stack's waist — above the condenser (which stands
-#     against the front wall), below the pump-2/electronics tower — which
-#     also splits the front column's height far more evenly than the back's
-#     foam-locked seam can.
+#   * Front: at the front stack's waist — above the floor stratum (the
+#     compressor and the tipped condenser), crossing the valve-manifold
+#     stack's band inboard of the seam machinery (the lip + pods hug the
+#     walls; the trays stand well clear of both) — which also splits the
+#     front column's height far more evenly than the back's foam-locked
+#     seam can.
 # Every printed piece's bed face fits the H2C envelope with these cuts.
 z_joint_front = 186.0
 z_joint_back = 266.0
