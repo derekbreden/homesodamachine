@@ -35,8 +35,12 @@ flowchart LR
   %% =========================
   %% Manifold
   %% =========================
+  %% No `direction` on this subgraph. A nested direction makes Mermaid clamp
+  %% boundary-crossing edges to the cluster border, which strands the ten tube
+  %% runs — fluid-11/12/21/22 to the pumps, 15/25 to the bags, 18/28 to the
+  %% nozzles, 1/4 from the sources — as stubs floating short of their junctions.
+  %% The chart inherits LR from the top-level flowchart.
   subgraph Manifold["Manifold"]
-    direction LR
 
     subgraph SourceSelection["Source Selection"]
       Reg["Flow Regulator"]
