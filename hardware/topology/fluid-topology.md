@@ -34,6 +34,8 @@ Eight 3-port junctions. **Y-A and Y-B are PP2308E Y-dividers** (the source-selec
 
 ## Tube Segments
 
+Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/topology/fluid-topology-manifold.mmd). `scorecard.py` reads these tables as `fluid-1` … `fluid-28`, the connection inventory the enclosure must carry, and [`_lines.py`](/hardware/printed-parts/enclosure/enclosure-assembly/_lines.py) authors each one port to port.
+
 ### Shared
 
 | # | From | To | Notes |
