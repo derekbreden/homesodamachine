@@ -2,17 +2,17 @@
 
 Detailed STEP imports where they exist (cold-core foam assembly — shell +
 top/bottom foam-cap stacks — the compressor shroud, the source-select
-assembly, the bag-circuit assembly, the nozzle-gate assembly, both Kamoer
-pump assemblies, the four pump union tees, the PCBA assembly, the power
-assembly, the DC distribution block, the DERPIPE CO2 inlet, the MQ-6 gas
-sensor, the panel bulkheads + C14). One placeholder primitive remains
-(condenser+fan). Not everything is packed — deferred, tracked by the fluid
-topology (/hardware/topology/fluid-topology.md) and the scorecard's
-connection table, never silently dropped, while the front column settles
-around the tray stack and the pump row: the water deck (SeaFlo diaphragm
-pump, Multiplex BFP, drip pan + moisture plate, the SeaFlo outlet check),
-the DIGITEN flow sensor, and the CO2 chain's GASHER check + WR1110
-regulator.
+assembly, the bag-circuit assembly, both Kamoer pump assemblies, both
+pump-inlet union tees, the PCBA assembly, the power assembly, the DC
+distribution block, the DERPIPE CO2 inlet, the MQ-6 gas sensor, the panel
+bulkheads + C14). One placeholder primitive remains (condenser+fan). Not
+everything is packed — deferred, tracked by the fluid topology
+(/hardware/topology/fluid-topology.md) and the scorecard's connection
+table, never silently dropped, while the front column settles around the
+tray stack and the pump row: the water deck (SeaFlo diaphragm pump,
+Multiplex BFP, drip pan + moisture plate, the SeaFlo outlet check), the
+DIGITEN flow sensor, the CO2 chain's GASHER check + WR1110 regulator, the
+pump-discharge tees (Y-D/Y-G), and the nozzle-gate tray.
 
 Components only: no tubes, no wires, no mount features. enclosure_assembly.py
 verifies the pack pairwise non-intersecting at every export.
@@ -71,35 +71,25 @@ Strata, floor to ceiling:
              front face and its east collets facing up at the tap feed
              and the funnel drain that arrive from above; the bag-circuit
              assembly (Tray 2: V-E/V-F/V-H/V-I + Tees Y-E/Y-H) INVERTED
-             on top of it, wall-top to wall-top, its bag branches out ±Y;
-             and the nozzle-gate assembly (Tray 3: V-G/V-J) INVERTED
-             again over the bag tray's east bank, sharing its X/Y origin.
-             Both lower trays' west outlet elbows are rolled off their
-             port axes to face each other — the source's inward, the
-             bag's outward — down one leaning line: the JUNCTION COLUMN,
-             with the pump-inlet union tees standing on that line and one
-             straight stub joining each collet to the tee it butts. On
-             the east, the bag tray's elbows turn UP and the nozzle-gate
-             tray's inlet elbows turn DOWN onto the same verticals: the
-             DISCHARGE COLUMNS, each pump-discharge tee (Y-D/Y-G)
-             standing run-vertical between the facing collet pair, branch
-             swung at the pump outlet that will feed it, one straight
-             stub at every collet. The stack floats over the floor
-             stratum, leaving an open under-stack corridor for the
-             manifold's cross-machine lines, and its floor clears the
-             front Z-seam's lip band. Ahead of the stack, the PUMP ROW:
-             both Kamoer KPHM400 assemblies lying depth-along-X in one
-             pose — motors west, outlet elbows standing on the +Z faces,
-             free collets facing west at the row's crest. P-A's head is
-             nose-in at mid-row, its aft elbow one clearance ahead of the
-             bag tray's Y-E bag branch; P-B sits one slot east and
-             forward, ahead of the source-select east bank. The funnel's
-             centred drain hangs over the row with the stack's whole
-             height below it before segment 4 reaches V-B-I; the funnel's
-             basin is content too — the HOPPER LAW (hopper_ceiling_z)
-             lifts the box ceiling until its tapered underside clears the
-             nozzle-gate stack standing under its aft-east quarter.
-             Holders TBD (held).
+             on top of it, wall-top to wall-top, its east elbows turned
+             up toward the pump row that discharges into them and its bag
+             branches out ±Y. Both trays' west outlet elbows are rolled
+             off their port axes to face each other — the source's
+             inward, the bag's outward — down one leaning line: the
+             JUNCTION COLUMN, with the pump-inlet union tees standing on
+             that line and one straight stub joining each collet to the
+             tee it butts. The stack floats over the floor stratum,
+             leaving an open under-stack corridor for the manifold's
+             cross-machine lines, and its floor clears the front Z-seam's
+             lip band. Ahead of the stack, the PUMP ROW: both Kamoer
+             KPHM400 assemblies lying depth-along-X in one pose — motors
+             west, outlet elbows standing on the +Z faces, free collets
+             facing west at the row's crest. P-A's head is nose-in at
+             mid-row, its aft elbow one clearance ahead of the bag tray's
+             Y-E bag branch; P-B sits one slot east and forward, ahead of
+             the source-select east bank. The funnel's centred drain
+             hangs over the row with the stack's whole height below it
+             before segment 4 reaches V-B-I. Holders TBD (held).
   * Zone B (the band above the cold core): the electronics shelf lying
              flat on the foam-cap top in the band's front half — power
              assembly at −X, PCBA at +X, the DC distribution block behind
@@ -128,17 +118,13 @@ _hw = _repo / "hardware"
 
 # The manifold trays' own modules: the junction column's aim is solved in
 # bag_circuit_tray, and the tee poses below stand on the same elbow rolls the
-# tray STEPs are built with. The hopper funnel's module supplies the basin's
-# underside profile the hopper law reads.
+# tray STEPs are built with.
 _VM = _hw / "printed-parts" / "valve-manifold"
 for _p in (_hw / "scripts", _repo / "tools", _hw / "reference" / "beduan-solenoid",
-           _VM / "single-tray", _VM / "bag-circuit-tray", _VM / "source-select-tray",
-           _VM / "nozzle-gate-tray", _hw / "printed-parts" / "zone-c" / "hopper-funnel"):
+           _VM / "single-tray", _VM / "bag-circuit-tray", _VM / "source-select-tray"):
     sys.path.insert(0, str(_p))
 import bag_circuit_tray as _bag          # noqa: E402
 import source_select_tray as _src        # noqa: E402
-import nozzle_gate_tray as _noz          # noqa: E402
-import hopper_funnel as _funnel          # noqa: E402
 
 
 # --- Source STEPs ---------------------------------------------------------
@@ -146,7 +132,6 @@ FOAM_ASSEMBLY = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-as
 COMP_SHROUD   = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
 SOURCE_SELECT = _hw / "printed-parts" / "valve-manifold" / "source-select-tray" / "source-select-assembly.step"
 BAG_CIRCUIT   = _hw / "printed-parts" / "valve-manifold" / "bag-circuit-tray" / "bag-circuit-assembly.step"
-NOZZLE_GATE   = _hw / "printed-parts" / "valve-manifold" / "nozzle-gate-tray" / "nozzle-gate-assembly.step"
 # Kamoer KPHM400 peristaltic pump, its two +Y outlet ports flush (no fittings).
 PUMP_ASSEMBLY = _hw / "reference" / "kamoer-kphm400" / "pump-assembly.step"
 # JG PP0208E union tee — the pump-inlet junctions Y-C / Y-F, tube-hung.
@@ -222,24 +207,6 @@ STACK_PITCH_Z = 2 * _bag.wall_top_z       # wall top to wall top, the stack cont
 BAG_CIRCUIT_POS = (SRC_SEL_POS[0] - JUNCTION_SLIDE,
                    SRC_SEL_POS[1],
                    SRC_SEL_POS[2] + STACK_PITCH_Z)
-
-# The nozzle-gate assembly (Tray 3 — V-G/V-J + four elbows) rides INVERTED
-# directly over the bag tray's east bank, the same 180°-about-Y hang, sharing
-# its X and Y origin: the inversion lands each inlet-elbow corner on a bag
-# east elbow column, its collet facing straight DOWN, coaxial with the
-# up-facing V-F-I / V-I-I collet below. Z stands the DISCHARGE COLUMN in the
-# gap: bag collet, one straight stub, the pump-discharge tee's run, another
-# stub, nozzle collet — every leg vertical (segments 13/17 and 23/27), no
-# bend anywhere. The bag collet rides elbow_reach below its corner (the
-# roll-180 up-turn), this tray's collet elbow_reach above its own (the
-# roll-0 turn, inverted), so the two offsets below place the column exactly.
-DISCHARGE_STUB = 2.0                          # straight tube at each column collet
-_BAG_EAST_RISE = _bag.elbow_reach - _bag.port_z   # bag east collet above the bag origin
-_NOZ_INLET_DROP = _bag.port_z + _bag.elbow_reach  # inlet collet below this tray's origin
-NOZZLE_GATE_POS = (BAG_CIRCUIT_POS[0],
-                   BAG_CIRCUIT_POS[1],
-                   BAG_CIRCUIT_POS[2] + _BAG_EAST_RISE + 2.0 * DISCHARGE_STUB
-                   + 2.0 * _bag.tee_run_half + _NOZ_INLET_DROP)
 
 # The pump row: both Kamoer KPHM400 assemblies (P-A west, P-B east) lying
 # depth-along-X ahead of the tray stack, in ONE pose — a −90° turn about Y
@@ -334,119 +301,6 @@ def tee_port(tee, port):
                    3: (branch, _bag.tee_branch_reach)}[port]
     return tuple(centre[i] + reach * axis[i] for i in range(3)), axis
 
-
-def noz_collet(name):
-    """A nozzle-gate-tray boundary collet in world: (position, outward axis) —
-    `VG-I`/`VJ-I` the down-turned inlets over the discharge columns, `VG-O`/
-    `VJ-O` the aft-turned outlets. The tray rides inverted (180° about Y),
-    the same transform the bag tray's collets carry."""
-    p, d = _noz.boundary_collets()[name]
-    return ((NOZZLE_GATE_POS[0] - p[0], NOZZLE_GATE_POS[1] + p[1], NOZZLE_GATE_POS[2] - p[2]),
-            (-d[0], d[1], -d[2]))
-
-
-# The pump-discharge tees (fluid topology Y-D / Y-G) stand on the discharge
-# columns: RUN vertical between the bag tray's up-facing collet (port 2, one
-# stub below) and the nozzle-gate tray's down-facing collet (port 3, one stub
-# above), BRANCH (port 1) horizontal at the pump outlet that will discharge
-# into it (segments 12/22, unauthored), swung just far enough off that
-# bearing — the shorter way — to keep its stub one clearance floor off the
-# twin column's run. Tube-hung PTC fittings, carried by their lines, like the
-# junction column's; every number derives from the trays' own layout. The
-# pump-outlet stations here mirror the scorecard's P-A-O / P-B-O port table
-# entries (asserted there), pending pump ports deriving from the pump module.
-DISCHARGE = {                     # tee → (bag collet, nozzle collet, pump-outlet station)
-    "tee-y-d": ("VF", "VG-I", (98.56, 36.01)),
-    "tee-y-g": ("VI", "VJ-I", (231.44, 22.01)),
-}
-
-
-def _discharge_branch(centre, pump_xy, twin_xy):
-    """The discharge tee's branch azimuth: the pump outlet's plan bearing,
-    swung the least amount that holds the branch stub's nearest approach to
-    the twin column's run axis at one fitting diameter plus a clearance
-    floor. Returns a horizontal unit vector."""
-    need = 2.0 * _bag.tee_radius + 1.3    # two fitting radii + the floor and margin
-    bearing = math.atan2(pump_xy[1] - centre[1], pump_xy[0] - centre[0])
-    wx, wy = twin_xy[0] - centre[0], twin_xy[1] - centre[1]
-
-    def clear(phi):
-        ux, uy = math.cos(phi), math.sin(phi)
-        t = max(0.0, min(_bag.tee_branch_reach, wx * ux + wy * uy))
-        return math.hypot(wx - t * ux, wy - t * uy) >= need
-
-    if clear(bearing):
-        return (math.cos(bearing), math.sin(bearing), 0.0)
-    step = math.radians(0.5)
-    for k in range(1, 360):
-        for sgn in (+1.0, -1.0):
-            phi = bearing + sgn * k * step
-            if clear(phi):
-                return (math.cos(phi), math.sin(phi), 0.0)
-    raise ValueError("discharge branch cannot clear the twin column at any azimuth")
-
-
-def discharge(tee):
-    """A pump-discharge tee's pose: (centre, run axis, branch axis, stub). The
-    run is the vertical between the two collets it butts — the tee centred on
-    it, the leftover splitting into one stub at each end — and the branch is
-    `_discharge_branch`'s swung pump bearing, made exactly perpendicular."""
-    bag_name, noz_name, pump_xy = DISCHARGE[tee]
-    pb, _nb = bag_collet(bag_name)
-    pn, _nn = noz_collet(noz_name)
-    span = tuple(pn[i] - pb[i] for i in range(3))
-    run = _unit(span)
-    twin = next(n for n in DISCHARGE if n != tee)
-    twin_xy = bag_collet(DISCHARGE[twin][0])[0][:2]
-    centre = tuple((pb[i] + pn[i]) / 2.0 for i in range(3))
-    aim = _discharge_branch(centre, pump_xy, twin_xy)
-    branch = _unit(tuple(aim[i] - _dot(aim, run) * run[i] for i in range(3)))
-    return centre, run, branch, math.sqrt(_dot(span, span)) / 2.0 - _bag.tee_run_half
-
-
-def discharge_port(tee, port):
-    """A pump-discharge tee's port in world: (position, outward axis). `port`
-    is 1 (the branch, facing its pump outlet), 2 (run, facing the bag collet
-    below) or 3 (run, facing the nozzle-gate collet above) — the fluid
-    topology's own numbering for Y-D / Y-G."""
-    centre, run, branch, _stub = discharge(tee)
-    axis, reach = {1: (branch, _bag.tee_branch_reach),
-                   2: (tuple(-c for c in run), _bag.tee_run_half),
-                   3: (run, _bag.tee_run_half)}[port]
-    return tuple(centre[i] + reach * axis[i] for i in range(3)), axis
-
-
-# The hopper law's clearance: how far the funnel's basin underside must stand
-# above the tallest discharge-stack content beneath its plan.
-HOPPER_CLEAR = 1.5
-
-
-def hopper_ceiling_z(placed):
-    """The interior ceiling the hopper law demands, from the placed pack. The
-    funnel's brim rides the box's outer top and its basin hangs
-    `hopper_funnel.underside_drop` deep across the collar plan — and the
-    nozzle-gate stack stands under the basin's aft-east quarter. For every
-    solid of the discharge stack, the ceiling must lift the basin's underside
-    at the solid's nearest plan approach HOPPER_CLEAR above its top;
-    enclosure._dims takes the max of this and its content/port terms, and the
-    funnel's `clear nozzle-gate-assembly` placement rule verifies the real
-    solids. Offsets are read in the funnel's own frame (FUNNEL_ROT stays 0,
-    the frame axis-aligned)."""
-    need = 0.0
-    for name in ("nozzle-gate-assembly", *DISCHARGE):
-        if name not in placed:
-            continue
-        for s in placed[name][0].Solids():
-            b = s.BoundingBox()
-            dx = 0.0 if b.xmin <= FUNNEL_CX <= b.xmax else min(
-                abs(b.xmin - FUNNEL_CX), abs(b.xmax - FUNNEL_CX))
-            dy = 0.0 if b.ymin <= FUNNEL_CY <= b.ymax else min(
-                abs(b.ymin - FUNNEL_CY), abs(b.ymax - FUNNEL_CY))
-            drop = _funnel.underside_drop(dx, dy)
-            if drop > 0.0:
-                need = max(need, b.zmax + drop + HOPPER_CLEAR - WALL)
-    return need
-
 # Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it.
 # With the floor parts raised clear of the seam lip, the cold core pulls in to
 # just behind the condenser (the deepest front part — the tipped donor block's
@@ -529,13 +383,10 @@ COLORS = {
     "mq6-sensor":        cq.Color(0.30, 0.45, 0.85),
     "source-select-assembly": cq.Color(0.60, 0.40, 0.70),
     "bag-circuit-assembly":   cq.Color(0.35, 0.62, 0.55),
-    "nozzle-gate-assembly":   cq.Color(0.75, 0.62, 0.30),
     "pump-a":            cq.Color(0.72, 0.28, 0.30),
     "pump-b":            cq.Color(0.72, 0.28, 0.30),
     "tee-y-c":           cq.Color(0.92, 0.92, 0.92),
     "tee-y-f":           cq.Color(0.92, 0.92, 0.92),
-    "tee-y-d":           cq.Color(0.92, 0.92, 0.92),
-    "tee-y-g":           cq.Color(0.92, 0.92, 0.92),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "dc-dist":           cq.Color(0.20, 0.20, 0.22),
@@ -649,13 +500,6 @@ def build():
     # the floor stratum stays open below the stack.
     placed["bag-circuit-assembly"] = _rot(_load(BAG_CIRCUIT), (0, 1, 0), 180.0).translate(BAG_CIRCUIT_POS)
 
-    # Over its east bank, the nozzle-gate assembly (Tray 3 — V-G/V-J + four
-    # elbows) rides INVERTED again, same hang, same X/Y origin: inlet collets
-    # straight down the discharge columns onto the tees below, outlet collets
-    # turned aft toward the nozzle lines. Z is the discharge column's own
-    # derivation (NOZZLE_GATE_POS): collet, stub, tee run, stub, collet.
-    placed["nozzle-gate-assembly"] = _rot(_load(NOZZLE_GATE), (0, 1, 0), 180.0).translate(NOZZLE_GATE_POS)
-
     # Ahead of the stack, the pump row: both Kamoer assemblies in one lying
     # pose (depth west about Y, then rolled +90° about X so the elbows ride
     # the +Z face, free collets facing west at the crest), each translated
@@ -668,17 +512,12 @@ def build():
     placed["pump-a"] = lay.translate(PUMP_A_POS)
     placed["pump-b"] = lay.translate(PUMP_B_POS)
 
-    # The pump union tees, tube-hung on their columns: the pump-inlet pair
-    # (Y-C/Y-F) each standing on the junction column's line between the two
-    # collets it butts, run collinear with the pair and branch swung east at
-    # its pump; the pump-discharge pair (Y-D/Y-G) each standing run-vertical
-    # on a discharge column, branch swung at its pump outlet.
+    # The pump-inlet union tees, hanging in the junction column: each one
+    # stands on the line between the two collets it butts (`junction`), run
+    # collinear with the pair and branch swung east at its pump.
     tee = _load(TEE_CONNECTOR)
     for name in JUNCTION:
         centre, run, branch, _stub = junction(name)
-        placed[name] = _aim(tee, run, branch).translate(centre)
-    for name in DISCHARGE:
-        centre, run, branch, _stub = discharge(name)
         placed[name] = _aim(tee, run, branch).translate(centre)
 
     # --- Zone B, the band above the cold core: the electronics shelf lying

@@ -176,8 +176,8 @@ arc), the transferable discipline:
   box-thinking scores zero, and the clearance gate reads real solid distance, not box gap.
 - **Deferred is not removed.** A deferred item is set aside with its intent preserved and
   counted; a removed item is absent. The scorecard makes the line concrete: a deferred
-  connection is a tracked `routed` gap, each waiting or blocked entry counted against the
-  axis; a removed path is simply not in the topology. Conflating the two is how the
+  connection is a tracked `routed` gap (0/28, blocked on the unplaced valve-manifold
+  trays); a removed path is simply not in the topology. Conflating the two is how the
   bib-gate tray lingered as a phantom — never let a set-aside thing and a deleted thing
   wear the same label.
 
@@ -230,19 +230,18 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
 **Deferred — behind the focus:**
 
 - **routed** spans the fluid segments, the sealed refrigerant loop, and the electrical runs
-  (10/59 — the loop's discharge and liquid legs in copper, and the manifold's junction +
-  discharge columns: eight straight collet-to-tee legs across the three placed trays). Paths
-  are authored in [`_lines.py`](_lines.py) with the kit in [`_routing.py`](_routing.py); see
-  [`tube-routing.md`](tube-routing.md). The pump runs (segments 11/12/21/22) now have located
-  collets at both ends — every union tee's branch aims at the pump port it joins — and
-  segment 4 (funnel drain → V-B-I) has both ends located on placed bodies; the nozzle runs
-  (18/28) leave located aft-facing collets for the flavor bulkheads. The water-deck + CO2
-  segments wait on their deferred components; the on-tray seats (3/5–8, 14/16, 24/26) are
-  interior to their assemblies and still count against the axis until modeled. The
-  electrical runs wait on the components being placed, located, and held first.
-  `_lines.BLOCKED` is empty: the suction leg's old corridor conflict dissolved when the
-  stack flipped (the source tray's central span stops short of the cold-core face at the
-  evap ports), so refrig-3 is simply unauthored, waiting only on its author.
+  (4/59 — the loop's discharge and liquid legs in copper, and channel A's pump-inlet run
+  between the two placed trays). Paths are authored in
+  [`_lines.py`](_lines.py) with the kit in [`_routing.py`](_routing.py); see
+  [`tube-routing.md`](tube-routing.md). Most of the fluid path is blocked on the **two unplaced
+  valve-manifold trays** (pump-inlet tees, nozzle-gates) and the deferred water deck — but
+  segment 4 (funnel drain → V-B-I) has both ends located on placed bodies and is the next
+  authorable run, and the bag-circuit collets and pump barbs stand located around it. The
+  electrical runs wait on the components being placed, located, and held first. One refrigerant
+  leg sits in `_lines.BLOCKED` with the measurement that blocks it: the suction leg's exit
+  space at the evap-outlet belongs to the tray stack pressed against the cold core — 9.2 mm of
+  free corridor against a 12.7 mm exit stub — so it waits on a chimney through the stack, a
+  stack move, or a port move.
 - **held** — a printed holder for every internal component. Today only the through-wall
   bodies (wall + their own nut) and the display (shell facet) are held; every loose internal
   part floats. Each needs bosses, a cradle, or a tray that itself fastens.

@@ -1,17 +1,17 @@
 {
   "gatesPass": true,
-  "placed": 54,
-  "located": 83,
-  "shaped": 96,
-  "routed": 17,
-  "held": 29,
+  "placed": 48,
+  "located": 81,
+  "shaped": 95,
+  "routed": 10,
+  "held": 33,
   "checks": [
     {
       "id": "coverage",
       "label": "Every placed part declared in the registry",
       "kind": "gate",
       "status": "pass",
-      "value": "24/24 placed declared",
+      "value": "21/21 placed declared",
       "target": "all declared",
       "detail": [],
       "active": true
@@ -37,12 +37,8 @@
         "source-select-assembly \u2014 bag-circuit-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 source-select-assembly: 0.01 mm \u2014 CONTACT (declared ok)",
         "compressor-shroud \u2014 mq6-sensor: 1.00 mm",
+        "bag-circuit-assembly \u2014 hopper-funnel: 1.39 mm",
         "bag-circuit-assembly \u2014 pump-a: 1.49 mm",
-        "bag-circuit-assembly \u2014 tee-y-d: 2.01 mm",
-        "bag-circuit-assembly \u2014 tee-y-g: 2.01 mm",
-        "nozzle-gate-assembly \u2014 tee-y-d: 2.01 mm",
-        "nozzle-gate-assembly \u2014 tee-y-g: 2.01 mm",
-        "nozzle-gate-assembly \u2014 hopper-funnel: 2.20 mm",
         "foam-assembly \u2014 power-tray: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 dc-dist: 2.50 mm \u2014 CONTACT (declared ok)",
@@ -81,8 +77,8 @@
       "label": "Every component is a selected real part / finished print",
       "kind": "gate",
       "status": "pass",
-      "value": "24/24",
-      "target": "24/24",
+      "value": "21/21",
+      "target": "21/21",
       "detail": [],
       "active": true
     },
@@ -91,22 +87,19 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "54% (13/24)",
+      "value": "48% (10/21)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 0.0 x- 0.0 x+ 0.0 z- 9.5 mm",
         "\u2713 compressor-shroud: y- 0.0 z- 3.0 x- 14.0 mm",
         "\u2713 condenser+fan: y- 0.0 z- 3.0 x+ 14.0 mm",
         "\u2713 source-select-assembly: near foam-assembly 0.0 mm",
-        "\u2713 hopper-funnel: z+ 6.0 clear nozzle-gate-assembly 2.2 mm",
+        "\u2713 hopper-funnel: z+ 6.0 mm",
         "\u2713 bag-circuit-assembly: near source-select-assembly 0.0 clear compressor-shroud 73.3 clear condenser+fan 79.8 mm",
-        "\u2713 pump-a: near bag-circuit-assembly 1.5 clear hopper-funnel 101.0 mm",
+        "\u2713 pump-a: near bag-circuit-assembly 1.5 clear hopper-funnel 20.6 mm",
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
         "\u2713 tee-y-c: near source-select-assembly 5.0 mm",
         "\u2713 tee-y-f: near source-select-assembly 5.0 mm",
-        "\u2713 tee-y-d: near bag-circuit-assembly 2.0 mm",
-        "\u2713 tee-y-g: near bag-circuit-assembly 2.0 mm",
-        "\u2713 nozzle-gate-assembly: near tee-y-d 2.0 near tee-y-g 2.0 mm",
         "11 components: no placement rules defined yet"
       ],
       "active": true
@@ -116,7 +109,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "83% (20/24)",
+      "value": "81% (17/21)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
@@ -167,16 +160,16 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "96% (23/24)",
+      "value": "95% (20/21)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)",
         "compressor-shroud: 1 box holds 5% material",
         "hopper-funnel: 1 box holds 6% material",
         "foam-assembly: 5 boxes hold 12% material",
-        "tee-y-d: 1 box holds 16% material",
         "tee-y-f: 1 box holds 17% material",
-        "tee-y-c: 1 box holds 17% material"
+        "tee-y-c: 1 box holds 17% material",
+        "display: 2 boxes hold 18% material"
       ],
       "active": true
     },
@@ -185,20 +178,16 @@
       "label": "Connections modeled as real 3D paths (fluid + refrigerant + electrical)",
       "kind": "goal",
       "status": "warn",
-      "value": "17% (10/59)",
+      "value": "10% (6/59)",
       "target": "100%",
       "detail": [
-        "28 fluid + 3 refrigerant + 28 electrical; 10 routed \u2014 the fluid path waits on the deferred water deck + CO2 chain and on authors for the pump, bag, nozzle and source runs; the electrical runs wait on the components being held",
+        "28 fluid + 3 refrigerant + 28 electrical; 6 routed \u2014 the fluid path waits on the deferred discharge tees + nozzle-gate tray and the water deck, the electrical runs on the components being held",
         "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7",
         "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 289.7 mm, 4 bends at R12.7",
         "\u2713 fluid-9: source-select-assembly.V-C-O \u2192 tee-y-c.Y-C-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7",
         "\u2713 fluid-19: source-select-assembly.V-D-O \u2192 tee-y-f.Y-F-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7",
         "\u2713 fluid-10: bag-circuit-assembly.V-E-O \u2192 tee-y-c.Y-C-2 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7",
-        "\u2713 fluid-20: bag-circuit-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7",
-        "\u2713 fluid-13: tee-y-d.Y-D-2 \u2192 bag-circuit-assembly.V-F-I \u2014 \u00d86.35 \u00d7 2.0 mm, 0 bends at R12.7",
-        "\u2713 fluid-23: tee-y-g.Y-G-2 \u2192 bag-circuit-assembly.V-I-I \u2014 \u00d86.35 \u00d7 2.0 mm, 0 bends at R12.7",
-        "\u2713 fluid-17: tee-y-d.Y-D-3 \u2192 nozzle-gate-assembly.V-G-I \u2014 \u00d86.35 \u00d7 2.0 mm, 0 bends at R12.7",
-        "\u2713 fluid-27: tee-y-g.Y-G-3 \u2192 nozzle-gate-assembly.V-J-I \u2014 \u00d86.35 \u00d7 2.0 mm, 0 bends at R12.7"
+        "\u2713 fluid-20: bag-circuit-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7"
       ],
       "active": false
     },
@@ -207,10 +196,10 @@
       "label": "Components in a printed holder fastened to the enclosure",
       "kind": "goal",
       "status": "warn",
-      "value": "29% (7/24)",
+      "value": "33% (7/21)",
       "target": "100%",
       "detail": [
-        "7 held (through-wall bodies + display); 17 loose internal parts unheld"
+        "7 held (through-wall bodies + display); 14 loose internal parts unheld"
       ],
       "active": false
     }
@@ -658,7 +647,7 @@
       "pos": [
         193.75,
         76.8,
-        366.49
+        284.23
       ],
       "face": "z-",
       "diam": 6.35,
@@ -757,9 +746,9 @@
         1.0
       ],
       "diam": 6.35,
-      "mates": "tee-y-d Y-D-2 \u2014 segment 13 (pump A to bag A, routed)",
+      "mates": "Y-D-2 (pump-discharge tees, deferred) \u2014 segment 13 (pump A to bag A)",
       "status": "ok",
-      "note": "JG elbow collet, 1/4\" tube, facing up the discharge column"
+      "note": "JG elbow collet, 1/4\" tube, facing up"
     },
     {
       "component": "bag-circuit-assembly",
@@ -776,9 +765,9 @@
         1.0
       ],
       "diam": 6.35,
-      "mates": "tee-y-g Y-G-2 \u2014 segment 23 (pump B to bag B, routed)",
+      "mates": "Y-G-2 (pump-discharge tees, deferred) \u2014 segment 23 (pump B to bag B)",
       "status": "ok",
-      "note": "JG elbow collet, 1/4\" tube, facing up the discharge column"
+      "note": "JG elbow collet, 1/4\" tube, facing up"
     },
     {
       "component": "bag-circuit-assembly",
@@ -857,82 +846,6 @@
       "note": "Tee branch collet, 1/4\" tube, aft through the hug-wall notch"
     },
     {
-      "component": "nozzle-gate-assembly",
-      "name": "V-G-I",
-      "kind": "fluid",
-      "pos": [
-        212.774,
-        118.425,
-        340.2
-      ],
-      "face": [
-        -0.0,
-        0.0,
-        -1.0
-      ],
-      "diam": 6.35,
-      "mates": "tee-y-d Y-D-3 \u2014 segment 17 (pump A to nozzle A, routed)",
-      "status": "ok",
-      "note": "JG elbow collet, 1/4\" tube, facing down the discharge column"
-    },
-    {
-      "component": "nozzle-gate-assembly",
-      "name": "V-J-I",
-      "kind": "fluid",
-      "pos": [
-        212.774,
-        152.675,
-        340.2
-      ],
-      "face": [
-        -0.0,
-        0.0,
-        -1.0
-      ],
-      "diam": 6.35,
-      "mates": "tee-y-g Y-G-3 \u2014 segment 27 (pump B to nozzle B, routed)",
-      "status": "ok",
-      "note": "JG elbow collet, 1/4\" tube, facing down the discharge column"
-    },
-    {
-      "component": "nozzle-gate-assembly",
-      "name": "V-G-O",
-      "kind": "fluid",
-      "pos": [
-        114.654,
-        137.985,
-        359.76
-      ],
-      "face": [
-        0.0,
-        1.0,
-        -6.123233995736766e-17
-      ],
-      "diam": 6.35,
-      "mates": "Nozzle A by the rear umbilical (bulkhead-flavor-a) \u2014 segment 18 (unauthored)",
-      "status": "ok",
-      "note": "JG elbow collet, 1/4\" tube, facing aft"
-    },
-    {
-      "component": "nozzle-gate-assembly",
-      "name": "V-J-O",
-      "kind": "fluid",
-      "pos": [
-        114.654,
-        172.235,
-        359.76
-      ],
-      "face": [
-        0.0,
-        1.0,
-        -6.123233995736766e-17
-      ],
-      "diam": 6.35,
-      "mates": "Nozzle B by the rear umbilical (bulkhead-flavor-b) \u2014 segment 28 (unauthored)",
-      "status": "ok",
-      "note": "JG elbow collet, 1/4\" tube, facing aft"
-    },
-    {
       "component": "pump-a",
       "name": "P-A-I",
       "kind": "fluid",
@@ -958,7 +871,7 @@
       ],
       "face": "x-",
       "diam": 6.35,
-      "mates": "tee-y-d Y-D-1 \u2014 segment 12 (channel A discharge, to route)",
+      "mates": "Y-D-1 (pump-discharge tees, deferred) \u2014 segment 12 (channel A discharge)",
       "status": "ok",
       "note": "PP0308E elbow collet, front station, facing west"
     },
@@ -988,7 +901,7 @@
       ],
       "face": "x-",
       "diam": 6.35,
-      "mates": "tee-y-g Y-G-1 \u2014 segment 22 (channel B discharge, to route)",
+      "mates": "Y-G-1 (pump-discharge tees, deferred) \u2014 segment 22 (channel B discharge)",
       "status": "ok",
       "note": "PP0308E elbow collet, front station, facing west"
     },
@@ -1107,133 +1020,19 @@
       "note": "PP0208E branch collet, facing east at the pump row"
     },
     {
-      "component": "tee-y-d",
-      "name": "Y-D-1",
-      "kind": "fluid",
-      "pos": [
-        196.502,
-        106.683,
-        318.13
-      ],
-      "face": [
-        -0.8109253462117819,
-        -0.5851496243451769,
-        0.0
-      ],
-      "diam": 6.35,
-      "mates": "pump-a P-A-O \u2014 segment 12 (to route)",
-      "status": "ok",
-      "note": "PP0208E branch collet, swung at pump A's outlet"
-    },
-    {
-      "component": "tee-y-d",
-      "name": "Y-D-2",
-      "kind": "fluid",
-      "pos": [
-        212.774,
-        118.425,
-        298.06
-      ],
-      "face": [
-        -0.0,
-        -0.0,
-        -1.0
-      ],
-      "diam": 6.35,
-      "mates": "bag-circuit V-F-I \u2014 segment 13 (routed)",
-      "status": "ok",
-      "note": "PP0208E run collet, down the discharge column at the bag tray"
-    },
-    {
-      "component": "tee-y-d",
-      "name": "Y-D-3",
-      "kind": "fluid",
-      "pos": [
-        212.774,
-        118.425,
-        338.2
-      ],
-      "face": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "diam": 6.35,
-      "mates": "nozzle-gate V-G-I \u2014 segment 17 (routed)",
-      "status": "ok",
-      "note": "PP0208E run collet, up the discharge column at the nozzle gate"
-    },
-    {
-      "component": "tee-y-g",
-      "name": "Y-G-1",
-      "kind": "fluid",
-      "pos": [
-        216.648,
-        132.986,
-        318.13
-      ],
-      "face": [
-        0.19303266736076263,
-        -0.9811923304488215,
-        0.0
-      ],
-      "diam": 6.35,
-      "mates": "pump-b P-B-O \u2014 segment 22 (to route)",
-      "status": "ok",
-      "note": "PP0208E branch collet, swung at pump B's outlet"
-    },
-    {
-      "component": "tee-y-g",
-      "name": "Y-G-2",
-      "kind": "fluid",
-      "pos": [
-        212.774,
-        152.675,
-        298.06
-      ],
-      "face": [
-        -0.0,
-        -0.0,
-        -1.0
-      ],
-      "diam": 6.35,
-      "mates": "bag-circuit V-I-I \u2014 segment 23 (routed)",
-      "status": "ok",
-      "note": "PP0208E run collet, down the discharge column at the bag tray"
-    },
-    {
-      "component": "tee-y-g",
-      "name": "Y-G-3",
-      "kind": "fluid",
-      "pos": [
-        212.774,
-        152.675,
-        338.2
-      ],
-      "face": [
-        0.0,
-        0.0,
-        1.0
-      ],
-      "diam": 6.35,
-      "mates": "nozzle-gate V-J-I \u2014 segment 27 (routed)",
-      "status": "ok",
-      "note": "PP0208E run collet, up the discharge column at the nozzle gate"
-    },
-    {
       "component": "display",
       "name": "harness",
       "kind": "electrical",
       "pos": [
         56.75,
         43.8,
-        382.43
+        300.2
       ],
       "face": "y+",
       "diam": 8.0,
       "mates": "5 V power + display data (PCBA / power bus)",
       "status": "off-surface",
-      "note": "connector not modeled in STEP; PROVISIONAL on the interior back face (rides the box top with the facet) \u2014 refine with a pick"
+      "note": "connector not modeled in STEP; PROVISIONAL on the interior back face \u2014 refine with a pick"
     },
     {
       "component": "pcba",
@@ -1783,18 +1582,18 @@
         [
           0.0,
           -19.879,
-          359.679,
+          277.444,
           113.5,
           35.276,
-          414.833
+          332.598
         ],
         [
           4.25,
           -17.05,
-          349.78,
+          267.544,
           110.25,
           43.761,
-          410.591
+          328.356
         ]
       ],
       "fill": 0.1805,
@@ -1855,10 +1654,10 @@
         [
           116.5,
           5.8,
-          366.485,
+          284.25,
           271.0,
           147.8,
-          419.955
+          337.72
         ]
       ],
       "fill": 0.0611,
@@ -1878,70 +1677,6 @@
         ]
       ],
       "fill": 0.3619,
-      "primitive": false,
-      "declared": "real"
-    },
-    {
-      "component": "nozzle-gate-assembly",
-      "boxes": [
-        [
-          134.214,
-          135.55,
-          314.46,
-          193.214,
-          169.8,
-          371.06
-        ],
-        [
-          107.288,
-          145.309,
-          352.394,
-          134.212,
-          172.233,
-          367.126
-        ],
-        [
-          144.914,
-          98.3,
-          311.06,
-          182.514,
-          172.8,
-          374.06
-        ],
-        [
-          134.214,
-          101.3,
-          314.46,
-          193.214,
-          135.55,
-          371.06
-        ],
-        [
-          107.288,
-          111.059,
-          352.394,
-          134.212,
-          137.983,
-          367.126
-        ],
-        [
-          193.216,
-          111.059,
-          340.202,
-          220.14,
-          125.791,
-          367.126
-        ],
-        [
-          193.216,
-          145.309,
-          340.202,
-          220.14,
-          160.041,
-          367.126
-        ]
-      ],
-      "fill": 0.3319,
       "primitive": false,
       "declared": "real"
     },
@@ -2242,22 +1977,6 @@
       "declared": "real"
     },
     {
-      "component": "tee-y-d",
-      "boxes": [
-        [
-          193.356,
-          102.247,
-          298.064,
-          219.632,
-          125.283,
-          338.196
-        ]
-      ],
-      "fill": 0.1625,
-      "primitive": false,
-      "declared": "real"
-    },
-    {
       "component": "tee-y-f",
       "boxes": [
         [
@@ -2270,22 +1989,6 @@
         ]
       ],
       "fill": 0.1716,
-      "primitive": false,
-      "declared": "real"
-    },
-    {
-      "component": "tee-y-g",
-      "boxes": [
-        [
-          205.916,
-          131.97,
-          298.064,
-          222.727,
-          159.533,
-          338.196
-        ]
-      ],
-      "fill": 0.2123,
       "primitive": false,
       "declared": "real"
     }

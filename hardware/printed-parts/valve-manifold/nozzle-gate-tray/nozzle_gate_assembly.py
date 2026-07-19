@@ -1,4 +1,4 @@
-"""Assembled nozzle-gate tray: the tray with its 2 valves + 4 elbows
+"""Assembled nozzle-gate tray: the tray with its 2 valves + 2 Y-dividers
 seated in place.
 """
 

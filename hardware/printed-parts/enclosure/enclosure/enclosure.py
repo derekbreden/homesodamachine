@@ -214,20 +214,7 @@ def _round_corner_y(solid, xc, zc, r):
 
 # --- box dimensions, driven by the placed contents -------------------------
 
-_dims_cache = None
-
-
 def _dims():
-    """The box's derived dimensions, memoized — the placed contents are static
-    within a run and every consumer (pieces, facet, funnel, assembly) reads
-    the same tuple, so the pack builds once."""
-    global _dims_cache
-    if _dims_cache is None:
-        _dims_cache = _compute_dims()
-    return _dims_cache
-
-
-def _compute_dims():
     placed = _contents.build()
     bbs = [s.BoundingBox() for s, _c in placed.values()]
     cxmin = min(b.xmin for b in bbs); cxmax = max(b.xmax for b in bbs)
@@ -280,12 +267,7 @@ def _compute_dims():
         (z + (_contents.PORT_C14_FLANGE_H if kind == "rect" else _contents.PORT_NUT_D) / 2.0
          for kind, _x, z, *_size in _contents.back_wall_ports()),
         default=iz0)
-    # The hopper law: the funnel's basin is content too — it hangs from the
-    # outer top with its underside tapering toward the spout, and the
-    # nozzle-gate stack stands under its aft-east quarter, so the ceiling
-    # lifts until the basin clears that stack (_contents.hopper_ceiling_z,
-    # measured per stack solid against the funnel's own underside profile).
-    iz1 = max(iz1, port_top + 2.0, _contents.hopper_ceiling_z(placed))
+    iz1 = max(iz1, port_top + 2.0)
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ox0, ox1, oy0, oy1, iz0 - wall, iz1 + wall)
     return inner, outer, y_joint, cold_front_y
