@@ -2,17 +2,17 @@
 
 Detailed STEP imports where they exist (cold-core foam assembly — shell +
 top/bottom foam-cap stacks — the compressor shroud, the source-select
-assembly, the bag-circuit assembly, both Kamoer pump assemblies, both
-pump-inlet union tees, the PCBA assembly, the power assembly, the DC
-distribution block, the DERPIPE CO2 inlet, the MQ-6 gas sensor, the panel
-bulkheads + C14). One placeholder primitive remains (condenser+fan). Not
-everything is packed — deferred, tracked by the fluid topology
-(/hardware/topology/fluid-topology.md) and the scorecard's connection
-table, never silently dropped, while the front column settles around the
-tray stack and the pump row: the water deck (SeaFlo diaphragm pump,
-Multiplex BFP, drip pan + moisture plate, the SeaFlo outlet check), the
-DIGITEN flow sensor, the CO2 chain's GASHER check + WR1110 regulator, the
-pump-discharge tees (Y-D/Y-G), and the nozzle-gate tray.
+assembly, the bag-circuit assembly, the nozzle-gate assembly, both Kamoer
+pump assemblies, both pump-inlet union tees, the PCBA assembly, the power
+assembly, the DC distribution block, the DERPIPE CO2 inlet, the MQ-6 gas
+sensor, the panel bulkheads + C14). One placeholder primitive remains
+(condenser+fan). Not everything is packed — deferred, tracked by the fluid
+topology (/hardware/topology/fluid-topology.md) and the scorecard's
+connection table, never silently dropped, while the front column settles
+around the tray stack and the pump row: the water deck (SeaFlo diaphragm
+pump, Multiplex BFP, drip pan + moisture plate, the SeaFlo outlet check),
+the DIGITEN flow sensor, the CO2 chain's GASHER check + WR1110 regulator,
+and the pump-discharge tees (Y-D/Y-G).
 
 Components only: no tubes, no wires, no mount features. enclosure_assembly.py
 verifies the pack pairwise non-intersecting at every export.
@@ -71,14 +71,20 @@ Strata, floor to ceiling:
              front face and its east collets facing up at the tap feed
              and the funnel drain that arrive from above; the bag-circuit
              assembly (Tray 2: V-E/V-F/V-H/V-I + Tees Y-E/Y-H) INVERTED
-             on top of it, wall-top to wall-top, its east elbows turned
-             up toward the pump row that discharges into them and its bag
-             branches out ±Y. Both trays' west outlet elbows are rolled
-             off their port axes to face each other — the source's
-             inward, the bag's outward — down one leaning line: the
-             JUNCTION COLUMN, with the pump-inlet union tees standing on
-             that line and one straight stub joining each collet to the
-             tee it butts. The stack floats over the floor stratum,
+             on top of it, wall-top to wall-top, its bare east ports
+             facing the nozzle-gate pocket and its bag branches out ±Y;
+             and the nozzle-gate assembly (Tray 3: V-G/V-J, all ports
+             bare) INVERTED the same way in that pocket — east of the
+             bag assembly on the stack's second-story plane — its
+             inner ports facing west at the bag east bank across the
+             seats reserved for the pump-discharge tees (Y-D/Y-G,
+             deferred), its outer ports facing east at the wall. The
+             lower trays' west outlet elbows are rolled off their port
+             axes to face each other — the source's inward, the bag's
+             outward — down one leaning line: the JUNCTION COLUMN, with
+             the pump-inlet union tees standing on that line and one
+             straight stub joining each collet to the tee it butts. The
+             stack floats over the floor stratum,
              leaving an open under-stack corridor for the manifold's
              cross-machine lines, and its floor clears the front Z-seam's
              lip band. Ahead of the stack, the PUMP ROW: both Kamoer
@@ -121,10 +127,12 @@ _hw = _repo / "hardware"
 # tray STEPs are built with.
 _VM = _hw / "printed-parts" / "valve-manifold"
 for _p in (_hw / "scripts", _repo / "tools", _hw / "reference" / "beduan-solenoid",
-           _VM / "single-tray", _VM / "bag-circuit-tray", _VM / "source-select-tray"):
+           _VM / "single-tray", _VM / "bag-circuit-tray", _VM / "source-select-tray",
+           _VM / "nozzle-gate-tray"):
     sys.path.insert(0, str(_p))
 import bag_circuit_tray as _bag          # noqa: E402
 import source_select_tray as _src        # noqa: E402
+import nozzle_gate_tray as _noz          # noqa: E402
 
 
 # --- Source STEPs ---------------------------------------------------------
@@ -132,6 +140,7 @@ FOAM_ASSEMBLY = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-as
 COMP_SHROUD   = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
 SOURCE_SELECT = _hw / "printed-parts" / "valve-manifold" / "source-select-tray" / "source-select-assembly.step"
 BAG_CIRCUIT   = _hw / "printed-parts" / "valve-manifold" / "bag-circuit-tray" / "bag-circuit-assembly.step"
+NOZZLE_GATE   = _hw / "printed-parts" / "valve-manifold" / "nozzle-gate-tray" / "nozzle-gate-assembly.step"
 # Kamoer KPHM400 peristaltic pump, its two +Y outlet ports flush (no fittings).
 PUMP_ASSEMBLY = _hw / "reference" / "kamoer-kphm400" / "pump-assembly.step"
 # JG PP0208E union tee — the pump-inlet junctions Y-C / Y-F, tube-hung.
@@ -208,6 +217,24 @@ BAG_CIRCUIT_POS = (SRC_SEL_POS[0] - JUNCTION_SLIDE,
                    SRC_SEL_POS[1],
                    SRC_SEL_POS[2] + STACK_PITCH_Z)
 
+# The nozzle-gate assembly (Tray 3 — V-G/V-J, every port bare) rides INVERTED
+# in the pocket EAST of the bag assembly: the same 180°-about-Y hang and the
+# same second story — its hanging wall tops reach the source tray's wall-top
+# plane, though the source's east wall slabs (which follow its aimed valves)
+# stop just outboard of them, so the tray floats in the pocket until its
+# holder. The shared story lands its ports on the bag tray's own port plane,
+# inner ports facing west at the bag east bank across the pocket, outer
+# (nozzle-outlet) ports facing east at the wall. The X slide reserves the
+# pump-discharge tees' seats (Y-D/Y-G, deferred): each tee plugs its branch
+# into a gate valve's inner port, standing its body one branch reach west of
+# the tip, so the slide holds that body one clearance east of the bag tray's
+# bare V-F/V-I port tips.
+TEE_BODY_CLEAR = 2.5
+NOZZLE_GATE_POS = (BAG_CIRCUIT_POS[0] + 2.0 * _bag.port_half + _bag.tee_branch_reach
+                   + _bag.tee_radius + TEE_BODY_CLEAR,
+                   SRC_SEL_POS[1],
+                   SRC_SEL_POS[2] + STACK_PITCH_Z)
+
 # The pump row: both Kamoer KPHM400 assemblies (P-A west, P-B east) lying
 # depth-along-X ahead of the tray stack, in ONE pose — a −90° turn about Y
 # lays the depth axis west (motor at −X), then a +90° roll about X turns
@@ -268,11 +295,21 @@ def src_collet(name):
 
 
 def bag_collet(name):
-    """A bag-tray boundary collet in world — an outer elbow's, or a Tee's bag
-    branch. The tray rides inverted (180° about Y), so local Y carries and
-    local X and Z negate."""
+    """A bag-tray boundary collet in world — an outer elbow's, a bare east
+    port's, or a Tee's bag branch. The tray rides inverted (180° about Y), so
+    local Y carries and local X and Z negate."""
     p, d = (_bag.bag_branches() if name.startswith("Y") else _bag.boundary_collets())[name]
     return ((BAG_CIRCUIT_POS[0] - p[0], BAG_CIRCUIT_POS[1] + p[1], BAG_CIRCUIT_POS[2] - p[2]),
+            (-d[0], d[1], -d[2]))
+
+
+def noz_collet(name):
+    """A nozzle-gate-tray bare port collet in world: (position, outward axis)
+    — `VG-I`/`VJ-I` the inner (tee-side) ports facing west, `VG-O`/`VJ-O` the
+    outer (nozzle-outlet) ports facing east. The tray rides inverted (180°
+    about Y), the same transform the bag tray's collets carry."""
+    p, d = _noz.port_collets()[name]
+    return ((NOZZLE_GATE_POS[0] - p[0], NOZZLE_GATE_POS[1] + p[1], NOZZLE_GATE_POS[2] - p[2]),
             (-d[0], d[1], -d[2]))
 
 
@@ -383,6 +420,7 @@ COLORS = {
     "mq6-sensor":        cq.Color(0.30, 0.45, 0.85),
     "source-select-assembly": cq.Color(0.60, 0.40, 0.70),
     "bag-circuit-assembly":   cq.Color(0.35, 0.62, 0.55),
+    "nozzle-gate-assembly":   cq.Color(0.75, 0.62, 0.30),
     "pump-a":            cq.Color(0.72, 0.28, 0.30),
     "pump-b":            cq.Color(0.72, 0.28, 0.30),
     "tee-y-c":           cq.Color(0.92, 0.92, 0.92),
@@ -499,6 +537,12 @@ def build():
     # pump row. Its wall tops seat on the source tray's (a declared contact);
     # the floor stratum stays open below the stack.
     placed["bag-circuit-assembly"] = _rot(_load(BAG_CIRCUIT), (0, 1, 0), 180.0).translate(BAG_CIRCUIT_POS)
+
+    # East of it, the nozzle-gate assembly (Tray 3 — V-G/V-J, bare ports)
+    # rides INVERTED the same way, wall tops on the same source stacking
+    # walls, slid to reserve the deferred pump-discharge tees' seats between
+    # its inner ports and the bag tray's bare east tips (NOZZLE_GATE_POS).
+    placed["nozzle-gate-assembly"] = _rot(_load(NOZZLE_GATE), (0, 1, 0), 180.0).translate(NOZZLE_GATE_POS)
 
     # Ahead of the stack, the pump row: both Kamoer assemblies in one lying
     # pose (depth west about Y, then rolled +90° about X so the elbows ride
