@@ -3,7 +3,7 @@
   "placed": 48,
   "located": 81,
   "shaped": 95,
-  "routed": 7,
+  "routed": 10,
   "held": 33,
   "checks": [
     {
@@ -37,9 +37,9 @@
         "source-select-assembly \u2014 bag-circuit-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 source-select-assembly: 0.01 mm \u2014 CONTACT (declared ok)",
         "compressor-shroud \u2014 mq6-sensor: 1.00 mm",
+        "source-select-assembly \u2014 tee-y-f: 1.53 mm",
+        "source-select-assembly \u2014 tee-y-c: 1.53 mm",
         "source-select-assembly \u2014 pump-a: 1.98 mm",
-        "source-select-assembly \u2014 tee-y-c: 2.01 mm",
-        "source-select-assembly \u2014 tee-y-f: 2.01 mm",
         "bag-circuit-assembly \u2014 pump-a: 2.49 mm",
         "foam-assembly \u2014 power-tray: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 2.50 mm \u2014 CONTACT (declared ok)",
@@ -48,9 +48,7 @@
         "foam-assembly \u2014 tee-y-f: 2.86 mm",
         "source-select-assembly \u2014 hopper-funnel: 3.03 mm",
         "foam-assembly \u2014 condenser+fan: 4.00 mm",
-        "display \u2014 hopper-funnel: 4.49 mm",
-        "bag-circuit-assembly \u2014 tee-y-f: 5.38 mm",
-        "bag-circuit-assembly \u2014 tee-y-c: 5.38 mm"
+        "display \u2014 hopper-funnel: 4.49 mm"
       ],
       "active": true
     },
@@ -100,8 +98,8 @@
         "\u2713 bag-circuit-assembly: near source-select-assembly 0.0 clear compressor-shroud 10.3 clear condenser+fan 18.2 mm",
         "\u2713 pump-a: near bag-circuit-assembly 2.5 clear hopper-funnel 20.6 mm",
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 2.7 mm",
-        "\u2713 tee-y-c: near source-select-assembly 2.0 mm",
-        "\u2713 tee-y-f: near source-select-assembly 2.0 mm",
+        "\u2713 tee-y-c: near source-select-assembly 1.5 mm",
+        "\u2713 tee-y-f: near source-select-assembly 1.5 mm",
         "11 components: no placement rules defined yet"
       ],
       "active": true
@@ -180,14 +178,16 @@
       "label": "Connections modeled as real 3D paths (fluid + refrigerant + electrical)",
       "kind": "goal",
       "status": "warn",
-      "value": "7% (4/59)",
+      "value": "10% (6/59)",
       "target": "100%",
       "detail": [
-        "28 fluid + 3 refrigerant + 28 electrical; 4 routed \u2014 the fluid path waits on the deferred discharge tees + nozzle-gate tray and the water deck, the electrical runs on the components being held",
+        "28 fluid + 3 refrigerant + 28 electrical; 6 routed \u2014 the fluid path waits on the deferred discharge tees + nozzle-gate tray and the water deck, the electrical runs on the components being held",
         "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7",
         "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 289.7 mm, 4 bends at R12.7",
         "\u2713 fluid-9: source-select-assembly.V-C-O \u2192 tee-y-c.Y-C-1 \u2014 \u00d86.35 \u00d7 2.0 mm, 0 bends at R12.7",
         "\u2713 fluid-19: source-select-assembly.V-D-O \u2192 tee-y-f.Y-F-1 \u2014 \u00d86.35 \u00d7 2.0 mm, 0 bends at R12.7",
+        "\u2713 fluid-10: bag-circuit-assembly.V-E-O \u2192 tee-y-c.Y-C-2 \u2014 \u00d86.35 \u00d7 29.0 mm, 2 bends at R7.9",
+        "\u2713 fluid-20: bag-circuit-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 29.0 mm, 2 bends at R7.9",
         "\u2717 refrig-3: BLOCKED \u2014 foam-assembly.evap-outlet \u2192 compressor-shroud.refrig-suction: the evap-outlet exits \u2212Y at (141.5, 182, 191), inside the tray stack's band. The bag-circuit assembly, pressed with the stack to the cold core, reaches y 172.8 (aft walls; valves to 169.8, Tee branch to 172.7) across z 164.8\u2013227.8, leaving 9.2 mm of free corridor off the cold-core face \u2014 less than the 12.7 mm exit stub \u2014 and every drop/cross window inside the band is occupied (valve port rows x 38.2\u201397.2 and 137.4\u2013196.4, the Y-E branch at x 110.4\u2013124.2 z 169\u2013183, the bridge floor below). The leg waits on a chimney through the stack, a stack move, or an evap-outlet port move."
       ],
       "active": false
@@ -662,14 +662,14 @@
       "kind": "fluid",
       "pos": [
         275.33,
-        98.82,
-        261.66
+        172.28,
+        296.06
       ],
       "face": "z+",
       "diam": 6.35,
       "mates": "tap-water chain (bulkhead-water \u2192 BFP, deferred) \u2014 segment 2 (pressurized; length-tolerant)",
       "status": "ok",
-      "note": "JG elbow collet, 1/4\" tube, facing up"
+      "note": "JG elbow collet, 1/4\" tube, facing up at the aft-east station"
     },
     {
       "component": "source-select-assembly",
@@ -677,14 +677,14 @@
       "kind": "fluid",
       "pos": [
         275.33,
-        172.28,
-        261.66
+        98.82,
+        296.06
       ],
       "face": "z+",
       "diam": 6.35,
-      "mates": "hopper-funnel drain by tube \u2014 segment 4 (the drain hangs ~23 above this collet's plane, ~126 mm west-forward)",
+      "mates": "hopper-funnel drain by tube \u2014 segment 4 (the drain's exit sits ~12 BELOW this collet as packed; the fall waits on the funnel drain rising with a shallower basin)",
       "status": "ok",
-      "note": "JG elbow collet, 1/4\" tube, facing up"
+      "note": "JG elbow collet, 1/4\" tube, facing up at the fwd-east station"
     },
     {
       "component": "source-select-assembly",
@@ -693,7 +693,7 @@
       "pos": [
         18.67,
         98.82,
-        222.54
+        256.94
       ],
       "face": "z-",
       "diam": 6.35,
@@ -708,7 +708,7 @@
       "pos": [
         18.67,
         172.28,
-        222.54
+        256.94
       ],
       "face": "z-",
       "diam": 6.35,
@@ -757,7 +757,7 @@
       ],
       "face": "z+",
       "diam": 6.35,
-      "mates": "tee-y-c Y-C-2 \u2014 segment 10 (bag A to pump return, to route)",
+      "mates": "tee-y-c Y-C-2 \u2014 segment 10 (bag A to pump return, routed)",
       "status": "ok",
       "note": "JG elbow collet, 1/4\" tube, facing up in the junction column"
     },
@@ -772,7 +772,7 @@
       ],
       "face": "z+",
       "diam": 6.35,
-      "mates": "tee-y-f Y-F-2 \u2014 segment 20 (bag B to pump return, to route)",
+      "mates": "tee-y-f Y-F-2 \u2014 segment 20 (bag B to pump return, routed)",
       "status": "ok",
       "note": "JG elbow collet, 1/4\" tube, facing up in the junction column"
     },
@@ -873,7 +873,7 @@
       "pos": [
         18.67,
         98.82,
-        220.54
+        254.94
       ],
       "face": "z+",
       "diam": 6.35,
@@ -888,11 +888,11 @@
       "pos": [
         18.67,
         98.82,
-        180.4
+        214.8
       ],
       "face": "z-",
       "diam": 6.35,
-      "mates": "bag-circuit V-E-O \u2014 segment 10 (to route)",
+      "mates": "bag-circuit V-E-O \u2014 segment 10 (routed)",
       "status": "ok",
       "note": "PP0208E run collet, facing down"
     },
@@ -903,7 +903,7 @@
       "pos": [
         38.74,
         98.82,
-        200.47
+        234.87
       ],
       "face": "x+",
       "diam": 6.35,
@@ -918,7 +918,7 @@
       "pos": [
         18.67,
         172.28,
-        220.54
+        254.94
       ],
       "face": "z+",
       "diam": 6.35,
@@ -933,11 +933,11 @@
       "pos": [
         18.67,
         172.28,
-        180.4
+        214.8
       ],
       "face": "z-",
       "diam": 6.35,
-      "mates": "bag-circuit V-H-O \u2014 segment 20 (to route)",
+      "mates": "bag-circuit V-H-O \u2014 segment 20 (routed)",
       "status": "ok",
       "note": "PP0208E run collet, facing down"
     },
@@ -948,7 +948,7 @@
       "pos": [
         38.74,
         172.28,
-        200.47
+        234.87
       ],
       "face": "x+",
       "diam": 6.35,
@@ -1805,68 +1805,12 @@
       "component": "source-select-assembly",
       "boxes": [
         [
-          34.887,
-          92.906,
-          230.8,
-          95.613,
-          135.55,
-          287.4
-        ],
-        [
-          198.387,
-          92.906,
-          230.8,
-          259.113,
-          135.55,
-          287.4
-        ],
-        [
-          255.097,
-          91.459,
-          234.734,
-          282.695,
-          110.577,
-          261.658
-        ],
-        [
-          34.887,
-          135.55,
-          230.8,
-          95.613,
-          178.194,
-          287.4
-        ],
-        [
-          148.0,
-          120.1,
-          234.0,
-          186.5,
-          151.0,
-          250.2
-        ],
-        [
           11.305,
           91.459,
-          222.542,
+          256.942,
           38.903,
           110.577,
-          249.466
-        ],
-        [
-          107.5,
-          120.1,
-          234.0,
-          146.0,
-          151.0,
-          250.2
-        ],
-        [
-          11.305,
-          160.523,
-          222.542,
-          38.903,
-          179.641,
-          249.466
+          283.866
         ],
         [
           43.237,
@@ -1877,20 +1821,76 @@
           290.8
         ],
         [
+          34.887,
+          92.906,
+          231.2,
+          95.613,
+          135.55,
+          287.8
+        ],
+        [
+          255.097,
+          91.459,
+          269.134,
+          282.695,
+          110.577,
+          296.058
+        ],
+        [
           255.097,
           160.523,
-          234.734,
+          269.134,
           282.695,
           179.641,
-          261.658
+          296.058
         ],
         [
           198.387,
           135.55,
-          230.8,
+          231.2,
           259.113,
           178.194,
-          287.4
+          287.8
+        ],
+        [
+          34.887,
+          135.55,
+          231.2,
+          95.613,
+          178.194,
+          287.8
+        ],
+        [
+          148.0,
+          120.1,
+          268.4,
+          186.5,
+          151.0,
+          284.6
+        ],
+        [
+          107.5,
+          120.1,
+          268.4,
+          146.0,
+          151.0,
+          284.6
+        ],
+        [
+          11.305,
+          160.523,
+          256.942,
+          38.903,
+          179.641,
+          283.866
+        ],
+        [
+          198.387,
+          92.906,
+          231.2,
+          259.113,
+          135.55,
+          287.8
         ]
       ],
       "fill": 0.1959,
@@ -1903,10 +1903,10 @@
         [
           11.812,
           91.962,
-          180.404,
+          214.804,
           38.736,
           105.678,
-          220.536
+          254.936
         ]
       ],
       "fill": 0.2663,
@@ -1919,10 +1919,10 @@
         [
           11.812,
           165.422,
-          180.404,
+          214.804,
           38.736,
           179.138,
-          220.536
+          254.936
         ]
       ],
       "fill": 0.2663,

@@ -91,12 +91,17 @@ valve_y = _hi
 valve_x = _outlet_x + math.sqrt(_aim_len ** 2 - (valve_y - outlet_y) ** 2)
 valve_y_extent = _upper_valve_at(valve_y).BoundingBox().ymax  # plate reach in |Y|
 
-# Per valve: (center_x, center_y, outlet_x, outlet_y) it aims at.
+# Per valve: (center_x, center_y, outlet_x, outlet_y) it aims at. The
+# enclosure hangs this tray INVERTED (180° about Y — see _contents), which
+# negates local X and Z but keeps local Y; the name↔row assignment below is
+# chosen so each valve lands on the world station its fluid-topology channel
+# pairs with (V-C over bag A's forward row, V-D over bag B's aft row,
+# V-B forward under the funnel drain, V-A aft near the tap bulkhead).
 valves = [
     (-valve_x, +valve_y, -_outlet_x, +outlet_y),   # V-A -> Y-A upper
     (-valve_x, -valve_y, -_outlet_x, -outlet_y),   # V-B -> Y-A lower
-    (+valve_x, +valve_y, +_outlet_x, +outlet_y),   # V-C -> Y-B upper
-    (+valve_x, -valve_y, +_outlet_x, -outlet_y),   # V-D -> Y-B lower
+    (+valve_x, -valve_y, +_outlet_x, -outlet_y),   # V-C -> Y-B lower
+    (+valve_x, +valve_y, +_outlet_x, +outlet_y),   # V-D -> Y-B upper
 ]
 
 
@@ -159,14 +164,16 @@ def build_assembly():
     parts["YA"] = place_divider(-divider_x, +1)
     parts["YB"] = place_divider(+divider_x, -1)
     # An elbow turns each valve's outer (back, away-from-divider) port off the
-    # tray: V-A/V-B up (+Z — the tap feed rises to V-A-I, the funnel drain falls
-    # into V-B-I), V-C/V-D rolled 180° so their collets point straight DOWN —
-    # they feed the pump-inlet union tees hanging in-line below the west bank
-    # (enclosure _contents places the tees butted one stub under these collets).
+    # tray. The rolls are authored for the tray's INVERTED pose in the enclosure
+    # (hung 180° about Y): V-C/V-D keep the local up-turn (roll 0), which the
+    # flip points straight DOWN in world — the full elbow leg hangs below the
+    # port plane, opening the junction-column run for the pump-inlet tees —
+    # while V-A/V-B roll 180 (down-local) so their collets face UP in world for
+    # the tap feed and the funnel drain arriving from above.
     for nm, (vx, vy, dx, dy) in zip(names, valves):
         ox, oy = vx - dx, vy - dy
         n = math.hypot(ox, oy)
-        roll = 180.0 if nm in ("VC", "VD") else 0.0
+        roll = 180.0 if nm in ("VA", "VB") else 0.0
         parts[f"E{nm}"] = bc.place_elbow(vx, vy, ox / n, oy / n, roll=roll)
     return parts
 
