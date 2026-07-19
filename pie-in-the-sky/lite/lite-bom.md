@@ -5,17 +5,14 @@
 | Subsystem | Item | Qty | Unit | Line | Source | Notes |
 |---|---|---:|---:|---:|---|---|
 | Flavor | Platypus Hoser 1 L hydration reservoir (Fast Flow Valve) | 2 | $25.62 | $51.24 | [B002OYMRS8](https://www.amazon.com/dp/B002OYMRS8) | Flavor reservoir, one per pocket. Hangs spout-down from its built-in top loop; the threaded outlet takes Platypus drink tubes / closure caps and ships with the hose, so it carries the lid-to-hose adapter; that silicone outlet hose slips tightly over a 1/4" LLDPE bag run, butterfly-clamped — no separate adapter. 133 × 292 mm (5.25 × 11.5 in), per the listing. Purchased — order 112-4566389-9910625 (2026-05-30), 2 @ $23.89 = $47.78 + $3.46 tax = $51.24, $0 Prime shipping ($25.62/ea delivered). |
-| Flavor | Beduan 12 V 1/4" solenoid valve (NC) | 12 | $9.64 | $115.68 | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | Manifold valves V-A … V-K-B per [fluid-topology-manifold.mmd](/pie-in-the-sky/lite/fluid-topology-manifold.mmd); same part as the Kitchen build ([../../hardware/ledger/bom.md](/hardware/ledger/bom.md) §8). 1/4" push-connect ports. |
+| Flavor | Beduan 12 V 1/4" solenoid valve (NC) | 10 | $9.64 | $96.40 | [B07NWCQJK9](https://www.amazon.com/dp/B07NWCQJK9) | Manifold valves V-A … V-J per [fluid-topology-manifold.mmd](/pie-in-the-sky/lite/fluid-topology-manifold.mmd); same part as the Kitchen build ([../../hardware/ledger/bom.md](/hardware/ledger/bom.md) §8). 1/4" push-connect ports. |
 | Flavor | John Guest PP2308E two-way divider, 1/4" | 2 | $3.083 | $6.17 | [FWS](https://www.freshwatersystems.com/products/john-guest-two-way-divider-black-polypropylene-1-4) | Source-select Y-dividers Y-A, Y-B per the .mmd; same part as the Kitchen build (bom.md §8). Black PP, NSF 51+61, 1/4" push-connect. $3.083/ea from a bag of 10. |
-| Flavor | John Guest PP0208E union tee, 1/4" | 8 | $2.134 | $17.07 | [FWS](https://www.freshwatersystems.com/products/john-guest-union-tee-black-polypropylene-1-4) | Manifold Tees Y-C/D/E/F/G/H/KA/KB per the .mmd; same part as the Kitchen build (bom.md §8). Black PP, NSF 51+61, 1/4" push-connect. $2.134/ea from a bag of 10 (FWS WEBFWS100681220). |
-| Flavor | neoFit stem-barb, 1/4" stem × 1/4" barb, black acetal (ATBC44-E) | 13 | $0.90 | $11.70 | [FWS ATBC44-E](https://www.freshwatersystems.com/products/neofit-acetal-black-stem-barb-connector-1-4-stem-x-1-4-barb) | One per clear-PVC landing on the PTC manifold — 6 valve ports (V-A, V-B, V-K-A, V-K-B, V-G, V-J) + 6 Tee ports (Y-C, Y-D, Y-F, Y-G, Y-E, Y-H) + the inner port of the Lillium flow-control bulkhead (its push-connect inner face lands the clear run to V-A). The 1/4" stem pushes into the PTC port; the clear PVC slips over the 1/4" barb. Black acetal + Buna-N, FDA + NSF 51. $0.90/ea from a bag of 10 (13 → two bags). |
-| Flavor | Clear flexible PVC, 1/4" ID × 3/8" OD, NSF-51 (FWS PVCA-0406) | ~13 ft | $0.14/ft | $1.82 | [FWS PVCA-0406](https://www.freshwatersystems.com/products/clear-flexible-pvc-tubing-1-4-id-x-3-8-od) | The 12 visible "green" runs in the .mmd (wall-port→valve, pump loops, bag runs, nozzle lines). 1/4" ID over the stem-barb's 1/4" barb. NSF-51 + FDA, 1/16" wall, 55 psi @ 68°F. $0.19/ft (10 ft) → $0.14/ft (100 ft roll). Length estimate below. |
-| Flavor | Black 1/4" OD LLDPE tube, NSF-51 (neoFlo LLDPE4-BLACK) | ~7 ft | $0.12/ft | $0.84 | [FWS LLDPE4-BLACK](https://www.freshwatersystems.com/products/black-1-4-od-lldpe-polyethylene-tubing) | The grey manifold-internal runs in the [.mmd](/pie-in-the-sky/lite/fluid-topology-manifold.mmd) — every valve↔Y and Y↔Y push-connect hop. PTC fittings can't mate collet-to-collet, so each of the ~21 internal hops is a short rigid 1/4" OD jumper (~2 m/unit). Shares the Kitchen build's existing black-LLDPE roll ([../../hardware/ledger/purchases.md](/hardware/ledger/purchases.md) order WEBFWS100673540, ACQUIRED — its 100 ft of 1/4" black LLDPE is "bulk stock for the flavor side / manifold runs"). neoFlo LLDPE, NSF 51 + FDA, push-connect. $0.12/ft (100 ft). |
+| Flavor | John Guest PP0208E union tee, 1/4" | 6 | $2.134 | $12.80 | [FWS](https://www.freshwatersystems.com/products/john-guest-union-tee-black-polypropylene-1-4) | Manifold Tees Y-C/D/E/F/G/H per the .mmd; same part as the Kitchen build (bom.md §8). Black PP, NSF 51+61, 1/4" push-connect. $2.134/ea from a bag of 10 (FWS WEBFWS100681220). |
+| Flavor | neoFit stem-barb, 1/4" stem × 1/4" barb, black acetal (ATBC44-E) | 11 | $0.90 | $9.90 | [FWS ATBC44-E](https://www.freshwatersystems.com/products/neofit-acetal-black-stem-barb-connector-1-4-stem-x-1-4-barb) | One per clear-PVC landing on the PTC manifold — 4 valve ports (V-A, V-B, V-G, V-J) + 6 Tee ports (Y-C, Y-D, Y-F, Y-G, Y-E, Y-H) + the inner port of the Lillium flow-control bulkhead (its push-connect inner face lands the clear run to V-A). The 1/4" stem pushes into the PTC port; the clear PVC slips over the 1/4" barb. Black acetal + Buna-N, FDA + NSF 51. $0.90/ea from a bag of 10 (11 → two bags). |
+| Flavor | Clear flexible PVC, 1/4" ID × 3/8" OD, NSF-51 (FWS PVCA-0406) | ~11 ft | $0.14/ft | $1.54 | [FWS PVCA-0406](https://www.freshwatersystems.com/products/clear-flexible-pvc-tubing-1-4-id-x-3-8-od) | The 10 visible "green" runs in the .mmd (wall-port→valve, pump loops, bag runs, nozzle lines). 1/4" ID over the stem-barb's 1/4" barb. NSF-51 + FDA, 1/16" wall, 55 psi @ 68°F. $0.19/ft (10 ft) → $0.14/ft (100 ft roll). Length estimate below. |
+| Flavor | Black 1/4" OD LLDPE tube, NSF-51 (neoFlo LLDPE4-BLACK) | ~6 ft | $0.12/ft | $0.72 | [FWS LLDPE4-BLACK](https://www.freshwatersystems.com/products/black-1-4-od-lldpe-polyethylene-tubing) | The grey manifold-internal runs in the [.mmd](/pie-in-the-sky/lite/fluid-topology-manifold.mmd) — every valve↔Y and Y↔Y push-connect hop. PTC fittings can't mate collet-to-collet, so each of the 17 internal hops is a short rigid 1/4" OD jumper (~1.6 m/unit). Shares the Kitchen build's existing black-LLDPE roll ([../../hardware/ledger/purchases.md](/hardware/ledger/purchases.md) order WEBFWS100673540, ACQUIRED — its 100 ft of 1/4" black LLDPE is "bulk stock for the flavor side / manifold runs"). neoFlo LLDPE, NSF 51 + FDA, push-connect. $0.12/ft (100 ft). |
 | Flavor | neoFit flow-control bulkhead, 1/4" tube, black acetal (ABCVU44-E) | 1 | $4.39 | $4.39 | [FWS ABCVU44-E](https://www.freshwatersystems.com/products/neofit-acetal-black-flow-control-bulkhead-1-4-tube) | In the enclosure wall on the Lillium clean-water feed; an adjustable flow-control valve — the screw throttles the feed down so the manifold runs at its low (<10 PSI) working pressure. Push-connect 1/4", bulkhead-mount, acetal + food-grade EPDM, NSF 51/61, FDA, 150 psi @ 68°F, black. $4.39 single / $4.34 per 10. |
-| Flavor | Supply Depot 3/8" red BiB connector | 2 | $10.00 | $20.00 | [B0DMFK9B6P](https://www.amazon.com/dp/B0DMFK9B6P) | Optional commercial-syrup input — one per channel (feeds V-K-A, V-K-B), so two distinct bag-in-box syrups. Same part as the Kitchen build ([../../hardware/ledger/bom.md](/hardware/ledger/bom.md) §8). A standard commercial soda-syrup disconnect — food-contact by function; snaps onto a syrup bag's red fitment, output is a 3/8" **male** hose barb. Prime, $19.99/2-pack ($10.00/ea) — one 2-pack covers both channels. |
-| Flavor | Eldon James C6-4BN 3/8" × 1/4" nylon reducing coupler, black | 2 | $0.731 | $1.46 | [FWS C6-4BN](https://www.freshwatersystems.com/products/3-8-x-1-4-tube-id-nylon-reduction-coupler-black) | Steps each BiB leg from the connector's 3/8" barb down to the 1/4" clear PVC into V-K-A/V-K-B. Tube-ID barb both ends, 6/6 nylon, 150 psi @ 70°F. $0.731/ea (bag of 10 = $7.31). |
-| Flavor | Food-grade 3/8" ID silicone tube stub + worm-gear clamps | ~6 in | — | — | [B089YGDB55](https://www.amazon.com/dp/B089YGDB55) | A short stub per channel bridges the connector's 3/8" male barb to the reducer's 3/8" male barb (two males can't mate directly), clamped. Draws from the Kitchen build's JoyTube 3/8" ID × 1/2" OD food-grade silicone (bom.md §5, ACQUIRED); ~3 in/channel + a worm-gear clamp on each push-on barb joint. |
-| Flavor | YDS butterfly SS hose clamp, 10–16 mm (10-pk) | 6 | $1.63 | $9.78 | [B07C33VLQ6](https://www.amazon.com/dp/B07C33VLQ6) | Two uses: the BiB-input silicone-stub barb joints (2/channel × 2 channels = 4) and the Platypus bag-outlet silicone over 1/4" LLDPE (1 per bag × 2 = 2). Clamps 1/2" OD silicone, which sits in the 10–16 mm range. $16.30/10; ACQUIRED ([purchases.md](/hardware/ledger/purchases.md)). |
+| Flavor | YDS butterfly SS hose clamp, 10–16 mm (10-pk) | 2 | $1.63 | $3.26 | [B07C33VLQ6](https://www.amazon.com/dp/B07C33VLQ6) | The Platypus bag-outlet silicone over 1/4" LLDPE, one per bag. Clamps 1/2" OD silicone, which sits in the 10–16 mm range. $16.30/10; ACQUIRED ([purchases.md](/hardware/ledger/purchases.md)). |
 | Flavor | BBDINO 40A food-contact platinum silicone — cast hopper funnel | 1 | $3.20 | $3.20 | [B0FHHBGSQK](https://www.amazon.com/dp/B0FHHBGSQK) | The removable, dishwasher-safe hopper funnel ([printed-parts/funnel/](/pie-in-the-sky/lite/printed-parts/funnel/funnel.py)) is cast in a two-piece printed mold ([printed-parts/funnel-mold/](/pie-in-the-sky/lite/printed-parts/funnel-mold/README.md)) — the mold, the vacuum chamber, the Orion pump + post-cure oven are tooling in the shared ledger [purchases.md §21](/hardware/ledger/purchases.md). ~95 g mixed per funnel (CAD shell 84.0 mL × ~1.13 g/mL) ≈ ~11 funnels per 2.42 lb kit; $35.16 ÷ 11. Same BBDINO 40A kit as the Kitchen funnel. |
 | Flavor | BBDINO black silicone pigment — funnel colorant | 1 | $0.24 | $0.24 | [B0BVR3R58V](https://www.amazon.com/dp/B0BVR3R58V) | ≤2% by weight (~1.9 g/funnel; carbon-black, hides dark-concentrate staining; food contact qualified by the wetted-surface screen, not a cert). $18.97 ÷ ~79 funnels. |
 | Flavor | Mann Ease Release 200 — funnel-mold release | 1 | $0.44 | $0.44 | [B002YEBO1O](https://www.amazon.com/dp/B002YEBO1O) | Addition-cure release on the funnel-mold cavity and the core's clear-acrylic seal (a release film, not a silicone fluid — trace cleared by the funnel's bake + wetted-surface screen); $21.99 ÷ ~50 pours. |
@@ -50,7 +47,6 @@
 | Printed | Logic tray (PETG) | 1 | $0.51 | $0.51 | [logic-tray/](/pie-in-the-sky/lite/printed-parts/electronics/logic-tray/) | ESP32 + L298N + 2× ULN2803A + MCP23017 + DS3231 + RS485 on one frame — the Lite keeps module-board electronics. PETG @ $11.20/kg, mass from CAD volume. |
 | Printed | Valve tray — source-select (PETG) | 1 | $2.00 | $2.00 | [valve-manifold/](/hardware/printed-parts/valve-manifold/) | Shared with the Kitchen build (bom.md §7). |
 | Printed | Valve tray — bag-circuit (PETG) | 1 | $1.49 | $1.49 | [valve-manifold/](/hardware/printed-parts/valve-manifold/) | Shared with the Kitchen build (bom.md §7). |
-| Printed | Valve tray — BiB-gate (PETG) | 1 | $0.48 | $0.48 | [valve-manifold/](/hardware/printed-parts/valve-manifold/) | Shared with the Kitchen build (bom.md §7). |
 | Printed | Valve tray — nozzle-gate (PETG) | 1 | $0.48 | $0.48 | [valve-manifold/](/hardware/printed-parts/valve-manifold/) | Shared with the Kitchen build (bom.md §7). |
 | Faucet | DIGITEN G1/4" Hall-effect flow sensor, 0.3–10 L/min | 1 | $10.18 | $10.18 | [B07QRXLRTH](https://www.amazon.com/dp/B07QRXLRTH) | Flow detection on the Lillium-fed carbonated-water inlet — pump injection triggers on detected flow. Sits inside the enclosure on the rear carb-water pass-through (bulkhead in → elbow → flow meter → elbow → bulkhead out); 1/4" ports sized to the carb-water line. ACQUIRED ×4 ([purchases.md](/hardware/ledger/purchases.md) §7). |
 | Faucet | John Guest PP0308E 1/4" OD union elbow, black PP | 2 | $2.28 | $4.56 | [FWS](https://www.freshwatersystems.com/products/john-guest-union-elbow-black-polypropylene-1-4) | The two elbows in the rear carb-water pass-through, turning the run from each bulkhead toward the flow meter. CadQuery: [elbow-connector](/hardware/reference/elbow-connector/). |
@@ -74,19 +70,19 @@
 | Fasteners | ruthex M2×4 heat-set inserts, brass (70 pc) | 2 | $0.153 | $0.31 | [B088QJG676](https://www.amazon.com/dp/B088QJG676) | The 2 logic-tray bosses for the MCP23017 (its ⌀2 mm holes take M2, not M3). $10.71/70; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §11). |
 | Fasteners | Sutemribor M2×6 mm SHCS, 12.9 alloy, black oxide (105 pc) | 2 | $0.174 | $0.35 | [B0CXQ7Q7L3](https://www.amazon.com/dp/B0CXQ7Q7L3) | One per M2 boss — the MCP23017 mount on the logic tray. Black-oxide socket-head, matching the BNUOK M3 family. $18.22/105; ON-ORDER ([purchases.md](/hardware/ledger/purchases.md) §11). |
 
-## Clear-PVC length — ~13 ft/unit (estimate)
+## Clear-PVC length — ~11 ft/unit (estimate)
 
 The internal routing is not laid out yet (the [enclosure](/pie-in-the-sky/lite/printed-parts/enclosure/enclosure/) packs the contents but the tube runs are not modeled), so these are routing estimates from component sizes and the ~277 × 270 × 305 mm envelope, not measured runs:
 
 | Clear run group | Count | Est. each | Subtotal |
 |---|---:|---:|---:|
-| Wall-port → valve (Lillium, Hopper, BiB A, BiB B) | 4 | ~0.25 m | ~1.0 m |
+| Wall-port → valve (Lillium, Hopper) | 2 | ~0.25 m | ~0.5 m |
 | Pump loops (Y ↔ pump) | 4 | ~0.12 m | ~0.5 m |
 | Bag runs (Y ↔ bag spout) | 2 | ~0.25 m | ~0.5 m |
 | Nozzle / flavor lines (valve → through-counter faucet) | 2 | ~0.6 m | ~1.2 m |
-| **Routed subtotal** | | | **~3.2 m** |
-| Cut waste + service slack (~25%) | | | ~0.8 m |
-| **Per unit** | | | **~4 m ≈ 13 ft** |
+| **Routed subtotal** | | | **~2.7 m** |
+| Cut waste + service slack (~25%) | | | ~0.7 m |
+| **Per unit** | | | **~3.4 m ≈ 11 ft** |
 
 A 100 ft roll covers a 3–10 unit batch.
 
@@ -101,14 +97,14 @@ A 100 ft roll covers a 3–10 unit batch.
 
 | Subsystem | $ |
 |---|---:|
-| 1. Flavor | [$318.25](LITE_FLAVOR) |
+| 1. Flavor | [$264.52](LITE_FLAVOR) |
 | 2. Faucet | [$62.77](LITE_FAUCET) |
 | 3. Electronics | [$157.27](LITE_ELECTRONICS) |
 | 4. Mechanical | [$0.86](LITE_MECHANICAL) |
-| 5. Printed | [$32.71](LITE_PRINTED) |
+| 5. Printed | [$32.23](LITE_PRINTED) |
 | 6. Wiring | [$24.13](LITE_WIRING) |
 | 7. Fasteners | [$6.00](LITE_FASTENERS) |
-| **Total** | **[$601.99](LITE_TOTAL)** |
+| **Total** | **[$547.78](LITE_TOTAL)** |
 
 ## External / user-supplied (not shipped)
 
