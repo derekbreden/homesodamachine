@@ -92,17 +92,44 @@ valve_x = _outlet_x + math.sqrt(_aim_len ** 2 - (valve_y - outlet_y) ** 2)
 valve_y_extent = _upper_valve_at(valve_y).BoundingBox().ymax  # plate reach in |Y|
 
 # Per valve: (center_x, center_y, outlet_x, outlet_y) it aims at. The
-# enclosure hangs this tray INVERTED (180° about Y — see _contents), which
-# negates local X and Z but keeps local Y; the name↔row assignment below is
-# chosen so each valve lands on the world station its fluid-topology channel
-# pairs with (V-C over bag A's forward row, V-D over bag B's aft row,
-# V-B forward under the funnel drain, V-A aft near the tap bulkhead).
+# enclosure seats this tray at the BOTTOM of the manifold stack, rotated 180°
+# about Z (see _contents), which negates local X and Y and keeps local Z; the
+# name↔row assignment below is chosen so each valve lands on the world station
+# its fluid-topology channel pairs with (V-C under bag A's forward row, V-D
+# under bag B's aft row, V-B forward beneath the funnel drain, V-A aft beneath
+# the tap bulkhead). The rows are geometry; `names` below assigns them.
 valves = [
-    (-valve_x, +valve_y, -_outlet_x, +outlet_y),   # V-A -> Y-A upper
-    (-valve_x, -valve_y, -_outlet_x, -outlet_y),   # V-B -> Y-A lower
-    (+valve_x, -valve_y, +_outlet_x, -outlet_y),   # V-C -> Y-B lower
-    (+valve_x, +valve_y, +_outlet_x, +outlet_y),   # V-D -> Y-B upper
+    (-valve_x, +valve_y, -_outlet_x, +outlet_y),   # Y-A upper outlet
+    (-valve_x, -valve_y, -_outlet_x, -outlet_y),   # Y-A lower outlet
+    (+valve_x, -valve_y, +_outlet_x, -outlet_y),   # Y-B lower outlet
+    (+valve_x, +valve_y, +_outlet_x, +outlet_y),   # Y-B upper outlet
 ]
+names = ("VB", "VA", "VD", "VC")                   # row → name, in that order
+
+# The west bank's elbows hang the junction column, whose aim `bag_circuit_tray`
+# solves from these two numbers — the corner's offset off the centreline and
+# the plan tilt of the port it rides. Declared there, checked here, so the
+# solve cannot drift away from the layout it describes.
+_ox, _oy = valve_x - _outlet_x, valve_y - outlet_y
+_on = math.hypot(_ox, _oy)
+elbow_row = valve_y + (bc.port_half + bc.elbow_reach) * (_oy / _on)
+port_tilt = math.degrees(math.atan2(_oy, _ox))
+assert abs(elbow_row - bc.src_elbow_row) < 0.01, (
+    f"west elbow corner |Y| is {elbow_row:.4f}, but bag_circuit_tray's junction "
+    f"aim was solved against src_elbow_row={bc.src_elbow_row}")
+assert abs(port_tilt - bc.src_port_tilt) < 0.01, (
+    f"west port plan tilt is {port_tilt:.4f}°, but bag_circuit_tray's junction "
+    f"aim was solved against src_port_tilt={bc.src_port_tilt}")
+
+# Per-valve elbow rolls, authored for this tray's pose at the BOTTOM of the
+# stack (180° about Z), which keeps a local up-turn pointing UP in world:
+#   * V-A/V-B, the east bank, take roll 0 — collets straight up, meeting the
+#     tap feed and the funnel drain that arrive from above.
+#   * V-C/V-D, the west bank, add the junction aim — rolled INWARD (toward the
+#     tray centreline, mirrored per row) so each collet faces up the line to
+#     the bag tray's, which rolls the same amount outward to meet it, with the
+#     pump-inlet tee hung on that line.
+rolls = {"VA": 0.0, "VB": 0.0, "VC": +bc.junction_roll, "VD": -bc.junction_roll}
 
 
 def _aim_phi(vx, vy, dx, dy):
@@ -159,23 +186,32 @@ def place_divider(cx, sign):
 
 def build_assembly():
     flip = {"VA": False, "VB": False, "VC": True, "VD": True}
-    names = ("VA", "VB", "VC", "VD")
     parts = {nm: place_valve(*p, flip=flip[nm]) for nm, p in zip(names, valves)}
     parts["YA"] = place_divider(-divider_x, +1)
     parts["YB"] = place_divider(+divider_x, -1)
     # An elbow turns each valve's outer (back, away-from-divider) port off the
-    # tray. The rolls are authored for the tray's INVERTED pose in the enclosure
-    # (hung 180° about Y): V-C/V-D keep the local up-turn (roll 0), which the
-    # flip points straight DOWN in world — the full elbow leg hangs below the
-    # port plane, opening the junction-column run for the pump-inlet tees —
-    # while V-A/V-B roll 180 (down-local) so their collets face UP in world for
-    # the tap feed and the funnel drain arriving from above.
-    for nm, (vx, vy, dx, dy) in zip(names, valves):
-        ox, oy = vx - dx, vy - dy
-        n = math.hypot(ox, oy)
-        roll = 180.0 if nm in ("VA", "VB") else 0.0
-        parts[f"E{nm}"] = bc.place_elbow(vx, vy, ox / n, oy / n, roll=roll)
+    # tray, clocked by `rolls`.
+    for nm, (vx, vy, _dx, _dy) in zip(names, valves):
+        parts[f"E{nm}"] = bc.place_elbow(vx, vy, *_outer_port(nm), roll=rolls[nm])
     return parts
+
+
+def _outer_port(nm):
+    """The outward unit vector of a valve's outer (away-from-divider) port —
+    this tray's valves are aimed at their outlets, so it carries the plan
+    tilt."""
+    vx, vy, dx, dy = valves[names.index(nm)]
+    ox, oy = vx - dx, vy - dy
+    n = math.hypot(ox, oy)
+    return ox / n, oy / n
+
+
+def boundary_collets():
+    """Every outer elbow's free collet in tray coordinates: {name: (position,
+    outward axis)}. The tray's boundary — what the enclosure routes lines to."""
+    vc = {nm: (vx, vy) for nm, (vx, vy, _dx, _dy) in zip(names, valves)}
+    return {nm: bc.elbow_collet(*vc[nm], *_outer_port(nm), roll=rolls[nm])
+            for nm in names}
 
 
 

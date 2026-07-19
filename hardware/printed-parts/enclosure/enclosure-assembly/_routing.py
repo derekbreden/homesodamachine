@@ -33,6 +33,33 @@ FACE_NORMAL = {
 }
 AXES = ("x", "y", "z")
 
+
+def normal_of(face) -> tuple:
+    """The outward normal a line leaves a port along. A port's `face` is either
+    one of the six body faces by name, or — where a fitting is clocked off the
+    world axes, as the junction column's rolled elbows and the tees hung
+    between them are — its axis given directly as a vector."""
+    if isinstance(face, str):
+        return FACE_NORMAL[face]
+    m = math.sqrt(sum(c * c for c in face))
+    return tuple(c / m for c in face)
+
+
+def face_name(face) -> str:
+    """A port's face for display: the body-face name, or the axis rounded."""
+    return face if isinstance(face, str) else "(" + ", ".join(
+        f"{c:+.3f}" for c in normal_of(face)) + ")"
+
+
+def leg_skew(a, b, d) -> float:
+    """How far the leg a→b runs off the direction `d`, in degrees."""
+    v = [b[i] - a[i] for i in range(3)]
+    m = math.sqrt(sum(c * c for c in v))
+    if m < 1e-9:
+        return 0.0
+    dot = sum(v[i] * d[i] for i in range(3)) / m
+    return math.degrees(math.acos(max(-1.0, min(1.0, dot))))
+
 # Centreline bend radius as a multiple of the line's Ø. 2×OD is 12.7 mm on 1/4" soft ACR copper,
 # a lever bender's smallest common former. Seeded, not ratified — like `CLEARANCE_FLOOR`; the
 # number is the shoe radius of the bender this build uses. It sets how close to a fitting a line
@@ -41,6 +68,10 @@ BEND_RATIO = 2.0
 # The exit/approach stub: the straight a line runs off its fitting before it turns. None = one
 # bend radius. A longer reach drops a run onto a lane.
 STUB = None
+# How far off a collet's own axis a straight tube may enter it and still run unbent. A
+# push-to-connect collet grips the tube all round and soft LLDPE takes up the rest. Seeded,
+# not ratified, like `BEND_RATIO`.
+COLLET_SKEW = 3.0
 
 
 # A constraint supplies one coordinate; the other two carry over from the point before.
@@ -68,7 +99,7 @@ class Frame:
 
     def normal(self, p: str) -> tuple:
         """The outward unit normal of the face the port exits."""
-        return FACE_NORMAL[self._port(p)[1]]
+        return normal_of(self._port(p)[1])
 
     def diam(self, p: str) -> float:
         return self._port(p)[2]
@@ -87,9 +118,14 @@ class Frame:
     def out(self, p: str, d: float) -> dict:
         """Plane `d` along the port's own face normal."""
         n = self.normal(p)
-        axis = AXES[max(range(3), key=lambda i: abs(n[i]))]
-        i = AXES.index(axis)
-        return _c(axis, self.at(p)[i] + d * n[i])
+        off = [i for i in range(3) if abs(n[i]) > 1e-9]
+        if len(off) > 1:
+            raise ValueError(
+                f"{self.name}.{p} exits along {tuple(round(c, 4) for c in n)}, off the world "
+                f"axes — `out` supplies one coordinate and cannot name that step. Give the "
+                f"plane as x/y/z, or let the run close straight into the port.")
+        i = off[0]
+        return _c(AXES[i], self.at(p)[i] + d * n[i])
 
     def face(self, f: str, gap: float = 0.0) -> dict:
         """Plane `gap` clear of the component's body face, off the placed solid's box."""
@@ -199,11 +235,16 @@ def route(cid: str, frm: str, *rest, kind: str = "refrigerant", stub=STUB,
 
     approach = tuple(end[i] + n_to[i] * stub_in for i in range(3))   # approach stub
     differ = [AXES[i] for i in range(3) if abs(cur[i] - approach[i]) > 1e-9]
-    if len(differ) > 1:
+    # A leg that arrives already pointing into the collet, within COLLET_SKEW of its axis, is
+    # one straight piece of tube — it needs no corner and so no constraint to place one.
+    straight_in = leg_skew(cur, approach, tuple(-c for c in n_to)) <= COLLET_SKEW
+    if len(differ) > 1 and not straight_in:
         raise ValueError(
             f"{cid}: the path needs another constraint — {', '.join(differ)} all still differ from "
             f"the approach to {to} (at {tuple(round(v, 2) for v in cur)}, approach "
-            f"{tuple(round(v, 2) for v in approach)}). One inferred turn only; say which leg first.")
+            f"{tuple(round(v, 2) for v in approach)}), and the leg runs "
+            f"{leg_skew(cur, approach, tuple(-c for c in n_to)):.1f}° off the port's axis, past the "
+            f"{COLLET_SKEW:.1f}° a collet takes straight. One inferred turn only; say which leg first.")
     # The close runs inward to the port: a path already nearer the fitting than its approach
     # stub would back out along the normal and come straight back.
     outward = sum((cur[i] - end[i]) * n_to[i] for i in range(3))
@@ -217,6 +258,11 @@ def route(cid: str, frm: str, *rest, kind: str = "refrigerant", stub=STUB,
     pts.append(tuple(end))
 
     pts = _straighten(_dedupe(pts))
+    lead = leg_skew(pts[0], pts[1], n_from)
+    if lead > COLLET_SKEW:
+        raise ValueError(
+            f"{cid}: the run leaves {frm} {lead:.1f}° off the collet's axis, past the "
+            f"{COLLET_SKEW:.1f}° one takes straight — the first leg runs out along the port.")
     return Run(cid, kind, frm, to, pts, d, bend, note, _bends(pts, bend, cid))
 
 

@@ -37,18 +37,18 @@
         "source-select-assembly \u2014 bag-circuit-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 source-select-assembly: 0.01 mm \u2014 CONTACT (declared ok)",
         "compressor-shroud \u2014 mq6-sensor: 1.00 mm",
-        "source-select-assembly \u2014 tee-y-f: 1.53 mm",
-        "source-select-assembly \u2014 tee-y-c: 1.53 mm",
-        "source-select-assembly \u2014 pump-a: 1.98 mm",
-        "bag-circuit-assembly \u2014 pump-a: 2.49 mm",
+        "bag-circuit-assembly \u2014 hopper-funnel: 1.39 mm",
+        "bag-circuit-assembly \u2014 pump-a: 1.49 mm",
         "foam-assembly \u2014 power-tray: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 dc-dist: 2.50 mm \u2014 CONTACT (declared ok)",
-        "source-select-assembly \u2014 pump-b: 2.73 mm",
-        "foam-assembly \u2014 tee-y-f: 2.86 mm",
-        "source-select-assembly \u2014 hopper-funnel: 3.03 mm",
+        "bag-circuit-assembly \u2014 tee-y-f: 3.78 mm",
+        "bag-circuit-assembly \u2014 tee-y-c: 3.78 mm",
         "foam-assembly \u2014 condenser+fan: 4.00 mm",
-        "display \u2014 hopper-funnel: 4.49 mm"
+        "display \u2014 hopper-funnel: 4.49 mm",
+        "source-select-assembly \u2014 tee-y-f: 4.97 mm",
+        "source-select-assembly \u2014 tee-y-c: 4.97 mm",
+        "source-select-assembly \u2014 pump-a: 5.31 mm"
       ],
       "active": true
     },
@@ -95,11 +95,11 @@
         "\u2713 condenser+fan: y- 0.0 z- 3.0 x+ 14.0 mm",
         "\u2713 source-select-assembly: near foam-assembly 0.0 mm",
         "\u2713 hopper-funnel: z+ 6.0 mm",
-        "\u2713 bag-circuit-assembly: near source-select-assembly 0.0 clear compressor-shroud 10.3 clear condenser+fan 18.2 mm",
-        "\u2713 pump-a: near bag-circuit-assembly 2.5 clear hopper-funnel 20.6 mm",
-        "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 2.7 mm",
-        "\u2713 tee-y-c: near source-select-assembly 1.5 mm",
-        "\u2713 tee-y-f: near source-select-assembly 1.5 mm",
+        "\u2713 bag-circuit-assembly: near source-select-assembly 0.0 clear compressor-shroud 73.3 clear condenser+fan 79.8 mm",
+        "\u2713 pump-a: near bag-circuit-assembly 1.5 clear hopper-funnel 20.6 mm",
+        "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
+        "\u2713 tee-y-c: near source-select-assembly 5.0 mm",
+        "\u2713 tee-y-f: near source-select-assembly 5.0 mm",
         "11 components: no placement rules defined yet"
       ],
       "active": true
@@ -167,9 +167,9 @@
         "compressor-shroud: 1 box holds 5% material",
         "hopper-funnel: 1 box holds 6% material",
         "foam-assembly: 5 boxes hold 12% material",
-        "display: 2 boxes hold 18% material",
-        "source-select-assembly: 11 boxes hold 20% material",
-        "tee-y-c: 1 box holds 27% material"
+        "tee-y-f: 1 box holds 17% material",
+        "tee-y-c: 1 box holds 17% material",
+        "display: 2 boxes hold 18% material"
       ],
       "active": true
     },
@@ -184,11 +184,10 @@
         "28 fluid + 3 refrigerant + 28 electrical; 6 routed \u2014 the fluid path waits on the deferred discharge tees + nozzle-gate tray and the water deck, the electrical runs on the components being held",
         "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7",
         "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 289.7 mm, 4 bends at R12.7",
-        "\u2713 fluid-9: source-select-assembly.V-C-O \u2192 tee-y-c.Y-C-1 \u2014 \u00d86.35 \u00d7 2.0 mm, 0 bends at R12.7",
-        "\u2713 fluid-19: source-select-assembly.V-D-O \u2192 tee-y-f.Y-F-1 \u2014 \u00d86.35 \u00d7 2.0 mm, 0 bends at R12.7",
-        "\u2713 fluid-10: bag-circuit-assembly.V-E-O \u2192 tee-y-c.Y-C-2 \u2014 \u00d86.35 \u00d7 29.0 mm, 2 bends at R7.9",
-        "\u2713 fluid-20: bag-circuit-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 29.0 mm, 2 bends at R7.9",
-        "\u2717 refrig-3: BLOCKED \u2014 foam-assembly.evap-outlet \u2192 compressor-shroud.refrig-suction: the evap-outlet exits \u2212Y at (141.5, 182, 191), inside the tray stack's band. The bag-circuit assembly, pressed with the stack to the cold core, reaches y 172.8 (aft walls; valves to 169.8, Tee branch to 172.7) across z 164.8\u2013227.8, leaving 9.2 mm of free corridor off the cold-core face \u2014 less than the 12.7 mm exit stub \u2014 and every drop/cross window inside the band is occupied (valve port rows x 38.2\u201397.2 and 137.4\u2013196.4, the Y-E branch at x 110.4\u2013124.2 z 169\u2013183, the bridge floor below). The leg waits on a chimney through the stack, a stack move, or an evap-outlet port move."
+        "\u2713 fluid-9: source-select-assembly.V-C-O \u2192 tee-y-c.Y-C-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7",
+        "\u2713 fluid-19: source-select-assembly.V-D-O \u2192 tee-y-f.Y-F-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7",
+        "\u2713 fluid-10: bag-circuit-assembly.V-E-O \u2192 tee-y-c.Y-C-2 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7",
+        "\u2713 fluid-20: bag-circuit-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7"
       ],
       "active": false
     },
@@ -661,11 +660,15 @@
       "name": "V-A-I",
       "kind": "fluid",
       "pos": [
-        275.33,
-        172.28,
-        296.06
+        275.329,
+        172.275,
+        198.66
       ],
-      "face": "z+",
+      "face": [
+        0.0,
+        -0.0,
+        1.0
+      ],
       "diam": 6.35,
       "mates": "tap-water chain (bulkhead-water \u2192 BFP, deferred) \u2014 segment 2 (pressurized; length-tolerant)",
       "status": "ok",
@@ -676,13 +679,17 @@
       "name": "V-B-I",
       "kind": "fluid",
       "pos": [
-        275.33,
-        98.82,
-        296.06
+        275.329,
+        98.825,
+        198.66
       ],
-      "face": "z+",
+      "face": [
+        -0.0,
+        -0.0,
+        1.0
+      ],
       "diam": 6.35,
-      "mates": "hopper-funnel drain by tube \u2014 segment 4 (the drain's exit sits ~12 BELOW this collet as packed; the fall waits on the funnel drain rising with a shallower basin)",
+      "mates": "hopper-funnel drain by tube \u2014 segment 4 (gravity + air purge; the drain exit sits ~86 above this collet)",
       "status": "ok",
       "note": "JG elbow collet, 1/4\" tube, facing up at the fwd-east station"
     },
@@ -691,41 +698,53 @@
       "name": "V-C-O",
       "kind": "fluid",
       "pos": [
-        18.67,
-        98.82,
-        256.94
+        17.441,
+        102.545,
+        198.263
       ],
-      "face": "z-",
+      "face": [
+        -0.06290622134712584,
+        0.19022317459201513,
+        0.9797234054384748
+      ],
       "diam": 6.35,
       "mates": "tee-y-c Y-C-1 \u2014 segment 9 (routed)",
       "status": "ok",
-      "note": "JG elbow collet, 1/4\" tube, facing down onto the hanging tee"
+      "note": "JG elbow collet, 1/4\" tube, rolled inward up the junction column"
     },
     {
       "component": "source-select-assembly",
       "name": "V-D-O",
       "kind": "fluid",
       "pos": [
-        18.67,
-        172.28,
-        256.94
+        17.441,
+        168.555,
+        198.263
       ],
-      "face": "z-",
+      "face": [
+        -0.06290622134712584,
+        -0.19022317459201513,
+        0.9797234054384748
+      ],
       "diam": 6.35,
       "mates": "tee-y-f Y-F-1 \u2014 segment 19 (routed)",
       "status": "ok",
-      "note": "JG elbow collet, 1/4\" tube, facing down onto the hanging tee"
+      "note": "JG elbow collet, 1/4\" tube, rolled inward up the junction column"
     },
     {
       "component": "bag-circuit-assembly",
       "name": "V-F-I",
       "kind": "fluid",
       "pos": [
-        215.93,
-        118.42,
-        198.66
+        212.774,
+        118.425,
+        296.06
       ],
-      "face": "z+",
+      "face": [
+        -0.0,
+        1.2246467991473532e-16,
+        1.0
+      ],
       "diam": 6.35,
       "mates": "Y-D-2 (pump-discharge tees, deferred) \u2014 segment 13 (pump A to bag A)",
       "status": "ok",
@@ -736,11 +755,15 @@
       "name": "V-I-I",
       "kind": "fluid",
       "pos": [
-        215.93,
-        152.67,
-        198.66
+        212.774,
+        152.675,
+        296.06
       ],
-      "face": "z+",
+      "face": [
+        -0.0,
+        1.2246467991473532e-16,
+        1.0
+      ],
       "diam": 6.35,
       "mates": "Y-G-2 (pump-discharge tees, deferred) \u2014 segment 23 (pump B to bag B)",
       "status": "ok",
@@ -751,41 +774,53 @@
       "name": "V-E-O",
       "kind": "fluid",
       "pos": [
-        18.67,
-        118.42,
-        198.66
+        15.514,
+        114.506,
+        257.337
       ],
-      "face": "z+",
+      "face": [
+        -0.0,
+        -0.20035480736942116,
+        -0.9797234054384748
+      ],
       "diam": 6.35,
       "mates": "tee-y-c Y-C-2 \u2014 segment 10 (bag A to pump return, routed)",
       "status": "ok",
-      "note": "JG elbow collet, 1/4\" tube, facing up in the junction column"
+      "note": "JG elbow collet, 1/4\" tube, rolled outward down the junction column"
     },
     {
       "component": "bag-circuit-assembly",
       "name": "V-H-O",
       "kind": "fluid",
       "pos": [
-        18.67,
-        152.67,
-        198.66
+        15.514,
+        156.594,
+        257.337
       ],
-      "face": "z+",
+      "face": [
+        0.0,
+        0.20035480736942116,
+        -0.9797234054384748
+      ],
       "diam": 6.35,
       "mates": "tee-y-f Y-F-2 \u2014 segment 20 (bag B to pump return, routed)",
       "status": "ok",
-      "note": "JG elbow collet, 1/4\" tube, facing up in the junction column"
+      "note": "JG elbow collet, 1/4\" tube, rolled outward down the junction column"
     },
     {
       "component": "bag-circuit-assembly",
       "name": "Y-E-2",
       "kind": "fluid",
       "pos": [
-        117.3,
-        98.36,
-        179.1
+        114.144,
+        98.359,
+        276.5
       ],
-      "face": "y-",
+      "face": [
+        -0.0,
+        -1.0,
+        -0.0
+      ],
       "diam": 6.35,
       "mates": "Bag A port \u2014 foam-assembly reservoir-A line, segment 15",
       "status": "ok",
@@ -796,11 +831,15 @@
       "name": "Y-H-2",
       "kind": "fluid",
       "pos": [
-        117.3,
-        172.74,
-        179.1
+        114.144,
+        172.741,
+        276.5
       ],
-      "face": "y+",
+      "face": [
+        -0.0,
+        1.0,
+        -0.0
+      ],
       "diam": 6.35,
       "mates": "Bag B port \u2014 foam-assembly reservoir-B line, segment 25",
       "status": "ok",
@@ -871,90 +910,114 @@
       "name": "Y-C-1",
       "kind": "fluid",
       "pos": [
-        18.67,
-        98.82,
-        254.94
+        17.119,
+        104.545,
+        208.139
       ],
-      "face": "z+",
+      "face": [
+        0.03194734598641717,
+        -0.19834455591321104,
+        -0.9796115578248428
+      ],
       "diam": 6.35,
       "mates": "source-select V-C-O \u2014 segment 9 (routed)",
       "status": "ok",
-      "note": "PP0208E run collet, facing up"
+      "note": "PP0208E run collet, down the column at the source"
     },
     {
       "component": "tee-y-c",
       "name": "Y-C-2",
       "kind": "fluid",
       "pos": [
-        18.67,
-        98.82,
-        214.8
+        15.836,
+        112.506,
+        247.461
       ],
-      "face": "z-",
+      "face": [
+        -0.03194734598641717,
+        0.19834455591321104,
+        0.9796115578248428
+      ],
       "diam": 6.35,
       "mates": "bag-circuit V-E-O \u2014 segment 10 (routed)",
       "status": "ok",
-      "note": "PP0208E run collet, facing down"
+      "note": "PP0208E run collet, up the column at the bag tray"
     },
     {
       "component": "tee-y-c",
       "name": "Y-C-3",
       "kind": "fluid",
       "pos": [
-        38.74,
-        98.82,
-        234.87
+        36.533,
+        108.653,
+        228.428
       ],
-      "face": "x+",
+      "face": [
+        0.9994895532642771,
+        0.0063398182918337626,
+        0.03131197246425679
+      ],
       "diam": 6.35,
       "mates": "pump-a P-A-I \u2014 segment 11 (to route)",
       "status": "ok",
-      "note": "PP0208E branch collet, facing east"
+      "note": "PP0208E branch collet, facing east at the pump row"
     },
     {
       "component": "tee-y-f",
       "name": "Y-F-1",
       "kind": "fluid",
       "pos": [
-        18.67,
-        172.28,
-        254.94
+        17.119,
+        166.555,
+        208.139
       ],
-      "face": "z+",
+      "face": [
+        0.03194734598641717,
+        0.19834455591321082,
+        -0.9796115578248428
+      ],
       "diam": 6.35,
       "mates": "source-select V-D-O \u2014 segment 19 (routed)",
       "status": "ok",
-      "note": "PP0208E run collet, facing up"
+      "note": "PP0208E run collet, down the column at the source"
     },
     {
       "component": "tee-y-f",
       "name": "Y-F-2",
       "kind": "fluid",
       "pos": [
-        18.67,
-        172.28,
-        214.8
+        15.836,
+        158.594,
+        247.461
       ],
-      "face": "z-",
+      "face": [
+        -0.03194734598641717,
+        -0.19834455591321082,
+        0.9796115578248428
+      ],
       "diam": 6.35,
       "mates": "bag-circuit V-H-O \u2014 segment 20 (routed)",
       "status": "ok",
-      "note": "PP0208E run collet, facing down"
+      "note": "PP0208E run collet, up the column at the bag tray"
     },
     {
       "component": "tee-y-f",
       "name": "Y-F-3",
       "kind": "fluid",
       "pos": [
-        38.74,
-        172.28,
-        234.87
+        36.533,
+        162.447,
+        228.428
       ],
-      "face": "x+",
+      "face": [
+        0.9994895532642771,
+        -0.006339818291833756,
+        0.03131197246425679
+      ],
       "diam": 6.35,
       "mates": "pump-b P-B-I \u2014 segment 21 (to route)",
       "status": "ok",
-      "note": "PP0208E branch collet, facing east"
+      "note": "PP0208E branch collet, facing east at the pump row"
     },
     {
       "component": "display",
@@ -1277,95 +1340,95 @@
       "component": "bag-circuit-assembly",
       "boxes": [
         [
-          137.37,
+          35.074,
+          101.3,
+          231.2,
+          94.074,
           135.55,
-          167.8,
-          196.37,
+          287.8
+        ],
+        [
+          134.214,
+          135.55,
+          231.2,
+          193.214,
           169.8,
-          224.4
+          287.8
         ],
         [
-          97.234,
-          145.817,
-          172.242,
-          137.366,
-          172.741,
-          185.958
+          193.216,
+          145.309,
+          269.134,
+          220.14,
+          160.041,
+          296.058
         ],
         [
-          11.304,
-          111.059,
-          171.734,
-          38.228,
-          125.791,
-          198.658
-        ],
-        [
-          196.372,
-          111.059,
-          171.734,
-          223.296,
-          125.791,
-          198.658
-        ],
-        [
-          137.37,
-          101.3,
-          167.8,
-          196.37,
-          135.55,
-          224.4
-        ],
-        [
-          97.234,
-          98.359,
-          172.242,
-          137.366,
-          125.283,
-          185.958
-        ],
-        [
-          38.23,
-          101.3,
-          167.8,
-          97.23,
-          135.55,
-          224.4
-        ],
-        [
-          48.93,
+          45.774,
           98.3,
-          164.8,
-          185.67,
+          227.8,
+          182.514,
           172.8,
-          227.8
+          290.8
         ],
         [
-          11.304,
-          145.309,
-          171.734,
-          38.228,
-          160.041,
-          198.658
+          8.148,
+          108.177,
+          256.284,
+          35.072,
+          125.791,
+          283.866
         ],
         [
-          196.372,
-          145.309,
-          171.734,
-          223.296,
-          160.041,
-          198.658
+          94.078,
+          145.817,
+          269.642,
+          134.21,
+          172.741,
+          283.358
         ],
         [
-          38.23,
+          193.216,
+          111.059,
+          269.134,
+          220.14,
+          125.791,
+          296.058
+        ],
+        [
+          35.074,
           135.55,
-          167.8,
-          97.23,
+          231.2,
+          94.074,
           169.8,
-          224.4
+          287.8
+        ],
+        [
+          94.078,
+          98.359,
+          269.642,
+          134.21,
+          125.283,
+          283.358
+        ],
+        [
+          8.148,
+          145.309,
+          256.284,
+          35.072,
+          162.923,
+          283.866
+        ],
+        [
+          134.214,
+          101.3,
+          231.2,
+          193.214,
+          135.55,
+          287.8
         ]
       ],
-      "fill": 0.279,
+      "fill": 0.2779,
       "primitive": false,
       "declared": "real"
     },
@@ -1710,42 +1773,42 @@
       "boxes": [
         [
           89.62,
-          33.205,
+          29.695,
           196.005,
           138.5,
-          95.815,
+          92.305,
           258.615
         ],
         [
           68.62,
-          38.01,
+          34.5,
           200.81,
           89.62,
-          91.01,
+          87.5,
           253.81
         ],
         [
           98.562,
-          85.644,
+          82.134,
           258.615,
           125.486,
-          100.376,
+          96.866,
           285.539
         ],
         [
           11.62,
-          46.645,
+          43.135,
           209.445,
           68.62,
-          82.375,
+          78.865,
           245.175
         ],
         [
           98.562,
-          28.644,
+          25.134,
           258.615,
           125.486,
-          43.376,
+          39.866,
           285.539
         ]
       ],
@@ -1805,95 +1868,95 @@
       "component": "source-select-assembly",
       "boxes": [
         [
-          11.305,
-          91.459,
-          256.942,
-          38.903,
-          110.577,
-          283.866
-        ],
-        [
           43.237,
           89.109,
-          227.8,
+          164.8,
           250.763,
           181.991,
-          290.8
+          227.8
         ],
         [
           34.887,
           92.906,
-          231.2,
+          167.8,
           95.613,
           135.55,
-          287.8
-        ],
-        [
-          255.097,
-          91.459,
-          269.134,
-          282.695,
-          110.577,
-          296.058
-        ],
-        [
-          255.097,
-          160.523,
-          269.134,
-          282.695,
-          179.641,
-          296.058
+          224.4
         ],
         [
           198.387,
-          135.55,
-          231.2,
+          92.906,
+          167.8,
           259.113,
-          178.194,
-          287.8
+          135.55,
+          224.4
         ],
         [
           34.887,
           135.55,
-          231.2,
+          167.8,
           95.613,
           178.194,
-          287.8
+          224.4
+        ],
+        [
+          10.37,
+          160.523,
+          171.734,
+          38.903,
+          178.141,
+          199.316
         ],
         [
           148.0,
           120.1,
-          268.4,
+          171.0,
           186.5,
           151.0,
-          284.6
+          187.2
         ],
         [
           107.5,
           120.1,
-          268.4,
+          171.0,
           146.0,
           151.0,
-          284.6
+          187.2
         ],
         [
-          11.305,
+          255.097,
           160.523,
-          256.942,
-          38.903,
+          171.734,
+          282.695,
           179.641,
-          283.866
+          198.658
         ],
         [
           198.387,
-          92.906,
-          231.2,
-          259.113,
           135.55,
-          287.8
+          167.8,
+          259.113,
+          178.194,
+          224.4
+        ],
+        [
+          255.097,
+          91.459,
+          171.734,
+          282.695,
+          110.577,
+          198.658
+        ],
+        [
+          10.37,
+          92.959,
+          171.734,
+          38.903,
+          110.577,
+          199.316
         ]
       ],
-      "fill": 0.1959,
+      "fill": 0.196,
       "primitive": false,
       "declared": "real"
     },
@@ -1901,15 +1964,15 @@
       "component": "tee-y-c",
       "boxes": [
         [
-          11.812,
-          91.962,
-          214.804,
-          38.736,
-          105.678,
-          254.936
+          9.09,
+          98.491,
+          206.995,
+          36.7,
+          118.56,
+          248.515
         ]
       ],
-      "fill": 0.2663,
+      "fill": 0.1716,
       "primitive": false,
       "declared": "real"
     },
@@ -1917,15 +1980,15 @@
       "component": "tee-y-f",
       "boxes": [
         [
-          11.812,
-          165.422,
-          214.804,
-          38.736,
-          179.138,
-          254.936
+          9.09,
+          152.54,
+          206.995,
+          36.7,
+          172.609,
+          248.515
         ]
       ],
-      "fill": 0.2663,
+      "fill": 0.1716,
       "primitive": false,
       "declared": "real"
     }

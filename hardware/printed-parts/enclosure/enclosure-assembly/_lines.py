@@ -4,30 +4,27 @@
 connection, its waypoints written against the ports and body faces that shape them.
 
 Today: the sealed refrigerant loop (`scorecard.REFRIGERANT_SEGMENTS`) — the discharge and
-liquid legs authored, the suction leg BLOCKED by the tray stack pressed to the cold core (see
-BLOCKED) — and the manifold's junction column, fully joined: the source drops and the bag
-returns into the hanging pump-inlet tees. Three corridors carry the authored legs, each
-measured off the faces that bound it:
+liquid legs authored, the suction leg unauthored — and the manifold's junction column, fully
+joined: both trays' west collets into the union tees hanging between them. Three corridors
+carry the authored legs, each measured off the faces that bound it:
 
-  * the machine corridor — 49 mm, compressor back face to cold-core front face — but the
-    valve-manifold tray stack stands in its upper band (z 164.8–290.8, to 9.2 off the foam
-    face); the corridor is open below the stack's floor. refrig-2 crosses it there, at the
-    floor.
+  * the machine corridor — 49 mm, compressor back face to cold-core front face — with the
+    valve-manifold tray stack in its upper band (z 164.8–296.1). The stack's tall walls back
+    on the foam face at the valve rows, but its central span stops at y 155.3, so a window
+    stands open off the cold-core face at the evaporator ports; below the stack's floor the
+    corridor is open across its whole width. refrig-2 crosses at the floor.
   * the condenser channel — 21 mm, compressor +X face to condenser −X face, one lane wide.
     refrig-1 crosses at the discharge's height and climbs the tipped block's flank to the
     back-top inlet; refrig-2 leaves the front-bottom outlet along the channel floor — the two
     share the lane plane 69 mm apart in z.
   * the junction column — the open air off the trays' west ends, outboard of the west valve
-    banks at x 18.67, where both trays' west outlet collets align (the bag tray rides 29.7
-    west of the stack centre for exactly this): the inverted source tray's pair hanging
-    down above, the bag pair up below, 58.3 mm apart, and the pump-inlet union tees
-    (`tee-y-c`, `tee-y-f`) hanging in-line between them, connected at both run ports.
-    fluid-9/19 drop the source collets into the run-up ports, one coaxial stub each;
-    fluid-10/20 rise from the bag collets into the run-down ports through a two-bend jog —
-    the trays' port rows sit 19.6 mm apart in Y (source ±36.73, bag ±17.125 off the stack
-    centre), closed inside the 16.1 mm rise, which is why these two legs run a tighter
-    former (R7.9, ~1.24×OD — soft LLDPE, the jog the row offset demands) with 8 mm stubs.
-    Segments 11/21 leave the branch collets east for the pump row, unauthored.
+    banks: the source tray's pair pointing up from below, the inverted bag tray's pointing
+    down from above, ~60 mm apart, and the pump-inlet union tees (`tee-y-c`, `tee-y-f`)
+    hanging between them on the line the collets make. Each elbow is rolled off its port
+    axis to aim along that line (bag_circuit_tray `_junction_aim`), which leans ~11.6° off
+    Z, so all four legs — fluid-9/19 down from the source, fluid-10/20 up from the bag —
+    are straight tube, ~10 mm each, no bends. Segments 11/21 leave the branch collets east
+    for the pump row, unauthored.
 
 Precedent: `pcba.tsx`'s `route(...)` call sites.
 """
@@ -48,18 +45,9 @@ from _routing import route
 COPPER = cq.Color(0.72, 0.45, 0.20)
 
 # Connections the pack does not carry as it stands, each with the measurement that blocks it.
-# They stay counted against the `routed` axis.
-BLOCKED: dict = {
-    "refrig-3": (
-        "foam-assembly.evap-outlet → compressor-shroud.refrig-suction: the evap-outlet exits "
-        "−Y at (141.5, 182, 191), inside the tray stack's band. The bag-circuit assembly, "
-        "pressed with the stack to the cold core, reaches y 172.8 (aft walls; valves to 169.8, "
-        "Tee branch to 172.7) across z 164.8–227.8, leaving 9.2 mm of free corridor off the "
-        "cold-core face — less than the 12.7 mm exit stub — and every drop/cross window inside "
-        "the band is occupied (valve port rows x 38.2–97.2 and 137.4–196.4, the Y-E branch at "
-        "x 110.4–124.2 z 169–183, the bridge floor below). The leg waits on a chimney through "
-        "the stack, a stack move, or an evap-outlet port move."),
-}
+# They stay counted against the `routed` axis. Empty: every unrouted connection is waiting on a
+# component the pack does not hold yet, or on an author — none on a path the pack forbids.
+BLOCKED: dict = {}
 
 
 def _frames():
@@ -109,37 +97,25 @@ def build_runs() -> list:
         "foam-assembly.evap-inlet",
         note="liquid: condenser (drier + cap tube) → evaporator"))
 
-    # refrig-3 — see BLOCKED: the tray stack pressed to the cold core owns the
-    # evap-outlet's exit space.
+    # refrig-3 — the suction leg, unauthored. Its corridor stands open: the source-select
+    # tray's central span stops at y 155.3 over the outlet's x, leaving ~27 mm off the
+    # cold-core face at the outlet's own height, and the drop from there to the floor lane is
+    # clear the whole way down past the stack. The floor lane is refrig-2's, so the two want
+    # separating in y before this one is drawn.
 
-    # fluid-9 / fluid-19 — the source drops: V-C-O and V-D-O hang down out of the inverted
-    # west bank and butt the union tees' run-up collets, one tube stub each. Anchored
-    # port-to-port with no constraints: each pair is coaxial by construction (_contents
-    # hangs each tee on its collet's own x, y), so the path is the straight the stubs meet
-    # in.
+    # The junction column's four legs — fluid-9/19 down from the source bank, fluid-10/20 up
+    # from the bag bank — are one shape. Each elbow is rolled to aim along the column and the
+    # tee stands on the line its two collets make (_contents `junction`), so the leg is the
+    # straight between them: no constraint, no stub, no bend, ~1.8° of collet skew at each
+    # end.
     for cid, frm, to, ch in (
-        ("fluid-9",  "source-select-assembly.V-C-O", "tee-y-c.Y-C-1", "A"),
-        ("fluid-19", "source-select-assembly.V-D-O", "tee-y-f.Y-F-1", "B"),
+        ("fluid-9",  "source-select-assembly.V-C-O", "tee-y-c.Y-C-1", "A source"),
+        ("fluid-19", "source-select-assembly.V-D-O", "tee-y-f.Y-F-1", "B source"),
+        ("fluid-10", "bag-circuit-assembly.V-E-O",   "tee-y-c.Y-C-2", "A bag return"),
+        ("fluid-20", "bag-circuit-assembly.V-H-O",   "tee-y-f.Y-F-2", "B bag return"),
     ):
-        runs.append(route(cid, frm, to, kind="fluid", stub=(1.0, 1.0),
-                          note=f"channel {ch} source drop: down collet into the hanging tee"))
-
-    # fluid-10 / fluid-20 — the bag returns: V-E-O and V-H-O rise into the tees' run-down
-    # collets. The trays' port rows are 19.6 mm apart in Y, closed inside the 16.1 mm rise
-    # as a two-bend jog: up one stub, across the offset, up into the port. The 8 mm stubs
-    # and the R7.9 former (~1.24×OD, soft LLDPE) are what seat both bends in that rise —
-    # the one place the row offset is absorbed.
-    tees = {"fluid-10": f["tee-y-c"], "fluid-20": f["tee-y-f"]}
-    for cid, frm, to, port, ch in (
-        ("fluid-10", "bag-circuit-assembly.V-E-O", "tee-y-c.Y-C-2", "Y-C-2", "A"),
-        ("fluid-20", "bag-circuit-assembly.V-H-O", "tee-y-f.Y-F-2", "Y-F-2", "B"),
-    ):
-        runs.append(route(
-            cid, frm,
-            tees[cid].y(port),                              # across the row offset
-            to,
-            kind="fluid", bend=7.9, stub=(8.0, 8.0),
-            note=f"channel {ch} bag return: up collet into the hanging tee's run-down"))
+        runs.append(route(cid, frm, to, kind="fluid", stub=0.0,
+                          note=f"channel {ch}: collet to tee, straight down the junction column"))
 
     return runs
 
