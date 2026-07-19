@@ -23,14 +23,15 @@ frame and rides the part. Top to bottom:
   rectangular drop.
 - **Ramp + spout.** Below the chute a shallow ramp narrows to a round
   [6.35 mm](HOPPER_SPOUT_ID) spout (1/4", matching the manifold tubing), the
-  spout offset in +X (`neck_dx`) off the collar center. The whole floor is the
-  ramp — every surface of it falls toward the spout, no flat anywhere, so the
-  basin drains dry. A straight spout tube carries the exit down to the drain,
-  descending into the V-gap between the source-select assembly's east valves
-  and stopping ~25 mm **above** V-B's up-facing inlet collet nearby — segment 4
-  is the gravity drain and the air-purge path, so the tube from drain to V-B
-  must only fall. The pack is measured on the real solids by the enclosure
-  scorecard's `near` rules. Total drop [82 mm](HOPPER_DROP) below the brim.
+  spout offset off the collar center (`neck_dx`); the enclosure placement's
+  `FUNNEL_ROT` picks which side of the box it descends (the rectangular collar
+  seats either way). The whole floor is the ramp — every surface of it falls
+  toward the spout, no flat anywhere, so the basin drains dry. A straight
+  spout tube carries the exit down to the drain, which sits **above** V-B's
+  up-facing inlet collet — segment 4 is the gravity drain and the air-purge
+  path, so the tube from drain to V-B must only fall. The pack is measured on
+  the real solids by the enclosure scorecard. Total drop
+  [82 mm](HOPPER_DROP) below the brim.
 
 Capacity to the brim is [687 mL](HOPPER_CAP) — a full 440 mL bottle dumped,
 not metered.
