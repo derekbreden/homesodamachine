@@ -20,7 +20,9 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **Brown & Sharpe spring-loaded tap guide** | [B005317ZMC](https://www.amazon.com/dp/B005317ZMC), [purchases.md §1](/hardware/ledger/purchases.md) | 1/2" hardened shank; keeps the pipe tap square while starting threads under the drill press. | [$27.45](T_TAP_GUIDE) |
 | **Mollom 124 mm bi-metal hole saw + arbor** | [B0BZQ4J5B1](https://www.amazon.com/dp/B0BZQ4J5B1), [purchases.md §1](/hardware/ledger/purchases.md) | HSS M42, 4-7/8" cut; near-5" fixture pockets and end-cap disc cuts. | [$19.19](T_HOLE_SAW) |
 | **Drill Hulk 9/64" M35 cobalt twist drill bits (12-pk)** | [B07XNNNC5Y](https://www.amazon.com/dp/B07XNNNC5Y), [purchases.md §1](/hardware/ledger/purchases.md) | M35 (5% cobalt), 135° split point, jobber length. Blind level-sensing rod register (0.10" deep) in the 316 SS end-cap inside face; slip-fit for the 1/8" float rod. Consumable, 12-pack covers the 20-cap batch. | [$18.43](T_REGISTER_BIT) |
+| **JNB Pro 82° countersink set, 1/4"–3/4"** | [B09C4X5R8F](https://www.amazon.com/dp/B09C4X5R8F), [purchases.md §1](/hardware/ledger/purchases.md) | 5-pc, M35 (5% cobalt) HSS, 5-flute, 1/4" shank. Chamfers the 7/16" tap-drill holes in the end-cap plates ahead of NPT tapping — clears the drill burr and squares the taper tap's start. The 5/8" and 3/4" bodies carry chamfer-width headroom over the 0.438" hole that a 1/2" body does not. Run slow under the drill press with Tap Magic; 5 flutes chatter more than a single-flute would. | [$27.78](T_COUNTERSINK) |
 | **WEN BA4555 benchtop metal band saw** | [B09XWQCNGT](https://www.amazon.com/dp/B09XWQCNGT), [purchases.md §1](/hardware/ledger/purchases.md) | 5" round / 5×4-7/8" rect capacity, 0–60° miter vise, variable 125–260 FPM, 56-1/2" blade. Horizontal cutoff with vise + length stop — square, repeatable cuts of the 1/8" 316L level-sensing rods (3 lengths: carbonator + flavor reservoir + lite reservoir pocket). Blade: Imachinist 24 TPI M42 bi-metal ([B0B7GDTX9H](https://www.amazon.com/dp/B0B7GDTX9H)). | [$362.73](T_BANDSAW) |
+| **Noga NG8150 heavy-duty deburr tool** | [B001O62V56](https://www.amazon.com/dp/B001O62V56), [purchases.md §1](/hardware/ledger/purchases.md) | Swivel-blade hand deburrer, 10 × S10 HSS blades stored in the handle. Breaks the ID and OD edges of the 316L tube cut ends so the end plate clears into its 0.005" radial slip fit. The blade rides the edge under hand pressure — no heat, no abrasive grit, and no gouge risk on the 0.065" wall. | [$20.38](T_DEBURR) |
 | **Bosch DSB1013 Daredevil spade bit** | [B001NGPAA0](https://www.amazon.com/dp/B001NGPAA0), [purchases.md §1](/hardware/ledger/purchases.md) | 1" × 6", for 1" through-holes in fixture stock. | [$5.35](T_SPADE_BIT) |
 | **MOTOKU 38 mm round die handle** | [B073ZX58PH](https://www.amazon.com/dp/B073ZX58PH), [purchases.md §1](/hardware/ledger/purchases.md) | Companion to Drill America die kit for chasing external threads on test fittings. | [$15.00](T_DIE_HANDLE) |
 
@@ -44,6 +46,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **Weldpro 3-Tier Welding Cart** | [B08G5CW3DY](https://www.amazon.com/dp/B08G5CW3DY), [purchases.md §1](/hardware/ledger/purchases.md) | Mobile cart for the X1 Pro welder + argon cylinder. | [$193.04](T_WELD_CART) |
 | **Strong Hand magnetic V-pads kit** | [B00JXDSVA6](https://www.amazon.com/dp/B00JXDSVA6), [purchases.md §1](/hardware/ledger/purchases.md) | Welding magnets / clamping aids. | [$29.21](T_MAGNETS) |
 | **MAXMAN SS wire brush set** | [B08L7RXVG5](https://www.amazon.com/dp/B08L7RXVG5), [purchases.md §1](/hardware/ledger/purchases.md) | Joint prep on stainless. | [$12.22](T_BRUSH) |
+| **3M Scotch-Brite 7447 hand pads (20-pk)** | [B000LPN3WQ](https://www.amazon.com/dp/B000LPN3WQ), [purchases.md §1](/hardware/ledger/purchases.md) | Very fine grade, 6" × 9", aluminum-oxide non-woven. Abrasive weld-surface prep on the two faces the fillet actually sees — the tube bore band and the end-plate outer face. Stainless-only: segregate from anything that has touched carbon steel, since embedded free iron rusts and defeats the citric passivation. | [$22.95](T_SCOTCHBRITE) |
 | **YTKavq C110 copper bar (1/4" × 2" × 12")** | [B0DR2PX6TT](https://www.amazon.com/dp/B0DR2PX6TT), [purchases.md §1](/hardware/ledger/purchases.md) | Soft-annealed pure copper; weld backer / heat-sink chill bar. | [$42.89](T_COPPER_BAR) |
 | **Caiman premium goat-grain TIG gloves** | [B07T6VLSK3](https://www.amazon.com/dp/B07T6VLSK3) + [B07T1NYXHM](https://www.amazon.com/dp/B07T1NYXHM), [purchases.md §1](/hardware/ledger/purchases.md) | PPE for the laser welder, two pair (variant ASINs). | [$46.10](T_GLOVES) |
 
@@ -119,7 +122,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 
 ## Tools total
 
-Total acquired tooling: **[$14,327.47](TOOLS_TOTAL)**
+Total acquired tooling: **[$14,398.58](TOOLS_TOTAL)**
 
 ## Open items
 
