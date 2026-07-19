@@ -98,6 +98,14 @@ west column behind the display for the CO2 chain. Both the facet above the pod
 and the back plane as its soffit are the housing's own 45° planes, so the frame
 runs out from the wall at one constant thickness.
 
+The band's two ends terminate by their own constraints. The west end is the
+box's own west face: the facet is flush to the −X edge (the display datum), so
+the housing runs off the edge at full section and the corner relief wraps its
+front arris. The east end returns: the band continues one reach past the facet
+window, a vertical 45° plan chamfer sweeps its front face back into the wall,
+and its top is the shoulder — the facet plane dropped one wall — so the display
+land keeps its exact facet face behind a 3 mm reveal at the window's east edge.
+
 The recessed panel is sealed from the cavity at both lateral edges: the −X edge
 by the left exterior wall, the +X edge by a one-wall gusset spanning the full
 housing depth (inner front wall, inner top wall, housing back plane), continuous

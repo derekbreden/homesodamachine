@@ -295,15 +295,42 @@ def _display_pod(outer):
     facet above, the back plane as its soffit — so the frame runs out from the
     wall at one constant thickness, and neither face is an overhang in the piece's
     print orientation. Cut from the same rounded block as the box, so the −X
-    corner relief continues unbroken through it."""
+    corner relief continues unbroken through it.
+
+    The two ends terminate differently, each by its own constraint. The west end
+    is the box's own west face: the facet is flush to the −X edge (the display
+    datum), so the band runs off the edge at full section, the corner relief
+    wrapping its front arris. The east end RETURNS: the band continues one reach
+    past the facet window and a vertical 45° plan chamfer sweeps its front face
+    back into the wall — the visor dies into the front face along its own slope.
+    The return's top is the SHOULDER: the facet plane dropped one wall, so the
+    display land keeps its exact facet face and the band east of it reads as a
+    subordinate ledge behind a 3 mm reveal at the window's east edge. Every face
+    stays 45° or vertical in the print orientation."""
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     a, normal, origin, dy, dz = _facet_geom(outer)
     extent = max(ox1 - ox0, oy1 - oy0, oz1 - oz0) + 100.0
     back = tuple(origin[i] - display_facet_thickness * normal[i] for i in range(3))
     block = _round_y(_ybox(ox0, ox1, oy0 - display_pod_reach, oy1, oz0, oz1), corner_round)
-    forward = _ybox(ox0 - 1.0, ox0 + display_facet_x,
+    x_end = ox0 + display_facet_x                     # facet window's east edge
+    forward = _ybox(ox0 - 1.0, x_end + display_pod_reach,
                     oy0 - display_pod_reach, oy0, oz0 - 1.0, oz1 + 1.0)
-    return block.intersect(forward).intersect(_halfspace(back, normal, extent))
+    pod = (block.intersect(forward)
+           .intersect(_halfspace(back, normal, extent))          # above the soffit
+           .intersect(_halfspace(origin, tuple(-c for c in normal), extent)))  # below the facet
+    # The east return: remove everything east-forward of the vertical plane
+    # through (x_end, front) and (x_end + reach, wall) — the 45° plan chamfer.
+    ret_plane = cq.Plane(origin=cq.Vector(x_end, oy0 - display_pod_reach, (oz0 + oz1) / 2.0),
+                         xDir=cq.Vector(1.0, 1.0, 0.0), normal=cq.Vector(1.0, -1.0, 0.0))
+    ret = cq.Workplane(ret_plane).rect(4 * extent, 4 * extent).extrude(extent).val()
+    # The shoulder: east of the window the cap is the facet plane dropped one
+    # wall, cut only outside the wall face (y ≤ oy0) so the reveal steps at the
+    # window edge and the wall above stays untouched.
+    cap = tuple(origin[i] - wall * normal[i] for i in range(3))
+    shoulder_trim = _halfspace(cap, normal, extent).intersect(
+        _ybox(x_end, x_end + display_pod_reach + 1.0,
+              oy0 - display_pod_reach - 1.0, oy0, oz0 - 1.0, oz1 + 1.0))
+    return pod.cut(ret).cut(shoulder_trim)
 
 
 def _rounded_outer(outer):
@@ -843,10 +870,11 @@ def build_piece(y_side, z_side, dims=None, halves_cache=None):
 def _report_facet(half):
     a = math.radians(display_facet_angle_deg)
     target = cq.Vector(0.0, -math.sin(a), math.cos(a))
-    # The lip's +Z bevel ramp shares this normal; restrict to the facet's region
-    # (the front of the part) so only the display facet is measured.
+    # The lip's +Z bevel ramp shares this normal (excluded by the front-region
+    # y filter) and the pod's east shoulder shares it one wall lower (excluded
+    # by the on-plane filter) — only the display facet itself is measured.
     _i, outer, _y, _c = _dims()
-    _a, _n, _o, dy, _dz = _facet_geom(outer)
+    _a, _n, origin, dy, _dz = _facet_geom(outer)
     y_hi = outer[2] - display_pod_reach + dy + 5.0
     boxes = []
     for f in half.val().Faces():
@@ -854,7 +882,9 @@ def _report_facet(half):
             n = f.normalAt()
         except Exception:
             continue
-        if (n - target).Length < 1e-3 and f.Center().y < y_hi:
+        c = f.Center()
+        off = (c - cq.Vector(*origin)).dot(target)
+        if (n - target).Length < 1e-3 and c.y < y_hi and abs(off) < 1e-3:
             boxes.append(f.BoundingBox())
     if not boxes:
         print("  display facet:    NOT FOUND")
