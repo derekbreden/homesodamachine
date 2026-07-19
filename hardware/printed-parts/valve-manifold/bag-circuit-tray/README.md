@@ -21,11 +21,10 @@ about X to point outward along Y** to its bag, leaving through a notch in the hu
 wall; the valves' outer ports leave the tray to the pumps, an **elbow** turning
 each +Z up out of the tray.
 
-This module also holds the shared parallel-tray base (`place_valve`,
-`place_tee`, `place_elbow` + its collet accessor, `build_tray`, common
-geometry) that the
-[nozzle-gate](/hardware/printed-parts/valve-manifold/nozzle-gate-tray/) tray
-imports. Only source-select uses Y-dividers; every other junction is a Tee.
+This module also holds the shared parallel-Tee base (`place_valve`,
+`place_tee`, `build_tray`, common geometry) that the
+[nozzle-gate](/hardware/printed-parts/valve-manifold/nozzle-gate-tray/) gate-tray
+variant imports; it is all-Tee too. Only source-select still uses Y-dividers.
 
 Origin = cell center, Z = 0 the valve mounting plane, ports at Z = [11.3](PORT_Z). The
 six valve/Tee bodies are clash-free.
