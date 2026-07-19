@@ -69,29 +69,6 @@ drop = (chute_h - brim_thickness) + _ramp_rise + spout_tube
 drain_local = (neck_dx, 0.0, -drop)
 
 
-def underside_drop(dx, dy):
-    """How far below the brim underside (z 0, the plane resting on the box top)
-    the funnel's material reaches over the plan point (dx, dy) from the collar
-    centre — the basin's underside profile, for content that must stand clear
-    beneath it. Below the chute the envelope is the outer loft, the full collar
-    rectangle blending straight down to the spout circle: on the rectangle-
-    normalized radius s (1 at the collar edge, 0 on the spout axis) the surface
-    sits near the linear blend, deepened here by one blend-error pad so a
-    clearance computed from this profile never over-promises; the spout tube
-    adds its own depth inside its footprint. Outside the collar only the brim
-    remains, flat on the wall top."""
-    sx = abs(dx - neck_dx) / (collar_w / 2.0)
-    sy = abs(dy) / (collar_d / 2.0)
-    s = max(sx, sy)
-    if s >= 1.0:
-        return 0.0
-    if math.hypot(dx - neck_dx, dy) <= spout_id / 2.0 + spout_wall + 1.0:
-        return drop
-    pad = 1.5   # bounds the loft's bulge past the linear blend (≤ one spout radius
-                # of plan shift ≈ 1.0 of depth at the ramp's grade)
-    return min(drop, (chute_h - brim_thickness) + _ramp_rise * (1.0 - s) + pad)
-
-
 # --- primitives -------------------------------------------------------------
 
 def _box(w, d, z0, z1, cx, cy):
