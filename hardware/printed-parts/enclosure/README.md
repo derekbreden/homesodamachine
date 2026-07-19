@@ -29,7 +29,7 @@ Everything else is open: which zone holds the electronics, where the compressor 
 
 ## What is on the front face
 
-- ESP32-S3 config display — a 4.3" touchscreen fixed in the front face, angled up toward the standing user. Default state shows the selected flavor; touch reaches flavor-image/ratio tuning, clean cycles, priming, and advanced settings.
+- ESP32-S3 config display — a 4.3" touchscreen standing proud of the front face, angled up toward the standing user. Default state shows the selected flavor; touch reaches flavor-image/ratio tuning, clean cycles, priming, and advanced settings.
 - Front-dispense spout (the drill-trigger moment).
 - CO2 inlet — possibly migrated to the furthest-forward edge of a side face. Disconnection-under-pressure cable-whip and asphyxiation risk make this the most physically dangerous connection.
 ## Sub-folders

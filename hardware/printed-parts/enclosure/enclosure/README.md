@@ -63,7 +63,10 @@ point of the split.
 
 Every piece's vertical (print-axis Y) corners are rounded for print-bed
 anti-warp relief, matching the foam shell's 12 mm outer radius — concentric
-inner one wall in, so the wall is preserved. The back pieces also carry
+inner one wall in, so the wall is preserved. The one exception is the front-top
+piece: it prints top-face-down (see "Display housing"), so its footprint corners
+are the Z-running edges, which take no corner relief — the piece wants a brim
+instead. The back pieces also carry
 braces — ribs from the lip rim toward the rear wall (the lower pair stopping
 ahead of the cold core), sized to the pin they back and butting its flat tab
 at the rim — anchoring the walls against peeling and supporting the X-axis
@@ -71,25 +74,45 @@ pins; the top pieces carry the matching braces above their Z-seam pins.
 
 ## Display housing
 
-A flat 45° facet is chamfered into the top-front-left corner for the
+A flat 45° facet on the top-front-left carries the
 [Waveshare ESP32-S3-Touch-LCD-4.3B config display](/hardware/reference/waveshare-43b-display/),
 facing up-and-forward (−Y front / +Z up) toward the standing user, flush to the
-−X (left) edge so the whole top-front-left corner comes off. The facet surface
-is sized to the bezel + a 3 mm buffer all around — [119.5 mm](DISPLAY_FACET_X)
-(X, lateral) × [83 mm](DISPLAY_FACET_SLOPE) (along the 45° slope).
+−X (left) edge. The facet surface is sized to the bezel + a 3 mm buffer all
+around — [119.5 mm](DISPLAY_FACET_X) (X, lateral) × [83 mm](DISPLAY_FACET_SLOPE)
+(along the 45° slope).
 
-The facet is thickened into an 18 mm housing (the display's overall depth) with
-the display let in. The glass is the datum: a shallow 1 mm bezel counterbore,
+The facet is thickened into a 19 mm housing (the display's overall depth) with
+the display let in. The glass is the datum: a shallow 2 mm bezel counterbore,
 centered on the facet (corners rounded 2.5 mm to match the glass), recesses the
 glass with the 3 mm buffer uniform all around. The glass overhangs the body
 unevenly (further up-and-left), so the 106 × 69 mm PCB through-hole sits offset
 the opposite way; where the corner pod sits behind the facet, the hole takes it
 clean through.
+
+The whole housing — the facet, its full depth, and its back plane — stands proud
+of the front wall on a self-supporting pod, carried 19 mm forward (−Y,
+`display_pod_reach`) so the pod's front plane lands flush with the DERPIPE CO2
+inlet's collet face beside it. The facet slides in −Y only; its Z span and its
+45° are untouched. The back plane comes forward with it, opening 19 mm of the
+west column behind the display for the CO2 chain. Both the facet above the pod
+and the back plane as its soffit are the housing's own 45° planes, so the frame
+runs out from the wall at one constant thickness.
+
 The recessed panel is sealed from the cavity at both lateral edges: the −X edge
 by the left exterior wall, the +X edge by a one-wall gusset spanning the full
 housing depth (inner front wall, inner top wall, housing back plane), continuous
 with the slab. The display reference is seated in the housing in
 `../enclosure-assembly/`.
+
+The pod fixes the front-top piece's print orientation: it prints top-face-down
+(top wall on the bed), not −Y-down, or the pod would be the first layer and the
+rest of the front wall would start 19 mm up in open air. Two small, localised
+regressions follow from that orientation. The front-panel CO2 inlet, vertical
+when the piece printed −Y-down, becomes a horizontal hole whose top arc would
+droop without a teardrop (not applied). And the 12 mm `corner_round` relief
+rounds the Y-running edges, which are no longer the footprint corners once the
+piece lies top-face-down — those are the Z-running edges and take no relief, so
+the piece wants a brim.
 
 ## Hopper opening
 
