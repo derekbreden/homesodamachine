@@ -3,13 +3,14 @@
 [`_routing.py`](_routing.py) is the kit; this file is the authorship: one `route(...)` per
 connection, its waypoints written against the ports and body faces that shape them.
 
-Today: the sealed refrigerant loop (`scorecard.REFRIGERANT_SEGMENTS`), all three legs, binding
-the three placed components — compressor, condenser, cold-core evaporator. Two corridors carry
-it, each measured off the faces that bound it:
+Today: the sealed refrigerant loop (`scorecard.REFRIGERANT_SEGMENTS`) — the discharge and
+liquid legs authored, the suction leg BLOCKED by the tray stack pressed to the cold core (see
+BLOCKED). Two corridors carry the authored legs, each measured off the faces that bound it:
 
-  * the machine corridor — 49 mm, compressor back face to cold-core front face. Its approach
-    lane rides one bend radius off the cold-core face; refrig-2 crosses it at the floor,
-    refrig-3 drops down it at the suction's station.
+  * the machine corridor — 49 mm, compressor back face to cold-core front face — but the
+    valve-manifold tray stack stands in its upper band (z 157.8–283.8, to 9.2 off the foam
+    face); the corridor is open below the stack's floor. refrig-2 crosses it there, at the
+    floor.
   * the condenser channel — 21 mm, compressor +X face to condenser −X face, one lane wide.
     refrig-1 crosses at the discharge's height and climbs the tipped block's flank to the
     back-top inlet; refrig-2 leaves the front-bottom outlet along the channel floor — the two
@@ -36,9 +37,18 @@ from _routing import route
 COPPER = cq.Color(0.72, 0.45, 0.20)
 
 # Connections the pack does not carry as it stands, each with the measurement that blocks it.
-# They stay counted against the `routed` axis. Empty: every declared refrigerant segment has an
-# authored path.
-BLOCKED: dict = {}
+# They stay counted against the `routed` axis.
+BLOCKED: dict = {
+    "refrig-3": (
+        "foam-assembly.evap-outlet → compressor-shroud.refrig-suction: the evap-outlet exits "
+        "−Y at (141.5, 182, 191), inside the tray stack's band. The bag-circuit assembly, "
+        "pressed with the stack to the cold core, reaches y 172.8 (aft walls; valves to 169.8, "
+        "Tee branch to 172.7) across z 157.8–220.8, leaving 9.2 mm of free corridor off the "
+        "cold-core face — less than the 12.7 mm exit stub — and every drop/cross window inside "
+        "the band is occupied (valve bodies x 67.9–126.9 and 167.1–226.1, the Y-E branch at "
+        "x 140.1–153.9 z 162–176, the bridge floor below). The leg waits on a chimney through "
+        "the stack, a stack move, or an evap-outlet port move."),
+}
 
 
 def _frames():
@@ -57,7 +67,7 @@ def _frames():
 def build_runs() -> list:
     """The authored runs. Each waypoint is a port offset, a body face, or a bend-radius reach."""
     f = _frames()
-    comp, cond, foam = f["compressor-shroud"], f["condenser+fan"], f["foam-assembly"]
+    cond, foam = f["condenser+fan"], f["foam-assembly"]
     bend = R.BEND_RATIO * 6.35                              # 1/4" ACR copper, the loop's line
 
     # Each lane sits one bend radius off the face its ports turn away from.
@@ -88,14 +98,8 @@ def build_runs() -> list:
         "foam-assembly.evap-inlet",
         note="liquid: condenser (drier + cap tube) → evaporator"))
 
-    # refrig-3 — suction off the evaporator outlet: across the corridor's approach lane to the
-    # suction's station, down to its height, and forward into the compressor's stub.
-    runs.append(route(
-        "refrig-3", "foam-assembly.evap-outlet",
-        comp.x("refrig-suction"),                           # across to the suction's station
-        comp.z("refrig-suction"),                           # down the corridor to its height
-        "compressor-shroud.refrig-suction",
-        note="suction: evaporator → compressor"))
+    # refrig-3 — see BLOCKED: the tray stack pressed to the cold core owns the
+    # evap-outlet's exit space.
 
     return runs
 
