@@ -1,5 +1,5 @@
 """Reference solid for the ULN2803A 8-channel Darlington driver module
-(bom: B0F872W528, 2-pc), used 2x on the driver tray — sink the 12 solenoid
+(bom: B0F872W528, 2-pc), used 2x on the driver tray — sink the 10 solenoid
 coils + the condenser fan to GND; COM tied to 12 V for flyback.
 
 Geometry calipered from the physical board: a small purple SOIC breakout with

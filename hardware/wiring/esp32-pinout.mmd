@@ -34,9 +34,11 @@ flowchart LR
   %%   MCP23017 0x20: 8 valves (V-A..V-H) on PA[0:7] -> ULN U4 -> MANIFOLD A
   %%     (silk-up ULN reverses the bank: GPA0->V-H .. GPA7->V-A);
   %%     Rsvr A 4 reeds on PB[0:3]; PB[4:7] spare.
-  %%   MCP23017 0x21: 4 valves (V-I/V-J/V-K-A/V-K-B) + condenser fan on PA -> ULN U5
-  %%     -> MANIFOLD B; Rsvr B 4 reeds on PB[0:3]; carbonator reeds low/high on
-  %%     PB[4:5]; spares elsewhere. See valve-control.mmd.
+  %%   MCP23017 0x21: 2 valves (V-I/V-J) + condenser fan on PA -> ULN U5
+  %%     -> MANIFOLD B (PA[4:5] drive board channels J2.OUT3/OUT4, wired but
+  %%     carrying no valve — spare capacity); Rsvr B 4 reeds on PB[0:3];
+  %%     carbonator reeds low/high on PB[4:5]; spares elsewhere. See
+  %%     valve-control.mmd.
   %% Also on the I2C bus: an off-board MPR121 cap-sense controller (0x5A) reads
   %%   copper-foil ring electrodes on the flavor tubes (fluid-in-line detection) —
   %%   it plugs into the on-board J8 I2C header (GND/3V3/SDA/SCL, all plane nets), no
@@ -113,7 +115,7 @@ flowchart LR
 
   FAUCET["ESP32-S3-Touch-LCD-1.47\n(faucet flavor display + touch,\n 172×320; TTL UART up the umbilical)"]
 
-  I2C_DEVICES["I2C Devices:\n  DS3231 RTC  0x68\n  MCP23017    0x20  (8 valves on GPA; 4 reservoir reeds on GPB)\n  MCP23017    0x21  (4 valves + fan on GPA; 4 reservoir + 2 carbonator reeds on GPB)\n  MPR121      0x5A  (off-board via J8 I2C header; cap-sense fluid-in-line)"]
+  I2C_DEVICES["I2C Devices:\n  DS3231 RTC  0x68\n  MCP23017    0x20  (8 valves on GPA; 4 reservoir reeds on GPB)\n  MCP23017    0x21  (2 valves + fan on GPA; 4 reservoir + 2 carbonator reeds on GPB)\n  MPR121      0x5A  (off-board via J8 I2C header; cap-sense fluid-in-line)"]
 
   DRV["2× DRV8870 H-bridge\n(on-board; pumps A + B)"]
 
@@ -128,7 +130,7 @@ flowchart LR
 
   BUZZER["On-board buzzer U8\n(MLT-5020 magnetic transducer,\n prime / refill cues)"]
 
-  VALVE_CHAIN["MCP23017 0x20 (8 valve outputs + 4 reed inputs)\nMCP23017 0x21 (4 valves + fan outputs + 6 reed inputs)\n  ↓\n2× TBD62083 → 12 valves + condenser fan\n  ↑\n10 reed switches\n(8 reservoir + 2 carbonator;\nsee valve-control)"]
+  VALVE_CHAIN["MCP23017 0x20 (8 valve outputs + 4 reed inputs)\nMCP23017 0x21 (2 valves + fan outputs + 6 reed inputs)\n  ↓\n2× TBD62083 → 10 valves + condenser fan\n(12 board channels; J2.OUT3/OUT4 spare)\n  ↑\n10 reed switches\n(8 reservoir + 2 carbonator;\nsee valve-control)"]
 
   RELAY["Teyleten 3.3V relay #1\n(compressor AC)"]
   COMP_AC["AC hermetic compressor\n  (Frigidaire EFIC117-SS donor,\n  120 VAC)"]

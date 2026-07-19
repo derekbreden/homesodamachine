@@ -38,7 +38,7 @@ For each cable assembly in the schedule below:
 
 ## Assembly schedule
 
-Conductor counts are the board connector pin counts (`pcba.tsx` J1–J11 = {9, 6, 4, 7, 4, 5, 7, 4, 4, 2, 4}, J13 = 4; there is no J12, and J14 is the USB programming port — no loom). The fan-out to the 12 valves / many reeds happens **at the device end**, downstream of the connector — so each trunk carries its connector's count, never the fanned-out total.
+Conductor counts are the board connector pin counts (`pcba.tsx` J1–J11 = {9, 6, 4, 7, 4, 5, 7, 4, 4, 2, 4}, J13 = 4; there is no J12, and J14 is the USB programming port — no loom). The fan-out to the 10 valves / many reeds happens **at the device end**, downstream of the connector — so each trunk carries its connector's count, never the fanned-out total.
 
 | Assembly | Board conn. | Conductors | Wire | Terminations | Sleeve |
 |---|---|---|---|---|---|
@@ -87,7 +87,7 @@ signals are protected.
 
 ## Open items
 
-1. **Manifold trunk cable.** The KWANGIL 22 AWG UL2464 is black and on-hand but 12-conductor (populate to 9 / 6) and unshielded — fine for valve power. Confirm whether to keep it depopulated or source a right-count jacketed cable.
+1. **Manifold trunk cable.** The KWANGIL 22 AWG UL2464 is black and on-hand but 12-conductor (populate to 9 / 4) and unshielded — fine for valve power. Confirm whether to keep it depopulated or source a right-count jacketed cable.
 2. **Shielded reed pairs.** The ~600 mm reed / 1-wire runs pass alongside the switching solenoid trunk; consider shielded twisted pair (foil + drain, single-end grounded) over plain 22 AWG.
 3. **AC mains wire grade.** Confirm the line-voltage runs use a recognized appliance-grade wire (UL1015 / UL1028, 600 V, 105 °C) rather than hobby silicone — the discipline already applied to the SJOOW shroud lead.
 ## Sources
