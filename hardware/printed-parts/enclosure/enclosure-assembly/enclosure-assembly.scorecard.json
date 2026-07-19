@@ -46,8 +46,7 @@
         "compressor-shroud \u2014 bag-circuit-assembly: 3.30 mm",
         "condenser+fan \u2014 bag-circuit-assembly: 3.80 mm",
         "foam-assembly \u2014 condenser+fan: 4.00 mm",
-        "display \u2014 hopper-funnel: 4.49 mm",
-        "pump-a \u2014 display: 5.65 mm"
+        "display \u2014 hopper-funnel: 4.49 mm"
       ],
       "active": true
     },
@@ -866,7 +865,7 @@
       "kind": "electrical",
       "pos": [
         56.75,
-        62.8,
+        43.8,
         300.2
       ],
       "face": "y+",
@@ -1422,18 +1421,18 @@
       "boxes": [
         [
           0.0,
-          -0.879,
+          -19.879,
           277.444,
           113.5,
-          54.276,
+          35.276,
           332.598
         ],
         [
           4.25,
-          1.95,
+          -17.05,
           267.544,
           110.25,
-          62.761,
+          43.761,
           328.356
         ]
       ],
