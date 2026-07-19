@@ -12,6 +12,9 @@ sys.path.insert(0, str(_here.parent / "printed-parts" / "cold-core"))
 sys.path.insert(0, str(_here.parent / "printed-parts" / "cold-core" / "reservoir"))
 sys.path.insert(0, str(_here.parent / "printed-parts" / "faucet"))
 sys.path.insert(0, str(_here.parent / "printed-parts" / "faucet" / "touch-flo-shell"))
+for _tray in ("single-tray", "bag-circuit-tray", "source-select-tray", "nozzle-gate-tray"):
+    sys.path.insert(0, str(_here.parent / "printed-parts" / "valve-manifold" / _tray))
+sys.path.insert(0, str(_here.parent / "reference" / "beduan-solenoid"))
 sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
@@ -22,6 +25,9 @@ from _reed_channels import reeds_per_reservoir
 from docgen import substitute_md
 from reservoir import insert_positions_for_side_plus_1
 from touch_flo_shell import base_pod_centers
+import bag_circuit_tray
+import nozzle_gate_tray
+import source_select_tray
 
 
 # Pressure vessel geometry: two laser-welded SS endcap plates per
@@ -77,10 +83,15 @@ total_reeds_per_build = reeds_per_carbonator + reservoir_reeds_total
 pp1208e_per_build = panel_umbilical_bulkheads + panel_water_inlet_bulkheads
 
 # PP0308E union elbows per build: one in-cavity CO2 bend at the foam-shell
-# CO2 doorway, one on every valve's outer tray port (= solenoid_count),
-# two on each of the two Kamoer pump outlets.
+# CO2 doorway, one per valve-manifold boundary collet — each tray module's
+# `boundary_collets` is exactly its elbow set: one per valve on the
+# source-select and bag-circuit trays, both ports of each nozzle-gate valve
+# — and two on each of the two Kamoer pump outlets.
 pp0308e_co2_incavity = 1
-pp0308e_valve_elbows = solenoid_count
+pp0308e_valve_elbows = sum(
+    len(m.boundary_collets())
+    for m in (source_select_tray, bag_circuit_tray, nozzle_gate_tray)
+)
 pp0308e_pump_elbows = 4
 pp0308e_per_build = pp0308e_co2_incavity + pp0308e_valve_elbows + pp0308e_pump_elbows
 

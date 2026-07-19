@@ -26,15 +26,17 @@ face. `channel(a, b, bias)` positions a run between two faces — centred at bia
 ## Ports off the axes
 
 A port's `face` is one of the six body faces by name, or — where a fitting is clocked off the
-world axes — its axis given straight as a vector. The junction column's rolled elbows and the
-tees hanging between them carry vectors. `out` needs a single axis and raises on one of these;
-give the plane as `x`/`y`/`z`, or let the run close straight into the port.
+world axes — its axis given straight as a vector. The junction column's rolled elbows, the
+tees hanging between them, and the discharge tees' swung branches carry vectors. `out` needs a
+single axis and raises on one of these; give the plane as `x`/`y`/`z`, or let the run close
+straight into the port.
 
 `COLLET_SKEW` is how far off its own axis a straight tube may enter a collet and still run
 unbent — a push-to-connect collet grips all round and soft LLDPE takes up the rest. A leg
 arriving inside that angle needs no corner, so it needs no constraint to place one, and a run
 between two nearly-facing collets is authored `route(cid, frm, to, stub=0.0)` with nothing
-between. The column's four legs are written that way, ~1.8° at each end.
+between. The junction column's four legs are written that way, ~1.8° at each end, and the
+discharge columns' four the same at exactly 0° — every collet coaxial with its tee port.
 
 The exit stub off the source port and the approach stub into the destination are emitted by
 `route`, along each port's face normal, one bend radius by default. `stub=(exit, approach)` sets

@@ -1,39 +1,46 @@
-# Nozzle-gate tray (2 valves + 2 Tees)
+# Nozzle-gate tray (2 valves + 4 elbows)
 
-The [fluid-topology](/hardware/topology/fluid-topology.md) nozzle gates: a Tee
-on each row carries V-G / V-J.
+The [fluid-topology](/hardware/topology/fluid-topology.md) nozzle gates —
+V-G / V-J — as the valve-manifold stack's top tray.
 
 ```
-   V-G ●╲ Y-D       Y-D branch butts V-G; run swung about X
-   V-J ●╲ Y-G       Y-G branch butts V-J; run swung about X
+   V-G ●  EI down to Y-D-3 · EO aft to Nozzle A
+   V-J ●  EI down to Y-G-3 · EO aft to Nozzle B
 ```
 
 ## Arrangement
 
-One valve column — **V-G over V-J**, butted, ports along X, no tilt — meets a
-**Tee** on each row. Each Tee plugs its **branch into its valve's inner port** —
-the run no longer butts the valve — then both runs swing the same way about their
-branch (X) axes (parallel), tilted **~64° from vertical** so the lower run port
-stays clear of the tray underside (a mirror would overlap the two inner run
-ports). An **elbow** on each valve's outer (−X nozzle-outlet) port turns that
-line +Z up out of the tray. Valve placement, the Tee placers, and the tray
-builder are shared with the
-[bag-circuit tray](/hardware/printed-parts/valve-manifold/bag-circuit-tray/) via `build_tray`.
+One valve column — **V-G and V-J butted on the two channel rows**, ports along
+X, no tilt — with an **elbow on each port**. The enclosure hangs the tray
+**INVERTED directly over the bag-circuit tray's east bank** (the same
+180°-about-Y hang the bag tray rides, sharing its X/Y origin), which lands
+each inlet-elbow corner on a bag east elbow column:
 
-Origin = cell center, Z = 0 the mounting plane, ports at Z = [11.3](PORT_Z). The four
+* the **−X inlet elbows** keep the local up-turn, pointed straight **down** by
+  the inversion — each collet coaxial over the bag tray's up-facing V-F-I /
+  V-I-I collet, with a pump-discharge tee (Y-D / Y-G) standing on the shared
+  vertical, one straight stub at every collet;
+* the **+X outlet elbows** roll −90° to local +Y, world **aft** — facing the
+  rear wall the nozzle lines (fluid-18/28) leave by.
+
+The inversion keeps local Y, so V-G rides the −Y row (world channel A,
+forward) and V-J rides +Y. Valve placement, the elbow placer + its collet
+accessor (`boundary_collets`), and the tray builder are shared with the
+[bag-circuit tray](/hardware/printed-parts/valve-manifold/bag-circuit-tray/)
+via `build_tray`.
+
+Origin = cell center, Z = 0 the mounting plane, ports at Z = [11.3](PORT_Z). The six
 bodies are clash-free.
 
 ## The tray
 
 A frame plate (Z [-3](TRAY_BOT_Z) → [6](TRAY_TOP_Z)), **[38](NOZ_PLATE_W) × [74](NOZ_PLATE_D) × [63](STACK_PITCH) mm**, hugging the single
 −X valve column with a **solid floor**: one valve cradle (four sockets + a port
-saddle). The Tees still seat in the assembly, but the tray no longer floors or
-grooves them — the floor carries only the valve cradle. Two **side
-walls** (±Y) rise to Z = [60](WALL_TOP_Z) for a **[63](STACK_PITCH) mm stack pitch**; the X-ends stay
-open for the ports and the outlet elbows.
+saddle). Two **side walls** (±Y) rise to Z = [60](WALL_TOP_Z) for a **[63](STACK_PITCH) mm stack pitch**;
+the X-ends stay open for the ports and both elbow banks.
 
 `nozzle_gate_tray.py` → `nozzle-gate-tray.step`; `nozzle_gate_assembly.py` →
-`nozzle-gate-assembly.step` (tray + valves + Tees seated). Regenerate with
+`nozzle-gate-assembly.step` (tray + valves + elbows seated). Regenerate with
 `tools/cad-venv/bin/python <script>`.
 
 ## Sources

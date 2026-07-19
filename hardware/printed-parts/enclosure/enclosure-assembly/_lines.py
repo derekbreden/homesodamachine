@@ -4,9 +4,10 @@
 connection, its waypoints written against the ports and body faces that shape them.
 
 Today: the sealed refrigerant loop (`scorecard.REFRIGERANT_SEGMENTS`) — the discharge and
-liquid legs authored, the suction leg unauthored — and the manifold's junction column, fully
-joined: both trays' west collets into the union tees hanging between them. Three corridors
-carry the authored legs, each measured off the faces that bound it:
+liquid legs authored, the suction leg unauthored — and the manifold's junction and discharge
+columns, fully joined: both lower trays' west collets into the union tees hanging between
+them, and the bag tray's east collets up into the discharge tees under the nozzle-gate tray.
+Four corridors carry the authored legs, each measured off the faces that bound it:
 
   * the machine corridor — 49 mm, compressor back face to cold-core front face — with the
     valve-manifold tray stack in its upper band (z 164.8–296.1). The stack's tall walls back
@@ -25,6 +26,13 @@ carry the authored legs, each measured off the faces that bound it:
     Z, so all four legs — fluid-9/19 down from the source, fluid-10/20 up from the bag —
     are straight tube, ~10 mm each, no bends. Segments 11/21 leave the branch collets east
     for the pump row, unauthored.
+  * the discharge columns — the verticals over the bag tray's east elbows: its collets
+    turned straight up, the nozzle-gate tray's inlet collets straight down over them, and
+    the pump-discharge tees (`tee-y-d`, `tee-y-g`) standing run-vertical between the pairs
+    (_contents `discharge`). Every collet is coaxial with its tee port one straight stub
+    away, so all four legs — fluid-13/23 down onto the bag tray, fluid-17/27 up into the
+    nozzle gates — are 2 mm straights, no bends. Segments 12/22 will arrive at the branch
+    collets from the pump outlets, unauthored.
 
 Precedent: `pcba.tsx`'s `route(...)` call sites.
 """
@@ -116,6 +124,19 @@ def build_runs() -> list:
     ):
         runs.append(route(cid, frm, to, kind="fluid", stub=0.0,
                           note=f"channel {ch}: collet to tee, straight down the junction column"))
+
+    # The discharge columns' four legs — fluid-13/23 down onto the bag tray's up-facing
+    # collets, fluid-17/27 up into the nozzle-gate tray's down-turned ones — are the same
+    # shape: each tee stands run-vertical on the line its two collets make (_contents
+    # `discharge`), so the leg is the straight stub between coaxial ports.
+    for cid, frm, to, ch in (
+        ("fluid-13", "tee-y-d.Y-D-2", "bag-circuit-assembly.V-F-I",    "A pump to bag"),
+        ("fluid-23", "tee-y-g.Y-G-2", "bag-circuit-assembly.V-I-I",    "B pump to bag"),
+        ("fluid-17", "tee-y-d.Y-D-3", "nozzle-gate-assembly.V-G-I",    "A pump to nozzle"),
+        ("fluid-27", "tee-y-g.Y-G-3", "nozzle-gate-assembly.V-J-I",    "B pump to nozzle"),
+    ):
+        runs.append(route(cid, frm, to, kind="fluid", stub=0.0,
+                          note=f"channel {ch}: tee to collet, straight up the discharge column"))
 
     return runs
 
