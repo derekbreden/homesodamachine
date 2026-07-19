@@ -12,9 +12,9 @@ through a notch in the central hug wall.
     V-I ──┴── V-H      Y-H run; branch → −Y to Bag B
 
 This module also holds the shared parallel-tray base — `place_valve`, `place_tee`
-(and its branch-reorient variants `place_tee_hung`, `place_tee_branch_out`,
-`place_tee_branch_to_xport`), `build_tray`, and the common geometry — imported by
-the all-Tee gate-tray variant in `../nozzle-gate-tray/`.
+(and its branch-reorient variant `place_tee_branch_out`), `place_elbow` + its
+collet accessor, `build_tray`, and the common geometry — imported by the
+nozzle-gate tray in `../nozzle-gate-tray/`.
 
 Origin = cell center, Z = 0 the valve mounting plane, ports at Z = 11.3.
 """
@@ -89,38 +89,6 @@ def place_tee(cx, cy):
         fit.rotate((0, 0, 0), (0, 1, 0), 90.0)
         .rotate((0, 0, 0), (1, 0, 0), 90.0)
         .translate((cx, cy, port_z))
-    )
-
-
-def place_tee_hung(target, spin):
-    """Tee perched branch-down on an upward riser: a 180° flip turns its branch
-    from +Z to −Z so the branch port butts the riser top at ``target`` (x, y, z);
-    the run stays horizontal, swung ``spin`` deg about Z. The branch axis is on
-    the Z spin axis, so the butt point holds while the run sweeps."""
-    fit = cq.importers.importStep(str(_tee_path)).val()
-    tx, ty, tz = target
-    return (
-        fit.rotate((0, 0, 0), (0, 1, 0), 90.0)   # run → X, branch → +Z
-        .rotate((0, 0, 0), (1, 0, 0), 90.0)
-        .rotate((0, 0, 0), (1, 0, 0), 180.0)     # flip branch to −Z
-        .rotate((0, 0, 0), (0, 0, 1), spin)      # swing the run in plane
-        .translate((tx, ty, tz + tee_branch_reach))
-    )
-
-
-def place_tee_branch_to_xport(port_tip, spin):
-    """Tee plugged branch-first into a port that faces +X (e.g. a valve's inner
-    port): a −90° turn about Y points the branch −X to oppose the port and stands
-    the run along Z. The branch tip butts ``port_tip`` (x, y, z) and the run is
-    swung ``spin`` deg about the branch (X) axis, which holds the butt point."""
-    fit = cq.importers.importStep(str(_tee_path)).val()
-    tx, ty, tz = port_tip
-    return (
-        fit.rotate((0, 0, 0), (0, 1, 0), 90.0)    # run → X, branch → +Z
-        .rotate((0, 0, 0), (1, 0, 0), 90.0)
-        .rotate((0, 0, 0), (0, 1, 0), -90.0)      # branch +Z → −X, run → +Z
-        .rotate((0, 0, 0), (1, 0, 0), spin)       # swing run about branch (X) axis
-        .translate((tx + tee_branch_reach, ty, tz))
     )
 
 

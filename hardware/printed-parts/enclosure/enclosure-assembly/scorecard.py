@@ -118,12 +118,15 @@ COMPONENTS = [
     # Valve manifold
     _c("source-select-assembly", "real",   True,  "none", "Tray 1 — printed tray + 4 Beduan NC solenoids + 2 PP2308E Y-dividers + 4 outlet elbows (valve-manifold/source-select-tray); floors the stack, plate down and valves up, holder TBD"),
     _c("bag-circuit-assembly",   "real",   True,  "none", "Tray 2 — printed dog-bone tray + 4 Beduan NC solenoids + 2 PP0208E Tees + 4 outlet elbows (valve-manifold/bag-circuit-tray); rides INVERTED on the source tray's stacking walls, holder TBD"),
+    _c("nozzle-gate-assembly",   "real",   True,  "none", "Tray 3 — printed tray + 2 Beduan NC solenoids + 4 elbows (valve-manifold/nozzle-gate-tray); rides INVERTED over the bag tray's east bank, inlet collets down the discharge columns, holder TBD"),
     # Pump row
     _c("pump-a",            "real",        True,  "none", "Kamoer KPHM400 peristaltic + 2 PP0308E outlet elbows (reference/kamoer-kphm400 pump-assembly); lies depth-along-X ahead of the tray stack, motor west, elbows on the +Z face, holder TBD"),
     _c("pump-b",            "real",        True,  "none", "Kamoer KPHM400 peristaltic + 2 PP0308E outlet elbows (reference/kamoer-kphm400 pump-assembly); same lying pose one slot east, head east under the funnel's high floor, holder TBD"),
     # In-line fittings — tube-hung PTC junctions, carried by their lines (no tray, no holder)
     _c("tee-y-c", "real", True, "none", "JG PP0208E union tee (fluid topology Y-C) hanging in the junction column: run vertical — V-C-O's drop into the run-up collet, the bag V-E-O return onto the run-down — branch east to pump A (segment 11)"),
     _c("tee-y-f", "real", True, "none", "JG PP0208E union tee (Y-F), the channel-B twin one port row aft: V-D-O above, V-H-O return below, branch east to pump B (segment 21)"),
+    _c("tee-y-d", "real", True, "none", "JG PP0208E union tee (Y-D) standing on channel A's discharge column: run vertical between the bag V-F-I collet below and the nozzle-gate V-G-I collet above, branch swung at pump A's outlet (segment 12)"),
+    _c("tee-y-g", "real", True, "none", "JG PP0208E union tee (Y-G), the channel-B twin one port row aft on its own column: V-I-I below, V-J-I above, branch swung at pump B's outlet (segment 22)"),
     # Electronics shelf
     _c("power-tray",        "real",        True,  "none", "printed tray holds its boards; tray-to-shell joinery deferred (power-tray README)"),
     _c("pcba",              "real",        True,  "none", "printed tray holds the board; tray-to-shell joinery deferred (pcba-tray README)"),
@@ -249,8 +252,11 @@ PLACEMENT_RULES = {
     # "The funnel rides the top wall" — brim top one brim thickness + one wall above the
     # interior ceiling. Its shallow-floored basin runs the top frame's full depth and
     # its centred drain hangs high over the pump row — the pumps' own `clear` keep-out
-    # holds the segment-4 drop corridor open beneath it.
-    "hopper-funnel":     [("z+", 6.1)],
+    # holds the segment-4 drop corridor open beneath it, and the hopper law
+    # (_contents.hopper_ceiling_z) lifts the ceiling until the basin's tapered
+    # underside clears the nozzle-gate stack under its aft-east quarter — the
+    # keep-out here is that law, verified on the real solids.
+    "hopper-funnel":     [("z+", 6.1), ("clear", "nozzle-gate-assembly", 1.0)],
     # "The source-select tray carries the bag tray": stacked one tray pitch
     # above, this tray's wall tops resting on the source tray's (a declared
     # contact — the `near` holds at zero), while the floor stratum below the
@@ -274,6 +280,13 @@ PLACEMENT_RULES = {
     # stub to each.
     "tee-y-c": [("near", "source-select-assembly", 6.0)],
     "tee-y-f": [("near", "source-select-assembly", 6.0)],
+    # "The discharge tees stand on the bag tray's east collets": run-vertical,
+    # one straight stub off the up-facing collet below.
+    "tee-y-d": [("near", "bag-circuit-assembly", 3.0)],
+    "tee-y-g": [("near", "bag-circuit-assembly", 3.0)],
+    # "The nozzle-gate assembly caps the discharge columns": its down-turned
+    # inlet collets one straight stub off each tee's run-up collet.
+    "nozzle-gate-assembly": [("near", "tee-y-d", 3.0), ("near", "tee-y-g", 3.0)],
 }
 
 
@@ -406,10 +419,12 @@ PORTS = [
     # on the collar centre and the shallow full-frame floor keeps it high: the drain hangs
     # over the pump row's crest (the pumps' `clear` keep-out holds the drop corridor open).
     # Segment 4 is the gravity drain + air-purge path and must only fall; V-B-I's collet
-    # plane lies ~23 below the drain, ~126 mm aft-east of it — the tray stack's height
+    # plane lies ~168 below the drain, ~85 mm aft-east of it — the tray stack's height
     # spends most of the banked fall, and the leg's author has the elbow-roll DOF
-    # (bag_circuit_tray place_elbow) to turn V-B-I sideways if the drop needs it.
-    _p("drain", "hopper-funnel", "fluid", (193.75, 76.8, 284.23), "z-", 6.35, "V-B-I by tube — segment 4 (hopper gate → shared source; must fall)", "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"),
+    # (bag_circuit_tray place_elbow) to turn V-B-I sideways if the drop needs it. The
+    # drain's z rides the box's outer top (the hopper law sets it; brim underside +
+    # hopper_funnel.drain_local) — the on-surface audit catches it if the ceiling moves.
+    _p("drain", "hopper-funnel", "fluid", (193.75, 76.8, 366.49), "z-", 6.35, "V-B-I by tube — segment 4 (hopper gate → shared source; must fall)", "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"),
     # Source-select assembly (Tray 1) — the manifold's four boundary connectors: the outlet
     # elbows' free collets. Each tray publishes its collets in its own coordinates
     # (`boundary_collets`, off the same rolls the STEP is built with) and _contents carries
@@ -430,12 +445,20 @@ PORTS = [
     # pump-discharge tees will feed them; Y-H's branch runs aft toward the cold core, Y-E's
     # forward. On-tray plumbing (segments 14/16/24/26 — valve↔Tee port butts) is interior to
     # the assembly and carries no port here.
-    _p("V-F-I", "bag-circuit-assembly", "fluid", *contents.bag_collet("VF"), 6.35, "Y-D-2 (pump-discharge tees, deferred) — segment 13 (pump A to bag A)", "JG elbow collet, 1/4\" tube, facing up"),
-    _p("V-I-I", "bag-circuit-assembly", "fluid", *contents.bag_collet("VI"), 6.35, "Y-G-2 (pump-discharge tees, deferred) — segment 23 (pump B to bag B)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-F-I", "bag-circuit-assembly", "fluid", *contents.bag_collet("VF"), 6.35, "tee-y-d Y-D-2 — segment 13 (pump A to bag A, routed)", "JG elbow collet, 1/4\" tube, facing up the discharge column"),
+    _p("V-I-I", "bag-circuit-assembly", "fluid", *contents.bag_collet("VI"), 6.35, "tee-y-g Y-G-2 — segment 23 (pump B to bag B, routed)", "JG elbow collet, 1/4\" tube, facing up the discharge column"),
     _p("V-E-O", "bag-circuit-assembly", "fluid", *contents.bag_collet("VE"), 6.35, "tee-y-c Y-C-2 — segment 10 (bag A to pump return, routed)", "JG elbow collet, 1/4\" tube, rolled outward down the junction column"),
     _p("V-H-O", "bag-circuit-assembly", "fluid", *contents.bag_collet("VH"), 6.35, "tee-y-f Y-F-2 — segment 20 (bag B to pump return, routed)", "JG elbow collet, 1/4\" tube, rolled outward down the junction column"),
     _p("Y-E-2", "bag-circuit-assembly", "fluid", *contents.bag_collet("YE"), 6.35, "Bag A port — foam-assembly reservoir-A line, segment 15", "Tee branch collet, 1/4\" tube, forward through the hug-wall notch"),
     _p("Y-H-2", "bag-circuit-assembly", "fluid", *contents.bag_collet("YH"), 6.35, "Bag B port — foam-assembly reservoir-B line, segment 25", "Tee branch collet, 1/4\" tube, aft through the hug-wall notch"),
+    # Nozzle-gate assembly (Tray 3) — the manifold's four boundary connectors, derived the
+    # same way through the tray's INVERTED pose (180° about Y, over the bag tray's east
+    # bank). V-G-I/V-J-I face DOWN the discharge columns at the tees standing below;
+    # V-G-O/V-J-O face AFT toward the rear wall the nozzle lines leave by.
+    _p("V-G-I", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VG-I"), 6.35, "tee-y-d Y-D-3 — segment 17 (pump A to nozzle A, routed)", "JG elbow collet, 1/4\" tube, facing down the discharge column"),
+    _p("V-J-I", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VJ-I"), 6.35, "tee-y-g Y-G-3 — segment 27 (pump B to nozzle B, routed)", "JG elbow collet, 1/4\" tube, facing down the discharge column"),
+    _p("V-G-O", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VG-O"), 6.35, "Nozzle A by the rear umbilical (bulkhead-flavor-a) — segment 18 (unauthored)", "JG elbow collet, 1/4\" tube, facing aft"),
+    _p("V-J-O", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VJ-O"), 6.35, "Nozzle B by the rear umbilical (bulkhead-flavor-b) — segment 28 (unauthored)", "JG elbow collet, 1/4\" tube, facing aft"),
     # Pump row — each Kamoer's two boundary connectors are its outlet ELBOWS' free collets
     # (pump_assembly.py seats a PP0308E on each arch_xs outlet), carried through the lying
     # pose (−90° about Y, +90° roll about X) + the POS tuples: the elbows stand on the +Z
@@ -444,9 +467,9 @@ PORTS = [
     # direction is firmware's; the assignment is the loom's convention). Ø is the 1/4"
     # line nominal.
     _p("P-A-I", "pump-a", "fluid", (98.56, 93.01, 278.17),  "x-", 6.35, "tee-y-c Y-C-3 — segment 11 (channel A suction, to route)", "PP0308E elbow collet, aft station, facing west"),
-    _p("P-A-O", "pump-a", "fluid", (98.56, 36.01, 278.17),  "x-", 6.35, "Y-D-1 (pump-discharge tees, deferred) — segment 12 (channel A discharge)", "PP0308E elbow collet, front station, facing west"),
+    _p("P-A-O", "pump-a", "fluid", (98.56, 36.01, 278.17),  "x-", 6.35, "tee-y-d Y-D-1 — segment 12 (channel A discharge, to route)", "PP0308E elbow collet, front station, facing west"),
     _p("P-B-I", "pump-b", "fluid", (231.44, 79.01, 278.17), "x-", 6.35, "tee-y-f Y-F-3 — segment 21 (channel B suction, to route)", "PP0308E elbow collet, aft station, facing west"),
-    _p("P-B-O", "pump-b", "fluid", (231.44, 22.01, 278.17), "x-", 6.35, "Y-G-1 (pump-discharge tees, deferred) — segment 22 (channel B discharge)", "PP0308E elbow collet, front station, facing west"),
+    _p("P-B-O", "pump-b", "fluid", (231.44, 22.01, 278.17), "x-", 6.35, "tee-y-g Y-G-1 — segment 22 (channel B discharge, to route)", "PP0308E elbow collet, front station, facing west"),
     # Pump-inlet union tees — free-hanging PP0208E fittings in the junction column, ports
     # named by the fluid topology and derived off _contents' tee placement. The run lies on
     # the line between the two collets it butts, which leans off vertical because both elbows
@@ -459,10 +482,22 @@ PORTS = [
     _p("Y-F-1", "tee-y-f", "fluid", *contents.tee_port("tee-y-f", 1), 6.35, "source-select V-D-O — segment 19 (routed)", "PP0208E run collet, down the column at the source"),
     _p("Y-F-2", "tee-y-f", "fluid", *contents.tee_port("tee-y-f", 2), 6.35, "bag-circuit V-H-O — segment 20 (routed)", "PP0208E run collet, up the column at the bag tray"),
     _p("Y-F-3", "tee-y-f", "fluid", *contents.tee_port("tee-y-f", 3), 6.35, "pump-b P-B-I — segment 21 (to route)", "PP0208E branch collet, facing east at the pump row"),
+    # Pump-discharge union tees — free-standing PP0208E fittings on the discharge columns,
+    # ports named by the fluid topology and derived off _contents' tee placement. The run
+    # is vertical between the two collets it butts — -2 down at the bag tray's up-facing
+    # collet, -3 up at the nozzle-gate tray's down-turned one, each a straight stub away —
+    # and branch -1 is swung at the pump outlet that will discharge into it (segments
+    # 12/22, unauthored), turned only as far off that bearing as the twin column demands.
+    _p("Y-D-1", "tee-y-d", "fluid", *contents.discharge_port("tee-y-d", 1), 6.35, "pump-a P-A-O — segment 12 (to route)", "PP0208E branch collet, swung at pump A's outlet"),
+    _p("Y-D-2", "tee-y-d", "fluid", *contents.discharge_port("tee-y-d", 2), 6.35, "bag-circuit V-F-I — segment 13 (routed)", "PP0208E run collet, down the discharge column at the bag tray"),
+    _p("Y-D-3", "tee-y-d", "fluid", *contents.discharge_port("tee-y-d", 3), 6.35, "nozzle-gate V-G-I — segment 17 (routed)", "PP0208E run collet, up the discharge column at the nozzle gate"),
+    _p("Y-G-1", "tee-y-g", "fluid", *contents.discharge_port("tee-y-g", 1), 6.35, "pump-b P-B-O — segment 22 (to route)", "PP0208E branch collet, swung at pump B's outlet"),
+    _p("Y-G-2", "tee-y-g", "fluid", *contents.discharge_port("tee-y-g", 2), 6.35, "bag-circuit V-I-I — segment 23 (routed)", "PP0208E run collet, down the discharge column at the bag tray"),
+    _p("Y-G-3", "tee-y-g", "fluid", *contents.discharge_port("tee-y-g", 3), 6.35, "nozzle-gate V-J-I — segment 27 (routed)", "PP0208E run collet, up the discharge column at the nozzle gate"),
     # Waveshare display — its data/power connector is NOT in the imported STEP (only the four
     # corner mounts are), so this one harness port is placed provisionally on the interior (+Y)
     # back face at the PCB centre. A viewer pick would pin it exactly.
-    _p("harness", "display", "electrical", (56.75, 43.8, 300.2), "y+", 8.0, "5 V power + display data (PCBA / power bus)", "connector not modeled in STEP; PROVISIONAL on the interior back face — refine with a pick"),
+    _p("harness", "display", "electrical", (56.75, 43.8, 382.43), "y+", 8.0, "5 V power + display data (PCBA / power bus)", "connector not modeled in STEP; PROVISIONAL on the interior back face (rides the box top with the facet) — refine with a pick"),
     # Controller PCBA — every field loom lands on a labelled JST XH edge connector (J1–J14, no
     # J12; ac-wiring-schedule.md §Board connector map). Positions are EXACT: each connector's
     # pcba.tsx board coordinate mapped world = (x+258.8, y+228.8) — the transform solved from the
@@ -494,6 +529,16 @@ PORTS = [
     _p("dc-out",          "power-tray", "electrical", (100.0, 285.9, 290.0), "y+", 6.0, "dc-dist 12 V block (DC-1)", "16 AWG; PROVISIONAL"),
     _p("relay-ctrl",      "power-tray", "electrical", (130.0, 212.0, 290.0), "y-", 6.0, "board J5 RELAYS control loom (LV-1/2/3)", "4-cond; PROVISIONAL"),
 ]
+
+
+# The discharge tees' branch aim reads the pump-outlet stations from _contents.DISCHARGE;
+# the stations themselves are declared here, on the pump ports. One assert keeps the two
+# from drifting apart until the pump ports derive from the pump module.
+for _tee, _outlet in (("tee-y-d", "P-A-O"), ("tee-y-g", "P-B-O")):
+    _station = contents.DISCHARGE[_tee][2]
+    _port = next(p for p in PORTS if p.name == _outlet)
+    assert _station == _port.pos[:2], (
+        f"{_tee} aims its branch at {_station} but {_outlet} sits at {_port.pos[:2]}")
 
 
 # Components that carry NO tube or wire connector at all — a passive body, located trivially
@@ -863,8 +908,9 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     routed = _pct(routed_done, len(conns))
     routed_detail = [f"{fluid} fluid + {refrig} refrigerant + {wire} electrical; "
                      f"{routed_done} routed — the fluid path waits on the deferred "
-                     f"discharge tees + nozzle-gate tray and the water deck, the "
-                     f"electrical runs on the components being held"]
+                     f"water deck + CO2 chain and on authors for the pump, bag, "
+                     f"nozzle and source runs; the electrical runs wait on the "
+                     f"components being held"]
     for r in _lines.build_runs():
         routed_detail.append(f"✓ {r.id}: {r.frm} → {r.to} — Ø{r.diam:g} × {r.length:.1f} mm, "
                              f"{len(r.bends)} bends at R{r.bend:.1f}")
