@@ -2,17 +2,17 @@
 
 Detailed STEP imports where they exist (cold-core foam assembly — shell +
 top/bottom foam-cap stacks — the compressor shroud, the source-select
-assembly, the bag-circuit assembly, both Kamoer pump assemblies, the PCBA
-assembly, the power assembly, the DC distribution block, the DERPIPE CO2
-inlet, the MQ-6 gas sensor, the panel bulkheads + C14). One placeholder
-primitive remains (condenser+fan). Not everything is packed — deferred,
-tracked by the fluid topology (/hardware/topology/fluid-topology.md) and
-the scorecard's connection table, never silently dropped, while the front
-column settles around the tray stack and the pump row: the water deck
-(SeaFlo diaphragm pump, Multiplex BFP, drip pan + moisture plate, the
-SeaFlo outlet check), the DIGITEN flow sensor, the CO2 chain's GASHER
-check + WR1110 regulator, and the other two valve-manifold trays
-(pump-inlet tees, nozzle-gates).
+assembly, the bag-circuit assembly, both Kamoer pump assemblies, both
+pump-inlet union tees, the PCBA assembly, the power assembly, the DC
+distribution block, the DERPIPE CO2 inlet, the MQ-6 gas sensor, the panel
+bulkheads + C14). One placeholder primitive remains (condenser+fan). Not
+everything is packed — deferred, tracked by the fluid topology
+(/hardware/topology/fluid-topology.md) and the scorecard's connection
+table, never silently dropped, while the front column settles around the
+tray stack and the pump row: the water deck (SeaFlo diaphragm pump,
+Multiplex BFP, drip pan + moisture plate, the SeaFlo outlet check), the
+DIGITEN flow sensor, the CO2 chain's GASHER check + WR1110 regulator, the
+pump-discharge tees (Y-D/Y-G), and the nozzle-gate tray.
 
 Components only: no tubes, no wires, no mount features. enclosure_assembly.py
 verifies the pack pairwise non-intersecting at every export.
@@ -66,22 +66,28 @@ Strata, floor to ceiling:
   * Zone C (the front column's upper band): the valve-manifold tray stack,
              pressed aft against the cold core — the source-select
              assembly (Tray 1: V-A, V-B, Y-A, Y-B, V-C, V-D on a printed
-             tray, outlet elbows up, V-A/V-B east) spanning the front
-             width with its tall walls' backs on the foam's front face,
-             its floor resting on the bag-circuit assembly (Tray 2:
-             V-E/V-F/V-H/V-I + Tees Y-E/Y-H, outlet elbows up, bag
-             branches out ±Y) one 63 mm tray pitch below, whose own floor
-             rides one stack gap over the floor stratum. Ahead of the
-             stack, the PUMP ROW: both Kamoer KPHM400 assemblies lying
-             depth-along-X in one pose — motors west, outlet elbows
-             standing on the +Z faces, free collets facing west at the
-             row's crest — the row seated one wall above the front Z-seam
-             plane (crossing the wall corners above the seam's boss-pod
-             band). P-A's head is nose-in at mid-row; P-B sits one slot
-             east and forward, ahead of the source-select east bank. The
-             funnel's centred drain hangs high over the row — its shallow
-             full-frame basin keeps the drain at the top of the band — with
-             ~30 mm of gravity fall banked in open air above the V-B-I
+             tray, V-A/V-B east with outlet elbows up, V-C/V-D west with
+             outlet elbows turned DOWN) spanning the front width with its
+             tall walls' backs on the foam's front face, its floor
+             resting on the bag-circuit assembly (Tray 2: V-E/V-F/V-H/V-I
+             + Tees Y-E/Y-H, outlet elbows up, bag branches out ±Y) one
+             63 mm tray pitch below, the bag tray slid 29.7 west so both
+             trays' west outlet-elbow columns share one X station — the
+             JUNCTION COLUMN, the open air outboard of the west valve
+             banks where the pump-inlet union tees hang in-line between
+             the source's down-turned collets and the bag's up-turned
+             ones. The stack floats ~11 mm over the floor stratum,
+             leaving an open under-stack corridor for the manifold's
+             cross-machine lines. Ahead of the stack, the PUMP ROW: both
+             Kamoer KPHM400 assemblies lying depth-along-X in one pose —
+             motors west, outlet elbows standing on the +Z faces, free
+             collets facing west at the row's crest — riding at the
+             stack's height, well above the front Z-seam's boss-pod band.
+             P-A's head is nose-in at mid-row; P-B sits one slot east and
+             forward, ahead of the source-select east bank. The funnel's
+             centred drain hangs high over the row — its shallow
+             full-frame basin keeps the drain at the top of the band —
+             with ~23 mm of gravity fall in open air above the V-B-I
              collet plane aft-east of it (segment 4, the gravity/purge
              path). Holders TBD (held).
   * Zone B (the band above the cold core): the electronics shelf lying
@@ -116,6 +122,8 @@ SOURCE_SELECT = _hw / "printed-parts" / "valve-manifold" / "source-select-tray" 
 BAG_CIRCUIT   = _hw / "printed-parts" / "valve-manifold" / "bag-circuit-tray" / "bag-circuit-assembly.step"
 # Kamoer KPHM400 peristaltic pump, its two +Y outlet ports flush (no fittings).
 PUMP_ASSEMBLY = _hw / "reference" / "kamoer-kphm400" / "pump-assembly.step"
+# JG PP0208E union tee — the pump-inlet junctions Y-C / Y-F, tube-hung.
+TEE_CONNECTOR = _hw / "reference" / "tee-connector" / "tee-connector.step"
 # AC/PSU tray — wide-shallow layout (PSU turned 90°).
 POWER_ASSEMBLY = _hw / "printed-parts" / "electronics" / "power-tray" / "power-assembly.step"
 PCBA_ASSEMBLY  = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-assembly.step"
@@ -162,12 +170,17 @@ FUNNEL_ROT = 0.0
 # aft until its tall walls' back faces meet the cold core's front face
 # (the scorecard's `near foam-assembly` rule, a declared contact) — the
 # dog-bone's central pinch leaves the foam's mid-face slot ports
-# breathing room — at the height the stack sets from below: its floor on
-# the bag tray's walls, the bag tray's floor riding just over the floor
-# stratum. In X the assembly (elbow tip to elbow tip) spans the interior
-# wall-to-wall; its +X elbows stop one wall clearance short of the foam's
-# edge.
-SRC_SEL_POS = (147.0, 135.55, 223.8)
+# breathing room. The height is the manifold's: the stack rides as high
+# as its neighbors allow, lifting the hanging union tees and the
+# under-stack corridor clear of the floor stratum. Three measured caps
+# bound it — V-B's up-elbow under the back pieces' +X Z-seam pod band
+# (underside z 262.8, the binding one), the east wall tops under the
+# funnel's sloped basin floor (~294 there), and pump-b's elbow tips
+# under the funnel (~298) — and ~23 mm of drain fall stays banked above
+# the V-B-I collet plane (segment 4 must only fall). In X the assembly
+# (elbow tip to elbow tip) spans the interior wall-to-wall; its +X
+# elbows stop one wall clearance short of the foam's edge.
+SRC_SEL_POS = (147.0, 135.55, 230.8)
 # The bag-circuit assembly's placement: local origin (cell centre, valve
 # mounting plane) in world — the manifold's designed stack, one tray pitch
 # (bag_circuit_tray stack_pitch, the wall-top-to-floor module) below the
@@ -175,12 +188,17 @@ SRC_SEL_POS = (147.0, 135.55, 223.8)
 # tray's column wall tops (the walls exist to carry it — a declared
 # contact). Rotated 180° about Z, which lands each pump-inlet Tee's two
 # valve ports on ONE side of the machine: V-E/V-H west under the
-# source-select tray's own west bank (V-C/V-D), V-F/V-I east. The tray's
-# plan is symmetric about this origin, so the rotation moves no face — the
-# stack contact above and the floor stratum below are untouched. Y-H's bag
-# branch faces aft toward the cold core, Y-E's forward; the four outlet
-# elbows turn up, well under the tray above.
-BAG_CIRCUIT_POS = (SRC_SEL_POS[0], SRC_SEL_POS[1], SRC_SEL_POS[2] - 63.0)
+# source-select tray's own west bank (V-C/V-D), V-F/V-I east. Slid 29.7 mm
+# west of the stack centre so the west outlet-elbow columns of both trays
+# land on one X station (bag elbow corners sit at tray-local ±98.63, the
+# source's at ±128.33; the slide closes the difference): the junction
+# column at x 18.67, the source pair's collets turned down above, this
+# tray's turned up below, the union tees hanging between. Y-H's bag branch
+# faces aft toward the cold core, Y-E's forward. The stack contact above
+# rides the slide (the source floor still spans both column wall tops);
+# the floor stratum below stays open — the whole stack floats ~11 mm over
+# it, the under-stack corridor.
+BAG_CIRCUIT_POS = (SRC_SEL_POS[0] - 29.7, SRC_SEL_POS[1], SRC_SEL_POS[2] - 63.0)
 
 # The pump row: both Kamoer KPHM400 assemblies (P-A west, P-B east) lying
 # depth-along-X ahead of the tray stack, in ONE pose — a −90° turn about Y
@@ -188,22 +206,39 @@ BAG_CIRCUIT_POS = (SRC_SEL_POS[0], SRC_SEL_POS[1], SRC_SEL_POS[2] - 63.0)
 # the outlet face up, so each pump's two elbows stand on its +Z face, legs
 # turning west over the head, free collets facing −X at the row's crest.
 # The POS tuples are the pump's local origin (base-plate bore-opening
-# face, case centre) in world:
-#   * P-A: body envelope x 11.62–138.50, y 33.20–95.81, z 189.00–251.61 —
+# face, case centre) in world; the row rides at the tray stack's height
+# (the two lift together — the row's stack ties are z-tight):
+#   * P-A: body envelope x 11.62–138.50, y 33.20–95.81, z 196.00–258.61 —
 #     head nose-in at mid-row, the segment-4 drop corridor under the
 #     funnel's high centred drain held open over it (the `clear
-#     hopper-funnel` rule), the row's underside one wall above the front
-#     Z-seam plane so the long body crosses the ±X wall corners ABOVE the
-#     seam's boss-pod band (which reaches ~14 mm inboard below the seam),
-#     aft face one stack gap ahead of the bag tray's front columns (the
-#     `near bag-circuit-assembly` rule).
+#     hopper-funnel` rule), the long body crossing the ±X wall corners
+#     well above the front Z-seam's boss-pod band (which reaches ~14 mm
+#     inboard below the seam), aft face one stack gap ahead of the bag
+#     tray's front columns (the `near bag-circuit-assembly` rule).
 #   * P-B: the same pose one slot east — head at the east end, under the
 #     funnel's floor — and slid forward, its aft elbow threading ahead of
 #     the source-select east bank's walls (the `clear
 #     source-select-assembly` rule); its row tie is the nose gap to P-A
 #     (the `near pump-a` rule).
-PUMP_A_POS = (89.62, 99.51, 185.31)
-PUMP_B_POS = (222.50, 85.51, 185.31)
+PUMP_A_POS = (89.62, 99.51, 192.31)
+PUMP_B_POS = (222.50, 85.51, 192.31)
+
+# The pump-inlet union tees (fluid topology Y-C / Y-F) hang in-line in the
+# junction column below the source-select west bank: run VERTICAL — the
+# run-up collet takes the down-turned V-C-O / V-D-O drop through one tube
+# stub, the run-down collet waits for the bag-circuit return climbing from
+# V-E-O / V-H-O (segments 10/20) — and the branch turned EAST toward the
+# pump inlet it feeds (segments 11/21). Tube-hung PTC fittings, carried by
+# their lines: no tray, no holder. The collet anchors are the source
+# tray's elbow geometry (corner at tray-local ±128.33, ±36.73; port plane
+# 11.3; elbow leg 19.56) carried through its 180° flip + SRC_SEL_POS; the
+# tee's own reach mirrors bag_circuit_tray (run half-length 20.07, branch
+# reach 20.066).
+SRC_ELBOW_X, SRC_ELBOW_Y = 128.33, 36.73  # source elbow corner, tray-local
+TRAY_PORT_Z, ELBOW_REACH = 11.3, 19.56    # port plane + elbow leg (valve-manifold single-tray)
+TEE_RUN_HALF = 20.07                      # PP0208E run, port to centre
+TEE_BRANCH_REACH = 20.066                 # PP0208E branch, centre to port tip
+TEE_STUB = 2.0                            # authored tube between collet and run-up port
 
 # Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it.
 # With the floor parts raised clear of the seam lip, the cold core pulls in to
@@ -289,6 +324,8 @@ COLORS = {
     "bag-circuit-assembly":   cq.Color(0.35, 0.62, 0.55),
     "pump-a":            cq.Color(0.72, 0.28, 0.30),
     "pump-b":            cq.Color(0.72, 0.28, 0.30),
+    "tee-y-c":           cq.Color(0.92, 0.92, 0.92),
+    "tee-y-f":           cq.Color(0.92, 0.92, 0.92),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "dc-dist":           cq.Color(0.20, 0.20, 0.22),
@@ -388,6 +425,16 @@ def build():
     lay = _rot(_rot(pump, (0, 1, 0), -90.0), (1, 0, 0), 90.0)
     placed["pump-a"] = lay.translate(PUMP_A_POS)
     placed["pump-b"] = lay.translate(PUMP_B_POS)
+
+    # The pump-inlet union tees, hanging in the junction column (the tee
+    # constants above): the native run is along Z already; a −90° turn about
+    # Z points the branch east (+X). Each centre sits one run half-length +
+    # one stub below its source collet, on the collet's own (x, y).
+    tee = _rot(_load(TEE_CONNECTOR), (0, 0, 1), -90.0)
+    tee_x = SRC_SEL_POS[0] - SRC_ELBOW_X
+    tee_cz = SRC_SEL_POS[2] + TRAY_PORT_Z - ELBOW_REACH - TEE_STUB - TEE_RUN_HALF
+    placed["tee-y-c"] = tee.translate((tee_x, SRC_SEL_POS[1] - SRC_ELBOW_Y, tee_cz))
+    placed["tee-y-f"] = tee.translate((tee_x, SRC_SEL_POS[1] + SRC_ELBOW_Y, tee_cz))
 
     # --- Zone B, the band above the cold core: the electronics shelf lying
     # flat on the foam-cap top, tray/board planes horizontal, everything in

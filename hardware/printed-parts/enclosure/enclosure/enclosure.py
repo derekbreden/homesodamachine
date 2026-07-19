@@ -148,14 +148,15 @@ lip_len = plug_dia / 2.0 + socket_r              # = (plug+bore)/2 + wall = 13.1
 #     bulkhead field begins just above the lip rim (_contents
 #     UMBILICAL_Z_FLOOR is derived from it) — the seam sits in the one band
 #     between foam and ports.
-#   * Front: at the front stack's waist — above the floor stratum (the
-#     compressor and the tipped condenser), crossing the valve-manifold
-#     stack's band inboard of the seam machinery (the lip + pods hug the
-#     walls; the trays stand well clear of both) — which also splits the
-#     front column's height far more evenly than the back's foam-locked
-#     seam can.
+#   * Front: above the floor stratum (the compressor and the tipped
+#     condenser) and below the junction column — the tray stack's west
+#     outlet elbows and the hanging pump-inlet tees stand against the
+#     west wall from z ~175 up, so the seam's wall-hugging lip + boss
+#     pods stop beneath them; the band the seam machinery occupies
+#     (x within ~14 of a wall, one pod height under the plane) is
+#     content-free at both walls.
 # Every printed piece's bed face fits the H2C envelope with these cuts.
-z_joint_front = 186.0
+z_joint_front = 172.0
 z_joint_back = 266.0
 # The Z lip stops this short of the Y-seam overlap on each side, so the two
 # telescopes never share a wall surface.

@@ -130,11 +130,13 @@ def place_tee_branch_out(cx, cy):
     )
 
 
-def place_elbow(cx, cy, ux, uy):
+def place_elbow(cx, cy, ux, uy, roll=0.0):
     """Elbow on a valve's outer (unoccupied) port: one leg collinear with the
-    port axis — its collet butting the port tip — and the bend turning the line
-    +Z up out of the tray. ``(cx, cy)`` is the valve center; ``(ux, uy)`` the
-    outward unit vector of that port (pointing away from the valve)."""
+    port axis — its collet butting the port tip — and the free leg turned by
+    ``roll`` about that axis: 0 points it +Z up out of the tray, 180 straight
+    down, ±90 sideways. ``(cx, cy)`` is the valve center; ``(ux, uy)`` the
+    outward unit vector of that port (pointing away from the valve). The free
+    collet lands ``elbow_reach`` from the bend corner along the rolled leg."""
     fit = cq.importers.importStep(str(_elbow_path)).val()
     # The elbow's native +Y leg maps onto the −outward direction (collet faces
     # the valve); a Z-only rotation leaves its +Z leg pointing up.
@@ -144,7 +146,10 @@ def place_elbow(cx, cy, ux, uy):
         cy + (port_half + elbow_reach) * uy,
         port_z,
     )
-    return fit.rotate((0, 0, 0), (0, 0, 1), phi).translate(corner)
+    e = fit.rotate((0, 0, 0), (0, 0, 1), phi).translate(corner)
+    if roll:
+        e = e.rotate(corner, (corner[0] + ux, corner[1] + uy, corner[2]), roll)
+    return e
 
 
 def build_assembly():

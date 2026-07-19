@@ -23,7 +23,9 @@ Z = [11.3](PORT_Z).
   divider outlet** it feeds — a **straight [15](TUBE) mm tube** spans the gap. The
   valves sit at **(±[81.75](SRC_VALVE_X), ±[21.32](SRC_VALVE_Y))**, tilted ~17° off X (the minimum Y
   separation that keeps the four bodies clear). An **elbow** turns each valve's
-  outer (back) port +Z up out of the tray.
+  outer (back) port off the tray: V-A/V-B +Z up (the tap feed and the funnel
+  drain arrive from above), V-C/V-D rolled 180° to point **down** — they feed
+  the pump-inlet union tees hanging below the west bank in the enclosure pack.
 
 The 6 valve/divider bodies are clash-free.
 
