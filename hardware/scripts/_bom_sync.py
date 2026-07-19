@@ -77,12 +77,12 @@ total_reeds_per_build = reeds_per_carbonator + reservoir_reeds_total
 pp1208e_per_build = panel_umbilical_bulkheads + panel_water_inlet_bulkheads
 
 # PP0308E union elbows per build: one in-cavity CO2 bend at the foam-shell
-# CO2 doorway, one on every valve's outer tray port (= solenoid_count),
-# two on each of the two Kamoer pump outlets.
+# CO2 doorway, one on every valve's outer tray port (= solenoid_count). The
+# Kamoer pump outlets carry no elbows — the pump assembly's two +Y ports
+# stand flush (reference/kamoer-kphm400/pump_assembly.py).
 pp0308e_co2_incavity = 1
 pp0308e_valve_elbows = solenoid_count
-pp0308e_pump_elbows = 4
-pp0308e_per_build = pp0308e_co2_incavity + pp0308e_valve_elbows + pp0308e_pump_elbows
+pp0308e_per_build = pp0308e_co2_incavity + pp0308e_valve_elbows
 
 # Foam-cap hardware (6 inserts + 6 M3 × 25 screws per face, both faces).
 foam_cap_inserts_per_build = inserts_per_foam_cap_face * foam_cap_faces
@@ -141,7 +141,6 @@ def main():
         "PP1208E_TOTAL": f"{pp1208e_per_build:.4g}",
         "PP0308E_CO2": f"{pp0308e_co2_incavity:.4g}",
         "PP0308E_VALVE": f"{pp0308e_valve_elbows:.4g}",
-        "PP0308E_PUMP": f"{pp0308e_pump_elbows:.4g}",
         "PP0308E_TOTAL": f"{pp0308e_per_build:.4g}",
         # Heat-set insert + screw hardware.
         "FOAM_INSERTS": f"{foam_cap_inserts_per_build:.4g}",
@@ -178,7 +177,6 @@ def main():
             "PP1208E_TOTAL": 1,
             "PP0308E_CO2": 2,
             "PP0308E_VALVE": 2,
-            "PP0308E_PUMP": 2,
             "PP0308E_TOTAL": 2,
             "FOAM_INSERTS": 2,
             "FOAM_SCREWS": 2,

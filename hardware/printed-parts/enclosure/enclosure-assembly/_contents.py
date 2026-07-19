@@ -2,18 +2,17 @@
 
 Detailed STEP imports where they exist (cold-core foam assembly — shell +
 top/bottom foam-cap stacks — the compressor shroud, the source-select
-assembly, the bag-circuit assembly, the PCBA assembly, the power assembly,
-the DC distribution block, the DERPIPE CO2 inlet, the MQ-6 gas sensor, the
-panel bulkheads + C14). One placeholder primitive remains (condenser+fan).
-Not everything is packed — deferred, tracked by the fluid topology
-(/hardware/topology/fluid-topology.md) and the scorecard's connection
-table, never silently dropped, while the front column settles around the
-tray stack: the water deck (SeaFlo diaphragm pump, Multiplex BFP, drip pan
-+ moisture plate, the SeaFlo outlet check), the DIGITEN flow sensor, both
-Kamoer pump assemblies (P-A, P-B), the CO2 chain's GASHER check + WR1110
-regulator (their front-left column is the source-select assembly's west
-bank; the chain needs a route around it), and the other two valve-manifold
-trays (pump-inlet tees, nozzle-gates).
+assembly, the bag-circuit assembly, both Kamoer pump assemblies, the PCBA
+assembly, the power assembly, the DC distribution block, the DERPIPE CO2
+inlet, the MQ-6 gas sensor, the panel bulkheads + C14). One placeholder
+primitive remains (condenser+fan). Not everything is packed — deferred,
+tracked by the fluid topology (/hardware/topology/fluid-topology.md) and
+the scorecard's connection table, never silently dropped, while the front
+column settles around the tray stack and the pump row: the water deck
+(SeaFlo diaphragm pump, Multiplex BFP, drip pan + moisture plate, the
+SeaFlo outlet check), the DIGITEN flow sensor, the CO2 chain's GASHER
+check + WR1110 regulator, and the other two valve-manifold trays
+(pump-inlet tees, nozzle-gates).
 
 Components only: no tubes, no wires, no mount features. enclosure_assembly.py
 verifies the pack pairwise non-intersecting at every export.
@@ -64,22 +63,25 @@ Strata, floor to ceiling:
   * Zone A:  cold core (foam assembly: bottom cap + shell + top cap) on the
              floor at the back, its −Y dispense/service ports facing
              forward.
-  * Zone C (the front column's upper band): the source-select assembly —
-             Tray 1 of the valve manifold (V-A, V-B, Y-A, Y-B, V-C, V-D on
-             a printed tray, outlet elbows up) — hung spanning the front
-             width, flipped so V-A/V-B and their up-facing inlet collets
-             sit on the EAST end under the funnel's high ramp, shifted aft
-             clear of the display body's low-front band, and raised until
-             the rotated funnel's loft caps the rise one clearance over
-             the east bank's wall tops. The spout descends over the
-             central valley; at this height the drain sits only a hair
-             above V-B's collet — the segment-4 gravity/purge fall is
-             nearly exhausted (unresolved tension). One 63 mm tray pitch
-             below hangs the bag-circuit assembly — Tray 2 of the manifold
-             (V-E/V-F/V-H/V-I + Tees Y-E/Y-H, outlet elbows up, bag
-             branches out ±Y) — its stacking wall tops carrying the
-             source-select tray's floor, the floor stratum one stack gap
-             below its own floor. Holders TBD (held).
+  * Zone C (the front column's upper band): the valve-manifold tray stack,
+             pressed aft against the cold core — the source-select
+             assembly (Tray 1: V-A, V-B, Y-A, Y-B, V-C, V-D on a printed
+             tray, outlet elbows up, V-A/V-B east) spanning the front
+             width with its tall walls' backs on the foam's front face,
+             its floor resting on the bag-circuit assembly (Tray 2:
+             V-E/V-F/V-H/V-I + Tees Y-E/Y-H, outlet elbows up, bag
+             branches out ±Y) one 63 mm tray pitch below, whose own floor
+             rides one stack gap over the floor stratum. Ahead of the
+             stack, the PUMP ROW: both Kamoer KPHM400 assemblies lying
+             depth-along-X, motors outboard, heads nose-to-nose at the
+             interior's x centre, flush outlet ports facing aft at the
+             stack — the row seated one wall above the front Z-seam plane
+             (crossing the wall corners above the seam's boss-pod band)
+             and capped under the funnel's descending spout. The funnel
+             drain hangs over the row's inter-pump gap, 1.1 above the
+             V-B-I collet plane far to its aft-east — segment 4's
+             gravity/purge fall is that 1.1 (unresolved tension). Holders
+             TBD (held).
   * Zone B (the band above the cold core): the electronics shelf lying
              flat on the foam-cap top in the band's front half — power
              assembly at −X, PCBA at +X, the DC distribution block behind
@@ -110,6 +112,8 @@ FOAM_ASSEMBLY = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-as
 COMP_SHROUD   = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
 SOURCE_SELECT = _hw / "printed-parts" / "valve-manifold" / "source-select-tray" / "source-select-assembly.step"
 BAG_CIRCUIT   = _hw / "printed-parts" / "valve-manifold" / "bag-circuit-tray" / "bag-circuit-assembly.step"
+# Kamoer KPHM400 peristaltic pump, its two +Y outlet ports flush (no fittings).
+PUMP_ASSEMBLY = _hw / "reference" / "kamoer-kphm400" / "pump-assembly.step"
 # AC/PSU tray — wide-shallow layout (PSU turned 90°).
 POWER_ASSEMBLY = _hw / "printed-parts" / "electronics" / "power-tray" / "power-assembly.step"
 PCBA_ASSEMBLY  = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-assembly.step"
@@ -137,27 +141,28 @@ CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # The funnel's placement: its collar-rect centre in plan, plus a rotation
 # about its own Z — the rectangular collar seats the opening either way, so
 # the rotation picks which side the spout descends. At 180° the spout drops
-# WEST of centre, over the source-select assembly's central valley, and the
-# ramp rises eastward over V-A/V-B. The static funnel (zone-c/hopper-funnel,
-# local frame) seats with its brim underside on the box's outer top;
-# enclosure.py cuts the top-wall opening from this same centre + the
-# funnel's own collar dims, and asserts the top-wall frame (display gusset,
-# corner pod, front ledge, Y-seam lip) accommodates it.
+# WEST of centre, descending ahead of the tray stack to cap the pump row
+# (the pumps' `clear` keep-out holds its fall corridor open), and the ramp
+# rises eastward. The static funnel (zone-c/hopper-funnel, local frame)
+# seats with its brim underside on the box's outer top; enclosure.py cuts
+# the top-wall opening from this same centre + the funnel's own collar
+# dims, and asserts the top-wall frame (display gusset, corner pod, front
+# ledge, Y-seam lip) accommodates it.
 FUNNEL_CX, FUNNEL_CY = 193.75, 63.3
 FUNNEL_ROT = 180.0
 # The source-select assembly's placement: local origin (cell centre, valve
 # mounting plane) in world, rotated 180° about Z. The flip puts V-A/V-B —
-# and their up-facing inlet collets — on the EAST end under the funnel's
-# high ramp, V-C/V-D west; the pressurized tap line (segment 2) takes the
-# long west run to V-A. Shifted aft of the funnel's centreline by the
-# minimum that walks its front tall wall out of the display PCB body's
-# low-front underside band, and raised until the rotated funnel's loft
-# caps the rise one clearance over the east bank's wall tops — pinned
-# between funnel above and display ahead (the scorecard's two `near`
-# rules). In X the assembly (elbow tip to elbow tip) spans the interior
+# and their up-facing inlet collets — on the EAST end, V-C/V-D west; the
+# pressurized tap line (segment 2) takes the long west run to V-A. Pressed
+# aft until its tall walls' back faces meet the cold core's front face
+# (the scorecard's `near foam-assembly` rule, a declared contact) — the
+# dog-bone's central pinch leaves the foam's mid-face slot ports
+# breathing room — at the height the stack sets from below: its floor on
+# the bag tray's walls, the bag tray's floor riding just over the floor
+# stratum. In X the assembly (elbow tip to elbow tip) spans the interior
 # wall-to-wall; its +X elbows stop one wall clearance short of the foam's
 # edge.
-SRC_SEL_POS = (147.0, 78.3, 223.8)
+SRC_SEL_POS = (147.0, 135.55, 223.8)
 # The bag-circuit assembly's placement: local origin (cell centre, valve
 # mounting plane) in world, unrotated — the manifold's designed stack, one
 # tray pitch (bag_circuit_tray stack_pitch, the wall-top-to-floor module)
@@ -167,6 +172,21 @@ SRC_SEL_POS = (147.0, 78.3, 223.8)
 # reservoir-A port, Y-H's forward; the four outlet elbows turn up, well
 # under the tray above.
 BAG_CIRCUIT_POS = (SRC_SEL_POS[0], SRC_SEL_POS[1], SRC_SEL_POS[2] - 63.0)
+
+# The pump row: both Kamoer KPHM400 assemblies (P-A west, P-B east) lying
+# depth-along-X ahead of the tray stack, motors outboard, heads
+# nose-to-nose about the interior's x centre with a working gap between,
+# flush outlet ports facing aft (+Y) at the stack — the aft port faces
+# stop one stack gap ahead of the bag tray's front columns (the `near
+# bag-circuit-assembly` rule; the source-select's slanted walls above
+# recede farther). The row seats one wall above the front Z-seam plane
+# (enclosure.py z_joint_front), so the long bodies cross the ±X wall
+# corners ABOVE the seam's boss-pod band (which reaches ~14 mm inboard
+# below the seam), and its top stops under the funnel's descending spout
+# (the `clear hopper-funnel` keep-out — the drain's fall corridor).
+PUMP_ROW_Y = 33.2            # body front faces; the aft port faces land at +62.6
+PUMP_ROW_Z = 189.0           # z_joint_front + one wall
+PUMP_A_X, PUMP_B_X = 11.62, 144.5   # west ends: symmetric about x 141.5, 6 mm nose gap
 
 # Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it.
 # With the floor parts raised clear of the seam lip, the cold core pulls in to
@@ -250,6 +270,8 @@ COLORS = {
     "mq6-sensor":        cq.Color(0.30, 0.45, 0.85),
     "source-select-assembly": cq.Color(0.60, 0.40, 0.70),
     "bag-circuit-assembly":   cq.Color(0.35, 0.62, 0.55),
+    "pump-a":            cq.Color(0.72, 0.28, 0.30),
+    "pump-b":            cq.Color(0.72, 0.28, 0.30),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "dc-dist":           cq.Color(0.20, 0.20, 0.22),
@@ -319,13 +341,12 @@ def build():
     placed["mq6-sensor"] = _at(_load(MQ6_STEP), 100.0, 134.0, SEAM_CLEAR_LIFT)
 
     # --- Zone C: the source-select assembly (Tray 1 — V-A/V-B/Y-A/Y-B/V-C/V-D
-    # on its printed tray, outlet elbows turned +Z), hung spanning the front
-    # width in the column's upper band. Rotated 180° about Z (V-A/V-B east,
-    # toward the funnel) then translated: the assembly's own frame (cell
-    # centre, valve mounting plane) is the placement datum, so SRC_SEL_POS
-    # reads as its world pose. The funnel descends into its east V-gap and
-    # the display channel stays open above its west bank — both held by the
-    # scorecard's `near`/`clear` placement rules against the real solids.
+    # on its printed tray, outlet elbows turned +Z), spanning the front width,
+    # pressed aft against the cold core's front face. Rotated 180° about Z
+    # (V-A/V-B east) then translated: the assembly's own frame (cell centre,
+    # valve mounting plane) is the placement datum, so SRC_SEL_POS reads as
+    # its world pose. Its wall backs on the foam face are a declared contact,
+    # held by the scorecard's `near foam-assembly` rule on the real solids.
     placed["source-select-assembly"] = _rot(_load(SOURCE_SELECT), (0, 0, 1), 180.0).translate(SRC_SEL_POS)
 
     # One tray pitch below it, the bag-circuit assembly (Tray 2 — V-E/V-F/
@@ -335,6 +356,16 @@ def build():
     # this tray's column wall tops (a declared contact), and the floor
     # stratum below stays one stack gap open under its own floor.
     placed["bag-circuit-assembly"] = _load(BAG_CIRCUIT).translate(BAG_CIRCUIT_POS)
+
+    # Ahead of the stack, the pump row: both Kamoer assemblies lying
+    # depth-along-X (a ∓90° turn about Y points each motor outboard, flush
+    # +Y outlet ports still facing aft at the stack), seated at the
+    # PUMP_ROW anchors. Each pump's two ports land one above the other on
+    # its aft face; the funnel's spout descends over the nose gap between
+    # the heads, held clear by the pumps' keep-out rule.
+    pump = _load(PUMP_ASSEMBLY)
+    placed["pump-a"] = _at(_rot(pump, (0, 1, 0), -90.0), PUMP_A_X, PUMP_ROW_Y, PUMP_ROW_Z)
+    placed["pump-b"] = _at(_rot(pump, (0, 1, 0), 90.0), PUMP_B_X, PUMP_ROW_Y, PUMP_ROW_Z)
 
     # --- Zone B, the band above the cold core: the electronics shelf lying
     # flat on the foam-cap top, tray/board planes horizontal, everything in

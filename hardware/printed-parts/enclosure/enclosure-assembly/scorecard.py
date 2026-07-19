@@ -115,6 +115,9 @@ COMPONENTS = [
     # Valve manifold
     _c("source-select-assembly", "real",   True,  "none", "Tray 1 — printed tray + 4 Beduan NC solenoids + 2 PP2308E Y-dividers + 4 outlet elbows (valve-manifold/source-select-tray); hangs under the display + funnel, holder TBD"),
     _c("bag-circuit-assembly",   "real",   True,  "none", "Tray 2 — printed dog-bone tray + 4 Beduan NC solenoids + 2 PP0208E Tees + 4 outlet elbows (valve-manifold/bag-circuit-tray); its stacking walls carry the source-select tray, holder TBD"),
+    # Pump row
+    _c("pump-a",            "real",        True,  "none", "Kamoer KPHM400 peristaltic (reference/kamoer-kphm400 pump-assembly, flush +Y ports); lies depth-along-X ahead of the tray stack, motor west, holder TBD"),
+    _c("pump-b",            "real",        True,  "none", "Kamoer KPHM400 peristaltic (reference/kamoer-kphm400 pump-assembly, flush +Y ports); lies depth-along-X ahead of the tray stack, motor east, holder TBD"),
     # Electronics shelf
     _c("power-tray",        "real",        True,  "none", "printed tray holds its boards; tray-to-shell joinery deferred (power-tray README)"),
     _c("pcba",              "real",        True,  "none", "printed tray holds the board; tray-to-shell joinery deferred (pcba-tray README)"),
@@ -143,6 +146,9 @@ TOUCHING_OK = {
         # The valve-manifold stack: the source-select tray's floor rests on the
         # bag-circuit tray's column wall tops, one tray pitch apart by design.
         ("source-select-assembly", "bag-circuit-assembly"),
+        # The stack is pressed aft: the source-select tray's tall-wall backs
+        # sit on the cold core's front face.
+        ("foam-assembly", "source-select-assembly"),
     ]
 }
 
@@ -230,14 +236,14 @@ PLACEMENT_RULES = {
     "compressor-shroud": [("y-", 1.0), ("z-", 4.0), ("x-", 15.0)],
     # "Condenser is front-right on the floor" (inset one corner-rib chain off the right wall).
     "condenser+fan":     [("y-", 1.0), ("z-", 4.0), ("x+", 15.0)],
-    # "The assembly is pinned between funnel and display": raised until the rotated
-    # funnel's loft caps the rise one clearance over the east bank's wall tops, and
-    # shifted aft only as far as the display body's low-front underside demands — both
-    # exact-gap bounds on the real solids.
-    "source-select-assembly": [("near", "hopper-funnel", 1.5), ("near", "display", 1.5)],
+    # "The assembly is pressed against the cold core": its tall walls' back
+    # faces on the foam's front face (a declared contact), measured on the
+    # real solids.
+    "source-select-assembly": [("near", "foam-assembly", 1.0)],
     # "The funnel rides the top wall" — brim top one brim thickness + one wall above the
-    # interior ceiling — "and its loft caps the assembly's rise".
-    "hopper-funnel":     [("z+", 6.1), ("near", "source-select-assembly", 1.5)],
+    # interior ceiling. Its spout descends ahead of the tray stack, over the pump
+    # row — the pumps' own `clear` keep-out holds its fall corridor open.
+    "hopper-funnel":     [("z+", 6.1)],
     # "The bag tray carries the source-select tray": stacked one tray pitch
     # below, the tray floor above resting on this tray's column wall tops (a
     # declared contact — the `near` holds at zero), while the floor stratum
@@ -246,6 +252,13 @@ PLACEMENT_RULES = {
     "bag-circuit-assembly": [("near", "source-select-assembly", 1.0),
                              ("clear", "compressor-shroud", 2.5),
                              ("clear", "condenser+fan", 2.5)],
+    # "The pump row stands one stack gap ahead of the stack, under the
+    # funnel's drop": each pump's aft port face near the bag tray's front
+    # columns (the stack's flat front at the row's height), and the
+    # descending spout's fall corridor held open above the row — a keep-out
+    # the funnel's drain physically depends on.
+    "pump-a": [("near", "bag-circuit-assembly", 3.0), ("clear", "hopper-funnel", 4.0)],
+    "pump-b": [("near", "bag-circuit-assembly", 3.0), ("clear", "hopper-funnel", 4.0)],
 }
 
 
@@ -375,21 +388,21 @@ PORTS = [
     # feeding V-B by tube (segment 4). Defined in the funnel's own frame
     # (hopper_funnel.drain_local = (neck_dx, 0, −drop)) carried through the placement's
     # FUNNEL_ROT + FUNNEL_CX/CY (brim on the box top), so it rides the part. Rotated 180°,
-    # the spout descends WEST of centre, over the assembly's central valley. At the raised
-    # assembly height the drain sits only ~1 mm above V-B-I's collet — segment 4 is the
-    # gravity drain + air-purge path and must only fall, so its fall budget is nearly
-    # exhausted here (unresolved tension).
+    # the spout descends WEST of centre, ahead of the tray stack, into the pump row's nose
+    # gap airspace (the pumps' `clear` keep-out). Segment 4 is the gravity drain + air-purge
+    # path and must only fall; V-B-I's collet plane lies 1.1 below the drain and ~150 mm
+    # aft-east of it (unresolved tension).
     _p("drain", "hopper-funnel", "fluid", (139.75, 63.3, 255.72), "z-", 6.35, "V-B-I by tube — segment 4 (hopper gate → shared source; must fall)", "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"),
     # Source-select assembly (Tray 1) — the manifold's four boundary connectors: the outlet
     # elbows' free collets, all facing +Z, measured off the built assembly
     # (source_select_tray.build_assembly() top-opening centres, local (±128.33, ±36.73, 30.86))
-    # carried through the 180° flip + SRC_SEL_POS. V-A/V-B east (under the funnel's high
-    # ramp), V-C/V-D west. On-tray plumbing (segments 3/5/6/7/8 — valve↔divider tubes) is
-    # interior to the assembly and carries no port here.
-    _p("V-A-I", "source-select-assembly", "fluid", (275.33, 41.57, 254.66),  "z+", 6.35, "tap-water chain (bulkhead-water → BFP, deferred) — segment 2 (pressurized; length-tolerant)", "JG elbow collet, 1/4\" tube, facing up"),
-    _p("V-B-I", "source-select-assembly", "fluid", (275.33, 115.03, 254.66), "z+", 6.35, "hopper-funnel drain by tube — segment 4 (the drain sits ~1 mm above this collet)", "JG elbow collet, 1/4\" tube, facing up"),
-    _p("V-C-O", "source-select-assembly", "fluid", (18.67, 41.57, 254.66),   "z+", 6.35, "Y-C-1 (Tray 3 pump-inlet tees, deferred) — segment 9", "JG elbow collet, 1/4\" tube, facing up"),
-    _p("V-D-O", "source-select-assembly", "fluid", (18.67, 115.03, 254.66),  "z+", 6.35, "Y-F-1 (Tray 3 pump-inlet tees, deferred) — segment 19", "JG elbow collet, 1/4\" tube, facing up"),
+    # carried through the 180° flip + SRC_SEL_POS. V-A/V-B east, V-C/V-D west. On-tray
+    # plumbing (segments 3/5/6/7/8 — valve↔divider tubes) is interior to the assembly and
+    # carries no port here.
+    _p("V-A-I", "source-select-assembly", "fluid", (275.33, 98.82, 254.66),  "z+", 6.35, "tap-water chain (bulkhead-water → BFP, deferred) — segment 2 (pressurized; length-tolerant)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-B-I", "source-select-assembly", "fluid", (275.33, 172.28, 254.66), "z+", 6.35, "hopper-funnel drain by tube — segment 4 (the drain hangs 1.1 above this collet's plane, ~150 mm west-forward)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-C-O", "source-select-assembly", "fluid", (18.67, 98.82, 254.66),   "z+", 6.35, "Y-C-1 (Tray 3 pump-inlet tees, deferred) — segment 9", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-D-O", "source-select-assembly", "fluid", (18.67, 172.28, 254.66),  "z+", 6.35, "Y-F-1 (Tray 3 pump-inlet tees, deferred) — segment 19", "JG elbow collet, 1/4\" tube, facing up"),
     # Bag-circuit assembly (Tray 2) — the manifold's six boundary connectors: the four outlet
     # elbows' free collets facing +Z (collet-axis centres measured off the built assembly,
     # local (±98.63, ±17.125, 30.86)) and the two Tee bag branches facing outward along ±Y
@@ -397,12 +410,22 @@ PORTS = [
     # (unrotated: V-F/V-I west, V-E/V-H east; Y-E's branch aft toward Bag A's foam port,
     # Y-H's forward). On-tray plumbing (segments 14/16/24/26 — valve↔Tee port butts) is
     # interior to the assembly and carries no port here.
-    _p("V-F-I", "bag-circuit-assembly", "fluid", (48.37, 95.43, 191.66),  "z+", 6.35, "Y-D-2 (Tray 3 pump-inlet tees, deferred) — segment 13 (pump A to bag A)", "JG elbow collet, 1/4\" tube, facing up"),
-    _p("V-I-I", "bag-circuit-assembly", "fluid", (48.37, 61.18, 191.66),  "z+", 6.35, "Y-G-2 (Tray 3 pump-inlet tees, deferred) — segment 23 (pump B to bag B)", "JG elbow collet, 1/4\" tube, facing up"),
-    _p("V-E-O", "bag-circuit-assembly", "fluid", (245.63, 95.43, 191.66), "z+", 6.35, "Y-C-2 (Tray 3 pump-inlet tees, deferred) — segment 10 (bag A to pump return)", "JG elbow collet, 1/4\" tube, facing up"),
-    _p("V-H-O", "bag-circuit-assembly", "fluid", (245.63, 61.18, 191.66), "z+", 6.35, "Y-F-2 (Tray 3 pump-inlet tees, deferred) — segment 20 (bag B to pump return)", "JG elbow collet, 1/4\" tube, facing up"),
-    _p("Y-E-2", "bag-circuit-assembly", "fluid", (147.0, 115.49, 172.1),  "y+", 6.35, "Bag A port — foam-assembly reservoir-A line, segment 15", "Tee branch collet, 1/4\" tube, aft through the hug-wall notch"),
-    _p("Y-H-2", "bag-circuit-assembly", "fluid", (147.0, 41.11, 172.1),   "y-", 6.35, "Bag B port — foam-assembly reservoir-B line, segment 25", "Tee branch collet, 1/4\" tube, forward through the hug-wall notch"),
+    _p("V-F-I", "bag-circuit-assembly", "fluid", (48.37, 152.68, 191.66),  "z+", 6.35, "Y-D-2 (Tray 3 pump-inlet tees, deferred) — segment 13 (pump A to bag A)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-I-I", "bag-circuit-assembly", "fluid", (48.37, 118.43, 191.66),  "z+", 6.35, "Y-G-2 (Tray 3 pump-inlet tees, deferred) — segment 23 (pump B to bag B)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-E-O", "bag-circuit-assembly", "fluid", (245.63, 152.68, 191.66), "z+", 6.35, "Y-C-2 (Tray 3 pump-inlet tees, deferred) — segment 10 (bag A to pump return)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("V-H-O", "bag-circuit-assembly", "fluid", (245.63, 118.43, 191.66), "z+", 6.35, "Y-F-2 (Tray 3 pump-inlet tees, deferred) — segment 20 (bag B to pump return)", "JG elbow collet, 1/4\" tube, facing up"),
+    _p("Y-E-2", "bag-circuit-assembly", "fluid", (147.0, 172.74, 172.1),   "y+", 6.35, "Bag A port — foam-assembly reservoir-A line, segment 15", "Tee branch collet, 1/4\" tube, aft through the hug-wall notch"),
+    _p("Y-H-2", "bag-circuit-assembly", "fluid", (147.0, 98.36, 172.1),    "y-", 6.35, "Bag B port — foam-assembly reservoir-B line, segment 25", "Tee branch collet, 1/4\" tube, forward through the hug-wall notch"),
+    # Pump row — each Kamoer's two flush outlet ports (kamoer_kphm400 arch_xs on the body's
+    # +Y face at arch_plane_z, elbow-free per pump_assembly.py), carried through the lying
+    # ∓90° Y-turn + the PUMP_ROW anchors: both of a pump's ports land on its aft (+Y) face,
+    # one above the other, facing the tray stack. Inlet low, outlet high (the peristaltic
+    # direction is firmware's; the assignment is the loom's convention). Ø is the 1/4" line
+    # nominal the barbs carry.
+    _p("P-A-I", "pump-a", "fluid", (118.12, 95.82, 191.81), "y+", 6.35, "Y-C-3 (Tray 3 pump-inlet tees, deferred) — segment 11 (channel A suction)", "flush barb seat, low, facing aft"),
+    _p("P-A-O", "pump-a", "fluid", (118.12, 95.82, 248.81), "y+", 6.35, "Y-D-1 (Tray 3 pump-inlet tees, deferred) — segment 12 (channel A discharge)", "flush barb seat, high, facing aft"),
+    _p("P-B-I", "pump-b", "fluid", (164.88, 95.82, 191.81), "y+", 6.35, "Y-F-3 (Tray 3 pump-inlet tees, deferred) — segment 21 (channel B suction)", "flush barb seat, low, facing aft"),
+    _p("P-B-O", "pump-b", "fluid", (164.88, 95.82, 248.81), "y+", 6.35, "Y-G-1 (Tray 3 pump-inlet tees, deferred) — segment 22 (channel B discharge)", "flush barb seat, high, facing aft"),
     # Waveshare display — its data/power connector is NOT in the imported STEP (only the four
     # corner mounts are), so this one harness port is placed provisionally on the interior (+Y)
     # back face at the PCB centre. A viewer pick would pin it exactly.
