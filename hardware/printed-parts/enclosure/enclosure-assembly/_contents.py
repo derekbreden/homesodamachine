@@ -169,13 +169,17 @@ FUNNEL_ROT = 0.0
 # edge.
 SRC_SEL_POS = (147.0, 135.55, 223.8)
 # The bag-circuit assembly's placement: local origin (cell centre, valve
-# mounting plane) in world, unrotated — the manifold's designed stack, one
-# tray pitch (bag_circuit_tray stack_pitch, the wall-top-to-floor module)
-# below the source-select assembly, so the source-select tray's floor lands
-# on this tray's column wall tops (the walls exist to carry it — a declared
-# contact). Unrotated, Y-E's bag branch faces aft toward the cold core's
-# reservoir-A port, Y-H's forward; the four outlet elbows turn up, well
-# under the tray above.
+# mounting plane) in world — the manifold's designed stack, one tray pitch
+# (bag_circuit_tray stack_pitch, the wall-top-to-floor module) below the
+# source-select assembly, so the source-select tray's floor lands on this
+# tray's column wall tops (the walls exist to carry it — a declared
+# contact). Rotated 180° about Z, which lands each pump-inlet Tee's two
+# valve ports on ONE side of the machine: V-E/V-H west under the
+# source-select tray's own west bank (V-C/V-D), V-F/V-I east. The tray's
+# plan is symmetric about this origin, so the rotation moves no face — the
+# stack contact above and the floor stratum below are untouched. Y-H's bag
+# branch faces aft toward the cold core, Y-E's forward; the four outlet
+# elbows turn up, well under the tray above.
 BAG_CIRCUIT_POS = (SRC_SEL_POS[0], SRC_SEL_POS[1], SRC_SEL_POS[2] - 63.0)
 
 # The pump row: both Kamoer KPHM400 assemblies (P-A west, P-B east) lying
@@ -367,8 +371,11 @@ def build():
     # bag branches outward along ±Y through the hug-wall notches): the
     # manifold's designed stack — the source-select tray's floor rests on
     # this tray's column wall tops (a declared contact), and the floor
-    # stratum below stays one stack gap open under its own floor.
-    placed["bag-circuit-assembly"] = _load(BAG_CIRCUIT).translate(BAG_CIRCUIT_POS)
+    # stratum below stays one stack gap open under its own floor. Rotated
+    # 180° about Z like the tray above it, putting each pump-inlet Tee's
+    # pair of valve ports on one side (V-E/V-H west, under the source-select
+    # west bank they tee with).
+    placed["bag-circuit-assembly"] = _rot(_load(BAG_CIRCUIT), (0, 0, 1), 180.0).translate(BAG_CIRCUIT_POS)
 
     # Ahead of the stack, the pump row: both Kamoer assemblies in one lying
     # pose (depth west about Y, then rolled +90° about X so the elbows ride
