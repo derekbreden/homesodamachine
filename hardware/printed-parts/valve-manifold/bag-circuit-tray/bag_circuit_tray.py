@@ -35,7 +35,7 @@ for _p in (
 ):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_step
-from docgen import substitute_md
+from docgen import substitute_md, substitute_py_comments
 import single_tray as cell
 
 port_z = cell.port_center_z
@@ -56,15 +56,19 @@ tee_branch_reach = 20.066  # Tee branch: run-center to branch-port tip
 valve_x = tee_run_half + port_half  # valve-center X; the inner port tip lands on the Tee run port
 elbow_reach = 19.56  # elbow leg: collet face to the bend corner (axis intersection)
 
-# This tray's valves + Tees.
+# This tray's valves + Tees. The enclosure hangs this tray INVERTED (180°
+# about Y — see _contents), which negates local X and Z and keeps local Y; the
+# name↔row assignment is chosen so each valve lands on the world station its
+# fluid-topology channel pairs with — channel A (V-E/V-F, Tee Y-E) forward
+# under the source tray's V-C, channel B (V-H/V-I, Y-H) aft.
 valves = {
-    "VF": (-valve_x, +row_half),
-    "VI": (-valve_x, -row_half),
-    "VE": (+valve_x, +row_half),
-    "VH": (+valve_x, -row_half),
+    "VI": (-valve_x, +row_half),
+    "VF": (-valve_x, -row_half),
+    "VH": (+valve_x, +row_half),
+    "VE": (+valve_x, -row_half),
 }
 # Tee centers; run along X joins the row's two valves, branch +Z to the bag.
-tees = {"YE": (0.0, +row_half), "YH": (0.0, -row_half)}
+tees = {"YH": (0.0, +row_half), "YE": (0.0, -row_half)}
 
 
 def place_valve(cx, cy, rot):
@@ -152,17 +156,57 @@ def place_elbow(cx, cy, ux, uy, roll=0.0):
     return e
 
 
+def elbow_collet(cx, cy, ux, uy, roll=0.0):
+    """Where `place_elbow` leaves the free collet, in tray coordinates:
+    (position, outward unit axis). This is the tray's boundary anchor — a line
+    leaves along the axis and the enclosure carries both through its placement
+    to get the world port. Same arguments as `place_elbow`, so the two cannot
+    describe different elbows."""
+    r = math.radians(roll)
+    d = (uy * math.sin(r), -ux * math.sin(r), math.cos(r))
+    corner = (
+        cx + (port_half + elbow_reach) * ux,
+        cy + (port_half + elbow_reach) * uy,
+        port_z,
+    )
+    return tuple(corner[i] + elbow_reach * d[i] for i in range(3)), d
+
+
 def build_assembly():
     # Outlets point +X: V-F/V-I out to the center Tees, V-E/V-H out to the pumps.
     parts = {nm: place_valve(*p, -90.0) for nm, p in valves.items()}
     # Each Tee's branch points outward along Y (turned 90° about X) to its bag.
     parts.update({nm: place_tee_branch_out(*p) for nm, p in tees.items()})
-    # An elbow turns each valve's outer (unoccupied) port +Z up out of the tray.
+    # An elbow turns each valve's outer (unoccupied) port off the tray, clocked
+    # by `rolls`.
     parts.update({
-        f"E{nm}": place_elbow(cx, cy, -1.0 if cx < 0 else 1.0, 0.0)
+        f"E{nm}": place_elbow(cx, cy, *_outer_port(cx), roll=rolls[nm])
         for nm, (cx, cy) in valves.items()
     })
     return parts
+
+
+def _outer_port(cx):
+    """The outward unit vector of a valve's outer port — this tray's valves run
+    ports-along-X, so it is simply which end of the row the valve sits on."""
+    return (-1.0 if cx < 0 else 1.0), 0.0
+
+
+def boundary_collets():
+    """Every outer elbow's free collet in tray coordinates: {name: (position,
+    outward axis)}. The tray's boundary — what the enclosure routes lines to."""
+    return {nm: elbow_collet(cx, cy, *_outer_port(cx), roll=rolls[nm])
+            for nm, (cx, cy) in valves.items()}
+
+
+def bag_branches():
+    """Each Tee's bag-branch collet tip in tray coordinates, same shape as
+    `boundary_collets`. The branch turns outward along Y through the hug wall."""
+    out = {}
+    for nm, (cx, cy) in tees.items():
+        sign = 1.0 if cy >= 0 else -1.0
+        out[nm] = ((cx, cy + sign * tee_branch_reach, port_z), (0.0, sign, 0.0))
+    return out
 
 
 # --- Tray frame + stacking walls ------------------------------------------
@@ -171,6 +215,86 @@ wall_thickness = 3.0
 wall_clear = 1.0
 wall_top_z = 60.0
 stack_pitch = wall_top_z - bot_z
+
+
+# --- The junction column's aim --------------------------------------------
+# In the enclosure the two manifold trays stack wall-top to wall-top with
+# their west outlet elbows facing each other across the gap, and a union tee
+# hangs between them (fluid-topology Y-C / Y-F). Their west port rows lie
+# [19.6](JUNCTION_OFFSET) mm apart in Y: this tray's elbow corner sits on its
+# valve's own row, the source tray's swings wider, its valves being aimed at
+# their divider outlets.
+#
+# Each elbow rolls off its port axis to take up that offset — the source pair
+# INWARD, this tray's pair OUTWARD — until the two collets aim down one line,
+# with the tee hung on it and a straight stub at each end. `junction_roll` is
+# the roll leaving the least angle between a collet's own axis and that line.
+# `junction_skew` is the angle left at each end: the source tray's elbow leaves
+# the YZ plane as it rolls and this tray's stays in it, so the two axes reach
+# the line out of different planes. `junction_dx` is the X gap between the
+# collets that splits the skew evenly, supplied by the bag tray's slide.
+src_elbow_row = 36.725     # the source tray's west elbow corner |Y| and the
+src_port_tilt = 18.30      # plan tilt of the port it rides — both asserted
+                           # against the real layout in source_select_tray
+bag_elbow_row = row_half   # this tray's ports run along X: corner on the row
+junction_offset = src_elbow_row - bag_elbow_row    # the rows' Y disagreement
+junction_rise = 2 * wall_top_z - 2 * port_z        # corner to corner, stacked
+
+
+def _junction_aim():
+    """Solve the elbow roll that best aims the two facing collets at each
+    other. A collet rides the end of its elbow leg, so a roll moves it and
+    turns it together; the cost is the worse of the two angles between a
+    collet's axis and the line joining the pair, minimised over the roll and
+    over the X gap the bag tray's slide is free to set. Returns (roll°,
+    skew°, dx) — the source rolls +roll and this tray −roll on the same row
+    (mirrored on the other), which is what makes one turn in and one out."""
+    tilt = math.radians(src_port_tilt)
+    sux, suy = math.cos(tilt), math.sin(tilt)
+
+    def worst(t, dx):
+        s, c = math.sin(t), math.cos(t)
+        ns = (-suy * s, sux * s, c)                     # source collet, rolled in
+        nb = (0.0, -s, -c)                              # bag collet, rolled out
+        ps = [elbow_reach * v for v in ns]
+        pb = [o + elbow_reach * v for o, v in
+              zip((dx, junction_offset, junction_rise), nb)]
+        j = [pb[i] - ps[i] for i in range(3)]
+        m = math.sqrt(sum(v * v for v in j))
+        j = [v / m for v in j]
+
+        def angle(n):
+            d = max(-1.0, min(1.0, sum(n[i] * j[i] for i in range(3))))
+            return math.degrees(math.acos(d))
+
+        return max(angle(ns), angle([-v for v in nb]))
+
+    def minimise(f, lo, hi):
+        for _ in range(80):
+            m1, m2 = lo + (hi - lo) / 3.0, hi - (hi - lo) / 3.0
+            lo, hi = (lo, m2) if f(m1) < f(m2) else (m1, hi)
+        return (lo + hi) / 2.0
+
+    def dx_for(t):
+        return minimise(lambda d: worst(t, d), -15.0, 15.0)
+
+    t = minimise(lambda tt: worst(tt, dx_for(tt)), 0.0, math.radians(45.0))
+    return math.degrees(t), worst(t, dx_for(t)), dx_for(t)
+
+
+junction_roll, junction_skew, junction_dx = _junction_aim()
+
+# Per-valve elbow rolls, authored for this tray's INVERTED pose in the
+# enclosure (hung 180° about Y), which turns a local up-turn straight DOWN in
+# world:
+#   * V-E/V-H, the west bank, keep the local up-turn and add the junction aim
+#     — rolled OUTWARD (away from the tray centreline, mirrored per row) so
+#     each collet faces down the line to the source tray's, which rolls the
+#     same amount inward to meet it.
+#   * V-F/V-I, the east bank, roll 180 so their collets face UP in world: the
+#     pump-discharge tees (Y-D / Y-G) feed them from above.
+rolls = {"VE": +junction_roll, "VH": -junction_roll, "VF": 180.0, "VI": 180.0}
+
 valve_y_extent = row_half + cell.valve.body_radius  # outer body edge of the butted pair
 plate_half_y = valve_y_extent + wall_clear + wall_thickness
 
@@ -299,6 +423,12 @@ def build_bag_circuit_tray():
 def main():
     export_step(build_bag_circuit_tray(), str(_here.parent / "bag-circuit-tray.step"))
     print("-> bag-circuit-tray.step")
+    substitute_py_comments(
+        _here,
+        variables={"JUNCTION_OFFSET": f"{junction_offset:.4g}"},
+        expected_counts={"JUNCTION_OFFSET": 1},
+    )
+    print(f"-> {_here.name} (self)")
     substitute_md(
         _here.parent / "README.md",
         variables={

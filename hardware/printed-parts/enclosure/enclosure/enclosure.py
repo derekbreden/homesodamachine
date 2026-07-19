@@ -148,26 +148,32 @@ lip_len = plug_dia / 2.0 + socket_r              # = (plug+bore)/2 + wall = 13.1
 #     bulkhead field begins just above the lip rim (_contents
 #     UMBILICAL_Z_FLOOR is derived from it) — the seam sits in the one band
 #     between foam and ports.
-#   * Front: above the floor stratum (the compressor and the tipped
-#     condenser) and below the junction column — the tray stack's west
-#     outlet elbows and the hanging pump-inlet tees stand against the
-#     west wall from z ~175 up, so the seam's wall-hugging lip + boss
-#     pods stop beneath them; the band the seam machinery occupies
-#     (x within ~14 of a wall, one pod height under the plane) is
-#     content-free at both walls.
+#   * Front: in the band between the floor stratum and the manifold stack.
+#     The compressor and the tipped condenser are each inset one corner-rib
+#     chain off their side wall, so the floor's whole height stands clear at
+#     both walls; above them the stack runs wall to wall — the source tray's
+#     full-width east bank, both trays' west outlet elbows, and the pump-inlet
+#     tees hanging between them — from its floor at z ~165 up. The seam's
+#     wall-hugging lip + boss pods occupy the gap beneath that floor.
 # Every printed piece's bed face fits the H2C envelope with these cuts.
 z_joint_front = 172.0
 z_joint_back = 266.0
 # The Z lip stops this short of the Y-seam overlap on each side, so the two
 # telescopes never share a wall surface.
 z_lip_y_margin = 2.0
-# The manifold's aft-station elbow columns stand against both side walls at
-# y 172.28 (their tilted legs' forward flanks dip to y ~162.4 at the boss
-# chains' x, spanning the seam machinery's height): every wall-hugging
-# aft-reaching feature — the Y-seam plugs and pods (via _dims' y_elbows cap
-# on y_joint), the back corner braces, and the back Z-lip's +X segment —
-# stops one margin ahead of them.
-manifold_aft_wall_clear = 161.4
+# The manifold's aft-station elbow columns stand against both side walls —
+# the source tray's V-D/V-A pair low and the inverted bag tray's V-H/V-I pair
+# high, the bag tray's west elbow body reaching forward to y 147.1 at the boss
+# chains' x, spanning the back seam machinery's height. Every wall-hugging
+# aft-reaching feature — the Y-seam plugs and pods (via _dims' y_elbows cap on
+# y_joint), the back corner braces, and the back Z-lip's +X segment — stops one
+# margin ahead of them.
+manifold_aft_wall_clear = 146.0
+# The source-select tray floors the stack and spans the interior wall to wall,
+# so its east bank stands against the +X wall inside the front Z-seam's lip
+# band. The lip gaps over the forward station's span, where the valve body and
+# its elbow cross; the aft station sits clear of the band on its own.
+manifold_fwd_wall_gap = (93.0, 105.0)
 
 
 # --- primitives -------------------------------------------------------------
@@ -248,9 +254,9 @@ def _dims():
     y_free = cold_front_y - 2.0 - (lip_len + wall + socket_bore_dia / 2.0 + socket_r)
     # The Y-seam machinery (mouth, plugs, braces — reaching lip_len + wall +
     # bore radius + socket_r past y_joint at the ±X walls) must also duck
-    # ahead of the manifold's aft elbow columns: the inverted source tray's
-    # aft-station elbows stand against both side walls at y 172.28, their
-    # bodies from y ~164.9, spanning the braces' whole height band.
+    # ahead of the manifold's aft elbow columns: the source tray's aft-station
+    # elbows stand against both side walls low in the stack and the inverted
+    # bag tray's stand high, spanning the braces' whole height band.
     y_elbows = manifold_aft_wall_clear - (lip_len + wall + socket_bore_dia / 2.0 + socket_r)
     y_joint = max(facet_back_y + 2.0, min((iy0 + iy1) / 2.0, y_free, y_elbows))
     # The rear-panel port field is content too: every clamping nut/flange seats
@@ -676,8 +682,8 @@ def _z_lip(inner, y_joint, zj):
     crossing the Y-seam overlap is dropped, so each piece carries a 3-sided
     lip and the two telescopes never stack on one wall surface. The BACK
     column's lip also drops its +X segment across the manifold's aft elbow
-    column: the inverted source tray's east aft elbow stands 0.75 off that
-    wall through the lip band's height, so the pieces simply butt there."""
+    column, and the FRONT column's gaps over the source tray's forward east
+    station, where its valve body crosses the lip band."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     z0, z1 = zj - wall, zj + lip_len
     ring = _ybox(ix0, ix1, iy0, iy1, z0, z1).cut(
@@ -690,6 +696,9 @@ def _z_lip(inner, y_joint, zj):
         ring = ring.cut(_ybox(ix1 - wall - 1.0, ix1 + 1.0,
                               manifold_aft_wall_clear, manifold_aft_wall_clear + 19.2,
                               z0 - 1.0, z1 + 1.0))
+    else:
+        ring = ring.cut(_ybox(ix1 - wall - 1.0, ix1 + 1.0,
+                              *manifold_fwd_wall_gap, z0 - 1.0, z1 + 1.0))
     return ring
 
 
