@@ -434,7 +434,7 @@ PORTS = [
     # Waveshare display — its data/power connector is NOT in the imported STEP (only the four
     # corner mounts are), so this one harness port is placed provisionally on the interior (+Y)
     # back face at the PCB centre. A viewer pick would pin it exactly.
-    _p("harness", "display", "electrical", (56.75, 62.8, 300.2), "y+", 8.0, "5 V power + display data (PCBA / power bus)", "connector not modeled in STEP; PROVISIONAL on the interior back face — refine with a pick"),
+    _p("harness", "display", "electrical", (56.75, 43.8, 300.2), "y+", 8.0, "5 V power + display data (PCBA / power bus)", "connector not modeled in STEP; PROVISIONAL on the interior back face — refine with a pick"),
     # Controller PCBA — every field loom lands on a labelled JST XH edge connector (J1–J14, no
     # J12; ac-wiring-schedule.md §Board connector map). Positions are EXACT: each connector's
     # pcba.tsx board coordinate mapped world = (x+258.8, y+228.8) — the transform solved from the
