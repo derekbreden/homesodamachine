@@ -125,12 +125,12 @@ COMPONENTS = [
     # In-line fittings — tube-hung PTC junctions, carried by their lines (no tray, no holder)
     _c("tee-y-c", "real", True, "none", "JG PP0208E union tee (fluid topology Y-C) hanging in the junction column: run vertical — V-C-O's drop into the run-up collet, the bag V-E-O return onto the run-down — branch east to pump A (segment 11)"),
     _c("tee-y-f", "real", True, "none", "JG PP0208E union tee (Y-F), the channel-B twin one port row aft: V-D-O above, V-H-O return below, branch east to pump B (segment 21)"),
-    _c("y-d", "real", True, "none", "JG PP2308E two-way divider (reference/y-divider) — the Y connector for pump-discharge junction A (flavor A → pump A), seated in the open air over the pump row: its two +Y outlets take the bag-V-F elbow (Y-D-2, segment 13) and the nozzle-V-G elbow (Y-D-3, segment 17), stem −Y to pump A (Y-D-1, segment 12, unauthored)"),
-    _c("y-g", "real", True, "none", "JG PP2308E two-way divider (reference/y-divider) — the Y connector for pump-discharge junction B (flavor B → pump B), over the pump row one slot east: its two +Y outlets take the bag-V-I elbow (Y-G-2, segment 23) and the nozzle-V-J elbow (Y-G-3, segment 27), stem −Y to pump B (Y-G-1, segment 22, unauthored)"),
-    _c("elbow-bag-y-d", "real", True, "none", "JG PP0308E 90° elbow turning bag V-F-I (east) −Y, flat, into the Y-D divider's upper outlet (segment 13)"),
-    _c("elbow-bag-y-g", "real", True, "none", "JG PP0308E 90° elbow turning bag V-I-I (east) −Y, free port dropped 25° into −Z, into the Y-G divider's upper outlet (segment 23)"),
-    _c("elbow-y-d", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-J-I (flipped, west) −Y, flat, into the Y-G divider's lower outlet (segment 27)"),
-    _c("elbow-y-g", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-G-I (flipped, west) −Y, free port dropped 25° into −Z, into the Y-D divider's lower outlet (segment 17)"),
+    _c("y-d", "real", True, "none", "JG PP2308E two-way divider (reference/y-divider) — the Y connector for pump-discharge junction A (flavor A → pump A), seated in the open air over the pump row, tilted to face its elbows: its two outlets take the bag-V-F elbow (Y-D-2, segment 13) and the nozzle-V-G elbow (Y-D-3, segment 17), stem toward pump A (Y-D-1, segment 12, unauthored)"),
+    _c("y-g", "real", True, "none", "JG PP2308E two-way divider (reference/y-divider) — the Y connector for pump-discharge junction B (flavor B → pump B), over the pump row one slot east, tilted to face its elbows: its two outlets take the bag-V-I elbow (Y-G-2, segment 23) and the nozzle-V-J elbow (Y-G-3, segment 27), stem toward pump B (Y-G-1, segment 22, unauthored)"),
+    _c("elbow-bag-y-d", "real", True, "none", "JG PP0308E 90° elbow turning bag V-F-I (east) off the stack, rolled to aim its free leg at the Y-D divider's upper outlet (segment 13)"),
+    _c("elbow-bag-y-g", "real", True, "none", "JG PP0308E 90° elbow turning bag V-I-I (east) off the stack, rolled to aim its free leg at the Y-G divider's upper outlet (segment 23)"),
+    _c("elbow-y-d", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-J-I (flipped, west) off the stack, rolled to aim its free leg at the Y-G divider's lower outlet (segment 27)"),
+    _c("elbow-y-g", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-G-I (flipped, west) off the stack, rolled to aim its free leg at the Y-D divider's lower outlet (segment 17)"),
     # Electronics shelf
     _c("power-tray",        "real",        True,  "none", "printed tray holds its boards; tray-to-shell joinery deferred (power-tray README)"),
     _c("pcba",              "real",        True,  "none", "printed tray holds the board; tray-to-shell joinery deferred (pcba-tray README)"),
@@ -448,7 +448,7 @@ PORTS = [
     # Y-E's forward. On-tray plumbing (segments 14/16/24/26 — valve↔Tee port butts) is
     # interior to the assembly and carries no port here.
     _p("V-F-I", "bag-circuit-assembly", "fluid", *contents.bag_collet("VF"), 6.35, "Y-D-2 via elbow-bag-y-d — segment 13 (routed)", "bare valve port collet, 1/4\" tube, facing east onto its discharge elbow"),
-    _p("V-I-I", "bag-circuit-assembly", "fluid", *contents.bag_collet("VI"), 6.35, "Y-G-2 via elbow-bag-y-g — segment 23 (to route)", "bare valve port collet, 1/4\" tube, facing east onto its discharge elbow"),
+    _p("V-I-I", "bag-circuit-assembly", "fluid", *contents.bag_collet("VI"), 6.35, "Y-G-2 via elbow-bag-y-g — segment 23 (routed)", "bare valve port collet, 1/4\" tube, facing east onto its discharge elbow"),
     _p("V-E-O", "bag-circuit-assembly", "fluid", *contents.bag_collet("VE"), 6.35, "tee-y-c Y-C-2 — segment 10 (bag A to pump return, routed)", "JG elbow collet, 1/4\" tube, rolled outward down the junction column"),
     _p("V-H-O", "bag-circuit-assembly", "fluid", *contents.bag_collet("VH"), 6.35, "tee-y-f Y-F-2 — segment 20 (bag B to pump return, routed)", "JG elbow collet, 1/4\" tube, rolled outward down the junction column"),
     _p("Y-E-2", "bag-circuit-assembly", "fluid", *contents.bag_collet("YE"), 6.35, "Bag A port — foam-assembly reservoir-A line, segment 15", "Tee branch collet, 1/4\" tube, forward through the hug-wall notch"),
@@ -486,21 +486,22 @@ PORTS = [
     _p("Y-F-2", "tee-y-f", "fluid", *contents.tee_port("tee-y-f", 2), 6.35, "bag-circuit V-H-O — segment 20 (routed)", "PP0208E run collet, up the column at the bag tray"),
     _p("Y-F-3", "tee-y-f", "fluid", *contents.tee_port("tee-y-f", 3), 6.35, "pump-b P-B-I — segment 21 (to route)", "PP0208E branch collet, facing east at the pump row"),
     # Pump-discharge dividers Y-D/Y-G — free-hanging PP2308E two-way dividers over the pump row,
-    # ports off _contents' divider placement. Each divider's two +Y outlets (-2 upper, -3 lower)
-    # take a flavor's bag and nozzle elbows; the stem (-1) faces −Y toward the pump discharge it
-    # will later feed. The netlist is diagonal — a flavor's two valves sit on opposite tray rows.
-    _p("Y-D-1", "y-d", "fluid", *contents.divider_port("y-d", 1), 6.35, "pump-a P-A-O — segment 12 (channel A discharge, unauthored)", "PP2308E stem collet, facing −Y toward the pump"),
-    _p("Y-D-2", "y-d", "fluid", *contents.divider_port("y-d", 2), 6.35, "elbow-bag-y-d free — segment 13 (routed)", "PP2308E upper outlet, facing +Y at the bag-A elbow"),
-    _p("Y-D-3", "y-d", "fluid", *contents.divider_port("y-d", 3), 6.35, "elbow-y-g free — segment 17 (routed)", "PP2308E lower outlet, facing +Y at the nozzle-A elbow"),
-    _p("Y-G-1", "y-g", "fluid", *contents.divider_port("y-g", 1), 6.35, "pump-b P-B-O — segment 22 (channel B discharge, unauthored)", "PP2308E stem collet, facing −Y toward the pump"),
-    _p("Y-G-2", "y-g", "fluid", *contents.divider_port("y-g", 2), 6.35, "elbow-bag-y-g free — segment 23 (to route)", "PP2308E upper outlet, facing +Y at the bag-B elbow"),
-    _p("Y-G-3", "y-g", "fluid", *contents.divider_port("y-g", 3), 6.35, "elbow-y-d free — segment 27 (routed)", "PP2308E lower outlet, facing +Y at the nozzle-B elbow"),
-    # The four discharge turn-elbows' free collets — where each LLDPE run to a divider leaves.
-    # D-row legs point flat −Y; the G-row legs drop 25° into −Z so the two flavors' runs nest.
-    _p("free", "elbow-bag-y-d", "fluid", *contents.elbow_free_pose("elbow-bag-y-d"), 6.35, "y-d Y-D-2 — segment 13 (routed)", "PP0308E free collet, facing −Y over the pump row"),
-    _p("free", "elbow-y-g", "fluid", *contents.elbow_free_pose("elbow-y-g"), 6.35, "y-d Y-D-3 — segment 17 (routed)", "PP0308E free collet, dropped 25° into −Z"),
-    _p("free", "elbow-bag-y-g", "fluid", *contents.elbow_free_pose("elbow-bag-y-g"), 6.35, "y-g Y-G-2 — segment 23 (to route)", "PP0308E free collet, dropped 25° into −Z"),
-    _p("free", "elbow-y-d", "fluid", *contents.elbow_free_pose("elbow-y-d"), 6.35, "y-g Y-G-3 — segment 27 (routed)", "PP0308E free collet, facing −Y over the pump row"),
+    # ports off _contents' divider placement. Each divider is tilted (_solve_discharge) so its two
+    # parallel outlets (-2 upper, -3 lower) face back at a flavor's bag and nozzle elbows; the stem
+    # (-1) faces the pump discharge it will later feed. The netlist is diagonal — a flavor's two
+    # valves sit on opposite tray rows.
+    _p("Y-D-1", "y-d", "fluid", *contents.divider_port("y-d", 1), 6.35, "pump-a P-A-O — segment 12 (channel A discharge, unauthored)", "PP2308E stem collet, facing the pump"),
+    _p("Y-D-2", "y-d", "fluid", *contents.divider_port("y-d", 2), 6.35, "elbow-bag-y-d free — segment 13 (routed)", "PP2308E upper outlet, aimed at the bag-A elbow"),
+    _p("Y-D-3", "y-d", "fluid", *contents.divider_port("y-d", 3), 6.35, "elbow-y-g free — segment 17 (routed)", "PP2308E lower outlet, aimed at the nozzle-A elbow"),
+    _p("Y-G-1", "y-g", "fluid", *contents.divider_port("y-g", 1), 6.35, "pump-b P-B-O — segment 22 (channel B discharge, unauthored)", "PP2308E stem collet, facing the pump"),
+    _p("Y-G-2", "y-g", "fluid", *contents.divider_port("y-g", 2), 6.35, "elbow-bag-y-g free — segment 23 (routed)", "PP2308E upper outlet, aimed at the bag-B elbow"),
+    _p("Y-G-3", "y-g", "fluid", *contents.divider_port("y-g", 3), 6.35, "elbow-y-d free — segment 27 (routed)", "PP2308E lower outlet, aimed at the nozzle-B elbow"),
+    # The four discharge turn-elbows' free collets — where each LLDPE run to a divider leaves. Each
+    # elbow is rolled about its valve-port axis so its free leg aims at the divider outlet it feeds.
+    _p("free", "elbow-bag-y-d", "fluid", *contents.elbow_free_pose("elbow-bag-y-d"), 6.35, "y-d Y-D-2 — segment 13 (routed)", "PP0308E free collet, aimed at the Y-D upper outlet"),
+    _p("free", "elbow-y-g", "fluid", *contents.elbow_free_pose("elbow-y-g"), 6.35, "y-d Y-D-3 — segment 17 (routed)", "PP0308E free collet, aimed at the Y-D lower outlet"),
+    _p("free", "elbow-bag-y-g", "fluid", *contents.elbow_free_pose("elbow-bag-y-g"), 6.35, "y-g Y-G-2 — segment 23 (routed)", "PP0308E free collet, aimed at the Y-G upper outlet"),
+    _p("free", "elbow-y-d", "fluid", *contents.elbow_free_pose("elbow-y-d"), 6.35, "y-g Y-G-3 — segment 27 (routed)", "PP0308E free collet, aimed at the Y-G lower outlet"),
     # Waveshare display — its data/power connector is NOT in the imported STEP (only the four
     # corner mounts are), so this one harness port is placed provisionally on the interior (+Y)
     # back face at the PCB centre. A viewer pick would pin it exactly.
