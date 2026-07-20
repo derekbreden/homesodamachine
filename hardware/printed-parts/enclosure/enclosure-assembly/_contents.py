@@ -3,7 +3,8 @@
 Detailed STEP imports where they exist (cold-core foam assembly — shell +
 top/bottom foam-cap stacks — the compressor shroud, the source-select
 assembly, the bag-circuit assembly, the nozzle-gate assembly, both Kamoer
-pump assemblies, both pump-inlet union tees, the PCBA assembly, the power
+pump assemblies, both pump-inlet union tees, both pump-discharge dividers
+(Y-D/Y-G) and their four turn elbows, the PCBA assembly, the power
 assembly, the DC distribution block, the DERPIPE CO2 inlet, the MQ-6 gas
 sensor, the panel bulkheads + C14). One placeholder primitive remains
 (condenser+fan). Not everything is packed — deferred, tracked by the fluid
@@ -11,8 +12,7 @@ topology (/hardware/topology/fluid-topology.md) and the scorecard's
 connection table, never silently dropped, while the front column settles
 around the tray stack and the pump row: the water deck (SeaFlo diaphragm
 pump, Multiplex BFP, drip pan + moisture plate, the SeaFlo outlet check),
-the DIGITEN flow sensor, the CO2 chain's GASHER check + WR1110 regulator,
-and the pump-discharge tees (Y-D/Y-G).
+the DIGITEN flow sensor, and the CO2 chain's GASHER check + WR1110 regulator.
 
 Components only: no tubes, no wires, no mount features. enclosure_assembly.py
 verifies the pack pairwise non-intersecting at every export.
@@ -145,8 +145,12 @@ NOZZLE_GATE   = _hw / "printed-parts" / "valve-manifold" / "nozzle-gate-tray" / 
 PUMP_ASSEMBLY = _hw / "reference" / "kamoer-kphm400" / "pump-assembly.step"
 # JG PP0208E union tee — the pump-inlet junctions Y-C / Y-F, tube-hung.
 TEE_CONNECTOR = _hw / "reference" / "tee-connector" / "tee-connector.step"
-# JG PP0308E 90° elbow — turns the nozzle-gate west ports toward the bag tees.
+# JG PP0308E 90° elbow — turns the bag east / nozzle-gate west ports −Y toward the dividers.
 ELBOW_CONNECTOR = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
+# JG PP2308E two-way divider (reference/y-divider — McMaster 51055K417 stand-in) — the actual
+# Y connector for the pump-discharge junctions Y-D / Y-G. A trident: one stem and two parallel
+# outlets 14.7 mm apart, all three ports on the one axis.
+DIVIDER_CONNECTOR = _hw / "reference" / "y-divider" / "y-divider.step"
 # AC/PSU tray — wide-shallow layout (PSU turned 90°).
 POWER_ASSEMBLY = _hw / "printed-parts" / "electronics" / "power-tray" / "power-assembly.step"
 PCBA_ASSEMBLY  = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-assembly.step"
@@ -452,8 +456,8 @@ COLORS = {
     "pump-b":            cq.Color(0.72, 0.28, 0.30),
     "tee-y-c":           cq.Color(0.92, 0.92, 0.92),
     "tee-y-f":           cq.Color(0.92, 0.92, 0.92),
-    "tee-y-d":           cq.Color(0.92, 0.92, 0.92),
-    "tee-y-g":           cq.Color(0.92, 0.92, 0.92),
+    "y-d":               cq.Color(0.30, 0.55, 0.85),
+    "y-g":               cq.Color(0.30, 0.55, 0.85),
     "elbow-y-d":         cq.Color(0.85, 0.85, 0.88),
     "elbow-y-g":         cq.Color(0.85, 0.85, 0.88),
     "elbow-bag-y-d":     cq.Color(0.85, 0.85, 0.88),
@@ -528,6 +532,66 @@ def _elbow_free_port(collet, free_dir, stub=2.0):
     port_pos, port_dir = collet
     corner = tuple(port_pos[i] + (stub + _bag.elbow_reach) * port_dir[i] for i in range(3))
     return tuple(corner[i] + _bag.elbow_reach * free_dir[i] for i in range(3))
+
+
+# ── Pump-discharge junctions Y-D / Y-G ───────────────────────────────────────────────────────
+# Each pump merges a flavor's two sources — its bag valve and its nozzle-gate valve — through a
+# JG PP2308E two-way divider (the `y-divider`), then feeds its pump. The netlist is DIAGONAL
+# because the two trays seat a flavor's valves on opposite rows: Y-D (flavor A → pump A) joins
+# bag V-F and nozzle V-G; Y-G (flavor B → pump B) joins bag V-I and nozzle V-J. A 90° elbow turns
+# each valve's port −Y off the stack; the G-row pair drops its free ports below the D-row (angled
+# into −Z) so the two flavors' runs nest rather than cross. The dividers sit in the open space
+# over the pump row — outlets facing +Y back at the elbows, stems −Y toward the pump discharge
+# they'll later take (segments 12/22, unauthored) — and the flexible LLDPE drops from the
+# −Y-facing elbows into them. Poses clear the pumps and each other.
+_SOUTH  = (0.0, -1.0, 0.0)                                        # D-row elbow free legs: flat −Y
+_G_DROP = _unit((0.0, -math.cos(math.radians(25.0)), -math.sin(math.radians(25.0))))  # G-row: −Y dropped 25° into −Z
+DISCHARGE_ELBOW = {                            # elbow → (tray, valve-port key, free-leg direction)
+    "elbow-bag-y-d": ("bag", "VF",   _SOUTH),
+    "elbow-y-d":     ("noz", "VJ-I", _SOUTH),
+    "elbow-bag-y-g": ("bag", "VI",   _G_DROP),
+    "elbow-y-g":     ("noz", "VG-I", _G_DROP),
+}
+
+
+def _discharge_collet(name):
+    kind, key, _free = DISCHARGE_ELBOW[name]
+    return bag_collet(key) if kind == "bag" else noz_collet(key)
+
+
+def elbow_free_pose(name):
+    """A discharge elbow's free (empty) port in world: (position, outward axis) — where its tube
+    to the divider leaves."""
+    _kind, _key, free = DISCHARGE_ELBOW[name]
+    return _elbow_free_port(_discharge_collet(name), free), free
+
+
+DIV_HALF     = 19.25                          # divider stem/outlet reach from centre (off the STEP)
+DIV_OUTLET_Y = 7.35                           # each outlet's offset from the divider axis
+_DIV_OUT = (0.0, 1.0, 0.0)                    # outlets face +Y, back toward the elbows
+_DIV_SEP = (0.0, 0.0, 1.0)                    # the two outlets stack in Z: upper (-2) high, lower (-3) low
+DISCHARGE_DIV = {                             # divider → centre, seated in the open air over the pumps
+    "y-d": (193.0, 68.0, 258.0),              # dropped to clear the hopper funnel canopy overhead (z 284.2); its runs take the z-bend
+    "y-g": (210.0, 70.0, 260.88),             # clears the funnel; z set near the dropped bag-B elbow (z 268.2)
+}
+
+
+def _place_divider(shape, centre):
+    """A two-way divider centred at `centre`: outlets facing `_DIV_OUT`, stem facing −`_DIV_OUT`,
+    the outlets split ±DIV_OUTLET_Y along `_DIV_SEP`. Native long axis +Z (stem) / −Z (outlets),
+    outlets offset ±Y — `_aim` maps +Z onto −out and +Y onto sep."""
+    return _aim(shape, tuple(-c for c in _DIV_OUT), _DIV_SEP).translate(centre)
+
+
+def divider_port(name, port):
+    """A discharge divider's port in world: (position, outward axis). `port` is 1 (stem, −Y at
+    the pump), 2 (upper outlet, +Z side — the bag leg) or 3 (lower outlet — the gate leg)."""
+    c = DISCHARGE_DIV[name]
+    if port == 1:
+        return tuple(c[i] - DIV_HALF * _DIV_OUT[i] for i in range(3)), tuple(-x for x in _DIV_OUT)
+    s = DIV_OUTLET_Y if port == 2 else -DIV_OUTLET_Y
+    pos = tuple(c[i] + DIV_HALF * _DIV_OUT[i] + s * _DIV_SEP[i] for i in range(3))
+    return pos, _DIV_OUT
 
 
 def _at(shape, xmin, ymin, zmin):
@@ -623,28 +687,20 @@ def build():
         centre, run, branch, _stub = junction(name)
         placed[name] = _aim(tee, run, branch).translate(centre)
 
-    # Pump-discharge fittings — a STARTING POINT for the discharge junctions Y-D/Y-G.
-    # Each junction now reads the way the lines want to leave the stack: the bag east port
-    # (V-F/V-I) turns onto a 90° elbow and the flipped nozzle-gate west port (V-J-I/V-G-I)
-    # turns onto its own 90° elbow, BOTH empty ports facing −Y — the direction the discharge
-    # runs head to the pump row. A PP0208E union tee is the actual Y connector: its run lies
-    # along Y, its +Y port meeting the bag elbow and its −Y port carrying straight on toward
-    # the pump (segment 12/22), and its branch drops toward the gate elbow (segment 17/27).
-    # The two Y connectors stagger in X toward the pump each feeds — Y-D west at pump A, Y-G
-    # east at pump B — so they clear. Poses are the initial de-confliction: a base to iterate
-    # the routing from, not a solved path.
+    # Pump-discharge junctions Y-D/Y-G (topology + poses in the DISCHARGE_ELBOW/DISCHARGE_DIV
+    # block above). A 90° elbow turns each source valve's port −Y off the stack: the two D-row
+    # elbows lie flat (−Y), the two G-row elbows drop their free ports below into −Z so the
+    # flavors' runs nest. Each flavor's two elbows feed a PP2308E two-way divider — the real Y
+    # connector — seated in the open air over the pump row, outlets facing +Y back at the elbows,
+    # stem −Y toward the pump discharge it will later take. The LLDPE runs drop from the elbows
+    # into the outlets.
     elbow = _load(ELBOW_CONNECTOR)
-    south = (0.0, -1.0, 0.0)
-    for name, bag_port in (("elbow-bag-y-d", "VF"), ("elbow-bag-y-g", "VI")):
-        bp, bd = bag_collet(bag_port)
-        placed[name] = _place_elbow(elbow, bp, bd, south)
-    for name, gate_port in (("elbow-y-d", "VJ-I"), ("elbow-y-g", "VG-I")):
-        gp, gd = noz_collet(gate_port)
-        placed[name] = _place_elbow(elbow, gp, gd, south)
-    for name, bag_port, dx in (("tee-y-d", "VF", -14.0), ("tee-y-g", "VI", 16.0)):
-        bag_free = _elbow_free_port(bag_collet(bag_port), south)
-        centre = (bag_free[0] + dx, bag_free[1] - _bag.tee_run_half, bag_free[2])
-        placed[name] = _aim(tee, (0.0, 1.0, 0.0), (0.0, 0.0, -1.0)).translate(centre)
+    for name, (_kind, _key, free) in DISCHARGE_ELBOW.items():
+        collet = _discharge_collet(name)
+        placed[name] = _place_elbow(elbow, collet[0], collet[1], free)
+    divider = _load(DIVIDER_CONNECTOR)
+    for name, centre in DISCHARGE_DIV.items():
+        placed[name] = _place_divider(divider, centre)
 
     # --- Zone B, the band above the cold core: the electronics shelf lying
     # flat on the foam-cap top, tray/board planes horizontal, everything in
