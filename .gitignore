@@ -44,3 +44,6 @@ marketing/video/remotion/out/
 marketing/video/remotion/.remotion/
 .firebase-setup/
 tools/flavor_preview.png
+
+# 3D viewer dev-editor component-move sidecars — local dev state (empty = no-op)
+*.overrides.json
