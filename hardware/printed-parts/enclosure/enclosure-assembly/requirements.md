@@ -230,13 +230,12 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
 **Deferred — behind the focus:**
 
 - **routed** spans the fluid segments, the sealed refrigerant loop, and the electrical runs
-  (6/59 — the loop's discharge and liquid legs in copper, and the junction column's four
-  straight collet-to-tee legs). Paths are authored in
-  [`_lines.py`](_lines.py) with the kit in [`_routing.py`](_routing.py); see
-  [`tube-routing.md`](tube-routing.md). All three valve-manifold trays now stand placed with
-  every boundary port located — the fluid path waits on the **pump-discharge tees**
-  (Y-D/Y-G, the seats reserved between the bag tray's bare east tips and the nozzle-gate
-  tray's inner ports) and the deferred water deck. Segment 4 (funnel drain → V-B-I) has
+  (12/59 — the loop's discharge and liquid legs in copper, the junction column's four
+  straight collet-to-tee legs, and the six pump-discharge divider legs and stems). Paths are
+  authored in [`_lines.py`](_lines.py) with the kit in [`_routing.py`](_routing.py); see
+  [`tube-routing.md`](tube-routing.md). All three valve-manifold trays and both pump-discharge
+  dividers stand placed with every boundary port located — the fluid path waits on the deferred
+  water deck and the manifold's remaining legs. Segment 4 (funnel drain → V-B-I) has
   both ends located on placed bodies and is an authorable run; the on-tray seats (3/5–8,
   14/16, 24/26) are interior to their assemblies and still count against the axis until
   modeled. The electrical runs wait on the components being placed, located, and held

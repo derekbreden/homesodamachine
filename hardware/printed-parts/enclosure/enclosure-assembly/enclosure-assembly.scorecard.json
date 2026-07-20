@@ -3,7 +3,7 @@
   "placed": 39,
   "located": 86,
   "shaped": 96,
-  "routed": 17,
+  "routed": 20,
   "held": 25,
   "checks": [
     {
@@ -103,7 +103,7 @@
         "\u2713 hopper-funnel: z+ 6.0 mm",
         "\u2713 bag-circuit-assembly: near source-select-assembly 0.0 clear compressor-shroud 73.3 clear condenser+fan 83.2 mm",
         "\u2713 nozzle-gate-assembly: near source-select-assembly 3.4 x+ 1.4 mm",
-        "\u2713 pump-a: near bag-circuit-assembly 1.5 clear hopper-funnel 20.6 mm",
+        "\u2713 pump-a: near bag-circuit-assembly 1.5 clear hopper-funnel 15.9 mm",
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
         "\u2713 tee-y-c: near source-select-assembly 5.0 mm",
         "\u2713 tee-y-f: near source-select-assembly 5.0 mm",
@@ -185,10 +185,10 @@
       "label": "Connections modeled as real 3D paths (fluid + refrigerant + electrical)",
       "kind": "goal",
       "status": "warn",
-      "value": "17% (10/59)",
+      "value": "20% (12/59)",
       "target": "100%",
       "detail": [
-        "28 fluid + 3 refrigerant + 28 electrical; 10 routed \u2014 the fluid path waits on the deferred water deck and the pump-discharge stems (segments 12/22, to the pumps); the electrical runs on the components being held",
+        "28 fluid + 3 refrigerant + 28 electrical; 12 routed \u2014 the fluid path waits on the deferred water deck and the manifold's remaining legs; the electrical runs on the components being held",
         "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7",
         "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 289.7 mm, 4 bends at R12.7",
         "\u2713 fluid-9: source-select-assembly.V-C-O \u2192 tee-y-c.Y-C-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7",
@@ -198,7 +198,9 @@
         "\u2713 fluid-13: elbow-bag-y-d.free \u2192 y-d.Y-D-2 \u2014 \u00d86.35 \u00d7 21.5 mm, 0 bends at R12.0",
         "\u2713 fluid-17: elbow-y-g.free \u2192 y-d.Y-D-3 \u2014 \u00d86.35 \u00d7 63.1 mm, 3 bends at R12.0",
         "\u2713 fluid-23: elbow-bag-y-g.free \u2192 y-g.Y-G-2 \u2014 \u00d86.35 \u00d7 66.8 mm, 3 bends at R12.0",
-        "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 32.5 mm, 0 bends at R12.0"
+        "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 32.5 mm, 0 bends at R12.0",
+        "\u2713 fluid-12: pump-a.P-A-O \u2192 y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 91.2 mm, 4 bends at R9.0",
+        "\u2713 fluid-22: pump-b.P-B-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 61.9 mm, 3 bends at R10.0"
       ],
       "active": false
     },
@@ -952,15 +954,19 @@
       "name": "P-A-O",
       "kind": "fluid",
       "pos": [
-        98.56,
-        36.01,
+        136.514,
+        29.357,
         278.17
       ],
-      "face": "x-",
+      "face": [
+        0.9403762257505053,
+        -0.3401360816544381,
+        0.0
+      ],
       "diam": 6.35,
-      "mates": "Y-D-1 divider stem \u2014 segment 12 (channel A discharge, unauthored)",
+      "mates": "Y-D-1 divider stem \u2014 segment 12 (channel A discharge, routed)",
       "status": "ok",
-      "note": "PP0308E elbow collet, front station, facing west"
+      "note": "PP0308E elbow collet, front station, aimed east at y-d"
     },
     {
       "component": "pump-b",
@@ -986,11 +992,15 @@
         22.01,
         278.17
       ],
-      "face": "x-",
+      "face": [
+        -1.0,
+        0.0,
+        0.0
+      ],
       "diam": 6.35,
-      "mates": "Y-G-1 divider stem \u2014 segment 22 (channel B discharge, unauthored)",
+      "mates": "Y-G-1 divider stem \u2014 segment 22 (channel B discharge, routed)",
       "status": "ok",
-      "note": "PP0308E elbow collet, front station, facing west"
+      "note": "PP0308E elbow collet, front station, facing west at y-g"
     },
     {
       "component": "tee-y-c",
@@ -2161,15 +2171,15 @@
           245.175
         ],
         [
-          98.562,
-          25.134,
+          111.948,
+          27.226,
           258.615,
-          125.486,
-          39.866,
+          139.509,
+          46.677,
           285.539
         ]
       ],
-      "fill": 0.8226,
+      "fill": 0.8138,
       "primitive": false,
       "declared": "real"
     },

@@ -131,7 +131,7 @@ def build_runs() -> list:
     # climbing (the elbow's lift) and are carried OVER the near flavor's fitting by one hand-placed
     # apex, then down into the outlet — a gentle arc, authored point-to-point with `bent`. A bent leg
     # leaves and enters straight for LEAD mm along its collet, then rounds at the DBEND radius. The
-    # divider stems to the pumps (segments 12/22) stay unauthored.
+    # divider stems to the pumps (segments 12/22) leave below, from each divider's own stem port.
     LEAD = 8.0                              # straight lead-out/-in along each collet, either side of an apex
     DBEND = 12.0                            # 1/4" LLDPE, clean-sweeping radius (as the copper loop uses)
     for cid, elb, div, port, apex in (
@@ -150,6 +150,24 @@ def build_runs() -> list:
         runs.append(R.bent(cid, f"{elb}.free", *mids, f"{div}.{port}",
                             kind="fluid", bend=DBEND, skew=DISCHARGE_SKEW,
                             note=f"discharge {port}: {elb} → {div} {port}, bent over the row"))
+
+    # The pump-discharge stems (segments 12/22) — each divider's stem back to its pump's outlet, a
+    # bent tube across the open band over the pump bodies. fluid-12 rides high from pump A's outlet
+    # and drops into y-d's stem from the front; fluid-22 hugs the front lane below it from pump B's
+    # outlet into y-g's stem, each turning in along its −Y-facing collet.
+    SLEAD = 14.0                            # straight lead-out along each pump-outlet collet
+    for cid, pump, oport, div, mids, sbend, slead in (
+        ("fluid-12", "pump-a", "P-A-O", "y-d", [(165.0, 27.0, 283.0), (200.0, 28.0, 283.0)], 9.0, 10.0),
+        ("fluid-22", "pump-b", "P-B-O", "y-g", [(205.0, 19.0, 275.0)], 10.0, 14.0),
+    ):
+        op, od = contents.pump_outlet_pose(pump)
+        sp, sd = contents.divider_port(div, 1)                 # the stem, facing the pump
+        lead_out = tuple(op[i] + od[i] * SLEAD for i in range(3))
+        lead_in = tuple(sp[i] + sd[i] * slead for i in range(3))
+        stem = f"{div.upper()}-1"
+        runs.append(R.bent(cid, f"{pump}.{oport}", lead_out, *mids, lead_in, f"{div}.{stem}",
+                            kind="fluid", bend=sbend, skew=DISCHARGE_SKEW,
+                            note=f"discharge stem {oport} → {div} {stem}, across the pump row"))
 
     return runs
 

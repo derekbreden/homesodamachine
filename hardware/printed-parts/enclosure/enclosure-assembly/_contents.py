@@ -141,7 +141,7 @@ COMP_SHROUD   = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.ste
 SOURCE_SELECT = _hw / "printed-parts" / "valve-manifold" / "source-select-tray" / "source-select-assembly.step"
 BAG_CIRCUIT   = _hw / "printed-parts" / "valve-manifold" / "bag-circuit-tray" / "bag-circuit-assembly.step"
 NOZZLE_GATE   = _hw / "printed-parts" / "valve-manifold" / "nozzle-gate-tray" / "nozzle-gate-assembly.step"
-# Kamoer KPHM400 peristaltic pump, its two +Y outlet ports flush (no fittings).
+# Kamoer KPHM400 peristaltic pump assembly — a PP0308E 90° elbow on each of its two +Y outlets.
 PUMP_ASSEMBLY = _hw / "reference" / "kamoer-kphm400" / "pump-assembly.step"
 # JG PP0208E union tee — the pump-inlet junctions Y-C / Y-F, tube-hung.
 TEE_CONNECTOR = _hw / "reference" / "tee-connector" / "tee-connector.step"
@@ -670,6 +670,66 @@ def divider_port(name, port):
     return pos, out
 
 
+# ── Pump-discharge outlet elbow re-aim ───────────────────────────────────────────────────────
+# PUMP_OUTLET_AIM re-rolls a pump's discharge outlet elbow about its vertical port axis to the
+# free-leg heading its stem run leaves along (segments 12/22). pump-a aims east across the row at
+# y-d; an absent entry leaves the outlet as placed, aimed -X.
+PUMP_ELBOW_REACH = 19.56                          # outlet elbow free-leg: collet face to bend corner
+_PUMP_OUTLET_BASE = {                             # as-placed outlet collet: (pos, free-leg dir)
+    "pump-a": ((98.56, 36.01, 278.17), (-1.0, 0.0, 0.0)),
+    "pump-b": ((231.44, 22.01, 278.17), (-1.0, 0.0, 0.0)),
+}
+PUMP_OUTLET_AIM = {                               # re-rolled free-leg heading (horizontal); absent = as placed
+    "pump-a": (0.94, -0.34, 0.0),
+}
+
+
+def _pump_outlet_corner(name):
+    """The outlet elbow's bend corner: one free-leg reach back from the collet, on the vertical
+    axis the elbow rolls about."""
+    pos, d = _PUMP_OUTLET_BASE[name]
+    return tuple(pos[i] - PUMP_ELBOW_REACH * d[i] for i in range(3))
+
+
+def pump_outlet_pose(name):
+    """A pump's discharge outlet collet in world: (position, outward axis) — where segment 12/22
+    leaves. Re-rolled to PUMP_OUTLET_AIM[name] where present, else as placed."""
+    base_pos, base_d = _PUMP_OUTLET_BASE[name]
+    aim = PUMP_OUTLET_AIM.get(name)
+    if aim is None:
+        return base_pos, base_d
+    t = _unit(aim)
+    corner = _pump_outlet_corner(name)
+    return tuple(corner[i] + PUMP_ELBOW_REACH * t[i] for i in range(3)), t
+
+
+def _pump_outlet_roll(name):
+    """CCW degrees about +Z from the as-placed free leg to PUMP_OUTLET_AIM[name]."""
+    _p, base_d = _PUMP_OUTLET_BASE[name]
+    t = _unit(PUMP_OUTLET_AIM[name])
+    return math.degrees(math.atan2(t[1], t[0]) - math.atan2(base_d[1], base_d[0]))
+
+
+def _reaim_pump_outlet(shape, name):
+    """Roll `name`'s discharge outlet elbow — the high-Z front sub-solid — about its vertical port
+    axis to PUMP_OUTLET_AIM[name]."""
+    corner = _pump_outlet_corner(name)
+    roll = _pump_outlet_roll(name)
+    base_pos, _d = _PUMP_OUTLET_BASE[name]
+    solids = shape.Solids()
+
+    def outlet_key(s):
+        b = s.BoundingBox()
+        if b.zmax < 260.0:                        # a low pump body, not an elbow
+            return 1e9
+        cx, cy = (b.xmin + b.xmax) / 2.0, (b.ymin + b.ymax) / 2.0
+        return (cx - base_pos[0]) ** 2 + (cy - base_pos[1]) ** 2
+
+    outlet = min(solids, key=outlet_key)
+    turned = outlet.rotate((corner[0], corner[1], 0.0), (corner[0], corner[1], 1.0), roll)
+    return cq.Compound.makeCompound([s for s in solids if s is not outlet] + [turned])
+
+
 def _at(shape, xmin, ymin, zmin):
     bb = shape.BoundingBox()
     return shape.translate((xmin - bb.xmin, ymin - bb.ymin, zmin - bb.zmin))
@@ -754,6 +814,8 @@ def build():
     lay = _rot(_rot(pump, (0, 1, 0), -90.0), (1, 0, 0), 90.0)
     placed["pump-a"] = lay.translate(PUMP_A_POS)
     placed["pump-b"] = lay.translate(PUMP_B_POS)
+    for name in PUMP_OUTLET_AIM:
+        placed[name] = _reaim_pump_outlet(placed[name], name)
 
     # The pump-inlet union tees, hanging in the junction column: each one
     # stands on the line between the two collets it butts (`junction`), run
