@@ -470,9 +470,9 @@ PORTS = [
     # direction is firmware's; the assignment is the loom's convention). Ø is the 1/4"
     # line nominal.
     _p("P-A-I", "pump-a", "fluid", (98.56, 93.01, 278.17),  "x-", 6.35, "tee-y-c Y-C-3 — segment 11 (channel A suction, to route)", "PP0308E elbow collet, aft station, facing west"),
-    _p("P-A-O", "pump-a", "fluid", (98.56, 36.01, 278.17),  "x-", 6.35, "Y-D-1 divider stem — segment 12 (channel A discharge, unauthored)", "PP0308E elbow collet, front station, facing west"),
+    _p("P-A-O", "pump-a", "fluid", *contents.pump_outlet_pose("pump-a"), 6.35, "Y-D-1 divider stem — segment 12 (channel A discharge, routed)", "PP0308E elbow collet, front station, aimed east at y-d"),
     _p("P-B-I", "pump-b", "fluid", (231.44, 79.01, 278.17), "x-", 6.35, "tee-y-f Y-F-3 — segment 21 (channel B suction, to route)", "PP0308E elbow collet, aft station, facing west"),
-    _p("P-B-O", "pump-b", "fluid", (231.44, 22.01, 278.17), "x-", 6.35, "Y-G-1 divider stem — segment 22 (channel B discharge, unauthored)", "PP0308E elbow collet, front station, facing west"),
+    _p("P-B-O", "pump-b", "fluid", *contents.pump_outlet_pose("pump-b"), 6.35, "Y-G-1 divider stem — segment 22 (channel B discharge, routed)", "PP0308E elbow collet, front station, facing west at y-g"),
     # Pump-inlet union tees — free-hanging PP0208E fittings in the junction column, ports
     # named by the fluid topology and derived off _contents' tee placement. The run lies on
     # the line between the two collets it butts, which leans off vertical because both elbows
@@ -906,8 +906,7 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     routed = _pct(routed_done, len(conns))
     routed_detail = [f"{fluid} fluid + {refrig} refrigerant + {wire} electrical; "
                      f"{routed_done} routed — the fluid path waits on the deferred water deck and "
-                     f"the pump-discharge stems (segments 12/22, to the pumps); the "
-                     f"electrical runs on the components being held"]
+                     f"the manifold's remaining legs; the electrical runs on the components being held"]
     for r in _lines.build_runs():
         routed_detail.append(f"✓ {r.id}: {r.frm} → {r.to} — Ø{r.diam:g} × {r.length:.1f} mm, "
                              f"{len(r.bends)} bends at R{r.bend:.1f}")
