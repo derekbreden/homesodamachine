@@ -31,6 +31,7 @@ import { getLoader } from "./loaders.js";
 import { makeRulerToggle } from "./rulers.js";
 import { makeXrayToggle } from "./xray.js";
 import { makeEdgePickToggle, clearEdgePicker } from "./edge-picker.js";
+import { makeComponentPickToggle, clearComponentPicker } from "./component-picker.js";
 import { makePickFindToggle, clearPickFind } from "./pick-find.js";
 import { mountScorecard } from "./scorecard-3d.js";
 import { clearHighlight } from "./part-highlight.js";
@@ -146,6 +147,7 @@ export function openCadDetail(type, file, pushHistory = true) {
   if (type === "step") {
     wrapper.appendChild(makeXrayToggle());
     wrapper.appendChild(makeEdgePickToggle());
+    wrapper.appendChild(makeComponentPickToggle());
     wrapper.appendChild(makePickFindToggle());
   }
   wrapper.appendChild(makeResetViewButton());
@@ -209,6 +211,7 @@ export function openCadDetail(type, file, pushHistory = true) {
         state.currentGroup = null;
       }
       clearEdgePicker(); // drop edge data + any selection/hover overlay
+      clearComponentPicker(); // and any component selection/hover overlay + its panel
       clearPickFind();   // drop find highlights too
       clearHighlight();  // and any scorecard part-highlight overlay
       clearPorts();      // and the port markers, which belong to the model just dropped

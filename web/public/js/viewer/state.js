@@ -43,6 +43,8 @@ export const state = {
   currentCadWrapper: null,    // host div inside the modal (parent of canvases)
   currentCadResizeObserver: null,
   currentGroup: null,         // Three.js group currently in scene
+  hiddenComponents: new Set(), // component-picker.js: names hidden in the local view (per open file);
+                              // repopulated from localStorage on each STEP load, applied to mesh.visible
   thumbnailCache: new Map(),  // STEP file -> dataURL
   mmdThumbCache: new Map(),   // Mermaid file -> svgHTML
   dxfThumbCache: new Map(),   // DXF file -> dataURL
