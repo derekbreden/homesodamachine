@@ -188,7 +188,7 @@ class Run:
 
 
 def route(cid: str, frm: str, *rest, kind: str = "refrigerant", stub=STUB,
-          bend: float | None = None, note: str = "") -> Run:
+          bend: float | None = None, skew: float | None = None, note: str = "") -> Run:
     """An orthogonal path from port to port through the given one-dimensional constraints.
 
     `route("refrig-1", "A.out", F.z("out", 40), ..., "B.in")` — the trailing argument is the
@@ -200,7 +200,13 @@ def route(cid: str, frm: str, *rest, kind: str = "refrigerant", stub=STUB,
 
     The closing turn comes from the destination: after the last constraint at most one
     coordinate may still differ from the approach point. Two raises, naming the coordinates.
+
+    `skew` overrides `COLLET_SKEW` for this run — how far off a collet's own axis a straight
+    tube may leave or enter it. The default suits rigid ACR copper; a flexible-tube run (soft
+    LLDPE in a push-to-connect collet) takes more, so two nearly-facing fittings joined by one
+    straight length of LLDPE author with a larger `skew` and no bend between them.
     """
+    sk = COLLET_SKEW if skew is None else skew
     to = rest[-1]
     if not isinstance(to, str):
         raise TypeError(f"{cid}: the last argument must be the destination anchor, got {to!r}")
@@ -235,16 +241,16 @@ def route(cid: str, frm: str, *rest, kind: str = "refrigerant", stub=STUB,
 
     approach = tuple(end[i] + n_to[i] * stub_in for i in range(3))   # approach stub
     differ = [AXES[i] for i in range(3) if abs(cur[i] - approach[i]) > 1e-9]
-    # A leg that arrives already pointing into the collet, within COLLET_SKEW of its axis, is
+    # A leg that arrives already pointing into the collet, within `sk` of its axis, is
     # one straight piece of tube — it needs no corner and so no constraint to place one.
-    straight_in = leg_skew(cur, approach, tuple(-c for c in n_to)) <= COLLET_SKEW
+    straight_in = leg_skew(cur, approach, tuple(-c for c in n_to)) <= sk
     if len(differ) > 1 and not straight_in:
         raise ValueError(
             f"{cid}: the path needs another constraint — {', '.join(differ)} all still differ from "
             f"the approach to {to} (at {tuple(round(v, 2) for v in cur)}, approach "
             f"{tuple(round(v, 2) for v in approach)}), and the leg runs "
             f"{leg_skew(cur, approach, tuple(-c for c in n_to)):.1f}° off the port's axis, past the "
-            f"{COLLET_SKEW:.1f}° a collet takes straight. One inferred turn only; say which leg first.")
+            f"{sk:.1f}° a collet takes straight. One inferred turn only; say which leg first.")
     # The close runs inward to the port: a path already nearer the fitting than its approach
     # stub would back out along the normal and come straight back.
     outward = sum((cur[i] - end[i]) * n_to[i] for i in range(3))
@@ -259,10 +265,10 @@ def route(cid: str, frm: str, *rest, kind: str = "refrigerant", stub=STUB,
 
     pts = _straighten(_dedupe(pts))
     lead = leg_skew(pts[0], pts[1], n_from)
-    if lead > COLLET_SKEW:
+    if lead > sk:
         raise ValueError(
             f"{cid}: the run leaves {frm} {lead:.1f}° off the collet's axis, past the "
-            f"{COLLET_SKEW:.1f}° one takes straight — the first leg runs out along the port.")
+            f"{sk:.1f}° one takes straight — the first leg runs out along the port.")
     return Run(cid, kind, frm, to, pts, d, bend, note, _bends(pts, bend, cid))
 
 
