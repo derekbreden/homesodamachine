@@ -182,7 +182,7 @@ manifold_fwd_wall_gap = (93.0, 105.0)
 # already establishes), and the back column's bottom-east Z-pod pulls its aft
 # face ahead of V-J's port fitting (the pin bore stays capped; its aft wall
 # thins past the bore edge).
-manifold_gate_lip_gap = (268.0, 285.0)   # z-band of the front Y-lip's +X gap
+manifold_gate_lip_gap = (232.0, 285.0)   # z-band of the front Y-lip's +X gap (the flipped tray's outer ports cross low)
 manifold_gate_pod_aft = 144.4            # bottom-east Z-pod aft face (y)
 
 

@@ -1,17 +1,17 @@
 {
   "gatesPass": true,
-  "placed": 50,
-  "located": 82,
-  "shaped": 95,
+  "placed": 42,
+  "located": 69,
+  "shaped": 96,
   "routed": 10,
-  "held": 32,
+  "held": 27,
   "checks": [
     {
       "id": "coverage",
       "label": "Every placed part declared in the registry",
       "kind": "gate",
       "status": "pass",
-      "value": "22/22 placed declared",
+      "value": "26/26 placed declared",
       "target": "all declared",
       "detail": [],
       "active": true
@@ -37,7 +37,14 @@
         "source-select-assembly \u2014 bag-circuit-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 source-select-assembly: 0.01 mm \u2014 CONTACT (declared ok)",
         "compressor-shroud \u2014 mq6-sensor: 1.00 mm",
+        "elbow-y-g \u2014 tee-y-g: 1.12 mm",
         "bag-circuit-assembly \u2014 pump-a: 1.49 mm",
+        "elbow-y-d \u2014 tee-y-d: 1.96 mm",
+        "bag-circuit-assembly \u2014 tee-y-d: 2.00 mm",
+        "bag-circuit-assembly \u2014 tee-y-g: 2.00 mm",
+        "nozzle-gate-assembly \u2014 elbow-y-d: 2.00 mm",
+        "nozzle-gate-assembly \u2014 elbow-y-g: 2.00 mm",
+        "tee-y-d \u2014 hopper-funnel: 2.39 mm",
         "foam-assembly \u2014 power-tray: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 dc-dist: 2.50 mm \u2014 CONTACT (declared ok)",
@@ -78,8 +85,8 @@
       "label": "Every component is a selected real part / finished print",
       "kind": "gate",
       "status": "pass",
-      "value": "22/22",
-      "target": "22/22",
+      "value": "26/26",
+      "target": "26/26",
       "detail": [],
       "active": true
     },
@@ -88,7 +95,7 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "50% (11/22)",
+      "value": "42% (11/26)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 0.0 x- 0.0 x+ 0.0 z- 9.5 mm",
@@ -102,7 +109,7 @@
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
         "\u2713 tee-y-c: near source-select-assembly 5.0 mm",
         "\u2713 tee-y-f: near source-select-assembly 5.0 mm",
-        "11 components: no placement rules defined yet"
+        "15 components: no placement rules defined yet"
       ],
       "active": true
     },
@@ -111,7 +118,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "82% (18/22)",
+      "value": "69% (18/26)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
@@ -162,16 +169,16 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "95% (21/22)",
+      "value": "96% (25/26)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)",
         "compressor-shroud: 1 box holds 5% material",
         "hopper-funnel: 1 box holds 6% material",
         "foam-assembly: 5 boxes hold 12% material",
+        "tee-y-d: 1 box holds 13% material",
         "tee-y-f: 1 box holds 17% material",
-        "tee-y-c: 1 box holds 17% material",
-        "display: 2 boxes hold 18% material"
+        "tee-y-c: 1 box holds 17% material"
       ],
       "active": true
     },
@@ -198,10 +205,10 @@
       "label": "Components in a printed holder fastened to the enclosure",
       "kind": "goal",
       "status": "warn",
-      "value": "32% (7/22)",
+      "value": "27% (7/26)",
       "target": "100%",
       "detail": [
-        "7 held (through-wall bodies + display); 15 loose internal parts unheld"
+        "7 held (through-wall bodies + display); 19 loose internal parts unheld"
       ],
       "active": false
     }
@@ -853,13 +860,13 @@
       "kind": "fluid",
       "pos": [
         222.64,
-        118.425,
-        276.5
+        152.675,
+        242.1
       ],
       "face": [
         -1.0,
-        0.0,
-        -0.0
+        -0.0,
+        0.0
       ],
       "diam": 6.35,
       "mates": "Y-D-3 (pump-discharge tees, deferred) \u2014 segment 17 (pump A to nozzle A)",
@@ -872,13 +879,13 @@
       "kind": "fluid",
       "pos": [
         222.64,
-        152.675,
-        276.5
+        118.425,
+        242.1
       ],
       "face": [
         -1.0,
-        0.0,
-        -0.0
+        -0.0,
+        0.0
       ],
       "diam": 6.35,
       "mates": "Y-G-3 (pump-discharge tees, deferred) \u2014 segment 27 (pump B to nozzle B)",
@@ -891,13 +898,13 @@
       "kind": "fluid",
       "pos": [
         281.64,
-        118.425,
-        276.5
+        152.675,
+        242.1
       ],
       "face": [
         1.0,
-        0.0,
-        -0.0
+        -0.0,
+        0.0
       ],
       "diam": 6.35,
       "mates": "Nozzle A by the rear umbilical (bulkhead-flavor-a) \u2014 segment 18 (unauthored)",
@@ -910,13 +917,13 @@
       "kind": "fluid",
       "pos": [
         281.64,
-        152.675,
-        276.5
+        118.425,
+        242.1
       ],
       "face": [
         1.0,
-        0.0,
-        -0.0
+        -0.0,
+        0.0
       ],
       "diam": 6.35,
       "mates": "Nozzle B by the rear umbilical (bulkhead-flavor-b) \u2014 segment 28 (unauthored)",
@@ -1663,6 +1670,38 @@
       "declared": "real"
     },
     {
+      "component": "elbow-y-d",
+      "boxes": [
+        [
+          193.714,
+          111.059,
+          234.734,
+          220.638,
+          125.791,
+          261.658
+        ]
+      ],
+      "fill": 0.3665,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "elbow-y-g",
+      "boxes": [
+        [
+          193.714,
+          145.309,
+          234.734,
+          220.638,
+          160.041,
+          261.658
+        ]
+      ],
+      "fill": 0.3665,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
       "component": "foam-assembly",
       "boxes": [
         [
@@ -1755,19 +1794,19 @@
         ],
         [
           222.64,
-          135.55,
-          231.2,
+          101.3,
+          230.8,
           281.64,
-          169.8,
-          287.8
+          135.55,
+          287.4
         ],
         [
           222.64,
-          101.3,
-          231.2,
-          281.64,
           135.55,
-          287.8
+          230.8,
+          281.64,
+          169.8,
+          287.4
         ]
       ],
       "fill": 0.3282,
@@ -2071,6 +2110,22 @@
       "declared": "real"
     },
     {
+      "component": "tee-y-d",
+      "boxes": [
+        [
+          195.213,
+          105.216,
+          254.342,
+          222.143,
+          131.794,
+          295.498
+        ]
+      ],
+      "fill": 0.134,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
       "component": "tee-y-f",
       "boxes": [
         [
@@ -2083,6 +2138,22 @@
         ]
       ],
       "fill": 0.1716,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "tee-y-g",
+      "boxes": [
+        [
+          195.214,
+          145.817,
+          256.434,
+          222.138,
+          159.533,
+          296.566
+        ]
+      ],
+      "fill": 0.2663,
       "primitive": false,
       "declared": "real"
     }

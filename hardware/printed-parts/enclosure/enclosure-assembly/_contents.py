@@ -145,6 +145,8 @@ NOZZLE_GATE   = _hw / "printed-parts" / "valve-manifold" / "nozzle-gate-tray" / 
 PUMP_ASSEMBLY = _hw / "reference" / "kamoer-kphm400" / "pump-assembly.step"
 # JG PP0208E union tee — the pump-inlet junctions Y-C / Y-F, tube-hung.
 TEE_CONNECTOR = _hw / "reference" / "tee-connector" / "tee-connector.step"
+# JG PP0308E 90° elbow — turns the nozzle-gate west ports toward the bag tees.
+ELBOW_CONNECTOR = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
 # AC/PSU tray — wide-shallow layout (PSU turned 90°).
 POWER_ASSEMBLY = _hw / "printed-parts" / "electronics" / "power-tray" / "power-assembly.step"
 PCBA_ASSEMBLY  = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-assembly.step"
@@ -303,14 +305,33 @@ def bag_collet(name):
             (-d[0], d[1], -d[2]))
 
 
+# The nozzle-gate tray is flipped a further 180° about X, in place (about its own
+# centre), so the valves that hung down now stand up but the tray keeps its exact
+# Z-envelope — clearing the hopper funnel above exactly as the un-flipped tray did —
+# while the west inner ports drop from the top of that envelope to the bottom, into
+# the discharge tees' reach. The flip axis passes through the tray centre: its Y
+# centre is NOZZLE_GATE_POS[1] (the tray is symmetric there) and its Z centre is
+# measured off the placed solid.
+_GATE_CZ_CACHE = None
+
+
+def _gate_cz():
+    global _GATE_CZ_CACHE
+    if _GATE_CZ_CACHE is None:
+        bb = _rot(_load(NOZZLE_GATE), (0, 1, 0), 180.0).translate(NOZZLE_GATE_POS).BoundingBox()
+        _GATE_CZ_CACHE = (bb.zmin + bb.zmax) / 2.0
+    return _GATE_CZ_CACHE
+
+
 def noz_collet(name):
-    """A nozzle-gate-tray bare port collet in world: (position, outward axis)
-    — `VG-I`/`VJ-I` the inner (tee-side) ports facing west, `VG-O`/`VJ-O` the
-    outer (nozzle-outlet) ports facing east. The tray rides inverted (180°
-    about Y), the same transform the bag tray's collets carry."""
+    """A nozzle-gate-tray bare port collet in world: (position, outward axis) —
+    `VG-I`/`VJ-I` the inner (tee-side) ports facing west, `VG-O`/`VJ-O` the outer
+    (nozzle-outlet) ports facing east. The tray rides inverted (180° about Y) then
+    flipped 180° about X in place: local X negates (the inversion), local Y and Z
+    reflect about the tray centre (NOZZLE_GATE_POS[1], `_gate_cz()`)."""
     p, d = _noz.port_collets()[name]
-    return ((NOZZLE_GATE_POS[0] - p[0], NOZZLE_GATE_POS[1] + p[1], NOZZLE_GATE_POS[2] - p[2]),
-            (-d[0], d[1], -d[2]))
+    return ((NOZZLE_GATE_POS[0] - p[0], NOZZLE_GATE_POS[1] - p[1], 2.0 * _gate_cz() - (NOZZLE_GATE_POS[2] - p[2])),
+            (-d[0], -d[1], d[2]))
 
 
 def junction(tee):
@@ -425,6 +446,10 @@ COLORS = {
     "pump-b":            cq.Color(0.72, 0.28, 0.30),
     "tee-y-c":           cq.Color(0.92, 0.92, 0.92),
     "tee-y-f":           cq.Color(0.92, 0.92, 0.92),
+    "tee-y-d":           cq.Color(0.92, 0.92, 0.92),
+    "tee-y-g":           cq.Color(0.92, 0.92, 0.92),
+    "elbow-y-d":         cq.Color(0.85, 0.85, 0.88),
+    "elbow-y-g":         cq.Color(0.85, 0.85, 0.88),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "dc-dist":           cq.Color(0.20, 0.20, 0.22),
@@ -470,6 +495,32 @@ def _aim(shape, run, branch):
         shape = shape.rotate((0, 0, 0), (0, 1, 0), 180.0)
     spin = math.degrees(math.atan2(_dot(_cross(y, branch), run), _dot(y, branch)))
     return shape.rotate((0, 0, 0), run, spin)
+
+
+def _flip_x_in_place(shape):
+    """Rotate a placed solid 180° about the X axis through its own bbox centre —
+    a flip that keeps its exact position/envelope, only turning it top-to-bottom."""
+    bb = shape.BoundingBox()
+    cy, cz = (bb.ymin + bb.ymax) / 2.0, (bb.zmin + bb.zmax) / 2.0
+    return shape.rotate((0.0, cy, cz), (1.0, cy, cz), 180.0)
+
+
+def _place_elbow(shape, port_pos, port_dir, free_dir, stub=2.0):
+    """A 90° elbow butting a port (world pos, outward `port_dir`): one collet faces
+    back into the port (stub off it), the free leg runs along `free_dir` (⊥ port_dir).
+    Native elbow collets are +Y (butt) and +Z (free), so `_aim` places it."""
+    butt = tuple(-c for c in port_dir)
+    reach = tuple(port_pos[i] + (stub + _bag.elbow_reach) * port_dir[i] for i in range(3))
+    return _aim(shape, free_dir, butt).translate(reach)
+
+
+def _place_bag_tee(shape, port_pos, port_dir, run, stub=2.0):
+    """A union tee hung off a bag east port by its BRANCH (the centre port): the branch
+    faces back into the port, the run lies along `run` (⊥ port_dir). Native tee run is
+    +Z, branch +Y — `_aim(run, branch)` orients it, then it sits a branch-reach out."""
+    branch = tuple(-c for c in port_dir)
+    centre = tuple(port_pos[i] + (stub + _bag.tee_branch_reach) * port_dir[i] for i in range(3))
+    return _aim(shape, run, branch).translate(centre)
 
 
 def _at(shape, xmin, ymin, zmin):
@@ -538,11 +589,12 @@ def build():
     # the floor stratum stays open below the stack.
     placed["bag-circuit-assembly"] = _rot(_load(BAG_CIRCUIT), (0, 1, 0), 180.0).translate(BAG_CIRCUIT_POS)
 
-    # East of it, the nozzle-gate assembly (Tray 3 — V-G/V-J, bare ports)
-    # rides INVERTED the same way, wall tops on the same source stacking
-    # walls, slid to reserve the deferred pump-discharge tees' seats between
-    # its inner ports and the bag tray's bare east tips (NOZZLE_GATE_POS).
-    placed["nozzle-gate-assembly"] = _rot(_load(NOZZLE_GATE), (0, 1, 0), 180.0).translate(NOZZLE_GATE_POS)
+    # East of it, the nozzle-gate assembly (Tray 3 — V-G/V-J, bare ports) rides
+    # INVERTED, then flipped 180° about X in place (`_flip_x_in_place`): same
+    # envelope, but the valves stand up and the west inner ports drop to the
+    # discharge tees below (NOZZLE_GATE_POS + noz_collet).
+    placed["nozzle-gate-assembly"] = _flip_x_in_place(
+        _rot(_load(NOZZLE_GATE), (0, 1, 0), 180.0).translate(NOZZLE_GATE_POS))
 
     # Ahead of the stack, the pump row: both Kamoer assemblies in one lying
     # pose (depth west about Y, then rolled +90° about X so the elbows ride
@@ -563,6 +615,20 @@ def build():
     for name in JUNCTION:
         centre, run, branch, _stub = junction(name)
         placed[name] = _aim(tee, run, branch).translate(centre)
+
+    # Pump-discharge fittings — a STARTING POINT for the discharge junctions Y-D/Y-G.
+    # A union tee hangs off each bag east port by its BRANCH (centre port); a 90° elbow
+    # turns each flipped nozzle-gate west port. Run/free directions are the initial
+    # de-conflicting rotations — a base to iterate from, not a solved routing.
+    elbow = _load(ELBOW_CONNECTOR)
+    for name, gate_port, free in (("elbow-y-d", "VJ-I", (0.0, 0.0, 1.0)),
+                                  ("elbow-y-g", "VG-I", (0.0, 0.0, 1.0))):
+        gp, gd = noz_collet(gate_port)
+        placed[name] = _place_elbow(elbow, gp, gd, free)
+    for name, bag_port, run, drop in (("tee-y-d", "VF", (0.0, -0.406, 0.914), 1.5),
+                                      ("tee-y-g", "VI", (0.0, 0.0, 1.0), 0.0)):
+        bp, bd = bag_collet(bag_port)
+        placed[name] = _place_bag_tee(tee, bp, bd, run).translate((0.0, 0.0, -drop))
 
     # --- Zone B, the band above the cold core: the electronics shelf lying
     # flat on the foam-cap top, tray/board planes horizontal, everything in
