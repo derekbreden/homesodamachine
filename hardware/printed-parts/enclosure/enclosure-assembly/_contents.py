@@ -540,15 +540,16 @@ def _elbow_free_port(collet, free_dir, stub=2.0):
 # because the two trays seat a flavor's valves on opposite rows: Y-D (flavor A → pump A) joins
 # bag V-F and nozzle V-G; Y-G (flavor B → pump B) joins bag V-I and nozzle V-J.
 #
-# The junction is posed like the pump-inlet column (`junction`): the fittings are AIMED at each
-# other so each LLDPE run is one straight length of tube. `_solve_discharge` co-solves, per
-# divider, the divider's outlet axis `out` (tilted off +Y — a rotation about ~X that points the
-# trident's two parallel outlets back at the elbows) and each turn-elbow's roll about its own
-# valve-port axis (its free leg aimed at the outlet it feeds). It is a fixed point: aim each
-# elbow at its outlet, face the divider back along the mean of the two tubes it now receives,
-# repeat. The dividers sit in the open air over the pump row, stems −out (≈−Y) toward the pump
-# discharge they'll later take (segments 12/22, unauthored). The two runs enter the parallel
-# outlets a few degrees off-axis — the flex a push-to-connect collet takes on soft LLDPE.
+# The four turn-elbows sit at the corners of a rectangle in the Y-Z plane — the bag ports high
+# (z≈277), the nozzle ports low (z≈242) — and the diagonal netlist runs two CROSSING tubes across
+# it. Each divider is placed by hand over the pump row (DISCHARGE_DIV) and aimed so its two parallel
+# outlets face back at the mean of the two elbow CORNERS it receives (`_divider_out_sep`); each elbow
+# then aims its free leg straight at the outlet it feeds (`elbow_free_dir`) — mating face to mating
+# face — plus a hand-set upward LIFT (DISCHARGE_LIFT) for the two long crossing legs, so they leave
+# climbing and clear the near flavor's fitting instead of driving through it. Soft LLDPE takes up the
+# residual: straight where it can be, gently bent where a run has to step over a fitting (_lines.py).
+# The dividers' stems point −out (≈−Y) at the pump discharge they'll later take (segments 12/22,
+# unauthored).
 DIV_HALF     = 19.25                          # divider stem/outlet reach from centre (off the STEP)
 DIV_OUTLET_Y = 7.35                           # each outlet's offset from the divider axis
 ELBOW_STUB   = 2.0                            # tube between a valve port and its turn elbow
@@ -563,9 +564,20 @@ DISCHARGE_NET = {                             # divider → (bag elbow → upper
     "y-d": ("elbow-bag-y-d", "elbow-y-g"),
     "y-g": ("elbow-bag-y-g", "elbow-y-d"),
 }
-DISCHARGE_DIV = {                             # divider → centre, in the open air over the pump row
-    "y-d": (209.0, 54.0, 278.0),              # tilted to face its elbows; clears the funnel canopy
-    "y-g": (198.0, 44.0, 273.0),              # forward + high of y-d so the two dividers clear
+# Each turn elbow's free leg first AIMS at the outlet it feeds (in the Y-Z plane ⊥ its ±X valve
+# axis — so the mating faces point at each other and the run leaves nearly straight), then tilts UP
+# by DISCHARGE_LIFT[name]°. The lift is 0 for a short leg that shoots straight into its outlet, and
+# positive for a long crossing leg that must climb OVER the near flavor's fitting before it drops
+# into its outlet — the gentle over-the-top the diagonal netlist needs.
+DISCHARGE_LIFT = {
+    "elbow-bag-y-d":  0.0,                     # short leg → y-d, straight in
+    "elbow-y-d":      0.0,                     # short leg → y-g, straight in
+    "elbow-bag-y-g": 15.0,                     # long leg → y-g, climbs over elbow-bag-y-d
+    "elbow-y-g":     22.0,                     # long leg → y-d, climbs over elbow-y-d
+}
+DISCHARGE_DIV = {                             # divider → centre, over the pump row, aimed at its elbows
+    "y-d": (214.0, 58.0, 270.0),
+    "y-g": (186.0, 54.0, 270.0),
 }
 
 
@@ -580,10 +592,6 @@ def _perp(v, ax):
     return tuple(v[i] - d * ax[i] for i in range(3))
 
 
-def _ang(u, v):
-    return math.degrees(math.acos(max(-1.0, min(1.0, _dot(_unit(u), _unit(v))))))
-
-
 def _elbow_corner(collet, stub=ELBOW_STUB):
     """The elbow's turn centre: `stub` + one reach out along the valve port, where the free leg
     pivots. Independent of the elbow's roll."""
@@ -591,89 +599,70 @@ def _elbow_corner(collet, stub=ELBOW_STUB):
     return tuple(pos[i] + (stub + _bag.elbow_reach) * d[i] for i in range(3))
 
 
-def _aim_free_dir(collet, target, stub=ELBOW_STUB):
-    """The elbow's roll: a unit free-leg direction ⊥ the valve-port axis, pointing the free port
-    at `target`. The free port rides a circle about the corner, so aim is a short fixed point."""
-    corner = _elbow_corner(collet, stub)
-    _pos, port_dir = collet
-    fd = _unit(_perp(tuple(target[i] - corner[i] for i in range(3)), port_dir))
-    for _ in range(40):
-        fp = tuple(corner[i] + _bag.elbow_reach * fd[i] for i in range(3))
-        nd = _unit(_perp(tuple(target[i] - fp[i] for i in range(3)), port_dir))
-        if _ang(nd, fd) < 1e-7:
-            return nd
-        fd = nd
-    return fd
-
-
-def _solve_discharge(centre, bag_col, noz_col):
-    """Aim a junction: the divider outlet axis `out` (tilted off +Y), the outlet-split axis
-    `sep`, and each elbow's free-leg direction, so both runs are straight tube. Fixed point:
-    aim each elbow at its outlet, face the divider back along the mean of the two tubes, repeat."""
-    out, sep = (0.0, 1.0, 0.0), (0.0, 0.0, 1.0)
-    fd_bag = fd_noz = None
-    for _ in range(80):
-        p_up = tuple(centre[i] + DIV_HALF * out[i] + DIV_OUTLET_Y * sep[i] for i in range(3))
-        p_lo = tuple(centre[i] + DIV_HALF * out[i] - DIV_OUTLET_Y * sep[i] for i in range(3))
-        fd_bag = _aim_free_dir(bag_col, p_up)
-        fd_noz = _aim_free_dir(noz_col, p_lo)
-        f_bag = _elbow_free_port(bag_col, fd_bag, ELBOW_STUB)
-        f_noz = _elbow_free_port(noz_col, fd_noz, ELBOW_STUB)
-        t_bag = _unit(tuple(p_up[i] - f_bag[i] for i in range(3)))
-        t_noz = _unit(tuple(p_lo[i] - f_noz[i] for i in range(3)))
-        new_out = _unit(tuple(-(t_bag[i] + t_noz[i]) for i in range(3)))   # face back along the mean tube
-        new_sep = _unit(_perp(tuple(f_bag[i] - f_noz[i] for i in range(3)), new_out))  # split toward the elbows
-        if _ang(new_out, out) < 1e-7 and _ang(new_sep, sep) < 1e-7:
-            out, sep = new_out, new_sep
-            break
-        out, sep = new_out, new_sep
-    return {"out": out, "sep": sep, "bag": fd_bag, "noz": fd_noz}
-
-
-# Both junctions solved once, at import — the aimed poses every accessor reads.
-_DISCHARGE_POSE = {
-    div: _solve_discharge(DISCHARGE_DIV[div], _discharge_collet(be), _discharge_collet(ne))
-    for div, (be, ne) in DISCHARGE_NET.items()
-}
-
-
-def _elbow_role(name):
-    """The (divider, 'bag'|'noz') an elbow feeds — its outlet is 'bag'→2 (upper), 'noz'→3 (lower)."""
+def _elbow_outlet(name):
+    """The (divider, port) an elbow feeds — the bag elbow → upper outlet 2, the nozzle elbow → lower
+    outlet 3."""
     for div, (be, ne) in DISCHARGE_NET.items():
         if name == be:
-            return div, "bag"
+            return div, 2
         if name == ne:
-            return div, "noz"
+            return div, 3
     raise KeyError(name)
 
 
 def elbow_free_dir(name):
-    """The solved free-leg direction of a discharge elbow — aimed at its divider outlet."""
-    div, role = _elbow_role(name)
-    return _DISCHARGE_POSE[div][role]
+    """A discharge elbow's free-leg direction: aim the free leg (in the Y-Z plane ⊥ its ±X valve
+    axis) straight at the OUTLET it feeds — so a short leg is one straight tube, mating face to mating
+    face — then tilt it up by DISCHARGE_LIFT[name]° (a rotation in that Y-Z plane, toward +Z). Lift 0
+    stays aimed at the outlet; a positive lift makes a long crossing leg climb before it drops in."""
+    corner = _elbow_corner(_discharge_collet(name))
+    div, port = _elbow_outlet(name)
+    target = divider_port(div, port)[0]
+    d = tuple(target[i] - corner[i] for i in range(3))
+    base = _unit((0.0, d[1], d[2]))                    # point the free leg at the outlet (Y-Z only)
+    th = math.radians(DISCHARGE_LIFT[name])
+    c, s = math.cos(th), math.sin(th)
+    return (0.0, base[1] * c + base[2] * s, -base[1] * s + base[2] * c)   # tilt up toward +Z
 
 
 def elbow_free_pose(name):
     """A discharge elbow's free (empty) port in world: (position, outward axis) — where its tube
-    to the divider leaves, aimed at the outlet it feeds."""
+    to the divider leaves."""
     free = elbow_free_dir(name)
     return _elbow_free_port(_discharge_collet(name), free, ELBOW_STUB), free
 
 
+def _divider_out_sep(name):
+    """Aim divider `name`: its outlets face `out` — from the centre toward the mean of the two elbow
+    CORNERS it receives — and split along `sep`, the vertical ⊥ out (so the upper outlet takes the
+    high bag leg, the lower the low nozzle leg). The centres sit far enough apart on X that this aim
+    only leans each trident modestly toward the shared cluster without the two bodies meeting; and
+    because the outlet face looks straight back at the cluster, each elbow can aim its free leg right
+    into its outlet. Aimed at the CORNERS (fixed, independent of the elbow rolls that aim back at
+    these outlets — so there is no circular solve). Stem faces −out (−Y) at the pump."""
+    centre = DISCHARGE_DIV[name]
+    be, ne = DISCHARGE_NET[name]
+    cb = _elbow_corner(_discharge_collet(be))
+    cn = _elbow_corner(_discharge_collet(ne))
+    mean = tuple((cb[i] + cn[i]) / 2.0 for i in range(3))
+    out = _unit(tuple(mean[i] - centre[i] for i in range(3)))
+    sep = _unit(_perp((0.0, 0.0, 1.0), out))
+    return out, sep
+
+
 def _place_divider(shape, name):
-    """Divider `name` at its centre, aimed by `_solve_discharge`: outlets face `out`, stem −out,
+    """Divider `name` at its centre, aimed by `_divider_out_sep`: outlets face `out`, stem −out,
     outlets split ±DIV_OUTLET_Y along `sep`. Native long axis +Z (stem) / −Z (outlets), outlets
     offset ±Y — `_aim` maps native +Z onto −out and native +Y onto sep."""
-    pose = _DISCHARGE_POSE[name]
-    return _aim(shape, tuple(-c for c in pose["out"]), pose["sep"]).translate(DISCHARGE_DIV[name])
+    out, sep = _divider_out_sep(name)
+    return _aim(shape, tuple(-c for c in out), sep).translate(DISCHARGE_DIV[name])
 
 
 def divider_port(name, port):
     """A discharge divider's port in world: (position, outward axis). `port` is 1 (stem, −out at
     the pump), 2 (upper outlet, +sep — the bag leg) or 3 (lower outlet, −sep — the gate leg)."""
     c = DISCHARGE_DIV[name]
-    pose = _DISCHARGE_POSE[name]
-    out, sep = pose["out"], pose["sep"]
+    out, sep = _divider_out_sep(name)
     if port == 1:
         return tuple(c[i] - DIV_HALF * out[i] for i in range(3)), tuple(-x for x in out)
     s = DIV_OUTLET_Y if port == 2 else -DIV_OUTLET_Y
