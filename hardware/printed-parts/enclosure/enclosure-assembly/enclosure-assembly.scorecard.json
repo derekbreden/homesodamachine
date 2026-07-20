@@ -199,8 +199,8 @@
         "\u2713 fluid-17: elbow-y-g.free \u2192 y-d.Y-D-3 \u2014 \u00d86.35 \u00d7 63.1 mm, 3 bends at R12.0",
         "\u2713 fluid-23: elbow-bag-y-g.free \u2192 y-g.Y-G-2 \u2014 \u00d86.35 \u00d7 66.8 mm, 3 bends at R12.0",
         "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 32.5 mm, 0 bends at R12.0",
-        "\u2713 fluid-12: pump-a.P-A-O \u2192 y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 91.2 mm, 4 bends at R9.0",
-        "\u2713 fluid-22: pump-b.P-B-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 61.9 mm, 3 bends at R10.0"
+        "\u2713 fluid-12: pump-b.P-B-O \u2192 y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 27.6 mm, 2 bends at R10.0",
+        "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 52.5 mm, 2 bends at R12.0"
       ],
       "active": false
     },
@@ -945,7 +945,7 @@
       ],
       "face": "x-",
       "diam": 6.35,
-      "mates": "tee-y-c Y-C-3 \u2014 segment 11 (channel A suction, to route)",
+      "mates": "tee-y-f Y-F-3 \u2014 segment 21 (channel B suction, to route)",
       "status": "ok",
       "note": "PP0308E elbow collet, aft station, facing west"
     },
@@ -954,19 +954,19 @@
       "name": "P-A-O",
       "kind": "fluid",
       "pos": [
-        136.514,
-        29.357,
+        137.196,
+        31.684,
         278.17
       ],
       "face": [
-        0.9403762257505053,
-        -0.3401360816544381,
+        0.9752315205891531,
+        -0.2211865304429007,
         0.0
       ],
       "diam": 6.35,
-      "mates": "Y-D-1 divider stem \u2014 segment 12 (channel A discharge, routed)",
+      "mates": "Y-G-1 divider stem \u2014 segment 22 (channel B discharge, routed)",
       "status": "ok",
-      "note": "PP0308E elbow collet, front station, aimed east at y-d"
+      "note": "PP0308E elbow collet, front station, aimed east at y-g"
     },
     {
       "component": "pump-b",
@@ -979,7 +979,7 @@
       ],
       "face": "x-",
       "diam": 6.35,
-      "mates": "tee-y-f Y-F-3 \u2014 segment 21 (channel B suction, to route)",
+      "mates": "tee-y-c Y-C-3 \u2014 segment 11 (channel A suction, to route)",
       "status": "ok",
       "note": "PP0308E elbow collet, aft station, facing west"
     },
@@ -998,9 +998,9 @@
         0.0
       ],
       "diam": 6.35,
-      "mates": "Y-G-1 divider stem \u2014 segment 22 (channel B discharge, routed)",
+      "mates": "Y-D-1 divider stem \u2014 segment 12 (channel A discharge, routed)",
       "status": "ok",
-      "note": "PP0308E elbow collet, front station, facing west at y-g"
+      "note": "PP0308E elbow collet, front station, facing west at y-d"
     },
     {
       "component": "tee-y-c",
@@ -1055,7 +1055,7 @@
         0.03131197246425679
       ],
       "diam": 6.35,
-      "mates": "pump-a P-A-I \u2014 segment 11 (to route)",
+      "mates": "pump-b P-B-I \u2014 segment 11 (to route)",
       "status": "ok",
       "note": "PP0208E branch collet, facing east at the pump row"
     },
@@ -1112,7 +1112,7 @@
         0.03131197246425679
       ],
       "diam": 6.35,
-      "mates": "pump-b P-B-I \u2014 segment 21 (to route)",
+      "mates": "pump-a P-A-I \u2014 segment 21 (to route)",
       "status": "ok",
       "note": "PP0208E branch collet, facing east at the pump row"
     },
@@ -1131,7 +1131,7 @@
         0.13556306645989816
       ],
       "diam": 6.35,
-      "mates": "pump-a P-A-O \u2014 segment 12 (channel A discharge, unauthored)",
+      "mates": "pump-b P-B-O \u2014 segment 12 (channel A discharge, routed)",
       "status": "ok",
       "note": "PP2308E stem collet, facing the pump"
     },
@@ -1188,7 +1188,7 @@
         0.12710852671142506
       ],
       "diam": 6.35,
-      "mates": "pump-b P-B-O \u2014 segment 22 (channel B discharge, unauthored)",
+      "mates": "pump-a P-A-O \u2014 segment 22 (channel B discharge, routed)",
       "status": "ok",
       "note": "PP2308E stem collet, facing the pump"
     },
@@ -2171,15 +2171,15 @@
           245.175
         ],
         [
-          111.948,
-          27.226,
+          111.53,
+          28.902,
           258.615,
-          139.509,
-          46.677,
+          139.136,
+          46.799,
           285.539
         ]
       ],
-      "fill": 0.8138,
+      "fill": 0.8164,
       "primitive": false,
       "declared": "real"
     },
