@@ -38,5 +38,9 @@ hardware/pcb/pcba/out/*.step
 
 # Lock files for internal tools
 package-lock.json
+
+# Remotion channel foundation: render outputs and caches are regenerable
+marketing/video/remotion/out/
+marketing/video/remotion/.remotion/
 .firebase-setup/
 tools/flavor_preview.png
