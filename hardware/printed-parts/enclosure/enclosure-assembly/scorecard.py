@@ -905,8 +905,8 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     routed_done = sum(1 for c in conns if c.routed)
     routed = _pct(routed_done, len(conns))
     routed_detail = [f"{fluid} fluid + {refrig} refrigerant + {wire} electrical; "
-                     f"{routed_done} routed — the fluid path waits on the deferred water deck, "
-                     f"the pump-discharge stems (segments 12/22, to the pumps) and fluid-23; the "
+                     f"{routed_done} routed — the fluid path waits on the deferred water deck and "
+                     f"the pump-discharge stems (segments 12/22, to the pumps); the "
                      f"electrical runs on the components being held"]
     for r in _lines.build_runs():
         routed_detail.append(f"✓ {r.id}: {r.frm} → {r.to} — Ø{r.diam:g} × {r.length:.1f} mm, "

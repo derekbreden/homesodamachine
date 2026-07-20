@@ -272,6 +272,46 @@ def route(cid: str, frm: str, *rest, kind: str = "refrigerant", stub=STUB,
     return Run(cid, kind, frm, to, pts, d, bend, note, _bends(pts, bend, cid))
 
 
+def bent(cid: str, frm: str, *rest, kind: str = "refrigerant", bend: float | None = None,
+         skew: float | None = None, note: str = "") -> Run:
+    """Author a run as a HAND-PLACED centreline: the source port, explicit interior 3-D waypoints,
+    the destination port — joined by straight legs and rounded at each interior corner with a tangent
+    arc of `bend` radius, at whatever angle the corner turns (not just square). This is the free-form
+    companion to `route`: where `route`'s axis-aligned constraints can only step one world coordinate
+    at a time — so a diagonal move becomes a stack of square corners — `bent` follows the points given,
+    so a run can lean and climb in one gentle move. Waypoints are `(x, y, z)` tuples in world.
+
+    `bent("…", A, (x, y, z), (x, y, z), B)` — first arg after the source and last arg are the port
+    anchors; everything between is a waypoint. The leg leaving `frm` and the leg entering `to` are
+    checked against each port's own axis (`skew`, default `COLLET_SKEW`): place the first and last
+    waypoints so each run leaves and enters roughly along its collet.
+    """
+    sk = COLLET_SKEW if skew is None else skew
+    to = rest[-1]
+    if not isinstance(to, str):
+        raise TypeError(f"{cid}: the last argument must be the destination anchor, got {to!r}")
+    f_from, p_from = _anchor(frm)
+    f_to, p_to = _anchor(to)
+    d = f_from.diam(p_from)
+    if d is None:
+        raise ValueError(f"{cid}: {frm} has no bore Ø — a line cannot be routed through an unsized port")
+    bend = bend if bend is not None else BEND_RATIO * d
+
+    pts = [tuple(f_from.at(p_from))] + [tuple(w) for w in rest[:-1]] + [tuple(f_to.at(p_to))]
+    pts = _straighten(_dedupe(pts))
+    if len(pts) < 2:
+        raise ValueError(f"{cid}: a run needs at least a source and a destination")
+    lead = leg_skew(pts[0], pts[1], f_from.normal(p_from))
+    if lead > sk:
+        raise ValueError(f"{cid}: leaves {frm} {lead:.1f}° off the collet axis (> {sk:.1f}°) — "
+                         f"move the first waypoint onto the port's normal.")
+    tail = leg_skew(pts[-2], pts[-1], tuple(-c for c in f_to.normal(p_to)))
+    if tail > sk:
+        raise ValueError(f"{cid}: enters {to} {tail:.1f}° off the collet axis (> {sk:.1f}°) — "
+                         f"move the last waypoint onto the port's normal.")
+    return Run(cid, kind, frm, to, pts, d, bend, note, _bends(pts, bend, cid))
+
+
 def _dedupe(pts: list) -> list:
     out = [pts[0]]
     for p in pts[1:]:
@@ -280,12 +320,18 @@ def _dedupe(pts: list) -> list:
     return out
 
 
+_STRAIGHT_TOL = math.cos(math.radians(2.0))    # a turn below 2° is treated as straight
+
+
 def _straighten(pts: list) -> list:
-    """Drop a waypoint that continues the run in the same direction."""
+    """Drop a waypoint that continues the run in nearly the same direction (turn < 2°). Below that
+    a rounded corner is pointless and its arc is degenerate — the centre sits `r/sin(θ/2)` away, so a
+    sub-degree turn throws the arc (and the swept tube) wildly off — so such a kink is dropped and the
+    run passes straight through."""
     out = [pts[0]]
     for i in range(1, len(pts) - 1):
         din, dout = _unit(out[-1], pts[i]), _unit(pts[i], pts[i + 1])
-        if sum(din[j] * dout[j] for j in range(3)) < 1.0 - 1e-9:
+        if sum(din[j] * dout[j] for j in range(3)) < _STRAIGHT_TOL:
             out.append(pts[i])
     out.append(pts[-1])
     return out
@@ -339,12 +385,13 @@ def centreline(run: Run) -> cq.Wire:
         p1 = cq.Vector(*[pts[i][j] - din[j] * t for j in range(3)])
         p2 = cq.Vector(*[pts[i][j] + dout[j] * t for j in range(3)])
         turn = next(b[1] for b in run.bends if b[0] == i)
-        # Arc centre on the inward bisector, r/sin(θ/2) from the corner; the midpoint is r from
-        # that centre.
+        # Arc centre on the inward bisector, r/cos(θ/2) from the corner (θ the turn/deflection); the
+        # midpoint is r from that centre. (r/sin reads the same only at 90°, where the copper loop
+        # lives — off the square it throws the centre out and balloons the arc.)
         bis = [dout[j] - din[j] for j in range(3)]
         bl = math.sqrt(sum(c * c for c in bis))
         bis = [c / bl for c in bis]
-        dist = r / math.sin(math.radians(turn) / 2.0)
+        dist = r / math.cos(math.radians(turn) / 2.0)
         ctr = [pts[i][j] + bis[j] * dist for j in range(3)]
         mv = [pts[i][j] - ctr[j] for j in range(3)]
         ml = math.sqrt(sum(c * c for c in mv))
