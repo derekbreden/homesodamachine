@@ -25,11 +25,11 @@ Eight 3-port junctions. **Y-A and Y-B are PP2308E Y-dividers** (the source-selec
 |---|---|---|---|
 | Y-A | V-A-O (tap water) | V-B-O (hopper) | Y-B-1 (to channel split) |
 | Y-B | Y-A-3 (from tap/hopper merge) | V-C-I (channel A select) | V-D-I (channel B select) |
-| Y-C | V-C-O (channel A shared source) | V-E-O (bag A to pump return) | P-A-I (pump A inlet) |
-| Y-D | P-A-O (pump A outlet) | V-F-I (pump to bag A) | V-G-I (pump to nozzle A) |
+| Y-C | V-C-O (channel A shared source) | V-E-O (bag A to pump return) | P-B-I (pump B inlet) |
+| Y-D | P-B-O (pump B outlet) | V-F-I (pump to bag A) | V-G-I (pump to nozzle A) |
 | Y-E | V-F-O (pump to bag A return) | Bag A port | V-E-I (bag A to pump) |
-| Y-F | V-D-O (channel B shared source) | V-H-O (bag B to pump return) | P-B-I (pump B inlet) |
-| Y-G | P-B-O (pump B outlet) | V-I-I (pump to bag B) | V-J-I (pump to nozzle B) |
+| Y-F | V-D-O (channel B shared source) | V-H-O (bag B to pump return) | P-A-I (pump A inlet) |
+| Y-G | P-A-O (pump A outlet) | V-I-I (pump to bag B) | V-J-I (pump to nozzle B) |
 | Y-H | V-I-O (pump to bag B return) | Bag B port | V-H-I (bag B to pump) |
 
 ## Tube Segments
@@ -55,8 +55,8 @@ Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/top
 |---|---|---|---|
 | 9 | V-C-O | Y-C-1 | |
 | 10 | V-E-O | Y-C-2 | |
-| 11 | Y-C-3 | P-A-I | |
-| 12 | P-A-O | Y-D-1 | |
+| 11 | Y-C-3 | P-B-I | |
+| 12 | P-B-O | Y-D-1 | |
 | 13 | Y-D-2 | V-F-I | |
 | 14 | V-F-O | Y-E-1 | |
 | 15 | Bag A port | Y-E-2 | |
@@ -70,8 +70,8 @@ Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/top
 |---|---|---|---|
 | 19 | V-D-O | Y-F-1 | |
 | 20 | V-H-O | Y-F-2 | |
-| 21 | Y-F-3 | P-B-I | |
-| 22 | P-B-O | Y-G-1 | |
+| 21 | Y-F-3 | P-A-I | |
+| 22 | P-A-O | Y-G-1 | |
 | 23 | Y-G-2 | V-I-I | |
 | 24 | V-I-O | Y-H-1 | |
 | 25 | Bag B port | Y-H-2 | |
