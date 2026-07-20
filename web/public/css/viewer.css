@@ -173,9 +173,11 @@
   background: rgba(58, 58, 90, 0.9);
 }
 
-/* Edge-picker + find toggles — stacked above the x-ray toggle (ruler 16,
-   xray 58, edge 100, find 142), same pill styling as their siblings. */
+/* Edge-picker + component-picker + find toggles — stacked above the x-ray
+   toggle (ruler 16, xray 58, edge 100, component 142, find 184, port 226,
+   shape-box 268), same pill styling as their siblings. */
 .cad-wrapper > .edge-pick-toggle,
+.cad-wrapper > .component-pick-toggle,
 .cad-wrapper > .pick-find-toggle,
 .cad-wrapper > .port-toggle,
 .cad-wrapper > .shape-box-toggle {
@@ -193,22 +195,27 @@
   -webkit-appearance: none;
   appearance: none;
 }
-.cad-wrapper > .pick-find-toggle {
+.cad-wrapper > .component-pick-toggle {
   bottom: calc(env(safe-area-inset-bottom, 0px) + 142px);
 }
-.cad-wrapper > .port-toggle {
+.cad-wrapper > .pick-find-toggle {
   bottom: calc(env(safe-area-inset-bottom, 0px) + 184px);
 }
-.cad-wrapper > .shape-box-toggle {
+.cad-wrapper > .port-toggle {
   bottom: calc(env(safe-area-inset-bottom, 0px) + 226px);
 }
+.cad-wrapper > .shape-box-toggle {
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 268px);
+}
 .cad-wrapper > .edge-pick-toggle:hover,
+.cad-wrapper > .component-pick-toggle:hover,
 .cad-wrapper > .pick-find-toggle:hover,
 .cad-wrapper > .port-toggle:hover,
 .cad-wrapper > .shape-box-toggle:hover {
   background: rgba(58, 58, 90, 0.9);
 }
 .cad-wrapper > .edge-pick-toggle.off,
+.cad-wrapper > .component-pick-toggle.off,
 .cad-wrapper > .port-toggle.off,
 .cad-wrapper > .shape-box-toggle.off {
   opacity: 0.55;
@@ -402,6 +409,69 @@
 .edge-copied {
   color: #7CFF8A !important;
   border-color: #7CFF8A !important;
+}
+
+/* Component picker readout — same top-left panel + head/button styling as the
+   edge panel, plus a Hide button and the list of components hidden from the
+   local view (each with its own Show, and a Show-all). */
+.component-panel .component-hide {
+  margin-top: 8px;
+}
+.component-panel .component-hide:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.component-hidden {
+  margin-top: 8px;
+}
+.component-hidden:empty {
+  margin-top: 0;
+}
+.component-hidden-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 8px;
+  margin-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-2);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.component-hidden-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+.component-hidden-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+}
+.component-show,
+.component-show-all {
+  flex: 0 0 auto;
+  padding: 2px 8px;
+  background: rgba(58, 58, 90, 0.6);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 11px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.component-show:hover,
+.component-show-all:hover {
+  background: rgba(74, 74, 112, 0.9);
 }
 
 /* Find box — top-right panel (clear of the ContentViewer close X), paste

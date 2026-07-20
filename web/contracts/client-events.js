@@ -10,6 +10,7 @@ export const HSM_EVENTS = {
   CODE_CHANGED: "hsm:code-changed",                   // { version } — a viewer render module moved; re-import the open detail's loader under this token
   NOTIFICATIONS_UPDATED: "hsm:notifications-updated", // inbox state changed (drives bell + toast)
   PCB_TOOL: "hsm:pcb-tool",                           // viewer-internal: pad-picker / editor tool switch
+  STEP_TOOL: "hsm:step-tool",                         // viewer-internal: STEP edge-picker / component-picker tool switch
 };
 
 /** @typedef {CustomEvent<{ files: string[] }>} FilesChangedEvent */

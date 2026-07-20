@@ -11,6 +11,7 @@ import { applyXray } from "./xray.js";
 import { setActiveEdges } from "./edge-picker.js";
 import { clearPickFind } from "./pick-find.js";
 import { clearHighlight } from "./part-highlight.js";
+import { clearComponentPicker, loadHiddenForFile, applyHiddenComponents } from "./component-picker.js";
 import { clearPortsExcept } from "./port-markers.js";
 import { clearShapeBoxesExcept } from "./shape-boxes.js";
 
@@ -153,8 +154,11 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     clearHighlight(); // and a stale scorecard part-highlight does too
     clearPortsExcept(file); // port markers for another model don't belong on this one
     clearShapeBoxesExcept(file); // nor its shape boxes
+    clearComponentPicker();      // drop a stale component selection/hover overlay
     scene.add(state.currentGroup);
     state.mountedDetail = { type: "step", file };
+    loadHiddenForFile(file);     // restore this file's locally-hidden components…
+    applyHiddenComponents();     // …and take them out of the freshly-built view
     if (!preserveCamera) resetCamera(state.currentGroup);
   } finally {
     if (loadingEl) loadingEl.style.display = "none";

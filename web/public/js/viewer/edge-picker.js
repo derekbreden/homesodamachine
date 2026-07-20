@@ -50,6 +50,7 @@ import * as THREE from "three";
 import { Line2 } from "three/addons/lines/Line2.js";
 import { LineGeometry } from "three/addons/lines/LineGeometry.js";
 import { LineMaterial } from "three/addons/lines/LineMaterial.js";
+import { HSM_EVENTS } from "/contracts/client-events.js";
 import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
 import { isXrayEnabled } from "./xray.js";
@@ -455,6 +456,7 @@ function pickEdge(clientX, clientY) {
 
   let best = null;
   for (const edge of edges) {
+    if (state.hiddenComponents && state.hiddenComponents.has(edge.solid)) continue; // hidden component — not in view
     const pts = edge.points;
     let prev = projectPixels(pts[0], rect, e);
     for (let i = 1; i < pts.length; i++) {
@@ -484,9 +486,11 @@ const _ndc = new THREE.Vector2();
 function frontMeshes() {
   if (!state.currentGroup) return [];
   // Front meshes only — the back copies share geometry and would double
-  // the triangle scan for the same answer.
+  // the triangle scan for the same answer. Skip components the user hid
+  // locally (component-picker.js): a hidden solid isn't in the view, so
+  // its faces shouldn't be pickable either.
   return state.currentGroup.children.filter(
-    (c) => c.userData && c.userData.side === "front",
+    (c) => c.userData && c.userData.side === "front" && c.visible !== false,
   );
 }
 
@@ -541,6 +545,14 @@ function disposeAllEdgesLayer() {
   allEdgesLine = null;
 }
 
+// Drop the faint all-edges layer so it rebuilds honoring the current hidden set
+// (component-picker.js hides/shows a solid while this layer is off; it rebuilds
+// from scratch, skipping hidden solids, the next time the picker is armed).
+export function invalidateAllEdgesLayer() {
+  disposeAllEdgesLayer();
+  ensureAllEdgesLayer(); // no-op unless the toggle is on
+}
+
 function ensureAllEdgesLayer() {
   if (!enabled || !edgeSource) return;
   if (allEdgesLine) { allEdgesLine.visible = true; return; }
@@ -548,6 +560,7 @@ function ensureAllEdgesLayer() {
   if (!edges.length) return;
   const flat = [];
   for (const e of edges) {
+    if (state.hiddenComponents && state.hiddenComponents.has(e.solid)) continue; // hidden component — off the view
     const p = e.points;
     for (let i = 1; i < p.length; i++) {
       flat.push(p[i - 1].x, p[i - 1].y, p[i - 1].z, p[i].x, p[i].y, p[i].z);
@@ -896,6 +909,9 @@ export function setEdgePickEnabled(on) {
   try { localStorage.setItem(LS_KEY, enabled ? "1" : "0"); } catch {}
   if (enabled) {
     ensureAllEdgesLayer();
+    // Arming edge-select disarms the component picker so a click doesn't feed
+    // both. Only announce on arm, so disarming can't ping-pong.
+    window.dispatchEvent(new CustomEvent(HSM_EVENTS.STEP_TOOL, { detail: "edge" }));
   } else {
     clearSelection();
     setHover(null);
@@ -904,6 +920,22 @@ export function setEdgePickEnabled(on) {
 }
 
 export function isEdgePickEnabled() { return enabled; }
+
+let toggleRefresh = null;
+export function syncEdgeToggle() { if (toggleRefresh) toggleRefresh(); }
+
+// Another STEP tool (the component picker) armed itself — stand down if it
+// wasn't us.
+window.addEventListener(HSM_EVENTS.STEP_TOOL, (e) => {
+  if (e.detail !== "edge" && enabled) {
+    enabled = false;
+    try { localStorage.setItem(LS_KEY, "0"); } catch {}
+    clearSelection();
+    setHover(null);
+    if (allEdgesLine) allEdgesLine.visible = false;
+    if (toggleRefresh) toggleRefresh();
+  }
+});
 
 export function makeEdgePickToggle() {
   const btn = document.createElement("button");
@@ -914,6 +946,7 @@ export function makeEdgePickToggle() {
     btn.classList.toggle("off", !enabled);
   }
   btn.addEventListener("click", () => { setEdgePickEnabled(!enabled); refresh(); });
+  toggleRefresh = refresh;
   refresh();
   return btn;
 }
