@@ -184,6 +184,12 @@ manifold_fwd_wall_gap = (93.0, 105.0)
 # thins past the bore edge).
 manifold_gate_lip_gap = (232.0, 285.0)   # z-band of the front Y-lip's +X gap (the flipped tray's outer ports cross low)
 manifold_gate_pod_aft = 144.4            # bottom-east Z-pod aft face (y)
+# West-wall accommodation: the bag tray's two −X outlet elbows, butted against the
+# −X wall, cross its seam furniture (Y-lip / Z-lip / pods) over their z-band. Gap
+# that furniture on the −X wall so the elbows seat flush — one y-band per elbow row
+# (front, back) and one shared z-band. The seam still pins at the corners.
+manifold_west_elbow_gap_z = (254.0, 285.0)
+manifold_west_elbow_gap_y = ((106.0, 128.0), (143.0, 165.0))
 
 
 # --- primitives -------------------------------------------------------------
@@ -925,6 +931,11 @@ def build_piece(y_side, z_side, dims=None, halves_cache=None):
             piece = piece.cut(_facet_wedge(outer)).cut(_display_cuts(outer))
         for x_in, x_ext, sx, ys, _c in stations:
             piece = piece.cut(_screw_cut(x_ext, sx, _z_pin_z(zj), ys))
+    # Gap the −X wall's seam furniture where the bag's two butted west elbows cross it
+    # (x from the interior face one wall inboard; the exterior wall itself is untouched).
+    for _wy0, _wy1 in manifold_west_elbow_gap_y:
+        piece = piece.cut(_ybox(inner[0], inner[0] + wall + 1.0, _wy0, _wy1,
+                                *manifold_west_elbow_gap_z))
     piece = piece.intersect(_rounded_outer(outer))
     return cq.Workplane(obj=piece)
 

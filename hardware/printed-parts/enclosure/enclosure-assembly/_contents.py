@@ -196,9 +196,11 @@ FUNNEL_ROT = 0.0
 # walls' back faces meet the cold core's front face (the `near foam-assembly`
 # rule, a declared contact); the aft-station elbow columns set how far forward
 # the back pieces' Y-seam machinery must stop (enclosure _dims y_elbows). In X
-# the assembly (elbow tip to elbow tip) spans the interior wall-to-wall; its
-# +X elbows stop one wall clearance short of the foam's edge.
-SRC_SEL_POS = (147.0, 135.55, 167.8)
+# the assembly (elbow tip to elbow tip) spans the interior wall-to-wall: its
+# −X outlet-elbow column butts the −X wall and its +X elbows stop one wall
+# clearance short of the foam's east edge. (The wall is pinned by the full-width
+# foam, so the −X column butts it directly — the foam sets the wall, not the trays.)
+SRC_SEL_POS = (139.0, 135.55, 167.8)
 # The bag-circuit assembly rides INVERTED on top of it — rotated 180° about Y,
 # seated wall-tops-to-wall-tops on the source tray's stacking walls (a
 # declared contact), both trays' walls meeting at z 227.8 — which lands each
