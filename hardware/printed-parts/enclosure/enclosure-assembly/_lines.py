@@ -45,9 +45,12 @@ from _routing import route
 COPPER = cq.Color(0.72, 0.45, 0.20)
 
 # Connections the pack does not carry as it stands, each with the measurement that blocks it.
-# They stay counted against the `routed` axis. Empty: every unrouted connection is waiting on a
-# component the pack does not hold yet, or on an author — none on a path the pack forbids.
-BLOCKED: dict = {}
+# They stay counted against the `routed` axis.
+BLOCKED: dict = {
+    "fluid-23": "dropped bag-B elbow → Y-G-2: the elbow's −Z-tilted free port and the ~3 mm "
+                "x-offset to the outlet need two sub-bend-radius legs at once; waits on the "
+                "y-g divider pose (nudge east clears the x-offset but crowds the gate tray).",
+}
 
 
 def _frames():
@@ -116,6 +119,23 @@ def build_runs() -> list:
     ):
         runs.append(route(cid, frm, to, kind="fluid", stub=0.0,
                           note=f"channel {ch}: collet to tee, straight down the junction column"))
+
+    # The pump-discharge runs — each turn-elbow's free collet down into its divider outlet. A
+    # flavor's bag and nozzle legs meet at its divider (diagonal netlist): a short near leg and a
+    # longer cross-row leg over the pump. The x/z constraints set the lane; each run closes in y
+    # into the +Y-facing outlet. Tight radii (R4) — these are short jumpers in the open air over
+    # the pumps, a starting point that relaxes as the divider spots settle. The stems to the pumps
+    # (segments 12/22) stay unauthored. fluid-23 (dropped bag-B elbow → Y-G-2) is deferred: its
+    # −Z-tilted exit plus the small x-offset need two sub-radius legs the orthogonal router can't
+    # place at this spacing — it waits on the divider pose (see BLOCKED).
+    for cid, elb, div, port in (
+        ("fluid-13", "elbow-bag-y-d", f["y-d"], "Y-D-2"),
+        ("fluid-17", "elbow-y-g",     f["y-d"], "Y-D-3"),
+        ("fluid-27", "elbow-y-d",     f["y-g"], "Y-G-3"),
+    ):
+        runs.append(route(cid, f"{elb}.free", div.x(port), div.z(port), f"{div.name}.{port}",
+                          kind="fluid", bend=4.0, stub=4.0,
+                          note=f"discharge {port}: {elb} free → divider outlet"))
 
     return runs
 
