@@ -82,34 +82,100 @@ def _placed_funnel():
             .translate((contents.FUNNEL_CX, contents.FUNNEL_CY, outer[5])))
 
 
+# --- Placement overrides -----------------------------------------------------
+# The 3D viewer's dev-only component editor writes per-component moves here (a
+# JSON sidecar beside the .step) and re-runs this script; each override is a
+# sequence of steps — every step a rotate about the solid's CURRENT centre then
+# a translate — applied to that named solid before it joins the pack. Steps
+# accumulate (the editor appends one per Apply, from the pose it's showing), so a
+# rotate always turns about the centre the viewer rotated about; preview and
+# rebuild agree. It works for every named solid (the derived trays/tees included)
+# because it acts on the finished placement, not the procedural anchor that
+# produced it, and the pack's clash gates (main(), below) validate the moved pose
+# exactly as they do the authored one. An empty/absent sidecar changes nothing.
+# Authored runs (_lines.py) are NOT overridden — a moved component's tubes stay on
+# their authored path until the move is promoted into the placement source
+# (_contents.py).
+#
+#   { "<component>": [ { "translate": [dx,dy,dz], "rotate": {"axis":[x,y,z], "deg": d} }, … ] }
+#
+# translate and rotate are each optional per step; a lone dict (not a list) is
+# tolerated as a single step.
+OVERRIDES_PATH = _here.parent / "enclosure-assembly.overrides.json"
+
+
+def _load_overrides():
+    try:
+        data = json.loads(OVERRIDES_PATH.read_text())
+        return data if isinstance(data, dict) else {}
+    except (FileNotFoundError, ValueError):
+        return {}
+
+
+def _apply_step(shape, step):
+    rot = step.get("rotate")
+    if rot and rot.get("deg"):
+        ax = rot.get("axis") or [0.0, 0.0, 1.0]
+        bb = shape.BoundingBox()
+        c = ((bb.xmin + bb.xmax) / 2.0, (bb.ymin + bb.ymax) / 2.0, (bb.zmin + bb.zmax) / 2.0)
+        shape = shape.rotate(c, (c[0] + ax[0], c[1] + ax[1], c[2] + ax[2]), float(rot["deg"]))
+    t = step.get("translate")
+    if t and any(t):
+        shape = shape.translate((float(t[0]), float(t[1]), float(t[2])))
+    return shape
+
+
+def _apply_override(name, shape, overrides):
+    steps = overrides.get(name)
+    if not steps:
+        return shape
+    if isinstance(steps, dict):
+        steps = [steps]
+    for step in steps:
+        shape = _apply_step(shape, step)
+    return shape
+
+
+def _solids_colored(overrides):
+    """Every non-piece, non-line solid — contents, the through-wall panel bodies,
+    the display, the funnel — name → (shape, color), each override-applied. Shared
+    by build() (adds them to the assembly) and main() (strips color for the
+    scorecard's clash gates), so both render the same moved geometry."""
+    out = dict(contents.build())
+    out.update(contents.panel_bodies())
+    out["display"] = (_placed_display(), DISPLAY_COLOR)
+    out["hopper-funnel"] = (_placed_funnel(), FUNNEL_COLOR)
+    return {n: (_apply_override(n, s, overrides), c) for n, (s, c) in out.items()}
+
+
+def _pieces_shapes(overrides):
+    """The four enclosure pieces, name → shape, each override-applied."""
+    return {n: _apply_override(n, cq.importers.importStep(str(p)).val(), overrides)
+            for n, p in PIECES.items()}
+
+
 def build():
-    placed = dict(contents.build())
-    placed.update(contents.panel_bodies())
+    overrides = _load_overrides()
 
     assy = cq.Assembly(name="kitchen-edition-enclosure-assembly")
-    for name, path in PIECES.items():
-        assy.add(cq.importers.importStep(str(path)).val(), name=name,
-                 color=PIECE_COLORS[name])
-    for name, (shape, color) in placed.items():
+    for name, shape in _pieces_shapes(overrides).items():
+        assy.add(shape, name=name, color=PIECE_COLORS[name])
+    for name, (shape, color) in _solids_colored(overrides).items():
         assy.add(shape, name=name, color=color)
-    assy.add(_placed_display(), name="display", color=DISPLAY_COLOR)
-    assy.add(_placed_funnel(), name="hopper-funnel", color=FUNNEL_COLOR)
     # The authored runs (_lines.py), in the pack's coordinates. Lines, not components: outside
-    # the component registry and its gates.
+    # the component registry and its gates (and not moved by overrides).
     for name, (shape, color) in _lines.build().items():
         assy.add(shape, name=name, color=color)
     return assy
 
 
 def main():
-    placed = dict(contents.build())
-    placed.update(contents.panel_bodies())
-    solids = {n: s for n, (s, _c) in placed.items()}
-    solids["display"] = _placed_display()
-    solids["hopper-funnel"] = _placed_funnel()
-    pieces = {n: cq.importers.importStep(str(p)).val() for n, p in PIECES.items()}
+    overrides = _load_overrides()
+    solids = {n: s for n, (s, _c) in _solids_colored(overrides).items()}
+    pieces = _pieces_shapes(overrides)
 
-    inner_bbs = [s.BoundingBox() for s, _c in contents.build().values()]
+    inner_bbs = [_apply_override(n, s, overrides).BoundingBox()
+                 for n, (s, _c) in contents.build().items()]
     ix = max(b.xmax for b in inner_bbs) - min(b.xmin for b in inner_bbs)
     iy = max(b.ymax for b in inner_bbs) - min(b.ymin for b in inner_bbs)
     iz = max(b.zmax for b in inner_bbs)

@@ -12,6 +12,7 @@ import { setActiveEdges } from "./edge-picker.js";
 import { clearPickFind } from "./pick-find.js";
 import { clearHighlight } from "./part-highlight.js";
 import { clearComponentPicker, loadHiddenForFile, applyHiddenComponents } from "./component-picker.js";
+import { onStepReloaded } from "./component-edit.js";
 import { clearPortsExcept } from "./port-markers.js";
 import { clearShapeBoxesExcept } from "./shape-boxes.js";
 
@@ -159,6 +160,7 @@ export async function loadStepFile(file, { preserveCamera = false } = {}) {
     state.mountedDetail = { type: "step", file };
     loadHiddenForFile(file);     // restore this file's locally-hidden components…
     applyHiddenComponents();     // …and take them out of the freshly-built view
+    onStepReloaded();            // re-seat the component editor's selection on the fresh meshes
     if (!preserveCamera) resetCamera(state.currentGroup);
   } finally {
     if (loadingEl) loadingEl.style.display = "none";

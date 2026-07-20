@@ -178,6 +178,7 @@
    shape-box 268), same pill styling as their siblings. */
 .cad-wrapper > .edge-pick-toggle,
 .cad-wrapper > .component-pick-toggle,
+.cad-wrapper > .component-edit-toggle,
 .cad-wrapper > .pick-find-toggle,
 .cad-wrapper > .port-toggle,
 .cad-wrapper > .shape-box-toggle {
@@ -198,17 +199,21 @@
 .cad-wrapper > .component-pick-toggle {
   bottom: calc(env(safe-area-inset-bottom, 0px) + 142px);
 }
-.cad-wrapper > .pick-find-toggle {
+.cad-wrapper > .component-edit-toggle {
   bottom: calc(env(safe-area-inset-bottom, 0px) + 184px);
 }
-.cad-wrapper > .port-toggle {
+.cad-wrapper > .pick-find-toggle {
   bottom: calc(env(safe-area-inset-bottom, 0px) + 226px);
 }
-.cad-wrapper > .shape-box-toggle {
+.cad-wrapper > .port-toggle {
   bottom: calc(env(safe-area-inset-bottom, 0px) + 268px);
+}
+.cad-wrapper > .shape-box-toggle {
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 310px);
 }
 .cad-wrapper > .edge-pick-toggle:hover,
 .cad-wrapper > .component-pick-toggle:hover,
+.cad-wrapper > .component-edit-toggle:hover,
 .cad-wrapper > .pick-find-toggle:hover,
 .cad-wrapper > .port-toggle:hover,
 .cad-wrapper > .shape-box-toggle:hover {
@@ -216,9 +221,16 @@
 }
 .cad-wrapper > .edge-pick-toggle.off,
 .cad-wrapper > .component-pick-toggle.off,
+.cad-wrapper > .component-edit-toggle.off,
 .cad-wrapper > .port-toggle.off,
 .cad-wrapper > .shape-box-toggle.off {
   opacity: 0.55;
+}
+/* The editor is a mutation tool — tint its pill green when armed so it reads
+   apart from the read-only inspectors above it. */
+.cad-wrapper > .component-edit-toggle:not(.off) {
+  border-color: rgba(89, 255, 158, 0.7);
+  color: #9dffc8;
 }
 
 /* Port hover readout — follows the cursor over a port marker (port-markers.js), naming the
@@ -473,6 +485,104 @@
 .component-show-all:hover {
   background: rgba(74, 74, 112, 0.9);
 }
+
+/* Component editor panel — reuses .edge-panel chrome (head/name/close), plus a
+   Move/Rotate mode switch, numeric offset fields, and the Apply/Reset actions. */
+.component-edit-mode {
+  display: flex;
+  gap: 6px;
+  margin: 6px 0;
+}
+.component-edit-tab {
+  flex: 1 1 0;
+  padding: 5px 8px;
+  background: rgba(58, 58, 90, 0.4);
+  color: var(--text-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.component-edit-tab.on {
+  background: rgba(89, 255, 158, 0.16);
+  border-color: rgba(89, 255, 158, 0.6);
+  color: #9dffc8;
+}
+.component-edit-fields {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.component-edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 10px;
+  color: var(--text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.component-edit-num,
+.component-edit-axis {
+  width: 72px;
+  box-sizing: border-box;
+  padding: 5px 6px;
+  background: rgba(0, 0, 0, 0.28);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.component-edit-axis {
+  width: 56px;
+  appearance: auto;
+  -webkit-appearance: auto;
+}
+.component-edit-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.component-edit-actions > .component-edit-apply {
+  margin-top: 0;
+  flex: 1 1 auto;
+}
+.component-edit-reset {
+  flex: 0 0 auto;
+  padding: 6px 12px;
+  background: rgba(58, 58, 90, 0.6);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  font-size: 12px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.component-edit-reset:hover {
+  background: rgba(74, 74, 112, 0.9);
+}
+.component-edit-apply:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.component-edit-status {
+  margin-top: 8px;
+  min-height: 15px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--text-2);
+  word-break: break-word;
+}
+.component-edit-status.busy { color: #ffd400; }
+.component-edit-status.ok { color: #7CFF8A; }
+.component-edit-status.err { color: #ff6b81; }
 
 /* Find box — top-right panel (clear of the ContentViewer close X), paste
    pick text and highlight every recognizable pick at once. Reuses the

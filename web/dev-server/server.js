@@ -22,6 +22,7 @@ import chokidar from "chokidar";
 
 import { start } from "../server.js";
 import { mountPcbEditorRoutes } from "../lib/pcb-editor-routes.js";
+import { mountStepEditorRoutes } from "../lib/step-editor-routes.js";
 import {
   isRunnableScript,
   findRunnableScriptsTransitivelyImporting,
@@ -44,6 +45,72 @@ const { app, broadcast, hardwareDir: HARDWARE_DIR, liteDir: LITE_DIR } = await s
 // parse + position write-back. Absent in production, so the board is read-only
 // there and the Edit toggle never appears.
 mountPcbEditorRoutes(app, HARDWARE_DIR);
+
+// STEP component editor API — dev-only, backs the viewer's 3D "Edit" toggle
+// (web/public/js/viewer/component-edit.js). A move is written to a placement-
+// override sidecar (lib/step-editor-routes.js) and this rebuild re-runs the
+// assembly generator: on success it broadcasts the new .step so the viewer
+// hot-reloads onto the real geometry; on a clash the generator exits non-zero
+// and its stderr comes back for the panel to show. Absent in production, so the
+// Edit toggle never appears there.
+const editorRunning = new Map(); // generator path -> AbortController (supersede a slow rebuild)
+
+async function rebuildStepAssembly(pyFilePath) {
+  const prev = editorRunning.get(pyFilePath);
+  if (prev) prev.abort();
+  const ac = new AbortController();
+  editorRunning.set(pyFilePath, ac);
+
+  const scriptDir = path.dirname(pyFilePath);
+  const startTime = Date.now();
+  console.log(`  ↪ editor rebuild: ${relForLog(pyFilePath)}`);
+  try {
+    let stderr = "";
+    const code = await new Promise((resolve, reject) => {
+      const proc = spawn(PYTHON_BIN, [pyFilePath], {
+        cwd: scriptDir,
+        // stderr piped (not inherited) so a clash traceback / SystemExit message
+        // can ride back to the editor panel; stdout suppressed like runScript.
+        stdio: ["ignore", "ignore", "pipe"],
+        signal: ac.signal,
+        killSignal: "SIGKILL",
+        env: { ...process.env, HSM_SKIP_THUMBNAILS: "1" },
+      });
+      proc.stderr.setEncoding("utf8");
+      proc.stderr.on("data", (c) => { stderr += c; if (stderr.length > 8000) stderr = stderr.slice(-8000); });
+      proc.on("close", resolve);
+      proc.on("error", reject);
+    });
+
+    if (code !== 0) {
+      // Last non-empty line is the SystemExit reason (e.g. "pack does not close …").
+      const lines = stderr.split("\n").map((l) => l.trimEnd()).filter(Boolean);
+      const reason = lines[lines.length - 1] || `generator exited ${code}`;
+      console.log(`  ↪ editor rebuild failed: ${reason}`);
+      return { ok: false, error: reason };
+    }
+
+    // Broadcast every .step the generator rewrote (mirrors runScript), so the
+    // open modal hot-reloads onto the moved geometry.
+    for (const entry of fs.readdirSync(scriptDir)) {
+      if (entry.startsWith(".") || !entry.endsWith(".step")) continue;
+      const full = path.join(scriptDir, entry);
+      if (fs.statSync(full).mtimeMs < startTime) continue;
+      const relFile = relForBroadcast(full);
+      console.log(`  -> ${relFile} (editor)`);
+      broadcast({ type: WS.FILES_CHANGED, files: [relFile] });
+      queueThumbnail(full);
+    }
+    return { ok: true };
+  } catch (e) {
+    if (e.name === "AbortError") return { ok: false, error: "superseded by a newer move" };
+    return { ok: false, error: e.message };
+  } finally {
+    if (editorRunning.get(pyFilePath) === ac) editorRunning.delete(pyFilePath);
+  }
+}
+
+mountStepEditorRoutes(app, HARDWARE_DIR, rebuildStepAssembly);
 
 // Content roots the viewer serves, and that we therefore watch, regenerate,
 // and broadcast for. hardware/ is the kitchen edition; pie-in-the-sky/lite/ is
