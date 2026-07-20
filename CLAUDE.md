@@ -24,6 +24,8 @@ Run scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`.
 
 See `hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py` for patterns to follow, and its companion `touch_flo_shell.md` for the idioms those patterns embody.
 
+A generator that writes a STEP also renders its `.step.png` thumbnail at exit via a headless browser — tens of seconds on a large assembly. `HSM_SKIP_THUMBNAILS=1` skips that render for fast iteration; the dev-server watcher already sets it and rebuilds thumbnails off its own critical path.
+
 ## Firmware
 
 Flash with `tools/flash.sh`.
