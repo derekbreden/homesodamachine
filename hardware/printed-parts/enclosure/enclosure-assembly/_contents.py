@@ -672,15 +672,15 @@ def divider_port(name, port):
 
 # ── Pump-discharge outlet elbow re-aim ───────────────────────────────────────────────────────
 # PUMP_OUTLET_AIM re-rolls a pump's discharge outlet elbow about its vertical port axis to the
-# free-leg heading its stem run leaves along (segments 12/22). pump-a aims east across the row at
-# y-d; an absent entry leaves the outlet as placed, aimed -X.
+# free-leg heading its stem run leaves along. pump-a aims east at y-g; an absent entry (pump-b)
+# leaves the outlet as placed, aimed -X at y-d just west of it.
 PUMP_ELBOW_REACH = 19.56                          # outlet elbow free-leg: collet face to bend corner
 _PUMP_OUTLET_BASE = {                             # as-placed outlet collet: (pos, free-leg dir)
     "pump-a": ((98.56, 36.01, 278.17), (-1.0, 0.0, 0.0)),
     "pump-b": ((231.44, 22.01, 278.17), (-1.0, 0.0, 0.0)),
 }
 PUMP_OUTLET_AIM = {                               # re-rolled free-leg heading (horizontal); absent = as placed
-    "pump-a": (0.94, -0.34, 0.0),
+    "pump-a": (0.97, -0.22, 0.0),
 }
 
 
