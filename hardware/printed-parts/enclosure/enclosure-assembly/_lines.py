@@ -56,6 +56,20 @@ DISCHARGE_SKEW = 22.0
 BLOCKED: dict = {}
 
 
+def _meet(p, u, q, v, bias):
+    """The corner where two facing collets' axes (p along u, q along v) come nearest, blended `bias`
+    toward q's line so the tail enters q straight — one bend joins the two there."""
+    dot = lambda a, b: a[0] * b[0] + a[1] * b[1] + a[2] * b[2]      # noqa: E731
+    w0 = tuple(p[i] - q[i] for i in range(3))
+    a, b, c = dot(u, u), dot(u, v), dot(v, v)
+    d, e = dot(u, w0), dot(v, w0)
+    s = (b * e - c * d) / (a * c - b * b)
+    t = (a * e - b * d) / (a * c - b * b)
+    c1 = tuple(p[i] + s * u[i] for i in range(3))
+    c2 = tuple(q[i] + t * v[i] for i in range(3))
+    return tuple(c1[i] * (1.0 - bias) + c2[i] * bias for i in range(3))
+
+
 def _frames():
     """A frame per placed component: its body box from the pack, its ports from the scorecard's
     port table."""
@@ -126,17 +140,17 @@ def build_runs() -> list:
     # The pump-discharge runs — each flavor's bag + nozzle legs meet at its two-way divider. The
     # netlist is DIAGONAL (a flavor's two valves sit on opposite tray rows), so the two long legs
     # cross the row. Each turn-elbow aims its free leg at the outlet it feeds (_contents
-    # `elbow_free_dir`), so every run leaves nearly along its collet: the two short legs (13, 27) are
-    # one straight tube each into their outlet, while the two long crossing legs (17, 23) leave
-    # climbing (the elbow's lift) and are carried OVER the near flavor's fitting by one hand-placed
-    # apex, then down into the outlet — a gentle arc, authored point-to-point with `bent`. A bent leg
+    # `elbow_free_dir`), so a run leaves nearly along its collet: fluid-27 is one straight tube into
+    # its outlet; fluid-13 bends once into y-d's yawed outlet; the two long crossing legs (17, 23)
+    # leave climbing (the elbow's lift) and are carried OVER the near flavor's fitting by one
+    # hand-placed apex, then down — a gentle arc, authored point-to-point with `bent`. A bent leg
     # leaves and enters straight for LEAD mm along its collet, then rounds at the DBEND radius. The
     # divider stems to the pumps (segments 12/22) leave below, from each divider's own stem port.
     LEAD = 8.0                              # straight lead-out/-in along each collet, either side of an apex
     DBEND = 12.0                            # 1/4" LLDPE, clean-sweeping radius (as the copper loop uses)
     for cid, elb, div, port, apex in (
-        ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", None),
-        ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3", (205.0, 112.0, 257.0)),   # over elbow-y-d (top z254)
+        ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", 4.0),                     # one bend into the yawed outlet
+        ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3", (202.0, 111.0, 259.0)),   # over elbow-y-d (top z254)
         ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (200.0, 112.0, 289.0)),   # over elbow-bag-y-d (top z286)
         ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3", None),                    # rises straight to the raised outlet
     ):
@@ -144,6 +158,8 @@ def build_runs() -> list:
         op, od = contents.divider_port(div, int(port[-1]))     # "Y-G-2" -> outlet 2
         if apex is None:                    # short leg: one straight tube, the collet flex takes the skew
             mids = []
+        elif isinstance(apex, float):       # lead-in of that length: one bend into the outlet's collet
+            mids = [tuple(op[i] + od[i] * apex for i in range(3))]
         else:                               # bent leg: lead out along the collet, through the apex, lead in
             mids = [tuple(fp[i] + fd[i] * LEAD for i in range(3)), apex,
                     tuple(op[i] + od[i] * LEAD for i in range(3))]
@@ -151,22 +167,22 @@ def build_runs() -> list:
                             kind="fluid", bend=DBEND, skew=DISCHARGE_SKEW,
                             note=f"discharge {port}: {elb} → {div} {port}, bent over the row"))
 
-    # The pump-discharge stems (segments 12/22) — each divider's stem back to a pump outlet, a bent
-    # tube across the open band over the pump bodies. fluid-22 leaves pump A's east-facing outlet for
-    # y-g's stem; fluid-12 hops the short span from pump B's west outlet into y-d's stem. Each turns
-    # in along its −Y-facing collet, the two in separate bays.
-    for cid, pump, oport, div, mids, sbend, slout, slin in (
-        ("fluid-12", "pump-b", "P-B-O", "y-d", [], 10.0, 8.0, 12.0),
-        ("fluid-22", "pump-a", "P-A-O", "y-g", [(165.0, 25.0, 278.0)], 12.0, 14.0, 14.0),
-    ):
-        op, od = contents.pump_outlet_pose(pump)
-        sp, sd = contents.divider_port(div, 1)                 # the stem, facing the pump
-        lead_out = tuple(op[i] + od[i] * slout for i in range(3))
-        lead_in = tuple(sp[i] + sd[i] * slin for i in range(3))
-        stem = f"{div.upper()}-1"
-        runs.append(R.bent(cid, f"{pump}.{oport}", lead_out, *mids, lead_in, f"{div}.{stem}",
-                            kind="fluid", bend=sbend, skew=DISCHARGE_SKEW,
-                            note=f"discharge stem {oport} → {div} {stem}, across the pump row"))
+    # The pump-discharge stems (segments 12/22) — each divider's stem back to a pump outlet.
+    # pump-b's outlet elbow and y-d's yawed stem face each other, so fluid-12 is a single bend where
+    # their collet axes meet. fluid-22 leaves pump A's east-facing outlet, crosses the open band over
+    # the pumps, and turns into y-g's stem; the two sit in separate bays.
+    op, od = contents.pump_outlet_pose("pump-b")
+    sp, sd = contents.divider_port("y-d", 1)
+    runs.append(R.bent("fluid-12", "pump-b.P-B-O", _meet(op, od, sp, sd, 0.85), "y-d.Y-D-1",
+                        kind="fluid", bend=6.0, skew=DISCHARGE_SKEW,
+                        note="discharge stem P-B-O → y-d Y-D-1, where the two collets meet"))
+    op, od = contents.pump_outlet_pose("pump-a")
+    sp, sd = contents.divider_port("y-g", 1)
+    runs.append(R.bent("fluid-22", "pump-a.P-A-O",
+                        tuple(op[i] + od[i] * 14.0 for i in range(3)), (165.0, 25.0, 278.0),
+                        tuple(sp[i] + sd[i] * 14.0 for i in range(3)), "y-g.Y-G-1",
+                        kind="fluid", bend=12.0, skew=DISCHARGE_SKEW,
+                        note="discharge stem P-A-O → y-g Y-G-1, across the pump row"))
 
     return runs
 
