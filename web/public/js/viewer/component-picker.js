@@ -62,8 +62,15 @@ function persistHidden() {
 export function applyHiddenComponents() {
   if (state.currentGroup) {
     for (const m of state.currentGroup.children) {
-      if (!m.isMesh) continue;
-      m.visible = !(m.name && state.hiddenComponents.has(m.name));
+      if (m.isMesh) {
+        m.visible = !(m.name && state.hiddenComponents.has(m.name));
+      } else if (m.userData && m.userData.isXrayEdge) {
+        // The x-ray ghost draws each solid's feature edges as a separate line
+        // object (xray.js); hide those for a hidden component too, or its
+        // wireframe keeps obstructing the interior.
+        const nm = m.userData.xrayComponent;
+        m.visible = !(nm && state.hiddenComponents.has(nm));
+      }
     }
   }
   invalidateAllEdgesLayer(); // the edge picker's faint all-edges layer must drop hidden solids
