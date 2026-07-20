@@ -125,10 +125,12 @@ COMPONENTS = [
     # In-line fittings — tube-hung PTC junctions, carried by their lines (no tray, no holder)
     _c("tee-y-c", "real", True, "none", "JG PP0208E union tee (fluid topology Y-C) hanging in the junction column: run vertical — V-C-O's drop into the run-up collet, the bag V-E-O return onto the run-down — branch east to pump A (segment 11)"),
     _c("tee-y-f", "real", True, "none", "JG PP0208E union tee (Y-F), the channel-B twin one port row aft: V-D-O above, V-H-O return below, branch east to pump B (segment 21)"),
-    _c("tee-y-d", "real", True, "none", "JG PP0208E union tee (fluid topology Y-D), pump-discharge junction A: hung off bag V-F by its branch (centre port), run to pump A + nozzle A — STARTING-POINT placement, routing not yet solved"),
-    _c("tee-y-g", "real", True, "none", "JG PP0208E union tee (Y-G), pump-discharge junction B: hung off bag V-I by its branch, run to pump B + nozzle B — STARTING-POINT placement"),
-    _c("elbow-y-d", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-J-I (flipped, west) toward the channel-A discharge tee — STARTING-POINT placement"),
-    _c("elbow-y-g", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-G-I (flipped, west) toward the channel-B discharge tee — STARTING-POINT placement"),
+    _c("tee-y-d", "real", True, "none", "JG PP0208E union tee — the Y connector for pump-discharge junction A: run along Y, +Y port at the bag-V-F elbow, −Y port on to pump A (segment 12), branch dropping to the gate elbow (segment 17); staggered west toward pump A — STARTING-POINT placement, routing not yet solved"),
+    _c("tee-y-g", "real", True, "none", "JG PP0208E union tee — the Y connector for pump-discharge junction B: run along Y, +Y port at the bag-V-I elbow, −Y port on to pump B (segment 22), branch dropping to the gate elbow (segment 27); staggered east toward pump B — STARTING-POINT placement"),
+    _c("elbow-bag-y-d", "real", True, "none", "JG PP0308E 90° elbow turning bag V-F-I (east) −Y toward the channel-A Y connector — STARTING-POINT placement"),
+    _c("elbow-bag-y-g", "real", True, "none", "JG PP0308E 90° elbow turning bag V-I-I (east) −Y toward the channel-B Y connector — STARTING-POINT placement"),
+    _c("elbow-y-d", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-J-I (flipped, west) −Y toward the channel-A Y connector — STARTING-POINT placement"),
+    _c("elbow-y-g", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-G-I (flipped, west) −Y toward the channel-B Y connector — STARTING-POINT placement"),
     # Electronics shelf
     _c("power-tray",        "real",        True,  "none", "printed tray holds its boards; tray-to-shell joinery deferred (power-tray README)"),
     _c("pcba",              "real",        True,  "none", "printed tray holds the board; tray-to-shell joinery deferred (pcba-tray README)"),

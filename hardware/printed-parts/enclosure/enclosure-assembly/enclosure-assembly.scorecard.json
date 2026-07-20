@@ -1,17 +1,17 @@
 {
-  "gatesPass": false,
-  "placed": 42,
-  "located": 69,
+  "gatesPass": true,
+  "placed": 39,
+  "located": 64,
   "shaped": 96,
   "routed": 10,
-  "held": 27,
+  "held": 25,
   "checks": [
     {
       "id": "coverage",
       "label": "Every placed part declared in the registry",
       "kind": "gate",
       "status": "pass",
-      "value": "26/26 placed declared",
+      "value": "28/28 placed declared",
       "target": "all declared",
       "detail": [],
       "active": true
@@ -20,43 +20,42 @@
       "id": "pack-closes",
       "label": "No two solids overlap (pack closes)",
       "kind": "gate",
-      "status": "fail",
-      "value": "2 clash",
+      "status": "pass",
+      "value": "0 clash",
       "target": "0 clash",
-      "detail": [
-        "elbow-y-d \u2229 tee-y-d: 75.7 mm\u00b3",
-        "elbow-y-g \u2229 tee-y-g: 75.7 mm\u00b3"
-      ],
+      "detail": [],
       "active": true
     },
     {
       "id": "clearance-floor",
       "label": "Part\u2194part clearance \u2265 floor (unless a declared contact)",
       "kind": "gate",
-      "status": "fail",
-      "value": "0.00 mm",
+      "status": "pass",
+      "value": "1.00 mm",
       "target": "\u2265 1.0 mm",
       "detail": [
         "source-select-assembly \u2014 bag-circuit-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
-        "elbow-y-d \u2014 tee-y-d: 0.00 mm \u2014 \u2717 below floor",
-        "elbow-y-g \u2014 tee-y-g: 0.00 mm \u2014 \u2717 below floor",
         "foam-assembly \u2014 source-select-assembly: 0.01 mm \u2014 CONTACT (declared ok)",
-        "tee-y-d \u2014 hopper-funnel: 0.87 mm \u2014 \u2717 below floor",
         "compressor-shroud \u2014 mq6-sensor: 1.00 mm",
+        "tee-y-d \u2014 hopper-funnel: 1.46 mm",
         "bag-circuit-assembly \u2014 pump-a: 1.49 mm",
-        "bag-circuit-assembly \u2014 tee-y-d: 2.00 mm",
-        "bag-circuit-assembly \u2014 tee-y-g: 2.00 mm",
+        "elbow-bag-y-d \u2014 tee-y-g: 1.99 mm",
+        "bag-circuit-assembly \u2014 elbow-bag-y-d: 2.00 mm",
+        "bag-circuit-assembly \u2014 elbow-bag-y-g: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-y-d: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-y-g: 2.00 mm",
         "foam-assembly \u2014 power-tray: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 dc-dist: 2.50 mm \u2014 CONTACT (declared ok)",
+        "elbow-bag-y-d \u2014 tee-y-d: 2.71 mm",
         "bag-circuit-assembly \u2014 hopper-funnel: 3.33 mm",
         "source-select-assembly \u2014 nozzle-gate-assembly: 3.40 mm",
+        "nozzle-gate-assembly \u2014 tee-y-g: 3.71 mm",
         "bag-circuit-assembly \u2014 tee-y-f: 3.78 mm",
         "bag-circuit-assembly \u2014 tee-y-c: 3.78 mm",
         "foam-assembly \u2014 condenser+fan: 4.00 mm",
         "display \u2014 hopper-funnel: 4.49 mm",
+        "elbow-bag-y-g \u2014 tee-y-g: 4.66 mm",
         "source-select-assembly \u2014 tee-y-f: 4.97 mm",
         "source-select-assembly \u2014 tee-y-c: 4.97 mm"
       ],
@@ -87,8 +86,8 @@
       "label": "Every component is a selected real part / finished print",
       "kind": "gate",
       "status": "pass",
-      "value": "26/26",
-      "target": "26/26",
+      "value": "28/28",
+      "target": "28/28",
       "detail": [],
       "active": true
     },
@@ -97,7 +96,7 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "42% (11/26)",
+      "value": "39% (11/28)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 0.0 x- 0.0 x+ 0.0 z- 9.5 mm",
@@ -111,7 +110,7 @@
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
         "\u2713 tee-y-c: near source-select-assembly 5.0 mm",
         "\u2713 tee-y-f: near source-select-assembly 5.0 mm",
-        "15 components: no placement rules defined yet"
+        "17 components: no placement rules defined yet"
       ],
       "active": true
     },
@@ -120,7 +119,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "69% (18/26)",
+      "value": "64% (18/28)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
@@ -161,7 +160,7 @@
         "\u2713 c14-inlet: 1/1 connectors located",
         "    \u2013 c14-inlet:mains-in (electrical) (90, 339, 295.5) y- \u00d88 \u2192 AC distribution \u2014 L/N/E to the electronics shelf",
         "\u2713 mq6-sensor: 1/1 connectors located",
-        "    \u2013 mq6-sensor:header (electrical) (116, 144, 3) z- \u00d88 \u2192 PCBA gas-sensor input \u2014 VCC/GND/DO/AO (SIG)",
+        "    \u2013 mq6-sensor:header (electrical) (103, 144, 3) z- \u00d88 \u2192 PCBA gas-sensor input \u2014 VCC/GND/DO/AO (SIG)",
         "\u2713 hopper-funnel: 1/1 connectors located"
       ],
       "active": true
@@ -171,7 +170,7 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "96% (25/26)",
+      "value": "96% (27/28)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)",
@@ -207,10 +206,10 @@
       "label": "Components in a printed holder fastened to the enclosure",
       "kind": "goal",
       "status": "warn",
-      "value": "27% (7/26)",
+      "value": "25% (7/28)",
       "target": "100%",
       "detail": [
-        "7 held (through-wall bodies + display); 19 loose internal parts unheld"
+        "7 held (through-wall bodies + display); 21 loose internal parts unheld"
       ],
       "active": false
     }
@@ -641,7 +640,7 @@
       "name": "header",
       "kind": "electrical",
       "pos": [
-        116.0,
+        103.0,
         144.0,
         3.0
       ],
@@ -649,7 +648,7 @@
       "diam": 8.0,
       "mates": "PCBA gas-sensor input \u2014 VCC/GND/DO/AO (SIG)",
       "status": "ok",
-      "note": "4-pin 2.54 mm header, pins down"
+      "note": "4-pin 2.54 mm header at the PCB's \u2212X edge, pins down"
     },
     {
       "component": "hopper-funnel",
@@ -1672,15 +1671,47 @@
       "declared": "real"
     },
     {
+      "component": "elbow-bag-y-d",
+      "boxes": [
+        [
+          187.216,
+          98.867,
+          269.134,
+          214.14,
+          125.791,
+          283.866
+        ]
+      ],
+      "fill": 0.3665,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "elbow-bag-y-g",
+      "boxes": [
+        [
+          187.216,
+          133.117,
+          269.134,
+          214.14,
+          160.041,
+          283.866
+        ]
+      ],
+      "fill": 0.3665,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
       "component": "elbow-y-d",
       "boxes": [
         [
           193.714,
-          111.059,
+          98.867,
           234.734,
           220.638,
           125.791,
-          261.658
+          249.466
         ]
       ],
       "fill": 0.3665,
@@ -1692,11 +1723,11 @@
       "boxes": [
         [
           193.714,
-          145.309,
+          133.117,
           234.734,
           220.638,
           160.041,
-          261.658
+          249.466
         ]
       ],
       "fill": 0.3665,
@@ -2115,12 +2146,12 @@
       "component": "tee-y-d",
       "boxes": [
         [
-          187.214,
-          111.567,
+          185.916,
+          58.729,
           256.434,
-          214.138,
-          125.283,
-          296.566
+          199.632,
+          98.861,
+          283.358
         ]
       ],
       "fill": 0.2663,
@@ -2147,12 +2178,12 @@
       "component": "tee-y-g",
       "boxes": [
         [
-          187.214,
-          145.817,
+          215.916,
+          92.979,
           256.434,
-          214.138,
-          159.533,
-          296.566
+          229.632,
+          133.111,
+          283.358
         ]
       ],
       "fill": 0.2663,
