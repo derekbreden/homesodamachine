@@ -109,6 +109,12 @@ export function applyXray(group) {
         const eg = new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG);
         const line = new THREE.LineSegments(eg, edgeMaterial(base.color));
         line.userData.isXrayEdge = true;
+        // Carry the component name so a locally-hidden component (component-picker.js)
+        // takes its feature edges out of the ghost too — otherwise the wireframe of a
+        // hidden solid keeps obstructing the view. Born hidden if already hidden, so
+        // toggling x-ray on doesn't resurrect a hidden part's edges.
+        line.userData.xrayComponent = mesh.name || "";
+        line.visible = !(mesh.name && state.hiddenComponents && state.hiddenComponents.has(mesh.name));
         group.add(line);
       }
       mesh.material = xrayVariant(base);
