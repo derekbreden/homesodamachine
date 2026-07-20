@@ -3,7 +3,7 @@
   "placed": 39,
   "located": 86,
   "shaped": 96,
-  "routed": 15,
+  "routed": 17,
   "held": 25,
   "checks": [
     {
@@ -35,16 +35,16 @@
       "target": "\u2265 1.0 mm",
       "detail": [
         "source-select-assembly \u2014 bag-circuit-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
-        "pump-b \u2014 y-g: 0.00 mm \u2014 \u2717 below floor",
+        "y-d \u2014 y-g: 0.00 mm \u2014 \u2717 below floor",
         "foam-assembly \u2014 source-select-assembly: 0.01 mm \u2014 CONTACT (declared ok)",
+        "y-d \u2014 hopper-funnel: 0.66 mm \u2014 \u2717 below floor",
         "compressor-shroud \u2014 mq6-sensor: 1.00 mm",
-        "y-d \u2014 y-g: 1.04 mm",
-        "pump-b \u2014 y-d: 1.38 mm",
         "bag-circuit-assembly \u2014 pump-a: 1.49 mm",
         "bag-circuit-assembly \u2014 elbow-bag-y-d: 2.00 mm",
         "bag-circuit-assembly \u2014 elbow-bag-y-g: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-y-d: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-y-g: 2.00 mm",
+        "pump-b \u2014 y-g: 2.20 mm",
         "foam-assembly \u2014 power-tray: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 dc-dist: 2.50 mm \u2014 CONTACT (declared ok)",
@@ -186,20 +186,20 @@
       "label": "Connections modeled as real 3D paths (fluid + refrigerant + electrical)",
       "kind": "goal",
       "status": "warn",
-      "value": "15% (9/59)",
+      "value": "17% (10/59)",
       "target": "100%",
       "detail": [
-        "28 fluid + 3 refrigerant + 28 electrical; 9 routed \u2014 the fluid path waits on the deferred water deck, the pump-discharge stems (segments 12/22, to the pumps) and fluid-23; the electrical runs on the components being held",
+        "28 fluid + 3 refrigerant + 28 electrical; 10 routed \u2014 the fluid path waits on the deferred water deck, the pump-discharge stems (segments 12/22, to the pumps) and fluid-23; the electrical runs on the components being held",
         "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7",
         "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 289.7 mm, 4 bends at R12.7",
         "\u2713 fluid-9: source-select-assembly.V-C-O \u2192 tee-y-c.Y-C-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7",
         "\u2713 fluid-19: source-select-assembly.V-D-O \u2192 tee-y-f.Y-F-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7",
         "\u2713 fluid-10: bag-circuit-assembly.V-E-O \u2192 tee-y-c.Y-C-2 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7",
         "\u2713 fluid-20: bag-circuit-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7",
-        "\u2713 fluid-13: elbow-bag-y-d.free \u2192 y-d.Y-D-2 \u2014 \u00d86.35 \u00d7 31.4 mm, 3 bends at R4.0",
-        "\u2713 fluid-17: elbow-y-g.free \u2192 y-d.Y-D-3 \u2014 \u00d86.35 \u00d7 69.5 mm, 3 bends at R4.0",
-        "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 24.8 mm, 3 bends at R4.0",
-        "\u2717 fluid-23: BLOCKED \u2014 dropped bag-B elbow \u2192 Y-G-2: the elbow's \u2212Z-tilted free port and the ~3 mm x-offset to the outlet need two sub-bend-radius legs at once; waits on the y-g divider pose (nudge east clears the x-offset but crowds the gate tray)."
+        "\u2713 fluid-13: elbow-bag-y-d.free \u2192 y-d.Y-D-2 \u2014 \u00d86.35 \u00d7 24.8 mm, 0 bends at R12.7",
+        "\u2713 fluid-17: elbow-y-g.free \u2192 y-d.Y-D-3 \u2014 \u00d86.35 \u00d7 65.8 mm, 0 bends at R12.7",
+        "\u2713 fluid-23: elbow-bag-y-g.free \u2192 y-g.Y-G-2 \u2014 \u00d86.35 \u00d7 69.3 mm, 0 bends at R12.7",
+        "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 40.8 mm, 0 bends at R12.7"
       ],
       "active": false
     },
@@ -777,7 +777,7 @@
         -0.0
       ],
       "diam": 6.35,
-      "mates": "Y-G-2 via elbow-bag-y-g \u2014 segment 23 (to route)",
+      "mates": "Y-G-2 via elbow-bag-y-g \u2014 segment 23 (routed)",
       "status": "ok",
       "note": "bare valve port collet, 1/4\" tube, facing east onto its discharge elbow"
     },
@@ -1112,114 +1112,114 @@
       "name": "Y-D-1",
       "kind": "fluid",
       "pos": [
-        193.0,
-        48.75,
-        258.0
+        210.452,
+        35.197,
+        281.858
       ],
       "face": [
-        -0.0,
-        -1.0,
-        -0.0
+        0.0754188900837704,
+        -0.9768006599442922,
+        0.2004306906412475
       ],
       "diam": 6.35,
       "mates": "pump-a P-A-O \u2014 segment 12 (channel A discharge, unauthored)",
       "status": "ok",
-      "note": "PP2308E stem collet, facing \u2212Y toward the pump"
+      "note": "PP2308E stem collet, facing the pump"
     },
     {
       "component": "y-d",
       "name": "Y-D-2",
       "kind": "fluid",
       "pos": [
-        193.0,
-        87.25,
-        265.35
+        208.375,
+        74.333,
+        281.283
       ],
       "face": [
-        0.0,
-        1.0,
-        0.0
+        -0.0754188900837704,
+        0.9768006599442922,
+        -0.2004306906412475
       ],
       "diam": 6.35,
       "mates": "elbow-bag-y-d free \u2014 segment 13 (routed)",
       "status": "ok",
-      "note": "PP2308E upper outlet, facing +Y at the bag-A elbow"
+      "note": "PP2308E upper outlet, aimed at the bag-A elbow"
     },
     {
       "component": "y-d",
       "name": "Y-D-3",
       "kind": "fluid",
       "pos": [
-        193.0,
-        87.25,
-        250.65
+        206.721,
+        71.274,
+        267.0
       ],
       "face": [
-        0.0,
-        1.0,
-        0.0
+        -0.0754188900837704,
+        0.9768006599442922,
+        -0.2004306906412475
       ],
       "diam": 6.35,
       "mates": "elbow-y-g free \u2014 segment 17 (routed)",
       "status": "ok",
-      "note": "PP2308E lower outlet, facing +Y at the nozzle-A elbow"
+      "note": "PP2308E lower outlet, aimed at the nozzle-A elbow"
     },
     {
       "component": "y-g",
       "name": "Y-G-1",
       "kind": "fluid",
       "pos": [
-        210.0,
-        50.75,
-        260.88
+        196.515,
+        25.099,
+        276.334
       ],
       "face": [
-        -0.0,
-        -1.0,
-        -0.0
+        -0.077165734568571,
+        -0.9818589675996334,
+        0.17320051140996875
       ],
       "diam": 6.35,
       "mates": "pump-b P-B-O \u2014 segment 22 (channel B discharge, unauthored)",
       "status": "ok",
-      "note": "PP2308E stem collet, facing \u2212Y toward the pump"
+      "note": "PP2308E stem collet, facing the pump"
     },
     {
       "component": "y-g",
       "name": "Y-G-2",
       "kind": "fluid",
       "pos": [
-        210.0,
-        89.25,
-        268.23
+        200.261,
+        64.111,
+        276.874
       ],
       "face": [
-        0.0,
-        1.0,
-        0.0
+        0.077165734568571,
+        0.9818589675996334,
+        -0.17320051140996875
       ],
       "diam": 6.35,
-      "mates": "elbow-bag-y-g free \u2014 segment 23 (to route)",
+      "mates": "elbow-bag-y-g free \u2014 segment 23 (routed)",
       "status": "ok",
-      "note": "PP2308E upper outlet, facing +Y at the bag-B elbow"
+      "note": "PP2308E upper outlet, aimed at the bag-B elbow"
     },
     {
       "component": "y-g",
       "name": "Y-G-3",
       "kind": "fluid",
       "pos": [
-        210.0,
-        89.25,
-        253.53
+        198.71,
+        61.69,
+        262.458
       ],
       "face": [
-        0.0,
-        1.0,
-        0.0
+        0.077165734568571,
+        0.9818589675996334,
+        -0.17320051140996875
       ],
       "diam": 6.35,
       "mates": "elbow-y-d free \u2014 segment 27 (routed)",
       "status": "ok",
-      "note": "PP2308E lower outlet, facing +Y at the nozzle-B elbow"
+      "note": "PP2308E lower outlet, aimed at the nozzle-B elbow"
     },
     {
       "component": "elbow-bag-y-d",
@@ -1227,18 +1227,18 @@
       "kind": "fluid",
       "pos": [
         206.774,
-        98.865,
-        276.5
+        98.979,
+        278.61
       ],
       "face": [
         0.0,
-        -1.0,
-        0.0
+        -0.9941674306107777,
+        0.10784766994592199
       ],
       "diam": 6.35,
       "mates": "y-d Y-D-2 \u2014 segment 13 (routed)",
       "status": "ok",
-      "note": "PP0308E free collet, facing \u2212Y over the pump row"
+      "note": "PP0308E free collet, aimed at the Y-D upper outlet"
     },
     {
       "component": "elbow-y-g",
@@ -1246,18 +1246,18 @@
       "kind": "fluid",
       "pos": [
         201.08,
-        134.948,
-        233.834
+        133.971,
+        247.822
       ],
       "face": [
         0.0,
-        -0.9063077870366499,
-        -0.42261826174069944
+        -0.9562602717659447,
+        0.2925171664058735
       ],
       "diam": 6.35,
       "mates": "y-d Y-D-3 \u2014 segment 17 (routed)",
       "status": "ok",
-      "note": "PP0308E free collet, dropped 25\u00b0 into \u2212Z"
+      "note": "PP0308E free collet, aimed at the Y-D lower outlet"
     },
     {
       "component": "elbow-bag-y-g",
@@ -1265,18 +1265,18 @@
       "kind": "fluid",
       "pos": [
         206.774,
-        134.948,
-        268.234
+        133.115,
+        276.583
       ],
       "face": [
         0.0,
-        -0.9063077870366499,
-        -0.42261826174069944
+        -0.9999910890508877,
+        0.004221589608115017
       ],
       "diam": 6.35,
-      "mates": "y-g Y-G-2 \u2014 segment 23 (to route)",
+      "mates": "y-g Y-G-2 \u2014 segment 23 (routed)",
       "status": "ok",
-      "note": "PP0308E free collet, dropped 25\u00b0 into \u2212Z"
+      "note": "PP0308E free collet, aimed at the Y-G upper outlet"
     },
     {
       "component": "elbow-y-d",
@@ -1284,18 +1284,18 @@
       "kind": "fluid",
       "pos": [
         201.08,
-        98.865,
-        242.1
+        100.014,
+        248.706
       ],
       "face": [
         0.0,
-        -1.0,
-        0.0
+        -0.9412390649436468,
+        0.33774105854042896
       ],
       "diam": 6.35,
       "mates": "y-g Y-G-3 \u2014 segment 27 (routed)",
       "status": "ok",
-      "note": "PP0308E free collet, facing \u2212Y over the pump row"
+      "note": "PP0308E free collet, aimed at the Y-G lower outlet"
     },
     {
       "component": "display",
@@ -1867,14 +1867,14 @@
       "boxes": [
         [
           187.216,
-          98.867,
+          98.416,
           269.134,
           214.14,
           125.791,
-          283.866
+          285.452
         ]
       ],
-      "fill": 0.3665,
+      "fill": 0.3254,
       "primitive": false,
       "declared": "real"
     },
@@ -1883,14 +1883,14 @@
       "boxes": [
         [
           187.216,
-          132.699,
-          263.219,
+          133.095,
+          269.134,
           214.14,
           160.041,
-          283.866
+          283.93
         ]
       ],
-      "fill": 0.2575,
+      "fill": 0.3646,
       "primitive": false,
       "declared": "real"
     },
@@ -1899,14 +1899,14 @@
       "boxes": [
         [
           193.714,
-          98.867,
+          98.226,
           234.734,
           220.638,
           125.791,
-          249.466
+          254.155
         ]
       ],
-      "fill": 0.3665,
+      "fill": 0.2716,
       "primitive": false,
       "declared": "real"
     },
@@ -1915,14 +1915,14 @@
       "boxes": [
         [
           193.714,
-          132.699,
-          228.819,
+          132.425,
+          234.734,
           220.638,
           160.041,
-          249.466
+          253.576
         ]
       ],
-      "fill": 0.2575,
+      "fill": 0.2794,
       "primitive": false,
       "declared": "real"
     },
@@ -2354,15 +2354,15 @@
       "component": "y-d",
       "boxes": [
         [
-          184.9,
-          48.75,
-          242.55,
-          201.1,
-          87.25,
-          273.45
+          198.946,
+          34.068,
+          259.866,
+          218.227,
+          75.461,
+          292.496
         ]
       ],
-      "fill": 0.4302,
+      "fill": 0.3184,
       "primitive": false,
       "declared": "real"
     },
@@ -2370,15 +2370,15 @@
       "component": "y-g",
       "boxes": [
         [
-          201.9,
-          50.75,
-          245.43,
-          218.1,
-          89.25,
-          276.33
+          188.747,
+          24.101,
+          255.173,
+          208.029,
+          65.109,
+          287.682
         ]
       ],
-      "fill": 0.4302,
+      "fill": 0.3226,
       "primitive": false,
       "declared": "real"
     }

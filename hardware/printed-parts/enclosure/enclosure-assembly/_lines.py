@@ -43,14 +43,17 @@ from _routing import route
 
 # 1/4" ACR copper, drawn as the metal it is.
 COPPER = cq.Color(0.72, 0.45, 0.20)
+# 1/4" LLDPE, drawn as the soft tube it is.
+LLDPE = cq.Color(0.90, 0.90, 0.94)
+# How far off a divider/elbow collet's axis a pump-discharge run may enter as one straight length
+# of soft LLDPE — the flex a push-to-connect collet takes, past the copper loop's COLLET_SKEW.
+# The aimed poses (_contents `_solve_discharge`) leave a few degrees of residual the tube absorbs;
+# y-g, boxed in over pump-b, is the tightest at ~9°.
+DISCHARGE_SKEW = 10.0
 
 # Connections the pack does not carry as it stands, each with the measurement that blocks it.
 # They stay counted against the `routed` axis.
-BLOCKED: dict = {
-    "fluid-23": "dropped bag-B elbow → Y-G-2: the elbow's −Z-tilted free port and the ~3 mm "
-                "x-offset to the outlet need two sub-bend-radius legs at once; waits on the "
-                "y-g divider pose (nudge east clears the x-offset but crowds the gate tray).",
-}
+BLOCKED: dict = {}
 
 
 def _frames():
@@ -120,29 +123,30 @@ def build_runs() -> list:
         runs.append(route(cid, frm, to, kind="fluid", stub=0.0,
                           note=f"channel {ch}: collet to tee, straight down the junction column"))
 
-    # The pump-discharge runs — each turn-elbow's free collet down into its divider outlet. A
-    # flavor's bag and nozzle legs meet at its divider (diagonal netlist): a short near leg and a
-    # longer cross-row leg over the pump. The x/z constraints set the lane; each run closes in y
-    # into the +Y-facing outlet. Tight radii (R4) — these are short jumpers in the open air over
-    # the pumps, a starting point that relaxes as the divider spots settle. The stems to the pumps
-    # (segments 12/22) stay unauthored. fluid-23 (dropped bag-B elbow → Y-G-2) is deferred: its
-    # −Z-tilted exit plus the small x-offset need two sub-radius legs the orthogonal router can't
-    # place at this spacing — it waits on the divider pose (see BLOCKED).
+    # The pump-discharge runs — each turn-elbow's free collet straight into its divider outlet.
+    # A flavor's bag and nozzle legs meet at its two-way divider (diagonal netlist). The elbows are
+    # rolled to aim at the outlets and the divider is tilted to face them (_contents
+    # `_solve_discharge`), so — exactly like the junction column above — each run is ONE straight
+    # length of LLDPE, authored `route(frm, to, stub=0.0)` with nothing between. They enter the
+    # collets a few degrees off-axis, the flex soft LLDPE takes (DISCHARGE_SKEW). The divider
+    # stems to the pumps (segments 12/22) stay unauthored.
     for cid, elb, div, port in (
-        ("fluid-13", "elbow-bag-y-d", f["y-d"], "Y-D-2"),
-        ("fluid-17", "elbow-y-g",     f["y-d"], "Y-D-3"),
-        ("fluid-27", "elbow-y-d",     f["y-g"], "Y-G-3"),
+        ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2"),
+        ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3"),
+        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2"),
+        ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3"),
     ):
-        runs.append(route(cid, f"{elb}.free", div.x(port), div.z(port), f"{div.name}.{port}",
-                          kind="fluid", bend=4.0, stub=4.0,
-                          note=f"discharge {port}: {elb} free → divider outlet"))
+        runs.append(route(cid, f"{elb}.free", f"{div}.{port}",
+                          kind="fluid", stub=0.0, skew=DISCHARGE_SKEW,
+                          note=f"discharge {port}: {elb} free → {div} outlet, straight LLDPE"))
 
     return runs
 
 
 def build() -> dict:
-    """The runs as placed solids: {name: (solid, color)}."""
-    return {r.id: (R.tube(r), COPPER) for r in build_runs()}
+    """The runs as placed solids: {name: (solid, color)} — copper for the refrigerant loop,
+    white LLDPE for the fluid (flavor) runs."""
+    return {r.id: (R.tube(r), LLDPE if r.kind == "fluid" else COPPER) for r in build_runs()}
 
 
 # A run whose id is not itself a connection, because an in-line fitting splits it: a union
