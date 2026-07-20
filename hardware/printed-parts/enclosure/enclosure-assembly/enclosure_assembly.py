@@ -15,6 +15,7 @@ held) — prints the verdict, and fails the run if any gate fails."""
 import json
 import math
 import sys
+from dataclasses import dataclass
 from pathlib import Path
 
 import cadquery as cq
@@ -136,13 +137,19 @@ def _apply_override(name, shape, overrides):
     return shape
 
 
-def _solids_colored(overrides):
-    """Every non-piece, non-line solid — contents, the through-wall panel bodies,
-    the display, the funnel — name → (shape, color), each override-applied. Shared
-    by build() (adds them to the assembly) and main() (strips color for the
-    scorecard's clash gates), so both render the same moved geometry."""
-    out = dict(contents.build())
-    out.update(contents.panel_bodies())
+def _components(overrides):
+    """The interior components (contents.build()) — name → (shape, color), each override-applied.
+    These alone define the interior extent the box is sized around; the extras below mount through
+    or on the wall."""
+    return {n: (_apply_override(n, s, overrides), c)
+            for n, (s, c) in contents.build().items()}
+
+
+def _extras(overrides):
+    """The placed solids that are not interior components — the through-wall panel bodies, the
+    display, the hopper funnel — name → (shape, color), each override-applied. In the pack for the
+    assembly and the clash gates, out of the interior-extent measure."""
+    out = dict(contents.panel_bodies())
     out["display"] = (_placed_display(), DISPLAY_COLOR)
     out["hopper-funnel"] = (_placed_funnel(), FUNNEL_COLOR)
     return {n: (_apply_override(n, s, overrides), c) for n, (s, c) in out.items()}
@@ -154,28 +161,56 @@ def _pieces_shapes(overrides):
             for n, p in PIECES.items()}
 
 
-def build():
-    overrides = _load_overrides()
+@dataclass
+class _Pack:
+    """Every placed shape of one build, grouped by role and built exactly once. main() (the
+    scorecard and the interior measure) and build() (the assembly) share one pack, so no component
+    is imported or placed twice in a run."""
+    components: dict   # contents.build() — the interior set — name → (shape, color)
+    extras: dict       # panel bodies, display, funnel — name → (shape, color)
+    pieces: dict       # the four printed enclosure pieces — name → shape
+    lines: dict        # the authored runs (_lines.py) — name → (shape, color)
+
+    @property
+    def solids(self):
+        """components + extras — every non-piece, non-line solid, name → (shape, color)."""
+        return {**self.components, **self.extras}
+
+
+def _build_pack(overrides):
+    """Build the whole pack once — components, extras, pieces, and the authored line runs."""
+    return _Pack(
+        components=_components(overrides),
+        extras=_extras(overrides),
+        pieces=_pieces_shapes(overrides),
+        lines=_lines.build(),
+    )
+
+
+def build(pack=None):
+    """The full assembly. Pass a prebuilt pack to reuse main()'s single build; with none, build a
+    fresh pack (standalone / interactive use)."""
+    if pack is None:
+        pack = _build_pack(_load_overrides())
 
     assy = cq.Assembly(name="kitchen-edition-enclosure-assembly")
-    for name, shape in _pieces_shapes(overrides).items():
+    for name, shape in pack.pieces.items():
         assy.add(shape, name=name, color=PIECE_COLORS[name])
-    for name, (shape, color) in _solids_colored(overrides).items():
+    for name, (shape, color) in pack.solids.items():
         assy.add(shape, name=name, color=color)
     # The authored runs (_lines.py), in the pack's coordinates. Lines, not components: outside
     # the component registry and its gates (and not moved by overrides).
-    for name, (shape, color) in _lines.build().items():
+    for name, (shape, color) in pack.lines.items():
         assy.add(shape, name=name, color=color)
     return assy
 
 
 def main():
     overrides = _load_overrides()
-    solids = {n: s for n, (s, _c) in _solids_colored(overrides).items()}
-    pieces = _pieces_shapes(overrides)
+    pack = _build_pack(overrides)
+    solids = {n: s for n, (s, _c) in pack.solids.items()}
 
-    inner_bbs = [_apply_override(n, s, overrides).BoundingBox()
-                 for n, (s, _c) in contents.build().items()]
+    inner_bbs = [s.BoundingBox() for _n, (s, _c) in pack.components.items()]
     ix = max(b.xmax for b in inner_bbs) - min(b.xmin for b in inner_bbs)
     iy = max(b.ymax for b in inner_bbs) - min(b.ymin for b in inner_bbs)
     iz = max(b.zmax for b in inner_bbs)
@@ -185,7 +220,7 @@ def main():
           f"{outer[5] - outer[4]:.1f})")
 
     sc = scorecard.build_scorecard(
-        solids, pieces, (enclosure.H2C_X, enclosure.H2C_Y, enclosure.H2C_Z), inner)
+        solids, pack.pieces, (enclosure.H2C_X, enclosure.H2C_Y, enclosure.H2C_Z), inner)
     print(scorecard.format_scorecard(sc))
 
     # Each authored run, with the tightest gap to a part it does not terminate on.
@@ -207,7 +242,7 @@ def main():
     sc_path.write_text(json.dumps(scorecard.scorecard_dict(sc), indent=2) + "\n")
     print(f"-> {sc_path.name}")
 
-    assy = build()
+    assy = build(pack)
     out = _here.parent / "enclosure-assembly.step"
     export_assembly(assy, str(out))
     print(f"-> {out.name}")
