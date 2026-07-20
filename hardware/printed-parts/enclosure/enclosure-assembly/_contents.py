@@ -579,6 +579,9 @@ DISCHARGE_DIV = {                             # divider → centre, over the pum
     "y-d": (214.0, 58.0, 270.0),
     "y-g": (186.0, 54.0, 270.0),
 }
+DISCHARGE_YAW = {                             # extra Z-turn of a divider: stem toward its pump, outlets the same off their elbows
+    "y-d": 16.0,
+}
 
 
 def _discharge_collet(name):
@@ -646,6 +649,11 @@ def _divider_out_sep(name):
     cn = _elbow_corner(_discharge_collet(ne))
     mean = tuple((cb[i] + cn[i]) / 2.0 for i in range(3))
     out = _unit(tuple(mean[i] - centre[i] for i in range(3)))
+    yaw = DISCHARGE_YAW.get(name, 0.0)
+    if yaw:
+        th = math.radians(yaw)
+        c, s = math.cos(th), math.sin(th)
+        out = _unit((out[0] * c - out[1] * s, out[0] * s + out[1] * c, out[2]))
     sep = _unit(_perp((0.0, 0.0, 1.0), out))
     return out, sep
 
@@ -672,8 +680,8 @@ def divider_port(name, port):
 
 # ── Pump-discharge outlet elbow re-aim ───────────────────────────────────────────────────────
 # PUMP_OUTLET_AIM re-rolls a pump's discharge outlet elbow about its vertical port axis to the
-# free-leg heading its stem run leaves along. pump-a aims east at y-g; an absent entry (pump-b)
-# leaves the outlet as placed, aimed -X at y-d just west of it.
+# free-leg heading its stem run leaves along. pump-a aims east at y-g; pump-b aims northwest at
+# y-d's yawed stem, so segment 12 leaves straight at the divider.
 PUMP_ELBOW_REACH = 19.56                          # outlet elbow free-leg: collet face to bend corner
 _PUMP_OUTLET_BASE = {                             # as-placed outlet collet: (pos, free-leg dir)
     "pump-a": ((98.56, 36.01, 278.17), (-1.0, 0.0, 0.0)),
@@ -681,6 +689,7 @@ _PUMP_OUTLET_BASE = {                             # as-placed outlet collet: (po
 }
 PUMP_OUTLET_AIM = {                               # re-rolled free-leg heading (horizontal); absent = as placed
     "pump-a": (0.97, -0.22, 0.0),
+    "pump-b": (-0.847, 0.532, 0.0),
 }
 
 
