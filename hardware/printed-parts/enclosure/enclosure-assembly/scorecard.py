@@ -410,8 +410,9 @@ PORTS = [
     _p("tube-in",  "bulkhead-water", "fluid", (145.0, 341.2, 293.0), "y-", 6.35, "tap-water internal line (to multiplex BFP in)", "JG 1/4\" PTC, inward"),
     _p("mains-in", "c14-inlet", "electrical", (90.0, 339.0, 295.5), "y-", 8.0, "AC distribution — L/N/E to the electronics shelf", "C14 spade terminals; 3-wire mains harness inboard"),
     # Floor sensor — a single signal header (one cable penetration, not one per conductor).
-    # MQ-6 header pins down (−Z) at the board floor.
-    _p("header", "mq6-sensor", "electrical", (116.0, 144.0, 3.0), "z-", 8.0, "PCBA gas-sensor input — VCC/GND/DO/AO (SIG)", "4-pin 2.54 mm header, pins down"),
+    # MQ-6 header pins down (−Z) at the board floor — the 4-pin row runs along the
+    # PCB's −X edge (x≈103), NOT the board centre, so the port sits on that edge.
+    _p("header", "mq6-sensor", "electrical", (103.0, 144.0, 3.0), "z-", 8.0, "PCBA gas-sensor input — VCC/GND/DO/AO (SIG)", "4-pin 2.54 mm header at the PCB's −X edge, pins down"),
     # Hopper funnel — the removable silicone basin's single drain: the spout-tube exit annulus,
     # feeding V-B by tube (segment 4). Defined in the funnel's own frame
     # (hopper_funnel.drain_local = (neck_dx, 0, −drop)) carried through the placement's
