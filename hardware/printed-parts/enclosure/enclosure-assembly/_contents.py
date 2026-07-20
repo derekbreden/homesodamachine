@@ -234,7 +234,12 @@ BAG_CIRCUIT_POS = (SRC_SEL_POS[0] - JUNCTION_SLIDE,
 # the tip, so the slide holds that body one clearance east of the bag tray's
 # bare V-F/V-I port tips.
 TEE_BODY_CLEAR = 2.5
-NOZZLE_GATE_POS = (BAG_CIRCUIT_POS[0] + 2.0 * _bag.port_half + _bag.tee_branch_reach
+# The gate/elbows are PINNED at the pre-slide anchor (source X 147.0) so they do NOT
+# ride the bag/source slide (SRC_SEL_POS now 139): the elbows stay put while the bag
+# and its branch-hung discharge tees translate west into them, and the tees mate the
+# elbows there.
+_GATE_ANCHOR_BAG_X = 147.0 - JUNCTION_SLIDE
+NOZZLE_GATE_POS = (_GATE_ANCHOR_BAG_X + 2.0 * _bag.port_half + _bag.tee_branch_reach
                    + _bag.tee_radius + TEE_BODY_CLEAR,
                    SRC_SEL_POS[1],
                    SRC_SEL_POS[2] + STACK_PITCH_Z)
@@ -627,10 +632,12 @@ def build():
                                   ("elbow-y-g", "VG-I", (0.0, 0.0, 1.0))):
         gp, gd = noz_collet(gate_port)
         placed[name] = _place_elbow(elbow, gp, gd, free)
-    for name, bag_port, run, drop in (("tee-y-d", "VF", (0.0, -0.406, 0.914), 1.5),
-                                      ("tee-y-g", "VI", (0.0, 0.0, 1.0), 0.0)):
+    # Each tee's run stands vertical: its lower port faces DOWN onto the gate elbow's
+    # up-facing free port just below-west, mating there (short stub bridges the offset);
+    # its upper port carries the pump leg.
+    for name, bag_port in (("tee-y-d", "VF"), ("tee-y-g", "VI")):
         bp, bd = bag_collet(bag_port)
-        placed[name] = _place_bag_tee(tee, bp, bd, run).translate((0.0, 0.0, -drop))
+        placed[name] = _place_bag_tee(tee, bp, bd, (0.0, 0.0, 1.0))
 
     # --- Zone B, the band above the cold core: the electronics shelf lying
     # flat on the foam-cap top, tray/board planes horizontal, everything in
