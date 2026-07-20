@@ -228,16 +228,15 @@ BAG_CIRCUIT_POS = (SRC_SEL_POS[0] - JUNCTION_SLIDE,
 # stop just outboard of them, so the tray floats in the pocket until its
 # holder. The shared story lands its ports on the bag tray's own port plane,
 # inner ports facing west at the bag east bank across the pocket, outer
-# (nozzle-outlet) ports facing east at the wall. The X slide reserves the
-# pump-discharge tees' seats (Y-D/Y-G, deferred): each tee plugs its branch
-# into a gate valve's inner port, standing its body one branch reach west of
-# the tip, so the slide holds that body one clearance east of the bag tray's
-# bare V-F/V-I port tips.
+# (nozzle-outlet) ports facing east at the wall. The X slide holds the gate
+# one clearance east of the bag tray's bare V-F/V-I port tips, opening the
+# pocket the discharge fittings (bag + gate outlet elbows and the Y-connector
+# tees) settle into between the two banks.
 TEE_BODY_CLEAR = 2.5
-# The gate/elbows are PINNED at the pre-slide anchor (source X 147.0) so they do NOT
-# ride the bag/source slide (SRC_SEL_POS now 139): the elbows stay put while the bag
-# and its branch-hung discharge tees translate west into them, and the tees mate the
-# elbows there.
+# The gate is PINNED at the pre-slide anchor (source X 147.0) so it does NOT ride the
+# bag/source slide (SRC_SEL_POS now 139): its west inner ports (and the outlet elbows
+# on them) stay put while the bag and its own outlet elbows translate west, so the two
+# elbow banks face across the pocket at the Y-connector tees hung between them.
 _GATE_ANCHOR_BAG_X = 147.0 - JUNCTION_SLIDE
 NOZZLE_GATE_POS = (_GATE_ANCHOR_BAG_X + 2.0 * _bag.port_half + _bag.tee_branch_reach
                    + _bag.tee_radius + TEE_BODY_CLEAR,
@@ -457,6 +456,8 @@ COLORS = {
     "tee-y-g":           cq.Color(0.92, 0.92, 0.92),
     "elbow-y-d":         cq.Color(0.85, 0.85, 0.88),
     "elbow-y-g":         cq.Color(0.85, 0.85, 0.88),
+    "elbow-bag-y-d":     cq.Color(0.85, 0.85, 0.88),
+    "elbow-bag-y-g":     cq.Color(0.85, 0.85, 0.88),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "dc-dist":           cq.Color(0.20, 0.20, 0.22),
@@ -521,13 +522,12 @@ def _place_elbow(shape, port_pos, port_dir, free_dir, stub=2.0):
     return _aim(shape, free_dir, butt).translate(reach)
 
 
-def _place_bag_tee(shape, port_pos, port_dir, run, stub=2.0):
-    """A union tee hung off a bag east port by its BRANCH (the centre port): the branch
-    faces back into the port, the run lies along `run` (⊥ port_dir). Native tee run is
-    +Z, branch +Y — `_aim(run, branch)` orients it, then it sits a branch-reach out."""
-    branch = tuple(-c for c in port_dir)
-    centre = tuple(port_pos[i] + (stub + _bag.tee_branch_reach) * port_dir[i] for i in range(3))
-    return _aim(shape, run, branch).translate(centre)
+def _elbow_free_port(collet, free_dir, stub=2.0):
+    """The world position of the free (empty) port of an elbow placed by `_place_elbow`
+    on `collet` (a (pos, outward-dir) pair) with the given free direction."""
+    port_pos, port_dir = collet
+    corner = tuple(port_pos[i] + (stub + _bag.elbow_reach) * port_dir[i] for i in range(3))
+    return tuple(corner[i] + _bag.elbow_reach * free_dir[i] for i in range(3))
 
 
 def _at(shape, xmin, ymin, zmin):
@@ -624,20 +624,27 @@ def build():
         placed[name] = _aim(tee, run, branch).translate(centre)
 
     # Pump-discharge fittings — a STARTING POINT for the discharge junctions Y-D/Y-G.
-    # A union tee hangs off each bag east port by its BRANCH (centre port); a 90° elbow
-    # turns each flipped nozzle-gate west port. Run/free directions are the initial
-    # de-conflicting rotations — a base to iterate from, not a solved routing.
+    # Each junction now reads the way the lines want to leave the stack: the bag east port
+    # (V-F/V-I) turns onto a 90° elbow and the flipped nozzle-gate west port (V-J-I/V-G-I)
+    # turns onto its own 90° elbow, BOTH empty ports facing −Y — the direction the discharge
+    # runs head to the pump row. A PP0208E union tee is the actual Y connector: its run lies
+    # along Y, its +Y port meeting the bag elbow and its −Y port carrying straight on toward
+    # the pump (segment 12/22), and its branch drops toward the gate elbow (segment 17/27).
+    # The two Y connectors stagger in X toward the pump each feeds — Y-D west at pump A, Y-G
+    # east at pump B — so they clear. Poses are the initial de-confliction: a base to iterate
+    # the routing from, not a solved path.
     elbow = _load(ELBOW_CONNECTOR)
-    for name, gate_port, free in (("elbow-y-d", "VJ-I", (0.0, 0.0, 1.0)),
-                                  ("elbow-y-g", "VG-I", (0.0, 0.0, 1.0))):
-        gp, gd = noz_collet(gate_port)
-        placed[name] = _place_elbow(elbow, gp, gd, free)
-    # Each tee's run stands vertical: its lower port faces DOWN onto the gate elbow's
-    # up-facing free port just below-west, mating there (short stub bridges the offset);
-    # its upper port carries the pump leg.
-    for name, bag_port in (("tee-y-d", "VF"), ("tee-y-g", "VI")):
+    south = (0.0, -1.0, 0.0)
+    for name, bag_port in (("elbow-bag-y-d", "VF"), ("elbow-bag-y-g", "VI")):
         bp, bd = bag_collet(bag_port)
-        placed[name] = _place_bag_tee(tee, bp, bd, (0.0, 0.0, 1.0))
+        placed[name] = _place_elbow(elbow, bp, bd, south)
+    for name, gate_port in (("elbow-y-d", "VJ-I"), ("elbow-y-g", "VG-I")):
+        gp, gd = noz_collet(gate_port)
+        placed[name] = _place_elbow(elbow, gp, gd, south)
+    for name, bag_port, dx in (("tee-y-d", "VF", -14.0), ("tee-y-g", "VI", 16.0)):
+        bag_free = _elbow_free_port(bag_collet(bag_port), south)
+        centre = (bag_free[0] + dx, bag_free[1] - _bag.tee_run_half, bag_free[2])
+        placed[name] = _aim(tee, (0.0, 1.0, 0.0), (0.0, 0.0, -1.0)).translate(centre)
 
     # --- Zone B, the band above the cold core: the electronics shelf lying
     # flat on the foam-cap top, tray/board planes horizontal, everything in
