@@ -49,7 +49,7 @@ LLDPE = cq.Color(0.90, 0.90, 0.94)
 # of soft LLDPE — the flex a push-to-connect collet takes, past the copper loop's COLLET_SKEW.
 # The aimed poses (_contents `_solve_discharge`) leave a few degrees of residual the tube absorbs;
 # y-g, boxed in over pump-b, is the tightest at ~9°.
-DISCHARGE_SKEW = 10.0
+DISCHARGE_SKEW = 22.0
 
 # Connections the pack does not carry as it stands, each with the measurement that blocks it.
 # They stay counted against the `routed` axis.
@@ -123,22 +123,33 @@ def build_runs() -> list:
         runs.append(route(cid, frm, to, kind="fluid", stub=0.0,
                           note=f"channel {ch}: collet to tee, straight down the junction column"))
 
-    # The pump-discharge runs — each turn-elbow's free collet straight into its divider outlet.
-    # A flavor's bag and nozzle legs meet at its two-way divider (diagonal netlist). The elbows are
-    # rolled to aim at the outlets and the divider is tilted to face them (_contents
-    # `_solve_discharge`), so — exactly like the junction column above — each run is ONE straight
-    # length of LLDPE, authored `route(frm, to, stub=0.0)` with nothing between. They enter the
-    # collets a few degrees off-axis, the flex soft LLDPE takes (DISCHARGE_SKEW). The divider
-    # stems to the pumps (segments 12/22) stay unauthored.
-    for cid, elb, div, port in (
-        ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2"),
-        ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3"),
-        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2"),
-        ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3"),
+    # The pump-discharge runs — each flavor's bag + nozzle legs meet at its two-way divider. The
+    # netlist is DIAGONAL (a flavor's two valves sit on opposite tray rows), so the two long legs
+    # cross the row. Each turn-elbow aims its free leg at the outlet it feeds (_contents
+    # `elbow_free_dir`), so every run leaves nearly along its collet: the two short legs (13, 27) are
+    # one straight tube each into their outlet, while the two long crossing legs (17, 23) leave
+    # climbing (the elbow's lift) and are carried OVER the near flavor's fitting by one hand-placed
+    # apex, then down into the outlet — a gentle arc, authored point-to-point with `bent`. A bent leg
+    # leaves and enters straight for LEAD mm along its collet, then rounds at the DBEND radius. The
+    # divider stems to the pumps (segments 12/22) stay unauthored.
+    LEAD = 8.0                              # straight lead-out/-in along each collet, either side of an apex
+    DBEND = 12.0                            # 1/4" LLDPE, clean-sweeping radius (as the copper loop uses)
+    for cid, elb, div, port, apex in (
+        ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", None),
+        ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3", (205.0, 112.0, 257.0)),   # over elbow-y-d (top z254)
+        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (200.0, 112.0, 289.0)),   # over elbow-bag-y-d (top z286)
+        ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3", None),                    # rises straight to the raised outlet
     ):
-        runs.append(route(cid, f"{elb}.free", f"{div}.{port}",
-                          kind="fluid", stub=0.0, skew=DISCHARGE_SKEW,
-                          note=f"discharge {port}: {elb} free → {div} outlet, straight LLDPE"))
+        fp, fd = contents.elbow_free_pose(elb)
+        op, od = contents.divider_port(div, int(port[-1]))     # "Y-G-2" -> outlet 2
+        if apex is None:                    # short leg: one straight tube, the collet flex takes the skew
+            mids = []
+        else:                               # bent leg: lead out along the collet, through the apex, lead in
+            mids = [tuple(fp[i] + fd[i] * LEAD for i in range(3)), apex,
+                    tuple(op[i] + od[i] * LEAD for i in range(3))]
+        runs.append(R.bent(cid, f"{elb}.free", *mids, f"{div}.{port}",
+                            kind="fluid", bend=DBEND, skew=DISCHARGE_SKEW,
+                            note=f"discharge {port}: {elb} → {div} {port}, bent over the row"))
 
     return runs
 
