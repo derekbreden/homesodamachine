@@ -777,6 +777,35 @@ def _pct(done: int, total: int) -> int:
     return 100 if total == 0 else round(100 * done / total)
 
 
+def routed_check() -> tuple:
+    """The routed goal axis on its own — a (Check, pct) pair. Kept separate from the component
+    gates and audits because it reads _lines (which route work changes every build) while the
+    component audits do not: a build reusing cached component audits still recomputes this fresh,
+    so the routed % never goes stale. Byte-identical to the routed block build_scorecard used to
+    inline."""
+    import _lines
+    conns = load_connections()
+    fluid = sum(1 for c in conns if c.kind == "fluid")
+    wire = sum(1 for c in conns if c.kind == "wire")
+    refrig = sum(1 for c in conns if c.kind == "refrigerant")
+    routed_done = sum(1 for c in conns if c.routed)
+    routed = _pct(routed_done, len(conns))
+    routed_detail = [f"{fluid} fluid + {refrig} refrigerant + {wire} electrical; "
+                     f"{routed_done} routed — the fluid path waits on the deferred water deck and "
+                     f"the manifold's remaining legs; the electrical runs on the components being held"]
+    for r in _lines.build_runs():
+        routed_detail.append(f"✓ {r.id}: {r.frm} → {r.to} — Ø{r.diam:g} × {r.length:.1f} mm, "
+                             f"{len(r.bends)} bends at R{r.bend:.1f}")
+    # A blocked connection stays counted, with the measurement that blocks it.
+    for c in conns:
+        if c.blocked:
+            routed_detail.append(f"✗ {c.id}: BLOCKED — {c.blocked}")
+    ck = Check("routed", "Connections modeled as real 3D paths (fluid + refrigerant + electrical)",
+               "goal", "pass" if (routed == 100 and bool(conns)) else "warn",
+               f"{routed}% ({routed_done}/{len(conns)})", "100%", routed_detail[:DETAIL_MAX], False)
+    return ck, routed
+
+
 def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float], inner: tuple) -> Scorecard:
     reg = {c.name: c for c in COMPONENTS}
     checks: list[Check] = []
@@ -896,26 +925,11 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
          shaped == 100 and not mismatched,
          f"{shaped}% ({len(real)}/{total})", "100%", shaped_detail, active=True)
 
-    # routed — DEFERRED: every fluid + refrigerant + electrical connection a real 3D path.
-    import _lines                                  # deferred: _lines reads PORTS back out of here
-    conns = load_connections()
-    fluid = sum(1 for c in conns if c.kind == "fluid")
-    wire = sum(1 for c in conns if c.kind == "wire")
-    refrig = sum(1 for c in conns if c.kind == "refrigerant")
-    routed_done = sum(1 for c in conns if c.routed)
-    routed = _pct(routed_done, len(conns))
-    routed_detail = [f"{fluid} fluid + {refrig} refrigerant + {wire} electrical; "
-                     f"{routed_done} routed — the fluid path waits on the deferred water deck and "
-                     f"the manifold's remaining legs; the electrical runs on the components being held"]
-    for r in _lines.build_runs():
-        routed_detail.append(f"✓ {r.id}: {r.frm} → {r.to} — Ø{r.diam:g} × {r.length:.1f} mm, "
-                             f"{len(r.bends)} bends at R{r.bend:.1f}")
-    # A blocked connection stays counted, with the measurement that blocks it.
-    for c in conns:
-        if c.blocked:
-            routed_detail.append(f"✗ {c.id}: BLOCKED — {c.blocked}")
-    goal("routed", "Connections modeled as real 3D paths (fluid + refrigerant + electrical)", routed == 100 and bool(conns),
-         f"{routed}% ({routed_done}/{len(conns)})", "100%", routed_detail, active=False)
+    # routed — DEFERRED: every fluid + refrigerant + electrical connection a real 3D path. Lives in
+    # routed_check() so a cache-hit build can recompute just this (it reads _lines) without redoing
+    # the component audits above.
+    routed_ck, routed = routed_check()
+    checks.append(routed_ck)
 
     # held — DEFERRED: a printed holder that fastens each component to the enclosure.
     held_done = [c for c in COMPONENTS if c.is_held]

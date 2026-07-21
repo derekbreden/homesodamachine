@@ -12,8 +12,11 @@ and the four pieces — the gates (pack closes, part↔part clearance, pieces fi
 the bed, seams mate, parts sourced) and the three goal axes (shaped / routed /
 held) — prints the verdict, and fails the run if any gate fails."""
 
+import hashlib
 import json
 import math
+import os
+import pickle
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -205,6 +208,77 @@ def build(pack=None):
     return assy
 
 
+# --- Scorecard cache (opt-in via HSM_SCORECARD_CACHE) ------------------------
+# The component gates + audits (pack-closes clash, part↔part clearance, shaped, placed, located,
+# seams, bed fit) are a pure function of the placed components — they never read the tube routes.
+# So a build that only changed _lines.py (route iteration) recomputes the identical component
+# verdict — ~40s of OCC booleans + distances — for nothing. This caches that verdict, keyed on what
+# determines it: each placed solid's bounding box, plus the source that places and measures them
+# (_contents.py, this file, enclosure.py, scorecard.py, the overrides) and the STEP files they
+# import — but NOT _lines.py / _routing.py. On a hit the cheap routed axis (the one thing that does
+# read _lines) is recomputed fresh, so the routed % never goes stale. Off unless HSM_SCORECARD_CACHE
+# is set; a miss or any error falls through to a full build_scorecard, so the pack-closes gate is
+# never served stale.
+_SCORECARD_CACHE_PATH = _here.parent / ".enclosure-assembly.scorecard-cache.pkl"
+
+
+def _step_inputs():
+    """Every STEP the pack imports — the four pieces, the display, the funnel, and each .step Path
+    _contents declares (the component assemblies). A change to any of them invalidates the cache."""
+    steps = set(PIECES.values()) | {DISPLAY_STEP, FUNNEL_STEP}
+    steps |= {v for v in vars(contents).values() if isinstance(v, Path) and v.suffix == ".step"}
+    return sorted(steps)
+
+
+def _bbox_key(bb):
+    return tuple(round(v, 4) for v in (bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax))
+
+
+def _scorecard_cache_key(pack, inner):
+    """A content key for the component verdict: solid + piece bounding boxes, the inner extent, the
+    source files that place and measure them, and the STEP files they import — everything the verdict
+    depends on except the routes, which it does not read."""
+    h = hashlib.sha256()
+    for name in sorted(pack.solids):
+        h.update(repr((name, _bbox_key(pack.solids[name][0].BoundingBox()))).encode())
+    for name in sorted(pack.pieces):
+        h.update(repr((name, _bbox_key(pack.pieces[name].BoundingBox()))).encode())
+    h.update(repr(tuple(round(v, 4) for v in inner)).encode())
+    for p in (Path(contents.__file__), _here, Path(scorecard.__file__), Path(enclosure.__file__), OVERRIDES_PATH):
+        h.update(b"PY:" + str(p).encode())
+        h.update(p.read_bytes() if p.exists() else b"")
+    for p in _step_inputs():
+        st = p.stat()
+        h.update(b"STEP:" + str(p).encode() + repr((st.st_mtime_ns, st.st_size)).encode())
+    return h.hexdigest()
+
+
+def _cached_scorecard(pack, pieces, bed, inner):
+    """build_scorecard, reusing the cached component verdict when the components are unchanged and
+    recomputing only the routed axis. Fail-safe: HSM_SCORECARD_CACHE unset, a miss, or any error
+    all fall through to a full build_scorecard."""
+    solids = {n: s for n, (s, _c) in pack.solids.items()}
+    if not os.environ.get("HSM_SCORECARD_CACHE"):
+        return scorecard.build_scorecard(solids, pieces, bed, inner)
+    try:
+        key = _scorecard_cache_key(pack, inner)
+        if _SCORECARD_CACHE_PATH.exists():
+            blob = pickle.loads(_SCORECARD_CACHE_PATH.read_bytes())
+            if blob.get("key") == key:
+                sc = blob["scorecard"]
+                routed_ck, routed = scorecard.routed_check()   # the one _lines-dependent axis, fresh
+                sc.checks = [routed_ck if c.id == "routed" else c for c in sc.checks]
+                sc.routed = routed
+                return sc
+        sc = scorecard.build_scorecard(solids, pieces, bed, inner)
+        tmp = _SCORECARD_CACHE_PATH.with_suffix(".pkl.tmp")
+        tmp.write_bytes(pickle.dumps({"key": key, "scorecard": sc}))
+        os.replace(tmp, _SCORECARD_CACHE_PATH)
+        return sc
+    except Exception:
+        return scorecard.build_scorecard(solids, pieces, bed, inner)
+
+
 def main():
     overrides = _load_overrides()
     pack = _build_pack(overrides)
@@ -219,8 +293,8 @@ def main():
           f"(box exterior {outer[1] - outer[0]:.1f} × {outer[3] - outer[2]:.1f} × "
           f"{outer[5] - outer[4]:.1f})")
 
-    sc = scorecard.build_scorecard(
-        solids, pack.pieces, (enclosure.H2C_X, enclosure.H2C_Y, enclosure.H2C_Z), inner)
+    sc = _cached_scorecard(
+        pack, pack.pieces, (enclosure.H2C_X, enclosure.H2C_Y, enclosure.H2C_Z), inner)
     print(scorecard.format_scorecard(sc))
 
     # Each authored run, with the tightest gap to a part it does not terminate on.
