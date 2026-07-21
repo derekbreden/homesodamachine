@@ -23,9 +23,9 @@ carry the authored legs, each measured off the faces that bound it:
     hanging between them on the line the collets make. Each elbow is rolled off its port
     axis to aim along that line (bag_circuit_tray `_junction_aim`), which leans ~11.6° off
     Z, so all four legs — fluid-9/19 down from the source, fluid-10/20 up from the bag —
-    are straight tube, ~10 mm each, no bends. Each tee's branch is then rolled about the
-    run (`JUNCTION_ROLL`) to aim at its pump inlet, and fluid-11/21 carry the suction from
-    the branch collets east to the pump row.
+    are straight tube, ~10 mm each, no bends. Each tee's branch is then rolled about the run
+    (`JUNCTION_ROLL`) to swing forward off the pump row, and fluid-11/21 carry the suction
+    over pump A to the pump inlets.
 
 Precedent: `pcba.tsx`'s `route(...)` call sites.
 """
@@ -161,14 +161,13 @@ def build_runs() -> list:
                         note="discharge stem P-A-O → y-g Y-G-1, across the pump row"))
 
     # The pump-suction stems (segments 11/21) — each pump's inlet back to its channel's junction
-    # tee. The tees hang in the manifold seam between the source and bag trays; each branch is
-    # rolled forward, off the pump row (_contents `JUNCTION_ROLL`), so each run leaves its collet
-    # heading −Y and picks up its `lead=` stub there. fluid-11 climbs out of tee-y-c behind pump
-    # A's west motor barrel, drapes east over the pump bodies — below the row's elbows, ahead of
-    # the bag tray — and drops into pump B's far inlet, rolled northwest to meet it
-    # (`PUMP_INLET_AIM`). fluid-21 comes forward-low under the bag tray out of the buried tee-y-f,
-    # then rises up pump A's aft into its near inlet, which keeps its west face. tee-y-f is
-    # sandwiched in the source/bag tray seam, so this leg grazes the trays at the exit (reported).
+    # tee. Each branch is rolled forward, off the pump row (_contents `JUNCTION_ROLL`), so a run
+    # leaves its collet heading −Y and picks up its `lead=` stub there. fluid-11 climbs out of
+    # tee-y-c behind pump A's west motor barrel, drapes east over the pump bodies — below the row's
+    # elbows, ahead of the bag tray — into pump B's far inlet, rolled northwest to meet it
+    # (`PUMP_INLET_AIM`). fluid-21 climbs out of the buried tee-y-f up the west end of the column,
+    # where the source tray floor drops away, then runs east above it into pump A's near inlet
+    # (west face). Both close on the collet CENTRES (`_PUMP_INLET_BASE`).
     SLEAD = 12.0                        # exit/approach stub: straight lead off each suction collet
     runs.append(R.bent(
         "fluid-11", "tee-y-c.Y-C-3",
@@ -178,10 +177,10 @@ def build_runs() -> list:
         note="suction stem tee-y-c Y-C-3 → pump-b P-B-I, forward off the tee then over the pump row"))
     runs.append(R.bent(
         "fluid-21", "tee-y-f.Y-F-3",
-        (52.0, 96.0, 224.0), (82.0, 92.0, 261.0),
+        (22.0, 120.0, 236.0), (25.0, 95.0, 264.0), (62.0, 89.0, 277.0),
         "pump-a.P-A-I",
         kind="fluid", bend=10.0, skew=DISCHARGE_SKEW, lead=SLEAD,
-        note="suction stem tee-y-f Y-F-3 → pump-a P-A-I, forward-low then up the aft"))
+        note="suction stem tee-y-f Y-F-3 → pump-a P-A-I, up the west end then east above the source tray"))
 
     return runs
 

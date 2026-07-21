@@ -352,10 +352,9 @@ def noz_collet(name):
 
 
 def junction(tee):
-    """A pump-inlet tee's pose: (centre, run axis, branch axis, stub). The run
-    is the line joining the two collets it butts — the tee sits centred on it,
-    so the tube left over splits evenly into a stub at each end. The branch is
-    east made perpendicular to that run."""
+    """A pump-inlet tee's pose: (centre, run axis, branch axis, stub). The run is the line joining
+    the two collets it butts. Centred on that line the tube left over splits evenly into a stub at
+    each end. The branch is east made perpendicular to that run."""
     ps, _ns = src_collet(JUNCTION[tee][0])
     pb, _nb = bag_collet(JUNCTION[tee][1])
     span = tuple(pb[i] - ps[i] for i in range(3))
@@ -693,8 +692,8 @@ def divider_port(name, port):
 # free-leg heading its stem run leaves along. pump-a aims east at y-g; pump-b aims northwest at
 # y-d's yawed stem, so segment 12 leaves straight at the divider.
 PUMP_ELBOW_REACH = 19.56                          # outlet elbow free-leg: collet face to bend corner
-_PUMP_OUTLET_BASE = {                             # as-placed outlet collet: (pos, free-leg dir)
-    "pump-a": ((98.56, 36.01, 278.17), (-1.0, 0.0, 0.0)),
+_PUMP_OUTLET_BASE = {                             # as-placed outlet collet CENTRE: (pos, free-leg dir)
+    "pump-a": ((98.56, 32.50, 278.17), (-1.0, 0.0, 0.0)),
     "pump-b": ((231.44, 22.01, 278.17), (-1.0, 0.0, 0.0)),
 }
 PUMP_OUTLET_AIM = {                               # re-rolled free-leg heading (horizontal); absent = as placed
@@ -754,8 +753,8 @@ def _reaim_pump_outlet(shape, name):
 # vertical port axis to face the tee its suction leg comes from. pump-b stands east of the bag
 # tray, with room to roll northwest at tee-y-c. pump-a's inlet stays west: the bag tray fills the
 # space between it and tee-y-f, which hangs behind the tray, so fluid-21 reaches it from the west.
-_PUMP_INLET_BASE = {                              # as-placed inlet collet: (pos, free-leg dir)
-    "pump-a": ((98.56, 93.01, 278.17), (-1.0, 0.0, 0.0)),
+_PUMP_INLET_BASE = {                              # as-placed inlet collet CENTRE: (pos, free-leg dir)
+    "pump-a": ((98.56, 89.50, 278.17), (-1.0, 0.0, 0.0)),
     "pump-b": ((231.44, 79.01, 278.17), (-1.0, 0.0, 0.0)),
 }
 PUMP_INLET_AIM = {                                # re-rolled free-leg heading (horizontal); absent = as placed
