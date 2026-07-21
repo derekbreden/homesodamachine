@@ -131,6 +131,8 @@ COMPONENTS = [
     _c("elbow-bag-y-g", "real", True, "none", "JG PP0308E 90° elbow turning bag V-I-I (east) off the stack, rolled to aim its free leg at the Y-G divider's upper outlet (segment 23)"),
     _c("elbow-y-d", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-J-I (flipped, west) off the stack, rolled to aim its free leg at the Y-G divider's lower outlet (segment 27)"),
     _c("elbow-y-g", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-G-I (flipped, west) off the stack, rolled to aim its free leg at the Y-D divider's lower outlet (segment 17)"),
+    _c("elbow-noz-a", "real", True, "none", "JG PP0308E 90° elbow on nozzle-gate V-G-O (east, in the wall pocket the gate's inset opened), turning nozzle A up out of the pocket toward the rear flavor-A bulkhead (segment 18)"),
+    _c("elbow-noz-b", "real", True, "none", "JG PP0308E 90° elbow on nozzle-gate V-J-O (east), turning nozzle B up out of the pocket toward the rear flavor-B bulkhead (segment 28)"),
     # Electronics shelf
     _c("power-tray",        "real",        True,  "none", "printed tray holds its boards; tray-to-shell joinery deferred (power-tray README)"),
     _c("pcba",              "real",        True,  "none", "printed tray holds the board; tray-to-shell joinery deferred (pcba-tray README)"),
@@ -159,6 +161,11 @@ TOUCHING_OK = {
         # The valve-manifold stack: the source-select tray's floor rests on the
         # bag-circuit tray's column wall tops, one tray pitch apart by design.
         ("source-select-assembly", "bag-circuit-assembly"),
+        # The gate rides the same wall-top plane, one story up: its inset west
+        # brings its back wall onto the source tray's east platform at the stack
+        # plane — a wall-top touch, not an interpenetration (zero overlap volume),
+        # the same stacking contact the bag makes.
+        ("nozzle-gate-assembly", "source-select-assembly"),
         # The stack is pressed aft: the source-select tray's tall-wall backs
         # sit on the cold core's front face.
         ("foam-assembly", "source-select-assembly"),
@@ -275,7 +282,7 @@ PLACEMENT_RULES = {
     # in _contents.py), opening the pocket their outlet elbows will turn aft
     # into — so the x+ face sits well inboard of the wall, not hugging it.
     "nozzle-gate-assembly": [("near", "source-select-assembly", 4.0),
-                             ("x+", 16.0)],
+                             ("x+", 31.0)],
     # "P-A stands one stack gap ahead of the stack, under the funnel's
     # drop": its aft face near the bag tray's front columns (the stack's
     # flat front at the row's height), and the segment-4 drop corridor
@@ -464,8 +471,8 @@ PORTS = [
     # where the nozzle lines will leave for the rear umbilical.
     _p("V-G-I", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VG-I"), 6.35, "Y-D-3 via elbow-y-g — segment 17 (routed)", "bare valve port collet, 1/4\" tube, facing west onto its discharge elbow"),
     _p("V-J-I", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VJ-I"), 6.35, "Y-G-3 via elbow-y-d — segment 27 (routed)", "bare valve port collet, 1/4\" tube, facing west onto its discharge elbow"),
-    _p("V-G-O", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VG-O"), 6.35, "Nozzle A by the rear umbilical (bulkhead-flavor-a) — segment 18 (unauthored)", "bare valve port collet, 1/4\" tube, facing east"),
-    _p("V-J-O", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VJ-O"), 6.35, "Nozzle B by the rear umbilical (bulkhead-flavor-b) — segment 28 (unauthored)", "bare valve port collet, 1/4\" tube, facing east"),
+    _p("V-G-O", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VG-O"), 6.35, "bulkhead-flavor-a via elbow-noz-a — segment 18 (routed)", "bare valve port collet, 1/4\" tube, facing east onto its outlet elbow"),
+    _p("V-J-O", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VJ-O"), 6.35, "bulkhead-flavor-b via elbow-noz-b — segment 28 (routed)", "bare valve port collet, 1/4\" tube, facing east onto its outlet elbow"),
     # Pump row — each Kamoer's two boundary connectors are its outlet ELBOWS' free collets
     # (pump_assembly.py seats a PP0308E on each arch_xs outlet), carried through the lying
     # pose (−90° about Y, +90° roll about X) + the POS tuples: the elbows stand on the +Z
@@ -506,6 +513,8 @@ PORTS = [
     _p("free", "elbow-y-g", "fluid", *contents.elbow_free_pose("elbow-y-g"), 6.35, "y-d Y-D-3 — segment 17 (routed)", "PP0308E free collet, aimed at the Y-D lower outlet"),
     _p("free", "elbow-bag-y-g", "fluid", *contents.elbow_free_pose("elbow-bag-y-g"), 6.35, "y-g Y-G-2 — segment 23 (routed)", "PP0308E free collet, aimed at the Y-G upper outlet"),
     _p("free", "elbow-y-d", "fluid", *contents.elbow_free_pose("elbow-y-d"), 6.35, "y-g Y-G-3 — segment 27 (routed)", "PP0308E free collet, aimed at the Y-G lower outlet"),
+    _p("free", "elbow-noz-a", "fluid", *contents.outlet_free_pose("elbow-noz-a"), 6.35, "bulkhead-flavor-a tube-in — segment 18 (routed)", "PP0308E free collet, up out of the pocket toward the rear umbilical"),
+    _p("free", "elbow-noz-b", "fluid", *contents.outlet_free_pose("elbow-noz-b"), 6.35, "bulkhead-flavor-b tube-in — segment 28 (routed)", "PP0308E free collet, up out of the pocket toward the rear umbilical"),
     # Waveshare display — its data/power connector is NOT in the imported STEP (only the four
     # corner mounts are), so this one harness port is placed provisionally on the interior (+Y)
     # back face at the PCB centre. A viewer pick would pin it exactly.
