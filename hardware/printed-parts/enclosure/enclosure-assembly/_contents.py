@@ -275,13 +275,19 @@ PUMP_B_POS = (222.50, 85.51, 192.31)
 # the column does not stand vertical — it leans off Z, and each tee is turned
 # to stand on the lean: its RUN collinear with the pair of collets it butts, so
 # segments 9/10 and 19/20 are straight tube with no bend anywhere and one stub
-# at each end, and its BRANCH swung as far east as perpendicular allows, at the
-# pump inlet it feeds (segments 11/21, unauthored). Tube-hung PTC fittings,
-# carried by their lines: no tray, no holder. Every number derives from the
-# trays' own layout, so a tray move carries the tees with it.
+# at each end. Its BRANCH starts perpendicular-east, then rolls about the run
+# axis by JUNCTION_ROLL to aim at the pump inlet its suction leg feeds (segments
+# 11/21) — a spin about the run leaves the two run ports untouched, so the
+# source/bag legs stay straight. Tube-hung PTC fittings, carried by their lines:
+# no tray, no holder. Every number derives from the trays' own layout, so a tray
+# move carries the tees with it.
 JUNCTION = {                      # tee → the (source, bag) collets its run butts
     "tee-y-c": ("VC", "VE"),
     "tee-y-f": ("VD", "VH"),
+}
+JUNCTION_ROLL = {                 # extra roll of a tee about its run axis: branch toward its pump inlet
+    "tee-y-c": -50.0,
+    "tee-y-f": -16.0,
 }
 
 
@@ -355,6 +361,9 @@ def junction(tee):
     run = _unit(span)
     east = (1.0, 0.0, 0.0)
     branch = _unit(tuple(east[i] - _dot(east, run) * run[i] for i in range(3)))
+    roll = JUNCTION_ROLL.get(tee, 0.0)
+    if roll:
+        branch = _unit(_spin(branch, run, roll))
     return (tuple((ps[i] + pb[i]) / 2.0 for i in range(3)),
             run, branch, math.sqrt(_dot(span, span)) / 2.0 - _bag.tee_run_half)
 
@@ -739,6 +748,66 @@ def _reaim_pump_outlet(shape, name):
     return cq.Compound.makeCompound([s for s in solids if s is not outlet] + [turned])
 
 
+# ── Pump-suction inlet elbow re-aim ──────────────────────────────────────────────────────────
+# PUMP_INLET_AIM re-rolls a pump's suction inlet elbow (the aft, west-facing station) about its
+# vertical port axis to face the tee its suction leg comes from. pump-b stands east of the bag
+# tray, with room to roll northwest at tee-y-c. pump-a's inlet stays west: the bag tray fills the
+# space between it and tee-y-f, which hangs behind the tray, so fluid-21 reaches it from the west.
+_PUMP_INLET_BASE = {                              # as-placed inlet collet: (pos, free-leg dir)
+    "pump-a": ((98.56, 93.01, 278.17), (-1.0, 0.0, 0.0)),
+    "pump-b": ((231.44, 79.01, 278.17), (-1.0, 0.0, 0.0)),
+}
+PUMP_INLET_AIM = {                                # re-rolled free-leg heading (horizontal); absent = as placed
+    "pump-b": (-0.940, 0.342, 0.0),
+}
+
+
+def _pump_inlet_corner(name):
+    """The inlet elbow's bend corner: one free-leg reach back from the collet, on the vertical
+    axis the elbow rolls about."""
+    pos, d = _PUMP_INLET_BASE[name]
+    return tuple(pos[i] - PUMP_ELBOW_REACH * d[i] for i in range(3))
+
+
+def pump_inlet_pose(name):
+    """A pump's suction inlet collet in world: (position, outward axis) — where segment 11/21
+    closes. Re-rolled to PUMP_INLET_AIM[name] where present, else as placed."""
+    base_pos, base_d = _PUMP_INLET_BASE[name]
+    aim = PUMP_INLET_AIM.get(name)
+    if aim is None:
+        return base_pos, base_d
+    t = _unit(aim)
+    corner = _pump_inlet_corner(name)
+    return tuple(corner[i] + PUMP_ELBOW_REACH * t[i] for i in range(3)), t
+
+
+def _pump_inlet_roll(name):
+    """CCW degrees about +Z from the as-placed free leg to PUMP_INLET_AIM[name]."""
+    _p, base_d = _PUMP_INLET_BASE[name]
+    t = _unit(PUMP_INLET_AIM[name])
+    return math.degrees(math.atan2(t[1], t[0]) - math.atan2(base_d[1], base_d[0]))
+
+
+def _reaim_pump_inlet(shape, name):
+    """Roll `name`'s suction inlet elbow — the high-Z aft sub-solid — about its vertical port axis
+    to PUMP_INLET_AIM[name]."""
+    corner = _pump_inlet_corner(name)
+    roll = _pump_inlet_roll(name)
+    base_pos, _d = _PUMP_INLET_BASE[name]
+    solids = shape.Solids()
+
+    def inlet_key(s):
+        b = s.BoundingBox()
+        if b.zmax < 260.0:                        # a low pump body, not an elbow
+            return 1e9
+        cx, cy = (b.xmin + b.xmax) / 2.0, (b.ymin + b.ymax) / 2.0
+        return (cx - base_pos[0]) ** 2 + (cy - base_pos[1]) ** 2
+
+    inlet = min(solids, key=inlet_key)
+    turned = inlet.rotate((corner[0], corner[1], 0.0), (corner[0], corner[1], 1.0), roll)
+    return cq.Compound.makeCompound([s for s in solids if s is not inlet] + [turned])
+
+
 def _at(shape, xmin, ymin, zmin):
     bb = shape.BoundingBox()
     return shape.translate((xmin - bb.xmin, ymin - bb.ymin, zmin - bb.zmin))
@@ -825,6 +894,8 @@ def build():
     placed["pump-b"] = lay.translate(PUMP_B_POS)
     for name in PUMP_OUTLET_AIM:
         placed[name] = _reaim_pump_outlet(placed[name], name)
+    for name in PUMP_INLET_AIM:
+        placed[name] = _reaim_pump_inlet(placed[name], name)
 
     # The pump-inlet union tees, hanging in the junction column: each one
     # stands on the line between the two collets it butts (`junction`), run

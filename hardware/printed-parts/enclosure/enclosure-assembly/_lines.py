@@ -23,8 +23,9 @@ carry the authored legs, each measured off the faces that bound it:
     hanging between them on the line the collets make. Each elbow is rolled off its port
     axis to aim along that line (bag_circuit_tray `_junction_aim`), which leans ~11.6° off
     Z, so all four legs — fluid-9/19 down from the source, fluid-10/20 up from the bag —
-    are straight tube, ~10 mm each, no bends. Segments 11/21 leave the branch collets east
-    for the pump row, unauthored.
+    are straight tube, ~10 mm each, no bends. Each tee's branch is then rolled about the
+    run (`JUNCTION_ROLL`) to aim at its pump inlet, and fluid-11/21 carry the suction from
+    the branch collets east to the pump row.
 
 Precedent: `pcba.tsx`'s `route(...)` call sites.
 """
@@ -183,6 +184,33 @@ def build_runs() -> list:
                         tuple(sp[i] + sd[i] * 14.0 for i in range(3)), "y-g.Y-G-1",
                         kind="fluid", bend=12.0, skew=DISCHARGE_SKEW,
                         note="discharge stem P-A-O → y-g Y-G-1, across the pump row"))
+
+    # The pump-suction stems (segments 11/21) — each pump's inlet back to its channel's junction
+    # tee. The tees hang in the manifold seam between the source and bag trays; each branch is
+    # rolled to aim at its pump (_contents `JUNCTION_ROLL`), leaving along its collet on a straight
+    # SLEAD lead. fluid-11 climbs out of tee-y-c, rides the open band over the pump bodies — below
+    # the row's elbows, ahead of the bag tray — and drops east into pump B's far inlet, which is
+    # rolled northwest to meet it (`PUMP_INLET_AIM`). fluid-21 is the short hop up from tee-y-f
+    # into pump A's near inlet; tee-y-f sits buried mid-stack behind the bag tray, so pump A's
+    # inlet keeps its west face and this leg comes around to it, leaving along the tray underside.
+    SLEAD = 12.0                        # straight lead off each suction collet, either side of the run
+    tp, tn = contents.tee_port("tee-y-c", 3)
+    ip, ind = contents.pump_inlet_pose("pump-b")
+    runs.append(R.bent(
+        "fluid-11", "tee-y-c.Y-C-3",
+        tuple(tp[i] + tn[i] * SLEAD for i in range(3)),
+        (50.0, 82.0, 248.0), (92.0, 76.0, 272.0), (140.0, 74.0, 278.0), (178.0, 86.0, 283.0), (210.0, 86.0, 280.0),
+        tuple(ip[i] + ind[i] * SLEAD for i in range(3)), "pump-b.P-B-I",
+        kind="fluid", bend=9.0, skew=DISCHARGE_SKEW,
+        note="suction stem tee-y-c Y-C-3 → pump-b P-B-I, over the pump row"))
+    tp, tn = contents.tee_port("tee-y-f", 3)
+    ip, ind = contents.pump_inlet_pose("pump-a")
+    runs.append(R.bent(
+        "fluid-21", "tee-y-f.Y-F-3",
+        tuple(tp[i] + tn[i] * SLEAD for i in range(3)),
+        tuple(ip[i] + ind[i] * SLEAD for i in range(3)), "pump-a.P-A-I",
+        kind="fluid", bend=10.0, skew=DISCHARGE_SKEW,
+        note="suction stem tee-y-f Y-F-3 → pump-a P-A-I, up from the seam"))
 
     return runs
 
