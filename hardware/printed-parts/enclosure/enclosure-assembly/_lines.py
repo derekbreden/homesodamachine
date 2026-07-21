@@ -57,20 +57,6 @@ DISCHARGE_SKEW = 22.0
 BLOCKED: dict = {}
 
 
-def _meet(p, u, q, v, bias):
-    """The corner where two facing collets' axes (p along u, q along v) come nearest, blended `bias`
-    toward q's line so the tail enters q straight — one bend joins the two there."""
-    dot = lambda a, b: a[0] * b[0] + a[1] * b[1] + a[2] * b[2]      # noqa: E731
-    w0 = tuple(p[i] - q[i] for i in range(3))
-    a, b, c = dot(u, u), dot(u, v), dot(v, v)
-    d, e = dot(u, w0), dot(v, w0)
-    s = (b * e - c * d) / (a * c - b * b)
-    t = (a * e - b * d) / (a * c - b * b)
-    c1 = tuple(p[i] + s * u[i] for i in range(3))
-    c2 = tuple(q[i] + t * v[i] for i in range(3))
-    return tuple(c1[i] * (1.0 - bias) + c2[i] * bias for i in range(3))
-
-
 def _frames():
     """A frame per placed component: its body box from the pack, its ports from the scorecard's
     port table."""
@@ -144,28 +130,21 @@ def build_runs() -> list:
     # `elbow_free_dir`), so a run leaves nearly along its collet: fluid-27 is one straight tube into
     # its outlet; fluid-13 bends once into y-d's yawed outlet; the two long crossing legs (17, 23)
     # leave climbing (the elbow's lift) and are carried OVER the near flavor's fitting by one
-    # hand-placed apex, then down — a gentle arc, authored point-to-point with `bent`. A bent leg
-    # leaves and enters straight for LEAD mm along its collet, then rounds at the DBEND radius. The
-    # divider stems to the pumps (segments 12/22) leave below, from each divider's own stem port.
-    LEAD = 8.0                              # straight lead-out/-in along each collet, either side of an apex
+    # hand-placed apex, then down — a gentle arc, authored point-to-point with `bent`. Each takes a
+    # `lead=` stub, so it leaves and enters straight along its collet (skew ~0 by construction) and
+    # only the apex is hand-placed, then rounds at the DBEND radius. The divider stems to the pumps
+    # (segments 12/22) leave below, from each divider's own stem port.
+    LEAD = 8.0                              # exit/approach stub: straight lead-out/-in along each collet
     DBEND = 12.0                            # 1/4" LLDPE, clean-sweeping radius (as the copper loop uses)
-    for cid, elb, div, port, apex in (
-        ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", 4.0),                     # one bend into the yawed outlet
-        ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3", (202.0, 111.0, 259.0)),   # over elbow-y-d (top z254)
-        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (200.0, 112.0, 289.0)),   # over elbow-bag-y-d (top z286)
-        ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3", None),                    # rises straight to the raised outlet
+    for cid, elb, div, port, apex, lead in (
+        ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", None,                   (0.0, 4.0)),  # one bend into the yawed outlet
+        ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3", (202.0, 111.0, 259.0),  LEAD),        # over elbow-y-d (top z254)
+        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (200.0, 112.0, 289.0),  LEAD),        # over elbow-bag-y-d (top z286)
+        ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3", None,                   None),         # rises straight to the raised outlet
     ):
-        fp, fd = contents.elbow_free_pose(elb)
-        op, od = contents.divider_port(div, int(port[-1]))     # "Y-G-2" -> outlet 2
-        if apex is None:                    # short leg: one straight tube, the collet flex takes the skew
-            mids = []
-        elif isinstance(apex, float):       # lead-in of that length: one bend into the outlet's collet
-            mids = [tuple(op[i] + od[i] * apex for i in range(3))]
-        else:                               # bent leg: lead out along the collet, through the apex, lead in
-            mids = [tuple(fp[i] + fd[i] * LEAD for i in range(3)), apex,
-                    tuple(op[i] + od[i] * LEAD for i in range(3))]
+        mids = [apex] if apex is not None else []
         runs.append(R.bent(cid, f"{elb}.free", *mids, f"{div}.{port}",
-                            kind="fluid", bend=DBEND, skew=DISCHARGE_SKEW,
+                            kind="fluid", bend=DBEND, skew=DISCHARGE_SKEW, lead=lead,
                             note=f"discharge {port}: {elb} → {div} {port}, bent over the row"))
 
     # The pump-discharge stems (segments 12/22) — each divider's stem back to a pump outlet.
@@ -174,42 +153,32 @@ def build_runs() -> list:
     # the pumps, and turns into y-g's stem; the two sit in separate bays.
     op, od = contents.pump_outlet_pose("pump-b")
     sp, sd = contents.divider_port("y-d", 1)
-    runs.append(R.bent("fluid-12", "pump-b.P-B-O", _meet(op, od, sp, sd, 0.85), "y-d.Y-D-1",
+    runs.append(R.bent("fluid-12", "pump-b.P-B-O", R.meet(op, od, sp, sd, 0.85), "y-d.Y-D-1",
                         kind="fluid", bend=6.0, skew=DISCHARGE_SKEW,
                         note="discharge stem P-B-O → y-d Y-D-1, where the two collets meet"))
-    op, od = contents.pump_outlet_pose("pump-a")
-    sp, sd = contents.divider_port("y-g", 1)
-    runs.append(R.bent("fluid-22", "pump-a.P-A-O",
-                        tuple(op[i] + od[i] * 14.0 for i in range(3)), (165.0, 25.0, 278.0),
-                        tuple(sp[i] + sd[i] * 14.0 for i in range(3)), "y-g.Y-G-1",
-                        kind="fluid", bend=12.0, skew=DISCHARGE_SKEW,
+    runs.append(R.bent("fluid-22", "pump-a.P-A-O", (165.0, 25.0, 278.0), "y-g.Y-G-1",
+                        kind="fluid", bend=12.0, skew=DISCHARGE_SKEW, lead=14.0,
                         note="discharge stem P-A-O → y-g Y-G-1, across the pump row"))
 
     # The pump-suction stems (segments 11/21) — each pump's inlet back to its channel's junction
     # tee. The tees hang in the manifold seam between the source and bag trays; each branch is
-    # rolled to aim at its pump (_contents `JUNCTION_ROLL`), leaving along its collet on a straight
-    # SLEAD lead. fluid-11 climbs out of tee-y-c, rides the open band over the pump bodies — below
-    # the row's elbows, ahead of the bag tray — and drops east into pump B's far inlet, which is
-    # rolled northwest to meet it (`PUMP_INLET_AIM`). fluid-21 is the short hop up from tee-y-f
+    # rolled to aim at its pump (_contents `JUNCTION_ROLL`), so each run leaves along its collet on
+    # a `lead=` stub. fluid-11 climbs out of tee-y-c, rides the open band over the pump bodies —
+    # below the row's elbows, ahead of the bag tray — and drops east into pump B's far inlet, which
+    # is rolled northwest to meet it (`PUMP_INLET_AIM`). fluid-21 is the short hop up from tee-y-f
     # into pump A's near inlet; tee-y-f sits buried mid-stack behind the bag tray, so pump A's
     # inlet keeps its west face and this leg comes around to it, leaving along the tray underside.
-    SLEAD = 12.0                        # straight lead off each suction collet, either side of the run
-    tp, tn = contents.tee_port("tee-y-c", 3)
-    ip, ind = contents.pump_inlet_pose("pump-b")
+    SLEAD = 12.0                        # exit/approach stub: straight lead off each suction collet
     runs.append(R.bent(
         "fluid-11", "tee-y-c.Y-C-3",
-        tuple(tp[i] + tn[i] * SLEAD for i in range(3)),
         (50.0, 82.0, 248.0), (92.0, 76.0, 272.0), (140.0, 74.0, 278.0), (178.0, 86.0, 283.0), (210.0, 86.0, 280.0),
-        tuple(ip[i] + ind[i] * SLEAD for i in range(3)), "pump-b.P-B-I",
-        kind="fluid", bend=9.0, skew=DISCHARGE_SKEW,
+        "pump-b.P-B-I",
+        kind="fluid", bend=9.0, skew=DISCHARGE_SKEW, lead=SLEAD,
         note="suction stem tee-y-c Y-C-3 → pump-b P-B-I, over the pump row"))
-    tp, tn = contents.tee_port("tee-y-f", 3)
-    ip, ind = contents.pump_inlet_pose("pump-a")
     runs.append(R.bent(
         "fluid-21", "tee-y-f.Y-F-3",
-        tuple(tp[i] + tn[i] * SLEAD for i in range(3)),
-        tuple(ip[i] + ind[i] * SLEAD for i in range(3)), "pump-a.P-A-I",
-        kind="fluid", bend=10.0, skew=DISCHARGE_SKEW,
+        "pump-a.P-A-I",
+        kind="fluid", bend=10.0, skew=DISCHARGE_SKEW, lead=SLEAD,
         note="suction stem tee-y-f Y-F-3 → pump-a P-A-I, up from the seam"))
 
     return runs
