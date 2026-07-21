@@ -273,7 +273,7 @@ def route(cid: str, frm: str, *rest, kind: str = "refrigerant", stub=STUB,
 
 
 def bent(cid: str, frm: str, *rest, kind: str = "refrigerant", bend: float | None = None,
-         skew: float | None = None, note: str = "") -> Run:
+         skew: float | None = None, lead=None, note: str = "") -> Run:
     """Author a run as a HAND-PLACED centreline: the source port, explicit interior 3-D waypoints,
     the destination port — joined by straight legs and rounded at each interior corner with a tangent
     arc of `bend` radius, at whatever angle the corner turns (not just square). This is the free-form
@@ -283,8 +283,14 @@ def bent(cid: str, frm: str, *rest, kind: str = "refrigerant", bend: float | Non
 
     `bent("…", A, (x, y, z), (x, y, z), B)` — first arg after the source and last arg are the port
     anchors; everything between is a waypoint. The leg leaving `frm` and the leg entering `to` are
-    checked against each port's own axis (`skew`, default `COLLET_SKEW`): place the first and last
-    waypoints so each run leaves and enters roughly along its collet.
+    checked against each port's own axis (`skew`, default `COLLET_SKEW`).
+
+    `lead` is `bent`'s exit/approach stub — the analogue of `route`'s `stub`. Given, it plants a
+    waypoint one `lead` mm along the source normal off `frm`, and one along the destination normal off
+    `to`, so the run leaves and enters exactly on-axis (leave/enter skew ~0 by construction) and the
+    interior waypoints are free to dodge obstacles without fighting the collet check. `lead=d` reaches
+    both ends by `d`; `lead=(out, in)` sets them apart, and 0 or None skips that end. Without it the
+    first and last waypoints must themselves sit on the collet axes.
     """
     sk = COLLET_SKEW if skew is None else skew
     to = rest[-1]
@@ -297,19 +303,43 @@ def bent(cid: str, frm: str, *rest, kind: str = "refrigerant", bend: float | Non
         raise ValueError(f"{cid}: {frm} has no bore Ø — a line cannot be routed through an unsized port")
     bend = bend if bend is not None else BEND_RATIO * d
 
-    pts = [tuple(f_from.at(p_from))] + [tuple(w) for w in rest[:-1]] + [tuple(f_to.at(p_to))]
-    pts = _straighten(_dedupe(pts))
+    n_from, n_to = f_from.normal(p_from), f_to.normal(p_to)
+    src, dst = tuple(f_from.at(p_from)), tuple(f_to.at(p_to))
+    mids = [tuple(w) for w in rest[:-1]]
+    if lead is not None:
+        lead_out, lead_in = lead if isinstance(lead, (tuple, list)) else (lead, lead)
+        if lead_out:
+            mids.insert(0, tuple(src[i] + n_from[i] * lead_out for i in range(3)))
+        if lead_in:
+            mids.append(tuple(dst[i] + n_to[i] * lead_in for i in range(3)))
+    pts = _straighten(_dedupe([src] + mids + [dst]))
     if len(pts) < 2:
         raise ValueError(f"{cid}: a run needs at least a source and a destination")
-    lead = leg_skew(pts[0], pts[1], f_from.normal(p_from))
-    if lead > sk:
-        raise ValueError(f"{cid}: leaves {frm} {lead:.1f}° off the collet axis (> {sk:.1f}°) — "
-                         f"move the first waypoint onto the port's normal.")
-    tail = leg_skew(pts[-2], pts[-1], tuple(-c for c in f_to.normal(p_to)))
-    if tail > sk:
-        raise ValueError(f"{cid}: enters {to} {tail:.1f}° off the collet axis (> {sk:.1f}°) — "
-                         f"move the last waypoint onto the port's normal.")
+    lead_off = leg_skew(pts[0], pts[1], n_from)
+    if lead_off > sk:
+        raise ValueError(f"{cid}: leaves {frm} {lead_off:.1f}° off the collet axis (> {sk:.1f}°) — "
+                         f"move the first waypoint onto the port's normal, or pass `lead=` to plant one.")
+    tail_off = leg_skew(pts[-2], pts[-1], tuple(-c for c in n_to))
+    if tail_off > sk:
+        raise ValueError(f"{cid}: enters {to} {tail_off:.1f}° off the collet axis (> {sk:.1f}°) — "
+                         f"move the last waypoint onto the port's normal, or pass `lead=` to plant one.")
     return Run(cid, kind, frm, to, pts, d, bend, note, _bends(pts, bend, cid))
+
+
+def meet(p, u, q, v, bias):
+    """The corner where two facing collets' axes (`p` along `u`, `q` along `v`) come nearest, blended
+    `bias` toward q's line so the tail enters q straight — one interior waypoint for `bent`, joining the
+    two with a single bend there. For collets that nearly face down one line; where they do not, lead a
+    stub off each end and let the interior carry the turn (`bent(..., lead=…)`)."""
+    dot = lambda a, b: a[0] * b[0] + a[1] * b[1] + a[2] * b[2]      # noqa: E731
+    w0 = tuple(p[i] - q[i] for i in range(3))
+    a, b, c = dot(u, u), dot(u, v), dot(v, v)
+    d, e = dot(u, w0), dot(v, w0)
+    s = (b * e - c * d) / (a * c - b * b)
+    t = (a * e - b * d) / (a * c - b * b)
+    c1 = tuple(p[i] + s * u[i] for i in range(3))
+    c2 = tuple(q[i] + t * v[i] for i in range(3))
+    return tuple(c1[i] * (1.0 - bias) + c2[i] * bias for i in range(3))
 
 
 def _dedupe(pts: list) -> list:
