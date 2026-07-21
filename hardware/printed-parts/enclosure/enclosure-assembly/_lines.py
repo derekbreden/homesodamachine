@@ -206,14 +206,16 @@ def routed_ids() -> set:
 
 
 def clearances(solids: dict) -> list:
-    """Each run's tightest gap to a part it does not terminate on. The two components a run
-    joins are skipped. Reported, not gated."""
+    """Each run's tightest gap to a part it does not terminate on, or to another run. The two
+    components a run joins are skipped. Reported, not gated."""
     import scorecard
 
+    tubes = {r.id: R.tube(r) for r in build_runs()}
     out = []
     for r in build_runs():
-        t = R.tube(r)
+        t = tubes[r.id]
         ends = {r.frm.split(".")[0], r.to.split(".")[0]}
-        gaps = sorted((scorecard._solid_gap(t, s), n) for n, s in solids.items() if n not in ends)
-        out.append((r, gaps[0] if gaps else None))
+        gaps = [(scorecard._solid_gap(t, s), n) for n, s in solids.items() if n not in ends]
+        gaps += [(scorecard._solid_gap(t, tubes[o]), o) for o in tubes if o != r.id]
+        out.append((r, min(gaps) if gaps else None))
     return out
