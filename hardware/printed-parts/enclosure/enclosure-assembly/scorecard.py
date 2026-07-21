@@ -285,11 +285,13 @@ PLACEMENT_RULES = {
     # east bank": the row tie to its neighbor, and a keep-out holding its
     # aft elbow clear of the source-select east walls it threads past.
     "pump-b": [("near", "pump-a", 6.5), ("clear", "source-select-assembly", 2.5)],
-    # "The tees hang in the junction column over the source-select west bank":
-    # centred on the line between the two collets they butt, one straight tube
-    # stub to each.
-    "tee-y-c": [("near", "source-select-assembly", 6.0)],
-    "tee-y-f": [("near", "source-select-assembly", 6.0)],
+    # The tees hang in the junction column between the source and bag banks. The
+    # column leans off vertical (each elbow rolled to aim at the other, _contents
+    # `JUNCTION_ROLL`) and tee-y-c slides up its run toward the bag (`JUNCTION_LIFT`,
+    # raising its branch so the suction stem leaves gently), so a tee stands well
+    # off the source bank — the `near` gap allows for that.
+    "tee-y-c": [("near", "source-select-assembly", 15.0)],
+    "tee-y-f": [("near", "source-select-assembly", 15.0)],
 }
 
 

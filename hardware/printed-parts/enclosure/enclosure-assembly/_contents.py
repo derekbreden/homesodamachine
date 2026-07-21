@@ -292,6 +292,9 @@ JUNCTION_ROLL = {                 # extra roll of a tee about its run axis: bran
     "tee-y-c": -90.0,             # fully −Y: branch faces straight into the open band ahead of the pumps
     "tee-y-f": -55.0,             # −Y-dominant, canted east just enough to thread its run past tee-y-c
 }
+JUNCTION_LIFT = {                 # slide a tee's centre this far up its run toward the bag port, raising its
+    "tee-y-c": 7.0,              # branch exit so the suction stem leaves gently (fluid-11 needs no sharp climb)
+}
 
 
 def _dot(a, b):
@@ -356,7 +359,9 @@ def noz_collet(name):
 def junction(tee):
     """A pump-inlet tee's pose: (centre, run axis, branch axis, stub). The run is the line joining
     the two collets it butts. Centred on that line the tube left over splits evenly into a stub at
-    each end. The branch is east made perpendicular to that run."""
+    each end, less any JUNCTION_LIFT that slides the fitting up the run toward the bag port (which
+    lengthens the source stub and shortens the bag one). The branch is east made perpendicular to
+    that run."""
     ps, _ns = src_collet(JUNCTION[tee][0])
     pb, _nb = bag_collet(JUNCTION[tee][1])
     span = tuple(pb[i] - ps[i] for i in range(3))
@@ -366,8 +371,9 @@ def junction(tee):
     roll = JUNCTION_ROLL.get(tee, 0.0)
     if roll:
         branch = _unit(_spin(branch, run, roll))
-    return (tuple((ps[i] + pb[i]) / 2.0 for i in range(3)),
-            run, branch, math.sqrt(_dot(span, span)) / 2.0 - _bag.tee_run_half)
+    lift = JUNCTION_LIFT.get(tee, 0.0)
+    centre = tuple((ps[i] + pb[i]) / 2.0 + lift * run[i] for i in range(3))
+    return (centre, run, branch, math.sqrt(_dot(span, span)) / 2.0 - _bag.tee_run_half)
 
 
 def tee_port(tee, port):
