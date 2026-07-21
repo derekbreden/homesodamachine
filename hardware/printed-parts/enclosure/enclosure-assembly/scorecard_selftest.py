@@ -61,6 +61,41 @@ def test_pack_closes() -> None:
     check("silent on a separated pair", len(clear) == 0, f"got {len(clear)} clash(es)")
 
 
+# ── lines-clear: a tube driving through another tube or a non-terminal part = a clash ─────────
+def test_lines_clear() -> None:
+    print("lines-clear (no routed tube intersects a part or another tube)")
+    # Defect: two crossing tube-solids sharing a 4×4×4 = 64 mm³ region (> CLASH_TOL). Neither
+    # terminates on the other, so it is a real interpenetration.
+    tt = sc.line_clashes({"t1": box(0, 0, 0, 40, 4, 4), "t2": box(18, 0, 0, 4, 40, 4)},
+                         {}, {"t1": {"A", "B"}, "t2": {"C", "D"}})
+    check("fires on two interpenetrating tubes", len(tt) == 1, f"got {len(tt)} clash(es)")
+    # Defect: a tube driving through a part it does NOT terminate on.
+    tp = sc.line_clashes({"t1": box(0, 0, 0)}, {"pump-x": box(5, 5, 5)}, {"t1": {"A", "B"}})
+    check("fires on a tube through a non-terminal part", len(tp) == 1, f"got {len(tp)} clash(es)")
+    # Control: the SAME overlap, but the part is one this tube terminates on — a tube seats into
+    # its end fitting's collet by design, so it must stay silent.
+    seat = sc.line_clashes({"t1": box(0, 0, 0)}, {"pump-x": box(5, 5, 5)}, {"t1": {"A", "pump-x"}})
+    check("silent on a tube seating into its own end fitting", len(seat) == 0, f"got {len(seat)} clash(es)")
+    # Control: a tube well clear of every tube and part.
+    wide = sc.line_clashes({"t1": box(0, 0, 0), "t2": box(50, 50, 50)},
+                           {"part": box(200, 0, 0)}, {"t1": {"A"}, "t2": {"B"}})
+    check("silent on tubes clear of everything", len(wide) == 0, f"got {len(wide)} clash(es)")
+    # Wiring: lines_clear_check turns a clash into a red 'lines-clear' gate, and none into green.
+    orig = sc.line_clashes
+    try:
+        sc.line_clashes = lambda *a, **k: [("fluid-x", "fluid-y", 50.0)]
+        red = sc.lines_clear_check({})
+        check("lines_clear_check emits a red gate on a clash",
+              red.id == "lines-clear" and red.kind == "gate" and red.status == "fail",
+              f"id={red.id} status={red.status}")
+        sc.line_clashes = lambda *a, **k: []
+        green = sc.lines_clear_check({})
+        check("lines_clear_check passes when no tube clashes", green.status == "pass",
+              f"status={green.status}")
+    finally:
+        sc.line_clashes = orig
+
+
 # ── clearance-floor: sub-floor gap = violation; declared contact = allowed ───
 def test_clearance_floor() -> None:
     print(f"clearance-floor (part↔part gap ≥ {sc.CLEARANCE_FLOOR} mm)")
@@ -237,7 +272,7 @@ def main() -> None:
     print("── enclosure scorecard self-test " + "─" * 20)
     if not sc._HAVE_EXACT:
         print("  note: exact solid-distance kernel unavailable; clearance uses bbox estimate")
-    for t in (test_pack_closes, test_clearance_floor, test_fit_bed,
+    for t in (test_pack_closes, test_lines_clear, test_clearance_floor, test_fit_bed,
               test_seams_mate, test_placement, test_scorecard_end_to_end,
               test_routing_guards):
         t()
