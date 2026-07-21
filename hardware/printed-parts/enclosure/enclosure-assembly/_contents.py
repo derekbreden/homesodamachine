@@ -249,7 +249,7 @@ _GATE_ANCHOR_BAG_X = 144.0 - JUNCTION_SLIDE
 # pins the +X wall at the full interior width regardless, so this only insets the
 # gate — it does not shrink the box. Bounded west by the source-select east bank
 # and the bag's east discharge elbows (the scorecard's clearance floor).
-GATE_WALL_INSET = 11.0
+GATE_WALL_INSET = 26.0
 NOZZLE_GATE_POS = (_GATE_ANCHOR_BAG_X + 2.0 * _bag.port_half + _bag.tee_branch_reach
                    + _bag.tee_radius + TEE_BODY_CLEAR - GATE_WALL_INSET,
                    SRC_SEL_POS[1],
@@ -485,6 +485,8 @@ COLORS = {
     "elbow-y-g":         cq.Color(0.85, 0.85, 0.88),
     "elbow-bag-y-d":     cq.Color(0.85, 0.85, 0.88),
     "elbow-bag-y-g":     cq.Color(0.85, 0.85, 0.88),
+    "elbow-noz-a":       cq.Color(0.85, 0.85, 0.88),
+    "elbow-noz-b":       cq.Color(0.85, 0.85, 0.88),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "dc-dist":           cq.Color(0.20, 0.20, 0.22),
@@ -610,6 +612,36 @@ DISCHARGE_DIV = {
 DISCHARGE_YAW = {                             # extra Z-turn of a divider: stem toward its pump, outlets the same off their elbows
     "y-d": 16.0,
 }
+# Which placed fittings each tray is relieved for — the OPPOSITE bank's discharge
+# elbows the closed-up pocket drives its walls onto — and the sign of the pocket the
+# elbow's run leaves toward (−X the gate's pocket faces the bag, +X the bag's the gate),
+# so the relief opens a channel from the fitting out to the pocket, clearing the run stub
+# that leaves it. See the relief in `build`.
+DISCHARGE_RELIEF = {
+    "nozzle-gate-assembly": (("elbow-bag-y-d", "elbow-bag-y-g"), -1.0),
+    "bag-circuit-assembly": (("elbow-y-d", "elbow-y-g"), +1.0),
+}
+RELIEF_CLEAR = 2.0                            # relief grows the fitting footprint past the 1.0 clearance floor
+RELIEF_REACH = 22.0                           # and opens a channel this far toward the pocket + the discharge row, clearing the run stub
+
+# ── Nozzle-outlet elbows ─────────────────────────────────────────────────────────────────────
+# A PP0308E on each bare nozzle-gate outer port (V-G-O/V-J-O), which the gate's inset west turned
+# to face east into the wall pocket. Each turns its nozzle line UP off the port, out of the pocket,
+# where the run climbs over the cold core to the rear flavor bulkhead. The gate's inset (GATE_WALL_
+# INSET) opened exactly the pocket depth this fitting's body needs — its outer bend curve clears the
+# +X wall. Placed like the discharge elbows (`_place_elbow`), free leg +Z.
+OUTLET_ELBOW = {                              # elbow → the nozzle-gate outer port it turns
+    "elbow-noz-a": "VG-O",                    # nozzle A → bulkhead-flavor-a
+    "elbow-noz-b": "VJ-O",                    # nozzle B → bulkhead-flavor-b
+}
+OUTLET_FREE = (0.0, 0.0, 1.0)                 # free leg UP, leaving the pocket for the run aft
+
+
+def outlet_free_pose(name):
+    """A nozzle-outlet elbow's free (empty) port in world: (position, outward axis) — where its run
+    to the rear flavor bulkhead leaves, one bend up off the pocket."""
+    collet = noz_collet(OUTLET_ELBOW[name])
+    return _elbow_free_port(collet, OUTLET_FREE, ELBOW_STUB), OUTLET_FREE
 
 
 def _discharge_collet(name):
@@ -836,6 +868,26 @@ def _box(dx, dy, dz):
     return cq.Workplane("XY").box(dx, dy, dz, centered=(False, False, False)).val()
 
 
+def _relieve(tray, obstacle, toward, clear=RELIEF_CLEAR, reach=RELIEF_REACH):
+    """Cut from `tray` the box where its bounds meet `obstacle`'s, grown `clear` on every side and
+    opened `reach` further toward the pocket (`toward` = ±X, the side the fitting's run leaves for)
+    and −Y (the discharge row the run drops to) — so the tray clears both the fitting and the run
+    stub leaving it. The overlap is read off the two bounding boxes (the fittings sit above the valve
+    cradles, so the box never reaches a valve), not a solid boolean — the relief runs on every build,
+    and a box query keeps that cheap. No overlap → tray unchanged."""
+    a, o = tray.BoundingBox(), obstacle.BoundingBox()
+    lo = [max(a.xmin, o.xmin), max(a.ymin, o.ymin), max(a.zmin, o.zmin)]
+    hi = [min(a.xmax, o.xmax), min(a.ymax, o.ymax), min(a.zmax, o.zmax)]
+    if any(lo[i] >= hi[i] for i in range(3)):
+        return tray                                         # bounds do not overlap
+    x0 = lo[0] - clear - (reach if toward < 0 else 0.0)
+    x1 = hi[0] + clear + (reach if toward > 0 else 0.0)
+    y0, y1 = lo[1] - clear - reach, hi[1] + clear           # −Y toward the discharge row the runs drop to
+    z0, z1 = lo[2] - clear, hi[2] + clear
+    window = cq.Solid.makeBox(x1 - x0, y1 - y0, z1 - z0, cq.Vector(x0, y0, z0))
+    return tray.cut(window)
+
+
 def _cyl(d, length, axis):
     """Cylinder of diameter d along a unit axis, base at the origin."""
     return cq.Solid.makeCylinder(d / 2.0, length, cq.Vector(0, 0, 0), cq.Vector(*axis))
@@ -937,6 +989,22 @@ def build():
     divider = _load(DIVIDER_CONNECTOR)
     for name in DISCHARGE_DIV:
         placed[name] = _place_divider(divider, name)
+
+    # Nozzle-outlet elbows — a 90° turn up off each bare east port into the wall pocket.
+    for name, port in OUTLET_ELBOW.items():
+        collet = noz_collet(port)
+        placed[name] = _place_elbow(elbow, collet[0], collet[1], OUTLET_FREE, ELBOW_STUB)
+
+    # Discharge-junction relief. The gate's westward inset (GATE_WALL_INSET) closes the
+    # pocket between the bag and gate banks onto the discharge cluster: the gate's walls
+    # come down onto the bag elbows (elbow-bag-y-*) and the bag tray's onto the nozzle
+    # elbows (elbow-y-*). The clash is wall-on-fitting, above the valve cradles — never a
+    # valve — so each tray is relieved where the OPPOSITE bank's elbow threads it, a window
+    # in the pocket-facing wall, symmetric across the junction. Cut the fitting's footprint
+    # grown one clearance floor, so the relieved tray clears the elbow it lets pass.
+    for tray, (obstacles, toward) in DISCHARGE_RELIEF.items():
+        for other in obstacles:
+            placed[tray] = _relieve(placed[tray], placed[other], toward)
 
     # --- Zone B, the band above the cold core: the electronics shelf lying
     # flat on the foam-cap top, tray/board planes horizontal, everything in
