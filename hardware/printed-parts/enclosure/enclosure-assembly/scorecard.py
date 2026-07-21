@@ -123,8 +123,8 @@ COMPONENTS = [
     _c("pump-a",            "real",        True,  "none", "Kamoer KPHM400 peristaltic + 2 PP0308E outlet elbows (reference/kamoer-kphm400 pump-assembly); lies depth-along-X ahead of the tray stack, motor west, elbows on the +Z face, holder TBD"),
     _c("pump-b",            "real",        True,  "none", "Kamoer KPHM400 peristaltic + 2 PP0308E outlet elbows (reference/kamoer-kphm400 pump-assembly); same lying pose one slot east, head east under the funnel's high floor, holder TBD"),
     # In-line fittings — tube-hung PTC junctions, carried by their lines (no tray, no holder)
-    _c("tee-y-c", "real", True, "none", "JG PP0208E union tee (fluid topology Y-C) hanging in the junction column: run vertical — V-C-O's drop into the run-up collet, the bag V-E-O return onto the run-down — branch rolled to aim at pump B's inlet (segment 11)"),
-    _c("tee-y-f", "real", True, "none", "JG PP0208E union tee (Y-F), the channel-B twin one port row aft: V-D-O above, V-H-O return below, branch rolled to aim at pump A's inlet (segment 21)"),
+    _c("tee-y-c", "real", True, "none", "JG PP0208E union tee (fluid topology Y-C) hanging in the junction column: run vertical — V-C-O's drop into the run-up collet, the bag V-E-O return onto the run-down — branch rolled forward (−Y) off the pump row; its leg climbs behind pump A's barrel and drapes east over the pumps to pump B (segment 11)"),
+    _c("tee-y-f", "real", True, "none", "JG PP0208E union tee (Y-F), the channel-B twin one port row aft: V-D-O above, V-H-O return below, branch rolled forward (−Y), canted east to thread past tee-y-c; its leg comes forward-low then up pump A's aft to its inlet (segment 21)"),
     _c("y-d", "real", True, "none", "JG PP2308E two-way divider (reference/y-divider) — the Y connector for pump-discharge junction A (flavor A → pump B), seated in the open air over the pump row, tilted to face its elbows: its two outlets take the bag-V-F elbow (Y-D-2, segment 13) and the nozzle-V-G elbow (Y-D-3, segment 17), stem toward pump B (Y-D-1, segment 12)"),
     _c("y-g", "real", True, "none", "JG PP2308E two-way divider (reference/y-divider) — the Y connector for pump-discharge junction B (flavor B → pump A), over the pump row one slot east, tilted to face its elbows: its two outlets take the bag-V-I elbow (Y-G-2, segment 23) and the nozzle-V-J elbow (Y-G-3, segment 27), stem toward pump A (Y-G-1, segment 22)"),
     _c("elbow-bag-y-d", "real", True, "none", "JG PP0308E 90° elbow turning bag V-F-I (east) off the stack, rolled to aim its free leg at the Y-D divider's upper outlet (segment 13)"),
@@ -469,22 +469,22 @@ PORTS = [
     # two stations straddle the pump's width; inlet aft, outlet front (the peristaltic
     # direction is firmware's; the assignment is the loom's convention). Ø is the 1/4"
     # line nominal.
-    _p("P-A-I", "pump-a", "fluid", *contents.pump_inlet_pose("pump-a"), 6.35, "tee-y-f Y-F-3 — segment 21 (channel B suction, routed)", "PP0308E elbow collet, aft station, facing west (tee-y-f comes around behind the bag tray)"),
+    _p("P-A-I", "pump-a", "fluid", *contents.pump_inlet_pose("pump-a"), 6.35, "tee-y-f Y-F-3 — segment 21 (channel B suction, routed)", "PP0308E elbow collet, aft station, facing west (fluid-21 rises up the aft to it, forward of the seam)"),
     _p("P-A-O", "pump-a", "fluid", *contents.pump_outlet_pose("pump-a"), 6.35, "Y-G-1 divider stem — segment 22 (channel B discharge, routed)", "PP0308E elbow collet, front station, aimed east at y-g"),
-    _p("P-B-I", "pump-b", "fluid", *contents.pump_inlet_pose("pump-b"), 6.35, "tee-y-c Y-C-3 — segment 11 (channel A suction, routed)", "PP0308E elbow collet, aft station, aimed northwest at tee-y-c"),
+    _p("P-B-I", "pump-b", "fluid", *contents.pump_inlet_pose("pump-b"), 6.35, "tee-y-c Y-C-3 — segment 11 (channel A suction, routed)", "PP0308E elbow collet, aft station, aimed northwest where fluid-11 drops in off the pump row"),
     _p("P-B-O", "pump-b", "fluid", *contents.pump_outlet_pose("pump-b"), 6.35, "Y-D-1 divider stem — segment 12 (channel A discharge, routed)", "PP0308E elbow collet, front station, facing west at y-d"),
     # Pump-inlet union tees — free-hanging PP0208E fittings in the junction column, ports
     # named by the fluid topology and derived off _contents' tee placement. The run lies on
     # the line between the two collets it butts, which leans off vertical because both elbows
     # are rolled to aim at each other: -1 down at the source drop, -2 up at the bag return,
-    # each one straight stub away, and branch -3 rolled about the run (JUNCTION_ROLL) to aim
-    # at the pump inlet it feeds.
+    # each one straight stub away, and branch -3 rolled about the run (JUNCTION_ROLL) to swing
+    # forward (−Y) off the pump row, where its suction leg picks it up.
     _p("Y-C-1", "tee-y-c", "fluid", *contents.tee_port("tee-y-c", 1), 6.35, "source-select V-C-O — segment 9 (routed)", "PP0208E run collet, down the column at the source"),
     _p("Y-C-2", "tee-y-c", "fluid", *contents.tee_port("tee-y-c", 2), 6.35, "bag-circuit V-E-O — segment 10 (routed)", "PP0208E run collet, up the column at the bag tray"),
-    _p("Y-C-3", "tee-y-c", "fluid", *contents.tee_port("tee-y-c", 3), 6.35, "pump-b P-B-I — segment 11 (routed)", "PP0208E branch collet, rolled to aim at pump B"),
+    _p("Y-C-3", "tee-y-c", "fluid", *contents.tee_port("tee-y-c", 3), 6.35, "pump-b P-B-I — segment 11 (routed)", "PP0208E branch collet, rolled forward (−Y) off the pump row"),
     _p("Y-F-1", "tee-y-f", "fluid", *contents.tee_port("tee-y-f", 1), 6.35, "source-select V-D-O — segment 19 (routed)", "PP0208E run collet, down the column at the source"),
     _p("Y-F-2", "tee-y-f", "fluid", *contents.tee_port("tee-y-f", 2), 6.35, "bag-circuit V-H-O — segment 20 (routed)", "PP0208E run collet, up the column at the bag tray"),
-    _p("Y-F-3", "tee-y-f", "fluid", *contents.tee_port("tee-y-f", 3), 6.35, "pump-a P-A-I — segment 21 (routed)", "PP0208E branch collet, rolled to aim at pump A"),
+    _p("Y-F-3", "tee-y-f", "fluid", *contents.tee_port("tee-y-f", 3), 6.35, "pump-a P-A-I — segment 21 (routed)", "PP0208E branch collet, rolled forward (−Y), canted east past tee-y-c"),
     # Pump-discharge dividers Y-D/Y-G — free-hanging PP2308E two-way dividers over the pump row,
     # ports off _contents' divider placement. Each divider is tilted (_solve_discharge) so its two
     # parallel outlets (-2 upper, -3 lower) face back at a flavor's bag and nozzle elbows; the stem
