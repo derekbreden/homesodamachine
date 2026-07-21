@@ -270,10 +270,11 @@ PLACEMENT_RULES = {
     # stack's second-story plane": its hanging wall tops reach the source
     # tray's wall-top plane, but the source's east wall slabs (which follow
     # its aimed valves) stop just outboard of them, so the tray floats a few
-    # millimetres off the source assembly — held open until its holder —
-    # while its east port tips stop just off the +X wall.
+    # millimetres off the source assembly — held open until its holder. Its
+    # bare east (V-G/V-J) ports stand a few millimetres off the +X wall, clear
+    # of the front Y-lip that runs unbroken there (no wall relief).
     "nozzle-gate-assembly": [("near", "source-select-assembly", 4.0),
-                             ("x+", 2.0)],
+                             ("x+", 5.0)],
     # "P-A stands one stack gap ahead of the stack, under the funnel's
     # drop": its aft face near the bag tray's front columns (the stack's
     # flat front at the row's height), and the segment-4 drop corridor

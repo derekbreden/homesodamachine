@@ -136,15 +136,15 @@ def build_runs() -> list:
     # (segments 12/22) leave below, from each divider's own stem port.
     LEAD = 8.0                              # exit/approach stub: straight lead-out/-in along each collet
     DBEND = 12.0                            # 1/4" LLDPE, clean-sweeping radius (as the copper loop uses)
-    for cid, elb, div, port, apex, lead in (
-        ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", None,                   (0.0, 4.0)),  # one bend into the yawed outlet
-        ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3", (202.0, 111.0, 259.0),  LEAD),        # over elbow-y-d (top z254)
-        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (200.0, 112.0, 289.0),  LEAD),        # over elbow-bag-y-d (top z286)
-        ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3", None,                   None),         # rises straight to the raised outlet
+    for cid, elb, div, port, apex, lead, bend in (
+        ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", None,                   (8.0, 6.5), 8.0),  # one bend into the yawed outlet
+        ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3", (202.0, 111.0, 259.0),  LEAD, DBEND),      # over elbow-y-d (top z254)
+        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (204.0, 112.0, 292.0),  LEAD, DBEND),      # over elbow-bag-y-d (top z286)
+        ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3", None,                   None, DBEND),       # rises straight to the raised outlet
     ):
         mids = [apex] if apex is not None else []
         runs.append(R.bent(cid, f"{elb}.free", *mids, f"{div}.{port}",
-                            kind="fluid", bend=DBEND, skew=DISCHARGE_SKEW, lead=lead,
+                            kind="fluid", bend=bend, skew=DISCHARGE_SKEW, lead=lead,
                             note=f"discharge {port}: {elb} → {div} {port}, bent over the row"))
 
     # The pump-discharge stems (segments 12/22) — each divider's stem back to a pump outlet.
@@ -171,13 +171,13 @@ def build_runs() -> list:
     SLEAD = 12.0                        # exit/approach stub: straight lead off each suction collet
     runs.append(R.bent(
         "fluid-11", "tee-y-c.Y-C-3",
-        (12.0, 83.0, 260.0), (50.0, 60.0, 271.0), (98.0, 57.0, 278.0), (146.0, 70.0, 279.0), (186.0, 84.0, 280.0), (213.0, 87.0, 278.0),
+        (13.0, 83.0, 262.0), (50.0, 60.0, 271.0), (98.0, 57.0, 278.0), (146.0, 70.0, 279.0), (186.0, 84.0, 280.0), (213.0, 87.0, 278.0),
         "pump-b.P-B-I",
-        kind="fluid", bend=9.0, skew=DISCHARGE_SKEW, lead=SLEAD,
+        kind="fluid", bend=8.0, skew=DISCHARGE_SKEW, lead=8.0,
         note="suction stem tee-y-c Y-C-3 → pump-b P-B-I, forward off the tee then over the pump row"))
     runs.append(R.bent(
         "fluid-21", "tee-y-f.Y-F-3",
-        (22.0, 120.0, 236.0), (25.0, 95.0, 264.0), (62.0, 89.0, 277.0),
+        (26.0, 120.0, 236.0), (29.0, 95.0, 264.0), (64.0, 89.0, 277.0),
         "pump-a.P-A-I",
         kind="fluid", bend=10.0, skew=DISCHARGE_SKEW, lead=SLEAD,
         note="suction stem tee-y-f Y-F-3 → pump-a P-A-I, up the west end then east above the source tray"))
