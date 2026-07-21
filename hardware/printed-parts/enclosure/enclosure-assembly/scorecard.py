@@ -777,12 +777,12 @@ def _pct(done: int, total: int) -> int:
     return 100 if total == 0 else round(100 * done / total)
 
 
-def routed_check() -> tuple:
+def routed_check(solids=None) -> tuple:
     """The routed goal axis on its own — a (Check, pct) pair. Kept separate from the component
     gates and audits because it reads _lines (which route work changes every build) while the
     component audits do not: a build reusing cached component audits still recomputes this fresh,
-    so the routed % never goes stale. Byte-identical to the routed block build_scorecard used to
-    inline."""
+    so the routed % never goes stale. Given the placed solids, each authored run's detail carries
+    its tightest gap to a part it does not terminate on — the tube↔part clearance."""
     import _lines
     conns = load_connections()
     fluid = sum(1 for c in conns if c.kind == "fluid")
@@ -793,9 +793,11 @@ def routed_check() -> tuple:
     routed_detail = [f"{fluid} fluid + {refrig} refrigerant + {wire} electrical; "
                      f"{routed_done} routed — the fluid path waits on the deferred water deck and "
                      f"the manifold's remaining legs; the electrical runs on the components being held"]
-    for r in _lines.build_runs():
+    runs = _lines.clearances(solids) if solids is not None else [(r, None) for r in _lines.build_runs()]
+    for r, near in runs:
+        gap = f" — nearest {near[0]:.2f} mm to {near[1]}" if near else ""
         routed_detail.append(f"✓ {r.id}: {r.frm} → {r.to} — Ø{r.diam:g} × {r.length:.1f} mm, "
-                             f"{len(r.bends)} bends at R{r.bend:.1f}")
+                             f"{len(r.bends)} bends at R{r.bend:.1f}{gap}")
     # A blocked connection stays counted, with the measurement that blocks it.
     for c in conns:
         if c.blocked:
@@ -928,7 +930,7 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     # routed — DEFERRED: every fluid + refrigerant + electrical connection a real 3D path. Lives in
     # routed_check() so a cache-hit build can recompute just this (it reads _lines) without redoing
     # the component audits above.
-    routed_ck, routed = routed_check()
+    routed_ck, routed = routed_check(solids)
     checks.append(routed_ck)
 
     # held — DEFERRED: a printed holder that fastens each component to the enclosure.

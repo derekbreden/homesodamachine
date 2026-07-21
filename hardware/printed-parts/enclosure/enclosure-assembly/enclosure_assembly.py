@@ -263,7 +263,7 @@ def _cached_scorecard(pack, pieces, bed, inner):
             blob = pickle.loads(_SCORECARD_CACHE_PATH.read_bytes())
             if blob.get("key") == key:
                 sc = blob["scorecard"]
-                routed_ck, routed = scorecard.routed_check()   # the one _lines-dependent axis, fresh
+                routed_ck, routed = scorecard.routed_check(solids)   # the one _lines-dependent axis, fresh
                 sc.checks = [routed_ck if c.id == "routed" else c for c in sc.checks]
                 sc.routed = routed
                 return sc
@@ -294,11 +294,6 @@ def main():
         pack, pack.pieces, (enclosure.H2C_X, enclosure.H2C_Y, enclosure.H2C_Z), inner)
     print(scorecard.format_scorecard(sc))
 
-    # Each authored run, with the tightest gap to a part it does not terminate on.
-    for run, near in _lines.clearances(solids):
-        gap = f"{near[0]:.2f} mm to {near[1]}" if near else "nothing near"
-        print(f"line {run.id}: Ø{run.diam:g} × {run.length:.1f} mm, {len(run.bends)} bends "
-              f"R{run.bend:.1f} — nearest {gap}")
     for cid, why in sorted(_lines.BLOCKED.items()):
         print(f"line {cid}: BLOCKED — {why}")
     # The scorecard reports every gate; today only pack-closes blocks the export — a
