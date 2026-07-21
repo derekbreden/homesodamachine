@@ -180,14 +180,37 @@ class _Pack:
         return {**self.components, **self.extras}
 
 
+def _relieve_seam_lip(pack):
+    """Notch the +X front seam-lip where each nozzle-outlet elbow's bend curve passes. The gate's
+    inset stands its bare ports clear of the lip (enclosure.py), but the outlet elbows' bodies reach
+    one bend radius further +X — into it — and the gate cannot inset further without meeting the bag
+    tray, so the lip is relieved here for the fitting instead. Cut only to the +X wall's inner face,
+    so the wall stays solid and the seam still telescopes above and below the notch."""
+    ix1 = enclosure._dims()[0][1]                     # +X interior wall face
+    for en in ("elbow-noz-a", "elbow-noz-b"):
+        b = pack.components[en][0].BoundingBox()
+        x0 = b.xmax - 2.0                             # from just inboard of the elbow's +X curve
+        notch = cq.Solid.makeBox(ix1 - x0, b.ylen + 2.0, b.zlen + 2.0,
+                                 cq.Vector(x0, b.ymin - 1.0, b.zmin - 1.0))
+        nb = notch.BoundingBox()
+        for pn, ps in list(pack.pieces.items()):
+            pb = ps.BoundingBox()
+            if (nb.xmin > pb.xmax or nb.xmax < pb.xmin or nb.ymin > pb.ymax
+                    or nb.ymax < pb.ymin or nb.zmin > pb.zmax or nb.zmax < pb.zmin):
+                continue
+            pack.pieces[pn] = ps.cut(notch)
+
+
 def _build_pack(overrides):
     """Build the whole pack once — components, extras, pieces, and the authored line runs."""
-    return _Pack(
+    pack = _Pack(
         components=_components(overrides),
         extras=_extras(overrides),
         pieces=_pieces_shapes(overrides),
         lines=_lines.build(),
     )
+    _relieve_seam_lip(pack)
+    return pack
 
 
 def build(pack=None):
