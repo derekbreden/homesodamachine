@@ -27,6 +27,16 @@
       "active": true
     },
     {
+      "id": "lines-clear",
+      "label": "No routed tube intersects a part or another tube",
+      "kind": "gate",
+      "status": "pass",
+      "value": "0 clash",
+      "target": "0 clash",
+      "detail": [],
+      "active": true
+    },
+    {
       "id": "clearance-floor",
       "label": "Part\u2194part clearance \u2265 floor (unless a declared contact)",
       "kind": "gate",
@@ -37,24 +47,26 @@
         "source-select-assembly \u2014 bag-circuit-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 source-select-assembly: 0.01 mm \u2014 CONTACT (declared ok)",
         "compressor-shroud \u2014 mq6-sensor: 1.00 mm",
+        "source-select-assembly \u2014 nozzle-gate-assembly: 1.30 mm",
+        "pump-b \u2014 y-d: 1.38 mm",
         "bag-circuit-assembly \u2014 pump-a: 1.49 mm",
         "bag-circuit-assembly \u2014 elbow-bag-y-d: 2.00 mm",
         "bag-circuit-assembly \u2014 elbow-bag-y-g: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-y-d: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-y-g: 2.00 mm",
-        "y-g \u2014 hopper-funnel: 2.04 mm",
-        "pump-b \u2014 y-d: 2.26 mm",
+        "nozzle-gate-assembly \u2014 elbow-bag-y-d: 2.19 mm",
+        "bag-circuit-assembly \u2014 elbow-y-d: 2.45 mm",
         "foam-assembly \u2014 power-tray: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 dc-dist: 2.50 mm \u2014 CONTACT (declared ok)",
         "bag-circuit-assembly \u2014 tee-y-c: 2.92 mm",
-        "y-d \u2014 y-g: 3.26 mm",
+        "y-d \u2014 y-g: 3.12 mm",
         "bag-circuit-assembly \u2014 hopper-funnel: 3.26 mm",
-        "source-select-assembly \u2014 nozzle-gate-assembly: 3.40 mm",
+        "nozzle-gate-assembly \u2014 hopper-funnel: 3.82 mm",
         "foam-assembly \u2014 condenser+fan: 4.00 mm",
         "display \u2014 hopper-funnel: 4.49 mm",
-        "y-d \u2014 hopper-funnel: 5.85 mm",
-        "nozzle-gate-assembly \u2014 hopper-funnel: 5.97 mm"
+        "y-g \u2014 hopper-funnel: 4.94 mm",
+        "pump-b \u2014 y-g: 5.75 mm"
       ],
       "active": true
     },
@@ -102,7 +114,7 @@
         "\u2713 source-select-assembly: near foam-assembly 0.0 mm",
         "\u2713 hopper-funnel: z+ 6.0 mm",
         "\u2713 bag-circuit-assembly: near source-select-assembly 0.0 clear compressor-shroud 73.3 clear condenser+fan 81.5 mm",
-        "\u2713 nozzle-gate-assembly: near source-select-assembly 3.4 x+ 4.4 mm",
+        "\u2713 nozzle-gate-assembly: near source-select-assembly 1.3 x+ 15.4 mm",
         "\u2713 pump-a: near bag-circuit-assembly 1.5 clear hopper-funnel 16.1 mm",
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
         "\u2713 tee-y-c: near source-select-assembly 14.5 mm",
@@ -195,13 +207,13 @@
         "\u2713 fluid-19: source-select-assembly.V-D-O \u2192 tee-y-f.Y-F-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7 \u2014 nearest 10.33 mm to foam-assembly",
         "\u2713 fluid-10: bag-circuit-assembly.V-E-O \u2192 tee-y-c.Y-C-2 \u2014 \u00d86.35 \u00d7 3.1 mm, 0 bends at R12.7 \u2014 nearest 11.49 mm to fluid-21",
         "\u2713 fluid-20: bag-circuit-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7 \u2014 nearest 20.30 mm to foam-assembly",
-        "\u2713 fluid-13: elbow-bag-y-d.free \u2192 y-d.Y-D-2 \u2014 \u00d86.35 \u00d7 24.4 mm, 2 bends at R8.0 \u2014 nearest 0.00 mm to fluid-11",
-        "\u2713 fluid-17: elbow-y-g.free \u2192 y-d.Y-D-3 \u2014 \u00d86.35 \u00d7 64.4 mm, 3 bends at R12.0 \u2014 nearest 2.05 mm to elbow-y-d",
-        "\u2713 fluid-23: elbow-bag-y-g.free \u2192 y-g.Y-G-2 \u2014 \u00d86.35 \u00d7 69.8 mm, 3 bends at R12.0 \u2014 nearest 0.00 mm to fluid-11",
-        "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 31.6 mm, 0 bends at R12.0 \u2014 nearest 3.61 mm to fluid-17",
-        "\u2713 fluid-12: pump-b.P-B-O \u2192 y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 16.5 mm, 1 bends at R6.0 \u2014 nearest 17.61 mm to hopper-funnel",
-        "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 51.9 mm, 3 bends at R12.0 \u2014 nearest 18.80 mm to hopper-funnel",
-        "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 245.8 mm, 7 bends at R10.0 \u2014 nearest 0.00 mm to fluid-13",
+        "\u2713 fluid-13: elbow-bag-y-d.free \u2192 y-d.Y-D-2 \u2014 \u00d86.35 \u00d7 25.8 mm, 2 bends at R8.0 \u2014 nearest 5.39 mm to nozzle-gate-assembly",
+        "\u2713 fluid-17: elbow-y-g.free \u2192 y-d.Y-D-3 \u2014 \u00d86.35 \u00d7 68.5 mm, 3 bends at R12.0 \u2014 nearest 5.65 mm to elbow-y-d",
+        "\u2713 fluid-23: elbow-bag-y-g.free \u2192 y-g.Y-G-2 \u2014 \u00d86.35 \u00d7 72.1 mm, 3 bends at R12.0 \u2014 nearest 1.29 mm to elbow-bag-y-d",
+        "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 28.9 mm, 0 bends at R12.0 \u2014 nearest 5.40 mm to bag-circuit-assembly",
+        "\u2713 fluid-12: pump-b.P-B-O \u2192 y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 18.4 mm, 2 bends at R6.0 \u2014 nearest 17.20 mm to hopper-funnel",
+        "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 55.2 mm, 3 bends at R12.0 \u2014 nearest 18.80 mm to hopper-funnel",
+        "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 251.5 mm, 8 bends at R6.0 \u2014 nearest 1.19 mm to hopper-funnel",
         "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 140.8 mm, 5 bends at R10.0 \u2014 nearest 2.24 mm to bag-circuit-assembly"
       ],
       "active": false
@@ -865,7 +877,7 @@
       "name": "V-G-I",
       "kind": "fluid",
       "pos": [
-        219.64,
+        208.64,
         152.675,
         242.1
       ],
@@ -884,7 +896,7 @@
       "name": "V-J-I",
       "kind": "fluid",
       "pos": [
-        219.64,
+        208.64,
         118.425,
         242.1
       ],
@@ -903,7 +915,7 @@
       "name": "V-G-O",
       "kind": "fluid",
       "pos": [
-        278.64,
+        267.64,
         152.675,
         242.1
       ],
@@ -922,7 +934,7 @@
       "name": "V-J-O",
       "kind": "fluid",
       "pos": [
-        278.64,
+        267.64,
         118.425,
         242.1
       ],
@@ -1131,14 +1143,14 @@
       "name": "Y-D-1",
       "kind": "fluid",
       "pos": [
-        221.463,
-        40.449,
-        272.612
+        222.692,
+        40.94,
+        269.487
       ],
       "face": [
-        0.3877072121018144,
-        -0.9117437969975355,
-        0.1356700642026664
+        0.45154888787338454,
+        -0.8862532651826368,
+        0.10324123116964594
       ],
       "diam": 6.35,
       "mates": "pump-b P-B-O \u2014 segment 12 (channel A discharge, routed)",
@@ -1150,14 +1162,14 @@
       "name": "Y-D-2",
       "kind": "fluid",
       "pos": [
-        206.146,
-        76.469,
-        274.67
+        204.963,
+        75.736,
+        272.823
       ],
       "face": [
-        -0.3877072121018144,
-        0.9117437969975355,
-        -0.1356700642026664
+        -0.45154888787338454,
+        0.8862532651826368,
+        -0.10324123116964594
       ],
       "diam": 6.35,
       "mates": "elbow-bag-y-d free \u2014 segment 13 (routed)",
@@ -1169,14 +1181,14 @@
       "name": "Y-D-3",
       "kind": "fluid",
       "pos": [
-        206.927,
-        74.633,
-        260.106
+        205.652,
+        74.384,
+        258.202
       ],
       "face": [
-        -0.3877072121018144,
-        0.9117437969975355,
-        -0.1356700642026664
+        -0.45154888787338454,
+        0.8862532651826368,
+        -0.10324123116964594
       ],
       "diam": 6.35,
       "mates": "elbow-y-g free \u2014 segment 17 (routed)",
@@ -1188,14 +1200,14 @@
       "name": "Y-G-1",
       "kind": "fluid",
       "pos": [
-        181.792,
-        35.375,
-        272.444
+        182.996,
+        35.05,
+        267.557
       ],
       "face": [
-        -0.21862237640239576,
-        -0.9675169335295284,
-        0.1269458146997663
+        -0.15605123202999427,
+        -0.9844321079702,
+        0.0808791554065031
       ],
       "diam": 6.35,
       "mates": "pump-a P-A-O \u2014 segment 22 (channel B discharge, routed)",
@@ -1207,14 +1219,14 @@
       "name": "Y-G-2",
       "kind": "fluid",
       "pos": [
-        190.414,
-        73.535,
-        274.847
+        189.097,
+        73.537,
+        271.769
       ],
       "face": [
-        0.21862237640239576,
-        0.9675169335295284,
-        -0.1269458146997663
+        0.15605123202999427,
+        0.9844321079702,
+        -0.0808791554065031
       ],
       "diam": 6.35,
       "mates": "elbow-bag-y-g free \u2014 segment 23 (routed)",
@@ -1226,14 +1238,14 @@
       "name": "Y-G-3",
       "kind": "fluid",
       "pos": [
-        190.003,
-        71.715,
-        260.266
+        188.911,
+        72.363,
+        257.117
       ],
       "face": [
-        0.21862237640239576,
-        0.9675169335295284,
-        -0.1269458146997663
+        0.15605123202999427,
+        0.9844321079702,
+        -0.0808791554065031
       ],
       "diam": 6.35,
       "mates": "elbow-y-d free \u2014 segment 27 (routed)",
@@ -1246,13 +1258,13 @@
       "kind": "fluid",
       "pos": [
         210.774,
-        98.884,
-        275.648
+        98.937,
+        274.822
       ],
       "face": [
         0.0,
-        -0.9990505491063577,
-        -0.043566045612210655
+        -0.996311503790596,
+        -0.0858101824640955
       ],
       "diam": 6.35,
       "mates": "y-d Y-D-2 \u2014 segment 13 (routed)",
@@ -1264,14 +1276,14 @@
       "name": "free",
       "kind": "fluid",
       "pos": [
-        198.08,
-        136.651,
-        253.317
+        187.08,
+        136.387,
+        252.931
       ],
       "face": [
         0.0,
-        -0.8192288683459794,
-        0.5734667045858601
+        -0.8327102586528156,
+        0.5537089715133402
       ],
       "diam": 6.35,
       "mates": "y-d Y-D-3 \u2014 segment 17 (routed)",
@@ -1284,13 +1296,13 @@
       "kind": "fluid",
       "pos": [
         210.774,
-        133.68,
-        281.167
+        133.513,
+        280.426
       ],
       "face": [
         0.0,
-        -0.9711204807217951,
-        0.23858963079452894
+        -0.9796495338963181,
+        0.2007156962888715
       ],
       "diam": 6.35,
       "mates": "y-g Y-G-2 \u2014 segment 23 (routed)",
@@ -1302,14 +1314,14 @@
       "name": "free",
       "kind": "fluid",
       "pos": [
-        198.08,
-        100.195,
-        249.19
+        187.08,
+        99.828,
+        248.163
       ],
       "face": [
         0.0,
-        -0.9320006312437653,
-        0.3624566503200391
+        -0.9507480941400138,
+        0.3099646132853414
       ],
       "diam": 6.35,
       "mates": "y-g Y-G-3 \u2014 segment 27 (routed)",
@@ -1886,14 +1898,14 @@
       "boxes": [
         [
           191.216,
-          98.658,
-          268.483,
+          98.49,
+          267.865,
           218.14,
           125.791,
           283.866
         ]
       ],
-      "fill": 0.3483,
+      "fill": 0.3328,
       "primitive": false,
       "declared": "real"
     },
@@ -1902,14 +1914,14 @@
       "boxes": [
         [
           191.216,
-          132.423,
+          132.458,
           269.134,
           218.14,
           160.041,
-          287.265
+          286.753
         ]
       ],
-      "fill": 0.2903,
+      "fill": 0.2991,
       "primitive": false,
       "declared": "real"
     },
@@ -1917,15 +1929,15 @@
       "component": "elbow-y-d",
       "boxes": [
         [
-          190.714,
-          98.273,
+          179.714,
+          98.189,
           234.734,
-          217.638,
+          206.638,
           125.791,
-          254.464
+          253.801
         ]
       ],
-      "fill": 0.2678,
+      "fill": 0.2762,
       "primitive": false,
       "declared": "real"
     },
@@ -1933,15 +1945,15 @@
       "component": "elbow-y-g",
       "boxes": [
         [
-          190.714,
-          133.572,
+          179.714,
+          133.418,
           234.734,
-          217.638,
+          206.638,
           160.041,
-          257.801
+          257.495
         ]
       ],
-      "fill": 0.2381,
+      "fill": 0.2399,
       "primitive": false,
       "declared": "real"
     },
@@ -2029,26 +2041,26 @@
       "component": "nozzle-gate-assembly",
       "boxes": [
         [
-          230.34,
+          219.34,
           98.3,
           227.8,
-          267.94,
+          256.94,
           172.8,
           290.8
         ],
         [
-          219.64,
+          208.64,
           101.3,
           230.8,
-          278.64,
+          267.64,
           135.55,
           287.4
         ],
         [
-          219.64,
+          208.64,
           135.55,
           230.8,
-          278.64,
+          267.64,
           169.8,
           287.4
         ]
@@ -2373,15 +2385,15 @@
       "component": "y-d",
       "boxes": [
         [
-          200.231,
-          38.263,
-          252.624,
-          227.379,
-          78.655,
-          284.912
+          199.542,
+          38.467,
+          250.558,
+          228.113,
+          78.209,
+          282.566
         ]
       ],
-      "fill": 0.2342,
+      "fill": 0.2281,
       "primitive": false,
       "declared": "real"
     },
@@ -2389,15 +2401,15 @@
       "component": "y-g",
       "boxes": [
         [
-          174.762,
-          34.041,
-          252.739,
-          197.444,
-          74.869,
-          284.955
+          175.619,
+          34.125,
+          249.367,
+          196.474,
+          74.462,
+          281.162
         ]
       ],
-      "fill": 0.2779,
+      "fill": 0.31,
       "primitive": false,
       "declared": "real"
     }
