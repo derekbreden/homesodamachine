@@ -200,11 +200,11 @@ FUNNEL_ROT = 0.0
 # walls' back faces meet the cold core's front face (the `near foam-assembly`
 # rule, a declared contact); the aft-station elbow columns set how far forward
 # the back pieces' Y-seam machinery must stop (enclosure _dims y_elbows). In X
-# the assembly (elbow tip to elbow tip) spans the interior wall-to-wall: its
-# −X outlet-elbow column butts the −X wall and its +X elbows stop one wall
-# clearance short of the foam's east edge. (The wall is pinned by the full-width
-# foam, so the −X column butts it directly — the foam sets the wall, not the trays.)
-SRC_SEL_POS = (139.0, 135.55, 167.8)
+# the full-width foam behind the stack pins both interior walls; the stack itself
+# rides a few millimetres inboard of each — its −X outlet-elbow column (and the
+# junction tees below) clear the −X wall's seam furniture, its +X elbows clear the
+# +X wall — so the enclosure seam machinery runs unbroken there (no wall relief).
+SRC_SEL_POS = (143.0, 135.55, 167.8)
 # The bag-circuit assembly rides INVERTED on top of it — rotated 180° about Y,
 # seated wall-tops-to-wall-tops on the source tray's stacking walls (a
 # declared contact), both trays' walls meeting at z 227.8 — which lands each
@@ -232,16 +232,18 @@ BAG_CIRCUIT_POS = (SRC_SEL_POS[0] - JUNCTION_SLIDE,
 # stop just outboard of them, so the tray floats in the pocket until its
 # holder. The shared story lands its ports on the bag tray's own port plane,
 # inner ports facing west at the bag east bank across the pocket, outer
-# (nozzle-outlet) ports facing east at the wall. The X slide holds the gate
-# one clearance east of the bag tray's bare V-F/V-I port tips, opening the
+# (nozzle-outlet) ports facing east, a few millimetres off the +X wall — clear of
+# the front Y-lip that runs unbroken there (no wall relief). The X slide holds the
+# gate one clearance east of the bag tray's bare V-F/V-I port tips, opening the
 # pocket the discharge fittings (bag + gate outlet elbows and the Y-connector
 # tees) settle into between the two banks.
 TEE_BODY_CLEAR = 2.5
-# The gate is PINNED at the pre-slide anchor (source X 147.0) so it does NOT ride the
-# bag/source slide (SRC_SEL_POS now 139): its west inner ports (and the outlet elbows
-# on them) stay put while the bag and its own outlet elbows translate west, so the two
-# elbow banks face across the pocket at the Y-connector tees hung between them.
-_GATE_ANCHOR_BAG_X = 147.0 - JUNCTION_SLIDE
+# The gate is anchored on its own X (it does NOT ride the bag/source slide): its
+# west inner ports and outlet elbows stay put while the bag and its own outlet
+# elbows translate, so the two elbow banks face across the pocket at the
+# Y-connector tees hung between them. The anchor is set so the bare east ports
+# clear the +X wall's front Y-lip.
+_GATE_ANCHOR_BAG_X = 144.0 - JUNCTION_SLIDE
 NOZZLE_GATE_POS = (_GATE_ANCHOR_BAG_X + 2.0 * _bag.port_half + _bag.tee_branch_reach
                    + _bag.tee_radius + TEE_BODY_CLEAR,
                    SRC_SEL_POS[1],

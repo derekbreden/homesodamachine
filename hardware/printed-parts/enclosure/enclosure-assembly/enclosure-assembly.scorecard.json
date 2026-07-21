@@ -43,16 +43,17 @@
         "nozzle-gate-assembly \u2014 elbow-y-d: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-y-g: 2.00 mm",
         "y-g \u2014 hopper-funnel: 2.04 mm",
-        "pump-b \u2014 y-d: 2.29 mm",
+        "pump-b \u2014 y-d: 2.26 mm",
         "foam-assembly \u2014 power-tray: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 dc-dist: 2.50 mm \u2014 CONTACT (declared ok)",
-        "y-d \u2014 y-g: 3.21 mm",
-        "bag-circuit-assembly \u2014 hopper-funnel: 3.33 mm",
+        "y-d \u2014 y-g: 3.26 mm",
+        "bag-circuit-assembly \u2014 hopper-funnel: 3.26 mm",
         "source-select-assembly \u2014 nozzle-gate-assembly: 3.40 mm",
         "foam-assembly \u2014 condenser+fan: 4.00 mm",
         "display \u2014 hopper-funnel: 4.49 mm",
-        "y-d \u2014 hopper-funnel: 5.82 mm"
+        "y-d \u2014 hopper-funnel: 5.85 mm",
+        "nozzle-gate-assembly \u2014 hopper-funnel: 5.97 mm"
       ],
       "active": true
     },
@@ -99,8 +100,8 @@
         "\u2713 condenser+fan: y- 0.0 z- 3.0 x+ 14.0 mm",
         "\u2713 source-select-assembly: near foam-assembly 0.0 mm",
         "\u2713 hopper-funnel: z+ 6.0 mm",
-        "\u2713 bag-circuit-assembly: near source-select-assembly 0.0 clear compressor-shroud 73.3 clear condenser+fan 83.2 mm",
-        "\u2713 nozzle-gate-assembly: near source-select-assembly 3.4 x+ 1.4 mm",
+        "\u2713 bag-circuit-assembly: near source-select-assembly 0.0 clear compressor-shroud 73.3 clear condenser+fan 81.5 mm",
+        "\u2713 nozzle-gate-assembly: near source-select-assembly 3.4 x+ 4.4 mm",
         "\u2713 pump-a: near bag-circuit-assembly 1.5 clear hopper-funnel 16.1 mm",
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
         "\u2717 tee-y-c: near source-select-assembly 9.9(>6) mm",
@@ -190,17 +191,17 @@
         "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7 \u2014 nearest 6.32 mm to foam-assembly",
         "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 289.7 mm, 4 bends at R12.7 \u2014 nearest 5.13 mm to compressor-shroud",
         "\u2713 fluid-9: source-select-assembly.V-C-O \u2192 tee-y-c.Y-C-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7 \u2014 nearest 23.89 mm to fluid-11",
-        "\u2713 fluid-19: source-select-assembly.V-D-O \u2192 tee-y-f.Y-F-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7 \u2014 nearest 10.46 mm to foam-assembly",
+        "\u2713 fluid-19: source-select-assembly.V-D-O \u2192 tee-y-f.Y-F-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7 \u2014 nearest 10.33 mm to foam-assembly",
         "\u2713 fluid-10: bag-circuit-assembly.V-E-O \u2192 tee-y-c.Y-C-2 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7 \u2014 nearest 9.05 mm to fluid-21",
-        "\u2713 fluid-20: bag-circuit-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7 \u2014 nearest 20.54 mm to foam-assembly",
-        "\u2713 fluid-13: elbow-bag-y-d.free \u2192 y-d.Y-D-2 \u2014 \u00d86.35 \u00d7 22.8 mm, 1 bends at R12.0 \u2014 nearest 0.00 mm to fluid-11",
-        "\u2713 fluid-17: elbow-y-g.free \u2192 y-d.Y-D-3 \u2014 \u00d86.35 \u00d7 64.1 mm, 3 bends at R12.0 \u2014 nearest 1.42 mm to elbow-y-d",
-        "\u2713 fluid-23: elbow-bag-y-g.free \u2192 y-g.Y-G-2 \u2014 \u00d86.35 \u00d7 66.8 mm, 3 bends at R12.0 \u2014 nearest 0.00 mm to fluid-11",
-        "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 32.5 mm, 0 bends at R12.0 \u2014 nearest 2.09 mm to fluid-17",
-        "\u2713 fluid-12: pump-b.P-B-O \u2192 y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 16.4 mm, 1 bends at R6.0 \u2014 nearest 17.61 mm to hopper-funnel",
-        "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 52.0 mm, 3 bends at R12.0 \u2014 nearest 18.80 mm to hopper-funnel",
-        "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 266.6 mm, 8 bends at R9.0 \u2014 nearest 0.00 mm to fluid-13",
-        "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 144.6 mm, 5 bends at R10.0 \u2014 nearest 2.13 mm to bag-circuit-assembly"
+        "\u2713 fluid-20: bag-circuit-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7 \u2014 nearest 20.30 mm to foam-assembly",
+        "\u2713 fluid-13: elbow-bag-y-d.free \u2192 y-d.Y-D-2 \u2014 \u00d86.35 \u00d7 24.4 mm, 2 bends at R8.0 \u2014 nearest 0.00 mm to fluid-11",
+        "\u2713 fluid-17: elbow-y-g.free \u2192 y-d.Y-D-3 \u2014 \u00d86.35 \u00d7 64.4 mm, 3 bends at R12.0 \u2014 nearest 2.05 mm to elbow-y-d",
+        "\u2713 fluid-23: elbow-bag-y-g.free \u2192 y-g.Y-G-2 \u2014 \u00d86.35 \u00d7 69.8 mm, 3 bends at R12.0 \u2014 nearest 0.00 mm to fluid-11",
+        "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 31.6 mm, 0 bends at R12.0 \u2014 nearest 3.61 mm to fluid-17",
+        "\u2713 fluid-12: pump-b.P-B-O \u2192 y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 16.5 mm, 1 bends at R6.0 \u2014 nearest 17.61 mm to hopper-funnel",
+        "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 51.9 mm, 3 bends at R12.0 \u2014 nearest 18.80 mm to hopper-funnel",
+        "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 264.4 mm, 8 bends at R8.0 \u2014 nearest 0.00 mm to fluid-13",
+        "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 140.8 mm, 5 bends at R10.0 \u2014 nearest 2.24 mm to bag-circuit-assembly"
       ],
       "active": false
     },
@@ -673,7 +674,7 @@
       "name": "V-A-I",
       "kind": "fluid",
       "pos": [
-        267.329,
+        271.329,
         172.275,
         198.66
       ],
@@ -692,7 +693,7 @@
       "name": "V-B-I",
       "kind": "fluid",
       "pos": [
-        267.329,
+        271.329,
         98.825,
         198.66
       ],
@@ -711,7 +712,7 @@
       "name": "V-C-O",
       "kind": "fluid",
       "pos": [
-        9.441,
+        13.441,
         102.545,
         198.263
       ],
@@ -730,7 +731,7 @@
       "name": "V-D-O",
       "kind": "fluid",
       "pos": [
-        9.441,
+        13.441,
         168.555,
         198.263
       ],
@@ -749,7 +750,7 @@
       "name": "V-F-I",
       "kind": "fluid",
       "pos": [
-        185.214,
+        189.214,
         118.425,
         276.5
       ],
@@ -768,7 +769,7 @@
       "name": "V-I-I",
       "kind": "fluid",
       "pos": [
-        185.214,
+        189.214,
         152.675,
         276.5
       ],
@@ -787,7 +788,7 @@
       "name": "V-E-O",
       "kind": "fluid",
       "pos": [
-        7.514,
+        11.514,
         114.506,
         257.337
       ],
@@ -806,7 +807,7 @@
       "name": "V-H-O",
       "kind": "fluid",
       "pos": [
-        7.514,
+        11.514,
         156.594,
         257.337
       ],
@@ -825,7 +826,7 @@
       "name": "Y-E-2",
       "kind": "fluid",
       "pos": [
-        106.144,
+        110.144,
         98.359,
         276.5
       ],
@@ -844,7 +845,7 @@
       "name": "Y-H-2",
       "kind": "fluid",
       "pos": [
-        106.144,
+        110.144,
         172.741,
         276.5
       ],
@@ -863,7 +864,7 @@
       "name": "V-G-I",
       "kind": "fluid",
       "pos": [
-        222.64,
+        219.64,
         152.675,
         242.1
       ],
@@ -882,7 +883,7 @@
       "name": "V-J-I",
       "kind": "fluid",
       "pos": [
-        222.64,
+        219.64,
         118.425,
         242.1
       ],
@@ -901,7 +902,7 @@
       "name": "V-G-O",
       "kind": "fluid",
       "pos": [
-        281.64,
+        278.64,
         152.675,
         242.1
       ],
@@ -920,7 +921,7 @@
       "name": "V-J-O",
       "kind": "fluid",
       "pos": [
-        281.64,
+        278.64,
         118.425,
         242.1
       ],
@@ -1015,7 +1016,7 @@
       "name": "Y-C-1",
       "kind": "fluid",
       "pos": [
-        9.119,
+        13.119,
         104.545,
         208.139
       ],
@@ -1034,7 +1035,7 @@
       "name": "Y-C-2",
       "kind": "fluid",
       "pos": [
-        7.836,
+        11.836,
         112.506,
         247.461
       ],
@@ -1053,7 +1054,7 @@
       "name": "Y-C-3",
       "kind": "fluid",
       "pos": [
-        8.477,
+        12.477,
         88.859,
         231.782
       ],
@@ -1072,7 +1073,7 @@
       "name": "Y-F-1",
       "kind": "fluid",
       "pos": [
-        9.119,
+        13.119,
         166.555,
         208.139
       ],
@@ -1091,7 +1092,7 @@
       "name": "Y-F-2",
       "kind": "fluid",
       "pos": [
-        7.836,
+        11.836,
         158.594,
         247.461
       ],
@@ -1110,7 +1111,7 @@
       "name": "Y-F-3",
       "kind": "fluid",
       "pos": [
-        19.981,
+        23.981,
         146.391,
         224.899
       ],
@@ -1129,14 +1130,14 @@
       "name": "Y-D-1",
       "kind": "fluid",
       "pos": [
-        221.575,
-        40.496,
-        272.61
+        221.463,
+        40.449,
+        272.612
       ],
       "face": [
-        0.39349076870558053,
-        -0.9092786536345614,
-        0.13556306645989816
+        0.3877072121018144,
+        -0.9117437969975355,
+        0.1356700642026664
       ],
       "diam": 6.35,
       "mates": "pump-b P-B-O \u2014 segment 12 (channel A discharge, routed)",
@@ -1148,14 +1149,14 @@
       "name": "Y-D-2",
       "kind": "fluid",
       "pos": [
-        206.03,
-        76.418,
-        274.673
+        206.146,
+        76.469,
+        274.67
       ],
       "face": [
-        -0.39349076870558053,
-        0.9092786536345614,
-        -0.13556306645989816
+        -0.3877072121018144,
+        0.9117437969975355,
+        -0.1356700642026664
       ],
       "diam": 6.35,
       "mates": "elbow-bag-y-d free \u2014 segment 13 (routed)",
@@ -1167,14 +1168,14 @@
       "name": "Y-D-3",
       "kind": "fluid",
       "pos": [
-        206.821,
-        74.589,
-        260.108
+        206.927,
+        74.633,
+        260.106
       ],
       "face": [
-        -0.39349076870558053,
-        0.9092786536345614,
-        -0.13556306645989816
+        -0.3877072121018144,
+        0.9117437969975355,
+        -0.1356700642026664
       ],
       "diam": 6.35,
       "mates": "elbow-y-g free \u2014 segment 17 (routed)",
@@ -1186,14 +1187,14 @@
       "name": "Y-G-1",
       "kind": "fluid",
       "pos": [
-        181.9,
-        35.351,
-        272.447
+        181.792,
+        35.375,
+        272.444
       ],
       "face": [
-        -0.21296294349824268,
-        -0.9687570423660491,
-        0.12710852671142506
+        -0.21862237640239576,
+        -0.9675169335295284,
+        0.1269458146997663
       ],
       "diam": 6.35,
       "mates": "pump-a P-A-O \u2014 segment 22 (channel B discharge, routed)",
@@ -1205,14 +1206,14 @@
       "name": "Y-G-2",
       "kind": "fluid",
       "pos": [
-        190.3,
-        73.561,
-        274.844
+        190.414,
+        73.535,
+        274.847
       ],
       "face": [
-        0.21296294349824268,
-        0.9687570423660491,
-        -0.12710852671142506
+        0.21862237640239576,
+        0.9675169335295284,
+        -0.1269458146997663
       ],
       "diam": 6.35,
       "mates": "elbow-bag-y-g free \u2014 segment 23 (routed)",
@@ -1224,14 +1225,14 @@
       "name": "Y-G-3",
       "kind": "fluid",
       "pos": [
-        189.899,
-        71.736,
-        260.263
+        190.003,
+        71.715,
+        260.266
       ],
       "face": [
-        0.21296294349824268,
-        0.9687570423660491,
-        -0.12710852671142506
+        0.21862237640239576,
+        0.9675169335295284,
+        -0.1269458146997663
       ],
       "diam": 6.35,
       "mates": "elbow-y-d free \u2014 segment 27 (routed)",
@@ -1243,14 +1244,14 @@
       "name": "free",
       "kind": "fluid",
       "pos": [
-        206.774,
-        98.883,
-        275.65
+        210.774,
+        98.884,
+        275.648
       ],
       "face": [
         0.0,
-        -0.9990550745217545,
-        -0.04346214527990571
+        -0.9990505491063577,
+        -0.043566045612210655
       ],
       "diam": 6.35,
       "mates": "y-d Y-D-2 \u2014 segment 13 (routed)",
@@ -1262,14 +1263,14 @@
       "name": "free",
       "kind": "fluid",
       "pos": [
-        201.08,
-        136.65,
-        253.315
+        198.08,
+        136.651,
+        253.317
       ],
       "face": [
         0.0,
-        -0.8192864247928335,
-        0.5733844732377891
+        -0.8192288683459794,
+        0.5734667045858601
       ],
       "diam": 6.35,
       "mates": "y-d Y-D-3 \u2014 segment 17 (routed)",
@@ -1281,14 +1282,14 @@
       "name": "free",
       "kind": "fluid",
       "pos": [
-        206.774,
+        210.774,
         133.68,
-        281.166
+        281.167
       ],
       "face": [
         0.0,
-        -0.9711320345764123,
-        0.2385425987522526
+        -0.9711204807217951,
+        0.23858963079452894
       ],
       "diam": 6.35,
       "mates": "y-g Y-G-2 \u2014 segment 23 (routed)",
@@ -1300,14 +1301,14 @@
       "name": "free",
       "kind": "fluid",
       "pos": [
-        201.08,
-        100.196,
-        249.191
+        198.08,
+        100.195,
+        249.19
       ],
       "face": [
         0.0,
-        -0.9319642848384525,
-        0.3625500955530859
+        -0.9320006312437653,
+        0.3624566503200391
       ],
       "diam": 6.35,
       "mates": "y-g Y-G-3 \u2014 segment 27 (routed)",
@@ -1635,74 +1636,74 @@
       "component": "bag-circuit-assembly",
       "boxes": [
         [
-          86.078,
+          90.078,
           98.359,
           269.642,
-          126.21,
+          130.21,
           125.283,
           283.358
         ],
         [
-          0.148,
+          4.148,
           145.309,
           256.284,
-          27.072,
+          31.072,
           162.923,
           283.866
         ],
         [
-          0.148,
+          4.148,
           108.177,
           256.284,
-          27.072,
+          31.072,
           125.791,
           283.866
         ],
         [
-          27.074,
+          31.074,
           135.55,
           231.2,
-          86.074,
+          90.074,
           169.8,
           287.8
         ],
         [
-          86.078,
+          90.078,
           145.817,
           269.642,
-          126.21,
+          130.21,
           172.741,
           283.358
         ],
         [
-          126.214,
+          130.214,
           101.3,
           231.2,
-          185.214,
+          189.214,
           135.55,
           287.8
         ],
         [
-          37.774,
+          41.774,
           98.3,
           227.8,
-          174.514,
+          178.514,
           172.8,
           290.8
         ],
         [
-          27.074,
+          31.074,
           101.3,
           231.2,
-          86.074,
+          90.074,
           135.55,
           287.8
         ],
         [
-          126.214,
+          130.214,
           135.55,
           231.2,
-          185.214,
+          189.214,
           169.8,
           287.8
         ]
@@ -1883,15 +1884,15 @@
       "component": "elbow-bag-y-d",
       "boxes": [
         [
-          187.216,
+          191.216,
           98.658,
-          268.485,
-          214.14,
+          268.483,
+          218.14,
           125.791,
           283.866
         ]
       ],
-      "fill": 0.3484,
+      "fill": 0.3483,
       "primitive": false,
       "declared": "real"
     },
@@ -1899,10 +1900,10 @@
       "component": "elbow-bag-y-g",
       "boxes": [
         [
-          187.216,
+          191.216,
           132.423,
           269.134,
-          214.14,
+          218.14,
           160.041,
           287.265
         ]
@@ -1915,15 +1916,15 @@
       "component": "elbow-y-d",
       "boxes": [
         [
-          193.714,
+          190.714,
           98.273,
           234.734,
-          220.638,
+          217.638,
           125.791,
-          254.465
+          254.464
         ]
       ],
-      "fill": 0.2677,
+      "fill": 0.2678,
       "primitive": false,
       "declared": "real"
     },
@@ -1931,12 +1932,12 @@
       "component": "elbow-y-g",
       "boxes": [
         [
-          193.714,
-          133.571,
+          190.714,
+          133.572,
           234.734,
-          220.638,
+          217.638,
           160.041,
-          257.8
+          257.801
         ]
       ],
       "fill": 0.2381,
@@ -2027,26 +2028,26 @@
       "component": "nozzle-gate-assembly",
       "boxes": [
         [
-          233.34,
+          230.34,
           98.3,
           227.8,
-          270.94,
+          267.94,
           172.8,
           290.8
         ],
         [
-          222.64,
+          219.64,
           101.3,
           230.8,
-          281.64,
+          278.64,
           135.55,
           287.4
         ],
         [
-          222.64,
+          219.64,
           135.55,
           230.8,
-          281.64,
+          278.64,
           169.8,
           287.4
         ]
@@ -2243,90 +2244,90 @@
       "component": "source-select-assembly",
       "boxes": [
         [
-          35.237,
+          39.237,
           89.109,
           164.8,
-          242.763,
+          246.763,
           181.991,
           227.8
         ],
         [
-          26.887,
+          30.887,
           92.906,
           167.8,
-          87.613,
+          91.613,
           135.55,
           224.4
         ],
         [
-          190.387,
+          194.387,
           92.906,
           167.8,
-          251.113,
+          255.113,
           135.55,
           224.4
         ],
         [
-          26.887,
+          30.887,
           135.55,
           167.8,
-          87.613,
+          91.613,
           178.194,
           224.4
         ],
         [
-          2.37,
+          6.37,
           160.523,
           171.734,
-          30.903,
+          34.903,
           178.141,
           199.316
         ],
         [
-          140.0,
+          144.0,
           120.1,
           171.0,
-          178.5,
+          182.5,
           151.0,
           187.2
         ],
         [
-          99.5,
+          103.5,
           120.1,
           171.0,
-          138.0,
+          142.0,
           151.0,
           187.2
         ],
         [
-          247.097,
+          251.097,
           160.523,
           171.734,
-          274.695,
+          278.695,
           179.641,
           198.658
         ],
         [
-          190.387,
+          194.387,
           135.55,
           167.8,
-          251.113,
+          255.113,
           178.194,
           224.4
         ],
         [
-          247.097,
+          251.097,
           91.459,
           171.734,
-          274.695,
+          278.695,
           110.577,
           198.658
         ],
         [
-          2.37,
+          6.37,
           92.959,
           171.734,
-          30.903,
+          34.903,
           110.577,
           199.316
         ]
@@ -2339,10 +2340,10 @@
       "component": "tee-y-c",
       "boxes": [
         [
-          1.09,
+          5.09,
           87.814,
           206.995,
-          15.865,
+          19.865,
           118.56,
           248.515
         ]
@@ -2355,10 +2356,10 @@
       "component": "tee-y-f",
       "boxes": [
         [
-          1.09,
+          5.09,
           143.211,
           206.995,
-          24.467,
+          28.467,
           172.609,
           248.515
         ]
@@ -2371,15 +2372,15 @@
       "component": "y-d",
       "boxes": [
         [
-          200.157,
-          38.281,
-          252.625,
-          227.447,
-          78.634,
+          200.231,
+          38.263,
+          252.624,
+          227.379,
+          78.655,
           284.912
         ]
       ],
-      "fill": 0.2332,
+      "fill": 0.2342,
       "primitive": false,
       "declared": "real"
     },
@@ -2387,15 +2388,15 @@
       "component": "y-g",
       "boxes": [
         [
-          174.838,
-          34.042,
-          252.737,
-          197.362,
-          74.87,
-          284.954
+          174.762,
+          34.041,
+          252.739,
+          197.444,
+          74.869,
+          284.955
         ]
       ],
-      "fill": 0.2799,
+      "fill": 0.2779,
       "primitive": false,
       "declared": "real"
     }
