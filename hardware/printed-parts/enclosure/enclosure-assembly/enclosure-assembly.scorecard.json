@@ -101,7 +101,7 @@
         "\u2713 hopper-funnel: z+ 6.0 mm",
         "\u2713 bag-circuit-assembly: near source-select-assembly 0.0 clear compressor-shroud 73.3 clear condenser+fan 83.2 mm",
         "\u2713 nozzle-gate-assembly: near source-select-assembly 3.4 x+ 1.4 mm",
-        "\u2713 pump-a: near bag-circuit-assembly 1.5 clear hopper-funnel 15.9 mm",
+        "\u2713 pump-a: near bag-circuit-assembly 1.5 clear hopper-funnel 16.1 mm",
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
         "\u2717 tee-y-c: near source-select-assembly 9.9(>6) mm",
         "\u2717 tee-y-f: near source-select-assembly 8.8(>6) mm",
@@ -187,20 +187,20 @@
       "target": "100%",
       "detail": [
         "28 fluid + 3 refrigerant + 28 electrical; 14 routed \u2014 the fluid path waits on the deferred water deck and the manifold's remaining legs; the electrical runs on the components being held",
-        "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7",
-        "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 289.7 mm, 4 bends at R12.7",
-        "\u2713 fluid-9: source-select-assembly.V-C-O \u2192 tee-y-c.Y-C-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7",
-        "\u2713 fluid-19: source-select-assembly.V-D-O \u2192 tee-y-f.Y-F-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7",
-        "\u2713 fluid-10: bag-circuit-assembly.V-E-O \u2192 tee-y-c.Y-C-2 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7",
-        "\u2713 fluid-20: bag-circuit-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7",
-        "\u2713 fluid-13: elbow-bag-y-d.free \u2192 y-d.Y-D-2 \u2014 \u00d86.35 \u00d7 22.8 mm, 1 bends at R12.0",
-        "\u2713 fluid-17: elbow-y-g.free \u2192 y-d.Y-D-3 \u2014 \u00d86.35 \u00d7 64.1 mm, 3 bends at R12.0",
-        "\u2713 fluid-23: elbow-bag-y-g.free \u2192 y-g.Y-G-2 \u2014 \u00d86.35 \u00d7 66.8 mm, 3 bends at R12.0",
-        "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 32.5 mm, 0 bends at R12.0",
-        "\u2713 fluid-12: pump-b.P-B-O \u2192 y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 16.4 mm, 1 bends at R6.0",
-        "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 52.5 mm, 2 bends at R12.0",
-        "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 266.6 mm, 8 bends at R9.0",
-        "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 133.7 mm, 4 bends at R10.0"
+        "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7 \u2014 nearest 6.32 mm to foam-assembly",
+        "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 289.7 mm, 4 bends at R12.7 \u2014 nearest 5.13 mm to compressor-shroud",
+        "\u2713 fluid-9: source-select-assembly.V-C-O \u2192 tee-y-c.Y-C-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7 \u2014 nearest 23.89 mm to fluid-11",
+        "\u2713 fluid-19: source-select-assembly.V-D-O \u2192 tee-y-f.Y-F-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7 \u2014 nearest 10.46 mm to foam-assembly",
+        "\u2713 fluid-10: bag-circuit-assembly.V-E-O \u2192 tee-y-c.Y-C-2 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7 \u2014 nearest 9.05 mm to fluid-21",
+        "\u2713 fluid-20: bag-circuit-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7 \u2014 nearest 20.54 mm to foam-assembly",
+        "\u2713 fluid-13: elbow-bag-y-d.free \u2192 y-d.Y-D-2 \u2014 \u00d86.35 \u00d7 22.8 mm, 1 bends at R12.0 \u2014 nearest 0.00 mm to fluid-11",
+        "\u2713 fluid-17: elbow-y-g.free \u2192 y-d.Y-D-3 \u2014 \u00d86.35 \u00d7 64.1 mm, 3 bends at R12.0 \u2014 nearest 1.42 mm to elbow-y-d",
+        "\u2713 fluid-23: elbow-bag-y-g.free \u2192 y-g.Y-G-2 \u2014 \u00d86.35 \u00d7 66.8 mm, 3 bends at R12.0 \u2014 nearest 0.00 mm to fluid-11",
+        "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 32.5 mm, 0 bends at R12.0 \u2014 nearest 2.09 mm to fluid-17",
+        "\u2713 fluid-12: pump-b.P-B-O \u2192 y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 16.4 mm, 1 bends at R6.0 \u2014 nearest 17.61 mm to hopper-funnel",
+        "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 52.0 mm, 3 bends at R12.0 \u2014 nearest 18.80 mm to hopper-funnel",
+        "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 266.6 mm, 8 bends at R9.0 \u2014 nearest 0.00 mm to fluid-13",
+        "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 144.6 mm, 5 bends at R10.0 \u2014 nearest 2.13 mm to bag-circuit-assembly"
       ],
       "active": false
     },
@@ -940,7 +940,7 @@
       "kind": "fluid",
       "pos": [
         98.56,
-        93.01,
+        89.5,
         278.17
       ],
       "face": [
@@ -951,7 +951,7 @@
       "diam": 6.35,
       "mates": "tee-y-f Y-F-3 \u2014 segment 21 (channel B suction, routed)",
       "status": "ok",
-      "note": "PP0308E elbow collet, aft station, facing west (fluid-21 rises up the aft to it, forward of the seam)"
+      "note": "PP0308E elbow collet, aft station, facing west at the collet centre (fluid-21 climbs the west end then runs east into it)"
     },
     {
       "component": "pump-a",
@@ -959,7 +959,7 @@
       "kind": "fluid",
       "pos": [
         137.196,
-        31.684,
+        28.174,
         278.17
       ],
       "face": [
@@ -2179,11 +2179,11 @@
           245.175
         ],
         [
-          111.53,
-          28.902,
+          110.754,
+          21.969,
           258.615,
-          139.136,
-          46.799,
+          138.359,
+          39.866,
           285.539
         ]
       ],
