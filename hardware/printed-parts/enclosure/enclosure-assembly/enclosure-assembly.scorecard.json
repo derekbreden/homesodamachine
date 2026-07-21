@@ -1,6 +1,6 @@
 {
   "gatesPass": true,
-  "placed": 32,
+  "placed": 39,
   "located": 86,
   "shaped": 96,
   "routed": 24,
@@ -47,6 +47,7 @@
         "foam-assembly \u2014 power-tray: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 dc-dist: 2.50 mm \u2014 CONTACT (declared ok)",
+        "bag-circuit-assembly \u2014 tee-y-c: 2.92 mm",
         "y-d \u2014 y-g: 3.26 mm",
         "bag-circuit-assembly \u2014 hopper-funnel: 3.26 mm",
         "source-select-assembly \u2014 nozzle-gate-assembly: 3.40 mm",
@@ -92,7 +93,7 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "32% (9/28)",
+      "value": "39% (11/28)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 0.0 x- 0.0 x+ 0.0 z- 9.5 mm",
@@ -104,8 +105,8 @@
         "\u2713 nozzle-gate-assembly: near source-select-assembly 3.4 x+ 4.4 mm",
         "\u2713 pump-a: near bag-circuit-assembly 1.5 clear hopper-funnel 16.1 mm",
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
-        "\u2717 tee-y-c: near source-select-assembly 9.9(>6) mm",
-        "\u2717 tee-y-f: near source-select-assembly 8.8(>6) mm",
+        "\u2713 tee-y-c: near source-select-assembly 14.5 mm",
+        "\u2713 tee-y-f: near source-select-assembly 8.8 mm",
         "17 components: no placement rules defined yet"
       ],
       "active": true
@@ -190,9 +191,9 @@
         "28 fluid + 3 refrigerant + 28 electrical; 14 routed \u2014 the fluid path waits on the deferred water deck and the manifold's remaining legs; the electrical runs on the components being held",
         "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7 \u2014 nearest 6.32 mm to foam-assembly",
         "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 289.7 mm, 4 bends at R12.7 \u2014 nearest 5.13 mm to compressor-shroud",
-        "\u2713 fluid-9: source-select-assembly.V-C-O \u2192 tee-y-c.Y-C-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7 \u2014 nearest 23.89 mm to fluid-11",
+        "\u2713 fluid-9: source-select-assembly.V-C-O \u2192 tee-y-c.Y-C-1 \u2014 \u00d86.35 \u00d7 17.1 mm, 0 bends at R12.7 \u2014 nearest 23.55 mm to fluid-21",
         "\u2713 fluid-19: source-select-assembly.V-D-O \u2192 tee-y-f.Y-F-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7 \u2014 nearest 10.33 mm to foam-assembly",
-        "\u2713 fluid-10: bag-circuit-assembly.V-E-O \u2192 tee-y-c.Y-C-2 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7 \u2014 nearest 9.05 mm to fluid-21",
+        "\u2713 fluid-10: bag-circuit-assembly.V-E-O \u2192 tee-y-c.Y-C-2 \u2014 \u00d86.35 \u00d7 3.1 mm, 0 bends at R12.7 \u2014 nearest 11.49 mm to fluid-21",
         "\u2713 fluid-20: bag-circuit-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7 \u2014 nearest 20.30 mm to foam-assembly",
         "\u2713 fluid-13: elbow-bag-y-d.free \u2192 y-d.Y-D-2 \u2014 \u00d86.35 \u00d7 24.4 mm, 2 bends at R8.0 \u2014 nearest 0.00 mm to fluid-11",
         "\u2713 fluid-17: elbow-y-g.free \u2192 y-d.Y-D-3 \u2014 \u00d86.35 \u00d7 64.4 mm, 3 bends at R12.0 \u2014 nearest 2.05 mm to elbow-y-d",
@@ -200,7 +201,7 @@
         "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 31.6 mm, 0 bends at R12.0 \u2014 nearest 3.61 mm to fluid-17",
         "\u2713 fluid-12: pump-b.P-B-O \u2192 y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 16.5 mm, 1 bends at R6.0 \u2014 nearest 17.61 mm to hopper-funnel",
         "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 51.9 mm, 3 bends at R12.0 \u2014 nearest 18.80 mm to hopper-funnel",
-        "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 264.4 mm, 8 bends at R8.0 \u2014 nearest 0.00 mm to fluid-13",
+        "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 245.8 mm, 7 bends at R10.0 \u2014 nearest 0.00 mm to fluid-13",
         "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 140.8 mm, 5 bends at R10.0 \u2014 nearest 2.24 mm to bag-circuit-assembly"
       ],
       "active": false
@@ -1016,9 +1017,9 @@
       "name": "Y-C-1",
       "kind": "fluid",
       "pos": [
-        13.119,
-        104.545,
-        208.139
+        12.895,
+        105.933,
+        214.996
       ],
       "face": [
         0.03194734598641717,
@@ -1035,9 +1036,9 @@
       "name": "Y-C-2",
       "kind": "fluid",
       "pos": [
-        11.836,
-        112.506,
-        247.461
+        11.613,
+        113.895,
+        254.318
       ],
       "face": [
         -0.03194734598641717,
@@ -1054,9 +1055,9 @@
       "name": "Y-C-3",
       "kind": "fluid",
       "pos": [
-        12.477,
-        88.859,
-        231.782
+        12.254,
+        90.247,
+        238.639
       ],
       "face": [
         6.109024448716017e-17,
@@ -2340,12 +2341,12 @@
       "component": "tee-y-c",
       "boxes": [
         [
-          5.09,
-          87.814,
-          206.995,
-          19.865,
-          118.56,
-          248.515
+          4.866,
+          89.202,
+          213.852,
+          19.641,
+          119.949,
+          255.372
         ]
       ],
       "fill": 0.2093,

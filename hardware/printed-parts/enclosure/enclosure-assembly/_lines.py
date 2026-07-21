@@ -171,9 +171,9 @@ def build_runs() -> list:
     SLEAD = 12.0                        # exit/approach stub: straight lead off each suction collet
     runs.append(R.bent(
         "fluid-11", "tee-y-c.Y-C-3",
-        (13.0, 83.0, 262.0), (50.0, 60.0, 271.0), (98.0, 57.0, 278.0), (146.0, 70.0, 279.0), (186.0, 84.0, 280.0), (213.0, 87.0, 278.0),
+        (34.0, 71.0, 257.0), (72.0, 59.0, 273.0), (110.0, 57.0, 279.0), (150.0, 71.0, 280.0), (190.0, 84.0, 280.0), (215.0, 87.0, 278.0),
         "pump-b.P-B-I",
-        kind="fluid", bend=8.0, skew=DISCHARGE_SKEW, lead=8.0,
+        kind="fluid", bend=10.0, skew=DISCHARGE_SKEW, lead=8.0,
         note="suction stem tee-y-c Y-C-3 → pump-b P-B-I, forward off the tee then over the pump row"))
     runs.append(R.bent(
         "fluid-21", "tee-y-f.Y-F-3",
