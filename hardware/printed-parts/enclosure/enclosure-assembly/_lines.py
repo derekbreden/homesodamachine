@@ -139,7 +139,7 @@ def build_runs() -> list:
     for cid, elb, div, port, apex, lead, bend in (
         ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", None,                   (8.0, 6.5), 8.0),  # one bend into the yawed outlet
         ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3", (202.0, 111.0, 259.0),  LEAD, DBEND),      # over elbow-y-d (top z254)
-        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (204.0, 112.0, 292.0),  LEAD, DBEND),      # over elbow-bag-y-d (top z286)
+        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (204.0, 112.0, 293.0),  (4.0, 8.0), DBEND),  # short exit lead + high apex: leaves above elbow-bag-y-d (top z284), over the row into y-g
         ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3", None,                   None, DBEND),       # rises straight to the raised outlet
     ):
         mids = [apex] if apex is not None else []
@@ -148,14 +148,16 @@ def build_runs() -> list:
                             note=f"discharge {port}: {elb} → {div} {port}, bent over the row"))
 
     # The pump-discharge stems (segments 12/22) — each divider's stem back to a pump outlet.
-    # pump-b's outlet elbow and y-d's yawed stem face each other, so fluid-12 is a single bend where
-    # their collet axes meet. fluid-22 leaves pump A's east-facing outlet, crosses the open band over
-    # the pumps, and turns into y-g's stem; the two sit in separate bays.
+    # pump-b's outlet elbow and y-d's yawed stem sit near each other but no longer face down one
+    # line (y-d aims at its elbows, which ride the west-inset gate), so fluid-12 leaves pump-b on
+    # its collet (an exit lead) and turns to the meet point of the two collet axes before closing
+    # into the stem. fluid-22 leaves pump A's east-facing outlet, crosses the open band over the
+    # pumps, and turns into y-g's stem; the two sit in separate bays.
     op, od = contents.pump_outlet_pose("pump-b")
     sp, sd = contents.divider_port("y-d", 1)
     runs.append(R.bent("fluid-12", "pump-b.P-B-O", R.meet(op, od, sp, sd, 0.85), "y-d.Y-D-1",
-                        kind="fluid", bend=6.0, skew=DISCHARGE_SKEW,
-                        note="discharge stem P-B-O → y-d Y-D-1, where the two collets meet"))
+                        kind="fluid", bend=6.0, skew=DISCHARGE_SKEW, lead=(6.0, 0.0),
+                        note="discharge stem P-B-O → y-d Y-D-1, led off pump-b to the collets' meet"))
     runs.append(R.bent("fluid-22", "pump-a.P-A-O", (165.0, 25.0, 278.0), "y-g.Y-G-1",
                         kind="fluid", bend=12.0, skew=DISCHARGE_SKEW, lead=14.0,
                         note="discharge stem P-A-O → y-g Y-G-1, across the pump row"))
@@ -171,10 +173,13 @@ def build_runs() -> list:
     SLEAD = 12.0                        # exit/approach stub: straight lead off each suction collet
     runs.append(R.bent(
         "fluid-11", "tee-y-c.Y-C-3",
-        (34.0, 71.0, 257.0), (72.0, 59.0, 273.0), (110.0, 57.0, 279.0), (150.0, 71.0, 280.0), (190.0, 84.0, 280.0), (215.0, 87.0, 278.0),
+        (34.0, 71.0, 257.0), (72.0, 59.0, 273.0), (110.0, 57.0, 279.0), (150.0, 62.0, 283.0), (196.0, 65.0, 286.0), (213.0, 84.0, 285.0),
         "pump-b.P-B-I",
-        kind="fluid", bend=10.0, skew=DISCHARGE_SKEW, lead=8.0,
-        note="suction stem tee-y-c Y-C-3 → pump-b P-B-I, forward off the tee then over the pump row"))
+        kind="fluid", bend=6.0, skew=DISCHARGE_SKEW, lead=(8.0, 3.0),
+        note="suction stem tee-y-c Y-C-3 → pump-b P-B-I: forward off the tee, then east OVER the "
+             "y-d/y-g dividers. It rides the slot the lowered divider crowns open under the funnel "
+             "basin, held SOUTH (y~63) of the discharge runs (fluid-13/23, y74+) and the funnel's "
+             "drain dip (x186-197), climbing north only east of the dip to drop into the inlet"))
     runs.append(R.bent(
         "fluid-21", "tee-y-f.Y-F-3",
         (26.0, 120.0, 236.0), (29.0, 95.0, 264.0), (64.0, 89.0, 277.0),

@@ -232,20 +232,26 @@ BAG_CIRCUIT_POS = (SRC_SEL_POS[0] - JUNCTION_SLIDE,
 # stop just outboard of them, so the tray floats in the pocket until its
 # holder. The shared story lands its ports on the bag tray's own port plane,
 # inner ports facing west at the bag east bank across the pocket, outer
-# (nozzle-outlet) ports facing east, a few millimetres off the +X wall — clear of
-# the front Y-lip that runs unbroken there (no wall relief). The X slide holds the
-# gate one clearance east of the bag tray's bare V-F/V-I port tips, opening the
-# pocket the discharge fittings (bag + gate outlet elbows and the Y-connector
-# tees) settle into between the two banks.
+# (nozzle-outlet) ports facing east, inset well off the +X wall (GATE_WALL_INSET)
+# so their outlet elbows have room to turn aft to the rear umbilical. The X slide
+# holds the gate one clearance east of the bag tray's bare V-F/V-I port tips,
+# opening the pocket the discharge fittings (bag + gate outlet elbows and the
+# Y-connector tees) settle into between the two banks.
 TEE_BODY_CLEAR = 2.5
 # The gate is anchored on its own X (it does NOT ride the bag/source slide): its
 # west inner ports and outlet elbows stay put while the bag and its own outlet
 # elbows translate, so the two elbow banks face across the pocket at the
-# Y-connector tees hung between them. The anchor is set so the bare east ports
-# clear the +X wall's front Y-lip.
+# Y-connector tees hung between them.
 _GATE_ANCHOR_BAG_X = 144.0 - JUNCTION_SLIDE
+# The gate sits inset from the +X wall: GATE_WALL_INSET is how far its bare east
+# ports (V-G-O/V-J-O, the nozzle outlets) stand off the wall, opening the pocket
+# their outlet elbows turn aft into on the way to the rear umbilical. The foam
+# pins the +X wall at the full interior width regardless, so this only insets the
+# gate — it does not shrink the box. Bounded west by the source-select east bank
+# and the bag's east discharge elbows (the scorecard's clearance floor).
+GATE_WALL_INSET = 11.0
 NOZZLE_GATE_POS = (_GATE_ANCHOR_BAG_X + 2.0 * _bag.port_half + _bag.tee_branch_reach
-                   + _bag.tee_radius + TEE_BODY_CLEAR,
+                   + _bag.tee_radius + TEE_BODY_CLEAR - GATE_WALL_INSET,
                    SRC_SEL_POS[1],
                    SRC_SEL_POS[2] + STACK_PITCH_Z)
 
@@ -592,9 +598,14 @@ DISCHARGE_LIFT = {
     "elbow-bag-y-g": 15.0,                     # long leg → y-g, climbs over elbow-bag-y-d
     "elbow-y-g":     22.0,                     # long leg → y-d, climbs over elbow-y-d
 }
-DISCHARGE_DIV = {                             # divider → centre, over the pump row, aimed at its elbows
-    "y-d": (214.0, 58.0, 270.0),
-    "y-g": (186.0, 54.0, 270.0),
+# Divider → centre, over the pump row, aimed at its elbows. Both ride LOW in the pump-row band —
+# their crowns tucked under the hopper funnel's basin floor with room to spare above, so the
+# channel-A suction leg (fluid-11) can cross OVER them on its way from tee-y-c to pump B's inlet
+# without driving through their bodies or the funnel. y-g drops furthest (fluid-11 crosses right
+# over its crown); y-d rides a touch higher so its own body keeps clear of pump B just below it.
+DISCHARGE_DIV = {
+    "y-d": (214.0, 58.0, 267.5),
+    "y-g": (186.0, 54.0, 266.0),
 }
 DISCHARGE_YAW = {                             # extra Z-turn of a divider: stem toward its pump, outlets the same off their elbows
     "y-d": 16.0,

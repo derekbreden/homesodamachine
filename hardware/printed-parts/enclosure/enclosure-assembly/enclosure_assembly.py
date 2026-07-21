@@ -215,9 +215,10 @@ def build(pack=None):
 # verdict — ~40s of OCC booleans + distances — for nothing. This caches that verdict, keyed on what
 # determines it: each placed solid's bounding box, plus the source that places and measures them
 # (_contents.py, this file, enclosure.py, scorecard.py, the overrides) and the STEP files they
-# import — but NOT _lines.py / _routing.py. On a hit the cheap routed axis (the one thing that does
-# read _lines) is recomputed fresh, so the routed % never goes stale. A miss or any error falls
-# through to a full build_scorecard, so the pack-closes gate is never served stale.
+# import — but NOT _lines.py / _routing.py. On a hit the cheap _lines-dependent checks — the routed
+# axis and the lines-clear gate — are recomputed fresh, so neither the routed % nor the tube-clash
+# verdict goes stale. A miss or any error falls through to a full build_scorecard, so the
+# pack-closes gate is never served stale.
 _SCORECARD_CACHE_PATH = _here.parent / ".enclosure-assembly.scorecard-cache.pkl"
 
 
@@ -254,8 +255,9 @@ def _scorecard_cache_key(pack, inner):
 
 def _cached_scorecard(pack, pieces, bed, inner):
     """build_scorecard, reusing the cached component verdict when the components are unchanged and
-    recomputing only the routed axis. Fail-safe: a miss or any error falls through to a full
-    build_scorecard, so the pack-closes gate is never served stale."""
+    recomputing the _lines-dependent checks (the routed axis + the lines-clear gate). Fail-safe: a
+    miss or any error falls through to a full build_scorecard, so the pack-closes gate is never
+    served stale."""
     solids = {n: s for n, (s, _c) in pack.solids.items()}
     try:
         key = _scorecard_cache_key(pack, inner)
@@ -263,9 +265,14 @@ def _cached_scorecard(pack, pieces, bed, inner):
             blob = pickle.loads(_SCORECARD_CACHE_PATH.read_bytes())
             if blob.get("key") == key:
                 sc = blob["scorecard"]
-                routed_ck, routed = scorecard.routed_check(solids)   # the one _lines-dependent axis, fresh
-                sc.checks = [routed_ck if c.id == "routed" else c for c in sc.checks]
+                # The _lines-dependent checks, recomputed fresh (route work changes them every
+                # build): the routed goal and the lines-clear gate. gates_pass is refreshed too,
+                # since lines-clear is a gate.
+                routed_ck, routed = scorecard.routed_check(solids)
+                fresh = {"routed": routed_ck, "lines-clear": scorecard.lines_clear_check(solids)}
+                sc.checks = [fresh.get(c.id, c) for c in sc.checks]
                 sc.routed = routed
+                sc.gates_pass = all(c.status == "pass" for c in sc.checks if c.kind == "gate")
                 return sc
         sc = scorecard.build_scorecard(solids, pieces, bed, inner)
         tmp = _SCORECARD_CACHE_PATH.with_suffix(".pkl.tmp")
@@ -296,11 +303,13 @@ def main():
 
     for cid, why in sorted(_lines.BLOCKED.items()):
         print(f"line {cid}: BLOCKED — {why}")
-    # The scorecard reports every gate; today only pack-closes blocks the export — a
-    # physically invalid pack (overlapping solids) must not be written. The rest report
-    # until the design reaches them, then their gating turns on (the board's stance).
-    if any(c.id == "pack-closes" and c.status == "fail" for c in sc.checks):
-        raise SystemExit("pack does not close — overlapping solids (see scorecard above)")
+    # The scorecard reports every gate; today pack-closes and lines-clear block the export — a
+    # physically invalid pack (two solids overlapping, or a routed tube driving through one) must
+    # not be written. The rest report until the design reaches them, then their gating turns on
+    # (the board's stance).
+    blocking = [c for c in sc.checks if c.id in ("pack-closes", "lines-clear") and c.status == "fail"]
+    if blocking:
+        raise SystemExit("; ".join(c.label for c in blocking) + " (see scorecard above)")
 
     # The scorecard sidecar the 3D viewer reads — the same verdict, beside the model. Written
     # before the .step so the dev watcher's .step broadcast implies the sidecar is already fresh.

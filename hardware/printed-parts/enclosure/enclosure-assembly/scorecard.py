@@ -271,10 +271,11 @@ PLACEMENT_RULES = {
     # tray's wall-top plane, but the source's east wall slabs (which follow
     # its aimed valves) stop just outboard of them, so the tray floats a few
     # millimetres off the source assembly — held open until its holder. Its
-    # bare east (V-G/V-J) ports stand a few millimetres off the +X wall, clear
-    # of the front Y-lip that runs unbroken there (no wall relief).
+    # bare east (V-G/V-J) ports stand INSET off the +X wall (by GATE_WALL_INSET,
+    # in _contents.py), opening the pocket their outlet elbows will turn aft
+    # into — so the x+ face sits well inboard of the wall, not hugging it.
     "nozzle-gate-assembly": [("near", "source-select-assembly", 4.0),
-                             ("x+", 5.0)],
+                             ("x+", 16.0)],
     # "P-A stands one stack gap ahead of the stack, under the funnel's
     # drop": its aft face near the bag tray's front columns (the stack's
     # flat front at the row's height), and the segment-4 drop corridor
@@ -700,6 +701,42 @@ def pack_clashes(solids: dict, pieces: dict) -> list[tuple[str, str, float]]:
     return out
 
 
+def line_clashes(lines: dict, solids: dict, ends: dict) -> list[tuple[str, str, float]]:
+    """Every routed tube that INTERPENETRATES another tube, or a placed solid it does not
+    terminate on, by overlap volume over CLASH_TOL — the routed analogue of pack_clashes. A tube
+    driving through a part, or through another tube, is as unbuildable as two overlapping solids;
+    but the tubes are _lines runs, not registry components, so pack_closes never sees them. `lines`
+    is {id: tube-solid}, `ends` is {id: {the component names the run joins}} — the two components a
+    run terminates on are skipped, since a tube seats INTO its end fittings' collets by design.
+
+    Volume, not distance, is the test that matters here: BRepExtrema (the `_solid_gap` the routed
+    clearance detail reads) returns 0 for a tube that just grazes another AND for one that drives
+    clean through it — so only the overlap volume separates a kiss from an intersection. Pieces
+    (the shell walls) are out of scope: their tube penetrations are by design (bulkheads), and no
+    interior run reaches a wall today."""
+    out = []
+    ids = list(lines)
+    lbb = {i: lines[i].BoundingBox() for i in ids}
+    sbb = {n: solids[n].BoundingBox() for n in solids}
+    for i, a in enumerate(ids):                                   # tube ∩ tube
+        for b in ids[i + 1:]:
+            if _bbox_gap(lbb[a], lbb[b]) > 0:
+                continue
+            v = lines[a].intersect(lines[b]).Volume()
+            if v > CLASH_TOL:
+                out.append((a, b, v))
+    for i in ids:                                                 # tube ∩ part it does not join
+        for n, s in solids.items():
+            if n in ends.get(i, ()):
+                continue
+            if _bbox_gap(lbb[i], sbb[n]) > 0:
+                continue
+            v = lines[i].intersect(s).Volume()
+            if v > CLASH_TOL:
+                out.append((i, n, v))
+    return out
+
+
 def part_clearances(solids: dict) -> list[tuple[str, str, float, bool]]:
     """Content pairs closer than REPORT_NEAR, as (a, b, gap, allowed) sorted tightest
     first. `allowed` marks a declared intentional contact (TOUCHING_OK). Part-to-wall is
@@ -811,6 +848,25 @@ def routed_check(solids=None) -> tuple:
     return ck, routed
 
 
+def lines_clear_check(solids: dict) -> Check:
+    """The tube-interpenetration GATE, computed fresh every build. Like routed_check it reads
+    _lines — which route work rewrites every build — so it is kept OUT of the cached component
+    verdict and recomputed on a cache hit; a route-only change must never serve a stale clash
+    verdict. It builds each authored run's swept tube and gates on line_clashes: no routed tube
+    may drive through a part it does not terminate on, or through another tube. Blocks the export
+    alongside pack-closes (enclosure_assembly.main) — a tube that intersects another solid is as
+    physically unbuildable as two overlapping parts."""
+    import _lines
+    import _routing as R
+    runs = _lines.build_runs()
+    lines = {r.id: R.tube(r) for r in runs}
+    ends = {r.id: {r.frm.split(".")[0], r.to.split(".")[0]} for r in runs}
+    clashes = line_clashes(lines, solids, ends)
+    return Check("lines-clear", "No routed tube intersects a part or another tube", "gate",
+                 "pass" if not clashes else "fail", f"{len(clashes)} clash", "0 clash",
+                 [f"{a} ∩ {b}: {v:.1f} mm³" for a, b, v in clashes][:DETAIL_MAX])
+
+
 def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float], inner: tuple) -> Scorecard:
     reg = {c.name: c for c in COMPONENTS}
     checks: list[Check] = []
@@ -836,6 +892,11 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     gate("pack-closes", "No two solids overlap (pack closes)", not clashes,
          f"{len(clashes)} clash", "0 clash",
          [f"{a} ∩ {b}: {v:.1f} mm³" for a, b, v in clashes])
+
+    # The routed tubes clash against the placed solids the same way — but they live outside the
+    # component registry, so pack-closes never sees them. Fresh every build (reads _lines); the
+    # cache layer recomputes it on a hit, like routed.
+    checks.append(lines_clear_check(solids))
 
     clr = part_clearances(solids)
     violations = [(a, b, g) for a, b, g, allowed in clr if not allowed and g < CLEARANCE_FLOOR]
