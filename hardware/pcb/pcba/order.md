@@ -93,6 +93,24 @@ white silk, flying-probe full test, "Require Full Quantity," top-side SMT with e
 [Wave Soldering], edge rails added by JLCPCB (85 × 82.8, N/S) and depaneled before delivery. All 50
 BOM lines matched, 0 unselected; U15 matched to `C12512` and the 10 k pull-ups to `C98220`.
 
+## Polarity confirmation — the LED engineering query
+
+Standard-PCBA file review emails a polarity-confirmation query before production: an annotated top
+view marking anode/cathode on the five indicator LEDs **D2–D6**, asking the customer to confirm. Only
+the LEDs are queried — the `KT_0603R` / `KT_0603G` / `Blue_light_0603` parts are the ones whose
+library-vs-CPL orientation convention JLC will not assume. The 1N4148W (D7, unambiguous cathode band)
+and the other polarized parts are not asked about.
+
+**Correct answer: anode/+ on the WEST pad, cathode EAST — confirm and proceed.** That is the design
+intent: each LED seats `pcbRotation={180}`, which swings its footprint pin1 (anode, native +x) to the
+west pad facing the series resistor (R10–R14), and the netlist runs GPIO/rail → R → anode, cathode →
+GND (the indicator-LED block in `pcba.tsx`). `pcba.cpl.csv` exports D2–D6 at rotation 180 straight
+from that placement, so JLC's render is the design **unchanged**, not a proposed correction — the
+query is a confirm-what's-in-your-files checkpoint, not a flag that something is wrong. It arrives on
+the standard flow with no paid Confirm-Parts-Placement checkpoint bought. Confirmed correct on order
+W2026071513250534; still worth a diode-tester check on board #1 before powering the batch, since this
+query is the LED polarity's only pre-arrival verification.
+
 ## Panelization
 
 Single-board assembly is fine at D2C hand-build scale. If ordering as a panel with breakaway rails, put
