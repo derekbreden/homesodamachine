@@ -1,9 +1,9 @@
 {
   "gatesPass": true,
-  "placed": 39,
+  "placed": 36,
   "located": 86,
   "shaped": 96,
-  "routed": 20,
+  "routed": 24,
   "held": 25,
   "checks": [
     {
@@ -50,12 +50,10 @@
         "y-d \u2014 y-g: 3.21 mm",
         "bag-circuit-assembly \u2014 hopper-funnel: 3.33 mm",
         "source-select-assembly \u2014 nozzle-gate-assembly: 3.40 mm",
-        "bag-circuit-assembly \u2014 tee-y-f: 3.78 mm",
-        "bag-circuit-assembly \u2014 tee-y-c: 3.78 mm",
+        "source-select-assembly \u2014 tee-y-f: 3.81 mm",
         "foam-assembly \u2014 condenser+fan: 4.00 mm",
         "display \u2014 hopper-funnel: 4.49 mm",
-        "source-select-assembly \u2014 tee-y-f: 4.97 mm",
-        "source-select-assembly \u2014 tee-y-c: 4.97 mm",
+        "bag-circuit-assembly \u2014 tee-y-f: 4.80 mm",
         "y-d \u2014 hopper-funnel: 5.82 mm"
       ],
       "active": true
@@ -95,7 +93,7 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "39% (11/28)",
+      "value": "36% (10/28)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 0.0 x- 0.0 x+ 0.0 z- 9.5 mm",
@@ -107,8 +105,8 @@
         "\u2713 nozzle-gate-assembly: near source-select-assembly 3.4 x+ 1.4 mm",
         "\u2713 pump-a: near bag-circuit-assembly 1.5 clear hopper-funnel 15.9 mm",
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
-        "\u2713 tee-y-c: near source-select-assembly 5.0 mm",
-        "\u2713 tee-y-f: near source-select-assembly 5.0 mm",
+        "\u2717 tee-y-c: near source-select-assembly 9.9(>6) mm",
+        "\u2713 tee-y-f: near source-select-assembly 3.8 mm",
         "17 components: no placement rules defined yet"
       ],
       "active": true
@@ -176,8 +174,8 @@
         "compressor-shroud: 1 box holds 5% material",
         "hopper-funnel: 1 box holds 6% material",
         "foam-assembly: 5 boxes hold 12% material",
-        "tee-y-f: 1 box holds 17% material",
-        "tee-y-c: 1 box holds 17% material",
+        "tee-y-c: 1 box holds 14% material",
+        "tee-y-f: 1 box holds 16% material",
         "display: 2 boxes hold 18% material"
       ],
       "active": true
@@ -187,10 +185,10 @@
       "label": "Connections modeled as real 3D paths (fluid + refrigerant + electrical)",
       "kind": "goal",
       "status": "warn",
-      "value": "20% (12/59)",
+      "value": "24% (14/59)",
       "target": "100%",
       "detail": [
-        "28 fluid + 3 refrigerant + 28 electrical; 12 routed \u2014 the fluid path waits on the deferred water deck and the manifold's remaining legs; the electrical runs on the components being held",
+        "28 fluid + 3 refrigerant + 28 electrical; 14 routed \u2014 the fluid path waits on the deferred water deck and the manifold's remaining legs; the electrical runs on the components being held",
         "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7",
         "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 289.7 mm, 4 bends at R12.7",
         "\u2713 fluid-9: source-select-assembly.V-C-O \u2192 tee-y-c.Y-C-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7",
@@ -202,7 +200,9 @@
         "\u2713 fluid-23: elbow-bag-y-g.free \u2192 y-g.Y-G-2 \u2014 \u00d86.35 \u00d7 66.8 mm, 3 bends at R12.0",
         "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 32.5 mm, 0 bends at R12.0",
         "\u2713 fluid-12: pump-b.P-B-O \u2192 y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 16.4 mm, 1 bends at R6.0",
-        "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 52.5 mm, 2 bends at R12.0"
+        "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 52.5 mm, 2 bends at R12.0",
+        "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 230.4 mm, 7 bends at R9.0",
+        "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 114.8 mm, 2 bends at R10.0"
       ],
       "active": false
     },
@@ -945,11 +945,15 @@
         93.01,
         278.17
       ],
-      "face": "x-",
+      "face": [
+        -1.0,
+        0.0,
+        0.0
+      ],
       "diam": 6.35,
-      "mates": "tee-y-f Y-F-3 \u2014 segment 21 (channel B suction, to route)",
+      "mates": "tee-y-f Y-F-3 \u2014 segment 21 (channel B suction, routed)",
       "status": "ok",
-      "note": "PP0308E elbow collet, aft station, facing west"
+      "note": "PP0308E elbow collet, aft station, facing west (tee-y-f comes around behind the bag tray)"
     },
     {
       "component": "pump-a",
@@ -975,15 +979,19 @@
       "name": "P-B-I",
       "kind": "fluid",
       "pos": [
-        231.44,
-        79.01,
+        232.619,
+        85.698,
         278.17
       ],
-      "face": "x-",
+      "face": [
+        -0.9397350320761653,
+        0.34190359677664744,
+        0.0
+      ],
       "diam": 6.35,
-      "mates": "tee-y-c Y-C-3 \u2014 segment 11 (channel A suction, to route)",
+      "mates": "tee-y-c Y-C-3 \u2014 segment 11 (channel A suction, routed)",
       "status": "ok",
-      "note": "PP0308E elbow collet, aft station, facing west"
+      "note": "PP0308E elbow collet, aft station, aimed northwest at tee-y-c"
     },
     {
       "component": "pump-b",
@@ -1047,19 +1055,19 @@
       "name": "Y-C-3",
       "kind": "fluid",
       "pos": [
-        28.533,
-        108.653,
-        228.428
+        21.369,
+        93.542,
+        231.254
       ],
       "face": [
-        0.9994895532642771,
-        0.0063398182918337626,
-        0.03131197246425679
+        0.6424595008494117,
+        -0.7467340817660894,
+        0.17214529008160592
       ],
       "diam": 6.35,
-      "mates": "pump-b P-B-I \u2014 segment 11 (to route)",
+      "mates": "pump-b P-B-I \u2014 segment 11 (routed)",
       "status": "ok",
-      "note": "PP0208E branch collet, facing east at the pump row"
+      "note": "PP0208E branch collet, rolled to aim at pump B"
     },
     {
       "component": "tee-y-f",
@@ -1104,19 +1112,19 @@
       "name": "Y-F-3",
       "kind": "fluid",
       "pos": [
-        28.533,
-        162.447,
-        228.428
+        27.756,
+        157.031,
+        227.306
       ],
       "face": [
-        0.9994895532642771,
-        -0.006339818291833756,
-        0.03131197246425679
+        0.9607710230434517,
+        -0.2762496639719848,
+        -0.02460009015033772
       ],
       "diam": 6.35,
-      "mates": "pump-a P-A-I \u2014 segment 21 (to route)",
+      "mates": "pump-a P-A-I \u2014 segment 21 (routed)",
       "status": "ok",
-      "note": "PP0208E branch collet, facing east at the pump row"
+      "note": "PP0208E branch collet, rolled to aim at pump A"
     },
     {
       "component": "y-d",
@@ -2205,14 +2213,6 @@
           253.81
         ],
         [
-          231.442,
-          71.644,
-          258.615,
-          258.366,
-          86.376,
-          285.539
-        ],
-        [
           144.5,
           32.645,
           209.445,
@@ -2227,9 +2227,17 @@
           258.366,
           37.063,
           285.539
+        ],
+        [
+          230.808,
+          71.644,
+          258.615,
+          258.366,
+          91.117,
+          285.539
         ]
       ],
-      "fill": 0.8098,
+      "fill": 0.8011,
       "primitive": false,
       "declared": "real"
     },
@@ -2334,14 +2342,14 @@
       "boxes": [
         [
           1.09,
-          98.491,
+          89.946,
           206.995,
-          28.7,
+          25.544,
           118.56,
           248.515
         ]
       ],
-      "fill": 0.1716,
+      "fill": 0.1359,
       "primitive": false,
       "declared": "real"
     },
@@ -2350,14 +2358,14 @@
       "boxes": [
         [
           1.09,
-          152.54,
+          151.366,
           206.995,
-          28.7,
+          29.222,
           172.609,
           248.515
         ]
       ],
-      "fill": 0.1716,
+      "fill": 0.1591,
       "primitive": false,
       "declared": "real"
     },
