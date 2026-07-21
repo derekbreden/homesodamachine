@@ -276,8 +276,9 @@ PUMP_B_POS = (222.50, 85.51, 192.31)
 # to stand on the lean: its RUN collinear with the pair of collets it butts, so
 # segments 9/10 and 19/20 are straight tube with no bend anywhere and one stub
 # at each end. Its BRANCH starts perpendicular-east, then rolls about the run
-# axis by JUNCTION_ROLL to aim at the pump inlet its suction leg feeds (segments
-# 11/21) — a spin about the run leaves the two run ports untouched, so the
+# axis by JUNCTION_ROLL to swing forward (−Y), into the open band ahead of the
+# pump row where its suction leg (segments 11/21) picks it up and carries it over
+# pump A — a spin about the run leaves the two run ports untouched, so the
 # source/bag legs stay straight. Tube-hung PTC fittings, carried by their lines:
 # no tray, no holder. Every number derives from the trays' own layout, so a tray
 # move carries the tees with it.
@@ -285,9 +286,9 @@ JUNCTION = {                      # tee → the (source, bag) collets its run bu
     "tee-y-c": ("VC", "VE"),
     "tee-y-f": ("VD", "VH"),
 }
-JUNCTION_ROLL = {                 # extra roll of a tee about its run axis: branch toward its pump inlet
-    "tee-y-c": -50.0,
-    "tee-y-f": -16.0,
+JUNCTION_ROLL = {                 # extra roll of a tee about its run axis: branch swung forward off the pump row
+    "tee-y-c": -90.0,             # fully −Y: branch faces straight into the open band ahead of the pumps
+    "tee-y-f": -55.0,             # −Y-dominant, canted east just enough to thread its run past tee-y-c
 }
 
 

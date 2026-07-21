@@ -162,24 +162,26 @@ def build_runs() -> list:
 
     # The pump-suction stems (segments 11/21) — each pump's inlet back to its channel's junction
     # tee. The tees hang in the manifold seam between the source and bag trays; each branch is
-    # rolled to aim at its pump (_contents `JUNCTION_ROLL`), so each run leaves along its collet on
-    # a `lead=` stub. fluid-11 climbs out of tee-y-c, rides the open band over the pump bodies —
-    # below the row's elbows, ahead of the bag tray — and drops east into pump B's far inlet, which
-    # is rolled northwest to meet it (`PUMP_INLET_AIM`). fluid-21 is the short hop up from tee-y-f
-    # into pump A's near inlet; tee-y-f sits buried mid-stack behind the bag tray, so pump A's
-    # inlet keeps its west face and this leg comes around to it, leaving along the tray underside.
+    # rolled forward, off the pump row (_contents `JUNCTION_ROLL`), so each run leaves its collet
+    # heading −Y and picks up its `lead=` stub there. fluid-11 climbs out of tee-y-c behind pump
+    # A's west motor barrel, drapes east over the pump bodies — below the row's elbows, ahead of
+    # the bag tray — and drops into pump B's far inlet, rolled northwest to meet it
+    # (`PUMP_INLET_AIM`). fluid-21 comes forward-low under the bag tray out of the buried tee-y-f,
+    # then rises up pump A's aft into its near inlet, which keeps its west face. tee-y-f is
+    # sandwiched in the source/bag tray seam, so this leg grazes the trays at the exit (reported).
     SLEAD = 12.0                        # exit/approach stub: straight lead off each suction collet
     runs.append(R.bent(
         "fluid-11", "tee-y-c.Y-C-3",
-        (50.0, 82.0, 248.0), (92.0, 76.0, 272.0), (140.0, 74.0, 278.0), (178.0, 86.0, 283.0), (210.0, 86.0, 280.0),
+        (12.0, 83.0, 260.0), (50.0, 60.0, 271.0), (98.0, 57.0, 278.0), (146.0, 70.0, 279.0), (186.0, 84.0, 280.0), (213.0, 87.0, 278.0),
         "pump-b.P-B-I",
         kind="fluid", bend=9.0, skew=DISCHARGE_SKEW, lead=SLEAD,
-        note="suction stem tee-y-c Y-C-3 → pump-b P-B-I, over the pump row"))
+        note="suction stem tee-y-c Y-C-3 → pump-b P-B-I, forward off the tee then over the pump row"))
     runs.append(R.bent(
         "fluid-21", "tee-y-f.Y-F-3",
+        (52.0, 96.0, 224.0), (82.0, 92.0, 261.0),
         "pump-a.P-A-I",
         kind="fluid", bend=10.0, skew=DISCHARGE_SKEW, lead=SLEAD,
-        note="suction stem tee-y-f Y-F-3 → pump-a P-A-I, up from the seam"))
+        note="suction stem tee-y-f Y-F-3 → pump-a P-A-I, forward-low then up the aft"))
 
     return runs
 

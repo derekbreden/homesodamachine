@@ -1,6 +1,6 @@
 {
   "gatesPass": true,
-  "placed": 36,
+  "placed": 32,
   "located": 86,
   "shaped": 96,
   "routed": 24,
@@ -50,10 +50,8 @@
         "y-d \u2014 y-g: 3.21 mm",
         "bag-circuit-assembly \u2014 hopper-funnel: 3.33 mm",
         "source-select-assembly \u2014 nozzle-gate-assembly: 3.40 mm",
-        "source-select-assembly \u2014 tee-y-f: 3.81 mm",
         "foam-assembly \u2014 condenser+fan: 4.00 mm",
         "display \u2014 hopper-funnel: 4.49 mm",
-        "bag-circuit-assembly \u2014 tee-y-f: 4.80 mm",
         "y-d \u2014 hopper-funnel: 5.82 mm"
       ],
       "active": true
@@ -93,7 +91,7 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "36% (10/28)",
+      "value": "32% (9/28)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 0.0 x- 0.0 x+ 0.0 z- 9.5 mm",
@@ -106,7 +104,7 @@
         "\u2713 pump-a: near bag-circuit-assembly 1.5 clear hopper-funnel 15.9 mm",
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
         "\u2717 tee-y-c: near source-select-assembly 9.9(>6) mm",
-        "\u2713 tee-y-f: near source-select-assembly 3.8 mm",
+        "\u2717 tee-y-f: near source-select-assembly 8.8(>6) mm",
         "17 components: no placement rules defined yet"
       ],
       "active": true
@@ -174,9 +172,9 @@
         "compressor-shroud: 1 box holds 5% material",
         "hopper-funnel: 1 box holds 6% material",
         "foam-assembly: 5 boxes hold 12% material",
-        "tee-y-c: 1 box holds 14% material",
-        "tee-y-f: 1 box holds 16% material",
-        "display: 2 boxes hold 18% material"
+        "tee-y-f: 1 box holds 14% material",
+        "display: 2 boxes hold 18% material",
+        "source-select-assembly: 11 boxes hold 20% material"
       ],
       "active": true
     },
@@ -201,8 +199,8 @@
         "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 32.5 mm, 0 bends at R12.0",
         "\u2713 fluid-12: pump-b.P-B-O \u2192 y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 16.4 mm, 1 bends at R6.0",
         "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 52.5 mm, 2 bends at R12.0",
-        "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 230.4 mm, 7 bends at R9.0",
-        "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 114.8 mm, 2 bends at R10.0"
+        "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 266.6 mm, 8 bends at R9.0",
+        "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 133.7 mm, 4 bends at R10.0"
       ],
       "active": false
     },
@@ -953,7 +951,7 @@
       "diam": 6.35,
       "mates": "tee-y-f Y-F-3 \u2014 segment 21 (channel B suction, routed)",
       "status": "ok",
-      "note": "PP0308E elbow collet, aft station, facing west (tee-y-f comes around behind the bag tray)"
+      "note": "PP0308E elbow collet, aft station, facing west (fluid-21 rises up the aft to it, forward of the seam)"
     },
     {
       "component": "pump-a",
@@ -991,7 +989,7 @@
       "diam": 6.35,
       "mates": "tee-y-c Y-C-3 \u2014 segment 11 (channel A suction, routed)",
       "status": "ok",
-      "note": "PP0308E elbow collet, aft station, aimed northwest at tee-y-c"
+      "note": "PP0308E elbow collet, aft station, aimed northwest where fluid-11 drops in off the pump row"
     },
     {
       "component": "pump-b",
@@ -1055,19 +1053,19 @@
       "name": "Y-C-3",
       "kind": "fluid",
       "pos": [
-        21.369,
-        93.542,
-        231.254
+        8.477,
+        88.859,
+        231.782
       ],
       "face": [
-        0.6424595008494117,
-        -0.7467340817660894,
-        0.17214529008160592
+        6.109024448716017e-17,
+        -0.9801118527207074,
+        0.19844585195055697
       ],
       "diam": 6.35,
       "mates": "pump-b P-B-I \u2014 segment 11 (routed)",
       "status": "ok",
-      "note": "PP0208E branch collet, rolled to aim at pump B"
+      "note": "PP0208E branch collet, rolled forward (\u2212Y) off the pump row"
     },
     {
       "component": "tee-y-f",
@@ -1112,19 +1110,19 @@
       "name": "Y-F-3",
       "kind": "fluid",
       "pos": [
-        27.756,
-        157.031,
-        227.306
+        19.981,
+        146.391,
+        224.899
       ],
       "face": [
-        0.9607710230434517,
-        -0.2762496639719848,
-        -0.02460009015033772
+        0.5732836561314231,
+        -0.806496998170982,
+        -0.14459751572479868
       ],
       "diam": 6.35,
       "mates": "pump-a P-A-I \u2014 segment 21 (routed)",
       "status": "ok",
-      "note": "PP0208E branch collet, rolled to aim at pump A"
+      "note": "PP0208E branch collet, rolled forward (\u2212Y), canted east past tee-y-c"
     },
     {
       "component": "y-d",
@@ -2342,14 +2340,14 @@
       "boxes": [
         [
           1.09,
-          89.946,
+          87.814,
           206.995,
-          25.544,
+          15.865,
           118.56,
           248.515
         ]
       ],
-      "fill": 0.1359,
+      "fill": 0.2093,
       "primitive": false,
       "declared": "real"
     },
@@ -2358,14 +2356,14 @@
       "boxes": [
         [
           1.09,
-          151.366,
+          143.211,
           206.995,
-          29.222,
+          24.467,
           172.609,
           248.515
         ]
       ],
-      "fill": 0.1591,
+      "fill": 0.1383,
       "primitive": false,
       "declared": "real"
     },
