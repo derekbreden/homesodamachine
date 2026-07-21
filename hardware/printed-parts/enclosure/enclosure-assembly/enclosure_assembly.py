@@ -208,7 +208,7 @@ def build(pack=None):
     return assy
 
 
-# --- Scorecard cache (opt-in via HSM_SCORECARD_CACHE) ------------------------
+# --- Scorecard cache ---------------------------------------------------------
 # The component gates + audits (pack-closes clash, part↔part clearance, shaped, placed, located,
 # seams, bed fit) are a pure function of the placed components — they never read the tube routes.
 # So a build that only changed _lines.py (route iteration) recomputes the identical component
@@ -216,9 +216,8 @@ def build(pack=None):
 # determines it: each placed solid's bounding box, plus the source that places and measures them
 # (_contents.py, this file, enclosure.py, scorecard.py, the overrides) and the STEP files they
 # import — but NOT _lines.py / _routing.py. On a hit the cheap routed axis (the one thing that does
-# read _lines) is recomputed fresh, so the routed % never goes stale. Off unless HSM_SCORECARD_CACHE
-# is set; a miss or any error falls through to a full build_scorecard, so the pack-closes gate is
-# never served stale.
+# read _lines) is recomputed fresh, so the routed % never goes stale. A miss or any error falls
+# through to a full build_scorecard, so the pack-closes gate is never served stale.
 _SCORECARD_CACHE_PATH = _here.parent / ".enclosure-assembly.scorecard-cache.pkl"
 
 
@@ -255,11 +254,9 @@ def _scorecard_cache_key(pack, inner):
 
 def _cached_scorecard(pack, pieces, bed, inner):
     """build_scorecard, reusing the cached component verdict when the components are unchanged and
-    recomputing only the routed axis. Fail-safe: HSM_SCORECARD_CACHE unset, a miss, or any error
-    all fall through to a full build_scorecard."""
+    recomputing only the routed axis. Fail-safe: a miss or any error falls through to a full
+    build_scorecard, so the pack-closes gate is never served stale."""
     solids = {n: s for n, (s, _c) in pack.solids.items()}
-    if not os.environ.get("HSM_SCORECARD_CACHE"):
-        return scorecard.build_scorecard(solids, pieces, bed, inner)
     try:
         key = _scorecard_cache_key(pack, inner)
         if _SCORECARD_CACHE_PATH.exists():
