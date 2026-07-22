@@ -131,10 +131,12 @@ def build_runs() -> list:
     # its outlet; fluid-13 bends once into y-d's yawed outlet; the two long crossing legs (17, 23)
     # leave climbing (the elbow's lift) and are carried OVER the near flavor's fitting by one
     # hand-placed apex, then down — a gentle arc, authored point-to-point with `bent`.
-    # Both crossings run the open lane between the two trays (x 189.2–208.6). The hopper funnel's
-    # spout drops into the west half of that lane, and it cannot be ducked: the tube is already
-    # climbing over elbow-bag-y-d (top z284) where the spout's foot begins, and pump-b's crest
-    # closes the floor beyond it. So fluid-23 holds EAST and passes the spout on that side. Each takes a
+    # Both crossings run the open lane between the two trays (x 189.2–208.6), and the hopper
+    # funnel's spout drops into its west half. The spout cannot be ducked under: its foot lands
+    # level with elbow-bag-y-d's crown, leaving no gap between them to thread, and the tube is
+    # climbing over that elbow just where the foot arrives. So fluid-23 holds EAST of the spout.
+    # This is what caps hopper_funnel.ramp_angle — every degree lowers the foot, and the day it
+    # falls a tube's width below the crown this lane closes. Each takes a
     # `lead=` stub, so it leaves and enters straight along its collet (skew ~0 by construction) and
     # only the apex is hand-placed, then rounds at the DBEND radius. The divider stems to the pumps
     # (segments 12/22) leave below, from each divider's own stem port.
@@ -143,7 +145,7 @@ def build_runs() -> list:
     for cid, elb, div, port, apex, lead, bend in (
         ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", None,                   (8.0, 6.5), 8.0),  # one bend into the yawed outlet
         ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3", (202.0, 111.0, 259.0),  LEAD, DBEND),      # over elbow-y-d (top z254)
-        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (207.0, 113.0, 292.0),  (4.0, 8.0), DBEND),  # short exit lead + high apex, held EAST: the lane between the trays (x 189.2–208.6) is half-blocked by the funnel spout, so this rides its east side — over elbow-bag-y-d (top z284), past the spout, down into y-g
+        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (207.0, 118.0, 292.0),  (4.0, 8.0), DBEND),  # short exit lead + high apex, held EAST: the funnel spout drops into the west half of the lane and its foot sits level with elbow-bag-y-d's crown, so there is no gap between them to take — this clears the elbow and passes the spout on its east side
         ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3", None,                   (8.0, 6.0), DBEND),  # y-g sits west of this elbow, so it leaves on its collet and turns
     ):
         mids = [apex] if apex is not None else []
@@ -159,7 +161,7 @@ def build_runs() -> list:
     # pumps, and turns into y-g's stem; the two sit in separate bays.
     op, od = contents.pump_outlet_pose("pump-b")
     sp, sd = contents.divider_port("y-d", 1)
-    runs.append(R.bent("fluid-12", "pump-b.P-B-O", R.meet(op, od, sp, sd, 0.70), "y-d.Y-D-1",
+    runs.append(R.bent("fluid-12", "pump-b.P-B-O", R.meet(op, od, sp, sd, 0.85), "y-d.Y-D-1",
                         kind="fluid", bend=6.0, skew=DISCHARGE_SKEW, lead=(6.0, 0.0),
                         note="discharge stem P-B-O → y-d Y-D-1, led off pump-b to the collets' meet"))
     runs.append(R.bent("fluid-22", "pump-a.P-A-O", "y-g.Y-G-1",
