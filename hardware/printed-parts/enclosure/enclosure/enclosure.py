@@ -6,9 +6,8 @@ Dimensions follow the contents at build time: the bounding box of the parts
 placed by `../enclosure-assembly/_contents.py` is computed live, padded by an
 interior clearance, then walled out. Features:
 
-  * A flat 45° display-mounting facet (a solid surface) at the top-front, flush
-    to the −X edge, carried forward of the front wall on a self-supporting pod —
-    the housing slab extruded −Y — so the west column behind it opens up.
+  * A flat 45° display-mounting facet (a solid surface) chamfered into the
+    top-front-left corner, flush to the −X edge.
   * A front↔back split (a Y-plane seam pushed as far back as the cold core
     allows): the front pieces' rear walls telescope (a full-wall lip,
     nothing shaved) into the back pieces, and four interlocking screw
@@ -73,16 +72,15 @@ corner_round = 12.          # standing-vertical (Z) print-corner relief radius (
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
 H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
 
-# Display-mounting facet — a flat 45° SOLID surface at the top-front, carried
-# forward of the front wall on a self-supporting pod (below), for the Waveshare
-# ESP32-S3-Touch-LCD-4.3B config
+# Display-mounting facet — a flat 45° SOLID surface chamfered into the
+# top-front-left corner for the Waveshare ESP32-S3-Touch-LCD-4.3B config
 # display (../../../reference/waveshare-43b-display/), facing up-and-forward
 # (−Y front / +Z up) toward the standing user. The glass is the datum — centered
 # on the facet, which is the glass + a 3 mm buffer all around:
 # [119.5 mm](DISPLAY_FACET_X) (X, lateral) × [83 mm](DISPLAY_FACET_SLOPE) (along
 # the 45° slope). The glass overhangs the PCB body unevenly, so the body sits
-# offset behind it; the facet is flush to the −X (left) edge, and the housing
-# that carries it stands proud of the front wall (see display_pod_reach).
+# offset behind it; the facet is flush to the −X (left) edge, so the
+# top-front-left corner comes off.
 display_bezel_x = 113.5           # bezel glass, lateral (X)
 display_bezel_slope = 77.0        # bezel glass, up the slope
 # The glass is the datum (centered on the facet); the PCB body sits offset behind
@@ -104,17 +102,6 @@ display_pcb_x = 106.0            # PCB body through-hole, lateral (X)
 display_pcb_slope = 69.0         # PCB body through-hole, up the 45° slope
 display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
                                  # corner pod clean through (it overhangs the hole otherwise)
-# The housing stands proud of the front wall: the whole slab between the facet
-# and its back plane is carried −Y by this reach, so the pod's front plane lands
-# flush with the DERPIPE CO2 inlet's collet face (_contents places it 19 mm proud
-# of the same wall) and the two protrusions read as one plane. The facet slides
-# in −Y ONLY — its Z span and its 45° are untouched — and the back plane comes
-# forward with it, which is what opens the west column behind the display.
-# The housing is why the pieces print on a Z face rather than a Y one: −Y-down
-# the pod would be the first layer and the rest of the front wall would start a
-# whole reach up in open air. Ceiling-down it lies flat, and every housing face
-# is 45° or vertical to the bed. See ../README.md "Display housing".
-display_pod_reach = 19.0         # housing carried −Y, proud of the front wall
 
 # Hopper funnel opening (Zone C) — one rectangular opening through the top
 # wall right of the display, cut at the placed funnel's collar: the funnel
@@ -268,7 +255,7 @@ def _dims():
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ox0, ox1, oy0, oy1, iz0 - wall, iz1 + wall)
     _fa, _fn, _fo, _fdy, _fdz = _facet_geom(outer)
-    facet_back_y = oy0 - display_pod_reach + _fdy + display_facet_thickness * math.sqrt(2.0)
+    facet_back_y = oy0 + _fdy + display_facet_thickness * math.sqrt(2.0)
     cold_front_y = placed["foam-assembly"][0].BoundingBox().ymin
     y_free = cold_front_y - 2.0 - (lip_len + wall + socket_bore_dia / 2.0 + socket_r)
     # The Y-seam machinery (mouth, plugs, braces — reaching lip_len + wall +
@@ -297,10 +284,10 @@ def _dims():
 def _facet_geom(outer):
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     a = math.radians(display_facet_angle_deg)
-    dy = display_facet_slope * math.sin(a)   # back from the pod's front plane
+    dy = display_facet_slope * math.sin(a)   # back from the front face
     dz = display_facet_slope * math.cos(a)   # down from the top face
     normal = (0.0, -math.sin(a), math.cos(a))
-    origin = (0.0, oy0 - display_pod_reach + dy / 2.0, oz1 - dz / 2.0)
+    origin = (0.0, oy0 + dy / 2.0, oz1 - dz / 2.0)
     return a, normal, origin, dy, dz
 
 
@@ -326,58 +313,13 @@ def _facet_wedge(outer):
     return _halfspace(origin, normal, extent).intersect(_facet_x_slab(outer, extent))
 
 
-def _display_pod(outer):
-    """The housing carried forward of the front wall: the slab between the facet
-    and its back plane, extruded `display_pod_reach` in −Y across the facet's
-    lateral window. Both its long faces are the housing's own 45° planes — the
-    facet above, the back plane as its soffit — so the frame runs out from the
-    wall at one constant thickness, and neither face is an overhang in the piece's
-    print orientation. Cut from the same rounded block as the box, so the −X
-    corner relief continues unbroken through it.
-
-    The two ends terminate differently, each by its own constraint. The west end
-    is the box's own west face: the facet is flush to the −X edge (the display
-    datum), so the band runs off the edge at full section, the corner relief
-    wrapping its front arris. The east end RETURNS: the band continues one reach
-    past the facet window and a vertical 45° plan chamfer sweeps its front face
-    back into the wall — the visor dies into the front face along its own slope.
-    The return's top is the SHOULDER: the facet plane dropped one wall, so the
-    display land keeps its exact facet face and the band east of it reads as a
-    subordinate ledge behind a 3 mm reveal at the window's east edge. Every face
-    stays 45° or vertical in the print orientation."""
-    ox0, ox1, oy0, oy1, oz0, oz1 = outer
-    a, normal, origin, dy, dz = _facet_geom(outer)
-    extent = max(ox1 - ox0, oy1 - oy0, oz1 - oz0) + 100.0
-    back = tuple(origin[i] - display_facet_thickness * normal[i] for i in range(3))
-    block = _round_z(_ybox(ox0, ox1, oy0 - display_pod_reach, oy1, oz0, oz1), corner_round)
-    x_end = ox0 + display_facet_x                     # facet window's east edge
-    forward = _ybox(ox0 - 1.0, x_end + display_pod_reach,
-                    oy0 - display_pod_reach, oy0, oz0 - 1.0, oz1 + 1.0)
-    pod = (block.intersect(forward)
-           .intersect(_halfspace(back, normal, extent))          # above the soffit
-           .intersect(_halfspace(origin, tuple(-c for c in normal), extent)))  # below the facet
-    # The east return: remove everything east-forward of the vertical plane
-    # through (x_end, front) and (x_end + reach, wall) — the 45° plan chamfer.
-    ret_plane = cq.Plane(origin=cq.Vector(x_end, oy0 - display_pod_reach, (oz0 + oz1) / 2.0),
-                         xDir=cq.Vector(1.0, 1.0, 0.0), normal=cq.Vector(1.0, -1.0, 0.0))
-    ret = cq.Workplane(ret_plane).rect(4 * extent, 4 * extent).extrude(extent).val()
-    # The shoulder: east of the window the cap is the facet plane dropped one
-    # wall, cut only outside the wall face (y ≤ oy0) so the reveal steps at the
-    # window edge and the wall above stays untouched.
-    cap = tuple(origin[i] - wall * normal[i] for i in range(3))
-    shoulder_trim = _halfspace(cap, normal, extent).intersect(
-        _ybox(x_end, x_end + display_pod_reach + 1.0,
-              oy0 - display_pod_reach - 1.0, oy0, oz0 - 1.0, oz1 + 1.0))
-    return pod.cut(ret).cut(shoulder_trim)
-
-
 def _rounded_outer(outer):
-    """The outer box with rounded vertical corners, the display housing carried
-    forward of the front wall, and the facet chamfered in — the print silhouette
-    the half is clipped to so nothing pokes past it."""
+    """The outer box with rounded standing-vertical corners and the facet
+    chamfered in — the print silhouette the half is clipped to so nothing
+    pokes past it."""
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     box = _round_z(_ybox(ox0, ox1, oy0, oy1, oz0, oz1), corner_round)
-    return box.fuse(_display_pod(outer)).cut(_facet_wedge(outer))
+    return box.cut(_facet_wedge(outer))
 
 
 def _shell_with_facet(inner, outer):
@@ -795,10 +737,7 @@ def build_front_half(dims=None, split=None, hopper=True):
     not host the funnel, and the placed collar would not fit its frame."""
     inner, outer, y_joint, _ = dims if dims is not None else _dims()
     shell = _shell_with_facet(inner, outer).val()
-    # The front column reaches display_pod_reach proud of the front wall to carry
-    # the display pod (the housing slab standing forward of outer[2]); clip to the
-    # pod front, not the wall, or the pod's facet is sliced back to the wall.
-    front = shell.intersect(_ybox(outer[0], outer[1], outer[2] - display_pod_reach, y_joint, outer[4], outer[5]))
+    front = shell.intersect(_ybox(outer[0], outer[1], outer[2], y_joint, outer[4], outer[5]))
     front = front.fuse(_front_lip(inner, y_joint))
     yb = _y_boss(y_joint)
     bosses = _bosses(inner, split=split)
@@ -906,7 +845,7 @@ def build_piece(y_side, z_side, dims=None, halves_cache=None):
         for x_in, x_ext, sx, ys, _c in stations:
             piece = piece.cut(_z_pod_cuts(x_in, x_ext, sx, ys, zj))
     else:
-        piece = solid.intersect(_ybox(ox0 - 1.0, ox1 + 1.0, oy0 - display_pod_reach - 1.0, oy1 + 1.0,
+        piece = solid.intersect(_ybox(ox0 - 1.0, ox1 + 1.0, oy0 - 1.0, oy1 + 1.0,
                                       zj, oz1 + 1.0))
         for x_in, x_ext, sx, ys, c in stations:
             piece = piece.fuse(_z_pin(x_ext, sx, ys, zj))
@@ -930,7 +869,7 @@ def _report_facet(half):
     # by the on-plane filter) — only the display facet itself is measured.
     _i, outer, _y, _c = _dims()
     _a, _n, origin, dy, _dz = _facet_geom(outer)
-    y_hi = outer[2] - display_pod_reach + dy + 5.0
+    y_hi = outer[2] + dy + 5.0
     boxes = []
     for f in half.val().Faces():
         try:
