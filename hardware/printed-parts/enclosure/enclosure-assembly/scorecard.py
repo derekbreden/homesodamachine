@@ -243,8 +243,11 @@ def load_connections() -> list[Connection]:
 # violated are a visible drift; no rules yet = not started. Every component earns rules
 # eventually. Faces: x-/x+ = left/right walls, y-/y+ = front/back walls, z-/z+ = floor/ceiling.
 PLACEMENT_RULES = {
-    # "Foam is against the back-bottom, full width" — the canonical example.
-    "foam-assembly":     [("y+", 1.0), ("x-", 1.0), ("x+", 1.0), ("z-", 10.0)],
+    # "Foam is against the back-bottom, full width" — the canonical example. It
+    # still seats hard against both side walls and the floor; y+ carries the one
+    # deliberate standoff, `enclosure.rear_spine_clear`, the channel the rear
+    # Z-seam posts drop through to reach the floor in the back corners.
+    "foam-assembly":     [("y+", 4.0), ("x-", 1.0), ("x+", 1.0), ("z-", 10.0)],
     # "Compressor is front-left on the floor" (inset one corner-rib chain off the left wall).
     "compressor-shroud": [("y-", 1.0), ("z-", 4.0), ("x-", 15.0)],
     # "Condenser is front-right on the floor" (inset one corner-rib chain off the right wall).

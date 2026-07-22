@@ -418,6 +418,12 @@ FOAM_CORNER_LIFT = 9.5
 # Enclosure wall thickness (mirrors ../enclosure/enclosure.py `wall`) — used to
 # seat content against the seam lips' inner faces, one wall in from the walls.
 WALL = 3.0
+# The back wall stands this far behind the rearmost content instead of hard
+# against it, opening the channel the rear Z-seam posts drop through to reach the
+# floor in the back corners. enclosure.py reads it from here as
+# `rear_spine_clear`, so the wall the panel bodies seat against and the wall the
+# box is built to are one number and cannot drift apart.
+REAR_STANDOFF = 3.0
 # Vertical gap between a stratum's tallest part and the parts seated above it.
 STACK_GAP = 2.5
 
@@ -964,7 +970,9 @@ def _port_frame():
     bbs = [s.BoundingBox() for s, _c in placed.values()]
     x_lo = min(b.xmin for b in bbs)                # -X inner wall
     x_hi = max(b.xmax for b in bbs)                # +X inner wall
-    y_wall = max(b.ymax for b in bbs)              # +Y inner wall (the foam's back face)
+    # The back wall does NOT sit on the foam's back face — it stands one
+    # REAR_STANDOFF behind it, and the panel bodies seat against the wall.
+    y_wall = max(b.ymax for b in bbs) + REAR_STANDOFF
     return x_lo, x_hi, y_wall
 
 
