@@ -9,9 +9,10 @@
 //     YOUR scene (a matrix on each mesh + its x-ray edges). No rebuild, no wait.
 //   • Apply — POSTs the move to the dev server, which appends it to the assembly's
 //     placement-override sidecar and re-runs the CadQuery generator (~a couple
-//     minutes: it reloads every part and re-checks the pack for clashes). On
-//     success the new .step hot-reloads over the preview; a move that overlaps
-//     fails the rebuild and the clash reason comes back to the panel.
+//     minutes: it reloads every part and re-checks the pack for clashes). The new
+//     .step hot-reloads over the preview. A move that overlaps is BUILT and saved
+//     anyway — so you see the real overlapping geometry, and it survives a refresh —
+//     but flagged not-build-ready: the scorecard bar turns red and the status says so.
 //
 // The move is a rotate about the component's CURRENT bbox centre, then a
 // translate — the same order the sidecar applies (enclosure_assembly.py), so the
@@ -26,9 +27,9 @@
 import * as THREE from "three";
 import { TransformControls } from "three/addons/controls/TransformControls.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
+import { scorecardPathFor } from "/contracts/scorecard-sidecar.js";
 import { scene, camera, renderer, controls } from "./scene.js";
 import { state } from "./state.js";
-import { showScorecard } from "./scorecard-3d.js";
 
 const SEL = 0x59ff9e; // edit-select highlight — green, distinct from the other tools
 const EDGE_THRESHOLD_DEG = 30;
@@ -402,21 +403,9 @@ async function apply() {
     // onStepReloaded() re-syncs. Keep the preview until then so the move doesn't
     // flicker back to the old pose while the rebuild runs.
     if (j.ok) setStatus("Applied — reloading…", "ok");
-    else showClash(j, "Not applied", "rebuild failed");
+    else setStatus(j.error ? `Not applied — ${j.error}` : "rebuild failed", "err");
   } catch (e) {
     setStatus(`request failed — ${e.message}`, "err");
-  }
-}
-
-// A rebuild that failed on a clash comes back with the failing verdict. Paint it into the viewer's
-// scorecard and pop the drill-down: its clash rows name the overlapping solids and click through to
-// highlight them on the model (the moved part rides its live preview transform, so the highlight
-// lands where you dragged it — right on the overlap). The panel's status still carries the reason
-// so the pair is readable without opening anything.
-function showClash(j, prefix, fallback) {
-  setStatus(j.error ? `${prefix} — ${j.error}` : fallback, "err");
-  if (j.scorecard && state.currentCadWrapper) {
-    showScorecard(state.currentCadWrapper, j.scorecard, currentFile, { open: true });
   }
 }
 
@@ -430,7 +419,7 @@ async function reset() {
     });
     const j = await r.json();
     if (j.ok) setStatus("Reset — reloading…", "ok");
-    else showClash(j, "Reset failed", "reset failed");
+    else setStatus(j.error ? `Reset failed — ${j.error}` : "reset failed", "err");
   } catch (e) {
     setStatus(`request failed — ${e.message}`, "err");
   }
@@ -449,6 +438,13 @@ export function onStepReloaded() {
   previewObjs = [];        // old meshes are gone; don't touch them
   selectComponent(keep);   // recompute centre + gizmo + overlay against the new group
   setStatus("Applied ✓", "ok");
+  // The move is saved and now shown as real geometry — but if it clashes it was written anyway
+  // (so you can SEE the overlap) and is not build-ready. Read the rebuilt verdict and say so; the
+  // scorecard bar shows the same in red, and its clash rows click through to the offending parts.
+  fetch("/api/step-scorecard/" + scorecardPathFor(currentFile))
+    .then((r) => (r.ok ? r.json() : null))
+    .then((sc) => { if (enabled && sc && sc.gatesPass === false) setStatus("Saved — NOT build-ready ✗ (open the scorecard)", "err"); })
+    .catch(() => {});
 }
 
 // --- pointer wiring (select on click, unless the gesture was on a gizmo handle) ---

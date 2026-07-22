@@ -49,10 +49,12 @@ mountPcbEditorRoutes(app, HARDWARE_DIR);
 // STEP component editor API — dev-only, backs the viewer's 3D "Edit" toggle
 // (web/public/js/viewer/component-edit.js). A move is written to a placement-
 // override sidecar (lib/step-editor-routes.js) and this rebuild re-runs the
-// assembly generator: on success it broadcasts the new .step so the viewer
-// hot-reloads onto the real geometry; on a clash the generator exits non-zero
-// and its stderr comes back for the panel to show. Absent in production, so the
-// Edit toggle never appears there.
+// assembly generator, which broadcasts the new .step so the viewer hot-reloads
+// onto the real geometry. Under HSM_EDITOR (below) a clashing move is BUILT and
+// saved anyway — flagged not-build-ready in the scorecard — so you can see the
+// overlap you just made; only a genuine generator error exits non-zero, and its
+// stderr comes back for the panel to show. Absent in production, so the Edit
+// toggle never appears there.
 const editorRunning = new Map(); // generator path -> AbortController (supersede a slow rebuild)
 
 async function rebuildStepAssembly(pyFilePath) {
@@ -66,37 +68,31 @@ async function rebuildStepAssembly(pyFilePath) {
   console.log(`  ↪ editor rebuild: ${relForLog(pyFilePath)}`);
   try {
     let stderr = "";
-    let stdout = "";
     const code = await new Promise((resolve, reject) => {
       const proc = spawn(PYTHON_BIN, [pyFilePath], {
         cwd: scriptDir,
-        // Both streams piped: stderr carries the clash traceback / SystemExit reason back to the
-        // panel; stdout carries the HSM_SCORECARD_JSON sentinel (HSM_EDITOR below tells the
-        // generator to emit it) so a FAILED rebuild can still hand the viewer the failing verdict.
-        stdio: ["ignore", "pipe", "pipe"],
+        // stderr piped (not inherited) so a generator error / SystemExit message
+        // can ride back to the editor panel; stdout suppressed like runScript.
+        stdio: ["ignore", "ignore", "pipe"],
         signal: ac.signal,
         killSignal: "SIGKILL",
-        // HSM_EDITOR: run under the interactive editor — the generator emits the scorecard sentinel.
+        // HSM_EDITOR: this is the interactive editor. The generator, under it, writes a clashing
+        // pack (flagged not-build-ready) instead of refusing — so the move you made is visible in
+        // the reloaded geometry. A headless build still hard-stops on a clash.
         env: { ...process.env, HSM_SKIP_THUMBNAILS: "1", HSM_EDITOR: "1" },
       });
       proc.stderr.setEncoding("utf8");
       proc.stderr.on("data", (c) => { stderr += c; if (stderr.length > 8000) stderr = stderr.slice(-8000); });
-      proc.stdout.setEncoding("utf8");
-      // The sentinel is one ~60KB line printed before the gate; cap the tail generously so a long
-      // run can't grow this unbounded while never truncating the sentinel out.
-      proc.stdout.on("data", (c) => { stdout += c; if (stdout.length > 4_000_000) stdout = stdout.slice(-4_000_000); });
       proc.on("close", resolve);
       proc.on("error", reject);
     });
 
-    const scorecard = parseScorecardSentinel(stdout);
-
     if (code !== 0) {
-      // Last non-empty line is the SystemExit reason (e.g. "pack does not close: fluid-11 ∩ …").
+      // Last non-empty line is the SystemExit reason (e.g. "pack does not close …").
       const lines = stderr.split("\n").map((l) => l.trimEnd()).filter(Boolean);
       const reason = lines[lines.length - 1] || `generator exited ${code}`;
       console.log(`  ↪ editor rebuild failed: ${reason}`);
-      return { ok: false, error: reason, scorecard };
+      return { ok: false, error: reason };
     }
 
     // Broadcast every .step the generator rewrote (mirrors runScript), so the
@@ -110,30 +106,13 @@ async function rebuildStepAssembly(pyFilePath) {
       broadcast({ type: WS.FILES_CHANGED, files: [relFile] });
       queueThumbnail(full);
     }
-    return { ok: true, scorecard };
+    return { ok: true };
   } catch (e) {
     if (e.name === "AbortError") return { ok: false, error: "superseded by a newer move" };
     return { ok: false, error: e.message };
   } finally {
     if (editorRunning.get(pyFilePath) === ac) editorRunning.delete(pyFilePath);
   }
-}
-
-// The generator prints one `HSM_SCORECARD_JSON=<json>` line (under HSM_EDITOR) before its clash
-// gate raises — the failing verdict, clash pairs and all. Pull it out of captured stdout so a
-// failed rebuild can hand it back to the viewer. Scan from the end for the freshest; null if
-// absent or unparseable (older generator, or a crash before the line).
-const SCORECARD_SENTINEL = "HSM_SCORECARD_JSON=";
-function parseScorecardSentinel(stdout) {
-  if (!stdout) return null;
-  const lines = stdout.split("\n");
-  for (let i = lines.length - 1; i >= 0; i--) {
-    const at = lines[i].indexOf(SCORECARD_SENTINEL);
-    if (at === -1) continue;
-    try { return JSON.parse(lines[i].slice(at + SCORECARD_SENTINEL.length)); }
-    catch { return null; }
-  }
-  return null;
 }
 
 mountStepEditorRoutes(app, HARDWARE_DIR, rebuildStepAssembly);
