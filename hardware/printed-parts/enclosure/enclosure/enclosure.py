@@ -27,11 +27,9 @@ interior clearance, then walled out. Features:
     different height each side of the Y seam (the seams stagger like a
     brick bond; the front pair joins, the back pair joins, then the front
     assembly telescopes into the back). The BOTTOM pieces carry the lip — a
-    band stopping short of the Y-seam overlap, telescoping +Z into the top
-    pieces: 3-sided at the back (rear wall + both side walls), 2-sided at
-    the front, where the compressor and condenser stand against the front
-    wall over the seam's whole height and that segment is given up for them
-    — with the socket pods; the TOP pieces carry the D-pins, their tabs rising to the
+    3-sided band (their outer ±Y wall + both side walls, stopping short of
+    the Y-seam overlap) telescoping +Z into the top pieces — with the
+    socket pods; the TOP pieces carry the D-pins, their tabs rising to the
     lip rim where posts of the pod's own section carry them to the
     ceiling. Four X-axis screws cross each
     seam (one per side wall per Y column: front pins at the front-wall
@@ -109,6 +107,9 @@ interior_clearance = 0.0    # gap between contents bbox and inner wall
 # _contents, which seats the rear panel bodies against the same wall: one number,
 # so the wall they mount through and the wall this builds cannot drift apart.
 rear_seam_clear = _contents.REAR_STANDOFF
+# The same standoff at the front, so the front column's Z lip keeps a full-width
+# front segment behind the refrigeration stratum instead of giving it up.
+front_seam_clear = _contents.FRONT_STANDOFF
 corner_round = 12.          # standing-vertical (Z) print-corner relief radius (anti-warp on the bed)
 
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
@@ -198,11 +199,11 @@ lip_len = plug_dia / 2.0 + socket_r              # = (plug+bore)/2 + wall = 13.1
 #     own height. Dropped so the rim lands one stack-floor clearance under it,
 #     the whole seam is beneath the trays and each of them sits wholly in the
 #     top piece. What it drops PAST is the compressor and the tipped condenser,
-#     which stand against the front wall over this entire height — so the front
-#     column's lip gives up its front-wall segment for them (`_z_lip`), exactly
-#     as the Y lip gives up its floor segment for the cold core. Both machines
-#     are inset one corner-rib chain off their side walls, so the two side
-#     segments and all four pods still run at full section.
+#     which reach this height at the front wall — so the front wall stands one
+#     wall off them (`_dims`) and the lip's front segment runs the full width
+#     behind their faces. Both machines are already inset one corner-rib chain
+#     off their side walls, so the side segments and all four pods run at full
+#     section too: this seam gives up none of its four sides.
 # Every printed piece's bed face fits the H2C envelope with these cuts.
 z_joint_front = 140.9        # rim at 154.0, under the stack floor at 164.8
 # Clear of the cold core's foam cap by the rear station's reach: that station's
@@ -433,7 +434,16 @@ def _dims():
     cold = placed["foam-assembly"][0].BoundingBox()
     ix0 = min(cxmin - interior_clearance, cold.xmin - _contents.SIDE_RIB_INSET)
     ix1 = max(cxmax + interior_clearance, cold.xmax + _contents.SIDE_RIB_INSET)
-    iy0, iy1 = cymin - interior_clearance, cymax + interior_clearance + rear_seam_clear
+    # The FRONT wall stands one wall off the pack, for the same kind of reason
+    # the ±X walls stand a boss chain off the cold core: the compressor and the
+    # tipped condenser reach the front column's Z-seam height at that wall, and
+    # a wall on their faces leaves that lip's front segment nowhere to run. A
+    # lip missing a side is a butt joint over that run — nothing registering the
+    # two pieces, nothing closing the line — and this run is the box's most
+    # visible face, so the wall gives way, not the segment. Read from _contents,
+    # which seats the front panel's body on the wall this opens.
+    iy0 = cymin - interior_clearance - front_seam_clear
+    iy1 = cymax + interior_clearance + rear_seam_clear
     # The floor is a fixed Z=0 datum, not the lowest content — so parts can stand
     # on feet above it (the floor, seam lip, and posts stay put). The ceiling
     # follows the tallest content — EXCEPT along the ±X walls, where the
@@ -1033,22 +1043,17 @@ def _z_stations(inner, y_joint):
     return out
 
 
-def _z_lip(inner, y_joint, zj, y_side=None):
+def _z_lip(inner, y_joint, zj):
     """The bottom pieces' seam lip: a full-wall band whose outer faces are
     flush with the body's inner walls, running one wall down into the body
     (the fusion shoulder) and up over the overlap to the rim. The segment
     crossing the Y-seam overlap is dropped, so each piece carries a 3-sided
     lip and the two telescopes never stack on one wall surface.
 
-    The FRONT column drops its front-wall segment too, for the same reason the
-    Y lip carries no floor segment: the compressor and the tipped condenser
-    stand against the front wall over this seam's whole height, and a segment
-    there would hold the seam above them — back up inside the manifold stack,
-    where every tray would have to be shaped around it. Without it the seam is
-    free to sit beneath the stack, the two machines pass in front of the two
-    side segments, and the front wall butts at the seam and is registered by
-    that column's four pods. Both machines are inset one corner-rib chain off
-    their side walls, so those segments and pods keep their full section.
+    Every other side is carried whole. A missing side is a butt joint over
+    that run — nothing registering the two pieces, nothing closing the line —
+    so where content stands in a segment's way it is the WALL that is held off
+    it (`_dims`), not the segment that is given up.
 
     Unlike the Y-seam lip, this band is horizontal and telescopes +Z straight
     THROUGH the box's standing-vertical arrises, so its corners are relieved on
@@ -1064,8 +1069,6 @@ def _z_lip(inner, y_joint, zj, y_side=None):
     gap = _ybox(ix0 - 1.0, ix1 + 1.0,
                 y_joint - wall - z_lip_y_margin, y_joint + lip_len + z_lip_y_margin,
                 z0 - 1.0, z1 + 1.0)
-    if y_side == "front":
-        gap = gap.fuse(_ybox(ix0 - 1.0, ix1 + 1.0, iy0 - 1.0, iy0 + wall, z0 - 1.0, z1 + 1.0))
     return ring.cut(gap)
 
 
@@ -1384,7 +1387,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
                     oy0 - 1.0 if y_side == "front" else y_joint,
                     y_joint if y_side == "front" else oy1 + 1.0,
                     oz0 - 1.0, oz1 + 1.0)
-        piece = piece.fuse(_z_lip(inner, y_joint, zj, y_side).intersect(col))
+        piece = piece.fuse(_z_lip(inner, y_joint, zj).intersect(col))
         for x_in, x_ext, sx, ys, c in stations:
             piece = piece.fuse(_z_pod(x_in, x_ext, sx, ys, c, y_joint, inner, zj))
         for x_in, x_ext, sx, ys, _c in stations:

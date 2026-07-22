@@ -189,7 +189,7 @@ CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # on the box's outer top; enclosure.py cuts the top-wall opening from this
 # same centre + the funnel's own collar dims, and asserts both the collar and
 # the brim that overhangs it land inside that frame.
-FUNNEL_CX, FUNNEL_CY = 193.75, 94.0
+FUNNEL_CX, FUNNEL_CY = 193.75, 92.5
 FUNNEL_ROT = 0.0
 # The source-select assembly is the stack's anchor and its FLOOR: local
 # origin (cell centre, valve mounting plane) in world, rotated 180° about Z,
@@ -425,6 +425,14 @@ WALL = 3.0
 # from here as `rear_seam_clear`, so the wall the panel bodies seat against and
 # the wall the box is built to are one number and cannot drift apart.
 REAR_STANDOFF = 3.0
+# The FRONT wall stands the same one wall off the pack, for the front column's
+# Z-seam lip: the compressor and the tipped condenser reach that seam's height
+# at the front wall, and a wall on their faces leaves the lip's front segment
+# nowhere to run — a lip missing a side is a butt joint over that run, on the
+# box's most visible face. Held off, the segment runs the full width behind
+# them. enclosure.py reads it from here as the front inset, and panel_bodies()
+# seats the DERPIPE on the wall it opens, so the two cannot drift apart.
+FRONT_STANDOFF = 3.0
 # Vertical gap between a stratum's tallest part and the parts seated above it.
 STACK_GAP = 2.5
 
@@ -981,6 +989,14 @@ def _port_frame():
     return x_lo, x_hi, y_wall
 
 
+def front_wall_y():
+    """The front wall's INNER face — the pack's frontmost point stood off by
+    FRONT_STANDOFF, the same rule enclosure.py sizes the box by. Read by
+    panel_bodies() so the DERPIPE seats on the wall the box actually has."""
+    placed = build()
+    return min(s.BoundingBox().ymin for s, _c in placed.values()) - FRONT_STANDOFF
+
+
 def back_wall_ports():
     """Through-holes the rear panel needs: (kind, x, z, *size) in world
     coords — 'round' (a diameter) or 'rect' (x, z size). enclosure.py cuts
@@ -1048,7 +1064,8 @@ def panel_bodies():
     # hex, NPT stub through the hole reaching inboard toward the GASHER → WR1110
     # chain. The reference model's outboard collet face is at its Y origin, so
     # it seats the same outboard reach the two placeholder cylinders did.
+    y_front_out = front_wall_y() - WALL            # front-panel outer face
     bodies["co2-inlet"] = _load(DERPIPE_STEP).translate(
-        (CO2_INLET_X, -WALL - 2.0 - DERPIPE_BODY_L, CO2_INLET_Z))
+        (CO2_INLET_X, y_front_out - 2.0 - DERPIPE_BODY_L, CO2_INLET_Z))
 
     return {n: (s, COLORS[n]) for n, s in bodies.items()}
