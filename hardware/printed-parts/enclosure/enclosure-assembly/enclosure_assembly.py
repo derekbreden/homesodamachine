@@ -61,7 +61,7 @@ def _placed_display():
     its −Y screen faces the facet normal, then translated so the body lands on the
     PCB hole (facet center + display_body_offset). That carries its glass, which
     overhangs the body the opposite way, onto the centered counterbore."""
-    _i, outer, _yj, _cf = enclosure._dims()
+    outer = enclosure._dims().outer
     a, _n, origin, _dy, _dz = enclosure._facet_geom(outer)
     fcx = outer[0] + enclosure.display_facet_x / 2.0
     target = (
@@ -81,7 +81,7 @@ def _placed_funnel():
     _contents.FUNNEL_CX/CY with the brim underside on the box's outer top. The
     opening is cut from the same placement (enclosure._hopper_hole), so funnel
     and hole cannot drift apart."""
-    _i, outer, _yj, _cf = enclosure._dims()
+    outer = enclosure._dims().outer
     return (cq.importers.importStep(str(FUNNEL_STEP)).val()
             .rotate((0, 0, 0), (0, 0, 1), contents.FUNNEL_ROT)
             .translate((contents.FUNNEL_CX, contents.FUNNEL_CY, outer[5])))
@@ -293,7 +293,8 @@ def main():
     ix = max(b.xmax for b in inner_bbs) - min(b.xmin for b in inner_bbs)
     iy = max(b.ymax for b in inner_bbs) - min(b.ymin for b in inner_bbs)
     iz = max(b.zmax for b in inner_bbs)
-    inner, outer, _yj, _cf = enclosure._dims()
+    box = enclosure._dims()
+    inner, outer = box.inner, box.outer
     print(f"pack interior: {ix:.1f} × {iy:.1f} × {iz:.1f} mm "
           f"(box exterior {outer[1] - outer[0]:.1f} × {outer[3] - outer[2]:.1f} × "
           f"{outer[5] - outer[4]:.1f})")
