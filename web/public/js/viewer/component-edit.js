@@ -28,6 +28,7 @@ import { TransformControls } from "three/addons/controls/TransformControls.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { scene, camera, renderer, controls } from "./scene.js";
 import { state } from "./state.js";
+import { showScorecard } from "./scorecard-3d.js";
 
 const SEL = 0x59ff9e; // edit-select highlight — green, distinct from the other tools
 const EDGE_THRESHOLD_DEG = 30;
@@ -401,9 +402,21 @@ async function apply() {
     // onStepReloaded() re-syncs. Keep the preview until then so the move doesn't
     // flicker back to the old pose while the rebuild runs.
     if (j.ok) setStatus("Applied — reloading…", "ok");
-    else setStatus(j.error ? `Not applied — ${j.error}` : "rebuild failed", "err");
+    else showClash(j, "Not applied", "rebuild failed");
   } catch (e) {
     setStatus(`request failed — ${e.message}`, "err");
+  }
+}
+
+// A rebuild that failed on a clash comes back with the failing verdict. Paint it into the viewer's
+// scorecard and pop the drill-down: its clash rows name the overlapping solids and click through to
+// highlight them on the model (the moved part rides its live preview transform, so the highlight
+// lands where you dragged it — right on the overlap). The panel's status still carries the reason
+// so the pair is readable without opening anything.
+function showClash(j, prefix, fallback) {
+  setStatus(j.error ? `${prefix} — ${j.error}` : fallback, "err");
+  if (j.scorecard && state.currentCadWrapper) {
+    showScorecard(state.currentCadWrapper, j.scorecard, currentFile, { open: true });
   }
 }
 
@@ -417,7 +430,7 @@ async function reset() {
     });
     const j = await r.json();
     if (j.ok) setStatus("Reset — reloading…", "ok");
-    else setStatus(j.error ? `Reset failed — ${j.error}` : "reset failed", "err");
+    else showClash(j, "Reset failed", "reset failed");
   } catch (e) {
     setStatus(`request failed — ${e.message}`, "err");
   }
