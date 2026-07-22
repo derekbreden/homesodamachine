@@ -62,39 +62,54 @@ the heat-set, then a one-wall cap.
   the Z seam): a Ø9.9 mm cylinder (the shank + one wall each side, *not* the
   head — the head sits in the wall counterbore) from the exterior to the
   heat-set, registering in the socket bore, fused to a flat tab that runs to
-  the lip rim where a brace backs it.
+  the lip rim, where the corner post behind it backs the pin in Y.
 - **Lip piece = socket** (the front pieces / the bottom pieces): a pod bored
   Ø10.3 mm to take the round pin as a slide fit, with the ruthex M3 heat-set
   (Ø4.0 × 5.25) capped at its deep inboard end and a channel the pin's tab
   slides through as the lip telescopes home.
 
-The back pieces also carry
-braces — ribs from the lip rim toward the rear wall (the lower pair stopping
-ahead of the cold core), sized to the pin they back and butting its flat tab
-at the rim — anchoring the walls against peeling and supporting the X-axis
-pins; the top pieces carry the matching braces above their Z-seam pins.
+The top pieces carry braces above their Z-seam pins, running from the lip rim to
+the ceiling they print against.
 
-**Every boss stands on the bed, not on the wall.** Each socket is a full-depth
-**collar** around its bore plus a one-wall **spine** that carries it the whole
-height of its piece — floor to the seam below, seam to the ceiling above. Printed
-Z-down that is the face the piece lies on, so the boss grows off the first layer
-instead of hanging in open air, and the two pieces' spines meet at the seam so
-the corner reads floor-to-ceiling assembled. The spine is one wall rather than
-the collar's full depth because that is what clears the contents everywhere: at
-the left Y-seam corner the bag circuit and its tee crowd the wall to ~4 mm for an
-80 mm band, and a full-depth post there would drive straight through them.
+**Every boss stands on a post of its own section, run to the bed face.** Not a
+collar on a spine — the whole socket footprint, carried the full height of its
+piece: floor to the seam below, seam to the ceiling above. Printed Z-down that is
+the face the piece lies on, so there is material under every part of the boss the
+whole way down and the piece simply stacks; a narrower stalk would leave the
+socket cantilevered over open air on the layer it starts, which is the overhang
+that needs print support. The two pieces' posts meet at the seam, so assembled
+the corner reads one column floor to ceiling — which is also the corner stiffener
+a printed shell this size wants. The back pieces get the same post behind the lip
+rim at the pin's own depth; before, their pins and braces hung off the wall with
+nothing beneath them.
 
-The one place that could not be had for free is the rear station's spine. The
+**The Y seam is pinned at a level for each end of each piece that crosses it**,
+and both Z seams count, so six levels rather than one pair near the top: a wall
+above the floor, one under each Z seam, one over each of their lip rims, and one
+under the ceiling.
+
+Where a wall is crowded, the post necks to what is measured clear there with 45°
+run-outs, so it still stacks either way up. The −X wall is the case: the source
+tray runs 272 mm of the 283 mm interior, so no X position for the manifold stack
+leaves a full post section at both walls, and it is set to clear +X while the
+inverted bag tray and its junction tee ride within ~4 mm of −X over z 215–285.
+A boss needs a body to be bored into, so no level can sit in that band — levels
+are searched per wall and the two need not agree. The −X wall therefore carries
+five and +X six, and the build prints both.
+
+The one place that could not be had for free is the rear station's post. The
 cold core spans the interior wall-to-wall and floor to its foam cap with no
-margin at any height, so a spine on a side wall has nowhere to pass. But it is
+margin at any height, so a post on a side wall has nowhere to pass. But it is
 also the only content near the back — the next is 45 mm ahead — so rather than
 widen the box away from the side walls it seats against, the **back wall stands
-one `REAR_STANDOFF` behind it**. The rear spine drops through that channel,
+one `REAR_STANDOFF` behind it**. The rear post drops through that channel,
 making the post a rib in the true back corner where the back wall meets the side
 wall. `_contents.REAR_STANDOFF` is the single source: `_port_frame()` seats the
 rear panel bodies against that wall and `enclosure.py` builds the box to it, so
 the wall the bulkheads mount through and the wall the box is built to cannot
-drift apart.
+drift apart. That channel is one wall deep, so the rear collar keeps its full
+width there but not its full depth — the only overhang left in the boss work,
+and it cannot be gusseted without lifting the back seam clear of the foam cap.
 
 The cold core rides in the back-bottom piece, verified clear of every boss at
 build time. Each printed piece fits the H2C left-nozzle build envelope
