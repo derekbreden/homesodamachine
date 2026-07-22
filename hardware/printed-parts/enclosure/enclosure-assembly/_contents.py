@@ -261,20 +261,24 @@ NOZZLE_GATE_POS = (_GATE_ANCHOR_BAG_X + 2.0 * _bag.port_half + _bag.tee_branch_r
 # the outlet face up, so each pump's two elbows stand on its +Z face, legs
 # turning west over the head, free collets facing −X at the row's crest.
 # The POS tuples are the pump's local origin (base-plate bore-opening
-# face, case centre) in world; the row rides at the tray stack's height
-# (the two lift together — the row's stack ties are z-tight):
+# face, case centre) in world; the row rides at the tray stack's height,
+# P-A dropped off it by the display clearance below (the row's stack ties
+# are z-tight otherwise — the two lift together):
 #   * P-A: head nose-in at mid-row, the segment-4 drop corridor under the
 #     funnel's centred drain held open over it (the `clear hopper-funnel`
 #     rule), the long body crossing the ±X wall corners well above the
 #     front Z-seam's boss-pod band (which reaches ~14 mm inboard below the
 #     seam), aft elbow one clearance ahead of the inverted bag tray's Y-E
-#     bag branch (the `near bag-circuit-assembly` rule).
+#     bag branch (the `near bag-circuit-assembly` rule). It rides below P-B
+#     because its FORWARD outlet elbow stands under the display housing's
+#     back plane: the facet is flush to the front wall, so that plane cuts
+#     down through the row's crest and the elbow drops to pass beneath it.
 #   * P-B: the same pose one slot east — head at the east end, under the
 #     funnel's floor — and slid forward, its aft elbow threading ahead of
 #     the source-select east bank's walls (the `clear
 #     source-select-assembly` rule); its row tie is the nose gap to P-A
 #     (the `near pump-a` rule).
-PUMP_A_POS = (89.62, 96.00, 192.31)
+PUMP_A_POS = (89.62, 96.00, 190.31)
 PUMP_B_POS = (222.50, 85.51, 192.31)
 
 # The pump-inlet union tees (fluid topology Y-C / Y-F) hang in the junction
