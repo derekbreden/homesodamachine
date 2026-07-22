@@ -54,17 +54,17 @@
         "bag-circuit-assembly \u2014 elbow-bag-y-g: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-y-d: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-y-g: 2.00 mm",
-        "nozzle-gate-assembly \u2014 elbow-bag-y-d: 2.19 mm",
-        "bag-circuit-assembly \u2014 elbow-y-d: 2.45 mm",
         "foam-assembly \u2014 power-tray: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 dc-dist: 2.50 mm \u2014 CONTACT (declared ok)",
         "bag-circuit-assembly \u2014 tee-y-c: 2.92 mm",
         "y-d \u2014 y-g: 3.12 mm",
         "bag-circuit-assembly \u2014 hopper-funnel: 3.26 mm",
-        "nozzle-gate-assembly \u2014 hopper-funnel: 3.82 mm",
         "foam-assembly \u2014 condenser+fan: 4.00 mm",
+        "nozzle-gate-assembly \u2014 hopper-funnel: 4.34 mm",
+        "nozzle-gate-assembly \u2014 elbow-bag-y-d: 4.35 mm",
         "display \u2014 hopper-funnel: 4.49 mm",
+        "bag-circuit-assembly \u2014 elbow-y-d: 4.59 mm",
         "y-g \u2014 hopper-funnel: 4.94 mm",
         "pump-b \u2014 y-g: 5.75 mm"
       ],
@@ -113,7 +113,7 @@
         "\u2713 condenser+fan: y- 0.0 z- 3.0 x+ 14.0 mm",
         "\u2713 source-select-assembly: near foam-assembly 0.0 mm",
         "\u2713 hopper-funnel: z+ 6.0 mm",
-        "\u2713 bag-circuit-assembly: near source-select-assembly 0.0 clear compressor-shroud 73.3 clear condenser+fan 81.5 mm",
+        "\u2713 bag-circuit-assembly: near source-select-assembly 0.0 clear compressor-shroud 73.3 clear condenser+fan 82.6 mm",
         "\u2713 nozzle-gate-assembly: near source-select-assembly 1.3 x+ 15.4 mm",
         "\u2713 pump-a: near bag-circuit-assembly 1.5 clear hopper-funnel 16.1 mm",
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
@@ -207,14 +207,14 @@
         "\u2713 fluid-19: source-select-assembly.V-D-O \u2192 tee-y-f.Y-F-1 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7 \u2014 nearest 10.33 mm to foam-assembly",
         "\u2713 fluid-10: bag-circuit-assembly.V-E-O \u2192 tee-y-c.Y-C-2 \u2014 \u00d86.35 \u00d7 3.1 mm, 0 bends at R12.7 \u2014 nearest 11.49 mm to fluid-21",
         "\u2713 fluid-20: bag-circuit-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 10.1 mm, 0 bends at R12.7 \u2014 nearest 20.30 mm to foam-assembly",
-        "\u2713 fluid-13: elbow-bag-y-d.free \u2192 y-d.Y-D-2 \u2014 \u00d86.35 \u00d7 25.8 mm, 2 bends at R8.0 \u2014 nearest 5.39 mm to nozzle-gate-assembly",
+        "\u2713 fluid-13: elbow-bag-y-d.free \u2192 y-d.Y-D-2 \u2014 \u00d86.35 \u00d7 25.8 mm, 2 bends at R8.0 \u2014 nearest 5.96 mm to fluid-23",
         "\u2713 fluid-17: elbow-y-g.free \u2192 y-d.Y-D-3 \u2014 \u00d86.35 \u00d7 68.5 mm, 3 bends at R12.0 \u2014 nearest 5.65 mm to elbow-y-d",
         "\u2713 fluid-23: elbow-bag-y-g.free \u2192 y-g.Y-G-2 \u2014 \u00d86.35 \u00d7 72.1 mm, 3 bends at R12.0 \u2014 nearest 1.29 mm to elbow-bag-y-d",
-        "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 28.9 mm, 0 bends at R12.0 \u2014 nearest 5.40 mm to bag-circuit-assembly",
+        "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 28.9 mm, 0 bends at R12.0 \u2014 nearest 7.94 mm to fluid-17",
         "\u2713 fluid-12: pump-b.P-B-O \u2192 y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 18.4 mm, 2 bends at R6.0 \u2014 nearest 17.20 mm to hopper-funnel",
         "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 55.2 mm, 3 bends at R12.0 \u2014 nearest 18.80 mm to hopper-funnel",
         "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 251.5 mm, 8 bends at R6.0 \u2014 nearest 1.19 mm to hopper-funnel",
-        "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 140.8 mm, 5 bends at R10.0 \u2014 nearest 2.24 mm to bag-circuit-assembly"
+        "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 140.8 mm, 5 bends at R10.0 \u2014 nearest 2.69 mm to bag-circuit-assembly"
       ],
       "active": false
     },
@@ -1665,6 +1665,30 @@
           283.866
         ],
         [
+          41.774,
+          98.3,
+          227.8,
+          178.514,
+          172.8,
+          290.8
+        ],
+        [
+          130.214,
+          135.55,
+          231.2,
+          189.214,
+          169.8,
+          287.8
+        ],
+        [
+          130.214,
+          101.3,
+          231.2,
+          189.214,
+          135.55,
+          287.8
+        ],
+        [
           4.148,
           108.177,
           256.284,
@@ -1689,39 +1713,15 @@
           283.358
         ],
         [
-          130.214,
-          101.3,
-          231.2,
-          189.214,
-          135.55,
-          287.8
-        ],
-        [
-          41.774,
-          98.3,
-          227.8,
-          178.514,
-          172.8,
-          290.8
-        ],
-        [
           31.074,
           101.3,
           231.2,
           90.074,
           135.55,
           287.8
-        ],
-        [
-          130.214,
-          135.55,
-          231.2,
-          189.214,
-          169.8,
-          287.8
         ]
       ],
-      "fill": 0.2763,
+      "fill": 0.2748,
       "primitive": false,
       "declared": "real"
     },
@@ -2065,7 +2065,7 @@
           287.4
         ]
       ],
-      "fill": 0.3282,
+      "fill": 0.3239,
       "primitive": false,
       "declared": "real"
     },
