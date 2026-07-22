@@ -31,6 +31,12 @@ interior clearance, then walled out. Features:
     seam (one per side wall per Y column: front pins at the front-wall
     corners, back pins just behind the Y-seam mouth).
 
+The walls stand off the cold core rather than on it — one boss chain at the ±X
+walls, one wall at the back — because the core spans the interior wall to wall
+and floor to its cap and is what sizes the box, so a wall on its face would leave
+the seam machinery nowhere to stand. The core seats flush against the seams
+instead, and sits flat on the floor.
+
 Every piece prints on a Z face — the bottom pieces floor-down, the top pieces
 ceiling-down, each lying on its closed face with its seam mouth up. So the build
 axis is Z, and the anti-warp corner relief goes on the arrises that run along
@@ -80,18 +86,12 @@ import hopper_funnel as _funnel
 # Shell parameters.
 wall = 3.0                  # PETG wall thickness
 interior_clearance = 0.0    # gap between contents bbox and inner wall
-# The back wall stands this far off the rearmost content, opening a channel for
-# the rear Z-seam station's spine to reach the floor in the back corners.
-# The cold core is what needs it: it spans the interior wall-to-wall and floor to
-# its foam cap with no margin at any height, so a spine on a SIDE wall has
-# nowhere to pass. It is also the only content near the back — the next is 45 mm
-# ahead — so holding the wall off its back face costs one wall of depth and
-# disturbs nothing, where buying the same channel laterally would cost two (one
-# per side) and push the core off both side walls it is meant to seat against.
-# Read from _contents, which seats the rear panel bodies against the same wall —
-# one number, so the wall they mount through and the wall this builds cannot
-# drift apart.
-rear_spine_clear = _contents.REAR_STANDOFF
+# The back wall stands one wall off the rearmost content — the cold core, the
+# only thing near the back — so the core seats flush against the rear Z-seam
+# lip's inner face rather than against the wall the lip hangs off. Read from
+# _contents, which seats the rear panel bodies against the same wall: one number,
+# so the wall they mount through and the wall this builds cannot drift apart.
+rear_seam_clear = _contents.REAR_STANDOFF
 corner_round = 12.          # standing-vertical (Z) print-corner relief radius (anti-warp on the bed)
 
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
@@ -351,8 +351,18 @@ def _dims():
     cxmin = min(b.xmin for b in bbs); cxmax = max(b.xmax for b in bbs)
     cymin = min(b.ymin for b in bbs); cymax = max(b.ymax for b in bbs)
     czmin = min(b.zmin for b in bbs); czmax = max(b.zmax for b in bbs)
-    ix0, ix1 = cxmin - interior_clearance, cxmax + interior_clearance
-    iy0, iy1 = cymin - interior_clearance, cymax + interior_clearance + rear_spine_clear
+    # The ±X walls stand one boss chain off the COLD CORE, not against it. The
+    # core spans the interior wall to wall and it is what sets the box width, so
+    # a wall on its face leaves the seam machinery — corner posts, boss chains,
+    # Z-seam pods — nowhere to stand, which is what forced them to thin slivers
+    # and denied one wall a fastener height outright. Held off by their own
+    # reach, every one of them seats at full section and the core seats flush
+    # against them instead of against the wall. Read from _contents, which insets
+    # wall-adjacent floor content by the same number.
+    cold = placed["foam-assembly"][0].BoundingBox()
+    ix0 = min(cxmin - interior_clearance, cold.xmin - _contents.SIDE_RIB_INSET)
+    ix1 = max(cxmax + interior_clearance, cold.xmax + _contents.SIDE_RIB_INSET)
+    iy0, iy1 = cymin - interior_clearance, cymax + interior_clearance + rear_seam_clear
     # The floor is a fixed Z=0 datum, not the lowest content — so parts can stand
     # on feet above it (the floor, seam lip, and braces stay put). The ceiling
     # follows the tallest content — EXCEPT along the ±X walls, where the
@@ -380,7 +390,7 @@ def _dims():
     outer = (ox0, ox1, oy0, oy1, iz0 - wall, iz1 + wall)
     _fa, _fn, _fo, _fdy, _fdz = _facet_geom(outer)
     facet_back_y = oy0 + _fdy + display_facet_thickness * math.sqrt(2.0)
-    cold_front_y = placed["foam-assembly"][0].BoundingBox().ymin
+    cold_front_y = cold.ymin
     y_free = cold_front_y - 2.0 - (lip_len + wall + socket_bore_dia / 2.0 + socket_r)
     # The Y-seam machinery (mouth, plugs, braces — reaching lip_len + wall +
     # bore radius + socket_r past y_joint at the ±X walls) must also duck
@@ -898,16 +908,10 @@ def _z_pod(x_in, x_ext, sx, ys, col, y_joint, inner, zj):
         collar = _round_corner_z(collar, x_in, iy0, corner_round - wall)
     if abs(yb - iy1) < 1e-6:
         collar = _round_corner_z(collar, x_in, iy1, corner_round - wall)
-    # The post runs the collar's own footprint, EXCEPT at the rear station: the
-    # cold core fills that depth to its foam cap, and the only clear channel is
-    # the one `rear_spine_clear` opens behind it. There the post keeps the
-    # collar's full width but only the channel's depth — a rib in the true back
-    # corner, and all that corner can hold without moving the core.
-    if abs(yb - iy1) < 1e-6:
-        sya, syb = iy1 - rear_spine_clear, iy1
-    else:
-        sya, syb = ya, yb
-    return collar.fuse(_ybox(xa, xb, sya, syb, iz0, collar_lo))
+    # The post runs the collar's own footprint the whole way down, the rear
+    # station included: the side walls stand one boss chain off the cold core, so
+    # the corner it drops through is clear of the core at every height.
+    return collar.fuse(_ybox(xa, xb, ya, yb, iz0, collar_lo))
 
 
 def _z_pin(x_ext, sx, ys, zj):

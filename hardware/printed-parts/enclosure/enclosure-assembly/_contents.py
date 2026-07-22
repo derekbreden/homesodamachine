@@ -402,27 +402,27 @@ def tee_port(tee, port):
 # CONDENSER_FACE_A now runs as depth), leaving only a small gap ahead of the
 # cold core.
 FRONT_DEPTH = 182.0
-# The front pieces' corner ribs reach ~12.25 mm inboard from each side wall
-# (the boss chain: head counterbore + heat-set + cap). Front floor content set
-# against a side wall is inset this much, plus a gap, to clear them.
+# The whole boss chain — head counterbore + pin body + heat-set + cap, less the
+# wall the counterbore sinks into — reaches this far inboard of a side wall, and
+# so does the corner post carrying it. The ±X walls therefore stand this far off
+# the COLD CORE rather than against it: the core spans the interior wall to wall
+# and floor to its cap, so a wall on its face leaves the seam machinery nowhere
+# to go, and it is the core that sets the box width. enclosure.py reads this as
+# the side-wall standoff. Front floor content set against a side wall is inset
+# the same, to clear the ribs.
 SIDE_RIB_INSET = 14.0
 # Floor parts are raised one wall, clearing the front pieces' bottom seam lip
 # so the split can pull forward past them. The box floors to a fixed Z=0
 # datum, so raising them leaves the floor in place.
 SEAM_CLEAR_LIFT = 3.0
-# The cold core spans the full interior width, and the enclosure cavity's
-# print-corner relief arcs (radius corner_round − wall = 9, on the four long
-# |Y| edges) intrude past the square walls below z = 9 — the foam seats just
-# above them.
-FOAM_CORNER_LIFT = 9.5
 # Enclosure wall thickness (mirrors ../enclosure/enclosure.py `wall`) — used to
 # seat content against the seam lips' inner faces, one wall in from the walls.
 WALL = 3.0
-# The back wall stands this far behind the rearmost content instead of hard
-# against it, opening the channel the rear Z-seam posts drop through to reach the
-# floor in the back corners. enclosure.py reads it from here as
-# `rear_spine_clear`, so the wall the panel bodies seat against and the wall the
-# box is built to are one number and cannot drift apart.
+# The back wall stands one wall behind the rearmost content — the cold core —
+# instead of hard against it, so the core seats flush against the rear Z-seam
+# lip's inner face rather than against the wall itself. enclosure.py reads it
+# from here as `rear_seam_clear`, so the wall the panel bodies seat against and
+# the wall the box is built to are one number and cannot drift apart.
 REAR_STANDOFF = 3.0
 # Vertical gap between a stratum's tallest part and the parts seated above it.
 STACK_GAP = 2.5
@@ -857,19 +857,23 @@ def build():
     foam = _load(FOAM_ASSEMBLY)
     fb = foam.BoundingBox()
     cold_w = fb.xlen                            # ~283 wide (shell + cap stacks, 253.4 tall)
-    foam_top = FOAM_CORNER_LIFT + fb.zlen       # ~262.9 — the shelf floor
+    foam_top = fb.zlen                          # ~253.4 — the shelf floor
 
-    # --- Zone A: cold core on the floor at the back, seated above the cavity
-    # corner arcs (the back pieces' cross-pin braces sit at the Z-seam, above
-    # and ahead of it). Its −Y service/dispense ports face forward.
-    placed["foam-assembly"] = _at(foam, 0.0, FRONT_DEPTH, FOAM_CORNER_LIFT)
+    # --- Zone A: cold core on the floor at the back, sitting flat on it — the
+    # cavity's print-corner relief runs on the standing verticals now, so the
+    # floor is square and nothing has to be cleared to seat on it. Its −Y
+    # service/dispense ports face forward.
+    placed["foam-assembly"] = _at(foam, 0.0, FRONT_DEPTH, 0.0)
 
     # --- Floor: compressor shroud front-left, condenser/fan front-right,
     # tipped on its back (airflow axis still across X): the donor block's
     # FACE_A dimension runs along Y — the front block is as deep as it — and
     # FACE_B stands as the height, level with the compressor top, leaving the
-    # whole front column above the floor stratum open. Both inset from their
-    # side walls to clear the front pieces' corner ribs. The donor's factory
+    # whole front column above the floor stratum open. Both sit one corner-rib
+    # chain inboard of the cold core's own side faces, and the side walls stand a
+    # further chain outboard of those — so the floor stratum keeps SIDE_RIB_INSET
+    # of free width at each wall beyond what the ribs need. Closing that would
+    # move refrig-1's lane with them. The donor's factory
     # filter-drier rides the condenser block (brazed to its outlet), not packed
     # separately; the MQ-6 sits on the floor between the compressor and the
     # cold core, low, where leaked isobutane pools.

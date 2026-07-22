@@ -142,12 +142,16 @@ def test_seams_mate() -> None:
 def test_placement() -> None:
     print("placed (face-to-datum rules hold)")
     inner = (0.0, 100.0, 0.0, 100.0, 0.0, 100.0)  # ix0 ix1 iy0 iy1 iz0 iz1
-    # foam-assembly rules: y+≤1, x-≤1, x+≤1, z-≤10. A slab hugging back/sides/floor.
+    # A slab seated on every datum foam-assembly is measured against, so every
+    # rule reads zero and holds whatever the tolerances are.
     held = sc.placement_audit({"foam-assembly": box(0, 0, 0, 100, 100, 50)}, inner)
     row = next((r for r in held if r[0] == "foam-assembly"), None)
     check("a component meeting its rules reads as placed", bool(row) and row[1])
-    # Drift it 5 mm off the left wall — x- rule (≤1 mm) now fails.
-    drift = sc.placement_audit({"foam-assembly": box(5, 0, 0, 95, 100, 50)}, inner)
+    # Drift it off the left wall by more than that rule's OWN tolerance, read from
+    # the rule itself — a fixed drift goes quietly blind the day a tolerance grows.
+    x_tol = next(t for f, t in sc.PLACEMENT_RULES["foam-assembly"] if f == "x-")
+    dx = x_tol + 5.0
+    drift = sc.placement_audit({"foam-assembly": box(dx, 0, 0, 100 - dx, 100, 50)}, inner)
     drow = next((r for r in drift if r[0] == "foam-assembly"), None)
     check("a drifted component reads as NOT placed", bool(drow) and not drow[1],
           "x- rule should break")

@@ -88,28 +88,29 @@ and both Z seams count, so six levels rather than one pair near the top: a wall
 above the floor, one under each Z seam, one over each of their lip rims, and one
 under the ceiling.
 
-Where a wall is crowded, the post necks to what is measured clear there with 45°
-run-outs, so it still stacks either way up. The −X wall is the case: the source
-tray runs 272 mm of the 283 mm interior, so no X position for the manifold stack
-leaves a full post section at both walls, and it is set to clear +X while the
-inverted bag tray and its junction tee ride within ~4 mm of −X over z 215–285.
-A boss needs a body to be bored into, so no level can sit in that band — levels
-are searched per wall and the two need not agree. The −X wall therefore carries
-five and +X six, and the build prints both.
+**What makes all of that fit is where the walls stand.** The cold core spans the
+interior wall to wall and floor to its cap, and it is what sets the box width, so
+a wall laid on its face would leave the seam machinery nowhere to stand. The **±X
+walls stand one `_contents.SIDE_RIB_INSET` off the core** — the boss chain's own
+reach — and the **back wall one `_contents.REAR_STANDOFF`**, the rear Z-seam
+lip's own thickness. The core sits flat on the floor: the print-corner relief
+runs on the standing verticals, so the floor is square and there is nothing down
+there to clear.
 
-The one place that could not be had for free is the rear station's post. The
-cold core spans the interior wall-to-wall and floor to its foam cap with no
-margin at any height, so a post on a side wall has nowhere to pass. But it is
-also the only content near the back — the next is 45 mm ahead — so rather than
-widen the box away from the side walls it seats against, the **back wall stands
-one `REAR_STANDOFF` behind it**. The rear post drops through that channel,
-making the post a rib in the true back corner where the back wall meets the side
-wall. `_contents.REAR_STANDOFF` is the single source: `_port_frame()` seats the
-rear panel bodies against that wall and `enclosure.py` builds the box to it, so
-the wall the bulkheads mount through and the wall the box is built to cannot
-drift apart. That channel is one wall deep, so the rear collar keeps its full
-width there but not its full depth — the only overhang left in the boss work,
-and it cannot be gusseted without lifting the back seam clear of the foam cap.
+So the core seats flush against the **seams**, not against the walls. Every post
+has its full section, both walls carry all six levels, and the rear station's
+post runs its own corner the whole way to the floor.
+
+`_contents.REAR_STANDOFF` is the single source for the back wall: `_port_frame()`
+seats the rear panel bodies against it and `enclosure.py` builds the box to it,
+so the wall the bulkheads mount through and the wall the box is built to cannot
+drift apart.
+
+The crowding mechanism stays in place even though nothing is crowded now: a post
+necks to whatever is measured clear at its wall with 45° run-outs, and no level
+is offered where the necking would leave a socket with no body to bore. It reads
+zero on both walls today, and the build prints each wall's levels so a wall that
+ever loses one is visible rather than silent.
 
 The cold core rides in the back-bottom piece, verified clear of every boss at
 build time. Each printed piece fits the H2C left-nozzle build envelope

@@ -244,14 +244,18 @@ def load_connections() -> list[Connection]:
 # eventually. Faces: x-/x+ = left/right walls, y-/y+ = front/back walls, z-/z+ = floor/ceiling.
 PLACEMENT_RULES = {
     # "Foam is against the back-bottom, full width" — the canonical example. It
-    # still seats hard against both side walls and the floor; y+ carries the one
-    # deliberate standoff, `enclosure.rear_spine_clear`, the channel the rear
-    # Z-seam posts drop through to reach the floor in the back corners.
-    "foam-assembly":     [("y+", 4.0), ("x-", 1.0), ("x+", 1.0), ("z-", 10.0)],
-    # "Compressor is front-left on the floor" (inset one corner-rib chain off the left wall).
-    "compressor-shroud": [("y-", 1.0), ("z-", 4.0), ("x-", 15.0)],
-    # "Condenser is front-right on the floor" (inset one corner-rib chain off the right wall).
-    "condenser+fan":     [("y-", 1.0), ("z-", 4.0), ("x+", 15.0)],
+    # sits flat on the floor and flush against the SEAMS rather than the walls:
+    # the ±X walls stand one boss chain (`_contents.SIDE_RIB_INSET`) off it so the
+    # corner posts and boss chains have their full section, and the back wall one
+    # wall (`enclosure.rear_seam_clear`) off it so the rear Z-seam lip's inner
+    # face is what it seats against. Those standoffs are the placement, so the
+    # tolerances carry them.
+    "foam-assembly":     [("y+", 4.0), ("x-", 15.0), ("x+", 15.0), ("z-", 1.0)],
+    # "Compressor is front-left on the floor" — one corner-rib chain inboard of the
+    # cold core's side face, which the wall stands a further chain outboard of.
+    "compressor-shroud": [("y-", 1.0), ("z-", 4.0), ("x-", 29.0)],
+    # "Condenser is front-right on the floor" — the same, off the right.
+    "condenser+fan":     [("y-", 1.0), ("z-", 4.0), ("x+", 29.0)],
     # "The assembly is pressed against the cold core": its tall walls' back
     # faces on the foam's front face (a declared contact), measured on the
     # real solids.
@@ -274,11 +278,12 @@ PLACEMENT_RULES = {
     # tray's wall-top plane, but the source's east wall slabs (which follow
     # its aimed valves) stop just outboard of them, so the tray floats a few
     # millimetres off the source assembly — held open until its holder. Its
-    # bare east (V-G/V-J) ports stand INSET off the +X wall (by GATE_WALL_INSET,
-    # in _contents.py), opening the pocket their outlet elbows will turn aft
-    # into — so the x+ face sits well inboard of the wall, not hugging it.
+    # bare east (V-G/V-J) ports stand INSET off the cold core's +X face (by
+    # GATE_WALL_INSET, in _contents.py), opening the pocket their outlet elbows
+    # will turn aft into. The +X wall then stands a further corner-rib chain
+    # outboard of that face, so the measured gap to the wall carries both.
     "nozzle-gate-assembly": [("near", "source-select-assembly", 4.0),
-                             ("x+", 16.0)],
+                             ("x+", 30.0)],
     # "P-A stands one stack gap ahead of the stack, under the funnel's
     # drop": its aft face near the bag tray's front columns (the stack's
     # flat front at the row's height), and the segment-4 drop corridor
