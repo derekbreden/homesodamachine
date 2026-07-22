@@ -193,12 +193,18 @@ wall_clear = 1.0
 wall_top_z = 60.0
 stack_pitch = wall_top_z - bot_z
 
-# Valve body reach in X from its center. These trays seat the valves ports-along-X
-# (rotated ±90°), so the round boss and the top-box half-depth both reach this far —
-# the widest the body gets in X. The ±Y stacking walls end flush here, at the outer
-# valves, so they never protrude past the valves into the enclosure's junction
-# pocket; the floor still spans the full plate to carry the corner sockets.
+# Valve reach in X from its center, per height band. These trays seat the valves
+# ports-along-X (rotated ±90°), so a feature's local Y depth is what it reaches in
+# tray X: the white body — round boss and top box alike — runs out to
+# [16.12](VALVE_BODY_HALF_X) mm and tops out at Z [30.6](VALVE_BODY_TOP_Z), and above
+# that only the coil stands, the motor body, a thinner protrusion reaching
+# [12](VALVE_COIL_HALF_X) mm. The stacking walls step with it and end flush in both
+# bands, so no wall stands proud of a valve at its own height and none cuts into the
+# wider body below. The ports and the spade terminals reach further still and are no
+# concern of the walls; the floor keeps the full plate to carry the corner sockets.
 valve_body_half_x = max(cell.valve.body_radius, cell.valve.body_width / 2.0)
+valve_coil_half_x = cell.valve.coil_depth / 2.0
+valve_body_top_z = cell.valve.body_top_z
 
 
 # --- The junction column's aim --------------------------------------------
@@ -331,25 +337,35 @@ def _cut_cradles(tray, valve_centers, connectors):
     return tray
 
 
-def _wall_span(valve_centers, plate_x):
-    """The X span of a ±Y stacking wall: flush with the outermost valve bodies
-    (``valve_body_half_x`` beyond the end valve centers), clamped to the plate —
-    the wall ends at the valves, never past them."""
+def _wall_span(valve_centers, plate_x, half_x):
+    """The X span of a ±Y stacking wall in one height band: ``half_x`` beyond the
+    outermost valve centers, clamped to the plate — the wall ends at the valves,
+    never past them."""
     xs = [cx for cx, _cy in valve_centers]
-    return (max(plate_x[0], min(xs) - valve_body_half_x),
-            min(plate_x[1], max(xs) + valve_body_half_x))
+    return (max(plate_x[0], min(xs) - half_x),
+            min(plate_x[1], max(xs) + half_x))
+
+
+def _stacking_wall(valve_centers, plate_x, y_half):
+    """A ±Y stacking wall as two stacked slabs, stepped where the valve narrows:
+    up to the body top it spans the valve bodies, above it retreats to the coils.
+    Built centered on Y = 0 for the caller to translate onto its side."""
+    return _box(*_wall_span(valve_centers, plate_x, valve_body_half_x),
+                y_half, bot_z, valve_body_top_z).union(
+        _box(*_wall_span(valve_centers, plate_x, valve_coil_half_x),
+             y_half, valve_body_top_z, wall_top_z))
 
 
 def build_tray(valve_centers, connectors, plate_x, plate_y_half):
     """Solid frame plate spanning ``plate_x`` (lo, hi), with a four-socket
     cradle and port saddle per valve, a groove per connector, and two ±Y
-    stacking walls. The walls span only the valves' X footprint (`_wall_span`),
-    so they sit flush with the valves rather than protruding past them."""
+    stacking walls. The walls step with the valves' own X footprint
+    (`_stacking_wall`), sitting flush with the body low down and with the motor
+    body above it rather than protruding past either."""
     tray = _box(plate_x[0], plate_x[1], plate_y_half, bot_z, top_z)
     tray = _cut_cradles(tray, valve_centers, connectors)
-    wx = _wall_span(valve_centers, plate_x)
     for sy in (+1.0, -1.0):
-        wall = _box(wx[0], wx[1], wall_thickness / 2.0, bot_z, wall_top_z)
+        wall = _stacking_wall(valve_centers, plate_x, wall_thickness / 2.0)
         tray = tray.union(wall.translate((0.0, sy * (plate_y_half - wall_thickness / 2.0), 0.0)))
     return tray
 
@@ -368,7 +384,8 @@ bc_x_split = valve_x - valve_pad                       # column/bridge boundary 
 bc_hug_half_y = row_half + tee_groove_radius + wall_clear + wall_thickness  # bridge half-width
 bc_hug_wall_top_z = port_z + tee_radius + 2.0          # short central walls just clear the Tee runs
 bc_col_inner = bc_x_split - margin                     # columns reach inboard, under the connecting walls
-bc_col_outer = valve_x + valve_body_half_x             # column walls end flush with the outer valves (not the plate edge)
+bc_col_outer = valve_x + valve_body_half_x             # column walls end flush with the valve bodies (not the plate edge)
+bc_col_outer_coil = valve_x + valve_coil_half_x        # and step back to the motor bodies above them
 
 
 def build_bag_circuit_tray():
@@ -381,10 +398,16 @@ def build_bag_circuit_tray():
         y_col = sy * (plate_half_y - wall_thickness / 2.0)
         y_hug = sy * (bc_hug_half_y - wall_thickness / 2.0)
         # full-height column walls (carry the stack pitch) + short central wall.
-        # The columns end flush with the outer valves (bc_col_outer), not at the
-        # plate edge, so no wall protrudes past the valves into the junction pocket.
-        tray = tray.union(_box(bc_col_inner, bc_col_outer, wall_thickness / 2.0, bot_z, wall_top_z).translate((0.0, y_col, 0.0)))
-        tray = tray.union(_box(-bc_col_outer, -bc_col_inner, wall_thickness / 2.0, bot_z, wall_top_z).translate((0.0, y_col, 0.0)))
+        # The columns end flush with the outer valves, not at the plate edge, so no
+        # wall protrudes past the valves into the junction pocket — at the valve
+        # bodies below (bc_col_outer) and at the motor bodies above
+        # (bc_col_outer_coil), stepping where the valve itself narrows. Their inner
+        # ends run under the connecting walls, the tray's own spine.
+        for sx in (+1.0, -1.0):
+            lo, hi = sorted((sx * bc_col_inner, sx * bc_col_outer))
+            tray = tray.union(_box(lo, hi, wall_thickness / 2.0, bot_z, valve_body_top_z).translate((0.0, y_col, 0.0)))
+            lo, hi = sorted((sx * bc_col_inner, sx * bc_col_outer_coil))
+            tray = tray.union(_box(lo, hi, wall_thickness / 2.0, valve_body_top_z, wall_top_z).translate((0.0, y_col, 0.0)))
         tray = tray.union(_box(-bc_x_split, bc_x_split, wall_thickness / 2.0, bot_z, bc_hug_wall_top_z).translate((0.0, y_hug, 0.0)))
         # connecting walls bridge the pinch from each short-wall end to its column wall
         for sx in (+1.0, -1.0):
@@ -422,8 +445,18 @@ def main():
     print("-> bag-circuit-tray.step")
     substitute_py_comments(
         _here,
-        variables={"JUNCTION_OFFSET": f"{junction_offset:.4g}"},
-        expected_counts={"JUNCTION_OFFSET": 1},
+        variables={
+            "JUNCTION_OFFSET": f"{junction_offset:.4g}",
+            "VALVE_BODY_HALF_X": f"{valve_body_half_x:.4g}",
+            "VALVE_COIL_HALF_X": f"{valve_coil_half_x:.4g}",
+            "VALVE_BODY_TOP_Z": f"{valve_body_top_z:.4g}",
+        },
+        expected_counts={
+            "JUNCTION_OFFSET": 1,
+            "VALVE_BODY_HALF_X": 1,
+            "VALVE_COIL_HALF_X": 1,
+            "VALVE_BODY_TOP_Z": 1,
+        },
     )
     print(f"-> {_here.name} (self)")
     substitute_md(

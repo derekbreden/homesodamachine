@@ -254,6 +254,30 @@ body_width = cell.valve.body_width                     # valve top-box depth (lo
 tall_inner = body_width_x / 2 + wall_clear             # tall-wall inner face, off valve center
 port_face_offset = cell.valve.port_radius + wall_clear  # short-wall bump, off the port axis
 
+# The full-height walls step where the valve narrows, on the law `bag_circuit_tray`
+# sets: below the body top they end at the white body, above it at the coil — the
+# motor body, a thinner protrusion. These valves stand aimed rather than square, so
+# each band's rear reach in X carries the plan tilt and is taken off the placed
+# solid itself. The ports and the spade terminals reach past both bands and are no
+# concern of the walls.
+coil_depth = cell.valve.coil_depth                     # valve coil depth (local Y)
+body_top_z = bc.valve_body_top_z                       # the height the walls step at
+
+
+def _aimed(solid, vx, vy, dx, dy):
+    """A valve sub-body dropped on its station, turned onto its aim line."""
+    return solid.rotate((0, 0, 0), (0, 0, 1), _aim_phi(vx, vy, dx, dy)).translate((vx, vy, 0.0))
+
+
+def _band_reach_x(solid):
+    """The |X| an aimed valve sub-body reaches, over the four placements."""
+    return max(max(abs(bb.xmin), abs(bb.xmax))
+               for bb in (_aimed(solid, *v).BoundingBox() for v in valves))
+
+
+body_reach_x = _band_reach_x(cell.valve.build_body().val())   # rear reach below the step
+coil_reach_x = _band_reach_x(cell.valve.build_coil().val())   # and above it, at the motor body
+
 
 def build_source_select_tray():
     def extrude_xy(pts, z0, z1):
@@ -341,31 +365,39 @@ def build_source_select_tray():
         tray = tray.cut(cq.Workplane(obj=groove))
 
     # Tall valve-end walls: a full-height slab parallel to each valve's outer
-    # top-box edge, set one clearance outboard of it.
+    # top-box edge, set one clearance outboard of it. The slab steps where the
+    # valve narrows — spanning the top-box edge below the body top, the coil's
+    # shorter edge above it — so neither end stands proud of the motor body.
     for vx, vy, dx, dy in valves:
         a, nout = _valve_axes(vx, vy, dx, dy)
-        t_back, t_front = -body_width / 2, body_width / 2   # spans the valve top-box edge
-        tray = tray.union(extrude_xy(
-            [_wall_corner(vx, vy, a, nout, tall_inner, t_back),
-             _wall_corner(vx, vy, a, nout, tall_inner, t_front),
-             _wall_corner(vx, vy, a, nout, tall_inner + wall_thickness, t_front),
-             _wall_corner(vx, vy, a, nout, tall_inner + wall_thickness, t_back)],
-            bot_z, wall_top_z,
-        ))
+        for half_t, z0, z1 in ((body_width / 2, bot_z, body_top_z),
+                               (coil_depth / 2, body_top_z, wall_top_z)):
+            tray = tray.union(extrude_xy(
+                [_wall_corner(vx, vy, a, nout, tall_inner, -half_t),
+                 _wall_corner(vx, vy, a, nout, tall_inner, half_t),
+                 _wall_corner(vx, vy, a, nout, tall_inner + wall_thickness, half_t),
+                 _wall_corner(vx, vy, a, nout, tall_inner + wall_thickness, -half_t)],
+                z0, z1,
+            ))
 
     # Back walls: continue each tall wall along the flat rear of the floor out to
-    # the back corner — the stretch the slanted tall wall no longer covers.
+    # the valve's own rear reach — the stretch the slanted tall wall no longer
+    # covers — stepping back with it to the motor body above the body top.
     for vx, vy, dx, dy in valves:
         a, nout = _valve_axes(vx, vy, dx, dy)
-        bo = _wall_corner(vx, vy, a, nout, tall_inner + wall_thickness, -body_width / 2)  # tall back-outer
         sx, sy = math.copysign(1.0, vx), math.copysign(1.0, vy)
-        x0, x1 = sorted((bo[0], sx * valve_back_x))
-        y0, y1 = sorted((bo[1], bo[1] - sy * wall_thickness))
-        tray = tray.union(
-            cq.Workplane("XY")
-            .box(x1 - x0, y1 - y0, wall_top_z - bot_z, centered=(False, False, False))
-            .translate((x0, y0, bot_z))
-        )
+        for half_t, reach, z0, z1 in ((body_width / 2, body_reach_x, bot_z, body_top_z),
+                                      (coil_depth / 2, coil_reach_x, body_top_z, wall_top_z)):
+            bo = _wall_corner(vx, vy, a, nout, tall_inner + wall_thickness, -half_t)  # tall back-outer
+            x0, x1 = sorted((bo[0], sx * min(valve_back_x, reach)))
+            y0, y1 = sorted((bo[1], bo[1] - sy * wall_thickness))
+            if x1 - x0 < 1e-6:
+                continue
+            tray = tray.union(
+                cq.Workplane("XY")
+                .box(x1 - x0, y1 - y0, z1 - z0, centered=(False, False, False))
+                .translate((x0, y0, z0))
+            )
 
     # Short central walls: the hug/bump strip per side, just clearing the dividers.
     for sy in (-1.0, 1.0):
