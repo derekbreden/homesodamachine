@@ -478,35 +478,41 @@ def _hopper_cut(inner, outer, y_joint):
 def _bosses(inner, split=None, brace_y_short=None):
     """Per-boss tuple (x_in, x_ext, sx, z_boss, pod_z, brace_z, brace_y1): the
     inner ±X wall face the screw passes through, its matching exterior face,
-    sx = +1 (left) / −1 (right) inboard, the bore-axis height, the socket pod's
-    z-span, and the back brace's z-span + its +Y reach. Two levels per side:
-    with a Z seam (`split`) the lower pair rides just under it — the floor
-    corners stay clear for the cold core, and the lower braces stop ahead of it
-    (`brace_y_short`); without one (the coupon) the lower pair sits one wall
-    above the floor.
+    sx = +1 (left) / −1 (right) inboard, the bore-axis height, the post's z-span,
+    and the back brace's z-span + its +Y reach.
 
-    Each level's pod reaches out to the floor or ceiling it sits against, which
-    printed Z-down is the bed face the piece lies on — so both pods grow off the
-    first layer rather than hanging off a wall."""
+    The Y seam runs the box's whole height, so it is pinned at a LEVEL for each
+    end of each piece that crosses it, not once near the top. With a Z seam
+    (`split`) that is four: one a wall above the floor, one just under the seam
+    (these two pin the bottom pieces at both ends of their span), one just over
+    the seam's lip rim, and one under the ceiling (those two pin the top pieces).
+    The staggered Z seams mean a level pairs whichever front and back piece meet
+    at that height — the brick bond. Without a Z seam (the coupon) it is the
+    floor and ceiling pair only.
+
+    Every level's post spans the box's full height; `build_piece` clips it to the
+    piece, so each piece gets a post from its own bed face to its seam and the
+    corner reads floor-to-ceiling assembled."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     r = socket_bore_dia / 2.0
+    post = (iz0, iz1)
     zt = iz1 - wall - r
+    zf = iz0 + wall + r
     if split is None:
-        zb = iz0 + wall + r
-        top = ((zt - socket_r, iz1), (zt - plug_dia / 2.0, iz1), None)
-        bot = ((iz0, zb + socket_r), (iz0, zb + plug_dia / 2.0), None)
+        levels = [(zf, None), (zt, None)]
     else:
-        zb = split - wall - r
-        # Each pod is a POST, not a collar: it spans its piece's whole height —
-        # floor to the seam below it, seam to ceiling above — so the boss is fed
-        # from the bed face its piece lies on instead of hanging off the wall.
-        # The two meet at the seam, so the corner reads floor-to-ceiling assembled.
-        top = ((split, iz1), (zt - plug_dia / 2.0, iz1), None)
-        bot = ((iz0, split), (zb - plug_dia / 2.0, split), brace_y_short)
+        # Only the ceiling level clears the cold core's foam cap, so only its
+        # brace may run back to the rear wall; every level below it stops at
+        # `brace_y_short`, ahead of the core.
+        levels = [(zf, brace_y_short),                     # a wall above the floor
+                  (split - wall - r, brace_y_short),       # just under the Z seam
+                  (split + lip_len + wall + r, brace_y_short),  # just over its lip rim
+                  (zt, None)]                              # under the ceiling
     out = []
-    for z_boss, (pod_z, brace_z, by1) in ((zb, bot), (zt, top)):
-        out.append((ix0, ix0 - wall, +1.0, z_boss, pod_z, brace_z, by1))
-        out.append((ix1, ix1 + wall, -1.0, z_boss, pod_z, brace_z, by1))
+    for z_boss, by1 in levels:
+        brace_z = (z_boss - plug_dia / 2.0, z_boss + plug_dia / 2.0)
+        out.append((ix0, ix0 - wall, +1.0, z_boss, post, brace_z, by1))
+        out.append((ix1, ix1 + wall, -1.0, z_boss, post, brace_z, by1))
     return out
 
 

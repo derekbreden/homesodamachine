@@ -25,10 +25,15 @@ mouth, plugs, and screw bores aligned to the front coupon's lip and sockets.
 ## Seams + bosses
 
 Three seams, one joint idiom. Front↔back: the front pieces' full-wall rear lip
-telescopes into the back pieces; one cross-pin per side wall per level — the
-lower pair tucked just under the front Z seam (so it pins the two bottom
-pieces), the upper pair under the ceiling — fastens the columns with M3 screws
-driven from the ±X exterior. Bottom↔top, per column: the same joint rotated
+telescopes into the back pieces, cross-pinned with M3 screws driven from the ±X
+exterior. That seam runs the box's whole height, so it is pinned at **four
+levels** per side wall, not once near the top — a wall above the floor and just
+under the front Z seam (those two pin the bottom pieces at both ends of their
+span), just over that seam's lip rim and under the ceiling (those two pin the
+top pieces). Because the Z seams stagger, a level pairs whichever front and back
+piece meet at that height — the brick bond. A seam pinned at one end of a piece
+and nothing else hinges at the other; front-bottom carried both its stations in
+the top 20 mm of a 188 mm piece before this. Bottom↔top, per column: the same joint rotated
 90°, at `z_joint_front` (the front stack's waist, above the condenser) and
 `z_joint_back` (the one back-wall band left open between the cold core's
 foam-cap top and the rear bulkhead field) — the bottom pieces carry a 3-sided
