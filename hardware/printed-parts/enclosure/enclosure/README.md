@@ -113,22 +113,12 @@ unevenly (further up-and-left), so the 106 × 69 mm PCB through-hole sits offset
 the opposite way; where the corner pod sits behind the facet, the hole takes it
 clean through.
 
-The whole housing — the facet, its full depth, and its back plane — stands proud
-of the front wall on a self-supporting pod, carried 19 mm forward (−Y,
-`display_pod_reach`) so the pod's front plane lands flush with the DERPIPE CO2
-inlet's collet face beside it. The facet slides in −Y only; its Z span and its
-45° are untouched. The back plane comes forward with it, opening 19 mm of the
-west column behind the display for the CO2 chain. Both the facet above the pod
-and the back plane as its soffit are the housing's own 45° planes, so the frame
-runs out from the wall at one constant thickness.
-
-The band's two ends terminate by their own constraints. The west end is the
-box's own west face: the facet is flush to the −X edge (the display datum), so
-the housing runs off the edge at full section and the corner relief wraps its
-front arris. The east end returns: the band continues one reach past the facet
-window, a vertical 45° plan chamfer sweeps its front face back into the wall,
-and its top is the shoulder — the facet plane dropped one wall — so the display
-land keeps its exact facet face behind a 3 mm reveal at the window's east edge.
+The whole housing is cut into the box itself, flush with the front wall: the
+facet chamfers the top-front-left corner away and the back plane stands one
+housing depth behind it. Both are the housing's own 45° planes — the facet above,
+the back plane as its soffit — so the frame holds one constant thickness through
+the corner. The cut spans the facet window from the −X edge; east of the window
+the top-front corner runs on unbroken.
 
 The recessed panel is sealed from the cavity at both lateral edges: the −X edge
 by the left exterior wall, the +X edge by a one-wall gusset spanning the full
@@ -136,11 +126,9 @@ housing depth (inner front wall, inner top wall, housing back plane), continuous
 with the slab. The display reference is seated in the housing in
 `../enclosure-assembly/`.
 
-The pod is what rules out printing on a Y face: −Y-down the pod would be the
-first layer and the rest of the front wall would start a whole reach up in open
-air. Ceiling-down it lies flat, and every housing face — the facet, its back
-plane as the soffit, the east return's plan chamfer — is 45° or vertical to the
-bed, so none of them is an overhang.
+Ceiling-down the housing lies flat, and every one of its faces — the facet and
+its back plane as the soffit — is 45° or vertical to the bed, so none of them is
+an overhang.
 
 One localised cost follows from the Z-face orientation, shared with the other
 pieces: the panel bores that were vertical when the build axis was Y are
