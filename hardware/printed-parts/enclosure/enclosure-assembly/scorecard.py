@@ -701,6 +701,42 @@ def pack_clashes(solids: dict, pieces: dict) -> list[tuple[str, str, float]]:
     return out
 
 
+def clash_solids(solids: dict, pieces: dict, limit: int = DETAIL_MAX) -> list:
+    """The intersection SOLID of each clashing pair pack_clashes reports (same pairs, same order,
+    up to `limit`) — the overlap volume itself, returned as (a, b, shape). The dev editor renders
+    these so a clash is a body you can see and frame under x-ray at the exact overlap, not just the
+    two whole parts named. Kept out of pack_clashes so the gate stays a fast volume-only pass; the
+    limit bounds the extra boolean work (a wild move can clash with many parts at once)."""
+    names = list(solids)
+    bbs = {n: solids[n].BoundingBox() for n in names}
+    out = []
+
+    def add(a, b, sa, sb):
+        try:
+            inter = sa.intersect(sb)
+            if inter.Volume() > CLASH_TOL:
+                out.append((a, b, inter))
+        except Exception:
+            pass  # a boolean that OCCT can't resolve just doesn't get a body — the gate still fails
+
+    for i, a in enumerate(names):
+        for b in names[i + 1:]:
+            if len(out) >= limit:
+                return out
+            if _bbox_gap(bbs[a], bbs[b]) > 0:
+                continue
+            add(a, b, solids[a], solids[b])
+    for hn, hs in pieces.items():
+        hbb = hs.BoundingBox()
+        for n in names:
+            if len(out) >= limit:
+                return out
+            if _bbox_gap(hbb, bbs[n]) > 0:
+                continue
+            add(hn, n, hs, solids[n])
+    return out
+
+
 def line_clashes(lines: dict, solids: dict, ends: dict) -> list[tuple[str, str, float]]:
     """Every routed tube that INTERPENETRATES another tube, or a placed solid it does not
     terminate on, by overlap volume over CLASH_TOL — the routed analogue of pack_clashes. A tube
