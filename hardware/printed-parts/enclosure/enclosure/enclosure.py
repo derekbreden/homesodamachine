@@ -16,7 +16,8 @@ interior clearance, then walled out. Features:
     the top pair under the ceiling. Each boss is on an X axis: the screw
     drives in from the left/right EXTERIOR face. The BACK piece carries the
     PLUG (faucet mounting-plate idiom): a cylinder reaching inward from the
-    corner with a screw clearance through it, backed by a corner brace. The
+    corner with a screw clearance through it, its column interlocked with the
+    socket's. The
     FRONT piece's lip carries the SOCKET (faucet shell-bottom idiom): a pod
     bored to receive the plug, open on its +Y face so the plug drops in as
     the pieces close, with a ruthex M3 heat-set at the deep end.
@@ -27,7 +28,8 @@ interior clearance, then walled out. Features:
     3-sided band (their outer ±Y wall + both side walls, stopping short of
     the Y-seam overlap) telescoping +Z into the top pieces — with the
     socket pods; the TOP pieces carry the D-pins, their tabs rising to the
-    lip rim where corner braces back them. Four X-axis screws cross each
+    lip rim where posts of the pod's own section carry them to the
+    ceiling. Four X-axis screws cross each
     seam (one per side wall per Y column: front pins at the front-wall
     corners, back pins just behind the Y-seam mouth).
 
@@ -46,12 +48,17 @@ exterior arris to relieve — so the front pieces round the front-left/right
 verticals, the back pieces the back-left/right, and every seam stays square.
 The bosses follow the same axis. Every one stands on a post of its OWN section —
 the whole socket footprint, not a stalk under a collar — run the full height of
-its piece, floor to the seam below it and seam to the ceiling above. So there is
-material under every part of a boss the whole way to the bed face and the piece
-simply stacks; the two pieces' posts meet at the seam, and the corner doubles as
-the stiffener a shell this size wants. Where a wall is crowded the post necks to
-what is measured clear there with 45° run-outs, and no boss is placed in that
-band, since a socket needs a body to be bored into.
+its piece, bed face to the seam, at CONSTANT section the whole way: a post that
+narrows below its boss, or stops short of the wall its neighbour reaches, leaves
+exactly the ledge the post was there to avoid. So there is material under every
+part of a boss the whole way to the bed and the piece simply stacks; the two
+pieces' posts meet at the seam, and the corner doubles as the stiffener a shell
+this size wants. Where the seam furniture at one corner belongs to the other
+piece — the Y seam's overlap, and the floor and ceiling strata over it — the two
+INTERLOCK, each half's column running the other's relief, so both print standing
+and assemble solid. Where a wall is crowded the post necks to what is measured
+clear there with 45° run-outs, and no boss is placed in that band, since a socket
+needs a body to be bored into.
 
 Each seam is pinned at BOTH ends of every piece that crosses it, so nothing can
 hinge open at its far end: the Z seams at both ends of their column, and the Y
@@ -141,10 +148,10 @@ hopper_front_ledge = 8.0  # top wall kept along the front edge
 # Split + boss parameters — every dimension sized to its function, nothing
 # inherited from the faucet. The seam is a Y plane; the front half's full-wall
 # rear lip telescopes into the back; four corner bosses cross-pin the seam with
-# M3 screws from the ±X exterior. Each boss is a D-section pin: round where it
-# registers in the front socket bore, with a flat tab running +Y to the lip rim
-# where the back-half corner brace backs it. The screw spans the head seat to the
-# front heat-set, so the pin body is screw_len − heatset_depth long.
+# M3 screws from the ±X exterior. Each boss is a round pin registering in the
+# front socket bore, meeting the back half's own corner web along its whole +Y
+# side. The screw spans the head seat to the front heat-set, so the pin body is
+# screw_len − heatset_depth long.
 split_slip = 0.40            # diametral slide fit, plug into socket bore
 screw_clear_dia = 3.9        # M3 shank clearance
 head_cbore_dia = 6.15        # M3 SHCS head counterbore
@@ -322,6 +329,29 @@ def _plug_reach():
     return head_cbore_depth + screw_len - heatset_depth - wall
 
 
+def _y_corner(inner, y_joint):
+    """The Y extent of the FRONT half's corner column — the socket pod and the
+    post carrying it. Aft it is the lip rim, where the pod's face lands. Forward
+    it reaches the Z lip's Y-seam gap, which is exactly where that column's own Z
+    station stops: one socket_r ahead of the bore would leave the two standing a
+    sliver apart on the same wall, which is neither a post nor a gap anything can
+    use.
+
+    One definition, read by the band _dims probes, the heights _bosses may place a
+    level at, and the column _front_pod builds — so a change to the corner cannot
+    move one of the three and leave the others measuring somewhere else."""
+    return (max(inner[2], min(_y_boss(y_joint) - socket_r,
+                              y_joint - wall - z_lip_y_margin)),
+            y_joint + lip_len)
+
+
+def _y_corner_back(inner, y_joint):
+    """The Y extent of the BACK half's corner column — the web standing in the
+    front pod's slot, and the post behind the lip rim. It starts at the bore axis
+    (the slot opens there) and runs one pod-depth past the rim."""
+    return _y_boss(y_joint), min(inner[3], y_joint + lip_len + 2.0 * socket_r)
+
+
 def _level_clear(inner, y0, y1, z_boss, x_in, sx, depth):
     """Whether this wall can carry a cross-pin at this height. The test is the
     SOCKET's whole body — bore, heat-set and cap, out to `depth` and one socket_r
@@ -382,7 +412,7 @@ def _dims():
     ix1 = max(cxmax + interior_clearance, cold.xmax + _contents.SIDE_RIB_INSET)
     iy0, iy1 = cymin - interior_clearance, cymax + interior_clearance + rear_seam_clear
     # The floor is a fixed Z=0 datum, not the lowest content — so parts can stand
-    # on feet above it (the floor, seam lip, and braces stay put). The ceiling
+    # on feet above it (the floor, seam lip, and posts stay put). The ceiling
     # follows the tallest content — EXCEPT along the ±X walls, where the
     # Y-seam's top cross-pin pods hug the ceiling and reach one boss chain
     # inboard: content inside that reach sets the ceiling at its top plus the
@@ -411,7 +441,7 @@ def _dims():
     cold_front_y = cold.ymin
     # The seam sits at the box's middle, for four near-quarter pieces, unless
     # something stands where one of its two parts needs to be: the mouth, plugs,
-    # pods and braces in the ±X boss-chain bands, and the lip's ceiling segment
+    # pods and posts in the ±X boss-chain bands, and the lip's ceiling segment
     # in the band under the top wall. The cold core caps neither — the bands run
     # clear alongside it, and the lip carries no floor segment to sweep it — so
     # the seam passes BEHIND the core's front face rather than stopping at it.
@@ -433,13 +463,13 @@ def _dims():
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ox0, ox1, oy0, oy1, iz0 - wall, iz1 + wall)
     # The Y-seam corner, probed at each depth something stands there: the front
-    # half's post at the socket's full section (which also fixes where a level
-    # may sit, since a level needs a socket body), and the back half's post
-    # behind the lip rim at the pin's.
-    fy0, fy1 = max(iy0, _y_boss(y_joint) - socket_r), y_joint + lip_len
+    # half's column at the socket's full section (which also fixes where a level
+    # may sit, since a level needs a socket body), and the back half's column —
+    # web through the pod's slot, post behind the rim — at the pin's.
+    fy0, fy1 = _y_corner(inner, y_joint)
     _measure_wall_relief(placed, inner, fy0, fy1, boss_in)
-    _measure_wall_relief(placed, inner, fy1,
-                         min(iy1, fy1 + 2.0 * socket_r), _plug_reach())
+    by0, by1 = _y_corner_back(inner, y_joint)
+    _measure_wall_relief(placed, inner, by0, by1, _plug_reach())
     return inner, outer, y_joint, cold_front_y
 
 
@@ -605,17 +635,24 @@ def _hopper_cut(inner, outer, y_joint):
 # drives in from the ±X exterior; outboard→inboard the joint reads: head
 # counterbore, then the pin body (screw_len − heatset_depth of material the shank
 # crosses), then the heat-set, then a one-wall cap.
-#   * BACK half = D-PIN: a round cylinder from the ±X exterior to the heat-set
-#     (registers in the socket bore), fused to a flat +Y tab running to the lip
-#     rim where the corner brace backs it. Sized to the screw SHANK, not the head
-#     (the head sits in the wall counterbore); screw-clearance + head counterbore
-#     bored in.
+#   * BACK half = PIN: a round cylinder from the ±X exterior to the heat-set,
+#     registering in the socket bore. Sized to the screw SHANK, not the head (the
+#     head sits in the wall counterbore); screw-clearance + head counterbore bored
+#     in.
 #   * FRONT lip = SOCKET: a corner pod, integral with the ±Z wall, bored to
-#     receive the round pin (slide fit), the heat-set + cap at the deep inboard
-#     end, and a +Y channel the pin's tab slides through as the lip telescopes
-#     into the back.
+#     receive the round pin (slide fit) with the heat-set + cap at the deep
+#     inboard end.
 # The head seats in the back wall; the shank crosses the pin body into the front
 # heat-set, cross-pinning the two halves along X.
+#
+# The corner the pair stands in is SHARED, not owned. The overlap belongs to the
+# front half — its lip and pod fill the corner floor to ceiling — so a pin
+# standing in it has nothing under it on the back piece, and the back's own post
+# can only begin behind the rim. The two INTERLOCK instead: a slot the pod's full
+# height, and the back half's web filling it. Each piece then carries the corner
+# at constant section from its own bed face to every boss on it, and assembled
+# the two read as one solid column. The floor and ceiling strata interlock the
+# same way, the front post's foot and head coming through a relief in the back's.
 
 def _seam_level(inner, y0, y1, want, away, limit, x_in, sx, depth):
     """A cross-pin level as close to `want` as the side walls allow, searched in
@@ -663,8 +700,7 @@ def _bosses(inner, splits=(), y_joint=None):
     post = (iz0, iz1)
     zt = iz1 - wall - r
     zf = iz0 + wall + r
-    fy0 = max(iy0, _y_boss(y_joint) - socket_r) if y_joint is not None else 0.0
-    fy1 = y_joint + lip_len if y_joint is not None else 0.0
+    fy0, fy1 = _y_corner(inner, y_joint) if y_joint is not None else (0.0, 0.0)
     out = []
     for x_in, sx in ((ix0, +1.0), (ix1, -1.0)):
         if y_joint is None:                      # the coupon: no contents to dodge
@@ -703,22 +739,18 @@ def _boss_x(x_ext, sx):
     return x_seat, x_tip, x_heat, x_cap
 
 
-def _back_plug(x_ext, sx, z_boss, y_boss, y_joint):
-    """BACK D-pin: a round cylinder from the ±X exterior to the heat-set (it
-    registers in the front socket bore), fused to a flat tab running +Y to the
-    lip rim, so the corner brace butting that rim backs the X-axis pin in Y. The
-    tab is the pin diameter wide and slides through the socket's +Y channel."""
+def _back_plug(x_ext, sx, z_boss, y_boss):
+    """BACK pin: a round cylinder from the ±X exterior to the heat-set, where it
+    registers in the front socket bore. It needs no tab of its own to reach the
+    rim — the corner's web runs the whole height at the tab's own section, so the
+    pin meets it at every level and is backed in Y along its full +Y side."""
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
-    cyl = _xcyl(plug_dia / 2.0, y_boss, z_boss, x_ext, x_tip)
-    xa, xb = sorted((x_ext, x_tip))
-    tab = _ybox(xa, xb, y_boss, y_joint + lip_len,
-                z_boss - plug_dia / 2.0, z_boss + plug_dia / 2.0)
-    return cyl.fuse(tab)
+    return _xcyl(plug_dia / 2.0, y_boss, z_boss, x_ext, x_tip)
 
 
 def _sides(bosses):
     """The boss tuples reduced to one per ±X wall — for the features a wall
-    carries once (its post) rather than once per level (bore, pin, brace)."""
+    carries once (its column) rather than once per level (bore, pin)."""
     seen, out = set(), []
     for b in bosses:
         if b[2] not in seen:
@@ -744,56 +776,104 @@ def _front_pod(x_in, x_ext, sx, pod_z, y_joint, inner):
 
     A post standing on the wall face alone would sit inside the Y lip, which is
     already there — the section has to reach inboard of it to be structure at
-    all. Bore / heat-set / channel are cut afterwards."""
+    all. Bore, heat-set and the corner's slot are cut afterwards."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_cap))
     za, zb = pod_z
-    ya = max(iy0, _y_boss(y_joint) - socket_r)
-    yb = y_joint + lip_len
+    ya, yb = _y_corner(inner, y_joint)
     post = _ybox(xa, xb, ya, yb, za, zb)
     waist = _wall_waist(x_in, x_cap, sx, ya, yb)
     return post if waist is None else post.cut(waist)
 
 
+def _socket_slot(x_in, x_ext, sx, y_joint, outer):
+    """The +Y slot through the front socket pod — the path the back half's column
+    takes as the halves close, and the reason that column can exist at all.
+
+    The overlap band belongs to the front half: its lip and its pod fill the
+    corner floor to ceiling, so a back-half pin standing in it has nothing
+    beneath it. Running the slot the pod's WHOLE height rather than just the
+    pin's gives the back half a channel it can stand a column in, and costs the
+    pod only the outboard limb of its section over the aft third of its depth —
+    the limb the slot's own occupant restores once the two are together.
+
+    Open at the rim, so it is a slide path and not a pocket. The slip is on the
+    −Y face, the one the column registers against."""
+    ox0, ox1, oy0, oy1, oz0, oz1 = outer
+    _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
+    xa, xb = sorted((x_in, x_tip))
+    return _ybox(xa, xb, _y_boss(y_joint) - split_slip / 2.0, y_joint + lip_len + 1.0,
+                 oz0 - 1.0, oz1 + 1.0)
+
+
+def _front_pod_ends(x_in, x_ext, sx, y_joint, inner, outer, slip=0.0):
+    """The front corner post's FOOT and HEAD — its section carried through the
+    floor and ceiling strata over the overlap, out to the printed piece's own bed
+    face; with `slip`, the relief the back half's floor and ceiling give up to
+    receive them.
+
+    The Y lip is three-sided and the shell it hangs off stops at the seam plane,
+    so over the overlap the post had nothing under it at the floor and nothing
+    over it at the ceiling — printed, its first layer began an overlap's length
+    out over open air. These carry it to the bed, and the back half is relieved
+    to take them, so both strata read continuous through the corner instead of
+    stepping at it.
+
+    Only the boss chain's own width at each wall — the band the cold core stands
+    off — so the core still seats on unbroken floor. Open at the seam plane, so
+    it is a slide path and not a pocket."""
+    _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
+    xa, xb = sorted((x_in, x_cap + sx * slip))
+    ya = y_joint - (1.0 if slip else 0.0)
+    yb = y_joint + lip_len + slip
+    pad = 1.0 if slip else 0.0
+    return (_ybox(xa, xb, ya, yb, outer[4] - pad, inner[4])
+            .fuse(_ybox(xa, xb, ya, yb, inner[5], outer[5] + pad)))
+
 
 def _back_post(x_in, x_ext, sx, y_joint, inner, zj):
-    """BACK Y-seam POST: the column the back half's cross-pins stand on.
+    """BACK Y-seam COLUMN: the web standing in the front pod's slot, and the post
+    behind the lip rim, as one body — the column the back half's cross-pins stand
+    on.
 
-    The back half carries the D-pin and the brace behind it, and both hang off
-    the ±X wall at the pin's own height with open air beneath — so on the back
-    pieces this corner had no post at all. This is it, at the pin's own X depth
-    so the two read as one body, run the piece's whole height.
+    The post alone starts at the rim, because the overlap ahead of it is the
+    front half's. That left every pin cantilevered off the ±X wall over its own
+    length of open air: on the back pieces this corner carried no material under
+    a boss at all. The WEB is the fix — the pin's own tab section, run the
+    piece's whole height through the slot cut for it, so each pin stands on
+    material all the way to the bed and the two halves interlock into one solid
+    corner once assembled.
 
-    It starts at the lip rim because the front half's lip telescopes into the
-    overlap ahead of that. In Z it skips its own column's seam band for the same
-    reason — the bottom piece's Z lip rises through it into the top piece — and
-    picks up again at that rim, which is where the top piece's material starts
-    anyway."""
+    The web reaches back to where the Z lip's Y-seam gap ends, which is as far as
+    a full-height column may run before that lip crosses it. The post beyond it
+    skips its own column's seam band for exactly that reason — the bottom piece's
+    Z lip rises through it — and picks up at the rim, where the top piece's
+    material starts anyway."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_tip))
+    ya, yb = _y_corner_back(inner, y_joint)
+    web = _ybox(xa, xb, ya, min(yb, y_joint + lip_len + z_lip_y_margin), iz0, iz1)
     ya = y_joint + lip_len
-    yb = min(iy1, ya + 2.0 * socket_r)
     if zj is None:
-        return _ybox(xa, xb, ya, yb, iz0, iz1)
-    return _ybox(xa, xb, ya, yb, iz0, zj).fuse(_ybox(xa, xb, ya, yb, zj + lip_len, iz1))
+        return web.fuse(_ybox(xa, xb, ya, yb, iz0, iz1))
+    return (web.fuse(_ybox(xa, xb, ya, yb, iz0, zj))
+               .fuse(_ybox(xa, xb, ya, yb, zj + lip_len, iz1)))
 
 
-def _front_cuts(x_in, x_ext, sx, z_boss, y_boss, y_joint):
-    """Front-socket inner cuts: the bore that receives the plug, the heat-set
-    pocket at the deep end, and a +Y channel for slide-in. The slip lives on the
-    +Y (slide-in) side: the bore is shifted +slip/2 so its −Y wall registers on
-    the plug's −Y face at the mouth, instead of overshooting past the seam. The
-    heat-set stays coaxial with the screw at y_boss."""
+def _front_cuts(x_in, x_ext, sx, z_boss, y_boss):
+    """Front-socket inner cuts at one level: the bore that receives the plug and
+    the heat-set pocket at its deep end. The slide-in path is not here — that is
+    the corner's slot, cut once for the whole wall. The slip lives on the +Y
+    (slide-in) side: the bore is shifted +slip/2 so its −Y wall registers on the
+    plug's −Y face at the mouth, instead of overshooting past the seam. The
+    heat-set stays coaxial with the screw at y_boss, in the pod's inboard limb —
+    the one the slot leaves standing."""
     _xs, x_tip, x_heat, _xc = _boss_x(x_ext, sx)
-    bore_y = y_boss + split_slip / 2.0
-    bore = _xcyl(socket_bore_dia / 2.0, bore_y, z_boss, x_in, x_tip)
+    bore = _xcyl(socket_bore_dia / 2.0, y_boss + split_slip / 2.0, z_boss, x_in, x_tip)
     heat = _xcyl(heatset_dia / 2.0, y_boss, z_boss, x_tip, x_heat)
-    bx0, bx1 = sorted((x_in, x_tip))
-    cz0, cz1 = z_boss - socket_bore_dia / 2.0, z_boss + socket_bore_dia / 2.0
-    chan = _ybox(bx0, bx1, bore_y, y_joint + lip_len + 1.0, cz0, cz1)
-    return bore.fuse(heat).fuse(chan)
+    return bore.fuse(heat)
 
 
 def _screw_cut(x_ext, sx, z_boss, y_boss):
@@ -845,7 +925,7 @@ def _y_boss(y_joint):
 # --- bottom↔top joint: the same telescoping lip + X-axis pins, rotated ------
 #
 # The BOTTOM pieces carry the lip and the socket pods; the TOP pieces carry
-# the D-pins and the braces that back them from above. The pin axis sits at
+# the D-pins and the posts that carry them from above. The pin axis sits at
 # z_pin = z_joint + plug_dia/2 (pin −Z face on the top piece's mouth), the
 # pod's +Z face lands on the lip rim at z_joint + lip_len, and the top piece
 # slides down over the lip — the pin dropping into the pod's +Z-open channel.
@@ -903,6 +983,24 @@ def _z_lip(inner, y_joint, zj):
     return ring.cut(gap)
 
 
+def _z_station_y(inner, y_joint, ys, col):
+    """The Y extent a Z station's column occupies. ONE definition for the bottom
+    piece's pod and the top piece's post: they are the two halves of a single
+    column and a station whose halves disagree reads as a step at the seam, with
+    the narrower one hanging over open air on the layer it starts.
+
+    Local to the station, not the column — a Y column carries a station at each
+    end, so spanning from the column's end would make one slab of the whole
+    depth. The bound only clamps: the front-wall station still reaches the front
+    wall, the rear-wall station the rear, and the behind-the-mouth station still
+    starts where the Z lip does."""
+    ix0, ix1, iy0, iy1, iz0, iz1 = inner
+    if col == "front":
+        return max(iy0, ys - socket_r), ys + socket_r
+    return (max(y_joint + lip_len + z_lip_y_margin, ys - socket_r),
+            min(iy1, ys + socket_r))
+
+
 def _z_pod(x_in, x_ext, sx, ys, col, y_joint, inner, zj):
     """BOTTOM socket pod: the Y-pod rotated — a POST on the ±X wall carrying the
     socket up to the lip rim, sized in Y to the socket it carries. The
@@ -916,14 +1014,7 @@ def _z_pod(x_in, x_ext, sx, ys, col, y_joint, inner, zj):
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_cap))
     zb = zj + lip_len
-    # Y extent is LOCAL to this station — a column carries a station at each end,
-    # so spanning from the column's end would make one slab of the whole depth.
-    # The bound only clamps: the front-wall station still reaches the front wall,
-    # the behind-the-mouth station still starts where the lip does.
-    if col == "front":
-        ya, yb = max(iy0, ys - socket_r), ys + socket_r
-    else:
-        ya, yb = max(y_joint + lip_len + z_lip_y_margin, ys - socket_r), min(iy1, ys + socket_r)
+    ya, yb = _z_station_y(inner, y_joint, ys, col)
     # The collar around the socket, and the POST carrying it to the floor at the
     # collar's own section — so there is material under every part of the boss
     # the whole way down and the piece just stacks. The post stops where the
@@ -947,8 +1038,8 @@ def _z_pod(x_in, x_ext, sx, ys, col, y_joint, inner, zj):
 
 def _z_pin(x_ext, sx, ys, zj):
     """TOP D-pin: a round cylinder from the ±X exterior to the heat-set, fused
-    to a flat tab rising +Z to the lip rim, where the top piece's brace backs
-    it. The tab is the pin diameter wide and slides down the socket's +Z
+    to a flat tab rising +Z to the lip rim, where the top piece's post takes
+    over. The tab is the pin diameter wide and slides down the socket's +Z
     channel as the pieces close."""
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
     zp = _z_pin_z(zj)
@@ -959,20 +1050,18 @@ def _z_pin(x_ext, sx, ys, zj):
     return cyl.fuse(tab)
 
 
-def _z_brace(x_in, x_ext, sx, ys, col, inner, outer, zj):
-    """TOP brace: a rib on the ±X wall over each pin, from the lip rim up to
-    the ceiling. Its Y extent is local to its own station (a column carries one
-    at each end); the front-wall station still reaches the front wall. Printed
-    ceiling-down the brace runs from the bed to the seam at constant section, so
-    it carries the pin under it with no overhang of its own."""
+def _z_post(x_in, x_ext, sx, ys, col, y_joint, inner, outer, zj):
+    """TOP post: the column over each pin, from the lip rim up to the ceiling —
+    the same station's pod, upside down — the POD's section, not the pin's,
+    because the two are one column across the seam and a column that steps at
+    the joint leaves the wider half's shoulders standing on nothing. Printed
+    ceiling-down it runs from the bed to the seam at constant section, so it
+    carries the pin under it with no overhang of its own."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
-    _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
-    xa, xb = sorted((x_in, x_tip))
-    if col == "front":
-        ya, yb = max(iy0, ys - plug_dia / 2.0), ys + plug_dia / 2.0
-    else:
-        ya, yb = ys - plug_dia / 2.0, min(iy1, ys + plug_dia / 2.0)
+    _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
+    xa, xb = sorted((x_in, x_cap))
+    ya, yb = _z_station_y(inner, y_joint, ys, col)
     return _ybox(xa, xb, ya, yb, zj + lip_len, oz1)
 
 
@@ -1018,6 +1107,7 @@ def build_front_half(dims=None, splits=(), hopper=True):
     # same column, and the levels are just where it is bored.
     for x_in, x_ext, sx, _zb, pod_z in _sides(bosses):
         front = front.fuse(_front_pod(x_in, x_ext, sx, pod_z, y_joint, inner))
+        front = front.fuse(_front_pod_ends(x_in, x_ext, sx, y_joint, inner, outer))
     # The full-depth pods can poke into the display facet; trim them to its plane.
     front = front.cut(_facet_wedge(outer))
     # Close the facet recess at its +X edge (the −X edge is sealed by the left wall).
@@ -1040,7 +1130,12 @@ def build_front_half(dims=None, splits=(), hopper=True):
             wx, wz = hole[3], hole[4]
             front = front.cut(_ybox(hx - wx / 2.0, hx + wx / 2.0, y0, y1, hz - wz / 2.0, hz + wz / 2.0))
     for x_in, x_ext, sx, z_boss, _pz in bosses:
-        front = front.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb, y_joint))
+        front = front.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb))
+    # The slide-in path is the corner's, not the level's: one full-height slot per
+    # wall, so the back half's column has somewhere to stand at every height. Cut
+    # last, so it takes its share of the foot and head too.
+    for x_in, x_ext, sx, _zb, _pz in _sides(bosses):
+        front = front.cut(_socket_slot(x_in, x_ext, sx, y_joint, outer))
     # Clip any corner feature that pokes past the rounded print silhouette.
     front = front.intersect(_rounded_outer(outer))
     return cq.Workplane(obj=front)
@@ -1060,16 +1155,22 @@ def build_back_half(dims=None, splits=(), hopper=True):
     # The back half is the back column, so its own seam is the one its post
     # steps around.
     zj = z_joint_back if splits else None
+    # The front post's foot and head come through the floor and ceiling here, so
+    # this half stands out of their way — everywhere but the slot, which is this
+    # half's own column and stays.
+    for x_in, x_ext, sx, _zb, _pz in _sides(bosses):
+        relief = _front_pod_ends(x_in, x_ext, sx, y_joint, inner, outer,
+                                 slip=split_slip / 2.0)
+        back = back.cut(relief.cut(_socket_slot(x_in, x_ext, sx, y_joint, outer)))
     for x_in, x_ext, sx, _zb, _pz in _sides(bosses):
         back = back.fuse(_back_post(x_in, x_ext, sx, y_joint, inner, zj))
     for x_in, x_ext, sx, z_boss, _pz in bosses:
-        back = back.fuse(_back_plug(x_ext, sx, z_boss, yb, y_joint))
-    # The post and the pins stand in the same corner, so the manifold's bite
+        back = back.fuse(_back_plug(x_ext, sx, z_boss, yb))
+    # The column and the pins stand in the same corner, so the manifold's bite
     # comes out of that corner as a whole, once both are on.
     for x_in, x_ext, sx, _zb, _pz in _sides(bosses):
         _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
-        waist = _wall_waist(x_in, x_tip, sx, y_joint + lip_len,
-                            min(inner[3], y_joint + lip_len + 2.0 * socket_r))
+        waist = _wall_waist(x_in, x_tip, sx, *_y_corner_back(inner, y_joint))
         if waist is not None:
             back = back.cut(waist)
     # Clip any corner feature that pokes past the rounded print silhouette.
@@ -1099,7 +1200,7 @@ def build_piece(y_side, z_side, dims=None, halves_cache=None):
     """One of the four printable pieces: the full front/back column split at
     its own z_joint (front at z_joint_front, back at z_joint_back — the
     staggered seams), the bottom taking the Z lip + socket pods, the top
-    taking the D-pins + braces + X-axis screw bores. The Y-seam bosses'
+    taking the D-pins + posts + X-axis screw bores. The Y-seam bosses'
     bottom pair sits under the LOWER seam (the front's), so it lands in — and
     pins — the two bottom pieces."""
     dims = dims if dims is not None else _dims()
@@ -1134,9 +1235,9 @@ def build_piece(y_side, z_side, dims=None, halves_cache=None):
                                       zj, oz1 + 1.0))
         for x_in, x_ext, sx, ys, c in stations:
             piece = piece.fuse(_z_pin(x_ext, sx, ys, zj))
-            piece = piece.fuse(_z_brace(x_in, x_ext, sx, ys, c, inner, outer, zj))
+            piece = piece.fuse(_z_post(x_in, x_ext, sx, ys, c, y_joint, inner, outer, zj))
         if y_side == "front":
-            # The braces near the facet corner trim to its plane + display cuts.
+            # The posts near the facet corner trim to its plane + display cuts.
             piece = piece.cut(_facet_wedge(outer)).cut(_display_cuts(outer))
         for x_in, x_ext, sx, ys, _c in stations:
             piece = piece.cut(_screw_cut(x_ext, sx, _z_pin_z(zj), ys))

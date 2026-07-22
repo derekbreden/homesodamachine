@@ -41,7 +41,7 @@ Bottom↔top, per column: the same joint rotated 90°, at `z_joint_front` (the f
 stack's waist, above the condenser) and `z_joint_back` (the back-wall band
 between the cold core's foam-cap top and the rear bulkhead field) — the bottom
 pieces carry a 3-sided
-lip + socket pods, the top pieces carry the D-pins and the braces that back
+lip + socket pods, the top pieces carry the D-pins and the posts that carry
 them, more X-axis screws crossing each seam. The front pair joins, the
 back pair joins, then the front assembly telescopes into the back as one.
 
@@ -62,30 +62,38 @@ the ±X exterior: a Ø6.15 mm head counterbore, then the pin body (the screw spa
 the head seat to the heat-set, so the body is screw length − heat-set long), then
 the heat-set, then a one-wall cap.
 
-- **Receiving piece = D-pin** (the back pieces on the Y seam, the top pieces on
+- **Receiving piece = pin** (the back pieces on the Y seam, the top pieces on
   the Z seam): a Ø9.9 mm cylinder (the shank + one wall each side, *not* the
   head — the head sits in the wall counterbore) from the exterior to the
-  heat-set, registering in the socket bore, fused to a flat tab that runs to
-  the lip rim, where the corner post behind it backs the pin in Y.
+  heat-set, registering in the socket bore. On the Z seam a flat tab carries it
+  up to the lip rim, where the post above takes over.
 - **Lip piece = socket** (the front pieces / the bottom pieces): a pod bored
   Ø10.3 mm to take the round pin as a slide fit, with the ruthex M3 heat-set
-  (Ø4.0 × 5.25) capped at its deep inboard end and a channel the pin's tab
-  slides through as the lip telescopes home.
+  (Ø4.0 × 5.25) capped at its deep inboard end.
 
-The top pieces carry braces above their Z-seam pins, running from the lip rim to
-the ceiling they print against.
+**Every boss stands on a post of its own section, run to the bed face at constant
+section.** Not a collar on a spine — the whole socket footprint, carried the full
+height of its piece: bed face to the seam. Printed Z-down that face is what the
+piece lies on, so there is material under every part of the boss the whole way
+down and the piece simply stacks. A narrower stalk leaves the socket cantilevered
+over open air on the layer it starts; so does a post that reaches the wall on one
+piece and stops short of it on the other, or two posts on one wall standing a
+sliver apart. **A station's pod and the post over it take the same section, and a
+post runs to whatever its neighbour reaches** — the corner is one column or it is
+an overhang. The two pieces' posts meet at the seam, so assembled the corner
+reads one column floor to ceiling, which is also the corner stiffener a printed
+shell this size wants.
 
-**Every boss stands on a post of its own section, run to the bed face.** Not a
-collar on a spine — the whole socket footprint, carried the full height of its
-piece: floor to the seam below, seam to the ceiling above. Printed Z-down that is
-the face the piece lies on, so there is material under every part of the boss the
-whole way down and the piece simply stacks; a narrower stalk would leave the
-socket cantilevered over open air on the layer it starts, which is the overhang
-that needs print support. The two pieces' posts meet at the seam, so assembled
-the corner reads one column floor to ceiling — which is also the corner stiffener
-a printed shell this size wants. The back pieces get the same post behind the lip
-rim at the pin's own depth; before, their pins and braces hung off the wall with
-nothing beneath them.
+**Where a corner is the other piece's, the two interlock.** The Y-seam overlap
+belongs to the front half — its lip and pod fill that corner floor to ceiling —
+so the back half's pins stood in it with nothing beneath them and its own post
+could only begin behind the lip rim. The slide path the pin's tab needed is run
+the pod's **full height** instead, and the back half fills it with a web of the
+same section: each piece then prints with a continuous column under every boss on
+it, and assembled the slot and the web make the corner solid. The floor and
+ceiling strata over the overlap interlock the same way — the front post's foot
+and head come through a relief in the back half's floor and ceiling, so the post
+reaches its bed face instead of starting an overlap's length out over air.
 
 **The Y seam is pinned at a level for each end of each piece that crosses it**,
 and both Z seams count, so six levels rather than one pair near the top: a wall
@@ -107,7 +115,7 @@ post runs its own corner the whole way to the floor.
 
 Those bands also set where the Y seam falls. Its full-width furniture — the lip's
 floor and ceiling segments — has to stop ahead of the core, so the **lip rim
-lands on the core's front face**; the mouth, plugs, pods and braces reach further
+lands on the core's front face**; the mouth, plugs, pods and posts reach further
 aft than that but live only in the bands, so they pass alongside the core rather
 than stopping at it. What caps them is measured from whatever stands in the
 bands, not tabulated. The seam therefore sits close to the box's middle, and the
