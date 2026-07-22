@@ -504,6 +504,8 @@ COLORS = {
     "elbow-y-g":         cq.Color(0.85, 0.85, 0.88),
     "elbow-bag-y-d":     cq.Color(0.85, 0.85, 0.88),
     "elbow-bag-y-g":     cq.Color(0.85, 0.85, 0.88),
+    "elbow-noz-a":       cq.Color(0.85, 0.85, 0.88),
+    "elbow-noz-b":       cq.Color(0.85, 0.85, 0.88),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "dc-dist":           cq.Color(0.20, 0.20, 0.22),
@@ -629,6 +631,26 @@ DISCHARGE_DIV = {
 DISCHARGE_YAW = {                             # extra Z-turn of a divider: stem toward its pump, outlets the same off their elbows
     "y-d": 16.0,
 }
+
+# ── Nozzle-outlet elbows ─────────────────────────────────────────────────────────────────────
+# A PP0308E on each bare nozzle-gate outer port (V-G-O/V-J-O, facing east), turning its nozzle
+# line UP out of the +X wall pocket, where the run climbs aft over the electronics shelf to the
+# rear flavor bulkhead (segments 18/28). Each body stands in the pocket between the gate's east
+# ports and the +X wall — the cold core's own SIDE_RIB_INSET standoff, which is one fitting depth
+# deep at GATE_WALL_INSET. Nothing is cut for them: the gate keeps its X station, so the junction
+# pocket west of it is untouched, and the wall's seam machinery clears this band on its own — the
+# front Z-lip rim tops out well below these bodies, and the Y-seam corner column stands aft of them.
+OUTLET_ELBOW = {                              # elbow → the nozzle-gate outer port it turns
+    "elbow-noz-a": "VG-O",                    # nozzle A → bulkhead-flavor-a
+    "elbow-noz-b": "VJ-O",                    # nozzle B → bulkhead-flavor-b
+}
+OUTLET_FREE = (0.0, 0.0, 1.0)                 # free leg UP, leaving the pocket for the run aft
+
+
+def outlet_free_pose(name):
+    """A nozzle-outlet elbow's free (empty) port in world: (position, outward axis) — where its run
+    to the rear flavor bulkhead leaves, one bend up off the pocket."""
+    return _elbow_free_port(noz_collet(OUTLET_ELBOW[name]), OUTLET_FREE, ELBOW_STUB), OUTLET_FREE
 
 
 def _discharge_collet(name):
@@ -960,6 +982,12 @@ def build():
     divider = _load(DIVIDER_CONNECTOR)
     for name in DISCHARGE_DIV:
         placed[name] = _place_divider(divider, name)
+
+    # The nozzle-outlet elbows — each bare east port turned up into the +X wall pocket the
+    # cold core's boss chain opens (OUTLET_ELBOW).
+    for name, port in OUTLET_ELBOW.items():
+        collet = noz_collet(port)
+        placed[name] = _place_elbow(elbow, collet[0], collet[1], OUTLET_FREE, ELBOW_STUB)
 
     # --- Zone B, the band above the cold core: the electronics shelf lying
     # flat on the foam-cap top, tray/board planes horizontal, everything in

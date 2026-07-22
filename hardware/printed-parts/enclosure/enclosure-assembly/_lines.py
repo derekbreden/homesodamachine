@@ -5,7 +5,7 @@ connection, its waypoints written against the ports and body faces that shape th
 
 Today: the sealed refrigerant loop (`scorecard.REFRIGERANT_SEGMENTS`) — the discharge and
 liquid legs authored, the suction leg unauthored — and the manifold's junction column, fully
-joined: both trays' west collets into the union tees hanging between them. Three corridors
+joined: both trays' west collets into the union tees hanging between them. Four corridors
 carry the authored legs, each measured off the faces that bound it:
 
   * the machine corridor — 49 mm, compressor back face to cold-core front face — with the
@@ -26,6 +26,11 @@ carry the authored legs, each measured off the faces that bound it:
     are straight tube, ~10 mm each, no bends. Each tee's branch is then rolled about the run
     (`JUNCTION_ROLL`) to swing forward off the pump row, and fluid-11/21 carry the suction
     over pump A to the pump inlets.
+  * the +X wall pocket and the shelf deck above it — the cold core's own standoff off that
+    wall, where the two nozzle-outlet elbows stand, and the open band over the electronics
+    shelf that fluid-18/28 cross to reach the rear flavor bulkheads. The pocket is also the
+    Y seam's corner-post lane, so both runs turn west out of it while still forward of that
+    column, then ride their own decks over the pcba into the bulkheads.
 
 Precedent: `pcba.tsx`'s `route(...)` call sites.
 """
@@ -58,11 +63,12 @@ BLOCKED: dict = {}
 
 
 def _frames():
-    """A frame per placed component: its body box from the pack, its ports from the scorecard's
-    port table."""
+    """A frame per placed component AND per through-wall panel body: its body box from the pack,
+    its ports from the scorecard's port table. The panel bodies (the rear bulkheads) are not
+    interior components, but a run terminates on their inward collet, so they carry a frame too."""
     import scorecard                                   # deferred: scorecard reads this module back
 
-    placed = contents.build()
+    placed = {**contents.build(), **contents.panel_bodies()}
     by_comp: dict = {}
     for p in scorecard.PORTS:
         if p.pos is not None and p.face and p.component in placed:
@@ -194,6 +200,23 @@ def build_runs() -> list:
         "pump-a.P-A-I",
         kind="fluid", bend=10.0, skew=DISCHARGE_SKEW, lead=SLEAD,
         note="suction stem tee-y-f Y-F-3 → pump-a P-A-I, up the west end then east above the source tray"))
+
+    # The nozzle-outlet runs (segments 18/28) — each outlet elbow's free leg up out of the +X wall
+    # pocket, then aft over the electronics shelf into its rear flavor bulkhead's inward collet.
+    # Both leave the pocket on the SAME x, so they separate in z before either turns: 28 climbs to
+    # its own deck and crosses west above 18. Each turns west while still FORWARD of the Y seam's
+    # corner column (y 200.3–234.7 in this band) — the pocket lane is the column's, and a run
+    # holding it further aft would drive straight through the post. The westward legs cross above
+    # the gate (top z290.8) and both aft legs ride over the pcba (top z283.0) in their own x lanes.
+    for cid, elb, bulk, mids in (
+        ("fluid-18", "elbow-noz-a", "bulkhead-flavor-a",        # low deck, west lane
+         [(289.20, 180.0, 292.45), (195.05, 180.0, 292.45)]),
+        ("fluid-28", "elbow-noz-b", "bulkhead-flavor-b",        # high deck, east lane
+         [(289.20, 190.0, 312.0), (224.95, 190.0, 312.0)]),
+    ):
+        runs.append(R.bent(cid, f"{elb}.free", *mids, f"{bulk}.tube-in",
+                           kind="fluid", bend=8.0, skew=DISCHARGE_SKEW, lead=(10.0, 10.0),
+                           note=f"nozzle outlet: {elb} → {bulk}, up out of the pocket and aft over the shelf"))
 
     return runs
 
