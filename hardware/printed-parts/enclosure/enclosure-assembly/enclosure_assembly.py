@@ -270,7 +270,8 @@ def _cached_scorecard(pack, pieces, bed, inner):
                 # build): the routed goal and the lines-clear gate. gates_pass is refreshed too,
                 # since lines-clear is a gate.
                 routed_ck, routed = scorecard.routed_check(solids)
-                fresh = {"routed": routed_ck, "lines-clear": scorecard.lines_clear_check(solids)}
+                fresh = {"routed": routed_ck,
+                         "lines-clear": scorecard.lines_clear_check(solids, pieces)}
                 sc.checks = [fresh.get(c.id, c) for c in sc.checks]
                 sc.routed = routed
                 sc.gates_pass = all(c.status == "pass" for c in sc.checks if c.kind == "gate")
