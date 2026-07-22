@@ -764,9 +764,13 @@ def line_clashes(lines: dict, solids: dict, ends: dict) -> list[tuple[str, str, 
 
     Volume, not distance, is the test that matters here: BRepExtrema (the `_solid_gap` the routed
     clearance detail reads) returns 0 for a tube that just grazes another AND for one that drives
-    clean through it — so only the overlap volume separates a kiss from an intersection. Pieces
-    (the shell walls) are out of scope: their tube penetrations are by design (bulkheads), and no
-    interior run reaches a wall today."""
+    clean through it — so only the overlap volume separates a kiss from an intersection.
+
+    The printed pieces are in `solids` too. A wall is not a part a run may terminate on — every
+    through-wall penetration is a panel BODY's (a bulkhead's), and the run stops at that body's
+    inboard collet — so a tube inside a piece is always a defect. It is also the one the pack
+    cannot show you: the runs share the ±X band with the seam's own posts and stations, and a
+    tube driving through a post reads as clean geometry from every other check."""
     out = []
     ids = list(lines)
     lbb = {i: lines[i].BoundingBox() for i in ids}
@@ -901,21 +905,21 @@ def routed_check(solids=None) -> tuple:
     return ck, routed
 
 
-def lines_clear_check(solids: dict) -> Check:
+def lines_clear_check(solids: dict, pieces: dict) -> Check:
     """The tube-interpenetration GATE, computed fresh every build. Like routed_check it reads
     _lines — which route work rewrites every build — so it is kept OUT of the cached component
     verdict and recomputed on a cache hit; a route-only change must never serve a stale clash
     verdict. It builds each authored run's swept tube and gates on line_clashes: no routed tube
-    may drive through a part it does not terminate on, or through another tube. Blocks the export
-    alongside pack-closes (enclosure_assembly.main) — a tube that intersects another solid is as
-    physically unbuildable as two overlapping parts."""
+    may drive through a part it does not terminate on, through a printed piece, or through another
+    tube. Blocks the export alongside pack-closes (enclosure_assembly.main) — a tube that
+    intersects another solid is as physically unbuildable as two overlapping parts."""
     import _lines
     import _routing as R
     runs = _lines.build_runs()
     lines = {r.id: R.tube(r) for r in runs}
     ends = {r.id: {r.frm.split(".")[0], r.to.split(".")[0]} for r in runs}
-    clashes = line_clashes(lines, solids, ends)
-    return Check("lines-clear", "No routed tube intersects a part or another tube", "gate",
+    clashes = line_clashes(lines, {**solids, **pieces}, ends)
+    return Check("lines-clear", "No routed tube intersects a part, a piece or another tube", "gate",
                  "pass" if not clashes else "fail", f"{len(clashes)} clash", "0 clash",
                  [f"{a} ∩ {b}: {v:.1f} mm³" for a, b, v in clashes][:DETAIL_MAX])
 
@@ -949,7 +953,7 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     # The routed tubes clash against the placed solids the same way — but they live outside the
     # component registry, so pack-closes never sees them. Fresh every build (reads _lines); the
     # cache layer recomputes it on a hit, like routed.
-    checks.append(lines_clear_check(solids))
+    checks.append(lines_clear_check(solids, pieces))
 
     clr = part_clearances(solids)
     violations = [(a, b, g) for a, b, g, allowed in clr if not allowed and g < CLEARANCE_FLOOR]

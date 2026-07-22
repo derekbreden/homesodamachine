@@ -426,27 +426,37 @@ def _seam_bands_clear(placed, inner):
     return chain, frontmost(_ybox(ix0, ix1, iy0, iy1, iz1 - wall, iz1))
 
 
-def _chain_span_clear(placed, inner, y0, y1):
-    """Whether both ±X boss-chain bands run empty over the Y span [y0, y1] — the
-    span the seam's own corner columns occupy, front half and back.
+def _chain_spans_clear(placed, inner, spans):
+    """Whether both ±X boss-chain bands run empty over every Y span the seam's own
+    columns occupy (`_seam_furniture_spans`).
 
     The bands are a lane, not a keep-out: what matters is that nothing stands
     where the furniture lands, not that the furniture sits ahead of everything in
-    the lane. A fitting parked in the lane well forward of the columns leaves them
-    their full section and never meets them, so it does not move the seam."""
+    the lane. A fitting parked between two stations leaves both their full section
+    and never meets either, so it does not move the seam."""
     _ix0, _ix1, _iy0, _iy1, iz0, iz1 = inner
     for xa, xb in _chain_bands(inner):
-        prism = _ybox(xa, xb, y0, y1, iz0, iz1)
-        for s, _c in placed.values():
-            if prism.intersect(s).Volume() > 1.0:
-                return False
+        for y0, y1 in spans:
+            prism = _ybox(xa, xb, y0, y1, iz0, iz1)
+            for s, _c in placed.values():
+                if prism.intersect(s).Volume() > 1.0:
+                    return False
     return True
 
 
-def _corner_span(inner, y_joint):
-    """The whole Y reach of the Y-seam corner at `y_joint` — the front half's
-    column through the back half's, the two definitions the bands must hold."""
-    return _y_corner(inner, y_joint)[0], _y_corner_back(inner, y_joint)[1]
+def _seam_furniture_spans(inner, y_joint):
+    """Every Y span the seam occupies in the ±X boss-chain bands at `y_joint` — the
+    Y-seam corner column (front half through back), plus each Z-seam pin station's
+    own column, which stands in the same band at its own station.
+
+    Read from the definitions that BUILD them (`_y_corner`, `_y_corner_back`,
+    `_z_station_y`), so a span cannot drift from the geometry it stands for. The
+    stations are why the band is not free depth: it runs clear between them, not
+    along its whole length."""
+    spans = [(_y_corner(inner, y_joint)[0], _y_corner_back(inner, y_joint)[1])]
+    for _x_in, _x_ext, _sx, ys, col in _z_stations(inner, y_joint):
+        spans.append(_z_station_y(inner, y_joint, ys, col))
+    return spans
 
 
 def _dims():
@@ -537,11 +547,12 @@ def _dims():
     y_joint = max(y_facet, min(y_want, y_chain, y_ceiling))
     # The chain cap above reads where band content STARTS, which holds the seam
     # ahead of all of it. That is the answer only when the content is what the
-    # columns would land in. Content parked in the lane FORWARD of them — the
-    # nozzle-outlet elbows, in the +X band well ahead of the seam — leaves the
-    # columns their full section, so the seam takes the station it actually wants
-    # whenever the span those columns occupy is itself clear.
-    if want > y_joint and _chain_span_clear(placed, inner, *_corner_span(inner, want)):
+    # columns would land in. The band runs clear BETWEEN its stations, and content
+    # parked there — the nozzle-outlet elbows, between the front-wall station and
+    # the front column's aft one — leaves every column its full section, so the
+    # seam takes the station it actually wants whenever each span its own
+    # furniture occupies is itself clear.
+    if want > y_joint and _chain_spans_clear(placed, inner, _seam_furniture_spans(inner, want)):
         y_joint = want
     # The Y-seam corner, probed at each depth something stands there: the front
     # half's column at the socket's full section (which also fixes where a level
