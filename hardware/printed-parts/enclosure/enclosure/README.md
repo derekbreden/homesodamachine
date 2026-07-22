@@ -15,12 +15,36 @@ the valve tray + funnel + display above.
 `enclosure.py` exports the four printable pieces (`enclosure-front-bottom`,
 `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`) plus
 `enclosure.step` — the four as separate solids in assembled position, seams
-intact (mirrors `faucet/touch-flo-shell`). It also exports two test-print
-coupons over the shared Y-seam mating geometry: `enclosure-front-coupon.step`,
-a reduced-size front (~156 × 101 × 116 mm) carrying every feature at full size
-(the display housing, the telescoping lip, the corner bosses, the ribs), and
-`enclosure-back-coupon.step`, the matching back (~156 × 40 × 116 mm) — its
-mouth, plugs, and screw bores aligned to the front coupon's lip and sockets.
+intact (mirrors `faucet/touch-flo-shell`).
+
+## Test-print coupon
+
+It exports those same five files a second time as `enclosure-coupon-*.step` —
+the whole four-piece assembly shrunk to a [200 × 138 × 153 mm](COUPON_SIZE)
+box, printable in an evening, to prove the fit before the real one is
+committed. It is the same geometry from the same code: only the numbers
+describing the box differ, so a coupon that assembles is evidence about the
+appliance and not about a second model of it.
+
+Everything the assembly is judged on is on it at **full size** — the display
+housing, all three seams with their full six-level ladder of cross-pins, and
+the rear port cluster, which moves as one rigid body (down by the back seam's
+own drop, so it keeps its exact stance on that lip band; across to centre in
+the narrower wall) and therefore keeps every real spacing: nut to nut, nut to
+lip band, flange to corner chain.
+
+No dimension of it is chosen. Each is the minimum its own feature allows — the
+depth is the display housing plus the back column's two Z-seam stations, the
+width is the port cluster with a corner chain either side, the height is the
+cross-pin ladder raised to clear the ports — so the coupon shrinks and grows
+with the features rather than drifting from them.
+
+Three things are left off, being the ones a reduced box cannot host honestly:
+the contents (there is nothing packed inside it, so the walls' relief and the
+seam's stand-off have nothing to dodge), the hopper throat (the placed funnel's
+collar does not fit the shrunken top-wall frame), and the front panel's single
+CO2 bore (its one real relationship — its height over the front seam — lands
+behind the display facet in a box this short).
 
 ## Seams + bosses
 
@@ -228,10 +252,12 @@ remains outboard of the brim edge the whole way around.
 ## Regenerate
 
 `tools/cad-venv/bin/python hardware/printed-parts/enclosure/enclosure/enclosure.py`
-→ the four `enclosure-*.step` pieces + `enclosure.step`. Wall, seam, boss, and
-facet constants are at the top of `enclosure.py`. Prints the facet size, each
-piece's envelope vs. the H2C bed, every piece-pair's slip fit, and the
-cold-core clearance.
+→ the four `enclosure-*.step` pieces + `enclosure.step`, and the coupon's
+`enclosure-coupon-*.step` + `enclosure-coupon.step`. Wall, seam, boss, and
+facet constants are at the top of `enclosure.py`. Prints, for each box, the
+facet size, the cross-pin levels each side wall ended up with, each piece's
+envelope vs. the H2C bed, and every piece-pair's slip fit — plus the cold-core
+clearance for the appliance.
 
 ## Sources
 [value](NAME) texts are updated by:

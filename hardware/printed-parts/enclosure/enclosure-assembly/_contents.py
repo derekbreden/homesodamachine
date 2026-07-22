@@ -455,13 +455,13 @@ STACK_GAP = 2.5
 PORT_BULKHEAD_D = 18.0        # JG 1/4" bulkhead panel hole (clears the Ø17.14 barrel)
 PORT_C14_W, PORT_C14_H = 28.5, 25.5   # C14 through-body 27.5 wide, z −10.2/+12.2 about
                                       # its axis (measured off the reference STEP) +
-                                      # clearance; the 30.5-wide flange seats proud on
-                                      # the outer face
+                                      # clearance; the flange seats proud on the
+                                      # outer face
 # The panel-clamping NUT / flange footprints are far wider than the through-holes,
 # so the cluster is spaced to the NUTS (not the holes) or the real hardware fouls.
-# Measured off the reference STEPs: JG bulkhead nut 22.86 sq (jg-bulkhead-union),
-# C14 flange 30.5 x 23.5 (iec-c14-inlet).
+# Measured off the reference STEPs: jg-bulkhead-union, iec-c14-inlet.
 PORT_NUT_D = 22.86           # JG bulkhead nut, across the panel face (measured)
+PORT_C14_FLANGE_W = 30.5     # C14 flange width across the panel face (measured)
 PORT_C14_FLANGE_H = 23.5     # C14 flange height across the panel face (measured)
 PORT_NUT_GAP = 7.0           # clear gap between adjacent bulkhead nuts (the margin)
 UMBILICAL_Z_FLOOR = 281.0    # lowest bulkhead-nut edge: the rear Z-seam lip band
@@ -1014,6 +1014,16 @@ def back_wall_ports():
         ("round", WATER_BACK_X, WATER_BACK_Z, d),
         ("rect", C14_BACK_X, C14_BACK_Z, PORT_C14_W, PORT_C14_H),
     ]
+
+
+def port_footprint(hole):
+    """(width, height) the clamping hardware of one back_wall_ports() hole
+    occupies on the panel FACE — a bulkhead nut, or the C14's flange. Far wider
+    than the through-hole, and it is what crowds the neighbours, the walls, and
+    the ceiling, so anything sizing a wall to the port field measures this."""
+    if hole[0] == "rect":
+        return PORT_C14_FLANGE_W, PORT_C14_FLANGE_H
+    return PORT_NUT_D, PORT_NUT_D
 
 
 def front_wall_ports():
