@@ -176,19 +176,20 @@ IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 # finstack stack depth, calipered [56 mm](CONDENSER_AIRFLOW) combined, along X.
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # The funnel's placement: its collar-rect centre in plan, plus a rotation
-# about its own Z. The basin runs the top-wall frame's full width AND depth
-# (front ledge to the Y-seam lip band), so plan area — not depth — carries
-# its volume: the shallow floor (hopper_funnel.ramp_angle) and the centred
-# spout's short runs keep the drain high, hanging over the pump row with
-# the segment-4 fall banked in open air below it (the pumps' `clear`
+# about its own Z. This is the CENTRE OF THE TOP-WALL FRAME — the basin sits
+# the same `hopper_funnel.brim_margin` off the display gusset, the corner pod,
+# the front ledge and the cold core's band alike, so the brim reads square in
+# its opening from above instead of crowding one edge. Plan area — not depth —
+# carries its volume: the shallow floor (hopper_funnel.ramp_angle) and the
+# centred spout's short runs keep the drain high, hanging over the pump row
+# with the segment-4 fall banked in open air below it (the pumps' `clear`
 # keep-out holds that drop corridor open). With the spout centred the
 # rotation picks nothing; 0 keeps the frame axis-aligned. The static
 # funnel (zone-c/hopper-funnel, local frame) seats with its brim underside
 # on the box's outer top; enclosure.py cuts the top-wall opening from this
-# same centre + the funnel's own collar dims, and asserts the top-wall
-# frame (display gusset, corner pod, front ledge, Y-seam lip) accommodates
-# it.
-FUNNEL_CX, FUNNEL_CY = 193.75, 76.8
+# same centre + the funnel's own collar dims, and asserts both the collar and
+# the brim that overhangs it land inside that frame.
+FUNNEL_CX, FUNNEL_CY = 193.75, 94.0
 FUNNEL_ROT = 0.0
 # The source-select assembly is the stack's anchor and its FLOOR: local
 # origin (cell centre, valve mounting plane) in world, rotated 180° about Z,

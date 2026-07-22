@@ -589,15 +589,21 @@ def _facet_end_wall(inner, outer):
 def _hopper_hole(inner, outer, y_joint):
     """Rectangle (x0, x1, y0, y1) of the funnel opening in the top wall: the
     placed funnel's collar — hopper_funnel.py's own dims at
-    _contents.FUNNEL_CX/CY. The placement must clear the display end-wall
-    gusset (right of the facet), the top-right corner pod's inboard end, and
-    the front ledge — asserted, so a bad placement fails the build instead of
-    silently deforming the hole. The hole CROSSES the Y-seam (y_joint ducks
-    ahead of the manifold's aft elbow columns, under the basin): both top
-    pieces take the cut, the top-wall lip/mouth are relieved across the
-    funnel span, and the collar bridges the seam; the seam stays pinned by
-    the corner bosses west of the hole and the top-wall strip east of it —
-    the aft limit is the back piece's rear pod band."""
+    _contents.FUNNEL_CX/CY.
+
+    The frame is what the top wall has left to give: past the display end-wall
+    gusset (right of the facet), clear of the top-right corner pod's inboard
+    end, behind the front ledge, ahead of the cold core's band. The collar sits
+    one `hopper_funnel.brim_margin` inside it on ALL FOUR sides — asserted, so
+    an off-centre placement fails the build instead of silently deforming the
+    hole. That margin is what the brim lands on: the flange overhangs the
+    collar by `brim_overhang` all around to catch the wall and hold the funnel
+    out of the box, and the margin must be the wider of the two, so a full
+    overhang's width of top wall still remains outboard of the brim's edge.
+
+    The aft limit holds the hole ahead of the Y-seam, so the opening falls
+    wholly in the front top piece and the seam's top-wall lip runs unbroken
+    behind it."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     x0 = _contents.FUNNEL_CX - _funnel.collar_w / 2.0
@@ -614,6 +620,21 @@ def _hopper_hole(inner, outer, y_joint):
         raise ValueError(
             f"funnel collar (x {x0:.2f}..{x1:.2f}, y {y0:.2f}..{y1:.2f}) violates the "
             f"top-wall frame (x {lims[0]:.2f}..{lims[1]:.2f}, y {lims[2]:.2f}..{lims[3]:.2f})")
+    # Centred in that frame by the funnel's own margin, and the brim fits it.
+    if _funnel.brim_overhang > _funnel.brim_margin + tol:
+        raise ValueError(
+            f"funnel brim overhang {_funnel.brim_overhang:.2f} exceeds its top-wall "
+            f"margin {_funnel.brim_margin:.2f} — the flange hangs off the frame")
+    got = (x0 - lims[0], lims[1] - x1, y0 - lims[2], lims[3] - y1)
+    if any(abs(g - _funnel.brim_margin) > 1e-6 for g in got):
+        raise ValueError(
+            f"funnel collar is off-centre in the top-wall frame: margins "
+            f"(−X {got[0]:.2f}, +X {got[1]:.2f}, −Y {got[2]:.2f}, +Y {got[3]:.2f}) "
+            f"≠ brim_margin {_funnel.brim_margin:.2f} on every side. Frame is "
+            f"x {lims[0]:.2f}..{lims[1]:.2f}, y {lims[2]:.2f}..{lims[3]:.2f}; place the "
+            f"funnel at ({(lims[0] + lims[1]) / 2.0:.2f}, {(lims[2] + lims[3]) / 2.0:.2f}) "
+            f"with collar {lims[1] - lims[0] - 2.0 * _funnel.brim_margin:.1f} × "
+            f"{lims[3] - lims[2] - 2.0 * _funnel.brim_margin:.1f}")
     return x0, x1, y0, y1
 
 
