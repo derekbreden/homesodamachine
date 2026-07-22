@@ -32,6 +32,16 @@ interior clearance, then walled out. Features:
     seam (one per side wall per Y column: front pins at the front-wall
     corners, back pins just behind the Y-seam mouth).
 
+Every piece prints on a Z face — the bottom pieces floor-down, the top pieces
+ceiling-down, each lying on its closed face with its seam mouth up. So the build
+axis is Z, and the anti-warp corner relief goes on the arrises that run along
+it: the box's four standing verticals. Each quadrant owns only two of them —
+its other two "corners" are the Y-seam, a telescoping mating face with no
+exterior arris to relieve — so the front pieces round the front-left/right
+verticals, the back pieces the back-left/right, and every seam stays square.
+The bosses follow the same axis: each level's pod reaches out to the floor or
+ceiling it sits against, which is the bed face its piece lies on.
+
 main() exports the four printable pieces (enclosure-front-bottom.step,
 enclosure-front-top.step, enclosure-back-bottom.step, enclosure-back-top.step)
 plus enclosure.step — the four as separate solids in assembled position,
@@ -58,7 +68,7 @@ import hopper_funnel as _funnel
 # Shell parameters.
 wall = 3.0                  # PETG wall thickness
 interior_clearance = 0.0    # gap between contents bbox and inner wall
-corner_round = 12.          # vertical (Y) print-corner relief radius (anti-warp on the bed)
+corner_round = 12.          # standing-vertical (Z) print-corner relief radius (anti-warp on the bed)
 
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
 H2C_X, H2C_Y, H2C_Z = 325.0, 320.0, 320.0
@@ -100,9 +110,10 @@ display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
 # of the same wall) and the two protrusions read as one plane. The facet slides
 # in −Y ONLY — its Z span and its 45° are untouched — and the back plane comes
 # forward with it, which is what opens the west column behind the display.
-# The front-top piece therefore prints TOP-face-down, not −Y-down: the pod would
-# otherwise be the first layer and the rest of the front wall would start 19 mm
-# up in open air. See ../README.md "Display housing".
+# The housing is why the pieces print on a Z face rather than a Y one: −Y-down
+# the pod would be the first layer and the rest of the front wall would start a
+# whole reach up in open air. Ceiling-down it lies flat, and every housing face
+# is 45° or vertical to the bed. See ../README.md "Display housing".
 display_pod_reach = 19.0         # housing carried −Y, proud of the front wall
 
 # Hopper funnel opening (Zone C) — one rectangular opening through the top
@@ -193,23 +204,30 @@ def _xcyl(r, y, z, x0, x1):
     return cq.Solid.makeCylinder(r, abs(x1 - x0), cq.Vector(min(x0, x1), y, z), cq.Vector(1, 0, 0))
 
 
-def _round_y(solid, r):
-    """Round a box solid's four vertical (Y) corner edges by r — the print-bed
-    corner relief, about the Y axis the halves print along. r <= 0 leaves the
-    corners square (an inset radius can shrink past nothing)."""
+def _round_z(solid, r):
+    """Round a box solid's four standing-vertical (Z) corner edges by r — the
+    print-bed corner relief, about the Z axis the pieces print along. r <= 0
+    leaves the corners square (an inset radius can shrink past nothing).
+
+    Each quadrant owns only two of the box's four vertical arrises; its other
+    two are the Y-seam, a telescoping mating face with no exterior corner to
+    relieve. Rounding the whole box here and letting the Y-split hand each
+    piece its share gives front pieces their front-left/right verticals, back
+    pieces their back-left/right, and leaves the seam square by construction."""
     if r <= 0:
         return solid
-    return cq.Workplane(obj=solid).edges("|Y").fillet(r).val()
+    return cq.Workplane(obj=solid).edges("|Z").fillet(r).val()
 
 
-def _round_corner_y(solid, xc, zc, r):
-    """Round only the single vertical (Y) corner edge of a box at (xc, zc).
-    r <= 0 leaves the corner square."""
+def _round_corner_z(solid, xc, yc, r):
+    """Round only the single standing-vertical (Z) corner edge of a box at
+    (xc, yc) — for a boss that sits in one of the box's rounded verticals and
+    must stay concentric with the cavity there. r <= 0 leaves it square."""
     if r <= 0:
         return solid
     wp = cq.Workplane(obj=solid)
-    edges = [e for e in wp.edges("|Y").vals()
-             if abs(e.Center().x - xc) < 1e-6 and abs(e.Center().z - zc) < 1e-6]
+    edges = [e for e in wp.edges("|Z").vals()
+             if abs(e.Center().x - xc) < 1e-6 and abs(e.Center().y - yc) < 1e-6]
     return wp.newObject(edges).fillet(r).val()
 
 
@@ -331,7 +349,7 @@ def _display_pod(outer):
     a, normal, origin, dy, dz = _facet_geom(outer)
     extent = max(ox1 - ox0, oy1 - oy0, oz1 - oz0) + 100.0
     back = tuple(origin[i] - display_facet_thickness * normal[i] for i in range(3))
-    block = _round_y(_ybox(ox0, ox1, oy0 - display_pod_reach, oy1, oz0, oz1), corner_round)
+    block = _round_z(_ybox(ox0, ox1, oy0 - display_pod_reach, oy1, oz0, oz1), corner_round)
     x_end = ox0 + display_facet_x                     # facet window's east edge
     forward = _ybox(ox0 - 1.0, x_end + display_pod_reach,
                     oy0 - display_pod_reach, oy0, oz0 - 1.0, oz1 + 1.0)
@@ -358,21 +376,21 @@ def _rounded_outer(outer):
     forward of the front wall, and the facet chamfered in — the print silhouette
     the half is clipped to so nothing pokes past it."""
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
-    box = _round_y(_ybox(ox0, ox1, oy0, oy1, oz0, oz1), corner_round)
+    box = _round_z(_ybox(ox0, ox1, oy0, oy1, oz0, oz1), corner_round)
     return box.fuse(_display_pod(outer)).cut(_facet_wedge(outer))
 
 
 def _shell_with_facet(inner, outer):
     """Hollow box with the 45° facet as a SOLID `wall`-thick surface: chamfer
     the outer box, and hold the cavity one wall back from the facet plane. The
-    vertical corners are relieved for the print bed — outer by `corner_round`,
-    cavity one wall less (square once the inset reaches zero)."""
+    standing-vertical corners are relieved for the print bed — outer by
+    `corner_round`, cavity one wall less (square once the inset reaches zero)."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     a, normal, origin, dy, dz = _facet_geom(outer)
     extent = max(ox1 - ox0, oy1 - oy0, oz1 - oz0) + 100.0
 
-    inner_box = _round_y(_ybox(ix0, ix1, iy0, iy1, iz0, iz1), corner_round - wall)
+    inner_box = _round_z(_ybox(ix0, ix1, iy0, iy1, iz0, iz1), corner_round - wall)
     outer_chamfered = _rounded_outer(outer)
 
     back_origin = (origin[0] - display_facet_thickness * normal[0],
@@ -494,29 +512,32 @@ def _hopper_cut(inner, outer, y_joint):
 # heat-set, cross-pinning the two halves along X.
 
 def _bosses(inner, split=None, brace_y_short=None):
-    """Per-boss tuple (x_in, x_ext, sx, z_boss, pod_z, zc, brace_z, brace_y1):
-    the inner ±X wall face the screw passes through, its matching exterior
-    face, sx = +1 (left) / −1 (right) inboard, the bore-axis height, the
-    socket pod's z-span + the box corner it rounds to (None mid-wall), and the
-    back brace's z-span + its +Y reach. Two levels per side: with a Z seam
-    (`split`) the lower pair rides just under it — the floor corners stay
-    clear for the cold core, and the lower braces stop ahead of it
+    """Per-boss tuple (x_in, x_ext, sx, z_boss, pod_z, brace_z, brace_y1): the
+    inner ±X wall face the screw passes through, its matching exterior face,
+    sx = +1 (left) / −1 (right) inboard, the bore-axis height, the socket pod's
+    z-span, and the back brace's z-span + its +Y reach. Two levels per side:
+    with a Z seam (`split`) the lower pair rides just under it — the floor
+    corners stay clear for the cold core, and the lower braces stop ahead of it
     (`brace_y_short`); without one (the coupon) the lower pair sits one wall
-    above the floor."""
+    above the floor.
+
+    Each level's pod reaches out to the floor or ceiling it sits against, which
+    printed Z-down is the bed face the piece lies on — so both pods grow off the
+    first layer rather than hanging off a wall."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     r = socket_bore_dia / 2.0
     zt = iz1 - wall - r
-    top = ((zt - socket_r, iz1), iz1, (zt - plug_dia / 2.0, iz1), None)
+    top = ((zt - socket_r, iz1), (zt - plug_dia / 2.0, iz1), None)
     if split is None:
         zb = iz0 + wall + r
-        bot = ((iz0, zb + socket_r), iz0, (iz0, zb + plug_dia / 2.0), None)
+        bot = ((iz0, zb + socket_r), (iz0, zb + plug_dia / 2.0), None)
     else:
         zb = split - wall - r
-        bot = ((zb - socket_r, split), None, (zb - plug_dia / 2.0, split), brace_y_short)
+        bot = ((zb - socket_r, split), (zb - plug_dia / 2.0, split), brace_y_short)
     out = []
-    for z_boss, (pod_z, zc, brace_z, by1) in ((zb, bot), (zt, top)):
-        out.append((ix0, ix0 - wall, +1.0, z_boss, pod_z, zc, brace_z, by1))
-        out.append((ix1, ix1 + wall, -1.0, z_boss, pod_z, zc, brace_z, by1))
+    for z_boss, (pod_z, brace_z, by1) in ((zb, bot), (zt, top)):
+        out.append((ix0, ix0 - wall, +1.0, z_boss, pod_z, brace_z, by1))
+        out.append((ix1, ix1 + wall, -1.0, z_boss, pod_z, brace_z, by1))
     return out
 
 
@@ -545,25 +566,21 @@ def _back_plug(x_ext, sx, z_boss, y_boss, y_joint):
     return cyl.fuse(tab)
 
 
-def _front_pod(x_in, x_ext, sx, pod_z, zc, y_joint, inner):
-    """FRONT socket pod (solid): a rib bounded by the faces it mates — in Y
-    from the front wall's inner face (iy0) all the way to the rim, in X the
-    side wall to the cap, in Z the pod's span (out to the floor/ceiling when
-    it lives in a box corner). Running full depth to the front wall, it has no
-    −Y overhang when the front piece prints −Y-down — it grows straight up
-    from the wall. Bore / heat-set / channel are cut afterwards; the facet
-    trims the top-front-left pod back to its plane."""
+def _front_pod(x_in, x_ext, sx, pod_z, y_joint, inner):
+    """FRONT socket pod (solid): a rib bounded by the faces it mates — in X the
+    side wall to the cap, in Z the pod's span (out to the floor/ceiling when it
+    lives in a box corner), in Y just the socket it is: one socket_r ahead of
+    the bore axis, back to the rim the plug's tab slides to. It carries no
+    filler ahead of that — printed Z-down the pod is fed from the floor/ceiling
+    the piece lies on, not from the front wall, so reaching the front wall would
+    buy nothing and hang a 130 mm ledge over the cavity. Bore / heat-set /
+    channel are cut afterwards."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_cap))
     za, zb = pod_z
-    pod = _ybox(xa, xb, iy0, y_joint + lip_len, za, zb)
-    if zc is None:
-        return pod
-    # Round the outer corner (the one at the side wall) concentric with the
-    # cavity, one wall in, so the pod's telescoping reach fits the back's rounded
-    # corner instead of fouling it.
-    return _round_corner_y(pod, x_in, zc, corner_round - wall)
+    ya = max(iy0, _y_boss(y_joint) - socket_r)
+    return _ybox(xa, xb, ya, y_joint + lip_len, za, zb)
 
 
 def _back_brace(x_in, x_ext, sx, brace_z, brace_y1, y_joint, outer):
@@ -612,31 +629,18 @@ def _front_lip(inner, y_joint):
     is flush with the body's inner wall — one solid with the body, nothing
     shaved — telescoping +Y into the back half and mating its inner wall. It runs
     one `wall` back into the body cavity (the fusion shoulder / telescoping stop)
-    and forward over the overlap to the rim. Its −Y end is a 45° frame bevel (the
-    cavity mouth flares out to the outer over one wall), not a flat downward
-    ring, so it prints with no steeper-than-45° overhang −Y-down."""
+    and forward over the overlap to the rim. A plain rectangular tube: printed
+    Z-down the lip is a vertical band and its −Y mouth is a vertical face, so it
+    needs no frame bevel; its corners stay square, concentric with the square
+    seam mouth it telescopes into (the box's rounded verticals are at the
+    front/back walls, not the seam). The bore stays open its whole length — the
+    fusion shoulder is the one-wall overlap where the band meets the body wall
+    (out to y_joint), NOT a slab across the seam."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     y0, y1 = y_joint - wall, y_joint + lip_len
-    # Outer face flush with (and corners concentric to) the cavity it telescopes
-    # into; inner one wall further in.
-    outer = _round_y(_ybox(ix0, ix1, y0, y1, iz0, iz1), corner_round - wall)
-    # Cavity cutter: a 45° flare at the −Y end (mouth widens from the inner
-    # rectangle out to the outer over one wall in Y), then the straight inner
-    # box. Subtracting it bevels the lip's −Y inner edge into the ramp.
-    cx, cz = (ix0 + ix1) / 2.0, (iz0 + iz1) / 2.0
-    flare = (
-        cq.Workplane(cq.Plane(origin=(cx, y0, cz), xDir=(1, 0, 0), normal=(0, 1, 0)))
-        .rect(ix1 - ix0, iz1 - iz0)
-        .workplane(offset=wall)
-        .rect((ix1 - ix0) - 2.0 * wall, (iz1 - iz0) - 2.0 * wall)
-        .loft(combine=True)
-        .val()
-    )
-    inner_box = _round_y(
-        _ybox(ix0 + wall, ix1 - wall, y0 + wall, y1 + 1.0, iz0 + wall, iz1 - wall),
-        corner_round - 2.0 * wall,
-    )
-    return outer.cut(flare.fuse(inner_box))
+    outer = _ybox(ix0, ix1, y0, y1, iz0, iz1)
+    inner_box = _ybox(ix0 + wall, ix1 - wall, y0 - 1.0, y1 + 1.0, iz0 + wall, iz1 - wall)
+    return outer.cut(inner_box)
 
 
 # Boss Y position — one value feeds the plug AND the socket, so they are
@@ -681,11 +685,19 @@ def _z_lip(inner, y_joint, zj):
     flush with the body's inner walls, running one wall down into the body
     (the fusion shoulder) and up over the overlap to the rim. The segment
     crossing the Y-seam overlap is dropped, so each piece carries a 3-sided
-    lip and the two telescopes never stack on one wall surface."""
+    lip and the two telescopes never stack on one wall surface.
+
+    Unlike the Y-seam lip, this band is horizontal and telescopes +Z straight
+    THROUGH the box's standing-vertical arrises, so its corners are relieved on
+    |Z concentric with the cavity it enters — outer one wall in (matching the
+    body's rounded inner wall), inner one wall further — or its square corners
+    would bite the rounded top-piece wall."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     z0, z1 = zj - wall, zj + lip_len
-    ring = _ybox(ix0, ix1, iy0, iy1, z0, z1).cut(
-        _ybox(ix0 + wall, ix1 - wall, iy0 + wall, iy1 - wall, z0 - 1.0, z1 + 1.0))
+    outer = _round_z(_ybox(ix0, ix1, iy0, iy1, z0, z1), corner_round - wall)
+    cavity = _round_z(_ybox(ix0 + wall, ix1 - wall, iy0 + wall, iy1 - wall, z0 - 1.0, z1 + 1.0),
+                      corner_round - 2.0 * wall)
+    ring = outer.cut(cavity)
     gap = _ybox(ix0 - 1.0, ix1 + 1.0,
                 y_joint - wall - z_lip_y_margin, y_joint + lip_len + z_lip_y_margin,
                 z0 - 1.0, z1 + 1.0)
@@ -694,9 +706,12 @@ def _z_lip(inner, y_joint, zj):
 
 def _z_pod(x_in, x_ext, sx, ys, col, y_joint, inner, zj):
     """BOTTOM socket pod: the Y-pod rotated — a rib on the ±X wall reaching
-    +Z to the lip rim. The front-column pod grows from the front wall (no
-    print overhang, front pieces printing −Y-down); the back-column pod
-    starts where the lip does, behind the Y-seam overlap."""
+    +Z to the lip rim, sized in Y to the socket it carries. The front-column
+    pod runs from the front wall to one socket_r past its bore; the
+    back-column pod starts where the lip does, behind the Y-seam overlap.
+    Printed Z-down it hangs off the side wall near the seam — its underside is
+    the residual support this joint costs, the price of a transverse cross-pin
+    on a horizontal seam."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_cap))
@@ -706,7 +721,13 @@ def _z_pod(x_in, x_ext, sx, ys, col, y_joint, inner, zj):
         ya, yb = iy0, ys + socket_r
     else:
         ya, yb = y_joint + lip_len + z_lip_y_margin, ys + socket_r
-    return _ybox(xa, xb, ya, yb, za, zb)
+    pod = _ybox(xa, xb, ya, yb, za, zb)
+    if col == "front":
+        # The front stations sit in the box's rounded front verticals; relieve
+        # the pod's corner there concentric with the cavity (one wall in) so its
+        # +Z reach telescopes into the top piece instead of biting its wall.
+        pod = _round_corner_z(pod, x_in, iy0, corner_round - wall)
+    return pod
 
 
 def _z_pin(x_ext, sx, ys, zj):
@@ -726,7 +747,9 @@ def _z_pin(x_ext, sx, ys, zj):
 def _z_brace(x_in, x_ext, sx, ys, col, inner, outer, zj):
     """TOP brace: a rib on the ±X wall over each pin, from the lip rim up to
     the ceiling. The front-column brace grows from the front wall; the back
-    column's stands alone behind the mouth."""
+    column's stands alone behind the mouth. Printed ceiling-down the brace runs
+    from the bed to the seam at constant section, so it carries the pin under
+    it with no overhang of its own."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
@@ -779,8 +802,8 @@ def build_front_half(dims=None, split=None, hopper=True):
     front = front.fuse(_front_lip(inner, y_joint))
     yb = _y_boss(y_joint)
     bosses = _bosses(inner, split=split)
-    for x_in, x_ext, sx, _zb, pod_z, zc, _bz, _by1 in bosses:
-        front = front.fuse(_front_pod(x_in, x_ext, sx, pod_z, zc, y_joint, inner))
+    for x_in, x_ext, sx, _zb, pod_z, _bz, _by1 in bosses:
+        front = front.fuse(_front_pod(x_in, x_ext, sx, pod_z, y_joint, inner))
     # The full-depth pods can poke into the display facet; trim them to its plane.
     front = front.cut(_facet_wedge(outer))
     # Close the facet recess at its +X edge (the −X edge is sealed by the left wall).
@@ -802,7 +825,7 @@ def build_front_half(dims=None, split=None, hopper=True):
         else:
             wx, wz = hole[3], hole[4]
             front = front.cut(_ybox(hx - wx / 2.0, hx + wx / 2.0, y0, y1, hz - wz / 2.0, hz + wz / 2.0))
-    for x_in, x_ext, sx, z_boss, _pz, _zc, _bz, _by1 in bosses:
+    for x_in, x_ext, sx, z_boss, _pz, _bz, _by1 in bosses:
         front = front.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb, y_joint))
     # Clip any corner feature that pokes past the rounded print silhouette.
     front = front.intersect(_rounded_outer(outer))
@@ -820,13 +843,13 @@ def build_back_half(dims=None, split=None, brace_y_short=None, hopper=True):
         back = back.cut(_hopper_cut(inner, outer, y_joint))
     yb = _y_boss(y_joint)
     bosses = _bosses(inner, split=split, brace_y_short=brace_y_short)
-    for x_in, x_ext, sx, z_boss, _pz, _zc, _bz, _by1 in bosses:
+    for x_in, x_ext, sx, z_boss, _pz, _bz, _by1 in bosses:
         back = back.fuse(_back_plug(x_ext, sx, z_boss, yb, y_joint))
-    for x_in, x_ext, sx, _zb, _pz, _zc, brace_z, brace_y1 in bosses:
+    for x_in, x_ext, sx, _zb, _pz, brace_z, brace_y1 in bosses:
         back = back.fuse(_back_brace(x_in, x_ext, sx, brace_z, brace_y1, y_joint, outer))
     # Clip any corner feature that pokes past the rounded print silhouette.
     back = back.intersect(_rounded_outer(outer))
-    for x_in, x_ext, sx, z_boss, _pz, _zc, _bz, _by1 in bosses:
+    for x_in, x_ext, sx, z_boss, _pz, _bz, _by1 in bosses:
         back = back.cut(_screw_cut(x_ext, sx, z_boss, yb))
     # Panel through-holes for the appliance's external connections — the
     # faucet umbilical (carb-water + two flavor), the tap-water inlet, and
