@@ -81,10 +81,15 @@ the left Y-seam corner the bag circuit and its tee crowd the wall to ~4 mm for a
 
 The one place that could not be had for free is the rear station's spine. The
 cold core spans the interior wall-to-wall and floor to its foam cap with no
-margin at any height, and being the widest content it is what sets the box width;
-its placement rule pins it to the back wall, so nothing could be nudged aside.
-That spine is bought with `boss_spine_clear` — one wall of lateral room at each
-±X wall, and only that.
+margin at any height, so a spine on a side wall has nowhere to pass. But it is
+also the only content near the back — the next is 45 mm ahead — so rather than
+widen the box away from the side walls it seats against, the **back wall stands
+one `REAR_STANDOFF` behind it**. The rear spine drops through that channel,
+making the post a rib in the true back corner where the back wall meets the side
+wall. `_contents.REAR_STANDOFF` is the single source: `_port_frame()` seats the
+rear panel bodies against that wall and `enclosure.py` builds the box to it, so
+the wall the bulkheads mount through and the wall the box is built to cannot
+drift apart.
 
 The cold core rides in the back-bottom piece, verified clear of every boss at
 build time. Each printed piece fits the H2C left-nozzle build envelope

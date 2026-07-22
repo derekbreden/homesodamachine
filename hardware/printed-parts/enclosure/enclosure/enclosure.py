@@ -71,15 +71,18 @@ import hopper_funnel as _funnel
 # Shell parameters.
 wall = 3.0                  # PETG wall thickness
 interior_clearance = 0.0    # gap between contents bbox and inner wall
-# Lateral room reserved at BOTH ±X walls for a boss spine to run the full height.
-# Every cross-pin boss is carried to its bed face by a one-wall spine against the
-# side wall; where a content touches that wall the spine has nowhere to go. The
-# cold core is exactly that case — it spans the interior wall-to-wall and floor
-# to its foam cap, with no margin at any height, and being the widest content it
-# is what sets the box width in the first place. Nothing can be nudged out of the
-# way (its placement rule pins it to the back wall), so the rear station's spine
-# is bought with width: one wall at each side, and only that.
-boss_spine_clear = 3.0      # = wall; lateral room for a spine past wall-hugging contents
+# The back wall stands this far off the rearmost content, opening a channel for
+# the rear Z-seam station's spine to reach the floor in the back corners.
+# The cold core is what needs it: it spans the interior wall-to-wall and floor to
+# its foam cap with no margin at any height, so a spine on a SIDE wall has
+# nowhere to pass. It is also the only content near the back — the next is 45 mm
+# ahead — so holding the wall off its back face costs one wall of depth and
+# disturbs nothing, where buying the same channel laterally would cost two (one
+# per side) and push the core off both side walls it is meant to seat against.
+# Read from _contents, which seats the rear panel bodies against the same wall —
+# one number, so the wall they mount through and the wall this builds cannot
+# drift apart.
+rear_spine_clear = _contents.REAR_STANDOFF
 corner_round = 12.          # standing-vertical (Z) print-corner relief radius (anti-warp on the bed)
 
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
@@ -245,9 +248,8 @@ def _dims():
     cxmin = min(b.xmin for b in bbs); cxmax = max(b.xmax for b in bbs)
     cymin = min(b.ymin for b in bbs); cymax = max(b.ymax for b in bbs)
     czmin = min(b.zmin for b in bbs); czmax = max(b.zmax for b in bbs)
-    ix0, ix1 = (cxmin - interior_clearance - boss_spine_clear,
-                cxmax + interior_clearance + boss_spine_clear)
-    iy0, iy1 = cymin - interior_clearance, cymax + interior_clearance
+    ix0, ix1 = cxmin - interior_clearance, cxmax + interior_clearance
+    iy0, iy1 = cymin - interior_clearance, cymax + interior_clearance + rear_spine_clear
     # The floor is a fixed Z=0 datum, not the lowest content — so parts can stand
     # on feet above it (the floor, seam lip, and braces stay put). The ceiling
     # follows the tallest content — EXCEPT along the ±X walls, where the
@@ -728,7 +730,15 @@ def _z_pod(x_in, x_ext, sx, ys, col, y_joint, inner, zj):
     if abs(yb - iy1) < 1e-6:
         collar = _round_corner_z(collar, x_in, iy1, corner_round - wall)
     sa, sb = sorted((x_in, x_in + sx * wall))
-    return collar.fuse(_ybox(sa, sb, ya, yb, iz0, collar_lo))
+    # The spine runs the collar's own footprint, EXCEPT at the rear station: the
+    # cold core fills that depth to its foam cap, and the only clear channel is
+    # the one `rear_spine_clear` opens behind it. There the spine hugs the back
+    # wall, making the post a rib in the true back corner.
+    if abs(yb - iy1) < 1e-6:
+        sya, syb = iy1 - wall, iy1
+    else:
+        sya, syb = ya, yb
+    return collar.fuse(_ybox(sa, sb, sya, syb, iz0, collar_lo))
 
 
 def _z_pin(x_ext, sx, ys, zj):
