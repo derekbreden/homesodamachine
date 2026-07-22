@@ -84,12 +84,12 @@ def test_lines_clear() -> None:
     orig = sc.line_clashes
     try:
         sc.line_clashes = lambda *a, **k: [("fluid-x", "fluid-y", 50.0)]
-        red = sc.lines_clear_check({})
+        red = sc.lines_clear_check({}, {})
         check("lines_clear_check emits a red gate on a clash",
               red.id == "lines-clear" and red.kind == "gate" and red.status == "fail",
               f"id={red.id} status={red.status}")
         sc.line_clashes = lambda *a, **k: []
-        green = sc.lines_clear_check({})
+        green = sc.lines_clear_check({}, {})
         check("lines_clear_check passes when no tube clashes", green.status == "pass",
               f"status={green.status}")
     finally:

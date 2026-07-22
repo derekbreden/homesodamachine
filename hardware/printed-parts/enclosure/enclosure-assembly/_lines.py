@@ -203,16 +203,17 @@ def build_runs() -> list:
 
     # The nozzle-outlet runs (segments 18/28) — each outlet elbow's free leg up out of the +X wall
     # pocket, then aft over the electronics shelf into its rear flavor bulkhead's inward collet.
-    # Both leave the pocket on the SAME x, so they separate in z before either turns: 28 climbs to
-    # its own deck and crosses west above 18. Each turns west while still FORWARD of the Y seam's
-    # corner column (y 200.3–234.7 in this band) — the pocket lane is the column's, and a run
-    # holding it further aft would drive straight through the post. The westward legs cross above
-    # the gate (top z290.8) and both aft legs ride over the pcba (top z283.0) in their own x lanes.
+    # Each climbs first and steps WEST off the pocket before it turns aft at all: the pocket is the
+    # ±X boss-chain band, and that band carries the seam's Z-pin stations and Y corner column, so a
+    # run holding it aft drives straight through a post. The step is small — the funnel's basin ends
+    # at x275 and the band starts at x283, so the whole depth is open in the lane between them, and
+    # both runs take it. They separate in z there (28 above 18), ride aft past the seam, then come
+    # west over the pcba (top z283.0) into their own bulkhead lanes.
     for cid, elb, bulk, mids in (
         ("fluid-18", "elbow-noz-a", "bulkhead-flavor-a",        # low deck, west lane
-         [(289.20, 180.0, 292.45), (195.05, 180.0, 292.45)]),
+         [(279.00, 152.68, 296.0), (279.00, 300.0, 296.0), (195.05, 300.0, 292.45)]),
         ("fluid-28", "elbow-noz-b", "bulkhead-flavor-b",        # high deck, east lane
-         [(289.20, 190.0, 312.0), (224.95, 190.0, 312.0)]),
+         [(279.00, 118.43, 312.0), (279.00, 315.0, 312.0), (224.95, 315.0, 292.45)]),
     ):
         runs.append(R.bent(cid, f"{elb}.free", *mids, f"{bulk}.tube-in",
                            kind="fluid", bend=8.0, skew=DISCHARGE_SKEW, lead=(10.0, 10.0),
