@@ -148,21 +148,6 @@ export function removeScorecard(wrapper) {
   closeModal(wrapper);
 }
 
-// Draw the bar (+ port / shape-box toggles) for a scorecard object already in hand. Shared by the
-// sidecar mount and the editor's failed-rebuild path. Returns false (draws nothing) for a
-// malformed verdict or a wrapper that left the document mid-fetch.
-function renderScorecard(wrapper, sc, file) {
-  if (!sc || !isScorecard(sc) || !wrapper || !wrapper.isConnected) return false;
-  buildBar(wrapper, sc);
-  const ports = Array.isArray(sc.ports) ? sc.ports : [];
-  if (ports.length) wrapper.appendChild(makePortToggle(showPorts(ports, file)));
-  else clearPorts();
-  const shapes = Array.isArray(sc.shapes) ? sc.shapes : [];
-  if (shapes.length) wrapper.appendChild(makeShapeBoxToggle(showShapeBoxes(shapes, file)));
-  else clearShapeBoxes();
-  return true;
-}
-
 // Fetch the sidecar for `file` and mount the bar on `wrapper`. No sidecar (404 / malformed) =
 // no bar, silently — most STEP models don't carry a scorecard.
 export async function mountScorecard(wrapper, file) {
@@ -173,13 +158,14 @@ export async function mountScorecard(wrapper, file) {
   } catch {
     sc = null;
   }
-  renderScorecard(wrapper, sc, file);
-}
-
-// Paint a scorecard the caller ALREADY has (no fetch) — the dev component editor's failed rebuild
-// returns the failing verdict in its HTTP response, and there's no fresh sidecar on disk to fetch
-// (the clash gate raised before it was written). With `open`, pop the drill-down so the failing
-// gate and its clickable clash rows are in front of the user immediately.
-export function showScorecard(wrapper, sc, file, { open = false } = {}) {
-  if (renderScorecard(wrapper, sc, file) && open) openModal(wrapper, sc);
+  // The modal may have closed (or reloaded to another model) while we fetched — bail if the
+  // wrapper is no longer in the document.
+  if (!sc || !isScorecard(sc) || !wrapper.isConnected) return;
+  buildBar(wrapper, sc);
+  const ports = Array.isArray(sc.ports) ? sc.ports : [];
+  if (ports.length) wrapper.appendChild(makePortToggle(showPorts(ports, file)));
+  else clearPorts();
+  const shapes = Array.isArray(sc.shapes) ? sc.shapes : [];
+  if (shapes.length) wrapper.appendChild(makeShapeBoxToggle(showShapeBoxes(shapes, file)));
+  else clearShapeBoxes();
 }
