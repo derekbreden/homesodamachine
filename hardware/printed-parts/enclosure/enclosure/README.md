@@ -33,8 +33,15 @@ driven from the ±X exterior. Bottom↔top, per column: the same joint rotated
 `z_joint_back` (the one back-wall band left open between the cold core's
 foam-cap top and the rear bulkhead field) — the bottom pieces carry a 3-sided
 lip + socket pods, the top pieces carry the D-pins and the braces that back
-them, four more X-axis screws crossing each seam. The front pair joins, the
+them, more X-axis screws crossing each seam. The front pair joins, the
 back pair joins, then the front assembly telescopes into the back as one.
+
+A Z seam is pinned at **both ends of its column**, not just one, or the far end
+hinges open. The back column runs from the Y seam clear to the rear wall, so it
+takes a station just behind the Y-seam mouth *and* one in the rear-wall corner.
+The front column keeps a single front-wall station: the source-select assembly
+fills the depth its seam crosses, leaving no rear station to be had there
+without moving that assembly.
 Each cross-pin mates the walls of its overlap (the
 pin's mouth-side face on the receiving mouth, the socket pod's rim-side face
 on the lip rim) and the two are coaxial by construction, so the **overlap
@@ -61,6 +68,23 @@ braces — ribs from the lip rim toward the rear wall (the lower pair stopping
 ahead of the cold core), sized to the pin they back and butting its flat tab
 at the rim — anchoring the walls against peeling and supporting the X-axis
 pins; the top pieces carry the matching braces above their Z-seam pins.
+
+**Every boss stands on the bed, not on the wall.** Each socket is a full-depth
+**collar** around its bore plus a one-wall **spine** that carries it the whole
+height of its piece — floor to the seam below, seam to the ceiling above. Printed
+Z-down that is the face the piece lies on, so the boss grows off the first layer
+instead of hanging in open air, and the two pieces' spines meet at the seam so
+the corner reads floor-to-ceiling assembled. The spine is one wall rather than
+the collar's full depth because that is what clears the contents everywhere: at
+the left Y-seam corner the bag circuit and its tee crowd the wall to ~4 mm for an
+80 mm band, and a full-depth post there would drive straight through them.
+
+The one place that could not be had for free is the rear station's spine. The
+cold core spans the interior wall-to-wall and floor to its foam cap with no
+margin at any height, and being the widest content it is what sets the box width;
+its placement rule pins it to the back wall, so nothing could be nudged aside.
+That spine is bought with `boss_spine_clear` — one wall of lateral room at each
+±X wall, and only that.
 
 The cold core rides in the back-bottom piece, verified clear of every boss at
 build time. Each printed piece fits the H2C left-nozzle build envelope

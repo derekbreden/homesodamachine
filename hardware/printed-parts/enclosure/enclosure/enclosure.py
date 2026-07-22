@@ -38,8 +38,12 @@ it: the box's four standing verticals. Each quadrant owns only two of them —
 its other two "corners" are the Y-seam, a telescoping mating face with no
 exterior arris to relieve — so the front pieces round the front-left/right
 verticals, the back pieces the back-left/right, and every seam stays square.
-The bosses follow the same axis: each level's pod reaches out to the floor or
-ceiling it sits against, which is the bed face its piece lies on.
+The bosses follow the same axis. Each socket is a full-depth collar around its
+bore plus a one-wall spine carrying it the whole height of its piece — floor to
+the seam below it, seam to the ceiling above — so it grows off the first layer
+instead of hanging in open air, and the two pieces' spines meet at the seam. And
+each Z seam is pinned at BOTH ends of its column, so the far end cannot hinge
+open.
 
 main() exports the four printable pieces (enclosure-front-bottom.step,
 enclosure-front-top.step, enclosure-back-bottom.step, enclosure-back-top.step)
@@ -67,6 +71,15 @@ import hopper_funnel as _funnel
 # Shell parameters.
 wall = 3.0                  # PETG wall thickness
 interior_clearance = 0.0    # gap between contents bbox and inner wall
+# Lateral room reserved at BOTH ±X walls for a boss spine to run the full height.
+# Every cross-pin boss is carried to its bed face by a one-wall spine against the
+# side wall; where a content touches that wall the spine has nowhere to go. The
+# cold core is exactly that case — it spans the interior wall-to-wall and floor
+# to its foam cap, with no margin at any height, and being the widest content it
+# is what sets the box width in the first place. Nothing can be nudged out of the
+# way (its placement rule pins it to the back wall), so the rear station's spine
+# is bought with width: one wall at each side, and only that.
+boss_spine_clear = 3.0      # = wall; lateral room for a spine past wall-hugging contents
 corner_round = 12.          # standing-vertical (Z) print-corner relief radius (anti-warp on the bed)
 
 # H2C left-nozzle build envelope; each printed HALF must fit inside this.
@@ -156,7 +169,11 @@ lip_len = plug_dia / 2.0 + socket_r              # = (plug+bore)/2 + wall = 13.1
 #     occupy the gap beneath that floor.
 # Every printed piece's bed face fits the H2C envelope with these cuts.
 z_joint_front = 172.0
-z_joint_back = 266.0
+# Clear of the cold core's foam cap by the rear station's reach: that station's
+# socket collar hangs socket_r below the pin axis, i.e. to z_joint_back − 3.2, so
+# the seam sits high enough that the collar lands ON the band above the foam
+# rather than in it.
+z_joint_back = 267.0
 # The Z lip stops this short of the Y-seam overlap on each side, so the two
 # telescopes never share a wall surface.
 z_lip_y_margin = 2.0
@@ -215,6 +232,8 @@ def _round_corner_z(solid, xc, yc, r):
     wp = cq.Workplane(obj=solid)
     edges = [e for e in wp.edges("|Z").vals()
              if abs(e.Center().x - xc) < 1e-6 and abs(e.Center().y - yc) < 1e-6]
+    if not edges:
+        return solid          # this boss does not sit in that corner
     return wp.newObject(edges).fillet(r).val()
 
 
@@ -226,7 +245,8 @@ def _dims():
     cxmin = min(b.xmin for b in bbs); cxmax = max(b.xmax for b in bbs)
     cymin = min(b.ymin for b in bbs); cymax = max(b.ymax for b in bbs)
     czmin = min(b.zmin for b in bbs); czmax = max(b.zmax for b in bbs)
-    ix0, ix1 = cxmin - interior_clearance, cxmax + interior_clearance
+    ix0, ix1 = (cxmin - interior_clearance - boss_spine_clear,
+                cxmax + interior_clearance + boss_spine_clear)
     iy0, iy1 = cymin - interior_clearance, cymax + interior_clearance
     # The floor is a fixed Z=0 datum, not the lowest content — so parts can stand
     # on feet above it (the floor, seam lip, and braces stay put). The ceiling
@@ -469,13 +489,18 @@ def _bosses(inner, split=None, brace_y_short=None):
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     r = socket_bore_dia / 2.0
     zt = iz1 - wall - r
-    top = ((zt - socket_r, iz1), (zt - plug_dia / 2.0, iz1), None)
     if split is None:
         zb = iz0 + wall + r
+        top = ((zt - socket_r, iz1), (zt - plug_dia / 2.0, iz1), None)
         bot = ((iz0, zb + socket_r), (iz0, zb + plug_dia / 2.0), None)
     else:
         zb = split - wall - r
-        bot = ((zb - socket_r, split), (zb - plug_dia / 2.0, split), brace_y_short)
+        # Each pod is a POST, not a collar: it spans its piece's whole height —
+        # floor to the seam below it, seam to ceiling above — so the boss is fed
+        # from the bed face its piece lies on instead of hanging off the wall.
+        # The two meet at the seam, so the corner reads floor-to-ceiling assembled.
+        top = ((split, iz1), (zt - plug_dia / 2.0, iz1), None)
+        bot = ((iz0, split), (zb - plug_dia / 2.0, split), brace_y_short)
     out = []
     for z_boss, (pod_z, brace_z, by1) in ((zb, bot), (zt, top)):
         out.append((ix0, ix0 - wall, +1.0, z_boss, pod_z, brace_z, by1))
@@ -508,21 +533,34 @@ def _back_plug(x_ext, sx, z_boss, y_boss, y_joint):
     return cyl.fuse(tab)
 
 
-def _front_pod(x_in, x_ext, sx, pod_z, y_joint, inner):
-    """FRONT socket pod (solid): a rib bounded by the faces it mates — in X the
-    side wall to the cap, in Z the pod's span (out to the floor/ceiling when it
-    lives in a box corner), in Y just the socket it is: one socket_r ahead of
-    the bore axis, back to the rim the plug's tab slides to. It carries no
-    filler ahead of that — printed Z-down the pod is fed from the floor/ceiling
-    the piece lies on, not from the front wall, so reaching the front wall would
-    buy nothing and hang a 130 mm ledge over the cavity. Bore / heat-set /
+def _front_pod(x_in, x_ext, sx, pod_z, z_boss, y_joint, inner):
+    """FRONT socket boss: a full-depth COLLAR around the bore plus the one-wall
+    SPINE that carries it to the bed face.
+
+    In X the collar runs the side wall to the cap, in Y just the socket it is —
+    one socket_r ahead of the bore axis, back to the rim the plug's tab slides
+    to. The spine keeps that Y footprint but only one wall of depth, and spans
+    the piece's whole height (`pod_z`): floor to the seam below it, seam to the
+    ceiling above. Printed Z-down that is the face the piece lies on, so the
+    boss is fed off the first layer instead of hanging in open air, and the two
+    pieces' spines meet at the seam so the corner reads floor-to-ceiling.
+
+    The spine is one wall, not the collar's full depth, because that is what
+    fits everywhere: at the left Y-seam corner the bag circuit and its tee crowd
+    the wall to ~4 mm for an 80 mm band, and a full-depth post there would drive
+    straight through them. One wall clears it with no part moved and no box
+    grown, and matches the brace/rib idiom used elsewhere. Bore / heat-set /
     channel are cut afterwards."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_cap))
     za, zb = pod_z
     ya = max(iy0, _y_boss(y_joint) - socket_r)
-    return _ybox(xa, xb, ya, y_joint + lip_len, za, zb)
+    yb = y_joint + lip_len
+    collar = _ybox(xa, xb, ya, yb, z_boss - socket_r, z_boss + socket_r)
+    sa, sb = sorted((x_in, x_in + sx * wall))
+    spine = _ybox(sa, sb, ya, yb, za, zb)
+    return collar.fuse(spine)
 
 
 def _back_brace(x_in, x_ext, sx, brace_z, brace_y1, y_joint, outer):
@@ -606,20 +644,28 @@ def _z_pin_z(zj):
 
 
 def _z_stations(inner, y_joint):
-    """X-axis pin stations along the Z seams, one per ±X wall per Y column:
-    front pins in the front-wall corners (their pods grow from the front
-    wall), back pins just behind the Y-seam mouth (their pods and braces
-    start where the telescoped front lip stops). Each column's stations ride
-    that column's own seam height."""
+    """X-axis pin stations along the Z seams — TWO per ±X wall per Y column, one
+    at each END of that column's seam, so a seam pinned only at one end cannot
+    hinge open at the other. The back column is the reason: it runs from the
+    Y-seam clear to the rear wall, and a single station behind the mouth left
+    its whole rear unfastened.
+
+    Back column: just behind the Y-seam mouth (where the telescoped front lip
+    stops) AND the rear-wall corner. The front column keeps its single
+    front-wall station — the source-select assembly fills y 89..182 across the
+    whole height its seam crosses, so there is no rear station to be had there
+    without moving that assembly. Each column's stations ride that column's own
+    seam height."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
-    yf = iy0 + wall + socket_bore_dia / 2.0
-    yb = y_joint + lip_len + wall + socket_bore_dia / 2.0
-    return [
-        (ix0, ix0 - wall, +1.0, yf, "front"),
-        (ix1, ix1 + wall, -1.0, yf, "front"),
-        (ix0, ix0 - wall, +1.0, yb, "back"),
-        (ix1, ix1 + wall, -1.0, yb, "back"),
-    ]
+    r = socket_bore_dia / 2.0
+    yf = iy0 + wall + r                             # front column, front wall
+    yb = y_joint + lip_len + wall + r               # back column, behind the mouth
+    ybr = iy1 - wall - r                            # back column, rear wall
+    out = []
+    for ys, col in ((yf, "front"), (yb, "back"), (ybr, "back")):
+        out.append((ix0, ix0 - wall, +1.0, ys, col))
+        out.append((ix1, ix1 + wall, -1.0, ys, col))
+    return out
 
 
 def _z_lip(inner, y_joint, zj):
@@ -647,29 +693,42 @@ def _z_lip(inner, y_joint, zj):
 
 
 def _z_pod(x_in, x_ext, sx, ys, col, y_joint, inner, zj):
-    """BOTTOM socket pod: the Y-pod rotated — a rib on the ±X wall reaching
-    +Z to the lip rim, sized in Y to the socket it carries. The front-column
-    pod runs from the front wall to one socket_r past its bore; the
+    """BOTTOM socket pod: the Y-pod rotated — a POST on the ±X wall carrying the
+    socket up to the lip rim, sized in Y to the socket it carries. The
+    front-column pod runs from the front wall to one socket_r past its bore; the
     back-column pod starts where the lip does, behind the Y-seam overlap.
-    Printed Z-down it hangs off the side wall near the seam — its underside is
-    the residual support this joint costs, the price of a transverse cross-pin
-    on a horizontal seam."""
+
+    It stands on the floor, not on the wall: the bottom pieces print floor-down,
+    so a pod that started at the socket would hang the whole height of the piece
+    in open air. Running it to iz0 feeds it off the first layer instead."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     _xs, _xt, _xh, x_cap = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_cap))
-    za = _z_pin_z(zj) - socket_r
     zb = zj + lip_len
+    # Y extent is LOCAL to this station — a column carries a station at each end,
+    # so spanning from the column's end would make one slab of the whole depth.
+    # The bound only clamps: the front-wall station still reaches the front wall,
+    # the behind-the-mouth station still starts where the lip does.
     if col == "front":
-        ya, yb = iy0, ys + socket_r
+        ya, yb = max(iy0, ys - socket_r), ys + socket_r
     else:
-        ya, yb = y_joint + lip_len + z_lip_y_margin, ys + socket_r
-    pod = _ybox(xa, xb, ya, yb, za, zb)
-    if col == "front":
-        # The front stations sit in the box's rounded front verticals; relieve
-        # the pod's corner there concentric with the cavity (one wall in) so its
-        # +Z reach telescopes into the top piece instead of biting its wall.
-        pod = _round_corner_z(pod, x_in, iy0, corner_round - wall)
-    return pod
+        ya, yb = max(y_joint + lip_len + z_lip_y_margin, ys - socket_r), min(iy1, ys + socket_r)
+    # Full-depth collar around the socket; one-wall spine carrying it to the
+    # floor. The spine stops where the collar starts, so it stays wholly below
+    # the seam — only the collar crosses into the top piece, and only the collar
+    # needs the corner relief.
+    collar_lo = _z_pin_z(zj) - socket_r
+    collar = _ybox(xa, xb, ya, yb, collar_lo, zb)
+    # A station that abuts a wall sits in one of the box's rounded verticals;
+    # relieve the collar's corner there concentric with the cavity (one wall in)
+    # so its +Z reach telescopes into the top piece instead of biting its wall.
+    # The front-wall station lands on iy0, the rear-wall station on iy1.
+    if abs(ya - iy0) < 1e-6:
+        collar = _round_corner_z(collar, x_in, iy0, corner_round - wall)
+    if abs(yb - iy1) < 1e-6:
+        collar = _round_corner_z(collar, x_in, iy1, corner_round - wall)
+    sa, sb = sorted((x_in, x_in + sx * wall))
+    return collar.fuse(_ybox(sa, sb, ya, yb, iz0, collar_lo))
 
 
 def _z_pin(x_ext, sx, ys, zj):
@@ -688,18 +747,18 @@ def _z_pin(x_ext, sx, ys, zj):
 
 def _z_brace(x_in, x_ext, sx, ys, col, inner, outer, zj):
     """TOP brace: a rib on the ±X wall over each pin, from the lip rim up to
-    the ceiling. The front-column brace grows from the front wall; the back
-    column's stands alone behind the mouth. Printed ceiling-down the brace runs
-    from the bed to the seam at constant section, so it carries the pin under
-    it with no overhang of its own."""
+    the ceiling. Its Y extent is local to its own station (a column carries one
+    at each end); the front-wall station still reaches the front wall. Printed
+    ceiling-down the brace runs from the bed to the seam at constant section, so
+    it carries the pin under it with no overhang of its own."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     _xs, x_tip, _xh, _xc = _boss_x(x_ext, sx)
     xa, xb = sorted((x_in, x_tip))
     if col == "front":
-        ya, yb = iy0, ys + plug_dia / 2.0
+        ya, yb = max(iy0, ys - plug_dia / 2.0), ys + plug_dia / 2.0
     else:
-        ya, yb = ys - plug_dia / 2.0, ys + plug_dia / 2.0
+        ya, yb = ys - plug_dia / 2.0, min(iy1, ys + plug_dia / 2.0)
     return _ybox(xa, xb, ya, yb, zj + lip_len, oz1)
 
 
@@ -741,8 +800,8 @@ def build_front_half(dims=None, split=None, hopper=True):
     front = front.fuse(_front_lip(inner, y_joint))
     yb = _y_boss(y_joint)
     bosses = _bosses(inner, split=split)
-    for x_in, x_ext, sx, _zb, pod_z, _bz, _by1 in bosses:
-        front = front.fuse(_front_pod(x_in, x_ext, sx, pod_z, y_joint, inner))
+    for x_in, x_ext, sx, z_boss, pod_z, _bz, _by1 in bosses:
+        front = front.fuse(_front_pod(x_in, x_ext, sx, pod_z, z_boss, y_joint, inner))
     # The full-depth pods can poke into the display facet; trim them to its plane.
     front = front.cut(_facet_wedge(outer))
     # Close the facet recess at its +X edge (the −X edge is sealed by the left wall).
