@@ -58,12 +58,11 @@ BLOCKED: dict = {}
 
 
 def _frames():
-    """A frame per placed component AND per through-wall panel body: its body box from the pack, its
-    ports from the scorecard's port table. The panel bodies (the rear bulkheads) are not interior
-    components but a run terminates on their inward collet, so they carry a frame too."""
+    """A frame per placed component: its body box from the pack, its ports from the scorecard's
+    port table."""
     import scorecard                                   # deferred: scorecard reads this module back
 
-    placed = {**contents.build(), **contents.panel_bodies()}
+    placed = contents.build()
     by_comp: dict = {}
     for p in scorecard.PORTS:
         if p.pos is not None and p.face and p.component in placed:
@@ -138,10 +137,10 @@ def build_runs() -> list:
     LEAD = 8.0                              # exit/approach stub: straight lead-out/-in along each collet
     DBEND = 12.0                            # 1/4" LLDPE, clean-sweeping radius (as the copper loop uses)
     for cid, elb, div, port, apex, lead, bend in (
-        ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", None,                   (8.0, 8.0), 8.0),  # one bend into the yawed outlet
-        ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3", (194.0, 106.0, 256.0),  (6.0, 8.0), 8.0),  # east-and-low out of the bag tray under its valves, then up into y-d as the gate insets west
-        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (199.0, 114.0, 293.0),  (5.0, 8.0), DBEND),  # short exit lead + high apex: leaves above elbow-bag-y-d, over the row into y-g
-        ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3", None,                   (8.0, 8.0), DBEND),  # short lead into the outlet as the gate insets west
+        ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", None,                   (8.0, 6.5), 8.0),  # one bend into the yawed outlet
+        ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3", (202.0, 111.0, 259.0),  LEAD, DBEND),      # over elbow-y-d (top z254)
+        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (204.0, 112.0, 293.0),  (4.0, 8.0), DBEND),  # short exit lead + high apex: leaves above elbow-bag-y-d (top z284), over the row into y-g
+        ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3", None,                   None, DBEND),       # rises straight to the raised outlet
     ):
         mids = [apex] if apex is not None else []
         runs.append(R.bent(cid, f"{elb}.free", *mids, f"{div}.{port}",
@@ -154,9 +153,11 @@ def build_runs() -> list:
     # its collet (an exit lead) and turns to the meet point of the two collet axes before closing
     # into the stem. fluid-22 leaves pump A's east-facing outlet, crosses the open band over the
     # pumps, and turns into y-g's stem; the two sit in separate bays.
-    runs.append(R.bent("fluid-12", "pump-b.P-B-O", "y-d.Y-D-1",
-                        kind="fluid", bend=5.0, skew=DISCHARGE_SKEW, lead=(6.0, 6.0),
-                        note="discharge stem P-B-O → y-d Y-D-1, the two collets nearly face across the bay"))
+    op, od = contents.pump_outlet_pose("pump-b")
+    sp, sd = contents.divider_port("y-d", 1)
+    runs.append(R.bent("fluid-12", "pump-b.P-B-O", R.meet(op, od, sp, sd, 0.85), "y-d.Y-D-1",
+                        kind="fluid", bend=6.0, skew=DISCHARGE_SKEW, lead=(6.0, 0.0),
+                        note="discharge stem P-B-O → y-d Y-D-1, led off pump-b to the collets' meet"))
     runs.append(R.bent("fluid-22", "pump-a.P-A-O", (165.0, 25.0, 278.0), "y-g.Y-G-1",
                         kind="fluid", bend=12.0, skew=DISCHARGE_SKEW, lead=14.0,
                         note="discharge stem P-A-O → y-g Y-G-1, across the pump row"))
@@ -185,20 +186,6 @@ def build_runs() -> list:
         "pump-a.P-A-I",
         kind="fluid", bend=10.0, skew=DISCHARGE_SKEW, lead=SLEAD,
         note="suction stem tee-y-f Y-F-3 → pump-a P-A-I, up the west end then east above the source tray"))
-
-    # The nozzle-outlet runs (segments 18/28) — each outlet elbow's free leg up out of the wall
-    # pocket the gate's inset opened, then aft over the electronics shelf into its rear flavor
-    # bulkhead's inward collet. Each leaves +Z, arches aft above the pcba (top z292.5), and drops
-    # north into the bulkhead. Point-to-point with `bent`; a `lead=` stub squares the leave/enter.
-    for cid, elb, bulk, mids in (
-        ("fluid-18", "elbow-noz-a", "bulkhead-flavor-a",         # west lane, higher arch
-         [(270.0, 168.0, 304.0), (232.0, 305.0, 306.0), (198.0, 318.0, 298.0)]),
-        ("fluid-28", "elbow-noz-b", "bulkhead-flavor-b",         # east lane, lower arch
-         [(281.0, 150.0, 299.0), (256.0, 303.0, 300.0), (226.0, 326.0, 296.0)]),
-    ):
-        runs.append(R.bent(cid, f"{elb}.free", *mids, f"{bulk}.tube-in",
-                           kind="fluid", bend=8.0, skew=DISCHARGE_SKEW, lead=(10.0, 10.0),
-                           note=f"nozzle outlet: {elb} → {bulk}, up out of the pocket and aft over the shelf"))
 
     return runs
 
