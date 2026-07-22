@@ -81,23 +81,16 @@ export function highlightParts(names) {
   for (const mesh of state.currentGroup.children) {
     if (!mesh.isMesh || !want.has(mesh.name) || seen.has(mesh.geometry)) continue;
     seen.add(mesh.geometry); // front + back share one geometry — one highlight per solid
-    // Ride the mesh's world matrix, not raw geometry: committed parts sit at identity (geometry
-    // is already world-space), but a part under an active editor preview carries a live transform —
-    // copying it lands the highlight (and the fly-to) on the moved pose, right where the clash is.
-    const m = mesh.matrixWorld;
     const eg = new THREE.EdgesGeometry(mesh.geometry, EDGE_THRESHOLD_DEG);
-    const edges = new THREE.LineSegments(eg, edgeMat);
-    edges.matrixAutoUpdate = false; edges.matrix.copy(m);
-    overlay.add(edges);
+    overlay.add(new THREE.LineSegments(eg, edgeMat));
     const shell = new THREE.Mesh(mesh.geometry.clone(), new THREE.MeshBasicMaterial({
       color: HL, transparent: true, opacity: 0.16, side: THREE.DoubleSide,
       depthWrite: false, depthTest: false,
     }));
-    shell.matrixAutoUpdate = false; shell.matrix.copy(m);
     shell.renderOrder = 995;
     overlay.add(shell);
     if (!mesh.geometry.boundingBox) mesh.geometry.computeBoundingBox();
-    box.union(mesh.geometry.boundingBox.clone().applyMatrix4(m));
+    box.union(mesh.geometry.boundingBox);
     n++;
   }
   if (n) flyToBox(box);

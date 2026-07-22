@@ -301,25 +301,17 @@ def main():
         pack, pack.pieces, (enclosure.H2C_X, enclosure.H2C_Y, enclosure.H2C_Z), inner)
     print(scorecard.format_scorecard(sc))
 
-    # The dev component editor (HSM_EDITOR, set by web/dev-server) captures this one machine-
-    # readable line. A move that clashes raises below before the sidecar is written, so without
-    # this the viewer never learns what overlapped; with it the editor paints THIS failing verdict
-    # — clash pairs and all — into the scorecard bar, from the response, no disk write.
-    if os.environ.get("HSM_EDITOR"):
-        print("HSM_SCORECARD_JSON=" + json.dumps(scorecard.scorecard_dict(sc)), flush=True)
-
     for cid, why in sorted(_lines.BLOCKED.items()):
         print(f"line {cid}: BLOCKED — {why}")
-    # The scorecard reports every gate; today pack-closes and lines-clear block the export — a
-    # physically invalid pack (two solids overlapping, or a routed tube driving through one) must
-    # not be written. The rest report until the design reaches them, then their gating turns on
-    # (the board's stance).
+    # pack-closes and lines-clear are the two gates that block the export: a physically invalid pack
+    # (two solids overlapping, or a routed tube driving through one) must never land as the committed
+    # .step. The rest report until the design reaches them, then their gating turns on (the board's
+    # stance).
     blocking = [c for c in sc.checks if c.id in ("pack-closes", "lines-clear") and c.status == "fail"]
     if blocking:
-        # Name the offending pairs in the exit message, not just the gate label — this line is all
-        # the dev server logs and all the editor panel shows, so "pack does not close" with no
-        # "fluid-11 ∩ tee-y-c: 342 mm³" is the difference between a lead and a dead end. The full
-        # list still lives in the scorecard (terminal block above, and the viewer's drill-down).
+        # Name the offending pairs, not just the gate label — this line is all the dev-server log and
+        # the editor panel show, so "pack does not close" without "fluid-11 ∩ tee-y-c: 342 mm³" is a
+        # dead end. The full list is in the scorecard (terminal block above + the viewer's drill-down).
         parts = []
         for c in blocking:
             row = c.label
@@ -327,7 +319,17 @@ def main():
                 extra = len(c.detail) - 8
                 row += ": " + "; ".join(c.detail[:8]) + (f"; +{extra} more" if extra > 0 else "")
             parts.append(row)
-        raise SystemExit(" | ".join(parts) + "  (see scorecard)")
+        msg = " | ".join(parts) + "  (see scorecard)"
+        # A headless / committed build must NEVER write an invalid pack, so it hard-stops here. But
+        # HSM_EDITOR (the dev component editor, web/dev-server) is exactly where you drag a part to
+        # SEE where it collides — a build that refuses to write leaves nothing to look at, and the
+        # move appears to do nothing. So under the editor we write it anyway: the .step carries the
+        # real overlapping geometry (the move is visible and survives a refresh) and the sidecar
+        # records the failing verdict (gatesPass=false). The pre-commit gate reads that sidecar and
+        # blocks the commit — an invalid pack can be inspected but can never land.
+        if not os.environ.get("HSM_EDITOR"):
+            raise SystemExit(msg)
+        print("NOT BUILD-READY — " + msg + "  (written anyway for the editor)")
 
     # The scorecard sidecar the 3D viewer reads — the same verdict, beside the model. Written
     # before the .step so the dev watcher's .step broadcast implies the sidecar is already fresh.
