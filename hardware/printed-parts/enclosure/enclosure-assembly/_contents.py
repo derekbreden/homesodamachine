@@ -205,13 +205,7 @@ FUNNEL_ROT = 0.0
 # rides a few millimetres inboard of each — its −X outlet-elbow column (and the
 # junction tees below) clear the −X wall's seam furniture, its +X elbows clear the
 # +X wall — so the enclosure seam machinery runs unbroken there (no wall relief).
-# In Z it stands DOWN into the under-stack corridor rather than up under the
-# funnel: the hopper's floor is graded to shed (hopper_funnel.ramp_angle), and a
-# grade that steep over a basin that wide is deep — the cone reaches below the
-# bag tray's top plate where the two overlap in plan. The corridor below the
-# stack is the slack that pays for it; the compressor and condenser crowns set
-# how far it goes.
-SRC_SEL_POS = (143.0, 135.55, 160.8)
+SRC_SEL_POS = (143.0, 135.55, 167.8)
 # The bag-circuit assembly rides INVERTED on top of it — rotated 180° about Y,
 # seated wall-tops-to-wall-tops on the source tray's stacking walls (a
 # declared contact), both trays' walls meeting at z 227.8 — which lands each
@@ -256,11 +250,7 @@ _GATE_ANCHOR_BAG_X = 144.0 - JUNCTION_SLIDE
 # pins the +X wall at the full interior width regardless, so this only insets the
 # gate — it does not shrink the box. Bounded west by the source-select east bank
 # and the bag's east discharge elbows (the scorecard's clearance floor).
-# Standing the gate further east widens the lane between the two trays, which is
-# the only way the pump-discharge crossings have over the elbow row — and the
-# funnel's spout now drops into the west half of it, so what is left east of the
-# spout is what those runs have to thread.
-GATE_WALL_INSET = 6.0
+GATE_WALL_INSET = 11.0
 NOZZLE_GATE_POS = (_GATE_ANCHOR_BAG_X + 2.0 * _bag.port_half + _bag.tee_branch_reach
                    + _bag.tee_radius + TEE_BODY_CLEAR - GATE_WALL_INSET,
                    SRC_SEL_POS[1],

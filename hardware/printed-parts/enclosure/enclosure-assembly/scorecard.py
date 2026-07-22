@@ -437,7 +437,7 @@ PORTS = [
     # plane lies ~23 below the drain, ~126 mm aft-east of it — the tray stack's height
     # spends most of the banked fall, and the leg's author has the elbow-roll DOF
     # (bag_circuit_tray place_elbow) to turn V-B-I sideways if the drop needs it.
-    _p("drain", "hopper-funnel", "fluid", (193.75, 94.0, 275.18), "z-", 6.35, "V-B-I by tube — segment 4 (hopper gate → shared source; must fall)", "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"),
+    _p("drain", "hopper-funnel", "fluid", (193.75, 94.0, 284.02), "z-", 6.35, "V-B-I by tube — segment 4 (hopper gate → shared source; must fall)", "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"),
     # Source-select assembly (Tray 1) — the manifold's four boundary connectors: the outlet
     # elbows' free collets. Each tray publishes its collets in its own coordinates
     # (`boundary_collets`, off the same rolls the STEP is built with) and _contents carries
