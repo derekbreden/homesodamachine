@@ -70,11 +70,17 @@ ones; main() prints what each ended up with.
 main() exports the four printable pieces (enclosure-front-bottom.step,
 enclosure-front-top.step, enclosure-back-bottom.step, enclosure-back-top.step)
 plus enclosure.step — the four as separate solids in assembled position,
-seams intact (mirrors `touch_flo_shell.py`).
+seams intact (mirrors `touch_flo_shell.py`). It exports the same five files
+again for the test-print COUPON (enclosure-coupon-*.step): the smallest box
+that still carries the display housing, all three seams with their full ladder
+of cross-pins, and the rear port cluster, every one of them at full size — the
+whole four-piece assembly, printable in an evening, to prove the fit before the
+real box is committed. Both come through the same code from a `Box`.
 """
 
 import math
 import sys
+from collections import namedtuple
 from pathlib import Path
 
 import cadquery as cq
@@ -205,6 +211,16 @@ z_lip_y_margin = 2.0
 # nozzle-gate tray off the +X wall (its bare outer ports clear the front Y-lip) —
 # so every tray fitting misses the seam furniture (Y-lip / Z-lip / boss pods) at
 # both walls. The seam machinery runs unbroken all the way to the corners.
+
+
+# The whole description of one box, so the appliance and its test coupon are
+# the same geometry read from different numbers rather than two code paths:
+#   inner/outer   the cavity and the shell, (x0, x1, y0, y1, z0, z1)
+#   y_joint       the front↔back seam plane
+#   splits        the bottom↔top seam height per Y column, (front, back)
+#   front_ports   / back_ports   panel through-holes, in _contents' format
+#   hopper        whether the top wall carries the funnel throat
+Box = namedtuple("Box", "inner outer y_joint splits front_ports back_ports hopper")
 
 
 # --- primitives -------------------------------------------------------------
@@ -436,9 +452,7 @@ def _dims():
     # provisional tuples below are final in X and Y.)
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ox0, ox1, oy0, oy1, iz0 - wall, iz1 + wall)
-    _fa, _fn, _fo, _fdy, _fdz = _facet_geom(outer)
-    facet_back_y = oy0 + _fdy + display_facet_thickness * math.sqrt(2.0)
-    cold_front_y = cold.ymin
+    facet_back_y = _facet_back_y(outer)
     # The seam sits at the box's middle, for four near-quarter pieces, unless
     # something stands where one of its two parts needs to be: the mouth, plugs,
     # pods and posts in the ±X boss-chain bands, and the lip's ceiling segment
@@ -455,10 +469,9 @@ def _dims():
     # on the outer wall face, so the wall must reach past the field's topmost
     # hardware edge (its bottom edge rides the lip band — _contents
     # UMBILICAL_Z_FLOOR); the margin mirrors that floor's 2 mm stance.
-    port_top = max(
-        (z + (_contents.PORT_C14_FLANGE_H if kind == "rect" else _contents.PORT_NUT_D) / 2.0
-         for kind, _x, z, *_size in _contents.back_wall_ports()),
-        default=iz0)
+    ports = _contents.back_wall_ports()
+    port_top = max((h[2] + _contents.port_footprint(h)[1] / 2.0 for h in ports),
+                   default=iz0)
     iz1 = max(iz1, port_top + 2.0)
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ox0, ox1, oy0, oy1, iz0 - wall, iz1 + wall)
@@ -470,7 +483,8 @@ def _dims():
     _measure_wall_relief(placed, inner, fy0, fy1, boss_in)
     by0, by1 = _y_corner_back(inner, y_joint)
     _measure_wall_relief(placed, inner, by0, by1, _plug_reach())
-    return inner, outer, y_joint, cold_front_y
+    return Box(inner, outer, y_joint, (z_joint_front, z_joint_back),
+               _contents.front_wall_ports(), ports, True)
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -483,6 +497,14 @@ def _facet_geom(outer):
     normal = (0.0, -math.sin(a), math.cos(a))
     origin = (0.0, oy0 + dy / 2.0, oz1 - dz / 2.0)
     return a, normal, origin, dy, dz
+
+
+def _facet_back_y(outer):
+    """The Y the display housing reaches back to — the 45° face's own run aft
+    plus the housing wall behind it, measured along Y. The frontmost the Y seam
+    may sit, since the whole facet belongs to the front top piece."""
+    _a, _n, _o, dy, _dz = _facet_geom(outer)
+    return outer[2] + dy + display_facet_thickness * math.sqrt(2.0)
 
 
 def _halfspace(origin, normal, extent):
@@ -582,6 +604,26 @@ def _facet_end_wall(inner, outer):
     c = back[2] - back[1]   # housing back plane: z − y = c
     bbox = _ybox(x_edge, x_edge + wall, iy0, iz1 - c, c + iy0, iz1)
     return bbox.intersect(_halfspace(back, normal, extent))
+
+
+# --- panel through-holes ----------------------------------------------------
+
+def _port_cuts(ports, y0, y1):
+    """The through-holes of one panel's port list, as cutters spanning y0..y1
+    (a wall's thickness with a margin either side). _contents owns both
+    layouts, since it places the contents the bands are measured from
+    (../back-panel/README.md); the two walls differ only in which list and
+    which span, so they are cut by the same code."""
+    out = []
+    for kind, hx, hz, *size in ports:
+        if kind == "round":
+            out.append(cq.Solid.makeCylinder(size[0] / 2.0, y1 - y0,
+                                             cq.Vector(hx, y0, hz), cq.Vector(0, 1, 0)))
+        else:
+            wx, wz = size
+            out.append(_ybox(hx - wx / 2.0, hx + wx / 2.0, y0, y1,
+                             hz - wz / 2.0, hz + wz / 2.0))
+    return out
 
 
 # --- hopper funnel opening (Zone C) -----------------------------------------
@@ -693,7 +735,7 @@ def _seam_level(inner, y0, y1, want, away, limit, x_in, sx, depth):
     return None
 
 
-def _bosses(inner, splits=(), y_joint=None):
+def _bosses(inner, splits, y_joint):
     """Per-boss tuple (x_in, x_ext, sx, z_boss, pod_z): the inner ±X wall face
     the screw passes through, its matching exterior face, sx = +1 (left) / −1
     (right) inboard, the bore-axis height, and the post's z-span.
@@ -706,7 +748,7 @@ def _bosses(inner, splits=(), y_joint=None):
     levels, and every piece then carries a level at each end of its own span:
     the front pieces meet at the front seam, the back pieces at the back seam,
     and the stagger pairs whichever front and back piece share a height — the
-    brick bond. Without a Z seam (the coupon) it is the floor and ceiling only.
+    brick bond.
 
     A level sits as near the end it pins as its OWN wall allows — the two walls
     are independent screws, so each is searched separately and they need not
@@ -721,14 +763,11 @@ def _bosses(inner, splits=(), y_joint=None):
     post = (iz0, iz1)
     zt = iz1 - wall - r
     zf = iz0 + wall + r
-    fy0, fy1 = _y_corner(inner, y_joint) if y_joint is not None else (0.0, 0.0)
+    fy0, fy1 = _y_corner(inner, y_joint)
     out = []
     for x_in, sx in ((ix0, +1.0), (ix1, -1.0)):
-        if y_joint is None:                      # the coupon: no contents to dodge
-            at = lambda want, away, limit: want
-        else:
-            at = (lambda want, away, limit, x=x_in, s=sx:
-                  _seam_level(inner, fy0, fy1, want, away, limit, x, s, boss_in))
+        at = (lambda want, away, limit, x=x_in, s=sx:
+              _seam_level(inner, fy0, fy1, want, away, limit, x, s, boss_in))
         wanted = [(zf, +1.0, zt)]                                  # a wall above the floor
         for sp in sorted(splits):
             wanted.append((sp - wall - r, -1.0, zf))               # just under that Z seam
@@ -877,8 +916,6 @@ def _back_post(x_in, x_ext, sx, y_joint, inner, zj):
     ya, yb = _y_corner_back(inner, y_joint)
     web = _ybox(xa, xb, ya, min(yb, y_joint + lip_len + z_lip_y_margin), iz0, iz1)
     ya = y_joint + lip_len
-    if zj is None:
-        return web.fuse(_ybox(xa, xb, ya, yb, iz0, iz1))
     return (web.fuse(_ybox(xa, xb, ya, yb, iz0, zj))
                .fuse(_ybox(xa, xb, ya, yb, zj + lip_len, iz1)))
 
@@ -1102,28 +1139,123 @@ def _z_pod_cuts(x_in, x_ext, sx, ys, zj):
     return bore.fuse(heat).fuse(chan)
 
 
-def coupon_dims():
-    """Dims for the front-half test-print coupon — a reduced-size box carrying
-    every feature (display housing, telescoping lip, the four corner bosses, the
-    full-depth ribs) at full size."""
-    ix0, ix1 = 0.0, 150.0          # facet 118.5 flush-left, right boss clear
-    iy0, iy1 = 0.0, 122.0          # back coupon's depth behind the joint
-    iz0, iz1 = 0.0, 110.0
-    y_joint = 85.0                 # lip + rear bosses sit behind the housing
+# --- test-print coupon ------------------------------------------------------
+#
+# The same box shrunk to the smallest one that still carries, at FULL size,
+# every feature the four-piece assembly is judged on: the display housing, all
+# three seams (the Y seam and the two staggered Z seams) with their full ladder
+# of cross-pins, and the rear port cluster standing on the back seam's lip band.
+# It splits into the same four pieces by the same code, so a print of it proves
+# the assembly before the real one is committed.
+#
+# What it does NOT carry is anything the reduced box cannot host honestly: the
+# contents (there is nothing to pack, so nothing to dodge — the walls' relief
+# and the seam's stand-off have no meaning here), the hopper throat (the placed
+# funnel's collar would not fit the shrunken top-wall frame), and the front
+# panel's single CO2 hole (a plain bore through flat wall, whose one real
+# relationship — its height over the front seam — lands behind the display
+# facet in a box this short, so honouring it would cost height and prove
+# nothing).
+#
+# No dimension below is chosen. Each is the minimum its own feature allows, so
+# the coupon shrinks and grows with the features rather than drifting from them.
+coupon_margin = 2.0        # clear air wherever a coupon dimension is a minimum
+
+
+def _level_pitch():
+    """The least a coupon may stand two cross-pin levels (or two Z-seam
+    stations) apart: two socket collars, plus air. `_bosses` DROPS a level
+    landing within 2*socket_r of one already placed — so a box packed tighter
+    than this does not fail, it silently comes out with fewer fasteners than
+    the seam is supposed to have."""
+    return 2.0 * socket_r + coupon_margin
+
+
+def _port_field(ports):
+    """(x0, x1, z0, z1) of a port cluster's PANEL FOOTPRINT — the outline its
+    clamping nuts and flanges sweep, not its holes. That is what has to fit
+    between the corner chains and under the ceiling."""
+    xs, zs = [], []
+    for hole in ports:
+        w, h = _contents.port_footprint(hole)
+        xs += [hole[1] - w / 2.0, hole[1] + w / 2.0]
+        zs += [hole[2] - h / 2.0, hole[2] + h / 2.0]
+    return min(xs), max(xs), min(zs), max(zs)
+
+
+def coupon_box():
+    """The coupon's Box — every number a minimum, derived from the feature that
+    sets it.
+
+    DEPTH is the display: the front column is the facet's own run aft plus its
+    housing wall, and the seam a margin behind that; the back column is the two
+    Z-seam stations `_z_stations` puts at the ends of its seam, stood far enough
+    apart that their pods do not merge into one blob.
+
+    WIDTH is the wider of two floors — the facet flush to the −X edge, its end
+    wall, and the +X corner chain beyond them; or the rear port cluster with a
+    corner chain either side of it.
+
+    HEIGHT is the cross-pin ladder up the Y seam — a level over the floor, one
+    under each Z seam, one over each lip rim, one under the ceiling, each a
+    clear pitch from the last — raised, if the ports want more, to clear the
+    cluster the back seam's lip band carries.
+
+    The ports are the real ones, moved as ONE rigid cluster: down by the back
+    seam's own drop, so the field keeps its exact stance on that lip band, and
+    across to sit centred in the narrower wall. Every spacing that matters —
+    nut to nut, nut to lip band, flange to wall — is therefore the real one."""
+    r = socket_bore_dia / 2.0
+    pitch = _level_pitch()
+    ix0 = iy0 = iz0 = 0.0
+
+    # Depth. The seam clears the display housing's back plane; the rear wall
+    # stands where the back column's aft Z station (iy1 − wall − r) falls a
+    # clear pitch behind its forward one (y_joint + lip_len + wall + r). How far
+    # the housing reaches — aft and down — depends only on where the front face
+    # and the top face are, so it can be asked of a box not yet sized: the front
+    # face is fixed the moment iy0 is, and the fall is measured off the top face
+    # wherever that lands.
+    front_face = (ix0, ix0, iy0 - wall, iy0, iz0, iz0)
+    y_joint = _facet_back_y(front_face) + coupon_margin
+    iy1 = y_joint + lip_len + 2.0 * (wall + r) + pitch
+
+    # Width. The facet runs display_facet_x from the −X exterior and its end
+    # wall closes it one `wall` on; the +X corner chain starts beyond that. The
+    # port field needs a chain's width and a margin clear at BOTH walls.
+    ports = _contents.back_wall_ports()
+    px0, px1, _pz0, pz1 = _port_field(ports)
+    ix1 = ix0 + max(display_facet_x + coupon_margin + boss_in,
+                    (px1 - px0) + 2.0 * (boss_in + coupon_margin))
+
+    # Height. Each seam sits a pitch's worth of ladder above the last rung:
+    # floor level → front seam → its lip rim → back seam → its lip rim →
+    # ceiling. Then the ceiling is raised for whichever wants more room — the
+    # ladder's top rung, the port cluster riding the back seam's band, or the
+    # facet, which must fall wholly above the front seam's lip rim.
+    zjf = (iz0 + wall + r) + pitch + wall + r
+    zjb = (zjf + lip_len + wall + r) + pitch + wall + r
+    dz = zjb - z_joint_back                        # the cluster's rigid drop
+    _a, _n, _o, _dy, facet_dz = _facet_geom(front_face)     # the facet's fall
+    iz1 = max((zjb + lip_len + wall + r) + pitch + wall + r,
+              pz1 + dz + coupon_margin,
+              zjf + lip_len + coupon_margin + facet_dz - wall)
+
+    dx = (ix0 + ix1) / 2.0 - (px0 + px1) / 2.0     # centred in the narrower wall
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
-    return inner, outer, y_joint, None
+    return Box(inner, outer, y_joint, (zjf, zjb), (),
+               [(h[0], h[1] + dx, h[2] + dz) + tuple(h[3:]) for h in ports], False)
 
 
-def build_front_half(dims=None, splits=(), hopper=True):
-    """`hopper=False` skips the funnel opening — the coupon's reduced box does
-    not host the funnel, and the placed collar would not fit its frame."""
-    inner, outer, y_joint, _ = dims if dims is not None else _dims()
+def build_front_half(box):
+    """The whole front column, both pieces still joined at its Z seam."""
+    inner, outer, y_joint = box.inner, box.outer, box.y_joint
     shell = _shell_with_facet(inner, outer).val()
     front = shell.intersect(_ybox(outer[0], outer[1], outer[2], y_joint, outer[4], outer[5]))
     front = front.fuse(_front_lip(inner, y_joint))
     yb = _y_boss(y_joint)
-    bosses = _bosses(inner, splits=splits, y_joint=y_joint)
+    bosses = _bosses(inner, box.splits, y_joint)
     # One post per side wall, not per level: every level on a wall shares the
     # same column, and the levels are just where it is bored.
     for x_in, x_ext, sx, _zb, pod_z in _sides(bosses):
@@ -1137,19 +1269,11 @@ def build_front_half(dims=None, splits=(), hopper=True):
     # also clears whatever rib/wall material sits behind the facet in its path.
     front = front.cut(_display_cuts(outer))
     # Punch the hopper funnel throat through the top wall, right of the display.
-    if hopper:
+    if box.hopper:
         front = front.cut(_hopper_cut(inner, outer, y_joint))
     # Front-panel through-holes — the CO2 inlet the DERPIPE threads through.
-    # _contents owns the port layout (mirrors the back-wall ports).
-    y0, y1 = outer[2] - 5.0, inner[2] + 5.0
-    for hole in _contents.front_wall_ports():
-        kind, hx, hz = hole[0], hole[1], hole[2]
-        if kind == "round":
-            front = front.cut(cq.Solid.makeCylinder(hole[3] / 2.0, y1 - y0,
-                                                    cq.Vector(hx, y0, hz), cq.Vector(0, 1, 0)))
-        else:
-            wx, wz = hole[3], hole[4]
-            front = front.cut(_ybox(hx - wx / 2.0, hx + wx / 2.0, y0, y1, hz - wz / 2.0, hz + wz / 2.0))
+    for cutter in _port_cuts(box.front_ports, outer[2] - 5.0, inner[2] + 5.0):
+        front = front.cut(cutter)
     for x_in, x_ext, sx, z_boss, _pz in bosses:
         front = front.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb))
     # The slide-in path is the corner's, not the level's: one full-height slot per
@@ -1162,20 +1286,20 @@ def build_front_half(dims=None, splits=(), hopper=True):
     return cq.Workplane(obj=front)
 
 
-def build_back_half(dims=None, splits=(), hopper=True):
-    """`hopper=False` skips the funnel opening (the coupon's reduced box).
-    The opening crosses the Y-seam, so the back half takes its share of the
+def build_back_half(box):
+    """The whole back column, both pieces still joined at its Z seam. The
+    hopper opening crosses the Y seam, so this half takes its share of the
     cut — the collar bridges the seam."""
-    inner, outer, y_joint, _ = dims if dims is not None else _dims()
+    inner, outer, y_joint = box.inner, box.outer, box.y_joint
     shell = _shell_with_facet(inner, outer).val()
     back = shell.intersect(_ybox(outer[0], outer[1], y_joint, outer[3], outer[4], outer[5]))
-    if hopper:
+    if box.hopper:
         back = back.cut(_hopper_cut(inner, outer, y_joint))
     yb = _y_boss(y_joint)
-    bosses = _bosses(inner, splits=splits, y_joint=y_joint)
+    bosses = _bosses(inner, box.splits, y_joint)
     # The back half is the back column, so its own seam is the one its post
     # steps around.
-    zj = z_joint_back if splits else None
+    zj = box.splits[1]
     # The front post's foot and head come through the floor and ceiling here, so
     # this half stands out of their way — everywhere but the slot, which is this
     # half's own column and stays.
@@ -1201,39 +1325,25 @@ def build_back_half(dims=None, splits=(), hopper=True):
     # Panel through-holes for the appliance's external connections — the
     # faucet umbilical (carb-water + two flavor), the tap-water inlet, and
     # the C14 mains inlet, all through the back wall in the band above the
-    # cold core; their bodies hang in the band's open rear half. _contents
-    # owns the port layout, since it places the contents the band is
-    # measured from (../back-panel/README.md).
-    y0, y1 = inner[3] - 5.0, outer[3] + 5.0
-    for hole in _contents.back_wall_ports():
-        kind, hx, hz = hole[0], hole[1], hole[2]
-        if kind == "round":
-            cutter = cq.Solid.makeCylinder(hole[3] / 2.0, y1 - y0,
-                                           cq.Vector(hx, y0, hz), cq.Vector(0, 1, 0))
-        else:
-            wx, wz = hole[3], hole[4]
-            cutter = _ybox(hx - wx / 2.0, hx + wx / 2.0, y0, y1, hz - wz / 2.0, hz + wz / 2.0)
+    # cold core; their bodies hang in the band's open rear half.
+    for cutter in _port_cuts(box.back_ports, inner[3] - 5.0, outer[3] + 5.0):
         back = back.cut(cutter)
     return cq.Workplane(obj=back)
 
 
-def build_piece(y_side, z_side, dims=None, halves_cache=None):
+def build_piece(box, y_side, z_side, halves_cache=None):
     """One of the four printable pieces: the full front/back column split at
-    its own z_joint (front at z_joint_front, back at z_joint_back — the
-    staggered seams), the bottom taking the Z lip + socket pods, the top
-    taking the D-pins + posts + X-axis screw bores. The Y-seam bosses'
-    bottom pair sits under the LOWER seam (the front's), so it lands in — and
-    pins — the two bottom pieces."""
-    dims = dims if dims is not None else _dims()
-    inner, outer, y_joint, cold_front_y = dims
+    its own seam (`box.splits` — the staggered pair), the bottom taking the Z
+    lip + socket pods, the top taking the D-pins + posts + X-axis screw bores.
+    The Y-seam bosses' bottom pair sits under the LOWER seam (the front's), so
+    it lands in — and pins — the two bottom pieces."""
+    inner, outer, y_joint = box.inner, box.outer, box.y_joint
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
-    zj = z_joint_front if y_side == "front" else z_joint_back
+    zj = box.splits[0] if y_side == "front" else box.splits[1]
     if halves_cache is not None and y_side in halves_cache:
         half = halves_cache[y_side]
     else:
-        splits = (z_joint_front, z_joint_back)
-        half = (build_front_half(dims, splits=splits) if y_side == "front"
-                else build_back_half(dims, splits=splits))
+        half = build_front_half(box) if y_side == "front" else build_back_half(box)
         if halves_cache is not None:
             halves_cache[y_side] = half
     solid = half.val()
@@ -1268,13 +1378,13 @@ def build_piece(y_side, z_side, dims=None, halves_cache=None):
 
 # --- reporting --------------------------------------------------------------
 
-def _report_facet(half):
+def _report_facet(half, box):
     a = math.radians(display_facet_angle_deg)
     target = cq.Vector(0.0, -math.sin(a), math.cos(a))
     # The lip's +Z bevel ramp shares this normal (excluded by the front-region
     # y filter) and the pod's east shoulder shares it one wall lower (excluded
     # by the on-plane filter) — only the display facet itself is measured.
-    _i, outer, _y, _c = _dims()
+    outer = box.outer
     _a, _n, origin, dy, _dz = _facet_geom(outer)
     y_hi = outer[2] + dy + 5.0
     boxes = []
@@ -1296,7 +1406,7 @@ def _report_facet(half):
           f"(target {display_facet_x:g} × {display_facet_slope:g})")
 
 
-def _report_split(pieces):
+def _report_split(pieces, cold=True):
     for name, p in pieces.items():
         b = p.val().BoundingBox()
         fits = b.xlen <= H2C_X + 1 and b.ylen <= H2C_Y + 1 and b.zlen <= H2C_Z + 1
@@ -1309,67 +1419,78 @@ def _report_split(pieces):
             v = pieces[a].val().intersect(pieces[b].val()).Volume()
             tag = "CLEAR slip-fit" if v < 5 else "INTERFERENCE"
             print(f"  {a} ∩ {b}: {v:.1f} mm³  ({tag})")
-    cold = _contents.build()["foam-assembly"][0]
-    clash = max(cold.intersect(p.val()).Volume() for p in pieces.values())
-    print(f"  cold core vs pieces: {clash:.1f} mm³ max overlap  ({'CLEAR' if clash < 1 else 'CLASH'})")
+    if cold:
+        core = _contents.build()["foam-assembly"][0]
+        clash = max(core.intersect(p.val()).Volume() for p in pieces.values())
+        print(f"  cold core vs pieces: {clash:.1f} mm³ max overlap  "
+              f"({'CLEAR' if clash < 1 else 'CLASH'})")
 
 
-def _report_levels(dims):
+def _report_levels(box):
     """The Y-seam cross-pin heights each ±X wall ended up with. They are searched
     per wall against what stands against it, so the two can differ — printing
     them keeps a wall that had to give up a level visible instead of silent."""
-    inner, _outer, y_joint, _cf = dims
-    bosses = _bosses(inner, splits=(z_joint_front, z_joint_back), y_joint=y_joint)
+    bosses = _bosses(box.inner, box.splits, box.y_joint)
     for sx, label in ((+1.0, "−X"), (-1.0, "+X")):
         zs = sorted(b[3] for b in bosses if b[2] == sx)
         print(f"  Y-seam levels {label} wall: {len(zs)} — "
               + ", ".join(f"{z:.0f}" for z in zs))
 
 
-def main():
-    dims = _dims()
+PIECE_COLORS = {
+    "front-bottom": cq.Color(0.80, 0.84, 0.90),
+    "front-top":    cq.Color(0.86, 0.89, 0.94),
+    "back-bottom":  cq.Color(0.70, 0.74, 0.82),
+    "back-top":     cq.Color(0.76, 0.80, 0.87),
+}
+
+
+def build_pieces(box, stem="enclosure"):
+    """The four printable pieces of one box, and the assembly of them in place
+    with the seams intact. The appliance and its coupon come through here
+    alike — one box description in, four pieces out."""
     cache = {}
-    pieces = {
-        "front-bottom": build_piece("front", "bottom", dims, cache),
-        "front-top":    build_piece("front", "top", dims, cache),
-        "back-bottom":  build_piece("back", "bottom", dims, cache),
-        "back-top":     build_piece("back", "top", dims, cache),
-    }
+    pieces = {name: build_piece(box, *name.split("-"), halves_cache=cache)
+              for name in PIECE_COLORS}
+    assy = cq.Assembly(name=stem.replace("-", "_"))
+    for name, piece in pieces.items():
+        assy.add(piece, name=f"{stem}-{name}".replace("-", "_"),
+                 color=PIECE_COLORS[name])
+    return pieces, assy
 
-    assy = cq.Assembly(name="enclosure")
-    piece_colors = {
-        "front-bottom": cq.Color(0.80, 0.84, 0.90),
-        "front-top":    cq.Color(0.86, 0.89, 0.94),
-        "back-bottom":  cq.Color(0.70, 0.74, 0.82),
-        "back-top":     cq.Color(0.76, 0.80, 0.87),
-    }
-    for name, p in pieces.items():
-        assy.add(p, name=f"enclosure_{name.replace('-', '_')}", color=piece_colors[name])
 
-    coupon = build_front_half(coupon_dims(), hopper=False)
-    coupon_back = build_back_half(coupon_dims(), hopper=False)
+def _export_pieces(pieces, assy, stem, note):
+    for name, piece in pieces.items():
+        export_step(piece, str(_here.parent / f"{stem}-{name}.step"))
+        print(f"-> {stem}-{name}.step{note}")
+    export_assembly(assy, str(_here.parent / f"{stem}.step"))
+    print(f"-> {stem}.step (assembled pieces){note}")
 
-    for name, p in pieces.items():
-        export_step(p, str(_here.parent / f"enclosure-{name}.step"))
-        print(f"-> enclosure-{name}.step")
-    export_assembly(assy, str(_here.parent / "enclosure.step"))
-    export_step(coupon, str(_here.parent / "enclosure-front-coupon.step"))
-    export_step(coupon_back, str(_here.parent / "enclosure-back-coupon.step"))
-    print("-> enclosure.step (assembled pieces)")
-    print("-> enclosure-front-coupon.step (test print)")
-    print("-> enclosure-back-coupon.step (test print)")
-    _report_facet(pieces["front-top"])
-    _report_levels(dims)
+
+def main():
+    box = _dims()
+    pieces, assy = build_pieces(box)
+    coupon = coupon_box()
+    coupon_pieces, coupon_assy = build_pieces(coupon, "enclosure-coupon")
+
+    _export_pieces(pieces, assy, "enclosure", "")
+    _export_pieces(coupon_pieces, coupon_assy, "enclosure-coupon", " (test print)")
+
+    print("enclosure:")
+    _report_facet(pieces["front-top"], box)
+    _report_levels(box)
     _report_split(pieces)
-    for tag, c in (("front coupon", coupon), ("back coupon", coupon_back)):
-        b = c.val().BoundingBox()
-        print(f"  {tag}:     {b.xlen:.0f}×{b.ylen:.0f}×{b.zlen:.0f} mm, {len(c.val().Solids())} solid")
-    cpair = coupon.val().intersect(coupon_back.val()).Volume()
-    print(f"  coupon ∩:         {cpair:.1f} mm³  ({'CLEAR slip-fit' if cpair < 5 else 'INTERFERENCE'})")
+    print("coupon:")
+    _report_facet(coupon_pieces["front-top"], coupon)
+    _report_levels(coupon)
+    _report_split(coupon_pieces, cold=False)
 
+    co = coupon.outer
     variables = {
         "DISPLAY_FACET_X": f"{display_facet_x:.4g} mm",
         "DISPLAY_FACET_SLOPE": f"{display_facet_slope:.4g} mm",
+        "COUPON_SIZE": (f"{co[1] - co[0]:.0f} × {co[3] - co[2]:.0f} × "
+                        f"{co[5] - co[4]:.0f} mm"),
     }
     substitute_py_comments(
         Path(__file__),
@@ -1379,7 +1500,8 @@ def main():
     substitute_md(
         _here.parent / "README.md",
         variables=variables,
-        expected_counts={"DISPLAY_FACET_X": 1, "DISPLAY_FACET_SLOPE": 1},
+        expected_counts={"DISPLAY_FACET_X": 1, "DISPLAY_FACET_SLOPE": 1,
+                         "COUPON_SIZE": 1},
     )
     print("-> README.md")
 
