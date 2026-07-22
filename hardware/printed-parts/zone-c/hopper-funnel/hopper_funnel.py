@@ -48,7 +48,7 @@ from docgen import substitute_md
 # ring, leaving a full overhang's width of top wall beyond it on all four sides.
 # enclosure.py `_hopper_hole` owns the frame and asserts both.
 collar_w = 148.5        # collar footprint (X) — frame width less 2 × brim_margin
-collar_d = 144.0        # collar footprint (Y) — frame depth less 2 × brim_margin, so
+collar_d = 147.0        # collar footprint (Y) — frame depth less 2 × brim_margin, so
                         # plan area (not depth) carries the volume
 brim_margin = 14.0      # top-wall left between the collar edge and the frame, all around
 brim_overhang = 7.0     # brim flange reach past the collar — what actually catches the
@@ -64,7 +64,7 @@ collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 # the drain with it. Sized here, asserted in `build`.
 bottle_ml = 440.0       # one SodaStream concentrate bottle
 capacity_bottles = 1.6  # basin capacity to the brim, in bottles — the requirement
-chute_h = 29.46        # straight rectangular chute height — brim top down to the ramp start
+chute_h = 28.70        # straight rectangular chute height — brim top down to the ramp start
 neck_dx = 0.0           # neck (ramp foot + spout) on the collar centre — every floor
                         # run stays short, so the grade costs the least depth
 ramp_angle = 15.0       # deg — the floor's shallowest line (the long X half-run); the
