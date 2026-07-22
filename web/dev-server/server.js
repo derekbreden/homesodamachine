@@ -66,28 +66,37 @@ async function rebuildStepAssembly(pyFilePath) {
   console.log(`  ↪ editor rebuild: ${relForLog(pyFilePath)}`);
   try {
     let stderr = "";
+    let stdout = "";
     const code = await new Promise((resolve, reject) => {
       const proc = spawn(PYTHON_BIN, [pyFilePath], {
         cwd: scriptDir,
-        // stderr piped (not inherited) so a clash traceback / SystemExit message
-        // can ride back to the editor panel; stdout suppressed like runScript.
-        stdio: ["ignore", "ignore", "pipe"],
+        // Both streams piped: stderr carries the clash traceback / SystemExit reason back to the
+        // panel; stdout carries the HSM_SCORECARD_JSON sentinel (HSM_EDITOR below tells the
+        // generator to emit it) so a FAILED rebuild can still hand the viewer the failing verdict.
+        stdio: ["ignore", "pipe", "pipe"],
         signal: ac.signal,
         killSignal: "SIGKILL",
-        env: { ...process.env, HSM_SKIP_THUMBNAILS: "1" },
+        // HSM_EDITOR: run under the interactive editor — the generator emits the scorecard sentinel.
+        env: { ...process.env, HSM_SKIP_THUMBNAILS: "1", HSM_EDITOR: "1" },
       });
       proc.stderr.setEncoding("utf8");
       proc.stderr.on("data", (c) => { stderr += c; if (stderr.length > 8000) stderr = stderr.slice(-8000); });
+      proc.stdout.setEncoding("utf8");
+      // The sentinel is one ~60KB line printed before the gate; cap the tail generously so a long
+      // run can't grow this unbounded while never truncating the sentinel out.
+      proc.stdout.on("data", (c) => { stdout += c; if (stdout.length > 4_000_000) stdout = stdout.slice(-4_000_000); });
       proc.on("close", resolve);
       proc.on("error", reject);
     });
 
+    const scorecard = parseScorecardSentinel(stdout);
+
     if (code !== 0) {
-      // Last non-empty line is the SystemExit reason (e.g. "pack does not close …").
+      // Last non-empty line is the SystemExit reason (e.g. "pack does not close: fluid-11 ∩ …").
       const lines = stderr.split("\n").map((l) => l.trimEnd()).filter(Boolean);
       const reason = lines[lines.length - 1] || `generator exited ${code}`;
       console.log(`  ↪ editor rebuild failed: ${reason}`);
-      return { ok: false, error: reason };
+      return { ok: false, error: reason, scorecard };
     }
 
     // Broadcast every .step the generator rewrote (mirrors runScript), so the
@@ -101,13 +110,30 @@ async function rebuildStepAssembly(pyFilePath) {
       broadcast({ type: WS.FILES_CHANGED, files: [relFile] });
       queueThumbnail(full);
     }
-    return { ok: true };
+    return { ok: true, scorecard };
   } catch (e) {
     if (e.name === "AbortError") return { ok: false, error: "superseded by a newer move" };
     return { ok: false, error: e.message };
   } finally {
     if (editorRunning.get(pyFilePath) === ac) editorRunning.delete(pyFilePath);
   }
+}
+
+// The generator prints one `HSM_SCORECARD_JSON=<json>` line (under HSM_EDITOR) before its clash
+// gate raises — the failing verdict, clash pairs and all. Pull it out of captured stdout so a
+// failed rebuild can hand it back to the viewer. Scan from the end for the freshest; null if
+// absent or unparseable (older generator, or a crash before the line).
+const SCORECARD_SENTINEL = "HSM_SCORECARD_JSON=";
+function parseScorecardSentinel(stdout) {
+  if (!stdout) return null;
+  const lines = stdout.split("\n");
+  for (let i = lines.length - 1; i >= 0; i--) {
+    const at = lines[i].indexOf(SCORECARD_SENTINEL);
+    if (at === -1) continue;
+    try { return JSON.parse(lines[i].slice(at + SCORECARD_SENTINEL.length)); }
+    catch { return null; }
+  }
+  return null;
 }
 
 mountStepEditorRoutes(app, HARDWARE_DIR, rebuildStepAssembly);

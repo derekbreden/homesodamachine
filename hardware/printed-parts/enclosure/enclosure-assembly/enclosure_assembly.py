@@ -301,6 +301,13 @@ def main():
         pack, pack.pieces, (enclosure.H2C_X, enclosure.H2C_Y, enclosure.H2C_Z), inner)
     print(scorecard.format_scorecard(sc))
 
+    # The dev component editor (HSM_EDITOR, set by web/dev-server) captures this one machine-
+    # readable line. A move that clashes raises below before the sidecar is written, so without
+    # this the viewer never learns what overlapped; with it the editor paints THIS failing verdict
+    # — clash pairs and all — into the scorecard bar, from the response, no disk write.
+    if os.environ.get("HSM_EDITOR"):
+        print("HSM_SCORECARD_JSON=" + json.dumps(scorecard.scorecard_dict(sc)), flush=True)
+
     for cid, why in sorted(_lines.BLOCKED.items()):
         print(f"line {cid}: BLOCKED — {why}")
     # The scorecard reports every gate; today pack-closes and lines-clear block the export — a
@@ -309,7 +316,18 @@ def main():
     # (the board's stance).
     blocking = [c for c in sc.checks if c.id in ("pack-closes", "lines-clear") and c.status == "fail"]
     if blocking:
-        raise SystemExit("; ".join(c.label for c in blocking) + " (see scorecard above)")
+        # Name the offending pairs in the exit message, not just the gate label — this line is all
+        # the dev server logs and all the editor panel shows, so "pack does not close" with no
+        # "fluid-11 ∩ tee-y-c: 342 mm³" is the difference between a lead and a dead end. The full
+        # list still lives in the scorecard (terminal block above, and the viewer's drill-down).
+        parts = []
+        for c in blocking:
+            row = c.label
+            if c.detail:
+                extra = len(c.detail) - 8
+                row += ": " + "; ".join(c.detail[:8]) + (f"; +{extra} more" if extra > 0 else "")
+            parts.append(row)
+        raise SystemExit(" | ".join(parts) + "  (see scorecard)")
 
     # The scorecard sidecar the 3D viewer reads — the same verdict, beside the model. Written
     # before the .step so the dev watcher's .step broadcast implies the sidecar is already fresh.
