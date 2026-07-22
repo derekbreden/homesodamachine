@@ -11,11 +11,11 @@ halves are those Booleaned out of blocks. Change the funnel and the mold follows
 
 ## The two halves
 
-- **Cavity** ([170.5 × 158.0 × 63.5 mm](CAVITY_DIMS)). A block with the funnel exterior
+- **Cavity** ([178.5 × 174.0 × 61.3 mm](CAVITY_DIMS)). A block with the funnel exterior
   carved out, opening up. The catch bowl sits in a recess at the top rim; the spout
   pokes down through a register hole in the floor. Wall [8 mm](MOLD_WALL) around
   the part, floor [10 mm](MOLD_BASE) under the spout.
-- **Core** ([182.5 × 170.0 × 73.5 mm](CORE_DIMS)). The funnel interior (the bore) as a plug,
+- **Core** ([190.5 × 186.0 × 71.3 mm](CORE_DIMS)). The funnel interior (the bore) as a plug,
   hanging from a [10 mm](PLATE_THK) top plate that forms the bowl rim's top face and
   registers over the cavity by a skirt that drops over its outside. A pin —
   tapered at the tip so it self-centers — continues the [6.35 mm](SPOUT_BORE)
@@ -56,7 +56,7 @@ platinum-compatible release film.
    the press-fit collar, and flexes to clean — and the funnel never has to be
    self-supporting, since the rigid opening cradles it during a pour. Select for
    **high tear-strength / elongation**; the 2 mm spout wall is the weak link on
-   demold. One funnel is about [72 mL](SIL_VOLUME) of silicone. BBDINO rates it
+   demold. One funnel is about [77 mL](SIL_VOLUME) of silicone. BBDINO rates it
    food-contact safe for **fat-free foods** — fine here: the concentrate is a
    sugar/sucralose syrup with no fat.
 2. **Release + inhibition.** Platinum silicone is cure-poisoned by sulfur, tin,

@@ -42,13 +42,29 @@ from _cadq_export import export_step
 from docgen import substitute_md
 
 # --- funnel parameters ------------------------------------------------------
-collar_w = 148.5        # collar footprint (X) — spans the zone-C top opening frame width
-collar_d = 136.0        # collar footprint (Y) — runs the frame's depth, front ledge to
-                        # the Y-seam lip band, so plan area (not depth) carries the volume
-brim_overhang = 3.0     # brim flange reach past the collar, all around
+# The collar is the zone-C top-wall frame inset by one `brim_margin` on every
+# side — equal all around, so the part reads centred in its opening from above.
+# The margin is twice the overhang: the brim edge lands on the MIDDLE of that
+# ring, leaving a full overhang's width of top wall beyond it on all four sides.
+# enclosure.py `_hopper_hole` owns the frame and asserts both.
+collar_w = 148.5        # collar footprint (X) — frame width less 2 × brim_margin
+collar_d = 144.0        # collar footprint (Y) — frame depth less 2 × brim_margin, so
+                        # plan area (not depth) carries the volume
+brim_margin = 14.0      # top-wall left between the collar edge and the frame, all around
+brim_overhang = 7.0     # brim flange reach past the collar — what actually catches the
+                        # top wall and holds the funnel out of the box, all around
 brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
-chute_h = 33.0          # straight rectangular chute height — brim top down to the ramp start
+# The basin is sized in bottles: a full one goes in dumped, not metered, and the
+# margin is what keeps a miss off the counter. That requirement is the ONLY thing
+# the straight section is for — the ramp's depth is set by its grade and the
+# spout by its tube, so the chute is whatever height still owes the target after
+# those. Plan area makes volume far cheaper than depth does: widen the collar and
+# the chute must SHORTEN by the same volume, which lifts the ramp, the spout and
+# the drain with it. Sized here, asserted in `build`.
+bottle_ml = 440.0       # one SodaStream concentrate bottle
+capacity_bottles = 1.6  # basin capacity to the brim, in bottles — the requirement
+chute_h = 30.8          # straight rectangular chute height — brim top down to the ramp start
 neck_dx = 0.0           # neck (ramp foot + spout) on the collar centre — every floor
                         # run stays short, so the grade costs the least depth
 ramp_angle = 12.0       # deg — the floor's shallowest line (the long X half-run). Grade
@@ -63,6 +79,20 @@ spout_tube = 6.0        # straight spout tube below the ramp tip
 _ramp_run = (collar_w - 2.0 * collar_wall) / 2.0 - spout_id / 2.0 + neck_dx
 _ramp_rise = _ramp_run * math.tan(math.radians(ramp_angle))
 drop = (chute_h - brim_thickness) + _ramp_rise + spout_tube
+# `ramp_angle` is applied to the X half-run, so it is the floor's true minimum grade
+# only while that run is the LONGEST one to the neck. One rise serves every run, so a
+# longer run is a shallower one: let the Y half-run overtake X and the front/back floor
+# quietly falls below `ramp_angle` while this file still claims it. Widening the collar
+# in Y walks straight at that line — hence the check.
+_y_run = (collar_d - 2.0 * collar_wall) / 2.0 - spout_id / 2.0
+if _y_run > _ramp_run:
+    raise ValueError(
+        f"collar_d {collar_d:g} makes the Y half-run ({_y_run:.2f} mm) longer than the X "
+        f"({_ramp_run:.2f} mm), so the front/back floor grades "
+        f"{math.degrees(math.atan(_ramp_rise / _y_run)):.2f}° — below ramp_angle "
+        f"{ramp_angle:g}°, which no longer describes the shallowest line. Keep collar_d ≤ "
+        f"{2.0 * (_ramp_run + spout_id / 2.0) + 2.0 * collar_wall:.1f} mm, or drive the rise "
+        f"off the longer run instead.")
 
 # The drain, in the funnel's own frame: the spout exit annulus center. World
 # position = this + the funnel's placement; it rides the part.
@@ -130,7 +160,8 @@ def build_solids(drop=drop):
     meta = {
         "w": w, "d": d, "cx": cx, "cy": cy, "ncx": ncx,
         "bore_w": bore_w, "bore_d": bore_d,
-        "brim_overhang": brim_overhang, "collar_wall": collar_wall,
+        "brim_overhang": brim_overhang, "brim_margin": brim_margin,
+        "collar_wall": collar_wall,
         # The part's outer footprint (the brim) and the flange + collar ring
         # between the bore mouth and that outer edge — the mold's pour/vent land.
         "out_w": w + 2.0 * brim_overhang, "out_d": d + 2.0 * brim_overhang,
@@ -149,6 +180,17 @@ def build(drop=drop):
     fill = cavity.intersect(
         _box(600.0, 600.0, m["end_z"], m["top_z"], m["cx"], m["cy"])
     ).Volume()
+    # The chute owes the basin its target. Capacity is LINEAR in chute_h (the cone
+    # spans the ramp rise, which the X half-run fixes, and the spout tube is fixed),
+    # so a miss names the height that closes it — and any collar widening shows up
+    # here as slack to give back in depth, not as a bigger basin.
+    want = capacity_bottles * bottle_ml * 1000.0
+    if fill < want - 1.0:
+        bore_area = m["bore_w"] * m["bore_d"]
+        raise ValueError(
+            f"hopper basin holds {fill / 1000.0:.1f} mL, short of the "
+            f"{capacity_bottles:g} × {bottle_ml:g} mL = {want / 1000.0:.1f} mL target — "
+            f"set chute_h to {chute_h + (want - fill) / bore_area:.2f} mm")
     return cq.Workplane(obj=solid.cut(cavity)), (
         m["w"], m["d"], m["top_z"] - m["end_z"], m["end_z"], fill,
     )
@@ -173,9 +215,11 @@ def main():
             "HOPPER_CHUTE": f"{chute_h:g} mm",
             "HOPPER_DROP": f"{total:.0f} mm",
             "HOPPER_CAP": f"{fill / 1000.0:.0f} mL",
+            "HOPPER_HOLD": f"{brim_overhang:g} mm",
+            "HOPPER_MARGIN": f"{brim_margin:g} mm",
         },
         expected_counts={"HOPPER_SPOUT_ID": 1, "HOPPER_CHUTE": 1, "HOPPER_DROP": 1,
-                         "HOPPER_CAP": 1},
+                         "HOPPER_CAP": 1, "HOPPER_HOLD": 1, "HOPPER_MARGIN": 1},
     )
     print("-> README.md")
 

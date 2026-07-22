@@ -130,7 +130,11 @@ def build_runs() -> list:
     # `elbow_free_dir`), so a run leaves nearly along its collet: fluid-27 is one straight tube into
     # its outlet; fluid-13 bends once into y-d's yawed outlet; the two long crossing legs (17, 23)
     # leave climbing (the elbow's lift) and are carried OVER the near flavor's fitting by one
-    # hand-placed apex, then down — a gentle arc, authored point-to-point with `bent`. Each takes a
+    # hand-placed apex, then down — a gentle arc, authored point-to-point with `bent`.
+    # Both crossings run the open lane between the two trays (x 189.2–208.6). The hopper funnel's
+    # spout drops into the west half of that lane, and it cannot be ducked: the tube is already
+    # climbing over elbow-bag-y-d (top z284) where the spout's foot begins, and pump-b's crest
+    # closes the floor beyond it. So fluid-23 holds EAST and passes the spout on that side. Each takes a
     # `lead=` stub, so it leaves and enters straight along its collet (skew ~0 by construction) and
     # only the apex is hand-placed, then rounds at the DBEND radius. The divider stems to the pumps
     # (segments 12/22) leave below, from each divider's own stem port.
@@ -139,7 +143,7 @@ def build_runs() -> list:
     for cid, elb, div, port, apex, lead, bend in (
         ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", None,                   (8.0, 6.5), 8.0),  # one bend into the yawed outlet
         ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3", (202.0, 111.0, 259.0),  LEAD, DBEND),      # over elbow-y-d (top z254)
-        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (204.0, 112.0, 293.0),  (4.0, 8.0), DBEND),  # short exit lead + high apex: leaves above elbow-bag-y-d (top z284), over the row into y-g
+        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (207.0, 113.0, 292.0),  (4.0, 8.0), DBEND),  # short exit lead + high apex, held EAST: the lane between the trays (x 189.2–208.6) is half-blocked by the funnel spout, so this rides its east side — over elbow-bag-y-d (top z284), past the spout, down into y-g
         ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3", None,                   None, DBEND),       # rises straight to the raised outlet
     ):
         mids = [apex] if apex is not None else []

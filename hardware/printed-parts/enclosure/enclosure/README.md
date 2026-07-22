@@ -216,10 +216,14 @@ ramp falling to the spout descending toward V-B on the source-select assembly,
 its flat brim resting on the wall frame left around the cut.
 The funnel is a static placed part: the opening is cut at its collar
 (`_hopper_hole` reads the funnel's own dims at `_contents.FUNNEL_CX/CY`), so
-funnel and hole cannot drift apart, and the cut asserts the top-wall frame
-accommodates the placement — the display end-wall gusset left, the top-right
-corner pod's inboard end, the Y-seam lip band behind (the hole lives whole in
-the front-top piece), and the kept front ledge.
+funnel and hole cannot drift apart. The frame that cut leaves is bounded by the
+display end-wall gusset left, the top-right corner pod's inboard end, the
+Y-seam lip band behind (the hole lives whole in the front-top piece), and the
+kept front ledge — and the collar is asserted to sit one `brim_margin` inside
+it on all four sides at once, so the opening is centred in what the top wall
+has to give rather than crowding one edge. That margin is the brim's landing:
+it is wider than the flange's overhang, so a full overhang's width of wall
+remains outboard of the brim edge the whole way around.
 
 ## Regenerate
 
