@@ -1,7 +1,7 @@
 {
   "gatesPass": true,
   "placed": 39,
-  "located": 82,
+  "located": 79,
   "shaped": 96,
   "routed": 24,
   "held": 25,
@@ -58,10 +58,8 @@
         "foam-assembly \u2014 pcba: 2.50 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 dc-dist: 2.50 mm \u2014 CONTACT (declared ok)",
         "bag-circuit-assembly \u2014 tee-y-c: 2.92 mm",
-        "y-d \u2014 y-g: 3.12 mm",
         "bag-circuit-assembly \u2014 hopper-funnel: 3.71 mm",
-        "foam-assembly \u2014 condenser+fan: 4.00 mm",
-        "pump-b \u2014 y-g: 5.75 mm"
+        "foam-assembly \u2014 condenser+fan: 4.00 mm"
       ],
       "active": true
     },
@@ -123,7 +121,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "82% (23/28)",
+      "value": "79% (22/28)",
       "target": "100%",
       "detail": [
         "\u2717 foam-assembly: 9/10 connectors located",
@@ -208,7 +206,7 @@
         "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 28.9 mm, 0 bends at R12.0 \u2014 nearest 7.94 mm to fluid-17",
         "\u2713 fluid-12: pump-b.P-B-O \u2192 y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 18.4 mm, 2 bends at R6.0 \u2014 nearest 22.44 mm to hopper-funnel",
         "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 55.2 mm, 3 bends at R12.0 \u2014 nearest 22.40 mm to pump-b",
-        "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 251.5 mm, 8 bends at R6.0 \u2014 nearest 1.58 mm to y-g",
+        "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 251.5 mm, 8 bends at R6.0 \u2014 nearest 1.61 mm to y-d",
         "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 140.8 mm, 5 bends at R10.0 \u2014 nearest 2.69 mm to bag-circuit-assembly"
       ],
       "active": false
@@ -1206,7 +1204,7 @@
       ],
       "diam": 6.35,
       "mates": "pump-a P-A-O \u2014 segment 22 (channel B discharge, routed)",
-      "status": "ok",
+      "status": "off-surface",
       "note": "PP2308E stem collet, facing the pump"
     },
     {
@@ -1225,7 +1223,7 @@
       ],
       "diam": 6.35,
       "mates": "elbow-bag-y-g free \u2014 segment 23 (routed)",
-      "status": "ok",
+      "status": "off-surface",
       "note": "PP2308E upper outlet, aimed at the bag-B elbow"
     },
     {
@@ -1244,7 +1242,7 @@
       ],
       "diam": 6.35,
       "mates": "elbow-y-d free \u2014 segment 27 (routed)",
-      "status": "ok",
+      "status": "off-surface",
       "note": "PP2308E lower outlet, aimed at the nozzle-B elbow"
     },
     {
@@ -2396,11 +2394,11 @@
       "component": "y-g",
       "boxes": [
         [
-          175.619,
-          34.125,
+          157.589,
+          45.835,
           249.367,
-          196.474,
-          74.462,
+          178.444,
+          86.172,
           281.162
         ]
       ],
