@@ -3,14 +3,19 @@
 A PETG box, 3 mm walls, sized live to the bounding box of the contents placed
 by [`../enclosure-assembly/_contents.py`](/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py),
 **split into four printable pieces** — front/back × bottom/top, every piece
-inside the H2C bed — that telescope and screw together. The Y seam sits as
-close to the box's midpoint as the cold core allows, and each column takes its
-bottom↔top seam at its own height (the seams stagger like a brick bond): the
-back-bottom piece houses the cold core, the back-top covers the band above it
-— the electronics shelf on the foam-cap top and every panel port (the whole
-external-connection inventory penetrates its rear wall, above the cold core);
-the front column splits at its waist over the condenser — refrigeration below,
-the valve tray + funnel + display above.
+inside the H2C bed — that telescope and screw together. **Both seams stand
+clear of the front pack**, so a valve tray in either front quadrant may run the
+box's full width and depth without being notched around seam furniture: the Y
+seam sits one stance behind the cold core's front face (behind the box midpoint,
+not at it), and the front column's bottom↔top seam sits *beneath* the manifold
+stack rather than inside it, so each tray lands wholly in the front-top piece.
+Each column takes its bottom↔top seam at its own height (the seams stagger like
+a brick bond): the back-bottom piece houses the cold core, the back-top covers
+the band above it — the electronics shelf on the foam-cap top and every panel
+port (the whole external-connection inventory penetrates its rear wall, above
+the cold core); the front column splits at the top of the refrigeration
+stratum — compressor and condenser below, the valve trays + funnel + display
+above.
 
 `enclosure.py` exports the four printable pieces (`enclosure-front-bottom`,
 `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`) plus

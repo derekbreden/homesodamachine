@@ -8,8 +8,10 @@ interior clearance, then walled out. Features:
 
   * A flat 45° display-mounting facet (a solid surface) chamfered into the
     top-front-left corner, flush to the −X edge.
-  * A front↔back split (a Y-plane seam pushed as far back as the cold core
-    allows): the front pieces' rear walls telescope (a full-wall lip,
+  * A front↔back split (a Y-plane seam standing one stance BEHIND the cold
+    core's front face, so its machinery is aft of the whole front pack and a
+    front-quadrant tray never has to be notched around it): the front
+    pieces' rear walls telescope (a full-wall lip,
     nothing shaved) into the back pieces, and four interlocking screw
     bosses cross the seam — one per ±X side wall per level, the bottom pair
     tucked just under the front Z seam (so it pins the two bottom pieces),
@@ -25,9 +27,11 @@ interior clearance, then walled out. Features:
     different height each side of the Y seam (the seams stagger like a
     brick bond; the front pair joins, the back pair joins, then the front
     assembly telescopes into the back). The BOTTOM pieces carry the lip — a
-    3-sided band (their outer ±Y wall + both side walls, stopping short of
-    the Y-seam overlap) telescoping +Z into the top pieces — with the
-    socket pods; the TOP pieces carry the D-pins, their tabs rising to the
+    band stopping short of the Y-seam overlap, telescoping +Z into the top
+    pieces: 3-sided at the back (rear wall + both side walls), 2-sided at
+    the front, where the compressor and condenser stand against the front
+    wall over the seam's whole height and that segment is given up for them
+    — with the socket pods; the TOP pieces carry the D-pins, their tabs rising to the
     lip rim where posts of the pod's own section carry them to the
     ceiling. Four X-axis screws cross each
     seam (one per side wall per Y column: front pins at the front-wall
@@ -188,16 +192,19 @@ lip_len = plug_dia / 2.0 + socket_r              # = (plug+bore)/2 + wall = 13.1
 #     bulkhead field begins just above the lip rim (_contents
 #     UMBILICAL_Z_FLOOR is derived from it) — the seam sits in the one band
 #     between foam and ports.
-#   * Front: in the band between the floor stratum and the manifold stack.
-#     The compressor and the tipped condenser are each inset one corner-rib
-#     chain off their side wall, so the floor's whole height stands clear at
-#     both walls; above them the stack runs a few millimetres inboard of each
-#     wall — the source tray's east bank, both trays' west outlet elbows, and
-#     the pump-inlet tees hanging between them all clear the seam furniture —
-#     from its floor at z ~165 up. The seam's wall-hugging lip + boss pods
-#     occupy the gap beneath that floor.
+#   * Front: BELOW the manifold stack, not inside it. The stack's floor is at
+#     z ~165, so a seam up in that band leaves the trays straddling it — every
+#     tray then has to be shaped around a lip and four pods passing through its
+#     own height. Dropped so the rim lands one stack-floor clearance under it,
+#     the whole seam is beneath the trays and each of them sits wholly in the
+#     top piece. What it drops PAST is the compressor and the tipped condenser,
+#     which stand against the front wall over this entire height — so the front
+#     column's lip gives up its front-wall segment for them (`_z_lip`), exactly
+#     as the Y lip gives up its floor segment for the cold core. Both machines
+#     are inset one corner-rib chain off their side walls, so the two side
+#     segments and all four pods still run at full section.
 # Every printed piece's bed face fits the H2C envelope with these cuts.
-z_joint_front = 172.0
+z_joint_front = 140.9        # rim at 154.0, under the stack floor at 164.8
 # Clear of the cold core's foam cap by the rear station's reach: that station's
 # socket collar hangs socket_r below the pin axis, i.e. to z_joint_back − 3.2, so
 # the seam sits high enough that the collar lands ON the band above the foam
@@ -450,31 +457,40 @@ def _dims():
     # (bore axis at lip_len + wall + bore radius past y_joint, pod reaching
     # socket_r further) and must stop ahead of the foam. (No Z terms: the
     # provisional tuples below are final in X and Y.)
-    inner = (ix0, ix1, iy0, iy1, iz0, iz1)
-    outer = (ox0, ox1, oy0, oy1, iz0 - wall, iz1 + wall)
-    facet_back_y = _facet_back_y(outer)
-    # The seam sits at the box's middle, for four near-quarter pieces, unless
-    # something stands where one of its two parts needs to be: the mouth, plugs,
-    # pods and posts in the ±X boss-chain bands, and the lip's ceiling segment
-    # in the band under the top wall. The cold core caps neither — the bands run
-    # clear alongside it, and the lip carries no floor segment to sweep it — so
-    # the seam passes BEHIND the core's front face rather than stopping at it.
-    chain_clear, ceiling_clear = _seam_bands_clear(placed, inner)
-    chain = lip_len + wall + socket_bore_dia / 2.0 + socket_r
-    y_chain = chain_clear - 2.0 - chain
-    y_ceiling = ceiling_clear - 2.0 - lip_len
-    y_joint = max(facet_back_y + 2.0,
-                  min((iy0 + iy1) / 2.0, y_chain, y_ceiling))
     # The rear-panel port field is content too: every clamping nut/flange seats
     # on the outer wall face, so the wall must reach past the field's topmost
     # hardware edge (its bottom edge rides the lip band — _contents
-    # UMBILICAL_Z_FLOOR); the margin mirrors that floor's 2 mm stance.
+    # UMBILICAL_Z_FLOOR); the margin mirrors that floor's 2 mm stance. Settled
+    # BEFORE the seam, because the Y lip's ceiling segment runs under the top
+    # wall and so is bounded by whatever stands under the FINAL one.
     ports = _contents.back_wall_ports()
     port_top = max((h[2] + _contents.port_footprint(h)[1] / 2.0 for h in ports),
                    default=iz0)
     iz1 = max(iz1, port_top + 2.0)
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ox0, ox1, oy0, oy1, iz0 - wall, iz1 + wall)
+    facet_back_y = _facet_back_y(outer)
+    # The seam sits at the box's middle, for four near-quarter pieces, OR behind
+    # the front pack — whichever is further back. The pack term is what makes the
+    # front quadrants usable: the frontmost seam furniture is that column's aft
+    # Z station, whose pod reaches 2*socket_r ahead of the mouth's margin, and a
+    # tray in either front quadrant has to be notched around it wherever it lands
+    # inside the pack. Held one stance behind the cold core's front face — where
+    # the front pack ends — the whole seam stands aft of every tray, and a tray
+    # may run the box's full width and its full depth without seeing a seam.
+    #
+    # Either way it is capped by what stands where its two parts go: the mouth,
+    # plugs, pods and posts in the ±X boss-chain bands, and the lip's ceiling
+    # segment in the band under the top wall. The cold core caps neither — the
+    # bands run clear alongside it, and the lip carries no floor segment to sweep
+    # it — so the seam passes BEHIND the core's front face rather than stopping.
+    chain_clear, ceiling_clear = _seam_bands_clear(placed, inner)
+    chain = lip_len + wall + socket_bore_dia / 2.0 + socket_r
+    y_chain = chain_clear - 2.0 - chain
+    y_ceiling = ceiling_clear - 2.0 - lip_len
+    y_pack = cold.ymin + 2.0 + wall + z_lip_y_margin + 2.0 * socket_r
+    y_joint = max(facet_back_y + 2.0,
+                  min(max((iy0 + iy1) / 2.0, y_pack), y_chain, y_ceiling))
     # The Y-seam corner, probed at each depth something stands there: the front
     # half's column at the socket's full section (which also fixes where a level
     # may sit, since a level needs a socket body), and the back half's column —
@@ -1017,12 +1033,22 @@ def _z_stations(inner, y_joint):
     return out
 
 
-def _z_lip(inner, y_joint, zj):
+def _z_lip(inner, y_joint, zj, y_side=None):
     """The bottom pieces' seam lip: a full-wall band whose outer faces are
     flush with the body's inner walls, running one wall down into the body
     (the fusion shoulder) and up over the overlap to the rim. The segment
     crossing the Y-seam overlap is dropped, so each piece carries a 3-sided
     lip and the two telescopes never stack on one wall surface.
+
+    The FRONT column drops its front-wall segment too, for the same reason the
+    Y lip carries no floor segment: the compressor and the tipped condenser
+    stand against the front wall over this seam's whole height, and a segment
+    there would hold the seam above them — back up inside the manifold stack,
+    where every tray would have to be shaped around it. Without it the seam is
+    free to sit beneath the stack, the two machines pass in front of the two
+    side segments, and the front wall butts at the seam and is registered by
+    that column's four pods. Both machines are inset one corner-rib chain off
+    their side walls, so those segments and pods keep their full section.
 
     Unlike the Y-seam lip, this band is horizontal and telescopes +Z straight
     THROUGH the box's standing-vertical arrises, so its corners are relieved on
@@ -1038,6 +1064,8 @@ def _z_lip(inner, y_joint, zj):
     gap = _ybox(ix0 - 1.0, ix1 + 1.0,
                 y_joint - wall - z_lip_y_margin, y_joint + lip_len + z_lip_y_margin,
                 z0 - 1.0, z1 + 1.0)
+    if y_side == "front":
+        gap = gap.fuse(_ybox(ix0 - 1.0, ix1 + 1.0, iy0 - 1.0, iy0 + wall, z0 - 1.0, z1 + 1.0))
     return ring.cut(gap)
 
 
@@ -1356,7 +1384,7 @@ def build_piece(box, y_side, z_side, halves_cache=None):
                     oy0 - 1.0 if y_side == "front" else y_joint,
                     y_joint if y_side == "front" else oy1 + 1.0,
                     oz0 - 1.0, oz1 + 1.0)
-        piece = piece.fuse(_z_lip(inner, y_joint, zj).intersect(col))
+        piece = piece.fuse(_z_lip(inner, y_joint, zj, y_side).intersect(col))
         for x_in, x_ext, sx, ys, c in stations:
             piece = piece.fuse(_z_pod(x_in, x_ext, sx, ys, c, y_joint, inner, zj))
         for x_in, x_ext, sx, ys, _c in stations:
