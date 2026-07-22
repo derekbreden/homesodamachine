@@ -131,6 +131,8 @@ COMPONENTS = [
     _c("elbow-bag-y-g", "real", True, "none", "JG PP0308E 90° elbow turning bag V-I-I (east) off the stack, rolled to aim its free leg at the Y-G divider's upper outlet (segment 23)"),
     _c("elbow-y-d", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-J-I (flipped, west) off the stack, rolled to aim its free leg at the Y-G divider's lower outlet (segment 27)"),
     _c("elbow-y-g", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-G-I (flipped, west) off the stack, rolled to aim its free leg at the Y-D divider's lower outlet (segment 17)"),
+    _c("elbow-noz-a", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-G-O (east) up out of the +X wall pocket, free leg +Z onto its run aft to bulkhead-flavor-a (segment 18)"),
+    _c("elbow-noz-b", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-J-O (east) up out of the +X wall pocket, free leg +Z onto its run aft to bulkhead-flavor-b (segment 28)"),
     # Electronics shelf
     _c("power-tray",        "real",        True,  "none", "printed tray holds its boards; tray-to-shell joinery deferred (power-tray README)"),
     _c("pcba",              "real",        True,  "none", "printed tray holds the board; tray-to-shell joinery deferred (pcba-tray README)"),
@@ -471,12 +473,12 @@ PORTS = [
     # Nozzle-gate assembly (Tray 3) — four boundary connectors, all bare valve port tips,
     # derived the same way through the tray's INVERTED pose (180° about Y, in the pocket
     # east of the bag assembly). V-G-I/V-J-I face WEST at the bag tray's east bank, each
-    # turned −Y by a discharge elbow onto its run to the divider; V-G-O/V-J-O face EAST at the wall,
-    # where the nozzle lines will leave for the rear umbilical.
+    # turned −Y by a discharge elbow onto its run to the divider; V-G-O/V-J-O face EAST into the
+    # +X wall pocket, each turned +Z by an outlet elbow onto its run aft to the rear umbilical.
     _p("V-G-I", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VG-I"), 6.35, "Y-D-3 via elbow-y-g — segment 17 (routed)", "bare valve port collet, 1/4\" tube, facing west onto its discharge elbow"),
     _p("V-J-I", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VJ-I"), 6.35, "Y-G-3 via elbow-y-d — segment 27 (routed)", "bare valve port collet, 1/4\" tube, facing west onto its discharge elbow"),
-    _p("V-G-O", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VG-O"), 6.35, "Nozzle A by the rear umbilical (bulkhead-flavor-a) — segment 18 (unauthored)", "bare valve port collet, 1/4\" tube, facing east"),
-    _p("V-J-O", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VJ-O"), 6.35, "Nozzle B by the rear umbilical (bulkhead-flavor-b) — segment 28 (unauthored)", "bare valve port collet, 1/4\" tube, facing east"),
+    _p("V-G-O", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VG-O"), 6.35, "bulkhead-flavor-a via elbow-noz-a — segment 18 (routed)", "bare valve port collet, 1/4\" tube, facing east onto its outlet elbow"),
+    _p("V-J-O", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VJ-O"), 6.35, "bulkhead-flavor-b via elbow-noz-b — segment 28 (routed)", "bare valve port collet, 1/4\" tube, facing east onto its outlet elbow"),
     # Pump row — each Kamoer's two boundary connectors are its outlet ELBOWS' free collets
     # (pump_assembly.py seats a PP0308E on each arch_xs outlet), carried through the lying
     # pose (−90° about Y, +90° roll about X) + the POS tuples: the elbows stand on the +Z
@@ -517,6 +519,10 @@ PORTS = [
     _p("free", "elbow-y-g", "fluid", *contents.elbow_free_pose("elbow-y-g"), 6.35, "y-d Y-D-3 — segment 17 (routed)", "PP0308E free collet, aimed at the Y-D lower outlet"),
     _p("free", "elbow-bag-y-g", "fluid", *contents.elbow_free_pose("elbow-bag-y-g"), 6.35, "y-g Y-G-2 — segment 23 (routed)", "PP0308E free collet, aimed at the Y-G upper outlet"),
     _p("free", "elbow-y-d", "fluid", *contents.elbow_free_pose("elbow-y-d"), 6.35, "y-g Y-G-3 — segment 27 (routed)", "PP0308E free collet, aimed at the Y-G lower outlet"),
+    # The two nozzle-outlet elbows' free collets — where each LLDPE run to a rear flavor bulkhead
+    # leaves, standing +Z out of the +X wall pocket.
+    _p("free", "elbow-noz-a", "fluid", *contents.outlet_free_pose("elbow-noz-a"), 6.35, "bulkhead-flavor-a tube-in — segment 18 (routed)", "PP0308E free collet, up out of the pocket"),
+    _p("free", "elbow-noz-b", "fluid", *contents.outlet_free_pose("elbow-noz-b"), 6.35, "bulkhead-flavor-b tube-in — segment 28 (routed)", "PP0308E free collet, up out of the pocket"),
     # Waveshare display — its data/power connector is NOT in the imported STEP (only the four
     # corner mounts are), so this one harness port is placed provisionally on the interior (+Y)
     # back face at the PCB centre. A viewer pick would pin it exactly.
