@@ -134,7 +134,15 @@ export function mountStepEditorRoutes(app, hardwareDir, rebuild) {
     writeOverrides(ovPath, overrides);
     const result = await rebuild(generatorPathFor(hardwareDir, file, entry));
     if (!result.ok) restore(ovPath, before);
-    res.json({ ok: result.ok, error: result.error || null, overrides: result.ok ? overrides : readOverrides(ovPath) });
+    // scorecard: the rebuilt verdict (present even on a clash — that's the whole point). The panel
+    // paints it into the viewer's scorecard so a failed move shows WHAT overlapped, not just that
+    // something did.
+    res.json({
+      ok: result.ok,
+      error: result.error || null,
+      scorecard: result.scorecard || null,
+      overrides: result.ok ? overrides : readOverrides(ovPath),
+    });
   });
 
   // Clear every override for a file (Reset all), then rebuild.
@@ -144,7 +152,7 @@ export function mountStepEditorRoutes(app, hardwareDir, rebuild) {
     if (!entry) return res.status(404).json({ error: "not editable" });
     writeOverrides(overridesPathFor(hardwareDir, file), {});
     const result = await rebuild(generatorPathFor(hardwareDir, file, entry));
-    res.json({ ok: result.ok, error: result.error || null, overrides: {} });
+    res.json({ ok: result.ok, error: result.error || null, scorecard: result.scorecard || null, overrides: {} });
   });
 }
 
