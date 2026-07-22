@@ -53,6 +53,7 @@ PIECE_COLORS = {
 }
 DISPLAY_COLOR = cq.Color(0.10, 0.10, 0.12)      # the Waveshare 4.3B reference
 FUNNEL_COLOR = cq.Color(0.95, 0.95, 0.97, 0.45) # translucent silicone funnel
+CLASH_COLOR = cq.Color(1.00, 0.12, 0.20, 1.00)  # editor-only: the overlap volume of a clashing pack
 
 
 def _placed_display():
@@ -338,6 +339,22 @@ def main():
     print(f"-> {sc_path.name}")
 
     assy = build(pack)
+    # Editor build of a clashing pack: render each overlap VOLUME as a bright solid named
+    # `clash__a__b`, so the viewer's clash row can x-ray to the exact overlapping region (not just
+    # the two whole parts). `a`/`b` match the scorecard's `a ∩ b` rows one-for-one; the ASCII name
+    # (spaces/∩ don't survive a STEP round-trip cleanly) is what scorecard-3d.js reconstructs. Gone
+    # the moment the pack is clean, and never in a headless build (it hard-stops before here).
+    # Capped: each overlap body is another solid to tessellate on export, and a wild move (or a
+    # shell mid-edit) can clash with everything at once — 12 of them pushed the editor rebuild past
+    # 5 min. The scorecard still lists every clash in text; rows past the cap just fall back to
+    # highlighting the two parts.
+    if os.environ.get("HSM_EDITOR") and any(c.id == "pack-closes" and c.status == "fail" for c in sc.checks):
+        for a, b, shape in scorecard.clash_solids(solids, pack.pieces, limit=8):
+            try:
+                assy.add(shape, name=f"clash__{a}__{b}", color=CLASH_COLOR)
+            except Exception as e:  # a degenerate overlap body shouldn't sink the whole editor build
+                print(f"  (skipped clash render {a} ∩ {b}: {e})")
+
     out = _here.parent / "enclosure-assembly.step"
     export_assembly(assy, str(out))
     print(f"-> {out.name}")

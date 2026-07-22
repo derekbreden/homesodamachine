@@ -9,6 +9,7 @@ import { scorecardPathFor, isScorecard } from "/contracts/scorecard-sidecar.js";
 import { scenePartNames, highlightParts, clearHighlight } from "./part-highlight.js";
 import { showPorts, clearPorts, makePortToggle } from "./port-markers.js";
 import { showShapeBoxes, clearShapeBoxes, makeShapeBoxToggle } from "./shape-boxes.js";
+import { isXrayEnabled, setXrayEnabled } from "./xray.js";
 
 const MARK = { pass: "✓", fail: "✗", warn: "•" };
 
@@ -47,19 +48,43 @@ function addCollapsible(card, rows, limit = 0) {
   card.appendChild(wrap);
 }
 
+// The overlap-solid the editor baked for a pack-closes row ("a ∩ b: v mm³"), if it's in the scene.
+// The name mirrors enclosure_assembly.py: `clash__a__b` (ASCII — the ∩ label doesn't survive a STEP
+// round-trip). Null for any row without one (a clearance/routing row, or a non-editor build).
+function clashSolidFor(detail, partNames) {
+  const head = detail.split(":")[0];
+  if (!head.includes(" ∩ ")) return null;
+  const [a, b] = head.split(" ∩ ").map((s) => s.trim());
+  const name = `clash__${a}__${b}`;
+  return partNames.has(name) ? name : null;
+}
+
+// Flip x-ray on (via the toggle so its label refreshes too) so the parts ghost and a highlighted
+// overlap volume nested inside them actually reads. No-op if already on.
+function enableXray() {
+  if (isXrayEnabled()) return;
+  const btn = document.querySelector(".xray-toggle");
+  if (btn) btn.click();
+  else setXrayEnabled(true);
+}
+
 function appendCheck(card, c, gray, wrapper, partNames) {
   const statusCls = c.status === "fail" ? " issue" : c.status === "warn" ? " warn" : "";
   card.appendChild(row("sc-row" + statusCls + (gray ? " gray" : ""), `${MARK[c.status]} ${c.label}`, c.value));
   // A detail row that names solids in the scene becomes clickable — it closes the modal and
-  // highlights those parts on the model (part-highlight.js). A clearance pair names two.
+  // highlights them on the model (part-highlight.js). A clearance pair names two. A pack clash also
+  // carries a baked overlap solid: prefer it — x-ray on + highlight the exact overlapping region,
+  // rather than the two whole parts.
   const drows = (c.detail || []).map((d) => {
-    const refs = [...partNames].filter((n) => d.includes(n));
+    const clash = clashSolidFor(d, partNames);
+    const refs = clash ? [clash] : [...partNames].filter((n) => d.includes(n));
     const r = row("sc-row sub" + (gray ? " gray" : "") + (refs.length ? " clickable" : ""), `— ${d}`, null);
     if (refs.length) {
-      r.title = "Show " + refs.join(" + ") + " on the model";
+      r.title = clash ? "X-ray to the overlap on the model" : "Show " + refs.join(" + ") + " on the model";
       r.addEventListener("click", (e) => {
         e.stopPropagation();
         closeModal(wrapper);
+        if (clash) enableXray();
         highlightParts(refs);
       });
     }
