@@ -56,21 +56,45 @@ the heat-set, then a one-wall cap.
   (Ø4.0 × 5.25) capped at its deep inboard end and a channel the pin's tab
   slides through as the lip telescopes home.
 
+The back pieces also carry
+braces — ribs from the lip rim toward the rear wall (the lower pair stopping
+ahead of the cold core), sized to the pin they back and butting its flat tab
+at the rim — anchoring the walls against peeling and supporting the X-axis
+pins; the top pieces carry the matching braces above their Z-seam pins.
+
 The cold core rides in the back-bottom piece, verified clear of every boss at
 build time. Each printed piece fits the H2C left-nozzle build envelope
 (325 × 320 × 320 mm) even though the whole enclosure does not — that is the
 point of the split.
 
-Every piece's vertical (print-axis Y) corners are rounded for print-bed
-anti-warp relief, matching the foam shell's 12 mm outer radius — concentric
-inner one wall in, so the wall is preserved. The one exception is the front-top
-piece: it prints top-face-down (see "Display housing"), so its footprint corners
-are the Z-running edges, which take no corner relief — the piece wants a brim
-instead. The back pieces also carry
-braces — ribs from the lip rim toward the rear wall (the lower pair stopping
-ahead of the cold core), sized to the pin they back and butting its flat tab
-at the rim — anchoring the walls against peeling and supporting the X-axis
-pins; the top pieces carry the matching braces above their Z-seam pins.
+## Print orientation + corner relief
+
+Every piece prints on a **Z face** — the bottom pieces floor-down, the top
+pieces ceiling-down, each lying on its closed face with its seam mouth up. The
+build axis is therefore Z, and the anti-warp relief goes on the arrises that run
+along it: the box's four **standing verticals**, rounded to match the foam
+shell's 12 mm outer radius — concentric inner one wall in, so the wall is
+preserved.
+
+A quadrant owns only **two** of those four. Its other two "corners" are the
+Y-seam — a telescoping mating face, with no exterior arris there to relieve
+(the side walls run straight through the seam). So the front pieces round the
+front-left and front-right verticals, the back pieces the back-left and
+back-right, and **every seam edge stays 90°**. Assembled, all four verticals
+read as relieved, each sourced from a different quadrant. The horizontal
+front-to-back arrises — side-wall↔floor and side-wall↔ceiling — are square.
+
+The seam furniture follows the same rule: the Z-seam lip is a *horizontal* band
+that telescopes straight through those verticals, so its corners are relieved on
+Z concentric with the cavity it enters, as are the front Z-seam socket pods that
+sit in them; the Y-seam lip sits mid-wall where there is no vertical arris, so it
+stays square.
+
+The Y-seam lip is the one joint the orientation costs something. It is the
+telescoping tongue, so its floor and ceiling segments jut one overlap past the
+body into the space the mating piece's own floor and ceiling occupy — a
+cantilever that cannot be buttressed without colliding with the back piece, and
+so wants print support. The side-wall segments, vertical to the bed, are free.
 
 ## Display housing
 
@@ -112,15 +136,17 @@ housing depth (inner front wall, inner top wall, housing back plane), continuous
 with the slab. The display reference is seated in the housing in
 `../enclosure-assembly/`.
 
-The pod fixes the front-top piece's print orientation: it prints top-face-down
-(top wall on the bed), not −Y-down, or the pod would be the first layer and the
-rest of the front wall would start 19 mm up in open air. Two small, localised
-regressions follow from that orientation. The front-panel CO2 inlet, vertical
-when the piece printed −Y-down, becomes a horizontal hole whose top arc would
-droop without a teardrop (not applied). And the 12 mm `corner_round` relief
-rounds the Y-running edges, which are no longer the footprint corners once the
-piece lies top-face-down — those are the Z-running edges and take no relief, so
-the piece wants a brim.
+The pod is what rules out printing on a Y face: −Y-down the pod would be the
+first layer and the rest of the front wall would start a whole reach up in open
+air. Ceiling-down it lies flat, and every housing face — the facet, its back
+plane as the soffit, the east return's plan chamfer — is 45° or vertical to the
+bed, so none of them is an overhang.
+
+One localised cost follows from the Z-face orientation, shared with the other
+pieces: the panel bores that were vertical when the build axis was Y are
+horizontal now, so their top arcs would droop without a teardrop (not applied).
+That covers the front CO2 inlet here and the four Ø18 bulkhead ports plus the
+C14 cutout in the back-top piece's rear wall.
 
 ## Hopper opening
 
