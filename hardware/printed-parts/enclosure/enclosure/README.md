@@ -24,29 +24,33 @@ mouth, plugs, and screw bores aligned to the front coupon's lip and sockets.
 
 ## Seams + bosses
 
-Three seams, one joint idiom. Front↔back: the front pieces' full-wall rear lip
-telescopes into the back pieces, cross-pinned with M3 screws driven from the ±X
-exterior. That seam runs the box's whole height, so it is pinned at **four
-levels** per side wall, not once near the top — a wall above the floor and just
-under the front Z seam (those two pin the bottom pieces at both ends of their
-span), just over that seam's lip rim and under the ceiling (those two pin the
-top pieces). Because the Z seams stagger, a level pairs whichever front and back
-piece meet at that height — the brick bond. A seam pinned at one end of a piece
-and nothing else hinges at the other; front-bottom carried both its stations in
-the top 20 mm of a 188 mm piece before this. Bottom↔top, per column: the same joint rotated
-90°, at `z_joint_front` (the front stack's waist, above the condenser) and
-`z_joint_back` (the one back-wall band left open between the cold core's
-foam-cap top and the rear bulkhead field) — the bottom pieces carry a 3-sided
+Three seams, one joint idiom. Front↔back: the front pieces' rear lip telescopes
+into the back pieces, cross-pinned with M3 screws driven from the ±X exterior.
+That lip is **3-sided** — both side walls and the ceiling, no floor segment —
+because a floor segment is the one part of the seam that spans the box down at
+content height, and it would hold the whole seam ahead of the cold core standing
+there. Without it the seam sits behind the core's front face, near the box's
+middle, and the four pieces come out near quarters.
+
+That seam runs the box's whole height, so it is pinned at **six levels** per side
+wall, not once near the top — a wall above the floor, one under each Z seam, one
+over each of their lip rims, and one under the ceiling, so every piece crossing
+it is pinned at both ends of its own span. Because the Z seams stagger, a level
+pairs whichever front and back piece meet at that height — the brick bond.
+Bottom↔top, per column: the same joint rotated 90°, at `z_joint_front` (the front
+stack's waist, above the condenser) and `z_joint_back` (the back-wall band
+between the cold core's foam-cap top and the rear bulkhead field) — the bottom
+pieces carry a 3-sided
 lip + socket pods, the top pieces carry the D-pins and the braces that back
 them, more X-axis screws crossing each seam. The front pair joins, the
 back pair joins, then the front assembly telescopes into the back as one.
 
 A Z seam is pinned at **both ends of its column**, not just one, or the far end
-hinges open. The back column runs from the Y seam clear to the rear wall, so it
-takes a station just behind the Y-seam mouth *and* one in the rear-wall corner.
-The front column keeps a single front-wall station: the source-select assembly
-fills the depth its seam crosses, leaving no rear station to be had there
-without moving that assembly.
+hinges open. The front column takes the front-wall corner and the aft end of its
+own lip; the back column takes one just behind the Y-seam mouth and one in the
+rear-wall corner. Every station stands in the ±X band the walls' standoff opens
+off the cold core, which runs clear the full depth, so none has to dodge the
+pack.
 Each cross-pin mates the walls of its overlap (the
 pin's mouth-side face on the receiving mouth, the socket pod's rim-side face
 on the lip rim) and the two are coaxial by construction, so the **overlap
@@ -100,6 +104,14 @@ there to clear.
 So the core seats flush against the **seams**, not against the walls. Every post
 has its full section, both walls carry all six levels, and the rear station's
 post runs its own corner the whole way to the floor.
+
+Those bands also set where the Y seam falls. Its full-width furniture — the lip's
+floor and ceiling segments — has to stop ahead of the core, so the **lip rim
+lands on the core's front face**; the mouth, plugs, pods and braces reach further
+aft than that but live only in the bands, so they pass alongside the core rather
+than stopping at it. What caps them is measured from whatever stands in the
+bands, not tabulated. The seam therefore sits close to the box's middle, and the
+four pieces come out near quarters.
 
 `_contents.REAR_STANDOFF` is the single source for the back wall: `_port_frame()`
 seats the rear panel bodies against it and `enclosure.py` builds the box to it,

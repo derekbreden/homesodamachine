@@ -193,14 +193,6 @@ z_joint_back = 267.0
 # The Z lip stops this short of the Y-seam overlap on each side, so the two
 # telescopes never share a wall surface.
 z_lip_y_margin = 2.0
-# The manifold's aft-station elbow columns stand just off both side walls —
-# the source tray's V-D/V-A pair low and the inverted bag tray's V-H high,
-# its west elbow body reaching forward to y 147.1 at the boss chains' x,
-# spanning the back seam machinery's height. Every wall-hugging aft-reaching
-# feature — the Y-seam plugs and pods (via _dims' y_elbows cap on y_joint),
-# the back corner braces, and the back Z-lip's +X segment — stops one margin
-# ahead of them.
-manifold_aft_wall_clear = 146.0
 # The manifold stack is inset from both side walls — the source+bag trays sit off
 # the −X wall (their west outlet elbows and the junction tees clear it) and the
 # nozzle-gate tray off the +X wall (its bare outer ports clear the front Y-lip) —
@@ -345,6 +337,32 @@ def _level_clear(inner, y0, y1, z_boss, x_in, sx, depth):
     return probe.intersect(waist).Volume() <= 1e-6
 
 
+def _seam_bands_clear(placed, inner):
+    """How far aft each part of the Y seam may reach before it meets content:
+    (chain, ceiling) — the frontmost thing standing in the ±X boss-chain bands,
+    and in the ceiling band the lip's top segment sweeps.
+
+    Those are the only two places the seam occupies. The chain bands are the
+    walls' own standoff off the cold core, so they run content-free alongside it;
+    the ceiling band rides above everything packed. Measured rather than
+    tabulated, so the seam follows the contents instead of drifting from them."""
+    ix0, ix1, iy0, iy1, iz0, iz1 = inner
+
+    def frontmost(prism):
+        limit = iy1
+        for s, _c in placed.values():
+            hit = prism.intersect(s)
+            if hit.Volume() > 1.0:
+                limit = min(limit, hit.BoundingBox().ymin)
+        return limit
+
+    chain = iy1
+    for x_in, sx in ((ix0, +1.0), (ix1, -1.0)):
+        xa, xb = sorted((x_in, x_in + sx * boss_in))
+        chain = min(chain, frontmost(_ybox(xa, xb, iy0, iy1, iz0, iz1)))
+    return chain, frontmost(_ybox(ix0, ix1, iy0, iy1, iz1 - wall, iz1))
+
+
 def _dims():
     placed = _contents.build()
     bbs = [s.BoundingBox() for s, _c in placed.values()]
@@ -391,14 +409,18 @@ def _dims():
     _fa, _fn, _fo, _fdy, _fdz = _facet_geom(outer)
     facet_back_y = oy0 + _fdy + display_facet_thickness * math.sqrt(2.0)
     cold_front_y = cold.ymin
-    y_free = cold_front_y - 2.0 - (lip_len + wall + socket_bore_dia / 2.0 + socket_r)
-    # The Y-seam machinery (mouth, plugs, braces — reaching lip_len + wall +
-    # bore radius + socket_r past y_joint at the ±X walls) must also duck
-    # ahead of the manifold's aft elbow columns: the source tray's aft-station
-    # elbows stand against both side walls low in the stack and the inverted
-    # bag tray's stand high, spanning the braces' whole height band.
-    y_elbows = manifold_aft_wall_clear - (lip_len + wall + socket_bore_dia / 2.0 + socket_r)
-    y_joint = max(facet_back_y + 2.0, min((iy0 + iy1) / 2.0, y_free, y_elbows))
+    # The seam sits at the box's middle, for four near-quarter pieces, unless
+    # something stands where one of its two parts needs to be: the mouth, plugs,
+    # pods and braces in the ±X boss-chain bands, and the lip's ceiling segment
+    # in the band under the top wall. The cold core caps neither — the bands run
+    # clear alongside it, and the lip carries no floor segment to sweep it — so
+    # the seam passes BEHIND the core's front face rather than stopping at it.
+    chain_clear, ceiling_clear = _seam_bands_clear(placed, inner)
+    chain = lip_len + wall + socket_bore_dia / 2.0 + socket_r
+    y_chain = chain_clear - 2.0 - chain
+    y_ceiling = ceiling_clear - 2.0 - lip_len
+    y_joint = max(facet_back_y + 2.0,
+                  min((iy0 + iy1) / 2.0, y_chain, y_ceiling))
     # The rear-panel port field is content too: every clamping nut/flange seats
     # on the outer wall face, so the wall must reach past the field's topmost
     # hardware edge (its bottom edge rides the lip band — _contents
@@ -785,21 +807,31 @@ def _screw_cut(x_ext, sx, z_boss, y_boss):
 
 
 def _front_lip(inner, y_joint):
-    """The front half's rear lip: a full-`wall` perimeter band whose outer face
-    is flush with the body's inner wall — one solid with the body, nothing
-    shaved — telescoping +Y into the back half and mating its inner wall. It runs
-    one `wall` back into the body cavity (the fusion shoulder / telescoping stop)
-    and forward over the overlap to the rim. A plain rectangular tube: printed
-    Z-down the lip is a vertical band and its −Y mouth is a vertical face, so it
-    needs no frame bevel; its corners stay square, concentric with the square
-    seam mouth it telescopes into (the box's rounded verticals are at the
-    front/back walls, not the seam). The bore stays open its whole length — the
-    fusion shoulder is the one-wall overlap where the band meets the body wall
-    (out to y_joint), NOT a slab across the seam."""
+    """The front half's rear lip: a full-`wall` band whose outer face is flush
+    with the body's inner wall — one solid with the body, nothing shaved —
+    telescoping +Y into the back half and mating its inner wall. It runs one
+    `wall` back into the body cavity (the fusion shoulder / telescoping stop) and
+    forward over the overlap to the rim. Printed Z-down the side segments are
+    vertical bands and the −Y mouth is a vertical face, so it needs no frame
+    bevel; corners stay square, concentric with the square seam mouth it
+    telescopes into (the box's rounded verticals are at the front/back walls, not
+    the seam). The bore stays open its whole length — the fusion shoulder is the
+    one-wall overlap where the band meets the body wall (out to y_joint), NOT a
+    slab across the seam.
+
+    THREE-SIDED: both side walls and the ceiling, no floor segment — the same
+    shape the Z lip takes for the same kind of reason. A floor segment is the one
+    part of the seam that spans the box down at content height, and the cold core
+    stands on the floor, so carrying one would hold the whole seam ahead of the
+    core. Without it the seam is free to sit behind the core's face, and the
+    floor meets in a butt joint registered by the cross-pins at the walls. It is
+    also the one part of the lip that could never be printed supported: it juts
+    one overlap past the body into the space the back piece's own floor fills, so
+    nothing may stand under it."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     y0, y1 = y_joint - wall, y_joint + lip_len
     outer = _ybox(ix0, ix1, y0, y1, iz0, iz1)
-    inner_box = _ybox(ix0 + wall, ix1 - wall, y0 - 1.0, y1 + 1.0, iz0 + wall, iz1 - wall)
+    inner_box = _ybox(ix0 + wall, ix1 - wall, y0 - 1.0, y1 + 1.0, iz0 - 1.0, iz1 - wall)
     return outer.cut(inner_box)
 
 
@@ -826,23 +858,22 @@ def _z_pin_z(zj):
 def _z_stations(inner, y_joint):
     """X-axis pin stations along the Z seams — TWO per ±X wall per Y column, one
     at each END of that column's seam, so a seam pinned only at one end cannot
-    hinge open at the other. The back column is the reason: it runs from the
-    Y-seam clear to the rear wall, and a single station behind the mouth left
-    its whole rear unfastened.
+    hinge open at the other.
 
-    Back column: just behind the Y-seam mouth (where the telescoped front lip
-    stops) AND the rear-wall corner. The front column keeps its single
-    front-wall station — the source-select assembly fills y 89..182 across the
-    whole height its seam crosses, so there is no rear station to be had there
-    without moving that assembly. Each column's stations ride that column's own
-    seam height."""
+    Front column: the front-wall corner and the aft end of its own lip, just
+    ahead of where the Y-seam furniture starts. Back column: just behind the
+    Y-seam mouth (where the telescoped front lip stops) and the rear-wall
+    corner. Every station stands in the ±X band the walls' standoff opens off
+    the cold core, which runs clear the full depth, so none of them has to dodge
+    the pack. Each column's stations ride that column's own seam height."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     r = socket_bore_dia / 2.0
     yf = iy0 + wall + r                             # front column, front wall
+    yfr = y_joint - wall - z_lip_y_margin - socket_r  # front column, aft end of its lip
     yb = y_joint + lip_len + wall + r               # back column, behind the mouth
     ybr = iy1 - wall - r                            # back column, rear wall
     out = []
-    for ys, col in ((yf, "front"), (yb, "back"), (ybr, "back")):
+    for ys, col in ((yf, "front"), (yfr, "front"), (yb, "back"), (ybr, "back")):
         out.append((ix0, ix0 - wall, +1.0, ys, col))
         out.append((ix1, ix1 + wall, -1.0, ys, col))
     return out
