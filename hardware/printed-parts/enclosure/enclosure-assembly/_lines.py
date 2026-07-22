@@ -144,7 +144,7 @@ def build_runs() -> list:
         ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", None,                   (8.0, 6.5), 8.0),  # one bend into the yawed outlet
         ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3", (202.0, 111.0, 259.0),  LEAD, DBEND),      # over elbow-y-d (top z254)
         ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (207.0, 113.0, 292.0),  (4.0, 8.0), DBEND),  # short exit lead + high apex, held EAST: the lane between the trays (x 189.2–208.6) is half-blocked by the funnel spout, so this rides its east side — over elbow-bag-y-d (top z284), past the spout, down into y-g
-        ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3", None,                   None, DBEND),       # rises straight to the raised outlet
+        ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3", None,                   (8.0, 6.0), DBEND),  # y-g sits west of this elbow, so it leaves on its collet and turns
     ):
         mids = [apex] if apex is not None else []
         runs.append(R.bent(cid, f"{elb}.free", *mids, f"{div}.{port}",
@@ -159,12 +159,14 @@ def build_runs() -> list:
     # pumps, and turns into y-g's stem; the two sit in separate bays.
     op, od = contents.pump_outlet_pose("pump-b")
     sp, sd = contents.divider_port("y-d", 1)
-    runs.append(R.bent("fluid-12", "pump-b.P-B-O", R.meet(op, od, sp, sd, 0.85), "y-d.Y-D-1",
+    runs.append(R.bent("fluid-12", "pump-b.P-B-O", R.meet(op, od, sp, sd, 0.70), "y-d.Y-D-1",
                         kind="fluid", bend=6.0, skew=DISCHARGE_SKEW, lead=(6.0, 0.0),
                         note="discharge stem P-B-O → y-d Y-D-1, led off pump-b to the collets' meet"))
-    runs.append(R.bent("fluid-22", "pump-a.P-A-O", (165.0, 25.0, 278.0), "y-g.Y-G-1",
-                        kind="fluid", bend=12.0, skew=DISCHARGE_SKEW, lead=14.0,
-                        note="discharge stem P-A-O → y-g Y-G-1, across the pump row"))
+    runs.append(R.bent("fluid-22", "pump-a.P-A-O", "y-g.Y-G-1",
+                        kind="fluid", bend=8.0, skew=DISCHARGE_SKEW, lead=(8.0, 6.0),
+                        note="discharge stem P-A-O → y-g Y-G-1: y-g now sits close off the pump's "
+                             "east outlet and near square to it, so the two leads carry the turn "
+                             "between them — no room across for a sweeping apex"))
 
     # The pump-suction stems (segments 11/21) — each pump's inlet back to its channel's junction
     # tee. Each branch is rolled forward, off the pump row (_contents `JUNCTION_ROLL`), so a run
