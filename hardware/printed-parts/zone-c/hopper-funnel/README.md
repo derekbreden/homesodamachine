@@ -23,7 +23,7 @@ frame and rides the part. Top to bottom:
   lands mid-margin with a full overhang's width of wall still outboard of it,
   and the part reads square in its opening from above.
 - **Chute.** A tall straight rectangular section — vertical walls, no slope —
-  [24.8 mm](HOPPER_CHUTE) from the brim top down to where the ramp starts. Its top
+  [29.46 mm](HOPPER_CHUTE) from the brim top down to where the ramp starts. Its top
   press-fits the 3 mm top wall; the rest hangs down into the box as a straight
   rectangular drop.
 - **Ramp + spout.** Below the chute a shallow ramp narrows to a round
@@ -36,9 +36,9 @@ frame and rides the part. Top to bottom:
   up-facing inlet collet — segment 4 is the gravity drain and the air-purge
   path, so the tube from drain to V-B must only fall. The pack is measured on
   the real solids by the enclosure scorecard. Total drop
-  [63 mm](HOPPER_DROP) below the brim.
+  [54 mm](HOPPER_DROP) below the brim.
 
-Capacity to the brim is [705 mL](HOPPER_CAP) — a full 440 mL bottle dumped,
+Capacity to the brim is [704 mL](HOPPER_CAP) — a full 440 mL bottle dumped,
 not metered.
 
 The enclosure cuts its top-wall opening from this collar at the funnel's

@@ -64,10 +64,10 @@ collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 # the drain with it. Sized here, asserted in `build`.
 bottle_ml = 440.0       # one SodaStream concentrate bottle
 capacity_bottles = 1.6  # basin capacity to the brim, in bottles — the requirement
-chute_h = 24.8          # straight rectangular chute height — brim top down to the ramp start
+chute_h = 29.46        # straight rectangular chute height — brim top down to the ramp start
 neck_dx = 0.0           # neck (ramp foot + spout) on the collar centre — every floor
                         # run stays short, so the grade costs the least depth
-ramp_angle = 25.0       # deg — the floor's shallowest line (the long X half-run); the
+ramp_angle = 15.0       # deg — the floor's shallowest line (the long X half-run); the
                         # front/back runs land steeper on their own. Concentrate is
                         # sticky and the basin has to come out of the machine clean, so
                         # this is graded to SHED, not merely to slope — a shallow floor
@@ -75,9 +75,9 @@ ramp_angle = 25.0       # deg — the floor's shallowest line (the long X half-r
                         # buys it: one rise serves every run, so the grade costs
                         # `_ramp_run × tan(angle)` of it, and the chute gives that back
                         # by shortening (the basin's volume is the target, not its
-                        # depth). Below the ramp the drain then hangs lower, which the
-                        # pack answers by standing the tray stack down — see
-                        # _contents.SRC_SEL_POS.
+                        # depth). What caps it is the pack: the drain hangs lower with
+                        # every degree, and the manifold's east elbow row and the lane
+                        # its pump-discharge crossings use are directly under the spout.
 spout_id = 6.35         # 1/4" outlet bore
 spout_wall = 2.0        # spout wall at the tip
 spout_tube = 6.0        # straight spout tube below the ramp tip
