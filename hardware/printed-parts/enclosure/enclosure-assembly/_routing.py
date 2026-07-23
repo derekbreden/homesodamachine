@@ -143,7 +143,9 @@ _frames: dict = {}
 def frame(name: str, solid, ports: dict) -> Frame:
     """Register a component's frame. `route`'s "compressor-shroud.refrig-discharge" anchors
     resolve through the registry; an unknown component or port raises with the offending name."""
-    f = Frame(name, ports, solid.BoundingBox())
+    import _boxes                                       # placed solids are memoized; box each once
+
+    f = Frame(name, ports, _boxes.boxed(solid))
     _frames[name] = f
     return f
 
