@@ -210,10 +210,10 @@
         "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 35.4 mm, 2 bends at R8.0 \u2014 nearest 15.09 mm to fluid-11",
         "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 252.4 mm, 8 bends at R6.0 \u2014 nearest 1.94 mm to y-d",
         "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 141.8 mm, 5 bends at R10.0 \u2014 nearest 2.69 mm to bag-circuit-assembly",
-        "\u2713 fluid-25: bag-circuit-assembly.Y-H-2 \u2192 foam-assembly.reservoir-B \u2014 \u00d86.35 \u00d7 322.8 mm, 3 bends at R6.0 \u2014 nearest 25.01 mm to refrig-2",
+        "\u2713 fluid-25: bag-circuit-assembly.Y-H-2 \u2192 foam-assembly.reservoir-B \u2014 \u00d86.35 \u00d7 290.1 mm, 2 bends at R6.0 \u2014 nearest 7.59 mm to source-select-assembly",
         "\u2713 fluid-18: elbow-noz-a.free \u2192 bulkhead-flavor-a.tube-in \u2014 \u00d86.35 \u00d7 291.2 mm, 4 bends at R7.0 \u2014 nearest 5.65 mm to fluid-28",
         "\u2713 fluid-28: elbow-noz-b.free \u2192 bulkhead-flavor-b.tube-in \u2014 \u00d86.35 \u00d7 355.4 mm, 4 bends at R7.0 \u2014 nearest 5.65 mm to fluid-18",
-        "\u2717 fluid-15: BLOCKED \u2014 Y-E-2 leaves forward and the fall corridor is aft of it. Ahead of the branch tip stands 1.49 mm to pump-a's back face, short of the exit stub the line takes, and rolling the branch the other way crosses Y-H's own run. The bay behind reservoir-A is now 22.00 mm, past the 8.35 a 1/4\" line takes."
+        "\u2717 fluid-15: BLOCKED \u2014 Y-E-2 is squared forward and the fall corridor is aft of it. Ahead of the branch tip stands 1.49 mm to pump-a's back face, short of the exit stub the line takes. Rolling the branch about its own run is the unexplored move \u2014 Y-H's is aimed that way (bag_circuit_tray `bag_fall_aim`) and falls in one straight leg. The bay behind reservoir-A is 22.00 mm, past the 8.35 a 1/4\" line takes."
       ],
       "active": false
     },
@@ -845,7 +845,7 @@
       "face": [
         -0.0,
         -1.0,
-        -0.0
+        -6.123233995736766e-17
       ],
       "diam": 6.35,
       "mates": "Bag A port \u2014 foam-assembly reservoir-A line, segment 15",
@@ -858,18 +858,18 @@
       "kind": "fluid",
       "pos": [
         110.144,
-        172.741,
-        273.1
+        155.87,
+        253.29
       ],
       "face": [
         -0.0,
-        1.0,
-        -0.0
+        0.15922473595015468,
+        -0.9872423630809223
       ],
       "diam": 6.35,
       "mates": "Bag B port \u2014 foam-assembly reservoir-B line, segment 25",
       "status": "ok",
-      "note": "Tee branch collet, 1/4\" tube, aft through the hug-wall notch"
+      "note": "Tee branch collet, 1/4\" tube, rolled to aim down the fall to reservoir B"
     },
     {
       "component": "nozzle-gate-assembly",
@@ -1694,6 +1694,14 @@
           279.958
         ],
         [
+          130.214,
+          135.55,
+          227.8,
+          189.214,
+          169.8,
+          284.4
+        ],
+        [
           4.148,
           108.081,
           252.875,
@@ -1726,12 +1734,12 @@
           287.4
         ],
         [
-          130.214,
-          135.55,
-          227.8,
-          189.214,
-          169.8,
-          284.4
+          90.078,
+          145.817,
+          252.453,
+          130.21,
+          162.104,
+          279.958
         ],
         [
           31.074,
@@ -1740,14 +1748,6 @@
           90.074,
           169.8,
           284.4
-        ],
-        [
-          90.078,
-          145.817,
-          266.242,
-          130.21,
-          172.741,
-          279.958
         ],
         [
           31.074,
@@ -1758,7 +1758,7 @@
           284.4
         ]
       ],
-      "fill": 0.277,
+      "fill": 0.2768,
       "primitive": false,
       "declared": "real"
     },
