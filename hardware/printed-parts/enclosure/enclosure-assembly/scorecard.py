@@ -41,6 +41,7 @@ real path exists). Prose for the why — and the lessons — is in requirements.
 
 from __future__ import annotations
 
+import os
 import re
 import sys
 from dataclasses import dataclass, field
@@ -890,7 +891,13 @@ def routed_check(solids=None) -> tuple:
     routed_detail = [f"{fluid} fluid + {refrig} refrigerant + {wire} electrical; "
                      f"{routed_done} routed — the fluid path waits on the deferred water deck and "
                      f"the manifold's remaining legs; the electrical runs on the components being held"]
-    runs = _lines.clearances(solids) if solids is not None else [(r, None) for r in _lines.build_runs()]
+    # The per-run nearest-gap report is an exact solid-distance query against every body.
+    # HSM_SKIP_CLEARANCES drops it; each run's ports, length and bends still print, and
+    # `lines-clear` still gates on interpenetration.
+    if solids is None or os.environ.get("HSM_SKIP_CLEARANCES"):
+        runs = [(r, None) for r in _lines.build_runs()]
+    else:
+        runs = _lines.clearances(solids)
     for r, near in runs:
         gap = f" — nearest {near[0]:.2f} mm to {near[1]}" if near else ""
         routed_detail.append(f"✓ {r.id}: {r.frm} → {r.to} — Ø{r.diam:g} × {r.length:.1f} mm, "
