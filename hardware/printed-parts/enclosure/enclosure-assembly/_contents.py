@@ -128,7 +128,8 @@ _hw = _repo / "hardware"
 _VM = _hw / "printed-parts" / "valve-manifold"
 for _p in (_hw / "scripts", _repo / "tools", _hw / "reference" / "beduan-solenoid",
            _VM / "single-tray", _VM / "bag-circuit-tray", _VM / "source-select-tray",
-           _VM / "nozzle-gate-tray"):
+           _VM / "nozzle-gate-tray",
+           _hw / "printed-parts" / "enclosure" / "enclosure"):    # `enclosure`, imported in placed_funnel
     sys.path.insert(0, str(_p))
 import bag_circuit_tray as _bag          # noqa: E402
 import source_select_tray as _src        # noqa: E402
@@ -1112,3 +1113,22 @@ def panel_bodies():
         (CO2_INLET_X, y_front_out - 2.0 - DERPIPE_BODY_L, CO2_INLET_Z))
 
     return {n: (s, COLORS[n]) for n, s in bodies.items()}
+
+
+FUNNEL_STEP = _repo / "hardware" / "printed-parts" / "zone-c" / "hopper-funnel" / "hopper-funnel.step"
+
+
+def placed_funnel():
+    """The static funnel (hopper_funnel.py, its own frame: collar-centre origin, z 0 = brim
+    underside) seated in the top-wall opening: rotated FUNNEL_ROT about its own Z, then
+    translated to FUNNEL_CX/CY with the brim underside on the box's outer top. enclosure.py
+    cuts the opening from the same placement, so funnel and hole cannot drift apart.
+
+    The drain hangs off its spout, so segment 4 anchors on this body — `_lines._frames()`
+    carries it alongside the panel bodies. enclosure.py imports this module, so the import
+    back to it is deferred to call time."""
+    import enclosure
+
+    return (_load(FUNNEL_STEP)
+            .rotate((0, 0, 0), (0, 0, 1), FUNNEL_ROT)
+            .translate((FUNNEL_CX, FUNNEL_CY, enclosure._dims().outer[5])))

@@ -44,7 +44,6 @@ PIECES = {
     "enclosure_back_top":     _ENCLOSURE_DIR / "enclosure-back-top.step",
 }
 DISPLAY_STEP = _repo / "hardware" / "reference" / "waveshare-43b-display" / "waveshare-43b-display.step"
-FUNNEL_STEP = _repo / "hardware" / "printed-parts" / "zone-c" / "hopper-funnel" / "hopper-funnel.step"
 PIECE_COLORS = {
     "enclosure_front_bottom": cq.Color(0.85, 0.92, 1.00, 0.22),  # transparent PETG
     "enclosure_front_top":    cq.Color(0.88, 0.94, 1.00, 0.22),
@@ -71,20 +70,6 @@ def _placed_display():
     )
     disp = cq.importers.importStep(str(DISPLAY_STEP)).val()
     return disp.rotate((0, 0, 0), (1, 0, 0), -45.0).translate(target)
-
-
-def _placed_funnel():
-    """The static funnel (hopper_funnel.py, its own frame: collar-centre origin,
-    z 0 = brim underside) seated in the top-wall opening: rotated FUNNEL_ROT
-    about its own Z (the rectangular collar seats either way; the rotation
-    picks which side the spout descends), then translated to
-    _contents.FUNNEL_CX/CY with the brim underside on the box's outer top. The
-    opening is cut from the same placement (enclosure._hopper_hole), so funnel
-    and hole cannot drift apart."""
-    outer = enclosure._dims().outer
-    return (cq.importers.importStep(str(FUNNEL_STEP)).val()
-            .rotate((0, 0, 0), (0, 0, 1), contents.FUNNEL_ROT)
-            .translate((contents.FUNNEL_CX, contents.FUNNEL_CY, outer[5])))
 
 
 # --- Placement overrides -----------------------------------------------------
@@ -155,7 +140,7 @@ def _extras(overrides):
     assembly and the clash gates, out of the interior-extent measure."""
     out = dict(contents.panel_bodies())
     out["display"] = (_placed_display(), DISPLAY_COLOR)
-    out["hopper-funnel"] = (_placed_funnel(), FUNNEL_COLOR)
+    out["hopper-funnel"] = (contents.placed_funnel(), FUNNEL_COLOR)
     return {n: (_apply_override(n, s, overrides), c) for n, (s, c) in out.items()}
 
 
@@ -226,7 +211,7 @@ _SCORECARD_CACHE_PATH = _here.parent / ".enclosure-assembly.scorecard-cache.pkl"
 def _step_inputs():
     """Every STEP the pack imports — the four pieces, the display, the funnel, and each .step Path
     _contents declares (the component assemblies). A change to any of them invalidates the cache."""
-    steps = set(PIECES.values()) | {DISPLAY_STEP, FUNNEL_STEP}
+    steps = set(PIECES.values()) | {DISPLAY_STEP, contents.FUNNEL_STEP}
     steps |= {v for v in vars(contents).values() if isinstance(v, Path) and v.suffix == ".step"}
     return sorted(steps)
 

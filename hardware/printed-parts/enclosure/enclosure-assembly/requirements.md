@@ -230,18 +230,23 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
 **Deferred — behind the focus:**
 
 - **routed** spans the fluid segments, the sealed refrigerant loop, and the electrical runs
-  (12/59 — the loop's discharge and liquid legs in copper, the junction column's four
-  straight collet-to-tee legs, and the six pump-discharge divider legs and stems). Paths are
+  (18/59 — the loop's discharge and liquid legs in copper, the junction column's four
+  straight collet-to-tee legs, the six pump-discharge divider legs and stems, the two
+  nozzle-outlet runs to the rear bulkheads, the hopper drain, and bag B's reservoir line).
+  Paths are
   authored in [`_lines.py`](_lines.py) with the kit in [`_routing.py`](_routing.py); see
   [`tube-routing.md`](tube-routing.md). All three valve-manifold trays and both pump-discharge
   dividers stand placed with every boundary port located — the fluid path waits on the deferred
-  water deck and the manifold's remaining legs. Segment 4 (funnel drain → V-B-I) has
-  both ends located on placed bodies and is an authorable run; the on-tray seats (3/5–8,
-  14/16, 24/26) are interior to their assemblies and still count against the axis until
-  modeled. The electrical runs wait on the components being placed, located, and held
-  first. `_lines.BLOCKED` is empty: the suction leg's old corridor conflict dissolved when
-  the stack flipped (the source tray's central span stops short of the cold-core face at
-  the evap ports), so refrig-3 is simply unauthored, waiting only on its author.
+  water deck and the manifold's remaining legs. The hopper funnel places in
+  [`_contents.py`](_contents.py) alongside the panel bodies, so segment 4 anchors on its own
+  drain. The on-tray seats (3/5–8, 14/16, 24/26) are interior to their assemblies and still
+  count against the axis until modeled. The electrical runs wait on the components being
+  placed, located, and held first. `_lines.BLOCKED` carries segment 15: reservoir A's port
+  stands behind the condenser, and the entry states the gap the pack measures there against
+  what a 1/4" line takes. Segment 25 — its mirror at the other end of the same face, with the
+  compressor in front of it instead — routes. refrig-3 is simply unauthored: its corridor
+  stands open (the source tray's central span stops short of the cold-core face at the evap
+  ports), so it waits only on its author.
 - **held** — a printed holder for every internal component. Today only the through-wall
   bodies (wall + their own nut) and the display (shell facet) are held; every loose internal
   part floats. Each needs bosses, a cradle, or a tray that itself fastens.
