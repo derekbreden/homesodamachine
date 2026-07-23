@@ -51,9 +51,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import _boxes  # noqa: E402  — optimal bounding boxes, memoized once per placed solid
 import _contents as contents  # noqa: E402  — the manifold ports derive from the pack's own placement
 
-# Minimum solid-to-solid distance. cadquery 2 binds OpenCascade as OCP; fall back to
-# a bbox-gap estimate if the exact kernel call is unavailable, so the scorecard degrades
-# to an approximation rather than crashing.
+# Minimum solid-to-solid distance. cadquery 2 binds OpenCascade as OCP; the guarded import
+# leaves `_HAVE_EXACT` false when it is absent, and `_solid_gap` raises.
 try:
     from OCP.BRepExtrema import BRepExtrema_DistShapeShape
     from OCP.BRepBuilderAPI import BRepBuilderAPI_MakeVertex
@@ -682,11 +681,18 @@ def _bbox_gap(a, b) -> float:
 
 
 def _solid_gap(a, b) -> float:
-    """Exact min distance between two solids (0 if touching/overlapping)."""
+    """Exact min distance between two solids (0 if touching/overlapping). A gap that cannot
+    be taken exactly raises; the scorecard prints what this returns as a measurement."""
     if not _HAVE_EXACT:
-        return _bbox_gap(a.BoundingBox(), b.BoundingBox())
+        raise RuntimeError(
+            "exact solid distance is unavailable — OCP.BRepExtrema did not import, so no "
+            "clearance here is a measurement")
     dss = BRepExtrema_DistShapeShape(a.wrapped, b.wrapped)
-    return dss.Value() if dss.IsDone() else _bbox_gap(a.BoundingBox(), b.BoundingBox())
+    if not dss.IsDone():
+        raise RuntimeError(
+            "exact solid distance did not resolve between two solids — the gap is unknown, "
+            "not large")
+    return dss.Value()
 
 
 # ── Shape (the shaped axis) — the boxes a component really occupies ─────────────────────────
