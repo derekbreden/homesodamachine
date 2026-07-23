@@ -28,6 +28,22 @@ A generator that writes a STEP also renders its `.step.png` thumbnail at exit vi
 
 `HSM_SKIP_CLEARANCES=1` drops the enclosure scorecard's per-run "nearest N mm to X" report — an exact solid-distance query from every routed tube to every body, and the largest single cost of a route-only rebuild. Set it while iterating on where a line runs; `lines-clear` still gates on a tube driving through a part. The build you commit runs without it, so the committed scorecard carries its clearances measured.
 
+## Asking the geometry
+
+`hardware/scripts/probe.py` queries the placed world — the enclosure pack, the panel bodies, the funnel and the routed tubes, as one flat `{name: shape}`. It answers where a body sits, how close two come, what a candidate volume runs into, how far a line travels before it hits something, and how any of those move across a continuous parameter. Import it the way `pick_text` is imported, or run it:
+
+```
+tools/cad-venv/bin/python hardware/scripts/probe.py boxes --sort ymin
+tools/cad-venv/bin/python hardware/scripts/probe.py gap foam-assembly compressor-shroud
+tools/cad-venv/bin/python hardware/scripts/probe.py at bag-circuit-assembly.Y-H-2
+tools/cad-venv/bin/python hardware/scripts/probe.py cast 110.1,155.9,253.3 0,0,-1 --dia 6.35
+tools/cad-venv/bin/python hardware/scripts/probe.py hits --x 100,120 --y 160,200 --z 30,275
+```
+
+Every query raises rather than degrading: a body that will not normalize, a boolean that fails, a distance that cannot be taken exactly. A cast that reaches its limit reports that it made no contact, because its length is a property of the probe and not a clearance. `probe.py selftest` runs known-answer controls — a known hit, a known miss, a known distance, a known refusal — and then normalizes every body in the real world. Run it when a number looks wrong, before trusting the number.
+
+A claim about where something sits, what it clears, or which poses are available is a claim this tool can settle. Settle it before stating it, and quote the query.
+
 ## Firmware
 
 Flash with `tools/flash.sh`.
