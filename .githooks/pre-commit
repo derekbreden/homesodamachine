@@ -64,6 +64,7 @@ gate() {
 if $touches_hw; then
   gate "pin-map drift check" python3 "$root/hardware/scripts/check_pinmap.py"
   gate "bom category tags" python3 "$root/hardware/scripts/_bom_categories.py" --check
+  gate "build exit status" python3 "$root/hardware/scripts/check_build_exit.py"
 fi
 
 if $touches_board; then
