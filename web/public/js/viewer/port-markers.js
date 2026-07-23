@@ -21,12 +21,30 @@ const UNSIZED_R = 2;   // mm disc radius when diam is null
 const HOVER_SLOP = 3;  // mm raycast threshold on the stub lines
 const SEG = 32;
 
-// Body face a port exits -> its outward normal. scorecard.py's Port.face vocabulary.
+// Body face a port exits -> its outward normal. scorecard.py's Port.face vocabulary: one of the
+// six body faces by name, or — where a fitting is clocked off the world axes, as the junction
+// column's rolled elbows and the tees hung between them are — the axis given directly as a vector.
 const FACE_NORMAL = {
   "x-": [-1, 0, 0], "x+": [1, 0, 0],
   "y-": [0, -1, 0], "y+": [0, 1, 0],
   "z-": [0, 0, -1], "z+": [0, 0, 1],
 };
+
+// The unit normal a port exits along, or null when the face is neither vocabulary — a marker with
+// no readable direction is drawn as bad rather than pointed somewhere plausible.
+function faceNormal(face) {
+  if (typeof face === "string") return FACE_NORMAL[face] ?? null;
+  if (!Array.isArray(face) || face.length !== 3) return null;
+  const m = Math.hypot(face[0], face[1], face[2]);
+  return m > 1e-9 ? [face[0] / m, face[1] / m, face[2] / m] : null;
+}
+
+// A port's face for display, mirroring scorecard.py's face_name.
+function faceLabel(face) {
+  if (typeof face === "string") return face.replace("-", "−");
+  const n = faceNormal(face);
+  return n ? `(${n.map((c) => (c < 0 ? "−" : "+") + Math.abs(c).toFixed(3)).join(", ")})` : "?";
+}
 
 // What the port carries.
 const KIND_COLOR = {
@@ -90,10 +108,11 @@ const _n = new THREE.Vector3();
 
 function addMarker(port) {
   const [x, y, z] = port.pos;
-  const nrm = FACE_NORMAL[port.face] || [0, 0, 1];
-  _n.set(nrm[0], nrm[1], nrm[2]);
+  const nrm = faceNormal(port.face);
+  _n.set(...(nrm ?? [0, 0, 1]));
   _q.setFromUnitVectors(_localUp, _n);
-  const { fill, line } = matsFor(port.status === "ok" ? (KIND_COLOR[port.kind] ?? 0xffffff) : BAD_COLOR);
+  const { fill, line } = matsFor(
+    nrm && port.status === "ok" ? (KIND_COLOR[port.kind] ?? 0xffffff) : BAD_COLOR);
   const r = port.diam ? port.diam / 2 : UNSIZED_R;
 
   const place = (o, s) => {
@@ -156,7 +175,7 @@ function showTip(port, clientX, clientY) {
     wrapper.appendChild(tipEl);
   }
   const pos = port.pos.map((v) => Math.round(v * 100) / 100).join(", ");
-  const face = port.face ? port.face.replace("-", "−") : "?";
+  const face = faceLabel(port.face);
   const size = port.diam ? `Ø${port.diam}` : "Ø —";
   tipEl.textContent = "";
   const head = document.createElement("div");
