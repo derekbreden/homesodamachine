@@ -14,37 +14,15 @@
 import * as THREE from "three";
 import { scene, camera, renderer } from "./scene.js";
 import { state } from "./state.js";
+// scorecard.py's Port.face vocabulary — one of the six body faces by name, or the exit axis as a
+// vector — is read by port-format.js, which node:test exercises.
+import { faceNormal, faceLabel } from "./port-format.js";
 
 const LS_KEY = "step-ports";
 const STUB_LEN = 10;   // mm along the face normal
 const UNSIZED_R = 2;   // mm disc radius when diam is null
 const HOVER_SLOP = 3;  // mm raycast threshold on the stub lines
 const SEG = 32;
-
-// Body face a port exits -> its outward normal. scorecard.py's Port.face vocabulary: one of the
-// six body faces by name, or — where a fitting is clocked off the world axes, as the junction
-// column's rolled elbows and the tees hung between them are — the axis given directly as a vector.
-const FACE_NORMAL = {
-  "x-": [-1, 0, 0], "x+": [1, 0, 0],
-  "y-": [0, -1, 0], "y+": [0, 1, 0],
-  "z-": [0, 0, -1], "z+": [0, 0, 1],
-};
-
-// The unit normal a port exits along, or null when the face is neither vocabulary — a marker with
-// no readable direction is drawn as bad rather than pointed somewhere plausible.
-function faceNormal(face) {
-  if (typeof face === "string") return FACE_NORMAL[face] ?? null;
-  if (!Array.isArray(face) || face.length !== 3) return null;
-  const m = Math.hypot(face[0], face[1], face[2]);
-  return m > 1e-9 ? [face[0] / m, face[1] / m, face[2] / m] : null;
-}
-
-// A port's face for display, mirroring scorecard.py's face_name.
-function faceLabel(face) {
-  if (typeof face === "string") return face.replace("-", "−");
-  const n = faceNormal(face);
-  return n ? `(${n.map((c) => (c < 0 ? "−" : "+") + Math.abs(c).toFixed(3)).join(", ")})` : "?";
-}
 
 // What the port carries.
 const KIND_COLOR = {
