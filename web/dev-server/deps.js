@@ -92,27 +92,68 @@ export function findGenerateScripts(roots) {
 // `--python` subprocess edge (`_blender_render.py` hands `_blender_scene.py` to
 // Blender as a path, never importing it). Without the transitive walk, edits to
 // a leaf module silently rebuild nothing.
-export function findRunnableScriptsTransitivelyImporting(moduleName, roots) {
+export function findRunnableScriptsTransitivelyImporting(changedPath, roots) {
   const allPyFiles = walk(roots, ".py");
   const visited = new Set();
   const dependents = new Set();
-  const queue = [moduleName];
+  const queue = [path.resolve(changedPath)];
+
+  // Which edition (content root) a file belongs to, and which module names each
+  // edition defines for itself. An importer in another edition that has its own
+  // copy of the module resolves to that copy, never to this one.
+  const absRoots = roots.map((r) => path.resolve(r));
+  const rootOf = (p) => absRoots.find((r) => {
+    const rp = path.relative(r, p);
+    return rp && !rp.startsWith("..") && !path.isAbsolute(rp);
+  });
+  const modulesByRoot = new Map(absRoots.map((r) => [r, new Set()]));
+  for (const f of allPyFiles) {
+    const r = rootOf(path.resolve(f));
+    if (r) modulesByRoot.get(r).add(path.basename(f, ".py"));
+  }
 
   while (queue.length > 0) {
-    const mod = queue.shift();
-    if (visited.has(mod)) continue;
-    visited.add(mod);
+    const modPath = queue.shift();
+    if (visited.has(modPath)) continue;
+    visited.add(modPath);
+    const mod = path.basename(modPath, ".py");
 
-    const importRe = new RegExp(`(?:^|\\s)(?:from|import)\\s+${mod}\\b`, "m");
+    const importRe = new RegExp(`(?:^|\\s)(?:from|import)\\s+${escapeRegExp(mod)}\\b`, "m");
     // Require the `--python` flag so a bare doc-comment mention of the filename
     // can't masquerade as a subprocess dependency.
-    const scriptRefRe = new RegExp(`["'/]${mod}\\.py\\b`, "m");
+    const scriptRefRe = new RegExp(`["'/]${escapeRegExp(mod)}\\.py\\b`, "m");
     for (const pyFile of allPyFiles) {
+      const abs = path.resolve(pyFile);
+      if (abs === modPath) continue;
       const source = readSource(pyFile);
       if (source == null) continue;
       const importsIt = importRe.test(source);
       const runsViaBlender = source.includes("--python") && scriptRefRe.test(source);
       if (!importsIt && !runsViaBlender) continue;
+      // Resolve `mod` the way Python will from this file: a sibling module in the
+      // importer's own directory is sys.path[0] and wins. Follow the import edge
+      // only when that resolution IS the file that changed. The two editions mirror
+      // each other's filenames (_contents.py, enclosure.py, enclosure_assembly.py,
+      // power_assembly.py, power_tray.py), so a bare-name match rebuilt lite for a
+      // hardware edit it never imports — a whole second assembly competing for the
+      // same cores. With no sibling the module comes from a shared dir on sys.path
+      // (hardware/scripts/_cadq_export.py), and that edge stands.
+      let edge = runsViaBlender;
+      if (importsIt) {
+        // A sibling module in the importer's own directory is sys.path[0] and wins.
+        const sibling = path.join(path.dirname(abs), `${mod}.py`);
+        const siblingWins = fs.existsSync(sibling) && path.resolve(sibling) !== modPath;
+        // Otherwise, if the importer lives in a different edition that defines this
+        // module itself, it reaches its own copy through its own sys.path — not this
+        // one. (lite/funnel.py imports `enclosure_assembly` from the lite tree.)
+        const changedRoot = rootOf(modPath);
+        const fileRoot = rootOf(abs);
+        const otherEdition =
+          fileRoot && changedRoot && fileRoot !== changedRoot &&
+          modulesByRoot.get(fileRoot).has(mod);
+        if (!siblingWins && !otherEdition) edge = true;
+      }
+      if (!edge) continue;
       if (isRunnableScript(pyFile)) dependents.add(pyFile);
       // Keep walking THROUGH this file whether or not it's runnable: a generator
       // can double as a base module that other generators import as its python
@@ -120,9 +161,11 @@ export function findRunnableScriptsTransitivelyImporting(moduleName, roots) {
       // and `source_select_tray` build on). Stopping at the
       // first runnable would leave those downstream trays stale when the root
       // module changes — and they can't be caught by the STEP-load cascade
-      // either, since they import the tray's python, not its .step. `visited`
-      // dedupes, so re-queuing a shared basename is safe.
-      queue.push(path.basename(pyFile, ".py"));
+      // either, since they import the tray's python, not its .step. Queue the
+      // file, not its basename, so the next hop resolves against this edition's
+      // copy rather than every tree that happens to share the name. `visited`
+      // dedupes.
+      queue.push(abs);
     }
   }
 
@@ -242,13 +285,9 @@ export function findScriptsConsumingStep(stepBasename, roots, producerOf) {
       consumers.add(pyFile);
     } else {
       // A shared module names the step; the real consumers are the runnable
-      // scripts that import it. (Two `_contents.py` share a basename, so both
-      // editions' importers resolve — harmless: each genuinely loads the part,
-      // and an over-rebuild is a no-op write.)
-      for (const dep of findRunnableScriptsTransitivelyImporting(
-        path.basename(pyFile, ".py"),
-        roots,
-      )) {
+      // scripts that import it — resolved from this file, so an edition only
+      // pulls in the importers that actually load its own copy.
+      for (const dep of findRunnableScriptsTransitivelyImporting(pyFile, roots)) {
         if (dep !== producer) consumers.add(dep);
       }
     }

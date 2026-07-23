@@ -643,7 +643,6 @@ watcher.on("change", (absPath) => {
   // The cadlib handler at the top of this listener is the shotgun version of
   // step 2: anything in `/cadlib/` rebuilds every generator, no walk.
   if (absPath.endsWith(".py")) {
-    const moduleName = path.basename(absPath, ".py");
     if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
     debounce.set(
       absPath,
@@ -651,7 +650,7 @@ watcher.on("change", (absPath) => {
         debounce.delete(absPath);
         const seeds = [];
         if (isRunnableScript(absPath)) seeds.push(absPath);
-        for (const dep of findRunnableScriptsTransitivelyImporting(moduleName, CONTENT_ROOTS)) {
+        for (const dep of findRunnableScriptsTransitivelyImporting(absPath, CONTENT_ROOTS)) {
           if (dep !== absPath) seeds.push(dep);
         }
         if (seeds.length === 0) return;
