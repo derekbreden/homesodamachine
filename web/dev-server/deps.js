@@ -47,6 +47,13 @@ function readSource(file) {
   }
 }
 
+// hardware/scripts holds the shared modules and the command-line tools the repo is worked
+// WITH — the export helper, the build lock, the geometry probe, the pin-map check. None of
+// them produce content, and the ones that take arguments have nothing to do when spawned
+// bare. Their imports still build the graph below, so editing one rebuilds the generators
+// that read it.
+const TOOLING_DIR = path.join("hardware", "scripts");
+
 // A "runnable" script is a non-`_`-prefixed .py with a `__main__` block — a
 // generator/drawing meant to run directly, vs. an imported `_module.py`.
 // Content detection (not name/dir) means a new script live-reloads with no
@@ -55,6 +62,7 @@ export function isRunnableScript(pyFilePath) {
   const base = path.basename(pyFilePath);
   if (!base.endsWith(".py")) return false;
   if (base.startsWith("_")) return false;
+  if (path.dirname(pyFilePath).endsWith(TOOLING_DIR)) return false;
   const source = readSource(pyFilePath);
   return source != null && MAIN_RE.test(source);
 }
