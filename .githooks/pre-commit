@@ -12,13 +12,10 @@
 #        copper), part-orientation-audit.py (3D model vs footprint, ~8 s). These read
 #        the out/ artifacts of the last render — a red gate means the board being
 #        committed is not fab-ready.
-#      - commit touches enclosure           → NOTHING. The enclosure gates nothing here,
-#        deliberately: a pack that does not close must be able to LAND. The editor writes
-#        the overlapping .step and a gatesPass=false sidecar precisely so a collision can
-#        be dragged into view, and committing that is how the state is saved, shared and
-#        resumed. The hook reports a red pack and moves on. CI's build:check is the hard
-#        backstop, and the scorecard self-test runs there too — a commit is the wrong
-#        place to spend minutes rebuilding CAD to re-derive a verdict already in the tree.
+#      - commit touches enclosure           → reported, never gated. A pack that does not
+#        close prints its clash count and lands, .step and sidecar intact for the editor
+#        to open. Rebuild-and-compare across every generator is `npm --prefix web run
+#        build:check`; the enclosure gates' own inject-defect run is `scorecard_selftest.py`.
 #      Gates print one ✓ line each on pass and dump their full output on red.
 #
 #   2. GLB freshness (best-effort — never blocks): render-board.ts deliberately skips
@@ -94,17 +91,14 @@ if not sc["gatesPass"]:
 fi
 
 if $touches_enclosure; then
-  # A failing pack is COMMITTABLE, on purpose. The editor writes the overlapping .step
-  # and a gatesPass=false sidecar so a collision can be seen; committing that is how the
-  # state gets saved, shared and picked up again. So the enclosure reports here and gates
-  # nothing: what a red pack costs is a red scorecard in the tree, which is the point.
+  # A red pack prints its clash count and lands.
   if [ -f "$enc/enclosure-assembly.scorecard.json" ]; then
     python3 -c '
 import json, sys
 try:
     sc = json.load(open(sys.argv[1]))
 except Exception:
-    sys.exit(0)                       # unreadable sidecar is CI'"'"'s problem, not the commit'"'"'s
+    sys.exit(0)
 pack = next((c for c in sc.get("checks", []) if c.get("id") == "pack-closes"), None)
 if pack is not None and pack["status"] != "pass":
     print("pre-commit: enclosure pack does NOT close — " + str(pack["value"])
@@ -112,8 +106,7 @@ if pack is not None and pack["status"] != "pass":
 ' "$enc/enclosure-assembly.scorecard.json"
   fi
 
-  # Freshness nudge (never blocks): the sidecar being behind its sources means the verdict
-  # in the tree is not the one these sources produce. CI build:check is the hard backstop.
+  # A sidecar older than its sources carries a verdict those sources no longer produce.
   for src in "$enc/_contents.py" "$enc/scorecard.py" "$enc/enclosure_assembly.py" \
              "$root/hardware/printed-parts/enclosure/enclosure/enclosure.py"; do
     if [ -f "$src" ] && [ "$src" -nt "$enc/enclosure-assembly.scorecard.json" ]; then
