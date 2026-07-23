@@ -676,7 +676,7 @@ def _solid_gap(a, b) -> float:
 # stands in for the shape and the more only the solid will answer (`_solid_gap`, `_on_surface`).
 def component_boxes(shape) -> list:
     """One axis-aligned box per solid the component is built from."""
-    return [s.BoundingBox() for s in shape.Solids()]
+    return _boxes.boxed_solids(shape)
 
 
 def _box_vol(bb) -> float:
