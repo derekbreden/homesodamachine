@@ -7,13 +7,15 @@ two valves connect **in-line through a Tee** whose run lies along X, leaving the
 Tee free to ROLL about that run: the branch aims wherever the roll puts it, and
 `branch_rolls` carries one angle per Tee.
 
-    V-I ──┬── V-H      Y-H run; branch rolled to `bag_fall_aim`, near +Z
+    V-I ──┬── V-H      Y-H run; branch rolled to `bag_fall_aim`, near +Z → Bag B
           ┊
-    V-F ──┴── V-E      Y-E run; branch → −Y to Bag A, through the hug wall
+    V-F ──┴── V-E      Y-E run; same `bag_fall_aim` roll, near +Z → Bag A
 
-Y-E squares outward at +90°, leaving along −Y through a notch in the central hug
-wall. Y-H is AIMED instead — see `bag_fall_aim` — so its branch leaves near +Z,
-clearing the hug walls entirely rather than passing through one.
+Both Tees take the SAME roll (`bag_fall_aim`): each branch leaves near +Z, aimed
+into the machine's fall corridor and clearing the hug walls entirely rather than
+passing through one. The shared angle keeps the two branches parallel so they never
+cross, and is steep enough that the forward Tee's branch threads the source tray's
+aft window rather than driving into it.
 
 This module also holds the shared parallel-tray base — `place_valve`, `place_tee`
 (and its roll variant `place_tee_rolled`), `build_tray`, and the common geometry
@@ -82,16 +84,19 @@ tees = {"YH": (0.0, +row_half), "YE": (0.0, -row_half)}
 # carries local Y and negates local Z: a branch at roll 0 points straight DOWN in
 # world, ±90 leaves along ∓Y.
 #
-# `bag_fall_aim` is Y-H's. Bag B's line falls the whole height of the machine to
-# reservoir B low on the cold core, and this is the roll that points the branch
-# down that fall — at the fall corridor's lane, at the port's own height — so the
-# line leaves the fitting ALREADY FALLING and takes no bend at the top. The STEP
-# bakes the pose in, so the angle is declared here and gated in
-# enclosure-assembly/_lines, which re-solves the aim against the live corridor and
-# port and raises if this roll no longer lands on the lane.
-# Y-E squares outward into the hug wall's notch, its own line unrouted.
-bag_fall_aim = -9.1619
-branch_rolls = {"YH": bag_fall_aim, "YE": +90.0}
+# `bag_fall_aim` is BOTH Tees'. Each bag line falls the height of the machine to a
+# reservoir low on the cold core, down the one corridor open behind the stack, and
+# this is the roll that aims a branch into that fall. Both Tees take the SAME angle,
+# so their branches leave PARALLEL and never cross even though both run centres sit
+# on one X: a shallower branch off the forward Tee (Y-E) would drive through the
+# source tray under the stack, and a straight drop off it would cross the aft Tee's
+# line — one steep shared angle threads the source tray's aft window and keeps the
+# pair parallel. In the enclosure each branch turns along the corridor to its own
+# reservoir's end (bag A east, bag B west) and drops in. The STEP bakes the pose in,
+# so the angle is declared here and gated in enclosure-assembly/_lines against the
+# live corridor.
+bag_fall_aim = -32.0
+branch_rolls = {"YH": bag_fall_aim, "YE": bag_fall_aim}
 
 
 def branch_dir(roll):
@@ -473,15 +478,20 @@ def build_bag_circuit_tray():
     # hug wall: cut a notch so the branch clears the central floor and passes
     # through. The bottom half arcs around the branch (a Y-cylinder matching the
     # tube); the top half is a straight slot, open through the wall top so the
-    # fitting drops in. A Tee rolled to leave upward instead (Y-H, aimed down the
-    # enclosure's fall) rises off the ports in open air and stops short of the wall
-    # — it needs no notch, and cutting one would only open the wall for nothing.
+    # fitting drops in. A Tee rolled to leave UPWARD instead (both Tees here, aimed
+    # into the enclosure's fall) rises off the ports and clears the wall top before
+    # it reaches the wall's Y — it needs no notch, and cutting one would only open
+    # the wall for nothing. So the notch is cut only where the branch heads toward
+    # its hug wall AND reaches that wall's inner face still below the wall top.
     z_top = bc_hug_wall_top_z + 1.0
     for nm, (cx, cy) in tees.items():
+        d = branch_dir(branch_rolls[nm])
         sy = 1.0 if cy >= 0 else -1.0
-        reach_y = cy + tee_branch_reach * branch_dir(branch_rolls[nm])[1]
-        if abs(reach_y) < bc_hug_half_y - wall_thickness:
-            continue                       # the branch stops short of the wall
+        wall_inner = sy * (bc_hug_half_y - wall_thickness)   # this row's hug wall, inner face
+        toward = d[1] * sy > 1e-9                             # branch heads toward that wall at all
+        s = (wall_inner - cy) / d[1] if toward else -1.0     # run to the wall's inner face
+        if not toward or port_z + s * d[2] >= bc_hug_wall_top_z:
+            continue                       # aims away, or rises clear of the wall top
         y0, y1 = sorted((cy, sy * (bc_hug_half_y + 2.0)))
         bore = cq.Solid.makeCylinder(
             tee_groove_radius, y1 - y0,
