@@ -117,6 +117,8 @@ COMPONENTS = [
     _c("compressor-shroud", "real",        True,  "none", "floor-boss capture TBD (enclosure-mechanical Open #1)"),
     _c("condenser+fan",     "placeholder", True,  "none", "harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)"),
     _c("mq6-sensor",        "real",        True,  "none", "MQ-6 module STEP (PCB + sensor can + header); floor gas sensor, no mount"),
+    # Water deck
+    _c("asse1022-assembly", "real",        True,  "none", "Multiplex 19-0897 ASSE 1022 backflow preventer + PP010822E, GAGIRA coupling, FFL38BARB38 and the clear-PVC vent stub as one chain (reference/asse1022-assembly); lies along X in the machine corridor's west lane, flow east, vent hanging over the drip pan's floor, holder TBD"),
     # Valve manifold
     _c("source-select-assembly", "real",   True,  "none", "Tray 1 — printed tray + 4 Beduan NC solenoids + 2 PP2308E Y-dividers + 4 outlet elbows (valve-manifold/source-select-tray); floors the stack, plate down and valves up, holder TBD"),
     _c("bag-circuit-assembly",   "real",   True,  "none", "Tray 2 — printed dog-bone tray + 4 Beduan NC solenoids + 2 PP0208E Tees + 2 west outlet elbows (valve-manifold/bag-circuit-tray); rides INVERTED on the source tray's stacking walls, east ports bare, holder TBD"),
@@ -308,6 +310,18 @@ PLACEMENT_RULES = {
     # off the source bank — the `near` gap allows for that.
     "tee-y-c": [("near", "source-select-assembly", 15.0)],
     "tee-y-f": [("near", "source-select-assembly", 15.0)],
+    # "The ASSE 1022 chain lies in the machine corridor's west lane, vent down over
+    # the pan's floor." Four measurements pin it. `x-` says it is the WEST-lane part
+    # and states the axial room its 1/4" inlet gets to turn its feed up the riser
+    # column. `z-` reads the assembly's LOWEST point — the vent stub's tip — so it
+    # measures the drip height: the vent has to reach down toward the pan, and a body
+    # lifted until the stub no longer does fails here. The two keep-outs say what it
+    # must not crowd: the compressor's back face (the floor stratum below and the
+    # corridor's own front wall), and the cold core, whose BAG_FALL_CORRIDOR behind
+    # the stack belongs to the two bag lines — this body must not reach into it.
+    "asse1022-assembly": [("x-", 30.0), ("z-", 42.0),
+                          ("clear", "compressor-shroud", 6.0),
+                          ("clear", "foam-assembly", contents.BAG_FALL_CORRIDOR)],
 }
 
 
@@ -445,6 +459,14 @@ PORTS = [
     # MQ-6 header pins down (−Z) at the board floor — the 4-pin row runs along the
     # PCB's −X edge (x≈103), NOT the board centre, so the port sits on that edge.
     _p("header", "mq6-sensor", "electrical", (103.0, 144.0, 3.0), "z-", 8.0, "PCBA gas-sensor input — VCC/GND/DO/AO (SIG)", "4-pin 2.54 mm header at the PCB's −X edge, pins down"),
+    # ASSE 1022 assembly — its three terminals, each read off the reference module's own
+    # station and carried through the placement (contents.bfp_terminal). The chain's stack-up
+    # sets where they land, so a length changed in any of its five parts moves them together.
+    # The vent is not a connection: it terminates to atmosphere over the drip pan, and plumbing
+    # it into anything would destroy the telltale it exists to be (internal-plumbing.md §2).
+    _p("tube-in",  "asse1022-assembly", "fluid", *contents.bfp_terminal("tube-in"),  6.35,  "bulkhead-water tube-in (rear-panel tap-water inlet, via the customer's filter)", "JG PP010822E 1/4\" PTC, facing west at the riser column"),
+    _p("hose-out", "asse1022-assembly", "fluid", *contents.bfp_terminal("hose-out"), 9.525, "SeaFlo 22-series suction inlet (deferred) — V-A's tap point tees off this hose", "FFL38BARB38 3/8\" barb, facing east down the corridor; worm-gear clamp"),
+    _p("vent-tip", "asse1022-assembly", "fluid", *contents.bfp_terminal("vent-tip"), 6.35,  "atmosphere, over the drip pan + moisture plate (deferred) — never plumbed", "Sealproof 1/4\" ID clear-PVC stub, hanging −Z; cut to length at the bench"),
     # Hopper funnel — the removable silicone basin's single drain: the spout-tube exit annulus,
     # feeding V-B by tube (segment 4). Defined in the funnel's own frame
     # (hopper_funnel.drain_local = (neck_dx, 0, −drop)) carried through the placement's
@@ -465,7 +487,7 @@ PORTS = [
     # V-C/V-D face up WEST along the junction column, each rolled inward off its port axis to
     # aim at the bag tray's collet across the gap. On-tray plumbing (segments 3/5/6/7/8 —
     # valve↔divider tubes) is interior to the assembly and carries no port here.
-    _p("V-A-I", "source-select-assembly", "fluid", *contents.src_collet("VA"), 6.35, "tap-water chain (bulkhead-water → BFP, deferred) — segment 2 (pressurized; length-tolerant)", "JG elbow collet, 1/4\" tube, facing up at the aft-east station"),
+    _p("V-A-I", "source-select-assembly", "fluid", *contents.src_collet("VA"), 6.35, "tap-water chain — segment 2, teed off the BFP's 3/8\" discharge hose ahead of the SeaFlo (pressurized; length-tolerant)", "JG elbow collet, 1/4\" tube, facing up at the aft-east station"),
     _p("V-B-I", "source-select-assembly", "fluid", *contents.src_collet("VB"), 6.35, "hopper-funnel drain by tube — segment 4 (gravity + air purge; the drain exit sits ~86 above this collet)", "JG elbow collet, 1/4\" tube, facing up at the fwd-east station"),
     _p("V-C-O", "source-select-assembly", "fluid", *contents.src_collet("VC"), 6.35, "tee-y-c Y-C-1 — segment 9 (routed)", "JG elbow collet, 1/4\" tube, rolled inward up the junction column"),
     _p("V-D-O", "source-select-assembly", "fluid", *contents.src_collet("VD"), 6.35, "tee-y-f Y-F-1 — segment 19 (routed)", "JG elbow collet, 1/4\" tube, rolled inward up the junction column"),
@@ -833,7 +855,7 @@ def fit_bed(pieces: dict, bed: tuple[float, float, float]) -> list[tuple[str, fl
     bx, by, bz = bed
     out = []
     for n, s in pieces.items():
-        b = s.BoundingBox()
+        b = _boxes.boxed(s)
         fits = b.xlen <= bx + BED_TOL and b.ylen <= by + BED_TOL and b.zlen <= bz + BED_TOL
         out.append((n, b.xlen, b.ylen, b.zlen, fits))
     return out
@@ -902,8 +924,9 @@ def routed_check(solids=None) -> tuple:
     routed_done = sum(1 for c in conns if c.routed)
     routed = _pct(routed_done, len(conns))
     routed_detail = [f"{fluid} fluid + {refrig} refrigerant + {wire} electrical; "
-                     f"{routed_done} routed — the fluid path waits on the deferred water deck and "
-                     f"the manifold's remaining legs; the electrical runs on the components being held"]
+                     f"{routed_done} routed — the fluid path waits on the SeaFlo the ASSE 1022's "
+                     f"discharge hose lands on, and on the manifold's remaining legs; the "
+                     f"electrical runs on the components being held"]
     # The per-run nearest-gap report is an exact solid-distance query against every body.
     # HSM_SKIP_CLEARANCES drops it; each run's ports, length and bends still print, and
     # `lines-clear` still gates on interpenetration.

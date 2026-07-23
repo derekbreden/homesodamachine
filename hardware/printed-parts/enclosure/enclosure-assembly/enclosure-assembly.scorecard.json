@@ -1,7 +1,7 @@
 {
   "gatesPass": true,
-  "placed": 37,
-  "located": 83,
+  "placed": 39,
+  "located": 84,
   "shaped": 97,
   "routed": 32,
   "held": 23,
@@ -11,7 +11,7 @@
       "label": "Every placed part declared in the registry",
       "kind": "gate",
       "status": "pass",
-      "value": "30/30 placed declared",
+      "value": "31/31 placed declared",
       "target": "all declared",
       "detail": [],
       "active": true
@@ -88,8 +88,8 @@
       "label": "Every component is a selected real part / finished print",
       "kind": "gate",
       "status": "pass",
-      "value": "30/30",
-      "target": "30/30",
+      "value": "31/31",
+      "target": "31/31",
       "detail": [],
       "active": true
     },
@@ -98,7 +98,7 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "37% (11/30)",
+      "value": "39% (12/31)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 3.0 x- 14.0 x+ 14.0 z- 0.0 mm",
@@ -112,6 +112,7 @@
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
         "\u2713 tee-y-c: near source-select-assembly 14.5 mm",
         "\u2713 tee-y-f: near source-select-assembly 8.1 mm",
+        "\u2713 asse1022-assembly: x- 28.0 z- 40.0 clear compressor-shroud 8.0 clear foam-assembly 26.0 mm",
         "19 components: no placement rules defined yet"
       ],
       "active": true
@@ -121,7 +122,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "83% (25/30)",
+      "value": "84% (26/31)",
       "target": "100%",
       "detail": [
         "\u2717 foam-assembly: 9/10 connectors located",
@@ -163,7 +164,7 @@
         "    \u2013 c14-inlet:mains-in (electrical) (90, 357, 295.5) y- \u00d88 \u2192 AC distribution \u2014 L/N/E to the electronics shelf",
         "\u2713 mq6-sensor: 1/1 connectors located",
         "    \u2013 mq6-sensor:header (electrical) (103, 144, 3) z- \u00d88 \u2192 PCBA gas-sensor input \u2014 VCC/GND/DO/AO (SIG)",
-        "\u2713 hopper-funnel: 1/1 connectors located"
+        "\u2713 asse1022-assembly: 3/3 connectors located"
       ],
       "active": true
     },
@@ -172,7 +173,7 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "97% (29/30)",
+      "value": "97% (30/31)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)",
@@ -193,7 +194,7 @@
       "value": "32% (19/59)",
       "target": "100%",
       "detail": [
-        "28 fluid + 3 refrigerant + 28 electrical; 19 routed \u2014 the fluid path waits on the deferred water deck and the manifold's remaining legs; the electrical runs on the components being held",
+        "28 fluid + 3 refrigerant + 28 electrical; 19 routed \u2014 the fluid path waits on the SeaFlo the ASSE 1022's discharge hose lands on, and on the manifold's remaining legs; the electrical runs on the components being held",
         "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7 \u2014 nearest 13.12 mm to source-select-assembly",
         "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 307.7 mm, 4 bends at R12.7 \u2014 nearest 5.13 mm to compressor-shroud",
         "\u2713 fluid-4: hopper-funnel.drain \u2192 source-select-assembly.V-B-I \u2014 \u00d86.35 \u00d7 151.2 mm, 4 bends at R12.0 \u2014 nearest 1.53 mm to fluid-27",
@@ -221,10 +222,10 @@
       "label": "Components in a printed holder fastened to the enclosure",
       "kind": "goal",
       "status": "warn",
-      "value": "23% (7/30)",
+      "value": "23% (7/31)",
       "target": "100%",
       "detail": [
-        "7 held (through-wall bodies + display); 23 loose internal parts unheld"
+        "7 held (through-wall bodies + display); 24 loose internal parts unheld"
       ],
       "active": false
     }
@@ -666,6 +667,51 @@
       "note": "4-pin 2.54 mm header at the PCB's \u2212X edge, pins down"
     },
     {
+      "component": "asse1022-assembly",
+      "name": "tube-in",
+      "kind": "fluid",
+      "pos": [
+        14.0,
+        157.5,
+        117.0
+      ],
+      "face": "x-",
+      "diam": 6.35,
+      "mates": "bulkhead-water tube-in (rear-panel tap-water inlet, via the customer's filter)",
+      "status": "ok",
+      "note": "JG PP010822E 1/4\" PTC, facing west at the riser column"
+    },
+    {
+      "component": "asse1022-assembly",
+      "name": "hose-out",
+      "kind": "fluid",
+      "pos": [
+        137.5,
+        157.5,
+        117.0
+      ],
+      "face": "x+",
+      "diam": 9.525,
+      "mates": "SeaFlo 22-series suction inlet (deferred) \u2014 V-A's tap point tees off this hose",
+      "status": "ok",
+      "note": "FFL38BARB38 3/8\" barb, facing east down the corridor; worm-gear clamp"
+    },
+    {
+      "component": "asse1022-assembly",
+      "name": "vent-tip",
+      "kind": "fluid",
+      "pos": [
+        82.0,
+        157.5,
+        40.0
+      ],
+      "face": "z-",
+      "diam": 6.35,
+      "mates": "atmosphere, over the drip pan + moisture plate (deferred) \u2014 never plumbed",
+      "status": "ok",
+      "note": "Sealproof 1/4\" ID clear-PVC stub, hanging \u2212Z; cut to length at the bench"
+    },
+    {
       "component": "hopper-funnel",
       "name": "drain",
       "kind": "fluid",
@@ -695,7 +741,7 @@
         1.0
       ],
       "diam": 6.35,
-      "mates": "tap-water chain (bulkhead-water \u2192 BFP, deferred) \u2014 segment 2 (pressurized; length-tolerant)",
+      "mates": "tap-water chain \u2014 segment 2, teed off the BFP's 3/8\" discharge hose ahead of the SeaFlo (pressurized; length-tolerant)",
       "status": "ok",
       "note": "JG elbow collet, 1/4\" tube, facing up at the aft-east station"
     },
@@ -1681,6 +1727,62 @@
     }
   ],
   "shapes": [
+    {
+      "component": "asse1022-assembly",
+      "boxes": [
+        [
+          50.0,
+          141.0,
+          90.0,
+          115.0,
+          174.0,
+          131.289
+        ],
+        [
+          115.0,
+          152.0,
+          111.5,
+          137.5,
+          163.0,
+          122.5
+        ],
+        [
+          101.0,
+          146.5,
+          107.474,
+          115.0,
+          168.5,
+          126.526
+        ],
+        [
+          77.235,
+          152.735,
+          40.0,
+          86.765,
+          162.265,
+          100.5
+        ],
+        [
+          14.0,
+          150.355,
+          108.75,
+          43.5,
+          164.645,
+          125.25
+        ],
+        [
+          32.5,
+          144.665,
+          105.885,
+          63.0,
+          170.335,
+          128.115
+        ]
+      ],
+      "fill": 0.3997,
+      "primitive": false,
+      "declared": "real"
+    },
     {
       "component": "bag-circuit-assembly",
       "boxes": [

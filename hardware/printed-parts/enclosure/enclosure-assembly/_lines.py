@@ -11,7 +11,11 @@ carry the authored legs, each measured off the faces that bound it:
   * the machine corridor — compressor back face to cold-core front face — with the
     valve-manifold tray stack in its upper band (z 164.8–296.1). The stack's central span stops
     at y 155.3, so a window stands open off the cold-core face at the evaporator ports; below
-    the stack's floor the corridor is open across its whole width. refrig-2 crosses at the floor.
+    the stack's floor the corridor runs the box's whole width, and its two halves are spoken
+    for: refrig-1 and refrig-2 cross the east half, and the ASSE 1022 assembly lies along the
+    west lane, its inlet facing west at the riser column and its 3/8" barb east into the
+    corridor. The band under that body stays open — the drip pan its vent weeps into, and
+    refrig-3's reach to the compressor's suction port, both live there.
   * the bag-fall corridor — the open Y behind the whole stack, aft face to cold-core front face
     (_contents `BAG_FALL_CORRIDOR`), running the box's full height and width. It is what stands
     the core off the stack, and the only lane that reaches either reservoir port low on that
