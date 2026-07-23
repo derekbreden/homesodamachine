@@ -198,9 +198,11 @@ FUNNEL_ROT = 0.0
 # V-A/V-B east, V-C/V-D west. Its east collets face UP, where both the lines
 # that feed them arrive from: the tap-water chain off the rear bulkhead into
 # V-A, and the hopper funnel's drain into V-B, a fall the height of the
-# stack. Pressed aft until its tall
-# walls' back faces meet the cold core's front face (the `near foam-assembly`
-# rule, a declared contact); the aft-station elbow columns set how far forward
+# stack. Its tall walls' back faces stand
+# BAG_FALL_CORRIDOR off the cold core's front face (the `clear foam-assembly`
+# rule): that open Y is the lane both bag lines fall down to the reservoir
+# ports low on the core, and the only one that reaches reservoir-A, which sits
+# behind the condenser. The aft-station elbow columns set how far forward
 # the back pieces' Y-seam machinery must stop (enclosure _dims y_elbows). In X
 # the full-width foam behind the stack pins both interior walls; the stack itself
 # rides a few millimetres inboard of each — its −X outlet-elbow column (and the
@@ -412,11 +414,17 @@ def tee_port(tee, port):
     return tuple(centre[i] + reach * axis[i] for i in range(3)), axis
 
 # Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it.
-# With the floor parts raised clear of the seam lip, the cold core pulls in to
-# just behind the condenser (the deepest front part — the tipped donor block's
-# CONDENSER_FACE_A now runs as depth), leaving only a small gap ahead of the
-# cold core.
-FRONT_DEPTH = 182.0
+# What sets it is not the deepest front part but the corridor behind them all:
+# both reservoir ports sit low on the cold core's front face, one of them
+# (reservoir-A) directly behind the tipped condenser, and the only lane down to
+# either runs in the open Y between the manifold stack's aft face and that
+# core face. So the core stands BAG_FALL_CORRIDOR clear of the stack rather
+# than pressed against it, and the front block is as deep as that leaves it.
+FRONT_DEPTH = 200.0
+# The corridor the bag lines fall down: one 1/4" line wide with a lane clearance
+# either side. The scorecard holds the source-select tray this far clear of the
+# cold core on the real solids, and _lines authors both falls in it.
+BAG_FALL_CORRIDOR = 5.65 + 6.35 + 5.65
 # The whole boss chain — head counterbore + pin body + heat-set + cap, less the
 # wall the counterbore sinks into — reaches this far inboard of a side wall, and
 # so does the corner post carrying it. The ±X walls therefore stand this far off
@@ -896,7 +904,22 @@ def _cyl(d, length, axis):
     return cq.Solid.makeCylinder(d / 2.0, length, cq.Vector(0, 0, 0), cq.Vector(*axis))
 
 
+_PLACED: dict | None = None
+
+
 def build():
+    """The pack as placed solids: {name: (solid, color)}.
+
+    Memoized for the life of the process. The port frame, the panel bodies, the enclosure's own
+    sizing, `_lines._frames()` and the scorecard each ask for the pack, and every one of them
+    would otherwise re-import the same STEPs; a rebuild is always a fresh process."""
+    global _PLACED
+    if _PLACED is None:
+        _PLACED = _build()
+    return _PLACED
+
+
+def _build():
     placed = {}
 
     foam = _load(FOAM_ASSEMBLY)
@@ -1008,12 +1031,14 @@ def build():
     # the band's front half (so the rear-wall port bodies hang in open air
     # behind it) — the power assembly at −X on the
     # C14's column, the PCBA beside it at +X, the DC distribution block
-    # behind the power row. The power row starts behind the CO2 top entry
-    # at (141.5, 199.8), which stays open to the tube dropping into it.
+    # behind the power row. Every station is a reach aft off FRONT_DEPTH — the
+    # shelf lies on the core's cap, so it rides the core rather than standing at
+    # a world Y of its own. The power row starts behind the CO2 top entry, which
+    # stays open to the tube dropping into it.
     shelf_z = foam_top + STACK_GAP
-    placed["power-tray"] = _at(_load(POWER_ASSEMBLY), 24.0, 212.0, shelf_z)
-    placed["pcba"]       = _at(_load(PCBA_ASSEMBLY), 185.0, 192.0, shelf_z)
-    placed["dc-dist"]    = _at(_load(DC_DIST), 24.0, 292.0, shelf_z)
+    placed["power-tray"] = _at(_load(POWER_ASSEMBLY), 24.0, FRONT_DEPTH + 30.0, shelf_z)
+    placed["pcba"]       = _at(_load(PCBA_ASSEMBLY), 185.0, FRONT_DEPTH + 10.0, shelf_z)
+    placed["dc-dist"]    = _at(_load(DC_DIST), 24.0, FRONT_DEPTH + 110.0, shelf_z)
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
 

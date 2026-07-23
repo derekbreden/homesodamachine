@@ -11,6 +11,7 @@ from pathlib import Path
 _here = Path(__file__).resolve().parent
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cold-core"))
+sys.path.insert(0, str(_here / "enclosure-assembly"))
 sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 
 from _cold_core_interface import (
@@ -18,6 +19,7 @@ from _cold_core_interface import (
     outer_shell_x_length,
     outer_shell_y_length,
 )
+from _contents import FRONT_DEPTH
 from docgen import substitute_md
 
 
@@ -25,12 +27,11 @@ from docgen import substitute_md
 # shell's footprint at the back.
 APPLIANCE_W = outer_shell_x_length
 
-# Zone D (front-bottom) lives in front of the foam shell; its depth (the
-# tipped condenser + the gap ahead of the foam) mirrors
-# enclosure-assembly/_contents.py FRONT_DEPTH. The foam shell seats against
-# the rear wall — the band above it carries the electronics shelf and the
-# port bodies — so front block + shell + two walls make the appliance depth.
-FRONT_DEPTH = 182.0
+# Zone D (front-bottom) lives in front of the foam shell; its depth is the pack's
+# own FRONT_DEPTH, read from enclosure-assembly/_contents.py so the drawings and
+# the pack cannot state different machines. The foam shell seats against the rear
+# wall — the band above it carries the electronics shelf and the port bodies — so
+# front block + shell + two walls make the appliance depth.
 WALL = 3.0
 APPLIANCE_D = FRONT_DEPTH + outer_shell_y_length + 2.0 * WALL
 
