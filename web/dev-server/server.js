@@ -79,7 +79,7 @@ async function rebuildStepAssembly(pyFilePath) {
         // HSM_EDITOR: this is the interactive editor. The generator, under it, writes a clashing
         // pack (flagged not-build-ready) instead of refusing — so the move you made is visible in
         // the reloaded geometry. A headless build still hard-stops on a clash.
-        env: { ...process.env, HSM_SKIP_THUMBNAILS: "1", HSM_EDITOR: "1" },
+        env: { ...process.env, HSM_SKIP_THUMBNAILS: "1", HSM_EDITOR: "1", HSM_BUILD_SOURCE: "dev-server (editor)" },
       });
       proc.stderr.setEncoding("utf8");
       proc.stderr.on("data", (c) => { stderr += c; if (stderr.length > 8000) stderr = stderr.slice(-8000); });
@@ -202,7 +202,7 @@ async function runScript(pyFilePath) {
         stdio: ["ignore", "ignore", "inherit"],
         signal: ac.signal,
         killSignal: "SIGKILL",
-        env: { ...process.env, HSM_SKIP_THUMBNAILS: "1" },
+        env: { ...process.env, HSM_SKIP_THUMBNAILS: "1", HSM_BUILD_SOURCE: "dev-server" },
       });
       console.log(`  ↪ PID: ${proc.pid}`);
       proc.on("close", resolve);

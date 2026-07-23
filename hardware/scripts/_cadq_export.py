@@ -38,6 +38,22 @@ import tempfile
 from collections import defaultdict
 from pathlib import Path
 
+# --- Build single-flight -----------------------------------------------------
+# Every generator imports this module, so taking the global CAD build lock here
+# covers all of them without editing 79 scripts. A newer build supersedes the one
+# already running, and both say so — see _run_lock.py. Taken at import, before any
+# geometry work, so the machine is freed as early as possible.
+from _run_lock import acquire as _acquire_build_lock
+
+if sys.argv and sys.argv[0].endswith(".py"):
+    _entry = Path(sys.argv[0]).resolve()
+    _root = Path(__file__).resolve().parent.parent.parent
+    try:
+        _label = str(_entry.relative_to(_root))
+    except ValueError:
+        _label = _entry.name
+    _acquire_build_lock(_label)
+
 # STEP files embed a wall-clock timestamp in the FILE_NAME header. Without
 # normalization, every run produces different bytes for identical source —
 # which churns git status and burns agent tokens chasing a non-change.
