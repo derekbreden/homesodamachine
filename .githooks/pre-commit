@@ -34,9 +34,11 @@ pcba="$root/hardware/pcb/pcba"
 enc="$root/hardware/printed-parts/enclosure/enclosure-assembly"
 py="$root/tools/cad-venv/bin/python"
 
-# The gates below run for minutes. They take the CAD build lock (clearing stray
-# rebuilds off the machine) but must not be superseded by one — a watcher rebuild
-# landing mid-commit would otherwise fail the commit. See hardware/scripts/_run_lock.py.
+# The board gates and the GLB rebuild below run CadQuery. They take the CAD build lock
+# (so a stray rebuild is cleared off the machine) but must not be superseded by one — a
+# watcher rebuild landing mid-commit would otherwise fail the commit, and a commit that
+# fails for a reason the author never caused is worse than a slow one.
+# See hardware/scripts/_run_lock.py.
 export HSM_BUILD_SOURCE="pre-commit"
 export HSM_BUILD_LOCK_PROTECT=1
 
