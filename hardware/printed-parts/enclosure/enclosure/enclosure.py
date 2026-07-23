@@ -95,6 +95,7 @@ sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "enc
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "hopper-funnel"))
 from _cadq_export import export_step, export_assembly
 from docgen import substitute_md, substitute_py_comments
+import _boxes
 import _contents
 import hopper_funnel as _funnel
 
@@ -461,7 +462,7 @@ def _seam_furniture_spans(inner, y_joint):
 
 def _dims():
     placed = _contents.build()
-    bbs = [s.BoundingBox() for s, _c in placed.values()]
+    bbs = [_boxes.boxed(s) for s, _c in placed.values()]
     cxmin = min(b.xmin for b in bbs); cxmax = max(b.xmax for b in bbs)
     cymin = min(b.ymin for b in bbs); cymax = max(b.ymax for b in bbs)
     czmin = min(b.zmin for b in bbs); czmax = max(b.zmax for b in bbs)
@@ -473,7 +474,7 @@ def _dims():
     # reach, every one of them seats at full section and the core seats flush
     # against them instead of against the wall. Read from _contents, which insets
     # wall-adjacent floor content by the same number.
-    cold = placed["foam-assembly"][0].BoundingBox()
+    cold = _boxes.boxed(placed["foam-assembly"][0])
     ix0 = min(cxmin - interior_clearance, cold.xmin - _contents.SIDE_RIB_INSET)
     ix1 = max(cxmax + interior_clearance, cold.xmax + _contents.SIDE_RIB_INSET)
     # The FRONT wall stands one wall off the pack, for the same kind of reason

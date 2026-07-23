@@ -131,6 +131,7 @@ for _p in (_hw / "scripts", _repo / "tools", _hw / "reference" / "beduan-solenoi
            _VM / "nozzle-gate-tray",
            _hw / "printed-parts" / "enclosure" / "enclosure"):    # `enclosure`, imported in placed_funnel
     sys.path.insert(0, str(_p))
+import _boxes                            # noqa: E402
 import bag_circuit_tray as _bag          # noqa: E402
 import source_select_tray as _src        # noqa: E402
 import nozzle_gate_tray as _noz          # noqa: E402
@@ -1050,7 +1051,7 @@ def _port_frame():
     """The shared port-band geometry: (x_lo, x_hi, y_wall) — the pack's inner
     walls the panel bodies seat against."""
     placed = build()
-    bbs = [s.BoundingBox() for s, _c in placed.values()]
+    bbs = [_boxes.boxed(s) for s, _c in placed.values()]
     x_lo = min(b.xmin for b in bbs)                # -X inner wall
     x_hi = max(b.xmax for b in bbs)                # +X inner wall
     # The back wall does NOT sit on the foam's back face — it stands one
@@ -1064,7 +1065,7 @@ def front_wall_y():
     FRONT_STANDOFF, the same rule enclosure.py sizes the box by. Read by
     panel_bodies() so the DERPIPE seats on the wall the box actually has."""
     placed = build()
-    return min(s.BoundingBox().ymin for s, _c in placed.values()) - FRONT_STANDOFF
+    return min(_boxes.boxed(s).ymin for s, _c in placed.values()) - FRONT_STANDOFF
 
 
 def back_wall_ports():
@@ -1111,13 +1112,27 @@ def front_wall_ports():
     return [("round", CO2_INLET_X, CO2_INLET_Z, CO2_HOLE_D)]
 
 
+_PANEL: dict | None = None
+
+
 def panel_bodies():
     """The connector bodies seated through the enclosure walls — four JG
     bulkhead unions and the C14 receptacle on the rear panel (the faucet
     umbilical, the tap-water inlet, the mains inlet), the DERPIPE CO2 inlet
     on the front panel. Their outboard ends stand proud of the walls, and
     enclosure.py sizes the box from build()'s bbox — so they place here and
-    enclosure_assembly.py adds them to the rendered assembly."""
+    enclosure_assembly.py adds them to the rendered assembly.
+
+    Memoized like build(): the port frame, `_lines._frames()` and the scorecard
+    each ask for these, and every one would otherwise reload the same fitting
+    STEPs and re-box the pack the wall inset reads."""
+    global _PANEL
+    if _PANEL is None:
+        _PANEL = _panel_bodies()
+    return _PANEL
+
+
+def _panel_bodies():
     _x_lo, _x_hi, y_wall = _port_frame()
     y_out = y_wall + WALL                          # rear-panel outer face
     bodies = {}
@@ -1146,6 +1161,9 @@ def panel_bodies():
 FUNNEL_STEP = _repo / "hardware" / "printed-parts" / "zone-c" / "hopper-funnel" / "hopper-funnel.step"
 
 
+_FUNNEL = None
+
+
 def placed_funnel():
     """The static funnel (hopper_funnel.py, its own frame: collar-centre origin, z 0 = brim
     underside) seated in the top-wall opening: rotated FUNNEL_ROT about its own Z, then
@@ -1153,9 +1171,16 @@ def placed_funnel():
     cuts the opening from the same placement, so funnel and hole cannot drift apart.
 
     The drain hangs off its spout, so segment 4 anchors on this body — `_lines._frames()`
-    carries it alongside the panel bodies. enclosure.py imports this module, so the import
-    back to it is deferred to call time."""
-    import enclosure
+    carries it alongside the panel bodies. Memoized like build(): `enclosure._dims()` boxes
+    the whole pack to size the wall, and the funnel and the routed drain both ask for it."""
+    global _FUNNEL
+    if _FUNNEL is None:
+        _FUNNEL = _placed_funnel()
+    return _FUNNEL
+
+
+def _placed_funnel():
+    import enclosure                                # imports this module: deferred to call time
 
     return (_load(FUNNEL_STEP)
             .rotate((0, 0, 0), (0, 0, 1), FUNNEL_ROT)
