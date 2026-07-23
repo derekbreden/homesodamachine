@@ -5,16 +5,19 @@ connection, its waypoints written against the ports and body faces that shape th
 
 Today: the sealed refrigerant loop (`scorecard.REFRIGERANT_SEGMENTS`) — the discharge and
 liquid legs authored, the suction leg unauthored — and the manifold's junction column, fully
-joined: both trays' west collets into the union tees hanging between them. Five corridors
+joined: both trays' west collets into the union tees hanging between them. Six corridors
 carry the authored legs, each measured off the faces that bound it:
 
-  * the machine corridor — 49 mm, compressor back face to cold-core front face — with the
-    valve-manifold tray stack in its upper band (z 164.8–296.1). The stack's tall walls back
-    on the foam face at the valve rows, but its central span stops at y 155.3, so a window
-    stands open off the cold-core face at the evaporator ports; below the stack's floor the
-    corridor is open across its whole width. refrig-2 crosses at the floor. fluid-25 steps in
-    over the cold core's crown and falls the box's full height on a lane off that face, then
-    runs west along the floor into the bag-B reservoir port.
+  * the machine corridor — compressor back face to cold-core front face — with the
+    valve-manifold tray stack in its upper band (z 164.8–296.1). The stack's central span stops
+    at y 155.3, so a window stands open off the cold-core face at the evaporator ports; below
+    the stack's floor the corridor is open across its whole width. refrig-2 crosses at the floor.
+  * the bag-fall corridor — the open Y behind the whole stack, aft face to cold-core front face
+    (_contents `BAG_FALL_CORRIDOR`), running the box's full height and width. It is what stands
+    the core off the stack, and the only lane that reaches either reservoir port low on that
+    face: reservoir-A's sits behind the condenser, which fills the machine corridor's east end
+    from the floor to z 154. fluid-25 steps aft into it off the bag tray's aft tee, falls its
+    full height, and runs west along the floor into the bag-B port.
   * the band across the middle of the machine — the source-select tray's crown for a floor, the
     pump-discharge dividers' undersides for a ceiling, and on the funnel drain's own y the slot
     between the nozzle-gate tray's front face and pump-b's outlet elbows. The crossing discharge
@@ -260,37 +263,42 @@ def _authored_runs() -> list:
         note="suction stem tee-y-f Y-F-3 → pump-a P-A-I, up the west end then east above the source tray"))
 
     # fluid-25 — bag B's line: the bag tray's aft tee down to its reservoir port low on the
-    # cold-core face. Aft off Y-H-2 over the cold core's crown, down to one clearance above it,
-    # forward onto the lane the core's own face sets, then the full height of the box to the floor,
-    # west along it to the port's station, and one straight push into the face. The step aft is as
-    # long as the forward jog needs to seat a tangent at each of its corners.
+    # cold-core face. Aft off Y-H-2 onto the fall corridor's lane, down its full height to the
+    # floor, west along the floor to the port's station, and one straight push into the face.
+    # The corridor is the open Y between the manifold stack's aft face and the core's front
+    # face (_contents BAG_FALL_CORRIDOR); the fall rides its centre, so it holds the same gap
+    # off the stack it leaves and the core it lands on.
     bag = f["bag-circuit-assembly"]
-    bod = bag.diam("Y-H-2")  # the line's own bore, off the collet it leaves
-    CROWN_CLEAR = 5.0        # what the step over the core's crown holds off it
-    LANE_CLEAR = 5.65        # what the fall holds off the core's face
     BBEND = 6.0              # 1/4" LLDPE
-    fall_y = foam.bb.ymin - LANE_CLEAR - bod / 2.0
-    jog = 3.0 * BBEND
+    fall_y = R.channel(src.bb.ymax, foam.bb.ymin)
     runs.append(route(
         "fluid-25", "bag-circuit-assembly.Y-H-2",
-        {"z": foam.bb.zmax + CROWN_CLEAR},          # down to just over the core's crown
-        {"y": fall_y},                              # forward onto the lane off the core's face
-        foam.z("reservoir-B"),                      # down the box's full height to the port's level
-        foam.x("reservoir-B"),                      # west along the floor to its station
+        foam.z("reservoir-B"),                      # down the corridor's full height to the floor
+        foam.x("reservoir-B"),                      # west along the floor to the port's station
         "foam-assembly.reservoir-B",
         kind="fluid", bend=BBEND, skew=DISCHARGE_SKEW,
-        stub=(fall_y + jog - bag.at("Y-H-2")[1], 0.0),
-        note="bag B: over the cold core's crown, forward onto its face's lane, then down the "
-             "box's full height to the reservoir port"))
+        stub=(fall_y - bag.at("Y-H-2")[1], 0.0),    # aft off the tee, onto the corridor's lane
+        note="bag B: aft off Y-H-2 onto the fall corridor, down its full height, west along the "
+             "floor into the reservoir port"))
 
-    # fluid-15 — bag A's port sits on that same face at the machine's other end, with the condenser
-    # standing in front of it.
+    # The corridor has to hold the line it was opened for, measured on the two faces that bound it.
+    corridor = foam.bb.ymin - src.bb.ymax
+    if corridor < contents.BAG_FALL_CORRIDOR:
+        raise ValueError(
+            f"fluid-15/25: the fall corridor is {corridor:.2f} mm — the manifold stack's aft face "
+            f"({src.bb.ymax:.2f}) to the cold core's front face ({foam.bb.ymin:.2f}) — inside the "
+            f"{contents.BAG_FALL_CORRIDOR:.2f} a 1/4\" line takes with a lane clearance either "
+            f"side. Move the core aft (_contents FRONT_DEPTH) or the stack forward.")
+
+    # fluid-15 — bag A's line down the same corridor to the port at the machine's other end. Its
+    # tee branch faces FORWARD, off the front of the tray into the pump row, and the corridor it
+    # has to reach is aft: what blocks it is the exit, not the bay.
     BLOCKED["fluid-15"] = (
-        f"reservoir-A stands behind the condenser: {foam.bb.ymin - cond.bb.ymax:.2f} mm from the "
-        f"block's back face to the cold core at the port's station, against the "
-        f"{foam.diam('reservoir-A') + 2 * scorecard.CLEARANCE_FLOOR:.2f} a 1/4\" line takes with a "
-        f"clearance floor either side. The compressor ahead of reservoir-B leaves "
-        f"{foam.bb.ymin - f['compressor-shroud'].bb.ymax:.4g} mm at that end.")
+        f"Y-E-2 leaves forward and the fall corridor is aft of it. Ahead of the branch tip stands "
+        f"{bag.at('Y-E-2')[1] - f['pump-a'].bb.ymax:.2f} mm to pump-a's back face, short of the "
+        f"exit stub the line takes, and rolling the branch the other way crosses Y-H's own run. "
+        f"The bay behind reservoir-A is now {foam.bb.ymin - cond.bb.ymax:.2f} mm, past the "
+        f"{foam.diam('reservoir-A') + 2 * scorecard.CLEARANCE_FLOOR:.2f} a 1/4\" line takes.")
 
     # The nozzle-outlet runs (segments 18/28). Each leaves its elbow's free collet straight UP out
     # of the +X wall pocket onto the deck, steps WEST into its lane, runs AFT down the lane over

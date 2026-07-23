@@ -42,14 +42,16 @@ from _cadq_export import export_step
 from docgen import substitute_md
 
 # --- funnel parameters ------------------------------------------------------
-# The collar is the zone-C top-wall frame inset by one `brim_margin` on every
-# side — equal all around, so the part reads centred in its opening from above.
-# The margin is twice the overhang: the brim edge lands on the MIDDLE of that
-# ring, leaving a full overhang's width of top wall beyond it on all four sides.
-# enclosure.py `_hopper_hole` owns the frame and asserts both.
-collar_w = 148.5        # collar footprint (X) — frame width less 2 × brim_margin
-collar_d = 147.0        # collar footprint (Y) — frame depth less 2 × brim_margin, so
-                        # plan area (not depth) carries the volume
+# The collar sits at least one `brim_margin` inside the zone-C top-wall frame on
+# every side. The margin is twice the overhang, so the brim edge lands on the
+# MIDDLE of that ring where the collar fills the frame, and a full overhang's
+# width of top wall remains beyond it in every case. enclosure.py `_hopper_hole`
+# owns the frame and asserts it; the funnel takes the front of the Y span, and a
+# deeper box adds its top wall behind rather than growing the part.
+collar_w = 148.5        # collar footprint (X) — the frame's width less 2 × brim_margin
+collar_d = 147.0        # collar footprint (Y) — capped by the ramp check below, which
+                        # holds the Y half-run under the X one; plan area (not depth)
+                        # carries the volume
 brim_margin = 14.0      # top-wall left between the collar edge and the frame, all around
 brim_overhang = 7.0     # brim flange reach past the collar — what actually catches the
                         # top wall and holds the funnel out of the box, all around
