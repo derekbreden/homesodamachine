@@ -3,7 +3,7 @@
   "placed": 37,
   "located": 83,
   "shaped": 97,
-  "routed": 31,
+  "routed": 32,
   "held": 23,
   "checks": [
     {
@@ -49,7 +49,6 @@
         "pump-b \u2014 y-d: 1.05 mm",
         "bag-circuit-assembly \u2014 tee-y-c: 1.25 mm",
         "source-select-assembly \u2014 nozzle-gate-assembly: 1.30 mm",
-        "bag-circuit-assembly \u2014 pump-a: 1.49 mm",
         "bag-circuit-assembly \u2014 elbow-bag-y-d: 2.00 mm",
         "bag-circuit-assembly \u2014 elbow-bag-y-g: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-y-d: 2.00 mm",
@@ -109,7 +108,7 @@
         "\u2713 hopper-funnel: z+ 6.0 mm",
         "\u2713 bag-circuit-assembly: near source-select-assembly 0.0 clear compressor-shroud 71.6 clear condenser+fan 83.1 mm",
         "\u2713 nozzle-gate-assembly: near source-select-assembly 1.3 x+ 29.4 mm",
-        "\u2713 pump-a: near bag-circuit-assembly 1.5 clear hopper-funnel 22.0 mm",
+        "\u2713 pump-a: near bag-circuit-assembly 9.3 clear hopper-funnel 22.0 mm",
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
         "\u2713 tee-y-c: near source-select-assembly 14.5 mm",
         "\u2713 tee-y-f: near source-select-assembly 8.1 mm",
@@ -191,10 +190,10 @@
       "label": "Connections modeled as real 3D paths (fluid + refrigerant + electrical)",
       "kind": "goal",
       "status": "warn",
-      "value": "31% (18/59)",
+      "value": "32% (19/59)",
       "target": "100%",
       "detail": [
-        "28 fluid + 3 refrigerant + 28 electrical; 18 routed \u2014 the fluid path waits on the deferred water deck and the manifold's remaining legs; the electrical runs on the components being held",
+        "28 fluid + 3 refrigerant + 28 electrical; 19 routed \u2014 the fluid path waits on the deferred water deck and the manifold's remaining legs; the electrical runs on the components being held",
         "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7 \u2014 nearest 13.12 mm to source-select-assembly",
         "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 307.7 mm, 4 bends at R12.7 \u2014 nearest 5.13 mm to compressor-shroud",
         "\u2713 fluid-4: hopper-funnel.drain \u2192 source-select-assembly.V-B-I \u2014 \u00d86.35 \u00d7 151.2 mm, 4 bends at R12.0 \u2014 nearest 1.53 mm to fluid-27",
@@ -210,10 +209,10 @@
         "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 35.4 mm, 2 bends at R8.0 \u2014 nearest 15.09 mm to fluid-11",
         "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 252.4 mm, 8 bends at R6.0 \u2014 nearest 1.94 mm to y-d",
         "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 141.8 mm, 5 bends at R10.0 \u2014 nearest 2.69 mm to bag-circuit-assembly",
-        "\u2713 fluid-25: bag-circuit-assembly.Y-H-2 \u2192 foam-assembly.reservoir-B \u2014 \u00d86.35 \u00d7 290.1 mm, 2 bends at R6.0 \u2014 nearest 7.59 mm to source-select-assembly",
+        "\u2713 fluid-15: bag-circuit-assembly.Y-E-2 \u2192 foam-assembly.reservoir-A \u2014 \u00d86.35 \u00d7 368.0 mm, 3 bends at R6.0 \u2014 nearest 8.78 mm to source-select-assembly",
+        "\u2713 fluid-25: bag-circuit-assembly.Y-H-2 \u2192 foam-assembly.reservoir-B \u2014 \u00d86.35 \u00d7 295.4 mm, 3 bends at R6.0 \u2014 nearest 5.83 mm to source-select-assembly",
         "\u2713 fluid-18: elbow-noz-a.free \u2192 bulkhead-flavor-a.tube-in \u2014 \u00d86.35 \u00d7 291.2 mm, 4 bends at R7.0 \u2014 nearest 5.65 mm to fluid-28",
-        "\u2713 fluid-28: elbow-noz-b.free \u2192 bulkhead-flavor-b.tube-in \u2014 \u00d86.35 \u00d7 355.4 mm, 4 bends at R7.0 \u2014 nearest 5.65 mm to fluid-18",
-        "\u2717 fluid-15: BLOCKED \u2014 Y-E-2 is squared forward and the fall corridor is aft of it. Ahead of the branch tip stands 1.49 mm to pump-a's back face, short of the exit stub the line takes. Rolling the branch about its own run is the unexplored move \u2014 Y-H's is aimed that way (bag_circuit_tray `bag_fall_aim`) and falls in one straight leg. The bay behind reservoir-A is 22.00 mm, past the 8.35 a 1/4\" line takes."
+        "\u2713 fluid-28: elbow-noz-b.free \u2192 bulkhead-flavor-b.tube-in \u2014 \u00d86.35 \u00d7 355.4 mm, 4 bends at R7.0 \u2014 nearest 5.65 mm to fluid-18"
       ],
       "active": false
     },
@@ -839,18 +838,18 @@
       "kind": "fluid",
       "pos": [
         110.144,
-        98.359,
-        273.1
+        129.058,
+        256.083
       ],
       "face": [
         -0.0,
-        -1.0,
-        -6.123233995736766e-17
+        0.5299192642332049,
+        -0.848048096156426
       ],
       "diam": 6.35,
       "mates": "Bag A port \u2014 foam-assembly reservoir-A line, segment 15",
       "status": "ok",
-      "note": "Tee branch collet, 1/4\" tube, forward through the hug-wall notch"
+      "note": "Tee branch collet, 1/4\" tube, rolled to aim down the fall to reservoir A"
     },
     {
       "component": "bag-circuit-assembly",
@@ -858,13 +857,13 @@
       "kind": "fluid",
       "pos": [
         110.144,
-        155.87,
-        253.29
+        163.308,
+        256.083
       ],
       "face": [
         -0.0,
-        0.15922473595015468,
-        -0.9872423630809223
+        0.5299192642332049,
+        -0.848048096156426
       ],
       "diam": 6.35,
       "mates": "Bag B port \u2014 foam-assembly reservoir-B line, segment 25",
@@ -1687,19 +1686,19 @@
       "boxes": [
         [
           90.078,
-          98.359,
-          266.242,
+          111.567,
+          253.244,
           130.21,
-          125.283,
+          133.716,
           279.958
         ],
         [
-          130.214,
-          135.55,
-          227.8,
-          189.214,
-          169.8,
-          284.4
+          41.774,
+          98.3,
+          226.1,
+          178.514,
+          172.8,
+          287.4
         ],
         [
           4.148,
@@ -1726,22 +1725,6 @@
           284.4
         ],
         [
-          41.774,
-          98.3,
-          226.1,
-          178.514,
-          172.8,
-          287.4
-        ],
-        [
-          90.078,
-          145.817,
-          252.453,
-          130.21,
-          162.104,
-          279.958
-        ],
-        [
           31.074,
           135.55,
           227.8,
@@ -1750,15 +1733,31 @@
           284.4
         ],
         [
+          90.078,
+          145.817,
+          253.244,
+          130.21,
+          167.966,
+          279.958
+        ],
+        [
           31.074,
           101.3,
           227.8,
           90.074,
           135.55,
           284.4
+        ],
+        [
+          130.214,
+          135.55,
+          227.8,
+          189.214,
+          169.8,
+          284.4
         ]
       ],
-      "fill": 0.2768,
+      "fill": 0.2739,
       "primitive": false,
       "declared": "real"
     },

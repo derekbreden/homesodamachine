@@ -16,9 +16,9 @@ carry the authored legs, each measured off the faces that bound it:
     (_contents `BAG_FALL_CORRIDOR`), running the box's full height and width. It is what stands
     the core off the stack, and the only lane that reaches either reservoir port low on that
     face: reservoir-A's sits behind the condenser, which fills the machine corridor's east end
-    from the floor to z 154. fluid-25 leans into it off the bag tray's aft tee — whose branch is
-    rolled to aim down the fall — in one straight drop, then runs west along the floor into the
-    bag-B port.
+    from the floor to z 154. Both bag lines fall down it as a parallel pair (fluid-15/25) — each
+    bag tee rolled to the one `bag_fall_aim`, its branch aimed into the corridor, turning along
+    it to its own reservoir's end (bag A east, bag B west) and dropping straight into the port.
   * the band across the middle of the machine — the source-select tray's crown for a floor, the
     pump-discharge dividers' undersides for a ceiling, and on the funnel drain's own y the slot
     between the nozzle-gate tray's front face and pump-b's outlet elbows. The crossing discharge
@@ -57,6 +57,7 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 sys.path.insert(0, str(_here.parent))
 
+import _boxes
 import _contents as contents
 import _routing as R
 from _routing import route
@@ -263,55 +264,52 @@ def _authored_runs() -> list:
         kind="fluid", bend=10.0, skew=DISCHARGE_SKEW, lead=SLEAD,
         note="suction stem tee-y-f Y-F-3 → pump-a P-A-I, up the west end then east above the source tray"))
 
-    # fluid-25 — bag B's line: the bag tray's aft tee down to its reservoir port low on the
-    # cold-core face. Y-H's fitting is ROLLED about its own run to aim its branch down this
-    # fall (bag_circuit_tray `bag_fall_aim`) rather than squared off the tray, so the line
-    # leaves the collet ALREADY FALLING and takes no bend at the top: one straight lean from
-    # the branch to the port's height, west along the floor to its station, and a straight
-    # push into the face. It leans because a Tee's branch can only aim in the plane square to
-    # its run, which here is the YZ plane — the X the port also needs is the one move the
-    # branch cannot make, and so the one corner the fall cannot avoid.
-    #   The lean threads the open air behind the source tray, then arrives on the fall
-    # corridor — the open Y between the manifold stack's aft face and the core's front face
-    # (_contents BAG_FALL_CORRIDOR) — landing on its lane at the port's own height.
+    # fluid-15 / fluid-25 — the two bag lines, a cooperative PAIR down the one corridor open
+    # behind the whole stack: the open Y between the manifold stack's aft face and the core's
+    # front face (_contents BAG_FALL_CORRIDOR). Both bag Tees roll to the SAME aft angle
+    # (bag_circuit_tray `bag_fall_aim`), so their branches leave the stack PARALLEL and never
+    # cross, though both run centres sit on one X. Each branch aims down into the corridor,
+    # turns along it to its own reservoir's end — bag A east, bag B west — and drops straight
+    # into the port. The forward Tee (Y-E) cannot fall clear in one lean the way a lone aft
+    # branch could: a shallow branch off it drives through the source stack under the tray, and
+    # a straight drop off it would cut across the aft branch's line. The shared steep angle
+    # answers both — threading the source tray's aft window and holding the pair parallel.
     bag = f["bag-circuit-assembly"]
     BBEND = 6.0              # 1/4" LLDPE
     fall_y = R.channel(src.bb.ymax, foam.bb.ymin)
-    res = foam.at("reservoir-B")
+    baglines = (("fluid-15", "Y-E", "reservoir-A", "east"),
+                ("fluid-25", "Y-H", "reservoir-B", "west"))
 
-    # The tray's STEP bakes that roll in, so it cannot be solved here — re-solve the aim
-    # against the live corridor and port instead, and refuse a pose that no longer lands on
-    # the lane. Follow the branch's own axis down to the port's height: that is where the
-    # straight fall puts the line, and it is the first waypoint below.
-    tip, n = bag.at("Y-H-2"), bag.normal("Y-H-2")
-    drop = tip[2] - res[2]
-    want = -math.degrees(math.atan2(fall_y - tip[1], drop))   # the roll that does land on the lane
-    # The descent must dominate for the branch to start a fall at all — inside 45° of vertical.
-    # Outside that the landing arithmetic below divides by a vanishing descent and reports nonsense.
-    if -n[2] < abs(n[1]):
+    # The tray's STEP bakes each roll in, so re-derive both branches from the live solids and
+    # refuse a pose that no longer falls into the corridor above its reservoir, or that breaks
+    # the pair's parallel. The exact clearance to the source stack each branch threads — whose
+    # aft window is not a plane this can test against — is held by the scorecard (lines-clear,
+    # clearance-floor); here we gate only the aim.
+    aim = {}
+    for cid, tee, port, _side in baglines:
+        tip, n, res = bag.at(f"{tee}-2"), bag.normal(f"{tee}-2"), foam.at(port)
+        if n[1] <= 0.0 or -n[2] < abs(n[1]):
+            raise ValueError(
+                f"{cid}: {tee}'s branch leaves along {tuple(round(v, 3) for v in n)} — to feed the "
+                f"fall it must aim AFT (+Y, into the corridor) and fall (within 45° of vertical). "
+                f"Roll it into the fall: bag_circuit_tray `bag_fall_aim`.")
+        entry_z = tip[2] + n[2] * (fall_y - tip[1]) / n[1]     # where the branch axis meets the lane
+        if entry_z <= res[2]:
+            raise ValueError(
+                f"{cid}: {tee}'s branch reaches the corridor lane (y {fall_y:.1f}) at z {entry_z:.1f}, "
+                f"at or below {port} (z {res[2]:.1f}) — too low to drop into the port. Roll it "
+                f"steeper: bag_circuit_tray `bag_fall_aim`.")
+        aim[tee] = (tip, n, res, entry_z)
+    # Parallel, or the two branches cross in the shared X plane. Both carry the one `bag_fall_aim`,
+    # so this holds by construction; it fires only if the Tees are given different rolls.
+    nE, nH = aim["Y-E"][1], aim["Y-H"][1]
+    if sum(nE[i] * nH[i] for i in range(3)) < math.cos(math.radians(1.0)):
         raise ValueError(
-            f"fluid-25: Y-H's branch does not fall — it leaves along "
-            f"{tuple(round(v, 3) for v in n)}, more than 45° off vertical, so no straight descent "
-            f"comes off it and the line would need a bend at the tee just to start down. Roll it "
-            f"to aim down the fall: bag_circuit_tray `bag_fall_aim` = {want:.4f}.")
-    lands = tip[1] + n[1] * drop / -n[2]
-    if abs(lands - fall_y) > BBEND:
-        raise ValueError(
-            f"fluid-25: Y-H's branch is aimed {math.degrees(math.atan2(n[1], -n[2])):.2f}° off "
-            f"vertical, which puts the fall on y {lands:.2f} at the reservoir's height — off the "
-            f"fall corridor's lane at {fall_y:.2f} by more than the {BBEND:.1f} mm bend radius. "
-            f"Re-aim bag_circuit_tray `bag_fall_aim` at {want:.4f}.")
+            f"fluid-15/25: the two bag branches are not parallel (Y-E {tuple(round(v, 3) for v in nE)}, "
+            f"Y-H {tuple(round(v, 3) for v in nH)}) — they would cross in their shared X plane. Give "
+            f"both Tees the one bag_circuit_tray `bag_fall_aim`.")
 
-    runs.append(R.bent(
-        "fluid-25", "bag-circuit-assembly.Y-H-2",
-        (tip[0], lands, res[2]),                    # the fall: one straight lean off the branch
-        (res[0], lands, res[2]),                    # west along the floor to the port's station
-        "foam-assembly.reservoir-B",
-        kind="fluid", bend=BBEND, skew=DISCHARGE_SKEW,
-        note="bag B: one straight fall off Y-H-2's aimed branch to the reservoir's height, west "
-             "along the corridor floor, and straight into the port"))
-
-    # The corridor has to hold the line it was opened for, measured on the two faces that bound it.
+    # The corridor has to hold the lines it was opened for, measured on the two faces that bound it.
     corridor = foam.bb.ymin - src.bb.ymax
     if corridor < contents.BAG_FALL_CORRIDOR:
         raise ValueError(
@@ -320,19 +318,17 @@ def _authored_runs() -> list:
             f"{contents.BAG_FALL_CORRIDOR:.2f} a 1/4\" line takes with a lane clearance either "
             f"side. Move the core aft (_contents FRONT_DEPTH) or the stack forward.")
 
-    # fluid-15 — bag A's line down the same corridor to the port at the machine's other end. What
-    # blocks it is the exit, not the bay: Y-E is still SQUARED forward off the front of the tray
-    # into the pump row, while the corridor it has to reach is aft. Y-H had the same complaint and
-    # its answer was to stop squaring the fitting and roll it — the branch aims anywhere in the
-    # plane square to its run, and `bag_fall_aim` points Y-H's straight down its own fall. That
-    # roll is unsolved for Y-E, not ruled out: it is the move to try before moving any body.
-    BLOCKED["fluid-15"] = (
-        f"Y-E-2 is squared forward and the fall corridor is aft of it. Ahead of the branch tip "
-        f"stands {bag.at('Y-E-2')[1] - f['pump-a'].bb.ymax:.2f} mm to pump-a's back face, short of "
-        f"the exit stub the line takes. Rolling the branch about its own run is the unexplored "
-        f"move — Y-H's is aimed that way (bag_circuit_tray `bag_fall_aim`) and falls in one "
-        f"straight leg. The bay behind reservoir-A is {foam.bb.ymin - cond.bb.ymax:.2f} mm, past "
-        f"the {foam.diam('reservoir-A') + 2 * scorecard.CLEARANCE_FLOOR:.2f} a 1/4\" line takes.")
+    for cid, tee, port, side in baglines:
+        tip, n, res, entry_z = aim[tee]
+        runs.append(R.bent(
+            cid, f"bag-circuit-assembly.{tee}-2",
+            (tip[0], fall_y, entry_z),          # into the corridor, on the branch's own axis
+            (res[0], fall_y, entry_z),          # along the corridor to the reservoir's end
+            (res[0], fall_y, res[2]),           # straight down the corridor to the port's height
+            f"foam-assembly.{port}",
+            kind="fluid", bend=BBEND, skew=DISCHARGE_SKEW,
+            note=f"bag {port[-1]}: branch aimed down into the fall corridor, {side} along it to "
+                 f"the reservoir's end, straight down, and into the port"))
 
     # The nozzle-outlet runs (segments 18/28). Each leaves its elbow's free collet straight UP out
     # of the +X wall pocket onto the deck, steps WEST into its lane, runs AFT down the lane over
@@ -413,17 +409,36 @@ def routed_ids() -> set:
 
 def clearances(solids: dict) -> list:
     """Each run's tightest gap to a part it does not terminate on, or to another run. The two
-    components a run joins are skipped. Reported, not gated. One exact BRepExtrema query per
-    (run, body) pair, several hundred pairs; `HSM_SKIP_CLEARANCES` drops the report."""
+    components a run joins are skipped. Reported, not gated; `HSM_SKIP_CLEARANCES` drops it.
+
+    The nearest is found by a box-sorted branch-and-bound. A box gap is a lower bound on the exact
+    solid gap — a box encloses its solid, so two boxes are at least as close as the solids inside
+    them — so candidates are ordered by box gap and, once one's box gap exceeds the tightest exact
+    gap found, every farther candidate is skipped: its exact gap cannot be smaller. The reported
+    number is still the exact BRepExtrema distance to the true nearest; only the queries that
+    provably cannot win are dropped, several hundred of them per build. The cached boxes make the
+    ordering nearly free. PRUNE_SLOP guards the bound against floating-point on a near-flush pair."""
     import scorecard
 
+    PRUNE_SLOP = 1e-6                                   # mm; a box gap this much past best still queries
     runs = build_runs()
     tubes = {r.id: R.tube(r) for r in runs}
+    boxes = {n: _boxes.boxed(s) for n, s in solids.items()}
+    tube_boxes = {rid: _boxes.boxed(t) for rid, t in tubes.items()}
+
     out = []
     for r in runs:
-        t = tubes[r.id]
+        t, tb = tubes[r.id], tube_boxes[r.id]
         ends = {r.frm.split(".")[0], r.to.split(".")[0]}
-        gaps = [(scorecard._solid_gap(t, s), n) for n, s in solids.items() if n not in ends]
-        gaps += [(scorecard._solid_gap(t, tubes[o]), o) for o in tubes if o != r.id]
-        out.append((r, min(gaps) if gaps else None))
+        cand = [(scorecard._bbox_gap(tb, boxes[n]), n, solids[n]) for n in solids if n not in ends]
+        cand += [(scorecard._bbox_gap(tb, tube_boxes[o]), o, tubes[o]) for o in tubes if o != r.id]
+        cand.sort(key=lambda c: c[0])
+        best = None                                    # (exact gap, name) of the nearest so far
+        for bgap, n, s in cand:
+            if best is not None and bgap > best[0] + PRUNE_SLOP:
+                break                                  # lower bound past best: no farther body can win
+            g = scorecard._solid_gap(t, s)
+            if best is None or (g, n) < best:
+                best = (g, n)
+        out.append((r, best))
     return out
