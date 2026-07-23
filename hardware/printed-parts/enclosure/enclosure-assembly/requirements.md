@@ -233,12 +233,18 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   row's front faces, and the ±X columns beside it. The SeaFlo's true body is 80 × 72 × 187
   (the banked reference geometry), larger than the placeholder it last packed as, and
   none of those three volumes takes it — it needs a lane of its own found for it.
-  The ASSE 1022 assembly is placed: it lies along X in the machine corridor's west lane,
-  the only span in the box that is at once long enough (123.5 mm), tall enough (41.3 mm —
-  the band under the pump row is 37.5–40) and wider than its 33 mm. Its vent hangs over
-  open cabinet floor, which is where the drip pan and its moisture plate go; the band
-  beneath its body is held open for them and for refrig-3's reach to the compressor's
-  suction port.
+  The ASSE 1022 assembly is placed, provisionally: it lies along X in the machine corridor's
+  west lane, which within the **front column below the tray stack** is the only span at once
+  long enough (123.5 mm), tall enough (41.3 mm — the band under the pump row is 37.5–40) and
+  wider than its 33 mm. That is not a claim about the box. The service bay above the cold
+  core takes the body in either orientation and is nearly empty; what it lacks is vent reach,
+  since its floor is the foam-cap top at z 253.4 and the stub would land on the core. The
+  lane chosen is the one where the vent drips straight into a pan on the cabinet floor, as
+  [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2 describes; the band
+  beneath its body is held open for that pan and for refrig-3's reach to the compressor's
+  suction port. Both the placement and the trade behind it should be expected to move: the
+  pack is sparse, and the chain's envelope is the reference model's spec-sheet arithmetic
+  rather than the four acquired parts measured.
 
 **Deferred — behind the focus:**
 
