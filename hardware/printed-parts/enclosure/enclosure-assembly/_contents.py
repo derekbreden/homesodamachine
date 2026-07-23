@@ -218,9 +218,11 @@ SRC_SEL_POS = (143.0, 135.55, 167.8)
 # slide puts its west elbow column on the source tray's: the two trays' elbow
 # corners disagree by the junction aim's `junction_dx`, because each west
 # elbow is rolled off its port axis to face the other (bag_circuit_tray
-# `_junction_aim`). Y-H's bag branch faces aft toward the cold core, Y-E's
-# forward; the floor stratum below stays open under the stack — the
-# under-stack corridor.
+# `_junction_aim`). Y-H's bag branch is rolled about its own run to aim DOWN the
+# fall it feeds (bag_circuit_tray `bag_fall_aim`), so it leaves the tray near
+# vertical rather than sideways, clear of the hug walls; Y-E's still squares
+# forward through its notch. The floor stratum below stays open under the stack —
+# the under-stack corridor.
 _SRC_CORNER_X = _src.valve_x + (_bag.port_half + _bag.elbow_reach) * (_src._ox / _src._on)
 _BAG_CORNER_X = _bag.valve_x + _bag.port_half + _bag.elbow_reach
 JUNCTION_SLIDE = _SRC_CORNER_X - _BAG_CORNER_X - _bag.junction_dx
@@ -966,8 +968,9 @@ def _build():
     placed["source-select-assembly"] = _rot(_load(SOURCE_SELECT), (0, 0, 1), 180.0).translate(SRC_SEL_POS)
 
     # Above it, the bag-circuit assembly (Tray 2 — V-E/V-F/V-H/V-I + Tees
-    # Y-E/Y-H on the dog-bone tray, bag branches outward along ±Y through the
-    # hug-wall notches) rides INVERTED: rotated 180° about Y, which puts each
+    # Y-E/Y-H on the dog-bone tray, each bag branch rolled about its own run —
+    # Y-E out through its hug-wall notch, Y-H aimed down its fall) rides
+    # INVERTED: rotated 180° about Y, which puts each
     # pump-inlet Tee's pair of valve ports on one side (V-E/V-H west, in the
     # junction column over the source west bank they tee with), turns those
     # west collets DOWN into the column and the east collets UP toward the

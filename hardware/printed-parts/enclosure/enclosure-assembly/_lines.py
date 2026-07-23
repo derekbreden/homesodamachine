@@ -16,8 +16,9 @@ carry the authored legs, each measured off the faces that bound it:
     (_contents `BAG_FALL_CORRIDOR`), running the box's full height and width. It is what stands
     the core off the stack, and the only lane that reaches either reservoir port low on that
     face: reservoir-A's sits behind the condenser, which fills the machine corridor's east end
-    from the floor to z 154. fluid-25 steps aft into it off the bag tray's aft tee, falls its
-    full height, and runs west along the floor into the bag-B port.
+    from the floor to z 154. fluid-25 leans into it off the bag tray's aft tee — whose branch is
+    rolled to aim down the fall — in one straight drop, then runs west along the floor into the
+    bag-B port.
   * the band across the middle of the machine — the source-select tray's crown for a floor, the
     pump-discharge dividers' undersides for a ceiling, and on the funnel drain's own y the slot
     between the nozzle-gate tray's front face and pump-b's outlet elbows. The crossing discharge
@@ -263,23 +264,52 @@ def _authored_runs() -> list:
         note="suction stem tee-y-f Y-F-3 → pump-a P-A-I, up the west end then east above the source tray"))
 
     # fluid-25 — bag B's line: the bag tray's aft tee down to its reservoir port low on the
-    # cold-core face. Aft off Y-H-2 onto the fall corridor's lane, down its full height to the
-    # floor, west along the floor to the port's station, and one straight push into the face.
-    # The corridor is the open Y between the manifold stack's aft face and the core's front
-    # face (_contents BAG_FALL_CORRIDOR); the fall rides its centre, so it holds the same gap
-    # off the stack it leaves and the core it lands on.
+    # cold-core face. Y-H's fitting is ROLLED about its own run to aim its branch down this
+    # fall (bag_circuit_tray `bag_fall_aim`) rather than squared off the tray, so the line
+    # leaves the collet ALREADY FALLING and takes no bend at the top: one straight lean from
+    # the branch to the port's height, west along the floor to its station, and a straight
+    # push into the face. It leans because a Tee's branch can only aim in the plane square to
+    # its run, which here is the YZ plane — the X the port also needs is the one move the
+    # branch cannot make, and so the one corner the fall cannot avoid.
+    #   The lean threads the open air behind the source tray, then arrives on the fall
+    # corridor — the open Y between the manifold stack's aft face and the core's front face
+    # (_contents BAG_FALL_CORRIDOR) — landing on its lane at the port's own height.
     bag = f["bag-circuit-assembly"]
     BBEND = 6.0              # 1/4" LLDPE
     fall_y = R.channel(src.bb.ymax, foam.bb.ymin)
-    runs.append(route(
+    res = foam.at("reservoir-B")
+
+    # The tray's STEP bakes that roll in, so it cannot be solved here — re-solve the aim
+    # against the live corridor and port instead, and refuse a pose that no longer lands on
+    # the lane. Follow the branch's own axis down to the port's height: that is where the
+    # straight fall puts the line, and it is the first waypoint below.
+    tip, n = bag.at("Y-H-2"), bag.normal("Y-H-2")
+    drop = tip[2] - res[2]
+    want = -math.degrees(math.atan2(fall_y - tip[1], drop))   # the roll that does land on the lane
+    # The descent must dominate for the branch to start a fall at all — inside 45° of vertical.
+    # Outside that the landing arithmetic below divides by a vanishing descent and reports nonsense.
+    if -n[2] < abs(n[1]):
+        raise ValueError(
+            f"fluid-25: Y-H's branch does not fall — it leaves along "
+            f"{tuple(round(v, 3) for v in n)}, more than 45° off vertical, so no straight descent "
+            f"comes off it and the line would need a bend at the tee just to start down. Roll it "
+            f"to aim down the fall: bag_circuit_tray `bag_fall_aim` = {want:.4f}.")
+    lands = tip[1] + n[1] * drop / -n[2]
+    if abs(lands - fall_y) > BBEND:
+        raise ValueError(
+            f"fluid-25: Y-H's branch is aimed {math.degrees(math.atan2(n[1], -n[2])):.2f}° off "
+            f"vertical, which puts the fall on y {lands:.2f} at the reservoir's height — off the "
+            f"fall corridor's lane at {fall_y:.2f} by more than the {BBEND:.1f} mm bend radius. "
+            f"Re-aim bag_circuit_tray `bag_fall_aim` at {want:.4f}.")
+
+    runs.append(R.bent(
         "fluid-25", "bag-circuit-assembly.Y-H-2",
-        foam.z("reservoir-B"),                      # down the corridor's full height to the floor
-        foam.x("reservoir-B"),                      # west along the floor to the port's station
+        (tip[0], lands, res[2]),                    # the fall: one straight lean off the branch
+        (res[0], lands, res[2]),                    # west along the floor to the port's station
         "foam-assembly.reservoir-B",
         kind="fluid", bend=BBEND, skew=DISCHARGE_SKEW,
-        stub=(fall_y - bag.at("Y-H-2")[1], 0.0),    # aft off the tee, onto the corridor's lane
-        note="bag B: aft off Y-H-2 onto the fall corridor, down its full height, west along the "
-             "floor into the reservoir port"))
+        note="bag B: one straight fall off Y-H-2's aimed branch to the reservoir's height, west "
+             "along the corridor floor, and straight into the port"))
 
     # The corridor has to hold the line it was opened for, measured on the two faces that bound it.
     corridor = foam.bb.ymin - src.bb.ymax
@@ -290,15 +320,19 @@ def _authored_runs() -> list:
             f"{contents.BAG_FALL_CORRIDOR:.2f} a 1/4\" line takes with a lane clearance either "
             f"side. Move the core aft (_contents FRONT_DEPTH) or the stack forward.")
 
-    # fluid-15 — bag A's line down the same corridor to the port at the machine's other end. Its
-    # tee branch faces FORWARD, off the front of the tray into the pump row, and the corridor it
-    # has to reach is aft: what blocks it is the exit, not the bay.
+    # fluid-15 — bag A's line down the same corridor to the port at the machine's other end. What
+    # blocks it is the exit, not the bay: Y-E is still SQUARED forward off the front of the tray
+    # into the pump row, while the corridor it has to reach is aft. Y-H had the same complaint and
+    # its answer was to stop squaring the fitting and roll it — the branch aims anywhere in the
+    # plane square to its run, and `bag_fall_aim` points Y-H's straight down its own fall. That
+    # roll is unsolved for Y-E, not ruled out: it is the move to try before moving any body.
     BLOCKED["fluid-15"] = (
-        f"Y-E-2 leaves forward and the fall corridor is aft of it. Ahead of the branch tip stands "
-        f"{bag.at('Y-E-2')[1] - f['pump-a'].bb.ymax:.2f} mm to pump-a's back face, short of the "
-        f"exit stub the line takes, and rolling the branch the other way crosses Y-H's own run. "
-        f"The bay behind reservoir-A is now {foam.bb.ymin - cond.bb.ymax:.2f} mm, past the "
-        f"{foam.diam('reservoir-A') + 2 * scorecard.CLEARANCE_FLOOR:.2f} a 1/4\" line takes.")
+        f"Y-E-2 is squared forward and the fall corridor is aft of it. Ahead of the branch tip "
+        f"stands {bag.at('Y-E-2')[1] - f['pump-a'].bb.ymax:.2f} mm to pump-a's back face, short of "
+        f"the exit stub the line takes. Rolling the branch about its own run is the unexplored "
+        f"move — Y-H's is aimed that way (bag_circuit_tray `bag_fall_aim`) and falls in one "
+        f"straight leg. The bay behind reservoir-A is {foam.bb.ymin - cond.bb.ymax:.2f} mm, past "
+        f"the {foam.diam('reservoir-A') + 2 * scorecard.CLEARANCE_FLOOR:.2f} a 1/4\" line takes.")
 
     # The nozzle-outlet runs (segments 18/28). Each leaves its elbow's free collet straight UP out
     # of the +X wall pocket onto the deck, steps WEST into its lane, runs AFT down the lane over
