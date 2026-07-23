@@ -373,6 +373,17 @@ def main():
     )
     print("-> _contents.py")
 
+    # Same for _lines.py: the nozzle-outlet lanes' stations are derived from the pack, so the
+    # prose quoting them is fed from the runs rather than typed alongside them.
+    substitute_py_comments(
+        Path(_lines.__file__),
+        variables=_lines.lane_stations(),
+        expected_counts={
+            "NOZ_DECK_Z": 2, "NOZ_LANE_OUTER_X": 1, "NOZ_LANE_INNER_X": 1,
+        },
+    )
+    print("-> _lines.py")
+
 
 if __name__ == "__main__":
     main()
