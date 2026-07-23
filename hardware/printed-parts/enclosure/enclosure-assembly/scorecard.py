@@ -162,9 +162,6 @@ TOUCHING_OK = {
         # The valve-manifold stack: the source-select tray's floor rests on the
         # bag-circuit tray's column wall tops, one tray pitch apart by design.
         ("source-select-assembly", "bag-circuit-assembly"),
-        # The stack is pressed aft: the source-select tray's tall-wall backs
-        # sit on the cold core's front face.
-        ("foam-assembly", "source-select-assembly"),
     ]
 }
 
@@ -262,10 +259,12 @@ PLACEMENT_RULES = {
     "compressor-shroud": [("y-", 4.0), ("z-", 4.0), ("x-", 29.0)],
     # "Condenser is front-right on the floor" — the same, off the right.
     "condenser+fan":     [("y-", 4.0), ("z-", 4.0), ("x+", 29.0)],
-    # "The assembly is pressed against the cold core": its tall walls' back
-    # faces on the foam's front face (a declared contact), measured on the
-    # real solids.
-    "source-select-assembly": [("near", "foam-assembly", 1.0)],
+    # "The assembly stands a bag-line corridor ahead of the cold core": the open
+    # Y between its tall walls' back faces and the foam's front face is the lane
+    # both bag lines fall down to the reservoir ports, and the only one that
+    # reaches reservoir-A behind the condenser. Measured on the real solids, so
+    # closing it from either side fails here rather than in the routing.
+    "source-select-assembly": [("clear", "foam-assembly", contents.BAG_FALL_CORRIDOR)],
     # "The funnel rides the top wall" — brim top one brim thickness + one wall above the
     # interior ceiling. Its shallow-floored basin runs the top frame's full depth and
     # its centred drain hangs high over the pump row — the pumps' own `clear` keep-out
@@ -377,22 +376,32 @@ def _p(name, component, kind, pos, face, diam, mates, note=""):
     return Port(name, component, kind, pos, face, diam, mates, note)
 
 
+# The cold core's front face in world. Its placement puts the shell's local Y origin there,
+# so every foam port is written as this face, or a reach aft off it, and they ride the core.
+_FOAM_FACE = contents.FRONT_DEPTH
+# The rear panel's OUTER face — the one `panel_bodies()` seats the bulkhead unions and the C14
+# on, standing one wall behind the pack's own rear standoff. The through-wall ports below are
+# written as reaches off it, so a change in the pack's depth carries them.
+_PANEL_OUT = contents._port_frame()[2] + contents.WALL
+_JG_OUT, _JG_IN = 6.5, 27.8   # JG bulkhead union: tube-face reach outboard / inboard of the panel
+_C14_IN = 30.0                # C14 inlet: spade-terminal face inboard of the panel
+
 PORTS = [
-    # foam-assembly — 8 tube penetrations (foam-shell README §Penetrations, world coords via
-    # _contents' placement) + 2 reed-cable exits on the −Y front wall. All on −Y except the CO2
-    # inlet, which drops through the +Z foam-cap top. Ø: the beverage/flavor lines run the foam
-    # shell's Ø6.5 port-holes (_cold_core_interface.port_hole_radius 3.25) sized for 1/4" tube;
-    # the water-in takes the SeaFlo's 3/8" discharge; the copper legs are 1/4" ACR = 6.35.
-    _p("carb-water-out", "foam-assembly", "fluid",       (141.5, 182.0, 46.5),  "y-", 6.35,  "dispense faucet (carb-water riser to the rear umbilical)", "1/4\" tank NPT elbow line"),
-    _p("reservoir-A",    "foam-assembly", "fluid",       (238.5, 182.0, 35.5),  "y-", 6.35,  "reservoir A ↔ peristaltic pump A (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
-    _p("reservoir-B",    "foam-assembly", "fluid",       (44.5,  182.0, 35.5),  "y-", 6.35,  "reservoir B ↔ peristaltic pump B (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
-    _p("co2-in",         "foam-assembly", "fluid",       (141.5, 199.8, 262.9), "z+", 6.35,  "CO2 chain (WR1110 → foam-cap top entry)", "1/4\" PTC CO2 line; seats in the Ø16 foam-cap bore"),
-    _p("evap-inlet",     "foam-assembly", "refrigerant", (141.5, 182.0, 72.0),  "y-", 6.35,  "condenser+fan outlet (liquid line via drier + cap tube)", "1/4\" ACR copper"),
-    _p("evap-outlet",    "foam-assembly", "refrigerant", (141.5, 182.0, 191.0), "y-", 6.35,  "compressor-shroud suction", "1/4\" ACR copper"),
-    _p("water-in",       "foam-assembly", "fluid",       (141.5, 182.0, 223.0), "y-", 9.525, "gasher-water out (SeaFlo outlet check → carbonator water inlet)", "3/8\" hose barb (SeaFlo 22-series port)"),
-    _p("prv-vent",       "foam-assembly", "fluid",       (141.5, 182.0, 231.0), "y-", 6.35,  "appliance interior (relief-event discharge only)", "1/4\" relief discharge"),
-    _p("reed-cable-A",   "foam-assembly", "electrical",  (254.5, 182.0, 35.5),  "y-", 6.5,   "J6 REEDS A — reservoir A level reeds (SIG-10)", "reed cable through the Ø6.5 pass-through, 16 mm outboard of reservoir-A (_port_cuts.py)"),
-    _p("reed-cable-B",   "foam-assembly", "electrical",  (28.5,  182.0, 35.5),  "y-", 6.5,   "J7 REEDS B — reservoir B level reeds (SIG-11)", "reed cable through the Ø6.5 pass-through, 16 mm outboard of reservoir-B (_port_cuts.py)"),
+    # foam-assembly — 8 tube penetrations (foam-shell README §Penetrations) + 2 reed-cable exits
+    # on the −Y front wall. All on −Y except the CO2 inlet, which drops through the +Z foam-cap
+    # top, at its own station aft of the face. Ø: the beverage/flavor lines run the foam shell's
+    # Ø6.5 port-holes (_cold_core_interface.port_hole_radius 3.25) sized for 1/4" tube; the
+    # water-in takes the SeaFlo's 3/8" discharge; the copper legs are 1/4" ACR = 6.35.
+    _p("carb-water-out", "foam-assembly", "fluid",       (141.5, _FOAM_FACE, 46.5),  "y-", 6.35,  "dispense faucet (carb-water riser to the rear umbilical)", "1/4\" tank NPT elbow line"),
+    _p("reservoir-A",    "foam-assembly", "fluid",       (238.5, _FOAM_FACE, 35.5),  "y-", 6.35,  "reservoir A ↔ peristaltic pump A (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
+    _p("reservoir-B",    "foam-assembly", "fluid",       (44.5,  _FOAM_FACE, 35.5),  "y-", 6.35,  "reservoir B ↔ peristaltic pump B (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
+    _p("co2-in",         "foam-assembly", "fluid",       (141.5, _FOAM_FACE + 17.8, 262.9), "z+", 6.35,  "CO2 chain (WR1110 → foam-cap top entry)", "1/4\" PTC CO2 line; seats in the Ø16 foam-cap bore"),
+    _p("evap-inlet",     "foam-assembly", "refrigerant", (141.5, _FOAM_FACE, 72.0),  "y-", 6.35,  "condenser+fan outlet (liquid line via drier + cap tube)", "1/4\" ACR copper"),
+    _p("evap-outlet",    "foam-assembly", "refrigerant", (141.5, _FOAM_FACE, 191.0), "y-", 6.35,  "compressor-shroud suction", "1/4\" ACR copper"),
+    _p("water-in",       "foam-assembly", "fluid",       (141.5, _FOAM_FACE, 223.0), "y-", 9.525, "gasher-water out (SeaFlo outlet check → carbonator water inlet)", "3/8\" hose barb (SeaFlo 22-series port)"),
+    _p("prv-vent",       "foam-assembly", "fluid",       (141.5, _FOAM_FACE, 231.0), "y-", 6.35,  "appliance interior (relief-event discharge only)", "1/4\" relief discharge"),
+    _p("reed-cable-A",   "foam-assembly", "electrical",  (254.5, _FOAM_FACE, 35.5),  "y-", 6.5,   "J6 REEDS A — reservoir A level reeds (SIG-10)", "reed cable through the Ø6.5 pass-through, 16 mm outboard of reservoir-A (_port_cuts.py)"),
+    _p("reed-cable-B",   "foam-assembly", "electrical",  (28.5,  _FOAM_FACE, 35.5),  "y-", 6.5,   "J7 REEDS B — reservoir B level reeds (SIG-11)", "reed cable through the Ø6.5 pass-through, 16 mm outboard of reservoir-B (_port_cuts.py)"),
     # compressor-shroud — compressor_shroud.py local hole centers carried through _contents'
     # _rot((0,0,1),−90) + _at(14,0,3). Both copper stubs share the one face → world +Y (toward
     # the foam/cold core they mate to); the AC gland + earth bond ride the +X face (into the
@@ -419,16 +428,17 @@ PORTS = [
     # Rear-panel through-wall bodies — each JG bulkhead union is a 1/4" tube port each side of the
     # rear wall (Y = tube-flow axis, +Y = outward to the rear umbilical, −Y = inward to the
     # subsystem it feeds). The C14 mains inlet carries one 3-wire harness inboard from the panel
-    # cord entry. Positions are the union/inlet flow-face centers from the placed bboxes.
-    _p("tube-out", "bulkhead-flavor-a", "fluid", (224.95, 375.5, 292.45), "y+", 6.35, "customer flavor A line (rear umbilical)", "JG 1/4\" PTC, outward"),
-    _p("tube-in",  "bulkhead-flavor-a", "fluid", (224.95, 341.2, 292.45), "y-", 6.35, "flavor A internal line (bag/pump circuit A)", "JG 1/4\" PTC, inward"),
-    _p("tube-out", "bulkhead-flavor-b", "fluid", (195.05, 375.5, 292.45), "y+", 6.35, "customer flavor B line (rear umbilical)", "JG 1/4\" PTC, outward"),
-    _p("tube-in",  "bulkhead-flavor-b", "fluid", (195.05, 341.2, 292.45), "y-", 6.35, "flavor B internal line (bag/pump circuit B)", "JG 1/4\" PTC, inward"),
-    _p("tube-out", "bulkhead-carb", "fluid", (210.0, 375.5, 318.3), "y+", 6.35, "carbonated-water line (rear umbilical / faucet)", "JG 1/4\" PTC, outward"),
-    _p("tube-in",  "bulkhead-carb", "fluid", (210.0, 341.2, 318.3), "y-", 6.35, "carb-water internal riser (DIGITEN → foam carb-water-out)", "JG 1/4\" PTC, inward"),
-    _p("tube-out", "bulkhead-water", "fluid", (145.0, 375.5, 293.0), "y+", 6.35, "house tap-water line (rear umbilical)", "JG 1/4\" PTC, outward"),
-    _p("tube-in",  "bulkhead-water", "fluid", (145.0, 341.2, 293.0), "y-", 6.35, "tap-water internal line (to multiplex BFP in)", "JG 1/4\" PTC, inward"),
-    _p("mains-in", "c14-inlet", "electrical", (90.0, 339.0, 295.5), "y-", 8.0, "AC distribution — L/N/E to the electronics shelf", "C14 spade terminals; 3-wire mains harness inboard"),
+    # cord entry. Each station is a reach off `_PANEL_OUT`, the face `panel_bodies()` seats them
+    # on, so the ports ride the wall the box sizes itself to rather than a world Y of their own.
+    _p("tube-out", "bulkhead-flavor-a", "fluid", (224.95, _PANEL_OUT + _JG_OUT, 292.45), "y+", 6.35, "customer flavor A line (rear umbilical)", "JG 1/4\" PTC, outward"),
+    _p("tube-in",  "bulkhead-flavor-a", "fluid", (224.95, _PANEL_OUT - _JG_IN, 292.45), "y-", 6.35, "flavor A internal line (bag/pump circuit A)", "JG 1/4\" PTC, inward"),
+    _p("tube-out", "bulkhead-flavor-b", "fluid", (195.05, _PANEL_OUT + _JG_OUT, 292.45), "y+", 6.35, "customer flavor B line (rear umbilical)", "JG 1/4\" PTC, outward"),
+    _p("tube-in",  "bulkhead-flavor-b", "fluid", (195.05, _PANEL_OUT - _JG_IN, 292.45), "y-", 6.35, "flavor B internal line (bag/pump circuit B)", "JG 1/4\" PTC, inward"),
+    _p("tube-out", "bulkhead-carb", "fluid", (210.0, _PANEL_OUT + _JG_OUT, 318.3), "y+", 6.35, "carbonated-water line (rear umbilical / faucet)", "JG 1/4\" PTC, outward"),
+    _p("tube-in",  "bulkhead-carb", "fluid", (210.0, _PANEL_OUT - _JG_IN, 318.3), "y-", 6.35, "carb-water internal riser (DIGITEN → foam carb-water-out)", "JG 1/4\" PTC, inward"),
+    _p("tube-out", "bulkhead-water", "fluid", (145.0, _PANEL_OUT + _JG_OUT, 293.0), "y+", 6.35, "house tap-water line (rear umbilical)", "JG 1/4\" PTC, outward"),
+    _p("tube-in",  "bulkhead-water", "fluid", (145.0, _PANEL_OUT - _JG_IN, 293.0), "y-", 6.35, "tap-water internal line (to multiplex BFP in)", "JG 1/4\" PTC, inward"),
+    _p("mains-in", "c14-inlet", "electrical", (90.0, _PANEL_OUT - _C14_IN, 295.5), "y-", 8.0, "AC distribution — L/N/E to the electronics shelf", "C14 spade terminals; 3-wire mains harness inboard"),
     # Floor sensor — a single signal header (one cable penetration, not one per conductor).
     # MQ-6 header pins down (−Z) at the board floor — the 4-pin row runs along the
     # PCB's −X edge (x≈103), NOT the board centre, so the port sits on that edge.

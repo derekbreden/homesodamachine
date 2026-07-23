@@ -190,7 +190,7 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
 
 - **Author placement rules for the remaining components.** Eight carry them today
   (foam-assembly, compressor-shroud, condenser+fan by face-to-datum; the source-select
-  assembly pressed to the cold core's front face by `near` — a declared contact; the
+  assembly stood a bag-line fall corridor ahead of the cold core's front face by `clear`; the
   hopper funnel by z+; the bag-circuit assembly by `near` the source-select tray its
   stacking walls carry — another declared contact — plus `clear` keep-outs holding the
   floor stratum open under its own floor; pump-a by `near` the bag tray's front columns
@@ -241,10 +241,11 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   [`_contents.py`](_contents.py) alongside the panel bodies, so segment 4 anchors on its own
   drain. The on-tray seats (3/5–8, 14/16, 24/26) are interior to their assemblies and still
   count against the axis until modeled. The electrical runs wait on the components being
-  placed, located, and held first. `_lines.BLOCKED` carries segment 15: reservoir A's port
-  stands behind the condenser, and the entry states the gap the pack measures there against
-  what a 1/4" line takes. Segment 25 — its mirror at the other end of the same face, with the
-  compressor in front of it instead — routes. refrig-3 is simply unauthored: its corridor
+  placed, located, and held first. `_lines.BLOCKED` carries segment 15: its tee branch leaves
+  the bag tray FORWARD into the pump row, and the fall corridor it has to reach is aft, so what
+  blocks it is the exit rather than the bay behind reservoir-A. Segment 25 — its mirror at the
+  other end of the same face, on a tee that faces aft — takes that corridor straight down.
+  refrig-3 is simply unauthored: its corridor
   stands open (the source tray's central span stops short of the cold-core face at the evap
   ports), so it waits only on its author.
 - **held** — a printed holder for every internal component. Today only the through-wall
