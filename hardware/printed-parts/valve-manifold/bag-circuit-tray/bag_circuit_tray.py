@@ -3,17 +3,21 @@
 The [fluid-topology](../../../topology/fluid-topology.md) bag circuit as a
 tray. The four valves sit ports-along-X with no aiming tilt, paired in two
 columns: V-F over V-I on the −X side, V-E over V-H on the +X side. Each row's
-two valves connect **in-line through a Tee** whose run lies along X; the Tee's
-branch is turned 90° about X to point **outward along Y** to the bag, passing
-through a notch in the central hug wall.
+two valves connect **in-line through a Tee** whose run lies along X, leaving the
+Tee free to ROLL about that run: the branch aims wherever the roll puts it, and
+`branch_rolls` carries one angle per Tee.
 
-    V-F ──┬── V-E      Y-E run; branch → +Y to Bag A
+    V-I ──┬── V-H      Y-H run; branch rolled to `bag_fall_aim`, near +Z
           ┊
-    V-I ──┴── V-H      Y-H run; branch → −Y to Bag B
+    V-F ──┴── V-E      Y-E run; branch → −Y to Bag A, through the hug wall
+
+Y-E squares outward at +90°, leaving along −Y through a notch in the central hug
+wall. Y-H is AIMED instead — see `bag_fall_aim` — so its branch leaves near +Z,
+clearing the hug walls entirely rather than passing through one.
 
 This module also holds the shared parallel-tray base — `place_valve`, `place_tee`
-(and its branch-reorient variant `place_tee_branch_out`), `build_tray`, and the
-common geometry — imported by the nozzle-gate tray in `../nozzle-gate-tray/`.
+(and its roll variant `place_tee_rolled`), `build_tray`, and the common geometry
+— imported by the nozzle-gate tray in `../nozzle-gate-tray/`.
 
 Origin = cell center, Z = 0 the valve mounting plane, ports at Z = 11.3.
 """
@@ -66,8 +70,35 @@ valves = {
     "VH": (+valve_x, +row_half),
     "VE": (+valve_x, -row_half),
 }
-# Tee centers; run along X joins the row's two valves, branch +Z to the bag.
+# Tee centers; run along X joins the row's two valves.
 tees = {"YH": (0.0, +row_half), "YE": (0.0, -row_half)}
+
+# A Tee's run seats in a plain cylindrical groove, so nothing in the tray fixes
+# how far the fitting is rolled about it — the branch may aim anywhere in the
+# plane perpendicular to the run, not merely at the four square poses. The roll
+# is measured off `place_tee`'s branch-up (+Z) pose, positive about local +X.
+#
+# The enclosure hangs this tray INVERTED (180° about Y — see _contents), which
+# carries local Y and negates local Z: a branch at roll 0 points straight DOWN in
+# world, ±90 leaves along ∓Y.
+#
+# `bag_fall_aim` is Y-H's. Bag B's line falls the whole height of the machine to
+# reservoir B low on the cold core, and this is the roll that points the branch
+# down that fall — at the fall corridor's lane, at the port's own height — so the
+# line leaves the fitting ALREADY FALLING and takes no bend at the top. The STEP
+# bakes the pose in, so the angle is declared here and gated in
+# enclosure-assembly/_lines, which re-solves the aim against the live corridor and
+# port and raises if this roll no longer lands on the lane.
+# Y-E squares outward into the hug wall's notch, its own line unrouted.
+bag_fall_aim = -9.1619
+branch_rolls = {"YH": bag_fall_aim, "YE": +90.0}
+
+
+def branch_dir(roll):
+    """A Tee branch's unit axis in tray coordinates, for a roll about its run.
+    Roll 0 is `place_tee`'s branch-up (+Z); positive rolls about local +X."""
+    r = math.radians(roll)
+    return (0.0, -math.sin(r), math.cos(r))
 
 
 def place_valve(cx, cy, rot):
@@ -91,13 +122,14 @@ def place_tee(cx, cy):
     )
 
 
-def place_tee_branch_out(cx, cy):
-    """Tee, run along X (valve on the −X end), with its branch turned 90° about X
-    to point **outward along Y** (away from the row center: +Y for a +Y row, −Y
-    for a −Y row) instead of up — it leaves through a notch in the hug wall."""
-    row_sign = 1.0 if cy >= 0 else -1.0
+def place_tee_rolled(cx, cy, roll):
+    """Tee, run along X (valve on the −X end), rolled ``roll`` degrees about that
+    run off `place_tee`'s branch-up pose — the fitting's one free axis, since the
+    groove it seats in is a plain cylinder. ±90 turns the branch outward along ∓Y
+    through the hug wall's notch; a small roll leaves it near +Z, clear of the
+    walls. `branch_dir` gives the axis the branch ends up on."""
     return place_tee(cx, cy).rotate(
-        (cx, cy, port_z), (cx + 1.0, cy, port_z), -90.0 * row_sign
+        (cx, cy, port_z), (cx + 1.0, cy, port_z), roll
     )
 
 
@@ -142,8 +174,8 @@ def elbow_collet(cx, cy, ux, uy, roll=0.0):
 def build_assembly():
     # Outlets point +X: V-F/V-I out to the center Tees, V-E/V-H out to the pumps.
     parts = {nm: place_valve(*p, -90.0) for nm, p in valves.items()}
-    # Each Tee's branch points outward along Y (turned 90° about X) to its bag.
-    parts.update({nm: place_tee_branch_out(*p) for nm, p in tees.items()})
+    # Each Tee is rolled about its run to aim its bag branch (`branch_rolls`).
+    parts.update({nm: place_tee_rolled(*p, branch_rolls[nm]) for nm, p in tees.items()})
     # An elbow turns each junction-column valve's outer (unoccupied) port off
     # the tray, clocked by `rolls`; the east bank's outer ports run bare.
     parts.update({
@@ -178,11 +210,14 @@ def boundary_collets():
 
 def bag_branches():
     """Each Tee's bag-branch collet tip in tray coordinates, same shape as
-    `boundary_collets`. The branch turns outward along Y through the hug wall."""
+    `boundary_collets` — the tip `tee_branch_reach` from the run centre along the
+    axis its roll puts the branch on. Same `branch_rolls` the solid is built from,
+    so the anchor and the fitting cannot describe different branches."""
     out = {}
     for nm, (cx, cy) in tees.items():
-        sign = 1.0 if cy >= 0 else -1.0
-        out[nm] = ((cx, cy + sign * tee_branch_reach, port_z), (0.0, sign, 0.0))
+        d = branch_dir(branch_rolls[nm])
+        c = (cx, cy, port_z)
+        out[nm] = (tuple(c[i] + tee_branch_reach * d[i] for i in range(3)), d)
     return out
 
 
@@ -434,13 +469,19 @@ def build_bag_circuit_tray():
                 .translate((x0, y0, bot_z))
             )
 
-    # Each outward Tee branch (place_tee_branch_out) runs along ±Y at port_z; cut
-    # a notch per side so the branch clears the central floor and passes through
-    # its hug wall. The bottom half arcs around the branch (a Y-cylinder matching
-    # the tube); the top half is a straight slot, open through the wall top.
+    # A Tee rolled to leave SIDEWAYS runs along ±Y at port_z and must cross its
+    # hug wall: cut a notch so the branch clears the central floor and passes
+    # through. The bottom half arcs around the branch (a Y-cylinder matching the
+    # tube); the top half is a straight slot, open through the wall top so the
+    # fitting drops in. A Tee rolled to leave upward instead (Y-H, aimed down the
+    # enclosure's fall) rises off the ports in open air and stops short of the wall
+    # — it needs no notch, and cutting one would only open the wall for nothing.
     z_top = bc_hug_wall_top_z + 1.0
-    for cx, cy in tees.values():
+    for nm, (cx, cy) in tees.items():
         sy = 1.0 if cy >= 0 else -1.0
+        reach_y = cy + tee_branch_reach * branch_dir(branch_rolls[nm])[1]
+        if abs(reach_y) < bc_hug_half_y - wall_thickness:
+            continue                       # the branch stops short of the wall
         y0, y1 = sorted((cy, sy * (bc_hug_half_y + 2.0)))
         bore = cq.Solid.makeCylinder(
             tee_groove_radius, y1 - y0,

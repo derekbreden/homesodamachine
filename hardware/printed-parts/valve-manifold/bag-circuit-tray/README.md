@@ -2,12 +2,14 @@
 
 The [fluid-topology](/hardware/topology/fluid-topology.md) bag circuit as a
 tray: V-F and V-E join through Tee Y-E (branch → Bag A), V-I and V-H through
-Tee Y-H (branch → Bag B). Each Tee's branch is turned outward along Y.
+Tee Y-H (branch → Bag B). A Tee's run seats in a plain cylindrical groove, so
+each fitting is free to **roll about that run**, and its branch aims wherever
+the roll puts it.
 
 ```
-   V-F ──┬── V-E      Y-E run; branch → +Y to Bag A
+   V-I ──┬── V-H      Y-H run; branch rolled to aim down its fall, near +Z
          ┊
-   V-I ──┴── V-H      Y-H run; branch → −Y to Bag B
+   V-F ──┴── V-E      Y-E run; branch → −Y to Bag A, through the hug wall
 ```
 
 ## Arrangement
@@ -16,9 +18,14 @@ The valves sit **ports-along-X with no aiming tilt**, paired in two columns —
 V-F over V-I on the −X side, V-E over V-H on the +X side. Each row's two valves
 connect **in-line through a Tee** ([reference](/hardware/reference/tee-connector/README.md))
 whose run lies along X, so the inner ports meet the run ports straight-on (no
-jog) with the valves at X = ±[49.57](VALVE_X). Each Tee's **branch is turned 90°
-about X to point outward along Y** to its bag, leaving through a notch in the hug
-wall; the valves' outer ports leave the tray at the X-ends — the +X pair
+jog) with the valves at X = ±[49.57](VALVE_X). Each Tee is then **rolled about
+its run** to aim its bag branch. Y-E squares outward along −Y and leaves through
+a notch in the hug wall. Y-H is **aimed** instead: the enclosure hangs this tray
+inverted, and its branch carries bag B's line the full height of the machine, so
+it is rolled to point down that fall — leaving near +Z here, straight down in
+world, clear of the hug walls rather than through one. The angle is
+`bag_fall_aim`, gated in the enclosure against the corridor it aims at.
+The valves' outer ports leave the tray at the X-ends — the +X pair
 (V-E/V-H, the junction column in the enclosure's inverted hang) each wearing
 an **elbow** clocked by the junction aim, the −X pair (V-F/V-I) running
 **bare**, awaiting the pump-discharge tees.
