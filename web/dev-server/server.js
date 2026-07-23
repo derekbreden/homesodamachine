@@ -276,6 +276,32 @@ async function runWave(seeds) {
   }
 }
 
+// One wave at a time. The watcher debounces per FILE, so a burst of saves — or the
+// docgen substitution a generator writes back into `_contents.py` / `_lines.py` at the
+// end of its own build — starts a second wave beside the first. Both spawn generators,
+// both take the global CAD build lock (hardware/scripts/_run_lock.py), and the newer one
+// SIGTERMs the older: the cascade dies half-run, and a dependent that never got its turn
+// keeps a stale STEP. Seeds that arrive mid-wave collect here and go out as the next one.
+let waveInFlight = null;
+const pendingSeeds = new Set();
+
+function queueWave(seeds) {
+  for (const s of seeds) pendingSeeds.add(s);
+  if (waveInFlight) return waveInFlight;
+  waveInFlight = (async () => {
+    try {
+      while (pendingSeeds.size) {
+        const batch = [...pendingSeeds];
+        pendingSeeds.clear();
+        await runWave(batch);
+      }
+    } finally {
+      waveInFlight = null;
+    }
+  })();
+  return waveInFlight;
+}
+
 // --- Background thumbnail renderer ---
 //
 // Each grid card shows a committed PNG per STEP (served at /thumbs/<file>.step
@@ -655,7 +681,7 @@ watcher.on("change", (absPath) => {
         }
         if (seeds.length === 0) return;
         console.log(`Changed: ${relForLog(absPath)}`);
-        await runWave(seeds);
+        await queueWave(seeds);
       }, 500),
     );
     return;
