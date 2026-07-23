@@ -371,6 +371,15 @@ def noz_collet(name):
             (-d[0], -d[1], d[2]))
 
 
+def noz_spade_crown():
+    """The nozzle-gate valves' spade tabs' crown in world. The tabs reach east off the coil
+    faces, below the coil tops that set the gate's box. Rides the tray's flip exactly as
+    `noz_collet` does — local Z carries through to world."""
+    v = _noz.bc.cell.valve
+    return (2.0 * _gate_cz() - NOZZLE_GATE_POS[2]
+            + v.spade_z_center + v.spade_thickness / 2.0)
+
+
 def junction(tee):
     """A pump-inlet tee's pose: (centre, run axis, branch axis, stub). The run is the line joining
     the two collets it butts. Centred on that line the tube left over splits evenly into a stub at

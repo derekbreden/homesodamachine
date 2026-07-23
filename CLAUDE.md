@@ -26,6 +26,8 @@ See `hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py` for patte
 
 A generator that writes a STEP also renders its `.step.png` thumbnail at exit via a headless browser — tens of seconds on a large assembly. `HSM_SKIP_THUMBNAILS=1` skips that render for fast iteration; the dev-server watcher already sets it and rebuilds thumbnails off its own critical path.
 
+`HSM_SKIP_CLEARANCES=1` drops the enclosure scorecard's per-run "nearest N mm to X" report — an exact solid-distance query from every routed tube to every body, and the largest single cost of a route-only rebuild. Set it while iterating on where a line runs; `lines-clear` still gates on a tube driving through a part. The build you commit runs without it, so the committed scorecard carries its clearances measured.
+
 ## Firmware
 
 Flash with `tools/flash.sh`.

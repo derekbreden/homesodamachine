@@ -27,16 +27,17 @@ carry the authored legs, each measured off the faces that bound it:
     (`JUNCTION_ROLL`) to swing forward off the pump row, and fluid-11/21 carry the suction
     over pump A to the pump inlets.
   * the +X wall pocket and the channel inboard of it — the cold core's own standoff off that
-    wall, where the two nozzle-outlet elbows stand, and the wide horizontal channel between
-    the nozzle gate's crown and the hopper funnel's basin underside, which runs unbroken the
-    full depth of the box and out over the electronics shelf. It is wide rather than tall, so
-    fluid-18/28 share one deck ([294.5](NOZ_DECK_Z)) side by side in x rather than stacking,
+    wall, where the two nozzle-outlet elbows stand, and the wide horizontal channel over the
+    nozzle gate's spade tabs and the electronics shelf's board, under the hopper funnel's
+    basin, which runs unbroken the full depth of the box. It is wide rather than tall, so
+    fluid-18/28 share one deck ([292.4](NOZ_DECK_Z)) side by side in x rather than stacking,
     and reach the rear flavor bulkheads without either climbing over the other. The pocket is
     also the Y seam's corner-post lane, so both step west out of it before turning aft at all.
 
 Precedent: `pcba.tsx`'s `route(...)` call sites.
 """
 
+import math
 import sys
 from pathlib import Path
 
@@ -78,8 +79,22 @@ def _frames():
     return {n: R.frame(n, placed[n][0], by_comp.get(n, {})) for n in placed}
 
 
+_RUNS: list | None = None
+
+
 def build_runs() -> list:
-    """The authored runs. Each waypoint is a port offset, a body face, or a bend-radius reach."""
+    """The authored runs. Each waypoint is a port offset, a body face, or a bend-radius reach.
+
+    Memoized for the life of the process. The export, the routed axis, the lines-clear gate and
+    the lane stations each ask for the runs; a rebuild is always a fresh process. `_routing`'s
+    frame registry is filled by the first call and reads the same afterwards."""
+    global _RUNS
+    if _RUNS is None:
+        _RUNS = _authored_runs()
+    return _RUNS
+
+
+def _authored_runs() -> list:
     f = _frames()
     cond, foam = f["condenser+fan"], f["foam-assembly"]
     bend = R.BEND_RATIO * 6.35                              # 1/4" ACR copper, the loop's line
@@ -208,44 +223,46 @@ def build_runs() -> list:
         kind="fluid", bend=10.0, skew=DISCHARGE_SKEW, lead=SLEAD,
         note="suction stem tee-y-f Y-F-3 → pump-a P-A-I, up the west end then east above the source tray"))
 
-    # The nozzle-outlet runs (segments 18/28) — each outlet elbow's free leg up out of the +X wall
-    # pocket, then aft over the electronics shelf into its rear flavor bulkhead's inward collet.
-    # Both ride ONE deck, [294.5](NOZ_DECK_Z), side by side in x: the channel over the gate is
-    # wide, not tall, so they separate across it rather than stacking. Its floor is the gate's
-    # crown — the valve coils, the tray's walls ending level with them — its ceiling the funnel's
-    # basin underside, and outboard of the funnel's rim it opens clear to the roof.
-    #   Each climbs and steps west in one diagonal, clear of the ±X boss-chain band before it turns
-    # aft at all: that band carries the seam's Z-pin stations and Y corner column, and a run holding
-    # it aft drives straight through a post. 18 takes the outer lane [274.18](NOZ_LANE_OUTER_X), 28
-    # the inner [262.18](NOZ_LANE_INNER_X), stepping west across 18's lane while still well forward
-    # of 18's own elbow. That order puts 28 west at the back, so it turns off first and 18 second,
-    # each into the bulkhead on its own side — the two never cross.
-    #   Every station below is READ OFF THE PART THAT SETS IT: the deck off the gate's crown, the
-    # outer lane off the cold core's east face (the boss-chain band stands on it), each first
-    # waypoint off its OWN elbow's free port, each close off its bulkhead's collet. A waypoint
-    # measured out of the built pack and typed back in reads identically the day it is written and
-    # is wrong from the first move of the part it was measured against — and it carries the
-    # transcription's rounding into a corner that was meant to continue the leg exactly. The frames
-    # already hold these numbers to full precision; asking them costs nothing. LANE_CLEAR is the one
-    # number CHOSEN rather than read, and it sets all three gaps: 18 off the band, 28 off 18, the
-    # deck off the crown.
-    gate, cold = f["nozzle-gate-assembly"], f["foam-assembly"]
+    # The nozzle-outlet runs (segments 18/28). Each leaves its elbow's free collet straight UP out
+    # of the +X wall pocket onto the deck, steps WEST into its lane, runs AFT down the lane over
+    # the nozzle gate's spade tabs and the electronics shelf, steps WEST into its bulkhead's lane,
+    # and closes straight IN. One axis a move, every corner square.
+    #   The deck is [292.4](NOZ_DECK_Z) — the bulkheads' own collet height, shared by both runs.
+    # 18 rides the outer lane [274.18](NOZ_LANE_OUTER_X), 28 the inner [262.18](NOZ_LANE_INNER_X);
+    # 28 crosses 18's lane forward of 18's elbow, so 28 leaves the lane first and 18 second, each
+    # into the bulkhead on its own side. Both turn aft west of the ±X boss-chain band, which
+    # carries the seam's Z-pin stations and Y corner column.
+    #   LANE_CLEAR is the gap the deck holds over what passes beneath it, measured below against
+    # the two parts it crosses: the gate's spade tabs and the shelf's board.
+    cold = f["foam-assembly"]
     LANE_CLEAR = 5.65                      # the gap a lane holds off whatever bounds it
     od = f["elbow-noz-a"].diam("free")     # the line's own bore, off the collet it leaves
-    deck_z = gate.bb.zmax + LANE_CLEAR + od / 2.0     # one deck, clear over the gate's crown
+    deck_z = f["bulkhead-flavor-a"].at("tube-in")[2]  # the height the runs close at
     outer_x = cold.bb.xmax - LANE_CLEAR - od / 2.0    # the band stands on the core's east face
+    for what, crown in (("the nozzle gate's spade tabs", contents.noz_spade_crown()),
+                        ("the electronics shelf's board", f["pcba"].bb.zmax)):
+        if deck_z - od / 2.0 - crown < LANE_CLEAR:
+            raise ValueError(
+                f"fluid-18/28: the deck ({deck_z:.2f}, the bulkheads' collet height) clears {what} "
+                f"({crown:.2f}) by {deck_z - od / 2.0 - crown:.2f} mm, inside the "
+                f"{LANE_CLEAR:.2f} mm the lane holds — lower {what}, or raise the bulkheads.")
+    # 18's west step off the pocket is [15.03](NOZ_POCKET_STEP) mm, and the square corner at each
+    # end of it seats a tangent in that leg.
+    NBEND = 7.0
     for cid, elb, bulk, lane_x, turn_back in (
         ("fluid-18", "elbow-noz-a", "bulkhead-flavor-a", outer_x, 40.0),                  # outer lane
         ("fluid-28", "elbow-noz-b", "bulkhead-flavor-b", outer_x - (od + LANE_CLEAR), 55.0),  # inner lane
     ):
-        e, b = f[elb], f[bulk]
-        turn_y = b.at("tube-in")[1] - turn_back                       # west out of the lane, clear of the wall
-        mids = [(lane_x, e.at("free")[1], deck_z),                    # west off the pocket, up onto the deck
-                (lane_x, turn_y, deck_z),                             # aft down the lane
-                (b.at("tube-in")[0], turn_y, b.at("tube-in")[2])]     # west into the bulkhead's own lane
-        runs.append(R.bent(cid, f"{elb}.free", *mids, f"{bulk}.tube-in",
-                           kind="fluid", bend=8.0, skew=DISCHARGE_SKEW, lead=(10.0, 10.0),
-                           note=f"nozzle outlet: {elb} → {bulk}, up out of the pocket and aft over the shelf"))
+        b = f[bulk]
+        runs.append(route(
+            cid, f"{elb}.free",
+            {"z": deck_z},                      # up out of the pocket, onto the deck
+            {"x": lane_x},                      # west into its own lane, clear of the boss chain
+            b.y("tube-in", -turn_back),         # aft down the lane, over the shelf
+            b.x("tube-in"),                     # west into the bulkhead's own lane
+            f"{bulk}.tube-in",
+            kind="fluid", bend=NBEND, skew=DISCHARGE_SKEW,
+            note=f"nozzle outlet: {elb} → {bulk}, up out of the pocket and aft over the shelf"))
 
     return runs
 
@@ -262,9 +279,11 @@ def lane_stations() -> dict:
     hand-kept copy of them. `enclosure_assembly` feeds these to the [value](NAME) markers."""
     pts = {r.id: r.pts for r in build_runs() if r.id in ("fluid-18", "fluid-28")}
     return {
-        "NOZ_DECK_Z":      f"{pts['fluid-18'][2][2]:.4g}",   # the shared deck, off the gate's crown
+        "NOZ_DECK_Z":      f"{pts['fluid-18'][2][2]:.4g}",   # the shared deck, the bulkheads' collet height
         "NOZ_LANE_OUTER_X": f"{pts['fluid-18'][2][0]:.5g}",  # 18's lane, off the cold core's east face
         "NOZ_LANE_INNER_X": f"{pts['fluid-28'][2][0]:.5g}",  # 28's lane, one lane inboard of it
+        # 18's west step off the pocket — the leg that sets the corner radius both runs turn at.
+        "NOZ_POCKET_STEP": f"{math.dist(pts['fluid-18'][1], pts['fluid-18'][2]):.4g}",
     }
 
 
@@ -283,12 +302,14 @@ def routed_ids() -> set:
 
 def clearances(solids: dict) -> list:
     """Each run's tightest gap to a part it does not terminate on, or to another run. The two
-    components a run joins are skipped. Reported, not gated."""
+    components a run joins are skipped. Reported, not gated. One exact BRepExtrema query per
+    (run, body) pair, several hundred pairs; `HSM_SKIP_CLEARANCES` drops the report."""
     import scorecard
 
-    tubes = {r.id: R.tube(r) for r in build_runs()}
+    runs = build_runs()
+    tubes = {r.id: R.tube(r) for r in runs}
     out = []
-    for r in build_runs():
+    for r in runs:
         t = tubes[r.id]
         ends = {r.frm.split(".")[0], r.to.split(".")[0]}
         gaps = [(scorecard._solid_gap(t, s), n) for n, s in solids.items() if n not in ends]
