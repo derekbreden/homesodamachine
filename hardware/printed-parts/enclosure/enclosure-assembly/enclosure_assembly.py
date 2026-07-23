@@ -29,6 +29,7 @@ sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_repo / "tools"))
 from _cadq_export import export_assembly
 from docgen import substitute_py_comments
+import _boxes
 import _contents as contents
 import _lines
 import scorecard
@@ -226,9 +227,9 @@ def _scorecard_cache_key(pack, inner):
     depends on except the routes, which it does not read."""
     h = hashlib.sha256()
     for name in sorted(pack.solids):
-        h.update(repr((name, _bbox_key(pack.solids[name][0].BoundingBox()))).encode())
+        h.update(repr((name, _bbox_key(_boxes.boxed(pack.solids[name][0])))).encode())
     for name in sorted(pack.pieces):
-        h.update(repr((name, _bbox_key(pack.pieces[name].BoundingBox()))).encode())
+        h.update(repr((name, _bbox_key(_boxes.boxed(pack.pieces[name])))).encode())
     h.update(repr(tuple(round(v, 4) for v in inner)).encode())
     for p in (Path(contents.__file__), _here, Path(scorecard.__file__), Path(enclosure.__file__), OVERRIDES_PATH):
         h.update(b"PY:" + str(p).encode())
@@ -275,7 +276,7 @@ def main():
     pack = _build_pack(overrides)
     solids = {n: s for n, (s, _c) in pack.solids.items()}
 
-    inner_bbs = [s.BoundingBox() for _n, (s, _c) in pack.components.items()]
+    inner_bbs = [_boxes.boxed(s) for _n, (s, _c) in pack.components.items()]
     ix = max(b.xmax for b in inner_bbs) - min(b.xmin for b in inner_bbs)
     iy = max(b.ymax for b in inner_bbs) - min(b.ymin for b in inner_bbs)
     iz = max(b.zmax for b in inner_bbs)
