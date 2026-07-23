@@ -12,13 +12,13 @@
 #        copper), part-orientation-audit.py (3D model vs footprint, ~8 s). These read
 #        the out/ artifacts of the last render — a red gate means the board being
 #        committed is not fab-ready.
-#      - commit touches enclosure           → the one enclosure gate that is turned on
-#        today: pack-closes (no overlapping solids) from the committed scorecard sidecar,
-#        the same invariant enclosure_assembly.py's own SystemExit enforces. The other
-#        enclosure gates report-only until their gating turns on (see the enclosure
-#        requirements.md "Gating" section), so they do not block here yet. When the
-#        checker itself (scorecard.py) changes, its self-test runs — inject-defect +
-#        control — so a refactor can't quietly blind a gate.
+#      - commit touches enclosure           → NOTHING. The enclosure gates nothing here,
+#        deliberately: a pack that does not close must be able to LAND. The editor writes
+#        the overlapping .step and a gatesPass=false sidecar precisely so a collision can
+#        be dragged into view, and committing that is how the state is saved, shared and
+#        resumed. The hook reports a red pack and moves on. CI's build:check is the hard
+#        backstop, and the scorecard self-test runs there too — a commit is the wrong
+#        place to spend minutes rebuilding CAD to re-derive a verdict already in the tree.
 #      Gates print one ✓ line each on pass and dump their full output on red.
 #
 #   2. GLB freshness (best-effort — never blocks): render-board.ts deliberately skips
@@ -92,30 +92,26 @@ if not sc["gatesPass"]:
 fi
 
 if $touches_enclosure; then
-  # pack-closes — the one gate turned on today (a physically invalid pack must never
-  # land). Read from the committed sidecar, the same verdict enclosure_assembly.py
-  # wrote; the dev server regenerates it on every enclosure edit and CI's build:check
-  # backstops its freshness. If the sidecar is behind its sources, warn (below) — the
-  # gate still runs against what's committed.
-  gate "enclosure pack closes" python3 -c '
+  # A failing pack is COMMITTABLE, on purpose. The editor writes the overlapping .step
+  # and a gatesPass=false sidecar so a collision can be seen; committing that is how the
+  # state gets saved, shared and picked up again. So the enclosure reports here and gates
+  # nothing: what a red pack costs is a red scorecard in the tree, which is the point.
+  if [ -f "$enc/enclosure-assembly.scorecard.json" ]; then
+    python3 -c '
 import json, sys
-p = sys.argv[1]
 try:
-    sc = json.load(open(p))
-except Exception as e:
-    sys.exit("cannot read the enclosure scorecard sidecar " + p + " (" + repr(e)
-             + ") - run: tools/cad-venv/bin/python enclosure_assembly.py")
+    sc = json.load(open(sys.argv[1]))
+except Exception:
+    sys.exit(0)                       # unreadable sidecar is CI'"'"'s problem, not the commit'"'"'s
 pack = next((c for c in sc.get("checks", []) if c.get("id") == "pack-closes"), None)
-if pack is None:
-    sys.exit("enclosure sidecar has no pack-closes check - stale? rebuild it")
-if pack["status"] != "pass":
-    print("  gate red:", pack["label"], "-", pack["value"], file=sys.stderr)
-    sys.exit("ENCLOSURE PACK DOES NOT CLOSE per the scorecard sidecar")
+if pack is not None and pack["status"] != "pass":
+    print("pre-commit: enclosure pack does NOT close — " + str(pack["value"])
+          + " (committing anyway)", file=sys.stderr)
 ' "$enc/enclosure-assembly.scorecard.json"
+  fi
 
-  # Freshness nudge (never blocks): if a scorecard source is newer than the committed
-  # sidecar, the gate above may have read a stale verdict. CI build:check is the hard
-  # backstop; this just surfaces it at commit time.
+  # Freshness nudge (never blocks): the sidecar being behind its sources means the verdict
+  # in the tree is not the one these sources produce. CI build:check is the hard backstop.
   for src in "$enc/_contents.py" "$enc/scorecard.py" "$enc/enclosure_assembly.py" \
              "$root/hardware/printed-parts/enclosure/enclosure/enclosure.py"; do
     if [ -f "$src" ] && [ "$src" -nt "$enc/enclosure-assembly.scorecard.json" ]; then
@@ -123,17 +119,6 @@ if pack["status"] != "pass":
       break
     fi
   done
-
-  # When the checker itself changes, prove its gates still fire (inject-defect + control).
-  if git diff --cached --name-only -- \
-       "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py" \
-       "hardware/printed-parts/enclosure/enclosure-assembly/scorecard_selftest.py" | grep -q .; then
-    if [ -x "$py" ]; then
-      gate "enclosure scorecard self-test" sh -c "cd \"$enc\" && \"$py\" scorecard_selftest.py"
-    else
-      echo "pre-commit: no cad-venv — enclosure scorecard self-test skipped" >&2
-    fi
-  fi
 fi
 
 # ── 2. GLB freshness (only worth doing when the commit will go through) ───
