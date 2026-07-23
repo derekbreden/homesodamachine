@@ -188,36 +188,42 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
 
 **Focus — placed + located + shaped:**
 
-- **Author placement rules for the remaining components.** Eight carry them today
+- **Author placement rules for the remaining components.** Twelve carry them today
   (foam-assembly, compressor-shroud, condenser+fan by face-to-datum; the source-select
   assembly stood a bag-line fall corridor ahead of the cold core's front face by `clear`; the
   hopper funnel by z+; the bag-circuit assembly by `near` the source-select tray its
   stacking walls carry — another declared contact — plus `clear` keep-outs holding the
-  floor stratum open under its own floor; pump-a by `near` the bag tray's front columns
+  floor stratum open under its own floor; the nozzle-gate assembly by `near` the same tray
+  plus the inset off the +X wall; pump-a by `near` the bag tray's front columns
   plus a `clear` keep-out holding the funnel drain's fall corridor open over its head;
   pump-b by `near` its row neighbor plus a `clear` keep-out ahead of the source-select
-  east bank its elbows thread past; all measured on the real solids); the other 11 are
+  east bank its elbows thread past; both pump-inlet tees by `near` the source bank they
+  hang off; the ASSE 1022 assembly by the west lane it lies in, the drip height its vent
+  reaches down to, and `clear` keep-outs off the compressor and off the bag-fall corridor;
+  all measured on the real solids); the other 19 are
   not-yet-placed. Each
   earns a set of measurements that pin its intended position, and those must
   measurably hold. Rules iterate as the design moves — a redefinition is expected,
   not a failure.
-- **Locate every connector (`located` 79%).** All 19 components carry full port sets — 65 ports
-  (31 fluid, 6 refrigerant, 28 electrical), each with a position *and* a bore Ø — and 49 of them
+- **Locate every connector (`located` 84%).** All 31 components carry full port sets — 90 ports
+  (56 fluid, 6 refrigerant, 28 electrical), each with a position *and* a bore Ø — and 69 of them
   sit on their body's real surface. Positions are derived from the part's own record where one
   exists (foam penetrations, compressor holes, both trays' elbow collet centres measured off
   their built assemblies, the pumps' outlet-elbow collets carried through their lying pose,
-  the funnel drain in the funnel's own frame), and Ø from the line or fitting the port carries.
-  **16 ports read `off-surface` — a coordinate on the body's bounding box but not on the body:**
-  all 10 of the PCBA's Ø-flagged edge connectors sit at the board's bbox top, ~10.5 mm above the
+  the funnel drain in the funnel's own frame, the ASSE 1022 chain's three terminals stacked
+  along its flow axis), and Ø from the line or fitting the port carries.
+  **21 ports read `off-surface` — a coordinate on the body's bounding box but not on the body:**
+  13 on the PCBA, whose Ø-flagged edge connectors sit at the board's bbox top, ~10.5 mm above the
   plane the connectors stand on, so the `pcba.tsx` mapping needs its Z re-solved against the
-  board's real top face; the 4 power-tray terminals, the display harness, and the compressor's
+  board's real top face; the 3 power-tray terminals, the 3 DC-distribution terminals, the
+  foam's CO2 top entry and the compressor's
   AC gland are the provisional ones (device terminals not individually modelled, connector not
   in the STEP) that a viewer pick pins. A handful of electrical bores (glands, headers, looms)
   are noted estimates pending teardown.
 - **Make the last placeholder real.** The condenser+fan (harvested donor block) is the one
   component still packed as a box. Convert it to real STEP geometry.
-- **Re-place the deferred front-column subsystems.** The water deck (SeaFlo pump, Multiplex
-  BFP, drip pan + moisture plate, SeaFlo outlet check), the DIGITEN flow sensor, and the
+- **Re-place the deferred front-column subsystems.** The rest of the water deck (SeaFlo pump,
+  its outlet check, drip pan + moisture plate), the DIGITEN flow sensor, and the
   CO2 chain's GASHER check + WR1110 regulator (the physical CO2 order also disagrees with
   the carbonator schematic — DERPIPE → check → regulator vs regulator → check) are
   deferred from the pack while the front column settles — tracked here and in the
@@ -225,29 +231,37 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   the cold core, the pump row ahead of it, and the funnel drop. What stays open: the band
   under the pump row down to the floor-stratum tops (~34 mm tall), the slab ahead of the
   row's front faces, and the ±X columns beside it. The SeaFlo's true body is 80 × 72 × 187
-  (the banked reference geometry), larger than the placeholder it last packed as.
+  (the banked reference geometry), larger than the placeholder it last packed as, and
+  none of those three volumes takes it — it needs a lane of its own found for it.
+  The ASSE 1022 assembly is placed: it lies along X in the machine corridor's west lane,
+  the only span in the box that is at once long enough (123.5 mm), tall enough (41.3 mm —
+  the band under the pump row is 37.5–40) and wider than its 33 mm. Its vent hangs over
+  open cabinet floor, which is where the drip pan and its moisture plate go; the band
+  beneath its body is held open for them and for refrig-3's reach to the compressor's
+  suction port.
 
 **Deferred — behind the focus:**
 
 - **routed** spans the fluid segments, the sealed refrigerant loop, and the electrical runs
-  (18/59 — the loop's discharge and liquid legs in copper, the junction column's four
+  (19/59 — the loop's discharge and liquid legs in copper, the junction column's four
   straight collet-to-tee legs, the six pump-discharge divider legs and stems, the two
-  nozzle-outlet runs to the rear bulkheads, the hopper drain, and bag B's reservoir line).
+  nozzle-outlet runs to the rear bulkheads, the hopper drain, and both bag reservoir lines).
   Paths are
   authored in [`_lines.py`](_lines.py) with the kit in [`_routing.py`](_routing.py); see
   [`tube-routing.md`](tube-routing.md). All three valve-manifold trays and both pump-discharge
-  dividers stand placed with every boundary port located — the fluid path waits on the deferred
-  water deck and the manifold's remaining legs. The hopper funnel places in
+  dividers stand placed with every boundary port located — the fluid path waits on the SeaFlo
+  the ASSE 1022's discharge hose lands on, and on the manifold's remaining legs. The hopper
+  funnel places in
   [`_contents.py`](_contents.py) alongside the panel bodies, so segment 4 anchors on its own
   drain. The on-tray seats (3/5–8, 14/16, 24/26) are interior to their assemblies and still
   count against the axis until modeled. The electrical runs wait on the components being
-  placed, located, and held first. `_lines.BLOCKED` carries segment 15: its tee branch leaves
-  the bag tray FORWARD into the pump row, and the fall corridor it has to reach is aft, so what
-  blocks it is the exit rather than the bay behind reservoir-A. Segment 25 — its mirror at the
-  other end of the same face, on a tee that faces aft — takes that corridor straight down.
+  placed, located, and held first. `_lines.BLOCKED` is empty: no connection is blocked by the
+  pack as it stands, so every unrouted one waits on its author or on a body not yet placed.
   refrig-3 is simply unauthored: its corridor
   stands open (the source tray's central span stops short of the cold-core face at the evap
-  ports), so it waits only on its author.
+  ports, and the band under the ASSE 1022's body carries it the rest of the way — a cast from
+  the compressor's suction port runs its full length unobstructed), so it waits only on its
+  author.
 - **held** — a printed holder for every internal component. Today only the through-wall
   bodies (wall + their own nut) and the display (shell facet) are held; every loose internal
   part floats. Each needs bosses, a cradle, or a tray that itself fastens.

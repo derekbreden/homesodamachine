@@ -30,6 +30,13 @@ cross-contamination event (`hardware/future.md` "Backflow vent monitoring"), and
 it must drip to atmosphere — never be plumbed into a drain. Whatever places this
 assembly inherits that: `vent_tip()` is the datum the pan has to catch.
 
+The enclosure places it in the machine corridor's west lane
+(`enclosure-assembly/_contents.py` `ASSE1022_POS`) — a pure translation, since
+this frame is already the cabinet's: flow east, vent hanging over the open floor
+the pan sits on. All three terminals are carried to world coordinates from the
+stations below, so a length changed in any of the five parts moves the
+enclosure's ports with it.
+
 ## Model
 
 External envelopes only, composed. Each fitting's own module states how deep its
