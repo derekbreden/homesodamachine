@@ -15,6 +15,7 @@ be recycled onto a different shape while the entry lives.
 """
 
 _CACHE: dict = {}
+_SOLIDS_CACHE: dict = {}
 
 
 def boxed(solid):
@@ -26,3 +27,18 @@ def boxed(solid):
     box = solid.BoundingBox()
     _CACHE[key] = (solid, box)          # pin the solid so its id stays its own
     return box
+
+
+def boxed_solids(shape) -> list:
+    """One box per solid the shape is built from, memoized against the shape.
+
+    `shape.Solids()` hands back freshly wrapped sub-shapes on every call, so `boxed()` can never
+    see the same body twice and the whole list is memoized against its parent instead. Read-only:
+    callers share the list, as they share the pack `build()` hands back."""
+    key = id(shape.wrapped)
+    hit = _SOLIDS_CACHE.get(key)
+    if hit is not None:
+        return hit[1]
+    boxes = [s.BoundingBox() for s in shape.Solids()]
+    _SOLIDS_CACHE[key] = (shape, boxes)
+    return boxes
