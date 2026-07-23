@@ -199,11 +199,24 @@ IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # The ASSE 1022 assembly stands in the MACHINE CORRIDOR'S WEST LANE — the open
 # span between the compressor's back face and the manifold stack's aft face,
-# below the stack's floor. It is the one lane in the box that takes it: the
-# chain is 123.5 mm end to end and 41.3 mm tall, and the band under the pump row
-# (37.5–40 mm) is shorter than the body, the corridor's east end is filled by
-# refrig-1/refrig-2 crossing it, and the ±X columns are narrower than its 33 mm
-# width. Its own frame is +X = flow, so the pose is a pure translation: the
+# below the stack's floor. PROVISIONAL, and on two counts: the pack is sparse
+# (the rest of the water deck, the flow sensor, the CO2 chain and every holder
+# are still unplaced), so a lane that reads clear today is clear of very little;
+# and the chain's 123.5 × 33 × 41.3 comes from the reference model, which
+# divides the Multiplex spec sheet rather than measuring the four parts on the
+# shelf. Both will move this.
+#   Within the FRONT COLUMN below the stack this is the only span that takes the
+# body: the band under the pump row (37.5–40 mm) is shorter than 41.3, the
+# corridor's east end is filled by refrig-1/refrig-2 crossing it, and the ±X
+# columns are narrower than 33. That is a claim about the front column, not
+# about the box. The service bay above the cold core has room for the body in
+# either orientation — what it does not have is anywhere for the VENT to go: the
+# foam-cap top is at z 253.4 and the bay's floor is the cap, so the stub would
+# land on the core within a few millimetres. Siting it up there means moving the
+# drip pan onto the cap or running the telltale down the core's face; siting it
+# here means the stub drips straight into a pan on the cabinet floor, which is
+# the arrangement internal-plumbing.md §2 describes.
+#   Its own frame is +X = flow, so the pose is a pure translation: the
 # Multiplex inlet lands here and the chain runs east.
 #   * X — the body reaches x 14 → 137.5, which stands it one refrigerant lane
 #     (7.5 mm) off refrig-1's copper at the east and leaves the 28 mm to the −X
