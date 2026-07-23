@@ -317,7 +317,7 @@ def main():
         # records the failing verdict (gatesPass=false). The pre-commit gate reads that sidecar and
         # blocks the commit — an invalid pack can be inspected but can never land.
         if not os.environ.get("HSM_EDITOR"):
-            raise SystemExit(msg)
+            sys.exit(msg)                       # via sys.exit: the build lock records the failure
         print("NOT BUILD-READY — " + msg + "  (written anyway for the editor)")
 
     # The scorecard sidecar the 3D viewer reads — the same verdict, beside the model. Written
