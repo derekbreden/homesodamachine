@@ -23,7 +23,7 @@ Layout (origin = cell center, Z = valve mounting plane, ports at Z = [11.3](PORT
 The tray is a frame plate: four valve cradles (single-cell sockets at each
 valve's rotated corners + a saddle along each aim line) around a central open
 gap that clears both dividers and the tubes, with two side walls rising to
-Z = [60](WALL_TOP_Z) so the next cell stacks at a [63](STACK_PITCH) mm pitch.
+Z = [58.3](WALL_TOP_Z) so the next cell stacks at a [61.3](STACK_PITCH) mm pitch.
 """
 
 import math
@@ -219,7 +219,11 @@ def boundary_collets():
 margin = 3.0
 wall_thickness = 3.0
 wall_clear = 1.0
-wall_top_z = 60.0
+# This tray's walls carry the stack seam, so they take the same height as the bag
+# tray's: the valve's coil top plus half `stack_coil_clear`, which is what holds the
+# two trays' facing coils apart. The wall stands proud of its own valve only by that
+# half-gap — see `bag_circuit_tray.wall_top_z`.
+wall_top_z = bc.wall_top_z
 stack_pitch = wall_top_z - bot_z
 
 _socket_x = [

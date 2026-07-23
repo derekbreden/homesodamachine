@@ -26,11 +26,13 @@ carry the authored legs, each measured off the faces that bound it:
     are straight tube, ~10 mm each, no bends. Each tee's branch is then rolled about the run
     (`JUNCTION_ROLL`) to swing forward off the pump row, and fluid-11/21 carry the suction
     over pump A to the pump inlets.
-  * the +X wall pocket and the shelf deck above it — the cold core's own standoff off that
-    wall, where the two nozzle-outlet elbows stand, and the open band over the electronics
-    shelf that fluid-18/28 cross to reach the rear flavor bulkheads. The pocket is also the
-    Y seam's corner-post lane, so both runs turn west out of it while still forward of that
-    column, then ride their own decks over the pcba into the bulkheads.
+  * the +X wall pocket and the channel inboard of it — the cold core's own standoff off that
+    wall, where the two nozzle-outlet elbows stand, and the wide horizontal channel between
+    the nozzle gate's crown and the hopper funnel's basin underside, which runs unbroken the
+    full depth of the box and out over the electronics shelf. It is wide rather than tall, so
+    fluid-18/28 share one deck ([294.5](NOZ_DECK_Z)) side by side in x rather than stacking,
+    and reach the rear flavor bulkheads without either climbing over the other. The pocket is
+    also the Y seam's corner-post lane, so both step west out of it before turning aft at all.
 
 Precedent: `pcba.tsx`'s `route(...)` call sites.
 """
@@ -148,13 +150,18 @@ def build_runs() -> list:
     # (segments 12/22) leave below, from each divider's own stem port.
     LEAD = 8.0                              # exit/approach stub: straight lead-out/-in along each collet
     DBEND = 12.0                            # 1/4" LLDPE, clean-sweeping radius (as the copper loop uses)
+    # An apex is hand-placed in the LANE (x, y — which side of the spout the arc passes), but its
+    # height is not a world Z: it is a rise over the crown of the one elbow the leg arcs over. Named
+    # that way it rides that elbow's tray, so a stack that closes carries both arcs down with it and
+    # the turn off each collet keeps its angle. A frozen Z would hold the apex where the tray no
+    # longer is, and the exit lead runs out of tangent for the sharper turn.
     for cid, elb, div, port, apex, lead, bend in (
-        ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", None,                   (8.0, 6.5), 8.0),  # one bend into the yawed outlet
-        ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3", (202.0, 111.0, 259.0),  LEAD, DBEND),      # over elbow-y-d (top z254)
-        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (207.0, 118.0, 292.0),  (4.0, 8.0), DBEND),  # short exit lead + high apex, held EAST: the funnel spout drops into the west half of the lane and its foot sits level with elbow-bag-y-d's crown, so there is no gap between them to take — this clears the elbow and passes the spout on its east side
-        ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3", None,                   (8.0, 6.0), DBEND),  # y-g sits west of this elbow, so it leaves on its collet and turns
+        ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", None,                                   (8.0, 6.5), 8.0),  # one bend into the yawed outlet
+        ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3", (202.0, 111.0, "elbow-y-d",     3.77),  LEAD, DBEND),      # over elbow-y-d
+        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (207.0, 118.0, "elbow-bag-y-d", 8.05),  (4.0, 8.0), DBEND),  # short exit lead + high apex, held EAST: the funnel spout drops into the west half of the lane and its foot sits level with elbow-bag-y-d's crown, so there is no gap between them to take — this clears the elbow and passes the spout on its east side
+        ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3", None,                                   (8.0, 6.0), DBEND),  # y-g sits west of this elbow, so it leaves on its collet and turns
     ):
-        mids = [apex] if apex is not None else []
+        mids = [] if apex is None else [(apex[0], apex[1], f[apex[2]].bb.zmax + apex[3])]
         runs.append(R.bent(cid, f"{elb}.free", *mids, f"{div}.{port}",
                             kind="fluid", bend=bend, skew=DISCHARGE_SKEW, lead=lead,
                             note=f"discharge {port}: {elb} → {div} {port}, bent over the row"))
@@ -203,18 +210,39 @@ def build_runs() -> list:
 
     # The nozzle-outlet runs (segments 18/28) — each outlet elbow's free leg up out of the +X wall
     # pocket, then aft over the electronics shelf into its rear flavor bulkhead's inward collet.
-    # Each climbs first and steps WEST off the pocket before it turns aft at all: the pocket is the
-    # ±X boss-chain band, and that band carries the seam's Z-pin stations and Y corner column, so a
-    # run holding it aft drives straight through a post. The step is small — the funnel's basin ends
-    # at x275 and the band starts at x283, so the whole depth is open in the lane between them, and
-    # both runs take it. They separate in z there (28 above 18), ride aft past the seam, then come
-    # west over the pcba (top z283.0) into their own bulkhead lanes.
-    for cid, elb, bulk, mids in (
-        ("fluid-18", "elbow-noz-a", "bulkhead-flavor-a",        # low deck, west lane
-         [(279.00, 152.68, 296.0), (279.00, 300.0, 296.0), (195.05, 300.0, 292.45)]),
-        ("fluid-28", "elbow-noz-b", "bulkhead-flavor-b",        # high deck, east lane
-         [(279.00, 118.43, 312.0), (279.00, 315.0, 312.0), (224.95, 315.0, 292.45)]),
+    # Both ride ONE deck, [294.5](NOZ_DECK_Z), side by side in x: the channel over the gate is
+    # wide, not tall, so they separate across it rather than stacking. Its floor is the gate's
+    # crown — the valve coils, the tray's walls ending level with them — its ceiling the funnel's
+    # basin underside, and outboard of the funnel's rim it opens clear to the roof.
+    #   Each climbs and steps west in one diagonal, clear of the ±X boss-chain band before it turns
+    # aft at all: that band carries the seam's Z-pin stations and Y corner column, and a run holding
+    # it aft drives straight through a post. 18 takes the outer lane [274.18](NOZ_LANE_OUTER_X), 28
+    # the inner [262.18](NOZ_LANE_INNER_X), stepping west across 18's lane while still well forward
+    # of 18's own elbow. That order puts 28 west at the back, so it turns off first and 18 second,
+    # each into the bulkhead on its own side — the two never cross.
+    #   Every station below is READ OFF THE PART THAT SETS IT: the deck off the gate's crown, the
+    # outer lane off the cold core's east face (the boss-chain band stands on it), each first
+    # waypoint off its OWN elbow's free port, each close off its bulkhead's collet. A waypoint
+    # measured out of the built pack and typed back in reads identically the day it is written and
+    # is wrong from the first move of the part it was measured against — and it carries the
+    # transcription's rounding into a corner that was meant to continue the leg exactly. The frames
+    # already hold these numbers to full precision; asking them costs nothing. LANE_CLEAR is the one
+    # number CHOSEN rather than read, and it sets all three gaps: 18 off the band, 28 off 18, the
+    # deck off the crown.
+    gate, cold = f["nozzle-gate-assembly"], f["foam-assembly"]
+    LANE_CLEAR = 5.65                      # the gap a lane holds off whatever bounds it
+    od = f["elbow-noz-a"].diam("free")     # the line's own bore, off the collet it leaves
+    deck_z = gate.bb.zmax + LANE_CLEAR + od / 2.0     # one deck, clear over the gate's crown
+    outer_x = cold.bb.xmax - LANE_CLEAR - od / 2.0    # the band stands on the core's east face
+    for cid, elb, bulk, lane_x, turn_back in (
+        ("fluid-18", "elbow-noz-a", "bulkhead-flavor-a", outer_x, 40.0),                  # outer lane
+        ("fluid-28", "elbow-noz-b", "bulkhead-flavor-b", outer_x - (od + LANE_CLEAR), 55.0),  # inner lane
     ):
+        e, b = f[elb], f[bulk]
+        turn_y = b.at("tube-in")[1] - turn_back                       # west out of the lane, clear of the wall
+        mids = [(lane_x, e.at("free")[1], deck_z),                    # west off the pocket, up onto the deck
+                (lane_x, turn_y, deck_z),                             # aft down the lane
+                (b.at("tube-in")[0], turn_y, b.at("tube-in")[2])]     # west into the bulkhead's own lane
         runs.append(R.bent(cid, f"{elb}.free", *mids, f"{bulk}.tube-in",
                            kind="fluid", bend=8.0, skew=DISCHARGE_SKEW, lead=(10.0, 10.0),
                            note=f"nozzle outlet: {elb} → {bulk}, up out of the pocket and aft over the shelf"))
@@ -226,6 +254,18 @@ def build() -> dict:
     """The runs as placed solids: {name: (solid, color)} — copper for the refrigerant loop,
     white LLDPE for the fluid (flavor) runs."""
     return {r.id: (R.tube(r), LLDPE if r.kind == "fluid" else COPPER) for r in build_runs()}
+
+
+def lane_stations() -> dict:
+    """The nozzle-outlet lanes' stations, taken from the built runs themselves — so the numbers
+    the prose above quotes are literally the numbers the tubes were swept along, not a second
+    hand-kept copy of them. `enclosure_assembly` feeds these to the [value](NAME) markers."""
+    pts = {r.id: r.pts for r in build_runs() if r.id in ("fluid-18", "fluid-28")}
+    return {
+        "NOZ_DECK_Z":      f"{pts['fluid-18'][2][2]:.4g}",   # the shared deck, off the gate's crown
+        "NOZ_LANE_OUTER_X": f"{pts['fluid-18'][2][0]:.5g}",  # 18's lane, off the cold core's east face
+        "NOZ_LANE_INNER_X": f"{pts['fluid-28'][2][0]:.5g}",  # 28's lane, one lane inboard of it
+    }
 
 
 # A run whose id is not itself a connection, because an in-line fitting splits it: a union

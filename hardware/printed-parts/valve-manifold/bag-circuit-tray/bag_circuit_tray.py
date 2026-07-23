@@ -190,7 +190,19 @@ def bag_branches():
 margin = 3.0
 wall_thickness = 3.0
 wall_clear = 1.0
-wall_top_z = 60.0
+# A wall's own job ends at the top of what it retains — the valve's coil.
+valve_coil_top_z = cell.valve.coil_z_range[1]
+# A STACKED tray's walls do a second job: they are the seat the tray above lands on
+# (scorecard `TOUCHING_OK`), and so they are the only thing holding this tray's coils
+# off the facing tray's across that seam. STACK_COIL_CLEAR is that facing-coil gap,
+# split between the two trays — the whole reason a stacking wall stands proud of its
+# valve at all. A tray whose wall tops face open air instead (the nozzle gate, hung
+# valves-up) carries no seat, so it passes `wall_top=valve_coil_top_z` and ends flush.
+# Twice the enclosure's clearance floor. The two coils are purchased bodies that must
+# never be clamped between their trays, and nothing else rides this gap; every
+# millimetre of it costs two in stack height. Seeded, not ratified — like `BEND_RATIO`.
+stack_coil_clear = 3.4
+wall_top_z = valve_coil_top_z + stack_coil_clear / 2.0
 stack_pitch = wall_top_z - bot_z
 
 # Valve reach in X from its center, per height band. These trays seat the valves
@@ -346,26 +358,29 @@ def _wall_span(valve_centers, plate_x, half_x):
             min(plate_x[1], max(xs) + half_x))
 
 
-def _stacking_wall(valve_centers, plate_x, y_half):
+def _stacking_wall(valve_centers, plate_x, y_half, wall_top=None):
     """A ±Y stacking wall as two stacked slabs, stepped where the valve narrows:
     up to the body top it spans the valve bodies, above it retreats to the coils.
-    Built centered on Y = 0 for the caller to translate onto its side."""
+    Built centered on Y = 0 for the caller to translate onto its side. `wall_top`
+    defaults to the stacked height (`wall_top_z`); a tray that seats nothing passes
+    `valve_coil_top_z` and its wall ends level with the coil."""
     return _box(*_wall_span(valve_centers, plate_x, valve_body_half_x),
                 y_half, bot_z, valve_body_top_z).union(
         _box(*_wall_span(valve_centers, plate_x, valve_coil_half_x),
-             y_half, valve_body_top_z, wall_top_z))
+             y_half, valve_body_top_z, wall_top_z if wall_top is None else wall_top))
 
 
-def build_tray(valve_centers, connectors, plate_x, plate_y_half):
+def build_tray(valve_centers, connectors, plate_x, plate_y_half, wall_top=None):
     """Solid frame plate spanning ``plate_x`` (lo, hi), with a four-socket
     cradle and port saddle per valve, a groove per connector, and two ±Y
     stacking walls. The walls step with the valves' own X footprint
     (`_stacking_wall`), sitting flush with the body low down and with the motor
-    body above it rather than protruding past either."""
+    body above it rather than protruding past either. `wall_top` overrides how
+    high the coil-band slab runs — see `_stacking_wall`."""
     tray = _box(plate_x[0], plate_x[1], plate_y_half, bot_z, top_z)
     tray = _cut_cradles(tray, valve_centers, connectors)
     for sy in (+1.0, -1.0):
-        wall = _stacking_wall(valve_centers, plate_x, wall_thickness / 2.0)
+        wall = _stacking_wall(valve_centers, plate_x, wall_thickness / 2.0, wall_top)
         tray = tray.union(wall.translate((0.0, sy * (plate_y_half - wall_thickness / 2.0), 0.0)))
     return tray
 
