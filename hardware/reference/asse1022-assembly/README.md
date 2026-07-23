@@ -30,12 +30,14 @@ cross-contamination event (`hardware/future.md` "Backflow vent monitoring"), and
 it must drip to atmosphere — never be plumbed into a drain. Whatever places this
 assembly inherits that: `vent_tip()` is the datum the pan has to catch.
 
-The enclosure places it in the machine corridor's west lane
-(`enclosure-assembly/_contents.py` `ASSE1022_POS`) — a pure translation, since
-this frame is already the cabinet's: flow east, vent hanging over the open floor
-the pan sits on. All three terminals are carried to world coordinates from the
-stations below, so a length changed in any of the five parts moves the
-enclosure's ports with it.
+The enclosure places it in the service bay's aft strip, at the rear-panel water
+bulkhead it protects (`enclosure-assembly/_contents.py` `ASSE1022_POS` and
+`ASSE1022_YAW`) — a yaw about Z and a translation, since this frame is already
+the cabinet's axes. A yaw is the only turn the vent allows, and the one it takes
+swaps the chain's ends: the inlet faces the bulkhead, the barb faces away down
+the strip, and the stub hangs over the foam-cap top the pan sits on. All three
+terminals are carried to world coordinates from the stations below, so a length
+changed in any of the five parts moves the enclosure's ports with it.
 
 ## Model
 
@@ -49,11 +51,12 @@ shares a surface and no volume; the assembly's parts do not interfere.
 |---|---|---|
 | `tube_in()` | (−36.00, 0, 27.00) | −X |
 | `hose_out()` | (87.50, 0, 27.00) | +X |
-| `vent_tip()` | (32.00, 0, −50.00) | −Z |
+| `vent_tip()` | (32.00, 0, −15.00) | −Z |
 
-Overall 123.5 × 33.0 × 91.3 mm. The vent stub's reach below the barb is a cut
+Overall 123.5 × 33.0 × 56.3 mm. The vent stub's reach below the barb is a cut
 length, not a fixed dimension — it is trimmed at the bench to clear whatever it
-passes on the way to the pan.
+passes on the way to the pan, and `VENT_STUB_REACH` holds the drop the enclosure's
+placement leaves for it: down into the pan's mouth, stopping above the water line.
 
 Frame: the Multiplex's own — **+X = flow**, its inlet at X = 0, vent along −Z.
 The upstream fittings therefore sit at negative X.

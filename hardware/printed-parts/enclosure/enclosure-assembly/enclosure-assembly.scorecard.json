@@ -112,7 +112,7 @@
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
         "\u2713 tee-y-c: near source-select-assembly 14.5 mm",
         "\u2713 tee-y-f: near source-select-assembly 8.1 mm",
-        "\u2713 asse1022-assembly: x- 28.0 z- 40.0 clear compressor-shroud 8.0 clear foam-assembly 26.0 mm",
+        "\u2713 asse1022-assembly: near bulkhead-water 16.3 near foam-assembly 16.6 clear foam-assembly 16.6 clear power-tray 29.6 x- 76.5 mm",
         "19 components: no placement rules defined yet"
       ],
       "active": true
@@ -671,45 +671,45 @@
       "name": "tube-in",
       "kind": "fluid",
       "pos": [
-        14.0,
-        157.5,
-        117.0
+        186.0,
+        336.0,
+        312.0
       ],
-      "face": "x-",
+      "face": "x+",
       "diam": 6.35,
       "mates": "bulkhead-water tube-in (rear-panel tap-water inlet, via the customer's filter)",
       "status": "ok",
-      "note": "JG PP010822E 1/4\" PTC, facing west at the riser column"
+      "note": "JG PP010822E 1/4\" PTC, facing east at the bulkhead's own column, a pigtail away"
     },
     {
       "component": "asse1022-assembly",
       "name": "hose-out",
       "kind": "fluid",
       "pos": [
-        137.5,
-        157.5,
-        117.0
+        62.5,
+        336.0,
+        312.0
       ],
-      "face": "x+",
+      "face": "x-",
       "diam": 9.525,
       "mates": "SeaFlo 22-series suction inlet (deferred) \u2014 V-A's tap point tees off this hose",
       "status": "ok",
-      "note": "FFL38BARB38 3/8\" barb, facing east down the corridor; worm-gear clamp"
+      "note": "FFL38BARB38 3/8\" barb, facing west into the strip's open end; worm-gear clamp"
     },
     {
       "component": "asse1022-assembly",
       "name": "vent-tip",
       "kind": "fluid",
       "pos": [
-        82.0,
-        157.5,
-        40.0
+        118.0,
+        336.0,
+        270.0
       ],
       "face": "z-",
       "diam": 6.35,
       "mates": "atmosphere, over the drip pan + moisture plate (deferred) \u2014 never plumbed",
       "status": "ok",
-      "note": "Sealproof 1/4\" ID clear-PVC stub, hanging \u2212Z; cut to length at the bench"
+      "note": "Sealproof 1/4\" ID clear-PVC stub, hanging \u2212Z at the foam-cap top; cut to length at the bench"
     },
     {
       "component": "hopper-funnel",
@@ -1731,55 +1731,55 @@
       "component": "asse1022-assembly",
       "boxes": [
         [
-          50.0,
-          141.0,
-          90.0,
-          115.0,
-          174.0,
-          131.289
+          85.0,
+          319.5,
+          285.0,
+          150.0,
+          352.5,
+          326.289
         ],
         [
-          115.0,
-          152.0,
-          111.5,
-          137.5,
-          163.0,
-          122.5
+          62.5,
+          330.5,
+          306.5,
+          85.0,
+          341.5,
+          317.5
         ],
         [
-          101.0,
-          146.5,
-          107.474,
-          115.0,
-          168.5,
-          126.526
+          85.0,
+          325.0,
+          302.474,
+          99.0,
+          347.0,
+          321.526
         ],
         [
-          77.235,
-          152.735,
-          40.0,
-          86.765,
-          162.265,
-          100.5
+          113.235,
+          331.235,
+          270.0,
+          122.765,
+          340.765,
+          295.5
         ],
         [
-          14.0,
-          150.355,
-          108.75,
-          43.5,
-          164.645,
-          125.25
+          156.5,
+          328.855,
+          303.75,
+          186.0,
+          343.145,
+          320.25
         ],
         [
-          32.5,
-          144.665,
-          105.885,
-          63.0,
-          170.335,
-          128.115
+          137.0,
+          323.165,
+          300.885,
+          167.5,
+          348.835,
+          323.115
         ]
       ],
-      "fill": 0.3997,
+      "fill": 0.404,
       "primitive": false,
       "declared": "real"
     },

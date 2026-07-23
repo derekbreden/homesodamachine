@@ -36,7 +36,7 @@ Tooling: standard hand tools — Phillips + hex (2.5 mm for M3), soldering iron 
 
 ## Procedure
 
-The chassis is built from the floor up: enclosure shell on the bench, drip pan in, compressor on the floor under its shroud, condenser/fan against the chosen side wall, cold core dropped in at the rear, hopper at the top-front, back panel (bulkheads pre-installed) mounted last, electronics stack seated on the pump-2 column beside the side-panel C14 inlet. The cold core drops in as a single pre-assembled unit — it is not built up in place. See [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) "Output condition" for the state the cold core arrives in.
+The chassis is built from the floor up: enclosure shell on the bench, compressor on the floor under its shroud, condenser/fan against the chosen side wall, cold core dropped in at the rear, drip pan onto the foam-cap top behind it, hopper at the top-front, back panel (bulkheads pre-installed) mounted last, electronics stack seated on the pump-2 column beside the side-panel C14 inlet. The cold core drops in as a single pre-assembled unit — it is not built up in place. See [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) "Output condition" for the state the cold core arrives in.
 
 ### 1. Stage the enclosure shell + back panel on the bench
 
@@ -53,13 +53,7 @@ Pre-install all bulkheads on the back panel on the bench, ahead of mounting it t
 
 Set the populated back panel aside; it mounts in step 7.
 
-### 2. Install the internal drip pan + moisture sensor
-
-Seat the printed drip pan in its location under where the Multiplex 19-0897's atmospheric vent will terminate (the pan + vent location are inside the cabinet, not routed through any panel; see [`/hardware/future.md`](/hardware/future.md) "Backflow vent monitoring"). Place the moisture sensor in the pan with its leads routed up toward the electronics-shelf landing point. Leave the leads loose for now — termination at the shelf happens in [`wiring.md`](/hardware/assembly/wiring.md) (run SIG-9 in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md)).
-
-Pan + sensor go in early because they sit underneath the compressor + plumbing zone; installing them after the compressor lands forces access from above through the wiring loom.
-
-### 3. Mount the compressor to the floor with the shroud pre-installed
+### 2. Mount the compressor to the floor with the shroud pre-installed
 
 The compressor body comes in as part of the integrated refrigerant-loop assembly with all refrigerant lines already brazed to it; the cold core's coil stubs are connected to the suction line and capillary tube as documented in [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md). The compressor is not separated from this assembly at any point in this procedure.
 
@@ -70,9 +64,9 @@ The compressor body comes in as part of the integrated refrigerant-loop assembly
 3. Lower the shroud down over the terminal block + PTC module. Confirm ≥[10 mm](TB_CLEARANCE) clearance on all sides of the terminal block per [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md) "Dimensions".
 4. Fasten the shroud to the enclosure floor through the two mounting holes near the base of the side walls, per [`/hardware/cut-parts/compressor-shroud/README.md`](/hardware/cut-parts/compressor-shroud/README.md) "Grounding & mounting". Torque-limited.
 
-Bolt the compressor to the enclosure floor at the middle-bottom compressor-mounting bosses, the shroud seated over it. The condenser + fan + condenser-side tubing comes along on the same lift (still attached as part of the integrated refrigerant-loop assembly). Mind the condenser orientation — its airflow axis lands in step 4.
+Bolt the compressor to the enclosure floor at the middle-bottom compressor-mounting bosses, the shroud seated over it. The condenser + fan + condenser-side tubing comes along on the same lift (still attached as part of the integrated refrigerant-loop assembly). Mind the condenser orientation — its airflow axis lands in step 3.
 
-### 4. Mount the condenser + fan against the chosen side wall
+### 3. Mount the condenser + fan against the chosen side wall
 
 Position the condenser + fan against the chosen side wall, fan axis crossing the enclosure side-to-side, intake side facing the intake grille and exhaust side facing the exhaust grille on the opposite face. The donor's harvested fan shroud carries the mounting screws into the printed enclosure side wall's condenser bosses (insert pattern defined per the enclosure CAD).
 
@@ -80,13 +74,19 @@ Which side wall (left or right) holds the intake vs. exhaust is not yet locked �
 
 Confirm: the fan's flow direction matches the donor's native orientation per [`/hardware/reference/ice-maker/README.md`](/hardware/reference/ice-maker/README.md). The fan was already validated in this configuration in the donor ice maker; the only new variable is its anchor surface.
 
-### 5. Seat the cold core at the rear
+### 4. Seat the cold core at the rear
 
 With the compressor + condenser + fan now anchored, lower the cold core into the rear of the enclosure as a single pre-assembled unit. The cold core lands on the printed support ring at the back of the enclosure floor — the ring captures the foam-shell's own outer footprint ([283](FOAM_SHELL_X) × [181](FOAM_SHELL_Y) per [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "outer_shell" + "foam_lid").
 
 The coil stubs are already brazed into the donor loop (suction line + cap-tube join) per [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) step 4–5 — no brazing work happens here. Confirm no tension is induced on the refrigerant lines as the cold core seats; the compressor + condenser were placed first specifically so the cold core can land on the support ring without dragging the brazed joints. Re-check the BPV31 cap is tight (the appliance's single permanent service-access point per [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md) "Output condition").
 
 Cold-core penetrations on the +Z outer wall (the wall facing forward toward the front of the cabinet, by the cold-core coordinate convention in [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md)) — the shared copper/water-inlet slot, the reservoir-line holes, the water-outlet hole, the reed-cable holes — face into the cabinet interior where [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) and [`wiring.md`](/hardware/assembly/wiring.md) will reach them.
+
+### 5. Seat the drip pan + moisture sensor on the foam-cap top
+
+Seat the printed drip pan on the cold core's foam-cap top, in the rear strip behind where the electronics shelf row will land and under where the Multiplex 19-0897's atmospheric vent will terminate (the pan + vent location are inside the cabinet, not routed through any panel; see [`/hardware/future.md`](/hardware/future.md) "Backflow vent monitoring"). Place the moisture sensor in the pan with its leads routed toward the shelf's landing point on the same deck. Leave the leads loose for now — termination at the shelf happens in [`wiring.md`](/hardware/assembly/wiring.md) (run SIG-9 in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md)).
+
+Pan + sensor go on before the back panel and the shelf: both reach into the band over this strip, and the pan seats from above with the bay still open.
 
 ### 6. Install the top hopper
 
@@ -120,7 +120,7 @@ A complete mechanical chassis ready for [`internal-plumbing.md`](/hardware/assem
 - Compressor bolted to the enclosure floor, sheet-metal shroud installed and anchored to the M5 compressor feet, gland-fitted [7/8"](PANEL_HOLE) AC pass-through facing the electronics stack
 - Condenser + fan mounted on the chosen side wall, airflow axis crossing the enclosure side-to-side, intake grille on one side face and exhaust grille on the opposite side face
 - Back panel mounted with the three PP1208E umbilical bulkheads pre-installed in their triangular cluster (blue ring at top vertex), the PP1208E water inlet right of them, and the C14 inlet (recessed with printed shroud) at the rightmost station — every station in the band above the cold core, bodies reaching forward into its open rear half. CO2 inlet lives on the front panel — see [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md); separate install step (not yet broken out in this doc).
-- Drip pan + moisture sensor installed under the backflow-vent termination point, sensor leads routed toward the shelf above the cold core (not yet terminated)
+- Drip pan + moisture sensor seated on the foam-cap top under the backflow-vent termination point, in the strip behind the shelf row, sensor leads routed toward the shelf on the same deck (not yet terminated)
 - Hopper installed at the top-front, outlet stub hanging free
 - Electronics shelf seated on the foam-cap top — power tray, PCBA tray, and DC distribution lying flat in the band above the cold core — unpowered, AC pigtails hanging free
 - Nameplate plaque blank set aside in the unit's build folder, **not** applied (serialization, signature, and application happen at [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md))
@@ -134,7 +134,7 @@ Procedure-level gaps that need answers before unit 1 ships:
 1. **Enclosure shell + back-panel screw schedule.** The fastener type/size and ruthex insert positions for panel-to-shell mating, hopper-to-shell mating (if separable), and condenser-fan-shroud-to-side-wall mating are pending enclosure CAD. Working assumption is M3 SHCS into ruthex inserts (matching the pattern already used on cold-core caps and faucet shells per [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Cap-to-outer-shell joinery"), but counts, positions, and exact lengths are not committed.
 2. **Condenser-fan side-wall assignment (left vs. right).** [`/hardware/future.md`](/hardware/future.md) "Enclosure layout" specifies side-to-side airflow with intake on one face and exhaust on the opposite face, but does not lock which side. Working assumption is the side opposite the cabinet-door swing per kitchen install convention; this is unverified and should be confirmed against typical 36"-base-cabinet door-swing geometry in target kitchens, then locked into the printed shell at order time.
 3. **Hopper attach mode.** Whether the flavor hopper attaches via the top of the enclosure as a separate printed part, or is integral to the printed top face of the enclosure shell. The BOM lists the hopper as a separate 0.4 kg PET-CF print ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7) but the top face's print orientation may make a single integrated print preferable — pending the enclosure-shell CAD decision.
-4. **Drip pan + moisture sensor part selection.** Neither part is in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) yet. The pan is presumed to be a small printed PET-CF tray sized for the Multiplex vent terminal location; the moisture sensor is presumed to be a generic ESP32-compatible resistive or capacitive board. Specifics need to land before [`wiring.md`](/hardware/assembly/wiring.md) can finalize the SIG-9 pin assignment and cable length.
+4. **Drip pan + moisture sensor part selection.** Neither part is in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) yet. The pan is presumed to be a small printed PET-CF tray, sized to the footprint measured clear on the foam-cap top under the Multiplex vent tip ([`enclosure-assembly/_contents.py`](/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py) `ASSE1022_POS`); the moisture sensor is presumed to be a generic ESP32-compatible resistive or capacitive board. Specifics need to land before [`wiring.md`](/hardware/assembly/wiring.md) can finalize the SIG-9 pin assignment and cable length.
 5. **Build-fixture cradle.** A printed bench fixture that holds the enclosure shell upright (or tilted) during compressor mounting, cold-core lowering, and back-panel installation. Not yet specified; depends on the shell's external dimensions and on whether the build proceeds on its side or upright.
 6. **Cold-core support-ring detail at the enclosure floor.** Whether this is an integral feature of the enclosure-shell floor print, a separate printed ring that drops in, or a set of cleats — pending enclosure-shell CAD.
 

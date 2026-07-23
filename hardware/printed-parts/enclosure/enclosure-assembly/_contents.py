@@ -62,16 +62,10 @@ Strata, floor to ceiling:
              on the floor between the compressor and the cold core
              (isobutane sinks).
   * The machine corridor (compressor back face to cold-core front face,
-             below the tray stack's floor): the ASSE 1022 assembly lying
-             along X in its WEST lane, flow east — the one span in the box
-             long enough, tall enough and wide enough for it. Its 1/4" PTC
-             inlet faces west at the riser column outboard of the trays,
-             its 3/8" barb east at the corridor the SeaFlo suction crosses,
-             and its atmospheric vent hangs down over open cabinet floor:
-             the drip pan + moisture plate go under that tip, and the band
-             beneath the body is left open for them and for refrig-3's
-             reach to the compressor's suction port. refrig-1 and refrig-2
-             cross the corridor's east half; the east lane is theirs.
+             below the tray stack's floor): open. It carries the
+             manifold's cross-machine lines and refrig-3's unauthored run
+             to the compressor's suction port; refrig-1 and refrig-2
+             already cross its east half.
   * Zone A:  cold core (foam assembly: bottom cap + shell + top cap) on the
              floor at the back, its −Y dispense/service ports facing
              forward.
@@ -115,7 +109,15 @@ Strata, floor to ceiling:
              of it; the rear half open for the panel bodies reaching in
              from the rear wall (the umbilical triangle, the tap-water
              bulkhead, and the C14) and the riser traffic crossing to
-             them.
+             them. In the strip between the shelf's back edge and those
+             bodies, the ASSE 1022 assembly lies along X above the cap,
+             yawed so its 1/4" PTC inlet faces EAST at the water bulkhead
+             it protects — a short pigtail, not a cabinet-long run — and
+             its 3/8" barb WEST into the strip's open end for the SeaFlo
+             suction. Its atmospheric vent hangs −Z over the foam-cap top:
+             the drip pan + moisture plate go under that tip, on the cap,
+             and the band beneath the body is left open for them and for
+             the C14's cordage crossing forward to the AC hub.
   * Zone C top: the top wall right of the display is one open rectangle
              cut at the placed funnel's collar (enclosure.py
              `_hopper_hole` reads FUNNEL_CX/CY + the funnel's own dims) —
@@ -197,47 +199,37 @@ IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 # stratum stays open. The airflow axis rides the tip unchanged: the fan +
 # finstack stack depth, calipered [56 mm](CONDENSER_AIRFLOW) combined, along X.
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
-# The ASSE 1022 assembly stands in the MACHINE CORRIDOR'S WEST LANE — the open
-# span between the compressor's back face and the manifold stack's aft face,
-# below the stack's floor. PROVISIONAL, and on two counts: the pack is sparse
-# (the rest of the water deck, the flow sensor, the CO2 chain and every holder
-# are still unplaced), so a lane that reads clear today is clear of very little;
-# and the chain's 123.5 × 33 × 41.3 comes from the reference model, which
-# divides the Multiplex spec sheet rather than measuring the four parts on the
-# shelf. Both will move this.
-#   Within the FRONT COLUMN below the stack this is the only span that takes the
-# body: the band under the pump row (37.5–40 mm) is shorter than 41.3, the
-# corridor's east end is filled by refrig-1/refrig-2 crossing it, and the ±X
-# columns are narrower than 33. That is a claim about the front column, not
-# about the box. The service bay above the cold core has room for the body in
-# either orientation — what it does not have is anywhere for the VENT to go: the
-# foam-cap top is at z 253.4 and the bay's floor is the cap, so the stub would
-# land on the core within a few millimetres. Siting it up there means moving the
-# drip pan onto the cap or running the telltale down the core's face; siting it
-# here means the stub drips straight into a pan on the cabinet floor, which is
-# the arrangement internal-plumbing.md §2 describes.
-#   Its own frame is +X = flow, so the pose is a pure translation: the
-# Multiplex inlet lands here and the chain runs east.
-#   * X — the body reaches x 14 → 137.5, which stands it one refrigerant lane
-#     (7.5 mm) off refrig-1's copper at the east and leaves the 28 mm to the −X
-#     interior wall at the west. That split follows the two lines it carries:
-#     the 3/8" silicone to the SeaFlo suction is the stiff one, so the barb
-#     faces EAST into 75.5 mm of straight corridor, while the 1/4" PTC inlet
-#     faces WEST at the open riser column outboard of the trays (x < 4.8, clear
-#     floor to ceiling), which is the lane its feed drops down from the rear
-#     bulkhead.
-#   * Y — centred in the corridor, 8 mm off the compressor's back face and 8 mm
-#     off the stack's aft face, so it crowds neither and stays out of the
-#     BAG_FALL_CORRIDOR the bag lines fall down behind the stack.
-#   * Z — the body's underside rides clear ABOVE the corridor floor. That band
-#     is spoken for twice: it is the drip pan's ground, and it is the lane
-#     refrig-3 (the unauthored suction leg) has to take to reach the
-#     compressor's suction port at z 78. The `clear compressor-shroud` rule
-#     holds it open.
-# The vent is the pose (reference/asse1022-assembly README): its stub runs −Z
-# and its tip lands at z 40 over open cabinet floor, where the drip pan + its
-# moisture plate go. Nothing may be packed under it.
-ASSE1022_POS = (50.0, 157.5, 90.0)
+# The ASSE 1022 assembly lies along X in the SERVICE BAY'S AFT STRIP — the span
+# between the electronics shelf's back edge and the rear-panel bodies reaching in
+# from the wall, over the foam-cap top. It is the first component on the water
+# path, and it stands at the rear-panel water bulkhead: the chain's inlet is one
+# pigtail off the bulkhead's inboard mouth, and everything downstream of the body
+# is protected line.
+#   * X — the body reaches x 62.5 → 186. Its EAST end is the 1/4" PTC inlet at
+#     (186, 336, 312), 50.8 mm from the bulkhead mouth at (145, 359.2, 293); past
+#     it the two nozzle-outlet runs cross the strip on their way to the flavor
+#     bulkheads (fluid-28 at 12.30 mm). Its WEST end is the 3/8" barb, with the
+#     strip's open end ahead of it — 76.5 mm to the −X interior wall, no body
+#     between — for the stiff silicone to turn in on its way to the SeaFlo.
+#   * Y — in the strip: 14.21 mm off the C14, 16.26 mm off the water bulkhead
+#     itself, the shelf row ahead and the wall behind.
+#   * Z — the body's underside rides 31.6 mm over the foam-cap top. The band under
+#     it is the drip pan's, and the C14's cordage crosses it going forward to the
+#     AC hub.
+# The vent is the pose (reference/asse1022-assembly README): the stub runs −Z to a
+# tip at (118, 336, 270), 16.6 mm of air over the cap, west of the shelf row and
+# east of the DC distribution block, with a 70 × 50 footprint on the cap under it
+# for the pan + its moisture plate. Nothing may be packed under it, and
+# VENT_STUB_REACH is cut to that drop.
+#   PROVISIONAL on two counts: the pack is sparse (the rest of the water deck, the
+# flow sensor, the CO2 chain and every holder are still unplaced), so a strip that
+# reads clear today is clear of very little; and the chain's 123.5 × 33 × 41.3 comes
+# from the reference model, which divides the Multiplex spec sheet rather than
+# measuring the four parts on the shelf. Both will move this.
+ASSE1022_POS = (150.0, 336.0, 285.0)
+# Yaw about Z, applied before the translation — the chain's ends swap, the vent
+# keeps pointing −Z. A turn about any other axis takes the vent off its drip.
+ASSE1022_YAW = 180.0
 # The funnel's placement: its collar-rect centre in plan, plus a rotation
 # about its own Z. This is the CENTRE OF THE TOP-WALL FRAME — the basin sits
 # the same `hopper_funnel.brim_margin` off the display gusset, the corner pod,
@@ -383,15 +375,23 @@ def bfp_terminal(name):
     """One of the ASSE 1022 assembly's three terminals in world: `(pos, face)`.
 
     The reference module owns each station — `tube_in` off the PP010822E's own port,
-    `hose_out` off the barb tip, `vent_tip` at the stub's open end — and the pose is a
-    pure translation, so a length changed anywhere in that chain moves the world port
-    with it. `face` is the enclosure port convention (x-/x+/z-), read off the outward
-    axis the module states."""
+    `hose_out` off the barb tip, `vent_tip` at the stub's open end — and this carries
+    them through the same yaw + translation the solid takes, so a length changed
+    anywhere in that chain moves the world port with it. `face` is the enclosure port
+    convention (x-/x+/z-), read off the yawed outward axis."""
     pos, axis = {"tube-in": _bfp.tube_in, "hose-out": _bfp.hose_out,
                  "vent-tip": _bfp.vent_tip}[name]()
+    pos, axis = _yaw_z(pos, ASSE1022_YAW), _yaw_z(axis, ASSE1022_YAW)
     face = {(-1.0, 0.0, 0.0): "x-", (1.0, 0.0, 0.0): "x+", (0.0, 0.0, -1.0): "z-"}[
-        tuple(float(c) for c in axis)]
+        tuple(round(float(c), 9) + 0.0 for c in axis)]
     return tuple(p + o for p, o in zip(pos, ASSE1022_POS)), face
+
+
+def _yaw_z(v, deg):
+    """Rotate a point or an axis about Z by `deg` — the terminals' half of the pose."""
+    a = math.radians(deg)
+    c, s = math.cos(a), math.sin(a)
+    return (v[0] * c - v[1] * s, v[0] * s + v[1] * c, v[2])
 
 
 def _dot(a, b):
@@ -1036,13 +1036,14 @@ def _build():
     placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW - SIDE_RIB_INSET, 0.0, SEAM_CLEAR_LIFT)
     placed["mq6-sensor"] = _at(_load(MQ6_STEP), 100.0, 134.0, SEAM_CLEAR_LIFT)
 
-    # In the corridor above that floor, the ASSE 1022 assembly: the water path's
-    # one non-negotiable component with the four fittings that reach it from 1/4"
-    # tube on one side and 3/8" hose on the other, as one piece. Its own frame is
-    # already the world's (+X = flow, vent −Z), so the pose is the translation
-    # ASSE1022_POS and nothing turns — the vent must point down into the drip pan,
-    # and any rotation but a yaw would break that.
-    placed["asse1022-assembly"] = _load(ASSE1022_STEP).translate(ASSE1022_POS)
+    # The ASSE 1022 assembly: the water path's one non-negotiable component with the
+    # four fittings that reach it from 1/4" tube on one side and 3/8" hose on the
+    # other, as one piece. It packs up in the service bay's aft strip, at the rear
+    # bulkhead it protects (ASSE1022_POS). Its own frame is the world's axes
+    # (+X = flow, vent −Z), so the pose is a yaw about Z and a translation — a yaw is
+    # the only turn available, since the vent must keep pointing down into the pan.
+    placed["asse1022-assembly"] = _rot(
+        _load(ASSE1022_STEP), (0, 0, 1), ASSE1022_YAW).translate(ASSE1022_POS)
 
     # --- Zone C: the source-select assembly (Tray 1 — V-A/V-B/Y-A/Y-B/V-C/V-D
     # on its printed tray) floors the manifold stack, spanning the front width,

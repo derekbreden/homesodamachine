@@ -117,7 +117,7 @@ COMPONENTS = [
     _c("condenser+fan",     "placeholder", True,  "none", "harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)"),
     _c("mq6-sensor",        "real",        True,  "none", "MQ-6 module STEP (PCB + sensor can + header); floor gas sensor, no mount"),
     # Water deck
-    _c("asse1022-assembly", "real",        True,  "none", "Multiplex 19-0897 ASSE 1022 backflow preventer + PP010822E, GAGIRA coupling, FFL38BARB38 and the clear-PVC vent stub as one chain (reference/asse1022-assembly); lies along X in the machine corridor's west lane, flow east, vent hanging over the drip pan's floor, holder TBD"),
+    _c("asse1022-assembly", "real",        True,  "none", "Multiplex 19-0897 ASSE 1022 backflow preventer + PP010822E, GAGIRA coupling, FFL38BARB38 and the clear-PVC vent stub as one chain (reference/asse1022-assembly); lies along X in the service bay's aft strip, yawed 180° so its inlet faces east at the rear-panel water bulkhead it protects, vent hanging over the pan's ground on the foam-cap top, holder TBD"),
     # Valve manifold
     _c("source-select-assembly", "real",   True,  "none", "Tray 1 — printed tray + 4 Beduan NC solenoids + 2 PP2308E Y-dividers + 4 outlet elbows (valve-manifold/source-select-tray); floors the stack, plate down and valves up, holder TBD"),
     _c("bag-circuit-assembly",   "real",   True,  "none", "Tray 2 — printed dog-bone tray + 4 Beduan NC solenoids + 2 PP0208E Tees + 2 west outlet elbows (valve-manifold/bag-circuit-tray); rides INVERTED on the source tray's stacking walls, east ports bare, holder TBD"),
@@ -309,18 +309,22 @@ PLACEMENT_RULES = {
     # off the source bank — the `near` gap allows for that.
     "tee-y-c": [("near", "source-select-assembly", 15.0)],
     "tee-y-f": [("near", "source-select-assembly", 15.0)],
-    # "The ASSE 1022 chain lies in the machine corridor's west lane, vent down over
-    # the pan's floor." Four measurements pin it. `x-` says it is the WEST-lane part
-    # and states the axial room its 1/4" inlet gets to turn its feed up the riser
-    # column. `z-` reads the assembly's LOWEST point — the vent stub's tip — so it
-    # measures the drip height: the vent has to reach down toward the pan, and a body
-    # lifted until the stub no longer does fails here. The two keep-outs say what it
-    # must not crowd: the compressor's back face (the floor stratum below and the
-    # corridor's own front wall), and the cold core, whose BAG_FALL_CORRIDOR behind
-    # the stack belongs to the two bag lines — this body must not reach into it.
-    "asse1022-assembly": [("x-", 30.0), ("z-", 42.0),
-                          ("clear", "compressor-shroud", 6.0),
-                          ("clear", "foam-assembly", contents.BAG_FALL_CORRIDOR)],
+    # "The ASSE 1022 chain lies in the service bay's aft strip, one pigtail off the
+    # water bulkhead, vent down over the pan's ground." Five measurements pin it.
+    # `near bulkhead-water` holds the inlet at the bulkhead it takes its feed from —
+    # that stance is the placement. The two rules on foam-assembly are the drip BAND,
+    # read at the assembly's lowest point, the vent stub's tip: `near` says the stub
+    # still reaches down toward the cap (a body lifted until it no longer does fails
+    # here), `clear` says it stops with the pan's own depth and an air gap left under
+    # it. `clear power-tray` holds open the lane between the shelf's back edge and this
+    # body, which the C14's cordage crosses going forward to the AC hub. `x-` reads the
+    # barb end's stance off the −X wall — the straight room the stiff 3/8" silicone
+    # leaves in, bounded east by the nozzle-outlet runs crossing the strip.
+    "asse1022-assembly": [("near", "bulkhead-water", 20.0),
+                          ("near", "foam-assembly", 20.0),
+                          ("clear", "foam-assembly", 12.0),
+                          ("clear", "power-tray", 8.0),
+                          ("x-", 80.0)],
 }
 
 
@@ -463,9 +467,9 @@ PORTS = [
     # sets where they land, so a length changed in any of its five parts moves them together.
     # The vent is not a connection: it terminates to atmosphere over the drip pan, and plumbing
     # it into anything would destroy the telltale it exists to be (internal-plumbing.md §2).
-    _p("tube-in",  "asse1022-assembly", "fluid", *contents.bfp_terminal("tube-in"),  6.35,  "bulkhead-water tube-in (rear-panel tap-water inlet, via the customer's filter)", "JG PP010822E 1/4\" PTC, facing west at the riser column"),
-    _p("hose-out", "asse1022-assembly", "fluid", *contents.bfp_terminal("hose-out"), 9.525, "SeaFlo 22-series suction inlet (deferred) — V-A's tap point tees off this hose", "FFL38BARB38 3/8\" barb, facing east down the corridor; worm-gear clamp"),
-    _p("vent-tip", "asse1022-assembly", "fluid", *contents.bfp_terminal("vent-tip"), 6.35,  "atmosphere, over the drip pan + moisture plate (deferred) — never plumbed", "Sealproof 1/4\" ID clear-PVC stub, hanging −Z; cut to length at the bench"),
+    _p("tube-in",  "asse1022-assembly", "fluid", *contents.bfp_terminal("tube-in"),  6.35,  "bulkhead-water tube-in (rear-panel tap-water inlet, via the customer's filter)", "JG PP010822E 1/4\" PTC, facing east at the bulkhead's own column, a pigtail away"),
+    _p("hose-out", "asse1022-assembly", "fluid", *contents.bfp_terminal("hose-out"), 9.525, "SeaFlo 22-series suction inlet (deferred) — V-A's tap point tees off this hose", "FFL38BARB38 3/8\" barb, facing west into the strip's open end; worm-gear clamp"),
+    _p("vent-tip", "asse1022-assembly", "fluid", *contents.bfp_terminal("vent-tip"), 6.35,  "atmosphere, over the drip pan + moisture plate (deferred) — never plumbed", "Sealproof 1/4\" ID clear-PVC stub, hanging −Z at the foam-cap top; cut to length at the bench"),
     # Hopper funnel — the removable silicone basin's single drain: the spout-tube exit annulus,
     # feeding V-B by tube (segment 4). Defined in the funnel's own frame
     # (hopper_funnel.drain_local = (neck_dx, 0, −drop)) carried through the placement's

@@ -56,8 +56,11 @@ CLEAR_PVC = cq.Color(0.85, 0.90, 0.92, 0.45)
 # over so the barb occupies the hose rather than its wall. It runs past the barb
 # tip toward the pan; the reach is what clears the parts below it, set where this
 # assembly is placed, and this is the length the bench cuts (~12" of stock, trimmed).
+# The enclosure hangs this body over the foam-cap top, which is the pan's ground:
+# the reach drops the tip into the pan's mouth and stops above the water line,
+# leaving the pan its own depth plus an air gap under the tip.
 VENT_STUB_OD = 9.53
-VENT_STUB_REACH = 50.0          # below the barb tip, toward the drip pan
+VENT_STUB_REACH = 15.0          # below the barb tip, toward the drip pan
 
 # Where each fitting lands on the flow axis, each read off the part it threads into.
 # The barrel's two shoulders are what the female fittings butt against.
