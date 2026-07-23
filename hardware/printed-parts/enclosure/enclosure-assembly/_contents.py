@@ -251,10 +251,14 @@ _GATE_ANCHOR_BAG_X = 144.0 - JUNCTION_SLIDE
 # gate — it does not shrink the box. Bounded west by the source-select east bank
 # and the bag's east discharge elbows (the scorecard's clearance floor).
 GATE_WALL_INSET = 11.0
+# The gate does NOT take STACK_PITCH_Z: that pitch is wall-top to wall-top, and this
+# tray seats on its FLOOR, not its walls (`_flip_x_in_place` below turns it valves-up).
+# So its origin rides the source tray's wall top plus its OWN wall height — shorter than
+# the stacked trays', since its wall tops face open air (`_noz.wall_top_z`).
 NOZZLE_GATE_POS = (_GATE_ANCHOR_BAG_X + 2.0 * _bag.port_half + _bag.tee_branch_reach
                    + _bag.tee_radius + TEE_BODY_CLEAR - GATE_WALL_INSET,
                    SRC_SEL_POS[1],
-                   SRC_SEL_POS[2] + STACK_PITCH_Z)
+                   SRC_SEL_POS[2] + _src.wall_top_z + _noz.wall_top_z)
 
 # The pump row: both Kamoer KPHM400 assemblies (P-A west, P-B east) lying
 # depth-along-X ahead of the tray stack, in ONE pose — a −90° turn about Y
@@ -1040,8 +1044,10 @@ def back_wall_ports():
         # Faucet umbilical: two flavor bulkheads on the lower row, the carb-water
         # (blue-ringed) bulkhead at the top vertex — the densest-three-circle
         # triangle the tube bundle packs into (back-panel README §"Bulkhead array").
-        ("round", UMBILICAL_X - p / 2.0, z_mid - dz / 2.0, d),   # flavor A
-        ("round", UMBILICAL_X + p / 2.0, z_mid - dz / 2.0, d),   # flavor B
+        # Neither flavor hole carries an accent ring, so which one is A is free: B
+        # takes the west station and A the east, the order their runs arrive in.
+        ("round", UMBILICAL_X - p / 2.0, z_mid - dz / 2.0, d),   # flavor B
+        ("round", UMBILICAL_X + p / 2.0, z_mid - dz / 2.0, d),   # flavor A
         ("round", UMBILICAL_X,           z_mid + dz / 2.0, d),   # carb-water (top vertex)
         # The utility pair: the tap-water bulkhead mid-panel, and the C14
         # mains inlet over the power assembly its cordage drops to.
@@ -1079,7 +1085,7 @@ def panel_bodies():
     bodies = {}
 
     jg = _load(JG_BULKHEAD)                        # +Y outward, origin on the panel face
-    names = ["bulkhead-flavor-a", "bulkhead-flavor-b", "bulkhead-carb",
+    names = ["bulkhead-flavor-b", "bulkhead-flavor-a", "bulkhead-carb",
              "bulkhead-water", "c14-inlet"]
     for hole in back_wall_ports():
         kind, hx, hz = hole[0], hole[1], hole[2]

@@ -27,9 +27,11 @@ Origin = cell center, Z = 0 the mounting plane, ports at Z = [11.3](PORT_Z).
 
 ## The tray
 
-A frame plate (Z [-3](TRAY_BOT_Z) → [6](TRAY_TOP_Z)), **[38](NOZ_PLATE_W) × [74](NOZ_PLATE_D) × [63](STACK_PITCH) mm**, hugging the single
+A frame plate (Z [-3](TRAY_BOT_Z) → [6](TRAY_TOP_Z)), **[38](NOZ_PLATE_W) × [74](NOZ_PLATE_D) × [61.3](STACK_PITCH) mm**, hugging the single
 −X valve column with a **solid floor**: one valve cradle (four sockets + a port
-saddle). Two **side walls** (±Y) rise to Z = [60](WALL_TOP_Z) for a **[63](STACK_PITCH) mm stack pitch**;
+saddle). Two **side walls** (±Y) rise to Z = [56.6](NOZ_WALL_TOP_Z) — level with the valve coils they
+retain, since this tray seats on its floor and its wall tops face open air — for a
+**[61.3](STACK_PITCH) mm stack pitch**;
 the X-ends stay open for the ports.
 
 `nozzle_gate_tray.py` → `nozzle-gate-tray.step`; `nozzle_gate_assembly.py` →

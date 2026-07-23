@@ -45,6 +45,13 @@ valves = {"VG": (-bc.valve_x, -bc.row_half), "VJ": (-bc.valve_x, +bc.row_half)}
 plate_x = (-bc.plate_half_x, -bc.valve_x + bc.valve_pad)
 plate_y_half = bc.plate_half_y
 stack_pitch = bc.stack_pitch
+# This tray seats nothing on its wall tops. The enclosure hangs it inverted and then
+# flips it valves-up in place, so its FLOOR carries the stack (onto the source tray's
+# wall tops) and its wall tops face open air — the channel the nozzle-outlet runs cross
+# on their way aft. So the walls end level with the coils they retain, taking none of
+# the stacked trays' `stack_coil_clear` standoff: that standoff buys clearance against
+# a facing tray, and there is no tray facing these.
+wall_top_z = bc.valve_coil_top_z
 
 
 def build_assembly():
@@ -66,7 +73,7 @@ def port_collets():
 
 
 def build_nozzle_gate_tray():
-    return bc.build_tray(list(valves.values()), [], plate_x, plate_y_half)
+    return bc.build_tray(list(valves.values()), [], plate_x, plate_y_half, wall_top=wall_top_z)
 
 
 def main():
@@ -81,11 +88,11 @@ def main():
             "NOZ_PLATE_W": f"{plate_x[1] - plate_x[0]:.0f}",
             "NOZ_PLATE_D": f"{2 * plate_y_half:.0f}",
             "STACK_PITCH": f"{stack_pitch:.4g}",
-            "WALL_TOP_Z": f"{bc.wall_top_z:.4g}",
+            "NOZ_WALL_TOP_Z": f"{wall_top_z:.4g}",
         },
         expected_counts={
             "PORT_Z": 1, "TRAY_BOT_Z": 1, "TRAY_TOP_Z": 1,
-            "NOZ_PLATE_W": 1, "NOZ_PLATE_D": 1, "STACK_PITCH": 2, "WALL_TOP_Z": 1,
+            "NOZ_PLATE_W": 1, "NOZ_PLATE_D": 1, "STACK_PITCH": 2, "NOZ_WALL_TOP_Z": 1,
         },
     )
     print("-> README.md")

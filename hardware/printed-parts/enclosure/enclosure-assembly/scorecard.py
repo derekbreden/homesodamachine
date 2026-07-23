@@ -419,10 +419,10 @@ PORTS = [
     # rear wall (Y = tube-flow axis, +Y = outward to the rear umbilical, −Y = inward to the
     # subsystem it feeds). The C14 mains inlet carries one 3-wire harness inboard from the panel
     # cord entry. Positions are the union/inlet flow-face centers from the placed bboxes.
-    _p("tube-out", "bulkhead-flavor-a", "fluid", (195.05, 375.5, 292.45), "y+", 6.35, "customer flavor A line (rear umbilical)", "JG 1/4\" PTC, outward"),
-    _p("tube-in",  "bulkhead-flavor-a", "fluid", (195.05, 341.2, 292.45), "y-", 6.35, "flavor A internal line (bag/pump circuit A)", "JG 1/4\" PTC, inward"),
-    _p("tube-out", "bulkhead-flavor-b", "fluid", (224.95, 375.5, 292.45), "y+", 6.35, "customer flavor B line (rear umbilical)", "JG 1/4\" PTC, outward"),
-    _p("tube-in",  "bulkhead-flavor-b", "fluid", (224.95, 341.2, 292.45), "y-", 6.35, "flavor B internal line (bag/pump circuit B)", "JG 1/4\" PTC, inward"),
+    _p("tube-out", "bulkhead-flavor-a", "fluid", (224.95, 375.5, 292.45), "y+", 6.35, "customer flavor A line (rear umbilical)", "JG 1/4\" PTC, outward"),
+    _p("tube-in",  "bulkhead-flavor-a", "fluid", (224.95, 341.2, 292.45), "y-", 6.35, "flavor A internal line (bag/pump circuit A)", "JG 1/4\" PTC, inward"),
+    _p("tube-out", "bulkhead-flavor-b", "fluid", (195.05, 375.5, 292.45), "y+", 6.35, "customer flavor B line (rear umbilical)", "JG 1/4\" PTC, outward"),
+    _p("tube-in",  "bulkhead-flavor-b", "fluid", (195.05, 341.2, 292.45), "y-", 6.35, "flavor B internal line (bag/pump circuit B)", "JG 1/4\" PTC, inward"),
     _p("tube-out", "bulkhead-carb", "fluid", (210.0, 375.5, 318.3), "y+", 6.35, "carbonated-water line (rear umbilical / faucet)", "JG 1/4\" PTC, outward"),
     _p("tube-in",  "bulkhead-carb", "fluid", (210.0, 341.2, 318.3), "y-", 6.35, "carb-water internal riser (DIGITEN → foam carb-water-out)", "JG 1/4\" PTC, inward"),
     _p("tube-out", "bulkhead-water", "fluid", (145.0, 375.5, 293.0), "y+", 6.35, "house tap-water line (rear umbilical)", "JG 1/4\" PTC, outward"),

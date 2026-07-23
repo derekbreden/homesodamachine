@@ -34,7 +34,7 @@ The 6 valve/divider bodies are clash-free.
 ## The tray
 
 A frame plate (Z [-3](TRAY_BOT_Z) → [6](TRAY_TOP_Z)) that **pinches in the middle** — overall envelope
-**[208](SRC_PLATE_W) × [93](SRC_PLATE_D) × [63](STACK_PITCH) mm**. At each valve end the floor **follows the
+**[208](SRC_PLATE_W) × [93](SRC_PLATE_D) × [61.3](STACK_PITCH) mm**. At each valve end the floor **follows the
 walls** — the tall walls' slanted outer faces and the connecting-wall inner
 faces — going full width only across the back where the rear sockets sit. A
 **narrow central bridge** between the ends hugs the dividers, only as wide in Y
@@ -42,8 +42,8 @@ as they reach. Each valve drops into rotated corner sockets and a port saddle al
 its aim line; each Y-divider sets into **three grooves** cut into the bridge
 floor (the stem axis at Y = 0 and the two outlets at Y = ±[7.35](OUTLET_Y)).
 
-The valve-end **side walls** (±Y) rise to Z = [60](WALL_TOP_Z), clear of the [56.6](COIL_TOP) mm
-valve-coil tops; a second tray's floor lands on the wall tops at a **[63](STACK_PITCH) mm
+The valve-end **side walls** (±Y) rise to Z = [58.3](WALL_TOP_Z), clear of the [56.6](COIL_TOP) mm
+valve-coil tops; a second tray's floor lands on the wall tops at a **[61.3](STACK_PITCH) mm
 stack pitch**. Each runs **parallel to its valve's outer top-box edge**, hugging
 the body one clearance outboard, then continues straight along the flat rear of
 the floor to the back corner. The short central walls rise only high enough to
