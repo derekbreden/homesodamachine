@@ -316,8 +316,8 @@ def acquire(script: str, source: str = None) -> None:
     # What a follower reads as this build's status. `sys.excepthook` never sees SystemExit
     # and `atexit` cannot read a pending exit code, so the two deliberate exits report for
     # themselves: an unhandled exception through the hook, `sys.exit` through the wrapper.
-    # A generator that ends a build by raising SystemExit directly bypasses both and lands
-    # on `_release`'s 0 — end them with `sys.exit(...)`.
+    # `raise SystemExit` reaches neither; `check_build_exit.py` gates it out of the scripts
+    # that take this lock.
     _prev_hook = sys.excepthook
 
     def _hook(exc_type, exc, tb):
