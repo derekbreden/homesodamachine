@@ -48,6 +48,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import _boxes  # noqa: E402  — optimal bounding boxes, memoized once per placed solid
 import _contents as contents  # noqa: E402  — the manifold ports derive from the pack's own placement
 
 # Minimum solid-to-solid distance. cadquery 2 binds OpenCascade as OCP; fall back to
@@ -321,7 +322,7 @@ def placement_audit(solids: dict, inner: tuple) -> list[tuple[str, bool, list]]:
     for name, rules in PLACEMENT_RULES.items():
         if name not in solids:
             continue
-        bb = solids[name].BoundingBox()
+        bb = _boxes.boxed(solids[name])
         val = {"x-": bb.xmin, "x+": bb.xmax, "y-": bb.ymin, "y+": bb.ymax, "z-": bb.zmin, "z+": bb.zmax}
         checks = []
         for rule in rules:
@@ -609,12 +610,12 @@ def _on_surface(pos, solid, shell, diam, tol) -> bool:
     connector on a populated board, a hole in a wall. Degrades to the bounding box when the exact
     kernel is unavailable."""
     if not _HAVE_EXACT or shell is None:
-        return _on_bbox_surface(pos, solid.BoundingBox(), tol)
+        return _on_bbox_surface(pos, _boxes.boxed(solid), tol)
     v = BRepBuilderAPI_MakeVertex(gp_Pnt(*pos)).Vertex()
     dss = BRepExtrema_DistShapeShape(v, shell)
     dss.Perform()
     if not dss.IsDone():
-        return _on_bbox_surface(pos, solid.BoundingBox(), tol)
+        return _on_bbox_surface(pos, _boxes.boxed(solid), tol)
     return dss.Value() <= (diam or 0.0) / 2.0 + tol
 
 
@@ -711,7 +712,7 @@ def pack_clashes(solids: dict, pieces: dict) -> list[tuple[str, str, float]]:
     CLASH_TOL — the pack-closes gate (the box's original collision check, now the
     scorecard's first gate)."""
     names = list(solids)
-    bbs = {n: solids[n].BoundingBox() for n in names}
+    bbs = {n: _boxes.boxed(solids[n]) for n in names}
     out = []
     for i, a in enumerate(names):
         for b in names[i + 1:]:
@@ -721,7 +722,7 @@ def pack_clashes(solids: dict, pieces: dict) -> list[tuple[str, str, float]]:
             if v > CLASH_TOL:
                 out.append((a, b, v))
     for hn, hs in pieces.items():
-        hbb = hs.BoundingBox()
+        hbb = _boxes.boxed(hs)
         for n in names:
             if _bbox_gap(hbb, bbs[n]) > 0:
                 continue
@@ -738,7 +739,7 @@ def clash_solids(solids: dict, pieces: dict, limit: int = DETAIL_MAX) -> list:
     two whole parts named. Kept out of pack_clashes so the gate stays a fast volume-only pass; the
     limit bounds the extra boolean work (a wild move can clash with many parts at once)."""
     names = list(solids)
-    bbs = {n: solids[n].BoundingBox() for n in names}
+    bbs = {n: _boxes.boxed(solids[n]) for n in names}
     out = []
 
     def add(a, b, sa, sb):
@@ -757,7 +758,7 @@ def clash_solids(solids: dict, pieces: dict, limit: int = DETAIL_MAX) -> list:
                 continue
             add(a, b, solids[a], solids[b])
     for hn, hs in pieces.items():
-        hbb = hs.BoundingBox()
+        hbb = _boxes.boxed(hs)
         for n in names:
             if len(out) >= limit:
                 return out
@@ -786,8 +787,8 @@ def line_clashes(lines: dict, solids: dict, ends: dict) -> list[tuple[str, str, 
     tube driving through a post reads as clean geometry from every other check."""
     out = []
     ids = list(lines)
-    lbb = {i: lines[i].BoundingBox() for i in ids}
-    sbb = {n: solids[n].BoundingBox() for n in solids}
+    lbb = {i: _boxes.boxed(lines[i]) for i in ids}
+    sbb = {n: _boxes.boxed(solids[n]) for n in solids}
     for i, a in enumerate(ids):                                   # tube ∩ tube
         for b in ids[i + 1:]:
             if _bbox_gap(lbb[a], lbb[b]) > 0:
@@ -813,7 +814,7 @@ def part_clearances(solids: dict) -> list[tuple[str, str, float, bool]]:
     excluded on purpose — parts seat against walls by design; overlap there is the
     pack-closes gate's job, not clearance."""
     names = list(solids)
-    bbs = {n: solids[n].BoundingBox() for n in names}
+    bbs = {n: _boxes.boxed(solids[n]) for n in names}
     out = []
     for i, a in enumerate(names):
         for b in names[i + 1:]:
