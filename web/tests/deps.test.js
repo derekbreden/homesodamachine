@@ -127,7 +127,8 @@ test("the import walk continues THROUGH a generator that doubles as a base modul
   // Stopping the walk at the first runnable would leave nozzle-gate-tray.step
   // stale when single_tray changed; the walk must recurse past bag_circuit_tray
   // (and then past nozzle_gate_tray) even though both are runnable generators.
-  const deps = findRunnableScriptsTransitivelyImporting("single_tray", ROOTS);
+  const singleTray = findGenerateScripts(ROOTS).find(ends("single-tray/single_tray.py"));
+  const deps = findRunnableScriptsTransitivelyImporting(singleTray, ROOTS);
   for (const downstream of [
     "bag-circuit-tray/bag_circuit_tray.py",
     "bag-circuit-tray/bag_circuit_assembly.py",
@@ -142,11 +143,42 @@ test("the import walk continues THROUGH a generator that doubles as a base modul
   }
 });
 
+test("an edition's module does not drag in the other edition's twin (regression)", () => {
+  // hardware/ and pie-in-the-sky/lite/ mirror each other's filenames — _contents.py,
+  // enclosure.py, enclosure_assembly.py, power_assembly.py, power_tray.py. Matching
+  // dependents by bare module name rebuilt the LITE assembly for a HARDWARE
+  // _contents.py edit it never imports: a second full assembly competing for the same
+  // cores on every route edit, which is most of what made a build take minutes.
+  const hwContents = path.join(
+    REPO_ROOT, "hardware", "printed-parts", "enclosure", "enclosure-assembly", "_contents.py");
+  const deps = findRunnableScriptsTransitivelyImporting(hwContents, ROOTS).map(rel);
+  assert.ok(
+    deps.some(ends("enclosure/enclosure-assembly/enclosure_assembly.py")),
+    `hardware's own assembly must still rebuild; got:\n${deps.join("\n")}`,
+  );
+  assert.ok(
+    !deps.some((d) => d.split(path.sep).join("/").startsWith("pie-in-the-sky/")),
+    `no lite script may rebuild for a hardware _contents.py edit; got:\n${deps.join("\n")}`,
+  );
+});
+
+test("a genuinely shared module still reaches both editions", () => {
+  // The narrowing above keys on a sibling module winning sys.path[0]. _cadq_export
+  // has no per-edition twin, so every generator in both trees resolves the same file
+  // and must still rebuild for it — otherwise the fix would have traded a false
+  // cascade for a missed one.
+  const shared = path.join(REPO_ROOT, "hardware", "scripts", "_cadq_export.py");
+  const deps = findRunnableScriptsTransitivelyImporting(shared, ROOTS).map((p) =>
+    rel(p).split(path.sep).join("/"));
+  assert.ok(deps.some((d) => d.startsWith("hardware/")), "expected hardware generators");
+  assert.ok(deps.some((d) => d.startsWith("pie-in-the-sky/")), "expected lite generators");
+});
+
 test("affectedBuildOrder: one edit's wave lists each script once, seeds first, producers before consumers", () => {
   // Seed the wave the way the watcher does for a single_tray edit: the file plus
   // every runnable that transitively imports it.
   const single = findGenerateScripts(ROOTS).find(ends("single-tray/single_tray.py"));
-  const seeds = [single, ...findRunnableScriptsTransitivelyImporting("single_tray", ROOTS).filter((s) => s !== single)];
+  const seeds = [single, ...findRunnableScriptsTransitivelyImporting(single, ROOTS).filter((s) => s !== single)];
   const { order, loadsOf } = affectedBuildOrder(seeds, ROOTS);
   const seedSet = new Set(seeds);
 
