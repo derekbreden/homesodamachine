@@ -4,15 +4,16 @@ Detailed STEP imports where they exist (cold-core foam assembly — shell +
 top/bottom foam-cap stacks — the compressor shroud, the source-select
 assembly, the bag-circuit assembly, the nozzle-gate assembly, both Kamoer
 pump assemblies, both pump-inlet union tees, both pump-discharge dividers
-(Y-D/Y-G) and their four turn elbows, the PCBA assembly, the power
-assembly, the DC distribution block, the DERPIPE CO2 inlet, the MQ-6 gas
-sensor, the panel bulkheads + C14). One placeholder primitive remains
-(condenser+fan). Not everything is packed — deferred, tracked by the fluid
-topology (/hardware/topology/fluid-topology.md) and the scorecard's
-connection table, never silently dropped, while the front column settles
-around the tray stack and the pump row: the water deck (SeaFlo diaphragm
-pump, Multiplex BFP, drip pan + moisture plate, the SeaFlo outlet check),
-the DIGITEN flow sensor, and the CO2 chain's GASHER check + WR1110 regulator.
+(Y-D/Y-G) and their four turn elbows, the ASSE 1022 assembly, the PCBA
+assembly, the power assembly, the DC distribution block, the DERPIPE CO2
+inlet, the MQ-6 gas sensor, the panel bulkheads + C14). One placeholder
+primitive remains (condenser+fan). Not everything is packed — deferred,
+tracked by the fluid topology (/hardware/topology/fluid-topology.md) and
+the scorecard's connection table, never silently dropped, while the front
+column settles around the tray stack and the pump row: the rest of the
+water deck (the SeaFlo diaphragm pump, its outlet check, and the drip pan
++ moisture plate the ASSE 1022's vent weeps into), the DIGITEN flow
+sensor, and the CO2 chain's GASHER check + WR1110 regulator.
 
 Components only: no tubes, no wires, no mount features. enclosure_assembly.py
 verifies the pack pairwise non-intersecting at every export.
@@ -60,6 +61,17 @@ Strata, floor to ceiling:
              brazed to its outlet, inside this harvested block), the MQ-6
              on the floor between the compressor and the cold core
              (isobutane sinks).
+  * The machine corridor (compressor back face to cold-core front face,
+             below the tray stack's floor): the ASSE 1022 assembly lying
+             along X in its WEST lane, flow east — the one span in the box
+             long enough, tall enough and wide enough for it. Its 1/4" PTC
+             inlet faces west at the riser column outboard of the trays,
+             its 3/8" barb east at the corridor the SeaFlo suction crosses,
+             and its atmospheric vent hangs down over open cabinet floor:
+             the drip pan + moisture plate go under that tip, and the band
+             beneath the body is left open for them and for refrig-3's
+             reach to the compressor's suction port. refrig-1 and refrig-2
+             cross the corridor's east half; the east lane is theirs.
   * Zone A:  cold core (foam assembly: bottom cap + shell + top cap) on the
              floor at the back, its −Y dispense/service ports facing
              forward.
@@ -129,12 +141,16 @@ _VM = _hw / "printed-parts" / "valve-manifold"
 for _p in (_hw / "scripts", _repo / "tools", _hw / "reference" / "beduan-solenoid",
            _VM / "single-tray", _VM / "bag-circuit-tray", _VM / "source-select-tray",
            _VM / "nozzle-gate-tray",
+           _hw / "reference" / "asse1022-assembly", _hw / "reference" / "multiplex-asse1022",
+           _hw / "reference" / "gagira-reducing-coupling", _hw / "reference" / "jg-pp010822e",
+           _hw / "reference" / "ffl38barb38",
            _hw / "printed-parts" / "enclosure" / "enclosure"):    # `enclosure`, imported in placed_funnel
     sys.path.insert(0, str(_p))
 import _boxes                            # noqa: E402
 import bag_circuit_tray as _bag          # noqa: E402
 import source_select_tray as _src        # noqa: E402
 import nozzle_gate_tray as _noz          # noqa: E402
+import asse1022_assembly as _bfp         # noqa: E402  — its three terminals, carried to world
 
 
 # --- Source STEPs ---------------------------------------------------------
@@ -159,6 +175,10 @@ PCBA_ASSEMBLY  = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-ass
 DC_DIST        = _hw / "reference" / "dc-dist-block" / "dc-dist-block.step"
 MQ6_STEP       = _hw / "reference" / "mq6-gas-sensor" / "mq6-gas-sensor.step"
 DERPIPE_STEP   = _hw / "reference" / "derpipe-co2-inlet" / "derpipe-co2-inlet.step"
+# The ASSE 1022 chain as one piece: PP010822E → GAGIRA coupling → Multiplex 19-0897
+# → FFL38BARB38, plus the clear-PVC vent stub. Its own frame is +X = flow, the
+# Multiplex inlet at x 0, the vent running −Z (reference/asse1022-assembly).
+ASSE1022_STEP  = _hw / "reference" / "asse1022-assembly" / "asse1022-assembly.step"
 JG_BULKHEAD    = _hw / "reference" / "jg-bulkhead-union" / "jg-bulkhead-union.step"
 IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 
@@ -177,6 +197,34 @@ IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 # stratum stays open. The airflow axis rides the tip unchanged: the fan +
 # finstack stack depth, calipered [56 mm](CONDENSER_AIRFLOW) combined, along X.
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
+# The ASSE 1022 assembly stands in the MACHINE CORRIDOR'S WEST LANE — the open
+# span between the compressor's back face and the manifold stack's aft face,
+# below the stack's floor. It is the one lane in the box that takes it: the
+# chain is 123.5 mm end to end and 41.3 mm tall, and the band under the pump row
+# (37.5–40 mm) is shorter than the body, the corridor's east end is filled by
+# refrig-1/refrig-2 crossing it, and the ±X columns are narrower than its 33 mm
+# width. Its own frame is +X = flow, so the pose is a pure translation: the
+# Multiplex inlet lands here and the chain runs east.
+#   * X — the body reaches x 14 → 137.5, which stands it one refrigerant lane
+#     (7.5 mm) off refrig-1's copper at the east and leaves the 28 mm to the −X
+#     interior wall at the west. That split follows the two lines it carries:
+#     the 3/8" silicone to the SeaFlo suction is the stiff one, so the barb
+#     faces EAST into 75.5 mm of straight corridor, while the 1/4" PTC inlet
+#     faces WEST at the open riser column outboard of the trays (x < 4.8, clear
+#     floor to ceiling), which is the lane its feed drops down from the rear
+#     bulkhead.
+#   * Y — centred in the corridor, 8 mm off the compressor's back face and 8 mm
+#     off the stack's aft face, so it crowds neither and stays out of the
+#     BAG_FALL_CORRIDOR the bag lines fall down behind the stack.
+#   * Z — the body's underside rides clear ABOVE the corridor floor. That band
+#     is spoken for twice: it is the drip pan's ground, and it is the lane
+#     refrig-3 (the unauthored suction leg) has to take to reach the
+#     compressor's suction port at z 78. The `clear compressor-shroud` rule
+#     holds it open.
+# The vent is the pose (reference/asse1022-assembly README): its stub runs −Z
+# and its tip lands at z 40 over open cabinet floor, where the drip pan + its
+# moisture plate go. Nothing may be packed under it.
+ASSE1022_POS = (50.0, 157.5, 90.0)
 # The funnel's placement: its collar-rect centre in plan, plus a rotation
 # about its own Z. This is the CENTRE OF THE TOP-WALL FRAME — the basin sits
 # the same `hopper_funnel.brim_margin` off the display gusset, the corner pod,
@@ -316,6 +364,21 @@ JUNCTION_ROLL = {                 # extra roll of a tee about its run axis: bran
 JUNCTION_LIFT = {                 # slide a tee's centre this far up its run toward the bag port, raising its
     "tee-y-c": 7.0,              # branch exit so the suction stem leaves gently (fluid-11 needs no sharp climb)
 }
+
+
+def bfp_terminal(name):
+    """One of the ASSE 1022 assembly's three terminals in world: `(pos, face)`.
+
+    The reference module owns each station — `tube_in` off the PP010822E's own port,
+    `hose_out` off the barb tip, `vent_tip` at the stub's open end — and the pose is a
+    pure translation, so a length changed anywhere in that chain moves the world port
+    with it. `face` is the enclosure port convention (x-/x+/z-), read off the outward
+    axis the module states."""
+    pos, axis = {"tube-in": _bfp.tube_in, "hose-out": _bfp.hose_out,
+                 "vent-tip": _bfp.vent_tip}[name]()
+    face = {(-1.0, 0.0, 0.0): "x-", (1.0, 0.0, 0.0): "x+", (0.0, 0.0, -1.0): "z-"}[
+        tuple(float(c) for c in axis)]
+    return tuple(p + o for p, o in zip(pos, ASSE1022_POS)), face
 
 
 def _dot(a, b):
@@ -516,6 +579,8 @@ COLORS = {
     "compressor-shroud": cq.Color(0.60, 0.62, 0.66),
     "condenser+fan":     cq.Color(0.78, 0.55, 0.35),
     "mq6-sensor":        cq.Color(0.30, 0.45, 0.85),
+    # The Multiplex's brass body carries the chain's color, as its own assembly draws it.
+    "asse1022-assembly": cq.Color(0.72, 0.58, 0.28),
     "source-select-assembly": cq.Color(0.60, 0.40, 0.70),
     "bag-circuit-assembly":   cq.Color(0.35, 0.62, 0.55),
     "nozzle-gate-assembly":   cq.Color(0.75, 0.62, 0.30),
@@ -957,6 +1022,14 @@ def _build():
     cond = _box(CONDENSER_AIRFLOW, CONDENSER_FACE_A, CONDENSER_FACE_B)  # the tipped block
     placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW - SIDE_RIB_INSET, 0.0, SEAM_CLEAR_LIFT)
     placed["mq6-sensor"] = _at(_load(MQ6_STEP), 100.0, 134.0, SEAM_CLEAR_LIFT)
+
+    # In the corridor above that floor, the ASSE 1022 assembly: the water path's
+    # one non-negotiable component with the four fittings that reach it from 1/4"
+    # tube on one side and 3/8" hose on the other, as one piece. Its own frame is
+    # already the world's (+X = flow, vent −Z), so the pose is the translation
+    # ASSE1022_POS and nothing turns — the vent must point down into the drip pan,
+    # and any rotation but a yaw would break that.
+    placed["asse1022-assembly"] = _load(ASSE1022_STEP).translate(ASSE1022_POS)
 
     # --- Zone C: the source-select assembly (Tray 1 — V-A/V-B/Y-A/Y-B/V-C/V-D
     # on its printed tray) floors the manifold stack, spanning the front width,
