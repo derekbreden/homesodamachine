@@ -7,9 +7,9 @@ each fitting is free to **roll about that run**, and its branch aims wherever
 the roll puts it.
 
 ```
-   V-I ──┬── V-H      Y-H run; branch rolled to aim down its fall, near +Z
+   V-I ──┬── V-H      Y-H run; branch rolled to aim down its fall, near +Z → Bag B
          ┊
-   V-F ──┴── V-E      Y-E run; branch → −Y to Bag A, through the hug wall
+   V-F ──┴── V-E      Y-E run; same roll, aimed down its fall, near +Z → Bag A
 ```
 
 ## Arrangement
@@ -19,12 +19,13 @@ V-F over V-I on the −X side, V-E over V-H on the +X side. Each row's two valve
 connect **in-line through a Tee** ([reference](/hardware/reference/tee-connector/README.md))
 whose run lies along X, so the inner ports meet the run ports straight-on (no
 jog) with the valves at X = ±[49.57](VALVE_X). Each Tee is then **rolled about
-its run** to aim its bag branch. Y-E squares outward along −Y and leaves through
-a notch in the hug wall. Y-H is **aimed** instead: the enclosure hangs this tray
-inverted, and its branch carries bag B's line the full height of the machine, so
-it is rolled to point down that fall — leaving near +Z here, straight down in
-world, clear of the hug walls rather than through one. The angle is
-`bag_fall_aim`, gated in the enclosure against the corridor it aims at.
+its run** to aim its bag branch. Both Tees take the **same** roll (`bag_fall_aim`):
+the enclosure hangs this tray inverted, and each branch carries its bag line the
+full height of the machine, so both are rolled to point down that fall — leaving
+near +Z here, straight down in world, clear of the hug walls rather than through
+one. The shared angle keeps the two branches parallel so they never cross in the
+corridor they share, and is steep enough that the forward branch (Y-E) threads the
+source tray's aft window. The angle is gated in the enclosure against that corridor.
 The valves' outer ports leave the tray at the X-ends — the +X pair
 (V-E/V-H, the junction column in the enclosure's inverted hang) each wearing
 an **elbow** clocked by the junction aim, the −X pair (V-F/V-I) running
@@ -45,9 +46,10 @@ A frame plate (Z [-3](TRAY_BOT_Z) → [6](TRAY_TOP_Z)) that **pinches in the cen
 (±Y, to Z = [58.3](WALL_TOP_Z), the stacking surface) hug the two valve columns; a **narrow
 central bridge** hugs the two Tees between them — each Tee run sets into a
 groove, flanked by short walls that just clear it and joined to the columns by
-short connecting walls. Each Tee's outward branch passes through an **open-top
-notch** cut in its hug wall — its lower half **arced to the branch tube**, with a
-matching floor relief. Each valve drops into four corner sockets and a port
+short connecting walls. Both branches rise near +Z and clear their hug walls in
+open air, so the walls stand solid; the generator opens an **open-top notch** —
+lower half **arced to the branch tube**, with a matching floor relief — only for a
+branch rolled sideways enough to cross its wall below the top. Each valve drops into four corner sockets and a port
 saddle along X. A second tray's floor lands on the column wall tops at a **[61.3](STACK_PITCH) mm
 stack pitch**; the X-ends stay open for the ports and the outlet elbows.
 

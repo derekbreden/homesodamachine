@@ -290,11 +290,12 @@ PLACEMENT_RULES = {
     "nozzle-gate-assembly": [("near", "source-select-assembly", 4.0),
                              ("x+", 30.0)],
     # "P-A stands one stack gap ahead of the stack, under the funnel's
-    # drop": its aft face near the bag tray's front columns (the stack's
-    # flat front at the row's height), and the segment-4 drop corridor
-    # under the funnel's high centred drain held open over it — a keep-out
+    # drop": its aft face a stack gap off the bag tray's front columns — the
+    # stack's flat front at the row's height, which the bag branches rise
+    # clear of, rolled up into their fall — and the segment-4 drop corridor
+    # under the funnel's high centred drain held open over it, a keep-out
     # the gravity drain physically depends on.
-    "pump-a": [("near", "bag-circuit-assembly", 3.0), ("clear", "hopper-funnel", 4.0)],
+    "pump-a": [("near", "bag-circuit-assembly", 10.0), ("clear", "hopper-funnel", 4.0)],
     # "P-B rides the row one nose gap east of P-A, its elbows ahead of the
     # east bank": the row tie to its neighbor, and a keep-out holding its
     # aft elbow clear of the source-select east walls it threads past.
@@ -472,15 +473,15 @@ PORTS = [
     # derived the same way through the tray's INVERTED pose (180° about Y). V-E/V-H face
     # DOWN the junction column, each rolled outward off its port axis to meet the source
     # tray's; V-F/V-I run bare, facing EAST, each turned −Y by a discharge elbow onto the
-    # LLDPE run down to its divider over the pumps; Y-H's branch is rolled to aim DOWN its
-    # own fall to reservoir B, Y-E's squares forward. On-tray plumbing (segments
+    # LLDPE run down to its divider over the pumps; both bag branches are rolled to the one
+    # `bag_fall_aim`, each aimed DOWN its own fall to its reservoir. On-tray plumbing (segments
     # 14/16/24/26 — valve↔Tee port butts) is
     # interior to the assembly and carries no port here.
     _p("V-F-I", "bag-circuit-assembly", "fluid", *contents.bag_collet("VF"), 6.35, "Y-D-2 via elbow-bag-y-d — segment 13 (routed)", "bare valve port collet, 1/4\" tube, facing east onto its discharge elbow"),
     _p("V-I-I", "bag-circuit-assembly", "fluid", *contents.bag_collet("VI"), 6.35, "Y-G-2 via elbow-bag-y-g — segment 23 (routed)", "bare valve port collet, 1/4\" tube, facing east onto its discharge elbow"),
     _p("V-E-O", "bag-circuit-assembly", "fluid", *contents.bag_collet("VE"), 6.35, "tee-y-c Y-C-2 — segment 10 (bag A to pump return, routed)", "JG elbow collet, 1/4\" tube, rolled outward down the junction column"),
     _p("V-H-O", "bag-circuit-assembly", "fluid", *contents.bag_collet("VH"), 6.35, "tee-y-f Y-F-2 — segment 20 (bag B to pump return, routed)", "JG elbow collet, 1/4\" tube, rolled outward down the junction column"),
-    _p("Y-E-2", "bag-circuit-assembly", "fluid", *contents.bag_collet("YE"), 6.35, "Bag A port — foam-assembly reservoir-A line, segment 15", "Tee branch collet, 1/4\" tube, forward through the hug-wall notch"),
+    _p("Y-E-2", "bag-circuit-assembly", "fluid", *contents.bag_collet("YE"), 6.35, "Bag A port — foam-assembly reservoir-A line, segment 15", "Tee branch collet, 1/4\" tube, rolled to aim down the fall to reservoir A"),
     _p("Y-H-2", "bag-circuit-assembly", "fluid", *contents.bag_collet("YH"), 6.35, "Bag B port — foam-assembly reservoir-B line, segment 25", "Tee branch collet, 1/4\" tube, rolled to aim down the fall to reservoir B"),
     # Nozzle-gate assembly (Tray 3) — four boundary connectors, all bare valve port tips,
     # derived the same way through the tray's INVERTED pose (180° about Y, in the pocket
