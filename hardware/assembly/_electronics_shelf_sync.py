@@ -13,6 +13,17 @@ sys.path.insert(
 )
 from docgen import substitute_md
 
+# Import from the AC schedule's sync driver — the schedule owns the
+# AC-4/5/6 SJOOW lead length. The lead is built and landed at
+# wiring.md §2; the shelf only leaves its landings open.
+sys.path.insert(
+    0,
+    str(_here.parents[0] / "wiring"),
+)
+from _ac_wiring_schedule_sync import (  # noqa: E402
+    len_compressor_mm as _sched_len_compressor_mm,
+)
+
 
 # ─── Board pins driving the relay modules ──────────────────────────────
 # Source: ../wiring/esp32-pinout.mmd + the J5 (RELAYS) pin labels in
@@ -32,7 +43,6 @@ pigtail_short_mm = 50                   # AC-3 load-side
 pigtail_medium_mm = 100                 # AC-2, DC-1
 pigtail_inlet_mm = 150                  # AC-1 (C14 → AC distribution block)
 pigtail_slack_mm = 150                  # AC-1 inlet-side slack
-pigtail_compressor_mm = 400             # AC-4/5/6 compressor-side runs
 
 # ─── Wago 221-413 lever-block count ────────────────────────────────────
 # Source: ../ledger/bom.md §11 (one per AC conductor — H, N, G).
@@ -54,7 +64,7 @@ def main():
         "PIGTAIL_MEDIUM": f"~{pigtail_medium_mm:.4g} mm",
         "PIGTAIL_INLET": f"~{pigtail_inlet_mm:.4g} mm",
         "PIGTAIL_SLACK": f"~{pigtail_slack_mm:.4g} mm",
-        "PIGTAIL_COMPRESSOR": f"~{pigtail_compressor_mm:.4g} mm",
+        "SHROUD_LEAD_LEN": f"~{_sched_len_compressor_mm:.4g} mm",
         # Wago count.
         "WAGO_COUNT": f"{wago_count:.4g}",
     }
@@ -73,7 +83,7 @@ def main():
             "PIGTAIL_MEDIUM": 2,
             "PIGTAIL_INLET": 1,
             "PIGTAIL_SLACK": 1,
-            "PIGTAIL_COMPRESSOR": 3,
+            "SHROUD_LEAD_LEN": 1,
             "WAGO_COUNT": 2,
         },
     )

@@ -8,9 +8,9 @@ All controller, driver, and logic-rail electronics live on the one JLCPCB-assemb
 
 In: the controller PCBA, the Teyleten 3.3 V opto-isolated relays ×2, the Mean Well IRM-90-12ST PSU, Wago 221-413 lever blocks ×[3](WAGO_COUNT) for AC distribution, a printed/screw DC distribution block, the solid-copper ground bus (ring-terminal stack), 16 AWG appliance wire + 22 AWG hookup wire + crimp ferrules/forks/rings, the RELAYS J5 loom from [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md), and the two printed electronics-shelf trays.
 
-Out: one bench-built electronics shelf with the PCBA and both relay modules mounted, the AC distribution block populated (H/N/G Wagos seated, three loads landed), the DC distribution block populated (12 V trunk in from the PSU, branches to relay #2 and the board's J10 inlet), the RELAYS J5 loom landed at both ends, the ground bus prepared with a labeled ring-terminal landing per exposed-metal load, and AC + DC pigtails landed and labeled by run-ID — AC-1 (H/N/G) from the C14 inlet to the Wagos, the inlet-side ends hanging long for the C14 inlet termination, AC-4/5/6 pigtails landed on relay #1 and the AC distribution block for compressor-side termination at [`wiring.md`](/hardware/assembly/wiring.md), and the DC-3 diaphragm-pump pigtail staged. Unpowered.
+Out: one bench-built electronics shelf with the PCBA and both relay modules mounted, the AC distribution block populated (H/N/G Wagos seated, three loads landed), the DC distribution block populated (12 V trunk in from the PSU, branches to relay #2 and the board's J10 inlet), the RELAYS J5 loom landed at both ends, the ground bus prepared with a labeled ring-terminal landing per exposed-metal load, and AC + DC pigtails landed and labeled by run-ID — AC-1 (H/N/G) from the C14 inlet to the Wagos, the inlet-side ends hanging long for the C14 inlet termination, and the DC-3 diaphragm-pump pigtail staged. Relay #1's NO contact, the N Wago's third port, and the ground bus stand open for the AC-4/5/6 SJOOW lead built and landed at [`wiring.md`](/hardware/assembly/wiring.md) §2. Unpowered.
 
-Not in scope: physical install of the trays onto the foam-cap top, including chassis-ground-stud landing — that is [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md). Landing the AC pigtails into the C14 inlet's solder-tab pins and routing the AC-4/5/6 bundle through the compressor-shroud grommet — that is [`wiring.md`](/hardware/assembly/wiring.md), along with every field loom (J1–J4, J6–J9, J11, J13 all land there). Loom fabrication — that is [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md). Flashing firmware and first power-up — that is [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md). The ESP32-S3-Touch-LCD-4.3B config display lives on the front face per [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md); its SIG-7 RS485 link lands on the board's J9 at system integration.
+Not in scope: physical install of the trays onto the foam-cap top, including chassis-ground-stud landing — that is [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md). Landing the AC pigtails into the C14 inlet's solder-tab pins, and building the AC-4/5/6 SJOOW lead and passing it through the compressor-shroud cable gland — that is [`wiring.md`](/hardware/assembly/wiring.md), along with every field loom (J1–J4, J6–J9, J11, J13 all land there). Loom fabrication — that is [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md). Flashing firmware and first power-up — that is [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md). The ESP32-S3-Touch-LCD-4.3B config display lives on the front face per [`/hardware/printed-parts/enclosure/front-panel/README.md`](/hardware/printed-parts/enclosure/front-panel/README.md); its SIG-7 RS485 link lands on the board's J9 at system integration.
 
 ## Inputs per appliance
 
@@ -23,10 +23,10 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §1 (
 | Mean Well IRM-90-12ST | B0CNRST18V | [80 W](PSU_POWER) / [12 V](PSU_VOLTAGE) / [6.7 A](PSU_CURRENT) encapsulated PSU; IEC 60335-1 listed. Primary lands on the AC distribution block via AC-2; secondary feeds the DC distribution block via DC-1. |
 | Wago 221-413 lever-nut connector ×[3](WAGO_COUNT) | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | AC distribution block — one Wago per conductor (H, N, G), each carrying one in-leg from the C14 pigtail and two out-legs. |
 | DC distribution block | placeholder per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | 12 V + and GND rails for the DC-2 / DC-4 fan-out from the PSU secondary. Hardware TBD — see Open items. |
-| Solid-copper ground bus | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 (16 AWG green stock) | Single chassis-ground tie point on the shelf ([`/hardware/reference/ground-ring-stack/`](/hardware/reference/ground-ring-stack/)). Receives PSU chassis ground (AC-2 G) and the C14 inlet's earth pin (via AC-1 G); distributes to every exposed-metal load via short green pigtails. |
+| Solid-copper ground bus | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 (16 AWG green stock) | Single chassis-ground tie point on the shelf ([`/hardware/reference/ground-ring-stack/`](/hardware/reference/ground-ring-stack/)). Receives PSU chassis ground (AC-2 G) and the C14 inlet's earth pin (via AC-1 G); distributes to the exposed-metal loads via short green pigtails, and receives the compressor-shroud bond — AC-6, the SJOOW's G — at [`wiring.md`](/hardware/assembly/wiring.md) §2. |
 | RELAYS J5 loom | [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md) | 4-conductor XH housing at J5; screw-terminal ends at both relay modules (LV-1/2/3). |
 | 16 AWG silicone-insulated appliance wire (black/white/green) | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | AC-1 pigtail stock + the DC-1/2/4 trunk and branches + ground bonds. |
-| 16 AWG stranded hookup wire | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | AC branch stock (AC-2 through AC-6). |
+| 16 AWG stranded hookup wire | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | AC branch stock (AC-2 + AC-3). |
 | Spade crimp terminals + ferrules + ring terminals | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 (B0B9MZJ2ML + B01MZZGAJP) | AC pigtails land in Wago 221 lever blocks via crimp ferrules; the PSU primary and Teyleten contact terminals take crimp forks; the ground bus takes ring terminals; DC-4 lands under the J10 screw clamps via ferrules. |
 | Printed electronics-shelf trays ×2 | [`/hardware/printed-parts/electronics/`](/hardware/printed-parts/electronics/) (pcba-tray, power-tray) | PETG per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7, M3 heat-set inserts (ruthex per §13). |
 | M3 heat-set inserts + M3 × 8 SHCS | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13 | Board + module mounting. |
@@ -45,14 +45,14 @@ Placement geometry is set by the tray CAD: the controller PCBA alone on the pcba
 
 Mount the three Wago 221-413 lever blocks in their power-tray slots — one each for H, N, G. Label each block at its bay (H / N / G) with label tape or printed shelf bay-callouts.
 
-Cut and prep the AC pigtails for AC-1 through AC-6 per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "AC mains" table:
+Cut and prep the AC pigtails for AC-1 through AC-3 per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "AC mains" table:
 
 - **AC-1** — [~150 mm](PIGTAIL_INLET) 16 AWG pigtails on H, N, G between the C14 inlet and the H / N / G Wago 221 lever blocks. Ferrules at the Wago end; the inlet-side end is left long ([~150 mm](PIGTAIL_SLACK) slack) for the C14 inlet's solder-tab terminations during [`wiring.md`](/hardware/assembly/wiring.md). Label each conductor "AC-1 H" / "AC-1 N" / "AC-1 G" with heat-shrink flags. Ground-fault protection is deferred — see [`/pie-in-the-sky/gfci.md`](/pie-in-the-sky/gfci.md).
 - **AC-2** — H + N + G pigtails from the H / N / G Wago blocks to the PSU primary terminals, [~100 mm](PIGTAIL_MEDIUM), ferrules at the Wago end, crimp forks at the PSU end.
 - **AC-3** — H pigtail from the H Wago block to the relay #1 contact input ("common" terminal), [~50 mm](PIGTAIL_SHORT), ferrule one end, crimp fork the other.
-- **AC-4/5/6** — pigtails from the relay #1 contact output (AC-4 switched H, [~400 mm](PIGTAIL_COMPRESSOR)), the N Wago block (AC-5, [~400 mm](PIGTAIL_COMPRESSOR)), and the ground bus (AC-6, [~400 mm](PIGTAIL_COMPRESSOR)). Each carries a female disconnect at the compressor-side end and is left coiled with a labeled flag for routing through the compressor-shroud grommet at [`wiring.md`](/hardware/assembly/wiring.md).
+- **AC-4/5/6** — not cut here. These are the three conductors of one 18 AWG SJOOW jacketed lead ([~400 mm](SHROUD_LEAD_LEN)), pre-built at [`wiring.md`](/hardware/assembly/wiring.md) §2 and passed through the compressor shroud's cable gland — its switched H forks onto relay #1's NO contact, its N seats in the N Wago's open port, its G rings onto the ground bus.
 
-Land the solid-copper ground bus on its power-tray boss. Stage short green 16 AWG pigtails with ring terminals at the bus end for each exposed-metal load: PSU chassis (lands at PSU mounting in step 3), pressure vessel, faucet SS plate, compressor body / shroud. Leave the load-side end of each pigtail un-terminated and labeled; those land at [`wiring.md`](/hardware/assembly/wiring.md). Bus-to-chassis stud connection lands at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md).
+Land the solid-copper ground bus on its power-tray boss. Stage short green 16 AWG pigtails with ring terminals at the bus end for each exposed-metal load: PSU chassis (lands at PSU mounting in step 3), pressure vessel, faucet SS plate, compressor body. Leave the load-side end of each pigtail un-terminated and labeled; those land at [`wiring.md`](/hardware/assembly/wiring.md). Stage the short green block-to-bus leg — ring terminal at the bus, ferrule for the G Wago (seats in step 4) — that carries the C14 earth onto the bus. The compressor-shroud bond is not staged here: it is AC-6, the SJOOW's G conductor, ring-landed on the stack at [`wiring.md`](/hardware/assembly/wiring.md) §2. Bus-to-chassis stud connection lands at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md).
 
 ### 3. Mount the PSU, relays, and PCBA
 
@@ -69,12 +69,12 @@ Pre-flash happens at [`firmware-and-commissioning.md`](/hardware/assembly/firmwa
 Open each Wago 221-413 lever and seat the staged ferrules. Each block carries one in-leg (the AC-1 conductor from the C14 inlet) plus the out-legs called out in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md):
 
 - **H Wago** — AC-1 H in; AC-2 H out to PSU primary; AC-3 H out to relay #1 contact input.
-- **N Wago** — AC-1 N in; AC-2 N out to PSU primary; AC-5 N out left coiled with its labeled flag (compressor-side disconnect terminated, lands during [`wiring.md`](/hardware/assembly/wiring.md)).
-- **G Wago** — AC-1 G in; AC-2 G out to the PSU chassis ground stud; AC-6 G out to the ground bus, which carries the compressor-shroud bond branch.
+- **N Wago** — AC-1 N in; AC-2 N out to PSU primary; the third port stays open — AC-5, the SJOOW's N conductor, seats there at [`wiring.md`](/hardware/assembly/wiring.md) §2.
+- **G Wago** — AC-1 G in; AC-2 G out to the PSU chassis ground stud; the block-to-bus leg out to the ground bus's ring stack, carrying the C14 earth onto the bus.
 
 Lock down each Wago lever. Multimeter-check each Wago bay for continuity from the AC-1 stub to every named out-leg.
 
-Land AC-2 forks on the PSU primary screw terminals. Land AC-3 fork on relay #1's contact-input terminal ("COM" on the Teyleten silkscreen). Verify the relay's other contact terminal ("NO") has the AC-4 switched-H pigtail crimped on with its compressor-side disconnect already in place from step 2.
+Land AC-2 forks on the PSU primary screw terminals. Land AC-3 fork on relay #1's contact-input terminal ("COM" on the Teyleten silkscreen). The relay's other contact terminal ("NO") stays empty — AC-4, the SJOOW's switched hot, forks onto it at [`wiring.md`](/hardware/assembly/wiring.md) §2.
 
 ### 5. Stage the DC distribution block + populate the 12 V branches
 
@@ -99,7 +99,7 @@ This is the only loom that lands at shelf-build time — both its ends live on t
 
 Before the shelf leaves the bench, unpowered:
 
-- AC side: continuity from each AC-1 pigtail (C14-inlet-side end) through its Wago block to every named out-leg, including the long compressor-side coils. Confirm no continuity between the H bus and the G bus, the N bus and the G bus, or the H bus and the N bus.
+- AC side: continuity from each AC-1 pigtail (C14-inlet-side end) through its Wago block to every named out-leg. Confirm no continuity between the H bus and the G bus, the N bus and the G bus, or the H bus and the N bus.
 - DC side: continuity from each DC-1 trunk pair through the distribution block to every named branch. Confirm correct polarity at each branch — at the J10 clamps, the conductor under the `V12` screw must trace to the PSU +.
 - Ground bus: continuity from every ring-terminal pigtail on the bus back to the AC-1 G stub (the C14-inlet-side pigtail).
 - J5 loom: seated square on its wafer, screw terminals tugged.
@@ -114,8 +114,8 @@ A finished electronics shelf is:
 - AC distribution block landed with the three Wago 221-413 levers locked, AC-2 + AC-3 internal stubs terminated at the PSU primary and relay #1 contact input
 - DC distribution block landed with the DC-1 trunk from the PSU, DC-2 terminated at relay #2, and DC-4 terminated under the board's J10 screw clamps, polarity verified
 - RELAYS J5 loom landed at both ends (the board wafer + both relay modules' screw terminals)
-- Ground bus mounted, bus-side ring terminals seated for every exposed-metal load, load-side ends left long with labeled flags
-- AC-1 (H/N/G, inlet-side), AC-4/5/6 (compressor-side), and DC-3 (diaphragm pump) pigtails coiled with labeled heat-shrink flags identifying the run-ID — ready to be picked up by [`wiring.md`](/hardware/assembly/wiring.md)
+- Ground bus mounted, bus-side ring terminals seated for each staged bond, load-side ends left long with labeled flags
+- AC-1 (H/N/G, inlet-side) and DC-3 (diaphragm pump) pigtails coiled with labeled heat-shrink flags identifying the run-ID — ready to be picked up by [`wiring.md`](/hardware/assembly/wiring.md); relay #1's NO contact, the N Wago's third port, and the ground bus stand open for the AC-4/5/6 SJOOW lead landed there
 - Pre-power continuity and isolation checks passed (AC bus separation, DC polarity, ground continuity)
 - Unpowered, MCU unflashed
 
