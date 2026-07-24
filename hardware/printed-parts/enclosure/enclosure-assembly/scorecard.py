@@ -23,7 +23,7 @@ only the first three are the focus (the other two render, dimmed, but are not ye
               point on the body the scorecard confirms is on-surface. A connection has no
               path until both its ends are located, so this precedes routed.
     shaped  — FOCUS. Real geometry, not a placeholder box/cylinder.
-    routed  — deferred. Every connection (fluid + refrigerant + electrical) a real 3D
+    routed  — deferred. Every connection (fluid + water + refrigerant + electrical) a real 3D
               path (bend radius, length, clearance), not endpoints + an external graph.
     held    — deferred. A printed holder that fastens the component to the enclosure (a
               few bosses + screws, or a tray-with-bosses that itself fastens) — not a
@@ -117,7 +117,7 @@ COMPONENTS = [
     _c("condenser+fan",     "placeholder", True,  "none", "harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)"),
     _c("mq6-sensor",        "real",        True,  "none", "MQ-6 module STEP (PCB + sensor can + header); floor gas sensor, no mount"),
     # Water deck
-    _c("asse1022-assembly", "real",        True,  "none", "Multiplex 19-0897 ASSE 1022 backflow preventer + PP010822E, GAGIRA coupling, FFL38BARB38 and the clear-PVC vent stub as one chain (reference/asse1022-assembly); lies along X in the service bay's aft strip, yawed 180° so its inlet faces east at the rear-panel water bulkhead it protects, vent hanging over the pan's ground on the foam-cap top, holder TBD"),
+    _c("asse1022-assembly", "real",        True,  "none", "Multiplex 19-0897 ASSE 1022 backflow preventer + PP010822E, GAGIRA coupling, FFL38BARB38 and the clear-PVC vent stub as one chain (reference/asse1022-assembly); lies along X in the service bay's aft strip, yawed 180° so its inlet faces east at the rear-panel water bulkhead it protects, rolled −90° so the vent faces −Y and drips forward onto the pan's ground on the foam-cap top, holder TBD"),
     # Valve manifold
     _c("source-select-assembly", "real",   True,  "none", "Tray 1 — printed tray + 4 Beduan NC solenoids + 2 PP2308E Y-dividers + 4 outlet elbows (valve-manifold/source-select-tray); floors the stack, plate down and valves up, holder TBD"),
     _c("bag-circuit-assembly",   "real",   True,  "none", "Tray 2 — printed dog-bone tray + 4 Beduan NC solenoids + 2 PP0208E Tees + 2 west outlet elbows (valve-manifold/bag-circuit-tray); rides INVERTED on the source tray's stacking walls, east ports bare, holder TBD"),
@@ -191,12 +191,24 @@ REFRIGERANT_SEGMENTS = [
     ("refrig-3", "foam-assembly evaporator outlet", "compressor-shroud suction"),
 ]
 
+# The tap-water path — declared here for the same reason the refrigerant loop is. It lives in no
+# segment table: fluid-topology.md starts at "Tap water source", which is this path's far end, so
+# its 28 segments are the beverage manifold downstream of the carbonator. This is the run from the
+# rear-panel bulkhead through the backflow preventer to the carbonator's water inlet, built in
+# assembly/internal-plumbing.md §2. The ASSE 1022's vent is not here: it terminates to atmosphere.
+WATER_SEGMENTS = [
+    ("water-1", "bulkhead-water tube-in", "asse1022-assembly tube-in (PP010822E → GAGIRA coupling)"),
+    ("water-2", "asse1022-assembly hose-out (FFL38BARB38)", "SeaFlo 22-series suction inlet"),
+    ("water-3", "SeaFlo discharge (MAACFLOW → GASHER check)", "foam-assembly water-in"),
+]
+
 
 def load_connections() -> list[Connection]:
     """Every connection the box must route: the fluid tube segments (fluid-topology.md,
     `| N | From | To |`), the electrical runs (ac-wiring-schedule.md, `| AC/DC/SIG/LV-N |
-    From | To |`), and the sealed refrigerant loop (REFRIGERANT_SEGMENTS). A connection
-    counts as routed only once a real 3D path is modeled (_lines.py's authored runs)."""
+    From | To |`), the sealed refrigerant loop (REFRIGERANT_SEGMENTS) and the tap-water
+    path (WATER_SEGMENTS). A connection counts as routed only once a real 3D path is
+    modeled (_lines.py's authored runs)."""
     conns: list[Connection] = []
     if _TOPOLOGY.is_file():
         row = re.compile(r"^\|\s*(\d+)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|")
@@ -212,6 +224,8 @@ def load_connections() -> list[Connection]:
                 conns.append(Connection(m.group(1), "wire", m.group(2).strip(), m.group(3).strip()))
     for cid, frm, to in REFRIGERANT_SEGMENTS:
         conns.append(Connection(cid, "refrigerant", frm, to))
+    for cid, frm, to in WATER_SEGMENTS:
+        conns.append(Connection(cid, "water", frm, to))
     # Routed state comes from the paths _lines.py builds. Deferred import: _lines reads PORTS
     # back out of this module.
     import _lines
@@ -310,20 +324,21 @@ PLACEMENT_RULES = {
     "tee-y-c": [("near", "source-select-assembly", 15.0)],
     "tee-y-f": [("near", "source-select-assembly", 15.0)],
     # "The ASSE 1022 chain lies in the service bay's aft strip, one pigtail off the
-    # water bulkhead, vent down over the pan's ground." Five measurements pin it.
-    # `near bulkhead-water` holds the inlet at the bulkhead it takes its feed from —
-    # that stance is the placement. The two rules on foam-assembly are the drip BAND,
-    # read at the assembly's lowest point, the vent stub's tip: `near` says the stub
-    # still reaches down toward the cap (a body lifted until it no longer does fails
-    # here), `clear` says it stops with the pan's own depth and an air gap left under
-    # it. `clear power-tray` holds open the lane between the shelf's back edge and this
-    # body, which the C14's cordage crosses going forward to the AC hub. `x-` reads the
-    # barb end's stance off the −X wall — the straight room the stiff 3/8" silicone
-    # leaves in, bounded east by the nozzle-outlet runs crossing the strip.
+    # water bulkhead, vent aimed forward over the pan's ground." Five measurements pin
+    # it. `near bulkhead-water` holds the inlet at the bulkhead it takes its feed from —
+    # that stance is the placement. `fall` is the drip, and the rule the pose exists for:
+    # the vent tip's own column, dropped straight down, lands on the cap, where the pan
+    # and its moisture plate sit. It reads the column, not the body — the two part company
+    # in this strip, where the body stands 28 mm off the shelf and the column 4. `clear
+    # power-tray` holds
+    # open the lane between the shelf's back edge and this body, which the C14's cordage
+    # crosses going forward to the AC hub. `x-` reads the barb end's stance off the −X
+    # wall — the straight room the stiff 3/8" silicone leaves in, bounded east by the
+    # nozzle-outlet runs crossing the strip.
     "asse1022-assembly": [("near", "bulkhead-water", 20.0),
-                          ("near", "foam-assembly", 20.0),
-                          ("clear", "foam-assembly", 12.0),
+                          ("fall", "vent-tip", "foam-assembly", 60.0),
                           ("clear", "power-tray", 8.0),
+                          ("clear", "c14-inlet", 4.0),
                           ("x-", 80.0)],
 }
 
@@ -354,12 +369,47 @@ def placement_audit(solids: dict, inner: tuple) -> list[tuple[str, bool, list]]:
                 present = other in solids
                 gap = _solid_gap(solids[name], solids[other]) if present else float("inf")
                 checks.append((f"clear {other}", gap, mn, present and gap >= mn))
+            elif rule[0] == "fall":
+                _tag, port, other, mx = rule
+                p = next(q for q in PORTS if q.component == name and q.name == port)
+                who, drop = _fall_first(p.pos, p.diam, mx, solids, skip=(name,))
+                checks.append((f"fall {port} onto {who or 'nothing'}", drop, mx, who == other))
             else:
                 f, mx = rule
                 g = abs(val[f] - datum[f])
                 checks.append((f, g, mx, g <= mx))
         out.append((name, all(c[3] for c in checks), checks))
     return out
+
+
+def _fall_first(pos, dia, reach, solids: dict, skip=()) -> tuple:
+    """What a drip leaving `pos` lands on, and how far it falls to get there: a column of `dia`
+    dropped `reach` straight down, and the highest body it meets. `(None, reach)` when the column
+    reaches its full length untouched — that is the probe's own length, not a clearance.
+
+    A boolean that will not resolve raises: an unmeasured body is not an absent one, and the
+    difference decides what gets wet."""
+    import cadquery as cq
+
+    col = cq.Solid.makeCylinder(dia / 2.0, reach, cq.Vector(*pos), cq.Vector(0, 0, -1))
+    best, who = reach, None
+    for n, s in solids.items():
+        if n in skip:
+            continue
+        if _bbox_gap(_boxes.boxed(col), _boxes.boxed(s)) > 0:
+            continue
+        try:
+            inter = col.intersect(s)
+            if inter.Volume() <= CLASH_TOL:
+                continue
+        except Exception as exc:
+            raise RuntimeError(
+                f"the fall from {tuple(round(c, 2) for c in pos)} against {n} could not be taken "
+                f"({exc}) — what the drip lands on is unknown, not clear") from exc
+        drop = pos[2] - inter.BoundingBox().zmax
+        if drop < best:
+            best, who = max(0.0, drop), n
+    return who, best
 
 
 # ── Ports (the located axis) — where every connector sits on the component, and how big ──
@@ -467,9 +517,9 @@ PORTS = [
     # sets where they land, so a length changed in any of its five parts moves them together.
     # The vent is not a connection: it terminates to atmosphere over the drip pan, and plumbing
     # it into anything would destroy the telltale it exists to be (internal-plumbing.md §2).
-    _p("tube-in",  "asse1022-assembly", "fluid", *contents.bfp_terminal("tube-in"),  6.35,  "bulkhead-water tube-in (rear-panel tap-water inlet, via the customer's filter)", "JG PP010822E 1/4\" PTC, facing east at the bulkhead's own column, a pigtail away"),
-    _p("hose-out", "asse1022-assembly", "fluid", *contents.bfp_terminal("hose-out"), 9.525, "SeaFlo 22-series suction inlet (deferred) — V-A's tap point tees off this hose", "FFL38BARB38 3/8\" barb, facing west into the strip's open end; worm-gear clamp"),
-    _p("vent-tip", "asse1022-assembly", "fluid", *contents.bfp_terminal("vent-tip"), 6.35,  "atmosphere, over the drip pan + moisture plate (deferred) — never plumbed", "Sealproof 1/4\" ID clear-PVC stub, hanging −Z at the foam-cap top; cut to length at the bench"),
+    _p("tube-in",  "asse1022-assembly", "fluid", *contents.bfp_terminal("tube-in"),  6.35,  "bulkhead-water tube-in (rear-panel tap-water inlet, via the customer's filter) — segment water-1 (routed)", "JG PP010822E 1/4\" PTC, facing east; water-1 rounds the mouth and closes in from the east"),
+    _p("hose-out", "asse1022-assembly", "fluid", *contents.bfp_terminal("hose-out"), 9.525, "SeaFlo 22-series suction inlet (deferred) — segment water-2; V-A's tap point tees off this hose", "FFL38BARB38 3/8\" barb, facing west into the strip's open end; worm-gear clamp"),
+    _p("vent-tip", "asse1022-assembly", "fluid", *contents.bfp_terminal("vent-tip"), 6.35,  "atmosphere, dripping onto the drip pan + moisture plate (deferred) — never plumbed", "Sealproof 1/4\" ID clear-PVC stub, facing −Y over the foam-cap top; cut to length at the bench"),
     # Hopper funnel — the removable silicone basin's single drain: the spout-tube exit annulus,
     # feeding V-B by tube (segment 4). Defined in the funnel's own frame
     # (hopper_funnel.drain_local = (neck_dx, 0, −drop)) carried through the placement's
@@ -931,12 +981,13 @@ def routed_check(solids=None) -> tuple:
     fluid = sum(1 for c in conns if c.kind == "fluid")
     wire = sum(1 for c in conns if c.kind == "wire")
     refrig = sum(1 for c in conns if c.kind == "refrigerant")
+    water = sum(1 for c in conns if c.kind == "water")
     routed_done = sum(1 for c in conns if c.routed)
     routed = _pct(routed_done, len(conns))
-    routed_detail = [f"{fluid} fluid + {refrig} refrigerant + {wire} electrical; "
-                     f"{routed_done} routed — the fluid path waits on the SeaFlo the ASSE 1022's "
-                     f"discharge hose lands on, and on the manifold's remaining legs; the "
-                     f"electrical runs on the components being held"]
+    routed_detail = [f"{fluid} fluid + {water} water + {refrig} refrigerant + {wire} electrical; "
+                     f"{routed_done} routed — the water path waits on the SeaFlo the ASSE 1022's "
+                     f"discharge hose lands on, the fluid path on the manifold's remaining legs; "
+                     f"the electrical runs on the components being held"]
     # The per-run nearest-gap report is an exact solid-distance query against every body.
     # HSM_SKIP_CLEARANCES drops it; each run's ports, length and bends still print, and
     # `lines-clear` still gates on interpenetration.
@@ -952,7 +1003,7 @@ def routed_check(solids=None) -> tuple:
     for c in conns:
         if c.blocked:
             routed_detail.append(f"✗ {c.id}: BLOCKED — {c.blocked}")
-    ck = Check("routed", "Connections modeled as real 3D paths (fluid + refrigerant + electrical)",
+    ck = Check("routed", "Connections modeled as real 3D paths (fluid + water + refrigerant + electrical)",
                "goal", "pass" if (routed == 100 and bool(conns)) else "warn",
                f"{routed}% ({routed_done}/{len(conns)})", "100%", routed_detail[:DETAIL_MAX], False)
     return ck, routed
@@ -1101,7 +1152,7 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
          shaped == 100 and not mismatched,
          f"{shaped}% ({len(real)}/{total})", "100%", shaped_detail, active=True)
 
-    # routed — DEFERRED: every fluid + refrigerant + electrical connection a real 3D path. Lives in
+    # routed — DEFERRED: every fluid + water + refrigerant + electrical connection a real 3D path. Lives in
     # routed_check() so a cache-hit build can recompute just this (it reads _lines) without redoing
     # the component audits above.
     routed_ck, routed = routed_check(solids)
