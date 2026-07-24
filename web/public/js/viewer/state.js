@@ -60,6 +60,9 @@ export const state = {
   glbEtags: new Map(),        // GLB file -> last loaded ETag
   dxfMeta: new Map(),         // DXF file -> {thickness_mm, material} from sidecar (hardware/README.md)
   gridEl: null,               // set by main.js after DOM ready
+  gridWindow: null,           // lazy.js handle for the current grid's mount/release observers;
+                              // disconnected and replaced on each buildGrid so the observers die
+                              // with the cards they watch
   codeVersion: null,          // cache-bust token for re-importing the render modules (loaders.js /
                               // detail-shims.js); null = page-load code is current. Set to the build
                               // commit on a prod deploy (live.js DEPLOY) and to a change nonce on a dev

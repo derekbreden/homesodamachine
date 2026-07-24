@@ -16,6 +16,7 @@
 
 import { state } from "./state.js";
 import { makeResetButton, makeMinimap } from "./pan-zoom-extras.js";
+import { PLACEHOLDER } from "./lazy.js";
 import { CARD_W, CARD_H, cardAssetUrl } from "/contracts/cards.js";
 
 function cardTransformKey(file) { return `card-transform:${file}`; }
@@ -69,9 +70,13 @@ function makeCardFrame(file, { bust = false } = {}) {
 // loads the frames actually scrolled into view.
 export function mountCardThumbnail(hostEl, file, { bust = false } = {}) {
   if (!hostEl) return;
+  // Clear rather than going through unmountCardThumbnail: that restores the
+  // placeholder, which the frame would then be appended alongside rather than
+  // replacing.
+  releaseFrame(hostEl);
+  hostEl.innerHTML = "";
   const frame = makeCardFrame(file, { bust });
   frame.style.transformOrigin = "0 0";
-  hostEl.innerHTML = "";
   hostEl.appendChild(frame);
   const fit = () => {
     const w = hostEl.clientWidth;
@@ -83,8 +88,26 @@ export function mountCardThumbnail(hostEl, file, { bust = false } = {}) {
   // filling its host exactly rather than drifting from the 3:2 thumb box.
   const ro = new ResizeObserver(fit);
   ro.observe(hostEl);
-  hostEl._cardResizeObserver?.disconnect();
   hostEl._cardResizeObserver = ro;
+}
+
+// Stop re-fitting a host's frame. Separate from the DOM teardown because mount
+// and unmount leave the host in different states — empty vs. placeholder — but
+// both have to drop the observer, which would otherwise outlive its frame.
+function releaseFrame(hostEl) {
+  hostEl._cardResizeObserver?.disconnect();
+  hostEl._cardResizeObserver = null;
+}
+
+// Release a card thumbnail: drop the iframe's document and the observer that
+// was re-fitting it. This is the one kind where releasing really matters — a
+// mounted card is a live document with its own stylesheet, layout, and embedded
+// renders, and a deck this size will hold ~90 of them at once if nothing ever
+// lets go. The host keeps its 3:2 box (viewer.css), so nothing moves.
+export function unmountCardThumbnail(hostEl) {
+  if (!hostEl) return;
+  releaseFrame(hostEl);
+  hostEl.innerHTML = PLACEHOLDER;
 }
 
 // --- Detail ---

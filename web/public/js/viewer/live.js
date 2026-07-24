@@ -38,6 +38,7 @@ import { fetchFiles } from "./main.js";
 import { mountScorecard } from "./scorecard-3d.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
 import { isCardPath } from "/contracts/cards.js";
+import { isMounted } from "./lazy.js";
 
 function refreshStepCard(file) {
   // Re-fetch the committed PNG past the browser cache. On a real deploy the
@@ -50,6 +51,7 @@ function refreshStepCard(file) {
   state.thumbnailCache.delete(file);
   const card = state.gridEl.querySelector(`.card[data-type="step"][data-file="${CSS.escape(file)}"]`);
   if (!card) { fetchFiles(); return; }
+  if (!isMounted(card)) return;
   paintStepThumb(card, { bust: true });
 }
 
@@ -57,6 +59,7 @@ function refreshDxfCard(file) {
   state.dxfThumbCache.delete(file);
   const card = state.gridEl.querySelector(`.card[data-type="dxf"][data-file="${CSS.escape(file)}"]`);
   if (!card) { fetchFiles(); return; }
+  if (!isMounted(card)) return;
   const img = card.querySelector("img");
   if (img) {
     const ph = document.createElement("div");
@@ -83,6 +86,7 @@ function refreshGlbCard(file) {
   state.glbThumbCache.delete(file);
   const card = state.gridEl.querySelector(`.card[data-type="glb"][data-file="${CSS.escape(file)}"]`);
   if (!card) { fetchFiles(); return; }
+  if (!isMounted(card)) return;
   const img = card.querySelector("img");
   if (img) {
     const ph = document.createElement("div");
@@ -109,6 +113,7 @@ function refreshMmdCard(file) {
   state.mmdThumbCache.delete(file);
   const card = state.gridEl.querySelector(`.card[data-type="mmd"][data-file="${CSS.escape(file)}"]`);
   if (!card) { fetchFiles(); return; }
+  if (!isMounted(card)) return;
   const thumbEl = card.querySelector(".mmd-thumb");
   if (thumbEl) thumbEl.innerHTML = `<div class="placeholder">updating...</div>`;
   renderMmdThumbnail(file).then((svg) => {
@@ -121,6 +126,7 @@ function refreshDrawingCard(file) {
   state.drawingThumbCache.delete(file);
   const card = state.gridEl.querySelector(`.card[data-type="drawing"][data-file="${CSS.escape(file)}"]`);
   if (!card) { fetchFiles(); return; }
+  if (!isMounted(card)) return;
   const thumbEl = card.querySelector(".drawing-thumb");
   if (thumbEl) thumbEl.innerHTML = `<div class="placeholder">updating...</div>`;
   renderDrawingThumbnail(file).then((svg) => {
@@ -133,6 +139,7 @@ function refreshPcbCard(file) {
   state.pcbThumbCache.delete(file);
   const card = state.gridEl.querySelector(`.card[data-type="pcb"][data-file="${CSS.escape(file)}"]`);
   if (!card) { fetchFiles(); return; }
+  if (!isMounted(card)) return;
   const thumbEl = card.querySelector(".pcb-thumb");
   if (thumbEl) thumbEl.innerHTML = `<div class="placeholder">updating...</div>`;
   renderPcbThumbnail(file).then((svg) => {
@@ -144,10 +151,13 @@ function refreshPcbCard(file) {
 // An assembly card has no separate thumbnail artifact — the thumbnail IS the
 // card page in an iframe — so refreshing it is just re-mounting the frame past
 // the browser cache. A card that isn't on the grid yet (newly added to the deck)
-// falls through to a re-list, same as every other kind.
+// falls through to a re-list, same as every other kind. A card whose content is
+// currently released needs nothing: it re-frames against the live file (and the
+// route's no-cache revalidation) the next time it scrolls into view.
 function refreshCardThumb(file) {
   const card = state.gridEl.querySelector(`.card[data-type="card"][data-file="${CSS.escape(file)}"]`);
   if (!card) { fetchFiles(); return; }
+  if (!isMounted(card)) return;
   mountCardThumbnail(card.querySelector(".card-thumb"), file, { bust: true });
 }
 
