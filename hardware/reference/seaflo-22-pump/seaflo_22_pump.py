@@ -32,6 +32,25 @@ PORT_D, PORT_L = 13.0, 16.0                    # 3/8" hose-barb inlet + outlet
 FOOT_R = 6.0                                   # base corner radius
 
 
+HEAD_FACE_X = -BASE_L / 2.0 + 6.0              # the head's -X face, where the barbs leave
+PORT_TIP_X = HEAD_FACE_X - PORT_L              # the barb tips
+PORT_Y = HEAD_W / 4.0                          # the two ports' offset either side of the axis
+PORT_Z = BASE_T + HEAD_H / 2.0                 # both ports at the head's mid-height
+
+
+def suction():
+    """The 3/8" hose-barb the supply line slips over: (position, outward axis).
+    The casting marks IN and OUT; the two barbs are the same fitting on the same
+    face, so which one this is falls out of how the pump is turned in its bay."""
+    return (PORT_TIP_X, -PORT_Y, PORT_Z), (-1.0, 0.0, 0.0)
+
+
+def discharge():
+    """The 3/8" hose-barb feeding the carbonator: (position, outward axis) —
+    the suction's twin, the other side of the head's axis."""
+    return (PORT_TIP_X, PORT_Y, PORT_Z), (-1.0, 0.0, 0.0)
+
+
 def build():
     """Motor can + head + pressure switch on a wide base, ports on the head's
     -X face; base underside at Z = 0, motor axis along +X."""
@@ -46,7 +65,7 @@ def build():
         cq.Vector(motor_cx - MOTOR_L / 2.0, 0, BASE_T + MOTOR_D / 2.0),
         cq.Vector(1, 0, 0),
     )
-    head_x0 = -BASE_L / 2.0 + 6.0
+    head_x0 = HEAD_FACE_X
     head = (
         cq.Workplane("XY")
         .box(HEAD_L, HEAD_W, HEAD_H, centered=(False, True, False))
@@ -62,7 +81,7 @@ def build():
     for sy in (-1, 1):
         barb = cq.Solid.makeCylinder(
             PORT_D / 2.0, PORT_L,
-            cq.Vector(head_x0, sy * HEAD_W / 4.0, BASE_T + HEAD_H / 2.0),
+            cq.Vector(head_x0, sy * PORT_Y, PORT_Z),
             cq.Vector(-1, 0, 0),
         )
         part = part.union(barb)
@@ -76,6 +95,8 @@ def main():
     print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
           f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
     print(f"  base {BASE_L}×{BASE_W}, motor Ø{MOTOR_D}×{MOTOR_L}, head {HEAD_L}×{HEAD_W}×{HEAD_H}")
+    for label, (pos, axis) in (("suction  ", suction()), ("discharge", discharge())):
+        print(f"  {label}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
     out = _here.parent / "seaflo-22-pump.step"
     export_step(part, str(out))
     print(f"-> {out.name}")

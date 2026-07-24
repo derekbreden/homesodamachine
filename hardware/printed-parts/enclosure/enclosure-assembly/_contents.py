@@ -185,6 +185,10 @@ DERPIPE_STEP   = _hw / "reference" / "derpipe-co2-inlet" / "derpipe-co2-inlet.st
 ASSE1022_STEP  = _hw / "reference" / "asse1022-assembly" / "asse1022-assembly.step"
 JG_BULKHEAD    = _hw / "reference" / "jg-bulkhead-union" / "jg-bulkhead-union.step"
 IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
+# The SeaFlo 22-series diaphragm pump, 188 × 98 × 74 with its feet: the water
+# deck's floor plan. Its own frame is +X = motor axis, the head at −X carrying
+# both 3/8" barbs on that face (reference/seaflo-22-pump).
+SEAFLO_STEP    = _hw / "reference" / "seaflo-22-pump" / "seaflo-22-pump.step"
 
 # --- Primitive dimensions + placement anchors ----------------------------
 # Condenser+fan and the SeaFlo pump are packed as primitive boxes (dimensions
@@ -201,6 +205,13 @@ IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 # stratum stays open. The airflow axis rides the tip unchanged: the fan +
 # finstack stack depth, calipered [56 mm](CONDENSER_AIRFLOW) combined, along X.
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
+# The SeaFlo's SW corner in plan; its base rides the foam cap at STACK_GAP. The
+# pump is the service bay's floor plan rather than a body fitted into it: at 74 mm
+# it takes all but a few of the bay's clear height, so nothing shares its column,
+# and its 188 mm motor axis has to lie along X — the bay is 184 deep and 78 tall,
+# and every other orientation is longer than one of those. The head is at −X, so
+# both barbs face west into the channel the ASSE chain and the tap point stand in.
+SEAFLO_POS = (95.0, 232.0)
 # The ASSE 1022 assembly lies along X in the SERVICE BAY'S AFT STRIP — the span
 # between the electronics shelf's back edge and the rear-panel bodies reaching in
 # from the wall, over the foam-cap top. It is the first component on the water
@@ -589,7 +600,12 @@ UMBILICAL_Z_FLOOR = 281.0    # lowest bulkhead-nut edge: the rear Z-seam lip ban
 UMBILICAL_X = 210.0          # triangle column center
 WATER_BACK_X = 145.0
 WATER_BACK_Z = 293.0         # nut rides just above the rear Z-seam lip band
-C14_BACK_X = 90.0            # over the power assembly, mid-row
+# The C14 stands in the panel's WEST corner, clear of the umbilical's field and of
+# the water deck's x-span. Its cordage drops the rear wall and runs forward along
+# the west wall to the AC hub, so it crosses neither the ASSE 1022's drip column
+# nor the pan's ground on the cap. PORT_C14_FLANGE_W/2 off the corner-post band
+# leaves the flange its own bearing on the printed wall.
+C14_BACK_X = 22.0
 C14_BACK_Z = 295.0
 # CO2 inlet — the DERPIPE 5/16"-tube PTC × 1/4" NPT M fitting on the front
 # panel, front-left, NPT side facing inboard to carry its GASHER → WR1110
@@ -626,6 +642,7 @@ COLORS = {
     "elbow-bag-y-g":     cq.Color(0.85, 0.85, 0.88),
     "elbow-noz-a":       cq.Color(0.85, 0.85, 0.88),
     "elbow-noz-b":       cq.Color(0.85, 0.85, 0.88),
+    "seaflo-pump":       cq.Color(0.32, 0.38, 0.46),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "dc-dist":           cq.Color(0.20, 0.20, 0.22),
@@ -1136,19 +1153,19 @@ def _build():
         collet = noz_collet(port)
         placed[name] = _place_elbow(elbow, collet[0], collet[1], OUTLET_FREE, ELBOW_STUB)
 
-    # --- Zone B, the band above the cold core: the electronics shelf lying
-    # flat on the foam-cap top, tray/board planes horizontal, everything in
-    # the band's front half (so the rear-wall port bodies hang in open air
-    # behind it) — the power assembly at −X on the
-    # C14's column, the PCBA beside it at +X, the DC distribution block
-    # behind the power row. Every station is a reach aft off FRONT_DEPTH — the
-    # shelf lies on the core's cap, so it rides the core rather than standing at
-    # a world Y of its own. The power row starts behind the CO2 top entry, which
-    # stays open to the tube dropping into it.
-    shelf_z = foam_top + STACK_GAP
-    placed["power-tray"] = _at(_load(POWER_ASSEMBLY), 24.0, FRONT_DEPTH + 30.0, shelf_z)
-    placed["pcba"]       = _at(_load(PCBA_ASSEMBLY), 185.0, FRONT_DEPTH + 10.0, shelf_z)
-    placed["dc-dist"]    = _at(_load(DC_DIST), 24.0, FRONT_DEPTH + 110.0, shelf_z)
+    # --- Zone B, the band above the cold core: the WATER DECK. The bay's clear
+    # height is `_dims().inner` top less the foam cap, and the SeaFlo's 74 mm
+    # body claims all but a few of them, so the deck is a single storey and the
+    # bay holds one subsystem. The pump is the floor plan — it has exactly one
+    # pose that fits the envelope, lying with its motor axis along X — and the
+    # ASSE chain, the tap point and the drip pan are laid against it.
+    #
+    # The power assembly, the PCBA and the DC block are components without a
+    # station: they are declared in the scorecard's registry and carried in the
+    # BOM, and no plane in this bay is theirs while the pump is in it. Their
+    # STEPs are the three paths above, ready for the deck that takes them.
+    deck_z = foam_top + STACK_GAP
+    placed["seaflo-pump"] = _at(_load(SEAFLO_STEP), SEAFLO_POS[0], SEAFLO_POS[1], deck_z)
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
 
