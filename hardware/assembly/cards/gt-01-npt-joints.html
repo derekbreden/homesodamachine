@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="gt">
+<div class="card">
+
+<header>
+  <div class="code">GT-01</div>
+  <h1>NPT joints — tape,<br>engagement, witness</h1>
+  <div class="deckpos"><b>Technique · 01/5</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Tapered threads seal on the taper; the PTFE is
+    anti-seize and void-fill, not a gasket. <strong>One discipline for
+    every NPT joint in the appliance.</strong></p>
+
+    <ol class="steps">
+      <li><b>Tape: 2&ndash;3 wraps, clockwise</b> viewed into the
+        thread — driving tightens the wrap — <b>first thread
+        bare</b> (no shreds in the stream).</li>
+      <li><b>Tape stops by half the engagement.</b> Tape past half
+        is a stress concentration (IP-06's witness rule).</li>
+      <li><b>Drive snug + 1 turn past hand-tight,</b> wrench backed
+        up on the mating hex.</li>
+      <li><b>SS-on-SS always gets tape</b> — stainless galls dry;
+        the PTFE is what lets the joint ever come apart again.</li>
+      <li><b>Witness:</b> PTFE &le; half the engagement, none at the
+        mouth, dry at the wet check.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Materials</span>
+      Millrose PTFE tape B07C9ZV4PG · backup wrench
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 560" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .tape  { stroke: #f0b429; stroke-width: 7; }
+          .dimln { stroke: #5c6570; stroke-width: 2.5; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #5c6570; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .thread { stroke: #1d1d26; stroke-width: 2; }
+        </style>
+        <text class="lbl" x="24" y="40">MALE END &#183; before driving</text>
+        <!-- tapered male thread -->
+        <g transform="translate(120,120)">
+          <path class="steel" d="M 0 20 L 300 0 L 300 150 L 0 130 Z"/>
+          <line class="thread" x1="30" y1="17" x2="30" y2="132"/>
+          <line class="thread" x1="70" y1="15" x2="70" y2="134"/>
+          <line class="thread" x1="110" y1="12" x2="110" y2="137"/>
+          <line class="thread" x1="150" y1="10" x2="150" y2="140"/>
+          <line class="thread" x1="190" y1="7" x2="190" y2="142"/>
+          <line class="thread" x1="230" y1="5" x2="230" y2="145"/>
+          <line class="thread" x1="270" y1="2" x2="270" y2="147"/>
+          <!-- tape band: starts after first thread, stops mid -->
+          <path fill="#f0b429" opacity="0.3" d="M 48 15 L 200 6 L 200 146 L 48 137 Z"/>
+          <line class="tape" x1="48" y1="12" x2="200" y2="4"/>
+          <line class="tape" x1="48" y1="140" x2="200" y2="148"/>
+          <!-- labels -->
+          <line class="dimln" x1="30" y1="-18" x2="30" y2="8"/>
+          <text class="dimtx" x="30" y="-30" text-anchor="middle">first thread bare</text>
+          <line class="dimln" x1="200" y1="170" x2="200" y2="152"/>
+          <text class="dimtx" x="200" y="200" text-anchor="middle">tape stops by half</text>
+          <text class="sub" x="330" y="80">2&ndash;3 wraps,</text>
+          <text class="sub" x="330" y="108">clockwise into the thread</text>
+        </g>
+        <!-- driven joint -->
+        <g transform="translate(120,400)">
+          <text class="lbl" x="0" y="-24">DRIVEN &#183; snug + 1</text>
+          <path class="steel" d="M 0 20 L 180 8 L 180 112 L 0 100 Z"/>
+          <rect class="steel" x="150" y="-10" width="260" height="140" rx="8"/>
+          <text class="sub" x="170" y="66">female body &#8212; backup wrench here</text>
+          <line class="dimln" x1="150" y1="-30" x2="410" y2="-30"/>
+          <text class="dimtx" x="280" y="156" text-anchor="middle">engaged &#183; PTFE &le; half showing</text>
+        </g>
+      </svg>
+      <div class="cap"><b>Fresh-tapped ports</b> (PV-02): target
+      4.5 turns of engagement — a test fitting sits snug-firm with
+      2&ndash;3 threads showing.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Every NPT joint snug + 1 with a backed-up wrench, first thread bare, tape stopped by half — and dry at the wet check.</div>
+  <div class="src">internal-plumbing.md &#167;1 &#183; pressure-vessel.md &#167;1 &#183; ip-06<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

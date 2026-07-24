@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="gt">
+<div class="card">
+
+<header>
+  <div class="code">GT-04</div>
+  <h1>JST-XH crimping —<br>wings, lance, housing</h1>
+  <div class="deckpos"><b>Technique · 04/5</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Open-barrel double-wing pins: <strong>conductor
+    wings on bare strands, insulation wings on jacket</strong> — then
+    the housing's lance does the holding. Every board loom ends in
+    these (CA-01).</p>
+
+    <ol class="steps">
+      <li><b>Strip ~2&ndash;3 mm</b> — strands to the conductor wings,
+        jacket to the insulation wings, neither crossing zones.</li>
+      <li><b>Pin in the die by its wings,</b> wire in from the back;
+        one squeeze forms both wing pairs in sequence.</li>
+      <li><b>Inspect end-on:</b> conductor wings curled into the
+        strands (a "B" profile), insulation wings on jacket, a strand
+        brush at the front. Tug.</li>
+      <li><b>Insert until the lance clicks</b> — contact face to
+        the lance window; a light pull holds.</li>
+      <li><b>Pin 1 on the silk, label at the housing</b> — J7/J4
+        share the shell; the label is the guard (CA-02).</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      open-barrel crimper (CA-01) · Klein stripper · XH pins + housings
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 560" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .metal { fill: #d8dde6; stroke: #1d1d26; stroke-width: 2.5; }
+          .cu    { fill: #b8722c; }
+          .jck   { fill: #1d1d26; }
+          .dimtx { font: 700 24px Menlo, monospace; fill: #5c6570; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .ok    { fill: #2e8540; }
+          .bad   { fill: #c8481d; }
+        </style>
+        <text class="lbl" x="24" y="40">SIDE &#183; the two wing zones</text>
+        <g transform="translate(60,90)">
+          <!-- pin body -->
+          <path class="metal" d="M 0 30 L 150 30 L 150 10 L 300 10 L 300 90 L 150 90 L 150 70 L 0 70 Z"/>
+          <!-- conductor wings zone -->
+          <rect class="metal" x="310" y="16" width="90" height="68" rx="6"/>
+          <!-- insulation wings zone -->
+          <rect class="metal" x="410" y="6" width="90" height="88" rx="6"/>
+          <!-- wire -->
+          <rect class="cu" x="330" y="42" width="140" height="16"/>
+          <rect class="jck" x="420" y="34" width="220" height="32" rx="8"/>
+          <text class="sub" x="310" y="130">conductor wings</text>
+          <text class="sub" x="310" y="156">&#8594; bare strands</text>
+          <text class="sub" x="480" y="130">insulation wings</text>
+          <text class="sub" x="480" y="156">&#8594; jacket</text>
+          <text class="sub" x="0" y="130">contact face &#8594; lance window</text>
+        </g>
+        <!-- end-on B profile -->
+        <g transform="translate(70,340)">
+          <text class="lbl" x="0" y="-16">END-ON &#183; conductor crimp</text>
+          <path class="metal" d="M 0 70 Q 0 10 45 10 Q 66 10 66 34 Q 66 16 90 16 Q 132 16 132 70 Q 132 96 66 96 Q 0 96 0 70 Z"/>
+          <circle class="cu" cx="40" cy="58" r="9"/>
+          <circle class="cu" cx="66" cy="52" r="9"/>
+          <circle class="cu" cx="92" cy="58" r="9"/>
+          <circle class="cu" cx="53" cy="74" r="9"/>
+          <circle class="cu" cx="79" cy="74" r="9"/>
+          <text class="dimtx" x="160" y="48" class="ok" fill="#2e8540">"B" &#183; wings in the strands &#10003;</text>
+          <text class="sub" x="160" y="80">both wings curled down + in, no gap</text>
+          <text class="dimtx" x="160" y="128" fill="#c8481d">open curl / strands loose &#10007; re-do</text>
+        </g>
+        <text class="sub" x="70" y="520">seated pin: lance clicked, light pull holds &#183; pin 1 on the silk</text>
+      </svg>
+      <div class="cap"><b>The housing label is the misplug guard</b> —
+      J7 and J4 share the same 7P shell; a swap puts 3V3/5V on the MCP
+      reed inputs (CA-02's one critical).</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Every pin "B"-profiled, tugged, lance-clicked, pin 1 on the silk — and the housing wears its loom name.</div>
+  <div class="src">cable-assemblies.md &#183; general technique<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>
