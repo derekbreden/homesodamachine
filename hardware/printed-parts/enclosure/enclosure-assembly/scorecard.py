@@ -117,10 +117,10 @@ COMPONENTS = [
     _c("condenser+fan",     "placeholder", True,  "none", "harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)"),
     _c("mq6-sensor",        "real",        True,  "none", "MQ-6 module STEP (PCB + sensor can + header); floor gas sensor, no mount"),
     # Water deck
-    _c("seaflo-pump",       "real",        True,  "none", "SEAFLO 22-series 12 V 1.3 GPM diaphragm pump (reference/seaflo-22-pump); the deck's floor plan — 74 mm of the bay's 78.32 clear height, so its column is its own. Lies motor-axis along X with the head at −X, both 3/8\" barbs facing west into the channel the ASSE chain and the tap point stand in. Isolation mounts to the foam cap TBD"),
-    _c("asse1022-assembly", "real",        True,  "none","Multiplex 19-0897 ASSE 1022 backflow preventer + PP010822E, GAGIRA coupling, FFL38BARB38 and the clear-PVC vent stub as one chain (reference/asse1022-assembly); lies along +X in the service bay's aft strip behind the pump, inlet west on its pigtail off the rear-panel water bulkhead, barb east onto the silicone run to the tap point, vent in its native pose weeping down its own column onto the pan's ground on the foam-cap top, holder TBD"),
-    _c("tap-point-assembly", "real",       True,  "none","Basics MTB-0606WP barb tee + JG PP451223W + JG PP061208W as one piece (reference/tap-point-assembly); tube-hung inline in the 3/8\" silicone between the ASSE chain's barb and the SeaFlo suction, run along Y in the east strip, branch laid horizontal on −X with its 1/4\" collet facing west onto the run to the flow regulator and V-A. Both branch joints made up at the bench; no tray, no holder"),
-    _c("vk-fill-valve",     "real",        True,  "none","Beduan 12 V NC solenoid (reference/beduan-solenoid) — V-K, the water-supply fill/shutoff valve, the machine's master inlet. Upstream of the ASSE 1022 on the 1/4\" supply run, in the aft strip's west end, arrow +X: outlet east at the ASSE inlet, inlet west on the rear-bulkhead pigtail. Stands on a short cradle off the foam cap, lifted clear of the pump's foot band; cradle TBD"),
+    _c("seaflo-pump",       "real",        True,  "none", "SEAFLO 22-series 12 V 1.3 GPM diaphragm pump (reference/seaflo-22-pump); the deck's floor plan. Lies motor-axis along X, head at −X; its two 3/8\" barbs leave the ±Y side faces — the suction faces north (+Y) to the split, the discharge south (−Y) to the cold-core water-in. Nudged 35 mm east of the cold-core plan centre so the north suction clears the ASSE chain. Isolation mounts to the foam cap TBD"),
+    _c("asse1022-assembly", "real",        True,  "none","Multiplex 19-0897 ASSE 1022 backflow preventer + PP010822E, GAGIRA coupling, flare38-14ptc (3/8\" flare → 1/4\" PTC) and the clear-PVC vent stub as one chain (reference/asse1022-assembly); lies along +X in the service bay's aft strip behind the pump, 1/4\" PTC inlet west on its pigtail off the rear-panel water bulkhead, 1/4\" PTC outlet east onto the line to the split, vent in its native pose weeping down its own column onto the pan's ground on the foam-cap top, holder TBD"),
+    _c("water-split",       "real",        True,  "none","JG PP0208E 1/4\" union tee (reference/water-split); tube-hung on the ASSE's 1/4\" outlet in the aft strip's east void, run along Y with the branch on −X taking the ASSE feed, the +Y run on to V-K and the −Y run on to the flavor tap (flow regulator → V-A). No tray, no holder"),
+    _c("vk-fill-valve",     "real",        True,  "none","Beduan 12 V NC solenoid (reference/beduan-solenoid) — V-K, the water-supply fill/shutoff valve. Downstream of the ASSE 1022, between the split and the SeaFlo suction, in the aft strip's east void. Placed unturned (arrow +Y): inlet −Y off the split's north run, outlet +Y wrapping west under the ASSE overhang to the suction. Stands on a short cradle off the foam cap; cradle TBD"),
     # Valve manifold
     _c("source-select-assembly", "real",   True,  "none", "Tray 1 — printed tray + 4 Beduan NC solenoids + 2 PP2308E Y-dividers + 4 outlet elbows (valve-manifold/source-select-tray); floors the stack, plate down and valves up, holder TBD"),
     _c("bag-circuit-assembly",   "real",   True,  "none", "Tray 2 — printed dog-bone tray + 4 Beduan NC solenoids + 2 PP0208E Tees + 2 west outlet elbows (valve-manifold/bag-circuit-tray); rides INVERTED on the source tray's stacking walls, east ports bare, holder TBD"),
@@ -192,14 +192,15 @@ REFRIGERANT_SEGMENTS = [
 # The tap-water path — declared here for the same reason the refrigerant loop is. It lives in no
 # segment table: fluid-topology.md starts at "Tap water source", which is this path's far end, so
 # its 28 segments are the beverage manifold downstream of the carbonator. This is the run from the
-# rear-panel bulkhead through the V-K fill/shutoff valve and the backflow preventer to the
-# carbonator's water inlet, built in assembly/internal-plumbing.md §2. The ASSE 1022's vent is
-# not here: it terminates to atmosphere.
+# rear-panel bulkhead through the backflow preventer, the split, and the V-K fill/shutoff valve to
+# the carbonator's water inlet, built in assembly/internal-plumbing.md §2. It is all 1/4" LLDPE and
+# steps back up to 3/8" only at the SeaFlo barbs. The ASSE 1022's vent is not here: it terminates
+# to atmosphere.
 WATER_SEGMENTS = [
-    ("water-1", "bulkhead-water tube-in", "vk-fill-valve inlet (Beduan 1/4\" QC)"),
-    ("water-2", "vk-fill-valve outlet (Beduan 1/4\" QC)", "asse1022-assembly tube-in (PP010822E → GAGIRA coupling)"),
-    ("water-3", "asse1022-assembly hose-out (FFL38BARB38)", "tap-point-assembly hose-b (MTB-0606WP)"),
-    ("water-4", "tap-point-assembly hose-a (MTB-0606WP)", "seaflo-pump suction"),
+    ("water-1", "bulkhead-water tube-in", "asse1022-assembly tube-in (PP010822E → GAGIRA coupling)"),
+    ("water-2", "asse1022-assembly tube-out (flare38-14ptc 1/4\" PTC)", "water-split supply (PP0208E 1/4\" tee)"),
+    ("water-3", "water-split to-vk (PP0208E 1/4\" tee)", "vk-fill-valve inlet (Beduan 1/4\" QC)"),
+    ("water-4", "vk-fill-valve outlet (Beduan 1/4\" QC)", "seaflo-pump suction (1/4\" → 3/8\" barb adapter)"),
     ("water-5", "seaflo-pump discharge (MAACFLOW → GASHER check)", "foam-assembly water-in"),
 ]
 
@@ -333,23 +334,21 @@ PLACEMENT_RULES = {
     # in this strip, where the body stands 28 mm off the shelf and the column 4. `clear
     # power-tray` holds
     # open the lane between the shelf's back edge and this body, which the C14's cordage
-    # crosses going forward to the AC hub. `x-` reads the barb end's stance off the −X
-    # wall — the straight room the stiff 3/8" silicone leaves in, bounded east by the
+    # crosses going forward to the AC hub. `x-` reads the outlet end's stance off the −X
+    # wall — the room the 1/4" line to the split leaves in, bounded east by the
     # nozzle-outlet runs crossing the strip.
     "asse1022-assembly": [("near", "bulkhead-water", 20.0),
                           ("fall", "vent-tip", "foam-assembly", 60.0),
                           ("clear", "power-tray", 8.0),
                           ("clear", "c14-inlet", 4.0),
                           ("x-", 80.0)],
-    # V-K on its cradle at the aft strip's west end, arrow +X: its outlet feeds the ASSE 1022
-    # inlet a few mm east (`near asse1022-assembly` — the reason the pose is here), its inlet
-    # takes the rear-bulkhead pigtail down the west lane (`near bulkhead-water`). Lifted off the
-    # cap to clear the pump's foot band (`clear seaflo-pump`) and tucked beside the C14 mains
-    # inlet (`clear c14-inlet`).
-    "vk-fill-valve": [("near", "asse1022-assembly", 10.0),
-                      ("near", "bulkhead-water", 16.0),
+    # V-K on its cradle in the aft strip's east void, placed unturned (arrow +Y): its inlet takes
+    # the split's north run (`near water-split` — the feed that anchors the pose), its outlet wraps
+    # west under the ASSE overhang to the suction. Lifted off the cap on its cradle (`clear
+    # foam-assembly`) and clear of the pump body (`clear seaflo-pump`).
+    "vk-fill-valve": [("near", "water-split", 7.0),
                       ("clear", "seaflo-pump", 5.0),
-                      ("clear", "c14-inlet", 4.0)],
+                      ("clear", "foam-assembly", 5.0)],
 }
 
 
@@ -534,20 +533,23 @@ PORTS = [
     # sets where they land, so a length changed in any of its five parts moves them together.
     # The vent is not a connection: it terminates to atmosphere over the drip pan, and plumbing
     # it into anything would destroy the telltale it exists to be (internal-plumbing.md §2).
-    _p("tube-in",  "asse1022-assembly", "fluid", *contents.bfp_terminal("tube-in"),  6.35,  "vk-fill-valve outlet (the fill/shutoff solenoid upstream of it) — segment water-2 (routed)", "JG PP010822E 1/4\" PTC, facing west; water-2 lifts the short hop off V-K's outlet"),
-    _p("hose-out", "asse1022-assembly", "fluid", *contents.bfp_terminal("hose-out"), 9.525, "tap-point-assembly hose-b — segment water-3 (routed)", "FFL38BARB38 3/8\" barb, facing east down the aft strip; worm-gear clamp"),
+    _p("tube-in",  "asse1022-assembly", "fluid", *contents.bfp_terminal("tube-in"),  6.35,  "bulkhead-water tube-in — segment water-1 (routed)", "JG PP010822E 1/4\" PTC, facing west; water-1 is the pigtail off the rear-panel bulkhead"),
+    _p("tube-out", "asse1022-assembly", "fluid", *contents.bfp_terminal("tube-out"), 6.35,  "water-split supply — segment water-2 (routed)", "flare38-14ptc 1/4\" PTC, facing east down the aft strip to the split"),
     _p("vent-tip", "asse1022-assembly", "fluid", *contents.bfp_terminal("vent-tip"), 6.35,  "atmosphere, dripping onto the drip pan + moisture plate (deferred) — never plumbed", "Sealproof 1/4\" ID clear-PVC stub, facing −Z over the foam-cap top; cut to length at the bench"),
     # V-K — the water-supply fill/shutoff solenoid, its two 1/4" QC collets on the flow axis,
-    # each carried through the placement (contents.vk_terminal). Upstream of the ASSE it protects.
-    _p("inlet",  "vk-fill-valve", "fluid", *contents.vk_terminal("inlet"),  6.35, "bulkhead-water tube-in — segment water-1 (routed)", "Beduan 1/4\" QC collet, facing west; takes the rear-bulkhead pigtail down the west lane"),
-    _p("outlet", "vk-fill-valve", "fluid", *contents.vk_terminal("outlet"), 6.35, "asse1022-assembly tube-in — segment water-2 (routed)", "Beduan 1/4\" QC collet, facing east at the ASSE inlet"),
-    # The tap point — the tee's two barb legs carry the suction line, its branch necks to 1/4".
-    _p("hose-b",   "tap-point-assembly", "fluid", *contents.tap_terminal("hose-b"),  9.525, "asse1022-assembly hose-out — segment water-3 (routed)", "MTB-0606WP 3/8\" barb, facing aft; LOKMAN worm-gear clamp"),
-    _p("hose-a",   "tap-point-assembly", "fluid", *contents.tap_terminal("hose-a"),  9.525, "SeaFlo 22-series suction — segment water-4 (routed)", "MTB-0606WP 3/8\" barb, facing forward; LOKMAN worm-gear clamp"),
-    _p("tube-out", "tap-point-assembly", "fluid", *contents.tap_terminal("tube-out"), 6.35, "flow regulator inlet (deferred) → V-A — fluid segment 1", "JG PP061208W 1/4\" PTC, facing west into the channel off the pump"),
-    # The SeaFlo's two head barbs, on its −X face before the yaw turns them east.
-    _p("suction",  "seaflo-pump", "fluid", *contents.seaflo_terminal("suction"),   9.525, "tap-point-assembly hose-a — segment water-4 (routed)", "3/8\" hose barb on the head, facing east; worm-gear clamp"),
-    _p("discharge","seaflo-pump", "fluid", *contents.seaflo_terminal("discharge"), 9.525, "foam-assembly water-in via the MAACFLOW → GASHER check (deferred) — segment water-5", "3/8\" hose barb on the head, facing east; worm-gear clamp"),
+    # each carried through the placement (contents.vk_terminal). Downstream of the ASSE, between
+    # the split and the suction.
+    _p("inlet",  "vk-fill-valve", "fluid", *contents.vk_terminal("inlet"),  6.35, "water-split to-vk — segment water-3 (routed)", "Beduan 1/4\" QC collet, facing south (−Y) at the split's north run"),
+    _p("outlet", "vk-fill-valve", "fluid", *contents.vk_terminal("outlet"), 6.35, "seaflo-pump suction — segment water-4 (routed)", "Beduan 1/4\" QC collet, facing north (+Y); wraps west under the ASSE overhang to the suction"),
+    # The water split — a 1/4" tee: the branch takes the ASSE feed, the two run ports feed V-K
+    # and the flavor tap.
+    _p("supply",    "water-split", "fluid", *contents.split_terminal("supply"),    6.35, "asse1022-assembly tube-out — segment water-2 (routed)", "PP0208E 1/4\" PTC branch, facing west at the ASSE outlet line"),
+    _p("to-vk",     "water-split", "fluid", *contents.split_terminal("to-vk"),     6.35, "vk-fill-valve inlet — segment water-3 (routed)", "PP0208E 1/4\" PTC run, facing north to V-K"),
+    _p("to-flavor", "water-split", "fluid", *contents.split_terminal("to-flavor"), 6.35, "flow regulator inlet (deferred) → V-A — fluid segment 1", "PP0208E 1/4\" PTC run, facing south toward the source-select tray"),
+    # The SeaFlo's two head barbs, on its ±Y side faces; the yaw turns the suction north, the
+    # discharge south.
+    _p("suction",  "seaflo-pump", "fluid", *contents.seaflo_terminal("suction"),   6.35,  "vk-fill-valve outlet — segment water-4 (routed)", "3/8\" hose barb on the head, facing north (+Y); a 1/4\"→3/8\" barb adapter takes the LLDPE, worm-gear clamp"),
+    _p("discharge","seaflo-pump", "fluid", *contents.seaflo_terminal("discharge"), 9.525, "foam-assembly water-in via the MAACFLOW → GASHER check (deferred) — segment water-5", "3/8\" hose barb on the head, facing south (−Y); worm-gear clamp"),
     # Hopper funnel — the removable silicone basin's single drain: the spout-tube exit annulus,
     # feeding V-B by tube (segment 4). Defined in the funnel's own frame
     # (hopper_funnel.drain_local = (neck_dx, 0, −drop)) carried through the placement's

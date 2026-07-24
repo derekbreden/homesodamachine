@@ -1,12 +1,17 @@
 """ASSE 1022 assembly: the Multiplex 19-0897 backflow preventer with everything
 that threads or clamps directly onto it.
 
-The water path's one non-negotiable component and the four fittings that make it
-reachable from 1/4" tube — the chain [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md)
-step 2 builds, in the order it builds them:
+The water path's one non-negotiable component and the fittings that make it
+reachable from 1/4" tube on both sides — the chain
+[`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) step 2 builds,
+in the order it builds them:
 
-    1/4" LLDPE → PP010822E → GAGIRA coupling → [ASSE 1022] → FFL38BARB38 → 3/8" hose
+    1/4" LLDPE → PP010822E → GAGIRA coupling → [ASSE 1022] → flare38-14ptc → 1/4" LLDPE
                                                      └ vent stub ↓ drip pan
+
+The outlet leaves at 1/4" OD — the flare38-14ptc turns the ASSE's 3/8" male flare
+straight onto 1/4" LLDPE, so no 3/8" tubing runs on toward the pump; the 1/4" line
+carries the split (V-K + V-A) and only steps back up to 3/8" at the SeaFlo barbs.
 
 Every station is read off the part upstream of it: each fitting's own module says
 how deep its threads go, and this file stacks those reaches along the flow axis.
@@ -37,11 +42,11 @@ for _p in (
     _hw / "reference" / "multiplex-asse1022",
     _hw / "reference" / "gagira-reducing-coupling",
     _hw / "reference" / "jg-pp010822e",
-    _hw / "reference" / "ffl38barb38",
+    _hw / "reference" / "flare38-14ptc",
 ):
     sys.path.insert(0, str(_p))
 from _cadq_export import export_assembly
-import ffl38barb38 as barb
+import flare38_14ptc as oadapt
 import gagira_reducing_coupling as coupling
 import jg_pp010822e as ptc
 import multiplex_asse1022 as bfp
@@ -76,7 +81,7 @@ COUPLING_X = BARREL_UPSTREAM - coupling.LENGTH
 # that far inside the coupling's upstream face.
 PTC_X = COUPLING_X + coupling.SMALL_SOCKET_DEPTH - ptc.LENGTH
 # The swivel nut is drawn up over the flare, its face on the downstream shoulder.
-BARB_X = BARREL_DOWNSTREAM
+OUTLET_X = BARREL_DOWNSTREAM
 
 
 def vent_stub():
@@ -104,7 +109,7 @@ def build():
     assy.add(_along(ptc.build(), PTC_X), name="jg-pp010822e", color=BLACK_PP)
     assy.add(_along(coupling.build(), COUPLING_X), name="gagira-coupling", color=COUPLING_SS)
     assy.add(bfp.build(), name="multiplex-asse1022", color=BRASS)
-    assy.add(_along(barb.build(), BARB_X), name="ffl38barb38", color=STAINLESS)
+    assy.add(_along(oadapt.build(), OUTLET_X), name="flare38-14ptc", color=STAINLESS)
     assy.add(vent_stub(), name="vent-stub", color=CLEAR_PVC)
     return assy
 
@@ -116,11 +121,11 @@ def tube_in():
     return (pos[0] + PTC_X, pos[1], pos[2] + bfp.BODY_CENTER_Z), axis
 
 
-def hose_out():
-    """The 3/8" barb tip the silicone hose to the SeaFlo suction slips over:
-    (position, outward axis) — the assembly's downstream terminal."""
-    pos, axis = barb.barb_tip()
-    return (pos[0] + BARB_X, pos[1], pos[2] + bfp.BODY_CENTER_Z), axis
+def tube_out():
+    """The 1/4" PTC mouth the LLDPE run to the split pushes into: (position,
+    outward axis) — the assembly's downstream terminal, off the flare38-14ptc."""
+    pos, axis = oadapt.tube_port()
+    return (pos[0] + OUTLET_X, pos[1], pos[2] + bfp.BODY_CENTER_Z), axis
 
 
 def vent_tip():
@@ -135,7 +140,7 @@ def main():
     print("ASSE 1022 assembly (Multiplex 19-0897 + upstream/downstream fittings)")
     print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
           f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    for label, (pos, axis) in (("tube-in ", tube_in()), ("hose-out", hose_out()),
+    for label, (pos, axis) in (("tube-in ", tube_in()), ("tube-out", tube_out()),
                                ("vent-tip", vent_tip())):
         print(f"  {label}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
     out = _here.parent / "asse1022-assembly.step"

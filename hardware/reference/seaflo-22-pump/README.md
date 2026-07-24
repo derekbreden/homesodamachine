@@ -14,13 +14,15 @@ The internal diaphragm mechanism is not modeled.
 
 | feature | size |
 |---|---|
-| overall | 188 (L) × 98 (base W) × 74 (H) mm |
+| overall | 190 (L) × 112 (W over the side barbs) × 61 (H) mm; base 98 wide |
 | motor can | Ø56 × 92 |
 | pump head | 66 × 80 × 56 |
-| ports | 2 × 3/8" hose barb (Ø13) on the -X head face |
+| ports | 2 × 3/8" hose barb (Ø13) on the head's ±Y side faces, each pointing straight out along its ±Y axis |
+| pressure switch | on the head's -X end face, opposite the motor |
 
-Frame: **+X = motor axis** (head at -X with the ports), base underside at Z = 0,
-centered on Y.
+Frame: **+X = motor axis** (head at -X), base underside at Z = 0, centered on Y.
+The two 3/8" barbs leave the head's ±Y side faces; the -X end face carries the
+pressure switch.
 
 ## Regenerate
 

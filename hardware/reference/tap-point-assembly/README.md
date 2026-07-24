@@ -1,16 +1,18 @@
 # Tap-point assembly
 
-The Basics MTB-0606WP barb tee with the two adapters that fasten directly onto
-its branch — where the flavor manifold draws its water off the line feeding the
-SeaFlo suction.
+The Basics MTB-0606WP barb tee with the two adapters that fasten onto its branch:
+the run takes 3/8" hose end to end, the branch necks down through the PP451223W +
+PP061208W to a 1/4" regulator feed for V-A.
 
 ```
 3/8" hose → [MTB-0606WP] → 3/8" hose → SeaFlo suction
                  └ branch ↑ PP451223W → PP061208W → 1/4" LLDPE → regulator → V-A
 ```
 
-That is the chain `hardware/assembly/internal-plumbing.md` Open items 3 closes.
-Parts and prices are in `hardware/ledger/bom.md` §3.
+The flavor manifold's clean-water tap is the 1/4" **water-split**
+([`../water-split/`](../water-split/)), a JG PP0208E union tee on the ASSE 1022's
+1/4" outlet. This directory is a geometry reference for the MTB-0606WP barb-tee
+build.
 
 | part | role | model |
 |---|---|---|
@@ -53,19 +55,6 @@ on the SeaFlo's suction side.
 Frame: the tee's own — the run along **±X** with the barb tips at ±`RUN_LENGTH`/2,
 the branch climbing **+Z**. The tee is symmetric about its branch, so either barb
 leg takes either end of the hose.
-
-## In the cabinet
-
-The enclosure stands it in the service bay's east strip, between the ASSE chain's
-barb and the pump (`enclosure-assembly/_contents.py` `TAP_POINT_POS`,
-`TAP_POINT_ROLL`, `TAP_POINT_YAW`) — a roll about X, then a yaw about Z, then a
-translation. The two turns lay the run along **Y**, so both barb legs face along
-the strip, and carry the branch down to the horizontal on **−X**: the branch is
-taller than the bay is deep, so it cannot stand. Its 1/4" collet looks west into
-the channel off the pump, where the flow regulator rides the run to V-A.
-
-The run sits at the chain's own barb height, so `water-3` reaches it without
-changing level, and `water-4` drops to the pump's suction on its way west.
 
 ## Sourcing
 
