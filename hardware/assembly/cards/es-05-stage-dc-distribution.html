@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="es">
+<div class="card">
+
+<header>
+  <div class="code">ES-05</div>
+  <h1>Stage DC distribution<br>+ 12 V branches</h1>
+  <div class="deckpos"><b>Electronics shelf · 05/7</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">The 12 V spine: PSU secondary into the DC block,
+    branches out to relay #2 and the board. <strong>Everything the board
+    feeds draws through one run — DC-4.</strong></p>
+
+    <div class="critical"><span class="sign">&#9940;</span>
+      <div><b>Reversed J10 polarity cooks the board</b> — the polarized
+      bulk cap, the buck, and the drivers. V12 east screw, GND west,
+      both silked.</div>
+    </div>
+
+    <ol class="steps">
+      <li><b>Mount the DC block</b> at its staged position beside the
+        power-tray.</li>
+      <li><b>DC-1 trunk:</b> PSU 12 V + and GND —
+        <span class="dim">16 AWG</span>, forks at the PSU, ferrules at the
+        block.</li>
+      <li><b>DC-2:</b> 12 V + to relay #2's contact input; leave DC-3
+        coiled + flagged with its female disconnect for the SeaFlo pump
+        (WR-04).</li>
+      <li><b>DC-4:</b> + and GND to the board's J10, ferrules under the
+        screw clamps — then verify V12 traces to PSU +.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      ferrule + fork crimpers · 16 AWG · multimeter
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 530" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .blk   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .wire  { stroke: #1d1d26; stroke-width: 6; fill: none; }
+          .runid { font: 700 25px Menlo, monospace; fill: #b8860b; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .scr   { fill: #ffffff; stroke: #1d1d26; stroke-width: 3; }
+        </style>
+        <!-- PSU -->
+        <rect class="blk" x="30" y="40" width="170" height="110" rx="10"/>
+        <text class="lbl" x="115" y="88" text-anchor="middle">PSU</text>
+        <text class="sub" x="115" y="120" text-anchor="middle">12 V secondary</text>
+        <!-- DC-1 pair -->
+        <line class="wire" x1="200" y1="75" x2="290" y2="75"/>
+        <line class="wire" x1="200" y1="115" x2="290" y2="115"/>
+        <text class="runid" x="150" y="200">DC-1 &#183; ~100 mm</text>
+        <!-- DC block -->
+        <rect class="blk" x="290" y="40" width="190" height="110" rx="10"/>
+        <text class="lbl" x="385" y="88" text-anchor="middle">DC BLOCK</text>
+        <text class="sub" x="385" y="120" text-anchor="middle">12 V + &#183; GND</text>
+        <!-- DC-2 to relay 2 -->
+        <line class="wire" x1="480" y1="95" x2="560" y2="95"/>
+        <text class="runid" x="520" y="76" text-anchor="middle">DC-2</text>
+        <rect class="blk" x="560" y="40" width="170" height="110" rx="10"/>
+        <text class="lbl" x="645" y="88" text-anchor="middle">RELAY #2</text>
+        <text class="sub" x="645" y="120" text-anchor="middle">pump switch</text>
+        <!-- DC-3 staged -->
+        <line class="wire" x1="645" y1="150" x2="645" y2="240"/>
+        <circle class="wire" cx="645" cy="266" r="22" fill="none"/>
+        <text class="runid" x="736" y="330" text-anchor="end">DC-3 &#183; ~250 mm</text>
+        <text class="sub" x="736" y="360" text-anchor="end">coiled + flag</text>
+        <text class="sub" x="736" y="390" text-anchor="end">&#8594; SeaFlo pump (WR-04)</text>
+        <!-- DC-4 straight drop to J10 -->
+        <line class="wire" x1="385" y1="150" x2="385" y2="360"/>
+        <text class="runid" x="360" y="290" text-anchor="end">DC-4 &#183; ~150 mm</text>
+        <text class="sub" x="360" y="320" text-anchor="end">+ and GND, ferruled</text>
+        <!-- J10 screw block -->
+        <rect class="blk" x="140" y="360" width="330" height="120" rx="10"/>
+        <text class="lbl" x="305" y="400" text-anchor="middle">J10 &#183; 12V screw inlet</text>
+        <circle class="scr" cx="220" cy="440" r="20"/>
+        <line x1="207" y1="440" x2="233" y2="440" stroke="#1d1d26" stroke-width="3"/>
+        <circle class="scr" cx="390" cy="440" r="20"/>
+        <line x1="377" y1="440" x2="403" y2="440" stroke="#1d1d26" stroke-width="3"/>
+        <text class="runid" x="220" y="515" text-anchor="middle">GND &#183; west</text>
+        <text class="runid" x="390" y="515" text-anchor="middle">V12 &#183; east</text>
+      </svg>
+      <div class="cap"><b>~3.3 A peak against a 17 A-rated block</b> —
+      10 valves, both peristaltic pumps, the condenser fan, display 12 V,
+      and both logic rails all draw through DC-4.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>DC-1 landed, DC-2 terminated, DC-3 coiled + flagged, DC-4 under the J10 clamps — V12 screw traces to PSU +.</div>
+  <div class="src">electronics-shelf.md &#167;5 &#183; ac-wiring-schedule.md<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

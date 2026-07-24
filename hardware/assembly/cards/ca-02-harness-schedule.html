@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+<style>
+  table.sched td { font-size: 23px; padding: 7px 14px; }
+  table.sched th { font-size: 20px; padding: 6px 14px; }
+  table.sched td.v { font-size: 22px; }
+  .tail { display: flex; gap: 26px; margin-top: 22px; align-items: stretch; }
+  .tail .critical, .tail .note { flex: 1; margin: 0; }
+</style>
+</head>
+<body class="ca">
+<div class="card">
+
+<header>
+  <div class="code">CA-02</div>
+  <h1>The harness schedule</h1>
+  <div class="deckpos"><b>Cable assemblies · 02/2</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede" style="margin-bottom:20px">Conductor counts are the
+    <strong>board connector pin counts</strong> — each trunk carries its
+    connector's count; the valve/reed fan-out happens at the device end,
+    never as parallel wires from the board.</p>
+
+    <table class="spec sched">
+      <tr><th>Assembly</th><th>Conn.</th><th>Cond.</th><th>Wire</th><th>Terminations</th><th>Sleeve</th></tr>
+      <tr><td>Manifold A</td><td class="v">J1</td><td class="v">9</td><td>KWANGIL jacketed</td><td>Fastons at 8 valves; COM &rarr; <b>221-420</b> at the manifold</td><td class="v">3/4&Prime;</td></tr>
+      <tr><td>Manifold B</td><td class="v">J2</td><td class="v">4</td><td>KWANGIL jacketed</td><td>Fastons at 2 valves + fan; COM &rarr; <b>221-415</b></td><td class="v">1/2&Prime;</td></tr>
+      <tr><td>Reservoir A reeds</td><td class="v">J6</td><td class="v">5</td><td>22 AWG black</td><td>Reed leads; GND &rarr; <b>221-415</b> at the reservoir</td><td class="v">1/4&Prime;</td></tr>
+      <tr><td>Reservoir B + carb reeds</td><td class="v">J7</td><td class="v">7</td><td>22 AWG black</td><td>Reed leads; XHP-7 housing — <b>label it</b>; GND &rarr; <b>221-420</b></td><td class="v">1/4&Prime;</td></tr>
+      <tr><td>Sensors</td><td class="v">J4</td><td class="v">7</td><td>22 AWG black</td><td>DS18B20 / flow / moisture (DO + switched VCC); GND &rarr; <b>221-415</b></td><td class="v">1/4&Prime;</td></tr>
+      <tr><td>Relays</td><td class="v">J5</td><td class="v">4</td><td>22 AWG black</td><td>XH at J5; screw terminals at both relays, V5/GND teed at the relay end</td><td class="v">1/4&Prime;</td></tr>
+      <tr><td>Faucet display</td><td class="v">J3&#183;SIG-6</td><td class="v">4</td><td>28 AWG ribbon</td><td>TTL UART up the umbilical — ESD clamped on-board, see below</td><td class="v">ribbon</td></tr>
+      <tr><td>Config display</td><td class="v">J9&#183;SIG-7</td><td class="v">4</td><td>22 AWG black</td><td>A/B to the 4.3B's RS485 terminals; V12 + GND to its 7&ndash;36 V input</td><td class="v">1/2&Prime;</td></tr>
+      <tr><td>Gas sensor</td><td class="v">J11</td><td class="v">4</td><td>22 AWG black</td><td>MQ-6 leads</td><td class="v">1/4&Prime;</td></tr>
+      <tr><td>Cap-sense</td><td class="v">J8&#183;SIG-8</td><td class="v">4</td><td>22 AWG black</td><td>MPR121 header at the manifold</td><td class="v">1/4&Prime;</td></tr>
+      <tr><td>Pumps</td><td class="v">J13&#183;DC-5</td><td class="v">4</td><td>22 AWG black</td><td>Female fastons onto the pump-motor spades</td><td class="v">1/2&Prime;</td></tr>
+      <tr><td>12 V input</td><td class="v">J10&#183;DC-4</td><td class="v">2</td><td>16 AWG</td><td>Ferrules under the J10 screw clamps; from the shelf's 12 V block</td><td class="v">&mdash;</td></tr>
+      <tr><td>AC mains</td><td class="v">AC-1&hellip;6</td><td class="v">per run</td><td>16 AWG + SJOOW</td><td>Ferrules &rarr; <b>221-413</b>; fastons at compressor; rings to ground</td><td class="v">SJOOW</td></tr>
+    </table>
+
+    <div class="tail">
+      <div class="critical"><span class="sign">&#9940;</span>
+        <div><b>J7 and J4 share the same 7P housing — label both looms at
+        the housing.</b> A swap puts J4's 3V3/5V on the MCP reed
+        inputs.</div>
+      </div>
+      <div class="note">
+        <b>No J12; J14 is the USB port — no loom.</b> SIG-6 ESD: the
+        primary clamp is on the board at U1 (D10/D11); a faucet-end TVS
+        is optional, not required.
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Thirteen assemblies built per CA-01, each labelled by name at the housing — counts, wire, and sleeve exactly per this table.</div>
+  <div class="src">cable-assemblies.md &#183; Assembly schedule &#183; pcba.tsx<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

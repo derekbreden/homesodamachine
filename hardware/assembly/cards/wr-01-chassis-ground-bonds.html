@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="wr">
+<div class="card">
+
+<header>
+  <div class="code">WR-01</div>
+  <h1>Chassis-ground bonds</h1>
+  <div class="deckpos"><b>Wiring · 01/6</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Four exposed-metal parts, four green bonds, one
+    stack — <strong>Class I:</strong> a fault trips the breaker, not the
+    user.</p>
+
+    <div class="critical"><span class="sign">&#9940;</span>
+      <div><b>Single point.</b> No chassis backbone — every bond lands on
+      the one stack, earthed via AC-1 G (WR-02).</div>
+    </div>
+
+    <ol class="steps">
+      <li><b>Pressure vessel</b> — ring under the top-cap SHCS closest to
+        the shelf; route up the SIG-1 wire path.</li>
+      <li><b>Compressor body</b> — ring at an M5 mounting foot, routed
+        outside the shroud.</li>
+      <li><b>Compressor shroud</b> — ring at the &#8960;
+        <span class="dim">~6 mm</span> earth-bond hole beside the AC
+        pass-through — run AC-6.</li>
+      <li><b>Faucet SS plate</b> — ring under an existing plate bolt;
+        rides the umbilical + <span class="dim">200 mm</span> cabinet
+        slack.</li>
+      <li><b>Meter:</b> ohms-low between every bonded surface and the
+        bus.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      ring/fork crimper · 16 AWG green · multimeter
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 660" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .blk   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .gnd   { stroke: #2e8540; stroke-width: 7; fill: none; }
+          .gndd  { stroke: #2e8540; stroke-width: 5; fill: none; stroke-dasharray: 18 10; }
+          .runid { font: 700 25px Menlo, monospace; fill: #a8352f; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <!-- C14 at top -->
+        <rect class="blk" x="60" y="30" width="240" height="80" rx="10"/>
+        <text class="lbl" x="180" y="66" text-anchor="middle">C14 INLET</text>
+        <text class="sub" x="180" y="96" text-anchor="middle">earth pin</text>
+        <!-- stack -->
+        <rect class="blk" x="230" y="230" width="300" height="120" rx="10"/>
+        <text class="lbl" x="380" y="278" text-anchor="middle">RING-TERMINAL STACK</text>
+        <text class="sub" x="380" y="310" text-anchor="middle">the bus &#183; on the shelf</text>
+        <!-- C14 to stack via AC-1 G -->
+        <path class="gndd" d="M 100 110 L 100 290 L 230 290"/>
+        <text class="runid" x="125" y="180">AC-1 G</text>
+        <text class="sub" x="125" y="210">via the G Wago (WR-02)</text>
+        <!-- four targets -->
+        <rect class="blk" x="40" y="480" width="310" height="76" rx="10"/>
+        <text class="lbl" x="195" y="512" text-anchor="middle">PRESSURE VESSEL</text>
+        <text class="sub" x="195" y="542" text-anchor="middle">top-cap SHCS &#183; SIG-1 path</text>
+        <rect class="blk" x="410" y="480" width="310" height="76" rx="10"/>
+        <text class="lbl" x="565" y="512" text-anchor="middle">COMPRESSOR BODY</text>
+        <text class="sub" x="565" y="542" text-anchor="middle">M5 mounting foot</text>
+        <rect class="blk" x="40" y="576" width="310" height="76" rx="10"/>
+        <text class="lbl" x="195" y="608" text-anchor="middle">SHROUD &#183; AC-6</text>
+        <text class="sub" x="195" y="638" text-anchor="middle">&#8960;~6 mm earth-bond hole</text>
+        <rect class="blk" x="410" y="576" width="310" height="76" rx="10"/>
+        <text class="lbl" x="565" y="608" text-anchor="middle">FAUCET SS PLATE</text>
+        <text class="sub" x="565" y="638" text-anchor="middle">umbilical + 200 mm slack</text>
+        <!-- bonds -->
+        <path class="gnd" d="M 195 480 L 195 430 L 320 430 L 320 350"/>
+        <path class="gnd" d="M 565 480 L 565 430 L 440 430 L 440 350"/>
+        <path class="gnd" d="M 100 576 L 100 400 L 280 400 L 280 350"/>
+        <path class="gnd" d="M 660 576 L 660 400 L 480 400 L 480 350"/>
+        <text class="sub" x="590" y="290">16 AWG green</text>
+        <text class="sub" x="590" y="320">ring @ bus end</text>
+      </svg>
+      <div class="cap"><b>Ring terminals at the bus, ring or fork at the
+      target</b> — the stack clamps them all under one screw.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Four bonds on the stack and ohms-low from every bonded metal surface to the bus.</div>
+  <div class="src">wiring.md &#167;1 &#183; ac-wiring-schedule.md "Grounding strategy"<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="cc">
+<div class="card">
+
+<header>
+  <div class="code">CC-12</div>
+  <h1>Route the seven<br>penetrations</h1>
+  <div class="deckpos"><b>Cold core · 12/15</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Seven lines cross the shell — all through the slot
+    wall, every crossing <strong>1/4&Prime; OD</strong>, transitions
+    warm-side. Only CO2 enters from above.</p>
+
+    <ol class="steps">
+      <li><b>Flavor lines &#215;2</b> — tube through each low wall hole
+        into the reservoir elbow's PTC port; they sit level.</li>
+      <li><b>Water outlet</b> — from the bottom-plate elbow, out the
+        ring's front opening and its own hole below the slot.</li>
+      <li><b>Slot, low to high:</b> copper in
+        <span class="dim">47</span>, copper out
+        <span class="dim">166.4</span>, water in
+        <span class="dim">198.4</span>, PRV
+        <span class="dim">206.4</span> — the LLDPE bends slightly to
+        land in vertical alignment.</li>
+      <li><b>Water inlet continues</b> — PP010822E back to NPT, into
+        the Port 2 elbow (top plate). CO2 drops through the cap boss
+        into the CC-09 elbow.</li>
+      <li><b>PRV vent</b> — press-fit in the shroud cap's
+        <span class="dim">&#8960;6.35</span> hole; far end open in the
+        appliance interior.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Parts</span>
+      1/4&Prime; OD LLDPE &#183; JG PP010822E adapters
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 634" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .petg  { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .hole  { fill: #fff; stroke: #1d1d26; stroke-width: 3; }
+          .ghost { fill: #fff; stroke: #70707c; stroke-width: 2.5; }
+          .co2   { stroke: #b8722c; stroke-width: 5; fill: none; stroke-dasharray: 14 10; }
+          .dimln { stroke: #0f8bab; stroke-width: 2.5; fill: none; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #0f8bab; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <text class="lbl" x="24" y="38">THE SLOT WALL &#183; mm above the shell base &#8212; to scale</text>
+        <!-- wall 283x213.4 at 2.2 px/mm -> 623x470, y 80..550 -->
+        <g transform="translate(120,80)">
+          <rect class="petg" x="0" y="0" width="623" height="470"/>
+          <!-- shared slot at x=0 (center 311.5), z 42..top: y 0..377.6 -->
+          <rect class="hole" x="304" y="-8" width="15" height="378" rx="7"/>
+          <!-- slot pass-throughs -->
+          <circle class="hole" cx="311.5" cy="15.9" r="8"/>
+          <circle class="hole" cx="311.5" cy="33.5" r="8"/>
+          <circle class="hole" cx="311.5" cy="103.9" r="8"/>
+          <circle class="hole" cx="311.5" cy="366.6" r="8"/>
+          <!-- water outlet z=17 -->
+          <circle class="hole" cx="311.5" cy="432.6" r="8"/>
+          <!-- flavor lines x=±97 z=6 -->
+          <circle class="hole" cx="98" cy="456.8" r="8"/>
+          <circle class="hole" cx="525" cy="456.8" r="8"/>
+          <!-- reed cable holes x=±109 (ghost) -->
+          <circle class="ghost" cx="71.6" cy="456.8" r="8"/>
+          <circle class="ghost" cx="551.4" cy="456.8" r="8"/>
+          <!-- labels: slot stack -->
+          <line class="dimln" x1="322" y1="15.9" x2="360" y2="-12"/>
+          <text class="dimtx" x="368" y="-4">206.4 PRV vent</text>
+          <line class="dimln" x1="322" y1="33.5" x2="380" y2="44"/>
+          <text class="dimtx" x="388" y="52">198.4 water in</text>
+          <line class="dimln" x1="322" y1="103.9" x2="380" y2="116"/>
+          <text class="dimtx" x="388" y="124">166.4 copper out</text>
+          <text class="sub" x="388" y="152">suction &#183; the cold one</text>
+          <line class="dimln" x1="322" y1="366.6" x2="380" y2="356"/>
+          <text class="dimtx" x="388" y="364">47 copper in</text>
+          <!-- slot label -->
+          <text class="sub" x="290" y="220" text-anchor="end">shared slot &#8212;</text>
+          <text class="sub" x="290" y="248" text-anchor="end">open at the top,</text>
+          <text class="sub" x="290" y="276" text-anchor="end">plugs follow (CC-13)</text>
+          <!-- CO2 note -->
+          <text class="sub" x="30" y="60">CO2 &#8212; down through the</text>
+          <text class="sub" x="30" y="88">cap, not this wall (CC-09)</text>
+          <!-- water outlet + flavor labels -->
+          <line class="dimln" x1="322" y1="432.6" x2="380" y2="422"/>
+          <text class="dimtx" x="388" y="430">water outlet</text>
+          <line class="dimln" x1="98" y1="446" x2="98" y2="416"/>
+          <text class="dimtx" x="98" y="404" text-anchor="middle">flavor &#8722;X</text>
+          <line class="dimln" x1="525" y1="446" x2="525" y2="416"/>
+          <text class="dimtx" x="525" y="404" text-anchor="middle">flavor +X</text>
+        </g>
+        <text class="sub" x="380" y="600" text-anchor="middle">ghost holes: reed cables &#8212; their columns drop in at CC-15</text>
+      </svg>
+      <div class="cap"><b>One wall carries everything</b> — the slot
+      stack plus three dedicated holes; the rear wall stays sealed.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>All seven routed 1/4&Prime; through their openings — four in the slot at their heights, ready for the plug stack (CC-13).</div>
+  <div class="src">cold-core.md &#167;4 &#183; foam-shell/README.md &#183; _port_cuts.py<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

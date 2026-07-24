@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="ip">
+<div class="card">
+
+<header>
+  <div class="code">IP-06</div>
+  <h1>Witness and tidy<br>every joint</h1>
+  <div class="deckpos"><b>Internal plumbing · 06/6</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">A hands-on pass over everything IP-01&hellip;05 built —
+    <strong>every joint gets a hand on it,</strong> then the runs get tied
+    down for transport.</p>
+
+    <ol class="steps">
+      <li><b>Tug-test every PTC connection</b> — walk the CO2 path, the
+        water path, the manifold, the risers.</li>
+      <li><b>Silicone clamps:</b> past finger-tight, the silicone
+        pillowed between band and barb.</li>
+      <li><b>NPT joints:</b> past hand-tight, PTFE showing at no more
+        than <b>half</b> the engagement — excess past half is a stress
+        concentration.</li>
+      <li><b>The vent column:</b> stub faces the front; straight down
+        from its tip to the drip pan, nothing in the fall.</li>
+      <li><b>Pumps seated, leads clear</b> for spade termination at WR;
+        zip-tie every span over <span class="dim">~6&Prime;</span> — at
+        bend transitions and the pump-mount boundary.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      hands · eyes · zip ties, flush-cut
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 700" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .hose  { fill: none; stroke: #b8722c; stroke-width: 4; }
+          .tape  { stroke: #f0b429; stroke-width: 7; fill: none; }
+          .dimln { stroke: #2268c2; stroke-width: 2.5; fill: none; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #2268c2; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .rule  { stroke: #d9d5cb; stroke-width: 2.5; }
+          .flow  { stroke: #2268c2; stroke-width: 2.5; fill: none; }
+        </style>
+
+        <!-- zone 1: clamps -->
+        <text class="lbl" x="24" y="44">CLAMPS &#183; the pillow is the witness</text>
+        <!-- barb tube -->
+        <rect class="steel" x="60" y="122" width="270" height="40"/>
+        <path class="steel" d="M 120 122 L 136 110 L 136 122 Z"/>
+        <path class="steel" d="M 180 122 L 196 110 L 196 122 Z"/>
+        <path class="steel" d="M 240 122 L 256 110 L 256 122 Z"/>
+        <!-- hose slipped over the barb -->
+        <rect class="hose" x="150" y="108" width="230" height="68" rx="14"/>
+        <!-- clamp band -->
+        <rect class="steel" x="262" y="92" width="22" height="98"/>
+        <!-- pillow bulges beside the band -->
+        <path class="hose" d="M 238 108 q 11 -12 22 0"/>
+        <path class="hose" d="M 286 108 q 11 -12 22 0"/>
+        <text class="sub" x="420" y="112">pillow visible on both</text>
+        <text class="sub" x="420" y="140">sides of the band —</text>
+        <text class="sub" x="420" y="168">past finger-tight, not cut</text>
+        <line class="rule" x1="24" y1="212" x2="736" y2="212"/>
+
+        <!-- zone 2: NPT -->
+        <text class="lbl" x="24" y="258">NPT &#183; tape &#8804; half the engagement</text>
+        <!-- female block -->
+        <rect class="steel" x="360" y="300" width="220" height="110"/>
+        <!-- male stub entering -->
+        <rect class="steel" x="120" y="322" width="150" height="66"/>
+        <rect class="steel" x="270" y="330" width="180" height="50"/>
+        <!-- engagement bracket -->
+        <line class="dimln" x1="360" y1="436" x2="450" y2="436"/>
+        <line class="dimln" x1="360" y1="424" x2="360" y2="448"/>
+        <line class="dimln" x1="450" y1="424" x2="450" y2="448"/>
+        <line class="dimln" x1="405" y1="424" x2="405" y2="448"/>
+        <!-- tape visible on outer half -->
+        <path class="tape" d="M 366 326 L 366 384"/>
+        <path class="tape" d="M 380 326 L 380 384"/>
+        <path class="tape" d="M 394 326 L 394 384"/>
+        <text class="dimtx" x="466" y="444">tape stops by half</text>
+        <text class="sub" x="600" y="340">engaged</text>
+        <text class="sub" x="600" y="368">threads</text>
+        <text class="sub" x="90" y="458">tape past half-engagement</text>
+        <text class="sub" x="90" y="486">= stress concentration</text>
+        <line class="rule" x1="24" y1="500" x2="736" y2="500"/>
+
+        <!-- zone 3: vent fall -->
+        <text class="lbl" x="24" y="546">VENT FALL &#183; nothing in the column</text>
+        <!-- stub -->
+        <rect class="steel" x="330" y="566" width="26" height="44"/>
+        <path class="flow" d="M 343 616 L 343 656" stroke-dasharray="8 7"/>
+        <path fill="#2268c2" d="M 343 668 L 334 650 L 352 650 Z"/>
+        <path class="steel" d="M 306 674 L 380 674 L 368 694 L 318 694 Z"/>
+        <text class="sub" x="420" y="606">stub faces the front of the</text>
+        <text class="sub" x="420" y="634">cabinet; the drip pan +</text>
+        <text class="sub" x="420" y="662">moisture sensor catch the fall</text>
+      </svg>
+      <div class="cap"><b>Three checks a hand and an eye make dry</b> — no
+      pressure, no power, before WR touches a lead.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Every joint witnessed dry and tied down — the plumbing does not change after this card. WR lands the leads; AB brings the water.</div>
+  <div class="src">internal-plumbing.md &#167;5<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

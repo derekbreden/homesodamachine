@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="pv">
+<div class="card">
+
+<header>
+  <div class="code">PV-09</div>
+  <h1>Close the vessel &mdash;<br>float in, top plate welded</h1>
+  <div class="deckpos"><b>Pressure vessel · 09/14</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Closure is a sequence: rod (PV-06), <strong>then the
+    donut, then the plate</strong> — and the donut is captive for
+    good.</p>
+
+    <div class="critical"><span class="sign">&#9940;</span>
+      <div><b>The rod must never hold the fillet root open</b> — it
+      locates the plate. Confirm seated depth against the spacer.</div>
+    </div>
+
+    <ol class="steps">
+      <li><b>Donut first</b> — over the rod, through the open top.
+        Captive after this: tack below, register above.</li>
+      <li><b>Top plate, inside face down</b> — the register (PV-03)
+        takes the rod tip as the plate seats
+        <span class="dim">1/4&Prime;</span> deep.</li>
+      <li><b>Binds on the tip?</b> Open that cap's pocket to
+        <span class="dim">5/32&Prime;</span> — never force it. This
+        joint is a pressure weld.</li>
+      <li><b>Weld the same recessed corner fillet</b> — tacks, settings,
+        trail-off, color read: all per PV-08.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      X1 Pro · argon · 1/4&Prime; spacer · YXQ float · prep per PV-07
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 676" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .ghost { fill: none; stroke: #9a9ab0; stroke-width: 2.5; stroke-dasharray: 12 9; }
+          .rod   { fill: #9aa7b8; stroke: #1d1d26; stroke-width: 2; }
+          .donut { fill: #d8dde6; stroke: #1d1d26; stroke-width: 3; }
+          .weld  { fill: #f0b429; stroke: #1d1d26; stroke-width: 2; }
+          .weldg { stroke: #f0b429; stroke-width: 5; fill: none; stroke-dasharray: 12 9; }
+          .dimln { stroke: #46628a; stroke-width: 2.5; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #46628a; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <text class="lbl" x="24" y="38">CLOSURE &#183; the order is the geometry</text>
+
+        <!-- top plate hovering, register pocket on its underside -->
+        <rect class="steel" x="166" y="110" width="318" height="18"/>
+        <path d="M 316 128 L 316 120 L 325 114 L 334 120 L 334 128" fill="#ffffff" stroke="#1d1d26" stroke-width="2.5"/>
+        <line class="dimln" x1="220" y1="74" x2="220" y2="100" stroke-width="4"/>
+        <path fill="#46628a" d="M 211 96 L 229 96 L 220 112 Z"/>
+        <line class="dimln" x1="430" y1="74" x2="430" y2="100" stroke-width="4"/>
+        <path fill="#46628a" d="M 421 96 L 439 96 L 430 112 Z"/>
+
+        <!-- register callout -->
+        <line class="dimln" x1="334" y1="126" x2="506" y2="146"/>
+        <text class="dimtx" x="516" y="140">register takes</text>
+        <text class="dimtx" x="516" y="168">the rod tip</text>
+
+        <!-- tube -->
+        <rect class="steel" x="150" y="190" width="14" height="390"/>
+        <rect class="steel" x="486" y="190" width="14" height="390"/>
+
+        <!-- seated ghost + recess line + future fillet -->
+        <rect class="ghost" x="166" y="216" width="318" height="18"/>
+        <path class="weldg" d="M 164 196 Q 164 216 210 216"/>
+        <path class="weldg" d="M 486 196 Q 486 216 440 216"/>
+        <line class="dimln" x1="502" y1="216" x2="510" y2="213"/>
+        <text class="dimtx" x="516" y="220">1/4&Prime; recess</text>
+        <text class="sub" x="516" y="248">confirm against</text>
+        <text class="sub" x="516" y="274">the spacer</text>
+        <text class="sub" x="516" y="326">then the fillet —</text>
+        <text class="sub" x="516" y="352">settings per PV-08</text>
+        <text class="dimtx" x="516" y="410">5/32&Prime; relief</text>
+        <text class="sub" x="516" y="438">binds? open the</text>
+        <text class="sub" x="516" y="464">pocket — never force</text>
+
+        <!-- rod -->
+        <rect class="rod" x="321" y="226" width="8" height="310"/>
+
+        <!-- donut float on the rod -->
+        <rect class="donut" x="289" y="400" width="72" height="30" rx="8"/>
+        <text class="sub" x="140" y="398" text-anchor="end">float donut</text>
+        <text class="sub" x="140" y="424" text-anchor="end">goes FIRST</text>
+        <line class="dimln" x1="146" y1="410" x2="285" y2="414"/>
+
+        <!-- bottom plate, welded (PV-08) -->
+        <rect class="steel" x="166" y="536" width="318" height="18"/>
+        <path class="weld" d="M 166 536 L 166 522 Q 175 532 188 536 Z"/>
+        <path class="weld" d="M 484 536 L 484 522 Q 475 532 462 536 Z"/>
+        <path class="weld" d="M 321 536 L 321 524 Q 312 532 304 536 Z"/>
+        <path class="weld" d="M 329 536 L 329 524 Q 338 532 346 536 Z"/>
+        <text class="sub" x="140" y="506" text-anchor="end">PV-08 weld</text>
+        <text class="sub" x="140" y="532" text-anchor="end">+ rod tack</text>
+        <text class="sub" x="140" y="558" text-anchor="end">(PV-06)</text>
+
+        <text class="sub" x="24" y="648">schematic — rod, donut + registers not to scale</text>
+      </svg>
+      <div class="cap"><b>Captive by geometry</b> — donut between the rod
+      tack below and the top-plate register above. No fastener touches
+      it.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Plate at seated depth, donut captive, full-perimeter fillet — PT (PV-10) + hydro (PV-11) are the proof.</div>
+  <div class="src">pressure-vessel.md &#167;4&ndash;5<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="wr">
+<div class="card">
+
+<header>
+  <div class="code">WR-05</div>
+  <h1>Signal looms</h1>
+  <div class="deckpos"><b>Wiring · 05/6</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">One pre-fabricated loom per connector, seated on its
+    labeled wafer. <strong>The looms are plain wire</strong> — pull-ups,
+    dividers, damping, and ESD clamps all live on the board.</p>
+
+    <div class="note" style="margin-bottom:12px">
+      <b>J4 + J7 share the same 7P housing</b> — land each by its loom
+      label; a swap puts J4's 3V3/V5 on J7's reed inputs.
+    </div>
+
+    <ol class="steps">
+      <li><b>Cold-core set</b> — J4 (SIG-1 · SIG-9) + the J6/J7 reed
+        looms, <span class="dim">~600 mm</span>; GND explodes in the
+        far-end Wago.</li>
+      <li><b>Shelf zone</b> — SIG-4, the flow meter off J4: short internal
+        run, never leaves the enclosure.</li>
+      <li><b>Displays</b> — SIG-6 UART ribbon up the umbilical (J3);
+        SIG-7 RS485 + V12 to the front face (J9), <span class="dim">~1
+        m</span>.</li>
+      <li><b>Manifold + floor</b> — J8 to the MPR121
+        (<span class="dim">~300 mm</span>); J11 to the MQ-6, mounted
+        low — R-600a sinks.</li>
+      <li><b>Continuity-test each run</b> before anything zip-ties
+        down.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      pre-fabbed looms from CA-01/CA-02 · multimeter
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <table class="spec">
+      <tr><th>Loom</th><th>Runs</th><th>Lands at</th></tr>
+      <tr><td class="v">J4 SENSORS</td><td class="v">SIG-1&#183;4&#183;9</td><td>temp bus · flow · drip pan</td></tr>
+      <tr><td class="v">J6 REEDS A</td><td class="v">SIG-10</td><td>reservoir A reeds</td></tr>
+      <tr><td class="v">J7 REEDS B</td><td class="v">SIG-2&#183;3&#183;11</td><td>carbonator + res. B reeds</td></tr>
+      <tr><td class="v">J3 FAUCET</td><td class="v">SIG-6</td><td>1.47&#8243; faucet display</td></tr>
+      <tr><td class="v">J9 DISPLAY</td><td class="v">SIG-7</td><td>4.3B config display</td></tr>
+      <tr><td class="v">J8 I2C</td><td class="v">SIG-8</td><td>MPR121 cap-sense</td></tr>
+      <tr><td class="v">J11 GAS</td><td class="v">SIG-12</td><td>MQ-6, rear cabinet floor</td></tr>
+    </table>
+
+    <div class="note" style="margin-top:26px">
+      <b>The numbering skips SIG-5, and there is no J12</b> — nothing is
+      missing. SIG-12 also feeds the on-board gas&#8594;compressor
+      interlock: relay #1 stays out until the MQ-6 is landed and warm.
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Seven looms seated on their labeled wafers, landed at their devices, every run continuity-tested end-to-end.</div>
+  <div class="src">wiring.md &#167;5 &#183; ac-wiring-schedule.md "Sensors and signal"<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

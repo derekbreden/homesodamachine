@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="ab">
+<div class="card">
+
+<header>
+  <div class="code">AB-02</div>
+  <h1>First water fill<br>+ CO2 at 90 PSI</h1>
+  <div class="deckpos"><b>Acceptance · 02/6</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">First water in service, first CO2 against a wet
+    vessel — <strong>the reeds run the fill; your job is joints.</strong></p>
+
+    <ol class="steps">
+      <li><b>Open the water side.</b> Empty reed + closed faucet arms the
+        refill; command &ldquo;fill carbonator&rdquo; — the SeaFlo
+        energizes (relay #2, GPIO 16).</li>
+      <li><b>Watch the fill</b> — tens of seconds to the high reed, not
+        minutes; the pump stops itself. Overrun = reed fault, stuck
+        float, or a pump-pull short-circuit.</li>
+      <li><b>Walk the joints wet</b> — inlet, slot transitions, top-plate
+        elbow, vent pan: all dry.</li>
+      <li><b>Hold 90 PSI two minutes</b> — in-rush hiss dies to silence
+        as the stone bubbles. No PRV weep, no vent telltale. PRV open =
+        WR1110 fault; a wet vent = cross-contamination.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Bench</span>
+      rig from AB-01 · stopwatch · your ears at every joint
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:780px">
+    <div class="settings">
+      <div class="s"><div class="k">Fill stop</div><div class="v">high reed</div></div>
+      <div class="s"><div class="k">Fill time</div><div class="v">tens of s</div></div>
+      <div class="s"><div class="k">CO2 side</div><div class="v">90 PSI</div></div>
+      <div class="s"><div class="k">PRV set</div><div class="v">125 PSI</div></div>
+      <div class="s"><div class="k">Hold</div><div class="v">2 min</div></div>
+      <div class="s"><div class="k">Vent pan</div><div class="v">dry</div></div>
+    </div>
+
+    <div class="panel light" style="margin-top:24px">
+      <svg viewBox="0 0 780 372" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .box   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .btx   { font: 700 23px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .dimtx { font: 700 24px Menlo, monospace; fill: #2e8540; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .wln   { stroke: #2268c2; stroke-width: 5; fill: none; }
+          .gln   { stroke: #2e8540; stroke-width: 5; fill: none; }
+        </style>
+        <text class="lbl" x="24" y="40">TWO PATHS INTO THE VESSEL</text>
+
+        <!-- vessel -->
+        <rect class="box" x="610" y="70" width="140" height="270"/>
+        <text style="font:700 19px 'Helvetica Neue',sans-serif" fill="#1d1d26" x="680" y="140" text-anchor="middle">CARBONATOR</text>
+        <text class="sub" x="680" y="322" text-anchor="middle">sparge stone</text>
+
+        <!-- water lane -->
+        <polyline class="wln" points="30,110 598,110"/>
+        <path fill="#2268c2" d="M 596 102 L 596 118 L 610 110 Z"/>
+        <circle cx="80" cy="110" r="8" fill="#2268c2"/>
+        <circle cx="190" cy="110" r="8" fill="#2268c2"/>
+        <circle cx="300" cy="110" r="8" fill="#2268c2"/>
+        <circle cx="410" cy="110" r="8" fill="#2268c2"/>
+        <circle cx="520" cy="110" r="8" fill="#2268c2"/>
+        <text class="sub" x="80" y="84" text-anchor="middle">19-0897</text>
+        <text class="sub" x="190" y="144" text-anchor="middle">FFL38</text>
+        <text class="sub" x="300" y="84" text-anchor="middle">SeaFlo</text>
+        <text class="sub" x="410" y="144" text-anchor="middle">GASHER chk</text>
+        <text class="sub" x="500" y="84" text-anchor="middle">+Z slot &#183; TAISHER</text>
+        <text class="dimtx" x="30" y="180">WATER &rarr; Port 2 (top plate)</text>
+        <text class="sub" x="30" y="208">tap &rarr; backflow &rarr; pump &rarr; check &rarr; PP010822E</text>
+
+        <!-- CO2 lane -->
+        <polyline class="gln" points="30,280 598,280"/>
+        <path fill="#2e8540" d="M 596 272 L 596 288 L 610 280 Z"/>
+        <rect class="box" x="200" y="252" width="180" height="56"/>
+        <text class="btx" x="290" y="278" text-anchor="middle">WR1110</text>
+        <text class="dimtx" x="290" y="302" text-anchor="middle">90 PSI</text>
+        <text class="dimtx" x="30" y="250">CO2 &rarr; Port 1 (bottom)</text>
+        <text class="sub" x="200" y="344">bubbles once the stone wets</text>
+
+        <!-- PRV -->
+        <line class="gln" x1="700" y1="70" x2="700" y2="46"/>
+        <text class="sub" x="676" y="34" text-anchor="end">SV-125 PRV &#8212; no weep</text>
+      </svg>
+      <div class="cap"><b>Fill runs until the high reed asserts.</b> The
+      appliance-side gauge is internal — the proxy is silence after the
+      in-rush.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>High reed stopped the fill, every joint dry, steady 90 PSI through the 2-minute hold, PRV silent, pan dry.</div>
+  <div class="src">acceptance-and-burn-in.md &#167;3&ndash;4<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

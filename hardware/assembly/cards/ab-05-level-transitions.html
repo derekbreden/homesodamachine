@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="ab">
+<div class="card">
+
+<header>
+  <div class="code">AB-05</div>
+  <h1>Level-sensing transitions</h1>
+  <div class="deckpos"><b>Acceptance · 05/6</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">No new plumbing — <strong>this card reads the
+    log.</strong> Every float has already sailed past every reed; the
+    record must show both states for all ten.</p>
+
+    <ol class="steps">
+      <li><b>Pull the per-serial log</b> — AB-02 through AB-04 exercised
+        every transition; this card audits, it doesn't run.</li>
+      <li><b>Carbonator pair</b> — low and high each fired across the
+        refills (AB-02, AB-03).</li>
+      <li><b>Reservoir A's four, B's four</b> — both states each: fills
+        at the AB-01 pre-prime + AB-04 clean cycle, drains across AB-03
+        metering + AB-04 purge.</li>
+      <li><b>Any constant reed</b> — never asserted or never released —
+        is a wiring fault, a magnet-strength problem, or a stuck float:
+        escalate.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Bench</span>
+      per-serial log at the bench-acceptance UI — nothing else
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:780px">
+    <div class="panel light">
+      <svg viewBox="0 0 780 348" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .btx   { font: 700 23px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .dimtx { font: 700 24px Menlo, monospace; fill: #2e8540; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .tube  { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .tick  { stroke: #2e8540; stroke-width: 5; }
+        </style>
+        <text class="lbl" x="24" y="40">EVERY REED, BOTH STATES</text>
+
+        <!-- carbonator rod -->
+        <rect class="tube" x="120" y="70" width="56" height="230"/>
+        <line class="tick" x1="108" y1="110" x2="188" y2="110"/>
+        <line class="tick" x1="108" y1="256" x2="188" y2="256"/>
+        <circle cx="148" cy="180" r="17" fill="#fff" stroke="#1d1d26" stroke-width="3"/>
+        <text class="dimtx" x="200" y="118">high &#183; PB5</text>
+        <text class="dimtx" x="200" y="264">low &#183; PB4</text>
+        <text class="btx" x="148" y="336" text-anchor="middle">CARBONATOR</text>
+        <text class="sub" x="240" y="336" text-anchor="start">0x21 &#183; &times;2</text>
+
+        <!-- reservoir rod -->
+        <rect class="tube" x="470" y="70" width="56" height="230"/>
+        <line class="tick" x1="458" y1="100" x2="538" y2="100"/>
+        <line class="tick" x1="458" y1="164" x2="538" y2="164"/>
+        <line class="tick" x1="458" y1="228" x2="538" y2="228"/>
+        <line class="tick" x1="458" y1="288" x2="538" y2="288"/>
+        <circle cx="498" cy="132" r="17" fill="#fff" stroke="#1d1d26" stroke-width="3"/>
+        <text class="dimtx" x="550" y="108">PB0</text>
+        <text class="dimtx" x="550" y="172">PB1</text>
+        <text class="dimtx" x="550" y="236">PB2</text>
+        <text class="dimtx" x="550" y="296">PB3</text>
+        <text class="btx" x="498" y="336" text-anchor="middle">RESERVOIR &times;2</text>
+        <text class="sub" x="620" y="336" text-anchor="start">A 0x20 &#183; B 0x21</text>
+
+        <!-- float travel arrows -->
+        <line x1="70" y1="120" x2="70" y2="250" stroke="#70707c" stroke-width="3"/>
+        <path fill="#70707c" d="M 62 128 L 78 128 L 70 112 Z"/>
+        <path fill="#70707c" d="M 62 242 L 78 242 L 70 258 Z"/>
+        <text class="sub" x="30" y="190">float</text>
+      </svg>
+      <div class="cap"><b>Pass = at least one asserted and one
+      de-asserted reading per reed</b> across the acceptance run.</div>
+    </div>
+
+    <table class="spec" style="margin-top:22px">
+      <tr><th>Reed</th><th>Both states seen at</th></tr>
+      <tr><td>Carb low &#183; high</td><td>refill cycles &#183; AB-02, AB-03</td></tr>
+      <tr><td>Rsvr A &times;4 &#183; B &times;4</td><td>fills AB-01/04 &#183; drains AB-03/04</td></tr>
+    </table>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>All 10 reeds show both states in the per-serial log — carbonator 2, reservoirs 8.</div>
+  <div class="src">acceptance-and-burn-in.md &#167;10 &#183; firmware-and-commissioning.md &#167;6<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

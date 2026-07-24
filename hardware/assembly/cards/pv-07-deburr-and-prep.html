@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="pv">
+<div class="card">
+
+<header>
+  <div class="code">PV-07</div>
+  <h1>Deburr the tube + prep<br>the weld surfaces</h1>
+  <div class="deckpos"><b>Pressure vessel · 07/14</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">The fillet sees two surfaces — the bore's
+    1/4&Prime; band, the plate's outer face. <strong>The rest is about
+    getting the plate to seat.</strong></p>
+
+    <ol class="steps">
+      <li><b>Deburr both tube ends, ID + OD</b> — one sitting while the
+        tube is loose. Light: the <span class="dim">0.065&Prime;</span>
+        wall has little to give.</li>
+      <li><b>It buys insertion.</b> <span class="dim">~0.005&Prime;</span>
+        of radial slip — a rolled-over burr catches the plate part-way
+        down.</li>
+      <li><b>Prep the two fillet surfaces</b> — <span class="dim">~30
+        s</span> per joint, 7447 pad or X1 cleaning mode. Bare metal,
+        not tooth.</li>
+      <li><b>Skip what's buried</b> (cut edge, plate OD) — and no coarse
+        grit: 80-120 rounds the root corner (PV-04).</li>
+      <li><b>Pads stay stainless-only</b> — embedded free iron outlives
+        the citric soak (PV-12).</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      Noga NG8150 · Scotch-Brite 7447 (SS-only) · X1 cleaning mode
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 640" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .prep  { fill: #46628a; opacity: 0.28; }
+          .dimln { stroke: #46628a; stroke-width: 2.5; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #46628a; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .arc   { stroke: #46628a; stroke-width: 3.5; fill: none; }
+        </style>
+        <text class="lbl" x="24" y="38">PREP MAP &#183; what the fillet sees</text>
+
+        <!-- tube section: two walls -->
+        <rect class="steel" x="120" y="110" width="18" height="400"/>
+        <rect class="steel" x="302" y="110" width="18" height="400"/>
+        <!-- prep bands on the bore, 1/4" below each end -->
+        <rect class="prep" x="138" y="110" width="9" height="70"/>
+        <rect class="prep" x="293" y="110" width="9" height="70"/>
+        <rect class="prep" x="138" y="440" width="9" height="70"/>
+        <rect class="prep" x="293" y="440" width="9" height="70"/>
+        <!-- band dim -->
+        <line class="dimln" x1="96" y1="110" x2="96" y2="180"/>
+        <line class="dimln" x1="86" y1="110" x2="106" y2="110"/>
+        <line class="dimln" x1="86" y1="180" x2="106" y2="180"/>
+        <text class="dimtx" x="82" y="152" text-anchor="end">1/4&Prime;</text>
+        <text class="sub" x="82" y="180" text-anchor="end">band</text>
+
+        <!-- deburr arcs at the tube ends -->
+        <path class="arc" d="M 108 96 A 18 18 0 0 1 128 82"/>
+        <path class="arc" d="M 312 82 A 18 18 0 0 1 332 96"/>
+        <path class="arc" d="M 108 524 A 18 18 0 0 0 128 538"/>
+        <path class="arc" d="M 312 538 A 18 18 0 0 0 332 524"/>
+        <text class="dimtx" x="352" y="76">deburr both ends, ID + OD</text>
+        <text class="sub" x="352" y="104">the cut edge is NOT a weld</text>
+        <text class="sub" x="352" y="130">surface — the fillet sits</text>
+        <text class="sub" x="352" y="156">1/4&Prime; below it</text>
+
+        <!-- wall note, centered in the bore -->
+        <text class="dimtx" x="220" y="324" text-anchor="middle">0.065&Prime;</text>
+        <text class="sub" x="220" y="352" text-anchor="middle">wall — keep</text>
+        <text class="sub" x="220" y="378" text-anchor="middle">it light</text>
+
+        <!-- plate at right -->
+        <rect class="steel" x="390" y="300" width="290" height="50"/>
+        <rect class="prep" x="390" y="300" width="290" height="9"/>
+        <text class="dimtx" x="390" y="244">plate outer face</text>
+        <text class="sub" x="390" y="272">prep to the perimeter</text>
+        <text class="sub" x="390" y="388">no coarse grit — an 80-120 pass</text>
+        <text class="sub" x="390" y="414">rounds the root corner (PV-04)</text>
+        <text class="sub" x="390" y="440">not the OD — buried in the slip</text>
+
+        <text class="sub" x="380" y="576" text-anchor="middle">~30 s per joint — 7447 pad or X1 Pro cleaning mode</text>
+        <text class="sub" x="380" y="604" text-anchor="middle">segregate pads stainless-only: free iron outlives passivation</text>
+      </svg>
+      <div class="cap"><b>Shaded = prep zones.</b> Bore band below each
+      end + plate outer face — the only surfaces the beam touches.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Ends burr-free ID + OD; bright metal on both bore bands + plate outer faces; root corners still sharp.</div>
+  <div class="src">pressure-vessel.md &#167;3<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

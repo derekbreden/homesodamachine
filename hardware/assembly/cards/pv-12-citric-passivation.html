@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="pv">
+<div class="card">
+
+<header>
+  <div class="code">PV-12</div>
+  <h1>Citric-acid passivation</h1>
+  <div class="deckpos"><b>Pressure vessel · 12/14</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">One soak restores the chromium-oxide layer at the
+    weld zones — what lets 316L <strong>shrug off carbonic acid</strong>
+    for the life of the vessel. Same treatment commercial bright tanks
+    get.</p>
+
+    <ol class="steps">
+      <li><b>Mix ~1 qt of <span class="dim">~4 %</span> solution</b> —
+        Viva Doria food-grade citric, about 1/20 of the 2 lb bag per
+        vessel.</li>
+      <li><b>Soak <span class="dim">30-60 min</span></b> in the Cambro
+        tub. A mild citric soak doesn't consume it — same tub, build
+        after build.</li>
+      <li><b>Rinse thoroughly with water,</b> then dry.</li>
+      <li><b>The sequence is the point:</b> after hydro (PV-11) —
+        failures get re-welded, re-introducing oxide — and before the
+        sparge goes in (PV-14): silicone + sintered stone don't belong
+        in the soak.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Materials</span>
+      Viva Doria citric acid · Cambro 6 QT polycarbonate tub · water
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 470" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .tub   { fill: none; stroke: #1d1d26; stroke-width: 3.5; }
+          .liq   { fill: #dfe8f2; }
+          .oxide { fill: #e8c77a; stroke: #1d1d26; stroke-width: 1.5; }
+          .dimln { stroke: #46628a; stroke-width: 2.5; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #46628a; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <text class="lbl" x="24" y="38">THE SOAK &#183; schematic</text>
+        <text class="dimtx" x="736" y="64" text-anchor="end">SOAK 30-60 min</text>
+        <text class="sub" x="736" y="92" text-anchor="end">then thorough water rinse</text>
+
+        <!-- liquid + tub -->
+        <path class="liq" d="M 154 170 L 181 408 L 619 408 L 646 170 Z"/>
+        <line x1="154" y1="170" x2="646" y2="170" stroke="#46628a" stroke-width="2.5"/>
+        <path class="tub" d="M 140 120 L 180 420 L 620 420 L 660 120"/>
+
+        <!-- vessel, submerged, weld-zone tint at both rims -->
+        <rect class="steel" x="310" y="190" width="180" height="200"/>
+        <rect class="oxide" x="310" y="190" width="180" height="12"/>
+        <rect class="oxide" x="310" y="378" width="180" height="12"/>
+
+        <!-- labels -->
+        <text class="dimtx" x="232" y="270" text-anchor="middle">~4 %</text>
+        <text class="dimtx" x="232" y="298" text-anchor="middle">citric</text>
+
+        <text class="sub" x="380" y="452" text-anchor="middle">yellow/brown weld color dissolves out — oxide layer restored</text>
+      </svg>
+      <div class="cap"><b>Order: after hydro, before the sparge.</b>
+      Re-welds put oxide back; the stone + silicone never see the
+      acid.</div>
+    </div>
+
+    <table class="spec" style="margin-top:22px">
+      <tr><td>Solution</td><td class="v">~4 % citric, food-grade</td></tr>
+      <tr><td>Soak &#183; rinse</td><td class="v">30-60 min &#183; water</td></tr>
+      <tr><td>Tub</td><td class="v">Cambro 6 QT &#183; reused</td></tr>
+    </table>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Soaked 30-60 min, rinsed, dry — weld zones uniform, yellow/brown gone.</div>
+  <div class="src">pressure-vessel.md &#167;8<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

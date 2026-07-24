@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="fc">
+<div class="card">
+
+<header>
+  <div class="code">FC-02</div>
+  <h1>Flash the three ESP32s</h1>
+  <div class="deckpos"><b>Commissioning · 02/5</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">One wrapper, three MCUs, strict order —
+    <strong>base controller first,</strong> then both display heads.</p>
+
+    <ol class="steps">
+      <li><b>Base first — controller PCBA.</b> USB-C into J14 (west edge);
+        the CH340C auto-resets EN/IO0 into download mode.</li>
+      <li><b>Watch it land</b> — build OK, upload 100&nbsp;%, boot banner
+        + fw_version.h build ID at <span class="dim">115200</span> baud.</li>
+      <li><b>Config display next</b> — the 4.3B enumerates native
+        USB-CDC on boot. Flash, then confirm the LVGL splash on the
+        <span class="dim">800&times;480</span> panel.</li>
+      <li><b>Faucet display last</b> — the 1.47&Prime; on the gooseneck,
+        same CDC. Flavor UI up; touch-toggle waits for FC-03.</li>
+    </ol>
+
+    <div class="note">
+      <b>PersistentLog build failure?</b> Fix the sibling-repo placement —
+      the wrapper pre-flights the symlink and prints the fix.
+    </div>
+
+    <div class="tools">
+      <span class="lbl">Bench</span>
+      USB-C cable (J14 + both displays) · /firmware/ at current main
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:780px">
+    <div class="settings" style="grid-template-columns:1fr; gap:18px">
+      <div class="s"><div class="k">1 &#183; Controller PCBA &mdash; J14</div>
+        <div class="v">./tools/flash.sh esp32dev</div></div>
+      <div class="s"><div class="k">2 &#183; Config display 4.3B</div>
+        <div class="v">./tools/flash.sh esp32s3_front</div></div>
+      <div class="s"><div class="k">3 &#183; Faucet display 1.47&Prime;</div>
+        <div class="v">./tools/flash.sh esp32s3_faucet</div></div>
+    </div>
+
+    <table class="spec" style="margin-top:24px">
+      <tr><th>Env</th><th>Port</th><th>Proof</th></tr>
+      <tr><td class="v">esp32dev</td><td>J14 &#183; CH340C U13</td>
+        <td>boot banner + build ID</td></tr>
+      <tr><td class="v">esp32s3_front</td><td>native CDC</td>
+        <td>LVGL splash &#183; 800&times;480</td></tr>
+      <tr><td class="v">esp32s3_faucet</td><td>native CDC</td>
+        <td>flavor UI renders</td></tr>
+    </table>
+
+    <div class="note" style="margin-top:24px">
+      <b>Under the hood:</b> the wrapper runs
+      <span class="dim">pio run -e &lt;env&gt; -t upload</span> per
+      /platformio.ini, logger paused, then resumed. Monitor:
+      <span class="dim">pio device monitor -e esp32dev</span>.
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>All three MCUs run current main — boot banner + build ID on the controller, LVGL splash on the 4.3B, flavor UI on the 1.47&Prime;.</div>
+  <div class="src">firmware-and-commissioning.md &#167;3&ndash;5 &#183; tools/flash.sh<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>
