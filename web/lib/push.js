@@ -7,7 +7,7 @@
 //   - Server (this module) stores tokens + which files each subscription
 //     watches in Postgres.
 //   - On prod boot, server.js calls the per-kind detect* functions (steps,
-//     mermaid, dxf, drawings, pcb boards) against per-kind hash tables,
+//     mermaid, dxf, drawings, pcb boards, assembly cards) against per-kind hash tables,
 //     concatenates the result, and calls notifyFilesChanged once for the
 //     combined set. One FCM banner regardless of how many files or which kinds
 //     changed; the files-changed broadcast fires alongside for in-app handling
@@ -25,7 +25,8 @@ import path from "path";
 import fs from "fs";
 import crypto from "crypto";
 import { insertNotification } from "./notifications.js";
-import { walkFiles, walkFilesUnderDir, walkPcbBoards } from "./walk.js";
+import { walkFiles, walkFilesUnderDir, walkPcbBoards, walkAssemblyCards } from "./walk.js";
+import { isCardPath } from "../contracts/cards.js";
 
 let pool = null;
 let adminApp = null;
@@ -35,6 +36,7 @@ function walkStepFiles(rootDir) { return walkFiles(rootDir, ".step"); }
 function walkMermaidFiles(rootDir) { return walkFiles(rootDir, ".mmd"); }
 function walkDxfFiles(rootDir) { return walkFiles(rootDir, ".dxf"); }
 function walkDrawingFiles(rootDir) { return walkFilesUnderDir(rootDir, ".svg", "drawings"); }
+function walkCardFiles(rootDir) { return walkAssemblyCards(rootDir).map((c) => c.path); }
 
 // Match the post filename format documented in posts/README.md
 // (`YYYY-MM-DD-HHMM.md`) so docs/helpers like posts/README.md don't get
@@ -93,6 +95,13 @@ function ensureSchema() {
     `);
     await pool.query(`
       CREATE TABLE IF NOT EXISTS drawing_hashes (
+        file TEXT PRIMARY KEY,
+        sha256 TEXT NOT NULL,
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      )
+    `);
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS card_hashes (
         file TEXT PRIMARY KEY,
         sha256 TEXT NOT NULL,
         updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -245,7 +254,7 @@ export function mountPushRoutes(app) {
 //
 // Allowed table names are hardcoded — no SQL injection risk despite the
 // template-string interpolation, since callers pick from this whitelist.
-const ALLOWED_HASH_TABLES = new Set(["step_hashes", "mermaid_hashes", "dxf_hashes", "drawing_hashes"]);
+const ALLOWED_HASH_TABLES = new Set(["step_hashes", "mermaid_hashes", "dxf_hashes", "drawing_hashes", "card_hashes"]);
 
 async function detectChangedFilesInTable(tableName, walker, hardwareDir) {
   if (!ALLOWED_HASH_TABLES.has(tableName)) {
@@ -307,6 +316,15 @@ export function detectChangedDxf(hardwareDir) {
 
 export function detectChangedDrawings(hardwareDir) {
   return detectChangedFilesInTable("drawing_hashes", walkDrawingFiles, hardwareDir);
+}
+
+// Assembly cards: the deck's HTML pages. Hashed like the other single-file kinds
+// — a card IS its source, with no rendered intermediate to fingerprint instead.
+// An edit to the deck's shared style.css doesn't move any card's hash, so a
+// restyle-only deploy notifies nothing; that's the right call, since the cards
+// themselves didn't change.
+export function detectChangedCards(hardwareDir) {
+  return detectChangedFilesInTable("card_hashes", walkCardFiles, hardwareDir);
 }
 
 // PCB boards differ from the single-file kinds above: a board is a source
@@ -581,6 +599,7 @@ function describeFilesUpdate(files) {
   const dxfCount = files.filter((f) => f.endsWith(".dxf")).length;
   const drawingCount = files.filter(isDrawingPath).length;
   const pcbCount = files.filter(isPcbPath).length;
+  const cardCount = files.filter(isCardPath).length;
   let title;
   if (files.length === 1) {
     if (files[0].endsWith(".step")) title = "Print updated";
@@ -588,6 +607,7 @@ function describeFilesUpdate(files) {
     else if (files[0].endsWith(".dxf")) title = "Cut updated";
     else if (isDrawingPath(files[0])) title = "Drawing updated";
     else if (isPcbPath(files[0])) title = "Board updated";
+    else if (isCardPath(files[0])) title = "Card updated";
     else title = "File updated";
   } else if (stepCount === files.length) {
     title = `${files.length} Prints updated`;
@@ -599,6 +619,8 @@ function describeFilesUpdate(files) {
     title = `${files.length} Drawings updated`;
   } else if (pcbCount === files.length) {
     title = `${files.length} Boards updated`;
+  } else if (cardCount === files.length) {
+    title = `${files.length} Cards updated`;
   } else {
     title = `${files.length} Files updated`;
   }
@@ -630,7 +652,7 @@ export async function notifyFilesChanged({ files }) {
   const firstFile = files[0];
   let basePath;
   if (firstFile.endsWith(".mmd")) basePath = "/charts";
-  else if (isDrawingPath(firstFile)) basePath = "/drawings";
+  else if (isDrawingPath(firstFile) || isCardPath(firstFile)) basePath = "/drawings";
   else if (isPcbPath(firstFile)) basePath = "/pcb";
   else basePath = "/3d";
   const link = `${basePath}?file=${encodeURIComponent(firstFile)}`;
@@ -642,11 +664,13 @@ export async function notifyFilesChanged({ files }) {
   const dxfCount = files.filter((f) => f.endsWith(".dxf")).length;
   const drawingCount = files.filter(isDrawingPath).length;
   const pcbCount = files.filter(isPcbPath).length;
+  const cardCount = files.filter(isCardPath).length;
   const kind = stepCount === files.length ? "step"
              : mermaidCount === files.length ? "mermaid"
              : dxfCount === files.length ? "dxf"
              : drawingCount === files.length ? "drawing"
              : pcbCount === files.length ? "pcb"
+             : cardCount === files.length ? "card"
              : "files";
   return fanOutToTokens(
     rows,

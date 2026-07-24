@@ -7,9 +7,10 @@ import { state } from "./state.js";
 import { openDetail, openDxfDetail, openGlbDetail } from "./cad-detail.js";
 // Card-click openers come from detail-shims.js so opening a part after a code
 // edit runs fresh code; thumbnail renderers stay from the modules (static).
-import { openMmdDetail, openDrawingDetail, openPcbDetail } from "./detail-shims.js";
+import { openMmdDetail, openDrawingDetail, openPcbDetail, openCardDetail } from "./detail-shims.js";
 import { renderMmdThumbnail } from "./mermaid.js";
 import { renderDrawingThumbnail } from "./drawings.js";
+import { mountCardThumbnail } from "./cards.js";
 import { renderPcbThumbnail } from "./pcb.js";
 import { renderThumbnail } from "./step.js";
 import { renderDxfThumbnail } from "./dxf.js";
@@ -102,6 +103,63 @@ function renderGroupedCards({ files, ext, type, thumbnailHtml, onClick }) {
       card.addEventListener("click", () => onClick(file));
       state.gridEl.appendChild(card);
     }
+  }
+}
+
+// Assembly cards — the printable 4×6 deck (hardware/assembly/cards). Arrives
+// deck-ordered from /api/cards with each card's own printed identity, so the
+// grid groups by subsystem in arrival order rather than re-deriving the build
+// sequence. The subheader takes the subsystem's own accent colour, which is the
+// same colour the card prints its code chip in — a scan down the page reads as
+// the deck reads.
+//
+// The thumbnail is the card itself in a scaled iframe, mounted lazily by the
+// observer at the bottom of buildGrid. There is no separate thumbnail artifact:
+// the card you see in the grid is the file that goes to the printer.
+//
+// Cards get their own nested grid rather than sharing the page's track sizing.
+// The page tracks are sized for part thumbnails; a card scaled into one is a
+// coloured smudge you have to open to identify. Its own grid can ask for the
+// width a card needs to stay readable in place, and packs cleanly instead of
+// stranding a spare track at the end of every row.
+function buildCardSection() {
+  const header = document.createElement("div");
+  header.className = "section-header";
+  header.textContent = "Assembly cards";
+  state.gridEl.appendChild(header);
+
+  if (!state.cards || state.cards.length === 0) {
+    const empty = document.createElement("div");
+    empty.className = "empty-state";
+    empty.textContent = "No cards yet.";
+    state.gridEl.appendChild(empty);
+    return;
+  }
+
+  const deck = document.createElement("div");
+  deck.className = "deck-grid";
+  state.gridEl.appendChild(deck);
+
+  let group = null;
+  for (const card of state.cards) {
+    if (card.subsystemLabel !== group) {
+      group = card.subsystemLabel;
+      const sub = document.createElement("div");
+      sub.className = "subsection-header deck-header";
+      sub.textContent = group;
+      if (card.accent) sub.style.color = card.accent;
+      deck.appendChild(sub);
+    }
+    const el = document.createElement("div");
+    el.className = "card card-deck";
+    el.dataset.file = card.path;
+    el.dataset.type = "card";
+    const code = card.code ? `<span class="dir">${card.code}</span>` : "";
+    el.innerHTML = `<div class="card-thumb" data-file="${card.path}"><div class="placeholder">loading...</div></div>` +
+      `<div class="label">${code}${card.title}</div>`;
+    if (card.accent) el.style.setProperty("--card-accent", card.accent);
+    el.addEventListener("click", () => openCardDetail(card.path));
+    deck.appendChild(el);
   }
 }
 
@@ -245,6 +303,8 @@ export function buildGrid() {
     } else {
       renderGroupedCards({ files: lineArtFiles, ext: ".svg", type: "drawing", thumbnailHtml: drawingThumb, onClick: openDrawingDetail });
     }
+
+    buildCardSection();
   }
 
   if (section === "pcb") {
@@ -365,6 +425,21 @@ export function buildGrid() {
 
   for (const card of state.gridEl.querySelectorAll('.card[data-type="drawing"]')) {
     drawingObserver.observe(card);
+  }
+
+  // Lazy-mount assembly-card thumbnails. Each is a live iframe of the card page,
+  // so the deck only pays for the cards actually scrolled to — the observer is
+  // what keeps an 80-card grid from loading 80 documents at once.
+  const cardObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      cardObserver.unobserve(entry.target);
+      mountCardThumbnail(entry.target.querySelector(".card-thumb"), entry.target.dataset.file);
+    }
+  }, { rootMargin: "200px" });
+
+  for (const card of state.gridEl.querySelectorAll('.card[data-type="card"]')) {
+    cardObserver.observe(card);
   }
 
   // Lazy-load PCB thumbnails (the board's Top copper view, rendered inline)

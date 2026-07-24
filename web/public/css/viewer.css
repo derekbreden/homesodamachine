@@ -740,6 +740,53 @@
   stroke-width: 0.5;
 }
 
+/* Assembly-card thumbnail. The card is a whole HTML page on a fixed
+   1800 × 1200 canvas (6 × 4 in at 300 dpi), rendered in an iframe and scaled
+   down by cards.js — so the thumb box carries the card's true 3:2 proportion
+   and nothing letterboxes. The card brings its own paper-white background and
+   print colours; the viewer's dark theme stops at the frame edge, which is the
+   point — what you read here is what comes off the printer.
+
+   The deck nests its own grid inside the page grid (grid.js buildCardSection).
+   The page's 220px tracks are sized for part thumbnails, and a card scaled into
+   one is a coloured smudge you'd have to open to identify; 460px is about where
+   a card's step text stays readable in place, which is what makes the section a
+   deck you can scan rather than an index you click through. */
+.deck-grid {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(460px, 100%), 1fr));
+  gap: 16px;
+}
+.deck-grid .deck-header { grid-column: 1 / -1; opacity: 1; }
+@media (max-width: 600px) {
+  .deck-grid { gap: 10px; }
+}
+.card .card-thumb {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  background: var(--bg);
+  overflow: hidden;
+  position: relative;
+}
+.card .card-thumb .placeholder { aspect-ratio: 3 / 2; }
+.card.card-deck:hover { outline-color: var(--card-accent, var(--accent)); }
+/* The code chip reads in its subsystem's own colour — the same accent the card
+   prints it in — so a scan down the grid tracks the deck's structure. */
+.card.card-deck .label .dir { color: var(--card-accent, var(--text-2)); font-weight: 600; }
+
+/* Assembly card in the modal. Same paper surround as the thumbnail: the card
+   owns every pixel inside the frame, PanZoom scales it, and the wrapper just
+   provides the dark stage it floats on. */
+.card-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  touch-action: none;
+}
+
 /* PCB board thumbnail in card. The view SVG carries its own FR4 background
    and copper colours, so — unlike line-art — we don't recolor strokes; we
    just scale it to fit. The dark thumb background matches the board

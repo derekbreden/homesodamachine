@@ -2,7 +2,8 @@ import express from "express";
 import path from "path";
 import fs from "fs";
 
-import { walkFiles, walkFilesUnderDir, walkPcbBoards } from "./walk.js";
+import { walkFiles, walkFilesUnderDir, walkPcbBoards, walkAssemblyCards } from "./walk.js";
+import { isCardAssetPath } from "../contracts/cards.js";
 import { VIEW_REQUEST_RE, PICKS_REQUEST_RE } from "../contracts/pcb-out.js";
 import { sidecarFields } from "../contracts/sidecar.js";
 import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
@@ -78,6 +79,40 @@ export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
   // PCB boards with their three rendered copper views (see walkPcbBoards).
   app.get("/api/pcb", (req, res) => {
     res.json(walkPcbBoards(rootFor(req)));
+  });
+
+  // Assembly instruction cards: the printable 4×6 deck under assembly/cards/,
+  // in deck order, each with the code / title / subsystem it prints on itself
+  // (see walkAssemblyCards). The cards are authored HTML, not a generated
+  // artifact, so this list is exactly what's on disk right now — a card added
+  // to the deck appears on the next list with no build step.
+  app.get("/api/cards", (req, res) => {
+    res.set("Cache-Control", "no-cache");
+    res.json(walkAssemblyCards(rootFor(req)));
+  });
+
+  // Card assets — the page itself plus the shared stylesheet and the renders it
+  // embeds. The viewer loads a card into an iframe at this URL, so the card's
+  // own relative `style.css` and `img/…` references resolve against it and the
+  // browser lays the card out exactly as the print renderer does. Confined to
+  // the deck directory and the asset types a card can reference; build
+  // machinery in the same folder stays unreachable.
+  app.get("/cards/*", (req, res) => {
+    const rel = req.params[0];
+    if (!isCardAssetPath(rel)) return res.status(400).send("Not a card asset");
+    const rootDir = rootFor(req);
+    const abs = path.join(rootDir, rel);
+    if (!abs.startsWith(rootDir + path.sep)) return res.status(400).send("Invalid path");
+    if (!fs.existsSync(abs)) return res.status(404).send("Not found");
+    // Cards are edited live while the deck is being written; revalidate so a
+    // reload never shows a stale card (same reasoning as the drawing and PCB
+    // content routes above).
+    res.set("Cache-Control", "no-cache");
+    res.type(path.extname(abs)).sendFile(abs, (err) => {
+      if (!err || res.headersSent) return;
+      if (err.code === "ENOENT" || err.status === 404) return res.status(404).send("Not found");
+      res.status(500).send("File send error");
+    });
   });
 
   app.get("/api/dxf", (req, res) => {
