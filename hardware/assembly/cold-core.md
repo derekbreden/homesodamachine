@@ -51,7 +51,7 @@ Dev-phase summary: [`/hardware/handwork.md`](/hardware/assembly/handwork.md) "Be
 
 ### 2. Cap foam pour (top and bottom, in parallel)
 
-Each cap is a [16 mm](CAP_H)-tall foam-filled cup. With the cap inverted and the foam-cap-lid sealing its open face from above, liquid foam enters through the lid's Ø[20 mm](POUR_D) pour hole; air escapes through two Ø[6 mm](VENT_D) vents. Foam expands to fill and cures. Trim flush after cure.
+Each cap is a [16 mm](CAP_H)-tall foam-filled cup. With the cap inverted and the foam-cap-lid sealing its open face from above, liquid foam enters through the lid's Ø[20 mm](POUR_D) pour hole; air escapes through two Ø[6 mm](LID_VENT_D) vents. Foam expands to fill and cures. Trim flush after cure.
 
 Both caps are identical; pour in parallel. Geometry detail at [`/hardware/printed-parts/cold-core/foam-cap/foam_cap.py`](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py).
 

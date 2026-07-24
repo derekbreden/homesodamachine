@@ -10,9 +10,9 @@ Built from simple primitives, fused into one solid:
 
 | Primitive | Size (X × Y × Z) | Part |
 |---|---|---|
-| 5 cyl + box | ⌀[32.25](BODY_DIA) boss (Z [6](BOSS_Z0)→[30.6](BODY_TOP_Z)) + 4× ⌀[6.8](POST_DIA) corners (Z 0→[30.6](BODY_TOP_Z)) + [34.25](TOP_BOX_X)×[32.25](BODY_DIA)×[5](TOP_BOX_H) top box (Z [25.6](TOP_BOX_Z0)→[30.6](BODY_TOP_Z)) | white valve body (fluid section) |
-| Box | [32.25](BODY_DIA) × [24](COIL_DEPTH) × [26](COIL_H) | solenoid coil (electrical section) |
-| Cylinder | ⌀[15](PORT_DIA) × [59](PORT_LEN), axis ∥ Y | port / tube-flow axis (two QC collets) |
+| 5 cyl + box | ⌀[32.25](SOLENOID_BODY_DIA) boss (Z [6](BOSS_Z0)→[30.6](BODY_TOP_Z)) + 4× ⌀[6.8](POST_DIA) corners (Z 0→[30.6](BODY_TOP_Z)) + [34.25](TOP_BOX_X)×[32.25](SOLENOID_BODY_DIA)×[5](TOP_BOX_H) top box (Z [25.6](TOP_BOX_Z0)→[30.6](BODY_TOP_Z)) | white valve body (fluid section) |
+| Box | [32.25](SOLENOID_BODY_DIA) × [24](COIL_DEPTH) × [26](COIL_H) | solenoid coil (electrical section) |
+| Cylinder | ⌀[15](SOLENOID_PORT_DIA) × [59](PORT_LEN), axis ∥ Y | port / tube-flow axis (two QC collets) |
 | 2× box | [6.3](SPADE_W) × [15](SPADE_LEN) × [0.8](SPADE_T) each | spade terminals (off the coil's +Y face) |
 
 ## Coordinate convention
@@ -26,14 +26,14 @@ surface (bottom of the white body) sits at Z = 0.
 
 ## Arrangement
 
-- The white body is a central round boss (⌀[32.25](BODY_DIA), Z [6](BOSS_Z0) → [30.6](BODY_TOP_Z)) inscribed in
+- The white body is a central round boss (⌀[32.25](SOLENOID_BODY_DIA), Z [6](BOSS_Z0) → [30.6](BODY_TOP_Z)) inscribed in
   the square footprint, plus four corner bosses (⌀[6.8](POST_DIA)) running the full
   Z 0 → [30.6](BODY_TOP_Z), tucked inside the footprint corners. The bottom [6](BOSS_Z0) mm
-  is just the four posts. A [5](TOP_BOX_H) mm box ([34.25](TOP_BOX_X) × [32.25](BODY_DIA), Z [25.6](TOP_BOX_Z0) → [30.6](BODY_TOP_Z))
+  is just the four posts. A [5](TOP_BOX_H) mm box ([34.25](TOP_BOX_X) × [32.25](SOLENOID_BODY_DIA), Z [25.6](TOP_BOX_Z0) → [30.6](BODY_TOP_Z))
   caps the top, filling the footprint corners just under the coil.
 - The solenoid coil is centered on top of the body in X and Y, from
   Z = [30.6](BODY_TOP_Z) to Z = [56.6](COIL_TOP) — a T-profile, symmetric in X. The coil is
-  shallower in Y than the body ([24](COIL_DEPTH) vs. [32.25](BODY_DIA)), so the body steps out as
+  shallower in Y than the body ([24](COIL_DEPTH) vs. [32.25](SOLENOID_BODY_DIA)), so the body steps out as
   a ledge below it.
 - The port cylinder runs along Y through the body, centered in X, 4 mm
   below the body's mid-height, overhanging the body by ~13.4 mm each

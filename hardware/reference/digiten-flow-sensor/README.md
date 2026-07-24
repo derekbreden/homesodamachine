@@ -14,8 +14,8 @@ exits the collet straight across the body. An **inline** (straight-through,
 
 | Piece | Size | Part |
 |---|---|---|
-| Disk | Ø[26](BODY_DIA) × [22](BODY_LEN) deep | body — round rotor housing carrying the rotor and Hall sensor |
-| 2× barrel | Ø[12](PORT_DIA) collet, face [30](PORT_FACE) from center | quick-connect ports, coaxial on opposite rims (one +X, one −X) |
+| Disk | Ø[26](FLOW_BODY_DIA) × [22](BODY_LEN) deep | body — round rotor housing carrying the rotor and Hall sensor |
+| 2× barrel | Ø[12](FLOW_PORT_DIA) collet, face [30](PORT_FACE) from center | quick-connect ports, coaxial on opposite rims (one +X, one −X) |
 | Stub | Ø[8](WIRE_BOSS_DIA) × [3](WIRE_BOSS_LEN) proud | wire-exit boss where the 3-wire pigtail leaves the rim |
 
 The ports are 1/4" push-to-connect as sold — a 1/4" OD tube pushes in past the
@@ -35,7 +35,7 @@ axis on a JST-XH 2.54 3-pin connector.
 Origin is the body center: the two ports run out along ±X, and the wire-exit
 boss leaves +Z off the rim.
 
-Overall envelope: a round body Ø[26](BODY_DIA) with two ports reaching
+Overall envelope: a round body Ø[26](FLOW_BODY_DIA) with two ports reaching
 [30](PORT_FACE) along ±X (60 mm tip to tip).
 
 ## Measured vs estimated

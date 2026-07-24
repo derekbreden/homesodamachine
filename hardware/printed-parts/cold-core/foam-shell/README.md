@@ -186,7 +186,7 @@ through the pour and vent holes in the lid.
 The `foam_cap_lid` is a flat [2 mm](FSHELL_WALL_T) plate matching the same
 outer footprint, covering a cap's open mouth during its foam pour. It
 has the pour hole (Ø [20 mm](POUR_D)) and two vent holes
-(Ø [6 mm](VENT_D)).
+(Ø [6 mm](LID_VENT_D)).
 
 Both the cap and the lid carry the **same six ⌀[8 mm](BOSS_D) bosses with
 teardrop corner-fill webs** as the outer shell (built from the one shared
