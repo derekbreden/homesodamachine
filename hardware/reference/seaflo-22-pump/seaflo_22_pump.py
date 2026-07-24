@@ -40,8 +40,7 @@ PORT_Z = BASE_T + HEAD_H / 2.0                 # both ports at the head's mid-he
 
 def suction():
     """The 3/8" hose-barb the supply line slips over: (position, outward axis).
-    The casting marks IN and OUT; the two barbs are the same fitting on the same
-    face, so which one this is falls out of how the pump is turned in its bay."""
+    The casting marks IN and OUT."""
     return (PORT_TIP_X, -PORT_Y, PORT_Z), (-1.0, 0.0, 0.0)
 
 

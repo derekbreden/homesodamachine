@@ -102,24 +102,23 @@ Strata, floor to ceiling:
              the source-select east bank. The funnel's centred drain
              hangs over the row with the stack's whole height below it
              before segment 4 reaches V-B-I. Holders TBD (held).
-  * Zone B (the band above the cold core): the electronics shelf lying
-             flat on the foam-cap top in the band's front half — power
-             assembly at −X, PCBA at +X, the DC distribution block behind
-             the power row — leaving the CO2 top entry in open air ahead
-             of it; the rear half open for the panel bodies reaching in
-             from the rear wall (the umbilical triangle, the tap-water
-             bulkhead, and the C14) and the riser traffic crossing to
-             them. In the strip between the shelf's back edge and those
-             bodies, the ASSE 1022 assembly lies along X above the cap,
-             yawed so its 1/4" PTC inlet faces EAST at the water bulkhead
-             it protects — segment water-1, a pigtail off the wall and back
-             into that collet — and its 3/8" barb WEST into the strip's
-             open end for the SeaFlo suction. Its atmospheric vent is
-             rolled to face −Y, reaching forward out of the strip: the drip
-             falls off that tip onto the foam-cap top, where the pan +
-             moisture plate sit, and the band beneath the body is left open
-             for them and for the C14's cordage crossing forward to the AC
-             hub.
+  * Zone B (the band above the cold core): the WATER DECK on the foam-cap
+             top. The SeaFlo takes the band's west half at the bay's full
+             height, motor axis along X, base flat on the cap, its head's
+             two barbs facing EAST — leaving the CO2 top entry in open air
+             ahead of it. In the strip behind it the ASSE 1022 assembly
+             lies along X, its 1/4" PTC inlet WEST at the tap-water
+             bulkhead it protects (segment water-1, one corner between the
+             two collets) and its 3/8" barb EAST onto the silicone run to
+             the tap point. Its atmospheric vent hangs in its native pose:
+             the drip falls straight down its own column to the foam-cap
+             top, where the pan + moisture plate sit, and the band beneath
+             the body is left open for them. The tap point stands in the
+             east strip between chain and pump, branch laid horizontal on
+             −X. The rear half of the band stays open for the panel bodies
+             reaching in from the wall (the umbilical triangle, the
+             tap-water bulkhead, and the C14 in the west corner) and the
+             riser traffic crossing to them.
   * Zone C top: the top wall right of the display is one open rectangle
              cut at the placed funnel's collar (enclosure.py
              `_hopper_hole` reads FUNNEL_CX/CY + the funnel's own dims) —
@@ -148,6 +147,9 @@ for _p in (_hw / "scripts", _repo / "tools", _hw / "reference" / "beduan-solenoi
            _hw / "reference" / "asse1022-assembly", _hw / "reference" / "multiplex-asse1022",
            _hw / "reference" / "gagira-reducing-coupling", _hw / "reference" / "jg-pp010822e",
            _hw / "reference" / "ffl38barb38",
+           _hw / "reference" / "tap-point-assembly", _hw / "reference" / "basics-mtb-0606wp",
+           _hw / "reference" / "jg-pp451223w", _hw / "reference" / "jg-pp061208w",
+           _hw / "reference" / "seaflo-22-pump",
            _hw / "printed-parts" / "enclosure" / "enclosure"):    # `enclosure`, imported in placed_funnel
     sys.path.insert(0, str(_p))
 import _boxes                            # noqa: E402
@@ -155,6 +157,8 @@ import bag_circuit_tray as _bag          # noqa: E402
 import source_select_tray as _src        # noqa: E402
 import nozzle_gate_tray as _noz          # noqa: E402
 import asse1022_assembly as _bfp         # noqa: E402  — its three terminals, carried to world
+import tap_point_assembly as _tap        # noqa: E402  — its three terminals, the same way
+import seaflo_22_pump as _seaflo         # noqa: E402  — its two head barbs
 
 
 # --- Source STEPs ---------------------------------------------------------
@@ -189,6 +193,10 @@ IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
 # deck's floor plan. Its own frame is +X = motor axis, the head at −X carrying
 # both 3/8" barbs on that face (reference/seaflo-22-pump).
 SEAFLO_STEP    = _hw / "reference" / "seaflo-22-pump" / "seaflo-22-pump.step"
+# The tap point as one piece: MTB-0606WP barb tee + PP451223W + PP061208W. Its own
+# frame is the tee's run along ±X with the branch climbing +Z
+# (reference/tap-point-assembly).
+TAP_POINT_STEP = _hw / "reference" / "tap-point-assembly" / "tap-point-assembly.step"
 
 # --- Primitive dimensions + placement anchors ----------------------------
 # Condenser+fan and the SeaFlo pump are packed as primitive boxes (dimensions
@@ -205,50 +213,31 @@ SEAFLO_STEP    = _hw / "reference" / "seaflo-22-pump" / "seaflo-22-pump.step"
 # stratum stays open. The airflow axis rides the tip unchanged: the fan +
 # finstack stack depth, calipered [56 mm](CONDENSER_AIRFLOW) combined, along X.
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
-# The SeaFlo's SW corner in plan; its base rides the foam cap at STACK_GAP. The
-# pump is the service bay's floor plan rather than a body fitted into it: at 74 mm
-# it takes all but a few of the bay's clear height, so nothing shares its column,
-# and its 188 mm motor axis has to lie along X — the bay is 184 deep and 78 tall,
-# and every other orientation is longer than one of those. The head is at −X, so
-# both barbs face west into the channel the ASSE chain and the tap point stand in.
-SEAFLO_POS = (95.0, 232.0)
-# The ASSE 1022 assembly lies along X in the SERVICE BAY'S AFT STRIP — the span
-# between the electronics shelf's back edge and the rear-panel bodies reaching in
-# from the wall, over the foam-cap top. It is the first component on the water
-# path, and it stands at the rear-panel water bulkhead: the chain's inlet is one
-# pigtail off the bulkhead's inboard mouth, and everything downstream of the body
-# is protected line.
-#   * X — the body reaches x 42.5 → 166. Its EAST end is the 1/4" PTC inlet at
-#     (166, 341, 305), facing +X with 25.9 mm of open strip between it and
-#     fluid-28's aft leg at x 191.9 — the room water-1 turns back west in. Its WEST
-#     end is the 3/8" barb, with the strip's open end ahead of it — 56.5 mm to the
-#     −X interior wall, no body between — for the stiff silicone to turn in on its
-#     way to the SeaFlo.
-#   * Y — in the strip: 4.71 mm off the C14, 10.1 mm off the water bulkhead itself,
-#     the shelf row ahead and the wall behind. Behind the bulkhead's own mouth the
-#     chain narrows to the GAGIRA coupling, leaving 11.25 mm of straight run off
-#     that collet before contact — the band water-1 turns east in.
-#   * Z — the body's underside rides 35.1 mm over the foam-cap top. The band under
-#     it is the drip pan's, and the C14's cordage crosses it going forward to the
-#     AC hub.
-# The vent is the pose (reference/asse1022-assembly README): laid over to −Y, the
-# stub reaches forward to a tip at (98, 312, 305) and the drip falls 51.6 mm from
-# there onto the foam-cap top, clear of every body between (scorecard's `fall`
-# rule). The column stands 4 mm back from the electronics shelf's rear edge, with a
-# 70 × 50 footprint on the cap under it for the pan + its moisture plate. Nothing
-# may be packed under it, and VENT_STUB_REACH is cut to the room the strip leaves.
-#   PROVISIONAL on two counts: the pack is sparse (the rest of the water deck, the
-# flow sensor, the CO2 chain and every holder are still unplaced), so a strip that
-# reads clear today is clear of very little; and the chain's 123.5 × 33 × 43.3 comes
-# from the reference model, which divides the Multiplex spec sheet rather than
-# measuring the four parts on the shelf. Both will move this.
-ASSE1022_POS = (130.0, 314.0, 305.0)
-# The pose, applied in this order before the translation: a yaw about Z that swaps
-# the chain's ends, then a roll about X that carries the vent from −Z to −Y. The
-# stub therefore reaches FORWARD out of the strip, and the drip falls from its tip
-# through open air to the cap.
-ASSE1022_YAW = 180.0
-ASSE1022_ROLL = -90.0
+# The SeaFlo lies motor-axis along X across the service bay's west half, its base
+# flat on the foam cap, the head's two barbs facing east: the suction across the bay
+# to the tap point, the discharge onto its run down to the cold core's water-in. It
+# stands the bay's full height, and its plan is the deck's floor plan — the ASSE
+# chain, the tap point and the pan take the strip east and the strip aft of it.
+SEAFLO_YAW = 180.0
+SEAFLO_POS = (92.0, 277.0)   # plan; its Z is the cap
+# The ASSE 1022 chain lies along +X in the service bay's AFT STRIP, over the
+# foam-cap top and behind the pump. Flow runs west to east: the 1/4" PTC inlet at
+# the west end takes its pigtail off the rear-panel water bulkhead, and the 3/8"
+# barb at the east end starts the silicone run to the tap point. The vent hangs in
+# its native pose, weeping straight down its own column onto the pan on the cap.
+#   PROVISIONAL: the chain's envelope comes from the reference model, which divides
+# the Multiplex spec sheet rather than measuring the five parts on the shelf.
+ASSE1022_POS = (102.0, 345.5, 287.0)
+ASSE1022_YAW = 0.0
+ASSE1022_ROLL = 0.0
+# The tap point stands in the east strip, its run along Y so both hose legs face
+# along the strip, its branch laid horizontal on −X — the 1/4" collet looking west
+# into the channel between the strip and the pump, where the flow regulator rides
+# the run down to the manifold's V-A.
+TAP_POINT_ROLL = -90.0
+TAP_POINT_YAW = 90.0
+TAP_POINT_POS = (274.5, 277.0,
+                 ASSE1022_POS[2] + _bfp.hose_out()[0][2])   # its run on the chain's barb height
 # The funnel's placement: its collar-rect centre in plan, plus a rotation
 # about its own Z. This is the CENTRE OF THE TOP-WALL FRAME — the basin sits
 # the same `hopper_funnel.brim_margin` off the display gusset, the corner pod,
@@ -406,6 +395,47 @@ def bfp_terminal(name):
             (0.0, -1.0, 0.0): "y-", (0.0, 0.0, -1.0): "z-"}[
         tuple(round(float(c), 9) + 0.0 for c in axis)]
     return tuple(p + o for p, o in zip(pos, ASSE1022_POS)), face
+
+
+def tap_terminal(name):
+    """One of the tap point's three terminals in world: `(pos, face)`.
+
+    The reference module owns each station — `hose_a` and `hose_b` at the tee's two
+    barb tips, `tube_out` at the reducer's 1/4" collet — and this carries them through
+    the same roll + yaw + translation the solid takes, in that order, so a length
+    changed anywhere in that stack moves the world port with it."""
+    pos, axis = {"hose-a": _tap.hose_a, "hose-b": _tap.hose_b,
+                 "tube-out": _tap.tube_out}[name]()
+    for turn in (lambda v: _roll_x(v, TAP_POINT_ROLL), lambda v: _yaw_z(v, TAP_POINT_YAW)):
+        pos, axis = turn(pos), turn(axis)
+    face = {(-1.0, 0.0, 0.0): "x-", (1.0, 0.0, 0.0): "x+", (0.0, 1.0, 0.0): "y+",
+            (0.0, -1.0, 0.0): "y-", (0.0, 0.0, 1.0): "z+", (0.0, 0.0, -1.0): "z-"}[
+        tuple(round(float(c), 9) + 0.0 for c in axis)]
+    return tuple(p + o for p, o in zip(pos, TAP_POINT_POS)), face
+
+
+_FOAM_TOP_CACHE = None
+
+
+def foam_cap_top():
+    """The foam cap's top face — the water deck's floor, and the Z the pump's base
+    sits on."""
+    global _FOAM_TOP_CACHE
+    if _FOAM_TOP_CACHE is None:
+        _FOAM_TOP_CACHE = _load(FOAM_ASSEMBLY).BoundingBox().zlen
+    return _FOAM_TOP_CACHE
+
+
+def seaflo_terminal(name):
+    """One of the SeaFlo's two head barbs in world: `(pos, face)`. Both leave the
+    head's own −X face, so the yaw that turns the pump turns them with it."""
+    pos, axis = {"suction": _seaflo.suction, "discharge": _seaflo.discharge}[name]()
+    pos, axis = _yaw_z(pos, SEAFLO_YAW), _yaw_z(axis, SEAFLO_YAW)
+    face = {(-1.0, 0.0, 0.0): "x-", (1.0, 0.0, 0.0): "x+", (0.0, 1.0, 0.0): "y+",
+            (0.0, -1.0, 0.0): "y-", (0.0, 0.0, 1.0): "z+", (0.0, 0.0, -1.0): "z-"}[
+        tuple(round(float(c), 9) + 0.0 for c in axis)]
+    origin = (SEAFLO_POS[0], SEAFLO_POS[1], foam_cap_top())
+    return tuple(p + o for p, o in zip(pos, origin)), face
 
 
 def _yaw_z(v, deg):
@@ -598,8 +628,9 @@ UMBILICAL_Z_FLOOR = 281.0    # lowest bulkhead-nut edge: the rear Z-seam lip ban
 # the AC hub), then the tap-water bulkhead, then the umbilical triangle —
 # every body hangs in the band's open rear half, behind the shelf row.
 UMBILICAL_X = 210.0          # triangle column center
-WATER_BACK_X = 145.0
-WATER_BACK_Z = 293.0         # nut rides just above the rear Z-seam lip band
+WATER_BACK_X = 56.0          # west of the umbilical, on the ASSE chain's inlet end
+# On the chain's inlet height, so the pigtail turns one corner between the two collets.
+WATER_BACK_Z = ASSE1022_POS[2] + _bfp.tube_in()[0][2]
 # The C14 stands in the panel's WEST corner, clear of the umbilical's field and of
 # the water deck's x-span. Its cordage drops the rear wall and runs forward along
 # the west wall to the AC hub, so it crosses neither the ASSE 1022's drip column
@@ -643,6 +674,7 @@ COLORS = {
     "elbow-noz-a":       cq.Color(0.85, 0.85, 0.88),
     "elbow-noz-b":       cq.Color(0.85, 0.85, 0.88),
     "seaflo-pump":       cq.Color(0.32, 0.38, 0.46),
+    "tap-point-assembly": cq.Color(0.88, 0.89, 0.91),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "dc-dist":           cq.Color(0.20, 0.20, 0.22),
@@ -1153,19 +1185,19 @@ def _build():
         collet = noz_collet(port)
         placed[name] = _place_elbow(elbow, collet[0], collet[1], OUTLET_FREE, ELBOW_STUB)
 
-    # --- Zone B, the band above the cold core: the WATER DECK. The bay's clear
-    # height is `_dims().inner` top less the foam cap, and the SeaFlo's 74 mm
-    # body claims all but a few of them, so the deck is a single storey and the
-    # bay holds one subsystem. The pump is the floor plan — it has exactly one
-    # pose that fits the envelope, lying with its motor axis along X — and the
-    # ASSE chain, the tap point and the drip pan are laid against it.
+    # --- Zone B, the band above the cold core: the WATER DECK, lying on the
+    # foam-cap top. The pump takes the west half at full bay height; the ASSE
+    # chain runs along the aft strip with its vent weeping down into the pan on
+    # the cap, and the tap point stands in the east strip between them.
     #
-    # The power assembly, the PCBA and the DC block are components without a
-    # station: they are declared in the scorecard's registry and carried in the
-    # BOM, and no plane in this bay is theirs while the pump is in it. Their
-    # STEPs are the three paths above, ready for the deck that takes them.
-    deck_z = foam_top + STACK_GAP
-    placed["seaflo-pump"] = _at(_load(SEAFLO_STEP), SEAFLO_POS[0], SEAFLO_POS[1], deck_z)
+    # The power assembly, the PCBA and the DC block are carried in the BOM and
+    # built as trays; their STEPs are the three paths above, unplaced.
+    placed["seaflo-pump"] = _rot(
+        _load(SEAFLO_STEP), (0, 0, 1), SEAFLO_YAW
+        ).translate((SEAFLO_POS[0], SEAFLO_POS[1], foam_cap_top()))
+    placed["tap-point-assembly"] = _rot(_rot(
+        _load(TAP_POINT_STEP), (1, 0, 0), TAP_POINT_ROLL), (0, 0, 1), TAP_POINT_YAW
+        ).translate(TAP_POINT_POS)
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
 
@@ -1189,6 +1221,19 @@ def front_wall_y():
     panel_bodies() so the DERPIPE seats on the wall the box actually has."""
     placed = build()
     return min(_boxes.boxed(s).ymin for s, _c in placed.values()) - FRONT_STANDOFF
+
+
+# The order back_wall_ports() returns its holes in, and so the order panel_bodies()
+# seats the through-wall bodies in.
+BACK_PORT_ORDER = ("bulkhead-flavor-b", "bulkhead-flavor-a", "bulkhead-carb",
+                   "bulkhead-water", "c14-inlet")
+
+
+def back_port_station(name):
+    """Where a rear-panel body sits on the wall: (x, z), by the name it is seated
+    under. The one reading of a station — the hole, the body and the port share it."""
+    holes = {n: h for n, h in zip(BACK_PORT_ORDER, back_wall_ports())}
+    return holes[name][1], holes[name][2]
 
 
 def back_wall_ports():
@@ -1261,8 +1306,7 @@ def _panel_bodies():
     bodies = {}
 
     jg = _load(JG_BULKHEAD)                        # +Y outward, origin on the panel face
-    names = ["bulkhead-flavor-b", "bulkhead-flavor-a", "bulkhead-carb",
-             "bulkhead-water", "c14-inlet"]
+    names = list(BACK_PORT_ORDER)
     for hole in back_wall_ports():
         kind, hx, hz = hole[0], hole[1], hole[2]
         if kind == "rect":

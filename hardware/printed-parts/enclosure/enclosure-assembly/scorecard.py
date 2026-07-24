@@ -118,7 +118,8 @@ COMPONENTS = [
     _c("mq6-sensor",        "real",        True,  "none", "MQ-6 module STEP (PCB + sensor can + header); floor gas sensor, no mount"),
     # Water deck
     _c("seaflo-pump",       "real",        True,  "none", "SEAFLO 22-series 12 V 1.3 GPM diaphragm pump (reference/seaflo-22-pump); the deck's floor plan — 74 mm of the bay's 78.32 clear height, so its column is its own. Lies motor-axis along X with the head at −X, both 3/8\" barbs facing west into the channel the ASSE chain and the tap point stand in. Isolation mounts to the foam cap TBD"),
-    _c("asse1022-assembly", "real",        True,  "none","Multiplex 19-0897 ASSE 1022 backflow preventer + PP010822E, GAGIRA coupling, FFL38BARB38 and the clear-PVC vent stub as one chain (reference/asse1022-assembly); lies along X in the service bay's aft strip, yawed 180° so its inlet faces east at the rear-panel water bulkhead it protects, rolled −90° so the vent faces −Y and drips forward onto the pan's ground on the foam-cap top, holder TBD"),
+    _c("asse1022-assembly", "real",        True,  "none","Multiplex 19-0897 ASSE 1022 backflow preventer + PP010822E, GAGIRA coupling, FFL38BARB38 and the clear-PVC vent stub as one chain (reference/asse1022-assembly); lies along +X in the service bay's aft strip behind the pump, inlet west on its pigtail off the rear-panel water bulkhead, barb east onto the silicone run to the tap point, vent in its native pose weeping down its own column onto the pan's ground on the foam-cap top, holder TBD"),
+    _c("tap-point-assembly", "real",       True,  "none","Basics MTB-0606WP barb tee + JG PP451223W + JG PP061208W as one piece (reference/tap-point-assembly); tube-hung inline in the 3/8\" silicone between the ASSE chain's barb and the SeaFlo suction, run along Y in the east strip, branch laid horizontal on −X with its 1/4\" collet facing west onto the run to the flow regulator and V-A. Both branch joints made up at the bench; no tray, no holder"),
     # Valve manifold
     _c("source-select-assembly", "real",   True,  "none", "Tray 1 — printed tray + 4 Beduan NC solenoids + 2 PP2308E Y-dividers + 4 outlet elbows (valve-manifold/source-select-tray); floors the stack, plate down and valves up, holder TBD"),
     _c("bag-circuit-assembly",   "real",   True,  "none", "Tray 2 — printed dog-bone tray + 4 Beduan NC solenoids + 2 PP0208E Tees + 2 west outlet elbows (valve-manifold/bag-circuit-tray); rides INVERTED on the source tray's stacking walls, east ports bare, holder TBD"),
@@ -138,9 +139,6 @@ COMPONENTS = [
     _c("elbow-noz-a", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-G-O (east) up out of the +X wall pocket, free leg +Z onto its run aft to bulkhead-flavor-a (segment 18)"),
     _c("elbow-noz-b", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-J-O (east) up out of the +X wall pocket, free leg +Z onto its run aft to bulkhead-flavor-b (segment 28)"),
     # Electronics shelf
-    _c("power-tray",        "real",        True,  "none", "printed tray holds its boards; tray-to-shell joinery deferred (power-tray README)"),
-    _c("pcba",              "real",        True,  "none", "printed tray holds the board; tray-to-shell joinery deferred (pcba-tray README)"),
-    _c("dc-dist",           "real",        True,  "none", "DIN distribution block; no mount modeled"),
     # Rear-panel through-wall bodies — captured by their own flange/nut on the printed wall
     _c("bulkhead-flavor-a", "real",        True,  "wall-capture", "JG bulkhead: rear-wall hole + its own nut"),
     _c("bulkhead-flavor-b", "real",        True,  "wall-capture", "JG bulkhead: rear-wall hole + its own nut"),
@@ -159,9 +157,7 @@ COMPONENTS = [
 # Ratifying this set (and the floor above) is the first directed step.
 TOUCHING_OK = {
     frozenset(p) for p in [
-        ("foam-assembly", "power-tray"),        # electronics shelf on the foam-cap top
-        ("foam-assembly", "pcba"),
-        ("foam-assembly", "dc-dist"),
+        ("foam-assembly", "seaflo-pump"),       # the pump's base flat on the foam-cap top
         # The valve-manifold stack: the source-select tray's floor rests on the
         # bag-circuit tray's column wall tops, one tray pitch apart by design.
         ("source-select-assembly", "bag-circuit-assembly"),
@@ -199,8 +195,9 @@ REFRIGERANT_SEGMENTS = [
 # assembly/internal-plumbing.md §2. The ASSE 1022's vent is not here: it terminates to atmosphere.
 WATER_SEGMENTS = [
     ("water-1", "bulkhead-water tube-in", "asse1022-assembly tube-in (PP010822E → GAGIRA coupling)"),
-    ("water-2", "asse1022-assembly hose-out (FFL38BARB38)", "SeaFlo 22-series suction inlet"),
-    ("water-3", "SeaFlo discharge (MAACFLOW → GASHER check)", "foam-assembly water-in"),
+    ("water-2", "asse1022-assembly hose-out (FFL38BARB38)", "tap-point-assembly hose-b (MTB-0606WP)"),
+    ("water-3", "tap-point-assembly hose-a (MTB-0606WP)", "seaflo-pump suction"),
+    ("water-4", "seaflo-pump discharge (MAACFLOW → GASHER check)", "foam-assembly water-in"),
 ]
 
 
@@ -455,6 +452,13 @@ _FOAM_FACE = contents.FRONT_DEPTH
 _PANEL_OUT = contents._port_frame()[2] + contents.WALL
 _JG_OUT, _JG_IN = 6.5, 27.8   # JG bulkhead union: tube-face reach outboard / inboard of the panel
 _C14_IN = 30.0                # C14 inlet: spade-terminal face inboard of the panel
+# Each rear-panel station as (x, z), read off the hole the wall is cut for, so the hole,
+# the body seated in it and the ports below are the one reading.
+_BACK_A     = contents.back_port_station("bulkhead-flavor-a")
+_BACK_B     = contents.back_port_station("bulkhead-flavor-b")
+_BACK_CARB  = contents.back_port_station("bulkhead-carb")
+_BACK_WATER = contents.back_port_station("bulkhead-water")
+_BACK_C14   = contents.back_port_station("c14-inlet")
 
 PORTS = [
     # foam-assembly — 8 tube penetrations (foam-shell README §Penetrations) + 2 reed-cable exits
@@ -500,15 +504,15 @@ PORTS = [
     # subsystem it feeds). The C14 mains inlet carries one 3-wire harness inboard from the panel
     # cord entry. Each station is a reach off `_PANEL_OUT`, the face `panel_bodies()` seats them
     # on, so the ports ride the wall the box sizes itself to rather than a world Y of their own.
-    _p("tube-out", "bulkhead-flavor-a", "fluid", (224.95, _PANEL_OUT + _JG_OUT, 292.45), "y+", 6.35, "customer flavor A line (rear umbilical)", "JG 1/4\" PTC, outward"),
-    _p("tube-in",  "bulkhead-flavor-a", "fluid", (224.95, _PANEL_OUT - _JG_IN, 292.45), "y-", 6.35, "flavor A internal line (bag/pump circuit A)", "JG 1/4\" PTC, inward"),
-    _p("tube-out", "bulkhead-flavor-b", "fluid", (195.05, _PANEL_OUT + _JG_OUT, 292.45), "y+", 6.35, "customer flavor B line (rear umbilical)", "JG 1/4\" PTC, outward"),
-    _p("tube-in",  "bulkhead-flavor-b", "fluid", (195.05, _PANEL_OUT - _JG_IN, 292.45), "y-", 6.35, "flavor B internal line (bag/pump circuit B)", "JG 1/4\" PTC, inward"),
-    _p("tube-out", "bulkhead-carb", "fluid", (210.0, _PANEL_OUT + _JG_OUT, 318.3), "y+", 6.35, "carbonated-water line (rear umbilical / faucet)", "JG 1/4\" PTC, outward"),
-    _p("tube-in",  "bulkhead-carb", "fluid", (210.0, _PANEL_OUT - _JG_IN, 318.3), "y-", 6.35, "carb-water internal riser (DIGITEN → foam carb-water-out)", "JG 1/4\" PTC, inward"),
-    _p("tube-out", "bulkhead-water", "fluid", (145.0, _PANEL_OUT + _JG_OUT, 293.0), "y+", 6.35, "house tap-water line (rear umbilical)", "JG 1/4\" PTC, outward"),
-    _p("tube-in",  "bulkhead-water", "fluid", (145.0, _PANEL_OUT - _JG_IN, 293.0), "y-", 6.35, "tap-water internal line (to multiplex BFP in)", "JG 1/4\" PTC, inward"),
-    _p("mains-in", "c14-inlet", "electrical", (90.0, _PANEL_OUT - _C14_IN, 295.5), "y-", 8.0, "AC distribution — L/N/E to the electronics shelf", "C14 spade terminals; 3-wire mains harness inboard"),
+    _p("tube-out", "bulkhead-flavor-a", "fluid", (_BACK_A[0], _PANEL_OUT + _JG_OUT, _BACK_A[1]), "y+", 6.35, "customer flavor A line (rear umbilical)", "JG 1/4\" PTC, outward"),
+    _p("tube-in",  "bulkhead-flavor-a", "fluid", (_BACK_A[0], _PANEL_OUT - _JG_IN, _BACK_A[1]), "y-", 6.35, "flavor A internal line (bag/pump circuit A)", "JG 1/4\" PTC, inward"),
+    _p("tube-out", "bulkhead-flavor-b", "fluid", (_BACK_B[0], _PANEL_OUT + _JG_OUT, _BACK_B[1]), "y+", 6.35, "customer flavor B line (rear umbilical)", "JG 1/4\" PTC, outward"),
+    _p("tube-in",  "bulkhead-flavor-b", "fluid", (_BACK_B[0], _PANEL_OUT - _JG_IN, _BACK_B[1]), "y-", 6.35, "flavor B internal line (bag/pump circuit B)", "JG 1/4\" PTC, inward"),
+    _p("tube-out", "bulkhead-carb", "fluid", (_BACK_CARB[0], _PANEL_OUT + _JG_OUT, _BACK_CARB[1]), "y+", 6.35, "carbonated-water line (rear umbilical / faucet)", "JG 1/4\" PTC, outward"),
+    _p("tube-in",  "bulkhead-carb", "fluid", (_BACK_CARB[0], _PANEL_OUT - _JG_IN, _BACK_CARB[1]), "y-", 6.35, "carb-water internal riser (DIGITEN → foam carb-water-out)", "JG 1/4\" PTC, inward"),
+    _p("tube-out", "bulkhead-water", "fluid", (_BACK_WATER[0], _PANEL_OUT + _JG_OUT, _BACK_WATER[1]), "y+", 6.35, "house tap-water line (rear umbilical)", "JG 1/4\" PTC, outward"),
+    _p("tube-in",  "bulkhead-water", "fluid", (_BACK_WATER[0], _PANEL_OUT - _JG_IN, _BACK_WATER[1]), "y-", 6.35, "tap-water internal line (to multiplex BFP in)", "JG 1/4\" PTC, inward"),
+    _p("mains-in", "c14-inlet", "electrical", (_BACK_C14[0], _PANEL_OUT - _C14_IN, _BACK_C14[1] + 0.5), "y-", 8.0, "AC distribution — L/N/E to the electronics shelf", "C14 spade terminals; 3-wire mains harness inboard"),
     # Floor sensor — a single signal header (one cable penetration, not one per conductor).
     # MQ-6 header pins down (−Z) at the board floor — the 4-pin row runs along the
     # PCB's −X edge (x≈103), NOT the board centre, so the port sits on that edge.
@@ -518,9 +522,16 @@ PORTS = [
     # sets where they land, so a length changed in any of its five parts moves them together.
     # The vent is not a connection: it terminates to atmosphere over the drip pan, and plumbing
     # it into anything would destroy the telltale it exists to be (internal-plumbing.md §2).
-    _p("tube-in",  "asse1022-assembly", "fluid", *contents.bfp_terminal("tube-in"),  6.35,  "bulkhead-water tube-in (rear-panel tap-water inlet, via the customer's filter) — segment water-1 (routed)", "JG PP010822E 1/4\" PTC, facing east; water-1 rounds the mouth and closes in from the east"),
-    _p("hose-out", "asse1022-assembly", "fluid", *contents.bfp_terminal("hose-out"), 9.525, "SeaFlo 22-series suction inlet (deferred) — segment water-2; V-A's tap point tees off this hose", "FFL38BARB38 3/8\" barb, facing west into the strip's open end; worm-gear clamp"),
-    _p("vent-tip", "asse1022-assembly", "fluid", *contents.bfp_terminal("vent-tip"), 6.35,  "atmosphere, dripping onto the drip pan + moisture plate (deferred) — never plumbed", "Sealproof 1/4\" ID clear-PVC stub, facing −Y over the foam-cap top; cut to length at the bench"),
+    _p("tube-in",  "asse1022-assembly", "fluid", *contents.bfp_terminal("tube-in"),  6.35,  "bulkhead-water tube-in (rear-panel tap-water inlet, via the customer's filter) — segment water-1 (routed)", "JG PP010822E 1/4\" PTC, facing west; water-1 turns one corner off the bulkhead's collet"),
+    _p("hose-out", "asse1022-assembly", "fluid", *contents.bfp_terminal("hose-out"), 9.525, "tap-point-assembly hose-b — segment water-2 (routed)", "FFL38BARB38 3/8\" barb, facing east down the aft strip; worm-gear clamp"),
+    _p("vent-tip", "asse1022-assembly", "fluid", *contents.bfp_terminal("vent-tip"), 6.35,  "atmosphere, dripping onto the drip pan + moisture plate (deferred) — never plumbed", "Sealproof 1/4\" ID clear-PVC stub, facing −Z over the foam-cap top; cut to length at the bench"),
+    # The tap point — the tee's two barb legs carry the suction line, its branch necks to 1/4".
+    _p("hose-b",   "tap-point-assembly", "fluid", *contents.tap_terminal("hose-b"),  9.525, "asse1022-assembly hose-out — segment water-2 (routed)", "MTB-0606WP 3/8\" barb, facing aft; LOKMAN worm-gear clamp"),
+    _p("hose-a",   "tap-point-assembly", "fluid", *contents.tap_terminal("hose-a"),  9.525, "SeaFlo 22-series suction — segment water-3 (routed)", "MTB-0606WP 3/8\" barb, facing forward; LOKMAN worm-gear clamp"),
+    _p("tube-out", "tap-point-assembly", "fluid", *contents.tap_terminal("tube-out"), 6.35, "flow regulator inlet (deferred) → V-A — fluid segment 1", "JG PP061208W 1/4\" PTC, facing west into the channel off the pump"),
+    # The SeaFlo's two head barbs, on its −X face before the yaw turns them east.
+    _p("suction",  "seaflo-pump", "fluid", *contents.seaflo_terminal("suction"),   9.525, "tap-point-assembly hose-a — segment water-3 (routed)", "3/8\" hose barb on the head, facing east; worm-gear clamp"),
+    _p("discharge","seaflo-pump", "fluid", *contents.seaflo_terminal("discharge"), 9.525, "foam-assembly water-in via the MAACFLOW → GASHER check (deferred) — segment water-4", "3/8\" hose barb on the head, facing east; worm-gear clamp"),
     # Hopper funnel — the removable silicone basin's single drain: the spout-tube exit annulus,
     # feeding V-B by tube (segment 4). Defined in the funnel's own frame
     # (hopper_funnel.drain_local = (neck_dx, 0, −drop)) carried through the placement's
