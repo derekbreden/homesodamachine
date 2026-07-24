@@ -25,7 +25,7 @@ intact (mirrors `faucet/touch-flo-shell`).
 ## Test-print coupon
 
 It exports those same five files a second time as `enclosure-coupon-*.step` —
-the whole four-piece assembly shrunk to a [268 × 140 × 153 mm](COUPON_SIZE)
+the whole four-piece assembly shrunk to a [159 × 140 × 153 mm](COUPON_SIZE)
 box, printable in an evening, to prove the fit before the real one is
 committed. It is the same geometry from the same code: only the numbers
 describing the box differ, so a coupon that assembles is evidence about the
@@ -33,14 +33,17 @@ appliance and not about a second model of it.
 
 Everything the assembly is judged on is on it at **full size** — the display
 housing, all three seams with their full six-level ladder of cross-pins, and
-the rear port cluster, which moves as one rigid body (down by the back seam's
-own drop, so it keeps its exact stance on that lip band; across to centre in
-the narrower wall) and therefore keeps every real spacing: nut to nut, nut to
-lip band, flange to corner chain.
+the rear port cluster. That cluster drops as one rigid body (down by the back
+seam's own drop, so it keeps its exact stance on that lip band), but in X it is
+**packed to what it occupies** — every real spacing kept, the appliance's wide
+dead wall between distant ports closed — then centred. So it still keeps every
+spacing that matters: nut to nut, nut to lip band, flange to corner chain; only
+the empty wall between independent ports is dropped, and the coupon is that much
+narrower for it (the box's width in X, not the appliance's core-driven span).
 
 No dimension of it is chosen. Each is the minimum its own feature allows — the
 depth is the display housing plus the back column's two Z-seam stations, the
-width is the port cluster with a corner chain either side, the height is the
+width is the packed port cluster with a corner chain either side, the height is the
 cross-pin ladder raised to clear the ports — so the coupon shrinks and grows
 with the features rather than drifting from them.
 

@@ -1285,6 +1285,12 @@ def _z_pod_cuts(x_in, x_ext, sx, ys, zj):
 # No dimension below is chosen. Each is the minimum its own feature allows, so
 # the coupon shrinks and grows with the features rather than drifting from them.
 coupon_margin = 2.0        # clear air wherever a coupon dimension is a minimum
+# The most X the coupon leaves between two INDEPENDENT rear ports. The cluster is
+# carried to prove each port fits its frame — nut to nut, flange to corner chain,
+# nut to lip band — not to reproduce the appliance's core-driven spread, whose
+# wide dead wall between distant ports proves nothing and only makes the coupon
+# wider. Real adjacencies tighter than this are kept; any gap wider closes to it.
+coupon_port_gap = 8.0
 
 
 def _level_pitch():
@@ -1308,6 +1314,35 @@ def _port_field(ports):
     return min(xs), max(xs), min(zs), max(zs)
 
 
+def _compact_ports(ports):
+    """The rear ports repacked in X to what they OCCUPY, so the coupon is only as
+    wide as the ports need — not as wide as the appliance spreads them.
+
+    In the appliance the back wall is the cold core's width and the ports sit
+    where their runs land, which leaves wide dead wall between distant ones (the
+    left mains/water pair and the right carb/flavour trio, ~116 mm of nothing
+    between). The coupon carries the cluster only to prove each port clears its
+    neighbours, the corner chains and the lip band — a claim the dead wall does
+    not enter — so it keeps the ports' order and every real (binding) X gap but
+    closes any gap wider than `coupon_port_gap` to that value. Z is untouched, so
+    every height relationship (the cluster riding the back seam's lip band) holds.
+
+    Returns (packed, span): the ports with new cx in a [0, span] frame, and the
+    packed cluster's footprint width."""
+    order = sorted(range(len(ports)), key=lambda i: ports[i][1])
+    packed = list(ports)
+    cursor = 0.0
+    prev_right = None
+    for i in order:
+        w, _h = _contents.port_footprint(ports[i])
+        orig_left = ports[i][1] - w / 2.0
+        left = 0.0 if prev_right is None else cursor + min(orig_left - prev_right, coupon_port_gap)
+        packed[i] = (ports[i][0], left + w / 2.0, ports[i][2]) + tuple(ports[i][3:])
+        cursor = left + w
+        prev_right = ports[i][1] + w / 2.0
+    return packed, cursor
+
+
 def coupon_box():
     """The coupon's Box — every number a minimum, derived from the feature that
     sets it.
@@ -1318,18 +1353,21 @@ def coupon_box():
     apart that their pods do not merge into one blob.
 
     WIDTH is the wider of two floors — the facet flush to the −X edge, its end
-    wall, and the +X corner chain beyond them; or the rear port cluster with a
-    corner chain either side of it.
+    wall, and the +X corner chain beyond them; or the rear ports PACKED to what
+    they occupy (`_compact_ports`), with a corner chain either side.
 
     HEIGHT is the cross-pin ladder up the Y seam — a level over the floor, one
     under each Z seam, one over each lip rim, one under the ceiling, each a
     clear pitch from the last — raised, if the ports want more, to clear the
     cluster the back seam's lip band carries.
 
-    The ports are the real ones, moved as ONE rigid cluster: down by the back
-    seam's own drop, so the field keeps its exact stance on that lip band, and
-    across to sit centred in the narrower wall. Every spacing that matters —
-    nut to nut, nut to lip band, flange to wall — is therefore the real one."""
+    The ports are the real ones. In Z they move as one rigid body — down by the
+    back seam's own drop — so the field keeps its exact stance on that lip band.
+    In X they are packed to what they occupy: every real spacing kept, the
+    appliance's dead wall between distant ports closed, then the packed cluster
+    centred. Every spacing that matters — nut to nut, nut to lip band, flange to
+    wall — is therefore the real one; only the empty wall between independent
+    ports is not, and the coupon has no reason to carry it."""
     r = socket_bore_dia / 2.0
     pitch = _level_pitch()
     ix0 = iy0 = iz0 = 0.0
@@ -1348,11 +1386,12 @@ def coupon_box():
 
     # Width. The facet runs display_facet_x from the −X exterior and its end
     # wall closes it one `wall` on; the +X corner chain starts beyond that. The
-    # port field needs a chain's width and a margin clear at BOTH walls.
+    # packed port cluster needs a chain's width and a margin clear at BOTH walls.
     ports = _contents.back_wall_ports()
-    px0, px1, _pz0, pz1 = _port_field(ports)
+    _px0, _px1, _pz0, pz1 = _port_field(ports)          # pz1 for the ceiling below
+    packed, pspan = _compact_ports(ports)
     ix1 = ix0 + max(display_facet_x + coupon_margin + boss_in,
-                    (px1 - px0) + 2.0 * (boss_in + coupon_margin))
+                    pspan + 2.0 * (boss_in + coupon_margin))
 
     # Height. Each seam sits a pitch's worth of ladder above the last rung:
     # floor level → front seam → its lip rim → back seam → its lip rim →
@@ -1367,11 +1406,11 @@ def coupon_box():
               pz1 + dz + coupon_margin,
               zjf + lip_len + coupon_margin + facet_dz - wall)
 
-    dx = (ix0 + ix1) / 2.0 - (px0 + px1) / 2.0     # centred in the narrower wall
+    dx = (ix0 + ix1) / 2.0 - pspan / 2.0           # packed cluster centred in the wall
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
     return Box(inner, outer, y_joint, (zjf, zjb), (),
-               [(h[0], h[1] + dx, h[2] + dz) + tuple(h[3:]) for h in ports], False)
+               [(h[0], h[1] + dx, h[2] + dz) + tuple(h[3:]) for h in packed], False)
 
 
 def build_front_half(box):
