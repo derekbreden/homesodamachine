@@ -54,6 +54,7 @@ from OCP.BRepExtrema import BRepExtrema_DistShapeShape
 
 _HW = next(p for p in Path(__file__).resolve().parents if p.name == "hardware")
 _ENCLOSURE = _HW / "printed-parts" / "enclosure" / "enclosure-assembly"
+_BOX = _HW / "printed-parts" / "enclosure" / "enclosure"        # `enclosure` — the box itself
 
 VOL_TOL = 1e-6          # mm³ below which an intersection is contact noise, not overlap
 TUBE_OD = 6.35          # 1/4" LLDPE, the default probe diameter
@@ -354,9 +355,77 @@ def unblocked(rows) -> list:
     return [(v, r) for v, r in rows if isinstance(r, Contact) and not r.blocked]
 
 
+# --- sweeping a design constant -------------------------------------------
+
+@dataclass
+class Rebuild:
+    """One value of a swept constant and what building at it produced."""
+
+    value: object
+    result: object = None
+    error: str | None = None
+
+    @property
+    def built(self) -> bool:
+        return self.error is None
+
+    def __str__(self) -> str:
+        return f"{self.value}: {self.error if self.error else 'built'}"
+
+
+def rebuild_sweep(module, attr: str, values, build, label: str = None) -> list:
+    """Set `module.attr` to each value, call `build()`, and collect what it returns.
+
+    `sweep` asks a question of one placed world; this one rebuilds the world per value —
+    the parameter is a constant the geometry is generated from, not an argument to a query.
+    The attribute is restored however the sweep ends, and a value whose build raises is kept
+    as its error rather than stopping the run.
+
+    Reads a constant the pack is built from (rather than the box around it) and the memoized
+    `_contents.build()` will hand back the pack from before the change — call
+    `world(reload=True)` after, or sweep in a fresh process."""
+    label = label or f"{module.__name__}.{attr}"
+    original = getattr(module, attr)
+    out = []
+    try:
+        for v in values:
+            setattr(module, attr, v)
+            try:
+                row = Rebuild(v, build())
+            except Exception as exc:                    # a value that will not build is a result
+                row = Rebuild(v, None, f"{type(exc).__name__}: {exc}")
+            out.append(row)
+            print(f"{label} = {v!r:>10}  {'built' if row.built else row.error}")
+    finally:
+        setattr(module, attr, original)
+    return out
+
+
+def bed_fit(pieces: dict, bed=None) -> list:
+    """Each printed piece against the print bed, through the scorecard's own check:
+    `(name, xlen, ylen, zlen, fits)` per piece, on the scorecard's own tolerance. `pieces`
+    values normalize through `shape()`, so a `build_pieces()` Workplane is accepted."""
+    _ensure_paths()
+    import enclosure
+    import scorecard
+
+    if bed is None:
+        bed = (enclosure.H2C_X, enclosure.H2C_Y, enclosure.H2C_Z)
+    return scorecard.fit_bed({n: shape(p, n) for n, p in pieces.items()}, bed)
+
+
 # --- loading --------------------------------------------------------------
 
 _WORLD = None
+
+
+def _ensure_paths() -> None:
+    """The enclosure modules on sys.path, and the env a read-only run wants."""
+    os.environ.setdefault("HSM_SKIP_THUMBNAILS", "1")
+    os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
+    for d in (_ENCLOSURE, _BOX):
+        if str(d) not in sys.path:
+            sys.path.insert(0, str(d))
 
 
 def world(runs: bool = True, reload: bool = False) -> World:
@@ -367,10 +436,7 @@ def world(runs: bool = True, reload: bool = False) -> World:
     if _WORLD is not None and not reload:
         return _WORLD
 
-    os.environ.setdefault("HSM_SKIP_THUMBNAILS", "1")
-    os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
-    if str(_ENCLOSURE) not in sys.path:
-        sys.path.insert(0, str(_ENCLOSURE))
+    _ensure_paths()
 
     import _contents as contents
 
