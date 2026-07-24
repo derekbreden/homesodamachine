@@ -38,12 +38,12 @@ For each cable assembly in the schedule below:
 
 ## Assembly schedule
 
-Conductor counts are the board connector pin counts (`pcba.tsx` J1–J11 = {9, 6, 4, 7, 4, 5, 7, 4, 4, 2, 4}, J13 = 4; there is no J12, and J14 is the USB programming port — no loom). The fan-out to the 10 valves / many reeds happens **at the device end**, downstream of the connector — so each trunk carries its connector's count, never the fanned-out total.
+Conductor counts are the board connector pin counts (`pcba.tsx` J1–J11 = {9, 6, 4, 7, 4, 5, 7, 4, 4, 2, 4}, J13 = 4; there is no J12, and J14 is the USB programming port — no loom). The fan-out to the 11 valves (10 manifold + V-K) / many reeds happens **at the device end**, downstream of the connector — so each trunk carries its connector's count, never the fanned-out total.
 
 | Assembly | Board conn. | Conductors | Wire | Terminations | Sleeve |
 |---|---|---|---|---|---|
 | Manifold A | J1 | 9 (8 OUT + COM) | jacketed KWANGIL | Fastons at 8 valves; COM → **221-420** fan-out at the manifold | 3/4" |
-| Manifold B | J2 | 4 (2 OUT + FAN + COM) | jacketed KWANGIL | Fastons at 2 valves + fan; COM → **221-415** | 1/2" |
+| Manifold B | J2 | 5 (2 OUT + FAN + COM + OUT3) | jacketed KWANGIL | Fastons at 2 valves + fan; V-K's `OUT3` + a `COM` tap branch off to the aft strip (DC-9); COM → **221-415** | 1/2" |
 | Reservoir A reeds | J6 | 5 (4 reed + GND) | 22 AWG black | reed leads; GND → **221-415** at the reservoir | 1/4" |
 | Reservoir B + carb reeds | J7 | 7 (6 reed + GND) | 22 AWG black | reed leads; female JST-XH housing (XHP-7) + XH contacts — the same 7P housing as SENSORS (J4), so **label both looms at the housing** (a swap would put J4's 3V3/5V on the MCP reed inputs); GND → **221-420** | 1/4" |
 | Sensors | J4 | 7 | 22 AWG black | DS18B20 / flow / moisture (DO + switched VCC); GND → **221-415** near the shelf | 1/4" |
