@@ -31,17 +31,16 @@ it drips — never plumbed into a drain. `vent_tip()` is the datum the pan catch
 and the drip falls from there: the pan sits under the tip's column, wherever the
 pose leaves it pointing.
 
-The enclosure places it in the service bay's aft strip, at the rear-panel water
-bulkhead it protects (`enclosure-assembly/_contents.py` `ASSE1022_POS`,
+The enclosure lays it along the service bay's aft strip, behind the SeaFlo and
+over the foam cap (`enclosure-assembly/_contents.py` `ASSE1022_POS`,
 `ASSE1022_YAW`, `ASSE1022_ROLL`) — a yaw about Z, a roll about X, and a
-translation, since this frame is already the cabinet's axes. The yaw swaps the
-chain's ends, so the inlet faces the bulkhead and the barb faces away down the
-strip; the roll lays the vent over to −Y, so the stub reaches forward out of the
-strip and its drip falls clear of the electronics shelf onto the foam-cap top the
-pan sits on. The scorecard measures that fall (`fall vent-tip onto
-foam-assembly`). All three terminals are carried to world coordinates from the
-stations below, so a length changed in any of the five parts moves the
-enclosure's ports with it.
+translation, since this frame is already the cabinet's axes. Both turns are zero
+there: the chain runs the cabinet's +X with its inlet west at the tap-water
+bulkhead and its barb east onto the run to the tap point, and the vent hangs as
+it is built, dropping its column straight onto the cap the pan sits on. The
+scorecard measures that fall (`fall vent-tip onto foam-assembly`). All three
+terminals are carried to world coordinates from the stations below, so a length
+changed in any of the five parts moves the enclosure's ports with it.
 
 ## Model
 

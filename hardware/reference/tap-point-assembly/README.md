@@ -54,6 +54,19 @@ Frame: the tee's own — the run along **±X** with the barb tips at ±`RUN_LENG
 the branch climbing **+Z**. The tee is symmetric about its branch, so either barb
 leg takes either end of the hose.
 
+## In the cabinet
+
+The enclosure stands it in the service bay's east strip, between the ASSE chain's
+barb and the pump (`enclosure-assembly/_contents.py` `TAP_POINT_POS`,
+`TAP_POINT_ROLL`, `TAP_POINT_YAW`) — a roll about X, then a yaw about Z, then a
+translation. The two turns lay the run along **Y**, so both barb legs face along
+the strip, and carry the branch down to the horizontal on **−X**: the branch is
+taller than the bay is deep, so it cannot stand. Its 1/4" collet looks west into
+the channel off the pump, where the flow regulator rides the run to V-A.
+
+The run sits at the chain's own barb height, so `water-2` reaches it without
+changing level, and `water-3` drops to the pump's suction on its way west.
+
 ## Sourcing
 
 The tee's dimensions are the Thogus TT3666 drawing's, read off the PDF's vector

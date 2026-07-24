@@ -46,20 +46,13 @@ import gagira_reducing_coupling as coupling
 import jg_pp010822e as ptc
 import multiplex_asse1022 as bfp
 
-# Render colors, not material colors: the viewer draws thumbnails in x-ray, where a
-# body is carried by its edges in its own color against a #1a1a2e ground. A part is
-# legible there only if it clears 3:1 against that ground AND against its neighbour,
-# so each fitting in the chain reads as its own body rather than as part of the next.
-BRASS = cq.Color(0.72, 0.58, 0.28)      # the Multiplex body — 5.98:1 on the ground
-STAINLESS = cq.Color(0.72, 0.74, 0.78)  # 304 SS — the barb stem, 9.05:1
-# The coupling is 316L and butts coaxially onto the brass body, flat to flat. Sharing
-# STAINLESS with the barb put two grays at 1.51:1 against the brass, which reads as one
-# nut cluster; a hue the chain uses nowhere else separates it where luminance cannot.
-COUPLING_SS = cq.Color(0.25, 0.78, 0.72)  # 8.19:1 on the ground
-# John Guest's polypropylene is black, which at its own value is 1.18:1 on the ground —
-# below the ground's own luminance, so it renders as a hole. Carried at the value that
-# clears 3:1 and still reads as dark PP against the metals.
-BLACK_PP = cq.Color(0.42, 0.44, 0.48)   # 3.43:1 on the ground
+# The viewer draws thumbnails in x-ray: a body is carried by its edges, in its own
+# color, against a #1a1a2e ground. Each fitting holds 3:1 or better on that ground and
+# a hue the chain uses once, so it reads as its own body beside the one it butts onto.
+BRASS = cq.Color(0.72, 0.58, 0.28)        # the Multiplex body — 5.98:1
+STAINLESS = cq.Color(0.72, 0.74, 0.78)    # 304 SS — the barb stem, 9.05:1
+COUPLING_SS = cq.Color(0.25, 0.78, 0.72)  # the 316L coupling, flat to the body's — 8.19:1
+BLACK_PP = cq.Color(0.42, 0.44, 0.48)     # John Guest polypropylene — 3.43:1
 CLEAR_PVC = cq.Color(0.85, 0.90, 0.92, 0.45)
 
 # The vent stub: Sealproof 1/4" ID × 3/8" OD clear PVC, bored to the barb it slips

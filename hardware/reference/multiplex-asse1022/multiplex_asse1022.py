@@ -40,13 +40,12 @@ FLARE_THREAD_D = 15.88      # 3/8" SAE 45° flare thread major Ø (5/8"-18 UNF)
 FLARE_LENGTH = 14.0         # male flare nose + thread
 BARREL_LENGTH = TOTAL_LENGTH - INLET_LENGTH - FLARE_LENGTH
 VENT_D = 8.0                # atmospheric-vent barb Ø
-VENT_DROP = 10.5            # the two together are the barb's length from its tip, split
-VENT_INTO_BODY = 5.0        # at the hex's circumradius rather than at its underside
+VENT_DROP = 10.5            # the two together are the barb's length from its tip
+VENT_INTO_BODY = 5.0
 
 BODY_CENTER_Z = VENT_DROP + HEX_ACROSS_CORNERS / 2.0    # flow axis height off the bbox floor
-# The hex is clocked flats-down (`build()`), so its half-height off the flow axis is the
-# apothem, not the circumradius. The underside is where the vent barb leaves the body —
-# the datum a stub slipped over that barb stops against, and the top of its exposed reach.
+# The hex stands flats-down (`build()`), so the body's underside lies an apothem below the
+# flow axis: where the vent barb leaves the body, and where a stub slipped over it stops.
 HEX_ACROSS_FLATS = HEX_ACROSS_CORNERS * math.sqrt(3) / 2.0
 BODY_UNDERSIDE_Z = BODY_CENTER_Z - HEX_ACROSS_FLATS / 2.0
 VENT_X = INLET_LENGTH + BARREL_LENGTH / 2.0             # vent barb on the barrel's midpoint
