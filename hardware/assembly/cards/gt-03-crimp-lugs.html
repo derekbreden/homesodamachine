@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="gt">
+<div class="card">
+
+<header>
+  <div class="code">GT-03</div>
+  <h1>Crimp lugs — ferrules,<br>forks, fastons, rings</h1>
+  <div class="deckpos"><b>Technique · 03/5</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Four terminal families, one law: <strong>the right
+    die on the right barrel at the right gauge, then the tug.</strong>
+    No solder splices anywhere in the harnesses (CA-01).</p>
+
+    <ol class="steps">
+      <li><b>Strip to the barrel:</b> bare copper the length of the
+        crimp barrel, no more — strands proud of a ferrule get
+        trimmed, insulation inside a barrel is a false crimp.</li>
+      <li><b>Match die to terminal and gauge</b> — the die stamps
+        its gauge; a loose die makes a shiny crimp that meters fine
+        and fails warm.</li>
+      <li><b>Crimp the barrel on copper only.</b> Insulated skirts
+        grip the jacket — strain relief, not the connection.</li>
+      <li><b>Tug every crimp as it's made.</b> One that moves is
+        scrap — cut it off and redo; never re-squeeze.</li>
+      <li><b>Failed assembly? Swap end-to-end</b> — never trace and
+        re-crimp one conductor (CA-01).</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      crimper set per CA-01 · Klein stripper · flush cutters
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 560" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .metal { fill: #d8dde6; stroke: #1d1d26; stroke-width: 2.5; }
+          .wire  { stroke: #1d1d26; stroke-width: 8; }
+          .cu    { stroke: #b8722c; stroke-width: 6; }
+          .dimtx { font: 700 24px Menlo, monospace; fill: #5c6570; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <text class="lbl" x="24" y="40">THE FOUR &#183; where each lands in this build</text>
+        <!-- ferrule -->
+        <g transform="translate(60,100)">
+          <line class="wire" x1="0" y1="20" x2="120" y2="20"/>
+          <line class="cu" x1="120" y1="20" x2="170" y2="20"/>
+          <rect class="metal" x="118" y="6" width="60" height="28" rx="4"/>
+          <path class="metal" d="M 108 2 L 118 6 L 118 34 L 108 38 Z"/>
+          <text class="dimtx" x="210" y="14">FERRULE</text>
+          <text class="sub" x="210" y="42">Wago bays &#183; PSU &#183; J10 screw clamps</text>
+        </g>
+        <!-- fork -->
+        <g transform="translate(60,205)">
+          <line class="wire" x1="0" y1="20" x2="110" y2="20"/>
+          <rect class="metal" x="108" y="6" width="52" height="28" rx="6"/>
+          <path class="metal" d="M 160 8 L 214 8 L 214 16 L 176 16 L 176 24 L 214 24 L 214 32 L 160 32 Z"/>
+          <text class="dimtx" x="240" y="14">FORK</text>
+          <text class="sub" x="240" y="42">PSU primary &#183; relay contact screws</text>
+        </g>
+        <!-- faston -->
+        <g transform="translate(60,310)">
+          <line class="wire" x1="0" y1="20" x2="110" y2="20"/>
+          <rect class="metal" x="108" y="6" width="52" height="28" rx="6"/>
+          <rect class="metal" x="160" y="10" width="66" height="20" rx="3"/>
+          <text class="dimtx" x="240" y="14">FASTON (F)</text>
+          <text class="sub" x="240" y="42">valve + pump-motor + compressor spades</text>
+        </g>
+        <!-- ring -->
+        <g transform="translate(60,415)">
+          <line class="wire" x1="0" y1="20" x2="110" y2="20"/>
+          <rect class="metal" x="108" y="6" width="46" height="28" rx="6"/>
+          <circle class="metal" cx="184" cy="20" r="26"/>
+          <circle fill="#f7f5f0" stroke="#1d1d26" stroke-width="2.5" cx="184" cy="20" r="11"/>
+          <text class="dimtx" x="240" y="14">RING</text>
+          <text class="sub" x="240" y="42">ground bus &#183; chassis bonds (WR-01)</text>
+        </g>
+        <text class="sub" x="60" y="512">barrel on copper &#183; skirt on jacket &#183; die stamped with the gauge</text>
+      </svg>
+      <div class="cap"><b>The tug is the acceptance test</b> — a crimp
+      that holds the tug and meters &Omega;-low is done; anything else
+      is scrap, immediately.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Every crimp die-matched, barrel-on-copper, tug-tested at the bench it was made on.</div>
+  <div class="src">cable-assemblies.md &#183; ac-wiring-schedule.md &#183; general technique<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

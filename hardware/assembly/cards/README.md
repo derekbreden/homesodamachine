@@ -67,6 +67,7 @@ Codes follow the build order of [`/hardware/future.md`](/hardware/future.md)
 | CC-13 | Stack the copper plugs |
 | CC-14 | Pour the body foam |
 | CC-15 | Reed columns in, gaskets on, caps down |
+| CC-16 | Mount the carbonator reeds — method open |
 
 ### RL — Refrigerant loop ([refrigerant-loop.md](/hardware/assembly/refrigerant-loop.md))
 
@@ -175,3 +176,16 @@ Codes follow the build order of [`/hardware/future.md`](/hardware/future.md)
 | FS-03 | Cap the inlets + photograph |
 | FS-04 | Pack the install kit + carton |
 | FS-05 | Weigh, label, hand off |
+
+### GT — Technique (appendix)
+
+General instructions for techniques the numbered cards lean on; each
+card names the procedure docs whose rules it compiles.
+
+| Card | Technique |
+|---|---|
+| GT-01 | NPT joints — tape, engagement, witness |
+| GT-02 | Push-to-connect — cut, click, tug |
+| GT-03 | Crimp lugs — ferrules, forks, fastons, rings |
+| GT-04 | JST-XH crimping — wings, lance, housing |
+| GT-05 | Heat-shrink + sleeve — collars, lacing, braid |

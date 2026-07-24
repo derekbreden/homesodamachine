@@ -10,7 +10,7 @@
 <header>
   <div class="code">CC-02</div>
   <h1>Foil-skin the vessel<br>+ transfer the coil</h1>
-  <div class="deckpos"><b>Cold core · 02/15</b>Kitchen edition</div>
+  <div class="deckpos"><b>Cold core · 02/16</b>Kitchen edition</div>
 </header>
 
 <main>
@@ -27,9 +27,9 @@
       <li><b>Slip the coil on.</b> Off the mandrel it still runs
         <span class="dim">3 mm</span> under the tank OD — work it down
         evenly; don't scar the foil.</li>
-      <li><b>Center the band:</b> <span class="dim">16 mm</span> of bare
-        vessel at each end. Inlet tail <b>low</b>, outlet tail
-        <b>high</b>.</li>
+      <li><b>Set the band:</b> <span class="dim">17 mm</span> of bare
+        vessel below it, <span class="dim">16 mm</span> above. Inlet
+        tail <b>low</b>, outlet tail <b>high</b>.</li>
       <li><b>Press every wrap snug onto the foil.</b> The groove already
         clocked the two tails; rotate the whole coil so both aim at the
         slot wall — final check when the vessel drops in (CC-09).</li>
@@ -54,11 +54,11 @@
           .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
           .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
         </style>
-        <text class="lbl" x="24" y="40">SIDE VIEW &#183; band centered on the vessel</text>
+        <text class="lbl" x="24" y="40">SIDE VIEW &#183; the band on the vessel</text>
         <!-- 2.6 px/mm. vessel 330x396 at (150,120) -->
         <g transform="translate(150,120)">
           <rect class="steel" x="0" y="0" width="330" height="396"/>
-          <!-- foil skin band (under coil): band 313 tall, centered (42 margins) -->
+          <!-- foil skin band (under coil): 119.4 mm, 17 mm low / 16 mm high margins -->
           <rect class="foil" x="-6" y="42" width="342" height="313"/>
           <!-- coil wraps: 10 passes over the band -->
           <path class="cu" d="M -8 76 L 338 45"/>
@@ -80,9 +80,9 @@
           <line class="dimln" x1="-40" y1="0" x2="-40" y2="42"/>
           <text class="dimtx" x="-52" y="32" text-anchor="end">16</text>
           <line class="dimln" x1="-40" y1="42" x2="-40" y2="355"/>
-          <text class="dimtx" x="-52" y="205" text-anchor="end">120.4</text>
+          <text class="dimtx" x="-52" y="205" text-anchor="end">119.4</text>
           <line class="dimln" x1="-40" y1="355" x2="-40" y2="396"/>
-          <text class="dimtx" x="-52" y="386" text-anchor="end">16</text>
+          <text class="dimtx" x="-52" y="386" text-anchor="end">17</text>
           <!-- labels -->
           <text class="lbl" x="165" y="440" text-anchor="middle">316L vessel &#183; &#8960;127 &#215; 152.4</text>
           <text class="sub" x="165" y="470" text-anchor="middle">foil skin runs UNDER every wrap</text>
@@ -97,7 +97,7 @@
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Coil clamped on continuous foil, band centered 16&nbsp;/&nbsp;16, tails clocked to the slot wall.</div>
+  <div class="done"><span class="lbl">Done when</span>Coil clamped on continuous foil, band set 17&nbsp;low&nbsp;/&nbsp;16&nbsp;high, tails clocked to the slot wall.</div>
   <div class="src">cold-core.md &#167;1 &#183; coil_mandrel.py &#183; _cold_core_interface.py<br>rev 2026-07-23</div>
 </footer>
 

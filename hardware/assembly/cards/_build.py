@@ -25,7 +25,7 @@ sys.path.insert(0, str(REPO_ROOT / "hardware" / "scripts"))
 from _cadq_export import export_pdf  # noqa: E402
 
 # Deck order = the build order of /hardware/future.md "Build order".
-SUBSYSTEM_ORDER = ["pv", "cc", "rl", "ip", "ca", "es", "wr", "en", "fu", "fc", "ab", "fs"]
+SUBSYSTEM_ORDER = ["pv", "cc", "rl", "ip", "ca", "es", "wr", "en", "fu", "fc", "ab", "fs", "gt"]
 
 PAGE_W, PAGE_H = 6 * 72, 4 * 72  # points
 
