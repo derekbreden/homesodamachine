@@ -75,7 +75,7 @@ sys.path.insert(0, str(_hardware_dir / "printed-parts" / "faucet"))
 sys.path.insert(0, str(_hardware_dir / "printed-parts" / "faucet" / "touch-flo-shell"))
 sys.path.insert(0, str(_hardware_dir / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hardware_dir / "scripts"))
-from docgen import substitute_py_comments
+from docgen import substitute_md, substitute_py_comments
 from _cadq_export import export_dxf
 from _touch_flo_interface import (
     flavor_tube_depth,
@@ -309,3 +309,16 @@ if __name__ == "__main__":
         },
     )
     print(f"-> {Path(__file__).name}")
+
+    # The shell's ASSEMBLY.md carries this plate's spec as a one-stop
+    # reference; the plate-derived values there are this generator's.
+    substitute_md(
+        _hardware_dir / "printed-parts" / "faucet" / "touch-flo-shell" / "ASSEMBLY.md",
+        variables=variables,
+        expected_counts={
+            "PLATE_D": 1,
+            "SHANK_HOLE_D": 2,
+            "FILLET_R": 1,
+        },
+    )
+    print("-> ASSEMBLY.md")
