@@ -53,21 +53,20 @@ Codes follow the build order of [`/hardware/future.md`](/hardware/future.md)
 | Card | Operation |
 |---|---|
 | CC-01 | Wind the evaporator coil on the mandrel |
-| CC-02 | Foil-skin the vessel + transfer the coil |
-| CC-03 | Bond the coil probe + close the foil over the coil |
-| CC-04 | Pour the cap foam — both caps |
+| CC-02 | Dress the vessel wall — reeds, probe, foil |
+| CC-03 | Transfer the coil + set the band |
+| CC-04 | Bond the coil probe + close the foil over the coil |
 | CC-05 | Press the shell inserts — twelve |
-| CC-06 | Build the reed columns |
-| CC-07 | Seat the reservoir rods + floats |
-| CC-08 | Close the reservoirs — gasket, cap, vent |
-| CC-09 | Stage the cavity — elbow in, vessel down |
-| CC-10 | Bond the tank probe + route the sensor leads |
+| CC-06 | Pour the cap foam — both caps |
+| CC-07 | Build the reed columns |
+| CC-08 | Seat the reservoir rods + floats |
+| CC-09 | Close the reservoirs — gasket, cap, vent |
+| CC-10 | Lower the vessel — elbow already on it |
 | CC-11 | Seat the reservoirs in their pockets |
 | CC-12 | Route the seven penetrations |
 | CC-13 | Stack the copper plugs |
 | CC-14 | Pour the body foam |
 | CC-15 | Reed columns in, gaskets on, caps down |
-| CC-16 | Mount the carbonator reeds — method open |
 
 ### RL — Refrigerant loop ([refrigerant-loop.md](/hardware/assembly/refrigerant-loop.md))
 

@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="cc">
+<div class="card">
+
+<header>
+  <div class="code">CC-02</div>
+  <h1>Dress the vessel wall<br>— reeds, probe, foil</h1>
+  <div class="deckpos"><b>Cold core · 02/15</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Last look at bare 316L. <strong>Everything that
+    touches the steel goes on now</strong> — foil, coil and foam bury this
+    wall.</p>
+
+    <div class="critical"><span class="sign">&#9940;</span>
+      <div><b>Blocked</b> (pressure-vessel.md #6): reed fixture,
+      retention and the two heights unresolved. No later station.</div>
+    </div>
+
+    <ol class="steps">
+      <li><b>Two reeds on the register line</b> (B0CW9418F6) — PV-03's
+        azimuth, where the rod parks the donut. Both heights fall in the
+        wind band, so each lies between two wraps.</li>
+      <li><b>Prove each through the wall</b> with the donor magnet —
+        closed adjacent, open away.</li>
+      <li><b>DS18B20 flat on the OD</b> — the setpoint sensor, in the
+        bare band below the wind.</li>
+      <li><b>Skin the OD</b> — one continuous <strong>3M&nbsp;425</strong>
+        layer over the full wind band, reeds and probe under it.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Materials</span>
+      Reed B0CW9418F6 &#215;2 &#183; DS18B20 B0FKG3HT9Q &#183; 3M 425 tape
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 600" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .cl    { stroke: #b0483a; stroke-width: 2; stroke-dasharray: 22 8 8 8; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #0f8bab; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <text class="lbl" x="24" y="40">PLAN &#183; through-wall coupling on the register line</text>
+        <!-- vessel section: OD 127 at 2.6 px/mm -> R 165, center (300,310) -->
+        <g transform="translate(300,310)">
+          <circle class="steel" r="165"/>
+          <circle fill="#f7f5f0" stroke="#1d1d26" stroke-width="2" r="160"/>
+          <line class="cl" x1="-182" y1="0" x2="182" y2="0"/>
+          <line class="cl" x1="0" y1="-182" x2="0" y2="205"/>
+          <!-- rod at the register radius (2.007 in) -->
+          <circle cx="0" cy="133" r="6" fill="#1d1d26"/>
+          <!-- donut riding the inner wall -->
+          <circle cx="0" cy="124" r="36" fill="none" stroke="#b8722c" stroke-width="9"/>
+          <text class="sub" x="0" y="72" text-anchor="middle">donut &#183; rides the inner wall</text>
+          <!-- reed outside the wall, on the register line -->
+          <rect x="-7" y="170" width="14" height="44" rx="6" fill="#0f8bab"/>
+          <text class="dimtx" x="26" y="206">reed &#215;2</text>
+          <text class="sub" x="26" y="234">heights: open</text>
+        </g>
+        <!-- coupling budget, right margin -->
+        <g transform="translate(516,150)">
+          <text class="dimtx" x="0" y="0">wall 0.065&Prime;</text>
+          <text class="dimtx" x="0" y="40">trips &le; ~2 mm</text>
+          <text class="dimtx" x="0" y="80">dead by ~3 mm</text>
+          <text class="sub"   x="0" y="128">no standoff budget:</text>
+          <text class="sub"   x="0" y="156">on the steel, under</text>
+          <text class="sub"   x="0" y="184">the foil, or it</text>
+          <text class="sub"   x="0" y="212">never trips</text>
+        </g>
+        <text class="sub" x="380" y="576" text-anchor="middle">bench-measured on this tube &#8212; the donut couples only on the register line</text>
+      </svg>
+    </div>
+
+    <table class="spec" style="margin-top:18px">
+      <tr><th>Under the foil</th><th>Reads</th><th>Lands on</th></tr>
+      <tr><td>Reed &#215;2</td><td class="v">donut, through the wall</td><td>J7 &#183; 0x21 PB[4:5]</td></tr>
+      <tr><td>DS18B20 &#183; 0x28</td><td class="v">vessel wall</td><td>SIG-1 &#183; IO26</td></tr>
+    </table>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Reeds magnet-proven on the register line, probe flat on the OD, continuous foil over both and the full wind band.</div>
+  <div class="src">cold-core.md &#167;1 &#183; level-sensing.md &#183; pressure-vessel.md #6<br>rev 2026-07-24</div>
+</footer>
+
+</div>
+</body>
+</html>

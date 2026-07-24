@@ -50,8 +50,8 @@ from _reservoir_pocket_walls import (
 )
 from _port_cuts import (
     co2_doorway_y,
-    co2_inlet_bore_radius,
-    co2_inlet_bore_z,
+    co2_inlet_notch_half_width,
+    co2_inlet_notch_z_top,
 )
 from _cold_core_interface import co2_inlet_y
 from docgen import substitute_md
@@ -111,13 +111,14 @@ def main():
             "GASKET_W": f"{gasket_strip_width:.4g} mm",
             "MID_BOSS_OFFSET": f"{mid_screw_x_offset:.4g} mm",
             "INSERT_DEPTH": f"{insert_pocket_depth:.4g} mm",
-            # CO2 elbow doorway — bore, the +Y wall face it is cut from, and
-            # the tube's Y through the cap stack above it. The cap is authored
-            # with its bore on −Y and installs rotated 180°, so the tube comes
-            # down at −co2_inlet_y, on the doorway's side.
-            "CO2_BORE_D": f"⌀{2 * co2_inlet_bore_radius:.4g}",
+            # CO2 elbow doorway — the notch width, the +Y wall face it is cut
+            # from, the ring-top plateau it opens through, and the tube's Y
+            # through the cap stack above it. The cap is authored with its bore
+            # on −Y and installs rotated 180°, so the tube comes down at
+            # −co2_inlet_y, on the doorway's side.
+            "CO2_NOTCH_W": f"{2 * co2_inlet_notch_half_width:.4g}",
             "CO2_DOORWAY_Y": f"+{co2_doorway_y:.4g}",
-            "CO2_BORE_Z": f"{co2_inlet_bore_z:.4g}",
+            "CO2_NOTCH_Z_TOP": f"{co2_inlet_notch_z_top:.4g}",
             "CO2_CAP_HOLE_Y": f"+{-co2_inlet_y:.4g}",
             # Copper-plug Z spans — the plugs tile the slot end-to-end, each
             # end face landing on a pass-through center.
@@ -164,9 +165,9 @@ def main():
             "BOSS_D": 3,
             "MID_BOSS_OFFSET": 2,
             "INSERT_DEPTH": 1,
-            "CO2_BORE_D": 3,
+            "CO2_NOTCH_W": 3,
             "CO2_DOORWAY_Y": 2,
-            "CO2_BORE_Z": 1,
+            "CO2_NOTCH_Z_TOP": 1,
             "CO2_CAP_HOLE_Y": 1,
             "PLUG_SPAN_LOWER": 1,
             "PLUG_SPAN_MIDDLE": 1,

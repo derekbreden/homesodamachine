@@ -74,11 +74,11 @@ def main():
         "CUT_FT": f"{_coil_mandrel_gen.cut_length / 304.8:.4g} ft",
         "PLUG_INLET_Y": f"{_coil_mandrel_gen.plug_inlet_y:.4g}",
         "PLUG_OUTLET_Y": f"{_coil_mandrel_gen.plug_outlet_y:.4g}",
-        # ─── Cap pour (step 2) ────────────────────────────────────────
+        # ─── Cap pour (step 3) ────────────────────────────────────────
         "CAP_H": f"{foam_cap_interior_height:.4g} mm",
         "POUR_D": f"{foam_cap_lid_pour_radius * 2:.4g} mm",
         "LID_VENT_D": f"{foam_cap_lid_vent_radius * 2:.4g} mm",
-        # ─── Inserts (step 3) ─────────────────────────────────────────
+        # ─── Inserts (step 2) ─────────────────────────────────────────
         # insert_pocket_depth is the FULL printed-pocket depth = insert
         # engagement (half) + relief (half).
         "INSERT_POCKET_D": f"{insert_pocket_radius * 2:.4g} mm",
@@ -91,8 +91,8 @@ def main():
         # top cap installs rotated 180°, so its bore lands at shell
         # y = −co2_inlet_y, which reads back as co2_inlet_y here.
         "COTWO_INLET_Z": f"{co2_inlet_y:.4g}",
-        # CO2 elbow doorway bore through the support arch.
-        "COTWO_BORE_D": f"{2 * _port_cuts.co2_inlet_bore_radius:.4g}",
+        # CO2 elbow notch through the support ring, open to its top plateau.
+        "COTWO_NOTCH_W": f"{2 * _port_cuts.co2_inlet_notch_half_width:.4g}",
         # The two −Y-wall holes per reservoir side: flavor line inboard,
         # reed cable outboard of the bulkhead axis.
         "FLAVOR_HOLE_X": f"±{_port_cuts.flavor_line_hole_x:.4g}",
@@ -129,7 +129,7 @@ def main():
             "INSERT_HALF_DEPTH": 2,
             "TUBE_HOLE_D": 5,
             "COTWO_INLET_Z": 1,
-            "COTWO_BORE_D": 1,
+            "COTWO_NOTCH_W": 1,
             "FLAVOR_HOLE_X": 1,
             "CABLE_HOLE_X": 2,
             "RESERVOIR_GAP": 1,
@@ -140,21 +140,21 @@ def main():
     )
     print("-> cold-core.md")
 
-    # Pin the CO2-inlet bore dimensions in _port_cuts.py's docstring.
+    # Pin the CO2-inlet notch dimensions in _port_cuts.py's docstring.
     # The doorway sits on the +Y (rear) centerward wall.
     co2_doorway_y = _port_cuts.co2_doorway_y
     substitute_py_comments(
         Path(_port_cuts.__file__),
         variables={
-            "CO2_INLET_BORE_D": f"⌀{2 * _port_cuts.co2_inlet_bore_radius:.4g}",
-            "CO2_INLET_BORE_Z": f"{_port_cuts.co2_inlet_bore_z:.4g}",
+            "CO2_NOTCH_W": f"{2 * _port_cuts.co2_inlet_notch_half_width:.4g}",
+            "CO2_NOTCH_Z_TOP": f"{_port_cuts.co2_inlet_notch_z_top:.4g}",
             "CO2_DOORWAY_Y": f"{co2_doorway_y:.4g}",
             "FLOOR_TOP_Z": f"{_port_cuts.wall_and_floor_thickness:.4g}",
             "PORT_HOLE_DIAMETER": f"{_port_cuts.port_hole_radius * 2:.4g}",
         },
         expected_counts={
-            "CO2_INLET_BORE_D": 1,
-            "CO2_INLET_BORE_Z": 1,
+            "CO2_NOTCH_W": 1,
+            "CO2_NOTCH_Z_TOP": 1,
             "CO2_DOORWAY_Y": 1,
             "FLOOR_TOP_Z": 2,
             "PORT_HOLE_DIAMETER": 2,

@@ -40,10 +40,13 @@ The CadQuery script uses an explicit XY plane with +Z normal
 - **Tank-port fittings** — 1/4" NPT 90° elbows on every port, turning the
   line laterally. ~[30 mm](ELBOW_ENV) vertical envelope per elbow above
   and below the tank. An additional **John Guest PP0308E 1/4" PTC 90° elbow**
-  seats in the [⌀18](CO2_BORE_D) CO2 inlet bore at x = 0, cut inward from the
-  +Y face at y = [+78.5](CO2_DOORWAY_Y), where the CO2 line entering from above
-  through the foam-cap stack transitions 90° into a horizontal run that connects
-  to the vessel-port TAISHER elbow via a PP010822E 1/4" PTC × 1/4" NPT M adapter.
+  stands in the [18](CO2_NOTCH_W) mm-wide CO2 inlet notch at x = 0, cut inward
+  from the +Y face at y = [+78.5](CO2_DOORWAY_Y), where the CO2 line entering
+  from above through the foam-cap stack transitions 90° into a horizontal run
+  that connects to the vessel-port TAISHER elbow via a PP010822E 1/4" PTC ×
+  1/4" NPT M adapter. That elbow is made up on the vessel at the bench and
+  descends through the notch as the vessel seats, so the notch is open to the
+  ring's top plateau — nothing arches over it.
 
 ## Shells
 
@@ -129,6 +132,12 @@ Four 30°-wide angular slots are cut through the ring at azimuths
 45°/135°/225°/315°, leaving four 60° support segments aligned with
 the cardinal axes. The slots let pour foam reach the under-tank
 floor regardless of which cavity it enters from.
+
+The +Y segment carries the **CO2 inlet notch** — [18](CO2_NOTCH_W) mm wide
+at x = 0, cut through the ring's full radial width and its full height, so
+it opens through the top plateau at z = [32](CO2_NOTCH_Z_TOP). The PP0308E
+elbow rides down it with the vessel. The notch splits that segment into two
+~22° bearing arcs; the other three segments are untouched.
 
 ### outer_shell
 
@@ -241,7 +250,7 @@ Z-elongated slot at the −Y outer wall.
 |---|---|---|---|
 | 1 | Reservoir line (+X) | own ⌀[6.5 mm](TUBE_HOLE_D) hole | 1/4" OD soft tubing — reservoir to peristaltic pump |
 | 2 | Reservoir line (−X) | own ⌀[6.5 mm](TUBE_HOLE_D) hole | 1/4" OD soft tubing — reservoir to peristaltic pump |
-| 3 | CO2 inlet | own [⌀18](CO2_BORE_D) doorway, +Y | 1/4" OD line from the regulator (90° push-to-connect elbow seats in the doorway) |
+| 3 | CO2 inlet | own [18](CO2_NOTCH_W) mm notch, +Y | 1/4" OD line from the regulator (90° push-to-connect elbow stands in the notch) |
 | 4 | Water outlet | own ⌀[6.5 mm](TUBE_HOLE_D) hole | 1/4" OD line to the dispense faucet |
 | 5 | Copper evaporator inlet (low) | shared −Y slot | 1/4" OD ACR copper to compressor |
 | 6 | Copper evaporator outlet (high) | shared −Y slot | 1/4" OD ACR copper to compressor |
@@ -334,7 +343,8 @@ the body pour into the shell's open +Z top.
 Every internal component is installed first:
 
 - Pressure vessel lowered into the centerward arc envelope, seated
-  on the `tank_support_ring`.
+  on the `tank_support_ring`, its PP0308E CO2 elbow already made up
+  on the bottom-plate elbow and riding down the ring's +Y notch.
 - Copper evaporator coil hand-wound around the vessel exterior and
   bonded with 3M 425 aluminum foil tape.
 - Reservoirs installed into the two reservoir pockets.
@@ -357,10 +367,9 @@ Every internal component is installed first:
 - Water outlet through hole #4 in the outer_shell −Y wall.
 - CO2 inlet enters from above through the foam-cap boss + cap-lid hole at
   (x=0, y=[+72.75](CO2_CAP_HOLE_Y)) — the top cap installs rotated 180°
-  about Z, which is what brings its bore to this side. The line drops to
-  z=[16](CO2_BORE_Z) inside the cavity and bends 90° at a PP0308E
-  push-to-connect elbow seated in the [⌀18](CO2_BORE_D) CO2 inlet bore at
-  x = 0, cut inward from y = [+78.5](CO2_DOORWAY_Y).
+  about Z, which is what brings its bore to this side. The line drops inside
+  the cavity and bends 90° at the PP0308E push-to-connect elbow standing in
+  the CO2 inlet notch at x = 0, cut inward from y = [+78.5](CO2_DOORWAY_Y).
 
 With everything in place, liquid foam is poured **directly into the
 body's open +Z top** all at once — no lid on, no down-channels.
@@ -475,11 +484,11 @@ that needs a deliberate explanation:
 
 | metric | value |
 |---|---|
-| volume | [1036754.451 mm³](FSHELL_VOLUME) |
+| volume | [1035302.114 mm³](FSHELL_VOLUME) |
 | bbox x | [-141.500 to 141.500 mm](FSHELL_BBOX_X) |
 | bbox z | [0.000 to 213.400 mm](FSHELL_BBOX_Z) |
 | bbox y | [-90.500 to 90.500 mm](FSHELL_BBOX_Y) |
-| centroid | [(0.000006, 0.627527, 87.876419) mm](CENTROID) |
+| centroid | [(0.000006, 0.536168, 87.961389) mm](CENTROID) |
 
 Quick reproduction:
 

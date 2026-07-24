@@ -3,7 +3,7 @@
 The design idioms every card follows. `style.css` implements them; this file
 is the contract for writing a new card. Read three built cards
 ([pv-03](pv-03-rod-register.html), [pv-08](pv-08-weld-bottom-plate.html),
-[cc-02](cc-02-foil-and-transfer.html)) alongside it.
+[cc-03](cc-03-transfer-the-coil.html)) alongside it.
 
 ## Canvas
 
