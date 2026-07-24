@@ -9,6 +9,7 @@ from _cold_core_interface import (
     wall_and_floor_thickness,
     hole_shift_from_edge,
     pocket_centerward_arc_outer_radius,
+    tank_support_ring_height,
     foam_shell_outer_height,
     reservoir_bulkhead_port_x,
     reservoir_bulkhead_port_y,
@@ -18,14 +19,16 @@ from _cold_core_interface import (
     build_slot_punch,
 )
 
-# Z of the through-foam ports — water outlet and CO2 inlet bore, both
+# Z of the through-foam ports — water outlet and CO2 inlet notch, both
 # through the foam shell, hole_shift_from_edge in from the +Z outer face.
 front_face_port_z = hole_shift_from_edge + wall_and_floor_thickness
 
-# CO2 inlet round bore — seats the JG PP0308E elbow's ⌀15 body for its
-# in-cavity 90° turn, dropped one mm below front_face_port_z.
-co2_inlet_bore_radius = 9.0
-co2_inlet_bore_z = front_face_port_z - 1.0
+# CO2 inlet notch — clears the JG PP0308E elbow's ⌀15 body for its in-cavity
+# 90° turn. Open to the ring's top plateau: the elbow is made up on the
+# vessel's bottom-plate elbow at the bench and descends through the notch as
+# the vessel seats, so no shell material may arch over it.
+co2_inlet_notch_half_width = 9.0
+co2_inlet_notch_z_top = wall_and_floor_thickness + tank_support_ring_height
 
 # CO2 inlet doorway — pocket-side face of the bag-pocket +Y (rear, toward
 # the rear panel) centerward wall; the cut runs inward toward the cavity (−Y).
@@ -60,29 +63,23 @@ def cut_circular_port_holes(foam_shell):
 
 
 def cut_co2_inlet(foam_shell):
-    """CO2 inlet — a doorway-shaped cut at x = 0, y = [78.5](CO2_DOORWAY_Y): a [⌀18](CO2_INLET_BORE_D)
-    round bore at z = [16](CO2_INLET_BORE_Z) (seating the JG PP0308E elbow's ⌀15 body for
-    its in-cavity 90° turn) over a rectangular slot down to the floor's
-    top face at z = [2](FLOOR_TOP_Z), the elbow entered at an angle from above. The
-    foam-shell floor below z = [2](FLOOR_TOP_Z) stays intact."""
+    """CO2 inlet — a [18](CO2_NOTCH_W)-wide notch at x = 0, cut inward (−Y) from
+    y = [78.5](CO2_DOORWAY_Y) through the tank support ring, running from the floor's
+    top face at z = [2](FLOOR_TOP_Z) clear through the ring's top plateau at
+    z = [32](CO2_NOTCH_Z_TOP). Nothing arches over it: the JG PP0308E elbow is made up
+    on the vessel's bottom-plate elbow before the vessel is lowered, and rides down
+    the notch with it. The foam-shell floor below z = [2](FLOOR_TOP_Z) stays intact."""
     # Pocket-side face of the bag-pocket +Y (rear) wall; the cut runs inward (−Y).
-    bore_radius = co2_inlet_bore_radius
-    bore_z = co2_inlet_bore_z
-    round_bore = build_hole_punch(
-        origin=(0, co2_doorway_y, bore_z),
-        hole_punch_radius=bore_radius,
-        direction=-1,
-    )
-    slot_z_bottom = wall_and_floor_thickness
-    slot_z_top = bore_z
-    slot_z_center = (slot_z_top + slot_z_bottom) / 2.0
-    slot_punch = (
+    notch_z_bottom = wall_and_floor_thickness
+    notch_z_top = co2_inlet_notch_z_top
+    notch_z_center = (notch_z_top + notch_z_bottom) / 2.0
+    notch_punch = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(origin=(0, 0, slot_z_center), offset=co2_doorway_y)
-        .rect(2 * bore_radius, slot_z_top - slot_z_bottom)
+        .workplane(origin=(0, 0, notch_z_center), offset=co2_doorway_y)
+        .rect(2 * co2_inlet_notch_half_width, notch_z_top - notch_z_bottom)
         .extrude(-40)
     )
-    return foam_shell.cut(round_bore).cut(slot_punch)
+    return foam_shell.cut(notch_punch)
 
 
 def cut_slot_for_copper_and_water_inlet(foam_shell):
