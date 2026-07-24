@@ -16,10 +16,10 @@ legs, each measured off the faces that bound it:
     its east half. The west lane and the floor lane stay open for refrig-3's reach to the
     compressor's suction port.
   * the service bay's aft strip — the SeaFlo's back face to the rear-panel bodies, over the
-    foam-cap top — with the ASSE 1022 chain lying along it, its inlet west fed through V-K (the
-    fill/shutoff solenoid on a cradle at the strip's west end) off the water bulkhead, and 3/8"
-    barb east onto the silicone run to the tap point. water-1 turns off the bulkhead down the
-    west lane into V-K; water-2 lifts V-K's outlet the short hop to the chain's inlet. The band
+    foam-cap top — with the ASSE 1022 chain lying along it: its 1/4" inlet west off the water
+    bulkhead (water-1), its 1/4" outlet east onto the line to the split (water-2). The split and
+    V-K stand in the strip's east void — the split feeds V-K on to the north-facing suction
+    (water-3, water-4, wrapping under the ASSE overhang) and the flavor tap on to V-A. The band
     UNDER the body stays open: the drip the vent lets go of falls through it to the cap.
   * the bag-fall corridor — the open Y behind the whole stack, aft face to cold-core front face
     (_contents `BAG_FALL_CORRIDOR`), running the box's full height and width. It is what stands
@@ -85,7 +85,7 @@ DISCHARGE_SKEW = 22.0
 # They stay counted against the `routed` axis.
 BLOCKED: dict = {
     "water-5": "the MAACFLOW adapter and the GASHER check that ride this leg are unplaced; "
-               "both its ends are on the board — seaflo-pump discharge (191, 257, 286.4) x+ "
+               "both its ends are on the board — seaflo-pump discharge (190, 221, 286.4) y− "
                "and foam-assembly water-in (141.5, 200, 223) y− — and the leg leaves the bay "
                "down the cold core's front face, where the two bag falls run",
 }
@@ -157,54 +157,50 @@ def _authored_runs() -> list:
         "foam-assembly.evap-inlet",
         note="liquid: condenser (drier + cap tube) → evaporator"))
 
-    # water-1 — the tap-water pigtail: the rear bulkhead's inboard collet forward and down the
-    # west lane (behind V-K's body, then down beside it) into V-K's west-facing inlet collet.
-    # V-K is the fill/shutoff solenoid; the supply passes through it before the ASSE it protects.
+    # water-1 — the tap-water pigtail: the rear bulkhead's inboard collet forward (−Y)
+    # to the ASSE inlet's own line, then east into its 1/4" PTC inlet. Straight into
+    # the backflow preventer now — V-K has moved downstream of it.
     bfp = f["asse1022-assembly"]
+    sp = f["water-split"]
     vk = f["vk-fill-valve"]
+    pump = f["seaflo-pump"]
     WBEND = 3.0                              # 1/4" LLDPE, the tight pigtail's radius
     runs.append(route(
         "water-1", "bulkhead-water.tube-in",
-        vk.x("inlet", -4.0),                 # west along the rear wall, past the body, into the boss lane
-        vk.z("inlet"),                        # down the lane to the collet's height
-        vk.y("inlet"),                        # forward to the collet's own line
-        "vk-fill-valve.inlet",
-        kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(6.0, 3.0),
-        note="tap water: rear bulkhead → V-K inlet"))
-
-    # water-2 — the short hop from V-K's east-facing outlet up to the ASSE 1022's PTC inlet a
-    # few mm east, the two collets nearly face to face.
-    runs.append(route(
-        "water-2", "vk-fill-valve.outlet",
-        bfp.z("tube-in"),                     # up off the outlet to the inlet's height
-        bfp.y("tube-in"),                     # north to the inlet's own line
+        bfp.y("tube-in"),                    # forward (−Y) to the inlet's own line
         "asse1022-assembly.tube-in",
-        kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(3.0, 3.0),
-        note="tap water: V-K outlet → ASSE 1022 inlet"))
+        kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(6.0, 3.0),
+        note="tap water: rear bulkhead → ASSE 1022 inlet"))
 
-    # water-3 / water-4 — the 3/8" silicone suction line, with the tap point inline in it. The
-    # chain's barb faces east down the aft strip and the tee's two barb legs face along the east
-    # strip, so the line runs east off the barb, drops the strip's height and turns forward into
-    # the tee's aft leg; out of its forward leg it drops again, runs west over the pump's deck
-    # and closes east into the suction barb. JoyTube 3/8" ID × 1/2" OD, worm-gear clamped at
-    # every barb: SBEND is what that wall turns in.
-    tap, pump = f["tap-point-assembly"], f["seaflo-pump"]
-    SBEND = 13.0                             # 3/8" ID × 1/2" OD silicone, about one OD
+    # water-2 — the 1/4" line off the ASSE's east outlet: east down the aft strip into
+    # the void west of the split, then south and down into the split's west-facing branch.
     runs.append(route(
-        "water-3", "asse1022-assembly.hose-out",
-        tap.x("hose-b"),                     # east down the aft strip to the tee's lane
-        "tap-point-assembly.hose-b",
-        kind="water", bend=SBEND, skew=DISCHARGE_SKEW, stub=(SBEND, SBEND),
-        note="tap water: ASSE 1022 barb → tap-point tee, aft leg"))
+        "water-2", "asse1022-assembly.tube-out",
+        sp.x("supply", -4.9),                # east into the void, just west of the branch
+        sp.y("supply"),                      # south to the split's own line
+        sp.z("supply"),                      # down to the split's port plane
+        "water-split.supply",
+        kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, WBEND),
+        note="tap water: ASSE 1022 outlet → split branch"))
+
+    # water-3 — the short straight hop off the split's north run into V-K's inlet, the
+    # two collets nearly collinear along Y.
     runs.append(route(
-        "water-4", "tap-point-assembly.hose-a",
-        tap.y("hose-a", -(2.0 * SBEND + 8.0)),   # forward off the tee's own leg
-        pump.x("suction", 2.0 * SBEND + 14.0),   # west onto the suction's approach lane
-        pump.y("suction"),                       # aft to the suction's own line
-        pump.z("suction"),                       # down to the head's port height
+        "water-3", "water-split.to-vk",
+        "vk-fill-valve.inlet",
+        kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(2.0, 2.0),
+        note="tap water: split → V-K inlet"))
+
+    # water-4 — V-K's outlet north a stub, then west across the aft strip and south into
+    # the north-facing suction, running under the ASSE overhang. The 1/4" LLDPE steps up
+    # to the pump's 3/8" barb at the suction (adapter in the BOM), the only 3/8" on this side.
+    runs.append(route(
+        "water-4", "vk-fill-valve.outlet",
+        pump.y("suction", 6.0),              # a short bump north off the outlet, under the ASSE overhang
+        pump.x("suction"),                   # west across the strip to the suction's line
         "seaflo-pump.suction",
-        kind="water", bend=SBEND, skew=DISCHARGE_SKEW, stub=(SBEND, SBEND),
-        note="tap water: tap-point tee, forward leg → SeaFlo suction"))
+        kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, WBEND),
+        note="tap water: V-K outlet → SeaFlo suction (under the ASSE overhang)"))
 
     # refrig-3 — the suction leg, unauthored. Its corridor stands open: the source-select
     # tray's central span stops at y 155.3 over the outlet's x, leaving ~27 mm off the
@@ -422,20 +418,31 @@ def _authored_runs() -> list:
     # 18's west step off the pocket is [15.03](NOZ_POCKET_STEP) mm, and the square corner at each
     # end of it seats a tangent in that leg.
     NBEND = 7.0
-    for cid, elb, bulk, lane_x, turn_back in (
-        ("fluid-18", "elbow-noz-a", "bulkhead-flavor-a", outer_x, 12.0),                  # outer lane
-        ("fluid-28", "elbow-noz-b", "bulkhead-flavor-b", outer_x - (od + LANE_CLEAR), 20.0),  # inner lane
+    # The split and V-K stand in the aft-east where these lanes used to run at the deck height.
+    # The lanes dip UNDER them: aft at the deck over the spade tabs, down ahead of the split,
+    # along below both (they start well above the clear aft floor), then up past V-K's back face
+    # into the bulkhead lane.
+    split_f, vk_f = f["water-split"], f["vk-fill-valve"]
+    dip_z = min(split_f.bb.zmin, vk_f.bb.zmin) - 7.0    # under the split + V-K, over the clear floor
+    dip_y_in = split_f.bb.ymin - 6.0                    # drop just ahead of the split
+    dip_y_out = vk_f.bb.ymax + 11.5                     # rise behind V-K, clear of water-4's suction bump
+    for cid, elb, bulk, lane_x in (
+        ("fluid-18", "elbow-noz-a", "bulkhead-flavor-a", outer_x),                  # outer lane
+        ("fluid-28", "elbow-noz-b", "bulkhead-flavor-b", outer_x - (od + LANE_CLEAR)),  # inner lane
     ):
         b = f[bulk]
         runs.append(route(
             cid, f"{elb}.free",
-            {"z": deck_z},                      # up out of the pocket, onto the deck
+            {"z": deck_z},                      # up out of the pocket, onto the deck over the spade tabs
             {"x": lane_x},                      # west into its own lane, clear of the boss chain
-            b.y("tube-in", -turn_back),         # aft down the lane, over the shelf
+            {"y": dip_y_in},                    # aft to just ahead of the split
+            {"z": dip_z},                       # drop under the split + V-K
+            {"y": dip_y_out},                   # aft under them, past V-K's back face
+            {"z": deck_z},                      # rise back to the deck at the bulkhead
             b.x("tube-in"),                     # west into the bulkhead's own lane
             f"{bulk}.tube-in",
             kind="fluid", bend=NBEND, skew=DISCHARGE_SKEW,
-            note=f"nozzle outlet: {elb} → {bulk}, up out of the pocket and aft over the shelf"))
+            note=f"nozzle outlet: {elb} → {bulk}, up over the shelf, dipping under the split + V-K"))
 
     return runs
 

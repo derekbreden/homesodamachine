@@ -17,7 +17,7 @@
 
 All valves are normally closed solenoid valves. Flow direction is inlet (I) to outlet (O) only.
 
-> **V-K** — the water-supply fill/shutoff solenoid, an 11th valve of the same Beduan NC type — is **not** part of this manifold. It gates the carbonator supply line as the machine's master inlet, upstream of the ASSE 1022 (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd) and [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2), driven off the board's spare `J2.OUT3` channel.
+> **V-K** — the water-supply fill/shutoff solenoid, an 11th valve of the same Beduan NC type — is **not** part of this manifold. It gates the carbonator fill line on the water-split's run to the SeaFlo suction, downstream of the ASSE 1022 (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd) and [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2), driven off the board's spare `J2.OUT3` channel.
 
 ## Junctions
 
@@ -42,7 +42,7 @@ Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/top
 
 | # | From | To | Notes |
 |---|---|---|---|
-| 1 | Tap water source | Flow regulator inlet | |
+| 1 | Tap water source | Flow regulator inlet | Fed from the water-split's south run — 1/4" PTC off the ASSE 1022's split (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd)) |
 | 2 | Flow regulator outlet | V-A-I | |
 | 3 | V-A-O | Y-A-1 | |
 | 4 | Hopper funnel bottom | V-B-I | |

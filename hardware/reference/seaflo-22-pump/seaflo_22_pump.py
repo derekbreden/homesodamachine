@@ -7,8 +7,15 @@ External envelope: a motor can, a pump head carrying the two barb ports and the
 pressure switch, on a mounting base whose four feet splay wider than the body.
 The internal diaphragm mechanism is not modeled.
 
-Frame: +X = motor axis (head at -X, carrying the ports), base underside at
-Z = 0, centered on Y.
+The two 3/8" barbs leave the head's two opposite side faces (±Y), each pointing
+straight out along its own ±Y axis — perpendicular to the motor axis, near the
+-X end and at head mid-height. The pressure switch occupies the head's -X end
+face, opposite the motor. (The casting marks the ports IN and OUT; this model
+puts IN/suction on -Y and OUT/discharge on +Y — a mirror pair across the motor
+axis, so the two sides are geometrically interchangeable.)
+
+Frame: +X = motor axis (head at -X), base underside at Z = 0, centered on Y.
+The barbs leave the head's ±Y side faces; the -X end face carries the switch.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/seaflo-22-pump/seaflo_22_pump.py
@@ -27,32 +34,35 @@ from _cadq_export import export_step
 BASE_L, BASE_W, BASE_T = 178.0, 98.0, 5.0     # mounting base (feet splay to BASE_W)
 MOTOR_D, MOTOR_L = 56.0, 92.0                  # motor can
 HEAD_L, HEAD_W, HEAD_H = 66.0, 80.0, 56.0      # pump head block (carries ports)
-SWITCH_L, SWITCH_W, SWITCH_H = 42.0, 34.0, 13.0  # pressure switch on the head top
+SWITCH_PROJ, SWITCH_W, SWITCH_H = 18.0, 40.0, 36.0  # pressure switch, on the -X end face
 PORT_D, PORT_L = 13.0, 16.0                    # 3/8" hose-barb inlet + outlet
 FOOT_R = 6.0                                   # base corner radius
 
 
-HEAD_FACE_X = -BASE_L / 2.0 + 6.0              # the head's -X face, where the barbs leave
-PORT_TIP_X = HEAD_FACE_X - PORT_L              # the barb tips
-PORT_Y = HEAD_W / 4.0                          # the two ports' offset either side of the axis
-PORT_Z = BASE_T + HEAD_H / 2.0                 # both ports at the head's mid-height
+HEAD_FACE_X = -BASE_L / 2.0 + 6.0              # the head's -X end face (carries the switch)
+PORT_X = HEAD_FACE_X + 20.0                    # barb centerline, ~20 mm inboard of the -X end
+PORT_Z = BASE_T + HEAD_H / 2.0                 # both barbs at the head's mid-height
+PORT_FACE_Y = HEAD_W / 2.0                     # the ±Y side faces the barbs leave from
+PORT_TIP_Y = PORT_FACE_Y + PORT_L              # the barb tips, where the hose slips on
 
 
 def suction():
     """The 3/8" hose-barb the supply line slips over: (position, outward axis).
-    The casting marks IN and OUT."""
-    return (PORT_TIP_X, -PORT_Y, PORT_Z), (-1.0, 0.0, 0.0)
+    On the head's -Y side face, pointing straight out along -Y. The casting
+    marks IN and OUT; IN/suction is modeled on -Y."""
+    return (PORT_X, -PORT_TIP_Y, PORT_Z), (0.0, -1.0, 0.0)
 
 
 def discharge():
     """The 3/8" hose-barb feeding the carbonator: (position, outward axis) —
-    the suction's twin, the other side of the head's axis."""
-    return (PORT_TIP_X, PORT_Y, PORT_Z), (-1.0, 0.0, 0.0)
+    the suction's mirror across the motor axis, on the +Y side face, pointing
+    straight out along +Y."""
+    return (PORT_X, PORT_TIP_Y, PORT_Z), (0.0, 1.0, 0.0)
 
 
 def build():
-    """Motor can + head + pressure switch on a wide base, ports on the head's
-    -X face; base underside at Z = 0, motor axis along +X."""
+    """Motor can + head + pressure switch on a wide base; the two 3/8" barbs
+    leave the head's ±Y side faces; base underside at Z = 0, motor axis along +X."""
     base = (
         cq.Workplane("XY")
         .box(BASE_L, BASE_W, BASE_T, centered=(True, True, False))
@@ -70,18 +80,19 @@ def build():
         .box(HEAD_L, HEAD_W, HEAD_H, centered=(False, True, False))
         .translate((head_x0, 0, BASE_T))
     )
+    # Pressure switch protruding from the head's -X end face, opposite the motor.
     switch = (
         cq.Workplane("XY")
-        .box(SWITCH_L, SWITCH_W, SWITCH_H, centered=(False, True, False))
-        .translate((head_x0 + 10.0, 0, BASE_T + HEAD_H))
+        .box(SWITCH_PROJ, SWITCH_W, SWITCH_H, centered=(False, True, True))
+        .translate((head_x0 - SWITCH_PROJ, 0, PORT_Z))
     )
     part = base.union(head).union(switch).union(motor)
-    # Two 3/8" hose-barb ports on the head's -X face, side by side in Y.
+    # Two 3/8" hose-barb ports on the head's ±Y side faces, each pointing straight out.
     for sy in (-1, 1):
         barb = cq.Solid.makeCylinder(
             PORT_D / 2.0, PORT_L,
-            cq.Vector(head_x0, sy * PORT_Y, PORT_Z),
-            cq.Vector(-1, 0, 0),
+            cq.Vector(PORT_X, sy * PORT_FACE_Y, PORT_Z),
+            cq.Vector(0, sy, 0),
         )
         part = part.union(barb)
     return part

@@ -243,8 +243,8 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   forward out of the strip. The drip falls 51.6 mm off that tip onto the foam-cap top, which
   is the pan's ground in this bay: the drip pan + moisture plate sit on the cap under the fall
   in a 70 × 50 footprint measured clear, and the stub is cut to the room the strip leaves.
-  Segments water-1 and water-2 route off the bulkhead through the V-K fill/shutoff valve into the inlet; the discharge hose leaves the
-  strip's west end for the SeaFlo and V-A's tap point, both still unplaced. **Every margin in
+  Segments water-1 and water-2 route off the bulkhead into the ASSE inlet and out its flare to the water-split; the run leaves the
+  strip's west end for the SeaFlo (via V-K) and V-A's tap point, both still unplaced. **Every margin in
   this strip is single-digit** — 4.71 mm to the C14, 10.1 mm to the bulkhead, 4 mm between the
   drip's column and the electronics shelf's rear edge — because the chain's Y footprint with
   the vent laid over nearly fills the strip's depth. Placement and envelope both move again:
