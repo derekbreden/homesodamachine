@@ -3,7 +3,7 @@
 //
 //   hsm:files-changed (detail.files = [...]) — fired by both dev chokidar
 //     saves and the prod boot-diff. Same wire format both sides. We refresh
-//     the per-file card thumbnail and, if that file is the one currently
+//     the per-file grid thumbnail and, if that file is the one currently
 //     open in the modal, refetch the file into the open viewer too.
 //
 //   hsm:deploy — fired when a new build is detected, via either the WS
@@ -18,7 +18,8 @@
 // We set window.__hsmDeploySoft so boot.js leaves the deploy refresh to
 // us (it reloads other pages outright). The socket itself is owned by
 // boot.js (one WebSocket per page); per-file work is split by extension
-// so the same handler covers .step, .dxf, .mmd, and drawing .svg.
+// so the same handler covers .step, .dxf, .mmd, and drawing .svg — plus the
+// assembly deck, whose cards are recognized by path (contracts/cards.js).
 
 import { state } from "./state.js";
 import { getLoader } from "./loaders.js";
@@ -28,13 +29,15 @@ import { renderGlbThumbnail } from "./glb.js";
 // Open-modal refresh resolves through detail-shims.js (hot); thumbnail renderers
 // stay static — a code edit rarely touches the tiny card render and re-importing
 // for it isn't worth it (matches the CAD kinds keeping renderGlbThumbnail static).
-import { refetchOpenMmd, refetchOpenDrawing, refetchOpenPcb } from "./detail-shims.js";
+import { refetchOpenMmd, refetchOpenDrawing, refetchOpenPcb, refetchOpenCard } from "./detail-shims.js";
 import { renderMmdThumbnail } from "./mermaid.js";
 import { renderDrawingThumbnail } from "./drawings.js";
 import { renderPcbThumbnail } from "./pcb.js";
+import { mountCardThumbnail } from "./cards.js";
 import { fetchFiles } from "./main.js";
 import { mountScorecard } from "./scorecard-3d.js";
 import { HSM_EVENTS } from "/contracts/client-events.js";
+import { isCardPath } from "/contracts/cards.js";
 
 function refreshStepCard(file) {
   // Re-fetch the committed PNG past the browser cache. On a real deploy the
@@ -138,6 +141,16 @@ function refreshPcbCard(file) {
   });
 }
 
+// An assembly card has no separate thumbnail artifact — the thumbnail IS the
+// card page in an iframe — so refreshing it is just re-mounting the frame past
+// the browser cache. A card that isn't on the grid yet (newly added to the deck)
+// falls through to a re-list, same as every other kind.
+function refreshCardThumb(file) {
+  const card = state.gridEl.querySelector(`.card[data-type="card"][data-file="${CSS.escape(file)}"]`);
+  if (!card) { fetchFiles(); return; }
+  mountCardThumbnail(card.querySelector(".card-thumb"), file, { bust: true });
+}
+
 function isOpenAs(type, file) {
   return state.currentDetail && state.currentDetail.type === type && state.currentDetail.file === file;
 }
@@ -171,6 +184,11 @@ window.addEventListener(HSM_EVENTS.FILES_CHANGED, (e) => {
     } else if (file.endsWith(".svg")) {
       refreshDrawingCard(file);
       if (isOpenAs("drawing", file)) refetchOpenDrawing(file);
+    } else if (isCardPath(file)) {
+      // The one kind matched by path rather than extension: a card is .html,
+      // which says nothing on its own — being in the deck is what makes it one.
+      refreshCardThumb(file);
+      if (isOpenAs("card", file)) refetchOpenCard(file);
     } else if (file.endsWith(".tsx")) {
       // PCB board: the watcher broadcasts the board source after re-rendering
       // its three views, so refresh the card and the open modal (if it's this
@@ -192,6 +210,7 @@ function reloadOpenDetail() {
   else if (d.type === "mmd") refetchOpenMmd(d.file);
   else if (d.type === "drawing") refetchOpenDrawing(d.file);
   else if (d.type === "pcb") refetchOpenPcb(d.file);
+  else if (d.type === "card") refetchOpenCard(d.file);
 }
 
 // Force the open detail to fully re-render on the next reloadOpenDetail rather
@@ -207,6 +226,8 @@ function forceDetailRerender() {
   state.currentMmdContent = null;
   state.currentDrawingContent = null;
   state.currentPcbViews = null;
+  // Cards carry no content sentinel — their bytes live inside the iframe's own
+  // document, so refetchOpenCard always re-frames. Nothing to clear.
 }
 
 window.addEventListener(HSM_EVENTS.DEPLOY, (e) => {

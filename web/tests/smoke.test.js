@@ -78,6 +78,7 @@ const routes = [
   { path: "/api/dxf",             expect: 200, ct: "application/json" },
   { path: "/api/mermaid",         expect: 200, ct: "application/json" },
   { path: "/api/drawings",        expect: 200, ct: "application/json" },
+  { path: "/api/cards",           expect: 200, ct: "application/json" },
   { path: "/api/firebase-config", expect: 200, ct: "application/json" },
 
   // Service worker variants — same body, three URLs (root, /3d, legacy /dev)
@@ -109,6 +110,7 @@ const routes = [
   // .js contracts are browser-imported; the .ts ones are builder-side.)
   { path: "/contracts/client-events.js", expect: 200, ct: "application/javascript" },
   { path: "/contracts/ws-frames.js",     expect: 200, ct: "application/javascript" },
+  { path: "/contracts/cards.js",         expect: 200, ct: "application/javascript" },
 ];
 
 for (const r of routes) {
@@ -262,6 +264,20 @@ async function firstDrawingPath(rootDir) {
   }
   return null;
 }
+
+// The deck's own pages, served for the viewer's iframes. Skipped on a checkout
+// with no cards. A card page must come back as HTML (the iframe parses it as a
+// document); build machinery in the same directory must not come back at all.
+test("GET /cards/* serves a card page but not the deck's build machinery", async (t) => {
+  const cards = await fetch(`${baseUrl}/api/cards`).then((r) => r.json());
+  if (cards.length === 0) return t.skip("no assembly cards under hardware/");
+  const res = await fetch(`${baseUrl}/cards/${cards[0].path}`);
+  assert.equal(res.status, 200);
+  assert.match(res.headers.get("content-type") || "", /^text\/html/);
+
+  const blocked = await fetch(`${baseUrl}/cards/assembly/cards/_build.py`);
+  assert.equal(blocked.status, 400);
+});
 
 test("GET /api/drawing-content/* returns SVG when a drawing exists", async (t) => {
   const rel = await firstDrawingPath(path.join(REPO_ROOT, "hardware"));

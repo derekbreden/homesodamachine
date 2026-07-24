@@ -51,19 +51,23 @@ function setupNav() {
 }
 
 export async function fetchFiles() {
-  const [stepResp, mmdResp, dxfResp, drawingResp, pcbResp, glbResp] = await Promise.all([
+  const [stepResp, mmdResp, dxfResp, drawingResp, pcbResp, glbResp, cardResp] = await Promise.all([
     fetch("/api/steps"),
     fetch("/api/mermaid"),
     fetch("/api/dxf"),
     fetch("/api/drawings"),
     fetch("/api/pcb"),
     fetch("/api/glbs"),
+    fetch("/api/cards"),
   ]);
   state.allFiles = (await stepResp.json()).sort();
   state.glbFiles = (await glbResp.json()).sort();
   state.mmdFiles = (await mmdResp.json()).sort();
   // PCB boards arrive pre-sorted from the server (by source path).
   state.pcbBoards = await pcbResp.json();
+  // Assembly cards arrive in deck order (build order, then card code) — the
+  // grid groups by subsystem in arrival order, so don't re-sort.
+  state.cards = await cardResp.json();
   // /api/dxf returns objects with thickness_mm + material from each
   // part's sidecar (hardware/README.md). Cache the metadata so the
   // viewer can extrude on open without a second round-trip.

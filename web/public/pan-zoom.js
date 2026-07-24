@@ -33,6 +33,17 @@
       const h = (vb && vb.height) || parseFloat(el.getAttribute("height")) || 0;
       if (w && h) return { w, h };
     }
+    // Declared size, if the element states one (an <iframe> hosting a
+    // fixed-size document, say). Taken before measuring because measuring can't
+    // be trusted through a transformed ancestor: clearing our own transform
+    // still leaves an animating modal's scale in the returned rect, so a fit
+    // computed during the open animation lands short and never re-runs. An
+    // element that declares its size doesn't need to be measured at all. Same
+    // attributes pan-zoom-extras' naturalSize reads, so the minimap and the fit
+    // agree on what "natural" means.
+    const aw = parseFloat(el.getAttribute && el.getAttribute("width")) || 0;
+    const ah = parseFloat(el.getAttribute && el.getAttribute("height")) || 0;
+    if (aw && ah) return { w: aw, h: ah };
     // Fall back to the unscaled rect — measure with no transform applied so
     // we get the element's natural box, not the scaled one.
     const prev = el.style.transform;
