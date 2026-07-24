@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="cc">
+<div class="card">
+
+<header>
+  <div class="code">CC-02</div>
+  <h1>Foil-skin the vessel<br>+ transfer the coil</h1>
+  <div class="deckpos"><b>Cold core · 02/15</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Foil first, copper second: a continuous
+    <strong>3M&nbsp;425 aluminum skin</strong> on the vessel OD is the
+    tank&harr;coil thermal interface, and the coil clamps down on top of
+    it.</p>
+
+    <ol class="steps">
+      <li><b>Skin the vessel OD</b> — one continuous, smooth foil layer
+        over the full wind band. No wrinkles, no gaps: the coil pulls heat
+        through this skin.</li>
+      <li><b>Slip the coil on.</b> Off the mandrel it still runs
+        <span class="dim">3 mm</span> under the tank OD — work it down
+        evenly; don't scar the foil.</li>
+      <li><b>Center the band:</b> <span class="dim">16 mm</span> of bare
+        vessel at each end. Inlet tail <b>low</b>, outlet tail
+        <b>high</b>.</li>
+      <li><b>Press every wrap snug onto the foil.</b> The groove already
+        clocked the two tails; rotate the whole coil so both aim at the
+        slot wall — final check when the vessel drops in (CC-09).</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Materials</span>
+      3M 425 foil tape 2&Prime; (B07BTW7C2N, ~15 ft/build) · wound coil
+      from CC-01 · vessel from PV-14
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 640" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .foil  { fill: #d8dde6; stroke: #1d1d26; stroke-width: 1.5; }
+          .cu    { stroke: #b8722c; stroke-width: 10; fill: none; }
+          .dimln { stroke: #0f8bab; stroke-width: 2.5; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #0f8bab; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <text class="lbl" x="24" y="40">SIDE VIEW &#183; band centered on the vessel</text>
+        <!-- 2.6 px/mm. vessel 330x396 at (150,120) -->
+        <g transform="translate(150,120)">
+          <rect class="steel" x="0" y="0" width="330" height="396"/>
+          <!-- foil skin band (under coil): band 313 tall, centered (42 margins) -->
+          <rect class="foil" x="-6" y="42" width="342" height="313"/>
+          <!-- coil wraps: 10 passes over the band -->
+          <path class="cu" d="M -8 76 L 338 45"/>
+          <path class="cu" d="M -8 108 L 338 77"/>
+          <path class="cu" d="M -8 140 L 338 109"/>
+          <path class="cu" d="M -8 173 L 338 142"/>
+          <path class="cu" d="M -8 205 L 338 174"/>
+          <path class="cu" d="M -8 237 L 338 206"/>
+          <path class="cu" d="M -8 270 L 338 239"/>
+          <path class="cu" d="M -8 302 L 338 271"/>
+          <path class="cu" d="M -8 334 L 338 303"/>
+          <path class="cu" d="M -8 355 L 338 335"/>
+          <!-- tails -->
+          <path class="cu" d="M 338 45 L 560 45"/>
+          <path class="cu" d="M 338 335 L 560 335"/>
+          <text class="sub" x="352" y="20">outlet &#8212; HIGH &#183; suction</text>
+          <text class="sub" x="352" y="386">inlet &#8212; LOW &#183; cap tube</text>
+          <!-- dims -->
+          <line class="dimln" x1="-40" y1="0" x2="-40" y2="42"/>
+          <text class="dimtx" x="-52" y="32" text-anchor="end">16</text>
+          <line class="dimln" x1="-40" y1="42" x2="-40" y2="355"/>
+          <text class="dimtx" x="-52" y="205" text-anchor="end">120.4</text>
+          <line class="dimln" x1="-40" y1="355" x2="-40" y2="396"/>
+          <text class="dimtx" x="-52" y="386" text-anchor="end">16</text>
+          <!-- labels -->
+          <text class="lbl" x="165" y="440" text-anchor="middle">316L vessel &#183; &#8960;127 &#215; 152.4</text>
+          <text class="sub" x="165" y="470" text-anchor="middle">foil skin runs UNDER every wrap</text>
+        </g>
+        <text class="sub" x="24" y="620">mm &#183; wraps schematic &#8212; the groove set the true pitch (CC-01)</text>
+      </svg>
+      <div class="cap"><b>Springback is your friend</b> — 1&ndash;3&nbsp;mm
+      of relax makes the slip-on possible; the 3&nbsp;mm stretch makes the
+      clamp.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Coil clamped on continuous foil, band centered 16&nbsp;/&nbsp;16, tails clocked to the slot wall.</div>
+  <div class="src">cold-core.md &#167;1 &#183; coil_mandrel.py &#183; _cold_core_interface.py<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>
