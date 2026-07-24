@@ -18,10 +18,15 @@ same file the server does — Node by path, the browser by URL, one source eithe
 - **sidecar.js** — `<part>.{step,dxf}.json`: `{thickness_mm, material, process, notes}` authored
   beside a part. Read by `web/lib/viewer-routes.js` (`/api/dxf`) and `web/public/js/viewer/dxf.js`;
   pinned by `web/tests/sidecar.test.js`.
+- **cards.js** — the assembly deck: where cards live (`assembly/cards/<code>-<slug>.html`), the
+  1800 × 1200 canvas they're authored against, and which of the deck's files `/cards/*` will serve.
+  Authored in `hardware/assembly/cards/`; read by `web/lib/{walk,viewer-routes,push}.js`,
+  `web/dev-server/server.js`, and `web/public/js/viewer/{cards,live,route}.js`; pinned by
+  `web/tests/cards.test.js`.
 
 ## Transport & client interface
 
-- **api-shapes.js** — the `/api` endpoints and their responses (PathList, DxfItem, Board). Produced
+- **api-shapes.js** — the `/api` endpoints and their responses (PathList, DxfItem, Board, Card). Produced
   by `web/lib/viewer-routes.js`; consumed by `web/public/js/viewer/main.js`.
 - **ws-frames.js** — the `/ws` WebSocket frames (hello, ping, files-changed, posts-changed). Produced
   by `web/lib/events.js` (broadcasters `web/server.js`, `web/dev-server/server.js`); read by `web/public/boot.js`.
@@ -50,6 +55,9 @@ same file the server does — Node by path, the browser by URL, one source eithe
   `importStep` / `_load`. `web/dev-server/deps.js`.
 - **drawings/ convention** — a line-art `.svg` counts only inside a `drawings/` directory.
   `web/lib/walk.js` (`walkFilesUnderDir`), served via `/api/drawing-content`.
+- **deck subsystem order** — the card deck's subsystems, their display names, and their build order
+  are read from the `body.xx { --accent }` block in `hardware/assembly/cards/style.css`, the same
+  declaration the printed cards colour themselves from. `web/lib/walk.js` (`walkAssemblyCards`).
 - **importmap** — the three.js bare specifiers resolve through the importmap in the page.
   `web/lib/templates/viewer-body.html`.
 - **deterministic export** — generators write `.step` / `.dxf` atomically and byte-stable, so a no-op

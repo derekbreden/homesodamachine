@@ -6,7 +6,7 @@
 // the file-scope `let` it replaces.
 //
 // At most one detail surface is open at a time (parts viewer is modal):
-//   currentDetail = { type: "step"|"dxf"|"mmd", file } | null
+//   currentDetail = { type: "step"|"dxf"|"mmd"|"drawing"|"pcb"|"card", file } | null
 //   mountedDetail = { type: "step"|"dxf",       file } | null
 // "current" tracks which file the modal is presenting; "mounted" tracks
 // which file is actually loaded into the shared Three.js scene (only
@@ -21,6 +21,7 @@ export const state = {
   glbFiles: [],       // GLB assemblies (board 3D models)
   drawingFiles: [],   // Line-art SVG files (drawings/ convention)
   pcbBoards: [],      // PCB boards: {source, name, dir, top, bottom, overlay, inners, picks}
+  cards: [],          // Assembly cards, deck-ordered: {path, code, title, subsystem, accent, …} (contracts/api-shapes.js)
   currentDetail: null,
   mountedDetail: null,
   currentMmdContent: null,
@@ -31,6 +32,9 @@ export const state = {
   currentDrawingWrapper: null,// host div inside the modal (PanZoom container)
   currentDrawingPz: null,     // PanZoom handle for currentDrawingWrapper
   currentDrawingMinimap: null,// Minimap handle
+  currentCardWrapper: null,   // host div inside the modal (PanZoom container) for an open card
+  currentCardPz: null,        // PanZoom handle for currentCardWrapper
+  currentCardMinimap: null,   // Minimap handle
   currentPcbSource: null,     // source path of the open board
   currentPcbViews: null,      // {top,bottom,overlay,inner1,…} SVG text for the open board
   currentPcbView: null,       // which view is showing ("top"|"bottom"|"overlay"|"inner1"…)

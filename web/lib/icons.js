@@ -25,6 +25,8 @@ const INNER = {
   pencil: '<path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>',
   // Circuit board — PCB boards (carrier viewer; also notification kind=pcb).
   cpu: '<rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line>',
+  // Clipboard with a checked line — notification kind=card (assembly deck).
+  clipboard: '<path d="M9 2h6a1 1 0 0 1 1 1v2H8V3a1 1 0 0 1 1-1z"></path><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><polyline points="9 14 11 16 15 12"></polyline>',
   // Generic file — notification fallback.
   file: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline>',
   // House — Home.
@@ -57,6 +59,7 @@ const NOTIF_KIND_TO_INNER = {
   mermaid: "chart",
   drawing: "pencil",
   pcb:     "cpu",
+  card:    "clipboard",
   post:    "newspaper",
 };
 
@@ -72,6 +75,7 @@ export const NOTIF_ICON_BY_KIND = {
   mermaid: notifIconSvg("mermaid"),
   drawing: notifIconSvg("drawing"),
   pcb:     notifIconSvg("pcb"),
+  card:    notifIconSvg("card"),
   post:    notifIconSvg("post"),
   default: notifIconSvg("default"),
 };

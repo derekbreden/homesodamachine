@@ -57,6 +57,133 @@ export function walkFilesUnderDir(rootDir, exts, parentDirName) {
   return out;
 }
 
+// Assembly instruction cards: the print-ready 4×6 HTML deck under
+// `<root>/assembly/cards/` (hardware/assembly/cards/README.md). Each card is a
+// self-contained page against a fixed 1800 × 1200 canvas that names its
+// subsystem with a body class (`<body class="pv">`) and carries its code, title,
+// and deck position in the header band. Underscore-prefixed files (_build.py and
+// friends) and the rendered `out/` deck are build machinery, not cards.
+//
+// The deck's subsystem ORDER is the build order, and it lives in exactly one
+// place — the `body.xx { --accent: ... } /* name — note */` block in the deck's
+// own style.css. Reading it here means the grid orders and labels subsystems off
+// the same declaration the printed cards colour themselves from, so a subsystem
+// added to the deck shows up in order without a second edit. Cards whose body
+// carries no subsystem class (the cover) sort ahead of everything.
+//
+// Returns one object per card — `{path, code, title, subsystem, subsystemLabel,
+// deckpos, accent}` — already in deck order, so callers group by `subsystem` in
+// arrival order rather than re-deriving the sequence.
+const CARDS_REL = ["assembly", "cards"];
+
+function readCardStyleSubsystems(cardsDir) {
+  const order = [];
+  let css;
+  try {
+    css = fs.readFileSync(path.join(cardsDir, "style.css"), "utf-8");
+  } catch {
+    return order;
+  }
+  const re = /body\.([a-z]{2})\s*\{[^}]*--accent:\s*([^;]+);[^}]*\}\s*(?:\/\*\s*([^—*]+?)\s*(?:—|\*\/))?/g;
+  let m;
+  while ((m = re.exec(css))) {
+    const label = (m[3] || m[1]).trim();
+    order.push({
+      key: m[1],
+      label: label.charAt(0).toUpperCase() + label.slice(1),
+      accent: m[2].trim(),
+    });
+  }
+  return order;
+}
+
+// The named entities the cards actually use in header text. Numeric refs decode
+// arithmetically below, so this only has to cover the names.
+const HTML_ENTITIES = {
+  nbsp: " ", amp: "&", lt: "<", gt: ">", quot: '"', apos: "'",
+  mdash: "—", ndash: "–", times: "×", middot: "·", Prime: "″", prime: "′",
+  deg: "°", rarr: "→", larr: "←", hellip: "…", plusmn: "±", frac12: "½",
+};
+
+// Plain text out of a header fragment: drop tags, decode entities, collapse
+// whitespace. The card is rendered by the browser, not here — this is only what
+// the grid labels a thumbnail with.
+function cardText(s) {
+  return s
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)))
+    .replace(/&([a-z][a-z0-9]*);/gi, (m, name) => HTML_ENTITIES[name] ?? m)
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+// Pull the identity a card prints on itself: the `.code` chip, the title, the
+// `.deckpos` line, and the subsystem body class. A field the card doesn't carry
+// comes back null and the caller falls back to the filename. The title reads
+// from `h1` (every operation card) or `.title` (the cover, which has no header
+// band).
+function readCardIdentity(abs) {
+  let html;
+  try {
+    html = fs.readFileSync(abs, "utf-8");
+  } catch {
+    return {};
+  }
+  const pick = (re) => {
+    const m = re.exec(html);
+    return m ? cardText(m[1]) || null : null;
+  };
+  return {
+    subsystem: /<body[^>]*\bclass\s*=\s*"([a-z]{2})"/.exec(html)?.[1] || null,
+    code: pick(/<div class="code">([\s\S]*?)<\/div>/),
+    title: pick(/<h1[^>]*>([\s\S]*?)<\/h1>/) || pick(/<div class="title">([\s\S]*?)<\/div>/),
+    deckpos: pick(/<div class="deckpos">\s*<b>([\s\S]*?)<\/b>/),
+  };
+}
+
+export function walkAssemblyCards(rootDir) {
+  const cardsDir = path.join(rootDir, ...CARDS_REL);
+  let entries;
+  try {
+    entries = fs.readdirSync(cardsDir, { withFileTypes: true });
+  } catch {
+    return [];
+  }
+
+  const subsystems = readCardStyleSubsystems(cardsDir);
+  const rank = new Map(subsystems.map((s, i) => [s.key, i]));
+  const meta = new Map(subsystems.map((s) => [s.key, s]));
+
+  const cards = [];
+  for (const entry of entries) {
+    if (!entry.isFile()) continue;
+    if (entry.name.startsWith(".") || entry.name.startsWith("_")) continue;
+    if (!entry.name.endsWith(".html")) continue;
+    const id = readCardIdentity(path.join(cardsDir, entry.name));
+    const sub = id.subsystem && meta.has(id.subsystem) ? id.subsystem : null;
+    cards.push({
+      path: [...CARDS_REL, entry.name].join("/"),
+      file: entry.name,
+      code: id.code || null,
+      title: id.title || entry.name.replace(/\.html$/, "").replace(/-/g, " "),
+      deckpos: id.deckpos,
+      subsystem: sub,
+      // The cover and any other class-less page group under "Deck" and lead.
+      subsystemLabel: sub ? meta.get(sub).label : "Deck",
+      accent: sub ? meta.get(sub).accent : null,
+    });
+  }
+
+  // Deck order: class-less pages first, then subsystems in style.css order,
+  // then by filename — which is the card code, so PV-01 … PV-14 fall out sorted.
+  return cards.sort((a, b) => {
+    const ra = a.subsystem ? rank.get(a.subsystem) + 1 : 0;
+    const rb = b.subsystem ? rank.get(b.subsystem) + 1 : 0;
+    return ra - rb || a.file.localeCompare(b.file);
+  });
+}
+
 // PCB boards: a board is the tscircuit source named for its own directory —
 // `pcb/<dir>/<dir>.tsx`, e.g. pcb/pcba/pcba.tsx — rendered into a sibling `out/`
 // by render-board.ts. The name-matches-dir rule is the whole gate: helper sources

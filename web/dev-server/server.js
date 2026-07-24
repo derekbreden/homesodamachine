@@ -31,6 +31,8 @@ import {
   buildOrder,
 } from "./deps.js";
 import { WS } from "../contracts/ws-frames.js";
+import { isCardAssetPath, isCardPath } from "../contracts/cards.js";
+import { walkAssemblyCards } from "../lib/walk.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // dev-server lives at /web/dev-server; the cad-venv used to run
@@ -540,6 +542,36 @@ const watcher = chokidar.watch(CONTENT_ROOTS, {
 });
 const debounce = new Map();
 
+// Assembly deck (hardware/assembly/cards). Cards are hand-authored HTML, not a
+// generated artifact, so there is nothing to re-run on an edit: the viewer loads
+// the same file in an iframe and only needs to be told to re-frame it. An edit
+// to the deck's shared style.css or to a render under img/ restyles or redraws
+// cards we can't attribute, so those broadcast the whole deck instead of one
+// file. Returns true when it claimed the path, so the listeners can bail.
+//
+// Wired to `add` as well as `change` — the deck grows a card at a time, and a
+// card that appears while the grid is open should show up there without a
+// reload (the client re-lists when a broadcast names a card it has no tile for).
+function maybeBroadcastCard(absPath) {
+  const relFile = relForBroadcast(absPath).split(path.sep).join("/");
+  if (!isCardAssetPath(relFile)) return false;
+  if (debounce.has(absPath)) clearTimeout(debounce.get(absPath));
+  debounce.set(
+    absPath,
+    setTimeout(() => {
+      debounce.delete(absPath);
+      const single = isCardPath(relFile);
+      const files = single ? [relFile] : walkAssemblyCards(HARDWARE_DIR).map((c) => c.path);
+      if (files.length === 0) return;
+      console.log(`Card changed: ${relFile}${single ? "" : ` -> refresh ${files.length} card(s)`}`);
+      broadcast({ type: WS.FILES_CHANGED, files });
+    }, 300),
+  );
+  return true;
+}
+
+watcher.on("add", (absPath) => { maybeBroadcastCard(absPath); });
+
 watcher.on("change", (absPath) => {
   // Shared library changed — rebuild all scripts.
   if (absPath.includes("/cadlib/") && absPath.endsWith(".py")) {
@@ -608,6 +640,9 @@ watcher.on("change", (absPath) => {
     );
     return;
   }
+
+  // Assembly card changed — broadcast update (see maybeBroadcastCard).
+  if (maybeBroadcastCard(absPath)) return;
 
   // Sidecar metadata file changed — broadcast a change for the part it
   // belongs to. `foo.dxf.json` -> broadcast `foo.dxf`; `foo.step.json`

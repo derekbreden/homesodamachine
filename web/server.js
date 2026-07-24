@@ -19,6 +19,7 @@ import {
   detectChangedMermaid,
   detectChangedDxf,
   detectChangedDrawings,
+  detectChangedCards,
   detectChangedPcb,
   detectChangedPosts,
   describeChangedPosts,
@@ -289,7 +290,7 @@ export async function start({ dev = false, port, hardwareDir, liteDir } = {}) {
   // Production-only: deploy-change push. Hash STEP + mermaid + posts in
   // parallel against per-kind tables, then broadcast over the WebSocket +
   // fire FCM for what changed. Two broadcast types (`files-changed` for
-  // step/mermaid/dxf/drawings, `posts-changed` for blog) since posts carry
+  // step/mermaid/dxf/drawings/cards, `posts-changed` for blog) since posts carry
   // per-item metadata (title, link) that doesn't fit the bare-paths shape
   // `files-changed` uses. Both kinds get piggy-backed onto `recent` so
   // reconnecting clients (PWA was open during deploy, socket killed by
@@ -306,15 +307,16 @@ export async function start({ dev = false, port, hardwareDir, liteDir } = {}) {
   if (!dev) {
     (async () => {
       try {
-        const [changedSteps, changedMermaid, changedDxf, changedDrawings, changedPcb, changedPostFiles] = await Promise.all([
+        const [changedSteps, changedMermaid, changedDxf, changedDrawings, changedCards, changedPcb, changedPostFiles] = await Promise.all([
           detectChangedSteps(HARDWARE_DIR),
           detectChangedMermaid(HARDWARE_DIR),
           detectChangedDxf(HARDWARE_DIR),
           detectChangedDrawings(HARDWARE_DIR),
+          detectChangedCards(HARDWARE_DIR),
           detectChangedPcb(HARDWARE_DIR),
           detectChangedPosts(POSTS_DIR),
         ]);
-        const changedFiles = [...changedSteps, ...changedMermaid, ...changedDxf, ...changedDrawings, ...changedPcb];
+        const changedFiles = [...changedSteps, ...changedMermaid, ...changedDxf, ...changedDrawings, ...changedCards, ...changedPcb];
         const changedPosts = describeChangedPosts({
           postsDir: POSTS_DIR,
           filenames: changedPostFiles,

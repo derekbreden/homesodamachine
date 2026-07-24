@@ -1,5 +1,5 @@
 // Hot-reload-aware entry points for the self-contained detail modules
-// (mermaid / drawing / pcb) — the PanZoom-path kinds that each own their whole
+// (mermaid / drawing / pcb / card) — the PanZoom-path kinds that each own their whole
 // open / close / refetch flow. This is the non-CAD counterpart of loaders.js:
 // the CAD kinds (step / dxf / glb) share cad-detail.js and swap only a leaf
 // loader, so getLoader resolves that leaf; these modules ARE their own shell, so
@@ -25,9 +25,10 @@ import { state } from "./state.js";
 import * as mermaidMod from "./mermaid.js";
 import * as drawingsMod from "./drawings.js";
 import * as pcbMod from "./pcb.js";
+import * as cardsMod from "./cards.js";
 
-const STATIC = { mmd: mermaidMod, drawing: drawingsMod, pcb: pcbMod };
-const URLS = { mmd: "./mermaid.js", drawing: "./drawings.js", pcb: "./pcb.js" };
+const STATIC = { mmd: mermaidMod, drawing: drawingsMod, pcb: pcbMod, card: cardsMod };
+const URLS = { mmd: "./mermaid.js", drawing: "./drawings.js", pcb: "./pcb.js", card: "./cards.js" };
 
 // (type@version) -> module namespace. One re-import per (type, build).
 const cache = new Map();
@@ -56,6 +57,7 @@ async function moduleFor(type) {
 export async function openMmdDetail(file, push = true)     { return (await moduleFor("mmd")).openMmdDetail(file, push); }
 export async function openDrawingDetail(file, push = true) { return (await moduleFor("drawing")).openDrawingDetail(file, push); }
 export async function openPcbDetail(file, push = true)     { return (await moduleFor("pcb")).openPcbDetail(file, push); }
+export async function openCardDetail(file, push = true)    { return (await moduleFor("card")).openCardDetail(file, push); }
 
 // Refetch (open-modal live refresh): resolve current code so a code edit
 // re-renders in place. live.js clears the content sentinels first on a code-only
@@ -63,8 +65,10 @@ export async function openPcbDetail(file, push = true)     { return (await modul
 export async function refetchOpenMmd(file)     { return (await moduleFor("mmd")).refetchOpenMmd(file); }
 export async function refetchOpenDrawing(file) { return (await moduleFor("drawing")).refetchOpenDrawing(file); }
 export async function refetchOpenPcb(file)     { return (await moduleFor("pcb")).refetchOpenPcb(file); }
+export async function refetchOpenCard(file)    { return (await moduleFor("card")).refetchOpenCard(file); }
 
 // Close: page-load functions, synchronous, state-only teardown (see header).
 export const closeMmdDetail = mermaidMod.closeMmdDetail;
 export const closeDrawingDetail = drawingsMod.closeDrawingDetail;
 export const closePcbDetail = pcbMod.closePcbDetail;
+export const closeCardDetail = cardsMod.closeCardDetail;
