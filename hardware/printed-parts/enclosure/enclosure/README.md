@@ -25,7 +25,7 @@ intact (mirrors `faucet/touch-flo-shell`).
 ## Test-print coupon
 
 It exports those same five files a second time as `enclosure-coupon-*.step` —
-the whole four-piece assembly shrunk to a [268 × 138 × 153 mm](COUPON_SIZE)
+the whole four-piece assembly shrunk to a [268 × 140 × 153 mm](COUPON_SIZE)
 box, printable in an evening, to prove the fit before the real one is
 committed. It is the same geometry from the same code: only the numbers
 describing the box differ, so a coupon that assembles is evidence about the
@@ -55,11 +55,18 @@ behind the display facet in a box this short).
 
 Three seams, one joint idiom. Front↔back: the front pieces' rear lip telescopes
 into the back pieces, cross-pinned with M3 screws driven from the ±X exterior.
-That lip is **3-sided** — both side walls and the ceiling, no floor segment —
-because a floor segment is the one part of the seam that spans the box down at
-content height, and it would hold the whole seam ahead of the cold core standing
-there. Without it the seam sits behind the core's front face, near the box's
-middle, and the four pieces come out near quarters.
+That **proud** lip is **3-sided** — both side walls and the ceiling. A proud
+tongue is the wall continued one `wall` *into* the cavity, and on those faces the
+cavity is free; the floor's is not — the cold core rides on it — so a proud floor
+tongue would drive straight into the core. The floor laps anyway, but as a
+**shiplap within the slab** (`_floor_lap`): the front floor's cavity-side half
+runs one overlap aft, the back keeps its bed-side half and yields its cavity-side
+half to receive it, so the slab reads unbroken across the seam with no
+straight-through line and the core still seats on a flush floor. **Every seam
+laps, none butts** — the form suited to the face. Because that shiplap lives
+inside the slab rather than standing proud, it does not push the seam ahead of the
+core: the seam still sits behind the core's front face, near the box's middle, and
+the four pieces come out near quarters.
 
 That seam runs the box's whole height, so it is pinned at **six levels** per side
 wall, not once near the top — a wall above the floor, one under each Z seam, one
@@ -135,18 +142,18 @@ a wall laid on its face would leave the seam machinery nowhere to stand. The **�
 walls stand one `_contents.SIDE_RIB_INSET` off the core** — the boss chain's own
 reach — and the **back wall one `_contents.REAR_STANDOFF`**, the rear Z-seam
 lip's own thickness. The core sits flat on the floor: the print-corner relief
-runs on the standing verticals, so the floor is square and there is nothing down
-there to clear.
+runs on the standing verticals and the Y-seam's floor lap stays inside the slab,
+so the seat is square and there is nothing standing there for the core to clear.
 
 So the core seats flush against the **seams**, not against the walls. Every post
 has its full section, both walls carry all six levels, and the rear station's
 post runs its own corner the whole way to the floor.
 
-Those bands also set where the Y seam falls. Its full-width furniture — the lip's
-floor and ceiling segments — has to stop ahead of the core, so the **lip rim
-lands on the core's front face**; the mouth, plugs, pods and posts reach further
-aft than that but live only in the bands, so they pass alongside the core rather
-than stopping at it. What caps them is measured from whatever stands in the
+Those bands also set where the Y seam falls. Its full-width furniture clears the
+core two ways: the lip's ceiling segment stops ahead of it, so the **lip rim
+lands on the core's front face**, and the floor's shiplap passes beneath it in the
+slab. The mouth, plugs, pods and posts reach further aft than that but live only
+in the bands, so they pass alongside the core rather than stopping at it. What caps them is measured from whatever stands in the
 bands, not tabulated. The seam therefore sits close to the box's middle, and the
 four pieces come out near quarters.
 
@@ -189,11 +196,14 @@ Z concentric with the cavity it enters, as are the front Z-seam socket pods that
 sit in them; the Y-seam lip sits mid-wall where there is no vertical arris, so it
 stays square.
 
-The Y-seam lip is the one joint the orientation costs something. It is the
-telescoping tongue, so its floor and ceiling segments jut one overlap past the
-body into the space the mating piece's own floor and ceiling occupy — a
-cantilever that cannot be buttressed without colliding with the back piece, and
-so wants print support. The side-wall segments, vertical to the bed, are free.
+The Y-seam lip is the one joint the orientation costs something. Its ceiling
+tongue juts one overlap past the body into the space the back piece's ceiling
+occupies — a cantilever that cannot be buttressed without colliding with the back
+piece, and so wants print support. The floor **shiplap** costs the same, on the
+half that reaches: the front floor's cavity-side tongue runs one overlap aft over
+open air (the back's bed-side half fills under it only once assembled), so it
+prints on a thin support strip at the seam, the ceiling tongue's twin one slab
+down. The side-wall segments, vertical to the bed, are free.
 
 ## Display housing
 
