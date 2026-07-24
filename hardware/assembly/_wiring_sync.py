@@ -107,7 +107,7 @@ def main():
         variables=variables,
         expected_counts={
             "AWG_AC_MAIN": 4,
-            "AWG_AC_BRANCH_U": 2,
+            "AWG_AC_BRANCH_U": 1,
             "AWG_DC_BRANCH": 2,
             "AWG_SIGNAL": 3,
             "AWG_TRIPLE": 2,
@@ -128,7 +128,7 @@ def main():
             "PULLUP_R": 1,
             "WINDING_R_LOW": 1,
             "WINDING_R_HIGH": 1,
-            "SHROUD_SJOOW_AWG": 3,
+            "SHROUD_SJOOW_AWG": 4,
             "GLAND_LOW": 1,
             "GLAND_HIGH": 1,
             "GND_STUD_HOLE": 1,

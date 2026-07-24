@@ -33,9 +33,11 @@ from _cold_core_interface import (
     reservoir_bulkhead_port_x,
     reservoir_bulkhead_port_y,
     bulkhead_floor_clearance,
+    bulkhead_elbow_exit_z,
     make_box,
 )
-from _reed_channels import reeds_per_reservoir
+from _reed_channels import reeds_per_reservoir, cable_hole_offset_from_bulkhead_hole_x
+from _port_cuts import flavor_line_hole_x
 
 
 def _z_cylinder(anchor_xy, z_range, diameter):
@@ -188,8 +190,10 @@ vent_brim_bottom_z = vent_cylinder_walls_bottom_z - vent_brim_thickness
 # Level-sensing rod: a vertical [3.175 mm](ROD_DIAMETER) (1/8") × 305 mm (12") 316 SS
 # round rod, body-anchored and cap-registered. A small magnetic float
 # slides up and down the rod as the syrup level changes; [4](REEDS_PER_RES) reed
-# switches mounted outside the reservoir pocket's far +X wall (foam-
-# encapsulated during the foam pour) detect the float's position. Same
+# switches mounted outside the reservoir pocket's far +X wall detect the
+# float's position. They drop into the foam shell's reed channel as one
+# pre-soldered column after the body pour has cured — held mechanically,
+# never foam-encapsulated (`level-sensing.md`). Same
 # rod SKU as the carbonator's reed+float level sensing — Tandefio B0CY4DWJFQ;
 # see `hardware/future.md` "Level sensing".
 #
@@ -1229,6 +1233,12 @@ def main():
         "ROD_POSITION_Y": f"{rod_position_y:.4g}",
         "REEDS_PER_RES": f"{reeds_per_reservoir:.4g}",
         "RESERVOIR_ROD_LEN": f"{reservoir_rod_len:.4g} mm ({reservoir_rod_len / 25.4:.3g} in)",
+        # level-sensing.md — the two −Y wall holes that flank the bulkhead
+        # axis, cut by _port_cuts (flavor line) and _reed_channels (cable).
+        "FLAVOR_HOLE_X": f"±{flavor_line_hole_x:.4g}",
+        "CABLE_HOLE_X": f"±{reservoir_bulkhead_port_x + cable_hole_offset_from_bulkhead_hole_x:.4g}",
+        "WALL_HOLE_Y": f"{reservoir_bulkhead_port_y:.4g}",
+        "WALL_HOLE_Z": f"{bulkhead_elbow_exit_z:.4g}",
         # Dynamic-comment markers above derived constants in this .py file.
         "RESERVOIR_WALL_T": f"{reservoir_wall_thickness:.4g} mm",
         "CAP_TOTAL_H": f"{cap_total_height:.4g} mm",
@@ -1318,6 +1328,11 @@ def main():
             "ROD_POSITION_Y": 1,
             "REEDS_PER_RES": 9,
             "RESERVOIR_ROD_LEN": 1,
+            "FLAVOR_HOLE_X": 1,
+            "CABLE_HOLE_X": 2,
+            "WALL_HOLE_Y": 1,
+            "WALL_HOLE_Z": 1,
+            "RESERVOIR_CLEARANCE": 1,
         },
     )
     print("-> level-sensing.md")

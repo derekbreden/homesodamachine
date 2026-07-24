@@ -27,8 +27,11 @@ sys.path.insert(
     0,
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
+sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
+sys.path.insert(0, str(_here.parents[1] / "copper-plugs"))
 from _cadq_export import export_step
 from docgen import substitute_py_comments
+from copper_plugs import lowest_copper_z, highest_copper_z
 
 
 # ═══════════════════════════════════════════════════════
@@ -80,11 +83,14 @@ mandrel_r_range = (mandrel_inner_radius, mandrel_radius)
 # FOAM-SHELL ALIGNMENT
 # ═══════════════════════════════════════════════════════
 
-# Plug positions in foam-shell coords (Y is the cylinder axis).
-plug_inlet_x, plug_inlet_y, plug_inlet_z = -30.0, 46.0, 20.0
-plug_outlet_x, plug_outlet_y, plug_outlet_z = 30.0, 166.4, 20.0
+# Plug positions in foam-shell coords (Y is the cylinder axis). The axial
+# coordinate of each end is the pass-through the copper actually threads —
+# the lowest and highest copper Z in the shared −Y slot, read from the plug
+# stack that seals around them.
+plug_inlet_x, plug_inlet_y, plug_inlet_z = -30.0, lowest_copper_z, 20.0
+plug_outlet_x, plug_outlet_y, plug_outlet_z = 30.0, highest_copper_z, 20.0
 
-# [120.4 mm](WIND_LENGTH) — Y span between foam-shell inlet and outlet plugs.
+# [119.4 mm](WIND_LENGTH) — Y span between foam-shell inlet and outlet plugs.
 wind_length = plug_outlet_y - plug_inlet_y
 
 plug_inlet_azimuth = math.degrees(math.atan2(plug_inlet_z, plug_inlet_x))
@@ -96,11 +102,11 @@ plug_ccw_delta = (plug_outlet_azimuth - plug_inlet_azimuth) % 360
 # [9](FULL_WRAPS) full wraps; the fractional wrap spans the azimuthal delta.
 full_wraps = 9
 total_wraps = full_wraps + plug_ccw_delta / 360
-# [12.43 mm](PITCH) — helix pitch, [0.489 in](PITCH_IN).
+# [12.33 mm](PITCH) — helix pitch, [0.485 in](PITCH_IN).
 pitch = wind_length / total_wraps
 
 # Copper the wrap consumes — the helix arc at the winding centerline:
-# [3.878 m](WRAP_LEN) ([12.72 ft](WRAP_FT)) per vessel.
+# [3.877 m](WRAP_LEN) ([12.72 ft](WRAP_FT)) per vessel.
 wrap_length = total_wraps * math.hypot(2 * math.pi * helix_path_radius, pitch)
 
 # A [500 mm](STUB_LEN) refrigerant-loop tie-in tail at each end brings the
@@ -120,7 +126,7 @@ cut_length = wrap_length + 2 * stub_allowance
 handle_length_in = 0.75
 # [19.05 mm](HANDLE_LENGTH) — 0.75" handle on each end.
 handle_length = handle_length_in * 25.4
-# [158.5 mm](TOTAL_LENGTH) — full mandrel length along the Z axis.
+# [157.5 mm](TOTAL_LENGTH) — full mandrel length along the Z axis.
 total_length = handle_length + wind_length + handle_length
 
 mandrel_z_range = (0, total_length)

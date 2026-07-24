@@ -36,7 +36,7 @@ lid_z_height = wall_and_floor_thickness
 
 
 # [6.5 mm](COTWO_TUBE_D) tube clearance for the 1/4" OD LLDPE CO2 line —
-# distinct from the foam shell's ⌀16 elbow-body bore below the cap; only
+# distinct from the foam shell's ⌀18 elbow-body bore below the cap; only
 # the tube itself traverses the cap and lid. Inlet position: co2_inlet_y
 # (interface), between the centerward-wall and support-ring midlines.
 co2_tube_clearance_radius = co2_inlet_tube_radius
