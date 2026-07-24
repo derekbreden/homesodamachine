@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="ip">
+<div class="card">
+
+<header>
+  <div class="code">IP-01</div>
+  <h1>CO2 path — front panel<br>to cold core</h1>
+  <div class="deckpos"><b>Internal plumbing · 01/6</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede"><strong>Two NPT joints in series</strong> — check,
+    then regulator — hang off the front panel; one LLDPE run closes into
+    the cold core. Dry path first.</p>
+
+    <ol class="steps">
+      <li><b>DERPIPE bulkhead NPT-side inboard</b> (EN). Tape it:
+        <span class="dim">2&ndash;3 wraps</span> clockwise, first thread
+        bare.</li>
+      <li><b>GASHER check on, arrow away from the bulkhead.</b>
+        <span class="dim">Snug + 1 turn</span> past hand-tight, backed up
+        on the DERPIPE hex.</li>
+      <li><b>WR1110 &ldquo;IN&rdquo; (taped) onto the GASHER</b> — same
+        snug + 1. It hangs on threads until its EN bracket.</li>
+      <li><b>Tape &ldquo;OUT&rdquo;; first PP010822E on</b> — the
+        NPT&rarr;PTC transition, warm side of the foam boundary.</li>
+      <li><b>LLDPE cut square — no chamfer, no angle</b> — up and over
+        into the cold-core CO2 input. Click, then tug both ends.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      Millrose PTFE tape · crescent wrench + backup · Mudder cutter
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 700" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .body  { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .band  { fill: #dfe3e9; stroke: #1d1d26; stroke-width: 3; }
+          .tube  { stroke: #1d1d26; stroke-width: 5; fill: none; }
+          .flow  { stroke: #2268c2; stroke-width: 3; fill: none; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #2268c2; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .tape  { stroke: #f0b429; stroke-width: 6; }
+        </style>
+        <text class="lbl" x="24" y="40">CO2 CHAIN &#183; front panel &#8594; foam boundary</text>
+
+        <!-- spine -->
+        <line class="flow" x1="230" y1="88" x2="230" y2="622"/>
+        <path fill="#2268c2" d="M 230 634 L 219 612 L 241 612 Z"/>
+
+        <!-- front panel band -->
+        <rect class="band" x="60" y="72" width="340" height="34"/>
+        <text class="lbl" x="416" y="98">FRONT PANEL</text>
+        <!-- DERPIPE -->
+        <rect class="body" x="184" y="106" width="92" height="58" rx="6"/>
+        <text class="lbl" x="300" y="130">DERPIPE bulkhead</text>
+        <text class="sub" x="300" y="158">5/16&Prime; PTC out &#183; 1/4&Prime; NPT in</text>
+
+        <!-- tape joint 1 -->
+        <line class="tape" x1="212" y1="176" x2="248" y2="176"/>
+        <text class="sub" x="300" y="184">PTFE &#183; snug + 1</text>
+
+        <!-- GASHER -->
+        <rect class="body" x="176" y="192" width="108" height="64" rx="8"/>
+        <path fill="#2268c2" d="M 230 246 L 219 224 L 241 224 Z"/>
+        <text class="lbl" x="300" y="218">GASHER check</text>
+        <text class="sub" x="300" y="246">1/4&Prime; NPT SS &#183; arrow away from panel</text>
+
+        <!-- tape joint 2 -->
+        <line class="tape" x1="212" y1="268" x2="248" y2="268"/>
+        <text class="sub" x="300" y="276">PTFE on &#8220;IN&#8221; &#183; snug + 1</text>
+
+        <!-- WR1110 -->
+        <rect class="body" x="162" y="284" width="136" height="84" rx="10"/>
+        <text class="dimtx" x="230" y="336" text-anchor="middle">90 PSI</text>
+        <text class="lbl" x="316" y="312">WR1110 regulator</text>
+        <text class="sub" x="316" y="340">fixed secondary &#183; IN up, OUT down</text>
+        <text class="sub" x="316" y="364">hangs on the threads until its bracket</text>
+
+        <!-- tape joint 3 -->
+        <line class="tape" x1="212" y1="380" x2="248" y2="380"/>
+        <text class="sub" x="300" y="390">PTFE on &#8220;OUT&#8221; &#183; snug + 1</text>
+
+        <!-- PP010822E -->
+        <rect class="body" x="184" y="396" width="92" height="56" rx="6"/>
+        <text class="lbl" x="300" y="420">PP010822E</text>
+        <text class="sub" x="300" y="448">1/4&Prime; NPT M &#8594; 1/4&Prime; PTC &#183; last metal</text>
+
+        <!-- LLDPE -->
+        <path class="tube" d="M 230 452 C 230 500 150 490 150 530 C 150 566 230 560 230 596"/>
+        <text class="lbl" x="300" y="510">1/4&Prime; OD LLDPE</text>
+        <text class="sub" x="300" y="538">cut square both ends &#183; click + tug</text>
+        <text class="sub" x="300" y="564">up and over, into the cap stack</text>
+
+        <!-- cold core band -->
+        <rect class="band" x="60" y="634" width="620" height="40"/>
+        <circle cx="230" cy="654" r="9" fill="#fff" stroke="#1d1d26" stroke-width="3"/>
+        <text class="lbl" x="262" y="662">COLD CORE &#183; CO2 input from above</text>
+        <line class="flow" x1="239" y1="646" x2="420" y2="608"/>
+        <text class="dimtx" x="428" y="600">&#8960;6.5 mm cap-lid hole</text>
+        <text class="sub" x="428" y="628">x=0, y=&minus;72.75</text>
+      </svg>
+      <div class="cap"><b>Closed dry</b> — charging is AB-02. Vessel-side
+      of the boundary (elbow, barb, silicone, sparge stone) is already
+      sealed in the foam (CC).</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Closed dry, DERPIPE to cold core — both NPT joints past hand-tight, both PTC ends clicked home and tug-tested.</div>
+  <div class="src">internal-plumbing.md &#167;1<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

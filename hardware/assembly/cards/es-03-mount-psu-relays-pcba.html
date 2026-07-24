@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="es">
+<div class="card">
+
+<header>
+  <div class="code">ES-03</div>
+  <h1>Mount the PSU,<br>relays, PCBA</h1>
+  <div class="deckpos"><b>Electronics shelf · 03/7</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Each part onto its boss pattern —
+    <span class="dim">M3 &#215; 8</span> SHCS into the heat-set inserts,
+    torqued by feel. The board is the one ESD-handled part.</p>
+
+    <ol class="steps">
+      <li><b>PSU first</b> — the Mean Well IRM-90-12ST down onto its four
+        power-tray bosses.</li>
+      <li><b>Relays</b> — relay #1 (compressor switch) on the power-tray
+        standoffs; relay #2 (diaphragm-pump switch) at its staged
+        position.</li>
+      <li><b>Controller PCBA, ESD-handled</b> — four SHCS through the
+        isolated corner holes <span class="dim">MH1–MH4</span>; heads seat
+        on pads the pours keep clear.</li>
+      <li><b>Orientation is the tray frame:</b> USB-C
+        (<span class="dim">J14</span>) flush at the west board edge,
+        <span class="dim">J10</span> screw throats facing east — both edges
+        left reachable.</li>
+    </ol>
+
+    <div class="note">
+      <b>Nothing is powered or flashed here</b> — pre-flash happens over
+      J14 at FC-02, after install.
+    </div>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      M3 &#215; 8 SHCS (bom.md &#167;13) · ESD mat
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel">
+      <img src="img/pcba-assembly.png" alt="">
+      <div class="cap"><b>pcba-assembly</b> — the JLCPCB-assembled board
+      (85.05 &#215; 72.85&nbsp;mm) on its four corner standoffs; every
+      field interface is a labeled edge connector.</div>
+    </div>
+
+    <div class="note" style="margin-top:24px">
+      <b>The tray frame is the board's pcb frame</b> — every boss centre is
+      its MH coordinate verbatim, so the board only seats one way.
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>PSU, both relays, and the board seated on their patterns, torqued by feel — J14 west + J10 east edges clear.</div>
+  <div class="src">electronics-shelf.md &#167;3 &#183; pcba_assembly.py<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

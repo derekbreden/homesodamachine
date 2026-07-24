@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="ab">
+<div class="card">
+
+<header>
+  <div class="code">AB-03</div>
+  <h1>First dispenses — water,<br>flavor A, flavor B</h1>
+  <div class="deckpos"><b>Acceptance · 03/6</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Chill first, then three pours — plain carbonated
+    water to the glass, then <strong>a metered ratio test on each
+    channel</strong> into the cylinder.</p>
+
+    <ol class="steps">
+      <li><b>Wait out first chill</b> — <span class="dim">~20 &deg;C</span>
+        tap &rarr; <span class="dim">2 &deg;C</span> takes tens of
+        minutes to the first compressor-off. Coil hitting
+        <span class="dim">&minus;8 &deg;C</span> first = short charge.</li>
+      <li><b>Pour water only</b> — wall &le; <span class="dim">4 &deg;C</span>,
+        compressor off: full pour, <span class="dim">12 oz</span> glass,
+        thermocouple in at once.</li>
+      <li><b>Read the glass</b> — table at right. A warm pour is heat
+        pickup on the chilled run: CARGEN sleeve or foil bond.</li>
+      <li><b>Meter A, then B</b> — the cylinder catches
+        <span class="dim">~250 mL</span> water +
+        <span class="dim">~12.5 mL</span> concentrate per channel. Pumps
+        audible — no slip, no stall.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Bench</span>
+      12 oz glass · 250 mL cylinder · thermocouple (&plusmn;0.5 &deg;C) ·
+      stopwatch · refractometer (optional)
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:780px">
+    <div class="settings">
+      <div class="s"><div class="k">Wall gate</div><div class="v">&le; 4 &deg;C</div></div>
+      <div class="s"><div class="k">In the glass</div><div class="v">&le; ~6 &deg;C</div></div>
+      <div class="s"><div class="k">Foam hold</div><div class="v">&ge; 10 s</div></div>
+      <div class="s"><div class="k">Ratio</div><div class="v">1:20</div></div>
+      <div class="s"><div class="k">Metered total</div><div class="v">~262.5 mL</div></div>
+      <div class="s"><div class="k">Channels</div><div class="v">&le; ~10 % apart</div></div>
+    </div>
+
+    <table class="spec" style="margin-top:22px">
+      <tr><th>Pour</th><th>Into</th><th>Pass</th></tr>
+      <tr><td>Carbonator only</td><td>12 oz glass</td>
+        <td>&le; ~6 &deg;C &#183; bubble train &#183; no sputter</td></tr>
+      <tr><td>Channel A metered</td><td>cylinder</td>
+        <td class="v">~249&ndash;276 mL (&plusmn;5 %)</td></tr>
+      <tr><td>Channel B metered</td><td>cylinder</td>
+        <td>same &#183; within ~10 % of A</td></tr>
+    </table>
+
+    <div class="note" style="margin-top:22px">
+      <b>Low reed</b> asserts mid-pour and queues a refill; firmware
+      defers it past the dispense window. <b>Refractometer</b> reads a
+      sucralose proxy — relative between channels, not absolute.
+      Channels &gt; 10 % apart: recalibrate both pumps before ship.
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Three pours logged — ~12 oz at &le; ~6 &deg;C with normal carbonation; A and B in the &plusmn;5 % band and within ~10 % of each other.</div>
+  <div class="src">acceptance-and-burn-in.md &#167;5&ndash;7<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

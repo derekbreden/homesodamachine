@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="cc">
+<div class="card">
+
+<header>
+  <div class="code">CC-13</div>
+  <h1>Stack the copper plugs</h1>
+  <div class="deckpos"><b>Cold core · 13/15</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Four printed plugs tile the slot from the lowest
+    copper to the wall top. Each grips the wall like a
+    <strong>binder clip</strong>, and each end arch closes around half
+    a tube — <strong>the tube is the gap.</strong></p>
+
+    <ol class="steps">
+      <li><b>Order the stack:</b> lower (the tall one) &#8594; middle
+        &#8594; upper &#8594; top. Only the top plug has a flat
+        top.</li>
+      <li><b>Slide each down the open slot from above</b> — web in the
+        slot, wall seated in the gap between the flanges: the
+        binder-clip grip.</li>
+      <li><b>Arches seat the tubes — never crushing.</b> Plug above
+        takes the upper half, plug below the lower; faces meet at the
+        tube centers.</li>
+      <li><b>Top plug last</b> — flat side up, flush with the wall
+        top.</li>
+      <li><b>Leave the slivers to the pour</b> — the strip at the slot
+        bottom and the bands around each tube fill at CC-14.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Parts</span>
+      copper-plug lower / middle / upper / top &#8212; printed PETG
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 470" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .petg  { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .plug  { fill: #d8dde6; stroke: #1d1d26; stroke-width: 2.5; }
+          .cu    { fill: #fff; stroke: #b8722c; stroke-width: 6; }
+          .dimln { stroke: #0f8bab; stroke-width: 2.5; fill: none; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #0f8bab; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <text class="lbl" x="24" y="38">BINDER CLIP &#183; end-on</text>
+        <text class="lbl" x="470" y="38">THE STACK</text>
+        <!-- cross-section, 24 px/mm -->
+        <g transform="translate(120,132)">
+          <!-- flanges: 8.5 wide × 1 -->
+          <rect class="plug" x="0" y="0" width="204" height="24"/>
+          <rect class="plug" x="0" y="120" width="204" height="24"/>
+          <!-- web: 6.5 wide × 2 (wall thickness) -->
+          <rect class="plug" x="24" y="24" width="156" height="96"/>
+          <!-- wall each side of the slot -->
+          <rect class="petg" x="-96" y="24" width="120" height="96"/>
+          <rect class="petg" x="180" y="24" width="120" height="96"/>
+          <text class="sub" x="-88" y="80">wall</text>
+          <text class="sub" x="252" y="80">wall</text>
+          <line class="dimln" x1="102" y1="-30" x2="102" y2="-4"/>
+          <text class="dimtx" x="102" y="-44" text-anchor="middle">web fills the slot</text>
+          <text class="sub" x="102" y="196" text-anchor="middle">the wall slides between the</text>
+          <text class="sub" x="102" y="224" text-anchor="middle">flange prongs &#8212; 2 mm gap</text>
+          <text class="sub" x="102" y="286" text-anchor="middle">arch at each tube end seats</text>
+          <text class="sub" x="102" y="314" text-anchor="middle">half the &#8960;6.35 tube &#8212; gently</text>
+        </g>
+        <!-- stack elevation, 1.874 px/mm, base z0 at y=440 -->
+        <g transform="translate(520,16)">
+          <!-- wall band -->
+          <rect class="petg" x="0" y="52" width="56" height="388"/>
+          <!-- slot -->
+          <rect x="20" y="52" width="16" height="310" fill="#fff" stroke="#1d1d26" stroke-width="2"/>
+          <!-- plugs -->
+          <rect class="plug" x="16" y="128" width="24" height="224"/>
+          <rect class="plug" x="16" y="68"  width="24" height="60"/>
+          <rect class="plug" x="16" y="53"  width="24" height="15"/>
+          <rect class="plug" x="16" y="40"  width="24" height="13"/>
+          <!-- tubes -->
+          <circle class="cu" cx="28" cy="352" r="7"/>
+          <circle class="cu" cx="28" cy="128" r="7"/>
+          <circle class="cu" cx="28" cy="68" r="7"/>
+          <circle class="cu" cx="28" cy="53" r="7"/>
+          <!-- labels -->
+          <text class="dimtx" x="72" y="46">top &#8212; flush</text>
+          <text class="dimtx" x="72" y="76">upper</text>
+          <text class="dimtx" x="72" y="140">middle</text>
+          <text class="dimtx" x="72" y="248">lower</text>
+          <text class="sub" x="72" y="278">119.4 tall</text>
+          <text class="sub" x="72" y="366">bottom strip &#8594;</text>
+          <text class="sub" x="72" y="394">foam (CC-14)</text>
+          <line class="dimln" x1="-14" y1="352" x2="12" y2="352"/>
+          <text class="dimtx" x="-22" y="360" text-anchor="end">47</text>
+          <line class="dimln" x1="-14" y1="128" x2="12" y2="128"/>
+          <text class="dimtx" x="-22" y="136" text-anchor="end">166.4</text>
+          <line class="dimln" x1="-14" y1="68" x2="12" y2="68"/>
+          <text class="dimtx" x="-22" y="76" text-anchor="end">198.4</text>
+          <line class="dimln" x1="-14" y1="53" x2="12" y2="47"/>
+          <text class="dimtx" x="-22" y="47" text-anchor="end">206.4</text>
+          <text class="sub" x="-22" y="446" text-anchor="end">z mm</text>
+        </g>
+      </svg>
+      <div class="cap"><b>End faces meet at the tube centers</b> — no
+      linear gaps in the stack; the tube is the gap.</div>
+    </div>
+
+    <table class="spec" style="margin-top:18px">
+      <tr><td>lower</td><td class="v">47 &#8594; 166.4</td>
+          <td>middle</td><td class="v">166.4 &#8594; 198.4</td></tr>
+      <tr><td>upper</td><td class="v">198.4 &#8594; 206.4</td>
+          <td>top</td><td class="v">206.4 &#8594; 213.4</td></tr>
+    </table>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Four plugs gripping the wall edge, every arch closed on its tube, top plug flush with the wall top.</div>
+  <div class="src">cold-core.md &#167;4 &#183; copper_plugs.py<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="rl">
+<div class="card">
+
+<header>
+  <div class="code">RL-07</div>
+  <h1>Mass-metered recharge</h1>
+  <div class="deckpos"><b>Refrigerant loop · 07/8</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede"><strong>The scale is the meter:</strong> what the can
+    loses, the loop gains — exact method, target still in calibration.</p>
+
+    <ol class="steps">
+      <li><b>Can on the scale — tare.</b> Plumb can &rarr; manifold &rarr;
+        BPV31 flare port; open the BPV31.</li>
+      <li><b>Open the can valve.</b> R-600a flows into the vacuum on its
+        own vapor pressure; the readout falls.</li>
+      <li><b>Close at the target &Delta;.</b> The can's lost grams are the
+        loop's charge — &Delta;mass is the measurement.</li>
+      <li><b>Button up:</b> manifold valve, BPV31, hose off, cap the flare
+        port. The valve stays clamped for life.</li>
+    </ol>
+
+    <div class="note" style="margin-bottom:24px">
+      <b>Target is an open item</b> — not the factory mass: the wound coil
+      holds more volume than the finger-plate it replaced. Start at factory
+      + a small overage; iterate <span class="dim">1&ndash;2 g</span>
+      against frost pattern + suction superheat on RL&#8209;08.
+    </div>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      Enviro-Safe R-600a B0CGG1WH1N · Smart Weigh Pro scale, 2000 g &times;
+      0.1 g · manifold, 1/4&Prime; SAE flare
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="settings">
+      <div class="s"><div class="k">Factory &#183; A</div><div class="v">15 g</div></div>
+      <div class="s"><div class="k">Factory &#183; B</div><div class="v">23 g</div></div>
+      <div class="s"><div class="k">Correction</div><div class="v">+5&ndash;15 g <small>open</small></div></div>
+      <div class="s"><div class="k">Iterate by</div><div class="v">1&ndash;2 g</div></div>
+      <div class="s"><div class="k">Tolerance</div><div class="v">&plusmn; 1 g</div></div>
+      <div class="s"><div class="k">Scale res.</div><div class="v">0.1 g</div></div>
+    </div>
+
+    <div class="panel light" style="margin-top:24px">
+      <svg viewBox="0 0 760 430" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .hose  { stroke: #1d1d26; stroke-width: 5; fill: none; }
+          .dimln { stroke: #c8481d; stroke-width: 2.5; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #c8481d; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .cu    { stroke: #b8722c; stroke-width: 5; fill: none; }
+          .flow  { stroke: #c8481d; stroke-width: 3.5; fill: none; }
+        </style>
+        <text class="lbl" x="24" y="40">&Delta;MASS &#183; the can loses what the loop gains</text>
+
+        <!-- BPV31 on process tube (left) -->
+        <path class="cu" d="M 40 210 L 140 210"/>
+        <rect x="70" y="192" width="36" height="36" rx="6" fill="#fff" stroke="#1d1d26" stroke-width="3"/>
+        <text class="dimtx" x="88" y="172" text-anchor="middle" font-size="22">BPV31</text>
+        <text class="sub" x="40" y="258">flare port</text>
+        <!-- hose from manifold to BPV31 -->
+        <path class="hose" d="M 106 210 L 280 210"/>
+        <!-- manifold -->
+        <rect class="steel" x="280" y="180" width="140" height="60" rx="8"/>
+        <circle class="steel" cx="314" cy="142" r="28"/>
+        <circle class="steel" cx="386" cy="142" r="28"/>
+        <text class="sub" x="350" y="272" text-anchor="middle">manifold</text>
+        <!-- hose from can valve, over the top, down to the manifold -->
+        <path class="hose" d="M 420 210 L 448 210 L 448 40 L 540 40 L 540 50"/>
+        <!-- can on scale -->
+        <rect class="steel" x="506" y="66" width="68" height="84" rx="10"/>
+        <line x1="540" y1="66" x2="540" y2="48" stroke="#1d1d26" stroke-width="5"/>
+        <text class="sub" x="596" y="96">R-600a can</text>
+        <text class="sub" x="596" y="124">valve up, tared</text>
+        <!-- scale platform -->
+        <rect class="steel" x="480" y="150" width="120" height="16" rx="4"/>
+        <rect class="steel" x="470" y="166" width="240" height="70" rx="10"/>
+        <rect x="600" y="180" width="94" height="42" rx="6" fill="#1a1a2e"/>
+        <text x="647" y="210" text-anchor="middle" font="700 26px Menlo" fill="#ffffff" style="font:700 26px Menlo,monospace">&minus;&Delta; g</text>
+        <text class="sub" x="470" y="272">Smart Weigh Pro &#183; 0.1 g</text>
+        <!-- flow chevrons: can -> manifold -> loop -->
+        <path class="flow" d="M 440 120 L 448 136 L 456 120"/>
+        <path class="flow" d="M 468 202 L 452 210 L 468 218"/>
+        <path class="flow" d="M 216 202 L 200 210 L 216 218"/>
+        <!-- close-at-target callout -->
+        <text class="dimtx" x="380" y="340" text-anchor="middle">close the can valve when the display</text>
+        <text class="dimtx" x="380" y="374" text-anchor="middle">has dropped by the target charge</text>
+        <text class="sub" x="380" y="408" text-anchor="middle">&Delta;mass of the can = mass added to the loop &#183; tolerance &plusmn;1 g</text>
+      </svg>
+      <div class="cap"><b>No gauge-pressure charging</b> — it flows into
+      the vacuum under its own vapor pressure, and the scale does the
+      measuring.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>&Delta;mass within &plusmn;1 g of the working target; BPV31 closed + capped — clamped on as the appliance's service point for life.</div>
+  <div class="src">refrigerant-loop.md &#167;7 &#183; open items &#167;1<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

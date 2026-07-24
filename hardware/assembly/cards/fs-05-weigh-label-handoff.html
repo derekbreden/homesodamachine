@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="fs">
+<div class="card">
+
+<header>
+  <div class="code">FS-05</div>
+  <h1>Weigh, label, hand off</h1>
+  <div class="deckpos"><b>Finish + ship · 05/5</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">The scale gates the carrier, the label rides the top
+    face, <strong>the handoff ends with the founder's email.</strong></p>
+
+    <ol class="steps">
+      <li><b>Zero, weigh, tape</b> — scale level and zeroed empty, gross
+        to <span class="dim">0.1 kg</span>; longest external dimension
+        per axis (dim-weight reads the outside, not the void). Both
+        &rarr; ship-dims.txt.</li>
+      <li><b>Check the gate</b> — over <span class="dim">70 lb</span> /
+        <span class="dim">~32 kg</span> residential ground escalates to
+        LTL. None anticipated at 15&ndash;20 kg; the measurement
+        decides.</li>
+      <li><b>Label the top face</b> — carrier portal, label-pouch
+        adhesive, never loose-taped; the dock scanner reads it without
+        rotating the carton.</li>
+      <li><b>Hand off + email same day</b> — scan out to shipped.txt;
+        the email goes from derek@homesodamachine.com, naming the
+        serial, rear photo (FS-03) attached.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Bench</span>
+      platform scale · tape measure · carrier portal
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:780px">
+    <div class="settings">
+      <div class="s"><div class="k">Precision</div><div class="v">0.1 kg</div></div>
+      <div class="s"><div class="k">Carton</div><div class="v">15&ndash;20 kg</div></div>
+      <div class="s"><div class="k">Dims</div><div class="v">60&times;50&times;50 cm</div></div>
+      <div class="s"><div class="k">Ground limit</div><div class="v">70 lb <small>~32 kg</small></div></div>
+      <div class="s"><div class="k">Declared</div><div class="v">$7,500</div></div>
+      <div class="s"><div class="k">Ships to</div><div class="v">lower 48</div></div>
+    </div>
+
+    <table class="spec" style="margin-top:22px">
+      <tr><th>File &#183; logs/&lt;serial&gt;/finish/</th><th>Holds</th></tr>
+      <tr><td class="v">ship-dims.txt</td><td>serial &#183; gross kg &#183; L&times;W&times;H cm &#183; timestamp</td></tr>
+      <tr><td class="v">shipped.txt</td><td>tracking &#183; carrier &#183; handoff time &#183; driver ack</td></tr>
+    </table>
+
+    <div class="note" style="margin-top:22px">
+      <b>Working positions:</b> carrier selection open — default ground
+      freight, lower-48 only; declared value assumption full $7,500;
+      carton weight + dims are estimates — the first unit's measurement
+      calibrates the carrier-cost model for the run.
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Gross + dims recorded against the order, label riding the top face, driver acknowledged — and the customer has tracking, serial, and photo from the founder.</div>
+  <div class="src">finish-pack-ship.md &#167;8&ndash;9<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

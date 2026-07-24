@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="es">
+<div class="card">
+
+<header>
+  <div class="code">ES-06</div>
+  <h1>Land the RELAYS<br>J5 loom</h1>
+  <div class="deckpos"><b>Electronics shelf · 06/7</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">The one loom whose <strong>both ends live on the
+    shelf</strong>: XH housing at the board's J5, screw terminals at both
+    Teyleten modules.</p>
+
+    <ol class="steps">
+      <li><b>Seat the housing square</b> on the J5 (RELAYS) wafer — pins
+        <span class="dim">GND / V5 / IO2 / IO19</span> on the silk.</li>
+      <li><b>LV-1:</b> IO19 → relay #1 IN — asserted through the on-board
+        gas interlock (U15): no compressor while the MQ-6 reads gas.</li>
+      <li><b>LV-2:</b> IO2 → relay #2 IN. Boot-safe: the opto's LED load
+        holds IO2 low, which download mode also wants.</li>
+      <li><b>LV-3:</b> V5 + GND, teed at the relay end to both modules'
+        VCC / GND terminals.</li>
+      <li><b>Every other loom lands later</b> — J1–J4, J6–J9, J11, J13 are
+        built at CA-01 and land at WR-04 / WR-05.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      small flat screwdriver · J5 loom from CA-01
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 560" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .blk   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .wire  { stroke: #1d1d26; stroke-width: 5; fill: none; }
+          .runid { font: 700 25px Menlo, monospace; fill: #b8860b; }
+          .pin   { font: 700 24px Menlo, monospace; fill: #1d1d26; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <!-- board -->
+        <rect class="blk" x="30" y="50" width="220" height="400" rx="10"/>
+        <text class="lbl" x="140" y="410" text-anchor="middle">PCBA &#183; J5</text>
+        <text class="sub" x="140" y="438" text-anchor="middle">RELAYS wafer</text>
+        <text class="pin" x="238" y="92" text-anchor="end">IO19</text>
+        <text class="pin" x="238" y="162" text-anchor="end">V5</text>
+        <text class="pin" x="238" y="222" text-anchor="end">GND</text>
+        <text class="pin" x="238" y="352" text-anchor="end">IO2</text>
+        <!-- relay 1 -->
+        <rect class="blk" x="520" y="50" width="210" height="210" rx="10"/>
+        <text class="lbl" x="718" y="92" text-anchor="end">RELAY #1</text>
+        <text class="pin" x="532" y="108">IN</text>
+        <text class="pin" x="532" y="178">VCC</text>
+        <text class="pin" x="532" y="228">GND</text>
+        <!-- relay 2 -->
+        <rect class="blk" x="520" y="310" width="210" height="210" rx="10"/>
+        <text class="lbl" x="718" y="352" text-anchor="end">RELAY #2</text>
+        <text class="pin" x="532" y="368">IN</text>
+        <text class="pin" x="532" y="438">VCC</text>
+        <text class="pin" x="532" y="488">GND</text>
+        <!-- LV-1 -->
+        <line class="wire" x1="250" y1="100" x2="520" y2="100"/>
+        <text class="runid" x="385" y="88" text-anchor="middle">LV-1</text>
+        <!-- LV-2 -->
+        <line class="wire" x1="250" y1="360" x2="520" y2="360"/>
+        <text class="runid" x="385" y="348" text-anchor="middle">LV-2</text>
+        <!-- LV-3: V5 tee -->
+        <line class="wire" x1="250" y1="170" x2="430" y2="170"/>
+        <line class="wire" x1="430" y1="170" x2="520" y2="170"/>
+        <line class="wire" x1="430" y1="170" x2="430" y2="430"/>
+        <line class="wire" x1="430" y1="430" x2="520" y2="430"/>
+        <!-- LV-3: GND tee -->
+        <line class="wire" x1="250" y1="230" x2="390" y2="230"/>
+        <line class="wire" x1="390" y1="230" x2="520" y2="230"/>
+        <line class="wire" x1="390" y1="230" x2="390" y2="480"/>
+        <line class="wire" x1="390" y1="480" x2="520" y2="480"/>
+        <circle cx="430" cy="170" r="7" fill="#1d1d26"/>
+        <circle cx="390" cy="230" r="7" fill="#1d1d26"/>
+        <text class="runid" x="300" y="158">LV-3</text>
+        <text class="sub" x="736" y="552" text-anchor="end">V5 + GND teed at the relay end</text>
+      </svg>
+      <div class="cap"><b>Coil 5 V comes off the board's K7805 rail through
+      J5</b> — opto isolation keeps it electrically separate from the mains
+      contacts. 22 AWG, ~150 mm.</div>
+    </div>
+
+    <div class="note" style="margin-top:24px">
+      <b>J4 + J7 share the 7P housing.</b> When their looms land (WR-05),
+      the loom label — not the fit — is the misplug guard.
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Housing seated square on the J5 wafer; IN, VCC, and GND landed at both modules' screw terminals.</div>
+  <div class="src">electronics-shelf.md &#167;6 &#183; ac-wiring-schedule.md<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

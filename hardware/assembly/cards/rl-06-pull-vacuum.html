@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="rl">
+<div class="card">
+
+<header>
+  <div class="code">RL-06</div>
+  <h1>Pull vacuum</h1>
+  <div class="deckpos"><b>Refrigerant loop · 06/8</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">First proof of the brazes — and the handoff:
+    <strong>argon may stop only because the pump takes over.</strong></p>
+
+    <ol class="steps">
+      <li><b>Brazes complete &rarr; argon off</b> at the regulator, BPV31
+        closed. The loop-open period ends here.</li>
+      <li><b>Swap at the flare port:</b> argon hose off, manifold's
+        <span class="dim">1/4&Prime; SAE</span> flare on. Reopen the
+        BPV31.</li>
+      <li><b>Pull to <span class="dim">500 microns</span> or below;</b>
+        hold &ge;&thinsp;<span class="dim">15 min</span> on the pump.</li>
+      <li><b>Valve off:</b> no rise for <span class="dim">15 min</span> =
+        tight. A rise = moisture (pump longer) or a leak (find + fix).</li>
+    </ol>
+
+    <div class="note" style="margin-bottom:24px">
+      <b>The drier's dry blanket hands off here</b> — argon stops only as
+      vacuum begins, never earlier (RL-03).
+    </div>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      Orion Motor Tech 4 CFM 1/3 HP vacuum pump (150&thinsp;&micro;
+      ultimate) · Orion manifold gauge set, 1/4&Prime; SAE
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="settings">
+      <div class="s"><div class="k">Target</div><div class="v">&le; 500 &micro;</div></div>
+      <div class="s"><div class="k">Hold</div><div class="v">&ge; 15 min</div></div>
+      <div class="s"><div class="k">Isolated</div><div class="v">15 min <small>no rise</small></div></div>
+      <div class="s"><div class="k">Pump</div><div class="v">4 CFM <small>1/3 HP</small></div></div>
+      <div class="s"><div class="k">Ultimate</div><div class="v">150 &micro;</div></div>
+      <div class="s"><div class="k">Manifold</div><div class="v">1/4&Prime; SAE</div></div>
+    </div>
+
+    <div class="panel light" style="margin-top:24px">
+      <svg viewBox="0 0 760 440" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .hose  { stroke: #1d1d26; stroke-width: 5; fill: none; }
+          .ghost { stroke: #70707c; stroke-width: 4; fill: none; stroke-dasharray: 10 8; }
+          .dimln { stroke: #c8481d; stroke-width: 2.5; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #c8481d; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .cu    { stroke: #b8722c; stroke-width: 5; fill: none; }
+          .seg   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .segtx { font: 700 23px Menlo, monospace; fill: #1d1d26; }
+        </style>
+        <text class="lbl" x="24" y="40">HOOKUP &#183; then the clock</text>
+
+        <!-- BPV31 on process tube -->
+        <path class="cu" d="M 40 190 L 150 190"/>
+        <rect x="76" y="172" width="36" height="36" rx="6" fill="#fff" stroke="#1d1d26" stroke-width="3"/>
+        <text class="dimtx" x="94" y="152" text-anchor="middle" font-size="22">BPV31</text>
+        <text class="sub" x="40" y="238">process tube</text>
+        <!-- ghost argon hose leaving -->
+        <path class="ghost" d="M 94 172 Q 94 96 170 84"/>
+        <line class="dimln" x1="150" y1="66" x2="196" y2="102" stroke="#70707c"/>
+        <line class="dimln" x1="196" y1="66" x2="150" y2="102" stroke="#70707c"/>
+        <text class="sub" x="212" y="92">argon hose off</text>
+        <!-- hose to manifold -->
+        <path class="hose" d="M 112 190 L 300 190"/>
+        <!-- manifold: two gauges + block -->
+        <rect class="steel" x="300" y="160" width="150" height="60" rx="8"/>
+        <circle class="steel" cx="336" cy="122" r="30"/>
+        <circle class="steel" cx="414" cy="122" r="30"/>
+        <line x1="336" y1="122" x2="348" y2="104" stroke="#1d1d26" stroke-width="2.5"/>
+        <line x1="414" y1="122" x2="402" y2="104" stroke="#1d1d26" stroke-width="2.5"/>
+        <text class="sub" x="375" y="252" text-anchor="middle">manifold &#183; 1/4&Prime; SAE</text>
+        <!-- hose to pump -->
+        <path class="hose" d="M 450 190 L 560 190"/>
+        <rect class="steel" x="560" y="150" width="160" height="80" rx="10"/>
+        <text class="sub" x="640" y="186" text-anchor="middle">vacuum pump</text>
+        <text class="sub" x="640" y="214" text-anchor="middle">4 CFM &#183; 150 &micro;</text>
+        <!-- timeline -->
+        <g transform="translate(40,310)">
+          <rect class="seg" x="0" y="0" width="210" height="58" rx="8"/>
+          <text class="segtx" x="105" y="36" text-anchor="middle">PULL &#8594; &le;500 &micro;</text>
+          <rect class="seg" x="210" y="0" width="200" height="58" rx="8"/>
+          <text class="segtx" x="310" y="36" text-anchor="middle">HOLD 15 MIN</text>
+          <rect x="410" y="0" width="270" height="58" rx="8" fill="#fff" stroke="#c8481d" stroke-width="3"/>
+          <text class="segtx" x="545" y="26" text-anchor="middle" fill="#c8481d">VALVED OFF 15 MIN</text>
+          <text class="segtx" x="545" y="50" text-anchor="middle" fill="#c8481d">&#8212; NO RISE</text>
+          <line x1="410" y1="62" x2="410" y2="80" stroke="#1d1d26" stroke-width="2.5"/>
+          <text class="sub" x="410" y="104" text-anchor="middle">pump valved off</text>
+        </g>
+      </svg>
+      <div class="cap"><b>One port does everything</b> — the BPV31 flare
+      is where argon ends and vacuum begins.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>&le;&thinsp;500 microns; &ge;&thinsp;15 min pumping; then 15 min valved off with no rise.</div>
+  <div class="src">refrigerant-loop.md &#167;6<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

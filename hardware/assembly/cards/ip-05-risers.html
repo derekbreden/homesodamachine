@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="ip">
+<div class="card">
+
+<header>
+  <div class="code">IP-05</div>
+  <h1>Risers to the<br>umbilical bulkheads</h1>
+  <div class="deckpos"><b>Internal plumbing · 05/6</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Three risers climb out the top face to the back-panel
+    triangle. <strong>Blue tube to the blue ring — the top vertex;</strong>
+    black lands on the flavor vertices.</p>
+
+    <ol class="steps">
+      <li><b>Carbonated water first:</b> blue LLDPE, cold-core
+        bottom-plate outlet &rarr; up the +Z channel &rarr; the
+        blue-ringed PP1208E. Square-cut, push, tug.</li>
+      <li><b>Insulate that run:</b> CARGEN nitrile segments
+        (<span class="dim">1/4&Prime; ID &#215; 3/8&Prime; wall</span>),
+        butted — foam-shell exit to bulkhead face.</li>
+      <li><b>Flavor A:</b> black LLDPE, V-G outlet &rarr; the left-vertex
+        PP1208E.</li>
+      <li><b>Flavor B:</b> black, V-J outlet &rarr; the right vertex.
+        Flavor runs bare — warm-in, warm-out, low duty.</li>
+    </ol>
+
+    <div class="note" style="margin-bottom:20px">
+      The foam-shell exit is where the thermal mass ends and the chilled
+      multi-meter run to the faucet begins — insulation picks up exactly
+      there.
+    </div>
+
+    <div class="tools">
+      <span class="lbl">Stock + tools</span>
+      blue LLDPE · black LLDPE · CARGEN foam · Mudder cutter
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 720" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .band  { fill: #dfe3e9; stroke: #1d1d26; stroke-width: 3; }
+          .port  { fill: #ffffff; stroke: #1d1d26; stroke-width: 3; }
+          .ring  { fill: none; stroke: #2268c2; stroke-width: 5; }
+          .tri   { stroke: #9aa0aa; stroke-width: 2; stroke-dasharray: 8 7; fill: none; }
+          .blue  { stroke: #2268c2; stroke-width: 6; fill: none; }
+          .blk   { stroke: #1d1d26; stroke-width: 6; fill: none; }
+          .foam  { fill: #d8dde6; stroke: #1d1d26; stroke-width: 2.5; }
+          .box   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .node  { font: 700 24px Menlo, monospace; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .dimtx { font: 700 24px Menlo, monospace; fill: #2268c2; }
+        </style>
+        <text class="lbl" x="24" y="40">BACK PANEL &#183; umbilical cluster, from inside</text>
+
+        <!-- panel band + cluster -->
+        <rect class="band" x="140" y="60" width="480" height="212"/>
+        <path class="tri" d="M 380 120 L 290 222 L 470 222 Z"/>
+        <!-- risers (drawn under ports) -->
+        <path class="blue" d="M 380 652 L 380 132"/>
+        <path class="blk" d="M 290 652 L 290 230"/>
+        <path class="blk" d="M 470 652 L 470 230"/>
+        <!-- ports -->
+        <circle class="ring" cx="380" cy="120" r="27"/>
+        <circle class="port" cx="380" cy="120" r="16"/>
+        <circle class="port" cx="290" cy="222" r="16"/>
+        <circle class="port" cx="470" cy="222" r="16"/>
+        <text class="lbl" x="420" y="106">blue ring</text>
+        <text class="sub" x="420" y="132">carbonated water</text>
+        <text class="lbl" x="162" y="212">flavor A</text>
+        <text class="sub" x="162" y="238">left vertex</text>
+        <text class="lbl" x="502" y="212">flavor B</text>
+        <text class="sub" x="502" y="238">right vertex</text>
+
+        <!-- insulation on the blue run -->
+        <rect class="foam" x="364" y="318" width="32" height="300" rx="6"/>
+        <line x1="364" y1="420" x2="396" y2="420" stroke="#1d1d26" stroke-width="2.5"/>
+        <line x1="364" y1="520" x2="396" y2="520" stroke="#1d1d26" stroke-width="2.5"/>
+        <line x1="362" y1="545" x2="312" y2="545" stroke="#9aa0aa" stroke-width="2"/>
+        <text class="lbl" x="40" y="486">CARGEN nitrile</text>
+        <text class="dimtx" x="40" y="518">1/4&Prime; ID &#215; 3/8&Prime; wall</text>
+        <text class="sub" x="40" y="548">butted, no gaps —</text>
+        <text class="sub" x="40" y="576">foam exit &#8594; bulkhead</text>
+
+        <!-- bare note -->
+        <text class="sub" x="510" y="380">bare black —</text>
+        <text class="sub" x="510" y="408">no insulation</text>
+
+        <!-- sources -->
+        <rect class="box" x="258" y="652" width="64" height="44" rx="7"/>
+        <text class="node" x="290" y="682" text-anchor="middle">V-G</text>
+        <rect class="box" x="438" y="652" width="64" height="44" rx="7"/>
+        <text class="node" x="470" y="682" text-anchor="middle">V-J</text>
+        <rect class="box" x="322" y="652" width="112" height="44" rx="7"/>
+        <text x="378" y="671" text-anchor="middle" style="font: 600 18px 'Helvetica Neue', sans-serif; fill:#1d1d26">COLD CORE</text>
+        <text x="378" y="690" text-anchor="middle" style="font: 400 17px 'Helvetica Neue', sans-serif; fill:#70707c">outlet</text>
+      </svg>
+      <div class="cap"><b>Black-into-either-black is unambiguous</b> — both
+      flavor tubes share the panel-side bundle; only the blue ring must
+      match.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Three risers landed and tug-tested — blue on the blue ring, carbonated run insulated end-to-end, flavor risers bare.</div>
+  <div class="src">internal-plumbing.md &#167;4 &#183; back-panel/README.md<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

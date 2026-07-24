@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="rl">
+<div class="card">
+
+<header>
+  <div class="code">RL-02</div>
+  <h1>Vent the factory R-600a</h1>
+  <div class="deckpos"><b>Refrigerant loop · 02/8</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">The loop opens for the first time, through a valve that
+    never comes off — <strong>decompressed fully</strong> before any flame.</p>
+
+    <div class="safety"><span class="sign">&#9888;</span>
+      <div><b>R-600a is flammable</b> — LFL ~1.8&thinsp;% in air. Vent
+      outdoors or under a vent hood, <b>no ignition sources within
+      <span class="dim" style="background:#e8c33e">3 m</span></b>.</div>
+    </div>
+
+    <ol class="steps">
+      <li><b>Find the process tube</b> — the short copper stub off the
+        compressor, pinched-and-brazed shut at the factory.</li>
+      <li><b>Clamp the BPV31 saddle on and pierce.</b> It stays for life —
+        the single permanent service point.</li>
+      <li><b>Open the valve, vent to atmosphere.</b> Let the loop
+        decompress fully — no rushing the hiss.</li>
+      <li><b>Confirm fully vented:</b> gauge atmospheric, no further hiss,
+        no propane-like smell at the valve.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      Supco BPV31 bullet-piercing valve B00DM8J3MI · manifold gauge
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="note" style="margin-bottom:22px">
+      <b>Legal:</b> EPA Section 608 carves natural refrigerants out of the
+      venting prohibition — venting R-600a is lawful, no certification
+      required.
+    </div>
+
+    <div class="panel light">
+      <svg viewBox="0 0 760 560" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .cu    { stroke: #b8722c; stroke-width: 9; fill: none; }
+          .valve { fill: #ffffff; stroke: #1d1d26; stroke-width: 3; }
+          .dimln { stroke: #c8481d; stroke-width: 2.5; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #c8481d; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .vent  { stroke: #c8481d; stroke-width: 4; fill: none; }
+          .zone  { stroke: #c8481d; stroke-width: 3; fill: none; stroke-dasharray: 14 10; }
+        </style>
+        <text class="lbl" x="24" y="40">COMPRESSOR &#183; process tube &#183; BPV31</text>
+        <!-- compressor dome -->
+        <g transform="translate(60,80)">
+          <path class="steel" d="M 0 110 Q 0 0 130 0 Q 260 0 260 110 L 260 250 Q 260 300 205 300 L 55 300 Q 0 300 0 250 Z"/>
+          <text class="sub" x="130" y="160" text-anchor="middle">hermetic</text>
+          <text class="sub" x="130" y="188" text-anchor="middle">compressor</text>
+          <!-- process tube stub out the right side -->
+          <path class="cu" d="M 258 226 L 420 226"/>
+          <!-- pinched tip -->
+          <path d="M 420 219 L 446 222 L 446 230 L 420 233 Z" fill="#b8722c" stroke="#1d1d26" stroke-width="2"/>
+          <text class="sub" x="335" y="210">process tube</text>
+          <text class="sub" x="380" y="266">pinched tip</text>
+          <!-- BPV31 saddle around the stub -->
+          <g transform="translate(310,226)">
+            <rect class="valve" x="-26" y="-30" width="52" height="60" rx="8"/>
+            <rect class="valve" x="-14" y="-78" width="28" height="48" rx="6"/>
+            <path class="cu" d="M 0 -78 L 0 -118" stroke-width="7"/>
+            <text class="dimtx" x="44" y="-92">BPV31</text>
+            <text class="sub" x="44" y="-64">saddle + valve core</text>
+            <!-- vent arrow from the stem -->
+            <path class="vent" d="M 0 -118 Q 0 -160 60 -160 L 150 -160"/>
+            <path fill="#c8481d" d="M 150 -170 L 176 -160 L 150 -150 Z"/>
+            <text class="dimtx" x="188" y="-152">VENT</text>
+          </g>
+          <!-- factory charge port callout -->
+          <line class="dimln" x1="390" y1="234" x2="330" y2="304"/>
+          <text class="sub" x="290" y="330">factory charge port &#8212; dead-end stub,</text>
+          <text class="sub" x="290" y="356">now the appliance&#8217;s only service point</text>
+        </g>
+        <!-- ventilation zone plan -->
+        <g transform="translate(120,480)">
+          <circle class="zone" cx="0" cy="0" r="56"/>
+          <circle cx="0" cy="0" r="10" fill="#1d1d26"/>
+          <line class="dimln" x1="0" y1="0" x2="52" y2="-22"/>
+          <text class="dimtx" x="76" y="-16">3 m</text>
+          <text class="lbl" x="150" y="16">no ignition sources inside the circle</text>
+          <text class="sub" x="150" y="44">outdoors or under a vent hood preferred</text>
+        </g>
+      </svg>
+      <div class="cap"><b>The BPV31 never comes off</b> — vent (here) ·
+      argon (RL-03) · vacuum (RL-06) · recharge (RL-07) all pass through
+      this one flare port.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Gauge reads atmospheric, no further hiss, no propane-like smell at the valve — only then may anything be cut or heated.</div>
+  <div class="src">refrigerant-loop.md &#167;2 &#183; regulatory.md<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

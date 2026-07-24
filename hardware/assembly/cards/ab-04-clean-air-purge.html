@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="ab">
+<div class="card">
+
+<header>
+  <div class="code">AB-04</div>
+  <h1>Clean cycle + air purge</h1>
+  <div class="deckpos"><b>Acceptance · 04/6</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Water rides the syrup route to the nozzle, then air
+    chases the rinse — <strong>both reservoirs end rinsed and dry,
+    hands-off.</strong></p>
+
+    <ol class="steps">
+      <li><b>Clean Channel A</b> — tap water fills reservoir A through
+        the manifold, then flushes out the nozzle. First pass pours
+        faintly tinted.</li>
+      <li><b>Chase it clear</b> — command a follow-up pass. Rinse that
+        never clears = reservoir cleanability problem, escalate.</li>
+      <li><b>Clean Channel B</b> — same cycle. A valve that fails to open
+        or close flags on the config display.</li>
+      <li><b>Purge both dry</b> — funnel dry and open to air: pump pulls
+        air in, pushes the slug out; the nozzle sputters dry and the
+        reeds walk down to empty. A stalling pump or a reservoir that
+        won't drain: escalate.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Bench</span>
+      bench-acceptance UI · target glass · tap water on the rig
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:780px">
+    <table class="spec">
+      <tr><th>Cycle</th><th>Sequence &#183; topology table</th></tr>
+      <tr><td>Clean fill</td><td class="v">Clean Water Fill &rarr; Bag A/B</td></tr>
+      <tr><td>Clean flush</td><td class="v">Clean Flush (water out)</td></tr>
+      <tr><td>Air purge in</td><td class="v">V-B &rarr; V-C &rarr; P-A &rarr; V-F</td></tr>
+      <tr><td>Air purge out</td><td class="v">V-E &rarr; P-A &rarr; V-G</td></tr>
+    </table>
+
+    <div class="panel light" style="margin-top:24px">
+      <svg viewBox="0 0 780 300" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .btx   { font: 700 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .dimtx { font: 700 24px Menlo, monospace; fill: #2e8540; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .glass { fill: none; stroke: #1d1d26; stroke-width: 3.5; }
+        </style>
+        <text class="lbl" x="24" y="40">AT THE NOZZLE, IN ORDER</text>
+
+        <!-- glass 1: faint tint -->
+        <path d="M 80 110 L 92 220 L 148 220 L 160 110 Z" fill="#d7e8d7"/>
+        <path class="glass" d="M 80 110 L 92 220 L 148 220 L 160 110 Z"/>
+        <circle cx="120" cy="98" r="14" fill="#2e8540"/>
+        <text x="120" y="107" text-anchor="middle" style="font:700 22px Menlo,monospace" fill="#fff">1</text>
+        <text class="btx" x="120" y="258" text-anchor="middle">faint tint</text>
+        <text class="sub" x="120" y="286" text-anchor="middle">first pass</text>
+
+        <!-- glass 2: clear -->
+        <path d="M 260 110 L 272 220 L 328 220 L 340 110 Z" fill="#f3f6f9"/>
+        <path class="glass" d="M 260 110 L 272 220 L 328 220 L 340 110 Z"/>
+        <circle cx="300" cy="98" r="14" fill="#2e8540"/>
+        <text x="300" y="107" text-anchor="middle" style="font:700 22px Menlo,monospace" fill="#fff">2</text>
+        <text class="btx" x="300" y="258" text-anchor="middle">runs clear</text>
+        <text class="sub" x="300" y="286" text-anchor="middle">follow-up pass</text>
+
+        <!-- glass 3: slug -->
+        <path d="M 440 160 L 446 220 L 502 220 L 508 160 Z" fill="#d7e8d7"/>
+        <path class="glass" d="M 440 110 L 452 220 L 508 220 L 520 110 Z"/>
+        <circle cx="464" cy="140" r="7" fill="none" stroke="#2e8540" stroke-width="3"/>
+        <circle cx="490" cy="126" r="5" fill="none" stroke="#2e8540" stroke-width="3"/>
+        <circle cx="478" cy="182" r="6" fill="none" stroke="#2e8540" stroke-width="3"/>
+        <circle cx="480" cy="98" r="14" fill="#2e8540"/>
+        <text x="480" y="107" text-anchor="middle" style="font:700 22px Menlo,monospace" fill="#fff">3</text>
+        <text class="btx" x="480" y="258" text-anchor="middle">air slug</text>
+        <text class="sub" x="480" y="286" text-anchor="middle">rinse + air out</text>
+
+        <!-- glass 4: dry -->
+        <path class="glass" d="M 620 110 L 632 220 L 688 220 L 700 110 Z"/>
+        <circle cx="660" cy="98" r="14" fill="#2e8540"/>
+        <text x="660" y="107" text-anchor="middle" style="font:700 22px Menlo,monospace" fill="#fff">4</text>
+        <text class="btx" x="660" y="258" text-anchor="middle">dry sputter</text>
+        <text class="sub" x="660" y="286" text-anchor="middle">reservoir empty</text>
+      </svg>
+      <div class="cap"><b>Reeds transition down through the levels as it
+      drains</b> — firmware reports each reservoir empty, complete, and
+      ready.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Both channels rinsed clear and purged dry with no hand on the machine — no leak, no stall, both reservoirs reported empty.</div>
+  <div class="src">acceptance-and-burn-in.md &#167;8&ndash;9 &#183; fluid-topology.md<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

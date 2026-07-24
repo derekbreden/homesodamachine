@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="wr">
+<div class="card">
+
+<header>
+  <div class="code">WR-02</div>
+  <h1>AC mains — C14 to<br>compressor + PSU</h1>
+  <div class="deckpos"><b>Wiring · 02/6</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Six runs in schedule order — and one gland, the only
+    mains penetration into the shroud.</p>
+
+    <div class="safety"><span class="sign">&#9888;</span>
+      <div><b>Dead bench</b> — the C14 stays off line until
+      commissioning. Mains colors: black hot · white neutral · green
+      ground.</div>
+    </div>
+
+    <ol class="steps">
+      <li><b>AC-1 first</b> — land the long shelf pigtails on the C14's
+        solder tabs; the inlet lands direct on the block.</li>
+      <li><b>Pre-build the shroud lead</b> —
+        <span class="dim">18 AWG</span> SJOOW &#215;3,
+        <span class="dim">~400 mm</span>: H_switched + N + G in one
+        jacket.</li>
+      <li><b>Gland it</b> — SS gland in the shroud side wall; the
+        <span class="dim">6–12 mm</span> clamping range takes the
+        jacket.</li>
+      <li><b>Fan out the last <span class="dim">~50 mm</span> inside</b> —
+        H_switched + N disconnects onto the spades; G to the foot
+        bond.</li>
+      <li><b>Shelf end:</b> H_switched on relay NO (fork), N at the N
+        pole, G on the bus — ferrules at the block.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      ratcheting crimper (Faston die) · SS cable gland · multimeter
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 680" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .blk   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .shd   { fill: none; stroke: #1d1d26; stroke-width: 3; stroke-dasharray: 16 10; }
+          .hot   { stroke: #1d1d26; stroke-width: 7; fill: none; }
+          .ncase { stroke: #1d1d26; stroke-width: 9; fill: none; }
+          .nwire { stroke: #ffffff; stroke-width: 5; fill: none; }
+          .gnd   { stroke: #2e8540; stroke-width: 7; fill: none; }
+          .runid { font: 700 25px Menlo, monospace; fill: #a8352f; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <!-- C14 -->
+        <rect class="blk" x="30" y="40" width="150" height="110" rx="10"/>
+        <text class="lbl" x="105" y="88" text-anchor="middle">C14</text>
+        <text class="sub" x="105" y="118" text-anchor="middle">rear panel</text>
+        <!-- AC-1 -->
+        <line class="hot" x1="180" y1="70" x2="280" y2="70"/>
+        <line class="ncase" x1="180" y1="95" x2="280" y2="95"/>
+        <line class="nwire" x1="181" y1="95" x2="279" y2="95"/>
+        <line class="gnd" x1="180" y1="120" x2="280" y2="120"/>
+        <text class="runid" x="230" y="52" text-anchor="middle">AC-1</text>
+        <!-- distribution block -->
+        <rect class="blk" x="280" y="30" width="200" height="130" rx="10"/>
+        <text class="lbl" x="380" y="82" text-anchor="middle">AC DIST</text>
+        <text class="sub" x="380" y="112" text-anchor="middle">H &#183; N &#183; G Wagos</text>
+        <!-- AC-2 to PSU -->
+        <line class="hot" x1="480" y1="60" x2="570" y2="60"/>
+        <line class="ncase" x1="480" y1="85" x2="570" y2="85"/>
+        <line class="nwire" x1="481" y1="85" x2="569" y2="85"/>
+        <line class="gnd" x1="480" y1="110" x2="570" y2="110"/>
+        <text class="runid" x="525" y="42" text-anchor="middle">AC-2</text>
+        <rect class="blk" x="570" y="30" width="160" height="130" rx="10"/>
+        <text class="lbl" x="650" y="82" text-anchor="middle">PSU</text>
+        <text class="sub" x="650" y="112" text-anchor="middle">primary + lug</text>
+        <!-- AC-3 down to relay -->
+        <line class="hot" x1="310" y1="160" x2="310" y2="240"/>
+        <text class="runid" x="292" y="205" text-anchor="end">AC-3</text>
+        <rect class="blk" x="230" y="240" width="155" height="110" rx="10"/>
+        <text class="lbl" x="307" y="286" text-anchor="middle">RELAY #1</text>
+        <text class="sub" x="307" y="316" text-anchor="middle">COM &#183; NO</text>
+        <!-- G pole over to ground bus -->
+        <line class="gnd" x1="460" y1="160" x2="460" y2="200"/>
+        <path class="gnd" d="M 460 200 L 640 200 L 640 240"/>
+        <rect class="blk" x="550" y="240" width="180" height="110" rx="10"/>
+        <text class="lbl" x="640" y="286" text-anchor="middle">GROUND BUS</text>
+        <text class="sub" x="640" y="316" text-anchor="middle">ring stack</text>
+        <!-- three conductors down -->
+        <line class="hot" x1="307" y1="350" x2="307" y2="560"/>
+        <line class="ncase" x1="400" y1="160" x2="400" y2="560"/>
+        <line class="nwire" x1="400" y1="161" x2="400" y2="559"/>
+        <path class="gnd" d="M 640 350 L 640 420 L 455 420 L 455 548 L 620 548 L 620 572"/>
+        <text class="runid" x="290" y="415" text-anchor="end">AC-4</text>
+        <text class="sub" x="290" y="443" text-anchor="end">switched H</text>
+        <text class="runid" x="412" y="390">AC-5</text>
+        <text class="runid" x="660" y="395">AC-6</text>
+        <!-- gland sleeve across the three conductors -->
+        <rect x="275" y="490" width="215" height="60" rx="22" fill="#eef0f3" stroke="#1d1d26" stroke-width="3"/>
+        <text class="lbl" x="505" y="512">SS GLAND</text>
+        <text class="sub" x="505" y="540">jacket clamped</text>
+        <!-- shroud -->
+        <rect class="shd" x="60" y="520" width="660" height="140" rx="12"/>
+        <text class="sub" x="90" y="645">COMPRESSOR SHROUD</text>
+        <rect class="blk" x="200" y="560" width="330" height="70" rx="10"/>
+        <text class="lbl" x="365" y="604" text-anchor="middle">TERMINAL BLOCK &#183; spades</text>
+        <circle cx="620" cy="588" r="13" fill="none" stroke="#2e8540" stroke-width="6"/>
+        <text class="sub" x="620" y="637" text-anchor="middle">foot bond</text>
+      </svg>
+      <div class="cap"><b>One jacket, one gland, three conductors</b> —
+      the fan-out is the last ~50 mm inside; the donor PTC module is
+      already on the block.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>AC-1 through AC-6 landed, the gland tight on the jacket — the AC web is ready for its WR-03 cold check.</div>
+  <div class="src">wiring.md &#167;2 &#183; ac-wiring-schedule.md "AC mains"<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

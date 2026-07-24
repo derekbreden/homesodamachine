@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="cc">
+<div class="card">
+
+<header>
+  <div class="code">CC-10</div>
+  <h1>Bond the tank probe +<br>route the sensor leads</h1>
+  <div class="deckpos"><b>Cold core · 10/15</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">The compressor cycles on the <strong>vessel
+    wall</strong>, not the coil — the DS18B20 reads the tank OD under a
+    foil patch, and both probes' leads leave through the shared
+    slot.</p>
+
+    <ol class="steps">
+      <li><b>Tape the DS18B20 flat against the vessel OD</b> under a
+        patch of 3M 425 foil — bare TO-92, leads heat-shrunk — the
+        setpoint sensor.</li>
+      <li><b>Route both probes' 3-conductor leads up and out the
+        shared slot</b>, alongside the four lines (CC-12).</li>
+      <li><b>Seat the leads for sealing:</b> the copper-plug clamp
+        (CC-13) and the foam over-pour (CC-14) must close around
+        them.</li>
+      <li><b>They join SIG-1 at the cold-core exit</b> — the IO26
+        1-wire bus; the <span class="dim">4.7 k&#8486;</span> pull-up
+        lives on the board, nothing in the loom.</li>
+    </ol>
+
+    <div class="note">
+      <b>No air path may follow the leads inward.</b> That path — not
+      the sensor — is the only way condensation reaches a potted
+      probe.
+    </div>
+
+    <div class="tools">
+      <span class="lbl">Materials</span>
+      DS18B20 TO-92 (B0FKG3HT9Q) &#183; 3M 425 foil tape
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 448" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .foil  { fill: #d8dde6; stroke: #1d1d26; stroke-width: 2; }
+          .to92  { fill: #1d1d26; }
+          .plug  { fill: #eef0f3; stroke: #1d1d26; stroke-width: 2.5; }
+          .lead  { stroke: #1d1d26; stroke-width: 4; fill: none; }
+          .dimln { stroke: #0f8bab; stroke-width: 2.5; fill: none; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #0f8bab; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <text class="lbl" x="24" y="38">ELEVATION &#183; vessel wall &#8594; shared slot</text>
+        <!-- vessel -->
+        <rect class="steel" x="60" y="80" width="330" height="330" rx="18"/>
+        <text class="sub" x="225" y="250" text-anchor="middle">vessel OD</text>
+        <!-- foil patch + probe -->
+        <rect class="foil" x="330" y="150" width="76" height="96" rx="8"/>
+        <rect class="to92" x="352" y="180" width="34" height="40" rx="7"/>
+        <text class="dimtx" x="70" y="120">DS18B20 under a 3M 425 patch</text>
+        <line class="dimln" x1="290" y1="128" x2="352" y2="176"/>
+        <!-- leads up to the slot -->
+        <path class="lead" d="M 386 200 L 470 200 Q 500 200 500 170 L 500 96 L 620 96"/>
+        <text class="sub" x="600" y="66" text-anchor="end">leads out with the lines</text>
+        <!-- slot wall band -->
+        <rect class="plug" x="620" y="60" width="26" height="350"/>
+        <rect class="to92" x="616" y="88" width="34" height="16" rx="4"/>
+        <text class="dimtx" x="676" y="188">plugs</text>
+        <text class="dimtx" x="676" y="218">clamp</text>
+        <text class="sub" x="676" y="248">CC-13</text>
+        <text class="dimtx" x="676" y="312">foam</text>
+        <text class="dimtx" x="676" y="342">seals</text>
+        <text class="sub" x="676" y="372">CC-14</text>
+        <text class="sub" x="380" y="438" text-anchor="middle">wall probe = setpoint &#183; coil probe (CC-03) = freeze protect</text>
+      </svg>
+    </div>
+
+    <table class="spec" style="margin-top:20px">
+      <tr><th>Probe</th><th>Family</th><th>Role</th></tr>
+      <tr><td>DS18B20 &#183; this card</td><td class="v">0x28</td><td>setpoint &#183; tank wall</td></tr>
+      <tr><td>DS18S20 &#183; CC-03</td><td class="v">0x10</td><td>&#8722;8 &deg;C &#183; suction coil</td></tr>
+      <tr><td>Shared bus</td><td class="v">SIG-1 &#183; IO26</td><td>told apart by family</td></tr>
+    </table>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Probe flat under its patch on the vessel OD, both leads dressed out the slot with no free air channel alongside.</div>
+  <div class="src">cold-core.md &#167;4 &#183; wiring.md &#167;5<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

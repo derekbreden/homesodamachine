@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="pv">
+<div class="card">
+
+<header>
+  <div class="code">PV-04</div>
+  <h1>Break the plate edges<br>&mdash; asymmetric</h1>
+  <div class="deckpos"><b>Pressure vessel · 04/14</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">One laser-cut perimeter, <strong>two different
+    edges</strong> — because only one of them is a weld surface.</p>
+
+    <ol class="steps">
+      <li><b>Inside-face edge: chamfer freely.</b> It's the lead-in that
+        lets the plug find center in the
+        <span class="dim">~0.005&Prime;</span> radial slip — and it ends
+        up inside the vessel, where no beam reaches it.</li>
+      <li><b>Outside-face edge: break the burr only.</b> No chamfer —
+        that corner is the fillet root (PV-08/09). Chamfering it widens
+        the root gap the laser has to bridge, working against
+        penetration.</li>
+      <li><b>Keep the faces apart.</b> The register (PV-03) marks the
+        inside face; mark the outside face if it isn't obvious at a
+        glance. Each plate carries its orientation from here on.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      Noga NG8150 swivel-blade deburr · both plates
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 640" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .weld  { stroke: #f0b429; stroke-width: 5; fill: none; }
+          .dimln { stroke: #46628a; stroke-width: 2.5; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #46628a; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+
+        <!-- left: inside-face edge -->
+        <g transform="translate(0,60)">
+          <text class="lbl" x="40" y="0">INSIDE-FACE EDGE</text>
+          <text class="dimtx" x="40" y="48">chamfer freely — lead-in</text>
+          <text class="sub" x="40" y="76">finds center in the ~0.005&Prime; slip</text>
+          <line class="dimln" x1="248" y1="88" x2="294" y2="156"/>
+          <!-- plate corner, chamfer between inside face (top) and OD (right) -->
+          <path class="steel" d="M 40 140 L 276 140 L 320 184 L 320 300 L 40 300 Z"/>
+          <text class="sub" x="40" y="128">INSIDE FACE</text>
+          <text class="sub" x="330" y="250">OD</text>
+          <text class="sub" x="40" y="340">ends up inside the vessel,</text>
+          <text class="sub" x="40" y="366">no beam reaches it</text>
+        </g>
+
+        <!-- right: outside-face edge -->
+        <g transform="translate(390,60)">
+          <text class="lbl" x="20" y="0">OUTSIDE-FACE EDGE</text>
+          <text class="dimtx" x="44" y="48">burr-break only</text>
+          <text class="sub" x="44" y="76">no chamfer — this corner is</text>
+          <text class="sub" x="44" y="102">the fillet root (PV-08/09)</text>
+          <line class="dimln" x1="240" y1="112" x2="64" y2="162"/>
+          <!-- tube wall + seated plate: the root corner -->
+          <rect class="steel" x="20" y="124" width="18" height="196"/>
+          <rect class="steel" x="44" y="170" width="290" height="130"/>
+          <path class="weld" stroke-dasharray="14 10" d="M 38 122 Q 38 170 96 170"/>
+          <text class="sub" x="200" y="158">OUTER FACE</text>
+          <text class="sub" x="44" y="340">a chamfer widens the root</text>
+          <text class="sub" x="44" y="366">gap the beam must bridge</text>
+        </g>
+
+        <!-- bottom strip -->
+        <line x1="40" y1="500" x2="720" y2="500" stroke="#d9d5cb" stroke-width="3"/>
+        <text class="lbl" x="380" y="548" text-anchor="middle">register face = INSIDE &#183; mark the OUTSIDE face</text>
+        <text class="sub" x="380" y="580" text-anchor="middle">if it isn't obvious at a glance on the bench</text>
+      </svg>
+      <div class="cap"><b>Same tool, opposite intent</b> — one edge is a
+      lead-in, the other is the corner the weld exists to fill.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Both plates: inside edge chamfered, outside edge burr-broken sharp, orientation unmistakable.</div>
+  <div class="src">pressure-vessel.md &#167;1 &#183; endcap_circular_dxf.py<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

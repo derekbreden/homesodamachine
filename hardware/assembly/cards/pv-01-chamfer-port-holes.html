@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="pv">
+<div class="card">
+
+<header>
+  <div class="code">PV-01</div>
+  <h1>Chamfer the end-plate<br>port holes</h1>
+  <div class="deckpos"><b>Pressure vessel · 01/14</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">The <span class="dim">7/16&Prime;</span> tap-drill holes
+    arrive laser-cut — with a <strong>recast lip</strong> at every edge.
+    Chamfer before any tap touches them: the taper tap needs a square seat
+    to start concentric.</p>
+
+    <ol class="steps">
+      <li><b>Chuck the 82&deg; countersink — 5/8&Prime; or 3/4&Prime;
+        body.</b> The 1/2&Prime; body spans only
+        <span class="dim">0.031&Prime;</span> over the
+        <span class="dim">0.438&Prime;</span> hole: no room to set chamfer
+        width deliberately.</li>
+      <li><b>Press slow, Tap Magic on the cut</b> — the 5-flute grind
+        chatters if crowded.</li>
+      <li><b>Break BOTH faces of every hole</b> — flip each plate:
+        2 holes &#215; 2 faces &#215; both plates.</li>
+      <li><b>What it buys:</b> the recast lip is gone and the taper tap
+        starts in a square seat — first threads concentric with the hole
+        (PV-02).</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      JNB Pro 82&deg; M35 countersink · WEN 4208T press ·
+      Tap Magic EP-Xtra
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 620" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .tool  { fill: #d8dde6; stroke: #1d1d26; stroke-width: 3; }
+          .dimln { stroke: #46628a; stroke-width: 2.5; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #46628a; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <text class="lbl" x="24" y="38">SECTION &#183; one port hole &#183; 320 px/in</text>
+
+        <!-- countersink: shank + 5/8" body + 82° cone -->
+        <rect class="tool" x="360" y="40" width="40" height="60"/>
+        <rect class="tool" x="280" y="100" width="200" height="90"/>
+        <path class="tool" d="M 280 190 L 380 305 L 480 190 Z"/>
+        <text class="dimtx" x="736" y="120" text-anchor="end">&#8960;5/8&Prime; or 3/4&Prime; body</text>
+        <text class="sub" x="736" y="148" text-anchor="end">1/2&Prime; spans only 0.031&Prime;</text>
+        <text class="sub" x="736" y="176" text-anchor="end">over the &#8960;0.438&Prime; hole</text>
+        <text class="lbl" x="24" y="120">82&deg; countersink</text>
+        <text class="sub" x="24" y="148">5-flute — slow + fluid,</text>
+        <text class="sub" x="24" y="176">chatters if crowded</text>
+        <text class="dimtx" x="404" y="268">82&deg;</text>
+
+        <!-- plate section with chamfered hole, 320 px/in -->
+        <path class="steel" d="M 60 330 L 291 330 L 310 352 L 310 388 L 291 410 L 60 410 Z"/>
+        <path class="steel" d="M 700 330 L 469 330 L 450 352 L 450 388 L 469 410 L 700 410 Z"/>
+        <line class="dimln" x1="40" y1="330" x2="40" y2="410"/>
+        <line class="dimln" x1="30" y1="330" x2="50" y2="330"/>
+        <line class="dimln" x1="30" y1="410" x2="50" y2="410"/>
+        <text class="dimtx" x="32" y="298" >1/4&Prime;</text>
+
+        <!-- hole diameter dim -->
+        <line class="dimln" x1="310" y1="450" x2="450" y2="450"/>
+        <line class="dimln" x1="310" y1="438" x2="310" y2="462"/>
+        <line class="dimln" x1="450" y1="438" x2="450" y2="462"/>
+        <text class="dimtx" x="380" y="492" text-anchor="middle">&#8960;0.438&Prime; (7/16&Prime;)</text>
+
+        <!-- recast-lip note -->
+        <line class="dimln" x1="466" y1="396" x2="500" y2="430"/>
+        <text class="dimtx" x="736" y="442" text-anchor="end">recast lip cleared</text>
+        <text class="sub" x="736" y="470" text-anchor="end">square seat for the tap (PV-02)</text>
+
+        <!-- flip note -->
+        <text class="lbl" x="380" y="548" text-anchor="middle">flip — break BOTH faces of every hole</text>
+        <text class="sub" x="380" y="580" text-anchor="middle">2 holes &#215; 2 faces &#215; both plates = 8 chamfer passes</text>
+      </svg>
+      <div class="cap"><b>Chamfer before tap</b> — a lip-free, square seat is
+      what keeps the first NPT threads concentric with the hole.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>All four holes broken on both faces — no recast lip, countersink witness all round each edge.</div>
+  <div class="src">pressure-vessel.md &#167;1 &#183; endcap_circular_dxf.py<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

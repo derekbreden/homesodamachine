@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="wr">
+<div class="card">
+
+<header>
+  <div class="code">WR-04</div>
+  <h1>Cabinet 12 V runs</h1>
+  <div class="deckpos"><b>Wiring · 04/6</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">The shelf 12 V is done (ES-05); five runs leave it, in
+    schedule order — <strong>all-black wire</strong>, color is for
+    mains.</p>
+
+    <ol class="steps">
+      <li><b>DC-3</b> — the staged relay #2 pigtail to the SeaFlo pump;
+        female disconnects on the leads. Peaks
+        <span class="dim">~5 A</span>.</li>
+      <li><b>DC-5</b> — seat the J13 loom; motor pairs land on the Kamoer
+        spade tabs — the tool-free field swap.</li>
+      <li><b>DC-6</b> — the 9-conductor J1 trunk (8 OUT + COM): OUTs to
+        valve disconnects; COM into the 221-420 that fans 12 V to every
+        valve.</li>
+      <li><b>DC-7</b> — the J2 trunk, 4 of 6 ways live (2 OUT + FAN +
+        COM), COM into a 221-415; OUT3/OUT4 stay spare.</li>
+      <li><b>DC-8</b> — fan + ties to the manifold COM fan-out; FAN sinks
+        the &#8722; on-board. Fastons at the fan.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      Faston crimper · Wago 221-420/415 · sidecutters
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 680" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .blk   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .wire  { stroke: #1d1d26; stroke-width: 6; fill: none; }
+          .runid { font: 700 25px Menlo, monospace; fill: #a8352f; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <!-- shelf column -->
+        <rect class="blk" x="30" y="40" width="180" height="600" rx="12"/>
+        <text class="lbl" x="120" y="82" text-anchor="middle">SHELF</text>
+        <text class="sub" x="120" y="130" text-anchor="middle">relay #2</text>
+        <text class="sub" x="120" y="240" text-anchor="middle">J13 PUMPS</text>
+        <text class="sub" x="120" y="390" text-anchor="middle">J1 MANIF A</text>
+        <text class="sub" x="120" y="540" text-anchor="middle">J2 MANIF B</text>
+        <!-- DC-3 -->
+        <line class="wire" x1="210" y1="122" x2="480" y2="122"/>
+        <text class="runid" x="240" y="106">DC-3 &#183; ~250 mm</text>
+        <rect class="blk" x="480" y="86" width="250" height="72" rx="10"/>
+        <text class="lbl" x="605" y="118" text-anchor="middle">SEAFLO PUMP</text>
+        <text class="sub" x="605" y="146" text-anchor="middle">female disconnects</text>
+        <!-- DC-5 -->
+        <line class="wire" x1="210" y1="232" x2="480" y2="232"/>
+        <text class="runid" x="240" y="216">DC-5 &#183; ~250 mm</text>
+        <rect class="blk" x="480" y="196" width="250" height="72" rx="10"/>
+        <text class="lbl" x="605" y="228" text-anchor="middle">KAMOER A + B</text>
+        <text class="sub" x="605" y="256" text-anchor="middle">+ ~100 mm lead pigtails</text>
+        <!-- DC-6 -->
+        <line class="wire" x1="210" y1="382" x2="480" y2="382"/>
+        <text class="runid" x="240" y="366">DC-6 &#183; ~300 mm</text>
+        <rect class="blk" x="480" y="330" width="250" height="104" rx="10"/>
+        <text class="lbl" x="605" y="368" text-anchor="middle">MANIFOLD A</text>
+        <text class="sub" x="605" y="396" text-anchor="middle">8 valves &#183; 221-420 COM</text>
+        <text class="sub" x="605" y="424" text-anchor="middle">~150 mm fan-out each</text>
+        <!-- DC-7 -->
+        <line class="wire" x1="210" y1="532" x2="480" y2="532"/>
+        <text class="runid" x="240" y="516">DC-7 &#183; ~300 mm</text>
+        <rect class="blk" x="480" y="480" width="250" height="104" rx="10"/>
+        <text class="lbl" x="605" y="518" text-anchor="middle">MANIFOLD B</text>
+        <text class="sub" x="605" y="546" text-anchor="middle">2 valves &#183; 221-415 COM</text>
+        <text class="sub" x="605" y="574" text-anchor="middle">OUT3/OUT4 spare</text>
+        <!-- DC-8 branch -->
+        <line class="wire" x1="605" y1="584" x2="605" y2="628"/>
+        <rect class="blk" x="480" y="628" width="250" height="46" rx="10"/>
+        <text class="lbl" x="605" y="660" text-anchor="middle">CONDENSER FAN</text>
+        <text class="runid" x="590" y="616" text-anchor="end">DC-8 &#183; ~400 mm</text>
+      </svg>
+      <div class="cap"><b>Low-side switching</b> — COM carries the shared
+      12 V; each load's &#8722; returns on its OUT conductor to the
+      on-board driver. The fan rides the J2 trunk's FAN way (~0.35 A).</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Five runs landed — the 12 V path is contiguous from PSU output to every load, the fan on its low-side DC-8 branch.</div>
+  <div class="src">wiring.md &#167;4 &#183; ac-wiring-schedule.md "12 V distribution"<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

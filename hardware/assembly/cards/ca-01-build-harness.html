@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="ca">
+<div class="card">
+
+<header>
+  <div class="code">CA-01</div>
+  <h1>Build a harness — cut,<br>crimp, sleeve, test</h1>
+  <div class="deckpos"><b>Cable assemblies · 01/2</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede"><strong>Built complete and tested off the
+    chassis.</strong> The repair is swap-the-assembly — so build
+    jig-and-test, all-black.</p>
+
+    <ol class="steps">
+      <li><b>Cut to length from the spool</b> — schedule length + a
+        service loop. All-black but AC.</li>
+      <li><b>Strip to barrel, terminate:</b> ferrule&rarr;Wago ·
+        faston&rarr;tab · ring&rarr;ground · XH&rarr;housing. No solder
+        splices.</li>
+      <li><b>Fan out at the device end:</b> one rail wire out, exploded
+        in the Wago there — never N parallel from the board.</li>
+      <li><b>Sleeve in PET braid,</b> heat-shrink every cut end; comb
+        parallel; flush-cut ties.</li>
+      <li><b>Test pin-to-pin vs the schedule</b> — no adjacent shorts,
+        commons exact. <b>Label by name;</b> bag for WR.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      Preciva 28&ndash;5 · Haisstronica 22&ndash;10 · iCrimp SN-2549 ·
+      Klein stripper · heat gun · meter
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 560" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .body  { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .dark  { fill: #4a4a55; stroke: #1d1d26; stroke-width: 2.5; }
+          .wire  { stroke: #1d1d26; stroke-width: 3.5; fill: none; }
+          .braid { stroke: #9aa0aa; stroke-width: 2; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .node  { font: 700 24px Menlo, monospace; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .acc   { font: 700 24px Menlo, monospace; fill: #7a5cc4; }
+        </style>
+        <text class="lbl" x="24" y="42">ONE ASSEMBLY &#183; board end &#8594; device end</text>
+
+        <!-- XH housing at board end -->
+        <rect class="body" x="40" y="170" width="88" height="80" rx="6"/>
+        <line class="wire" x1="60" y1="178" x2="60" y2="196"/>
+        <line class="wire" x1="84" y1="178" x2="84" y2="196"/>
+        <line class="wire" x1="108" y1="178" x2="108" y2="196"/>
+        <text class="sub" x="30" y="290">XH housing at</text>
+        <text class="sub" x="30" y="318">the board wafer</text>
+
+        <!-- conductors with service loop -->
+        <path class="wire" d="M 128 196 C 158 196 160 186 178 190"/>
+        <path class="wire" d="M 128 210 C 150 210 152 234 166 234 A 14 14 0 1 0 166 206 C 158 206 170 212 186 210"/>
+        <path class="wire" d="M 128 224 C 158 224 162 230 178 228"/>
+        <text class="sub" x="96" y="150">service loop</text>
+
+        <!-- heat-shrink collar left -->
+        <rect class="dark" x="186" y="182" width="20" height="56" rx="4"/>
+        <!-- sleeve -->
+        <rect class="body" x="206" y="186" width="250" height="48" rx="12"/>
+        <line class="braid" x1="222" y1="192" x2="248" y2="228"/>
+        <line class="braid" x1="252" y1="192" x2="278" y2="228"/>
+        <line class="braid" x1="282" y1="192" x2="308" y2="228"/>
+        <line class="braid" x1="312" y1="192" x2="338" y2="228"/>
+        <line class="braid" x1="342" y1="192" x2="368" y2="228"/>
+        <line class="braid" x1="372" y1="192" x2="398" y2="228"/>
+        <line class="braid" x1="402" y1="192" x2="428" y2="228"/>
+        <line class="braid" x1="248" y1="192" x2="222" y2="228"/>
+        <line class="braid" x1="278" y1="192" x2="252" y2="228"/>
+        <line class="braid" x1="308" y1="192" x2="282" y2="228"/>
+        <line class="braid" x1="338" y1="192" x2="312" y2="228"/>
+        <line class="braid" x1="368" y1="192" x2="342" y2="228"/>
+        <line class="braid" x1="398" y1="192" x2="372" y2="228"/>
+        <line class="braid" x1="428" y1="192" x2="402" y2="228"/>
+        <!-- heat-shrink collar right -->
+        <rect class="dark" x="456" y="182" width="20" height="56" rx="4"/>
+        <text class="sub" x="250" y="150">PET braid &#183; shrink both cut ends</text>
+
+        <!-- name tag -->
+        <path class="wire" d="M 330 234 L 330 268"/>
+        <rect class="body" x="264" y="268" width="150" height="40" rx="6"/>
+        <text class="acc" x="339" y="296" text-anchor="middle">MANIFOLD A</text>
+
+        <!-- wago fan-out -->
+        <path class="wire" d="M 476 210 L 520 210"/>
+        <rect class="body" x="520" y="180" width="86" height="60" rx="8"/>
+        <text class="node" x="563" y="219" text-anchor="middle">221</text>
+        <path class="wire" d="M 606 196 C 640 170 656 130 678 122"/>
+        <path class="wire" d="M 606 210 C 644 200 660 184 678 180"/>
+        <path class="wire" d="M 606 224 C 644 238 660 240 678 244"/>
+        <!-- fastons -->
+        <rect class="body" x="678" y="108" width="54" height="28" rx="5"/>
+        <rect class="body" x="678" y="166" width="54" height="28" rx="5"/>
+        <rect class="body" x="678" y="230" width="54" height="28" rx="5"/>
+        <text class="sub" x="452" y="302">Wago at the device cluster —</text>
+        <text class="sub" x="452" y="330">one rail in, every branch out</text>
+        <text class="sub" x="545" y="392">fastons at the tabs</text>
+
+        <!-- test row -->
+        <line x1="24" y1="446" x2="736" y2="446" stroke="#d9d5cb" stroke-width="2.5"/>
+        <text class="lbl" x="24" y="492">TEST &#183; continuity end-to-end, pin-to-pin</text>
+        <text class="sub" x="24" y="526">no adjacent shorts &#183; Wago commons exactly the intended pins</text>
+      </svg>
+      <div class="cap"><b>A failed termination makes the whole assembly
+      suspect</b> — swap it end-to-end, never trace and re-crimp one
+      conductor.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Continuity pin-to-pin against the schedule, no adjacent shorts, sleeve shrink-finished, named label on — bagged and staged for WR.</div>
+  <div class="src">cable-assemblies.md &#183; Procedure<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

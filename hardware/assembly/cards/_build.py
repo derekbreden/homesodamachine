@@ -7,9 +7,15 @@ Underscore-prefixed so the dev-server watcher never runs it.
     tools/cad-venv/bin/python hardware/assembly/cards/_build.py
 """
 
+import os
 import subprocess
 import sys
 from pathlib import Path
+
+# Card rendering is browser + reportlab work, not a CAD build — it must neither
+# supersede a running generator nor be superseded by one (_run_lock.py's opt-out
+# for tooling that imports a generator's helpers without meaning to build).
+os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 
 CARDS_DIR = Path(__file__).resolve().parent
 REPO_ROOT = next(p for p in CARDS_DIR.parents if (p / "tools" / "render").is_dir())

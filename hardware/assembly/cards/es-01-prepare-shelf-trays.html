@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="es">
+<div class="card">
+
+<header>
+  <div class="code">ES-01</div>
+  <h1>Prepare the shelf trays</h1>
+  <div class="deckpos"><b>Electronics shelf · 01/7</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Two printed trays are the shelf: the
+    <strong>pcba-tray</strong> under the controller board, the
+    <strong>power-tray</strong> under the mains. Inserts go in hot, before
+    anything mounts.</p>
+
+    <ol class="steps">
+      <li><b>Heat-set M3 inserts into every mounting boss</b> —
+        <span class="dim">4</span> on the pcba-tray (one per board corner
+        hole), plus the PSU, relay, and ground-stud bosses on the
+        power-tray.</li>
+      <li><b>Verify each insert is flush</b> with its boss face.</li>
+      <li><b>Placement is the tray CAD:</b> the controller PCBA alone on
+        the pcba-tray; PSU + relay #1 + Wago AC distribution + ground
+        ring-stack on the power-tray.</li>
+      <li><b>Relay #2 + the DC distribution block have no committed
+        bay</b> — stage them beside the power-tray.</li>
+    </ol>
+
+    <div class="note">
+      <b>pcba-tray bosses are standoffs:</b> &#8960;7, ruthex insert,
+      5&nbsp;mm tall — the standoff clears the THT tails under the board.
+    </div>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      Hakko FX-888D + T18 tips · ruthex M3 inserts + M3&#8202;&#215;&#8202;8
+      SHCS (bom.md &#167;13) · ESD mat
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel">
+      <img src="img/power-tray.png" alt="">
+      <div class="cap"><b>power-tray</b> — boss patterns for the PSU
+      (turned 90&deg;), relay #1, and the ground stud; three 45&deg;
+      press-fit slots take the Wagos butt-end-first.</div>
+    </div>
+
+    <table class="spec" style="margin-top:24px">
+      <tr><th>Boss pattern</th><th>Inserts</th></tr>
+      <tr><td>pcba-tray — board corners <span class="dim">MH1–MH4</span></td><td class="v">4</td></tr>
+      <tr><td>power-tray — PSU ledge holes</td><td class="v">4</td></tr>
+      <tr><td>power-tray — relay #1 standoffs</td><td class="v">4</td></tr>
+      <tr><td>power-tray — ground stud</td><td class="v">1</td></tr>
+    </table>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Every boss carries a flush insert — both trays ready to mount (ES-03), relay #2 + DC block staged alongside.</div>
+  <div class="src">electronics-shelf.md &#167;1 &#183; power_tray.py &#183; pcba_tray.py<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="fc">
+<div class="card">
+
+<header>
+  <div class="code">FC-01</div>
+  <h1>Verify wiring-out +<br>first DC power-on</h1>
+  <div class="deckpos"><b>Commissioning · 01/5</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">A re-look, then first light — the never-powered
+    chassis wakes <strong>one DC rail at a time under bench-PSU
+    control.</strong></p>
+
+    <div class="safety"><span class="sign">&#9888;</span>
+      <div><b>Mains hits the PSU primary when the outlet goes live</b> —
+      no device in series; ground-fault protection deferred. Never direct
+      wall power.</div>
+    </div>
+
+    <ol class="steps">
+      <li><b>Walk it cold</b> — checklist at right. A re-look, not a
+        re-test; anything moved returns to wiring.</li>
+      <li><b>Power via the bench PSU outlet.</b> Firmware boots all-off;
+        the outlet is the hardware backstop.</li>
+      <li><b>Prove the rails in order</b> — <span class="dim">12 V</span>
+        &rarr; <span class="dim">5 V</span> &rarr;
+        <span class="dim">3.3 V</span>, meter on each point (map below).
+        Any rail out: kill the PSU, back to wiring.</li>
+      <li><b>Read cold idle</b> — tens of mA. Relay #1 dark; recheck 5 V
+        at full logic load after FC-03.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Bench</span>
+      PSU-controlled outlet · multimeter · current meter on the 12 V rail
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:780px">
+    <div class="settings">
+      <div class="s"><div class="k">12 V rail</div><div class="v">12 V <small>&plusmn;0.2 V</small></div></div>
+      <div class="s"><div class="k">5 V rail</div><div class="v">5 V <small>&plusmn;0.1 V</small></div></div>
+      <div class="s"><div class="k">3.3 V rail</div><div class="v">3.3 V <small>&plusmn;0.05 V</small></div></div>
+      <div class="s"><div class="k">Cold idle</div><div class="v">tens of mA</div></div>
+      <div class="s"><div class="k">Relay #1</div><div class="v">dark</div></div>
+      <div class="s"><div class="k">AC side</div><div class="v">FC-05</div></div>
+    </div>
+
+    <table class="spec" style="margin-top:22px">
+      <tr><th colspan="2">Walk-down &mdash; before any power</th></tr>
+      <tr><td>Compressor shroud</td><td class="v">closed + grounded</td></tr>
+      <tr><td>Electronics shelf</td><td class="v">populated + fastened</td></tr>
+      <tr><td>Ground bus</td><td class="v">C14 earth &rarr; every bond</td></tr>
+      <tr><td>JST XH looms</td><td class="v">labeled wafers &#183; J4 vs J7</td></tr>
+      <tr><td>J10 polarity</td><td class="v">V12 east &#183; GND west</td></tr>
+    </table>
+
+    <div class="panel light" style="margin-top:22px">
+      <svg viewBox="0 0 780 196" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .box   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .boxtx { font: 700 23px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .dimtx { font: 700 24px Menlo, monospace; fill: #5b6acb; }
+          .actx  { font: 700 22px Menlo, monospace; fill: #c8481d; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+        </style>
+        <text class="lbl" x="24" y="40">MAINS STOPS AT THE PSU PRIMARY</text>
+
+        <rect class="box" x="24" y="66" width="106" height="54"/>
+        <text class="boxtx" x="77" y="100" text-anchor="middle">C14</text>
+        <line x1="130" y1="93" x2="152" y2="93" stroke="#c8481d" stroke-width="4"/>
+        <path fill="#c8481d" d="M 150 85 L 150 101 L 162 93 Z"/>
+
+        <rect class="box" x="164" y="66" width="130" height="54"/>
+        <text class="boxtx" x="229" y="100" text-anchor="middle">AC BLOCK</text>
+        <line x1="294" y1="93" x2="316" y2="93" stroke="#c8481d" stroke-width="4"/>
+        <path fill="#c8481d" d="M 314 85 L 314 101 L 326 93 Z"/>
+
+        <rect class="box" x="328" y="66" width="106" height="54"/>
+        <text class="boxtx" x="381" y="100" text-anchor="middle">PSU</text>
+        <line x1="434" y1="93" x2="456" y2="93" stroke="#5b6acb" stroke-width="4"/>
+        <path fill="#5b6acb" d="M 454 85 L 454 101 L 466 93 Z"/>
+
+        <rect class="box" x="468" y="66" width="88" height="54"/>
+        <text class="boxtx" x="512" y="100" text-anchor="middle">12 V</text>
+        <line x1="556" y1="93" x2="574" y2="93" stroke="#5b6acb" stroke-width="4"/>
+        <path fill="#5b6acb" d="M 572 85 L 572 101 L 584 93 Z"/>
+
+        <rect class="box" x="586" y="66" width="76" height="54"/>
+        <text class="boxtx" x="624" y="100" text-anchor="middle">5 V</text>
+        <line x1="662" y1="93" x2="680" y2="93" stroke="#5b6acb" stroke-width="4"/>
+        <path fill="#5b6acb" d="M 678 85 L 678 101 L 690 93 Z"/>
+
+        <rect class="box" x="692" y="66" width="76" height="54"/>
+        <text class="boxtx" x="730" y="100" text-anchor="middle">3.3 V</text>
+
+        <line x1="229" y1="120" x2="229" y2="140" stroke="#c8481d" stroke-width="2"/>
+        <line x1="512" y1="120" x2="512" y2="140" stroke="#5b6acb" stroke-width="2"/>
+        <line x1="624" y1="120" x2="624" y2="140" stroke="#5b6acb" stroke-width="2"/>
+        <line x1="730" y1="120" x2="730" y2="140" stroke="#5b6acb" stroke-width="2"/>
+        <text class="actx" x="229" y="168" text-anchor="middle">120 VAC</text>
+        <text class="dimtx" x="512" y="168" text-anchor="middle">block TP</text>
+        <text class="dimtx" x="624" y="168" text-anchor="middle">V5</text>
+        <text class="dimtx" x="730" y="168" text-anchor="middle">3V3</text>
+      </svg>
+      <div class="cap"><b>IRM-90-12ST &rarr; K7805 buck (U10) &rarr;
+      AMS1117 LDO (U9).</b> Meter points: block test point &#183; V5 on
+      J4/J5 &#183; 3V3 on J4/J8.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>12 / 5 / 3.3 V in tolerance under PSU control, cold idle in the tens of mA — no smoke, no trip, AC side never energized.</div>
+  <div class="src">firmware-and-commissioning.md &#167;1&ndash;2<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

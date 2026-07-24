@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="es">
+<div class="card">
+
+<header>
+  <div class="code">ES-04</div>
+  <h1>Land the AC pigtails</h1>
+  <div class="deckpos"><b>Electronics shelf · 04/7</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Every 120&nbsp;V conductor in the appliance passes
+    through these three levers: <strong>one in-leg from the C14 pigtail,
+    two out-legs each.</strong> Seat, lock, then meter.</p>
+
+    <ol class="steps">
+      <li><b>Open each 221-413 lever, seat the staged ferrule, lock it
+        down</b> — legs per the diagram.</li>
+      <li><b>Land the AC-2 forks</b> on the PSU primary screw terminals;
+        AC-2 G on the PSU chassis ground stud.</li>
+      <li><b>Land the AC-3 fork</b> on relay #1's contact input —
+        <span class="dim">COM</span> on the Teyleten silk.</li>
+      <li><b>Verify <span class="dim">NO</span> already carries AC-4</b> —
+        the switched-H pigtail, disconnect end coiled, from ES-02.</li>
+      <li><b>Meter every bay:</b> continuity from the AC-1 stub to each
+        named out-leg.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      small flat screwdriver · multimeter · staged pigtails from ES-02
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 690" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .blk   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .hot   { stroke: #1d1d26; stroke-width: 7; fill: none; }
+          .ncase { stroke: #1d1d26; stroke-width: 9; fill: none; }
+          .nwire { stroke: #ffffff; stroke-width: 5; fill: none; }
+          .gnd   { stroke: #2e8540; stroke-width: 7; fill: none; }
+          .runid { font: 700 25px Menlo, monospace; fill: #b8860b; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .big   { font: 700 36px Menlo, monospace; fill: #1d1d26; }
+        </style>
+        <text class="lbl" x="24" y="40">ONE IN-LEG + TWO OUT-LEGS PER BLOCK</text>
+        <text class="sub" x="24" y="74">in: AC-1 from the C14 inlet, ends left long &#183; out: per schedule</text>
+
+        <!-- H block -->
+        <line class="hot" x1="60" y1="155" x2="250" y2="155"/>
+        <text class="runid" x="64" y="140">AC-1 H</text>
+        <rect class="blk" x="250" y="100" width="170" height="110" rx="10"/>
+        <text class="big" x="335" y="148" text-anchor="middle">H</text>
+        <text class="sub" x="335" y="184" text-anchor="middle">221-413</text>
+        <line class="hot" x1="420" y1="127" x2="730" y2="127"/>
+        <text x="430" y="115"><tspan class="runid">AC-2 H</tspan><tspan class="lbl"> &#8594; PSU primary</tspan></text>
+        <line class="hot" x1="420" y1="183" x2="730" y2="183"/>
+        <text x="430" y="215"><tspan class="runid">AC-3</tspan><tspan class="lbl"> &#8594; relay #1 COM</tspan></text>
+
+        <!-- N block -->
+        <line class="ncase" x1="60" y1="355" x2="250" y2="355"/>
+        <line class="nwire" x1="62" y1="355" x2="248" y2="355"/>
+        <text class="runid" x="64" y="340">AC-1 N</text>
+        <rect class="blk" x="250" y="300" width="170" height="110" rx="10"/>
+        <text class="big" x="335" y="348" text-anchor="middle">N</text>
+        <text class="sub" x="335" y="384" text-anchor="middle">221-413</text>
+        <line class="ncase" x1="420" y1="327" x2="730" y2="327"/>
+        <line class="nwire" x1="421" y1="327" x2="728" y2="327"/>
+        <text x="430" y="315"><tspan class="runid">AC-2 N</tspan><tspan class="lbl"> &#8594; PSU primary</tspan></text>
+        <line class="ncase" x1="420" y1="383" x2="672" y2="383"/>
+        <line class="nwire" x1="421" y1="383" x2="670" y2="383"/>
+        <circle class="ncase" cx="692" cy="383" r="16"/>
+        <circle class="nwire" cx="692" cy="383" r="16"/>
+        <text x="430" y="415"><tspan class="runid">AC-5</tspan><tspan class="lbl"> &#8594; coiled + flag</tspan></text>
+
+        <!-- G block -->
+        <line class="gnd" x1="60" y1="565" x2="250" y2="565"/>
+        <text class="runid" x="64" y="550">AC-1 G</text>
+        <rect class="blk" x="250" y="510" width="170" height="110" rx="10"/>
+        <text class="big" x="335" y="558" text-anchor="middle">G</text>
+        <text class="sub" x="335" y="594" text-anchor="middle">221-413</text>
+        <line class="gnd" x1="420" y1="537" x2="730" y2="537"/>
+        <text x="430" y="525"><tspan class="runid">AC-2 G</tspan><tspan class="lbl"> &#8594; PSU chassis</tspan></text>
+        <line class="gnd" x1="420" y1="593" x2="730" y2="593"/>
+        <text x="430" y="625"><tspan class="runid">AC-6</tspan><tspan class="lbl"> &#8594; ground bus</tspan></text>
+        <text class="sub" x="430" y="655">the bus carries the shroud bond</text>
+
+        <!-- color legend -->
+        <line class="hot" x1="24" y1="668" x2="64" y2="668"/>
+        <text class="sub" x="74" y="676">hot</text>
+        <line class="ncase" x1="160" y1="668" x2="200" y2="668"/>
+        <line class="nwire" x1="161" y1="668" x2="199" y2="668"/>
+        <text class="sub" x="210" y="676">neutral</text>
+        <line class="gnd" x1="320" y1="668" x2="360" y2="668"/>
+        <text class="sub" x="370" y="676">ground</text>
+      </svg>
+      <div class="cap"><b>Lock each lever, then meter</b> — continuity from
+      the AC-1 stub to every named out-leg, bay by bay.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Three levers locked, every bay metered through, AC-2 + AC-3 terminated at the PSU and relay #1.</div>
+  <div class="src">electronics-shelf.md &#167;4 &#183; ac-wiring-schedule.md<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="cc">
+<div class="card">
+
+<header>
+  <div class="code">CC-03</div>
+  <h1>Bond the coil probe +<br>close the foil over the coil</h1>
+  <div class="deckpos"><b>Cold core · 03/15</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">The coil's outlet (high) end is the <strong>suction
+    side</strong> — refrigerant leaving as gas, the coldest metal. The
+    freeze-protect probe bonds there, under the foil, before the skin
+    closes.</p>
+
+    <ol class="steps">
+      <li><b>Find the suction end</b> — the outlet tail, high on the
+        vessel; CC-02 clocked it at the slot wall.</li>
+      <li><b>Tuck the DS18S20 flat against the copper</b> — bare TO-92,
+        leads heat-shrunk — and tape it down under the foil. The
+        <span class="dim">&minus;8&nbsp;&deg;C</span> cutoff sees the
+        coldest point only through this bond.</li>
+      <li><b>Close the foil skin over the coil's outlet end</b> — probe
+        underneath, foil tight, no loose flap.</li>
+      <li><b>Lead the 3-conductor cable toward the slot wall.</b> It
+        routes out the shared slot with the tank probe's (CC-10).</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Materials</span>
+      DS18S20+ (DigiKey DS18S20+-ND) &#183; 3M 425 foil tape B07BTW7C2N
+      &#183; skinned coil from CC-02
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 430" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .foil  { fill: #d8dde6; stroke: #1d1d26; stroke-width: 2; }
+          .cu    { fill: none; stroke: #b8722c; stroke-width: 10; }
+          .to92  { fill: #1d1d26; }
+          .dimln { stroke: #0f8bab; stroke-width: 2.5; fill: none; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #0f8bab; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <text class="lbl" x="24" y="38">SECTION &#183; outlet (suction) end of the wind</text>
+        <!-- vessel wall + under-skin -->
+        <rect class="steel" x="30" y="300" width="700" height="56"/>
+        <rect class="foil" x="30" y="286" width="700" height="14"/>
+        <!-- coil wraps in section -->
+        <circle class="cu" cx="90"  cy="256" r="22"/>
+        <circle class="cu" cx="170" cy="256" r="22"/>
+        <circle class="cu" cx="250" cy="256" r="22"/>
+        <circle class="cu" cx="330" cy="256" r="22"/>
+        <circle class="cu" cx="410" cy="256" r="22"/>
+        <circle class="cu" cx="490" cy="256" r="22"/>
+        <!-- foil closing over the last wrap + probe -->
+        <path class="foil" d="M 445 286 Q 470 214 540 218 L 620 220 Q 680 230 706 286 L 706 300 L 445 300 Z"/>
+        <!-- probe body flat on outlet-end copper, under the closed foil -->
+        <rect class="to92" x="548" y="258" width="54" height="28" rx="7"/>
+        <line x1="602" y1="272" x2="730" y2="272" stroke="#1d1d26" stroke-width="4"/>
+        <!-- callouts -->
+        <text class="dimtx" x="30" y="96">foil UNDER every wrap (CC-02)</text>
+        <line class="dimln" x1="160" y1="106" x2="140" y2="280"/>
+        <text class="dimtx" x="360" y="150">foil CLOSED over the probe</text>
+        <line class="dimln" x1="520" y1="160" x2="545" y2="222"/>
+        <text class="sub" x="380" y="398" text-anchor="middle">316L vessel wall &#183; DS18S20 flat on the outlet-end copper, leads out right</text>
+      </svg>
+      <div class="cap"><b>Flat, then foil</b> — taped to the copper,
+      skin closed over it; the body pour (CC-14) pots it for good.</div>
+    </div>
+
+    <table class="spec" style="margin-top:20px">
+      <tr><th>Probe</th><th>Family</th><th>Reads</th></tr>
+      <tr><td>DS18S20 &#183; this card</td><td class="v">0x10</td><td>suction-end coil</td></tr>
+      <tr><td>DS18B20 &#183; CC-10</td><td class="v">0x28</td><td>vessel wall</td></tr>
+    </table>
+
+    <div class="note" style="margin-top:16px">
+      <b>Genuine DS18S20 only</b> — marketplace units are relabeled
+      DS18B20 clones reporting 0x28; firmware keys the cutoff by family
+      code at cold boot.
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Probe flat on the suction-end copper under closed foil, cable led toward the slot wall — skin continuous over the wind.</div>
+  <div class="src">cold-core.md &#167;1 &#183; bom.md &#167;6<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

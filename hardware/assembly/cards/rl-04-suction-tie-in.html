@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="rl">
+<div class="card">
+
+<header>
+  <div class="code">RL-04</div>
+  <h1>Tie in the suction line</h1>
+  <div class="deckpos"><b>Refrigerant loop · 04/8</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Both lines are <span class="dim">1/4&Prime; OD</span> —
+    a direct sweat join. <strong>The coil's outlet becomes the compressor's
+    suction line.</strong></p>
+
+    <div class="safety"><span class="sign">&#9888;</span>
+      <div><b>Braze only with argon flowing</b> (RL-03) — the sweep
+      carries residual fuel out ahead of the torch.</div>
+    </div>
+
+    <ol class="steps">
+      <li><b>Scotch-Brite to bright copper</b> — both tube ODs and inside
+        the coupling sockets.</li>
+      <li><b>Stage the joint:</b> coil-outlet stub (top of the coil — gas
+        to compressor) meets the factory suction cut.</li>
+      <li><b>Slip the coupling over both ends</b> — 1/4&Prime; into
+        1/4&Prime;, sweat &times; sweat, no adapter.</li>
+      <li><b>Braze both mouths dry — no flux.</b> BCuP-5's phosphorus is
+        the flux; heat under the flowing argon.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      1/4&Prime; ACR slip coupling (sweat &times; sweat) · BCuP-5 15&thinsp;% Ag
+      1/16&Prime; · Bernzomatic TS8000 + MAP-Pro · Scotch-Brite maroon
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 560" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .wall  { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .cplg  { fill: #e2d2bd; stroke: #1d1d26; stroke-width: 3; }
+          .braze { fill: #f0b429; stroke: #1d1d26; stroke-width: 2.5; }
+          .dimln { stroke: #c8481d; stroke-width: 2.5; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #c8481d; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .argon { stroke: #46628a; stroke-width: 3.5; fill: none; }
+          .atx   { font: 700 24px Menlo, monospace; fill: #46628a; }
+        </style>
+        <text class="lbl" x="24" y="40">SECTION &#183; slip coupling, sweat &#215; sweat</text>
+
+        <!-- coupling label + leader -->
+        <text class="dimtx" x="380" y="116" text-anchor="middle">1/4&Prime; ACR slip coupling</text>
+        <line class="dimln" x1="380" y1="128" x2="380" y2="176"/>
+
+        <!-- left tube walls: coil outlet -->
+        <rect class="wall" x="40" y="200" width="336" height="16"/>
+        <rect class="wall" x="40" y="284" width="336" height="16"/>
+        <!-- right tube walls: factory suction -->
+        <rect class="wall" x="384" y="200" width="336" height="16"/>
+        <rect class="wall" x="384" y="284" width="336" height="16"/>
+        <!-- coupling walls over both -->
+        <rect class="cplg" x="270" y="180" width="220" height="16"/>
+        <rect class="cplg" x="270" y="304" width="220" height="16"/>
+        <!-- wetted braze in the annulus -->
+        <rect fill="#f0b429" x="270" y="196" width="72" height="4"/>
+        <rect fill="#f0b429" x="418" y="196" width="72" height="4"/>
+        <rect fill="#f0b429" x="270" y="300" width="72" height="4"/>
+        <rect fill="#f0b429" x="418" y="300" width="72" height="4"/>
+        <!-- braze fillets at the four mouth corners -->
+        <path class="braze" d="M 270 184 L 270 200 L 232 200 Q 262 196 270 184 Z"/>
+        <path class="braze" d="M 270 316 L 270 300 L 232 300 Q 262 304 270 316 Z"/>
+        <path class="braze" d="M 490 184 L 490 200 L 528 200 Q 498 196 490 184 Z"/>
+        <path class="braze" d="M 490 316 L 490 300 L 528 300 Q 498 304 490 316 Z"/>
+        <!-- tube labels -->
+        <text class="lbl" x="40" y="162">coil-outlet stub &#8212; top of the coil</text>
+        <text class="sub" x="40" y="356">low-pressure gas &#8594; compressor</text>
+        <text class="lbl" x="720" y="162" text-anchor="end">factory suction line</text>
+        <text class="sub" x="720" y="356" text-anchor="end">cut at RL-03</text>
+        <!-- OD dims -->
+        <line class="dimln" x1="96" y1="200" x2="96" y2="300"/>
+        <line class="dimln" x1="84" y1="200" x2="108" y2="200"/>
+        <line class="dimln" x1="84" y1="300" x2="108" y2="300"/>
+        <text class="dimtx" x="96" y="396" text-anchor="middle">&#8960; 1/4&Prime;</text>
+        <line class="dimln" x1="664" y1="200" x2="664" y2="300"/>
+        <line class="dimln" x1="652" y1="200" x2="676" y2="200"/>
+        <line class="dimln" x1="652" y1="300" x2="676" y2="300"/>
+        <text class="dimtx" x="664" y="396" text-anchor="middle">&#8960; 1/4&Prime;</text>
+        <!-- argon flow through the bore -->
+        <path class="argon" d="M 600 242 L 584 250 L 600 258"/>
+        <path class="argon" d="M 200 242 L 184 250 L 200 258"/>
+        <!-- braze callout -->
+        <text class="dimtx" x="380" y="456" text-anchor="middle">BCuP-5 &#183; dry &#8212; no flux</text>
+        <line class="dimln" x1="308" y1="442" x2="260" y2="322"/>
+        <line class="dimln" x1="452" y1="442" x2="500" y2="322"/>
+        <!-- argon note -->
+        <text class="atx" x="380" y="510" text-anchor="middle">argon flowing through the bore &#8212; RL-03</text>
+      </svg>
+      <div class="cap"><b>Why dry:</b> flux residue inside a sealed loop is
+      corrosive and plugs the cap tube or drier screen — BCuP-5's
+      phosphorus does the fluxing on copper-to-copper.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Coil outlet joined to the factory suction line — a complete fillet ring at both coupling mouths, argon never interrupted.</div>
+  <div class="src">refrigerant-loop.md &#167;4<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

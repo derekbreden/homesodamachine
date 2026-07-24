@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="es">
+<div class="card">
+
+<header>
+  <div class="code">ES-02</div>
+  <h1>Stage the AC distribution<br>+ ground bus</h1>
+  <div class="deckpos"><b>Electronics shelf · 02/7</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">One Wago <span class="dim">221-413</span> lever per
+    conductor — H / N / G — and the ring-terminal stack that
+    <strong>is</strong> the ground bus. Every mains pigtail is cut and
+    flagged here.</p>
+
+    <ol class="steps">
+      <li><b>Seat the three Wagos</b> butt-end-first, 45&deg; up toward
+        the wire end; label the bays <span class="dim">H / N / G</span>.</li>
+      <li><b>Cut + prep the AC-1…AC-6 pigtails</b> per the table —
+        <span class="dim">16 AWG</span>, ferrules at every Wago end.</li>
+      <li><b>AC-1: inlet ends stay long</b>
+        (<span class="dim">~150 mm</span> slack) for the C14 solder tabs
+        (WR-02); flags "AC-1 H / N / G".</li>
+      <li><b>AC-4/5/6: female disconnects</b> at the compressor ends;
+        coil + flag for the shroud grommet (WR-02).</li>
+      <li><b>Land the ring-stack on its boss;</b> stage green pigtails —
+        PSU chassis, pressure vessel, faucet SS plate, compressor
+        body / shroud — load ends bare, labeled.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      ferrule + ring crimpers · 16 AWG blk/wht/grn · heat-shrink flags
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel">
+      <img src="img/wago-column.png" alt="">
+      <div class="cap"><b>The Wago column</b> beside relay #1 — each slot
+      wraps the butt half five faces, open toward the wire end; levers and
+      ports stay reachable.</div>
+    </div>
+
+    <table class="spec" style="margin-top:24px">
+      <tr><th>Run</th><th>Cut</th><th>Ends</th></tr>
+      <tr><td class="v">AC-1 &#215;3</td><td class="v">~150 mm</td><td>ferrule → Wago · inlet end long</td></tr>
+      <tr><td class="v">AC-2 &#215;3</td><td class="v">~100 mm</td><td>ferrule → Wago · fork → PSU</td></tr>
+      <tr><td class="v">AC-3 &#215;1</td><td class="v">~50 mm</td><td>ferrule → Wago · fork → relay</td></tr>
+      <tr><td class="v">AC-4/5/6</td><td class="v">~400 mm</td><td>disconnect → coil + flag</td></tr>
+    </table>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Three levers seated + labeled, six runs' pigtails cut, crimped, and flagged; bus landed with its ring pigtails staged.</div>
+  <div class="src">electronics-shelf.md &#167;2 &#183; ac-wiring-schedule.md<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

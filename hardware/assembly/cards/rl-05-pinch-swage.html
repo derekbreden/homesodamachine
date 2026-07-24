@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="rl">
+<div class="card">
+
+<header>
+  <div class="code">RL-05</div>
+  <h1>Pinch-swage<br>the capillary tie-in</h1>
+  <div class="deckpos"><b>Refrigerant loop · 05/8</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">A <span class="dim">1/4&Prime;</span> stub meets a
+    <span class="dim">0.031&Prime;</span> hair-bore. <strong>No reducer</strong>
+    — the stub itself collapses onto the cap tube, then braze.</p>
+
+    <div class="safety"><span class="sign">&#9888;</span>
+      <div><b>Braze under the flowing argon</b> (RL-03) — residual fuel
+      sweeps out ahead of the torch.</div>
+    </div>
+
+    <ol class="steps">
+      <li><b>Slide the cap tube</b> (from the drier, cut at RL-03) into
+        the coil-inlet stub — bottom of the coil.</li>
+      <li><b>Squeeze with the Knipex Pliers Wrench</b> — smooth parallel
+        jaws: flats, not bites.</li>
+      <li><b>Rotate 60&deg;, squeeze again</b> — repeat until the bore
+        closes down evenly onto the cap tube.</li>
+      <li><b>Braze the swaged mouth dry</b> — no flux, BCuP-5 — under the
+        flowing argon.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      Knipex 86 01 180 Pliers Wrench (7.25&Prime;, smooth parallel-jaw) ·
+      BCuP-5 15&thinsp;% Ag · TS8000 + MAP-Pro · Scotch-Brite maroon
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 600" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .wall  { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .cu    { stroke: #b8722c; stroke-width: 5; fill: none; }
+          .braze { fill: #f0b429; stroke: #1d1d26; stroke-width: 2; }
+          .jaw   { fill: #d3d7dd; stroke: #1d1d26; stroke-width: 3; }
+          .dimln { stroke: #c8481d; stroke-width: 2.5; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #c8481d; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .ring  { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .bore  { fill: #ffffff; stroke: #1d1d26; stroke-width: 2; }
+          .ct    { fill: #ffffff; stroke: #b8722c; stroke-width: 3.5; }
+          .rot   { stroke: #c8481d; stroke-width: 3.5; fill: none; }
+          .nxt   { stroke: #70707c; stroke-width: 3; fill: none; }
+        </style>
+        <text class="lbl" x="24" y="40">SIDE VIEW &#183; then the collapse, end-on</text>
+
+        <!-- side view -->
+        <!-- stub walls tapering into swage zone -->
+        <path class="wall" d="M 40 132 L 310 132 L 430 152 L 430 168 L 310 188 L 40 188 Z"/>
+        <path fill="#ffffff" stroke="#1d1d26" stroke-width="2" d="M 40 146 L 310 146 L 430 158 L 430 162 L 310 174 L 40 174 Z"/>
+        <!-- cap tube inside, continuing right -->
+        <path class="cu" d="M 340 160 L 700 160"/>
+        <!-- braze at the mouth -->
+        <path class="braze" d="M 430 150 Q 448 154 462 158 L 430 158 Z"/>
+        <path class="braze" d="M 430 170 Q 448 166 462 162 L 430 162 Z"/>
+        <!-- swage-zone bracket -->
+        <line class="dimln" x1="310" y1="104" x2="430" y2="104"/>
+        <line class="dimln" x1="310" y1="94" x2="310" y2="114"/>
+        <line class="dimln" x1="430" y1="94" x2="430" y2="114"/>
+        <text class="sub" x="370" y="86" text-anchor="middle">swage zone</text>
+        <!-- labels -->
+        <text class="lbl" x="40" y="112">coil-inlet stub</text>
+        <text class="dimtx" x="40" y="228">1/4&Prime; ACR</text>
+        <text class="lbl" x="700" y="112" text-anchor="end">cap tube &#8212; from the drier</text>
+        <text class="dimtx" x="700" y="228" text-anchor="end">0.031&Prime;</text>
+        <text class="dimtx" x="560" y="266" text-anchor="middle">BCuP-5 dry braze</text>
+        <line class="dimln" x1="500" y1="254" x2="456" y2="168"/>
+
+        <!-- end-on collapse sequence -->
+        <g transform="translate(0,450)">
+          <!-- stage 1: insert -->
+          <g transform="translate(110,0)">
+            <circle class="ring" r="62"/>
+            <circle class="bore" r="48"/>
+            <circle class="ct" r="8"/>
+          </g>
+          <!-- stage 2: squeeze -->
+          <g transform="translate(300,0)">
+            <ellipse class="ring" rx="72" ry="40"/>
+            <ellipse class="bore" rx="56" ry="24"/>
+            <circle class="ct" r="8"/>
+            <rect class="jaw" x="-56" y="-66" width="112" height="16" rx="4"/>
+            <rect class="jaw" x="-56" y="50" width="112" height="16" rx="4"/>
+          </g>
+          <!-- stage 3: rotate 60, squeeze -->
+          <g transform="translate(490,0)">
+            <g transform="rotate(60)">
+              <ellipse class="ring" rx="66" ry="30"/>
+              <ellipse class="bore" rx="50" ry="16"/>
+            </g>
+            <circle class="ct" r="8"/>
+            <path class="rot" d="M -54 -58 A 80 80 0 0 1 54 -58"/>
+            <path fill="#c8481d" d="M 50 -70 L 68 -52 L 42 -48 Z"/>
+          </g>
+          <!-- stage 4: closed -->
+          <g transform="translate(660,0)">
+            <circle class="ring" r="26"/>
+            <circle class="ct" r="8"/>
+            <line x1="0" y1="-26" x2="0" y2="-10" stroke="#1d1d26" stroke-width="2"/>
+            <line x1="-22" y1="13" x2="-9" y2="5" stroke="#1d1d26" stroke-width="2"/>
+            <line x1="22" y1="13" x2="9" y2="5" stroke="#1d1d26" stroke-width="2"/>
+          </g>
+          <!-- arrows between stages -->
+          <path class="nxt" d="M 192 0 L 218 0 M 210 -8 L 222 0 L 210 8"/>
+          <path class="nxt" d="M 392 0 L 418 0 M 410 -8 L 422 0 L 410 8"/>
+          <path class="nxt" d="M 572 0 L 598 0 M 590 -8 L 602 0 L 590 8"/>
+          <!-- captions -->
+          <text class="sub" x="110" y="118" text-anchor="middle">insert</text>
+          <text class="sub" x="300" y="118" text-anchor="middle">squeeze</text>
+          <text class="sub" x="490" y="118" text-anchor="middle">+60&deg;, squeeze</text>
+          <text class="sub" x="660" y="118" text-anchor="middle">repeat &#8594; closed</text>
+        </g>
+      </svg>
+      <div class="cap"><b>Knipex 86 01 180</b> — smooth parallel jaws
+      collapse the bore in flats; the progressive 60&deg; turns bring it
+      down evenly, no reducer fitting.</div>
+    </div>
+
+    <div class="note" style="margin-top:22px">
+      <b>Cap-tube length is factory length</b> (cut of RL-03). If it ever
+      changes substantially, a refrigeration tech recalculates it for the
+      new load.
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Stub closed evenly onto the cap tube, mouth brazed — argon never interrupted, cap tube at factory length.</div>
+  <div class="src">refrigerant-loop.md &#167;5 &#183; ice-maker/README.md<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

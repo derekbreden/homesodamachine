@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="cc">
+<div class="card">
+
+<header>
+  <div class="code">CC-07</div>
+  <h1>Seat the reservoir<br>rods + floats</h1>
+  <div class="deckpos"><b>Cold core · 07/15</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Two rods, two floats — <strong>never welded.</strong>
+    Printed bosses capture each rod at both ends, and the float donut
+    must ride the cavity far wall or the reeds see nothing.</p>
+
+    <ol class="steps">
+      <li><b>Take the two <span class="dim">174 mm</span> rods cut at
+        PV-05</b> — square, deburred; a burr scores the float
+        bore.</li>
+      <li><b>Harvest each YXQ float:</b> keep the SS capsule + its
+        ferrite ring; discard the switch body and cable.</li>
+      <li><b>Seat the rod in the body boss</b> — the blind bore on the
+        wet slope; the tip bottoms on solid PETG, the slope stays
+        unbroken.</li>
+      <li><b>Slip the float on — it must ride the cavity far wall.</b>
+        The rod parks it there: <span class="dim">~4 mm</span>
+        magnet-to-reed is comfortable; by
+        <span class="dim">~10 mm</span> there is no pull-in. Top stays
+        free — the cap register captures it at CC-08.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Stock</span>
+      rods from PV-05 &#183; YXQ float B08HWRMRQR &#215;2 &#183; printed
+      reservoirs
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 552" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .petg  { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .rod   { fill: #9aa7b8; stroke: #1d1d26; stroke-width: 2.5; }
+          .donut { fill: #d8dde6; stroke: #1d1d26; stroke-width: 3; }
+          .hole  { fill: #fff; stroke: #1d1d26; stroke-width: 2; }
+          .dimln { stroke: #0f8bab; stroke-width: 2.5; fill: none; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #0f8bab; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <text class="lbl" x="24" y="38">ROD &#183; FLOAT &#183; BOSSES &#8212; schematic section</text>
+        <!-- cap plate + register boss -->
+        <rect class="petg" x="360" y="66" width="340" height="26"/>
+        <path class="petg" d="M 496 92 L 544 92 L 544 148 L 532 148 L 532 104 L 508 104 L 508 148 L 496 148 Z"/>
+        <text class="sub" x="352" y="88" text-anchor="end">cap &#183; CC-08</text>
+        <text class="dimtx" x="556" y="122">register boss</text>
+        <text class="dimtx" x="556" y="152">&#8960;3.675 bore</text>
+        <!-- rod -->
+        <rect class="rod" x="514" y="100" width="12" height="360"/>
+        <!-- rod length dim -->
+        <line class="dimln" x1="440" y1="100" x2="440" y2="460"/>
+        <line class="dimln" x1="428" y1="100" x2="452" y2="100"/>
+        <line class="dimln" x1="428" y1="460" x2="452" y2="460"/>
+        <text class="dimtx" x="424" y="180" text-anchor="end">174 mm (6.85 in)</text>
+        <text class="sub" x="424" y="210" text-anchor="end">seat-to-seat 174.99</text>
+        <text class="sub" x="424" y="238" text-anchor="end">&#8722; 1 mm clearance</text>
+        <!-- far wall -->
+        <rect class="petg" x="615" y="170" width="16" height="290"/>
+        <text class="sub" x="648" y="206">far wall</text>
+        <!-- float donut settled toward the wall, rod off-center in its hole -->
+        <ellipse class="donut" cx="495" cy="320" rx="120" ry="48"/>
+        <ellipse class="hole" cx="495" cy="320" rx="43" ry="16"/>
+        <rect class="rod" x="514" y="304" width="12" height="32"/>
+        <text class="sub" x="248" y="398" text-anchor="middle">&#8960;27.75 donut &#8212; bore slack</text>
+        <text class="sub" x="248" y="426" text-anchor="middle">lets it settle against the wall</text>
+        <!-- body boss on wet slope -->
+        <path class="petg" d="M 160 516 L 660 470 L 660 540 L 160 540 Z"/>
+        <path class="petg" d="M 496 490 L 544 486 L 544 430 L 532 430 L 532 478 L 508 478 L 508 430 L 496 430 Z"/>
+        <text class="dimtx" x="160" y="452">body boss &#8212; blind</text>
+        <text class="dimtx" x="160" y="482">bore, tip on PETG</text>
+        <text class="sub" x="300" y="536">wet slope &#8212; unbroken</text>
+      </svg>
+      <div class="cap"><b>Boss-captured, never welded</b> — bottom in the
+      slope boss, top in the cap register; cut 1&nbsp;mm short so the rod
+      can't hold the cap off its gasket.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Both rods standing in their slope bosses, floats sliding free, each donut riding the cavity far wall.</div>
+  <div class="src">handwork.md &#183; level-sensing.md &#183; reservoir.py<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>
