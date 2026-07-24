@@ -34,6 +34,27 @@ import reservoir  # noqa: E402
 
 from docgen import substitute_md  # noqa: E402
 
+import importlib.util  # noqa: E402
+
+
+def _load_module(name: str, file_path: Path):
+    """Load a Python file as a uniquely-named module."""
+    spec = importlib.util.spec_from_file_location(name, file_path)
+    module = importlib.util.module_from_spec(spec)
+    sys.path.insert(0, str(file_path.parent))
+    spec.loader.exec_module(module)
+    return module
+
+
+_coil_mandrel_gen = _load_module(
+    "handwork_coil_mandrel_gen",
+    next(p for p in _here.parents if p.name == "hardware")
+    / "printed-parts"
+    / "cold-core"
+    / "coil-mandrel"
+    / "coil_mandrel.py",
+)
+
 MM_PER_IN = 25.4
 
 
@@ -50,6 +71,10 @@ def main():
             f"{reservoir.reservoir_rod_len:.4g} mm "
             f"({reservoir.reservoir_rod_len / MM_PER_IN:.3g} in)"
         ),
+        # Evaporator-coil wrap — pitch enforced by the mandrel's helical
+        # groove, wrap arc computed in coil_mandrel.py.
+        "PITCH": f"{_coil_mandrel_gen.pitch:.4g} mm",
+        "WRAP_FT": f"{_coil_mandrel_gen.wrap_length / 304.8:.4g} ft",
     }
 
     substitute_md(
@@ -58,6 +83,8 @@ def main():
         expected_counts={
             "ROD_LEN": 1,
             "RESERVOIR_ROD_LEN": 1,
+            "PITCH": 1,
+            "WRAP_FT": 1,
         },
     )
     print("-> handwork.md")

@@ -99,6 +99,15 @@ total_wraps = full_wraps + plug_ccw_delta / 360
 # [12.43 mm](PITCH) — helix pitch, [0.489 in](PITCH_IN).
 pitch = wind_length / total_wraps
 
+# Copper the wrap consumes — the helix arc at the winding centerline:
+# [3.878 m](WRAP_LEN) ([12.72 ft](WRAP_FT)) per vessel.
+wrap_length = total_wraps * math.hypot(2 * math.pi * helix_path_radius, pitch)
+
+# A refrigerant-loop tie-in stub at each end brings the per-vessel cut
+# to [16.72 ft](CUT_FT).
+stub_allowance = 2 * 12 * 25.4  # ~2 ft each end
+cut_length = wrap_length + 2 * stub_allowance
+
 
 # ═══════════════════════════════════════════════════════
 # MANDREL LENGTH ZONES
@@ -175,6 +184,8 @@ def main():
     print(f"Wraps:                 {total_wraps:.4f}  ({full_wraps} full + "
           f"{plug_ccw_delta:.2f}° fractional)")
     print(f"Pitch:                 {pitch:.3f} mm  ({pitch / 25.4:.4f}\")")
+    print(f"Wrap copper:           {wrap_length:.0f} mm  ({wrap_length / 304.8:.2f} ft)")
+    print(f"Cut w/ tie-in stubs:   {cut_length:.0f} mm  ({cut_length / 304.8:.2f} ft)")
     print(f"Total mandrel Z:       {total_length:.1f} mm  (handle {handle_length:.2f} + "
           f"wind {wind_length:.1f} + handle {handle_length:.2f})")
 
@@ -204,6 +215,9 @@ def main():
         "WIND_LENGTH": f"{wind_length:.4g} mm",
         "PITCH": f"{pitch:.4g} mm",
         "PITCH_IN": f"{pitch / 25.4:.3g} in",
+        "WRAP_LEN": f"{wrap_length / 1000:.4g} m",
+        "WRAP_FT": f"{wrap_length / 304.8:.4g} ft",
+        "CUT_FT": f"{cut_length / 304.8:.4g} ft",
         "HANDLE_LENGTH": f"{handle_length:.4g} mm",
         "TOTAL_LENGTH": f"{total_length:.4g} mm",
         "GROOVE_BOTTOM_OD": f"{groove_bottom_od:.4g} mm",
@@ -224,6 +238,9 @@ def main():
             "WIND_LENGTH": 1,
             "PITCH": 1,
             "PITCH_IN": 1,
+            "WRAP_LEN": 1,
+            "WRAP_FT": 1,
+            "CUT_FT": 1,
             "HANDLE_LENGTH": 1,
             "TOTAL_LENGTH": 1,
             "GROOVE_BOTTOM_OD": 1,
