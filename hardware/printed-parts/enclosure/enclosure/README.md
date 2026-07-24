@@ -25,7 +25,7 @@ intact (mirrors `faucet/touch-flo-shell`).
 ## Test-print coupon
 
 It exports those same five files a second time as `enclosure-coupon-*.step` —
-the whole four-piece assembly shrunk to a [200 × 138 × 153 mm](COUPON_SIZE)
+the whole four-piece assembly shrunk to a [268 × 138 × 153 mm](COUPON_SIZE)
 box, printable in an evening, to prove the fit before the real one is
 committed. It is the same geometry from the same code: only the numbers
 describing the box differ, so a coupon that assembles is evidence about the
