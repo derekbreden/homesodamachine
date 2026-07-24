@@ -14,6 +14,29 @@ sys.path.insert(
 )
 from docgen import substitute_md
 
+import importlib.util
+
+
+def _load_module(name: str, file_path: Path):
+    """Load a Python file as a uniquely-named module."""
+    spec = importlib.util.spec_from_file_location(name, file_path)
+    module = importlib.util.module_from_spec(spec)
+    sys.path.insert(0, str(file_path.parent))
+    spec.loader.exec_module(module)
+    return module
+
+
+# Coil tie-in tail length — owned by the coil-mandrel generator alongside
+# the wrap arc it extends.
+_coil_mandrel_gen = _load_module(
+    "refrigerant_loop_coil_mandrel_gen",
+    next(p for p in _here.parents if p.name == "hardware")
+    / "printed-parts"
+    / "cold-core"
+    / "coil-mandrel"
+    / "coil_mandrel.py",
+)
+
 
 # ─── Factory charge masses ────────────────────────────────────────────
 # Source: reference/ice-maker/README.md.
@@ -75,6 +98,8 @@ def main():
         "VENT_CLEARANCE": f"{vent_ignition_clearance_m:.4g} m",
         # SF76E thermal fuse.
         "SF76E_TEMP": f"{sf76e_open_temp_c:.4g} °C",
+        # Coil tie-in tail (coil_mandrel.py).
+        "STUB_LEN": f"{_coil_mandrel_gen.stub_allowance:.4g} mm",
     }
 
     substitute_md(
@@ -94,6 +119,7 @@ def main():
             "OFF_TIME": 1,
             "VENT_CLEARANCE": 1,
             "SF76E_TEMP": 2,
+            "STUB_LEN": 2,
         },
     )
     print("-> refrigerant-loop.md")

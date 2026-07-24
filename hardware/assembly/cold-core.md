@@ -8,7 +8,7 @@ Foam-pour geometry, shell architecture, copper-plug binder-clip cross-section, a
 
 In: one hydro-tested + passivated carbonator vessel (output of [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)); GOORY 1/4" OD × 0.031" wall ACR copper tubing for the evaporator coil; 3M 425 aluminum foil tape; the printed coil-winding mandrel; the printed PETG shell stack (foam-shell, foam-cap × 2, foam-cap-lid × 2, copper-plug × 4, reservoir × 2); TPU 90A gaskets × 2; pour-in-place 2 lb closed-cell polyurethane foam (two-part 1:1); M3 × 25 SHCS × 12 and ruthex M3 inserts × 12 for the caps.
 
-Out: a fully foam-poured cold core, capped + gasketed top and bottom, with the wound evaporator coil bonded around the vessel and its inlet/outlet stubs (~2 ft each) protruding through the foam-shell's copper-plug exits.
+Out: a fully foam-poured cold core, capped + gasketed top and bottom, with the wound evaporator coil bonded around the vessel and its inlet/outlet stubs ([500 mm](STUB_LEN) each) protruding through the foam-shell's copper-plug exits.
 
 Not in scope: refrigerant-loop integration ([`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md)) — brazing of the coil stubs onto the donor unit's cap tube and suction line, vacuum, charge, run-up. Also not in scope: enclosure-side assembly (electronics shelf, compressor + condenser + fan placement, AC wiring), faucet install, final integration.
 
@@ -19,7 +19,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 | Item | Source | Status (per purchases.md) |
 |---|---|---|
 | Carbonator vessel | Output of [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) | Hydro-tested + passivated |
-| GOORY 1/4" OD × 0.031" wall ACR copper tubing | B0DKSW5VL9 | ~[16.72 ft](CUT_FT) per vessel for coil wrap + tie-in stubs (1/2 of 50 ft roll per build) — ACQUIRED |
+| GOORY 1/4" OD × 0.031" wall ACR copper tubing | B0DKSW5VL9 | ~[16 ft](CUT_FT) per vessel for coil wrap + tie-in stubs (1/3 of 50 ft roll per build) — ACQUIRED |
 | 3M 425 aluminum foil tape | B07BTW7C2N | Coil-to-vessel thermal interface; applied as continuous skin under the coil; one 180 ft roll covers ~12 builds — ACQUIRED |
 | DS18B20 TO-92 (tank, family 0x28) + DS18S20 TO-92 (coil, family 0x10) 1-wire sensors | B0FKG3HT9Q / DigiKey DS18S20+-ND | Two bare TO-92 temperature sensors, leads heat-shrunk; potted into the foam against their metal surfaces. Distinct 1-wire family codes let firmware tell them apart deterministically (no per-unit ID map) — see [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §6 — ON-ORDER |
 | Coil-winding mandrel (printed PETG) | [`/hardware/printed-parts/cold-core/coil-mandrel/`](/hardware/printed-parts/cold-core/coil-mandrel/) | Print, reusable across builds |
@@ -39,7 +39,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 
 ### 1. Wind the evaporator coil around the vessel
 
-Wind GOORY 1/4" OD × 0.031" wall ACR copper tubing as a single-layer helical coil around the vessel OD — [12.72 ft](WRAP_FT) of wrap per vessel + ~2 ft each end for the refrigerant-loop tie-in stubs. The tie-in stubs exit through the foam-shell's copper-plug holes; brazing happens in [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md).
+Wind GOORY 1/4" OD × 0.031" wall ACR copper tubing as a single-layer helical coil around the vessel OD — [12.72 ft](WRAP_FT) of wrap per vessel + a [500 mm](STUB_LEN) tail each end for the refrigerant-loop tie-in stubs. The tie-in stubs exit through the foam-shell's copper-plug holes; brazing happens in [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md).
 
 Bond the coil to the vessel OD with 3M 425 aluminum foil tape applied as a continuous skin between vessel and coil.
 
@@ -108,7 +108,7 @@ Water-inlet and CO2-inlet lines each carry an inline 1/4" NPT SS PTFE-on-metal c
 A finished cold core:
 
 - The body foam pour cured, flush-trimmed at visible surfaces and tube exits
-- Vessel + bonded coil installed, seated in the cylinder cavity, surrounded by foam; coil inlet/outlet stubs (~2 ft each) protruding through the foam-shell's copper-plug exits
+- Vessel + bonded coil installed, seated in the cylinder cavity, surrounded by foam; coil inlet/outlet stubs ([500 mm](STUB_LEN) each) protruding through the foam-shell's copper-plug exits
 - Both temperature probes potted in the foam against their metal surfaces — DS18B20 (tank-wall, 0x28) on the vessel OD, DS18S20 (coil, 0x10) at the suction end of the coil — leads routed out the +Z slot and sealed, joining SIG-1 at the cold-core exit
 - Both reservoirs seated in their bag pockets
 - All seven penetrations routed through their designated holes / slot

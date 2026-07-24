@@ -186,6 +186,7 @@ def main():
         # Evaporator-coil copper (§5 GOORY row).
         "PITCH": f"{_coil_mandrel_gen.pitch:.4g} mm",
         "WRAP_FT": f"{_coil_mandrel_gen.wrap_length / 304.8:.4g} ft",
+        "STUB_LEN": f"{_coil_mandrel_gen.stub_allowance:.4g} mm",
         "CUT_FT": f"{_coil_mandrel_gen.cut_length / 304.8:.4g} ft",
     }
 
@@ -224,6 +225,7 @@ def main():
             "VENT_FILTERS": 3,
             "PITCH": 1,
             "WRAP_FT": 1,
+            "STUB_LEN": 1,
             "CUT_FT": 1,
         },
     )

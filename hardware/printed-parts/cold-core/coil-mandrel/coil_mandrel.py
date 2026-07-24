@@ -103,9 +103,12 @@ pitch = wind_length / total_wraps
 # [3.878 m](WRAP_LEN) ([12.72 ft](WRAP_FT)) per vessel.
 wrap_length = total_wraps * math.hypot(2 * math.pi * helix_path_radius, pitch)
 
-# A refrigerant-loop tie-in stub at each end brings the per-vessel cut
-# to [16.72 ft](CUT_FT).
-stub_allowance = 2 * 12 * 25.4  # ~2 ft each end
+# A [500 mm](STUB_LEN) refrigerant-loop tie-in tail at each end brings the
+# per-vessel cut to [16 ft](CUT_FT) — three vessels per 50 ft roll. The
+# tail is sized to out-reach the enclosure's longest routed refrigerant
+# leg (`_lines.py` refrig-2, condenser outlet → evaporator inlet) with
+# in-situ braze slack to spare.
+stub_allowance = 500.0
 cut_length = wrap_length + 2 * stub_allowance
 
 
@@ -217,6 +220,7 @@ def main():
         "PITCH_IN": f"{pitch / 25.4:.3g} in",
         "WRAP_LEN": f"{wrap_length / 1000:.4g} m",
         "WRAP_FT": f"{wrap_length / 304.8:.4g} ft",
+        "STUB_LEN": f"{stub_allowance:.4g} mm",
         "CUT_FT": f"{cut_length / 304.8:.4g} ft",
         "HANDLE_LENGTH": f"{handle_length:.4g} mm",
         "TOTAL_LENGTH": f"{total_length:.4g} mm",
@@ -240,6 +244,7 @@ def main():
             "PITCH_IN": 1,
             "WRAP_LEN": 1,
             "WRAP_FT": 1,
+            "STUB_LEN": 1,
             "CUT_FT": 1,
             "HANDLE_LENGTH": 1,
             "TOTAL_LENGTH": 1,

@@ -83,7 +83,7 @@ The appliance ships with the water filter included, mounted **external to the en
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | [Frigidaire EFIC117-SS ice-maker donor (compressor/condenser/cap-tube/drier)](https://www.amazon.com/dp/B07PCZKG94) | | 1 | $78.70 | $78.70 <!--@refrigeration--> |
-| [GOORY 1/4" OD × 50 ft ACR copper coil (evaporator)](https://www.amazon.com/dp/B0DKSW5VL9) | single-layer wrap on 5" OD vessel at the coil-mandrel's [12.43 mm](PITCH) groove pitch yields [12.72 ft](WRAP_FT) of wrap per unit + ~2 ft each end for compressor + suction-line tie-ins ≈ [16.72 ft](CUT_FT) consumed per unit; one 50 ft roll comfortably covers 2 units, so 1/2 roll allocated per unit ($68.63/2) | 1/2 roll | $34.32 | $34.32 <!--@refrigeration--> |
+| [GOORY 1/4" OD × 50 ft ACR copper coil (evaporator)](https://www.amazon.com/dp/B0DKSW5VL9) | single-layer wrap on 5" OD vessel at the coil-mandrel's [12.43 mm](PITCH) groove pitch yields [12.72 ft](WRAP_FT) of wrap per unit + a [500 mm](STUB_LEN) tie-in tail each end for compressor + suction-line tie-ins ≈ [16 ft](CUT_FT) consumed per unit; one 50 ft roll covers 3 units with ~2 ft spare, so 1/3 roll allocated per unit ($68.63/3) | 1/3 roll | $22.88 | $22.88 <!--@refrigeration--> |
 | [Teyleten 3.3 V relay module, opto-isolated, 10 A @ 250 VAC (5-pk)](https://www.amazon.com/dp/B07XGZSYJV) | two relays per unit: relay #1 switches the compressor's 120 VAC hot leg (ESP32 IO19), relay #2 gates 12 V to the SeaFlo diaphragm pump for firmware-controlled refill (ESP32 IO2); 2 of 5 per unit | 2 (of 5 pk) | $2.60 | $5.20 <!--@electronics--> |
 | [TIEXYE DS18B20 TO-92 1-wire sensor (10-pk)](https://www.amazon.com/dp/B0FKG3HT9Q) | **Tank-wall probe** — compressor-cycling setpoint, 1-wire family code **0x28**. Bare TO-92, leads heat-shrunk, foil-taped to the vessel OD and potted in the cold-core foam. Shares the IO26 1-wire bus with the DS18S20 coil probe; firmware tells the two apart by family code (no per-unit ID map). Amazon 112-1487355 Jul 11: $8.59 + $0.62 tax = $9.21 ÷ 10 = $0.92/ea | 1 (of 10 pk) | $0.92 | $0.92 <!--@sensors--> |
 | [DS18S20+ TO-92 1-wire sensor, family 0x10 (LCSC C52574)](https://www.lcsc.com/product-detail/Temperature-Sensors_Analog-Devices-Inc-Maxim-Integrated-DS18S20_C52574.html) | **Evaporator-coil / suction-line probe** — freeze-protect cutout, 1-wire family code **0x10** (distinct from the tank probe's 0x28, so firmware keys the −8 °C freeze cutoff by family code at cold boot). Bare TO-92, leads heat-shrunk, tucked under the 3M 425 foil tape at the coil's suction end and potted in the foam. Genuine MAXIM silicon from an authorized channel — marketplace "DS18S20" are relabeled DS18B20 clones reporting 0x28. LCSC C52574: $1.78/ea @ qty 10, rides a JLCPCB/LCSC order at ~$1.80 landed. On-hand DigiKey stock (purchases.md, $9.30/ea landed) covers prototype builds. | 1 (of 10 pk) | $1.80 | $1.80 <!--@sensors--> |
@@ -258,7 +258,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 2. Carbonator vessel (plan A, 316L) | [$204.38](BOM_SEC2) |
 | 3. Water inlet | [$213.08](BOM_SEC3) |
 | 4. CO2 subsystem | [$112.38](BOM_SEC4) |
-| 5. Refrigeration | [$184.48](BOM_SEC5) |
+| 5. Refrigeration | [$173.04](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
 | 7. Printed parts (PETG + PET-CF) | [$67.26](BOM_SEC7) |
 | 8. Flavor subsystem | [$197.95](BOM_SEC8) |
@@ -268,7 +268,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$8.17](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,301.07](BOM_GRAND)** |
+| **Total** | **[$1,289.63](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
