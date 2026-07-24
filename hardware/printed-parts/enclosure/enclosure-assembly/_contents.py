@@ -150,6 +150,7 @@ for _p in (_hw / "scripts", _repo / "tools", _hw / "reference" / "beduan-solenoi
            _hw / "reference" / "gagira-reducing-coupling", _hw / "reference" / "jg-pp010822e",
            _hw / "reference" / "flare38-14ptc",
            _hw / "reference" / "water-split",
+           _hw / "reference" / "neofit-flow-control",
            _hw / "reference" / "seaflo-22-pump",
            _hw / "printed-parts" / "enclosure" / "enclosure"):    # `enclosure`, imported in placed_funnel
     sys.path.insert(0, str(_p))
@@ -159,6 +160,7 @@ import source_select_tray as _src        # noqa: E402
 import nozzle_gate_tray as _noz          # noqa: E402
 import asse1022_assembly as _bfp         # noqa: E402  — its three terminals, carried to world
 import water_split as _split             # noqa: E402  — its three 1/4" collets, the same way
+import neofit_flow_control as _flowreg   # noqa: E402  — its two 1/4" collets and its stem
 import seaflo_22_pump as _seaflo         # noqa: E402  — its two head barbs
 import beduan_solenoid as _vk            # noqa: E402  — V-K's two 1/4" QC collets
 
@@ -200,6 +202,10 @@ SEAFLO_STEP    = _hw / "reference" / "seaflo-22-pump" / "seaflo-22-pump.step"
 # feeding V-K and the flavor tap. Its own frame is the run along ±Y, the branch
 # on −X (reference/water-split).
 WATER_SPLIT_STEP = _hw / "reference" / "water-split" / "water-split.step"
+# The flow regulator — the neoFit ABCVU44 needle valve on the flavor tap, throttling
+# the manifold's feed to its low working pressure. Its own frame is +X = flow, the
+# needle stem on +Z (reference/neofit-flow-control).
+FLOWREG_STEP   = _hw / "reference" / "neofit-flow-control" / "neofit-flow-control.step"
 # V-K — the Beduan 12 V NC solenoid, the water-supply fill/shutoff valve
 # (reference/beduan-solenoid). Its own frame is +Y = flow, the arrow the outlet.
 BEDUAN_STEP    = _hw / "reference" / "beduan-solenoid" / "beduan-solenoid.step"
@@ -238,19 +244,27 @@ ASSE1022_POS = (102.0, 345.5, 287.0)
 ASSE1022_YAW = 0.0
 ASSE1022_ROLL = 0.0
 # V-K — the water-supply fill/shutoff solenoid (Beduan 12 V NC): DOWNSTREAM of the
-# ASSE 1022, between the split and the SeaFlo suction, in the east void the old tap
-# point vacated. Closed, it stops all water reaching the carbonator. Its own frame is
-# +Y = flow (arrow toward the outlet), placed unturned: the inlet at −Y takes the
-# split's north run, the outlet at +Y feeds the suction on a wrap west under the ASSE
-# overhang. It stands on a short cradle off the foam cap, clear of the pump and the
-# split; the box does not grow to carry it (clearances in the scorecard).
-BEDUAN_POS = (261.0, 305.0, 275.1)   # base on a cradle above the cap; z is the cradle top
-BEDUAN_YAW = 0.0
-# The split stands in the aft strip just east of the ASSE outlet: its run along Y
-# (V-K on the +Y run, the flavor tap on the −Y run) and its branch on −X taking the
-# 1/4" line from the ASSE outlet. Placed by a pure translation, its three collets in
-# the suction's Z plane.
-SPLIT_POS = (261.0, 250.0, 286.4)   # centre; z is the port plane shared with the suction
+# ASSE 1022, between the split and the SeaFlo suction. Closed, it stops all water
+# reaching the carbonator. Its own frame is +Y = flow (arrow toward the outlet),
+# yawed a quarter turn so it LIES ALONG X in the band the pump's narrow head end
+# opens up: the inlet looks east at the split's branch, the outlet west at the
+# suction, and the whole valve sits in the one plane its two neighbours share. It
+# stands on a short cradle off the foam cap (clearances in the scorecard).
+BEDUAN_YAW = 90.0
+BEDUAN_POS = (222.0, 322.0, 274.1)   # base on a cradle above the cap; z is the cradle top
+# The split stands east of V-K, tube-hung in the east pocket, its collets in the same
+# plane. Its run carries the ASSE feed straight down the pocket — in at +Y, on at −Y
+# to the flow regulator and V-A — and its branch turns V-K's share west. Placed by a
+# pure translation.
+SPLIT_POS = (282.0, 322.0, 285.4)   # centre; z is the port plane shared with the suction
+# The flow regulator (neoFit ABCVU44) sits inline on the split's flavor run, further
+# down the same pocket, its needle stem standing up where a screwdriver reaches it
+# over the deck. Its own frame is +X = flow; yawed so the flow runs south.
+# It stands one lane inboard of the split, off the ±X wall's boss-chain band — its stem is the
+# tallest thing in the pocket, and inside that band the ceiling would rise to clear it — and on
+# V-A's own X, so the line it feeds falls straight down the pocket into that collet.
+FLOWREG_Y = 258.0
+FLOWREG_YAW = 270.0
 # The funnel's placement: its collar-rect centre in plan, plus a rotation
 # about its own Z. This is the CENTRE OF THE TOP-WALL FRAME — the basin sits
 # the same `hopper_funnel.brim_margin` off the display gusset, the corner pod,
@@ -413,15 +427,33 @@ def bfp_terminal(name):
 def split_terminal(name):
     """One of the water split's three 1/4" collets in world: `(pos, face)`.
 
-    The reference module owns each station — `supply` (the branch, from the ASSE
-    outlet), `to_vk` and `to_flavor` (the two run ports). The split is placed by a
-    pure translation, so each port just shifts by SPLIT_POS."""
+    The reference module owns each station — `supply` and `to_flavor` (the run, the
+    ASSE feed carried straight through) and `to_vk` (the branch). The split is placed
+    by a pure translation, so each port just shifts by SPLIT_POS."""
     pos, axis = {"supply": _split.supply, "to-vk": _split.to_vk,
                  "to-flavor": _split.to_flavor}[name]()
     face = {(-1.0, 0.0, 0.0): "x-", (1.0, 0.0, 0.0): "x+", (0.0, 1.0, 0.0): "y+",
             (0.0, -1.0, 0.0): "y-", (0.0, 0.0, 1.0): "z+", (0.0, 0.0, -1.0): "z-"}[
         tuple(round(float(c), 9) + 0.0 for c in axis)]
     return tuple(p + o for p, o in zip(pos, SPLIT_POS)), face
+
+
+def flowreg_terminal(name):
+    """One of the flow regulator's two 1/4" collets in world: `(pos, face)`. Its own
+    frame is +X = flow; the yaw that turns the valve turns its ports with it."""
+    pos, axis = {"inlet": _flowreg.inlet, "outlet": _flowreg.outlet}[name]()
+    pos, axis = _yaw_z(pos, FLOWREG_YAW), _yaw_z(axis, FLOWREG_YAW)
+    face = {(-1.0, 0.0, 0.0): "x-", (1.0, 0.0, 0.0): "x+", (0.0, 1.0, 0.0): "y+",
+            (0.0, -1.0, 0.0): "y-", (0.0, 0.0, 1.0): "z+", (0.0, 0.0, -1.0): "z-"}[
+        tuple(round(float(c), 9) + 0.0 for c in axis)]
+    return tuple(p + o for p, o in zip(pos, flowreg_pos())), face
+
+
+def flowreg_pos():
+    """The flow regulator's centre: V-A's own X, so the line it feeds falls straight down
+    the pocket into that up-facing collet; FLOWREG_Y down the pocket; and the split's Z,
+    the plane the whole water chain shares."""
+    return (src_collet("VA")[0][0], FLOWREG_Y, SPLIT_POS[2])
 
 
 _FOAM_TOP_CACHE = None
@@ -450,8 +482,8 @@ def seaflo_terminal(name):
 
 def vk_terminal(name):
     """One of V-K's two 1/4" QC collets in world: `(pos, face)`. The Beduan's own
-    frame is +Y = flow (arrow = outlet); placed unturned (BEDUAN_YAW = 0), so the
-    inlet looks −Y at the split and the outlet +Y toward the suction."""
+    frame is +Y = flow (arrow = outlet); the yaw lays it along X, so the inlet looks
+    east at the split's branch and the outlet west at the suction."""
     pos, axis = {"inlet": _vk.inlet, "outlet": _vk.outlet}[name]()
     pos, axis = _yaw_z(pos, BEDUAN_YAW), _yaw_z(axis, BEDUAN_YAW)
     face = {(-1.0, 0.0, 0.0): "x-", (1.0, 0.0, 0.0): "x+", (0.0, 1.0, 0.0): "y+",
@@ -697,6 +729,7 @@ COLORS = {
     "elbow-noz-b":       cq.Color(0.85, 0.85, 0.88),
     "seaflo-pump":       cq.Color(0.32, 0.38, 0.46),
     "water-split":       cq.Color(0.88, 0.89, 0.91),
+    "flow-regulator":    cq.Color(0.80, 0.82, 0.86),
     "vk-fill-valve":      cq.Color(0.85, 0.86, 0.90),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
@@ -1219,6 +1252,9 @@ def _build():
         _load(SEAFLO_STEP), (0, 0, 1), SEAFLO_YAW
         ).translate((SEAFLO_POS[0], SEAFLO_POS[1], foam_cap_top()))
     placed["water-split"] = _load(WATER_SPLIT_STEP).translate(SPLIT_POS)
+    placed["flow-regulator"] = _rot(
+        _load(FLOWREG_STEP), (0, 0, 1), FLOWREG_YAW
+        ).translate(flowreg_pos())
 
     # V-K, the fill/shutoff solenoid, on its cradle in the aft strip's east void,
     # placed unturned: inlet −Y off the split's north run, outlet +Y wrapping west

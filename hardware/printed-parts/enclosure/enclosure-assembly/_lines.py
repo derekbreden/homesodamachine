@@ -17,10 +17,15 @@ legs, each measured off the faces that bound it:
     compressor's suction port.
   * the service bay's aft strip — the SeaFlo's back face to the rear-panel bodies, over the
     foam-cap top — with the ASSE 1022 chain lying along it: its 1/4" inlet west off the water
-    bulkhead (water-1), its 1/4" outlet east onto the line to the split (water-2). The split and
-    V-K stand in the strip's east void — the split feeds V-K on to the north-facing suction
-    (water-3, water-4, wrapping under the ASSE overhang) and the flavor tap on to V-A. The band
-    UNDER the body stays open: the drip the vent lets go of falls through it to the cap.
+    bulkhead (water-1), its 1/4" outlet east onto the line to the split (water-2). The chain's
+    mass sits high, so a LANE runs the strip's whole length beneath it at the suction's own
+    height, and V-K lies along that lane: fed east off the split in the pocket (water-3), it
+    looks straight west down the lane at the north-facing suction (water-4). The band UNDER
+    the ASSE body stays open the same way: the drip the vent lets go of falls through it.
+  * the east pocket — the open column between the cold core's east face and the +X wall, aft
+    of the pump's narrow head end. The water chain hangs down it in one plane: the split at the
+    top taking the ASSE feed, then the flow regulator, then the fall to V-A (fluid-1, fluid-2).
+    It is the only lane across the deck that the pump does not fill.
   * the bag-fall corridor — the open Y behind the whole stack, aft face to cold-core front face
     (_contents `BAG_FALL_CORRIDOR`), running the box's full height and width. It is what stands
     the core off the stack, and the only lane that reaches either reservoir port low on that
@@ -51,7 +56,8 @@ legs, each measured off the faces that bound it:
     nozzle gate's spade tabs and the electronics shelf's board, under the hopper funnel's
     basin, which runs unbroken the full depth of the box. It is wide rather than tall, so
     fluid-18/28 share one deck ([292.4](NOZ_DECK_Z)) side by side in x rather than stacking,
-    and reach the rear flavor bulkheads without either climbing over the other. The pocket is
+    and reach the rear flavor bulkheads without either climbing over the other. They take the
+    two lanes inboard of the flavor tap's fall, which owns the band's outermost. The pocket is
     also the Y seam's corner-post lane, so both step west out of it before turning aft at all.
 
 Precedent: `pcba.tsx`'s `route(...)` call sites.
@@ -172,35 +178,57 @@ def _authored_runs() -> list:
         kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(6.0, 3.0),
         note="tap water: rear bulkhead → ASSE 1022 inlet"))
 
-    # water-2 — the 1/4" line off the ASSE's east outlet: east down the aft strip into
-    # the void west of the split, then south and down into the split's west-facing branch.
+    # water-2 — the 1/4" line off the ASSE's east outlet: straight east along the strip
+    # to the east pocket, then down the pocket's open column and south into the split's
+    # north-facing run. The descent stands off the split far enough to turn into it.
     runs.append(route(
         "water-2", "asse1022-assembly.tube-out",
-        sp.x("supply", -4.9),                # east into the void, just west of the branch
-        sp.y("supply"),                      # south to the split's own line
-        sp.z("supply"),                      # down to the split's port plane
+        sp.x("supply"),                      # east down the strip to the pocket's line
+        sp.y("supply", 13.0),                # north of the split, clear of its collet
+        sp.z("supply"),                      # down the pocket to the split's port plane
         "water-split.supply",
         kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, WBEND),
-        note="tap water: ASSE 1022 outlet → split branch"))
+        note="tap water: ASSE 1022 outlet → split run"))
 
-    # water-3 — the short straight hop off the split's north run into V-K's inlet, the
-    # two collets nearly collinear along Y.
+    # water-3 — the short straight hop off the split's west-facing branch into V-K's
+    # inlet: the two collets are collinear along X in the one plane.
     runs.append(route(
         "water-3", "water-split.to-vk",
         "vk-fill-valve.inlet",
         kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(2.0, 2.0),
-        note="tap water: split → V-K inlet"))
+        note="tap water: split branch → V-K inlet"))
 
-    # water-4 — V-K's outlet north a stub, then west across the aft strip and south into
-    # the north-facing suction, running under the ASSE overhang. The 1/4" LLDPE steps up
-    # to the pump's 3/8" barb at the suction (adapter in the BOM), the only 3/8" on this side.
+    # water-4 — V-K's outlet looks straight down the lane under the ASSE overhang: west
+    # to the suction's own line, then the short turn south into the north-facing barb.
+    # The 1/4" LLDPE steps up to the pump's 3/8" barb there (adapter in the BOM) — the
+    # barbs are molded into the head, so that step is the only 3/8" on this side.
     runs.append(route(
         "water-4", "vk-fill-valve.outlet",
-        pump.y("suction", 6.0),              # a short bump north off the outlet, under the ASSE overhang
-        pump.x("suction"),                   # west across the strip to the suction's line
+        pump.x("suction"),                   # west down the lane to the suction's line
         "seaflo-pump.suction",
-        kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, WBEND),
+        kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, 2.0),
         note="tap water: V-K outlet → SeaFlo suction (under the ASSE overhang)"))
+
+    # fluid-1 / fluid-2 — the flavor tap. The split's south run carries the ASSE feed on
+    # down the east pocket into the flow regulator, and the regulator's outlet runs the
+    # length of the pocket south, drops past the nozzle-gate tray's east end and turns
+    # in over V-A's up-facing collet. The pocket is open the whole way (probe: x 272–292
+    # clear from the split's plane down to the manifold).
+    reg = f["flow-regulator"]
+    src = f["source-select-assembly"]
+    runs.append(route(
+        "fluid-1", "water-split.to-flavor",
+        reg.y("inlet", 11.0),                # south down the pocket, short of the regulator
+        reg.x("inlet"),                      # west one lane, off the wall's boss-chain band
+        "flow-regulator.inlet",
+        kind="fluid", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, WBEND),
+        note="flavor tap: split run → flow regulator"))
+    runs.append(route(
+        "fluid-2", "flow-regulator.outlet",
+        src.y("V-A-I"),                      # south down the pocket to V-A's own line
+        "source-select-assembly.V-A-I",      # then straight down the pocket into the collet
+        kind="fluid", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, WBEND),
+        note="flavor tap: flow regulator → V-A inlet"))
 
     # refrig-3 — the suction leg, unauthored. Its corridor stands open: the source-select
     # tray's central span stops at y 155.3 over the outlet's x, leaving ~27 mm off the
@@ -394,7 +422,7 @@ def _authored_runs() -> list:
     # the nozzle gate's spade tabs and the electronics shelf, steps WEST into its bulkhead's lane,
     # and closes straight IN. One axis a move, every corner square.
     #   The deck is [292.4](NOZ_DECK_Z) — the bulkheads' own collet height, shared by both runs.
-    # 18 rides the outer lane [274.18](NOZ_LANE_OUTER_X), 28 the inner [262.18](NOZ_LANE_INNER_X);
+    # 18 rides the outer lane [262.18](NOZ_LANE_OUTER_X), 28 the inner [250.18](NOZ_LANE_INNER_X);
     # 28 crosses 18's lane forward of 18's elbow, so 28 leaves the lane first and 18 second, each
     # into the bulkhead on its own side. Both turn aft west of the ±X boss-chain band, which
     # carries the seam's Z-pin stations and Y corner column.
@@ -405,7 +433,11 @@ def _authored_runs() -> list:
     LANE_CLEAR = 5.65                      # the gap a lane holds off whatever bounds it
     od = f["elbow-noz-a"].diam("free")     # the line's own bore, off the collet it leaves
     deck_z = f["bulkhead-flavor-a"].at("tube-in")[2]  # the height the runs close at
-    outer_x = cold.bb.xmax - LANE_CLEAR - od / 2.0    # the band stands on the core's east face
+    # The band stands on the core's east face. Its outermost lane is the flavor tap's — fluid-2
+    # falls down the pocket on V-A's own X, which lands there — so both nozzle runs take the
+    # lanes inboard of it.
+    flavor_x = cold.bb.xmax - LANE_CLEAR - od / 2.0
+    outer_x = flavor_x - (od + LANE_CLEAR)
     crossings = [("the nozzle gate's spade tabs", contents.noz_spade_crown())]
     if "pcba" in f:
         crossings.append(("the electronics shelf's board", f["pcba"].bb.zmax))
@@ -415,17 +447,19 @@ def _authored_runs() -> list:
                 f"fluid-18/28: the deck ({deck_z:.2f}, the bulkheads' collet height) clears {what} "
                 f"({crown:.2f}) by {deck_z - od / 2.0 - crown:.2f} mm, inside the "
                 f"{LANE_CLEAR:.2f} mm the lane holds — lower {what}, or raise the bulkheads.")
-    # 18's west step off the pocket is [15.03](NOZ_POCKET_STEP) mm, and the square corner at each
+    # 18's west step off the pocket is [27.03](NOZ_POCKET_STEP) mm, and the square corner at each
     # end of it seats a tangent in that leg.
     NBEND = 7.0
-    # The split and V-K stand in the aft-east where these lanes used to run at the deck height.
-    # The lanes dip UNDER them: aft at the deck over the spade tabs, down ahead of the split,
-    # along below both (they start well above the clear aft floor), then up past V-K's back face
-    # into the bulkhead lane.
-    split_f, vk_f = f["water-split"], f["vk-fill-valve"]
-    dip_z = min(split_f.bb.zmin, vk_f.bb.zmin) - 7.0    # under the split + V-K, over the clear floor
-    dip_y_in = split_f.bb.ymin - 6.0                    # drop just ahead of the split
-    dip_y_out = vk_f.bb.ymax + 11.5                     # rise behind V-K, clear of water-4's suction bump
+    # The water chain — the flow regulator, the split and V-K — stands down the east pocket at
+    # the deck height these lanes would otherwise run at. The lanes dip UNDER the whole column:
+    # aft at the deck over the spade tabs, down ahead of the regulator (the southernmost of the
+    # three), along below all of them (they start well above the clear aft floor), then up past
+    # V-K's back face into the bulkhead lane.
+    chain = [f["flow-regulator"], f["water-split"], f["vk-fill-valve"]]
+    vk_f = f["vk-fill-valve"]
+    dip_z = min(c.bb.zmin for c in chain) - 7.0     # under the whole column, over the clear floor
+    dip_y_in = min(c.bb.ymin for c in chain) - 6.0  # drop ahead of the southernmost of them
+    dip_y_out = vk_f.bb.ymax + 11.5                 # rise behind V-K, clear of water-4's lane
     for cid, elb, bulk, lane_x in (
         ("fluid-18", "elbow-noz-a", "bulkhead-flavor-a", outer_x),                  # outer lane
         ("fluid-28", "elbow-noz-b", "bulkhead-flavor-b", outer_x - (od + LANE_CLEAR)),  # inner lane

@@ -1,17 +1,17 @@
 {
   "gatesPass": true,
-  "placed": 39,
+  "placed": 41,
   "located": 94,
   "shaped": 97,
-  "routed": 35,
-  "held": 23,
+  "routed": 38,
+  "held": 22,
   "checks": [
     {
       "id": "coverage",
       "label": "Every placed part declared in the registry",
       "kind": "gate",
       "status": "pass",
-      "value": "31/31 placed declared",
+      "value": "32/32 placed declared",
       "target": "all declared",
       "detail": [],
       "active": true
@@ -56,8 +56,9 @@
         "nozzle-gate-assembly \u2014 elbow-y-g: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-noz-a: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-noz-b: 2.00 mm",
+        "asse1022-assembly \u2014 vk-fill-valve: 4.02 mm",
         "bag-circuit-assembly \u2014 elbow-y-g: 5.10 mm",
-        "water-split \u2014 vk-fill-valve: 5.43 mm",
+        "seaflo-pump \u2014 vk-fill-valve: 5.88 mm",
         "bag-circuit-assembly \u2014 hopper-funnel: 5.90 mm"
       ],
       "active": true
@@ -87,8 +88,8 @@
       "label": "Every component is a selected real part / finished print",
       "kind": "gate",
       "status": "pass",
-      "value": "31/31",
-      "target": "31/31",
+      "value": "32/32",
+      "target": "32/32",
       "detail": [],
       "active": true
     },
@@ -97,7 +98,7 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "39% (12/31)",
+      "value": "41% (13/32)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 3.0 x- 14.0 x+ 14.0 z- 0.0 mm",
@@ -112,7 +113,8 @@
         "\u2713 tee-y-c: near source-select-assembly 14.5 mm",
         "\u2713 tee-y-f: near source-select-assembly 8.1 mm",
         "\u2717 asse1022-assembly: near bulkhead-water 10.6 fall vent-tip onto foam-assembly 31.6 clear power-tray inf(<8) clear c14-inlet 33.7 x- 80.0 mm",
-        "\u2713 vk-fill-valve: near water-split 5.4 clear seaflo-pump 15.9 clear foam-assembly 21.7 mm",
+        "\u2713 vk-fill-valve: near water-split 10.4 clear seaflo-pump 5.9 clear asse1022-assembly 4.0 clear foam-assembly 20.7 mm",
+        "\u2713 flow-regulator: near water-split 20.9 clear foam-assembly 25.0 mm",
         "18 components: no placement rules defined yet"
       ],
       "active": true
@@ -122,7 +124,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "94% (29/31)",
+      "value": "94% (30/32)",
       "target": "100%",
       "detail": [
         "\u2717 foam-assembly: 9/10 connectors located",
@@ -159,7 +161,7 @@
         "    \u2013 bulkhead-carb:tube-in (fluid) (210, 359.2, 318.29) y- \u00d86.35 \u2192 carb-water internal riser (DIGITEN \u2192 foam carb-water-out)",
         "\u2713 bulkhead-water: 2/2 connectors located",
         "    \u2013 bulkhead-water:tube-out (fluid) (56, 393.5, 314) y+ \u00d86.35 \u2192 house tap-water line (rear umbilical)",
-        "    \u2013 bulkhead-water:tube-in (fluid) (56, 359.2, 314) y- \u00d86.35 \u2192 vk-fill-valve inlet (water-supply fill/shutoff) \u2014 segment water-1 (routed)",
+        "    \u2013 bulkhead-water:tube-in (fluid) (56, 359.2, 314) y- \u00d86.35 \u2192 asse1022-assembly tube-in (the backflow preventer's own chain) \u2014 segment water-1 (routed)",
         "\u2713 c14-inlet: 1/1 connectors located",
         "    \u2013 c14-inlet:mains-in (electrical) (22, 357, 295.5) y- \u00d88 \u2192 AC distribution \u2014 L/N/E to the electronics shelf",
         "\u2713 mq6-sensor: 1/1 connectors located",
@@ -173,7 +175,7 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "97% (30/31)",
+      "value": "97% (31/32)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)",
@@ -191,33 +193,35 @@
       "label": "Connections modeled as real 3D paths (fluid + water + refrigerant + electrical)",
       "kind": "goal",
       "status": "warn",
-      "value": "35% (23/65)",
+      "value": "38% (25/65)",
       "target": "100%",
       "detail": [
-        "28 fluid + 5 water + 3 refrigerant + 29 electrical; 23 routed \u2014 the water path waits on the SeaFlo the ASSE 1022's discharge hose lands on, the fluid path on the manifold's remaining legs; the electrical runs on the components being held",
-        "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7",
-        "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 307.7 mm, 4 bends at R12.7",
-        "\u2713 water-1: bulkhead-water.tube-in \u2192 asse1022-assembly.tube-in \u2014 \u00d86.35 \u00d7 22.4 mm, 1 bends at R3.0",
-        "\u2713 water-2: asse1022-assembly.tube-out \u2192 water-split.supply \u2014 \u00d86.35 \u00d7 170.7 mm, 3 bends at R3.0",
-        "\u2713 water-3: water-split.to-vk \u2192 vk-fill-valve.inlet \u2014 \u00d86.35 \u00d7 5.4 mm, 0 bends at R3.0",
-        "\u2713 water-4: vk-fill-valve.outlet \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 78.9 mm, 2 bends at R3.0",
-        "\u2713 fluid-4: hopper-funnel.drain \u2192 source-select-assembly.V-B-I \u2014 \u00d86.35 \u00d7 151.2 mm, 4 bends at R12.0",
-        "\u2713 fluid-9: source-select-assembly.V-C-O \u2192 tee-y-c.Y-C-1 \u2014 \u00d86.35 \u00d7 15.4 mm, 0 bends at R12.7",
-        "\u2713 fluid-19: source-select-assembly.V-D-O \u2192 tee-y-f.Y-F-1 \u2014 \u00d86.35 \u00d7 8.4 mm, 0 bends at R12.7",
-        "\u2713 fluid-10: bag-circuit-assembly.V-E-O \u2192 tee-y-c.Y-C-2 \u2014 \u00d86.35 \u00d7 1.4 mm, 0 bends at R12.7",
-        "\u2713 fluid-20: bag-circuit-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 8.4 mm, 0 bends at R12.7",
-        "\u2713 fluid-13: elbow-bag-y-d.free \u2192 y-d.Y-D-2 \u2014 \u00d86.35 \u00d7 25.5 mm, 2 bends at R8.0",
-        "\u2713 fluid-17: elbow-y-g.free \u2192 y-d.Y-D-3 \u2014 \u00d86.35 \u00d7 68.9 mm, 3 bends at R12.0",
-        "\u2713 fluid-23: elbow-bag-y-g.free \u2192 y-g.Y-G-2 \u2014 \u00d86.35 \u00d7 68.0 mm, 3 bends at R12.0",
-        "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 24.3 mm, 2 bends at R12.0",
-        "\u2713 fluid-12: pump-b.P-B-O \u2192 y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 18.1 mm, 2 bends at R6.0",
-        "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 35.4 mm, 2 bends at R8.0",
-        "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 252.4 mm, 8 bends at R6.0",
-        "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 141.8 mm, 5 bends at R10.0",
-        "\u2713 fluid-15: bag-circuit-assembly.Y-E-2 \u2192 foam-assembly.reservoir-A \u2014 \u00d86.35 \u00d7 368.0 mm, 3 bends at R6.0",
-        "\u2713 fluid-25: bag-circuit-assembly.Y-H-2 \u2192 foam-assembly.reservoir-B \u2014 \u00d86.35 \u00d7 295.4 mm, 3 bends at R6.0",
-        "\u2713 fluid-18: elbow-noz-a.free \u2192 bulkhead-flavor-a.tube-in \u2014 \u00d86.35 \u00d7 330.9 mm, 7 bends at R7.0",
-        "\u2713 fluid-28: elbow-noz-b.free \u2192 bulkhead-flavor-b.tube-in \u2014 \u00d86.35 \u00d7 395.0 mm, 7 bends at R7.0",
+        "28 fluid + 5 water + 3 refrigerant + 29 electrical; 25 routed \u2014 the water path waits on the SeaFlo the ASSE 1022's discharge hose lands on, the fluid path on the manifold's remaining legs; the electrical runs on the components being held",
+        "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7 \u2014 nearest 13.12 mm to source-select-assembly",
+        "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 307.7 mm, 4 bends at R12.7 \u2014 nearest 5.13 mm to compressor-shroud",
+        "\u2713 water-1: bulkhead-water.tube-in \u2192 asse1022-assembly.tube-in \u2014 \u00d86.35 \u00d7 22.4 mm, 1 bends at R3.0 \u2014 nearest 20.22 mm to c14-inlet",
+        "\u2713 water-2: asse1022-assembly.tube-out \u2192 water-split.supply \u2014 \u00d86.35 \u00d7 123.3 mm, 3 bends at R3.0 \u2014 nearest 4.20 mm to vk-fill-valve",
+        "\u2713 water-3: water-split.to-vk \u2192 vk-fill-valve.inlet \u2014 \u00d86.35 \u00d7 10.4 mm, 0 bends at R3.0 \u2014 nearest 11.95 mm to fluid-18",
+        "\u2713 water-4: vk-fill-valve.outlet \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 32.6 mm, 1 bends at R3.0 \u2014 nearest 21.22 mm to asse1022-assembly",
+        "\u2713 fluid-1: water-split.to-flavor \u2192 flow-regulator.inlet \u2014 \u00d86.35 \u00d7 29.0 mm, 2 bends at R3.0 \u2014 nearest 14.11 mm to fluid-18",
+        "\u2713 fluid-2: flow-regulator.outlet \u2192 source-select-assembly.V-A-I \u2014 \u00d86.35 \u00d7 148.2 mm, 1 bends at R3.0 \u2014 nearest 2.80 mm to fluid-18",
+        "\u2713 fluid-4: hopper-funnel.drain \u2192 source-select-assembly.V-B-I \u2014 \u00d86.35 \u00d7 151.2 mm, 4 bends at R12.0 \u2014 nearest 1.53 mm to fluid-27",
+        "\u2713 fluid-9: source-select-assembly.V-C-O \u2192 tee-y-c.Y-C-1 \u2014 \u00d86.35 \u00d7 15.4 mm, 0 bends at R12.7 \u2014 nearest 23.89 mm to fluid-11",
+        "\u2713 fluid-19: source-select-assembly.V-D-O \u2192 tee-y-f.Y-F-1 \u2014 \u00d86.35 \u00d7 8.4 mm, 0 bends at R12.7 \u2014 nearest 23.89 mm to fluid-21",
+        "\u2713 fluid-10: bag-circuit-assembly.V-E-O \u2192 tee-y-c.Y-C-2 \u2014 \u00d86.35 \u00d7 1.4 mm, 0 bends at R12.7 \u2014 nearest 10.96 mm to fluid-21",
+        "\u2713 fluid-20: bag-circuit-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 8.4 mm, 0 bends at R12.7 \u2014 nearest 23.89 mm to fluid-21",
+        "\u2713 fluid-13: elbow-bag-y-d.free \u2192 y-d.Y-D-2 \u2014 \u00d86.35 \u00d7 25.5 mm, 2 bends at R8.0 \u2014 nearest 6.97 mm to fluid-11",
+        "\u2713 fluid-17: elbow-y-g.free \u2192 y-d.Y-D-3 \u2014 \u00d86.35 \u00d7 68.9 mm, 3 bends at R12.0 \u2014 nearest 2.02 mm to fluid-4",
+        "\u2713 fluid-23: elbow-bag-y-g.free \u2192 y-g.Y-G-2 \u2014 \u00d86.35 \u00d7 68.0 mm, 3 bends at R12.0 \u2014 nearest 2.38 mm to elbow-bag-y-d",
+        "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 24.3 mm, 2 bends at R12.0 \u2014 nearest 1.53 mm to fluid-4",
+        "\u2713 fluid-12: pump-b.P-B-O \u2192 y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 18.1 mm, 2 bends at R6.0 \u2014 nearest 22.84 mm to hopper-funnel",
+        "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 35.4 mm, 2 bends at R8.0 \u2014 nearest 15.09 mm to fluid-11",
+        "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 252.4 mm, 8 bends at R6.0 \u2014 nearest 1.94 mm to y-d",
+        "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 141.8 mm, 5 bends at R10.0 \u2014 nearest 2.69 mm to bag-circuit-assembly",
+        "\u2713 fluid-15: bag-circuit-assembly.Y-E-2 \u2192 foam-assembly.reservoir-A \u2014 \u00d86.35 \u00d7 368.0 mm, 3 bends at R6.0 \u2014 nearest 8.78 mm to source-select-assembly",
+        "\u2713 fluid-25: bag-circuit-assembly.Y-H-2 \u2192 foam-assembly.reservoir-B \u2014 \u00d86.35 \u00d7 295.4 mm, 3 bends at R6.0 \u2014 nearest 5.83 mm to source-select-assembly",
+        "\u2713 fluid-18: elbow-noz-a.free \u2192 bulkhead-flavor-a.tube-in \u2014 \u00d86.35 \u00d7 332.9 mm, 7 bends at R7.0 \u2014 nearest 0.00 mm to fluid-28",
+        "\u2713 fluid-28: elbow-noz-b.free \u2192 bulkhead-flavor-b.tube-in \u2014 \u00d86.35 \u00d7 397.0 mm, 7 bends at R7.0 \u2014 nearest 0.00 mm to fluid-18",
         "\u2717 water-5: BLOCKED \u2014 the MAACFLOW adapter and the GASHER check that ride this leg are unplaced; both its ends are on the board \u2014 seaflo-pump discharge (190, 221, 286.4) y\u2212 and foam-assembly water-in (141.5, 200, 223) y\u2212 \u2014 and the leg leaves the bay down the cold core's front face, where the two bag falls run"
       ],
       "active": false
@@ -227,10 +231,10 @@
       "label": "Components in a printed holder fastened to the enclosure",
       "kind": "goal",
       "status": "warn",
-      "value": "23% (7/31)",
+      "value": "22% (7/32)",
       "target": "100%",
       "detail": [
-        "7 held (through-wall bodies + display); 24 loose internal parts unheld"
+        "7 held (through-wall bodies + display); 25 loose internal parts unheld"
       ],
       "active": false
     }
@@ -637,7 +641,7 @@
       ],
       "face": "y-",
       "diam": 6.35,
-      "mates": "vk-fill-valve inlet (water-supply fill/shutoff) \u2014 segment water-1 (routed)",
+      "mates": "asse1022-assembly tube-in (the backflow preventer's own chain) \u2014 segment water-1 (routed)",
       "status": "ok",
       "note": "JG 1/4\" PTC, inward"
     },
@@ -691,7 +695,7 @@
       "name": "tube-out",
       "kind": "fluid",
       "pos": [
-        189.5,
+        206.0,
         345.5,
         314.0
       ],
@@ -721,84 +725,114 @@
       "name": "inlet",
       "kind": "fluid",
       "pos": [
-        261.0,
-        275.5,
-        286.4
+        251.5,
+        322.0,
+        285.4
       ],
-      "face": "y-",
+      "face": "x+",
       "diam": 6.35,
       "mates": "water-split to-vk \u2014 segment water-3 (routed)",
       "status": "ok",
-      "note": "Beduan 1/4\" QC collet, facing south (\u2212Y) at the split's north run"
+      "note": "Beduan 1/4\" QC collet, facing east (+X) at the split's branch"
     },
     {
       "component": "vk-fill-valve",
       "name": "outlet",
       "kind": "fluid",
       "pos": [
-        261.0,
-        334.5,
-        286.4
+        192.5,
+        322.0,
+        285.4
       ],
-      "face": "y+",
+      "face": "x-",
       "diam": 6.35,
       "mates": "seaflo-pump suction \u2014 segment water-4 (routed)",
       "status": "ok",
-      "note": "Beduan 1/4\" QC collet, facing north (+Y); wraps west under the ASSE overhang to the suction"
+      "note": "Beduan 1/4\" QC collet, facing west (+X reversed); looks straight down the lane under the ASSE overhang to the suction"
     },
     {
       "component": "water-split",
       "name": "supply",
       "kind": "fluid",
       "pos": [
-        240.93,
-        250.0,
-        286.4
+        282.0,
+        342.07,
+        285.4
       ],
-      "face": "x-",
+      "face": "y+",
       "diam": 6.35,
       "mates": "asse1022-assembly tube-out \u2014 segment water-2 (routed)",
       "status": "ok",
-      "note": "PP0208E 1/4\" PTC branch, facing west at the ASSE outlet line"
+      "note": "PP0208E 1/4\" PTC run, facing north up the pocket at the line off the ASSE outlet"
     },
     {
       "component": "water-split",
       "name": "to-vk",
       "kind": "fluid",
       "pos": [
-        261.0,
-        270.07,
-        286.4
+        261.93,
+        322.0,
+        285.4
       ],
-      "face": "y+",
+      "face": "x-",
       "diam": 6.35,
       "mates": "vk-fill-valve inlet \u2014 segment water-3 (routed)",
       "status": "ok",
-      "note": "PP0208E 1/4\" PTC run, facing north to V-K"
+      "note": "PP0208E 1/4\" PTC branch, facing west at V-K's inlet"
     },
     {
       "component": "water-split",
       "name": "to-flavor",
       "kind": "fluid",
       "pos": [
-        261.0,
-        229.93,
-        286.4
+        282.0,
+        301.93,
+        285.4
       ],
       "face": "y-",
       "diam": 6.35,
-      "mates": "flow regulator inlet (deferred) \u2192 V-A \u2014 fluid segment 1",
+      "mates": "flow-regulator inlet \u2014 fluid segment 1 (routed)",
       "status": "ok",
-      "note": "PP0208E 1/4\" PTC run, facing south toward the source-select tray"
+      "note": "PP0208E 1/4\" PTC run, facing south down the pocket to the regulator"
+    },
+    {
+      "component": "flow-regulator",
+      "name": "inlet",
+      "kind": "fluid",
+      "pos": [
+        271.329,
+        281.0,
+        285.4
+      ],
+      "face": "y+",
+      "diam": 6.35,
+      "mates": "water-split to-flavor \u2014 fluid segment 1 (routed)",
+      "status": "ok",
+      "note": "neoFit 1/4\" PTC collet, facing north up the pocket at the split"
+    },
+    {
+      "component": "flow-regulator",
+      "name": "outlet",
+      "kind": "fluid",
+      "pos": [
+        271.329,
+        235.0,
+        285.4
+      ],
+      "face": "y-",
+      "diam": 6.35,
+      "mates": "source-select-assembly V-A-I \u2014 fluid segment 2 (routed)",
+      "status": "ok",
+      "note": "neoFit 1/4\" PTC collet, facing south down the pocket to the manifold"
     },
     {
       "component": "seaflo-pump",
       "name": "suction",
       "kind": "fluid",
       "pos": [
-        190.0,
-        333.0,
-        286.4
+        163.6,
+        317.0,
+        285.4
       ],
       "face": "y+",
       "diam": 6.35,
@@ -811,9 +845,9 @@
       "name": "discharge",
       "kind": "fluid",
       "pos": [
-        190.0,
-        221.0,
-        286.4
+        163.6,
+        237.0,
+        285.4
       ],
       "face": "y-",
       "diam": 9.525,
@@ -1866,11 +1900,11 @@
         ],
         [
           167.0,
-          338.5,
-          307.0,
-          189.5,
-          352.5,
-          321.0
+          336.75,
+          305.25,
+          206.0,
+          354.25,
+          322.75
         ],
         [
           153.0,
@@ -1889,7 +1923,7 @@
           325.115
         ]
       ],
-      "fill": 0.4136,
+      "fill": 0.4222,
       "primitive": false,
       "declared": "real"
     },
@@ -2222,6 +2256,22 @@
       "declared": "real"
     },
     {
+      "component": "flow-regulator",
+      "boxes": [
+        [
+          263.968,
+          235.0,
+          278.4,
+          278.69,
+          281.0,
+          319.4
+        ]
+      ],
+      "fill": 0.3799,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
       "component": "foam-assembly",
       "boxes": [
         [
@@ -2265,7 +2315,7 @@
           251.4
         ]
       ],
-      "fill": 0.1162,
+      "fill": 0.1161,
       "primitive": false,
       "declared": "real"
     },
@@ -2433,23 +2483,15 @@
       "component": "seaflo-pump",
       "boxes": [
         [
-          38.0,
-          221.0,
-          253.4,
+          33.5,
           228.0,
-          333.0,
-          314.4
-        ],
-        [
-          46.0,
-          249.0,
-          258.4,
-          138.0,
-          305.0,
-          314.4
+          253.4,
+          220.5,
+          326.0,
+          325.4
         ]
       ],
-      "fill": 0.4031,
+      "fill": 0.4131,
       "primitive": false,
       "declared": "real"
     },
@@ -2585,12 +2627,12 @@
       "component": "vk-fill-valve",
       "boxes": [
         [
-          243.875,
-          275.5,
-          275.1,
-          278.125,
-          334.5,
-          331.7
+          192.5,
+          304.875,
+          274.1,
+          251.5,
+          339.125,
+          330.7
         ]
       ],
       "fill": 0.434,
@@ -2601,12 +2643,12 @@
       "component": "water-split",
       "boxes": [
         [
-          240.93,
-          229.93,
-          279.4,
-          268.0,
-          270.07,
-          293.4
+          261.93,
+          301.93,
+          278.4,
+          289.0,
+          342.07,
+          292.4
         ]
       ],
       "fill": 0.5603,
