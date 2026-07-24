@@ -15,14 +15,11 @@ legs, each measured off the faces that bound it:
     the stack's floor the corridor runs the box's whole width, and refrig-1 and refrig-2 cross
     its east half. The west lane and the floor lane stay open for refrig-3's reach to the
     compressor's suction port.
-  * the service bay's aft strip — the electronics shelf's back edge to the rear-panel bodies,
-    over the foam-cap top — with the ASSE 1022 chain lying along it, inlet east at the water
-    bulkhead and 3/8" barb west into the strip's open end. It is a shallow corridor and the
-    chain nearly fills it: water-1 works the two bands the chain leaves, the 11.25 mm off the
-    bulkhead's collet where the chain narrows to its coupling, and the open run east of the
-    chain's inlet end, which fluid-28's aft leg caps at x 191.9. The band UNDER the body stays
-    open — the drip pan the vent falls into, and the C14's cordage crossing forward to the AC
-    hub, both live there.
+  * the service bay's aft strip — the SeaFlo's back face to the rear-panel bodies, over the
+    foam-cap top — with the ASSE 1022 chain lying along it, inlet west on its pigtail off the
+    water bulkhead and 3/8" barb east onto the silicone run to the tap point. Both collets
+    stand at the chain's own inlet height, so water-1 turns one corner between them. The band
+    UNDER the body stays open: the drip the vent lets go of falls through it to the cap.
   * the bag-fall corridor — the open Y behind the whole stack, aft face to cold-core front face
     (_contents `BAG_FALL_CORRIDOR`), running the box's full height and width. It is what stands
     the core off the stack, and the only lane that reaches either reservoir port low on that
@@ -86,12 +83,10 @@ DISCHARGE_SKEW = 22.0
 # Connections the pack does not carry as it stands, each with the measurement that blocks it.
 # They stay counted against the `routed` axis.
 BLOCKED: dict = {
-    "water-2": "the SeaFlo 22-series pump is unplaced — the 3/8\" silicone leaves the "
-               "ASSE 1022's barb at (42.5, 341, 305) heading −X with 42.5 mm to the −X "
-               "interior wall, and lands on nothing",
-    "water-3": "the SeaFlo is unplaced, and so are the MAACFLOW adapter and the GASHER "
-               "check that ride this leg; only its far end (foam-assembly water-in, "
-               "(141.5, 200, 223) y−) is on the board",
+    "water-4": "the MAACFLOW adapter and the GASHER check that ride this leg are unplaced; "
+               "both its ends are on the board — seaflo-pump discharge (191, 257, 286.4) x+ "
+               "and foam-assembly water-in (141.5, 200, 223) y− — and the leg leaves the bay "
+               "down the cold core's front face, where the two bag falls run",
 }
 
 
@@ -162,28 +157,40 @@ def _authored_runs() -> list:
         note="liquid: condenser (drier + cap tube) → evaporator"))
 
     # water-1 — the tap-water pigtail: the rear bulkhead's inboard collet to the ASSE 1022's PTC
-    # inlet. Both mouths stand in the service bay's aft strip 21 mm apart in x, the collet facing
-    # −Y and the inlet facing +X, so the run leaves the wall, crosses EAST past the inlet's mouth,
-    # and closes back WEST into it.
-    #   It leaves into the band between the collet mouth and the chain's coupling shoulder — a
-    # Ø6.35 column off the collet runs 11.25 mm before contact at y 347.95 — so the first corner
-    # stands one bend radius off the wall and the tube's forward face keeps ~2 mm off that
-    # shoulder. At the collet's own height the strip is open east of the chain until fluid-28's
-    # aft leg at x 191.9, which is what caps the turn-out; the climb to the inlet's deck and the
-    # leg back west both cross that lane over fluid-28's crown.
-    bulk, bfp = f["bulkhead-water"], f["asse1022-assembly"]
+    # inlet. Both collets stand at the chain's inlet height in the aft strip's west end, the
+    # bulkhead's facing −Y and the inlet's facing −X, so the run turns one corner between them.
+    bfp = f["asse1022-assembly"]
     WBEND = 5.0                              # 1/4" LLDPE, the pigtail's radius
-    WTURN_OUT = 19.0                         # east of the inlet: where the run turns back into it
     runs.append(route(
         "water-1", "bulkhead-water.tube-in",
-        bulk.y("tube-in", -(WBEND + 1.0)),   # forward off the collet, clear of the chain's shoulder
-        bfp.x("tube-in", WTURN_OUT),         # east past the inlet's mouth, west of fluid-28's lane
-        bfp.z("tube-in"),                    # up to the inlet's deck
-        bfp.y("tube-in"),                    # forward to the inlet's own station
+        bfp.y("tube-in"),                    # forward off the collet to the inlet's station
         "asse1022-assembly.tube-in",
         kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(3.0, 6.0),
-        note="tap water: rear bulkhead → ASSE 1022 inlet, out along the wall and back into the "
-             "east-facing collet"))
+        note="tap water: rear bulkhead → ASSE 1022 inlet"))
+
+    # water-2 / water-3 — the 3/8" silicone suction line, with the tap point inline in it. The
+    # chain's barb faces east down the aft strip and the tee's two barb legs face along the east
+    # strip, so the line runs east off the barb, drops the strip's height and turns forward into
+    # the tee's aft leg; out of its forward leg it drops again, runs west over the pump's deck
+    # and closes east into the suction barb. JoyTube 3/8" ID × 1/2" OD, worm-gear clamped at
+    # every barb: SBEND is what that wall turns in.
+    tap, pump = f["tap-point-assembly"], f["seaflo-pump"]
+    SBEND = 13.0                             # 3/8" ID × 1/2" OD silicone, about one OD
+    runs.append(route(
+        "water-2", "asse1022-assembly.hose-out",
+        tap.x("hose-b"),                     # east down the aft strip to the tee's lane
+        "tap-point-assembly.hose-b",
+        kind="water", bend=SBEND, skew=DISCHARGE_SKEW, stub=(SBEND, SBEND),
+        note="tap water: ASSE 1022 barb → tap-point tee, aft leg"))
+    runs.append(route(
+        "water-3", "tap-point-assembly.hose-a",
+        tap.y("hose-a", -(2.0 * SBEND + 8.0)),   # forward off the tee's own leg
+        pump.x("suction", 2.0 * SBEND + 14.0),   # west onto the suction's approach lane
+        pump.y("suction"),                       # aft to the suction's own line
+        pump.z("suction"),                       # down to the head's port height
+        "seaflo-pump.suction",
+        kind="water", bend=SBEND, skew=DISCHARGE_SKEW, stub=(SBEND, SBEND),
+        note="tap water: tap-point tee, forward leg → SeaFlo suction"))
 
     # refrig-3 — the suction leg, unauthored. Its corridor stands open: the source-select
     # tray's central span stops at y 155.3 over the outlet's x, leaving ~27 mm off the
@@ -402,8 +409,8 @@ def _authored_runs() -> list:
     # end of it seats a tangent in that leg.
     NBEND = 7.0
     for cid, elb, bulk, lane_x, turn_back in (
-        ("fluid-18", "elbow-noz-a", "bulkhead-flavor-a", outer_x, 40.0),                  # outer lane
-        ("fluid-28", "elbow-noz-b", "bulkhead-flavor-b", outer_x - (od + LANE_CLEAR), 55.0),  # inner lane
+        ("fluid-18", "elbow-noz-a", "bulkhead-flavor-a", outer_x, 12.0),                  # outer lane
+        ("fluid-28", "elbow-noz-b", "bulkhead-flavor-b", outer_x - (od + LANE_CLEAR), 20.0),  # inner lane
     ):
         b = f[bulk]
         runs.append(route(

@@ -16,12 +16,10 @@ deep its threads make up or how far its stem is swallowed, and this file stacks
 those reaches along the branch axis. Move a length in any reference module and
 the stack closes on the new one.
 
-The two branch joints are made up at the bench, not in the cabinet. A 3/8" NPTF
-female landing 9.53 mm down the tee's branch leaves 2.92 mm between the two
-hexes, and the adapter's 7/8" hex overhangs the tee's 11/16" by 2.35 mm a side,
-so no second jaw reaches the tee once the adapter is on it. The reducer above it
-has no flats at all and its stem swivels in its socket, so nothing about the
-branch above the tee is wrench-work in place.
+Both branch joints are made up on the bench, before the tee goes into the hose
+line. Drawn down, the adapter's 7/8" hex stands 2.92 mm off the tee's 11/16" and
+overhangs it by 2.35 mm a side. The reducer above has no flats, and its stem
+swivels in its socket.
 
 Frame: the tee's own — the run along ±X with the barb tips at ±RUN_LENGTH/2, the
 branch climbing +Z. The tee is symmetric about its branch, so either barb leg
