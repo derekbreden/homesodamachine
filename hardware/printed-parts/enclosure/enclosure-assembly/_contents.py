@@ -112,12 +112,14 @@ Strata, floor to ceiling:
              them. In the strip between the shelf's back edge and those
              bodies, the ASSE 1022 assembly lies along X above the cap,
              yawed so its 1/4" PTC inlet faces EAST at the water bulkhead
-             it protects — a short pigtail, not a cabinet-long run — and
-             its 3/8" barb WEST into the strip's open end for the SeaFlo
-             suction. Its atmospheric vent hangs −Z over the foam-cap top:
-             the drip pan + moisture plate go under that tip, on the cap,
-             and the band beneath the body is left open for them and for
-             the C14's cordage crossing forward to the AC hub.
+             it protects — segment water-1, a pigtail off the wall and back
+             into that collet — and its 3/8" barb WEST into the strip's
+             open end for the SeaFlo suction. Its atmospheric vent is
+             rolled to face −Y, reaching forward out of the strip: the drip
+             falls off that tip onto the foam-cap top, where the pan +
+             moisture plate sit, and the band beneath the body is left open
+             for them and for the C14's cordage crossing forward to the AC
+             hub.
   * Zone C top: the top wall right of the display is one open rectangle
              cut at the placed funnel's collar (enclosure.py
              `_hopper_hole` reads FUNNEL_CX/CY + the funnel's own dims) —
@@ -205,31 +207,37 @@ CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # path, and it stands at the rear-panel water bulkhead: the chain's inlet is one
 # pigtail off the bulkhead's inboard mouth, and everything downstream of the body
 # is protected line.
-#   * X — the body reaches x 62.5 → 186. Its EAST end is the 1/4" PTC inlet at
-#     (186, 336, 312), 50.8 mm from the bulkhead mouth at (145, 359.2, 293); past
-#     it the two nozzle-outlet runs cross the strip on their way to the flavor
-#     bulkheads (fluid-28 at 12.30 mm). Its WEST end is the 3/8" barb, with the
-#     strip's open end ahead of it — 76.5 mm to the −X interior wall, no body
-#     between — for the stiff silicone to turn in on its way to the SeaFlo.
-#   * Y — in the strip: 14.21 mm off the C14, 16.26 mm off the water bulkhead
-#     itself, the shelf row ahead and the wall behind.
-#   * Z — the body's underside rides 31.6 mm over the foam-cap top. The band under
+#   * X — the body reaches x 42.5 → 166. Its EAST end is the 1/4" PTC inlet at
+#     (166, 341, 305), facing +X with 25.9 mm of open strip between it and
+#     fluid-28's aft leg at x 191.9 — the room water-1 turns back west in. Its WEST
+#     end is the 3/8" barb, with the strip's open end ahead of it — 56.5 mm to the
+#     −X interior wall, no body between — for the stiff silicone to turn in on its
+#     way to the SeaFlo.
+#   * Y — in the strip: 4.71 mm off the C14, 10.1 mm off the water bulkhead itself,
+#     the shelf row ahead and the wall behind. Behind the bulkhead's own mouth the
+#     chain narrows to the GAGIRA coupling, leaving 11.25 mm of straight run off
+#     that collet before contact — the band water-1 turns east in.
+#   * Z — the body's underside rides 35.1 mm over the foam-cap top. The band under
 #     it is the drip pan's, and the C14's cordage crosses it going forward to the
 #     AC hub.
-# The vent is the pose (reference/asse1022-assembly README): the stub runs −Z to a
-# tip at (118, 336, 270), 16.6 mm of air over the cap, west of the shelf row and
-# east of the DC distribution block, with a 70 × 50 footprint on the cap under it
-# for the pan + its moisture plate. Nothing may be packed under it, and
-# VENT_STUB_REACH is cut to that drop.
+# The vent is the pose (reference/asse1022-assembly README): laid over to −Y, the
+# stub reaches forward to a tip at (98, 312, 305) and the drip falls 51.6 mm from
+# there onto the foam-cap top, clear of every body between (scorecard's `fall`
+# rule). The column stands 4 mm back from the electronics shelf's rear edge, with a
+# 70 × 50 footprint on the cap under it for the pan + its moisture plate. Nothing
+# may be packed under it, and VENT_STUB_REACH is cut to the room the strip leaves.
 #   PROVISIONAL on two counts: the pack is sparse (the rest of the water deck, the
 # flow sensor, the CO2 chain and every holder are still unplaced), so a strip that
-# reads clear today is clear of very little; and the chain's 123.5 × 33 × 41.3 comes
+# reads clear today is clear of very little; and the chain's 123.5 × 33 × 43.3 comes
 # from the reference model, which divides the Multiplex spec sheet rather than
 # measuring the four parts on the shelf. Both will move this.
-ASSE1022_POS = (150.0, 336.0, 285.0)
-# Yaw about Z, applied before the translation — the chain's ends swap, the vent
-# keeps pointing −Z. A turn about any other axis takes the vent off its drip.
+ASSE1022_POS = (130.0, 314.0, 305.0)
+# The pose, applied in this order before the translation: a yaw about Z that swaps
+# the chain's ends, then a roll about X that carries the vent from −Z to −Y. The
+# stub therefore reaches FORWARD out of the strip, and the drip falls from its tip
+# through open air to the cap.
 ASSE1022_YAW = 180.0
+ASSE1022_ROLL = -90.0
 # The funnel's placement: its collar-rect centre in plan, plus a rotation
 # about its own Z. This is the CENTRE OF THE TOP-WALL FRAME — the basin sits
 # the same `hopper_funnel.brim_margin` off the display gusset, the corner pod,
@@ -376,22 +384,31 @@ def bfp_terminal(name):
 
     The reference module owns each station — `tube_in` off the PP010822E's own port,
     `hose_out` off the barb tip, `vent_tip` at the stub's open end — and this carries
-    them through the same yaw + translation the solid takes, so a length changed
-    anywhere in that chain moves the world port with it. `face` is the enclosure port
-    convention (x-/x+/z-), read off the yawed outward axis."""
+    them through the same yaw + roll + translation the solid takes, in that order, so a
+    length changed anywhere in that chain moves the world port with it. `face` is the
+    enclosure port convention (x-/x+/y-/z-), read off the turned outward axis."""
     pos, axis = {"tube-in": _bfp.tube_in, "hose-out": _bfp.hose_out,
                  "vent-tip": _bfp.vent_tip}[name]()
-    pos, axis = _yaw_z(pos, ASSE1022_YAW), _yaw_z(axis, ASSE1022_YAW)
-    face = {(-1.0, 0.0, 0.0): "x-", (1.0, 0.0, 0.0): "x+", (0.0, 0.0, -1.0): "z-"}[
+    for turn in (lambda v: _yaw_z(v, ASSE1022_YAW), lambda v: _roll_x(v, ASSE1022_ROLL)):
+        pos, axis = turn(pos), turn(axis)
+    face = {(-1.0, 0.0, 0.0): "x-", (1.0, 0.0, 0.0): "x+",
+            (0.0, -1.0, 0.0): "y-", (0.0, 0.0, -1.0): "z-"}[
         tuple(round(float(c), 9) + 0.0 for c in axis)]
     return tuple(p + o for p, o in zip(pos, ASSE1022_POS)), face
 
 
 def _yaw_z(v, deg):
-    """Rotate a point or an axis about Z by `deg` — the terminals' half of the pose."""
+    """Rotate a point or an axis about Z by `deg` — the first half of the pose."""
     a = math.radians(deg)
     c, s = math.cos(a), math.sin(a)
     return (v[0] * c - v[1] * s, v[0] * s + v[1] * c, v[2])
+
+
+def _roll_x(v, deg):
+    """Rotate a point or an axis about X by `deg` — the second half, the vent's turn."""
+    a = math.radians(deg)
+    c, s = math.cos(a), math.sin(a)
+    return (v[0], v[1] * c - v[2] * s, v[1] * s + v[2] * c)
 
 
 def _dot(a, b):
@@ -1040,10 +1057,12 @@ def _build():
     # four fittings that reach it from 1/4" tube on one side and 3/8" hose on the
     # other, as one piece. It packs up in the service bay's aft strip, at the rear
     # bulkhead it protects (ASSE1022_POS). Its own frame is the world's axes
-    # (+X = flow, vent −Z), so the pose is a yaw about Z and a translation — a yaw is
-    # the only turn available, since the vent must keep pointing down into the pan.
-    placed["asse1022-assembly"] = _rot(
-        _load(ASSE1022_STEP), (0, 0, 1), ASSE1022_YAW).translate(ASSE1022_POS)
+    # (+X = flow, vent −Z), so the pose is a yaw about Z, then a roll about X that
+    # lays the vent over to −Y, then the translation — the same two turns
+    # `bfp_terminal` walks the three terminals through, in the same order.
+    placed["asse1022-assembly"] = _rot(_rot(
+        _load(ASSE1022_STEP), (0, 0, 1), ASSE1022_YAW), (1, 0, 0), ASSE1022_ROLL
+        ).translate(ASSE1022_POS)
 
     # --- Zone C: the source-select assembly (Tray 1 — V-A/V-B/Y-A/Y-B/V-C/V-D
     # on its printed tray) floors the manifold stack, spanning the front width,
