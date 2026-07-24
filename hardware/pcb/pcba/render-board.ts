@@ -23,7 +23,7 @@ import { convertSoupToGerberCommands, stringifyGerberCommandLayers, convertSoupT
 import { convertCircuitJsonToBomRows, convertBomRowsToCsv } from "circuit-json-to-bom-csv"
 import { convertCircuitJsonToPickAndPlaceCsv } from "circuit-json-to-pnp-csv"
 import { spawn, type ChildProcess } from "node:child_process"
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, readdirSync, rmSync } from "node:fs"
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, readdirSync, rmSync, utimesSync } from "node:fs"
 import { tmpdir } from "node:os"
 import path from "node:path"
 import { Resvg } from "@resvg/resvg-js"
@@ -283,9 +283,32 @@ try {
     console.error(`[${board}] back-silk render failed — bottom view shows no back legend`)
   }
 
-  // Zip the fab set into out/ (fresh — drop any prior zip first).
+  // Canonicalize the fab-set instants before zipping: circuit-json-to-gerber stamps
+  // every .gbr/.drl with a live `%TF.CreationDate,<now>*%` (plus a G04 / drill date
+  // comment), which churns the zip's bytes on every render even when the copper is
+  // identical — the composed SVG/PNG views never see it because they read geometry,
+  // not comments. Pin the ISO instant to a fixed one, the same reason the CAD exports
+  // pin their STEP timestamp to 1970. (Fixing it in the fork would not survive the
+  // weekly upstream rebase; this repo owns the reproducibility.)
+  const CANON_INSTANT = "1970-01-01T00:00:00.000Z"
+  const isoInstant = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/g
+  for (const f of readdirSync(scratch)) {
+    if (!/\.(gbr|drl)$/.test(f)) continue
+    const p = path.join(scratch, f)
+    writeFileSync(p, readFileSync(p, "utf8").replace(isoInstant, CANON_INSTANT))
+  }
+
+  // Zip the fab set into out/ (fresh — drop any prior zip first). Deterministic:
+  // sort the entries and stamp each with a canonical mtime, and pass -X to drop the
+  // platform extra fields, so identical gerbers zip to identical bytes (mirrors the
+  // STEP/PDF canonicalization the CAD exports do in _cadq_export.py). Without this the
+  // archive's per-entry DOS timestamps and readdir order churn git on every render for
+  // a non-change — the gerbers inside are already deterministic.
   rmSync(zip, { force: true })
-  await sh("zip", ["-q", "-j", zip, ...readdirSync(scratch).map((f) => path.join(scratch, f))])
+  const zipMtime = new Date("1980-01-01T00:00:00Z")  // DOS-zip epoch floor (1970 underflows)
+  const fabFiles = readdirSync(scratch).sort()
+  for (const f of fabFiles) utimesSync(path.join(scratch, f), zipMtime, zipMtime)
+  await sh("zip", ["-qXj", zip, ...fabFiles.map((f) => path.join(scratch, f))])
 
   const { top, bottom, overlay, inners, topmask, bottommask, widthMm, heightMm } = await composeViews(scratch, scheme)
   // top/bottom/overlay always; plus one solo view per inner copper layer (4-layer+) and a
