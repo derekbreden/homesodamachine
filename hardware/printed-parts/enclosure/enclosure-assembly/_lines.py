@@ -382,14 +382,17 @@ def _authored_runs() -> list:
     # into the bulkhead on its own side. Both turn aft west of the ±X boss-chain band, which
     # carries the seam's Z-pin stations and Y corner column.
     #   LANE_CLEAR is the gap the deck holds over what passes beneath it, measured below against
-    # the two parts it crosses: the gate's spade tabs and the shelf's board.
+    # every placed part it crosses — the gate's spade tabs always, and the electronics shelf's
+    # board whenever the shelf is on the deck.
     cold = f["foam-assembly"]
     LANE_CLEAR = 5.65                      # the gap a lane holds off whatever bounds it
     od = f["elbow-noz-a"].diam("free")     # the line's own bore, off the collet it leaves
     deck_z = f["bulkhead-flavor-a"].at("tube-in")[2]  # the height the runs close at
     outer_x = cold.bb.xmax - LANE_CLEAR - od / 2.0    # the band stands on the core's east face
-    for what, crown in (("the nozzle gate's spade tabs", contents.noz_spade_crown()),
-                        ("the electronics shelf's board", f["pcba"].bb.zmax)):
+    crossings = [("the nozzle gate's spade tabs", contents.noz_spade_crown())]
+    if "pcba" in f:
+        crossings.append(("the electronics shelf's board", f["pcba"].bb.zmax))
+    for what, crown in crossings:
         if deck_z - od / 2.0 - crown < LANE_CLEAR:
             raise ValueError(
                 f"fluid-18/28: the deck ({deck_z:.2f}, the bulkheads' collet height) clears {what} "
