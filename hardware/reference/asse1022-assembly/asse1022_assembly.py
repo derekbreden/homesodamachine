@@ -46,9 +46,20 @@ import gagira_reducing_coupling as coupling
 import jg_pp010822e as ptc
 import multiplex_asse1022 as bfp
 
-BRASS = cq.Color(0.72, 0.58, 0.28)      # the Multiplex body
-STAINLESS = cq.Color(0.72, 0.74, 0.78)  # 316L / 304 SS — the coupling, the barb stem
-BLACK_PP = cq.Color(0.16, 0.16, 0.18)   # John Guest black polypropylene
+# Render colors, not material colors: the viewer draws thumbnails in x-ray, where a
+# body is carried by its edges in its own color against a #1a1a2e ground. A part is
+# legible there only if it clears 3:1 against that ground AND against its neighbour,
+# so each fitting in the chain reads as its own body rather than as part of the next.
+BRASS = cq.Color(0.72, 0.58, 0.28)      # the Multiplex body — 5.98:1 on the ground
+STAINLESS = cq.Color(0.72, 0.74, 0.78)  # 304 SS — the barb stem, 9.05:1
+# The coupling is 316L and butts coaxially onto the brass body, flat to flat. Sharing
+# STAINLESS with the barb put two grays at 1.51:1 against the brass, which reads as one
+# nut cluster; a hue the chain uses nowhere else separates it where luminance cannot.
+COUPLING_SS = cq.Color(0.25, 0.78, 0.72)  # 8.19:1 on the ground
+# John Guest's polypropylene is black, which at its own value is 1.18:1 on the ground —
+# below the ground's own luminance, so it renders as a hole. Carried at the value that
+# clears 3:1 and still reads as dark PP against the metals.
+BLACK_PP = cq.Color(0.42, 0.44, 0.48)   # 3.43:1 on the ground
 CLEAR_PVC = cq.Color(0.85, 0.90, 0.92, 0.45)
 
 # The vent stub: Sealproof 1/4" ID × 3/8" OD clear PVC, bored to the barb it slips
@@ -78,8 +89,7 @@ BARB_X = BARREL_DOWNSTREAM
 def vent_stub():
     """The clear-PVC telltale stub, slipped over the vent barb and running down
     past its tip. Bored at the barb Ø, so the two share a surface and no metal."""
-    _tip, _axis = bfp.vent()
-    top = bfp.VENT_DROP                     # the body's underside, where the hose stops
+    top = bfp.BODY_UNDERSIDE_Z              # the body's underside, where the hose stops
     length = top + VENT_STUB_REACH
     stub = cq.Solid.makeCylinder(
         VENT_STUB_OD / 2.0, length,
@@ -99,7 +109,7 @@ def _along(part, x):
 def build():
     assy = cq.Assembly(name="asse1022-assembly")
     assy.add(_along(ptc.build(), PTC_X), name="jg-pp010822e", color=BLACK_PP)
-    assy.add(_along(coupling.build(), COUPLING_X), name="gagira-coupling", color=STAINLESS)
+    assy.add(_along(coupling.build(), COUPLING_X), name="gagira-coupling", color=COUPLING_SS)
     assy.add(bfp.build(), name="multiplex-asse1022", color=BRASS)
     assy.add(_along(barb.build(), BARB_X), name="ffl38barb38", color=STAINLESS)
     assy.add(vent_stub(), name="vent-stub", color=CLEAR_PVC)
