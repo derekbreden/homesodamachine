@@ -64,9 +64,10 @@ def main():
         "TOTAL_WRAPS": f"{_coil_mandrel_gen.total_wraps:.3f}",
         # pitch is derived; .2f matches "12.43 mm".
         "PITCH": f"{_coil_mandrel_gen.pitch:.2f} mm",
-        # Copper consumption: wrap arc, and per-vessel cut with stubs.
+        # Copper consumption: wrap arc, tie-in tails, per-vessel cut.
         "WRAP_LEN": f"{_coil_mandrel_gen.wrap_length / 1000:.4g} m",
         "WRAP_FT": f"{_coil_mandrel_gen.wrap_length / 304.8:.4g} ft",
+        "STUB_LEN": f"{_coil_mandrel_gen.stub_allowance:.4g} mm",
         "CUT_FT": f"{_coil_mandrel_gen.cut_length / 304.8:.4g} ft",
         "PLUG_INLET_Y": f"{_coil_mandrel_gen.plug_inlet_y:.4g}",
         "PLUG_OUTLET_Y": f"{_coil_mandrel_gen.plug_outlet_y:.4g}",
@@ -104,6 +105,7 @@ def main():
             "PITCH": 1,
             "WRAP_LEN": 1,
             "WRAP_FT": 1,
+            "STUB_LEN": 3,
             "CUT_FT": 1,
             "PLUG_INLET_Y": 1,
             "PLUG_OUTLET_Y": 1,

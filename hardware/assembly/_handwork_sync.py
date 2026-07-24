@@ -72,9 +72,10 @@ def main():
             f"({reservoir.reservoir_rod_len / MM_PER_IN:.3g} in)"
         ),
         # Evaporator-coil wrap — pitch enforced by the mandrel's helical
-        # groove, wrap arc computed in coil_mandrel.py.
+        # groove, wrap arc and tie-in tail computed in coil_mandrel.py.
         "PITCH": f"{_coil_mandrel_gen.pitch:.4g} mm",
         "WRAP_FT": f"{_coil_mandrel_gen.wrap_length / 304.8:.4g} ft",
+        "STUB_LEN": f"{_coil_mandrel_gen.stub_allowance:.4g} mm",
     }
 
     substitute_md(
@@ -85,6 +86,7 @@ def main():
             "RESERVOIR_ROD_LEN": 1,
             "PITCH": 1,
             "WRAP_FT": 1,
+            "STUB_LEN": 1,
         },
     )
     print("-> handwork.md")
