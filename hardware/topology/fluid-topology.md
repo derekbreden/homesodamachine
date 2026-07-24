@@ -17,6 +17,8 @@
 
 All valves are normally closed solenoid valves. Flow direction is inlet (I) to outlet (O) only.
 
+> **V-K** — the water-supply fill/shutoff solenoid, an 11th valve of the same Beduan NC type — is **not** part of this manifold. It gates the carbonator supply line as the machine's master inlet, upstream of the ASSE 1022 (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd) and [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2), driven off the board's spare `J2.OUT3` channel.
+
 ## Junctions
 
 Eight 3-port junctions. **Y-A and Y-B are PP2308E Y-dividers** (the source-select tray's trident fittings); the other six — **Y-C, Y-D, Y-E, Y-F, Y-G, Y-H** — are **PP0208E Tees** (in-line run + branch). The `Y-` prefix is a stable identifier, not a claim that the fitting is a Y. Per-tray grouping is in [fluid-topology-trays.mmd](/hardware/topology/fluid-topology-trays.mmd).

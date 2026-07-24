@@ -107,10 +107,11 @@ Strata, floor to ceiling:
              height, motor axis along X, base flat on the cap, its head's
              two barbs facing EAST — leaving the CO2 top entry in open air
              ahead of it. In the strip behind it the ASSE 1022 assembly
-             lies along X, its 1/4" PTC inlet WEST at the tap-water
-             bulkhead it protects (segment water-1, one corner between the
-             two collets) and its 3/8" barb EAST onto the silicone run to
-             the tap point. Its atmospheric vent hangs in its native pose:
+             lies along X, its 1/4" PTC inlet WEST, fed through V-K — the
+             water-supply fill/shutoff solenoid on a short cradle at the
+             strip's west end (segments water-1 then water-2) — off the
+             tap-water bulkhead it protects, and its 3/8" barb EAST onto the
+             silicone run to the tap point. Its atmospheric vent hangs in its native pose:
              the drip falls straight down its own column to the foam-cap
              top, where the pan + moisture plate sit, and the band beneath
              the body is left open for them. The tap point stands in the
@@ -159,6 +160,7 @@ import nozzle_gate_tray as _noz          # noqa: E402
 import asse1022_assembly as _bfp         # noqa: E402  — its three terminals, carried to world
 import tap_point_assembly as _tap        # noqa: E402  — its three terminals, the same way
 import seaflo_22_pump as _seaflo         # noqa: E402  — its two head barbs
+import beduan_solenoid as _vk            # noqa: E402  — V-K's two 1/4" QC collets
 
 
 # --- Source STEPs ---------------------------------------------------------
@@ -197,6 +199,9 @@ SEAFLO_STEP    = _hw / "reference" / "seaflo-22-pump" / "seaflo-22-pump.step"
 # frame is the tee's run along ±X with the branch climbing +Z
 # (reference/tap-point-assembly).
 TAP_POINT_STEP = _hw / "reference" / "tap-point-assembly" / "tap-point-assembly.step"
+# V-K — the Beduan 12 V NC solenoid, the water-supply fill/shutoff valve
+# (reference/beduan-solenoid). Its own frame is +Y = flow, the arrow the outlet.
+BEDUAN_STEP    = _hw / "reference" / "beduan-solenoid" / "beduan-solenoid.step"
 
 # --- Primitive dimensions + placement anchors ----------------------------
 # Condenser+fan and the SeaFlo pump are packed as primitive boxes (dimensions
@@ -230,6 +235,16 @@ SEAFLO_POS = (92.0, 277.0)   # plan; its Z is the cap
 ASSE1022_POS = (102.0, 345.5, 287.0)
 ASSE1022_YAW = 0.0
 ASSE1022_ROLL = 0.0
+# V-K — the water-supply fill/shutoff solenoid (Beduan 12 V NC), the machine's
+# master inlet valve: UPSTREAM of the ASSE 1022 on the 1/4" supply run, in the
+# aft strip's west end. Closed, it de-pressurizes the ASSE and stops all water
+# into the machine. Its own frame is +Y = flow (arrow toward the outlet); the
+# yaw turns the arrow +X so the outlet looks east at the ASSE inlet and the
+# inlet looks west, taking the rear-bulkhead pigtail on a wrap. It stands on a
+# short cradle off the foam cap, lifted clear of the pump's foot band — the pump
+# clears it by ~5.6 mm, the ASSE and C14 by ~9, and the box does not grow to carry it.
+BEDUAN_POS = (30.0, 334.0, 264.0)   # base 10.6 above the cap; z is the cradle top
+BEDUAN_YAW = 270.0
 # The tap point stands in the east strip, its run along Y so both hose legs face
 # along the strip, its branch laid horizontal on −X — the 1/4" collet looking west
 # into the channel between the strip and the pump, where the flow regulator rides
@@ -436,6 +451,18 @@ def seaflo_terminal(name):
         tuple(round(float(c), 9) + 0.0 for c in axis)]
     origin = (SEAFLO_POS[0], SEAFLO_POS[1], foam_cap_top())
     return tuple(p + o for p, o in zip(pos, origin)), face
+
+
+def vk_terminal(name):
+    """One of V-K's two 1/4" QC collets in world: `(pos, face)`. The Beduan's own
+    frame is +Y = flow (arrow = outlet); BEDUAN_YAW turns it so the arrow points
+    +X at the ASSE inlet, and the collets turn with it."""
+    pos, axis = {"inlet": _vk.inlet, "outlet": _vk.outlet}[name]()
+    pos, axis = _yaw_z(pos, BEDUAN_YAW), _yaw_z(axis, BEDUAN_YAW)
+    face = {(-1.0, 0.0, 0.0): "x-", (1.0, 0.0, 0.0): "x+", (0.0, 1.0, 0.0): "y+",
+            (0.0, -1.0, 0.0): "y-", (0.0, 0.0, 1.0): "z+", (0.0, 0.0, -1.0): "z-"}[
+        tuple(round(float(c), 9) + 0.0 for c in axis)]
+    return tuple(p + o for p, o in zip(pos, BEDUAN_POS)), face
 
 
 def _yaw_z(v, deg):
@@ -675,6 +702,7 @@ COLORS = {
     "elbow-noz-b":       cq.Color(0.85, 0.85, 0.88),
     "seaflo-pump":       cq.Color(0.32, 0.38, 0.46),
     "tap-point-assembly": cq.Color(0.88, 0.89, 0.91),
+    "vk-fill-valve":      cq.Color(0.85, 0.86, 0.90),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "dc-dist":           cq.Color(0.20, 0.20, 0.22),
@@ -1198,6 +1226,13 @@ def _build():
     placed["tap-point-assembly"] = _rot(_rot(
         _load(TAP_POINT_STEP), (1, 0, 0), TAP_POINT_ROLL), (0, 0, 1), TAP_POINT_YAW
         ).translate(TAP_POINT_POS)
+
+    # V-K, the fill/shutoff solenoid, on its cradle at the aft strip's west end,
+    # yawed so its arrow points +X: outlet east at the ASSE inlet, inlet west on
+    # the rear-bulkhead pigtail. Same yaw its two collets take in `vk_terminal`.
+    placed["vk-fill-valve"] = _rot(
+        _load(BEDUAN_STEP), (0, 0, 1), BEDUAN_YAW
+        ).translate(BEDUAN_POS)
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
 

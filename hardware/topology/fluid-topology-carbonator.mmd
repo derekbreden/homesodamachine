@@ -7,6 +7,7 @@ flowchart LR
 
   subgraph WaterSupply["Water Supply"]
     direction LR
+    VK["Fill / Shutoff Valve<br/>(V-K, 12 V NC)"]
     BFP["Backflow Preventer<br/>(ASSE 1022)"]
     PW["Diaphragm Pump<br/>(100 PSI)"]
     CV["Check Valve<br/>(PTFE soft-seat)"]
@@ -48,7 +49,7 @@ flowchart LR
   PRVOut["PRV Discharge"]
   LevelSense["Level Sense from reed switches"]
 
-  Tap --> BFP --> PW --> CV --> P2
+  Tap --> VK --> BFP --> PW --> CV --> P2
   CO2 --> RegCO2 --> CV_CO2 --> P1
   P3 --> Faucet --> Nozzle
   P4 ==> PRVOut
@@ -61,14 +62,15 @@ flowchart LR
   class P4,PRVOut safety
   class BFP code
 
-  %% Fluid-flow workhorse edges: white.
-  linkStyle 0,1,3,5,7,8,9,10,11,12,13,14,15 stroke:#ccc,stroke-width:2px
+  %% Fluid-flow workhorse edges: white. (V-K inserted at edge 7 = Tap --> VK,
+  %% so every edge past it shifts +1 from the pre-V-K numbering.)
+  linkStyle 0,1,3,5,7,8,9,10,11,12,13,14,15,16 stroke:#ccc,stroke-width:2px
   %% Sensor / interlock edges: blue.
   %% 2 = Water --> Headspace, 6 = Float --> Water,
-  %% 17 = Float --> LevelSense, 18 = LevelSense -- interlock --> PW,
-  %% 19 = Faucet -- lockout --> PW.
-  linkStyle 2,6,17,18,19 stroke:#09f,stroke-width:2px
+  %% 18 = Float --> LevelSense, 19 = LevelSense -- interlock --> PW,
+  %% 20 = Faucet -- lockout --> PW.
+  linkStyle 2,6,18,19,20 stroke:#09f,stroke-width:2px
   %% Safety / pressure-relief path: red, thicker. Uses ==> so arrowheads
   %% inherit the stroke color.
-  %% 4 = Headspace ==> P4, 16 = P4 ==> PRVOut.
-  linkStyle 4,16 stroke:#c44,stroke-width:3px
+  %% 4 = Headspace ==> P4, 17 = P4 ==> PRVOut.
+  linkStyle 4,17 stroke:#c44,stroke-width:3px

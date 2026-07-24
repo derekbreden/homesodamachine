@@ -64,8 +64,8 @@ the strip, and carry the branch down to the horizontal on **−X**: the branch i
 taller than the bay is deep, so it cannot stand. Its 1/4" collet looks west into
 the channel off the pump, where the flow regulator rides the run to V-A.
 
-The run sits at the chain's own barb height, so `water-2` reaches it without
-changing level, and `water-3` drops to the pump's suction on its way west.
+The run sits at the chain's own barb height, so `water-3` reaches it without
+changing level, and `water-4` drops to the pump's suction on its way west.
 
 ## Sourcing
 
