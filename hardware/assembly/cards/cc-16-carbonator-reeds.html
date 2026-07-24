@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="cc">
+<div class="card">
+
+<header>
+  <div class="code">CC-16</div>
+  <h1>Mount the carbonator<br>reeds — method open</h1>
+  <div class="deckpos"><b>Cold core · 16/16</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Two reeds on the vessel's outside wall read the
+    float donut through <span class="dim">0.065&Prime;</span> of 316L —
+    <strong>only the mounting method is open.</strong></p>
+
+    <ol class="steps">
+      <li><b>Two Gebildet reeds</b> (B0CW9418F6) — the reservoirs'
+        SKU; two 6-packs cover all 10 with spares.</li>
+      <li><b>On the &minus;Y line</b> — the rod register's azimuth
+        (PV-03). The wall-preloaded rod parks the donut against the
+        inner wall right there.</li>
+      <li><b>Prove each reed with the donor magnet through the
+        wall</b> — closed adjacent, open away (CC-06 discipline).</li>
+      <li><b>Leads join the J7 loom</b> (CA-02) &rarr; MCP23017
+        <span class="dim">0x21 PB[4:5]</span>.</li>
+    </ol>
+
+    <div class="note">
+      <b>Open item</b> (pressure-vessel.md #6): the reed fixture and
+      the two heights are unresolved. The &minus;Y line is buried under
+      foil, coil, and foam from CC-02 on — <b>the method lands
+      first.</b>
+    </div>
+
+    <div class="tools">
+      <span class="lbl">Parts</span>
+      2&#215; Gebildet reed B0CW9418F6 · 22 AWG conductors (J7, CA-01)
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 620" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .cl    { stroke: #b0483a; stroke-width: 2; stroke-dasharray: 22 8 8 8; }
+          .dimln { stroke: #0f8bab; stroke-width: 2.5; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #0f8bab; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <text class="lbl" x="24" y="40">PLAN &#183; through-wall coupling on the &minus;Y line</text>
+        <!-- vessel section: OD 127 at 3 px/mm -> R 190, center (330,300) -->
+        <g transform="translate(330,310)">
+          <circle class="steel" r="190"/>
+          <circle fill="#f7f5f0" stroke="#1d1d26" stroke-width="2" r="185"/>
+          <!-- centerlines -->
+          <line class="cl" x1="-206" y1="0" x2="206" y2="0"/>
+          <line class="cl" x1="0" y1="-206" x2="0" y2="228"/>
+          <!-- rod at register radius on −Y (down): 2.007in=51mm -> 153px -->
+          <circle cx="0" cy="153" r="6" fill="#1d1d26"/>
+          <!-- donut riding the wall: OD 27.75 -> r 41.6, outer edge on the inner wall -->
+          <circle cx="0" cy="143" r="41.6" fill="none" stroke="#b8722c" stroke-width="9"/>
+          <text class="sub" x="0" y="84" text-anchor="middle">donut &#183; rides the inner wall</text>
+          <!-- reed outside the wall at −Y -->
+          <rect x="-7" y="196" width="14" height="46" rx="6" fill="#0f8bab"/>
+          <text class="dimtx" x="26" y="234">reed &#215;2</text>
+          <text class="sub" x="26" y="262">heights: open</text>
+        </g>
+        <!-- coupling dims, right margin -->
+        <g transform="translate(548,130)">
+          <text class="dimtx" x="0" y="0">wall 0.065&Prime;</text>
+          <text class="dimtx" x="0" y="40">trips &le; ~2 mm</text>
+          <text class="dimtx" x="0" y="80">dead by ~3 mm</text>
+        </g>
+      </svg>
+      <div class="cap"><b>Bench-measured on this tube</b> — the donut's
+      ferrite couples through the wall only while it rides the
+      &minus;Y line the register set (PV-03).</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Both reeds on the &minus;Y line, magnet-proven through the wall, leads in the J7 loom — the method logged when it closes.</div>
+  <div class="src">level-sensing.md &#183; pressure-vessel.md #6<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

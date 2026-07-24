@@ -29,6 +29,7 @@ body.fu { --accent: #2f7f6f; }  /* faucet + umbilical */
 body.fc { --accent: #5b6acb; }  /* firmware + commissioning */
 body.ab { --accent: #2e8540; }  /* acceptance + burn-in */
 body.fs { --accent: #8a6d3b; }  /* finish, pack, ship */
+body.gt { --accent: #5c6570; }  /* technique appendix — graphite */
 
 html, body {
   width: 1800px; height: 1200px;

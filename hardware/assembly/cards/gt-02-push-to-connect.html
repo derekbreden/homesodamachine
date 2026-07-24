@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="gt">
+<div class="card">
+
+<header>
+  <div class="code">GT-02</div>
+  <h1>Push-to-connect —<br>cut, click, tug</h1>
+  <div class="deckpos"><b>Technique · 02/5</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Every John Guest-style collet in the machine takes
+    the same three-beat: <strong>square cut, push to the stop,
+    tug back.</strong> The tug is the connection.</p>
+
+    <ol class="steps">
+      <li><b>Cut square — no chamfer, no angle</b> (Mudder cutter,
+        one squeeze). The O-ring seals on the tube's side wall; a
+        scarred or ovaled end weeps.</li>
+      <li><b>Push past the collet to the tube stop.</b> Two
+        resistances: the collet's grip, then the O-ring — the seat
+        is the hard stop behind both.</li>
+      <li><b>Tug back.</b> The collet teeth set on the pull —
+        an un-tugged tube is resting, not held. Every PTC in the
+        build gets this (IP-06 walks them all again).</li>
+      <li><b>Release only square:</b> press the collet ring flat
+        against the body while pulling the tube — a tilted collet
+        chews the tube wall; re-cut before re-using the end.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Materials</span>
+      1/4&Prime; OD LLDPE · Mudder cutter · the fitting's own collet
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 560" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .tube  { fill: #d8dde6; stroke: #1d1d26; stroke-width: 2.5; }
+          .oring { fill: #c8481d; }
+          .teeth { fill: #5c6570; }
+          .dimln { stroke: #5c6570; stroke-width: 2.5; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #5c6570; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <text class="lbl" x="24" y="40">CUTAWAY &#183; tube seated</text>
+        <g transform="translate(80,90)">
+          <!-- fitting body -->
+          <path class="steel" d="M 60 0 L 560 0 L 560 60 L 480 60 L 480 130 L 560 130 L 560 190 L 60 190 L 60 150 L 0 150 L 0 40 L 60 40 Z"/>
+          <!-- bore -->
+          <rect fill="#f7f5f0" x="60" y="60" width="420" height="70"/>
+          <!-- tube entering to the stop -->
+          <rect class="tube" x="-40" y="66" width="400" height="58"/>
+          <!-- tube stop -->
+          <rect class="teeth" x="362" y="60" width="10" height="70"/>
+          <text class="sub" x="392" y="102">tube stop</text>
+          <!-- o-ring -->
+          <circle class="oring" cx="250" cy="66" r="9"/>
+          <circle class="oring" cx="250" cy="124" r="9"/>
+          <text class="sub" x="228" y="170">O-ring &#183; seals the side wall</text>
+          <!-- collet -->
+          <path class="teeth" d="M 60 60 L 110 60 L 92 76 L 60 76 Z"/>
+          <path class="teeth" d="M 60 130 L 110 130 L 92 114 L 60 114 Z"/>
+          <text class="sub" x="30" y="228">collet &#183; teeth set on the pull</text>
+          <!-- push + tug arrows -->
+          <line class="dimln" x1="-40" y1="28" x2="120" y2="28"/>
+          <path fill="#5c6570" d="M 132 28 L 108 18 L 108 38 Z"/>
+          <text class="dimtx" x="150" y="36">1 &#183; push to the stop</text>
+          <line class="dimln" x1="240" y1="256" x2="80" y2="256"/>
+          <path fill="#5c6570" d="M 68 256 L 92 246 L 92 266 Z"/>
+          <text class="dimtx" x="260" y="264">2 &#183; tug &#8212; teeth bite</text>
+        </g>
+        <!-- square cut inset -->
+        <g transform="translate(80,440)">
+          <text class="lbl" x="0" y="-16">THE CUT</text>
+          <rect class="tube" x="0" y="0" width="180" height="52"/>
+          <line x1="180" y1="-8" x2="180" y2="60" stroke="#2e8540" stroke-width="4"/>
+          <text class="dimtx" x="200" y="20" fill="#2e8540">square &#10003;</text>
+          <rect class="tube" x="330" y="0" width="180" height="52"/>
+          <line x1="510" y1="-8" x2="486" y2="60" stroke="#c8481d" stroke-width="4"/>
+          <text class="dimtx" x="530" y="20" fill="#c8481d">angled &#10007;</text>
+        </g>
+      </svg>
+      <div class="cap"><b>The tug is load-bearing</b> — carbonated
+      water at 90 PSI sits behind several of these joints. Cut square,
+      click, tug, every time.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Every PTC end square-cut, seated to the stop, and tug-tested — no joint left "resting".</div>
+  <div class="src">internal-plumbing.md &#183; ip-06 &#183; faucet-and-umbilical.md<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>
