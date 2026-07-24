@@ -59,7 +59,7 @@ Bring up in this order, verifying each rail with the multimeter before the next:
 
 Under *full* logic load — all MCUs flashed and both display backlights on (revisit after step 6) — the 5 V rail holds tolerance.
 
-If any rail is out of tolerance, kill the PSU and return the unit to `wiring.md`. Do **not** energize the AC side (compressor + fan) at this step — relay #1 stays de-energized until step 7.
+If any rail is out of tolerance, kill the PSU and return the unit to `wiring.md`. Do **not** energize the AC side (compressor + fan) at this step — relay #1 stays de-energized until step 8.
 
 Spot-check current draw at the PSU: cold idle sits low — the WROOM's boot-ROM idle, the board's rail LEDs, and the relay-module opto quiescent draw tens of mA; the relay coils are de-energized, no valves are driven, no pumps.
 

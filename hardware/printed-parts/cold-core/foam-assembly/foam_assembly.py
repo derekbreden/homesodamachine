@@ -2,9 +2,6 @@
 they are in the finished build, so the cap orientation and the screw-hole
 alignment can be checked before printing.
 
-Pure Z-stack: every part is authored in its final orientation, so the
-assembly only shifts each one along Z. Nothing is rotated here.
-
 Coordinate frame is the foam shell's (Z+ up, floor on z=0):
 
   * foam-shell spans z = 0 .. 213.4 — floor closed at the bottom, open at
@@ -15,13 +12,20 @@ Coordinate frame is the foam shell's (Z+ up, floor on z=0):
     against the shell's bottom face, open mouth + lid pointing down — the
     lid is the most-negative-Z layer in the whole stack.
 
+The top cap and its lid install rotated 180° about Z. They carry the CO2
+inlet bore, authored at (x=0, y=co2_inlet_y) on −Y; the elbow doorway it
+feeds is cut on the shell's +Y side, so the rotation is what puts the bore
+over the doorway. Every other part is authored in its final orientation and
+only shifts along Z.
+
 Both caps and the shell share the one original six-screw pattern (four
-corners + the two mid-long-side bosses on their diagonal). The bottom cap is
-the same cup seated mouth-down, so its screws land on the shell's existing
-bottom-face inserts with no rotation and no boss moves. _report() proves it:
-a thin vertical probe at each screw position passes clear through both the
-bottom lid and the bottom cap, and no two solids overlap (mating faces touch
-at zero volume)."""
+corners + the two mid-long-side bosses on their diagonal), which is 180°
+symmetric about Z — that is what leaves the top cap free to rotate. The
+bottom cap is the same cup seated mouth-down, so its screws land on the
+shell's existing bottom-face inserts with no rotation and no boss moves.
+_report() proves all of it: the rotated bore lands on the doorway's side, a
+thin vertical probe at each screw position passes clear through every cap
+and lid, and no two solids overlap (mating faces touch at zero volume)."""
 
 import sys
 from pathlib import Path
@@ -38,6 +42,8 @@ sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 from _cadq_export import export_assembly
 from _cold_core_interface import (
     attachment_xy_positions,
+    co2_inlet_y,
+    co2_inlet_tube_radius,
     screw_clearance_radius,
 )
 
@@ -58,6 +64,12 @@ def _load(path):
     return cq.importers.importStep(str(path)).val()
 
 
+def _spin(shape):
+    """Rotate 180° about the Z axis — the top cap's install orientation,
+    which carries its CO2 bore from −Y over to the doorway's +Y side."""
+    return shape.rotate(cq.Vector(0, 0, 0), cq.Vector(0, 0, 1), 180)
+
+
 def _place_z(shape, *, zmin=None, zmax=None):
     """Translate along Z only (parts are already XY-centered and correctly
     oriented). Sets either the min-Z or max-Z face to a target."""
@@ -75,10 +87,11 @@ def build():
     shell = _load(SHELL_STEP)
     shell_bb = shell.BoundingBox()
 
-    # Top cap: floor (its zmin face) lands on the shell's top; lid on its mouth.
-    cap_top = _place_z(_load(CAP_DIR / "foam-cap-top.step"), zmin=shell_bb.zmax)
+    # Top cap: floor (its zmin face) lands on the shell's top; lid on its
+    # mouth. Both spin about Z so the CO2 bore lands over the +Y doorway.
+    cap_top = _place_z(_spin(_load(CAP_DIR / "foam-cap-top.step")), zmin=shell_bb.zmax)
     lid_top = _place_z(
-        _load(CAP_DIR / "foam-cap-lid-top.step"), zmin=cap_top.BoundingBox().zmax
+        _spin(_load(CAP_DIR / "foam-cap-lid-top.step")), zmin=cap_top.BoundingBox().zmax
     )
 
     # Bottom cap (mouth-down): floor (its zmax face) lands up against the
@@ -116,6 +129,26 @@ def _report(placed):
     # shell's existing bosses.
     P = [(round(x, 6), round(y, 6)) for x, y in attachment_xy_positions]
     print("  screw pattern: 6 points, the original diagonal (shared top + bottom)  OK")
+
+    # The spun top cap + lid must present their CO2 bore at −co2_inlet_y, the
+    # side the shell's elbow doorway is cut on. A probe down the bore axis
+    # passes clear through both; the same probe at the authored y hits solid.
+    bore_y = -co2_inlet_y
+    probe_r = co2_inlet_tube_radius - 0.3
+    for name in ("foam-cap-top", "foam-cap-lid-top"):
+        solid = placed[name][0]
+        b = solid.BoundingBox()
+        for y, want_open in ((bore_y, True), (co2_inlet_y, False)):
+            probe = cq.Solid.makeCylinder(
+                probe_r, b.zlen + 4, cq.Vector(0, y, b.zmin - 2), cq.Vector(0, 0, 1)
+            )
+            is_open = solid.intersect(probe).Volume() <= 1e-6
+            if is_open != want_open:
+                print(
+                    "  ** CO2 bore %s at y=%.2f in %s"
+                    % ("open" if is_open else "blocked", y, name)
+                )
+    print("  CO2 bore: open at y=%+.2f (doorway side), solid at y=%+.2f  OK" % (bore_y, co2_inlet_y))
 
     # A thin vertical probe at each screw position must pass clear through both
     # parts of each stack — a real through-hole for every screw.

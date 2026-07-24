@@ -48,7 +48,22 @@ from _reservoir_pocket_walls import (
     pocket_centerward_arc_transition_y,
     transition_tank_r,
 )
+from _port_cuts import (
+    co2_doorway_y,
+    co2_inlet_bore_radius,
+    co2_inlet_bore_z,
+)
+from _cold_core_interface import co2_inlet_y
 from docgen import substitute_md
+
+sys.path.insert(0, str(_here.parent / "copper-plugs"))
+from copper_plugs import plug_specs  # noqa: E402
+
+
+def _plug_span(name):
+    """"low → high" Z span of one copper plug, as the README's table reads it."""
+    z_bottom, z_top = plug_specs[name].z_range
+    return f"{z_bottom:.4g} → {z_top:.4g}"
 
 
 def main():
@@ -96,6 +111,20 @@ def main():
             "GASKET_W": f"{gasket_strip_width:.4g} mm",
             "MID_BOSS_OFFSET": f"{mid_screw_x_offset:.4g} mm",
             "INSERT_DEPTH": f"{insert_pocket_depth:.4g} mm",
+            # CO2 elbow doorway — bore, the +Y wall face it is cut from, and
+            # the tube's Y through the cap stack above it. The cap is authored
+            # with its bore on −Y and installs rotated 180°, so the tube comes
+            # down at −co2_inlet_y, on the doorway's side.
+            "CO2_BORE_D": f"⌀{2 * co2_inlet_bore_radius:.4g}",
+            "CO2_DOORWAY_Y": f"+{co2_doorway_y:.4g}",
+            "CO2_BORE_Z": f"{co2_inlet_bore_z:.4g}",
+            "CO2_CAP_HOLE_Y": f"+{-co2_inlet_y:.4g}",
+            # Copper-plug Z spans — the plugs tile the slot end-to-end, each
+            # end face landing on a pass-through center.
+            "PLUG_SPAN_LOWER": _plug_span("lower"),
+            "PLUG_SPAN_MIDDLE": _plug_span("middle"),
+            "PLUG_SPAN_UPPER": _plug_span("upper"),
+            "PLUG_SPAN_TOP": _plug_span("top"),
             "FSHELL_VOLUME": f"{volume:.3f} mm³",
             "FSHELL_BBOX_X": f"{bbox.xmin:.3f} to {bbox.xmax:.3f} mm",
             "FSHELL_BBOX_Y": f"{bbox.ymin:.3f} to {bbox.ymax:.3f} mm",
@@ -117,13 +146,13 @@ def main():
             "TANK_R": 2,
             "POCKET_ARC_R": 1,
             "POCKET_ARC_INNER_R": 1,
-            "POCKET_Y_OUTER": 3,
+            "POCKET_Y_OUTER": 4,
             "POCKET_Y_INNER": 2,
             "POCKET_ARC_TRANSITION_Y": 2,
             "TRANSITION_ARC_R": 2,
             "COIL_GAP": 2,
             "ELBOW_ENV": 1,
-            "RESERVOIR_GAP": 1,
+            "RESERVOIR_GAP": 2,
             "POCKET_CORNER_R": 1,
             "POCKET_X_OUTER": 1,
             "POCKET_X_INNER": 1,
@@ -135,6 +164,14 @@ def main():
             "BOSS_D": 3,
             "MID_BOSS_OFFSET": 2,
             "INSERT_DEPTH": 1,
+            "CO2_BORE_D": 3,
+            "CO2_DOORWAY_Y": 2,
+            "CO2_BORE_Z": 1,
+            "CO2_CAP_HOLE_Y": 1,
+            "PLUG_SPAN_LOWER": 1,
+            "PLUG_SPAN_MIDDLE": 1,
+            "PLUG_SPAN_UPPER": 1,
+            "PLUG_SPAN_TOP": 1,
             "FSHELL_VOLUME": 1,
             "FSHELL_BBOX_X": 1,
             "FSHELL_BBOX_Y": 1,

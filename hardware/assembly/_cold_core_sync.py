@@ -28,8 +28,11 @@ from _cold_core_interface import (  # noqa: E402
     outer_shell_x_length,
     outer_shell_y_length,
     port_hole_radius,
+    reservoir_bulkhead_port_x,
+    reservoir_clearance,
     wall_and_floor_thickness,
 )
+from _reed_channels import cable_hole_offset_from_bulkhead_hole_x  # noqa: E402
 
 import importlib.util  # noqa: E402
 
@@ -84,8 +87,18 @@ def main():
         # Generic small-feature port hole (water outlet, reservoir
         # bulkheads, CO2 tube clearance through cap+lid).
         "TUBE_HOLE_D": f"{port_hole_radius * 2:.4g} mm",
-        # CO2 inlet Z coordinate in the foam-shell frame.
+        # CO2 inlet Z coordinate in this doc's frame (doc z = −shell y). The
+        # top cap installs rotated 180°, so its bore lands at shell
+        # y = −co2_inlet_y, which reads back as co2_inlet_y here.
         "COTWO_INLET_Z": f"{co2_inlet_y:.4g}",
+        # CO2 elbow doorway bore through the support arch.
+        "COTWO_BORE_D": f"{2 * _port_cuts.co2_inlet_bore_radius:.4g}",
+        # The two −Y-wall holes per reservoir side: flavor line inboard,
+        # reed cable outboard of the bulkhead axis.
+        "FLAVOR_HOLE_X": f"±{_port_cuts.flavor_line_hole_x:.4g}",
+        "CABLE_HOLE_X": f"±{reservoir_bulkhead_port_x + cable_hole_offset_from_bulkhead_hole_x:.4g}",
+        # Reservoir-to-pocket clearance — why the pockets take no foam.
+        "RESERVOIR_GAP": f"{reservoir_clearance:.4g} mm",
         # ─── Output envelope (line 113) ───────────────────────────────
         "OUTER_X": f"{outer_shell_x_length:.4g} mm",
         "CCORE_OUTER_Y": f"{outer_shell_y_length:.4g}",
@@ -114,8 +127,12 @@ def main():
             "LID_VENT_D": 1,
             "INSERT_POCKET_D": 1,
             "INSERT_HALF_DEPTH": 2,
-            "TUBE_HOLE_D": 3,
+            "TUBE_HOLE_D": 5,
             "COTWO_INLET_Z": 1,
+            "COTWO_BORE_D": 1,
+            "FLAVOR_HOLE_X": 1,
+            "CABLE_HOLE_X": 2,
+            "RESERVOIR_GAP": 1,
             "OUTER_X": 1,
             "CCORE_OUTER_Y": 1,
             "OUTER_H": 1,
