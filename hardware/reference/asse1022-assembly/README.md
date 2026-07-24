@@ -2,11 +2,10 @@
 
 The Multiplex 19-0897 backflow preventer with everything that threads or clamps
 directly onto it — the water path's one non-negotiable component, plus the four
-fittings that make it reachable from 1/4" tube on one side and 3/8" hose on the
-other.
+fittings that make it reachable from 1/4" tube on both sides.
 
 ```
-1/4" LLDPE → PP010822E → GAGIRA coupling → [ASSE 1022] → FFL38BARB38 → 3/8" hose
+1/4" LLDPE → PP010822E → GAGIRA coupling → [ASSE 1022] → flare38-14ptc → 1/4" LLDPE
                                                  └ vent stub ↓ drip pan
 ```
 
@@ -18,7 +17,7 @@ order it builds it. Parts and prices are in `hardware/ledger/bom.md` §3.
 | John Guest PP010822E | 1/4" PTC × 1/4" NPT M — the cabinet's water run pushes in here | [`../jg-pp010822e/`](../jg-pp010822e/) |
 | GAGIRA reducing coupling | 3/8" NPT F × 1/4" NPT F, 316L SS — closes the 1/4"-to-3/8" gap | [`../gagira-reducing-coupling/`](../gagira-reducing-coupling/) |
 | Multiplex 19-0897 | ASSE 1022 dual-check backflow preventer | [`../multiplex-asse1022/`](../multiplex-asse1022/) |
-| brewhardware FFL38BARB38 | 3/8" FFL swivel × 3/8" hose barb — feeds the SeaFlo suction | [`../ffl38barb38/`](../ffl38barb38/) |
+| flare38-14ptc | 3/8" FFL swivel × 1/4" PTC — turns the ASSE outlet onto 1/4" LLDPE toward the water-split | [`../flare38-14ptc/`](../flare38-14ptc/) |
 | Sealproof clear PVC stub | 1/4" ID × 3/8" OD — the atmospheric vent's telltale run | built here |
 
 ## The vent is the pose
@@ -36,7 +35,7 @@ over the foam cap (`enclosure-assembly/_contents.py` `ASSE1022_POS`,
 `ASSE1022_YAW`, `ASSE1022_ROLL`) — a yaw about Z, a roll about X, and a
 translation, since this frame is already the cabinet's axes. Both turns are zero
 there: the chain runs the cabinet's +X with its inlet west at the tap-water
-bulkhead and its barb east onto the run to the tap point, and the vent hangs as
+bulkhead and its 1/4" PTC collet east onto the 1/4" LLDPE run to the water-split, and the vent hangs as
 it is built, dropping its column straight onto the cap the pan sits on. The
 scorecard measures that fall (`fall vent-tip onto foam-assembly`). All three
 terminals are carried to world coordinates from the stations below, so a length
@@ -53,7 +52,7 @@ shares a surface and no volume; the assembly's parts do not interfere.
 | terminal | position | out |
 |---|---|---|
 | `tube_in()` | (−36.00, 0, 27.00) | −X |
-| `hose_out()` | (87.50, 0, 27.00) | +X |
+| `tube_out()` | (87.50, 0, 27.00) | +X |
 | `vent_tip()` | (32.00, 0, −2.00) | −Z |
 
 Overall 123.5 × 33.0 × 43.3 mm. The vent stub's reach past the barb tip is a cut

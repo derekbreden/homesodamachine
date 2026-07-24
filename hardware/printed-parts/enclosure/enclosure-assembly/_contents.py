@@ -103,20 +103,21 @@ Strata, floor to ceiling:
              hangs over the row with the stack's whole height below it
              before segment 4 reaches V-B-I. Holders TBD (held).
   * Zone B (the band above the cold core): the WATER DECK on the foam-cap
-             top. The SeaFlo takes the band's west half at the bay's full
-             height, motor axis along X, base flat on the cap, its head's
-             two barbs facing EAST — leaving the CO2 top entry in open air
-             ahead of it. In the strip behind it the ASSE 1022 assembly
-             lies along X, its 1/4" PTC inlet WEST, fed through V-K — the
-             water-supply fill/shutoff solenoid on a short cradle at the
-             strip's west end (segments water-1 then water-2) — off the
-             tap-water bulkhead it protects, and its 3/8" barb EAST onto the
-             silicone run to the tap point. Its atmospheric vent hangs in its native pose:
-             the drip falls straight down its own column to the foam-cap
-             top, where the pan + moisture plate sit, and the band beneath
-             the body is left open for them. The tap point stands in the
-             east strip between chain and pump, branch laid horizontal on
-             −X. The rear half of the band stays open for the panel bodies
+             top. The SeaFlo lies across the bay, motor axis along X, base
+             flat on the cap, nudged east so its head's two ±Y barbs clear
+             the ASSE chain — the suction faces NORTH up to the split, the
+             discharge SOUTH down to the cold core's water-in, leaving the
+             CO2 top entry in open air ahead of it. In the strip behind it
+             the ASSE 1022 assembly lies along X, its 1/4" PTC inlet WEST off
+             the tap-water bulkhead it protects (segment water-1), its 1/4"
+             PTC outlet EAST onto the 1/4" line to the split (water-2). Its
+             atmospheric vent hangs in its native pose: the drip falls
+             straight down its own column to the foam-cap top, where the pan
+             + moisture plate sit, and the band beneath the body is left open
+             for them. The split and V-K stand in the aft strip's east void
+             the old tap point vacated — the split's branch takes the ASSE
+             outlet on −X, its run feeds V-K (on to the suction) and the
+             flavor tap (on to V-A). The rear half of the band stays open for the panel bodies
              reaching in from the wall (the umbilical triangle, the
              tap-water bulkhead, and the C14 in the west corner) and the
              riser traffic crossing to them.
@@ -147,9 +148,8 @@ for _p in (_hw / "scripts", _repo / "tools", _hw / "reference" / "beduan-solenoi
            _VM / "nozzle-gate-tray",
            _hw / "reference" / "asse1022-assembly", _hw / "reference" / "multiplex-asse1022",
            _hw / "reference" / "gagira-reducing-coupling", _hw / "reference" / "jg-pp010822e",
-           _hw / "reference" / "ffl38barb38",
-           _hw / "reference" / "tap-point-assembly", _hw / "reference" / "basics-mtb-0606wp",
-           _hw / "reference" / "jg-pp451223w", _hw / "reference" / "jg-pp061208w",
+           _hw / "reference" / "flare38-14ptc",
+           _hw / "reference" / "water-split",
            _hw / "reference" / "seaflo-22-pump",
            _hw / "printed-parts" / "enclosure" / "enclosure"):    # `enclosure`, imported in placed_funnel
     sys.path.insert(0, str(_p))
@@ -158,7 +158,7 @@ import bag_circuit_tray as _bag          # noqa: E402
 import source_select_tray as _src        # noqa: E402
 import nozzle_gate_tray as _noz          # noqa: E402
 import asse1022_assembly as _bfp         # noqa: E402  — its three terminals, carried to world
-import tap_point_assembly as _tap        # noqa: E402  — its three terminals, the same way
+import water_split as _split             # noqa: E402  — its three 1/4" collets, the same way
 import seaflo_22_pump as _seaflo         # noqa: E402  — its two head barbs
 import beduan_solenoid as _vk            # noqa: E402  — V-K's two 1/4" QC collets
 
@@ -186,19 +186,20 @@ DC_DIST        = _hw / "reference" / "dc-dist-block" / "dc-dist-block.step"
 MQ6_STEP       = _hw / "reference" / "mq6-gas-sensor" / "mq6-gas-sensor.step"
 DERPIPE_STEP   = _hw / "reference" / "derpipe-co2-inlet" / "derpipe-co2-inlet.step"
 # The ASSE 1022 chain as one piece: PP010822E → GAGIRA coupling → Multiplex 19-0897
-# → FFL38BARB38, plus the clear-PVC vent stub. Its own frame is +X = flow, the
-# Multiplex inlet at x 0, the vent running −Z (reference/asse1022-assembly).
+# → flare38-14ptc (3/8" flare → 1/4" PTC), plus the clear-PVC vent stub. Its own
+# frame is +X = flow, the Multiplex inlet at x 0, the vent running −Z; the outlet
+# leaves at 1/4" OD (reference/asse1022-assembly).
 ASSE1022_STEP  = _hw / "reference" / "asse1022-assembly" / "asse1022-assembly.step"
 JG_BULKHEAD    = _hw / "reference" / "jg-bulkhead-union" / "jg-bulkhead-union.step"
 IEC_C14        = _hw / "reference" / "iec-c14-inlet" / "iec-c14-inlet.step"
-# The SeaFlo 22-series diaphragm pump, 188 × 98 × 74 with its feet: the water
-# deck's floor plan. Its own frame is +X = motor axis, the head at −X carrying
-# both 3/8" barbs on that face (reference/seaflo-22-pump).
+# The SeaFlo 22-series diaphragm pump, 190 × 112 × 61 with its feet: the water
+# deck's floor plan. Its own frame is +X = motor axis, the head at −X; the two
+# 3/8" barbs leave the head's ±Y side faces (reference/seaflo-22-pump).
 SEAFLO_STEP    = _hw / "reference" / "seaflo-22-pump" / "seaflo-22-pump.step"
-# The tap point as one piece: MTB-0606WP barb tee + PP451223W + PP061208W. Its own
-# frame is the tee's run along ±X with the branch climbing +Z
-# (reference/tap-point-assembly).
-TAP_POINT_STEP = _hw / "reference" / "tap-point-assembly" / "tap-point-assembly.step"
+# The water split — a 1/4" PTC union tee (PP0208E) on the ASSE's 1/4" outlet,
+# feeding V-K and the flavor tap. Its own frame is the run along ±Y, the branch
+# on −X (reference/water-split).
+WATER_SPLIT_STEP = _hw / "reference" / "water-split" / "water-split.step"
 # V-K — the Beduan 12 V NC solenoid, the water-supply fill/shutoff valve
 # (reference/beduan-solenoid). Its own frame is +Y = flow, the arrow the outlet.
 BEDUAN_STEP    = _hw / "reference" / "beduan-solenoid" / "beduan-solenoid.step"
@@ -218,41 +219,38 @@ BEDUAN_STEP    = _hw / "reference" / "beduan-solenoid" / "beduan-solenoid.step"
 # stratum stays open. The airflow axis rides the tip unchanged: the fan +
 # finstack stack depth, calipered [56 mm](CONDENSER_AIRFLOW) combined, along X.
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
-# The SeaFlo lies motor-axis along X across the service bay's west half, its base
-# flat on the foam cap, the head's two barbs facing east: the suction across the bay
-# to the tap point, the discharge onto its run down to the cold core's water-in. It
-# stands the bay's full height, and its plan is the deck's floor plan — the ASSE
-# chain, the tap point and the pan take the strip east and the strip aft of it.
+# The SeaFlo lies motor-axis along X across the service bay, its base flat on the
+# foam cap. The head's two barbs leave its ±Y faces: the suction faces north (+Y)
+# up to the split feeding it, the discharge faces south (−Y) down to the cold
+# core's water-in. It is nudged 35 mm east of the cold core's plan centre so the
+# north suction clears the ASSE chain's east end, opening the aft strip for the
+# split and V-K; the move stays well inside its free travel and inside the box.
 SEAFLO_YAW = 180.0
-SEAFLO_POS = (92.0, 277.0)   # plan; its Z is the cap
+SEAFLO_POS = (127.0, 277.0)   # plan (35 mm east of centre); its Z is the cap
 # The ASSE 1022 chain lies along +X in the service bay's AFT STRIP, over the
 # foam-cap top and behind the pump. Flow runs west to east: the 1/4" PTC inlet at
-# the west end takes its pigtail off the rear-panel water bulkhead, and the 3/8"
-# barb at the east end starts the silicone run to the tap point. The vent hangs in
+# the west end takes its pigtail off the rear-panel water bulkhead, and the 1/4"
+# PTC at the east end starts the 1/4" LLDPE run to the split. The vent hangs in
 # its native pose, weeping straight down its own column onto the pan on the cap.
 #   PROVISIONAL: the chain's envelope comes from the reference model, which divides
 # the Multiplex spec sheet rather than measuring the five parts on the shelf.
 ASSE1022_POS = (102.0, 345.5, 287.0)
 ASSE1022_YAW = 0.0
 ASSE1022_ROLL = 0.0
-# V-K — the water-supply fill/shutoff solenoid (Beduan 12 V NC), the machine's
-# master inlet valve: UPSTREAM of the ASSE 1022 on the 1/4" supply run, in the
-# aft strip's west end. Closed, it de-pressurizes the ASSE and stops all water
-# into the machine. Its own frame is +Y = flow (arrow toward the outlet); the
-# yaw turns the arrow +X so the outlet looks east at the ASSE inlet and the
-# inlet looks west, taking the rear-bulkhead pigtail on a wrap. It stands on a
-# short cradle off the foam cap, lifted clear of the pump's foot band — the pump
-# clears it by ~5.6 mm, the ASSE and C14 by ~9, and the box does not grow to carry it.
-BEDUAN_POS = (30.0, 334.0, 264.0)   # base 10.6 above the cap; z is the cradle top
-BEDUAN_YAW = 270.0
-# The tap point stands in the east strip, its run along Y so both hose legs face
-# along the strip, its branch laid horizontal on −X — the 1/4" collet looking west
-# into the channel between the strip and the pump, where the flow regulator rides
-# the run down to the manifold's V-A.
-TAP_POINT_ROLL = -90.0
-TAP_POINT_YAW = 90.0
-TAP_POINT_POS = (274.5, 277.0,
-                 ASSE1022_POS[2] + _bfp.hose_out()[0][2])   # its run on the chain's barb height
+# V-K — the water-supply fill/shutoff solenoid (Beduan 12 V NC): DOWNSTREAM of the
+# ASSE 1022, between the split and the SeaFlo suction, in the east void the old tap
+# point vacated. Closed, it stops all water reaching the carbonator. Its own frame is
+# +Y = flow (arrow toward the outlet), placed unturned: the inlet at −Y takes the
+# split's north run, the outlet at +Y feeds the suction on a wrap west under the ASSE
+# overhang. It stands on a short cradle off the foam cap, clear of the pump and the
+# split; the box does not grow to carry it (clearances in the scorecard).
+BEDUAN_POS = (261.0, 305.0, 275.1)   # base on a cradle above the cap; z is the cradle top
+BEDUAN_YAW = 0.0
+# The split stands in the aft strip just east of the ASSE outlet: its run along Y
+# (V-K on the +Y run, the flavor tap on the −Y run) and its branch on −X taking the
+# 1/4" line from the ASSE outlet. Placed by a pure translation, its three collets in
+# the suction's Z plane.
+SPLIT_POS = (261.0, 250.0, 286.4)   # centre; z is the port plane shared with the suction
 # The funnel's placement: its collar-rect centre in plan, plus a rotation
 # about its own Z. This is the CENTRE OF THE TOP-WALL FRAME — the basin sits
 # the same `hopper_funnel.brim_margin` off the display gusset, the corner pod,
@@ -398,11 +396,11 @@ def bfp_terminal(name):
     """One of the ASSE 1022 assembly's three terminals in world: `(pos, face)`.
 
     The reference module owns each station — `tube_in` off the PP010822E's own port,
-    `hose_out` off the barb tip, `vent_tip` at the stub's open end — and this carries
-    them through the same yaw + roll + translation the solid takes, in that order, so a
-    length changed anywhere in that chain moves the world port with it. `face` is the
-    enclosure port convention (x-/x+/y-/z-), read off the turned outward axis."""
-    pos, axis = {"tube-in": _bfp.tube_in, "hose-out": _bfp.hose_out,
+    `tube_out` off the flare38-14ptc's 1/4" collet, `vent_tip` at the stub's open end —
+    and this carries them through the same yaw + roll + translation the solid takes, in
+    that order, so a length changed anywhere in that chain moves the world port with it.
+    `face` is the enclosure port convention (x-/x+/y-/z-), read off the turned outward axis."""
+    pos, axis = {"tube-in": _bfp.tube_in, "tube-out": _bfp.tube_out,
                  "vent-tip": _bfp.vent_tip}[name]()
     for turn in (lambda v: _yaw_z(v, ASSE1022_YAW), lambda v: _roll_x(v, ASSE1022_ROLL)):
         pos, axis = turn(pos), turn(axis)
@@ -412,21 +410,18 @@ def bfp_terminal(name):
     return tuple(p + o for p, o in zip(pos, ASSE1022_POS)), face
 
 
-def tap_terminal(name):
-    """One of the tap point's three terminals in world: `(pos, face)`.
+def split_terminal(name):
+    """One of the water split's three 1/4" collets in world: `(pos, face)`.
 
-    The reference module owns each station — `hose_a` and `hose_b` at the tee's two
-    barb tips, `tube_out` at the reducer's 1/4" collet — and this carries them through
-    the same roll + yaw + translation the solid takes, in that order, so a length
-    changed anywhere in that stack moves the world port with it."""
-    pos, axis = {"hose-a": _tap.hose_a, "hose-b": _tap.hose_b,
-                 "tube-out": _tap.tube_out}[name]()
-    for turn in (lambda v: _roll_x(v, TAP_POINT_ROLL), lambda v: _yaw_z(v, TAP_POINT_YAW)):
-        pos, axis = turn(pos), turn(axis)
+    The reference module owns each station — `supply` (the branch, from the ASSE
+    outlet), `to_vk` and `to_flavor` (the two run ports). The split is placed by a
+    pure translation, so each port just shifts by SPLIT_POS."""
+    pos, axis = {"supply": _split.supply, "to-vk": _split.to_vk,
+                 "to-flavor": _split.to_flavor}[name]()
     face = {(-1.0, 0.0, 0.0): "x-", (1.0, 0.0, 0.0): "x+", (0.0, 1.0, 0.0): "y+",
             (0.0, -1.0, 0.0): "y-", (0.0, 0.0, 1.0): "z+", (0.0, 0.0, -1.0): "z-"}[
         tuple(round(float(c), 9) + 0.0 for c in axis)]
-    return tuple(p + o for p, o in zip(pos, TAP_POINT_POS)), face
+    return tuple(p + o for p, o in zip(pos, SPLIT_POS)), face
 
 
 _FOAM_TOP_CACHE = None
@@ -442,8 +437,8 @@ def foam_cap_top():
 
 
 def seaflo_terminal(name):
-    """One of the SeaFlo's two head barbs in world: `(pos, face)`. Both leave the
-    head's own −X face, so the yaw that turns the pump turns them with it."""
+    """One of the SeaFlo's two head barbs in world: `(pos, face)`. They leave the
+    head's ±Y side faces, so the yaw that turns the pump turns them with it."""
     pos, axis = {"suction": _seaflo.suction, "discharge": _seaflo.discharge}[name]()
     pos, axis = _yaw_z(pos, SEAFLO_YAW), _yaw_z(axis, SEAFLO_YAW)
     face = {(-1.0, 0.0, 0.0): "x-", (1.0, 0.0, 0.0): "x+", (0.0, 1.0, 0.0): "y+",
@@ -455,8 +450,8 @@ def seaflo_terminal(name):
 
 def vk_terminal(name):
     """One of V-K's two 1/4" QC collets in world: `(pos, face)`. The Beduan's own
-    frame is +Y = flow (arrow = outlet); BEDUAN_YAW turns it so the arrow points
-    +X at the ASSE inlet, and the collets turn with it."""
+    frame is +Y = flow (arrow = outlet); placed unturned (BEDUAN_YAW = 0), so the
+    inlet looks −Y at the split and the outlet +Y toward the suction."""
     pos, axis = {"inlet": _vk.inlet, "outlet": _vk.outlet}[name]()
     pos, axis = _yaw_z(pos, BEDUAN_YAW), _yaw_z(axis, BEDUAN_YAW)
     face = {(-1.0, 0.0, 0.0): "x-", (1.0, 0.0, 0.0): "x+", (0.0, 1.0, 0.0): "y+",
@@ -701,7 +696,7 @@ COLORS = {
     "elbow-noz-a":       cq.Color(0.85, 0.85, 0.88),
     "elbow-noz-b":       cq.Color(0.85, 0.85, 0.88),
     "seaflo-pump":       cq.Color(0.32, 0.38, 0.46),
-    "tap-point-assembly": cq.Color(0.88, 0.89, 0.91),
+    "water-split":       cq.Color(0.88, 0.89, 0.91),
     "vk-fill-valve":      cq.Color(0.85, 0.86, 0.90),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
@@ -1214,22 +1209,20 @@ def _build():
         placed[name] = _place_elbow(elbow, collet[0], collet[1], OUTLET_FREE, ELBOW_STUB)
 
     # --- Zone B, the band above the cold core: the WATER DECK, lying on the
-    # foam-cap top. The pump takes the west half at full bay height; the ASSE
-    # chain runs along the aft strip with its vent weeping down into the pan on
-    # the cap, and the tap point stands in the east strip between them.
+    # foam-cap top. The pump lies across the bay (nudged east) with its barbs on
+    # the ±Y faces; the ASSE chain runs along the aft strip, its vent weeping into
+    # the pan on the cap, and the split + V-K stand in the aft strip's east void.
     #
     # The power assembly, the PCBA and the DC block are carried in the BOM and
     # built as trays; their STEPs are the three paths above, unplaced.
     placed["seaflo-pump"] = _rot(
         _load(SEAFLO_STEP), (0, 0, 1), SEAFLO_YAW
         ).translate((SEAFLO_POS[0], SEAFLO_POS[1], foam_cap_top()))
-    placed["tap-point-assembly"] = _rot(_rot(
-        _load(TAP_POINT_STEP), (1, 0, 0), TAP_POINT_ROLL), (0, 0, 1), TAP_POINT_YAW
-        ).translate(TAP_POINT_POS)
+    placed["water-split"] = _load(WATER_SPLIT_STEP).translate(SPLIT_POS)
 
-    # V-K, the fill/shutoff solenoid, on its cradle at the aft strip's west end,
-    # yawed so its arrow points +X: outlet east at the ASSE inlet, inlet west on
-    # the rear-bulkhead pigtail. Same yaw its two collets take in `vk_terminal`.
+    # V-K, the fill/shutoff solenoid, on its cradle in the aft strip's east void,
+    # placed unturned: inlet −Y off the split's north run, outlet +Y wrapping west
+    # to the suction. Same frame its two collets take in `vk_terminal`.
     placed["vk-fill-valve"] = _rot(
         _load(BEDUAN_STEP), (0, 0, 1), BEDUAN_YAW
         ).translate(BEDUAN_POS)
