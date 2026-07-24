@@ -140,6 +140,8 @@ async function renderOne({ stepRel, outAbs, opts }) {
         .cad-wrapper > .reset-view { display: none !important; }
         /* No interactive chrome of any kind belongs in a still frame. */
         button, [role="button"] { display: none !important; }
+        /* Scorecard HUD (sc-* classes, scorecard-3d.js) rides on assemblies. */
+        [class^="sc-"], [class*=" sc-"] { display: none !important; }
         .cv-card {
           width: 100vw !important; height: 100vh !important;
           max-width: 100vw !important; max-height: 100vh !important;

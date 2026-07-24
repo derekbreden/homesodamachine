@@ -26,6 +26,8 @@ PAGE_W, PAGE_H = 6 * 72, 4 * 72  # points
 
 def deck_key(png: Path):
     code = png.stem.split("-", 1)[0]
+    if code == "00":  # the cover leads the deck
+        return (-1, png.stem)
     try:
         subsystem = SUBSYSTEM_ORDER.index(code)
     except ValueError:
