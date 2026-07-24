@@ -40,10 +40,10 @@ The CadQuery script uses an explicit XY plane with +Z normal
 - **Tank-port fittings** — 1/4" NPT 90° elbows on every port, turning the
   line laterally. ~[30 mm](ELBOW_ENV) vertical envelope per elbow above
   and below the tank. An additional **John Guest PP0308E 1/4" PTC 90° elbow**
-  seats in the Ø16 CO2 inlet bore at x = 0, y = −70.5, where the CO2 line
-  entering from above through the foam-cap stack transitions 90° into a horizontal
-  run that connects to the vessel-port TAISHER elbow via a PP010822E 1/4" PTC
-  × 1/4" NPT M adapter.
+  seats in the [⌀18](CO2_BORE_D) CO2 inlet bore at x = 0, cut inward from the
+  +Y face at y = [+78.5](CO2_DOORWAY_Y), where the CO2 line entering from above
+  through the foam-cap stack transitions 90° into a horizontal run that connects
+  to the vessel-port TAISHER elbow via a PP010822E 1/4" PTC × 1/4" NPT M adapter.
 
 ## Shells
 
@@ -215,7 +215,7 @@ Each cap (top and bottom) is fastened to the outer_shell with **six
 M3 × 25 mm DIN 912 socket head cap screws, 12.9 alloy steel, black
 oxide finish** ([BNUOK B0DJQGF665](https://www.amazon.com/dp/B0DJQGF665))
 threading into **six ruthex M3 short heat-set inserts**
-([B09ZHSGHXD](https://www.amazon.com/dp/B09ZHSGHXD) — same insert
+([B0D39W228K](https://www.amazon.com/dp/B0D39W228K) — same insert
 spec as in `touch-flo-shell`; per-build insert counts in
 [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13) pressed into the
 corresponding face of the outer_shell. **Twelve inserts and twelve screws
@@ -241,7 +241,7 @@ Z-elongated slot at the −Y outer wall.
 |---|---|---|---|
 | 1 | Reservoir line (+X) | own ⌀[6.5 mm](TUBE_HOLE_D) hole | 1/4" OD soft tubing — reservoir to peristaltic pump |
 | 2 | Reservoir line (−X) | own ⌀[6.5 mm](TUBE_HOLE_D) hole | 1/4" OD soft tubing — reservoir to peristaltic pump |
-| 3 | CO2 inlet | own ⌀16 doorway | 1/4" OD line from the regulator (90° push-to-connect elbow seats in the doorway) |
+| 3 | CO2 inlet | own [⌀18](CO2_BORE_D) doorway, +Y | 1/4" OD line from the regulator (90° push-to-connect elbow seats in the doorway) |
 | 4 | Water outlet | own ⌀[6.5 mm](TUBE_HOLE_D) hole | 1/4" OD line to the dispense faucet |
 | 5 | Copper evaporator inlet (low) | shared −Y slot | 1/4" OD ACR copper to compressor |
 | 6 | Copper evaporator outlet (high) | shared −Y slot | 1/4" OD ACR copper to compressor |
@@ -287,23 +287,27 @@ above to seal the gaps between (and above) the four pass-throughs:
 
 | Plug | Z span (mm) | Z end arches |
 |---|---|---|
-| `copper-plug-lower` | 50.75 → 162.65 | both ends |
-| `copper-plug-middle` | 170.15 → 194.65 | both ends |
-| `copper-plug-upper` | 202.15 → 202.65 | both ends |
-| `copper-plug-top` | 210.15 → 211.40 | bottom end only (top flat) |
+| `copper-plug-lower` | [47 → 166.4](PLUG_SPAN_LOWER) | both ends |
+| `copper-plug-middle` | [166.4 → 198.4](PLUG_SPAN_MIDDLE) | both ends |
+| `copper-plug-upper` | [198.4 → 206.4](PLUG_SPAN_UPPER) | both ends |
+| `copper-plug-top` | [206.4 → 213.4](PLUG_SPAN_TOP) | bottom end only (top flat) |
+
+The spans meet end-to-end **at the pass-through centers**: each plug
+runs from one tube's center to the next, and the arch cutout at each
+end holds exactly half of that tube. The stack tiles the slot from the
+lowest copper to the wall top with no linear gaps — the tube is the gap.
 
 Each plug has a **binder-clip cross-section** that grips the wall
-edge instead of floating loosely in the slot. Viewed end-on, it's an
-I-beam: a 6.5 mm × 2 mm plate-body web fits the slot's wall Y range
-exactly, 4 mm-tall "wings" at the outer X edges of the slot span the
-full plug Y envelope, and 1 mm × 1 mm rail prongs branch out past
-the wings at −Y (past the wall outer face) and +Y (toward the cavity,
-past the wall inner face). The 2 mm air gap between the top and bottom prongs at
-the rail edges is where the wall material slides in — that's how
-the plug grips the wall like a binder clip. The wings act as the
-I-beam flange linking web to prongs along a continuous 2D face. See
-the docstring at the top of `copper-plugs/copper_plugs.py` for the
-full cross-section diagram.
+edge instead of floating loosely in the slot. Viewed end-on, it's a
+true I-beam: a 6.5 mm × 2 mm web fills the slot's X range at the
+wall's Y range exactly, sandwiched between two 8.5 mm × 1 mm flanges
+that run the full plug width and sit immediately outboard (−Y, past
+the wall outer face) and inboard (+Y, toward the cavity, past the
+wall inner face) of it. The 2 mm air gap between the two flanges, in
+the wall's Y range and outside the web's X range, is where the wall
+material slides in — that's how the plug grips the wall like a
+binder clip. See the docstring at the top of
+`copper-plugs/copper_plugs.py` for the full cross-section diagram.
 
 Each plug end that abuts a tube has a **⌀[6.5 mm](TUBE_HOLE_D) half-circle
 arch cutout** centered at x = 0, so the plug seats around the tube
@@ -311,10 +315,11 @@ without crushing it. `lower`, `middle`, and `upper` all arch at both
 Z ends; `top` arches at the bottom Z end only (its top is flush with
 the wall top and stays flat).
 
-After the four plugs are installed, the slot's remaining unfilled
-length within the wall along Z (a strip at the bottom of the slot,
-a strip at the top, and narrow clearance bands above and below each
-of the four tubes) gets filled by the body foam pour.
+The top plug's flat top face reaches the wall top, so nothing is left
+open above the stack. After the four plugs are installed, the slot's
+remaining unfilled length within the wall along Z — the strip below
+the lowest copper, plus the narrow clearance bands around each of the
+four tubes — gets filled by the body foam pour.
 
 ## Assembly and foam pour
 
@@ -351,24 +356,32 @@ Every internal component is installed first:
   reservoir-pocket far ±X walls.
 - Water outlet through hole #4 in the outer_shell −Y wall.
 - CO2 inlet enters from above through the foam-cap boss + cap-lid hole at
-  (x=0, y=−68.75); the line drops to z=17 inside the cavity and
-  bends 90° at a PP0308E push-to-connect elbow seated in the Ø16
-  CO2 inlet bore at x = 0, y = −70.5.
+  (x=0, y=[+72.75](CO2_CAP_HOLE_Y)) — the top cap installs rotated 180°
+  about Z, which is what brings its bore to this side. The line drops to
+  z=[16](CO2_BORE_Z) inside the cavity and bends 90° at a PP0308E
+  push-to-connect elbow seated in the [⌀18](CO2_BORE_D) CO2 inlet bore at
+  x = 0, cut inward from y = [+78.5](CO2_DOORWAY_Y).
 
 With everything in place, liquid foam is poured **directly into the
 body's open +Z top** all at once — no lid on, no down-channels.
-Foam falls into the body and reaches the two air volumes in
-parallel:
+Foam falls into the body and fills one connected volume: the
+**surrounding foam zone** between the outer_shell and the pockets'
+±Y walls (the front/back foam-pour gap; the ±X reservoir side has no
+outboard foam, its reed channel butting the shell wall). This zone
+reaches the centerward space around the tank+coil through the gap at
+the pockets' ±Y ends (y = ±[72.5 mm](POCKET_Y_OUTER)), where the ±Y
+walls stop and the centerward walls' transition arcs swing in to join
+them.
 
-- the **two reservoir-pocket cavities** (each open at +Z, fully
-  enclosed below and on its four sides);
-- the **surrounding foam zone** — a single connected volume between
-  the outer_shell and the pockets' ±Y walls (the front/back foam-pour
-  gap; the ±X reservoir side has no outboard foam, its reed channel
-  butting the shell wall). This zone reaches the centerward space
-  around the tank+coil through the gap at the pockets' ±Y ends (y = ±72.5),
-  where the ±Y walls stop and the centerward walls' transition arcs swing
-  in to join them.
+The **two reservoir pockets take no foam.** Each is occupied by its
+reservoir, which fills the pocket to [0.5 mm](RESERVOIR_GAP) on all
+four sides and leaves the same clearance at the top under the pocket
+wall top — the pour has no way in. The pocket interior stays an air
+cavity, which is what lets the reed cable be threaded through it to
+its −Y wall hole at final assembly, after the foam has cured
+([`../reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md)).
+The reed channels are likewise open cavities and stay empty: their
+columns drop in after cure.
 
 The longest required traverse for the foam is around the back of the
 coil at the ±X azimuths — the foam has to work through the embedded

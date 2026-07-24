@@ -43,9 +43,9 @@ Wind GOORY 1/4" OD × 0.031" wall ACR copper tubing as a single-layer helical co
 
 Bond the coil to the vessel OD with 3M 425 aluminum foil tape applied as a continuous skin between vessel and coil.
 
-Before closing the foil skin over the coil's outlet (high) end — the suction side, refrigerant leaving as low-pressure gas, the coldest metal — tuck the **DS18S20 coil probe** (bare TO-92, family 0x10, leads heat-shrunk) flat against the copper and tape it down under the foil. This is the freeze-protect sensor; thermally bonding it to the suction-end copper is what lets the −8 °C cutoff see the coldest point. Lead its 3-conductor cable toward the +Z penetration slot for routing in step 3.
+Before closing the foil skin over the coil's outlet (high) end — the suction side, refrigerant leaving as low-pressure gas, the coldest metal — tuck the **DS18S20 coil probe** (bare TO-92, family 0x10, leads heat-shrunk) flat against the copper and tape it down under the foil. This is the freeze-protect sensor; thermally bonding it to the suction-end copper is what lets the −8 °C cutoff see the coldest point. Lead its 3-conductor cable toward the +Z penetration slot for routing in step 4.
 
-Wind around the printed [coil-mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py) — hollow PETG cylinder with a shallow [1 mm](GROOVE_DEPTH) helical guide groove, mandrel OD [123 mm](MANDREL_OD), tank OD [127 mm](TANK_OD), net coil undersize [3 mm](NET_UNDERSIZE). Wind length [120.4 mm](WIND_LENGTH), [9.687](TOTAL_WRAPS) wraps, pitch [12.43 mm](PITCH) — [3.878 m](WRAP_LEN) of copper in the wrap. Inlet aligns with the foam-shell copper plug at Y=[46](PLUG_INLET_Y); outlet at Y=[166.4](PLUG_OUTLET_Y). Pull the wound coil off the mandrel and slip it onto the foil-taped vessel. Coil springback: 1–3 mm radial.
+Wind around the printed [coil-mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py) — hollow PETG cylinder with a shallow [1 mm](GROOVE_DEPTH) helical guide groove, mandrel OD [123 mm](MANDREL_OD), tank OD [127 mm](TANK_OD), net coil undersize [3 mm](NET_UNDERSIZE). Wind length [119.4 mm](WIND_LENGTH), [9.687](TOTAL_WRAPS) wraps, pitch [12.33 mm](PITCH) — [3.877 m](WRAP_LEN) of copper in the wrap. Inlet aligns with the foam-shell copper plug at Y=[47](PLUG_INLET_Y); outlet at Y=[166.4](PLUG_OUTLET_Y). Pull the wound coil off the mandrel and slip it onto the foil-taped vessel. Coil springback: 1–3 mm radial.
 
 Dev-phase summary: [`/hardware/handwork.md`](/hardware/assembly/handwork.md) "Bend copper around the pressure vessel".
 
@@ -53,7 +53,7 @@ Dev-phase summary: [`/hardware/handwork.md`](/hardware/assembly/handwork.md) "Be
 
 Each cap is a [16 mm](CAP_H)-tall foam-filled cup. With the cap inverted and the foam-cap-lid sealing its open face from above, liquid foam enters through the lid's Ø[20 mm](POUR_D) pour hole; air escapes through two Ø[6 mm](LID_VENT_D) vents. Foam expands to fill and cures. Trim flush after cure.
 
-Both caps are identical; pour in parallel. Geometry detail at [`/hardware/printed-parts/cold-core/foam-cap/foam_cap.py`](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py).
+The two caps pour identically and go in parallel, but they are **not** the same part: only `foam-cap-top` (and `foam-cap-lid-top`) carries the CO2 bore + boss. Keep them labeled — the top cap also goes on rotated 180° at step 6. Geometry detail at [`/hardware/printed-parts/cold-core/foam-cap/foam_cap.py`](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py).
 
 ### 3. Press ruthex inserts into the outer shell
 
@@ -69,11 +69,11 @@ With the outer shell open-top-up on the bench, install every internal component:
 - **Temperature probes** — tape the **DS18B20 tank-wall probe** (bare TO-92, family 0x28, leads heat-shrunk) flat against the vessel OD under a patch of 3M 425 foil tape; this is the compressor-cycling setpoint sensor, so it reads the vessel wall, not the coil. The **DS18S20 coil probe** (0x10) is already tucked under the coil foil tape at the suction end (step 1). Route both 3-conductor leads up and out through the shared +Z slot alongside the other penetrations; at the cold-core exit they join SIG-1, the IO26 1-wire bus, per [`wiring.md`](/hardware/assembly/wiring.md). Seat the leads so the copper-plug clamp and the foam over-pour close around them — no air path may follow the leads inward (that path, not the sensor itself, is the only way condensation reaches a potted probe).
 - **Reservoirs** seated into the two ±X bag pockets
 - **Penetrations routed through the outer shell walls:**
-  - CO2 inlet → enters from above through the foam-cap-top boss + foam-cap-lid-top Ø[6.5 mm](TUBE_HOLE_D) hole at (x=0, z=[-72.75](COTWO_INLET_Z)); inside the cavity, a John Guest PP0308E 1/4" PTC 90° elbow seats in the Ø16 doorway in the −Z support arch, and the line continues to the vessel's bottom-plate TAISHER NPT elbow via a PP010822E 1/4" PTC × 1/4" NPT M adapter
+  - CO2 inlet → enters from above through the foam-cap-top boss + foam-cap-lid-top Ø[6.5 mm](TUBE_HOLE_D) hole at (x=0, z=[-72.75](COTWO_INLET_Z)) — the top cap goes on rotated 180°, which is what puts its bore on the doorway's side; inside the cavity, a John Guest PP0308E 1/4" PTC 90° elbow seats in the Ø[18](COTWO_BORE_D) doorway in the −Z support arch, and the line continues to the vessel's bottom-plate TAISHER NPT elbow via a PP010822E 1/4" PTC × 1/4" NPT M adapter
   - Water outlet → dedicated Ø[6.5 mm](TUBE_HOLE_D) hole, +Z outer wall
-  - Reservoir lines (+X, −X) → dedicated Ø[6.5 mm](TUBE_HOLE_D) holes in the bag_pocket_shell ±X far walls
+  - Reservoir lines (+X, −X) → dedicated Ø[6.5 mm](TUBE_HOLE_D) holes at x=[±97](FLAVOR_HOLE_X), through the bag-pocket +Z wall and the +Z outer wall — the same wall the shared slot pierces, not the ±X far walls. Each reservoir's reed cable leaves through its own Ø[6.5 mm](TUBE_HOLE_D) hole in that wall at x=[±109](CABLE_HOLE_X), outboard of the flavor line ([`reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md))
   - Refrigerant inlet (low), refrigerant outlet (high), water inlet, PRV vent LLDPE → shared Y-elongated slot at x=0 on the +Z outer wall. The water-inlet line transitions from the warm-side GASHER 1/4" NPT check valve via a JG PP010822E 1/4" PTC × 1/4" NPT M adapter before entering the slot as 1/4" OD LLDPE; downstream of the slot a second JG PP010822E (PTC → NPT) takes the LLDPE back to NPT before threading into the TAISHER 1/4" NPT 90° vessel-port elbow on Port 2 (top plate). The PRV vent LLDPE press-fits into the prv-shroud cap, routes through the slot at its own Y height (per foam-shell penetration #8), and terminates open inside the appliance interior.
-- **PRV vent LLDPE** press-fits into the cap of the [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/) subassembly on Port 4 (threaded into the vessel at [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) step 8). The LLDPE routes from the cap, takes a slight bend, and enters the +Z shared slot at its allocated Y height. Far end terminates open inside the appliance interior.
+- **PRV vent LLDPE** press-fits into the cap of the [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/) subassembly on Port 4 (threaded into the vessel at [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) step 9). The LLDPE routes from the cap, takes a slight bend, and enters the +Z shared slot at its allocated Y height. Far end terminates open inside the appliance interior.
 - **Four copper plugs** slid down into the shared +Z slot from above, sealing between and above the four pass-throughs (binder-clip geometry in [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Shared +Z slot and copper plug stack")
 - **In-cavity PP0308E elbow** angled in through the −Z support-arch doorway from above before the vessel drops into the cavity.
 
@@ -81,7 +81,9 @@ All fitting-size transitions (3/8" → 1/4", larger fittings) happen on the warm
 
 ### 5. Body foam pour
 
-Mix the two-part PU foam 1:1. Pour the liquid directly into the body's open +Y top, all at once. Foam falls into the body and reaches every cavity in parallel: outer foam gap, bag pockets, corner pockets at ±Z, and the tank cavity inside the cylinder. Geometry: [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Assembly and foam pour".
+Mix the two-part PU foam 1:1. Pour the liquid directly into the body's open +Y top, all at once. Foam falls into the body and reaches every open cavity in parallel: outer foam gap, corner pockets at ±Z, and the tank cavity inside the cylinder. Geometry: [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Assembly and foam pour".
+
+The **bag pockets take no foam** — each is occupied by its reservoir at [0.5 mm](RESERVOIR_GAP) clearance on every side and at the top, so the pour has no way in. Their interiors stay air, which is what lets the reed cables be threaded out at step 6. Likewise the two reed channels: they stay open through the pour and receive their columns after cure.
 
 Foam expansion may push small amounts of material out through the 0.5 mm clearance bands around tubes in the +Z slot and the tight-fit tube exits at other penetrations. Trim flush after cure.
 
@@ -91,9 +93,9 @@ The pour encapsulates both temperature probes and their leads against the cold m
 
 With all three pours cured:
 
-- Drop the pre-soldered reed columns into the still-open reed channels
+- Drop the pre-soldered reed columns into the still-open reed channels, one per ±X side, from above. Feed each column's 5-conductor cable out through the channel's open back face, down through the air space in the bag pocket below the reservoir, and out its Ø[6.5 mm](TUBE_HOLE_D) hole at x=[±109](CABLE_HOLE_X) in the +Z wall
 - TPU gasket onto the body's top edge — perimeter ring with 8 × 8 mm pads at each of the six screw positions
-- Top cap (foam-filled, trimmed from step 2) seated over the gasket, six M3 × 25 SHCS through the cap's screw positions and into the top-face inserts
+- Top cap (foam-filled, trimmed from step 2) seated over the gasket **rotated 180° about Z**, so its CO2 bore lands over the CO2 line already standing in the body — the six-screw pattern is 180°-symmetric, so it bolts up either way and only the bore tells you which is right. Six M3 × 25 SHCS through the cap's screw positions and into the top-face inserts
 - Second gasket + bottom cap (mouth-down) onto the body's underside, six M3 × 25 SHCS into the bottom-face inserts
 
 ## Warm-side check valves
@@ -111,8 +113,8 @@ A finished cold core:
 - Vessel + bonded coil installed, seated in the cylinder cavity, surrounded by foam; coil inlet/outlet stubs ([500 mm](STUB_LEN) each) protruding through the foam-shell's copper-plug exits
 - Both temperature probes potted in the foam against their metal surfaces — DS18B20 (tank-wall, 0x28) on the vessel OD, DS18S20 (coil, 0x10) at the suction end of the coil — leads routed out the +Z slot and sealed, joining SIG-1 at the cold-core exit
 - Both reservoirs seated in their bag pockets
-- All seven penetrations routed through their designated holes / slot
-- Reed columns dropped into the reed channels
+- All eight penetrations routed through their designated holes / slot
+- Reed columns dropped into the reed channels, their cables out the +Z wall
 - Both foam caps seated over their TPU gaskets, six M3 × 25 SHCS each into the top- and bottom-face heat-set inserts
 - External envelope ~[283 mm](OUTER_X) × [181](CCORE_OUTER_Y) × [213.4 mm](OUTER_H)
 

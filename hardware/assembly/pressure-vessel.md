@@ -171,7 +171,9 @@ Procedure-level gaps that need answers before unit 1 ships:
 
 6. **Reed azimuth ↔ register azimuth.** The rod register sits on the −Y cap axis (arbitrary, chosen only to clear the two ports). The two external reed switches must mount at that same azimuth on the finished tube for the donut's magnet to reach them through the wall. Lock the azimuth once the reed-mounting method on the tube exterior is fixed; if it lands somewhere other than −Y, move `register_position` to match.
 
-7. **Recessed-port fitting + foam clearance.** With each end plate seated 1/4" below its tube end (step 3), the four NPT ports sit 1/4" down inside the bore and the tube wall stands 1/4" proud past each plate. The proud lip (4.87" ID) clears the fitting bodies radially with room to spare, but confirm the TAISHER elbow stacks thread and seat correctly with the ports recessed, and that the proud lip doesn't foul the foam-shell envelope, before committing the batch.
+7. **Production tapping fixture.** The rig in [`/hardware/tapping-plan-2026-05-03.md`](/hardware/snapshots/tapping-plan-2026-05-03.md), cited in step 1, is a single-use Baltic-birch + MDF snapshot of the first tap into a 316L plate. A fixture that holds a plate square and repeatable across the full 4-ports × 10-vessels batch — plate register, tap-axis guide, and whether it drives a hand tap or a machine tap — is still to be designed. Design it before the batch, not during it.
+
+8. **Recessed-port fitting + foam clearance.** With each end plate seated 1/4" below its tube end (step 3), the four NPT ports sit 1/4" down inside the bore and the tube wall stands 1/4" proud past each plate. The proud lip (4.87" ID) clears the fitting bodies radially with room to spare, but confirm the TAISHER elbow stacks thread and seat correctly with the ports recessed, and that the proud lip doesn't foul the foam-shell envelope, before committing the batch.
 
 ## Sources
 [value](NAME) texts are updated by:

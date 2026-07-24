@@ -134,8 +134,10 @@ foam_cap_lid_hole_inset = 30.0
 # CO2 inlet tube pass-through (through the top cap + its lid): the 1/4" OD
 # LLDPE CO2 line enters from above at x=0, its Y midway between the
 # centerward-wall band and the support-ring band, then routes down through
-# the body foam to the internal ⌀16 elbow doorway (the doorway itself is cut
-# in _port_cuts, not here). Only the tube traverses the cap stack.
+# the body foam to the internal ⌀18 elbow doorway (the doorway itself is cut
+# in _port_cuts, not here). Only the tube traverses the cap stack. The cap
+# is authored with its bore on −Y and installed rotated 180° about Z, so the
+# bore lands at +co2_inlet_y — the doorway's side (see foam-assembly).
 co2_inlet_tube_radius = port_hole_radius
 _co2_centerward_mid_r = pocket_centerward_arc_outer_radius - wall_and_floor_thickness / 2
 _co2_support_ring_outer_r = tank_coil_envelope_radius  # the ring sits on the tank+coil envelope
