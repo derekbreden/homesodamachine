@@ -10,7 +10,8 @@ import { openDetail, openDxfDetail, openGlbDetail } from "./cad-detail.js";
 import { openMmdDetail, openDrawingDetail, openPcbDetail, openCardDetail } from "./detail-shims.js";
 import { renderMmdThumbnail } from "./mermaid.js";
 import { renderDrawingThumbnail } from "./drawings.js";
-import { mountCardThumbnail } from "./cards.js";
+import { mountCardThumbnail, unmountCardThumbnail } from "./cards.js";
+import { windowContent, markupThumb, imageThumb } from "./lazy.js";
 import { renderPcbThumbnail } from "./pcb.js";
 import { renderThumbnail } from "./step.js";
 import { renderDxfThumbnail } from "./dxf.js";
@@ -335,129 +336,51 @@ export function buildGrid() {
     }
   }
 
-  // STEP thumbnails: point each card's <img> at its committed server-rendered
-  // PNG (with a client-render fallback). Native loading="lazy" handles
-  // deferral, so no IntersectionObserver here anymore.
-  for (const card of state.gridEl.querySelectorAll('.card[data-type="step"]')) {
-    paintStepThumb(card);
+  // Windowed thumbnail content. Every kind mounts as it nears the viewport and
+  // releases once it's well past — see lazy.js for why this windows content
+  // rather than rows, and for the measurements that motivated it. Each kind
+  // supplies only what "mount" and "release" mean for its own thumbnail; the
+  // scroll bookkeeping is shared.
+  //
+  // The handle is kept on `state` so the next buildGrid disconnects these
+  // observers before the cards they watch are thrown away.
+  state.gridWindow?.disconnect();
+
+  const kinds = {
+    // STEP: the committed server-rendered PNG (with a client-render fallback).
+    // Releasing drops the src, which is what frees the decoded bitmap —
+    // loading="lazy" defers the fetch but never gives the pixels back, and at
+    // 400 x 400 x 4B each they are the whole cost of this page. The re-fetch on
+    // return is a cache hit.
+    step: {
+      mount: (card) => paintStepThumb(card),
+      unmount: (card) => {
+        const img = card.querySelector("img");
+        if (!img) return;
+        // Drop the error handler first: it's what falls back to a client
+        // render, and releasing the src must not look like a failed load.
+        img.onerror = null;
+        img.removeAttribute("src");
+      },
+    },
+    dxf: imageThumb(renderDxfThumbnail),
+    glb: imageThumb(renderGlbThumbnail),
+    mmd: markupThumb({ hostSelector: ".mmd-thumb", render: renderMmdThumbnail }),
+    drawing: markupThumb({ hostSelector: ".drawing-thumb", render: renderDrawingThumbnail }),
+    pcb: markupThumb({ hostSelector: ".pcb-thumb", render: renderPcbThumbnail }),
+    // Assembly cards: a mounted card is a live document, so this is the kind
+    // where releasing matters most.
+    card: {
+      mount: (card) => mountCardThumbnail(card.querySelector(".card-thumb"), card.dataset.file),
+      unmount: (card) => unmountCardThumbnail(card.querySelector(".card-thumb")),
+    },
+  };
+
+  const windows = [];
+  for (const [type, { mount, unmount }] of Object.entries(kinds)) {
+    const elements = state.gridEl.querySelectorAll(`.card[data-type="${type}"]`);
+    if (elements.length === 0) continue;
+    windows.push(windowContent({ elements, mount, unmount }));
   }
-
-  // Lazy-load DXF thumbnails (top-down render of the line geometry).
-  const dxfObserver = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      dxfObserver.unobserve(entry.target);
-      const file = entry.target.dataset.file;
-      renderDxfThumbnail(file).then((url) => {
-        if (!url) {
-          entry.target.querySelector(".placeholder").textContent = "error";
-          return;
-        }
-        const img = document.createElement("img");
-        img.src = url;
-        const placeholder = entry.target.querySelector(".placeholder");
-        if (placeholder) placeholder.replaceWith(img);
-      });
-    }
-  }, { rootMargin: "200px" });
-
-  for (const card of state.gridEl.querySelectorAll('.card[data-type="dxf"]')) {
-    dxfObserver.observe(card);
-  }
-
-  // Lazy-load GLB thumbnails (offscreen GLTF render, same offscreen scene).
-  const glbObserver = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      glbObserver.unobserve(entry.target);
-      const file = entry.target.dataset.file;
-      renderGlbThumbnail(file).then((url) => {
-        if (!url) {
-          const ph = entry.target.querySelector(".placeholder");
-          if (ph) ph.textContent = "error";
-          return;
-        }
-        const img = document.createElement("img");
-        img.src = url;
-        const placeholder = entry.target.querySelector(".placeholder");
-        if (placeholder) placeholder.replaceWith(img);
-      });
-    }
-  }, { rootMargin: "200px" });
-
-  for (const card of state.gridEl.querySelectorAll('.card[data-type="glb"]')) {
-    glbObserver.observe(card);
-  }
-
-  // Lazy-load Mermaid thumbnails
-  const mmdObserver = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      mmdObserver.unobserve(entry.target);
-      const file = entry.target.dataset.file;
-      renderMmdThumbnail(file).then((svg) => {
-        const thumbEl = entry.target.querySelector(".mmd-thumb");
-        if (!thumbEl) return;
-        if (!svg) { thumbEl.innerHTML = `<div class="placeholder">error</div>`; return; }
-        thumbEl.innerHTML = svg;
-      });
-    }
-  }, { rootMargin: "200px" });
-
-  for (const card of state.gridEl.querySelectorAll('.card[data-type="mmd"]')) {
-    mmdObserver.observe(card);
-  }
-
-  // Lazy-load Drawing thumbnails (just the SVG itself, rendered inline)
-  const drawingObserver = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      drawingObserver.unobserve(entry.target);
-      const file = entry.target.dataset.file;
-      renderDrawingThumbnail(file).then((svg) => {
-        const thumbEl = entry.target.querySelector(".drawing-thumb");
-        if (!thumbEl) return;
-        if (!svg) { thumbEl.innerHTML = `<div class="placeholder">error</div>`; return; }
-        thumbEl.innerHTML = svg;
-      });
-    }
-  }, { rootMargin: "200px" });
-
-  for (const card of state.gridEl.querySelectorAll('.card[data-type="drawing"]')) {
-    drawingObserver.observe(card);
-  }
-
-  // Lazy-mount assembly-card thumbnails. Each is a live iframe of the card page,
-  // so the deck only pays for the cards actually scrolled to — the observer is
-  // what keeps an 80-card grid from loading 80 documents at once.
-  const cardObserver = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      cardObserver.unobserve(entry.target);
-      mountCardThumbnail(entry.target.querySelector(".card-thumb"), entry.target.dataset.file);
-    }
-  }, { rootMargin: "200px" });
-
-  for (const card of state.gridEl.querySelectorAll('.card[data-type="card"]')) {
-    cardObserver.observe(card);
-  }
-
-  // Lazy-load PCB thumbnails (the board's Top copper view, rendered inline)
-  const pcbObserver = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      pcbObserver.unobserve(entry.target);
-      const file = entry.target.dataset.file;
-      renderPcbThumbnail(file).then((svg) => {
-        const thumbEl = entry.target.querySelector(".pcb-thumb");
-        if (!thumbEl) return;
-        if (!svg) { thumbEl.innerHTML = `<div class="placeholder">error</div>`; return; }
-        thumbEl.innerHTML = svg;
-      });
-    }
-  }, { rootMargin: "200px" });
-
-  for (const card of state.gridEl.querySelectorAll('.card[data-type="pcb"]')) {
-    pcbObserver.observe(card);
-  }
+  state.gridWindow = { disconnect: () => windows.forEach((w) => w.disconnect()) };
 }
