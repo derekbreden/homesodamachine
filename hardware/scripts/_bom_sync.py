@@ -28,6 +28,25 @@ from touch_flo_shell import base_pod_centers
 import bag_circuit_tray
 import source_select_tray
 
+import importlib.util
+
+
+def _load_module(name: str, file_path: Path):
+    """Load a Python file as a uniquely-named module."""
+    spec = importlib.util.spec_from_file_location(name, file_path)
+    module = importlib.util.module_from_spec(spec)
+    sys.path.insert(0, str(file_path.parent))
+    spec.loader.exec_module(module)
+    return module
+
+
+# Evaporator-coil copper consumption (§5 GOORY row) — pitch and wrap arc
+# from the coil-mandrel generator, whose printed groove enforces them.
+_coil_mandrel_gen = _load_module(
+    "bom_coil_mandrel_gen",
+    _here.parent / "printed-parts" / "cold-core" / "coil-mandrel" / "coil_mandrel.py",
+)
+
 
 # Pressure vessel geometry: two laser-welded SS endcap plates per
 # vessel, four 1/4" NPT ports tapped into the plates (water in, water
@@ -164,6 +183,10 @@ def main():
         "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
         # Vent filters.
         "VENT_FILTERS": f"{vent_filters_per_build:.4g}",
+        # Evaporator-coil copper (§5 GOORY row).
+        "PITCH": f"{_coil_mandrel_gen.pitch:.4g} mm",
+        "WRAP_FT": f"{_coil_mandrel_gen.wrap_length / 304.8:.4g} ft",
+        "CUT_FT": f"{_coil_mandrel_gen.cut_length / 304.8:.4g} ft",
     }
 
     substitute_md(
@@ -199,6 +222,9 @@ def main():
             "SHELF_SCREWS": 2,
             "TOTAL_M3_INSERTS": 2,
             "VENT_FILTERS": 3,
+            "PITCH": 1,
+            "WRAP_FT": 1,
+            "CUT_FT": 1,
         },
     )
     print("-> bom.md")
