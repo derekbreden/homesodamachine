@@ -153,10 +153,10 @@ def main():
     substitute_md(
         _here.parent / "README.md",
         variables={
-            "BODY_DIA": f"{body_width:.4g}",
+            "SOLENOID_BODY_DIA": f"{body_width:.4g}",
             "TOP_BOX_X": f"{body_width_x:.4g}",
             "POST_DIA": f"{2 * corner_boss_radius:.4g}",
-            "PORT_DIA": f"{2 * port_radius:.4g}",
+            "SOLENOID_PORT_DIA": f"{2 * port_radius:.4g}",
             "PORT_LEN": f"{port_length:.4g}",
             "BODY_TOP_Z": f"{body_top_z:.4g}",
             "BOSS_Z0": f"{boss_z_range[0]:.4g}",
@@ -174,7 +174,7 @@ def main():
             "SPADE_Y_END": f"{coil_face_y + spade_length:.4g}",
         },
         expected_counts={
-            "BODY_DIA": 6, "TOP_BOX_X": 3, "POST_DIA": 2, "PORT_DIA": 1, "PORT_LEN": 2,
+            "SOLENOID_BODY_DIA": 6, "TOP_BOX_X": 3, "POST_DIA": 2, "SOLENOID_PORT_DIA": 1, "PORT_LEN": 2,
             "BODY_TOP_Z": 7, "BOSS_Z0": 3, "TOP_BOX_H": 2, "TOP_BOX_Z0": 2,
             "COIL_DEPTH": 2, "COIL_H": 1, "COIL_TOP": 2,
             "SPADE_W": 1, "SPADE_LEN": 1, "SPADE_T": 1,
