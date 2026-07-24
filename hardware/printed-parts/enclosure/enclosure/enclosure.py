@@ -12,7 +12,10 @@ interior clearance, then walled out. Features:
     core's front face, so its machinery is aft of the whole front pack and a
     front-quadrant tray never has to be notched around it): the front
     pieces' rear walls telescope (a full-wall lip,
-    nothing shaved) into the back pieces, and four interlocking screw
+    nothing shaved) into the back pieces — a proud tongue on the side walls and
+    ceiling, and on the floor, where the cold core rides the cavity side and a
+    proud tongue cannot, a shiplap within the slab (`_floor_lap`), so every seam
+    laps and none butts — and four interlocking screw
     bosses cross the seam — one per ±X side wall per level, the bottom pair
     tucked just under the front Z seam (so it pins the two bottom pieces),
     the top pair under the ceiling. Each boss is on an X axis: the screw
@@ -1039,20 +1042,49 @@ def _front_lip(inner, y_joint):
     one-wall overlap where the band meets the body wall (out to y_joint), NOT a
     slab across the seam.
 
-    THREE-SIDED: both side walls and the ceiling, no floor segment — the same
-    shape the Z lip takes for the same kind of reason. A floor segment is the one
-    part of the seam that spans the box down at content height, and the cold core
-    stands on the floor, so carrying one would hold the whole seam ahead of the
-    core. Without it the seam is free to sit behind the core's face, and the
-    floor meets in a butt joint registered by the cross-pins at the walls. It is
-    also the one part of the lip that could never be printed supported: it juts
-    one overlap past the body into the space the back piece's own floor fills, so
-    nothing may stand under it."""
+    THREE-SIDED here: both side walls and the ceiling. The floor is lapped too —
+    every seam laps, none butts — but by a different means, because the floor is
+    the one seam face whose inner side is not free. This proud tongue is the wall
+    or ceiling continuing one `wall` INTO the cavity, and on the free faces that
+    space is empty; on the floor the cold core rides there, so a proud floor tongue
+    would drive straight into it. The floor's overlap therefore lives inside the
+    slab as a shiplap (`_floor_lap`), not standing proud — the right lap for a
+    bearing face. So the lip proper stays three-sided, and the floor carries its
+    own lap. What that costs the ceiling segment — a cantilever that juts one
+    overlap past the body over the back piece's floor, wanting print support — the
+    floor shiplap shares (its front half runs one overlap aft over open air the
+    same way); the side-wall segments, vertical to the bed, are free."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     y0, y1 = y_joint - wall, y_joint + lip_len
     outer = _ybox(ix0, ix1, y0, y1, iz0, iz1)
     inner_box = _ybox(ix0 + wall, ix1 - wall, y0 - 1.0, y1 + 1.0, iz0 - 1.0, iz1 - wall)
     return outer.cut(inner_box)
+
+
+def _floor_lap(inner, y_joint):
+    """The Y seam's FLOOR overlap, as a shiplap within the floor slab.
+
+    The floor is the one seam face whose inner side is not free — the cold core
+    rides on it — so it cannot carry the proud, cavity-side tongue the walls and
+    ceiling do (`_front_lip`): that tongue would stand up into the core. Instead
+    the two floors lap within the slab's own one-`wall` thickness. The FRONT
+    floor's upper (cavity-side) half runs one overlap aft past the seam; the BACK
+    floor keeps its lower (bed-side) half there and gives its upper half up to
+    receive the tongue. Assembled, the slab is one unbroken run across the seam
+    with no straight-through line, and the core still seats on a flush z=iz0 top —
+    the front tongue fills the top over the overlap, the back floor everywhere
+    else. This is the floor's answer to the wall shiplap: an overlap on every seam,
+    the form suited to the face.
+
+    Returns (tongue, relief): the solid the FRONT half fuses (its aft upper-half
+    tongue) and the solid the BACK half cuts (its upper half over the overlap,
+    plus a split_slip slide clearance so the tongue telescopes in freely)."""
+    ix0, ix1, iy0, iy1, iz0, iz1 = inner
+    zmid = iz0 - wall / 2.0                          # slab mid-plane (bed-side | cavity-side)
+    y0, y1 = y_joint, y_joint + lip_len
+    tongue = _ybox(ix0, ix1, y0, y1, zmid, iz0)
+    relief = _ybox(ix0, ix1, y0 - 1.0, y1 + split_slip, zmid - split_slip / 2.0, iz0)
+    return tongue, relief
 
 
 # Boss Y position — one value feeds the plug AND the socket, so they are
@@ -1090,7 +1122,13 @@ def _z_stations(inner, y_joint):
     r = socket_bore_dia / 2.0
     yf = iy0 + wall + r                             # front column, front wall
     yfr = y_joint - wall - z_lip_y_margin - socket_r  # front column, aft end of its lip
-    yb = y_joint + lip_len + wall + r               # back column, behind the mouth
+    # Behind the mouth, standing off the Z-lip's Y-gap edge (y_joint + lip_len +
+    # z_lip_y_margin) by a full socket_r — the same clearance the front column's
+    # aft station keeps from that gap on its side. Drop the z_lip_y_margin term
+    # and the pod's −Y wall pinches to (wall − z_lip_y_margin) against the gap, too
+    # thin to telescope into the top piece; with it the pod keeps a full wall each
+    # side of its bore.
+    yb = y_joint + lip_len + z_lip_y_margin + wall + r  # back column, behind the mouth
     ybr = iy1 - wall - r                            # back column, rear wall
     out = []
     for ys, col in ((yf, "front"), (yfr, "front"), (yb, "back"), (ybr, "back")):
@@ -1298,14 +1336,15 @@ def coupon_box():
 
     # Depth. The seam clears the display housing's back plane; the rear wall
     # stands where the back column's aft Z station (iy1 − wall − r) falls a
-    # clear pitch behind its forward one (y_joint + lip_len + wall + r). How far
+    # clear pitch behind its forward one (y_joint + lip_len + z_lip_y_margin +
+    # wall + r, standing off the Z-lip gap — see _z_stations). How far
     # the housing reaches — aft and down — depends only on where the front face
     # and the top face are, so it can be asked of a box not yet sized: the front
     # face is fixed the moment iy0 is, and the fall is measured off the top face
     # wherever that lands.
     front_face = (ix0, ix0, iy0 - wall, iy0, iz0, iz0)
     y_joint = _facet_back_y(front_face) + coupon_margin
-    iy1 = y_joint + lip_len + 2.0 * (wall + r) + pitch
+    iy1 = y_joint + lip_len + z_lip_y_margin + 2.0 * (wall + r) + pitch
 
     # Width. The facet runs display_facet_x from the −X exterior and its end
     # wall closes it one `wall` on; the +X corner chain starts beyond that. The
@@ -1341,6 +1380,10 @@ def build_front_half(box):
     shell = _shell_with_facet(inner, outer).val()
     front = shell.intersect(_ybox(outer[0], outer[1], outer[2], y_joint, outer[4], outer[5]))
     front = front.fuse(_front_lip(inner, y_joint))
+    # The floor's overlap: the front's aft upper-half floor tongue, lapping the
+    # back half's slab within the slab (the core rides the cavity side, so the
+    # floor cannot tongue proud like the walls). Lands in the bottom piece.
+    front = front.fuse(_floor_lap(inner, y_joint)[0])
     yb = _y_boss(y_joint)
     bosses = _bosses(inner, box.splits, y_joint)
     # One post per side wall, not per level: every level on a wall shares the
@@ -1380,6 +1423,10 @@ def build_back_half(box):
     inner, outer, y_joint = box.inner, box.outer, box.y_joint
     shell = _shell_with_facet(inner, outer).val()
     back = shell.intersect(_ybox(outer[0], outer[1], y_joint, outer[3], outer[4], outer[5]))
+    # Give up the slab's upper half over the overlap to receive the front floor
+    # tongue (the shiplap's other half); the back keeps its bed-side half, which
+    # the core still rides. Lands in the bottom piece.
+    back = back.cut(_floor_lap(inner, y_joint)[1])
     if box.hopper:
         back = back.cut(_hopper_cut(inner, outer, y_joint))
     yb = _y_boss(y_joint)
