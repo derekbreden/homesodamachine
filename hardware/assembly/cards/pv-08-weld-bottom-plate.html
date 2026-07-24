@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="pv">
+<div class="card">
+
+<header>
+  <div class="code">PV-08</div>
+  <h1>Weld the bottom plate<br>to the tube</h1>
+  <div class="deckpos"><b>Pressure vessel · 08/14</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">ID-fit plug, <strong>recessed 1/4&Prime;</strong>, closed
+    with a corner fillet. Float rod (PV-06) points up into the interior.</p>
+
+    <ol class="steps">
+      <li><b>Seat the plate on its 1/4&Prime; spacer</b> — outer face down
+        the bore. Confirm seated depth all round.</li>
+      <li><b>8 tacks, opposite-side-bisecting</b> (pattern at right).</li>
+      <li><b>Run the fillet into the corner, heat moving</b> — beam onto
+        the plate mass, washing onto the wall. The proud lip is unbacked;
+        dwell and it distorts.</li>
+      <li><b>End every bead with trail-off — trigger held, lift straight
+        up.</b> A stuck wire snaps free; never pry, never let go.</li>
+      <li><b>Read the color.</b> Yellow/brown inside = chromium oxide,
+        passivation clears it (PV-12). <b>Black scale = stop</b> — raise
+        argon coverage or back-purge.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      XLaserlab X1 Pro · argon · 1/4&Prime; spacer · prep per PV-07
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:800px">
+    <div class="settings">
+      <div class="s"><div class="k">Power</div><div class="v">60%</div></div>
+      <div class="s"><div class="k">Wobble</div><div class="v">80 Hz <small>&#215; 2 mm</small></div></div>
+      <div class="s"><div class="k">Wire feed</div><div class="v">12 mm/s</div></div>
+      <div class="s"><div class="k">Argon</div><div class="v">2 s <small>pre/post</small></div></div>
+      <div class="s"><div class="k">Filler</div><div class="v">ER316L <small>.030</small></div></div>
+      <div class="s"><div class="k">Bead end</div><div class="v">trail-off</div></div>
+    </div>
+
+    <div class="panel light" style="margin-top:24px">
+      <svg viewBox="0 0 760 434" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .weld  { fill: #f0b429; stroke: #1d1d26; stroke-width: 2.5; }
+          .dimln { stroke: #46628a; stroke-width: 2.5; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #46628a; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .beam  { stroke: #c8481d; stroke-width: 4; }
+          .tick  { stroke: #1d1d26; stroke-width: 4; }
+          .tnum  { font: 700 25px Menlo, monospace; fill: #46628a; }
+        </style>
+        <text class="lbl" x="24" y="40">SECTION &#183; joint corner</text>
+        <g transform="translate(110,90)">
+          <!-- 280 px/in: wall 18 wide, recess 70, plate 70 thick -->
+          <rect class="steel" x="0" y="0" width="18" height="300"/>
+          <rect class="steel" x="18" y="70" width="200" height="70"/>
+          <path class="weld" d="M 18 32 Q 18 70 64 70 L 18 70 Z"/>
+          <!-- beam arrow into the corner -->
+          <line class="beam" x1="120" y1="-36" x2="38" y2="56"/>
+          <path fill="#c8481d" d="M 32 64 L 54 56 L 42 42 Z"/>
+          <text class="dimtx" x="128" y="-8" fill="#c8481d">BEAM</text>
+          <!-- recess dim -->
+          <line class="dimln" x1="236" y1="0" x2="236" y2="70"/>
+          <line class="dimln" x1="218" y1="0" x2="254" y2="0"/>
+          <text class="dimtx" x="248" y="30">1/4&Prime; recess</text>
+          <!-- plate dim -->
+          <line class="dimln" x1="236" y1="70" x2="236" y2="140"/>
+          <line class="dimln" x1="218" y1="140" x2="254" y2="140"/>
+          <text class="dimtx" x="248" y="122">1/4&Prime; plate</text>
+          <!-- slip leader -->
+          <line class="dimln" x1="18" y1="200" x2="110" y2="240"/>
+          <text class="dimtx" x="118" y="248">~0.005&Prime; slip</text>
+          <text class="sub" x="118" y="276">defects weep up this gap to the rim</text>
+          <!-- proud lip note -->
+          <text class="sub" x="34" y="24">proud lip</text>
+          <!-- wall label -->
+          <text class="dimtx" x="9" y="330" text-anchor="middle">0.065&Prime; wall</text>
+        </g>
+        <!-- 8-tack order -->
+        <g transform="translate(600,250)">
+          <text class="lbl" x="0" y="-146" text-anchor="middle">8 TACKS</text>
+          <circle r="78" fill="none" stroke="#1d1d26" stroke-width="3"/>
+          <line class="tick" x1="0" y1="-90" x2="0" y2="-66"/>
+          <line class="tick" x1="0" y1="90" x2="0" y2="66"/>
+          <line class="tick" x1="-90" y1="0" x2="-66" y2="0"/>
+          <line class="tick" x1="90" y1="0" x2="66" y2="0"/>
+          <line class="tick" x1="-64" y1="-64" x2="-47" y2="-47"/>
+          <line class="tick" x1="64" y1="64" x2="47" y2="47"/>
+          <line class="tick" x1="64" y1="-64" x2="47" y2="-47"/>
+          <line class="tick" x1="-64" y1="64" x2="-47" y2="47"/>
+          <text class="tnum" x="0" y="-104" text-anchor="middle">1</text>
+          <text class="tnum" x="0" y="122" text-anchor="middle">2</text>
+          <text class="tnum" x="-108" y="9" text-anchor="middle">3</text>
+          <text class="tnum" x="108" y="9" text-anchor="middle">4</text>
+          <text class="tnum" x="-82" y="-72" text-anchor="middle">5</text>
+          <text class="tnum" x="84" y="88" text-anchor="middle">6</text>
+          <text class="tnum" x="84" y="-72" text-anchor="middle">7</text>
+          <text class="tnum" x="-82" y="88" text-anchor="middle">8</text>
+        </g>
+      </svg>
+      <div class="cap"><b>Wire sticks?</b> Trigger held, lift straight up —
+      the retract fires when conductance breaks, and the wire snaps clean.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Full-perimeter fillet at seated depth, no black scale. PT (PV-10) + hydro (PV-11) are the proof.</div>
+  <div class="src">pressure-vessel.md &#167;3 &#183; dont-let-go.md<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

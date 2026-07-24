@@ -1,0 +1,222 @@
+/* Assembly-card system — 1800 × 1200 px canvas = 6 × 4 in at 300 dpi,
+   printed full-bleed on 4x6 gloss. Idioms in STYLE.md. */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --navy: #1a1a2e;        /* house render background; header band */
+  --paper: #f7f5f0;       /* card body */
+  --panel: #ffffff;       /* diagram panels */
+  --ink: #1d1d26;
+  --muted: #70707c;
+  --line: #d9d5cb;
+  --warn-bg: #ffd94d;
+  --accent: #46628a;      /* overridden per subsystem on <body> */
+  --accent-ink: #ffffff;
+  --mono: "Menlo", "SF Mono", monospace;
+  --sans: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+}
+
+body.pv { --accent: #46628a; }  /* pressure vessel — steel */
+body.cc { --accent: #0f8bab; }  /* cold core — ice */
+body.rl { --accent: #c8481d; }  /* refrigerant loop — flame */
+body.ip { --accent: #2268c2; }  /* internal plumbing — water */
+body.ca { --accent: #7a5cc4; }  /* cable assemblies — signal */
+body.es { --accent: #b8860b; }  /* electronics shelf — power */
+body.wr { --accent: #a8352f; }  /* wiring — live copper */
+body.en { --accent: #4a5d52; }  /* enclosure — cabinet */
+body.fu { --accent: #2f7f6f; }  /* faucet + umbilical */
+body.fc { --accent: #5b6acb; }  /* firmware + commissioning */
+body.ab { --accent: #2e8540; }  /* acceptance + burn-in */
+body.fs { --accent: #8a6d3b; }  /* finish, pack, ship */
+
+html, body {
+  width: 1800px; height: 1200px;
+  overflow: hidden;
+  background: var(--paper);
+  font-family: var(--sans);
+  color: var(--ink);
+}
+
+.card { width: 1800px; height: 1200px; display: flex; flex-direction: column; }
+
+/* ── Header band ─────────────────────────────────────────────── */
+
+header {
+  height: 150px; flex: none;
+  background: var(--navy);
+  display: flex; align-items: center;
+  padding: 0 60px;
+  gap: 36px;
+}
+.code {
+  background: var(--accent); color: var(--accent-ink);
+  font-family: var(--mono); font-weight: 700; font-size: 58px;
+  padding: 12px 26px; border-radius: 10px;
+  letter-spacing: 1px;
+}
+header h1 {
+  color: #fff; font-size: 60px; font-weight: 700;
+  letter-spacing: 0.5px; text-transform: uppercase;
+  line-height: 1.02; flex: 1;
+}
+.deckpos {
+  text-align: right; color: #9a9ab0;
+  font-size: 26px; line-height: 1.35; flex: none;
+  text-transform: uppercase; letter-spacing: 2px;
+}
+.deckpos b { color: #fff; font-weight: 600; display: block; font-size: 28px; }
+
+/* ── Content zone ────────────────────────────────────────────── */
+
+main { flex: 1; display: flex; padding: 44px 60px 18px; gap: 52px; min-height: 0; }
+.col { display: flex; flex-direction: column; min-width: 0; }
+
+.lede { font-size: 34px; line-height: 1.32; color: var(--ink); margin-bottom: 26px; }
+.lede strong { font-weight: 700; }
+
+/* Steps */
+ol.steps { list-style: none; counter-reset: s; }
+ol.steps li {
+  counter-increment: s;
+  position: relative;
+  padding-left: 74px;
+  font-size: 33px; line-height: 1.28;
+  margin-bottom: 20px;
+}
+ol.steps li::before {
+  content: counter(s);
+  position: absolute; left: 0; top: 1px;
+  width: 52px; height: 52px;
+  background: var(--accent); color: var(--accent-ink);
+  font-weight: 700; font-size: 32px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 8px;
+}
+ol.steps b { font-weight: 700; }
+
+/* Dimensions + part numbers inline */
+.dim {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  background: #eceadf;
+  padding: 2px 10px; border-radius: 6px;
+  white-space: nowrap;
+}
+
+/* Tools / materials strip */
+.tools {
+  border-top: 3px solid var(--line);
+  padding-top: 18px; margin-top: auto;
+  font-size: 27px; line-height: 1.45; color: var(--muted);
+}
+.tools .lbl {
+  font-size: 23px; font-weight: 700; letter-spacing: 3px;
+  color: var(--accent); text-transform: uppercase;
+  display: block; margin-bottom: 6px;
+}
+
+/* Safety */
+.safety {
+  background: var(--warn-bg);
+  border-radius: 10px;
+  padding: 16px 22px 16px 20px;
+  font-size: 29px; line-height: 1.3; font-weight: 500;
+  display: flex; gap: 16px; align-items: flex-start;
+  margin: 10px 0 22px;
+}
+.safety .sign { font-size: 34px; flex: none; }
+.safety b { font-weight: 800; }
+
+/* Image + diagram panels */
+.panel {
+  background: var(--navy); border-radius: 14px; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.panel.light { background: var(--panel); border: 3px solid var(--line); }
+.panel img, .panel svg { display: block; width: 100%; }
+.panel .cap {
+  padding: 12px 20px 14px;
+  font-size: 26px; line-height: 1.3; color: #b9b9cc;
+}
+.panel.light .cap { color: var(--muted); }
+.panel .cap b { color: #fff; font-weight: 600; }
+.panel.light .cap b { color: var(--ink); }
+
+/* Part-integrity critical — the card's one non-negotiable */
+.critical {
+  background: #7c1d12; color: #fff;
+  border-radius: 10px;
+  padding: 16px 22px;
+  font-size: 29px; line-height: 1.3; font-weight: 500;
+  display: flex; gap: 16px; align-items: flex-start;
+  margin: 10px 0 22px;
+}
+.critical .sign { font-size: 34px; flex: none; }
+.critical b { font-weight: 800; }
+
+/* Small callout note */
+.note {
+  border-left: 6px solid var(--accent);
+  padding: 6px 0 6px 20px;
+  font-size: 26px; line-height: 1.35; color: var(--muted);
+}
+.note b { color: var(--ink); }
+
+/* Spec tables */
+table.spec { border-collapse: collapse; width: 100%; }
+table.spec td, table.spec th {
+  font-size: 30px; text-align: left;
+  padding: 12px 18px;
+  border-bottom: 2px solid var(--line);
+}
+table.spec th {
+  font-size: 24px; text-transform: uppercase; letter-spacing: 2px;
+  color: var(--muted); font-weight: 700;
+}
+table.spec td.v { font-family: var(--mono); font-size: 29px; white-space: nowrap; }
+table.spec tr:last-child td { border-bottom: none; }
+
+/* Machine-settings plate — the numbers you set before pulling a trigger */
+.settings {
+  background: var(--navy); border-radius: 14px;
+  padding: 26px 30px 20px;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 20px 26px;
+}
+.settings .s { min-width: 0; }
+.settings .k {
+  color: #9a9ab0; font-size: 21px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.settings .v {
+  color: #fff; font-family: var(--mono); font-size: 31px; font-weight: 700;
+  white-space: nowrap;
+}
+.settings .v small { font-size: 23px; font-weight: 400; color: #c9c9da; }
+
+/* ── Done-when + footer band ─────────────────────────────────── */
+
+footer {
+  flex: none;
+  margin: 26px 60px 0;
+  border-top: 5px solid var(--accent);
+  padding: 18px 0 0;
+  display: flex; align-items: flex-start; gap: 30px;
+  height: 118px;
+}
+.done {
+  font-size: 30px; line-height: 1.3; flex: 1;
+}
+.done .lbl {
+  color: var(--accent); font-weight: 800;
+  letter-spacing: 2px; margin-right: 14px;
+  text-transform: uppercase;
+}
+.src {
+  flex: none; text-align: right;
+  font-size: 22px; color: var(--muted); line-height: 1.4;
+  font-family: var(--mono);
+  padding-top: 4px;
+}

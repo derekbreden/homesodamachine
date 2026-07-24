@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="pv">
+<div class="card">
+
+<header>
+  <div class="code">PV-03</div>
+  <h1>Drill the rod register<br>— both plates</h1>
+  <div class="deckpos"><b>Pressure vessel · 03/14</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">A blind <span class="dim">9/64&Prime;</span> seat for the
+    level rod, in the <strong>inside face</strong> of both plates — bottom
+    seats the rod for its tack weld (PV-06), top captures the tip at closure
+    (PV-09).</p>
+
+    <div class="critical"><span class="sign">&#9940;</span>
+      <div><b>Must not break through.</b>
+      <span class="dim" style="background:#9a3325">0.100&Prime;</span> to the
+      drill-point tip leaves 0.150&Prime; of plate as the 90&nbsp;PSI
+      pressure boundary.</div>
+    </div>
+
+    <ol class="steps">
+      <li><b>Inside face up.</b> Lay out the register at
+        <span class="dim">(0, &minus;2.007&Prime;)</span> — the &minus;Y cap
+        axis, clear of both ports.</li>
+      <li><b>Clamp the disc.</b> Slowest press speed
+        (<span class="dim">~740 RPM</span>), Tap Magic on the point.</li>
+      <li><b>Depth stop at 0.100&Prime; to the tip — prove it on a scrap
+        disc</b> before any real plate.</li>
+      <li><b>Drill both plates identically.</b> The register is what tells
+        the faces apart from here on.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      WEN 4208T press · 9/64&Prime; M35 cobalt, 135&deg; split-point ·
+      Tap Magic EP-Xtra · depth stop · scrap disc
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 676" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .hole  { fill: #fff; stroke: #1d1d26; stroke-width: 3; }
+          .cl    { stroke: #b0483a; stroke-width: 2; stroke-dasharray: 22 8 8 8; }
+          .dimln { stroke: #46628a; stroke-width: 2.5; }
+          .dimtx { font: 700 26px Menlo, monospace; fill: #46628a; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .hatch { stroke: #46628a; stroke-width: 2; }
+        </style>
+        <text class="lbl" x="24" y="38">INSIDE FACE &#183; &#8960;4.860&Prime; &#183; 316 SS &#183; 1/4&Prime; thick</text>
+        <!-- plate face at 100 px/in, center (300,300), disc R 2.43 -> 243 -->
+        <g transform="translate(300,300)">
+          <circle class="steel" r="243"/>
+          <circle class="hole" cx="-75" cy="0" r="21.9"/>
+          <circle class="hole" cx="75" cy="0" r="21.9"/>
+          <circle cx="0" cy="200.7" r="7.1" fill="#46628a" stroke="#1d1d26" stroke-width="2"/>
+          <line class="cl" x1="-258" y1="0" x2="258" y2="0"/>
+          <line class="cl" x1="0" y1="-258" x2="0" y2="258"/>
+          <!-- port spacing dim -->
+          <line class="dimln" x1="-75" y1="-56" x2="75" y2="-56"/>
+          <line class="dimln" x1="-75" y1="-38" x2="-75" y2="-66"/>
+          <line class="dimln" x1="75" y1="-38" x2="75" y2="-66"/>
+          <text class="dimtx" x="0" y="-72" text-anchor="middle">1.500&Prime;</text>
+          <text class="lbl" x="0" y="-100" text-anchor="middle">2&#215; &#8960;7/16&Prime; ports</text>
+          <!-- register callout -->
+          <line class="dimln" x1="7" y1="196" x2="120" y2="122"/>
+          <text class="dimtx" x="128" y="118">&#8960;9/64&Prime; blind</text>
+          <text class="sub" x="128" y="146">slip-fit on the 1/8&Prime; rod</text>
+          <text class="dimtx" x="128" y="178">2.007&Prime; off center</text>
+          <text class="sub" x="128" y="206">on &minus;Y &#183; the reed azimuth</text>
+        </g>
+        <!-- section detail, 320 px/in: plate 0.25 -> 80 tall -->
+        <g transform="translate(60,576)">
+          <text class="lbl" x="0" y="-16">SECTION &#183; inside face up</text>
+          <rect class="steel" x="0" y="0" width="640" height="80"/>
+          <!-- pocket: Ø0.1406 -> 45 wide, 0.10 -> 32 deep incl. point -->
+          <path d="M 298 0 L 298 20 L 320 32 L 342 20 L 342 0 Z" fill="#fff" stroke="#1d1d26" stroke-width="3"/>
+          <line class="hatch" x1="290" y1="52" x2="318" y2="80"/>
+          <line class="hatch" x1="310" y1="46" x2="344" y2="80"/>
+          <line class="hatch" x1="330" y1="42" x2="368" y2="80"/>
+          <line class="dimln" x1="268" y1="0" x2="268" y2="32"/>
+          <text class="dimtx" x="256" y="28" text-anchor="end">0.100&Prime; to tip</text>
+          <line class="dimln" x1="372" y1="32" x2="372" y2="80"/>
+          <text class="dimtx" x="384" y="64">0.150&Prime; remains</text>
+        </g>
+      </svg>
+      <div class="cap"><b>Drill before weld + passivation</b> — the fresh
+      316L passivates with the vessel (PV-12).</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Identical blind register in both plates — no light through either. Binds at closure? Open the <i>top</i> plate to 5/32&Prime;, never force.</div>
+  <div class="src">pressure-vessel.md &#167;1 &#183; endcap_circular_dxf.py<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>
