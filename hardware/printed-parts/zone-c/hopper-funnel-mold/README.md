@@ -20,7 +20,7 @@ halves are those Booleaned out of blocks. Change the funnel and the mold follows
   registers over the cavity by a skirt that drops over its outside. A pin —
   tapered at the tip so it self-centers — continues the [6.35 mm](SPOUT_BORE)
   spout bore down through the cavity floor, holding the thin spout wall
-  concentric. A [4 mm](FILL_D) pour port and [5](N_VENTS) [2.5 mm](VENT_D)
+  concentric. A [4 mm](FILL_D) pour port and [5](N_VENTS) [2.5 mm](MOLD_VENT_D)
   vents pass through the plate, set over the bowl's rim ring so they open into
   the silicone.
 

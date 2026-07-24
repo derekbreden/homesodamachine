@@ -21,7 +21,7 @@ user (−Y, forward), from caliper measurements:
 - **Y** = depth — screen-normal; the screen faces −Y (forward, toward the user)
 
 Origin is the center of the body in X–Z; the body is centered on it and the
-bezel is offset [-0.5](BEZEL_OFFSET_X) in X and [1](BEZEL_OFFSET_Z) in Z — its
+bezel is offset [-0.5 mm](BEZEL_OFFSET_X) in X and [1 mm](BEZEL_OFFSET_Z) in Z — its
 border reaches further up and to the left of the body. (How it lands in the
 enclosure facet, which centers the glass, is the enclosure's business.) The
 front cover-glass face sits at Y = 0; the device extends back into the appliance

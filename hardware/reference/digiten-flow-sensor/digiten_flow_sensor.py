@@ -13,12 +13,12 @@ round chamber, and exits the collet straight across the body — an INLINE
 keep-out:
 
 - Body — the round white rotor housing (rotor + Hall sensor). A disk
-  Ø[26 mm](BODY_DIA) across the circular label / rotor-cover faces, the
+  Ø[26 mm](FLOW_BODY_DIA) across the circular label / rotor-cover faces, the
   body running [22 mm](BODY_LEN) through its depth (the two molded halves,
   joined at a mid-plane seam with four screws). The flow axis is a diameter
   of the disk; the rotor spins about that body depth axis.
 - Two quick-connect ports — coaxial on opposite rims, one opening +X, one
-  opening -X, each a Ø[12 mm](PORT_DIA) collet barrel whose outer collet
+  opening -X, each a Ø[12 mm](FLOW_PORT_DIA) collet barrel whose outer collet
   face reaches [30 mm](PORT_FACE) from the body center along the flow axis
   ([60 mm] tip to tip). As sold these are 1/4" push-to-connect (push a 1/4"
   OD tube in past the blue collet ring), not exposed threads — "G1/4" is the
@@ -136,9 +136,9 @@ def main():
           % (bb.xmin, bb.xmax, bb.ymin, bb.ymax, bb.zmin, bb.zmax))
 
     md_vars = {
-        "BODY_DIA": f"{body_dia:.4g}",
+        "FLOW_BODY_DIA": f"{body_dia:.4g}",
         "BODY_LEN": f"{body_len:.4g}",
-        "PORT_DIA": f"{port_dia:.4g}",
+        "FLOW_PORT_DIA": f"{port_dia:.4g}",
         "PORT_FACE": f"{port_face:.4g}",
         "WIRE_BOSS_DIA": f"{wire_boss_dia:.4g}",
         "WIRE_BOSS_LEN": f"{wire_boss_len:.4g}",
@@ -147,8 +147,8 @@ def main():
         _here.parent / "README.md",
         variables=md_vars,
         expected_counts={
-            "BODY_DIA": 2, "BODY_LEN": 2,
-            "PORT_DIA": 1, "PORT_FACE": 3,
+            "FLOW_BODY_DIA": 2, "BODY_LEN": 2,
+            "FLOW_PORT_DIA": 1, "PORT_FACE": 3,
             "WIRE_BOSS_DIA": 1, "WIRE_BOSS_LEN": 1,
         },
     )
@@ -157,8 +157,8 @@ def main():
         Path(__file__),
         variables={k: f"{v} mm" for k, v in md_vars.items()},
         expected_counts={
-            "BODY_DIA": 1, "BODY_LEN": 2,
-            "PORT_DIA": 1, "PORT_FACE": 2,
+            "FLOW_BODY_DIA": 1, "BODY_LEN": 2,
+            "FLOW_PORT_DIA": 1, "PORT_FACE": 2,
             "WIRE_BOSS_DIA": 1, "WIRE_BOSS_LEN": 1,
         },
     )

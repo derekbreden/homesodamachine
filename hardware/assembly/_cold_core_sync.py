@@ -73,7 +73,7 @@ def main():
         # ─── Cap pour (step 2) ────────────────────────────────────────
         "CAP_H": f"{foam_cap_interior_height:.4g} mm",
         "POUR_D": f"{foam_cap_lid_pour_radius * 2:.4g} mm",
-        "VENT_D": f"{foam_cap_lid_vent_radius * 2:.4g} mm",
+        "LID_VENT_D": f"{foam_cap_lid_vent_radius * 2:.4g} mm",
         # ─── Inserts (step 3) ─────────────────────────────────────────
         # insert_pocket_depth is the FULL printed-pocket depth = insert
         # engagement (half) + relief (half).
@@ -109,7 +109,7 @@ def main():
             "PLUG_OUTLET_Y": 1,
             "CAP_H": 1,
             "POUR_D": 1,
-            "VENT_D": 1,
+            "LID_VENT_D": 1,
             "INSERT_POCKET_D": 1,
             "INSERT_HALF_DEPTH": 2,
             "TUBE_HOLE_D": 3,

@@ -8,7 +8,7 @@ The valve seats three ways at once:
 
 - **Four corner posts → four sockets.** ⌀[6.8](POST_DIA) posts seat in ⌀[7.2](SOCKET_DIA) blind
   sockets that bottom at Z = [-1](SOCKET_FLOOR_Z), the posts hanging free. Locates X-Y.
-- **Port → lengthwise saddle.** The ⌀[15](PORT_DIA) port nestles into a ⌀[15.4](SADDLE_DIA) trough
+- **Port → lengthwise saddle.** The ⌀[15](SOLENOID_PORT_DIA) port nestles into a ⌀[15.4](SADDLE_DIA) trough
   along Y ([0.2 mm](SADDLE_CLEAR) clearance), cut from the port's underside up through the
   tray top.
 - **Round boss → tray top.** The body's round boss bottoms on the tray's
@@ -23,7 +23,7 @@ valve as it changes rather than drifting.
 
 - Tray block: [38.25](BLOCK_X) (X) × [40](BLOCK_Y) (Y) × [9](BLOCK_Z) (Z), spanning **Z [-3](TRAY_BOT_Z) → [6](TRAY_TOP_Z)**.
 - Top face at Z = [6](TRAY_TOP_Z); sockets bottom at Z = [-1](SOCKET_FLOOR_Z) over a [2 mm](FLOOR_UNDER_SOCKET) floor.
-- Saddle runs Y ±[20](SADDLE_REACH) — short of the ⌀[15](PORT_DIA) port's ±[29.5](PORT_HALF) ends, so the
+- Saddle runs Y ±[20](SADDLE_REACH) — short of the ⌀[15](SOLENOID_PORT_DIA) port's ±[29.5](PORT_HALF) ends, so the
   quick-connect collets stay clear for tubing.
 
 ## Open / first-pass

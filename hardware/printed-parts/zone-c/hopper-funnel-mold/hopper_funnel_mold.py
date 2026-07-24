@@ -173,7 +173,7 @@ def main():
             "CAVITY_DIMS": f"{cbb.xlen:.1f} × {cbb.ylen:.1f} × {cbb.zlen:.1f} mm",
             "CORE_DIMS": f"{kbb.xlen:.1f} × {kbb.ylen:.1f} × {kbb.zlen:.1f} mm",
             "FILL_D": f"{fill_port_id:g} mm",
-            "VENT_D": f"{vent_id:g} mm",
+            "MOLD_VENT_D": f"{vent_id:g} mm",
             "N_VENTS": f"{info['n_vents']}",
         },
         expected_counts={
@@ -186,7 +186,7 @@ def main():
             "CAVITY_DIMS": 1,
             "CORE_DIMS": 1,
             "FILL_D": 1,
-            "VENT_D": 1,
+            "MOLD_VENT_D": 1,
             "N_VENTS": 1,
         },
     )

@@ -100,7 +100,7 @@ def main():
             "POST_DIA": f"{2 * corner_boss_radius:.4g}",
             "SOCKET_DIA": f"{2 * socket_radius:.4g}",
             "SOCKET_FLOOR_Z": f"{socket_floor_z:.4g}",
-            "PORT_DIA": f"{2 * port_radius:.4g}",
+            "SOLENOID_PORT_DIA": f"{2 * port_radius:.4g}",
             "SADDLE_DIA": f"{2 * saddle_radius:.4g}",
             "SADDLE_CLEAR": f"{saddle_clearance:.4g} mm",
             "TRAY_TOP_Z": f"{tray_top_z:.4g}",
@@ -116,7 +116,7 @@ def main():
         },
         expected_counts={
             "POST_DIA": 1, "SOCKET_DIA": 1, "SOCKET_FLOOR_Z": 2,
-            "PORT_DIA": 2, "SADDLE_DIA": 1, "SADDLE_CLEAR": 2,
+            "SOLENOID_PORT_DIA": 2, "SADDLE_DIA": 1, "SADDLE_CLEAR": 2,
             "TRAY_TOP_Z": 4, "TRAY_BOT_Z": 1,
             "BLOCK_X": 1, "BLOCK_Y": 1, "BLOCK_Z": 1,
             "FLOOR_UNDER_SOCKET": 1, "SADDLE_REACH": 2, "PORT_HALF": 1,

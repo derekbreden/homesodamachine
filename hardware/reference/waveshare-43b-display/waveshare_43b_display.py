@@ -131,8 +131,8 @@ def main():
             "BEZEL_DEPTH": f"{bezel_depth:.4g}",
             "BEZEL_CORNER_R": f"{bezel_corner_r:.4g}",
             "TOTAL_DEPTH": f"{total_depth:.4g}",
-            "BEZEL_OFFSET_X": f"{bezel_offset_x:.4g}",
-            "BEZEL_OFFSET_Z": f"{bezel_offset_z:.4g}",
+            "BEZEL_OFFSET_X": f"{bezel_offset_x:.4g} mm",
+            "BEZEL_OFFSET_Z": f"{bezel_offset_z:.4g} mm",
         },
         expected_counts={
             "BODY_WIDTH": 1, "BODY_HEIGHT": 1, "BODY_DEPTH": 1,
