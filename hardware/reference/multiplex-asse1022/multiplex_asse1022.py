@@ -1,6 +1,6 @@
 """Multiplex 19-0897 ASSE 1022 dual-check backflow preventer (= Anderson Brass
 ABF-1) — the appliance's `multiplex` in the enclosure pack, inline on the water
-path over the drip pan, its atmospheric-vent barb pointing down into the pan.
+path above the drip pan, its atmospheric-vent barb weeping into it.
 
 External envelope only. A brass hex barrel along the flow axis with a radial
 atmospheric-vent barb, a 3/8" NPT male inlet at one end and a 3/8" SAE 45° male
@@ -14,8 +14,8 @@ Flow runs inlet → outlet: the arrow points away from the customer side, so the
 GAGIRA reducing coupling lands on the NPT inlet and the FFL38BARB38 swivel nut
 on the flare outlet ([`asse1022-assembly`](../asse1022-assembly/)).
 
-Frame: +X = flow axis, inlet at X = 0; the vent barb runs down to Z = 0 (its
-tip, the bbox floor, seats toward the pan); body centered on Y. +Z up.
+Frame: +X = flow axis, inlet at X = 0; the vent barb runs down to Z = 0, its tip
+on the bbox floor; body centered on Y. +Z up.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/multiplex-asse1022/multiplex_asse1022.py
@@ -60,7 +60,7 @@ def outlet():
 
 def vent():
     """The atmospheric-vent barb tip: (position, outward axis). The vent stub
-    slips on here and weeps down into the drip pan."""
+    slips on here, and the drip leaves its far end."""
     return (VENT_X, 0.0, 0.0), (0.0, 0.0, -1.0)
 
 

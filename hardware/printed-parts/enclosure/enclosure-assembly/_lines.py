@@ -4,18 +4,25 @@
 connection, its waypoints written against the ports and body faces that shape them.
 
 Today: the sealed refrigerant loop (`scorecard.REFRIGERANT_SEGMENTS`) — the discharge and
-liquid legs authored, the suction leg unauthored — and the manifold's junction column, fully
-joined: both trays' west collets into the union tees hanging between them. Six corridors
-carry the authored legs, each measured off the faces that bound it:
+liquid legs authored, the suction leg unauthored — the tap-water path's first segment
+(`scorecard.WATER_SEGMENTS`), and the manifold's junction column, fully joined: both trays'
+west collets into the union tees hanging between them. Seven corridors carry the authored
+legs, each measured off the faces that bound it:
 
   * the machine corridor — compressor back face to cold-core front face — with the
     valve-manifold tray stack in its upper band (z 164.8–296.1). The stack's central span stops
     at y 155.3, so a window stands open off the cold-core face at the evaporator ports; below
-    the stack's floor the corridor runs the box's whole width, and its two halves are spoken
-    for: refrig-1 and refrig-2 cross the east half, and the ASSE 1022 assembly lies along the
-    west lane, its inlet facing west at the riser column and its 3/8" barb east into the
-    corridor. The band under that body stays open — the drip pan its vent weeps into, and
-    refrig-3's reach to the compressor's suction port, both live there.
+    the stack's floor the corridor runs the box's whole width, and refrig-1 and refrig-2 cross
+    its east half. The west lane and the floor lane stay open for refrig-3's reach to the
+    compressor's suction port.
+  * the service bay's aft strip — the electronics shelf's back edge to the rear-panel bodies,
+    over the foam-cap top — with the ASSE 1022 chain lying along it, inlet east at the water
+    bulkhead and 3/8" barb west into the strip's open end. It is a shallow corridor and the
+    chain nearly fills it: water-1 works the two bands the chain leaves, the 11.25 mm off the
+    bulkhead's collet where the chain narrows to its coupling, and the open run east of the
+    chain's inlet end, which fluid-28's aft leg caps at x 191.9. The band UNDER the body stays
+    open — the drip pan the vent falls into, and the C14's cordage crossing forward to the AC
+    hub, both live there.
   * the bag-fall corridor — the open Y behind the whole stack, aft face to cold-core front face
     (_contents `BAG_FALL_CORRIDOR`), running the box's full height and width. It is what stands
     the core off the stack, and the only lane that reaches either reservoir port low on that
@@ -78,7 +85,14 @@ DISCHARGE_SKEW = 22.0
 
 # Connections the pack does not carry as it stands, each with the measurement that blocks it.
 # They stay counted against the `routed` axis.
-BLOCKED: dict = {}
+BLOCKED: dict = {
+    "water-2": "the SeaFlo 22-series pump is unplaced — the 3/8\" silicone leaves the "
+               "ASSE 1022's barb at (42.5, 341, 305) heading −X with 42.5 mm to the −X "
+               "interior wall, and lands on nothing",
+    "water-3": "the SeaFlo is unplaced, and so are the MAACFLOW adapter and the GASHER "
+               "check that ride this leg; only its far end (foam-assembly water-in, "
+               "(141.5, 200, 223) y−) is on the board",
+}
 
 
 def _frames():
@@ -146,6 +160,30 @@ def _authored_runs() -> list:
         foam.z("evap-inlet"),                               # up the cold-core face to the inlet
         "foam-assembly.evap-inlet",
         note="liquid: condenser (drier + cap tube) → evaporator"))
+
+    # water-1 — the tap-water pigtail: the rear bulkhead's inboard collet to the ASSE 1022's PTC
+    # inlet. Both mouths stand in the service bay's aft strip 21 mm apart in x, the collet facing
+    # −Y and the inlet facing +X, so the run leaves the wall, crosses EAST past the inlet's mouth,
+    # and closes back WEST into it.
+    #   It leaves into the band between the collet mouth and the chain's coupling shoulder — a
+    # Ø6.35 column off the collet runs 11.25 mm before contact at y 347.95 — so the first corner
+    # stands one bend radius off the wall and the tube's forward face keeps ~2 mm off that
+    # shoulder. At the collet's own height the strip is open east of the chain until fluid-28's
+    # aft leg at x 191.9, which is what caps the turn-out; the climb to the inlet's deck and the
+    # leg back west both cross that lane over fluid-28's crown.
+    bulk, bfp = f["bulkhead-water"], f["asse1022-assembly"]
+    WBEND = 5.0                              # 1/4" LLDPE, the pigtail's radius
+    WTURN_OUT = 19.0                         # east of the inlet: where the run turns back into it
+    runs.append(route(
+        "water-1", "bulkhead-water.tube-in",
+        bulk.y("tube-in", -(WBEND + 1.0)),   # forward off the collet, clear of the chain's shoulder
+        bfp.x("tube-in", WTURN_OUT),         # east past the inlet's mouth, west of fluid-28's lane
+        bfp.z("tube-in"),                    # up to the inlet's deck
+        bfp.y("tube-in"),                    # forward to the inlet's own station
+        "asse1022-assembly.tube-in",
+        kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(3.0, 6.0),
+        note="tap water: rear bulkhead → ASSE 1022 inlet, out along the wall and back into the "
+             "east-facing collet"))
 
     # refrig-3 — the suction leg, unauthored. Its corridor stands open: the source-select
     # tray's central span stops at y 155.3 over the outlet's x, leaving ~27 mm off the
@@ -380,8 +418,8 @@ def _authored_runs() -> list:
 
 def build() -> dict:
     """The runs as placed solids: {name: (solid, color)} — copper for the refrigerant loop,
-    white LLDPE for the fluid (flavor) runs."""
-    return {r.id: (R.tube(r), LLDPE if r.kind == "fluid" else COPPER) for r in build_runs()}
+    white LLDPE for the fluid (flavor) and tap-water runs."""
+    return {r.id: (R.tube(r), COPPER if r.kind == "refrigerant" else LLDPE) for r in build_runs()}
 
 
 def lane_stations() -> dict:

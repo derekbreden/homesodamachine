@@ -12,12 +12,11 @@ Every station is read off the part upstream of it: each fitting's own module say
 how deep its threads go, and this file stacks those reaches along the flow axis.
 Move a length in any reference module and the chain closes on the new one.
 
-The vent is the assembly's reason for a pose rather than a bare envelope: it must
-point DOWN, into the drip pan over the moisture sensor, because it is the
-mechanical telltale for a cross-contamination event
-([`future.md`](/hardware/future.md) "Backflow vent monitoring"). Anything that
-places this assembly inherits that constraint — the vent stub's tip is the datum
-the pan has to catch.
+The vent is the assembly's reason for a pose rather than a bare envelope: it weeps
+to atmosphere, and that drip is the mechanical telltale for a cross-contamination
+event ([`future.md`](/hardware/future.md) "Backflow vent monitoring"). The drip
+leaves the stub's tip and falls from there — the tip is the datum the drip pan and
+its moisture plate sit under.
 
 Frame: the ASSE 1022's own — +X = flow, inlet upstream at its X = 0, the vent
 running −Z. The upstream fittings therefore sit at negative X.
@@ -53,14 +52,14 @@ BLACK_PP = cq.Color(0.16, 0.16, 0.18)   # John Guest black polypropylene
 CLEAR_PVC = cq.Color(0.85, 0.90, 0.92, 0.45)
 
 # The vent stub: Sealproof 1/4" ID × 3/8" OD clear PVC, bored to the barb it slips
-# over so the barb occupies the hose rather than its wall. It runs past the barb
-# tip toward the pan; the reach is what clears the parts below it, set where this
-# assembly is placed, and this is the length the bench cuts (~12" of stock, trimmed).
-# The enclosure hangs this body over the foam-cap top, which is the pan's ground:
-# the reach drops the tip into the pan's mouth and stops above the water line,
-# leaving the pan its own depth plus an air gap under the tip.
+# over so the barb occupies the hose rather than its wall. It covers the barb to the
+# body's underside and overhangs the barb tip by the reach — the length the bench
+# cuts (~12" of stock, trimmed). The enclosure lays this body along −Y across the
+# service bay's aft strip, so the overhang is the room the strip leaves between the
+# electronics shelf's back edge and the chain, and the drip falls off the tip onto
+# the foam-cap top, which is the pan's ground.
 VENT_STUB_OD = 9.53
-VENT_STUB_REACH = 15.0          # below the barb tip, toward the drip pan
+VENT_STUB_REACH = 2.0           # past the barb tip, along the vent axis
 
 # Where each fitting lands on the flow axis, each read off the part it threads into.
 # The barrel's two shoulders are what the female fittings butt against.
@@ -122,8 +121,8 @@ def hose_out():
 
 
 def vent_tip():
-    """The vent stub's open end: (position, outward axis). It weeps to atmosphere
-    and must hang over the drip pan — not be plumbed into anything."""
+    """The vent stub's open end: (position, outward axis). It weeps to atmosphere —
+    the drip falls from here into the pan, and nothing plumbs into it."""
     return (bfp.VENT_X, 0.0, -VENT_STUB_REACH), (0.0, 0.0, -1.0)
 
 

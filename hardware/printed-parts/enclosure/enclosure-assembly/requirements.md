@@ -198,10 +198,11 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   plus a `clear` keep-out holding the funnel drain's fall corridor open over its head;
   pump-b by `near` its row neighbor plus a `clear` keep-out ahead of the source-select
   east bank its elbows thread past; both pump-inlet tees by `near` the source bank they
-  hang off; the ASSE 1022 assembly by `near` the rear bulkhead it protects, a drip BAND on
-  the cold core (`near` says the vent still reaches down toward the pan's ground, `clear`
-  says it stops a pan's depth above it), a keep-out off the shelf row, and the axial room
-  its barb keeps for the stiff 3/8" hose;
+  hang off; the ASSE 1022 assembly by `near` the rear bulkhead it protects, a `fall` on the
+  vent tip (the drip's own column, dropped straight down, lands on the cold core's cap — the
+  rule the pose exists for, reading the column rather than the body: in this strip the body
+  stands 28 mm off the electronics shelf and the column 4), keep-outs off the shelf row and
+  the C14, and the axial room its barb keeps for the stiff 3/8" hose;
   all measured on the real solids); the other 19 are
   not-yet-placed. Each
   earns a set of measurements that pin its intended position, and those must
@@ -237,21 +238,26 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   none of those three volumes takes it — it needs a lane of its own found for it.
   The ASSE 1022 assembly is placed, provisionally: it lies along X in the **service bay's
   aft strip**, between the electronics shelf's back edge and the rear-panel bodies reaching
-  in from the wall, yawed so its 1/4" PTC inlet stands 50.8 mm off the water bulkhead's
-  inboard mouth and its 3/8" barb faces the strip's open west end. Its vent hangs over the
-  foam-cap top, which is the pan's ground in this bay: the drip pan + moisture plate sit on
-  the cap under the stub's tip in a 70 × 50 footprint measured clear, and the stub is cut to
-  that drop. Its discharge hose leaves the strip's west end for the SeaFlo and V-A's tap
-  point, both still unplaced. Placement and envelope both move again: the pack is sparse, and
-  the chain's 123.5 × 33 × 41.3 is the reference model's spec-sheet arithmetic rather than
-  the four acquired parts measured.
+  in from the wall, yawed so its 1/4" PTC inlet faces east at the water bulkhead and its 3/8"
+  barb faces the strip's open west end, and rolled so its atmospheric vent faces −Y, reaching
+  forward out of the strip. The drip falls 51.6 mm off that tip onto the foam-cap top, which
+  is the pan's ground in this bay: the drip pan + moisture plate sit on the cap under the fall
+  in a 70 × 50 footprint measured clear, and the stub is cut to the room the strip leaves.
+  Segment water-1 is routed off the bulkhead into the inlet; the discharge hose leaves the
+  strip's west end for the SeaFlo and V-A's tap point, both still unplaced. **Every margin in
+  this strip is single-digit** — 4.71 mm to the C14, 10.1 mm to the bulkhead, 4 mm between the
+  drip's column and the electronics shelf's rear edge — because the chain's Y footprint with
+  the vent laid over nearly fills the strip's depth. Placement and envelope both move again:
+  the pack is sparse, and the chain's 123.5 × 33 × 43.3 is the reference model's spec-sheet
+  arithmetic rather than the four acquired parts measured.
 
 **Deferred — behind the focus:**
 
-- **routed** spans the fluid segments, the sealed refrigerant loop, and the electrical runs
-  (19/59 — the loop's discharge and liquid legs in copper, the junction column's four
-  straight collet-to-tee legs, the six pump-discharge divider legs and stems, the two
-  nozzle-outlet runs to the rear bulkheads, the hopper drain, and both bag reservoir lines).
+- **routed** spans the fluid segments, the tap-water path, the sealed refrigerant loop, and the
+  electrical runs (20/62 — the loop's discharge and liquid legs in copper, the water path's
+  bulkhead-to-backflow-preventer pigtail, the junction column's four straight collet-to-tee
+  legs, the six pump-discharge divider legs and stems, the two nozzle-outlet runs to the rear
+  bulkheads, the hopper drain, and both bag reservoir lines).
   Paths are
   authored in [`_lines.py`](_lines.py) with the kit in [`_routing.py`](_routing.py); see
   [`tube-routing.md`](tube-routing.md). All three valve-manifold trays and both pump-discharge

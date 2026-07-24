@@ -24,20 +24,24 @@ order it builds it. Parts and prices are in `hardware/ledger/bom.md` §3.
 ## The vent is the pose
 
 The assembly has an orientation rather than just an envelope because the
-atmospheric vent must point **down**, into the internal drip pan over the
-moisture sensor. The vent weeping is the mechanical telltale for a
+atmospheric vent weeps to atmosphere and the internal drip pan over the moisture
+sensor has to be under it. That weeping is the mechanical telltale for a
 cross-contamination event (`hardware/future.md` "Backflow vent monitoring"), and
-it must drip to atmosphere — never be plumbed into a drain. Whatever places this
-assembly inherits that: `vent_tip()` is the datum the pan has to catch.
+it drips — never plumbed into a drain. `vent_tip()` is the datum the pan catches,
+and the drip falls from there: the pan sits under the tip's column, wherever the
+pose leaves it pointing.
 
 The enclosure places it in the service bay's aft strip, at the rear-panel water
-bulkhead it protects (`enclosure-assembly/_contents.py` `ASSE1022_POS` and
-`ASSE1022_YAW`) — a yaw about Z and a translation, since this frame is already
-the cabinet's axes. A yaw is the only turn the vent allows, and the one it takes
-swaps the chain's ends: the inlet faces the bulkhead, the barb faces away down
-the strip, and the stub hangs over the foam-cap top the pan sits on. All three
-terminals are carried to world coordinates from the stations below, so a length
-changed in any of the five parts moves the enclosure's ports with it.
+bulkhead it protects (`enclosure-assembly/_contents.py` `ASSE1022_POS`,
+`ASSE1022_YAW`, `ASSE1022_ROLL`) — a yaw about Z, a roll about X, and a
+translation, since this frame is already the cabinet's axes. The yaw swaps the
+chain's ends, so the inlet faces the bulkhead and the barb faces away down the
+strip; the roll lays the vent over to −Y, so the stub reaches forward out of the
+strip and its drip falls clear of the electronics shelf onto the foam-cap top the
+pan sits on. The scorecard measures that fall (`fall vent-tip onto
+foam-assembly`). All three terminals are carried to world coordinates from the
+stations below, so a length changed in any of the five parts moves the
+enclosure's ports with it.
 
 ## Model
 
@@ -51,12 +55,13 @@ shares a surface and no volume; the assembly's parts do not interfere.
 |---|---|---|
 | `tube_in()` | (−36.00, 0, 27.00) | −X |
 | `hose_out()` | (87.50, 0, 27.00) | +X |
-| `vent_tip()` | (32.00, 0, −15.00) | −Z |
+| `vent_tip()` | (32.00, 0, −2.00) | −Z |
 
-Overall 123.5 × 33.0 × 56.3 mm. The vent stub's reach below the barb is a cut
-length, not a fixed dimension — it is trimmed at the bench to clear whatever it
-passes on the way to the pan, and `VENT_STUB_REACH` holds the drop the enclosure's
-placement leaves for it: down into the pan's mouth, stopping above the water line.
+Overall 123.5 × 33.0 × 43.3 mm. The vent stub's reach past the barb tip is a cut
+length, not a fixed dimension — it is trimmed at the bench, and `VENT_STUB_REACH`
+holds the overhang the enclosure's placement leaves for it: the room in the
+service bay's aft strip between the electronics shelf's back edge and the chain,
+which is what stands the drip's fall clear of the shelf.
 
 Frame: the Multiplex's own — **+X = flow**, its inlet at X = 0, vent along −Z.
 The upstream fittings therefore sit at negative X.
