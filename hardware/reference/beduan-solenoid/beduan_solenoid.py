@@ -121,6 +121,18 @@ def build_port():
     return cq.Workplane(obj=port).cut(boss_underside)
 
 
+def inlet():
+    """The −Y quick-connect collet the supply tube slips into: (position, outward
+    axis). Flow enters here; the boss arrow points the other way, out the outlet."""
+    return (0.0, -port_length / 2.0, port_center_z), (0.0, -1.0, 0.0)
+
+
+def outlet():
+    """The +Y quick-connect collet — the arrow/flow direction: (position, outward
+    axis)."""
+    return (0.0, port_length / 2.0, port_center_z), (0.0, 1.0, 0.0)
+
+
 def build_spades():
     return [
         cq.Workplane("XY")

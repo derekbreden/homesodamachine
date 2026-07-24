@@ -14,20 +14,20 @@ flowchart LR
   %%   0x20  8 valve outputs (V-A..V-H) on Port A -> TBD62083 #1 -> MANIFOLD A;
   %%         4 reservoir-A reed inputs on Port B[0:3]; PB[4:7] spare.
   %%   0x21  2 valve outputs (V-I/V-J) on Port A[6:7] + condenser fan on PA3
-  %%         -> TBD62083 #2 (ch 1, 2, 5) -> MANIFOLD B; PA[0:2] and PA[4:5]
-  %%         spare; 4 reservoir-B reed inputs on Port B[0:3]; 2 carbonator
-  %%         reeds on PB[4:5]; PB[6:7] spare.
+  %%         + V-K (water-supply fill/shutoff) on PA5 -> TBD62083 #2 (ch 1, 2, 3, 5)
+  %%         -> MANIFOLD B; PA[0:2] and PA4 spare; 4 reservoir-B reed inputs on
+  %%         Port B[0:3]; 2 carbonator reeds on PB[4:5]; PB[6:7] spare.
   %%
-  %%  The board carries 12 valve channels (J1 ×8, J2 ×4); the manifold uses 10.
-  %%  J2.OUT3 / J2.OUT4 — driven from 0x21 PA[5] / PA[4] through U2 ch 3/4 — are
-  %%  fully routed on the PCB but land on no valve. They are spare capacity, not
-  %%  a missing connection.
+  %%  The board carries 12 valve channels (J1 ×8, J2 ×4); the manifold uses 10,
+  %%  and V-K (the water-supply fill/shutoff) takes an 11th: J2.OUT3 — driven from
+  %%  0x21 PA[5] through U2 ch 3. J2.OUT4 (0x21 PA[4], U2 ch 4) remains fully
+  %%  routed but lands on no valve — spare capacity, not a missing connection.
   %%
   %%  Bit order: the board routes each GPA_k to IN_{8−k}, so GPA_k drives channel
   %%  (8-k) — the GPA bit
   %%  order runs OPPOSITE the channel/valve order (0x20 GPA0->V-H .. GPA7->V-A;
-  %%  0x21 GPA7->V-I, GPA6->V-J, GPA3->fan; GPA[0:2] and GPA[4:5] spare). Port B
-  %%  (reeds) is unaffected.
+  %%  0x21 GPA7->V-I, GPA6->V-J, GPA5->V-K, GPA3->fan; GPA[0:2] and GPA4 spare).
+  %%  Port B (reeds) is unaffected.
   %%
   %% Level sensing rides the MCP internal pull-ups (no external resistors):
   %% the 8 reservoir reeds (4 per reservoir × 2) plus the 2 carbonator reeds,
@@ -80,17 +80,17 @@ flowchart LR
     end
   end
 
-  subgraph Expander1["MCP23017 0x21 — 16 GPIO  (6 INPUTS, 3 OUTPUTS, 7 SPARE)"]
+  subgraph Expander1["MCP23017 0x21 — 16 GPIO  (6 INPUTS, 4 OUTPUTS, 6 SPARE)"]
     direction TB
 
-    subgraph PortA1["Port A  (GPA0–7) — OUTPUTS  (2 valves + cond fan + 5 spare)"]
+    subgraph PortA1["Port A  (GPA0–7) — OUTPUTS  (3 valves + cond fan + 4 spare)"]
       direction TB
       A1_GPA0["GPA0  spare"]
       A1_GPA1["GPA1  spare"]
       A1_GPA2["GPA2  spare"]
       A1_GPA3["GPA3 → Cond fan"]
       A1_GPA4["GPA4  spare"]
-      A1_GPA5["GPA5  spare"]
+      A1_GPA5["GPA5 → V-K"]
       A1_GPA6["GPA6 → V-J"]
       A1_GPA7["GPA7 → V-I"]
     end
@@ -127,7 +127,7 @@ flowchart LR
       direction TB
       U2_1["1 → V-I"]
       U2_2["2 → V-J"]
-      U2_3["3  spare (J2.OUT3 wired, no valve)"]
+      U2_3["3 → V-K (J2.OUT3)"]
       U2_4["4  spare (J2.OUT4 wired, no valve)"]
       U2_5["5 → Cond fan"]
       U2_free["6-8  free"]
@@ -154,6 +154,10 @@ flowchart LR
       VH["V-H  Bag B → Pump B"]
       VI["V-I  Pump B → Bag B"]
       VJ["V-J  Pump B → Nozzle B"]
+    end
+
+    subgraph Water_Valves["Water Supply"]
+      VK["V-K  Fill / shutoff (upstream of ASSE 1022)"]
     end
   end
 
@@ -202,6 +206,7 @@ flowchart LR
   %%    PA[4:5] → U2 ch3-4 stay routed on the board but drive nothing.
   A1_GPA7 --> U2_1
   A1_GPA6 --> U2_2
+  A1_GPA5 --> U2_3
 
   %% ── 0x20 Port B[0:3] ← Reservoir A reeds 1-4 ──
   RA1 -->|"INPUT_PULLUP"| A0_GPB0
@@ -232,6 +237,7 @@ flowchart LR
   %% ── U2 → Valves ──
   U2_1 ==> VI
   U2_2 ==> VJ
+  U2_3 ==> VK
 
   %% ── 0x21 PA3 → U2 ch5 (condenser fan low-side switch) ──
   A1_GPA3 --> U2_5
@@ -245,9 +251,7 @@ flowchart LR
   style A1_GPA1 fill:#333,stroke:#555,color:#777
   style A1_GPA2 fill:#333,stroke:#555,color:#777
   style A1_GPA4 fill:#333,stroke:#555,color:#777
-  style A1_GPA5 fill:#333,stroke:#555,color:#777
   style A1_GPB6 fill:#333,stroke:#555,color:#777
   style A1_GPB7 fill:#333,stroke:#555,color:#777
-  style U2_3 fill:#333,stroke:#555,color:#777
   style U2_4 fill:#333,stroke:#555,color:#777
   style U2_free fill:#333,stroke:#555,color:#777
