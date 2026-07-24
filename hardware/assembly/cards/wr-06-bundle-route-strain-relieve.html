@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="wr">
+<div class="card">
+
+<header>
+  <div class="code">WR-06</div>
+  <h1>Bundle, route,<br>strain-relieve</h1>
+  <div class="deckpos"><b>Wiring · 06/6</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Six bundles by zone, black-braided-sleeved or
+    zip-tied — and strain relief at every edge a cable crosses.</p>
+
+    <ol class="steps">
+      <li><b>Shelf → cold core:</b> J4 + J6 + J7 looms, the J11 gas drop,
+        and the pressure-vessel bond — one sleeved bundle along the back
+        wall to the penetrations.</li>
+      <li><b>Shelf → manifold:</b> the J1 + J2 trunks, DC-3, DC-5, and
+        the J8 loom; fan-out at the manifold — DC-8 leaves it alone for
+        the fan.</li>
+      <li><b>Shelf → shroud:</b> the SJOOW lead runs alone — zip-tie
+        tie-downs only; its gland is the strain relief.</li>
+      <li><b>Forward + up:</b> J9 to the front face; J3 + the SS-plate
+        bond ride the umbilical — sleeve shelf-side, separator at the
+        bulkhead.</li>
+      <li><b>Relieve every transition</b> — shelf exit, cold-core,
+        manifold, bulkhead; anchors below the cable.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      PET braided sleeve · zip ties + tensioner · hot-glue gun
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 610" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .blk   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .bnd   { stroke: #1d1d26; stroke-width: 9; fill: none; }
+          .bthin { stroke: #1d1d26; stroke-width: 5; fill: none; }
+          .runid { font: 700 25px Menlo, monospace; fill: #a8352f; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .anch  { fill: #a8352f; }
+        </style>
+        <!-- shelf hub -->
+        <rect class="blk" x="270" y="40" width="220" height="90" rx="12"/>
+        <text class="lbl" x="380" y="80" text-anchor="middle">SHELF</text>
+        <text class="sub" x="380" y="110" text-anchor="middle">five exits</text>
+        <!-- umbilical (upper-left) -->
+        <path class="bnd" d="M 270 62 L 250 62"/>
+        <rect class="blk" x="30" y="24" width="220" height="76" rx="10"/>
+        <text class="lbl" x="140" y="56" text-anchor="middle">UMBILICAL</text>
+        <text class="sub" x="140" y="86" text-anchor="middle">J3 + SS-plate bond</text>
+        <!-- front face (left) -->
+        <path class="bnd" d="M 290 130 L 170 155"/>
+        <rect class="blk" x="30" y="150" width="220" height="76" rx="10"/>
+        <text class="lbl" x="140" y="182" text-anchor="middle">FRONT FACE</text>
+        <text class="sub" x="140" y="212" text-anchor="middle">J9 &#8594; 4.3B display</text>
+        <!-- cold core (down-left) -->
+        <path class="bnd" d="M 330 130 L 200 320"/>
+        <rect class="blk" x="60" y="320" width="290" height="76" rx="10"/>
+        <text class="lbl" x="205" y="352" text-anchor="middle">COLD CORE</text>
+        <text class="sub" x="205" y="382" text-anchor="middle">J4 &#183; J6 &#183; J7 &#183; J11 + PV bond</text>
+        <!-- manifold (down-right) -->
+        <path class="bnd" d="M 430 130 L 540 320"/>
+        <rect class="blk" x="420" y="320" width="300" height="76" rx="10"/>
+        <text class="lbl" x="570" y="352" text-anchor="middle">MANIFOLD</text>
+        <text class="sub" x="570" y="382" text-anchor="middle">J1 &#183; J2 &#183; DC-3 &#183; DC-5 &#183; J8</text>
+        <!-- fan branch off manifold -->
+        <path class="bthin" d="M 570 396 L 570 470 L 660 470"/>
+        <rect class="blk" x="660" y="446" width="80" height="48" rx="10"/>
+        <text class="lbl" x="700" y="478" text-anchor="middle">FAN</text>
+        <text class="runid" x="590" y="452">DC-8</text>
+        <!-- shroud (down) -->
+        <path class="bthin" d="M 380 130 L 380 500"/>
+        <rect class="blk" x="280" y="500" width="200" height="76" rx="10"/>
+        <text class="lbl" x="380" y="532" text-anchor="middle">SHROUD</text>
+        <text class="sub" x="380" y="562" text-anchor="middle">SJOOW &#183; gland = relief</text>
+        <!-- strain-relief anchors -->
+        <circle class="anch" cx="330" cy="136" r="9"/>
+        <circle class="anch" cx="380" cy="136" r="9"/>
+        <circle class="anch" cx="430" cy="136" r="9"/>
+        <circle class="anch" cx="264" cy="62" r="9"/>
+        <circle class="anch" cx="284" cy="132" r="9"/>
+        <circle class="anch" cx="204" cy="314" r="9"/>
+        <circle class="anch" cx="536" cy="314" r="9"/>
+        <text class="sub" x="30" y="600">&#9679; strain relief — existing printed-part features</text>
+      </svg>
+      <div class="cap"><b>Fan-outs happen at the device cluster, never at
+      the board</b> — one COM / GND rides each trunk and explodes in its
+      Wago at the manifold or reservoir.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Every bundle sleeved or tied by zone, every transition relieved — safe to apply 120 VAC, and none has been.</div>
+  <div class="src">wiring.md &#167;6<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

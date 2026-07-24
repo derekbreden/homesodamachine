@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="ab">
+<div class="card">
+
+<header>
+  <div class="code">AB-01</div>
+  <h1>Inspect, connect, power on</h1>
+  <div class="deckpos"><b>Acceptance · 01/6</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">The commissioned chassis meets the bench rig. CO2
+    goes live and must sit silent; <strong>water stays closed; boot is
+    idle</strong> — sensors live, actuators dark.</p>
+
+    <ol class="steps">
+      <li><b>Walk the exterior</b> — FC sign-offs complete: no displaced
+        fittings, no cracks, shroud in place, C14 recess clean, rear
+        bulkheads seated.</li>
+      <li><b>Prove the pumps</b> — Zone C door open, funnel out: both
+        Kamoer heads seated, leads spaded to DC-5. Funnel back, door
+        closed.</li>
+      <li><b>Connect the rig</b> — diagram at right; primary regulator to
+        <span class="dim">90 PSI</span>. The water-side valve stays
+        closed.</li>
+      <li><b>Power on</b> — boot is idle: sensors live (table), actuators
+        dark. Any CO2 hiss at a joint: reseat, re-test before
+        continuing.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Bench rig</span>
+      tap water 40&ndash;80 PSI · CO2 cylinder + CGA-320 · 12 oz glass ·
+      NEMA 5-15P&rarr;C13 cord
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:780px">
+    <div class="panel light">
+      <svg viewBox="0 0 780 330" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .box   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .btx   { font: 700 23px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .dimtx { font: 700 24px Menlo, monospace; fill: #2e8540; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .ln    { stroke: #2e8540; stroke-width: 4; fill: none; }
+        </style>
+        <text class="lbl" x="24" y="40">BENCH RIG &#183; CO2 front &#183; water + power rear</text>
+
+        <!-- appliance -->
+        <rect class="box" x="300" y="80" width="200" height="220"/>
+        <text class="btx" x="400" y="180" text-anchor="middle">APPLIANCE</text>
+        <text class="sub" x="400" y="210" text-anchor="middle">front | rear</text>
+
+        <!-- CO2 side (left / front) -->
+        <rect class="box" x="30" y="90" width="160" height="66"/>
+        <text class="btx" x="110" y="117" text-anchor="middle">CGA-320</text>
+        <text class="dimtx" x="110" y="146" text-anchor="middle">90 PSI</text>
+        <line class="ln" x1="190" y1="123" x2="288" y2="123"/>
+        <path fill="#2e8540" d="M 286 115 L 286 131 L 298 123 Z"/>
+        <text class="sub" x="196" y="106">5/16&Prime; line</text>
+        <circle cx="300" cy="123" r="9" fill="#2e8540"/>
+        <text class="sub" x="30" y="186">DERPIPE bulkhead &#183; collar</text>
+        <text class="sub" x="30" y="212">fully seated &#183; no hiss</text>
+
+        <!-- water side (right / rear) -->
+        <rect class="box" x="600" y="80" width="150" height="66"/>
+        <text class="btx" x="675" y="107" text-anchor="middle">BENCH TAP</text>
+        <text class="dimtx" x="675" y="136" text-anchor="middle">40&ndash;80 PSI</text>
+        <line class="ln" x1="600" y1="113" x2="512" y2="113"/>
+        <path fill="#2e8540" d="M 514 105 L 514 121 L 502 113 Z"/>
+        <circle cx="500" cy="113" r="9" fill="#2e8540"/>
+        <text class="sub" x="756" y="66" text-anchor="end">FFL38BARB38 &#183; hand-tight</text>
+        <!-- closed valve -->
+        <line x1="548" y1="99" x2="576" y2="127" stroke="#c8481d" stroke-width="5"/>
+        <line x1="576" y1="99" x2="548" y2="127" stroke="#c8481d" stroke-width="5"/>
+        <text class="dimtx" x="536" y="188" fill="#c8481d">valve CLOSED</text>
+
+        <!-- vent + power -->
+        <circle cx="500" cy="232" r="9" fill="#2e8540"/>
+        <text class="sub" x="520" y="240">19-0897 vent &rarr; pan</text>
+        <circle cx="500" cy="282" r="9" fill="#1d1d26"/>
+        <text class="sub" x="520" y="290">C14 &larr; C13 cord</text>
+      </svg>
+      <div class="cap"><b>70&ndash;100 PSI primary is the same test</b> —
+      90 PSI is the centerline. Water waits for AB-02.</div>
+    </div>
+
+    <table class="spec" style="margin-top:22px">
+      <tr><th>Boot must read</th><th></th></tr>
+      <tr><td>Both probes</td><td class="v">&plusmn;0.5 &deg;C of ambient</td></tr>
+      <tr><td>MQ-6 &#183; drip pan</td><td class="v">normal &#183; dry</td></tr>
+      <tr><td>Reeds</td><td class="v">carb empty &#183; rsvrs full</td></tr>
+      <tr><td>Actuators</td><td class="v">dark until commanded</td></tr>
+    </table>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Rig joints silent against 90 PSI, water side closed, display all green on boot, no actuator energized, pan dry.</div>
+  <div class="src">acceptance-and-burn-in.md &#167;1&ndash;2<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

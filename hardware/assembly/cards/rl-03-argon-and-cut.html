@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="rl">
+<div class="card">
+
+<header>
+  <div class="code">RL-03</div>
+  <h1>Start argon, cut the loop</h1>
+  <div class="deckpos"><b>Refrigerant loop · 03/8</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede"><strong>Argon first, cuts second.</strong> One
+    continuous low-pressure flow guards the entire loop-open period.</p>
+
+    <div class="safety"><span class="sign">&#9888;</span>
+      <div><b>Vented &ne; empty</b> — R-600a lingers in the oil and low
+      spots. Flowing argon sweeps fuel out ahead of the heat.</div>
+    </div>
+
+    <ol class="steps">
+      <li><b>Rig argon to the BPV31 flare port.</b> Open the valve:
+        <span class="dim">a few PSI</span> — flowing — before anything
+        is cut.</li>
+      <li><b>Cut the suction line close to the evaporator</b> — between
+        evap outlet and compressor inlet.</li>
+      <li><b>Cut the cap tube at its evap-inlet end</b> — drier, cap
+        tube, helix stay untouched, at factory length.</li>
+      <li><b>Strip the finger-plate evap + hot-gas bypass</b> (solenoid,
+        line, tee). Argon spills from both ends.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      Uniweld RHP400 (welder argon cylinder) · flared 1/4&Prime; stub +
+      Joywayus flare nut · charging hose · RIDGID 150 · Mastercool 70025
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:800px">
+    <div class="critical"><span class="sign">&#9940;</span>
+      <div><b>Never break the argon flow</b> — first cut to vacuum-on
+      (RL-06): it is the fuel sweep <i>and</i> the drier's dry blanket.
+      A lapse = saturated desiccant, capillary icing.</div>
+    </div>
+
+    <div class="panel light">
+      <svg viewBox="0 0 800 524" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .gone  { fill: #f3f2ee; stroke: #70707c; stroke-width: 3; stroke-dasharray: 12 8; }
+          .cu    { stroke: #b8722c; stroke-width: 7; fill: none; }
+          .capt  { stroke: #b8722c; stroke-width: 2.5; fill: none; }
+          .byp   { stroke: #70707c; stroke-width: 3; fill: none; stroke-dasharray: 12 8; }
+          .cut   { stroke: #c8481d; stroke-width: 5; }
+          .argon { stroke: #46628a; stroke-width: 3.5; fill: none; }
+          .afill { fill: #46628a; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #c8481d; }
+          .atx   { font: 700 24px Menlo, monospace; fill: #46628a; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .no    { stroke: #70707c; stroke-width: 4; }
+        </style>
+        <text class="lbl" x="24" y="40">LOOP MAP &#183; what stays, what goes, where it opens</text>
+
+        <!-- discharge: compressor -> condenser -->
+        <path class="cu" d="M 110 380 L 110 130 L 172 130"/>
+        <!-- hot-gas bypass (OUT) -->
+        <text class="sub" x="128" y="197">hot-gas bypass + tee &#8212; OUT</text>
+        <path class="byp" d="M 110 210 L 430 210"/>
+        <rect class="gone" x="430" y="192" width="44" height="36" rx="6"/>
+        <line class="no" x1="436" y1="196" x2="468" y2="224"/>
+        <path class="byp" d="M 474 210 L 640 210 L 706 252"/>
+        <!-- condenser -->
+        <rect class="steel" x="172" y="95" width="148" height="70" rx="8"/>
+        <text class="sub" x="246" y="139" text-anchor="middle">condenser</text>
+        <path class="cu" d="M 320 130 L 352 130"/>
+        <!-- drier -->
+        <rect class="steel" x="352" y="108" width="110" height="44" rx="22"/>
+        <text class="sub" x="407" y="138" text-anchor="middle">drier</text>
+        <text class="sub" x="474" y="86">stays in service</text>
+        <line class="no" x1="472" y1="94" x2="440" y2="112" stroke-width="2.5"/>
+        <!-- cap tube: drier -> down -> right -> helix -> evap inlet -->
+        <path class="capt" d="M 462 130 L 480 130 L 480 300 L 560 300"/>
+        <path class="capt" d="M 560 300 a 9 9 0 1 1 14 0 a 9 9 0 1 1 14 0 a 9 9 0 1 1 14 0 L 616 300 L 690 300"/>
+        <text class="sub" x="566" y="278" text-anchor="middle">helix</text>
+        <!-- suction line: evap -> left -> down into compressor -->
+        <path class="cu" d="M 690 340 L 150 340 L 150 382"/>
+        <!-- bonded-pair ties -->
+        <line class="no" x1="500" y1="304" x2="500" y2="336" stroke-width="2.5"/>
+        <line class="no" x1="527" y1="304" x2="527" y2="336" stroke-width="2.5"/>
+        <line class="no" x1="554" y1="304" x2="554" y2="336" stroke-width="2.5"/>
+        <text class="sub" x="170" y="372">bonded pair &#8212; do not separate</text>
+        <!-- evaporator (OUT) -->
+        <rect class="gone" x="690" y="252" width="80" height="100" rx="8"/>
+        <line class="no" x1="698" y1="262" x2="762" y2="342"/>
+        <line class="no" x1="762" y1="262" x2="698" y2="342"/>
+        <text class="sub" x="730" y="382" text-anchor="middle">finger-plate</text>
+        <text class="sub" x="730" y="408" text-anchor="middle">evap &#8212; OUT</text>
+        <!-- CUT 2: cap tube after the helix -->
+        <line class="cut" x1="656" y1="284" x2="672" y2="316"/>
+        <line class="cut" x1="670" y1="284" x2="686" y2="316"/>
+        <text class="dimtx" x="648" y="266" text-anchor="middle">CUT 2</text>
+        <!-- CUT 1: suction close to evap -->
+        <line class="cut" x1="630" y1="324" x2="646" y2="356"/>
+        <line class="cut" x1="644" y1="324" x2="660" y2="356"/>
+        <text class="dimtx" x="612" y="394" text-anchor="end">CUT 1</text>
+        <!-- compressor -->
+        <circle class="steel" cx="130" cy="434" r="55"/>
+        <text class="sub" x="130" y="442" text-anchor="middle">compressor</text>
+        <!-- process tube + BPV31 + argon in -->
+        <path class="cu" d="M 184 458 L 266 458" stroke-width="5"/>
+        <path d="M 266 452 L 288 455 L 288 461 L 266 464 Z" fill="#b8722c" stroke="#1d1d26" stroke-width="2"/>
+        <rect x="214" y="440" width="34" height="36" rx="6" fill="#fff" stroke="#1d1d26" stroke-width="3"/>
+        <text class="dimtx" x="231" y="430" text-anchor="middle" font-size="22">BPV31</text>
+        <path class="argon" d="M 330 508 L 258 480"/>
+        <path class="afill" d="M 250 476 L 276 476 L 264 496 Z"/>
+        <text class="atx" x="344" y="482">ARGON IN &#8212; BPV31</text>
+        <text class="sub" x="344" y="512">a few PSI &#183; flowing &#183; until RL-06</text>
+        <!-- argon flow chevrons -->
+        <path class="argon" d="M 102 268 L 110 252 L 118 268"/>
+        <path class="argon" d="M 472 240 L 480 256 L 488 240"/>
+        <path class="argon" d="M 636 292 L 650 300 L 636 308"/>
+        <path class="argon" d="M 400 332 L 416 340 L 400 348"/>
+        <path class="argon" d="M 560 332 L 576 340 L 560 348"/>
+      </svg>
+      <div class="cap"><b>Ink stays &#183; dashed gray comes out.</b>
+      Argon (blue) enters at the BPV31 and exits both cuts.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Both cuts open with argon flowing out of each; drier + cap tube + helix + bonded pair intact at factory length.</div>
+  <div class="src">refrigerant-loop.md &#167;3 &#183; ice-maker/README.md &#183; regulatory.md<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

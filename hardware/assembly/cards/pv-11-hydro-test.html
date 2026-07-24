@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="pv">
+<div class="card">
+
+<header>
+  <div class="code">PV-11</div>
+  <h1>Hydro test &mdash; 180 PSI,<br>30 minutes</h1>
+  <div class="deckpos"><b>Pressure vessel · 11/14</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">The volumetric proof behind PT's surface screen —
+    <strong>bare vessel, on a bench,</strong> before passivation, before
+    any fitting.</p>
+
+    <ol class="steps">
+      <li><b>Bare vessel only</b> — welded + tapped, nothing else. No
+        PRV, no fittings, no cold core.</li>
+      <li><b>PTFE tape on every 1/4&Prime; NPT:</b> plugs in the unused
+        ports, the SENCTRL gauge on one.</li>
+      <li><b>Pump on via the KOOTANS nipple</b> — 1/2&Prime; end on the
+        hose's swivel gasket, 1/4&Prime; end into a port.</li>
+      <li><b>Pump to <span class="dim">180 PSI</span>, hold
+        <span class="dim">30 min</span>.</b> Working pass position: no
+        visible drop on the gauge, no weep at welds or threads.</li>
+      <li><b>Hunting slow weep?</b> The glycerin gauge supports
+        hour-scale soaks before passivation.</li>
+    </ol>
+
+    <div class="note" style="margin-bottom:20px">
+      Pass criteria + failure handling: <b>open items</b>.
+    </div>
+
+    <div class="tools">
+      <span class="lbl">Rig</span>
+      BEAMNOVA pump · KOOTANS nipple · SENCTRL gauge · plugs
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="settings">
+      <div class="s"><div class="k">Test</div><div class="v">180 PSI</div></div>
+      <div class="s"><div class="k">Hold</div><div class="v">30 min</div></div>
+      <div class="s"><div class="k">Working</div><div class="v">90 PSI <small>~&#189; test</small></div></div>
+      <div class="s"><div class="k">Pump scale</div><div class="v">~25% <small>of 726</small></div></div>
+      <div class="s"><div class="k">Gauge</div><div class="v">90% <small>of 200</small></div></div>
+      <div class="s"><div class="k">Plugs</div><div class="v">1200 PSI <small>rated</small></div></div>
+    </div>
+
+    <div class="panel light" style="margin-top:24px">
+      <svg viewBox="0 0 760 404" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .tool  { fill: #d8dde6; stroke: #1d1d26; stroke-width: 3; }
+          .hose  { stroke: #1d1d26; stroke-width: 5; fill: none; }
+          .dimln { stroke: #46628a; stroke-width: 2.5; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #46628a; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <text class="lbl" x="24" y="38">RIG HOOKUP &#183; schematic</text>
+
+        <!-- vessel with 4 axial ports -->
+        <rect class="steel" x="430" y="90" width="180" height="230" rx="14"/>
+        <line x1="440" y1="116" x2="600" y2="116" stroke="#1d1d26" stroke-width="2"/>
+        <line x1="440" y1="294" x2="600" y2="294" stroke="#1d1d26" stroke-width="2"/>
+        <rect class="tool" x="457" y="48" width="18" height="42"/>
+        <rect class="tool" x="547" y="60" width="18" height="30"/>
+        <rect class="tool" x="457" y="320" width="18" height="30"/>
+        <rect class="tool" x="547" y="320" width="18" height="30"/>
+        <!-- supports -->
+        <rect class="tool" x="448" y="350" width="34" height="22"/>
+        <rect class="tool" x="558" y="350" width="34" height="22"/>
+
+        <!-- pump -->
+        <rect class="tool" x="40" y="60" width="150" height="30"/>
+        <rect class="tool" x="40" y="90" width="150" height="90"/>
+        <line class="hose" x1="180" y1="102" x2="222" y2="56"/>
+        <circle cx="226" cy="52" r="9" fill="#1d1d26"/>
+        <text class="sub" x="40" y="210">BEAMNOVA 0-726 PSI</text>
+        <text class="sub" x="40" y="236">hydrostatic pump</text>
+
+        <!-- hose to nipple on top-left port -->
+        <path class="hose" d="M 190 140 C 300 140 330 47 452 47"/>
+        <rect class="tool" x="452" y="34" width="36" height="14"/>
+        <rect class="tool" x="458" y="20" width="24" height="14"/>
+        <path class="dimln" d="M 452 42 L 420 80 L 386 268" fill="none"/>
+        <text class="dimtx" x="60" y="296">KOOTANS 1/2&Prime;M &#215; 1/4&Prime;M</text>
+        <text class="sub" x="60" y="324">PTFE on the 1/4&Prime; end</text>
+
+        <!-- gauge on the other top port -->
+        <circle cx="556" cy="30" r="26" fill="#ffffff" stroke="#1d1d26" stroke-width="3"/>
+        <line x1="556" y1="30" x2="570" y2="14" stroke="#1d1d26" stroke-width="3"/>
+        <text class="dimtx" x="602" y="24">SENCTRL</text>
+        <text class="sub" x="602" y="52">0-200 glycerin</text>
+        <text class="sub" x="602" y="78">reads 90%</text>
+
+        <!-- plug labels -->
+        <text class="sub" x="520" y="396" text-anchor="middle">ChillWaves plugs — unused ports</text>
+      </svg>
+      <div class="cap"><b>~2&#215; working pressure</b> — 180 reads at
+      ~25% of the pump's scale and 90% of the gauge's, above its 60-75%
+      sweet spot but in range.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>180 PSI held 30 minutes — no visible gauge drop, no weep at welds or threads — cleared for PV-12.</div>
+  <div class="src">pressure-vessel.md &#167;7 &#183; purchases.md &#167;1<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

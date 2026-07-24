@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="es">
+<div class="card">
+
+<header>
+  <div class="code">ES-07</div>
+  <h1>Pre-power continuity<br>+ isolation check</h1>
+  <div class="deckpos"><b>Electronics shelf · 07/7</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Before the shelf leaves the bench: prove every path
+    that must conduct, and every gap that must stay open.</p>
+
+    <div class="safety"><span class="sign">&#9888;</span>
+      <div><b>Unpowered, end to end.</b> First power-on is FC-01, after
+      install (EN-08) + chassis bonds (WR-01).</div>
+    </div>
+
+    <ol class="steps">
+      <li><b>AC continuity:</b> each AC-1 pigtail through its Wago to
+        every named out-leg, long coils included.</li>
+      <li><b>AC isolation:</b> H&#8596;G, N&#8596;G, H&#8596;N — no
+        continuity between buses.</li>
+      <li><b>DC:</b> DC-1 trunk pair through the block to every named
+        branch; J10 <span class="dim">V12</span> must trace to PSU +.</li>
+      <li><b>Ground bus:</b> every ring-terminal pigtail back to the AC-1 G
+        stub.</li>
+      <li><b>J5 loom:</b> seated square, screw terminals tugged.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      multimeter
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <table class="spec">
+      <tr><th>Meter across</th><th>Expect</th></tr>
+      <tr><td>AC-1 H → AC-2 H &#183; AC-3</td><td class="v">&#937;-low</td></tr>
+      <tr><td>AC-1 N → AC-2 N &#183; AC-5 coil</td><td class="v">&#937;-low</td></tr>
+      <tr><td>AC-1 G → AC-2 G &#183; AC-6 &#183; bus rings</td><td class="v">&#937;-low</td></tr>
+      <tr><td>H&#8596;N &#183; H&#8596;G &#183; N&#8596;G buses</td><td class="v">open</td></tr>
+      <tr><td>DC-1 pair → each named branch</td><td class="v">&#937;-low</td></tr>
+      <tr><td>J10 V12 screw → PSU +</td><td class="v">polarity</td></tr>
+      <tr><td>J5 housing + screw terminals</td><td class="v">seated &#183; tugged</td></tr>
+    </table>
+
+    <div class="note" style="margin-top:26px">
+      <b>The flags stay on.</b> AC-1 inlet ends, the AC-4/5/6 coils, and
+      DC-3 leave this bench labeled by run-ID — wiring.md picks them up by
+      those flags (WR-02, WR-04).
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Every row reads as written — the shelf leaves the bench populated, checked, unpowered, MCU unflashed.</div>
+  <div class="src">electronics-shelf.md &#167;7<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="fc">
+<div class="card">
+
+<header>
+  <div class="code">FC-04</div>
+  <h1>Valve + pump self-test</h1>
+  <div class="deckpos"><b>Commissioning · 04/5</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">One command walks every coil and motor —
+    <strong>listen for the release</strong> as much as the click.</p>
+
+    <ol class="steps">
+      <li><b>Trigger the self-test</b> at the monitor prompt — V-A
+        through V-J in turn, then the fan, then both pumps.</li>
+      <li><b>Count 10 distinct clicks</b> — each Beduan coil energizes
+        <span class="dim">~250 ms</span> and releases. A missing release
+        click is a stuck-on coil.</li>
+      <li><b>Hear the fan</b> — a <span class="dim">1 s</span> spin-up of
+        the 12 V axial on the side wall, then coast-down.</li>
+      <li><b>Watch both heads turn</b> — Pump A forward
+        <span class="dim">~1 s</span>, then Pump B; silicone heads dry,
+        no flavor loaded yet.</li>
+      <li><b>Any failure</b> is loom wiring, a device fault, or a board
+        fault — resolve and re-run before FC-05.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Bench</span>
+      serial console — no other tooling; the chassis is the fixture
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:780px">
+    <div class="panel light">
+      <svg viewBox="0 0 780 250" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .dimtx { font: 700 24px Menlo, monospace; fill: #5b6acb; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .pulse { stroke: #5b6acb; stroke-width: 4; fill: none; }
+          .blk   { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .btx   { font: 700 23px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+        </style>
+        <text class="lbl" x="24" y="40">SELF-TEST SEQUENCE &#183; one command, in order</text>
+        <!-- time axis -->
+        <line x1="24" y1="150" x2="748" y2="150" stroke="#1d1d26" stroke-width="3"/>
+        <path fill="#1d1d26" d="M 744 142 L 744 158 L 758 150 Z"/>
+        <!-- 10 valve pulses -->
+        <path class="pulse" d="M 40 150 L 40 110 L 54 110 L 54 150"/>
+        <path class="pulse" d="M 71 150 L 71 110 L 85 110 L 85 150"/>
+        <path class="pulse" d="M 102 150 L 102 110 L 116 110 L 116 150"/>
+        <path class="pulse" d="M 133 150 L 133 110 L 147 110 L 147 150"/>
+        <path class="pulse" d="M 164 150 L 164 110 L 178 110 L 178 150"/>
+        <path class="pulse" d="M 195 150 L 195 110 L 209 110 L 209 150"/>
+        <path class="pulse" d="M 226 150 L 226 110 L 240 110 L 240 150"/>
+        <path class="pulse" d="M 257 150 L 257 110 L 271 110 L 271 150"/>
+        <path class="pulse" d="M 288 150 L 288 110 L 302 110 L 302 150"/>
+        <path class="pulse" d="M 319 150 L 319 110 L 333 110 L 333 150"/>
+        <text class="btx" x="186" y="92" text-anchor="middle">V-A &#8230; V-J</text>
+        <text class="dimtx" x="186" y="196" text-anchor="middle">10 &times; ~250 ms</text>
+        <!-- fan block -->
+        <rect class="blk" x="392" y="110" width="86" height="40"/>
+        <text class="btx" x="435" y="138" text-anchor="middle">FAN</text>
+        <text class="dimtx" x="435" y="196" text-anchor="middle">1 s</text>
+        <!-- pump blocks -->
+        <rect class="blk" x="524" y="110" width="86" height="40"/>
+        <text class="btx" x="567" y="138" text-anchor="middle">P-A</text>
+        <text class="dimtx" x="567" y="196" text-anchor="middle">~1 s</text>
+        <rect class="blk" x="648" y="110" width="86" height="40"/>
+        <text class="btx" x="691" y="138" text-anchor="middle">P-B</text>
+        <text class="dimtx" x="691" y="196" text-anchor="middle">~1 s</text>
+      </svg>
+      <div class="cap"><b>Click, then release.</b> A coil with no release
+      click is stuck on — stop and trace it before moving down the
+      sequence.</div>
+    </div>
+
+    <table class="spec" style="margin-top:24px">
+      <tr><th>Channel</th><th>Drive</th><th>Expect</th></tr>
+      <tr><td>Solenoids &times;8</td><td class="v">0x20 PA &rarr; U4</td>
+        <td>click + release</td></tr>
+      <tr><td>Solenoids &times;2</td><td class="v">0x21 PA[6:7] &rarr; U5</td>
+        <td>click + release</td></tr>
+      <tr><td>Condenser fan</td><td class="v">0x21 PA3 &rarr; U5 ch5</td>
+        <td>spin-up, coast</td></tr>
+      <tr><td>Pumps A &#183; B</td><td class="v">DRV8870 &#183; J13</td>
+        <td>heads turn, dry</td></tr>
+    </table>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>10 clicks with 10 releases, fan up and coasted down, both pump heads turned — nothing stuck, nothing silent.</div>
+  <div class="src">firmware-and-commissioning.md &#167;7 &#183; valve-control.mmd<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

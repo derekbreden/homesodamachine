@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="fc">
+<div class="card">
+
+<header>
+  <div class="code">FC-05</div>
+  <h1>Compressor smoke test<br>+ setpoints</h1>
+  <div class="deckpos"><b>Commissioning · 05/5</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">One dry minute, three proofs — relay #1 makes the
+    leg, draw at nameplate, <strong>DS18S20 on the suction line.</strong></p>
+
+    <div class="safety"><span class="sign">&#9888;</span>
+      <div><b>The only step that energizes AC.</b> Carbonator empty — no
+      water, no CO2; run <b>30&ndash;60 s</b>, then command off.</div>
+    </div>
+
+    <ol class="steps">
+      <li><b>Command the override.</b> The <span class="dim">3-min</span>
+        guard drops for this command only; the U15 gas interlock passes
+        GPIO 19 while the MQ-6 reads clear (FC-03).</li>
+      <li><b>Watch in order — table at right.</b> Clip-on overload opens:
+        kill the override, back to refrigerant-loop.</li>
+      <li><b>Off at 30&ndash;60 s</b> — suction warms back toward
+        ambient; the 3-minute guard re-arms.</li>
+      <li><b>Query setpoints + archive</b> — plate confirmed, backflow
+        armed; snapshot FC-03&rarr;FC-05 serial per serial.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Bench</span>
+      serial console · inline PSU meter · clamp meter on run AC-4
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:780px">
+    <div class="settings">
+      <div class="s"><div class="k">Tank target</div><div class="v">2 &deg;C</div></div>
+      <div class="s"><div class="k">Hysteresis</div><div class="v">&plusmn;2 &deg;C</div></div>
+      <div class="s"><div class="k">Comp on / off</div><div class="v">4 / 2 &deg;C</div></div>
+      <div class="s"><div class="k">Freeze cutoff</div><div class="v">&minus;8 &deg;C</div></div>
+      <div class="s"><div class="k">Min off-time</div><div class="v">3 min</div></div>
+      <div class="s"><div class="k">Refill</div><div class="v">low reed</div></div>
+    </div>
+
+    <table class="spec" style="margin-top:22px">
+      <tr><th>Watch, in order</th><th>Expect</th></tr>
+      <tr><td>1 &#183; PSU meter</td><td>+~70 mA relay coil on the 5 V rail</td></tr>
+      <tr><td>2 &#183; Compressor</td><td>PTC start click, motor spin-up</td></tr>
+      <tr><td>3 &#183; AC draw</td><td>couple of A RMS &#183; within nameplate</td></tr>
+      <tr><td>4 &#183; Suction DS18S20</td><td>a few &deg;C down in a couple of minutes</td></tr>
+    </table>
+
+    <div class="note" style="margin-top:22px">
+      <b>Per-serial log captures:</b> build ID, I&sup2;C ACKs, probe
+      addresses + first temps, 10 reed baselines, flow pulses, MPR121,
+      MQ-6 + pan baselines, valve pass/fail, suction &Delta;T. Home for
+      the file is an Open item — keep it local on the build host.
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Relay #1 made the leg, draw at nameplate, suction cooled a few degrees and re-armed — defaults confirmed, log archived. On to water + CO2.</div>
+  <div class="src">firmware-and-commissioning.md &#167;8&ndash;10<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

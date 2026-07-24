@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="cc">
+<div class="card">
+
+<header>
+  <div class="code">CC-06</div>
+  <h1>Build the reed columns</h1>
+  <div class="deckpos"><b>Cold core · 06/15</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Each reservoir's level gauge is <strong>four reed
+    switches outside the syrup</strong>, soldered into one stiff column
+    that drops into the shell's channel. The float's magnet (CC-07) does
+    the rest. Build two — A and B.</p>
+
+    <ol class="steps">
+      <li><b>Cut the spine:</b> <span class="dim">5 &#215; 22 AWG</span>
+        black silicone conductors — 4 reed signals + 1 shared common —
+        running the length of the column past all four reeds.</li>
+      <li><b>Solder each reed in at ~45 mm pitch</b> — one lead to its
+        signal conductor, the other to the shared common. Reed&nbsp;1
+        sits low.</li>
+      <li><b>Lace it</b> — heat-shrink between reeds — into one
+        pre-assembled column, stiff enough to drop in as a piece.</li>
+      <li><b>Prove every reed with the donor magnet:</b> closed
+        (signal&nbsp;&#8596;&nbsp;common) with the magnet alongside,
+        open with it away.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Stock + tools</span>
+      Gebildet reeds B0CW9418F6 &#183; 22 AWG silicone &#183; heat-shrink
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 440" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .petg  { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .glass { fill: #fff; stroke: #1d1d26; stroke-width: 3; }
+          .wire  { stroke: #1d1d26; stroke-width: 5; fill: none; }
+          .shrink{ fill: #0f8bab; }
+          .dimln { stroke: #0f8bab; stroke-width: 2.5; fill: none; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #0f8bab; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <text class="lbl" x="24" y="38">THE COLUMN</text>
+        <text class="lbl" x="470" y="38">CHANNEL &#183; end-on</text>
+        <!-- column: bundle + reeds (top = reed 4) -->
+        <g transform="translate(130,96)">
+          <path class="wire" d="M 0 0 L 0 300"/>
+          <path class="wire" d="M 10 0 L 10 300"/>
+          <path class="wire" d="M -10 0 L -10 300"/>
+          <g id="reed">
+            <rect class="glass" x="18" y="-12" width="64" height="24" rx="12"/>
+            <line class="wire" x1="18" y1="0" x2="0" y2="0"/>
+          </g>
+          <use href="#reed" y="0"/>
+          <use href="#reed" y="88"/>
+          <use href="#reed" y="176"/>
+          <use href="#reed" y="264"/>
+          <rect class="shrink" x="-16" y="38" width="32" height="16" rx="6"/>
+          <rect class="shrink" x="-16" y="126" width="32" height="16" rx="6"/>
+          <rect class="shrink" x="-16" y="214" width="32" height="16" rx="6"/>
+          <!-- pitch dim -->
+          <line class="dimln" x1="130" y1="0" x2="130" y2="88"/>
+          <line class="dimln" x1="118" y1="0" x2="142" y2="0"/>
+          <line class="dimln" x1="118" y1="88" x2="142" y2="88"/>
+          <text class="dimtx" x="152" y="52">~45 pitch</text>
+          <text class="sub" x="96" y="-26">reed 4 &#8212; FULL</text>
+          <text class="sub" x="96" y="296">reed 1 &#8212; LOW</text>
+          <!-- tail -->
+          <path class="wire" d="M 0 300 Q 0 330 34 330 L 96 330"/>
+          <text class="sub" x="110" y="338">5-wire tail &#8594; J6 / J7</text>
+        </g>
+        <!-- channel cross-section (U open toward the pocket) -->
+        <g transform="translate(500,96)">
+          <rect class="petg" x="0" y="0" width="172" height="14"/>
+          <rect class="petg" x="0" y="0" width="14" height="104"/>
+          <rect class="petg" x="158" y="0" width="14" height="104"/>
+          <rect class="petg" x="-34" y="90" width="44" height="14"/>
+          <rect class="petg" x="162" y="90" width="44" height="14"/>
+          <rect class="glass" x="44" y="36" width="84" height="34" rx="16"/>
+          <text class="dimtx" x="86" y="150" text-anchor="middle">8 wide &#215; 6 deep</text>
+          <text class="sub" x="86" y="200" text-anchor="middle">open on its back face &#8212;</text>
+          <text class="sub" x="86" y="228" text-anchor="middle">short magnet path</text>
+          <text class="sub" x="86" y="276" text-anchor="middle">drops in from the open</text>
+          <text class="sub" x="86" y="304" text-anchor="middle">top; shelf below, cap</text>
+          <text class="sub" x="86" y="332" text-anchor="middle">above traps it (CC-15)</text>
+        </g>
+      </svg>
+    </div>
+
+    <table class="spec" style="margin-top:20px">
+      <tr><td>Reeds &#215; pitch</td><td class="v">4 &#215; ~45 mm</td></tr>
+      <tr><td>Spine</td><td class="v">5 &#215; 22 AWG &#183; 4 sig + 1 com</td></tr>
+      <tr><td>Lands at</td><td class="v">MCP23017 0x20/0x21 PB[0:3]</td></tr>
+      <tr><td>Drives</td><td class="v">5-state gauge &#183; ~13 servings/step</td></tr>
+    </table>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Two laced columns, four proven reeds each — stiff enough to drop into the channel as one piece.</div>
+  <div class="src">level-sensing.md &#183; wiring.md &#167;5<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

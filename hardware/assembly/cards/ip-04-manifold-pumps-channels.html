@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="ip">
+<div class="card">
+
+<header>
+  <div class="code">IP-04</div>
+  <h1>Flavor manifold<br>— pumps and channels</h1>
+  <div class="deckpos"><b>Internal plumbing · 04/6</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede"><strong>Build outward from the two pump
+    rosettes;</strong> the shared upstream goes in last. Channel B mirrors
+    channel A junction-for-junction.</p>
+
+    <ol class="steps">
+      <li><b>Rosettes first:</b> push segment <span class="dim">11</span>
+        into the channel-A pump's inlet PTC — <span class="dim">21</span>
+        for channel B.</li>
+      <li><b>Back: Y&#8209;C &rarr; V&#8209;C + V&#8209;E. Forward:
+        Y&#8209;D + Y&#8209;E + V&#8209;F + V&#8209;G</b> — B mirrors,
+        map at right.</li>
+      <li><b>Shared upstream last:</b> tap-point branch &rarr; flow
+        regulator &rarr; V-A (segment <span class="dim">1</span>); funnel
+        bottom &rarr; V-B.</li>
+      <li><b>LLDPE through each pump's BPT barbs,</b> around the rotor,
+        zip-tied tight; crimp female fastons onto DC-5 for the motor
+        spades — WR lands them.</li>
+      <li><b>Land the manifold</b> above the compressor, below the
+        cold-core +Y face — runs in the printed channels, zip-tied at
+        every pinch-point.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      Mudder cutter · faston crimper · zip ties · tagged segments (IP-03)
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 336" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .valve { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .tee   { fill: #ffffff; stroke: #b8722c; stroke-width: 3.5; }
+          .pump  { fill: #dfe3e9; stroke: #1d1d26; stroke-width: 3; }
+          .edge  { stroke: #1d1d26; stroke-width: 2.5; fill: none; }
+          .ghost { stroke: #9aa0aa; stroke-width: 2.5; fill: none; stroke-dasharray: 8 7; }
+          .seg   { font: 700 24px Menlo, monospace; fill: #2268c2; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .node  { font: 700 24px Menlo, monospace; fill: #1d1d26; }
+          .sub   { font: 400 21px "Helvetica Neue", sans-serif; fill: #70707c; }
+        </style>
+        <text class="lbl" x="24" y="38">CHANNEL A &#183; build outward from the pump</text>
+
+        <!-- feed stub into V-C -->
+        <path class="ghost" d="M 12 96 L 40 96"/>
+        <text class="sub" x="8" y="72">7 &#183; from Y-B</text>
+
+        <!-- top row -->
+        <rect class="valve" x="40" y="74" width="70" height="44" rx="7"/>
+        <text class="node" x="75" y="104" text-anchor="middle">V-C</text>
+        <path class="edge" d="M 110 96 L 183 96"/>
+        <text class="seg" x="146" y="84" text-anchor="middle">9</text>
+        <circle class="tee" cx="215" cy="96" r="30"/>
+        <text class="node" x="215" y="105" text-anchor="middle">Y-C</text>
+        <path class="edge" d="M 245 96 L 290 96"/>
+        <text class="seg" x="268" y="84" text-anchor="middle">11</text>
+        <rect class="pump" x="290" y="68" width="120" height="56" rx="10"/>
+        <text class="node" x="350" y="104" text-anchor="middle">PUMP</text>
+        <path class="edge" d="M 410 96 L 458 96"/>
+        <text class="seg" x="434" y="84" text-anchor="middle">12</text>
+        <circle class="tee" cx="490" cy="96" r="30"/>
+        <text class="node" x="490" y="105" text-anchor="middle">Y-D</text>
+        <path class="edge" d="M 520 96 L 558 96"/>
+        <text class="seg" x="539" y="84" text-anchor="middle">17</text>
+        <rect class="valve" x="558" y="74" width="70" height="44" rx="7"/>
+        <text class="node" x="593" y="104" text-anchor="middle">V-G</text>
+        <path class="edge" d="M 628 96 L 680 96"/>
+        <path fill="#1d1d26" d="M 692 96 L 672 86 L 672 106 Z"/>
+        <text class="seg" x="655" y="84" text-anchor="middle">18</text>
+        <text class="lbl" x="626" y="146">NOZZLE A</text>
+
+        <!-- diagonals -->
+        <path class="edge" d="M 187 218 L 208 128"/>
+        <text class="seg" x="172" y="180">10</text>
+        <path class="edge" d="M 497 128 L 583 216"/>
+        <text class="seg" x="553" y="180">13</text>
+
+        <!-- bottom row -->
+        <rect class="valve" x="140" y="218" width="70" height="44" rx="7"/>
+        <text class="node" x="175" y="248" text-anchor="middle">V-E</text>
+        <path class="edge" d="M 372 240 L 222 240"/>
+        <path fill="#1d1d26" d="M 212 240 L 232 230 L 232 250 Z"/>
+        <text class="seg" x="294" y="228" text-anchor="middle">16</text>
+        <circle class="tee" cx="402" cy="240" r="30"/>
+        <text class="node" x="402" y="249" text-anchor="middle">Y-E</text>
+        <path class="edge" d="M 548 240 L 444 240"/>
+        <path fill="#1d1d26" d="M 434 240 L 454 230 L 454 250 Z"/>
+        <text class="seg" x="496" y="228" text-anchor="middle">14</text>
+        <rect class="valve" x="548" y="218" width="70" height="44" rx="7"/>
+        <text class="node" x="583" y="248" text-anchor="middle">V-F</text>
+        <path class="edge" d="M 402 270 L 402 300"/>
+        <text class="seg" x="388" y="296" text-anchor="end">15</text>
+        <text class="lbl" x="420" y="306">BAG A</text>
+
+        <text class="sub" x="24" y="326">Channel B mirrors — segments 19&ndash;28 &#8594; Nozzle B</text>
+      </svg>
+      <div class="cap"><b>Segment numbers from the topology tables;</b>
+      pump mount TBD — tool-free swap beneath the funnel.</div>
+    </div>
+
+    <div class="panel" style="margin-top:22px">
+      <img src="img/tap-point.png" alt="">
+      <div class="cap"><b>Tap point</b> — MTB-0606WP in the 3/8&Prime;
+      hose; branch PP451223W &rarr; PP061208W &rarr; LLDPE &rarr;
+      regulator &rarr; V-A.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Both channels closed to the truth table, tap + funnel feeds landed, pumps threaded — leads loose for WR.</div>
+  <div class="src">internal-plumbing.md &#167;3 &#183; fluid-topology.md<br>tap_point_assembly.py &#183; rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

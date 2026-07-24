@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="wr">
+<div class="card">
+
+<header>
+  <div class="code">WR-03</div>
+  <h1>Dielectric + continuity<br>check, AC side</h1>
+  <div class="deckpos"><b>Wiring · 03/6</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">The gate between the AC build and the first DC
+    conductor: what must conduct does, what must not stays open.</p>
+
+    <div class="safety"><span class="sign">&#9888;</span>
+      <div><b>C14 off line, multimeter only.</b> Any fail — find and fix
+      before WR-04.</div>
+    </div>
+
+    <ol class="steps">
+      <li><b>Earth end-to-end:</b> C14 earth pin to every chassis-ground
+        target from WR-01.</li>
+      <li><b>H/N through-paths:</b> C14 hot → block H · C14 neutral →
+        block N · block H → relay #1 COM.</li>
+      <li><b>Jumper the relay closed</b> (across the input opto): block H
+        reads through to the compressor hot spade.</li>
+      <li><b>H&#8596;N open, relay open.</b> Closed it reads the
+        winding — <span class="dim">~10–30 &#937;</span> for a
+        <span class="dim">100 W</span> hermetic.</li>
+      <li><b>Leakage:</b> every current-carrying conductor to every
+        ground target — open, no exceptions.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      multimeter · opto-input jumper · donor compressor nameplate
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <table class="spec">
+      <tr><th>Meter across</th><th>Expect</th></tr>
+      <tr><td>C14 earth → each ground target</td><td class="v">&#937;-low</td></tr>
+      <tr><td>C14 H → block H &#183; C14 N → block N</td><td class="v">&#937;-low</td></tr>
+      <tr><td>block H → relay #1 COM</td><td class="v">&#937;-low</td></tr>
+      <tr><td>block H → compressor spade &#183; closed</td><td class="v">&#937;-low</td></tr>
+      <tr><td>block H &#8596; N &#183; relay open</td><td class="v">open</td></tr>
+      <tr><td>block H &#8596; N &#183; relay closed</td><td class="v">~10–30 &#937;</td></tr>
+      <tr><td>C14 H &#8596; C14 N &#183; relay open</td><td class="v">open</td></tr>
+      <tr><td>any AC conductor &#8596; any ground</td><td class="v">open</td></tr>
+    </table>
+
+    <div class="note" style="margin-top:26px">
+      <b>The winding row is a pass, not a short</b> — with relay #1 closed
+      the compressor's motor windings are in circuit; match the reading to
+      the donor's nameplate.
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Every row reads as written — the AC side is continuous where named, open everywhere else. DC may land (WR-04).</div>
+  <div class="src">wiring.md &#167;3<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

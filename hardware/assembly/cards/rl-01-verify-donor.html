@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="rl">
+<div class="card">
+
+<header>
+  <div class="code">RL-01</div>
+  <h1>Verify the donor<br>+ factory charge</h1>
+  <div class="deckpos"><b>Refrigerant loop · 01/8</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">One label decides the whole session: the donor must run
+    <strong>R-600a</strong>, and its printed factory charge is the number the
+    recharge target builds from (RL-07).</p>
+
+    <ol class="steps">
+      <li><b>Read the back-panel rating label</b> — refrigerant type and
+        charge mass. The type must be R-600a.</li>
+      <li><b>Record the factory charge:</b> <span class="dim">15 g</span>
+        Unit A · <span class="dim">23 g</span> Unit B, both per
+        manufacturer manual.</li>
+      <li><b>Ignore the compressor casting.</b>
+        <span class="dim">48.5-2</span> and <span class="dim">45</span> are
+        body cast-stamps — capacity-index codes, not charge masses.</li>
+      <li><b>Any HFC = full stop.</b> R-134a, R-410a: Section 608
+        certification to vent, and the cold-core architecture changes —
+        this procedure does not apply.</li>
+    </ol>
+
+    <div class="tools">
+      <span class="lbl">Donors</span>
+      Generic B0F42MT8JX (Unit A) · Frigidaire EFIC117-SS B07PCZKG94
+      (Unit B) — both verified topology
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 434" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .plate { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .row   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .val   { font: 700 25px Menlo, monospace; fill: #1d1d26; }
+          .hot   { font: 700 26px Menlo, monospace; fill: #c8481d; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .ring  { fill: none; stroke: #c8481d; stroke-width: 4; }
+          .no    { stroke: #70707c; stroke-width: 4; }
+        </style>
+        <text class="lbl" x="24" y="40">READ THIS &#8212; rating label</text>
+        <!-- rating label plate -->
+        <g transform="translate(24,60)">
+          <rect class="plate" x="0" y="0" width="400" height="280" rx="10"/>
+          <text class="row" x="24" y="46">MODEL</text>
+          <text class="val" x="180" y="46">HZB-12/Q</text>
+          <text class="row" x="24" y="92">POWER</text>
+          <text class="val" x="180" y="92">115 V ~ 60 Hz</text>
+          <rect class="ring" x="12" y="116" width="376" height="66" rx="8"/>
+          <text class="row" x="24" y="146">REFRIGERANT</text>
+          <text class="hot" x="180" y="146">R600a</text>
+          <text class="row" x="24" y="172">CHARGE</text>
+          <text class="hot" x="180" y="172">15 g</text>
+          <text class="row" x="24" y="226">REFR. must read R600a &#8212;</text>
+          <text class="row" x="24" y="254">anything else: stop.</text>
+        </g>
+        <!-- compressor stamp -->
+        <text class="lbl" x="470" y="40">NOT THIS &#8212; body stamp</text>
+        <g transform="translate(470,60)">
+          <path class="plate" d="M 0 90 Q 0 10 133 10 Q 266 10 266 90 L 266 230 Q 266 280 216 280 L 50 280 Q 0 280 0 230 Z"/>
+          <text class="val" x="133" y="140" text-anchor="middle" font-size="34">48.5-2</text>
+          <line class="no" x1="70" y1="118" x2="196" y2="150"/>
+          <text class="sub" x="133" y="196" text-anchor="middle">cast into the housing</text>
+          <text class="sub" x="133" y="224" text-anchor="middle">&#8212; not a charge mass</text>
+        </g>
+        <text class="sub" x="24" y="404">the mass on the label is the RL-07 baseline &#8212; write it down</text>
+      </svg>
+    </div>
+
+    <table class="spec" style="margin-top:24px">
+      <tr><th>Donor</th><th>Compressor</th><th>Stamp</th><th>Charge</th></tr>
+      <tr><td>A · Antarctic Star HZB-12/Q</td><td class="v">HD48Y11A</td><td class="v">48.5-2</td><td class="v">15 g</td></tr>
+      <tr><td>B · Frigidaire EFIC117-SS</td><td class="v">BLC48AD</td><td class="v">45</td><td class="v">23 g</td></tr>
+    </table>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Label reads R-600a, charge mass recorded — 15&nbsp;g (A) / 23&nbsp;g (B). Any HFC donor: stop, this deck does not apply.</div>
+  <div class="src">refrigerant-loop.md &#167;1 &#183; ice-maker/README.md<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

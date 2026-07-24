@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="pv">
+<div class="card">
+
+<header>
+  <div class="code">PV-10</div>
+  <h1>Dye-penetrant inspection<br>of the closure welds</h1>
+  <div class="deckpos"><b>Pressure vessel · 10/14</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">Dye wicks into whatever breaks the surface —
+    developer pulls it back out <strong>red on white</strong>, localized,
+    which hydro can't.</p>
+
+    <ol class="steps">
+      <li><b>Clean + dry both closure welds</b> — IPA on a lint-free
+        wipe, flash off. PT runs before any water touches them.</li>
+      <li><b>Penetrant on both rim fillets</b> + the port-weld areas.
+        Dwell <span class="dim">~10 min</span> to wick in.</li>
+      <li><b>Wipe the excess: dry wipe first,</b> then one lightly
+        IPA-damp. Never spray solvent at the part — flooding flushes dye
+        out of fine defects.</li>
+      <li><b>Mist a thin coat of developer.</b> Read within
+        <span class="dim">~10 min</span> — key at right. Any indication:
+        clean, re-weld the spot, re-PT.</li>
+    </ol>
+
+    <div class="note" style="margin-bottom:20px">
+      Accept/reject limits for an indication are an <b>open item</b>.
+    </div>
+
+    <div class="tools">
+      <span class="lbl">Materials</span>
+      Cantesco P101S-A penetrant · D101-A developer · IPA · lint-free
+      wipes
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 580" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .box   { fill: #f4f2ec; stroke: #d9d5cb; stroke-width: 3; }
+          .boxr  { fill: #f8e3e0; stroke: #d9d5cb; stroke-width: 3; }
+          .patch { fill: #ffffff; stroke: #d9d5cb; stroke-width: 3; }
+          .bead  { fill: #e3e6ea; }
+          .red   { stroke: #c73a2e; stroke-width: 5; fill: none; }
+          .k     { font: 700 21px Menlo, monospace; fill: #46628a; letter-spacing: 1px; }
+          .t     { font: 400 22px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .redlbl{ font: 700 25px Menlo, monospace; fill: #c73a2e; }
+          .inklbl{ font: 700 25px Menlo, monospace; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .arrow { fill: #9a9ab0; }
+        </style>
+        <text class="lbl" x="24" y="38">THE PASS &#183; then READ THE DEVELOPER</text>
+
+        <!-- timeline -->
+        <rect class="box" x="24" y="64" width="160" height="100" rx="10"/>
+        <text class="k" x="44" y="98">1 CLEAN</text>
+        <text class="t" x="44" y="126">IPA wipe,</text>
+        <text class="t" x="44" y="152">flash dry</text>
+        <path class="arrow" d="M 190 108 L 204 114 L 190 120 Z"/>
+        <rect class="boxr" x="210" y="64" width="160" height="100" rx="10"/>
+        <text class="k" x="230" y="98">2 PENETRANT</text>
+        <text class="t" x="230" y="126">P101S-A</text>
+        <text class="t" x="230" y="152">dwell ~10 min</text>
+        <path class="arrow" d="M 376 108 L 390 114 L 376 120 Z"/>
+        <rect class="box" x="396" y="64" width="160" height="100" rx="10"/>
+        <text class="k" x="416" y="98">3 WIPE</text>
+        <text class="t" x="416" y="126">dry first, then</text>
+        <text class="t" x="416" y="152">IPA-damp</text>
+        <path class="arrow" d="M 562 108 L 576 114 L 562 120 Z"/>
+        <rect class="box" x="582" y="64" width="154" height="100" rx="10"/>
+        <text class="k" x="600" y="98">4 DEVELOP</text>
+        <text class="t" x="600" y="126">D101-A mist,</text>
+        <text class="t" x="600" y="152">read &le;10 min</text>
+
+        <!-- read key: three developed patches -->
+        <g transform="translate(24,210)">
+          <rect class="patch" width="220" height="150"/>
+          <path class="bead" d="M 0 76 L 220 48 L 220 84 L 0 112 Z"/>
+          <path class="red" d="M 12 102 Q 60 92 104 92 Q 160 88 208 78"/>
+          <text class="redlbl" x="0" y="196">RED LINE</text>
+          <text class="sub" x="0" y="224">crack / lack-of-fusion —</text>
+          <text class="sub" x="0" y="250">watch the fillet toe +</text>
+          <text class="sub" x="0" y="276">the rim slip-gap line</text>
+        </g>
+        <g transform="translate(270,210)">
+          <rect class="patch" width="220" height="150"/>
+          <path class="bead" d="M 0 76 L 220 48 L 220 84 L 0 112 Z"/>
+          <circle cx="60" cy="96" r="7" fill="#c73a2e"/>
+          <circle cx="118" cy="86" r="5" fill="#c73a2e"/>
+          <circle cx="92" cy="104" r="4" fill="#c73a2e"/>
+          <circle cx="170" cy="80" r="6" fill="#c73a2e"/>
+          <text class="redlbl" x="0" y="196">RED DOTS</text>
+          <text class="sub" x="0" y="224">porosity / pinholes</text>
+        </g>
+        <g transform="translate(516,210)">
+          <rect class="patch" width="220" height="150"/>
+          <path class="bead" d="M 0 76 L 220 48 L 220 84 L 0 112 Z"/>
+          <text class="inklbl" x="0" y="196">CLEAN WHITE</text>
+          <text class="sub" x="0" y="224">sound — move on</text>
+        </g>
+
+        <text class="sub" x="380" y="540" text-anchor="middle">red anywhere &#8594; clean, re-weld that spot, re-PT before hydro</text>
+      </svg>
+      <div class="cap"><b>Solvent-removable visible dye</b> — standard
+      grade is fine; the water rinse + citric soak (PV-12) strips any
+      sulfur/chloride residue.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Clean white on both closure welds — no lines, no dots — and all chemicals wiped off before hydro.</div>
+  <div class="src">pressure-vessel.md &#167;6<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>

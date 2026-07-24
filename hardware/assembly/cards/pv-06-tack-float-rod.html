@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="pv">
+<div class="card">
+
+<header>
+  <div class="code">PV-06</div>
+  <h1>Tack-weld the float rod<br>to the bottom plate</h1>
+  <div class="deckpos"><b>Pressure vessel · 06/14</b>Kitchen edition</div>
+</header>
+
+<main>
+  <div class="col" style="flex:1">
+    <p class="lede">The register (PV-03) does the locating: the rod
+    stands square on the donut-wall axis — <strong>the tack freezes what
+    the pocket fixed.</strong></p>
+
+    <ol class="steps">
+      <li><b>Seat the rod in the register.</b> The
+        <span class="dim">9/64&Prime;</span> pocket is a snug slip on the
+        1/8&Prime; rod — self-locates the base, holds it square.</li>
+      <li><b>Tack it vertical at the base</b> — on the inside face, the
+        side that will face into the vessel.</li>
+      <li><b>Same welding session as the plate welds</b> (PV-08, PV-09)
+        — heat the welder once. Settings per PV-08.</li>
+      <li><b>Respect the length.</b> At closure the tip enters the top
+        register <i>without</i> bottoming — the rod locates the plate,
+        never holds the fillet root open (PV-09).</li>
+    </ol>
+
+    <div class="note" style="margin-bottom:22px">
+      <b>131.1 mm</b> = tube 152.4 &minus; both 1/4&Prime; recesses
+      &minus; both 1/4&Prime; plates + both 0.10&Prime; registers &minus;
+      1 mm clearance (_pressure_vessel_sync.py).
+    </div>
+
+    <div class="tools">
+      <span class="lbl">Tools</span>
+      X1 Pro (settings per PV-08) · argon · rod from PV-05 · plate from
+      PV-04
+    </div>
+  </div>
+
+  <div class="col" style="flex:none; width:760px">
+    <div class="panel light">
+      <svg viewBox="0 0 760 660" xmlns="http://www.w3.org/2000/svg">
+        <style>
+          .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3; }
+          .ghost { fill: #f8f9fb; stroke: #9a9ab0; stroke-width: 2.5; stroke-dasharray: 12 9; }
+          .rod   { fill: #9aa7b8; stroke: #1d1d26; stroke-width: 2.5; }
+          .weld  { fill: #f0b429; stroke: #1d1d26; stroke-width: 2.5; }
+          .dimln { stroke: #46628a; stroke-width: 2.5; }
+          .dimtx { font: 700 25px Menlo, monospace; fill: #46628a; }
+          .lbl   { font: 600 24px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .sub   { font: 400 22px "Helvetica Neue", sans-serif; fill: #70707c; }
+          .brk   { stroke: #1d1d26; stroke-width: 2.5; fill: none; }
+        </style>
+        <text class="lbl" x="24" y="38">SECTION &#183; at the register &#183; 320 px/in</text>
+
+        <!-- top plate ghost, register pocket on its underside -->
+        <text class="sub" x="700" y="76" text-anchor="end">top plate at closure (PV-09)</text>
+        <rect class="ghost" x="60" y="90" width="640" height="80"/>
+        <path class="ghost" d="M 357.5 170 L 357.5 150 L 380 138 L 402.5 150 L 402.5 170" fill="#ffffff"/>
+
+        <!-- slack dim at the tip -->
+        <line class="dimln" x1="420" y1="150" x2="440" y2="150"/>
+        <line class="dimln" x1="420" y1="163" x2="440" y2="163"/>
+        <line class="dimln" x1="430" y1="150" x2="430" y2="163"/>
+        <text class="dimtx" x="452" y="158">1 mm slack</text>
+        <text class="sub" x="452" y="194">tip never bottoms out</text>
+
+        <!-- rod with break -->
+        <rect class="rod" x="360" y="163" width="40" height="167"/>
+        <rect class="rod" x="360" y="362" width="40" height="178"/>
+        <path class="brk" d="M 352 330 L 368 322 L 392 340 L 408 332"/>
+        <path class="brk" d="M 352 362 L 368 354 L 392 372 L 408 364"/>
+
+        <!-- length dim, broken like the rod -->
+        <line class="dimln" x1="690" y1="163" x2="690" y2="318"/>
+        <line class="dimln" x1="690" y1="376" x2="690" y2="540"/>
+        <line class="dimln" x1="676" y1="163" x2="704" y2="163"/>
+        <line class="dimln" x1="676" y1="540" x2="704" y2="540"/>
+        <text class="dimtx" x="664" y="342" text-anchor="end">131.1 mm</text>
+        <text class="sub" x="664" y="370" text-anchor="end">(5.16 in) — cut on PV-05</text>
+
+        <!-- square note -->
+        <line class="dimln" x1="402" y1="500" x2="504" y2="470"/>
+        <text class="sub" x="656" y="462" text-anchor="end">the register</text>
+        <text class="sub" x="656" y="488" text-anchor="end">holds it square</text>
+
+        <!-- bottom plate with register pocket + tacks -->
+        <rect class="steel" x="60" y="520" width="640" height="80"/>
+        <path d="M 357.5 520 L 357.5 540 L 380 552 L 402.5 540 L 402.5 520 Z" fill="#ffffff" stroke="#1d1d26" stroke-width="2.5"/>
+        <rect class="rod" x="360" y="163" width="40" height="0"/>
+        <path class="weld" d="M 360 520 L 360 494 Q 344 514 330 520 Z"/>
+        <path class="weld" d="M 400 520 L 400 494 Q 416 514 430 520 Z"/>
+        <line class="dimln" x1="336" y1="508" x2="250" y2="472"/>
+        <text class="dimtx" x="242" y="466" text-anchor="end">tack at the base</text>
+        <text class="dimtx" x="340" y="580" text-anchor="end">9/64&Prime; register (PV-03)</text>
+        <line class="dimln" x1="368" y1="548" x2="346" y2="570"/>
+
+        <text class="lbl" x="70" y="640">BOTTOM PLATE &#183; inside face up</text>
+        <text class="sub" x="700" y="640" text-anchor="end">rod broken for length</text>
+      </svg>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Done when</span>Rod tacked square, base fully seated in the register — tip free to enter the top register at closure.</div>
+  <div class="src">pressure-vessel.md &#167;2 &#183; _pressure_vessel_sync.py<br>rev 2026-07-23</div>
+</footer>
+
+</div>
+</body>
+</html>
