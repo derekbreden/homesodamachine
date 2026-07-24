@@ -163,6 +163,17 @@ def _read(path: Path):
         return None
 
 
+# How long a watcher rebuild waits for a hand or agent run before it stops waiting. Long
+# enough for the slowest generator, bounded so a hung holder cannot stall the cascade.
+WAIT_S = 900.0
+
+
+def _deliberate(holder) -> bool:
+    """Whether this build is work someone is waiting on. A watcher rebuild is not: it
+    fires again on the next save, and its result is a refresh rather than an answer."""
+    return not str(holder.get("source", "")).startswith("dev-server")
+
+
 def _who(holder) -> str:
     if not holder:
         return "a newer build"
@@ -267,6 +278,27 @@ def acquire(script: str, source: str = None) -> None:
         except Exception as e:                  # never let the shortcut break a build
             print(f"[build] could not follow the running build ({e}) — building here instead",
                   file=sys.stderr, flush=True)
+
+    # A watcher rebuild does not kill a hand or agent run. That build is the answer someone
+    # is waiting on, and it is often what started this wave — a generator writes its docgen
+    # substitutions back into its own sources as it finishes, which trips the watcher. Wait
+    # it out instead; past WAIT_S the holder is treated as stuck and superseded below.
+    if (prev and prev.get("pid") != _me["pid"] and _alive(prev["pid"])
+            and _deliberate(prev) and not _deliberate(_me)):
+        print(f"[build] waiting for the {prev.get('source', '?')} build (pid {prev['pid']}, "
+              f"{Path(prev.get('script', '?')).name}) rather than superseding it",
+              file=sys.stderr, flush=True)
+        # Wait on the LOCK, not the process: a finished build whose parent has not reaped it is a
+        # zombie, and `os.kill(pid, 0)` still succeeds on one. The holder drops the lock and
+        # records its status as it goes, so either of those means it is done with the machine.
+        until = time.monotonic() + WAIT_S
+        while time.monotonic() < until:
+            cur = _read(LOCK)
+            if (not cur or cur.get("pid") != prev["pid"] or not _alive(cur["pid"])
+                    or _result_of(prev["pid"]).exists()):
+                break
+            time.sleep(POLL_S)
+        prev = _read(LOCK)                        # whoever holds it now, if anyone
 
     if prev and prev.get("pid") != _me["pid"] and _alive(prev["pid"]):
         print(f"[build] superseding the active build (pid {prev['pid']}, {_who(prev)}) "
