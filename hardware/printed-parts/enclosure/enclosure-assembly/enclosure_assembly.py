@@ -309,16 +309,12 @@ def main():
                 row += ": " + "; ".join(c.detail[:8]) + (f"; +{extra} more" if extra > 0 else "")
             parts.append(row)
         msg = " | ".join(parts) + "  (see scorecard)"
-        # A headless / committed build must NEVER write an invalid pack, so it hard-stops here. But
-        # HSM_EDITOR (the dev component editor, web/dev-server) is exactly where you drag a part to
-        # SEE where it collides — a build that refuses to write leaves nothing to look at, and the
-        # move appears to do nothing. So under the editor we write it anyway: the .step carries the
-        # real overlapping geometry (the move is visible and survives a refresh) and the sidecar
-        # records the failing verdict (gatesPass=false). The pre-commit gate reads that sidecar and
-        # blocks the commit — an invalid pack can be inspected but can never land.
-        if not os.environ.get("HSM_EDITOR"):
-            sys.exit(msg)                       # via sys.exit: the build lock records the failure
-        print("NOT BUILD-READY — " + msg + "  (written anyway for the editor)")
+        # The pack is written whether or not it closes: an overlap is a thing to look at, and a
+        # build that writes nothing leaves the change that caused it invisible and the sidecar
+        # frozen at the last pack that happened to pass. The .step carries the real overlapping
+        # geometry and the sidecar carries the failing verdict, which is what the pre-commit hook
+        # and the viewer both read.
+        print("NOT BUILD-READY — " + msg)
 
     # The scorecard sidecar the 3D viewer reads — the same verdict, beside the model. Written
     # before the .step so the dev watcher's .step broadcast implies the sidecar is already fresh.
@@ -331,11 +327,11 @@ def main():
     # `clash__a__b`, so the viewer's clash row can x-ray to the exact overlapping region (not just
     # the two whole parts). `a`/`b` match the scorecard's `a ∩ b` rows one-for-one; the ASCII name
     # (spaces/∩ don't survive a STEP round-trip cleanly) is what scorecard-3d.js reconstructs. Gone
-    # the moment the pack is clean, and never in a headless build (it hard-stops before here).
-    # Capped: each overlap body is another solid to tessellate on export, and a wild move (or a
-    # shell mid-edit) can clash with everything at once — 12 of them pushed the editor rebuild past
-    # 5 min. The scorecard still lists every clash in text; rows past the cap just fall back to
-    # highlighting the two parts.
+    # the moment the pack is clean, and drawn only under the editor: each overlap body is another
+    # solid to tessellate on export, and a wild move (or a shell mid-edit) can clash with
+    # everything at once — 12 of them pushed the editor rebuild past 5 min. Every build writes the
+    # clashing pack itself; the scorecard lists every clash in text, and rows past the cap fall
+    # back to highlighting the two parts.
     if os.environ.get("HSM_EDITOR") and any(c.id == "pack-closes" and c.status == "fail" for c in sc.checks):
         for a, b, shape in scorecard.clash_solids(solids, pack.pieces, limit=8):
             try:
