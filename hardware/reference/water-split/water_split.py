@@ -2,8 +2,8 @@
 sits on the ASSE 1022's 1/4" outlet and feeds the two valves downstream of the
 backflow preventer: the ASSE supply enters the branch and splits along the run to
 V-K (the fill/shutoff on the way to the SeaFlo suction) and to the flavor tap
-(flow regulator → V-A). All three ports are 1/4" PTC; the 3/8" barb tap tee + its
-two reducers the earlier design used here are gone
+(flow regulator → V-A). All three ports are 1/4" PTC — the split needs no
+reducers, because the water reaches it at 1/4" and leaves at 1/4"
 ([`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §2).
 
 Geometric stand-in: a McMaster-class 1/4" PTC tee, close to the PP0208E — three
@@ -11,9 +11,10 @@ collets meeting at the body centre, run half-length and branch reach both
 20.07 mm, collet OD 13.7 mm, 1/4" (6.35 mm) bore. Reconcile against a measured
 PP0208E as parts come in hand (same note as reference/tee-connector).
 
-Frame: the run along ±Y (V-K at +Y, flavor tap at −Y), the branch along −X (the
-ASSE supply). Centre at the origin, the three collet faces in the Z = 0 plane —
-placed by a pure translation in the enclosure.
+Frame: the run along ±Y — the ASSE supply comes down it from +Y and the flavor
+tap leaves it at −Y — and the branch along −X, turning V-K's share west. Centre
+at the origin, the three collet faces in the Z = 0 plane — placed by a pure
+translation in the enclosure.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/water-split/water_split.py
@@ -36,18 +37,20 @@ HUB = 14.0           # central body
 
 
 def supply():
-    """The branch collet the 1/4" line from the ASSE 1022 outlet pushes into:
+    """The +Y run collet the 1/4" line from the ASSE 1022 outlet pushes into:
     (position, outward axis)."""
-    return (-REACH, 0.0, 0.0), (-1.0, 0.0, 0.0)
-
-
-def to_vk():
-    """The run collet feeding V-K, on to the SeaFlo suction: (position, axis)."""
     return (0.0, REACH, 0.0), (0.0, 1.0, 0.0)
 
 
+def to_vk():
+    """The branch collet feeding V-K, on to the SeaFlo suction: (position, axis).
+    It takes V-K's share off the run at a right angle, west."""
+    return (-REACH, 0.0, 0.0), (-1.0, 0.0, 0.0)
+
+
 def to_flavor():
-    """The run collet feeding the flavor tap — flow regulator → V-A: (position, axis)."""
+    """The −Y run collet feeding the flavor tap — flow regulator → V-A: the
+    supply's own line carried straight on: (position, axis)."""
     return (0.0, -REACH, 0.0), (0.0, -1.0, 0.0)
 
 
