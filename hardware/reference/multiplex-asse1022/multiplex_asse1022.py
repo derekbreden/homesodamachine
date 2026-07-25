@@ -11,7 +11,7 @@ corners (1.12" across flats). The ends divide that length — the barrel is what
 is left between them.
 
 Flow runs inlet → outlet: the arrow points away from the customer side, so the
-GAGIRA reducing coupling lands on the NPT inlet and the FFL38BARB38 swivel nut
+GAGIRA reducing coupling lands on the NPT inlet and the PI4512F6S swivel nut
 on the flare outlet ([`asse1022-assembly`](../asse1022-assembly/)).
 
 Frame: +X = flow axis, inlet at X = 0; the vent barb runs down to Z = 0, its tip
@@ -59,7 +59,7 @@ def inlet():
 
 def outlet():
     """The 3/8" SAE 45° male flare outlet face: (position, outward axis). What the
-    FFL38BARB38 swivel nut seats against."""
+    PI4512F6S swivel nut seats against."""
     return (TOTAL_LENGTH, 0.0, BODY_CENTER_Z), (1.0, 0.0, 0.0)
 
 

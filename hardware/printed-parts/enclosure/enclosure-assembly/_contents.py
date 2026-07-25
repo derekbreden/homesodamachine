@@ -114,10 +114,11 @@ Strata, floor to ceiling:
              atmospheric vent hangs in its native pose: the drip falls
              straight down its own column to the foam-cap top, where the pan
              + moisture plate sit, and the band beneath the body is left open
-             for them. The split and V-K stand in the aft strip's east void
-             the old tap point vacated — the split's branch takes the ASSE
-             outlet on −X, its run feeds V-K (on to the suction) and the
-             flavor tap (on to V-A). The rear half of the band stays open for the panel bodies
+             for them. V-K lies along the lane the chain's overhang leaves
+             beneath it, and the split hangs in the east pocket: its run
+             carries the ASSE outlet down the pocket to the flow regulator
+             and V-A, and its branch turns V-K's share west toward the
+             suction. The rear half of the band stays open for the panel bodies
              reaching in from the wall (the umbilical triangle, the
              tap-water bulkhead, and the C14 in the west corner) and the
              riser traffic crossing to them.
