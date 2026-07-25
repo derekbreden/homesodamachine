@@ -120,7 +120,7 @@ def main():
             "NET_UNDERSIZE": 1,
             "WIND_LENGTH": 1,
             "TOTAL_WRAPS": 1,
-            "PITCH": 1,
+            "PITCH": 2,
             "WRAP_LEN": 1,
             "WRAP_FT": 1,
             "STUB_LEN": 3,
