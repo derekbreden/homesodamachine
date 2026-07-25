@@ -118,8 +118,8 @@ COMPONENTS = [
     _c("condenser+fan",     "placeholder", True,  "bosses", "harvested donor block; two floor rails carry its weight and two +X-wall webs carry four ear pads at the donor fan shroud's screw pattern (enclosure.py `_condenser_mount`), M3×10 into ruthex through each ear. Ear pattern is an ESTIMATE until the donor shroud is separated and measured"),
     _c("mq6-sensor",        "real",        True,  "none", "MQ-6 module STEP (PCB + sensor can + header); floor gas sensor, no mount"),
     # Water deck
-    _c("drip-pan",          "real",        True,  "rails", "Printed PETG catch basin (printed-parts/enclosure/drip-pan), 100 x 50 x 14, 47.0 mL. Stands in the aft strip behind the pump on its own rails, drip_pan.RAIL_LIFT above the foam-cap top, centred on the ASSE vent column — the drip falls from the tip onto the middle of its floor, where the Shutao moisture plate lies flat. Its floor slab overhangs both walls by 5 mm and those flanges are what the rails carry; no fasteners. Draws aft in +Y along the rails to be emptied, rising at no point in that travel"),
-    _c("drip-pan-rails",    "real",        True,  "vhb",   "Printed PETG rail pair (printed-parts/enclosure/drip-pan, `build_rails`), a mirrored L each side of the basin: foot, web, shelf, and a forward home stop. 3M VHB 4941 under foot and web onto the printed foam-cap lid. The shelves' top face is the basin's floor plane and the webs fence it in X on a 0.3 mm slip per side"),
+    _c("drip-pan",          "real",        True,  "rails", "Printed PETG catch basin (printed-parts/enclosure/drip-pan), 100 x 52 x 14, 49.1 mL. Stands in the aft strip behind the pump on its own rails, drip_pan.RAIL_LIFT above the foam-cap top, centred on the ASSE vent column in X with its back face on the foam cap's rear edge. Sized by what it carries: the floor's flat area inside the coves takes the Shutao moisture plate lying down, which is what set the basin's Y and what moved the SeaFlo forward to make room. Carried on its own floor edge, no fasteners. Draws aft in +Y along the rails to be emptied, rising at no point in that travel"),
+    _c("drip-pan-rails",    "real",        True,  "vhb",   "Printed PETG rail pair (printed-parts/enclosure/drip-pan, `build_rails`), a mirrored L each side of the basin: web, and a foot and shelf both turning inboard off it, plus a forward home stop. 3M VHB 4941 under foot and web onto the printed foam-cap lid. The shelves' top face is the basin's floor plane and the webs fence it in X on a 0.3 mm slip per side. Nothing reaches outboard, so the pair is no wider than the basin plus its webs — the strip's east end is V-K's and the umbilical cluster's"),
     _c("seaflo-pump",       "real",        True,  "none", "SEAFLO 22-series 12 V 1.3 GPM diaphragm pump (reference/seaflo-22-pump); the deck's floor plan. Lies motor-axis along X, head at −X; its two 3/8\" barbs are molded into the head casting and leave its ±Y side faces — the suction faces north (+Y) to V-K, the discharge south (−Y) to the cold-core water-in. Its feet carry the widest 98 mm; the head end is 44 mm narrower, and that taper is what opens the band V-K lies in. Isolation mounts to the foam cap TBD"),
     _c("asse1022-assembly", "real",        True,  "none","Multiplex 19-0897 ASSE 1022 backflow preventer + PP010822E, GAGIRA coupling, flare38-14ptc (3/8\" flare → 1/4\" PTC) and the clear-PVC vent stub as one chain (reference/asse1022-assembly); lies along +X in the service bay's aft strip behind the pump, 1/4\" PTC inlet west on its pigtail off the rear-panel water bulkhead, 1/4\" PTC outlet east onto the line to the split, vent in its native pose weeping down its own column onto the pan's ground on the foam-cap top, holder TBD"),
     _c("water-split",       "real",        True,  "none","JG PP0208E 1/4\" union tee (reference/water-split); tube-hung in the east pocket, its three collets in the suction's own Z plane. The run carries the ASSE feed straight down the pocket — in at +Y, on at −Y to the flow regulator — and the branch turns V-K's share west. No tray, no holder"),
@@ -167,7 +167,7 @@ TOUCHING_OK = {
         ("cold-core-ring", "foam-assembly"),    # the core's bottom lid flat on the ring's bearing rail
         ("foam-assembly", "seaflo-pump"),       # the pump's base flat on the foam-cap top
         ("foam-assembly", "drip-pan-rails"),    # the rails' feet flat on the foam-cap top
-        ("drip-pan", "drip-pan-rails"),         # the basin's floor flanges flat on the shelves
+        ("drip-pan", "drip-pan-rails"),         # the basin's floor edge flat on the shelves
         # The valve-manifold stack: the source-select tray's floor rests on the
         # bag-circuit tray's column wall tops, one tray pitch apart by design.
         ("source-select-assembly", "bag-circuit-assembly"),
@@ -344,12 +344,13 @@ PLACEMENT_RULES = {
     "tee-y-c": [("near", "source-select-assembly", 15.0)],
     "tee-y-f": [("near", "source-select-assembly", 15.0)],
     # "The ASSE 1022 chain lies in the service bay's aft strip, one pigtail off the
-    # water bulkhead, vent aimed forward over the pan's ground." Five measurements pin
-    # it. `near bulkhead-water` holds the inlet at the bulkhead it takes its feed from —
-    # that stance is the placement. `fall` is the drip, and the rule the pose exists for:
-    # the vent tip's own column, dropped straight down, lands on the cap, where the pan
-    # and its moisture plate sit. It reads the column, not the body — the two part company
-    # in this strip, where the body stands 28 mm off the shelf and the column 4. `clear
+    # water bulkhead, rolled about its flow axis so the vent leans aft." Five measurements
+    # pin it. `near bulkhead-water` holds the inlet at the bulkhead it takes its feed from —
+    # that stance is the placement, and the roll turns about the line those two fittings
+    # sit on, so it does not disturb them. `fall` is the drip, and the rule the pose exists
+    # for: the vent tip's own column, dropped straight down, lands in the pan, where the
+    # moisture plate lies. It reads the column, not the body — the two part company in this
+    # strip, and further apart under a rolled chain than an upright one. `clear
     # power-tray` holds
     # open the lane between the shelf's back edge and this body, which the C14's cordage
     # crosses going forward to the AC hub. `x-` reads the outlet end's stance off the −X

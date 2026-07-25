@@ -6,19 +6,19 @@ is emptied on service.
 
 Two printed parts:
 
-  * the BASIN — an open-top rounded-corner box, [100](PAN_LEN) x [48](PAN_DEPTH)
+  * the BASIN — an open-top rounded-corner box, [100](PAN_LEN) x [52](PAN_DEPTH)
     outer x [14](PAN_HEIGHT) tall, [2.5](PAN_WALL) mm walls on a [3](PAN_FLOOR)
     mm floor, floor-to-wall coved. The floor slab runs out past the walls on
     both ±X faces as a SLIDE FLANGE, so the basin is carried from underneath at
     its own floor plane and nothing stands proud inside it.
   * the RAILS — a mirrored pair of L-sections, taped to the foam-cap top with
     VHB, whose shelves are what the flanges ride. They hold the basin
-    [13.6](PAN_LIFT) mm clear of the cap, and they run fore-and-aft, so the
+    [18.7](PAN_LIFT) mm clear of the cap, and they run fore-and-aft, so the
     basin travels in +Y — out the back of the cabinet — rather than lifting.
 
-The stub weeps from a fixed tip onto a fixed cap, and the basin stands in the
-column between them: `VENT_GAP` of air under the tip, then the basin, then
-`RAIL_LIFT` of open deck down to the cap.
+The chain hangs at a fixed height over a fixed cap, and the basin stands in the
+column between them: `VENT_GAP` of air under the chain's underside, then the
+basin, then `RAIL_LIFT` of open deck down to the cap.
 
 Frame: +X long axis, +Y depth (the withdrawal direction), +Z up; origin at the
 basin's lower-front-left outer corner of the WALLS — the flanges reach to −X of
@@ -42,21 +42,39 @@ from _cadq_export import export_step
 from docgen import substitute_md, substitute_py_comments
 
 # [100](PAN_LEN) long so the moisture plate lies flat down its length.
-# [48](PAN_DEPTH) deep is the aft strip spent: the run between the SeaFlo's back
+# [52](PAN_DEPTH) deep is the aft strip spent: the run between the SeaFlo's back
 # face and the foam cap's rear edge, less a standoff off the pump — the pack's
 # placement rules hold both of those clearances. [14](PAN_HEIGHT) tall is what
 # `VENT_GAP` and `RAIL_LIFT` leave of the vent's column.
-PAN_X, PAN_Y, PAN_Z = 100.0, 48.0, 14.0
+PAN_X, PAN_Y, PAN_Z = 100.0, 52.0, 14.0
 WALL, FLOOR = 2.5, 3.0
 CORNER_R = 6.0        # outer vertical-corner radius
-FLOOR_COVE = 3.0      # inner floor-to-wall fillet (water sheeting + cleanability)
-FLANGE_W = 5.0        # the floor slab's reach past each wall — the slide surface
+# Floor-to-wall fillet — water sheeting + cleanability. It eats the flat floor from
+# both ±Y walls, and the moisture plate's long edge has to land inside what is left.
+FLOOR_COVE = 2.0
+# The floor slab's reach past each wall. Zero: the basin is carried on its own
+# floor edge, and the rails keep to the basin's own width — the aft strip's east
+# end belongs to V-K and the umbilical cluster, and a rail reaching out into it
+# buys nothing the wall's own footprint does not already give.
+FLANGE_W = 0.0
 
-# The clear air the basin's rim keeps under the vent stub's tip.
+# The Shutao LM393 module's conductivity plate (bom.md §sensors, B0B2W76MB1), lying
+# flat on the basin floor with its long edge down the basin's X. The floor's flat
+# area inside the coves is what it lands on — `check_plate()` is that check, and the
+# basin's Y is sized by it.
+PLATE_X, PLATE_Y = 55.25, 41.0
+PLATE_SLIP = 1.0      # per side, plate edge to where the cove starts rising
+
+# The least clear air the basin's rim keeps under the ASSE chain's underside —
+# which is the vent stub's tip when the chain hangs unrolled, and a body corner
+# when it does not, the stub then standing above it.
 VENT_GAP = 4.0
+# How much more than that the rail may leave, so the rail can be a round printed
+# number under a chain whose underside is a rolled hex corner and irrational.
+VENT_GAP_SLACK = 1.0
 # The rail shelf's height off the cap — the basin's floor plane.
-# `_contents.drip_pan_seat()` re-derives it from the placed vent tip.
-RAIL_LIFT = 13.6
+# `_contents.drip_pan_seat()` measures the gap this leaves and raises outside the band.
+RAIL_LIFT = 18.7
 
 RAIL_WEB = 3.0        # web thickness, standing outboard of the flange
 RAIL_FIT = 0.3        # per side, flange tip to web inner face
@@ -77,9 +95,29 @@ def _rounded_prism(x, y, z, r):
     )
 
 
+def flat_floor():
+    """The floor's flat area, inside the coves — what the moisture plate lies on."""
+    return (PAN_X - 2 * WALL - 2 * FLOOR_COVE, PAN_Y - 2 * WALL - 2 * FLOOR_COVE)
+
+
+def check_plate():
+    """Raises unless the flat floor takes the plate with its slip on every side. A
+    plate wider than the flat rides up on the coves instead of lying down, and the
+    water has to stand that much deeper before it reads."""
+    fx, fy = flat_floor()
+    need_x, need_y = PLATE_X + 2 * PLATE_SLIP, PLATE_Y + 2 * PLATE_SLIP
+    if fx < need_x or fy < need_y:
+        raise ValueError(
+            f"drip-pan floor {fx:.2f} x {fy:.2f} flat inside the r{FLOOR_COVE:g} coves; "
+            f"the {PLATE_X:g} x {PLATE_Y:g} plate with {PLATE_SLIP:g} slip a side needs "
+            f"{need_x:.2f} x {need_y:.2f}. Grow PAN_Y, shrink FLOOR_COVE, or move the "
+            f"SeaFlo forward — the strip behind it is what PAN_Y comes out of.")
+
+
 def build():
     """Rounded-corner open basin on a flanged floor slab: outer shell minus a
     filleted inner cavity, unioned with the slab that overhangs it on ±X."""
+    check_plate()
     outer = _rounded_prism(PAN_X, PAN_Y, PAN_Z, CORNER_R)
     # Inner cavity: rounded vertical corners + a filleted bottom, so subtracting
     # it leaves a floor-to-wall cove. Sits on the FLOOR-thick base, open at top.
@@ -97,15 +135,16 @@ def build():
 
 
 def rail_offset():
-    """Basin origin to the rail pair's origin — out past the flange tip by the
-    slip fit, the web and the foot, forward by the home stop, and down by the
-    lift. The enclosure places the basin; the rails follow it."""
-    return (-(FLANGE_W + RAIL_FIT + RAIL_WEB + RAIL_FOOT), -RAIL_STOP_Y, -RAIL_LIFT)
+    """Basin origin to the rail pair's origin — out past the basin's floor edge by
+    the slip fit and the web, forward by the home stop, and down by the lift. The
+    enclosure places the basin; the rails follow it."""
+    return (-(FLANGE_W + RAIL_FIT + RAIL_WEB), -RAIL_STOP_Y, -RAIL_LIFT)
 
 
 def rail_span():
-    """Outer width across the pair — what the cap top has to offer them."""
-    return 2 * (RAIL_FOOT + RAIL_WEB + RAIL_FIT) + 2 * FLANGE_W + PAN_X
+    """Outer width across the pair — what the cap top has to offer them. The feet
+    turn inboard, under the basin, so this is the basin plus two webs."""
+    return 2 * (RAIL_WEB + RAIL_FIT) + 2 * FLANGE_W + PAN_X
 
 
 def rail_length():
@@ -117,20 +156,22 @@ def _rail():
     """One L-section rail in the pair's frame: foot, web, shelf, home stop. Its
     shelf's top face is the basin's floor plane."""
     length = rail_length()
-    foot = cq.Workplane("XY").box(RAIL_FOOT + RAIL_WEB, length, RAIL_FOOT_T,
+    # Foot and shelf both turn INBOARD off the web, at opposite ends of its height:
+    # the foot lies on the cap under the basin, the shelf carries the basin's floor
+    # edge. Nothing reaches outboard, so the pair is no wider than the basin plus
+    # its two webs.
+    foot = cq.Workplane("XY").box(RAIL_WEB + RAIL_FOOT, length, RAIL_FOOT_T,
                                   centered=(False, False, False))
-    web = (cq.Workplane("XY")
-           .box(RAIL_WEB, length, RAIL_LIFT + RAIL_FENCE, centered=(False, False, False))
-           .translate((RAIL_FOOT, 0.0, 0.0)))
+    web = cq.Workplane("XY").box(RAIL_WEB, length, RAIL_LIFT + RAIL_FENCE,
+                                 centered=(False, False, False))
     shelf = (cq.Workplane("XY")
              .box(RAIL_SHELF_W, length, RAIL_SHELF_T, centered=(False, False, False))
-             .translate((RAIL_FOOT + RAIL_WEB, 0.0, RAIL_LIFT - RAIL_SHELF_T)))
-    # The home stop stands at the forward end, ahead of where the flange lands —
-    # the aft end is the mouth the basin leaves through. The flange's front edge
-    # butts it.
+             .translate((RAIL_WEB, 0.0, RAIL_LIFT - RAIL_SHELF_T)))
+    # The home stop stands at the forward end, ahead of where the basin lands —
+    # the aft end is the mouth it leaves through. The basin's front wall butts it.
     stop = (cq.Workplane("XY")
             .box(RAIL_SHELF_W, RAIL_STOP_Y, RAIL_FENCE, centered=(False, False, False))
-            .translate((RAIL_FOOT + RAIL_WEB, 0.0, RAIL_LIFT)))
+            .translate((RAIL_WEB, 0.0, RAIL_LIFT)))
     return foot.union(web).union(shelf).union(stop)
 
 
@@ -158,8 +199,9 @@ def main():
           f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
     print(f"  {PAN_X:g}x{PAN_Y:g}x{PAN_Z:g} outer, {WALL:g} wall, {FLOOR:g} floor, "
           f"r{CORNER_R:g} corners, r{FLOOR_COVE:g} floor cove, {capacity_ml():.1f} mL to the rim")
-    print(f"  Slide flange {FLANGE_W:g} per side at the floor plane — "
-          f"{PAN_X + 2 * FLANGE_W:g} across the flanges")
+    fx, fy = flat_floor()
+    print(f"  Flat floor {fx:g} x {fy:g} inside the coves — "
+          f"plate {PLATE_X:g} x {PLATE_Y:g} with {PLATE_SLIP:g} slip a side")
     ox, oy, oz = rail_offset()
     print(f"  Rails bounding box: X [{rb.xmin:.2f}, {rb.xmax:.2f}]  "
           f"Y [{rb.ymin:.2f}, {rb.ymax:.2f}]  Z [{rb.zmin:.2f}, {rb.zmax:.2f}]  "
@@ -178,8 +220,9 @@ def main():
         "PAN_HEIGHT": f"{PAN_Z:g}",
         "PAN_WALL": f"{WALL:g}",
         "PAN_FLOOR": f"{FLOOR:g}",
-        "PAN_FLANGE": f"{FLANGE_W:g}",
-        "PAN_ACROSS": f"{PAN_X + 2 * FLANGE_W:g}",
+        "PLATE_LEN": f"{PLATE_X:g}",
+        "PLATE_DEPTH": f"{PLATE_Y:g}",
+        "PLATE_SLIP_MM": f"{PLATE_SLIP:g}",
         "PAN_LIFT": f"{RAIL_LIFT:g}",
         "PAN_VENT_GAP": f"{VENT_GAP:g}",
         "PAN_CAPACITY": f"{capacity_ml():.1f}",
@@ -203,10 +246,10 @@ def main():
         variables=variables,
         expected_counts={
             "PAN_LEN": 1, "PAN_DEPTH": 1, "PAN_HEIGHT": 1, "PAN_WALL": 1,
-            "PAN_FLOOR": 1, "PAN_FLANGE": 1, "PAN_ACROSS": 1, "PAN_LIFT": 1,
-            "PAN_VENT_GAP": 1, "PAN_CAPACITY": 1, "PAN_CORNER_R": 1,
-            "PAN_COVE_R": 1, "RAIL_SPAN": 1, "RAIL_SLIP": 1,
-            "RAIL_RAIL_T": 1, "RAIL_VHB": 1,
+            "PAN_FLOOR": 1, "PAN_LIFT": 1, "PAN_VENT_GAP": 1,
+            "PAN_CAPACITY": 1, "PAN_CORNER_R": 1, "PAN_COVE_R": 1,
+            "PLATE_LEN": 1, "PLATE_DEPTH": 1, "PLATE_SLIP_MM": 1,
+            "RAIL_SPAN": 2, "RAIL_SLIP": 1, "RAIL_RAIL_T": 1, "RAIL_VHB": 1,
         },
     )
     print("-> README.md")

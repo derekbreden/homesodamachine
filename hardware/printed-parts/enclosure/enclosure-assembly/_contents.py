@@ -164,6 +164,7 @@ import bag_circuit_tray as _bag          # noqa: E402
 import source_select_tray as _src        # noqa: E402
 import nozzle_gate_tray as _noz          # noqa: E402
 import asse1022_assembly as _bfp         # noqa: E402  — its three terminals, carried to world
+import multiplex_asse1022 as _mx         # noqa: E402  — the body's flow-axis height, the roll pivot
 import water_split as _split             # noqa: E402  — its three 1/4" collets, the same way
 import neofit_flow_control as _flowreg   # noqa: E402  — its two 1/4" collets and its stem
 import seaflo_discharge_chain as _disch  # noqa: E402  — its barb tip and its 1/4" collet
@@ -257,24 +258,32 @@ CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # core's water-in. It is nudged 35 mm east of the cold core's plan centre so the
 # north suction clears the ASSE chain's east end, opening the aft strip for the
 # split and V-K; the move stays well inside its free travel and inside the box.
+# Its Y sets how much aft strip is left behind it — the drip pan's floor has to
+# take the moisture plate's long edge flat, and this station is what leaves room
+# for it. The discharge hose (water-6) takes up the difference in its own curve,
+# which is why its bend radius is a gate.
 SEAFLO_YAW = 180.0
-SEAFLO_POS = (127.0, 277.0)   # plan (35 mm east of centre); its Z is the cap
+SEAFLO_POS = (127.0, 273.0)   # plan (35 mm east of centre); its Z is the cap
 # The ASSE 1022 chain lies along +X in the service bay's AFT STRIP, over the
 # foam-cap top and behind the pump. Flow runs west to east: the 1/4" PTC inlet at
 # the west end takes its pigtail off the rear-panel water bulkhead, and the 1/4"
-# PTC at the east end starts the 1/4" LLDPE run to the split. The vent hangs in
-# its native pose, weeping straight down its own column onto the pan on the cap.
+# PTC at the east end starts the 1/4" LLDPE run to the split. The chain is ROLLED
+# about its own flow axis, so the vent stub leaves the body pointing aft and down
+# and the body's underside rides clear of the pan below it.
+#   The roll turns about the line the two fittings sit on, so the water line holds
+# still through it: `ASSE1022_AXIS` is that line, and `asse_pos()` carries the
+# part's own origin around it. Move the roll and the tube ports do not move.
 #   PROVISIONAL: the chain's envelope comes from the reference model, which divides
 # the Multiplex spec sheet rather than measuring the five parts on the shelf.
-ASSE1022_POS = (102.0, 345.5, 287.0 + RING_SEAT)
+ASSE1022_AXIS = (102.0, 345.5, 314.0 + RING_SEAT)   # the flow axis, in world
 ASSE1022_YAW = 0.0
+ASSE1022_ROLL = 45.0
 # The drip pan is not posed. In X it is centred on the vent column, so the drip lands
 # down the middle of the basin floor wherever the chain's pose leaves the tip; in Y its
 # back face lands on the foam cap's rear edge, the face it will draw out through. Its
 # section and its lift are the part's own — `drip_pan_seat()` re-derives that lift from
-# the placed tip.
+# the placed chain's underside.
 DRIP_PAN_X, DRIP_PAN_Y = _pan.PAN_X, _pan.PAN_Y
-ASSE1022_ROLL = 0.0
 # V-K — the water-supply fill/shutoff solenoid (Beduan 12 V NC): DOWNSTREAM of the
 # ASSE 1022, between the split and the SeaFlo suction. Closed, it stops all water
 # reaching the carbonator. Its own frame is +Y = flow (arrow toward the outlet),
@@ -445,6 +454,27 @@ JUNCTION_LIFT = {                 # slide a tee's centre this far up its run tow
 }
 
 
+def asse_pos():
+    """The chain's translation — the part origin that holds `ASSE1022_AXIS` on the
+    flow axis through the roll. The roll turns about the part's own origin, which
+    sits `BODY_CENTER_Z` under that axis, so the origin swings around it."""
+    t = math.radians(ASSE1022_ROLL)
+    z = _mx.BODY_CENTER_Z
+    return (ASSE1022_AXIS[0],
+            ASSE1022_AXIS[1] + z * math.sin(t),
+            ASSE1022_AXIS[2] - z * math.cos(t))
+
+
+def _face_of(axis):
+    """The enclosure port convention (x±/y±/z±) for an outward axis. A rolled port
+    points between two of them; it is named for the one it leans on hardest, ties
+    going to the later axis, so a vent turned off vertical still reads as facing
+    down rather than raising."""
+    ax = [round(float(c), 9) + 0.0 for c in axis]
+    i = max(range(3), key=lambda k: (abs(ax[k]), k))
+    return "xyz"[i] + ("+" if ax[i] > 0 else "-")
+
+
 def bfp_terminal(name):
     """One of the ASSE 1022 assembly's three terminals in world: `(pos, face)`.
 
@@ -452,15 +482,25 @@ def bfp_terminal(name):
     `tube_out` off the flare38-14ptc's 1/4" collet, `vent_tip` at the stub's open end —
     and this carries them through the same yaw + roll + translation the solid takes, in
     that order, so a length changed anywhere in that chain moves the world port with it.
-    `face` is the enclosure port convention (x-/x+/y-/z-), read off the turned outward axis."""
+    The two tube ports sit ON the roll axis, so the roll leaves them where they are."""
     pos, axis = {"tube-in": _bfp.tube_in, "tube-out": _bfp.tube_out,
                  "vent-tip": _bfp.vent_tip}[name]()
     for turn in (lambda v: _yaw_z(v, ASSE1022_YAW), lambda v: _roll_x(v, ASSE1022_ROLL)):
         pos, axis = turn(pos), turn(axis)
-    face = {(-1.0, 0.0, 0.0): "x-", (1.0, 0.0, 0.0): "x+",
-            (0.0, -1.0, 0.0): "y-", (0.0, 0.0, -1.0): "z-"}[
-        tuple(round(float(c), 9) + 0.0 for c in axis)]
-    return tuple(p + o for p, o in zip(pos, ASSE1022_POS)), face
+    return tuple(p + o for p, o in zip(pos, asse_pos())), _face_of(axis)
+
+
+def placed_asse():
+    """The ASSE 1022 chain seated in world, the way `_build` seats it."""
+    return _rot(_rot(_load(ASSE1022_STEP), (0, 0, 1), ASSE1022_YAW),
+                (1, 0, 0), ASSE1022_ROLL).translate(asse_pos())
+
+
+def asse_underside():
+    """The lowest point anywhere on the placed chain — the ceiling over the drip pan.
+    Unrolled that is the vent stub's tip; rolled it is a body corner, and the tip
+    stands above it."""
+    return placed_asse().BoundingBox().zmin
 
 
 def split_terminal(name):
@@ -519,18 +559,21 @@ def foam_cap_top():
 def drip_pan_seat():
     """The Z the drip pan's floor stands at — the top face of its printed rails.
 
-    The lift the vent's column leaves: the placed tip, less `drip_pan.VENT_GAP`,
-    less the basin's own height, down to the foam-cap top. Raises when the printed
-    rail no longer stands at that lift."""
-    tip_z = bfp_terminal("vent-tip")[0][2]
-    lift = tip_z - _pan.VENT_GAP - _pan.PAN_Z - foam_cap_top()
-    if abs(lift - _pan.RAIL_LIFT) > 1e-6:
+    The printed rail sets the seat; this measures the air it leaves between the
+    basin's rim and the placed chain's underside, and raises outside the band
+    `drip_pan.VENT_GAP` .. `+ VENT_GAP_SLACK` — under it the stub is crowded, over
+    it the deck below the pan has gone to waste."""
+    seat = foam_cap_top() + _pan.RAIL_LIFT
+    under = asse_underside()
+    gap = under - (seat + _pan.PAN_Z)
+    lo, hi = _pan.VENT_GAP, _pan.VENT_GAP + _pan.VENT_GAP_SLACK
+    if not (lo - 1e-6 <= gap <= hi + 1e-6):
         raise ValueError(
-            f"drip-pan rail lift: the placed vent tip at z={tip_z:.3f} over a cap top "
-            f"of {foam_cap_top():.3f} leaves {lift:.3f} mm under a {_pan.PAN_Z:g} mm "
-            f"basin keeping {_pan.VENT_GAP:g} mm of air; drip_pan.RAIL_LIFT is "
-            f"{_pan.RAIL_LIFT:g}.")
-    return foam_cap_top() + _pan.RAIL_LIFT
+            f"drip-pan rim to chain: the placed chain's underside at z={under:.4f} over a "
+            f"cap top of {foam_cap_top():.4f} leaves {gap:.4f} mm above a {_pan.PAN_Z:g} mm "
+            f"basin on a {_pan.RAIL_LIFT:g} mm rail — outside {lo:g}..{hi:g}. Reprint the "
+            f"rail at {under - _pan.PAN_Z - foam_cap_top() - lo:.2f} mm or re-pose the chain.")
+    return seat
 
 
 def seaflo_terminal(name):
@@ -746,10 +789,13 @@ UMBILICAL_Z_FLOOR = 281.0    # lowest bulkhead-nut edge: the rear Z-seam lip ban
 # (its cordage drops the rear wall and runs forward over the foam top to
 # the AC hub), then the tap-water bulkhead, then the umbilical triangle —
 # every body hangs in the band's open rear half, behind the shelf row.
-UMBILICAL_X = 210.0          # triangle column center
+# The triangle stands east of the drip pan's lane: the pan draws aft through this
+# wall, and its rails run the strip's full depth, so the lower row's nuts have to
+# clear the rail pair's east web.
+UMBILICAL_X = 217.0          # triangle column center
 WATER_BACK_X = 56.0          # west of the umbilical, on the ASSE chain's inlet end
 # On the chain's inlet height, so the pigtail turns one corner between the two collets.
-WATER_BACK_Z = ASSE1022_POS[2] + _bfp.tube_in()[0][2]
+WATER_BACK_Z = bfp_terminal("tube-in")[0][2]
 # The C14 stands in the panel's WEST corner, clear of the umbilical's field and of
 # the water deck's x-span. Its cordage drops the rear wall and runs forward along
 # the west wall to the AC hub, so it crosses neither the ASSE 1022's drip column
@@ -1233,13 +1279,11 @@ def _build():
     # The ASSE 1022 assembly: the water path's one non-negotiable component with the
     # four fittings that reach it from 1/4" tube on one side and 3/8" hose on the
     # other, as one piece. It packs up in the service bay's aft strip, at the rear
-    # bulkhead it protects (ASSE1022_POS). Its own frame is the world's axes
+    # bulkhead it protects (ASSE1022_AXIS). Its own frame is the world's axes
     # (+X = flow, vent −Z), so the pose is a yaw about Z, then a roll about X that
-    # lays the vent over to −Y, then the translation — the same two turns
-    # `bfp_terminal` walks the three terminals through, in the same order.
-    placed["asse1022-assembly"] = _rot(_rot(
-        _load(ASSE1022_STEP), (0, 0, 1), ASSE1022_YAW), (1, 0, 0), ASSE1022_ROLL
-        ).translate(ASSE1022_POS)
+    # lays the vent over toward +Y, then the translation `asse_pos()` derives — the
+    # same two turns `bfp_terminal` walks the three terminals through, in order.
+    placed["asse1022-assembly"] = placed_asse()
 
     # --- Zone C: the source-select assembly (Tray 1 — V-A/V-B/Y-A/Y-B/V-C/V-D
     # on its printed tray) floors the manifold stack, spanning the front width,
