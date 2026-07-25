@@ -30,7 +30,7 @@
     <table class="spec sched">
       <tr><th>Assembly</th><th>Conn.</th><th>Cond.</th><th>Wire</th><th>Terminations</th><th>Sleeve</th></tr>
       <tr><td>Manifold A</td><td class="v">J1</td><td class="v">9</td><td>22 AWG black</td><td>Fastons at 8 valves; COM &rarr; <b>221-420</b> at the manifold</td><td class="v">3/4&Prime;</td></tr>
-      <tr><td>Manifold B</td><td class="v">J2</td><td class="v">5</td><td>22 AWG black</td><td>Fastons at 2 valves + fan; COM &rarr; <b>221-415</b>; OUT3 &rarr; V-K (DC-9)</td><td class="v">1/2&Prime;</td></tr>
+      <tr><td>Manifold B</td><td class="v">J2</td><td class="v">5 of 6</td><td>22 AWG black</td><td>Fastons at 2 valves + fan; COM &rarr; <b>221-415</b>; OUT3 &rarr; V-K (DC-9)</td><td class="v">1/2&Prime;</td></tr>
       <tr><td>Reservoir A reeds</td><td class="v">J6</td><td class="v">5</td><td>22 AWG black</td><td>Reed leads; GND &rarr; <b>221-415</b> at the reservoir</td><td class="v">1/4&Prime;</td></tr>
       <tr><td>Reservoir B + carb reeds</td><td class="v">J7</td><td class="v">7</td><td>22 AWG black</td><td>Reed leads; XHP-7 housing — <b>label it</b>; GND &rarr; <b>221-420</b></td><td class="v">1/4&Prime;</td></tr>
       <tr><td>Sensors</td><td class="v">J4</td><td class="v">7</td><td>22 AWG black</td><td>DS18B20 / flow / moisture (DO + switched VCC); GND &rarr; <b>221-415</b></td><td class="v">1/4&Prime;</td></tr>
@@ -46,9 +46,11 @@
 
     <div class="tail">
       <div class="critical"><span class="sign">&#9940;</span>
-        <div><b>J7 and J4 share the same 7P housing — label both looms at
-        the housing.</b> A swap puts J4's 3V3/5V on the MCP reed
-        inputs.</div>
+        <div><b>J7 and J4 share the same 7P housing — label both.</b>
+        A swap puts J4's 3V3/5V on the MCP reed inputs.<br><b>J2 is 5
+        wires in a 6-way XHP-6:</b> 1 COM &#183; 2 FAN &#183; 3 OUT4
+        &#183; 4 OUT3 &#183; 5 OUT2 &#183; 6 OUT1 &mdash; leave <b>3</b>
+        empty; fill 1&ndash;5 and 12 V lands on a driver output.</div>
       </div>
       <div class="note">
         <b>No J12; J14 is the USB port — no loom.</b> SIG-6 ESD: the
@@ -61,7 +63,7 @@
 
 <footer>
   <div class="done"><span class="lbl">Done when</span>Thirteen assemblies built per CA-01, each labelled by name at the housing — counts, wire, and sleeve exactly per this table.</div>
-  <div class="src">cable-assemblies.md &#183; Assembly schedule &#183; pcba.tsx<br>rev 2026-07-24</div>
+  <div class="src">cable-assemblies.md &#183; Assembly schedule &#183; pcba.tsx<br>rev 2026-07-25</div>
 </footer>
 
 </div>
