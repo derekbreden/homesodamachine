@@ -58,11 +58,13 @@ Land the solid-copper ground bus on its power-tray boss. Stage short green 16 AW
 
 Place each part on its boss pattern, M3 × 8 SHCS into the heat-set insert, torqued by feel. Mount sequence:
 
-1. **Mean Well IRM-90-12ST PSU** on the power-tray.
-2. **Teyleten relay #1** (compressor switch) on the power-tray; **relay #2** (diaphragm-pump switch) at its staged position.
-3. **Controller PCBA** on the pcba-tray, ESD-handled — four M3 SHCS down through the board's electrically isolated corner holes (MH1–MH4) into the tray inserts; the screw heads seat on the top-face pads, which the board's pours keep clear. Orientation is fixed by the tray frame: the USB-C programming port (J14) flush at the west board edge, the J10 12 V screw throats facing east, both edges left reachable.
+The PSU and the controller PCBA do **not** mount on this bench. Each bolts to four boss columns of the cold core's top foam cap, in the chassis, at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §8 — there is no tray floor under either. What mounts here is what still rides the power tray:
 
-Pre-flash happens at [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md), over J14.
+1. **Teyleten relay #1** (compressor switch) on the power-tray; **relay #2** (diaphragm-pump switch) at its staged position.
+
+Leave the PSU and the board in their ESD/anti-static packaging with their pigtails and looms staged and labeled. The board's four holes are its electrically isolated MH1–MH4; the screw heads seat on the top-face pads, which the board's pours keep clear. Its orientation is fixed by the cap's station: the USB-C programming port (J14) flush at the west board edge looking south down the bay, the J10 12 V screw throats east looking north, both edges left reachable.
+
+Pre-flash happens at [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md), over J14, with the chassis assembled.
 
 ### 4. Land AC pigtails into the distribution block + PSU + relay #1
 

@@ -109,11 +109,13 @@ The four cabinet-side bulkhead stubs (the water-inlet PTC interior and the three
 
 ### 8. Seat the electronics shelf on the foam-cap top (unpowered)
 
-Mechanically seat the bench-built electronics shelf ([`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md)) flat on the cold core's foam-cap top, per [`/hardware/printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md) Zone B ([`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) header). The two trays do not seat as a row; they take different planes of the same bay.
+Bolt the board and the PSU down onto the foam cap's own deck-mount columns. There is no tray under either of them and nothing is bonded: the top cap carries eight boss columns that rise through its lid, each with a heat-set insert in its top, and each module lands on four of them with M3 SHCS. The stations are the cap's ([`_cold_core_interface.deck_mounts`](/hardware/printed-parts/cold-core/_cold_core_interface.py)); the assembly reads its poses off them.
 
-The **PCBA tray** lands in the aft strip along the cap's rear edge, behind the pump and west of the drip basin, unturned so its long axis runs across the strip — the USB-C edge (J14) west toward the side wall, the J10 12 V throats east toward the rail web, both edges left in a lane. Its station is the assembly's ([`enclosure-assembly/_contents.py`](/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py) `PCBA_POS`).
+The **controller PCBA** takes the west column, a quarter turn from its own frame so the long axis runs down the bay — the USB-C edge (J14) looking south into the open band ahead of the cap, where a hand reaches it with the back panel on, and the J10 12 V throats north up the column. Handle it ESD-safe; the four holes are its electrically isolated MH1–MH4, and the screw heads seat on the top-face pads.
 
-The **power tray** — C14 inlet pigtail, AC distribution block, Mean Well IRM-90-12ST PSU, both Teyleten relays, and the ground bus — and the DC distribution block have no station yet. The plane the PCBA's move to the strip opens for them is the **west column** forward of it, the run down the cap's west side to its front edge; nothing is placed there until the pack carries it.
+The **Mean Well IRM-90-12ST PSU** takes the aft strip west of the drip basin, laid across it, its AC end toward the rear-panel C14 inlet directly above.
+
+The **AC distribution (three Wagos), both Teyleten relays, the ground bus and the DC distribution block** have no station yet. The power tray still carries them as bench geometry, but the PSU it was laid out around no longer sits on it — see [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md).
 
 The shelf is **unpowered** at this step. The AC pigtails from the power tray hang free — they get terminated at the C14 inlet's solder-tab pins directly above in [`wiring.md`](/hardware/assembly/wiring.md), not now. Similarly the DC and signal runs to the manifold, pumps, fan, moisture sensor, reed columns, and faucet umbilical land in [`wiring.md`](/hardware/assembly/wiring.md). The compressor shroud's earth-bond lead (to the back-face bond hole, run AC-6 per [`wiring.md`](/hardware/assembly/wiring.md)) routes toward the shelf's ground bus and waits to be terminated.
 
