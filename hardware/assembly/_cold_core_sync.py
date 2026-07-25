@@ -53,6 +53,13 @@ _coil_mandrel_gen = _load_module(
     _hw / "printed-parts" / "cold-core" / "coil-mandrel" / "coil_mandrel.py",
 )
 
+# Carbonator reed switching levels — the bridge's own geometry sets where CLO
+# and CHI sit above the tube's bottom rim.
+_reed_bridge_gen = _load_module(
+    "cold_core_reed_bridge_gen",
+    _hw / "printed-parts" / "cold-core" / "reed-bridge" / "reed_bridge.py",
+)
+
 import _port_cuts  # noqa: E402
 from docgen import substitute_md, substitute_py_comments  # noqa: E402
 
@@ -108,12 +115,17 @@ def main():
         # Finished stack: the shell plus a cap + gasket on each face. The lid
         # nests in the cap mouth, so it adds no height.
         "CCORE_CAPPED_H": f"{foam_shell_outer_height + 2 * (foam_cap_height + gasket_thickness):.4g} mm",
+        # ─── Carbonator reed levels (witness list) ────────────────────
+        "LOW_LEVEL": f"{_reed_bridge_gen.low_level_z:.4g} mm",
+        "HIGH_LEVEL": f"{_reed_bridge_gen.high_level_z:.4g} mm",
     }
 
     substitute_md(
         _here / "cold-core.md",
         variables=variables,
         expected_counts={
+            "LOW_LEVEL": 1,
+            "HIGH_LEVEL": 1,
             "GROOVE_DEPTH": 1,
             "MANDREL_OD": 1,
             "TANK_OD": 1,
