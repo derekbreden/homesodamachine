@@ -1,17 +1,17 @@
 {
   "gatesPass": true,
-  "placed": 43,
+  "placed": 50,
   "located": 89,
   "shaped": 97,
   "routed": 41,
-  "held": 32,
+  "held": 37,
   "checks": [
     {
       "id": "coverage",
       "label": "Every placed part declared in the registry",
       "kind": "gate",
       "status": "pass",
-      "value": "37/37 placed declared",
+      "value": "38/38 placed declared",
       "target": "all declared",
       "detail": [],
       "active": true
@@ -50,6 +50,7 @@
         "foam-assembly \u2014 water-split: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 flow-regulator: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 0.00 mm \u2014 CONTACT (declared ok)",
+        "foam-assembly \u2014 psu: 0.00 mm \u2014 CONTACT (declared ok)",
         "source-select-assembly \u2014 bag-circuit-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
         "drip-pan \u2014 drip-pan-rails: 0.00 mm \u2014 CONTACT (declared ok)",
         "compressor-shroud \u2014 mq6-sensor: 1.00 mm",
@@ -66,7 +67,9 @@
         "nozzle-gate-assembly \u2014 elbow-noz-a: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-noz-b: 2.00 mm",
         "seaflo-pump \u2014 drip-pan-rails: 4.00 mm",
-        "bag-circuit-assembly \u2014 elbow-y-g: 5.10 mm"
+        "seaflo-pump \u2014 psu: 4.08 mm",
+        "bag-circuit-assembly \u2014 elbow-y-g: 5.10 mm",
+        "drip-pan-rails \u2014 psu: 5.70 mm"
       ],
       "active": true
     },
@@ -95,8 +98,8 @@
       "label": "Every component is a selected real part / finished print",
       "kind": "gate",
       "status": "pass",
-      "value": "37/37",
-      "target": "37/37",
+      "value": "38/38",
+      "target": "38/38",
       "detail": [],
       "active": true
     },
@@ -105,7 +108,7 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "43% (16/37)",
+      "value": "50% (19/38)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 3.0 x- 14.0 x+ 14.0 z- 5.0 near cold-core-ring 0.0 mm",
@@ -120,12 +123,14 @@
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
         "\u2713 tee-y-c: near source-select-assembly 14.5 mm",
         "\u2713 tee-y-f: near source-select-assembly 8.1 mm",
-        "\u2717 asse1022-assembly: near bulkhead-water 10.6 fall vent-tip onto drip-pan 19.4 clear power-tray inf(<8) clear c14-inlet 35.0 x- 80.0 mm",
+        "\u2713 asse1022-assembly: near bulkhead-water 10.6 fall vent-tip onto drip-pan 19.4 clear psu 9.7 clear c14-inlet 35.0 x- 80.0 mm",
+        "\u2713 pcba: near foam-assembly 0.0 clear seaflo-pump 12.9 mm",
+        "\u2713 psu: near foam-assembly 0.0 near c14-inlet 6.0 clear seaflo-pump 4.1 clear drip-pan-rails 5.7 clear pcba 13.5 mm",
         "\u2713 drip-pan: near drip-pan-rails 0.0 clear seaflo-pump 12.0 clear asse1022-assembly 9.3 mm",
         "\u2713 drip-pan-rails: near foam-assembly 0.0 near drip-pan 0.0 clear seaflo-pump 4.0 mm",
         "\u2713 vk-fill-valve: near water-split 6.7 clear seaflo-pump 34.8 clear asse1022-assembly 40.9 clear foam-assembly 20.7 mm",
         "\u2713 flow-regulator: near source-select-assembly 42.2 clear seaflo-pump 2.0 mm",
-        "20 components: no placement rules defined yet"
+        "19 components: no placement rules defined yet"
       ],
       "active": true
     },
@@ -134,7 +139,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "89% (33/37)",
+      "value": "89% (34/38)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
@@ -185,13 +190,13 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "97% (36/37)",
+      "value": "97% (37/38)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; two floor rails carry its weight and two +X-wall webs carry four ear pads at the donor fan shroud's screw pattern (enclosure.py `_condenser_mount`), M3\u00d710 into ruthex through each ear. Ear pattern is an ESTIMATE until the donor shroud is separated and measured",
         "compressor-shroud: 1 box holds 5% material",
         "hopper-funnel: 1 box holds 6% material",
-        "foam-assembly: 5 boxes hold 12% material",
+        "foam-assembly: 5 boxes hold 11% material",
         "tee-y-f: 1 box holds 14% material",
         "display: 2 boxes hold 18% material",
         "source-select-assembly: 11 boxes hold 20% material"
@@ -209,7 +214,7 @@
         "28 fluid + 6 water + 3 refrigerant + 29 electrical; 27 routed \u2014 the water path is closed end to end, the fluid path waits on the manifold's remaining on-tray legs, the refrigerant loop on its suction leg, and the electrical runs on the components being held",
         "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7 \u2014 nearest 13.12 mm to source-select-assembly",
         "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 307.7 mm, 4 bends at R12.7 \u2014 nearest 5.13 mm to compressor-shroud",
-        "\u2713 water-1: bulkhead-water.tube-in \u2192 asse1022-assembly.tube-in \u2014 \u00d86.35 \u00d7 22.4 mm, 1 bends at R3.0 \u2014 nearest 22.64 mm to c14-inlet",
+        "\u2713 water-1: bulkhead-water.tube-in \u2192 asse1022-assembly.tube-in \u2014 \u00d86.35 \u00d7 22.4 mm, 1 bends at R3.0 \u2014 nearest 18.93 mm to psu",
         "\u2713 water-2: asse1022-assembly.tube-out \u2192 water-split.supply \u2014 \u00d86.35 \u00d7 82.0 mm, 2 bends at R3.0 \u2014 nearest 3.82 mm to foam-assembly",
         "\u2713 water-3: water-split.to-vk \u2192 vk-fill-valve.inlet \u2014 \u00d86.35 \u00d7 42.6 mm, 3 bends at R3.0 \u2014 nearest 3.82 mm to foam-assembly",
         "\u2713 water-4: vk-fill-valve.outlet \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 59.3 mm, 2 bends at R3.0 \u2014 nearest 11.83 mm to fluid-18",
@@ -242,10 +247,10 @@
       "label": "Components in a printed holder fastened to the enclosure",
       "kind": "goal",
       "status": "warn",
-      "value": "32% (12/37)",
+      "value": "37% (14/38)",
       "target": "100%",
       "detail": [
-        "12 held (through-wall bodies + display); 25 loose internal parts unheld"
+        "14 held (through-wall bodies + display); 24 loose internal parts unheld"
       ],
       "active": false
     }
@@ -1615,9 +1620,9 @@
       "name": "J1-manifold-a",
       "kind": "electrical",
       "pos": [
-        94.816,
-        358.98,
-        268.0
+        32.02,
+        282.5,
+        265.0
       ],
       "face": "z+",
       "diam": 10.0,
@@ -1630,9 +1635,9 @@
       "name": "J2-manifold-b",
       "kind": "electrical",
       "pos": [
-        94.816,
-        336.73,
-        268.0
+        54.27,
+        282.5,
+        265.0
       ],
       "face": "z+",
       "diam": 8.0,
@@ -1645,9 +1650,9 @@
       "name": "J3-faucet",
       "kind": "electrical",
       "pos": [
-        31.566,
-        312.2,
-        268.0
+        78.8,
+        219.25,
+        265.0
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1660,9 +1665,9 @@
       "name": "J4-sensors",
       "kind": "electrical",
       "pos": [
-        48.816,
-        312.2,
-        268.0
+        78.8,
+        236.5,
+        265.0
       ],
       "face": "z+",
       "diam": 8.0,
@@ -1675,9 +1680,9 @@
       "name": "J5-relays",
       "kind": "electrical",
       "pos": [
-        41.866,
-        373.5,
-        268.0
+        17.5,
+        229.55,
+        265.0
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1690,9 +1695,9 @@
       "name": "J6-reeds-a",
       "kind": "electrical",
       "pos": [
-        56.716,
-        373.5,
-        268.0
+        17.5,
+        244.4,
+        265.0
       ],
       "face": "z+",
       "diam": 7.0,
@@ -1705,9 +1710,9 @@
       "name": "J7-reeds-b",
       "kind": "electrical",
       "pos": [
-        83.316,
-        312.2,
-        268.0
+        78.8,
+        271.0,
+        265.0
       ],
       "face": "z+",
       "diam": 8.0,
@@ -1720,9 +1725,9 @@
       "name": "J8-i2c",
       "kind": "electrical",
       "pos": [
-        85.116,
-        373.5,
-        268.0
+        17.5,
+        272.8,
+        265.0
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1735,9 +1740,9 @@
       "name": "J9-display",
       "kind": "electrical",
       "pos": [
-        66.066,
-        312.2,
-        268.0
+        78.8,
+        253.75,
+        265.0
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1750,9 +1755,9 @@
       "name": "J10-12v",
       "kind": "electrical",
       "pos": [
-        96.166,
-        321.0,
-        268.0
+        70.0,
+        283.85,
+        265.0
       ],
       "face": "z+",
       "diam": 5.0,
@@ -1765,9 +1770,9 @@
       "name": "J11-gas",
       "kind": "electrical",
       "pos": [
-        21.816,
-        318.65,
-        268.0
+        72.35,
+        209.5,
+        265.0
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1780,9 +1785,9 @@
       "name": "J13-pumps",
       "kind": "electrical",
       "pos": [
-        71.566,
-        373.5,
-        268.0
+        17.5,
+        259.25,
+        265.0
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1795,9 +1800,9 @@
       "name": "J14-usb",
       "kind": "electrical",
       "pos": [
-        21.816,
-        359.0,
-        268.0
+        32.0,
+        209.5,
+        265.0
       ],
       "face": "z+",
       "diam": 9.0,
@@ -1851,64 +1856,34 @@
       "note": "16 AWG; PROVISIONAL terminal position"
     },
     {
-      "component": "power-tray",
+      "component": "psu",
       "name": "ac-in",
       "kind": "electrical",
       "pos": [
-        30.0,
-        212.0,
-        290.0
+        8.0,
+        328.0,
+        277.1
       ],
-      "face": "y-",
-      "diam": 8.0,
-      "mates": "C14 mains inlet \u2014 H+N+G (AC-1)",
-      "status": "off-surface",
-      "note": "16 AWG mains; PROVISIONAL"
+      "face": "z+",
+      "diam": 10.0,
+      "mates": "C14 mains inlet via the AC distribution \u2014 H+N+G (AC-1/AC-2)",
+      "status": "ok",
+      "note": "16 AWG mains, ferruled under captive screws"
     },
     {
-      "component": "power-tray",
-      "name": "compressor-feed",
-      "kind": "electrical",
-      "pos": [
-        175.0,
-        247.0,
-        290.0
-      ],
-      "face": "x+",
-      "diam": 8.0,
-      "mates": "compressor terminal block \u2014 switched-H + N + G through the shroud grommet (AC-4/5/6)",
-      "status": "off-surface",
-      "note": "16 AWG; PROVISIONAL"
-    },
-    {
-      "component": "power-tray",
+      "component": "psu",
       "name": "dc-out",
       "kind": "electrical",
       "pos": [
-        100.0,
-        285.9,
-        290.0
+        105.0,
+        328.0,
+        277.1
       ],
-      "face": "y+",
-      "diam": 6.0,
+      "face": "z+",
+      "diam": 8.0,
       "mates": "dc-dist 12 V block (DC-1)",
-      "status": "off-surface",
-      "note": "16 AWG; PROVISIONAL"
-    },
-    {
-      "component": "power-tray",
-      "name": "relay-ctrl",
-      "kind": "electrical",
-      "pos": [
-        130.0,
-        212.0,
-        290.0
-      ],
-      "face": "y-",
-      "diam": 6.0,
-      "mates": "board J5 RELAYS control loom (LV-1/2/3)",
-      "status": "off-surface",
-      "note": "4-cond; PROVISIONAL"
+      "status": "ok",
+      "note": "16 AWG, ferruled under captive screws"
     }
   ],
   "shapes": [
@@ -2422,6 +2397,14 @@
         [
           0.0,
           200.0,
+          238.4,
+          283.0,
+          381.0,
+          263.4
+        ],
+        [
+          0.0,
+          200.0,
           7.0,
           283.0,
           381.0,
@@ -2434,17 +2417,9 @@
           283.0,
           381.0,
           258.4
-        ],
-        [
-          0.0,
-          200.0,
-          238.4,
-          283.0,
-          381.0,
-          256.4
         ]
       ],
-      "fill": 0.1161,
+      "fill": 0.1134,
       "primitive": false,
       "declared": "real"
     },
@@ -2516,23 +2491,31 @@
       "component": "pcba",
       "boxes": [
         [
-          10.0,
-          306.2,
-          266.4,
-          100.816,
-          379.0,
-          285.5
-        ],
-        [
-          15.816,
-          305.7,
-          258.4,
-          100.816,
-          379.0,
-          266.4
+          12.0,
+          197.684,
+          263.4,
+          84.8,
+          288.5,
+          282.5
         ]
       ],
-      "fill": 0.2809,
+      "fill": 0.2396,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "psu",
+      "boxes": [
+        [
+          2.0,
+          302.0,
+          263.4,
+          111.0,
+          354.0,
+          296.9
+        ]
+      ],
+      "fill": 0.8199,
       "primitive": false,
       "declared": "real"
     },

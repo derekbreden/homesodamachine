@@ -156,7 +156,8 @@ COMPONENTS = [
     _c("display",           "real",        True,  "shell-facet", "Waveshare 4.3B: 45° facet housing in the front-top (bezel counterbore + PCB through-hole)"),
     _c("hopper-funnel",     "real",        True,  "none", "removable silicone basin; rests on the top-wall rim ledge, attach mode TBD (enclosure-mechanical Open #3)"),
     # Electronics shelf
-    _c("pcba",              "real",        True,  "none", "Controller board on its printed tray (printed-parts/electronics/pcba-tray), laid on the foam-cap top in the aft strip along the cap's rear edge, behind the pump and west of the drip basin. Unturned, its long axis across the strip: the USB-C edge (J14) opens west toward the side wall's rib and the J10 12 V throats east toward the rail web, both edges the board must keep reachable facing a lane rather than a wall, and the twelve top-entry wafers between them plugging from the bay's own opening above. Standing here rather than down the west column is what leaves that column whole for the PSU. The board is 85.05 x 72.85 as fabbed and its four mounting holes are fixed; the TRAY is not — its 3 mm floor is what stands between the board and the cap, and the mount becomes four boss columns through the cap itself. Hold-down TBD"),
+    _c("pcba",              "real",        True,  "cap",  "Controller board (pcb/pcba), bolted straight to four boss columns of the cold core's top foam cap — no tray floor under it. A quarter turn from its own frame so the long axis runs down the west column: the USB-C edge (J14) looks south into the open band ahead of the cap, where a hand reaches it with the back panel on, and the J10 12 V throats look north up the column, both edges the board must keep reachable facing a lane rather than a wall, and the twelve top-entry wafers between them plugging from the bay's own opening above. The board is 85.05 x 72.85 as fabbed and its four mounting holes are fixed; the stations they land on are the cap's (`_cold_core_interface.deck_mounts`), so the column, the board and its connector map move as one. M3 SHCS into a ruthex short in each column"),
+    _c("psu",               "real",        True,  "cap",  "Mean Well IRM-90-12ST 12 V open-frame supply (reference/meanwell-irm90), on four boss columns of the same cap in the aft strip, west of the drip basin and behind the pump. Laid ACROSS the strip: its mounting holes span most of its length, and that span is longer than what the west column has left in Y once the board is in it, while the strip has the run in X once the basin turns narrow. Its AC end faces the rear-panel C14 inlet's own column above it. M3 SHCS into a ruthex short in each column; the AC distribution, both relays, the ground bus and the DC block are not yet stationed"),
 ]
 
 # Unordered part pairs allowed to touch by design — a part resting on another's top, or
@@ -170,7 +171,8 @@ TOUCHING_OK = {
         ("foam-assembly", "water-split"),       # the split's body flat on the cap, under V-K's cradle
         ("foam-assembly", "flow-regulator"),    # the regulator's body flat on the cap, ahead of the pump
         ("foam-assembly", "drip-pan-rails"),    # the rails' feet flat on the foam-cap top
-        ("foam-assembly", "pcba"),              # the board tray's floor flat on the foam-cap top
+        ("foam-assembly", "pcba"),              # the board's underside on the cap's deck-mount boss tops
+        ("foam-assembly", "psu"),                # the PSU's base on the same cap's other four
         ("drip-pan", "drip-pan-rails"),         # the basin's floor edge flat on the shelves
         # The valve-manifold stack: the source-select tray's floor rests on the
         # bag-circuit tray's column wall tops, one tray pitch apart by design.
@@ -362,9 +364,23 @@ PLACEMENT_RULES = {
     # nozzle-outlet runs crossing the strip.
     "asse1022-assembly": [("near", "bulkhead-water", 20.0),
                           ("fall", "vent-tip", "drip-pan", 60.0),
-                          ("clear", "power-tray", 8.0),
+                          ("clear", "psu", 8.0),
                           ("clear", "c14-inlet", 4.0),
                           ("x-", 80.0)],
+    # The two electronics modules, each on four boss columns of the foam cap. Both read
+    # `near foam-assembly` because the cap IS the mount — a module off its columns is a
+    # module with no root. The board holds off the pump it shares the column with; the PSU
+    # holds off the basin's rails and the pump behind it, stands on the C14 inlet's own
+    # column so the energized run is short, and keeps its distance from the board rather
+    # than standing over it, because the bay has no ventilation and its loss has nowhere
+    # to go but the air the board sits in.
+    "pcba": [("near", "foam-assembly", 0.5),
+             ("clear", "seaflo-pump", 3.0)],
+    "psu": [("near", "foam-assembly", 0.5),
+            ("near", "c14-inlet", 20.0),
+            ("clear", "seaflo-pump", 1.0),
+            ("clear", "drip-pan-rails", 1.0),
+            ("clear", "pcba", 10.0)],
     # V-K on its cradle, laid along X in the band the pump's head taper opens: its inlet takes the
     # split's branch (`near water-split` — the feed that anchors the pose), its outlet looks west
     # straight down the lane under the ASSE overhang to the suction. Lifted off the cap on its
@@ -717,13 +733,10 @@ PORTS = [
     _p("in",       "dc-dist", "electrical", (34.0, 305.0, 283.0), "z+", 6.0, "PSU 12 V output (DC-1)", "16 AWG; PROVISIONAL terminal position"),
     _p("to-board", "dc-dist", "electrical", (49.0, 305.0, 283.0), "z+", 5.0, "board J10 12 V inlet (DC-4)", "16 AWG; PROVISIONAL terminal position"),
     _p("to-relay2","dc-dist", "electrical", (64.0, 305.0, 283.0), "z+", 6.0, "Teyleten relay #2 contact — SeaFlo gate (DC-2)", "16 AWG; PROVISIONAL terminal position"),
-    # Power assembly (tray + Mean Well PSU + 2 Teyleten relays + AC-dist block + ground bus) — the
-    # connection groups entering/leaving the tray. Terminal positions are provisional (the device
-    # terminals inside the tray aren't individually modeled).
-    _p("ac-in",           "power-tray", "electrical", (30.0, 212.0, 290.0), "y-", 8.0, "C14 mains inlet — H+N+G (AC-1)", "16 AWG mains; PROVISIONAL"),
-    _p("compressor-feed", "power-tray", "electrical", (175.0, 247.0, 290.0), "x+", 8.0, "compressor terminal block — switched-H + N + G through the shroud grommet (AC-4/5/6)", "16 AWG; PROVISIONAL"),
-    _p("dc-out",          "power-tray", "electrical", (100.0, 285.9, 290.0), "y+", 6.0, "dc-dist 12 V block (DC-1)", "16 AWG; PROVISIONAL"),
-    _p("relay-ctrl",      "power-tray", "electrical", (130.0, 212.0, 290.0), "y-", 6.0, "board J5 RELAYS control loom (LV-1/2/3)", "4-cond; PROVISIONAL"),
+    # The PSU's two terminal blocks, each face-up on its own stepped end ledge. Derived
+    # from the pose the way the board's are, so they cannot drift from the body.
+    _p("ac-in",  "psu", "electrical", *contents.psu_terminal("ac-in"),  10.0, "C14 mains inlet via the AC distribution — H+N+G (AC-1/AC-2)", "16 AWG mains, ferruled under captive screws"),
+    _p("dc-out", "psu", "electrical", *contents.psu_terminal("dc-out"), 8.0,  "dc-dist 12 V block (DC-1)", "16 AWG, ferruled under captive screws"),
 ]
 
 
