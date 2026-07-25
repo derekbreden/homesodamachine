@@ -320,7 +320,7 @@ BEDUAN_POS = (264.0, 342.5, 274.1 + RING_SEAT)   # base centre on a cradle above
 #   The two nozzle lanes cross the deck the far side of the pump; the board shares no deck
 # with them.
 PCBA_YAW = 0.0
-PCBA_POS = (10.0, 306.7, 258.4)   # bbox min — the tray's underside on the cap top
+PCBA_POS = (10.0, 305.7, 258.4)   # bbox min — the tray's underside on the cap top
 # The split lies UNDER V-K, in the band between the foam cap and V-K's cradle — the one
 # place in the strip's east void with a footprint free once the valve is standing in it.
 # Its run carries the ASSE feed across the void — in at the WEST face off water-2, on at
