@@ -297,21 +297,24 @@ DRIP_PAN_X, DRIP_PAN_Y = _pan.PAN_X, _pan.PAN_Y
 # first. Stood down the strip, the length runs into depth the strip has and the column
 # the nozzle lanes need stays open beside it.
 BEDUAN_YAW = 180.0
-BEDUAN_POS = (265.0, 342.5, 274.1 + RING_SEAT)   # base centre on a cradle above the cap
+BEDUAN_POS = (264.0, 342.5, 274.1 + RING_SEAT)   # base centre on a cradle above the cap
 # The split lies UNDER V-K, in the band between the foam cap and V-K's cradle — the one
 # place in the strip's east void with a footprint free once the valve is standing in it.
-# Yawed so its run carries the ASSE feed across the void — in at +X off water-2, on at −X
-# to the flow regulator and V-A — and its branch turns V-K's share NORTH, where water-3
-# takes it up to the valve's inlet.
+# Its run carries the ASSE feed across the void — in at the WEST face off water-2, on at
+# the EAST to the flow regulator and V-A — and its branch turns V-K's share NORTH, where
+# water-3 takes it up to the valve's inlet. The branch has to point north and the run has
+# to lie along X, which is one turn about Z and one about its own run axis: the roll is
+# what puts the branch on the far side of the run from where the yaw alone would leave it.
 SPLIT_YAW = 270.0
-SPLIT_POS = (265.0, 350.0, 260.4 + RING_SEAT)   # centre; its port plane, standing on the cap under V-K
+SPLIT_ROLL = 180.0
+SPLIT_POS = (257.0, 345.5, 260.4 + RING_SEAT)   # centre; its port plane, standing on the cap under V-K
 # The flow regulator (neoFit ABCVU44) sits inline on the split's flavor run, in the band
 # between the hopper funnel's basin and the cap's front edge — the pump fills the deck behind
 # it, and this band is the only length of open air on the flavor run's own X. Its needle stem
 # stands up where a screwdriver reaches it over the deck. Its own frame is +X = flow; yawed so
 # the flow runs south, in at the north face off fluid-1 and on at the south face into the fall.
 # It sits on V-A's own X, so the line it feeds drops straight into that up-facing collet.
-FLOWREG_Y = 198.0
+FLOWREG_Y = 202.0
 FLOWREG_YAW = 270.0
 # The discharge chain hangs vertically in the bag-fall corridor, just clear of the cold
 # core's front face — the only column deep enough to stand its 83.4 mm. The pump's barbs
@@ -321,7 +324,7 @@ FLOWREG_YAW = 270.0
 # frame already runs the water down. Its X rides the pump's discharge, not a number of its
 # own: the hose turns at R15.9, so any offset between the two costs two tangent lengths of
 # strip the bay does not have. The corridor bounds this chain in Y, not in X.
-DISCH_CHAIN_POS = (SEAFLO_POS[0] + 36.6, 188.0, 265.0 + RING_SEAT)   # the barb tip; the collet hangs LENGTH below it
+DISCH_CHAIN_POS = (SEAFLO_POS[0] + 36.6, 190.0, 265.0 + RING_SEAT)   # the barb tip; the collet hangs LENGTH below it
 # The funnel's placement: its collar-rect centre in plan, plus a rotation
 # about its own Z. This is the CENTRE OF THE TOP-WALL FRAME — the basin sits
 # the same `hopper_funnel.brim_margin` off the display gusset, the corner pod,
@@ -520,6 +523,7 @@ def split_terminal(name):
     the tee turns its three ports with it."""
     pos, axis = {"supply": _split.supply, "to-vk": _split.to_vk,
                  "to-flavor": _split.to_flavor}[name]()
+    pos, axis = _roll_x(pos, SPLIT_ROLL), _roll_x(axis, SPLIT_ROLL)
     pos, axis = _yaw_z(pos, SPLIT_YAW), _yaw_z(axis, SPLIT_YAW)
     face = {(-1.0, 0.0, 0.0): "x-", (1.0, 0.0, 0.0): "x+", (0.0, 1.0, 0.0): "y+",
             (0.0, -1.0, 0.0): "y-", (0.0, 0.0, 1.0): "z+", (0.0, 0.0, -1.0): "z-"}[
@@ -549,9 +553,11 @@ def disch_terminal(name):
 
 def flowreg_pos():
     """The flow regulator's centre: V-A's own X, so the line it feeds falls straight into that
-    up-facing collet; FLOWREG_Y across the band ahead of the cap; and the SUCTION's Z, the plane
-    the deck-height water runs share — the split now sits a stratum below it, under V-K."""
-    return (src_collet("VA")[0][0], FLOWREG_Y, seaflo_terminal("suction")[0][2])
+    up-facing collet; FLOWREG_Y across the band ahead of the cap; and the split's Z, which is the
+    LANE UNDER THE PUMP — the gap the pump's bracket leaves between its body and the cap runs the
+    bay's whole width, and the flavor run crosses the machine along it without ever climbing into
+    the deck the pump fills."""
+    return (src_collet("VA")[0][0], FLOWREG_Y, SPLIT_POS[2])
 
 
 _FOAM_TOP_CACHE = None
@@ -1406,7 +1412,7 @@ def _build():
                                    _pan_x + _rail_dx, _pan_y + _rail_dy,
                                    _pan_z + _rail_dz)
     placed["water-split"] = _rot(
-        _load(WATER_SPLIT_STEP), (0, 0, 1), SPLIT_YAW
+        _rot(_load(WATER_SPLIT_STEP), (1, 0, 0), SPLIT_ROLL), (0, 0, 1), SPLIT_YAW
         ).translate(SPLIT_POS)
     placed["flow-regulator"] = _rot(
         _load(FLOWREG_STEP), (0, 0, 1), FLOWREG_YAW
