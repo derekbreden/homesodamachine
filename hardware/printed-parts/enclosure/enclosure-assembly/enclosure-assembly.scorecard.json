@@ -1,17 +1,17 @@
 {
   "gatesPass": true,
-  "placed": 38,
-  "located": 91,
+  "placed": 40,
+  "located": 89,
   "shaped": 97,
   "routed": 41,
-  "held": 21,
+  "held": 23,
   "checks": [
     {
       "id": "coverage",
       "label": "Every placed part declared in the registry",
       "kind": "gate",
       "status": "pass",
-      "value": "33/33 placed declared",
+      "value": "34/34 placed declared",
       "target": "all declared",
       "detail": [],
       "active": true
@@ -45,6 +45,7 @@
       "target": "\u2265 1.0 mm",
       "detail": [
         "foam-assembly \u2014 seaflo-pump: 0.00 mm \u2014 CONTACT (declared ok)",
+        "foam-assembly \u2014 drip-pan: 0.00 mm \u2014 CONTACT (declared ok)",
         "source-select-assembly \u2014 bag-circuit-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
         "compressor-shroud \u2014 mq6-sensor: 1.00 mm",
         "pump-b \u2014 y-d: 1.05 mm",
@@ -58,6 +59,7 @@
         "nozzle-gate-assembly \u2014 elbow-noz-b: 2.00 mm",
         "foam-assembly \u2014 discharge-chain: 3.50 mm",
         "asse1022-assembly \u2014 vk-fill-valve: 4.02 mm",
+        "seaflo-pump \u2014 drip-pan: 4.50 mm",
         "bag-circuit-assembly \u2014 elbow-y-g: 5.10 mm",
         "seaflo-pump \u2014 vk-fill-valve: 5.88 mm",
         "bag-circuit-assembly \u2014 hopper-funnel: 5.90 mm"
@@ -89,8 +91,8 @@
       "label": "Every component is a selected real part / finished print",
       "kind": "gate",
       "status": "pass",
-      "value": "34/34",
-      "target": "34/34",
+      "value": "35/35",
+      "target": "35/35",
       "detail": [],
       "active": true
     },
@@ -99,7 +101,7 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "38% (13/34)",
+      "value": "40% (14/35)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 3.0 x- 14.0 x+ 14.0 z- 0.0 mm",
@@ -113,7 +115,8 @@
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
         "\u2713 tee-y-c: near source-select-assembly 14.5 mm",
         "\u2713 tee-y-f: near source-select-assembly 8.1 mm",
-        "\u2717 asse1022-assembly: near bulkhead-water 10.6 fall vent-tip onto foam-assembly 31.6 clear power-tray inf(<8) clear c14-inlet 33.7 x- 80.0 mm",
+        "\u2717 asse1022-assembly: near bulkhead-water 10.6 fall vent-tip onto drip-pan 28.6 clear power-tray inf(<8) clear c14-inlet 33.7 x- 80.0 mm",
+        "\u2713 drip-pan: near foam-assembly 0.0 clear seaflo-pump 4.5 clear asse1022-assembly 12.3 mm",
         "\u2713 vk-fill-valve: near water-split 10.4 clear seaflo-pump 5.9 clear asse1022-assembly 4.0 clear foam-assembly 20.7 mm",
         "\u2713 flow-regulator: near water-split 20.9 clear foam-assembly 25.0 mm",
         "20 components: no placement rules defined yet"
@@ -125,7 +128,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "91% (31/34)",
+      "value": "89% (31/35)",
       "target": "100%",
       "detail": [
         "\u2717 foam-assembly: 9/10 connectors located",
@@ -176,7 +179,7 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "97% (33/34)",
+      "value": "97% (34/35)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)",
@@ -203,7 +206,7 @@
         "\u2713 water-1: bulkhead-water.tube-in \u2192 asse1022-assembly.tube-in \u2014 \u00d86.35 \u00d7 22.4 mm, 1 bends at R3.0 \u2014 nearest 20.22 mm to c14-inlet",
         "\u2713 water-2: asse1022-assembly.tube-out \u2192 water-split.supply \u2014 \u00d86.35 \u00d7 123.3 mm, 3 bends at R3.0 \u2014 nearest 4.20 mm to vk-fill-valve",
         "\u2713 water-3: water-split.to-vk \u2192 vk-fill-valve.inlet \u2014 \u00d86.35 \u00d7 10.4 mm, 0 bends at R3.0 \u2014 nearest 11.95 mm to fluid-18",
-        "\u2713 water-4: vk-fill-valve.outlet \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 32.6 mm, 1 bends at R3.0 \u2014 nearest 21.22 mm to asse1022-assembly",
+        "\u2713 water-4: vk-fill-valve.outlet \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 32.6 mm, 1 bends at R3.0 \u2014 nearest 9.95 mm to drip-pan",
         "\u2713 water-6: seaflo-pump.discharge \u2192 discharge-chain.barb-tip \u2014 \u00d815.1 \u00d7 62.6 mm, 1 bends at R15.9 \u2014 nearest 7.65 mm to bag-circuit-assembly",
         "\u2713 water-5: discharge-chain.tube-port \u2192 foam-assembly.water-in \u2014 \u00d86.35 \u00d7 95.6 mm, 3 bends at R3.0 \u2014 nearest 6.64 mm to fluid-15",
         "\u2713 fluid-1: water-split.to-flavor \u2192 flow-regulator.inlet \u2014 \u00d86.35 \u00d7 29.0 mm, 2 bends at R3.0 \u2014 nearest 14.11 mm to fluid-18",
@@ -233,10 +236,10 @@
       "label": "Components in a printed holder fastened to the enclosure",
       "kind": "goal",
       "status": "warn",
-      "value": "21% (7/34)",
+      "value": "23% (8/35)",
       "target": "100%",
       "detail": [
-        "7 held (through-wall bodies + display); 27 loose internal parts unheld"
+        "8 held (through-wall bodies + display); 27 loose internal parts unheld"
       ],
       "active": false
     }
@@ -2204,6 +2207,22 @@
         ]
       ],
       "fill": 0.1805,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "drip-pan",
+      "boxes": [
+        [
+          84.0,
+          330.5,
+          253.4,
+          184.0,
+          360.5,
+          275.4
+        ]
+      ],
+      "fill": 0.3157,
       "primitive": false,
       "declared": "real"
     },
