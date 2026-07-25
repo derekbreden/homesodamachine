@@ -4,7 +4,7 @@
   "located": 89,
   "shaped": 97,
   "routed": 41,
-  "held": 23,
+  "held": 29,
   "checks": [
     {
       "id": "coverage",
@@ -182,7 +182,7 @@
       "value": "97% (34/35)",
       "target": "100%",
       "detail": [
-        "condenser+fan: still a placeholder \u2014 harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)",
+        "condenser+fan: still a placeholder \u2014 harvested donor block; two floor rails carry its weight and two +X-wall webs carry four ear pads at the donor fan shroud's screw pattern (enclosure.py `_condenser_mount`), M3\u00d710 into ruthex through each ear. Ear pattern is an ESTIMATE until the donor shroud is separated and measured",
         "compressor-shroud: 1 box holds 5% material",
         "hopper-funnel: 1 box holds 6% material",
         "foam-assembly: 5 boxes hold 12% material",
@@ -236,10 +236,10 @@
       "label": "Components in a printed holder fastened to the enclosure",
       "kind": "goal",
       "status": "warn",
-      "value": "23% (8/35)",
+      "value": "29% (10/35)",
       "target": "100%",
       "detail": [
-        "8 held (through-wall bodies + display); 27 loose internal parts unheld"
+        "10 held (through-wall bodies + display); 25 loose internal parts unheld"
       ],
       "active": false
     }
