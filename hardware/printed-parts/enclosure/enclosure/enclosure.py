@@ -274,7 +274,6 @@ comp_foot_pitch = (100.0, 65.0)     # [100 × 65 mm](COMP_FOOT_PITCH), X × Y
 # open that bay.
 comp_axis_offset_x = 10.0
 comp_pad_dia = 20.0
-comp_pad_rise = 3.0          # pad top above the seat, the grommet's landing
 
 # The condenser/fan block is held by its donor fan shroud, whose ears stand in the
 # block's +X (exhaust) face. Each ear takes an M3 SHCS driven +X into a heat-set
@@ -1455,11 +1454,17 @@ def _compressor_feet(inner, placed):
     """The four foot stations as (x, y, z_top) — the donor's foot pattern centred
     in the shroud's plan, held west of its centre by the terminal-block bay. The
     pitch is the estimate at the top of the file; everything here follows it, so
-    a measured donor moves the pads by changing one pair of numbers."""
+    a measured donor moves the pads by changing one pair of numbers.
+
+    The pad top is one whole `boss_reach` over the floor slab's UNDERSIDE, not a
+    chosen height: the pocket and its relief are bored down the pad's own axis,
+    and the pad is exactly as tall as it takes for the relief's floor to still be
+    a floor. It is the only thing setting the compressor's height so far — the
+    copper stubs bend to whatever the shroud's Ø8 clearance holes leave them."""
     bb = _boxes.boxed(placed["compressor-shroud"][0])
     cx = bb.center.x - comp_axis_offset_x
     cy = bb.center.y
-    z_top = inner[4] + _contents.SEAM_CLEAR_LIFT + comp_pad_rise
+    z_top = inner[4] - wall + boss_reach
     px, py = comp_foot_pitch
     return [(cx + sx * px / 2.0, cy + sy * py / 2.0, z_top)
             for sx in (-1.0, 1.0) for sy in (-1.0, 1.0)]
