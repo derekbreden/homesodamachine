@@ -151,6 +151,7 @@ for _p in (_hw / "scripts", _repo / "tools", _hw / "reference" / "beduan-solenoi
            _hw / "reference" / "flare38-14ptc",
            _hw / "reference" / "water-split",
            _hw / "reference" / "neofit-flow-control",
+           _hw / "reference" / "seaflo-discharge-chain",
            _hw / "reference" / "seaflo-22-pump",
            _hw / "printed-parts" / "enclosure" / "enclosure"):    # `enclosure`, imported in placed_funnel
     sys.path.insert(0, str(_p))
@@ -161,6 +162,7 @@ import nozzle_gate_tray as _noz          # noqa: E402
 import asse1022_assembly as _bfp         # noqa: E402  — its three terminals, carried to world
 import water_split as _split             # noqa: E402  — its three 1/4" collets, the same way
 import neofit_flow_control as _flowreg   # noqa: E402  — its two 1/4" collets and its stem
+import seaflo_discharge_chain as _disch  # noqa: E402  — its barb tip and its 1/4" collet
 import seaflo_22_pump as _seaflo         # noqa: E402  — its two head barbs
 import beduan_solenoid as _vk            # noqa: E402  — V-K's two 1/4" QC collets
 
@@ -206,6 +208,10 @@ WATER_SPLIT_STEP = _hw / "reference" / "water-split" / "water-split.step"
 # the manifold's feed to its low working pressure. Its own frame is +X = flow, the
 # needle stem on +Z (reference/neofit-flow-control).
 FLOWREG_STEP   = _hw / "reference" / "neofit-flow-control" / "neofit-flow-control.step"
+# The pump's discharge chain — MAACFLOW barb + GASHER check + PP450822E, made up as one
+# piece. Its own frame is +Z = flow with the barb tip at Z = 0, water running DOWN it
+# (reference/seaflo-discharge-chain).
+DISCH_CHAIN_STEP = _hw / "reference" / "seaflo-discharge-chain" / "seaflo-discharge-chain.step"
 # V-K — the Beduan 12 V NC solenoid, the water-supply fill/shutoff valve
 # (reference/beduan-solenoid). Its own frame is +Y = flow, the arrow the outlet.
 BEDUAN_STEP    = _hw / "reference" / "beduan-solenoid" / "beduan-solenoid.step"
@@ -265,6 +271,13 @@ SPLIT_POS = (282.0, 322.0, 285.4)   # centre; z is the port plane shared with th
 # V-A's own X, so the line it feeds falls straight down the pocket into that collet.
 FLOWREG_Y = 258.0
 FLOWREG_YAW = 270.0
+# The discharge chain hangs vertically in the bag-fall corridor, just clear of the cold
+# core's front face — the only column deep enough to stand its 83.4 mm. The pump's barbs
+# are molded into the head, so a stub of 3/8" braided PVC is the only thing that can leave
+# the discharge: it runs south off the barb, turns down over the cap's front edge, and
+# clamps onto this chain's barb, which is where the 3/8" ends. Placed unturned — its own
+# frame already runs the water down.
+DISCH_CHAIN_POS = (163.6, 188.0, 265.0)   # the barb tip; the collet hangs LENGTH below it
 # The funnel's placement: its collar-rect centre in plan, plus a rotation
 # about its own Z. This is the CENTRE OF THE TOP-WALL FRAME — the basin sits
 # the same `hopper_funnel.brim_margin` off the display gusset, the corner pod,
@@ -447,6 +460,15 @@ def flowreg_terminal(name):
             (0.0, -1.0, 0.0): "y-", (0.0, 0.0, 1.0): "z+", (0.0, 0.0, -1.0): "z-"}[
         tuple(round(float(c), 9) + 0.0 for c in axis)]
     return tuple(p + o for p, o in zip(pos, flowreg_pos())), face
+
+
+def disch_terminal(name):
+    """One of the discharge chain's two ends in world: `(pos, face)`. Placed unturned,
+    so each station just shifts by DISCH_CHAIN_POS."""
+    pos, axis = {"barb-tip": _disch.barb_tip, "tube-port": _disch.tube_port}[name]()
+    face = {(0.0, 0.0, 1.0): "z+", (0.0, 0.0, -1.0): "z-"}[
+        tuple(round(float(c), 9) + 0.0 for c in axis)]
+    return tuple(p + o for p, o in zip(pos, DISCH_CHAIN_POS)), face
 
 
 def flowreg_pos():
@@ -730,6 +752,7 @@ COLORS = {
     "seaflo-pump":       cq.Color(0.32, 0.38, 0.46),
     "water-split":       cq.Color(0.88, 0.89, 0.91),
     "flow-regulator":    cq.Color(0.80, 0.82, 0.86),
+    "discharge-chain":   cq.Color(0.72, 0.74, 0.78),
     "vk-fill-valve":      cq.Color(0.85, 0.86, 0.90),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
@@ -1255,6 +1278,7 @@ def _build():
     placed["flow-regulator"] = _rot(
         _load(FLOWREG_STEP), (0, 0, 1), FLOWREG_YAW
         ).translate(flowreg_pos())
+    placed["discharge-chain"] = _load(DISCH_CHAIN_STEP).translate(DISCH_CHAIN_POS)
 
     # V-K, the fill/shutoff solenoid, on its cradle in the aft strip's east void,
     # placed unturned: inlet −Y off the split's north run, outlet +Y wrapping west

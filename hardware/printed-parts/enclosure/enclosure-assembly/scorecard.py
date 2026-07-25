@@ -121,6 +121,8 @@ COMPONENTS = [
     _c("asse1022-assembly", "real",        True,  "none","Multiplex 19-0897 ASSE 1022 backflow preventer + PP010822E, GAGIRA coupling, flare38-14ptc (3/8\" flare → 1/4\" PTC) and the clear-PVC vent stub as one chain (reference/asse1022-assembly); lies along +X in the service bay's aft strip behind the pump, 1/4\" PTC inlet west on its pigtail off the rear-panel water bulkhead, 1/4\" PTC outlet east onto the line to the split, vent in its native pose weeping down its own column onto the pan's ground on the foam-cap top, holder TBD"),
     _c("water-split",       "real",        True,  "none","JG PP0208E 1/4\" union tee (reference/water-split); tube-hung in the east pocket, its three collets in the suction's own Z plane. The run carries the ASSE feed straight down the pocket — in at +Y, on at −Y to the flow regulator — and the branch turns V-K's share west. No tray, no holder"),
     _c("vk-fill-valve",     "real",        True,  "none","Beduan 12 V NC solenoid (reference/beduan-solenoid) — V-K, the water-supply fill/shutoff valve. Downstream of the ASSE 1022, between the split and the SeaFlo suction. Yawed a quarter turn so it lies along X in the band the pump's narrow head end opens: inlet east at the split's branch, outlet west at the suction, all three collets in one plane. Stands on a short cradle off the foam cap; cradle TBD"),
+    _c("discharge-chain",   "real",        True,  "none","MAACFLOW 3/8\" barb + GASHER 1/4\" check + PP450822E 1/4\" PTC, made up as one piece (reference/seaflo-discharge-chain). The pump's barbs are molded into its head — no thread, no elbow fits — so a stub of 3/8\" braided PVC is the only thing that can leave the discharge; it turns down over the cap's front edge onto this chain's barb, and the 3/8\" ends there. Hangs vertically in the bag-fall corridor, the one column deep enough to stand its 83.4 mm. Bracket TBD"),
+    _c("discharge-chain",   "real",        True,  "none","MAACFLOW 3/8\" barb + GASHER 1/4\" check + PP450822E 1/4\" PTC, made up as one piece (reference/seaflo-discharge-chain). The pump's barbs are molded into its head — no thread, and the 90° barbed accessory does not fit this head — so a stub of 3/8\" braided PVC is the only thing that can leave the discharge; it turns down over the cap's front edge onto this chain's barb, and the 3/8\" ends there. Hangs vertically in the bag-fall corridor, the one column deep enough to stand its 83.4 mm. Bracket TBD"),
     _c("flow-regulator",    "real",        True,  "none","neoFit ABCVU44 1/4\" needle flow control (reference/neofit-flow-control) — the flavor tap's regulator, throttling the manifold's feed to its low working pressure. Tube-hung inline on the split's flavor run, further down the same pocket, flow running south; its needle stem stands up where a screwdriver reaches it over the deck. No tray, no holder"),
     # Valve manifold
     _c("source-select-assembly", "real",   True,  "none", "Tray 1 — printed tray + 4 Beduan NC solenoids + 2 PP2308E Y-dividers + 4 outlet elbows (valve-manifold/source-select-tray); floors the stack, plate down and valves up, holder TBD"),
@@ -202,7 +204,8 @@ WATER_SEGMENTS = [
     ("water-2", "asse1022-assembly tube-out (PI4512F6S + PP061208W, 1/4\" PTC)", "water-split supply (PP0208E 1/4\" tee)"),
     ("water-3", "water-split to-vk (PP0208E 1/4\" tee)", "vk-fill-valve inlet (Beduan 1/4\" QC)"),
     ("water-4", "vk-fill-valve outlet (Beduan 1/4\" QC)", "seaflo-pump suction (1/4\" → 3/8\" barb adapter)"),
-    ("water-5", "seaflo-pump discharge (MAACFLOW → GASHER check)", "foam-assembly water-in"),
+    ("water-5", "discharge-chain tube-port (PP450822E 1/4\" PTC)", "foam-assembly water-in"),
+    ("water-6", "seaflo-pump discharge (3/8\" barb, molded)", "discharge-chain barb-tip (3/8\" braided-PVC stub, 2 clamps)"),
 ]
 
 
@@ -559,7 +562,11 @@ PORTS = [
     # The SeaFlo's two head barbs, on its ±Y side faces; the yaw turns the suction north, the
     # discharge south.
     _p("suction",  "seaflo-pump", "fluid", *contents.seaflo_terminal("suction"),   6.35,  "vk-fill-valve outlet — segment water-4 (routed)", "3/8\" hose barb on the head, facing north (+Y); a 1/4\"→3/8\" barb adapter takes the LLDPE, worm-gear clamp"),
-    _p("discharge","seaflo-pump", "fluid", *contents.seaflo_terminal("discharge"), 9.525, "foam-assembly water-in via the MAACFLOW → GASHER check (deferred) — segment water-5", "3/8\" hose barb on the head, facing south (−Y); worm-gear clamp"),
+    _p("discharge","seaflo-pump", "fluid", *contents.seaflo_terminal("discharge"), 15.1, "discharge-chain barb-tip — segment water-6 (routed)", "3/8\" hose barb molded into the head, facing south (−Y); a braided-PVC stub clamps over it"),
+    # The discharge chain's two ends — the barb the pump's hose stub clamps onto, and the
+    # 1/4" PTC that starts the run to the cold core.
+    _p("barb-tip",  "discharge-chain", "fluid", *contents.disch_terminal("barb-tip"),  15.1, "seaflo-pump discharge — segment water-6 (routed)", "MAACFLOW 3/8\" hose barb, facing up at the stub off the pump; worm-gear clamp"),
+    _p("tube-port", "discharge-chain", "fluid", *contents.disch_terminal("tube-port"), 6.35,  "foam-assembly water-in — segment water-5 (routed)", "PP450822E 1/4\" PTC collet, facing down the corridor"),
     # Hopper funnel — the removable silicone basin's single drain: the spout-tube exit annulus,
     # feeding V-B by tube (segment 4). Defined in the funnel's own frame
     # (hopper_funnel.drain_local = (neck_dx, 0, −drop)) carried through the placement's
@@ -1025,9 +1032,9 @@ def routed_check(solids=None) -> tuple:
     routed_done = sum(1 for c in conns if c.routed)
     routed = _pct(routed_done, len(conns))
     routed_detail = [f"{fluid} fluid + {water} water + {refrig} refrigerant + {wire} electrical; "
-                     f"{routed_done} routed — the water path waits on the SeaFlo the ASSE 1022's "
-                     f"discharge hose lands on, the fluid path on the manifold's remaining legs; "
-                     f"the electrical runs on the components being held"]
+                     f"{routed_done} routed — the water path is closed end to end, the fluid path "
+                     f"waits on the manifold's remaining on-tray legs, the refrigerant loop on its "
+                     f"suction leg, and the electrical runs on the components being held"]
     # The per-run nearest-gap report is an exact solid-distance query against every body.
     # HSM_SKIP_CLEARANCES drops it; each run's ports, length and bends still print, and
     # `lines-clear` still gates on interpenetration.
