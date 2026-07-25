@@ -52,11 +52,14 @@ A claim about where something sits, what it clears, or which poses are available
 tools/cad-venv/bin/python hardware/scripts/fit.py parts
 tools/cad-venv/bin/python hardware/scripts/fit.py ports beduan-solenoid
 tools/cad-venv/bin/python hardware/scripts/fit.py try meanwell-irm90 --bbmin=0,180,267.5 --yaw 90
+tools/cad-venv/bin/python hardware/scripts/fit.py mate gasher-check-valve --port inlet --onto seaflo-pump.discharge
 tools/cad-venv/bin/python hardware/scripts/fit.py search meanwell-irm90 --x=-14,60,6 --y=176,200,6 --z=267.5 --yaw=90 --anchor bbmin --clearance 1
 tools/cad-venv/bin/python hardware/scripts/fit.py slab --z 267,331 --size 52,109 --exact seaflo-pump
 ```
 
 The body and its ports move under one `cq.Location`, so a port always sits on the face it names — a pose rotated by hand alongside a port rotated by hand is two implementations of one transform. `pose.port(name)` returns the world position and axis. `anchor` picks what lands on the coordinate you give: `at` is the part's own origin, `bbmin` is its rotated bounding box's low corner, which is how `_contents._at` seats a body in the pack.
+
+`mate` is the pose a fitting takes when it is put on the thing it connects to: give a port the position and normal of the mouth it joins and the body follows, so the answer to "where does the far end land, and what is already there" is one query rather than a rotation worked out by hand. A port's axis points out of its part, so mating seats the two mouths facing each other; `--along` points it the other way.
 
 Clearance is a threshold on an exact measured distance, never an inflation of the obstacles, so raising it can only ever remove poses. `search` reports the free poses ranked by the room they leave; the body being re-placed must be named in `--skip`, or it clashes with itself.
 
