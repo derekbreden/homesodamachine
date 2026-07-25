@@ -138,7 +138,7 @@ A finished cold core:
 - The body foam pour cured, flush-trimmed at visible surfaces and tube exits
 - Vessel + bonded coil installed, seated in the cylinder cavity, surrounded by foam; coil inlet/outlet stubs ([500 mm](STUB_LEN) each) protruding through the foam-shell's copper-plug exits
 - Both temperature probes potted in the foam against their metal surfaces — DS18B20 (tank-wall, 0x28) on the vessel OD, DS18S20 (coil, 0x10) at the suction end of the coil — leads routed out the +Z slot and sealed, joining SIG-1 at the cold-core exit
-- Both carbonator reeds in the reed-bridge on the vessel wall at the register azimuth (`CLO` at 67.12 mm, `CHI` at 95.25 mm above the tube's bottom rim), under the foil, leads out the +Z slot to J7
+- Both carbonator reeds in the reed-bridge on the vessel wall at the register azimuth (`CLO` at [67.12 mm](LOW_LEVEL), `CHI` at [95.25 mm](HIGH_LEVEL) above the tube's bottom rim), under the foil, leads out the +Z slot to J7
 - Both reservoirs seated in their bag pockets
 - All eight penetrations routed through their designated holes / slot
 - Reed columns dropped into the reed channels, their cables out the +Z wall
