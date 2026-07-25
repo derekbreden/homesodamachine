@@ -90,7 +90,7 @@ step 9, replacing the elbow + PRV install on that port.
 
 The LLDPE press-fit and routing through the foam-shell slot happen
 later, at [`/hardware/assembly/cold-core.md`](/hardware/assembly/cold-core.md)
-step 4.
+step 5.
 
 The shroud + LLDPE keep the **spring chamber bonnet windows** in
 air; the spring sees ~atmospheric reference via the

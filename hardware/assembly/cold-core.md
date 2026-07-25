@@ -45,7 +45,7 @@ Everything that has to touch bare 316L goes on **before** the foil, at the bench
 - The **DS18B20 tank-wall probe** (bare TO-92, family 0x28, leads heat-shrunk) taped flat against the vessel OD, in the bare band below the wind so no wrap has to climb over it. This is the compressor-cycling setpoint sensor, so it reads the vessel wall, not the coil.
 - The **two carbonator reed switches**, on the rod-register azimuth ([`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) step 1) — the line the wall-preloaded float parks its donut against. Both reed heights land inside the wind band, so each reed lies in the channel the wind's pitch leaves between adjacent wraps. **Mounting method is open** — see Open items; it blocks this step.
 
-Both go under the foil skin. Neither can be added later: the reed has only a couple of mm of magnet-to-wall budget ([`reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) "Magnet–reed signal-path geometry", measured on this tube), which nothing mounted above the foil or outside the coil leaves, and after step 4 the vessel wall is at the bottom of a 15 mm-wide, full-height annulus where none of this is a hand operation.
+Both go under the foil skin. Neither can be added later: the reed has only a couple of mm of magnet-to-wall budget ([`reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) "Magnet–reed signal-path geometry", measured on this tube), which nothing mounted above the foil or outside the coil leaves, and after step 5 the vessel wall is at the bottom of a 15 mm-wide, full-height annulus where none of this is a hand operation.
 
 Wind GOORY 1/4" OD × 0.031" wall ACR copper tubing as a single-layer helical coil around the vessel OD — [12.72 ft](WRAP_FT) of wrap per vessel + a [500 mm](STUB_LEN) tail each end for the refrigerant-loop tie-in stubs. The tie-in stubs exit through the foam-shell's copper-plug holes; brazing happens in [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md).
 
@@ -55,7 +55,7 @@ Before closing the foil skin over the coil's outlet (high) end — the suction s
 
 Wind around the printed [coil-mandrel](/hardware/printed-parts/cold-core/coil-mandrel/coil_mandrel.py) — hollow PETG cylinder with a shallow [1 mm](GROOVE_DEPTH) helical guide groove, mandrel OD [123 mm](MANDREL_OD), tank OD [127 mm](TANK_OD), net coil undersize [3 mm](NET_UNDERSIZE). Wind length [119.4 mm](WIND_LENGTH), [9.687](TOTAL_WRAPS) wraps, pitch [12.33 mm](PITCH) — [3.877 m](WRAP_LEN) of copper in the wrap. Inlet aligns with the foam-shell copper plug at Y=[47](PLUG_INLET_Y); outlet at Y=[166.4](PLUG_OUTLET_Y). Pull the wound coil off the mandrel and slip it onto the foil-taped vessel. Coil springback: 1–3 mm radial.
 
-The vessel leaves this step with four cables on it — two probes and two reeds — all led toward the +Z penetration slot for routing in step 4.
+The vessel leaves this step with four cables on it — two probes and two reeds — all led toward the +Z penetration slot for routing in step 5.
 
 Dev-phase summary: [`/hardware/handwork.md`](/hardware/assembly/handwork.md) "Bend copper around the pressure vessel".
 
@@ -71,11 +71,23 @@ Geometry detail at [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/h
 
 Each cap is a [16 mm](CAP_H)-tall foam-filled cup, poured mouth-up with the foam-cap-lid sealing its open face from above. **Bolt the cap and its lid down onto the shell's top face** — six M3 × 25 SHCS through lid and cap into the step-2 inserts, cap floor on the shell. The screws are the pour clamp; expanding foam lifts an unclamped lid, and nothing else in the stack is threaded. Liquid foam enters through the lid's Ø[20 mm](POUR_D) pour hole; air escapes through two Ø[6 mm](LID_VENT_D) vents. Foam expands to fill and cures. Trim flush after cure, then back the six screws out.
 
-Both caps pour in that same top-face fixture, one after the other. The top cap is bolted there in its installed orientation (floor down, mouth + lid up); the bottom cap is the same operation and flips mouth-down at step 6.
+Both caps pour in that same top-face fixture, one after the other. The top cap is bolted there in its installed orientation (floor down, mouth + lid up); the bottom cap is the same operation and flips mouth-down at step 7.
 
-The two caps pour identically but they are **not** the same part: only `foam-cap-top` (and `foam-cap-lid-top`) carries the CO2 bore + boss. Keep them labeled — the top cap also goes on rotated 180° at step 6. Geometry detail at [`/hardware/printed-parts/cold-core/foam-cap/foam_cap.py`](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py).
+The two caps pour identically but they are **not** the same part: only `foam-cap-top` (and `foam-cap-lid-top`) carries the CO2 bore + boss. Keep them labeled — the top cap also goes on rotated 180° at step 7. Geometry detail at [`/hardware/printed-parts/cold-core/foam-cap/foam_cap.py`](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py).
 
-### 4. Body-side install
+### 4. Reservoir subassembly (both, at the bench)
+
+Both flavor reservoirs are built closed here, off the shell, and go into their pockets as finished units at step 5. Nothing in this step touches the foam shell. The geometry — rod length, float travel, reed heights, cap register, vent stack — is owned by [`reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py), [`reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) and [`reservoir/vent.md`](/hardware/printed-parts/cold-core/reservoir/vent.md); this step is the order the bench builds in.
+
+**Reed columns — two, one per reservoir.** Each reservoir's level gauge is four Gebildet reeds standing outside the syrup, on the side the pocket's reed channel runs up. Solder all four onto a single 5-conductor 22 AWG spine — four signal lines plus one shared common — running the column's full length, reed 1 lowest. Lace it with heat-shrink between reeds so the column drops into its channel as one stiff piece. Prove every reed with the donor magnet **before** lacing — closed with the magnet alongside, open with it away; a reed that fails after lacing costs the whole column. The columns are not installed here: the channels stay open through the body pour and take their columns at step 7.
+
+**Float rod + float.** Take the two rods cut and deburred at [`handwork.md`](/hardware/assembly/handwork.md) "Cut + seat the reservoir float rods" — every rod end is a seating face, so a burr falsifies the seat and scores the float bore. Harvest each magnetic float from its YXQ float switch, keeping the stainless capsule and its ferrite ring, discarding the switch body and cable. Seat the rod in the body's blind boss on the wet slope: the tip bottoms on solid PETG, so the slope stays unbroken. Slip the float on. It has to ride the cavity's **far** wall — the wall the reed column stands behind — because the magnet-to-reed budget here is the same couple of millimetres the carbonator reeds live with.
+
+**Close the reservoir.** Press six ruthex M3 inserts into the wall-top bosses. Drop the PTFE membrane into the cap's vent pocket and press the TPU retaining ring over it — a light interference fit, no adhesive. Lay the TPU gasket on the wall top, a perimeter ring with a pad at each screw position. Lower the cap over the rod so its register boss swallows the rod tip, vent boss up, and drive six M3 x 12 SHCS into the inserts. The rod is cut short of the seat-to-seat span precisely so it can never hold the cap off its gasket.
+
+A closed reservoir has its rod standing in the slope boss with the float sliding free, the cap flush on a compressed gasket all round, the membrane held under its ring, vent open and syrup path closed.
+
+### 5. Body-side install
 
 With the outer shell open-top-up on the bench, install every internal component:
 
@@ -91,23 +103,23 @@ With the outer shell open-top-up on the bench, install every internal component:
 - **Four copper plugs** slid down into the shared +Z slot from above, sealing between and above the four pass-throughs (binder-clip geometry in [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Shared +Z slot and copper plug stack")
 All fitting-size transitions (3/8" → 1/4", larger fittings) happen on the warm side of the shell; every penetration through the shell wall is 1/4" OD tubing.
 
-### 5. Body foam pour
+### 6. Body foam pour
 
 Mix the two-part PU foam 1:1. Pour the liquid directly into the body's open +Y top, all at once. Foam falls into the body and reaches every open cavity in parallel: outer foam gap, corner pockets at ±Z, and the tank cavity inside the cylinder. Geometry: [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md) "Assembly and foam pour".
 
-The **bag pockets take no foam** — each is occupied by its reservoir at [0.5 mm](RESERVOIR_GAP) clearance on every side and at the top, so the pour has no way in. Their interiors stay air, which is what lets the reed cables be threaded out at step 6. Likewise the two reed channels: they stay open through the pour and receive their columns after cure.
+The **bag pockets take no foam** — each is occupied by its reservoir at [0.5 mm](RESERVOIR_GAP) clearance on every side and at the top, so the pour has no way in. Their interiors stay air, which is what lets the reed cables be threaded out at step 7. Likewise the two reed channels: they stay open through the pour and receive their columns after cure.
 
 Foam expansion may push small amounts of material out through the 0.5 mm clearance bands around tubes in the +Z slot and the tight-fit tube exits at other penetrations. Trim flush after cure.
 
 The pour encapsulates both temperature probes and their leads against the cold metal. Potted in closed-cell foam with no air gap, they need no separate waterproofing — the foam is the vapor barrier. Ensure the pour fully wets around each probe and up its lead entry with no void: a void is a trapped-air pocket that will condense and frost against the cold surface, and is the only path by which moisture reaches a probe. A void at a probe is an insulation defect first and a probe-fouling risk second.
 
-### 6. Final assembly
+### 7. Final assembly
 
 With all three pours cured:
 
 - Drop the pre-soldered reed columns into the still-open reed channels, one per ±X side, from above. Feed each column's 5-conductor cable out through the channel's open back face, down through the air space in the bag pocket below the reservoir, and out its Ø[6.5 mm](TUBE_HOLE_D) hole at x=[±109](CABLE_HOLE_X) in the +Z wall
 - TPU gasket onto the body's top edge — perimeter ring with 8 × 8 mm pads at each of the six screw positions
-- Top cap (foam-filled, trimmed from step 2) seated over the gasket **rotated 180° about Z**, so its CO2 bore lands over the CO2 line already standing in the body — the six-screw pattern is 180°-symmetric, so it bolts up either way and only the bore tells you which is right. Six M3 × 25 SHCS through the cap's screw positions and into the top-face inserts
+- Top cap (foam-filled, trimmed from step 3) seated over the gasket **rotated 180° about Z**, so its CO2 bore lands over the CO2 line already standing in the body — the six-screw pattern is 180°-symmetric, so it bolts up either way and only the bore tells you which is right. Six M3 × 25 SHCS through the cap's screw positions and into the top-face inserts
 - Second gasket + bottom cap (mouth-down) onto the body's underside, six M3 × 25 SHCS into the bottom-face inserts
 
 ## Warm-side check valves
@@ -129,14 +141,14 @@ A finished cold core:
 - All eight penetrations routed through their designated holes / slot
 - Reed columns dropped into the reed channels, their cables out the +Z wall
 - Both foam caps seated over their TPU gaskets, six M3 × 25 SHCS each into the top- and bottom-face heat-set inserts
-- External envelope ~[283 mm](OUTER_X) × [181](CCORE_OUTER_Y) × [213.4 mm](OUTER_H)
+- External envelope ~[283 mm](OUTER_X) × [181](CCORE_OUTER_Y) × [253.4 mm](CCORE_CAPPED_H) with both caps on — the shell alone is [213.4 mm](OUTER_H) tall, and each face adds a cap and its gasket
 
 ## Open items
 
 1. **Carbonator reed mounting method — blocks step 1.** The two reeds have to be fixed to the vessel wall on the register azimuth, under the foil skin, in the channel between two coil wraps, and stay put through the wind, the drop into the cavity and the pour. Fixture, retention and the two heights are all unresolved ([`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) open item 6, which also locks the azimuth). Every later station buries the wall, so this method has to land before a vessel is skinned.
 2. **Foam data-sheet spec (mix proportions, pot life, cure time, pour temperature window).**
 3. **Trim method after foam cure.**
-4. **Reservoir-internal assembly procedure.** The reservoir arrives already assembled (cap installed, six M3×12 SHCS into ruthex inserts clamping a TPU gasket, PTFE vent membrane installed). The float-rod cut + seat is specified in [`handwork.md`](/hardware/assembly/handwork.md) "Cut + seat the reservoir float rods" with the rod / float / reed geometry in [`reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md); the cap / gasket / vent-membrane / reed-column steps are still to be written here.
+4. ~~**Reservoir-internal assembly procedure.**~~ **CLOSED.** Written up as step 4 — reed columns, rod + float, and the cap / gasket / vent-membrane close. The float-rod cut is [`handwork.md`](/hardware/assembly/handwork.md) "Cut + seat the reservoir float rods"; the geometry is owned by [`reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py), [`reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md) and [`reservoir/vent.md`](/hardware/printed-parts/cold-core/reservoir/vent.md).
 5. **Reservoir final-qualification status.** Pending water + syrup-dwell pass.
 
 ## Sources

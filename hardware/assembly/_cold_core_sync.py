@@ -23,6 +23,8 @@ from _cold_core_interface import (  # noqa: E402
     foam_cap_lid_pour_radius,
     foam_cap_lid_vent_radius,
     foam_shell_outer_height,
+    foam_cap_height,
+    gasket_thickness,
     insert_pocket_depth,
     insert_pocket_radius,
     outer_shell_x_length,
@@ -103,6 +105,9 @@ def main():
         "OUTER_X": f"{outer_shell_x_length:.4g} mm",
         "CCORE_OUTER_Y": f"{outer_shell_y_length:.4g}",
         "OUTER_H": f"{foam_shell_outer_height:.4g} mm",
+        # Finished stack: the shell plus a cap + gasket on each face. The lid
+        # nests in the cap mouth, so it adds no height.
+        "CCORE_CAPPED_H": f"{foam_shell_outer_height + 2 * (foam_cap_height + gasket_thickness):.4g} mm",
     }
 
     substitute_md(
@@ -136,6 +141,7 @@ def main():
             "OUTER_X": 1,
             "CCORE_OUTER_Y": 1,
             "OUTER_H": 1,
+            "CCORE_CAPPED_H": 1,
         },
     )
     print("-> cold-core.md")

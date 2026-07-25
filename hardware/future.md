@@ -56,4 +56,6 @@ The faucet stack — shell, mounting plate, gasket, o-ring — is in [`/hardware
 
 **Build order.**
 
-The sequence the whole appliance is built in — vessel, cold core, refrigerant loop, internal plumbing, electronics, wiring, enclosure, faucet and umbilical, commissioning, burn-in, pack and ship — is the run of procedure docs in [`/hardware/assembly/`](/hardware/assembly/), with the skilled-hand tasks summarized in [`handwork.md`](/hardware/assembly/handwork.md).
+The sequence the whole appliance is built in is the dependency chain of the procedure docs in [`/hardware/assembly/`](/hardware/assembly/), with the skilled-hand tasks summarized in [`handwork.md`](/hardware/assembly/handwork.md): vessel, cold core, refrigerant loop, then three benches that run in parallel with that chain and feed the chassis — cable assemblies, electronics shelf, faucet and umbilical — then enclosure, internal plumbing, wiring, commissioning, burn-in, pack and ship.
+
+Enclosure precedes internal plumbing and wiring: [`internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) takes a chassis [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) has closed up, and [`wiring.md`](/hardware/assembly/wiring.md) takes a chassis that already carries its plumbing. The card deck in [`/hardware/assembly/cards/`](/hardware/assembly/cards/) prints in this order.

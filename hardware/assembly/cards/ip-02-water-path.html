@@ -15,43 +15,37 @@
 
 <main>
   <div class="col" style="flex:1">
-    <p class="lede">Bulkhead &rarr; V-K &rarr; adapters &rarr; ASSE 1022
-    &rarr; hose &rarr; pump &rarr; cold core: <strong>3/8&Prime; holds to
-    the pump inlet.</strong></p>
+    <p class="lede">Bulkhead &rarr; ASSE &rarr; split &rarr; V-K &rarr; pump
+    &rarr; core: <strong>all 1/4&Prime; LLDPE — the only 3/8&Prime; is a clamped
+    stub at each pump barb.</strong></p>
 
     <div class="critical"><span class="sign">&#9940;</span>
       <div><b>The vent drips to atmosphere — never into a drain.</b> The
-      weep is the backflow telltale; the pan waits under its fall.</div>
+      weep is the backflow telltale.</div>
     </div>
 
     <ol class="steps">
-      <li><b>V-K + water-1/2:</b> mount V-K (fill/shutoff) on its west
-        cradle, arrow east, wire DC-9. Then two <span class="dim">R3</span>
-        LLDPE hops: bulkhead collet &rarr; V-K inlet (<b>water-1</b>, down
-        the west lane), V-K outlet &rarr; PP010822E (<b>water-2</b>). Square
-        cut, click, tug each.</li>
-      <li><b>Tape + snug + 1:</b> PP010822E &rarr; GAGIRA &rarr; ASSE
-        MPT — arrow away from the customer.</li>
-      <li><b>FFL38BARB38 untaped</b> — the flare gasket seals. Snug + 1
-        against the chrome flat.</li>
-      <li><b>~12&Prime; silicone, clamps on first</b> — clamp
-        <span class="dim">~1/2&Prime;</span> in from each barb tip; torque
-        till it pillows.</li>
-      <li><b>Off the pump:</b> MAACFLOW, GASHER arrow away, PP010822E —
-        LLDPE over the pump to the +Z stub.</li>
+      <li><b>Chain, tape + snug + 1:</b> PP010822E &rarr; GAGIRA &rarr; ASSE
+        MPT, arrow away. <b>Outlet, no tape.</b></li>
+      <li><b>water-1/2/3/4:</b> bulkhead in, east down the strip to the split,
+        branch to V-K, V-K west to the suction.</li>
+      <li><b>Pump barbs are molded in</b> — nothing threads on. Each side:
+        ~40 mm reinforced PVC, <b>2&times; SAE #6 clamps</b>, R15.9.</li>
+      <li><b>Discharge chain:</b> MAACFLOW &rarr; GASHER <b>arrow away</b>
+        &rarr; PP450822E; then <b>water-5</b> to the core.</li>
     </ol>
 
     <div class="tools">
       <span class="lbl">Tools</span>
-      PTFE tape · wrench · hex driver · scissors · Mudder cutter
+      PTFE tape · wrench · nut driver · cutter
     </div>
   </div>
 
   <div class="col" style="flex:none; width:760px">
     <div class="panel">
       <img src="img/asse1022-chain.png" alt="">
-      <div class="cap"><b>asse1022-assembly</b> — four fittings, one
-      piece; vent stub down, barb to the pump.</div>
+      <div class="cap"><b>asse1022-assembly</b> — five fittings, one
+      piece; vent stub down, 1/4&Prime; PTC out the east end.</div>
     </div>
 
     <div class="panel light" style="margin-top:22px">
@@ -60,76 +54,75 @@
           .body  { fill: #eef0f3; stroke: #1d1d26; stroke-width: 2.5; }
           .band  { fill: #dfe3e9; stroke: #1d1d26; stroke-width: 2.5; }
           .flow  { stroke: #2268c2; stroke-width: 2.5; fill: none; }
-          .hose  { stroke: #b8722c; stroke-width: 8; fill: none; }
+          .hose  { stroke: #b8722c; stroke-width: 9; fill: none; }
           .clamp { stroke: #1d1d26; stroke-width: 4; }
           .dimtx { font: 700 24px Menlo, monospace; fill: #2268c2; }
-          .lbl   { font: 600 22px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+          .lbl   { font: 600 21px "Helvetica Neue", sans-serif; fill: #1d1d26; }
           .sub   { font: 400 20px "Helvetica Neue", sans-serif; fill: #70707c; }
         </style>
-        <!-- row 1 -->
-        <rect class="band" x="20" y="44" width="26" height="66"/>
-        <text class="lbl" x="16" y="30">REAR PANEL</text>
-        <path class="flow" d="M 46 77 L 50 77"/>
-        <rect class="body" x="50" y="64" width="102" height="40" rx="5"/>
-        <text class="lbl" x="56" y="91">PP1208E</text>
-        <path class="flow" d="M 152 84 L 180 84"/>
-        <text class="dimtx" x="130" y="56">V-K</text>
-        <text class="sub" x="112" y="126">water-1 / water-2</text>
-        <rect class="body" x="180" y="64" width="130" height="40" rx="5"/>
-        <text class="lbl" x="187" y="91">PP010822E</text>
-        <path class="flow" d="M 310 84 L 330 84"/>
-        <rect class="body" x="330" y="64" width="92" height="40" rx="5"/>
-        <text class="lbl" x="337" y="91">GAGIRA</text>
-        <path class="flow" d="M 422 84 L 442 84"/>
-        <rect class="body" x="442" y="58" width="118" height="46" rx="5"/>
-        <text class="lbl" x="449" y="89">ASSE 1022</text>
-        <path class="flow" d="M 560 84 L 580 84"/>
-        <rect class="body" x="580" y="64" width="162" height="40" rx="5"/>
-        <text class="lbl" x="588" y="91">FFL38BARB38</text>
 
-        <!-- silicone down-leg -->
-        <path class="hose" d="M 661 104 L 661 212"/>
-        <line class="clamp" x1="649" y1="138" x2="673" y2="138"/>
-        <line class="clamp" x1="649" y1="184" x2="673" y2="184"/>
+        <!-- row 1: bulkhead -> ASSE -> split -->
+        <rect class="band" x="20" y="42" width="26" height="60"/>
+        <text class="lbl" x="16" y="30">REAR PANEL</text>
+        <path class="flow" d="M 46 72 L 66 72"/>
+        <rect class="body" x="66" y="52" width="96" height="40" rx="5"/>
+        <text class="lbl" x="72" y="79">PP1208E</text>
+        <path class="flow" d="M 162 72 L 184 72"/>
+        <text class="sub" x="150" y="118">water-1</text>
+        <rect class="body" x="184" y="52" width="126" height="40" rx="5"/>
+        <text class="lbl" x="190" y="79">PP010822E</text>
+        <path class="flow" d="M 310 72 L 328 72"/>
+        <rect class="body" x="328" y="52" width="88" height="40" rx="5"/>
+        <text class="lbl" x="334" y="79">GAGIRA</text>
+        <path class="flow" d="M 416 72 L 434 72"/>
+        <rect class="body" x="434" y="46" width="116" height="46" rx="5"/>
+        <text class="lbl" x="440" y="76">ASSE 1022</text>
+        <path class="flow" d="M 550 72 L 556 72"/>
+        <rect class="body" x="556" y="52" width="96" height="40" rx="5"/>
+        <text class="lbl" x="562" y="79">PI4512</text>
+        <rect class="body" x="656" y="52" width="76" height="40" rx="5"/>
+        <text class="lbl" x="662" y="79">PP0612</text>
+        <text class="sub" x="566" y="118">no tape — swivel only</text>
 
         <!-- vent drop -->
-        <path class="flow" d="M 501 104 L 501 184" stroke-dasharray="8 7"/>
-        <path fill="#2268c2" d="M 501 196 L 492 178 L 510 178 Z"/>
-        <line class="clamp" x1="470" y1="202" x2="540" y2="202"/>
-        <text class="sub" x="232" y="142">vent stub &#183; hangs straight</text>
-        <text class="sub" x="255" y="166">down, its column dropping</text>
-        <text class="dimtx" x="20" y="194">free fall</text>
-        <text class="sub" x="232" y="194">to the pan &#183; scorecard-verified</text>
+        <path class="flow" d="M 492 92 L 492 168" stroke-dasharray="8 7"/>
+        <path fill="#2268c2" d="M 492 180 L 483 162 L 501 162 Z"/>
+        <line class="clamp" x1="461" y1="186" x2="531" y2="186"/>
+        <text class="sub" x="24" y="156">vent stub hangs straight down —</text>
+        <text class="sub" x="24" y="180">free fall to the pan, never plumbed</text>
 
-        <!-- row 2 (flow right to left) -->
-        <rect class="body" x="556" y="212" width="124" height="40" rx="5"/>
-        <text class="lbl" x="563" y="239">SeaFlo 22</text>
-        <path class="flow" d="M 556 232 L 536 232"/>
-        <rect class="body" x="408" y="212" width="128" height="40" rx="5"/>
-        <text class="lbl" x="414" y="239">MAACFLOW</text>
-        <path class="flow" d="M 408 232 L 390 232"/>
-        <rect class="body" x="296" y="212" width="94" height="40" rx="5"/>
-        <text class="lbl" x="302" y="239">GASHER</text>
-        <path class="flow" d="M 296 232 L 278 232"/>
-        <rect class="body" x="148" y="212" width="130" height="40" rx="5"/>
-        <text class="lbl" x="155" y="239">PP010822E</text>
-        <path class="flow" d="M 148 232 L 104 232"/>
-        <path fill="#2268c2" d="M 92 232 L 114 221 L 114 243 Z"/>
+        <!-- row 2 (flow right to left): split -> V-K -> stub -> pump -->
+        <path class="flow" d="M 694 92 L 694 214"/>
+        <text class="sub" x="600" y="150">water-2</text>
+        <rect class="body" x="640" y="214" width="102" height="40" rx="5"/>
+        <text class="lbl" x="646" y="241">SPLIT</text>
+        <text class="sub" x="632" y="288">&#8594; flow reg &#8594; V-A</text>
+        <path class="flow" d="M 640 234 L 612 234"/>
+        <rect class="body" x="520" y="214" width="92" height="40" rx="5"/>
+        <text class="lbl" x="540" y="241">V-K</text>
+        <path class="flow" d="M 520 234 L 480 234"/>
+        <rect class="body" x="362" y="214" width="118" height="40" rx="5"/>
+        <text class="lbl" x="367" y="241">PP450822E</text>
+        <rect class="body" x="286" y="214" width="82" height="40" rx="5"/>
+        <text class="lbl" x="291" y="241">MAAC</text>
+        <!-- the clamped stub -->
+        <path class="hose" d="M 286 234 L 196 234"/>
+        <line class="clamp" x1="272" y1="216" x2="272" y2="252"/>
+        <line class="clamp" x1="212" y1="216" x2="212" y2="252"/>
+        <rect class="body" x="112" y="206" width="84" height="56" rx="5"/>
+        <text class="lbl" x="120" y="240">SeaFlo</text>
+        <text class="dimtx" x="196" y="300">3/8&Prime;</text>
+        <text class="sub" x="252" y="300">stub &#183; 2 clamps &#183; barb is molded in</text>
 
-        <!-- notes -->
-        <text class="lbl" x="20" y="286">COLD CORE +Z stub</text>
-        <text class="sub" x="420" y="286">silicone ~12&Prime; &#183; 2&#215; LOKMAN clamps</text>
-        <text class="dimtx" x="20" y="322">3/8&Prime;</text>
-        <text class="sub" x="90" y="322">held, ASSE outlet &#8594; pump inlet — no suction step-down</text>
-        <text class="sub" x="20" y="358">schematic &#8212; EPDM O-ring seated at the bulkhead before water-1 lands</text>
+        <text class="sub" x="20" y="352">discharge mirrors it &#8212; stub, MAACFLOW, GASHER, PP450822E, then water-5</text>
       </svg>
     </div>
   </div>
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Closed dry, rear panel to cold core — every NPT snug + 1, hose pillowed at both clamps, vent stub over the pan. Water arrives at AB-02.</div>
-  <div class="src">internal-plumbing.md &#167;2 &#183; asse1022_assembly.py<br>rev 2026-07-23</div>
+  <div class="done"><span class="lbl">Done when</span>Closed dry, rear panel to core — every NPT snug + 1, the flare drawn on its swivel, four clamps closed, vent stub over the pan.</div>
+  <div class="src">internal-plumbing.md &#167;2 &#183; asse1022_assembly.py<br>rev 2026-07-24</div>
 </footer>
 
 </div>
