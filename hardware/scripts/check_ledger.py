@@ -27,6 +27,19 @@ Checks:
      A doc with no driver has no token substitution at all, so every number and
      every part name in it is a bare literal nothing can check.
 
+  D. GENERIC MATERIAL — a part an instruction names by what it IS rather than by
+     who made it. Checks A and B are both brand-shaped: A needs an ASIN, B needs
+     a capitalised name somebody once bought. "Fork terminal", "heat-shrink",
+     "RTV" and "VHB 4941" are none of those — they are lowercase nouns, so the
+     brand harvester never sees them and "Terminal" is in NOT_A_BRAND besides.
+     A build can be missing one of these entirely and every other check passes.
+     The vocabulary here is hand-kept, because that is the point: it is the list
+     of things the deck asks for by description.
+
+  E. SECTION CITATION — an instruction that cites `bom.md §N` for a named ASIN
+     must cite the section that ASIN is actually in. Sections get renumbered and
+     rows move between them; the prose citation does not follow.
+
 Exit 1 on drift, 0 when clean.
 """
 
@@ -181,6 +194,76 @@ for doc in sorted(ASSEMBLY.glob("*.md")):
         fail(f"procedure with no doc-sync driver — every number and part name in "
              f"it is a bare literal: {doc.relative_to(REPO)} (expected "
              f"{driver.relative_to(REPO)})")
+
+
+# ── D. Generic material ───────────────────────────────────────────────────
+
+# Materials the deck asks for by description, not by brand. Each entry is
+# (what the instructions call it, what the ledger must show). A build consumes
+# every one of these; none of them carries an ASIN in the prose that names it.
+GENERIC = [
+    (r"fork terminal|crimp fork|forks at the|ring or fork", "fork"),
+    (r"heat-shrink", "heat-shrink"),
+    (r"\bRTV\b", "rtv"),
+    (r"VHB", "vhb"),
+    (r"slip coupling", "slip coupling"),
+    (r"spiral wrap", "spiral wrap"),
+    (r"braided sleeve|PET braid", "braided sleeve"),
+    (r"bootlace ferrule|ferrules? (?:at|into|under)", "ferrule"),
+    (r"zip[- ]tie", "zip tie"),
+]
+
+# Matched against the PART-NAME cell of each ledger row, not the whole file:
+# a tool's prose can mention a material it does not stock ("heat-shrink
+# activation" in the heat gun's notes), and that must not read as carrying it.
+CARRIED_NAMES = "\n".join(
+    line.split("|")[1].lower()
+    for line in (BOM + TOOLS).splitlines()
+    if line.startswith("|") and len(line.split("|")) > 2
+)
+
+for pattern, needle in GENERIC:
+    rx = re.compile(pattern, re.I)
+    named = [f"{name}:{i}"
+             for name, text in CORPUS.items()
+             for i, line in enumerate(text.splitlines(), 1) if rx.search(line)]
+    if named and needle not in CARRIED_NAMES:
+        fail(f"instructions name a generic material no ledger row carries: "
+             f"{needle!r} ({', '.join(named[:3])}"
+             f"{f' +{len(named) - 3} more' if len(named) > 3 else ''})")
+
+
+# ── E. Section citation ───────────────────────────────────────────────────
+
+# bom.md's own section spans, so an ASIN can be located by section number.
+BOM_SECTIONS: dict[int, str] = {}
+_current = None
+for line in BOM.splitlines():
+    m = re.match(r"##\s+(\d+)\.", line)
+    if m:
+        _current = int(m.group(1))
+        BOM_SECTIONS[_current] = ""
+    elif _current is not None:
+        BOM_SECTIONS[_current] += line + "\n"
+
+# "…B08VS8D4WC… bom.md §5" / "bom.md §5 …B08VS8D4WC…" — an ASIN and a section
+# citation close enough together in one line to be a claim about each other.
+CITE = re.compile(r"bom\.md[^§\n]{0,80}§\s*(\d+)")
+
+for name, text in CORPUS.items():
+    for i, line in enumerate(text.splitlines(), 1):
+        cited = {int(n) for n in CITE.findall(line)}
+        if not cited:
+            continue
+        for asin in set(ASIN.findall(line)):
+            if asin in ASIN_WAIVED:
+                continue
+            actual = sorted(n for n, body in BOM_SECTIONS.items() if asin in body)
+            if not actual or cited & set(actual):
+                continue
+            fail(f"instruction cites the wrong bom.md section for {asin}: "
+                 f"says §{'/§'.join(str(n) for n in sorted(cited))}, "
+                 f"the row is in §{'/§'.join(str(n) for n in actual)} ({name}:{i})")
 
 
 # ── Report ────────────────────────────────────────────────────────────────

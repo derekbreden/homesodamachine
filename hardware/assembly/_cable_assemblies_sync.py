@@ -43,10 +43,11 @@ def main():
 
     variables = {f"{j}_PINS": pins[j] for j in wanted}
 
-    # J1 (MANIFOLD A), J4, J6, J7, and J13 carry their count in the basis
-    # sentence and again in the schedule row; the rest appear in both too.
-    # J2's schedule row states its populated count (5 of 6), not its pin count.
-    expected_counts = {f"{j}_PINS": (1 if j == "J2" else 2) for j in wanted}
+    # Every connector carries its count in the basis sentence and again in the
+    # schedule row. J2 carries it a third time in "MANIFOLD B — the empty
+    # contact": its row reads "5 of 6", the populated count being a literal
+    # (only 5 contacts are crimped) and the housing size the driven token.
+    expected_counts = {f"{j}_PINS": (3 if j == "J2" else 2) for j in wanted}
 
     substitute_md(_here / "cable-assemblies.md", variables, expected_counts)
     print(" ".join(f"{j}={pins[j]}" for j in wanted))

@@ -21,7 +21,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 | Carbonator vessel | Output of [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) | Hydro-tested + passivated |
 | GOORY 1/4" OD × 0.031" wall ACR copper tubing | B0DKSW5VL9 | ~[16 ft](CUT_FT) per vessel for coil wrap + tie-in stubs (1/3 of 50 ft roll per build) — ACQUIRED |
 | 3M 425 aluminum foil tape | B07BTW7C2N | Coil-to-vessel thermal interface; applied as continuous skin under the coil; one 180 ft roll covers ~12 builds — ACQUIRED |
-| DS18B20 TO-92 (tank, family 0x28) + DS18S20 TO-92 (coil, family 0x10) 1-wire sensors | B0FKG3HT9Q / DigiKey DS18S20+-ND | Two bare TO-92 temperature sensors, leads heat-shrunk; potted into the foam against their metal surfaces. Distinct 1-wire family codes let firmware tell them apart deterministically (no per-unit ID map) — see [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §6 — ON-ORDER |
+| DS18B20 TO-92 (tank, family 0x28) + DS18S20 TO-92 (coil, family 0x10) 1-wire sensors | B0FKG3HT9Q / DigiKey DS18S20+-ND | Two bare TO-92 temperature sensors, leads heat-shrunk; potted into the foam against their metal surfaces. Distinct 1-wire family codes let firmware tell them apart deterministically (no per-unit ID map) — see [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 — ON-ORDER |
 | Gebildet reed switch × 2 (carbonator level) | B0CW9418F6 | Mounted on the vessel wall under the foil at the register azimuth; same SKU as the reservoirs' eight, one 6-pack covers both with spares ([`reservoir/level-sensing.md`](/hardware/printed-parts/cold-core/reservoir/level-sensing.md)) — ON-ORDER |
 | Carbonator reed bridge (printed PETG) | [`/hardware/printed-parts/cold-core/reed-bridge/`](/hardware/printed-parts/cold-core/reed-bridge/) | Print, 1 per vessel — holds both reeds on the wall and carries the coil over them |
 | Reed-bridge setting gauge (printed PETG) | Same | Print, reusable across builds like the coil mandrel — hangs on the tube's bottom rim, marks the bridge height |
@@ -33,7 +33,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 | Flavor reservoir × 2 (printed) | [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/) | Print, SunTop food-contact-compliant PETG (FDA 21 CFR 177.1630), 1.75 mm × 1 kg, Clear/Transparent B0FP34MJ94 — ON-ORDER |
 | M3 × 25 mm SHCS, 12.9 alloy, black oxide × 12 (foam-cap clamp screws) | BNUOK B0DJQGF665 | ACQUIRED |
 | M3 × 12 mm SHCS, 304 stainless (18-8) × 12 (reservoir-cap screws) | BNUOK B0DJQGMQZM | ON-ORDER |
-| ruthex M3 short heat-set inserts × 27 per build (12 foam-caps + 12 reservoir + 3 touch-flo-shell) | ruthex B0D39W228K (100-pc bag = ~3.7 builds) | ON-ORDER |
+| ruthex M3 short heat-set inserts × 40 per build (12 foam-caps + 12 reservoir + 3 touch-flo-shell + 13 electronics-shelf trays) — **24 of them land here** | ruthex B0D39W228K (100-pc bag = 2.5 builds) | ON-ORDER |
 | LVDALAB PTFE membrane filter Ø13 mm × 0.45 µm × 2 (reservoir vent) | B0D41KT345 (100-pc bag = 50 builds) | ON-ORDER |
 | Pour-in-place 2 lb 2-part closed-cell PU foam, 1 qt kit | Fiberglass Supply Depot B08R7TX8QJ | ON-ORDER |
 | Foam-pour consumables (mixing cups × 4, stir sticks × 4, nitrile gloves × 1 pair per build) | B08JHH1DBF / B09H6ZP447 / B0G8SSMVKW | ACQUIRED |
