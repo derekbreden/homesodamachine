@@ -155,6 +155,8 @@ COMPONENTS = [
     # Front-panel / opening
     _c("display",           "real",        True,  "shell-facet", "Waveshare 4.3B: 45° facet housing in the front-top (bezel counterbore + PCB through-hole)"),
     _c("hopper-funnel",     "real",        True,  "none", "removable silicone basin; rests on the top-wall rim ledge, attach mode TBD (enclosure-mechanical Open #3)"),
+    # Electronics shelf
+    _c("pcba",              "real",        True,  "none", "Controller board on its printed tray (printed-parts/electronics/pcba-tray), laid on the foam-cap top in the west column — the plane the pump's move east opened. Turned a quarter turn so its long axis runs down the strip: the USB-C edge (J14) looks south into the open band ahead of the cap and the J10 12 V throats look north, both edges the board must keep reachable facing a lane rather than a wall. The board is 85.05 x 72.85 as fabbed and its four mounting holes are fixed; the TRAY is not — its 3 mm floor is what stands between the board and the cap, and the mount becomes four boss columns through the cap itself. Hold-down TBD"),
 ]
 
 # Unordered part pairs allowed to touch by design — a part resting on another's top, or
@@ -168,6 +170,7 @@ TOUCHING_OK = {
         ("foam-assembly", "water-split"),       # the split's body flat on the cap, under V-K's cradle
         ("foam-assembly", "flow-regulator"),    # the regulator's body flat on the cap, ahead of the pump
         ("foam-assembly", "drip-pan-rails"),    # the rails' feet flat on the foam-cap top
+        ("foam-assembly", "pcba"),              # the board tray's floor flat on the foam-cap top
         ("drip-pan", "drip-pan-rails"),         # the basin's floor edge flat on the shelves
         # The valve-manifold stack: the source-select tray's floor rests on the
         # bag-circuit tray's column wall tops, one tray pitch apart by design.
@@ -691,23 +694,24 @@ PORTS = [
     # back face at the PCB centre. A viewer pick would pin it exactly.
     _p("harness", "display", "electrical", (56.75, 43.8, 300.2), "y+", 8.0, "5 V power + display data (PCBA / power bus)", "connector not modeled in STEP; PROVISIONAL on the interior back face — refine with a pick"),
     # Controller PCBA — every field loom lands on a labelled JST XH edge connector (J1–J14, no
-    # J12; ac-wiring-schedule.md §Board connector map). Positions are EXACT: each connector's
-    # pcba.tsx board coordinate mapped world = (x+258.8, y+228.8) — the transform solved from the
-    # four mounting holes — with Z at the board's top plane (looms plug from +Z). Ø is the loom
-    # bundle OD by conductor count (est).
-    _p("J1-manifold-a", "pcba", "electrical", (269.8, 245.28, 292.5), "z+", 10.0, "8 manifold-A solenoids (DC-6)", "9-cond JST XH"),
-    _p("J2-manifold-b", "pcba", "electrical", (269.8, 223.03, 292.5), "z+", 8.0,  "4 manifold-B solenoids + condenser fan (DC-7/DC-8)", "6-cond JST XH"),
-    _p("J3-faucet",     "pcba", "electrical", (206.55, 198.5, 292.5), "z+", 6.0,  "faucet display UART up the umbilical (SIG-6)", "4-cond JST XH"),
-    _p("J4-sensors",    "pcba", "electrical", (223.8, 198.5, 292.5),  "z+", 8.0,  "temp bus + DIGITEN flow + moisture (SIG-1/4/9)", "7-cond JST XH"),
-    _p("J5-relays",     "pcba", "electrical", (216.85, 259.8, 292.5), "z+", 6.0,  "both Teyleten relay modules (LV-1/2/3)", "4-cond JST XH"),
-    _p("J6-reeds-a",    "pcba", "electrical", (231.7, 259.8, 292.5),  "z+", 7.0,  "foam-assembly reed-cable-A — reservoir A reeds (SIG-10)", "5-cond JST XH"),
-    _p("J7-reeds-b",    "pcba", "electrical", (258.3, 198.5, 292.5),  "z+", 8.0,  "foam-assembly reed-cable-B — reservoir B + carbonator reeds (SIG-2/3/11)", "7-cond JST XH"),
-    _p("J8-i2c",        "pcba", "electrical", (260.1, 259.8, 292.5),  "z+", 6.0,  "off-board MPR121 cap-sense (SIG-8)", "4-cond JST XH"),
-    _p("J9-display",    "pcba", "electrical", (241.05, 198.5, 292.5), "z+", 6.0,  "display harness — 4.3B RS485 + 12 V (SIG-7)", "4-cond JST XH"),
-    _p("J10-12v",       "pcba", "electrical", (271.15, 207.3, 292.5), "z+", 5.0,  "dc-dist 12 V block — board power inlet (DC-4)", "2-pole 5.0 mm screw block"),
-    _p("J11-gas",       "pcba", "electrical", (196.8, 204.95, 292.5), "z+", 6.0,  "mq6-sensor header — MQ-6 gas/leak sensor (SIG-12)", "4-cond JST XH"),
-    _p("J13-pumps",     "pcba", "electrical", (246.55, 259.8, 292.5), "z+", 6.0,  "Kamoer pump A + B motors (DC-5)", "4-cond JST XH"),
-    _p("J14-usb",       "pcba", "electrical", (196.8, 245.3, 292.5),  "z+", 9.0,  "USB-C programming port (bench only, no loom)", "USB-C receptacle"),
+    # J12; ac-wiring-schedule.md §Board connector map). Each is given in the board's OWN pcb frame,
+    # `pcbX`/`pcbY` verbatim from pcba.tsx, and `contents.pcba_port` carries it to world through the
+    # placement's own yaw and offset — so the map is the board's, wherever the board is put, and Z
+    # is its top plane by construction (looms plug from +Z). Ø is the loom bundle OD by conductor
+    # count (est).
+    _p("J1-manifold-a", "pcba", "electrical", contents.pcba_port(11.0, 16.48),   "z+", 10.0, "8 manifold-A solenoids (DC-6)", "9-cond JST XH"),
+    _p("J2-manifold-b", "pcba", "electrical", contents.pcba_port(11.0, -5.77),   "z+", 8.0,  "4 manifold-B solenoids + condenser fan (DC-7/DC-8)", "6-cond JST XH"),
+    _p("J3-faucet",     "pcba", "electrical", contents.pcba_port(-52.25, -30.3), "z+", 6.0,  "faucet display UART up the umbilical (SIG-6)", "4-cond JST XH"),
+    _p("J4-sensors",    "pcba", "electrical", contents.pcba_port(-35.0, -30.3),  "z+", 8.0,  "temp bus + DIGITEN flow + moisture (SIG-1/4/9)", "7-cond JST XH"),
+    _p("J5-relays",     "pcba", "electrical", contents.pcba_port(-41.95, 31.0),  "z+", 6.0,  "both Teyleten relay modules (LV-1/2/3)", "4-cond JST XH"),
+    _p("J6-reeds-a",    "pcba", "electrical", contents.pcba_port(-27.1, 31.0),   "z+", 7.0,  "foam-assembly reed-cable-A — reservoir A reeds (SIG-10)", "5-cond JST XH"),
+    _p("J7-reeds-b",    "pcba", "electrical", contents.pcba_port(-0.5, -30.3),   "z+", 8.0,  "foam-assembly reed-cable-B — reservoir B + carbonator reeds (SIG-2/3/11)", "7-cond JST XH"),
+    _p("J8-i2c",        "pcba", "electrical", contents.pcba_port(1.3, 31.0),     "z+", 6.0,  "off-board MPR121 cap-sense (SIG-8)", "4-cond JST XH"),
+    _p("J9-display",    "pcba", "electrical", contents.pcba_port(-17.75, -30.3), "z+", 6.0,  "display harness — 4.3B RS485 + 12 V (SIG-7)", "4-cond JST XH"),
+    _p("J10-12v",       "pcba", "electrical", contents.pcba_port(12.35, -21.5),  "z+", 5.0,  "dc-dist 12 V block — board power inlet (DC-4)", "2-pole 5.0 mm screw block"),
+    _p("J11-gas",       "pcba", "electrical", contents.pcba_port(-62.0, -23.85), "z+", 6.0,  "mq6-sensor header — MQ-6 gas/leak sensor (SIG-12)", "4-cond JST XH"),
+    _p("J13-pumps",     "pcba", "electrical", contents.pcba_port(-12.25, 31.0),  "z+", 6.0,  "Kamoer pump A + B motors (DC-5)", "4-cond JST XH"),
+    _p("J14-usb",       "pcba", "electrical", contents.pcba_port(-62.0, 16.5),   "z+", 9.0,  "USB-C programming port (bench only, no loom)", "USB-C receptacle"),
     # 12 V distribution block (DIN) — the three runs that land on it, on its top face. Terminal
     # positions along the block are provisional (the block's internal poles aren't modeled).
     _p("in",       "dc-dist", "electrical", (34.0, 305.0, 283.0), "z+", 6.0, "PSU 12 V output (DC-1)", "16 AWG; PROVISIONAL terminal position"),

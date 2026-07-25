@@ -1,17 +1,17 @@
 {
   "gatesPass": true,
-  "placed": 44,
+  "placed": 43,
   "located": 89,
   "shaped": 97,
   "routed": 41,
-  "held": 33,
+  "held": 32,
   "checks": [
     {
       "id": "coverage",
       "label": "Every placed part declared in the registry",
       "kind": "gate",
       "status": "pass",
-      "value": "36/36 placed declared",
+      "value": "37/37 placed declared",
       "target": "all declared",
       "detail": [],
       "active": true
@@ -49,6 +49,7 @@
         "foam-assembly \u2014 drip-pan-rails: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 water-split: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 flow-regulator: 0.00 mm \u2014 CONTACT (declared ok)",
+        "foam-assembly \u2014 pcba: 0.00 mm \u2014 CONTACT (declared ok)",
         "source-select-assembly \u2014 bag-circuit-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
         "drip-pan \u2014 drip-pan-rails: 0.00 mm \u2014 CONTACT (declared ok)",
         "compressor-shroud \u2014 mq6-sensor: 1.00 mm",
@@ -93,8 +94,8 @@
       "label": "Every component is a selected real part / finished print",
       "kind": "gate",
       "status": "pass",
-      "value": "36/36",
-      "target": "36/36",
+      "value": "37/37",
+      "target": "37/37",
       "detail": [],
       "active": true
     },
@@ -103,7 +104,7 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "44% (16/36)",
+      "value": "43% (16/37)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 3.0 x- 14.0 x+ 14.0 z- 5.0 near cold-core-ring 0.0 mm",
@@ -123,7 +124,7 @@
         "\u2713 drip-pan-rails: near foam-assembly 0.0 near drip-pan 0.0 clear seaflo-pump 28.2 mm",
         "\u2713 vk-fill-valve: near water-split 6.7 clear seaflo-pump 34.8 clear asse1022-assembly 40.9 clear foam-assembly 20.7 mm",
         "\u2713 flow-regulator: near source-select-assembly 42.2 clear seaflo-pump 2.0 mm",
-        "19 components: no placement rules defined yet"
+        "20 components: no placement rules defined yet"
       ],
       "active": true
     },
@@ -132,7 +133,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "89% (32/36)",
+      "value": "89% (33/37)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
@@ -183,7 +184,7 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "97% (35/36)",
+      "value": "97% (36/37)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; two floor rails carry its weight and two +X-wall webs carry four ear pads at the donor fan shroud's screw pattern (enclosure.py `_condenser_mount`), M3\u00d710 into ruthex through each ear. Ear pattern is an ESTIMATE until the donor shroud is separated and measured",
@@ -240,10 +241,10 @@
       "label": "Components in a printed holder fastened to the enclosure",
       "kind": "goal",
       "status": "warn",
-      "value": "33% (12/36)",
+      "value": "32% (12/37)",
       "target": "100%",
       "detail": [
-        "12 held (through-wall bodies + display); 24 loose internal parts unheld"
+        "12 held (through-wall bodies + display); 25 loose internal parts unheld"
       ],
       "active": false
     }
@@ -1613,14 +1614,14 @@
       "name": "J1-manifold-a",
       "kind": "electrical",
       "pos": [
-        269.8,
-        245.28,
-        292.5
+        31.02,
+        289.816,
+        268.0
       ],
       "face": "z+",
       "diam": 10.0,
       "mates": "8 manifold-A solenoids (DC-6)",
-      "status": "off-surface",
+      "status": "ok",
       "note": "9-cond JST XH"
     },
     {
@@ -1628,14 +1629,14 @@
       "name": "J2-manifold-b",
       "kind": "electrical",
       "pos": [
-        269.8,
-        223.03,
-        292.5
+        53.27,
+        289.816,
+        268.0
       ],
       "face": "z+",
       "diam": 8.0,
       "mates": "4 manifold-B solenoids + condenser fan (DC-7/DC-8)",
-      "status": "off-surface",
+      "status": "ok",
       "note": "6-cond JST XH"
     },
     {
@@ -1643,14 +1644,14 @@
       "name": "J3-faucet",
       "kind": "electrical",
       "pos": [
-        206.55,
-        198.5,
-        292.5
+        77.8,
+        226.566,
+        268.0
       ],
       "face": "z+",
       "diam": 6.0,
       "mates": "faucet display UART up the umbilical (SIG-6)",
-      "status": "off-surface",
+      "status": "ok",
       "note": "4-cond JST XH"
     },
     {
@@ -1658,14 +1659,14 @@
       "name": "J4-sensors",
       "kind": "electrical",
       "pos": [
-        223.8,
-        198.5,
-        292.5
+        77.8,
+        243.816,
+        268.0
       ],
       "face": "z+",
       "diam": 8.0,
       "mates": "temp bus + DIGITEN flow + moisture (SIG-1/4/9)",
-      "status": "off-surface",
+      "status": "ok",
       "note": "7-cond JST XH"
     },
     {
@@ -1673,14 +1674,14 @@
       "name": "J5-relays",
       "kind": "electrical",
       "pos": [
-        216.85,
-        259.8,
-        292.5
+        16.5,
+        236.866,
+        268.0
       ],
       "face": "z+",
       "diam": 6.0,
       "mates": "both Teyleten relay modules (LV-1/2/3)",
-      "status": "off-surface",
+      "status": "ok",
       "note": "4-cond JST XH"
     },
     {
@@ -1688,14 +1689,14 @@
       "name": "J6-reeds-a",
       "kind": "electrical",
       "pos": [
-        231.7,
-        259.8,
-        292.5
+        16.5,
+        251.716,
+        268.0
       ],
       "face": "z+",
       "diam": 7.0,
       "mates": "foam-assembly reed-cable-A \u2014 reservoir A reeds (SIG-10)",
-      "status": "off-surface",
+      "status": "ok",
       "note": "5-cond JST XH"
     },
     {
@@ -1703,14 +1704,14 @@
       "name": "J7-reeds-b",
       "kind": "electrical",
       "pos": [
-        258.3,
-        198.5,
-        292.5
+        77.8,
+        278.316,
+        268.0
       ],
       "face": "z+",
       "diam": 8.0,
       "mates": "foam-assembly reed-cable-B \u2014 reservoir B + carbonator reeds (SIG-2/3/11)",
-      "status": "off-surface",
+      "status": "ok",
       "note": "7-cond JST XH"
     },
     {
@@ -1718,14 +1719,14 @@
       "name": "J8-i2c",
       "kind": "electrical",
       "pos": [
-        260.1,
-        259.8,
-        292.5
+        16.5,
+        280.116,
+        268.0
       ],
       "face": "z+",
       "diam": 6.0,
       "mates": "off-board MPR121 cap-sense (SIG-8)",
-      "status": "off-surface",
+      "status": "ok",
       "note": "4-cond JST XH"
     },
     {
@@ -1733,14 +1734,14 @@
       "name": "J9-display",
       "kind": "electrical",
       "pos": [
-        241.05,
-        198.5,
-        292.5
+        77.8,
+        261.066,
+        268.0
       ],
       "face": "z+",
       "diam": 6.0,
       "mates": "display harness \u2014 4.3B RS485 + 12 V (SIG-7)",
-      "status": "off-surface",
+      "status": "ok",
       "note": "4-cond JST XH"
     },
     {
@@ -1748,14 +1749,14 @@
       "name": "J10-12v",
       "kind": "electrical",
       "pos": [
-        271.15,
-        207.3,
-        292.5
+        69.0,
+        291.166,
+        268.0
       ],
       "face": "z+",
       "diam": 5.0,
       "mates": "dc-dist 12 V block \u2014 board power inlet (DC-4)",
-      "status": "off-surface",
+      "status": "ok",
       "note": "2-pole 5.0 mm screw block"
     },
     {
@@ -1763,14 +1764,14 @@
       "name": "J11-gas",
       "kind": "electrical",
       "pos": [
-        196.8,
-        204.95,
-        292.5
+        71.35,
+        216.816,
+        268.0
       ],
       "face": "z+",
       "diam": 6.0,
       "mates": "mq6-sensor header \u2014 MQ-6 gas/leak sensor (SIG-12)",
-      "status": "off-surface",
+      "status": "ok",
       "note": "4-cond JST XH"
     },
     {
@@ -1778,14 +1779,14 @@
       "name": "J13-pumps",
       "kind": "electrical",
       "pos": [
-        246.55,
-        259.8,
-        292.5
+        16.5,
+        266.566,
+        268.0
       ],
       "face": "z+",
       "diam": 6.0,
       "mates": "Kamoer pump A + B motors (DC-5)",
-      "status": "off-surface",
+      "status": "ok",
       "note": "4-cond JST XH"
     },
     {
@@ -1793,14 +1794,14 @@
       "name": "J14-usb",
       "kind": "electrical",
       "pos": [
-        196.8,
-        245.3,
-        292.5
+        31.0,
+        216.816,
+        268.0
       ],
       "face": "z+",
       "diam": 9.0,
       "mates": "USB-C programming port (bench only, no loom)",
-      "status": "off-surface",
+      "status": "ok",
       "note": "USB-C receptacle"
     },
     {
@@ -2507,6 +2508,30 @@
         ]
       ],
       "fill": 0.3268,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "pcba",
+      "boxes": [
+        [
+          11.0,
+          205.0,
+          266.4,
+          83.8,
+          295.816,
+          285.5
+        ],
+        [
+          11.0,
+          210.816,
+          258.4,
+          84.3,
+          295.816,
+          266.4
+        ]
+      ],
+      "fill": 0.2809,
       "primitive": false,
       "declared": "real"
     },

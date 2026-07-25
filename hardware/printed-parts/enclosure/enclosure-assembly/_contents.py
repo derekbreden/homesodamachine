@@ -157,6 +157,9 @@ for _p in (_hw / "scripts", _repo / "tools", _hw / "reference" / "beduan-solenoi
            _hw / "reference" / "seaflo-discharge-chain",
            _hw / "reference" / "seaflo-22-pump",
            _hw / "printed-parts" / "enclosure" / "drip-pan",
+           _hw / "printed-parts" / "electronics",
+           _hw / "printed-parts" / "electronics" / "power-tray",
+           _hw / "printed-parts" / "electronics" / "pcba-tray",
            _hw / "printed-parts" / "enclosure" / "enclosure"):    # `enclosure`, imported in placed_funnel
     sys.path.insert(0, str(_p))
 import _boxes                            # noqa: E402
@@ -171,6 +174,8 @@ import seaflo_discharge_chain as _disch  # noqa: E402  — its barb tip and its 
 import seaflo_22_pump as _seaflo         # noqa: E402  — its two head barbs
 import beduan_solenoid as _vk            # noqa: E402  — V-K's two 1/4" QC collets
 import drip_pan as _pan                  # noqa: E402  — its lift, its section, its rail offset
+import module_tray as _mt                # noqa: E402  — the floor and standoff under every board
+import pcba_tray as _pcba                # noqa: E402  — the board's outline, holes and thickness
 
 
 # --- Source STEPs ---------------------------------------------------------
@@ -298,6 +303,15 @@ DRIP_PAN_X, DRIP_PAN_Y = _pan.PAN_X, _pan.PAN_Y
 # the nozzle lanes need stays open beside it.
 BEDUAN_YAW = 180.0
 BEDUAN_POS = (264.0, 342.5, 274.1 + RING_SEAT)   # base centre on a cradle above the cap
+# The controller board, on the foam-cap top in the WEST COLUMN — the one plane in the bay wide
+# enough to take it, opened when the pump crossed to the cap's east edge. It lies a quarter turn
+# from its own frame so the long axis runs down the strip: the USB-C edge looks SOUTH into the open
+# band ahead of the cap, where a hand reaches it with the back panel on, and the J10 12 V throats
+# look NORTH up the strip. Both edges the board must keep reachable face open lanes, not a wall.
+#   The two nozzle lanes cross the deck at x 274.2 and 248.1, the far side of the pump; the board
+# stands at x[11, 84.3] and shares no deck with them.
+PCBA_YAW = 90.0
+PCBA_POS = (11.0, 205.0, 258.4)   # bbox min — the tray's underside on the cap top
 # The split lies UNDER V-K, in the band between the foam cap and V-K's cradle — the one
 # place in the strip's east void with a footprint free once the valve is standing in it.
 # Its run carries the ASSE feed across the void — in at the WEST face off water-2, on at
@@ -628,6 +642,32 @@ def vk_terminal(name):
             (0.0, -1.0, 0.0): "y-", (0.0, 0.0, 1.0): "z+", (0.0, 0.0, -1.0): "z-"}[
         tuple(round(float(c), 9) + 0.0 for c in axis)]
     return tuple(p + o for p, o in zip(pos, BEDUAN_POS)), face
+
+
+_PCBA_OFF: tuple | None = None
+
+
+def _pcba_off():
+    """The offset `_at` applies to the yawed board, memoized. Taken off the same rotated body the
+    placement anchors, so a port and the board it sits on move together or not at all."""
+    global _PCBA_OFF
+    if _PCBA_OFF is None:
+        bb = _rot(_load(PCBA_ASSEMBLY), (0, 0, 1), PCBA_YAW).BoundingBox()
+        _PCBA_OFF = (PCBA_POS[0] - bb.xmin, PCBA_POS[1] - bb.ymin, PCBA_POS[2] - bb.zmin)
+    return _PCBA_OFF
+
+
+def pcba_port(px, py):
+    """A point in the board's OWN pcb frame — `pcbX`/`pcbY` exactly as written in
+    [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) — carried to world on the board's TOP FACE, the plane
+    every one of the twelve JST wafers and both edge connectors mate off.
+
+    The tray's frame is the board's frame (`pcba_tray.MOUNTS` seats the board at the outline's own
+    centre), so the whole mapping is the placement's yaw and offset. A port cannot drift from the
+    body carrying it, and moving `PCBA_POS` moves the port map with it."""
+    x, y, _ = _yaw_z((px, py, 0.0), PCBA_YAW)
+    dx, dy, _ = _pcba_off()
+    return (x + dx, y + dy, PCBA_POS[2] + _mt.floor_t + _mt.board_standoff + _pcba._thickness)
 
 
 def _yaw_z(v, deg):
@@ -1425,6 +1465,10 @@ def _build():
     placed["vk-fill-valve"] = _rot(
         _load(BEDUAN_STEP), (0, 0, 1), BEDUAN_YAW
         ).translate(BEDUAN_POS)
+
+    # The controller board, laid on the cap in the west column. `_at` on the yawed body, so the
+    # pose and `pcba_port` are the one transform.
+    placed["pcba"] = _at(_rot(_load(PCBA_ASSEMBLY), (0, 0, 1), PCBA_YAW), *PCBA_POS)
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
 
