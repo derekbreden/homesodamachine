@@ -44,6 +44,26 @@ Every query raises rather than degrading: a body that will not normalize, a bool
 
 A claim about where something sits, what it clears, or which poses are available is a claim this tool can settle. Settle it before stating it, and quote the query.
 
+## Trying a part somewhere it isn't yet
+
+`hardware/scripts/fit.py` is the other half: `probe` asks about the world as it stands, `fit` asks about a body that is not in it. It discovers a reference part's builder and ports from `hardware/reference/<name>/`, carries it to a pose, and measures it against the placed world.
+
+```
+tools/cad-venv/bin/python hardware/scripts/fit.py parts
+tools/cad-venv/bin/python hardware/scripts/fit.py ports beduan-solenoid
+tools/cad-venv/bin/python hardware/scripts/fit.py try meanwell-irm90 --bbmin=0,180,267.5 --yaw 90
+tools/cad-venv/bin/python hardware/scripts/fit.py search meanwell-irm90 --x=-14,60,6 --y=176,200,6 --z=267.5 --yaw=90 --anchor bbmin --clearance 1
+tools/cad-venv/bin/python hardware/scripts/fit.py slab --z 267,331 --size 52,109 --exact seaflo-pump
+```
+
+The body and its ports move under one `cq.Location`, so a port always sits on the face it names — a pose rotated by hand alongside a port rotated by hand is two implementations of one transform. `pose.port(name)` returns the world position and axis. `anchor` picks what lands on the coordinate you give: `at` is the part's own origin, `bbmin` is its rotated bounding box's low corner, which is how `_contents._at` seats a body in the pack.
+
+Clearance is a threshold on an exact measured distance, never an inflation of the obstacles, so raising it can only ever remove poses. `search` reports the free poses ranked by the room they leave; the body being re-placed must be named in `--skip`, or it clashes with itself.
+
+`slab` maps a Z band instead of testing one part: the largest rectangles a footprint could stand in, inside the enclosure's own cavity. Obstacles count by their bounding box unless named in `--exact` — a part that is mostly air, like the pump, hides real space behind its box, and the two answers differ enough to reverse a conclusion.
+
+`fit.py selftest` checks the instrument: that a port stays on its body at arbitrary angles, that the fast reject and the full check never disagree, that clearance only removes, and that every reference part still builds.
+
 ## Firmware
 
 Flash with `tools/flash.sh`.
