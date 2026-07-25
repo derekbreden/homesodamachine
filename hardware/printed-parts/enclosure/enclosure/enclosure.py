@@ -60,6 +60,11 @@ it: the box's four standing verticals. Each quadrant owns only two of them —
 its other two "corners" are the Y-seam, a telescoping mating face with no
 exterior arris to relieve — so the front pieces round the front-left/right
 verticals, the back pieces the back-left/right, and every seam stays square.
+The display facet's +X shoulder — the wall where the facet window ends and the
+square top-front corner resumes — is a standing vertical of the same kind, and
+takes the same relief at one wall: the depth of the end-wall gusset behind it,
+so the round stays inside that gusset's footprint and the front wall east of
+the window keeps its full section.
 The bosses follow the same axis. Every one stands on a post of its OWN section —
 the whole socket footprint, not a stalk under a collar — run the full height of
 its piece, bed face to the seam, at CONSTANT section the whole way: a post that
@@ -161,6 +166,12 @@ display_pcb_x = 106.0            # PCB body through-hole, lateral (X)
 display_pcb_slope = 69.0         # PCB body through-hole, up the 45° slope
 display_pcb_cut_through = 3.0    # extra depth past the facet back, cutting the
                                  # corner pod clean through (it overhangs the hole otherwise)
+# The facet window's +X shoulder is a standing vertical, so it carries the same
+# bed relief the box's own four do. Its radius is the end-wall gusset's depth:
+# the gusset is the only body standing behind that arris, so a round any deeper
+# would cut past it into the front wall east of the window, which has nothing
+# but cavity behind it.
+display_shoulder_round = wall    # facet +X shoulder arris relief (Z), = the gusset's depth
 
 # Hopper funnel opening (Zone C) — one rectangular opening through the top
 # wall right of the display, cut at the placed funnel's collar: the funnel
@@ -343,16 +354,17 @@ def _round_z(solid, r):
 
 
 def _round_corner_z(solid, xc, yc, r):
-    """Round only the single standing-vertical (Z) corner edge of a box at
-    (xc, yc) — for a boss that sits in one of the box's rounded verticals and
-    must stay concentric with the cavity there. r <= 0 leaves it square."""
+    """Round only the single standing-vertical (Z) corner edge of a solid at
+    (xc, yc) — the facet window's +X shoulder, or a boss that sits in one of the
+    box's rounded verticals and must stay concentric with the cavity there.
+    r <= 0 leaves it square."""
     if r <= 0:
         return solid
     wp = cq.Workplane(obj=solid)
     edges = [e for e in wp.edges("|Z").vals()
              if abs(e.Center().x - xc) < 1e-6 and abs(e.Center().y - yc) < 1e-6]
     if not edges:
-        return solid          # this boss does not sit in that corner
+        return solid          # nothing stands in that corner
     return wp.newObject(edges).fillet(r).val()
 
 
@@ -691,10 +703,13 @@ def _facet_wedge(outer):
 def _rounded_outer(outer):
     """The outer box with rounded standing-vertical corners and the facet
     chamfered in — the print silhouette the half is clipped to so nothing
-    pokes past it."""
+    pokes past it. The shoulder the facet window leaves at its +X edge is a
+    standing vertical the cut makes rather than the box, so it is relieved
+    here, after the wedge that raises it."""
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     box = _round_z(_ybox(ox0, ox1, oy0, oy1, oz0, oz1), corner_round)
-    return box.cut(_facet_wedge(outer))
+    return _round_corner_z(box.cut(_facet_wedge(outer)),
+                           ox0 + display_facet_x, oy0, display_shoulder_round)
 
 
 def _shell_with_facet(inner, outer):
@@ -753,7 +768,11 @@ def _facet_end_wall(inner, outer):
     edge fills the corner bounded by the inner front wall, the inner top wall,
     and the housing BACK plane — spanning the full housing depth so it is flush
     and continuous with the slab, not tangent to the facet at a knife edge.
-    (The −X edge needs no such wall — the left exterior wall seals it.)"""
+    (The −X edge needs no such wall — the left exterior wall seals it.)
+
+    Its depth is what sizes `display_shoulder_round`: this gusset is the body
+    standing behind the shoulder's exterior arris, so the relief cut into that
+    arris runs out exactly where the gusset does."""
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     ox0, ox1, oy0, oy1, oz0, oz1 = outer
     a, normal, origin, dy, dz = _facet_geom(outer)
