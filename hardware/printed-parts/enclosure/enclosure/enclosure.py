@@ -26,6 +26,11 @@ interior clearance, then walled out. Features:
     FRONT piece's lip carries the SOCKET (faucet shell-bottom idiom): a pod
     bored to receive the plug, open on its +Y face so the plug drops in as
     the pieces close, with a ruthex M3 heat-set at the deep end.
+  * The refrigeration stratum's mounts, all in the front-bottom piece: a seat
+    band and two capture bosses for the compressor shroud, four pads for the
+    compressor's own grommeted feet inside it, and floor rails plus two +X-wall
+    brackets for the condenser/fan. Every one of them takes the same M3 SHCS
+    into a ruthex heat-set the seams do.
   * A bottom↔top split per column — the same joint rotated 90°, at a
     different height each side of the Y seam (the seams stagger like a
     brick bond; the front pair joins, the back pair joins, then the front
@@ -89,6 +94,7 @@ from collections import namedtuple
 from pathlib import Path
 
 import cadquery as cq
+from OCP.BRepAdaptor import BRepAdaptor_Surface
 
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
@@ -96,11 +102,13 @@ sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_repo / "tools"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "enclosure" / "enclosure-assembly"))
 sys.path.insert(0, str(_repo / "hardware" / "printed-parts" / "zone-c" / "hopper-funnel"))
+sys.path.insert(0, str(_repo / "hardware" / "cut-parts" / "compressor-shroud"))
 from _cadq_export import export_step, export_assembly
 from docgen import substitute_md, substitute_py_comments
 import _boxes
 import _contents
 import hopper_funnel as _funnel
+import _compressor_shroud_dimensions as _shroud_spec
 
 # Shell parameters.
 wall = 3.0                  # PETG wall thickness
@@ -225,6 +233,59 @@ z_lip_y_margin = 2.0
 # both walls. The seam machinery runs unbroken all the way to the corners.
 
 
+# --- refrigeration mounts: compressor, shroud, condenser/fan ----------------
+#
+# The three machines of the floor stratum are the only contents the box holds by
+# its own printed features rather than by a tray of their own, so their mounts
+# are the box's. All of them land in the FRONT-BOTTOM piece — the floor under the
+# shroud and the condenser, and the +X wall the condenser's fan shroud screws to.
+#
+# One fastener vocabulary throughout, the shell's own: an M3 SHCS into a ruthex
+# M3 heat-set, the insert bored from the face the screw arrives at with a blind
+# relief past it so a stock screw length cannot jack on the bottom of its pocket.
+# `boss_reach` is that whole chain, and it is how deep any of these bosses stand
+# behind the face they present.
+heatset_relief = 3.0                                          # blind bore past the insert
+boss_reach = heatset_depth + heatset_relief + socket_cap
+
+# The floor stratum stands `_contents.SEAM_CLEAR_LIFT` off the floor slab. That
+# stance is a seat: a band of material under the shroud's rim, rails under the
+# condenser's footprint, and the compressor's pads rising from it.
+seat_band = 12.0             # bearing width under the shroud's rim
+seat_rail_w = 20.0           # width of a condenser floor rail
+
+# The shroud drops over the compressor from above and is located in plan by a
+# register standing inside its own walls, so the two Ø4.5 mm screws in its side
+# walls are left holding it DOWN and not aligning it.
+register_h = 6.0             # register rise above the seat
+register_w = 3.0
+register_slip = split_slip   # the same diametral slide fit the seams use
+
+# The donor compressor (../../../reference/ice-maker/) stands on four feet inside
+# the shroud, each foot carrying the factory rubber grommet — the isolation
+# element, kept. A pad rises under each foot; the grommet's lower flange bears on
+# it and an M3 SHCS passes through a spacer sleeve inside the grommet into the
+# pad's heat-set, so the screw clamps sleeve to pad and the rubber is never
+# crushed. ESTIMATE: the donor's foot pattern is not recorded — measure the unit
+# and set the pitch pair; everything else follows it.
+comp_foot_pitch = (100.0, 65.0)     # [100 × 65 mm](COMP_FOOT_PITCH), X × Y
+# The terminal block + PTC module sit on the compressor's +X side, facing the
+# shroud's AC gland; the body stands this far west of the shroud's plan centre to
+# open that bay.
+comp_axis_offset_x = 10.0
+comp_pad_dia = 20.0
+
+# The condenser/fan block is held by its donor fan shroud, whose ears stand in the
+# block's +X (exhaust) face. Each ear takes an M3 SHCS driven +X into a heat-set
+# in a printed pad; the pads ride two webs that bridge the channel between that
+# face and the +X wall. ESTIMATE: the donor shroud is not yet separated, so its
+# ear pattern is a 92 mm axial fan's, square about the fan axis — the block's own
+# plan centre on that face. Measure the harvested shroud and set the pitch.
+cond_ear_pitch = (82.5, 82.5)       # [82.5 × 82.5 mm](COND_EAR_PITCH), Y × Z
+cond_web_t = 5.0             # web thickness, wall to pad
+cond_seam_margin = 2.0       # air the bracket leaves under the front Z-seam lip
+
+
 # The whole description of one box, so the appliance and its test coupon are
 # the same geometry read from different numbers rather than two code paths:
 #   inner/outer   the cavity and the shell, (x0, x1, y0, y1, z0, z1)
@@ -232,7 +293,8 @@ z_lip_y_margin = 2.0
 #   splits        the bottom↔top seam height per Y column, (front, back)
 #   front_ports   / back_ports   panel through-holes, in _contents' format
 #   hopper        whether the top wall carries the funnel throat
-Box = namedtuple("Box", "inner outer y_joint splits front_ports back_ports hopper")
+#   mounts        whether the floor + side wall carry the refrigeration mounts
+Box = namedtuple("Box", "inner outer y_joint splits front_ports back_ports hopper mounts")
 
 
 # --- primitives -------------------------------------------------------------
@@ -249,6 +311,16 @@ def _ybox(x0, x1, y0, y1, z0, z1):
 def _xcyl(r, y, z, x0, x1):
     """Cylinder of radius r along X from x0 to x1, axis at (y, z)."""
     return cq.Solid.makeCylinder(r, abs(x1 - x0), cq.Vector(min(x0, x1), y, z), cq.Vector(1, 0, 0))
+
+
+def _ycyl(r, x, z, y0, y1):
+    """Cylinder of radius r along Y from y0 to y1, axis at (x, z)."""
+    return cq.Solid.makeCylinder(r, abs(y1 - y0), cq.Vector(x, min(y0, y1), z), cq.Vector(0, 1, 0))
+
+
+def _zcyl(r, x, y, z0, z1):
+    """Cylinder of radius r along Z from z0 to z1, axis at (x, y)."""
+    return cq.Solid.makeCylinder(r, abs(z1 - z0), cq.Vector(x, y, min(z0, z1)), cq.Vector(0, 0, 1))
 
 
 def _round_z(solid, r):
@@ -567,7 +639,7 @@ def _dims():
     by0, by1 = _y_corner_back(inner, y_joint)
     _measure_wall_relief(placed, inner, by0, by1, _plug_reach())
     return Box(inner, outer, y_joint, (z_joint_front, z_joint_back),
-               _contents.front_wall_ports(), ports, True)
+               _contents.front_wall_ports(), ports, True, True)
 
 
 # --- display facet (solid surface) -----------------------------------------
@@ -1264,6 +1336,255 @@ def _z_pod_cuts(x_in, x_ext, sx, ys, zj):
     return bore.fuse(heat).fuse(chan)
 
 
+# --- refrigeration mounts ---------------------------------------------------
+#
+# Three mounts, one idiom. Each presents a FACE to the part it holds and stands
+# `boss_reach` behind it — heat-set, blind relief, cap — so every screw in the
+# stratum is the same M3 SHCS into the same ruthex insert as the seams' are.
+#
+#   COMPRESSOR   four pads on the floor under the donor's feet, each an insert
+#                on a vertical axis. The factory grommet stays in the foot and is
+#                the isolation element: the pad is what its lower flange lands
+#                on, and the screw runs through a spacer sleeve inside the
+#                grommet so the clamp closes sleeve-to-pad and the rubber is left
+#                free to work.
+#   SHROUD       the two Ø4.5 mm holes already in its side walls, read off the
+#                placed part. Their axes run along Y, so each boss stands INSIDE
+#                the shroud against the wall it backs and the screw arrives from
+#                outside: the front one through the front wall (its head
+#                counterbored in the exterior, the seam idiom), the rear one from
+#                the machine corridor.
+#   CONDENSER    the donor fan shroud's ears, in the block's +X face, taken by
+#                pads on two webs bridging the channel to the +X wall. The block's
+#                weight rides floor rails, not the webs — the webs stop it moving.
+
+def _shroud_stations(placed):
+    """The shroud's two Ø4.5 mm base mounting holes as PLACED: (x, z, y_face, sy)
+    — the bore axis, the shroud wall's inner face, and the sense the screw
+    travels through it.
+
+    Read off the solid, not re-derived. The shroud is a bought part in its own
+    frame and `_contents` turns it into the box's; a station computed here from
+    both would be a third copy of a relationship that already exists twice."""
+    shroud = placed["compressor-shroud"][0]
+    bore_r = _shroud_spec.mounting_hole_diameter_mm / 2.0
+    mid_y = _boxes.boxed(shroud).center.y
+    out = []
+    for f in shroud.Faces():
+        if f.geomType() != "CYLINDER":
+            continue
+        if abs(BRepAdaptor_Surface(f.wrapped).Cylinder().Radius() - bore_r) > 1e-6:
+            continue
+        bb = f.BoundingBox()
+        sy = 1.0 if bb.center.y < mid_y else -1.0
+        out.append((bb.center.x, bb.center.z, bb.ymax if sy > 0 else bb.ymin, sy))
+    if len(out) != 2:
+        raise ValueError(
+            f"expected 2 Ø{2 * bore_r:g} mm shroud mounting bores, found {len(out)} — "
+            "the shroud's base holes are what the floor bosses are drawn to")
+    return sorted(out, key=lambda s: s[2])
+
+
+def _seat(x0, x1, y0, y1, z0, z1, band):
+    """A landing frame: the plan rectangle carried from z0 to z1 as a band `band`
+    wide, open in the middle. What a part standing off the floor slab actually
+    rests on — a slab under its whole footprint would be the same landing and
+    several times the plastic."""
+    return _ybox(x0, x1, y0, y1, z0, z1).cut(
+        _ybox(x0 + band, x1 - band, y0 + band, y1 - band, z0 - 1.0, z1 + 1.0))
+
+
+def _shroud_seat(inner, placed):
+    """The shroud's floor landing: the band its rim bears on, carrying the floor
+    stratum's own stance (`_contents.SEAM_CLEAR_LIFT`) as material, and the
+    register standing inside its walls.
+
+    The register is what locates the shroud in plan, so the two screws are left
+    holding it down. It stands one slip inside the shroud's INNER wall faces —
+    the shroud drops over it as it drops over the compressor."""
+    bb = _boxes.boxed(placed["compressor-shroud"][0])
+    t = _shroud_spec.wall_thickness_mm
+    z0 = inner[4]
+    z1 = z0 + _contents.SEAM_CLEAR_LIFT
+    band = _seat(bb.xmin, bb.xmax, bb.ymin, bb.ymax, z0, z1, seat_band)
+    slip = register_slip / 2.0
+    ring = _seat(bb.xmin + t + slip, bb.xmax - t - slip,
+                 bb.ymin + t + slip, bb.ymax - t - slip,
+                 z1, z1 + register_h, register_w)
+    return band.fuse(ring)
+
+
+def _shroud_bosses(inner, placed):
+    """The two capture bosses, each a post of the socket's own section from the
+    floor to one socket_r over its bore, standing inside the shroud against the
+    wall it backs. Inside is where the depth is: outside, one wall stands 3 mm
+    ahead of the shroud's front face and the machine corridor's floor sensor 1 mm
+    behind its rear one."""
+    body = None
+    for x, z, y_face, sy in _shroud_stations(placed):
+        ya, yb = sorted((y_face, y_face + sy * boss_reach))
+        post = _ybox(x - socket_r, x + socket_r, ya, yb, inner[4], z + socket_r)
+        body = post if body is None else body.fuse(post)
+    return body
+
+
+def _shroud_boss_cuts(outer, placed):
+    """What the two capture screws take out: the heat-set pocket and its blind
+    relief in each boss, and — for the front station, whose screw crosses the
+    front wall — that screw's shank bore and the head counterbore in the wall's
+    exterior face, the same seat every seam screw sits in."""
+    cuts = None
+
+    def add(solid):
+        nonlocal cuts
+        cuts = solid if cuts is None else cuts.fuse(solid)
+
+    for x, z, y_face, sy in _shroud_stations(placed):
+        y_tip = y_face + sy * heatset_depth
+        add(_ycyl(heatset_dia / 2.0, x, z, y_face, y_tip))
+        add(_ycyl(screw_clear_dia / 2.0, x, z, y_tip, y_tip + sy * heatset_relief))
+        if sy > 0:
+            y_ext = outer[2]
+            add(_ycyl(screw_clear_dia / 2.0, x, z, y_ext - 1.0, y_face))
+            add(_ycyl(head_cbore_dia / 2.0, x, z, y_ext - 1.0, y_ext + head_cbore_depth))
+    return cuts
+
+
+def _compressor_feet(inner, placed):
+    """The four foot stations as (x, y, z_top) — the donor's foot pattern centred
+    in the shroud's plan, held west of its centre by the terminal-block bay. The
+    pitch is the estimate at the top of the file; everything here follows it, so
+    a measured donor moves the pads by changing one pair of numbers.
+
+    The pad top is one whole `boss_reach` over the floor slab's UNDERSIDE, not a
+    chosen height: the pocket and its relief are bored down the pad's own axis,
+    and the pad is exactly as tall as it takes for the relief's floor to still be
+    a floor. It is the only thing setting the compressor's height so far — the
+    copper stubs bend to whatever the shroud's Ø8 clearance holes leave them."""
+    bb = _boxes.boxed(placed["compressor-shroud"][0])
+    cx = bb.center.x - comp_axis_offset_x
+    cy = bb.center.y
+    z_top = inner[4] - wall + boss_reach
+    px, py = comp_foot_pitch
+    return [(cx + sx * px / 2.0, cy + sy * py / 2.0, z_top)
+            for sx in (-1.0, 1.0) for sy in (-1.0, 1.0)]
+
+
+def _compressor_pads(inner, placed):
+    pads = None
+    for x, y, z_top in _compressor_feet(inner, placed):
+        pad = _zcyl(comp_pad_dia / 2.0, x, y, inner[4], z_top)
+        pads = pad if pads is None else pads.fuse(pad)
+    return pads
+
+
+def _compressor_pad_cuts(inner, placed):
+    """The heat-set pocket in each pad, bored down its own axis from the top, and
+    the blind relief under it. Vertical: the pads print off the floor, so the
+    pocket is a hole up the build axis with no arc to droop."""
+    cuts = None
+    for x, y, z_top in _compressor_feet(inner, placed):
+        z_tip = z_top - heatset_depth
+        pocket = _zcyl(heatset_dia / 2.0, x, y, z_tip, z_top + 1.0).fuse(
+            _zcyl(screw_clear_dia / 2.0, x, y, z_tip - heatset_relief, z_tip))
+        cuts = pocket if cuts is None else cuts.fuse(pocket)
+    return cuts
+
+
+def _condenser_ears(placed):
+    """The donor fan shroud's four ear stations as (y, z) on the block's +X face —
+    the estimated square pattern about that face's own centre, which is where the
+    fan is (`condenser+fan` fan-power port, ../enclosure-assembly/scorecard.py)."""
+    bb = _boxes.boxed(placed["condenser+fan"][0])
+    py, pz = cond_ear_pitch
+    return [(bb.center.y + sy * py / 2.0, bb.center.z + sz * pz / 2.0)
+            for sy in (-1.0, 1.0) for sz in (-1.0, 1.0)]
+
+
+def _condenser_pad(y, z, x0, x1):
+    """One ear pad: the socket's section about the bore, run out at 45° above and
+    below to the web's thickness. Printed floor-down the run-out is what carries
+    the pad's shoulders — a pad standing straight on a web narrower than itself
+    starts its first layer out over open air on both sides."""
+    taper = socket_r - cond_web_t / 2.0
+    pts = [(y - cond_web_t / 2.0, z - socket_r - taper), (y - socket_r, z - socket_r),
+           (y - socket_r, z + socket_r), (y - cond_web_t / 2.0, z + socket_r + taper),
+           (y + cond_web_t / 2.0, z + socket_r + taper), (y + socket_r, z + socket_r),
+           (y + socket_r, z - socket_r), (y + cond_web_t / 2.0, z - socket_r - taper)]
+    return (cq.Workplane("YZ").workplane(offset=x0).polyline(pts).close()
+            .extrude(x1 - x0).val())
+
+
+def _condenser_mount(box, placed):
+    """The condenser's floor rails and its two +X wall brackets.
+
+    The block stands on the floor stratum, so the RAILS carry it: two straight
+    runs under the quarter points of its depth, which is a landing whatever the
+    donor's underside turns out to be. The BRACKETS only stop it moving — a web
+    per ear column bridging the channel between the block's +X face and the wall,
+    with a pad at each of that column's two ears."""
+    inner = box.inner
+    bb = _boxes.boxed(placed["condenser+fan"][0])
+    z0 = inner[4]
+    depth = bb.ymax - bb.ymin
+    body = None
+
+    def add(solid):
+        nonlocal body
+        body = solid if body is None else body.fuse(solid)
+
+    for f in (0.25, 0.75):
+        y = bb.ymin + f * depth
+        add(_ybox(bb.xmin, bb.xmax, y - seat_rail_w / 2.0, y + seat_rail_w / 2.0,
+                  z0, z0 + _contents.SEAM_CLEAR_LIFT))
+
+    ears = _condenser_ears(placed)
+    x_pad, x_wall = bb.xmax, inner[1]
+    z_ceiling = box.splits[0] - wall - cond_seam_margin
+    z_top = max(z for _y, z in ears) + socket_r + (socket_r - cond_web_t / 2.0)
+    if z_top > z_ceiling:
+        raise ValueError(
+            f"condenser bracket tops out at z {z_top:.1f}, over the front Z seam's "
+            f"lip band at z {z_ceiling:.1f} — the ear pattern {cond_ear_pitch} is "
+            "taller than the stratum the bracket lives in")
+    for y in sorted({y for y, _z in ears}):
+        add(_ybox(x_pad, x_wall, y - cond_web_t / 2.0, y + cond_web_t / 2.0, z0, z_top))
+    for y, z in ears:
+        add(_condenser_pad(y, z, x_pad, x_pad + boss_reach))
+    return body
+
+
+def _condenser_mount_cuts(placed):
+    """The heat-set pocket and relief in each ear pad, bored +X from the pad face
+    the ear lies against — the screw arrives from the block's side, through the
+    ear, and clamps it to the pad."""
+    bb = _boxes.boxed(placed["condenser+fan"][0])
+    x_face = bb.xmax
+    cuts = None
+    for y, z in _condenser_ears(placed):
+        x_tip = x_face + heatset_depth
+        pocket = _xcyl(heatset_dia / 2.0, y, z, x_face, x_tip).fuse(
+            _xcyl(screw_clear_dia / 2.0, y, z, x_tip, x_tip + heatset_relief))
+        cuts = pocket if cuts is None else cuts.fuse(pocket)
+    return cuts
+
+
+def _mounts(box):
+    """The refrigeration stratum's mounts as (solid, cuts) — everything the front
+    half fuses and everything it then bores. One call, so the fuse order and the
+    bore order cannot drift apart."""
+    placed = _contents.build()
+    inner, outer = box.inner, box.outer
+    solid = (_shroud_seat(inner, placed)
+             .fuse(_shroud_bosses(inner, placed))
+             .fuse(_compressor_pads(inner, placed))
+             .fuse(_condenser_mount(box, placed)))
+    cuts = (_shroud_boss_cuts(outer, placed)
+            .fuse(_compressor_pad_cuts(inner, placed))
+            .fuse(_condenser_mount_cuts(placed)))
+    return solid, cuts
+
+
 # --- test-print coupon ------------------------------------------------------
 #
 # The same box shrunk to the smallest one that still carries, at FULL size,
@@ -1275,7 +1596,8 @@ def _z_pod_cuts(x_in, x_ext, sx, ys, zj):
 #
 # What it does NOT carry is anything the reduced box cannot host honestly: the
 # contents (there is nothing to pack, so nothing to dodge — the walls' relief
-# and the seam's stand-off have no meaning here), the hopper throat (the placed
+# and the seam's stand-off have no meaning here, and the refrigeration mounts
+# stand on placed machines that are not here), the hopper throat (the placed
 # funnel's collar would not fit the shrunken top-wall frame), and the front
 # panel's single CO2 hole (a plain bore through flat wall, whose one real
 # relationship — its height over the front seam — lands behind the display
@@ -1410,7 +1732,7 @@ def coupon_box():
     inner = (ix0, ix1, iy0, iy1, iz0, iz1)
     outer = (ix0 - wall, ix1 + wall, iy0 - wall, iy1 + wall, iz0 - wall, iz1 + wall)
     return Box(inner, outer, y_joint, (zjf, zjb), (),
-               [(h[0], h[1] + dx, h[2] + dz) + tuple(h[3:]) for h in packed], False)
+               [(h[0], h[1] + dx, h[2] + dz) + tuple(h[3:]) for h in packed], False, False)
 
 
 def build_front_half(box):
@@ -1430,6 +1752,13 @@ def build_front_half(box):
     for x_in, x_ext, sx, _zb, pod_z in _sides(bosses):
         front = front.fuse(_front_pod(x_in, x_ext, sx, pod_z, y_joint, inner))
         front = front.fuse(_front_pod_ends(x_in, x_ext, sx, y_joint, inner, outer))
+    # The refrigeration stratum's mounts — the seats, pads, bosses and brackets
+    # the compressor, its shroud and the condenser hang off. All of them stand
+    # below the front Z seam, so they land whole in the front-BOTTOM piece.
+    mount_cuts = None
+    if box.mounts:
+        mount_solid, mount_cuts = _mounts(box)
+        front = front.fuse(mount_solid)
     # The full-depth pods can poke into the display facet; trim them to its plane.
     front = front.cut(_facet_wedge(outer))
     # Close the facet recess at its +X edge (the −X edge is sealed by the left wall).
@@ -1445,6 +1774,8 @@ def build_front_half(box):
         front = front.cut(cutter)
     for x_in, x_ext, sx, z_boss, _pz in bosses:
         front = front.cut(_front_cuts(x_in, x_ext, sx, z_boss, yb))
+    if mount_cuts is not None:
+        front = front.cut(mount_cuts)
     # The slide-in path is the corner's, not the level's: one full-height slot per
     # wall, so the back half's column has somewhere to stand at every height. Cut
     # last, so it takes its share of the foot and head too.
@@ -1610,6 +1941,30 @@ def _report_levels(box):
               + ", ".join(f"{z:.0f}" for z in zs))
 
 
+def _report_mounts(box):
+    """Where the refrigeration stratum's fasteners ended up. Two of the three
+    patterns are estimates of a donor part, so the stations are printed rather
+    than assumed: this is the list to check a measured compressor and a separated
+    fan shroud against."""
+    if not box.mounts:
+        return
+    placed = _contents.build()
+    feet = _compressor_feet(box.inner, placed)
+    print(f"  compressor pads:  {len(feet)} at x {sorted({round(x) for x, _y, _z in feet})} "
+          f"× y {sorted({round(y) for _x, y, _z in feet})}, pad top z {feet[0][2]:.1f} "
+          f"(pitch {comp_foot_pitch[0]:g} × {comp_foot_pitch[1]:g} — ESTIMATE)")
+    for x, z, y_face, sy in _shroud_stations(placed):
+        side = "front wall" if sy > 0 else "machine corridor"
+        print(f"  shroud boss:      x {x:.1f} z {z:.1f}, insert face y {y_face:.1f}, "
+              f"screw from the {side}")
+    ears = _condenser_ears(placed)
+    bb = _boxes.boxed(placed["condenser+fan"][0])
+    print(f"  condenser pads:   {len(ears)} on x {bb.xmax:.1f} at y "
+          f"{sorted({round(y, 1) for y, _z in ears})} × z {sorted({round(z, 1) for _y, z in ears})}, "
+          f"web to the +X wall at x {box.inner[1]:.1f} (pitch {cond_ear_pitch[0]:g} × "
+          f"{cond_ear_pitch[1]:g} — ESTIMATE)")
+
+
 PIECE_COLORS = {
     "front-bottom": cq.Color(0.80, 0.84, 0.90),
     "front-top":    cq.Color(0.86, 0.89, 0.94),
@@ -1652,6 +2007,7 @@ def main():
     print("enclosure:")
     _report_facet(pieces["front-top"], box)
     _report_levels(box)
+    _report_mounts(box)
     _report_split(pieces)
     print("coupon:")
     _report_facet(coupon_pieces["front-top"], coupon)
@@ -1664,17 +2020,21 @@ def main():
         "DISPLAY_FACET_SLOPE": f"{display_facet_slope:.4g} mm",
         "COUPON_SIZE": (f"{co[1] - co[0]:.0f} × {co[3] - co[2]:.0f} × "
                         f"{co[5] - co[4]:.0f} mm"),
+        "COMP_FOOT_PITCH": f"{comp_foot_pitch[0]:.4g} × {comp_foot_pitch[1]:.4g} mm",
+        "COND_EAR_PITCH": f"{cond_ear_pitch[0]:.4g} × {cond_ear_pitch[1]:.4g} mm",
     }
     substitute_py_comments(
         Path(__file__),
         variables=variables,
-        expected_counts={"DISPLAY_FACET_X": 2, "DISPLAY_FACET_SLOPE": 2},
+        expected_counts={"DISPLAY_FACET_X": 2, "DISPLAY_FACET_SLOPE": 2,
+                         "COMP_FOOT_PITCH": 1, "COND_EAR_PITCH": 1},
     )
     substitute_md(
         _here.parent / "README.md",
         variables=variables,
         expected_counts={"DISPLAY_FACET_X": 1, "DISPLAY_FACET_SLOPE": 1,
-                         "COUPON_SIZE": 1},
+                         "COUPON_SIZE": 1, "COMP_FOOT_PITCH": 1,
+                         "COND_EAR_PITCH": 1},
     )
     print("-> README.md")
 
