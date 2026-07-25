@@ -154,6 +154,7 @@ for _p in (_hw / "scripts", _repo / "tools", _hw / "reference" / "beduan-solenoi
            _hw / "reference" / "neofit-flow-control",
            _hw / "reference" / "seaflo-discharge-chain",
            _hw / "reference" / "seaflo-22-pump",
+           _hw / "printed-parts" / "enclosure" / "drip-pan",
            _hw / "printed-parts" / "enclosure" / "enclosure"):    # `enclosure`, imported in placed_funnel
     sys.path.insert(0, str(_p))
 import _boxes                            # noqa: E402
@@ -213,6 +214,10 @@ FLOWREG_STEP   = _hw / "reference" / "neofit-flow-control" / "neofit-flow-contro
 # piece. Its own frame is +Z = flow with the barb tip at Z = 0, water running DOWN it
 # (reference/seaflo-discharge-chain).
 DISCH_CHAIN_STEP = _hw / "reference" / "seaflo-discharge-chain" / "seaflo-discharge-chain.step"
+# The drip pan — the printed catch basin under the ASSE 1022's atmospheric vent,
+# with the moisture plate lying in it. Its own frame is the basin upright, floor at
+# Z = 0 (printed-parts/enclosure/drip-pan).
+DRIP_PAN_STEP  = _hw / "printed-parts" / "enclosure" / "drip-pan" / "drip-pan.step"
 # V-K — the Beduan 12 V NC solenoid, the water-supply fill/shutoff valve
 # (reference/beduan-solenoid). Its own frame is +Y = flow, the arrow the outlet.
 BEDUAN_STEP    = _hw / "reference" / "beduan-solenoid" / "beduan-solenoid.step"
@@ -249,6 +254,11 @@ SEAFLO_POS = (127.0, 277.0)   # plan (35 mm east of centre); its Z is the cap
 # the Multiplex spec sheet rather than measuring the five parts on the shelf.
 ASSE1022_POS = (102.0, 345.5, 287.0)
 ASSE1022_YAW = 0.0
+# The drip pan is not posed — it is centred on the vent column, so the drip lands in
+# the middle of the basin floor wherever the chain's pose leaves the tip. Its cradle
+# (drip-pan/drip_pan.py `build_cradle`, VHB'd to the foam-cap lid) is a mount feature
+# and is not packed.
+DRIP_PAN_X, DRIP_PAN_Y = 100.0, 30.0
 ASSE1022_ROLL = 0.0
 # V-K — the water-supply fill/shutoff solenoid (Beduan 12 V NC): DOWNSTREAM of the
 # ASSE 1022, between the split and the SeaFlo suction. Closed, it stops all water
@@ -755,6 +765,7 @@ COLORS = {
     "flow-regulator":    cq.Color(0.80, 0.82, 0.86),
     "discharge-chain":   cq.Color(0.72, 0.74, 0.78),
     "vk-fill-valve":      cq.Color(0.85, 0.86, 0.90),
+    "drip-pan":          cq.Color(0.62, 0.66, 0.72),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "dc-dist":           cq.Color(0.20, 0.20, 0.22),
@@ -1275,6 +1286,11 @@ def _build():
     placed["seaflo-pump"] = _rot(
         _load(SEAFLO_STEP), (0, 0, 1), SEAFLO_YAW
         ).translate((SEAFLO_POS[0], SEAFLO_POS[1], foam_cap_top()))
+    _vent_xy = bfp_terminal("vent-tip")[0]
+    placed["drip-pan"] = _at(_load(DRIP_PAN_STEP),
+                             _vent_xy[0] - DRIP_PAN_X / 2.0,
+                             _vent_xy[1] - DRIP_PAN_Y / 2.0,
+                             foam_cap_top())
     placed["water-split"] = _load(WATER_SPLIT_STEP).translate(SPLIT_POS)
     placed["flow-regulator"] = _rot(
         _load(FLOWREG_STEP), (0, 0, 1), FLOWREG_YAW
