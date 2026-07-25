@@ -24,8 +24,11 @@ OUT_DIR = CARDS_DIR / "out"
 sys.path.insert(0, str(REPO_ROOT / "hardware" / "scripts"))
 from _cadq_export import export_pdf  # noqa: E402
 
-# Deck order = the build order of /hardware/future.md "Build order".
-SUBSYSTEM_ORDER = ["pv", "cc", "rl", "ip", "ca", "es", "wr", "en", "fu", "fc", "ab", "fs", "gt"]
+# Deck order = the build order of /hardware/future.md "Build order" — which is the
+# procedure docs' own dependency chain, not their filename order. The three bench
+# subsystems (ca, es, fu) feed en; ip needs the chassis en closes up; wr needs the
+# lines ip lays in.
+SUBSYSTEM_ORDER = ["pv", "cc", "rl", "ca", "es", "fu", "en", "ip", "wr", "fc", "ab", "fs", "gt"]
 
 PAGE_W, PAGE_H = 6 * 72, 4 * 72  # points
 
