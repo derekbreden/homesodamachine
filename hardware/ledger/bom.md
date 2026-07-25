@@ -124,8 +124,8 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
 | Cold-core inner shell (foam-shell) | 1 | PETG | 1.340 | $15.01 <!--@printed--> |
-| Cold-core foam cap — top | 1 | PETG | 0.171 | $1.92 <!--@printed--> |
-| Cold-core foam cap lid — top | 1 | PETG | 0.129 | $1.44 <!--@printed--> |
+| Cold-core foam cap — top | 1 | PETG | 0.179 | $2.01 <!--@printed--> |
+| Cold-core foam cap lid — top | 1 | PETG | 0.128 | $1.43 <!--@printed--> |
 | Cold-core foam cap — bottom | 1 | PETG | 0.170 | $1.91 <!--@printed--> |
 | Cold-core foam cap lid — bottom | 1 | PETG | 0.129 | $1.44 <!--@printed--> |
 | Copper-plug stack (4 plugs) | 4 | PETG | 0.006 | $0.06 <!--@printed--> |
@@ -134,7 +134,6 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Flavor reservoir body — right | 1 | PETG (food-contact) | 0.398 | $9.81 <!--@printed--> |
 | Flavor reservoir cap — left | 1 | PETG (food-contact) | 0.059 | $1.45 <!--@printed--> |
 | Flavor reservoir cap — right | 1 | PETG (food-contact) | 0.059 | $1.45 <!--@printed--> |
-| PCBA tray | 1 | PETG | 0.024 | $0.27 <!--@printed--> |
 | Power tray | 1 | PETG | 0.055 | $0.61 <!--@printed--> |
 | Enclosure — front bottom + front top (two pieces) | 1 set | PETG | 0.852 | $9.54 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
@@ -145,11 +144,13 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Valve tray — nozzle-gate | 1 | PETG | 0.043 | $0.48 <!--@printed--> |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.151 | $5.94 <!--@printed--> |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.51 <!--@printed--> |
-| **Printed parts total** | | | **~5.90** | **[$82.97](BOM_SEC7)** |
+| **Printed parts total** | | | **~5.88** | **[$82.78](BOM_SEC7)** |
 
-By material: PETG ≈ 4.82 kg / $54.00, food-contact PETG ≈ 0.91 kg / $22.52, PET-CF ≈ 0.16 kg / $6.45.
+By material: PETG ≈ 4.81 kg / $53.81, food-contact PETG ≈ 0.91 kg / $22.52, PET-CF ≈ 0.16 kg / $6.45.
 
-Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the electronics stand on.
+Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the electronics stand on. The top cap also carries the eight deck-mount columns the controller board and the PSU bolt to, which is why it outweighs the bottom one.
+
+No PCBA tray ships. The board bolts straight to four of those columns ([`pcba-tray/README.md`](/hardware/printed-parts/electronics/pcba-tray/)), so the tray is bench geometry only — the same status as the coil-winding mandrel below.
 
 Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× foam-cap gasket, 2× reservoir gasket, 2× reservoir bulkhead dry washer, 2× reservoir vent retaining ring, 1× faucet mounting gasket, 1× faucet TPU o-ring. The hopper funnel is cast platinum-cure silicone (flavor subsystem). Printed tooling does not ship: the coil-winding mandrel, the two-piece hopper-funnel silicone mold, and the single-valve cradle.
 
@@ -242,7 +243,7 @@ The same reed-and-float pattern is used in three places: the carbonator vessel (
 
 Heat-set + screw retention appears in three places:
 
-1. **Foam caps** clamped to the `outer_shell` (top mouth-up + bottom mouth-down) via [12](FOAM_INSERTS) ruthex inserts + [12](FOAM_SCREWS) BNUOK M3×25 SHCS, TPU 90A gasket compressing per cap — procedure in [`assembly/cold-core.md`](/hardware/assembly/cold-core.md).
+1. **Foam caps** clamped to the `outer_shell` (top mouth-up + bottom mouth-down) via [20](FOAM_INSERTS) ruthex inserts + [12](FOAM_SCREWS) BNUOK M3×25 SHCS, TPU 90A gasket compressing per cap — twelve of those inserts are the clamp, the other eight sit in the top cap's deck-mount columns, which the controller board and the PSU bolt down onto — procedure in [`assembly/cold-core.md`](/hardware/assembly/cold-core.md).
 2. **Reservoir cap** clamped to each reservoir body via [6](RES_INSERTS_PER_CAP) ruthex inserts + 6 BNUOK M3×12 304 SS SHCS per cap, TPU gasket — geometry + screw spec in [`printed-parts/cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py).
 3. **Touch-flo mounting plate** bolted up into the shell's three base pods via [3](TOUCHFLO_INSERTS) ruthex inserts + [3](TOUCHFLO_SCREWS) BNUOK M3×12 black-oxide SHCS — procedure in [`printed-parts/faucet/touch-flo-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md).
 
@@ -252,11 +253,11 @@ The T18 heat-set tip kit ([B0CS662NVK](https://www.amazon.com/dp/B0CS662NVK)) an
 
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
-| [ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set](https://www.amazon.com/dp/B0D39W228K) | M3 × 4 mm L × 4.2 mm OD knurled brass; [40](TOTAL_M3_INSERTS) per build ([12](FOAM_INSERTS) foam caps + [12](RES_INSERTS) reservoir caps + [3](TOUCHFLO_INSERTS) touch-flo base pods + [13](SHELF_INSERTS) electronics-shelf tray bosses: pcba-tray 4, power-tray 9); Amazon 112-4234665 May 10: $9.99 + $0.72 tax = $10.71 ÷ 100 = $0.1071/ea | [40](TOTAL_M3_INSERTS) (of 100 pk) | $0.11 | $4.28 <!--@fasteners--> |
+| [ruthex M3 Threaded Inserts Short, 100 pc, RX-M3Sx4.0 brass heat-set](https://www.amazon.com/dp/B0D39W228K) | M3 × 4 mm L × 4.2 mm OD knurled brass; [40](TOTAL_M3_INSERTS) per build ([20](FOAM_INSERTS) foam caps + [12](RES_INSERTS) reservoir caps + [3](TOUCHFLO_INSERTS) touch-flo base pods + [5](SHELF_INSERTS) power-tray bosses: relay #1 standoff 4, ground stud 1); Amazon 112-4234665 May 10: $9.99 + $0.72 tax = $10.71 ÷ 100 = $0.1071/ea | [40](TOTAL_M3_INSERTS) (of 100 pk) | $0.11 | $4.28 <!--@fasteners--> |
 | [BNUOK M3 × 12 mm DIN 912 socket head cap, 304 stainless steel (18-8), 120 pc](https://www.amazon.com/dp/B0DJQGMQZM) | reservoir-cap clamp screws ([12](RES_SCREWS), reservoir lid/body joint); Amazon 112-3709957 Jun 2: $8.07 + $0.59 tax = $8.66 ÷ 120 = $0.0722/ea | 12 (of 120 pk) | $0.07 | $0.87 <!--@fasteners--> |
 | [BNUOK M3 × 25 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 60 pc](https://www.amazon.com/dp/B0DJQGF665) | foam-cap clamp screws (6 top + 6 bottom, each through cap lid + cap into a shell-face insert); Amazon 112-2495614 May 10: $7.99 + $0.58 tax = $8.57 ÷ 60 = $0.1428/ea | [12](FOAM_SCREWS) (of 60 pk) | $0.14 | $1.71 <!--@fasteners--> |
 | [BNUOK M3 × 12 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGVK8S) | touch-flo plate-to-shell screws; Amazon 112-0144900 May 10: $7.99 + $0.58 tax = $8.57 ÷ 120 = $0.0714/ea | [3](TOUCHFLO_SCREWS) (of 120 pk) | $0.07 | $0.21 <!--@fasteners--> |
-| [BNUOK M3 × 8 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGPRPV) | electronics-shelf screws, [13](SHELF_SCREWS)/build: 4 PCBA hold-downs (through the board's MH1–MH4 into the pcba-tray inserts) + 4 PSU + 4 relay #1 + 1 ground-stack clamp, all into ruthex inserts per [`assembly/electronics-shelf.md`](/hardware/assembly/electronics-shelf.md). Black oxide, not 304 SS — hidden dry-zone hardware with no corrosion or cosmetic driver, and 12.9 alloy is stronger than 304; matches the other BNUOK black screws (§13 touch-flo + the M3×10/12/25 in purchases.md). Amazon 112-6198023-2829830 Jul 14: $7.19 + $0.52 tax = $7.71 ÷ 120 = $0.0643/ea | [13](SHELF_SCREWS) (of 120 pk) | $0.06 | $0.84 <!--@fasteners--> |
+| [BNUOK M3 × 8 mm DIN 912 socket head cap, 12.9 alloy steel, black oxide, 120 pc](https://www.amazon.com/dp/B0DJQGPRPV) | electronics-shelf screws, [13](SHELF_SCREWS)/build: 4 PCBA hold-downs (through the board's MH1–MH4) + 4 PSU, both into the top foam cap's deck-mount columns, + 4 relay #1 + 1 ground-stack clamp on the power tray, all into ruthex inserts per [`assembly/electronics-shelf.md`](/hardware/assembly/electronics-shelf.md). Black oxide, not 304 SS — hidden dry-zone hardware with no corrosion or cosmetic driver, and 12.9 alloy is stronger than 304; matches the other BNUOK black screws (§13 touch-flo + the M3×10/12/25 in purchases.md). Amazon 112-6198023-2829830 Jul 14: $7.19 + $0.52 tax = $7.71 ÷ 120 = $0.0643/ea | [13](SHELF_SCREWS) (of 120 pk) | $0.06 | $0.84 <!--@fasteners--> |
 | 3M VHB 4941 acrylic foam tape, 1.1 mm | **SKU TBD (roll width + length).** The drip-pan rail bond — the printed rail pair is stuck to the cold core's foam-cap top under each foot, per [`assembly/enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §5 and [`cards/en-05-drip-pan-moisture-sensor.html`](/hardware/assembly/cards/en-05-drip-pan-moisture-sensor.html). 4941 is the conformable grade — it takes the PETG cap's print texture, which a thin transfer adhesive will not. The only bonded (rather than screwed) mechanical attach in the build. ~4 foot pads per build. | 4 pads (of 1 roll) | — | — <!--@fasteners--> |
 | [LVDALAB PTFE Membrane Filter, ø13 mm × 0.45 µm, 100 pc, non-sterile](https://www.amazon.com/dp/B0D41KT345) | hydrophobic PTFE membrane in the reservoir-cap vent pocket; architecture + sizing in [`printed-parts/cold-core/reservoir/vent.md`](/hardware/printed-parts/cold-core/reservoir/vent.md); [2](VENT_FILTERS) per build (1 per cap × 2 caps); Amazon 112-4393734 May 11: $12.99 − $0.65 promo + $0.89 tax = $13.23 ÷ 100 = $0.1323/ea | [2](VENT_FILTERS) (of 100 pk) | $0.13 | $0.26 <!--@vent-filter--> |
 
@@ -278,7 +279,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$112.38](BOM_SEC4) |
 | 5. Refrigeration | [$173.90](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$82.97](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$82.78](BOM_SEC7) |
 | 8. Flavor subsystem | [$207.59](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -286,7 +287,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$8.17](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,339.44](BOM_GRAND)** |
+| **Total** | **[$1,339.25](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

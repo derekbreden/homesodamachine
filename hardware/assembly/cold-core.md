@@ -75,7 +75,7 @@ Each cap is a [16 mm](CAP_H)-tall foam-filled cup, poured mouth-up with the foam
 
 Both caps pour in that same top-face fixture, one after the other. The top cap is bolted there in its installed orientation (floor down, mouth + lid up); the bottom cap is the same operation and flips mouth-down at step 7.
 
-The two caps pour identically but they are **not** the same part: only `foam-cap-top` (and `foam-cap-lid-top`) carries the CO2 bore + boss. Keep them labeled — the top cap also goes on rotated 180° at step 7. Geometry detail at [`/hardware/printed-parts/cold-core/foam-cap/foam_cap.py`](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py).
+The two caps pour identically but they are **not** the same part: only `foam-cap-top` (and `foam-cap-lid-top`) carries the CO2 bore + boss, and only the top cap carries the eight **deck-mount columns**. Those stand on its floor and rise through the lid's clearance holes, standing proud of the lid by one standoff — they are what the controller PCBA and the PSU bolt to in the finished machine, so the foam pours around their shanks and they are trimmed to nothing. Set a ruthex M3 short into each column's top bore before the pour, the same iron and the same feel as the twelve shell-face inserts at step 2. Keep them labeled — the top cap also goes on rotated 180° at step 7. Geometry detail at [`/hardware/printed-parts/cold-core/foam-cap/foam_cap.py`](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py).
 
 ### 4. Reservoir subassembly (both, at the bench)
 
