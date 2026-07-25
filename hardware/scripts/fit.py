@@ -222,6 +222,24 @@ class Part:
         loc = cq.Location(cq.Vector(*(float(c) for c in at))) * rot
         return Pose(self, loc, (yaw, pitch, roll))
 
+    def mate(self, port: str, at, axis, spin: float = 0.0):
+        """This part carried so that `port` sits at `at` and points along `axis`.
+
+        The pose a fitting takes when it is put on the thing it connects to: give the port
+        the position and normal of the mouth it joins and the rest of the body follows.
+        `spin` turns the part about that axis, which the joint leaves free.
+
+        A port's axis points out of the part, so two ports that join face opposite ways —
+        mating onto `w.normal(component, port)` seats the two mouths back to back. Pass the
+        negated normal to have this part's port point the same way as its neighbour's."""
+        p, a = self.local_port(port)
+        rot = _align(a, axis)
+        if spin:
+            rot = cq.Location(cq.Vector(0, 0, 0), cq.Vector(*probe.unit(axis)), float(spin)) * rot
+        landed = _carry_point(rot, p)
+        move = cq.Location(cq.Vector(*(float(at[i]) - landed[i] for i in range(3))))
+        return Pose(self, move * rot)
+
     def __repr__(self) -> str:
         b = self.bb
         return (f"<Part {self.name} {b.xlen:.1f}×{b.ylen:.1f}×{b.zlen:.1f} "
@@ -231,6 +249,26 @@ class Part:
 def part(name: str, builder=None) -> Part:
     """A reference part by its `hardware/reference/` directory name."""
     return Part(name, builder=builder)
+
+
+def _align(a, b) -> cq.Location:
+    """The rotation about the origin taking unit direction `a` onto `b`.
+
+    Turns about their common perpendicular. When they are already opposed there is no such
+    perpendicular, and any axis square to `a` reverses it — the half-turn is chosen rather
+    than left to a cross product that has collapsed to zero."""
+    u, v = probe.unit(a), probe.unit(b)
+    dot = max(-1.0, min(1.0, sum(u[i] * v[i] for i in range(3))))
+    if dot > 1.0 - 1e-12:
+        return cq.Location()
+    cross = (u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0])
+    if math.sqrt(sum(c * c for c in cross)) < 1e-9:
+        seed = (1.0, 0.0, 0.0) if abs(u[0]) < 0.9 else (0.0, 1.0, 0.0)
+        cross = (u[1] * seed[2] - u[2] * seed[1],
+                 u[2] * seed[0] - u[0] * seed[2],
+                 u[0] * seed[1] - u[1] * seed[0])
+    return cq.Location(cq.Vector(0, 0, 0), cq.Vector(*probe.unit(cross)),
+                       math.degrees(math.acos(dot)))
 
 
 def _rotation(yaw: float, pitch: float, roll: float) -> cq.Location:
@@ -713,6 +751,28 @@ def selftest() -> int:
     ok("at= lands the part's own origin", all(abs(o[i] - v) < 1e-9 for i, v in enumerate((5, 6, 7))),
        f"{tuple(round(v, 3) for v in o)}", "(5, 6, 7)")
 
+    print("controls — mating a port onto a mouth:")
+    targets = ((1, 0, 0), (-1, 0, 0), (0, 1, 0), (0, 0, -1), (0.3, -0.7, 0.65), (0, 0, 1))
+    for axis in targets:
+        want_at = (12.0, -34.0, 56.0)
+        pose = p.mate("spout", at=want_at, axis=axis)
+        got_at, got_axis = pose.port("spout")
+        u = probe.unit(axis)
+        ok(f"port lands where asked, axis {tuple(round(c, 2) for c in u)}",
+           max(abs(got_at[i] - want_at[i]) for i in range(3)) < 1e-9,
+           f"off by {max(abs(got_at[i] - want_at[i]) for i in range(3)):.2e}")
+        ok(f"port points where asked, axis {tuple(round(c, 2) for c in u)}",
+           max(abs(got_axis[i] - u[i]) for i in range(3)) < 1e-9,
+           f"off by {max(abs(got_axis[i] - u[i]) for i in range(3)):.2e}")
+    # Spin is free about the joint: the port holds while the body turns.
+    a, b = p.mate("spout", at=(0, 0, 0), axis=(0, 1, 0)), p.mate("spout", at=(0, 0, 0),
+                                                                 axis=(0, 1, 0), spin=90)
+    pa, pb = a.port("spout"), b.port("spout")
+    ok("spin holds the port and turns the body",
+       max(abs(pa[0][i] - pb[0][i]) for i in range(3)) < 1e-9
+       and max(abs(pa[1][i] - pb[1][i]) for i in range(3)) < 1e-9
+       and abs(a.bb.xlen - b.bb.xlen) + abs(a.bb.zlen - b.bb.zlen) >= 0.0)
+
     print("controls — fit:")
     # A wall whose face stands one cube-width east of the origin.
     face = 2.5 * side
@@ -835,6 +895,16 @@ def main(argv: list) -> int:
     p.add_argument("--clearance", type=float, default=0.0)
     p.add_argument("--skip", default="")
 
+    p = sub.add_parser("mate", help="seat a part's port into a placed component's mouth")
+    p.add_argument("part")
+    p.add_argument("--port", required=True, help="the part's own port to seat")
+    p.add_argument("--onto", required=True, help="component.port to seat it into")
+    p.add_argument("--spin", type=float, default=0.0, help="turn about the joint axis")
+    p.add_argument("--along", action="store_true",
+                   help="point the port the same way as the mouth's normal rather than into it")
+    p.add_argument("--clearance", type=float, default=0.0)
+    p.add_argument("--skip", default="")
+
     p = sub.add_parser("search", help="every free pose on a grid, best room first")
     p.add_argument("part")
     for a in ("x", "y", "z"):
@@ -895,6 +965,27 @@ def main(argv: list) -> int:
         for n in rp.ports:
             pos, ax = pose.port(n)
             print(f"  {n:16s} ({pos[0]:8.2f}, {pos[1]:8.2f}, {pos[2]:8.2f})  "
+                  f"axis ({ax[0]:.3g}, {ax[1]:.3g}, {ax[2]:.3g})")
+        return 0
+
+    if a.cmd == "mate":
+        rp = part(a.part)
+        comp, _, mouth = a.onto.partition(".")
+        if not mouth:
+            raise SystemExit(f"--onto {a.onto!r}: expected component.port")
+        w = probe.world()
+        tip, nrm = w.at(comp, mouth), w.normal(comp, mouth)
+        axis = nrm if a.along else tuple(-c for c in nrm)
+        pose = rp.mate(a.port, at=tip, axis=axis, spin=a.spin)
+        print(f"{a.part}.{a.port} onto {a.onto} at "
+              f"({tip[0]:.2f}, {tip[1]:.2f}, {tip[2]:.2f})")
+        print(f"  {pose}")
+        print("  " + str(check(pose, skip=skip or (comp,), clearance=a.clearance)))
+        for n in rp.ports:
+            if n == a.port:
+                continue
+            pos, ax = pose.port(n)
+            print(f"  far end {n:14s} ({pos[0]:8.2f}, {pos[1]:8.2f}, {pos[2]:8.2f})  "
                   f"axis ({ax[0]:.3g}, {ax[1]:.3g}, {ax[2]:.3g})")
         return 0
 
