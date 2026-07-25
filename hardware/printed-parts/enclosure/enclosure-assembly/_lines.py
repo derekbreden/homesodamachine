@@ -465,20 +465,12 @@ def _authored_runs() -> list:
     #   The deck is [292.4](NOZ_DECK_Z) — the bulkheads' own collet height, shared by both runs
     # and the height each closes at.
     #   LANE_CLEAR is the gap a lane holds off whatever bounds it, measured on the deck leg against
-    # every placed part it crosses — the gate's spade tabs always, and the electronics shelf's
-    # board whenever the shelf is on the deck.
+    # every placed part that leg CROSSES — the gate's spade tabs always, and the electronics shelf's
+    # board only where the shelf is laid under a lane. The guard is below, once the lanes know their
+    # own columns.
     LANE_CLEAR = 5.65                      # the gap a lane holds off whatever bounds it
     od = f["elbow-noz-a"].diam("free")     # the line's own bore, off the collet it leaves
     deck_z = f["bulkhead-flavor-a"].at("tube-in")[2]  # the height the runs close at
-    crossings = [("the nozzle gate's spade tabs", contents.noz_spade_crown())]
-    if "pcba" in f:
-        crossings.append(("the electronics shelf's board", f["pcba"].bb.zmax))
-    for what, crown in crossings:
-        if deck_z - od / 2.0 - crown < LANE_CLEAR:
-            raise ValueError(
-                f"fluid-18/28: the deck ({deck_z:.2f}, the bulkheads' collet height) clears {what} "
-                f"({crown:.2f}) by {deck_z - od / 2.0 - crown:.2f} mm, inside the "
-                f"{LANE_CLEAR:.2f} mm the lane holds — lower {what}, or raise the bulkheads.")
     # 28's west step off the pocket is [41.08](NOZ_POCKET_STEP) mm, and the square corner at each
     # end of it seats a tangent in that leg. 18 takes no step at all — its lane IS the column its
     # elbow stands in.
@@ -521,6 +513,35 @@ def _authored_runs() -> list:
         return min(south, default=pump.bb.ymin) - 6.0
     exit_y = (pump.bb.ymax + vk_f.bb.ymin) / 2.0        # the lane the pump and V-K leave between them
     drop_y = vk_f.bb.ymin + 9.0                        # and where each comes down, off water-4's lane
+
+    def _over_pump(lane_x):
+        return lane_x - od / 2.0 < pump.bb.xmax         # the TUBE crosses it, not just its clearance
+
+    # What a lane holds its clearance off is what stands UNDER ITS DECK LEG — the stretch it takes at
+    # deck height, from its elbow's column west into its lane and aft to where it climbs, or to the
+    # strip if it never meets the pump. The spade tabs lie under both legs by construction. The
+    # shelf's board lies under them only if it is laid in the lanes' own columns; a board standing
+    # anywhere else in the bay is not something these runs pass over, and its crown does not bind
+    # a deck it never shares.
+    def _under_deck(bb):
+        pad = od / 2.0 + LANE_CLEAR
+        for elb, lane_x in (("elbow-noz-a", outer_x), ("elbow-noz-b", inner_x)):
+            ex, ey = f[elb].at("free")[:2]
+            ay = _climb_y_in(lane_x) if _over_pump(lane_x) else exit_y
+            if (bb.xmin < max(ex, lane_x) + pad and bb.xmax > min(ex, lane_x) - pad
+                    and bb.ymin < max(ey, ay) + pad and bb.ymax > min(ey, ay) - pad):
+                return True
+        return False
+
+    crossings = [("the nozzle gate's spade tabs", contents.noz_spade_crown())]
+    if "pcba" in f and _under_deck(f["pcba"].bb):
+        crossings.append(("the electronics shelf's board", f["pcba"].bb.zmax))
+    for what, top in crossings:
+        if deck_z - od / 2.0 - top < LANE_CLEAR:
+            raise ValueError(
+                f"fluid-18/28: the deck ({deck_z:.2f}, the bulkheads' collet height) clears {what} "
+                f"({top:.2f}) by {deck_z - od / 2.0 - top:.2f} mm, inside the "
+                f"{LANE_CLEAR:.2f} mm the lane holds — lower {what}, or raise the bulkheads.")
     # The two cross the strip one lane apart in Z: 18 at its own climb, 28 one lane over it, so
     # the leg each takes west to its bulkhead's column never meets the other's.
     for cid, elb, bulk, lane_x, cross_z in (
@@ -530,7 +551,7 @@ def _authored_runs() -> list:
         # A lane is only allowed over the pump where the pump is low. Anywhere else the crown is
         # the motor's or the boss's and the climb would have to leave the box.
         lo, hi = lane_x - od / 2.0 - LANE_CLEAR, lane_x + od / 2.0 + LANE_CLEAR
-        over_pump = lane_x - od / 2.0 < pump.bb.xmax     # the TUBE crosses it, not just its clearance
+        over_pump = _over_pump(lane_x)
         if over_pump and not (window[0] <= lo and hi <= window[1]):
             raise ValueError(
                 f"{cid}: its lane (x {lo:.2f}..{hi:.2f}, a lane's clearance either side) reaches "
