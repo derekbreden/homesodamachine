@@ -117,6 +117,7 @@ COMPONENTS = [
     _c("condenser+fan",     "placeholder", True,  "none", "harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)"),
     _c("mq6-sensor",        "real",        True,  "none", "MQ-6 module STEP (PCB + sensor can + header); floor gas sensor, no mount"),
     # Water deck
+    _c("drip-pan",          "real",        True,  "cradle","Printed PETG catch basin (printed-parts/enclosure/drip-pan), 100 x 30 x 22, 45.1 mL. Lies on the foam-cap top in the aft strip behind the pump, centred on the ASSE vent column — the drip falls 28.6 mm from the tip onto the middle of its floor, where the Shutao moisture plate lies flat. Held by its own printed cradle: a floorless VHB'd rail loop the basin drops through onto the cap, no fasteners. Lifts 8 mm off the rail and draws west out from under the chain to be emptied"),
     _c("seaflo-pump",       "real",        True,  "none", "SEAFLO 22-series 12 V 1.3 GPM diaphragm pump (reference/seaflo-22-pump); the deck's floor plan. Lies motor-axis along X, head at −X; its two 3/8\" barbs are molded into the head casting and leave its ±Y side faces — the suction faces north (+Y) to V-K, the discharge south (−Y) to the cold-core water-in. Its feet carry the widest 98 mm; the head end is 44 mm narrower, and that taper is what opens the band V-K lies in. Isolation mounts to the foam cap TBD"),
     _c("asse1022-assembly", "real",        True,  "none","Multiplex 19-0897 ASSE 1022 backflow preventer + PP010822E, GAGIRA coupling, flare38-14ptc (3/8\" flare → 1/4\" PTC) and the clear-PVC vent stub as one chain (reference/asse1022-assembly); lies along +X in the service bay's aft strip behind the pump, 1/4\" PTC inlet west on its pigtail off the rear-panel water bulkhead, 1/4\" PTC outlet east onto the line to the split, vent in its native pose weeping down its own column onto the pan's ground on the foam-cap top, holder TBD"),
     _c("water-split",       "real",        True,  "none","JG PP0208E 1/4\" union tee (reference/water-split); tube-hung in the east pocket, its three collets in the suction's own Z plane. The run carries the ASSE feed straight down the pocket — in at +Y, on at −Y to the flow regulator — and the branch turns V-K's share west. No tray, no holder"),
@@ -162,6 +163,7 @@ COMPONENTS = [
 TOUCHING_OK = {
     frozenset(p) for p in [
         ("foam-assembly", "seaflo-pump"),       # the pump's base flat on the foam-cap top
+        ("foam-assembly", "drip-pan"),          # the basin's floor flat on the foam-cap top
         # The valve-manifold stack: the source-select tray's floor rests on the
         # bag-circuit tray's column wall tops, one tray pitch apart by design.
         ("source-select-assembly", "bag-circuit-assembly"),
@@ -342,7 +344,7 @@ PLACEMENT_RULES = {
     # wall — the room the 1/4" line to the split leaves in, bounded east by the
     # nozzle-outlet runs crossing the strip.
     "asse1022-assembly": [("near", "bulkhead-water", 20.0),
-                          ("fall", "vent-tip", "foam-assembly", 60.0),
+                          ("fall", "vent-tip", "drip-pan", 60.0),
                           ("clear", "power-tray", 8.0),
                           ("clear", "c14-inlet", 4.0),
                           ("x-", 80.0)],
@@ -351,6 +353,12 @@ PLACEMENT_RULES = {
     # straight down the lane under the ASSE overhang to the suction. Lifted off the cap on its
     # cradle (`clear foam-assembly`), clear of the pump body (`clear seaflo-pump`), and standing
     # off the backflow preventer it sits downstream of (`clear asse1022-assembly`).
+    # The pan is centred on the vent column rather than posed, so its rules read the seat
+    # and the two neighbours that bound the strip it lies in: it rests on the cap, keeps the
+    # lane the basin draws west along clear of the pump, and stands off the chain overhead.
+    "drip-pan": [("near", "foam-assembly", 0.5),
+                 ("clear", "seaflo-pump", 3.0),
+                 ("clear", "asse1022-assembly", 6.0)],
     "vk-fill-valve": [("near", "water-split", 12.0),
                       ("clear", "seaflo-pump", 4.0),
                       ("clear", "asse1022-assembly", 3.0),

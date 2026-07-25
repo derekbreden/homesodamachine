@@ -131,6 +131,7 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Power tray | 1 | PETG | 0.055 | $0.61 <!--@printed--> |
 | Enclosure — front bottom + front top (two pieces) | 1 set | PETG | 0.852 | $9.54 <!--@printed--> |
 | Enclosure — back bottom + back top (two pieces) | 1 set | PETG | 1.533 | $17.17 <!--@printed--> |
+| Drip pan + cradle | 1 set | PETG | 0.033 | $0.37 <!--@printed--> |
 | Valve tray — source-select | 1 | PETG | 0.179 | $2.00 <!--@printed--> |
 | Valve tray — bag-circuit | 1 | PETG | 0.133 | $1.49 <!--@printed--> |
 | Valve tray — nozzle-gate | 1 | PETG | 0.043 | $0.48 <!--@printed--> |
