@@ -89,12 +89,13 @@ DISCHARGE_SKEW = 22.0
 
 # Connections the pack does not carry as it stands, each with the measurement that blocks it.
 # They stay counted against the `routed` axis.
-BLOCKED: dict = {
-    "water-5": "the MAACFLOW adapter and the GASHER check that ride this leg are unplaced; "
-               "both its ends are on the board — seaflo-pump discharge (190, 221, 286.4) y− "
-               "and foam-assembly water-in (141.5, 200, 223) y− — and the leg leaves the bay "
-               "down the cold core's front face, where the two bag falls run",
-}
+BLOCKED: dict = {}
+
+# neoPure PVCR-0610 3/8" ID polyester-reinforced clear PVC, the only thing that can leave
+# the pump's molded barbs. Ø15.1 OD, and it turns at [15.9](HOSE_BEND) mm — the radius is
+# the whole reason it can get off the barb at all inside the strip it has.
+HOSE_OD = 15.1
+HOSE_BEND = 15.9
 
 
 def _frames():
@@ -208,6 +209,29 @@ def _authored_runs() -> list:
         "seaflo-pump.suction",
         kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, 2.0),
         note="tap water: V-K outlet → SeaFlo suction (under the ASSE overhang)"))
+
+    # water-6 — the 3/8" stub off the discharge. The pump's barbs are molded into the head,
+    # so this hose is the only thing that can leave the port: it runs south off the barb,
+    # over the cap's front edge, and turns down into the corridor onto the chain's barb.
+    disch = f["discharge-chain"]
+    runs.append(route(
+        "water-6", "seaflo-pump.discharge",
+        disch.y("barb-tip"),                 # south to the corridor's own line
+        "discharge-chain.barb-tip",
+        kind="water", bend=HOSE_BEND, skew=DISCHARGE_SKEW,
+        stub=(HOSE_BEND, HOSE_BEND),
+        note="carb water: SeaFlo discharge barb → discharge chain (3/8\" braided PVC)"))
+
+    # water-5 — the 1/4" LLDPE off the chain's collet, down the corridor and west to the
+    # cold core's water inlet on its front face.
+    runs.append(route(
+        "water-5", "discharge-chain.tube-port",
+        disch.z("tube-port", -12.0),         # on down the corridor, under the turn
+        foam.x("water-in"),                  # west to the port's own line
+        foam.z("water-in"),                  # up to the port's height
+        "foam-assembly.water-in",
+        kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, WBEND),
+        note="carb water: discharge chain → cold-core water inlet"))
 
     # fluid-1 / fluid-2 — the flavor tap. The split's south run carries the ASSE feed on
     # down the east pocket into the flow regulator, and the regulator's outlet runs the
