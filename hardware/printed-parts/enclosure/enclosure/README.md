@@ -176,6 +176,58 @@ build time. Each printed piece fits the H2C left-nozzle build envelope
 (325 × 320 × 320 mm) even though the whole enclosure does not — that is the
 point of the split.
 
+## Refrigeration mounts
+
+The compressor, its sheet-metal shroud and the condenser/fan are the only
+contents the box holds by its own printed features rather than by a tray, so
+their mounts are the box's. All of them stand below the front Z seam and land
+whole in the **front-bottom** piece — the floor under the shroud and the
+condenser, and the +X wall the condenser's fan shroud screws to.
+
+One fastener vocabulary throughout, the seams' own: an **M3 SHCS into a ruthex
+M3 heat-set** (Ø4.0 × 5.25), the insert bored from the face the screw arrives
+at with a 3 mm blind relief past it, so no stock screw length can jack on the
+bottom of its pocket. `boss_reach` is that whole chain and is how deep every
+one of these bosses stands behind the face it presents.
+
+The floor stratum stands one `_contents.SEAM_CLEAR_LIFT` off the floor slab.
+That stance is a **seat**: a band under the shroud's rim, two rails under the
+condenser's footprint, and the compressor's pads rising from it. A band and
+rails, not slabs — a slab under a whole footprint is the same landing and
+several times the plastic.
+
+- **Compressor** — four pads on the floor under the donor's feet, each with a
+  heat-set on a vertical axis (a hole up the build axis, no arc to droop). The
+  factory rubber grommet stays in each foot and **is** the isolation element:
+  the pad is what its lower flange lands on, and the screw runs through a
+  spacer sleeve inside the grommet, so the clamp closes sleeve-to-pad and the
+  rubber is left free to work. The foot pattern is
+  [100 × 65 mm](COMP_FOOT_PITCH) — an **estimate**; the donor's is not
+  recorded, and measuring it moves the pads by changing one pair of numbers.
+- **Shroud** — the two Ø4.5 mm holes already in its side walls, read off the
+  placed part rather than re-derived from the shroud's frame and `_contents`'
+  turn of it. Their axes run along Y, so each boss stands **inside** the
+  shroud against the wall it backs and the screw arrives from outside: the
+  front one through the front wall, its head counterbored in the exterior face
+  (the seam idiom), the rear one from the machine corridor. Inside is where the
+  depth is — outside, the front wall stands 3 mm ahead of the shroud's front
+  face and the corridor's floor gas sensor 1 mm behind its rear one. A
+  **register** rising inside the shroud's own walls locates it in plan, so the
+  two screws are left holding it down and not aligning it.
+- **Condenser/fan** — the donor fan shroud's ears, in the block's +X (exhaust)
+  face, taken by pads on two webs bridging the channel to the +X wall. The
+  block's weight rides the floor rails, not the webs; the webs stop it moving.
+  Each pad runs out at 45° above and below to the web's thickness, because a
+  pad standing straight on a narrower web starts its first layer out over open
+  air on both sides. The ear pattern is [82.5 × 82.5 mm](COND_EAR_PITCH) — an
+  **estimate** (a 92 mm axial fan's, square about the fan axis, which is the
+  block face's own centre); the donor shroud is not yet separated. A pattern
+  taller than the stratum raises rather than silently colliding with the front
+  Z seam's lip band.
+
+`main()` prints every station it placed, so a measured compressor and a
+separated fan shroud have a list to be checked against.
+
 ## Print orientation + corner relief
 
 Every piece prints on a **Z face** — the bottom pieces floor-down, the top
