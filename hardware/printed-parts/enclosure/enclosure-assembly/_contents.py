@@ -264,7 +264,7 @@ CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # so the hose leaves the molded barb straight south and turns down the corridor with
 # no offset to take up — the discharge hose's bend radius is a gate, so that matters.
 SEAFLO_YAW = 180.0
-SEAFLO_POS = (149.0, 249.0)   # front face on the cap's front edge; its Z is the cap
+SEAFLO_POS = (189.5, 249.0)   # front face on the cap's front edge, east face on its east edge
 # The ASSE 1022 chain lies along +X in the service bay's AFT STRIP, over the
 # foam-cap top and behind the pump. Flow runs west to east: the 1/4" PTC inlet at
 # the west end takes its pigtail off the rear-panel water bulkhead, and the 1/4"
@@ -288,24 +288,30 @@ DRIP_PAN_X, DRIP_PAN_Y = _pan.PAN_X, _pan.PAN_Y
 # V-K — the water-supply fill/shutoff solenoid (Beduan 12 V NC): DOWNSTREAM of the
 # ASSE 1022, between the split and the SeaFlo suction. Closed, it stops all water
 # reaching the carbonator. Its own frame is +Y = flow (arrow toward the outlet),
-# yawed a quarter turn so it LIES ALONG X in the band the pump's narrow head end
-# opens up: the inlet looks east at the split's branch, the outlet west at the
-# suction, and the whole valve sits in the one plane its two neighbours share. It
+# turned a half turn so it STANDS ALONG Y in the aft strip's east void, east of every
+# rear-panel body: the inlet looks north at the water that comes up to it, the outlet
+# south down the open lane at the suction, and its port plane is the suction's own. It
 # stands on a short cradle off the foam cap (clearances in the scorecard).
-BEDUAN_YAW = 90.0
-BEDUAN_POS = (222.0, 322.0, 274.1 + RING_SEAT)   # base on a cradle above the cap; z is the cradle top
-# The split stands east of V-K, tube-hung in the east pocket, its collets in the same
-# plane. Its run carries the ASSE feed straight down the pocket — in at +Y, on at −Y
-# to the flow regulator and V-A — and its branch turns V-K's share west. Placed by a
-# pure translation.
-SPLIT_POS = (282.0, 322.0, 285.4 + RING_SEAT)   # centre; z is the port plane shared with the suction
-# The flow regulator (neoFit ABCVU44) sits inline on the split's flavor run, further
-# down the same pocket, its needle stem standing up where a screwdriver reaches it
-# over the deck. Its own frame is +X = flow; yawed so the flow runs south.
-# It stands one lane inboard of the split, off the ±X wall's boss-chain band — its stem is the
-# tallest thing in the pocket, and inside that band the ceiling would rise to clear it — and on
-# V-A's own X, so the line it feeds falls straight down the pocket into that collet.
-FLOWREG_Y = 258.0
+#   Along Y and not along X because the valve is 59 mm between collets: laid across the
+# strip it needs that length PLUS the split's body east of it, and the +X wall arrives
+# first. Stood down the strip, the length runs into depth the strip has and the column
+# the nozzle lanes need stays open beside it.
+BEDUAN_YAW = 180.0
+BEDUAN_POS = (265.0, 342.5, 274.1 + RING_SEAT)   # base centre on a cradle above the cap
+# The split lies UNDER V-K, in the band between the foam cap and V-K's cradle — the one
+# place in the strip's east void with a footprint free once the valve is standing in it.
+# Yawed so its run carries the ASSE feed across the void — in at +X off water-2, on at −X
+# to the flow regulator and V-A — and its branch turns V-K's share NORTH, where water-3
+# takes it up to the valve's inlet.
+SPLIT_YAW = 270.0
+SPLIT_POS = (265.0, 350.0, 260.4 + RING_SEAT)   # centre; its port plane, standing on the cap under V-K
+# The flow regulator (neoFit ABCVU44) sits inline on the split's flavor run, in the band
+# between the hopper funnel's basin and the cap's front edge — the pump fills the deck behind
+# it, and this band is the only length of open air on the flavor run's own X. Its needle stem
+# stands up where a screwdriver reaches it over the deck. Its own frame is +X = flow; yawed so
+# the flow runs south, in at the north face off fluid-1 and on at the south face into the fall.
+# It sits on V-A's own X, so the line it feeds drops straight into that up-facing collet.
+FLOWREG_Y = 198.0
 FLOWREG_YAW = 270.0
 # The discharge chain hangs vertically in the bag-fall corridor, just clear of the cold
 # core's front face — the only column deep enough to stand its 83.4 mm. The pump's barbs
@@ -510,10 +516,11 @@ def split_terminal(name):
     """One of the water split's three 1/4" collets in world: `(pos, face)`.
 
     The reference module owns each station — `supply` and `to_flavor` (the run, the
-    ASSE feed carried straight through) and `to_vk` (the branch). The split is placed
-    by a pure translation, so each port just shifts by SPLIT_POS."""
+    ASSE feed carried straight through) and `to_vk` (the branch). The yaw that turns
+    the tee turns its three ports with it."""
     pos, axis = {"supply": _split.supply, "to-vk": _split.to_vk,
                  "to-flavor": _split.to_flavor}[name]()
+    pos, axis = _yaw_z(pos, SPLIT_YAW), _yaw_z(axis, SPLIT_YAW)
     face = {(-1.0, 0.0, 0.0): "x-", (1.0, 0.0, 0.0): "x+", (0.0, 1.0, 0.0): "y+",
             (0.0, -1.0, 0.0): "y-", (0.0, 0.0, 1.0): "z+", (0.0, 0.0, -1.0): "z-"}[
         tuple(round(float(c), 9) + 0.0 for c in axis)]
@@ -541,10 +548,10 @@ def disch_terminal(name):
 
 
 def flowreg_pos():
-    """The flow regulator's centre: V-A's own X, so the line it feeds falls straight down
-    the pocket into that up-facing collet; FLOWREG_Y down the pocket; and the split's Z,
-    the plane the whole water chain shares."""
-    return (src_collet("VA")[0][0], FLOWREG_Y, SPLIT_POS[2])
+    """The flow regulator's centre: V-A's own X, so the line it feeds falls straight into that
+    up-facing collet; FLOWREG_Y across the band ahead of the cap; and the SUCTION's Z, the plane
+    the deck-height water runs share — the split now sits a stratum below it, under V-K."""
+    return (src_collet("VA")[0][0], FLOWREG_Y, seaflo_terminal("suction")[0][2])
 
 
 _FOAM_TOP_CACHE = None
@@ -589,6 +596,20 @@ def seaflo_terminal(name):
         tuple(round(float(c), 9) + 0.0 for c in axis)]
     origin = (SEAFLO_POS[0], SEAFLO_POS[1], foam_cap_top())
     return tuple(p + o for p, o in zip(pos, origin)), face
+
+
+def seaflo_low_crown():
+    """The pump's LOW END: `(crown_z, (x0, x1))` in world — the top face of the pressure
+    switch and the X window it spans.
+
+    The pump is not one height. The motor can, the head block and the head's top boss all
+    stand to `OVERALL_H`; the switch stops well under them, at `SWITCH_Z1`, over its own
+    length. That step is the only plane a line can cross the pump on and still have air
+    over it — the nozzle lanes take it. Carried through SEAFLO_YAW the way the barbs are,
+    so the window follows the pose rather than assuming one."""
+    ends = [_yaw_z((x, 0.0, 0.0), SEAFLO_YAW)[0] + SEAFLO_POS[0]
+            for x in (_seaflo.X_SWITCH_FACE, _seaflo.X_HEAD_END)]
+    return foam_cap_top() + _seaflo.SWITCH_Z1, (min(ends), max(ends))
 
 
 def vk_terminal(name):
@@ -1384,7 +1405,9 @@ def _build():
     placed["drip-pan-rails"] = _at(_load(DRIP_RAILS_STEP),
                                    _pan_x + _rail_dx, _pan_y + _rail_dy,
                                    _pan_z + _rail_dz)
-    placed["water-split"] = _load(WATER_SPLIT_STEP).translate(SPLIT_POS)
+    placed["water-split"] = _rot(
+        _load(WATER_SPLIT_STEP), (0, 0, 1), SPLIT_YAW
+        ).translate(SPLIT_POS)
     placed["flow-regulator"] = _rot(
         _load(FLOWREG_STEP), (0, 0, 1), FLOWREG_YAW
         ).translate(flowreg_pos())
