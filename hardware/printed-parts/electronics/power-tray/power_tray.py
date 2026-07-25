@@ -210,7 +210,7 @@ _relay_cx = margin + psu.length + relay.width / 2.0
 _relay_cy = margin + relay.length / 2.0
 _wago_cx = _relay_cx + relay.width / 2.0 + wago_slot_half
 LAYOUT = Layout(
-    psu_c=_psu_c, psu_rot=90.0,
+    psu_c=_psu_c, psu_rot=270.0,
     relay_c=(_relay_cx, _relay_cy), relay_rot=90.0,
     wago_places=tuple((_wago_cx, margin + 8.454 + i * wago_pitch) for i in range(3)),
     gnd_c=(margin + 22.0, margin + psu.width + 11.0),

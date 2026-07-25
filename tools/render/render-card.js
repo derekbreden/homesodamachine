@@ -14,7 +14,8 @@
 //
 // Batch mode renders every *.html in <dir> (sorted) to <out-dir>/<name>.png in
 // one browser session, and reports any card whose content overflows the
-// viewport — an overflowing card is a layout bug, not a printable card.
+// viewport, or spills out of its own header/main/footer band into a
+// neighbouring one — either is a layout bug, not a printable card.
 
 import path from "path";
 import fs from "fs";
@@ -82,12 +83,100 @@ async function renderPage(page, htmlAbs, outAbs, opts) {
     return { x: Math.max(0, Math.round(x)), y: Math.max(0, Math.round(y)), clipped: clipped.slice(0, 5) };
   });
 
+  // The canvas check above only sees content leaving the page. A card is three
+  // stacked bands — header / main / footer — and content that outgrows its band
+  // lands on the next one while staying well inside the canvas: the tools strip
+  // printed across the DONE-WHEN rule. That is a collision between two bands'
+  // boxes, so measure it as one — how far an element reaches into a band it does
+  // not belong to. The slack a band leaves inside itself (main's bottom padding,
+  // the footer's top margin) is breathing room, not a second canvas: crossing it
+  // is tight, entering the next band is a printed overlap.
+  const spills = await page.evaluate(() => {
+    const bands = [...document.querySelectorAll(".card > header, .card > main, .card > footer")].map(
+      (el) => ({ el, name: el.tagName.toLowerCase(), box: el.getBoundingClientRect() }),
+    );
+    const out = [];
+    for (const band of bands) {
+      const others = bands.filter((o) => o !== band);
+      let worst = null;
+      for (const el of band.el.querySelectorAll("*")) {
+        const r = el.getBoundingClientRect();
+        if (r.width === 0 || r.height === 0) continue;
+        for (const o of others) {
+          // Vertically stacked, full-bleed bands: the overlap is the vertical one.
+          const into = Math.min(r.bottom, o.box.bottom) - Math.max(r.top, o.box.top);
+          if (into > 2 && (!worst || into > worst.into)) {
+            worst = {
+              into: Math.round(into),
+              onto: o.name,
+              el: `${el.tagName.toLowerCase()}${el.className ? "." + String(el.className).split(" ")[0] : ""}`,
+            };
+          }
+        }
+      }
+      if (worst) out.push(`${band.name}'s ${worst.el} ${worst.into}px into ${worst.onto}`);
+    }
+    return out;
+  });
+
+  // The quiet twin of a spill: a panel is overflow:hidden, so content its own
+  // box cannot hold is not printed over — it is not printed at all. A caption
+  // eaten this way leaves no mark on the page to notice.
+  const clipped = await page.evaluate(() => {
+    const out = [];
+    for (const el of document.querySelectorAll("body *")) {
+      const r = el.getBoundingClientRect();
+      if (r.width === 0 || r.height === 0) continue;
+      for (let p = el.parentElement; p; p = p.parentElement) {
+        const ps = getComputedStyle(p);
+        if (ps.overflowX === "visible" && ps.overflowY === "visible") continue;
+        const pr = p.getBoundingClientRect();
+        // 4px of grace: an SVG <text>'s box carries its leading above the ink,
+        // so a label sitting on the viewBox edge measures a hair outside it.
+        const lost = Math.max(r.bottom - pr.bottom, r.right - pr.right, pr.top - r.top, pr.left - r.left);
+        if (lost > 4) {
+          out.push(
+            `${el.tagName.toLowerCase()}${el.className ? "." + String(el.className).split(" ")[0] : ""}` +
+              ` -${Math.round(lost)}px by ${p.tagName.toLowerCase()}${p.className ? "." + String(p.className).split(" ")[0] : ""}`,
+          );
+        }
+        break; // nearest clipping ancestor decides
+      }
+    }
+    return [...new Set(out)].slice(0, 4);
+  });
+
+  // With the caption holding its ground, an over-full column shows up as a
+  // render pressed below its own aspect ratio. Nothing is lost, so nothing
+  // looks wrong — but the picture the card was built around is shrinking, and
+  // that is the column asking for a shorter card.
+  const squeezed = await page.evaluate(() => {
+    const out = [];
+    for (const el of document.querySelectorAll(".panel img, .panel svg")) {
+      const r = el.getBoundingClientRect();
+      if (r.width === 0 || r.height === 0) continue;
+      let aspect = 0;
+      if (el.tagName === "IMG") {
+        if (!el.naturalWidth) continue;
+        aspect = el.naturalHeight / el.naturalWidth;
+      } else {
+        const vb = el.viewBox?.baseVal;
+        if (!vb || !vb.width) continue;
+        aspect = vb.height / vb.width;
+      }
+      const natural = r.width * aspect;
+      const pct = Math.round((100 * r.height) / natural);
+      if (pct < 96) out.push(`${el.tagName.toLowerCase()} at ${pct}% of aspect height`);
+    }
+    return out.slice(0, 3);
+  });
+
   await page.screenshot({
     path: outAbs,
     type: "png",
     clip: { x: 0, y: 0, width: opts.width, height: opts.height },
   });
-  return overflow;
+  return { ...overflow, spills, clipped, squeezed };
 }
 
 async function main() {
@@ -131,18 +220,26 @@ async function main() {
     });
     for (const job of jobs) {
       const overflow = await renderPage(page, job.htmlAbs, job.outAbs, opts);
-      const flag =
+      let flag =
         overflow.x > 0 || overflow.y > 0
           ? `  OVERFLOW x=${overflow.x}px y=${overflow.y}px [${overflow.clipped.join(", ")}]`
           : "";
+      if (overflow.spills.length) flag += `  SPILL [${overflow.spills.join(", ")}]`;
+      if (overflow.clipped.length) flag += `  CLIPPED [${overflow.clipped.join(", ")}]`;
       if (flag) overflowed++;
-      console.log(`wrote ${job.outAbs}${flag}`);
+      // A squeeze costs no content — the render just carries less of the page
+      // than it was drawn for — so it reports without failing the build.
+      const note = overflow.squeezed.length ? `  squeezed: ${overflow.squeezed.join(", ")}` : "";
+      console.log(`wrote ${job.outAbs}${flag}${note}`);
     }
   } finally {
     await browser.close();
   }
   if (overflowed) {
-    console.error(`${overflowed} card(s) overflow the ${opts.width}x${opts.height} canvas`);
+    console.error(
+      `${overflowed} card(s) overflow the ${opts.width}x${opts.height} canvas ` +
+        `or spill out of a band`,
+    );
     process.exit(2);
   }
 }

@@ -69,15 +69,30 @@ Every card is `header` / `main` / `footer` inside `.card`:
 
 ## Verification
 
-Overflow is a build failure, not a judgment call:
+A card that does not print what it says is a build failure, not a judgment
+call:
 
 ```
 node tools/render/render-card.js --batch hardware/assembly/cards <out>
 ```
 
-flags any element clipped by the canvas (`OVERFLOW`, exit 2). Fix the card,
-not the check. Then look at the PNG — collisions inside the canvas are yours
-to catch.
+Three ways a card loses, all exit 2:
+
+- `OVERFLOW` — an element is cut off by the canvas edge.
+- `SPILL` — an element sits inside the canvas but inside another band's box:
+  the tools strip printed across the DONE-WHEN rule. A band is header, main,
+  or footer; the slack each leaves inside itself is breathing room, not a
+  second canvas.
+- `CLIPPED` — a panel is `overflow: hidden`, so what its box cannot hold is
+  not printed over, it is not printed at all. This is the one that leaves no
+  mark on the page to notice.
+
+It also reports `squeezed:` — a render carrying less height than its aspect
+ratio asks for, because the column it sits in is full. No content is lost (a
+panel gives from the picture, never from the caption), so it does not fail the
+build; it is the column saying the card is long.
+
+Fix the card, not the check. Then look at the PNG.
 
 ## Printing
 
