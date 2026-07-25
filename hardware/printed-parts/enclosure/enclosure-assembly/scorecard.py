@@ -117,7 +117,8 @@ COMPONENTS = [
     _c("condenser+fan",     "placeholder", True,  "bosses", "harvested donor block; two floor rails carry its weight and two +X-wall webs carry four ear pads at the donor fan shroud's screw pattern (enclosure.py `_condenser_mount`), M3×10 into ruthex through each ear. Ear pattern is an ESTIMATE until the donor shroud is separated and measured"),
     _c("mq6-sensor",        "real",        True,  "none", "MQ-6 module STEP (PCB + sensor can + header); floor gas sensor, no mount"),
     # Water deck
-    _c("drip-pan",          "real",        True,  "cradle","Printed PETG catch basin (printed-parts/enclosure/drip-pan), 100 x 30 x 22, 45.1 mL. Lies on the foam-cap top in the aft strip behind the pump, centred on the ASSE vent column — the drip falls 28.6 mm from the tip onto the middle of its floor, where the Shutao moisture plate lies flat. Held by its own printed cradle: a floorless VHB'd rail loop the basin drops through onto the cap, no fasteners. Lifts 8 mm off the rail and draws west out from under the chain to be emptied"),
+    _c("drip-pan",          "real",        True,  "rails", "Printed PETG catch basin (printed-parts/enclosure/drip-pan), 100 x 50 x 14, 47.0 mL. Stands in the aft strip behind the pump on its own rails, drip_pan.RAIL_LIFT above the foam-cap top, centred on the ASSE vent column — the drip falls from the tip onto the middle of its floor, where the Shutao moisture plate lies flat. Its floor slab overhangs both walls by 5 mm and those flanges are what the rails carry; no fasteners. Draws aft in +Y along the rails to be emptied, rising at no point in that travel"),
+    _c("drip-pan-rails",    "real",        True,  "vhb",   "Printed PETG rail pair (printed-parts/enclosure/drip-pan, `build_rails`), a mirrored L each side of the basin: foot, web, shelf, and a forward home stop. 3M VHB 4941 under foot and web onto the printed foam-cap lid. The shelves' top face is the basin's floor plane and the webs fence it in X on a 0.3 mm slip per side"),
     _c("seaflo-pump",       "real",        True,  "none", "SEAFLO 22-series 12 V 1.3 GPM diaphragm pump (reference/seaflo-22-pump); the deck's floor plan. Lies motor-axis along X, head at −X; its two 3/8\" barbs are molded into the head casting and leave its ±Y side faces — the suction faces north (+Y) to V-K, the discharge south (−Y) to the cold-core water-in. Its feet carry the widest 98 mm; the head end is 44 mm narrower, and that taper is what opens the band V-K lies in. Isolation mounts to the foam cap TBD"),
     _c("asse1022-assembly", "real",        True,  "none","Multiplex 19-0897 ASSE 1022 backflow preventer + PP010822E, GAGIRA coupling, flare38-14ptc (3/8\" flare → 1/4\" PTC) and the clear-PVC vent stub as one chain (reference/asse1022-assembly); lies along +X in the service bay's aft strip behind the pump, 1/4\" PTC inlet west on its pigtail off the rear-panel water bulkhead, 1/4\" PTC outlet east onto the line to the split, vent in its native pose weeping down its own column onto the pan's ground on the foam-cap top, holder TBD"),
     _c("water-split",       "real",        True,  "none","JG PP0208E 1/4\" union tee (reference/water-split); tube-hung in the east pocket, its three collets in the suction's own Z plane. The run carries the ASSE feed straight down the pocket — in at +Y, on at −Y to the flow regulator — and the branch turns V-K's share west. No tray, no holder"),
@@ -163,7 +164,8 @@ COMPONENTS = [
 TOUCHING_OK = {
     frozenset(p) for p in [
         ("foam-assembly", "seaflo-pump"),       # the pump's base flat on the foam-cap top
-        ("foam-assembly", "drip-pan"),          # the basin's floor flat on the foam-cap top
+        ("foam-assembly", "drip-pan-rails"),    # the rails' feet flat on the foam-cap top
+        ("drip-pan", "drip-pan-rails"),         # the basin's floor flanges flat on the shelves
         # The valve-manifold stack: the source-select tray's floor rests on the
         # bag-circuit tray's column wall tops, one tray pitch apart by design.
         ("source-select-assembly", "bag-circuit-assembly"),
@@ -354,11 +356,15 @@ PLACEMENT_RULES = {
     # cradle (`clear foam-assembly`), clear of the pump body (`clear seaflo-pump`), and standing
     # off the backflow preventer it sits downstream of (`clear asse1022-assembly`).
     # The pan is centred on the vent column rather than posed, so its rules read the seat
-    # and the two neighbours that bound the strip it lies in: it rests on the cap, keeps the
-    # lane the basin draws west along clear of the pump, and stands off the chain overhead.
-    "drip-pan": [("near", "foam-assembly", 0.5),
+    # and the two neighbours that bound the strip it stands in: it rides its rails, keeps
+    # the lane it draws aft along clear of the pump, and stands off the chain overhead.
+    "drip-pan": [("near", "drip-pan-rails", 0.5),
                  ("clear", "seaflo-pump", 3.0),
                  ("clear", "asse1022-assembly", 6.0)],
+    # The rails sit on the cap under the basin, in the same strip.
+    "drip-pan-rails": [("near", "foam-assembly", 0.5),
+                       ("near", "drip-pan", 0.5),
+                       ("clear", "seaflo-pump", 3.0)],
     "vk-fill-valve": [("near", "water-split", 12.0),
                       ("clear", "seaflo-pump", 4.0),
                       ("clear", "asse1022-assembly", 3.0),

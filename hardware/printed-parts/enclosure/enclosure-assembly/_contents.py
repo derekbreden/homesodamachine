@@ -167,6 +167,7 @@ import neofit_flow_control as _flowreg   # noqa: E402  — its two 1/4" collets 
 import seaflo_discharge_chain as _disch  # noqa: E402  — its barb tip and its 1/4" collet
 import seaflo_22_pump as _seaflo         # noqa: E402  — its two head barbs
 import beduan_solenoid as _vk            # noqa: E402  — V-K's two 1/4" QC collets
+import drip_pan as _pan                  # noqa: E402  — its lift, its section, its rail offset
 
 
 # --- Source STEPs ---------------------------------------------------------
@@ -218,6 +219,9 @@ DISCH_CHAIN_STEP = _hw / "reference" / "seaflo-discharge-chain" / "seaflo-discha
 # with the moisture plate lying in it. Its own frame is the basin upright, floor at
 # Z = 0 (printed-parts/enclosure/drip-pan).
 DRIP_PAN_STEP  = _hw / "printed-parts" / "enclosure" / "drip-pan" / "drip-pan.step"
+# The rail pair the basin's floor flanges ride, VHB'd to the foam-cap lid. Placed
+# from the basin by the part's own `rail_offset()`, so the two cannot drift apart.
+DRIP_RAILS_STEP = _hw / "printed-parts" / "enclosure" / "drip-pan" / "drip-pan-rails.step"
 # V-K — the Beduan 12 V NC solenoid, the water-supply fill/shutoff valve
 # (reference/beduan-solenoid). Its own frame is +Y = flow, the arrow the outlet.
 BEDUAN_STEP    = _hw / "reference" / "beduan-solenoid" / "beduan-solenoid.step"
@@ -254,11 +258,12 @@ SEAFLO_POS = (127.0, 277.0)   # plan (35 mm east of centre); its Z is the cap
 # the Multiplex spec sheet rather than measuring the five parts on the shelf.
 ASSE1022_POS = (102.0, 345.5, 287.0)
 ASSE1022_YAW = 0.0
-# The drip pan is not posed — it is centred on the vent column, so the drip lands in
-# the middle of the basin floor wherever the chain's pose leaves the tip. Its cradle
-# (drip-pan/drip_pan.py `build_cradle`, VHB'd to the foam-cap lid) is a mount feature
-# and is not packed.
-DRIP_PAN_X, DRIP_PAN_Y = 100.0, 30.0
+# The drip pan is not posed. In X it is centred on the vent column, so the drip lands
+# down the middle of the basin floor wherever the chain's pose leaves the tip; in Y its
+# back face lands on the foam cap's rear edge, the face it will draw out through. Its
+# section and its lift are the part's own — `drip_pan_seat()` re-derives that lift from
+# the placed tip.
+DRIP_PAN_X, DRIP_PAN_Y = _pan.PAN_X, _pan.PAN_Y
 ASSE1022_ROLL = 0.0
 # V-K — the water-supply fill/shutoff solenoid (Beduan 12 V NC): DOWNSTREAM of the
 # ASSE 1022, between the split and the SeaFlo suction. Closed, it stops all water
@@ -499,6 +504,23 @@ def foam_cap_top():
     if _FOAM_TOP_CACHE is None:
         _FOAM_TOP_CACHE = _load(FOAM_ASSEMBLY).BoundingBox().zlen
     return _FOAM_TOP_CACHE
+
+
+def drip_pan_seat():
+    """The Z the drip pan's floor stands at — the top face of its printed rails.
+
+    The lift the vent's column leaves: the placed tip, less `drip_pan.VENT_GAP`,
+    less the basin's own height, down to the foam-cap top. Raises when the printed
+    rail no longer stands at that lift."""
+    tip_z = bfp_terminal("vent-tip")[0][2]
+    lift = tip_z - _pan.VENT_GAP - _pan.PAN_Z - foam_cap_top()
+    if abs(lift - _pan.RAIL_LIFT) > 1e-6:
+        raise ValueError(
+            f"drip-pan rail lift: the placed vent tip at z={tip_z:.3f} over a cap top "
+            f"of {foam_cap_top():.3f} leaves {lift:.3f} mm under a {_pan.PAN_Z:g} mm "
+            f"basin keeping {_pan.VENT_GAP:g} mm of air; drip_pan.RAIL_LIFT is "
+            f"{_pan.RAIL_LIFT:g}.")
+    return foam_cap_top() + _pan.RAIL_LIFT
 
 
 def seaflo_terminal(name):
@@ -766,6 +788,7 @@ COLORS = {
     "discharge-chain":   cq.Color(0.72, 0.74, 0.78),
     "vk-fill-valve":      cq.Color(0.85, 0.86, 0.90),
     "drip-pan":          cq.Color(0.62, 0.66, 0.72),
+    "drip-pan-rails":    cq.Color(0.45, 0.50, 0.58),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "dc-dist":           cq.Color(0.20, 0.20, 0.22),
@@ -1286,11 +1309,20 @@ def _build():
     placed["seaflo-pump"] = _rot(
         _load(SEAFLO_STEP), (0, 0, 1), SEAFLO_YAW
         ).translate((SEAFLO_POS[0], SEAFLO_POS[1], foam_cap_top()))
+    # The basin's own origin, which `rail_offset()` speaks from: the walls centred
+    # on the vent column, the back face on the foam cap's rear edge. `_at` anchors
+    # on a bounding box, and the basin's reaches out to its flange tips, so the
+    # flange's width is what separates the two X's below.
     _vent_xy = bfp_terminal("vent-tip")[0]
+    _pan_x = _vent_xy[0] - DRIP_PAN_X / 2.0
+    _pan_y = FRONT_DEPTH + fb.ylen - DRIP_PAN_Y
+    _pan_z = drip_pan_seat()
     placed["drip-pan"] = _at(_load(DRIP_PAN_STEP),
-                             _vent_xy[0] - DRIP_PAN_X / 2.0,
-                             _vent_xy[1] - DRIP_PAN_Y / 2.0,
-                             foam_cap_top())
+                             _pan_x - _pan.FLANGE_W, _pan_y, _pan_z)
+    _rail_dx, _rail_dy, _rail_dz = _pan.rail_offset()
+    placed["drip-pan-rails"] = _at(_load(DRIP_RAILS_STEP),
+                                   _pan_x + _rail_dx, _pan_y + _rail_dy,
+                                   _pan_z + _rail_dz)
     placed["water-split"] = _load(WATER_SPLIT_STEP).translate(SPLIT_POS)
     placed["flow-regulator"] = _rot(
         _load(FLOWREG_STEP), (0, 0, 1), FLOWREG_YAW
