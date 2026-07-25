@@ -60,7 +60,6 @@
         "nozzle-gate-assembly \u2014 elbow-noz-a: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-noz-b: 2.00 mm",
         "foam-assembly \u2014 discharge-chain: 3.50 mm",
-        "seaflo-pump \u2014 drip-pan-rails: 4.00 mm",
         "asse1022-assembly \u2014 vk-fill-valve: 4.02 mm",
         "bag-circuit-assembly \u2014 elbow-y-g: 5.10 mm",
         "drip-pan-rails \u2014 vk-fill-valve: 5.26 mm"
@@ -118,9 +117,9 @@
         "\u2713 tee-y-c: near source-select-assembly 14.5 mm",
         "\u2713 tee-y-f: near source-select-assembly 8.1 mm",
         "\u2717 asse1022-assembly: near bulkhead-water 10.6 fall vent-tip onto drip-pan 18.4 clear power-tray inf(<8) clear c14-inlet 35.0 x- 80.0 mm",
-        "\u2713 drip-pan: near drip-pan-rails 0.0 clear seaflo-pump 12.8 clear asse1022-assembly 14.1 mm",
-        "\u2713 drip-pan-rails: near foam-assembly 0.0 near drip-pan 0.0 clear seaflo-pump 4.0 mm",
-        "\u2713 vk-fill-valve: near water-split 10.4 clear seaflo-pump 9.9 clear asse1022-assembly 4.0 clear foam-assembly 20.7 mm",
+        "\u2713 drip-pan: near drip-pan-rails 0.0 clear seaflo-pump 32.8 clear asse1022-assembly 14.1 mm",
+        "\u2713 drip-pan-rails: near foam-assembly 0.0 near drip-pan 0.0 clear seaflo-pump 28.0 mm",
+        "\u2713 vk-fill-valve: near water-split 10.4 clear seaflo-pump 33.9 clear asse1022-assembly 4.0 clear foam-assembly 20.7 mm",
         "\u2713 flow-regulator: near water-split 20.9 clear foam-assembly 25.0 mm",
         "20 components: no placement rules defined yet"
       ],
@@ -209,8 +208,8 @@
         "\u2713 water-1: bulkhead-water.tube-in \u2192 asse1022-assembly.tube-in \u2014 \u00d86.35 \u00d7 22.4 mm, 1 bends at R3.0 \u2014 nearest 22.64 mm to c14-inlet",
         "\u2713 water-2: asse1022-assembly.tube-out \u2192 water-split.supply \u2014 \u00d86.35 \u00d7 123.3 mm, 3 bends at R3.0 \u2014 nearest 4.20 mm to vk-fill-valve",
         "\u2713 water-3: water-split.to-vk \u2192 vk-fill-valve.inlet \u2014 \u00d86.35 \u00d7 10.4 mm, 0 bends at R3.0 \u2014 nearest 11.95 mm to fluid-18",
-        "\u2713 water-4: vk-fill-valve.outlet \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 36.6 mm, 1 bends at R3.0 \u2014 nearest 3.83 mm to drip-pan",
-        "\u2713 water-6: seaflo-pump.discharge \u2192 discharge-chain.barb-tip \u2014 \u00d815.1 \u00d7 58.6 mm, 1 bends at R15.9 \u2014 nearest 7.65 mm to bag-circuit-assembly",
+        "\u2713 water-4: vk-fill-valve.outlet \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 60.6 mm, 1 bends at R3.0 \u2014 nearest 3.83 mm to drip-pan",
+        "\u2713 water-6: seaflo-pump.discharge \u2192 discharge-chain.barb-tip \u2014 \u00d815.1 \u00d7 34.6 mm, 1 bends at R15.9 \u2014 nearest 7.65 mm to bag-circuit-assembly",
         "\u2713 water-5: discharge-chain.tube-port \u2192 foam-assembly.water-in \u2014 \u00d86.35 \u00d7 90.6 mm, 3 bends at R3.0 \u2014 nearest 11.54 mm to fluid-15",
         "\u2713 fluid-1: water-split.to-flavor \u2192 flow-regulator.inlet \u2014 \u00d86.35 \u00d7 29.0 mm, 2 bends at R3.0 \u2014 nearest 14.11 mm to fluid-18",
         "\u2713 fluid-2: flow-regulator.outlet \u2192 source-select-assembly.V-A-I \u2014 \u00d86.35 \u00d7 153.2 mm, 1 bends at R3.0 \u2014 nearest 2.80 mm to fluid-18",
@@ -839,7 +838,7 @@
       "kind": "fluid",
       "pos": [
         163.6,
-        313.0,
+        289.0,
         290.4
       ],
       "face": "y+",
@@ -854,7 +853,7 @@
       "kind": "fluid",
       "pos": [
         163.6,
-        233.0,
+        209.0,
         290.4
       ],
       "face": "y-",
@@ -2610,10 +2609,10 @@
       "boxes": [
         [
           33.5,
-          224.0,
+          200.0,
           258.4,
           220.5,
-          322.0,
+          298.0,
           330.4
         ]
       ],
