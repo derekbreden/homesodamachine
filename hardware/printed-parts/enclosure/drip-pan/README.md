@@ -1,63 +1,66 @@
 # Drip pan
 
-Printed catch basin for the service bay — it lands on the cold core's
-foam-cap top under the ASSE 1022 chain's atmospheric-vent tip. The Shutao
-moisture probe lies flat in it; any vent drip, condensate, or overflow
-pools in the basin and wets the probe, tripping the moisture alarm.
+Printed catch basin for the service bay — it rides a pair of printed rails on
+the cold core's foam-cap top, under the ASSE 1022 chain's atmospheric-vent tip.
+The Shutao moisture probe lies flat in it; any vent drip, condensate, or
+overflow pools in the basin and wets the probe, tripping the moisture alarm.
 
-Two parts print here: the **basin** and the **cradle** it drops into.
+Two parts print here: the **basin** and the **rail pair** it slides on.
 
-| | basin | cradle |
+| | basin | rails |
 |---|---|---|
-| type | printed PETG, open-top watertight | printed PETG, floorless fence |
-| outer | 100 × 30 × 22 mm | 106.4 × 36.4 × 7 mm |
-| section | 2.5 mm walls on a 3 mm floor | 3 mm rail |
-| capacity | 45.1 mL to the rim | — |
+| type | printed PETG, open-top watertight | printed PETG, mirrored L-pair |
+| outer | [100](PAN_LEN) × [48](PAN_DEPTH) × [14](PAN_HEIGHT) mm | [124.6](RAIL_SPAN) mm across the pair |
+| section | [2.5](PAN_WALL) mm walls on a [3](PAN_FLOOR) mm floor | [3](RAIL_RAIL_T) mm rail |
+| capacity | [44.9](PAN_CAPACITY) mL to the rim | — |
 
-Rounded vertical corners (r6) and a filleted floor-to-wall cove (r3). No
-drain — the basin holds drips and is emptied on service.
+Rounded vertical corners (r[6](PAN_CORNER_R)) and a filleted floor-to-wall cove
+(r[3](PAN_COVE_R)). No drain — the basin holds drips and is emptied on service.
 
 Frame: +X long axis, +Y depth, +Z up; origin at the basin's lower-front-left
-outer corner, and `cradle_offset()` carries that origin to the cradle's. Open
-top.
+outer corner of the walls, and `rail_offset()` carries that origin to the rail
+pair's. Open top.
 
-## The shape is the strip
+## The vent's column
 
-The aft strip of the service bay is 55 mm wide — the SeaFlo's back face at
-y = 326 to the rear wall at y = 381 — and the vent tip hangs over it at
-(134.0, 345.5, 285.0), pointing straight down. The basin is **centred on that
-column**, so the drip lands in the middle of the floor, on the moisture plate:
-100 long because the plate lies flat down its length, 30 deep because that is
-what the strip gives once the pump keeps its clearance on one side and the pan
-keeps off the rear wall on the other. The enclosure does not place the pan by
-hand — `_contents` reads the vent tip and subtracts half the basin, so a change
-in the ASSE chain's pose carries the pan with it.
+The vent tip and the foam-cap top bound the basin's column. Under the tip,
+[4](PAN_VENT_GAP) mm of splash-and-service air; then the basin; then
+[13.6](PAN_LIFT) mm of open deck down to the cap — the aft strip's routing lane.
 
-Seated at x[84, 184] y[330.5, 360.5] z[253.4, 275.4]: 4.50 mm to the SeaFlo,
-12.10 mm to V-K, 12.33 mm to the ASSE chain, resting on the cap. The drip's
-Ø6.35 column falls 9.6 mm of free air from the tip to the rim plane and 28.60
-mm in all, landing at (134.00, 345.50, 256.40) — 9.3 mm from the nearest
-interior wall.
+`_contents.drip_pan_seat()` re-derives that lift from the *placed* vent tip and
+raises when the printed rail no longer stands at it. The basin is not posed by
+hand either: `_contents` centres it on the vent column, so the chain's pose
+carries the pan.
 
-## Held by the cradle
+Depth is the aft strip — the run between the SeaFlo's back face and the foam
+cap's rear edge, less a standoff off the pump.
 
-The cradle is one closed rail loop, bonded to the printed foam-cap lid with
-3M VHB 4941 (1.1 mm) on its 3 mm underside — ~800 mm² of bond under a part
-that weighs 26 g dry. It has no floor, so the basin drops through it and seats
-on the cap itself; the rail takes the basin in X and Y with a 0.2 mm slip per
-side and stands 7 mm up its outside. Nothing fastens to the cap, and nothing
-fastens the basin: it lifts off the rail by hand.
+## Carried at the floor plane, drawn out the back
 
-Service is two motions, both in verified-clear air: **lift 8 mm, draw 84 mm
-west** along the deck (the swept box x[0, 184] y[330.5, 360.5] z[261.4, 283.4]
-is clear of every packed body), which walks the basin out from under the ASSE
-chain to the strip's west end. There the west two thirds of its rim stands
-under an open shaft — a Ø3 cast up from the rim finds nothing in 120 mm — and
-the east end has 34.46 mm of free lift under the chain's inlet fittings, which
-is the room to tilt it up and out.
+The floor slab runs [5](PAN_FLANGE) mm past each wall — [110](PAN_ACROSS) mm
+across the flanges — and that overhang rides the rails. The basin's interior
+carries no mounting feature.
+
+The rails are a mirrored L-pair: a foot for the VHB, a web that fences the basin
+in X, a shelf the flanges ride, and a home stop at the forward end that the
+basin's front wall butts. They are bonded to the printed foam-cap lid with 3M
+VHB 4941 ([1.1](RAIL_VHB) mm) under foot and web together; nothing fastens to
+the cap and nothing fastens the basin. The fit is [0.3](RAIL_SLIP) mm of slip
+per side.
+
+Service is one motion — **draw the basin aft** along the rails, in +Y, out
+through the back of the cabinet. It rises at no point in that travel.
+
+The rear-panel slot that motion runs through is not cut yet — see the
+enclosure's open items. Until it is, the basin draws aft off the rails and
+lifts clear inside the cabinet.
 
 ## Regenerate
 
 ```
 tools/cad-venv/bin/python hardware/printed-parts/enclosure/drip-pan/drip_pan.py
 ```
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/printed-parts/enclosure/drip-pan/drip_pan.py`
