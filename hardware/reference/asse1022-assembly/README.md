@@ -5,7 +5,7 @@ directly onto it — the water path's one non-negotiable component, plus the fou
 fittings that make it reachable from 1/4" tube on both sides.
 
 ```
-1/4" LLDPE → PP010822E → GAGIRA coupling → [ASSE 1022] → flare38-14ptc → 1/4" LLDPE
+1/4" LLDPE → PP010822E → GAGIRA coupling → [ASSE 1022] → PI4512F6S + PP061208W → 1/4" LLDPE
                                                  └ vent stub ↓ drip pan
 ```
 
@@ -17,7 +17,7 @@ order it builds it. Parts and prices are in `hardware/ledger/bom.md` §3.
 | John Guest PP010822E | 1/4" PTC × 1/4" NPT M — the cabinet's water run pushes in here | [`../jg-pp010822e/`](../jg-pp010822e/) |
 | GAGIRA reducing coupling | 3/8" NPT F × 1/4" NPT F, 316L SS — closes the 1/4"-to-3/8" gap | [`../gagira-reducing-coupling/`](../gagira-reducing-coupling/) |
 | Multiplex 19-0897 | ASSE 1022 dual-check backflow preventer | [`../multiplex-asse1022/`](../multiplex-asse1022/) |
-| flare38-14ptc | 3/8" FFL swivel × 1/4" PTC — turns the ASSE outlet onto 1/4" LLDPE toward the water-split | [`../flare38-14ptc/`](../flare38-14ptc/) |
+| PI4512F6S + PP061208W | 3/8" FFL swivel × 3/8" PTC carrying a 3/8"-stem × 1/4" PTC reducer — turns the ASSE outlet onto 1/4" LLDPE toward the water-split. Two fittings: no potable single-piece flare-to-1/4" adapter exists | [`../flare38-14ptc/`](../flare38-14ptc/) |
 | Sealproof clear PVC stub | 1/4" ID × 3/8" OD — the atmospheric vent's telltale run | built here |
 
 ## The vent is the pose

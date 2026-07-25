@@ -225,44 +225,45 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   are noted estimates pending teardown.
 - **Make the last placeholder real.** The condenser+fan (harvested donor block) is the one
   component still packed as a box. Convert it to real STEP geometry.
-- **Re-place the deferred front-column subsystems.** The rest of the water deck (SeaFlo pump,
-  its outlet check, drip pan + moisture plate), the DIGITEN flow sensor, and the
-  CO2 chain's GASHER check + WR1110 regulator (the physical CO2 order also disagrees with
-  the carbonator schematic — DERPIPE → check → regulator vs regulator → check) are
-  deferred from the pack while the front column settles — tracked here and in the
-  topology, never dropped. Each returns with a placement that respects the tray stack at
-  the cold core, the pump row ahead of it, and the funnel drop. What stays open: the band
-  under the pump row down to the floor-stratum tops (~34 mm tall), the slab ahead of the
-  row's front faces, and the ±X columns beside it. The SeaFlo's true body is 80 × 72 × 187
-  (the banked reference geometry), larger than the placeholder it last packed as, and
-  none of those three volumes takes it — it needs a lane of its own found for it.
-  The ASSE 1022 assembly is placed, provisionally: it lies along X in the **service bay's
-  aft strip**, between the electronics shelf's back edge and the rear-panel bodies reaching
-  in from the wall, yawed so its 1/4" PTC inlet faces east at the water bulkhead and its 3/8"
-  barb faces the strip's open west end, and rolled so its atmospheric vent faces −Y, reaching
-  forward out of the strip. The drip falls 51.6 mm off that tip onto the foam-cap top, which
-  is the pan's ground in this bay: the drip pan + moisture plate sit on the cap under the fall
-  in a 70 × 50 footprint measured clear, and the stub is cut to the room the strip leaves.
-  Segments water-1 and water-2 route off the bulkhead into the ASSE inlet and out its flare to the water-split; the run leaves the
-  strip's west end for the SeaFlo (via V-K) and V-A's tap point, both still unplaced. **Every margin in
-  this strip is single-digit** — 4.71 mm to the C14, 10.1 mm to the bulkhead, 4 mm between the
-  drip's column and the electronics shelf's rear edge — because the chain's Y footprint with
-  the vent laid over nearly fills the strip's depth. Placement and envelope both move again:
-  the pack is sparse, and the chain's 123.5 × 33 × 43.3 is the reference model's spec-sheet
-  arithmetic rather than the four acquired parts measured.
+- **Re-place the deferred front-column subsystems.** The drip pan + moisture plate, the DIGITEN
+  flow sensor, and the CO2 chain's GASHER check + WR1110 regulator (the physical CO2 order also
+  disagrees with the carbonator schematic — DERPIPE → check → regulator vs regulator → check) are
+  deferred from the pack while the front column settles — tracked here and in the topology, never
+  dropped. Each returns with a placement that respects the tray stack at the cold core, the pump
+  row ahead of it, and the funnel drop. What stays open: the band under the pump row down to the
+  floor-stratum tops (~34 mm tall), the slab ahead of the row's front faces, and the ±X columns
+  beside it.
+  The water deck is packed. The SeaFlo lies motor-axis along X on the foam cap, 187 × 98 × 72 off
+  SEAFLO's dimensioned drawing; its feet carry the widest 98 and its head end is 44 mm narrower,
+  and that taper opens the band V-K lies along. The ASSE 1022 chain lies along X in the service
+  bay's **aft strip**, between the electronics shelf's back edge and the rear-panel bodies reaching
+  in from the wall, yawed so its 1/4" PTC inlet faces west at the water bulkhead and its 1/4" PTC
+  outlet faces east down the strip, and rolled so its atmospheric vent faces −Z. The drip falls
+  31.6 mm off that tip onto the foam-cap top, which is the pan's ground in this bay: the drip pan +
+  moisture plate sit on the cap under the fall in a 70 × 50 footprint measured clear, and the stub
+  is cut to the room the strip leaves. The chain's mass sits high, so a lane runs beneath it at the
+  suction's own height and V-K lies in that lane; the split and the flow regulator hang down the
+  east pocket. All six water segments route (`scorecard.WATER_SEGMENTS`), the last two through the
+  discharge chain hanging in the bag-fall corridor — the pump's barbs are molded into its head, so
+  each port is a clamped 3/8" stub, not a thread. **Every margin in the strip is single-digit** —
+  4.71 mm to the C14, 10.1 mm to the bulkhead, 4 mm between the drip's column and the electronics
+  shelf's rear edge — because the chain's Y footprint with the vent laid over nearly fills the
+  strip's depth. Envelope still moves: the chain's 140 × 33 × 43.3 is the reference model's
+  spec-sheet arithmetic rather than the five acquired parts measured.
 
 **Deferred — behind the focus:**
 
 - **routed** spans the fluid segments, the tap-water path, the sealed refrigerant loop, and the
-  electrical runs (20/62 — the loop's discharge and liquid legs in copper, the water path's
-  bulkhead-to-backflow-preventer pigtail, the junction column's four straight collet-to-tee
-  legs, the six pump-discharge divider legs and stems, the two nozzle-outlet runs to the rear
-  bulkheads, the hopper drain, and both bag reservoir lines).
+  electrical runs (27/66 — the loop's discharge and liquid legs in copper, all six segments of
+  the tap-water path from the rear bulkhead to the cold core, the flavor tap's two legs down the
+  east pocket, the junction column's four straight collet-to-tee legs, the six pump-discharge
+  divider legs and stems, the two nozzle-outlet runs to the rear bulkheads, the hopper drain,
+  and both bag reservoir lines).
   Paths are
   authored in [`_lines.py`](_lines.py) with the kit in [`_routing.py`](_routing.py); see
   [`tube-routing.md`](tube-routing.md). All three valve-manifold trays and both pump-discharge
-  dividers stand placed with every boundary port located — the fluid path waits on the SeaFlo
-  the ASSE 1022's discharge hose lands on, and on the manifold's remaining legs. The hopper
+  dividers stand placed with every boundary port located — the fluid path waits on the manifold's
+  remaining on-tray legs. The hopper
   funnel places in
   [`_contents.py`](_contents.py) alongside the panel bodies, so segment 4 anchors on its own
   drain. The on-tray seats (3/5–8, 14/16, 24/26) are interior to their assemblies and still

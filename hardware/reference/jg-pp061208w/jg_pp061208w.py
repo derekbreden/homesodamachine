@@ -1,8 +1,9 @@
 """John Guest PP061208W reducer stem, 3/8" OD stem × 1/4" OD push-to-connect,
 white polypropylene with a food-grade EPDM O-ring — the second half of the
-tap-point branch adapter ([`ledger/bom.md`](/hardware/ledger/bom.md) §3). The
-bare 3/8" stem plugs into the PP451223W's collet; the 1/4" collet carries the
-branch on as 1/4" OD LLDPE to the flow regulator.
+ASSE 1022's outlet adapter ([`ledger/bom.md`](/hardware/ledger/bom.md) §3). The
+bare 3/8" stem plugs into the PI4512F6S's collet, so the 3/8" run begins and
+ends inside the two fittings; the 1/4" collet carries the water on as 1/4" OD
+LLDPE to the water split.
 
 External envelope plus the wetted bore — a plain molded barrel, no wrench flats:
 the stem, the shoulder ring the stem butts against, the barrel swelling out to
