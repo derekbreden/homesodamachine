@@ -255,15 +255,16 @@ CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # The SeaFlo lies motor-axis along X across the service bay, its base flat on the
 # foam cap. The head's two barbs leave its ±Y faces: the suction faces north (+Y)
 # up to the split feeding it, the discharge faces south (−Y) down to the cold
-# core's water-in. It is nudged 35 mm east of the cold core's plan centre so the
-# north suction clears the ASSE chain's east end, opening the aft strip for the
-# split and V-K; the move stays well inside its free travel and inside the box.
-# Its Y sets how much aft strip is left behind it — the drip pan's floor has to
-# take the moisture plate's long edge flat, and this station is what leaves room
-# for it. The discharge hose (water-6) takes up the difference in its own curve,
-# which is why its bend radius is a gate.
+# core's water-in. It stands at the cap's FRONT EDGE, its front face on the foam's
+# y=200: forward is what opens the aft strip and the west column into one contiguous
+# void, and the electronics shelf (power assembly, PCBA) has no other plane in this
+# bay. The north suction still clears the ASSE chain by a wide margin, and the aft
+# strip it leaves is deeper than the drip pan's floor needs to take the moisture
+# plate's long edge flat. Its X keeps the discharge barb on the chain's own column,
+# so the hose leaves the molded barb straight south and turns down the corridor with
+# no offset to take up — the discharge hose's bend radius is a gate, so that matters.
 SEAFLO_YAW = 180.0
-SEAFLO_POS = (127.0, 273.0)   # plan (35 mm east of centre); its Z is the cap
+SEAFLO_POS = (127.0, 249.0)   # front face on the cap's front edge; its Z is the cap
 # The ASSE 1022 chain lies along +X in the service bay's AFT STRIP, over the
 # foam-cap top and behind the pump. Flow runs west to east: the 1/4" PTC inlet at
 # the west end takes its pigtail off the rear-panel water bulkhead, and the 1/4"
