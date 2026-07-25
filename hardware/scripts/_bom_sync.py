@@ -20,7 +20,7 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 
-from _cold_core_interface import attachment_xy_positions
+from _cold_core_interface import attachment_xy_positions, deck_mounts, deck_mount_xy
 from _reed_channels import reeds_per_reservoir
 from docgen import substitute_md
 from reservoir import insert_positions_for_side_plus_1
@@ -111,9 +111,14 @@ pp0308e_valve_elbows = len(source_select_tray.rolls) + len(bag_circuit_tray.roll
 pp0308e_pump_elbows = 4
 pp0308e_per_build = pp0308e_co2_incavity + pp0308e_valve_elbows + pp0308e_pump_elbows
 
-# Foam-cap hardware (6 inserts + 6 M3 × 25 screws per face, both faces).
-foam_cap_inserts_per_build = inserts_per_foam_cap_face * foam_cap_faces
-foam_cap_screws_per_build = foam_cap_inserts_per_build  # 1:1
+# Foam-cap hardware: 6 clamp inserts + 6 M3 × 25 screws per face, both faces,
+# PLUS the top cap's deck-mount columns — each takes a ruthex short in its top
+# bore and an M3 SHCS down through the module it carries. The clamp screws are
+# 1:1 with the clamp inserts only; the deck mounts add inserts on their own.
+foam_cap_deck_inserts_per_build = sum(len(deck_mount_xy(n)) for n in deck_mounts)
+foam_cap_inserts_per_build = (inserts_per_foam_cap_face * foam_cap_faces
+                              + foam_cap_deck_inserts_per_build)
+foam_cap_screws_per_build = inserts_per_foam_cap_face * foam_cap_faces  # 1:1 clamp only
 
 # Reservoir-cap hardware (12 inserts + 12 M3 × 12 screws).
 reservoir_cap_inserts_per_build = inserts_per_reservoir_cap * reservoirs_per_build
@@ -126,13 +131,16 @@ touchflo_screws_per_build = touchflo_inserts_per_build  # 1:1
 
 # Electronics-shelf tray hardware (Zone B, assembly/electronics-shelf.md):
 # ruthex M3 inserts in the printed tray bosses, one M3 × 8 SHCS per insert.
-# pcba-tray: four board hold-down bosses under MH1–MH4 (pcba_tray.py
-# `_holes_pcb`). power-tray: PSU ledge ×4 + relay #1 standoff ×4 +
-# ground-stud ×1 (power_tray.py "Retention").
-pcba_tray_inserts_per_build = 4
-power_tray_inserts_per_build = 9
+# The board and the PSU are NOT here — both bolt to the top foam cap's own deck-mount
+# columns, counted with the cap above. What is left on the power tray is relay #1's
+# standoff ×4 and the ground stud ×1 (power_tray.py "Retention"); the pcba tray does
+# not ship at all.
+pcba_tray_inserts_per_build = 0
+power_tray_inserts_per_build = 5
 shelf_inserts_per_build = pcba_tray_inserts_per_build + power_tray_inserts_per_build
-shelf_screws_per_build = shelf_inserts_per_build  # 1:1, all M3 × 8
+# One M3 × 8 SHCS per shelf insert, plus one down through each module into its
+# deck-mount column — the same screw into the same insert, one part earlier.
+shelf_screws_per_build = shelf_inserts_per_build + foam_cap_deck_inserts_per_build
 
 # Combined heat-set insert count across the appliance (40).
 total_m3_inserts_per_build = (
