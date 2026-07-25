@@ -176,6 +176,10 @@ import beduan_solenoid as _vk            # noqa: E402  — V-K's two 1/4" QC col
 import drip_pan as _pan                  # noqa: E402  — its lift, its section, its rail offset
 import module_tray as _mt                # noqa: E402  — the floor and standoff under every board
 import pcba_tray as _pcba                # noqa: E402  — the board's outline, holes and thickness
+sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
+sys.path.insert(0, str(_hw / "reference" / "meanwell-irm90"))
+import _cold_core_interface as _cc       # noqa: E402  — the cap's deck-mount stations, in its own frame
+import meanwell_irm90 as _psu_ref        # noqa: E402  — the PSU's section and its two terminal ledges
 
 
 # --- Source STEPs ---------------------------------------------------------
@@ -197,7 +201,12 @@ ELBOW_CONNECTOR = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
 DIVIDER_CONNECTOR = _hw / "reference" / "y-divider" / "y-divider.step"
 # AC/PSU tray — wide-shallow layout (PSU turned 90°).
 POWER_ASSEMBLY = _hw / "printed-parts" / "electronics" / "power-tray" / "power-assembly.step"
-PCBA_ASSEMBLY  = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-assembly.step"
+# The controller board alone, its underside on Z = 0: what the appliance carries, bolted
+# to four boss columns of the foam cap. The tray it seats on at the bench is a different
+# STEP and does not ship inside the machine.
+PCBA_BOARD     = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-board.step"
+# The Mean Well IRM-90-12ST, on its own four columns of the same cap.
+MEANWELL_STEP  = _hw / "reference" / "meanwell-irm90" / "meanwell-irm90.step"
 DC_DIST        = _hw / "reference" / "dc-dist-block" / "dc-dist-block.step"
 MQ6_STEP       = _hw / "reference" / "mq6-gas-sensor" / "mq6-gas-sensor.step"
 DERPIPE_STEP   = _hw / "reference" / "derpipe-co2-inlet" / "derpipe-co2-inlet.step"
@@ -307,20 +316,24 @@ DRIP_VENT_INSET = 14.0   # basin west outer face to the vent column
 # the nozzle lanes need stays open beside it.
 BEDUAN_YAW = 180.0
 BEDUAN_POS = (264.0, 342.5, 274.1 + RING_SEAT)   # base centre on a cradle above the cap
-# The controller board, on the foam-cap top in the AFT STRIP, laid along the cap's rear edge
-# behind the pump. It lies unturned, its long axis ACROSS the strip, because the strip has depth
-# to spare and width to buy: the board spends a board's width of the cap's Y and takes the strip's
-# west end, which the basin gives back when it turns narrow. What that buys is the WEST COLUMN
-# entire, forward of the board — the only plane in this bay long enough to stand the PSU down.
-#   Its two service edges look ±X down the strip, and the basin's west wall is what sets their
-# room: the USB-C edge (J14) opens WEST toward the side wall's rib, the J10 12 V throats EAST
-# toward the rail web, with a plug's length of clear run either way. Both edges the board must
-# keep reachable face a lane rather than a wall, and the bay opens from above onto the twelve
-# top-entry wafers between them. The clearances are the scorecard's.
-#   The two nozzle lanes cross the deck the far side of the pump; the board shares no deck
+# The controller board and the PSU, each bolted to four boss columns of the foam cap.
+# Neither is posed here: the cap owns its deck-mount stations and `deck_mount()` carries
+# them to world, so the body, its connector map and the column it stands on move together.
+# Both lie flat, their undersides on the boss tops, and no tray floor stands between them
+# and the cap.
+#   THE BOARD takes the WEST COLUMN, a quarter turn from its own frame so the long axis runs
+# down the strip: the USB-C edge (J14) looks SOUTH into the open band ahead of the cap, where
+# a hand reaches it with the back panel on, and the J10 12 V throats look NORTH up the column.
+# Both edges the board must keep reachable face a lane rather than a wall, and the bay opens
+# from above onto the twelve top-entry wafers between them.
+#   THE PSU takes the AFT STRIP, west of the drip basin, laid ACROSS the strip. Its mounting
+# holes span most of its length, and that span is longer than what the column has left in Y
+# once the board is in it — but the strip has the run in X, once the basin turns narrow. Its
+# AC end faces the C14 inlet's own column above it.
+#   The two nozzle lanes cross the deck the far side of the pump; neither body shares a deck
 # with them.
-PCBA_YAW = 0.0
-PCBA_POS = (10.0, 305.7, 258.4)   # bbox min — the tray's underside on the cap top
+PCBA_YAW = 90.0
+PSU_YAW = 90.0
 # The split lies UNDER V-K, in the band between the foam cap and V-K's cradle — the one
 # place in the strip's east void with a footprint free once the valve is standing in it.
 # Its run carries the ASSE feed across the void — in at the WEST face off water-2, on at
@@ -587,12 +600,27 @@ _FOAM_TOP_CACHE = None
 
 
 def foam_cap_top():
-    """The foam cap's top face — the water deck's floor, and the Z the pump's base
-    sits on."""
+    """The foam cap's LID outer face — the water deck's floor, and the Z the pump's
+    base sits on. The foam assembly's own top is higher: the deck-mount columns stand
+    one `deck_mount_standoff` through the lid, and the electronics ride their tops."""
     global _FOAM_TOP_CACHE
     if _FOAM_TOP_CACHE is None:
-        _FOAM_TOP_CACHE = RING_SEAT + _load(FOAM_ASSEMBLY).BoundingBox().zlen
+        _FOAM_TOP_CACHE = (RING_SEAT + _load(FOAM_ASSEMBLY).BoundingBox().zlen
+                           - _cc.deck_mount_standoff)
     return _FOAM_TOP_CACHE
+
+
+def deck_mount(name):
+    """A cap deck mount in world: `(centre, stations, top_z)`. The cap is placed spun a
+    half turn about its own centre, so a station at `(px, py)` in the cap's frame lands
+    at `(cap_cx - px, cap_cy - py)`; `top_z` is the boss tops, which is where the
+    module's underside seats. The cap owns the stations — this only carries them."""
+    fb = _load(FOAM_ASSEMBLY).BoundingBox()
+    # The pack seats the assembly by its bbox min at (0, FRONT_DEPTH, RING_SEAT).
+    cx, cy = fb.xlen / 2.0, FRONT_DEPTH + fb.ylen / 2.0
+    pts = tuple((cx - px, cy - py) for px, py in _cc.deck_mount_xy(name))
+    ctr = (sum(p[0] for p in pts) / 4.0, sum(p[1] for p in pts) / 4.0)
+    return ctr, pts, foam_cap_top() + _cc.deck_mount_standoff
 
 
 def drip_pan_seat():
@@ -653,17 +681,31 @@ def vk_terminal(name):
     return tuple(p + o for p, o in zip(pos, BEDUAN_POS)), face
 
 
-_PCBA_OFF: tuple | None = None
+def psu_terminal(name):
+    """One of the PSU's two terminal blocks in world: `(pos, face)`. The Mean Well's own
+    frame puts the AC primary on +Y and the DC secondary on −Y, each a screw block standing
+    on its stepped end ledge; `PSU_YAW` carries them, and both land face-up, which is how a
+    ferrule goes under a captive screw. The yaw is chosen by this: it puts the AC end on the
+    C14 inlet's own column, so the energized run is the short one."""
+    ctr, _pts, top = deck_mount("psu")
+    sy = {"ac-in": 1.0, "dc-out": -1.0}[name]
+    x, y, _ = _yaw_z((0.0, sy * (_psu_ref.length / 2.0 - 6.0), 0.0), PSU_YAW)
+    return ((ctr[0] + x, ctr[1] + y, top + _psu_ref.ledge_h + 7.0), "z+")
 
 
-def _pcba_off():
-    """The offset `_at` applies to the yawed board, memoized. Taken off the same rotated body the
-    placement anchors, so a port and the board it sits on move together or not at all."""
-    global _PCBA_OFF
-    if _PCBA_OFF is None:
-        bb = _rot(_load(PCBA_ASSEMBLY), (0, 0, 1), PCBA_YAW).BoundingBox()
-        _PCBA_OFF = (PCBA_POS[0] - bb.xmin, PCBA_POS[1] - bb.ymin, PCBA_POS[2] - bb.zmin)
-    return _PCBA_OFF
+def pcba_pose():
+    """The board's placement: `(yawed_solid, offset)`. Seating the board is putting the
+    centre of its four MH holes on the centre of the cap's `pcba` deck mount — then every
+    hole is over its own column by construction, and nothing here chooses a coordinate.
+    The exported body is already centred on its outline, so the hole centre is read in
+    that frame, not the pcb frame."""
+    ctr, _pts, top = deck_mount("pcba")
+    body = _rot(_load(PCBA_BOARD), (0, 0, 1), PCBA_YAW)
+    holes = _pcba.board.holes
+    hx = sum(h[0] for h in holes) / len(holes)
+    hy = sum(h[1] for h in holes) / len(holes)
+    cx, cy, _ = _yaw_z((hx, hy, 0.0), PCBA_YAW)
+    return body, (ctr[0] - cx, ctr[1] - cy, top)
 
 
 def pcba_port(px, py):
@@ -671,12 +713,12 @@ def pcba_port(px, py):
     [`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) — carried to world on the board's TOP FACE, the plane
     every one of the twelve JST wafers and both edge connectors mate off.
 
-    The tray's frame is the board's frame (`pcba_tray.MOUNTS` seats the board at the outline's own
-    centre), so the whole mapping is the placement's yaw and offset. A port cannot drift from the
-    body carrying it, and moving `PCBA_POS` moves the port map with it."""
-    x, y, _ = _yaw_z((px, py, 0.0), PCBA_YAW)
-    dx, dy, _ = _pcba_off()
-    return (x + dx, y + dy, PCBA_POS[2] + _mt.floor_t + _mt.board_standoff + _pcba._thickness)
+    The board seats by its own centre on the cap's deck-mount centre, so the whole mapping is
+    that pose's yaw and offset. A port cannot drift from the body carrying it, and moving the
+    cap's station moves the column, the board and this map together."""
+    x, y, _ = _yaw_z((px - _pcba._centre[0], py - _pcba._centre[1], 0.0), PCBA_YAW)
+    _body, (dx, dy, dz) = pcba_pose()
+    return (x + dx, y + dy, dz + _pcba._thickness)
 
 
 def _yaw_z(v, deg):
@@ -926,6 +968,7 @@ COLORS = {
     "drip-pan":          cq.Color(0.62, 0.66, 0.72),
     "drip-pan-rails":    cq.Color(0.45, 0.50, 0.58),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
+    "psu":               cq.Color(0.72, 0.74, 0.78),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "dc-dist":           cq.Color(0.20, 0.20, 0.22),
     # Panel bodies wear the customer wayfinding colors — blue = carb water,
@@ -1475,9 +1518,18 @@ def _build():
         _load(BEDUAN_STEP), (0, 0, 1), BEDUAN_YAW
         ).translate(BEDUAN_POS)
 
-    # The controller board, laid on the cap in the west column. `_at` on the yawed body, so the
-    # pose and `pcba_port` are the one transform.
-    placed["pcba"] = _at(_rot(_load(PCBA_ASSEMBLY), (0, 0, 1), PCBA_YAW), *PCBA_POS)
+    # The two electronics modules, each seated on four boss columns of the foam cap. Both are
+    # placed by their own centre landing on the cap's deck-mount centre, so their mounting holes
+    # land on the columns by construction. `pcba_pose` is the same transform `pcba_port` reads.
+    _board, _board_at = pcba_pose()
+    placed["pcba"] = _board.translate(_board_at)
+    _psu_ctr, _psu_pts, _psu_top = deck_mount("psu")
+    _psu = _rot(_load(MEANWELL_STEP), (0, 0, 1), PSU_YAW)
+    _psu_bb = _psu.BoundingBox()
+    placed["psu"] = _psu.translate((
+        _psu_ctr[0] - (_psu_bb.xmin + _psu_bb.xmax) / 2.0,
+        _psu_ctr[1] - (_psu_bb.ymin + _psu_bb.ymax) / 2.0,
+        _psu_top - _psu_bb.zmin))
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
 

@@ -125,7 +125,9 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 |---|---:|---|---:|---:|
 | Cold-core inner shell (foam-shell) | 1 | PETG | 1.340 | $15.01 <!--@printed--> |
 | Cold-core foam cap — top | 1 | PETG | 0.171 | $1.92 <!--@printed--> |
+| Cold-core foam cap lid — top | 1 | PETG | 0.129 | $1.44 <!--@printed--> |
 | Cold-core foam cap — bottom | 1 | PETG | 0.170 | $1.91 <!--@printed--> |
+| Cold-core foam cap lid — bottom | 1 | PETG | 0.129 | $1.44 <!--@printed--> |
 | Copper-plug stack (4 plugs) | 4 | PETG | 0.006 | $0.06 <!--@printed--> |
 | PRV shroud | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
 | Flavor reservoir body — left | 1 | PETG (food-contact) | 0.398 | $9.81 <!--@printed--> |
@@ -143,11 +145,13 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Valve tray — nozzle-gate | 1 | PETG | 0.043 | $0.48 <!--@printed--> |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.151 | $5.94 <!--@printed--> |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.51 <!--@printed--> |
-| **Printed parts total** | | | **~5.64** | **[$80.09](BOM_SEC7)** |
+| **Printed parts total** | | | **~5.90** | **[$82.97](BOM_SEC7)** |
 
-By material: PETG ≈ 4.57 kg / $51.12, food-contact PETG ≈ 0.91 kg / $22.52, PET-CF ≈ 0.16 kg / $6.45.
+By material: PETG ≈ 4.82 kg / $54.00, food-contact PETG ≈ 0.91 kg / $22.52, PET-CF ≈ 0.16 kg / $6.45.
 
-Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× foam-cap gasket, 2× reservoir gasket, 2× reservoir bulkhead dry washer, 2× reservoir vent retaining ring, 1× faucet mounting gasket, 1× faucet TPU o-ring. The hopper funnel is cast platinum-cure silicone (flavor subsystem). Printed tooling does not ship: the coil-winding mandrel, the foam-pour cap lids, the two-piece hopper-funnel silicone mold, and the single-valve cradle.
+Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the electronics stand on.
+
+Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× foam-cap gasket, 2× reservoir gasket, 2× reservoir bulkhead dry washer, 2× reservoir vent retaining ring, 1× faucet mounting gasket, 1× faucet TPU o-ring. The hopper funnel is cast platinum-cure silicone (flavor subsystem). Printed tooling does not ship: the coil-winding mandrel, the two-piece hopper-funnel silicone mold, and the single-valve cradle.
 
 ## 8. Flavor subsystem
 
@@ -274,7 +278,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$112.38](BOM_SEC4) |
 | 5. Refrigeration | [$173.90](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$80.09](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$82.97](BOM_SEC7) |
 | 8. Flavor subsystem | [$207.59](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -282,7 +286,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$8.17](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,336.56](BOM_GRAND)** |
+| **Total** | **[$1,339.44](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
