@@ -119,7 +119,7 @@
         "\u2717 asse1022-assembly: near bulkhead-water 10.6 fall vent-tip onto drip-pan 18.4 clear power-tray inf(<8) clear c14-inlet 35.0 x- 80.0 mm",
         "\u2713 drip-pan: near drip-pan-rails 0.0 clear seaflo-pump 32.8 clear asse1022-assembly 14.1 mm",
         "\u2713 drip-pan-rails: near foam-assembly 0.0 near drip-pan 0.0 clear seaflo-pump 28.0 mm",
-        "\u2713 vk-fill-valve: near water-split 10.4 clear seaflo-pump 33.9 clear asse1022-assembly 4.0 clear foam-assembly 20.7 mm",
+        "\u2713 vk-fill-valve: near water-split 10.4 clear seaflo-pump 24.8 clear asse1022-assembly 4.0 clear foam-assembly 20.7 mm",
         "\u2713 flow-regulator: near water-split 20.9 clear foam-assembly 25.0 mm",
         "20 components: no placement rules defined yet"
       ],
@@ -208,9 +208,9 @@
         "\u2713 water-1: bulkhead-water.tube-in \u2192 asse1022-assembly.tube-in \u2014 \u00d86.35 \u00d7 22.4 mm, 1 bends at R3.0 \u2014 nearest 22.64 mm to c14-inlet",
         "\u2713 water-2: asse1022-assembly.tube-out \u2192 water-split.supply \u2014 \u00d86.35 \u00d7 123.3 mm, 3 bends at R3.0 \u2014 nearest 4.20 mm to vk-fill-valve",
         "\u2713 water-3: water-split.to-vk \u2192 vk-fill-valve.inlet \u2014 \u00d86.35 \u00d7 10.4 mm, 0 bends at R3.0 \u2014 nearest 11.95 mm to fluid-18",
-        "\u2713 water-4: vk-fill-valve.outlet \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 60.6 mm, 1 bends at R3.0 \u2014 nearest 3.83 mm to drip-pan",
-        "\u2713 water-6: seaflo-pump.discharge \u2192 discharge-chain.barb-tip \u2014 \u00d815.1 \u00d7 34.6 mm, 1 bends at R15.9 \u2014 nearest 7.65 mm to bag-circuit-assembly",
-        "\u2713 water-5: discharge-chain.tube-port \u2192 foam-assembly.water-in \u2014 \u00d86.35 \u00d7 90.6 mm, 3 bends at R3.0 \u2014 nearest 11.54 mm to fluid-15",
+        "\u2713 water-4: vk-fill-valve.outlet \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 38.6 mm, 1 bends at R3.0 \u2014 nearest 5.21 mm to drip-pan-rails",
+        "\u2713 water-6: seaflo-pump.discharge \u2192 discharge-chain.barb-tip \u2014 \u00d815.1 \u00d7 34.6 mm, 1 bends at R15.9 \u2014 nearest 9.44 mm to bag-circuit-assembly",
+        "\u2713 water-5: discharge-chain.tube-port \u2192 foam-assembly.water-in \u2014 \u00d86.35 \u00d7 112.6 mm, 3 bends at R3.0 \u2014 nearest 11.54 mm to fluid-15",
         "\u2713 fluid-1: water-split.to-flavor \u2192 flow-regulator.inlet \u2014 \u00d86.35 \u00d7 29.0 mm, 2 bends at R3.0 \u2014 nearest 14.11 mm to fluid-18",
         "\u2713 fluid-2: flow-regulator.outlet \u2192 source-select-assembly.V-A-I \u2014 \u00d86.35 \u00d7 153.2 mm, 1 bends at R3.0 \u2014 nearest 2.80 mm to fluid-18",
         "\u2713 fluid-4: hopper-funnel.drain \u2192 source-select-assembly.V-B-I \u2014 \u00d86.35 \u00d7 151.2 mm, 4 bends at R12.0 \u2014 nearest 1.53 mm to fluid-27",
@@ -837,7 +837,7 @@
       "name": "suction",
       "kind": "fluid",
       "pos": [
-        163.6,
+        185.6,
         289.0,
         290.4
       ],
@@ -852,7 +852,7 @@
       "name": "discharge",
       "kind": "fluid",
       "pos": [
-        163.6,
+        185.6,
         209.0,
         290.4
       ],
@@ -867,7 +867,7 @@
       "name": "barb-tip",
       "kind": "fluid",
       "pos": [
-        163.6,
+        185.6,
         188.0,
         270.0
       ],
@@ -882,7 +882,7 @@
       "name": "tube-port",
       "kind": "fluid",
       "pos": [
-        163.6,
+        185.6,
         188.0,
         186.6
       ],
@@ -2208,10 +2208,10 @@
       "component": "discharge-chain",
       "boxes": [
         [
-          155.1,
+          177.1,
           179.5,
           186.6,
-          172.1,
+          194.1,
           196.5,
           270.0
         ]
@@ -2608,10 +2608,10 @@
       "component": "seaflo-pump",
       "boxes": [
         [
-          33.5,
+          55.5,
           200.0,
           258.4,
-          220.5,
+          242.5,
           298.0,
           330.4
         ]
