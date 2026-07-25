@@ -32,6 +32,8 @@ Useful Z range for the float on the rod: ~40 mm above the floor (above the wet s
 
 **Measured (bench, on both the SS carbonator tube and the printed reservoir):** the reed trips reliably with the magnet within ~2 mm of the wall, and gives no signal by ~3 mm off. The float must ride against the wall — `ROD_POSITION_X` parks it there.
 
+**Reed orientation.** The donor donut is an axially-magnetised ferrite ring. Radially outside it, on its mid-plane — where every reed in this appliance sits — the field is purely axial: the radial component vanishes by symmetry on the equatorial plane, the tangential component by axisymmetry. Every reed therefore stands with its [14 mm](REED_GLASS_L) glass envelope **vertical**, parallel to the rod. A reed lying across the path sees nothing; one tilted θ off vertical couples as sin θ. Vertical also puts the trip at the donut's mid-plane, which is what makes one reed one level.
+
 The dominant term in the magnet-to-reed path is **how far the donut floats off the cavity far wall**, not the wall thickness. The fixed part of the path is the reservoir wall (3 mm) + reservoir/pocket clearance (0.5 mm) + ~half a reed body — together ~5 mm. The variable part is the donut-to-wall gap, set by `ROD_POSITION_X` against the measured 27.75 mm donut and its off-center seating on the 1/8" rod (the rod's bore clearance lets the donut settle toward the wall). At `ROD_POSITION_X = [107](ROD_POSITION_X)` the donut's outer edge rides against the cavity far wall (x ≈ 118), keeping the ferrite magnet within a few mm of the reed column — the comfortable-margin end of the table below.
 
 **Signal-strength numbers** for the donor ferrite donut (27.75 mm measured OD, Br ≈ 0.3 T ferrite; field on axis is conservative for a donut this size):
@@ -44,6 +46,10 @@ The dominant term in the magnet-to-reed path is **how far the donut floats off t
 | ≥ ~10 mm (donut floating off the wall) | < 40 gauss | ~60–100 gauss — no pull-in |
 
 The working requirement is that the donut **ride against the cavity far wall**, which puts the magnet in the ~4 mm comfortable-margin row; `ROD_POSITION_X` is set to do that for the measured donut. The field falls off a cliff as the donut moves off the wall — by ~10 mm of magnet-to-reed distance there is no pull-in.
+
+**Off-axis tolerance.** The donut is pinned against its wall, so the magnet-to-wall gap is zero on the rod's own azimuth and opens as the reed walks off it. For the [27.75 mm](DONUT_OD) donut against a flat printed wall the gap grows as s²/(2 × 13.875) — 0.9 mm at 5 mm of lateral offset, 3.6 mm at 10 mm. Inside the carbonator's [123.7 mm](TUBE_ID_MM) bore the wall curves with the donut and the growth is gentler: 0.7 mm at 5 mm, 2.8 mm at 10 mm. **Height is the tight axis; lateral placement has millimetres of slack.**
+
+The carbonator's own reed mount, its two heights, and what they mean in dispensed volume are in [`../reed-bridge/README.md`](/hardware/printed-parts/cold-core/reed-bridge/README.md).
 
 ## GPIO budget
 
@@ -82,4 +88,5 @@ The internal SS rod is a separately-supplied part captured at both ends by print
 
 ## Sources
 [value](NAME) texts are updated by:
+- `/hardware/printed-parts/cold-core/reed-bridge/reed_bridge.py`
 - `/hardware/printed-parts/cold-core/reservoir/reservoir.py`
