@@ -29,7 +29,10 @@ or [`tools.md`](/hardware/ledger/tools.md) — the two ledgers a build draws on.
 `purchases.md` and `inventory.md` record what was bought, which is a different
 question. [`check_ledger.py`](/hardware/scripts/check_ledger.py) reads every card
 and procedure against all four and reports the names that resolve to history
-only, plus any procedure without a doc-sync driver:
+only, any procedure without a doc-sync driver, the generic materials the deck
+asks for by description rather than by brand (a fork terminal and a tube of RTV
+have no ASIN and no brand, so nothing else sees them), and any `bom.md §N`
+citation that names an ASIN the section does not hold:
 
 ```
 tools/cad-venv/bin/python hardware/scripts/check_ledger.py

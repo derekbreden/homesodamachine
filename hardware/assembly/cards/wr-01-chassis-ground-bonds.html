@@ -15,7 +15,7 @@
 
 <main>
   <div class="col" style="flex:1">
-    <p class="lede">Four exposed-metal parts, four green bonds, one
+    <p class="lede">Three exposed-metal parts, three green bonds, one
     stack — <strong>Class I:</strong> a fault trips the breaker, not the
     user.</p>
 
@@ -27,14 +27,14 @@
     <ol class="steps">
       <li><b>Pressure vessel</b> — ring under the top-cap SHCS closest to
         the shelf; route up the SIG-1 wire path.</li>
-      <li><b>Compressor body</b> — ring at an M5 mounting foot, routed
-        outside the shroud.</li>
+      <li><b>Compressor body</b> — ring under an M3 foot screw, on the
+        grommet's steel bushing, never in the rubber. Outside the
+        shroud.</li>
       <li><b>Compressor shroud</b> — ring at the &#8960;
         <span class="dim">~6 mm</span> earth-bond hole beside the AC
         pass-through — run AC-6.</li>
-      <li><b>Faucet SS plate</b> — ring under an existing plate bolt;
-        rides the umbilical + <span class="dim">200 mm</span> cabinet
-        slack.</li>
+      <li><b>Faucet SS plate — do not land.</b> No bolt on it, and it
+        ships loose. Stage the wire flagged (wiring.md open 4).</li>
       <li><b>Meter:</b> ohms-low between every bonded surface and the
         bus.</li>
     </ol>
@@ -75,18 +75,18 @@
         <text class="sub" x="195" y="542" text-anchor="middle">top-cap SHCS &#183; SIG-1 path</text>
         <rect class="blk" x="410" y="480" width="310" height="76" rx="10"/>
         <text class="lbl" x="565" y="512" text-anchor="middle">COMPRESSOR BODY</text>
-        <text class="sub" x="565" y="542" text-anchor="middle">M5 mounting foot</text>
+        <text class="sub" x="565" y="542" text-anchor="middle">M3 foot screw &#183; above the bushing</text>
         <rect class="blk" x="40" y="576" width="310" height="76" rx="10"/>
         <text class="lbl" x="195" y="608" text-anchor="middle">SHROUD &#183; AC-6</text>
         <text class="sub" x="195" y="638" text-anchor="middle">&#8960;~6 mm earth-bond hole</text>
         <rect class="blk" x="410" y="576" width="310" height="76" rx="10"/>
         <text class="lbl" x="565" y="608" text-anchor="middle">FAUCET SS PLATE</text>
-        <text class="sub" x="565" y="638" text-anchor="middle">umbilical + 200 mm slack</text>
+        <text class="sub" x="565" y="638" text-anchor="middle">deferred &#183; no landing yet</text>
         <!-- bonds -->
         <path class="gnd" d="M 195 480 L 195 430 L 320 430 L 320 350"/>
         <path class="gnd" d="M 565 480 L 565 430 L 440 430 L 440 350"/>
         <path class="gnd" d="M 100 576 L 100 400 L 280 400 L 280 350"/>
-        <path class="gnd" d="M 660 576 L 660 400 L 480 400 L 480 350"/>
+        <path class="gndd" d="M 660 576 L 660 400 L 480 400 L 480 350"/>
         <text class="sub" x="590" y="290">16 AWG green</text>
         <text class="sub" x="590" y="320">ring @ bus end</text>
       </svg>
@@ -97,8 +97,8 @@
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Four bonds on the stack and ohms-low from every bonded metal surface to the bus.</div>
-  <div class="src">wiring.md &#167;1 &#183; ac-wiring-schedule.md "Grounding strategy"<br>rev 2026-07-23</div>
+  <div class="done"><span class="lbl">Done when</span>Three bonds on the stack, the faucet wire staged, and ohms-low from every bonded surface to the bus.</div>
+  <div class="src">wiring.md &#167;1 &#183; ac-wiring-schedule.md "Grounding strategy"<br>rev 2026-07-25</div>
 </footer>
 
 </div>

@@ -52,7 +52,7 @@ Cut and prep the AC pigtails for AC-1 through AC-3 per [`/hardware/wiring/ac-wir
 - **AC-3** — H pigtail from the H Wago block to the relay #1 contact input ("common" terminal), [~50 mm](PIGTAIL_SHORT), ferrule one end, crimp fork the other.
 - **AC-4/5/6** — not cut here. These are the three conductors of one 18 AWG SJOOW jacketed lead ([~400 mm](SHROUD_LEAD_LEN)), pre-built at [`wiring.md`](/hardware/assembly/wiring.md) §2 and passed through the compressor shroud's cable gland — its switched H forks onto relay #1's NO contact, its N seats in the N Wago's open port, its G rings onto the ground bus.
 
-Land the solid-copper ground bus on its power-tray boss. Stage short green 16 AWG pigtails with ring terminals at the bus end for each exposed-metal load: PSU chassis (lands at PSU mounting in step 3), pressure vessel, faucet SS plate, compressor body. Leave the load-side end of each pigtail un-terminated and labeled; those land at [`wiring.md`](/hardware/assembly/wiring.md). Stage the short green block-to-bus leg — ring terminal at the bus, ferrule for the G Wago (seats in step 4) — that carries the C14 earth onto the bus. The compressor-shroud bond is not staged here: it is AC-6, the SJOOW's G conductor, ring-landed on the stack at [`wiring.md`](/hardware/assembly/wiring.md) §2. Bus-to-chassis stud connection lands at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md).
+Land the solid-copper ground bus on its power-tray boss. Stage short green 16 AWG pigtails with ring terminals at the bus end for each exposed-metal load: PSU chassis (lands at PSU mounting in step 3), pressure vessel, compressor body. The faucet SS plate's bond is staged the same way but has no landing yet — see [`wiring.md`](/hardware/assembly/wiring.md) Open items 4. Leave the load-side end of each pigtail un-terminated and labeled; those land at [`wiring.md`](/hardware/assembly/wiring.md). Stage the short green block-to-bus leg — ring terminal at the bus, ferrule for the G Wago (seats in step 4) — that carries the C14 earth onto the bus. The compressor-shroud bond is not staged here: it is AC-6, the SJOOW's G conductor, ring-landed on the stack at [`wiring.md`](/hardware/assembly/wiring.md) §2. Bus-to-chassis stud connection lands at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md).
 
 ### 3. Mount the PSU, relays, and PCBA
 
@@ -122,7 +122,7 @@ A finished electronics shelf is:
 ## Open items
 
 1. **Relay #2 + DC distribution block bay.** Neither has a committed printed mount; both stage beside the power-tray. Commit a bay — extend the power-tray `Layout` or add a small dedicated tray — once the DC-block hardware (per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 placeholder) is picked.
-2. **Shelf insert + screw counts in the BOM.** [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13's per-build insert/SHCS counts cover the cold core and faucet but not the shelf trays (4 board + power-tray bosses). Add them.
+2. ~~**Shelf insert + screw counts in the BOM.**~~ **CLOSED.** [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13 carries them: the ruthex row's 40/build includes 13 shelf-tray bosses (pcba-tray 4, power-tray 9), and the M3 × 8 row's 13/build is spent entirely here — 4 PCBA hold-downs + 4 PSU + 4 relay #1 + 1 ground-stack clamp.
 3. **Tray thickness under the PSU.** PETG, 3 mm floor at 30-40 % infill working assumption. Confirm once the heaviest part (the Mean Well IRM-90-12ST at [~200 g](PSU_MASS)) is staged against the power-tray.
 
 ## Sources
