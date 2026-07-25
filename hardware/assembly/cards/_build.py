@@ -7,7 +7,9 @@ Underscore-prefixed so the dev-server watcher never runs it.
     tools/cad-venv/bin/python hardware/assembly/cards/_build.py
 """
 
+import collections
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -44,6 +46,53 @@ def deck_key(png: Path):
     return (subsystem, png.stem)
 
 
+COVER = "00-cover"
+
+
+def check_cover(authored: set[str]) -> None:
+    """The cover's contents table against the cards that exist.
+
+    The cover is the one page that describes the whole deck, and nothing
+    regenerates it — so it is the page most likely to be stale, and the least
+    likely to be noticed. Its per-subsystem counts are what to check, not its
+    total: two subsystems drifting in opposite directions leave the total
+    correct, which is exactly how a wrong table survives being looked at.
+    """
+    actual = collections.Counter(
+        stem.split("-", 1)[0] for stem in authored if stem != COVER
+    )
+    cover = (CARDS_DIR / f"{COVER}.html").read_text()
+    claimed = {
+        code.lower(): int(n)
+        for code, n in re.findall(
+            r'"tcode"[^>]*>([A-Z]{2})</span>'
+            r'<span class="tname">[^<]*</span>'
+            r'<span class="tn">(\d+)</span>',
+            cover,
+        )
+    }
+
+    drift = [
+        f"{code.upper()} says {claimed.get(code)}, deck has {actual[code]}"
+        for code in SUBSYSTEM_ORDER
+        if claimed.get(code) != actual[code]
+    ]
+    missing = sorted(set(actual) - set(claimed))
+    if missing:
+        drift.append(f"no cover row for {', '.join(c.upper() for c in missing)}")
+
+    total = sum(actual.values())
+    stated = re.search(r"<b>(\d+) cards</b>", cover)
+    if not stated:
+        drift.append("cover states no card total")
+    elif int(stated.group(1)) != total:
+        drift.append(f"cover total says {stated.group(1)}, deck has {total}")
+
+    if drift:
+        sys.exit("cover out of step with the deck:\n  " + "\n  ".join(drift))
+    print(f"cover contents ✓ {total} cards across {len(actual)} subsystems")
+
+
 def render_cards() -> None:
     subprocess.run(
         [
@@ -77,6 +126,8 @@ def build_pdf() -> None:
     if missing:
         sys.exit(f"card(s) authored but not rendered: {', '.join(missing)}")
 
+    check_cover(authored)
+
     pngs = sorted((OUT_DIR / f"{s}.png" for s in authored), key=deck_key)
     if not pngs:
         sys.exit("no rendered cards in out/")
@@ -89,7 +140,11 @@ def build_pdf() -> None:
         c.save()
 
     export_pdf(build, str(OUT_DIR / "deck.pdf"))
-    print(f"-> {OUT_DIR / 'deck.pdf'} ({len(pngs)} cards)")
+    # Pages, not cards: the cover is a page of the deck and not a bench
+    # operation, so the two numbers differ by one and saying "cards" here is
+    # what makes the cover's own count look wrong.
+    print(f"-> {OUT_DIR / 'deck.pdf'} ({len(pngs)} pages — "
+          f"{len(pngs) - 1} cards + cover)")
 
 
 if __name__ == "__main__":
