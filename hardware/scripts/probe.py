@@ -175,6 +175,7 @@ class World:
         self.solids = solids
         self.sources = sources          # name → "component" | "panel" | "funnel" | "run"
         self._frames = None
+        self._boxes = {}                # name → (solid, box), see bb()
 
     # -- what is here --
 
@@ -188,7 +189,17 @@ class World:
         return self.solids[name]
 
     def bb(self, name: str):
-        return self.solid(name).BoundingBox()
+        """A body's bounding box, held once per solid. Taking one costs real time on a
+        compound, and a scan over the world takes every one of them. The cached box is
+        kept against the solid it was measured from, so a body swapped into `solids`
+        after loading is re-measured rather than read from the previous one."""
+        s = self.solid(name)
+        held = self._boxes.get(name)
+        if held is not None and held[0] is s:
+            return held[1]
+        b = s.BoundingBox()
+        self._boxes[name] = (s, b)
+        return b
 
     def table(self, sort: str = "name", only=None) -> str:
         """Every body's box, one per line, sorted by `name` or any box
@@ -534,6 +545,17 @@ def selftest() -> int:
           f"untouched{'':6s} got {free_rows}  want ['untouched']")
     if free_rows != ["untouched"]:
         fails.append("unblocked filter")
+
+    print("controls — the held bounding box:")
+    wc = World({"body": box(x=(0, 10), y=(0, 10), z=(0, 10))}, {"body": "test"})
+    first = wc.bb("body")
+    check("a repeat read gives the same box", wc.bb("body").xmax, first.xmax)
+    print(f"  {'ok  ' if wc.bb('body') is first else 'FAIL'}  a repeat read is the held box")
+    if wc.bb("body") is not first:
+        fails.append("bb caching")
+    # An agent that injects a body into `solids` must not read the box of the one it replaced.
+    wc.solids["body"] = box(x=(0, 99), y=(0, 10), z=(0, 10))
+    check("a swapped body is re-measured", wc.bb("body").xmax, 99.0)
 
     print("controls — refusals:")
     for label, thunk in (
