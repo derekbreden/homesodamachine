@@ -164,6 +164,7 @@ TOOLS = [
     ("tube straightener", "T_STRAIGHTENER", A("B0F6BPTW3T")),
     ("Pliers Wrench", "T_PLIERS_WRENCH", A("B07YLFLSJW")),
     ("Uniweld RHP400", "T_RHP400", A("B008HQ6GXO")),
+    ("Joywayus flare nut", "T_FLARE_NUT", A("B0G1XJ2F68")),
     ("Hakko FX-888D", "T_HAKKO", A("B0D4DJW54S")),
     ("Hakko FR-301", "T_FR301", A("B07BKSLLG9")),
     ("fume extractor", "T_FUME_EXT", A("B07VWDN29F")),

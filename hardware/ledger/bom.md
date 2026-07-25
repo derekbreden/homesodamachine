@@ -33,6 +33,9 @@ An earlier racetrack-body alternative (304 SS body half-sheets + dished racetrac
 | Food-grade silicone tube stub, 1/4" ID × ~3" long (cut from the acquired Metaland 1/4" silicone B08L1ST6ST, purchases.md) | connects port-1 barb to sparge stone inside vessel | — | ~$0.20 | $0.20 <!--@plumbing--> |
 | [Millrose 70894 Nickel Guard anti-seize PTFE tape](https://www.amazon.com/dp/B07C9ZV4PG) | The unit's PTFE anti-seize / thread-seal tape (10% nickel flake, for SS-on-SS anti-galling), a 1/2" × 600" roll — the production thread tape for **every** NPT joint in the build, not just the vessel: the [4](VESSEL_PORTS) SS-into-SS vessel ports taped twice (hydro-test plugs + final fittings, per [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md)) plus the ≥8 water/CO2 plumbing joints (per [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md)) ≈ ~16 taped joints × ~4–5" ≈ ~75"/build, so the 600" roll covers ~8 builds. Amazon 112-0019658 Apr 4: $21.52 ÷ 8 = $2.69/build | ~1/8 roll (~75") | $2.69 | $2.69 <!--@consumables--> |
 | [Tap Magic EP-Xtra pipe-tap cutting fluid, 16 oz (size variant on listing B00DHMHSGM)](https://www.amazon.com/dp/B00DHMHSGM) | required for hand-tapping 1/4" NPT into 1/4"-thick 316 SS plate; ~$0.50 of fluid per vessel | 1 | $0.50 | $0.50 <!--@consumables--> |
+| [Cantesco P101S-A red visible dye penetrant, solvent-removable aerosol](https://www.amazon.com/dp/B00T46ZH5E) | Dye-penetrant (PT) inspection of the two closure fillet welds before hydro, per [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) step 6. One 16 oz can sprays ~20 vessels' worth of ~32" fillet; $24.45/20 | 1 (of ~20) | $1.22 | $1.22 <!--@consumables--> |
+| [Cantesco D101-A non-aqueous wet developer, white, 12 oz aerosol](https://www.amazon.com/dp/B008BJCOLK) | PT developer — pulls the penetrant back out of a defect as a visible red indication on white. Misted thin over the same two welds; ~20 vessels per can; $15.88/20 | 1 (of ~20) | $0.79 | $0.79 <!--@consumables--> |
+| [Lint-free cleanroom wipes, 9" × 9", cellulose/polyester Grade A (150 pcs)](https://www.amazon.com/dp/B0GD16CMYL) | PT penetrant wipe-off + the low-lint reading surface; dampened with isopropyl alcohol, never sprayed on the part. ~6 wipes per vessel; $17.15/25 builds | 6 (of 150) | $0.69 | $0.69 <!--@consumables--> |
 | [Control Devices SV-125 safety valve, 1/4" NPT, 125 psi set pressure, 49 SCFM relief, brass](https://www.amazon.com/dp/B01G2F6EMY) | Port 4 tank PRV (top plate, dedicated); sizing rationale in [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md). Amazon 112-6323725 May 13: $7.49 + $0.54 tax = $8.03 | 1 | $8.03 | $8.03 <!--@plumbing--> |
 | [Cambro 6 QT polycarbonate square container](https://www.amazon.com/dp/B001BZEQ44) | citric acid passivation soak tub — holds the ~1 qt of 4% citric solution the vessel soaks in during passivation (the acid is its own line below). Reused build-to-build, not consumed — the per-unit item is the fresh solution, not the tub; the polycarbonate is replaced only when repeated soaks craze/cloud it, ~20 builds conservatively. Amazon 112-5291452 Apr 12: $21.45 ÷ 20 = $1.07/build | 1 (of ~20) | $1.07 | $1.07 <!--@consumables--> |
 | [Viva Doria food-grade citric acid, 2 lb bag](https://www.amazon.com/dp/B0C5NQM8S1) | passivation: ~1 qt of 4% solution per tank; 1/20 of $9.99 bag | 1 | $0.50 | $0.50 <!--@consumables--> |
@@ -114,7 +117,7 @@ Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration modul
 
 ## 7. Printed mechanical parts
 
-Per-unit filament for every printed part shipped inside one finished appliance, one row per part. PETG throughout except the PET-CF (Polymaker Fiberon PET-CF17) faucet shell and mounting plate. `Mass (kg)` and `$` are per-line totals (quantity included). Masses are geometry-derived — CAD solid volume × density (PETG 1.27 g/cm³, PET-CF 1.30 g/cm³) — not slicer-measured. PETG $11.20/kg (Bambu PETG Basic, $224.04 ÷ 20 kg); PET-CF $39.32/kg (Polymaker Fiberon PET-CF17, $117.96 ÷ 3 kg).
+Per-unit filament for every printed part shipped inside one finished appliance, one row per part. PETG throughout except the PET-CF (Polymaker Fiberon PET-CF17) faucet shell and mounting plate, and the [food-contact PETG](https://www.amazon.com/dp/B0FP34MJ94) (SunTop, 1.75 mm, $49.32/2 kg = $24.66/kg) for the four syrup-wetted reservoir parts. `Mass (kg)` and `$` are per-line totals (quantity included). Masses are geometry-derived — CAD solid volume × density (PETG 1.27 g/cm³, PET-CF 1.30 g/cm³) — not slicer-measured. PETG $11.20/kg (Bambu PETG Basic, $224.04 ÷ 20 kg); PET-CF $39.32/kg (Polymaker Fiberon PET-CF17, $117.96 ÷ 3 kg).
 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
@@ -123,10 +126,10 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Cold-core foam cap — bottom | 1 | PETG | 0.170 | $1.91 <!--@printed--> |
 | Copper-plug stack (4 plugs) | 4 | PETG | 0.006 | $0.06 <!--@printed--> |
 | PRV shroud | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
-| Flavor reservoir body — left | 1 | PETG | 0.398 | $4.46 <!--@printed--> |
-| Flavor reservoir body — right | 1 | PETG | 0.398 | $4.46 <!--@printed--> |
-| Flavor reservoir cap — left | 1 | PETG | 0.059 | $0.67 <!--@printed--> |
-| Flavor reservoir cap — right | 1 | PETG | 0.059 | $0.67 <!--@printed--> |
+| Flavor reservoir body — left | 1 | PETG (food-contact) | 0.398 | $9.81 <!--@printed--> |
+| Flavor reservoir body — right | 1 | PETG (food-contact) | 0.398 | $9.81 <!--@printed--> |
+| Flavor reservoir cap — left | 1 | PETG (food-contact) | 0.059 | $1.45 <!--@printed--> |
+| Flavor reservoir cap — right | 1 | PETG (food-contact) | 0.059 | $1.45 <!--@printed--> |
 | PCBA tray | 1 | PETG | 0.024 | $0.27 <!--@printed--> |
 | Power tray | 1 | PETG | 0.055 | $0.61 <!--@printed--> |
 | Enclosure — front bottom + front top (two pieces) | 1 set | PETG | 0.852 | $9.54 <!--@printed--> |
@@ -138,9 +141,9 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Valve tray — nozzle-gate | 1 | PETG | 0.043 | $0.48 <!--@printed--> |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.151 | $5.94 <!--@printed--> |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.51 <!--@printed--> |
-| **Printed parts total** | | | **~5.48** | **[$67.26](BOM_SEC7)** |
+| **Printed parts total** | | | **~5.64** | **[$80.09](BOM_SEC7)** |
 
-By material: PETG ≈ 5.32 kg / $59.64, PET-CF ≈ 0.16 kg / $6.45.
+By material: PETG ≈ 4.57 kg / $51.12, food-contact PETG ≈ 0.91 kg / $22.52, PET-CF ≈ 0.16 kg / $6.45.
 
 Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× foam-cap gasket, 2× reservoir gasket, 2× reservoir bulkhead dry washer, 2× reservoir vent retaining ring, 1× faucet mounting gasket, 1× faucet TPU o-ring. The hopper funnel is cast platinum-cure silicone (flavor subsystem). Printed tooling does not ship: the coil-winding mandrel, the foam-pour cap lids, the two-piece hopper-funnel silicone mold, and the single-valve cradle.
 
@@ -182,6 +185,7 @@ The buzzer is on the controller PCBA — an MLT-5020 magnetic transducer (U8) lo
 | Part | Notes | Qty | Unit $ | Line $ |
 |---|---|---:|---:|---:|
 | [Female Spade Crimp Terminals (60-pack)](https://www.amazon.com/dp/B0B9MZJ2ML) | ~26 terminals per unit (10 solenoids × 2 leads + relay + flow sensor + misc); 26/60 | 26 (of 60 pk) | $0.18 | $4.65 <!--@wiring--> |
+| [smseace #4 (M3) insulated ring terminals, 22–16 AWG (150 pc)](https://www.amazon.com/dp/B08B5VS8ZR) | Every ground landing that takes a screw rather than a lever: the four chassis bonds (pressure vessel, compressor body, compressor shroud stud, faucet under-counter plate) per [`wiring.md`](/hardware/assembly/wiring.md) §1, plus the bus-side pigtail ends staged at [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md). ~10 per unit; $9.64/150 | 10 (of 150 pk) | $0.06 | $0.64 <!--@wiring--> |
 | [Zip Ties (200-pack)](https://www.amazon.com/dp/B0BC1VH4XB) | ~15 zip ties per unit (cable management); 15/200 | 15 (of 200 pk) | $0.02 | $0.30 <!--@cable-mgmt--> |
 | [CQRobot JST XH 2.54 mm 4-pin connector kit (50 sets)](https://www.amazon.com/dp/B0B2RB524Y) | 4-pin XH — female housings + crimp terminals for the six 4P board looms (FAUCET J3, RELAYS J5, I2C J8, DISPLAY J9, GAS J11, PUMPS J13); the male wafers are on the PCBA, so the kits' loose housings/terminals are what's consumed. ~6/unit; $8.45/50 × 6 | 6 (of 50 pk) | $0.17 | $1.01 <!--@wiring--> |
 | [CQRobot JST XH 2.54 mm 6-pin connector kit (50 sets)](https://www.amazon.com/dp/B0B2R8Q1JL) | 6-pin XH — MANIFOLD B (J2) loom housing + terminals; ~1/unit; $9.19/50 | 1 (of 50 pk) | $0.18 | $0.18 <!--@wiring--> |
@@ -192,8 +196,9 @@ The buzzer is on the controller PCBA — an MLT-5020 magnetic transducer (U8) lo
 | [WAGO 221-415 lever-nut, 5-conductor (25 pk)](https://www.amazon.com/dp/B0107SYYGU) | 5-way lever nut for the ≤5-conductor on-board connector fan-outs: J6 REEDS A GND → 4 reeds (5-conductor node), J4 SENSORS GND, and J2 MANIFOLD B COM → 2 valves + fan (4-conductor node). The J5 RELAYS V5/GND tee is made at the relay screw terminals, not a Wago. Not the AC distribution (that's the 221-413 below). 24–12 AWG. $26.76/25 paid; 3/build ([purchases.md](/hardware/ledger/purchases.md) §11) | 3 (of 25 pk) | $1.07 | $3.21 <!--@wiring--> |
 | [WAGO 221-413 lever-nut, 3-conductor (box of 50)](https://www.amazon.com/dp/B07W7W91FX) | AC mains distribution on the [power tray](/hardware/printed-parts/electronics/power-tray/) — H / N / G, one nut per pole; the tray's three Wago slots are dimensioned to this part (Kitchen + Lite both, per [lite-bom.md](/pie-in-the-sky/lite/lite-bom.md)). Distinct from the on-board fan-out nuts above; a 221-415 will not fit the 221-413 slots. 24–12 AWG. $27.83/50 paid; 3/build ([purchases.md](/hardware/ledger/purchases.md) §11) | 3 (of 50 box) | $0.56 | $1.67 <!--@wiring--> |
 | [BNTECHGO 22 AWG silicone, 250 ft black spool](https://www.amazon.com/dp/B06Y2PNW41) | Bulk all-black cut-to-length hookup for every board-driven DC actuator (pump leads DC-5, manifold trunks + valve fan-outs DC-6/DC-7, condenser fan DC-8) and every sensor / reed / display / logic signal run (SIG-1…12 except the §9 umbilical ribbon SIG-6, plus relay control LV-1/2/3). Lands on XH / Wago / screw terminals for signals, spade disconnects for the actuators. Single-color black per the all-black convention — color is reserved for the AC mains only (see [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md)). Stranded tinned-copper silicone, 600 V. $27.86/250 ft = $0.111/ft; ~30 ft/build | ~30 ft | $0.11/ft | $3.34 <!--@wiring--> |
-| [Alex Tech PET expandable braided sleeve, black — 1/4" + 1/2" + 3/4"](https://www.amazon.com/dp/B074GMNW7T) | Per-zone harness bundling — **replaces spiral wrap**. Black braided sleeve over every bundle, ends finished with heat-shrink. 1/2" for most bundles, 3/4" for the manifold trunk, 1/4" for thin runs. ([3/4"](https://www.amazon.com/dp/B074GMCGZX), [1/4"](https://www.amazon.com/dp/B071JH14WZ).) Blended ~$0.19/ft | ~8 ft (mixed) | $0.19/ft | $1.52 <!--@cable-mgmt--> |
+| [Alex Tech PET expandable braided sleeve, black — 1/4" + 1/2" + 3/4"](https://www.amazon.com/dp/B074GMNW7T) | Bundling for the in-cabinet harnesses, threaded on before either end is terminated, ends finished with heat-shrink. 1/2" for most bundles, 3/4" for the manifold trunk, 1/4" for thin runs. ([3/4"](https://www.amazon.com/dp/B074GMCGZX), [1/4"](https://www.amazon.com/dp/B071JH14WZ).) Blended ~$0.19/ft | ~8 ft (mixed) | $0.19/ft | $1.52 <!--@cable-mgmt--> |
 | Insulated bootlace ferrules, 16/22 AWG (from the Preciva kit) | Conductor landings into the Wago 221 lever nuts + screw terminals — DIN-style insulated cord-end ferrules. The crimper is tooling ([tools.md](/hardware/ledger/tools.md)); the 950-ferrule stock comes with it, so per-unit ferrule cost is negligible. | ~35 (of 950) | — | $0.50 <!--@wiring--> |
+| Umbilical sleeve — spiral wrap, 1" nominal | **SKU TBD.** Wound on radially over the assembled bundle after both ends are terminated, from just above the under-counter plate to ~3" above the rear-panel bulkheads, per [`assembly/faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md) §4. ~2.5–3 m per build | 1 | — | — <!--@cable-mgmt--> |
 | DC distribution block — 12 V +/− rails for the DC-2/DC-4 fan-out | **Hardware TBD** (screw-terminal barrier strip or a printed Wago carrier) — relay #2 and this block have no committed bay yet; staged beside the power-tray per [`assembly/electronics-shelf.md`](/hardware/assembly/electronics-shelf.md) Open items | 1 | — | — <!--@wiring--> |
 
 ## 12. Level sensing (external reed + internal magnetic float on 316L SS rod, shared SKU across carbonator + reservoirs)
@@ -259,20 +264,20 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | Section | $ |
 |---|---:|
 | 1. Controllers + electronics | [$178.46](BOM_SEC1) |
-| 2. Carbonator vessel (plan A, 316L) | [$204.38](BOM_SEC2) |
+| 2. Carbonator vessel (plan A, 316L) | [$207.08](BOM_SEC2) |
 | 3. Water inlet | [$222.89](BOM_SEC3) |
 | 4. CO2 subsystem | [$112.38](BOM_SEC4) |
 | 5. Refrigeration | [$173.04](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$67.26](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$80.09](BOM_SEC7) |
 | 8. Flavor subsystem | [$207.59](BOM_SEC8) |
 | 9. Dispensing | [$52.15](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
-| 11. Wiring | [$25.35](BOM_SEC11) |
+| 11. Wiring | [$25.99](BOM_SEC11) |
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$8.17](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,309.08](BOM_GRAND)** |
+| **Total** | **[$1,325.25](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

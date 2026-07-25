@@ -27,7 +27,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §1 (
 | RELAYS J5 loom | [`cable-assemblies.md`](/hardware/assembly/cable-assemblies.md) | 4-conductor XH housing at J5; screw-terminal ends at both relay modules (LV-1/2/3). |
 | 16 AWG silicone-insulated appliance wire (black/white/green) | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | AC-1 pigtail stock + the DC-1/2/4 trunk and branches + ground bonds. |
 | 16 AWG stranded hookup wire | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | AC branch stock (AC-2 + AC-3). |
-| Spade crimp terminals + ferrules + ring terminals | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 (B0B9MZJ2ML + B01MZZGAJP) | AC pigtails land in Wago 221 lever blocks via crimp ferrules; the PSU primary and Teyleten contact terminals take crimp forks; the ground bus takes ring terminals; DC-4 lands under the J10 screw clamps via ferrules. |
+| Spade crimp terminals + ferrules + ring terminals | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 (B0B9MZJ2ML spades + Preciva-kit ferrules + B08B5VS8ZR rings) | AC pigtails land in Wago 221 lever blocks via crimp ferrules; the PSU primary and Teyleten contact terminals take crimp forks; the ground bus takes ring terminals; DC-4 lands under the J10 screw clamps via ferrules. |
 | Printed electronics-shelf trays ×2 | [`/hardware/printed-parts/electronics/`](/hardware/printed-parts/electronics/) (pcba-tray, power-tray) | PETG per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7, M3 heat-set inserts (ruthex per §13). |
 | M3 heat-set inserts + M3 × 8 SHCS | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13 | Board + module mounting. |
 

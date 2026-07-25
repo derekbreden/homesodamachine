@@ -66,6 +66,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **Wisscool 1/4" tube straightener** | [B0F6BPTW3T](https://www.amazon.com/dp/B0F6BPTW3T), [purchases.md §6](/hardware/ledger/purchases.md) | Handheld; de-coils 1/4" ACR before bending. | [$26.80](T_STRAIGHTENER) |
 | **Knipex 86 01 180 Pliers Wrench** | [B07YLFLSJW](https://www.amazon.com/dp/B07YLFLSJW), [purchases.md §6](/hardware/ledger/purchases.md) | 7.25" smooth parallel-jaw. Pinch-swages 1/4" ACR coil inlet down onto 0.031" cap tube via progressive 60° rotation collapse. | [$57.06](T_PLIERS_WRENCH) |
 | **Uniweld RHP400 CGA-580 regulator** | [B008HQ6GXO](https://www.amazon.com/dp/B008HQ6GXO), [purchases.md §6](/hardware/ledger/purchases.md) | 1/4" male flare, 0–400 psi delivery. Swaps onto the existing argon cylinder for the brazing-loop purge — no separate nitrogen cylinder needed. | [$96.76](T_RHP400) |
+| **Joywayus 1/4" SAE 45° brass flare nut, 7/16"-20 (5-pk)** | [B0G1XJ2F68](https://www.amazon.com/dp/B0G1XJ2F68), [purchases.md §6](/hardware/ledger/purchases.md) | Joins the RHP400's 1/4" male flare to the flared stub on the donor's process tube for the brazing-loop argon purge, per [`assembly/refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md). | [$8.57](T_FLARE_NUT) |
 
 ## Soldering & electronics bench
 
@@ -122,7 +123,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 
 ## Tools total
 
-Total acquired tooling: **[$14,398.58](TOOLS_TOTAL)**
+Total acquired tooling: **[$14,407.15](TOOLS_TOTAL)**
 
 ## Open items
 

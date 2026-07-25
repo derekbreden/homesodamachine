@@ -19,7 +19,7 @@ Not in scope: routing, strain-relief, and landing into the chassis ([`wiring.md`
 
 ## Stock & tooling
 
-Wire is bulk silicone, 600 V, cut-to-length, all per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11: **22 AWG black** (valve branches, low-power DC, and every signal / reed / sensor run — the workhorse), **16 AWG 5-color** (AC mains + branches + 12 V trunk + green ground). Jacketed runs: the KWANGIL 22 AWG UL2464 black multiconductor (manifold trunks), the BNTECHGO 28 AWG 4-conductor ribbon (faucet umbilical), and the GEARit 18 AWG SJOOW 3-conductor lead (shroud pass-through).
+Wire is bulk silicone, 600 V, cut-to-length, all per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11: **22 AWG black** (the manifold trunks, valve branches, low-power DC, and every signal / reed / sensor run — the workhorse), **16 AWG 5-color** (AC mains + branches + 12 V trunk + green ground). A manifold trunk is a bundle of cut 22 AWG conductors carried in braided sleeve, not a multiconductor cable: the trunk's conductor count is its board connector's, and the sleeve column below sizes the bundle. Jacketed runs are only the two that leave the cabinet or the shroud: the BNTECHGO 28 AWG 4-conductor ribbon (faucet umbilical) and the GEARit 18 AWG SJOOW 3-conductor lead (shroud pass-through).
 
 Terminations: insulated bootlace ferrules (Preciva kit) into the Wago 221 lever nuts + screw terminals; female Faston disconnects (6.3 mm / 4.8 mm) at valves, motors, compressor, and fan; ring terminals to the ground bus + shroud stud; JST-XH housings at the board's labeled wafers — every loom XH, J7 (REEDS B) included. J7 and J4 (SENSORS) share the same 7P housing, so **label both looms at the housing** and dress them to their own edges: a swapped pair would put J4's 3V3/5V on J7's MCP reed inputs. Distribution / fan-out: Wago 221 lever nuts — **221-413** (AC mains H/N/G), **221-415** (≤5-conductor fan-outs, incl. MANIFOLD B COM), **221-420** (the >5-conductor MANIFOLD A COM + reservoir-B reed GND).
 
@@ -38,22 +38,22 @@ For each cable assembly in the schedule below:
 
 ## Assembly schedule
 
-Conductor counts are the board connector pin counts (`pcba.tsx` J1–J11 = {9, 6, 4, 7, 4, 5, 7, 4, 4, 2, 4}, J13 = 4; there is no J12, and J14 is the USB programming port — no loom). The fan-out to the 11 valves (10 manifold + V-K) / many reeds happens **at the device end**, downstream of the connector — so each trunk carries its connector's count, never the fanned-out total.
+Conductor counts are the board connector pin counts (`pcba.tsx` J1–J11 = {[9](J1_PINS), [6](J2_PINS), [4](J3_PINS), [7](J4_PINS), [4](J5_PINS), [5](J6_PINS), [7](J7_PINS), [4](J8_PINS), [4](J9_PINS), [2](J10_PINS), [4](J11_PINS)}, J13 = [4](J13_PINS); there is no J12, and J14 is the USB programming port — no loom). The fan-out to the 11 valves (10 manifold + V-K) / many reeds happens **at the device end**, downstream of the connector — so each trunk carries its connector's count, never the fanned-out total.
 
 | Assembly | Board conn. | Conductors | Wire | Terminations | Sleeve |
 |---|---|---|---|---|---|
-| Manifold A | J1 | 9 (8 OUT + COM) | jacketed KWANGIL | Fastons at 8 valves; COM → **221-420** fan-out at the manifold | 3/4" |
-| Manifold B | J2 | 5 (2 OUT + FAN + COM + OUT3) | jacketed KWANGIL | Fastons at 2 valves + fan; V-K's `OUT3` + a `COM` tap branch off to the aft strip (DC-9); COM → **221-415** | 1/2" |
-| Reservoir A reeds | J6 | 5 (4 reed + GND) | 22 AWG black | reed leads; GND → **221-415** at the reservoir | 1/4" |
-| Reservoir B + carb reeds | J7 | 7 (6 reed + GND) | 22 AWG black | reed leads; female JST-XH housing (XHP-7) + XH contacts — the same 7P housing as SENSORS (J4), so **label both looms at the housing** (a swap would put J4's 3V3/5V on the MCP reed inputs); GND → **221-420** | 1/4" |
-| Sensors | J4 | 7 | 22 AWG black | DS18B20 / flow / moisture (DO + switched VCC); GND → **221-415** near the shelf | 1/4" |
-| Relays | J5 | 4 (`IO19` / `IO2` / `V5` / GND) | 22 AWG black | XH at J5; screw terminals at both relay modules, `V5`/GND teed to both at the relay end (LV-1/2/3 — lands on-shelf at [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md)) | 1/4" |
-| Faucet display | J3 / SIG-6 | 4 (TX / RX / 5 V / GND) | 28 AWG ribbon | TTL UART up the umbilical; **the TTL lines are ESD-clamped on the board at U1** (D10/D11, 2× low-cap TVS — see the ESD note below); a faucet-end TVS is now optional | jacketed ribbon |
-| Config display | J9 / SIG-7 | 4 (`B` / `A` / GND / `V12`) | 22 AWG black | A/B pair to the 4.3B's RS485 terminals; `V12` + GND to its 7–36 V screw input on the same loom | 1/2" |
-| Gas sensor | J11 | 4 (GND / `V5` / `DOUT` / `AOUT`) | 22 AWG black | MQ-6 leads | 1/4" |
-| Cap-sense | J8 / SIG-8 | 4 (GND / `3V3` / `SDA` / `SCL`) | 22 AWG black | MPR121 header at the manifold | 1/4" |
-| Pumps | J13 / DC-5 | 4 (`AM2` / `AM1` / `BM2` / `BM1`) | 22 AWG black | female Faston receptacles onto the pump-motor spade tabs | 1/2" |
-| 12 V input | J10 / DC-4 | 2 (`V12` / GND) | 16 AWG | ferrules under the J10 screw clamps; from the shelf's 12 V distribution block (lands on-shelf at [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md)) | — |
+| Manifold A | J1 | [9](J1_PINS) (8 OUT + COM) | 22 AWG black | Fastons at 8 valves; COM → **221-420** fan-out at the manifold | 3/4" |
+| Manifold B | J2 | 5 (2 OUT + FAN + COM + OUT3) | 22 AWG black | Fastons at 2 valves + fan; V-K's `OUT3` + a `COM` tap branch off to the aft strip (DC-9); COM → **221-415** | 1/2" |
+| Reservoir A reeds | J6 | [5](J6_PINS) (4 reed + GND) | 22 AWG black | reed leads; GND → **221-415** at the reservoir | 1/4" |
+| Reservoir B + carb reeds | J7 | [7](J7_PINS) (6 reed + GND) | 22 AWG black | reed leads; female JST-XH housing (XHP-7) + XH contacts — the same 7P housing as SENSORS (J4), so **label both looms at the housing** (a swap would put J4's 3V3/5V on the MCP reed inputs); GND → **221-420** | 1/4" |
+| Sensors | J4 | [7](J4_PINS) | 22 AWG black | DS18B20 / flow / moisture (DO + switched VCC); GND → **221-415** near the shelf | 1/4" |
+| Relays | J5 | [4](J5_PINS) (`IO19` / `IO2` / `V5` / GND) | 22 AWG black | XH at J5; screw terminals at both relay modules, `V5`/GND teed to both at the relay end (LV-1/2/3 — lands on-shelf at [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md)) | 1/4" |
+| Faucet display | J3 / SIG-6 | [4](J3_PINS) (TX / RX / 5 V / GND) | 28 AWG ribbon | TTL UART up the umbilical; **the TTL lines are ESD-clamped on the board at U1** (D10/D11, 2× low-cap TVS — see the ESD note below); a faucet-end TVS is now optional | jacketed ribbon |
+| Config display | J9 / SIG-7 | [4](J9_PINS) (`B` / `A` / GND / `V12`) | 22 AWG black | A/B pair to the 4.3B's RS485 terminals; `V12` + GND to its 7–36 V screw input on the same loom | 1/2" |
+| Gas sensor | J11 | [4](J11_PINS) (GND / `V5` / `DOUT` / `AOUT`) | 22 AWG black | MQ-6 leads | 1/4" |
+| Cap-sense | J8 / SIG-8 | [4](J8_PINS) (GND / `3V3` / `SDA` / `SCL`) | 22 AWG black | MPR121 header at the manifold | 1/4" |
+| Pumps | J13 / DC-5 | [4](J13_PINS) (`AM2` / `AM1` / `BM2` / `BM1`) | 22 AWG black | female Faston receptacles onto the pump-motor spade tabs | 1/2" |
+| 12 V input | J10 / DC-4 | [2](J10_PINS) (`V12` / GND) | 16 AWG | ferrules under the J10 screw clamps; from the shelf's 12 V distribution block (lands on-shelf at [`electronics-shelf.md`](/hardware/assembly/electronics-shelf.md)) | — |
 | AC mains | AC-1…6 | per run | 16 AWG (black/white/green) + 18 AWG SJOOW | ferrules → **221-413**; Fastons at compressor; rings to ground | SJOOW jacket on the shroud lead |
 
 ## Faucet-display ESD protection (SIG-6)
@@ -87,9 +87,9 @@ signals are protected.
 
 ## Open items
 
-1. **Manifold trunk cable.** The KWANGIL 22 AWG UL2464 is black and on-hand but 12-conductor (populate to 9 / 4) and unshielded — fine for valve power. Confirm whether to keep it depopulated or source a right-count jacketed cable.
-2. **Shielded reed pairs.** The ~600 mm reed / 1-wire runs pass alongside the switching solenoid trunk; consider shielded twisted pair (foil + drain, single-end grounded) over plain 22 AWG.
-3. **AC mains wire grade.** Confirm the line-voltage runs use a recognized appliance-grade wire (UL1015 / UL1028, 600 V, 105 °C) rather than hobby silicone — the discipline already applied to the SJOOW shroud lead.
-## Sources
+1. **Shielded reed pairs.** The ~600 mm reed / 1-wire runs pass alongside the switching solenoid trunk; consider shielded twisted pair (foil + drain, single-end grounded) over plain 22 AWG.
+2. **AC mains wire grade.** Confirm the line-voltage runs use a recognized appliance-grade wire (UL1015 / UL1028, 600 V, 105 °C) rather than hobby silicone — the discipline already applied to the SJOOW shroud lead.
 
-Run lengths + terminations: [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md). Stock: [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11, tooling [`/hardware/ledger/tools.md`](/hardware/ledger/tools.md). Install: [`/hardware/assembly/wiring.md`](/hardware/assembly/wiring.md).
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/assembly/_cable_assemblies_sync.py`
