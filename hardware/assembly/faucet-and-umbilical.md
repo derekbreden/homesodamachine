@@ -27,7 +27,7 @@ The dispense head is the printed touch-flo-shell's gooseneck channel. The three 
 | SendCutSend 0.060" 316 SS under-counter keyhole plate | `touch-flo-under-counter-plate.dxf` ([`/hardware/cut-parts/faucet/touch-flo-under-counter-plate/`](/hardware/cut-parts/faucet/touch-flo-under-counter-plate/)) | Single-piece Ø [54.45 mm](PLATE_D) disc whose hole positions match the TPU mounting gasket exactly — Ø [12.6 mm](SHANK_HOLE_D) shank pocket and a [13.4 mm](PILL_L) × [7.05 mm](PILL_W) pill pocket (long axis along the plate DXF's Y — the shell's lateral X) at the same XY as the gasket — with two open-edge channels added: a [12.6 mm](SHANK_HOLE_D) wide channel from the shank pocket out to the rim in −Y, and a [7.05 mm](PILL_W) wide channel from the pill pocket out to the rim in −Y. The channels exit the rim at different X positions. The four wall-meets-rim corners are rounded with R [1.5 mm](FILLET_R) fillets. Order qty 1 per appliance. |
 | 1/4" OD LLDPE, blue (carbonated water) | New small-spool SKU, sourcing in flight per [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md) "Umbilical port — tube identification" | Cut to length once; color-coded blue to match the blue-ringed PP1208E bulkhead on the rear panel |
 | 1/4" OD LLDPE, black (flavor lines) × 2 | FWS bulk spool ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §3) | Cut to length once each; bare black, matches the two unmarked PP1208E bulkheads on the rear panel |
-| CARGEN nitrile foam pipe insulation, 1/4" ID × 3/8" wall, 1-ft segments | B0D2XFK337 ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §9) | **Cold tube only.** Foam ships as 1-ft segments and is installed segment-at-a-time. Segment count per umbilical TBD pending cabinet-routing-length spec |
+| CARGEN nitrile foam pipe insulation, 1/4" ID × 3/8" wall, 1-ft segments | B0D2XFK337 ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §9) | **Cold tube only.** Foam ships as 1-ft segments and is installed segment-at-a-time. Five segments per umbilical, covering 1425 mm of the blue tube |
 | Cable sleeve (braided polyester or spiral wrap) | TBD per [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md) "Umbilical bundle construction" | Single sleeve over all three tubes + the signal cable from just above the under-counter plate down to ~3" above the rear-panel bulkheads |
 | Umbilical signal cable (BNTECHGO 28 AWG 4-conductor ribbon) | B07PNPHWMG ([`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §9) | Single run from the gooseneck faucet display down to the electronics shelf, carrying SIG-6 (faucet display: TX / RX / 5 V / GND). |
 | 2× low-capacitance ESD TVS (ESD9B3.3-class / PESD3V3-class, SOD-923) — **optional** | onsemi ESD9B3.3ST5G or Nexperia PESD3V3L1BA (≤ 15 pF, 3.3 V, bidirectional) | **Optional** faucet-end ESD clamp (defense-in-depth only). The primary faucet-UART clamp is now on the board (D10/D11 at U1), so a cable-end TVS is **not required** — fit only if a builder wants a second clamp at the user-touch source (see the ESD note below). |
@@ -63,7 +63,27 @@ Full spec and part rationale: [`/hardware/assembly/cable-assemblies.md`](/hardwa
 
 ### 1. Cut the three LLDPE tubes to length
 
-Cut all three tubes — 1× blue carbonated-water + 2× black flavor — to the umbilical's design length (TBD pending cabinet-routing-length spec; see Open items). One cut per tube with the Mudder cutter, square-end, no burr. All three tubes are the same length: the umbilical bundles them together inside one sleeve and they terminate at the same end face.
+Cut to **two** lengths: **2× black flavor at 1900 mm** and **1× blue carbonated-water at 1540 mm**. One cut per tube with the Mudder cutter, square-end, no burr.
+
+The two differ by 362 mm because the tubes terminate at different heights inside the faucet. The flavor tubes run up the gooseneck's dispense channel to the printed tip — 311.74 mm of centreline above the mounting plate, plus the 4 mm plate, the 2 mm TPU gasket and the countertop slab — while the blue tube lands on the Westbrass body's upstream compression port at the bottom of the shank, 44 mm *below* the countertop's top surface. That 362 mm is set by the faucet's own CAD and does not move with the kitchen. Cut to these two numbers and all three tails land flush at the rear-panel end: a blue tube that does not reach the bundle end is a mis-cut, visible before it is sleeved.
+
+The design length sums a measured half and an assumed half:
+
+| Term | mm | Basis |
+|---|---:|---|
+| Drop, countertop underside → appliance top plane | 418 | 34.5" carcass − 4" toe kick − 3/4" deck = 755.7 mm interior clear, less the enclosure height |
+| Down the rear face to the flavor-bulkhead axis | 42 | CAD |
+| Turn-in at the panel — lead + 90° at R12 + collet | 60 | CAD; the collet stands 9.5 mm proud of the rear wall |
+| Horizontal inside the cabinet, faucet hole → drop line | 380 | 36" sink base: faucet on the sink centreline, appliance at one end |
+| Service loop — the appliance comes forward to reach its own rear panel | 300 | pull-forward to put the rear panel at the cabinet face |
+| **Below-counter subtotal** | **1200** | |
+| Countertop slab | 30 | 3 cm stone (range 19–38) |
+| TPU gasket + mounting plate | 6 | CAD |
+| Gooseneck centreline, shell foot → printed tip | 312 | CAD |
+| **Flavor tube, nominal installed** | **1548** | |
+| **Blue tube, nominal installed** | **1186** | its top end sits 14 mm below the countertop underside |
+
+**Installer-trim allowance: 350 mm per tube**, held separately from the sum — 8 mm for a slab up to 38 mm, 25 mm for cabinet-height variance, 300 mm for an appliance at the far end of the sink base rather than the near end, 20 mm for two square cuts. Factory cut = nominal + allowance.
 
 The installer makes a *second* cut on each tube at field install — trimming the rear-panel end to fit the customer's actual cabinet depth before pushing each tube into its PP1208E bulkhead. The factory length is sized long with that installer-trim allowance baked in; do not cut tight here.
 
@@ -82,7 +102,7 @@ Per [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed
 
 Slide CARGEN 1-ft segments onto the blue tube end-to-end. The segments are sized as a snug interference fit over 1/4" OD LLDPE; lubricate with a wipe of water if friction is high (no solvents — nitrile is solvent-sensitive). Butt the segments together along the run with no gap; the braided sleeve installed in step 4 holds the butts compressed.
 
-Segment count for the standard build is **TBD pending cabinet-routing-length spec** (see Open items). The 1-ft granularity is sized so the installer at field install can pull off whole segments to shorten the foamed run to actual cabinet length.
+Segment count for the standard build is **five**, covering 1425 mm of the blue tube's 1540 mm — bare 40 mm at the compression end and the last 75 mm at the panel. A nominal kitchen keeps four; the installer pulls one whole segment off with the trim, which is what the 1-ft granularity buys. Foam OD is 25.4 mm — it does not pass the countertop hole and does not need to, since the blue tube is entirely below the counter.
 
 ### 4. Sleeve the three tubes + signal cable into one bundle
 
@@ -122,8 +142,8 @@ A bagged sub-assembly that is:
 
 Procedure-level gaps that need answers before unit 1 ships:
 
-1. **Umbilical design length.** Cabinet-routing length depends on countertop thickness, faucet-to-back-of-cabinet horizontal offset, and rear-panel position inside the enclosure. Three numbers are unresolved and the umbilical length sums them all. Once spec'd, this also fixes the CARGEN foam segment count for step 3.
-2. **Cable sleeve selection.** Braided polyester vs spiral wrap, per [`/hardware/printed-parts/enclosure/back-panel/README.md`](/hardware/printed-parts/enclosure/back-panel/README.md). The cleaner one for the customer-visible sleeve segment between countertop and rear-panel cluster is whichever installs with the bundle and the signal cable already inside; spiral wrap allows post-bundle install (wrapping around an assembled bundle), braided requires pre-thread.
+1. ~~**Umbilical design length.**~~ **CLOSED.** Factory cut is **1900 mm** per black flavor tube and **1540 mm** for the blue, each carrying a **350 mm** installer-trim allowance; the stack-up and the basis of every term are in §1. The CARGEN segment count falls out at five. One real install settles the four assumed terms — tape-measure the sink base, set the appliance where it will live, and measure faucet hole → bulkhead with a string.
+2. ~~**Cable sleeve selection.**~~ **CLOSED — spiral wrap, 1" nominal.** Both ends of the bundle are already terminated when step 4 runs, so braid could only be threaded up from the panel end, over five butted foam segments — the one thing the sleeve exists to prevent. Spiral lays on radially over an assembled ~⌀32 mm bundle, unwinds for the SIG-6 break-out at [`wiring.md`](/hardware/assembly/wiring.md), and unwinds again past the installer's trim. ~2.5–3 m per build.
 3. **Blue LLDPE small-spool sourcing.** A small spool of 1/4" OD blue LLDPE is in flight per the back-panel README. SKU + supplier not yet in `bom.md` or `purchases.md`.
 4. **Umbilical cable strain relief through the countertop.** The 1-3/8" countertop hole that takes the faucet shank is sized for the shank + gasket + plate stack; the umbilical signal cable piggybacks through the same hole alongside the tubes. Whether the cable needs a separate grommet, a printed strain-relief collar, or just rides loose through the gasket's pill-slot region is undefined.
 
