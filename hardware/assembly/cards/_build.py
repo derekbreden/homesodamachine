@@ -63,7 +63,21 @@ def build_pdf() -> None:
     from reportlab.lib.utils import ImageReader
     from reportlab.pdfgen import canvas as pdf_canvas
 
-    pngs = sorted(OUT_DIR.glob("*.png"), key=deck_key)
+    # The deck is the set of card HTML files, not whatever PNGs are lying in
+    # out/ — a card deleted from the source keeps its render otherwise, and
+    # prints as a page of a build that no longer exists.
+    authored = {p.stem for p in CARDS_DIR.glob("*.html")}
+    rendered = {p.stem for p in OUT_DIR.glob("*.png")}
+
+    orphans = sorted(rendered - authored)
+    for stem in orphans:
+        print(f"orphan render (no {stem}.html): {OUT_DIR / (stem + '.png')}")
+
+    missing = sorted(authored - rendered)
+    if missing:
+        sys.exit(f"card(s) authored but not rendered: {', '.join(missing)}")
+
+    pngs = sorted((OUT_DIR / f"{s}.png" for s in authored), key=deck_key)
     if not pngs:
         sys.exit("no rendered cards in out/")
 

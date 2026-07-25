@@ -350,13 +350,13 @@ Ice-maker donor units and copper coil for the chill loop.
 | CQRobot JST XH 2.54 mm 7-pin connector kit (50 sets / 450 pcs) — carrier field connector J7 REEDS B; 1/board. Order #112-7067792-6289059, placed Jun 27, 2026 | [B0B2R96VS3](https://www.amazon.com/dp/B0B2R96VS3) | 1 pk | $8.99 | ACQUIRED (delivered Jun 30) |
 | ANGSTROM 2-pin 2.54 mm PCB screw terminal block, 150 V / 6 A (20 pcs) — carrier power inlets J8 (5 V) + J10 (12 V), the board's only screw terminals; 2/board (1 pack = 10 boards). Order #112-7067792-6289059, placed Jun 27, 2026 | [B0FHGXX6SK](https://www.amazon.com/dp/B0FHGXX6SK) | 1 pk (20) | $9.99 | ACQUIRED (delivered Jun 30) |
 | LuoQiuFa 3-pin 5.08 mm pluggable PCB screw terminal (2EDG-5.08, 10 sets) — carrier RS485 line side U7L: header solders to U7L, screw plug wires to the ALMOCN module's stock 5.08 mm terminal; 1/board (1 pack = 10 boards). Order #112-7067792-6289059, placed Jun 27, 2026 | [B093DL8DKC](https://www.amazon.com/dp/B093DL8DKC) | 1 pk (10) | $6.99 | ACQUIRED (delivered Jun 30) |
-| KWANGIL 22AWG 12-Conductor Cable, UL2464, High-Flexible Tinned Copper Unshielded, Matte Black, 25 ft. Order #114-2322598-9184256, placed May 14, 2026 | [B0CSD5QZ21](https://www.amazon.com/dp/B0CSD5QZ21) | 1 | $25.73 | ACQUIRED (delivered May 15) |
+| ~~KWANGIL 22AWG 12-Conductor Cable, UL2464, High-Flexible Tinned Copper Unshielded, Matte Black, 25 ft~~ — superseded; the manifold trunks are cut from the 22 AWG black spool and sleeved ([inventory.md](/hardware/ledger/inventory.md) "Abandoned"). Order #114-2322598-9184256, placed May 14, 2026 | [B0CSD5QZ21](https://www.amazon.com/dp/B0CSD5QZ21) | 1 | $25.73 | ACQUIRED (delivered May 15) |
 | BNTECHGO 28 AWG silicone ribbon cable, 4-conductor flat, black, 50 ft — faucet display harness (5 V / GND / TX / RX) through the faucet shell to the under-counter base. Order #112-9860351-3650618, placed Jun 10, 2026 | [B07PNPHWMG](https://www.amazon.com/dp/B07PNPHWMG) | 1 (50 ft) | $21.43 | ACQUIRED (delivered Jun 11) |
 | BNTECHGO 16 AWG silicone wire kit, stranded tinned copper, 5 colors (red/black/white/blue/green) × 25 ft each. Order #112-8448573-3185817, placed Jun 22, 2026 | [B06Y557TCL](https://www.amazon.com/dp/B06Y557TCL) | 1 kit (5× 25 ft) | $38.29 | ON-ORDER (arriving Jun 23) |
 | BNTECHGO 18 AWG silicone wire, stranded tinned copper, red 25 ft + black 25 ft. Order #112-8492724-3195462, placed Jun 22, 2026 | [B07HGTKQ89](https://www.amazon.com/dp/B07HGTKQ89) | 1 (2× 25 ft) | $14.99 | ON-ORDER (arriving Jun 23) |
 | HS 6" zip ties, black, 18 lb tensile, nylon PA66 UV-resistant, 100-pack — harness/cable management. Order #112-7522816-0777851, placed Jun 22, 2026 | [B0DR8KSVQD](https://www.amazon.com/dp/B0DR8KSVQD) | 1 pk (100) | $6.42 | ON-ORDER (arriving Jun 24) |
 | BNTECHGO 22 AWG silicone wire, 250 ft black single-color spool — bulk all-black hookup, cut-to-length at build for the valve branches + low-power DC + signal fan-outs (the cut-to-length workhorse, replaces the pre-crimped pigtails for length-specific runs). Order #112-4343274-7898624, placed June 28, 2026 | [B06Y2PNW41](https://www.amazon.com/dp/B06Y2PNW41) | 1 (250 ft) | $27.86 | ON-ORDER (arriving ~Jun 30) |
-| BNTECHGO 24 AWG silicone wire, 100 ft black single-color spool — bulk all-black hookup for the reed + sensor runs (SIG-1/2/3/4/8/9). Order #112-7185180-0909846, placed June 28, 2026 | [B01K4TLR1W](https://www.amazon.com/dp/B01K4TLR1W) | 1 (100 ft) | $13.38 | ON-ORDER (arriving ~Jun 30) |
+| ~~BNTECHGO 24 AWG silicone wire, 100 ft black single-color spool~~ — superseded; the reed + sensor runs are cut from the same 22 AWG black spool as every other low-voltage run ([inventory.md](/hardware/ledger/inventory.md) "Abandoned"). Order #112-7185180-0909846, placed June 28, 2026 | [B01K4TLR1W](https://www.amazon.com/dp/B01K4TLR1W) | 1 (100 ft) | $13.38 | ON-ORDER (arriving ~Jun 30) |
 | Alex Tech 1/2" black PET expandable braided sleeve, 100 ft — primary harness bundling (replaces spiral wrap). Order #112-6043616-7501828, placed June 28, 2026 | [B074GMNW7T](https://www.amazon.com/dp/B074GMNW7T) | 1 (100 ft) | $17.15 | ON-ORDER (arriving ~Jun 30) |
 | Alex Tech 3/4" black PET expandable braided sleeve, 100 ft — harness bundling, large trunks (manifold cable). Order #112-9748313-5465028, placed June 28, 2026 | [B074GMCGZX](https://www.amazon.com/dp/B074GMCGZX) | 1 (100 ft) | $22.51 | ON-ORDER (arriving ~Jun 30) |
 | Alex Tech 1/4" black PET expandable braided sleeve, 25 ft — harness bundling, thin runs. Order #112-1902778-9631456, placed June 28, 2026 | [B071JH14WZ](https://www.amazon.com/dp/B071JH14WZ) | 1 (25 ft) | $8.57 | ON-ORDER (arriving ~Jun 30) |
@@ -588,13 +588,13 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$27,226.23](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$27,303.73](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$29,834.15](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$1,089.58](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$29,911.65](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$2,363.06](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$30,966.62](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$32,317.60](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -608,7 +608,7 @@ ACQUIRED hardware by section:
 | 6 | Refrigeration | [$1,882.74](LEDGER_SEC6) |
 | 7 | Dispensing end | [$237.65](LEDGER_SEC7) |
 | 8 | Electronics — controllers | [$208.03](LEDGER_SEC8) |
-| 9 | Electronics — I/O, drivers, sensors, power | [$876.17](LEDGER_SEC9) |
+| 9 | Electronics — I/O, drivers, sensors, power | [$953.67](LEDGER_SEC9) |
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$124.48](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$372.51](LEDGER_SEC12) |
