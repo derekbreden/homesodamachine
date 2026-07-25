@@ -57,6 +57,7 @@ from _compressor_shroud_dimensions import (  # noqa: E402
 # ─── Procedure-only constants ───────────────────────────────────────────
 
 cabinet_slack_mm = 200       # umbilical-end ground-bond slack at cabinet side
+vk_run_len_mm = 500          # DC-9, J2 trunk to V-K on the aft strip (schedule literal)
 
 # Donor-compressor nameplate winding-resistance reference range for the
 # dielectric / continuity check.
@@ -92,6 +93,7 @@ def main():
         "PULLUP_R": f"{_sched_ds18b20_pullup_kohm:.4g} kΩ",
         # Procedure-only (local).
         "CABINET_SLACK": f"{cabinet_slack_mm:.4g} mm",
+        "VK_RUN_LEN": f"~{vk_run_len_mm:.4g} mm",
         "WINDING_R_LOW": f"{winding_r_low_ohm:.4g}",
         "WINDING_R_HIGH": f"{winding_r_high_ohm:.4g} Ω",
         # Shroud-side imports.
@@ -125,6 +127,7 @@ def main():
             "SIG_DISPLAY_LEN": 1,
             "FAN_RUN_LEN": 1,
             "CABINET_SLACK": 1,
+            "VK_RUN_LEN": 1,
             "PULLUP_R": 1,
             "WINDING_R_LOW": 1,
             "WINDING_R_HIGH": 1,

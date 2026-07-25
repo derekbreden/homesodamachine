@@ -1,6 +1,6 @@
 # Acceptance and Burn-In
 
-The production procedure for the bench acceptance test and multi-hour burn-in on a finished, commissioned appliance — the last sign-off step before the unit moves to [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md). Inputs are a chassis that has come out of [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) with sensors healthy and setpoints loaded; outputs are a per-serial test log and a unit cleared to ship.
+The production procedure for the bench acceptance test and multi-hour burn-in on a finished, commissioned appliance — the last sign-off step before the unit moves to [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md), and the bench that empties it for transit. Inputs are a chassis that has come out of [`firmware-and-commissioning.md`](/hardware/assembly/firmware-and-commissioning.md) with sensors healthy and setpoints loaded; outputs are a per-serial test log and a unit cleared to ship.
 
 This is the first time the carbonator vessel sees water in service. The vessel was hydro-tested empty during [`pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) and integrated dry through [`cold-core.md`](/hardware/assembly/cold-core.md) and [`refrigerant-loop.md`](/hardware/assembly/refrigerant-loop.md); first water-fill is here. CO2 supply is first energized here against a wet vessel. The bench test rig stands in for customer-side plumbing — the appliance sees nothing different from what it will see at install.
 
@@ -136,7 +136,15 @@ Every metered dispense during the burn-in is logged to the per-serial test file:
 
 At burn-in end, retrieve the per-serial JSON or CSV file at the bench-acceptance UI's "log download" command. File contains every metered reading from steps 3 through 11. Verify the file is non-empty, the serial number in the file matches the nameplate-pending serial on the chassis, and every step in the procedure has a corresponding log entry.
 
-File is archived to the per-serial path (placeholder `logs/<serial>/acceptance.json` — see Open items for the final committed path). On archive success the unit moves to [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md).
+File is archived to the per-serial path (placeholder `logs/<serial>/acceptance.json` — see Open items for the final committed path). On archive success the unit moves to step 13.
+
+### 13. Drain + air-purge for transit
+
+The burn-in at step 11 refilled the carbonator and both reservoirs, so the unit is wet at the end of the test sequence and has to be emptied before it ships. This is the step [`finish-pack-ship.md`](/hardware/assembly/finish-pack-ship.md) verifies; nothing downstream of here can correct a wet unit.
+
+Close the bench rig's water-side valve and leave the CO2 supply connected — the residual head is what pushes the carbonator out. Drain the carbonator through the dispense path into the bench catch until it runs dry and the low reed sits asserted. Then run the air-purge cycle from step 9 again on both channels, funnel dry and open to air, so each reservoir empties through its nozzle and the reservoir reeds walk down to empty. Close the CO2 supply, crack the faucet to bleed the appliance side to atmosphere, and disconnect both rig lines.
+
+Confirm before releasing the unit: no water audible on a gentle tilt, both reservoir sumps dry, and a cracked faucet on the de-pressurized appliance discharges nothing. A unit that still holds liquid repeats this step — it does not move to the finish bench wet.
 
 ## Output condition
 
@@ -153,6 +161,7 @@ A unit that has passed acceptance and burn-in:
 - All 10 reeds (carbonator 2 + reservoirs 8) observed transitioning during the test sequence
 - ≥ [8-hour](BURN_IN_HOURS_DASH) burn-in with ≥ [6 metered dispenses](BURN_IN_MIN_DISP), no nuisance freeze trips, no leaks, no MQ-6 trips, no backflow-vent telltale events, compressor duty cycle in the [10–70 %](DUTY_BAND) band
 - Per-serial test log archived
+- Carbonator and both flavor reservoirs drained and air-purged dry for transit, both rig lines disconnected, appliance side bled to atmosphere
 
 ## Open items
 

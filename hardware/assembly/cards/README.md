@@ -26,8 +26,13 @@ tools/cad-venv/bin/python hardware/assembly/cards/_build.py
 
 ## The deck
 
-Codes follow the build order of [`/hardware/future.md`](/hardware/future.md)
-"Build order". Per-subsystem accent colors are defined in `STYLE.md`.
+Subsystems print in the build order of [`/hardware/future.md`](/hardware/future.md)
+"Build order" — the procedure docs' dependency chain, held in one place as
+`SUBSYSTEM_ORDER` in [`_build.py`](_build.py). A card's number is its position
+*within* its subsystem, not in the deck, so the three bench subsystems (CA, ES,
+FU) can be built whenever before the chassis needs them. Where one subsystem's
+first card depends on another's last, the card says so by code. Per-subsystem
+accent colors are defined in `STYLE.md`.
 
 ### PV — Pressure vessel ([pressure-vessel.md](/hardware/assembly/pressure-vessel.md))
 
@@ -81,17 +86,6 @@ Codes follow the build order of [`/hardware/future.md`](/hardware/future.md)
 | RL-07 | Mass-metered recharge |
 | RL-08 | First run-up + leak check |
 
-### IP — Internal plumbing ([internal-plumbing.md](/hardware/assembly/internal-plumbing.md))
-
-| Card | Operation |
-|---|---|
-| IP-01 | CO2 path — front panel to cold core |
-| IP-02 | Water path — rear panel to cold core |
-| IP-03 | Flavor manifold — valves and tees |
-| IP-04 | Flavor manifold — pumps and channels |
-| IP-05 | Risers to the umbilical bulkheads |
-| IP-06 | Witness and tidy every joint |
-
 ### CA — Cable assemblies ([cable-assemblies.md](/hardware/assembly/cable-assemblies.md))
 
 | Card | Operation |
@@ -111,16 +105,15 @@ Codes follow the build order of [`/hardware/future.md`](/hardware/future.md)
 | ES-06 | Land the RELAYS J5 loom |
 | ES-07 | Pre-power continuity + isolation check |
 
-### WR — Wiring ([wiring.md](/hardware/assembly/wiring.md))
+### FU — Faucet + umbilical ([faucet-and-umbilical.md](/hardware/assembly/faucet-and-umbilical.md))
 
 | Card | Operation |
 |---|---|
-| WR-01 | Chassis-ground bonds |
-| WR-02 | AC mains — C14 to compressor + PSU |
-| WR-03 | Dielectric + continuity check, AC side |
-| WR-04 | Cabinet 12 V runs |
-| WR-05 | Signal looms |
-| WR-06 | Bundle, route, strain-relieve |
+| FU-01 | Cut the three LLDPE tubes |
+| FU-02 | Route the tubes through the shell |
+| FU-03 | Foam the carbonated-water tube |
+| FU-04 | Sleeve the bundle |
+| FU-05 | Bag with the installer kit |
 
 ### EN — Enclosure mechanical ([enclosure-mechanical.md](/hardware/assembly/enclosure-mechanical.md))
 
@@ -135,15 +128,27 @@ Codes follow the build order of [`/hardware/future.md`](/hardware/future.md)
 | EN-07 | Mount the populated back panel |
 | EN-08 | Seat the electronics shelf |
 
-### FU — Faucet + umbilical ([faucet-and-umbilical.md](/hardware/assembly/faucet-and-umbilical.md))
+### IP — Internal plumbing ([internal-plumbing.md](/hardware/assembly/internal-plumbing.md))
 
 | Card | Operation |
 |---|---|
-| FU-01 | Cut the three LLDPE tubes |
-| FU-02 | Route the tubes through the shell |
-| FU-03 | Foam the carbonated-water tube |
-| FU-04 | Sleeve the bundle |
-| FU-05 | Bag with the installer kit |
+| IP-01 | CO2 path — front panel to cold core |
+| IP-02 | Water path — rear panel to cold core |
+| IP-03 | Flavor manifold — valves and tees |
+| IP-04 | Flavor manifold — pumps and channels |
+| IP-05 | Risers to the umbilical bulkheads |
+| IP-06 | Witness and tidy every joint |
+
+### WR — Wiring ([wiring.md](/hardware/assembly/wiring.md))
+
+| Card | Operation |
+|---|---|
+| WR-01 | Chassis-ground bonds |
+| WR-02 | AC mains — C14 to compressor + PSU |
+| WR-03 | Dielectric + continuity check, AC side |
+| WR-04 | Cabinet 12 V runs |
+| WR-05 | Signal looms |
+| WR-06 | Bundle, route, strain-relieve |
 
 ### FC — Firmware + commissioning ([firmware-and-commissioning.md](/hardware/assembly/firmware-and-commissioning.md))
 
@@ -165,6 +170,7 @@ Codes follow the build order of [`/hardware/future.md`](/hardware/future.md)
 | AB-04 | Clean cycle + air purge |
 | AB-05 | Level-sensing transitions |
 | AB-06 | Burn-in + per-serial log |
+| AB-07 | Drain + air-purge for transit |
 
 ### FS — Finish, pack, ship ([finish-pack-ship.md](/hardware/assembly/finish-pack-ship.md))
 

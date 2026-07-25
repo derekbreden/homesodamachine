@@ -52,7 +52,7 @@ Failures at this step: cosmetic blemishes are repaired in place where possible (
 
 ### 2. Confirm system fluid-drain dry
 
-The appliance ships **DRY**. Carbonator vessel and both flavor reservoirs are emptied at the tail of [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) via the air-purge sequence defined in [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) "Air Purge In/Out" — pump air through each reservoir into the nozzle until the discharge runs dry, with the carbonator drained through the dispense path under residual CO2 pressure first.
+The appliance ships **DRY**. Carbonator vessel and both flavor reservoirs are emptied at [`acceptance-and-burn-in.md`](/hardware/assembly/acceptance-and-burn-in.md) step 13, after the burn-in refill defined in [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md) "Air Purge In/Out" — pump air through each reservoir into the nozzle until the discharge runs dry, with the carbonator drained through the dispense path under residual CO2 pressure first.
 
 Carton-weight references: ~[20 kg](SLOSH_CARTON_W) full carton; emptied reservoirs save ~[~1.5 kg](WATER_DRAINED) water + ~[~1 kg](FLAVOR_DRAINED) flavor.
 
