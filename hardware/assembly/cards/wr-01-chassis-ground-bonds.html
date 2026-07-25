@@ -33,16 +33,14 @@
       <li><b>Compressor shroud</b> — ring at the &#8960;
         <span class="dim">~6 mm</span> earth-bond hole beside the AC
         pass-through — run AC-6.</li>
-      <li><b>Faucet SS plate — do not land.</b> No bolt on it, and it
-        ships loose. Stage the wire flagged (wiring.md open 4).</li>
-      <li><b>Meter:</b> ohms-low between every bonded surface and the
-        bus.</li>
+      <li><b>Faucet SS plate — do not land.</b> No bolt; it ships
+        loose. Stage the wire flagged (wiring.md open 4).</li>
+      <li><b>Meter:</b> ohms-low, every surface to the bus.</li>
     </ol>
 
     <div class="tools">
       <span class="lbl">Tools</span>
-      plumbed chassis from IP-06 · ring/fork crimper · 16 AWG green ·
-      multimeter
+      chassis from IP-06 · ring/fork crimper · 16 AWG green · multimeter
     </div>
   </div>
 
@@ -75,7 +73,7 @@
         <text class="sub" x="195" y="542" text-anchor="middle">top-cap SHCS &#183; SIG-1 path</text>
         <rect class="blk" x="410" y="480" width="310" height="76" rx="10"/>
         <text class="lbl" x="565" y="512" text-anchor="middle">COMPRESSOR BODY</text>
-        <text class="sub" x="565" y="542" text-anchor="middle">M3 foot screw &#183; above the bushing</text>
+        <text class="sub" x="565" y="542" text-anchor="middle">M3 foot screw &#183; on the bushing</text>
         <rect class="blk" x="40" y="576" width="310" height="76" rx="10"/>
         <text class="lbl" x="195" y="608" text-anchor="middle">SHROUD &#183; AC-6</text>
         <text class="sub" x="195" y="638" text-anchor="middle">&#8960;~6 mm earth-bond hole</text>
@@ -85,8 +83,10 @@
         <!-- bonds -->
         <path class="gnd" d="M 195 480 L 195 430 L 320 430 L 320 350"/>
         <path class="gnd" d="M 565 480 L 565 430 L 440 430 L 440 350"/>
-        <path class="gnd" d="M 100 576 L 100 400 L 280 400 L 280 350"/>
-        <path class="gndd" d="M 660 576 L 660 400 L 480 400 L 480 350"/>
+        <!-- The lower two runs pass the upper row on the outside: straight up
+             would draw the bond through the box above it and its label. -->
+        <path class="gnd" d="M 100 576 L 100 566 L 20 566 L 20 400 L 280 400 L 280 350"/>
+        <path class="gndd" d="M 660 576 L 660 566 L 740 566 L 740 400 L 480 400 L 480 350"/>
         <text class="sub" x="590" y="290">16 AWG green</text>
         <text class="sub" x="590" y="320">ring @ bus end</text>
       </svg>
