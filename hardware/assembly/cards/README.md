@@ -24,6 +24,17 @@ procedure step — when a procedure changes, its cards rebuild.
 tools/cad-venv/bin/python hardware/assembly/cards/_build.py
 ```
 
+A part named on a card resolves to a line in [`bom.md`](/hardware/ledger/bom.md)
+or [`tools.md`](/hardware/ledger/tools.md) — the two ledgers a build draws on.
+`purchases.md` and `inventory.md` record what was bought, which is a different
+question. [`check_ledger.py`](/hardware/scripts/check_ledger.py) reads every card
+and procedure against all four and reports the names that resolve to history
+only, plus any procedure without a doc-sync driver:
+
+```
+tools/cad-venv/bin/python hardware/scripts/check_ledger.py
+```
+
 ## The deck
 
 Subsystems print in the build order of [`/hardware/future.md`](/hardware/future.md)
