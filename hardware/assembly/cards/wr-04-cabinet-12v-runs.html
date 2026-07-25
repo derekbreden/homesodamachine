@@ -15,23 +15,24 @@
 
 <main>
   <div class="col" style="flex:1">
-    <p class="lede">The shelf 12 V is done (ES-05); five runs leave it, in
+    <p class="lede">The shelf 12 V is done (ES-05); six runs leave it, in
     schedule order — <strong>all-black wire</strong>, color is for
     mains.</p>
 
     <ol class="steps">
       <li><b>DC-3</b> — the staged relay #2 pigtail to the SeaFlo pump;
-        female disconnects on the leads. Peaks
-        <span class="dim">~5 A</span>.</li>
-      <li><b>DC-5</b> — seat the J13 loom; motor pairs land on the Kamoer
-        spade tabs — the tool-free field swap.</li>
+        female disconnects. Peaks <span class="dim">~5 A</span>.</li>
+      <li><b>DC-5</b> — seat the J13 loom; motor pairs onto the Kamoer
+        spade tabs.</li>
       <li><b>DC-6</b> — the 9-conductor J1 trunk (8 OUT + COM): OUTs to
-        valve disconnects; COM into the 221-420 that fans 12 V to every
-        valve.</li>
-      <li><b>DC-7</b> — the J2 trunk, 4 of 6 ways live (2 OUT + FAN +
-        COM), COM into a 221-415; OUT3/OUT4 stay spare.</li>
+        valve disconnects, COM into the 221-420.</li>
+      <li><b>DC-7</b> — the J2 trunk, <b>5 of 6 ways live</b> (2 OUT +
+        FAN + COM + OUT3); <b>OUT4 alone</b> is spare.</li>
       <li><b>DC-8</b> — fan + ties to the manifold COM fan-out; FAN sinks
-        the &#8722; on-board. Fastons at the fan.</li>
+        the &#8722; on-board.</li>
+      <li><b>DC-9</b> — OUT3 + a COM tap branch off at the manifold,
+        <span class="dim">~500 mm</span> on to <b>V-K</b> at the water
+        bulkhead.</li>
     </ol>
 
     <div class="tools">
@@ -82,23 +83,28 @@
         <rect class="blk" x="480" y="480" width="250" height="104" rx="10"/>
         <text class="lbl" x="605" y="518" text-anchor="middle">MANIFOLD B</text>
         <text class="sub" x="605" y="546" text-anchor="middle">2 valves &#183; 221-415 COM</text>
-        <text class="sub" x="605" y="574" text-anchor="middle">OUT3/OUT4 spare</text>
-        <!-- DC-8 branch -->
-        <line class="wire" x1="605" y1="584" x2="605" y2="628"/>
-        <rect class="blk" x="480" y="628" width="250" height="46" rx="10"/>
-        <text class="lbl" x="605" y="660" text-anchor="middle">CONDENSER FAN</text>
-        <text class="runid" x="590" y="616" text-anchor="end">DC-8 &#183; ~400 mm</text>
+        <text class="sub" x="605" y="574" text-anchor="middle">OUT4 spare</text>
+        <!-- DC-8 + DC-9 both branch off the J2 trunk at the manifold -->
+        <path class="wire" d="M 520 584 V 596 H 350 V 608"/>
+        <path class="wire" d="M 660 584 V 596 H 630 V 608"/>
+        <rect class="blk" x="225" y="608" width="250" height="66" rx="10"/>
+        <text class="lbl" x="350" y="638" text-anchor="middle">CONDENSER FAN</text>
+        <text class="runid" x="350" y="664" text-anchor="middle">DC-8 &#183; ~400 mm</text>
+        <rect class="blk" x="505" y="608" width="250" height="66" rx="10"/>
+        <text class="lbl" x="630" y="638" text-anchor="middle">V-K FILL VALVE</text>
+        <text class="runid" x="630" y="664" text-anchor="middle">DC-9 &#183; ~500 mm</text>
       </svg>
       <div class="cap"><b>Low-side switching</b> — COM carries the shared
       12 V; each load's &#8722; returns on its OUT conductor to the
-      on-board driver. The fan rides the J2 trunk's FAN way (~0.35 A).</div>
+      on-board driver. Fan and V-K both branch off the J2 trunk at the
+      manifold.</div>
     </div>
   </div>
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Done when</span>Five runs landed — the 12 V path is contiguous from PSU output to every load, the fan on its low-side DC-8 branch.</div>
-  <div class="src">wiring.md &#167;4 &#183; ac-wiring-schedule.md "12 V distribution"<br>rev 2026-07-23</div>
+  <div class="done"><span class="lbl">Done when</span>Six runs landed — 12 V contiguous from PSU output to every load, fan and V-K on their J2 branches.</div>
+  <div class="src">wiring.md &#167;4 &#183; ac-wiring-schedule.md "12 V distribution"<br>rev 2026-07-24</div>
 </footer>
 
 </div>

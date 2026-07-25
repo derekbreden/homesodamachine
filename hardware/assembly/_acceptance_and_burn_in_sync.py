@@ -19,6 +19,10 @@ sys.path.insert(
 from _front_panel_dimensions import secondary_regulator_pressure_psi
 from docgen import substitute_md
 
+# The refill pump's relay gate is a firmware pin assignment — take it from the
+# driver that owns it rather than restating the number here.
+from _firmware_and_commissioning_sync import gpio_relay2 as _fc_gpio_relay2
+
 
 # ─── Firmware setpoints loaded at commissioning ────────────────────────
 carbonator_wall_setpoint_c = 2          # carbonator wall service temperature
@@ -89,6 +93,7 @@ duty_cycle_high_pct = 70                # upper-bound of acceptable duty-cycle b
 def main():
     variables = {
         # Firmware setpoints — § "Scope" In: row.
+        "GPIO_RELAY2": f"GPIO {_fc_gpio_relay2:d}",
         "WALL_SETPOINT": f"{carbonator_wall_setpoint_c:.4g} °C",
         "WALL_BAND": f"± {carbonator_wall_band_c:.4g} °C",
         "FREEZE_CUTOUT": f"−{abs(evap_coil_freeze_cutout_c):.4g} °C",
@@ -155,6 +160,7 @@ def main():
         _here / "acceptance-and-burn-in.md",
         variables=variables,
         expected_counts={
+            "GPIO_RELAY2": 1,
             "WALL_SETPOINT": 4,
             "WALL_BAND": 2,
             "FREEZE_CUTOUT": 3,
