@@ -6,14 +6,14 @@ is emptied on service.
 
 Two printed parts:
 
-  * the BASIN — an open-top rounded-corner box, [100](PAN_LEN) x [52](PAN_DEPTH)
-    outer x [14](PAN_HEIGHT) tall, [2.5](PAN_WALL) mm walls on a [3](PAN_FLOOR)
+  * the BASIN — an open-top rounded-corner box, [64](PAN_LEN) x [76](PAN_DEPTH)
+    outer x [15](PAN_HEIGHT) tall, [2.5](PAN_WALL) mm walls on a [3](PAN_FLOOR)
     mm floor, floor-to-wall coved. The floor slab runs out past the walls on
     both ±X faces as a SLIDE FLANGE, so the basin is carried from underneath at
     its own floor plane and nothing stands proud inside it.
   * the RAILS — a mirrored pair of L-sections, taped to the foam-cap top with
     VHB, whose shelves are what the flanges ride. They hold the basin
-    [18.7](PAN_LIFT) mm clear of the cap, and they run fore-and-aft, so the
+    [17.7](PAN_LIFT) mm clear of the cap, and they run fore-and-aft, so the
     basin travels in +Y — out the back of the cabinet — rather than lifting.
 
 The chain hangs at a fixed height over a fixed cap, and the basin stands in the
@@ -41,12 +41,15 @@ sys.path.insert(0, str(next(p for p in _here.parents
 from _cadq_export import export_step
 from docgen import substitute_md, substitute_py_comments
 
-# [100](PAN_LEN) long so the moisture plate lies flat down its length.
-# [52](PAN_DEPTH) deep is the aft strip spent: the run between the SeaFlo's back
-# face and the foam cap's rear edge, less a standoff off the pump — the pack's
-# placement rules hold both of those clearances. [14](PAN_HEIGHT) tall is what
-# `VENT_GAP` and `RAIL_LIFT` leave of the vent's column.
-PAN_X, PAN_Y, PAN_Z = 100.0, 52.0, 14.0
+# The basin is narrow across the strip and deep down it. X is the aft strip's
+# contested axis — the controller board stands in the same strip, west of the
+# basin, and every millimetre the basin gives back in X is a millimetre of the
+# board's connector lanes. Y is the axis with room to spare: the run between the
+# SeaFlo's back face and the foam cap's rear edge is deeper than the basin needs.
+# So [64](PAN_LEN) across and [76](PAN_DEPTH) down, and the moisture plate lies
+# with its long edge down the depth. [15](PAN_HEIGHT) tall is what `VENT_GAP` and
+# `RAIL_LIFT` leave of the vent's column.
+PAN_X, PAN_Y, PAN_Z = 64.0, 76.0, 15.0
 WALL, FLOOR = 2.5, 3.0
 CORNER_R = 6.0        # outer vertical-corner radius
 # Floor-to-wall fillet — water sheeting + cleanability. It eats the flat floor from
@@ -59,9 +62,9 @@ FLOOR_COVE = 2.0
 FLANGE_W = 0.0
 
 # The Shutao LM393 module's conductivity plate (bom.md §sensors, B0B2W76MB1), lying
-# flat on the basin floor with its long edge down the basin's X. The floor's flat
-# area inside the coves is what it lands on — `check_plate()` is that check, and the
-# basin's Y is sized by it.
+# flat on the basin floor with its long edge down the basin's Y — the withdrawal
+# axis, the one the strip has depth to spare on. The floor's flat area inside the
+# coves is what it lands on; `check_plate()` is that check.
 PLATE_X, PLATE_Y = 55.25, 41.0
 PLATE_SLIP = 1.0      # per side, plate edge to where the cove starts rising
 
@@ -72,9 +75,11 @@ VENT_GAP = 4.0
 # How much more than that the rail may leave, so the rail can be a round printed
 # number under a chain whose underside is a rolled hex corner and irrational.
 VENT_GAP_SLACK = 1.0
-# The rail shelf's height off the cap — the basin's floor plane.
+# The rail shelf's height off the cap — the basin's floor plane. What is left of the
+# vent's column below the rim is split between this open deck, which carries the SIG-9
+# leads and the C14 cordage, and the basin standing on it.
 # `_contents.drip_pan_seat()` measures the gap this leaves and raises outside the band.
-RAIL_LIFT = 18.7
+RAIL_LIFT = 17.7
 
 RAIL_WEB = 3.0        # web thickness, standing outboard of the flange
 RAIL_FIT = 0.3        # per side, flange tip to web inner face
@@ -101,17 +106,20 @@ def flat_floor():
 
 
 def check_plate():
-    """Raises unless the flat floor takes the plate with its slip on every side. A
-    plate wider than the flat rides up on the coves instead of lying down, and the
-    water has to stand that much deeper before it reads."""
+    """Raises unless the flat floor takes the plate with its slip on every side. The
+    plate lies turned — its long edge down the basin's Y — so the width it asks of the
+    basin comes out of the axis the strip has to give. A plate wider than the flat
+    rides up on the coves instead of lying down, and the water has to stand that much
+    deeper before it reads."""
     fx, fy = flat_floor()
-    need_x, need_y = PLATE_X + 2 * PLATE_SLIP, PLATE_Y + 2 * PLATE_SLIP
+    need_x, need_y = PLATE_Y + 2 * PLATE_SLIP, PLATE_X + 2 * PLATE_SLIP
     if fx < need_x or fy < need_y:
         raise ValueError(
             f"drip-pan floor {fx:.2f} x {fy:.2f} flat inside the r{FLOOR_COVE:g} coves; "
-            f"the {PLATE_X:g} x {PLATE_Y:g} plate with {PLATE_SLIP:g} slip a side needs "
-            f"{need_x:.2f} x {need_y:.2f}. Grow PAN_Y, shrink FLOOR_COVE, or move the "
-            f"SeaFlo forward — the strip behind it is what PAN_Y comes out of.")
+            f"the {PLATE_X:g} x {PLATE_Y:g} plate turned down the depth, with "
+            f"{PLATE_SLIP:g} slip a side, needs {need_x:.2f} x {need_y:.2f}. Grow PAN_Y, "
+            f"shrink FLOOR_COVE, or move the SeaFlo forward — the strip behind it is "
+            f"what PAN_Y comes out of.")
 
 
 def build():
