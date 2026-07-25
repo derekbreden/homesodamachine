@@ -245,6 +245,13 @@ back-right, and **every seam edge stays 90°**. Assembled, all four verticals
 read as relieved, each sourced from a different quadrant. The horizontal
 front-to-back arrises — side-wall↔floor and side-wall↔ceiling — are square.
 
+The display facet raises a fifth standing vertical: the shoulder where its
+window ends at the +X edge and the square top-front corner resumes. It runs the
+full build axis like the other four and is relieved with them, at **one wall** —
+the depth of the end-wall gusset behind it, which is the only body standing
+there. A deeper round would cut past the gusset into the front wall east of the
+window, which has nothing but cavity behind it.
+
 The seam furniture follows the same rule: the Z-seam lip is a *horizontal* band
 that telescopes straight through those verticals, so its corners are relieved on
 Z concentric with the cavity it enters, as are the front Z-seam socket pods that
@@ -287,8 +294,9 @@ the top-front corner runs on unbroken.
 The recessed panel is sealed from the cavity at both lateral edges: the −X edge
 by the left exterior wall, the +X edge by a one-wall gusset spanning the full
 housing depth (inner front wall, inner top wall, housing back plane), continuous
-with the slab. The display reference is seated in the housing in
-`../enclosure-assembly/`.
+with the slab. That gusset's depth is also what the shoulder's exterior arris is
+relieved to, so the round runs out where the gusset does. The display reference
+is seated in the housing in `../enclosure-assembly/`.
 
 Ceiling-down the housing lies flat, and every one of its faces — the facet and
 its back plane as the soffit — is 45° or vertical to the bed, so none of them is
