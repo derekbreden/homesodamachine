@@ -180,6 +180,40 @@ attachment_xy_positions = (
 gasket_thickness = 2.0
 gasket_strip_width = 5.0
 
+# Deck mounts — the service bay's electronics, carried on columns of the TOP CAP.
+# The cap is already a foam-poured cup with six screw-boss columns spanning its full
+# height; a deck mount is that same column at four more stations, carried on through
+# the lid so its top stands `deck_mount_standoff` proud of the lid's outer face — the
+# plane the bay's deck sits on. Foam pours around them, the lid's clearance holes drop
+# over them, and the module bolts down into a heat-set insert. Nothing is bonded and no
+# tray floor stands between the module and the cap.
+#   The stations live here, in the cap's own frame, because the mount belongs to the
+# part it is printed in. The enclosure reads its world poses off them
+# (`_contents.deck_mount`) rather than the cap being told where a board went, so one
+# edit here moves the column, the module and its connector map together.
+deck_mount_boss_radius = 3.5     # column radius — one wall over the insert
+deck_mount_bore_radius = 2.0     # ruthex M3 short heat-set
+deck_mount_bore_depth = 5.5
+deck_mount_lid_slip = 0.4        # per side, column to the lid's clearance hole
+deck_mount_standoff = 5.0        # boss top above the lid — clears the boards' THT tails
+
+# Per module: the mount rectangle's centre in the cap's frame, and the module's own
+# hole pitch across X and Y — the controller board's MH1–MH4 rectangle turned a
+# quarter so its long axis runs down the bay, and the IRM-90's own pattern laid
+# across the aft strip, its long span needing more than the column forward of the
+# board has left in Y.
+deck_mounts = {
+    "pcba": ((92.85, 44.50), 66.30, 78.00),
+    "psu":  ((85.00, -37.50), 98.00, 33.00),
+}
+
+
+def deck_mount_xy(name):
+    """The four boss centres of a deck mount, in the cap's own frame."""
+    (cx, cy), pitch_x, pitch_y = deck_mounts[name]
+    return tuple((cx + sx * pitch_x / 2.0, cy + sy * pitch_y / 2.0)
+                 for sx in (-1, 1) for sy in (-1, 1))
+
 
 def make_box(x_range, y_range, z_range):
     """Axis-aligned box from world-coordinate ranges in each axis."""

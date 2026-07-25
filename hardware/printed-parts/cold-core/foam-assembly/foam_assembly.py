@@ -45,6 +45,7 @@ from _cold_core_interface import (
     co2_inlet_y,
     co2_inlet_tube_radius,
     screw_clearance_radius,
+    foam_cap_height,
 )
 
 SHELL_STEP = _cold_core / "foam-shell" / "foam-shell.step"
@@ -89,9 +90,13 @@ def build():
 
     # Top cap: floor (its zmin face) lands on the shell's top; lid on its
     # mouth. Both spin about Z so the CO2 bore lands over the +Y doorway.
+    # The lid seats on the cap's MOUTH RIM, one cap height off its floor —
+    # not on the cap's highest point, which is the deck-mount columns standing
+    # through the lid to carry the electronics above it.
     cap_top = _place_z(_spin(_load(CAP_DIR / "foam-cap-top.step")), zmin=shell_bb.zmax)
     lid_top = _place_z(
-        _spin(_load(CAP_DIR / "foam-cap-lid-top.step")), zmin=cap_top.BoundingBox().zmax
+        _spin(_load(CAP_DIR / "foam-cap-lid-top.step")),
+        zmin=cap_top.BoundingBox().zmin + foam_cap_height,
     )
 
     # Bottom cap (mouth-down): floor (its zmax face) lands up against the
