@@ -284,12 +284,16 @@ SEAFLO_POS = (189.5, 249.0)   # front face on the cap's front edge, east face on
 ASSE1022_AXIS = (102.0, 345.5, 314.0 + RING_SEAT)   # the flow axis, in world
 ASSE1022_YAW = 0.0
 ASSE1022_ROLL = 45.0
-# The drip pan is not posed. In X it is centred on the vent column, so the drip lands
-# down the middle of the basin floor wherever the chain's pose leaves the tip; in Y its
-# back face lands on the foam cap's rear edge, the face it will draw out through. Its
-# section and its lift are the part's own — `drip_pan_seat()` re-derives that lift from
-# the placed chain's underside.
+# The drip pan is not posed. In X the basin hangs EAST of the vent column, the tip
+# landing `DRIP_VENT_INSET` inside its west outer face — the aft strip's west end is the
+# controller board's, and what the basin does not take there is the board's connector
+# lane. The tip's X is fixed by the chain's own length along its flow axis and does not
+# move with the roll, which is the provisional half of that pose; the inset it leaves is
+# what absorbs a re-roll's swing in Y. In Y the basin's back face lands on the foam cap's
+# rear edge, the face it will draw out through. Its section and its lift are the part's
+# own — `drip_pan_seat()` re-derives that lift from the placed chain's underside.
 DRIP_PAN_X, DRIP_PAN_Y = _pan.PAN_X, _pan.PAN_Y
+DRIP_VENT_INSET = 14.0   # basin west outer face to the vent column
 # V-K — the water-supply fill/shutoff solenoid (Beduan 12 V NC): DOWNSTREAM of the
 # ASSE 1022, between the split and the SeaFlo suction. Closed, it stops all water
 # reaching the carbonator. Its own frame is +Y = flow (arrow toward the outlet),
@@ -303,15 +307,20 @@ DRIP_PAN_X, DRIP_PAN_Y = _pan.PAN_X, _pan.PAN_Y
 # the nozzle lanes need stays open beside it.
 BEDUAN_YAW = 180.0
 BEDUAN_POS = (264.0, 342.5, 274.1 + RING_SEAT)   # base centre on a cradle above the cap
-# The controller board, on the foam-cap top in the WEST COLUMN — the one plane in the bay wide
-# enough to take it, opened when the pump crossed to the cap's east edge. It lies a quarter turn
-# from its own frame so the long axis runs down the strip: the USB-C edge looks SOUTH into the open
-# band ahead of the cap, where a hand reaches it with the back panel on, and the J10 12 V throats
-# look NORTH up the strip. Both edges the board must keep reachable face open lanes, not a wall.
-#   The two nozzle lanes cross the deck at x 274.2 and 248.1, the far side of the pump; the board
-# stands at x[11, 84.3] and shares no deck with them.
-PCBA_YAW = 90.0
-PCBA_POS = (11.0, 205.0, 258.4)   # bbox min — the tray's underside on the cap top
+# The controller board, on the foam-cap top in the AFT STRIP, laid along the cap's rear edge
+# behind the pump. It lies unturned, its long axis ACROSS the strip, because the strip has depth
+# to spare and width to buy: the board spends a board's width of the cap's Y and takes the strip's
+# west end, which the basin gives back when it turns narrow. What that buys is the WEST COLUMN
+# entire, forward of the board — the only plane in this bay long enough to stand the PSU down.
+#   Its two service edges look ±X down the strip, and the basin's west wall is what sets their
+# room: the USB-C edge (J14) opens WEST toward the side wall's rib, the J10 12 V throats EAST
+# toward the rail web, with a plug's length of clear run either way. Both edges the board must
+# keep reachable face a lane rather than a wall, and the bay opens from above onto the twelve
+# top-entry wafers between them. The clearances are the scorecard's.
+#   The two nozzle lanes cross the deck the far side of the pump; the board shares no deck
+# with them.
+PCBA_YAW = 0.0
+PCBA_POS = (10.0, 306.7, 258.4)   # bbox min — the tray's underside on the cap top
 # The split lies UNDER V-K, in the band between the foam cap and V-K's cradle — the one
 # place in the strip's east void with a footprint free once the valve is standing in it.
 # Its run carries the ASSE feed across the void — in at the WEST face off water-2, on at
@@ -1442,7 +1451,7 @@ def _build():
     # on a bounding box, and the basin's reaches out to its flange tips, so the
     # flange's width is what separates the two X's below.
     _vent_xy = bfp_terminal("vent-tip")[0]
-    _pan_x = _vent_xy[0] - DRIP_PAN_X / 2.0
+    _pan_x = _vent_xy[0] - DRIP_VENT_INSET
     _pan_y = FRONT_DEPTH + fb.ylen - DRIP_PAN_Y
     _pan_z = drip_pan_seat()
     placed["drip-pan"] = _at(_load(DRIP_PAN_STEP),

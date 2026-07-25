@@ -65,6 +65,7 @@
         "nozzle-gate-assembly \u2014 elbow-y-g: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-noz-a: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-noz-b: 2.00 mm",
+        "seaflo-pump \u2014 drip-pan-rails: 4.00 mm",
         "bag-circuit-assembly \u2014 elbow-y-g: 5.10 mm"
       ],
       "active": true
@@ -119,9 +120,9 @@
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
         "\u2713 tee-y-c: near source-select-assembly 14.5 mm",
         "\u2713 tee-y-f: near source-select-assembly 8.1 mm",
-        "\u2717 asse1022-assembly: near bulkhead-water 10.6 fall vent-tip onto drip-pan 18.4 clear power-tray inf(<8) clear c14-inlet 35.0 x- 80.0 mm",
-        "\u2713 drip-pan: near drip-pan-rails 0.0 clear seaflo-pump 32.8 clear asse1022-assembly 14.1 mm",
-        "\u2713 drip-pan-rails: near foam-assembly 0.0 near drip-pan 0.0 clear seaflo-pump 28.2 mm",
+        "\u2717 asse1022-assembly: near bulkhead-water 10.6 fall vent-tip onto drip-pan 19.4 clear power-tray inf(<8) clear c14-inlet 35.0 x- 80.0 mm",
+        "\u2713 drip-pan: near drip-pan-rails 0.0 clear seaflo-pump 12.0 clear asse1022-assembly 9.3 mm",
+        "\u2713 drip-pan-rails: near foam-assembly 0.0 near drip-pan 0.0 clear seaflo-pump 4.0 mm",
         "\u2713 vk-fill-valve: near water-split 6.7 clear seaflo-pump 34.8 clear asse1022-assembly 40.9 clear foam-assembly 20.7 mm",
         "\u2713 flow-regulator: near source-select-assembly 42.2 clear seaflo-pump 2.0 mm",
         "20 components: no placement rules defined yet"
@@ -1614,8 +1615,8 @@
       "name": "J1-manifold-a",
       "kind": "electrical",
       "pos": [
-        31.02,
-        289.816,
+        94.816,
+        359.98,
         268.0
       ],
       "face": "z+",
@@ -1629,8 +1630,8 @@
       "name": "J2-manifold-b",
       "kind": "electrical",
       "pos": [
-        53.27,
-        289.816,
+        94.816,
+        337.73,
         268.0
       ],
       "face": "z+",
@@ -1644,8 +1645,8 @@
       "name": "J3-faucet",
       "kind": "electrical",
       "pos": [
-        77.8,
-        226.566,
+        31.566,
+        313.2,
         268.0
       ],
       "face": "z+",
@@ -1659,8 +1660,8 @@
       "name": "J4-sensors",
       "kind": "electrical",
       "pos": [
-        77.8,
-        243.816,
+        48.816,
+        313.2,
         268.0
       ],
       "face": "z+",
@@ -1674,8 +1675,8 @@
       "name": "J5-relays",
       "kind": "electrical",
       "pos": [
-        16.5,
-        236.866,
+        41.866,
+        374.5,
         268.0
       ],
       "face": "z+",
@@ -1689,8 +1690,8 @@
       "name": "J6-reeds-a",
       "kind": "electrical",
       "pos": [
-        16.5,
-        251.716,
+        56.716,
+        374.5,
         268.0
       ],
       "face": "z+",
@@ -1704,8 +1705,8 @@
       "name": "J7-reeds-b",
       "kind": "electrical",
       "pos": [
-        77.8,
-        278.316,
+        83.316,
+        313.2,
         268.0
       ],
       "face": "z+",
@@ -1719,8 +1720,8 @@
       "name": "J8-i2c",
       "kind": "electrical",
       "pos": [
-        16.5,
-        280.116,
+        85.116,
+        374.5,
         268.0
       ],
       "face": "z+",
@@ -1734,8 +1735,8 @@
       "name": "J9-display",
       "kind": "electrical",
       "pos": [
-        77.8,
-        261.066,
+        66.066,
+        313.2,
         268.0
       ],
       "face": "z+",
@@ -1749,8 +1750,8 @@
       "name": "J10-12v",
       "kind": "electrical",
       "pos": [
-        69.0,
-        291.166,
+        96.166,
+        322.0,
         268.0
       ],
       "face": "z+",
@@ -1764,8 +1765,8 @@
       "name": "J11-gas",
       "kind": "electrical",
       "pos": [
-        71.35,
-        216.816,
+        21.816,
+        319.65,
         268.0
       ],
       "face": "z+",
@@ -1779,8 +1780,8 @@
       "name": "J13-pumps",
       "kind": "electrical",
       "pos": [
-        16.5,
-        266.566,
+        71.566,
+        374.5,
         268.0
       ],
       "face": "z+",
@@ -1794,8 +1795,8 @@
       "name": "J14-usb",
       "kind": "electrical",
       "pos": [
-        31.0,
-        216.816,
+        21.816,
+        360.0,
         268.0
       ],
       "face": "z+",
@@ -2251,15 +2252,15 @@
       "component": "drip-pan",
       "boxes": [
         [
-          84.0,
-          329.0,
-          277.1,
+          120.0,
+          305.0,
+          276.1,
           184.0,
           381.0,
           291.1
         ]
       ],
-      "fill": 0.3252,
+      "fill": 0.3103,
       "primitive": false,
       "declared": "real"
     },
@@ -2267,23 +2268,23 @@
       "component": "drip-pan-rails",
       "boxes": [
         [
-          80.7,
-          326.0,
-          258.4,
-          87.7,
-          381.0,
-          283.1
-        ],
-        [
           180.3,
-          326.0,
+          302.0,
           258.4,
           187.3,
           381.0,
-          283.1
+          282.1
+        ],
+        [
+          116.7,
+          302.0,
+          258.4,
+          123.7,
+          381.0,
+          282.1
         ]
       ],
-      "fill": 0.5287,
+      "fill": 0.5305,
       "primitive": false,
       "declared": "real"
     },
@@ -2515,19 +2516,19 @@
       "component": "pcba",
       "boxes": [
         [
-          11.0,
-          205.0,
+          10.0,
+          307.2,
           266.4,
-          83.8,
-          295.816,
+          100.816,
+          380.0,
           285.5
         ],
         [
-          11.0,
-          210.816,
+          15.816,
+          306.7,
           258.4,
-          84.3,
-          295.816,
+          100.816,
+          380.0,
           266.4
         ]
       ],
