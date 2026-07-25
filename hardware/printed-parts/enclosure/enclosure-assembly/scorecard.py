@@ -126,7 +126,7 @@ COMPONENTS = [
     _c("vk-fill-valve",     "real",        True,  "none","Beduan 12 V NC solenoid (reference/beduan-solenoid) — V-K, the water-supply fill/shutoff valve. Downstream of the ASSE 1022, between the split and the SeaFlo suction. Yawed a quarter turn so it lies along X in the band the pump's narrow head end opens: inlet east at the split's branch, outlet west at the suction, all three collets in one plane. Stands on a short cradle off the foam cap; cradle TBD"),
     _c("discharge-chain",   "real",        True,  "none","MAACFLOW 3/8\" barb + GASHER 1/4\" check + PP450822E 1/4\" PTC, made up as one piece (reference/seaflo-discharge-chain). The pump's barbs are molded into its head — no thread, no elbow fits — so a stub of 3/8\" braided PVC is the only thing that can leave the discharge; it turns down over the cap's front edge onto this chain's barb, and the 3/8\" ends there. Hangs vertically in the bag-fall corridor, the one column deep enough to stand its 83.4 mm. Bracket TBD"),
     _c("discharge-chain",   "real",        True,  "none","MAACFLOW 3/8\" barb + GASHER 1/4\" check + PP450822E 1/4\" PTC, made up as one piece (reference/seaflo-discharge-chain). The pump's barbs are molded into its head — no thread, and the 90° barbed accessory does not fit this head — so a stub of 3/8\" braided PVC is the only thing that can leave the discharge; it turns down over the cap's front edge onto this chain's barb, and the 3/8\" ends there. Hangs vertically in the bag-fall corridor, the one column deep enough to stand its 83.4 mm. Bracket TBD"),
-    _c("flow-regulator",    "real",        True,  "none","neoFit ABCVU44 1/4\" needle flow control (reference/neofit-flow-control) — the flavor tap's regulator, throttling the manifold's feed to its low working pressure. Tube-hung inline on the split's flavor run, further down the same pocket, flow running south; its needle stem stands up where a screwdriver reaches it over the deck. No tray, no holder"),
+    _c("flow-regulator",    "real",        True,  "none","neoFit ABCVU44 1/4\" needle flow control (reference/neofit-flow-control) — the flavor tap's regulator, throttling the manifold's feed to its low working pressure. Inline on the split's flavor run, standing on the foam-cap top in the band ahead of it, flow running south; its needle stem stands up where a screwdriver reaches it over the deck. No tray, no holder"),
     # Valve manifold
     _c("source-select-assembly", "real",   True,  "none", "Tray 1 — printed tray + 4 Beduan NC solenoids + 2 PP2308E Y-dividers + 4 outlet elbows (valve-manifold/source-select-tray); floors the stack, plate down and valves up, holder TBD"),
     _c("bag-circuit-assembly",   "real",   True,  "none", "Tray 2 — printed dog-bone tray + 4 Beduan NC solenoids + 2 PP0208E Tees + 2 west outlet elbows (valve-manifold/bag-circuit-tray); rides INVERTED on the source tray's stacking walls, east ports bare, holder TBD"),
@@ -166,6 +166,8 @@ TOUCHING_OK = {
     frozenset(p) for p in [
         ("cold-core-ring", "foam-assembly"),    # the core's bottom lid flat on the ring's bearing rail
         ("foam-assembly", "seaflo-pump"),       # the pump's base flat on the foam-cap top
+        ("foam-assembly", "water-split"),       # the split's body flat on the cap, under V-K's cradle
+        ("foam-assembly", "flow-regulator"),    # the regulator's body flat on the cap, ahead of the pump
         ("foam-assembly", "drip-pan-rails"),    # the rails' feet flat on the foam-cap top
         ("drip-pan", "drip-pan-rails"),         # the basin's floor edge flat on the shelves
         # The valve-manifold stack: the source-select tray's floor rests on the
@@ -380,10 +382,11 @@ PLACEMENT_RULES = {
                       ("clear", "seaflo-pump", 4.0),
                       ("clear", "asse1022-assembly", 3.0),
                       ("clear", "foam-assembly", 5.0)],
-    # The flow regulator hangs on the flavor run below the split (`near water-split` — the tube
-    # that carries it), out in the pocket clear of everything else.
-    "flow-regulator": [("near", "water-split", 24.0),
-                       ("clear", "foam-assembly", 5.0)],
+    # The flow regulator stands in the band ahead of the cap on the flavor run's own X, directly
+    # over the collet it feeds (`near source-select-assembly`), with the pump filling the deck
+    # behind it — so what it has to hold off is the pump, not the pocket it used to hang in.
+    "flow-regulator": [("near", "source-select-assembly", 70.0),
+                       ("clear", "seaflo-pump", 1.5)],
 }
 
 

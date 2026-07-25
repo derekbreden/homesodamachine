@@ -16,16 +16,19 @@ legs, each measured off the faces that bound it:
     its east half. The west lane and the floor lane stay open for refrig-3's reach to the
     compressor's suction port.
   * the service bay's aft strip — the SeaFlo's back face to the rear-panel bodies, over the
-    foam-cap top — with the ASSE 1022 chain lying along it: its 1/4" inlet west off the water
-    bulkhead (water-1), its 1/4" outlet east onto the line to the split (water-2). The chain's
-    mass sits high, so a LANE runs the strip's whole length beneath it at the suction's own
-    height, and V-K lies along that lane: fed east off the split in the pocket (water-3), it
-    looks straight west down the lane at the north-facing suction (water-4). The band UNDER
-    the ASSE body stays open the same way: the drip the vent lets go of falls through it.
-  * the east pocket — the open column between the cold core's east face and the +X wall, aft
-    of the pump's narrow head end. The water chain hangs down it in one plane: the split at the
-    top taking the ASSE feed, then the flow regulator, then the fall to V-A (fluid-1, fluid-2).
-    It is the only lane across the deck that the pump does not fill.
+    foam-cap top — with the ASSE 1022 chain lying along its west half: its 1/4" inlet west off
+    the water bulkhead (water-1), its 1/4" outlet east onto the line to the split (water-2). The
+    strip's EAST void carries the rest of the water chain in two strata, east of every rear-panel
+    body: V-K stands down it with its port plane at the suction's, and the split lies under V-K's
+    cradle a stratum below, its branch looking north so water-3 climbs the column between them.
+    V-K's outlet then looks south down the LANE the pump's back face and V-K's own leave open
+    across the strip, west to the suction's X and into the north-facing barb (water-4). The band
+    UNDER the ASSE body stays open the same way: the drip the vent lets go of falls through it.
+  * the lane under the pump — the gap the SeaFlo's bracket leaves between its body and the
+    foam-cap top, running the bay's whole width and depth and free of everything the deck above
+    it is full of. The flavor tap crosses the machine along it: fluid-1 from the split, west out
+    from under V-K, south under the pump's head and back onto V-A's own X into the flow regulator
+    standing in the band ahead of the cap, and fluid-2 on down into V-A's up-facing collet.
   * the bag-fall corridor — the open Y behind the whole stack, aft face to cold-core front face
     (_contents `BAG_FALL_CORRIDOR`), running the box's full height and width. It is what stands
     the core off the stack, and the only lane that reaches either reservoir port low on that
@@ -54,11 +57,11 @@ legs, each measured off the faces that bound it:
   * the +X wall pocket and the channel inboard of it — the cold core's own standoff off that
     wall, where the two nozzle-outlet elbows stand, and the wide horizontal channel over the
     nozzle gate's spade tabs and the electronics shelf's board, under the hopper funnel's
-    basin, which runs unbroken the full depth of the box. It is wide rather than tall, so
-    fluid-18/28 share one deck ([292.4](NOZ_DECK_Z)) side by side in x rather than stacking,
-    and reach the rear flavor bulkheads without either climbing over the other. They take the
-    two lanes inboard of the flavor tap's fall, which owns the band's outermost. The pocket is
-    also the Y seam's corner-post lane, so both step west out of it before turning aft at all.
+    basin, which runs unbroken the full depth of the box. It carries fluid-18/28 aft on one deck
+    ([292.4](NOZ_DECK_Z)) as far as the pump, and there they CLIMB: the pump fills the deck the
+    whole way across, so both cross it on its low end — the pressure switch's crown — and come
+    down again in the lane behind it. The pocket is also the Y seam's corner-post lane, so both
+    step west out of it before turning aft at all.
 
 Precedent: `pcba.tsx`'s `route(...)` call sites.
 """
@@ -179,36 +182,41 @@ def _authored_runs() -> list:
         kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(6.0, 3.0),
         note="tap water: rear bulkhead → ASSE 1022 inlet"))
 
-    # water-2 — the 1/4" line off the ASSE's east outlet: straight east along the strip
-    # to the east pocket, then down the pocket's open column and south into the split's
-    # north-facing run. The descent stands off the split far enough to turn into it.
+    # The strip's east void carries the chain in TWO strata: V-K stands down it with its port
+    # plane at the suction's, and the split lies under V-K's cradle with its own a stratum below.
+    # Every hop between them is a climb or a fall in the open column east of the rear-panel
+    # bodies — the one column in the strip with no bulkhead reaching into it.
     runs.append(route(
         "water-2", "asse1022-assembly.tube-out",
-        sp.x("supply"),                      # east down the strip to the pocket's line
-        sp.y("supply", 13.0),                # north of the split, clear of its collet
-        sp.z("supply"),                      # down the pocket to the split's port plane
-        "water-split.supply",
-        kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, WBEND),
-        note="tap water: ASSE 1022 outlet → split run"))
+        sp.out("supply", 20.0),              # east, clear of the ASSE's own end, into the column
+        sp.z("supply"),                      # down the column to the split's own plane, under V-K
+        "water-split.supply",                # east into its west-facing run
+        kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, 2.0),
+        note="tap water: ASSE 1022 outlet → split run, down the column west of V-K"))
 
-    # water-3 — the short straight hop off the split's west-facing branch into V-K's
-    # inlet: the two collets are collinear along X in the one plane.
+    # water-3 — the split's branch looks north out from under V-K; the line stands off the
+    # valve's back face, climbs the stratum between them and turns south into the inlet.
     runs.append(route(
         "water-3", "water-split.to-vk",
+        vk.out("inlet", 4.0),                # north, clear of the valve's own back face
+        vk.x("inlet"),                       # east onto the valve's own line
+        vk.z("inlet"),                       # up the column to the valve's port plane
         "vk-fill-valve.inlet",
-        kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(2.0, 2.0),
-        note="tap water: split branch → V-K inlet"))
+        kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, 2.0),
+        note="tap water: split branch → V-K inlet, up the strip's east column"))
 
-    # water-4 — V-K's outlet looks straight down the lane under the ASSE overhang: west
-    # to the suction's own line, then the short turn south into the north-facing barb.
-    # The 1/4" LLDPE steps up to the pump's 3/8" barb there (adapter in the BOM) — the
-    # barbs are molded into the head, so that step is the only 3/8" on this side.
+    # water-4 — V-K looks straight south down the open lane between the pump's back face and
+    # its own: the line drops into that lane, runs west to the suction's own X and turns south
+    # into the north-facing barb. The 1/4" LLDPE steps up to the pump's 3/8" barb there
+    # (adapter in the BOM) — the barbs are molded into the head, so that step is the only 3/8"
+    # on this side.
     runs.append(route(
         "water-4", "vk-fill-valve.outlet",
-        pump.x("suction"),                   # west down the lane to the suction's line
+        {"y": (pump.bb.ymax + vk.bb.ymin) / 2.0},   # south into the lane the two faces leave
+        pump.x("suction"),                   # west down that lane to the suction's line
         "seaflo-pump.suction",
         kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, 2.0),
-        note="tap water: V-K outlet → SeaFlo suction (under the ASSE overhang)"))
+        note="tap water: V-K outlet → SeaFlo suction, down the lane behind the pump"))
 
     # water-6 — the 3/8" stub off the discharge. The pump's barbs are molded into the head,
     # so this hose is the only thing that can leave the port: it runs south off the barb,
@@ -233,20 +241,28 @@ def _authored_runs() -> list:
         kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, WBEND),
         note="carb water: discharge chain → cold-core water inlet"))
 
-    # fluid-1 / fluid-2 — the flavor tap. The split's south run carries the ASSE feed on
-    # down the east pocket into the flow regulator, and the regulator's outlet runs the
-    # length of the pocket south, drops past the nozzle-gate tray's east end and turns
-    # in over V-A's up-facing collet. The pocket is open the whole way (probe: x 272–292
-    # clear from the split's plane down to the manifold).
+    # fluid-1 / fluid-2 — the flavor tap. Both runs live in the LANE UNDER THE PUMP: the pump's
+    # bracket carries its body clear of the cap, and the gap that leaves runs the bay's whole
+    # width and depth, free of everything the deck above it is full of. fluid-1 leaves the
+    # split's west-facing run into that lane, crosses south under the pump's head and back east
+    # onto V-A's own X, and closes north-to-south into the regulator standing in the band ahead
+    # of the cap. fluid-2 then runs the regulator's outlet south past the nozzle-gate tray's east
+    # end and turns down over V-A's up-facing collet.
     reg = f["flow-regulator"]
     src = f["source-select-assembly"]
+    # The +X wall's inner face steps in as it runs forward — the rib band the seam's stations
+    # stand on — so the flavor run leaves the split hard against it and comes west off it while
+    # it is still aft, in the same lane the pump's back face and V-K's front face leave open.
+    vk_pump_lane = (pump.bb.ymax + vk.bb.ymin) / 2.0
     runs.append(route(
         "fluid-1", "water-split.to-flavor",
-        reg.y("inlet", 11.0),                # south down the pocket, short of the regulator
-        reg.x("inlet"),                      # west one lane, off the wall's boss-chain band
+        sp.out("to-flavor", 8.0),            # east out from under V-K, into the lane
+        {"y": vk_pump_lane},                 # south to the lane behind the pump, off the wall's ribs
+        reg.x("inlet"),                      # west onto the regulator's own line
+        reg.out("inlet", 14.0),              # south under the pump, short of the regulator
         "flow-regulator.inlet",
-        kind="fluid", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, WBEND),
-        note="flavor tap: split run → flow regulator"))
+        kind="fluid", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, 2.0),
+        note="flavor tap: split run → flow regulator, along the lane under the pump"))
     runs.append(route(
         "fluid-2", "flow-regulator.outlet",
         src.y("V-A-I"),                      # south down the pocket to V-A's own line
@@ -463,7 +479,7 @@ def _authored_runs() -> list:
                 f"fluid-18/28: the deck ({deck_z:.2f}, the bulkheads' collet height) clears {what} "
                 f"({crown:.2f}) by {deck_z - od / 2.0 - crown:.2f} mm, inside the "
                 f"{LANE_CLEAR:.2f} mm the lane holds — lower {what}, or raise the bulkheads.")
-    # 28's west step off the pocket is [31.47](NOZ_POCKET_STEP) mm, and the square corner at each
+    # 28's west step off the pocket is [41.08](NOZ_POCKET_STEP) mm, and the square corner at each
     # end of it seats a tangent in that leg. 18 takes no step at all — its lane IS the column its
     # elbow stands in.
     NBEND = 7.0
@@ -473,35 +489,49 @@ def _authored_runs() -> list:
     # plus a lane. The pump is then free to travel east UNDER these two runs for as long as the
     # window still holds them, which is why what bounds its east reach is the water chain and not
     # these lanes.
-    #   In X each lane rides a window the chain leaves standing in the east pocket — 28 the one
-    # between V-K's east face and the regulator [257.73](NOZ_LANE_INNER_X), 18 the one between the
-    # regulator and the +X wall [289.2](NOZ_LANE_OUTER_X), which is the pocket column its own elbow
-    # already stands in. Neither has to thread the column the chain occupies, and at the climb
-    # height 18 passes clear over the split as well.
+    #   In X, 18 keeps the pocket column its own elbow stands in [274.18](NOZ_LANE_OUTER_X), which
+    # passes east of the pump, the regulator, the split and V-K alike and never has to climb at
+    # all. 28 steps west into the low window [248.13](NOZ_LANE_INNER_X) and climbs, because west of
+    # the pocket the deck is the pump's the whole way across.
+    #   Both close the same way: they come out of the pocket into the LANE the pump's back face
+    # and V-K's front face leave open across the strip, run west along it to their own bulkhead's
+    # column, and turn north into it. That lane is one tube deep, so the two runs take it at two
+    # heights — 18 at the bulkheads' own deck, 28 still up at its climb, coming down onto the deck
+    # only once it stands over its own bulkhead, west of everything 18 occupies.
     reg, vk_f, split = f["flow-regulator"], f["vk-fill-valve"], f["water-split"]
-    inner_x = (vk_f.bb.xmax + reg.bb.xmin) / 2.0        # centred in the window V-K and the regulator leave
-    outer_x = f["elbow-noz-a"].at("free")[0]            # 18's own pocket column, east of the regulator
-    if outer_x - od / 2.0 - reg.bb.xmax < LANE_CLEAR:
-        raise ValueError(
-            f"fluid-18: the pocket column its elbow stands in (x {outer_x:.2f}) clears the flow "
-            f"regulator (to x {reg.bb.xmax:.2f}) by "
-            f"{outer_x - od / 2.0 - reg.bb.xmax:.2f} mm, inside the {LANE_CLEAR:.2f} mm a lane "
-            f"holds — move the regulator west off the pocket (_contents FLOWREG_Y / flowreg_pos).")
     crown, window = contents.seaflo_low_crown()
     climb_z = crown + od / 2.0 + LANE_CLEAR
     pump = f["seaflo-pump"]
-    climb_y_in = pump.bb.ymin - 6.0                     # up ahead of the pump's front face
-    # Down behind the whole chain — the west leg into the bulkhead crosses V-K's and the split's
-    # own columns, so neither lane may come off the climb until it is aft of both of them.
-    climb_y_out = max(vk_f.bb.ymax, split.bb.ymax) + od / 2.0 + LANE_CLEAR
-    for cid, elb, bulk, lane_x in (
-        ("fluid-18", "elbow-noz-a", "bulkhead-flavor-a", outer_x),   # outer lane, east of the regulator
-        ("fluid-28", "elbow-noz-b", "bulkhead-flavor-b", inner_x),   # inner lane, west of it
+    # Both lanes stand inside the low window, one against each of its edges — that is the widest
+    # they can be spaced and still both cross the pump where the pump is short.
+    outer_x = window[1] - od / 2.0 - LANE_CLEAR         # 18, against the window's east edge
+    inner_x = window[0] + od / 2.0 + LANE_CLEAR         # 28, against its west edge
+    if outer_x - inner_x < od + LANE_CLEAR:
+        raise ValueError(
+            f"fluid-18/28: the pump's low window (x {window[0]:.2f}..{window[1]:.2f}) leaves its "
+            f"two lanes {outer_x - inner_x:.2f} mm apart, inside the {od + LANE_CLEAR:.2f} mm a "
+            f"lane and its clearance take — the two runs cannot both cross the pump here.")
+    # Each lane leaves the deck ahead of the SOUTHERNMOST thing standing in its own column — the
+    # pump for both, and for the outer lane the regulator too, whose stem reaches deck height in
+    # the band ahead of the cap. A lane that waited for the pump would run through that stem.
+    def _climb_y_in(lane_x):
+        south = [b.bb.ymin for b in (pump, reg)
+                 if b.bb.xmin - od / 2.0 < lane_x < b.bb.xmax + od / 2.0
+                 and b.bb.zmin < deck_z + od / 2.0 < b.bb.zmax]
+        return min(south, default=pump.bb.ymin) - 6.0
+    exit_y = (pump.bb.ymax + vk_f.bb.ymin) / 2.0        # the lane the pump and V-K leave between them
+    drop_y = vk_f.bb.ymin + 9.0                        # and where each comes down, off water-4's lane
+    # The two cross the strip one lane apart in Z: 18 at its own climb, 28 one lane over it, so
+    # the leg each takes west to its bulkhead's column never meets the other's.
+    for cid, elb, bulk, lane_x, cross_z in (
+        ("fluid-18", "elbow-noz-a", "bulkhead-flavor-a", outer_x, climb_z),
+        ("fluid-28", "elbow-noz-b", "bulkhead-flavor-b", inner_x, climb_z + od + LANE_CLEAR),
     ):
         # A lane is only allowed over the pump where the pump is low. Anywhere else the crown is
         # the motor's or the boss's and the climb would have to leave the box.
         lo, hi = lane_x - od / 2.0 - LANE_CLEAR, lane_x + od / 2.0 + LANE_CLEAR
-        if lo < pump.bb.xmax and not (window[0] <= lo and hi <= window[1]):
+        over_pump = lane_x - od / 2.0 < pump.bb.xmax     # the TUBE crosses it, not just its clearance
+        if over_pump and not (window[0] <= lo and hi <= window[1]):
             raise ValueError(
                 f"{cid}: its lane (x {lo:.2f}..{hi:.2f}, a lane's clearance either side) reaches "
                 f"over the pump (east to x {pump.bb.xmax:.2f}) outside the low window x "
@@ -510,20 +540,21 @@ def _authored_runs() -> list:
                 f"ceiling. Move the lane into the window, or the pump (_contents SEAFLO_POS) out "
                 f"from under it.")
         b = f[bulk]
-        # The step west off the pocket, unless the lane is the pocket column itself.
+        # The step west off the pocket, unless the lane is the pocket column itself; and the climb,
+        # unless the lane passes east of the pump and never meets it.
         step = [] if abs(lane_x - f[elb].at("free")[0]) < 1e-9 else [{"x": lane_x}]
+        climb = [{"y": _climb_y_in(lane_x)}, {"z": cross_z}] if over_pump else []
         runs.append(route(
             cid, f"{elb}.free",
             {"z": deck_z},                      # up out of the pocket, onto the deck over the spade tabs
             *step,                              # west into its own lane, clear of the boss chain
-            {"y": climb_y_in},                  # aft to just ahead of the pump
-            {"z": climb_z},                     # up over the pump's low end
-            {"y": climb_y_out},                 # aft above it and above the split, past V-K's back face
-            {"z": deck_z},                      # down to the bulkhead's collet height
-            b.x("tube-in"),                     # west into the bulkhead's own lane
+            *climb,                             # up ahead of the pump, over its low end
+            {"y": exit_y},                      # aft into the lane behind the pump
+            b.x("tube-in"),                     # west along that lane to the bulkhead's own column
+            *([{"y": drop_y}, {"z": deck_z}] if climb else []),  # aft off water-4's lane, then down
             f"{bulk}.tube-in",
             kind="fluid", bend=NBEND, skew=DISCHARGE_SKEW,
-            note=f"nozzle outlet: {elb} → {bulk}, up over the shelf, climbing over the pump's low end"))
+            note=f"nozzle outlet: {elb} → {bulk}, out over the shelf and west behind the pump"))
 
     return runs
 
