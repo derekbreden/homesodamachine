@@ -442,26 +442,18 @@ def _authored_runs() -> list:
                  f"the reservoir's end, straight down, and into the port"))
 
     # The nozzle-outlet runs (segments 18/28). Each leaves its elbow's free collet straight UP out
-    # of the +X wall pocket onto the deck, steps WEST into its lane, runs AFT down the lane over
-    # the nozzle gate's spade tabs and the electronics shelf, steps WEST into its bulkhead's lane,
-    # and closes straight IN. One axis a move, every corner square.
-    #   The deck is [292.4](NOZ_DECK_Z) — the bulkheads' own collet height, shared by both runs.
-    # 18 rides the outer lane [262.18](NOZ_LANE_OUTER_X), 28 the inner [250.18](NOZ_LANE_INNER_X);
-    # 28 crosses 18's lane forward of 18's elbow, so 28 leaves the lane first and 18 second, each
-    # into the bulkhead on its own side. Both turn aft west of the ±X boss-chain band, which
-    # carries the seam's Z-pin stations and Y corner column.
-    #   LANE_CLEAR is the gap the deck holds over what passes beneath it, measured below against
+    # of the +X wall pocket onto the deck, steps into its lane, runs AFT down the lane over the
+    # nozzle gate's spade tabs and the electronics shelf, CLIMBS over the pump, comes back down
+    # behind the water chain, steps WEST into its bulkhead's lane, and closes straight IN. One
+    # axis a move, every corner square.
+    #   The deck is [292.4](NOZ_DECK_Z) — the bulkheads' own collet height, shared by both runs
+    # and the height each closes at.
+    #   LANE_CLEAR is the gap a lane holds off whatever bounds it, measured on the deck leg against
     # every placed part it crosses — the gate's spade tabs always, and the electronics shelf's
     # board whenever the shelf is on the deck.
-    cold = f["foam-assembly"]
     LANE_CLEAR = 5.65                      # the gap a lane holds off whatever bounds it
     od = f["elbow-noz-a"].diam("free")     # the line's own bore, off the collet it leaves
     deck_z = f["bulkhead-flavor-a"].at("tube-in")[2]  # the height the runs close at
-    # The band stands on the core's east face. Its outermost lane is the flavor tap's — fluid-2
-    # falls down the pocket on V-A's own X, which lands there — so both nozzle runs take the
-    # lanes inboard of it.
-    flavor_x = cold.bb.xmax - LANE_CLEAR - od / 2.0
-    outer_x = flavor_x - (od + LANE_CLEAR)
     crossings = [("the nozzle gate's spade tabs", contents.noz_spade_crown())]
     if "pcba" in f:
         crossings.append(("the electronics shelf's board", f["pcba"].bb.zmax))
@@ -471,36 +463,67 @@ def _authored_runs() -> list:
                 f"fluid-18/28: the deck ({deck_z:.2f}, the bulkheads' collet height) clears {what} "
                 f"({crown:.2f}) by {deck_z - od / 2.0 - crown:.2f} mm, inside the "
                 f"{LANE_CLEAR:.2f} mm the lane holds — lower {what}, or raise the bulkheads.")
-    # 18's west step off the pocket is [27.03](NOZ_POCKET_STEP) mm, and the square corner at each
-    # end of it seats a tangent in that leg.
+    # 28's west step off the pocket is [31.47](NOZ_POCKET_STEP) mm, and the square corner at each
+    # end of it seats a tangent in that leg. 18 takes no step at all — its lane IS the column its
+    # elbow stands in.
     NBEND = 7.0
-    # The water chain — the flow regulator, the split and V-K — stands down the east pocket at
-    # the deck height these lanes would otherwise run at. The lanes dip UNDER the whole column:
-    # aft at the deck over the spade tabs, down ahead of the regulator (the southernmost of the
-    # three), along below all of them (they start well above the clear aft floor), then up past
-    # V-K's back face into the bulkhead lane.
-    chain = [f["flow-regulator"], f["water-split"], f["vk-fill-valve"]]
-    vk_f = f["vk-fill-valve"]
-    dip_z = min(c.bb.zmin for c in chain) - 7.0     # under the whole column, over the clear floor
-    dip_y_in = min(c.bb.ymin for c in chain) - 6.0  # drop ahead of the southernmost of them
-    dip_y_out = vk_f.bb.ymax + 11.5                 # rise behind V-K, clear of water-4's lane
+    # The lanes cross the pump on its LOW END. `contents.seaflo_low_crown` is the pressure switch's
+    # top face and the X window it spans — the motor, the head and the boss all stand well over it,
+    # and this is the one plane on the pump with air above it. [315.2](NOZ_CLIMB_Z) is that crown
+    # plus a lane. The pump is then free to travel east UNDER these two runs for as long as the
+    # window still holds them, which is why what bounds its east reach is the water chain and not
+    # these lanes.
+    #   In X each lane rides a window the chain leaves standing in the east pocket — 28 the one
+    # between V-K's east face and the regulator [257.73](NOZ_LANE_INNER_X), 18 the one between the
+    # regulator and the +X wall [289.2](NOZ_LANE_OUTER_X), which is the pocket column its own elbow
+    # already stands in. Neither has to thread the column the chain occupies, and at the climb
+    # height 18 passes clear over the split as well.
+    reg, vk_f, split = f["flow-regulator"], f["vk-fill-valve"], f["water-split"]
+    inner_x = (vk_f.bb.xmax + reg.bb.xmin) / 2.0        # centred in the window V-K and the regulator leave
+    outer_x = f["elbow-noz-a"].at("free")[0]            # 18's own pocket column, east of the regulator
+    if outer_x - od / 2.0 - reg.bb.xmax < LANE_CLEAR:
+        raise ValueError(
+            f"fluid-18: the pocket column its elbow stands in (x {outer_x:.2f}) clears the flow "
+            f"regulator (to x {reg.bb.xmax:.2f}) by "
+            f"{outer_x - od / 2.0 - reg.bb.xmax:.2f} mm, inside the {LANE_CLEAR:.2f} mm a lane "
+            f"holds — move the regulator west off the pocket (_contents FLOWREG_Y / flowreg_pos).")
+    crown, window = contents.seaflo_low_crown()
+    climb_z = crown + od / 2.0 + LANE_CLEAR
+    pump = f["seaflo-pump"]
+    climb_y_in = pump.bb.ymin - 6.0                     # up ahead of the pump's front face
+    # Down behind the whole chain — the west leg into the bulkhead crosses V-K's and the split's
+    # own columns, so neither lane may come off the climb until it is aft of both of them.
+    climb_y_out = max(vk_f.bb.ymax, split.bb.ymax) + od / 2.0 + LANE_CLEAR
     for cid, elb, bulk, lane_x in (
-        ("fluid-18", "elbow-noz-a", "bulkhead-flavor-a", outer_x),                  # outer lane
-        ("fluid-28", "elbow-noz-b", "bulkhead-flavor-b", outer_x - (od + LANE_CLEAR)),  # inner lane
+        ("fluid-18", "elbow-noz-a", "bulkhead-flavor-a", outer_x),   # outer lane, east of the regulator
+        ("fluid-28", "elbow-noz-b", "bulkhead-flavor-b", inner_x),   # inner lane, west of it
     ):
+        # A lane is only allowed over the pump where the pump is low. Anywhere else the crown is
+        # the motor's or the boss's and the climb would have to leave the box.
+        lo, hi = lane_x - od / 2.0 - LANE_CLEAR, lane_x + od / 2.0 + LANE_CLEAR
+        if lo < pump.bb.xmax and not (window[0] <= lo and hi <= window[1]):
+            raise ValueError(
+                f"{cid}: its lane (x {lo:.2f}..{hi:.2f}, a lane's clearance either side) reaches "
+                f"over the pump (east to x {pump.bb.xmax:.2f}) outside the low window x "
+                f"{window[0]:.2f}..{window[1]:.2f} the pressure switch opens — over the motor, the "
+                f"head or the boss the crown is {pump.bb.zmax:.2f} and no lane clears it under the "
+                f"ceiling. Move the lane into the window, or the pump (_contents SEAFLO_POS) out "
+                f"from under it.")
         b = f[bulk]
+        # The step west off the pocket, unless the lane is the pocket column itself.
+        step = [] if abs(lane_x - f[elb].at("free")[0]) < 1e-9 else [{"x": lane_x}]
         runs.append(route(
             cid, f"{elb}.free",
             {"z": deck_z},                      # up out of the pocket, onto the deck over the spade tabs
-            {"x": lane_x},                      # west into its own lane, clear of the boss chain
-            {"y": dip_y_in},                    # aft to just ahead of the split
-            {"z": dip_z},                       # drop under the split + V-K
-            {"y": dip_y_out},                   # aft under them, past V-K's back face
-            {"z": deck_z},                      # rise back to the deck at the bulkhead
+            *step,                              # west into its own lane, clear of the boss chain
+            {"y": climb_y_in},                  # aft to just ahead of the pump
+            {"z": climb_z},                     # up over the pump's low end
+            {"y": climb_y_out},                 # aft above it and above the split, past V-K's back face
+            {"z": deck_z},                      # down to the bulkhead's collet height
             b.x("tube-in"),                     # west into the bulkhead's own lane
             f"{bulk}.tube-in",
             kind="fluid", bend=NBEND, skew=DISCHARGE_SKEW,
-            note=f"nozzle outlet: {elb} → {bulk}, up over the shelf, dipping under the split + V-K"))
+            note=f"nozzle outlet: {elb} → {bulk}, up over the shelf, climbing over the pump's low end"))
 
     return runs
 
@@ -517,11 +540,15 @@ def lane_stations() -> dict:
     hand-kept copy of them. `enclosure_assembly` feeds these to the [value](NAME) markers."""
     pts = {r.id: r.pts for r in build_runs() if r.id in ("fluid-18", "fluid-28")}
     return {
-        "NOZ_DECK_Z":      f"{pts['fluid-18'][2][2]:.4g}",   # the shared deck, the bulkheads' collet height
-        "NOZ_LANE_OUTER_X": f"{pts['fluid-18'][2][0]:.5g}",  # 18's lane, off the cold core's east face
-        "NOZ_LANE_INNER_X": f"{pts['fluid-28'][2][0]:.5g}",  # 28's lane, one lane inboard of it
-        # 18's west step off the pocket — the leg that sets the corner radius both runs turn at.
-        "NOZ_POCKET_STEP": f"{math.dist(pts['fluid-18'][1], pts['fluid-18'][2]):.4g}",
+        # The deck each closes at, and the highest the pair ever runs — over the pump's low crown.
+        "NOZ_DECK_Z":      f"{pts['fluid-18'][1][2]:.4g}",
+        "NOZ_CLIMB_Z":     f"{max(p[2] for p in pts['fluid-18']):.4g}",
+        # The column each holds all the way aft: 18's is its own pocket, 28's the window west of
+        # the regulator. Both are the x the run still has once it has finished stepping.
+        "NOZ_LANE_OUTER_X": f"{pts['fluid-18'][2][0]:.5g}",
+        "NOZ_LANE_INNER_X": f"{pts['fluid-28'][2][0]:.5g}",
+        # 28's west step off the pocket — the leg that sets the corner radius it turns at.
+        "NOZ_POCKET_STEP": f"{math.dist(pts['fluid-28'][1], pts['fluid-28'][2]):.4g}",
     }
 
 

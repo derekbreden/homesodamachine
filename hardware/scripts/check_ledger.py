@@ -268,9 +268,10 @@ for name, text in CORPUS.items():
 
 # ── Report ────────────────────────────────────────────────────────────────
 
+_card_files = list((ASSEMBLY / "cards").glob("*.html"))
 print(f"instructions: {len(CORPUS)} files "
       f"({len(list(ASSEMBLY.glob('*.md')))} procedures + "
-      f"{len(list((ASSEMBLY / 'cards').glob('*.html')))} cards) | "
+      f"{sum(1 for p in _card_files if p.stem != '00-cover')} cards + cover) | "
       f"ledger brands: {len(brands)} | waived: "
       f"{len(ASIN_WAIVED)} ASIN + {len(BRAND_WAIVED)} brand")
 for note in notes:
