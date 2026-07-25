@@ -47,7 +47,11 @@ The walls stand off the cold core rather than on it — one boss chain at the ±
 walls, one wall at the back — because the core spans the interior wall to wall
 and floor to its cap and is what sizes the box, so a wall on its face would leave
 the seam machinery nowhere to stand. The core seats flush against the seams
-instead, and sits flat on the floor.
+instead, and stands on its own printed ring (`../cold-core-ring/`) — dropped onto
+the floor, spanning the Y seam, keyed in X by the ±X bands' own seam posts and
+fore-and-aft between the back column's Z-seam pods. The floor those posts and
+that ring stand on is flat: the Y seam's floor overlap is a shiplap within the
+slab, not a proud tongue.
 
 Every piece prints on a Z face — the bottom pieces floor-down, the top pieces
 ceiling-down, each lying on its closed face with its seam mouth up. So the build

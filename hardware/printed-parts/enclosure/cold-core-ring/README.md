@@ -99,7 +99,8 @@ corner.
   move, this part has to be told.
 - The lift carries the whole water deck up with the foam-cap top, so every deck
   Z that is written as an absolute number rides `RING_SEAT` too. The appliance
-  grows ~4 mm taller; nothing else about the box changes.
+  grows ~4 mm taller; no wall of the box moves.
+- No [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7 row yet.
 
 ## Sources
 [value](NAME) texts are updated by:
