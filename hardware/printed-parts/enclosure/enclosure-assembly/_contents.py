@@ -264,7 +264,7 @@ CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # so the hose leaves the molded barb straight south and turns down the corridor with
 # no offset to take up — the discharge hose's bend radius is a gate, so that matters.
 SEAFLO_YAW = 180.0
-SEAFLO_POS = (127.0, 249.0)   # front face on the cap's front edge; its Z is the cap
+SEAFLO_POS = (149.0, 249.0)   # front face on the cap's front edge; its Z is the cap
 # The ASSE 1022 chain lies along +X in the service bay's AFT STRIP, over the
 # foam-cap top and behind the pump. Flow runs west to east: the 1/4" PTC inlet at
 # the west end takes its pigtail off the rear-panel water bulkhead, and the 1/4"
@@ -312,8 +312,10 @@ FLOWREG_YAW = 270.0
 # are molded into the head, so a stub of 3/8" braided PVC is the only thing that can leave
 # the discharge: it runs south off the barb, turns down over the cap's front edge, and
 # clamps onto this chain's barb, which is where the 3/8" ends. Placed unturned — its own
-# frame already runs the water down.
-DISCH_CHAIN_POS = (163.6, 188.0, 265.0 + RING_SEAT)   # the barb tip; the collet hangs LENGTH below it
+# frame already runs the water down. Its X rides the pump's discharge, not a number of its
+# own: the hose turns at R15.9, so any offset between the two costs two tangent lengths of
+# strip the bay does not have. The corridor bounds this chain in Y, not in X.
+DISCH_CHAIN_POS = (SEAFLO_POS[0] + 36.6, 188.0, 265.0 + RING_SEAT)   # the barb tip; the collet hangs LENGTH below it
 # The funnel's placement: its collar-rect centre in plan, plus a rotation
 # about its own Z. This is the CENTRE OF THE TOP-WALL FRAME — the basin sits
 # the same `hopper_funnel.brim_margin` off the display gusset, the corner pod,
