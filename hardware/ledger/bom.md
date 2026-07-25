@@ -130,6 +130,7 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | PCBA tray | 1 | PETG | 0.024 | $0.27 <!--@printed--> |
 | Power tray | 1 | PETG | 0.055 | $0.61 <!--@printed--> |
 | Enclosure — front bottom + front top (two pieces) | 1 set | PETG | 0.852 | $9.54 <!--@printed--> |
+| Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
 | Enclosure — back bottom + back top (two pieces) | 1 set | PETG | 1.533 | $17.17 <!--@printed--> |
 | Drip pan + cradle | 1 set | PETG | 0.033 | $0.37 <!--@printed--> |
 | Valve tray — source-select | 1 | PETG | 0.179 | $2.00 <!--@printed--> |
