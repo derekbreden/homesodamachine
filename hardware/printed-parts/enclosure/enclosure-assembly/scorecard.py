@@ -113,8 +113,8 @@ def _c(name, kind, sourced, held, note=""):
 COMPONENTS = [
     # Cold core + floor block
     _c("foam-assembly",     "real",        True,  "none", "cold core; seats on floor/against walls, support-ring TBD (enclosure-mechanical Open #6)"),
-    _c("compressor-shroud", "real",        True,  "none", "floor-boss capture TBD (enclosure-mechanical Open #1)"),
-    _c("condenser+fan",     "placeholder", True,  "none", "harvested donor block; side-wall bosses TBD (enclosure-mechanical Open #1)"),
+    _c("compressor-shroud", "real",        True,  "bosses", "floor seat band + plan register, and two capture bosses standing inside it at its own Ø4.5 mm base holes (enclosure.py `_shroud_seat` / `_shroud_bosses`): the front screw pins it through the front wall, the rear clamps it from the machine corridor. The rear screw's driver lane is fouled by the MQ-6 as placed — 1.00 mm behind the shroud's rear face, on the bore's own x"),
+    _c("condenser+fan",     "placeholder", True,  "bosses", "harvested donor block; two floor rails carry its weight and two +X-wall webs carry four ear pads at the donor fan shroud's screw pattern (enclosure.py `_condenser_mount`), M3×10 into ruthex through each ear. Ear pattern is an ESTIMATE until the donor shroud is separated and measured"),
     _c("mq6-sensor",        "real",        True,  "none", "MQ-6 module STEP (PCB + sensor can + header); floor gas sensor, no mount"),
     # Water deck
     _c("drip-pan",          "real",        True,  "cradle","Printed PETG catch basin (printed-parts/enclosure/drip-pan), 100 x 30 x 22, 45.1 mL. Lies on the foam-cap top in the aft strip behind the pump, centred on the ASSE vent column — the drip falls 28.6 mm from the tip onto the middle of its floor, where the Shutao moisture plate lies flat. Held by its own printed cradle: a floorless VHB'd rail loop the basin drops through onto the cap, no fasteners. Lifts 8 mm off the rail and draws west out from under the chain to be emptied"),
