@@ -205,6 +205,9 @@ TOOLS = [
         L(order="us717877837343809537", contains="PTFE Adapter"),
         L(order="us718417332286169089", contains="PTFE Adapter"),
     ])),
+    ("vacuum chamber", "T_VAC_CHAMBER", A("B0D78ZM928")),
+    ("convection toaster oven", "T_CURE_OVEN", A("B00IXBMS6M")),
+    ("monitoring thermometer", "T_OVEN_THERMO", A("B005KDEIZ0")),
     ('48" workbench', "T_WORKBENCH", A("B0FCD13KKQ")),
     ("Ultra Duster", "T_DUSTER", A("B07JRBR1MM")),
     ("DeWalt DWFP55130", "T_DEWALT", FIXED(0.0)),  # owned, not on ledger

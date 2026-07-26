@@ -566,14 +566,14 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
-| PB Motor Tech 5-gallon stainless vacuum chamber, 18.9 L, 11.8" × 11.8" interior, tempered-glass lid + glycerin gauge + shutoff valve + hose — degassing chamber for the silicone hopper-funnel pours; mates the §6 Orion 4 CFM vacuum pump via 1/4" SAE flare. Order #112-7063184-8235469, placed June 22, 2026 | [B0D78ZM928](https://www.amazon.com/dp/B0D78ZM928) | 1 | $95.99 | ON-ORDER (arriving Jun 24) |
-| Nuwave Bravo 30-QT 12-in-1 convection toaster oven, 50–500 °F, top/bottom heater control — silicone post-cure bake (drives off volatiles + completes the platinum cure for the food-contact funnel). Order #112-7063184-8235469, placed June 22, 2026 | [B00IXBMS6M](https://www.amazon.com/dp/B00IXBMS6M) | 1 | $129.99 | ON-ORDER (arriving Jun 24) |
+| PB Motor Tech 5-gallon stainless vacuum chamber, 18.9 L, 11.8" × 11.8" interior, tempered-glass lid + glycerin gauge + shutoff valve + hose — degassing chamber for the silicone hopper-funnel pours; mates the §6 Orion 4 CFM vacuum pump via 1/4" SAE flare. Order #112-7063184-8235469, placed June 22, 2026 | [B0D78ZM928](https://www.amazon.com/dp/B0D78ZM928) | 1 | $95.99 | ACQUIRED (delivered Jun 24) |
+| Nuwave Bravo 30-QT 12-in-1 convection toaster oven, 50–500 °F, top/bottom heater control — silicone post-cure bake (drives off volatiles + completes the platinum cure for the food-contact funnel). Order #112-7063184-8235469, placed June 22, 2026 | [B00IXBMS6M](https://www.amazon.com/dp/B00IXBMS6M) | 1 | $129.99 | ACQUIRED (delivered Jun 24) |
 | Rubbermaid Commercial stainless monitoring thermometer, 60–580 °F — post-cure oven-temperature verification. Order #112-0401256-3893007, placed June 22, 2026 | [B005KDEIZ0](https://www.amazon.com/dp/B005KDEIZ0) | 1 | $9.52 | ACQUIRED (delivered Jun 22) |
-| BBDINO 40A food-contact platinum silicone mold-making kit, 2.42 lb, 1:1 by weight — base silicone for the cast hopper-funnel (~78 g/funnel ≈ ~13 funnels per kit). Order #112-8255970-7923460, placed June 22, 2026 | [B0FHHBGSQK](https://www.amazon.com/dp/B0FHHBGSQK) | 1 kit | $35.16 | ON-ORDER (arriving Jun 23) |
-| BBDINO black silicone pigment, high-concentrated platinum-cure, 150 g — colorant for the cast hopper-funnel at ≤2% by weight (carbon-black, hides concentrate staining; food-contact qualified by the wetted-surface screen per [reservoir/wetted-surface-test.md](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md), not a cert). Order #112-7063184-8235469, placed June 22, 2026 | [B0BVR3R58V](https://www.amazon.com/dp/B0BVR3R58V) | 1 | $18.97 | ON-ORDER (arriving Jun 24) |
-| Mann Ease Release 200, 14 oz aerosol — addition-cure-compatible mold release for the printed hopper-funnel mold; used on the cavity and on the core's clear-acrylic seal (it is a release film, not a silicone fluid, so it does not add siloxane to the food face — any trace is cleared by the funnel's post-cure bake + wetted-surface screen). Order #112-0411698-8891425, placed June 22, 2026 | [B002YEBO1O](https://www.amazon.com/dp/B002YEBO1O) | 1 | $21.99 | ON-ORDER (arriving Jun 23) |
+| BBDINO 40A food-contact platinum silicone mold-making kit, 2.42 lb, 1:1 by weight — base silicone for the cast hopper-funnel (~78 g/funnel ≈ ~13 funnels per kit). Order #112-8255970-7923460, placed June 22, 2026 | [B0FHHBGSQK](https://www.amazon.com/dp/B0FHHBGSQK) | 1 kit | $35.16 | ACQUIRED (delivered Jun 23) |
+| BBDINO black silicone pigment, high-concentrated platinum-cure, 150 g — colorant for the cast hopper-funnel at ≤2% by weight (carbon-black, hides concentrate staining; food-contact qualified by the wetted-surface screen per [reservoir/wetted-surface-test.md](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md), not a cert). Order #112-7063184-8235469, placed June 22, 2026 | [B0BVR3R58V](https://www.amazon.com/dp/B0BVR3R58V) | 1 | $18.97 | ACQUIRED (delivered Jun 24) |
+| Mann Ease Release 200, 14 oz aerosol — addition-cure-compatible mold release for the printed hopper-funnel mold; used on the cavity and on the core's clear-acrylic seal (it is a release film, not a silicone fluid, so it does not add siloxane to the food face — any trace is cleared by the funnel's post-cure bake + wetted-surface screen). Order #112-0411698-8891425, placed June 22, 2026 | [B002YEBO1O](https://www.amazon.com/dp/B002YEBO1O) | 1 | $21.99 | ACQUIRED (delivered Jun 23) |
 | TCP Global 32 oz / 1000 mL graduated mixing cups (25-pk) — silicone-degassing batch cups, sized for the 3–4× vacuum rise of a ~70 mL pour. Order #112-0401256-3893007, placed June 22, 2026 | [B08HNCGY4N](https://www.amazon.com/dp/B08HNCGY4N) | 1 pk (25) | $17.99 | ACQUIRED (delivered Jun 22) |
-| Krylon K01303 Crystal Clear Acrylic, 11 oz gloss — clear-acrylic seal for the printed core's food-contact face: seals the print porosity and releases the platinum silicone without inhibiting the cure (acrylic, not enamel); finished + coupon-tested per [funnel-mold/README.md](/pie-in-the-sky/lite/printed-parts/funnel-mold/README.md) "Finish the core". Order #112-5591371-7092233, placed June 23, 2026 | [B00023JE7K](https://www.amazon.com/dp/B00023JE7K) | 1 | $9.89 | ON-ORDER (arriving Jun 25) |
+| Krylon K01303 Crystal Clear Acrylic, 11 oz gloss — clear-acrylic seal for the printed core's food-contact face: seals the print porosity and releases the platinum silicone without inhibiting the cure (acrylic, not enamel); finished + coupon-tested per [funnel-mold/README.md](/pie-in-the-sky/lite/printed-parts/funnel-mold/README.md) "Finish the core". Order #112-5591371-7092233, placed June 23, 2026 | [B00023JE7K](https://www.amazon.com/dp/B00023JE7K) | 1 | $9.89 | ACQUIRED (delivered Jun 25) |
 
 ---
 
@@ -590,10 +590,10 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$27,317.65](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$27,629.64](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$29,925.57](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$2,399.50](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$30,237.56](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$2,087.51](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
 | **Grand total — cash outlay** | [$32,367.96](LEDGER_GRAND_TOTAL) |
@@ -621,7 +621,7 @@ ACQUIRED hardware by section:
 | 17 | Domain / infrastructure | [$599.00](LEDGER_SEC17) |
 | 19 | Video / marketing capture | [$91.43](LEDGER_SEC19) |
 | 20 | McMaster-Carr direct | [$111.36](LEDGER_SEC20) |
-| 21 | Silicone molding — Zone C hopper-funnel | [$27.51](LEDGER_SEC21) |
+| 21 | Silicone molding — Zone C hopper-funnel | [$339.50](LEDGER_SEC21) |
 
 Notes:
 - **MISSING** = paid but never received (no refund pursued) — a real cash outlay, tracked apart from ACQUIRED.

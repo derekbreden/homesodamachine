@@ -105,6 +105,14 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **Hotend stock** | various Bambu + DUROZZLE orders, [purchases.md §13 / §15](/hardware/ledger/purchases.md) | Right-side (Induction) HS: 0.2 SS, 0.4 ×4 HS, 0.6 HS, 0.8 HS, 0.8 HF HS. Left-side (Standard): 0.4 HS ×2, 0.6 TC SF (Bambu), 0.6 TC + 0.6 Diamond PCD (DUROZZLE), 0.8 TC HF. | [$517.09](T_HOTENDS) |
 | **4-in-1 PTFE Adapter II (×2)** | Bambu orders us717877837343809537 + us718417332286169089, [purchases.md §15](/hardware/ledger/purchases.md) | Multi-spool feed adapter. | [$15.98](T_PTFE_ADAPTER) |
 
+## Casting / molding
+
+| Tool | Source | Notes | $ |
+|---|---|---|---:|
+| **PB Motor Tech 5-gal stainless vacuum chamber** | [B0D78ZM928](https://www.amazon.com/dp/B0D78ZM928), [purchases.md §21](/hardware/ledger/purchases.md) | 18.9 L, 11.8" × 11.8" interior, tempered-glass lid, glycerin gauge, shutoff valve. Degassing the platinum-silicone hopper-funnel pours. Has no pump of its own — it mates the §6 Orion 4 CFM pump (T_VAC_PUMP) over 1/4" SAE flare, so a refrigerant evacuation and a silicone degas compete for one pump. Cup sizing assumes the 3–4× rise of a ~70 mL pour. | [$95.99](T_VAC_CHAMBER) |
+| **Nuwave Bravo 30-QT convection toaster oven** | [B00IXBMS6M](https://www.amazon.com/dp/B00IXBMS6M), [purchases.md §21](/hardware/ledger/purchases.md) | 50–500 °F, independent top/bottom heater control 0–100 %. Silicone post-cure bake — drives off volatiles and completes the platinum cure on the food-contact funnel. Dedicated to shop use; not a food oven. | [$129.99](T_CURE_OVEN) |
+| **Rubbermaid Commercial monitoring thermometer** | [B005KDEIZ0](https://www.amazon.com/dp/B005KDEIZ0), [purchases.md §21](/hardware/ledger/purchases.md) | Stainless, 60–580 °F. Verifies the post-cure oven's actual cavity temperature against its dial. | [$9.52](T_OVEN_THERMO) |
+
 ## Shop / bench infrastructure
 
 | Tool | Source | Notes | $ |
@@ -124,7 +132,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 
 ## Tools total
 
-Total acquired tooling: **[$14,407.15](TOOLS_TOTAL)**
+Total acquired tooling: **[$14,642.65](TOOLS_TOTAL)**
 
 ## Open items
 
