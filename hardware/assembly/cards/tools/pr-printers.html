@@ -17,51 +17,56 @@
 <main>
 
   <div class="machine">
-    <p class="lede"><strong>Two printers, two dryers, and the dryers are what
-    divide the work.</strong> The S4 stops at <span class="dim">70 &deg;C</span>;
-    the engineering-CF tier dries above it. So the question at the spool is not
-    which printer &#8212; it is which <em>ceiling</em>.</p>
+    <p class="lede"><strong>A spool never moves between where it dries and
+    where it prints.</strong> PETG dries in the AMS 2 Pro and the same unit
+    feeds the print; PET-CF dries in the E2 and prints out of its chamber; TPU
+    feeds from a sealed box. So the question at the spool is not which dryer
+    &#8212; it is which <em>home</em>.</p>
     <div class="envelope">
-      <div><div class="k">Printers</div><div class="v">H2C &#215; 2 <small>AMS HT &#215; 2 &#183; 2 Pro</small></div></div>
+      <div><div class="k">Printers</div><div class="v">H2C &#215; 2 <small>AMS Combo</small></div></div>
       <div><div class="k">Plate</div><div class="v">Engineering <small>for CF</small></div></div>
-      <div><div class="k">Bulk dryer</div><div class="v">SUNLU S4 <small>70 &deg;C &#183; 4 spools</small></div></div>
-      <div><div class="k">CF dryer</div><div class="v">SUNLU E2 <small>110 &deg;C &#183; dual</small></div></div>
+      <div><div class="k">PETG</div><div class="v">AMS 2 Pro &#215;3 <small>dries + feeds</small></div></div>
+      <div><div class="k">PET-CF &#183; TPU</div><div class="v">E2 &#183; PolyDryer <small>110 &deg;C</small></div></div>
     </div>
   </div>
 
   <table class="ops">
     <tr>
-      <th style="width:340px">Filament</th>
-      <th style="width:600px">Dries in</th>
+      <th style="width:300px">Filament</th>
+      <th style="width:620px">Dries and feeds from</th>
       <th style="width:900px">Comes off the plate as</th>
       <th>What it is really for</th>
     </tr>
     <tr>
-      <td class="op"><b>PETG</b><span class="ref">CC-13 &#183; EN-05 &#183; EN-06</span></td>
-      <td>SUNLU S4 <span class="dim">70 &deg;C</span>
-        <span class="sub"><span class="dim">350 W</span> PTC, 3 circulation fans, 4 spools</span></td>
+      <td class="op"><b>PETG, black</b><span class="ref">CC-13 &#183; EN-05 &#183; EN-06</span></td>
+      <td>AMS 2 Pro
+        <span class="sub">fresh rolls straight in; dries in place, feeds the
+        print when the cycle ends</span></td>
       <td>The cold-core shell stack, both enclosure halves, the three valve
-        trays, drip pan + rails, PRV shroud, reed bridge, AC hub
+        trays, drip pan + rails, PRV shroud, reed bridge, power tray, AC hub
         <span class="sub">foam-shell on the H2C at a <span class="dim">0.8 mm</span> nozzle</span></td>
-      <td>The workhorse, and most of the machine's mass. Drying it here is what
-        leaves the E2 for the engineering tier.</td>
+      <td>The workhorse, and most of the machine's mass &#8212; sealed bag to
+        AMS to plate, never handled.</td>
     </tr>
     <tr>
-      <td class="op"><b>PETG, food</b><span class="ref">CC-08 &#183; CC-09</span></td>
-      <td>Same S4 tier
-        <span class="sub">SunTop, <span class="dim">1.75 mm</span> &#215; <span class="dim">1 kg</span>, clear</span></td>
+      <td class="op"><b>PETG, clear</b><span class="ref">CC-08 &#183; CC-09</span></td>
+      <td>The same AMS 2 Pro
+        <span class="sub">Bambu PETG Basic, Translucent Clear &#8212; same
+        spool tier as the black</span></td>
       <td>Both reservoir bodies and both reservoir caps &#8212; the four
         syrup-wetted parts
         <span class="sub">nothing else printed in the machine touches syrup</span></td>
-      <td>A wetted surface is qualified at the spool, not at a bench downstream
-        of it.</td>
+      <td>The wall is the fuel gauge &#8212; the customer reads fill level
+        straight through it.</td>
     </tr>
     <tr>
       <td class="op"><b>TPU 90A</b><span class="ref">CC-15 &#183; FU-02</span></td>
-      <td class="unset">neither tier names it</td>
-      <td>Every soft seal: both foam-cap gaskets, both reservoir gaskets and
-        their bulkhead washers, the vent retaining rings, the faucet mounting
-        gasket and its o-ring
+      <td>PolyDryer box
+        <span class="sub">short straight feed out of a sealed box &#8212; what
+        dispenses a soft filament cleanly</span></td>
+      <td>Every soft seal &#8212; foam-cap gaskets, reservoir gaskets,
+        bulkhead washers, vent retaining rings, faucet mounting gasket and
+        o-ring
         <span class="sub">printed from per-unit-trivial stock, not costed</span></td>
       <td>The machine buys no gaskets. A seam that needs a seal gets one printed
         to the seam.</td>
@@ -69,7 +74,9 @@
     <tr>
       <td class="op"><b>PET-CF</b><span class="ref">faucet sub-assembly</span></td>
       <td>SUNLU E2 <span class="dim">110 &deg;C</span>
-        <span class="sub">Fiberon PET-CF17 <span class="dim">100 &deg;C</span> &#215; <span class="dim">10 h</span> &#183; Bambu PET-CF <span class="dim">80 &deg;C</span> &#215; <span class="dim">8&#8211;12 h</span> &#183; PA-CF / FR-ABS</span></td>
+        <span class="sub">Fiberon PET-CF17 &#183;
+        <span class="dim">100 &deg;C</span> &#215; <span class="dim">10 h</span>
+        &#183; prints out of the chamber</span></td>
       <td>The Touch-Flo shell &#8212; bottom, middle and top &#8212; and the
         faucet mounting plate
         <span class="sub">on the engineering plate; M3 heat-set inserts go in at SO</span></td>
@@ -81,9 +88,9 @@
   <div class="below">
     <div class="col" style="flex:1">
       <div class="critical"><span class="sign">&#9940;</span><div>The four
-        wetted parts print from the <b>SunTop food-contact spool</b>, FDA
-        <span class="dim">21 CFR 177.1630</span> &#8212; no bench downstream
-        re-qualifies a wetted surface.</div></div>
+        reservoir parts <b>are</b> the wetted surface &#8212; the bare print is
+        what the syrup sits against, and no bench downstream re-qualifies
+        it.</div></div>
       <div class="note"><b>Hotends, by side.</b> Right (Induction) HS: 0.2 SS,
         0.4 &#215;4 HS, 0.6 HS, 0.8 HS, 0.8 HF HS. Left (Standard): 0.4 HS
         &#215;2, 0.6 TC SF, 0.6 TC + 0.6 Diamond PCD, 0.8 TC HF.</div>
@@ -94,9 +101,9 @@
         <span class="lbl">Have in hand</span>
         <div class="row">
           <figure><img src="img/tool/BAMBU-H2C.png" alt=""><figcaption><b>Bambu H2C</b>&#215;2, AMS Combo</figcaption></figure>
-          <figure><img src="img/tool/BAMBU-AMSHT.png" alt=""><figcaption><b>AMS HT</b>&#215;2 &#183; + AMS 2 Pro</figcaption></figure>
-          <figure><img src="img/tool/B0F5PMMXKD.png" alt=""><figcaption><b>SUNLU E2</b>110 &deg;C, engineering CF</figcaption></figure>
-          <figure><img src="img/tool/B0CQJMV71Z.png" alt=""><figcaption><b>SUNLU S4</b>70 &deg;C, bulk 4-spool</figcaption></figure>
+          <figure><img src="img/tool/BAMBU-AMSHT.png" alt=""><figcaption><b>AMS</b>2 Pro &#215;3 &#183; HT &#215;2</figcaption></figure>
+          <figure><img src="img/tool/B0F5PMMXKD.png" alt=""><figcaption><b>SUNLU E2</b>110 &deg;C, the PET-CF</figcaption></figure>
+          <figure><img src="img/tool/B0CQJMV71Z.png" alt=""><figcaption><b>SUNLU S4</b>sealed 4-spool storage</figcaption></figure>
         </div>
       </div>
     </div>
@@ -105,59 +112,66 @@
       <div class="panel light">
         <svg viewBox="0 0 1800 730" xmlns="http://www.w3.org/2000/svg">
           <style>
-            .band  { fill: #eef0f3; stroke: none; }
-            .bandc { fill: #e9e4d8; stroke: none; }
-            .axis  { stroke: #1d1d26; stroke-width: 4; }
-            .ceil  { stroke: #4a5d52; stroke-width: 4; stroke-dasharray: 16 10; }
-            .stop  { stroke: #1d1d26; stroke-width: 3.5; }
-            .bar   { fill: #dfe3ea; stroke: #1d1d26; stroke-width: 3.5; }
-            .barc  { fill: #4a5d52; stroke: #1d1d26; stroke-width: 3.5; }
-            .dtx   { font: 700 33px Menlo, monospace; fill: #4a5d52; }
+            .home  { fill: #4a5d52; stroke: #1d1d26; stroke-width: 3.5; }
+            .rig   { fill: #dfe3ea; stroke: #1d1d26; stroke-width: 3.5; }
+            .store { fill: #eceadf; stroke: #a49d90; stroke-width: 3.5;
+                     stroke-dasharray: 16 10; }
+            .flow  { stroke: #1d1d26; stroke-width: 4; fill: none; }
+            .dead  { stroke: #a49d90; stroke-width: 4; fill: none;
+                     stroke-dasharray: 14 10; }
+            .head  { fill: #1d1d26; }
             .ttl   { font: 600 34px "Helvetica Neue", sans-serif; fill: #1d1d26; }
-            .inv   { font: 600 31px "Helvetica Neue", sans-serif; fill: #ffffff; }
+            .lbl   { font: 700 33px Menlo, monospace; fill: #1d1d26; }
+            .inv   { font: 600 32px "Helvetica Neue", sans-serif; fill: #ffffff; }
+            .invs  { font: 400 29px "Helvetica Neue", sans-serif; fill: #cfd8d2; }
+            .rigt  { font: 700 40px Menlo, monospace; fill: #1d1d26; }
             .sub   { font: 400 30px "Helvetica Neue", sans-serif; fill: #70707c; }
           </style>
 
-          <text class="ttl" x="26" y="48">THE TWO CEILINGS &#8212; drying temperature, left to right</text>
-          <text class="sub" x="26" y="90">every filament in the appliance, against the dryer that can reach it</text>
+          <text class="ttl" x="26" y="48">THE THREE HOMES &#8212; where a spool dries is where it prints from</text>
+          <text class="sub" x="26" y="90">a filament is loaded once; nothing is carried from a dryer to a printer</text>
 
-          <!-- the two territories -->
-          <rect class="band"  x="180" y="176" width="585" height="424"/>
-          <rect class="bandc" x="765" y="176" width="780" height="424"/>
+          <!-- lane 1 — PETG -->
+          <text class="lbl" x="26" y="194">PETG &#183; black + clear</text>
+          <rect class="home" x="450" y="134" width="700" height="96" rx="10"/>
+          <text class="inv"  x="478" y="176">AMS 2 Pro &#215;3</text>
+          <text class="invs" x="478" y="212">dries in place, then feeds</text>
+          <line class="flow" x1="1150" y1="182" x2="1214" y2="182"/>
+          <polygon class="head" points="1230,182 1206,170 1206,194"/>
 
-          <!-- ceilings -->
-          <line class="stop" x1="765" y1="162" x2="765" y2="600"/>
-          <line class="ceil" x1="1545" y1="162" x2="1545" y2="600"/>
-          <text class="dtx" x="765" y="150" text-anchor="middle">70 &deg;C</text>
-          <text class="dtx" x="1545" y="150" text-anchor="middle">110 &deg;C</text>
-          <text class="sub" x="765" y="636" text-anchor="middle">S4 ceiling</text>
-          <text class="sub" x="1545" y="636" text-anchor="middle">E2 ceiling</text>
+          <!-- lane 2 — PET-CF -->
+          <text class="lbl" x="26" y="314">PET-CF</text>
+          <rect class="home" x="450" y="254" width="700" height="96" rx="10"/>
+          <text class="inv"  x="478" y="296">SUNLU E2 &#183; 110 &deg;C</text>
+          <text class="invs" x="478" y="332">100 &deg;C &#215; 10 h, then prints from the chamber</text>
+          <line class="flow" x1="1150" y1="302" x2="1214" y2="302"/>
+          <polygon class="head" points="1230,302 1206,290 1206,314"/>
 
-          <line class="axis" x1="180" y1="600" x2="1620" y2="600"/>
+          <!-- lane 3 — TPU -->
+          <text class="lbl" x="26" y="434">TPU 90A</text>
+          <rect class="home" x="450" y="374" width="700" height="96" rx="10"/>
+          <text class="inv"  x="478" y="416">PolyDryer box</text>
+          <text class="invs" x="478" y="452">sealed, short straight feed</text>
+          <line class="flow" x1="1150" y1="422" x2="1214" y2="422"/>
+          <polygon class="head" points="1230,422 1206,410 1206,434"/>
 
-          <!-- the S4 tier: everything that fits under 70 -->
-          <rect class="bar" x="196" y="208" width="553" height="106" rx="10"/>
-          <text class="ttl" x="222" y="250">PLA &#183; PETG &#183; PETG-CF</text>
-          <text class="sub" x="222" y="292">food-grade PETG &#8212; the bulk tier</text>
+          <!-- the printer every lane lands on -->
+          <rect class="rig" x="1230" y="134" width="470" height="336" rx="12"/>
+          <text class="rigt" x="1465" y="286" text-anchor="middle">H2C &#215; 2</text>
+          <text class="sub"  x="1465" y="330" text-anchor="middle">one plate, four filaments</text>
 
-          <!-- Bambu PET-CF at 80 -->
-          <rect class="barc" x="196" y="340" width="764" height="96" rx="10"/>
-          <text class="inv" x="222" y="380">Bambu PET-CF</text>
-          <text class="inv" x="222" y="418">8&#8211;12 h</text>
-          <text class="dtx" x="984" y="400">80 &deg;C</text>
-
-          <!-- Polymaker Fiberon PET-CF17 at 100 -->
-          <rect class="barc" x="196" y="462" width="1154" height="96" rx="10"/>
-          <text class="inv" x="222" y="502">Polymaker Fiberon PET-CF17</text>
-          <text class="inv" x="222" y="540">10 h</text>
-          <text class="dtx" x="1374" y="522">100 &deg;C</text>
-
-          <text class="sub" x="196" y="700">PA-CF and FR-ABS ride the same E2 tier &#8212; tools.md pins no temperature to either</text>
+          <!-- and the box that is not a home -->
+          <text class="lbl" x="26" y="614">no lane</text>
+          <rect class="store" x="450" y="554" width="700" height="96" rx="10"/>
+          <text class="lbl" x="478" y="596">SUNLU S4</text>
+          <text class="sub" x="478" y="632">sealed 4-spool stock, unheated</text>
+          <line class="dead" x1="1150" y1="602" x2="1224" y2="602"/>
+          <line class="dead" x1="1246" y1="580" x2="1298" y2="624"/>
+          <line class="dead" x1="1298" y1="580" x2="1246" y2="624"/>
         </svg>
-        <div class="cap"><b>Where a bar ends is which dryer reaches it</b>
-        &#8212; <span class="dim">100 &deg;C</span> and
-        <span class="dim">80 &deg;C</span> both sit past where the S4 stops, so
-        the engineering-CF tier has one dryer.</div>
+        <div class="cap"><b>Three homes, one printer</b> &#8212; a spool goes
+        into the unit that dries it and stays there. The S4 holds sealed stock:
+        nothing dries in it, and nothing prints out of it.</div>
       </div>
     </div>
   </div>
@@ -165,7 +179,7 @@
 </main>
 
 <footer>
-  <div class="done"><span class="lbl">Leave the printers when</span>Every part for the build is off the plate and inspected, the four wetted parts printed from the SunTop spool, and every spool back in a dryer or a sealed box.</div>
+  <div class="done"><span class="lbl">Leave the printers when</span>Every part for the build is off the plate and inspected, the four wetted parts printed in translucent clear, and every spool back in the unit it feeds from or in a sealed box.</div>
   <div class="src">ledger/tools.md &#183; bom.md &#167;7<br>CC-08 / CC-13 / EN-05 / EN-06<br>rev 2026-07-26</div>
 </footer>
 
