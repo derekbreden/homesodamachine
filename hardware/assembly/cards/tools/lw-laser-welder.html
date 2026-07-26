@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="tools.css">
+</head>
+<body class="lw">
+<div class="card">
+
+<header>
+  <div class="code">LW</div>
+  <h1>Laser welder
+    <small>XLaserlab X1 Pro &#183; the tack, the prep, and the two closure fillets</small></h1>
+  <div class="deckpos"><b>Tool station &#183; 03/13</b>Kitchen edition</div>
+</header>
+
+<main>
+
+  <div class="machine">
+    <p class="lede"><strong>The joint is a corner, not an edge.</strong> The
+    plate seats <span class="dim">1/4&Prime;</span> below the tube end, so the
+    bore and the plate's outer face form an internal corner and the beam fires
+    into it onto the plate's mass &#8212; which backs the puddle. Aimed at the
+    bare <span class="dim">0.065&Prime;</span> tube edge instead, a focused
+    laser cuts back rather than fuses. All four run in one session: heat the
+    welder once.</p>
+    <div class="envelope">
+      <div><div class="k">Machine</div><div class="v">X1 Pro <small>weld / clean / cut</small></div></div>
+      <div><div class="k">Recipe</div><div class="v">60 % <small>80 Hz &#215; 2 mm</small></div></div>
+      <div><div class="k">Filler</div><div class="v">ER316L <small>.030</small></div></div>
+      <div><div class="k">Shield</div><div class="v">argon <small>2 s pre/post</small></div></div>
+    </div>
+  </div>
+
+  <table class="ops">
+    <tr>
+      <th style="width:300px">Operation</th>
+      <th style="width:520px">Mode</th>
+      <th style="width:700px">Set to</th>
+      <th>What it is really for</th>
+    </tr>
+    <tr>
+      <td class="op"><b>Tack</b><span class="ref">PV-06</span></td>
+      <td>Tack, closure recipe
+        <span class="sub">rod vertical on the bottom plate's inside face</span></td>
+      <td>Rod cut to <span class="dim">131.1 mm</span>, base in its register
+        <span class="sub">its top must enter the top-plate register without bottoming out</span></td>
+      <td>The register does the locating &#8212; it stands the rod on the
+        donut-wall axis. The tack freezes what the pocket already fixed.</td>
+    </tr>
+    <tr>
+      <td class="op"><b>Prep</b><span class="ref">PV-07</span></td>
+      <td>X1 cleaning mode
+        <span class="sub">or <span class="dim">~30 s</span> per joint with Scotch-Brite 7447</span></td>
+      <td>The bore's <span class="dim">1/4&Prime;</span> band, and the plate's outer face
+        <span class="sub">not the cut edge, not the plate OD &#8212; both buried in the slip joint</span></td>
+      <td>Clean bare metal, not tooth. Coarse grit on the plate's outer face
+        rounds the perimeter edge &#8212; which <em>is</em> the fillet root.</td>
+    </tr>
+    <tr>
+      <td class="op"><b>Bottom</b><span class="ref">PV-08</span></td>
+      <td class="v">60 % &#183; 80 Hz &#215; 2 mm<span class="sub">wire 12 mm/s &#183; argon 2 s pre/post &#183; ER316L .030</span></td>
+      <td>Plate recessed <span class="dim">1/4&Prime;</span> on the spacer,
+        <span class="dim">8-tack</span> opposite-side-bisecting
+        <span class="sub">trail-off motion at end of bead</span></td>
+      <td>Fuse the corner fully and seal the <span class="dim">~0.005&Prime;</span>
+        radial slip. Keep heat moving &#8212; the proud lip is unbacked above
+        the weld and distorts if you dwell.</td>
+    </tr>
+    <tr>
+      <td class="op"><b>Closure</b><span class="ref">PV-09</span></td>
+      <td class="v">same recipe<span class="sub">donut slid onto the rod first</span></td>
+      <td>Plate down to its <span class="dim">1/4&Prime;</span> recess against the spacer
+        <span class="sub">if the register binds on the rod tip, open that one cap to <span class="dim">5/32&Prime;</span></span></td>
+      <td>The register captures the rod tip as the plate seats; the donut is
+        captive between the two for good.</td>
+    </tr>
+  </table>
+
+  <div class="below">
+    <div class="col" style="flex:1">
+      <div class="safety"><span class="sign">&#9888;</span><div><b>Handheld
+        class-4 beam</b> &#8212; hands are in the work envelope the whole time.
+        TIG gloves on, nothing reflective in the line of fire.</div></div>
+      <div class="critical"><span class="sign">&#9940;</span><div>The rod must
+        never hold the fillet root open &#8212; <b>it locates the plate, it does
+        not support it.</b> Confirm seated depth against the spacer.</div></div>
+      <div class="note"><b>Don't let go</b> &#8212; trigger held, lift
+        straight up at the end of a bead, so the retract cycle fires in mid-air
+        and the wire never re-fuses. <b>Colour inside:</b> yellow/brown
+        passivates out; black scale does not.</div>
+      <div class="tools">
+        <span class="lbl">Have in hand</span>
+        X1 Pro + argon size-80 / RX Weld &#183; ER316L .030 &#183;
+        <span class="dim">1/4&Prime;</span> spacer &#183; Scotch-Brite 7447
+        (stainless-only) &#183; V-pads &#183; C110 chill bar &#183; TIG gloves
+      </div>
+    </div>
+
+    <div class="col" style="flex:none; width:1300px">
+      <div class="panel light">
+        <svg viewBox="0 0 1800 700" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 4; }
+            .weld  { fill: #f0b429; stroke: #1d1d26; stroke-width: 3; }
+            .dimln { stroke: #b3341f; stroke-width: 2.5; }
+            .tick  { stroke: #b3341f; stroke-width: 2.5; }
+            .dtx   { font: 700 30px Menlo, monospace; fill: #b3341f; }
+            .ttl   { font: 600 30px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+            .sub   { font: 400 27px "Helvetica Neue", sans-serif; fill: #70707c; }
+            .beam  { stroke: #b3341f; stroke-width: 5; stroke-dasharray: 15 10; }
+          </style>
+
+          <text class="ttl" x="26" y="44">SECTION &#183; the recessed corner fillet</text>
+          <text class="sub" x="26" y="82">outside the vessel is up &#183; proportions to scale</text>
+
+          <!-- tube wall stands proud; plate seated 250 px (1/4") below its end -->
+          <path class="steel" d="M 300 130 L 365 130 L 365 620 L 300 620 Z"/>
+          <path class="steel" d="M 365 380 L 1040 380 L 1040 630 L 365 630 Z"/>
+          <path class="weld"  d="M 365 380 L 365 246 Q 434 320 520 380 Z"/>
+
+          <!-- beam into the corner -->
+          <path class="beam" d="M 690 150 L 452 300"/>
+          <polygon points="452,300 488,297 476,326" fill="#b3341f"/>
+          <text class="dtx" x="706" y="146">beam</text>
+
+          <!-- recess: tube end to plate outer face -->
+          <line class="dimln" x1="238" y1="130" x2="238" y2="380"/>
+          <line class="tick"  x1="224" y1="130" x2="252" y2="130"/>
+          <line class="tick"  x1="224" y1="380" x2="252" y2="380"/>
+          <text class="dtx" x="60" y="248">1/4&#8243;</text>
+          <text class="sub" x="26" y="286">recess</text>
+
+          <!-- wall -->
+          <line class="dimln" x1="300" y1="676" x2="365" y2="676"/>
+          <line class="tick"  x1="300" y1="662" x2="300" y2="690"/>
+          <line class="tick"  x1="365" y1="662" x2="365" y2="690"/>
+          <text class="dtx" x="120" y="686">0.065&#8243;</text>
+
+          <!-- plate -->
+          <line class="dimln" x1="1100" y1="380" x2="1100" y2="630"/>
+          <line class="tick"  x1="1086" y1="380" x2="1114" y2="380"/>
+          <line class="tick"  x1="1086" y1="630" x2="1114" y2="630"/>
+          <text class="dtx" x="1126" y="516">1/4&#8243;</text>
+
+          <text class="sub" x="1240" y="150">tube wall stands proud &#8212;</text>
+          <text class="sub" x="1240" y="184">unbacked, distorts if you dwell</text>
+          <text class="ttl" x="1240" y="290">plate mass backs</text>
+          <text class="ttl" x="1240" y="326">the puddle</text>
+          <text class="sub" x="1240" y="386">the two prepped faces are</text>
+          <text class="sub" x="1240" y="420">the bore band and this outer</text>
+          <text class="sub" x="1240" y="454">face, out to its perimeter</text>
+          <text class="sub" x="1240" y="556">~0.005&#8243; radial slip,</text>
+          <text class="sub" x="1240" y="590">sealed by the fillet</text>
+          <line class="dimln" x1="1232" y1="566" x2="1052" y2="500"/>
+          <text class="sub" x="420" y="700">interior &#183; float rod points up into it</text>
+        </svg>
+        <div class="cap"><b>Why the plate sits low</b> &#8212; a fillet driven
+        into a corner backed by <span class="dim">1/4&Prime;</span> of plate is a
+        weld the hand can hold; the same beam aimed at a bare
+        <span class="dim">0.065&Prime;</span> edge is a cut.</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Leave the welder when</span>Both closure fillets run full-circumference with the plates at their seated depth, the rod captive and not load-bearing, and no black scale inside &#8212; ready for dye-penetrant (PV-10).</div>
+  <div class="src">pressure-vessel.md &#167;2&#8211;5<br>ledger/tools.md &#183; PV-06 / PV-07 / PV-08 / PV-09<br>rev 2026-07-26</div>
+</footer>
+
+</div>
+</body>
+</html>

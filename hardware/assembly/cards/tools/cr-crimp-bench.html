@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="tools.css">
+</head>
+<body class="cr">
+<div class="card">
+
+<header>
+  <div class="code">CR</div>
+  <h1>Crimp bench
+    <small>four dies, one rule &#183; every internal harness, built and tested off the chassis</small></h1>
+  <div class="deckpos"><b>Tool station &#183; 08/13</b>Kitchen edition</div>
+</header>
+
+<main>
+
+  <div class="machine">
+    <p class="lede"><strong>Nothing here is a machine.</strong> Four crimpers,
+    and the whole job is matching the barrel to what the conductor lands in.
+    Every wire is black on purpose &#8212; the build is jig-and-test and the
+    repair is swap-the-assembly, so per-conductor colour would do nothing, and
+    the <em>housing label</em> is the only thing that tells two looms apart.</p>
+    <div class="envelope">
+      <div><div class="k">Wire</div><div class="v">22 AWG <small>black &#183; 16 AWG AC/12 V</small></div></div>
+      <div><div class="k">Sleeve</div><div class="v">PET braid <small>1/4&#8211;3/4&#8243;</small></div></div>
+      <div><div class="k">Test</div><div class="v">continuity <small>pin-to-pin</small></div></div>
+      <div><div class="k">Label</div><div class="v">by assembly <small>not per wire</small></div></div>
+    </div>
+  </div>
+
+  <table class="ops">
+    <tr>
+      <th style="width:330px">Termination</th>
+      <th style="width:520px">Crimper</th>
+      <th style="width:680px">Lands in</th>
+      <th>What it is really for</th>
+    </tr>
+    <tr>
+      <td class="op"><b>Ferrule</b><span class="ref">CA-01 &#183; ES-02/05</span></td>
+      <td>Preciva <span class="dim">28&#8211;5</span>
+        <span class="sub">quad-indent square</span></td>
+      <td>Wago <span class="dim">221</span> lever nuts + screw terminals
+        <span class="sub">one conductor per ferrule, unless a twin-entry is called for</span></td>
+      <td>A bootlace turns stranded wire into something a lever can clamp
+        without splaying it.</td>
+    </tr>
+    <tr>
+      <td class="op"><b>Faston + ring</b><span class="ref">WR-01/02/04 &#183; IP-04</span></td>
+      <td>Haisstronica <span class="dim">22&#8211;10</span>
+        <span class="sub">insulated-terminal die</span></td>
+      <td>Female <span class="dim">6.3 mm</span> / <span class="dim">4.8 mm</span> at valves, motors, compressor, fan
+        <span class="sub">rings at the ground bus and the shroud stud</span></td>
+      <td>The device-end terminations, all push-on &#8212; nothing on the
+        chassis is soldered.</td>
+    </tr>
+    <tr>
+      <td class="op"><b>XH pin</b><span class="ref">CA-01 &#183; GT-04</span></td>
+      <td>iCrimp <span class="dim">SN-2549</span>
+        <span class="sub">open-barrel, double-wing</span></td>
+      <td>The board's labelled wafers &#8212; every loom XH
+        <span class="sub">"B" profile, lance clicks, then tug it</span></td>
+      <td>Conductor wings on bare strands, insulation wings on jacket; the
+        housing's lance does the holding.</td>
+    </tr>
+    <tr>
+      <td class="op"><b>Fan-out</b><span class="ref">CA-01</span></td>
+      <td>Lever, no die
+        <span class="sub">ferruled conductors only</span></td>
+      <td><span class="dim">221-413</span> AC mains &#183; <span class="dim">221-415</span> up to 5 &#183; <span class="dim">221-420</span> beyond
+        <span class="sub">at the device-cluster end &#8212; manifold, reservoir</span></td>
+      <td>One rail wire leaves the board and explodes at the far end, never N
+        parallel wires from the connector.</td>
+    </tr>
+  </table>
+
+  <div class="below">
+    <div class="col" style="flex:1">
+      <div class="critical"><span class="sign">&#9940;</span><div><b>J4 and J7
+        are the same <span class="dim">7P</span> housing.</b> Label both looms
+        at the housing &#8212; a swap puts J4's <span class="dim">3V3/5V</span>
+        onto J7's MCP reed inputs.</div></div>
+      <div class="note"><b>Cut, don't stock.</b> Every run length is
+        layout-specific and only grows as the enclosure settles, so each
+        conductor comes off the bulk spool at build. Pre-crimped leads survive
+        only for short module-to-module hops.</div>
+      <div class="note"><b>Finish every sleeve end</b> with heat-shrink so it
+        can't fray, and flush-cut every zip tie &#8212; no proud tail.</div>
+      <div class="tools">
+        <span class="lbl">Have in hand</span>
+        Preciva 28&#8211;5 &#183; Haisstronica 22&#8211;10 &#183; iCrimp SN-2549
+        &#183; Klein 11063W stripper &#183; flush cutters &#183; heat gun &#183;
+        multimeter &#183; XH pins + housings &#183; PET braid &#183; the run table
+      </div>
+    </div>
+
+    <div class="col" style="flex:none; width:1280px">
+      <div class="panel">
+        <div class="shot">
+          <img src="img/cr-pcba.png" alt="">
+          <svg viewBox="0 0 1980 1040" xmlns="http://www.w3.org/2000/svg">
+            <style>
+              .ld  { stroke: #b3a3e0; stroke-width: 4; fill: none; }
+              .box { stroke: #ff8a6b; stroke-width: 7; fill: none; }
+              .ttl { font: 700 46px "Helvetica Neue", sans-serif; fill: #fff; }
+              .key { font: 700 44px Menlo, monospace; fill: #ff8a6b; }
+              .txt { font: 500 40px "Helvetica Neue", sans-serif; fill: #dfe3ec; }
+              .qui { font: 400 36px "Helvetica Neue", sans-serif; fill: #9aa3b8; }
+            </style>
+
+            <text class="ttl" x="34" y="64">EVERY LOOM ENDS HERE</text>
+            <text class="qui" x="34" y="116">the board's labelled wafers &#8212; all XH</text>
+
+            <rect class="box" x="831" y="828" width="200" height="84" rx="12"/>
+            <rect class="box" x="1211" y="828" width="200" height="84" rx="12"/>
+
+            <path class="ld" d="M 931 828 L 931 690 L 640 690"/>
+            <path class="ld" d="M 1311 828 L 1311 620 L 1490 620"/>
+
+            <text class="key" x="300" y="656">J4 &#183; SENSORS</text>
+            <text class="txt" x="300" y="706">7P</text>
+            <text class="key" x="1500" y="586">J7 &#183; REEDS B</text>
+            <text class="txt" x="1500" y="636">7P &#8212; identical shell</text>
+
+            <text class="ttl" x="300" y="972">Same edge. Same housing.</text>
+            <text class="qui" x="300" y="1016">34.5 mm apart &#8212; only the label tells them apart.</text>
+          </svg>
+        </div>
+        <div class="cap"><b>The one misplug the board cannot survive</b> &#8212;
+        the two 7-pin shells sit on the same edge, so the label goes on at the
+        crimp bench, not at the chassis.</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Leave the bench when</span>Every assembly is continuity-tested pin-to-pin with no adjacent short, sleeved and flush-cut, labelled by name &#8212; bagged and staged for wiring.</div>
+  <div class="src">cable-assemblies.md &#183; ledger/tools.md<br>CA-01/02 &#183; GT-03/04 &#183; ES-02/05 &#183; WR-01/02/04<br>rev 2026-07-26</div>
+</footer>
+
+</div>
+</body>
+</html>
