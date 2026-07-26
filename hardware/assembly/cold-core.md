@@ -73,6 +73,8 @@ Geometry detail at [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/h
 
 Each cap is a [16 mm](CAP_H)-tall foam-filled cup, poured mouth-up with the foam-cap-lid sealing its open face from above. **Bolt the cap and its lid down onto the shell's top face** — six M3 × 25 SHCS through lid and cap into the step-2 inserts, cap floor on the shell. The screws are the pour clamp; expanding foam lifts an unclamped lid, and nothing else in the stack is threaded. Liquid foam enters through the lid's Ø[20 mm](POUR_D) pour hole; air escapes through two Ø[6 mm](LID_VENT_D) vents. Foam expands to fill and cures. Trim flush after cure, then back the six screws out.
 
+A lid is not a flat plate: it carries a pad at each of the six screw stations, standing off the face that meets the cap, and each pad sinks into the relief the cap's boss column leaves at its mouth. Seat it that way round — pads into the cup — and the head goes down inside the pad's counterbore rather than standing on the lid. The lid prints counterbore-side down, so the face the core stands on comes off the plate.
+
 Both caps pour in that same top-face fixture, one after the other. The top cap is bolted there in its installed orientation (floor down, mouth + lid up); the bottom cap is the same operation and flips mouth-down at step 7.
 
 The two caps pour identically but they are **not** the same part: only `foam-cap-top` (and `foam-cap-lid-top`) carries the CO2 bore + boss, and only the top cap carries the fifteen **deck-mount columns**. Those stand on its floor and are what the whole electronics shelf bolts to in the finished machine, so the foam pours around their shanks and they are trimmed to nothing. Five stations, and they do not end at the same height: the controller board's four, the AC hub's two, relay #1's four and the ground stud's one rise through clearance holes in the lid and stand proud of it — the board's holding its through-hole tails clear, the ground stud's standing tall enough for its lug fan — while the PSU's four stop at the cap's mouth rim under the lid, and the PSU lies on the lid's own face with its screws crossing it. The stations are owned by [`_cold_core_interface.deck_mounts`](/hardware/printed-parts/cold-core/_cold_core_interface.py). Set a ruthex M3 short into each column's top bore before the pour, the same iron and the same feel as the twelve shell-face inserts at step 2. Keep them labeled — the top cap also goes on rotated 180° at step 7. Geometry detail at [`/hardware/printed-parts/cold-core/foam-cap/foam_cap.py`](/hardware/printed-parts/cold-core/foam-cap/foam_cap.py).
@@ -142,7 +144,7 @@ A finished cold core:
 - Both reservoirs seated in their bag pockets
 - All eight penetrations routed through their designated holes / slot
 - Reed columns dropped into the reed channels, their cables out the +Z wall
-- Both foam caps seated over their TPU gaskets, six M3 × 25 SHCS each into the top- and bottom-face heat-set inserts
+- Both foam caps seated over their TPU gaskets, six M3 × 25 SHCS each into the top- and bottom-face heat-set inserts, every head down in its lid counterbore — run a straightedge across each lid, nothing touches it before the plate does
 - External envelope ~[283 mm](OUTER_X) × [181](CCORE_OUTER_Y) × [253.4 mm](CCORE_CAPPED_H) with both caps on — the shell alone is [213.4 mm](OUTER_H) tall, and each face adds a cap and its gasket
 
 ## Open items
