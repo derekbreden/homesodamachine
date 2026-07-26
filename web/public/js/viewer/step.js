@@ -34,6 +34,33 @@ async function parseStep(buffer) {
   return result;
 }
 
+// The same `{ meshes: [...] }` occt hands back, decoded from a tessellation the
+// generator already had in hand rather than re-derived from the STEP text —
+// reading a 24 MB assembly back through the wasm parser costs ~13 s, the
+// tessellation that produced it ~1 s. Only the headless thumbnailer takes this
+// path (tools/render/render-thumbnails.js); the live viewer still parses the
+// STEP, because in the browser the STEP is all there is.
+//
+// Layout: u32 header length, that many bytes of JSON, then one blob every
+// array indexes into by [byteOffset, length] — positions and normals f32,
+// indices u32. See hardware/scripts/_mesh_payload.py, which writes it.
+export function decodeMeshPayload(bytes) {
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  const headLen = view.getUint32(0, true);
+  const head = JSON.parse(new TextDecoder().decode(bytes.subarray(4, 4 + headLen)));
+  const blob = bytes.buffer.slice(bytes.byteOffset + 4 + headLen, bytes.byteOffset + bytes.byteLength);
+  const meshes = head.meshes.map((m) => ({
+    name: m.name,
+    color: m.color || undefined,
+    attributes: {
+      position: { array: new Float32Array(blob, m.pos[0], m.pos[1]) },
+      normal: { array: new Float32Array(blob, m.nrm[0], m.nrm[1]) },
+    },
+    index: { array: new Uint32Array(blob, m.idx[0], m.idx[1]) },
+  }));
+  return { meshes };
+}
+
 // occt-import-js copies a product's name onto its mesh only when the product is a
 // single solid. A multi-solid component (our valve-manifold trays, the pump
 // assemblies, the display) comes back with unnamed leaf meshes — the name lives
@@ -182,6 +209,45 @@ const tl2 = new THREE.DirectionalLight(0xffffff, 0.3);
 tl2.position.set(-1, -0.5, -1);
 thumbScene.add(tl2);
 
+// Frame a group front-iso in the offscreen scene, snap it, and tear it down.
+// Shared with glb.js so every 3D thumbnail is composed the same way.
+export function snapThumbnail(group) {
+  thumbScene.add(group);
+
+  const box = new THREE.Box3().setFromObject(group);
+  const center = box.getCenter(new THREE.Vector3());
+  const size = box.getSize(new THREE.Vector3());
+  const maxDim = Math.max(size.x, size.y, size.z);
+  const dist = maxDim * 2.5;
+  // +Z-up CAD-standard front-iso — matches resetCamera in scene.js so
+  // the thumbnail shows the same orientation as the detail view's
+  // default. Camera at +X, -Y, +Z (front-right-above).
+  const el = Math.atan(1 / Math.sqrt(2));
+  const az = -Math.PI / 4;
+  thumbCam.up.set(0, 0, 1);
+  thumbCam.position.set(
+    center.x + dist * Math.cos(el) * Math.cos(az),
+    center.y + dist * Math.cos(el) * Math.sin(az),
+    center.z + dist * Math.sin(el)
+  );
+  thumbCam.lookAt(center);
+
+  thumbRenderer.render(thumbScene, thumbCam);
+  const dataURL = thumbRenderer.domElement.toDataURL();
+
+  thumbScene.remove(group);
+  group.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
+  return dataURL;
+}
+
+// Build + shade + snap an occt-shaped result. Both thumbnail sources end here,
+// so where the meshes came from can't change how the part looks.
+export function renderMeshes(result) {
+  const group = buildMesh(result);
+  applyXray(group); // match the detail view's x-ray mode in the thumbnail
+  return snapThumbnail(group);
+}
+
 export async function renderThumbnail(file) {
   if (state.thumbnailCache.has(file)) return state.thumbnailCache.get(file);
 
@@ -189,35 +255,7 @@ export async function renderThumbnail(file) {
     const resp = await fetch(`/steps/${file}`);
     if (!resp.ok) return null;
     const buf = new Uint8Array(await resp.arrayBuffer());
-    const result = await parseStep(buf);
-    const group = buildMesh(result);
-    applyXray(group); // match the detail view's x-ray mode in the thumbnail
-    thumbScene.add(group);
-
-    const box = new THREE.Box3().setFromObject(group);
-    const center = box.getCenter(new THREE.Vector3());
-    const size = box.getSize(new THREE.Vector3());
-    const maxDim = Math.max(size.x, size.y, size.z);
-    const dist = maxDim * 2.5;
-    // +Z-up CAD-standard front-iso — matches resetCamera in scene.js so
-    // the thumbnail shows the same orientation as the detail view's
-    // default. Camera at +X, -Y, +Z (front-right-above).
-    const el = Math.atan(1 / Math.sqrt(2));
-    const az = -Math.PI / 4;
-    thumbCam.up.set(0, 0, 1);
-    thumbCam.position.set(
-      center.x + dist * Math.cos(el) * Math.cos(az),
-      center.y + dist * Math.cos(el) * Math.sin(az),
-      center.z + dist * Math.sin(el)
-    );
-    thumbCam.lookAt(center);
-
-    thumbRenderer.render(thumbScene, thumbCam);
-    const dataURL = thumbRenderer.domElement.toDataURL();
-
-    thumbScene.remove(group);
-    group.traverse((c) => { if (c.geometry) c.geometry.dispose(); });
-
+    const dataURL = renderMeshes(await parseStep(buf));
     state.thumbnailCache.set(file, dataURL);
     return dataURL;
   } catch {

@@ -24,7 +24,9 @@ Run scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`.
 
 See `hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py` for patterns to follow, and its companion `touch_flo_shell.md` for the idioms those patterns embody.
 
-A generator that writes a STEP also renders its `.step.png` thumbnail at exit via a headless browser — tens of seconds on a large assembly. `HSM_SKIP_THUMBNAILS=1` skips that render for fast iteration; the dev-server watcher already sets it and rebuilds thumbnails off its own critical path.
+A generator that writes a STEP also renders its `.step.png` thumbnail at exit, by driving the real /3d viewer in a headless browser — so the committed thumbnail is the detail view's own x-ray render. It hands the browser the tessellation it already has (`hardware/scripts/_mesh_payload.py`) rather than making it read the STEP back through occt in wasm, which puts a large assembly at a couple of seconds, nearly all of it browser boot. `HSM_SKIP_THUMBNAILS=1` skips the render entirely; the dev-server watcher sets it and rebuilds thumbnails off its own critical path.
+
+`_mesh_payload.py selftest` checks that what is handed over is what the viewer would otherwise have read — the tessellation against occt-import-js itself, and the colors against a STEP round trip. Run it if thumbnails start looking wrong.
 
 `HSM_SKIP_CLEARANCES=1` drops the enclosure scorecard's per-run "nearest N mm to X" report — an exact solid-distance query from every routed tube to every body, and the largest single cost of a route-only rebuild. Set it while iterating on where a line runs; `lines-clear` still gates on a tube driving through a part. The build you commit runs without it, so the committed scorecard carries its clearances measured.
 
