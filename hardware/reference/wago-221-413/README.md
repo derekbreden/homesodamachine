@@ -1,12 +1,12 @@
 # WAGO 221-413 — reference solid
 
-The AC distribution block on the [power tray](/hardware/printed-parts/valve-manifold/):
+The AC distribution block on the [AC hub](/hardware/printed-parts/electronics/ac-hub/):
 three **3-conductor COMPACT lever-nut** splicing connectors (`hardware/ledger/bom.md`
 §11), one each for H / N / G. Rated 32 A, 450 V; accepts 24–12 AWG.
 
 `wago-221-413.step` is a generated stand-in. Body geometry is from the official
 WAGO 221-413 datasheet; the connector has **no mounting holes** (it is a free
-splice), so the power tray retains each one in a **printed snap pocket**.
+splice), so the AC hub retains each one in a **printed press-fit pocket**.
 
 ## Geometry
 

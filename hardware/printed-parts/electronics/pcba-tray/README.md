@@ -10,8 +10,7 @@ MH1–MH4 rectangle, the thickness, and the component heights read off the fab
 model — plus the tray itself as bench geometry.
 
 Built by the shared
-[`module_tray`](/hardware/printed-parts/electronics/module_tray.py) engine,
-same idioms as the [power tray](/hardware/printed-parts/electronics/power-tray/):
+[`module_tray`](/hardware/printed-parts/electronics/module_tray.py) engine:
 a **single convex-outline floor**, **no walls**, **heat-set M3 bosses**.
 
 ## What mounts here
@@ -21,8 +20,9 @@ a **single convex-outline floor**, **no walls**, **heat-set M3 bosses**.
   H-bridges, RS485, the 5 V buck + 3.3 V LDO, and every field connector
   (J1–J14).
 
-Off this tray: AC lives on the [power tray](/hardware/printed-parts/electronics/power-tray/)
-(PSU, relay #1, Wago AC distribution, ground ring-stack); the looms land on the
+Off this tray: AC lives across the strip aft of the board — the PSU, relay #1 and
+the ground ring-stack each on their own cap columns, the Wago AC distribution in
+the [AC hub](/hardware/printed-parts/electronics/ac-hub/); the looms land on the
 board's edge connectors per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md).
 
 ## Layout & retention

@@ -1,15 +1,15 @@
 """Reference solid for the chassis-ground ring-terminal stack — the physical
-realization of the single-point "ground bus" on the power tray.
+realization of the single-point "ground bus" on the electronics shelf.
 
-This is not one SKU: it is the bolted stack that *is* the bus. An M3 stainless
-SHCS through a tooth washer clamps a fan of insulated ring terminals — one green
-bond per exposed-metal part (pressure vessel, compressor body, compressor
-shroud, faucet SS plate, PSU chassis, + the C14 earth feed) — down onto the
-tray's heat-set ground boss. The lugs are bolted together, so they are
-equipotential to each other: the *stack* is the bus, and the plastic boss it
-sits on is electrically irrelevant — it only provides the clamp reaction and
-the earthed thread. Modeled so the boss's purpose reads at a glance in the
-assembly.
+This is not one SKU: it is the bolted stack that *is* the bus. An M3 × 10
+stainless SHCS through a tooth washer clamps a fan of insulated ring terminals —
+one green bond per exposed-metal part (pressure vessel, compressor body,
+compressor shroud, faucet SS plate, PSU chassis, + the C14 earth feed) — down
+onto the heat-set insert in its own column of the top foam cap. The lugs are
+bolted together, so they are equipotential to each other: the *stack* is the
+bus, and the plastic column it sits on is electrically irrelevant — it only
+provides the clamp reaction and the earthed thread. Modeled so the column's
+purpose reads at a glance in the assembly.
 
 Cables are intentionally omitted — only the ring tongues and crimp barrels are
 shown; the green wire would crimp into each barrel and route off to its target.

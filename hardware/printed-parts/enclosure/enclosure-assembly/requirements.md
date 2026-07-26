@@ -218,7 +218,7 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   **21 ports read `off-surface` — a coordinate on the body's bounding box but not on the body:**
   13 on the PCBA, whose Ø-flagged edge connectors sit at the board's bbox top, ~10.5 mm above the
   plane the connectors stand on, so the `pcba.tsx` mapping needs its Z re-solved against the
-  board's real top face; the 3 power-tray terminals, the 3 DC-distribution terminals, the
+  board's real top face; the 3 AC-hub terminals, the 3 DC-distribution terminals, the
   foam's CO2 top entry and the compressor's
   AC gland are the provisional ones (device terminals not individually modelled, connector not
   in the STEP) that a viewer pick pins. A handful of electrical bores (glands, headers, looms)

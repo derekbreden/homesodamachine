@@ -4,8 +4,8 @@ Carries the JLCPCB-assembled controller PCBA ([`pcba.tsx`](/hardware/pcb/pcba/pc
 85.05 × 72.85 mm as fabbed): four M3 heat-set standoff bosses under the board's
 four electrically isolated plated mounting holes (MH1–MH4, 3.2 mm hole /
 4.0 mm pad, a 78.0 × 66.3 mm rectangle) — M3 SHCS down through the board into
-ruthex inserts, the board's bottom face seating on the boss tops. Same idioms
-as the power tray: a single convex-outline floor, no walls, heat-set bosses;
+ruthex inserts, the board's bottom face seating on the boss tops. A single
+convex-outline floor, no walls, heat-set bosses;
 built by the shared
 [`module_tray`](/hardware/printed-parts/electronics/module_tray.py) engine.
 The 5 mm standoff clears the board's THT tails (XH wafers, the J10 screw
