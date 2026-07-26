@@ -210,11 +210,31 @@ main {
   padding-top: 20px; margin-top: auto;
   font-size: 37px; line-height: 1.42; color: var(--muted);
 }
-.tools .lbl {
+.tools .lbl,
+.rack .lbl {
   font-size: 26px; font-weight: 700; letter-spacing: 3.5px;
   color: var(--accent); text-transform: uppercase;
   display: block; margin-bottom: 8px;
 }
+
+/* The rack — the tools as they look in the box, so the right one comes off
+   the shelf without reading anything. Photographs are the listing's own. */
+.rack {
+  border-top: 4px solid var(--line);
+  padding-top: 18px; margin-top: auto;
+}
+.rack .row { display: flex; gap: 16px; align-items: flex-start; }
+.rack figure { flex: 0 1 320px; min-width: 0; }
+.rack img {
+  display: block; width: 100%;
+  border: 2px solid var(--line); border-radius: 10px;
+  background: #fff;
+}
+.rack figcaption {
+  margin-top: 8px; text-align: center;
+  font-size: 23px; line-height: 1.18; color: var(--muted);
+}
+.rack figcaption b { display: block; color: var(--ink); font-weight: 700; font-size: 25px; }
 
 /* ── Done-when + footer band ─────────────────────────────────── */
 
