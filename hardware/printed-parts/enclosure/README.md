@@ -16,7 +16,7 @@ The foam shell's envelope at the back (Zone A) is the one volume that cannot mov
 The zone arrangement above is the current pack — a working layout. It is free to rearrange so long as it respects these physical and functional realities:
 
 - The foam shell is the largest single solid; it cannot move or compress. Its penetrations are on the −Y front and +Z top only — the +Y rear, sides, and bottom stay clean.
-- The cold core stands flat on the floor. Its bottom foam-cap lid is the bearing plane — the six M3 cap screws driven up from below sit in counterbores in the lid's own head pads — so nothing goes under it, and the floor's two core lugs (`enclosure.py` `_core_fence`) are the only thing it needs that the box does not already give it.
+- The cold core stands flat on the floor, on its bottom foam-cap lid: the six M3 cap screws driven up from below sit in counterbores in the lid's own head pads. The floor's two core lugs (`enclosure.py` `_core_fence`) fence it forward; the ±X seam posts and the back Z-seam lip close the other three sides.
 - Appliance width follows foam shell width (~[283 mm](APPLIANCE_WIDTH)); the shell is the widest object.
 - Appliance depth carries the compressor/condenser block and the foam shell seated against the rear wall behind it, stacked along Y (currently ~[369 mm](APPLIANCE_DEPTH)).
 - The condenser and fan need side-to-side cross-flow airflow to reject heat — fan axis between the two ±X side walls.

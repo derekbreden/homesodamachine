@@ -270,9 +270,8 @@ boss_reach = heatset_depth + heatset_relief + socket_cap
 seat_band = 12.0             # bearing width under the shroud's rim
 seat_rail_w = 20.0           # width of a condenser floor rail
 
-# The cold core's front stop. The core lands flat on the floor — its bottom
-# cap's lid is a plane, every cap screw down in a counterbore — so the floor
-# needs nothing under it, only something ahead of it.
+# The cold core's front stop. The core lands flat on the floor slab, on its
+# bottom cap's lid, with every cap screw down in a counterbore.
 core_lug_rise = 8.0          # lug standing off the floor slab
 core_lug_t = 3.0
 core_lug_w = 60.0
@@ -1590,17 +1589,12 @@ def _condenser_mount(box, placed):
 def _core_fence(box, placed):
     """The cold core's −Y stop: two lugs standing off the floor slab across the
     front of its footprint, `core_fence_slip` ahead of the core's own front face
-    so it drops in rather than presses in.
+    so it drops in rather than presses in. Behind, it seats on the back Z seam's
+    lip; in X, on the seam posts standing on the footprint's own ±X edges.
 
-    Only ahead. Behind, the core seats against the back Z seam's lip and a curb
-    could not stand there anyway — the rear wall is placed one standoff behind
-    the REARMOST content, so a curb in that band would push the wall off itself.
-    In X the seam posts on the footprint's own ±X edges are the fence. This is
-    the one direction the box does not already close.
-
-    Discontinuous on purpose: the band ahead of the core at floor height is the
-    machine corridor's aft mouth, where the evaporator stubs and the water-in
-    line cross to the core's front face. The lugs sit outboard of that traffic."""
+    The gap between the lugs is the machine corridor's aft mouth, where the
+    evaporator stubs and the water-in line cross to the core's front face at
+    floor height. The lugs sit outboard of that traffic."""
     bb = _boxes.boxed(placed["foam-assembly"][0])
     z0 = box.inner[4]
     y1 = bb.ymin - core_fence_slip
