@@ -25,4 +25,4 @@ measured before it reported a limit, what Derek said, and what the number turned
 | [Fragmentation](<Fragmentation.md>) | A convention obeyed as a spec, and Derek's own two-bucket rule relayed into the live session that was obeying it. | `never a requirement I gave you` |
 | [Drip tray](<Drip tray.md>) | A measurement that said yes, overruled by an assumed fact — which had already put a defect in the shipped part. | `it fits, and I'd still skip it` |
 | [Cleanup Board](<Cleanup Board.md>) | The fullest post-mortem in the set: why precise measurement made stopping feel earned. | `That word "the" was the whole failure` |
-| [Current](<Current.md>) | Derek on universal quantifiers as the place a fence hides. | `not looking in the correct corridor` |
+| [Current](<Current.md>) | Derek on universal quantifiers as the place a fence hides, then the whole arc — the agent's reading of its own word, the corridor it had not looked in, and the two traces that landed there. | `me mis-framing the corridor` |
