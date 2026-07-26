@@ -282,11 +282,15 @@ def _authored_runs() -> list:
     # compressor and the condenser, the one column in the front stratum open to
     # the floor, and falls down it to the cold core's port height. From there it
     # runs aft into the machine corridor behind the compressor, west onto the
-    # port's own line, and closes north into the core's front face.
+    # port's own line, and closes north into the core's front face. The corridor
+    # crossing is taken in its FRONT half, one leg off the compressor's back
+    # face: the two bag lines fall down the corridor's aft half on their own
+    # reservoirs' X and turn along the floor there, and the CO2 crossing has to
+    # be clear of both before it reaches them.
     runs.append(route(
         "co2-2", "wr1110.outlet",
         foam.z("co2-in"),                    # down the slot to the port's height
-        comp.face("y+", 4.0 * CBEND),        # aft into the machine corridor
+        comp.face("y+", 2.0 * CBEND),        # aft into the corridor's front half
         foam.x("co2-in"),                    # west onto the port's own line
         "foam-assembly.co2-in",
         kind="co2", bend=CBEND, stub=(CBEND, CBEND),
