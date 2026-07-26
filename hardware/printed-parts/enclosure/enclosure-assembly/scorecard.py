@@ -157,7 +157,10 @@ COMPONENTS = [
     _c("hopper-funnel",     "real",        True,  "none", "removable silicone basin; rests on the top-wall rim ledge, attach mode TBD (enclosure-mechanical Open #3)"),
     # Electronics shelf
     _c("pcba",              "real",        True,  "cap",  "Controller board (pcb/pcba), bolted straight to four boss columns of the cold core's top foam cap, which stand on through the cap's lid to hold the board's through-hole tails clear of it — no tray floor under it. Laid ACROSS the cap's front in its own frame's orientation and driven aft until its front columns read the cap's front cavity wall: the board's short side is what stands into the face, so the aft strip keeps the whole of the difference, and that strip is what the power block lives in. Its twelve top-entry wafers plug from the bay's own opening above and the J10 12 V throats look west down the lane beside it. The board is 85.05 x 72.85 as fabbed and its four mounting holes are fixed; the stations they land on are the cap's (`_cold_core_interface.deck_mounts`), so the column, the board and its connector map move as one. M3 SHCS into a ruthex short in each column"),
-    _c("psu",               "real",        True,  "cap",  "Mean Well IRM-90-12ST 12 V open-frame supply (reference/meanwell-irm90), on four boss columns of the same cap in the aft strip, west of the drip basin and behind the pump. Its potted base is flat, so those columns stop at the cap's mouth rim and the PSU lies on the lid's own face beside the pump, the screws crossing the lid to reach an insert beneath it. Laid ACROSS the strip: its mounting holes span most of its length, and the strip has the run in X once the basin turns narrow. Driven aft until its rearmost columns read the cap's own rear corner screw boss, so its AC end sits under the rear-panel C14 inlet's column and the strip ahead of it opens for the rest of the power block. M3 SHCS into a ruthex short in each column; the AC distribution, both relays, the ground bus and the DC block are not yet stationed"),
+    _c("psu",               "real",        True,  "cap",  "Mean Well IRM-90-12ST 12 V open-frame supply (reference/meanwell-irm90), on four boss columns of the same cap in the aft strip, west of the drip basin and behind the pump. Its potted base is flat, so those columns stop at the cap's mouth rim and the PSU lies on the lid's own face beside the pump, the screws crossing the lid to reach an insert beneath it. Laid ACROSS the strip: its mounting holes span most of its length, and the strip has the run in X once the basin turns narrow. Its rearmost columns stand `deck_mount_cap_gap` off the cap's own rear corner screw boss, and its AC end sits under the rear-panel C14 inlet's column. M3 SHCS into a ruthex short in each column; relay #2 and the DC block are not yet stationed"),
+    _c("relay-1",           "real",        True,  "cap",  "Teyleten 3.3 V opto-isolated relay module #1 (reference/teyleten-relay) — the compressor's 120 VAC hot switch, on four boss columns of the same cap, in the strip between the board and the PSU. Its hole rectangle is the station's pitch, so it lies in its own frame's orientation: the COM/NO screw block east under the C14 inlet's column, where the compressor shroud's SJOOW lead arrives, and the VCC/GND/IN header west down the lane the board's J5 loom crosses. Its pins hang below its PCB and its columns stand proud of the lid. M3 SHCS into a ruthex short in each column"),
+    _c("ac-hub",            "real",        True,  "cap",  "The printed AC hub carrying its three Wago 221-413 lever nuts (printed-parts/electronics/ac-hub) — the H / N / G mains distribution. Two columns of the same cap take it, one either side of the foam-cap lid's pour hole, which it spans. Its floor ends at the pockets and the wire half of each lug hangs past it, all three facing the same way. M3 SHCS into a ruthex short in each column"),
+    _c("ground-stack",      "real",        True,  "cap",  "The chassis-ground ring-terminal stack (reference/ground-ring-stack) — the single-point ground bus, on one column of the same cap east of relay #1. An M3 x 10 SHCS through an external-tooth washer clamps a fan of green ring lugs — one per exposed-metal load, plus the C14 earth off the G Wago — down onto the column's insert; the lugs bolted together are the bus. The one station whose screw clamps a lug stack rather than a module, and the one that takes the longer screw"),
 ]
 
 # Unordered part pairs allowed to touch by design — a part resting on another's top, or
@@ -173,6 +176,9 @@ TOUCHING_OK = {
         ("foam-assembly", "drip-pan-rails"),    # the rails' feet flat on the foam-cap top
         ("foam-assembly", "pcba"),              # the board's underside on the cap's deck-mount boss tops
         ("foam-assembly", "psu"),                # the PSU's base on the same cap's other four
+        ("foam-assembly", "relay-1"),           # the relay's PCB on four more, standing clear of its pins
+        ("foam-assembly", "ac-hub"),            # the hub's floor on the two that span the pour hole
+        ("foam-assembly", "ground-stack"),      # the lug fan on the one column that carries the bus
         ("drip-pan", "drip-pan-rails"),         # the basin's floor edge flat on the shelves
         # The valve-manifold stack: the source-select tray's floor rests on the
         # bag-circuit tray's column wall tops, one tray pitch apart by design.
@@ -381,6 +387,21 @@ PLACEMENT_RULES = {
             ("clear", "seaflo-pump", 1.0),
             ("clear", "drip-pan-rails", 1.0),
             ("clear", "pcba", 10.0)],
+    # The power block, in the strip between them. All three read `near foam-assembly`
+    # for the same reason the two modules do — the cap IS the mount. Beyond that each
+    # holds off its neighbours in the strip, which is the tightest band on the face:
+    # the hub takes the board's side, relay #1 the middle, the ground stack the PSU's.
+    # The stack also stands off the relay, since a fan of loose mains lugs swinging on
+    # their pigtails is the one thing in the strip that is not fixed where it is drawn.
+    "ac-hub": [("near", "foam-assembly", 0.5),
+               ("clear", "pcba", 1.0),
+               ("clear", "relay-1", 1.0)],
+    "relay-1": [("near", "foam-assembly", 0.5),
+                ("clear", "psu", 1.0),
+                ("clear", "ground-stack", 1.0)],
+    "ground-stack": [("near", "foam-assembly", 0.5),
+                     ("clear", "psu", 1.0),
+                     ("clear", "ac-hub", 1.0)],
     # V-K on its cradle, laid along X in the band the pump's head taper opens: its inlet takes the
     # split's branch (`near water-split` — the feed that anchors the pose), its outlet looks west
     # straight down the lane under the ASSE overhang to the suction. Lifted off the cap on its
@@ -728,11 +749,21 @@ PORTS = [
     _p("J11-gas",       "pcba", "electrical", contents.pcba_port(-62.0, -23.85), "z+", 6.0,  "mq6-sensor header — MQ-6 gas/leak sensor (SIG-12)", "4-cond JST XH"),
     _p("J13-pumps",     "pcba", "electrical", contents.pcba_port(-12.25, 31.0),  "z+", 6.0,  "Kamoer pump A + B motors (DC-5)", "4-cond JST XH"),
     _p("J14-usb",       "pcba", "electrical", contents.pcba_port(-62.0, 16.5),   "z+", 9.0,  "USB-C programming port (bench only, no loom)", "USB-C receptacle"),
-    # 12 V distribution block (DIN) — the three runs that land on it, on its top face. Terminal
-    # positions along the block are provisional (the block's internal poles aren't modeled).
-    _p("in",       "dc-dist", "electrical", (34.0, 305.0, 283.0), "z+", 6.0, "PSU 12 V output (DC-1)", "16 AWG; PROVISIONAL terminal position"),
-    _p("to-board", "dc-dist", "electrical", (49.0, 305.0, 283.0), "z+", 5.0, "board J10 12 V inlet (DC-4)", "16 AWG; PROVISIONAL terminal position"),
-    _p("to-relay2","dc-dist", "electrical", (64.0, 305.0, 283.0), "z+", 6.0, "Teyleten relay #2 contact — SeaFlo gate (DC-2)", "16 AWG; PROVISIONAL terminal position"),
+    # The AC hub's three lever nuts, west to east along the row, each face-up under the
+    # bay's own opening. Derived from the hub's pose the way the board's ports are.
+    _p("H", "ac-hub", "electrical", *contents.ac_hub_lug("H"), 8.0, "C14 hot in (AC-1 H); out to PSU primary (AC-2 H) and relay #1 COM (AC-3)", "16 AWG, ferruled under the lever"),
+    _p("N", "ac-hub", "electrical", *contents.ac_hub_lug("N"), 8.0, "C14 neutral in (AC-1 N); out to PSU primary (AC-2 N); third port open for the shroud lead (AC-5)", "16 AWG, ferruled under the lever"),
+    _p("G", "ac-hub", "electrical", *contents.ac_hub_lug("G"), 8.0, "C14 earth in (AC-1 G); out to PSU chassis (AC-2 G) and the ground stack", "16 AWG, ferruled under the lever"),
+    # Relay #1's two ends, both face-up on its PCB.
+    _p("contacts", "relay-1", "electrical", *contents.relay_terminal("contacts"), 8.0, "COM from the H lever nut (AC-3); NO to the compressor shroud's switched hot (AC-4)", "16 AWG, crimp forks under captive screws"),
+    _p("logic",    "relay-1", "electrical", *contents.relay_terminal("logic"),    6.0, "board J5 RELAYS loom — VCC/GND/IN (LV-1/2/3)", "22 AWG under captive screws"),
+    # The ground bus: one landing, every green bond onto it.
+    _p("stud", "ground-stack", "electrical", *contents.ground_stud(), 10.0, "chassis ground — C14 earth off the G lever nut, PSU chassis, pressure vessel, compressor body, and the shroud bond (AC-6)", "16 AWG green, ring terminals stacked under one M3 x 10"),
+    # 12 V distribution block — the three runs that land on it. The block has no station
+    # (its hardware is unpicked); these positions stand over the strip's remaining pocket.
+    _p("in",       "dc-dist", "electrical", (88.0, 290.0, 283.0), "z+", 6.0, "PSU 12 V output (DC-1)", "16 AWG; PROVISIONAL — block unstationed"),
+    _p("to-board", "dc-dist", "electrical", (88.0, 295.0, 283.0), "z+", 5.0, "board J10 12 V inlet (DC-4)", "16 AWG; PROVISIONAL — block unstationed"),
+    _p("to-relay2","dc-dist", "electrical", (88.0, 300.0, 283.0), "z+", 6.0, "Teyleten relay #2 contact — SeaFlo gate (DC-2)", "16 AWG; PROVISIONAL — block unstationed"),
     # The PSU's two terminal blocks, each face-up on its own stepped end ledge. Derived
     # from the pose the way the board's are, so they cannot drift from the body.
     _p("ac-in",  "psu", "electrical", *contents.psu_terminal("ac-in"),  10.0, "C14 mains inlet via the AC distribution — H+N+G (AC-1/AC-2)", "16 AWG mains, ferruled under captive screws"),

@@ -176,6 +176,14 @@ import beduan_solenoid as _vk            # noqa: E402  — V-K's two 1/4" QC col
 import drip_pan as _pan                  # noqa: E402  — its lift, its section, its rail offset
 import module_tray as _mt                # noqa: E402  — the floor and standoff under every board
 import pcba_tray as _pcba                # noqa: E402  — the board's outline, holes and thickness
+sys.path.insert(0, str(_hw / "printed-parts" / "electronics" / "ac-hub"))
+sys.path.insert(0, str(_hw / "reference" / "wago-221-413"))
+sys.path.insert(0, str(_hw / "reference" / "teyleten-relay"))
+sys.path.insert(0, str(_hw / "reference" / "ground-ring-stack"))
+import ac_hub as _achub                  # noqa: E402  — the hub's own hold-down pattern
+import wago_221_413 as _wago             # noqa: E402  — the lug body a pocket seats
+import teyleten_relay as _relay_ref      # noqa: E402  — the relay's ends and its PCB
+import ground_ring_stack as _gnd_ref     # noqa: E402  — the lug fan's own stack pitch
 sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
 sys.path.insert(0, str(_hw / "reference" / "meanwell-irm90"))
 import _cold_core_interface as _cc       # noqa: E402  — the cap's deck-mount stations, in its own frame
@@ -207,6 +215,13 @@ POWER_ASSEMBLY = _hw / "printed-parts" / "electronics" / "power-tray" / "power-a
 PCBA_BOARD     = _hw / "printed-parts" / "electronics" / "pcba-tray" / "pcba-board.step"
 # The Mean Well IRM-90-12ST, on its own four columns of the same cap.
 MEANWELL_STEP  = _hw / "reference" / "meanwell-irm90" / "meanwell-irm90.step"
+# Teyleten relay #1 — the compressor's 120 VAC hot switch, on four more columns.
+RELAY_STEP     = _hw / "reference" / "teyleten-relay" / "teyleten-relay.step"
+# The AC hub with its three Wago 221-413 lever nuts seated.
+AC_HUB         = _hw / "printed-parts" / "electronics" / "ac-hub" / "ac-hub-assembly.step"
+# The chassis-ground ring-terminal stack — the bolted lug fan that is the ground bus.
+# Its own frame puts Z = 0 on the landing surface, the shank running −Z into the insert.
+GND_STACK      = _hw / "reference" / "ground-ring-stack" / "ground-ring-stack.step"
 DC_DIST        = _hw / "reference" / "dc-dist-block" / "dc-dist-block.step"
 MQ6_STEP       = _hw / "reference" / "mq6-gas-sensor" / "mq6-gas-sensor.step"
 DERPIPE_STEP   = _hw / "reference" / "derpipe-co2-inlet" / "derpipe-co2-inlet.step"
@@ -321,20 +336,24 @@ BEDUAN_POS = (264.0, 342.5, 274.1 + RING_SEAT)   # base centre on a cradle above
 # them to world, so the body, its connector map and the column it stands on move together.
 # Both lie flat and no tray floor stands between them and the cap: the board's underside on
 # its column tops, standing through the lid, and the PSU's flat on the lid itself.
-#   THE BOARD lies ACROSS the cap's FRONT, in its own frame's orientation, driven aft until
-# its front columns read the cap's front cavity wall. Turned a quarter it stands its LONG
-# side into the face and the strip behind it closes; laid this way it stands its short side,
-# and the whole difference goes to the strip. Its twelve top-entry wafers plug from the bay's
-# own opening above, and the J10 12 V throats look WEST down the open lane beside it.
-#   THE PSU takes the AFT STRIP, west of the drip basin, laid ACROSS the strip. Its mounting
-# holes span most of its length, and that span is longer than what the column has left in Y
-# once the board is in it — but the strip has the run in X, once the basin turns narrow. Its
-# AC end faces the C14 inlet's own column above it.
-#   Between the two lies the POWER STRIP, which is what driving them apart is for.
-#   The two nozzle lanes cross the deck the far side of the pump; neither body shares a deck
+#   THE BOARD lies ACROSS the cap's FRONT in its own frame's orientation, its short side
+# into the face, its front columns one `deck_mount_cap_gap` off the front cavity wall. Its
+# twelve top-entry wafers plug from the bay's own opening above; the J10 12 V throats look
+# WEST down the open lane beside it.
+#   THE PSU takes the AFT STRIP, west of the drip basin, laid ACROSS the strip, its rear
+# columns the same gap off the cap's rear corner boss. Its AC end faces the C14 inlet's own
+# column above it.
+#   BETWEEN THEM runs the power strip: the AC hub across the lid's pour hole, relay #1
+# behind it, the ground stack east of the relay, each on columns of the same cap.
+#   The two nozzle lanes cross the deck the far side of the pump; no body here shares a deck
 # with them.
 PCBA_YAW = 180.0
 PSU_YAW = 90.0
+# Relay #1's hole rectangle IS the cap's `relay-1` pitch, so it lies along the strip
+# untured: COM/NO screw block EAST beside the ground stack, under the C14's own column
+# where the shroud's SJOOW lead arrives; VCC/GND/IN header WEST down the lane the board's
+# J5 loom crosses.
+RELAY_YAW = 0.0
 # The split lies UNDER V-K, in the band between the foam cap and V-K's cradle — the one
 # place in the strip's east void with a footprint free once the valve is standing in it.
 # Its run carries the ASSE feed across the void — in at the WEST face off water-2, on at
@@ -622,7 +641,7 @@ def deck_mount(name):
     # The pack seats the assembly by its bbox min at (0, FRONT_DEPTH, RING_SEAT).
     cx, cy = fb.xlen / 2.0, FRONT_DEPTH + fb.ylen / 2.0
     pts = tuple((cx - px, cy - py) for px, py in _cc.deck_mount_xy(name))
-    ctr = (sum(p[0] for p in pts) / 4.0, sum(p[1] for p in pts) / 4.0)
+    ctr = (sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts))
     return ctr, pts, foam_cap_top() + _cc.deck_mount_standoff(name)
 
 
@@ -694,6 +713,37 @@ def psu_terminal(name):
     sy = {"ac-in": 1.0, "dc-out": -1.0}[name]
     x, y, _ = _yaw_z((0.0, sy * (_psu_ref.length / 2.0 - 6.0), 0.0), PSU_YAW)
     return ((ctr[0] + x, ctr[1] + y, top + _psu_ref.ledge_h + 7.0), "z+")
+
+
+def ac_hub_lug(pole):
+    """One of the AC hub's three Wago lever nuts in world: `(pos, face)`. H / N / G run
+    west to east along the row. The wire ports face +Y and the levers face up, so the
+    landing a hand works is the lug's top face."""
+    ctr, _pts, top = deck_mount("ac-hub")
+    places = tuple(_achub.LAYOUT.mount_places)
+    mx = sum(p[0] for p in places) / len(places)
+    my = sum(p[1] for p in places) / len(places)
+    lx, ly = _achub.LAYOUT.wago_places[{"H": 0, "N": 1, "G": 2}[pole]]
+    return ((ctr[0] + lx - mx, ctr[1] + ly - my + _wago.depth / 2.0,
+             top + _achub.floor_t + _wago.height), "z+")
+
+
+def relay_terminal(name):
+    """One of relay #1's two terminal groups in world: `(pos, face)`. The Teyleten's own
+    frame puts the COM/NO/NC screw block on +X and the VCC/GND/IN header on −X; both land
+    face-up on the PCB, which is the plane a ferrule goes down onto."""
+    ctr, _pts, top = deck_mount("relay-1")
+    dx = {"contacts": _relay_ref.length / 2.0 - 10.0,
+          "logic": -(_relay_ref.length / 2.0 - 9.0)}[name]
+    x, y, _ = _yaw_z((dx, 0.0, 0.0), RELAY_YAW)
+    return ((ctr[0] + x, ctr[1] + y, top + _relay_ref.pcb_t + 10.0), "z+")
+
+
+def ground_stud():
+    """The ground bus's landing in world: `(pos, face)` — the top of the lug fan, where
+    the next ring terminal goes on and the screw comes down."""
+    ctr, _pts, top = deck_mount("ground")
+    return ((ctr[0], ctr[1], top + _gnd_ref.ring_count * _gnd_ref.tongue_t), "z+")
 
 
 def pcba_pose():
@@ -974,6 +1024,9 @@ COLORS = {
     "drip-pan-rails":    cq.Color(0.45, 0.50, 0.58),
     "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "psu":               cq.Color(0.72, 0.74, 0.78),
+    "relay-1":           cq.Color(0.20, 0.45, 0.75),
+    "ac-hub":            cq.Color(0.85, 0.78, 0.62),
+    "ground-stack":      cq.Color(0.80, 0.80, 0.83),
     "pcba":              cq.Color(0.15, 0.45, 0.25),
     "dc-dist":           cq.Color(0.20, 0.20, 0.22),
     # Panel bodies wear the customer wayfinding colors — blue = carb water,
@@ -1535,6 +1588,33 @@ def _build():
         _psu_ctr[0] - (_psu_bb.xmin + _psu_bb.xmax) / 2.0,
         _psu_ctr[1] - (_psu_bb.ymin + _psu_bb.ymax) / 2.0,
         _psu_top - _psu_bb.zmin))
+
+    # The power block, in the strip between them. Each body's own mount pattern lands on
+    # the cap's station, so nothing here picks a coordinate.
+    _relay_ctr, _relay_pts, _relay_top = deck_mount("relay-1")
+    _relay = _rot(_load(RELAY_STEP), (0, 0, 1), RELAY_YAW)
+    _relay_bb = _relay.BoundingBox()
+    # Z = 0 in the relay's own frame is its PCB underside — the plane that lands on the
+    # column tops. Its pins hang below it.
+    placed["relay-1"] = _relay.translate((
+        _relay_ctr[0] - (_relay_bb.xmin + _relay_bb.xmax) / 2.0,
+        _relay_ctr[1] - (_relay_bb.ymin + _relay_bb.ymax) / 2.0,
+        _relay_top))
+    _hub_ctr, _hub_pts, _hub_top = deck_mount("ac-hub")
+    _hub = _load(AC_HUB)
+    _hub_mounts = tuple(_achub.LAYOUT.mount_places)
+    _hub_at = (sum(p[0] for p in _hub_mounts) / len(_hub_mounts),
+               sum(p[1] for p in _hub_mounts) / len(_hub_mounts))
+    placed["ac-hub"] = _hub.translate((
+        _hub_ctr[0] - _hub_at[0], _hub_ctr[1] - _hub_at[1],
+        _hub_top - _hub.BoundingBox().zmin))
+    _gnd_ctr, _gnd_pts, _gnd_top = deck_mount("ground")
+    _gnd = _load(GND_STACK)
+    _gnd_bb = _gnd.BoundingBox()
+    placed["ground-stack"] = _gnd.translate((
+        _gnd_ctr[0] - (_gnd_bb.xmin + _gnd_bb.xmax) / 2.0,
+        _gnd_ctr[1] - (_gnd_bb.ymin + _gnd_bb.ymax) / 2.0,
+        _gnd_top))
 
     return {n: (s, COLORS[n]) for n, s in placed.items()}
 

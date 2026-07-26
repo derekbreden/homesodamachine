@@ -1,6 +1,6 @@
 # Electronics Shelf
 
-The production procedure for the appliance's electronics shelf — the bench-built pair of trays that lie flat on the cold core's foam-cap top in the band above it, on the rear-panel C14 inlet's column: the controller PCBA, the Mean Well PSU, both Teyleten relay modules, the AC + DC distribution, and the ground bus, across two printed trays. The trays are the committed CAD under [`/hardware/printed-parts/electronics/`](/hardware/printed-parts/electronics/) ([pcba-tray](/hardware/printed-parts/electronics/pcba-tray/), [power-tray](/hardware/printed-parts/electronics/power-tray/)). Feeds [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) alongside [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md).
+The production procedure for the appliance's electronics shelf — the parts that ride the cold core's foam-cap top in the band above it, on the rear-panel C14 inlet's column: the controller PCBA, the Mean Well PSU, both Teyleten relay modules, the AC + DC distribution, and the ground bus. Each bolts to a deck-mount column of the cap itself; the one printed carrier is the [ac-hub](/hardware/printed-parts/electronics/ac-hub/), which holds the three lever nuts that have nothing of their own to bolt with. Feeds [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) alongside [`faucet-and-umbilical.md`](/hardware/assembly/faucet-and-umbilical.md).
 
 All controller, driver, and logic-rail electronics live on the one JLCPCB-assembled controller PCBA ([`/hardware/pcb/pcba/pcba.tsx`](/hardware/pcb/pcba/pcba.tsx), the canonical pin map): the bare ESP32-WROOM-32E, both MCP23017 expanders, the DS3231 RTC, both TBD62083 solenoid/fan sink drivers, both DRV8870 pump H-bridges, the RS485 transceiver, and the on-board 5 V buck + 3.3 V LDO rails. The board arrives assembled — nothing is soldered on this shelf; every field interface is a labeled edge connector (J1–J14), and every loom lands there or on a relay module's screw terminals. Topology lives in [`/hardware/wiring/power.mmd`](/hardware/wiring/power.mmd) (AC + 12 V), [`/hardware/wiring/esp32-pinout.mmd`](/hardware/wiring/esp32-pinout.mmd) (pin map), and [`/hardware/wiring/valve-control.mmd`](/hardware/wiring/valve-control.mmd) (expander fan-out). Run-by-run gauges, lengths, and terminations live in [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md).
 
@@ -28,7 +28,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §1 (
 | 16 AWG silicone-insulated appliance wire (black/white/green) | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | AC-1 pigtail stock + the DC-1/2/4 trunk and branches + ground bonds. |
 | 16 AWG stranded hookup wire | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | AC branch stock (AC-2 + AC-3). |
 | Spade crimp terminals + ferrules + ring terminals | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 (B0B9MZJ2ML spades + Preciva-kit ferrules + B08B5VS8ZR rings) | AC pigtails land in Wago 221 lever blocks via crimp ferrules; the PSU primary and Teyleten contact terminals take crimp forks; the ground bus takes ring terminals; DC-4 lands under the J10 screw clamps via ferrules. |
-| Printed electronics-shelf trays ×2 | [`/hardware/printed-parts/electronics/`](/hardware/printed-parts/electronics/) (pcba-tray, power-tray) | PETG per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7, M3 heat-set inserts (ruthex per §13). |
+| Printed AC hub ×1 | [`/hardware/printed-parts/electronics/ac-hub/`](/hardware/printed-parts/electronics/ac-hub/) | PETG per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7. No inserts — its two hold-down screws pass through it into the cap's columns. |
 | M3 heat-set inserts + M3 × 8 SHCS | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13 | Board + module mounting. |
 
 Tooling: Hakko FX-888D iron + T18 tip kit for the heat-set inserts, ESD mat, ferrule crimper, ring/fork-terminal crimper, helping hands, multimeter for AC-side continuity and DC-side polarity checks.
@@ -37,13 +37,13 @@ Tooling: Hakko FX-888D iron + T18 tip kit for the heat-set inserts, ESD mat, fer
 
 ### 1. Prepare the printed shelf trays
 
-Heat-set M3 inserts into the relay and ground-stud bosses on the [power-tray](/hardware/printed-parts/electronics/power-tray/), per its CAD source under [`/hardware/printed-parts/electronics/`](/hardware/printed-parts/electronics/). Verify each insert is flush with the boss face. The board's and the PSU's inserts are not here — they go into the foam cap's deck-mount columns before the pour, at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3.
+Print the [ac-hub](/hardware/printed-parts/electronics/ac-hub/) and dry-fit one Wago into each of its three pockets, butt-end first, to confirm the press fit. No inserts go into it — every insert on this shelf is a ruthex short in a deck-mount column of the top foam cap, set before the pour at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3.
 
-Placement geometry is set by the tray CAD: relay #1 + Wago AC distribution + ground ring-stack on the power-tray. Relay #2 and the DC distribution block have no committed bay yet — see Open items; stage them beside the power-tray.
+Placement geometry is set by the cap's stations ([`_cold_core_interface.deck_mounts`](/hardware/printed-parts/cold-core/_cold_core_interface.py)): the board across the cap's front, the PSU across the aft strip, and between them the AC hub, relay #1 and the ground stack. Relay #2 and the DC distribution block have no station yet — see Open items; stage them loose.
 
 ### 2. Stage the AC distribution block + ground bus
 
-Mount the three Wago 221-413 lever blocks in their power-tray slots — one each for H, N, G. Label each block at its bay (H / N / G) with label tape or printed shelf bay-callouts.
+Seat the three Wago 221-413 lever blocks in the AC hub's pockets, butt-end first — west to east, H / N / G. Label each block at its bay (H / N / G) with label tape or printed shelf bay-callouts.
 
 Cut and prep the AC pigtails for AC-1 through AC-3 per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "AC mains" table:
 
@@ -52,15 +52,13 @@ Cut and prep the AC pigtails for AC-1 through AC-3 per [`/hardware/wiring/ac-wir
 - **AC-3** — H pigtail from the H Wago block to the relay #1 contact input ("common" terminal), [~50 mm](PIGTAIL_SHORT), ferrule one end, crimp fork the other.
 - **AC-4/5/6** — not cut here. These are the three conductors of one 18 AWG SJOOW jacketed lead ([~400 mm](SHROUD_LEAD_LEN)), pre-built at [`wiring.md`](/hardware/assembly/wiring.md) §2 and passed through the compressor shroud's cable gland — its switched H forks onto relay #1's NO contact, its N seats in the N Wago's open port, its G rings onto the ground bus.
 
-Land the solid-copper ground bus on its power-tray boss. Stage short green 16 AWG pigtails with ring terminals at the bus end for each exposed-metal load: PSU chassis (lands at PSU mounting in step 3), pressure vessel, compressor body. The faucet SS plate's bond is staged the same way but has no landing yet — see [`wiring.md`](/hardware/assembly/wiring.md) Open items 4. Leave the load-side end of each pigtail un-terminated and labeled; those land at [`wiring.md`](/hardware/assembly/wiring.md). Stage the short green block-to-bus leg — ring terminal at the bus, ferrule for the G Wago (seats in step 4) — that carries the C14 earth onto the bus. The compressor-shroud bond is not staged here: it is AC-6, the SJOOW's G conductor, ring-landed on the stack at [`wiring.md`](/hardware/assembly/wiring.md) §2. Bus-to-chassis stud connection lands at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md).
+Land the solid-copper ground bus on its own cap column, east of relay #1, under one M3 × 10. Stage short green 16 AWG pigtails with ring terminals at the bus end for each exposed-metal load: PSU chassis (lands at PSU mounting in step 3), pressure vessel, compressor body. The faucet SS plate's bond is staged the same way but has no landing yet — see [`wiring.md`](/hardware/assembly/wiring.md) Open items 4. Leave the load-side end of each pigtail un-terminated and labeled; those land at [`wiring.md`](/hardware/assembly/wiring.md). Stage the short green block-to-bus leg — ring terminal at the bus, ferrule for the G Wago (seats in step 4) — that carries the C14 earth onto the bus. The compressor-shroud bond is not staged here: it is AC-6, the SJOOW's G conductor, ring-landed on the stack at [`wiring.md`](/hardware/assembly/wiring.md) §2. Bus-to-chassis stud connection lands at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md).
 
 ### 3. Mount the PSU, relays, and PCBA
 
 Place each part on its boss pattern, M3 × 8 SHCS into the heat-set insert, torqued by feel. Mount sequence:
 
-The PSU and the controller PCBA do **not** mount on this bench. Each bolts to four boss columns of the cold core's top foam cap, in the chassis, at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §8 — there is no tray floor under either. What mounts here is what still rides the power tray:
-
-1. **Teyleten relay #1** (compressor switch) on the power-tray; **relay #2** (diaphragm-pump switch) at its staged position.
+The PSU and the controller PCBA do **not** mount on this bench. Each bolts to four boss columns of the cold core's top foam cap, in the chassis, at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §8 — there is no tray floor under either. Nothing on this shelf mounts on this bench — the board, the PSU, relay #1, the AC hub and the ground stack all bolt to deck-mount columns of the cap, in the chassis, at [`enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) §8. **Relay #2** (diaphragm-pump switch) stays at its staged position.
 
 Leave the PSU and the board in their ESD/anti-static packaging with their pigtails and looms staged and labeled. The board's four holes are its electrically isolated MH1–MH4; the screw heads seat on the top-face pads, which the board's pours keep clear. Its orientation is fixed by the cap's station: the USB-C programming port (J14) flush at the west board edge looking south down the bay, the J10 12 V screw throats east looking north, both edges left reachable.
 
@@ -123,9 +121,9 @@ A finished electronics shelf is:
 
 ## Open items
 
-1. **Relay #2 + DC distribution block bay.** Neither has a committed printed mount; both stage beside the power-tray. Commit a bay — extend the power-tray `Layout` or add a small dedicated tray — once the DC-block hardware (per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 placeholder) is picked.
-2. ~~**Shelf insert + screw counts in the BOM.**~~ **CLOSED.** [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13 carries them: the ruthex row's 40/build includes 13 shelf-tray bosses (pcba-tray 4, power-tray 9), and the M3 × 8 row's 13/build is spent entirely here — 4 PCBA hold-downs + 4 PSU + 4 relay #1 + 1 ground-stack clamp.
-3. **Tray thickness under the PSU.** PETG, 3 mm floor at 30-40 % infill working assumption. Confirm once the heaviest part (the Mean Well IRM-90-12ST at [~200 g](PSU_MASS)) is staged against the power-tray.
+1. **Relay #2 + DC distribution block station.** Neither has one; both stage loose. The strip between the board and the PSU is full — the AC hub, relay #1 and the ground stack fill it, and the pocket left east of the hub is 30 × 20 mm. Commit a station once the DC-block hardware (per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 placeholder) is picked and its footprint is known.
+2. ~~**Shelf insert + screw counts in the BOM.**~~ **CLOSED.** [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13 carries them: every shelf insert is one of the top cap's 15 deck-mount columns, and the shelf's 15 screws are 14 M3 × 8 plus the ground stack's M3 × 10.
+3. ~~**Tray thickness under the PSU.**~~ **CLOSED.** No tray stands under the PSU; its base lies on the foam-cap lid and its screws cross the lid into the cap's columns.
 
 ## Sources
 [value](NAME) texts are updated by:
