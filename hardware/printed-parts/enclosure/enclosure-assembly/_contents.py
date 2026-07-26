@@ -321,18 +321,19 @@ BEDUAN_POS = (264.0, 342.5, 274.1 + RING_SEAT)   # base centre on a cradle above
 # them to world, so the body, its connector map and the column it stands on move together.
 # Both lie flat and no tray floor stands between them and the cap: the board's underside on
 # its column tops, standing through the lid, and the PSU's flat on the lid itself.
-#   THE BOARD takes the WEST COLUMN, a quarter turn from its own frame so the long axis runs
-# down the strip: the USB-C edge (J14) looks SOUTH into the open band ahead of the cap, where
-# a hand reaches it with the back panel on, and the J10 12 V throats look NORTH up the column.
-# Both edges the board must keep reachable face a lane rather than a wall, and the bay opens
-# from above onto the twelve top-entry wafers between them.
+#   THE BOARD lies ACROSS the cap's FRONT, in its own frame's orientation, driven aft until
+# its front columns read the cap's front cavity wall. Turned a quarter it stands its LONG
+# side into the face and the strip behind it closes; laid this way it stands its short side,
+# and the whole difference goes to the strip. Its twelve top-entry wafers plug from the bay's
+# own opening above, and the J10 12 V throats look WEST down the open lane beside it.
 #   THE PSU takes the AFT STRIP, west of the drip basin, laid ACROSS the strip. Its mounting
 # holes span most of its length, and that span is longer than what the column has left in Y
 # once the board is in it — but the strip has the run in X, once the basin turns narrow. Its
 # AC end faces the C14 inlet's own column above it.
+#   Between the two lies the POWER STRIP, which is what driving them apart is for.
 #   The two nozzle lanes cross the deck the far side of the pump; neither body shares a deck
 # with them.
-PCBA_YAW = 90.0
+PCBA_YAW = 180.0
 PSU_YAW = 90.0
 # The split lies UNDER V-K, in the band between the foam cap and V-K's cradle — the one
 # place in the strip's east void with a footprint free once the valve is standing in it.

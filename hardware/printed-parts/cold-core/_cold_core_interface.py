@@ -139,6 +139,7 @@ foam_cap_lid_hole_inset = 30.0
 # is authored with its bore on −Y and installed rotated 180° about Z, so the
 # bore lands at +co2_inlet_y — the doorway's side (see foam-assembly).
 co2_inlet_tube_radius = port_hole_radius
+co2_boss_outer_radius = co2_inlet_tube_radius + wall_and_floor_thickness
 _co2_centerward_mid_r = pocket_centerward_arc_outer_radius - wall_and_floor_thickness / 2
 _co2_support_ring_outer_r = tank_coil_envelope_radius  # the ring sits on the tank+coil envelope
 _co2_support_ring_mid_r = _co2_support_ring_outer_r - support_ring_radial_width / 2
@@ -198,14 +199,22 @@ deck_mount_seat_thickness = 1.6  # module material under the screw head
 deck_mount_screw_length = 8.0    # BNUOK M3 × 8 SHCS
 deck_mount_bore_relief = 0.6     # air past the screw tip at the bore's blind end
 
+# A deck column stands on the cap floor among the same cup's other standing features, and
+# liquid foam has to reach past all of them. This is the least room any station leaves to a
+# screw boss, the CO2 boss, the cavity wall or another column — the aft station is pushed
+# back until it reads this against the cup's own rearmost corner boss.
+deck_mount_cap_gap = 1.5
+
 # Per module: the mount rectangle's centre in the cap's frame, the module's own hole pitch
-# across X and Y, and how far proud of the lid's outer face its column tops stand. The
-# controller board's MH1–MH4 rectangle runs a quarter turn from the board's own frame, on
-# columns standing clear of its through-hole tails; the IRM-90's pattern lies across the aft
-# strip, its potted base flat on the lid.
+# across X and Y, and how far proud of the lid's outer face its column tops stand. Both
+# patterns are driven to the ends of the cap and meet in the middle, because what the pack
+# wants out of this face is the strip BETWEEN them: the board's MH1–MH4 rectangle lies with
+# its long side across the cap, hard against the front cavity wall, on columns standing
+# clear of its through-hole tails; the IRM-90's lies across the aft strip, its potted base
+# flat on the lid. `deck_mount_cap_gap` is what stops each of them.
 deck_mounts = {
-    "pcba": ((92.85, 44.50), 66.30, 78.00, 2.0),
-    "psu":  ((85.00, -37.50), 98.00, 33.00, 0.0),
+    "pcba": ((87.00, 50.25), 78.00, 66.30, 2.0),
+    "psu":  ((85.00, -58.50), 98.00, 33.00, 0.0),
 }
 
 
@@ -243,6 +252,36 @@ for _name in deck_mounts:
         f"deck mount {_name}: an M3 × {deck_mount_screw_length:g} through "
         f"{deck_mount_seat_thickness:g} mm of module reaches {deck_mount_reach(_name):g} mm "
         f"into the column, short of its {deck_mount_insert_length:g} mm insert")
+
+
+def deck_mount_cap_room(name):
+    """The least room this station's four columns leave to anything else standing in the
+    cup: `(mm, what)`. Every station is a coordinate a reader can move, and the cap's own
+    features are not in view when they do — so the room is measured here rather than left
+    to the volume arithmetic in `foam-cap` to catch as a union that came up short."""
+    room = []
+    for x, y in deck_mount_xy(name):
+        for bx, by in attachment_xy_positions:
+            room.append((math.hypot(x - bx, y - by)
+                         - screw_boss_size / 2.0 - deck_mount_boss_radius, "a screw boss"))
+        room.append((math.hypot(x, y - co2_inlet_y)
+                     - co2_boss_outer_radius - deck_mount_boss_radius, "the CO2 boss"))
+        room.append((min(outer_shell_x_length / 2.0 - abs(x),
+                         outer_shell_y_length / 2.0 - abs(y))
+                     - wall_and_floor_thickness - deck_mount_boss_radius, "the cavity wall"))
+        for other in deck_mounts:
+            for ox, oy in deck_mount_xy(other):
+                if (ox, oy) != (x, y):
+                    room.append((math.hypot(x - ox, y - oy) - 2.0 * deck_mount_boss_radius,
+                                 f"the {other} mount"))
+    return min(room)
+
+
+for _name in deck_mounts:
+    _room, _what = deck_mount_cap_room(_name)
+    assert _room >= deck_mount_cap_gap - 1e-9, (
+        f"deck mount {_name}: a column stands {_room:.3f} mm off {_what}, inside the "
+        f"{deck_mount_cap_gap:g} mm the pour needs to reach between them")
 
 
 def make_box(x_range, y_range, z_range):
