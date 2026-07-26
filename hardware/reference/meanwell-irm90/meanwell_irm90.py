@@ -1,5 +1,6 @@
 """Reference solid for the Mean Well IRM-90-12ST — 12 V / 6.7 A encapsulated
-AC-DC power module (the screw-terminal "ST" variant), used 1x on the power tray.
+AC-DC power module (the screw-terminal "ST" variant), used 1x on the electronics
+shelf.
 
 Geometry from the official Mean Well IRM-90-SPEC mechanical drawing: a potted
 brick whose two short ends step down to 6.7 mm ledges carrying the screw-terminal

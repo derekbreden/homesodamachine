@@ -107,7 +107,7 @@ def test_clearance_floor() -> None:
           f"tightest {viol[0][2]:.2f} mm" if viol else "no violation seen")
     # Control: the same 0.5 mm gap, but a declared intentional contact → allowed.
     contact = sc.part_clearances({"foam-assembly": box(0, 0, 0),
-                                  "power-tray": box(0, 0, 10.5)})
+                                  "ac-hub": box(0, 0, 10.5)})
     cviol = [r for r in contact if not r[3] and r[2] < sc.CLEARANCE_FLOOR]
     check("silent on a declared TOUCHING_OK contact at the same gap", len(cviol) == 0,
           f"{len(cviol)} spurious violation(s)")
@@ -143,15 +143,23 @@ def test_placement() -> None:
     print("placed (face-to-datum rules hold)")
     inner = (0.0, 100.0, 0.0, 100.0, 0.0, 100.0)  # ix0 ix1 iy0 iy1 iz0 iz1
     # A slab seated on every datum foam-assembly is measured against, so every
-    # rule reads zero and holds whatever the tolerances are.
-    held = sc.placement_audit({"foam-assembly": box(0, 0, 0, 100, 100, 50)}, inner)
+    # rule reads zero and holds whatever the tolerances are. In Z that datum is
+    # the ring, not the floor, so the ring is in the pack and the slab stands on
+    # it: `z-` reads RING_SEAT and the `near` reads zero, the way the rule says.
+    ring = box(0, 0, 0, 100, 100, sc.contents.RING_SEAT)
+    held = sc.placement_audit({"cold-core-ring": ring,
+                               "foam-assembly": box(0, 0, sc.contents.RING_SEAT,
+                                                    100, 100, 45)}, inner)
     row = next((r for r in held if r[0] == "foam-assembly"), None)
     check("a component meeting its rules reads as placed", bool(row) and row[1])
     # Drift it off the left wall by more than that rule's OWN tolerance, read from
     # the rule itself — a fixed drift goes quietly blind the day a tolerance grows.
+    # Everything else stays seated, so `x-` is the only rule that can break.
     x_tol = next(t for f, t in sc.PLACEMENT_RULES["foam-assembly"] if f == "x-")
     dx = x_tol + 5.0
-    drift = sc.placement_audit({"foam-assembly": box(dx, 0, 0, 100 - dx, 100, 50)}, inner)
+    drift = sc.placement_audit({"cold-core-ring": ring,
+                                "foam-assembly": box(dx, 0, sc.contents.RING_SEAT,
+                                                     100 - dx, 100, 45)}, inner)
     drow = next((r for r in drift if r[0] == "foam-assembly"), None)
     check("a drifted component reads as NOT placed", bool(drow) and not drow[1],
           "x- rule should break")

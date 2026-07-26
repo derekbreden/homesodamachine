@@ -158,7 +158,6 @@ for _p in (_hw / "scripts", _repo / "tools", _hw / "reference" / "beduan-solenoi
            _hw / "reference" / "seaflo-22-pump",
            _hw / "printed-parts" / "enclosure" / "drip-pan",
            _hw / "printed-parts" / "electronics",
-           _hw / "printed-parts" / "electronics" / "power-tray",
            _hw / "printed-parts" / "electronics" / "pcba-tray",
            _hw / "printed-parts" / "enclosure" / "enclosure"):    # `enclosure`, imported in placed_funnel
     sys.path.insert(0, str(_p))
@@ -207,8 +206,6 @@ ELBOW_CONNECTOR = _hw / "reference" / "elbow-connector" / "elbow-connector.step"
 # Y connector for the pump-discharge junctions Y-D / Y-G. A trident: one stem and two parallel
 # outlets 14.7 mm apart, all three ports on the one axis.
 DIVIDER_CONNECTOR = _hw / "reference" / "y-divider" / "y-divider.step"
-# AC/PSU tray — wide-shallow layout (PSU turned 90°).
-POWER_ASSEMBLY = _hw / "printed-parts" / "electronics" / "power-tray" / "power-assembly.step"
 # The controller board alone, its underside on Z = 0: what the appliance carries, bolted
 # to four boss columns of the foam cap. The tray it seats on at the bench is a different
 # STEP and does not ship inside the machine.
@@ -1022,7 +1019,6 @@ COLORS = {
     "vk-fill-valve":      cq.Color(0.85, 0.86, 0.90),
     "drip-pan":          cq.Color(0.62, 0.66, 0.72),
     "drip-pan-rails":    cq.Color(0.45, 0.50, 0.58),
-    "power-tray":        cq.Color(0.80, 0.50, 0.20),
     "psu":               cq.Color(0.72, 0.74, 0.78),
     "relay-1":           cq.Color(0.20, 0.45, 0.75),
     "ac-hub":            cq.Color(0.85, 0.78, 0.62),
