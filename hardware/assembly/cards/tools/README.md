@@ -40,22 +40,28 @@ tools/cad-venv/bin/python hardware/assembly/cards/tools/_index.py --drift
 
 | Card | Station | Sequence cards |
 |---|---|---:|
-| DP | Drill press | PV-01 · PV-02 · PV-03 |
+| **DP** | Drill press | PV-01 · PV-02 · PV-03 |
 | BS | Band saw + cut-off | 4 |
-| LW | Laser welder | 7 |
+| **LW** | Laser welder | PV-06 · PV-07 · PV-08 · PV-09 |
 | HY | Hydro + pressure test | 1 |
 | TB | Tube bench — cut, straighten, bend, flare | 3 |
 | BZ | Braze bench | 3 |
 | VC | Vacuum + charge | 4 |
-| CR | Crimp bench | 9 |
+| **CR** | Crimp bench | CA-01 · GT-03/04 · ES-02/05 · WR-01/02/04 · IP-04 |
 | SO | Solder + heat-set bench | 9 |
 | EL | Electrical test | 14 |
 | PL | Plastic tube + fittings | 10 |
 | PC | Pour + cure bench | 2 |
 | PR | 3D printers | 4 |
 
-A sequence card belongs to every station it draws on, and 37 of the 93 belong
-to none — hand assembly, inspection, packing.
+Bold rows are authored. A sequence card belongs to every station it draws on,
+and 37 of the 93 belong to none — hand assembly, inspection, packing.
+
+`img/` holds the CAD renders the cards annotate, posed with
+[`render-step-posed.js`](/tools/render/render-step-posed.js) from the part's own
+STEP. A callout's overlay shares the render's pixel grid, and the feature
+coordinates come from the generator that built the part — the end-cap register
+from `endcap_circular_step.py`, the J4/J7 wafers from `pcba.tsx`.
 
 ## Printing
 
