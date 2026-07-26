@@ -119,36 +119,36 @@ Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration modul
 
 ## 7. Printed mechanical parts
 
-Per-unit filament for every printed part shipped inside one finished appliance, one row per part. PETG throughout except the PET-CF (Polymaker Fiberon PET-CF17) faucet shell and mounting plate. The four syrup-wetted reservoir parts print in **PETG Translucent Clear** so the customer reads fill state through the wall; the rest print black. Both are Bambu PETG Basic at one price, so colour changes what a part looks like, not what it costs. `Mass (kg)` and `$` are per-line totals (quantity included). Masses are geometry-derived — CAD solid volume × density (PETG 1.27 g/cm³, PET-CF 1.30 g/cm³) — not slicer-measured. PETG $11.20/kg (Bambu PETG Basic Black + Translucent Clear, $224.04 ÷ 20 kg); PET-CF $39.32/kg (Polymaker Fiberon PET-CF17, $117.96 ÷ 3 kg).
+Per-unit filament for every printed part shipped inside one finished appliance, one row per part. PETG throughout except the PET-CF (Polymaker Fiberon PET-CF17) faucet shell and mounting plate. The four syrup-wetted reservoir parts print in **PETG Translucent Clear** so the customer reads fill state through the wall; the rest print black. Both are Bambu PETG Basic at one price, so colour changes what a part looks like, not what it costs. `Mass (kg)` and `$` are per-line totals (quantity included). Masses are geometry-derived — CAD solid volume × density (PETG 1.27 g/cm³, PET-CF 1.30 g/cm³) — not slicer-measured. `hardware/scripts/_bom_masses.py` is what derives them: it reads each row's own STEP solids, writes this Mass column and the `$` that follows from it, and `--check` is a commit gate on any change under `printed-parts/`, so a row and the part it names cannot drift apart. PETG $11.20/kg (Bambu PETG Basic Black + Translucent Clear, $224.04 ÷ 20 kg); PET-CF $39.32/kg (Polymaker Fiberon PET-CF17, $117.96 ÷ 3 kg).
 
 The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md)'s screen against the actual syrup — no spool's resin compliance stands in for it.
 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
-| Cold-core inner shell (foam-shell) | 1 | PETG | 1.340 | $15.01 <!--@printed--> |
-| Cold-core foam cap — top | 1 | PETG | 0.177 | $1.99 <!--@printed--> |
+| Cold-core inner shell (foam-shell) | 1 | PETG | 1.315 | $14.73 <!--@printed--> |
+| Cold-core foam cap — top | 1 | PETG | 0.182 | $2.04 <!--@printed--> |
 | Cold-core foam cap lid — top | 1 | PETG | 0.128 | $1.43 <!--@printed--> |
-| Cold-core foam cap — bottom | 1 | PETG | 0.170 | $1.91 <!--@printed--> |
-| Cold-core foam cap lid — bottom | 1 | PETG | 0.129 | $1.44 <!--@printed--> |
+| Cold-core foam cap — bottom | 1 | PETG | 0.169 | $1.89 <!--@printed--> |
+| Cold-core foam cap lid — bottom | 1 | PETG | 0.130 | $1.45 <!--@printed--> |
 | Copper-plug stack (4 plugs) | 4 | PETG | 0.006 | $0.06 <!--@printed--> |
 | PRV shroud | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
-| Flavor reservoir body — left | 1 | PETG (translucent) | 0.398 | $4.46 <!--@printed--> |
-| Flavor reservoir body — right | 1 | PETG (translucent) | 0.398 | $4.46 <!--@printed--> |
-| Flavor reservoir cap — left | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
-| Flavor reservoir cap — right | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
-| Power tray | 1 | PETG | 0.055 | $0.61 <!--@printed--> |
-| Enclosure — front bottom + front top (two pieces) | 1 set | PETG | 0.852 | $9.54 <!--@printed--> |
+| Flavor reservoir body — left | 1 | PETG (translucent) | 0.382 | $4.28 <!--@printed--> |
+| Flavor reservoir body — right | 1 | PETG (translucent) | 0.382 | $4.28 <!--@printed--> |
+| Flavor reservoir cap — left | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
+| Flavor reservoir cap — right | 1 | PETG (translucent) | 0.058 | $0.65 <!--@printed--> |
+| AC hub plate | 1 | PETG | 0.014 | $0.16 <!--@printed--> |
+| Enclosure — front bottom + front top (two pieces) | 1 set | PETG | 2.114 | $23.68 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
-| Enclosure — back bottom + back top (two pieces) | 1 set | PETG | 1.533 | $17.17 <!--@printed--> |
-| Drip pan + slide rails | 1 set | PETG | 0.043 | $0.48 <!--@printed--> |
-| Valve tray — source-select | 1 | PETG | 0.179 | $2.00 <!--@printed--> |
-| Valve tray — bag-circuit | 1 | PETG | 0.133 | $1.49 <!--@printed--> |
-| Valve tray — nozzle-gate | 1 | PETG | 0.043 | $0.48 <!--@printed--> |
-| Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.151 | $5.94 <!--@printed--> |
-| Faucet mounting plate | 1 | PET-CF | 0.013 | $0.51 <!--@printed--> |
-| **Printed parts total** | | | **~5.88** | **[$70.48](BOM_SEC7)** |
+| Enclosure — back bottom + back top (two pieces) | 1 set | PETG | 1.623 | $18.18 <!--@printed--> |
+| Drip pan + slide rails | 1 set | PETG | 0.046 | $0.52 <!--@printed--> |
+| Valve tray — source-select | 1 | PETG | 0.173 | $1.93 <!--@printed--> |
+| Valve tray — bag-circuit | 1 | PETG | 0.130 | $1.45 <!--@printed--> |
+| Valve tray — nozzle-gate | 1 | PETG | 0.038 | $0.43 <!--@printed--> |
+| Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.150 | $5.92 <!--@printed--> |
+| Faucet mounting plate | 1 | PET-CF | 0.013 | $0.53 <!--@printed--> |
+| **Printed parts total** | | | **~7.13** | **[$84.44](BOM_SEC7)** |
 
-By material: PETG ≈ 5.72 kg / $64.03 — of which the four translucent reservoir parts are ≈ 0.91 kg / $10.24 — and PET-CF ≈ 0.16 kg / $6.45.
+By material: PETG ≈ 6.96 kg / $77.99 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.84 — and PET-CF ≈ 0.16 kg / $6.44.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the electronics stand on. The top cap also carries the [15](DECK_INSERTS) deck-mount columns the whole electronics shelf bolts to — the controller board, the AC hub, relay #1, the ground stud and the PSU — which is why it outweighs the bottom one.
 
@@ -281,7 +281,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$112.38](BOM_SEC4) |
 | 5. Refrigeration | [$173.90](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$70.48](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$84.44](BOM_SEC7) |
 | 8. Flavor subsystem | [$207.59](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -289,7 +289,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$8.23](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,327.01](BOM_GRAND)** |
+| **Total** | **[$1,340.97](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
