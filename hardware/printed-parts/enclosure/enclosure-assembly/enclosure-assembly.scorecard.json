@@ -1,7 +1,7 @@
 {
   "gatesPass": true,
   "placed": 50,
-  "located": 90,
+  "located": 92,
   "shaped": 98,
   "routed": 41,
   "held": 42,
@@ -150,14 +150,14 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "90% (36/40)",
+      "value": "92% (37/40)",
       "target": "100%",
       "detail": [
-        "\u2717 foam-assembly: 9/10 connectors located",
+        "\u2713 foam-assembly: 10/10 connectors located",
         "    \u2013 foam-assembly:carb-water-out (fluid) (141.5, 182, 37) y- \u00d86.35 \u2192 dispense faucet (carb-water riser to the rear umbilical)",
         "    \u2013 foam-assembly:reservoir-A (fluid) (188.5, 182, 26) y- \u00d86.35 \u2192 reservoir A \u2194 peristaltic pump A (bag circuit)",
         "    \u2013 foam-assembly:reservoir-B (fluid) (94.5, 182, 26) y- \u00d86.35 \u2192 reservoir B \u2194 peristaltic pump B (bag circuit)",
-        "    \u2013 foam-assembly:co2-in (fluid) (141.5, 199.8, 262.9) z+ \u00d86.35 \u2192 CO2 chain (WR1110 \u2192 foam-cap top entry)  \u2014 \u26a0 off-surface",
+        "    \u2013 foam-assembly:co2-in (fluid) (141.5, 345.25, 253.4) z+ \u00d86.35 \u2192 CO2 chain (WR1110 \u2192 foam-cap top entry)",
         "    \u2013 foam-assembly:evap-inlet (refrigerant) (141.5, 182, 67) y- \u00d86.35 \u2192 condenser+fan outlet (liquid line via drier + cap tube)",
         "    \u2013 foam-assembly:evap-outlet (refrigerant) (141.5, 182, 186.4) y- \u00d86.35 \u2192 compressor-shroud suction",
         "    \u2013 foam-assembly:water-in (fluid) (141.5, 182, 218.4) y- \u00d89.525 \u2192 gasher-water out (SeaFlo outlet check \u2192 carbonator water inlet)",
@@ -318,14 +318,14 @@
       "kind": "fluid",
       "pos": [
         141.5,
-        199.8,
-        262.9
+        345.25,
+        253.4
       ],
       "face": "z+",
       "diam": 6.35,
       "mates": "CO2 chain (WR1110 \u2192 foam-cap top entry)",
-      "status": "off-surface",
-      "note": "1/4\" PTC CO2 line; seats in the \u00d816 foam-cap bore"
+      "status": "ok",
+      "note": "1/4\" PTC CO2 line; seats in the \u00d86.5 foam-cap bore"
     },
     {
       "component": "foam-assembly",

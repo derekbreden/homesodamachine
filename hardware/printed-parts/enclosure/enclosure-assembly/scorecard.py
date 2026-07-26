@@ -555,6 +555,10 @@ _BACK_C14   = contents.back_port_station("c14-inlet")
 _FOAM_PORT = contents.foam_shell_port
 _EXIT_Z = _cc.bulkhead_elbow_exit_z
 _PLUG_JOIN = {name: spec.z_range[0] for name, spec in _plug_specs.items()}
+# The one foam port off the −Y face: the CO2 line drops through the +Z cap top.
+# The cap carries its bore on −Y and installs spun a half turn about Z, so the
+# bore stands at −co2_inlet_y, and the lid's outer face is the mouth.
+_CO2_TOP = _FOAM_PORT(0.0, 0.0, y=-_cc.co2_inlet_y)[:2] + (contents.foam_cap_top(),)
 
 PORTS = [
     # foam-assembly — 8 tube penetrations (foam-shell README §Penetrations) + 2 reed-cable exits
@@ -568,7 +572,7 @@ PORTS = [
     _p("carb-water-out", "foam-assembly", "fluid",       _FOAM_PORT(0.0, _pc.front_face_port_z), "y-", 6.35,  "dispense faucet (carb-water riser to the rear umbilical)", "1/4\" tank NPT elbow line"),
     _p("reservoir-A",    "foam-assembly", "fluid",       _FOAM_PORT(+_pc.flavor_line_shell_hole_x, _EXIT_Z), "y-", 6.35,  "reservoir A ↔ peristaltic pump A (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
     _p("reservoir-B",    "foam-assembly", "fluid",       _FOAM_PORT(-_pc.flavor_line_shell_hole_x, _EXIT_Z), "y-", 6.35,  "reservoir B ↔ peristaltic pump B (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
-    _p("co2-in",         "foam-assembly", "fluid",       (141.5, _FOAM_FACE + 17.8, 262.9), "z+", 6.35,  "CO2 chain (WR1110 → foam-cap top entry)", "1/4\" PTC CO2 line; seats in the Ø16 foam-cap bore"),
+    _p("co2-in",         "foam-assembly", "fluid",       _CO2_TOP, "z+", 6.35,  "CO2 chain (WR1110 → foam-cap top entry)", "1/4\" PTC CO2 line; seats in the Ø6.5 foam-cap bore"),
     _p("evap-inlet",     "foam-assembly", "refrigerant", _FOAM_PORT(0.0, _PLUG_JOIN["lower"]),  "y-", 6.35,  "condenser+fan outlet (liquid line via drier + cap tube)", "1/4\" ACR copper"),
     _p("evap-outlet",    "foam-assembly", "refrigerant", _FOAM_PORT(0.0, _PLUG_JOIN["middle"]), "y-", 6.35,  "compressor-shroud suction", "1/4\" ACR copper"),
     _p("water-in",       "foam-assembly", "fluid",       _FOAM_PORT(0.0, _PLUG_JOIN["upper"]),  "y-", 9.525, "gasher-water out (SeaFlo outlet check → carbonator water inlet)", "3/8\" hose barb (SeaFlo 22-series port)"),
