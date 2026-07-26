@@ -16,7 +16,7 @@ The foam shell's envelope at the back (Zone A) is the one volume that cannot mov
 The zone arrangement above is the current pack — a working layout. It is free to rearrange so long as it respects these physical and functional realities:
 
 - The foam shell is the largest single solid; it cannot move or compress. Its penetrations are on the −Y front and +Z top only — the +Y rear, sides, and bottom stay clean.
-- The cold core does not stand on the floor. The six M3 cap screws holding its bottom foam cap on are driven up from below and their heads are the assembly's lowest surface, so it lands on [`cold-core-ring/`](/hardware/printed-parts/enclosure/cold-core-ring/) — which sets the height of everything the foam-cap top carries.
+- The cold core stands flat on the floor. Its bottom foam-cap lid is the bearing plane — the six M3 cap screws driven up from below sit in counterbores in the lid's own head pads — so nothing goes under it, and the floor's two core lugs (`enclosure.py` `_core_fence`) are the only thing it needs that the box does not already give it.
 - Appliance width follows foam shell width (~[283 mm](APPLIANCE_WIDTH)); the shell is the widest object.
 - Appliance depth carries the compressor/condenser block and the foam shell seated against the rear wall behind it, stacked along Y (currently ~[387 mm](APPLIANCE_DEPTH)).
 - The condenser and fan need side-to-side cross-flow airflow to reject heat — fan axis between the two ±X side walls.
@@ -36,7 +36,6 @@ Everything else is open: which zone holds the electronics, where the compressor 
 ## Sub-folders
 
 - [`back-panel/`](/hardware/printed-parts/enclosure/back-panel/) — rear face of the enclosure.
-- [`cold-core-ring/`](/hardware/printed-parts/enclosure/cold-core-ring/) — the seat the cold core lands on at the back of the floor.
 - [`drip-pan/`](/hardware/printed-parts/enclosure/drip-pan/) — internal catch basin under the ASSE 1022 chain's atmospheric vent.
 - [`front-panel/`](/hardware/printed-parts/enclosure/front-panel/) — front face of the enclosure.
 - [`nameplate/`](/hardware/printed-parts/enclosure/nameplate/) — separately-printed serialized plaque mounted on the rear face.

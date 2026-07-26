@@ -122,8 +122,7 @@ def _c(name, kind, sourced, held, note=""):
 
 COMPONENTS = [
     # Cold core + floor block
-    _c("cold-core-ring",    "real",        True,  "floor-capture", "printed PETG seat the cold core lands on (enclosure/cold-core-ring): a bearing rail on the core's own 283 × 181 footprint, six ⌀11 wells swallowing the bottom foam cap's M3 cap-screw heads (which stand ~3 mm proud of its lid and are the assembly's true underside), two front lugs fencing the core forward, and two ears keying the ring between the back column's Z-seam pin pods. Unfastened by design — the floor carries it, the seam posts fence it"),
-    _c("foam-assembly",     "real",        True,  "none", "cold core; lands on the cold-core-ring one RING_SEAT above the floor, flush against the seams at the sides and back"),
+    _c("foam-assembly",     "real",        True,  "floor-capture", "cold core; its bottom cap's lid flat on the floor slab, flush against the seams at the sides and back, fenced ahead by the floor's two core lugs (enclosure.py `_core_fence`). Unfastened by design — the floor carries it, the seam posts fence it"),
     _c("compressor-shroud", "real",        True,  "bosses", "floor seat band + plan register, and two capture bosses standing inside it at its own Ø4.5 mm base holes (enclosure.py `_shroud_seat` / `_shroud_bosses`): the front screw pins it through the front wall, the rear clamps it from the machine corridor. The rear screw's driver lane is fouled by the MQ-6 as placed — 1.00 mm behind the shroud's rear face, on the bore's own x"),
     _c("condenser+fan",     "placeholder", True,  "bosses", "harvested donor block; two floor rails carry its weight and two +X-wall webs carry four ear pads at the donor fan shroud's screw pattern (enclosure.py `_condenser_mount`), M3×10 into ruthex through each ear. Ear pattern is an ESTIMATE until the donor shroud is separated and measured"),
     _c("mq6-sensor",        "real",        True,  "none", "MQ-6 module STEP (PCB + sensor can + header); floor gas sensor, no mount"),
@@ -179,7 +178,6 @@ COMPONENTS = [
 # Ratifying this set (and the floor above) is the first directed step.
 TOUCHING_OK = {
     frozenset(p) for p in [
-        ("cold-core-ring", "foam-assembly"),    # the core's bottom lid flat on the ring's bearing rail
         ("foam-assembly", "seaflo-pump"),       # the pump's base flat on the foam-cap top
         ("foam-assembly", "water-split"),       # the split's body flat on the cap, under V-K's cradle
         ("foam-assembly", "flow-regulator"),    # the regulator's body flat on the cap, ahead of the pump
@@ -299,16 +297,9 @@ PLACEMENT_RULES = {
     # corner posts and boss chains have their full section, and the back wall one
     # wall (`enclosure.rear_seam_clear`) off it so the rear Z-seam lip's inner
     # face is what it seats against. Those standoffs are the placement, so the
-    # tolerances carry them. In Z it stands on the ring, not the floor — the
-    # `near` is the seat, held at zero as a declared contact.
-    "foam-assembly":     [("y+", 4.0), ("x-", 15.0), ("x+", 15.0),
-                          ("z-", contents.RING_SEAT + 1.0),
-                          ("near", "cold-core-ring", 0.5)],
-    # "The ring is on the floor, out to both side bands, under the core." Its ears
-    # reach the ±X walls within a drop clearance, which is what fixes it in X; the
-    # core lands on its rail, which is the `near` at zero.
-    "cold-core-ring":    [("z-", 1.0), ("x-", 1.0), ("x+", 1.0),
-                          ("near", "foam-assembly", 0.5)],
+    # tolerances carry them. In Z it stands on the floor slab itself: its bottom
+    # lid is a plane and nothing is under it.
+    "foam-assembly":     [("y+", 4.0), ("x-", 15.0), ("x+", 15.0), ("z-", 1.0)],
     # "Compressor is front-left on the floor" — one corner-rib chain inboard of the
     # cold core's side face, which the wall stands a further chain outboard of.
     # Like the foam it seats on a SEAM, not a wall: the front wall stands one wall

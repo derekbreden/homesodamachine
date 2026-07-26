@@ -47,11 +47,12 @@ The walls stand off the cold core rather than on it — one boss chain at the ±
 walls, one wall at the back — because the core spans the interior wall to wall
 and floor to its cap and is what sizes the box, so a wall on its face would leave
 the seam machinery nowhere to stand. The core seats flush against the seams
-instead, and stands on its own printed ring (`../cold-core-ring/`) — dropped onto
-the floor, spanning the Y seam, keyed in X by the ±X bands' own seam posts and
-fore-and-aft between the back column's Z-seam pods. The floor those posts and
-that ring stand on is flat: the Y seam's floor overlap is a shiplap within the
-slab, not a proud tongue.
+instead, and stands flat on the floor slab — its bottom cap's lid is a plane and
+every cap screw is down in a counterbore, so nothing goes under it. The ±X bands'
+own seam posts fence it sideways, the back Z seam's lip behind, and the floor's
+two core lugs (`_core_fence`) ahead. The floor those posts and that core stand on
+is flat: the Y seam's floor overlap is a shiplap within the slab, not a proud
+tongue.
 
 Every piece prints on a Z face — the bottom pieces floor-down, the top pieces
 ceiling-down, each lying on its closed face with its seam mouth up. So the build
@@ -268,6 +269,15 @@ boss_reach = heatset_depth + heatset_relief + socket_cap
 # condenser's footprint, and the compressor's pads rising from it.
 seat_band = 12.0             # bearing width under the shroud's rim
 seat_rail_w = 20.0           # width of a condenser floor rail
+
+# The cold core's front stop. The core lands flat on the floor — its bottom
+# cap's lid is a plane, every cap screw down in a counterbore — so the floor
+# needs nothing under it, only something ahead of it.
+core_lug_rise = 8.0          # lug standing off the floor slab
+core_lug_t = 3.0
+core_lug_w = 60.0
+core_lug_inset = 20.0        # in from the core's own ±X faces
+core_fence_slip = 0.5        # Y air the core drops into, taken at the front
 
 # The shroud drops over the compressor from above and is located in plan by a
 # register standing inside its own walls, so the two Ø4.5 mm screws in its side
@@ -1577,6 +1587,30 @@ def _condenser_mount(box, placed):
     return body
 
 
+def _core_fence(box, placed):
+    """The cold core's −Y stop: two lugs standing off the floor slab across the
+    front of its footprint, `core_fence_slip` ahead of the core's own front face
+    so it drops in rather than presses in.
+
+    Only ahead. Behind, the core seats against the back Z seam's lip and a curb
+    could not stand there anyway — the rear wall is placed one standoff behind
+    the REARMOST content, so a curb in that band would push the wall off itself.
+    In X the seam posts on the footprint's own ±X edges are the fence. This is
+    the one direction the box does not already close.
+
+    Discontinuous on purpose: the band ahead of the core at floor height is the
+    machine corridor's aft mouth, where the evaporator stubs and the water-in
+    line cross to the core's front face. The lugs sit outboard of that traffic."""
+    bb = _boxes.boxed(placed["foam-assembly"][0])
+    z0 = box.inner[4]
+    y1 = bb.ymin - core_fence_slip
+    body = None
+    for x0 in (bb.xmin + core_lug_inset, bb.xmax - core_lug_inset - core_lug_w):
+        lug = _ybox(x0, x0 + core_lug_w, y1 - core_lug_t, y1, z0, z0 + core_lug_rise)
+        body = lug if body is None else body.fuse(lug)
+    return body
+
+
 def _condenser_mount_cuts(placed):
     """The heat-set pocket and relief in each ear pad, bored +X from the pad face
     the ear lies against — the screw arrives from the block's side, through the
@@ -1601,7 +1635,8 @@ def _mounts(box):
     solid = (_shroud_seat(inner, placed)
              .fuse(_shroud_bosses(inner, placed))
              .fuse(_compressor_pads(inner, placed))
-             .fuse(_condenser_mount(box, placed)))
+             .fuse(_condenser_mount(box, placed))
+             .fuse(_core_fence(box, placed)))
     cuts = (_shroud_boss_cuts(outer, placed)
             .fuse(_compressor_pad_cuts(inner, placed))
             .fuse(_condenser_mount_cuts(placed)))
@@ -1986,6 +2021,11 @@ def _report_mounts(box):
           f"{sorted({round(y, 1) for y, _z in ears})} × z {sorted({round(z, 1) for _y, z in ears})}, "
           f"web to the +X wall at x {box.inner[1]:.1f} (pitch {cond_ear_pitch[0]:g} × "
           f"{cond_ear_pitch[1]:g} — ESTIMATE)")
+    cb = _boxes.boxed(placed["foam-assembly"][0])
+    print(f"  core fence:       2 lugs {core_lug_w:g} × {core_lug_t:g} to z "
+          f"{box.inner[4] + core_lug_rise:.1f}, faces at y {cb.ymin - core_fence_slip:.1f} "
+          f"({core_fence_slip:g} ahead of the core), x "
+          f"{[round(cb.xmin + core_lug_inset, 1), round(cb.xmax - core_lug_inset - core_lug_w, 1)]}")
 
 
 PIECE_COLORS = {

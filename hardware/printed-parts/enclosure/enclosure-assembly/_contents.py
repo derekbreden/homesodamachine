@@ -67,10 +67,10 @@ Strata, floor to ceiling:
              to the compressor's suction port; refrig-1 and refrig-2
              already cross its east half.
   * Zone A:  cold core (foam assembly: bottom cap + shell + top cap) at the
-             back, landed on the printed support ring one RING_SEAT off the
-             floor — the ring is the plane the bottom cap's six proud
-             cap-screw heads leave it without — its −Y dispense/service
-             ports facing forward.
+             back, flat on the floor — its bottom cap's lid is a plane,
+             every cap screw down in its own counterbore — fenced ahead by
+             the floor's two core lugs, with its −Y dispense/service ports
+             facing forward.
   * Zone C (the front column's upper band): the valve-manifold tray stack,
              pressed aft against the cold core — the source-select
              assembly (Tray 1: V-A, V-B, Y-A, Y-B, V-C, V-D on a printed
@@ -191,7 +191,6 @@ import meanwell_irm90 as _psu_ref        # noqa: E402  — the PSU's section and
 
 # --- Source STEPs ---------------------------------------------------------
 FOAM_ASSEMBLY = _hw / "printed-parts" / "cold-core" / "foam-assembly" / "foam-assembly.step"
-COLD_CORE_RING = _hw / "printed-parts" / "enclosure" / "cold-core-ring" / "cold-core-ring.step"
 COMP_SHROUD   = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.step"
 SOURCE_SELECT = _hw / "printed-parts" / "valve-manifold" / "source-select-tray" / "source-select-assembly.step"
 BAG_CIRCUIT   = _hw / "printed-parts" / "valve-manifold" / "bag-circuit-tray" / "bag-circuit-assembly.step"
@@ -260,13 +259,6 @@ BEDUAN_STEP    = _hw / "reference" / "beduan-solenoid" / "beduan-solenoid.step"
 # Condenser+fan and the SeaFlo pump are packed as primitive boxes (dimensions
 # below); the rest are placement anchors — nominal dims that position the
 # STEP-loaded parts against their datums.
-# The cold-core ring's bearing height (printed-parts/enclosure/cold-core-ring):
-# the cold core sits on the ring, not on the floor, because the six M3 cap screws
-# holding its bottom foam cap on stand proud of the cap's lid and the ring is the
-# plane they are missing. Zone A and everything the foam-cap top carries — the
-# water deck — ride this above the floor, so every deck Z declared below is
-# written off it.
-RING_SEAT = 5.0
 # Condenser + fan harvested from the donor ice maker, with the donor's own
 # factory filter-drier + capillary-tube subassembly brazed to its outlet and
 # kept in service (hardware/reference/ice-maker/README.md "Filter-drier" — the
@@ -282,7 +274,7 @@ CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # everything the foam-cap top carries rides with it. The condenser block stands
 # CONDENSER_FACE_A of this; the rest is the column between the manifold stack
 # and the core.
-FRONT_DEPTH = 200.0
+FRONT_DEPTH = 182.0
 # The corridor a bag line falls down: one 1/4" line wide with a lane clearance
 # either side. Each line leaves the core at its own shell-side bore and falls in
 # its own column, down the recess in the manifold stack's aft profile, so the
@@ -295,6 +287,10 @@ BAG_FALL_CORRIDOR = 5.65 + 6.35 + 5.65
 # two walls of that column.
 STACK_AFT_REACH = 46.44
 STACK_CORE_GAP = 18.01
+# The manifold stack's own origin Y, and the deck's datum. The pump row, the
+# dividers and the hopper's drain all stand off it, so the column the core
+# pushes on travels as one piece.
+DECK_Y = FRONT_DEPTH - STACK_CORE_GAP - STACK_AFT_REACH
 # The SeaFlo lies motor-axis along X across the service bay, its base flat on the
 # foam cap. The head's two barbs leave its ±Y faces: the suction faces north (+Y)
 # up to the split feeding it, the discharge faces south (−Y) down to the cold
@@ -319,7 +315,7 @@ SEAFLO_POS = (189.5, FRONT_DEPTH + 49.0)   # front face on the cap's front edge,
 # part's own origin around it. Move the roll and the tube ports do not move.
 #   PROVISIONAL: the chain's envelope comes from the reference model, which divides
 # the Multiplex spec sheet rather than measuring the five parts on the shelf.
-ASSE1022_AXIS = (102.0, FRONT_DEPTH + 145.5, 314.0 + RING_SEAT)   # the flow axis, in world
+ASSE1022_AXIS = (102.0, FRONT_DEPTH + 145.5, 314.0)   # the flow axis, in world
 ASSE1022_YAW = 0.0
 ASSE1022_ROLL = 45.0
 # The drip pan is not posed. In X the basin hangs EAST of the vent column, the tip
@@ -344,7 +340,7 @@ DRIP_VENT_INSET = 14.0   # basin west outer face to the vent column
 # first. Stood down the strip, the length runs into depth the strip has and the column
 # the nozzle lanes need stays open beside it.
 BEDUAN_YAW = 180.0
-BEDUAN_POS = (264.0, FRONT_DEPTH + 142.5, 274.1 + RING_SEAT)   # base centre on a cradle above the cap
+BEDUAN_POS = (264.0, FRONT_DEPTH + 142.5, 274.1)   # base centre on a cradle above the cap
 # The controller board and the PSU, each bolted to four boss columns of the foam cap.
 # Neither is posed here: the cap owns its deck-mount stations and `deck_mount()` carries
 # them to world, so the body, its connector map and the column it stands on move together.
@@ -377,7 +373,7 @@ RELAY_YAW = 0.0
 # what puts the branch on the far side of the run from where the yaw alone would leave it.
 SPLIT_YAW = 270.0
 SPLIT_ROLL = 180.0
-SPLIT_POS = (257.0, FRONT_DEPTH + 145.5, 260.4 + RING_SEAT)   # centre; its port plane, standing on the cap under V-K
+SPLIT_POS = (257.0, FRONT_DEPTH + 145.5, 260.4)   # centre; its port plane, standing on the cap under V-K
 # The flow regulator (neoFit ABCVU44) sits inline on the split's flavor run, in the band
 # between the hopper funnel's basin and the cap's front edge — the pump fills the deck behind
 # it, and this band is the only length of open air on the flavor run's own X. Its needle stem
@@ -397,7 +393,7 @@ FLOWREG_YAW = 270.0
 # frame already runs the water down. Its X rides the pump's discharge, not a number of its
 # own: the hose turns at R15.9, so any offset between the two costs two tangent lengths of
 # strip the bay does not have. The corridor bounds this chain in Y, not in X.
-DISCH_CHAIN_POS = (SEAFLO_POS[0] + 36.6, FRONT_DEPTH - 10.0, 265.0 + RING_SEAT)   # the barb tip; the collet hangs LENGTH below it
+DISCH_CHAIN_POS = (SEAFLO_POS[0] + 36.6, FRONT_DEPTH - 10.0, 265.0)   # the barb tip; the collet hangs LENGTH below it
 # The funnel's placement: its collar-rect centre in plan, plus a rotation
 # about its own Z. This is the CENTRE OF THE TOP-WALL FRAME — the basin sits
 # the same `hopper_funnel.brim_margin` off the display gusset, the corner pod,
@@ -411,8 +407,11 @@ DISCH_CHAIN_POS = (SEAFLO_POS[0] + 36.6, FRONT_DEPTH - 10.0, 265.0 + RING_SEAT) 
 # funnel (zone-c/hopper-funnel, local frame) seats with its brim underside
 # on the box's outer top; enclosure.py cuts the top-wall opening from this
 # same centre + the funnel's own collar dims, and asserts both the collar and
-# the brim that overhangs it land inside that frame.
-FUNNEL_CX, FUNNEL_CY = 193.75, 92.5
+# the brim that overhangs it land inside that frame. Its depth stands off the
+# deck datum: the drain feeds V-B on the manifold stack, so the spout holds its
+# station over that collet as the column travels, and the collar's Y is sized to
+# the top wall the move leaves it (hopper_funnel `collar_d`).
+FUNNEL_CX, FUNNEL_CY = 193.75, DECK_Y - 43.05
 FUNNEL_ROT = 0.0
 # The source-select assembly is the stack's anchor and its FLOOR: local
 # origin (cell centre, valve mounting plane) in world, rotated 180° about Z,
@@ -430,7 +429,7 @@ FUNNEL_ROT = 0.0
 # rides a few millimetres inboard of each — its −X outlet-elbow column (and the
 # junction tees below) clear the −X wall's seam furniture, its +X elbows clear the
 # +X wall — so the enclosure seam machinery runs unbroken there (no wall relief).
-SRC_SEL_POS = (143.0, FRONT_DEPTH - STACK_CORE_GAP - STACK_AFT_REACH, 167.8)
+SRC_SEL_POS = (143.0, DECK_Y, 167.8)
 # The bag-circuit assembly rides INVERTED on top of it — rotated 180° about Y,
 # seated wall-tops-to-wall-tops on the source tray's stacking walls (a
 # declared contact), both trays' walls meeting at z 227.8 — which lands each
@@ -511,7 +510,7 @@ NOZZLE_GATE_POS = (_GATE_ANCHOR_BAG_X + 2.0 * _bag.port_half + _bag.tee_branch_r
 #     source-select-assembly` rule); its row tie is the nose gap to P-A
 #     (the `near pump-a` rule).
 PUMP_A_POS = (89.62, SRC_SEL_POS[1] - 39.55, 190.31)
-PUMP_B_POS = (222.50, SRC_SEL_POS[1] - 50.04, 192.31)
+PUMP_B_POS = (222.50, SRC_SEL_POS[1] - 46.00, 192.31)
 
 # The pump-inlet union tees (fluid topology Y-C / Y-F) hang in the junction
 # column between the trays' facing west collets. Both elbows are rolled off
@@ -644,7 +643,7 @@ def foam_cap_top():
     their tops."""
     global _FOAM_TOP_CACHE
     if _FOAM_TOP_CACHE is None:
-        _FOAM_TOP_CACHE = (RING_SEAT + _load(FOAM_ASSEMBLY).BoundingBox().zlen
+        _FOAM_TOP_CACHE = (_load(FOAM_ASSEMBLY).BoundingBox().zlen
                            - _cc.deck_mount_proud())
     return _FOAM_TOP_CACHE
 
@@ -656,7 +655,7 @@ def deck_mount(name):
     column tops of a mount that stands through the lid, the lid's own face of one that
     stops beneath it. The cap owns the stations — this only carries them."""
     fb = _load(FOAM_ASSEMBLY).BoundingBox()
-    # The pack seats the assembly by its bbox min at (0, FRONT_DEPTH, RING_SEAT).
+    # The pack seats the assembly by its bbox min at (0, FRONT_DEPTH, 0).
     cx, cy = fb.xlen / 2.0, FRONT_DEPTH + fb.ylen / 2.0
     pts = tuple((cx - px, cy - py) for px, py in _cc.deck_mount_xy(name))
     ctr = (sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts))
@@ -671,14 +670,14 @@ def foam_shell_port(x, z, y=None):
 
     The shell IS the foam assembly's frame — the caps stack around it without
     moving it — and the pack seats that assembly by its bbox min at
-    (0, FRONT_DEPTH, RING_SEAT). `y` defaults to the shell's −Y outer face,
+    (0, FRONT_DEPTH, 0). `y` defaults to the shell's −Y outer face,
     where every front penetration opens. A port that reads its X and Z off
     the cold core's own constants through this moves when the bore moves,
     instead of being retyped after it."""
     global _FOAM_FRAME
     if _FOAM_FRAME is None:
         fb = _load(FOAM_ASSEMBLY).BoundingBox()
-        _FOAM_FRAME = (-fb.xmin, FRONT_DEPTH - fb.ymin, RING_SEAT - fb.zmin)
+        _FOAM_FRAME = (-fb.xmin, FRONT_DEPTH - fb.ymin, -fb.zmin)
     dx, dy, dz = _FOAM_FRAME
     if y is None:
         y = -_cc.outer_shell_y_length / 2.0
@@ -1022,7 +1021,6 @@ DERPIPE_BODY_L = 17.0
 # --- Colors ---------------------------------------------------------------
 COLORS = {
     "foam-assembly":     cq.Color(0.55, 0.75, 0.95, 0.55),
-    "cold-core-ring":    cq.Color(0.35, 0.40, 0.50),
     "compressor-shroud": cq.Color(0.60, 0.62, 0.66),
     "condenser+fan":     cq.Color(0.78, 0.55, 0.35),
     "mq6-sensor":        cq.Color(0.30, 0.45, 0.85),
@@ -1365,9 +1363,13 @@ def _reaim_pump_outlet(shape, name):
 # vertical port axis to face the tee its suction leg comes from. pump-b stands east of the bag
 # tray, with room to roll northwest at tee-y-c. pump-a's inlet stays west: the bag tray fills the
 # space between it and tee-y-f, which hangs behind the tray, so fluid-21 reaches it from the west.
+# The inlet collet stands this far off its pump's own placement origin in plan, on both pumps,
+# at the deck Z the outlet elbow shares. Carried off the pump so the collet travels with it.
+_PUMP_INLET_OFFSET = (8.94, -6.50)
 _PUMP_INLET_BASE = {                              # as-placed inlet collet CENTRE: (pos, free-leg dir)
-    "pump-a": ((98.56, 89.50, 278.17), (-1.0, 0.0, 0.0)),
-    "pump-b": ((231.44, 79.01, 278.17), (-1.0, 0.0, 0.0)),
+    name: ((pos[0] + _PUMP_INLET_OFFSET[0], pos[1] + _PUMP_INLET_OFFSET[1], _PUMP_OUTLET_Z),
+           (-1.0, 0.0, 0.0))
+    for name, pos in (("pump-a", PUMP_A_POS), ("pump-b", PUMP_B_POS))
 }
 PUMP_INLET_AIM = {                                # re-rolled free-leg heading (horizontal); absent = as placed
     "pump-b": (-0.940, 0.342, 0.0),
@@ -1455,16 +1457,16 @@ def _build():
     foam = _load(FOAM_ASSEMBLY)
     fb = foam.BoundingBox()
     cold_w = fb.xlen                            # ~283 wide (shell + cap stacks, 253.4 tall)
-    foam_top = RING_SEAT + fb.zlen              # the shelf floor, one ring above the cap
+    foam_top = fb.zlen                          # the shelf floor, the cap's own top
 
-    # --- Zone A: cold core at the back, landed on the printed support ring one
-    # RING_SEAT above the floor. The ring shares the core's own plan origin — its
-    # bearing rail is the core's footprint — and reaches outboard of it only in
-    # ±Y (the front lugs) and into the ±X side bands (the ears that key it
-    # between the back column's Z-seam pods), so it changes no wall of the box.
-    # The core's −Y service/dispense ports face forward.
-    placed["cold-core-ring"] = _load(COLD_CORE_RING).translate((0.0, FRONT_DEPTH, 0.0))
-    placed["foam-assembly"] = _at(foam, 0.0, FRONT_DEPTH, RING_SEAT)
+    # --- Zone A: cold core at the back, flat on the floor slab. Its bottom
+    # cap's lid is the whole bearing surface — a plane, with every cap screw
+    # down in a counterbore in its own head pad — so nothing stands between the
+    # core and the floor. X is fenced by the seam posts standing on the
+    # footprint's own ±X edges, +Y by the back Z-seam lip, −Y by the two core
+    # lugs the floor grows ahead of it. The −Y service/dispense ports face
+    # forward.
+    placed["foam-assembly"] = _at(foam, 0.0, FRONT_DEPTH, 0.0)
 
     # --- Floor: compressor shroud front-left, condenser/fan front-right,
     # tipped on its back (airflow axis still across X): the donor block's
