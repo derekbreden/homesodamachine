@@ -1,9 +1,9 @@
 {
-  "gatesPass": false,
-  "placed": 50,
+  "gatesPass": true,
+  "placed": 55,
   "located": 93,
   "shaped": 98,
-  "routed": 40,
+  "routed": 43,
   "held": 43,
   "checks": [
     {
@@ -40,15 +40,14 @@
       "id": "clearance-floor",
       "label": "Part\u2194part clearance \u2265 floor (unless a declared contact)",
       "kind": "gate",
-      "status": "fail",
-      "value": "0.00 mm",
+      "status": "pass",
+      "value": "1.00 mm",
       "target": "\u2265 1.0 mm",
       "detail": [
         "foam-assembly \u2014 relay-1: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 ac-hub: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 ground-stack: 0.00 mm \u2014 CONTACT (declared ok)",
         "gasher-co2 \u2014 co2-inlet: 0.00 mm \u2014 CONTACT (declared ok)",
-        "wr1110 \u2014 source-select-assembly: 0.00 mm \u2014 \u2717 below floor",
         "source-select-assembly \u2014 bag-circuit-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
         "drip-pan \u2014 drip-pan-rails: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 seaflo-pump: 0.00 mm \u2014 CONTACT (declared ok)",
@@ -80,7 +79,6 @@
         "seaflo-pump \u2014 drip-pan-rails: 4.00 mm",
         "bag-circuit-assembly \u2014 elbow-y-g: 5.05 mm",
         "drip-pan-rails \u2014 psu: 5.70 mm",
-        "wr1110 \u2014 pump-b: 5.81 mm",
         "bag-circuit-assembly \u2014 hopper-funnel: 5.91 mm"
       ],
       "active": true
@@ -120,7 +118,7 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "50% (21/42)",
+      "value": "55% (23/42)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 3.0 x- 14.0 x+ 14.0 z- 0.0 mm",
@@ -144,7 +142,9 @@
         "\u2713 drip-pan-rails: near foam-assembly 0.0 near drip-pan 0.0 clear seaflo-pump 4.0 mm",
         "\u2713 vk-fill-valve: near water-split 6.7 clear seaflo-pump 34.8 clear asse1022-assembly 40.9 clear foam-assembly 20.7 mm",
         "\u2713 flow-regulator: near source-select-assembly 38.5 clear seaflo-pump 2.0 mm",
-        "21 components: no placement rules defined yet"
+        "\u2713 gasher-co2: near co2-inlet 0.0 clear compressor-shroud 9.8 mm",
+        "\u2713 wr1110: clear compressor-shroud 8.0 clear pump-a 12.9 clear pump-b 28.8 clear source-select-assembly 6.7 mm",
+        "19 components: no placement rules defined yet"
       ],
       "active": true
     },
@@ -183,8 +183,8 @@
         "    \u2013 gasher-co2:inlet (fluid) (46, 2, 172) y- \u00d86.35 \u2192 co2-inlet npt-out (made up, no line between)",
         "    \u2013 gasher-co2:outlet (fluid) (46, 42, 172) y+ \u00d86.35 \u2192 wr1110 inlet \u2014 segment co2-1",
         "\u2713 wr1110: 2/2 connectors located",
-        "    \u2013 wr1110:inlet (fluid) (206.5, 20, 185.5) y- \u00d86.35 \u2192 gasher-co2 outlet \u2014 segment co2-1",
-        "    \u2013 wr1110:outlet (fluid) (206.5, 77, 185.5) y+ \u00d86.35 \u2192 foam-assembly co2-in \u2014 segment co2-2",
+        "    \u2013 wr1110:inlet (fluid) (139, 66, 172) x- \u00d86.35 \u2192 gasher-co2 outlet \u2014 segment co2-1",
+        "    \u2013 wr1110:outlet (fluid) (196, 66, 172) x+ \u00d86.35 \u2192 foam-assembly co2-in \u2014 segment co2-2",
         "\u2713 bulkhead-flavor-a: 2/2 connectors located",
         "    \u2013 bulkhead-flavor-a:tube-out (fluid) (231.93, 375.5, 292.43) y+ \u00d86.35 \u2192 customer flavor A line (rear umbilical)",
         "    \u2013 bulkhead-flavor-a:tube-in (fluid) (231.93, 341.2, 292.43) y- \u00d86.35 \u2192 flavor A internal line (bag/pump circuit A)",
@@ -222,10 +222,10 @@
       "label": "Connections modeled as real 3D paths (fluid + water + CO2 + refrigerant + electrical)",
       "kind": "goal",
       "status": "warn",
-      "value": "40% (27/68)",
+      "value": "43% (29/68)",
       "target": "100%",
       "detail": [
-        "28 fluid + 6 water + 2 CO2 + 3 refrigerant + 29 electrical; 27 routed \u2014 the water and CO2 paths are closed end to end, the fluid path waits on the manifold's remaining on-tray legs, the refrigerant loop on its suction leg, and the electrical runs on the components being held",
+        "28 fluid + 6 water + 2 CO2 + 3 refrigerant + 29 electrical; 29 routed \u2014 the water and CO2 paths are closed end to end, the fluid path waits on the manifold's remaining on-tray legs, the refrigerant loop on its suction leg, and the electrical runs on the components being held",
         "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7 \u2014 nearest 5.45 mm to fluid-15",
         "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 284.7 mm, 4 bends at R12.7 \u2014 nearest 5.13 mm to compressor-shroud",
         "\u2713 water-1: bulkhead-water.tube-in \u2192 asse1022-assembly.tube-in \u2014 \u00d86.35 \u00d7 22.4 mm, 1 bends at R3.0 \u2014 nearest 18.03 mm to c14-inlet",
@@ -234,6 +234,8 @@
         "\u2713 water-4: vk-fill-valve.outlet \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 59.3 mm, 2 bends at R3.0 \u2014 nearest 14.02 mm to fluid-18",
         "\u2713 water-6: seaflo-pump.discharge \u2192 discharge-chain.barb-tip \u2014 \u00d815.1 \u00d7 32.6 mm, 1 bends at R15.9 \u2014 nearest 9.65 mm to nozzle-gate-assembly",
         "\u2713 water-5: discharge-chain.tube-port \u2192 foam-assembly.water-in \u2014 \u00d86.35 \u00d7 151.5 mm, 3 bends at R3.0 \u2014 nearest 4.24 mm to fluid-15",
+        "\u2713 co2-1: gasher-co2.outlet \u2192 wr1110.inlet \u2014 \u00d86.35 \u00d7 114.4 mm, 1 bends at R6.0 \u2014 nearest 1.93 mm to source-select-assembly",
+        "\u2713 co2-2: wr1110.outlet \u2192 foam-assembly.co2-in \u2014 \u00d86.35 \u00d7 288.1 mm, 4 bends at R6.0 \u2014 nearest 6.83 mm to compressor-shroud",
         "\u2713 fluid-1: water-split.to-flavor \u2192 flow-regulator.inlet \u2014 \u00d86.35 \u00d7 138.4 mm, 3 bends at R3.0 \u2014 nearest 2.82 mm to seaflo-pump",
         "\u2713 fluid-2: flow-regulator.outlet \u2192 source-select-assembly.V-A-I \u2014 \u00d86.35 \u00d7 67.2 mm, 1 bends at R3.0 \u2014 nearest 9.36 mm to elbow-noz-a",
         "\u2713 fluid-4: hopper-funnel.drain \u2192 source-select-assembly.V-B-I \u2014 \u00d86.35 \u00d7 151.2 mm, 4 bends at R12.0 \u2014 nearest 1.53 mm to fluid-27",
@@ -590,11 +592,11 @@
       "name": "inlet",
       "kind": "fluid",
       "pos": [
-        206.5,
-        20.0,
-        185.5
+        139.0,
+        66.0,
+        172.0
       ],
-      "face": "y-",
+      "face": "x-",
       "diam": 6.35,
       "mates": "gasher-co2 outlet \u2014 segment co2-1",
       "status": "ok",
@@ -605,11 +607,11 @@
       "name": "outlet",
       "kind": "fluid",
       "pos": [
-        206.5,
-        77.0,
-        185.5
+        196.0,
+        66.0,
+        172.0
       ],
-      "face": "y+",
+      "face": "x+",
       "diam": 6.35,
       "mates": "foam-assembly co2-in \u2014 segment co2-2",
       "status": "ok",
@@ -3015,12 +3017,12 @@
       "component": "wr1110",
       "boxes": [
         [
+          139.0,
+          55.5,
+          162.5,
           196.0,
-          20.0,
-          176.0,
-          217.0,
-          77.0,
-          195.0
+          76.5,
+          181.5
         ]
       ],
       "fill": 0.7144,

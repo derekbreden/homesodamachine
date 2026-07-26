@@ -214,7 +214,8 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   exists (foam penetrations, compressor holes, both trays' elbow collet centres measured off
   their built assemblies, the pumps' outlet-elbow collets carried through their lying pose,
   the funnel drain in the funnel's own frame, the ASSE 1022 chain's three terminals stacked
-  along its flow axis), and Ø from the line or fitting the port carries.
+  along its flow axis, the CO2 chain's four read off its two placed bodies' end faces), and Ø
+  from the line or fitting the port carries.
   **21 ports read `off-surface` — a coordinate on the body's bounding box but not on the body:**
   13 on the PCBA, whose Ø-flagged edge connectors sit at the board's bbox top, ~10.5 mm above the
   plane the connectors stand on, so the `pcba.tsx` mapping needs its Z re-solved against the
@@ -225,14 +226,23 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   are noted estimates pending teardown.
 - **Make the last placeholder real.** The condenser+fan (harvested donor block) is the one
   component still packed as a box. Convert it to real STEP geometry.
-- **Re-place the deferred front-column subsystems.** The drip pan + moisture plate, the DIGITEN
-  flow sensor, and the CO2 chain's GASHER check + WR1110 regulator (the physical CO2 order also
-  disagrees with the carbonator schematic — DERPIPE → check → regulator vs regulator → check) are
-  deferred from the pack while the front column settles — tracked here and in the topology, never
-  dropped. Each returns with a placement that respects the tray stack at the cold core, the pump
-  row ahead of it, and the funnel drop. What stays open: the band under the pump row down to the
-  floor-stratum tops (~34 mm tall), the slab ahead of the row's front faces, and the ±X columns
+- **Re-place the deferred front-column subsystems.** The Shutao moisture plate lying in the drip
+  pan and the DIGITEN flow sensor on the carb-water riser are deferred from the pack while the
+  front column settles — tracked here and in the topology, never dropped. Each returns with a
+  placement that respects the tray stack at the cold core, the pump row ahead of it, and the
+  funnel drop. What stays open: the slab ahead of the pump row's front faces and the ±X columns
   beside it.
+  The CO2 chain is packed, in the band under the pump row down to the floor-stratum tops: the
+  GASHER check screwed onto the DERPIPE inlet's stub so the front wall carries both, and the
+  WR1110 regulator laid ACROSS the band on its own — the band is the machine's whole width and
+  only one fitting deep, so a chain run inline off the wall would meet the source-select tray's
+  underside before the regulator's 57 mm were up. Its outlet ends over the slot between the
+  compressor and the condenser, which is the only column in the front stratum open to the floor,
+  and that is how segment co2-2 gets under the tray to the cold core's front face. Open on it:
+  the regulator's cradle, and the CO2 order — the appliance runs DERPIPE → check → regulator,
+  which puts the regulator on the vessel side of the check; the carbonator schematic
+  ([`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd)) shows
+  regulator → check and does not carry the WR1110 at all.
   The water deck is packed. The SeaFlo lies motor-axis along X on the foam cap, 187 × 98 × 72 off
   SEAFLO's dimensioned drawing; its feet carry the widest 98 and its head end is 44 mm narrower,
   and that taper opens the band V-K lies along. The ASSE 1022 chain lies along X in the service
