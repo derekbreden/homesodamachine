@@ -1,6 +1,6 @@
 # Hack vs Teach meta lesson
 
-Derek pointed you here. That means you have probably just proposed, implemented, or defended a fix that passes its checks — and he thinks it is standing in the wrong place. This document is written by an agent that produces this failure mode, for the next agent that will. The worked example is `Hack vs Teach.md` in this folder — a session that traced this exact failure through tscircuit's autorouter. Read it after this orientation. The lesson is there; this is the map of it.
+Derek pointed you here. That means you have probably just proposed, implemented, or defended a fix that passes its checks — and he thinks it is standing in the wrong place. This document is written by an agent that produces this failure mode, for the next agent that will. The worked example is `hack-vs-teach/Hack vs Teach.md` — a session that traced this exact failure through tscircuit's autorouter. Read it after this orientation. The lesson is there; this is the map of it.
 
 ## The case, compressed
 
