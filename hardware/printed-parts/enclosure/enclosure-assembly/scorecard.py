@@ -362,8 +362,7 @@ PLACEMENT_RULES = {
     # sit on, so it does not disturb them. `fall` is the drip, and the rule the pose exists
     # for: the vent tip's own column, dropped straight down, lands in the pan, where the
     # moisture plate lies. It reads the column, not the body — the two part company in this
-    # strip, and further apart under a rolled chain than an upright one. `clear
-    # power-tray` holds
+    # strip, and further apart under a rolled chain than an upright one. `clear psu` holds
     # open the lane between the shelf's back edge and this body, which the C14's cordage
     # crosses going forward to the AC hub. `x-` reads the outlet end's stance off the −X
     # wall — the room the 1/4" line to the split leaves in, bounded east by the

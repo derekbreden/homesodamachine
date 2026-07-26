@@ -1,11 +1,11 @@
 """Reference solid for the WAGO 221-413 — 3-conductor COMPACT lever-nut
 splicing connector, used 3x (H / N / G) as the AC distribution block on the
-power tray.
+AC hub.
 
 Geometry from the official WAGO 221-413 datasheet. It is a free connector with
-no mounting holes — the power tray retains it butt-end-first in an angled
-press-fit slot, so the solid here is the body envelope plus the three orange
-levers (modeled closed).
+no mounting holes — the hub retains it butt-end-first in a flat press-fit
+pocket, so the solid here is the body envelope plus the three orange levers
+(modeled closed).
 
 Coordinate frame
 ----------------
