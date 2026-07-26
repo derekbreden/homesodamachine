@@ -642,6 +642,28 @@ def deck_mount(name):
     return ctr, pts, foam_cap_top() + _cc.deck_mount_standoff(name)
 
 
+_FOAM_FRAME = None
+
+
+def foam_shell_port(x, z, y=None):
+    """A point in the foam SHELL's own frame, carried into world.
+
+    The shell IS the foam assembly's frame — the caps stack around it without
+    moving it — and the pack seats that assembly by its bbox min at
+    (0, FRONT_DEPTH, RING_SEAT). `y` defaults to the shell's −Y outer face,
+    where every front penetration opens. A port that reads its X and Z off
+    the cold core's own constants through this moves when the bore moves,
+    instead of being retyped after it."""
+    global _FOAM_FRAME
+    if _FOAM_FRAME is None:
+        fb = _load(FOAM_ASSEMBLY).BoundingBox()
+        _FOAM_FRAME = (-fb.xmin, FRONT_DEPTH - fb.ymin, RING_SEAT - fb.zmin)
+    dx, dy, dz = _FOAM_FRAME
+    if y is None:
+        y = -_cc.outer_shell_y_length / 2.0
+    return (x + dx, y + dy, z + dz)
+
+
 def drip_pan_seat():
     """The Z the drip pan's floor stands at — the top face of its printed rails.
 
