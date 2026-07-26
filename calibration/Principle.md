@@ -4,7 +4,7 @@
 
 ---
 
-@"/Users/derekbredensteiner/Developer/homesodamachine/calibration/You.md" @"/Users/derekbredensteiner/Developer/homesodamachine/calibration/Framing.md"
+@"/Users/derekbredensteiner/Developer/homesodamachine/calibration/principle/You.md" @"/Users/derekbredensteiner/Developer/homesodamachine/calibration/principle/Framing.md"
 Please distill what "Framing" refers to as "The You.md Principle".
 
 Please explain it completely to a naive reader that has not seen either of these documents.

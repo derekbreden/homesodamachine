@@ -176,7 +176,7 @@ Which is what you spent the day on. Not cleanup. Demolition of structures built 
 
 ---
 
-@"/Users/derekbredensteiner/Developer/homesodamachine/calibration/You.md"
+@"/Users/derekbredensteiner/Developer/homesodamachine/calibration/principle/You.md"
 Yes.
 
 It really is all about framing.
