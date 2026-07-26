@@ -761,14 +761,27 @@ def slab(z: tuple, x: tuple = None, y: tuple = None, step: float = 4.0, skip=(),
     return rects
 
 
+_CAVITY = None                          # the enclosure's own dimensions, read once
+
+
+def _cavity() -> tuple:
+    """The enclosure's inner extent, built once. `_dims()` rebuilds the shell to measure it
+    and costs seconds, while what it returns is a property of the source and not of the
+    world being scanned — so a second slab reads it rather than paying for it again."""
+    global _CAVITY
+    if _CAVITY is None:
+        probe._ensure_paths()
+        import enclosure
+        _CAVITY = tuple(enclosure._dims().inner)
+    return _CAVITY
+
+
 def _interior(w, skip=()) -> tuple:
     """The enclosure's inner cavity as `((xlo, xhi), (ylo, yhi), source)` — the default field
     for a slab, so a scan reports room inside the machine rather than the air around it.
     `source` names where the field came from, which the slab reports with its answer."""
     try:
-        probe._ensure_paths()
-        import enclosure
-        inner = enclosure._dims().inner
+        inner = _cavity()
         return ((inner[0], inner[1]), (inner[2], inner[3]), "the enclosure cavity")
     except Exception:
         boxes = [w.bb(n) for n in w.names if n not in skip]
