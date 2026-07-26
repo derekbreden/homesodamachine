@@ -30,7 +30,7 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §5 (
 | Foam cap × 2 + foam cap lid × 2 (printed PETG) | Same | Print |
 | TPU 90A gasket × 2 (printed) | [`/hardware/printed-parts/cold-core/foam-cap/`](/hardware/printed-parts/cold-core/foam-cap/) | Print |
 | Copper plug × 4 (printed PETG) | [`/hardware/printed-parts/cold-core/copper-plugs/`](/hardware/printed-parts/cold-core/copper-plugs/) | Print |
-| Flavor reservoir × 2 (printed) | [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/) | Print, SunTop food-contact-compliant PETG (FDA 21 CFR 177.1630), 1.75 mm × 1 kg, Clear/Transparent B0FP34MJ94 — ON-ORDER |
+| Flavor reservoir × 2 (printed) | [`/hardware/printed-parts/cold-core/reservoir/`](/hardware/printed-parts/cold-core/reservoir/) | Print, Bambu PETG Translucent Clear (32101) — the wall reads fill state; the wetted surface is qualified by [`wetted-surface-test.md`](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md), not by the spool |
 | M3 × 25 mm SHCS, 12.9 alloy, black oxide × 12 (foam-cap clamp screws) | BNUOK B0DJQGF665 | ACQUIRED |
 | M3 × 12 mm SHCS, 304 stainless (18-8) × 12 (reservoir-cap screws) | BNUOK B0DJQGMQZM | ON-ORDER |
 | ruthex M3 short heat-set inserts × 42 per build (27 foam-caps — 12 clamp bosses plus 15 deck-mount columns — + 12 reservoir + 3 touch-flo-shell) — **39 of them land here** | ruthex B0D39W228K (100-pc bag = 2.4 builds) | ON-ORDER |

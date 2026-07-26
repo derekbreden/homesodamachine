@@ -1,6 +1,6 @@
 # Bill of Materials — One Consumer Unit
 
-Per-unit parts for a single finished appliance built on the **custom-vessel** path specified in [future.md](/hardware/future.md). Carbonator vessel: vertical 5" OD × 0.065" wall 316 welded SS round tube (OnlineMetals #12498, MTRs required) capped with 1/4"-thick laser-cut 316 SS circular plates from SendCutSend (`endcap-circular-2hole.dxf`), joined with the XLaserlab X1 Pro handheld laser welder. 1/4" NPT is direct-tapped into the plates (no weld-in bungs). Compressor is harvested from a countertop ice-maker; cold core is 3D-printed shells with pour-in-place foam. Flavor reservoirs are custom printed food-grade PETG hard reservoirs ([printed-parts/cold-core/reservoir/reservoir.py](/hardware/printed-parts/cold-core/reservoir/reservoir.py)), two per build.
+Per-unit parts for a single finished appliance built on the **custom-vessel** path specified in [future.md](/hardware/future.md). Carbonator vessel: vertical 5" OD × 0.065" wall 316 welded SS round tube (OnlineMetals #12498, MTRs required) capped with 1/4"-thick laser-cut 316 SS circular plates from SendCutSend (`endcap-circular-2hole.dxf`), joined with the XLaserlab X1 Pro handheld laser welder. 1/4" NPT is direct-tapped into the plates (no weld-in bungs). Compressor is harvested from a countertop ice-maker; cold core is 3D-printed shells with pour-in-place foam. Flavor reservoirs are custom printed translucent-PETG hard reservoirs ([printed-parts/cold-core/reservoir/reservoir.py](/hardware/printed-parts/cold-core/reservoir/reservoir.py)), two per build.
 
 Tools, fabrication equipment (welder, slip roll, shop press, dishing dies), and duplicate SKUs live in [purchases.md](/hardware/ledger/purchases.md) only. Per-build consumables — anything used up making one unit, regardless of whether it ships in the product (mixing cups, gloves, citric acid, PTFE tape, cutting fluid, etc.) — live in this file with the rest of the per-unit parts.
 
@@ -119,7 +119,9 @@ Fallback path (UL/ETL-retail-friendly): RIGID DV1910E sealed refrigeration modul
 
 ## 7. Printed mechanical parts
 
-Per-unit filament for every printed part shipped inside one finished appliance, one row per part. PETG throughout except the PET-CF (Polymaker Fiberon PET-CF17) faucet shell and mounting plate, and the [food-contact PETG](https://www.amazon.com/dp/B0FP34MJ94) (SunTop, 1.75 mm, $49.32/2 kg = $24.66/kg) for the four syrup-wetted reservoir parts. `Mass (kg)` and `$` are per-line totals (quantity included). Masses are geometry-derived — CAD solid volume × density (PETG 1.27 g/cm³, PET-CF 1.30 g/cm³) — not slicer-measured. PETG $11.20/kg (Bambu PETG Basic, $224.04 ÷ 20 kg); PET-CF $39.32/kg (Polymaker Fiberon PET-CF17, $117.96 ÷ 3 kg).
+Per-unit filament for every printed part shipped inside one finished appliance, one row per part. PETG throughout except the PET-CF (Polymaker Fiberon PET-CF17) faucet shell and mounting plate. The four syrup-wetted reservoir parts print in **PETG Translucent Clear** so the customer reads fill state through the wall; the rest print black. Both are Bambu PETG Basic at one price, so colour changes what a part looks like, not what it costs. `Mass (kg)` and `$` are per-line totals (quantity included). Masses are geometry-derived — CAD solid volume × density (PETG 1.27 g/cm³, PET-CF 1.30 g/cm³) — not slicer-measured. PETG $11.20/kg (Bambu PETG Basic Black + Translucent Clear, $224.04 ÷ 20 kg); PET-CF $39.32/kg (Polymaker Fiberon PET-CF17, $117.96 ÷ 3 kg).
+
+The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md)'s screen against the actual syrup — no spool's resin compliance stands in for it.
 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
@@ -130,10 +132,10 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Cold-core foam cap lid — bottom | 1 | PETG | 0.129 | $1.44 <!--@printed--> |
 | Copper-plug stack (4 plugs) | 4 | PETG | 0.006 | $0.06 <!--@printed--> |
 | PRV shroud | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
-| Flavor reservoir body — left | 1 | PETG (food-contact) | 0.398 | $9.81 <!--@printed--> |
-| Flavor reservoir body — right | 1 | PETG (food-contact) | 0.398 | $9.81 <!--@printed--> |
-| Flavor reservoir cap — left | 1 | PETG (food-contact) | 0.059 | $1.45 <!--@printed--> |
-| Flavor reservoir cap — right | 1 | PETG (food-contact) | 0.059 | $1.45 <!--@printed--> |
+| Flavor reservoir body — left | 1 | PETG (translucent) | 0.398 | $4.46 <!--@printed--> |
+| Flavor reservoir body — right | 1 | PETG (translucent) | 0.398 | $4.46 <!--@printed--> |
+| Flavor reservoir cap — left | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
+| Flavor reservoir cap — right | 1 | PETG (translucent) | 0.059 | $0.66 <!--@printed--> |
 | Power tray | 1 | PETG | 0.055 | $0.61 <!--@printed--> |
 | Enclosure — front bottom + front top (two pieces) | 1 set | PETG | 0.852 | $9.54 <!--@printed--> |
 | Carbonator reed bridge | 1 | PETG | 0.008 | $0.09 <!--@printed--> |
@@ -144,15 +146,15 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Valve tray — nozzle-gate | 1 | PETG | 0.043 | $0.48 <!--@printed--> |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.151 | $5.94 <!--@printed--> |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.51 <!--@printed--> |
-| **Printed parts total** | | | **~5.88** | **[$82.76](BOM_SEC7)** |
+| **Printed parts total** | | | **~5.88** | **[$70.48](BOM_SEC7)** |
 
-By material: PETG ≈ 4.81 kg / $53.79, food-contact PETG ≈ 0.91 kg / $22.52, PET-CF ≈ 0.16 kg / $6.45.
+By material: PETG ≈ 5.72 kg / $64.03 — of which the four translucent reservoir parts are ≈ 0.91 kg / $10.24 — and PET-CF ≈ 0.16 kg / $6.45.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the electronics stand on. The top cap also carries the eight deck-mount columns the controller board and the PSU bolt to, which is why it outweighs the bottom one.
 
 No PCBA tray ships. The board bolts straight to four of those columns ([`pcba-tray/README.md`](/hardware/printed-parts/electronics/pcba-tray/)), so the tray is bench geometry only — the same status as the coil-winding mandrel below.
 
-Soft seals print in TPU from per-unit-trivial stock, not costed here: 2× foam-cap gasket, 2× reservoir gasket, 2× reservoir bulkhead dry washer, 2× reservoir vent retaining ring, 1× faucet mounting gasket, 1× faucet TPU o-ring. The hopper funnel is cast platinum-cure silicone (flavor subsystem). Printed tooling does not ship: the coil-winding mandrel, the two-piece hopper-funnel silicone mold, and the single-valve cradle.
+Soft seals print in Bambu TPU 90A from per-unit-trivial stock, not costed here: 2× foam-cap gasket, 2× reservoir gasket, 2× reservoir bulkhead dry washer, 2× reservoir vent retaining ring, 1× faucet mounting gasket, 1× faucet TPU o-ring. The hopper funnel is cast platinum-cure silicone (flavor subsystem). Printed tooling does not ship: the coil-winding mandrel, the two-piece hopper-funnel silicone mold, and the single-valve cradle.
 
 ## 8. Flavor subsystem
 
@@ -279,7 +281,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$112.38](BOM_SEC4) |
 | 5. Refrigeration | [$173.90](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$82.76](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$70.48](BOM_SEC7) |
 | 8. Flavor subsystem | [$207.59](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -287,7 +289,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$8.23](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,339.29](BOM_GRAND)** |
+| **Total** | **[$1,327.01](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
