@@ -6,7 +6,8 @@ three **3-conductor COMPACT lever-nut** splicing connectors (`hardware/ledger/bo
 
 `wago-221-413.step` is a generated stand-in. Body geometry is from the official
 WAGO 221-413 datasheet; the connector has **no mounting holes** (it is a free
-splice), so the AC hub retains each one in a **printed press-fit pocket**.
+splice), so the AC hub stands each one on its butt end in a **printed press-fit
+well**, wire ports up.
 
 ## Geometry
 
@@ -14,8 +15,8 @@ splice), so the AC hub retains each one in a **printed press-fit pocket**.
 |---|---|
 | Body envelope (W × D × H) | **18.8 × 18.6 × 8.4** |
 | Mass | ~2.5 g |
-| Wires | enter the −Y face; 3 levers on the +Z face |
-| Lever-open clearance | **~15.25 mm** (measured, levers fully up) — a pocket must clear this if the levers are worked in place |
+| Wires | enter the +Y face; 3 levers on the +Z face above it |
+| Lever-open clearance | **~15.25 mm** off the seating plane (measured, levers fully up) — a retainer must clear this if the levers are worked in place |
 
 In the file's frame: X = width / lever-hinge axis (18.8), Y = depth / wire-entry
 axis (18.6), Z up; origin at the footprint center, Z = 0 the seating plane. The

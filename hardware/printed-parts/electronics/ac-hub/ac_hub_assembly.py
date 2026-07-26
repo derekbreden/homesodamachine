@@ -1,5 +1,5 @@
 """Assembled AC hub: the printed hub with its three Wago 221-413 lever nuts
-seated butt-first in their pockets.
+standing butt-first in their wells, wire ports up.
 
 ``build_assembly(L)`` takes a ``Layout`` from ac_hub. The ground ring-terminal
 stack is not here — it clamps to a cap column of its own, not to this part."""
@@ -28,10 +28,14 @@ WAGO_COLOR = cq.Color(0.85, 0.45, 0.15)    # orange levers
 def build_assembly(L, name="ac-hub-assembly"):
     assy = cq.Assembly(name=name)
     assy.add(t.build_hub(L).val(), name="hub", color=HUB_COLOR)
-    # Wagos: butt face on the pocket's −Y wall, flat on the floor, wire end +Y.
-    for i, (cx, by) in enumerate(L.wago_places):
-        w = (wago.build().val().translate((0, wago.depth / 2.0, 0))
-             .translate((cx, by, t.floor_t)))
+    # Wagos: stood on end, butt face on the well floor, wire ports up. The quarter turn
+    # about X carries the lug's wire-entry axis from +Y to +Z; the translate that
+    # follows re-centres the rotated body on the well and drops its butt onto the floor.
+    for i, (cx, cy) in enumerate(L.wago_places):
+        w = (wago.build().val()
+             .rotate((0, 0, 0), (1, 0, 0), 90)
+             .translate((0, wago.height / 2.0, wago.depth / 2.0))
+             .translate((cx, cy, t.floor_t)))
         assy.add(w, name=f"wago{i}", color=WAGO_COLOR)
     return assy
 
