@@ -54,7 +54,7 @@ tools/cad-venv/bin/python hardware/assembly/cards/tools/_index.py --drift
 | PC | Pour + cure bench | 2 |
 | PR | 3D printers | 4 |
 
-A sequence card belongs to every station it draws on, and 40 of the 93 belong
+A sequence card belongs to every station it draws on, and 37 of the 93 belong
 to none — hand assembly, inspection, packing.
 
 ## Printing
