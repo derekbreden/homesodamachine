@@ -1,6 +1,6 @@
 {
   "gatesPass": true,
-  "placed": 54,
+  "placed": 51,
   "located": 90,
   "shaped": 98,
   "routed": 41,
@@ -64,13 +64,13 @@
         "foam-assembly \u2014 discharge-chain: 1.50 mm",
         "psu \u2014 ground-stack: 1.56 mm",
         "psu \u2014 relay-1: 1.90 mm",
-        "seaflo-pump \u2014 flow-regulator: 2.00 mm",
         "bag-circuit-assembly \u2014 elbow-bag-y-d: 2.00 mm",
         "bag-circuit-assembly \u2014 elbow-bag-y-g: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-y-d: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-y-g: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-noz-a: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-noz-b: 2.00 mm",
+        "seaflo-pump \u2014 flow-regulator: 2.00 mm",
         "pcba \u2014 ac-hub: 2.35 mm",
         "seaflo-pump \u2014 pcba: 3.48 mm",
         "seaflo-pump \u2014 drip-pan-rails: 4.00 mm",
@@ -114,14 +114,14 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "54% (22/41)",
+      "value": "51% (21/41)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 3.0 x- 14.0 x+ 14.0 z- 5.0 near cold-core-ring 0.0 mm",
         "\u2713 cold-core-ring: z- 0.0 x- 0.5 x+ 0.5 near foam-assembly 0.0 mm",
         "\u2713 compressor-shroud: y- 3.0 z- 3.0 x- 28.0 mm",
         "\u2713 condenser+fan: y- 3.0 z- 3.0 x+ 28.0 mm",
-        "\u2713 source-select-assembly: clear foam-assembly 18.0 mm",
+        "\u2717 source-select-assembly: clear foam-assembly 18.0(<18.01) mm",
         "\u2713 hopper-funnel: z+ 6.0 mm",
         "\u2713 bag-circuit-assembly: near source-select-assembly 0.0 clear compressor-shroud 71.6 clear condenser+fan 83.1 mm",
         "\u2713 nozzle-gate-assembly: near source-select-assembly 1.3 x+ 29.4 mm",
@@ -221,14 +221,14 @@
       "target": "100%",
       "detail": [
         "28 fluid + 6 water + 3 refrigerant + 29 electrical; 27 routed \u2014 the water path is closed end to end, the fluid path waits on the manifold's remaining on-tray legs, the refrigerant loop on its suction leg, and the electrical runs on the components being held",
-        "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7 \u2014 nearest 13.12 mm to source-select-assembly",
+        "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7 \u2014 nearest 7.32 mm to fluid-15",
         "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 307.7 mm, 4 bends at R12.7 \u2014 nearest 5.13 mm to compressor-shroud",
         "\u2713 water-1: bulkhead-water.tube-in \u2192 asse1022-assembly.tube-in \u2014 \u00d86.35 \u00d7 22.4 mm, 1 bends at R3.0 \u2014 nearest 18.03 mm to c14-inlet",
         "\u2713 water-2: asse1022-assembly.tube-out \u2192 water-split.supply \u2014 \u00d86.35 \u00d7 82.0 mm, 2 bends at R3.0 \u2014 nearest 3.82 mm to foam-assembly",
         "\u2713 water-3: water-split.to-vk \u2192 vk-fill-valve.inlet \u2014 \u00d86.35 \u00d7 42.6 mm, 3 bends at R3.0 \u2014 nearest 3.82 mm to foam-assembly",
         "\u2713 water-4: vk-fill-valve.outlet \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 59.3 mm, 2 bends at R3.0 \u2014 nearest 11.83 mm to fluid-18",
         "\u2713 water-6: seaflo-pump.discharge \u2192 discharge-chain.barb-tip \u2014 \u00d815.1 \u00d7 32.6 mm, 1 bends at R15.9 \u2014 nearest 9.65 mm to nozzle-gate-assembly",
-        "\u2713 water-5: discharge-chain.tube-port \u2192 foam-assembly.water-in \u2014 \u00d86.35 \u00d7 151.5 mm, 3 bends at R3.0 \u2014 nearest 6.73 mm to source-select-assembly",
+        "\u2713 water-5: discharge-chain.tube-port \u2192 foam-assembly.water-in \u2014 \u00d86.35 \u00d7 151.5 mm, 3 bends at R3.0 \u2014 nearest 4.24 mm to fluid-15",
         "\u2713 fluid-1: water-split.to-flavor \u2192 flow-regulator.inlet \u2014 \u00d86.35 \u00d7 138.4 mm, 3 bends at R3.0 \u2014 nearest 2.82 mm to seaflo-pump",
         "\u2713 fluid-2: flow-regulator.outlet \u2192 source-select-assembly.V-A-I \u2014 \u00d86.35 \u00d7 72.2 mm, 1 bends at R3.0 \u2014 nearest 9.36 mm to elbow-noz-a",
         "\u2713 fluid-4: hopper-funnel.drain \u2192 source-select-assembly.V-B-I \u2014 \u00d86.35 \u00d7 151.2 mm, 4 bends at R12.0 \u2014 nearest 1.53 mm to fluid-27",
@@ -244,8 +244,8 @@
         "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 35.4 mm, 2 bends at R8.0 \u2014 nearest 15.09 mm to fluid-11",
         "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 252.4 mm, 8 bends at R6.0 \u2014 nearest 1.94 mm to y-d",
         "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 141.8 mm, 5 bends at R10.0 \u2014 nearest 2.69 mm to bag-circuit-assembly",
-        "\u2713 fluid-15: bag-circuit-assembly.Y-E-2 \u2192 foam-assembly.reservoir-A \u2014 \u00d86.35 \u00d7 322.5 mm, 3 bends at R6.0 \u2014 nearest 9.58 mm to fluid-25",
-        "\u2713 fluid-25: bag-circuit-assembly.Y-H-2 \u2192 foam-assembly.reservoir-B \u2014 \u00d86.35 \u00d7 249.9 mm, 3 bends at R6.0 \u2014 nearest 9.58 mm to fluid-15",
+        "\u2713 fluid-15: bag-circuit-assembly.Y-E-2 \u2192 foam-assembly.reservoir-A \u2014 \u00d86.35 \u00d7 330.7 mm, 3 bends at R6.0 \u2014 nearest 4.24 mm to water-5",
+        "\u2713 fluid-25: bag-circuit-assembly.Y-H-2 \u2192 foam-assembly.reservoir-B \u2014 \u00d86.35 \u00d7 257.9 mm, 3 bends at R6.0 \u2014 nearest 9.08 mm to source-select-assembly",
         "\u2713 fluid-18: elbow-noz-a.free \u2192 bulkhead-flavor-a.tube-in \u2014 \u00d86.35 \u00d7 317.8 mm, 8 bends at R7.0 \u2014 nearest 5.65 mm to fluid-28",
         "\u2713 fluid-28: elbow-noz-b.free \u2192 bulkhead-flavor-b.tube-in \u2014 \u00d86.35 \u00d7 405.9 mm, 8 bends at R7.0 \u2014 nearest 3.55 mm to nozzle-gate-assembly"
       ],
@@ -826,7 +826,7 @@
       "kind": "fluid",
       "pos": [
         271.329,
-        225.0,
+        224.995,
         265.4
       ],
       "face": "y+",
@@ -841,7 +841,7 @@
       "kind": "fluid",
       "pos": [
         271.329,
-        179.0,
+        178.995,
         265.4
       ],
       "face": "y-",
@@ -1391,9 +1391,9 @@
         270.096
       ],
       "face": [
-        0.4498293310940914,
-        -0.8828782977068196,
-        0.1348313180449949
+        0.44982933109409146,
+        -0.8828782977068197,
+        0.13483131804499493
       ],
       "diam": 6.35,
       "mates": "pump-b P-B-O \u2014 segment 12 (channel A discharge, routed)",
@@ -1410,9 +1410,9 @@
         272.187
       ],
       "face": [
-        -0.4498293310940914,
-        0.8828782977068196,
-        -0.1348313180449949
+        -0.44982933109409146,
+        0.8828782977068197,
+        -0.13483131804499493
       ],
       "diam": 6.35,
       "mates": "elbow-bag-y-d free \u2014 segment 13 (routed)",
@@ -1429,9 +1429,9 @@
         257.622
       ],
       "face": [
-        -0.4498293310940914,
-        0.8828782977068196,
-        -0.1348313180449949
+        -0.44982933109409146,
+        0.8828782977068197,
+        -0.13483131804499493
       ],
       "diam": 6.35,
       "mates": "elbow-y-g free \u2014 segment 17 (routed)",
@@ -1448,9 +1448,9 @@
         268.314
       ],
       "face": [
-        -0.4022951520371165,
+        -0.4022951520371166,
         -0.907584287910924,
-        0.1202055364143191
+        0.12020553641431911
       ],
       "diam": 6.35,
       "mates": "pump-a P-A-O \u2014 segment 22 (channel B discharge, routed)",
@@ -1467,9 +1467,9 @@
         270.983
       ],
       "face": [
-        0.4022951520371165,
+        0.4022951520371166,
         0.907584287910924,
-        -0.1202055364143191
+        -0.12020553641431911
       ],
       "diam": 6.35,
       "mates": "elbow-bag-y-g free \u2014 segment 23 (routed)",
@@ -1486,9 +1486,9 @@
         256.389
       ],
       "face": [
-        0.4022951520371165,
+        0.4022951520371166,
         0.907584287910924,
-        -0.1202055364143191
+        -0.12020553641431911
       ],
       "diam": 6.35,
       "mates": "elbow-y-d free \u2014 segment 27 (routed)",
@@ -1507,7 +1507,7 @@
       "face": [
         0.0,
         -0.9997700308298255,
-        -0.021444940068225032
+        -0.021444940068225046
       ],
       "diam": 6.35,
       "mates": "y-d Y-D-2 \u2014 segment 13 (routed)",
@@ -1525,8 +1525,8 @@
       ],
       "face": [
         0.0,
-        -0.8254666193947465,
-        0.5644509369865629
+        -0.8254666193947464,
+        0.564450936986563
       ],
       "diam": 6.35,
       "mates": "y-d Y-D-3 \u2014 segment 17 (routed)",
@@ -1564,7 +1564,7 @@
       "face": [
         0.0,
         -0.9141279186034573,
-        0.4054258852487231
+        0.40542588524872325
       ],
       "diam": 6.35,
       "mates": "y-g Y-G-3 \u2014 segment 27 (routed)",
@@ -2503,10 +2503,10 @@
       "boxes": [
         [
           263.968,
-          179.0,
+          178.995,
           258.4,
           278.69,
-          225.0,
+          224.995,
           299.4
         ]
       ],

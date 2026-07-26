@@ -317,12 +317,11 @@ PLACEMENT_RULES = {
     "compressor-shroud": [("y-", 4.0), ("z-", 4.0), ("x-", 29.0)],
     # "Condenser is front-right on the floor" — the same, off the right.
     "condenser+fan":     [("y-", 4.0), ("z-", 4.0), ("x+", 29.0)],
-    # "The assembly stands a bag-line corridor ahead of the cold core": the open
-    # Y between its tall walls' back faces and the foam's front face is the lane
-    # both bag lines fall down to the reservoir ports, and the only one that
-    # reaches reservoir-A behind the condenser. Measured on the real solids, so
-    # closing it from either side fails here rather than in the routing.
-    "source-select-assembly": [("clear", "foam-assembly", contents.BAG_FALL_CORRIDOR)],
+    # "The assembly stands ahead of the cold core": its tall walls' back faces hold
+    # this much air off the foam's front face. The lane each bag line falls down is
+    # deeper than this — both lines drop through the recess in the assembly's aft
+    # profile, and `_lines` measures the corridor in those two columns.
+    "source-select-assembly": [("clear", "foam-assembly", contents.STACK_CORE_GAP)],
     # "The funnel rides the top wall" — brim top one brim thickness + one wall above the
     # interior ceiling. Its shallow-floored basin runs the top frame's full depth and
     # its centred drain hangs high over the pump row — the pumps' own `clear` keep-out

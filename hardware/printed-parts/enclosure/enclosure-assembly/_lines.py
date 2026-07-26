@@ -117,6 +117,19 @@ def _frames():
     return {n: R.frame(n, placed[n][0], by_comp.get(n, {})) for n in placed}
 
 
+def _column_aft(solid, x, half_w, z_lo, z_hi) -> float:
+    """The aft-most Y a solid reaches inside one fall column — the band `half_w` either side of
+    `x`, over the Z the line falls through. A column the solid never enters answers with the
+    solid's own front face, which leaves the corridor open."""
+    bb = solid.BoundingBox()
+    column = cq.Solid.makeBox(
+        2.0 * half_w, bb.ylen + 2.0, abs(z_hi - z_lo) + 2.0,
+        cq.Vector(x - half_w, bb.ymin - 1.0, min(z_lo, z_hi) - 1.0),
+    )
+    inside = solid.intersect(column)
+    return inside.BoundingBox().ymax if inside.Solids() else bb.ymin
+
+
 _RUNS: list | None = None
 
 
@@ -333,18 +346,20 @@ def _authored_runs() -> list:
     # (segments 12/22) leave below, from each divider's own stem port.
     LEAD = 8.0                              # exit/approach stub: straight lead-out/-in along each collet
     DBEND = 12.0                            # 1/4" LLDPE, clean-sweeping radius (as the copper loop uses)
-    # An apex is hand-placed in the LANE (x, y — which side of the spout the arc passes), but its
-    # height is not a world Z: it is a rise over the crown of the one elbow the leg arcs over. Named
-    # that way it rides that elbow's tray, so a stack that closes carries both arcs down with it and
-    # the turn off each collet keeps its angle. A frozen Z would hold the apex where the tray no
-    # longer is, and the exit lead runs out of tangent for the sharper turn.
+    # An apex is hand-placed in the LANE by its x — which side of the spout the arc passes. Neither
+    # of its other two coordinates is a world number: its depth is an offset off the manifold
+    # stack's own Y, and its height a rise over the crown of the one elbow the leg arcs over. Named
+    # that way it rides that elbow's tray in both axes, so a stack that closes or slides carries
+    # both arcs with it and the turn off each collet keeps its angle. A frozen number would hold the
+    # apex where the tray no longer is, and the exit lead runs out of tangent for the sharper turn.
     for cid, elb, div, port, apex, lead, bend in (
-        ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", None,                                   (8.0, 6.5), 8.0),  # one bend into the yawed outlet
-        ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3", (202.0, 111.0, "elbow-y-d",     3.77),  LEAD, DBEND),      # over elbow-y-d
-        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (207.0, 118.0, "elbow-bag-y-d", 8.05),  (4.0, 8.0), DBEND),  # short exit lead + high apex, held EAST: the funnel spout drops into the west half of the lane and its foot sits level with elbow-bag-y-d's crown, so there is no gap between them to take — this clears the elbow and passes the spout on its east side
-        ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3", None,                                   (8.0, 6.0), DBEND),  # y-g sits west of this elbow, so it leaves on its collet and turns
+        ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", None,                                     (8.0, 6.5), 8.0),  # one bend into the yawed outlet
+        ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3", (202.0, -24.55, "elbow-y-d",     3.77),  LEAD, DBEND),      # over elbow-y-d
+        ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (207.0, -17.55, "elbow-bag-y-d", 8.05),  (4.0, 8.0), DBEND),  # short exit lead + high apex, held EAST: the funnel spout drops into the west half of the lane and its foot sits level with elbow-bag-y-d's crown, so there is no gap between them to take — this clears the elbow and passes the spout on its east side
+        ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3", None,                                     (8.0, 6.0), DBEND),  # y-g sits west of this elbow, so it leaves on its collet and turns
     ):
-        mids = [] if apex is None else [(apex[0], apex[1], f[apex[2]].bb.zmax + apex[3])]
+        mids = ([] if apex is None else
+                [(apex[0], contents.SRC_SEL_POS[1] + apex[1], f[apex[2]].bb.zmax + apex[3])])
         runs.append(R.bent(cid, f"{elb}.free", *mids, f"{div}.{port}",
                             kind="fluid", bend=bend, skew=DISCHARGE_SKEW, lead=lead,
                             note=f"discharge {port}: {elb} → {div} {port}, bent over the row"))
@@ -403,7 +418,6 @@ def _authored_runs() -> list:
     # answers both — threading the source tray's aft window and holding the pair parallel.
     bag = f["bag-circuit-assembly"]
     BBEND = 6.0              # 1/4" LLDPE
-    fall_y = R.channel(src.bb.ymax, foam.bb.ymin)
     baglines = (("fluid-15", "Y-E", "reservoir-A", "east"),
                 ("fluid-25", "Y-H", "reservoir-B", "west"))
 
@@ -412,6 +426,9 @@ def _authored_runs() -> list:
     # the pair's parallel. The exact clearance to the source stack each branch threads — whose
     # aft window is not a plane this can test against — is held by the scorecard (lines-clear,
     # clearance-floor); here we gate only the aim.
+    #   Each line falls in its own column, down the recess in the stack's aft profile, so both the
+    # lane and the corridor that has to hold it are measured in that column.
+    stack = contents.build()["source-select-assembly"][0]
     aim = {}
     for cid, tee, port, _side in baglines:
         tip, n, res = bag.at(f"{tee}-2"), bag.normal(f"{tee}-2"), foam.at(port)
@@ -420,13 +437,25 @@ def _authored_runs() -> list:
                 f"{cid}: {tee}'s branch leaves along {tuple(round(v, 3) for v in n)} — to feed the "
                 f"fall it must aim AFT (+Y, into the corridor) and fall (within 45° of vertical). "
                 f"Roll it into the fall: bag_circuit_tray `bag_fall_aim`.")
+        aft = _column_aft(stack, res[0], BBEND, res[2], tip[2])
+        corridor = foam.bb.ymin - aft
+        if corridor < contents.BAG_FALL_CORRIDOR:
+            raise ValueError(
+                f"{cid}: the fall corridor in {port}'s own column (x {res[0]:.1f}) is "
+                f"{corridor:.2f} mm — the manifold stack's aft face there ({aft:.2f}) to the cold "
+                f"core's front face ({foam.bb.ymin:.2f}) — inside the "
+                f"{contents.BAG_FALL_CORRIDOR:.2f} a 1/4\" line takes with a lane clearance either "
+                f"side. Move the core aft (_contents FRONT_DEPTH), the stack forward "
+                f"(_contents STACK_CORE_GAP), or the port's shell bore into the stack's recess "
+                f"(_port_cuts flavor_line_shell_hole_x).")
+        fall_y = R.channel(aft, foam.bb.ymin)
         entry_z = tip[2] + n[2] * (fall_y - tip[1]) / n[1]     # where the branch axis meets the lane
         if entry_z <= res[2]:
             raise ValueError(
                 f"{cid}: {tee}'s branch reaches the corridor lane (y {fall_y:.1f}) at z {entry_z:.1f}, "
                 f"at or below {port} (z {res[2]:.1f}) — too low to drop into the port. Roll it "
                 f"steeper: bag_circuit_tray `bag_fall_aim`.")
-        aim[tee] = (tip, n, res, entry_z)
+        aim[tee] = (tip, n, res, entry_z, fall_y)
     # Parallel, or the two branches cross in the shared X plane. Both carry the one `bag_fall_aim`,
     # so this holds by construction; it fires only if the Tees are given different rolls.
     nE, nH = aim["Y-E"][1], aim["Y-H"][1]
@@ -436,17 +465,8 @@ def _authored_runs() -> list:
             f"Y-H {tuple(round(v, 3) for v in nH)}) — they would cross in their shared X plane. Give "
             f"both Tees the one bag_circuit_tray `bag_fall_aim`.")
 
-    # The corridor has to hold the lines it was opened for, measured on the two faces that bound it.
-    corridor = foam.bb.ymin - src.bb.ymax
-    if corridor < contents.BAG_FALL_CORRIDOR:
-        raise ValueError(
-            f"fluid-15/25: the fall corridor is {corridor:.2f} mm — the manifold stack's aft face "
-            f"({src.bb.ymax:.2f}) to the cold core's front face ({foam.bb.ymin:.2f}) — inside the "
-            f"{contents.BAG_FALL_CORRIDOR:.2f} a 1/4\" line takes with a lane clearance either "
-            f"side. Move the core aft (_contents FRONT_DEPTH) or the stack forward.")
-
     for cid, tee, port, side in baglines:
-        tip, n, res, entry_z = aim[tee]
+        tip, n, res, entry_z, fall_y = aim[tee]
         runs.append(R.bent(
             cid, f"bag-circuit-assembly.{tee}-2",
             (tip[0], fall_y, entry_z),          # into the corridor, on the branch's own axis

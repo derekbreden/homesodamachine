@@ -278,6 +278,23 @@ RING_SEAT = 5.0
 # stratum stays open. The airflow axis rides the tip unchanged: the fan +
 # finstack stack depth, calipered [56 mm](CONDENSER_AIRFLOW) combined, along X.
 CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
+# Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it, and
+# everything the foam-cap top carries rides with it. The condenser block stands
+# CONDENSER_FACE_A of this; the rest is the column between the manifold stack
+# and the core.
+FRONT_DEPTH = 200.0
+# The corridor a bag line falls down: one 1/4" line wide with a lane clearance
+# either side. Each line leaves the core at its own shell-side bore and falls in
+# its own column, down the recess in the manifold stack's aft profile, so the
+# lane is measured there rather than across the stack's whole width.
+BAG_FALL_CORRIDOR = 5.65 + 6.35 + 5.65
+# The manifold stack's aft face stands this far behind SRC_SEL_POS, and holds
+# this much air off the cold core's front face. What stands in that air is the
+# discharge chain, hanging its 17.0 mm of Y depth down the one column deep
+# enough to take it — the stack's own aft face and the core's front face are the
+# two walls of that column.
+STACK_AFT_REACH = 46.44
+STACK_CORE_GAP = 18.01
 # The SeaFlo lies motor-axis along X across the service bay, its base flat on the
 # foam cap. The head's two barbs leave its ±Y faces: the suction faces north (+Y)
 # up to the split feeding it, the discharge faces south (−Y) down to the cold
@@ -290,7 +307,7 @@ CONDENSER_FACE_A, CONDENSER_FACE_B, CONDENSER_AIRFLOW = 178.0, 151.0, 56.0
 # so the hose leaves the molded barb straight south and turns down the corridor with
 # no offset to take up — the discharge hose's bend radius is a gate, so that matters.
 SEAFLO_YAW = 180.0
-SEAFLO_POS = (189.5, 249.0)   # front face on the cap's front edge, east face on its east edge
+SEAFLO_POS = (189.5, FRONT_DEPTH + 49.0)   # front face on the cap's front edge, east face on its east edge
 # The ASSE 1022 chain lies along +X in the service bay's AFT STRIP, over the
 # foam-cap top and behind the pump. Flow runs west to east: the 1/4" PTC inlet at
 # the west end takes its pigtail off the rear-panel water bulkhead, and the 1/4"
@@ -302,7 +319,7 @@ SEAFLO_POS = (189.5, 249.0)   # front face on the cap's front edge, east face on
 # part's own origin around it. Move the roll and the tube ports do not move.
 #   PROVISIONAL: the chain's envelope comes from the reference model, which divides
 # the Multiplex spec sheet rather than measuring the five parts on the shelf.
-ASSE1022_AXIS = (102.0, 345.5, 314.0 + RING_SEAT)   # the flow axis, in world
+ASSE1022_AXIS = (102.0, FRONT_DEPTH + 145.5, 314.0 + RING_SEAT)   # the flow axis, in world
 ASSE1022_YAW = 0.0
 ASSE1022_ROLL = 45.0
 # The drip pan is not posed. In X the basin hangs EAST of the vent column, the tip
@@ -327,7 +344,7 @@ DRIP_VENT_INSET = 14.0   # basin west outer face to the vent column
 # first. Stood down the strip, the length runs into depth the strip has and the column
 # the nozzle lanes need stays open beside it.
 BEDUAN_YAW = 180.0
-BEDUAN_POS = (264.0, 342.5, 274.1 + RING_SEAT)   # base centre on a cradle above the cap
+BEDUAN_POS = (264.0, FRONT_DEPTH + 142.5, 274.1 + RING_SEAT)   # base centre on a cradle above the cap
 # The controller board and the PSU, each bolted to four boss columns of the foam cap.
 # Neither is posed here: the cap owns its deck-mount stations and `deck_mount()` carries
 # them to world, so the body, its connector map and the column it stands on move together.
@@ -360,14 +377,17 @@ RELAY_YAW = 0.0
 # what puts the branch on the far side of the run from where the yaw alone would leave it.
 SPLIT_YAW = 270.0
 SPLIT_ROLL = 180.0
-SPLIT_POS = (257.0, 345.5, 260.4 + RING_SEAT)   # centre; its port plane, standing on the cap under V-K
+SPLIT_POS = (257.0, FRONT_DEPTH + 145.5, 260.4 + RING_SEAT)   # centre; its port plane, standing on the cap under V-K
 # The flow regulator (neoFit ABCVU44) sits inline on the split's flavor run, in the band
 # between the hopper funnel's basin and the cap's front edge — the pump fills the deck behind
 # it, and this band is the only length of open air on the flavor run's own X. Its needle stem
 # stands up where a screwdriver reaches it over the deck. Its own frame is +X = flow; yawed so
 # the flow runs south, in at the north face off fluid-1 and on at the south face into the fall.
 # It sits on V-A's own X, so the line it feeds drops straight into that up-facing collet.
-FLOWREG_Y = 202.0
+# The regulator's outlet stands this far north of V-A's up-facing collet — the leg fluid-2
+# turns its bend in — on a body reaching FLOWREG_HALF_Y from its centre to either port.
+FLOWREG_DROP = 6.72
+FLOWREG_HALF_Y = 23.0
 FLOWREG_YAW = 270.0
 # The discharge chain hangs vertically in the bag-fall corridor, just clear of the cold
 # core's front face — the only column deep enough to stand its 83.4 mm. The pump's barbs
@@ -377,7 +397,7 @@ FLOWREG_YAW = 270.0
 # frame already runs the water down. Its X rides the pump's discharge, not a number of its
 # own: the hose turns at R15.9, so any offset between the two costs two tangent lengths of
 # strip the bay does not have. The corridor bounds this chain in Y, not in X.
-DISCH_CHAIN_POS = (SEAFLO_POS[0] + 36.6, 190.0, 265.0 + RING_SEAT)   # the barb tip; the collet hangs LENGTH below it
+DISCH_CHAIN_POS = (SEAFLO_POS[0] + 36.6, FRONT_DEPTH - 10.0, 265.0 + RING_SEAT)   # the barb tip; the collet hangs LENGTH below it
 # The funnel's placement: its collar-rect centre in plan, plus a rotation
 # about its own Z. This is the CENTRE OF THE TOP-WALL FRAME — the basin sits
 # the same `hopper_funnel.brim_margin` off the display gusset, the corner pod,
@@ -410,7 +430,7 @@ FUNNEL_ROT = 0.0
 # rides a few millimetres inboard of each — its −X outlet-elbow column (and the
 # junction tees below) clear the −X wall's seam furniture, its +X elbows clear the
 # +X wall — so the enclosure seam machinery runs unbroken there (no wall relief).
-SRC_SEL_POS = (143.0, 135.55, 167.8)
+SRC_SEL_POS = (143.0, FRONT_DEPTH - STACK_CORE_GAP - STACK_AFT_REACH, 167.8)
 # The bag-circuit assembly rides INVERTED on top of it — rotated 180° about Y,
 # seated wall-tops-to-wall-tops on the source tray's stacking walls (a
 # declared contact), both trays' walls meeting at z 227.8 — which lands each
@@ -490,8 +510,8 @@ NOZZLE_GATE_POS = (_GATE_ANCHOR_BAG_X + 2.0 * _bag.port_half + _bag.tee_branch_r
 #     the source-select east bank's walls (the `clear
 #     source-select-assembly` rule); its row tie is the nose gap to P-A
 #     (the `near pump-a` rule).
-PUMP_A_POS = (89.62, 96.00, 190.31)
-PUMP_B_POS = (222.50, 85.51, 192.31)
+PUMP_A_POS = (89.62, SRC_SEL_POS[1] - 39.55, 190.31)
+PUMP_B_POS = (222.50, SRC_SEL_POS[1] - 50.04, 192.31)
 
 # The pump-inlet union tees (fluid topology Y-C / Y-F) hang in the junction
 # column between the trays' facing west collets. Both elbows are rolled off
@@ -605,12 +625,13 @@ def disch_terminal(name):
 
 
 def flowreg_pos():
-    """The flow regulator's centre: V-A's own X, so the line it feeds falls straight into that
-    up-facing collet; FLOWREG_Y across the band ahead of the cap; and the split's Z, which is the
-    LANE UNDER THE PUMP — the gap the pump's bracket leaves between its body and the cap runs the
-    bay's whole width, and the flavor run crosses the machine along it without ever climbing into
-    the deck the pump fills."""
-    return (src_collet("VA")[0][0], FLOWREG_Y, SPLIT_POS[2])
+    """The flow regulator's centre: V-A's own X and Y, so the line it feeds falls straight into
+    that up-facing collet, standing FLOWREG_DROP north of the collet on its own body half-length;
+    and the split's Z, which is the LANE UNDER THE PUMP — the gap the pump's bracket leaves
+    between its body and the cap runs the bay's whole width, and the flavor run crosses the
+    machine along it without ever climbing into the deck the pump fills."""
+    collet, _ = src_collet("VA")
+    return (collet[0], collet[1] + FLOWREG_DROP + FLOWREG_HALF_Y, SPLIT_POS[2])
 
 
 _FOAM_TOP_CACHE = None
@@ -905,18 +926,6 @@ def tee_port(tee, port):
                    3: (branch, _bag.tee_branch_reach)}[port]
     return tuple(centre[i] + reach * axis[i] for i in range(3)), axis
 
-# Front block (Zones C/D) Y depth — the cold core (Zone A) seats behind it.
-# What sets it is not the deepest front part but the corridor behind them all:
-# both reservoir ports sit low on the cold core's front face, one of them
-# (reservoir-A) directly behind the tipped condenser, and the only lane down to
-# either runs in the open Y between the manifold stack's aft face and that
-# core face. So the core stands BAG_FALL_CORRIDOR clear of the stack rather
-# than pressed against it, and the front block is as deep as that leaves it.
-FRONT_DEPTH = 200.0
-# The corridor the bag lines fall down: one 1/4" line wide with a lane clearance
-# either side. The scorecard holds the source-select tray this far clear of the
-# cold core on the real solids, and _lines authors both falls in it.
-BAG_FALL_CORRIDOR = 5.65 + 6.35 + 5.65
 # The whole boss chain — head counterbore + pin body + heat-set + cap, less the
 # wall the counterbore sinks into — reaches this far inboard of a side wall, and
 # so does the corner post carrying it. The ±X walls therefore stand this far off
@@ -1163,8 +1172,8 @@ DISCHARGE_LIFT = {
 # without driving through their bodies or the funnel. y-g drops furthest (fluid-11 crosses right
 # over its crown); y-d rides a touch higher so its own body keeps clear of pump B just below it.
 DISCHARGE_DIV = {
-    "y-d": (214.0, 58.0, 267.5),
-    "y-g": (167.97, 65.71, 266.0),
+    "y-d": (214.0, SRC_SEL_POS[1] - 77.55, 267.5),
+    "y-g": (167.97, SRC_SEL_POS[1] - 69.84, 266.0),
 }
 DISCHARGE_YAW = {                             # extra Z-turn of a divider: stem toward its pump, outlets the same off their elbows
     "y-d": 16.0,
@@ -1290,9 +1299,14 @@ def divider_port(name, port):
 # free-leg heading its stem run leaves along. pump-a aims east at y-g; pump-b aims northwest at
 # y-d's yawed stem, so segment 12 leaves straight at the divider.
 PUMP_ELBOW_REACH = 19.56                          # outlet elbow free-leg: collet face to bend corner
+# The outlet collet stands this far off its pump's own placement origin in plan, on both pumps,
+# at the one deck Z the two elbows share. Carried off the pump so the collet travels with it.
+_PUMP_OUTLET_OFFSET = (8.94, -63.50)
+_PUMP_OUTLET_Z = 278.17
 _PUMP_OUTLET_BASE = {                             # as-placed outlet collet CENTRE: (pos, free-leg dir)
-    "pump-a": ((98.56, 32.50, 278.17), (-1.0, 0.0, 0.0)),
-    "pump-b": ((231.44, 22.01, 278.17), (-1.0, 0.0, 0.0)),
+    name: ((pos[0] + _PUMP_OUTLET_OFFSET[0], pos[1] + _PUMP_OUTLET_OFFSET[1], _PUMP_OUTLET_Z),
+           (-1.0, 0.0, 0.0))
+    for name, pos in (("pump-a", PUMP_A_POS), ("pump-b", PUMP_B_POS))
 }
 PUMP_OUTLET_AIM = {                               # re-rolled free-leg heading (horizontal); absent = as placed
     "pump-a": (0.97, -0.22, 0.0),
