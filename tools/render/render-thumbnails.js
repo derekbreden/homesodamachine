@@ -17,6 +17,15 @@
 // Usage:
 //   node tools/render/render-thumbnails.js <step-path>...   # specific files
 //   node tools/render/render-thumbnails.js --all            # every STEP under hardware/
+//   node tools/render/render-thumbnails.js --payloads <manifest.json>
+//
+// A generator that still holds the shape it exported hands over the
+// tessellation with it (--payloads maps each STEP to a mesh payload written by
+// hardware/scripts/_mesh_payload.py), and the page skips reading the STEP back
+// through occt in wasm — the one expensive step, ~13 s on the enclosure
+// assembly. The payload is served over the same viewer the STEP is, so the page
+// fetches either the same way. Everything downstream is shared: a payload
+// thumbnail and a STEP thumbnail differ only in where the triangles came from.
 //
 // <step-path> may be absolute or repo-relative, and is matched against the
 // content roots (hardware/ = kitchen, pie-in-the-sky/lite/ = lite). The
@@ -89,9 +98,18 @@ function classify(p) {
 // renderThumbnail (the same function the detail view's offscreen thumbnailer
 // uses) so the PNG matches the live x-ray look exactly. Returns the count
 // written.
-async function renderRootGroup(root, rels) {
-  const { server } = await start({ port: 0, dev: false, hardwareDir: root.dir });
+async function renderRootGroup(root, rels, payloads) {
+  const { app, server } = await start({ port: 0, dev: false, hardwareDir: root.dir });
   const port = server.address().port;
+  // Payloads live outside the content root, so they get their own route rather
+  // than being copied into it. Indexed by position: a rel path is not a safe
+  // URL segment, and the page only ever asks for one it was handed.
+  const payloadFor = rels.map((rel) => payloads.get(path.join(root.dir, rel)) || null);
+  app.get("/__mesh/:i", (req, res) => {
+    const file = payloadFor[Number(req.params.i)];
+    if (!file) return res.sendStatus(404);
+    res.type("application/octet-stream").sendFile(file);
+  });
   let browser;
   let written = 0;
   try {
@@ -110,13 +128,19 @@ async function renderRootGroup(root, rels) {
     });
     await page.waitForFunction(() => !!window.__hsm, { timeout: 30000 });
 
-    for (const rel of rels) {
+    for (const [i, rel] of rels.entries()) {
       const relUrl = rel.split(path.sep).join("/"); // POSIX path for the URL/fetch
       try {
-        const dataURL = await page.evaluate(async (file) => {
+        const dataURL = await page.evaluate(async (file, meshUrl) => {
           const m = await import("/js/viewer/step.js");
+          if (meshUrl) {
+            const resp = await fetch(meshUrl);
+            if (resp.ok) {
+              return m.renderMeshes(m.decodeMeshPayload(new Uint8Array(await resp.arrayBuffer())));
+            }
+          }
           return await m.renderThumbnail(file);
-        }, relUrl);
+        }, relUrl, payloadFor[i] ? `/__mesh/${i}` : null);
         if (!dataURL) {
           console.warn(`  ! skipped (render returned null): ${relUrl}`);
           continue;
@@ -142,6 +166,19 @@ async function renderRootGroup(root, rels) {
 async function main() {
   const args = process.argv.slice(2);
   let targets = [];
+
+  // { <abs step path>: <abs payload path> } — a STEP with no entry (backfill,
+  // a hand run, a generator whose tessellation failed) renders from the STEP.
+  const payloads = new Map();
+  const pi = args.indexOf("--payloads");
+  if (pi !== -1) {
+    const manifest = JSON.parse(fs.readFileSync(args[pi + 1], "utf8"));
+    for (const [step, mesh] of Object.entries(manifest)) {
+      if (fs.existsSync(mesh)) payloads.set(path.resolve(step), path.resolve(mesh));
+    }
+    args.splice(pi, 2);
+    for (const step of Object.keys(manifest)) args.push(step);
+  }
 
   if (args.includes("--all")) {
     targets = walkSteps(ROOTS[0].dir).map((abs) => ({
@@ -175,8 +212,10 @@ async function main() {
 
   let total = 0;
   for (const [root, rels] of byRoot) {
-    console.log(`rendering ${rels.length} thumbnail(s) under ${root.name}/...`);
-    total += await renderRootGroup(root, rels);
+    const handed = rels.filter((r) => payloads.has(path.join(root.dir, r))).length;
+    const how = handed ? ` (${handed} from a handed-over tessellation)` : "";
+    console.log(`rendering ${rels.length} thumbnail(s) under ${root.name}/...${how}`);
+    total += await renderRootGroup(root, rels, payloads);
   }
   console.log(`done: ${total} thumbnail(s) written`);
 }
