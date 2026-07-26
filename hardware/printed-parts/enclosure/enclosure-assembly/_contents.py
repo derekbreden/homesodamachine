@@ -159,8 +159,10 @@ for _p in (_hw / "scripts", _repo / "tools", _hw / "reference" / "beduan-solenoi
            _hw / "printed-parts" / "enclosure" / "drip-pan",
            _hw / "printed-parts" / "electronics",
            _hw / "printed-parts" / "electronics" / "pcba-tray",
+           _hw / "printed-parts" / "zone-c" / "hopper-funnel",
            _hw / "printed-parts" / "enclosure" / "enclosure"):    # `enclosure`, imported in placed_funnel
     sys.path.insert(0, str(_p))
+import hopper_funnel as _funnel          # noqa: E402  — its neck offset, so the drain rides the part
 import _boxes                            # noqa: E402
 import bag_circuit_tray as _bag          # noqa: E402
 import source_select_tray as _src        # noqa: E402
@@ -1170,7 +1172,7 @@ DISCHARGE_LIFT = {
 # without driving through their bodies or the funnel. y-g drops furthest (fluid-11 crosses right
 # over its crown); y-d rides a touch higher so its own body keeps clear of pump B just below it.
 DISCHARGE_DIV = {
-    "y-d": (214.0, SRC_SEL_POS[1] - 77.55, 267.5),
+    "y-d": (214.0, SRC_SEL_POS[1] - 73.30, 267.5),
     "y-g": (167.97, SRC_SEL_POS[1] - 69.84, 266.0),
 }
 DISCHARGE_YAW = {                             # extra Z-turn of a divider: stem toward its pump, outlets the same off their elbows
@@ -1803,3 +1805,11 @@ def _placed_funnel():
     return (_load(FUNNEL_STEP)
             .rotate((0, 0, 0), (0, 0, 1), FUNNEL_ROT)
             .translate((FUNNEL_CX, FUNNEL_CY, enclosure._dims().outer[5])))
+
+
+def funnel_drain():
+    """The hopper's drain in world: the spout exit annulus centre. The neck stands on the
+    funnel's own offset off the collar centre, and the spout tip is the placed body's lowest
+    point — so the port rides the part, whatever the basin is sized to or seated on."""
+    return (FUNNEL_CX + _funnel.neck_dx, FUNNEL_CY,
+            _boxes.boxed(placed_funnel()).zmin)

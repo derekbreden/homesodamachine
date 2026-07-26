@@ -130,6 +130,13 @@ def _column_aft(solid, x, half_w, z_lo, z_hi) -> float:
     return inside.BoundingBox().ymax if inside.Solids() else bb.ymin
 
 
+def _deck(x, dy, z) -> tuple:
+    """A waypoint over the manifold deck, its depth carried off the stack. `dy` stands the
+    waypoint that far forward of `SRC_SEL_POS`, so a run whose two ends both ride the stack
+    keeps its shape when the stack moves."""
+    return (x, contents.SRC_SEL_POS[1] + dy, z)
+
+
 _RUNS: list | None = None
 
 
@@ -353,7 +360,7 @@ def _authored_runs() -> list:
     # both arcs with it and the turn off each collet keeps its angle. A frozen number would hold the
     # apex where the tray no longer is, and the exit lead runs out of tangent for the sharper turn.
     for cid, elb, div, port, apex, lead, bend in (
-        ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", None,                                     (8.0, 6.5), 8.0),  # one bend into the yawed outlet
+        ("fluid-13", "elbow-bag-y-d", "y-d", "Y-D-2", None,                                     (8.0, 6.5), 6.0),  # one bend into the yawed outlet, on the row's tight radius — y-d rides its pump, this elbow its tray
         ("fluid-17", "elbow-y-g",     "y-d", "Y-D-3", (202.0, -24.55, "elbow-y-d",     3.77),  LEAD, DBEND),      # over elbow-y-d
         ("fluid-23", "elbow-bag-y-g", "y-g", "Y-G-2", (207.0, -17.55, "elbow-bag-y-d", 8.05),  (4.0, 8.0), DBEND),  # short exit lead + high apex, held EAST: the funnel spout drops into the west half of the lane and its foot sits level with elbow-bag-y-d's crown, so there is no gap between them to take — this clears the elbow and passes the spout on its east side
         ("fluid-27", "elbow-y-d",     "y-g", "Y-G-3", None,                                     (8.0, 6.0), DBEND),  # y-g sits west of this elbow, so it leaves on its collet and turns
@@ -373,8 +380,10 @@ def _authored_runs() -> list:
     op, od = contents.pump_outlet_pose("pump-b")
     sp, sd = contents.divider_port("y-d", 1)
     runs.append(R.bent("fluid-12", "pump-b.P-B-O", R.meet(op, od, sp, sd, 0.85), "y-d.Y-D-1",
-                        kind="fluid", bend=6.0, skew=DISCHARGE_SKEW, lead=(6.0, 0.0),
-                        note="discharge stem P-B-O → y-d Y-D-1, led off pump-b to the collets' meet"))
+                        kind="fluid", bend=5.0, skew=DISCHARGE_SKEW, lead=(6.0, 0.0),
+                        note="discharge stem P-B-O → y-d Y-D-1, led off pump-b to the collets' meet — "
+                             "the pair stands 15 mm apart, so the turn between them is the tightest "
+                             "on the fluid side"))
     runs.append(R.bent("fluid-22", "pump-a.P-A-O", "y-g.Y-G-1",
                         kind="fluid", bend=8.0, skew=DISCHARGE_SKEW, lead=(8.0, 6.0),
                         note="discharge stem P-A-O → y-g Y-G-1: y-g now sits close off the pump's "
@@ -392,16 +401,17 @@ def _authored_runs() -> list:
     SLEAD = 12.0                        # exit/approach stub: straight lead off each suction collet
     runs.append(R.bent(
         "fluid-11", "tee-y-c.Y-C-3",
-        (34.0, 71.0, 257.0), (72.0, 59.0, 273.0), (110.0, 57.0, 279.0), (150.0, 62.0, 283.0), (196.0, 65.0, 286.0), (213.0, 84.0, 285.0),
+        _deck(34.0, -64.55, 257.0), _deck(72.0, -76.55, 273.0), _deck(110.0, -78.55, 279.0),
+        _deck(150.0, -73.55, 283.0), _deck(196.0, -70.55, 286.0), _deck(213.0, -51.55, 285.0),
         "pump-b.P-B-I",
         kind="fluid", bend=6.0, skew=DISCHARGE_SKEW, lead=(8.0, 3.0),
         note="suction stem tee-y-c Y-C-3 → pump-b P-B-I: forward off the tee, then east OVER the "
              "y-d/y-g dividers. It rides the slot the lowered divider crowns open under the funnel "
-             "basin, held SOUTH (y~63) of the discharge runs (fluid-13/23, y74+) and the funnel's "
+             "basin, held SOUTH of the discharge runs (fluid-13/23) and the funnel's "
              "drain dip (x186-197), climbing north only east of the dip to drop into the inlet"))
     runs.append(R.bent(
         "fluid-21", "tee-y-f.Y-F-3",
-        (26.0, 120.0, 236.0), (29.0, 95.0, 264.0), (64.0, 89.0, 277.0),
+        _deck(26.0, -15.55, 236.0), _deck(29.0, -40.55, 264.0), _deck(64.0, -46.55, 277.0),
         "pump-a.P-A-I",
         kind="fluid", bend=10.0, skew=DISCHARGE_SKEW, lead=SLEAD,
         note="suction stem tee-y-f Y-F-3 → pump-a P-A-I, up the west end then east above the source tray"))
@@ -497,7 +507,7 @@ def _authored_runs() -> list:
     NBEND = 7.0
     # The lanes cross the pump on its LOW END. `contents.seaflo_low_crown` is the pressure switch's
     # top face and the X window it spans — the motor, the head and the boss all stand well over it,
-    # and this is the one plane on the pump with air above it. [315.2](NOZ_CLIMB_Z) is that crown
+    # and this is the one plane on the pump with air above it. [310.2](NOZ_CLIMB_Z) is that crown
     # plus a lane. The pump is then free to travel east UNDER these two runs for as long as the
     # window still holds them, which is why what bounds its east reach is the water chain and not
     # these lanes.
