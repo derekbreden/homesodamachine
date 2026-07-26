@@ -7,6 +7,9 @@
 #      - commit touches hardware/           → check_pinmap.py, the BOM<->pinout<->PCB
 #        drift guard (pcba.tsx is canonical; pinout/BOM/sync-drivers are derived and
 #        hand-maintained, so they drift).
+#      - commit touches printed-parts/ or bom.md → _bom_masses.py --check, which reads
+#        §7's masses off the parts' own STEP solids. A part's geometry and its ledger
+#        row land together or not at all.
 #      - commit touches hardware/pcb/pcba/  → the render scorecard's fab-ready gates
 #        (out/pcba.picks.json scorecard.gatesPass), silk-audit.py (label ink on bare
 #        copper), part-orientation-audit.py (3D model vs footprint, ~8 s). These read
@@ -42,9 +45,11 @@ export HSM_BUILD_LOCK_PROTECT=1
 touches_hw=false
 touches_board=false
 touches_enclosure=false
+touches_printed=false
 git diff --cached --name-only -- "hardware/" | grep -q . && touches_hw=true
 git diff --cached --name-only -- "hardware/pcb/pcba/" | grep -q . && touches_board=true
 git diff --cached --name-only -- "hardware/printed-parts/enclosure/" | grep -q . && touches_enclosure=true
+git diff --cached --name-only -- "hardware/printed-parts/" "hardware/ledger/bom.md" | grep -q . && touches_printed=true
 
 fail=0
 
@@ -65,6 +70,17 @@ if $touches_hw; then
   gate "pin-map drift check" python3 "$root/hardware/scripts/check_pinmap.py"
   gate "bom category tags" python3 "$root/hardware/scripts/_bom_categories.py" --check
   gate "build exit status" python3 "$root/hardware/scripts/check_build_exit.py"
+fi
+
+if $touches_printed; then
+  # bom.md §7 reads its masses off the parts' own solids. A geometry change that
+  # lands without carrying its mass leaves the ledger quoting a part that is not
+  # the one that ships — so the row and the STEP have to move together. ~4 s.
+  if [ -x "$py" ]; then
+    gate "bom printed masses" "$py" "$root/hardware/scripts/_bom_masses.py" --check
+  else
+    echo "pre-commit: no cad-venv — bom printed masses skipped" >&2
+  fi
 fi
 
 if $touches_board; then
