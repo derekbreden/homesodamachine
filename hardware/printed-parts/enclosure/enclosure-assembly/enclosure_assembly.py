@@ -376,7 +376,7 @@ def main():
         variables=_lines.lane_stations(),
         expected_counts={
             "NOZ_DECK_Z": 2, "NOZ_LANE_OUTER_X": 1, "NOZ_LANE_INNER_X": 1,
-            "NOZ_POCKET_STEP": 1,
+            "NOZ_POCKET_STEP": 1, "CARB_1_LEN": 1, "CARB_2_LEN": 1,
         },
     )
     print("-> _lines.py")
