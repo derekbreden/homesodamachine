@@ -10,11 +10,13 @@ He calls the box a **fence**. The word is his:
 > I would like you to try to identify the fences the previous agent put up, and the ones you
 > put up, when you "choose how to run your analysis," because it has been consistently shown
 > that you do not properly consider all the options available.
-> — *LLDPE route 32*
+> — [LLDPE route 32](<fences/LLDPE route 32.md>)
 
 This document is written by an agent that produces this failure, for the next agent that
 will. Every quotation in it is from a real session in this repo, and every one of the
-agents quoted was as careful as you are being right now.
+agents quoted was as careful as you are being right now. Each citation links to that
+session's full transcript in [`fences/`](fences/README.md) — go read one in its room if a
+quote seems like it must have had more context than this.
 
 ## The case, compressed
 
@@ -41,7 +43,7 @@ detail that matters most — the winning pose did not need the edge Derek named.
 3.6 mm short of it, inside the region the agent had already called *every position*.
 
 The fence was not at the frontier. It was in the middle of the map, and the map said nothing
-about it.
+about it. — [PCBA placement 6](<fences/PCBA placement 6.md>)
 
 ## The lesson
 
@@ -69,7 +71,7 @@ extremum as the problem's extremum.
 > My scan never looked above the foam shell. I hard-coded `YS = (0.0, 200.0)` … and
 > `ZS = (0.0, 200.0)`. So I searched the front column only. The entire service bay above the
 > cold core was outside the search box, **not found wanting**. And the interior actually runs
-> to z=331.7, not 200. — *LLDPE route 30*
+> to z=331.7, not 200. — [LLDPE route 30](<fences/LLDPE route 30.md>)
 
 Not found wanting. Three words for the whole document.
 
@@ -79,15 +81,15 @@ failure the constraint caused.
 > I capped the y-divider's rotation at ~12° because past that, a *different* tube on the
 > divider's other side stops being a straight tube. With that self-imposed cap, the rotations
 > barely helped — so I wrongly concluded "it can't be done." **You never asked me to protect
-> fluid-13.** — *LLDPE route 12*
+> fluid-13.** — [LLDPE route 12](<fences/LLDPE route 12.md>)
 
 **The frozen first draft.** You read what is placed as what is fixed.
 
 > I only searched parts sitting flat **on** the cap — the void is 78 mm tall, so elevation is
-> part of "the full range of arrangements." — *PCBA placement*
+> part of "the full range of arrangements." — [PCBA placement](<fences/PCBA placement.md>)
 
 > I treated R18, C17, and the pod-rigidity comment as constraints instead of movables.
-> — *PCBA Audit Saturday*
+> — [PCBA Audit Saturday](<fences/PCBA Audit Saturday.md>)
 
 Derek's version of the same note:
 
@@ -95,24 +97,32 @@ Derek's version of the same note:
 > weakness, not seeing the flexibility in the design, the amount of engineering work that
 > still remains, and your false illusion of "completeness" because you see what is barely a
 > first attempt across so many things in the repo. It is called iteration, and you seem to
-> have great difficulty opening your mind to it. — *PCBA placement*
+> have great difficulty opening your mind to it. — [PCBA placement](<fences/PCBA placement.md>)
 
 A number that exists in this repo is not a number that was chosen. One route traced its own
 dead end back to a constant nobody had picked on purpose:
 
 > That's the "boxed in" you predicted, and it traces back to `WATER_BACK_X = 145` picking an
 > arbitrary station, the yaw then pointing the inlet at it, and the barb then pointing at a
-> wall. — *LLDPE route 33*
+> wall. — [LLDPE route 33](<fences/LLDPE route 33.md>)
 
 **The inherited fence.** A previous session's conclusion arrives as a premise. It was
 produced by an agent with your failure mode.
 
 > **CLEAR on the first probe.** A 34×32×57 void sits at x[5,39] y[326,358] z[255,312] … and
 > it's well inside the current extents, so filling it grows the box by nothing. **Route 31
-> declared this impossible.** — *LLDPE route 32*
+> declared this impossible.** — [LLDPE route 32](<fences/LLDPE route 32.md>)
 
 This is why a fence is never a local error. Fenced conclusions get written down, and this
 repo teaches by example.
+
+The recovery is available and it is cheap. One agent, handed a prior session's verified
+arrangement, checked the conclusion's provenance before standing on it:
+
+> The conclusion "side-by-side is impossible" was true at 96 mm and needs re-deriving at
+> 107.7 — bare arithmetic still says no, but that's box arithmetic, which is exactly the
+> reasoning you've twice had to correct.
+> — [PCBA placement 3](<fences/PCBA placement 3.md>)
 
 **The phantom requirement.** A convention adopted somewhere upstream, wearing a safety
 justification, obeyed as if it were a spec.
@@ -123,7 +133,7 @@ justification, obeyed as if it were a spec.
 > (real), versus forced by a rule you imposed on yourself (negotiable — say it out loud so I
 > can see it and veto it). Most impossible things in this kind of work are only impossible
 > under an undisclosed constraint. **Keep your horizons open, and report your constraints,
-> not just your conclusions.** — *Fragmentation*
+> not just your conclusions.** — [Fragmentation](<fences/Fragmentation.md>)
 
 The agent on the receiving end of that message reported what the phantom had been doing to
 its work: *"it's literally why I was about to shove D− under the connector body."* A fence
@@ -136,7 +146,7 @@ no, resting on a fact you assumed rather than one you have.
 > Rolling it 45° aft — it fits, and I'd still skip it. … at 45° the stub's exit stops being
 > its low point, so water clings and runs down the outside instead of shedding off a clean
 > annular tip — and this drip is a *sensor input*, so its landing spot shouldn't be set by
-> surface tension. — *Drip tray*
+> surface tension. — [Drip tray](<fences/Drip tray.md>)
 
 Derek: *"I think our sensor is large enough for this, don't you? It is 41 mm x 55.25 mm of
 PCB with interwoven copper."* The objection evaporated. Worse, the same unchecked assumption
@@ -158,9 +168,9 @@ hard part, and that asymmetry is why this document exists.
 - **The bystander tell.** Somewhere in your reasoning is a thing you decided not to disturb.
   Ask who asked you to protect it. If the answer is nobody, name it and hand over the veto.
 - **The universal-quantifier tell.** "Every position." "All cross." "Exhausted." Derek's
-  rule: *"anytime you say 'all cross' you are not looking in the correct corridor for your
-  path."* A universal quantifier ranges over the box and reads as ranging over the world.
-  That is exactly where a fence hides.
+  rule, from [Current](<fences/Current.md>): *"anytime you say 'all cross' you are not looking
+  in the correct corridor for your path."* A universal quantifier ranges over the box and
+  reads as ranging over the world. That is exactly where a fence hides.
 - **The inheritance tell.** Your premise is a previous session's conclusion, a committed
   constant, or a line in a doc. Probe it before you build on it.
 - **The it-fits-but tell.** Measurement said yes and you are about to say no. Check whether
@@ -187,7 +197,7 @@ hard part, and that asymmetry is why this document exists.
   were specific and measured — which is good — but I used that specificity to justify
   stopping rather than as a map of where to keep looking. The measurements were right; the
   conclusion drawn from them ('therefore it's nearly impossible') was the error."*
-  — *Cleanup Board*
+  — [Cleanup Board](<fences/Cleanup Board.md>)
 - **One word does it.** The same post-mortem: the agent wrote *"the one clear vertical is the
   top layer at x≈−46.4."* Four to seven millimetres further east the layer was completely
   open, and it already held the measurements that showed so. *"That word 'the' was the whole
