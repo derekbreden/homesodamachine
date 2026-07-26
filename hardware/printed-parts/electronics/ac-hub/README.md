@@ -5,21 +5,27 @@ lever nuts on one printed plate, in the strip between the controller board and
 the PSU on the cold core's top foam cap.
 
 ```
-   ┌─────────────────────────────────────────┐
-   │ ○      ▭▭▭    ▭▭▭    ▭▭▭             ○  │
-   │        H      N      G                  │
-   └─────────────────────────────────────────┘
-     ○ = clearance hole over a cap column
-     ▭ = butt-end pocket; the wire half hangs past the plate (+Y)
+   plan                              section (looking along the row, +X)
+
+   ┌───────────────────────────┐          ║ wires up
+   │ ○   ▭▭   ▭▭   ▭▭       ○  │        ┌─╨─┐
+   │     H    N    G           │     ◄──┤   │  levers out −Y
+   └───────────────────────────┘        ┌┤   ├┐
+     ○ = clearance hole over a cap      ││   ││ well wall
+         column                       ──┴┴───┴┴──  floor
+     ▭ = butt-end well; the lug
+         stands in it, ports up
 ```
 
 ## What mounts here
 
-Three Wago 221-413 lever nuts, one per pole. Each drops into a pocket that wraps
-its butt half on five faces — both X, both Z, and the −Y end — at one 0.15 mm
-press clearance, open toward +Y. All three face the same way; the wire half of
-each lug sits past the plate's edge, and the levers work from above, under the
-bay's own opening.
+Three Wago 221-413 lever nuts, one per pole, each standing on its butt end. A lug
+drops into a well that wraps its lower half on four faces — both X and both Y —
+at one 0.15 mm press clearance, open at the top. All three face the same way,
+so their wire ports look straight up under the bay's own opening and their wires
+leave vertically, as the board's JST headers beside them do. The levers lie on
+the −Y face, clear above the wall, and swing out toward the board — the side the
+row has room on.
 
 Everything else on this shelf bolts to a deck-mount column of the cap with
 nothing printed beneath it — the controller PCBA, the Mean Well PSU, Teyleten
@@ -34,9 +40,9 @@ down through each, into a ruthex short in the column's top bore. The hole spacin
 is read from `deck_mount_xy("ac-hub")`, so the plate and the columns carry one
 number.
 
-The plate is 3 mm PETG, reaching the pockets and both hold-down pads and ending
-where the buried butts do.
+The plate is 3 mm PETG, reaching the wells and both hold-down pads and ending
+where the wells do.
 
 `ac_hub.py` → `ac-hub.step`; `ac_hub_assembly.py` → `ac-hub-assembly.step` (plate
-+ three seated lugs, which is what the enclosure pack places). Regenerate with
++ three standing lugs, which is what the enclosure pack places). Regenerate with
 `tools/cad-venv/bin/python <script>`.
