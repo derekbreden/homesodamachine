@@ -5,7 +5,9 @@ writes to a unique temp file alongside the target and then renames atomically
 via os.replace (POSIX-atomic rename). When two processes race — e.g. an agent
 running the script directly while the dev server's watcher rebuilds the same
 script — both produce complete files, last writer wins, and no consumer ever
-observes a half-written .step.
+observes a half-written .step. Each temp names the pid writing it, so an export
+can clear the temps of builds that were killed before they could clean up after
+themselves without touching one a live build is still filling.
 
 Usage from any generator script:
 
@@ -53,6 +55,10 @@ if sys.argv and sys.argv[0].endswith(".py"):
     except ValueError:
         _label = _entry.name
     _acquire_build_lock(_label)
+
+# The lock's own test for whether a pid is still running, reused by the temp sweep
+# to tell an abandoned file from one a live build is still writing.
+from _run_lock import _alive as _pid_alive
 
 # STEP files embed a wall-clock timestamp in the FILE_NAME header. Without
 # normalization, every run produces different bytes for identical source —
@@ -376,9 +382,10 @@ def _make_sibling_tempfile(target):
     write_fn's format dispatch (cq.exporters.export keys on the
     extension) picks the same format as the eventual target. Same
     directory keeps the final rename on one filesystem so os.replace is
-    atomic."""
+    atomic. The name carries the writing pid — `.<target>.<pid>.<rand><suffix>`
+    — which is what `_sweep_orphan_temps` reads."""
     fd, tmp_path = tempfile.mkstemp(
-        prefix=f".{target.name}.",
+        prefix=f".{target.name}.{os.getpid()}.",
         suffix=target.suffix,
         dir=str(target.parent),
     )
@@ -396,6 +403,32 @@ def _unlink_if_exists(path):
         pass
 
 
+def _sweep_orphan_temps(target):
+    """Drop the temps in `target`'s directory whose writing build is gone.
+
+    A build that raises unlinks its own temp, but SIGKILL has no exception path
+    to run — and the dev-server watcher supersedes with SIGKILL deliberately,
+    because CadQuery sits inside OCCT calls that ignore SIGTERM for seconds at a
+    time (web/dev-server/server.js). So a killed generator leaves its temp
+    behind, and the assemblies it leaves are the largest files in the tree.
+
+    The pid in the name is what makes the sweep safe to run unconditionally:
+    builds are single-flight but not exclusively so — one that yields to a
+    protected commit gate takes no lock and runs alongside it (_run_lock), and
+    HSM_NO_BUILD_LOCK opts out entirely — so a temp being written right now can
+    be sitting in this directory, and it is the live pid that spares it. Best
+    effort in the other direction: a pid the OS has since handed to an unrelated
+    process reads as live, and its temp waits for a later sweep."""
+    for p in target.parent.glob(f".*{target.suffix}"):
+        owner = p.stem.rsplit(".", 2)          # `.<target>`, `<pid>`, `<rand>`
+        if len(owner) != 3 or not owner[1].isdigit() or _pid_alive(int(owner[1])):
+            continue
+        try:
+            p.unlink()
+        except OSError:
+            pass
+
+
 def _matches_existing_target(tmp_path, target):
     """True if `target` is already byte-identical to `tmp_path` — i.e.
     the rename would be a no-op."""
@@ -407,6 +440,7 @@ def _atomic_write(target_path, write_fn):
     the new output matched the existing file (no rename performed)."""
     target = Path(target_path).resolve()
     target.parent.mkdir(parents=True, exist_ok=True)
+    _sweep_orphan_temps(target)
     tmp_path = _make_sibling_tempfile(target)
     try:
         write_fn(tmp_path)
