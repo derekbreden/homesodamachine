@@ -1,17 +1,17 @@
 {
   "gatesPass": true,
-  "placed": 51,
+  "placed": 50,
   "located": 90,
   "shaped": 98,
   "routed": 41,
-  "held": 41,
+  "held": 42,
   "checks": [
     {
       "id": "coverage",
       "label": "Every placed part declared in the registry",
       "kind": "gate",
       "status": "pass",
-      "value": "41/41 placed declared",
+      "value": "40/40 placed declared",
       "target": "all declared",
       "detail": [],
       "active": true
@@ -44,20 +44,19 @@
       "value": "1.00 mm",
       "target": "\u2265 1.0 mm",
       "detail": [
-        "cold-core-ring \u2014 foam-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
+        "foam-assembly \u2014 relay-1: 0.00 mm \u2014 CONTACT (declared ok)",
+        "foam-assembly \u2014 ac-hub: 0.00 mm \u2014 CONTACT (declared ok)",
+        "foam-assembly \u2014 ground-stack: 0.00 mm \u2014 CONTACT (declared ok)",
+        "source-select-assembly \u2014 bag-circuit-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
+        "drip-pan \u2014 drip-pan-rails: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 seaflo-pump: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 drip-pan-rails: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 water-split: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 flow-regulator: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 psu: 0.00 mm \u2014 CONTACT (declared ok)",
-        "foam-assembly \u2014 relay-1: 0.00 mm \u2014 CONTACT (declared ok)",
-        "foam-assembly \u2014 ac-hub: 0.00 mm \u2014 CONTACT (declared ok)",
-        "foam-assembly \u2014 ground-stack: 0.00 mm \u2014 CONTACT (declared ok)",
-        "source-select-assembly \u2014 bag-circuit-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
-        "drip-pan \u2014 drip-pan-rails: 0.00 mm \u2014 CONTACT (declared ok)",
         "compressor-shroud \u2014 mq6-sensor: 1.00 mm",
-        "pump-b \u2014 y-d: 1.05 mm",
+        "pump-b \u2014 y-d: 1.10 mm",
         "bag-circuit-assembly \u2014 tee-y-c: 1.25 mm",
         "source-select-assembly \u2014 nozzle-gate-assembly: 1.30 mm",
         "source-select-assembly \u2014 discharge-chain: 1.40 mm",
@@ -72,10 +71,14 @@
         "nozzle-gate-assembly \u2014 elbow-noz-b: 2.00 mm",
         "seaflo-pump \u2014 flow-regulator: 2.00 mm",
         "pcba \u2014 ac-hub: 2.35 mm",
+        "nozzle-gate-assembly \u2014 pump-b: 3.14 mm",
+        "source-select-assembly \u2014 pump-b: 3.25 mm",
         "seaflo-pump \u2014 pcba: 3.48 mm",
+        "foam-assembly \u2014 condenser+fan: 4.00 mm",
         "seaflo-pump \u2014 drip-pan-rails: 4.00 mm",
-        "bag-circuit-assembly \u2014 elbow-y-g: 5.10 mm",
-        "drip-pan-rails \u2014 psu: 5.70 mm"
+        "bag-circuit-assembly \u2014 elbow-y-g: 5.05 mm",
+        "drip-pan-rails \u2014 psu: 5.70 mm",
+        "bag-circuit-assembly \u2014 hopper-funnel: 5.91 mm"
       ],
       "active": true
     },
@@ -104,8 +107,8 @@
       "label": "Every component is a selected real part / finished print",
       "kind": "gate",
       "status": "pass",
-      "value": "41/41",
-      "target": "41/41",
+      "value": "40/40",
+      "target": "40/40",
       "detail": [],
       "active": true
     },
@@ -114,19 +117,18 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "51% (21/41)",
+      "value": "50% (20/40)",
       "target": "100%",
       "detail": [
-        "\u2713 foam-assembly: y+ 3.0 x- 14.0 x+ 14.0 z- 5.0 near cold-core-ring 0.0 mm",
-        "\u2713 cold-core-ring: z- 0.0 x- 0.5 x+ 0.5 near foam-assembly 0.0 mm",
+        "\u2713 foam-assembly: y+ 3.0 x- 14.0 x+ 14.0 z- 0.0 mm",
         "\u2713 compressor-shroud: y- 3.0 z- 3.0 x- 28.0 mm",
         "\u2713 condenser+fan: y- 3.0 z- 3.0 x+ 28.0 mm",
         "\u2717 source-select-assembly: clear foam-assembly 18.0(<18.01) mm",
         "\u2713 hopper-funnel: z+ 6.0 mm",
         "\u2713 bag-circuit-assembly: near source-select-assembly 0.0 clear compressor-shroud 71.6 clear condenser+fan 83.1 mm",
         "\u2713 nozzle-gate-assembly: near source-select-assembly 1.3 x+ 29.4 mm",
-        "\u2713 pump-a: near bag-circuit-assembly 9.3 clear hopper-funnel 25.9 mm",
-        "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
+        "\u2713 pump-a: near bag-circuit-assembly 9.3 clear hopper-funnel 24.3 mm",
+        "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 3.3 mm",
         "\u2713 tee-y-c: near source-select-assembly 14.5 mm",
         "\u2713 tee-y-f: near source-select-assembly 8.1 mm",
         "\u2713 asse1022-assembly: near bulkhead-water 10.6 fall vent-tip onto drip-pan 19.4 clear psu 14.7 clear c14-inlet 32.7 x- 80.0 mm",
@@ -138,7 +140,7 @@
         "\u2713 drip-pan: near drip-pan-rails 0.0 clear seaflo-pump 12.0 clear asse1022-assembly 9.3 mm",
         "\u2713 drip-pan-rails: near foam-assembly 0.0 near drip-pan 0.0 clear seaflo-pump 4.0 mm",
         "\u2713 vk-fill-valve: near water-split 6.7 clear seaflo-pump 34.8 clear asse1022-assembly 40.9 clear foam-assembly 20.7 mm",
-        "\u2713 flow-regulator: near source-select-assembly 42.2 clear seaflo-pump 2.0 mm",
+        "\u2713 flow-regulator: near source-select-assembly 38.5 clear seaflo-pump 2.0 mm",
         "19 components: no placement rules defined yet"
       ],
       "active": true
@@ -148,20 +150,20 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "90% (37/41)",
+      "value": "90% (36/40)",
       "target": "100%",
       "detail": [
-        "\u2713 foam-assembly: 10/10 connectors located",
-        "    \u2013 foam-assembly:carb-water-out (fluid) (141.5, 200, 42) y- \u00d86.35 \u2192 dispense faucet (carb-water riser to the rear umbilical)",
-        "    \u2013 foam-assembly:reservoir-A (fluid) (188.5, 200, 31) y- \u00d86.35 \u2192 reservoir A \u2194 peristaltic pump A (bag circuit)",
-        "    \u2013 foam-assembly:reservoir-B (fluid) (94.5, 200, 31) y- \u00d86.35 \u2192 reservoir B \u2194 peristaltic pump B (bag circuit)",
-        "    \u2013 foam-assembly:co2-in (fluid) (141.5, 217.8, 262.9) z+ \u00d86.35 \u2192 CO2 chain (WR1110 \u2192 foam-cap top entry)",
-        "    \u2013 foam-assembly:evap-inlet (refrigerant) (141.5, 200, 72) y- \u00d86.35 \u2192 condenser+fan outlet (liquid line via drier + cap tube)",
-        "    \u2013 foam-assembly:evap-outlet (refrigerant) (141.5, 200, 191.4) y- \u00d86.35 \u2192 compressor-shroud suction",
-        "    \u2013 foam-assembly:water-in (fluid) (141.5, 200, 223.4) y- \u00d89.525 \u2192 gasher-water out (SeaFlo outlet check \u2192 carbonator water inlet)",
-        "    \u2013 foam-assembly:prv-vent (fluid) (141.5, 200, 231.4) y- \u00d86.35 \u2192 appliance interior (relief-event discharge only)",
-        "    \u2013 foam-assembly:reed-cable-A (electrical) (201.5, 200, 31) y- \u00d86.5 \u2192 J6 REEDS A \u2014 reservoir A level reeds (SIG-10)",
-        "    \u2013 foam-assembly:reed-cable-B (electrical) (81.5, 200, 31) y- \u00d86.5 \u2192 J7 REEDS B \u2014 reservoir B level reeds (SIG-11)",
+        "\u2717 foam-assembly: 9/10 connectors located",
+        "    \u2013 foam-assembly:carb-water-out (fluid) (141.5, 182, 37) y- \u00d86.35 \u2192 dispense faucet (carb-water riser to the rear umbilical)",
+        "    \u2013 foam-assembly:reservoir-A (fluid) (188.5, 182, 26) y- \u00d86.35 \u2192 reservoir A \u2194 peristaltic pump A (bag circuit)",
+        "    \u2013 foam-assembly:reservoir-B (fluid) (94.5, 182, 26) y- \u00d86.35 \u2192 reservoir B \u2194 peristaltic pump B (bag circuit)",
+        "    \u2013 foam-assembly:co2-in (fluid) (141.5, 199.8, 262.9) z+ \u00d86.35 \u2192 CO2 chain (WR1110 \u2192 foam-cap top entry)  \u2014 \u26a0 off-surface",
+        "    \u2013 foam-assembly:evap-inlet (refrigerant) (141.5, 182, 67) y- \u00d86.35 \u2192 condenser+fan outlet (liquid line via drier + cap tube)",
+        "    \u2013 foam-assembly:evap-outlet (refrigerant) (141.5, 182, 186.4) y- \u00d86.35 \u2192 compressor-shroud suction",
+        "    \u2013 foam-assembly:water-in (fluid) (141.5, 182, 218.4) y- \u00d89.525 \u2192 gasher-water out (SeaFlo outlet check \u2192 carbonator water inlet)",
+        "    \u2013 foam-assembly:prv-vent (fluid) (141.5, 182, 226.4) y- \u00d86.35 \u2192 appliance interior (relief-event discharge only)",
+        "    \u2013 foam-assembly:reed-cable-A (electrical) (201.5, 182, 26) y- \u00d86.5 \u2192 J6 REEDS A \u2014 reservoir A level reeds (SIG-10)",
+        "    \u2013 foam-assembly:reed-cable-B (electrical) (81.5, 182, 26) y- \u00d86.5 \u2192 J7 REEDS B \u2014 reservoir B level reeds (SIG-11)",
         "\u2717 compressor-shroud: 3/4 connectors located",
         "    \u2013 compressor-shroud:ac-mains (electrical) (192, 66.5, 78) x+ \u00d810 \u2192 Teyleten relay #1 / AC distribution (AC-4 switched-H + AC-5 N, 3-wire gland)  \u2014 \u26a0 off-surface",
         "    \u2013 compressor-shroud:earth-bond (electrical) (192, 31.5, 78) x+ \u00d85 \u2192 electronics-shelf ground bus (AC-6)",
@@ -175,19 +177,19 @@
         "    \u2013 co2-inlet:tube-in (fluid) (46, -22, 234) y- \u00d87.94 \u2192 customer CO2 supply \u2014 5/16\" push-to-connect (rear umbilical)",
         "    \u2013 co2-inlet:npt-out (fluid) (46, 5, 234) y+ \u00d86.35 \u2192 CO2 chain (GASHER check \u2192 WR1110, deferred) \u2192 foam-assembly co2-in",
         "\u2713 bulkhead-flavor-a: 2/2 connectors located",
-        "    \u2013 bulkhead-flavor-a:tube-out (fluid) (231.93, 393.5, 292.43) y+ \u00d86.35 \u2192 customer flavor A line (rear umbilical)",
-        "    \u2013 bulkhead-flavor-a:tube-in (fluid) (231.93, 359.2, 292.43) y- \u00d86.35 \u2192 flavor A internal line (bag/pump circuit A)",
+        "    \u2013 bulkhead-flavor-a:tube-out (fluid) (231.93, 375.5, 292.43) y+ \u00d86.35 \u2192 customer flavor A line (rear umbilical)",
+        "    \u2013 bulkhead-flavor-a:tube-in (fluid) (231.93, 341.2, 292.43) y- \u00d86.35 \u2192 flavor A internal line (bag/pump circuit A)",
         "\u2713 bulkhead-flavor-b: 2/2 connectors located",
-        "    \u2013 bulkhead-flavor-b:tube-out (fluid) (202.07, 393.5, 292.43) y+ \u00d86.35 \u2192 customer flavor B line (rear umbilical)",
-        "    \u2013 bulkhead-flavor-b:tube-in (fluid) (202.07, 359.2, 292.43) y- \u00d86.35 \u2192 flavor B internal line (bag/pump circuit B)",
+        "    \u2013 bulkhead-flavor-b:tube-out (fluid) (202.07, 375.5, 292.43) y+ \u00d86.35 \u2192 customer flavor B line (rear umbilical)",
+        "    \u2013 bulkhead-flavor-b:tube-in (fluid) (202.07, 341.2, 292.43) y- \u00d86.35 \u2192 flavor B internal line (bag/pump circuit B)",
         "\u2713 bulkhead-carb: 2/2 connectors located",
-        "    \u2013 bulkhead-carb:tube-out (fluid) (217, 393.5, 318.29) y+ \u00d86.35 \u2192 carbonated-water line (rear umbilical / faucet)",
-        "    \u2013 bulkhead-carb:tube-in (fluid) (217, 359.2, 318.29) y- \u00d86.35 \u2192 carb-water internal riser (DIGITEN \u2192 foam carb-water-out)",
+        "    \u2013 bulkhead-carb:tube-out (fluid) (217, 375.5, 318.29) y+ \u00d86.35 \u2192 carbonated-water line (rear umbilical / faucet)",
+        "    \u2013 bulkhead-carb:tube-in (fluid) (217, 341.2, 318.29) y- \u00d86.35 \u2192 carb-water internal riser (DIGITEN \u2192 foam carb-water-out)",
         "\u2713 bulkhead-water: 2/2 connectors located",
-        "    \u2013 bulkhead-water:tube-out (fluid) (56, 393.5, 319) y+ \u00d86.35 \u2192 house tap-water line (rear umbilical)",
-        "    \u2013 bulkhead-water:tube-in (fluid) (56, 359.2, 319) y- \u00d86.35 \u2192 asse1022-assembly tube-in (the backflow preventer's own chain) \u2014 segment water-1 (routed)",
+        "    \u2013 bulkhead-water:tube-out (fluid) (56, 375.5, 314) y+ \u00d86.35 \u2192 house tap-water line (rear umbilical)",
+        "    \u2013 bulkhead-water:tube-in (fluid) (56, 341.2, 314) y- \u00d86.35 \u2192 asse1022-assembly tube-in (the backflow preventer's own chain) \u2014 segment water-1 (routed)",
         "\u2713 c14-inlet: 1/1 connectors located",
-        "    \u2013 c14-inlet:mains-in (electrical) (22, 357, 319.18) y- \u00d88 \u2192 AC distribution \u2014 L/N/E to the electronics shelf",
+        "    \u2013 c14-inlet:mains-in (electrical) (22, 339, 314.18) y- \u00d88 \u2192 AC distribution \u2014 L/N/E to the electronics shelf",
         "\u2713 mq6-sensor: 1/1 connectors located",
         "    \u2013 mq6-sensor:header (electrical) (103, 144, 3) z- \u00d88 \u2192 PCBA gas-sensor input \u2014 VCC/GND/DO/AO (SIG)",
         "\u2713 asse1022-assembly: 3/3 connectors located"
@@ -199,7 +201,7 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "98% (40/41)",
+      "value": "98% (39/40)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; two floor rails carry its weight and two +X-wall webs carry four ear pads at the donor fan shroud's screw pattern (enclosure.py `_condenser_mount`), M3\u00d710 into ruthex through each ear. Ear pattern is an ESTIMATE until the donor shroud is separated and measured",
@@ -221,33 +223,33 @@
       "target": "100%",
       "detail": [
         "28 fluid + 6 water + 3 refrigerant + 29 electrical; 27 routed \u2014 the water path is closed end to end, the fluid path waits on the manifold's remaining on-tray legs, the refrigerant loop on its suction leg, and the electrical runs on the components being held",
-        "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7 \u2014 nearest 7.32 mm to fluid-15",
-        "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 307.7 mm, 4 bends at R12.7 \u2014 nearest 5.13 mm to compressor-shroud",
+        "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7 \u2014 nearest 5.45 mm to fluid-15",
+        "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 284.7 mm, 4 bends at R12.7 \u2014 nearest 5.13 mm to compressor-shroud",
         "\u2713 water-1: bulkhead-water.tube-in \u2192 asse1022-assembly.tube-in \u2014 \u00d86.35 \u00d7 22.4 mm, 1 bends at R3.0 \u2014 nearest 18.03 mm to c14-inlet",
         "\u2713 water-2: asse1022-assembly.tube-out \u2192 water-split.supply \u2014 \u00d86.35 \u00d7 82.0 mm, 2 bends at R3.0 \u2014 nearest 3.82 mm to foam-assembly",
         "\u2713 water-3: water-split.to-vk \u2192 vk-fill-valve.inlet \u2014 \u00d86.35 \u00d7 42.6 mm, 3 bends at R3.0 \u2014 nearest 3.82 mm to foam-assembly",
-        "\u2713 water-4: vk-fill-valve.outlet \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 59.3 mm, 2 bends at R3.0 \u2014 nearest 11.83 mm to fluid-18",
+        "\u2713 water-4: vk-fill-valve.outlet \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 59.3 mm, 2 bends at R3.0 \u2014 nearest 14.02 mm to fluid-18",
         "\u2713 water-6: seaflo-pump.discharge \u2192 discharge-chain.barb-tip \u2014 \u00d815.1 \u00d7 32.6 mm, 1 bends at R15.9 \u2014 nearest 9.65 mm to nozzle-gate-assembly",
         "\u2713 water-5: discharge-chain.tube-port \u2192 foam-assembly.water-in \u2014 \u00d86.35 \u00d7 151.5 mm, 3 bends at R3.0 \u2014 nearest 4.24 mm to fluid-15",
         "\u2713 fluid-1: water-split.to-flavor \u2192 flow-regulator.inlet \u2014 \u00d86.35 \u00d7 138.4 mm, 3 bends at R3.0 \u2014 nearest 2.82 mm to seaflo-pump",
-        "\u2713 fluid-2: flow-regulator.outlet \u2192 source-select-assembly.V-A-I \u2014 \u00d86.35 \u00d7 72.2 mm, 1 bends at R3.0 \u2014 nearest 9.36 mm to elbow-noz-a",
+        "\u2713 fluid-2: flow-regulator.outlet \u2192 source-select-assembly.V-A-I \u2014 \u00d86.35 \u00d7 67.2 mm, 1 bends at R3.0 \u2014 nearest 9.36 mm to elbow-noz-a",
         "\u2713 fluid-4: hopper-funnel.drain \u2192 source-select-assembly.V-B-I \u2014 \u00d86.35 \u00d7 151.2 mm, 4 bends at R12.0 \u2014 nearest 1.53 mm to fluid-27",
         "\u2713 fluid-9: source-select-assembly.V-C-O \u2192 tee-y-c.Y-C-1 \u2014 \u00d86.35 \u00d7 15.4 mm, 0 bends at R12.7 \u2014 nearest 23.89 mm to fluid-11",
         "\u2713 fluid-19: source-select-assembly.V-D-O \u2192 tee-y-f.Y-F-1 \u2014 \u00d86.35 \u00d7 8.4 mm, 0 bends at R12.7 \u2014 nearest 23.89 mm to fluid-21",
         "\u2713 fluid-10: bag-circuit-assembly.V-E-O \u2192 tee-y-c.Y-C-2 \u2014 \u00d86.35 \u00d7 1.4 mm, 0 bends at R12.7 \u2014 nearest 10.96 mm to fluid-21",
         "\u2713 fluid-20: bag-circuit-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 8.4 mm, 0 bends at R12.7 \u2014 nearest 23.89 mm to fluid-21",
-        "\u2713 fluid-13: elbow-bag-y-d.free \u2192 y-d.Y-D-2 \u2014 \u00d86.35 \u00d7 25.5 mm, 2 bends at R8.0 \u2014 nearest 6.97 mm to fluid-11",
-        "\u2713 fluid-17: elbow-y-g.free \u2192 y-d.Y-D-3 \u2014 \u00d86.35 \u00d7 68.9 mm, 3 bends at R12.0 \u2014 nearest 2.02 mm to fluid-4",
+        "\u2713 fluid-13: elbow-bag-y-d.free \u2192 y-d.Y-D-2 \u2014 \u00d86.35 \u00d7 21.8 mm, 2 bends at R6.0 \u2014 nearest 6.06 mm to fluid-4",
+        "\u2713 fluid-17: elbow-y-g.free \u2192 y-d.Y-D-3 \u2014 \u00d86.35 \u00d7 64.9 mm, 3 bends at R12.0 \u2014 nearest 1.89 mm to fluid-4",
         "\u2713 fluid-23: elbow-bag-y-g.free \u2192 y-g.Y-G-2 \u2014 \u00d86.35 \u00d7 68.0 mm, 3 bends at R12.0 \u2014 nearest 2.38 mm to elbow-bag-y-d",
         "\u2713 fluid-27: elbow-y-d.free \u2192 y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 24.3 mm, 2 bends at R12.0 \u2014 nearest 1.53 mm to fluid-4",
-        "\u2713 fluid-12: pump-b.P-B-O \u2192 y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 18.1 mm, 2 bends at R6.0 \u2014 nearest 26.69 mm to hopper-funnel",
+        "\u2713 fluid-12: pump-b.P-B-O \u2192 y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 18.3 mm, 2 bends at R5.0 \u2014 nearest 24.16 mm to hopper-funnel",
         "\u2713 fluid-22: pump-a.P-A-O \u2192 y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 35.4 mm, 2 bends at R8.0 \u2014 nearest 15.09 mm to fluid-11",
-        "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 252.4 mm, 8 bends at R6.0 \u2014 nearest 1.94 mm to y-d",
+        "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 253.4 mm, 8 bends at R6.0 \u2014 nearest 1.39 mm to y-d",
         "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 141.8 mm, 5 bends at R10.0 \u2014 nearest 2.69 mm to bag-circuit-assembly",
-        "\u2713 fluid-15: bag-circuit-assembly.Y-E-2 \u2192 foam-assembly.reservoir-A \u2014 \u00d86.35 \u00d7 330.7 mm, 3 bends at R6.0 \u2014 nearest 4.24 mm to water-5",
-        "\u2713 fluid-25: bag-circuit-assembly.Y-H-2 \u2192 foam-assembly.reservoir-B \u2014 \u00d86.35 \u00d7 257.9 mm, 3 bends at R6.0 \u2014 nearest 9.08 mm to source-select-assembly",
-        "\u2713 fluid-18: elbow-noz-a.free \u2192 bulkhead-flavor-a.tube-in \u2014 \u00d86.35 \u00d7 317.8 mm, 8 bends at R7.0 \u2014 nearest 5.65 mm to fluid-28",
-        "\u2713 fluid-28: elbow-noz-b.free \u2192 bulkhead-flavor-b.tube-in \u2014 \u00d86.35 \u00d7 405.9 mm, 8 bends at R7.0 \u2014 nearest 3.55 mm to nozzle-gate-assembly"
+        "\u2713 fluid-15: bag-circuit-assembly.Y-E-2 \u2192 foam-assembly.reservoir-A \u2014 \u00d86.35 \u00d7 335.7 mm, 3 bends at R6.0 \u2014 nearest 4.24 mm to water-5",
+        "\u2713 fluid-25: bag-circuit-assembly.Y-H-2 \u2192 foam-assembly.reservoir-B \u2014 \u00d86.35 \u00d7 262.9 mm, 3 bends at R6.0 \u2014 nearest 9.08 mm to source-select-assembly",
+        "\u2713 fluid-18: elbow-noz-a.free \u2192 bulkhead-flavor-a.tube-in \u2014 \u00d86.35 \u00d7 307.8 mm, 8 bends at R7.0 \u2014 nearest 1.42 mm to flow-regulator",
+        "\u2713 fluid-28: elbow-noz-b.free \u2192 bulkhead-flavor-b.tube-in \u2014 \u00d86.35 \u00d7 395.9 mm, 8 bends at R7.0 \u2014 nearest 3.55 mm to nozzle-gate-assembly"
       ],
       "active": false
     },
@@ -256,10 +258,10 @@
       "label": "Components in a printed holder fastened to the enclosure",
       "kind": "goal",
       "status": "warn",
-      "value": "41% (17/41)",
+      "value": "42% (17/40)",
       "target": "100%",
       "detail": [
-        "17 held (through-wall bodies + display); 24 loose internal parts unheld"
+        "17 held (through-wall bodies + display); 23 loose internal parts unheld"
       ],
       "active": false
     }
@@ -271,8 +273,8 @@
       "kind": "fluid",
       "pos": [
         141.5,
-        200.0,
-        42.0
+        182.0,
+        37.0
       ],
       "face": "y-",
       "diam": 6.35,
@@ -286,8 +288,8 @@
       "kind": "fluid",
       "pos": [
         188.5,
-        200.0,
-        31.0
+        182.0,
+        26.0
       ],
       "face": "y-",
       "diam": 6.35,
@@ -301,8 +303,8 @@
       "kind": "fluid",
       "pos": [
         94.5,
-        200.0,
-        31.0
+        182.0,
+        26.0
       ],
       "face": "y-",
       "diam": 6.35,
@@ -316,13 +318,13 @@
       "kind": "fluid",
       "pos": [
         141.5,
-        217.8,
+        199.8,
         262.9
       ],
       "face": "z+",
       "diam": 6.35,
       "mates": "CO2 chain (WR1110 \u2192 foam-cap top entry)",
-      "status": "ok",
+      "status": "off-surface",
       "note": "1/4\" PTC CO2 line; seats in the \u00d816 foam-cap bore"
     },
     {
@@ -331,8 +333,8 @@
       "kind": "refrigerant",
       "pos": [
         141.5,
-        200.0,
-        72.0
+        182.0,
+        67.0
       ],
       "face": "y-",
       "diam": 6.35,
@@ -346,8 +348,8 @@
       "kind": "refrigerant",
       "pos": [
         141.5,
-        200.0,
-        191.4
+        182.0,
+        186.4
       ],
       "face": "y-",
       "diam": 6.35,
@@ -361,8 +363,8 @@
       "kind": "fluid",
       "pos": [
         141.5,
-        200.0,
-        223.4
+        182.0,
+        218.4
       ],
       "face": "y-",
       "diam": 9.525,
@@ -376,8 +378,8 @@
       "kind": "fluid",
       "pos": [
         141.5,
-        200.0,
-        231.4
+        182.0,
+        226.4
       ],
       "face": "y-",
       "diam": 6.35,
@@ -391,8 +393,8 @@
       "kind": "electrical",
       "pos": [
         201.5,
-        200.0,
-        31.0
+        182.0,
+        26.0
       ],
       "face": "y-",
       "diam": 6.5,
@@ -406,8 +408,8 @@
       "kind": "electrical",
       "pos": [
         81.5,
-        200.0,
-        31.0
+        182.0,
+        26.0
       ],
       "face": "y-",
       "diam": 6.5,
@@ -556,7 +558,7 @@
       "kind": "fluid",
       "pos": [
         231.93,
-        393.5,
+        375.5,
         292.43
       ],
       "face": "y+",
@@ -571,7 +573,7 @@
       "kind": "fluid",
       "pos": [
         231.93,
-        359.2,
+        341.2,
         292.43
       ],
       "face": "y-",
@@ -586,7 +588,7 @@
       "kind": "fluid",
       "pos": [
         202.07,
-        393.5,
+        375.5,
         292.43
       ],
       "face": "y+",
@@ -601,7 +603,7 @@
       "kind": "fluid",
       "pos": [
         202.07,
-        359.2,
+        341.2,
         292.43
       ],
       "face": "y-",
@@ -616,7 +618,7 @@
       "kind": "fluid",
       "pos": [
         217.0,
-        393.5,
+        375.5,
         318.29
       ],
       "face": "y+",
@@ -631,7 +633,7 @@
       "kind": "fluid",
       "pos": [
         217.0,
-        359.2,
+        341.2,
         318.29
       ],
       "face": "y-",
@@ -646,8 +648,8 @@
       "kind": "fluid",
       "pos": [
         56.0,
-        393.5,
-        319.0
+        375.5,
+        314.0
       ],
       "face": "y+",
       "diam": 6.35,
@@ -661,8 +663,8 @@
       "kind": "fluid",
       "pos": [
         56.0,
-        359.2,
-        319.0
+        341.2,
+        314.0
       ],
       "face": "y-",
       "diam": 6.35,
@@ -676,8 +678,8 @@
       "kind": "electrical",
       "pos": [
         22.0,
-        357.0,
-        319.18
+        339.0,
+        314.18
       ],
       "face": "y-",
       "diam": 8.0,
@@ -706,8 +708,8 @@
       "kind": "fluid",
       "pos": [
         66.0,
-        345.5,
-        319.0
+        327.5,
+        314.0
       ],
       "face": "x-",
       "diam": 6.35,
@@ -721,8 +723,8 @@
       "kind": "fluid",
       "pos": [
         206.0,
-        345.5,
-        319.0
+        327.5,
+        314.0
       ],
       "face": "x+",
       "diam": 6.35,
@@ -736,8 +738,8 @@
       "kind": "fluid",
       "pos": [
         134.0,
-        366.006,
-        298.494
+        348.006,
+        293.494
       ],
       "face": "z-",
       "diam": 6.35,
@@ -751,8 +753,8 @@
       "kind": "fluid",
       "pos": [
         264.0,
-        372.0,
-        290.4
+        354.0,
+        285.4
       ],
       "face": "y+",
       "diam": 6.35,
@@ -766,8 +768,8 @@
       "kind": "fluid",
       "pos": [
         264.0,
-        313.0,
-        290.4
+        295.0,
+        285.4
       ],
       "face": "y-",
       "diam": 6.35,
@@ -781,8 +783,8 @@
       "kind": "fluid",
       "pos": [
         236.93,
-        345.5,
-        265.4
+        327.5,
+        260.4
       ],
       "face": "x-",
       "diam": 6.35,
@@ -796,8 +798,8 @@
       "kind": "fluid",
       "pos": [
         257.0,
-        365.57,
-        265.4
+        347.57,
+        260.4
       ],
       "face": "y+",
       "diam": 6.35,
@@ -811,8 +813,8 @@
       "kind": "fluid",
       "pos": [
         277.07,
-        345.5,
-        265.4
+        327.5,
+        260.4
       ],
       "face": "x+",
       "diam": 6.35,
@@ -826,8 +828,8 @@
       "kind": "fluid",
       "pos": [
         271.329,
-        224.995,
-        265.4
+        206.995,
+        260.4
       ],
       "face": "y+",
       "diam": 6.35,
@@ -841,8 +843,8 @@
       "kind": "fluid",
       "pos": [
         271.329,
-        178.995,
-        265.4
+        160.995,
+        260.4
       ],
       "face": "y-",
       "diam": 6.35,
@@ -856,8 +858,8 @@
       "kind": "fluid",
       "pos": [
         226.1,
-        289.0,
-        290.4
+        271.0,
+        285.4
       ],
       "face": "y+",
       "diam": 6.35,
@@ -871,8 +873,8 @@
       "kind": "fluid",
       "pos": [
         226.1,
-        209.0,
-        290.4
+        191.0,
+        285.4
       ],
       "face": "y-",
       "diam": 15.1,
@@ -886,8 +888,8 @@
       "kind": "fluid",
       "pos": [
         226.1,
-        190.0,
-        270.0
+        172.0,
+        265.0
       ],
       "face": "z+",
       "diam": 15.1,
@@ -901,8 +903,8 @@
       "kind": "fluid",
       "pos": [
         226.1,
-        190.0,
-        186.6
+        172.0,
+        181.6
       ],
       "face": "z-",
       "diam": 6.35,
@@ -916,8 +918,8 @@
       "kind": "fluid",
       "pos": [
         193.75,
-        92.5,
-        284.78
+        74.5,
+        284.779
       ],
       "face": "z-",
       "diam": 6.35,
@@ -931,7 +933,7 @@
       "kind": "fluid",
       "pos": [
         271.329,
-        172.275,
+        154.275,
         198.66
       ],
       "face": [
@@ -950,7 +952,7 @@
       "kind": "fluid",
       "pos": [
         271.329,
-        98.825,
+        80.825,
         198.66
       ],
       "face": [
@@ -969,7 +971,7 @@
       "kind": "fluid",
       "pos": [
         13.398,
-        102.676,
+        84.676,
         198.235
       ],
       "face": [
@@ -988,7 +990,7 @@
       "kind": "fluid",
       "pos": [
         13.398,
-        168.424,
+        150.424,
         198.235
       ],
       "face": [
@@ -1007,7 +1009,7 @@
       "kind": "fluid",
       "pos": [
         189.214,
-        118.425,
+        100.425,
         273.1
       ],
       "face": [
@@ -1026,7 +1028,7 @@
       "kind": "fluid",
       "pos": [
         189.214,
-        152.675,
+        134.675,
         273.1
       ],
       "face": [
@@ -1045,7 +1047,7 @@
       "kind": "fluid",
       "pos": [
         11.514,
-        114.369,
+        96.369,
         253.965
       ],
       "face": [
@@ -1064,7 +1066,7 @@
       "kind": "fluid",
       "pos": [
         11.514,
-        156.731,
+        138.731,
         253.965
       ],
       "face": [
@@ -1083,7 +1085,7 @@
       "kind": "fluid",
       "pos": [
         110.144,
-        129.058,
+        111.058,
         256.083
       ],
       "face": [
@@ -1102,7 +1104,7 @@
       "kind": "fluid",
       "pos": [
         110.144,
-        163.308,
+        145.308,
         256.083
       ],
       "face": [
@@ -1121,7 +1123,7 @@
       "kind": "fluid",
       "pos": [
         208.64,
-        152.675,
+        134.675,
         240.4
       ],
       "face": [
@@ -1140,7 +1142,7 @@
       "kind": "fluid",
       "pos": [
         208.64,
-        118.425,
+        100.425,
         240.4
       ],
       "face": [
@@ -1159,7 +1161,7 @@
       "kind": "fluid",
       "pos": [
         267.64,
-        152.675,
+        134.675,
         240.4
       ],
       "face": [
@@ -1178,7 +1180,7 @@
       "kind": "fluid",
       "pos": [
         267.64,
-        118.425,
+        100.425,
         240.4
       ],
       "face": [
@@ -1197,7 +1199,7 @@
       "kind": "fluid",
       "pos": [
         98.56,
-        89.5,
+        71.5,
         278.17
       ],
       "face": [
@@ -1216,7 +1218,7 @@
       "kind": "fluid",
       "pos": [
         137.196,
-        28.174,
+        10.174,
         278.17
       ],
       "face": [
@@ -1235,7 +1237,7 @@
       "kind": "fluid",
       "pos": [
         232.619,
-        85.698,
+        71.738,
         278.17
       ],
       "face": [
@@ -1254,7 +1256,7 @@
       "kind": "fluid",
       "pos": [
         234.436,
-        32.414,
+        18.454,
         278.17
       ],
       "face": [
@@ -1273,7 +1275,7 @@
       "kind": "fluid",
       "pos": [
         12.888,
-        105.84,
+        87.84,
         213.316
       ],
       "face": [
@@ -1292,7 +1294,7 @@
       "kind": "fluid",
       "pos": [
         11.561,
-        114.078,
+        96.078,
         252.579
       ],
       "face": [
@@ -1311,7 +1313,7 @@
       "kind": "fluid",
       "pos": [
         12.225,
-        90.32,
+        72.32,
         237.067
       ],
       "face": [
@@ -1330,7 +1332,7 @@
       "kind": "fluid",
       "pos": [
         13.119,
-        166.697,
+        148.697,
         206.468
       ],
       "face": [
@@ -1349,7 +1351,7 @@
       "kind": "fluid",
       "pos": [
         11.792,
-        158.459,
+        140.459,
         245.732
       ],
       "face": [
@@ -1368,7 +1370,7 @@
       "kind": "fluid",
       "pos": [
         23.959,
-        146.413,
+        128.413,
         223.097
       ],
       "face": [
@@ -1386,14 +1388,14 @@
       "name": "Y-D-1",
       "kind": "fluid",
       "pos": [
-        222.659,
-        41.005,
-        270.096
+        222.834,
+        27.367,
+        270.237
       ],
       "face": [
-        0.44982933109409146,
-        -0.8828782977068197,
-        0.13483131804499493
+        0.45889211858367773,
+        -0.8770401252157102,
+        0.1421922721648241
       ],
       "diam": 6.35,
       "mates": "pump-b P-B-O \u2014 segment 12 (channel A discharge, routed)",
@@ -1405,14 +1407,14 @@
       "name": "Y-D-2",
       "kind": "fluid",
       "pos": [
-        204.891,
-        75.878,
-        272.187
+        204.682,
+        62.059,
+        272.038
       ],
       "face": [
-        -0.44982933109409146,
-        0.8828782977068197,
-        -0.13483131804499493
+        -0.45889211858367773,
+        0.8770401252157102,
+        -0.1421922721648241
       ],
       "diam": 6.35,
       "mates": "elbow-bag-y-d free \u2014 segment 13 (routed)",
@@ -1424,14 +1426,14 @@
       "name": "Y-D-3",
       "kind": "fluid",
       "pos": [
-        205.791,
-        74.112,
-        257.622
+        205.651,
+        60.207,
+        257.487
       ],
       "face": [
-        -0.44982933109409146,
-        0.8828782977068197,
-        -0.13483131804499493
+        -0.45889211858367773,
+        0.8770401252157102,
+        -0.1421922721648241
       ],
       "diam": 6.35,
       "mates": "elbow-y-g free \u2014 segment 17 (routed)",
@@ -1444,7 +1446,7 @@
       "kind": "fluid",
       "pos": [
         160.226,
-        48.239,
+        30.239,
         268.314
       ],
       "face": [
@@ -1463,7 +1465,7 @@
       "kind": "fluid",
       "pos": [
         176.072,
-        83.989,
+        65.989,
         270.983
       ],
       "face": [
@@ -1482,7 +1484,7 @@
       "kind": "fluid",
       "pos": [
         175.356,
-        82.373,
+        64.373,
         256.389
       ],
       "face": [
@@ -1501,13 +1503,13 @@
       "kind": "fluid",
       "pos": [
         210.774,
-        98.869,
-        272.681
+        80.872,
+        272.559
       ],
       "face": [
         0.0,
-        -0.9997700308298255,
-        -0.021444940068225046
+        -0.9996171905252652,
+        -0.027667171998160534
       ],
       "diam": 6.35,
       "mates": "y-d Y-D-2 \u2014 segment 13 (routed)",
@@ -1520,13 +1522,13 @@
       "kind": "fluid",
       "pos": [
         187.08,
-        136.529,
-        251.441
+        118.637,
+        251.598
       ],
       "face": [
         0.0,
-        -0.8254666193947464,
-        0.564450936986563
+        -0.8199179716518166,
+        0.572481021311948
       ],
       "diam": 6.35,
       "mates": "y-d Y-D-3 \u2014 segment 17 (routed)",
@@ -1539,7 +1541,7 @@
       "kind": "fluid",
       "pos": [
         210.774,
-        133.634,
+        115.634,
         277.578
       ],
       "face": [
@@ -1558,7 +1560,7 @@
       "kind": "fluid",
       "pos": [
         187.08,
-        100.545,
+        82.545,
         248.33
       ],
       "face": [
@@ -1577,7 +1579,7 @@
       "kind": "fluid",
       "pos": [
         289.2,
-        152.675,
+        134.675,
         259.96
       ],
       "face": [
@@ -1596,7 +1598,7 @@
       "kind": "fluid",
       "pos": [
         289.2,
-        118.425,
+        100.425,
         259.96
       ],
       "face": [
@@ -1630,8 +1632,8 @@
       "kind": "electrical",
       "pos": [
         18.0,
-        223.62,
-        262.0
+        205.62,
+        257.0
       ],
       "face": "z+",
       "diam": 10.0,
@@ -1645,8 +1647,8 @@
       "kind": "electrical",
       "pos": [
         18.0,
-        245.87,
-        262.0
+        227.87,
+        257.0
       ],
       "face": "z+",
       "diam": 8.0,
@@ -1660,8 +1662,8 @@
       "kind": "electrical",
       "pos": [
         81.25,
-        270.4,
-        262.0
+        252.4,
+        257.0
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1675,8 +1677,8 @@
       "kind": "electrical",
       "pos": [
         64.0,
-        270.4,
-        262.0
+        252.4,
+        257.0
       ],
       "face": "z+",
       "diam": 8.0,
@@ -1690,8 +1692,8 @@
       "kind": "electrical",
       "pos": [
         70.95,
-        209.1,
-        262.0
+        191.1,
+        257.0
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1705,8 +1707,8 @@
       "kind": "electrical",
       "pos": [
         56.1,
-        209.1,
-        262.0
+        191.1,
+        257.0
       ],
       "face": "z+",
       "diam": 7.0,
@@ -1720,8 +1722,8 @@
       "kind": "electrical",
       "pos": [
         29.5,
-        270.4,
-        262.0
+        252.4,
+        257.0
       ],
       "face": "z+",
       "diam": 8.0,
@@ -1735,8 +1737,8 @@
       "kind": "electrical",
       "pos": [
         27.7,
-        209.1,
-        262.0
+        191.1,
+        257.0
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1750,8 +1752,8 @@
       "kind": "electrical",
       "pos": [
         46.75,
-        270.4,
-        262.0
+        252.4,
+        257.0
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1765,8 +1767,8 @@
       "kind": "electrical",
       "pos": [
         16.65,
-        261.6,
-        262.0
+        243.6,
+        257.0
       ],
       "face": "z+",
       "diam": 5.0,
@@ -1780,8 +1782,8 @@
       "kind": "electrical",
       "pos": [
         91.0,
-        263.95,
-        262.0
+        245.95,
+        257.0
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1795,8 +1797,8 @@
       "kind": "electrical",
       "pos": [
         41.25,
-        209.1,
-        262.0
+        191.1,
+        257.0
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1810,8 +1812,8 @@
       "kind": "electrical",
       "pos": [
         91.0,
-        223.6,
-        262.0
+        205.6,
+        257.0
       ],
       "face": "z+",
       "diam": 9.0,
@@ -1825,8 +1827,8 @@
       "kind": "electrical",
       "pos": [
         24.4,
-        288.1,
-        283.0
+        270.1,
+        278.0
       ],
       "face": "z+",
       "diam": 8.0,
@@ -1840,8 +1842,8 @@
       "kind": "electrical",
       "pos": [
         49.5,
-        288.1,
-        283.0
+        270.1,
+        278.0
       ],
       "face": "z+",
       "diam": 8.0,
@@ -1855,8 +1857,8 @@
       "kind": "electrical",
       "pos": [
         74.6,
-        288.1,
-        283.0
+        270.1,
+        278.0
       ],
       "face": "z+",
       "diam": 8.0,
@@ -1870,8 +1872,8 @@
       "kind": "electrical",
       "pos": [
         65.0,
-        312.6,
-        272.9
+        294.6,
+        267.9
       ],
       "face": "z+",
       "diam": 8.0,
@@ -1885,8 +1887,8 @@
       "kind": "electrical",
       "pos": [
         14.0,
-        312.6,
-        272.9
+        294.6,
+        267.9
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1900,8 +1902,8 @@
       "kind": "electrical",
       "pos": [
         88.0,
-        312.6,
-        271.2
+        294.6,
+        266.2
       ],
       "face": "z+",
       "diam": 10.0,
@@ -1960,8 +1962,8 @@
       "kind": "electrical",
       "pos": [
         8.0,
-        349.0,
-        272.1
+        331.0,
+        267.1
       ],
       "face": "z+",
       "diam": 10.0,
@@ -1975,8 +1977,8 @@
       "kind": "electrical",
       "pos": [
         105.0,
-        349.0,
-        272.1
+        331.0,
+        267.1
       ],
       "face": "z+",
       "diam": 8.0,
@@ -1991,35 +1993,35 @@
       "boxes": [
         [
           0.5,
-          278.75,
-          261.4,
+          260.75,
+          256.4,
           98.5,
-          297.45,
-          273.7
+          279.45,
+          268.7
         ],
         [
           65.2,
-          283.9,
-          264.4,
+          265.9,
+          259.4,
           84.0,
-          292.3,
-          283.0
+          274.3,
+          278.0
         ],
         [
           15.0,
-          283.9,
-          264.4,
+          265.9,
+          259.4,
           33.8,
-          292.3,
-          283.0
+          274.3,
+          278.0
         ],
         [
           40.1,
-          283.9,
-          264.4,
+          265.9,
+          259.4,
           58.9,
-          292.3,
-          283.0
+          274.3,
+          278.0
         ]
       ],
       "fill": 0.6305,
@@ -2031,51 +2033,51 @@
       "boxes": [
         [
           102.0,
-          329.562,
-          297.08,
+          311.562,
+          292.08,
           167.0,
-          367.42,
-          334.938
+          349.42,
+          329.938
         ],
         [
           129.235,
-          352.235,
-          295.125,
+          334.235,
+          290.125,
           138.765,
-          369.375,
-          312.265
+          351.375,
+          307.265
         ],
         [
           66.0,
-          337.531,
-          311.031,
+          319.531,
+          306.031,
           95.5,
-          353.469,
-          326.969
+          335.469,
+          321.969
         ],
         [
           167.0,
-          336.75,
-          310.25,
+          318.75,
+          305.25,
           206.0,
-          354.25,
-          327.75
+          336.25,
+          322.75
         ],
         [
           153.0,
-          334.875,
-          308.375,
+          316.875,
+          303.375,
           167.0,
-          356.125,
-          329.625
+          338.125,
+          324.625
         ],
         [
           84.5,
-          333.102,
-          306.602,
+          315.102,
+          301.602,
           115.0,
-          357.898,
-          331.398
+          339.898,
+          326.398
         ]
       ],
       "fill": 0.3969,
@@ -2087,74 +2089,74 @@
       "boxes": [
         [
           90.078,
-          111.567,
+          93.567,
           253.244,
           130.21,
-          133.716,
+          115.716,
           279.958
         ],
         [
           41.774,
-          98.3,
+          80.3,
           226.1,
           178.514,
-          172.8,
+          154.8,
           287.4
         ],
         [
           4.148,
-          108.081,
+          90.081,
           252.875,
           31.072,
-          125.791,
+          107.791,
           280.466
         ],
         [
           4.148,
-          145.309,
+          127.309,
           252.875,
           31.072,
-          163.019,
+          145.019,
           280.466
         ],
         [
           130.214,
-          101.3,
+          83.3,
           227.8,
           189.214,
-          135.55,
+          117.55,
           284.4
         ],
         [
           31.074,
-          135.55,
+          117.55,
           227.8,
           90.074,
-          169.8,
+          151.8,
           284.4
         ],
         [
           90.078,
-          145.817,
+          127.817,
           253.244,
           130.21,
-          167.966,
+          149.966,
           279.958
         ],
         [
           31.074,
-          101.3,
+          83.3,
           227.8,
           90.074,
-          135.55,
+          117.55,
           284.4
         ],
         [
           130.214,
-          135.55,
+          117.55,
           227.8,
           189.214,
-          169.8,
+          151.8,
           284.4
         ]
       ],
@@ -2167,10 +2169,10 @@
       "boxes": [
         [
           205.57,
-          362.21,
+          344.21,
           306.86,
           228.43,
-          396.5,
+          378.5,
           329.72
         ]
       ],
@@ -2183,10 +2185,10 @@
       "boxes": [
         [
           220.5,
-          362.21,
+          344.21,
           281.0,
           243.36,
-          396.5,
+          378.5,
           303.86
         ]
       ],
@@ -2199,10 +2201,10 @@
       "boxes": [
         [
           190.64,
-          362.21,
+          344.21,
           281.0,
           213.5,
-          396.5,
+          378.5,
           303.86
         ]
       ],
@@ -2215,11 +2217,11 @@
       "boxes": [
         [
           44.57,
-          362.21,
-          307.57,
+          344.21,
+          302.57,
           67.43,
-          396.5,
-          330.43
+          378.5,
+          325.43
         ]
       ],
       "fill": 0.4633,
@@ -2231,11 +2233,11 @@
       "boxes": [
         [
           6.75,
-          360.0,
-          307.43,
+          342.0,
+          302.43,
           37.25,
-          398.0,
-          330.93
+          380.0,
+          325.93
         ]
       ],
       "fill": 0.5669,
@@ -2255,38 +2257,6 @@
         ]
       ],
       "fill": 0.6693,
-      "primitive": false,
-      "declared": "real"
-    },
-    {
-      "component": "cold-core-ring",
-      "boxes": [
-        [
-          20.0,
-          196.5,
-          0.0,
-          80.0,
-          199.5,
-          13.0
-        ],
-        [
-          -13.5,
-          200.0,
-          0.0,
-          296.5,
-          381.0,
-          5.0
-        ],
-        [
-          203.0,
-          196.5,
-          0.0,
-          263.0,
-          199.5,
-          13.0
-        ]
-      ],
-      "fill": 0.3522,
       "primitive": false,
       "declared": "real"
     },
@@ -2327,11 +2297,11 @@
       "boxes": [
         [
           217.6,
-          181.5,
-          186.6,
+          163.5,
+          181.6,
           234.6,
-          198.5,
-          270.0
+          180.5,
+          265.0
         ]
       ],
       "fill": 0.5954,
@@ -2344,18 +2314,18 @@
         [
           -14.0,
           -3.879,
-          281.424,
+          277.444,
           99.5,
           51.276,
-          336.579
+          332.598
         ],
         [
           -9.75,
           -1.05,
-          271.525,
+          267.544,
           96.25,
           59.761,
-          332.336
+          328.356
         ]
       ],
       "fill": 0.1805,
@@ -2367,11 +2337,11 @@
       "boxes": [
         [
           120.0,
-          305.0,
-          276.1,
+          287.0,
+          271.1,
           184.0,
-          381.0,
-          291.1
+          363.0,
+          286.1
         ]
       ],
       "fill": 0.3103,
@@ -2383,19 +2353,19 @@
       "boxes": [
         [
           180.3,
-          302.0,
-          258.4,
+          284.0,
+          253.4,
           187.3,
-          381.0,
-          282.1
+          363.0,
+          277.1
         ],
         [
           116.7,
-          302.0,
-          258.4,
+          284.0,
+          253.4,
           123.7,
-          381.0,
-          282.1
+          363.0,
+          277.1
         ]
       ],
       "fill": 0.5305,
@@ -2407,14 +2377,14 @@
       "boxes": [
         [
           191.216,
-          98.76,
-          265.412,
+          80.73,
+          265.319,
           218.14,
-          125.791,
+          107.791,
           280.466
         ]
       ],
-      "fill": 0.3573,
+      "fill": 0.3547,
       "primitive": false,
       "declared": "real"
     },
@@ -2423,10 +2393,10 @@
       "boxes": [
         [
           191.216,
-          132.429,
+          114.429,
           265.734,
           218.14,
-          160.041,
+          142.041,
           283.736
         ]
       ],
@@ -2439,10 +2409,10 @@
       "boxes": [
         [
           269.642,
-          145.309,
+          127.309,
           233.034,
           296.566,
-          160.041,
+          142.041,
           259.958
         ]
       ],
@@ -2455,10 +2425,10 @@
       "boxes": [
         [
           269.642,
-          111.059,
+          93.059,
           233.034,
           296.566,
-          125.791,
+          107.791,
           259.958
         ]
       ],
@@ -2471,10 +2441,10 @@
       "boxes": [
         [
           179.714,
-          98.389,
+          80.389,
           233.034,
           206.638,
-          125.791,
+          107.791,
           253.394
         ]
       ],
@@ -2487,14 +2457,14 @@
       "boxes": [
         [
           179.714,
-          133.5,
+          115.564,
           233.034,
           206.638,
-          160.041,
-          255.962
+          142.041,
+          256.086
         ]
       ],
-      "fill": 0.2389,
+      "fill": 0.2382,
       "primitive": false,
       "declared": "real"
     },
@@ -2503,11 +2473,11 @@
       "boxes": [
         [
           263.968,
-          178.995,
-          258.4,
+          160.995,
+          253.4,
           278.69,
-          224.995,
-          299.4
+          206.995,
+          294.4
         ]
       ],
       "fill": 0.3799,
@@ -2519,46 +2489,46 @@
       "boxes": [
         [
           0.0,
-          200.0,
-          5.0,
+          182.0,
+          233.4,
           283.0,
-          381.0,
-          7.0
+          363.0,
+          261.4
         ],
         [
           0.0,
-          200.0,
-          25.0,
+          182.0,
+          20.0,
           283.0,
-          381.0,
-          238.4
+          363.0,
+          233.4
         ],
         [
           0.0,
-          200.0,
-          7.0,
+          182.0,
+          0.0,
           283.0,
-          381.0,
-          25.0
+          363.0,
+          5.2
         ],
         [
           0.0,
-          200.0,
-          238.4,
+          182.0,
+          248.2,
           283.0,
-          381.0,
-          266.4
+          363.0,
+          253.4
         ],
         [
           0.0,
-          200.0,
-          256.4,
+          182.0,
+          2.0,
           283.0,
-          381.0,
-          258.4
+          363.0,
+          20.0
         ]
       ],
-      "fill": 0.1123,
+      "fill": 0.1096,
       "primitive": false,
       "declared": "real"
     },
@@ -2567,11 +2537,11 @@
       "boxes": [
         [
           79.0,
-          303.756,
-          260.4,
+          285.756,
+          255.4,
           97.0,
-          321.444,
-          275.0
+          303.444,
+          270.0
         ]
       ],
       "fill": 0.1821,
@@ -2583,14 +2553,14 @@
       "boxes": [
         [
           112.5,
-          12.0,
-          288.759,
+          6.5,
+          284.779,
           275.0,
-          173.0,
-          341.7
+          142.5,
+          337.72
         ]
       ],
-      "fill": 0.0559,
+      "fill": 0.0606,
       "primitive": false,
       "declared": "real"
     },
@@ -2615,26 +2585,26 @@
       "boxes": [
         [
           208.64,
-          135.55,
+          117.55,
           229.1,
           267.64,
-          169.8,
+          151.8,
           285.7
         ],
         [
           208.64,
-          101.3,
+          83.3,
           229.1,
           267.64,
-          135.55,
+          117.55,
           285.7
         ],
         [
           219.34,
-          98.3,
+          80.3,
           226.1,
           256.94,
-          172.8,
+          154.8,
           285.7
         ]
       ],
@@ -2647,11 +2617,11 @@
       "boxes": [
         [
           12.0,
-          203.6,
-          260.4,
+          185.6,
+          255.4,
           102.816,
-          276.4,
-          279.5
+          258.4,
+          274.5
         ]
       ],
       "fill": 0.2396,
@@ -2663,11 +2633,11 @@
       "boxes": [
         [
           2.0,
-          323.0,
-          258.4,
+          305.0,
+          253.4,
           111.0,
-          375.0,
-          291.9
+          357.0,
+          286.9
         ]
       ],
       "fill": 0.8199,
@@ -2679,42 +2649,42 @@
       "boxes": [
         [
           89.62,
-          29.695,
+          11.695,
           194.005,
           138.5,
-          92.305,
+          74.305,
           256.615
         ],
         [
           68.62,
-          34.5,
+          16.5,
           198.81,
           89.62,
-          87.5,
+          69.5,
           251.81
         ],
         [
           98.562,
-          82.134,
+          64.134,
           256.615,
           125.486,
-          96.866,
+          78.866,
           283.539
         ],
         [
           11.62,
-          43.135,
+          25.135,
           207.445,
           68.62,
-          78.865,
+          60.865,
           243.175
         ],
         [
           110.754,
-          21.969,
+          3.969,
           256.615,
           138.359,
-          39.866,
+          21.866,
           283.539
         ]
       ],
@@ -2727,42 +2697,42 @@
       "boxes": [
         [
           222.5,
-          19.205,
+          5.245,
           196.005,
           271.38,
-          81.815,
+          67.855,
           258.615
         ],
         [
           201.5,
-          24.01,
+          10.05,
           200.81,
           222.5,
-          77.01,
+          63.05,
           253.81
         ],
         [
           144.5,
-          32.645,
+          18.685,
           209.445,
           201.5,
-          68.375,
+          54.415,
           245.175
         ],
         [
           231.588,
-          14.644,
+          0.684,
           258.615,
           258.366,
-          37.063,
+          23.103,
           285.539
         ],
         [
           230.808,
-          71.644,
+          57.684,
           258.615,
           258.366,
-          91.117,
+          77.157,
           285.539
         ]
       ],
@@ -2775,11 +2745,11 @@
       "boxes": [
         [
           5.0,
-          304.1,
-          259.4,
+          286.1,
+          254.4,
           75.0,
-          321.1,
-          278.4
+          303.1,
+          273.4
         ]
       ],
       "fill": 0.4287,
@@ -2791,11 +2761,11 @@
       "boxes": [
         [
           96.0,
-          200.0,
-          258.4,
+          182.0,
+          253.4,
           283.0,
-          298.0,
-          330.4
+          280.0,
+          325.4
         ]
       ],
       "fill": 0.4131,
@@ -2807,90 +2777,90 @@
       "boxes": [
         [
           30.887,
-          92.906,
+          74.906,
           167.8,
           91.613,
-          135.55,
+          117.55,
           224.4
         ],
         [
           30.887,
-          135.55,
+          117.55,
           167.8,
           91.613,
-          178.194,
+          160.194,
           224.4
         ],
         [
           6.338,
-          160.523,
+          142.523,
           171.734,
           34.903,
-          178.083,
+          160.083,
           199.325
         ],
         [
           6.338,
-          93.017,
+          75.017,
           171.734,
           34.903,
-          110.577,
+          92.577,
           199.325
         ],
         [
           144.0,
-          120.1,
+          102.1,
           171.0,
           182.5,
-          151.0,
+          133.0,
           187.2
         ],
         [
           103.5,
-          120.1,
+          102.1,
           171.0,
           142.0,
-          151.0,
+          133.0,
           187.2
         ],
         [
           251.097,
-          160.523,
+          142.523,
           171.734,
           278.695,
-          179.641,
+          161.641,
           198.658
         ],
         [
           194.387,
-          135.55,
+          117.55,
           167.8,
           255.113,
-          178.194,
+          160.194,
           224.4
         ],
         [
           194.387,
-          92.906,
+          74.906,
           167.8,
           255.113,
-          135.55,
+          117.55,
           224.4
         ],
         [
           39.237,
-          89.109,
+          71.109,
           164.8,
           246.763,
-          181.991,
+          163.991,
           226.1
         ],
         [
           251.097,
-          91.459,
+          73.459,
           171.734,
           278.695,
-          110.577,
+          92.577,
           198.658
         ]
       ],
@@ -2903,10 +2873,10 @@
       "boxes": [
         [
           4.819,
-          89.239,
+          71.239,
           212.131,
           19.63,
-          120.099,
+          102.099,
           253.67
         ]
       ],
@@ -2919,10 +2889,10 @@
       "boxes": [
         [
           5.05,
-          143.226,
+          125.226,
           205.284,
           28.445,
-          172.718,
+          154.718,
           246.823
         ]
       ],
@@ -2935,11 +2905,11 @@
       "boxes": [
         [
           246.875,
-          313.0,
-          279.1,
+          295.0,
+          274.1,
           281.125,
-          372.0,
-          335.7
+          354.0,
+          330.7
         ]
       ],
       "fill": 0.434,
@@ -2951,11 +2921,11 @@
       "boxes": [
         [
           236.93,
-          338.5,
-          258.4,
+          320.5,
+          253.4,
           277.07,
-          365.57,
-          272.4
+          347.57,
+          267.4
         ]
       ],
       "fill": 0.5603,
@@ -2966,15 +2936,15 @@
       "component": "y-d",
       "boxes": [
         [
-          199.456,
-          38.497,
-          250.135,
-          228.094,
-          78.386,
-          282.416
+          199.321,
+          24.8,
+          250.039,
+          228.195,
+          64.626,
+          282.379
         ]
       ],
-      "fill": 0.2248,
+      "fill": 0.2229,
       "primitive": false,
       "declared": "real"
     },
@@ -2983,10 +2953,10 @@
       "boxes": [
         [
           154.419,
-          46.003,
+          28.003,
           248.829,
           181.879,
-          86.225,
+          68.225,
           280.987
         ]
       ],
