@@ -220,26 +220,49 @@ hard part, and that asymmetry is why this document exists.
 5. **Never report a bare impossibility.** Say what would have to move and what moving it
    costs. "No" is not an answer here. "No, unless X moves, which costs Y" is.
 
-## The artifact that already does this
+## The artifact that does this for you
 
-Two of this repo's three bounded scans already refuse to fence.
+This repo's three bounded scans refuse to fence. A limit you read off one arrives with the
+box attached, so step 4 above is already done by the time you quote it.
 
 `probe.cast` runs out of length and reports its own limit rather than a clearance:
 
 > Ø6.35 reached the 250 mm cast limit with no contact — raise limit= to find one
 
-`CLAUDE.md` states why: *"because its length is a property of the probe and not a
-clearance."*
+`Contact` states why: *"when nothing was hit, `free` is the cast limit, which is a fact about
+the probe and not about the geometry."*
 
 `fit.slab` will not accept an arbitrary field silently. Given no `x`/`y` it derives them from
 the enclosure's own cavity — `_interior`, *"the default field for a slab, so a scan reports
-room inside the machine rather than the air around it"* — and it prints the Z band and grid
-step it worked on.
+room inside the machine rather than the air around it"* — and every answer carries the Z
+band, the grid step, the field and where the field came from, which bodies were measured
+exactly, which were held out, and whether the largest rectangle runs to the edge of a field
+the caller supplied:
 
-`fit.search` is the exception. It takes every range from its caller, defaults nothing, and
-prints *"N free of M poses at clearance C mm, best room R mm"*: the grid it ranged over, and
-whether the winning pose sits on a bound the caller supplied, are facts it holds and does not
-say. It is the call that produced the 4.85 mm.
+>     free in z[0.0,10.0] on a 5.0×5.0 mm grid — 2 rectangle(s)
+>       field  x[0.0,100.0] y[0.0,120.0] as given
+>       bodies  1 by bounding box, none exact  holding out: bar
+>       largest reaches x low, x high, y low of the field you gave — widen and re-run
+
+That last line is the boundary tell, raised by the instrument instead of by Derek. The
+`holding out` clause is the bystander tell: the 8000 mm² it just called free is free of a
+body somebody chose not to measure.
+
+`fit.search` states its `Box` before its answer — every range, every axis pinned to one
+value, the anchor, the bodies held out — and names the ends the best pose sits on. A search
+that finds nothing reports the room it looked in:
+
+>     0 free of 65 poses at clearance 1 mm
+>       box  x[-14,60] step 6 (13)  y[176,200] step 6 (5)  fixed: z=267.5 yaw{90} pitch{0} roll{0}  anchor=bbmin
+>       nothing outside this box was tested
+
+One height, one yaw, flat: the frozen first draft, in the answer, where Derek can veto it in
+seconds. `fit.py selftest` holds the controls — that a best pose on an end says so, that an
+axis pinned to one value is never an end, that a rotation tiling the circle has no end to
+widen, and that a search finding nothing still carries its box.
+
+Three scans is not every bound you will choose. A sweep you write by hand in a scratch
+script has no instrument behind it, and the tells above are all you have.
 
 ## What this document is
 
