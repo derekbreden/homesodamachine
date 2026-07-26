@@ -1,17 +1,17 @@
 {
   "gatesPass": true,
-  "placed": 55,
+  "placed": 56,
   "located": 93,
   "shaped": 98,
-  "routed": 43,
-  "held": 43,
+  "routed": 44,
+  "held": 42,
   "checks": [
     {
       "id": "coverage",
       "label": "Every placed part declared in the registry",
       "kind": "gate",
       "status": "pass",
-      "value": "42/42 placed declared",
+      "value": "43/43 placed declared",
       "target": "all declared",
       "detail": [],
       "active": true
@@ -108,8 +108,8 @@
       "label": "Every component is a selected real part / finished print",
       "kind": "gate",
       "status": "pass",
-      "value": "42/42",
-      "target": "42/42",
+      "value": "43/43",
+      "target": "43/43",
       "detail": [],
       "active": true
     },
@@ -118,7 +118,7 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "55% (23/42)",
+      "value": "56% (24/43)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 3.0 x- 14.0 x+ 14.0 z- 0.0 mm",
@@ -142,6 +142,7 @@
         "\u2713 drip-pan-rails: near foam-assembly 0.0 near drip-pan 0.0 clear seaflo-pump 4.0 mm",
         "\u2713 vk-fill-valve: near water-split 6.7 clear seaflo-pump 34.8 clear asse1022-assembly 40.9 clear foam-assembly 20.7 mm",
         "\u2713 flow-regulator: near source-select-assembly 38.5 clear seaflo-pump 2.0 mm",
+        "\u2713 digiten-flow: clear bag-circuit-assembly 11.2 clear foam-assembly 33.6 clear seaflo-pump 11.6 clear hopper-funnel 30.5 mm",
         "\u2713 gasher-co2: near co2-inlet 0.0 clear compressor-shroud 9.8 mm",
         "\u2713 wr1110: clear compressor-shroud 8.0 clear pump-a 12.9 clear pump-b 28.8 clear source-select-assembly 6.7 mm",
         "19 components: no placement rules defined yet"
@@ -153,11 +154,11 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "93% (39/42)",
+      "value": "93% (40/43)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
-        "    \u2013 foam-assembly:carb-water-out (fluid) (141.5, 182, 37) y- \u00d86.35 \u2192 dispense faucet (carb-water riser to the rear umbilical)",
+        "    \u2013 foam-assembly:carb-water-out (fluid) (141.5, 182, 37) y- \u00d86.35 \u2192 digiten-flow inlet \u2014 segment carb-1 (routed)",
         "    \u2013 foam-assembly:reservoir-A (fluid) (188.5, 182, 26) y- \u00d86.35 \u2192 reservoir A \u2194 peristaltic pump A (bag circuit)",
         "    \u2013 foam-assembly:reservoir-B (fluid) (94.5, 182, 26) y- \u00d86.35 \u2192 reservoir B \u2194 peristaltic pump B (bag circuit)",
         "    \u2013 foam-assembly:co2-in (fluid) (160.55, 182, 37) y- \u00d86.35 \u2192 CO2 chain (WR1110 \u2192 the vessel's bottom-plate CO2 elbow)",
@@ -193,7 +194,7 @@
         "    \u2013 bulkhead-flavor-b:tube-in (fluid) (202.07, 341.2, 292.43) y- \u00d86.35 \u2192 flavor B internal line (bag/pump circuit B)",
         "\u2713 bulkhead-carb: 2/2 connectors located",
         "    \u2013 bulkhead-carb:tube-out (fluid) (217, 375.5, 318.29) y+ \u00d86.35 \u2192 carbonated-water line (rear umbilical / faucet)",
-        "    \u2013 bulkhead-carb:tube-in (fluid) (217, 341.2, 318.29) y- \u00d86.35 \u2192 carb-water internal riser (DIGITEN \u2192 foam carb-water-out)",
+        "    \u2013 bulkhead-carb:tube-in (fluid) (217, 341.2, 318.29) y- \u00d86.35 \u2192 digiten-flow outlet \u2014 segment carb-2 (routed)",
         "\u2713 bulkhead-water: 2/2 connectors located",
         "    \u2013 bulkhead-water:tube-out (fluid) (56, 375.5, 314) y+ \u00d86.35 \u2192 house tap-water line (rear umbilical)"
       ],
@@ -204,7 +205,7 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "98% (41/42)",
+      "value": "98% (42/43)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; two floor rails carry its weight and two +X-wall webs carry four ear pads at the donor fan shroud's screw pattern (enclosure.py `_condenser_mount`), M3\u00d710 into ruthex through each ear. Ear pattern is an ESTIMATE until the donor shroud is separated and measured",
@@ -222,20 +223,22 @@
       "label": "Connections modeled as real 3D paths (fluid + water + CO2 + refrigerant + electrical)",
       "kind": "goal",
       "status": "warn",
-      "value": "43% (29/68)",
+      "value": "44% (31/70)",
       "target": "100%",
       "detail": [
-        "28 fluid + 6 water + 2 CO2 + 3 refrigerant + 29 electrical; 29 routed \u2014 the water and CO2 paths are closed end to end, the fluid path waits on the manifold's remaining on-tray legs, the refrigerant loop on its suction leg, and the electrical runs on the components being held",
+        "28 fluid + 8 water + 2 CO2 + 3 refrigerant + 29 electrical; 31 routed \u2014 the water and CO2 paths are closed end to end, the fluid path waits on the manifold's remaining on-tray legs, the refrigerant loop on its suction leg, and the electrical runs on the components being held",
         "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7 \u2014 nearest 5.45 mm to fluid-15",
-        "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 284.7 mm, 4 bends at R12.7 \u2014 nearest 5.13 mm to compressor-shroud",
+        "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 284.7 mm, 4 bends at R12.7 \u2014 nearest 2.01 mm to carb-1",
         "\u2713 water-1: bulkhead-water.tube-in \u2192 asse1022-assembly.tube-in \u2014 \u00d86.35 \u00d7 22.4 mm, 1 bends at R3.0 \u2014 nearest 18.03 mm to c14-inlet",
-        "\u2713 water-2: asse1022-assembly.tube-out \u2192 water-split.supply \u2014 \u00d86.35 \u00d7 82.0 mm, 2 bends at R3.0 \u2014 nearest 3.82 mm to foam-assembly",
+        "\u2713 water-2: asse1022-assembly.tube-out \u2192 water-split.supply \u2014 \u00d86.35 \u00d7 82.0 mm, 2 bends at R3.0 \u2014 nearest 2.35 mm to carb-2",
         "\u2713 water-3: water-split.to-vk \u2192 vk-fill-valve.inlet \u2014 \u00d86.35 \u00d7 42.6 mm, 3 bends at R3.0 \u2014 nearest 3.82 mm to foam-assembly",
         "\u2713 water-4: vk-fill-valve.outlet \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 59.3 mm, 2 bends at R3.0 \u2014 nearest 14.02 mm to fluid-18",
         "\u2713 water-6: seaflo-pump.discharge \u2192 discharge-chain.barb-tip \u2014 \u00d815.1 \u00d7 32.6 mm, 1 bends at R15.9 \u2014 nearest 9.65 mm to nozzle-gate-assembly",
         "\u2713 water-5: discharge-chain.tube-port \u2192 foam-assembly.water-in \u2014 \u00d86.35 \u00d7 151.5 mm, 3 bends at R3.0 \u2014 nearest 4.24 mm to fluid-15",
         "\u2713 co2-1: gasher-co2.outlet \u2192 wr1110.inlet \u2014 \u00d86.35 \u00d7 114.4 mm, 1 bends at R6.0 \u2014 nearest 1.93 mm to source-select-assembly",
         "\u2713 co2-2: wr1110.outlet \u2192 foam-assembly.co2-in \u2014 \u00d86.35 \u00d7 288.1 mm, 4 bends at R6.0 \u2014 nearest 6.83 mm to compressor-shroud",
+        "\u2713 carb-1: foam-assembly.carb-water-out \u2192 digiten-flow.inlet \u2014 \u00d86.35 \u00d7 285.3 mm, 3 bends at R4.0 \u2014 nearest 1.82 mm to seaflo-pump",
+        "\u2713 carb-2: digiten-flow.outlet \u2192 bulkhead-carb.tube-in \u2014 \u00d86.35 \u00d7 275.1 mm, 5 bends at R4.0 \u2014 nearest 2.35 mm to water-2",
         "\u2713 fluid-1: water-split.to-flavor \u2192 flow-regulator.inlet \u2014 \u00d86.35 \u00d7 138.4 mm, 3 bends at R3.0 \u2014 nearest 2.82 mm to seaflo-pump",
         "\u2713 fluid-2: flow-regulator.outlet \u2192 source-select-assembly.V-A-I \u2014 \u00d86.35 \u00d7 67.2 mm, 1 bends at R3.0 \u2014 nearest 9.36 mm to elbow-noz-a",
         "\u2713 fluid-4: hopper-funnel.drain \u2192 source-select-assembly.V-B-I \u2014 \u00d86.35 \u00d7 151.2 mm, 4 bends at R12.0 \u2014 nearest 1.53 mm to fluid-27",
@@ -263,10 +266,10 @@
       "label": "Components in a printed holder fastened to the enclosure",
       "kind": "goal",
       "status": "warn",
-      "value": "43% (18/42)",
+      "value": "42% (18/43)",
       "target": "100%",
       "detail": [
-        "18 held (through-wall bodies + display); 24 loose internal parts unheld"
+        "18 held (through-wall bodies + display); 25 loose internal parts unheld"
       ],
       "active": false
     }
@@ -283,9 +286,9 @@
       ],
       "face": "y-",
       "diam": 6.35,
-      "mates": "dispense faucet (carb-water riser to the rear umbilical)",
+      "mates": "digiten-flow inlet \u2014 segment carb-1 (routed)",
       "status": "ok",
-      "note": "1/4\" tank NPT elbow line"
+      "note": "1/4\" tank NPT elbow line; refrig-2 climbs this same station to the evaporator inlet above and stands 9.52 mm off the collet, so the riser turns west inside that gap rather than leaving the face head-on"
     },
     {
       "component": "foam-assembly",
@@ -703,9 +706,9 @@
       ],
       "face": "y-",
       "diam": 6.35,
-      "mates": "carb-water internal riser (DIGITEN \u2192 foam carb-water-out)",
+      "mates": "digiten-flow outlet \u2014 segment carb-2 (routed)",
       "status": "ok",
-      "note": "JG 1/4\" PTC, inward"
+      "note": "JG 1/4\" PTC, inward; the riser climbs to it in the column east of the ASSE, because water-2 crosses its own southward line"
     },
     {
       "component": "bulkhead-water",
@@ -886,6 +889,51 @@
       "mates": "flow-regulator inlet \u2014 fluid segment 1 (routed)",
       "status": "ok",
       "note": "PP0208E 1/4\" PTC run, facing south down the pocket to the regulator"
+    },
+    {
+      "component": "digiten-flow",
+      "name": "inlet",
+      "kind": "fluid",
+      "pos": [
+        135.0,
+        177.0,
+        300.0
+      ],
+      "face": "x-",
+      "diam": 6.35,
+      "mates": "foam-assembly carb-water-out \u2014 segment carb-1 (routed)",
+      "status": "ok",
+      "note": "1/4\" PTC collet, facing west up the riser's climb"
+    },
+    {
+      "component": "digiten-flow",
+      "name": "outlet",
+      "kind": "fluid",
+      "pos": [
+        195.0,
+        177.0,
+        300.0
+      ],
+      "face": "x+",
+      "diam": 6.35,
+      "mates": "bulkhead-carb tube-in \u2014 segment carb-2 (routed)",
+      "status": "ok",
+      "note": "1/4\" PTC collet, facing east at the drop into the under-pump lane"
+    },
+    {
+      "component": "digiten-flow",
+      "name": "pigtail",
+      "kind": "electrical",
+      "pos": [
+        165.0,
+        177.0,
+        316.0
+      ],
+      "face": "z+",
+      "diam": 8.0,
+      "mates": "J4 SENSORS \u2014 DIGITEN flow pulse (SIG-4, IO25 + V5 + GND)",
+      "status": "ok",
+      "note": "3-wire pigtail on a JST-XH 2.54 3-pin, leaving the rim boss upward"
     },
     {
       "component": "flow-regulator",
@@ -2356,6 +2404,46 @@
       "fill": 1.0,
       "primitive": true,
       "declared": "placeholder"
+    },
+    {
+      "component": "digiten-flow",
+      "boxes": [
+        [
+          161.0,
+          173.0,
+          313.0,
+          169.0,
+          181.0,
+          316.0
+        ],
+        [
+          135.0,
+          171.0,
+          294.0,
+          165.0,
+          183.0,
+          306.0
+        ],
+        [
+          152.0,
+          166.0,
+          287.0,
+          178.0,
+          188.0,
+          313.0
+        ],
+        [
+          165.0,
+          171.0,
+          294.0,
+          195.0,
+          183.0,
+          306.0
+        ]
+      ],
+      "fill": 0.7854,
+      "primitive": false,
+      "declared": "real"
     },
     {
       "component": "discharge-chain",

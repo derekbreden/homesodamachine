@@ -76,6 +76,26 @@ wire_boss_dia = 8.0      # boss diameter (photo-estimated)
 wire_boss_len = 3.0      # boss stand-off proud of the rim (photo-estimated)
 
 
+def inlet():
+    """The -X collet face — a 1/4" push-to-connect mouth, taking the tube the
+    water arrives on: (position, outward axis). The molded flow arrow runs -X
+    to +X, so this is the end the rotor sees first."""
+    return (-port_face, 0.0, 0.0), (-1.0, 0.0, 0.0)
+
+
+def outlet():
+    """The +X collet face — the same 1/4" PTC mouth, the water leaving straight
+    across the body: (position, outward axis)."""
+    return (port_face, 0.0, 0.0), (1.0, 0.0, 0.0)
+
+
+def wire_exit():
+    """The tip of the rim boss the 3-wire pigtail leaves from, perpendicular to
+    the flow axis: (position, outward axis). Not a fluid port — it is where the
+    JST lead must have room to stand off before it bends."""
+    return (0.0, 0.0, body_dia / 2.0 + wire_boss_len), (0.0, 0.0, 1.0)
+
+
 def build_body_disk():
     """Round rotor housing: Ø body_dia, the body_len depth along Y (the body
     axis the rotor spins about), centered on the origin."""

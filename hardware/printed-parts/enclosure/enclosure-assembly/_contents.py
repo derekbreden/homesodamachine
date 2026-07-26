@@ -7,15 +7,16 @@ pump assemblies, both pump-inlet union tees, both pump-discharge dividers
 (Y-D/Y-G) and their four turn elbows, the water deck (SeaFlo pump, its
 discharge chain, the ASSE 1022 assembly, the split, V-K, the flow
 regulator, the drip pan + its rails), the CO2 chain (DERPIPE inlet, GASHER
-check, WR1110 regulator), the PCBA, the power assembly, the AC hub, relay
+check, WR1110 regulator), the DIGITEN flow meter on the carb-water riser,
+the PCBA, the power assembly, the AC hub, relay
 #1, the ground stack, the MQ-6 gas sensor, the panel bulkheads + C14).
 One placeholder primitive remains (condenser+fan). Not everything is
 packed — deferred, tracked by the fluid topology
 (/hardware/topology/fluid-topology.md) and the scorecard's connection
-table, never silently dropped: the DIGITEN flow sensor on the carb-water
-riser, the Shutao moisture plate lying in the drip pan, and the two
-electrical parts the shelf has no station for yet — the DC distribution
-block and relay #2, whose ports are authored PROVISIONAL against that.
+table, never silently dropped: the Shutao moisture plate lying in the drip
+pan, and the two electrical parts the shelf has no station for yet — the DC
+distribution block and relay #2, whose ports are authored PROVISIONAL
+against that.
 
 Components only: no tubes, no wires, no mount features. enclosure_assembly.py
 verifies the pack pairwise non-intersecting at every export.
@@ -45,8 +46,12 @@ against the rear wall.
 The cold core's tube connections are defined by the foam shell's
 penetrations (/hardware/printed-parts/cold-core/foam-shell/README.md
 §Penetrations), all on its −Y front wall — in enclosure world coordinates:
-  * carbonated-water outlet at (141.5, 182, 46.5) — the riser runs up the
-    foam front face past the DIGITEN flow sensor to the rear umbilical;
+  * carbonated-water outlet at (141.5, 182, 37) — one of the vessel's two
+    bottom-plate ports. The riser cannot leave this face head-on: refrig-2
+    climbs the same x on its way to the evaporator inlet above, and stands
+    9.52 mm off the collet. So the line turns WEST inside that gap, climbs
+    the front face west of the shared slot, crosses the crown pocket through
+    the DIGITEN flow meter, and drops under the pump to the rear umbilical;
   * reservoir (bag) lines at (44.5, 182, 35.5) and (238.5, 182, 35.5) —
     they climb the foam front face to the bag-circuit loops;
   * the shared slot at x 141.5 spanning z ~72–246 — both copper evaporator
@@ -157,6 +162,7 @@ for _p in (_hw / "scripts", _repo / "tools", _hw / "reference" / "beduan-solenoi
            _hw / "reference" / "flare38-14ptc",
            _hw / "reference" / "water-split",
            _hw / "reference" / "neofit-flow-control",
+           _hw / "reference" / "digiten-flow-sensor",
            _hw / "reference" / "seaflo-discharge-chain",
            _hw / "reference" / "seaflo-22-pump",
            _hw / "printed-parts" / "enclosure" / "drip-pan",
@@ -174,6 +180,7 @@ import asse1022_assembly as _bfp         # noqa: E402  — its three terminals, 
 import multiplex_asse1022 as _mx         # noqa: E402  — the body's flow-axis height, the roll pivot
 import water_split as _split             # noqa: E402  — its three 1/4" collets, the same way
 import neofit_flow_control as _flowreg   # noqa: E402  — its two 1/4" collets and its stem
+import digiten_flow_sensor as _digiten   # noqa: E402  — its two 1/4" PTC collets, coaxial on ±X
 import seaflo_discharge_chain as _disch  # noqa: E402  — its barb tip and its 1/4" collet
 import seaflo_22_pump as _seaflo         # noqa: E402  — its two head barbs
 import beduan_solenoid as _vk            # noqa: E402  — V-K's two 1/4" QC collets
@@ -232,6 +239,10 @@ DERPIPE_STEP   = _hw / "reference" / "derpipe-co2-inlet" / "derpipe-co2-inlet.st
 # a PP010822E at each (reference/gasher-check-valve, reference/wr1110-regulator).
 GASHER_STEP    = _hw / "reference" / "gasher-check-valve" / "gasher-check-valve.step"
 WR1110_STEP    = _hw / "reference" / "wr1110-regulator" / "wr1110-regulator.step"
+# The DIGITEN FL-S402B Hall-effect turbine meter, inline on the carb-water riser.
+# Its own frame is +X = flow, the two 1/4" PTC collets coaxial on ±X, the rotor
+# spinning about Y and the pigtail boss leaving +Z (reference/digiten-flow-sensor).
+DIGITEN_STEP   = _hw / "reference" / "digiten-flow-sensor" / "digiten-flow-sensor.step"
 # The ASSE 1022 chain as one piece: PP010822E → GAGIRA coupling → Multiplex 19-0897
 # → flare38-14ptc (3/8" flare → 1/4" PTC), plus the clear-PVC vent stub. Its own
 # frame is +X = flow, the Multiplex inlet at x 0, the vent running −Z; the outlet
@@ -623,6 +634,18 @@ def flowreg_terminal(name):
             (0.0, -1.0, 0.0): "y-", (0.0, 0.0, 1.0): "z+", (0.0, 0.0, -1.0): "z-"}[
         tuple(round(float(c), 9) + 0.0 for c in axis)]
     return tuple(p + o for p, o in zip(pos, flowreg_pos())), face
+
+
+def digiten_terminal(name):
+    """One of the flow meter's two 1/4" PTC collets, or its pigtail boss tip, in world:
+    `(pos, face)`. Placed unturned, so each station is its own frame's plus the body
+    centre — including the boss height, which is the reference part's and not a number
+    kept here."""
+    pos, axis = {"inlet": _digiten.inlet, "outlet": _digiten.outlet,
+                 "wire-exit": _digiten.wire_exit}[name]()
+    face = {(-1.0, 0.0, 0.0): "x-", (1.0, 0.0, 0.0): "x+", (0.0, 0.0, 1.0): "z+"}[
+        tuple(round(float(c), 9) + 0.0 for c in axis)]
+    return tuple(p + o for p, o in zip(pos, DIGITEN_POS)), face
 
 
 def disch_terminal(name):
@@ -1048,6 +1071,18 @@ WR1110_CY = 66.0
 # DERPIPE_BODY_L: the outboard reach that seats the collet face proud of the
 # front wall (the model's outboard face is at its Y origin).
 DERPIPE_BODY_L = 17.0
+# The DIGITEN flow meter, inline on the carb-water riser. Placed UNTURNED: its own
+# frame already runs the flow +X and stands the pigtail boss +Z, which is the pose
+# this station wants. It lies in the POCKET AHEAD OF THE COLD CORE'S CROWN — the
+# open air between the bag-circuit tray's top and the ceiling, forward of the foam's
+# front face and so forward of everything the water deck behind that face is full
+# of. Nothing else in the machine reaches into it, which is why a 60 mm rigid body
+# with a Ø26 waist can lie down here and nowhere else on this line: the bag-fall
+# corridor below is one tube deep, and the band over the cold core is the pump's.
+# Its X puts the inlet collet a corner clear of the riser's climb and the outlet
+# collet a corner clear of the drop, so the two runs meet it head-on down its own
+# axis and neither turns inside it. Cradle TBD.
+DIGITEN_POS = (165.0, 177.0, 300.0)          # the body centre; the collets sit ±30 off it in X
 
 
 # --- Colors ---------------------------------------------------------------
@@ -1076,6 +1111,7 @@ COLORS = {
     "seaflo-pump":       cq.Color(0.32, 0.38, 0.46),
     "water-split":       cq.Color(0.88, 0.89, 0.91),
     "flow-regulator":    cq.Color(0.80, 0.82, 0.86),
+    "digiten-flow":      cq.Color(0.92, 0.92, 0.94),
     "discharge-chain":   cq.Color(0.72, 0.74, 0.78),
     "vk-fill-valve":      cq.Color(0.85, 0.86, 0.90),
     "drip-pan":          cq.Color(0.62, 0.66, 0.72),
@@ -1538,6 +1574,10 @@ def _build():
                            WR1110_CX - _reg_bb.xlen / 2.0,
                            WR1110_CY - _reg_bb.ylen / 2.0,
                            CO2_INLET_Z - _reg_bb.zlen / 2.0)
+
+    # The carb-water riser's flow meter, lying unturned in the pocket ahead of the
+    # cold core's crown — flow +X, pigtail boss up where the J4 loom reaches it.
+    placed["digiten-flow"] = _load(DIGITEN_STEP).translate(DIGITEN_POS)
 
     # The ASSE 1022 assembly: the water path's one non-negotiable component with the
     # four fittings that reach it from 1/4" tube on one side and 3/8" hose on the

@@ -227,11 +227,18 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
 - **Make the last placeholder real.** The condenser+fan (harvested donor block) is the one
   component still packed as a box. Convert it to real STEP geometry.
 - **Re-place the deferred front-column subsystems.** The Shutao moisture plate lying in the drip
-  pan and the DIGITEN flow sensor on the carb-water riser are deferred from the pack while the
-  front column settles — tracked here and in the topology, never dropped. Each returns with a
-  placement that respects the tray stack at the cold core, the pump row ahead of it, and the
-  funnel drop. What stays open: the slab ahead of the pump row's front faces and the ±X columns
-  beside it.
+  pan is deferred from the pack while the front column settles — tracked here and in the
+  topology, never dropped. It returns with a placement that respects the tray stack at the cold
+  core, the pump row ahead of it, and the funnel drop. What stays open: the slab ahead of the
+  pump row's front faces and the ±X columns beside it.
+  The DIGITEN flow meter is packed, lying in the pocket ahead of the cold core's crown — the
+  only air on the carb riser that takes a rigid 60 mm body with a Ø26 waist, the bag-fall
+  corridor below being one tube deep and the band over the core being the pump's. The riser
+  itself is authored either side of it (`carb-1`, `carb-2`): west inside the 9.52 mm refrig-2
+  leaves off the outlet collet, up the front face, through the meter, down into the lane under
+  the pump — there is no lane over it, the crown and the ceiling leaving a Ø6.35 centreline
+  0.03 mm short of fitting — and up to the bulkhead in the column east of the ASSE, because
+  water-2 crosses that collet's own southward line.
   The CO2 chain is packed, in the band under the pump row down to the floor-stratum tops: the
   GASHER check screwed onto the DERPIPE inlet's stub so the front wall carries both, and the
   WR1110 regulator laid ACROSS the band on its own — the band is the machine's whole width and

@@ -35,6 +35,11 @@ axis on a JST-XH 2.54 3-pin connector.
 Origin is the body center: the two ports run out along ±X, and the wire-exit
 boss leaves +Z off the rim.
 
+Declared ports (`(position, outward axis)`, the convention `fit.py` reads):
+`inlet` on the −X collet face, `outlet` on the +X — the molded arrow runs −X to
++X — and `wire_exit` at the boss tip, which is not a fluid port but the room the
+JST lead needs before it bends.
+
 Overall envelope: a round body Ø[26](FLOW_BODY_DIA) with two ports reaching
 [30](PORT_FACE) along ±X (60 mm tip to tip).
 

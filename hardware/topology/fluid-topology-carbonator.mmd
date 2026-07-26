@@ -45,6 +45,7 @@ flowchart LR
   end
 
   subgraph Dispense["Dispense"]
+    FlowMeter["Flow Meter<br/>(DIGITEN Hall, F = 23&middot;Q)"]
     Faucet["Faucet Lever"]
     Nozzle["Nozzle"]
   end
@@ -57,7 +58,7 @@ flowchart LR
   Split --> VK --> PW --> CV --> P2
   Split --> FlowReg --> FlavorTap
   CO2 --> RegCO2 --> CV_CO2 --> P1
-  P3 --> Faucet --> Nozzle
+  P3 --> FlowMeter --> Faucet --> Nozzle
   P4 ==> PRVOut
   Float --> LevelSense
   LevelSense -- interlock --> PW
@@ -70,14 +71,15 @@ flowchart LR
 
   %% Fluid-flow workhorse edges: white. Water supply is edges 7-15
   %% (Tap → BFP → Flare → Split, then Split → V-K → pump → check → P2, plus
-  %% the Split → FlowReg → flavor-tap branch); CO2 is 16-18; dispense 19-20.
-  linkStyle 0,1,3,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20 stroke:#ccc,stroke-width:2px
+  %% the Split → FlowReg → flavor-tap branch); CO2 is 16-18; dispense 19-21
+  %% (P3 → flow meter → faucet → nozzle).
+  linkStyle 0,1,3,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21 stroke:#ccc,stroke-width:2px
   %% Sensor / interlock edges: blue.
   %% 2 = Water --> Headspace, 6 = Float --> Water,
-  %% 22 = Float --> LevelSense, 23 = LevelSense -- interlock --> PW,
-  %% 24 = Faucet -- lockout --> PW.
-  linkStyle 2,6,22,23,24 stroke:#09f,stroke-width:2px
+  %% 23 = Float --> LevelSense, 24 = LevelSense -- interlock --> PW,
+  %% 25 = Faucet -- lockout --> PW.
+  linkStyle 2,6,23,24,25 stroke:#09f,stroke-width:2px
   %% Safety / pressure-relief path: red, thicker. Uses ==> so arrowheads
   %% inherit the stroke color.
-  %% 4 = Headspace ==> P4, 21 = P4 ==> PRVOut.
-  linkStyle 4,21 stroke:#c44,stroke-width:3px
+  %% 4 = Headspace ==> P4, 22 = P4 ==> PRVOut.
+  linkStyle 4,22 stroke:#c44,stroke-width:3px
