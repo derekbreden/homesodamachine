@@ -150,7 +150,7 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 
 By material: PETG ≈ 5.72 kg / $64.03 — of which the four translucent reservoir parts are ≈ 0.91 kg / $10.24 — and PET-CF ≈ 0.16 kg / $6.45.
 
-Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the electronics stand on. The top cap also carries the eight deck-mount columns the controller board and the PSU bolt to, which is why it outweighs the bottom one.
+Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the electronics stand on. The top cap also carries the [15](DECK_INSERTS) deck-mount columns the whole electronics shelf bolts to — the controller board, the AC hub, relay #1, the ground stud and the PSU — which is why it outweighs the bottom one.
 
 No PCBA tray ships. The board bolts straight to four of those columns ([`pcba-tray/README.md`](/hardware/printed-parts/electronics/pcba-tray/)), so the tray is bench geometry only — the same status as the coil-winding mandrel below.
 
