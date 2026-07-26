@@ -124,7 +124,7 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
 | Cold-core inner shell (foam-shell) | 1 | PETG | 1.340 | $15.01 <!--@printed--> |
-| Cold-core foam cap — top | 1 | PETG | 0.179 | $2.01 <!--@printed--> |
+| Cold-core foam cap — top | 1 | PETG | 0.177 | $1.99 <!--@printed--> |
 | Cold-core foam cap lid — top | 1 | PETG | 0.128 | $1.43 <!--@printed--> |
 | Cold-core foam cap — bottom | 1 | PETG | 0.170 | $1.91 <!--@printed--> |
 | Cold-core foam cap lid — bottom | 1 | PETG | 0.129 | $1.44 <!--@printed--> |
@@ -144,9 +144,9 @@ Per-unit filament for every printed part shipped inside one finished appliance, 
 | Valve tray — nozzle-gate | 1 | PETG | 0.043 | $0.48 <!--@printed--> |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.151 | $5.94 <!--@printed--> |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.51 <!--@printed--> |
-| **Printed parts total** | | | **~5.88** | **[$82.78](BOM_SEC7)** |
+| **Printed parts total** | | | **~5.88** | **[$82.76](BOM_SEC7)** |
 
-By material: PETG ≈ 4.81 kg / $53.81, food-contact PETG ≈ 0.91 kg / $22.52, PET-CF ≈ 0.16 kg / $6.45.
+By material: PETG ≈ 4.81 kg / $53.79, food-contact PETG ≈ 0.91 kg / $22.52, PET-CF ≈ 0.16 kg / $6.45.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the electronics stand on. The top cap also carries the eight deck-mount columns the controller board and the PSU bolt to, which is why it outweighs the bottom one.
 
@@ -279,7 +279,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$112.38](BOM_SEC4) |
 | 5. Refrigeration | [$173.90](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$82.78](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$82.76](BOM_SEC7) |
 | 8. Flavor subsystem | [$207.59](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -287,7 +287,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$8.17](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,339.25](BOM_GRAND)** |
+| **Total** | **[$1,339.23](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 
