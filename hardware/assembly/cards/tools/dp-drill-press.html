@@ -93,73 +93,66 @@
       </div>
     </div>
 
-    <div class="col" style="flex:none; width:1420px">
-      <div class="panel light">
-        <svg viewBox="0 0 1600 746" xmlns="http://www.w3.org/2000/svg">
-          <style>
-            .steel { fill: #eef0f3; stroke: #1d1d26; stroke-width: 3.5; }
-            .void  { fill: #ffffff; stroke: #1d1d26; stroke-width: 3.5; }
-            .dimln { stroke: #46628a; stroke-width: 2.5; }
-            .tick  { stroke: #46628a; stroke-width: 2.5; }
-            .dtx   { font: 700 27px Menlo, monospace; fill: #46628a; }
-            .lbl   { font: 600 26px "Helvetica Neue", sans-serif; fill: #1d1d26; }
-            .sub   { font: 400 23px "Helvetica Neue", sans-serif; fill: #70707c; }
-          </style>
+    <div class="col" style="flex:none; width:1370px">
+      <div class="panel">
+        <div class="shot">
+          <img src="img/dp-endcap-face.png" alt="">
+          <svg viewBox="0 0 1980 1040" xmlns="http://www.w3.org/2000/svg">
+            <style>
+              .ld  { stroke: #8fa6c8; stroke-width: 3; fill: none; }
+              .rng { stroke: #ffd94d; stroke-width: 4.5; fill: none; }
+              .rgr { stroke: #ff8a6b; stroke-width: 4.5; fill: none; }
+              .ttl { font: 700 31px "Helvetica Neue", sans-serif; fill: #fff; }
+              .key { font: 700 28px Menlo, monospace; fill: #ffd94d; }
+              .kyr { font: 700 28px Menlo, monospace; fill: #ff8a6b; }
+              .txt { font: 500 28px "Helvetica Neue", sans-serif; fill: #dfe3ec; }
+              .num { font: 700 28px Menlo, monospace; fill: #fff; }
+              .qui { font: 400 25px "Helvetica Neue", sans-serif; fill: #9aa3b8; }
+            </style>
 
-          <text class="lbl" x="26" y="40">SECTION &#183; 1/4&Prime; end plate, both features to scale</text>
-          <text class="sub" x="26" y="74">inside face up &#8212; the register is drilled from this side</text>
+            <text class="ttl" x="34" y="52">INSIDE FACE</text>
+            <text class="qui" x="34" y="88">the register is drilled from this side</text>
 
-          <!-- plate: y 250..500 = 250 px = 0.25 in at 1000 px/in -->
-          <path class="steel" d="M 130 250 L 1520 250 L 1520 500 L 130 500 Z"/>
+            <!-- the two NPT ports -->
+            <circle class="rng" cx="847" cy="512" r="56"/>
+            <circle class="rng" cx="1104" cy="512" r="56"/>
+            <path class="ld" d="M 803 470 L 700 372 L 500 372"/>
+            <path class="ld" d="M 1148 470 L 1251 372 L 1450 372"/>
+            <text class="key" x="34" y="300">PV-01 &#8594; PV-02</text>
+            <text class="txt" x="34" y="340">Two 1/4&#8243;-18 NPT ports</text>
+            <text class="num" x="34" y="380">7/16&#8243; drill &#183; 1.5&#8243; c-c</text>
+            <text class="qui" x="34" y="416">chamfer both faces,</text>
+            <text class="qui" x="34" y="446">then tap to 4.5 turns</text>
+            <text class="key" x="1462" y="300">&#215; 2 plates</text>
+            <text class="txt" x="1462" y="340">= four port</text>
+            <text class="txt" x="1462" y="376">positions per</text>
+            <text class="txt" x="1462" y="412">vessel</text>
 
-          <!-- blind register: 142 px dia (9/64"), 100 px to the 135-deg point -->
-          <path class="void" d="M 329 250 L 329 321 L 400 350 L 471 321 L 471 250 Z"/>
+            <!-- the blind register -->
+            <circle class="rgr" cx="975" cy="874" r="44"/>
+            <path class="ld" d="M 1019 874 L 1200 874 L 1290 826"/>
+            <text class="kyr" x="1302" y="798">PV-03</text>
+            <text class="txt" x="1302" y="838">Rod register &#8212; blind</text>
+            <text class="num" x="1302" y="878">9/64&#8243; &#183; 0.10&#8243; deep</text>
+            <text class="qui" x="1302" y="914">0.15&#8243; of plate stays</text>
+            <text class="qui" x="1302" y="944">under it</text>
+            <path class="ld" d="M 931 874 L 760 874 L 660 926"/>
+            <text class="qui" x="150" y="918">on the &#8722;Y axis, clear of</text>
+            <text class="num" x="150" y="954">(0, &#8722;2.007&#8243;)</text>
 
-          <!-- port: 438 px bore (7/16") through, chamfered out at both faces -->
-          <path class="void" d="M 880 250 L 930 302 L 930 448 L 880 500
-                                L 1418 500 L 1368 448 L 1368 302 L 1418 250 Z"/>
-
-          <!-- plate thickness -->
-          <line class="dimln" x1="80" y1="250" x2="80" y2="500"/>
-          <line class="tick"  x1="66" y1="250" x2="94" y2="250"/>
-          <line class="tick"  x1="66" y1="500" x2="94" y2="500"/>
-          <text class="dtx" x="14" y="388">1/4&Prime;</text>
-
-          <!-- register depth, and the wall it must leave -->
-          <line class="dimln" x1="580" y1="250" x2="580" y2="350"/>
-          <line class="tick"  x1="566" y1="250" x2="594" y2="250"/>
-          <line class="tick"  x1="566" y1="350" x2="594" y2="350"/>
-          <text class="dtx" x="608" y="312">0.10&Prime; deep</text>
-          <line class="dimln" x1="580" y1="350" x2="580" y2="500"/>
-          <line class="tick"  x1="566" y1="500" x2="594" y2="500"/>
-          <text class="dtx" x="608" y="438" fill="#7c1d12">0.15&Prime; must stay</text>
-          <line x1="130" y1="350" x2="572" y2="350" stroke="#7c1d12"
-                stroke-width="2.5" stroke-dasharray="12 9"/>
-
-          <!-- register dia -->
-          <line class="dimln" x1="329" y1="196" x2="471" y2="196"/>
-          <line class="tick"  x1="329" y1="182" x2="329" y2="210"/>
-          <line class="tick"  x1="471" y1="182" x2="471" y2="210"/>
-          <text class="dtx" x="336" y="164">9/64&Prime;</text>
-          <text class="sub" x="252" y="574">register &#183; blind</text>
-          <text class="sub" x="252" y="604">at (0, &#8722;2.007&Prime;)</text>
-
-          <!-- port bore dia, measured on the bore and not the chamfer mouth -->
-          <line class="dimln" x1="930" y1="196" x2="1368" y2="196"/>
-          <line class="tick"  x1="930" y1="182" x2="930" y2="210"/>
-          <line class="tick"  x1="1368" y1="182" x2="1368" y2="210"/>
-          <text class="dtx" x="1096" y="164">7/16&Prime;</text>
-          <text class="sub" x="932" y="574">port &#183; through, then 82&deg;-chamfered</text>
-          <text class="sub" x="932" y="604">both faces, then NPT-tapped</text>
-
-          <text class="sub" x="26" y="716">in &#183; to scale at 1000 px/in</text>
-        </svg>
-        <div class="cap"><b>Same plate, two holes, opposite intents</b> &#8212; the
-        port is meant to go through and be opened up further; the register is
-        meant to stop with <span class="dim">0.15&Prime;</span> of pressure
-        boundary under it.</div>
+            <!-- the disc as it arrives -->
+            <path class="ld" d="M 671 208 L 560 150 L 34 150"/>
+            <text class="num" x="34" y="140">&#216; 4.86&#8243; &#215; 1/4&#8243; 316 SS</text>
+            <text class="qui" x="34" y="186">laser-cut &#8212; ports arrive, register does not</text>
+          </svg>
+        </div>
+        <div class="cap"><b>The plate as the press receives it</b> &#8212; two ports
+        cut; the third feature is the one you add. A laser cuts only through, so
+        the register cannot be in the cut file without breaching the boundary it
+        exists to preserve.</div>
       </div>
     </div>
+
   </div>
 
 </main>

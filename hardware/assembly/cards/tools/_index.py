@@ -36,7 +36,7 @@ STATIONS = [
     ("LW", "Laser welder", ["XLaserlab X1 Pro", "argon size-80", "RX Weld", "magnetic V-pads",
                             "Scotch-Brite 7447", "wire brush set", "C110 copper bar",
                             "goat-grain TIG gloves", "Welding Cart"],
-     [r"X1 Pro", r"XLaserlab", r"argon\b", r"Scotch-Brite", r"spacer"]),
+     [r"X1 Pro", r"XLaserlab", r"Scotch-Brite 7447", r"X1 cleaning"]),
     ("HY", "Hydro + pressure test", ["hydrostatic test pump", "glycerin-filled gauge",
                                      "outer-hex plug", "MNPT air plug", "NPT hex nipple"],
      [r"BEAMNOVA", r"KOOTANS", r"SENCTRL", r"hydro"]),
