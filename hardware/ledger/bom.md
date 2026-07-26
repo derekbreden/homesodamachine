@@ -78,7 +78,7 @@ The appliance ships with the water filter included, mounted **external to the en
 | [Wellbom dual-gauge CO2 regulator, CGA-320, 0–120 PSI out / 150 PSI PRV](https://www.amazon.com/dp/B0G13P5PMY) | **Shipped CGA-320 primary regulator** — ships with the appliance and mounts on the customer's CO2 cylinder (the customer supplies only the tank + refills, per the External section). Outlet feeds the 5/16" tether → front-panel DERPIPE inlet → GASHER check → WR1110 fixed-90 PSI secondary (below) → cold-core CO2 path. | 1 | $44.99 | $44.99 <!--@plumbing--> |
 | [Interstate Pneumatics WR1110 1/4" NPT in-line 90 PSI fixed pre-set pressure regulator, 230 PSI max inlet, aluminum body](https://www.amazon.com/dp/B07J2L8LF3) | in-appliance secondary regulator between the shipped Wellbom CGA-320 primary regulator (above) and the vessel CO2 inlet; setpoint rationale in [`assembly/pressure-vessel.md`](/hardware/assembly/pressure-vessel.md) "CO2 supply". Amazon 112-6323725 May 13: $23.93 + $1.73 tax = $25.66 | 1 | $25.66 | $25.66 <!--@plumbing--> |
 | [John Guest PP010822E 1/4" OD × 1/4" NPT male connector, black polypropylene (10-pk)](https://www.freshwatersystems.com/products/john-guest-male-connector-nptf-black-polypropylene-1-4-x-1-4-nptf) | 1/4" NPT M × 1/4" PTC adapter pair (WR1110 outlet + TAISHER vessel-port elbow on the CO2-inlet path); 2 per build; FWS WEBFWS100675224 May 15: $11.00 + $5.23 ship + $1.18 tax = $17.41 ÷ 10 = $1.741/ea | 2 (of 10 pk) | $1.74 | $3.48 <!--@plumbing--> |
-| [John Guest PP0308E 1/4" OD union elbow, black polypropylene (10-pk)](https://www.freshwatersystems.com/products/john-guest-union-elbow-black-polypropylene-1-4) | 90° PTC × PTC union elbow. Three uses per build: **(1)** the in-cavity 90° bend in the CO2 path inside the foam shell per [foam-shell/README.md](/hardware/printed-parts/cold-core/foam-shell/README.md) — [1](PP0308E_CO2); **(2)** one on each elbowed [valve-manifold](/hardware/printed-parts/valve-manifold/) boundary port — the junction column's banks, source-select 4 + bag-circuit 2 (V-E/V-H); the bag east bank and the nozzle-gate tray run bare until the pump-discharge tees land — = [6](PP0308E_VALVE); **(3)** two on each Kamoer KPHM400 [pump assembly](/hardware/reference/kamoer-kphm400/pump_assembly.py) outlet pair × 2 pumps = [4](PP0308E_PUMP). [1](PP0308E_CO2) + [6](PP0308E_VALVE) + [4](PP0308E_PUMP) = [11](PP0308E_TOTAL)/build. FWS WEBFWS100684731 Jun 20: $50.61 + $13.25 ship + $4.63 tax = $68.49 ÷ 30 = $2.283/ea (3 bags of 10) | [11](PP0308E_TOTAL) (2 bags of 10) | $2.28 | $25.11 <!--@plumbing--> |
+| [John Guest PP0308E 1/4" OD union elbow, black polypropylene (10-pk)](https://www.freshwatersystems.com/products/john-guest-union-elbow-black-polypropylene-1-4) | 90° PTC × PTC union elbow. Two uses per build: **(1)** one on each elbowed [valve-manifold](/hardware/printed-parts/valve-manifold/) boundary port — the junction column's banks, source-select 4 + bag-circuit 2 (V-E/V-H); the bag east bank and the nozzle-gate tray run bare until the pump-discharge tees land — = [6](PP0308E_VALVE); **(2)** two on each Kamoer KPHM400 [pump assembly](/hardware/reference/kamoer-kphm400/pump_assembly.py) outlet pair × 2 pumps = [4](PP0308E_PUMP). [6](PP0308E_VALVE) + [4](PP0308E_PUMP) = [10](PP0308E_TOTAL)/build. The CO2 path takes none: its line runs straight in through the foam shell's −Y wall per [foam-shell/README.md](/hardware/printed-parts/cold-core/foam-shell/README.md), and the only bend on it is the vessel's own bottom-plate elbow. FWS WEBFWS100684731 Jun 20: $50.61 + $13.25 ship + $4.63 tax = $68.49 ÷ 30 = $2.283/ea (3 bags of 10) | [10](PP0308E_TOTAL) (2 bags of 10) | $2.28 | $25.11 <!--@plumbing--> |
 | [5/16" ID beer CO2 line, 10 ft + 4 clamps](https://www.amazon.com/dp/B0D1RB3TF6) | ~12 in short tether (tank-mounted Wellbom regulator → front-panel inlet) + 2 of 4 clamps per unit; ~1/4 of pack value | 1 (~1/4 pk) | $3.50 | $3.50 <!--@plumbing--> |
 | [DERPIPE 5/16" tube × 1/4" NPT push-to-connect (5-pk)](https://www.amazon.com/dp/B09LXVGPG7) | **Front-panel CO2 inlet bulkhead** — the customer's 5/16" supply tether pushes into this PTC; downstream: GASHER check → WR1110 secondary regulator → first PP010822E → cold-core CO2 path (per [`assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §1). 1 of 5 per unit ($10.71/5). **5/16" variant appears delisted; source replacement ASIN** | 1 (of 5 pk) | $2.14 | $2.14 <!--@plumbing--> |
 | [GASHER 1/4" NPT SS one-way check valve (2-pk, $15.00)](https://www.amazon.com/dp/B0FV2D2FFX) | CO2-side check between DERPIPE 5/16"-tube × 1/4"-NPT push-to-connect and the LTWFITTING bottom-plate barb adapter; rationale in [`assembly/cold-core.md`](/hardware/assembly/cold-core.md) "Warm-side check valves". Same 2-pack as the §3 water-side check, second valve of the pair | 1 (of 2) | $7.50 | $7.50 <!--@plumbing--> |
@@ -125,9 +125,9 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 
 | Part | Qty | Material | Mass (kg) | $ |
 |---|---:|---|---:|---:|
-| Cold-core inner shell (foam-shell) | 1 | PETG | 1.315 | $14.73 <!--@printed--> |
-| Cold-core foam cap — top | 1 | PETG | 0.182 | $2.04 <!--@printed--> |
-| Cold-core foam cap lid — top | 1 | PETG | 0.128 | $1.43 <!--@printed--> |
+| Cold-core inner shell (foam-shell) | 1 | PETG | 1.321 | $14.79 <!--@printed--> |
+| Cold-core foam cap — top | 1 | PETG | 0.181 | $2.03 <!--@printed--> |
+| Cold-core foam cap lid — top | 1 | PETG | 0.128 | $1.44 <!--@printed--> |
 | Cold-core foam cap — bottom | 1 | PETG | 0.169 | $1.89 <!--@printed--> |
 | Cold-core foam cap lid — bottom | 1 | PETG | 0.130 | $1.45 <!--@printed--> |
 | Copper-plug stack (4 plugs) | 4 | PETG | 0.006 | $0.06 <!--@printed--> |
@@ -146,9 +146,9 @@ The wetted surface is the print itself, qualified by [`wetted-surface-test.md`](
 | Valve tray — nozzle-gate | 1 | PETG | 0.038 | $0.43 <!--@printed--> |
 | Faucet touch-flo shell (3-piece: bottom + middle + top) | 1 | PET-CF | 0.150 | $5.92 <!--@printed--> |
 | Faucet mounting plate | 1 | PET-CF | 0.013 | $0.53 <!--@printed--> |
-| **Printed parts total** | | | **~7.13** | **[$84.44](BOM_SEC7)** |
+| **Printed parts total** | | | **~7.13** | **[$84.50](BOM_SEC7)** |
 
-By material: PETG ≈ 6.96 kg / $77.99 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.84 — and PET-CF ≈ 0.16 kg / $6.44.
+By material: PETG ≈ 6.97 kg / $78.04 — of which the four translucent reservoir parts are ≈ 0.88 kg / $9.84 — and PET-CF ≈ 0.16 kg / $6.44.
 
 Each cap lid ships bolted to its cap. It is the pour clamp at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3 and stays: the six M3 × 25 SHCS per face pass through lid and cap into the shell-face inserts, the CO2 line enters through the top lid's tube hole, and the top lid's outer face is the plane the whole water deck and the electronics stand on. The top cap also carries the [15](DECK_INSERTS) deck-mount columns the whole electronics shelf bolts to — the controller board, the AC hub, relay #1, the ground stud and the PSU — which is why it outweighs the bottom one.
 
@@ -281,7 +281,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 4. CO2 subsystem | [$112.38](BOM_SEC4) |
 | 5. Refrigeration | [$173.90](BOM_SEC5) |
 | 6. Cold core insulation | [$15.62](BOM_SEC6) |
-| 7. Printed parts (PETG + PET-CF) | [$84.44](BOM_SEC7) |
+| 7. Printed parts (PETG + PET-CF) | [$84.50](BOM_SEC7) |
 | 8. Flavor subsystem | [$207.59](BOM_SEC8) |
 | 9. Dispensing | [$60.29](BOM_SEC9) |
 | 10. UI | [$0.00](BOM_SEC10) |
@@ -289,7 +289,7 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 12. Level sensing | [$37.50](BOM_SEC12) |
 | 13. Mechanical attach hardware + reservoir-cap vent filter | [$8.23](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,340.97](BOM_GRAND)** |
+| **Total** | **[$1,341.03](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

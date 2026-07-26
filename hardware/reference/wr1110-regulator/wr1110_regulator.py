@@ -30,6 +30,20 @@ HEX_LENGTH = 15.0           # each wrench hex section
 BODY_LENGTH = TOTAL_LENGTH - 2 * HEX_LENGTH   # 27 mm round body
 
 
+def inlet():
+    """The upstream hex's outer face — a 1/4" NPT female socket, taking the
+    GASHER check's male stub: (position, outward axis). The body is built from
+    the origin along the flow axis, so its two faces are at y = 0 and
+    y = TOTAL_LENGTH, not either side of the origin."""
+    return (0.0, 0.0, 0.0), (0.0, -1.0, 0.0)
+
+
+def outlet():
+    """The downstream hex's outer face — a 1/4" NPT female socket, taking a
+    PP010822E adapter onto 1/4" tube: (position, outward axis)."""
+    return (0.0, TOTAL_LENGTH, 0.0), (0.0, 1.0, 0.0)
+
+
 def build():
     """Two hex wrench sections with a round body between, flow axis along +Y."""
     # Build along +Z, then reorient +Z -> +Y.

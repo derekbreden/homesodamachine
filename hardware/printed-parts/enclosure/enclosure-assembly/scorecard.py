@@ -23,7 +23,7 @@ only the first three are the focus (the other two render, dimmed, but are not ye
               point on the body the scorecard confirms is on-surface. A connection has no
               path until both its ends are located, so this precedes routed.
     shaped  — FOCUS. Real geometry, not a placeholder box/cylinder.
-    routed  — deferred. Every connection (fluid + water + refrigerant + electrical) a real 3D
+    routed  — deferred. Every connection (fluid + water + CO2 + refrigerant + electrical) a real 3D
               path (bend radius, length, clearance), not endpoints + an external graph.
     held    — deferred. A printed holder that fastens the component to the enclosure (a
               few bosses + screws, or a tray-with-bosses that itself fastens) — not a
@@ -35,7 +35,7 @@ to overlap is the enclosure's version of the autorouter's accidentally-clean net
 crediting it would count the box-thinking this effort exists to remove as progress. So
 `shaped`/`held` are read from the declared COMPONENTS registry, `placed` from measured
 face-to-datum rules and `located` from measured port positions (both authored per component),
-and `routed` from the fluid + refrigerant + wiring topologies (a connection counts only once a
+and `routed` from the fluid + CO2 + refrigerant + wiring topologies (a connection counts only once a
 real path exists). Prose for the why — and the lessons — is in requirements.md.
 """
 
@@ -161,6 +161,10 @@ COMPONENTS = [
     _c("bulkhead-water",    "real",        True,  "wall-capture", "JG bulkhead: rear-wall hole + its own nut"),
     _c("c14-inlet",         "real",        True,  "wall-capture", "C14 mains inlet: rear-wall cutout + its own flange"),
     _c("co2-inlet",         "real",        True,  "wall-capture", "DERPIPE PTC STEP (collet + wrench hex + NPT shank): front-wall hole + its own 1/4\" NPT thread"),
+    # CO2 chain — the front-panel inlet's two in-line bodies, in the band the
+    # compressor's top and the pump row's underside leave open.
+    _c("gasher-co2",        "real",        True,  "wall-capture", "GASHER 1/4\" NPT soft-seat check (reference/gasher-check-valve) — the CO2 inlet's check, female socket screwed onto the DERPIPE's male stub and male stub facing the regulator. Held by the fitting it is made up on, which the front wall holds: no bracket of its own"),
+    _c("wr1110",            "real",        True,  "none", "Interstate Pneumatics WR1110 fixed-90 PSI secondary regulator (reference/wr1110-regulator), female 1/4\" NPT both ends. Lies flow-along-Y in the open band east of the check, where the band is deepest — it cannot follow the check inline, because the lane at the inlet's own X ends on the source-select tray's underside before its 57 mm are up. A PP010822E on each end takes it back to 1/4\" tube. Cradle TBD"),
     # Front-panel / opening
     _c("display",           "real",        True,  "shell-facet", "Waveshare 4.3B: 45° facet housing in the front-top (bezel counterbore + PCB through-hole)"),
     _c("hopper-funnel",     "real",        True,  "none", "removable silicone basin; rests on the top-wall rim ledge, attach mode TBD (enclosure-mechanical Open #3)"),
@@ -188,6 +192,7 @@ TOUCHING_OK = {
         ("foam-assembly", "ac-hub"),            # the hub's floor on the two that span the pour hole
         ("foam-assembly", "ground-stack"),      # the lug fan on the one column that carries the bus
         ("drip-pan", "drip-pan-rails"),         # the basin's floor edge flat on the shelves
+        ("co2-inlet", "gasher-co2"),            # the check made up on the inlet's NPT stub
         # The valve-manifold stack: the source-select tray's floor rests on the
         # bag-circuit tray's column wall tops, one tray pitch apart by design.
         ("source-select-assembly", "bag-circuit-assembly"),
@@ -235,11 +240,24 @@ WATER_SEGMENTS = [
 ]
 
 
+# The CO2 path — declared here for the reason the refrigerant loop and the tap-water path are:
+# fluid-topology.md is the beverage manifold downstream of the carbonator, and this path is
+# upstream of it. It runs from the front-panel DERPIPE inlet through the GASHER check and the
+# WR1110 secondary regulator to the carbonator's bottom-plate CO2 port, and is built in
+# assembly/internal-plumbing.md §1. Two segments: the DERPIPE → GASHER joint is a made-up
+# 1/4" NPT thread carrying no line, and everything past the regulator's outlet is one run of
+# 1/4" LLDPE that ends on the adapter already made up under the vessel's plate.
+CO2_SEGMENTS = [
+    ("co2-1", "gasher-co2 outlet (PP010822E, 1/4\" NPT M x PTC)", "wr1110 inlet (PP010822E)"),
+    ("co2-2", "wr1110 outlet (PP010822E)", "foam-assembly co2-in (through the shell wall onto the vessel's bottom-plate elbow)"),
+]
+
+
 def load_connections() -> list[Connection]:
     """Every connection the box must route: the fluid tube segments (fluid-topology.md,
     `| N | From | To |`), the electrical runs (ac-wiring-schedule.md, `| AC/DC/SIG/LV-N |
-    From | To |`), the sealed refrigerant loop (REFRIGERANT_SEGMENTS) and the tap-water
-    path (WATER_SEGMENTS). A connection counts as routed only once a real 3D path is
+    From | To |`), the sealed refrigerant loop (REFRIGERANT_SEGMENTS), the tap-water
+    path (WATER_SEGMENTS) and the CO2 path (CO2_SEGMENTS). A connection counts as routed only once a real 3D path is
     modeled (_lines.py's authored runs)."""
     conns: list[Connection] = []
     if _TOPOLOGY.is_file():
@@ -258,6 +276,8 @@ def load_connections() -> list[Connection]:
         conns.append(Connection(cid, "refrigerant", frm, to))
     for cid, frm, to in WATER_SEGMENTS:
         conns.append(Connection(cid, "water", frm, to))
+    for cid, frm, to in CO2_SEGMENTS:
+        conns.append(Connection(cid, "co2", frm, to))
     # Routed state comes from the paths _lines.py builds. Deferred import: _lines reads PORTS
     # back out of this module.
     import _lines
@@ -556,17 +576,29 @@ _BACK_C14   = contents.back_port_station("c14-inlet")
 # level out of the bulkhead elbow's lateral port; the four slot penetrations
 # sit where the copper plug stack's spans meet, each join being a bore centre.
 _FOAM_PORT = contents.foam_shell_port
+
+
+def _CO2_CHAIN(name, face):
+    """A CO2-chain body's end face centre, read off the placed solid rather than
+    retyped. Both are straight-through fittings placed on an axis, so an end IS
+    the box's face centre — and a body that moves, or turns, carries its two
+    ports with it. The check runs +Y off the wall; the regulator lies across the
+    band on +X."""
+    bb = _boxes.boxed(contents.build()[name][0])
+    mid = {"x": (bb.xmin + bb.xmax) / 2.0,
+           "y": (bb.ymin + bb.ymax) / 2.0,
+           "z": (bb.zmin + bb.zmax) / 2.0}
+    end = {"x-": bb.xmin, "x+": bb.xmax, "y-": bb.ymin, "y+": bb.ymax}[face]
+    return tuple(end if a == face[0] else mid[a] for a in "xyz")
+
+
 _EXIT_Z = _cc.bulkhead_elbow_exit_z
 _PLUG_JOIN = {name: spec.z_range[0] for name, spec in _plug_specs.items()}
-# The one foam port off the −Y face: the CO2 line drops through the +Z cap top.
-# The cap carries its bore on −Y and installs spun a half turn about Z, so the
-# bore stands at −co2_inlet_y, and the lid's outer face is the mouth.
-_CO2_TOP = _FOAM_PORT(0.0, 0.0, y=-_cc.co2_inlet_y)[:2] + (contents.foam_cap_top(),)
 
 PORTS = [
     # foam-assembly — 8 tube penetrations (foam-shell README §Penetrations) + 2 reed-cable exits
-    # on the −Y front wall. All on −Y except the CO2 inlet, which drops through the +Z foam-cap
-    # top, at its own station aft of the face. Ø: the beverage/flavor lines run the foam shell's
+    # on the −Y front wall, the CO2 inlet among them — its bore carries on through the support
+    # ring to the elbow under the vessel's bottom plate. Ø: the beverage/flavor lines run the foam shell's
     # Ø6.5 port-holes (_cold_core_interface.port_hole_radius 3.25) sized for 1/4" tube; the
     # water-in takes the SeaFlo's 3/8" discharge; the copper legs are 1/4" ACR = 6.35.
     # The two flavor lines and the two reed cables exit at their shell-side bore X, well
@@ -575,7 +607,7 @@ PORTS = [
     _p("carb-water-out", "foam-assembly", "fluid",       _FOAM_PORT(0.0, _pc.front_face_port_z), "y-", 6.35,  "dispense faucet (carb-water riser to the rear umbilical)", "1/4\" tank NPT elbow line"),
     _p("reservoir-A",    "foam-assembly", "fluid",       _FOAM_PORT(+_pc.flavor_line_shell_hole_x, _EXIT_Z), "y-", 6.35,  "reservoir A ↔ peristaltic pump A (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
     _p("reservoir-B",    "foam-assembly", "fluid",       _FOAM_PORT(-_pc.flavor_line_shell_hole_x, _EXIT_Z), "y-", 6.35,  "reservoir B ↔ peristaltic pump B (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
-    _p("co2-in",         "foam-assembly", "fluid",       _CO2_TOP, "z+", 6.35,  "CO2 chain (WR1110 → foam-cap top entry)", "1/4\" PTC CO2 line; seats in the Ø6.5 foam-cap bore"),
+    _p("co2-in",         "foam-assembly", "fluid",       _FOAM_PORT(_cc.co2_inlet_x, _pc.front_face_port_z), "y-", 6.35,  "CO2 chain (WR1110 → the vessel's bottom-plate CO2 elbow)", "1/4\" LLDPE; the Ø6.5 bore runs on through the support ring to the adapter under the plate"),
     _p("evap-inlet",     "foam-assembly", "refrigerant", _FOAM_PORT(0.0, _PLUG_JOIN["lower"]),  "y-", 6.35,  "condenser+fan outlet (liquid line via drier + cap tube)", "1/4\" ACR copper"),
     _p("evap-outlet",    "foam-assembly", "refrigerant", _FOAM_PORT(0.0, _PLUG_JOIN["middle"]), "y-", 6.35,  "compressor-shroud suction", "1/4\" ACR copper"),
     _p("water-in",       "foam-assembly", "fluid",       _FOAM_PORT(0.0, _PLUG_JOIN["upper"]),  "y-", 9.525, "gasher-water out (SeaFlo outlet check → carbonator water inlet)", "3/8\" hose barb (SeaFlo 22-series port)"),
@@ -601,10 +633,15 @@ PORTS = [
     _p("refrig-outlet", "condenser+fan", "refrigerant", (213.0, 5.5, 8.5),     "x-", 6.35, "filter-drier → cap tube → foam-assembly evaporator inlet", "1/4\" ACR copper"),
     _p("fan-power",     "condenser+fan", "electrical",  (269.0, 89.0, 78.5),   "x+", 4.0,  "J2 MANIFOLD B FAN + COM (DC-8, 12 V)", "DC pigtail 2-wire (estimate); +X exhaust face (fan centered); airflow −X→+X"),
     # CO2 inlet (front panel) — the DERPIPE steps the customer's 5/16" PTC down to the 1/4"
-    # NPT stub inboard. The chain it feeds (GASHER check → WR1110 → foam co2-in) is deferred
-    # from the pack — its old front-left column is the source-select assembly's west bank.
-    _p("tube-in",  "co2-inlet", "fluid", (46.0, -22.0, 234.0),  "y-", 7.94, "customer CO2 supply — 5/16\" push-to-connect (rear umbilical)", "5/16\" PTC collet, outboard"),
-    _p("npt-out",  "co2-inlet", "fluid", (46.0, 5.0, 234.0),    "y+", 6.35, "CO2 chain (GASHER check → WR1110, deferred) → foam-assembly co2-in", "1/4\" NPT shank, inboard"),
+    # NPT stub inboard, and the GASHER check is made up on that stub, so the two read as one
+    # body off the wall. Both stations are reaches off the inlet's own X/Z, which is where the
+    # hole is cut, and the check's ends come off its placed solid rather than being retyped.
+    _p("tube-in",  "co2-inlet", "fluid", (contents.CO2_INLET_X, -22.0, contents.CO2_INLET_Z),  "y-", 7.94, "customer CO2 supply — 5/16\" push-to-connect (front-panel tether)", "5/16\" PTC collet, outboard"),
+    _p("npt-out",  "co2-inlet", "fluid", (contents.CO2_INLET_X, contents.CO2_GASHER_Y, contents.CO2_INLET_Z), "y+", 6.35, "gasher-co2 inlet — the check threads onto this stub", "1/4\" NPT shank, inboard"),
+    _p("inlet",    "gasher-co2", "fluid", _CO2_CHAIN("gasher-co2", "y-"), "y-", 6.35, "co2-inlet npt-out (made up, no line between)", "1/4\" NPT female socket"),
+    _p("outlet",   "gasher-co2", "fluid", _CO2_CHAIN("gasher-co2", "y+"), "y+", 6.35, "wr1110 inlet — segment co2-1", "1/4\" NPT male stub, into a PP010822E onto 1/4\" tube"),
+    _p("inlet",    "wr1110", "fluid", _CO2_CHAIN("wr1110", "x-"), "x-", 6.35, "gasher-co2 outlet — segment co2-1", "1/4\" NPT female socket, PP010822E onto 1/4\" tube"),
+    _p("outlet",   "wr1110", "fluid", _CO2_CHAIN("wr1110", "x+"), "x+", 6.35, "foam-assembly co2-in — segment co2-2", "1/4\" NPT female socket, PP010822E onto 1/4\" tube"),
     # Rear-panel through-wall bodies — each JG bulkhead union is a 1/4" tube port each side of the
     # rear wall (Y = tube-flow axis, +Y = outward to the rear umbilical, −Y = inward to the
     # subsystem it feeds). The C14 mains inlet carries one 3-wire harness inboard from the panel
@@ -1122,12 +1159,14 @@ def routed_check(solids=None) -> tuple:
     wire = sum(1 for c in conns if c.kind == "wire")
     refrig = sum(1 for c in conns if c.kind == "refrigerant")
     water = sum(1 for c in conns if c.kind == "water")
+    co2 = sum(1 for c in conns if c.kind == "co2")
     routed_done = sum(1 for c in conns if c.routed)
     routed = _pct(routed_done, len(conns))
-    routed_detail = [f"{fluid} fluid + {water} water + {refrig} refrigerant + {wire} electrical; "
-                     f"{routed_done} routed — the water path is closed end to end, the fluid path "
-                     f"waits on the manifold's remaining on-tray legs, the refrigerant loop on its "
-                     f"suction leg, and the electrical runs on the components being held"]
+    routed_detail = [f"{fluid} fluid + {water} water + {co2} CO2 + {refrig} refrigerant + "
+                     f"{wire} electrical; {routed_done} routed — the water and CO2 paths are "
+                     f"closed end to end, the fluid path waits on the manifold's remaining "
+                     f"on-tray legs, the refrigerant loop on its suction leg, and the electrical "
+                     f"runs on the components being held"]
     # The per-run nearest-gap report is an exact solid-distance query against every body.
     # HSM_SKIP_CLEARANCES drops it; each run's ports, length and bends still print, and
     # `lines-clear` still gates on interpenetration.
@@ -1143,7 +1182,7 @@ def routed_check(solids=None) -> tuple:
     for c in conns:
         if c.blocked:
             routed_detail.append(f"✗ {c.id}: BLOCKED — {c.blocked}")
-    ck = Check("routed", "Connections modeled as real 3D paths (fluid + water + refrigerant + electrical)",
+    ck = Check("routed", "Connections modeled as real 3D paths (fluid + water + CO2 + refrigerant + electrical)",
                "goal", "pass" if (routed == 100 and bool(conns)) else "warn",
                f"{routed}% ({routed_done}/{len(conns)})", "100%", routed_detail[:DETAIL_MAX], False)
     return ck, routed

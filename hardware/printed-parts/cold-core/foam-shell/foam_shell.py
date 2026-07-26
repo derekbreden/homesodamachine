@@ -49,9 +49,7 @@ from _reservoir_pocket_walls import (
     transition_tank_r,
 )
 from _port_cuts import (
-    co2_doorway_y,
-    co2_inlet_notch_half_width,
-    co2_inlet_notch_z_top,
+    co2_inlet_xyz,
     flavor_line_hole_x,
     flavor_line_shell_hole_x,
 )
@@ -60,7 +58,6 @@ from _reed_channels import (
     cable_shell_hole_x,
 )
 from _cold_core_interface import reservoir_bulkhead_port_x
-from _cold_core_interface import co2_inlet_y
 from _cold_core_interface import (
     cap_screw_beyond_face,
     cap_screw_length,
@@ -133,15 +130,10 @@ def main():
             "SCREW_REACH": f"{cap_screw_beyond_face:.4g} mm",
             "INSERT_LEN": f"{insert_length:.4g} mm",
             "TIP_CLEAR": f"{insert_pocket_depth - cap_screw_beyond_face:.4g} mm",
-            # CO2 elbow doorway — the notch width, the +Y wall face it is cut
-            # from, the ring-top plateau it opens through, and the tube's Y
-            # through the cap stack above it. The cap is authored with its bore
-            # on −Y and installs rotated 180°, so the tube comes down at
-            # −co2_inlet_y, on the doorway's side.
-            "CO2_NOTCH_W": f"{2 * co2_inlet_notch_half_width:.4g}",
-            "CO2_DOORWAY_Y": f"+{co2_doorway_y:.4g}",
-            "CO2_NOTCH_Z_TOP": f"{co2_inlet_notch_z_top:.4g}",
-            "CO2_CAP_HOLE_Y": f"+{-co2_inlet_y:.4g}",
+            # CO2 inlet — the X the bore stands on (the vessel bottom plate's
+            # own port offset) and the Z it shares with the water outlet.
+            "CO2_BORE_X": f"+{co2_inlet_xyz[0]:.4g}",
+            "CO2_BORE_Z": f"{co2_inlet_xyz[2]:.4g}",
             # Front pass-throughs — each is two non-coaxial bores, the
             # pocket-side one beside the bulkhead and the shell-side one
             # inboard, joined by a run along the pour band.
@@ -193,7 +185,7 @@ def main():
             "SUPPORT_RING_H": 1,
             "SUPPORT_RING_W": 1,
             "SUPPORT_RING_INNER_R": 1,
-            "TUBE_HOLE_D": 8,
+            "TUBE_HOLE_D": 9,
             "CORNER_ROUND_R": 1,
             "BOSS_D": 3,
             "MID_BOSS_OFFSET": 2,
@@ -205,10 +197,8 @@ def main():
             "SCREW_REACH": 1,
             "INSERT_LEN": 1,
             "TIP_CLEAR": 1,
-            "CO2_NOTCH_W": 3,
-            "CO2_DOORWAY_Y": 2,
-            "CO2_NOTCH_Z_TOP": 1,
-            "CO2_CAP_HOLE_Y": 1,
+            "CO2_BORE_X": 3,
+            "CO2_BORE_Z": 2,
             "PLUG_SPAN_LOWER": 1,
             "PLUG_SPAN_MIDDLE": 1,
             "PLUG_SPAN_UPPER": 1,

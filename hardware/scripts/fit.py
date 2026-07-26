@@ -28,6 +28,13 @@ poses by how much room they leave.
 a footprint could stand in. Obstacles count by their bounding box unless named in `exact`,
 which measures against the solid — a part that is mostly air reads as mostly air.
 
+Both scans state their own bounds before their answer. A search reports the `Box` it ranged
+over — every range, every axis pinned to one value, every body held out — and names the ends
+the best pose sits on. A slab reports its field, where the field came from, which bodies were
+measured exactly, and whether its largest rectangle runs to the edge of a field the caller
+supplied. An end of a scan is a fact about the grid and not about the geometry, so a limit
+read off one arrives with the grid attached.
+
 From the shell, without writing a file:
 
     tools/cad-venv/bin/python hardware/scripts/fit.py parts
@@ -40,8 +47,8 @@ From the shell, without writing a file:
 
 `selftest` checks the instrument against known-answer geometry — that a port lands on the
 body it belongs to at arbitrary angles, that clearance only ever removes poses, that a
-known fit fits and a known clash clashes. Run it when an answer looks wrong before
-trusting the answer.
+known fit fits and a known clash clashes, and that a scan reports the box it searched and
+the ends its answer sits on. Run it when an answer looks wrong before trusting the answer.
 """
 
 import inspect
@@ -471,10 +478,15 @@ def _bb_gap(a, b) -> float:
 
 # --- searching a pose grid ------------------------------------------------
 
+AXES = ("x", "y", "z", "yaw", "pitch", "roll")
+_SPIN = ("yaw", "pitch", "roll")
+
+
 @dataclass
 class Candidate:
     pose: Pose
     verdict: Verdict
+    point: dict = field(default_factory=dict)       # the grid point that produced the pose
 
     @property
     def room(self) -> float:
@@ -484,13 +496,87 @@ class Candidate:
         return f"{self.pose}  {self.verdict}"
 
 
+@dataclass
+class Box:
+    """The grid a search ranged over, in the caller's own numbers — every range and every
+    axis held to one value. An end of this box is a fact about the grid and not about the
+    geometry, so a pose sitting on one is reported alongside the pose.
+
+    A rotation whose values tile the circle at their own spacing has no end to sit on."""
+
+    specs: dict                                     # label -> the spec as given
+    values: dict                                    # label -> what it expanded to
+    anchor: str = "at"
+    skip: tuple = ()                                # bodies held out of the measurement
+
+    @property
+    def swept(self) -> list:
+        return [n for n in AXES if len(self.values.get(n, ())) > 1]
+
+    @property
+    def fixed(self) -> list:
+        return [n for n in AXES if len(self.values.get(n, ())) == 1]
+
+    def wraps(self, label: str) -> bool:
+        """Whether a rotation's values close the circle, leaving no end to widen."""
+        v = sorted(self.values[label])
+        if label not in _SPIN or len(v) < 2:
+            return False
+        gaps = [b - a for a, b in zip(v, v[1:])]
+        return (max(gaps) - min(gaps) < 1e-9
+                and (v[-1] - v[0]) + gaps[0] >= 360.0 - 1e-9)
+
+    def edges(self, point: dict) -> list:
+        """The swept axes `point` sits at the low or high end of."""
+        out = []
+        for name in self.swept:
+            if self.wraps(name):
+                continue
+            v = self.values[name]
+            if abs(point[name] - min(v)) < 1e-9:
+                out.append(f"{name} low")
+            elif abs(point[name] - max(v)) < 1e-9:
+                out.append(f"{name} high")
+        return out
+
+    def _axis(self, label: str) -> str:
+        spec, v = self.specs[label], self.values[label]
+        if _is_triple(spec):
+            return f"{label}[{spec[0]:g},{spec[1]:g}] step {spec[2]:g} ({len(v)})"
+        if len(v) > 6:
+            return f"{label}[{min(v):g},{max(v):g}] ({len(v)} given)"
+        return f"{label}{{" + ",".join(f"{u:g}" for u in v) + "}"
+
+    def __str__(self) -> str:
+        swept = "  ".join(self._axis(n) for n in self.swept)
+        held = " ".join(f"{n}={self.values[n][0]:g}" if isinstance(self.specs[n], (int, float))
+                        else self._axis(n) for n in self.fixed)
+        return ("box  " + (swept or "nothing swept")
+                + (f"  fixed: {held}" if held else "")
+                + (f"  anchor={self.anchor}" if self.anchor != "at" else "")
+                + (f"  holding out: {', '.join(self.skip)}" if self.skip else ""))
+
+
+class Candidates(list):
+    """The free poses, best room first, carrying the `Box` they were found in."""
+
+    def __init__(self, items=(), box: Box = None):
+        super().__init__(items)
+        self.box = box
+
+
+def _is_triple(spec) -> bool:
+    return (isinstance(spec, tuple) and len(spec) == 3
+            and all(isinstance(v, (int, float)) for v in spec))
+
+
 def _axis_values(spec, label: str) -> list:
     """A scalar, a `(lo, hi, step)` triple, or any iterable of values."""
     if spec is None:
         raise ValueError(f"search needs {label}=")
     if isinstance(spec, (int, float)):
         return [float(spec)]
-    if isinstance(spec, tuple) and len(spec) == 3 and all(isinstance(v, (int, float)) for v in spec):
+    if _is_triple(spec):
         lo, hi, step = (float(v) for v in spec)
         if step <= 0:
             raise ValueError(f"{label}=({lo}, {hi}, {step}): step must be positive")
@@ -500,8 +586,9 @@ def _axis_values(spec, label: str) -> list:
 
 
 def search(part: Part, x, y, z, yaw=(0.0,), pitch=(0.0,), roll=(0.0,), anchor: str = "at",
-           clearance: float = 0.0, skip=(), world=None, limit=None, quiet: bool = False) -> list:
-    """Every free pose on a grid, best room first.
+           clearance: float = 0.0, skip=(), world=None, limit=None, top: int = 12,
+           quiet: bool = False) -> Candidates:
+    """Every free pose on a grid, best room first, carrying the grid it searched.
 
     Each axis takes a scalar, a `(lo, hi, step)` triple or a list. `anchor` is `"at"` (the
     part's origin lands on the grid point) or `"bbmin"` (its rotated box's low corner does).
@@ -509,36 +596,52 @@ def search(part: Part, x, y, z, yaw=(0.0,), pitch=(0.0,), roll=(0.0,), anchor: s
     itself.
 
     Raising `clearance` can only remove poses: it is a threshold on a measured distance and
-    the distances do not depend on it."""
+    the distances do not depend on it.
+
+    The report states the `Box` before the answer, and names the ends the best pose sits
+    on — a pose on an end is the grid reporting where it stopped."""
     if anchor not in ("at", "bbmin"):
         raise ValueError(f"anchor={anchor!r}: expected 'at' or 'bbmin'")
     w = world or probe.world()
-    grid = [(gx, gy, gz, ya, pi, ro)
-            for gx in _axis_values(x, "x")
-            for gy in _axis_values(y, "y")
-            for gz in _axis_values(z, "z")
-            for ya in _axis_values(yaw, "yaw")
-            for pi in _axis_values(pitch, "pitch")
-            for ro in _axis_values(roll, "roll")]
+    specs = dict(x=x, y=y, z=z, yaw=yaw, pitch=pitch, roll=roll)
+    values = {n: _axis_values(specs[n], n) for n in AXES}
+    box = Box(specs, values, anchor, tuple(skip))
+    grid = [dict(zip(AXES, (gx, gy, gz, ya, pi, ro)))
+            for gx in values["x"]
+            for gy in values["y"]
+            for gz in values["z"]
+            for ya in values["yaw"]
+            for pi in values["pitch"]
+            for ro in values["roll"]]
     if limit is not None and len(grid) > limit:
         raise ValueError(
             f"search would test {len(grid)} poses, over limit={limit} — coarsen a step "
             f"or narrow a range, or raise limit if the wait is wanted")
 
     out = []
-    for gx, gy, gz, ya, pi, ro in grid:
-        kw = {anchor: (gx, gy, gz)}
-        p = part.pose(yaw=ya, pitch=pi, roll=ro, **kw)
+    for point in grid:
+        kw = {anchor: (point["x"], point["y"], point["z"])}
+        p = part.pose(yaw=point["yaw"], pitch=point["pitch"], roll=point["roll"], **kw)
         if _conflict(p.solid, w, skip=skip, clearance=clearance) is not None:
             continue
-        out.append(Candidate(p, check(p, skip=skip, clearance=clearance, world=w)))
+        out.append(Candidate(p, check(p, skip=skip, clearance=clearance, world=w), point))
     out.sort(key=lambda c: -c.room)
+    found = Candidates(out, box)
     if not quiet:
         print(f"{len(out)} free of {len(grid)} poses at clearance {clearance:g} mm"
               + (f", best room {out[0].room:.2f} mm" if out else ""))
-        for c in out[:12]:
+        print(f"  {box}")
+        if not out:
+            print("  nothing outside this box was tested")
+        else:
+            ends = box.edges(out[0].point)
+            if ends:
+                print(f"  best pose sits on {', '.join(ends)} — widen and re-run")
+        for c in out[:top]:
             print(f"  {c}")
-    return out
+        if len(out) > top:
+            print(f"  … {len(out) - top} more free pose(s) not shown")
+    return found
 
 
 # --- free space in a slab -------------------------------------------------
@@ -578,17 +681,25 @@ def slab(z: tuple, x: tuple = None, y: tuple = None, step: float = 4.0, skip=(),
     a part that is mostly air hides space behind its box. Name those in `exact` (or pass
     `exact=True`) to intersect the band against the solid instead.
 
-    `size=(w, d)` keeps only rectangles that hold that footprint in either orientation."""
+    `size=(w, d)` keeps only rectangles that hold that footprint in either orientation.
+
+    The report states the field, where the field came from, and which bodies were measured
+    exactly — a field the caller supplied is a bound on the scan and not on the machine, so
+    a rectangle reaching the edge of one is reported as reaching it."""
     w = world or probe.world()
     zlo, zhi = float(z[0]), float(z[1])
     if zhi <= zlo:
         raise ValueError(f"slab z=({zlo}, {zhi}): hi must exceed lo")
 
     live = [n for n in w.names if n not in skip and w.bb(n).zmax > zlo and w.bb(n).zmin < zhi]
-    if x is None or y is None:
+    given = (x is not None, y is not None)
+    source = "as given"
+    if not all(given):
         bounds = _interior(w, skip)
-        x = x or bounds[0]
-        y = y or bounds[1]
+        x = x if given[0] else bounds[0]
+        y = y if given[1] else bounds[1]
+        source = ("x as given, y from " if given[0] else
+                  "y as given, x from " if given[1] else "from ") + bounds[2]
     x0, x1, y0, y1 = float(x[0]), float(x[1]), float(y[0]), float(y[1])
     nx, ny = max(1, int(round((x1 - x0) / step))), max(1, int(round((y1 - y0) / step)))
     sx, sy = (x1 - x0) / nx, (y1 - y0) / ny
@@ -632,26 +743,51 @@ def slab(z: tuple, x: tuple = None, y: tuple = None, step: float = 4.0, skip=(),
         print(f"free in z[{zlo:.1f},{zhi:.1f}] on a {sx:.1f}×{sy:.1f} mm grid — "
               f"{len(rects)} rectangle(s)"
               + (f" holding {size[0]:g}×{size[1]:g}" if size else ""))
+        print(f"  field  x[{x0:.1f},{x1:.1f}] y[{y0:.1f},{y1:.1f}] {source}")
+        by_box = len(live) - len(want_exact)
+        print(f"  bodies  {by_box} by bounding box"
+              + (f", {len(want_exact)} exact: {', '.join(sorted(want_exact))}"
+                 if want_exact else ", none exact")
+              + (f"  holding out: {', '.join(skip)}" if skip else ""))
+        if rects:
+            ends = _field_ends(rects[0], (x0, x1), (y0, y1), given)
+            if ends:
+                print(f"  largest reaches {', '.join(ends)} of the field you gave — "
+                      f"widen and re-run")
         for r in rects[:top]:
             print(f"  {r}")
+        if len(rects) > top:
+            print(f"  … {len(rects) - top} more rectangle(s) not shown")
     return rects
 
 
 def _interior(w, skip=()) -> tuple:
-    """The enclosure's inner cavity as `((xlo, xhi), (ylo, yhi))` — the default field for a
-    slab, so a scan reports room inside the machine rather than the air around it."""
+    """The enclosure's inner cavity as `((xlo, xhi), (ylo, yhi), source)` — the default field
+    for a slab, so a scan reports room inside the machine rather than the air around it.
+    `source` names where the field came from, which the slab reports with its answer."""
     try:
         probe._ensure_paths()
         import enclosure
         inner = enclosure._dims().inner
-        return ((inner[0], inner[1]), (inner[2], inner[3]))
+        return ((inner[0], inner[1]), (inner[2], inner[3]), "the enclosure cavity")
     except Exception:
         boxes = [w.bb(n) for n in w.names if n not in skip]
         if not boxes:
             raise ValueError("slab: no enclosure to bound the field and every body was "
                              "skipped — pass x= and y=")
         return ((min(b.xmin for b in boxes), max(b.xmax for b in boxes)),
-                (min(b.ymin for b in boxes), max(b.ymax for b in boxes)))
+                (min(b.ymin for b in boxes), max(b.ymax for b in boxes)),
+                "the placed bodies' extent, the enclosure being unavailable")
+
+
+def _field_ends(r: Rect, x: tuple, y: tuple, given: tuple) -> list:
+    """The edges of a caller-supplied field that `r` reaches. An edge the caller did not
+    supply is the cavity wall, which is the machine's and not the scan's."""
+    return [e for e, reached in (
+        ("x low", given[0] and r.x[0] <= x[0] + 1e-6),
+        ("x high", given[0] and r.x[1] >= x[1] - 1e-6),
+        ("y low", given[1] and r.y[0] <= y[0] + 1e-6),
+        ("y high", given[1] and r.y[1] >= y[1] - 1e-6)) if reached]
 
 
 def _span(lo, hi, origin, cell, n) -> tuple:
@@ -808,6 +944,37 @@ def selftest() -> int:
        all(counts[i] >= counts[i + 1] for i in range(len(counts) - 1)), f"{counts}")
     ok("clearance 0 admits the touching pose", counts[0] > counts[-1], f"{counts}")
 
+    print("controls — a search states the box it searched:")
+    found = search(p, x=(0.0, face - side / 2, side / 5), y=0.0, z=0.0,
+                   skip=("nothing-here",), world=w, quiet=True)
+    b = found.box
+    ok("every axis is in the box", sorted(b.values) == sorted(AXES),
+       f"{sorted(b.values)}", f"{sorted(AXES)}")
+    ok("the swept axis is named swept", b.swept == ["x"], f"{b.swept}", "['x']")
+    ok("the pinned axes are named fixed", b.fixed == ["y", "z", "yaw", "pitch", "roll"],
+       f"{b.fixed}")
+    ok("the rendered box carries the range", "x[0,40] step 4" in str(b), str(b))
+    ok("the rendered box carries the held-out body", "nothing-here" in str(b), str(b))
+    ok("the best pose is at the low end and says so", b.edges(found[0].point) == ["x low"],
+       f"{b.edges(found[0].point)}", "['x low']")
+    ok("a fixed axis is never an end", not any(e.startswith(("y ", "z ")) for e in
+                                               b.edges(found[0].point)))
+    blocked = search(p, x=face + 1.0, y=0.0, z=0.0, world=w, quiet=True)
+    ok("a search that finds nothing still carries its box",
+       blocked == [] and blocked.box is not None and "x=51" in str(blocked.box),
+       str(blocked.box))
+
+    print("controls — an end is an end only where widening reaches:")
+    for label, values, at, want in (
+        ("a full circle of yaw has no end", [0.0, 90.0, 180.0, 270.0], 0.0, []),
+        ("half a circle of yaw has ends", [0.0, 90.0], 90.0, ["yaw high"]),
+        ("a linear axis always has ends", [0.0, 90.0], 0.0, ["x low"]),
+        ("an uneven rotation keeps its ends", [0.0, 90.0, 200.0], 200.0, ["yaw high"]),
+    ):
+        name = "x" if label.startswith("a linear") else "yaw"
+        got = Box({name: tuple(values)}, {name: values}).edges({name: at})
+        ok(label, got == want, f"{got}", f"{want}")
+
     print("controls — slab:")
     # One bar across the middle of a square field: two free strips, the north one wider.
     span, lo, hi = 5 * side, 2 * side, 3 * side
@@ -819,6 +986,15 @@ def selftest() -> int:
        f"{widest.area:.0f} mm²", f"{span * (span - hi):.0f} mm²")
     ok("slab excludes the occupied band",
        all(not (r.y[0] < hi and r.y[1] > lo) for r in rects), f"{len(rects)} rects")
+
+    print("controls — a slab states the field it scanned:")
+    ends = _field_ends(widest, (0, span), (0, span), (True, True))
+    ok("a rectangle on a given field's edge says so", ends == ["x low", "x high", "y high"],
+       f"{ends}", "['x low', 'x high', 'y high']")
+    ok("an edge of a field nobody supplied is the machine's",
+       _field_ends(widest, (0, span), (0, span), (False, False)) == [])
+    ok("the derived field names where it came from",
+       isinstance(_interior(ws)[2], str) and _interior(ws)[2] != "", _interior(ws)[2])
 
     print("controls — refusals:")
     for label, thunk in (
@@ -915,6 +1091,7 @@ def main(argv: list) -> int:
     p.add_argument("--clearance", type=float, default=0.0)
     p.add_argument("--skip", default="")
     p.add_argument("--limit", type=int, default=20000)
+    p.add_argument("--top", type=int, default=12, help="how many poses to print")
 
     p = sub.add_parser("slab", help="the largest free rectangles in a Z band")
     p.add_argument("--z", required=True, help="lo,hi")
@@ -992,7 +1169,7 @@ def main(argv: list) -> int:
     if a.cmd == "search":
         search(part(a.part), x=_triple(a.x), y=_triple(a.y), z=_triple(a.z),
                yaw=_list(a.yaw), pitch=_list(a.pitch), roll=_list(a.roll),
-               anchor=a.anchor, clearance=a.clearance, skip=skip, limit=a.limit)
+               anchor=a.anchor, clearance=a.clearance, skip=skip, limit=a.limit, top=a.top)
         return 0
 
     if a.cmd == "slab":

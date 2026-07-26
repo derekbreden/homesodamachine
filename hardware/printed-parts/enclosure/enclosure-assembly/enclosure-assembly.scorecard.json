@@ -1,17 +1,17 @@
 {
-  "gatesPass": true,
-  "placed": 52,
-  "located": 92,
+  "gatesPass": false,
+  "placed": 50,
+  "located": 93,
   "shaped": 98,
-  "routed": 41,
-  "held": 42,
+  "routed": 40,
+  "held": 43,
   "checks": [
     {
       "id": "coverage",
       "label": "Every placed part declared in the registry",
       "kind": "gate",
       "status": "pass",
-      "value": "40/40 placed declared",
+      "value": "42/42 placed declared",
       "target": "all declared",
       "detail": [],
       "active": true
@@ -40,13 +40,15 @@
       "id": "clearance-floor",
       "label": "Part\u2194part clearance \u2265 floor (unless a declared contact)",
       "kind": "gate",
-      "status": "pass",
-      "value": "1.00 mm",
+      "status": "fail",
+      "value": "0.00 mm",
       "target": "\u2265 1.0 mm",
       "detail": [
         "foam-assembly \u2014 relay-1: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 ac-hub: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 ground-stack: 0.00 mm \u2014 CONTACT (declared ok)",
+        "gasher-co2 \u2014 co2-inlet: 0.00 mm \u2014 CONTACT (declared ok)",
+        "wr1110 \u2014 source-select-assembly: 0.00 mm \u2014 \u2717 below floor",
         "source-select-assembly \u2014 bag-circuit-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
         "drip-pan \u2014 drip-pan-rails: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 seaflo-pump: 0.00 mm \u2014 CONTACT (declared ok)",
@@ -78,6 +80,7 @@
         "seaflo-pump \u2014 drip-pan-rails: 4.00 mm",
         "bag-circuit-assembly \u2014 elbow-y-g: 5.05 mm",
         "drip-pan-rails \u2014 psu: 5.70 mm",
+        "wr1110 \u2014 pump-b: 5.81 mm",
         "bag-circuit-assembly \u2014 hopper-funnel: 5.91 mm"
       ],
       "active": true
@@ -107,8 +110,8 @@
       "label": "Every component is a selected real part / finished print",
       "kind": "gate",
       "status": "pass",
-      "value": "40/40",
-      "target": "40/40",
+      "value": "42/42",
+      "target": "42/42",
       "detail": [],
       "active": true
     },
@@ -117,7 +120,7 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "52% (21/40)",
+      "value": "50% (21/42)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 3.0 x- 14.0 x+ 14.0 z- 0.0 mm",
@@ -141,7 +144,7 @@
         "\u2713 drip-pan-rails: near foam-assembly 0.0 near drip-pan 0.0 clear seaflo-pump 4.0 mm",
         "\u2713 vk-fill-valve: near water-split 6.7 clear seaflo-pump 34.8 clear asse1022-assembly 40.9 clear foam-assembly 20.7 mm",
         "\u2713 flow-regulator: near source-select-assembly 38.5 clear seaflo-pump 2.0 mm",
-        "19 components: no placement rules defined yet"
+        "21 components: no placement rules defined yet"
       ],
       "active": true
     },
@@ -150,14 +153,14 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "92% (37/40)",
+      "value": "93% (39/42)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
         "    \u2013 foam-assembly:carb-water-out (fluid) (141.5, 182, 37) y- \u00d86.35 \u2192 dispense faucet (carb-water riser to the rear umbilical)",
         "    \u2013 foam-assembly:reservoir-A (fluid) (188.5, 182, 26) y- \u00d86.35 \u2192 reservoir A \u2194 peristaltic pump A (bag circuit)",
         "    \u2013 foam-assembly:reservoir-B (fluid) (94.5, 182, 26) y- \u00d86.35 \u2192 reservoir B \u2194 peristaltic pump B (bag circuit)",
-        "    \u2013 foam-assembly:co2-in (fluid) (141.5, 345.25, 253.4) z+ \u00d86.35 \u2192 CO2 chain (WR1110 \u2192 foam-cap top entry)",
+        "    \u2013 foam-assembly:co2-in (fluid) (160.55, 182, 37) y- \u00d86.35 \u2192 CO2 chain (WR1110 \u2192 the vessel's bottom-plate CO2 elbow)",
         "    \u2013 foam-assembly:evap-inlet (refrigerant) (141.5, 182, 67) y- \u00d86.35 \u2192 condenser+fan outlet (liquid line via drier + cap tube)",
         "    \u2013 foam-assembly:evap-outlet (refrigerant) (141.5, 182, 186.4) y- \u00d86.35 \u2192 compressor-shroud suction",
         "    \u2013 foam-assembly:water-in (fluid) (141.5, 182, 218.4) y- \u00d89.525 \u2192 gasher-water out (SeaFlo outlet check \u2192 carbonator water inlet)",
@@ -174,8 +177,14 @@
         "    \u2013 condenser+fan:refrig-outlet (refrigerant) (213, 5.5, 8.5) x- \u00d86.35 \u2192 filter-drier \u2192 cap tube \u2192 foam-assembly evaporator inlet",
         "    \u2013 condenser+fan:fan-power (electrical) (269, 89, 78.5) x+ \u00d84 \u2192 J2 MANIFOLD B FAN + COM (DC-8, 12 V)",
         "\u2713 co2-inlet: 2/2 connectors located",
-        "    \u2013 co2-inlet:tube-in (fluid) (46, -22, 234) y- \u00d87.94 \u2192 customer CO2 supply \u2014 5/16\" push-to-connect (rear umbilical)",
-        "    \u2013 co2-inlet:npt-out (fluid) (46, 5, 234) y+ \u00d86.35 \u2192 CO2 chain (GASHER check \u2192 WR1110, deferred) \u2192 foam-assembly co2-in",
+        "    \u2013 co2-inlet:tube-in (fluid) (46, -22, 172) y- \u00d87.94 \u2192 customer CO2 supply \u2014 5/16\" push-to-connect (front-panel tether)",
+        "    \u2013 co2-inlet:npt-out (fluid) (46, 2, 172) y+ \u00d86.35 \u2192 gasher-co2 inlet \u2014 the check threads onto this stub",
+        "\u2713 gasher-co2: 2/2 connectors located",
+        "    \u2013 gasher-co2:inlet (fluid) (46, 2, 172) y- \u00d86.35 \u2192 co2-inlet npt-out (made up, no line between)",
+        "    \u2013 gasher-co2:outlet (fluid) (46, 42, 172) y+ \u00d86.35 \u2192 wr1110 inlet \u2014 segment co2-1",
+        "\u2713 wr1110: 2/2 connectors located",
+        "    \u2013 wr1110:inlet (fluid) (206.5, 20, 185.5) y- \u00d86.35 \u2192 gasher-co2 outlet \u2014 segment co2-1",
+        "    \u2013 wr1110:outlet (fluid) (206.5, 77, 185.5) y+ \u00d86.35 \u2192 foam-assembly co2-in \u2014 segment co2-2",
         "\u2713 bulkhead-flavor-a: 2/2 connectors located",
         "    \u2013 bulkhead-flavor-a:tube-out (fluid) (231.93, 375.5, 292.43) y+ \u00d86.35 \u2192 customer flavor A line (rear umbilical)",
         "    \u2013 bulkhead-flavor-a:tube-in (fluid) (231.93, 341.2, 292.43) y- \u00d86.35 \u2192 flavor A internal line (bag/pump circuit A)",
@@ -186,13 +195,7 @@
         "    \u2013 bulkhead-carb:tube-out (fluid) (217, 375.5, 318.29) y+ \u00d86.35 \u2192 carbonated-water line (rear umbilical / faucet)",
         "    \u2013 bulkhead-carb:tube-in (fluid) (217, 341.2, 318.29) y- \u00d86.35 \u2192 carb-water internal riser (DIGITEN \u2192 foam carb-water-out)",
         "\u2713 bulkhead-water: 2/2 connectors located",
-        "    \u2013 bulkhead-water:tube-out (fluid) (56, 375.5, 314) y+ \u00d86.35 \u2192 house tap-water line (rear umbilical)",
-        "    \u2013 bulkhead-water:tube-in (fluid) (56, 341.2, 314) y- \u00d86.35 \u2192 asse1022-assembly tube-in (the backflow preventer's own chain) \u2014 segment water-1 (routed)",
-        "\u2713 c14-inlet: 1/1 connectors located",
-        "    \u2013 c14-inlet:mains-in (electrical) (22, 339, 314.18) y- \u00d88 \u2192 AC distribution \u2014 L/N/E to the electronics shelf",
-        "\u2713 mq6-sensor: 1/1 connectors located",
-        "    \u2013 mq6-sensor:header (electrical) (103, 144, 3) z- \u00d88 \u2192 PCBA gas-sensor input \u2014 VCC/GND/DO/AO (SIG)",
-        "\u2713 asse1022-assembly: 3/3 connectors located"
+        "    \u2013 bulkhead-water:tube-out (fluid) (56, 375.5, 314) y+ \u00d86.35 \u2192 house tap-water line (rear umbilical)"
       ],
       "active": true
     },
@@ -201,7 +204,7 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "98% (39/40)",
+      "value": "98% (41/42)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; two floor rails carry its weight and two +X-wall webs carry four ear pads at the donor fan shroud's screw pattern (enclosure.py `_condenser_mount`), M3\u00d710 into ruthex through each ear. Ear pattern is an ESTIMATE until the donor shroud is separated and measured",
@@ -216,13 +219,13 @@
     },
     {
       "id": "routed",
-      "label": "Connections modeled as real 3D paths (fluid + water + refrigerant + electrical)",
+      "label": "Connections modeled as real 3D paths (fluid + water + CO2 + refrigerant + electrical)",
       "kind": "goal",
       "status": "warn",
-      "value": "41% (27/66)",
+      "value": "40% (27/68)",
       "target": "100%",
       "detail": [
-        "28 fluid + 6 water + 3 refrigerant + 29 electrical; 27 routed \u2014 the water path is closed end to end, the fluid path waits on the manifold's remaining on-tray legs, the refrigerant loop on its suction leg, and the electrical runs on the components being held",
+        "28 fluid + 6 water + 2 CO2 + 3 refrigerant + 29 electrical; 27 routed \u2014 the water and CO2 paths are closed end to end, the fluid path waits on the manifold's remaining on-tray legs, the refrigerant loop on its suction leg, and the electrical runs on the components being held",
         "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7 \u2014 nearest 5.45 mm to fluid-15",
         "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 284.7 mm, 4 bends at R12.7 \u2014 nearest 5.13 mm to compressor-shroud",
         "\u2713 water-1: bulkhead-water.tube-in \u2192 asse1022-assembly.tube-in \u2014 \u00d86.35 \u00d7 22.4 mm, 1 bends at R3.0 \u2014 nearest 18.03 mm to c14-inlet",
@@ -258,10 +261,10 @@
       "label": "Components in a printed holder fastened to the enclosure",
       "kind": "goal",
       "status": "warn",
-      "value": "42% (17/40)",
+      "value": "43% (18/42)",
       "target": "100%",
       "detail": [
-        "17 held (through-wall bodies + display); 23 loose internal parts unheld"
+        "18 held (through-wall bodies + display); 24 loose internal parts unheld"
       ],
       "active": false
     }
@@ -317,15 +320,15 @@
       "name": "co2-in",
       "kind": "fluid",
       "pos": [
-        141.5,
-        345.25,
-        253.4
+        160.55,
+        182.0,
+        37.0
       ],
-      "face": "z+",
+      "face": "y-",
       "diam": 6.35,
-      "mates": "CO2 chain (WR1110 \u2192 foam-cap top entry)",
+      "mates": "CO2 chain (WR1110 \u2192 the vessel's bottom-plate CO2 elbow)",
       "status": "ok",
-      "note": "1/4\" PTC CO2 line; seats in the \u00d86.5 foam-cap bore"
+      "note": "1/4\" LLDPE; the \u00d86.5 bore runs on through the support ring to the adapter under the plate"
     },
     {
       "component": "foam-assembly",
@@ -529,11 +532,11 @@
       "pos": [
         46.0,
         -22.0,
-        234.0
+        172.0
       ],
       "face": "y-",
       "diam": 7.94,
-      "mates": "customer CO2 supply \u2014 5/16\" push-to-connect (rear umbilical)",
+      "mates": "customer CO2 supply \u2014 5/16\" push-to-connect (front-panel tether)",
       "status": "ok",
       "note": "5/16\" PTC collet, outboard"
     },
@@ -543,14 +546,74 @@
       "kind": "fluid",
       "pos": [
         46.0,
-        5.0,
-        234.0
+        2.0,
+        172.0
       ],
       "face": "y+",
       "diam": 6.35,
-      "mates": "CO2 chain (GASHER check \u2192 WR1110, deferred) \u2192 foam-assembly co2-in",
+      "mates": "gasher-co2 inlet \u2014 the check threads onto this stub",
       "status": "ok",
       "note": "1/4\" NPT shank, inboard"
+    },
+    {
+      "component": "gasher-co2",
+      "name": "inlet",
+      "kind": "fluid",
+      "pos": [
+        46.0,
+        2.0,
+        172.0
+      ],
+      "face": "y-",
+      "diam": 6.35,
+      "mates": "co2-inlet npt-out (made up, no line between)",
+      "status": "ok",
+      "note": "1/4\" NPT female socket"
+    },
+    {
+      "component": "gasher-co2",
+      "name": "outlet",
+      "kind": "fluid",
+      "pos": [
+        46.0,
+        42.0,
+        172.0
+      ],
+      "face": "y+",
+      "diam": 6.35,
+      "mates": "wr1110 inlet \u2014 segment co2-1",
+      "status": "ok",
+      "note": "1/4\" NPT male stub, into a PP010822E onto 1/4\" tube"
+    },
+    {
+      "component": "wr1110",
+      "name": "inlet",
+      "kind": "fluid",
+      "pos": [
+        206.5,
+        20.0,
+        185.5
+      ],
+      "face": "y-",
+      "diam": 6.35,
+      "mates": "gasher-co2 outlet \u2014 segment co2-1",
+      "status": "ok",
+      "note": "1/4\" NPT female socket, PP010822E onto 1/4\" tube"
+    },
+    {
+      "component": "wr1110",
+      "name": "outlet",
+      "kind": "fluid",
+      "pos": [
+        206.5,
+        77.0,
+        185.5
+      ],
+      "face": "y+",
+      "diam": 6.35,
+      "mates": "foam-assembly co2-in \u2014 segment co2-2",
+      "status": "ok",
+      "note": "1/4\" NPT female socket, PP010822E onto 1/4\" tube"
     },
     {
       "component": "bulkhead-flavor-a",
@@ -2250,10 +2313,10 @@
         [
           37.75,
           -25.0,
-          226.0,
+          164.0,
           54.25,
           2.0,
-          242.0
+          180.0
         ]
       ],
       "fill": 0.6693,
@@ -2490,6 +2553,22 @@
         [
           0.0,
           182.0,
+          248.2,
+          283.0,
+          363.0,
+          253.4
+        ],
+        [
+          0.0,
+          182.0,
+          0.0,
+          283.0,
+          363.0,
+          5.2
+        ],
+        [
+          0.0,
+          182.0,
           233.4,
           283.0,
           363.0,
@@ -2506,29 +2585,29 @@
         [
           0.0,
           182.0,
-          0.0,
-          283.0,
-          363.0,
-          5.2
-        ],
-        [
-          0.0,
-          182.0,
-          248.2,
-          283.0,
-          363.0,
-          253.4
-        ],
-        [
-          0.0,
-          182.0,
           2.0,
           283.0,
           363.0,
           20.0
         ]
       ],
-      "fill": 0.1096,
+      "fill": 0.1099,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "gasher-co2",
+      "boxes": [
+        [
+          37.5,
+          2.0,
+          164.25,
+          54.5,
+          42.0,
+          179.75
+        ]
+      ],
+      "fill": 0.6713,
       "primitive": false,
       "declared": "real"
     },
@@ -2929,6 +3008,22 @@
         ]
       ],
       "fill": 0.5603,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "wr1110",
+      "boxes": [
+        [
+          196.0,
+          20.0,
+          176.0,
+          217.0,
+          77.0,
+          195.0
+        ]
+      ],
+      "fill": 0.7144,
       "primitive": false,
       "declared": "real"
     },

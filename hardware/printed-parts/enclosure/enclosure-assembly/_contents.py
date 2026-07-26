@@ -4,16 +4,18 @@ Detailed STEP imports where they exist (cold-core foam assembly — shell +
 top/bottom foam-cap stacks — the compressor shroud, the source-select
 assembly, the bag-circuit assembly, the nozzle-gate assembly, both Kamoer
 pump assemblies, both pump-inlet union tees, both pump-discharge dividers
-(Y-D/Y-G) and their four turn elbows, the ASSE 1022 assembly, the PCBA
-assembly, the power assembly, the DC distribution block, the DERPIPE CO2
-inlet, the MQ-6 gas sensor, the panel bulkheads + C14). One placeholder
-primitive remains (condenser+fan). Not everything is packed — deferred,
-tracked by the fluid topology (/hardware/topology/fluid-topology.md) and
-the scorecard's connection table, never silently dropped, while the front
-column settles around the tray stack and the pump row: the rest of the
-water deck (the SeaFlo diaphragm pump, its outlet check, and the drip pan
-+ moisture plate the ASSE 1022's vent weeps into), the DIGITEN flow
-sensor, and the CO2 chain's GASHER check + WR1110 regulator.
+(Y-D/Y-G) and their four turn elbows, the water deck (SeaFlo pump, its
+discharge chain, the ASSE 1022 assembly, the split, V-K, the flow
+regulator, the drip pan + its rails), the CO2 chain (DERPIPE inlet, GASHER
+check, WR1110 regulator), the PCBA, the power assembly, the AC hub, relay
+#1, the ground stack, the MQ-6 gas sensor, the panel bulkheads + C14).
+One placeholder primitive remains (condenser+fan). Not everything is
+packed — deferred, tracked by the fluid topology
+(/hardware/topology/fluid-topology.md) and the scorecard's connection
+table, never silently dropped: the DIGITEN flow sensor on the carb-water
+riser, the Shutao moisture plate lying in the drip pan, and the two
+electrical parts the shelf has no station for yet — the DC distribution
+block and relay #2, whose ports are authored PROVISIONAL against that.
 
 Components only: no tubes, no wires, no mount features. enclosure_assembly.py
 verifies the pack pairwise non-intersecting at every export.
@@ -42,8 +44,7 @@ against the rear wall.
 
 The cold core's tube connections are defined by the foam shell's
 penetrations (/hardware/printed-parts/cold-core/foam-shell/README.md
-§Penetrations), all on its −Y front wall except the CO2 top entry — in
-enclosure world coordinates:
+§Penetrations), all on its −Y front wall — in enclosure world coordinates:
   * carbonated-water outlet at (141.5, 182, 46.5) — the riser runs up the
     foam front face past the DIGITEN flow sensor to the rear umbilical;
   * reservoir (bag) lines at (44.5, 182, 35.5) and (238.5, 182, 35.5) —
@@ -51,7 +52,10 @@ enclosure world coordinates:
   * the shared slot at x 141.5 spanning z ~72–246 — both copper evaporator
     stubs (to the compressor), the water inlet (from the SeaFlo discharge),
     and the PRV vent;
-  * CO2 entry down through the foam-cap top at (141.5, 199.8).
+  * CO2 inlet at (160.5, 182, 37) — beside the carbonated-water outlet on
+    the vessel's other bottom-plate port, its bore carrying on through the
+    support ring to the elbow under the plate. It is fed from the front of
+    the machine, from the chain hanging off the front-panel inlet.
 
 Strata, floor to ceiling:
   * Floor:   compressor shroud (front-left) + condenser/fan (front-right,
@@ -108,8 +112,7 @@ Strata, floor to ceiling:
              top. The SeaFlo lies across the bay, motor axis along X, base
              flat on the cap, nudged east so its head's two ±Y barbs clear
              the ASSE chain — the suction faces NORTH up to the split, the
-             discharge SOUTH down to the cold core's water-in, leaving the
-             CO2 top entry in open air ahead of it. In the strip behind it
+             discharge SOUTH down to the cold core's water-in. In the strip behind it
              the ASSE 1022 assembly lies along X, its 1/4" PTC inlet WEST off
              the tap-water bulkhead it protects (segment water-1), its 1/4"
              PTC outlet EAST onto the 1/4" line to the split (water-2). Its
@@ -223,6 +226,12 @@ GND_STACK      = _hw / "reference" / "ground-ring-stack" / "ground-ring-stack.st
 DC_DIST        = _hw / "reference" / "dc-dist-block" / "dc-dist-block.step"
 MQ6_STEP       = _hw / "reference" / "mq6-gas-sensor" / "mq6-gas-sensor.step"
 DERPIPE_STEP   = _hw / "reference" / "derpipe-co2-inlet" / "derpipe-co2-inlet.step"
+# The CO2 chain's two bodies, both authored +Y = flow. The GASHER check's female
+# socket is at −Y and its male stub at +Y, so it threads straight onto the
+# DERPIPE's stub; the WR1110 secondary regulator is female both ends and takes
+# a PP010822E at each (reference/gasher-check-valve, reference/wr1110-regulator).
+GASHER_STEP    = _hw / "reference" / "gasher-check-valve" / "gasher-check-valve.step"
+WR1110_STEP    = _hw / "reference" / "wr1110-regulator" / "wr1110-regulator.step"
 # The ASSE 1022 chain as one piece: PP010822E → GAGIRA coupling → Multiplex 19-0897
 # → flare38-14ptc (3/8" flare → 1/4" PTC), plus the clear-PVC vent stub. Its own
 # frame is +X = flow, the Multiplex inlet at x 0, the vent running −Z; the outlet
@@ -966,8 +975,9 @@ STACK_GAP = 2.5
 # into the band's rear half, and the shelf may not stand under them (the
 # assembly check intersects the real bodies). The shelf parts also stay
 # inset off the ±X walls (the Z-seam lip band hugs the walls at the
-# foam-top level, and the corner-boss chains reach ~14 in), and clear of
-# the CO2 top entry at (141.5, 199.8), which stays in open air.
+# foam-top level, and the corner-boss chains reach ~14 in). Nothing on the
+# cap has to clear a CO2 entry: that line leaves the core's front face down
+# at the vessel's bottom plate and never reaches this deck.
 # Every external connection penetrates the REAR wall (back_wall_ports
 # below), in the band above the cold core (the foam tops out at ~263; the
 # rear Z-seam lip band tops out at ~279) — their bodies hang in the band's
@@ -1009,12 +1019,32 @@ WATER_BACK_Z = bfp_terminal("tube-in")[0][2]
 C14_BACK_X = 22.0
 C14_BACK_Z = WATER_BACK_Z + PORT_NUT_D / 2.0 - PORT_C14_FLANGE_H / 2.0
 # CO2 inlet — the DERPIPE 5/16"-tube PTC × 1/4" NPT M fitting on the front
-# panel, front-left, NPT side facing inboard to carry its GASHER → WR1110
-# chain (internal-plumbing.md §1), below the front pieces' Z-seam band; the
-# chain's outlet tube runs on to the foam-cap top entry at (141.5, 172.8).
+# panel, front-left, NPT side facing inboard to carry the GASHER check screwed
+# straight onto its stub (internal-plumbing.md §1). Its Z stands the chain in
+# the open band between the compressor's top and the pump row's underside,
+# which is the one place in the front column deep enough to hang a rigid
+# fitting off the wall; above the front Z-seam's lip rim, so the hole is cut
+# in one piece.
 CO2_INLET_X = 46.0
-CO2_INLET_Z = 234.0
+CO2_INLET_Z = 172.0
 CO2_HOLE_D = 14.5            # clears the DERPIPE's 1/4" NPT shank (Ø~13.7 major)
+# The GASHER's socket mouth meets the DERPIPE's stub shoulder — an envelope
+# butt for a made-up thread, so the pair reads as one body off the wall.
+# Stated in build()'s own frame rather than read off the wall, because the
+# wall is derived FROM build(); `_panel_bodies` asserts the two do meet.
+CO2_GASHER_Y = 2.0
+# The WR1110 cannot follow the check inline: the band at the inlet's own X
+# runs out on the source-select tray's underside before the regulator's 57 mm
+# are up. So it lies ACROSS the band instead — the band is the machine's whole
+# width and only one fitting deep — and a tube takes the single corner between
+# them. Its X puts the outlet's exit stub over the slot between the compressor
+# and the condenser, the one column in the front stratum that runs to the
+# floor, which is how the line gets under the tray to the cold core. Its Y
+# stands it forward of the check's outlet by more than that corner's tangents,
+# and its Z is the check's, so nothing climbs between them. Cradle TBD.
+WR1110_YAW = -90.0           # flow +X
+WR1110_CX = 167.5
+WR1110_CY = 66.0
 # DERPIPE_BODY_L: the outboard reach that seats the collet face proud of the
 # front wall (the model's outboard face is at its Y origin).
 DERPIPE_BODY_L = 17.0
@@ -1064,6 +1094,8 @@ COLORS = {
     "bulkhead-water":    cq.Color(0.92, 0.92, 0.92),
     "c14-inlet":         cq.Color(0.12, 0.12, 0.14),
     "co2-inlet":         cq.Color(0.85, 0.35, 0.30),
+    "gasher-co2":        cq.Color(0.85, 0.35, 0.30),
+    "wr1110":            cq.Color(0.72, 0.30, 0.26),
 }
 
 
@@ -1492,6 +1524,21 @@ def _build():
     placed["condenser+fan"] = _at(cond, cold_w - CONDENSER_AIRFLOW - SIDE_RIB_INSET, 0.0, SEAM_CLEAR_LIFT)
     placed["mq6-sensor"] = _at(_load(MQ6_STEP), 100.0, 134.0, SEAM_CLEAR_LIFT)
 
+    # The CO2 chain, in the band the compressor's top and the pump row's
+    # underside leave open. Both bodies are authored +Y = flow and both run +Y
+    # here, so neither turns. The check screws onto the DERPIPE's stub and the
+    # wall carries it; the regulator stands clear of it further east on its own
+    # cradle, and one tube crosses between them.
+    _gasher = _load(GASHER_STEP)
+    placed["gasher-co2"] = _gasher.translate(
+        (CO2_INLET_X, CO2_GASHER_Y - _boxes.boxed(_gasher).ymin, CO2_INLET_Z))
+    _reg = _rot(_load(WR1110_STEP), (0, 0, 1), WR1110_YAW)
+    _reg_bb = _boxes.boxed(_reg)
+    placed["wr1110"] = _at(_reg,
+                           WR1110_CX - _reg_bb.xlen / 2.0,
+                           WR1110_CY - _reg_bb.ylen / 2.0,
+                           CO2_INLET_Z - _reg_bb.zlen / 2.0)
+
     # The ASSE 1022 assembly: the water path's one non-negotiable component with the
     # four fittings that reach it from 1/4" tube on one side and 3/8" hose on the
     # other, as one piece. It packs up in the service bay's aft strip, at the rear
@@ -1774,6 +1821,14 @@ def _panel_bodies():
     y_front_out = front_wall_y() - WALL            # front-panel outer face
     bodies["co2-inlet"] = _load(DERPIPE_STEP).translate(
         (CO2_INLET_X, y_front_out - 2.0 - DERPIPE_BODY_L, CO2_INLET_Z))
+    # The GASHER check screws onto that stub. Its socket mouth has to land ON
+    # the stub's shoulder, not near it, and this is the one place both bodies
+    # are in hand — build() places the check before the wall it would have to
+    # read exists.
+    _stub_tip = _boxes.boxed(bodies["co2-inlet"]).ymax
+    assert abs(_stub_tip - CO2_GASHER_Y) < 1e-6, (
+        f"the GASHER's socket stands at y={CO2_GASHER_Y:g}, but the DERPIPE's "
+        f"stub ends at y={_stub_tip:.6g} — the pair is not made up")
 
     return {n: (s, COLORS[n]) for n, s in bodies.items()}
 

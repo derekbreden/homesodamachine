@@ -65,7 +65,9 @@ Clearance is a threshold on an exact measured distance, never an inflation of th
 
 `slab` maps a Z band instead of testing one part: the largest rectangles a footprint could stand in, inside the enclosure's own cavity. Obstacles count by their bounding box unless named in `--exact` — a part that is mostly air, like the pump, hides real space behind its box, and the two answers differ enough to reverse a conclusion.
 
-`fit.py selftest` checks the instrument: that a port stays on its body at arbitrary angles, that the fast reject and the full check never disagree, that clearance only removes, and that every reference part still builds.
+Both scans state their bounds before their answer. `search` prints the box it ranged over — every range, every axis pinned to one value, the anchor, the bodies held out — and names the ends the best pose sits on; `slab` prints its field, where the field came from, which bodies it measured exactly, and whether its largest rectangle runs to the edge of a field you supplied. An end of a scan is a property of the grid and not of the geometry, so quote the box with the number: a "there is no room" that arrives without one is a claim about a search, and `calibration/Fences.md` is what it costs.
+
+`fit.py selftest` checks the instrument: that a port stays on its body at arbitrary angles, that the fast reject and the full check never disagree, that clearance only removes, that a scan reports its own box and the ends its answer sits on, and that every reference part still builds.
 
 ## Firmware
 

@@ -18,7 +18,7 @@ sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
 
 from _cold_core_interface import (  # noqa: E402
-    co2_inlet_y,
+    co2_inlet_x,
     foam_cap_interior_height,
     foam_cap_lid_pour_radius,
     foam_cap_lid_vent_radius,
@@ -99,12 +99,11 @@ def main():
         # Generic small-feature port hole (water outlet, reservoir
         # bulkheads, CO2 tube clearance through cap+lid).
         "TUBE_HOLE_D": f"{port_hole_radius * 2:.4g} mm",
-        # CO2 inlet Z coordinate in this doc's frame (doc z = −shell y). The
-        # top cap installs rotated 180°, so its bore lands at shell
-        # y = −co2_inlet_y, which reads back as co2_inlet_y here.
-        "COTWO_INLET_Z": f"{co2_inlet_y:.4g}",
-        # CO2 elbow notch through the support ring, open to its top plateau.
-        "COTWO_NOTCH_W": f"{2 * _port_cuts.co2_inlet_notch_half_width:.4g}",
+        # CO2 inlet X — the bottom plate's own port offset. X is the one axis
+        # this doc's frame shares with the shell's, so it reads across
+        # unchanged, and the bore, the vessel elbow and the tube all stand on
+        # it.
+        "COTWO_INLET_X": f"+{co2_inlet_x:.4g}",
         # The two −Y-wall holes per reservoir side: flavor line inboard,
         # reed cable outboard of the bulkhead axis.
         "FLAVOR_HOLE_X": f"±{_port_cuts.flavor_line_hole_x:.4g}",
@@ -151,8 +150,7 @@ def main():
             "INSERT_POCKET_D": 1,
             "INSERT_HALF_DEPTH": 2,
             "TUBE_HOLE_D": 5,
-            "COTWO_INLET_Z": 1,
-            "COTWO_NOTCH_W": 1,
+            "COTWO_INLET_X": 1,
             "FLAVOR_HOLE_X": 1,
             "FLAVOR_SHELL_X": 1,
             "CABLE_SHELL_X": 1,
@@ -166,16 +164,14 @@ def main():
     )
     print("-> cold-core.md")
 
-    # Pin the CO2-inlet notch dimensions in _port_cuts.py's docstring.
-    # The doorway sits on the +Y (rear) centerward wall.
-    co2_doorway_y = _port_cuts.co2_doorway_y
+    # Pin the CO2-inlet bore's station in _port_cuts.py's docstring — the
+    # bottom plate's own port offset in X, and the Z the −Y wall's two
+    # bottom-plate lines share.
     substitute_py_comments(
         Path(_port_cuts.__file__),
         variables={
-            "CO2_NOTCH_W": f"{2 * _port_cuts.co2_inlet_notch_half_width:.4g}",
-            "CO2_NOTCH_Z_TOP": f"{_port_cuts.co2_inlet_notch_z_top:.4g}",
-            "CO2_DOORWAY_Y": f"{co2_doorway_y:.4g}",
-            "FLOOR_TOP_Z": f"{_port_cuts.wall_and_floor_thickness:.4g}",
+            "CO2_INLET_X": f"{_port_cuts.co2_inlet_x:.4g}",
+            "FRONT_FACE_PORT_Z": f"{_port_cuts.front_face_port_z:.4g}",
             "PORT_HOLE_DIAMETER": f"{_port_cuts.port_hole_radius * 2:.4g}",
             # Pocket-wall spacing between a side's flavor bore and its reed
             # cable bore — the two offsets from the bulkhead axis, one
@@ -183,11 +179,9 @@ def main():
             "FLAVOR_REED_PITCH": f"{_port_cuts.flavor_line_hole_offset_from_bulkhead_x + cable_hole_offset_from_bulkhead_hole_x:.4g}",
         },
         expected_counts={
-            "CO2_NOTCH_W": 1,
-            "CO2_NOTCH_Z_TOP": 1,
-            "CO2_DOORWAY_Y": 1,
-            "FLOOR_TOP_Z": 2,
-            "PORT_HOLE_DIAMETER": 2,
+            "CO2_INLET_X": 1,
+            "FRONT_FACE_PORT_Z": 1,
+            "PORT_HOLE_DIAMETER": 3,
             "FLAVOR_REED_PITCH": 1,
         },
     )
