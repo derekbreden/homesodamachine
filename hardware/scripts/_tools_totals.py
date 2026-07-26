@@ -209,6 +209,7 @@ TOOLS = [
     ("Ultra Duster", "T_DUSTER", A("B07JRBR1MM")),
     ("DeWalt DWFP55130", "T_DEWALT", FIXED(0.0)),  # owned, not on ledger
     ("Husky 41257HOM", "T_HUSKY", FIXED(0.0)),     # owned, not on ledger
+    ("ET-8550", "T_PRINTER", FIXED(0.0)),          # owned, not on ledger
     ("SanDisk Ultra Fit", "T_SANDISK", A("B07857Y17V")),
 ]
 

@@ -114,6 +114,7 @@ For per-unit BOM parts, see [bom.md](/hardware/ledger/bom.md). For non-BOM/non-t
 | **Ultra Duster canned air (10 oz, 4-pack)** | [B07JRBR1MM](https://www.amazon.com/dp/B07JRBR1MM), [purchases.md §1](/hardware/ledger/purchases.md) | Chip blowoff for freshly-tapped NPT threads; general shop use. Consumable. | [$24.51](T_DUSTER) |
 | **DeWalt DWFP55130 (200 PSI compressor)** | owned, predates project, *not on ledger* | Air supply for the Milton 727 post-validation pneumatic leak check. | [—](T_DEWALT) |
 | **Husky 41257HOM Tru-Match coupler kit** | owned, predates project, *not on ledger* | 19-pc accessory kit; hose-end coupler mating to Milton M-style plugs. | [—](T_HUSKY) |
+| **Epson EcoTank ET-8550** | owned, predates project, *not on ledger* | 6-ink wide-format photo EcoTank, 13" carriage, firmware 05.51.OP16Q4. Prints both bench instruction decks ([assembly/cards/](/hardware/assembly/cards/README.md)). Borderless page sizes the driver offers: 4x6, 5x7, 8x10, **Letter**, 11x14, Legal, Tabloid, A3, A4, 13x19 — the two decks use `4x6.Fullbleed` and `Letter.Fullbleed`. Media type `photographic-high-gloss` for the Koala RC stock ([purchases.md §13](/hardware/ledger/purchases.md)); paper from the `photo` cassette at 4×6, `rear` for letter gloss. Card PNGs render at 360 dpi, the printer's native grid. | [—](T_PRINTER) |
 
 ## Video / marketing capture
 
