@@ -31,6 +31,7 @@ Usage from any generator script:
 import atexit
 import filecmp
 import hashlib
+import json
 import os
 import re
 import shutil
@@ -480,14 +481,42 @@ def _atomic_write(target_path, write_fn):
 # iteration / Python-only CI). The dev-server watcher sets it and rebuilds
 # thumbnails off its own critical path instead, so a live save never blocks on a
 # browser boot (web/dev-server/server.js).
+#
+# The shape is still in hand at this point, so its tessellation goes over with
+# it (_mesh_payload) and the page renders from that instead of reading the STEP
+# back through occt in wasm — the expensive half of a thumbnail by an order of
+# magnitude. Tessellating is best-effort in the same way the render is: a shape
+# that won't mesh queues the STEP alone and the page falls back to parsing it.
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 _THUMBNAIL_TOOL = _REPO_ROOT / "tools" / "render" / "render-thumbnails.js"
-_pending_thumbnails = set()
+_pending_thumbnails = {}       # abs .step path -> abs payload path, or None
+_thumbnail_tmpdir = None
 _thumbnail_atexit_registered = False
 
 
-def _queue_thumbnail(target_path, changed):
+def _write_mesh_payload(target, source):
+    """Tessellate `source` beside the STEP it was exported to, into a temp the
+    render tool reads and this process deletes. Returns the path, or None —
+    every failure here just means the page parses the STEP instead."""
+    global _thumbnail_tmpdir
+    try:
+        import _mesh_payload
+        meshes = (_mesh_payload.from_assembly(source) if hasattr(source, "toCompound")
+                  else _mesh_payload.from_shape(source))
+        if not meshes:
+            return None
+        if _thumbnail_tmpdir is None:
+            _thumbnail_tmpdir = tempfile.mkdtemp(prefix=f"hsm-mesh.{os.getpid()}.")
+        path = os.path.join(_thumbnail_tmpdir, f"{len(_pending_thumbnails)}.mesh")
+        _mesh_payload.write(meshes, path)
+        return path
+    except Exception as exc:
+        print(f"[_cadq_export] tessellation for {target.name} skipped: {exc}", file=sys.stderr)
+        return None
+
+
+def _queue_thumbnail(target_path, changed, source=None):
     if os.environ.get("HSM_SKIP_THUMBNAILS"):
         return
     target = Path(target_path).resolve()
@@ -496,7 +525,7 @@ def _queue_thumbnail(target_path, changed):
     thumb = target.with_name(target.name + ".png")
     if not changed and thumb.exists():
         return
-    _pending_thumbnails.add(str(target))
+    _pending_thumbnails[str(target)] = _write_mesh_payload(target, source) if source else None
     global _thumbnail_atexit_registered
     if not _thumbnail_atexit_registered:
         atexit.register(_render_pending_thumbnails)
@@ -506,42 +535,51 @@ def _queue_thumbnail(target_path, changed):
 def _render_pending_thumbnails():
     if not _pending_thumbnails:
         return
-    paths = sorted(_pending_thumbnails)
+    queued = dict(sorted(_pending_thumbnails.items()))
     _pending_thumbnails.clear()
     node = shutil.which("node")
     if node is None or not _THUMBNAIL_TOOL.exists():
         reason = "node not found on PATH" if node is None else "render tool missing"
         print(
-            f"[_cadq_export] thumbnail render skipped for {len(paths)} part(s): {reason}",
+            f"[_cadq_export] thumbnail render skipped for {len(queued)} part(s): {reason}",
             file=sys.stderr,
         )
-        return
-    try:
-        print(f"[_cadq_export] rendering {len(paths)} thumbnail(s)...", file=sys.stderr)
-        subprocess.run(
-            [node, str(_THUMBNAIL_TOOL), *paths],
-            cwd=str(_REPO_ROOT),
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            timeout=600,
-            check=False,
-        )
-    except Exception as exc:  # best-effort: a thumbnail must never break export
-        print(f"[_cadq_export] thumbnail render failed: {exc}", file=sys.stderr)
+    else:
+        try:
+            print(f"[_cadq_export] rendering {len(queued)} thumbnail(s)...", file=sys.stderr)
+            handed = {k: v for k, v in queued.items() if v}
+            args = [k for k in queued if k not in handed]
+            if handed:  # the manifest lives in the payload dir, and goes with it
+                manifest = os.path.join(_thumbnail_tmpdir, "payloads.json")
+                with open(manifest, "w") as f:
+                    json.dump(handed, f)
+                args = ["--payloads", manifest, *args]
+            subprocess.run(
+                [node, str(_THUMBNAIL_TOOL), *args],
+                cwd=str(_REPO_ROOT),
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                timeout=600,
+                check=False,
+            )
+        except Exception as exc:  # best-effort: a thumbnail must never break export
+            print(f"[_cadq_export] thumbnail render failed: {exc}", file=sys.stderr)
+    if _thumbnail_tmpdir:
+        shutil.rmtree(_thumbnail_tmpdir, ignore_errors=True)
 
 
 def export_step(model, target_path):
     """cq.exporters.export with atomic write."""
     import cadquery as cq
     changed = _atomic_write(target_path, lambda p: cq.exporters.export(model, p))
-    _queue_thumbnail(target_path, changed)
+    _queue_thumbnail(target_path, changed, model)
 
 
 def export_assembly(assembly, target_path):
     """cq.Assembly.export with atomic write. (Assembly.save is its deprecated
     alias — it just delegates to .export — and warns on every call.)"""
     changed = _atomic_write(target_path, lambda p: assembly.export(p))
-    _queue_thumbnail(target_path, changed)
+    _queue_thumbnail(target_path, changed, assembly)
 
 
 def export_dxf(doc, target_path):
