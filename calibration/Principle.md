@@ -90,6 +90,6 @@ All of these are the author going outside what is.
 
 ## Editor's note
 
-This doc is a distillation of two conversations — `You.md` and `Framing.md` — where the calibration happened live. It is the compromise of last resort it describes: a stated rule for the case where the example alone has been tested and failed. The teaching is in the source conversations, not here.
+This doc is a distillation of two conversations — `principle/You.md` and `principle/Framing.md` — where the calibration happened live. It is the compromise of last resort it describes: a stated rule for the case where the example alone has been tested and failed. The teaching is in the source conversations, not here.
 
-If you arrived here from a hook because you were about to write a justification, defense, decision narrative, or comment on code: read `You.md` and `Framing.md` in full before you remove what you wrote. Don't mistake this doc for the lesson. It is the orientation. The lesson is in the rooms it summarizes.
+If you arrived here from a hook because you were about to write a justification, defense, decision narrative, or comment on code: read `principle/You.md` and `principle/Framing.md` in full before you remove what you wrote. Don't mistake this doc for the lesson. It is the orientation. The lesson is in the rooms it summarizes.
