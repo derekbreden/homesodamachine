@@ -174,16 +174,37 @@ def report_orphans(by_station, unmatched):
         print("   (none)")
 
 
+def cited(text):
+    """The .md files a card's own `.src` block names, resolved in the repo.
+
+    A station's numbers come from the procedure docs, and from the part-level
+    doc a card cites when it reaches outside them — the funnel mold's README
+    carries the silicone bake the pour bench prints. A card widens its own
+    corpus by saying where it read, and only that far.
+    """
+    src = SRC.search(text)
+    if not src:
+        return []
+    out = []
+    for name in re.findall(r"[\w./-]+\.md", detag(src.group(1))):
+        stem = name.lstrip("/")
+        out += [p for p in REPO_ROOT.rglob("*" + stem)
+                if ".git" not in p.parts and "node_modules" not in p.parts][:1]
+    return out
+
+
 def report_drift(paths):
     """Every .dim on a station card, against one corpus: the procedure docs
     plus tools.md. A station card spans procedures and states machine
     envelopes, so both are upstream of it.
     """
-    corpus = normalize(" ".join(p.read_text() for p in
-                                [*sorted(ASSEMBLY_DIR.glob("*.md")), LEDGER]))
+    base = normalize(" ".join(p.read_text() for p in
+                              [*sorted(ASSEMBLY_DIR.glob("*.md")), LEDGER]))
     bad = 0
     for p in sorted(paths):
-        misses = [d for d in DIM.findall(p.read_text()) if normalize(d) not in corpus]
+        text = p.read_text()
+        corpus = base + " " + normalize(" ".join(d.read_text() for d in cited(text)))
+        misses = [d for d in DIM.findall(text) if normalize(d) not in corpus]
         if misses:
             bad += len(misses)
             print(f"   {p.name}")

@@ -38,24 +38,24 @@ tools/cad-venv/bin/python hardware/assembly/cards/tools/_index.py
 tools/cad-venv/bin/python hardware/assembly/cards/tools/_index.py --drift
 ```
 
-| Card | Station | Sequence cards |
-|---|---|---:|
-| **DP** | Drill press | PV-01 · PV-02 · PV-03 |
-| BS | Band saw + cut-off | 4 |
-| **LW** | Laser welder | PV-06 · PV-07 · PV-08 · PV-09 |
-| HY | Hydro + pressure test | 1 |
-| TB | Tube bench — cut, straighten, bend, flare | 3 |
-| BZ | Braze bench | 3 |
-| VC | Vacuum + charge | 4 |
-| **CR** | Crimp bench | CA-01 · GT-03/04 · ES-02/05 · WR-01/02/04 · IP-04 |
-| SO | Solder + heat-set bench | 9 |
-| EL | Electrical test | 14 |
-| PL | Plastic tube + fittings | 10 |
-| PC | Pour + cure bench | 2 |
-| PR | 3D printers | 4 |
+| Card | Station | Sequence cards it serves |
+|---|---|---|
+| DP | Drill press | PV-01 · PV-02 · PV-03 |
+| BS | Band saw + cut-off | PV-04 · PV-05 · PV-07 · EN-06 |
+| LW | Laser welder | PV-06 · PV-07 · PV-08 · PV-09 |
+| HY | Hydro + pressure test | PV-11 |
+| TB | Tube bench — cut, straighten, bend, flare | CC-01 · RL-03 · RL-05 |
+| BZ | Braze bench | RL-03 · RL-04 · RL-05 |
+| VC | Vacuum + charge | RL-02 · RL-06 · RL-07 · RL-08 |
+| CR | Crimp bench | CA-01 · GT-03/04 · ES-02/05 · WR-01/02/04 · IP-04 |
+| SO | Solder + heat-set bench | CC-05 · CC-07 · CC-09 · ES-01 · EN-01 · CA-01 · GT-05 |
+| EL | Electrical test | ES-04/05/07 · WR-01/02/03/05 · FC-01…05 · RL-08 · CA-01 |
+| PL | Plastic tube + fittings | FU-01 · GT-01/02 · IP-01…05 · CC-01 · CC-12 |
+| PC | Pour + cure bench | CC-06 · CC-14 |
+| PR | 3D printers | CC-08 · CC-13 · EN-05 · EN-06 |
 
-Bold rows are authored. A sequence card belongs to every station it draws on,
-and 37 of the 93 belong to none — hand assembly, inspection, packing.
+A sequence card belongs to every station it draws on, and 37 of the 93 belong
+to none — hand assembly, inspection, packing.
 
 `img/tool/` holds the tool photographs the rack shows — the listing's own
 image for each ASIN in [tools.md](/hardware/ledger/tools.md), trimmed and set
