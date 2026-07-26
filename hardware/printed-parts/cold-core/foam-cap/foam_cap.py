@@ -28,6 +28,7 @@ from _cold_core_interface import (
     wall_and_floor_thickness,
     foam_cap_height,
     screw_clearance_radius,
+    co2_boss_outer_radius,
     deck_mounts,
     deck_mount_xy,
     deck_mount_boss_radius,
@@ -48,8 +49,8 @@ lid_z_height = wall_and_floor_thickness
 # the tube itself traverses the cap and lid. Inlet position: co2_inlet_y
 # (interface), between the centerward-wall and support-ring midlines.
 co2_tube_clearance_radius = co2_inlet_tube_radius
-# [5.25 mm](COTWO_BOSS_OUTER_R) boss outer radius.
-co2_boss_outer_radius = co2_tube_clearance_radius + wall_and_floor_thickness
+# [5.25 mm](COTWO_BOSS_OUTER_R) boss outer radius — the interface owns it, because the
+# deck-mount stations are held clear of this boss there.
 # Boss spans the full interior cavity height, from the floor's
 # cavity-side face (Z = [2 mm](COTWO_BOSS_Z_BOTTOM)) to the cavity opening
 # at Z = [18 mm](COTWO_BOSS_Z_TOP).

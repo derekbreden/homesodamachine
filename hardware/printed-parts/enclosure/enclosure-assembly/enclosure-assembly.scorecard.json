@@ -66,8 +66,8 @@
         "nozzle-gate-assembly \u2014 elbow-y-g: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-noz-a: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-noz-b: 2.00 mm",
+        "seaflo-pump \u2014 pcba: 3.48 mm",
         "seaflo-pump \u2014 drip-pan-rails: 4.00 mm",
-        "seaflo-pump \u2014 psu: 4.08 mm",
         "bag-circuit-assembly \u2014 elbow-y-g: 5.10 mm",
         "drip-pan-rails \u2014 psu: 5.70 mm"
       ],
@@ -124,8 +124,8 @@
         "\u2713 tee-y-c: near source-select-assembly 14.5 mm",
         "\u2713 tee-y-f: near source-select-assembly 8.1 mm",
         "\u2713 asse1022-assembly: near bulkhead-water 10.6 fall vent-tip onto drip-pan 19.4 clear psu 14.7 clear c14-inlet 32.7 x- 80.0 mm",
-        "\u2713 pcba: near foam-assembly 0.0 clear seaflo-pump 13.9 mm",
-        "\u2713 psu: near foam-assembly 0.0 near c14-inlet 19.9 clear seaflo-pump 4.1 clear drip-pan-rails 5.7 clear pcba 13.5 mm",
+        "\u2713 pcba: near foam-assembly 0.0 clear seaflo-pump 3.5 mm",
+        "\u2713 psu: near foam-assembly 0.0 near c14-inlet 16.5 clear seaflo-pump 25.0 clear drip-pan-rails 5.7 clear pcba 46.6 mm",
         "\u2713 drip-pan: near drip-pan-rails 0.0 clear seaflo-pump 12.0 clear asse1022-assembly 9.3 mm",
         "\u2713 drip-pan-rails: near foam-assembly 0.0 near drip-pan 0.0 clear seaflo-pump 4.0 mm",
         "\u2713 vk-fill-valve: near water-split 6.7 clear seaflo-pump 34.8 clear asse1022-assembly 40.9 clear foam-assembly 20.7 mm",
@@ -1620,8 +1620,8 @@
       "name": "J1-manifold-a",
       "kind": "electrical",
       "pos": [
-        32.02,
-        282.5,
+        18.0,
+        223.62,
         262.0
       ],
       "face": "z+",
@@ -1635,8 +1635,8 @@
       "name": "J2-manifold-b",
       "kind": "electrical",
       "pos": [
-        54.27,
-        282.5,
+        18.0,
+        245.87,
         262.0
       ],
       "face": "z+",
@@ -1650,8 +1650,8 @@
       "name": "J3-faucet",
       "kind": "electrical",
       "pos": [
-        78.8,
-        219.25,
+        81.25,
+        270.4,
         262.0
       ],
       "face": "z+",
@@ -1665,8 +1665,8 @@
       "name": "J4-sensors",
       "kind": "electrical",
       "pos": [
-        78.8,
-        236.5,
+        64.0,
+        270.4,
         262.0
       ],
       "face": "z+",
@@ -1680,8 +1680,8 @@
       "name": "J5-relays",
       "kind": "electrical",
       "pos": [
-        17.5,
-        229.55,
+        70.95,
+        209.1,
         262.0
       ],
       "face": "z+",
@@ -1695,8 +1695,8 @@
       "name": "J6-reeds-a",
       "kind": "electrical",
       "pos": [
-        17.5,
-        244.4,
+        56.1,
+        209.1,
         262.0
       ],
       "face": "z+",
@@ -1710,8 +1710,8 @@
       "name": "J7-reeds-b",
       "kind": "electrical",
       "pos": [
-        78.8,
-        271.0,
+        29.5,
+        270.4,
         262.0
       ],
       "face": "z+",
@@ -1725,8 +1725,8 @@
       "name": "J8-i2c",
       "kind": "electrical",
       "pos": [
-        17.5,
-        272.8,
+        27.7,
+        209.1,
         262.0
       ],
       "face": "z+",
@@ -1740,8 +1740,8 @@
       "name": "J9-display",
       "kind": "electrical",
       "pos": [
-        78.8,
-        253.75,
+        46.75,
+        270.4,
         262.0
       ],
       "face": "z+",
@@ -1755,8 +1755,8 @@
       "name": "J10-12v",
       "kind": "electrical",
       "pos": [
-        70.0,
-        283.85,
+        16.65,
+        261.6,
         262.0
       ],
       "face": "z+",
@@ -1770,8 +1770,8 @@
       "name": "J11-gas",
       "kind": "electrical",
       "pos": [
-        72.35,
-        209.5,
+        91.0,
+        263.95,
         262.0
       ],
       "face": "z+",
@@ -1785,8 +1785,8 @@
       "name": "J13-pumps",
       "kind": "electrical",
       "pos": [
-        17.5,
-        259.25,
+        41.25,
+        209.1,
         262.0
       ],
       "face": "z+",
@@ -1800,8 +1800,8 @@
       "name": "J14-usb",
       "kind": "electrical",
       "pos": [
-        32.0,
-        209.5,
+        91.0,
+        223.6,
         262.0
       ],
       "face": "z+",
@@ -1861,7 +1861,7 @@
       "kind": "electrical",
       "pos": [
         8.0,
-        328.0,
+        349.0,
         272.1
       ],
       "face": "z+",
@@ -1876,7 +1876,7 @@
       "kind": "electrical",
       "pos": [
         105.0,
-        328.0,
+        349.0,
         272.1
       ],
       "face": "z+",
@@ -2397,14 +2397,6 @@
         [
           0.0,
           200.0,
-          256.4,
-          283.0,
-          381.0,
-          258.4
-        ],
-        [
-          0.0,
-          200.0,
           238.4,
           283.0,
           381.0,
@@ -2417,6 +2409,14 @@
           283.0,
           381.0,
           25.0
+        ],
+        [
+          0.0,
+          200.0,
+          256.4,
+          283.0,
+          381.0,
+          258.4
         ]
       ],
       "fill": 0.1146,
@@ -2492,10 +2492,10 @@
       "boxes": [
         [
           12.0,
-          197.684,
+          203.6,
           260.4,
-          84.8,
-          288.5,
+          102.816,
+          276.4,
           279.5
         ]
       ],
@@ -2508,10 +2508,10 @@
       "boxes": [
         [
           2.0,
-          302.0,
+          323.0,
           258.4,
           111.0,
-          354.0,
+          375.0,
           291.9
         ]
       ],
