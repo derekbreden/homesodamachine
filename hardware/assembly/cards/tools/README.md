@@ -57,6 +57,12 @@ tools/cad-venv/bin/python hardware/assembly/cards/tools/_index.py --drift
 Bold rows are authored. A sequence card belongs to every station it draws on,
 and 37 of the 93 belong to none — hand assembly, inspection, packing.
 
+`img/tool/` holds the tool photographs the rack shows — the listing's own
+image for each ASIN in [tools.md](/hardware/ledger/tools.md), trimmed and set
+on a 480 × 320 white tile. A tile is the tool that station actually uses: the
+laser welder's rack carries the RX Weld regulator, not the RHP400 that serves
+the braze purge.
+
 `img/` holds the CAD renders the cards annotate, posed with
 [`render-step-posed.js`](/tools/render/render-step-posed.js) from the part's own
 STEP. A callout's overlay shares the render's pixel grid, and the feature
