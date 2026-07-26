@@ -5,6 +5,7 @@ in sync against."""
 
 import math
 import sys
+from collections import namedtuple
 from pathlib import Path
 
 _here = Path(__file__).resolve().parent
@@ -195,39 +196,46 @@ deck_mount_boss_radius = 3.5     # column radius
 deck_mount_bore_radius = 2.0     # ⌀4 for a ruthex M3 short heat-set
 deck_mount_lid_slip = 0.4        # per side, a standing column to the lid's clearance hole
 deck_mount_insert_length = 4.0   # ruthex RX-M3Sx4.0, set flush with the column top
-deck_mount_seat_thickness = 1.6  # module material under the screw head
-deck_mount_screw_length = 8.0    # BNUOK M3 × 8 SHCS
 deck_mount_bore_relief = 0.6     # air past the screw tip at the bore's blind end
 
-# A deck column stands on the cap floor among the same cup's other standing features, and
-# liquid foam has to reach past all of them. This is the least room any station leaves to a
-# screw boss, the CO2 boss, the cavity wall or another column — the aft station is pushed
-# back until it reads this against the cup's own rearmost corner boss.
+# The least room a deck column leaves to anything else standing in the cup — a screw boss,
+# the CO2 boss, the cavity wall, another column. Liquid foam reaches between them.
 deck_mount_cap_gap = 1.5
 
 # Per module: the mount rectangle's centre in the cap's frame, the module's own hole pitch
-# across X and Y, and how far proud of the lid's outer face its column tops stand. Both
-# patterns are driven to the ends of the cap and meet in the middle, because what the pack
-# wants out of this face is the strip BETWEEN them: the board's MH1–MH4 rectangle lies with
-# its long side across the cap, hard against the front cavity wall, on columns standing
-# clear of its through-hole tails; the IRM-90's lies across the aft strip, its potted base
-# flat on the lid. `deck_mount_cap_gap` is what stops each of them.
+# across X and Y, how far proud of the lid's outer face its column tops stand, what the
+# screw head clamps down onto the column, and the screw that does it. A pitch of zero
+# collapses the rectangle onto a line or a point, so a mount is however many DISTINCT
+# columns its pitches leave: the AC hub rides two, the ground stud one.
+#   The board's MH1–MH4 rectangle lies with its long side across the cap's front, its
+# front columns `deck_mount_cap_gap` off the front cavity wall, standing clear of its
+# through-hole tails. The IRM-90's lies across the aft strip, its potted base flat on the
+# lid, its rear columns the same gap off the cap's rear corner boss. Between them run the
+# power block's three: the AC hub across the lid's pour hole, relay #1 on columns that
+# clear its pin tails, and the ground stud alone, standing tall enough for its lug fan.
+DeckMount = namedtuple("DeckMount", "centre pitch_x pitch_y standoff seat screw")
 deck_mounts = {
-    "pcba": ((87.00, 50.25), 78.00, 66.30, 2.0),
-    "psu":  ((85.00, -58.50), 98.00, 33.00, 0.0),
+    #                    centre            pitch_x pitch_y  proud  seat  screw
+    "pcba":    DeckMount((87.00,  50.25),   78.00,  66.30,   2.0,  1.60,  8.0),
+    "ac-hub":  DeckMount((92.00,   2.40),   85.00,   0.00,   3.0,  3.00,  8.0),
+    "relay-1": DeckMount((101.50, -22.10),  66.00,  13.00,   3.0,  1.50,  8.0),
+    "ground":  DeckMount((53.50, -22.10),    0.00,   0.00,   8.0,  5.60, 10.0),
+    "psu":     DeckMount((85.00, -58.50),   98.00,  33.00,   0.0,  1.60,  8.0),
 }
 
 
 def deck_mount_xy(name):
-    """The four boss centres of a deck mount, in the cap's own frame."""
-    (cx, cy), pitch_x, pitch_y, _standoff = deck_mounts[name]
-    return tuple((cx + sx * pitch_x / 2.0, cy + sy * pitch_y / 2.0)
-                 for sx in (-1, 1) for sy in (-1, 1))
+    """The boss centres of a deck mount, in the cap's own frame. A zero pitch makes the
+    rectangle degenerate, and the duplicate corners it produces are one column."""
+    m = deck_mounts[name]
+    (cx, cy) = m.centre
+    return tuple(sorted({(cx + sx * m.pitch_x / 2.0, cy + sy * m.pitch_y / 2.0)
+                         for sx in (-1, 1) for sy in (-1, 1)}))
 
 
 def deck_mount_standoff(name):
     """How far proud of the lid's outer face this mount's column tops stand."""
-    return deck_mounts[name][3]
+    return deck_mounts[name].standoff
 
 
 def deck_mount_proud():
@@ -237,11 +245,14 @@ def deck_mount_proud():
 
 def deck_mount_reach(name):
     """How far a seated screw runs past this mount's column top. A flush station's screw
-    crosses the lid on its way down; a standing one meets the column at the head."""
-    over = deck_mount_seat_thickness
-    if deck_mount_standoff(name) == 0.0:
+    crosses the lid on its way down; a standing one meets the column at the head. `seat`
+    is what the head bears on before it gets there — a board's own thickness, a hub's
+    floor, or the fan of ring terminals that is the ground bus."""
+    m = deck_mounts[name]
+    over = m.seat
+    if m.standoff == 0.0:
         over += wall_and_floor_thickness
-    return deck_mount_screw_length - over
+    return m.screw - over
 
 
 # One bore serves every station, sunk to the deepest reach any of them presents.
@@ -249,16 +260,14 @@ deck_mount_bore_depth = max(
     deck_mount_reach(name) for name in deck_mounts) + deck_mount_bore_relief
 for _name in deck_mounts:
     assert deck_mount_reach(_name) >= deck_mount_insert_length, (
-        f"deck mount {_name}: an M3 × {deck_mount_screw_length:g} through "
-        f"{deck_mount_seat_thickness:g} mm of module reaches {deck_mount_reach(_name):g} mm "
+        f"deck mount {_name}: an M3 × {deck_mounts[_name].screw:g} through "
+        f"{deck_mounts[_name].seat:g} mm of seat reaches {deck_mount_reach(_name):g} mm "
         f"into the column, short of its {deck_mount_insert_length:g} mm insert")
 
 
 def deck_mount_cap_room(name):
-    """The least room this station's four columns leave to anything else standing in the
-    cup: `(mm, what)`. Every station is a coordinate a reader can move, and the cap's own
-    features are not in view when they do — so the room is measured here rather than left
-    to the volume arithmetic in `foam-cap` to catch as a union that came up short."""
+    """The least room this station's columns leave to anything else standing in the cup:
+    `(mm, what)` — a screw boss, the CO2 boss, the cavity wall, another mount's column."""
     room = []
     for x, y in deck_mount_xy(name):
         for bx, by in attachment_xy_positions:

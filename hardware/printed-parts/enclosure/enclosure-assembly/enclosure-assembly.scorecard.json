@@ -1,17 +1,17 @@
 {
   "gatesPass": true,
-  "placed": 50,
-  "located": 89,
-  "shaped": 97,
+  "placed": 54,
+  "located": 90,
+  "shaped": 98,
   "routed": 41,
-  "held": 37,
+  "held": 41,
   "checks": [
     {
       "id": "coverage",
       "label": "Every placed part declared in the registry",
       "kind": "gate",
       "status": "pass",
-      "value": "38/38 placed declared",
+      "value": "41/41 placed declared",
       "target": "all declared",
       "detail": [],
       "active": true
@@ -51,6 +51,9 @@
         "foam-assembly \u2014 flow-regulator: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 pcba: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 psu: 0.00 mm \u2014 CONTACT (declared ok)",
+        "foam-assembly \u2014 relay-1: 0.00 mm \u2014 CONTACT (declared ok)",
+        "foam-assembly \u2014 ac-hub: 0.00 mm \u2014 CONTACT (declared ok)",
+        "foam-assembly \u2014 ground-stack: 0.00 mm \u2014 CONTACT (declared ok)",
         "source-select-assembly \u2014 bag-circuit-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
         "drip-pan \u2014 drip-pan-rails: 0.00 mm \u2014 CONTACT (declared ok)",
         "compressor-shroud \u2014 mq6-sensor: 1.00 mm",
@@ -59,6 +62,9 @@
         "source-select-assembly \u2014 nozzle-gate-assembly: 1.30 mm",
         "source-select-assembly \u2014 discharge-chain: 1.40 mm",
         "foam-assembly \u2014 discharge-chain: 1.50 mm",
+        "psu \u2014 ground-stack: 1.56 mm",
+        "psu \u2014 relay-1: 1.90 mm",
+        "pcba \u2014 ac-hub: 1.90 mm",
         "seaflo-pump \u2014 flow-regulator: 2.00 mm",
         "bag-circuit-assembly \u2014 elbow-bag-y-d: 2.00 mm",
         "bag-circuit-assembly \u2014 elbow-bag-y-g: 2.00 mm",
@@ -66,6 +72,8 @@
         "nozzle-gate-assembly \u2014 elbow-y-g: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-noz-a: 2.00 mm",
         "nozzle-gate-assembly \u2014 elbow-noz-b: 2.00 mm",
+        "ac-hub \u2014 ground-stack: 2.14 mm",
+        "relay-1 \u2014 ac-hub: 2.54 mm",
         "seaflo-pump \u2014 pcba: 3.48 mm",
         "seaflo-pump \u2014 drip-pan-rails: 4.00 mm",
         "bag-circuit-assembly \u2014 elbow-y-g: 5.10 mm",
@@ -98,8 +106,8 @@
       "label": "Every component is a selected real part / finished print",
       "kind": "gate",
       "status": "pass",
-      "value": "38/38",
-      "target": "38/38",
+      "value": "41/41",
+      "target": "41/41",
       "detail": [],
       "active": true
     },
@@ -108,7 +116,7 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "50% (19/38)",
+      "value": "54% (22/41)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: y+ 3.0 x- 14.0 x+ 14.0 z- 5.0 near cold-core-ring 0.0 mm",
@@ -126,6 +134,9 @@
         "\u2713 asse1022-assembly: near bulkhead-water 10.6 fall vent-tip onto drip-pan 19.4 clear psu 14.7 clear c14-inlet 32.7 x- 80.0 mm",
         "\u2713 pcba: near foam-assembly 0.0 clear seaflo-pump 3.5 mm",
         "\u2713 psu: near foam-assembly 0.0 near c14-inlet 16.5 clear seaflo-pump 25.0 clear drip-pan-rails 5.7 clear pcba 46.6 mm",
+        "\u2713 ac-hub: near foam-assembly 0.0 clear pcba 1.9 clear relay-1 2.5 mm",
+        "\u2713 relay-1: near foam-assembly 0.0 clear psu 1.9 clear ground-stack 7.1 mm",
+        "\u2713 ground-stack: near foam-assembly 0.0 clear psu 1.6 clear ac-hub 2.1 mm",
         "\u2713 drip-pan: near drip-pan-rails 0.0 clear seaflo-pump 12.0 clear asse1022-assembly 9.3 mm",
         "\u2713 drip-pan-rails: near foam-assembly 0.0 near drip-pan 0.0 clear seaflo-pump 4.0 mm",
         "\u2713 vk-fill-valve: near water-split 6.7 clear seaflo-pump 34.8 clear asse1022-assembly 40.9 clear foam-assembly 20.7 mm",
@@ -139,7 +150,7 @@
       "label": "Connectors located on the component \u2014 position + bore \u00d8 (tubes + wires)",
       "kind": "goal",
       "status": "warn",
-      "value": "89% (34/38)",
+      "value": "90% (37/41)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: 10/10 connectors located",
@@ -190,7 +201,7 @@
       "label": "Components modeled as real geometry (not a placeholder box)",
       "kind": "goal",
       "status": "warn",
-      "value": "97% (37/38)",
+      "value": "98% (40/41)",
       "target": "100%",
       "detail": [
         "condenser+fan: still a placeholder \u2014 harvested donor block; two floor rails carry its weight and two +X-wall webs carry four ear pads at the donor fan shroud's screw pattern (enclosure.py `_condenser_mount`), M3\u00d710 into ruthex through each ear. Ear pattern is an ESTIMATE until the donor shroud is separated and measured",
@@ -199,7 +210,7 @@
         "foam-assembly: 5 boxes hold 11% material",
         "tee-y-f: 1 box holds 14% material",
         "display: 2 boxes hold 18% material",
-        "source-select-assembly: 11 boxes hold 20% material"
+        "ground-stack: 1 box holds 18% material"
       ],
       "active": true
     },
@@ -247,10 +258,10 @@
       "label": "Components in a printed holder fastened to the enclosure",
       "kind": "goal",
       "status": "warn",
-      "value": "37% (14/38)",
+      "value": "41% (17/41)",
       "target": "100%",
       "detail": [
-        "14 held (through-wall bodies + display); 24 loose internal parts unheld"
+        "17 held (through-wall bodies + display); 24 loose internal parts unheld"
       ],
       "active": false
     }
@@ -1811,49 +1822,139 @@
       "note": "USB-C receptacle"
     },
     {
+      "component": "ac-hub",
+      "name": "H",
+      "kind": "electrical",
+      "pos": [
+        24.4,
+        292.75,
+        272.8
+      ],
+      "face": "z+",
+      "diam": 8.0,
+      "mates": "C14 hot in (AC-1 H); out to PSU primary (AC-2 H) and relay #1 COM (AC-3)",
+      "status": "ok",
+      "note": "16 AWG, ferruled under the lever"
+    },
+    {
+      "component": "ac-hub",
+      "name": "N",
+      "kind": "electrical",
+      "pos": [
+        49.5,
+        292.75,
+        272.8
+      ],
+      "face": "z+",
+      "diam": 8.0,
+      "mates": "C14 neutral in (AC-1 N); out to PSU primary (AC-2 N); third port open for the shroud lead (AC-5)",
+      "status": "ok",
+      "note": "16 AWG, ferruled under the lever"
+    },
+    {
+      "component": "ac-hub",
+      "name": "G",
+      "kind": "electrical",
+      "pos": [
+        74.6,
+        292.75,
+        272.8
+      ],
+      "face": "z+",
+      "diam": 8.0,
+      "mates": "C14 earth in (AC-1 G); out to PSU chassis (AC-2 G) and the ground stack",
+      "status": "ok",
+      "note": "16 AWG, ferruled under the lever"
+    },
+    {
+      "component": "relay-1",
+      "name": "contacts",
+      "kind": "electrical",
+      "pos": [
+        65.0,
+        312.6,
+        272.9
+      ],
+      "face": "z+",
+      "diam": 8.0,
+      "mates": "COM from the H lever nut (AC-3); NO to the compressor shroud's switched hot (AC-4)",
+      "status": "ok",
+      "note": "16 AWG, crimp forks under captive screws"
+    },
+    {
+      "component": "relay-1",
+      "name": "logic",
+      "kind": "electrical",
+      "pos": [
+        14.0,
+        312.6,
+        272.9
+      ],
+      "face": "z+",
+      "diam": 6.0,
+      "mates": "board J5 RELAYS loom \u2014 VCC/GND/IN (LV-1/2/3)",
+      "status": "ok",
+      "note": "22 AWG under captive screws"
+    },
+    {
+      "component": "ground-stack",
+      "name": "stud",
+      "kind": "electrical",
+      "pos": [
+        88.0,
+        312.6,
+        271.2
+      ],
+      "face": "z+",
+      "diam": 10.0,
+      "mates": "chassis ground \u2014 C14 earth off the G lever nut, PSU chassis, pressure vessel, compressor body, and the shroud bond (AC-6)",
+      "status": "ok",
+      "note": "16 AWG green, ring terminals stacked under one M3 x 10"
+    },
+    {
       "component": "dc-dist",
       "name": "in",
       "kind": "electrical",
       "pos": [
-        34.0,
-        305.0,
+        88.0,
+        290.0,
         283.0
       ],
       "face": "z+",
       "diam": 6.0,
       "mates": "PSU 12 V output (DC-1)",
       "status": "off-surface",
-      "note": "16 AWG; PROVISIONAL terminal position"
+      "note": "16 AWG; PROVISIONAL \u2014 block unstationed"
     },
     {
       "component": "dc-dist",
       "name": "to-board",
       "kind": "electrical",
       "pos": [
-        49.0,
-        305.0,
+        88.0,
+        295.0,
         283.0
       ],
       "face": "z+",
       "diam": 5.0,
       "mates": "board J10 12 V inlet (DC-4)",
       "status": "off-surface",
-      "note": "16 AWG; PROVISIONAL terminal position"
+      "note": "16 AWG; PROVISIONAL \u2014 block unstationed"
     },
     {
       "component": "dc-dist",
       "name": "to-relay2",
       "kind": "electrical",
       "pos": [
-        64.0,
-        305.0,
+        88.0,
+        300.0,
         283.0
       ],
       "face": "z+",
       "diam": 6.0,
       "mates": "Teyleten relay #2 contact \u2014 SeaFlo gate (DC-2)",
       "status": "off-surface",
-      "note": "16 AWG; PROVISIONAL terminal position"
+      "note": "16 AWG; PROVISIONAL \u2014 block unstationed"
     },
     {
       "component": "psu",
@@ -1887,6 +1988,46 @@
     }
   ],
   "shapes": [
+    {
+      "component": "ac-hub",
+      "boxes": [
+        [
+          15.0,
+          283.45,
+          264.4,
+          33.8,
+          302.05,
+          272.8
+        ],
+        [
+          65.2,
+          283.45,
+          264.4,
+          84.0,
+          302.05,
+          272.8
+        ],
+        [
+          40.1,
+          283.45,
+          264.4,
+          58.9,
+          302.05,
+          272.8
+        ],
+        [
+          0.5,
+          278.3,
+          261.4,
+          98.5,
+          294.75,
+          275.95
+        ]
+      ],
+      "fill": 0.6088,
+      "primitive": false,
+      "declared": "real"
+    },
     {
       "component": "asse1022-assembly",
       "boxes": [
@@ -2397,18 +2538,18 @@
         [
           0.0,
           200.0,
-          238.4,
-          283.0,
-          381.0,
-          260.4
-        ],
-        [
-          0.0,
-          200.0,
           7.0,
           283.0,
           381.0,
           25.0
+        ],
+        [
+          0.0,
+          200.0,
+          238.4,
+          283.0,
+          381.0,
+          266.4
         ],
         [
           0.0,
@@ -2419,7 +2560,23 @@
           258.4
         ]
       ],
-      "fill": 0.1146,
+      "fill": 0.1123,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "ground-stack",
+      "boxes": [
+        [
+          79.0,
+          303.756,
+          260.4,
+          97.0,
+          321.444,
+          275.0
+        ]
+      ],
+      "fill": 0.1821,
       "primitive": false,
       "declared": "real"
     },
@@ -2612,6 +2769,22 @@
         ]
       ],
       "fill": 0.8011,
+      "primitive": false,
+      "declared": "real"
+    },
+    {
+      "component": "relay-1",
+      "boxes": [
+        [
+          5.0,
+          304.1,
+          259.4,
+          75.0,
+          321.1,
+          278.4
+        ]
+      ],
+      "fill": 0.4287,
       "primitive": false,
       "declared": "real"
     },

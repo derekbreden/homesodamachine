@@ -129,18 +129,17 @@ reservoir_cap_screws_per_build = reservoir_cap_inserts_per_build  # 1:1
 touchflo_inserts_per_build = len(base_pod_centers)
 touchflo_screws_per_build = touchflo_inserts_per_build  # 1:1
 
-# Electronics-shelf tray hardware (Zone B, assembly/electronics-shelf.md):
-# ruthex M3 inserts in the printed tray bosses, one M3 × 8 SHCS per insert.
-# The board and the PSU are NOT here — both bolt to the top foam cap's own deck-mount
-# columns, counted with the cap above. What is left on the power tray is relay #1's
-# standoff ×4 and the ground stud ×1 (power_tray.py "Retention"); the pcba tray does
-# not ship at all.
-pcba_tray_inserts_per_build = 0
-power_tray_inserts_per_build = 5
-shelf_inserts_per_build = pcba_tray_inserts_per_build + power_tray_inserts_per_build
-# One M3 × 8 SHCS per shelf insert, plus one down through each module into its
-# deck-mount column — the same screw into the same insert, one part earlier.
-shelf_screws_per_build = shelf_inserts_per_build + foam_cap_deck_inserts_per_build
+# Electronics-shelf hardware (Zone B, assembly/electronics-shelf.md). Every insert on
+# this shelf is in a deck-mount column of the top foam cap, counted with the cap above:
+# the board, the PSU, relay #1, the AC hub and the ground stack all land on one. No
+# printed part on the shelf carries a boss of its own, and no tray ships.
+shelf_inserts_per_build = 0
+# One SHCS down through each module into its column. The ground stack's is the long one
+# — `deck_mounts` carries the length each station takes.
+shelf_screws_per_build = foam_cap_deck_inserts_per_build
+shelf_long_screws_per_build = sum(
+    len(deck_mount_xy(n)) for n, m in deck_mounts.items() if m.screw > 8.0)
+shelf_short_screws_per_build = shelf_screws_per_build - shelf_long_screws_per_build
 
 # Combined heat-set insert count across the appliance (40).
 total_m3_inserts_per_build = (
@@ -188,6 +187,9 @@ def main():
         "TOUCHFLO_SCREWS": f"{touchflo_screws_per_build:.4g}",
         "SHELF_INSERTS": f"{shelf_inserts_per_build:.4g}",
         "SHELF_SCREWS": f"{shelf_screws_per_build:.4g}",
+        "SHELF_SCREWS_M3X8": f"{shelf_short_screws_per_build:.4g}",
+        "SHELF_SCREWS_M3X10": f"{shelf_long_screws_per_build:.4g}",
+        "DECK_INSERTS": f"{foam_cap_deck_inserts_per_build:.4g}",
         "TOTAL_M3_INSERTS": f"{total_m3_inserts_per_build:.4g}",
         # Vent filters.
         "VENT_FILTERS": f"{vent_filters_per_build:.4g}",
@@ -228,7 +230,10 @@ def main():
             "TOUCHFLO_INSERTS": 2,
             "TOUCHFLO_SCREWS": 2,
             "SHELF_INSERTS": 1,
-            "SHELF_SCREWS": 2,
+            "SHELF_SCREWS": 1,
+            "SHELF_SCREWS_M3X8": 2,
+            "SHELF_SCREWS_M3X10": 1,
+            "DECK_INSERTS": 1,
             "TOTAL_M3_INSERTS": 2,
             "VENT_FILTERS": 3,
             "PITCH": 1,

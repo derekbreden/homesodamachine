@@ -1,15 +1,13 @@
 """Shared engine for flat-board electronics trays (the pcba tray, the Lite
 logic tray).
 
-Same idioms as the power tray: tight flush packing, a single convex-outline
-floor, no walls, heat-set M3 boss mounting. A board reference exposes ``length``
-(X), ``width`` (Y), ``holes`` [(dx,dy), ...] and ``build()``; a ``Mount`` places
-it at centre ``c`` rotated ``rot`` degrees about Z. Boards with holes stand on
-heat-set bosses; boards with no holes (tiny adhesive parts) rest on the floor.
+Tight flush packing, a single convex-outline floor, no walls, heat-set M3 boss
+mounting. A board reference exposes ``length`` (X), ``width`` (Y), ``holes``
+[(dx,dy), ...] and ``build()``; a ``Mount`` places it at centre ``c`` rotated
+``rot`` degrees about Z. Boards with holes stand on heat-set bosses; boards with
+no holes (tiny adhesive parts) rest on the floor."""
 
-Geometry helpers and the floor/boss conventions are reused from
-[`power_tray`](power-tray/power_tray.py)."""
-
+import math
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -18,14 +16,49 @@ import cadquery as cq
 
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
-sys.path.insert(0, str(_hw / "printed-parts" / "electronics" / "power-tray"))
 sys.path.insert(0, str(_hw / "scripts"))
-import power_tray as pt
-from power_tray import _rot, _rect_corners, _convex_hull
 
-floor_t = pt.floor_t
-margin = pt.margin
+floor_t = 3.0           # base-plate thickness
+margin = 8.0            # part-to-plate-edge margin
 board_standoff = 5.0    # boss height — stands every board off so its pins clear
+
+
+def _rot(dx, dy, deg):
+    r = math.radians(deg)
+    c, s = math.cos(r), math.sin(r)
+    return (dx * c - dy * s, dx * s + dy * c)
+
+
+def _rect_corners(cx, cy, xdim, ydim, deg):
+    """Four corners of an xdim×ydim footprint centred at (cx,cy), rotated deg."""
+    out = []
+    for hx, hy in ((-xdim / 2, -ydim / 2), (xdim / 2, -ydim / 2),
+                   (xdim / 2, ydim / 2), (-xdim / 2, ydim / 2)):
+        rx, ry = _rot(hx, hy, deg)
+        out.append((cx + rx, cy + ry))
+    return out
+
+
+def _convex_hull(points):
+    """2-D convex hull (monotone chain), CCW, no collinear points."""
+    pts = sorted(set(points))
+    if len(pts) <= 2:
+        return pts
+
+    def cross(o, a, b):
+        return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+
+    lower = []
+    for p in pts:
+        while len(lower) >= 2 and cross(lower[-2], lower[-1], p) <= 0:
+            lower.pop()
+        lower.append(p)
+    upper = []
+    for p in reversed(pts):
+        while len(upper) >= 2 and cross(upper[-2], upper[-1], p) <= 0:
+            upper.pop()
+        upper.append(p)
+    return lower[:-1] + upper[:-1]
 
 
 def _boss_spec(hole_dia):
