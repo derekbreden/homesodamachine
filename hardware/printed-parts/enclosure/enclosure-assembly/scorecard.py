@@ -51,6 +51,16 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import _boxes  # noqa: E402  — optimal bounding boxes, memoized once per placed solid
 import _contents as contents  # noqa: E402  — the manifold ports derive from the pack's own placement
 
+# The cold core's own modules. Every front foam port reads its X and Z off the
+# same constants the shell is cut with, so a bore that moves in the shell moves
+# its port with it. `_contents` has already put the cold-core directory on the
+# path; the copper plug stack sits one level below it.
+sys.path.insert(0, str(contents._hw / "printed-parts" / "cold-core" / "copper-plugs"))
+import _cold_core_interface as _cc  # noqa: E402
+import _port_cuts as _pc  # noqa: E402
+import _reed_channels as _rc  # noqa: E402
+from copper_plugs import plug_specs as _plug_specs  # noqa: E402
+
 # Minimum solid-to-solid distance. cadquery 2 binds OpenCascade as OCP; the guarded import
 # leaves `_HAVE_EXACT` false when it is absent, and `_solid_gap` raises.
 try:
@@ -547,22 +557,34 @@ _BACK_CARB  = contents.back_port_station("bulkhead-carb")
 _BACK_WATER = contents.back_port_station("bulkhead-water")
 _BACK_C14   = contents.back_port_station("c14-inlet")
 
+# Front foam ports, in the shell's own frame. `foam_shell_port` carries a
+# (local x, local z) on the −Y face into world, so these follow the shell
+# instead of being retyped after it. The flavor line and the reed cable leave
+# level out of the bulkhead elbow's lateral port; the four slot penetrations
+# sit where the copper plug stack's spans meet, each join being a bore centre.
+_FOAM_PORT = contents.foam_shell_port
+_EXIT_Z = _cc.bulkhead_elbow_exit_z
+_PLUG_JOIN = {name: spec.z_range[0] for name, spec in _plug_specs.items()}
+
 PORTS = [
     # foam-assembly — 8 tube penetrations (foam-shell README §Penetrations) + 2 reed-cable exits
     # on the −Y front wall. All on −Y except the CO2 inlet, which drops through the +Z foam-cap
     # top, at its own station aft of the face. Ø: the beverage/flavor lines run the foam shell's
     # Ø6.5 port-holes (_cold_core_interface.port_hole_radius 3.25) sized for 1/4" tube; the
     # water-in takes the SeaFlo's 3/8" discharge; the copper legs are 1/4" ACR = 6.35.
-    _p("carb-water-out", "foam-assembly", "fluid",       (141.5, _FOAM_FACE, 46.5),  "y-", 6.35,  "dispense faucet (carb-water riser to the rear umbilical)", "1/4\" tank NPT elbow line"),
-    _p("reservoir-A",    "foam-assembly", "fluid",       (238.5, _FOAM_FACE, 35.5),  "y-", 6.35,  "reservoir A ↔ peristaltic pump A (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
-    _p("reservoir-B",    "foam-assembly", "fluid",       (44.5,  _FOAM_FACE, 35.5),  "y-", 6.35,  "reservoir B ↔ peristaltic pump B (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
+    # The two flavor lines and the two reed cables exit at their shell-side bore X, well
+    # inboard of the pocket-side bore they start at — see the foam-shell README's
+    # §Two-bore front pass-throughs.
+    _p("carb-water-out", "foam-assembly", "fluid",       _FOAM_PORT(0.0, _pc.front_face_port_z), "y-", 6.35,  "dispense faucet (carb-water riser to the rear umbilical)", "1/4\" tank NPT elbow line"),
+    _p("reservoir-A",    "foam-assembly", "fluid",       _FOAM_PORT(+_pc.flavor_line_shell_hole_x, _EXIT_Z), "y-", 6.35,  "reservoir A ↔ peristaltic pump A (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
+    _p("reservoir-B",    "foam-assembly", "fluid",       _FOAM_PORT(-_pc.flavor_line_shell_hole_x, _EXIT_Z), "y-", 6.35,  "reservoir B ↔ peristaltic pump B (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
     _p("co2-in",         "foam-assembly", "fluid",       (141.5, _FOAM_FACE + 17.8, 262.9), "z+", 6.35,  "CO2 chain (WR1110 → foam-cap top entry)", "1/4\" PTC CO2 line; seats in the Ø16 foam-cap bore"),
-    _p("evap-inlet",     "foam-assembly", "refrigerant", (141.5, _FOAM_FACE, 72.0),  "y-", 6.35,  "condenser+fan outlet (liquid line via drier + cap tube)", "1/4\" ACR copper"),
-    _p("evap-outlet",    "foam-assembly", "refrigerant", (141.5, _FOAM_FACE, 191.0), "y-", 6.35,  "compressor-shroud suction", "1/4\" ACR copper"),
-    _p("water-in",       "foam-assembly", "fluid",       (141.5, _FOAM_FACE, 223.0), "y-", 9.525, "gasher-water out (SeaFlo outlet check → carbonator water inlet)", "3/8\" hose barb (SeaFlo 22-series port)"),
-    _p("prv-vent",       "foam-assembly", "fluid",       (141.5, _FOAM_FACE, 231.0), "y-", 6.35,  "appliance interior (relief-event discharge only)", "1/4\" relief discharge"),
-    _p("reed-cable-A",   "foam-assembly", "electrical",  (254.5, _FOAM_FACE, 35.5),  "y-", 6.5,   "J6 REEDS A — reservoir A level reeds (SIG-10)", "reed cable through the Ø6.5 pass-through, 16 mm outboard of reservoir-A (_port_cuts.py)"),
-    _p("reed-cable-B",   "foam-assembly", "electrical",  (28.5,  _FOAM_FACE, 35.5),  "y-", 6.5,   "J7 REEDS B — reservoir B level reeds (SIG-11)", "reed cable through the Ø6.5 pass-through, 16 mm outboard of reservoir-B (_port_cuts.py)"),
+    _p("evap-inlet",     "foam-assembly", "refrigerant", _FOAM_PORT(0.0, _PLUG_JOIN["lower"]),  "y-", 6.35,  "condenser+fan outlet (liquid line via drier + cap tube)", "1/4\" ACR copper"),
+    _p("evap-outlet",    "foam-assembly", "refrigerant", _FOAM_PORT(0.0, _PLUG_JOIN["middle"]), "y-", 6.35,  "compressor-shroud suction", "1/4\" ACR copper"),
+    _p("water-in",       "foam-assembly", "fluid",       _FOAM_PORT(0.0, _PLUG_JOIN["upper"]),  "y-", 9.525, "gasher-water out (SeaFlo outlet check → carbonator water inlet)", "3/8\" hose barb (SeaFlo 22-series port)"),
+    _p("prv-vent",       "foam-assembly", "fluid",       _FOAM_PORT(0.0, _PLUG_JOIN["top"]),    "y-", 6.35,  "appliance interior (relief-event discharge only)", "1/4\" relief discharge"),
+    _p("reed-cable-A",   "foam-assembly", "electrical",  _FOAM_PORT(+_rc.cable_shell_hole_x, _EXIT_Z), "y-", 6.5,   "J6 REEDS A — reservoir A level reeds (SIG-10)", "reed cable through the Ø6.5 shell bore, outboard of reservoir-A's (_reed_channels.py)"),
+    _p("reed-cable-B",   "foam-assembly", "electrical",  _FOAM_PORT(-_rc.cable_shell_hole_x, _EXIT_Z), "y-", 6.5,   "J7 REEDS B — reservoir B level reeds (SIG-11)", "reed cable through the Ø6.5 shell bore, outboard of reservoir-B's (_reed_channels.py)"),
     # compressor-shroud — compressor_shroud.py local hole centers carried through _contents'
     # _rot((0,0,1),−90) + _at(14,0,3). Both copper stubs share the one face → world +Y (toward
     # the foam/cold core they mate to); the AC gland + earth bond ride the +X face (into the

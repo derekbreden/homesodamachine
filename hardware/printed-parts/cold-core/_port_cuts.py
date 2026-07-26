@@ -17,6 +17,7 @@ from _cold_core_interface import (
     port_hole_radius,
     build_hole_punch,
     build_slot_punch,
+    cut_pour_band_pass_through,
 )
 
 # Z of the through-foam ports — water outlet and CO2 inlet notch, both
@@ -41,23 +42,42 @@ minus_y_wall_plug_port_y = -(pocket_centerward_arc_outer_radius - 20)
 # The three circular port holes are the project's ⌀[6.5](PORT_HOLE_DIAMETER) standard.
 water_outlet_xyz = (0, minus_y_wall_plug_port_y, front_face_port_z)
 
-# Flavor-line pass-throughs — each reservoir's 1/4" LLDPE outlet line
-# through the −Y bag-pocket wall and the −Y outer-shell wall, at
-# bulkhead_elbow_exit_z (level out of the elbow's lateral port). Inboard
-# of the bulkhead axis, opposite the outboard reed cable hole — the two
-# ⌀[6.5](PORT_HOLE_DIAMETER) holes 16 mm apart center-to-center with PETG between them.
+# Flavor-line pass-throughs — each reservoir's 1/4" LLDPE outlet line out
+# of the pocket, across the pour band and through the −Y outer-shell wall,
+# at bulkhead_elbow_exit_z (level out of the elbow's lateral port). The
+# pocket-wall bore sits inboard of the bulkhead axis, opposite the outboard
+# reed cable hole — the two ⌀[6.5](PORT_HOLE_DIAMETER) holes
+# [12](FLAVOR_REED_PITCH) mm apart center-to-center with PETG between them.
 flavor_line_hole_offset_from_bulkhead_x = 8.0
 flavor_line_hole_x = reservoir_bulkhead_port_x - flavor_line_hole_offset_from_bulkhead_x
+
+# Where the line leaves the shell. Far enough inboard that it emerges clear
+# of the condenser+fan block standing against the cabinet's +X wall, and
+# under the one window in the manifold tray stack above, so the line falls
+# straight down the core's front face rather than traversing beneath the
+# stack. Inside the shell it reaches this X along the pour band.
+flavor_line_shell_hole_x = 47.0
+
 flavor_line_plus_x_xyz = (+flavor_line_hole_x, reservoir_bulkhead_port_y, bulkhead_elbow_exit_z)
 flavor_line_minus_x_xyz = (-flavor_line_hole_x, reservoir_bulkhead_port_y, bulkhead_elbow_exit_z)
 
 
 def cut_circular_port_holes(foam_shell):
-    # Water outlet + both flavor lines exit the −Y (front) wall, so each
-    # punch extrudes outward toward −Y.
-    for anchor in (water_outlet_xyz, flavor_line_plus_x_xyz, flavor_line_minus_x_xyz):
-        foam_shell = foam_shell.cut(
-            build_hole_punch(origin=anchor, hole_punch_radius=port_hole_radius, direction=-1)
+    # The water outlet crosses the −Y wall in a single bore: no pocket
+    # stands behind it, so only the outer shell is in its way.
+    foam_shell = foam_shell.cut(
+        build_hole_punch(origin=water_outlet_xyz, hole_punch_radius=port_hole_radius, direction=-1)
+    )
+    # Each flavor line pierces two walls at two different X, joined by its
+    # own run along the pour band.
+    for side in (+1, -1):
+        foam_shell = cut_pour_band_pass_through(
+            foam_shell,
+            pocket_hole_x=side * flavor_line_hole_x,
+            shell_hole_x=side * flavor_line_shell_hole_x,
+            y=reservoir_bulkhead_port_y,
+            z=bulkhead_elbow_exit_z,
+            hole_punch_radius=port_hole_radius,
         )
     return foam_shell
 

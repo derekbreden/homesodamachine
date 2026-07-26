@@ -169,6 +169,10 @@ def main():
             "CO2_DOORWAY_Y": f"{co2_doorway_y:.4g}",
             "FLOOR_TOP_Z": f"{_port_cuts.wall_and_floor_thickness:.4g}",
             "PORT_HOLE_DIAMETER": f"{_port_cuts.port_hole_radius * 2:.4g}",
+            # Pocket-wall spacing between a side's flavor bore and its reed
+            # cable bore — the two offsets from the bulkhead axis, one
+            # inboard and one outboard.
+            "FLAVOR_REED_PITCH": f"{_port_cuts.flavor_line_hole_offset_from_bulkhead_x + cable_hole_offset_from_bulkhead_hole_x:.4g}",
         },
         expected_counts={
             "CO2_NOTCH_W": 1,
@@ -176,6 +180,7 @@ def main():
             "CO2_DOORWAY_Y": 1,
             "FLOOR_TOP_Z": 2,
             "PORT_HOLE_DIAMETER": 2,
+            "FLAVOR_REED_PITCH": 1,
         },
     )
     print("-> _port_cuts.py")

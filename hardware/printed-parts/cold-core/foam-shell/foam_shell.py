@@ -52,7 +52,14 @@ from _port_cuts import (
     co2_doorway_y,
     co2_inlet_notch_half_width,
     co2_inlet_notch_z_top,
+    flavor_line_hole_x,
+    flavor_line_shell_hole_x,
 )
+from _reed_channels import (
+    cable_hole_offset_from_bulkhead_hole_x,
+    cable_shell_hole_x,
+)
+from _cold_core_interface import reservoir_bulkhead_port_x
 from _cold_core_interface import co2_inlet_y
 from docgen import substitute_md
 
@@ -120,6 +127,13 @@ def main():
             "CO2_DOORWAY_Y": f"+{co2_doorway_y:.4g}",
             "CO2_NOTCH_Z_TOP": f"{co2_inlet_notch_z_top:.4g}",
             "CO2_CAP_HOLE_Y": f"+{-co2_inlet_y:.4g}",
+            # Front pass-throughs — each is two non-coaxial bores, the
+            # pocket-side one beside the bulkhead and the shell-side one
+            # inboard, joined by a run along the pour band.
+            "FLAVOR_POCKET_X": f"{flavor_line_hole_x:.4g} mm",
+            "FLAVOR_SHELL_X": f"{flavor_line_shell_hole_x:.4g} mm",
+            "CABLE_POCKET_X": f"{reservoir_bulkhead_port_x + cable_hole_offset_from_bulkhead_hole_x:.4g} mm",
+            "CABLE_SHELL_X": f"{cable_shell_hole_x:.4g} mm",
             # Copper-plug Z spans — the plugs tile the slot end-to-end, each
             # end face landing on a pass-through center.
             "PLUG_SPAN_LOWER": _plug_span("lower"),
@@ -136,7 +150,11 @@ def main():
             "OUTER_H": 2,
             "OUTER_X": 1,
             "FSHELL_OUTER_Y": 1,
-            "OUTER_GAP": 2,
+            "OUTER_GAP": 3,
+            "FLAVOR_POCKET_X": 1,
+            "FLAVOR_SHELL_X": 1,
+            "CABLE_POCKET_X": 1,
+            "CABLE_SHELL_X": 1,
             "FSHELL_WALL_T": 2,
             "CAP_H": 1,
             "POUR_D": 1,

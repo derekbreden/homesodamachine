@@ -121,6 +121,17 @@ outer_shell_y_length = 2 * (
     bag_pocket_width / 2 + outer_shell_foam_gap + wall_and_floor_thickness
 )
 
+# The −Y pour band — the open gap between the bag-pocket wall's outer face
+# and the outer shell's inner face, poured full of foam around the
+# reservoirs. Every front-wall pass-through crosses it, so each is two
+# bores rather than one: the pocket-wall bore stays where the fitting
+# inside points, the outer-shell bore goes where the cabinet needs it, and
+# the line turns through the band between them. The band is what lets the
+# two sit at different X.
+pour_band_pocket_side_y = -(bag_pocket_width / 2)
+pour_band_shell_side_y = -(outer_shell_y_length / 2 - wall_and_floor_thickness)
+pour_band_mid_y = (pour_band_pocket_side_y + pour_band_shell_side_y) / 2
+
 
 # Foam-cap stack — the pour trays that close both ends of the shell (one
 # mouth-up on top, one mouth-down underneath), each with a thin pour lid.
@@ -324,6 +335,37 @@ def build_hole_punch(
         .workplane(origin=(x, 0, z), offset=y)
         .circle(hole_punch_radius)
         .extrude(direction * hole_punch_height)
+    )
+
+
+def cut_pour_band_pass_through(
+    foam_shell,
+    *,
+    pocket_hole_x,
+    shell_hole_x,
+    y,
+    z,
+    hole_punch_radius,
+):
+    """Cut one −Y pass-through as two non-coaxial bores: through the
+    bag-pocket wall at `pocket_hole_x`, starting at `y` and stopping at the
+    pour band's mid-depth, and through the outer shell at `shell_hole_x`,
+    starting from that same mid-depth and running out. Between them the line
+    turns and runs along the open band."""
+    foam_shell = foam_shell.cut(
+        build_hole_punch(
+            origin=(pocket_hole_x, y, z),
+            hole_punch_radius=hole_punch_radius,
+            hole_punch_height=y - pour_band_mid_y,
+            direction=-1,
+        )
+    )
+    return foam_shell.cut(
+        build_hole_punch(
+            origin=(shell_hole_x, pour_band_mid_y, z),
+            hole_punch_radius=hole_punch_radius,
+            direction=-1,
+        )
     )
 
 

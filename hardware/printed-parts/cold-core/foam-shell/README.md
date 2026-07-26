@@ -263,6 +263,25 @@ barb-to-NPT adapter, 5/16" push-to-connect, 1/4" NPT check valves, etc.)
 live on the warm side of the shell. Inside the shell, every penetration
 is 1/4" OD.
 
+### Two-bore front pass-throughs
+
+Each reservoir's flavor line and reed cable crosses two walls on its way
+out of the −Y face — the bag-pocket wall and the outer shell — with the
+[16 mm](OUTER_GAP) pour band open between them. The two bores are not
+coaxial. The pocket-wall bore stays beside the bulkhead, where the elbow's
+lateral port points: x = ±[97 mm](FLAVOR_POCKET_X) for the line and
+±[109 mm](CABLE_POCKET_X) for the cable. The outer-shell bore sits well
+inboard of that — x = ±[47 mm](FLAVOR_SHELL_X) for the line and
+±[60 mm](CABLE_SHELL_X) for the cable — and each run turns and travels
+along the band to reach it.
+
+The inboard exits are what let each line leave the shell clear of the
+condenser+fan block standing against the cabinet wall, and fall straight
+down the core's front face instead of traversing beneath the manifold
+tray stack. Both runs are potted where they cross the band, as everything
+in the band is. `cut_pour_band_pass_through` in `_cold_core_interface.py`
+cuts the pair.
+
 ### Shared −Y slot and copper plug stack
 
 The −Y outer_shell wall carries four pass-throughs along a single
