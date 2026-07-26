@@ -61,6 +61,14 @@ from _reed_channels import (
 )
 from _cold_core_interface import reservoir_bulkhead_port_x
 from _cold_core_interface import co2_inlet_y
+from _cold_core_interface import (
+    cap_screw_beyond_face,
+    cap_screw_length,
+    head_cbore_radius,
+    head_pad_height,
+    insert_length,
+    screw_head_height,
+)
 from docgen import substitute_md
 
 sys.path.insert(0, str(_here.parent / "copper-plugs"))
@@ -118,6 +126,13 @@ def main():
             "GASKET_W": f"{gasket_strip_width:.4g} mm",
             "MID_BOSS_OFFSET": f"{mid_screw_x_offset:.4g} mm",
             "INSERT_DEPTH": f"{insert_pocket_depth:.4g} mm",
+            "SCREW_LEN": f"{cap_screw_length:.4g}",
+            "SCREW_HEAD_H": f"{screw_head_height:.4g} mm",
+            "HEAD_CBORE_D": f"{head_cbore_radius * 2:.4g} mm",
+            "HEAD_PAD_H": f"{head_pad_height:.4g} mm",
+            "SCREW_REACH": f"{cap_screw_beyond_face:.4g} mm",
+            "INSERT_LEN": f"{insert_length:.4g} mm",
+            "TIP_CLEAR": f"{insert_pocket_depth - cap_screw_beyond_face:.4g} mm",
             # CO2 elbow doorway — the notch width, the +Y wall face it is cut
             # from, the ring-top plateau it opens through, and the tube's Y
             # through the cap stack above it. The cap is authored with its bore
@@ -183,6 +198,13 @@ def main():
             "BOSS_D": 3,
             "MID_BOSS_OFFSET": 2,
             "INSERT_DEPTH": 1,
+            "SCREW_LEN": 1,
+            "SCREW_HEAD_H": 1,
+            "HEAD_CBORE_D": 1,
+            "HEAD_PAD_H": 1,
+            "SCREW_REACH": 1,
+            "INSERT_LEN": 1,
+            "TIP_CLEAR": 1,
             "CO2_NOTCH_W": 3,
             "CO2_DOORWAY_Y": 2,
             "CO2_NOTCH_Z_TOP": 1,

@@ -19,13 +19,11 @@ under the heaviest single mass in the cabinet.
 The cold core's bottom foam cap is fastened to the outer shell by six M3 × 25
 DIN 912 SHCS driven up from below
 ([`/hardware/printed-parts/cold-core/foam-shell/README.md`](/hardware/printed-parts/cold-core/foam-shell/README.md)
-"Cap-to-outer-shell joinery"). The bottom foam-cap lid passes them on plain
-clearance holes — no counterbore, and at 2 mm it has no room for one. So the
-assembly's lowest surface is not its lid: it is six screw heads standing
-[3 mm](HEAD_LEN) proud of it. Set straight on the floor, the core rests on those
-six heads.
+"Cap-to-outer-shell joinery"). Each head sits in a counterbore in the lid's own
+head pad, so the assembly's lowest surface is the lid: a plane, 283 × 181, with
+nothing standing off it.
 
-The ring is the plane they are missing:
+The ring carries the core off the floor on:
 
 - a closed **bearing rail**, [20 mm](RAIL_W) wide, its outer edge on the
   footprint edge — the line the bottom cap's own perimeter wall stands on.
@@ -33,8 +31,7 @@ The ring is the plane they are missing:
 - six **head wells**, ⌀[11 mm](WELL_DIA) through the rail at the cap-screw
   stations, each opening outward as a notch where the boss sits nearer its edge
   than the bore's radius (every corner station does — the boss is tangent to the
-  footprint's corner arc). A head hangs its full length in a well and still
-  clears the enclosure floor by 2 mm.
+  footprint's corner arc).
 - two front **lugs** standing to [13 mm](LUG_Z) at the footprint's front edge —
   the core's only fence that is not already in the box.
 - two **ears** at seat height reaching into the enclosure's side bands, the
@@ -90,9 +87,14 @@ corner.
 - Bearing-plane flatness off a real print is unmeasured. If the frame will not
   lie flat, the answer is cross ribs at the mid-side screw stations, not a
   thicker rail.
-- The M3 head's [3 mm](HEAD_LEN) is the DIN 912 nominal. It has not been measured
-  on a seated screw with the TPU gasket under compression, and it is the number
-  the seat height is built on.
+- The [5 mm](SEAT_Z) lift and the six wells have nothing left to clear: the
+  bottom lid is a plane and the heads are inside it. What is still the ring's
+  alone is the −Y fence and a bearing plane that does not inherit the Y seam.
+  Both are things the enclosure floor could carry at zero lift — the lugs as
+  floor features on the front-bottom piece, well clear of the seam at y=223.3,
+  and the rail as the `_seat` landing the compressor shroud and condenser
+  already stand on. That is a change that drops the whole water deck by the
+  lift, so it is not this part's to make alone.
 - The ear window is written here as a pair of Y numbers, not read from the box
   that sets them: reading it live would make the ring's build depend on a pack
   that loads the ring. If the enclosure's Y seam or its back-column Z stations

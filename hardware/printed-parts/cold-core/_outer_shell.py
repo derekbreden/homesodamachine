@@ -32,11 +32,16 @@ def _rounded_footprint(height):
     )
 
 
-def build_attachment_bosses(height):
+def build_attachment_bosses(height, oversize=0.0):
     """The ⌀screw_boss_size cylindrical boss + teardrop corner-fill webs at
     each of the 6 attachment positions, extruded to `height` and trimmed
     flush to the rounded footprint. Shared by the outer shell and the
     foam-cap stack — every mating part's boss cross-section is identical.
+
+    `oversize` grows the section in the plane by that much on every free side.
+    A cap's mouth-end relief is the lid pad it receives, one slip oversize; the
+    footprint trim is common to both, so the two stay flush where they reach
+    the outer skin and clear each other everywhere they do not.
 
     The webs are the cylinder + corner-fill idiom of the reservoir
     pocket-corner supports: each is one boss radius wide off the boss center
@@ -46,7 +51,7 @@ def build_attachment_bosses(height):
     each, diagonal-inboard quadrant left open for foam; a mid-side boss sits
     against one wall and gets a single web toward it (a D: flat to the wall,
     round toward the foam)."""
-    r = screw_boss_size / 2
+    r = screw_boss_size / 2 + oversize
     corner_x = outer_shell_x_length / 2
     corner_y = outer_shell_y_length / 2
     corner_positions = attachment_xy_positions[:4]

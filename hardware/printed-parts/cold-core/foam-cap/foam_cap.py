@@ -20,14 +20,19 @@ from _foam_cap import (
     build_foam_cap,
     build_foam_cap_lid,
     build_foam_cap_gasket,
+    lid_cut_through_depth,
+    lid_total_height,
 )
 from _cold_core_interface import (
     build_z_axis_hole_punch,
+    attachment_xy_positions,
     co2_inlet_y,
     co2_inlet_tube_radius,
     wall_and_floor_thickness,
     foam_cap_height,
     screw_clearance_radius,
+    screw_head_height,
+    head_cbore_depth,
     co2_boss_outer_radius,
     deck_mounts,
     deck_mount_xy,
@@ -75,7 +80,7 @@ def cut_co2_inlet_lid(lid):
         build_z_axis_hole_punch(
             origin=(0, co2_inlet_y, 0),
             hole_punch_radius=co2_tube_clearance_radius,
-            hole_punch_height=lid_z_height,
+            hole_punch_height=lid_cut_through_depth,
         )
     )
 
@@ -150,7 +155,7 @@ def cut_deck_mounts_lid(lid):
                 build_z_axis_hole_punch(
                     origin=(x, y, 0),
                     hole_punch_radius=radius,
-                    hole_punch_height=lid_z_height,
+                    hole_punch_height=lid_cut_through_depth,
                 )
             )
     return lid
@@ -162,8 +167,10 @@ def main():
     # alone and the bottom cap's screws land on the shell's existing bosses.
     cap_top = add_deck_mounts(add_co2_boss(cut_co2_inlet(build_foam_cap())))
     cap_bottom = build_foam_cap(open_down=True)
-    lid_bottom = build_foam_cap_lid()
-    lid_top = cut_deck_mounts_lid(cut_co2_inlet_lid(lid_bottom))
+    # Each lid's head pads face its own cap's mouth, so the two are built with
+    # the same flag as the caps they close, not one derived from the other.
+    lid_bottom = build_foam_cap_lid(open_down=True)
+    lid_top = cut_deck_mounts_lid(cut_co2_inlet_lid(build_foam_cap_lid()))
     gasket = build_foam_cap_gasket()
 
     cap_floor_hole_volume = math.pi * co2_tube_clearance_radius ** 2 * wall_and_floor_thickness
@@ -196,6 +203,37 @@ def main():
     assert math.isclose(lid_diff, lid_expect, rel_tol=1e-6), \
         f"lid diff {lid_diff:.6f} != expected lid holes = {lid_expect:.6f}"
     assert len(cap_top.solids().vals()) == 1, "cap_top must be a single solid"
+
+    # What is under a head is still one wall of PETG — the same land the head
+    # clamps on when it sits on a flat lid, which is what makes the recess a
+    # relocation of the clamp rather than a thinning of it.
+    land = lid_total_height - head_cbore_depth
+    assert math.isclose(land, wall_and_floor_thickness), (
+        f"the land under a head is {land:g} mm, not the "
+        f"{wall_and_floor_thickness:g} mm it bears on today")
+
+    # And the heads are inside the lid. Seat an M3 SHCS head (⌀5.5 × 3, DIN 912
+    # nominal) on each counterbore floor: it shares no volume with the lid, and
+    # the lid is no taller than its own plate + pad. Nothing stands off the
+    # outer face, so the outer face is a plane.
+    head_radius = 2.75
+    for name, lid, outer_z, inward in (
+        ("foam-cap-lid-bottom", lid_bottom, 0.0, 1.0),
+        ("foam-cap-lid-top", lid_top, lid_total_height, -1.0),
+    ):
+        zlen = lid.val().BoundingBox().zlen
+        assert math.isclose(zlen, lid_total_height, abs_tol=1e-6), \
+            f"{name} stands {zlen:.4f} mm tall, not {lid_total_height:g}"
+        for x, y in attachment_xy_positions:
+            seat = outer_z + inward * head_cbore_depth
+            head = build_z_axis_hole_punch(
+                origin=(x, y, min(seat, seat - inward * screw_head_height)),
+                hole_punch_radius=head_radius,
+                hole_punch_height=screw_head_height,
+            )
+            fouled = lid.val().intersect(head.val()).Volume()
+            assert fouled <= 1e-6, \
+                f"{name}: the head at ({x:.1f}, {y:.1f}) fouls the lid by {fouled:.3f} mm^3"
 
     export_step(cap_top, str(_here / "foam-cap-top.step"))
     export_step(cap_bottom, str(_here / "foam-cap-bottom.step"))

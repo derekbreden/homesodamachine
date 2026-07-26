@@ -46,6 +46,7 @@ from _cold_core_interface import (
     co2_inlet_tube_radius,
     screw_clearance_radius,
     foam_cap_height,
+    head_pad_height,
 )
 
 SHELL_STEP = _cold_core / "foam-shell" / "foam-shell.step"
@@ -94,17 +95,21 @@ def build():
     # not on the cap's highest point, which is the pcba deck mount's columns
     # standing on through the lid to carry the board above it. The psu mount's
     # columns stop at the rim itself, and the lid is what its module lands on.
+    # A lid's plate seats on the cap's mouth rim and its head pads sink one
+    # head_pad_height past it, into the relief the cap's boss columns leave
+    # there — so a lid is placed by the pads' far end, one pad short of the rim.
     cap_top = _place_z(_spin(_load(CAP_DIR / "foam-cap-top.step")), zmin=shell_bb.zmax)
     lid_top = _place_z(
         _spin(_load(CAP_DIR / "foam-cap-lid-top.step")),
-        zmin=cap_top.BoundingBox().zmin + foam_cap_height,
+        zmin=cap_top.BoundingBox().zmin + foam_cap_height - head_pad_height,
     )
 
     # Bottom cap (mouth-down): floor (its zmax face) lands up against the
     # shell's bottom; lid covers the downward mouth as the most-negative-Z layer.
     cap_bottom = _place_z(_load(CAP_DIR / "foam-cap-bottom.step"), zmax=shell_bb.zmin)
     lid_bottom = _place_z(
-        _load(CAP_DIR / "foam-cap-lid-bottom.step"), zmax=cap_bottom.BoundingBox().zmin
+        _load(CAP_DIR / "foam-cap-lid-bottom.step"),
+        zmax=cap_bottom.BoundingBox().zmin + head_pad_height,
     )
 
     placed = {

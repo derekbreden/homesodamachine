@@ -166,6 +166,24 @@ insert_pocket_radius = 2.0  # ⌀[4](INSERT_POCKET_DIAMETER) for ruthex M3 short
 insert_pocket_depth = 8.0  # 4 mm insert engagement + 4 mm relief
 screw_boss_size = 8.0  # ⌀[8 × 8 mm](SCREW_BOSS_SIZE) cylindrical boss at each attachment
 
+# The head sits IN the lid, not on it. An M3 SHCS head stands
+# [3 mm](SCREW_HEAD_H) tall and the lid is one wall thick, so a flat lid has
+# nowhere to put one: it stands proud, and the outer face of a cap stack is six
+# heads instead of a plane. So the cap's six boss columns stop
+# [3.2 mm](HEAD_PAD_H) short of their mouth, and the lid grows a pad of the
+# boss's own cross-section filling exactly what they gave up, counterbored from
+# the outer face to take the head. Under the head is still one wall of PETG and
+# under that is still the same boss section — the clamp path is the one it
+# always was with only its head end moved inboard, and the same M3 × 25 reaches
+# one pad further into its insert for the trip.
+screw_head_height = 3.0  # DIN 912 M3 nominal
+head_seat_recess = 0.2  # how far under the lid's outer face the head lands
+head_cbore_radius = 3.075  # ⌀[6.15](HEAD_CBORE_D) over the ⌀5.5 head
+head_cbore_depth = screw_head_height + head_seat_recess
+# A pad as tall as the counterbore is deep leaves the land at one wall exactly.
+head_pad_height = head_cbore_depth
+head_pad_slip = 0.2  # per side, pad to the boss relief that receives it
+
 # Rounded outer-shell corners. Each corner's exterior wall is a true arc:
 # the outer face is a quarter-round of [12 mm](CORNER_ROUND_R) radius, the
 # inner face concentric one wall-thickness inboard. The corner boss is
@@ -192,6 +210,26 @@ attachment_xy_positions = (
 )
 gasket_thickness = 2.0
 gasket_strip_width = 5.0
+
+# The clamp screw, end to end. From under its head an M3 × [25](CAP_SCREW_L)
+# crosses the land, then the one continuous PETG section the lid's pad and the
+# cap's boss column make between them, then the gasket — and whatever is left
+# is what it has to give the insert on the far side of the shell's face. The
+# recess spends none of that: the head carries the land down with it, so the
+# screw arrives deeper by exactly the pad it sank.
+cap_screw_length = 25.0
+insert_length = 4.0  # ruthex RX-M3Sx4.0, set flush with the face
+cap_screw_beyond_face = cap_screw_length - (
+    wall_and_floor_thickness  # the land under the head
+    + (foam_cap_height - head_pad_height)  # the boss column under the pad
+    + gasket_thickness
+)
+assert cap_screw_beyond_face >= insert_length, (
+    f"an M3 × {cap_screw_length:g} reaches {cap_screw_beyond_face:g} mm past the shell "
+    f"face, short of its {insert_length:g} mm insert")
+assert cap_screw_beyond_face <= insert_pocket_depth, (
+    f"an M3 × {cap_screw_length:g} reaches {cap_screw_beyond_face:g} mm past the shell "
+    f"face and bottoms in a {insert_pocket_depth:g} mm pocket before its head is down")
 
 # Deck mounts — the service bay's electronics, carried on columns of the TOP CAP. The cap
 # is already a foam-poured cup with six screw-boss columns spanning its full height; a deck
@@ -422,6 +460,10 @@ if __name__ == "__main__":
         "SCREW_CLEARANCE_DIAMETER": f"{screw_clearance_radius * 2:.4g}",
         "INSERT_POCKET_DIAMETER": f"{insert_pocket_radius * 2:.4g}",
         "SCREW_BOSS_SIZE": f"{screw_boss_size:.4g} × {screw_boss_size:.4g} mm",
+        "SCREW_HEAD_H": f"{screw_head_height:.4g} mm",
+        "HEAD_PAD_H": f"{head_pad_height:.4g} mm",
+        "HEAD_CBORE_D": f"{head_cbore_radius * 2:.4g}",
+        "CAP_SCREW_L": f"{cap_screw_length:.4g}",
     }
     substitute_py_comments(
         Path(__file__),
@@ -435,6 +477,10 @@ if __name__ == "__main__":
             "SCREW_CLEARANCE_DIAMETER": 1,
             "INSERT_POCKET_DIAMETER": 1,
             "SCREW_BOSS_SIZE": 1,
+            "SCREW_HEAD_H": 1,
+            "HEAD_PAD_H": 1,
+            "HEAD_CBORE_D": 1,
+            "CAP_SCREW_L": 1,
         },
     )
     print("-> _cold_core_interface.py (self)")

@@ -239,6 +239,26 @@ below the insert for tip clearance. See `_foam_cap.py` and
 Insert pocket: Ø 4.0 mm × [8 mm](INSERT_DEPTH) deep (insert
 engagement + tip-relief), drilled in from each face.
 
+### The head sits in the lid
+
+A head is [3 mm](SCREW_HEAD_H) tall and a lid is one wall thick, so a flat lid
+has nowhere to put one. Each station carries it instead: the cap's boss column
+stops [3.2 mm](HEAD_PAD_H) short of the cup's mouth, and the lid grows a pad of
+that same boss cross-section — trimmed to the same footprint, the relief one
+slip larger — filling exactly what the column gave up. The pad is counterbored
+Ø[6.15 mm](HEAD_CBORE_D) from the outer face, and the head lands under it.
+
+What the head bears on is still one wall of PETG, and what that bears on is
+still the same boss section: the clamp is where it always was, one pad further
+in. The outer face of a cap stack is a plane — which is what lets the bottom
+one be the surface the whole core stands on.
+
+The screw rides in with the head, so it arrives deeper. From under the head an
+M3 × [25](SCREW_LEN) crosses the land, the continuous pad-and-column section,
+and the gasket, leaving [6.2 mm](SCREW_REACH) past the shell's face: the whole
+[4 mm](INSERT_LEN) of the insert, with [1.8 mm](TIP_CLEAR) of pocket still
+under the tip. `_cold_core_interface.py` asserts both ends of that.
+
 ## Penetrations
 
 Eight pass-throughs total, all carrying **1/4" OD tubing (6.35 mm)** through

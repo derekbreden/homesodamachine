@@ -65,15 +65,16 @@ footprint_y = outer_shell_y_length
 footprint_r = corner_round_radius
 
 # The cap screws: six M3 × 25 DIN 912 SHCS threading up through the bottom
-# foam-cap stack into the outer shell's bottom-face inserts. Their heads are the
-# assembly's true lowest surface.
+# foam-cap stack into the outer shell's bottom-face inserts. Each head lands in
+# a counterbore in the lid's own head pad, so what the rail opens at a station
+# is access to a seated head, not room for a standing one.
 head_dia = 5.5               # DIN 912 M3 head
-head_len = 3.0               # how far a head stands below the bottom cap's lid
+head_len = 3.0               # DIN 912 M3 head height
 head_well_clear = 2.75       # air around a head, radially
-head_floor_gap = 2.0         # head tip to the enclosure floor the ring stands on
+head_floor_gap = 2.0         # the rail's own floor clearance under a station
 
-# The lift. Not a chosen height: a head hangs its whole length through the rail
-# and still has to miss the floor the rail stands on.
+# The lift, dimensioned to a head's full length below the lid plus the gap the
+# floor wants. What still rides on it is in README "Open".
 seat_z = head_len + head_floor_gap
 well_dia = head_dia + 2.0 * head_well_clear
 
@@ -241,14 +242,13 @@ def main():
             "LUG_Z": f"{lug_z:.4g} mm",
             "RAIL_W": f"{rail_w:.4g} mm",
             "WELL_DIA": f"{well_dia:.4g} mm",
-            "HEAD_LEN": f"{head_len:.4g} mm",
             "SIDE_BAND": f"{side_band:.4g} mm",
             "RING_MASS": f"{volume * 1.27e-3:.0f} g",
             "RING_ENVELOPE": f"{bb.xlen:.0f} × {bb.ylen:.0f} × {bb.zlen:.0f} mm",
         },
         expected_counts={
-            "FOOTPRINT_X": 1, "FOOTPRINT_Y": 1, "SEAT_Z": 2, "LUG_Z": 2,
-            "RAIL_W": 1, "WELL_DIA": 1, "HEAD_LEN": 2, "SIDE_BAND": 1,
+            "FOOTPRINT_X": 1, "FOOTPRINT_Y": 1, "SEAT_Z": 3, "LUG_Z": 2,
+            "RAIL_W": 1, "WELL_DIA": 1, "SIDE_BAND": 1,
             "RING_MASS": 1, "RING_ENVELOPE": 1,
         },
     )
