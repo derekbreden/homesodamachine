@@ -923,9 +923,11 @@ WATER_BACK_Z = bfp_terminal("tube-in")[0][2]
 # the water deck's x-span. Its cordage drops the rear wall and runs forward along
 # the west wall to the AC hub, so it crosses neither the ASSE 1022's drip column
 # nor the pan's ground on the cap. PORT_C14_FLANGE_W/2 off the corner-post band
-# leaves the flange its own bearing on the printed wall.
+# leaves the flange its own bearing on the printed wall, and its flange top rides
+# level with the tap-water nut's — the top edge of the field, and what the wall
+# takes its ceiling from.
 C14_BACK_X = 22.0
-C14_BACK_Z = 295.0
+C14_BACK_Z = WATER_BACK_Z + PORT_NUT_D / 2.0 - PORT_C14_FLANGE_H / 2.0
 # CO2 inlet — the DERPIPE 5/16"-tube PTC × 1/4" NPT M fitting on the front
 # panel, front-left, NPT side facing inboard to carry its GASHER → WR1110
 # chain (internal-plumbing.md §1), below the front pieces' Z-seam band; the

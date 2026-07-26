@@ -123,9 +123,9 @@
         "\u2713 pump-b: near pump-a 6.0 clear source-select-assembly 7.3 mm",
         "\u2713 tee-y-c: near source-select-assembly 14.5 mm",
         "\u2713 tee-y-f: near source-select-assembly 8.1 mm",
-        "\u2713 asse1022-assembly: near bulkhead-water 10.6 fall vent-tip onto drip-pan 19.4 clear psu 14.7 clear c14-inlet 35.0 x- 80.0 mm",
+        "\u2713 asse1022-assembly: near bulkhead-water 10.6 fall vent-tip onto drip-pan 19.4 clear psu 14.7 clear c14-inlet 32.7 x- 80.0 mm",
         "\u2713 pcba: near foam-assembly 0.0 clear seaflo-pump 13.9 mm",
-        "\u2713 psu: near foam-assembly 0.0 near c14-inlet 6.0 clear seaflo-pump 4.1 clear drip-pan-rails 5.7 clear pcba 13.5 mm",
+        "\u2713 psu: near foam-assembly 0.0 near c14-inlet 19.9 clear seaflo-pump 4.1 clear drip-pan-rails 5.7 clear pcba 13.5 mm",
         "\u2713 drip-pan: near drip-pan-rails 0.0 clear seaflo-pump 12.0 clear asse1022-assembly 9.3 mm",
         "\u2713 drip-pan-rails: near foam-assembly 0.0 near drip-pan 0.0 clear seaflo-pump 4.0 mm",
         "\u2713 vk-fill-valve: near water-split 6.7 clear seaflo-pump 34.8 clear asse1022-assembly 40.9 clear foam-assembly 20.7 mm",
@@ -178,7 +178,7 @@
         "    \u2013 bulkhead-water:tube-out (fluid) (56, 393.5, 319) y+ \u00d86.35 \u2192 house tap-water line (rear umbilical)",
         "    \u2013 bulkhead-water:tube-in (fluid) (56, 359.2, 319) y- \u00d86.35 \u2192 asse1022-assembly tube-in (the backflow preventer's own chain) \u2014 segment water-1 (routed)",
         "\u2713 c14-inlet: 1/1 connectors located",
-        "    \u2013 c14-inlet:mains-in (electrical) (22, 357, 295.5) y- \u00d88 \u2192 AC distribution \u2014 L/N/E to the electronics shelf",
+        "    \u2013 c14-inlet:mains-in (electrical) (22, 357, 319.18) y- \u00d88 \u2192 AC distribution \u2014 L/N/E to the electronics shelf",
         "\u2713 mq6-sensor: 1/1 connectors located",
         "    \u2013 mq6-sensor:header (electrical) (103, 144, 3) z- \u00d88 \u2192 PCBA gas-sensor input \u2014 VCC/GND/DO/AO (SIG)",
         "\u2713 asse1022-assembly: 3/3 connectors located"
@@ -214,7 +214,7 @@
         "28 fluid + 6 water + 3 refrigerant + 29 electrical; 27 routed \u2014 the water path is closed end to end, the fluid path waits on the manifold's remaining on-tray legs, the refrigerant loop on its suction leg, and the electrical runs on the components being held",
         "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7 \u2014 nearest 13.12 mm to source-select-assembly",
         "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 307.7 mm, 4 bends at R12.7 \u2014 nearest 5.13 mm to compressor-shroud",
-        "\u2713 water-1: bulkhead-water.tube-in \u2192 asse1022-assembly.tube-in \u2014 \u00d86.35 \u00d7 22.4 mm, 1 bends at R3.0 \u2014 nearest 22.64 mm to c14-inlet",
+        "\u2713 water-1: bulkhead-water.tube-in \u2192 asse1022-assembly.tube-in \u2014 \u00d86.35 \u00d7 22.4 mm, 1 bends at R3.0 \u2014 nearest 18.03 mm to c14-inlet",
         "\u2713 water-2: asse1022-assembly.tube-out \u2192 water-split.supply \u2014 \u00d86.35 \u00d7 82.0 mm, 2 bends at R3.0 \u2014 nearest 3.82 mm to foam-assembly",
         "\u2713 water-3: water-split.to-vk \u2192 vk-fill-valve.inlet \u2014 \u00d86.35 \u00d7 42.6 mm, 3 bends at R3.0 \u2014 nearest 3.82 mm to foam-assembly",
         "\u2713 water-4: vk-fill-valve.outlet \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 59.3 mm, 2 bends at R3.0 \u2014 nearest 11.83 mm to fluid-18",
@@ -668,7 +668,7 @@
       "pos": [
         22.0,
         357.0,
-        295.5
+        319.18
       ],
       "face": "y-",
       "diam": 8.0,
@@ -2093,10 +2093,10 @@
         [
           6.75,
           360.0,
-          283.75,
+          307.43,
           37.25,
           398.0,
-          307.25
+          330.93
         ]
       ],
       "fill": 0.5669,
