@@ -29,9 +29,9 @@ Per-unit BOM lives in [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §1 (
 | 16 AWG stranded hookup wire | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 | AC branch stock (AC-2 + AC-3). |
 | Spade crimp terminals + ferrules + ring terminals | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §11 (B0B9MZJ2ML spades + Preciva-kit ferrules + B08B5VS8ZR rings) | AC pigtails land in Wago 221 lever blocks via crimp ferrules; the PSU primary and Teyleten contact terminals take crimp forks; the ground bus takes ring terminals; DC-4 lands under the J10 screw clamps via ferrules. |
 | Printed AC hub ×1 | [`/hardware/printed-parts/electronics/ac-hub/`](/hardware/printed-parts/electronics/ac-hub/) | PETG per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §7. No inserts — its two hold-down screws pass through it into the cap's columns. |
-| M3 heat-set inserts + M3 × 8 SHCS | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13 | Board + module mounting. |
+| M3 × 8 SHCS ×14 + M3 × 10 ×1 | per [`/hardware/ledger/bom.md`](/hardware/ledger/bom.md) §13 | Board + module mounting. Every one lands in a ruthex insert already set in a deck-mount column of the top foam cap — no insert is pressed on this shelf. |
 
-Tooling: Hakko FX-888D iron + T18 tip kit for the heat-set inserts, ESD mat, ferrule crimper, ring/fork-terminal crimper, helping hands, multimeter for AC-side continuity and DC-side polarity checks.
+Tooling: ESD mat, ferrule crimper, ring/fork-terminal crimper, helping hands, multimeter for AC-side continuity and DC-side polarity checks.
 
 ## Procedure
 
