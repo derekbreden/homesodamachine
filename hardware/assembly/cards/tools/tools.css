@@ -1,0 +1,221 @@
+/* Tool-station card system — 3300 × 2550 px canvas = 11 × 8.5 in at 300 dpi,
+   printed full-bleed on letter gloss. Idioms in STYLE.md. */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --navy: #1a1a2e;
+  --paper: #f7f5f0;
+  --panel: #ffffff;
+  --ink: #1d1d26;
+  --muted: #70707c;
+  --line: #d9d5cb;
+  --rule: #c4bfb2;
+  --warn-bg: #ffd94d;
+  --accent: #46628a;
+  --accent-ink: #ffffff;
+  --mono: "Menlo", "SF Mono", monospace;
+  --sans: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+}
+
+body.dp { --accent: #46628a; }  /* drill press — steel */
+body.bs { --accent: #5c6570; }  /* band saw + cut-off — graphite */
+body.lw { --accent: #b3341f; }  /* laser welder — beam */
+body.hy { --accent: #2268c2; }  /* hydro + pressure test — water */
+body.tb { --accent: #b8722c; }  /* tube bench — copper */
+body.bz { --accent: #c8481d; }  /* braze bench — flame */
+body.vc { --accent: #0f8bab; }  /* vacuum + charge — cold */
+body.cr { --accent: #7a5cc4; }  /* crimp bench — signal */
+body.so { --accent: #b8860b; }  /* solder + heat-set — power */
+body.el { --accent: #5b6acb; }  /* electrical test — instrument */
+body.pl { --accent: #2f7f6f; }  /* plastic tube + fittings */
+body.pc { --accent: #8a6d3b; }  /* pour + cure — resin */
+body.pr { --accent: #4a5d52; }  /* 3D printers — cabinet */
+
+html, body {
+  width: 3300px; height: 2550px;
+  overflow: hidden;
+  background: var(--paper);
+  font-family: var(--sans);
+  color: var(--ink);
+}
+
+.card { width: 3300px; height: 2550px; display: flex; flex-direction: column; }
+
+/* ── Header band ─────────────────────────────────────────────── */
+
+header {
+  height: 250px; flex: none;
+  background: var(--navy);
+  display: flex; align-items: center;
+  padding: 0 90px;
+  gap: 52px;
+}
+.code {
+  background: var(--accent); color: var(--accent-ink);
+  font-family: var(--mono); font-weight: 700; font-size: 82px;
+  padding: 16px 36px; border-radius: 14px;
+  letter-spacing: 1px;
+}
+header h1 {
+  color: #fff; font-size: 84px; font-weight: 700;
+  letter-spacing: 0.5px; text-transform: uppercase;
+  line-height: 1.04; flex: 1;
+}
+header h1 small {
+  display: block; font-size: 40px; font-weight: 500;
+  text-transform: none; letter-spacing: 0;
+  color: #9a9ab0; margin-top: 8px;
+}
+.deckpos {
+  text-align: right; color: #9a9ab0;
+  font-size: 32px; line-height: 1.35; flex: none;
+  text-transform: uppercase; letter-spacing: 2.5px;
+}
+.deckpos b { color: #fff; font-weight: 600; display: block; font-size: 36px; }
+
+/* ── Content zone ────────────────────────────────────────────── */
+
+main {
+  flex: 1; min-height: 0;
+  padding: 46px 90px 20px;
+  display: flex; flex-direction: column; gap: 32px;
+}
+
+/* The machine, its envelope, and what is set once. */
+.machine { display: flex; gap: 56px; align-items: flex-start; }
+.machine .lede { flex: 1; font-size: 52px; line-height: 1.3; }
+.machine .lede strong { font-weight: 700; }
+.machine .envelope {
+  flex: none; width: 1000px;
+  background: var(--navy); border-radius: 16px;
+  padding: 24px 32px 20px;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px 30px;
+}
+.envelope .k {
+  color: #9a9ab0; font-size: 24px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 4px;
+}
+.envelope .v {
+  color: #fff; font-family: var(--mono); font-size: 34px; font-weight: 700;
+  white-space: nowrap;
+}
+.envelope .v small { font-size: 26px; font-weight: 400; color: #c9c9da; }
+
+/* ── The operations table ──────────────────────────────────────── */
+
+.ops { width: 100%; border-collapse: collapse; }
+.ops th {
+  font-size: 26px; text-transform: uppercase; letter-spacing: 3px;
+  color: var(--muted); font-weight: 700; text-align: left;
+  padding: 0 20px 12px; border-bottom: 4px solid var(--accent);
+  white-space: nowrap;
+}
+.ops td {
+  font-size: 43px; line-height: 1.24;
+  padding: 32px 20px;
+  border-bottom: 2px solid var(--line);
+  vertical-align: top;
+}
+.ops tr:last-child td { border-bottom: none; }
+.ops td.op { white-space: nowrap; }
+.ops td.op b { display: block; font-size: 45px; font-weight: 700; }
+.ops td.op .ref {
+  font-family: var(--mono); font-size: 27px; color: var(--accent);
+  font-weight: 700; letter-spacing: 1px;
+}
+.ops td.v { font-family: var(--mono); font-size: 40px; }
+.ops td .sub { display: block; font-size: 32px; color: var(--muted); margin-top: 6px; }
+/* A setting the procedure docs give as a word rather than a number. */
+.ops td.unset { color: #a49d90; font-style: italic; font-size: 37px; }
+
+/* Numbers, verbatim from the procedure docs */
+.dim {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: #eceadf;
+  padding: 2px 12px; border-radius: 7px;
+  white-space: nowrap;
+}
+
+/* ── Below the table ──────────────────────────────────────────── */
+
+.below { display: flex; gap: 48px; align-items: stretch; flex: 1; min-height: 0; }
+.below .col { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+
+.critical {
+  background: #7c1d12; color: #fff;
+  border-radius: 14px; padding: 24px 30px;
+  font-size: 44px; line-height: 1.26; font-weight: 500;
+  display: flex; gap: 20px; align-items: flex-start;
+}
+.critical .sign { font-size: 52px; flex: none; }
+.critical b { font-weight: 800; }
+
+.safety {
+  background: var(--warn-bg);
+  border-radius: 14px; padding: 22px 30px;
+  font-size: 38px; line-height: 1.26; font-weight: 500;
+  display: flex; gap: 20px; align-items: flex-start;
+}
+.safety .sign { font-size: 44px; flex: none; }
+.safety b { font-weight: 800; }
+
+.note {
+  border-left: 8px solid var(--accent);
+  padding: 8px 0 8px 26px;
+  font-size: 38px; line-height: 1.34; color: var(--muted);
+}
+.note b { color: var(--ink); }
+
+.panel {
+  background: var(--navy); border-radius: 16px; overflow: hidden;
+  display: flex; flex-direction: column;
+}
+.panel.light { background: var(--panel); border: 4px solid var(--line); }
+.panel img, .panel svg {
+  display: block; width: 100%;
+  flex: 0 1 auto; min-height: 0; object-fit: contain;
+}
+.panel .cap {
+  flex: none; padding: 16px 26px 18px;
+  font-size: 35px; line-height: 1.3; color: #b9b9cc;
+}
+.panel.light .cap { color: var(--muted); }
+.panel .cap b { color: #fff; font-weight: 600; }
+.panel.light .cap b { color: var(--ink); }
+
+/* Tools strip */
+.tools {
+  border-top: 4px solid var(--line);
+  padding-top: 20px; margin-top: auto;
+  font-size: 37px; line-height: 1.42; color: var(--muted);
+}
+.tools .lbl {
+  font-size: 26px; font-weight: 700; letter-spacing: 3.5px;
+  color: var(--accent); text-transform: uppercase;
+  display: block; margin-bottom: 8px;
+}
+
+/* ── Done-when + footer band ─────────────────────────────────── */
+
+footer {
+  flex: none;
+  margin: 30px 90px 0;
+  border-top: 7px solid var(--accent);
+  padding: 24px 0 0;
+  display: flex; align-items: flex-start; gap: 44px;
+  height: 172px;
+}
+.done { font-size: 44px; line-height: 1.28; flex: 1; }
+.done .lbl {
+  color: var(--accent); font-weight: 800;
+  letter-spacing: 2.5px; margin-right: 18px;
+  text-transform: uppercase;
+}
+.src {
+  flex: none; text-align: right;
+  font-size: 29px; color: var(--muted); line-height: 1.4;
+  font-family: var(--mono);
+  padding-top: 5px;
+}
