@@ -3,9 +3,8 @@ splicing connector, used 3x (H / N / G) as the AC distribution block on the
 AC hub.
 
 Geometry from the official WAGO 221-413 datasheet. It is a free connector with
-no mounting holes — the hub retains it butt-end-first in a flat press-fit
-pocket, so the solid here is the body envelope plus the three orange levers
-(modeled closed).
+no mounting holes — the hub stands it butt-end-down in a press-fit well, so the
+solid here is the body envelope plus the three orange levers (modeled closed).
 
 Coordinate frame
 ----------------

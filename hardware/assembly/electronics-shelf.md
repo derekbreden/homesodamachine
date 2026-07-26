@@ -37,13 +37,13 @@ Tooling: Hakko FX-888D iron + T18 tip kit for the heat-set inserts, ESD mat, fer
 
 ### 1. Prepare the printed shelf trays
 
-Print the [ac-hub](/hardware/printed-parts/electronics/ac-hub/) and dry-fit one Wago into each of its three pockets, butt-end first, to confirm the press fit. No inserts go into it — every insert on this shelf is a ruthex short in a deck-mount column of the top foam cap, set before the pour at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3.
+Print the [ac-hub](/hardware/printed-parts/electronics/ac-hub/) and dry-fit one Wago into each of its three wells, butt-end down, to confirm the press fit. No inserts go into it — every insert on this shelf is a ruthex short in a deck-mount column of the top foam cap, set before the pour at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3.
 
 Placement geometry is set by the cap's stations ([`_cold_core_interface.deck_mounts`](/hardware/printed-parts/cold-core/_cold_core_interface.py)): the board across the cap's front, the PSU across the aft strip, and between them the AC hub, relay #1 and the ground stack. Relay #2 and the DC distribution block have no station yet — see Open items; stage them loose.
 
 ### 2. Stage the AC distribution block + ground bus
 
-Seat the three Wago 221-413 lever blocks in the AC hub's pockets, butt-end first — west to east, H / N / G. Label each block at its bay (H / N / G) with label tape or printed shelf bay-callouts.
+Stand the three Wago 221-413 lever blocks in the AC hub's wells, butt-end down, wire ports up and levers facing the board — west to east, H / N / G. Label each block at its bay (H / N / G) with label tape or printed shelf bay-callouts.
 
 Cut and prep the AC pigtails for AC-1 through AC-3 per [`/hardware/wiring/ac-wiring-schedule.md`](/hardware/wiring/ac-wiring-schedule.md) "AC mains" table:
 

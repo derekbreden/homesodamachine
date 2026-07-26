@@ -714,15 +714,15 @@ def psu_terminal(name):
 
 def ac_hub_lug(pole):
     """One of the AC hub's three Wago lever nuts in world: `(pos, face)`. H / N / G run
-    west to east along the row. The wire ports face +Y and the levers face up, so the
-    landing a hand works is the lug's top face."""
+    west to east along the row. Each lug stands on its butt end in its well, so the wire
+    ports face up off its top face and its levers work off the −Y face below them."""
     ctr, _pts, top = deck_mount("ac-hub")
     places = tuple(_achub.LAYOUT.mount_places)
     mx = sum(p[0] for p in places) / len(places)
     my = sum(p[1] for p in places) / len(places)
     lx, ly = _achub.LAYOUT.wago_places[{"H": 0, "N": 1, "G": 2}[pole]]
-    return ((ctr[0] + lx - mx, ctr[1] + ly - my + _wago.depth / 2.0,
-             top + _achub.floor_t + _wago.height), "z+")
+    return ((ctr[0] + lx - mx, ctr[1] + ly - my,
+             top + _achub.floor_t + _wago.depth), "z+")
 
 
 def relay_terminal(name):
