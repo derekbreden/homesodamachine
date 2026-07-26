@@ -73,7 +73,7 @@ Geometry detail at [`/hardware/printed-parts/cold-core/foam-shell/README.md`](/h
 
 Each cap is a [16 mm](CAP_H)-tall foam-filled cup, poured mouth-up with the foam-cap-lid sealing its open face from above. **Bolt the cap and its lid down onto the shell's top face** — six M3 × 25 SHCS through lid and cap into the step-2 inserts, cap floor on the shell. The screws are the pour clamp; expanding foam lifts an unclamped lid, and nothing else in the stack is threaded. Liquid foam enters through the lid's Ø[20 mm](POUR_D) pour hole; air escapes through two Ø[6 mm](LID_VENT_D) vents. Foam expands to fill and cures. Trim flush after cure, then back the six screws out.
 
-A lid is not a flat plate: it carries a pad at each of the six screw stations, standing off the face that meets the cap, and each pad sinks into the relief the cap's boss column leaves at its mouth. Seat it that way round — pads into the cup — and the head goes down inside the pad's counterbore rather than standing on the lid. The lid prints counterbore-side down, so the face the core stands on comes off the plate.
+A lid carries a pad at each of the six screw stations, standing off the face that meets the cap. Seat it pads-into-the-cup: each sinks into the relief its boss column leaves at the mouth, and the head goes down inside the pad's counterbore. The lid prints counterbore-side down, so the face the core stands on comes off the plate.
 
 Both caps pour in that same top-face fixture, one after the other. The top cap is bolted there in its installed orientation (floor down, mouth + lid up); the bottom cap is the same operation and flips mouth-down at step 7.
 

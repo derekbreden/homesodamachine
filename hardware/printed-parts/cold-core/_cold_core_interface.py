@@ -166,16 +166,11 @@ insert_pocket_radius = 2.0  # ⌀[4](INSERT_POCKET_DIAMETER) for ruthex M3 short
 insert_pocket_depth = 8.0  # 4 mm insert engagement + 4 mm relief
 screw_boss_size = 8.0  # ⌀[8 × 8 mm](SCREW_BOSS_SIZE) cylindrical boss at each attachment
 
-# The head sits IN the lid, not on it. An M3 SHCS head stands
-# [3 mm](SCREW_HEAD_H) tall and the lid is one wall thick, so a flat lid has
-# nowhere to put one: it stands proud, and the outer face of a cap stack is six
-# heads instead of a plane. So the cap's six boss columns stop
-# [3.2 mm](HEAD_PAD_H) short of their mouth, and the lid grows a pad of the
-# boss's own cross-section filling exactly what they gave up, counterbored from
-# the outer face to take the head. Under the head is still one wall of PETG and
-# under that is still the same boss section — the clamp path is the one it
-# always was with only its head end moved inboard, and the same M3 × 25 reaches
-# one pad further into its insert for the trip.
+# The head sits in the lid. Each of the cap's six boss columns stops
+# [3.2 mm](HEAD_PAD_H) short of its mouth; the lid's pad, of the boss's own
+# cross-section, fills that relief and carries the counterbore the
+# [3 mm](SCREW_HEAD_H) head lands in. One wall of PETG under the head, the boss
+# section under that, and the lid's outer face a plane.
 screw_head_height = 3.0  # DIN 912 M3 nominal
 head_seat_recess = 0.2  # how far under the lid's outer face the head lands
 head_cbore_radius = 3.075  # ⌀[6.15](HEAD_CBORE_D) over the ⌀5.5 head
