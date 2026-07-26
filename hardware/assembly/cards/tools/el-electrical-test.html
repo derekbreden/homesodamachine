@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="tools.css">
+</head>
+<body class="el">
+<div class="card">
+
+<header>
+  <div class="code">EL</div>
+  <h1>Electrical test
+    <small>AstroAI meter, clamp, Kill-A-Watt &#183; the gate in front of every energising</small></h1>
+  <div class="deckpos"><b>Tool station &#183; 10/13</b>Kitchen edition</div>
+</header>
+
+<main>
+
+  <div class="machine">
+    <p class="lede"><strong>The instrument here is an order, not a box.</strong>
+    Every check is cold &#8212; leads in &#8486;, the C14 off line &#8212; and each
+    one gates what follows: bonds before mains, the dielectric sweep before any DC
+    conductor lands, the three rails before firmware, firmware before the AC leg
+    ever closes.</p>
+    <div class="envelope">
+      <div><div class="k">Meter</div><div class="v">AstroAI <small>2000-count</small></div></div>
+      <div><div class="k">Cold check</div><div class="v">&#8486; only <small>C14 off line</small></div></div>
+      <div><div class="k">Rails</div><div class="v">12/5/3.3 V <small>at the pins</small></div></div>
+      <div><div class="k">Live</div><div class="v">clamp <small>+ Kill-A-Watt</small></div></div>
+    </div>
+  </div>
+
+  <table class="ops">
+    <tr>
+      <th style="width:340px">Gate</th>
+      <th style="width:480px">On the meter</th>
+      <th style="width:1120px">Passes when</th>
+      <th>What it is really for</th>
+    </tr>
+    <tr>
+      <td class="op"><b>Continuity</b><span class="ref">ES-04/05/07</span><br><span class="ref">WR-01/05 &#183; CA-01</span></td>
+      <td>&#8486; &#183; continuity beep
+        <span class="sub">shelf on the bench, chassis unpowered</span></td>
+      <td>Every named leg end-to-end &#8212; each Wago to every out-leg, every
+        bonded surface ohms-low to the bus, every loom pin-to-pin
+        <span class="sub">before a run is tied down, before a harness is bagged</span></td>
+      <td>A landed run is not a connected run. The meter is what turns the
+        schedule into a fact.</td>
+    </tr>
+    <tr>
+      <td class="op"><b>Isolation</b><span class="ref">ES-07 &#183; WR-02/03</span></td>
+      <td>&#8486; &#183; high range
+        <span class="sub">C14 disconnected from line</span></td>
+      <td>H, N and G mutually open; every AC conductor to every chassis-ground
+        target reads open &#8212; no leakage path
+        <span class="sub">relay #1 held closed, H&#8211;N reads the winding: <span class="dim">10</span>&#8211;<span class="dim">30 &#937;</span> for a <span class="dim">100 W</span> hermetic</span></td>
+      <td>The last look before a DC conductor lands. Everything downstream
+        assumes it passed.</td>
+    </tr>
+    <tr>
+      <td class="op"><b>Rails</b><span class="ref">FC-01</span></td>
+      <td class="v">VDC at the pin<span class="sub">bench PSU-controlled outlet, relay #1 de-energised</span></td>
+      <td><span class="dim">12 V</span> <span class="dim">&plusmn; 0.2 V</span> at the block,
+        <span class="dim">5 V</span> <span class="dim">&plusmn; 0.1 V</span> at a <code>V5</code> pin,
+        <span class="dim">3.3 V</span> <span class="dim">&plusmn; 0.05 V</span> at a <code>3V3</code> pin
+        <span class="sub">each verified before the next comes up; cold idle in the tens of mA</span></td>
+      <td>First power in the build. A rail out of tolerance kills the PSU and
+        sends the unit back.</td>
+    </tr>
+    <tr>
+      <td class="op"><b>Draw</b><span class="ref">FC-05 &#183; RL-08</span></td>
+      <td>Clamp round AC-4
+        <span class="sub">Kill-A-Watt at the wall, inline meter on the PSU</span></td>
+      <td>A couple of amps RMS on the switched leg, within nameplate;
+        <span class="dim">~1 A</span> running at the compressor
+        <span class="sub">the coil bump is <span class="dim">~70 mA</span> on the 5 V rail as relay #1 makes</span></td>
+      <td>The two steps in the deck that run live &#8212; the relay makes, the
+        compressor draws, the probe is on the suction line.</td>
+    </tr>
+  </table>
+
+  <div class="below">
+    <div class="col" style="flex:1">
+      <div class="safety"><span class="sign">&#9888;</span><div><b>Cold means off
+        line.</b> The sweep runs with the C14 inlet unplugged and the meter in
+        &#8486; &#8212; nothing on the AC side is probed live. First power-on feeds
+        the inlet through the bench PSU-controlled outlet, never the wall
+        direct.</div></div>
+      <div class="note"><b>The other lead on this bench.</b> The DSD SH-U09B3
+        carries the faucet display S3 into its ROM bootloader over UART0
+        (<span class="dim">GPIO 43/44</span>). The three flashes ride USB-C
+        &#8212; J14 on the board, the native CDC port on each display.</div>
+      <div class="note"><b>Every reading is written down</b> as it is read: rail
+        voltages, the I&#178;C ACK list, reed baselines, valve clicks, suction-line
+        &#916;T &#8212; into the per-serial commissioning log.</div>
+      <div class="rack">
+        <span class="lbl">Have in hand</span>
+        <div class="row">
+          <figure><img src="img/tool/B071JL6LLL.png" alt=""><figcaption><b>AstroAI</b>2000-count auto-range</figcaption></figure>
+          <figure><img src="img/tool/B00009MDBU.png" alt=""><figcaption><b>Kill-A-Watt P4400</b>bench AC power</figcaption></figure>
+          <figure><img src="img/tool/B09KXT6W46.png" alt=""><figcaption><b>DSD SH-U09B3</b>USB-C to TTL, 3.3 V</figcaption></figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="col" style="flex:none; width:1330px">
+      <div class="panel light">
+        <svg viewBox="0 0 1560 830" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            .tread { fill: #eef0f3; stroke: #1d1d26; stroke-width: 4; }
+            .riser { stroke: #1d1d26; stroke-width: 4; fill: none; }
+            .gate  { stroke: #5b6acb; stroke-width: 6; }
+            .dimln { stroke: #5b6acb; stroke-width: 2.5; }
+            .dtx   { font: 700 30px Menlo, monospace; fill: #5b6acb; }
+            .ttl   { font: 600 32px "Helvetica Neue", sans-serif; fill: #1d1d26; }
+            .stg   { font: 700 31px Menlo, monospace; fill: #1d1d26; }
+            .sub   { font: 400 28px "Helvetica Neue", sans-serif; fill: #70707c; }
+            .lvl   { font: 700 27px Menlo, monospace; fill: #70707c; }
+            .base  { stroke: #c4bfb2; stroke-width: 3; stroke-dasharray: 14 12; }
+          </style>
+
+          <text class="ttl" x="24" y="44">ENERGY IN THE CHASSIS &#183; left to right is build order</text>
+          <text class="sub" x="24" y="86">a riser is a gate &#8212; the level steps up only on a reading</text>
+
+          <line class="base" x1="200" y1="670" x2="1540" y2="670"/>
+          <line class="base" x1="200" y1="460" x2="1540" y2="460"/>
+          <line class="base" x1="200" y1="250" x2="1540" y2="250"/>
+          <text class="lvl" x="24" y="662">DEAD</text>
+          <text class="lvl" x="24" y="452">12 V DC</text>
+          <text class="lvl" x="24" y="242">120 VAC</text>
+
+          <!-- cold treads -->
+          <rect class="tread" x="210" y="670" width="230" height="74"/>
+          <text class="stg" x="228" y="719">ES-07</text>
+          <text class="sub" x="228" y="788">shelf, both</text>
+          <text class="sub" x="228" y="820">ways, cold</text>
+
+          <rect class="tread" x="440" y="670" width="240" height="74"/>
+          <text class="stg" x="458" y="719">WR-01/03</text>
+          <text class="sub" x="458" y="788">bonds, then the</text>
+          <text class="sub" x="458" y="820">dielectric sweep</text>
+
+          <!-- riser 1 : the cold sweep gates the DC rail -->
+          <path class="riser" d="M 680 744 L 680 460"/>
+          <line class="gate" x1="630" y1="545" x2="712" y2="545"/>
+          <text class="dtx" x="228" y="500">GATE &#183; open to ground</text>
+          <text class="sub" x="228" y="546">every AC conductor to every</text>
+          <text class="sub" x="228" y="580">ground target reads open,</text>
+          <text class="sub" x="228" y="614">C14 off line</text>
+
+          <!-- 12 V treads -->
+          <rect class="tread" x="680" y="460" width="240" height="74"/>
+          <text class="stg" x="698" y="509">FC-01</text>
+          <text class="dtx" x="698" y="584">12 V &plusmn; 0.2</text>
+          <text class="dtx" x="698" y="620">5 V &plusmn; 0.1</text>
+          <text class="dtx" x="698" y="656">3.3 V &plusmn; 0.05</text>
+
+          <rect class="tread" x="920" y="460" width="240" height="74"/>
+          <text class="stg" x="938" y="509">FC-02/04</text>
+          <text class="sub" x="938" y="584">flash, sensors,</text>
+          <text class="sub" x="938" y="618">valves, pumps</text>
+
+          <!-- riser 2 : rails + a warm gas sensor gate the AC leg -->
+          <path class="riser" d="M 1160 534 L 1160 250"/>
+          <line class="gate" x1="1064" y1="394" x2="1192" y2="394"/>
+          <text class="dtx" x="700" y="286">GATE &#183; rails + MQ-6</text>
+          <text class="sub" x="700" y="330">the on-board interlock holds</text>
+          <text class="sub" x="700" y="364">relay #1 open until the gas</text>
+          <text class="sub" x="700" y="398">sensor is warm and clear</text>
+
+          <!-- live tread -->
+          <rect class="tread" x="1160" y="250" width="260" height="74"/>
+          <text class="stg" x="1178" y="299">FC-05</text>
+          <text class="sub" x="1178" y="172">clamp on AC-4,</text>
+          <text class="sub" x="1178" y="206">Kill-A-Watt at the wall</text>
+        </svg>
+        <div class="cap"><b>Two risers, two readings</b> &#8212; the chassis carries
+        nothing until the cold sweep reads open, and the AC leg waits on the rails
+        and a warm gas sensor.</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="done"><span class="lbl">Leave the meter when</span>Every gate read before the thing it gates &#8212; AC open to ground cold, the three rails in tolerance under the PSU, the switched leg at nameplate.</div>
+  <div class="src">wiring.md &#167;1&#8211;3 &#183; electronics-shelf.md &#167;7<br>firmware-and-commissioning.md &#167;2&#8211;8 &#183; ledger/tools.md<br>ES-04/05/07 &#183; WR-01/02/03/05 &#183; FC-01&#8211;05 &#183; RL-08 &#183; CA-01 &#183; rev 2026-07-26</div>
+</footer>
+
+</div>
+</body>
+</html>
