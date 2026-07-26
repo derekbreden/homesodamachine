@@ -109,7 +109,7 @@ The four cabinet-side bulkhead stubs (the water-inlet PTC interior and the three
 
 ### 8. Seat the electronics shelf on the foam-cap top (unpowered)
 
-Bolt the board and the PSU down onto the foam cap's own deck-mount columns. There is no tray under either of them and nothing is bonded: the top cap carries eight boss columns that rise through its lid, each with a heat-set insert in its top, and each module lands on four of them with M3 SHCS. The stations are the cap's ([`_cold_core_interface.deck_mounts`](/hardware/printed-parts/cold-core/_cold_core_interface.py)); the assembly reads its poses off them.
+Bolt the board and the PSU down onto the foam cap's own deck-mount columns. There is no tray under either of them and nothing is bonded: the top cap carries eight boss columns, each with a heat-set insert in its top, and each module lands on four of them with M3 × 8 SHCS. The board's four rise through the lid and stand proud of it, so the board rides the column tops with its through-hole tails clear; the PSU's four stop under the lid, so the PSU lies flat on the lid's own face beside the pump and its screws cross the lid to reach the inserts. The stations are the cap's ([`_cold_core_interface.deck_mounts`](/hardware/printed-parts/cold-core/_cold_core_interface.py)); the assembly reads its poses off them.
 
 The **controller PCBA** takes the west column, a quarter turn from its own frame so the long axis runs down the bay — the USB-C edge (J14) looking south into the open band ahead of the cap, where a hand reaches it with the back panel on, and the J10 12 V throats north up the column. Handle it ESD-safe; the four holes are its electrically isolated MH1–MH4, and the screw heads seat on the top-face pads.
 

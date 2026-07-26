@@ -37,9 +37,9 @@ Tooling: Hakko FX-888D iron + T18 tip kit for the heat-set inserts, ESD mat, fer
 
 ### 1. Prepare the printed shelf trays
 
-Heat-set M3 inserts into every mounting boss on the two printed trays per their CAD source under [`/hardware/printed-parts/electronics/`](/hardware/printed-parts/electronics/): four on the [pcba-tray](/hardware/printed-parts/electronics/pcba-tray/) (one per board corner hole), plus the PSU, relay, and ground-stud bosses on the [power-tray](/hardware/printed-parts/electronics/power-tray/). Verify each insert is flush with the boss face.
+Heat-set M3 inserts into the relay and ground-stud bosses on the [power-tray](/hardware/printed-parts/electronics/power-tray/), per its CAD source under [`/hardware/printed-parts/electronics/`](/hardware/printed-parts/electronics/). Verify each insert is flush with the boss face. The board's and the PSU's inserts are not here — they go into the foam cap's deck-mount columns before the pour, at [`cold-core.md`](/hardware/assembly/cold-core.md) step 3.
 
-Placement geometry is set by the tray CAD: the controller PCBA alone on the pcba-tray; the PSU + relay #1 + Wago AC distribution + ground ring-stack on the power-tray. Relay #2 and the DC distribution block have no committed bay yet — see Open items; stage them beside the power-tray.
+Placement geometry is set by the tray CAD: relay #1 + Wago AC distribution + ground ring-stack on the power-tray. Relay #2 and the DC distribution block have no committed bay yet — see Open items; stage them beside the power-tray.
 
 ### 2. Stage the AC distribution block + ground bus
 
