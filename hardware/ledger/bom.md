@@ -243,7 +243,7 @@ The same reed-and-float pattern is used in three places: the carbonator vessel (
 
 Heat-set + screw retention appears in three places:
 
-1. **Foam caps** clamped to the `outer_shell` (top mouth-up + bottom mouth-down) via [27](FOAM_INSERTS) ruthex inserts + [12](FOAM_SCREWS) BNUOK M3×25 SHCS, TPU 90A gasket compressing per cap — twelve of those inserts are the clamp, the other eight sit in the top cap's deck-mount columns, which the controller board and the PSU bolt down onto — procedure in [`assembly/cold-core.md`](/hardware/assembly/cold-core.md).
+1. **Foam caps** clamped to the `outer_shell` (top mouth-up + bottom mouth-down) via [27](FOAM_INSERTS) ruthex inserts + [12](FOAM_SCREWS) BNUOK M3×25 SHCS, TPU 90A gasket compressing per cap — twelve of those inserts are the clamp, the other fifteen sit in the top cap's deck-mount columns, which the controller board and the PSU bolt down onto — procedure in [`assembly/cold-core.md`](/hardware/assembly/cold-core.md).
 2. **Reservoir cap** clamped to each reservoir body via [6](RES_INSERTS_PER_CAP) ruthex inserts + 6 BNUOK M3×12 304 SS SHCS per cap, TPU gasket — geometry + screw spec in [`printed-parts/cold-core/reservoir/reservoir.py`](/hardware/printed-parts/cold-core/reservoir/reservoir.py).
 3. **Touch-flo mounting plate** bolted up into the shell's three base pods via [3](TOUCHFLO_INSERTS) ruthex inserts + [3](TOUCHFLO_SCREWS) BNUOK M3×12 black-oxide SHCS — procedure in [`printed-parts/faucet/touch-flo-shell/ASSEMBLY.md`](/hardware/printed-parts/faucet/touch-flo-shell/ASSEMBLY.md).
 
@@ -285,9 +285,9 @@ Per-appliance tools that ship in the install kit so the field installer can cut 
 | 10. UI | [$0.00](BOM_SEC10) |
 | 11. Wiring | [$28.30](BOM_SEC11) |
 | 12. Level sensing | [$37.50](BOM_SEC12) |
-| 13. Mechanical attach hardware + reservoir-cap vent filter | [$8.17](BOM_SEC13) |
+| 13. Mechanical attach hardware + reservoir-cap vent filter | [$8.23](BOM_SEC13) |
 | 14. Install kit | [$4.29](BOM_SEC14) |
-| **Total** | **[$1,339.23](BOM_GRAND)** |
+| **Total** | **[$1,339.29](BOM_GRAND)** |
 
 ## External / user-supplied (not shipped)
 

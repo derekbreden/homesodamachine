@@ -46,7 +46,7 @@ Tooling — all committed in [`/hardware/ledger/purchases.md`](/hardware/ledger/
 - **Cap-tube cutter** at the process-tube junction: Mastercool 70025
 - **Tubing cutter, flaring tool:** RIDGID 31622 Model 150 + RIDGID 23332 Model 345
 - **Tube bender + straightener** for the 1/4" ACR evaporator coil: Klein Tools 51006 3-in-1 bender + Wisscool 1/4" handheld straightener
-- **Coil-to-cap-tube join:** Knipex 86 01 180 Pliers Wrench (7.25", smooth parallel-jaw) — pinch-swages 1/4" ACR copper inlet down onto 0.031" capillary tube via progressive 60° rotation collapse. No reducer fitting required.
+- **Coil-to-cap-tube join:** Knipex 86 01 180 Pliers Wrench (7.25", smooth parallel-jaw) — pinch-swages 1/4" ACR copper inlet down onto the capillary tube (~0.031" bore) via progressive 60° rotation collapse. No reducer fitting required.
 - **Coil-to-suction-line join:** HVAC 1/4" OD copper slip coupling (ACR-grade, sweat × sweat) joins coil outlet to factory suction line, both 1/4" OD.
 - **Vacuum pump + gauges:** Orion Motor Tech 4 CFM 1/3 HP single-stage vacuum pump (150 µ ultimate) + Orion Motor Tech HVAC A/C manifold gauge set, 1/4" SAE.
 - **Mass scale:** Smart Weigh Pro digital pocket scale, 2000 g × 0.1 g (well under the [±1 g](RECHARGE_TOL) recharge target).
@@ -89,7 +89,7 @@ Position the cold core's coil-outlet stub (top of the wound coil — refrigerant
 
 ### 5. Tie in the capillary tube via pinch-swage
 
-Position the cold core's coil-inlet stub (bottom of the wound coil) next to the capillary-tube end coming from the factory drier (cut to length at the evap-inlet end in step 3). The OD mismatch (1/4" ACR coil vs 0.031" cap tube) is handled by **pinch-swaging the coil-inlet stub down onto the cap tube using the Knipex 86 01 180 Pliers Wrench** — progressive 60° rotation collapse technique, no reducer fitting required. Once swaged, braze the joint under the continuous argon flow established in step 3.
+Position the cold core's coil-inlet stub (bottom of the wound coil) next to the capillary-tube end coming from the factory drier (cut to length at the evap-inlet end in step 3). The size mismatch — a 1/4" OD coil stub against a cap tube of ~0.031" bore ([`reference/ice-maker/`](/hardware/reference/ice-maker/README.md)) — is handled by **pinch-swaging the coil-inlet stub down onto the cap tube using the Knipex 86 01 180 Pliers Wrench** — progressive 60° rotation collapse technique, no reducer fitting required. Once swaged, braze the joint under the continuous argon flow established in step 3.
 
 If total cap-tube length changes substantially relative to the donor's factory length (e.g., the new coil is significantly longer or shorter than the donor evaporator), a refrigeration tech recalculates cap length for the new load.
 
