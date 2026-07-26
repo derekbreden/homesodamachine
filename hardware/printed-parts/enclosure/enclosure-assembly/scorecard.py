@@ -448,6 +448,19 @@ PLACEMENT_RULES = {
     # behind it — so what it has to hold off is the pump, not the pocket it used to hang in.
     "flow-regulator": [("near", "source-select-assembly", 70.0),
                        ("clear", "seaflo-pump", 1.5)],
+    # The CO2 check is made up on the front-panel inlet's stub, so its placement IS
+    # that joint: it touches the fitting it threads onto and it hangs in the band,
+    # off the floor block below it.
+    "gasher-co2": [("near", "co2-inlet", 0.0),
+                   ("clear", "compressor-shroud", 5.0)],
+    # The regulator lies across the same band, and what makes the band a band is the
+    # two things it is held between — the compressor's top below, the pump row's
+    # underside above. Both are stated as keep-outs, because the band is the
+    # placement.
+    "wr1110": [("clear", "compressor-shroud", 5.0),
+               ("clear", "pump-a", 5.0),
+               ("clear", "pump-b", 5.0),
+               ("clear", "source-select-assembly", 5.0)],
 }
 
 
