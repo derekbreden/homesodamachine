@@ -91,8 +91,9 @@ def build():
     # Top cap: floor (its zmin face) lands on the shell's top; lid on its
     # mouth. Both spin about Z so the CO2 bore lands over the +Y doorway.
     # The lid seats on the cap's MOUTH RIM, one cap height off its floor —
-    # not on the cap's highest point, which is the deck-mount columns standing
-    # through the lid to carry the electronics above it.
+    # not on the cap's highest point, which is the pcba deck mount's columns
+    # standing on through the lid to carry the board above it. The psu mount's
+    # columns stop at the rim itself, and the lid is what its module lands on.
     cap_top = _place_z(_spin(_load(CAP_DIR / "foam-cap-top.step")), zmin=shell_bb.zmax)
     lid_top = _place_z(
         _spin(_load(CAP_DIR / "foam-cap-lid-top.step")),

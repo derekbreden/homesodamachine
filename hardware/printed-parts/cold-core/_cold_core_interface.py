@@ -180,39 +180,69 @@ attachment_xy_positions = (
 gasket_thickness = 2.0
 gasket_strip_width = 5.0
 
-# Deck mounts — the service bay's electronics, carried on columns of the TOP CAP.
-# The cap is already a foam-poured cup with six screw-boss columns spanning its full
-# height; a deck mount is that same column at four more stations, carried on through
-# the lid so its top stands `deck_mount_standoff` proud of the lid's outer face — the
-# plane the bay's deck sits on. Foam pours around them, the lid's clearance holes drop
-# over them, and the module bolts down into a heat-set insert. Nothing is bonded and no
-# tray floor stands between the module and the cap.
-#   The stations live here, in the cap's own frame, because the mount belongs to the
-# part it is printed in. The enclosure reads its world poses off them
-# (`_contents.deck_mount`) rather than the cap being told where a board went, so one
-# edit here moves the column, the module and its connector map together.
-deck_mount_boss_radius = 3.5     # column radius — one wall over the insert
-deck_mount_bore_radius = 2.0     # ruthex M3 short heat-set
-deck_mount_bore_depth = 5.5
-deck_mount_lid_slip = 0.4        # per side, column to the lid's clearance hole
-deck_mount_standoff = 5.0        # boss top above the lid — clears the boards' THT tails
+# Deck mounts — the service bay's electronics, carried on columns of the TOP CAP. The cap
+# is already a foam-poured cup with six screw-boss columns spanning its full height; a deck
+# mount is that same column at four more stations. Foam pours around the shanks, a ruthex
+# short sits flush in each column's top bore, and the module bolts down into it. Nothing is
+# bonded and no tray floor stands between the module and the cap.
+#   A station with no standoff stops at the cap's mouth rim, under the lid, and its module
+# seats on the lid's outer face. A station with a standoff carries its column on through
+# the lid, and its module seats on the column tops.
+#   The stations live here, in the cap's own frame, because the mount belongs to the part it
+# is printed in. The enclosure reads its world poses off them (`_contents.deck_mount`).
+deck_mount_boss_radius = 3.5     # column radius
+deck_mount_bore_radius = 2.0     # ⌀4 for a ruthex M3 short heat-set
+deck_mount_lid_slip = 0.4        # per side, a standing column to the lid's clearance hole
+deck_mount_insert_length = 4.0   # ruthex RX-M3Sx4.0, set flush with the column top
+deck_mount_seat_thickness = 1.6  # module material under the screw head
+deck_mount_screw_length = 8.0    # BNUOK M3 × 8 SHCS
+deck_mount_bore_relief = 0.6     # air past the screw tip at the bore's blind end
 
-# Per module: the mount rectangle's centre in the cap's frame, and the module's own
-# hole pitch across X and Y — the controller board's MH1–MH4 rectangle turned a
-# quarter so its long axis runs down the bay, and the IRM-90's own pattern laid
-# across the aft strip, its long span needing more than the column forward of the
-# board has left in Y.
+# Per module: the mount rectangle's centre in the cap's frame, the module's own hole pitch
+# across X and Y, and how far proud of the lid's outer face its column tops stand. The
+# controller board's MH1–MH4 rectangle runs a quarter turn from the board's own frame, on
+# columns standing clear of its through-hole tails; the IRM-90's pattern lies across the aft
+# strip, its potted base flat on the lid.
 deck_mounts = {
-    "pcba": ((92.85, 44.50), 66.30, 78.00),
-    "psu":  ((85.00, -37.50), 98.00, 33.00),
+    "pcba": ((92.85, 44.50), 66.30, 78.00, 2.0),
+    "psu":  ((85.00, -37.50), 98.00, 33.00, 0.0),
 }
 
 
 def deck_mount_xy(name):
     """The four boss centres of a deck mount, in the cap's own frame."""
-    (cx, cy), pitch_x, pitch_y = deck_mounts[name]
+    (cx, cy), pitch_x, pitch_y, _standoff = deck_mounts[name]
     return tuple((cx + sx * pitch_x / 2.0, cy + sy * pitch_y / 2.0)
                  for sx in (-1, 1) for sy in (-1, 1))
+
+
+def deck_mount_standoff(name):
+    """How far proud of the lid's outer face this mount's column tops stand."""
+    return deck_mounts[name][3]
+
+
+def deck_mount_proud():
+    """The tallest standoff in the pack — the foam assembly's own top over its lid's face."""
+    return max(deck_mount_standoff(name) for name in deck_mounts)
+
+
+def deck_mount_reach(name):
+    """How far a seated screw runs past this mount's column top. A flush station's screw
+    crosses the lid on its way down; a standing one meets the column at the head."""
+    over = deck_mount_seat_thickness
+    if deck_mount_standoff(name) == 0.0:
+        over += wall_and_floor_thickness
+    return deck_mount_screw_length - over
+
+
+# One bore serves every station, sunk to the deepest reach any of them presents.
+deck_mount_bore_depth = max(
+    deck_mount_reach(name) for name in deck_mounts) + deck_mount_bore_relief
+for _name in deck_mounts:
+    assert deck_mount_reach(_name) >= deck_mount_insert_length, (
+        f"deck mount {_name}: an M3 × {deck_mount_screw_length:g} through "
+        f"{deck_mount_seat_thickness:g} mm of module reaches {deck_mount_reach(_name):g} mm "
+        f"into the column, short of its {deck_mount_insert_length:g} mm insert")
 
 
 def make_box(x_range, y_range, z_range):

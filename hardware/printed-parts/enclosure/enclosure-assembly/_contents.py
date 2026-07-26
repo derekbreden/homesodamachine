@@ -319,8 +319,8 @@ BEDUAN_POS = (264.0, 342.5, 274.1 + RING_SEAT)   # base centre on a cradle above
 # The controller board and the PSU, each bolted to four boss columns of the foam cap.
 # Neither is posed here: the cap owns its deck-mount stations and `deck_mount()` carries
 # them to world, so the body, its connector map and the column it stands on move together.
-# Both lie flat, their undersides on the boss tops, and no tray floor stands between them
-# and the cap.
+# Both lie flat and no tray floor stands between them and the cap: the board's underside on
+# its column tops, standing through the lid, and the PSU's flat on the lid itself.
 #   THE BOARD takes the WEST COLUMN, a quarter turn from its own frame so the long axis runs
 # down the strip: the USB-C edge (J14) looks SOUTH into the open band ahead of the cap, where
 # a hand reaches it with the back panel on, and the J10 12 V throats look NORTH up the column.
@@ -600,27 +600,29 @@ _FOAM_TOP_CACHE = None
 
 
 def foam_cap_top():
-    """The foam cap's LID outer face — the water deck's floor, and the Z the pump's
-    base sits on. The foam assembly's own top is higher: the deck-mount columns stand
-    one `deck_mount_standoff` through the lid, and the electronics ride their tops."""
+    """The foam cap's LID outer face — the water deck's floor, the Z the pump's base sits
+    on, and the Z the PSU's does. The foam assembly's own top is higher: the board's
+    deck-mount columns stand `deck_mount_proud()` through the lid, and the board rides
+    their tops."""
     global _FOAM_TOP_CACHE
     if _FOAM_TOP_CACHE is None:
         _FOAM_TOP_CACHE = (RING_SEAT + _load(FOAM_ASSEMBLY).BoundingBox().zlen
-                           - _cc.deck_mount_standoff)
+                           - _cc.deck_mount_proud())
     return _FOAM_TOP_CACHE
 
 
 def deck_mount(name):
     """A cap deck mount in world: `(centre, stations, top_z)`. The cap is placed spun a
     half turn about its own centre, so a station at `(px, py)` in the cap's frame lands
-    at `(cap_cx - px, cap_cy - py)`; `top_z` is the boss tops, which is where the
-    module's underside seats. The cap owns the stations — this only carries them."""
+    at `(cap_cx - px, cap_cy - py)`; `top_z` is where the module's underside seats — the
+    column tops of a mount that stands through the lid, the lid's own face of one that
+    stops beneath it. The cap owns the stations — this only carries them."""
     fb = _load(FOAM_ASSEMBLY).BoundingBox()
     # The pack seats the assembly by its bbox min at (0, FRONT_DEPTH, RING_SEAT).
     cx, cy = fb.xlen / 2.0, FRONT_DEPTH + fb.ylen / 2.0
     pts = tuple((cx - px, cy - py) for px, py in _cc.deck_mount_xy(name))
     ctr = (sum(p[0] for p in pts) / 4.0, sum(p[1] for p in pts) / 4.0)
-    return ctr, pts, foam_cap_top() + _cc.deck_mount_standoff
+    return ctr, pts, foam_cap_top() + _cc.deck_mount_standoff(name)
 
 
 def drip_pan_seat():
