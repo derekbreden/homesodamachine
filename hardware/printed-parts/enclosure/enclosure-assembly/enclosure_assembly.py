@@ -221,6 +221,22 @@ def _bbox_key(bb):
     return tuple(round(v, 4) for v in (bb.xmin, bb.ymin, bb.zmin, bb.xmax, bb.ymax, bb.zmax))
 
 
+def _source_digest():
+    """The sources that place and measure the pack, hashed AT IMPORT — the code that is
+    actually about to run. Reading them later would hash whatever is on disk when the
+    build ends, so a source edited while a build is in flight would key that build's
+    verdict to code it never executed, and every later build would hit it."""
+    h = hashlib.sha256()
+    for p in (Path(contents.__file__), _here, Path(scorecard.__file__),
+              Path(enclosure.__file__), OVERRIDES_PATH):
+        h.update(b"PY:" + str(p).encode())
+        h.update(p.read_bytes() if p.exists() else b"")
+    return h.digest()
+
+
+_SOURCE_DIGEST = _source_digest()
+
+
 def _scorecard_cache_key(pack, inner):
     """A content key for the component verdict: solid + piece bounding boxes, the inner extent, the
     source files that place and measure them, and the STEP files they import — everything the verdict
@@ -231,9 +247,7 @@ def _scorecard_cache_key(pack, inner):
     for name in sorted(pack.pieces):
         h.update(repr((name, _bbox_key(_boxes.boxed(pack.pieces[name])))).encode())
     h.update(repr(tuple(round(v, 4) for v in inner)).encode())
-    for p in (Path(contents.__file__), _here, Path(scorecard.__file__), Path(enclosure.__file__), OVERRIDES_PATH):
-        h.update(b"PY:" + str(p).encode())
-        h.update(p.read_bytes() if p.exists() else b"")
+    h.update(_SOURCE_DIGEST)
     for p in _step_inputs():
         st = p.stat()
         h.update(b"STEP:" + str(p).encode() + repr((st.st_mtime_ns, st.st_size)).encode())
