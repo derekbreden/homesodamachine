@@ -169,8 +169,10 @@ hard part, and that asymmetry is why this document exists.
   Ask who asked you to protect it. If the answer is nobody, name it and hand over the veto.
 - **The universal-quantifier tell.** "Every position." "All cross." "Exhausted." Derek's
   rule, from [Current](<fences/Current.md>): *"anytime you say 'all cross' you are not looking
-  in the correct corridor for your path."* A universal quantifier ranges over the box and
-  reads as ranging over the world. That is exactly where a fence hides.
+  in the correct corridor for your path."* The agent's own reading of what it had done is the
+  cleanest statement of the whole failure in this folder — *"'all cross' is me mis-framing the
+  corridor, not a fact about the board."* A universal quantifier ranges over the box and reads
+  as ranging over the world. That is exactly where a fence hides.
 - **The inheritance tell.** Your premise is a previous session's conclusion, a committed
   constant, or a line in a doc. Probe it before you build on it.
 - **The it-fits-but tell.** Measurement said yes and you are about to say no. Check whether
