@@ -418,7 +418,7 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 
 ## 13. Printing consumables
 
-3D-printer filament stock used for printed mechanical parts (cold-core shells, bladder cradles, enclosure, hopper, etc.). PETG is the default per bom.md §7; specialty filaments below are for specific parts requiring flexibility or chemical resistance.
+3D-printer filament stock used for printed mechanical parts (cold-core shells, bladder cradles, enclosure, hopper, etc.). PETG is the default per bom.md §7; specialty filaments below are for specific parts requiring flexibility or chemical resistance. Also the photo stock the ET-8550 prints the bench instruction decks on ([assembly/cards/](/hardware/assembly/cards/README.md)).
 
 | Part | ASIN link | Qty | $ | Status |
 |---|---|---|---|---|
@@ -436,6 +436,8 @@ General shop equipment supporting fabrication, assembly, and teardown. Not proje
 | Polymaker Fiberon PET-CF17, 1.75 mm × 3 kg, Black. Order #114-7618665-2979463, placed June 13, 2026 | [B0DJNVQJX9](https://www.amazon.com/dp/B0DJNVQJX9) | 1 | $117.96 | ACQUIRED (delivered June 15) |
 | SunTop food-contact-compliant PETG, 1.75 mm × 1 kg, Clear/Transparent. Order #112-1471049-5385066, placed May 17, 2026 | [B0FP34MJ94](https://www.amazon.com/dp/B0FP34MJ94) | 2 | $49.32 | ACQUIRED (delivered May 18) |
 | Elmer's disappearing purple school glue sticks, washable, 6 g × 12 — print-bed adhesion/release layer. Order #114-9764609-4555460, placed Mar 22, 2026 | [B003ULCZ7M](https://www.amazon.com/dp/B003ULCZ7M) | 1 pk (12) | $7.38 | ACQUIRED (delivered Mar 24) |
+| Koala resin-coated 4×6 glossy photo paper, 72lb, 100 sheets — print stock for the 4×6 sequence deck ([assembly/cards/](/hardware/assembly/cards/README.md)), borderless on the ET-8550 (`4x6.Fullbleed`). Order #112-4209023-0725839, placed July 24, 2026 | [B073WWB1HS](https://www.amazon.com/dp/B073WWB1HS) | 1 pk (100) | $13.92 | ACQUIRED (delivered July 25) |
+| Koala resin-coated 8.5×11 glossy photo paper, 72lb, 50 sheets — print stock for the letter-size tool-station deck ([assembly/cards/tools/](/hardware/assembly/cards/tools/README.md)), borderless on the ET-8550 (`Letter.Fullbleed`). Same RC base as the 4×6 stock: waterproof, and stiff enough at 260 gsm that a letter sheet stands at a bench instead of flopping. Order #112-7818515-5395414, placed July 25, 2026 | [B073WWL82Z](https://www.amazon.com/dp/B073WWL82Z) | 2 pk (50 ea) | $18.22 ea | ON-ORDER (arriving July 27) |
 
 ## 14. Soldering + small-signal electrical tools
 
@@ -588,13 +590,13 @@ Vacuum-degassed silicone casting for the removable, dishwasher-safe Zone C hoppe
 
 | Status | $ |
 |---|---|
-| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$27,303.73](LEDGER_ACQUIRED_HW) |
+| ACQUIRED — hardware, tools & infra (§§1–17, 19, 20) | [$27,317.65](LEDGER_ACQUIRED_HW) |
 | ACQUIRED — capitalized contract labor (§18) | [$2,607.92](LEDGER_LABOR) |
-| ACQUIRED (combined) | [$29,911.65](LEDGER_ACQUIRED_COMBINED) |
-| ON-ORDER | [$2,363.06](LEDGER_ON_ORDER) |
+| ACQUIRED (combined) | [$29,925.57](LEDGER_ACQUIRED_COMBINED) |
+| ON-ORDER | [$2,399.50](LEDGER_ON_ORDER) |
 | MISSING — paid, not received (§1 copper bar) | [$42.89](LEDGER_MISSING) |
 | LIKELY-TO-BUY | $0.00 |
-| **Grand total — cash outlay** | [$32,317.60](LEDGER_GRAND_TOTAL) |
+| **Grand total — cash outlay** | [$32,367.96](LEDGER_GRAND_TOTAL) |
 
 ACQUIRED hardware by section:
 
@@ -612,7 +614,7 @@ ACQUIRED hardware by section:
 | 10 | User interface | [$156.61](LEDGER_SEC10) |
 | 11 | Enclosure hardware | [$124.48](LEDGER_SEC11) |
 | 12 | Shop / bench infrastructure | [$372.51](LEDGER_SEC12) |
-| 13 | Printing consumables | [$1,190.97](LEDGER_SEC13) |
+| 13 | Printing consumables | [$1,204.89](LEDGER_SEC13) |
 | 14 | Soldering + small-signal tools | [$803.87](LEDGER_SEC14) |
 | 15 | 3D printing equipment + filaments (Bambu direct) | [$8,677.34](LEDGER_SEC15) |
 | 16 | Laser welding / cleaning / cutting | [$3,899.00](LEDGER_SEC16) |
