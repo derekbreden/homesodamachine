@@ -100,16 +100,16 @@ total_reeds_per_build = reeds_per_carbonator + reservoir_reeds_total
 # bulkhead, not PP1208E.
 pp1208e_per_build = panel_umbilical_bulkheads + panel_water_inlet_bulkheads
 
-# PP0308E union elbows per build: one in-cavity CO2 bend at the foam-shell
-# CO2 doorway, one per valve-manifold elbow — each tray module's `rolls` dict
-# is exactly its elbow set (the junction column's banks: all four
-# source-select valves, the bag tray's V-E/V-H pair; the bag east bank and
-# the nozzle-gate tray run bare until the pump-discharge tees land) — and
-# two on each of the two Kamoer pump outlets.
-pp0308e_co2_incavity = 1
+# PP0308E union elbows per build: one per valve-manifold elbow — each tray
+# module's `rolls` dict is exactly its elbow set (the junction column's banks:
+# all four source-select valves, the bag tray's V-E/V-H pair; the bag east
+# bank and the nozzle-gate tray run bare until the pump-discharge tees land)
+# — and two on each of the two Kamoer pump outlets. The CO2 path takes none:
+# its line runs straight in through the foam shell's −Y wall to the adapter
+# on the vessel's own bottom-plate elbow, so no bend is made in the cavity.
 pp0308e_valve_elbows = len(source_select_tray.rolls) + len(bag_circuit_tray.rolls)
 pp0308e_pump_elbows = 4
-pp0308e_per_build = pp0308e_co2_incavity + pp0308e_valve_elbows + pp0308e_pump_elbows
+pp0308e_per_build = pp0308e_valve_elbows + pp0308e_pump_elbows
 
 # Foam-cap hardware: 6 clamp inserts + 6 M3 × 25 screws per face, both faces,
 # PLUS the top cap's deck-mount columns — each takes a ruthex short in its top
@@ -173,7 +173,6 @@ def main():
         "PP1208E_PANEL": f"{panel_umbilical_bulkheads:.4g}",
         "PP1208E_INLET": f"{panel_water_inlet_bulkheads:.4g}",
         "PP1208E_TOTAL": f"{pp1208e_per_build:.4g}",
-        "PP0308E_CO2": f"{pp0308e_co2_incavity:.4g}",
         "PP0308E_VALVE": f"{pp0308e_valve_elbows:.4g}",
         "PP0308E_PUMP": f"{pp0308e_pump_elbows:.4g}",
         "PP0308E_TOTAL": f"{pp0308e_per_build:.4g}",
@@ -218,7 +217,6 @@ def main():
             "PP1208E_PANEL": 2,
             "PP1208E_INLET": 1,
             "PP1208E_TOTAL": 1,
-            "PP0308E_CO2": 2,
             "PP0308E_VALVE": 2,
             "PP0308E_PUMP": 2,
             "PP0308E_TOTAL": 2,

@@ -143,19 +143,18 @@ foam_cap_lid_pour_radius = 10.0
 foam_cap_lid_vent_radius = 3.0
 foam_cap_lid_hole_inset = 30.0
 
-# CO2 inlet tube pass-through (through the top cap + its lid): the 1/4" OD
-# LLDPE CO2 line enters from above at x=0, its Y midway between the
-# centerward-wall band and the support-ring band, then routes down through
-# the body foam to the internal ⌀18 elbow doorway (the doorway itself is cut
-# in _port_cuts, not here). Only the tube traverses the cap stack. The cap
-# is authored with its bore on −Y and installed rotated 180° about Z, so the
-# bore lands at +co2_inlet_y — the doorway's side (see foam-assembly).
+# CO2 inlet: one bore straight in through the −Y outer wall and the tank
+# support ring, level with the vessel's bottom-plate elbows. The 1/4" OD
+# LLDPE line arrives horizontally out of the appliance's front-panel CO2
+# chain and lands on the PP010822E collet made up on that port's TAISHER
+# elbow, which hangs inboard of the ring's bore — so the tube is the only
+# thing that crosses shell material, no bend is taken in-cavity, and nothing
+# traverses the cap stack. X is the bottom plate's own port offset: its two
+# 1/4" NPT ports sit 1.5" centre to centre on the plate's X axis
+# (`hole_spacing` in cut-parts/carbonation/endcaps-circular), so the port,
+# its elbow, the ring bore and the wall bore all stand on one line.
+co2_inlet_x = 19.05
 co2_inlet_tube_radius = port_hole_radius
-co2_boss_outer_radius = co2_inlet_tube_radius + wall_and_floor_thickness
-_co2_centerward_mid_r = pocket_centerward_arc_outer_radius - wall_and_floor_thickness / 2
-_co2_support_ring_outer_r = tank_coil_envelope_radius  # the ring sits on the tank+coil envelope
-_co2_support_ring_mid_r = _co2_support_ring_outer_r - support_ring_radial_width / 2
-co2_inlet_y = -(_co2_centerward_mid_r + _co2_support_ring_mid_r) / 2
 
 # Cap-to-outer-shell joinery: 6 attachment points per face × 2 faces =
 # 12 inserts / 12 M3×25 SHCS, each screw passing lid + cap into an insert
@@ -243,7 +242,7 @@ deck_mount_insert_length = 4.0   # ruthex RX-M3Sx4.0, set flush with the column 
 deck_mount_bore_relief = 0.6     # air past the screw tip at the bore's blind end
 
 # The least room a deck column leaves to anything else standing in the cup — a screw boss,
-# the CO2 boss, the cavity wall, another column. Liquid foam reaches between them.
+# the cavity wall, another column. Liquid foam reaches between them.
 deck_mount_cap_gap = 1.5
 
 # Per module: the mount rectangle's centre in the cap's frame, the module's own hole pitch
@@ -311,14 +310,12 @@ for _name in deck_mounts:
 
 def deck_mount_cap_room(name):
     """The least room this station's columns leave to anything else standing in the cup:
-    `(mm, what)` — a screw boss, the CO2 boss, the cavity wall, another mount's column."""
+    `(mm, what)` — a screw boss, the cavity wall, another mount's column."""
     room = []
     for x, y in deck_mount_xy(name):
         for bx, by in attachment_xy_positions:
             room.append((math.hypot(x - bx, y - by)
                          - screw_boss_size / 2.0 - deck_mount_boss_radius, "a screw boss"))
-        room.append((math.hypot(x, y - co2_inlet_y)
-                     - co2_boss_outer_radius - deck_mount_boss_radius, "the CO2 boss"))
         room.append((min(outer_shell_x_length / 2.0 - abs(x),
                          outer_shell_y_length / 2.0 - abs(y))
                      - wall_and_floor_thickness - deck_mount_boss_radius, "the cavity wall"))

@@ -261,6 +261,37 @@ def _authored_runs() -> list:
         kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, WBEND),
         note="carb water: discharge chain → cold-core water inlet"))
 
+    # --- CO2: the front-panel inlet to the cold core's bottom-plate port. The
+    # GASHER check is made up on the DERPIPE's stub and carries no line, so the
+    # path is two runs of 1/4" LLDPE past it, one on each side of the regulator.
+    reg110 = f["wr1110"]
+    comp = f["compressor-shroud"]
+    CBEND = 6.0                              # 1/4" LLDPE, the CO2 line's radius
+
+    # co2-1 — off the check's stub, forward onto the regulator's own line, then
+    # east the width of the band into its west-facing inlet. One corner, no
+    # climb: the regulator lies in the check's own Z plane.
+    runs.append(route(
+        "co2-1", "gasher-co2.outlet",
+        reg110.y("inlet"),                   # forward onto the regulator's line
+        "wr1110.inlet",
+        kind="co2", bend=CBEND, stub=(CBEND, CBEND),
+        note="CO2: check outlet → WR1110 inlet, across the band"))
+
+    # co2-2 — the regulator's outlet steps east into the slot between the
+    # compressor and the condenser, the one column in the front stratum open to
+    # the floor, and falls down it to the cold core's port height. From there it
+    # runs aft into the machine corridor behind the compressor, west onto the
+    # port's own line, and closes north into the core's front face.
+    runs.append(route(
+        "co2-2", "wr1110.outlet",
+        foam.z("co2-in"),                    # down the slot to the port's height
+        comp.face("y+", 4.0 * CBEND),        # aft into the machine corridor
+        foam.x("co2-in"),                    # west onto the port's own line
+        "foam-assembly.co2-in",
+        kind="co2", bend=CBEND, stub=(CBEND, CBEND),
+        note="CO2: WR1110 outlet → cold-core CO2 inlet, down the inter-block slot"))
+
     # fluid-1 / fluid-2 — the flavor tap. Both runs live in the LANE UNDER THE PUMP: the pump's
     # bracket carries its body clear of the cap, and the gap that leaves runs the bay's whole
     # width and depth, free of everything the deck above it is full of. fluid-1 leaves the

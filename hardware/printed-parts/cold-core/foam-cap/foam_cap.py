@@ -26,14 +26,11 @@ from _foam_cap import (
 from _cold_core_interface import (
     build_z_axis_hole_punch,
     attachment_xy_positions,
-    co2_inlet_y,
-    co2_inlet_tube_radius,
     wall_and_floor_thickness,
     foam_cap_height,
     screw_clearance_radius,
     screw_head_height,
     head_cbore_depth,
-    co2_boss_outer_radius,
     deck_mounts,
     deck_mount_xy,
     deck_mount_boss_radius,
@@ -49,55 +46,6 @@ from docgen import substitute_py_comments
 lid_z_height = wall_and_floor_thickness
 
 
-# [6.5 mm](COTWO_TUBE_D) tube clearance for the 1/4" OD LLDPE CO2 line —
-# distinct from the foam shell's ⌀18 elbow-body bore below the cap; only
-# the tube itself traverses the cap and lid. Inlet position: co2_inlet_y
-# (interface), between the centerward-wall and support-ring midlines.
-co2_tube_clearance_radius = co2_inlet_tube_radius
-# [5.25 mm](COTWO_BOSS_OUTER_R) boss outer radius — the interface owns it, because the
-# deck-mount stations are held clear of this boss there.
-# Boss spans the full interior cavity height, from the floor's
-# cavity-side face (Z = [2 mm](COTWO_BOSS_Z_BOTTOM)) to the cavity opening
-# at Z = [18 mm](COTWO_BOSS_Z_TOP).
-co2_boss_z_bottom = wall_and_floor_thickness
-co2_boss_z_top = foam_cap_height
-
-
-def cut_co2_inlet(cap):
-    """Z-axis tube-clearance cut through the top cap floor."""
-    return cap.cut(
-        build_z_axis_hole_punch(
-            origin=(0, co2_inlet_y, 0),
-            hole_punch_radius=co2_tube_clearance_radius,
-            hole_punch_height=foam_cap_height,
-        )
-    )
-
-
-def cut_co2_inlet_lid(lid):
-    """Z-axis tube-clearance cut through the lid, aligned with the top-cap hole."""
-    return lid.cut(
-        build_z_axis_hole_punch(
-            origin=(0, co2_inlet_y, 0),
-            hole_punch_radius=co2_tube_clearance_radius,
-            hole_punch_height=lid_cut_through_depth,
-        )
-    )
-
-
-def add_co2_boss(cap):
-    """Annular boss around the CO2 through-hole on the cap floor's cavity
-    side, spanning the full cavity height to seal the bore from the foam pour."""
-    boss = (
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=co2_boss_z_bottom)
-        .moveTo((0, co2_inlet_y))
-        .circle(co2_boss_outer_radius)
-        .circle(co2_tube_clearance_radius)
-        .extrude(co2_boss_z_top - co2_boss_z_bottom)
-        .unwrap()
-    )
-    return cap.union(boss)
 
 
 def deck_boss_z_top(name):
@@ -165,20 +113,14 @@ def main():
     # Top cap opens +Z (mouth up); the bottom cap is the same cup built
     # mouth-down (open ceiling −Z), so both stack onto the shell by Z-shift
     # alone and the bottom cap's screws land on the shell's existing bosses.
-    cap_top = add_deck_mounts(add_co2_boss(cut_co2_inlet(build_foam_cap())))
+    cap_top = add_deck_mounts(build_foam_cap())
     cap_bottom = build_foam_cap(open_down=True)
     # Each lid's head pads face its own cap's mouth, so the two are built with
     # the same flag as the caps they close, not one derived from the other.
     lid_bottom = build_foam_cap_lid(open_down=True)
-    lid_top = cut_deck_mounts_lid(cut_co2_inlet_lid(build_foam_cap_lid()))
+    lid_top = cut_deck_mounts_lid(build_foam_cap_lid())
     gasket = build_foam_cap_gasket()
 
-    cap_floor_hole_volume = math.pi * co2_tube_clearance_radius ** 2 * wall_and_floor_thickness
-    cap_boss_annular_volume = (
-        math.pi
-        * (co2_boss_outer_radius ** 2 - co2_tube_clearance_radius ** 2)
-        * (co2_boss_z_top - co2_boss_z_bottom)
-    )
     # Each deck column is a full-section cylinder off the floor's cavity side, less
     # the blind bore at its top. They stand clear of each other and of the six screw
     # bosses, so the pack adds without overlap and this arithmetic is exact.
@@ -193,15 +135,17 @@ def main():
         len(deck_mount_xy(name)) * math.pi * deck_lid_hole_radius(name) ** 2 * lid_z_height
         for name in deck_mounts
     )
-    lid_hole_volume = math.pi * co2_tube_clearance_radius ** 2 * lid_z_height
-    cap_expect = cap_boss_annular_volume - cap_floor_hole_volume + deck_column_volume
-    lid_expect = lid_hole_volume + deck_lid_hole_volume
+    # The two caps differ by the deck columns alone, and the two lids by the
+    # clearance holes those columns pass through — nothing else is cut into one
+    # end of the stack and not the other.
+    cap_expect = deck_column_volume
+    lid_expect = deck_lid_hole_volume
     cap_diff = cap_top.val().Volume() - cap_bottom.val().Volume()
     lid_diff = lid_bottom.val().Volume() - lid_top.val().Volume()
     assert math.isclose(cap_diff, cap_expect, rel_tol=1e-6), \
-        f"cap diff {cap_diff:.6f} != expected boss − hole + deck columns = {cap_expect:.6f}"
+        f"cap diff {cap_diff:.6f} != expected deck columns = {cap_expect:.6f}"
     assert math.isclose(lid_diff, lid_expect, rel_tol=1e-6), \
-        f"lid diff {lid_diff:.6f} != expected lid holes = {lid_expect:.6f}"
+        f"lid diff {lid_diff:.6f} != expected deck-column holes = {lid_expect:.6f}"
     assert len(cap_top.solids().vals()) == 1, "cap_top must be a single solid"
 
     # What is under a head is still one wall of PETG — the same land the head
@@ -248,20 +192,12 @@ def main():
 
     variables = {
         "LID_Z_H": f"{lid_z_height:.4g} mm",
-        "COTWO_TUBE_D": f"{co2_tube_clearance_radius * 2:.4g} mm",
-        "COTWO_BOSS_OUTER_R": f"{co2_boss_outer_radius:.4g} mm",
-        "COTWO_BOSS_Z_BOTTOM": f"{co2_boss_z_bottom:.4g} mm",
-        "COTWO_BOSS_Z_TOP": f"{co2_boss_z_top:.4g} mm",
     }
     substitute_py_comments(
         Path(__file__),
         variables=variables,
         expected_counts={
             "LID_Z_H": 1,
-            "COTWO_TUBE_D": 1,
-            "COTWO_BOSS_OUTER_R": 1,
-            "COTWO_BOSS_Z_BOTTOM": 1,
-            "COTWO_BOSS_Z_TOP": 1,
         },
     )
     print(f"-> {Path(__file__).name} (self)")
