@@ -19,7 +19,7 @@ frame and rides the part. Top to bottom:
   resting on the enclosure top surface — this reach is the whole of what holds
   the funnel out of the box, so it is sized to be caught and lifted by hand at
   the rim, not merely to cover the cut edge. The collar sits
-  [14 mm](HOPPER_MARGIN) inside the top-wall frame on every side, so the flange
+  [10 mm](HOPPER_MARGIN) inside the top-wall frame on every side, so the flange
   lands mid-margin with a full overhang's width of wall still outboard of it,
   and the part reads square in its opening from above.
 - **Chute.** A tall straight rectangular section — vertical walls, no slope —
@@ -38,7 +38,7 @@ frame and rides the part. Top to bottom:
   the real solids by the enclosure scorecard. Total drop
   [53 mm](HOPPER_DROP) below the brim.
 
-Capacity to the brim is [704 mL](HOPPER_CAP) — a full 440 mL bottle dumped,
+Capacity to the brim is [580 mL](HOPPER_CAP) — a full 440 mL bottle dumped,
 not metered.
 
 The enclosure cuts its top-wall opening from this collar at the funnel's

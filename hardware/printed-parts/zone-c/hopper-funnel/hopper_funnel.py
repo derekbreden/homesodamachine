@@ -49,10 +49,13 @@ from docgen import substitute_md
 # owns the frame and asserts it; the funnel takes the front of the Y span, and a
 # deeper box adds its top wall behind rather than growing the part.
 collar_w = 148.5        # collar footprint (X) — the frame's width less 2 × brim_margin
-collar_d = 147.0        # collar footprint (Y) — capped by the ramp check below, which
-                        # holds the Y half-run under the X one; plan area (not depth)
-                        # carries the volume
-brim_margin = 14.0      # top-wall left between the collar edge and the frame, all around
+collar_d = 122.0        # collar footprint (Y) — what the top wall has room for once the spout
+                        # stands over V-B's collet on the moved deck, one brim_margin behind the
+                        # front ledge. The chute cannot carry the lost plan area back: the basin
+                        # floor already rides on the bag tray's crown, so depth is spent, and the
+                        # capacity target absorbs the difference instead
+brim_margin = 10.0      # top-wall left between the collar edge and the frame, all around —
+                        # one overhang catches the flange, the rest is what stands beyond it
 brim_overhang = 7.0     # brim flange reach past the collar — what actually catches the
                         # top wall and holds the funnel out of the box, all around
 brim_thickness = 3.0    # flange thickness, resting on the enclosure top
@@ -65,7 +68,7 @@ collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 # the chute must SHORTEN by the same volume, which lifts the ramp, the spout and
 # the drain with it. Sized here, asserted in `build`.
 bottle_ml = 440.0       # one SodaStream concentrate bottle
-capacity_bottles = 1.6  # basin capacity to the brim, in bottles — the requirement
+capacity_bottles = 1.3  # basin capacity to the brim, in bottles — the requirement
 chute_h = 28.70        # straight rectangular chute height — brim top down to the ramp start
 neck_dx = 0.0           # neck (ramp foot + spout) on the collar centre — every floor
                         # run stays short, so the grade costs the least depth

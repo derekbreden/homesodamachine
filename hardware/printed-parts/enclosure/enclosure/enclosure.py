@@ -182,7 +182,7 @@ display_shoulder_round = wall    # facet +X shoulder arris relief (Z), = the gus
 # top-right corner pod, the Y-seam lip band behind, and a front ledge kept
 # along the front edge, so a wall frame remains all around for the basin's
 # rim flange to rest on).
-hopper_front_ledge = 8.0  # top wall kept along the front edge
+hopper_front_ledge = 6.0  # top wall kept along the front edge
 
 # Split + boss parameters — every dimension sized to its function, nothing
 # inherited from the faucet. The seam is a Y plane; the front half's full-wall
