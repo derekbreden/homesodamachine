@@ -192,10 +192,13 @@ bottom cap lands its screws on the shell's existing bottom-face
 inserts with no rotation. The cap interior receives the foam pour
 through the pour and vent holes in the lid.
 
-The `foam_cap_lid` is a flat [2 mm](FSHELL_WALL_T) plate matching the same
-outer footprint, covering a cap's open mouth during its foam pour. It
-has the pour hole (Ø [20 mm](POUR_D)) and two vent holes
-(Ø [6 mm](LID_VENT_D)).
+The `foam_cap_lid` is a [2 mm](FSHELL_WALL_T) plate matching the same outer
+footprint, closing a cap's open mouth. It has the pour hole (Ø [20 mm](POUR_D))
+and two vent holes (Ø [6 mm](LID_VENT_D)), and it carries a pad at each of the
+six screw stations on its mouth-facing side — "The head sits in the lid" below.
+It is the clamp for the pour and it stays: the lid ships bolted to its cap, and
+its outer face is the plane the core stands on at the bottom and the water deck
+and the electronics stand on at the top.
 
 Both the cap and the lid carry the **same six ⌀[8 mm](BOSS_D) bosses with
 teardrop corner-fill webs** as the outer shell (built from the one shared

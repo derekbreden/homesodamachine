@@ -233,7 +233,7 @@ def main():
             "SHELF_SCREWS": 1,
             "SHELF_SCREWS_M3X8": 2,
             "SHELF_SCREWS_M3X10": 1,
-            "DECK_INSERTS": 1,
+            "DECK_INSERTS": 2,
             "TOTAL_M3_INSERTS": 2,
             "VENT_FILTERS": 3,
             "PITCH": 1,
