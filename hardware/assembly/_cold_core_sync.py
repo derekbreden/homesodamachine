@@ -34,7 +34,10 @@ from _cold_core_interface import (  # noqa: E402
     reservoir_clearance,
     wall_and_floor_thickness,
 )
-from _reed_channels import cable_hole_offset_from_bulkhead_hole_x  # noqa: E402
+from _reed_channels import (  # noqa: E402
+    cable_hole_offset_from_bulkhead_hole_x,
+    cable_shell_hole_x,
+)
 
 import importlib.util  # noqa: E402
 
@@ -106,6 +109,9 @@ def main():
         # reed cable outboard of the bulkhead axis.
         "FLAVOR_HOLE_X": f"±{_port_cuts.flavor_line_hole_x:.4g}",
         "CABLE_HOLE_X": f"±{reservoir_bulkhead_port_x + cable_hole_offset_from_bulkhead_hole_x:.4g}",
+        # …and where each leaves the outer shell, inboard across the pour band.
+        "FLAVOR_SHELL_X": f"±{_port_cuts.flavor_line_shell_hole_x:.4g}",
+        "CABLE_SHELL_X": f"±{cable_shell_hole_x:.4g}",
         # Reservoir-to-pocket clearance — why the pockets take no foam.
         "RESERVOIR_GAP": f"{reservoir_clearance:.4g} mm",
         # ─── Output envelope (line 113) ───────────────────────────────
@@ -148,6 +154,8 @@ def main():
             "COTWO_INLET_Z": 1,
             "COTWO_NOTCH_W": 1,
             "FLAVOR_HOLE_X": 1,
+            "FLAVOR_SHELL_X": 1,
+            "CABLE_SHELL_X": 1,
             "CABLE_HOLE_X": 2,
             "RESERVOIR_GAP": 1,
             "OUTER_X": 1,
