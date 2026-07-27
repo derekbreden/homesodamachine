@@ -10,6 +10,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import path from "node:path";
+import fs from "node:fs";
+import os from "node:os";
 import { fileURLToPath } from "node:url";
 
 import {
@@ -204,5 +206,40 @@ test("affectedBuildOrder: one edit's wave lists each script once, seeds first, p
   const enclosureAssembly = idx("hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py");
   if (enclosure !== -1 && enclosureAssembly !== -1) {
     assert.ok(enclosure < enclosureAssembly, "enclosure.py must precede the enclosure-assembly that loads its STEP");
+  }
+});
+
+test("the per-call memo does not outlive its call (staleness regression)", () => {
+  // The graph functions cache walks, source reads and sub-results for the
+  // duration of one top-level call — the same file is read dozens of times
+  // inside nested loops. The cache is torn down on the way out, so the next
+  // call after an edit reads the edit. If it ever leaked across calls the
+  // watcher would answer every rebuild from the tree as it stood at boot.
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "deps-memo-"));
+  try {
+    const mod = path.join(root, "_shared.py");
+    const gen = path.join(root, "widget.py");
+    fs.writeFileSync(mod, "VALUE = 1\n");
+    fs.writeFileSync(gen, 'if __name__ == "__main__":\n    pass\n');
+
+    // Nothing imports the module yet.
+    assert.deepEqual(findRunnableScriptsTransitivelyImporting(mod, [root]), []);
+
+    // Add the import; the very next call must see it.
+    fs.writeFileSync(gen, 'import _shared\nif __name__ == "__main__":\n    pass\n');
+    assert.deepEqual(
+      findRunnableScriptsTransitivelyImporting(mod, [root]).map((p) => path.basename(p)),
+      ["widget.py"],
+      "a cached walk survived its call and hid a new import edge",
+    );
+
+    // A new file on disk must show up too — the directory walk is cached as well.
+    fs.writeFileSync(path.join(root, "gadget.py"), 'import _shared\nif __name__ == "__main__":\n    pass\n');
+    assert.equal(
+      findRunnableScriptsTransitivelyImporting(mod, [root]).length, 2,
+      "a cached directory walk survived its call and hid a new file",
+    );
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
   }
 });

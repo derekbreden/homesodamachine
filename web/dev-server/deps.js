@@ -39,12 +39,52 @@ export function contentRoots(projectRoot) {
   ].filter((d) => fs.existsSync(d));
 }
 
+// --- Per-call memo --------------------------------------------------------
+//
+// These functions call each other in nested loops: dependencyGraph asks
+// findScriptsConsumingStep once per produced STEP, and every shared-module hit
+// inside that runs a full import walk, which re-walks the trees and re-reads
+// every source from disk. The repeats are pure waste — across one top-level
+// call the filesystem is fixed, which the code already assumes when it reads
+// the same file dozens of times and expects the same bytes.
+//
+// `memoized` hangs a scratch cache off the outermost call and drops it on the
+// way out, so the next call after an edit sees fresh bytes. Nested calls find
+// the cache already installed and reuse it; an unwrapped call still returns the
+// same answer, just uncached.
+let memo = null;
+
+function memoized(fn) {
+  return function (...args) {
+    if (memo) return fn.apply(this, args);
+    memo = {
+      walk: new Map(),
+      source: new Map(),
+      runnable: new Map(),
+      producers: new Map(),
+      importers: new Map(),
+      consumers: new Map(),
+    };
+    try {
+      return fn.apply(this, args);
+    } finally {
+      memo = null;
+    }
+  };
+}
+
+const rootsKey = (roots) => roots.join("\0");
+
 function readSource(file) {
+  if (memo && memo.source.has(file)) return memo.source.get(file);
+  let source;
   try {
-    return fs.readFileSync(file, "utf-8");
+    source = fs.readFileSync(file, "utf-8");
   } catch {
-    return null;
+    source = null;
   }
+  if (memo) memo.source.set(file, source);
+  return source;
 }
 
 // hardware/scripts holds the shared modules and the command-line tools the repo is worked
@@ -59,6 +99,13 @@ const TOOLING_DIR = path.join("hardware", "scripts");
 // Content detection (not name/dir) means a new script live-reloads with no
 // registration.
 export function isRunnableScript(pyFilePath) {
+  if (memo && memo.runnable.has(pyFilePath)) return memo.runnable.get(pyFilePath);
+  const runnable = computeRunnable(pyFilePath);
+  if (memo) memo.runnable.set(pyFilePath, runnable);
+  return runnable;
+}
+
+function computeRunnable(pyFilePath) {
   const base = path.basename(pyFilePath);
   if (!base.endsWith(".py")) return false;
   if (base.startsWith("_")) return false;
@@ -68,6 +115,8 @@ export function isRunnableScript(pyFilePath) {
 }
 
 function walk(roots, suffix) {
+  const key = `${suffix}\0${rootsKey(roots)}`;
+  if (memo && memo.walk.has(key)) return memo.walk.get(key);
   const out = [];
   function rec(dir) {
     let entries;
@@ -84,6 +133,7 @@ function walk(roots, suffix) {
     }
   }
   for (const root of roots) rec(root);
+  if (memo) memo.walk.set(key, out);
   return out;
 }
 
@@ -100,7 +150,11 @@ export function findGenerateScripts(roots) {
 // `--python` subprocess edge (`_blender_render.py` hands `_blender_scene.py` to
 // Blender as a path, never importing it). Without the transitive walk, edits to
 // a leaf module silently rebuild nothing.
-export function findRunnableScriptsTransitivelyImporting(changedPath, roots) {
+export const findRunnableScriptsTransitivelyImporting = memoized(importersOf);
+
+function importersOf(changedPath, roots) {
+  const key = `${path.resolve(changedPath)}\0${rootsKey(roots)}`;
+  if (memo && memo.importers.has(key)) return memo.importers.get(key);
   const allPyFiles = walk(roots, ".py");
   const visited = new Set();
   const dependents = new Set();
@@ -177,7 +231,9 @@ export function findRunnableScriptsTransitivelyImporting(changedPath, roots) {
     }
   }
 
-  return Array.from(dependents);
+  const out = Array.from(dependents);
+  if (memo) memo.importers.set(key, out);
+  return out;
 }
 
 // A board is a tscircuit source that declares a `<board>` — the renderable that
@@ -194,7 +250,9 @@ function isBoardTsx(source) {
 // in (`pcba.tsx`), mirroring the Python cascade — rendering the include itself
 // would only fail ("no renderable layers"), since an include has no `<board>`.
 // If the changed file is itself a board, it's returned as the sole dependent.
-export function findBoardsTransitivelyImporting(changedTsxPath, pcbRoot) {
+export const findBoardsTransitivelyImporting = memoized(boardsImporting);
+
+function boardsImporting(changedTsxPath, pcbRoot) {
   // Skip the toolchain's own sources and editor/temp artifacts (`._foo.tsx`,
   // the dot-prefixed scratch boards `_clrsweep` & co. write): neither is a board
   // the watcher should ever rebuild.
@@ -251,7 +309,11 @@ function referencesStep(source, stepBasename) {
 // each producing a different step; matching on the filename disambiguates.
 // Reference STEPs with no generator (e.g. `kamoer-kphm400.step`) simply have no
 // entry.
-export function buildProducerMap(roots) {
+export const buildProducerMap = memoized(producerMap);
+
+function producerMap(roots) {
+  const key = rootsKey(roots);
+  if (memo && memo.producers.has(key)) return memo.producers.get(key);
   const producerOf = new Map();
   for (const step of walk(roots, ".step")) {
     const base = path.basename(step);
@@ -273,6 +335,7 @@ export function buildProducerMap(roots) {
       }
     }
   }
+  if (memo) memo.producers.set(key, producerOf);
   return producerOf;
 }
 
@@ -281,8 +344,15 @@ export function buildProducerMap(roots) {
 // it names it and is not its producer. A runnable match is itself a consumer; a
 // shared-module match (e.g. `_contents.py`) resolves to the runnables that
 // transitively import that module. `producerOf` is computed if not supplied.
-export function findScriptsConsumingStep(stepBasename, roots, producerOf) {
+export const findScriptsConsumingStep = memoized(consumersOfStep);
+
+function consumersOfStep(stepBasename, roots, producerOf) {
   producerOf = producerOf || buildProducerMap(roots);
+  // Reuse a cached answer only when the producer map is the one this call tree
+  // derived from `roots` — a caller supplying its own map gets a fresh walk.
+  const key = `${stepBasename}\0${rootsKey(roots)}`;
+  const shared = memo != null && producerOf === memo.producers.get(rootsKey(roots));
+  if (shared && memo.consumers.has(key)) return memo.consumers.get(key);
   const producer = producerOf.get(stepBasename);
   const consumers = new Set();
   for (const pyFile of walk(roots, ".py")) {
@@ -300,14 +370,18 @@ export function findScriptsConsumingStep(stepBasename, roots, producerOf) {
       }
     }
   }
-  return Array.from(consumers);
+  const out = Array.from(consumers);
+  if (shared) memo.consumers.set(key, out);
+  return out;
 }
 
 // consumer script -> Set(producer scripts it depends on), over STEP-load edges.
 // (Import-only edges don't need ordering here: a shared module isn't built, and
 // runnables that import each other are rare; the watcher handles import edits
 // directly. This graph exists to order a full rebuild.)
-export function dependencyGraph(roots) {
+export const dependencyGraph = memoized(graphOf);
+
+function graphOf(roots) {
   const scripts = findGenerateScripts(roots);
   const producerOf = buildProducerMap(roots);
   const deps = new Map(scripts.map((s) => [s, new Set()]));
@@ -324,7 +398,9 @@ export function dependencyGraph(roots) {
 // Topological build order: producers before the scripts that load their STEPs
 // (DFS post-order). A cycle (none expected in a CAD build graph) degrades to
 // "built, possibly out of order" rather than dropping nodes.
-export function buildOrder(roots) {
+export const buildOrder = memoized(orderOf);
+
+function orderOf(roots) {
   const deps = dependencyGraph(roots);
   const order = [];
   const done = new Set();
@@ -354,7 +430,9 @@ export function buildOrder(roots) {
 // four times interleaved. Import-only seeds carry no STEP-load edge, so their
 // order among themselves is arbitrary (correct: a Python import reads the
 // dependency's source at run time, independent of its STEP).
-export function affectedBuildOrder(seeds, roots) {
+export const affectedBuildOrder = memoized(affectedOrderOf);
+
+function affectedOrderOf(seeds, roots) {
   const producerOf = buildProducerMap(roots);
   const loadsOf = new Map();     // consumer script -> Set(step basename it loads)
   const consumersOf = new Map(); // producer script -> Set(consumer scripts)
