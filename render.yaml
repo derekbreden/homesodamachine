@@ -21,21 +21,25 @@ services:
     healthCheckPath: /
     autoDeploy: true
     # rootDir is web/, so Render's default auto-deploy only fires on
-    # commits that touch web/. The server also reads hardware/, posts/,
-    # and pie-in-the-sky/lite/ at request time (CAD parts, blog posts,
-    # and the viewer's Lite-edition content root), so commits to those
-    # trees must trigger a deploy too. buildFilter.paths is an allowlist:
-    # once any path is listed, Render auto-ignores every non-matching
-    # path, so each served tree has to be enumerated here or its commits
-    # are silently skipped (a pie-in-the-sky/lite/ commit was skipped
-    # exactly this way before the entry below was added). render.yaml
-    # always redeploys regardless, and is listed for completeness.
+    # commits that touch web/. The server also reads posts/ and every
+    # edition's content root at request time — blog posts, and the CAD
+    # parts the viewer serves per request — so commits to those trees
+    # must trigger a deploy too. buildFilter.paths is an allowlist: once
+    # any path is listed, Render auto-ignores every non-matching path,
+    # so a served tree that is missing here has its commits silently
+    # skipped — the site keeps serving that tree as of the last deploy
+    # some *other* tree happened to trigger. Every `dir` in
+    # web/lib/editions.js must therefore appear below, and a new edition
+    # is an entry here as well as there. render.yaml always redeploys
+    # regardless, and is listed for completeness.
     buildFilter:
       paths:
         - web/**
-        - hardware/**
         - posts/**
+        # one per edition (web/lib/editions.js): kitchen, lite, thin
+        - hardware/**
         - pie-in-the-sky/lite/**
+        - thin/**
         - render.yaml
     envVars:
       - key: DATABASE_URL
