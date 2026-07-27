@@ -33,6 +33,7 @@ from pathlib import Path
 
 from OCP.BRep import BRep_Builder, BRep_Tool
 from OCP.BRepBndLib import BRepBndLib
+from OCP.BRepBuilderAPI import BRepBuilderAPI_Copy
 from OCP.BRepMesh import BRepMesh_IncrementalMesh
 from OCP.Bnd import Bnd_Box
 from OCP.Precision import Precision
@@ -70,13 +71,25 @@ def _mesh_all(solids, linear: float):
     """Triangulate every solid in one pass, as occt-import-js does — it meshes
     the whole shape it read, not one solid at a time, and BRepMesh derives its
     minimum element size from the shape it is handed, so solid-by-solid and
-    all-at-once do not produce the same triangles."""
+    all-at-once do not produce the same triangles.
+
+    What is meshed is a COPY of each solid, and the copies are returned as what
+    carries the triangulation. BRepMesh stores triangles on the faces of the
+    shape it is given, and those faces belong to the caller's live model — this
+    runs at export time, off `export_step`, so meshing in place would hand a
+    generator back a part it has not finished measuring. An OCCT bounding box
+    prefers a triangulation when one is present, so the next `BoundingBox()` on
+    that model reads the mesh's box, wider than the analytic one by the linear
+    deflection. A part exported and then checked against its own nominal extents
+    would fail on a tolerance it never left."""
+    copies = [BRepBuilderAPI_Copy(solid.wrapped).Shape() for solid in solids]
     compound = TopoDS_Compound()
     builder = BRep_Builder()
     builder.MakeCompound(compound)
-    for solid in solids:
-        builder.Add(compound, solid.wrapped)
+    for copy in copies:
+        builder.Add(compound, copy)
     BRepMesh_IncrementalMesh(compound, linear, False, ANGULAR_DEFLECTION, True)
+    return copies
 
 
 def _solid_arrays(shape):
@@ -154,18 +167,17 @@ def from_assembly(assembly):
     """
     placed = [(name.split("/")[-1], color if len(solids) == 1 else None, solid)
               for name, color, solids in _placed(assembly) for solid in solids]
-    _mesh_all([s for _, _, s in placed], deflection(assembly.toCompound().wrapped))
-    return [m for name, color, solid in placed
-            if (m := _mesh(solid.wrapped, name, color))]
+    meshed = _mesh_all([s for _, _, s in placed], deflection(assembly.toCompound().wrapped))
+    return [m for (name, color, _), solid in zip(placed, meshed)
+            if (m := _mesh(solid, name, color))]
 
 
 def from_shape(model):
     """One mesh per solid of a plain workplane/shape. These carry no color —
     matching a STEP from export_step, which the viewer shades default gray."""
     shape = model.val() if hasattr(model, "val") else model
-    solids = shape.Solids()
-    _mesh_all(solids, deflection(shape.wrapped))
-    return [m for solid in solids if (m := _mesh(solid.wrapped, "", None))]
+    meshed = _mesh_all(shape.Solids(), deflection(shape.wrapped))
+    return [m for solid in meshed if (m := _mesh(solid, "", None))]
 
 
 def write(meshes, path):
@@ -217,8 +229,17 @@ def _selftest():
     # Colors reach the viewer linear, the way a STEP round trip delivers them.
     # sRGB 0.85 is linear 0.6921; handing over 0.85 washes the part out.
     solid = box.val().Solids()[0]
-    _mesh_all([solid], 0.03)
-    mesh = _mesh(solid.wrapped, "b", cq.Color(0.85, 0.78, 0.62))
+    meshed = _mesh_all([solid], 0.03)
+
+    # Meshing must leave the CALLER's shape alone. This runs at export time on a
+    # generator's live model, and an OCCT bounding box prefers a triangulation
+    # when it finds one — so a mesh stored on these faces widens every extent the
+    # generator goes on to measure itself against, by the linear deflection.
+    bb = solid.BoundingBox()
+    check("the caller's solid is left untriangulated",
+          [round(v, 9) for v in (bb.xlen, bb.ylen, bb.zlen)], [10.0, 20.0, 60.0])
+
+    mesh = _mesh(meshed[0], "b", cq.Color(0.85, 0.78, 0.62))
     check("color is linear, not sRGB", [round(c, 4) for c in mesh["color"]],
           [0.6921, 0.5705, 0.3424])
 

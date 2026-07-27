@@ -234,6 +234,14 @@ def _source_digest():
               Path(enclosure.__file__), OVERRIDES_PATH):
         h.update(b"PY:" + str(p).encode())
         h.update(p.read_bytes() if p.exists() else b"")
+    # The declared connector set itself, not just the file that lists it. PORTS is what
+    # the located axis reads, and its coordinates are resolved through modules that are
+    # NOT in the list above — a foam-shell station comes from the cold core's own copper
+    # plug stack. Moving a station inside the shared slot changes no bounding box and
+    # rewrites no STEP, so nothing else in this key would move and the cached verdict
+    # would keep reporting where that port used to be.
+    h.update(b"PORTS:" + repr([(p.component, p.name, p.kind, p.pos, p.face, p.diam)
+                               for p in scorecard.PORTS]).encode())
     return h.digest()
 
 
