@@ -50,8 +50,9 @@ penetrations (/hardware/printed-parts/cold-core/foam-shell/README.md
     bottom-plate ports. The riser cannot leave this face head-on: refrig-2
     climbs the same x on its way to the evaporator inlet above, and stands
     9.52 mm off the collet. So the line turns WEST inside that gap, climbs
-    the front face west of the shared slot, crosses the crown pocket through
-    the DIGITEN flow meter, and drops under the pump to the rear umbilical;
+    the front face west of the bag fall, runs east through the DIGITEN flow
+    meter lying in the strip at the water inlet's own height, and climbs
+    from there to the rear umbilical;
   * reservoir (bag) lines at (44.5, 182, 35.5) and (238.5, 182, 35.5) —
     they climb the foam front face to the bag-circuit loops;
   * the shared slot at x 141.5 spanning z ~72–246 — both copper evaporator
@@ -1073,16 +1074,18 @@ WR1110_CY = 66.0
 DERPIPE_BODY_L = 17.0
 # The DIGITEN flow meter, inline on the carb-water riser. Placed UNTURNED: its own
 # frame already runs the flow +X and stands the pigtail boss +Z, which is the pose
-# this station wants. It lies in the POCKET AHEAD OF THE COLD CORE'S CROWN — the
-# open air between the bag-circuit tray's top and the ceiling, forward of the foam's
-# front face and so forward of everything the water deck behind that face is full
-# of. Nothing else in the machine reaches into it, which is why a 60 mm rigid body
-# with a Ø26 waist can lie down here and nowhere else on this line: the bag-fall
-# corridor below is one tube deep, and the band over the cold core is the pump's.
-# Its X puts the inlet collet a corner clear of the riser's climb and the outlet
-# collet a corner clear of the drop, so the two runs meet it head-on down its own
-# axis and neither turns inside it. Cradle TBD.
-DIGITEN_POS = (165.0, 177.0, 300.0)          # the body centre; the collets sit ±30 off it in X
+# this station wants. It lies in the STRIP AHEAD OF THE COLD CORE'S FRONT FACE, at
+# the water inlet's own height — the one band of that strip nothing stands in: the
+# source-select assembly stops short of it to the south, the bag-circuit tray clears
+# it above, and the discharge chain hangs down it well to the east. A 60 mm rigid
+# body with a Ø26 waist fits here with 7.0 mm to the foam face and 6.1 mm to the
+# tray. Sitting at the riser's own height rather than above it keeps the climb out
+# of water-5's band entirely: the riser owns the strip below the meter, the water
+# inlet's line owns everything above it, and the two never cross. Its X puts the
+# inlet collet clear of the climb and the outlet collet clear of the lane east, so
+# the two runs meet it head-on down its own axis and neither turns inside it.
+# Cradle TBD.
+DIGITEN_POS = (160.0, 164.0, 204.0)          # the body centre; the collets sit ±30 off it in X
 
 
 # --- Colors ---------------------------------------------------------------
@@ -1575,8 +1578,8 @@ def _build():
                            WR1110_CY - _reg_bb.ylen / 2.0,
                            CO2_INLET_Z - _reg_bb.zlen / 2.0)
 
-    # The carb-water riser's flow meter, lying unturned in the pocket ahead of the
-    # cold core's crown — flow +X, pigtail boss up where the J4 loom reaches it.
+    # The carb-water riser's flow meter, lying unturned in the strip ahead of the
+    # cold core's front face — flow +X, pigtail boss up where the J4 loom reaches it.
     placed["digiten-flow"] = _load(DIGITEN_STEP).translate(DIGITEN_POS)
 
     # The ASSE 1022 assembly: the water path's one non-negotiable component with the
