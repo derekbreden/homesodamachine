@@ -18,6 +18,27 @@ There is no machine on the market that gives a home user this experience — tur
 
 See `marketing/target-market.md` for details.
 
+## Editions
+
+There is more than one machine in this repo, and each gets a whole tree of its own — its own generators, assemblies, tools and outputs. `web/lib/editions.js` is the list:
+
+- **kitchen** — `hardware/`, the counter appliance.
+- **lite** — `pie-in-the-sky/lite/`, the stripped build.
+- **thin** — `thin/hardware/`, the tall, narrow machine.
+
+They are duplicates, not variants: no flag selects between them and no module is shared to keep them in step. Cut one however the work demands without asking what it does to the others.
+
+The viewer serves one edition per request (Settings → Edition, dev mode only), and the dev-server watches, rebuilds and broadcasts for every root. Adding a fourth is one entry plus the directory.
+
+The trees mirror each other's filenames, so a path that leaves its own tree is invisible — the script runs, the STEP is written, and the number came from another machine. Two things hold that off:
+
+- Anchors have two jobs and say which. Content resolves to the *nearest* `hardware/`; shared machinery (`tools/`) resolves to the repo root that holds `tools/docgen`. In a single tree they land in the same place, which is why it goes unnoticed until there are two.
+- `tools/check_editions.py` resolves every anchored path in every edition's Python and fails on one that leaves the tree without being declared in that edition's `shares`. Kitchen and thin declare nothing; lite declares `hardware`, where its export helper and display model come from.
+
+```
+tools/cad-venv/bin/python tools/check_editions.py
+```
+
 ## CadQuery
 
 Run scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`.
