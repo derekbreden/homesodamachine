@@ -28,10 +28,10 @@
 // thumbnail and a STEP thumbnail differ only in where the triangles came from.
 //
 // <step-path> may be absolute or repo-relative, and is matched against the
-// content roots (hardware/ = kitchen, pie-in-the-sky/lite/ = lite). The
-// output is written next to the STEP as `<file>.step.png`. Files are grouped
-// by root so the viewer is booted once per root; rendering reuses one browser
-// page across all of a root's files.
+// content roots — one per edition, taken from web/lib/editions.js, which is the
+// single source. The output is written next to the STEP as `<file>.step.png`.
+// Files are grouped by root so the viewer is booted once per root; rendering
+// reuses one browser page across all of a root's files.
 //
 // Best-effort by design: a single file that fails to render logs a warning
 // and is skipped; the process still exits 0 as long as it booted, so the
@@ -44,17 +44,19 @@ import puppeteer from "puppeteer";
 import sharp from "sharp";
 
 import { start } from "../../web/server.js";
+import { EDITIONS } from "../../web/lib/editions.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
 
 // Content roots the viewer can serve, in match order. Each STEP belongs to
 // exactly one; the viewer is booted with hardwareDir set to that root so
-// /steps/<rel> resolves against it.
-const ROOTS = [
-  { name: "kitchen", dir: path.join(REPO_ROOT, "hardware") },
-  { name: "lite", dir: path.join(REPO_ROOT, "pie-in-the-sky", "lite") },
-];
+// /steps/<rel> resolves against it. Read from the editions registry rather than
+// listed here: a root this tool does not know about is a root whose thumbnails
+// silently never render, and nothing downstream notices — the STEP is written,
+// the card shows the last edition's picture, and the export exits 0.
+const ROOTS = EDITIONS.map((e) => ({ name: e.id, dir: path.join(REPO_ROOT, ...e.dir) }))
+  .filter((r) => fs.existsSync(r.dir));
 
 function isHidden(rel) {
   return rel.split(path.sep).some((seg) => seg.startsWith("."));
