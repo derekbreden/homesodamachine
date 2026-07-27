@@ -28,16 +28,6 @@ export const EDITIONS = [
     shares: [],
   },
   {
-    id: "lite",
-    label: "Lite",
-    help: "The stripped build. pie-in-the-sky/lite/",
-    dir: ["pie-in-the-sky", "lite"],
-    // Lite carries its own enclosure and trays but no tooling or purchased-part
-    // models: it builds with the kitchen's hardware/scripts and loads reference
-    // STEPs (the display) out of hardware/reference.
-    shares: ["hardware"],
-  },
-  {
     id: "thin",
     label: "Thin",
     help: "The tall, narrow machine. thin/hardware/",

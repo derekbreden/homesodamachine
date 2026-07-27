@@ -3,9 +3,7 @@
 The removable dishwasher-safe silicone funnel that seats in the Zone C top-wall
 opening, right of the display and flush to the front. Pour a full 440 mL
 SodaStream flavor bottle into it in one go; lift it out by hand for the
-dishwasher and to reach the source-select assembly beneath. Same idiom as the
-Lite edition's funnel
-([/pie-in-the-sky/lite/printed-parts/funnel/](/pie-in-the-sky/lite/printed-parts/funnel/README.md)).
+dishwasher and to reach the source-select assembly beneath.
 Zone framing: [`../README.md`](/hardware/printed-parts/zone-c/README.md).
 
 ## Shape
