@@ -198,10 +198,6 @@ test("pickFileToViewerPath strips the repo prefix per edition", () => {
     pickFileToViewerPath("hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step", roots),
     "printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step",
   );
-  assert.equal(
-    pickFileToViewerPath("pie-in-the-sky/lite/reference/a/b.step", roots),
-    "reference/a/b.step",
-  );
   // The nested root is stripped WHOLE — `hardware/` must not shorten it, or a thin
   // pick opens the kitchen file of the same name.
   assert.equal(

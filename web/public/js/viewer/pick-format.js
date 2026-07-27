@@ -56,8 +56,7 @@ function numAfter(text, re) {
 }
 
 // Copy-all `file:` lines carry an edition's content root (`hardware/`,
-// `thin/hardware/`, `pie-in-the-sky/lite/`); the viewer's own paths are what is
-// left after it. The roots come from lib/editions.js, mirrored into the page
+// `thin/hardware/`); the viewer's own paths are what is left after it. The roots come from lib/editions.js, mirrored into the page
 // pre-paint by lib/shell.js — `roots` is the seam node:test comes in through.
 // Longest first, so `thin/hardware` is never shortened by `hardware`.
 export function pickFileToViewerPath(file, roots) {

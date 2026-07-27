@@ -51,10 +51,7 @@ test("a full-copy edition rebuilds only itself (thin isolation)", () => {
 
   const contents = (root) => path.join(
     root, "printed-parts", "enclosure", "enclosure-assembly", "_contents.py");
-  const where = (p) => {
-    const r = rel(p).split(path.sep).join("/");
-    return r.startsWith("thin/") ? "thin" : r.startsWith("pie-in-the-sky/") ? "lite" : "kitchen";
-  };
+  const where = (p) => (rel(p).split(path.sep).join("/").startsWith("thin/") ? "thin" : "kitchen");
 
   for (const [edition, root] of [
     ["kitchen", path.join(REPO_ROOT, "hardware")],
@@ -66,39 +63,36 @@ test("a full-copy edition rebuilds only itself (thin isolation)", () => {
     assert.deepEqual(strays, [], `a ${edition} _contents.py edit reached another edition`);
   }
 
-  // The kitchen's _cadq_export is shared with lite (which has no scripts dir of
-  // its own) but NOT with thin, which carries its own copy.
-  const shared = path.join(REPO_ROOT, "hardware", "scripts", "_cadq_export.py");
-  const reach = findRunnableScriptsTransitivelyImporting(shared, ROOTS).map(where);
-  assert.ok(reach.includes("kitchen"), "expected kitchen generators");
-  assert.ok(reach.includes("lite"), "lite has no _cadq_export of its own and must still rebuild");
-  assert.ok(!reach.includes("thin"), "thin has its own _cadq_export and must not rebuild for the kitchen's");
+  // _cadq_export is the module every generator in a tree imports, and each tree
+  // carries its own. So it is the widest test of the narrowing: an edit to one
+  // edition's copy must reach that edition's whole build and none of the other's.
+  for (const [edition, scripts] of [
+    ["kitchen", path.join(REPO_ROOT, "hardware", "scripts", "_cadq_export.py")],
+    ["thin", path.join(thin, "hardware", "scripts", "_cadq_export.py")],
+  ]) {
+    const reach = findRunnableScriptsTransitivelyImporting(scripts, ROOTS).map(where);
+    assert.ok(reach.includes(edition), `expected ${edition} generators`);
+    assert.deepEqual(
+      [...new Set(reach)], [edition],
+      `${edition}'s _cadq_export reached another edition`,
+    );
+  }
 });
 
 test("a tray STEP's consumers include the assemblies that only _load it (regression)", () => {
   // source-select-assembly.step is loaded by _contents.py via the _load()
-  // helper; _contents.py is imported by the lite enclosure, the lite
-  // enclosure-assembly, and the hardware assembly. None of them names the file
-  // or calls importStep directly, so the old import-only walk missed all three.
+  // helper; _contents.py is imported by the enclosure and the enclosure-assembly.
+  // Neither names the file or calls importStep directly, so the old import-only
+  // walk missed both.
   const consumers = findScriptsConsumingStep("source-select-assembly.step", ROOTS);
   assert.ok(
-    consumers.some(ends("pie-in-the-sky/lite/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py")),
-    `expected lite enclosure-assembly among consumers, got:\n${consumers.map(rel).join("\n")}`,
-  );
-  assert.ok(
-    consumers.some(ends("pie-in-the-sky/lite/printed-parts/enclosure/enclosure/enclosure.py")),
-    "expected lite enclosure among consumers",
-  );
-  assert.ok(
     consumers.some(ends("hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py")),
-    "expected hardware enclosure-assembly among consumers",
+    `expected the enclosure-assembly among consumers, got:\n${consumers.map(rel).join("\n")}`,
   );
-});
-
-test("the reservoir STEP is consumed by the lite enclosure + enclosure-assembly", () => {
-  const consumers = findScriptsConsumingStep("reservoir-pockets.step", ROOTS);
-  assert.ok(consumers.some(ends("enclosure_assembly.py")), "lite enclosure-assembly");
-  assert.ok(consumers.some(ends("enclosure/enclosure.py")), "lite enclosure");
+  assert.ok(
+    consumers.some(ends("hardware/printed-parts/enclosure/enclosure/enclosure.py")),
+    "expected the enclosure among consumers",
+  );
 });
 
 test("a producer is never listed as a consumer of its own STEP", () => {
@@ -115,7 +109,7 @@ test("build order puts a producer before the scripts that load its STEP", () => 
     (s) => s.split(path.sep).join("/").endsWith("source-select-tray/source_select_assembly.py"),
   );
   const consumer = order.findIndex(
-    (s) => s.split(path.sep).join("/").endsWith("pie-in-the-sky/lite/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py"),
+    (s) => s.split(path.sep).join("/").endsWith("hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py"),
   );
   assert.ok(producer !== -1, "tray assembly generator should be in the order");
   assert.ok(consumer !== -1, "enclosure assembly should be in the order");
@@ -187,11 +181,11 @@ test("the import walk continues THROUGH a generator that doubles as a base modul
 });
 
 test("an edition's module does not drag in the other edition's twin (regression)", () => {
-  // hardware/ and pie-in-the-sky/lite/ mirror each other's filenames — _contents.py,
-  // enclosure.py, enclosure_assembly.py, power_assembly.py, power_tray.py. Matching
-  // dependents by bare module name rebuilt the LITE assembly for a HARDWARE
-  // _contents.py edit it never imports: a second full assembly competing for the same
-  // cores on every route edit, which is most of what made a build take minutes.
+  // hardware/ and thin/hardware/ mirror each other's filenames — _contents.py,
+  // enclosure.py, enclosure_assembly.py, scorecard.py. Matching dependents by bare
+  // module name rebuilt the OTHER machine's assembly for a _contents.py edit it never
+  // imports: a second full assembly competing for the same cores on every route edit,
+  // which is most of what made a build take minutes.
   const hwContents = path.join(
     REPO_ROOT, "hardware", "printed-parts", "enclosure", "enclosure-assembly", "_contents.py");
   const deps = findRunnableScriptsTransitivelyImporting(hwContents, ROOTS).map(rel);
@@ -200,21 +194,9 @@ test("an edition's module does not drag in the other edition's twin (regression)
     `hardware's own assembly must still rebuild; got:\n${deps.join("\n")}`,
   );
   assert.ok(
-    !deps.some((d) => d.split(path.sep).join("/").startsWith("pie-in-the-sky/")),
-    `no lite script may rebuild for a hardware _contents.py edit; got:\n${deps.join("\n")}`,
+    !deps.some((d) => d.split(path.sep).join("/").startsWith("thin/")),
+    `no thin script may rebuild for a hardware _contents.py edit; got:\n${deps.join("\n")}`,
   );
-});
-
-test("a genuinely shared module still reaches both editions", () => {
-  // The narrowing above keys on a sibling module winning sys.path[0]. _cadq_export
-  // has no per-edition twin, so every generator in both trees resolves the same file
-  // and must still rebuild for it — otherwise the fix would have traded a false
-  // cascade for a missed one.
-  const shared = path.join(REPO_ROOT, "hardware", "scripts", "_cadq_export.py");
-  const deps = findRunnableScriptsTransitivelyImporting(shared, ROOTS).map((p) =>
-    rel(p).split(path.sep).join("/"));
-  assert.ok(deps.some((d) => d.startsWith("hardware/")), "expected hardware generators");
-  assert.ok(deps.some((d) => d.startsWith("pie-in-the-sky/")), "expected lite generators");
 });
 
 test("affectedBuildOrder: one edit's wave lists each script once, seeds first, producers before consumers", () => {

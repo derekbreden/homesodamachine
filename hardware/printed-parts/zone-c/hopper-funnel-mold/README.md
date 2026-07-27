@@ -41,12 +41,68 @@ platinum-compatible release film.
   filler-primer, which is micro-porous and grips/tears soft silicone; not enamel,
   which can inhibit the cure). PETG can't be vapor-smoothed, and a rough inner
   surface both traps concentrate and outgasses under vacuum. The cavity (outside)
-  face can stay as-printed. Full procedure — seal, release, coupon-test — in the
-  lite mold's [README "Finish the core"](/pie-in-the-sky/lite/printed-parts/funnel-mold/README.md).
+  face can stay as-printed. Full procedure — seal, release, coupon-test — under
+  "Finish the core" below.
 - **Critical bridge:** printed opening-up, the cavity's flange-seat ledge (the
   downward-facing shelf where the bowl recess meets the throat) is a short bridge
   that forms the bowl-rim seal — verify it prints clean.
 - No supports needed; the pour port and vents are vertical through-holes.
+
+## Finish the core
+
+The core plug forms the funnel's **wetted inside face**, so its surface
+telegraphs into the silicone and sets how the cast releases. The two halves get
+different finishes:
+
+- **Cavity (cosmetic outside):** leave as-printed; mist Mann Ease Release 200
+  ([§21](/hardware/ledger/purchases.md)) every pour.
+- **Core (food-contact inside):** **seal** it with a hard clear acrylic and run a
+  light release on it too — *not* a filler-primer, and *not* release-free.
+
+Why not a filler-primer: sanded back it cures matte and micro-porous, which a soft
+40A silicone keys into and tears against on demold (a grip surface, not a release
+surface), and enamel-class primers can inhibit the cure. Why not release-free: a
+cured film alone does not reliably release soft silicone over many pulls — it
+grips and can delaminate. Sealing and releasing are two separate jobs; do both.
+
+Finishing the core (owned = already in the ledger):
+
+1. **Light-sand** the core with the Shineboc wet/dry sponges (owned,
+   [B0D8ZC6HKY](https://www.amazon.com/dp/B0D8ZC6HKY)), ~320 → 600 grit; wipe with
+   99.9 % IPA (owned, [B0BZ21DBJ6](https://www.amazon.com/dp/B0BZ21DBJ6)) and let it
+   flash off.
+2. **Seal** with 2–3 thin coats of **gloss clear acrylic** — Krylon K01303 Crystal
+   Clear Acrylic ([B00023JE7K](https://www.amazon.com/dp/B00023JE7K)). A hard,
+   glossy, low-surface-energy film: it seals the print porosity (no outgassing
+   through the face under vacuum), is amine/sulfur/tin-free so it does not inhibit
+   the cure, and bonds to PETG. *Not* a high-build filler — at 0.08 mm the texture
+   is shallow.
+   - **Only if the 0.08 mm texture still telegraphs through:** one thin
+     self-leveling epoxy base coat — Smooth-On XTC-3D
+     ([B01BKSLI9M](https://www.amazon.com/dp/B01BKSLI9M)) — *under* the acrylic to
+     fill it glassy. The acrylic still goes on top as the release skin; epoxy alone
+     is not a release face and must be fully cured.
+3. **Let it fully gas off before casting** — solvent (or, for the epoxy base,
+   uncured resin) left in the film inhibits platinum cure. Wait until there is no
+   solvent smell.
+4. **Release the core too:** a light mist of Mann Ease Release 200 on the cured
+   acrylic. It is an addition-cure-compatible *film*, not a silicone-fluid release
+   (which would prime the silicone to bond), so it does not add the D4/D5/D6
+   siloxane the screen is chasing — and the funnel's ~200 °C post-cure bake +
+   [wetted-surface screen](/hardware/printed-parts/cold-core/reservoir/wetted-surface-test.md)
+   is the food-contact gate that clears any trace. Keep silicone-fluid "food-grade"
+   releases off it.
+5. **Coupon-test the exact stack, on every re-coat:** cast a BBDINO 40A pad on a
+   scrap carrying the *same* sand → acrylic → release finish, room-temp cure, and
+   check both that it cures firm (no tacky face) **and** peels clean — then peel it
+   a few more times on the same coupon, since grip/fusing shows up over repeated
+   demolds, not the first.
+
+Re-coat the acrylic when it dulls or bald-spots; it is the wear surface that gates
+how many funnels the mold yields. If PETG + acrylic can't pass the coupon, the
+fallback is a natively smooth SLA-printed core (fully UV-cured + IPA-washed +
+sealed the same way — resin is the worst cure inhibitor, so the wash discipline
+and coupon test are mandatory).
 
 ## Cast
 

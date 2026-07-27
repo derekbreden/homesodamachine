@@ -36,9 +36,8 @@ services:
       paths:
         - web/**
         - posts/**
-        # one per edition (web/lib/editions.js): kitchen, lite, thin
+        # one per edition (web/lib/editions.js): kitchen, thin
         - hardware/**
-        - pie-in-the-sky/lite/**
         - thin/**
         - render.yaml
     envVars:
