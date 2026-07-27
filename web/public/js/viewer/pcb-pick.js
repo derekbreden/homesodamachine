@@ -329,9 +329,9 @@ function drawHighlight(sel) {
 // --- text (panel rows + copy blob) ---
 
 function repoPath(source) {
-  let lite = false;
-  try { lite = localStorage.getItem("hsmEdition") === "lite"; } catch {}
-  return (lite ? "pie-in-the-sky/lite" : "hardware") + "/" + source;
+  // The active edition's content root — same locator the edge picker composes,
+  // same reason it must name the current machine (viewer/edge-picker.js).
+  return (window.__hsmEditionDir || "") + "/" + source;
 }
 function fnum(n) {
   const s = Number(n).toFixed(3);
