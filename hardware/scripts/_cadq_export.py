@@ -488,8 +488,15 @@ def _atomic_write(target_path, write_fn):
 # magnitude. Tessellating is best-effort in the same way the render is: a shape
 # that won't mesh queues the STEP alone and the page falls back to parsing it.
 
-_REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-_THUMBNAIL_TOOL = _REPO_ROOT / "tools" / "render" / "render-thumbnails.js"
+# `tools/` is shared machinery with ONE copy at the repo root, so it gets its own
+# anchor rather than a walk up from this file: an edition's copy of this module sits
+# the same distance below its own root, and a fixed walk would point the render tool
+# at a tools/ its edition does not have. The tool is already edition-aware — it
+# classifies each .step against the content roots itself — so only finding it is the
+# question. `tools/docgen` is the sentinel every other shared-machinery anchor uses.
+_TOOLS_ROOT = next(p for p in Path(__file__).resolve().parents
+                   if (p / "tools" / "docgen").is_dir())
+_THUMBNAIL_TOOL = _TOOLS_ROOT / "tools" / "render" / "render-thumbnails.js"
 _pending_thumbnails = {}       # abs .step path -> abs payload path, or None
 _thumbnail_tmpdir = None
 _thumbnail_atexit_registered = False
@@ -556,7 +563,7 @@ def _render_pending_thumbnails():
                 args = ["--payloads", manifest, *args]
             subprocess.run(
                 [node, str(_THUMBNAIL_TOOL), *args],
-                cwd=str(_REPO_ROOT),
+                cwd=str(_TOOLS_ROOT),
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
                 timeout=600,
