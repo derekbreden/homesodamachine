@@ -411,12 +411,13 @@ FLOWREG_YAW = 270.0
 # The discharge chain hangs vertically in the bag-fall corridor, just clear of the cold
 # core's front face — the only column deep enough to stand its 83.4 mm. The pump's barbs
 # are molded into the head, so a stub of 3/8" braided PVC is the only thing that can leave
-# the discharge: it runs south off the barb, turns down over the cap's front edge, and
-# clamps onto this chain's barb, which is where the 3/8" ends. Placed unturned — its own
-# frame already runs the water down. Its X rides the pump's discharge, not a number of its
-# own: the hose turns at R15.9, so any offset between the two costs two tangent lengths of
-# strip the bay does not have. The corridor bounds this chain in Y, not in X.
-DISCH_CHAIN_POS = (SEAFLO_POS[0] + 36.6, FRONT_DEPTH - 10.0, 265.0)   # the barb tip; the collet hangs LENGTH below it
+# the discharge: it runs south off the barb, turns once, and clamps onto this chain's barb,
+# which is where the 3/8" ends. The chain LIES DOWN along the strip — the barb looks east at
+# the pump that feeds it, the collet looks west at the cold core — so the water crosses at
+# the discharge's own height instead of falling the chain's length and climbing back for it.
+# Its X and Z both ride that port, not numbers of their own; the corridor bounds it in Y.
+DISCH_CHAIN_TURN = ((0.0, 1.0, 0.0), 90.0)   # the native +Z barb swung onto +X
+DISCH_CHAIN_LEAD = 20.0                      # the barb stands this far west of the discharge
 # The funnel's placement: its collar-rect centre in plan, plus a rotation
 # about its own Z. This is the CENTRE OF THE TOP-WALL FRAME — the basin sits
 # the same `hopper_funnel.brim_margin` off the display gusset, the corner pod,
@@ -649,13 +650,24 @@ def digiten_terminal(name):
     return tuple(p + o for p, o in zip(pos, DIGITEN_POS)), face
 
 
+def disch_chain_pos():
+    """The chain's barb tip: DISCH_CHAIN_LEAD west of the SeaFlo's discharge and at that
+    port's OWN height, so the hose between them turns once and never changes level. The
+    collet lands the chain's length further west, looking at the cold core's front face."""
+    pos, _ = seaflo_terminal("discharge")
+    return (pos[0] - DISCH_CHAIN_LEAD, FRONT_DEPTH - 10.0, pos[2])
+
+
 def disch_terminal(name):
-    """One of the discharge chain's two ends in world: `(pos, face)`. Placed unturned,
-    so each station just shifts by DISCH_CHAIN_POS."""
+    """One of the discharge chain's two ends in world: `(pos, face)`. The chain is laid
+    along X by DISCH_CHAIN_TURN, so each station turns with it before it shifts."""
     pos, axis = {"barb-tip": _disch.barb_tip, "tube-port": _disch.tube_port}[name]()
-    face = {(0.0, 0.0, 1.0): "z+", (0.0, 0.0, -1.0): "z-"}[
+    turn, deg = DISCH_CHAIN_TURN
+    pos, axis = _spin(pos, turn, deg), _spin(axis, turn, deg)
+    face = {(-1.0, 0.0, 0.0): "x-", (1.0, 0.0, 0.0): "x+",
+            (0.0, 0.0, 1.0): "z+", (0.0, 0.0, -1.0): "z-"}[
         tuple(round(float(c), 9) + 0.0 for c in axis)]
-    return tuple(p + o for p, o in zip(pos, DISCH_CHAIN_POS)), face
+    return tuple(p + o for p, o in zip(pos, disch_chain_pos())), face
 
 
 def flowreg_pos():
@@ -1077,11 +1089,11 @@ DERPIPE_BODY_L = 17.0
 # this station wants. It lies in the STRIP AHEAD OF THE COLD CORE'S FRONT FACE, at
 # the water inlet's own height — the one band of that strip nothing stands in: the
 # source-select assembly stops short of it to the south, the bag-circuit tray clears
-# it above, and the discharge chain hangs down it well to the east. A 60 mm rigid
+# it above, and the discharge chain lies across the strip well above it. A 60 mm rigid
 # body with a Ø26 waist fits here with 7.0 mm to the foam face and 6.1 mm to the
-# tray. Sitting at the riser's own height rather than above it keeps the climb out
-# of water-5's band entirely: the riser owns the strip below the meter, the water
-# inlet's line owns everything above it, and the two never cross. Its X puts the
+# tray. Sitting at the riser's own height rather than above it ends the climb here:
+# the riser stops at the meter and water-5 comes down the same column only as far as
+# the water inlet, so the two stand stacked and never cross. Its X puts the
 # inlet collet clear of the climb and the outlet collet clear of the lane east, so
 # the two runs meet it head-on down its own axis and neither turns inside it.
 # Cradle TBD.
@@ -1693,7 +1705,8 @@ def _build():
     placed["flow-regulator"] = _rot(
         _load(FLOWREG_STEP), (0, 0, 1), FLOWREG_YAW
         ).translate(flowreg_pos())
-    placed["discharge-chain"] = _load(DISCH_CHAIN_STEP).translate(DISCH_CHAIN_POS)
+    placed["discharge-chain"] = _rot(
+        _load(DISCH_CHAIN_STEP), *DISCH_CHAIN_TURN).translate(disch_chain_pos())
 
     # V-K, the fill/shutoff solenoid, on its cradle in the aft strip's east void,
     # placed unturned: inlet −Y off the split's north run, outlet +Y wrapping west

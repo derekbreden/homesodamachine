@@ -240,9 +240,10 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   lane over it, the crown and the ceiling leaving a Ø6.35 centreline 0.03 mm short of fitting —
   and up to the bulkhead in the column east of the ASSE, because water-2 crosses that collet's
   own southward line. Meeting the meter at the riser's own height rather than above it is what
-  frees the strip's crown for `water-5`, whose port is the high one on that face: the riser
-  works the floor of that strip, the water inlet's line works its crown, and neither crosses
-  the other.
+  stops the riser's climb at the meter instead of running the core's whole front face. `water-5`
+  comes down that same column from the chain lying above it and stops at the water inlet, so the
+  two stand stacked — each ending at its own port's height — and neither crosses the other. The
+  scorecard carries the gap.
   The CO2 chain is packed, in the band under the pump row down to the floor-stratum tops: the
   GASHER check screwed onto the DERPIPE inlet's stub so the front wall carries both, and the
   WR1110 regulator laid ACROSS the band on its own — the band is the machine's whole width and
@@ -265,7 +266,7 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   is cut to the room the strip leaves. The chain's mass sits high, so a lane runs beneath it at the
   suction's own height and V-K lies in that lane; the split and the flow regulator hang down the
   east pocket. All six water segments route (`scorecard.WATER_SEGMENTS`), the last two through the
-  discharge chain hanging in the bag-fall corridor — the pump's barbs are molded into its head, so
+  discharge chain lying level with the pump's discharge — the pump's barbs are molded into its head, so
   each port is a clamped 3/8" stub, not a thread. **Every margin in the strip is single-digit** —
   4.71 mm to the C14, 10.1 mm to the bulkhead, 4 mm between the drip's column and the electronics
   shelf's rear edge — because the chain's Y footprint with the vent laid over nearly fills the

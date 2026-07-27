@@ -56,8 +56,9 @@ legs, each measured off the faces that bound it:
     over pump A to the pump inlets.
   * the strip ahead of the cold core's front face, which carries the two lines that face has
     to serve and stacks them by the height of their own ports. The carbonated-water outlet is
-    the LOW port and the water inlet is the HIGH one, so the riser owns the strip's bottom and
-    water-5 owns its crown, and neither crosses the other. The riser's outlet collet cannot be
+    the LOW port and the water inlet is the HIGH one, so the riser climbs the strip only as far
+    as the meter and water-5 comes down only as far as the inlet, one stopping under the other
+    in the same column and neither crossing it. The riser's outlet collet cannot be
     left head-on: refrig-2 climbs the same station to the evaporator inlet above and stands
     9.52 mm off it, so the line turns west inside that gap, then climbs WEST of the bag fall
     and of the shared slot to the DIGITEN meter lying in the strip at the water inlet's height
@@ -65,10 +66,10 @@ legs, each measured off the faces that bound it:
     not over: the pump's crown and the ceiling leave a Ø6.35 centreline needing 328.575 and
     allowed 328.545, so the crossing is the lane under the pump, which the flavor tap already
     uses. It comes up the last stratum in the column EAST of the ASSE, because water-2 runs
-    across the carb bulkhead's own southward line 11.04 mm off its collet. water-5 takes the
-    crown above all of it: its collet looks down off the bottom of the discharge chain, below
-    the port it feeds, so it drops clear, climbs east of the riser's lane, crosses west over
-    the riser's turn into the under-pump lane, and falls onto the inlet's own height.
+    across the carb bulkhead's own southward line 11.04 mm off its collet. water-5 never climbs
+    at all: the discharge chain LIES ACROSS this strip at the pump's discharge height, well
+    above the port it feeds, so the collet at its west end hands the water over going west and
+    the line leaves west, takes its one fall, and comes back east onto the inlet's own line.
   * the +X wall pocket and the channel inboard of it — the cold core's own standoff off that
     wall, where the two nozzle-outlet elbows stand, and the wide horizontal channel over the
     nozzle gate's spade tabs and the electronics shelf's board, under the hopper funnel's
@@ -255,35 +256,31 @@ def _authored_runs() -> list:
 
     # water-6 — the 3/8" stub off the discharge. The pump's barbs are molded into the head,
     # so this hose is the only thing that can leave the port: it runs south off the barb,
-    # over the cap's front edge, and turns down into the corridor onto the chain's barb.
+    # over the cap's front edge, and turns WEST along the strip onto the chain's barb. The
+    # chain lies at the discharge's own height, so the hose turns once and stays level —
+    # the band it crosses (z 278-293, west of the pump) holds nothing else at all.
     disch = f["discharge-chain"]
     runs.append(route(
         "water-6", "seaflo-pump.discharge",
-        disch.y("barb-tip"),                 # south to the corridor's own line
+        disch.y("barb-tip"),                 # south to the chain's own line, then west, level
         "discharge-chain.barb-tip",
         kind="water", bend=HOSE_BEND, skew=DISCHARGE_SKEW,
         stub=(HOSE_BEND, HOSE_BEND),
         note="carb water: SeaFlo discharge barb → discharge chain (3/8\" braided PVC)"))
 
     # water-5 — the 1/4" LLDPE off the chain's collet to the cold core's water inlet on its
-    # front face. The collet looks DOWN off the bottom of the chain, 36.8 mm below the port
-    # it feeds, so the line drops clear of it before it can turn at all. From there it takes
-    # the strip's CROWN: it climbs east of the riser's lane, crosses west above everything
-    # the riser owns, and falls onto the inlet's own height. The whole run is above the
-    # meter and above the riser's aft turn, so the two lines share the strip without
-    # crossing — the water inlet is the high port on this face and this is the high line.
-    WATER5_CLIMB_X = 212.0                   # west of the chain's body, east of the riser's lane
-    WATER5_CROWN   = 272.0                   # over carb-2's turn into the under-pump lane
+    # front face. The collet looks WEST off the end of the laid-down chain, so the line
+    # leaves west, drops the one fall this water takes, and comes back to the inlet's own
+    # line to turn north into it. Its Z only ever descends: the chain hands it over above
+    # the inlet, not below, so nothing here has to climb.
     runs.append(route(
         "water-5", "discharge-chain.tube-port",
-        disch.z("tube-port", -12.0),         # on down the corridor, under the turn
-        {"x": WATER5_CLIMB_X},               # west off the chain's own body
-        {"z": WATER5_CROWN},                 # up the strip to its crown
-        foam.x("water-in"),                  # west to the port's own line
-        foam.z("water-in"),                  # down onto the port's height
+        disch.x("tube-port", -8.0),          # on west, clear of the chain's own end
+        foam.z("water-in"),                  # down to the port's own height
+        foam.x("water-in"),                  # back east to the port's own line
         "foam-assembly.water-in",
         kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, WBEND),
-        note="carb water: discharge chain → cold-core water inlet, over the riser"))
+        note="carb water: discharge chain → cold-core water inlet, one fall"))
 
     # --- CO2: the front-panel inlet to the cold core's bottom-plate port. The
     # GASHER check is made up on the DERPIPE's stub and carries no line, so the
@@ -336,7 +333,8 @@ def _authored_runs() -> list:
     #     collet, so the last climb stands in the column EAST of it and comes back west.
     # The riser stops climbing at the meter and hands the strip above it to water-5, whose
     # port is the high one on this face: carb-1 owns the front face below the meter's plane
-    # and water-5 crosses at the crown, so the two share the strip without a crossing.
+    # and water-5 comes down out of the chain to the inlet, so the two stand stacked in one
+    # column, each ending at its own port, and neither has to cross the other.
     # The two halves come out at [225.6](CARB_1_LEN) and [309.9](CARB_2_LEN) mm of stock, which
     # is what the shop cuts and what the CARGEN insulation is cut to follow.
     digi, b_carb = f["digiten-flow"], f["bulkhead-carb"]
