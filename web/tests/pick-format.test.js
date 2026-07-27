@@ -18,6 +18,7 @@ import {
   fpt,
   pickFileToViewerPath,
 } from "../public/js/viewer/pick-format.js";
+import { EDITION_DIRS } from "../lib/editions.js";
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 
@@ -192,13 +193,30 @@ test("pick_text.py composer output round-trips through the parser", (t) => {
 });
 
 test("pickFileToViewerPath strips the repo prefix per edition", () => {
+  const roots = Object.values(EDITION_DIRS);
   assert.equal(
-    pickFileToViewerPath("hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step"),
+    pickFileToViewerPath("hardware/printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step", roots),
     "printed-parts/faucet/touch-flo-mounting-gasket/touch-flo-mounting-gasket.step",
   );
   assert.equal(
-    pickFileToViewerPath("pie-in-the-sky/lite/reference/a/b.step"),
+    pickFileToViewerPath("pie-in-the-sky/lite/reference/a/b.step", roots),
     "reference/a/b.step",
   );
-  assert.equal(pickFileToViewerPath("reference/a/b.step"), "reference/a/b.step");
+  // The nested root is stripped WHOLE — `hardware/` must not shorten it, or a thin
+  // pick opens the kitchen file of the same name.
+  assert.equal(
+    pickFileToViewerPath("thin/hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.step", roots),
+    "printed-parts/enclosure/enclosure-assembly/enclosure-assembly.step",
+  );
+  assert.equal(pickFileToViewerPath("reference/a/b.step", roots), "reference/a/b.step");
+});
+
+test("every edition's content root round-trips a copy blob", () => {
+  // What the picker composes (`<root>/<viewer path>`) is what the Find box takes
+  // apart. Adding an edition must not need this test edited — it walks the list.
+  const roots = Object.values(EDITION_DIRS);
+  for (const dir of roots) {
+    const viewerPath = "printed-parts/enclosure/enclosure-assembly/enclosure-assembly.step";
+    assert.equal(pickFileToViewerPath(`${dir}/${viewerPath}`, roots), viewerPath, dir);
+  }
 });

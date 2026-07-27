@@ -55,10 +55,18 @@ function numAfter(text, re) {
   return m ? parseFloat(m[1]) : null;
 }
 
-// Copy-all `file:` lines are repo-prefixed (hardware/… or the lite
-// edition root); the viewer's own paths are edition-root-relative.
-export function pickFileToViewerPath(file) {
-  return String(file).trim().replace(/^(pie-in-the-sky\/lite|hardware)\//, "");
+// Copy-all `file:` lines carry an edition's content root (`hardware/`,
+// `thin/hardware/`, `pie-in-the-sky/lite/`); the viewer's own paths are what is
+// left after it. The roots come from lib/editions.js, mirrored into the page
+// pre-paint by lib/shell.js — `roots` is the seam node:test comes in through.
+// Longest first, so `thin/hardware` is never shortened by `hardware`.
+export function pickFileToViewerPath(file, roots) {
+  const s = String(file).trim();
+  const dirs = roots || Object.values(globalThis.__hsmEditionDirs || {});
+  for (const d of [...dirs].sort((a, b) => b.length - a.length)) {
+    if (s.startsWith(d + "/")) return s.slice(d.length + 1);
+  }
+  return s;
 }
 
 export function parsePicks(text) {

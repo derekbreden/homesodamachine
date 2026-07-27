@@ -52,6 +52,13 @@ export const DEFAULT_EDITION = "kitchen";
 
 export const EDITION_IDS = EDITIONS.map((e) => e.id);
 
+// Each edition's content root as one repo-root-relative path. This is the prefix a
+// pick blob's `file:` line carries, and the viewer's own paths are what is left after
+// it. Mirrored into the page pre-paint by lib/shell.js, because the edge picker has to
+// name the machine it is looking at — the trees mirror each other's filenames, so a
+// blob prefixed with the wrong root reads as a real path into another machine.
+export const EDITION_DIRS = Object.fromEntries(EDITIONS.map((e) => [e.id, e.dir.join("/")]));
+
 export function editionById(id) {
   return EDITIONS.find((e) => e.id === id) || null;
 }
