@@ -12,12 +12,16 @@ import sys
 from pathlib import Path
 
 _here = Path(__file__).resolve().parent
+# docgen is shared machinery — one copy at the repo root, every edition uses
+# it. The board is content, so it comes from the nearest hardware/ tree: in a
+# duplicated edition those are different trees, and content must be the near one.
 _repo = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir())
+_hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_repo / "tools"))
 
 from docgen import substitute_md  # noqa: E402
 
-BOARD = _repo / "hardware" / "pcb" / "pcba" / "pcba.tsx"
+BOARD = _hw / "pcb" / "pcba" / "pcba.tsx"
 
 # XH wafers carry their own pin count; J10 is a 2-position KF301 screw terminal
 # declared by its pin labels instead.

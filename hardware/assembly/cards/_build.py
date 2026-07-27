@@ -21,9 +21,12 @@ os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 
 CARDS_DIR = Path(__file__).resolve().parent
 REPO_ROOT = next(p for p in CARDS_DIR.parents if (p / "tools" / "render").is_dir())
+# tools/render is shared (one copy at the repo root); hardware/ is content, so
+# it resolves to the nearest copy — this edition's, not the kitchen's.
+HARDWARE = next(p for p in CARDS_DIR.parents if p.name == "hardware")
 OUT_DIR = CARDS_DIR / "out"
 
-sys.path.insert(0, str(REPO_ROOT / "hardware" / "scripts"))
+sys.path.insert(0, str(HARDWARE / "scripts"))
 from _cadq_export import export_pdf  # noqa: E402
 
 # Deck order = the build order of /hardware/future.md "Build order" — which is the

@@ -52,7 +52,12 @@ import sys
 from pathlib import Path
 
 _here = Path(__file__).resolve().parent
-_repo = next(p for p in _here.parents if p.name == "homesodamachine")
+# The venv is shared machinery — one copy at the repo root. Everything else
+# here is content addressed by repo-relative path, so it hangs off the nearest
+# hardware/ tree instead: in a duplicated edition the sieve must hash and
+# rebuild its OWN parts, not the kitchen's.
+_repo = next(p for p in _here.parents if (p / "tools" / "cad-venv").is_dir())
+_edition = next(p for p in _here.parents if p.name == "hardware").parent
 _baseline_path = _here / "_refactor_sieve_baseline.json"
 
 # Frozen STEP outputs (single solids and named assemblies). Their geometry
@@ -148,14 +153,14 @@ def _sha256(path):
 
 
 def _file_hashes():
-    return {p: _sha256(_repo / p) for p in _byte_hashed_step_paths}
+    return {p: _sha256(_edition / p) for p in _byte_hashed_step_paths}
 
 
 def _run_generator(rel_path):
     """Run a part's generator script. Returns (ok, output)."""
     py = _repo / "tools" / "cad-venv" / "bin" / "python"
     result = subprocess.run(
-        [str(py), str(_repo / rel_path)],
+        [str(py), str(_edition / rel_path)],
         capture_output=True, text=True,
     )
     return result.returncode == 0, (result.stdout + result.stderr).strip()
@@ -166,10 +171,10 @@ def _pump_case_scalars():
 
     Imports the generator's build_pump_case() so we don't depend on the
     STEP round-trip (which can subtly change vertex coords)."""
-    pump_case_dir = _repo / "hardware/printed-parts/flavor/pump-case"
+    pump_case_dir = _edition / "hardware/printed-parts/flavor/pump-case"
     sys.path.insert(0, str(pump_case_dir))
-    sys.path.insert(0, str(_repo / "hardware/printed-parts/cadlib"))
-    sys.path.insert(0, str(_repo / "hardware" / "scripts"))
+    sys.path.insert(0, str(_edition / "hardware/printed-parts/cadlib"))
+    sys.path.insert(0, str(_edition / "hardware" / "scripts"))
 
     # Force a fresh import in case this script is re-run after edits.
     import importlib
@@ -189,11 +194,11 @@ def _reservoir_scalars():
 
     Imports the generator's build_reservoir_* functions so we don't
     depend on the STEP round-trip (same approach as pump-case)."""
-    reservoir_dir = _repo / "hardware/printed-parts/cold-core/reservoir"
+    reservoir_dir = _edition / "hardware/printed-parts/cold-core/reservoir"
     sys.path.insert(0, str(reservoir_dir))
-    sys.path.insert(0, str(_repo / "hardware/printed-parts/cadlib"))
-    sys.path.insert(0, str(_repo / "hardware/printed-parts/cold-core"))
-    sys.path.insert(0, str(_repo / "hardware" / "scripts"))
+    sys.path.insert(0, str(_edition / "hardware/printed-parts/cadlib"))
+    sys.path.insert(0, str(_edition / "hardware/printed-parts/cold-core"))
+    sys.path.insert(0, str(_edition / "hardware" / "scripts"))
 
     # Force a fresh import (in case a prior call cached an older copy).
     import importlib
@@ -220,11 +225,11 @@ def _shell_scalars():
     bottom and middle splits accept an optional pre-built full shell to
     avoid rebuilding it three times; we pass the same `full` solid into
     both so the four scalars line up with what main() exports."""
-    shell_dir = _repo / "hardware/printed-parts/faucet/touch-flo-shell"
+    shell_dir = _edition / "hardware/printed-parts/faucet/touch-flo-shell"
     sys.path.insert(0, str(shell_dir))
-    sys.path.insert(0, str(_repo / "hardware/printed-parts/faucet"))
-    sys.path.insert(0, str(_repo / "hardware/printed-parts/cadlib"))
-    sys.path.insert(0, str(_repo / "hardware" / "scripts"))
+    sys.path.insert(0, str(_edition / "hardware/printed-parts/faucet"))
+    sys.path.insert(0, str(_edition / "hardware/printed-parts/cadlib"))
+    sys.path.insert(0, str(_edition / "hardware" / "scripts"))
 
     # Force a fresh import (in case a prior call cached an older copy).
     import importlib
@@ -247,15 +252,15 @@ def _faucet_parts_scalars():
 
     Imports each generator's build_*() function so we don't depend on
     the STEP round-trip (same approach as pump-case + reservoir + shell)."""
-    plate_dir = _repo / "hardware/printed-parts/faucet/touch-flo-mounting-plate"
-    gasket_dir = _repo / "hardware/printed-parts/faucet/touch-flo-mounting-gasket"
-    o_ring_dir = _repo / "hardware/printed-parts/faucet/touch-flo-tpu-o-ring"
+    plate_dir = _edition / "hardware/printed-parts/faucet/touch-flo-mounting-plate"
+    gasket_dir = _edition / "hardware/printed-parts/faucet/touch-flo-mounting-gasket"
+    o_ring_dir = _edition / "hardware/printed-parts/faucet/touch-flo-tpu-o-ring"
     sys.path.insert(0, str(plate_dir))
     sys.path.insert(0, str(gasket_dir))
     sys.path.insert(0, str(o_ring_dir))
-    sys.path.insert(0, str(_repo / "hardware/printed-parts/faucet"))
-    sys.path.insert(0, str(_repo / "hardware/printed-parts/cadlib"))
-    sys.path.insert(0, str(_repo / "hardware" / "scripts"))
+    sys.path.insert(0, str(_edition / "hardware/printed-parts/faucet"))
+    sys.path.insert(0, str(_edition / "hardware/printed-parts/cadlib"))
+    sys.path.insert(0, str(_edition / "hardware" / "scripts"))
 
     # Force fresh imports (in case a prior call cached older copies).
     import importlib
@@ -282,14 +287,14 @@ def _faucet_assembly_scalars():
     Imports faucet_assembly and calls build_water_dispense_tube,
     build_flavor_tube(±1), and build_lever directly — bypassing the
     STEP round-trip (same approach as pump-case + reservoir + shell)."""
-    assembly_dir = _repo / "hardware/reference/touch-flo-faucet/faucet-assembly"
+    assembly_dir = _edition / "hardware/reference/touch-flo-faucet/faucet-assembly"
     sys.path.insert(0, str(assembly_dir))
-    sys.path.insert(0, str(_repo / "hardware/printed-parts/faucet/touch-flo-mounting-plate"))
-    sys.path.insert(0, str(_repo / "hardware/printed-parts/faucet/touch-flo-mounting-gasket"))
-    sys.path.insert(0, str(_repo / "hardware/printed-parts/faucet/touch-flo-shell"))
-    sys.path.insert(0, str(_repo / "hardware/printed-parts/faucet"))
-    sys.path.insert(0, str(_repo / "hardware/printed-parts/cadlib"))
-    sys.path.insert(0, str(_repo / "hardware" / "scripts"))
+    sys.path.insert(0, str(_edition / "hardware/printed-parts/faucet/touch-flo-mounting-plate"))
+    sys.path.insert(0, str(_edition / "hardware/printed-parts/faucet/touch-flo-mounting-gasket"))
+    sys.path.insert(0, str(_edition / "hardware/printed-parts/faucet/touch-flo-shell"))
+    sys.path.insert(0, str(_edition / "hardware/printed-parts/faucet"))
+    sys.path.insert(0, str(_edition / "hardware/printed-parts/cadlib"))
+    sys.path.insert(0, str(_edition / "hardware" / "scripts"))
 
     # Force a fresh import (in case a prior call cached an older copy).
     import importlib
