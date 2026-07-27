@@ -60,8 +60,6 @@
         "pump-b \u2014 y-d: 1.10 mm",
         "bag-circuit-assembly \u2014 tee-y-c: 1.25 mm",
         "source-select-assembly \u2014 nozzle-gate-assembly: 1.30 mm",
-        "source-select-assembly \u2014 discharge-chain: 1.40 mm",
-        "foam-assembly \u2014 discharge-chain: 1.50 mm",
         "psu \u2014 ground-stack: 1.56 mm",
         "psu \u2014 relay-1: 1.90 mm",
         "bag-circuit-assembly \u2014 elbow-bag-y-d: 2.00 mm",
@@ -142,7 +140,7 @@
         "\u2713 drip-pan-rails: near foam-assembly 0.0 near drip-pan 0.0 clear seaflo-pump 4.0 mm",
         "\u2713 vk-fill-valve: near water-split 6.7 clear seaflo-pump 34.8 clear asse1022-assembly 40.9 clear foam-assembly 20.7 mm",
         "\u2713 flow-regulator: near source-select-assembly 38.5 clear seaflo-pump 2.0 mm",
-        "\u2713 digiten-flow: clear bag-circuit-assembly 8.0 clear foam-assembly 7.0 clear source-select-assembly 14.0 clear discharge-chain 27.7 mm",
+        "\u2713 digiten-flow: clear bag-circuit-assembly 8.0 clear foam-assembly 7.0 clear source-select-assembly 14.0 clear discharge-chain 57.0 mm",
         "\u2713 gasher-co2: near co2-inlet 0.0 clear compressor-shroud 9.8 mm",
         "\u2713 wr1110: clear compressor-shroud 8.0 clear pump-a 12.9 clear pump-b 28.8 clear source-select-assembly 6.7 mm",
         "19 components: no placement rules defined yet"
@@ -233,8 +231,8 @@
         "\u2713 water-2: asse1022-assembly.tube-out \u2192 water-split.supply \u2014 \u00d86.35 \u00d7 82.0 mm, 2 bends at R3.0 \u2014 nearest 2.35 mm to carb-2",
         "\u2713 water-3: water-split.to-vk \u2192 vk-fill-valve.inlet \u2014 \u00d86.35 \u00d7 42.6 mm, 3 bends at R3.0 \u2014 nearest 3.82 mm to foam-assembly",
         "\u2713 water-4: vk-fill-valve.outlet \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 59.3 mm, 2 bends at R3.0 \u2014 nearest 14.02 mm to fluid-18",
-        "\u2713 water-6: seaflo-pump.discharge \u2192 discharge-chain.barb-tip \u2014 \u00d815.1 \u00d7 32.6 mm, 1 bends at R15.9 \u2014 nearest 3.37 mm to water-5",
-        "\u2713 water-5: discharge-chain.tube-port \u2192 foam-assembly.water-in \u2014 \u00d86.35 \u00d7 256.2 mm, 5 bends at R3.0 \u2014 nearest 3.37 mm to water-6",
+        "\u2713 water-6: seaflo-pump.discharge \u2192 discharge-chain.barb-tip \u2014 \u00d815.1 \u00d7 32.2 mm, 1 bends at R15.9 \u2014 nearest 13.29 mm to nozzle-gate-assembly",
+        "\u2713 water-5: discharge-chain.tube-port \u2192 foam-assembly.water-in \u2014 \u00d86.35 \u00d7 107.9 mm, 3 bends at R3.0 \u2014 nearest 6.35 mm to fluid-25",
         "\u2713 co2-1: gasher-co2.outlet \u2192 wr1110.inlet \u2014 \u00d86.35 \u00d7 114.4 mm, 1 bends at R6.0 \u2014 nearest 1.93 mm to source-select-assembly",
         "\u2713 co2-2: wr1110.outlet \u2192 foam-assembly.co2-in \u2014 \u00d86.35 \u00d7 288.1 mm, 4 bends at R6.0 \u2014 nearest 6.83 mm to compressor-shroud",
         "\u2713 carb-1: foam-assembly.carb-water-out \u2192 digiten-flow.inlet \u2014 \u00d86.35 \u00d7 225.6 mm, 4 bends at R4.0 \u2014 nearest 2.97 mm to refrig-2",
@@ -255,7 +253,7 @@
         "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 253.4 mm, 8 bends at R6.0 \u2014 nearest 1.39 mm to y-d",
         "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 141.8 mm, 5 bends at R10.0 \u2014 nearest 2.69 mm to bag-circuit-assembly",
         "\u2713 fluid-15: bag-circuit-assembly.Y-E-2 \u2192 foam-assembly.reservoir-A \u2014 \u00d86.35 \u00d7 335.7 mm, 3 bends at R6.0 \u2014 nearest 5.45 mm to refrig-1",
-        "\u2713 fluid-25: bag-circuit-assembly.Y-H-2 \u2192 foam-assembly.reservoir-B \u2014 \u00d86.35 \u00d7 262.9 mm, 3 bends at R6.0 \u2014 nearest 9.08 mm to source-select-assembly",
+        "\u2713 fluid-25: bag-circuit-assembly.Y-H-2 \u2192 foam-assembly.reservoir-B \u2014 \u00d86.35 \u00d7 262.9 mm, 3 bends at R6.0 \u2014 nearest 6.35 mm to water-5",
         "\u2713 fluid-18: elbow-noz-a.free \u2192 bulkhead-flavor-a.tube-in \u2014 \u00d86.35 \u00d7 307.8 mm, 8 bends at R7.0 \u2014 nearest 1.42 mm to flow-regulator",
         "\u2713 fluid-28: elbow-noz-b.free \u2192 bulkhead-flavor-b.tube-in \u2014 \u00d86.35 \u00d7 395.9 mm, 8 bends at R7.0 \u2014 nearest 3.55 mm to nozzle-gate-assembly"
       ],
@@ -1000,30 +998,30 @@
       "name": "barb-tip",
       "kind": "fluid",
       "pos": [
-        226.1,
+        206.1,
         172.0,
-        265.0
+        285.4
       ],
-      "face": "z+",
+      "face": "x+",
       "diam": 15.1,
       "mates": "seaflo-pump discharge \u2014 segment water-6 (routed)",
       "status": "ok",
-      "note": "MAACFLOW 3/8\" hose barb, facing up at the stub off the pump; worm-gear clamp"
+      "note": "MAACFLOW 3/8\" hose barb, facing east (+X) at the stub off the pump, level with it; worm-gear clamp"
     },
     {
       "component": "discharge-chain",
       "name": "tube-port",
       "kind": "fluid",
       "pos": [
-        226.1,
+        122.7,
         172.0,
-        181.6
+        285.4
       ],
-      "face": "z-",
+      "face": "x-",
       "diam": 6.35,
       "mates": "foam-assembly water-in \u2014 segment water-5 (routed)",
       "status": "ok",
-      "note": "PP450822E 1/4\" PTC collet, facing down off the bottom of the chain \u2014 below the port it feeds, so water-5 drops clear of it before it can turn"
+      "note": "PP450822E 1/4\" PTC collet, facing west (\u2212X) off the far end of the laid-down chain \u2014 above the port it feeds, so water-5 only ever descends"
     },
     {
       "component": "hopper-funnel",
@@ -2449,12 +2447,12 @@
       "component": "discharge-chain",
       "boxes": [
         [
-          217.6,
+          122.7,
           163.5,
-          181.6,
-          234.6,
+          276.9,
+          206.1,
           180.5,
-          265.0
+          293.9
         ]
       ],
       "fill": 0.5954,
