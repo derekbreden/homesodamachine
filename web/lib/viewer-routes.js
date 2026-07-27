@@ -7,6 +7,7 @@ import { isCardAssetPath } from "../contracts/cards.js";
 import { VIEW_REQUEST_RE, PICKS_REQUEST_RE } from "../contracts/pcb-out.js";
 import { sidecarFields } from "../contracts/sidecar.js";
 import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
+import { DEFAULT_EDITION } from "./editions.js";
 
 function safeFile(rootDir, rel, ext) {
   if (rel.includes("..")) return null;
@@ -29,9 +30,9 @@ function readSidecar(rootDir, rel) {
   }
 }
 
-// The viewer serves one of two content roots, chosen per request by the
-// hidden Edition toggle (Settings, dev-mode only). Kitchen (the default) is
-// the hardware/ tree; Lite is pie-in-the-sky/lite/. The client mirrors its
+// The viewer serves one edition's content root per request, chosen by the
+// hidden Edition selector (Settings, dev-mode only). The roots and their ids
+// are lib/editions.js. The client mirrors its
 // localStorage choice into an `hsmEdition` cookie before first paint (see
 // lib/shell.js), so every list endpoint and file stream below resolves
 // against the matching root without any per-fetch plumbing on the client.
@@ -47,15 +48,17 @@ function cookieEdition(cookieHeader) {
   return null;
 }
 
-function editionRoot(req, { hardwareDir, liteDir }) {
+function editionRoot(req, editionDirs) {
   const q = typeof req.query.edition === "string" ? req.query.edition : null;
-  const edition = q || cookieEdition(req.headers.cookie) || "kitchen";
-  return edition === "lite" ? liteDir : hardwareDir;
+  const edition = q || cookieEdition(req.headers.cookie) || DEFAULT_EDITION;
+  // An unknown id — a stale cookie naming an edition that has since been
+  // removed — falls back rather than serving nothing.
+  return editionDirs[edition] || editionDirs[DEFAULT_EDITION];
 }
 
 // Endpoints + response shapes: web/contracts/api-shapes.js.
-export function mountViewerRoutes(app, { hardwareDir, liteDir }) {
-  const rootFor = (req) => editionRoot(req, { hardwareDir, liteDir });
+export function mountViewerRoutes(app, { editionDirs }) {
+  const rootFor = (req) => editionRoot(req, editionDirs);
 
   app.get("/api/steps", (req, res) => {
     res.json(walkFiles(rootFor(req), ".step"));

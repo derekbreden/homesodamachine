@@ -22,6 +22,7 @@
 //            <body content> + renderFooter());
 
 import { HOME_SVG, UPDATES_SVG, PARTS_SVG, CHARTS_SVG, DRAWINGS_SVG, PCB_SVG, DOLLAR_SVG, GEAR_SVG, BELL_SVG } from "./icons.js";
+import { EDITION_IDS, DEFAULT_EDITION } from "./editions.js";
 
 function escape(s) {
   return String(s)
@@ -283,13 +284,13 @@ html.dev-mode .site-nav-public a[data-nav="cost"] {
 //
 // Synchronous flicker-prevention only: the localStorage class flips for
 // dev-mode and notifs-enabled have to land before first paint, so they
-// stay inline. The Edition choice (kitchen/lite) is mirrored here too:
+// stay inline. The Edition choice is mirrored here too:
 // localStorage is the source of truth, but the server picks the viewer's
 // content root from the `hsmEdition` cookie, so we write that cookie before
 // the viewer's main.js fires its /api fetches. Everything else (SW navigate
 // bridge, notifications state, live-update owner, toast) lives in public/boot.js
 // loaded as a module — see that file's docstring for the full architecture.
-const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("devMode")==="1")document.documentElement.classList.add("dev-mode");if(localStorage.getItem("hsmFcmToken"))document.documentElement.classList.add("notifs-enabled");var ed=localStorage.getItem("hsmEdition")==="lite"?"lite":"kitchen";document.cookie="hsmEdition="+ed+";path=/;max-age=31536000;samesite=lax";if(ed==="lite")document.documentElement.classList.add("lite-mode");}catch(e){}})();</script>
+const HEAD_TAGS = `<script>(function(){try{if(localStorage.getItem("devMode")==="1")document.documentElement.classList.add("dev-mode");if(localStorage.getItem("hsmFcmToken"))document.documentElement.classList.add("notifs-enabled");var eds=${JSON.stringify(EDITION_IDS)},ed=localStorage.getItem("hsmEdition");if(eds.indexOf(ed)===-1)ed=${JSON.stringify(DEFAULT_EDITION)};document.cookie="hsmEdition="+ed+";path=/;max-age=31536000;samesite=lax";document.documentElement.classList.add("edition-"+ed);}catch(e){}})();</script>
 <script type="module" src="/boot.js"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">

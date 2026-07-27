@@ -26,17 +26,16 @@
 import fs from "fs";
 import path from "path";
 
+import { EDITIONS } from "../lib/editions.js";
+
 export const MAIN_RE = /^if\s+__name__\s*==\s*["']__main__["']\s*:/m;
 
-// The content roots the viewer serves and the generators live under: hardware/
-// (kitchen edition) and pie-in-the-sky/lite/ (lite edition). Mirrors the
-// HARDWARE_DIR/LITE_DIR the server resolves, but derived from the repo root so
-// callers that don't boot the server (build-all, tests) get the same set.
+// The content roots the viewer serves and the generators live under — one per
+// edition (lib/editions.js). Mirrors the dirs the server resolves, but derived
+// from the repo root so callers that don't boot the server (build-all, tests)
+// get the same set. A listed edition whose directory isn't there yet drops out.
 export function contentRoots(projectRoot) {
-  return [
-    path.join(projectRoot, "hardware"),
-    path.join(projectRoot, "pie-in-the-sky", "lite"),
-  ].filter((d) => fs.existsSync(d));
+  return EDITIONS.map((e) => path.join(projectRoot, ...e.dir)).filter((d) => fs.existsSync(d));
 }
 
 // --- Per-call memo --------------------------------------------------------
@@ -91,7 +90,8 @@ function readSource(file) {
 // WITH — the export helper, the build lock, the geometry probe, the pin-map check. None of
 // them produce content, and the ones that take arguments have nothing to do when spawned
 // bare. Their imports still build the graph below, so editing one rebuilds the generators
-// that read it.
+// that read it. Matched as a path suffix, so an edition that carries its own copy of the
+// tree (thin/hardware/scripts) has its tooling excluded on the same rule.
 const TOOLING_DIR = path.join("hardware", "scripts");
 
 // A "runnable" script is a non-`_`-prefixed .py with a `__main__` block — a

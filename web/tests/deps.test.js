@@ -24,14 +24,55 @@ import {
   dependencyGraph,
   buildOrder,
 } from "../dev-server/deps.js";
+import { EDITIONS } from "../lib/editions.js";
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 const ROOTS = contentRoots(REPO_ROOT);
 const rel = (p) => path.relative(REPO_ROOT, p);
 const ends = (suffix) => (c) => rel(c).split(path.sep).join("/").endsWith(suffix);
 
-test("content roots resolve to the two editions", () => {
+test("content roots resolve to the declared editions", () => {
   assert.ok(ROOTS.length >= 1, "expected at least the hardware/ root");
+  const names = ROOTS.map((r) => rel(r).split(path.sep).join("/"));
+  for (const e of EDITIONS) {
+    const dir = e.dir.join("/");
+    assert.ok(names.includes(dir), `editions.js declares ${e.id} (${dir}) but it is not a content root`);
+  }
+});
+
+test("a full-copy edition rebuilds only itself (thin isolation)", () => {
+  // thin/hardware/ is a complete copy of hardware/ — every module name exists
+  // in both. Without the sibling/edition narrowing in the import walk, one
+  // _contents.py edit would rebuild BOTH machines' enclosures on every save.
+  // It also has its own hardware/scripts, so even the otherwise-shared
+  // _cadq_export resolves per-tree and must not cross.
+  const thin = path.join(REPO_ROOT, "thin");
+  if (!fs.existsSync(thin)) return; // edition not present in this checkout
+
+  const contents = (root) => path.join(
+    root, "printed-parts", "enclosure", "enclosure-assembly", "_contents.py");
+  const where = (p) => {
+    const r = rel(p).split(path.sep).join("/");
+    return r.startsWith("thin/") ? "thin" : r.startsWith("pie-in-the-sky/") ? "lite" : "kitchen";
+  };
+
+  for (const [edition, root] of [
+    ["kitchen", path.join(REPO_ROOT, "hardware")],
+    ["thin", path.join(thin, "hardware")],
+  ]) {
+    const deps = findRunnableScriptsTransitivelyImporting(contents(root), ROOTS);
+    assert.ok(deps.length > 0, `${edition} _contents.py should rebuild its own assembly`);
+    const strays = deps.filter((d) => where(d) !== edition).map(rel);
+    assert.deepEqual(strays, [], `a ${edition} _contents.py edit reached another edition`);
+  }
+
+  // The kitchen's _cadq_export is shared with lite (which has no scripts dir of
+  // its own) but NOT with thin, which carries its own copy.
+  const shared = path.join(REPO_ROOT, "hardware", "scripts", "_cadq_export.py");
+  const reach = findRunnableScriptsTransitivelyImporting(shared, ROOTS).map(where);
+  assert.ok(reach.includes("kitchen"), "expected kitchen generators");
+  assert.ok(reach.includes("lite"), "lite has no _cadq_export of its own and must still rebuild");
+  assert.ok(!reach.includes("thin"), "thin has its own _cadq_export and must not rebuild for the kitchen's");
 });
 
 test("a tray STEP's consumers include the assemblies that only _load it (regression)", () => {

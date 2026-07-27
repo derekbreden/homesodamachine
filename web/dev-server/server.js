@@ -40,7 +40,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
 const PYTHON_BIN = path.join(PROJECT_ROOT, "tools", "cad-venv", "bin", "python");
 
-const { app, broadcast, hardwareDir: HARDWARE_DIR, liteDir: LITE_DIR } = await start({ dev: true });
+const { app, broadcast, hardwareDir: HARDWARE_DIR, editionDirs: EDITION_DIRS } = await start({ dev: true });
 
 // PCB editor API — dev-only, not reachable on the public site. Backs the
 // viewer's "Edit" toggle (web/public/js/viewer/pcb-edit.js): board component
@@ -120,12 +120,12 @@ async function rebuildStepAssembly(pyFilePath) {
 mountStepEditorRoutes(app, HARDWARE_DIR, rebuildStepAssembly);
 
 // Content roots the viewer serves, and that we therefore watch, regenerate,
-// and broadcast for. hardware/ is the kitchen edition; pie-in-the-sky/lite/ is
-// the lite edition (served when the viewer's Edition toggle is set). The
-// viewer fetches each file list relative to whichever root the edition
-// selects, so a change must be broadcast with the path relative to the SAME
-// root — the client's files-changed handler matches by exact string.
-const CONTENT_ROOTS = [HARDWARE_DIR, LITE_DIR].filter((d) => d && fs.existsSync(d));
+// and broadcast for — one per edition (web/lib/editions.js), served when the
+// viewer's Edition selector picks it. The viewer fetches each file list
+// relative to whichever root the edition selects, so a change must be
+// broadcast with the path relative to the SAME root — the client's
+// files-changed handler matches by exact string.
+const CONTENT_ROOTS = Object.values(EDITION_DIRS).filter((d) => d && fs.existsSync(d));
 
 // Path of a watched file relative to the content root that contains it — the
 // form the viewer fetched it under, and therefore the form to broadcast.
