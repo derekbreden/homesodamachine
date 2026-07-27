@@ -54,17 +54,21 @@ legs, each measured off the faces that bound it:
     are straight tube, ~10 mm each, no bends. Each tee's branch is then rolled about the run
     (`JUNCTION_ROLL`) to swing forward off the pump row, and fluid-11/21 carry the suction
     over pump A to the pump inlets.
-  * the carb riser's stair — the one corridor that has to reach from the floor at the front to
-    the top of the back wall, and the only one with no straight version of itself. Its outlet
-    collet cannot be left head-on: refrig-2 climbs the same station to the evaporator inlet
-    above and stands 9.52 mm off it, so the line turns west inside that gap and climbs the
-    front face WEST of the shared slot, through a 5 mm gate between that copper and the pump's
-    front face. It crosses the crown pocket ahead of the cold core — the open air over the bag
-    tray, the one place on this line that takes the flow meter's rigid 60 mm — and then goes
-    DOWN, not over: the pump's crown and the ceiling leave a Ø6.35 centreline needing 328.575
-    and allowed 328.545, so the crossing is the lane under the pump, which the flavor tap
-    already uses. It comes up the last stratum in the column EAST of the ASSE, because water-2
-    runs across the carb bulkhead's own southward line 11.04 mm off its collet.
+  * the strip ahead of the cold core's front face, which carries the two lines that face has
+    to serve and stacks them by the height of their own ports. The carbonated-water outlet is
+    the LOW port and the water inlet is the HIGH one, so the riser owns the strip's bottom and
+    water-5 owns its crown, and neither crosses the other. The riser's outlet collet cannot be
+    left head-on: refrig-2 climbs the same station to the evaporator inlet above and stands
+    9.52 mm off it, so the line turns west inside that gap, then climbs WEST of the bag fall
+    and of the shared slot to the DIGITEN meter lying in the strip at the water inlet's height
+    — the one band of the strip nothing stands in. From the meter it goes east and then DOWN,
+    not over: the pump's crown and the ceiling leave a Ø6.35 centreline needing 328.575 and
+    allowed 328.545, so the crossing is the lane under the pump, which the flavor tap already
+    uses. It comes up the last stratum in the column EAST of the ASSE, because water-2 runs
+    across the carb bulkhead's own southward line 11.04 mm off its collet. water-5 takes the
+    crown above all of it: its collet looks down off the bottom of the discharge chain, below
+    the port it feeds, so it drops clear, climbs east of the riser's lane, crosses west over
+    the riser's turn into the under-pump lane, and falls onto the inlet's own height.
   * the +X wall pocket and the channel inboard of it — the cold core's own standoff off that
     wall, where the two nozzle-outlet elbows stand, and the wide horizontal channel over the
     nozzle gate's spade tabs and the electronics shelf's board, under the hopper funnel's
@@ -261,16 +265,25 @@ def _authored_runs() -> list:
         stub=(HOSE_BEND, HOSE_BEND),
         note="carb water: SeaFlo discharge barb → discharge chain (3/8\" braided PVC)"))
 
-    # water-5 — the 1/4" LLDPE off the chain's collet, down the corridor and west to the
-    # cold core's water inlet on its front face.
+    # water-5 — the 1/4" LLDPE off the chain's collet to the cold core's water inlet on its
+    # front face. The collet looks DOWN off the bottom of the chain, 36.8 mm below the port
+    # it feeds, so the line drops clear of it before it can turn at all. From there it takes
+    # the strip's CROWN: it climbs east of the riser's lane, crosses west above everything
+    # the riser owns, and falls onto the inlet's own height. The whole run is above the
+    # meter and above the riser's aft turn, so the two lines share the strip without
+    # crossing — the water inlet is the high port on this face and this is the high line.
+    WATER5_CLIMB_X = 212.0                   # west of the chain's body, east of the riser's lane
+    WATER5_CROWN   = 272.0                   # over carb-2's turn into the under-pump lane
     runs.append(route(
         "water-5", "discharge-chain.tube-port",
         disch.z("tube-port", -12.0),         # on down the corridor, under the turn
+        {"x": WATER5_CLIMB_X},               # west off the chain's own body
+        {"z": WATER5_CROWN},                 # up the strip to its crown
         foam.x("water-in"),                  # west to the port's own line
-        foam.z("water-in"),                  # up to the port's height
+        foam.z("water-in"),                  # down onto the port's height
         "foam-assembly.water-in",
         kind="water", bend=WBEND, skew=DISCHARGE_SKEW, stub=(WBEND, WBEND),
-        note="carb water: discharge chain → cold-core water inlet"))
+        note="carb water: discharge chain → cold-core water inlet, over the riser"))
 
     # --- CO2: the front-panel inlet to the cold core's bottom-plate port. The
     # GASHER check is made up on the DERPIPE's stub and carries no line, so the
@@ -310,43 +323,45 @@ def _authored_runs() -> list:
     # --- The carbonated-water riser: the cold core's bottom-plate outlet to the rear
     # umbilical, with the DIGITEN turbine meter inline. It is the longest path in the
     # machine and the only one that has to get from the floor at the front to the top of
-    # the back wall, and three things bound it, each measured:
+    # the back wall, and four things bound it, each measured:
     #   * refrig-2 climbs the outlet's own x on its way to the evaporator inlet above and
     #     stands 9.52 mm off the collet, so the line cannot leave this face head-on — it
-    #     turns WEST inside that gap and climbs west of the shared slot.
+    #     turns WEST one bend radius off the face, inside that gap.
+    #   * the bag fall owns the strip east of the climb: fluid-15 drops it on the
+    #     reservoir's own line, so the climb stands WEST of that and of the shared slot.
     #   * over the pump there is no lane at all: the crown is 325.40 and the ceiling
     #     331.72, which leaves a Ø6.35 centreline needing 328.575 and allowed 328.545.
     #     So the crossing goes UNDER, in the lane the pump's bracket leaves over the cap.
     #   * water-2 runs east across the carb bulkhead's own southward line 11.04 mm off its
     #     collet, so the last climb stands in the column EAST of it and comes back west.
-    # The two halves come out at [285.3](CARB_1_LEN) and [275.1](CARB_2_LEN) mm of stock, which
+    # The riser stops climbing at the meter and hands the strip above it to water-5, whose
+    # port is the high one on this face: carb-1 owns the front face below the meter's plane
+    # and water-5 crosses at the crown, so the two share the strip without a crossing.
+    # The two halves come out at [225.6](CARB_1_LEN) and [309.9](CARB_2_LEN) mm of stock, which
     # is what the shop cuts and what the CARGEN insulation is cut to follow.
     digi, b_carb = f["digiten-flow"], f["bulkhead-carb"]
     RBEND = 4.0                              # 1/4" LLDPE, the riser's radius
-    RISER_LANE_X = 205.0                     # the under-pump lane's east edge, short of water-2's column
-    # Every stub on this run is a REACH between two placed things, not a length of its own,
-    # so the run rides a move of either. The exit off the core is the distance from that
-    # collet to the meter's own lane, which is the whole of the escape refrig-2 leaves: the
-    # line has turned west before it has gone the 9.52 mm the copper stands off the face.
-    # The approach into the bulkhead is all water-2 leaves — its east leg crosses the
-    # collet's own southward line — so the last climb stands as far north as that run's
-    # column allows and closes on what is left.
-    RISER_EXIT = foam.at("carb-water-out")[1] - digi.at("inlet")[1]
+    RISER_CLIMB_X = 112.0                    # west of the bag fall, clear of the shared slot
+    RISER_LANE_X = 200.0                     # the under-pump lane, west of water-5's climb
+    # The exit off the core is one bend radius — the shortest turn the tube can take, which
+    # is what keeps it inside the escape refrig-2 leaves. The approach into the bulkhead is
+    # all water-2 leaves — its east leg crosses the collet's own southward line — so the
+    # last climb stands as far north as that run's column allows and closes on what is left.
+    # The reach east off the meter is the distance to the lane, so that leg rides a move of
+    # either.
     RISER_OFF_METER = RISER_LANE_X - digi.at("outlet")[0]
     RISER_APPROACH = 5.0
     runs.append(route(
         "carb-1", "foam-assembly.carb-water-out",
-        # The climb stands the shortest leg two square corners can share west of the collet —
-        # one tangent for the turn out of the climb, one for the approach stub — which puts it
-        # clear of the shared slot's column without reaching for the pump's face.
-        {"x": digi.at("inlet")[0] - 2.0 * RBEND},
+        {"x": RISER_CLIMB_X},                # west inside refrig-2's standoff, off the bag fall
         digi.z("inlet"),                     # up the front face to the meter's own plane
+        digi.y("inlet"),                     # south onto the meter's own axis
         "digiten-flow.inlet",                # east into its west-facing collet
-        kind="water", bend=RBEND, skew=DISCHARGE_SKEW, stub=(RISER_EXIT, RBEND),
+        kind="water", bend=RBEND, skew=DISCHARGE_SKEW, stub=(RBEND, RBEND),
         note="carb water: cold-core outlet → DIGITEN flow meter, up the front face"))
     runs.append(route(
         "carb-2", "digiten-flow.outlet",
-        {"z": sp.at("supply")[2]},           # down into the lane under the pump
+        {"z": sp.at("supply")[2]},           # up into the lane under the pump
         b_carb.out("tube-in", RISER_APPROACH),   # aft along it, past water-2's column
         b_carb.x("tube-in"),                 # east onto the bulkhead's own column
         "bulkhead-carb.tube-in",             # and straight up it into the collet

@@ -134,7 +134,7 @@ COMPONENTS = [
     _c("water-split",       "real",        True,  "none","JG PP0208E 1/4\" union tee (reference/water-split); tube-hung in the east pocket, its three collets in the suction's own Z plane. The run carries the ASSE feed straight down the pocket — in at +Y, on at −Y to the flow regulator — and the branch turns V-K's share west. No tray, no holder"),
     _c("vk-fill-valve",     "real",        True,  "none","Beduan 12 V NC solenoid (reference/beduan-solenoid) — V-K, the water-supply fill/shutoff valve. Downstream of the ASSE 1022, between the split and the SeaFlo suction. Yawed a quarter turn so it lies along X in the band the pump's narrow head end opens: inlet east at the split's branch, outlet west at the suction, all three collets in one plane. Stands on a short cradle off the foam cap; cradle TBD"),
     _c("discharge-chain",   "real",        True,  "none","MAACFLOW 3/8\" barb + GASHER 1/4\" check + PP450822E 1/4\" PTC, made up as one piece (reference/seaflo-discharge-chain). The pump's barbs are molded into its head — no thread, and the 90° barbed accessory does not fit this head — so a stub of 3/8\" braided PVC is the only thing that can leave the discharge; it turns down over the cap's front edge onto this chain's barb, and the 3/8\" ends there. Hangs vertically in the bag-fall corridor, the one column deep enough to stand its 83.4 mm. Bracket TBD"),
-    _c("digiten-flow",      "real",        True,  "none","DIGITEN FL-S402B G1/4\" Hall-effect turbine meter (reference/digiten-flow-sensor) — the dispense sensor: the pulse train off this rotor is what tells the firmware the faucet is open, so the flavor pumps have something to meter against. Inline on the carb-water riser, lying unturned in the pocket ahead of the cold core's crown with the flow running east and the pigtail boss up. It is 60 mm tip to tip on a rigid axis with a Ø26 waist, and this pocket is the only air on the riser that holds one: the bag-fall corridor below is one tube deep and the band over the cold core is the pump's. Cradle TBD"),
+    _c("digiten-flow",      "real",        True,  "none","DIGITEN FL-S402B G1/4\" Hall-effect turbine meter (reference/digiten-flow-sensor) — the dispense sensor: the pulse train off this rotor is what tells the firmware the faucet is open, so the flavor pumps have something to meter against. Inline on the carb-water riser, lying unturned in the strip ahead of the cold core's front face at the water inlet's own height, with the flow running east and the pigtail boss up. It is 60 mm tip to tip on a rigid axis with a Ø26 waist, and this band of the strip is the only air on the riser that holds one: the source-select assembly stops short of it to the south, the bag-circuit tray clears it above, and the discharge chain hangs well east. Meeting the riser here rather than above keeps the climb out of water-5's band, so the two lines on this face never cross. Cradle TBD"),
     _c("flow-regulator",    "real",        True,  "none","neoFit ABCVU44 1/4\" needle flow control (reference/neofit-flow-control) — the flavor tap's regulator, throttling the manifold's feed to its low working pressure. Inline on the split's flavor run, standing on the foam-cap top in the band ahead of it, flow running south; its needle stem stands up where a screwdriver reaches it over the deck. No tray, no holder"),
     # Valve manifold
     _c("source-select-assembly", "real",   True,  "none", "Tray 1 — printed tray + 4 Beduan NC solenoids + 2 PP2308E Y-dividers + 4 outlet elbows (valve-manifold/source-select-tray); floors the stack, plate down and valves up, holder TBD"),
@@ -467,15 +467,15 @@ PLACEMENT_RULES = {
     # behind it — so what it has to hold off is the pump, not the pocket it used to hang in.
     "flow-regulator": [("near", "source-select-assembly", 70.0),
                        ("clear", "seaflo-pump", 1.5)],
-    # The flow meter's placement IS the pocket it lies in, so the pocket's walls are
-    # stated as keep-outs: the bag-circuit tray's crown below, the cold core and the
-    # pump standing behind it, and the funnel's basin to the south. A rigid 60 mm body
-    # with a Ø26 waist has no other seat on this line, so any of these closing on it
-    # is the thing to see.
+    # The flow meter's placement IS the band it lies in, so that band's walls are stated
+    # as keep-outs: the bag-circuit tray above, the cold core standing behind it, the
+    # source-select assembly stopping short of it to the south, and the discharge chain
+    # hanging down the strip to the east. A rigid 60 mm body with a Ø26 waist has no
+    # other seat on this line, so any of these closing on it is the thing to see.
     "digiten-flow": [("clear", "bag-circuit-assembly", 5.0),
                      ("clear", "foam-assembly", 5.0),
-                     ("clear", "seaflo-pump", 5.0),
-                     ("clear", "hopper-funnel", 5.0)],
+                     ("clear", "source-select-assembly", 5.0),
+                     ("clear", "discharge-chain", 5.0)],
     # The CO2 check is made up on the front-panel inlet's stub, so its placement IS
     # that joint: it touches the fitting it threads onto and it hangs in the band,
     # off the floor block below it.
@@ -721,9 +721,9 @@ PORTS = [
     _p("to-flavor", "water-split", "fluid", *contents.split_terminal("to-flavor"), 6.35, "flow-regulator inlet — fluid segment 1 (routed)", "PP0208E 1/4\" PTC run, facing south down the pocket to the regulator"),
     # The DIGITEN flow meter — its two 1/4" PTC collets on the flow axis and its pigtail
     # boss, each carried through the placement (contents.digiten_terminal). Inline on the
-    # carb riser in the pocket ahead of the cold core's crown.
+    # carb riser in the strip ahead of the cold core's front face.
     _p("inlet",   "digiten-flow", "fluid", *contents.digiten_terminal("inlet"),  6.35, "foam-assembly carb-water-out — segment carb-1 (routed)", "1/4\" PTC collet, facing west up the riser's climb"),
-    _p("outlet",  "digiten-flow", "fluid", *contents.digiten_terminal("outlet"), 6.35, "bulkhead-carb tube-in — segment carb-2 (routed)", "1/4\" PTC collet, facing east at the drop into the under-pump lane"),
+    _p("outlet",  "digiten-flow", "fluid", *contents.digiten_terminal("outlet"), 6.35, "bulkhead-carb tube-in — segment carb-2 (routed)", "1/4\" PTC collet, facing east at the climb into the under-pump lane"),
     _p("pigtail", "digiten-flow", "electrical", *contents.digiten_terminal("wire-exit"), 8.0, "J4 SENSORS — DIGITEN flow pulse (SIG-4, IO25 + V5 + GND)", "3-wire pigtail on a JST-XH 2.54 3-pin, leaving the rim boss upward"),
     # The flow regulator, inline on the flavor run below the split.
     _p("inlet",  "flow-regulator", "fluid", *contents.flowreg_terminal("inlet"),  6.35, "water-split to-flavor — fluid segment 1 (routed)", "neoFit 1/4\" PTC collet, facing north up the pocket at the split"),
@@ -735,7 +735,7 @@ PORTS = [
     # The discharge chain's two ends — the barb the pump's hose stub clamps onto, and the
     # 1/4" PTC that starts the run to the cold core.
     _p("barb-tip",  "discharge-chain", "fluid", *contents.disch_terminal("barb-tip"),  15.1, "seaflo-pump discharge — segment water-6 (routed)", "MAACFLOW 3/8\" hose barb, facing up at the stub off the pump; worm-gear clamp"),
-    _p("tube-port", "discharge-chain", "fluid", *contents.disch_terminal("tube-port"), 6.35,  "foam-assembly water-in — segment water-5 (routed)", "PP450822E 1/4\" PTC collet, facing down the corridor"),
+    _p("tube-port", "discharge-chain", "fluid", *contents.disch_terminal("tube-port"), 6.35,  "foam-assembly water-in — segment water-5 (routed)", "PP450822E 1/4\" PTC collet, facing down off the bottom of the chain — below the port it feeds, so water-5 drops clear of it before it can turn"),
     # Hopper funnel — the removable silicone basin's single drain: the spout-tube exit annulus,
     # feeding V-B by tube (segment 4). Defined in the funnel's own frame
     # (hopper_funnel.drain_local = (neck_dx, 0, −drop)) carried through the placement's

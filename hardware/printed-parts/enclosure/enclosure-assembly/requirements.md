@@ -231,14 +231,18 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
   topology, never dropped. It returns with a placement that respects the tray stack at the cold
   core, the pump row ahead of it, and the funnel drop. What stays open: the slab ahead of the
   pump row's front faces and the ±X columns beside it.
-  The DIGITEN flow meter is packed, lying in the pocket ahead of the cold core's crown — the
-  only air on the carb riser that takes a rigid 60 mm body with a Ø26 waist, the bag-fall
-  corridor below being one tube deep and the band over the core being the pump's. The riser
-  itself is authored either side of it (`carb-1`, `carb-2`): west inside the 9.52 mm refrig-2
-  leaves off the outlet collet, up the front face, through the meter, down into the lane under
-  the pump — there is no lane over it, the crown and the ceiling leaving a Ø6.35 centreline
-  0.03 mm short of fitting — and up to the bulkhead in the column east of the ASSE, because
-  water-2 crosses that collet's own southward line.
+  The DIGITEN flow meter is packed, lying in the strip ahead of the cold core's front face at
+  the water inlet's own height — the only air on the carb riser that takes a rigid 60 mm body
+  with a Ø26 waist, the source-select assembly stopping short of it to the south and the
+  bag-circuit tray clearing it above. The riser itself is authored either side of it (`carb-1`,
+  `carb-2`): west inside the 9.52 mm refrig-2 leaves off the outlet collet, up the front face
+  west of the bag fall, east through the meter, up into the lane under the pump — there is no
+  lane over it, the crown and the ceiling leaving a Ø6.35 centreline 0.03 mm short of fitting —
+  and up to the bulkhead in the column east of the ASSE, because water-2 crosses that collet's
+  own southward line. Meeting the meter at the riser's own height rather than above it is what
+  frees the strip's crown for `water-5`, whose port is the high one on that face: the riser
+  works the floor of that strip, the water inlet's line works its crown, and neither crosses
+  the other.
   The CO2 chain is packed, in the band under the pump row down to the floor-stratum tops: the
   GASHER check screwed onto the DERPIPE inlet's stub so the front wall carries both, and the
   WR1110 regulator laid ACROSS the band on its own — the band is the machine's whole width and
