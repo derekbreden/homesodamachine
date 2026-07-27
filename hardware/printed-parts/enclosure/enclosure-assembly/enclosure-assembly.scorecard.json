@@ -162,7 +162,7 @@
         "    \u2013 foam-assembly:co2-in (fluid) (160.55, 182, 37) y- \u00d86.35 \u2192 CO2 chain (WR1110 \u2192 the vessel's bottom-plate CO2 elbow)",
         "    \u2013 foam-assembly:evap-inlet (refrigerant) (141.5, 182, 67) y- \u00d86.35 \u2192 condenser+fan outlet (liquid line via drier + cap tube)",
         "    \u2013 foam-assembly:evap-outlet (refrigerant) (141.5, 182, 186.4) y- \u00d86.35 \u2192 compressor-shroud suction",
-        "    \u2013 foam-assembly:water-in (fluid) (141.5, 182, 218.4) y- \u00d89.525 \u2192 gasher-water out (SeaFlo outlet check \u2192 carbonator water inlet)",
+        "    \u2013 foam-assembly:water-in (fluid) (141.5, 182, 218.4) y- \u00d86.35 \u2192 gasher-water out (SeaFlo outlet check \u2192 carbonator water inlet)",
         "    \u2013 foam-assembly:prv-vent (fluid) (141.5, 182, 226.4) y- \u00d86.35 \u2192 appliance interior (relief-event discharge only)",
         "    \u2013 foam-assembly:reed-cable-A (electrical) (201.5, 182, 26) y- \u00d86.5 \u2192 J6 REEDS A \u2014 reservoir A level reeds (SIG-10)",
         "    \u2013 foam-assembly:reed-cable-B (electrical) (81.5, 182, 26) y- \u00d86.5 \u2192 J7 REEDS B \u2014 reservoir B level reeds (SIG-11)",
@@ -373,10 +373,10 @@
         218.4
       ],
       "face": "y-",
-      "diam": 9.525,
+      "diam": 6.35,
       "mates": "gasher-water out (SeaFlo outlet check \u2192 carbonator water inlet)",
       "status": "ok",
-      "note": "3/8\" hose barb (SeaFlo 22-series port)"
+      "note": "1/4\" LLDPE; the SeaFlo's 3/8\" discharge steps down at the warm-side check valve, so the wall sees 1/4\""
     },
     {
       "component": "foam-assembly",
