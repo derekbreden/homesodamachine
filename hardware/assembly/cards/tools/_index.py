@@ -20,7 +20,10 @@ TOOLS_DIR = Path(__file__).resolve().parent
 CARDS_DIR = TOOLS_DIR.parent
 ASSEMBLY_DIR = CARDS_DIR.parent
 REPO_ROOT = next(p for p in TOOLS_DIR.parents if (p / "tools" / "render").is_dir())
-LEDGER = REPO_ROOT / "hardware" / "ledger" / "tools.md"
+# The ledger is content: the nearest hardware/, so a duplicated edition reads
+# its own tool list rather than the kitchen's.
+HARDWARE = next(p for p in TOOLS_DIR.parents if p.name == "hardware")
+LEDGER = HARDWARE / "ledger" / "tools.md"
 
 # (code, station name, tools.md name substrings, patterns that name it in a
 # sequence card's `.tools` strip). Order is deck order. A station holds the
