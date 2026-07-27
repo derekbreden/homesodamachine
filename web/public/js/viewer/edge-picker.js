@@ -710,9 +710,11 @@ function selFaceTexts(sel) {
 // repo-relative path for the Copy-all locator and the bare name for the header.
 function currentFile() { return (state.mountedDetail && state.mountedDetail.file) || null; }
 function repoPath(file) {
-  let lite = false;
-  try { lite = localStorage.getItem("hsmEdition") === "lite"; } catch {}
-  return (lite ? "pie-in-the-sky/lite" : "hardware") + "/" + file;
+  // The active edition's content root, mirrored into the page pre-paint from
+  // lib/editions.js (lib/shell.js). It has to be the CURRENT one: the editions
+  // mirror each other's filenames, so a blob carrying the wrong root reads as a
+  // real path into another machine rather than as a broken one.
+  return (window.__hsmEditionDir || "") + "/" + file;
 }
 function headerName(file) { return file.split("/").pop().replace(/\.step$/i, ""); }
 
