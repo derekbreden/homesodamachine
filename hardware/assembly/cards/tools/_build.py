@@ -16,9 +16,11 @@ os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 
 TOOLS_DIR = Path(__file__).resolve().parent
 REPO_ROOT = next(p for p in TOOLS_DIR.parents if (p / "tools" / "render").is_dir())
+# Shared machinery from the repo root, content from the nearest hardware/.
+HARDWARE = next(p for p in TOOLS_DIR.parents if p.name == "hardware")
 OUT_DIR = TOOLS_DIR / "out"
 
-sys.path.insert(0, str(REPO_ROOT / "hardware" / "scripts"))
+sys.path.insert(0, str(HARDWARE / "scripts"))
 from _cadq_export import export_pdf  # noqa: E402
 
 sys.path.insert(0, str(TOOLS_DIR))

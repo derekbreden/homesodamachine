@@ -25,8 +25,11 @@ import cadquery as cq
 
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
+# _repo is this EDITION's root; tools/ is shared machinery with one copy at the
+# repo root, so it gets its own anchor rather than a tools/ per edition.
+_tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
-sys.path.insert(0, str(_repo / "tools"))
+sys.path.insert(0, str(_tools))
 from _cadq_export import export_assembly
 from docgen import substitute_py_comments
 import _boxes

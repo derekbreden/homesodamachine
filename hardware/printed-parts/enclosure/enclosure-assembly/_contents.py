@@ -149,13 +149,16 @@ import cadquery as cq
 
 _here = Path(__file__).resolve()
 _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
+# _repo is this EDITION's root; tools/ is shared machinery with one copy at the
+# repo root, so it gets its own anchor rather than a tools/ per edition.
+_tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"
 _hw = _repo / "hardware"
 
 # The manifold trays' own modules: the junction column's aim is solved in
 # bag_circuit_tray, and the tee poses below stand on the same elbow rolls the
 # tray STEPs are built with.
 _VM = _hw / "printed-parts" / "valve-manifold"
-for _p in (_hw / "scripts", _repo / "tools", _hw / "reference" / "beduan-solenoid",
+for _p in (_hw / "scripts", _tools, _hw / "reference" / "beduan-solenoid",
            _VM / "single-tray", _VM / "bag-circuit-tray", _VM / "source-select-tray",
            _VM / "nozzle-gate-tray",
            _hw / "reference" / "asse1022-assembly", _hw / "reference" / "multiplex-asse1022",
