@@ -60,6 +60,7 @@ import _cold_core_interface as _cc  # noqa: E402
 import _port_cuts as _pc  # noqa: E402
 import _reed_channels as _rc  # noqa: E402
 from copper_plugs import plug_specs as _plug_specs  # noqa: E402
+from copper_plugs import slot_width_x as _slot_width  # noqa: E402  — and how wide the slot is
 
 # Minimum solid-to-solid distance. cadquery 2 binds OpenCascade as OCP; the guarded import
 # leaves `_HAVE_EXACT` false when it is absent, and `_solid_gap` raises.
@@ -651,7 +652,7 @@ PORTS = [
     _p("co2-in",         "foam-assembly", "fluid",       _FOAM_PORT(_cc.co2_inlet_x, _pc.front_face_port_z), "y-", 6.35,  "CO2 chain (WR1110 → the vessel's bottom-plate CO2 elbow)", "1/4\" LLDPE; the Ø6.5 bore runs on through the support ring to the adapter under the plate"),
     _p("evap-inlet",     "foam-assembly", "refrigerant", _FOAM_PORT(0.0, _PLUG_JOIN["lower"]),  "y-", 6.35,  "condenser+fan outlet (liquid line via drier + cap tube)", "1/4\" ACR copper"),
     _p("evap-outlet",    "foam-assembly", "refrigerant", _FOAM_PORT(0.0, _PLUG_JOIN["middle"]), "y-", 6.35,  "compressor-shroud suction", "1/4\" ACR copper"),
-    _p("water-in",       "foam-assembly", "fluid",       _FOAM_PORT(0.0, _PLUG_JOIN["upper"]),  "y-", 9.525, "gasher-water out (SeaFlo outlet check → carbonator water inlet)", "3/8\" hose barb (SeaFlo 22-series port)"),
+    _p("water-in",       "foam-assembly", "fluid",       _FOAM_PORT(0.0, _PLUG_JOIN["upper"]),  "y-", 6.35,  "gasher-water out (SeaFlo outlet check → carbonator water inlet)", "1/4\" LLDPE; the SeaFlo's 3/8\" discharge steps down at the warm-side check valve, so the wall sees 1/4\""),
     _p("prv-vent",       "foam-assembly", "fluid",       _FOAM_PORT(0.0, _PLUG_JOIN["top"]),    "y-", 6.35,  "appliance interior (relief-event discharge only)", "1/4\" relief discharge"),
     _p("reed-cable-A",   "foam-assembly", "electrical",  _FOAM_PORT(+_rc.cable_shell_hole_x, _EXIT_Z), "y-", 6.5,   "J6 REEDS A — reservoir A level reeds (SIG-10)", "reed cable through the Ø6.5 shell bore, outboard of reservoir-A's (_reed_channels.py)"),
     _p("reed-cable-B",   "foam-assembly", "electrical",  _FOAM_PORT(-_rc.cable_shell_hole_x, _EXIT_Z), "y-", 6.5,   "J7 REEDS B — reservoir B level reeds (SIG-11)", "reed cable through the Ø6.5 shell bore, outboard of reservoir-B's (_reed_channels.py)"),
@@ -871,6 +872,26 @@ PORTS = [
     _p("ac-in",  "psu", "electrical", *contents.psu_terminal("ac-in"),  10.0, "C14 mains inlet via the AC distribution — H+N+G (AC-1/AC-2)", "16 AWG mains, ferruled under captive screws"),
     _p("dc-out", "psu", "electrical", *contents.psu_terminal("dc-out"), 8.0,  "dc-dist 12 V block (DC-1)", "16 AWG, ferruled under captive screws"),
 ]
+
+
+# A foam-shell port's Ø is checked against the hole it actually crosses. The shell's round
+# bores and its shared slot are one width, so there is a single number to check against, and
+# a port declared fatter than it is a line that does not go through the wall — whatever its
+# fitting is on the warm side. The `located` axis cannot catch this: it asks whether a
+# coordinate lands on the body's surface, and a Ø too big for the bore lands on the surface
+# exactly as well as one that fits. A component's ports being self-consistent with its own
+# geometry is a property of the declaration, so it is checked where the declaration is.
+_FOAM_BORE = _cc.port_hole_radius * 2
+assert abs(_FOAM_BORE - _slot_width) < 1e-9, (
+    f"the round bores are ⌀{_FOAM_BORE:g} and the slot is ⌀{_slot_width:g} — the shell no "
+    f"longer has one port width, so a port cannot be checked against a single number")
+for _port in PORTS:
+    if _port.component == "foam-assembly" and _port.diam is not None:
+        assert _port.diam <= _FOAM_BORE + 1e-9, (
+            f"foam-assembly:{_port.name} declares Ø{_port.diam:g} through the shell's "
+            f"Ø{_FOAM_BORE:g} bore — it cannot cross the wall. Every transition happens on "
+            f"the warm side (assembly/cold-core.md), so the Ø here is the line AT the wall")
+del _port
 
 
 # Components that carry NO tube or wire connector at all — a passive body, located trivially
