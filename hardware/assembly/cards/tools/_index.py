@@ -2,8 +2,9 @@
 machine you stand at. Both are projections of `/hardware/assembly/*.md`.
 
   stations   each station, and the sequence cards that send work to it.
-  orphans    tools.md entries no station claims; `.tools` strip mentions no
-             station matches.
+  orphans    tools.md entries nothing accounts for; `.tools` strip mentions no
+             station matches. A tool that is carried or worn is accounted for
+             without a station — see CARRIED and NO_STATION.
   drift      every `.dim` pill on a station card, against the procedure docs
              and tools.md. Exits 1 on a value that appears nowhere upstream.
 
@@ -26,16 +27,16 @@ HARDWARE = next(p for p in TOOLS_DIR.parents if p.name == "hardware")
 LEDGER = HARDWARE / "ledger" / "tools.md"
 
 # (code, station name, tools.md name substrings, patterns that name it in a
-# sequence card's `.tools` strip). Order is deck order. A station holds the
-# machine and what goes in it; a tool that travels to the work sits with the
-# station whose output it checks.
+# sequence card's `.tools` strip). Order is deck order. A station holds one
+# machine and the work that goes into it. A tool with no machine under it
+# claims no station — it is CARRIED, and belongs to the sequence cards that
+# use it.
 STATIONS = [
     ("DP", "Drill press", ["WEN 4208T", "countersink set", "9/64", "M35 cobalt pipe tap",
                            "tap guide", "DWT adjustable tap wrench", "hole saw", "spade bit"],
      [r"WEN 4208T", r"countersink", r"M35 cobalt", r"NPT tap", r"tap wrench",
       r"spring guide", r"Tap Magic", r"depth stop"]),
-    ("BS", "Band saw + cut-off", ["BA4555", "Noga NG8150", "NEIKO 01407A"],
-     [r"BA4555", r"band ?saw", r"Noga", r"deburr", r"calipers?\b"]),
+    ("BS", "Band saw + cut-off", ["BA4555"], [r"BA4555", r"band ?saw"]),
     ("LW", "Laser welder", ["XLaserlab X1 Pro", "argon size-80", "RX Weld", "magnetic V-pads",
                             "Scotch-Brite 7447", "wire brush set", "C110 copper bar",
                             "goat-grain TIG gloves", "Welding Cart"],
@@ -54,12 +55,12 @@ STATIONS = [
                                "PT520A leak detector"],
      [r"vacuum pump", r"manifold gauge", r"Smart Weigh", r"PT520A", r"leak detector"]),
     ("CR", "Crimp bench", ["Haisstronica", "SN-2549", "Taiss Dupont crimp", "Preciva",
-                           "11063W self-adjusting", "KATA micro flush cutters"],
+                           "11063W self-adjusting"],
      [r"crimper", r"SN-2549", r"iCrimp", r"Preciva", r"Haisstronica", r"Klein stripper",
-      r"ferrule", r"faston", r"Faston", r"flush cutters"]),
+      r"ferrule", r"faston", r"Faston"]),
     ("SO", "Solder + heat-set bench", ["Hakko FX-888D", "Hakko FR-301", "fume extractor",
                                        "silicone mat", "helping-hands", "mini heat gun",
-                                       "iFixit precision tweezers", "Virtua CCS safety glasses"],
+                                       "iFixit precision tweezers"],
      [r"Hakko", r"soldering iron", r"heat gun", r"heat-set", r"ruthex", r"ESD mat",
       r"heat-shrink", r"iron \+ tip"]),
     ("EL", "Electrical test", ["AstroAI digital multimeter", "Kill-A-Watt",
@@ -81,7 +82,15 @@ STATIONS = [
 
 # Consumed or worn, not stood at.
 NO_STATION = ["Ultra Duster", "DeWalt DWFP55130", "Husky 41257HOM", "SanDisk Ultra Fit",
-              "48\" workbench", "Slip Roll", "Hydraulic Shop Press", "ET-8550"]
+              "48\" workbench", "Slip Roll", "Hydraulic Shop Press", "ET-8550",
+              "Virtua CCS safety glasses"]
+
+# Carried to the part, wherever the part happens to be. Nobody stands at a
+# deburr tool, so no station card can be about one — a station that adopts it
+# to clear this report buys the coverage with a card about two things, and the
+# reader pays. These live on the sequence cards that use them, which is where
+# a builder meets the tool anyway.
+CARRIED = ["Noga NG8150", "NEIKO 01407A", "KATA micro flush cutters"]
 
 DIM = re.compile(r'class="dim">([^<]+)<')
 TOOLSTRIP = re.compile(r'<div class="tools">(.*?)</div>', re.S)
@@ -161,11 +170,33 @@ def report_stations(by_station):
 
 
 def report_orphans(by_station, unmatched):
+    """Every tools.md entry is claimed by a station, carried, worn, or loose.
+
+    Only the last is a defect. Naming the other two keeps a tool that no
+    station stands at from reading as a gap somebody should close by finding
+    it a station — the pressure that puts a hand deburrer on the band saw.
+    """
     claimed = {t for _, _, owns, _ in STATIONS for t in owns}
-    print("\n── tools.md entries no station claims ──")
-    loose = [n for n in ledger_tools()
-             if not any(t.lower() in n.lower() for t in claimed)
-             and not any(t.lower() in n.lower() for t in NO_STATION)]
+
+    def matches(name, group):
+        return any(t.lower() in name.lower() for t in group)
+
+    carried, worn, loose = [], [], []
+    for n in ledger_tools():
+        if matches(n, claimed):
+            continue
+        (carried if matches(n, CARRIED)
+         else worn if matches(n, NO_STATION)
+         else loose).append(n)
+
+    print("\n── carried to the part · no station, by design ──")
+    for n in carried:
+        print(f"   {n}")
+    print("\n── consumed or worn · no station, by design ──")
+    for n in worn:
+        print(f"   {n}")
+
+    print("\n── tools.md entries nothing accounts for ──")
     for n in loose:
         print(f"   {n}")
     if not loose:

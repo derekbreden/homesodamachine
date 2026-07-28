@@ -31,7 +31,15 @@ sequence deck is gated on — see [`../STYLE.md`](../STYLE.md) for what each mea
 ## The stations
 
 `_index.py` inverts the 93 sequence cards' `.tools` strips onto these thirteen,
-and reports any tools.md entry no station claims.
+and sorts every tools.md entry into one of four: claimed by a station, carried
+to the part, consumed or worn, or unaccounted for. Only the last is a defect.
+
+A station is one machine and the work that goes into it. A tool nobody stands
+at — a hand deburrer, a caliper — is `CARRIED`, and lives on the sequence cards
+that use it; it may still appear in a station's rack, because the rack is what
+to have in hand, not what the card is about. Adopting a carried tool to empty
+the report costs a card about two things, which is the one thing a card at a
+machine cannot be.
 
 ```
 tools/cad-venv/bin/python hardware/assembly/cards/tools/_index.py
@@ -41,7 +49,7 @@ tools/cad-venv/bin/python hardware/assembly/cards/tools/_index.py --drift
 | Card | Station | Sequence cards it serves |
 |---|---|---|
 | DP | Drill press | PV-01 · PV-02 · PV-03 |
-| BS | Band saw + cut-off | PV-04 · PV-05 · PV-07 · EN-06 |
+| BS | Band saw + cut-off | PV-05 |
 | LW | Laser welder | PV-06 · PV-07 · PV-08 · PV-09 |
 | HY | Hydro + pressure test | PV-11 |
 | TB | Tube bench — cut, straighten, bend, flare | CC-01 · RL-03 · RL-05 |
@@ -54,8 +62,9 @@ tools/cad-venv/bin/python hardware/assembly/cards/tools/_index.py --drift
 | PC | Pour + cure bench | CC-06 · CC-14 |
 | PR | 3D printers | CC-08 · CC-13 · EN-05 · EN-06 |
 
-A sequence card belongs to every station it draws on, and 37 of the 93 belong
-to none — hand assembly, inspection, packing.
+A sequence card belongs to every station it draws on, and 38 of the 93 belong
+to none — hand assembly, inspection, packing, and the edge work that travels
+with a tool rather than waiting at a machine.
 
 `img/tool/` holds the tool photographs the rack shows — the listing's own
 image for each ASIN in [tools.md](/hardware/ledger/tools.md), trimmed and set
