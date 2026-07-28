@@ -1214,8 +1214,8 @@ def _elbow_free_port(collet, free_dir, stub=2.0):
 # ── Pump-discharge junctions Y-D / Y-G ───────────────────────────────────────────────────────
 # Each pump merges a flavor's two sources — its bag valve and its nozzle-gate valve — through a
 # JG PP2308E two-way divider (the `y-divider`), then feeds its pump. The netlist is DIAGONAL
-# because the two trays seat a flavor's valves on opposite rows: Y-D (flavor A → pump A) joins
-# bag V-F and nozzle V-G; Y-G (flavor B → pump B) joins bag V-I and nozzle V-J.
+# because the two trays seat a flavor's valves on opposite rows: Y-D (flavor A → pump B) joins
+# bag V-F and nozzle V-G; Y-G (flavor B → pump A) joins bag V-I and nozzle V-J.
 #
 # The four turn-elbows sit at the corners of a rectangle in the Y-Z plane — the bag ports high
 # (z≈277), the nozzle ports low (z≈242) — and the diagonal netlist runs two CROSSING tubes across

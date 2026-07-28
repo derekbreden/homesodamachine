@@ -6,14 +6,14 @@
 |---|---|
 | V-A | Tap water inlet gate |
 | V-B | Hopper funnel gate |
-| V-C | Shared source → Pump A (channel A select) |
-| V-D | Shared source → Pump B (channel B select) |
-| V-E | Bag A → Pump A inlet |
-| V-F | Pump A outlet → Bag A |
-| V-G | Pump A outlet → Nozzle A |
-| V-H | Bag B → Pump B inlet |
-| V-I | Pump B outlet → Bag B |
-| V-J | Pump B outlet → Nozzle B |
+| V-C | Shared source → Pump B (channel A select) |
+| V-D | Shared source → Pump A (channel B select) |
+| V-E | Bag A → Pump B inlet |
+| V-F | Pump B outlet → Bag A |
+| V-G | Pump B outlet → Nozzle A |
+| V-H | Bag B → Pump A inlet |
+| V-I | Pump A outlet → Bag B |
+| V-J | Pump A outlet → Nozzle B |
 
 All valves are normally closed solenoid valves. Flow direction is inlet (I) to outlet (O) only.
 
@@ -87,83 +87,83 @@ Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/top
 
 Open valves listed; all others closed.
 
-This table is canonical for the integrated flavor manifold. Pumps run forward only. Valve state selects whether a pump draws from a bag, hopper, or tap-water source and whether the outlet returns to a bag or goes to the nozzle. Normally closed solenoid valves define the closed state and keep the dispense paths primed.
+This table is canonical for the integrated flavor manifold. Pumps run forward only. **P-B is channel A's pump and P-A is channel B's** — the pairing the junction and segment tables above carry, and the one both editions' packs are built to. Valve state selects whether a pump draws from a bag, hopper, or tap-water source and whether the outlet returns to a bag or goes to the nozzle. Normally closed solenoid valves define the closed state and keep the dispense paths primed.
 
 ### Dispense A
 
 - Open: V-E, V-G
-- Pump A: ON
-- Path: Bag A → V-E → P-A → V-G → Nozzle A
+- Pump B: ON
+- Path: Bag A → V-E → P-B → V-G → Nozzle A
 
 ### Dispense B
 
 - Open: V-H, V-J
-- Pump B: ON
-- Path: Bag B → V-H → P-B → V-J → Nozzle B
+- Pump A: ON
+- Path: Bag B → V-H → P-A → V-J → Nozzle B
 
 ### Fill from Hopper → Bag A
 
 - Open: V-B, V-C, V-F
-- Pump A: ON
-- Path: Hopper → V-B → V-C → P-A → V-F → Bag A
+- Pump B: ON
+- Path: Hopper → V-B → V-C → P-B → V-F → Bag A
 
 ### Fill from Hopper → Bag B
 
 - Open: V-B, V-D, V-I
-- Pump B: ON
-- Path: Hopper → V-B → V-D → P-B → V-I → Bag B
+- Pump A: ON
+- Path: Hopper → V-B → V-D → P-A → V-I → Bag B
 
 ### Clean Water Fill → Bag A
 
 - Open: V-A, V-C, V-F
-- Pump A: OFF (line pressure through idle pump)
-- Path: Tap → V-A → V-C → P-A (idle) → V-F → Bag A
+- Pump B: OFF (line pressure through idle pump)
+- Path: Tap → V-A → V-C → P-B (idle) → V-F → Bag A
 
 ### Clean Water Fill → Bag B
 
 - Open: V-A, V-D, V-I
-- Pump B: OFF (line pressure through idle pump)
-- Path: Tap → V-A → V-D → P-B (idle) → V-I → Bag B
+- Pump A: OFF (line pressure through idle pump)
+- Path: Tap → V-A → V-D → P-A (idle) → V-I → Bag B
 
 ### Clean Flush A (water out)
 
 - Open: V-E, V-G
-- Pump A: ON
-- Path: Bag A → V-E → P-A → V-G → Nozzle A
+- Pump B: ON
+- Path: Bag A → V-E → P-B → V-G → Nozzle A
 - (Same as Dispense A)
 
 ### Clean Flush B (water out)
 
 - Open: V-H, V-J
-- Pump B: ON
-- Path: Bag B → V-H → P-B → V-J → Nozzle B
+- Pump A: ON
+- Path: Bag B → V-H → P-A → V-J → Nozzle B
 - (Same as Dispense B)
 
 ### Air Purge In → Bag A
 
 - Open: V-B, V-C, V-F
-- Pump A: ON
+- Pump B: ON
 - Funnel: dry, open to air
-- Path: Air → V-B → V-C → P-A → V-F → Bag A
+- Path: Air → V-B → V-C → P-B → V-F → Bag A
 - (Same path as hopper fill)
 
 ### Air Purge In → Bag B
 
 - Open: V-B, V-D, V-I
-- Pump B: ON
+- Pump A: ON
 - Funnel: dry, open to air
-- Path: Air → V-B → V-D → P-B → V-I → Bag B
+- Path: Air → V-B → V-D → P-A → V-I → Bag B
 
 ### Air Purge Out A
 
 - Open: V-E, V-G
-- Pump A: ON
-- Path: Bag A → V-E → P-A → V-G → Nozzle A
+- Pump B: ON
+- Path: Bag A → V-E → P-B → V-G → Nozzle A
 - (Same as Dispense A)
 
 ### Air Purge Out B
 
 - Open: V-H, V-J
-- Pump B: ON
-- Path: Bag B → V-H → P-B → V-J → Nozzle B
+- Pump A: ON
+- Path: Bag B → V-H → P-A → V-J → Nozzle B
 - (Same as Dispense B)
