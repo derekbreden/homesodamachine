@@ -18,8 +18,12 @@
 //   --trim           trim to background and cap long side 1600 (default: off —
 //                    cards want the exact framed viewport)
 //   --ortho          orthographic projection (dimension-drawing look)
+//   --edition id     which machine's tree the step path is in (web/lib/editions.js).
+//                    Default kitchen. The trees mirror each other's filenames, so
+//                    without this a thin path renders the kitchen's twin silently.
 //
-// The step path is relative to hardware/ (matches /api/steps + /steps/*).
+// The step path is relative to the edition's content root (matches /api/steps +
+// /steps/*).
 
 import path from "path";
 import fs from "fs";
@@ -28,6 +32,7 @@ import puppeteer from "puppeteer";
 import sharp from "sharp";
 
 import { start } from "../../web/server.js";
+import { DEFAULT_EDITION, EDITION_IDS, editionById } from "../../web/lib/editions.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
@@ -36,7 +41,8 @@ function usage(msg) {
   if (msg) console.error(`render-step-posed: ${msg}`);
   console.error(
     "usage: node tools/render/render-step-posed.js <step-file-relative> <output-png> " +
-      "[--cam x,y,z] [--target x,y,z] [--zoom f] [--up x,y,z] [--size WxH] [--bg #hex] [--trim] [--ortho]",
+      "[--cam x,y,z] [--target x,y,z] [--zoom f] [--up x,y,z] [--size WxH] [--bg #hex] [--trim] [--ortho] " +
+      "[--edition id]",
   );
   process.exit(1);
 }
@@ -60,6 +66,7 @@ function parseArgs(argv) {
     bg: "#1a1a2e",
     trim: false,
     ortho: false,
+    edition: DEFAULT_EDITION,
   };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -74,6 +81,7 @@ function parseArgs(argv) {
       opts.width = Number(m[1]);
       opts.height = Number(m[2]);
     } else if (a.startsWith("--bg")) opts.bg = val("bg");
+    else if (a.startsWith("--edition")) opts.edition = val("edition");
     else if (a === "--trim") opts.trim = true;
     else if (a === "--ortho") opts.ortho = true;
     else positional.push(a);
@@ -83,7 +91,9 @@ function parseArgs(argv) {
 }
 
 async function renderOne({ stepRel, outAbs, opts }) {
-  const hardwareDir = path.join(REPO_ROOT, "hardware");
+  const edition = editionById(opts.edition);
+  if (!edition) usage(`unknown --edition ${opts.edition} (have ${EDITION_IDS.join(", ")})`);
+  const hardwareDir = path.join(REPO_ROOT, ...edition.dir);
   const stepAbs = path.join(hardwareDir, stepRel);
   if (!fs.existsSync(stepAbs)) throw new Error(`step file not found: ${stepAbs}`);
 
