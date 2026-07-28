@@ -52,7 +52,7 @@ A generator that writes a STEP also renders its `.step.png` thumbnail at exit, b
 
 ## Asking the geometry
 
-`hardware/scripts/probe.py` queries the placed world — the enclosure pack, the panel bodies, the funnel and the routed tubes, as one flat `{name: shape}`. It answers where a body sits, how close two come, what a candidate volume runs into, how far a line travels before it hits something, and how any of those move across a continuous parameter. Import it the way `pick_text` is imported, or run it:
+`hardware/scripts/probe.py` queries the placed world — the enclosure pack, the panel bodies, the display, the funnel and the routed tubes, as one flat `{name: shape}`. It answers where a body sits, how close two come, what a candidate volume runs into, how far a line travels before it hits something, and how any of those move across a continuous parameter. Import it the way `pick_text` is imported, or run it:
 
 ```
 tools/cad-venv/bin/python hardware/scripts/probe.py boxes --sort ymin
@@ -62,13 +62,15 @@ tools/cad-venv/bin/python hardware/scripts/probe.py cast 110.1,155.9,253.3 0,0,-
 tools/cad-venv/bin/python hardware/scripts/probe.py hits --x 100,120 --y 160,200 --z 30,275
 ```
 
-Every query raises rather than degrading: a body that will not normalize, a boolean that fails, a distance that cannot be taken exactly. A cast that reaches its limit reports that it made no contact, because its length is a property of the probe and not a clearance. `probe.py selftest` runs known-answer controls — a known hit, a known miss, a known distance, a known refusal — and then normalizes every body in the real world. Run it when a number looks wrong, before trusting the number.
+The thin edition's copy (`thin/hardware/scripts/probe.py`) also holds the four printed enclosure pieces, tagged `piece`, so its world is body for body what `scorecard.pack_clashes` measures: `w.parts` are the gate's `solids`, `w.pieces` are its `pieces`, and every query sees both. The walls, seam lips, cross-pin pods and boss chains are what bounds a placement in a full machine, and a world without them answers CLEAR exactly where the gate that blocks the build answers clash. `HSM_SKIP_PIECES=1` takes them out for a tree whose `enclosure-*.step` are not exported; every scan then says so in its header. The kitchen copy holds the interior pack alone, so a pose it calls clear may still stand in a wall.
+
+Every query raises rather than degrading: a body that will not normalize, a boolean that fails, a distance that cannot be taken exactly. A cast that reaches its limit reports that it made no contact, because its length is a property of the probe and not a clearance. `probe.py selftest` runs known-answer controls — a known hit, a known miss, a known distance, a known refusal, a volume buried in a printed wall that every interior body clears — and then normalizes every body in the real world. Run it when a number looks wrong, before trusting the number.
 
 A claim about where something sits, what it clears, or which poses are available is a claim this tool can settle. Settle it before stating it, and quote the query.
 
 ## Trying a part somewhere it isn't yet
 
-`hardware/scripts/fit.py` is the other half: `probe` asks about the world as it stands, `fit` asks about a body that is not in it. It discovers a reference part's builder and ports from `hardware/reference/<name>/`, carries it to a pose, and measures it against the placed world.
+`hardware/scripts/fit.py` is the other half: `probe` asks about the world as it stands, `fit` asks about a body that is not in it. It discovers a reference part's builder and ports from `hardware/reference/<name>/`, carries it to a pose, and measures it against the placed world — so in the thin edition a pose it calls CLEAR is a pose the enclosure's pack-closes gate agrees is clear, walls included.
 
 ```
 tools/cad-venv/bin/python hardware/scripts/fit.py parts
@@ -85,11 +87,11 @@ The body and its ports move under one `cq.Location`, so a port always sits on th
 
 Clearance is a threshold on an exact measured distance, never an inflation of the obstacles, so raising it can only ever remove poses. `search` reports the free poses ranked by the room they leave; the body being re-placed must be named in `--skip`, or it clashes with itself.
 
-`slab` maps a Z band instead of testing one part: the largest rectangles a footprint could stand in, inside the enclosure's own cavity. Obstacles count by their bounding box unless named in `--exact` — a part that is mostly air, like the pump, hides real space behind its box, and the two answers differ enough to reverse a conclusion.
+`slab` maps a Z band instead of testing one part: the largest rectangles a footprint could stand in, inside the enclosure's own cavity. Obstacles count by their bounding box unless named in `--exact` — a part that is mostly air, like the pump, hides real space behind its box, and the two answers differ enough to reverse a conclusion. A printed piece is always exact and can never be boxed: its box is the whole machine, and a scan that took one by box would report a full cavity.
 
-Both scans state their bounds before their answer. `search` prints the box it ranged over — every range, every axis pinned to one value, the anchor, the bodies held out — and names the ends the best pose sits on; `slab` prints its field, where the field came from, which bodies it measured exactly, and whether its largest rectangle runs to the edge of a field you supplied. An end of a scan is a property of the grid and not of the geometry, so quote the box with the number: a "there is no room" that arrives without one is a claim about a search, and `calibration/Fences.md` is what it costs.
+Both scans state their bounds before their answer, and what they measured them against. `search` prints the box it ranged over — every range, every axis pinned to one value, the anchor, the bodies held out, the world the poses were measured in — and names the ends the best pose sits on; `slab` prints its field, where the field came from, which bodies it took by box against which it took exactly, which pieces reach into the band, and whether its largest rectangle runs to the edge of a field you supplied. An end of a scan is a property of the grid and not of the geometry, so quote the box with the number: a "there is no room" that arrives without one is a claim about a search, and `calibration/Fences.md` is what it costs.
 
-`fit.py selftest` checks the instrument: that a port stays on its body at arbitrary angles, that the fast reject and the full check never disagree, that clearance only removes, that a scan reports its own box and the ends its answer sits on, and that every reference part still builds.
+`fit.py selftest` checks the instrument: that a port stays on its body at arbitrary angles, that the fast reject and the full check never disagree, that clearance only removes, that a pose clear of every interior body but standing in a printed piece comes back CLASH, that a scan reports its own box and the ends its answer sits on, and that every reference part still builds.
 
 ## Firmware
 
