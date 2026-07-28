@@ -1,6 +1,6 @@
 # Enclosure
 
-The under-counter appliance enclosure — outer dimensions, internal zoning, and what lives where. This README is the architectural orientation for the printed enclosure as a whole; panel-specific design lives in the sub-folders.
+The under-counter appliance enclosure — outer dimensions, internal zoning, and what lives where. This README is the architectural orientation for the printed enclosure as a whole; panel-specific design lives in the sub-folders. The cabinet it installs into, and what is already in there, is [`/marketing/install-envelope.md`](/marketing/install-envelope.md).
 
 The foam shell's envelope at the back (Zone A) is the one volume that cannot move or compress; the enclosure width follows it. Everything else is a working arrangement packed into the voids around it, rearrangeable within the constraints below.
 

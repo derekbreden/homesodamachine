@@ -6,7 +6,7 @@ The public face of the project is **[homesodamachine.com](https://homesodamachin
 
 The prototype that proves the dispense path is in Derek's kitchen today — a Lilium under-counter carbonator with peristaltic pumps injecting flavor concentrate into the dispensed water. The project's biography lives in [`biography/`](/biography/) — [`2026-04-05.md`](/biography/2026-04-05.md) (origin story: failed SodaStream, the business-license wall, the AI design wall) and [`2026-05-23.md`](/biography/2026-05-23.md) (vision into work: welding, marketing, the engineering).
 
-The product under development is an integrated under-counter appliance — custom-fabricated 316L stainless carbonator vessel, harvested ice-maker refrigeration loop, foam-insulated cold core, two flavor reservoirs, all behind a single 120 VAC cord and one CO2 line. Architecture: [`hardware/future.md`](/hardware/future.md). Founder Edition (units 001-050, $7,500 hand-built) is the launch tier — [`marketing/target-market.md`](/marketing/target-market.md) covers who it's for and why.
+The product under development is an integrated under-counter appliance — custom-fabricated 316L stainless carbonator vessel, harvested ice-maker refrigeration loop, foam-insulated cold core, two flavor reservoirs, all behind a single 120 VAC cord and one CO2 line. Architecture: [`hardware/future.md`](/hardware/future.md). Founder Edition (units 001-050, $7,500 hand-built) is the launch tier — [`marketing/target-market.md`](/marketing/target-market.md) covers who it's for and why, and [`marketing/install-envelope.md`](/marketing/install-envelope.md) the cabinet it has to fit.
 
 ## What's where
 
