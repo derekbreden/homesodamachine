@@ -29,10 +29,10 @@ They are duplicates, not variants: no flag selects between them and no module is
 
 The viewer serves one edition per request (Settings → Edition, dev mode only), and the dev-server watches, rebuilds and broadcasts for every root. Adding a third is one entry plus the directory.
 
-The trees mirror each other's filenames, so a path that leaves its own tree is invisible — the script runs, the STEP is written, and the number came from another machine. Two things hold that off:
+The trees mirror each other's filenames, so a path that leaves its own tree is invisible — the script runs, the STEP is written, and the number came from another machine. A shared path that fails to leave is the same mistake pointed the other way: it names a `tools/` the edition has no copy of, and the import dies. Two things hold both off:
 
-- Anchors have two jobs and say which. Content resolves to the *nearest* `hardware/`; shared machinery (`tools/`) resolves to the repo root that holds `tools/docgen`. In a single tree they land in the same place, which is why it goes unnoticed until there are two.
-- `tools/check_editions.py` resolves every anchored path in every edition's Python and fails on one that leaves the tree without being declared in that edition's `shares`. Both declare nothing.
+- Anchors have two jobs and say which. Content resolves to the *nearest* `hardware/`; shared machinery (`tools/`) resolves to the repo root that holds `tools/docgen`. A positional anchor — `.parent`, `.parents[N]` — says neither, and lands on whatever sits that far up. In a single tree all three land in the same place, which is why it goes unnoticed until there are two.
+- `tools/check_editions.py` resolves every anchored path in every edition's Python and fails on one that lands on the wrong tree: content that leaves the edition without being declared in that edition's `shares`, or shared machinery that stops inside the edition where there is nothing. Both declare nothing.
 
 ```
 tools/cad-venv/bin/python tools/check_editions.py

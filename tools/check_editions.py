@@ -1,15 +1,17 @@
-"""Every edition's tree must aim at itself.
+"""Every anchored path must land on the tree its job lives in.
 
 An edition (web/lib/editions.js) is one machine: its own generators, its own
 assemblies, its own outputs. The trees are copies of each other, so nearly every
 module name exists in all of them, and a path that escapes its own tree is
 invisible — the script runs, the STEP is written, and the number came from the
-wrong machine.
+wrong machine. A shared path that fails to escape is the other direction: it
+names a directory the edition has no copy of, and the module never imports.
 
-Nothing enforces that at run time. Python resolves an absolute path without
+Nothing enforces either at run time. Python resolves an absolute path without
 complaint, and CadQuery loads whichever STEP it is handed. So this walks each
-edition's Python, resolves the repo-anchor idiom statically, and reports any
-path that lands outside the tree it was written in.
+edition's Python, resolves the anchor idioms statically, and reports a path that
+lands outside the tree it was written in, or one that stays inside a tree with
+no copy of what it names.
 
 Four anchor idioms are in use, and only two of them self-anchor:
 
@@ -24,6 +26,10 @@ thin/. These do not:
 
 They reach the real repo root, which is right for `tools/` — genuinely shared,
 one copy, every edition uses it — and wrong for anything under `hardware/`.
+
+A positional anchor — `.parent`, `.parents[N]` — lands on whatever sits N levels
+up: the repo root from `hardware/`, `thin/` from `thin/hardware/`. One written
+for `tools/` finds it in `hardware/` and finds nothing in `thin/hardware/`.
 
 Run: tools/cad-venv/bin/python tools/check_editions.py
 """
@@ -133,21 +139,74 @@ def _anchor_call(node, py_file):
     return _anchor_of(gen.generators[0].ifs[0], py_file)
 
 
-def escapes_in(py_file, root, shared_dirs):
-    """Paths in `py_file` that resolve outside `root` and outside `shared_dirs`."""
+def _is_resolved_file(node):
+    """`Path(__file__).resolve()` — the file the anchor is written in."""
+    if not (isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)
+            and node.func.attr == "resolve" and not node.args):
+        return False
+    inner = node.func.value
+    return (isinstance(inner, ast.Call) and isinstance(inner.func, ast.Name)
+            and inner.func.id == "Path" and len(inner.args) == 1
+            and isinstance(inner.args[0], ast.Name) and inner.args[0].id == "__file__")
+
+
+def _dir_expr(node, py_file, anchors):
+    """The directory an anchor expression resolves to, or None when it isn't an
+    idiom we model.
+
+    Covers a name already bound to an anchor, an inline `next(...)` walk,
+    `Path(__file__).resolve()`, and the positional steps `.parent` and
+    `.parents[N]` off any of those.
+    """
+    if isinstance(node, ast.Name):
+        return anchors.get(node.id)
+
+    anchored = _anchor_call(node, py_file)
+    if anchored is not None:
+        return anchored
+
+    if _is_resolved_file(node):
+        return py_file.resolve()
+
+    if isinstance(node, ast.Attribute) and node.attr == "parent":
+        base = _dir_expr(node.value, py_file, anchors)
+        return None if base is None else base.parent
+
+    if isinstance(node, ast.Subscript) and isinstance(node.value, ast.Attribute) \
+            and node.value.attr == "parents" and isinstance(node.slice, ast.Constant) \
+            and isinstance(node.slice.value, int):
+        base = _dir_expr(node.value.value, py_file, anchors)
+        if base is None:
+            return None
+        try:
+            return base.parents[node.slice.value]
+        except IndexError:
+            return None
+
+    return None
+
+
+def findings_in(py_file, root, shared_dirs):
+    """`(kind, lineno, resolved, intended)` per path in `py_file` that misses its job.
+
+    kind is "escape" — resolves outside `root` and outside `shared_dirs`, with no
+    `intended` — or "stranded" — rebuilds a shared dir's name where there is
+    nothing, with `intended` the repo-root copy it was reaching for.
+    """
     try:
         tree = ast.parse(py_file.read_text())
     except (SyntaxError, UnicodeDecodeError):
         return []
 
-    # Anchor variables: `X = next(p for p in _here.parents if TEST)`.
+    # Anchor variables: `X = next(p for p in _here.parents if TEST)`, or a
+    # positional step off one — `X = Path(__file__).resolve().parents[4]`.
     anchors = {}
     for node in ast.walk(tree):
         if not isinstance(node, ast.Assign) or len(node.targets) != 1:
             continue
         if not isinstance(node.targets[0], ast.Name):
             continue
-        anchored = _anchor_call(node.value, py_file)
+        anchored = _dir_expr(node.value, py_file, anchors)
         if anchored is not None:
             anchors[node.targets[0].id] = anchored
 
@@ -163,11 +222,7 @@ def escapes_in(py_file, root, shared_dirs):
             continue
         if id(node) in inner:
             continue
-        base = _base(node)
-        if isinstance(base, ast.Name):
-            anchor = anchors.get(base.id)
-        else:
-            anchor = _anchor_call(base, py_file)
+        anchor = _dir_expr(_base(node), py_file, anchors)
         if anchor is None:
             continue
         segments = _segments(node)
@@ -176,12 +231,36 @@ def escapes_in(py_file, root, shared_dirs):
         # Split a segment that is itself a path ("hardware/printed-parts/x").
         parts = [s for seg in segments for s in seg.split("/") if s]
         resolved = anchor.joinpath(*parts)
+        intended = _stranded(resolved, shared_dirs)
+        if intended is not None:
+            findings.append(("stranded", node.lineno, resolved, intended))
+            continue
         if resolved.is_relative_to(root):
             continue
         if any(resolved.is_relative_to(d) for d in shared_dirs):
             continue
-        findings.append((node.lineno, anchor, resolved))
+        findings.append(("escape", node.lineno, resolved, None))
     return findings
+
+
+def _stranded(resolved, shared_dirs):
+    """The repo-root path `resolved` was reaching for, or None if it isn't stranded.
+
+    A shared dir has one copy. An anchor that stops short of the repo root
+    rebuilds its name somewhere there is nothing — `thin/tools` for `tools`.
+    Matched on the name, confirmed on what is on disk: nothing where it points,
+    something where the repo root holds it.
+    """
+    for shared in shared_dirs:
+        want = shared.relative_to(REPO).parts
+        parts = resolved.parts
+        for i in range(len(parts) - len(want) + 1):
+            if parts[i:i + len(want)] != want:
+                continue
+            intended = REPO.joinpath(*parts[i:])
+            if intended != resolved and intended.exists() and not resolved.exists():
+                return intended
+    return None
 
 
 def main():
@@ -190,22 +269,31 @@ def main():
     for root, shared_dirs in eds:
         rel_root = root.relative_to(REPO)
         declared = [d.relative_to(REPO) for d in shared_dirs if d != REPO / "tools"]
-        bad = []
+        escaped, stranded = [], []
         for py in sorted(root.rglob("*.py")):
             if "__pycache__" in py.parts:
                 continue
-            for lineno, anchor, resolved in escapes_in(py, root, shared_dirs):
-                bad.append((py.relative_to(REPO), lineno, resolved.relative_to(REPO)))
+            for kind, lineno, resolved, intended in findings_in(py, root, shared_dirs):
+                row = (py.relative_to(REPO), lineno, resolved.relative_to(REPO),
+                       intended.relative_to(REPO) if intended else None)
+                (escaped if kind == "escape" else stranded).append(row)
         note = f"shares {', '.join(str(d) for d in declared)}" if declared else "self-contained"
-        if bad:
-            print(f"FAIL  {rel_root} ({note}): {len(bad)} undeclared path(s) leave the edition")
-            for rel, lineno, resolved in bad:
+        if escaped or stranded:
+            counts = []
+            if escaped:
+                counts.append(f"{len(escaped)} undeclared path(s) leave the edition")
+            if stranded:
+                counts.append(f"{len(stranded)} shared path(s) never reach the repo root")
+            print(f"FAIL  {rel_root} ({note}): {', '.join(counts)}")
+            for rel, lineno, resolved, _ in escaped:
                 print(f"        {rel}:{lineno}  ->  {resolved}")
+            for rel, lineno, resolved, intended in stranded:
+                print(f"        {rel}:{lineno}  ->  {resolved}  (nothing there; {intended} is)")
         else:
-            print(f"ok    {rel_root} ({note}): no undeclared path leaves the edition")
-        total += len(bad)
+            print(f"ok    {rel_root} ({note}): every anchored path lands in its own tree")
+        total += len(escaped) + len(stranded)
 
-    print(f"\n{len(eds)} edition(s) checked, {total} undeclared escape(s)")
+    print(f"\n{len(eds)} edition(s) checked, {total} misplaced path(s)")
     return 1 if total else 0
 
 
