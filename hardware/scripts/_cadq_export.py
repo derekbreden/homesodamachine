@@ -474,8 +474,8 @@ def _atomic_write(target_path, write_fn):
 #
 # Rendering is deferred to one batch at process exit (tools/render/
 # render-thumbnails.js boots the viewer + a headless browser once per run, not
-# once per part) and gated on the STEP actually changing or its thumbnail
-# being absent — so no-op regenerations cost nothing. It's best-effort: a
+# once per part) and gated on the thumbnail being absent or older than its
+# STEP — so no-op regenerations cost nothing. It's best-effort: a
 # missing Node/render toolchain logs a warning and is skipped, never failing
 # the STEP export itself. Set HSM_SKIP_THUMBNAILS=1 to skip entirely (fast CAD
 # iteration / Python-only CI). The dev-server watcher sets it and rebuilds
@@ -523,14 +523,23 @@ def _write_mesh_payload(target, source):
         return None
 
 
-def _queue_thumbnail(target_path, changed, source=None):
+def _thumbnail_current(target, thumb):
+    """Whether `thumb` was rendered from the STEP as it now stands. `_atomic_write` leaves an
+    unchanged target's mtime alone, so a STEP newer than its thumbnail is one whose bytes have
+    moved since the render — by this build or by one that rendered nothing."""
+    try:
+        return thumb.stat().st_mtime_ns >= target.stat().st_mtime_ns
+    except OSError:
+        return False
+
+
+def _queue_thumbnail(target_path, source=None):
     if os.environ.get("HSM_SKIP_THUMBNAILS"):
         return
     target = Path(target_path).resolve()
     if target.suffix != ".step":
         return
-    thumb = target.with_name(target.name + ".png")
-    if not changed and thumb.exists():
+    if _thumbnail_current(target, target.with_name(target.name + ".png")):
         return
     _pending_thumbnails[str(target)] = _write_mesh_payload(target, source) if source else None
     global _thumbnail_atexit_registered
@@ -578,15 +587,15 @@ def _render_pending_thumbnails():
 def export_step(model, target_path):
     """cq.exporters.export with atomic write."""
     import cadquery as cq
-    changed = _atomic_write(target_path, lambda p: cq.exporters.export(model, p))
-    _queue_thumbnail(target_path, changed, model)
+    _atomic_write(target_path, lambda p: cq.exporters.export(model, p))
+    _queue_thumbnail(target_path, model)
 
 
 def export_assembly(assembly, target_path):
     """cq.Assembly.export with atomic write. (Assembly.save is its deprecated
     alias — it just delegates to .export — and warns on every call.)"""
-    changed = _atomic_write(target_path, lambda p: assembly.export(p))
-    _queue_thumbnail(target_path, changed, assembly)
+    _atomic_write(target_path, lambda p: assembly.export(p))
+    _queue_thumbnail(target_path, assembly)
 
 
 def export_dxf(doc, target_path):
