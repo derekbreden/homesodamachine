@@ -36,9 +36,9 @@ The internal 1/4" LLDPE between the front-panel CO2 PTC and the vessel-side TAIS
 
 ## Internal routing — WR1110 placement
 
-Downstream of the front-panel CO2 inlet stack: GASHER check → WR1110 secondary regulator → first PP010822E PTC × NPT M adapter → 1/4" OD LLDPE routed up through the electronics-shelf zone → cold-core CO2 input at the foam-lid (+Z top). Procedure detail in [`/hardware/assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §1.
+Downstream of the front-panel CO2 inlet stack: GASHER check → PP450822E onto the check's male outlet stub → a short 1/4" OD LLDPE hop → WR1110 secondary regulator, a PP010822E PTC × NPT M adapter in each of its two female ends → 1/4" OD LLDPE → the cold core's front-face CO2 bore, beside the water outlet. Procedure detail in [`/hardware/assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §1.
 
-The WR1110 mounts on a printed bracket somewhere along the CO2 path between the front-panel inlet and the foam-shell top. Exact bracket location is flexible per [`/hardware/printed-parts/enclosure/README.md`](/hardware/printed-parts/enclosure/README.md) "What is flexible".
+The regulator does not thread onto the check. It lies across the band between the compressor's top and the pump row's underside, fed and drained by tube, and stands on its own cradle — owned by [`/hardware/assembly/enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) Open items, which has the station placed and its keep-outs measured.
 
 ## References
 
