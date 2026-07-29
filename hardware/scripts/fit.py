@@ -16,8 +16,11 @@ it names. A pose reports the transform it used; two poses of the same part with 
 arguments are the same solid.
 
 Clearance is a threshold on an exact measured distance, never an inflation of the
-obstacles: a pose free at 3 mm is a pose free at 0 mm, always. `search` ranks the free
-poses by how much room they leave.
+obstacles: a pose free at 3 mm is a pose free at 0 mm, always. So is every distance a
+verdict reports — a body far enough out to settle the verdict by its bounding box alone
+is measured before its number is read off, because a box gap is a floor and a part that
+is mostly air stands far behind its box. `search` ranks the free poses by how much room
+they leave, on the same measured distances.
 
     fit.search(p, x=(xlo, xhi, step), y=(ylo, yhi, step), z=deck,
                yaw=(0, 90, 180, 270), clearance=2.0, skip=("vk-fill-valve",))
@@ -47,8 +50,10 @@ From the shell, without writing a file:
 
 `selftest` checks the instrument against known-answer geometry — that a port lands on the
 body it belongs to at arbitrary angles, that clearance only ever removes poses, that a
-known fit fits and a known clash clashes, and that a scan reports the box it searched and
-the ends its answer sits on. Run it when an answer looks wrong before trusting the answer.
+known fit fits and a known clash clashes, that a body whose bounding box reaches nearer
+than its material is reported at its material, and that a scan reports the box it searched
+and the ends its answer sits on. Run it when an answer looks wrong before trusting the
+answer.
 """
 
 import inspect
@@ -352,13 +357,36 @@ def _carry_axis(loc: cq.Location, a) -> tuple:
 
 # --- fit ------------------------------------------------------------------
 
+@dataclass(order=True)
+class Gap:
+    """How far a body stands, and whether that is the distance or a floor under it.
+
+    A body already outside the threshold by its bounding box alone settles the verdict
+    without an exact query, and carries its box gap — which is never more than the
+    distance between the solids inside the boxes, and often far less. Until `Verdict`
+    measures it, the number renders with the `≥` it has earned."""
+
+    mm: float
+    name: str
+    exact: bool = True
+
+    def __str__(self) -> str:
+        return f"{self.name} {'' if self.exact else '≥'}{self.mm:.2f}"
+
+
 @dataclass
 class Verdict:
-    """What a candidate ran into and how much room it left."""
+    """What a candidate ran into and how much room it left.
+
+    Every distance that reaches a reader is measured against the solid: `nearest`, `room`
+    and the rendered line resolve what they report. `gaps` is the working order, nearest
+    first, and its tail may still hold the floor a bounding box put under a body — each
+    entry says which it is."""
 
     clashes: list = field(default_factory=list)         # probe.Hit, worst first
-    gaps: list = field(default_factory=list)            # (mm, name), nearest first
+    gaps: list = field(default_factory=list)            # Gap, nearest first
     clearance: float = 0.0
+    measure: object = None                              # name -> exact distance to the body
 
     @property
     def clear(self) -> bool:
@@ -367,14 +395,36 @@ class Verdict:
 
     @property
     def tight(self) -> list:
-        """Bodies inside the clearance threshold without overlapping."""
-        return [(g, n) for g, n in self.gaps if g < self.clearance]
+        """Bodies inside the clearance threshold without overlapping.
+
+        Every one was measured: a floor is only ever taken for a body whose box already
+        stood outside the threshold, so no floor can decide a verdict."""
+        return [g for g in self.gaps if g.mm < self.clearance]
+
+    def resolve(self, depth: int = 1) -> list:
+        """The `depth` nearest bodies, each measured against the solid.
+
+        A floor can only stand a body earlier in the order than it belongs, never later,
+        so the nearest are found by measuring the smallest floor and re-sorting until none
+        stands among them. Measuring can only raise a value, so this ends, and a body it
+        reaches can never turn out to be a clash. Without a `measure` the order is left as
+        it is and the floors in it say so."""
+        while self.measure is not None:
+            head = self.gaps[:depth]
+            loose = next((i for i, g in enumerate(head) if not g.exact), None)
+            if loose is None:
+                return head
+            g = self.gaps[loose]
+            self.gaps[loose] = Gap(self.measure(g.name), g.name)
+            self.gaps.sort()
+        return self.gaps[:depth]
 
     @property
-    def nearest(self) -> tuple:
+    def nearest(self) -> Gap:
+        """The closest body, measured."""
         if not self.gaps:
             raise ValueError("nearest: nothing was measured — every body was skipped")
-        return self.gaps[0]
+        return self.resolve(1)[0]
 
     @property
     def room(self) -> float:
@@ -382,23 +432,26 @@ class Verdict:
         nothing was near enough to measure."""
         if self.clashes:
             return 0.0
-        return self.gaps[0][0] if self.gaps else math.inf
+        return self.resolve(1)[0].mm if self.gaps else math.inf
 
     def __str__(self) -> str:
         if self.clashes:
             return "CLASH " + ", ".join(f"{h.name} {h.volume:.1f} mm³" for h in self.clashes[:4])
         if self.tight:
-            return "TIGHT " + ", ".join(f"{n} {g:.2f}" for g, n in self.tight[:4])
-        near = ", ".join(f"{n} {g:.2f}" for g, n in self.gaps[:4]) or "nothing within reach"
+            return "TIGHT " + ", ".join(str(g) for g in self.tight[:4])
+        near = ", ".join(str(g) for g in self.resolve(4)) or "nothing within reach"
         return f"CLEAR  nearest: {near}"
 
 
 def check(candidate, skip=(), clearance: float = 0.0, world=None, near: float = 25.0) -> Verdict:
     """What `candidate` — a `Pose`, a shape, or a `(solid, color)` pack entry — runs into.
 
-    Overlaps are exact intersections; distances are exact minimum distances. `near` bounds
-    which bodies get measured: a body whose bounding box is further than that cannot be the
-    nearest and is not queried. Raise it when a pose sits alone in a large void."""
+    Overlaps are exact intersections, and so is every distance the `Verdict` reports: a
+    body held off by its bounding box alone settles the verdict unmeasured and carries a
+    floor under its distance, and `Verdict.resolve` measures whatever the ordering brings
+    to the front before a number is read off it. `near` bounds which bodies are considered
+    at all: a body whose bounding box is further than that cannot be the nearest and is not
+    queried. Raise it when a pose sits alone in a large void."""
     w = world or probe.world()
     sh = candidate.solid if isinstance(candidate, Pose) else probe.shape(candidate, "candidate")
     cb = sh.BoundingBox()
@@ -413,11 +466,11 @@ def check(candidate, skip=(), clearance: float = 0.0, world=None, near: float = 
         if sep > reach:                     # a box gap under-states the solid gap: safe to skip
             continue
         if sep > clearance and sep > TOUCH:
-            gaps.append((sep, name))        # already outside the threshold by its box alone
+            gaps.append(Gap(sep, name, False))   # outside the threshold by its box alone
             continue
         d = w.gap(name, sh)
         if d > TOUCH:
-            gaps.append((d, name))
+            gaps.append(Gap(d, name))
             continue
         try:
             inter = sh.intersect(w.solid(name))
@@ -429,10 +482,10 @@ def check(candidate, skip=(), clearance: float = 0.0, world=None, near: float = 
         if overlap > VOL_TOL:
             clashes.append(probe.Hit(name, overlap, inter.BoundingBox()))
         else:
-            gaps.append((d, name))          # touching, not overlapping
+            gaps.append(Gap(d, name))       # touching, not overlapping
     clashes.sort(key=lambda h: -h.volume)
     gaps.sort()
-    return Verdict(clashes, gaps, float(clearance))
+    return Verdict(clashes, gaps, float(clearance), lambda n: w.gap(n, sh))
 
 
 def _conflict(sh, w, skip=(), clearance: float = 0.0):
@@ -929,13 +982,55 @@ def selftest() -> int:
     w = probe.World({"wall": wall}, {"wall": "test"})
     v = check(p.pose(at=(0, 0, 0)), world=w, near=4 * side)
     ok("a known miss is clear", v.clear and not v.clashes)
-    ok("its gap is exact", abs(v.nearest[0] - (face - side / 2)) < 1e-6,
-       f"{v.nearest[0]:.6f}", f"{face - side / 2}")
+    ok("its gap is exact", abs(v.nearest.mm - (face - side / 2)) < 1e-6,
+       f"{v.nearest.mm:.6f}", f"{face - side / 2}")
     v = check(p.pose(at=(face + 1.0, 0, 0)), world=w)
     ok("a known overlap clashes", bool(v.clashes) and not v.clear,
        f"{[h.name for h in v.clashes]}", "['wall']")
     v = check(p.pose(at=(face - side / 2, 0, 0)), world=w)
     ok("touching is not overlapping", v.clear and not v.clashes, f"clashes {len(v.clashes)}")
+
+    print("controls — a reported distance is measured, not read off a box:")
+    # `wall` is a box, so its box gap happens to be its distance and it could not catch a
+    # box gap standing in for one. `bracket` can: an L whose bounding box reaches within
+    # `side` of the cube while its material — the wing, out at the diagonal — stands
+    # side·√2 away. `post` is a plain box at 1.25·side, nearer than the bracket's material
+    # and further than the bracket's box, so a report taken off boxes gets the order wrong
+    # as well as the number. `far` sits behind both, where no report reaches.
+    wing = probe.box(x=(1.5 * side, 3.5 * side), y=(1.5 * side, 2.5 * side), z=(0, side))
+    back = probe.box(x=(3.5 * side, 4.5 * side), y=(-2.5 * side, 2.5 * side), z=(0, side))
+    wa = probe.World({"bracket": wing.fuse(back),
+                      "post": probe.box(x=(1.75 * side, 2.25 * side),
+                                        y=(-side / 2, side / 2), z=(0, side)),
+                      "far": probe.box(x=(2.5 * side, 3 * side),
+                                       y=(-side / 2, side / 2), z=(0, side))},
+                     {"bracket": "test", "post": "test", "far": "test"})
+    cube = p.pose(at=(0, 0, 0))
+    ok("the bracket's box stands nearer than its material",
+       abs(_bb_gap(cube.bb, wa.bb("bracket")) - side) < 1e-6,
+       f"{_bb_gap(cube.bb, wa.bb('bracket')):.6f}", f"{side:g}")
+    v = check(cube, world=wa, near=4 * side)
+    ok("the nearest is the nearest body, not the nearest box",
+       v.nearest.name == "post", v.nearest.name, "post")
+    ok("its gap is exact", abs(v.nearest.mm - 1.25 * side) < 1e-6,
+       f"{v.nearest.mm:.6f}", f"{1.25 * side:g}")
+    # Measuring goes as deep as the report and no deeper, so the rest keeps its floor —
+    # and says so rather than passing it off as a distance.
+    ok("a body no report reaches keeps the floor its box gave it",
+       [g.name for g in v.gaps if not g.exact] == ["far"],
+       f"{[g.name for g in v.gaps if not g.exact]}", "['far']")
+    ok("a floor renders as one", str(Gap(2.03, "far", False)) == "far ≥2.03",
+       str(Gap(2.03, "far", False)))
+    floors = {g.name: g.mm for g in v.gaps if not g.exact}
+    line = str(v)
+    ok("the reported line carries the measured distances",
+       line == f"CLEAR  nearest: post {1.25 * side:.2f}, bracket {side * math.sqrt(2):.2f}, "
+               f"far {2 * side:.2f}", line)
+    ok("measuring a floor never lowered it",
+       all(g.mm >= floors[g.name] - 1e-9 for g in v.gaps if g.name in floors))
+    # And the ranking a search hands back rides on the same numbers.
+    ok("room is the measured distance", abs(check(cube, world=wa, near=4 * side).room
+                                            - 1.25 * side) < 1e-6)
 
     print("controls — the fast reject agrees with the full check:")
     disagreed = []
