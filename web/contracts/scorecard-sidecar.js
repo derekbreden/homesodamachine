@@ -56,6 +56,31 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  */
 
 /**
+ * @typedef {Object} ScorecardBend  one routed run graded on the radius it turns at
+ * @property {string} id        the run's connection id
+ * @property {string} kind      fluid | water | co2 | refrigerant
+ * @property {string} frm       source port anchor, "component.port"
+ * @property {string} to        destination port anchor — the two bodies a fix would move
+ * @property {string} stock     the tube it is drawn in, which is what sets `minBend`
+ * @property {number} od        the run's bore Ø mm
+ * @property {number} radius    the centreline radius it is authored at
+ * @property {number} minBend   the tightest radius that stock takes without kinking
+ * @property {number} ratio     radius / minBend
+ * @property {string|null} grade  A..F on `ratio`, or null for a run with no corner to grade
+ * @property {number} bends     interior corners
+ * @property {number|null} worstTurn  the sharpest turn in degrees, null when straight
+ * @property {number|null} seat  largest radius the centreline as drawn seats, every leg counted
+ * @property {number|null} reach largest radius its INTERIOR legs seat — the ceiling the pack
+ *                               imposes, leads excluded. null = no interior leg bounds it.
+ * @property {number|null} reachRatio  reach / minBend
+ * @property {string|null} reachGrade  A..F on `reachRatio`. Failing BOTH grades is a placement
+ *                                     to move; failing only `grade` is a radius to raise.
+ * @property {{leg: number, length: number, demand: number, from: number[], to: number[]}|null}
+ *           binding  the interior leg that sets `reach`: its index, its length, the tangent it
+ *                    owes as a multiple of R, and its two endpoints in world mm
+ */
+
+/**
  * @typedef {Object} Scorecard
  * @property {boolean} gatesPass  every gate passes
  * @property {number} placed   0..100 — placement criteria defined and held
@@ -66,6 +91,7 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  * @property {ScorecardCheck[]} checks
  * @property {ScorecardPort[]} ports  the full connector inventory: every port's coordinate + bore
  * @property {ScorecardShape[]} shapes  per component, the boxes it really occupies
+ * @property {ScorecardBend[]} bends  per routed run, the radius it turns at and its grade
  */
 
 // True when `o` has the shape the viewer reads. Used by the conformance test and as a client
@@ -117,6 +143,26 @@ export function isScorecard(o) {
         typeof s.primitive === "boolean",
     );
     if (!shapesOk) return false;
+  }
+  // bends is the per-run bend-radius grading. Present on current sidecars; validated when
+  // present so an older sidecar without it still reads.
+  if (o.bends !== undefined) {
+    if (!Array.isArray(o.bends)) return false;
+    const bendsOk = o.bends.every(
+      (b) =>
+        b &&
+        typeof b.id === "string" &&
+        typeof b.stock === "string" &&
+        typeof b.radius === "number" &&
+        typeof b.minBend === "number" &&
+        typeof b.ratio === "number" &&
+        (b.grade === null || typeof b.grade === "string") &&
+        (b.reach === null || typeof b.reach === "number") &&
+        (b.reachGrade === null || typeof b.reachGrade === "string") &&
+        (b.binding === null ||
+          (b.binding && typeof b.binding.leg === "number" && typeof b.binding.length === "number")),
+    );
+    if (!bendsOk) return false;
   }
   return true;
 }
