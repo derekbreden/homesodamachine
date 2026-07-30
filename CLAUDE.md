@@ -106,12 +106,7 @@ node tools/render/render-view.js printed-parts/enclosure/enclosure-assembly/encl
 
 A body is solid, x-ray, ghost or hidden. `--only` names the solid set and gives each one its own tint, carried on its label chip; anything unnamed ghosts to feature edges alone. `--xray` holds faces at low opacity, for a body another one stands in front of. `--hide` removes, and the legend names every body it removed. `--view` takes the six elevations and `iso`; `--ortho --span` sets the half-height in millimetres, so a millimetre is the same length everywhere in the frame.
 
-`--clip a:lo,hi` keeps only the slab, cut faces left open. `--at <date|sha>` reads the STEP out of a throwaway worktree at that commit, so a state someone has since changed is still there to look at.
-
-Two things a picture will not tell you, and both have already cost a wrong answer:
-
-- **A box face is not a surface.** `--gap A,B` measures bounding boxes, so on a non-convex body its ends stand in open air — the tray's box face is at y=97.50, its material at that height is 15 mm further back. The frame draws the two faces as dashed planes and stamps the label `box` for exactly this reason. `--ray x,y,z:dx,dy,dz` hits real triangles and names the body it reaches, ignoring `--clip` and `--hide`; `probe gap` measures the solids exactly. Quote one of those for a clearance, never `--gap`.
-- **A slab shows only what faces you.** Clipped on the axis you are looking down, a vertical wall is edge-on and disappears, and a hollow body reads as empty air. Dark pixels in a slab are not free space. Cast.
+`--clip a:lo,hi` keeps only the slab, cut faces left open, so "what is in this band" is a question the frame answers. `--gap A,B` draws the witness line and the millimetres between two bodies' boxes, on the axis where they are closest. `--at <date|sha>` reads the STEP out of a throwaway worktree at that commit, so a state someone has since changed is still there to look at.
 
 The legend goes on the frame and on stdout: the camera, the projection, the target, the span, the clip bands, the gaps, the mm/px, the world rectangle the frame covers, and the count in each mode. A pattern that matches no body comes back with the names that are present. A view is a bounded scan like the other three — `calibration/Fences.md`.
 
