@@ -11,7 +11,10 @@
 // Options:
 //   --cam x,y,z      camera direction from target (unnormalized ok). Default 1,1,1
 //   --target x,y,z   look-at point in model coords. Default: bbox center
-//   --zoom f         distance = f · bbox-radius along --cam. Default 3.0
+//   --zoom f         perspective only: distance = f · bbox-radius along --cam.
+//                    Default 3.0. Under --ortho the half-height is the frame and
+//                    it fits the subject; tools/render/render-view.js takes an
+//                    orthographic half-height in millimetres as --span.
 //   --up x,y,z       camera up. Default 0,1,0
 //   --size WxH       viewport + output size. Default 1600x1200
 //   --bg #hex        background. Default #1a1a2e (site navy)
@@ -164,8 +167,18 @@ async function renderOne({ stepRel, outAbs, opts }) {
     });
 
     console.log("posing camera + rendering frame...");
-    await page.evaluate((o) => {
+    await page.evaluate(async (o) => {
       const { THREE, renderer, scene, camera, controls, currentGroup } = window.__hsm;
+
+      // scene.js's animate() closes over its own module binding of `camera` and
+      // calls controls.update() every frame, so it renders the module's camera at
+      // whatever pose the controls carry, not the one set here. It stops, and the
+      // controls come off with it. ES modules are singletons, so this is the
+      // running instance.
+      const sceneMod = await import("/js/viewer/scene.js");
+      sceneMod.stopAnimate();
+      controls.enabled = false;
+
       const box = new THREE.Box3().setFromObject(currentGroup);
       const center = box.getCenter(new THREE.Vector3());
       const size = box.getSize(new THREE.Vector3());
@@ -174,28 +187,38 @@ async function renderOne({ stepRel, outAbs, opts }) {
         ? new THREE.Vector3(...o.target)
         : center.clone();
       const dir = new THREE.Vector3(...o.cam).normalize();
+      const aspect = window.innerWidth / window.innerHeight;
       let cam = camera;
       if (o.ortho) {
-        // Swap in an orthographic camera framing the bbox radius.
-        const aspect = window.innerWidth / window.innerHeight;
+        // An orthographic camera framing the subject. Its half-height is the
+        // frame, so distance along `dir` only has to clear the near plane.
         const half = radius * 1.1;
         cam = new THREE.OrthographicCamera(
           -half * aspect, half * aspect, half, -half, 0.01, radius * 100,
         );
         window.__hsm.camera = cam;
+      } else {
+        cam.aspect = aspect;
       }
       cam.position.copy(target).add(dir.multiplyScalar(radius * o.zoom));
       cam.up.set(...o.up);
       cam.lookAt(target);
       controls.object = cam;
       controls.target.copy(target);
-      controls.update();
       renderer.setSize(window.innerWidth, window.innerHeight, false);
-      if (cam.isPerspectiveCamera) {
-        cam.aspect = window.innerWidth / window.innerHeight;
-      }
       cam.updateProjectionMatrix();
-      renderer.render(scene, cam);
+      cam.updateMatrixWorld(true);
+
+      // The viewer's WebGLRenderer is built without preserveDrawingBuffer, so the
+      // drawing buffer is undefined once the browser has composited it and a
+      // screenshot taken after that reads back blank. Re-render every frame, from
+      // the posed camera, so whenever the capture lands there is a fresh frame in
+      // the buffer.
+      const draw = () => {
+        renderer.render(scene, cam);
+        window.__hsmPosedRaf = requestAnimationFrame(draw);
+      };
+      draw();
     }, opts);
 
     await new Promise((r) => setTimeout(r, 200));

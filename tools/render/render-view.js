@@ -208,10 +208,10 @@ async function inPageCompose(o) {
   const { THREE, renderer, scene, camera, controls, currentGroup } = window.__hsm;
 
   // scene.js's animate() closes over its own module binding of `camera` and
-  // calls controls.update() every frame. Both outlive a pose set from here, so
-  // the loop stops and the controls come off before anything is placed, and the
-  // frame is rendered once, explicitly, at the end. ES modules are singletons,
-  // so this is the running instance.
+  // calls controls.update() every frame, so it renders the module's camera at
+  // whatever pose the controls carry, not the one set here. It stops, and the
+  // controls come off with it. ES modules are singletons, so this is the running
+  // instance.
   const sceneMod = await import("/js/viewer/scene.js");
   sceneMod.stopAnimate();
   controls.enabled = false;
@@ -382,7 +382,17 @@ async function inPageCompose(o) {
   renderer.setSize(W, H, false);
   cam.updateProjectionMatrix();
   cam.updateMatrixWorld(true);
-  renderer.render(scene, cam);
+
+  // The viewer's WebGLRenderer is built without preserveDrawingBuffer, so the
+  // drawing buffer is undefined once the browser has composited it and a
+  // screenshot taken after that reads back blank. Re-render every frame, from the
+  // posed camera, so whenever the capture lands there is a fresh frame in the
+  // buffer.
+  const draw = () => {
+    renderer.render(scene, cam);
+    window.__hsmPosedRaf = requestAnimationFrame(draw);
+  };
+  draw();
 
   // --- Projection helpers --------------------------------------------------
   const toScreen = (v) => {
