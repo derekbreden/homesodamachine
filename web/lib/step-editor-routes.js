@@ -20,6 +20,8 @@
 import fs from "fs";
 import path from "path";
 
+import { editionRoot } from "./editions.js";
+
 // step file (as the viewer references it, relative to the content root) →
 // the generator that rebuilds it. The overrides sidecar sits beside the .step,
 // same basename with `.overrides.json`.
@@ -81,12 +83,18 @@ function cleanOverride(body) {
 /**
  * Mount the dev-only step-editor API.
  * @param app express app
- * @param hardwareDir absolute path to the content root (hardware/)
+ * @param editionDirs every edition's content root, keyed by id (lib/editions.js).
+ *   Resolved PER REQUEST, not once at mount: the editable path below is relative
+ *   to a content root and the editions mirror each other's filenames, so a root
+ *   fixed at mount time sends every edit into the default edition's tree no
+ *   matter which machine the viewer is showing.
  * @param rebuild async (generatorPath) => { ok, error } — runs the generator,
  *   captures failure output, and broadcasts the new .step on success. Supplied
  *   by the dev server, which owns the Python runner + the WebSocket.
  */
-export function mountStepEditorRoutes(app, hardwareDir, rebuild) {
+export function mountStepEditorRoutes(app, { editionDirs }, rebuild) {
+  const rootFor = (req) => editionRoot(req, editionDirs);
+
   // Current overrides for a file (the editor loads these on open so the panel
   // shows a component's live offset). 404 if the file isn't editable — the
   // viewer uses that to decide whether to show the Edit toggle at all.
@@ -94,7 +102,7 @@ export function mountStepEditorRoutes(app, hardwareDir, rebuild) {
     const file = String(req.query.file || "");
     const entry = entryFor(file);
     if (!entry) return res.status(404).json({ error: "not editable" });
-    res.json({ file, overrides: readOverrides(overridesPathFor(hardwareDir, file)) });
+    res.json({ file, overrides: readOverrides(overridesPathFor(rootFor(req), file)) });
   });
 
   // Write (or clear) one component's override, then rebuild. Body:
@@ -107,6 +115,7 @@ export function mountStepEditorRoutes(app, hardwareDir, rebuild) {
       return res.status(400).json({ error: "missing component" });
     }
 
+    const hardwareDir = rootFor(req);
     const ovPath = overridesPathFor(hardwareDir, file);
     const overrides = readOverrides(ovPath);
     if (req.body.clear) {
@@ -142,6 +151,7 @@ export function mountStepEditorRoutes(app, hardwareDir, rebuild) {
     const file = String((req.body && req.body.file) || req.query.file || "");
     const entry = entryFor(file);
     if (!entry) return res.status(404).json({ error: "not editable" });
+    const hardwareDir = rootFor(req);
     writeOverrides(overridesPathFor(hardwareDir, file), {});
     const result = await rebuild(generatorPathFor(hardwareDir, file, entry));
     res.json({ ok: result.ok, error: result.error || null, overrides: {} });

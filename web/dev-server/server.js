@@ -117,7 +117,10 @@ async function rebuildStepAssembly(pyFilePath) {
   }
 }
 
-mountStepEditorRoutes(app, HARDWARE_DIR, rebuildStepAssembly);
+// Every edition's root, resolved per request against the viewer's own cookie —
+// the edit has to land in the tree the viewer is showing, and both editions
+// carry an assembly at the same relative path.
+mountStepEditorRoutes(app, { editionDirs: EDITION_DIRS }, rebuildStepAssembly);
 
 // Content roots the viewer serves, and that we therefore watch, regenerate,
 // and broadcast for — one per edition (web/lib/editions.js), served when the

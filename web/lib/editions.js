@@ -52,3 +52,33 @@ export const EDITION_DIRS = Object.fromEntries(EDITIONS.map((e) => [e.id, e.dir.
 export function editionById(id) {
   return EDITIONS.find((e) => e.id === id) || null;
 }
+
+// --- Which root a request resolves against ----------------------------------
+//
+// One resolver, used by every route that reaches the content tree: the viewer's
+// read endpoints (lib/viewer-routes.js) and the dev-only editors that write back
+// into it (lib/step-editor-routes.js). They have to agree — an editor that
+// resolves against a different root than the viewer it is driven from writes its
+// edit into the other machine's tree, where the file it names also exists.
+//
+// The client mirrors its localStorage choice into an `hsmEdition` cookie before
+// first paint (lib/shell.js), so no fetch carries the edition explicitly. A
+// ?edition= query param overrides the cookie, which keeps the endpoints
+// curl-testable.
+export function cookieEdition(cookieHeader) {
+  if (!cookieHeader) return null;
+  for (const part of cookieHeader.split(";")) {
+    const eq = part.indexOf("=");
+    if (eq === -1) continue;
+    if (part.slice(0, eq).trim() === "hsmEdition") return part.slice(eq + 1).trim();
+  }
+  return null;
+}
+
+export function editionRoot(req, editionDirs) {
+  const q = typeof req.query?.edition === "string" ? req.query.edition : null;
+  const edition = q || cookieEdition(req.headers?.cookie) || DEFAULT_EDITION;
+  // An unknown id — a stale cookie naming an edition that has since been
+  // removed — falls back rather than serving nothing.
+  return editionDirs[edition] || editionDirs[DEFAULT_EDITION];
+}

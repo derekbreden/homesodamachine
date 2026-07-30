@@ -7,7 +7,7 @@ import { isCardAssetPath } from "../contracts/cards.js";
 import { VIEW_REQUEST_RE, PICKS_REQUEST_RE } from "../contracts/pcb-out.js";
 import { sidecarFields } from "../contracts/sidecar.js";
 import { SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
-import { DEFAULT_EDITION } from "./editions.js";
+import { editionRoot } from "./editions.js";
 
 function safeFile(rootDir, rel, ext) {
   if (rel.includes("..")) return null;
@@ -31,31 +31,11 @@ function readSidecar(rootDir, rel) {
 }
 
 // The viewer serves one edition's content root per request, chosen by the
-// hidden Edition selector (Settings, dev-mode only). The roots and their ids
-// are lib/editions.js. The client mirrors its
-// localStorage choice into an `hsmEdition` cookie before first paint (see
-// lib/shell.js), so every list endpoint and file stream below resolves
-// against the matching root without any per-fetch plumbing on the client.
-// A ?edition= query param overrides the cookie, which keeps the endpoints
-// curl-testable.
-function cookieEdition(cookieHeader) {
-  if (!cookieHeader) return null;
-  for (const part of cookieHeader.split(";")) {
-    const eq = part.indexOf("=");
-    if (eq === -1) continue;
-    if (part.slice(0, eq).trim() === "hsmEdition") return part.slice(eq + 1).trim();
-  }
-  return null;
-}
-
-function editionRoot(req, editionDirs) {
-  const q = typeof req.query.edition === "string" ? req.query.edition : null;
-  const edition = q || cookieEdition(req.headers.cookie) || DEFAULT_EDITION;
-  // An unknown id — a stale cookie naming an edition that has since been
-  // removed — falls back rather than serving nothing.
-  return editionDirs[edition] || editionDirs[DEFAULT_EDITION];
-}
-
+// hidden Edition selector (Settings, dev-mode only). The roots, their ids and
+// the per-request resolver are lib/editions.js — shared with the dev-only
+// editors, which must land their write-back in the same tree the viewer is
+// showing.
+//
 // Endpoints + response shapes: web/contracts/api-shapes.js.
 export function mountViewerRoutes(app, { editionDirs }) {
   const rootFor = (req) => editionRoot(req, editionDirs);
