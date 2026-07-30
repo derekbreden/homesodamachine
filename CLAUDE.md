@@ -106,7 +106,9 @@ node tools/render/render-view.js printed-parts/enclosure/enclosure-assembly/encl
 
 A body is solid, x-ray, ghost or hidden. `--only` names the solid set and gives each one its own tint, carried on its label chip; anything unnamed ghosts to feature edges alone. `--xray` holds faces at low opacity, for a body another one stands in front of. `--hide` removes, and the legend names every body it removed. `--view` takes the six elevations and `iso`; `--ortho --span` sets the half-height in millimetres, so a millimetre is the same length everywhere in the frame.
 
-The legend goes on the frame and on stdout: the camera, the projection, the target, the span, the clip bands, the mm/px, the world rectangle the frame covers, and the count in each mode. A pattern that matches no body comes back with the names that are present. A view is a bounded scan like the other three — `calibration/Fences.md`.
+`--clip a:lo,hi` keeps only the slab, cut faces left open, so "what is in this band" is a question the frame answers. `--gap A,B` draws the witness line and the millimetres between two bodies' boxes, on the axis where they are closest. `--at <date|sha>` reads the STEP out of a throwaway worktree at that commit, so a state someone has since changed is still there to look at.
+
+The legend goes on the frame and on stdout: the camera, the projection, the target, the span, the clip bands, the gaps, the mm/px, the world rectangle the frame covers, and the count in each mode. A pattern that matches no body comes back with the names that are present. A view is a bounded scan like the other three — `calibration/Fences.md`.
 
 Coordinates read off the grid agree with `probe boxes` to a few tenths, and `--list` prints the names `--only` accepts.
 

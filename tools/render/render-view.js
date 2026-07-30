@@ -54,6 +54,9 @@
 //   --clip <a>:lo,hi   keep only geometry with world a∈[lo,hi]; a is x|y|z.
 //                      Repeatable. Cut faces are left open, so a clipped body
 //                      reads as clipped.
+//   --gap A,B          witness line and dimension between two bodies, on the axis
+//                      where their bounding boxes are closest. Repeatable. A box
+//                      gap, not a solid distance — `probe gap` measures that.
 //   --ports            keep the port markers (off by default — they are dense)
 //   --caption <text>   extra line in the burned-in legend
 //
@@ -63,6 +66,9 @@
 //   --edition id       which machine's tree the step path is in. Default kitchen.
 //                      The trees mirror each other's filenames, so without this a
 //                      thin path renders the kitchen's twin silently.
+//   --at <date|sha>    read the STEP as it stood at that commit, out of a throwaway
+//                      worktree; the tooling stays at HEAD. The resolved SHA goes in
+//                      the legend. Uncommitted edits in the live tree are not in it.
 //
 // The step path is relative to the edition's content root (matches /steps/*).
 
@@ -74,6 +80,7 @@ import sharp from "sharp";
 
 import { start } from "../../web/server.js";
 import { DEFAULT_EDITION, EDITION_IDS, editionById } from "../../web/lib/editions.js";
+import { withHistoricalTree } from "./temporal.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
@@ -138,12 +145,14 @@ function parseArgs(argv) {
     label: null,       // null = decide from the solid-set size
     grid: null,        // null = decide from the projection
     clips: [],
+    gaps: [],
     ports: false,
     caption: null,
     width: 1400,
     height: 1100,
     bg: "#1a1a2e",
     edition: DEFAULT_EDITION,
+    at: null,
     list: false,
   };
   for (let i = 0; i < argv.length; i++) {
@@ -169,7 +178,11 @@ function parseArgs(argv) {
     else if (a.startsWith("--target")) opts.target = vec(val("target"), "--target");
     else if (a.startsWith("--span")) { opts.span = Number(val("span")); opts.ortho = true; }
     else if (a.startsWith("--zoom")) opts.zoom = Number(val("zoom"));
-    else if (a.startsWith("--clip")) {
+    else if (a.startsWith("--gap")) {
+      const pair = globs(val("gap"));
+      if (pair.length !== 2) usage(`bad --gap ${pair.join(",")} (want A,B)`);
+      opts.gaps.push(pair);
+    } else if (a.startsWith("--clip")) {
       const raw = String(val("clip"));
       const m = raw.match(/^([xyz])\s*[:=]\s*(-?[\d.]+)\s*,\s*(-?[\d.]+)$/i);
       if (!m) usage(`bad --clip ${raw} (want x:lo,hi)`);
@@ -184,6 +197,7 @@ function parseArgs(argv) {
       opts.height = Number(m[2]);
     } else if (a.startsWith("--bg")) opts.bg = val("bg");
     else if (a.startsWith("--edition")) opts.edition = val("edition");
+    else if (a.startsWith("--at")) opts.at = val("at");
     else positional.push(a);
   }
   if (opts.view) {
@@ -473,6 +487,43 @@ async function inPageCompose(o) {
     }
   }
 
+  // --- Dimensions ----------------------------------------------------------
+  // Between two bodies, on the axis where their boxes are closest: a witness line
+  // spanning the gap, at the midpoint of the axes on which they overlap.
+  const dims = [];
+  const boxOf = (name) => {
+    const ms = byName.get(name);
+    if (!ms) return null;
+    const bb = new THREE.Box3();
+    for (const m of ms) bb.expandByObject(m);
+    return bb.isEmpty() ? null : bb;
+  };
+  for (const [an, bn] of o.gaps || []) {
+    const A = boxOf(an), B = boxOf(bn);
+    if (!A || !B) { dims.push({ miss: `${an},${bn}` }); continue; }
+    let best = null;
+    for (const k of ["x", "y", "z"]) {
+      const g = Math.max(A.min[k] - B.max[k], B.min[k] - A.max[k]);
+      if (g > 0 && (!best || g < best.g)) {
+        best = { k, g, lo: Math.min(A.max[k], B.max[k]), hi: Math.max(A.min[k], B.min[k]) };
+      }
+    }
+    if (!best) { dims.push({ overlap: `${an},${bn}` }); continue; }
+    const p1 = new THREE.Vector3(), p2 = new THREE.Vector3();
+    for (const k of ["x", "y", "z"]) {
+      const mid = (Math.max(A.min[k], B.min[k]) + Math.min(A.max[k], B.max[k])) / 2;
+      p1[k] = p2[k] = mid;
+    }
+    p1[best.k] = best.lo;
+    p2[best.k] = best.hi;
+    const s1 = toScreen(p1), s2 = toScreen(p2);
+    dims.push({
+      a: an, b: bn, axis: best.k, mm: +best.g.toFixed(2),
+      x1: s1.x, y1: s1.y, x2: s2.x, y2: s2.y,
+      onScreen: [s1.x, s1.y, s2.x, s2.y].every(Number.isFinite),
+    });
+  }
+
   // --- Scale bar -----------------------------------------------------------
   // A round number of millimetres, measured through the same projection.
   const barMM = (() => {
@@ -510,6 +561,11 @@ async function inPageCompose(o) {
   if (hiddenNames.length) {
     const shown = hiddenNames.slice(0, 6).join(" ");
     lines.push(`hiding  ${shown}${hiddenNames.length > 6 ? ` +${hiddenNames.length - 6} more` : ""}`);
+  }
+  for (const d of dims) {
+    if (d.miss) lines.push(`gap  ${d.miss} — no such body`);
+    else if (d.overlap) lines.push(`gap  ${d.overlap} — boxes overlap on every axis`);
+    else lines.push(`gap  ${d.a} → ${d.b}  ${d.mm} mm on ${d.axis}  (box gap)`);
   }
   if (gridInfo.drawn) lines.push(`grid  ${gridInfo.step} mm on ${gridInfo.axes}`);
   if (!o.ports) lines.push("port markers off");
@@ -578,6 +634,7 @@ async function inPageCompose(o) {
       gridLines,
       gridTicks,
       labels,
+      dims: dims.filter((d) => d.onScreen),
       scale: { x: W - barPx - 26, y: H - 24, px: barPx, mm: barMM },
       legend: lines,
     },
@@ -661,6 +718,25 @@ function annotationSvg(a) {
     );
   }
 
+  for (const d of a.dims || []) {
+    const mx = (d.x1 + d.x2) / 2, my = (d.y1 + d.y2) / 2;
+    // Witness ticks perpendicular to the run, so a zero-length gap still reads.
+    const dx = d.x2 - d.x1, dy = d.y2 - d.y1;
+    const len = Math.hypot(dx, dy) || 1;
+    const px = (-dy / len) * 9, py = (dx / len) * 9;
+    p.push(
+      `<line x1="${d.x1.toFixed(1)}" y1="${d.y1.toFixed(1)}" x2="${d.x2.toFixed(1)}" y2="${d.y2.toFixed(1)}" stroke="#ffd479" stroke-width="1.6"/>` +
+        `<line x1="${(d.x1 - px).toFixed(1)}" y1="${(d.y1 - py).toFixed(1)}" x2="${(d.x1 + px).toFixed(1)}" y2="${(d.y1 + py).toFixed(1)}" stroke="#ffd479" stroke-width="1.6"/>` +
+        `<line x1="${(d.x2 - px).toFixed(1)}" y1="${(d.y2 - py).toFixed(1)}" x2="${(d.x2 + px).toFixed(1)}" y2="${(d.y2 + py).toFixed(1)}" stroke="#ffd479" stroke-width="1.6"/>`,
+    );
+    const txt = `${d.mm} mm`;
+    const w = txt.length * CH + 8;
+    p.push(
+      `<rect x="${(mx + 12).toFixed(1)}" y="${(my - 9).toFixed(1)}" width="${w.toFixed(1)}" height="16" rx="3" fill="#1a1a2e" fill-opacity="0.92" stroke="#ffd479" stroke-width="1"/>` +
+        `<text x="${(mx + 16).toFixed(1)}" y="${(my + 3).toFixed(1)}" fill="#ffd479" font-weight="600">${esc(txt)}</text>`,
+    );
+  }
+
   const s = a.scale;
   p.push(
     `<line x1="${s.x.toFixed(1)}" y1="${s.y}" x2="${(s.x + s.px).toFixed(1)}" y2="${s.y}" stroke="#eaf0fa" stroke-width="2"/>` +
@@ -709,7 +785,16 @@ function inPageList() {
 async function withViewer({ stepRel, opts }, fn) {
   const edition = editionById(opts.edition);
   if (!edition) usage(`unknown --edition ${opts.edition} (have ${EDITION_IDS.join(", ")})`);
-  const hardwareDir = path.join(REPO_ROOT, ...edition.dir);
+  if (opts.at) {
+    return withHistoricalTree(opts.at, (treeDir, sha) => {
+      opts.atSha = sha;
+      return serveAndDrive(path.join(treeDir, ...edition.dir), stepRel, opts, fn);
+    });
+  }
+  return serveAndDrive(path.join(REPO_ROOT, ...edition.dir), stepRel, opts, fn);
+}
+
+async function serveAndDrive(hardwareDir, stepRel, opts, fn) {
   const stepAbs = path.join(hardwareDir, stepRel);
   if (!fs.existsSync(stepAbs)) throw new Error(`step file not found: ${stepAbs}`);
 
@@ -791,7 +876,10 @@ async function main() {
 
     // Labels on when a subject was named; grid on under ortho, where a
     // millimetre is the same length everywhere in the frame.
-    const resolved = { ...opts, title: `${opts.edition}/${stepRel}` };
+    const resolved = {
+      ...opts,
+      title: `${opts.edition}/${stepRel}` + (opts.atSha ? `  @ ${opts.atSha.slice(0, 8)}` : ""),
+    };
     if (resolved.label === null) resolved.label = !!opts.only;
     if (resolved.grid === null) resolved.grid = opts.ortho;
 
