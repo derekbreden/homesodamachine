@@ -53,10 +53,24 @@
 //   --no-grid          off
 //   --clip <a>:lo,hi   keep only geometry with world a∈[lo,hi]; a is x|y|z.
 //                      Repeatable. Cut faces are left open, so a clipped body
-//                      reads as clipped.
+//                      reads as clipped — and a slab clipped on the axis you are
+//                      looking down shows only the surfaces that FACE you inside
+//                      the band. A vertical wall is edge-on and vanishes; a
+//                      hollow body reads as empty air. Occupancy is a question
+//                      for `--ray`, never for a slab's dark pixels.
 //   --gap A,B          witness line and dimension between two bodies, on the axis
-//                      where their bounding boxes are closest. Repeatable. A box
-//                      gap, not a solid distance — `probe gap` measures that.
+//                      where their bounding boxes are closest. Repeatable. A BOX
+//                      gap: its ends are box faces, which for a non-convex body
+//                      can stand in open air. The frame draws those two faces as
+//                      dashed planes and stamps the label "box", so a dimension
+//                      that measures nothing looks like one. `--ray` measures
+//                      material; `probe gap` measures the solids exactly.
+//   --ray x,y,z:dx,dy,dz[,limit]
+//                      cast from a point and dimension the run to the first
+//                      surface it meets, naming the body. Repeatable. Hits real
+//                      triangles, so `--clip`, `--hide` and ghosting do not move
+//                      it. No contact inside `limit` reports the limit as a fact
+//                      about the cast — `probe.cast`, on the frame.
 //   --ports            keep the port markers (off by default — they are dense)
 //   --caption <text>   extra line in the burned-in legend
 //
@@ -146,6 +160,7 @@ function parseArgs(argv) {
     grid: null,        // null = decide from the projection
     clips: [],
     gaps: [],
+    rays: [],
     ports: false,
     caption: null,
     width: 1400,
@@ -178,7 +193,20 @@ function parseArgs(argv) {
     else if (a.startsWith("--target")) opts.target = vec(val("target"), "--target");
     else if (a.startsWith("--span")) { opts.span = Number(val("span")); opts.ortho = true; }
     else if (a.startsWith("--zoom")) opts.zoom = Number(val("zoom"));
-    else if (a.startsWith("--gap")) {
+    else if (a.startsWith("--ray")) {
+      const raw = String(val("ray"));
+      const m = raw.match(
+        /^(-?[\d.]+),(-?[\d.]+),(-?[\d.]+)\s*:\s*(-?[\d.]+),(-?[\d.]+),(-?[\d.]+)(?:,([\d.]+))?$/,
+      );
+      if (!m) usage(`bad --ray ${raw} (want x,y,z:dx,dy,dz[,limit])`);
+      const dir = [Number(m[4]), Number(m[5]), Number(m[6])];
+      if (!Math.hypot(...dir)) usage(`bad --ray ${raw} (zero direction)`);
+      opts.rays.push({
+        from: [Number(m[1]), Number(m[2]), Number(m[3])],
+        dir,
+        limit: m[7] ? Number(m[7]) : 400,
+      });
+    } else if (a.startsWith("--gap")) {
       const pair = globs(val("gap"));
       if (pair.length !== 2) usage(`bad --gap ${pair.join(",")} (want A,B)`);
       opts.gaps.push(pair);
@@ -517,11 +545,65 @@ async function inPageCompose(o) {
     p1[best.k] = best.lo;
     p2[best.k] = best.hi;
     const s1 = toScreen(p1), s2 = toScreen(p2);
+    // The two box faces the number is between, as full-frame dashed lines. An end
+    // standing in open air is then visibly an end on a plane, not on a surface.
+    const facePlane = (v) => {
+      const q1 = new THREE.Vector3(), q2 = new THREE.Vector3();
+      for (const k of ["x", "y", "z"]) {
+        q1[k] = Math.min(cornerLo[k], cornerHi[k]);
+        q2[k] = Math.max(cornerLo[k], cornerHi[k]);
+      }
+      // Collapse the depth axis onto the target, and the gap axis onto the face.
+      const view = new THREE.Vector3();
+      cam.getWorldDirection(view);
+      const depth = ["x", "y", "z"]
+        .map((k) => ({ k, d: Math.abs(view[k]) }))
+        .sort((p, q) => q.d - p.d)[0].k;
+      q1[depth] = q2[depth] = target[depth];
+      q1[best.k] = q2[best.k] = v;
+      const a1 = toScreen(q1), a2 = toScreen(q2);
+      return { x1: a1.x, y1: a1.y, x2: a2.x, y2: a2.y };
+    };
     dims.push({
       a: an, b: bn, axis: best.k, mm: +best.g.toFixed(2),
       x1: s1.x, y1: s1.y, x2: s2.x, y2: s2.y,
+      faces: [facePlane(best.lo), facePlane(best.hi)],
       onScreen: [s1.x, s1.y, s2.x, s2.y].every(Number.isFinite),
     });
+  }
+
+  // --- Casts ---------------------------------------------------------------
+  // Against real triangles, every body, ignoring what the view hides. A run that
+  // reaches the limit reports the limit, which is a fact about the cast.
+  const casts = [];
+  if ((o.rays || []).length) {
+    const targets = [];
+    for (const c of currentGroup.children) {
+      if (c.isMesh && c.userData.side !== "back") targets.push(c);
+    }
+    const rc = new THREE.Raycaster();
+    for (const r of o.rays) {
+      const from = new THREE.Vector3(...r.from);
+      const dir = new THREE.Vector3(...r.dir).normalize();
+      rc.set(from, dir);
+      rc.near = 0;
+      rc.far = r.limit;
+      const wasVisible = targets.map((t) => t.visible);
+      targets.forEach((t) => { t.visible = true; });
+      const hits = rc.intersectObjects(targets, false);
+      targets.forEach((t, i) => { t.visible = wasVisible[i]; });
+      const h = hits.length ? hits[0] : null;
+      const end = h ? h.point.clone() : from.clone().add(dir.clone().multiplyScalar(r.limit));
+      const s1 = toScreen(from), s2 = toScreen(end);
+      casts.push({
+        from: r.from, dir: r.dir, limit: r.limit,
+        mm: h ? +h.distance.toFixed(2) : null,
+        who: h ? (h.object.name || "(unnamed)") : null,
+        at: end.toArray().map((v) => +v.toFixed(2)),
+        x1: s1.x, y1: s1.y, x2: s2.x, y2: s2.y,
+        onScreen: [s1.x, s1.y, s2.x, s2.y].every(Number.isFinite),
+      });
+    }
   }
 
   // --- Scale bar -----------------------------------------------------------
@@ -565,7 +647,14 @@ async function inPageCompose(o) {
   for (const d of dims) {
     if (d.miss) lines.push(`gap  ${d.miss} — no such body`);
     else if (d.overlap) lines.push(`gap  ${d.overlap} — boxes overlap on every axis`);
-    else lines.push(`gap  ${d.a} → ${d.b}  ${d.mm} mm on ${d.axis}  (box gap)`);
+    else lines.push(`gap  ${d.a} → ${d.b}  ${d.mm} mm on ${d.axis}  (BOX faces, dashed — not a surface distance)`);
+  }
+  for (const c of casts) {
+    lines.push(
+      c.mm === null
+        ? `ray  ${c.from.join(",")} → ${c.dir.join(",")}  no contact in ${c.limit} mm (the cast's limit)`
+        : `ray  ${c.from.join(",")} → ${c.dir.join(",")}  ${c.mm} mm to ${c.who} at ${c.at.join(",")}`,
+    );
   }
   if (gridInfo.drawn) lines.push(`grid  ${gridInfo.step} mm on ${gridInfo.axes}`);
   if (!o.ports) lines.push("port markers off");
@@ -635,6 +724,7 @@ async function inPageCompose(o) {
       gridTicks,
       labels,
       dims: dims.filter((d) => d.onScreen),
+      casts: casts.filter((c) => c.onScreen),
       scale: { x: W - barPx - 26, y: H - 24, px: barPx, mm: barMM },
       legend: lines,
     },
@@ -729,11 +819,37 @@ function annotationSvg(a) {
         `<line x1="${(d.x1 - px).toFixed(1)}" y1="${(d.y1 - py).toFixed(1)}" x2="${(d.x1 + px).toFixed(1)}" y2="${(d.y1 + py).toFixed(1)}" stroke="#ffd479" stroke-width="1.6"/>` +
         `<line x1="${(d.x2 - px).toFixed(1)}" y1="${(d.y2 - py).toFixed(1)}" x2="${(d.x2 + px).toFixed(1)}" y2="${(d.y2 + py).toFixed(1)}" stroke="#ffd479" stroke-width="1.6"/>`,
     );
-    const txt = `${d.mm} mm`;
+    for (const f of d.faces || []) {
+      if (![f.x1, f.y1, f.x2, f.y2].every(Number.isFinite)) continue;
+      p.push(
+        `<line x1="${f.x1.toFixed(1)}" y1="${f.y1.toFixed(1)}" x2="${f.x2.toFixed(1)}" y2="${f.y2.toFixed(1)}" ` +
+          `stroke="#ffd479" stroke-width="1" stroke-dasharray="7 5" opacity="0.5"/>`,
+      );
+    }
+    const txt = `${d.mm} mm box`;
     const w = txt.length * CH + 8;
     p.push(
       `<rect x="${(mx + 12).toFixed(1)}" y="${(my - 9).toFixed(1)}" width="${w.toFixed(1)}" height="16" rx="3" fill="#1a1a2e" fill-opacity="0.92" stroke="#ffd479" stroke-width="1"/>` +
         `<text x="${(mx + 16).toFixed(1)}" y="${(my + 3).toFixed(1)}" fill="#ffd479" font-weight="600">${esc(txt)}</text>`,
+    );
+  }
+
+  for (const c of a.casts || []) {
+    const dx = c.x2 - c.x1, dy = c.y2 - c.y1;
+    const len = Math.hypot(dx, dy) || 1;
+    const px = (-dy / len) * 8, py = (dx / len) * 8;
+    const ink = c.mm === null ? "#ff8fa3" : "#6fd6a6";
+    p.push(
+      `<line x1="${c.x1.toFixed(1)}" y1="${c.y1.toFixed(1)}" x2="${c.x2.toFixed(1)}" y2="${c.y2.toFixed(1)}" stroke="${ink}" stroke-width="1.8"/>` +
+        `<circle cx="${c.x1.toFixed(1)}" cy="${c.y1.toFixed(1)}" r="3.4" fill="none" stroke="${ink}" stroke-width="1.6"/>` +
+        `<line x1="${(c.x2 - px).toFixed(1)}" y1="${(c.y2 - py).toFixed(1)}" x2="${(c.x2 + px).toFixed(1)}" y2="${(c.y2 + py).toFixed(1)}" stroke="${ink}" stroke-width="1.8"/>`,
+    );
+    const txt = c.mm === null ? `${c.limit} mm no contact` : `${c.mm} mm → ${c.who}`;
+    const w = txt.length * CH + 8;
+    const mx = (c.x1 + c.x2) / 2, my = (c.y1 + c.y2) / 2;
+    p.push(
+      `<rect x="${(mx - w / 2).toFixed(1)}" y="${(my + 8).toFixed(1)}" width="${w.toFixed(1)}" height="16" rx="3" fill="#1a1a2e" fill-opacity="0.94" stroke="${ink}" stroke-width="1"/>` +
+        `<text x="${(mx - w / 2 + 4).toFixed(1)}" y="${(my + 20).toFixed(1)}" fill="${ink}" font-weight="600">${esc(txt)}</text>`,
     );
   }
 
@@ -914,6 +1030,9 @@ async function main() {
       `${info.counts.ghost} ghost (edges only)   ${info.counts.hidden} hidden`,
   );
   if (info.hiddenNames.length) console.log(`  hiding    ${info.hiddenNames.join(" ")}`);
+  for (const l of info.annot.legend) {
+    if (/^(gap|ray) /.test(l)) console.log(`  ${l.replace(/^(gap|ray)\s+/, (m) => m.padEnd(10))}`);
+  }
   if (info.grid.drawn) console.log(`  grid      ${info.grid.step} mm on ${info.grid.axes}`);
   if (info.labels.length) console.log(`  labelled  ${info.labels.map((l) => l.name).join(" ")}`);
   if (info.counts.ghost && opts.context === "ghost") {
