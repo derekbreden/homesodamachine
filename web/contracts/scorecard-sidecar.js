@@ -56,17 +56,34 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  */
 
 /**
- * @typedef {Object} ScorecardBend  one routed run graded on the radius it turns at
+ * @typedef {Object} ScorecardCorner  one interior corner, graded on the radius IT turns at
+ * @property {number} at      the corner's waypoint index along the run
+ * @property {number} turn    how far it deflects, degrees
+ * @property {number} radius  the radius this corner seats — the largest its own two legs hold,
+ *                            up to the cap its author set
+ * @property {number} ratio   radius / minBend
+ * @property {string} grade   A..F on `ratio`
+ * @property {number[]} legs  the two leg lengths it sits between, mm
+ */
+
+/**
+ * @typedef {Object} ScorecardBend  one routed run, and every corner in it graded separately
  * @property {string} id        the run's connection id
  * @property {string} kind      fluid | water | co2 | refrigerant
  * @property {string} frm       source port anchor, "component.port"
  * @property {string} to        destination port anchor — the two bodies a fix would move
  * @property {string} stock     the tube it is drawn in, which is what sets `minBend`
  * @property {number} od        the run's bore Ø mm
- * @property {number} radius    the centreline radius it is authored at
+ * @property {number} radius    the TIGHTEST corner in the run. A run holds one radius per corner,
+ *                              so this is its worst and says nothing about the rest — read
+ *                              `corners` for that.
+ * @property {number} cap       the ceiling its author set; corners rise to what their legs seat
+ *                              and stop here
  * @property {number} minBend   the tightest radius that stock takes without kinking
  * @property {number} ratio     radius / minBend
  * @property {string|null} grade  A..F on `ratio`, or null for a run with no corner to grade
+ * @property {ScorecardCorner[]} corners  every interior corner with its own radius and grade
+ * @property {number} atSpec    how many of those corners are at or above `minBend`
  * @property {number} bends     interior corners
  * @property {number|null} worstTurn  the sharpest turn in degrees, null when straight
  * @property {number|null} seat  largest radius the centreline as drawn seats, every leg counted
