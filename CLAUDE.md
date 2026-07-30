@@ -93,6 +93,23 @@ Both scans state their bounds before their answer, and what they measured them a
 
 `fit.py selftest` checks the instrument: that a port stays on its body at arbitrary angles, that the fast reject and the full check never disagree, that clearance only removes, that a pose clear of every interior body but standing in a printed piece comes back CLASH, that a scan reports its own box and the ends its answer sits on, and that every reference part still builds.
 
+## Looking at it
+
+`probe`, `fit` and `arrange` answer in numbers. `tools/render/render-view.js` answers in a picture — the placed world through the same /3d viewer, at a camera and a visibility set you name, with the bodies called out in the margins, a millimetre grid ticked with the coordinate each line holds, a scale bar measured through the projection, and section clips.
+
+```
+node tools/render/render-view.js printed-parts/enclosure/enclosure-assembly/enclosure-assembly.step --list --edition thin
+node tools/render/render-view.js printed-parts/enclosure/enclosure-assembly/enclosure-assembly.step \
+  /tmp/look.png --edition thin --view front --ortho --span 92 --target 53,55,240 \
+  --clip y:0,112 --only pump-b,tee-y-e --xray pump-a
+```
+
+A body is solid, x-ray, ghost or hidden. `--only` names the solid set and gives each one its own tint, carried on its label chip; anything unnamed ghosts to feature edges alone. `--xray` holds faces at low opacity, for a body another one stands in front of. `--hide` removes, and the legend names every body it removed. `--view` takes the six elevations and `iso`; `--ortho --span` sets the half-height in millimetres, so a millimetre is the same length everywhere in the frame.
+
+The legend goes on the frame and on stdout: the camera, the projection, the target, the span, the clip bands, the mm/px, the world rectangle the frame covers, and the count in each mode. A pattern that matches no body comes back with the names that are present. A view is a bounded scan like the other three — `calibration/Fences.md`.
+
+Coordinates read off the grid agree with `probe boxes` to a few tenths, and `--list` prints the names `--only` accepts.
+
 ## Firmware
 
 Flash with `tools/flash.sh`.
