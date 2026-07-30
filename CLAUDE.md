@@ -6,7 +6,7 @@ A home soda machine — a kitchen appliance that dispenses flavored carbonated w
 
 The prototype under the counter dispenses from a Lillium-class external carbonator. The integrated appliance under development consolidates the carbonator into the same enclosure.
 
-See `hardware/future.md` for details.
+See `thin/hardware/future.md` for details.
 
 ## Why This Exists
 
@@ -22,11 +22,7 @@ See `marketing/target-market.md` for details.
 
 Run scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`.
 
-See `hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py` for patterns to follow, and its companion `touch_flo_shell.md` for the idioms those patterns embody.
-
-A generator that writes a STEP also renders its `.step.png` thumbnail at exit via a headless browser — tens of seconds on a large assembly. `HSM_SKIP_THUMBNAILS=1` skips that render for fast iteration; the dev-server watcher already sets it and rebuilds thumbnails off its own critical path.
-
-`HSM_SKIP_CLEARANCES=1` drops the enclosure scorecard's per-run "nearest N mm to X" report — an exact solid-distance query from every routed tube to every body, and the largest single cost of a route-only rebuild. Set it while iterating on where a line runs; `lines-clear` still gates on a tube driving through a part. The build you commit runs without it, so the committed scorecard carries its clearances measured.
+See `thin/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py` for patterns to follow, and its companion `touch_flo_shell.md` for the idioms those patterns embody.
 
 ## Firmware
 
@@ -34,9 +30,7 @@ Flash with `tools/flash.sh`.
 
 ## tscircuit forks
 
-The pcba board (`hardware/pcb/pcba`) consumes forked `@tscircuit/*` packages (and `circuit-json-to-gerber`) via git-dependency `overrides` in its `package.json`. The local working trees are at `~/Developer/tscircuit-forks/<pkg>` — branch `homesodamachine/through-hole-vias`, with an `upstream` remote for syncing. See `hardware/pcb/pcba/FORKS.md`.
-
-The pcba board is **100% hand-routed** — every signal connection is an explicit `pcbPath`; the capacity autorouter owns no copper. To author or move traces, see `hardware/pcb/pcba/hand-routing.md` (the `route`/`routeBottom`/`routeInner` frame idiom and the render→floor verify loop).
+The pcba board (`thin/hardware/pcb/pcba`) consumes forked `@tscircuit/*` packages (and `circuit-json-to-gerber`) via git-dependency `overrides` in its `package.json`. The local working trees are at `~/Developer/tscircuit-forks/<pkg>` — branch `homesodamachine/through-hole-vias`, with an `upstream` remote for syncing. See `thin/hardware/pcb/pcba/FORKS.md`.
 
 ## Amazon Prime
 
