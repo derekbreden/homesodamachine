@@ -5,11 +5,14 @@
 //
 // A component move is stored as a placement override in a JSON sidecar beside
 // the assembly's .step (enclosure_assembly.py reads it and applies each override
-// as a final transform — rotate about the solid's centre, then translate). On
-// each write we re-run the assembly generator; the CadQuery clash gates validate
-// the moved pack, and on success the caller's rebuild broadcasts the new .step so
-// the viewer hot-reloads onto the real geometry. A move that overlaps fails the
-// rebuild — the old .step stays, and the error text comes back to the panel.
+// as a final transform — rotate about the solid's centre, then translate). The
+// sidecar is written FIRST, synchronously, so the move is in the tree the instant
+// Apply lands; the generator re-run that follows only catches the geometry up.
+// The editor's rebuild runs under HSM_EDITOR, which builds and saves a clashing
+// pack (flagged not-build-ready in the scorecard) rather than refusing it — an
+// overlapping move is something you see, not something you are stopped from
+// making. Only a genuine generator error fails, and its text comes back to the
+// panel.
 //
 // Only files in EDITABLE are editable — the registry both scopes the write (no
 // arbitrary path gets a generator run) and gates the toggle (an unknown file
