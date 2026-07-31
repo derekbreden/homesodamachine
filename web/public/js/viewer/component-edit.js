@@ -8,17 +8,24 @@
 //   • Local preview — dragging/typing transforms the component's meshes live in
 //     YOUR scene (a matrix on each mesh + its x-ray edges). No rebuild, no wait.
 //   • Apply — POSTs the move to the dev server, which appends it to the assembly's
-//     placement-override sidecar and re-runs the CadQuery generator (~a couple
-//     minutes: it reloads every part and re-checks the pack for clashes). The new
-//     .step hot-reloads over the preview. A move that overlaps is BUILT and saved
+//     moves sidecar and re-runs the CadQuery generator (~a couple minutes: it
+//     reloads every part and re-checks the pack for clashes). The new .step
+//     hot-reloads over the preview. A move that overlaps is BUILT and saved
 //     anyway — so you see the real overlapping geometry, and it survives a refresh —
 //     but flagged not-build-ready: the scorecard bar turns red and the status says so.
 //
 // The move is a rotate about the component's CURRENT bbox centre, then a
-// translate — the same order the sidecar applies (enclosure_assembly.py), so the
+// translate — the same order the pack composes it in (_placing.Pack), so the
 // preview and the rebuilt geometry land in the same place. Each Apply appends one
 // step from the pose on screen, so the baseline after a reload is the applied
 // pose and the working offset resets to zero.
+//
+// A dragged body carries its own declared stations, and every body seated on it
+// follows: the move lands on the seat the pack gave that body, not on the finished
+// solid, so the tube runs re-solve to where you put it rather than to where it was
+// authored. The bodies seated outside that pack — the through-wall panel fittings,
+// the display, the funnel, the four printed pieces — still move as metal alone, and
+// the build names them when they do.
 //
 // Mutually exclusive with the edge + component-select tools over the shared
 // STEP_TOOL event: arming Edit disarms them, and arming either of them disarms
