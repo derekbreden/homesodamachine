@@ -3,11 +3,12 @@
 // (lib/pcb-editor-routes.js): mounted ONLY by the dev server, so it 404s in
 // production and the viewer's "Edit" toggle never appears on the public site.
 //
-// A component move is stored as a placement override in a JSON sidecar beside
-// the assembly's .step (enclosure_assembly.py reads it and applies each override
-// as a final transform — rotate about the solid's centre, then translate). The
-// sidecar is written FIRST, synchronously, so the move is in the tree the instant
-// Apply lands; the generator re-run that follows only catches the geometry up.
+// A component move is stored in a JSON sidecar beside the assembly's .step
+// (_contents.MOVES_PATH). The PACK applies it: each move composes onto the seat
+// its body took, at placement time, so the body's own stations ride it and every
+// body seated on it follows (_placing.Pack). The sidecar is written FIRST,
+// synchronously, so the move is in the tree the instant Apply lands; the generator
+// re-run that follows only catches the geometry up.
 // The editor's rebuild runs under HSM_EDITOR, which builds and saves a clashing
 // pack (flagged not-build-ready in the scorecard) rather than refusing it — an
 // overlapping move is something you see, not something you are stopped from

@@ -49,8 +49,9 @@ const { app, broadcast, hardwareDir: HARDWARE_DIR, editionDirs: EDITION_DIRS } =
 mountPcbEditorRoutes(app, HARDWARE_DIR);
 
 // STEP component editor API — dev-only, backs the viewer's 3D "Edit" toggle
-// (web/public/js/viewer/component-edit.js). A move is written to a placement-
-// override sidecar (lib/step-editor-routes.js) and this rebuild re-runs the
+// (web/public/js/viewer/component-edit.js). A move is written to a moves sidecar
+// (lib/step-editor-routes.js), where the pack composes it onto the moved body's
+// own seat, and this rebuild re-runs the
 // assembly generator, which broadcasts the new .step so the viewer hot-reloads
 // onto the real geometry. Under HSM_EDITOR (below) a clashing move is BUILT and
 // saved anyway — flagged not-build-ready in the scorecard — so you can see the
