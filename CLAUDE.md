@@ -41,3 +41,9 @@ You have access to my Chrome which is signed in to my amazon through your MCP. I
 Git keeps history. Code and docs in this repo describe current state. Don't write "was X, now Y" or decision narratives in current files. Don't defend the current choice against alternatives the reader hasn't asked about. The repo describes only what is.
 
 Always commit and push to main. Don't ask. Just do it. The author of any change you see is always me (via an instance of you), and you can trust my changes are worth committing and building on top of.
+
+## Red Lands
+
+A failing check does not block a commit. The generators have no failure exit — the `.step` and the scorecard sidecar are written whatever the gates say, and a pack that does not close carries its real overlapping geometry — and `.githooks/pre-commit` reports the enclosure's verdict without gating on it. The board's fab-ready gates are the exception; they block.
+
+Commit broken work, push it, and say what to look at in the 3D viewer. Don't hold a change back because it scores red, don't revert to green before committing, and don't spend a session reaching a clean card before anything lands. The one thing that must not land is a build whose artifacts came from different source than the commit carries.
