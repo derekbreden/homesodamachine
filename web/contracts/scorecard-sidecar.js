@@ -98,6 +98,25 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  */
 
 /**
+ * @typedef {Object} ScorecardMount  one component's fastening — the record behind `mounted`
+ * @property {string} component
+ * @property {string|null} by  the part whose printed feature fastens it; null = the joint is
+ *                             still to design, and this row is one unit of the focus axis's gap
+ * @property {string} held     what merely holds it today ("none" | "wall-capture" | "tray" | …).
+ *                             The distance from this to `by` is the joint to print.
+ * @property {string} kind     "real" | "placeholder" — the component's geometry authorship
+ */
+
+/**
+ * @typedef {Object} ScorecardFocus  the two axes the work is ON, as counted things
+ * @property {string} id        the check id — "bend-radius" | "mounted"
+ * @property {string} label     the bar's short noun: "tube radii" | "mounted"
+ * @property {number} done      how many are at spec
+ * @property {number} total     how many there are
+ * @property {"fail"|"warn"|"pass"} status
+ */
+
+/**
  * @typedef {Object} Scorecard
  * @property {boolean} gatesPass  every gate passes
  * @property {number} placed   0..100 — placement criteria defined and held
@@ -114,7 +133,60 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  * @property {ScorecardPort[]} ports  the full connector inventory: every port's coordinate + bore
  * @property {ScorecardShape[]} shapes  per component, the boxes it really occupies
  * @property {ScorecardBend[]} bends  per routed run, the radius it turns at and its grade
+ * @property {ScorecardMount[]} mounts  per component, the part that fastens it. Optional: an
+ *                                      edition whose scorecard predates the axis omits it.
  */
+
+// ── Focus ────────────────────────────────────────────────────────────────────────────────────
+// The two axes the work is on: `bend-radius` (a gate) and `mounted` (a goal). No block of the
+// card carries the pair, and a figure read after ten others is not a focus — so both surfaces
+// that render this scorecard lead with them, in this order.
+export const FOCUS_IDS = ["bend-radius", "mounted"];
+
+// The focus axes as counted things — `done/total`, which is what the bar says and what the
+// modal's focus panels head with. Reads the structured tables (`bends`, `mounts`) rather than
+// parsing the check's prose `value`, so the count and the rows behind it come from one source.
+// Returns only the axes this sidecar actually carries: an edition with neither gets [], and the
+// bar falls back to its axis percentages.
+export function focusAxes(sc) {
+  const out = [];
+  const bendCk = (sc.checks || []).find((c) => c.id === "bend-radius");
+  if (bendCk && Array.isArray(sc.bends)) {
+    out.push({
+      id: "bend-radius", label: "tube radii", status: bendCk.status,
+      done: sc.bends.reduce((n, b) => n + (b.atSpec || 0), 0),
+      total: sc.bends.reduce((n, b) => n + (b.corners ? b.corners.length : 0), 0),
+    });
+  }
+  const mountCk = (sc.checks || []).find((c) => c.id === "mounted");
+  if (mountCk && Array.isArray(sc.mounts)) {
+    out.push({
+      id: "mounted", label: "mounted", status: mountCk.status,
+      done: sc.mounts.filter((m) => m.by).length, total: sc.mounts.length,
+    });
+  }
+  return out;
+}
+
+// The runs a bend-radius fix acts on, worst first: every run with a corner under its stock's
+// minimum. `grade` is the radius as drawn and `reachGrade` the best its legs could seat — a run
+// failing BOTH is a placement to move, and it sorts ahead of one that is only a number to raise.
+export function failingBends(sc, pass = "B") {
+  const bands = ["A", "B", "C", "D", "F"];
+  const limit = bands.indexOf(pass);
+  const short = (sc.bends || []).filter((b) => b.grade && bands.indexOf(b.grade) > limit);
+  const pinned = (b) => (b.reachGrade && bands.indexOf(b.reachGrade) > limit ? 0 : 1);
+  return short.sort((a, b) => pinned(a) - pinned(b) || b.ratio - a.ratio || a.id.localeCompare(b.id));
+}
+
+// The components with no printed feature fastening them — one row per open joint, which is what
+// the `mounted` gap is made of. Held-by-something-looser last: those are a joint to convert,
+// while a body nothing holds at all is a joint to invent.
+export function unmountedComponents(sc) {
+  return (sc.mounts || []).filter((m) => !m.by)
+    .sort((a, b) => Number(a.held !== "none") - Number(b.held !== "none")
+                    || a.component.localeCompare(b.component));
+}
 
 // True when `o` has the shape the viewer reads. Used by the conformance test and as a client
 // guard — a malformed sidecar draws no bar rather than throwing.
@@ -185,6 +257,19 @@ export function isScorecard(o) {
           (b.binding && typeof b.binding.leg === "number" && typeof b.binding.length === "number")),
     );
     if (!bendsOk) return false;
+  }
+  // mounts is the per-component fastening record — the `mounted` focus axis's structured table.
+  // Present on current sidecars; validated when present so an older sidecar without it still reads.
+  if (o.mounts !== undefined) {
+    if (!Array.isArray(o.mounts)) return false;
+    const mountsOk = o.mounts.every(
+      (m) =>
+        m &&
+        typeof m.component === "string" &&
+        (m.by === null || typeof m.by === "string") &&
+        typeof m.held === "string",
+    );
+    if (!mountsOk) return false;
   }
   return true;
 }

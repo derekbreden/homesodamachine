@@ -614,6 +614,10 @@ _JG_OUT, _JG_IN = _jg.near_ring_face_y, -_jg.far_ring_face_y
 # `iec_c14_inlet.py` quotes deeper spades than the file carries, and what `panel_bodies()`
 # seats through the wall is the file.
 _C14_IN = -contents._load(contents.IEC_C14).BoundingBox().ymin
+# DERPIPE CO2 inlet: the collet mouth is the fitting's own far face. `_panel_bodies`
+# asserts the stub tip onto `CO2_GASHER_Y`, so the mouth is that seat less the body's
+# whole length, measured off the same STEP the wall seats.
+_CO2_MOUTH_Y = contents.CO2_GASHER_Y - contents._load(contents.DERPIPE_STEP).BoundingBox().ylen
 # Each rear-panel station as (x, z), read off the hole the wall is cut for, so the hole,
 # the body seated in it and the ports below are the one reading.
 _BACK_A     = contents.back_port_station("bulkhead-flavor-a")
@@ -688,7 +692,7 @@ PORTS = [
     # NPT stub inboard, and the GASHER check is made up on that stub, so the two read as one
     # body off the wall. Both stations are reaches off the inlet's own X/Z, which is where the
     # hole is cut, and the check's ends come off its placed solid rather than being retyped.
-    _p("tube-in",  "co2-inlet", "fluid", (contents.CO2_INLET_X, -22.0, contents.CO2_INLET_Z),  "y-", 7.94, "customer CO2 supply — 5/16\" push-to-connect (front-panel tether)", "5/16\" PTC collet, outboard"),
+    _p("tube-in",  "co2-inlet", "fluid", (contents.CO2_INLET_X, _CO2_MOUTH_Y, contents.CO2_INLET_Z),  "y-", 7.94, "customer CO2 supply — 5/16\" push-to-connect (front-panel tether)", "5/16\" PTC collet, outboard"),
     _p("npt-out",  "co2-inlet", "fluid", (contents.CO2_INLET_X, contents.CO2_GASHER_Y, contents.CO2_INLET_Z), "y+", 6.35, "gasher-co2 inlet — the check threads onto this stub", "1/4\" NPT shank, inboard"),
     _p("inlet",    "gasher-co2", "fluid", _CO2_CHAIN("gasher-co2", "y-"), "y-", 6.35, "co2-inlet npt-out (made up, no line between)", "1/4\" NPT female socket"),
     _p("outlet",   "gasher-co2", "fluid", _CO2_CHAIN("gasher-co2", "y+"), "y+", 6.35, "wr1110 inlet — segment co2-1", "1/4\" NPT male stub, into a PP010822E onto 1/4\" tube"),
