@@ -138,16 +138,13 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  */
 
 // ── Focus ────────────────────────────────────────────────────────────────────────────────────
-// The two axes the work is on: `bend-radius` (a gate) and `mounted` (a goal). No block of the
-// card carries the pair, and a figure read after ten others is not a focus — so both surfaces
-// that render this scorecard lead with them, in this order.
+// The two axes the work is on: `bend-radius` (a gate) and `mounted` (a goal). Both surfaces that
+// render this scorecard lead with them, in this order. Mirrors scorecard.py's FOCUS_IDS.
 export const FOCUS_IDS = ["bend-radius", "mounted"];
 
-// The focus axes as counted things — `done/total`, which is what the bar says and what the
-// modal's focus panels head with. Reads the structured tables (`bends`, `mounts`) rather than
-// parsing the check's prose `value`, so the count and the rows behind it come from one source.
-// Returns only the axes this sidecar actually carries: an edition with neither gets [], and the
-// bar falls back to its axis percentages.
+// The focus axes as counted things — `done/total` read off `bends` and `mounts`. What the bar
+// says, and what the modal's focus panels head with. An edition whose sidecar carries neither
+// axis gets [].
 export function focusAxes(sc) {
   const out = [];
   const bendCk = (sc.checks || []).find((c) => c.id === "bend-radius");
@@ -168,20 +165,30 @@ export function focusAxes(sc) {
   return out;
 }
 
-// The runs a bend-radius fix acts on, worst first: every run with a corner under its stock's
-// minimum. `grade` is the radius as drawn and `reachGrade` the best its legs could seat — a run
-// failing BOTH is a placement to move, and it sorts ahead of one that is only a number to raise.
-export function failingBends(sc, pass = "B") {
-  const bands = ["A", "B", "C", "D", "F"];
-  const limit = bands.indexOf(pass);
-  const short = (sc.bends || []).filter((b) => b.grade && bands.indexOf(b.grade) > limit);
-  const pinned = (b) => (b.reachGrade && bands.indexOf(b.reachGrade) > limit ? 0 : 1);
-  return short.sort((a, b) => pinned(a) - pinned(b) || b.ratio - a.ratio || a.id.localeCompare(b.id));
+// The bend grades, best to worst, and the worst a run may carry and still clear the gate. Mirrors
+// scorecard.py's GRADE_BANDS / BEND_GRADE_PASS — the emitter grades, this side only reads a grade
+// back to pass/short.
+export const BEND_GRADES = ["A", "B", "C", "D", "F"];
+export const BEND_GRADE_PASS = "B";
+const short = (g) => !!g && BEND_GRADES.indexOf(g) > BEND_GRADES.indexOf(BEND_GRADE_PASS);
+
+// A run short on `grade` and on `reachGrade` both — see the ScorecardBend typedef above for what
+// the pair says. The two bodies on its ends are what a fix moves.
+export function bendPinned(b) {
+  return short(b.grade) && short(b.reachGrade);
 }
 
-// The components with no printed feature fastening them — one row per open joint, which is what
-// the `mounted` gap is made of. Held-by-something-looser last: those are a joint to convert,
-// while a body nothing holds at all is a joint to invent.
+// The runs a bend-radius fix acts on, worst first: every run with a corner under its stock's
+// minimum, pinned ones ahead of the ones that are only a number to raise.
+export function failingBends(sc) {
+  return (sc.bends || []).filter((b) => short(b.grade))
+    .sort((a, b) => Number(bendPinned(b)) - Number(bendPinned(a))
+                    || a.ratio - b.ratio || a.id.localeCompare(b.id));
+}
+
+// The components with no printed feature fastening them, one row per open joint. A body already
+// held by something looser sorts last — that joint is a conversion, and one nothing holds at all
+// is a joint to invent.
 export function unmountedComponents(sc) {
   return (sc.mounts || []).filter((m) => !m.by)
     .sort((a, b) => Number(a.held !== "none") - Number(b.held !== "none")

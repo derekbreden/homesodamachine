@@ -5,8 +5,8 @@
 // detail rows. The sidecar's port inventory goes to port-markers.js, which draws each connector
 // on the model. One verdict, two surfaces: the same data the terminal prints.
 
-import { scorecardPathFor, isScorecard, FOCUS_IDS, focusAxes, failingBends, unmountedComponents }
-  from "/contracts/scorecard-sidecar.js";
+import { scorecardPathFor, isScorecard, FOCUS_IDS, focusAxes, failingBends, bendPinned,
+         unmountedComponents } from "/contracts/scorecard-sidecar.js";
 import { scenePartNames, highlightParts, clearHighlight } from "./part-highlight.js";
 import { showPorts, clearPorts, makePortToggle } from "./port-markers.js";
 import { showShapeBoxes, clearShapeBoxes, makeShapeBoxToggle } from "./shape-boxes.js";
@@ -119,17 +119,14 @@ function closeModal(wrapper) {
 // ── The focus panels ────────────────────────────────────────────────────────────────────────
 // The two axes the work is on get the top of the card and a panel each, itemized down to the
 // thing a fix acts on: a run's two end bodies, a component's missing joint. Every other axis is
-// a line. Both panels read the sidecar's uncapped tables (`bends`, `mounts`), not the check's
-// capped `detail` prose — the axis at 15% is the one that must list all of its gap.
+// a line. Both panels read the sidecar's uncapped tables (`bends`, `mounts`).
 
 // Every failing run, worst first, each row clicking through to the two bodies its ends stand on.
-// A run failing on `reach` too cannot be fixed by raising its radius: the legs its placement
-// leaves it are too short to turn in, and moving one of those two bodies is the whole fix.
-function bendPanel(card, sc, wrapper, partNames) {
-  const rows = failingBends(sc).map((b) => {
+function bendPanel(sc, wrapper, partNames) {
+  return failingBends(sc).map((b) => {
     const ends = [b.frm, b.to].map((a) => String(a).split(".")[0]);
     const refs = ends.filter((n) => partNames.has(n));
-    const pinned = b.reachGrade && b.reachGrade !== "A" && b.reachGrade !== "B";
+    const pinned = bendPinned(b);
     return linkRow(
       "sc-row sub issue",
       `— ${b.id} ${ends[0]} → ${ends[1]}` + (pinned ? "  · move a body" : "  · raise the radius"),
@@ -141,17 +138,15 @@ function bendPanel(card, sc, wrapper, partNames) {
         : `Its legs seat R${b.reach == null ? "∞" : b.reach.toFixed(1)} — raise bend=. `
           + `Show ${refs.join(" + ")} on the model`);
   });
-  addCollapsible(card, rows, 6);
 }
 
 // Every component with no printed feature fastening it — one row per joint still to design,
 // clicking through to the body that needs it.
-function mountPanel(card, sc, wrapper, partNames) {
-  const rows = unmountedComponents(sc).map((m) =>
+function mountPanel(sc, wrapper, partNames) {
+  return unmountedComponents(sc).map((m) =>
     linkRow("sc-row sub warn", `— ${m.component}`,
             m.held && m.held !== "none" ? `${m.held} — not printed in` : "nothing holds it",
             partNames.has(m.component) ? [m.component] : [], wrapper));
-  addCollapsible(card, rows, 6);
 }
 
 const FOCUS_PANEL = { "bend-radius": bendPanel, mounted: mountPanel };
@@ -165,17 +160,22 @@ function appendFocus(card, sc, wrapper, partNames) {
 
   const h = el("div", "sc-h focus");
   h.appendChild(el("span", null, "Focus"));
-  for (const a of axes) {
+  axes.forEach((a, i) => {
+    if (i) h.appendChild(el("span", "sc-sep", "·"));
     h.appendChild(el("span", "sc-focus-n" + (a.status === "fail" ? " issue" : a.status === "warn" ? " warn" : ""),
                      `${a.done}/${a.total} ${a.label}`));
-  }
+  });
   card.appendChild(h);
 
   for (const id of present) {
-    appendCheck(card, byId[id], false, wrapper, partNames, false);
+    const c = byId[id];
+    appendCheck(card, c, false, wrapper, partNames, false);
+    // The panel's rows come off the sidecar's table. A sidecar carrying the check but not its
+    // table falls back to the check's own capped detail, so the axis still itemizes.
     const panel = FOCUS_PANEL[id];
-    if (panel) panel(card, sc, wrapper, partNames);
-    else addCollapsible(card, (byId[id].detail || []).map((d) => row("sc-row sub", `— ${d}`)), 0);
+    const rows = panel ? panel(sc, wrapper, partNames) : [];
+    addCollapsible(card, rows.length ? rows
+      : (c.detail || []).map((d) => row("sc-row sub", `— ${d}`)), 6);
   }
   return present;
 }
@@ -205,8 +205,8 @@ function openModal(wrapper, sc) {
   const passed = gates.filter((c) => c.status === "pass").length;
   const partNames = scenePartNames(); // solids in the scene → which rows are clickable
 
-  // The two focus axes lead, itemized. Below, each keeps its row in the block it belongs to (so
-  // ten gates read as ten) but not its rows — those are above, and once is enough.
+  // The two focus axes lead, itemized. Below, each keeps its line in the block it belongs to;
+  // its rows are above.
   const promoted = appendFocus(card, sc, wrapper, partNames);
   const shown = (c) => !promoted.includes(c.id);
 
@@ -240,8 +240,20 @@ function buildBar(wrapper, sc) {
   removeScorecard(wrapper);
   const g = gateCounts(sc);
   const bar = el("div", "sc-bar");
-  bar.appendChild(el("span", "sc-bar-text",
-    `gates ${g.pass}/${g.total} · placed ${sc.placed}% · located ${sc.located}% · shaped ${sc.shaped}%`));
+  // The bar says the two focus axes as counted things; the badge beside it carries the gate
+  // verdict. An edition whose scorecard has neither axis falls back to its percentages.
+  const axes = focusAxes(sc);
+  if (axes.length) {
+    axes.forEach((a, i) => {
+      if (i) bar.appendChild(el("span", "sc-bar-text sc-sep", "·"));
+      bar.appendChild(el("span", "sc-bar-text sc-focus-n"
+        + (a.status === "fail" ? " issue" : a.status === "warn" ? " warn" : ""),
+        `${a.done}/${a.total} ${a.label}`));
+    });
+  } else {
+    bar.appendChild(el("span", "sc-bar-text",
+      `gates ${g.pass}/${g.total} · placed ${sc.placed}% · located ${sc.located}% · shaped ${sc.shaped}%`));
+  }
   const badge = el("button", "sc-badge" + (g.fail ? " has-issues" : ""),
     g.fail ? `✗ ${g.fail} gate${g.fail === 1 ? "" : "s"}` : "✓ checks");
   badge.type = "button";

@@ -11,12 +11,16 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { isScorecard, scorecardPathFor, SCORECARD_SUFFIX } from "../contracts/scorecard-sidecar.js";
+import { isScorecard, scorecardPathFor, SCORECARD_SUFFIX, FOCUS_IDS, focusAxes, failingBends,
+  bendPinned, unmountedComponents } from "../contracts/scorecard-sidecar.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
-const SIDECAR = path.join(REPO_ROOT, "hardware", "printed-parts", "enclosure",
+const sidecarIn = (...root) => path.join(REPO_ROOT, ...root, "printed-parts", "enclosure",
   "enclosure-assembly", "enclosure-assembly.scorecard.json");
+const SIDECAR = sidecarIn("hardware");
+// The thin edition — the one carrying the two focus axes (lib/editions.js).
+const THIN_SIDECAR = sidecarIn("thin", "hardware");
 
 test("enclosure scorecard sidecar conforms to the contract", (t) => {
   if (!fs.existsSync(SIDECAR)) return t.skip("no built scorecard sidecar");
@@ -72,6 +76,64 @@ test("scorecardPathFor maps a STEP path to its sidecar", () => {
   assert.equal(
     scorecardPathFor("printed-parts/enclosure/enclosure-assembly/enclosure-assembly.step"),
     "printed-parts/enclosure/enclosure-assembly/enclosure-assembly" + SCORECARD_SUFFIX);
+});
+
+// ── Focus ───────────────────────────────────────────────────────────────────────────────────
+// The bar says the two focus axes and the modal leads with them, both counted off `bends` and
+// `mounts`. A producer that emits an axis without its table draws a bar reading 0/0.
+test("the thin sidecar carries both focus axes and the tables their counts read", (t) => {
+  if (!fs.existsSync(THIN_SIDECAR)) return t.skip("no built thin scorecard sidecar");
+  const sc = JSON.parse(fs.readFileSync(THIN_SIDECAR, "utf8"));
+  assert.ok(isScorecard(sc), "thin sidecar passes isScorecard");
+
+  const byId = Object.fromEntries(sc.checks.map((c) => [c.id, c]));
+  for (const id of FOCUS_IDS) assert.ok(byId[id], `focus axis ${id} present as a check`);
+  assert.equal(byId.mounted.active, true, "mounted is a live goal axis");
+
+  const axes = focusAxes(sc);
+  assert.equal(axes.length, 2, "both focus axes count");
+  const [bend, mount] = axes;
+  assert.equal(bend.id, "bend-radius");
+  assert.ok(bend.total > 0, "corners counted off the bends table");
+  assert.ok(bend.done <= bend.total, "corners at spec cannot exceed corners");
+  assert.equal(mount.id, "mounted");
+  assert.equal(mount.total, sc.mounts.length, "mounted counts every component");
+  assert.equal(mount.done, sc.mounts.filter((m) => m.by).length);
+  // The counts the bar prints must be the ones the gate/goal reached its verdict on.
+  assert.equal(bend.status === "pass", bend.done === bend.total);
+  assert.equal(mount.status === "pass", mount.done === mount.total);
+
+  // A carrier is a placed component or a printed piece of the enclosure, and it is named — a
+  // joint printed into nothing has nowhere for its screw to go.
+  for (const m of sc.mounts) {
+    assert.equal(typeof m.held, "string", `${m.component} declares what holds it`);
+    if (m.by !== null) assert.ok(m.by.length, `${m.component} names the part it mounts into`);
+  }
+});
+
+test("the focus panels itemize down to the body a fix moves", (t) => {
+  if (!fs.existsSync(THIN_SIDECAR)) return t.skip("no built thin scorecard sidecar");
+  const sc = JSON.parse(fs.readFileSync(THIN_SIDECAR, "utf8"));
+
+  // Unmounted rows are exactly the gap the axis reports, one row each.
+  const loose = unmountedComponents(sc);
+  assert.equal(loose.length, sc.mounts.length - sc.mounts.filter((m) => m.by).length);
+  assert.ok(loose.every((m) => !m.by), "every listed row is an open joint");
+
+  // Failing runs carry the two anchors the panel turns into clickable part names, and a pinned
+  // run — one whose legs cannot seat a legal radius either — sorts ahead of one that is only a
+  // number to raise.
+  const short = failingBends(sc);
+  for (const b of short) {
+    for (const a of [b.frm, b.to]) {
+      assert.equal(typeof a, "string");
+      assert.ok(a.includes("."), `${b.id} anchor "${a}" is component.port`);
+    }
+  }
+  const firstLoose = short.findIndex((b) => !bendPinned(b));
+  if (firstLoose !== -1) {
+    assert.ok(short.slice(firstLoose).every((b) => !bendPinned(b)), "pinned runs sort first");
+  }
 });
 
 // Prove the guard fires — a check that never rejects is worthless.
