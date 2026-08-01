@@ -65,6 +65,11 @@ from copper_plugs import plug_specs as _plug_specs  # noqa: E402
 # tube faces are its ring faces, not reaches retyped beside them.
 sys.path.insert(0, str(contents._hw / "reference" / "jg-bulkhead-union"))
 import jg_bulkhead_union as _jg  # noqa: E402
+
+# The shroud's own dimensions: the ac-mains station is its 7/8" panel hole, and the
+# hole's figure is the module's, not one retyped beside it.
+sys.path.insert(0, str(contents._hw / "cut-parts" / "compressor-shroud"))
+import _compressor_shroud_dimensions as _shroud_dims  # noqa: E402
 from copper_plugs import slot_width_x as _slot_width  # noqa: E402  — and how wide the slot is
 
 # Minimum solid-to-solid distance. cadquery 2 binds OpenCascade as OCP; the guarded import
@@ -675,7 +680,7 @@ PORTS = [
     # the foam/cold core they mate to); the AC gland + earth bond ride the +X face (into the
     # inter-part channel). suction/discharge assigned by world x per the physical loop. Copper is
     # 1/4" ACR; the AC gland Ø and earth-stud Ø are estimates pending the shroud teardown.
-    _p("ac-mains",        "compressor-shroud", "electrical",  (192.0, 66.5, 78.0),  "x+", 10.0,  "Teyleten relay #1 / AC distribution (AC-4 switched-H + AC-5 N, 3-wire gland)", "gland bore ~Ø10 for 3-wire mains (estimate — confirm at shroud teardown)"),
+    _p("ac-mains",        "compressor-shroud", "electrical",  (192.0, 66.5, 78.0),  "x+", _shroud_dims.ac_hole_diameter_mm,  "Teyleten relay #1 / AC distribution (AC-4 switched-H + AC-5 N, 3-wire gland)", "the shroud's own 7/8\" panel hole (compressor_shroud.ac_hole_diameter_mm), clamping the 3-wire mains gland"),
     _p("earth-bond",      "compressor-shroud", "electrical",  (192.0, 31.5, 78.0),  "x+", 5.0,   "electronics-shelf ground bus (AC-6)", "M5 earth stud/ring (estimate — confirm at shroud teardown)"),
     _p("refrig-suction",  "compressor-shroud", "refrigerant", (59.25, 133.0, 78.0), "y+", 6.35,  "foam-assembly evaporator outlet", "1/4\" ACR copper"),
     _p("refrig-discharge","compressor-shroud", "refrigerant", (146.75, 133.0, 78.0),"y+", 6.35,  "condenser+fan inlet", "1/4\" ACR copper"),
@@ -937,29 +942,105 @@ def _face_shell(solid):
     return comp
 
 
+def _surface_dist(pos, shell) -> float | None:
+    """Exact distance from `pos` to the body's surface — None when only the box can answer."""
+    if not _HAVE_EXACT or shell is None:
+        return None
+    v = BRepBuilderAPI_MakeVertex(gp_Pnt(*pos)).Vertex()
+    dss = BRepExtrema_DistShapeShape(v, shell)
+    dss.Perform()
+    return dss.Value() if dss.IsDone() else None
+
+
 def _on_surface(pos, solid, shell, diam, tol) -> bool:
     """True when `pos` sits on the body's real surface. A port names the mouth of the bore it
     carries, so the allowance is one bore radius — the distance from a bore's centre out to its
     rim — plus tol. An opening is wherever the body has one: the free collet of an elbow, a
     connector on a populated board, a hole in a wall. Degrades to the bounding box when the exact
     kernel is unavailable."""
-    if not _HAVE_EXACT or shell is None:
+    d = _surface_dist(pos, shell)
+    if d is None:
         return _on_bbox_surface(pos, _boxes.boxed(solid), tol)
-    v = BRepBuilderAPI_MakeVertex(gp_Pnt(*pos)).Vertex()
-    dss = BRepExtrema_DistShapeShape(v, shell)
-    dss.Perform()
-    if not dss.IsDone():
-        return _on_bbox_surface(pos, _boxes.boxed(solid), tol)
-    return dss.Value() <= (diam or 0.0) / 2.0 + tol
+    return d <= (diam or 0.0) / 2.0 + tol
+
+
+# A FLUID port is the mouth of a bore a tube BUTTS: the tube is cut square, pushed to the
+# collet face, and stops. So a fluid figure is held to the face itself, not the neighbourhood —
+# three ways a declaration can miss it, each its own read:
+#   adrift (rim)  — the point stands more than `FLUID_FACE_TOL` past its own bore radius off
+#                   the body: nowhere near any face.
+#   adrift (seat) — no material within `FLUID_FACE_SEAT` behind the plane it names: the face
+#                   it claims to be the mouth of is not there, and a tube drawn to it ends in
+#                   air. This is the read that catches a float over a SOLID-faced fitting,
+#                   which sits inside the rim allowance for the whole of a small drift.
+#   buried        — more than `FLUID_FACE_PAST` of the body stands past the plane: the
+#                   declaration is inside the fitting, and a tube drawn to it interpenetrates.
+# Electrical points land ON terminals and refrigerant stubs pass THROUGH walls into brazed
+# bores; neither is a butted face, so both keep the loose on-surface read.
+FLUID_FACE_TOL = 0.35
+FLUID_FACE_SEAT = 0.5     # how far behind the face plane material must begin
+FLUID_FACE_PAST = 1.0     # mm³ of own-body volume past the plane before it reads buried
+_FLUID_WINDOW = 1.5       # the checks look this many bore Ø around the axis — one fitting,
+                          # not the fused neighbour beside it
+
+
+def _face_slabs(pos, face, diam, solid) -> tuple:
+    """`(seated, past)` for a fluid face: the body's own volume in a window just BEHIND the
+    plane the port names, and just PAST it. An open collet face reads (its rim annulus, ~0);
+    a float reads (~0, ~0); a declaration inside the fitting reads (…, the slab between it
+    and the face that is there). Windowed to `_FLUID_WINDOW` bore Ø so a sibling feature of
+    the same fused body is not read as burial. A boolean that will not resolve raises — an
+    unmeasured face is not an open one."""
+    import cadquery as cq
+    import _routing as R
+
+    axis = R.normal_of(face)
+    r = _FLUID_WINDOW * diam
+    def _window(start_off, length):
+        start = tuple(p + start_off * a for p, a in zip(pos, axis))
+        return cq.Solid.makeCylinder(r, length, cq.Vector(*start), cq.Vector(*axis))
+    out = []
+    for win in (_window(-FLUID_FACE_SEAT - FLUID_FACE_TOL,
+                        FLUID_FACE_SEAT + FLUID_FACE_TOL),   # behind the plane, up to it
+                _window(FLUID_FACE_TOL, 3.0 * diam)):        # past it, clear of its own rim
+        if _bbox_gap(_boxes.boxed(win), _boxes.boxed(solid)) > 0:
+            out.append(0.0)
+            continue
+        try:
+            out.append(win.intersect(solid).Volume())
+        except Exception as exc:
+            raise RuntimeError(
+                f"the material about a fluid face at {tuple(round(c, 2) for c in pos)} could "
+                f"not be measured ({exc}) — an unmeasured face is not an open one") from exc
+    return tuple(out)
+
+
+def _fluid_face_status(pos, face, diam, solid, shell) -> str | None:
+    """The fluid-face verdict for one port: None when the face is where it says, else the
+    status string carrying the measurement."""
+    d = _surface_dist(pos, shell)
+    rim = diam / 2.0
+    if d is not None and d > rim + FLUID_FACE_TOL:
+        return f"adrift — {d - rim:.2f} mm past a bore radius off the body"
+    seated, past = _face_slabs(pos, face, diam, solid)
+    if past > FLUID_FACE_PAST:
+        return f"buried — {past:.0f} mm³ of the body past the face it names"
+    if seated <= FLUID_FACE_PAST:
+        return f"adrift — no material within {FLUID_FACE_SEAT:g} mm behind the face it names"
+    return None
 
 
 def ports_audit(solids: dict, tol: float = 2.0) -> list[tuple[str, bool, list]]:
     """Group PORTS by component; return (component, all_located, [(port, status)]) where status
     is 'ok' (positioned + on the placed body's surface + sized), 'off-surface' (a position not on
     the solid — a drifted/typo'd port), 'no-pos' (not yet located), or 'no-diam' (located but its
-    bore Ø is still unknown). A component is located only when every port is 'ok' — a full
-    coordinate AND bore, the PCBA per-pad specificity. Components with no ports declared are not
-    returned — like placement rules, they are simply not-yet-authored."""
+    bore Ø is still unknown). A FLUID port is held to its own collet face instead of the loose
+    on-surface read — `adrift — …` when the face it names is not there (off the rim, or air
+    behind the plane), `buried — …` when the body stands past it — each status carrying its
+    measurement, because a tube drawn to a drifted face stops in air or inside the fitting and
+    nothing else on the card would say so. A component is located only when every port is 'ok' —
+    a full coordinate AND bore, the PCBA per-pad specificity. Components with no ports declared
+    are not returned — like placement rules, they are simply not-yet-authored."""
     by_comp: dict[str, list[Port]] = {}
     for p in PORTS:
         by_comp.setdefault(p.component, []).append(p)
@@ -971,8 +1052,13 @@ def ports_audit(solids: dict, tol: float = 2.0) -> list[tuple[str, bool, list]]:
         shell = _face_shell(solid) if (solid is not None and _HAVE_EXACT) else None
         rows = []
         for p in ports:
+            fluid = (p.kind == "fluid" and p.pos is not None and p.diam is not None
+                     and bool(p.face) and solid is not None and shell is not None)
             if p.pos is None:
                 rows.append((p, "no-pos"))
+            elif fluid:
+                verdict = _fluid_face_status(p.pos, p.face, p.diam, solid, shell)
+                rows.append((p, verdict if verdict is not None else "ok"))
             elif solid is None or not _on_surface(p.pos, solid, shell, p.diam, tol):
                 rows.append((p, "off-surface"))
             elif p.diam is None:
@@ -1379,7 +1465,7 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
         for pt, s in prows:
             xyz = f"({pt.pos[0]:g}, {pt.pos[1]:g}, {pt.pos[2]:g}) {pt.face}" if pt.pos else "no position"
             od = f"Ø{pt.diam:g}" if pt.diam is not None else "Ø?"
-            tag = "" if s == "ok" else f"  — {_pstat[s]}"
+            tag = "" if s == "ok" else f"  — {_pstat.get(s, '⚠ ' + s)}"
             located_detail.append(f"    – {comp}:{pt.name} ({pt.kind}) {xyz} {od} → {pt.mates}{tag}")
     for c in passive:
         located_detail.append(f"✓ {c.name}: no connectors (passive body)")
