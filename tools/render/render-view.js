@@ -37,6 +37,12 @@
 // Camera:
 //   --view <name>      right|left|front|back|top|bottom|iso  (repo axes: +Z up,
 //                      -Y front). Sets --cam and --up together.
+//   --views <names>    that set of views in ONE boot, each written as
+//                      <out>.<view>.png. Parsing the STEP is the whole cost of
+//                      a render; composing another frame from the same scene is
+//                      milliseconds. `--views top,front,right --ortho` is a
+//                      drawing: the three directions a coordinate reads off the
+//                      grid in, where iso has none.
 //   --cam x,y,z        camera direction from target. Default from --view, else 1,-1,1
 //   --up x,y,z         camera up. Default from --view, else 0,0,1
 //   --target x,y,z     look-at point. Default: centre of the SOLID set's bbox
@@ -169,6 +175,7 @@ function parseArgs(argv) {
     edition: DEFAULT_EDITION,
     at: null,
     list: false,
+    views: [],
   };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -186,6 +193,8 @@ function parseArgs(argv) {
     else if (a.startsWith("--ghost")) opts.ghost = globs(val("ghost"));
     else if (a.startsWith("--hide")) opts.hide = globs(val("hide"));
     else if (a.startsWith("--context")) opts.context = val("context");
+    // Before --view: startsWith would swallow --views into it.
+    else if (a.startsWith("--views")) opts.views = globs(val("views"));
     else if (a.startsWith("--view")) opts.view = val("view");
     else if (a.startsWith("--caption")) opts.caption = val("caption");
     else if (a.startsWith("--cam")) opts.cam = vec(val("cam"), "--cam");
@@ -232,6 +241,11 @@ function parseArgs(argv) {
     if (!VIEWS[opts.view]) usage(`unknown --view ${opts.view} (have ${Object.keys(VIEWS).join(", ")})`);
     if (!opts.cam) opts.cam = VIEWS[opts.view].cam;
     if (!opts.up) opts.up = VIEWS[opts.view].up;
+  }
+  // Each --views entry supplies its own cam/up per shot, so a bad name has to be caught here —
+  // the --view guard above never sees it.
+  for (const v of opts.views) {
+    if (!VIEWS[v]) usage(`unknown --views entry ${v} (have ${Object.keys(VIEWS).join(", ")})`);
   }
   if (!opts.cam) opts.cam = VIEWS.iso.cam;
   if (!opts.up) opts.up = VIEWS.iso.up;
@@ -971,7 +985,10 @@ async function main() {
   const outAbs = path.isAbsolute(outRel) ? outRel : path.join(REPO_ROOT, outRel);
   fs.mkdirSync(path.dirname(outAbs), { recursive: true });
 
-  const info = await withViewer({ stepRel, opts }, async (page) => {
+  // One boot, one shot per view. The scene is mounted once and each view only moves the camera
+  // and recomposes, so a set costs the parse plus milliseconds a frame.
+  const shots = opts.views.length ? opts.views : [null];
+  const taken = await withViewer({ stepRel, opts }, async (page) => {
     // Chrome hidden as in render-step.js. Applied before the overlay is built,
     // so none of these rules catch it.
     await page.addStyleTag({
@@ -990,31 +1007,41 @@ async function main() {
       `,
     });
 
-    // Labels on when a subject was named; grid on under ortho, where a
-    // millimetre is the same length everywhere in the frame.
-    const resolved = {
-      ...opts,
-      title: `${opts.edition}/${stepRel}` + (opts.atSha ? `  @ ${opts.atSha.slice(0, 8)}` : ""),
-    };
-    if (resolved.label === null) resolved.label = !!opts.only;
-    if (resolved.grid === null) resolved.grid = opts.ortho;
+    const out = [];
+    for (const v of shots) {
+      // A named view carries its own camera. An explicit --cam/--up given alongside --views would
+      // aim every shot the same way, so the view's own pair wins for the set.
+      const shot = v ? { ...opts, view: v, cam: VIEWS[v].cam, up: VIEWS[v].up } : opts;
+      // Labels on when a subject was named; grid on under ortho, where a
+      // millimetre is the same length everywhere in the frame.
+      const resolved = {
+        ...shot,
+        title: `${opts.edition}/${stepRel}` + (opts.atSha ? `  @ ${opts.atSha.slice(0, 8)}` : ""),
+      };
+      if (resolved.label === null) resolved.label = !!opts.only;
+      if (resolved.grid === null) resolved.grid = shot.ortho;
 
-    const out = await page.evaluate(inPageCompose, resolved);
-    await new Promise((r) => setTimeout(r, 150));
-    const raw = await page.screenshot({ type: "png", omitBackground: false });
-    const buf = await sharp(raw)
-      .composite([{ input: annotationSvg(out.annot), top: 0, left: 0 }])
-      .png({ compressionLevel: 9 })
-      .toBuffer();
-    fs.writeFileSync(outAbs, buf);
+      const info = await page.evaluate(inPageCompose, resolved);
+      await new Promise((r) => setTimeout(r, 150));
+      const raw = await page.screenshot({ type: "png", omitBackground: false });
+      const buf = await sharp(raw)
+        .composite([{ input: annotationSvg(info.annot), top: 0, left: 0 }])
+        .png({ compressionLevel: 9 })
+        .toBuffer();
+      // A set writes one file per view beside the name given; a single shot takes that name.
+      const dest = v ? outAbs.replace(/\.png$/i, `.${v}.png`) : outAbs;
+      fs.writeFileSync(dest, buf);
+      out.push({ dest, info, shot });
+    }
     return out;
   });
 
-  // The legend, on stdout as well as in the frame.
-  console.log(`\nwrote ${outAbs}  (${opts.width}x${opts.height})`);
-  console.log(`  view      ${opts.view || "custom"}  cam ${opts.cam.join(",")}  up ${opts.up.join(",")}`);
+  // The legend, on stdout as well as in the frame — one block per shot taken.
+  for (const { dest: outFile, info, shot } of taken) {
+  console.log(`\nwrote ${outFile}  (${opts.width}x${opts.height})`);
+  console.log(`  view      ${shot.view || "custom"}  cam ${shot.cam.join(",")}  up ${shot.up.join(",")}`);
   console.log(
-    `  framing   ${opts.ortho ? `ortho, span ±${info.spanUsed.toFixed(2)} mm` : `perspective, zoom ${opts.zoom}`}` +
+    `  framing   ${shot.ortho ? `ortho, span ±${info.spanUsed.toFixed(2)} mm` : `perspective, zoom ${shot.zoom}`}` +
       `  target ${info.target.join(",")}  ${info.mmPerPx.toFixed(4)} mm/px  scale bar ${info.barMM} mm`,
   );
   if (info.subject) {
@@ -1048,6 +1075,7 @@ async function main() {
     }
     console.log(`     all ${info.names.length} names in the mounted group:`);
     console.log(`     ${info.names.map((n) => n || "(unnamed)").join(" ")}`);
+  }
   }
 }
 

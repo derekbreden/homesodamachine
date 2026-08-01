@@ -18,6 +18,48 @@ agents quoted was as careful as you are being right now. Each citation links to 
 session's full transcript in [`fences/`](fences/README.md) — go read one in its room if a
 quote seems like it must have had more context than this.
 
+## Before the claim: look at it
+
+A limit about **arrangement** — no room, will not fit, cannot move, the only place it goes —
+is not sendable until you have rendered the region and looked at it. That is a precondition
+on the claim, not a remedy for it. Everything below this section is read after Derek has
+already paid.
+
+The failure it heads off is more primitive than the sweeps further down. Those are bounded
+searches, and their defect is a box drawn too small. This one is that **the number you read
+is not the shape.** Every table in this repo that gives a body's extent gives its bounding
+box, and a box is a claim about a rectangle:
+
+    seaflo-pump     fills 0.41 of its box — its west face stands at x82 under the feet and
+                    x109 at the pressure switch, and the box says x82 the whole way back
+    hopper-funnel   fills 0.05 — a rim, a short straight wall, then a cone to a 12 mm
+                    spout, and the box says a 173 × 173 × 53 block
+
+`scorecard.shapes` carries `fill` in the same record as the boxes. Under ~0.5 the box will
+answer for a lane it does not occupy, and it errs one way only: the box is larger than the
+part, so the report is always *less room than there is*. Which is every fence on this page.
+
+**The command.** `--only` renders the subject in solid faces and leaves the rest as edges,
+still in frame. `--view top|front|right` with `--ortho` lays a millimetre grid with numbered
+ticks over it, so a coordinate is read off the picture instead of trusted from a table:
+
+    node tools/render/render-view.js printed-parts/enclosure/enclosure-assembly/enclosure-assembly.step \
+      /tmp/look.png --edition thin --only seaflo-pump --view top --ortho
+
+`--views top,front,right` takes the set in one boot — parsing the STEP is the whole cost, and
+a second frame off the same scene is milliseconds. The legend prints the subject's bounding
+box beside the picture that contradicts it.
+
+The assembly's three elevations are built with it and sit next to the STEP —
+`enclosure-assembly.top.png`, `.front.png`, `.right.png`, the pack read through an x-rayed
+shell. Open one before touching a placement. The `.step.png` beside them is the grid
+thumbnail: isometric and small, which are the projection and the size a coordinate cannot be
+read in.
+
+**What a render does not answer.** It shows what is there and what stands beside it. It does
+not tell you that a different fitting fits where this one does not, and it does not tell you
+what would look better. Those are Derek's, and asking him for one is not a fence.
+
 ## The case, compressed
 
 A PCB had to move north on a foam cap. The question was whether rotating it a quarter turn
@@ -207,6 +249,8 @@ hard part, and that asymmetry is why this document exists.
 
 ## The approach
 
+0. **Look at it.** A claim about arrangement carries a render of the region, taken before the
+   claim is written — *Before the claim: look at it*, above.
 1. **Before the sweep, write down every bound and everything you are holding fixed.** That
    list is part of the deliverable, not scaffolding for it.
 2. **Run it.**
