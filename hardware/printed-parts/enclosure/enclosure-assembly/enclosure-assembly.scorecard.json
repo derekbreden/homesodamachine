@@ -185,16 +185,16 @@
         "    \u2013 wr1110:inlet (fluid) (139, 66, 172) x- \u00d86.35 \u2192 gasher-co2 outlet \u2014 segment co2-1",
         "    \u2013 wr1110:outlet (fluid) (196, 66, 172) x+ \u00d86.35 \u2192 foam-assembly co2-in \u2014 segment co2-2",
         "\u2713 bulkhead-flavor-a: 2/2 connectors located",
-        "    \u2013 bulkhead-flavor-a:tube-out (fluid) (231.93, 375.5, 292.43) y+ \u00d86.35 \u2192 customer flavor A line (rear umbilical)",
-        "    \u2013 bulkhead-flavor-a:tube-in (fluid) (231.93, 341.2, 292.43) y- \u00d86.35 \u2192 flavor A internal line (bag/pump circuit A)",
+        "    \u2013 bulkhead-flavor-a:tube-out (fluid) (231.93, 378.5, 292.43) y+ \u00d86.35 \u2192 customer flavor A line (rear umbilical)",
+        "    \u2013 bulkhead-flavor-a:tube-in (fluid) (231.93, 344.21, 292.43) y- \u00d86.35 \u2192 flavor A internal line (bag/pump circuit A)",
         "\u2713 bulkhead-flavor-b: 2/2 connectors located",
-        "    \u2013 bulkhead-flavor-b:tube-out (fluid) (202.07, 375.5, 292.43) y+ \u00d86.35 \u2192 customer flavor B line (rear umbilical)",
-        "    \u2013 bulkhead-flavor-b:tube-in (fluid) (202.07, 341.2, 292.43) y- \u00d86.35 \u2192 flavor B internal line (bag/pump circuit B)",
+        "    \u2013 bulkhead-flavor-b:tube-out (fluid) (202.07, 378.5, 292.43) y+ \u00d86.35 \u2192 customer flavor B line (rear umbilical)",
+        "    \u2013 bulkhead-flavor-b:tube-in (fluid) (202.07, 344.21, 292.43) y- \u00d86.35 \u2192 flavor B internal line (bag/pump circuit B)",
         "\u2713 bulkhead-carb: 2/2 connectors located",
-        "    \u2013 bulkhead-carb:tube-out (fluid) (217, 375.5, 318.29) y+ \u00d86.35 \u2192 carbonated-water line (rear umbilical / faucet)",
-        "    \u2013 bulkhead-carb:tube-in (fluid) (217, 341.2, 318.29) y- \u00d86.35 \u2192 digiten-flow outlet \u2014 segment carb-2 (routed)",
+        "    \u2013 bulkhead-carb:tube-out (fluid) (217, 378.5, 318.29) y+ \u00d86.35 \u2192 carbonated-water line (rear umbilical / faucet)",
+        "    \u2013 bulkhead-carb:tube-in (fluid) (217, 344.21, 318.29) y- \u00d86.35 \u2192 digiten-flow outlet \u2014 segment carb-2 (routed)",
         "\u2713 bulkhead-water: 2/2 connectors located",
-        "    \u2013 bulkhead-water:tube-out (fluid) (56, 375.5, 314) y+ \u00d86.35 \u2192 house tap-water line (rear umbilical)"
+        "    \u2013 bulkhead-water:tube-out (fluid) (56, 378.5, 314) y+ \u00d86.35 \u2192 house tap-water line (rear umbilical)"
       ],
       "active": true
     },
@@ -227,8 +227,8 @@
         "28 fluid + 8 water + 2 CO2 + 3 refrigerant + 29 electrical; 31 routed \u2014 the water and CO2 paths are closed end to end, the fluid path waits on the manifold's remaining on-tray legs, the refrigerant loop on its suction leg, and the electrical runs on the components being held",
         "\u2713 refrig-1: compressor-shroud.refrig-discharge \u2192 condenser+fan.refrig-inlet \u2014 \u00d86.35 \u00d7 154.4 mm, 4 bends at R12.7 \u2014 nearest 5.45 mm to fluid-15",
         "\u2713 refrig-2: condenser+fan.refrig-outlet \u2192 foam-assembly.evap-inlet \u2014 \u00d86.35 \u00d7 284.7 mm, 4 bends at R12.7 \u2014 nearest 2.97 mm to carb-1",
-        "\u2713 water-1: bulkhead-water.tube-in \u2192 asse1022-assembly.tube-in \u2014 \u00d86.35 \u00d7 22.4 mm, 1 bends at R3.0 \u2014 nearest 18.03 mm to c14-inlet",
-        "\u2713 water-2: asse1022-assembly.tube-out \u2192 water-split.supply \u2014 \u00d86.35 \u00d7 82.0 mm, 2 bends at R3.0 \u2014 nearest 2.35 mm to carb-2",
+        "\u2713 water-1: bulkhead-water.tube-in \u2192 asse1022-assembly.tube-in \u2014 \u00d86.35 \u00d7 25.4 mm, 1 bends at R3.0 \u2014 nearest 17.30 mm to c14-inlet",
+        "\u2713 water-2: asse1022-assembly.tube-out \u2192 water-split.supply \u2014 \u00d86.35 \u00d7 82.0 mm, 2 bends at R3.0 \u2014 nearest 3.82 mm to foam-assembly",
         "\u2713 water-3: water-split.to-vk \u2192 vk-fill-valve.inlet \u2014 \u00d86.35 \u00d7 42.6 mm, 3 bends at R3.0 \u2014 nearest 3.82 mm to foam-assembly",
         "\u2713 water-4: vk-fill-valve.outlet \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 59.3 mm, 2 bends at R3.0 \u2014 nearest 14.02 mm to fluid-18",
         "\u2713 water-6: seaflo-pump.discharge \u2192 discharge-chain.barb-tip \u2014 \u00d815.1 \u00d7 32.2 mm, 1 bends at R15.9 \u2014 nearest 13.29 mm to nozzle-gate-assembly",
@@ -236,7 +236,7 @@
         "\u2713 co2-1: gasher-co2.outlet \u2192 wr1110.inlet \u2014 \u00d86.35 \u00d7 114.4 mm, 1 bends at R6.0 \u2014 nearest 1.93 mm to source-select-assembly",
         "\u2713 co2-2: wr1110.outlet \u2192 foam-assembly.co2-in \u2014 \u00d86.35 \u00d7 288.1 mm, 4 bends at R6.0 \u2014 nearest 6.83 mm to compressor-shroud",
         "\u2713 carb-1: foam-assembly.carb-water-out \u2192 digiten-flow.inlet \u2014 \u00d86.35 \u00d7 225.6 mm, 4 bends at R4.0 \u2014 nearest 2.97 mm to refrig-2",
-        "\u2713 carb-2: digiten-flow.outlet \u2192 bulkhead-carb.tube-in \u2014 \u00d86.35 \u00d7 309.9 mm, 5 bends at R4.0 \u2014 nearest 2.35 mm to water-2",
+        "\u2713 carb-2: digiten-flow.outlet \u2192 bulkhead-carb.tube-in \u2014 \u00d86.35 \u00d7 312.9 mm, 5 bends at R4.0 \u2014 nearest 2.82 mm to seaflo-pump",
         "\u2713 fluid-1: water-split.to-flavor \u2192 flow-regulator.inlet \u2014 \u00d86.35 \u00d7 138.4 mm, 3 bends at R3.0 \u2014 nearest 2.82 mm to seaflo-pump",
         "\u2713 fluid-2: flow-regulator.outlet \u2192 source-select-assembly.V-A-I \u2014 \u00d86.35 \u00d7 67.2 mm, 1 bends at R3.0 \u2014 nearest 9.36 mm to elbow-noz-a",
         "\u2713 fluid-4: hopper-funnel.drain \u2192 source-select-assembly.V-B-I \u2014 \u00d86.35 \u00d7 151.2 mm, 4 bends at R12.0 \u2014 nearest 1.53 mm to fluid-27",
@@ -254,8 +254,8 @@
         "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 141.8 mm, 5 bends at R10.0 \u2014 nearest 2.69 mm to bag-circuit-assembly",
         "\u2713 fluid-15: bag-circuit-assembly.Y-E-2 \u2192 foam-assembly.reservoir-A \u2014 \u00d86.35 \u00d7 335.7 mm, 3 bends at R6.0 \u2014 nearest 5.45 mm to refrig-1",
         "\u2713 fluid-25: bag-circuit-assembly.Y-H-2 \u2192 foam-assembly.reservoir-B \u2014 \u00d86.35 \u00d7 262.9 mm, 3 bends at R6.0 \u2014 nearest 6.35 mm to water-5",
-        "\u2713 fluid-18: elbow-noz-a.free \u2192 bulkhead-flavor-a.tube-in \u2014 \u00d86.35 \u00d7 307.8 mm, 8 bends at R7.0 \u2014 nearest 1.42 mm to flow-regulator",
-        "\u2713 fluid-28: elbow-noz-b.free \u2192 bulkhead-flavor-b.tube-in \u2014 \u00d86.35 \u00d7 395.9 mm, 8 bends at R7.0 \u2014 nearest 3.55 mm to nozzle-gate-assembly"
+        "\u2713 fluid-18: elbow-noz-a.free \u2192 bulkhead-flavor-a.tube-in \u2014 \u00d86.35 \u00d7 310.8 mm, 8 bends at R7.0 \u2014 nearest 1.42 mm to flow-regulator",
+        "\u2713 fluid-28: elbow-noz-b.free \u2192 bulkhead-flavor-b.tube-in \u2014 \u00d86.35 \u00d7 398.9 mm, 8 bends at R7.0 \u2014 nearest 3.55 mm to nozzle-gate-assembly"
       ],
       "active": false
     },
@@ -624,7 +624,7 @@
       "kind": "fluid",
       "pos": [
         231.93,
-        375.5,
+        378.5,
         292.43
       ],
       "face": "y+",
@@ -639,7 +639,7 @@
       "kind": "fluid",
       "pos": [
         231.93,
-        341.2,
+        344.21,
         292.43
       ],
       "face": "y-",
@@ -654,7 +654,7 @@
       "kind": "fluid",
       "pos": [
         202.07,
-        375.5,
+        378.5,
         292.43
       ],
       "face": "y+",
@@ -669,7 +669,7 @@
       "kind": "fluid",
       "pos": [
         202.07,
-        341.2,
+        344.21,
         292.43
       ],
       "face": "y-",
@@ -684,7 +684,7 @@
       "kind": "fluid",
       "pos": [
         217.0,
-        375.5,
+        378.5,
         318.29
       ],
       "face": "y+",
@@ -699,7 +699,7 @@
       "kind": "fluid",
       "pos": [
         217.0,
-        341.2,
+        344.21,
         318.29
       ],
       "face": "y-",
@@ -714,7 +714,7 @@
       "kind": "fluid",
       "pos": [
         56.0,
-        375.5,
+        378.5,
         314.0
       ],
       "face": "y+",
@@ -729,7 +729,7 @@
       "kind": "fluid",
       "pos": [
         56.0,
-        341.2,
+        344.21,
         314.0
       ],
       "face": "y-",
@@ -744,7 +744,7 @@
       "kind": "electrical",
       "pos": [
         22.0,
-        339.0,
+        342.0,
         314.18
       ],
       "face": "y-",
