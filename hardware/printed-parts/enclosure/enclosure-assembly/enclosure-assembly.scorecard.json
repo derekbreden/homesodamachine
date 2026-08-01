@@ -176,7 +176,7 @@
         "    \u2013 condenser+fan:refrig-outlet (refrigerant) (213, 5.5, 8.5) x- \u00d86.35 \u2192 filter-drier \u2192 cap tube \u2192 foam-assembly evaporator inlet",
         "    \u2013 condenser+fan:fan-power (electrical) (269, 89, 78.5) x+ \u00d84 \u2192 J2 MANIFOLD B FAN + COM (DC-8, 12 V)",
         "\u2713 co2-inlet: 2/2 connectors located",
-        "    \u2013 co2-inlet:tube-in (fluid) (46, -22, 172) y- \u00d87.94 \u2192 customer CO2 supply \u2014 5/16\" push-to-connect (front-panel tether)",
+        "    \u2013 co2-inlet:tube-in (fluid) (46, -25, 172) y- \u00d87.94 \u2192 customer CO2 supply \u2014 5/16\" push-to-connect (front-panel tether)",
         "    \u2013 co2-inlet:npt-out (fluid) (46, 2, 172) y+ \u00d86.35 \u2192 gasher-co2 inlet \u2014 the check threads onto this stub",
         "\u2713 gasher-co2: 2/2 connectors located",
         "    \u2013 gasher-co2:inlet (fluid) (46, 2, 172) y- \u00d86.35 \u2192 co2-inlet npt-out (made up, no line between)",
@@ -534,7 +534,7 @@
       "kind": "fluid",
       "pos": [
         46.0,
-        -22.0,
+        -25.0,
         172.0
       ],
       "face": "y-",
