@@ -47,3 +47,9 @@ Always commit and push to main. Don't ask. Just do it. The author of any change 
 A failing check does not block a commit. The generators have no failure exit — the `.step` and the scorecard sidecar are written whatever the gates say, and a pack that does not close carries its real overlapping geometry — and `.githooks/pre-commit` reports the enclosure's verdict without gating on it. The board's fab-ready gates are the exception; they block.
 
 Commit broken work, push it, and say what to look at in the 3D viewer. Don't hold a change back because it scores red, don't revert to green before committing, and don't spend a session reaching a clean card before anything lands. The one thing that must not land is a build whose artifacts came from different source than the commit carries.
+
+## The Long View
+
+The thin enclosure assembly is the PCBA job with a third axis: not packing, composition. Done is a machine that reads as meant — every line swept on purpose, every part fastened to something printed, nothing anywhere just because there was room. The full statement of the standard is `thin/hardware/printed-parts/enclosure/enclosure-assembly/requirements.md`. The card's focus is `bend-radius` and `mounted`; every other axis waits gray behind them.
+
+The envelope is fixed — never reach for the box. Inside it, everything moves: the layout is a draft, a pose derived from a neighbour is a line of code and not a law, and "X can't move" is the name of the next thing to move. Render before any claim about room (`calibration/Fences.md`; the three elevations sit beside the STEP). Prefer a move made to an instrument built — the tools to look already exist. The last tenth is noticing: unexplained variance — a crossing an assignment swap would uncross, mixed pitches, twins that don't read as twins — costs no room to fix, only attention. Fix the free ones; bring me the ties.
