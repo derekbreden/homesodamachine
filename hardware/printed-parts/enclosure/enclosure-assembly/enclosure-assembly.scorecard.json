@@ -166,8 +166,8 @@
         "    \u2013 foam-assembly:prv-vent (fluid) (141.5, 182, 226.4) y- \u00d86.35 \u2192 appliance interior (relief-event discharge only)",
         "    \u2013 foam-assembly:reed-cable-A (electrical) (201.5, 182, 26) y- \u00d86.5 \u2192 J6 REEDS A \u2014 reservoir A level reeds (SIG-10)",
         "    \u2013 foam-assembly:reed-cable-B (electrical) (81.5, 182, 26) y- \u00d86.5 \u2192 J7 REEDS B \u2014 reservoir B level reeds (SIG-11)",
-        "\u2717 compressor-shroud: 3/4 connectors located",
-        "    \u2013 compressor-shroud:ac-mains (electrical) (192, 66.5, 78) x+ \u00d810 \u2192 Teyleten relay #1 / AC distribution (AC-4 switched-H + AC-5 N, 3-wire gland)  \u2014 \u26a0 off-surface",
+        "\u2713 compressor-shroud: 4/4 connectors located",
+        "    \u2013 compressor-shroud:ac-mains (electrical) (192, 66.5, 78) x+ \u00d822.225 \u2192 Teyleten relay #1 / AC distribution (AC-4 switched-H + AC-5 N, 3-wire gland)",
         "    \u2013 compressor-shroud:earth-bond (electrical) (192, 31.5, 78) x+ \u00d85 \u2192 electronics-shelf ground bus (AC-6)",
         "    \u2013 compressor-shroud:refrig-suction (refrigerant) (59.25, 133, 78) y+ \u00d86.35 \u2192 foam-assembly evaporator outlet",
         "    \u2013 compressor-shroud:refrig-discharge (refrigerant) (146.75, 133, 78) y+ \u00d86.35 \u2192 condenser+fan inlet",
@@ -433,10 +433,10 @@
         78.0
       ],
       "face": "x+",
-      "diam": 10.0,
+      "diam": 22.224999999999998,
       "mates": "Teyleten relay #1 / AC distribution (AC-4 switched-H + AC-5 N, 3-wire gland)",
-      "status": "off-surface",
-      "note": "gland bore ~\u00d810 for 3-wire mains (estimate \u2014 confirm at shroud teardown)"
+      "status": "ok",
+      "note": "the shroud's own 7/8\" panel hole (compressor_shroud.ac_hole_diameter_mm), clamping the 3-wire mains gland"
     },
     {
       "component": "compressor-shroud",
@@ -810,7 +810,7 @@
       "face": "z-",
       "diam": 6.35,
       "mates": "atmosphere, dripping onto the drip pan + moisture plate (deferred) \u2014 never plumbed",
-      "status": "ok",
+      "status": "buried \u2014 24 mm\u00b3 of the body past the face it names",
       "note": "Sealproof 1/4\" ID clear-PVC stub, facing \u2212Z over the foam-cap top; cut to length at the bench"
     },
     {

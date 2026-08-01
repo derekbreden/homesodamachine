@@ -205,6 +205,41 @@ def test_placement() -> None:
         del sc.PLACEMENT_RULES["clear-probe"]
 
 
+# ── located: a fluid port is the open mouth of its own bore, exactly where it says ────
+def test_located_faces() -> None:
+    print("located (a fluid port names the collet face that is there)")
+    # A bored collet end, hand-built: a Ø12 barrel to y = 0 with a Ø6.35 bore recessed
+    # 4 deep — the bulkhead union's own end. Its open face is the y = 0 plane.
+    bored = (cq.Solid.makeCylinder(6.0, 20.0, cq.Vector(0, -20, 0), cq.Vector(0, 1, 0))
+             .cut(cq.Solid.makeCylinder(6.35 / 2.0, 4.0, cq.Vector(0, -4, 0), cq.Vector(0, 1, 0))))
+    # A solid collet tip (a valve's own): same barrel, no bore. A small float over it sits
+    # inside the rim allowance the whole way, which is what the seat read is for.
+    solid_tip = cq.Solid.makeCylinder(6.0, 20.0, cq.Vector(0, -20, 0), cq.Vector(0, 1, 0))
+
+    def status(y, body):
+        probe = sc._p("probe", "digiten-flow", "fluid", (0.0, y, 0.0), "y+", 6.35, "a test fixture")
+        sc.PORTS.append(probe)
+        try:
+            comp, ok, rows = next(r for r in sc.ports_audit({"digiten-flow": body}) if r[0] == "digiten-flow")
+            return next(s for pt, s in rows if pt.name == "probe")
+        finally:
+            sc.PORTS.remove(probe)
+
+    s_ok = status(0.0, bored)
+    check("passes a mouth exactly on its face", s_ok == "ok", s_ok)
+    s_adrift = status(3.0, bored)   # the bulkhead defect: declared 3 mm past the face
+    check("fires on a face declared past the fitting (tube stops in air)",
+          s_adrift.startswith("adrift"), s_adrift)
+    s_buried = status(-3.0, bored)  # the mirror: declared inside the fitting
+    check("fires on a face declared inside the fitting (tube drawn into it)",
+          s_buried.startswith("buried"), s_buried)
+    s_solid_ok = status(0.0, solid_tip)
+    check("passes a mouth on a solid tip's face", s_solid_ok == "ok", s_solid_ok)
+    s_float = status(1.5, solid_tip)  # a float the rim allowance alone never sees
+    check("fires on a small float over a solid face (the seat read)",
+          s_float.startswith("adrift") and "behind" in s_float, s_float)
+
+
 # ── end-to-end: build_scorecard wires a defect through to a red gate ─────────
 def test_scorecard_end_to_end() -> None:
     print("build_scorecard end-to-end (a defect reaches the gate status)")
@@ -285,8 +320,8 @@ def main() -> None:
     if not sc._HAVE_EXACT:
         print("  note: exact solid-distance kernel unavailable; clearance uses bbox estimate")
     for t in (test_pack_closes, test_lines_clear, test_clearance_floor, test_fit_bed,
-              test_seams_mate, test_placement, test_scorecard_end_to_end,
-              test_routing_guards):
+              test_seams_mate, test_placement, test_located_faces,
+              test_scorecard_end_to_end, test_routing_guards):
         t()
     print("─" * 53)
     if _failures:
