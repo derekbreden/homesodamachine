@@ -1151,6 +1151,31 @@
   margin: 12px 0 5px;
 }
 .sc-h:first-of-type { margin-top: 0; }
+/* The focus header — the two axes the work is on, as counts, at the top of the card. */
+.sc-h.focus {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+}
+.sc-focus-n {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 12px;
+  color: var(--text-2);
+}
+.sc-focus-n.issue { color: var(--err); }
+.sc-focus-n.warn { color: var(--warn); }
+.sc-sep { color: var(--text-3); }
+/* Everything under the focus header carries its own rule down the left, until the next header. */
+.sc-h.focus ~ .sc-row,
+.sc-h.focus ~ .sc-toggle,
+.sc-h.focus ~ .sc-more { border-left: 2px solid color-mix(in srgb, var(--accent) 45%, transparent); padding-left: 8px; }
+.sc-h.focus ~ .sc-h:not(.focus) ~ .sc-row,
+.sc-h.focus ~ .sc-h:not(.focus) ~ .sc-toggle,
+.sc-h.focus ~ .sc-h:not(.focus) ~ .sc-more { border-left: none; padding-left: 0; }
+.sc-bar .sc-bar-text.sc-focus-n { font-size: inherit; }
 .sc-row {
   display: flex;
   justify-content: space-between;
