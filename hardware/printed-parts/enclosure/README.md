@@ -26,7 +26,7 @@ The zone arrangement above is the current pack — a working layout. It is free 
 - The CO2 line runs from the front face to the cold core's own front face, low, on the vessel's bottom-plate port line; the GASHER check is made up on the panel inlet and the WR1110 secondary regulator lies across the band under the pump row.
 - The carbonated-water dispense run from the foam-shell −Y water outlet to the front spout stays short.
 
-Everything else is open: which zone holds the electronics, where the compressor block sits relative to the shell, the funnel/pump position and its door, the exact zone boundaries and appliance depth, and all intra-zone placement — SeaFlo diaphragm pump, valve manifold (10 Beduan solenoids), the WR1110's cradle, PRV vent termination on the warm side where a relief event won't soak anything important, and the service-access voids for the BPV31 piercing valve and the reservoir-cap path.
+Everything else is open: which zone holds the electronics, where the compressor block sits relative to the shell, the funnel/pump position and its door, the exact zone boundaries and appliance depth, and all intra-zone placement — SeaFlo diaphragm pump, valve manifold (10 Beduan solenoids), the WR1110's cradle, PRV vent termination on the warm side where a relief event won't soak anything important, and the reservoir-cap path.
 
 ## What is on the front face
 
