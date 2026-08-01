@@ -111,28 +111,31 @@ tolerance plus a hand's assembly margin; the contact set is read off the pack's 
 stacks. Ratifying both — a defensible floor, the exact set of pairs allowed to touch — is
 the first directed step. Context-specific keep-outs grow from there as their own gates, the
 way the board grew its gate-set: **tube bend radius** at each port, **tool/wrench access**
-at each fastener, **condenser airflow**, service-withdrawal envelopes.
+at each fastener, **condenser airflow**.
 
-## Assemblability and serviceability — named, not yet measured
+## Assemblability — named, not yet measured
 
 The board's traces are *fabricated*; no hand ever installs one. The enclosure's tubes,
-pumps, and carbonator go in **by a hand, in an order**, and come back out for service. A
-pack that is collision-free in CAD can still be **physically unassemblable** — no order
-threads every part past the others into place — or serviceable only by tearing down half the
-machine to reach one fitting. This is the enclosure's antenna keepout: a real defect that a
-geometry-only scorecard passes in silence, because the guard does not exist.
+pumps, and carbonator go in **by a hand, in an order**. A pack that is collision-free in
+CAD can still be **physically unassemblable** — no order threads every part past the others
+into place. This is the enclosure's antenna keepout: a real defect that a geometry-only
+scorecard passes in silence, because the guard does not exist.
+
+The requirement runs one way: parts go in. A unit that fails in the field is replaced with
+another unit, and the failed one comes apart on the bench that built it, where teardown is
+the method — so no in-place service envelope is held open anywhere in this pack, and reach
+to a fitting on an assembled machine is not a constraint on placement.
 
 It is named here as a first-class requirement while it is cheap to name — the
 *deferred-is-not-removed* discipline (below) applied to a requirement, not just a connection:
 an unwritten check that is *named and tracked* is a known gap; one that is simply absent is a
 trap. Today it has **no executable check** — measuring it needs tooling the project does not
-have yet (assembly-order reasoning, tool/hand swept-volume, service-withdrawal envelopes),
-and the `held` axis is only its nearest neighbor: `held` asks whether a holder exists, not
-whether a hand can seat that part *in a valid order* or free it for service without a
-teardown. Until that tooling exists the requirement rides two ways — as a standing review
-question on every placement and holder decision (*what installs before this; what must come
-out to service it*), and as the first candidate to become a scored axis or gate once a check
-can compute it. Absent from the number, present in the design.
+have yet (assembly-order reasoning, tool/hand swept-volume) — and the `held` axis is only its
+nearest neighbor: `held` asks whether a holder exists, not whether a hand can seat that part
+*in a valid order*. Until that tooling exists the requirement rides as a standing review
+question on every placement and holder decision (*what installs before this*), and as the
+first candidate to become a scored axis or gate once a check can compute it. Absent from the
+number, present in the design.
 
 ## Gating
 
@@ -300,7 +303,6 @@ The current focus is **placed + located + shaped to 100%**; `routed` and `held` 
 - **held** — a printed holder for every internal component. Today only the through-wall
   bodies (wall + their own nut) and the display (shell facet) are held; every loose internal
   part floats. Each needs bosses, a cradle, or a tray that itself fastens.
-- **assemblability + serviceability** — the enclosure's hardest constraint (assembly
-  sequence, service withdrawal) has no executable check yet. It is a named requirement and a
-  standing review question until the tooling to measure it exists — see *Assemblability and
-  serviceability*.
+- **assemblability** — the enclosure's hardest constraint, the order a hand seats every part
+  in, has no executable check yet. It is a named requirement and a standing review question
+  until the tooling to measure it exists — see *Assemblability*.
