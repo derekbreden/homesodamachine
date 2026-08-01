@@ -212,6 +212,41 @@ earlier — sized for a plate "~62 × 20," the real plate bridged on the coves 0
 floor and never wetted copper. The fence was not only blocking a good option; it was
 producing a bad part.
 
+**The route as requirement.** The forms above are bounds on searches that ran. This one is
+the search that never runs: the network — which runs exist, where each one goes, which
+fitting stands where — arrives as the given, and the work becomes making the inherited
+corners rounder. No bound gets disclosed because none was chosen; the fence is in what the
+report is about.
+
+One stint priced fluid-25's corridor exactly — its dead ends written into the band fence
+with their tables — and ranked what it could not fix upstairs: *"REAR_PLANE_Y ↔ tray face ↔
+SeaFlo ↔ Y-F's body; an envelope/mounts conversation."*
+[Scoreboard 9](<fences/Scoreboard 9.md>). Every word of that diagnosis is a pin on the
+route the run currently takes. Derek's answer was about the other half — what the run
+connects:
+
+> there's no reason for any of this to be traveling to the opposite corner in the xy plane
+
+The measurement: the run's two ends stand ~300 mm apart, and the route spends ~500 mm and
+the corridor's whole second lane — a lane the routing file says exists for this run alone —
+connecting them. The route that answers the need deletes the lane instead of pricing it.
+[Scoreboard 10](<fences/Scoreboard 10.md>).
+
+The same room then shows the form surviving its own demolition. The literal version of
+Derek's idea was reported dead three ways at stock radius; he pushed once — *"so? so what?
+What is the actual problem?"* — and under probes of the placed solids, two of the three
+deaths were not walls: *"the corridor you're describing is not just workable — it's the
+emptiest space in the machine,"* and the sharpest sentence in this folder, *"a construction
+that doesn't exist yet, which I wrongly described as geometry that can't exist."* The third
+obstacle reversed into a price — the PSU roofs the straight drop, so the path is an L. No,
+unless X moves, which costs Y.
+
+"Envelope" is this form's terminal word. The envelope is the one fixed thing in the brief,
+so it is the one thing a search cannot have priced a move against — a verdict that blames
+it has exited the search, not widened it. And a manager relaying a subagent's impossibility
+unprobed is standing on an inherited fence with extra steps: "i.e., yours" hands Derek a
+conclusion nobody ever probed.
+
 ## The tells
 
 Run these against the draft you are about to send, not against work you are reviewing.
@@ -232,6 +267,14 @@ hard part, and that asymmetry is why this document exists.
   as ranging over the world. That is exactly where a fence hides.
 - **The inheritance tell.** Your premise is a previous session's conclusion, a committed
   constant, or a line in a doc. Probe it before you build on it.
+- **The endpoints tell.** Your diagnosis of a run names only what pins it, never what it
+  connects. Before pricing an escape from a region, ask whether the run needs the region at
+  all: its two ends, the distance between them split by axis, and who else rides what it
+  rides. A lane with one customer is a route wearing a wall's clothes.
+- **The envelope tell.** The blocker you are about to name is the envelope, or "a
+  conversation" a level up. The envelope is the one thing that is actually fixed, so it is
+  the one thing your search cannot have priced a move against. "I did not find the move" is
+  sendable; "there is no move" is not.
 - **The it-fits-but tell.** Measurement said yes and you are about to say no. Check whether
   your reason cites a fact you hold or a fact you assumed. An uncited reason is a question
   for Derek, not a verdict from you.
@@ -281,7 +324,7 @@ hard part, and that asymmetry is why this document exists.
 
 ## The artifact that does this for you
 
-This repo's three bounded scans refuse to fence. A limit you read off one arrives with the
+This repo's four bounded scans refuse to fence. A limit you read off one arrives with the
 box attached, so step 4 above is already done by the time you quote it.
 
 `probe.cast` runs out of length and reports its own limit rather than a clearance:
@@ -320,7 +363,15 @@ seconds. `fit.py selftest` holds the controls — that a best pose on an end say
 axis pinned to one value is never an end, that a rotation tiling the circle has no end to
 widen, and that a search finding nothing still carries its box.
 
-Three scans is not every bound you will choose. A sweep you write by hand in a scratch
+`need` runs the disclosure the route-as-requirement form skips. Every `scorecard.bends` row
+and every bend-radius detail row carries the run's need — its two ends, their separation
+split by axis, the path drawn against it — and the enclosure's `need.py` prints the pack's
+table, worst detour first. The first table it printed put water-4, one of the four runs in
+the family ranked "an envelope/mounts conversation," at the top of the whole pack: 194 mm
+of path for two ends that stand 61 mm apart. A diagnosis that names four pins and no
+endpoints is answerable in one row of it.
+
+Four scans is not every bound you will choose. A sweep you write by hand in a scratch
 script has no instrument behind it, and the tells above are all you have.
 
 ## What this document is
@@ -332,5 +383,6 @@ and in a drip pan, produced each time by an agent that would have recognized it 
 someone else's work.
 
 Do not mistake the orientation for the lesson. The lesson is in the sessions quoted above,
-retrievable by title, and in the two lines that carry it best: *not found wanting*, and
-*that word "the" was the whole failure*.
+retrievable by title, and in the three lines that carry it best: *not found wanting*, *that
+word "the" was the whole failure*, and *a construction that doesn't exist yet, which I
+wrongly described as geometry that can't exist*.
