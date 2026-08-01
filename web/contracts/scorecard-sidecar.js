@@ -105,6 +105,11 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  * @property {number} shaped   0..100 — real geometry, not a placeholder box
  * @property {number} routed   0..100 — connections modeled as real 3D paths
  * @property {number} held     0..100 — a printed holder fastens each component
+ * @property {number} [mounted]  0..100 — the feature that fastens each component is printed
+ *                               INTO another placed part. Stricter than `held`, which also
+ *                               counts capture and adhesive. Optional: an edition whose
+ *                               scorecard predates the axis omits it, so the guard below does
+ *                               not require it and a bar still draws without it.
  * @property {ScorecardCheck[]} checks
  * @property {ScorecardPort[]} ports  the full connector inventory: every port's coordinate + bore
  * @property {ScorecardShape[]} shapes  per component, the boxes it really occupies
