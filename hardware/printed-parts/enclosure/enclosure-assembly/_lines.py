@@ -335,7 +335,7 @@ def _authored_runs() -> list:
     # port is the high one on this face: carb-1 owns the front face below the meter's plane
     # and water-5 comes down out of the chain to the inlet, so the two stand stacked in one
     # column, each ending at its own port, and neither has to cross the other.
-    # The two halves come out at [225.6](CARB_1_LEN) and [309.9](CARB_2_LEN) mm of stock, which
+    # The two halves come out at [225.6](CARB_1_LEN) and [312.9](CARB_2_LEN) mm of stock, which
     # is what the shop cuts and what the CARGEN insulation is cut to follow.
     digi, b_carb = f["digiten-flow"], f["bulkhead-carb"]
     RBEND = 4.0                              # 1/4" LLDPE, the riser's radius
