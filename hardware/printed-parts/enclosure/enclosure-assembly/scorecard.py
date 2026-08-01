@@ -60,6 +60,11 @@ import _cold_core_interface as _cc  # noqa: E402
 import _port_cuts as _pc  # noqa: E402
 import _reed_channels as _rc  # noqa: E402
 from copper_plugs import plug_specs as _plug_specs  # noqa: E402
+
+# The JG bulkhead union's own module, for the same reason: the rear-panel stations'
+# tube faces are its ring faces, not reaches retyped beside them.
+sys.path.insert(0, str(contents._hw / "reference" / "jg-bulkhead-union"))
+import jg_bulkhead_union as _jg  # noqa: E402
 from copper_plugs import slot_width_x as _slot_width  # noqa: E402  — and how wide the slot is
 
 # Minimum solid-to-solid distance. cadquery 2 binds OpenCascade as OCP; the guarded import
@@ -602,8 +607,13 @@ _FOAM_FACE = contents.FRONT_DEPTH
 # on, standing one wall behind the pack's own rear standoff. The through-wall ports below are
 # written as reaches off it, so a change in the pack's depth carries them.
 _PANEL_OUT = contents._port_frame()[2] + contents.WALL
-_JG_OUT, _JG_IN = 6.5, 27.8   # JG bulkhead union: tube-face reach outboard / inboard of the panel
-_C14_IN = 30.0                # C14 inlet: spade-terminal face inboard of the panel
+# JG bulkhead union: tube-face reach outboard / inboard of the panel, off the fitting's
+# own two ring faces — so a line drawn to a station butts the collet face that is there.
+_JG_OUT, _JG_IN = _jg.near_ring_face_y, -_jg.far_ring_face_y
+# C14 inlet: the spade tips' plane inboard of the panel, measured off the seated STEP —
+# `iec_c14_inlet.py` quotes deeper spades than the file carries, and what `panel_bodies()`
+# seats through the wall is the file.
+_C14_IN = -contents._load(contents.IEC_C14).BoundingBox().ymin
 # Each rear-panel station as (x, z), read off the hole the wall is cut for, so the hole,
 # the body seated in it and the ports below are the one reading.
 _BACK_A     = contents.back_port_station("bulkhead-flavor-a")
