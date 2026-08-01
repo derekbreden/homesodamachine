@@ -56,6 +56,21 @@ shell. Open one before touching a placement. The `.step.png` beside them is the 
 thumbnail: isometric and small, which are the projection and the size a coordinate cannot be
 read in.
 
+**The constraint saying it cannot move is usually a line someone wrote.** In this pack a body's
+position is mostly *derived* from another body's: `y_g_pos()` is the tray's own collet plus half
+the bay, `y_h_pos()` takes a divider's port plane `[:2]` and stands the body on the PSU's crown
+instead, `AFT_TRAY_BAY` is twice a leg lead. So *"moving the tray does not help — the fitting is
+derived from the tray and moves with it by the same δ, so the diagonal is invariant"* is a true
+statement about `_contents.py` and a false one about the machine. The derivation is the thing to
+move. Deriving a pose from a neighbour is how a placement is made legible, not a law.
+
+**And everything in this pack has moving left to do.** That is what a failing `bend-radius`
+means: a corner short of its stock's minimum is bound by where its two ends STAND, and most of
+those ends are still placed provisionally. So the body in the way moves too, and the one behind
+it, and the wall behind that. A report that some one body cannot move, written while the whole
+arrangement is unfinished, is a statement about how far the search went — and *"I checked it
+properly"* is not the sentence that makes it otherwise.
+
 **What a render does not answer.** It shows what is there and what stands beside it. It does
 not tell you that a different fitting fits where this one does not, and it does not tell you
 what would look better. Those are Derek's, and asking him for one is not a fence.
