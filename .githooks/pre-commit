@@ -4,22 +4,28 @@
 # Two jobs, in order:
 #
 #   1. GATES (hard fail — a red check blocks the commit):
-#      - commit touches hardware/           → check_pinmap.py, the BOM<->pinout<->PCB
+#      Both editions carry the same ledger and printed-parts drivers under their own
+#      hardware/ root, and each is gated on its own commits. A pathspec with no leading
+#      component matches from the repo root, so `hardware/` is the fat edition alone and
+#      `thin/hardware/` the thin one — each edition's gates see only its own staged files.
+#      - commit touches <edition>/          → check_pinmap.py, the BOM<->pinout<->PCB
 #        drift guard (pcba.tsx is canonical; pinout/BOM/sync-drivers are derived and
 #        hand-maintained, so they drift).
-#      - commit touches printed-parts/ or bom.md → _bom_masses.py --check, which reads
-#        §7's masses off the parts' own STEP solids. A part's geometry and its ledger
-#        row land together or not at all.
+#      - commit touches <edition>/printed-parts/ or its bom.md → _bom_masses.py --check,
+#        which reads §7's masses off the parts' own STEP solids. A part's geometry and
+#        its ledger row land together or not at all.
 #      - commit touches hardware/pcb/pcba/  → the render scorecard's fab-ready gates
 #        (out/pcba.picks.json scorecard.gatesPass), silk-audit.py (label ink on bare
 #        copper), part-orientation-audit.py (3D model vs footprint, ~8 s). These read
 #        the out/ artifacts of the last render — a red gate means the board being
-#        committed is not fab-ready.
-#      - commit touches enclosure           → reported, never gated. A pack that does not
+#        committed is not fab-ready. Fat edition only: the thin board's silk and
+#        orientation audits read inputs its tree does not carry.
+#      - commit touches <edition>/ enclosure → reported, never gated. A pack that does not
 #        close prints its clash count and lands, .step and sidecar intact for the editor
 #        to open. Rebuild-and-compare across every generator is `npm --prefix web run
 #        build:check`; the enclosure gates' own inject-defect run is `scorecard_selftest.py`.
-#      Gates print one ✓ line each on pass and dump their full output on red.
+#      Gates print one ✓ line each on pass and dump their full output on red, each named
+#      by the edition it ran in.
 #
 #   2. GLB freshness (best-effort — never blocks): render-board.ts deliberately skips
 #      the ~14 s CadQuery 3D build so board iteration stays fast, which lets
@@ -31,8 +37,8 @@
 
 root=$(git rev-parse --show-toplevel) || exit 0
 pcba="$root/hardware/pcb/pcba"
-enc="$root/hardware/printed-parts/enclosure/enclosure-assembly"
 py="$root/tools/cad-venv/bin/python"
+editions="hardware thin/hardware"
 
 # The board gates and the GLB rebuild below run CadQuery. They take the CAD build lock
 # (so a stray rebuild is cleared off the machine) but must not be superseded by one — a
@@ -42,14 +48,8 @@ py="$root/tools/cad-venv/bin/python"
 export HSM_BUILD_SOURCE="pre-commit"
 export HSM_BUILD_LOCK_PROTECT=1
 
-touches_hw=false
 touches_board=false
-touches_enclosure=false
-touches_printed=false
-git diff --cached --name-only -- "hardware/" | grep -q . && touches_hw=true
 git diff --cached --name-only -- "hardware/pcb/pcba/" | grep -q . && touches_board=true
-git diff --cached --name-only -- "hardware/printed-parts/enclosure/" | grep -q . && touches_enclosure=true
-git diff --cached --name-only -- "hardware/printed-parts/" "hardware/ledger/bom.md" | grep -q . && touches_printed=true
 
 fail=0
 
@@ -66,22 +66,58 @@ gate() {
 }
 
 # ── 1. Gates ──────────────────────────────────────────────────────────────
-if $touches_hw; then
-  gate "pin-map drift check" python3 "$root/hardware/scripts/check_pinmap.py"
-  gate "bom category tags" python3 "$root/hardware/scripts/_bom_categories.py" --check
-  gate "build exit status" python3 "$root/hardware/scripts/check_build_exit.py"
-fi
+for hw in $editions; do
+  touches_hw=false
+  touches_enclosure=false
+  touches_printed=false
+  git diff --cached --name-only -- "$hw/" | grep -q . && touches_hw=true
+  git diff --cached --name-only -- "$hw/printed-parts/enclosure/" | grep -q . && touches_enclosure=true
+  git diff --cached --name-only -- "$hw/printed-parts/" "$hw/ledger/bom.md" | grep -q . && touches_printed=true
+  enc="$root/$hw/printed-parts/enclosure/enclosure-assembly"
 
-if $touches_printed; then
-  # bom.md §7 reads its masses off the parts' own solids. A geometry change that
-  # lands without carrying its mass leaves the ledger quoting a part that is not
-  # the one that ships — so the row and the STEP have to move together. ~4 s.
-  if [ -x "$py" ]; then
-    gate "bom printed masses" "$py" "$root/hardware/scripts/_bom_masses.py" --check
-  else
-    echo "pre-commit: no cad-venv — bom printed masses skipped" >&2
+  if $touches_hw; then
+    gate "$hw pin-map drift check" python3 "$root/$hw/scripts/check_pinmap.py"
+    gate "$hw bom category tags" python3 "$root/$hw/scripts/_bom_categories.py" --check
+    gate "$hw build exit status" python3 "$root/$hw/scripts/check_build_exit.py"
   fi
-fi
+
+  if $touches_printed; then
+    # bom.md §7 reads its masses off the parts' own solids. A geometry change that
+    # lands without carrying its mass leaves the ledger quoting a part that is not
+    # the one that ships — so the row and the STEP have to move together. ~4 s.
+    if [ -x "$py" ]; then
+      gate "$hw bom printed masses" "$py" "$root/$hw/scripts/_bom_masses.py" --check
+    else
+      echo "pre-commit: no cad-venv — $hw bom printed masses skipped" >&2
+    fi
+  fi
+
+  if $touches_enclosure; then
+    # A red pack prints its clash count and lands.
+    if [ -f "$enc/enclosure-assembly.scorecard.json" ]; then
+      python3 -c '
+import json, sys
+try:
+    sc = json.load(open(sys.argv[1]))
+except Exception:
+    sys.exit(0)
+pack = next((c for c in sc.get("checks", []) if c.get("id") == "pack-closes"), None)
+if pack is not None and pack["status"] != "pass":
+    print("pre-commit: " + sys.argv[2] + " enclosure pack does NOT close — " + str(pack["value"])
+          + " (committing anyway)", file=sys.stderr)
+' "$enc/enclosure-assembly.scorecard.json" "$hw"
+    fi
+
+    # A sidecar older than its sources carries a verdict those sources no longer produce.
+    for src in "$enc/_contents.py" "$enc/scorecard.py" "$enc/enclosure_assembly.py" \
+               "$root/$hw/printed-parts/enclosure/enclosure/enclosure.py"; do
+      if [ -f "$src" ] && [ "$src" -nt "$enc/enclosure-assembly.scorecard.json" ]; then
+        echo "pre-commit: $hw enclosure scorecard sidecar may be behind $(basename "$src") — rebuild: tools/cad-venv/bin/python enclosure_assembly.py" >&2
+        break
+      fi
+    done
+  fi
+done
 
 if $touches_board; then
   gate "scorecard fab-ready gates" python3 -c '
@@ -105,32 +141,6 @@ if not sc["gatesPass"]:
   else
     echo "pre-commit: no cad-venv — part-orientation-audit skipped" >&2
   fi
-fi
-
-if $touches_enclosure; then
-  # A red pack prints its clash count and lands.
-  if [ -f "$enc/enclosure-assembly.scorecard.json" ]; then
-    python3 -c '
-import json, sys
-try:
-    sc = json.load(open(sys.argv[1]))
-except Exception:
-    sys.exit(0)
-pack = next((c for c in sc.get("checks", []) if c.get("id") == "pack-closes"), None)
-if pack is not None and pack["status"] != "pass":
-    print("pre-commit: enclosure pack does NOT close — " + str(pack["value"])
-          + " (committing anyway)", file=sys.stderr)
-' "$enc/enclosure-assembly.scorecard.json"
-  fi
-
-  # A sidecar older than its sources carries a verdict those sources no longer produce.
-  for src in "$enc/_contents.py" "$enc/scorecard.py" "$enc/enclosure_assembly.py" \
-             "$root/hardware/printed-parts/enclosure/enclosure/enclosure.py"; do
-    if [ -f "$src" ] && [ "$src" -nt "$enc/enclosure-assembly.scorecard.json" ]; then
-      echo "pre-commit: enclosure scorecard sidecar may be behind $(basename "$src") — rebuild: tools/cad-venv/bin/python enclosure_assembly.py" >&2
-      break
-    fi
-  done
 fi
 
 # ── 2. GLB freshness (only worth doing when the commit will go through) ───
