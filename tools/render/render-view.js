@@ -105,6 +105,13 @@ import { withHistoricalTree } from "./temporal.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
 
+// How long the STEP parse gets. This is a fact about the file's size and the machine — the
+// enclosure assembly is a 20 MB STEP and occt-import-js runs it single-threaded on the page's
+// own main thread — not a fact about the geometry, so it stands well past what a loaded laptop
+// takes and `HSM_PARSE_TIMEOUT` moves it. It bounds the CDP protocol timeout too (below): while
+// the parse holds the main thread, the wait task's own round trip is what runs out first.
+const PARSE_TIMEOUT = Number(process.env.HSM_PARSE_TIMEOUT || 900000);
+
 // Camera presets. Repo convention is +Z up, -Y front (the user's side), +X right.
 // `up` on the two Z-axis views lays onto ∓Y, as in scene.js's snapCameraToFace.
 const VIEWS = {
@@ -932,9 +939,14 @@ async function serveAndDrive(hardwareDir, stepRel, opts, fn) {
   const port = server.address().port;
   let browser;
   try {
+    // `protocolTimeout` is the ceiling on a single CDP round trip, and puppeteer's default is
+    // 180 s. The parse below blocks the page's main thread for as long as occt-import-js takes,
+    // so the wait task's own call is what runs out — and it fails as a bare "Waiting failed",
+    // with no mention of the file it was reading. It is raised with the parse budget.
     browser = await puppeteer.launch({
       headless: true,
       args: ["--no-sandbox", "--disable-dev-shm-usage"],
+      protocolTimeout: PARSE_TIMEOUT + 60000,
     });
     const page = await browser.newPage();
     await page.setViewport({ width: opts.width, height: opts.height, deviceScaleFactor: 1 });
@@ -950,11 +962,21 @@ async function serveAndDrive(hardwareDir, stepRel, opts, fn) {
       { timeout: 30000 },
     );
     process.stderr.write("parsing STEP (occt-import-js)…\n");
-    await page.waitForFunction(
+    // A tab that dies mid-parse — the machine short of memory, the WASM heap refused — leaves
+    // the wait with nothing to poll, and it would sit out the whole parse budget saying nothing.
+    // Race the wait against the crash so the failure names itself in seconds.
+    const crashed = new Promise((_resolve, reject) => {
+      page.once("error", (err) => reject(new Error(
+        `the render tab died parsing ${stepRel} (${err.message}). It is a ${(
+          fs.statSync(stepAbs).size / 1048576).toFixed(1)} MB STEP and occt-import-js holds the ` +
+        `whole model in the tab — free some memory, or render a smaller subject.`)));
+      browser.once("disconnected", () => reject(new Error("the render browser disconnected")));
+    });
+    await Promise.race([crashed, page.waitForFunction(
       (want) => window.__hsm && window.__hsm.mountedStepFile === want,
-      { timeout: 180000 },
+      { timeout: PARSE_TIMEOUT },
       stepRel,
-    );
+    )]);
     return await fn(page);
   } finally {
     if (browser) await browser.close();
