@@ -247,6 +247,51 @@ it has exited the search, not widened it. And a manager relaying a subagent's im
 unprobed is standing on an inherited fence with extra steps: "i.e., yours" hands Derek a
 conclusion nobody ever probed.
 
+## The search as the fence
+
+Every form above is a bound inside a sweep. This one is the sweep.
+
+A sweep is a fence-making machine. Its grid, its field, its clearance and its pose set are four
+bounds chosen at the moment of least knowledge, and what it reports is a *count* — "33,900
+poses," "0 free of 32,996." A count reads as exhaustiveness. Nothing in this repo manufactures a
+more convincing false negative.
+
+[Scoreboard 11](<fences/Scoreboard 11.md>) asked whether relay-1 could leave the PSU's lane. The
+exact-solid sweep of the whole cap at the authored seat, 33,900 poses on a 2.5 mm grid, returned
+**106 free, 6 with a legal landed station, all 6 in relay-1's own lane, 0 clearing the PSU.** The
+answer was found afterwards, by hand, at 0.1 mm: board centre (52.0, 305.0), yaw 180 — a window
+`cx ∈ [51.8, 52.0]`, 0.2 mm wide and invisible to a 2.5 mm grid. That search cost 110 minutes and
+297k tokens and produced the wrong answer with a pose count attached.
+
+Two more from the same day. The PSU stint spent 48 minutes, and its load-bearing output was a
+twelve-row stop list — `gap(A+t, B)` along one axis for twelve bodies, about a minute of
+arithmetic. The water-4 stint spent 99 minutes, and its finding was that a shelf hung off
+`sea.bb.zmax` stood 12.4 mm over the body it actually clears: two numbers, read off the placed
+casting.
+
+Derek's reading, and it is the operative one:
+
+> I don't see why anything that takes more than a minute is necessary. You calculate where you
+> can place something, you look at all the coordinates of all the bounding boxes of all the
+> things you are dealing with, you do the math to see where it can be placed, you place it there,
+> you run the build. What is this "find the optimum place" nonsense. I can't think of a single
+> time a "rigorous search" has produced anything useful, that wouldn't have been better if the
+> agent had actually ***chosen*** an arrangement.
+
+**The build is the oracle and it is exact.** `pack-closes`, `lines-clear`, `bend-radius` and the
+clearance floor measure real solids at full precision on every build. A sweep is a slower,
+gridded re-implementation of a check that already exists — and the house rule is to commit the
+red card and say what to look at in the viewer, not to reach a green one before anything lands.
+
+So: read the boxes, do the arithmetic, **choose**, place, build, look. A chosen pose has no grid
+to be coarser than the answer, no field to be too small, and no bound to disclose. It is the one
+shape of work this entire document has nothing to police.
+
+What still earns its cost is measuring *how much*, not ranking *which*: `gap(A+t, B)` under pure
+translation is 1-Lipschitz, so a stop list is exact rather than gridded, and `room.py` is box
+arithmetic that finishes inside the pack's own build. Those are readings. The thing to stop doing
+is ranking candidate poses.
+
 ## The tells
 
 Run these against the draft you are about to send, not against work you are reviewing.
@@ -278,6 +323,10 @@ hard part, and that asymmetry is why this document exists.
 - **The it-fits-but tell.** Measurement said yes and you are about to say no. Check whether
   your reason cites a fact you hold or a fact you assumed. An uncited reason is a question
   for Derek, not a verdict from you.
+- **The sweep tell.** You are about to bound and run a search over poses. Ask what you would
+  place if you had to choose right now, and what the build would say about it. If you can answer
+  both, the sweep buys nothing but a grid to be wrong on — and a body's pose is provisional
+  unless `scorecard.SETTLED` names it, so choosing is the ordinary move and not a liberty.
 - **The difficulty tell.** The work is getting contorted — eight vias where four is clean, a
   tube shoved somewhere it does not want to go. Difficulty is a tripwire, and the reading is
   "I am in the wrong region," not "this is a fundamental wall."
@@ -309,11 +358,14 @@ hard part, and that asymmetry is why this document exists.
 
 0. **Look at it.** A claim about arrangement carries a render of the region, taken before the
    claim is written — *Before the claim: look at it*, above.
-1. **Before the sweep, write down every bound and everything you are holding fixed.** That
-   list is part of the deliverable, not scaffolding for it.
-2. **Run it.**
+1. **Choose.** Read the boxes — `room.py` bands them and marks whose pose is settled — do the
+   arithmetic, pick a pose, place it, run the build, look at the render. This is the default and
+   it answers most arrangement questions in one build. Steps 2–3 are for what it does not.
+2. **If you sweep anyway, write down every bound and everything you are holding fixed first.**
+   That list is part of the deliverable, not scaffolding for it.
 3. **Check whether the winner touches a bound you supplied.** If it does, widen and re-run.
-   The number you are holding belongs to your grid.
+   The number you are holding belongs to your grid — and a sweep that found nothing has told you
+   about its grid, not about the machine.
 4. **Report the box with the answer, split in two:** imposed by the world (geometry, a cited
    spec, a fab minimum, a bend radius) and chosen by you (ranges, held-fixed parts, protected
    bystanders, inherited conclusions, conventions). Derek can veto the second list in
