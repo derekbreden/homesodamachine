@@ -287,10 +287,11 @@ So: read the boxes, do the arithmetic, **choose**, place, build, look. A chosen 
 to be coarser than the answer, no field to be too small, and no bound to disclose. It is the one
 shape of work this entire document has nothing to police.
 
-What still earns its cost is measuring *how much*, not ranking *which*: `gap(A+t, B)` under pure
-translation is 1-Lipschitz, so a stop list is exact rather than gridded, and `room.py` is box
-arithmetic that finishes inside the pack's own build. Those are readings. The thing to stop doing
-is ranking candidate poses.
+What still earns its cost is measuring *how much*, not ranking *which* — and both of those
+readings are now verbs. `probe.travel` is the stop list the PSU stint spent 48 minutes writing by
+hand: every body that stops a move, nearest first, with what stands behind the binder, exact
+because `gap` is 1-Lipschitz under translation. `room.py` bands the pack's boxes in the time the
+build takes. Neither ranks a pose. The thing to stop doing is ranking poses.
 
 ## The tells
 
@@ -358,9 +359,12 @@ hard part, and that asymmetry is why this document exists.
 
 0. **Look at it.** A claim about arrangement carries a render of the region, taken before the
    claim is written — *Before the claim: look at it*, above.
-1. **Choose.** Read the boxes — `room.py` bands them and marks whose pose is settled — do the
-   arithmetic, pick a pose, place it, run the build, look at the render. This is the default and
-   it answers most arrangement questions in one build. Steps 2–3 are for what it does not.
+1. **Choose.** Read the boxes — `room.py` bands them and marks whose pose is settled, and
+   `probe.travel <body> <±axis>` gives the whole stop list for a move: how far it goes, past
+   what, and what stands behind the binder. Do the arithmetic, pick a pose, place it, run the
+   build, look at the render. This is the default, it answers most arrangement questions in one
+   build, and both of those readings are exact where a sweep is gridded. Steps 2–3 are for what
+   it does not answer.
 2. **If you sweep anyway, write down every bound and everything you are holding fixed first.**
    That list is part of the deliverable, not scaffolding for it.
 3. **Check whether the winner touches a bound you supplied.** If it does, widen and re-run.
