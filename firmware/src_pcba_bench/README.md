@@ -39,14 +39,21 @@ It runs a full sweep at boot, then idles as a console (`RUN` blinks as the heart
 | `rtc` | U6 DS3231 answers, reports die temperature, and its seconds actually advance |
 | `mcp` | Both MCP23017s: register reads, plus a write round-trip that never touches a pin |
 | `in` | Every off-board signal pin, and the two gas dividers in millivolts |
+| `rs485` | DI → U7 → A/B → U7 → RO closes entirely on-board, through R6's termination |
+| `watch` | Live pin watch for 90 s — jumper a connector pin to its GND and the line reports |
 | `walk` | The three firmware LEDs are on the GPIO the map says they are |
 | `buzz` | The IO13 → R5 → Q1 → U8 buzzer chain (audible) |
+| `arm` / `drive` | Drive one output for 120 s so it can be metered at its connector |
 | `all` | The whole sweep |
 
-## What it deliberately does not do
+`watch` is the one that walks a whole net, pad to connector, with nothing but a jumper —
+the check that no view of the model can stand in for. GPIO34–39 carry no internal pull-up,
+so IO34/IO35 need a voltage applied rather than a short to ground.
 
-Four GPIO reach off-board actuators, and this rig never drives them — they are left as
-inputs so their loads stay de-energized:
+## Actuator outputs
+
+Four GPIO reach off-board actuators. They are inputs until `arm` unlocks them, `drive` holds
+one at a level for metering, and the arming lapses after 120 s:
 
 | GPIO | Reaches |
 |---|---|
