@@ -714,27 +714,45 @@ def _authored_runs() -> list:
     # and `assembly/cold-core.md` lays the tube in the band before the pour.
     #
     # What IS drawn is the last of it, off the conduit's mouth on the lid's outer face at
-    # [253.4](BAG_B_DECK_Z), and it is two legs: up the PSU's WEST FLANK to the stem's own
-    # plane, and one leaning leg north-east over the brick's crown into the collet. The brick
-    # prices both — it roofs the lid everywhere reservoir B lies, which is
-    # why the climb stands beside it rather than over it, and its crown is only
-    # [27.9](Y_H_CROWN_BAND) mm under the stem's plane: a stock arc turning off this climb is still
-    # [0.725](STOCK_RISE) mm short of clearing that crown when it has already drifted
-    # [0.0103](STOCK_DRIFT) mm east into it. So the turn seats what the band leaves it, and what
-    # buys it back is the brick moving further east — `probe travel psu +x` prices that, and the
-    # bill is the water-5 lane and the ground stud's second move. Lifting the fitting instead
-    # buys nothing: the stem's plane is a slot of its own, [41](STEM_SHELF) mm over the selects
-    # crown with a tube and its floor and nothing spare, and fluid-19's shelf crossing rides
-    # Y-F's own column [-12](LOFT_CROSS_CLEAR) mm above it.
+    # [253.4](BAG_B_DECK_Z): a climb up the deck's west end and one leaning leg into the stem.
+    # THE STEM FACES WEST at x [11.1](F25_STEM_X) and the conduit opens +Z at
+    # [11](F25_RISER_X) — one line in plan — so the run reaches WEST OF BOTH and comes back east
+    # into the collet. That reach IS the closing corner: it is the whole leg the last turn seats
+    # its tangent in, and nothing else on this run bears on it.
+    #   WHAT STOPS THE REACH IS THE SHELL, and not at the wall. At the stem's own height the
+    # front piece's rib band stands proud of the west wall's inner face all the way to
+    # [0](F25_RIB_FACE) — `_contents.CORE_WEST_FACE`, the plane that band ends on at this flank
+    # — so the run's own half-section and a `LINE_HUG` off THAT is the westmost the approach
+    # goes. Nothing else is near it: at this plane the closest body is the discharge chain,
+    # [33.25](F25_CHAIN_CLEAR) mm AFT, and the flow regulator roofs it [14.59](F25_REG_ROOF) mm
+    # up. The reach is spent to the band, and the LEAN carries the rest of the corner: the
+    # approach leaves the collet [158](F25_LEAN)° off its axis and turns [73.5](F25_TURN)° onto
+    # the climb, where a lead on the axis would hand it one past square.
+    #   The stem's plane is a slot of its own: [41](STEM_SHELF) mm over the selects crown with a
+    # tube and its floor in it, and fluid-19's shelf crossing rides Y-F's own column
+    # [-12](LOFT_CROSS_CLEAR) mm above it.
     y_h = f["divider-y-h"]
     riser = f["foam-assembly"].at("reservoir-B")
+    f25_stop = contents.CORE_WEST_FACE + 6.35 / 2.0 + CLIMB_HUG
+
+    def _f25_west(lead_in):
+        return lean_into(*_mouth(f, "foam-assembly.reservoir-B"),
+                         *_mouth(f, "divider-y-h.Y-H-2"),
+                         (STEM_FALL_REACH, lead_in))[0][1][0]
+
+    lo, hi = contents.DIVIDER_LEG_STRAIGHT + 1e-3, 20.0    # the reach walks the approach west:
+    for _ in range(60):                                    # bisect for where its tube reads the band
+        mid = (lo + hi) / 2.0
+        lo, hi = (lo, mid) if _f25_west(mid) < f25_stop else (mid, hi)
+    (w1, w2), f25_lean, f25_r, _f25_turns = lean_into(
+        *_mouth(f, "foam-assembly.reservoir-B"), *_mouth(f, "divider-y-h.Y-H-2"),
+        (STEM_FALL_REACH, (lo + hi) / 2.0))
     runs.append(R.bent(
-        "fluid-25", "foam-assembly.reservoir-B",
-        (riser[0], riser[1], y_h.at("Y-H-2")[2]),      # straight up the conduit's own column, west of the brick
-        "divider-y-h.Y-H-2",                           # and one lean, north-east over the crown into the stem
-        kind="fluid", skew=FLAVOR_SKEW, lead=(0.0, STEM_FALL_REACH),
-        note="reservoir B → Y-H stem: up the conduit's own column past the PSU's west flank, "
-             "and one leaning leg over its crown into the stem"))
+        "fluid-25", "foam-assembly.reservoir-B", w1, w2, "divider-y-h.Y-H-2",
+        kind="fluid", skew=FLAVOR_SKEW, bend=f25_r,
+        note=f"reservoir B → Y-H stem: up the conduit's own column off the lid, then one leaning "
+             f"leg west to the rib band and back east into the stem, its approach leaning "
+             f"{f25_lean[1]:.1f}° into the climb"))
 
     # fluid-9 … fluid-13 — CHANNEL A's PUMP ROW, in the pump lane west of the tray column.
     # Five runs and two tees, and every one of them is a lane and a turn: the lane is the
@@ -1627,13 +1645,6 @@ def lane_stations() -> dict:
     f4, f15 = runs["fluid-4"], runs["fluid-15"]
     solids = {n: s for n, (s, _c) in {**contents.build(), **contents.panel_bodies()}.items()}
     span = 2.0 * contents.DIVIDER_OUTLET_X
-    # The band the PSU's crown leaves under Y-H's stem plane, and what a stock arc turning off a
-    # vertical spends of a climb before it has drifted out of that band: the arc reaches one tube
-    # radius over the crown after `rise` of climb, by which point it stands `drift` to the side.
-    yh_band = runs["fluid-25"].pts[-1][2] - _boxes.boxed(solids["psu"]).zmax
-    stock_rise = contents.LLDPE_STOCK_BEND - yh_band + 6.35 / 2.0
-    stock_drift = contents.LLDPE_STOCK_BEND * (
-        1.0 - math.sqrt(max(0.0, 1.0 - (stock_rise / contents.LLDPE_STOCK_BEND) ** 2)))
     # The two leaning legs, off the runs themselves: the lead each leaves its collet on, how far
     # off that collet's own axis it leaves, the turn the corner at its end makes, and the radius
     # that corner seats. `leg_skew` against the port's own normal is the lean by definition, so
@@ -1708,9 +1719,15 @@ def lane_stations() -> dict:
         # lean carries, the band the PSU's crown leaves under the stem's plane, and what a stock
         # arc has drifted sideways by the time it has climbed clear of that band.
         "BAG_B_CROSS":      f"{abs(runs['fluid-25'].pts[-1][0] - runs['fluid-25'].pts[0][0]):.4g}",
-        "Y_H_CROWN_BAND":   f"{yh_band:.3g}",
-        "STOCK_RISE":       f"{stock_rise:.3g}",
-        "STOCK_DRIFT":      f"{stock_drift:.3g}",
+        # fluid-25's two mouths, the shell plane its approach reaches west to, and what the two
+        # bodies nearest that plane leave it. The lean and the turn are off the built run.
+        "F25_STEM_X":       f"{runs['fluid-25'].pts[-1][0]:.3g}",
+        "F25_RISER_X":      f"{runs['fluid-25'].pts[0][0]:.3g}",
+        "F25_RIB_FACE":     f"{contents.CORE_WEST_FACE:.3g}",
+        "F25_CHAIN_CLEAR":  f"{_boxes.boxed(solids['discharge-chain']).ymin - runs['fluid-25'].pts[-1][1]:.4g}",
+        "F25_REG_ROOF":     f"{_boxes.boxed(solids['flow-regulator']).zmin - runs['fluid-25'].pts[-1][2]:.4g}",
+        "F25_LEAN":         f"{R.leg_skew(runs['fluid-25'].pts[-1], runs['fluid-25'].pts[-2], tuple(-c for c in _frames()['divider-y-h'].normal('Y-H-2'))):.3g}",
+        "F25_TURN":         f"{runs['fluid-25'].bends[-1][1]:.3g}",
         "LOFT_BAY":         f"{runs['fluid-27'].pts[0][1] - runs['fluid-23'].pts[0][1]:.4g}",
         "PORT_ROW_Z":       f"{runs['fluid-18'].pts[-1][2]:.4g}",
         # The outlet lane: what the band has spare once its one rung is struck, the pitch the
