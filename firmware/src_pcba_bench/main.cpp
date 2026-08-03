@@ -24,7 +24,7 @@
 #include <WiFi.h>
 
 // ── Status LEDs — active high, through 470R to GND (D2/D3/D4) ──────────────
-static const int PIN_LED_ERR = 15;  // D2 red   — IO15/MTDO
+static const int PIN_LED_ERR = 15;  // D2 red   — IO15/MTDO, active-low (LED to 3V3)
 static const int PIN_LED_RUN = 12;  // D3 green — IO12/MTDI
 static const int PIN_LED_ACT = 14;  // D4 blue  — IO14
 
@@ -241,16 +241,18 @@ static void cmdInputs() {
     Serial.println("  and a LOW B is the fail-safe: U15 holds the compressor relay off.");
 }
 
-// RUN and ERR sit on boot straps. An LED to GND is high-impedance below its
-// forward voltage, so neither node carries a level of its own between resets;
-// these hold them on the ESP32's internal pulls.
-//   IO12 MTDI — VDD_SDIO select, sampled at reset: low = 3.3 V flash.
-//   IO15 MTDO — ROM boot log on U0TXD, sampled at reset: high = printed.
+// RUN and ERR sit on boot straps, sampled at reset:
+//   IO12 MTDI — VDD_SDIO select, low = 3.3 V flash. Its LED runs to GND, which holds it there.
+//   IO15 MTDO — ROM boot log on U0TXD, high = printed. Its LED runs to 3V3 (ERR is the one
+//     active-low row), so the pin idles high with the LED dark and the ROM log prints.
 // `walk` drives both and re-parks them on the way out.
 static void parkStraps() {
     pinMode(PIN_LED_RUN, INPUT_PULLDOWN);
-    pinMode(PIN_LED_ERR, INPUT_PULLUP);   // ~29 uA through R10/D2 — below the LED's forward drop
+    pinMode(PIN_LED_ERR, INPUT_PULLUP);
 }
+
+// ERR hangs off 3V3: LOW lights it. RUN and ACT run to GND and light on HIGH.
+static void led(int pin, bool on) { digitalWrite(pin, pin == PIN_LED_ERR ? !on : on); }
 
 // R19/R20 (4.7k to 3V3) sit on the far side of J8's barrel junction, so they are
 // visible from IO21/IO22 only while that junction carries. Against the ESP32's
@@ -469,23 +471,23 @@ static void cmdDrive(const String &line) {
 static void cmdLedWalk() {
     Serial.println("\n-- LED walk — watch the west edge column --");
     struct { const char *label; int pin; } leds[] = {
-        {"ERR (red,   D2, IO15)", PIN_LED_ERR},
+        {"ERR (red,   D2, IO15, active-low)", PIN_LED_ERR},
         {"RUN (green, D3, IO12)", PIN_LED_RUN},
         {"ACT (blue,  D4, IO14)", PIN_LED_ACT},
     };
-    for (auto &l : leds) { pinMode(l.pin, OUTPUT); digitalWrite(l.pin, LOW); }
+    for (auto &l : leds) { pinMode(l.pin, OUTPUT); led(l.pin, false); }
     for (auto &l : leds) {
         Serial.printf("  %s ... ", l.label); Serial.flush();
         for (int i = 0; i < 6; i++) {
-            digitalWrite(l.pin, HIGH); delay(120);
-            digitalWrite(l.pin, LOW);  delay(120);
+            led(l.pin, true);  delay(120);
+            led(l.pin, false); delay(120);
         }
         Serial.println("done");
     }
     Serial.println("  all three ON for 1.5 s");
-    for (auto &l : leds) digitalWrite(l.pin, HIGH);
+    for (auto &l : leds) led(l.pin, true);
     delay(1500);
-    for (auto &l : leds) digitalWrite(l.pin, LOW);
+    for (auto &l : leds) led(l.pin, false);
     parkStraps();  // IO12/IO15 back to defined levels before any reset can sample them
     Serial.println("  PWR + 5V (D5/D6) are hard-wired to their rails — lit whenever 12 V is in.");
     Serial.println("  IO12/IO15 re-parked (MTDI low, MTDO high) — safe to reset.");
