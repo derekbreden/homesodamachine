@@ -353,7 +353,8 @@ static const int PROBE_HZ = 2700, PROBE_MS = 150;
 static bool probeOn = false;
 static int  pStable[PROBE_N], pPending[PROBE_N];
 static unsigned long pSince[PROBE_N];
-static bool pSeen[PROBE_N], aSeen[ANALOG_N], aLatch[ANALOG_N];
+// Answers accumulate from boot, so restarting the probe mid-session keeps what it found.
+static bool pSeen[PROBE_N] = {false}, aSeen[ANALOG_N] = {false}, aLatch[ANALOG_N] = {false};
 
 static void probeBegin() {
     Serial.println("\n-- continuity probe: running --");
@@ -363,13 +364,12 @@ static void probeBegin() {
         delay(2);
         pStable[i] = pPending[i] = digitalRead(kProbe[i].gpio);
         pSince[i] = millis();
-        pSeen[i] = false;
         Serial.printf("     %-18s IO%-2d  touch %-8s %s\n", kProbe[i].name, kProbe[i].gpio,
                       kProbe[i].activeHigh ? "3V3" : "GND",
                       kProbe[i].expect ? "" : "(control — undrilled via, expect silence)");
     }
     for (int i = 0; i < ANALOG_N; i++) {
-        aSeen[i] = aLatch[i] = false;
+        aLatch[i] = false;
         Serial.printf("     %-18s IO%-2d  touch %-8s %s\n", kAnalog[i].name, kAnalog[i].gpio,
                       "J11.V5", kAnalog[i].expect ? "" : "(control — divider severed, expect silence)");
     }
@@ -428,7 +428,7 @@ static void probePoll() {
 // U15 gates the compressor: Y = A(IO19) AND B(the MQ-6 gas-clear line). Raising A alone
 // puts the gate's verdict on J5.IO19, which a jumper to any GND-side pin reads back.
 static void cmdInterlock() {
-    Serial.println("\n-- interlock: IO19 (U15.A) driven HIGH for 120 s --");
+    Serial.println("\n-- interlock: IO19 (U15.A) driven HIGH until the next reset --");
     Serial.println("  Nothing may be plugged into J5.");
     Serial.println("  Touch J5.IO19 to a GND-side pin: a beep means U15.Y is LOW — the gate");
     Serial.println("  refusing the compressor while B reads gas-present. Silence means Y is high.");
