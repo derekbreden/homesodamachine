@@ -591,10 +591,25 @@ def _authored_runs() -> list:
     # fluid-16's two mouths do not face one way either — Y-E's run collet fires WEST along the
     # strip and V-E's draw opens −Y out of the port plane — so the leg between them carries a
     # fall and a cross that neither axis points down, and both corners come in under square on
-    # an on-axis lead. `lean_into` takes [12](F16_LEAD) mm against the
-    # [17.8](F16_WEST_AIR) mm the pump's own east face leaves west of the fitting.
+    # an on-axis lead.
+    #
+    # NEITHER OF ITS TWO REACHES IS ITS OWN TO SPEND. V-E-I and pump A's outlet barb stand
+    # HEAD-ON down one y at one z, [0.905](STRIP_OFFSET) mm apart in x — closer than a tube, so
+    # no lane in x parts them — and fluid-22 leaves that barb up a column this run's own descent
+    # falls through. Both of these reaches move it in that pocket: the EXIT walks the top of the
+    # descent WEST onto fluid-22's climb, and the APPROACH walks its foot AFT onto fluid-22's
+    # stub. So the pocket carries one reach and both runs take it.
+    #   `BAG_STRIP_REACH` is the largest the three take together with a `LINE_PITCH` still
+    # between the two centrelines. What binds is the crossing — the top of this descent against
+    # that climb — where the two tubes close to [1.02](STRIP_SEP) mm of each other over a
+    # `LINE_HUG` floor. Split unequally the pocket buys about half a millimetre more on the
+    # tighter of the two corners and stands that crossing exactly ON the floor; this is the
+    # reach with room left in it.
+    BAG_STRIP_REACH = 6.25
+    f22_stub = BAG_STRIP_REACH
     (w1, w2), f16_lean, f16_r, _f16_turns = lean_into(
-        *_mouth(f, "tee-y-e.Y-E-3"), *_mouth(f, "bag-a-tray-assembly.V-E-I"), 12.0)
+        *_mouth(f, "tee-y-e.Y-E-3"), *_mouth(f, "bag-a-tray-assembly.V-E-I"),
+        (BAG_STRIP_REACH, BAG_STRIP_REACH))
     runs.append(R.bent(
         "fluid-16", "tee-y-e.Y-E-3", w1, w2, "bag-a-tray-assembly.V-E-I",
         kind="fluid", skew=FLAVOR_SKEW, bend=f16_r,
@@ -994,8 +1009,6 @@ def _authored_runs() -> list:
              "crossing, the machine's length into the collet band, and down the front column "
              "leaning onto the barb's own column"))
 
-    f22_stub = (f["bag-a-tray-assembly"].at("V-E-I")[1] - LINE_PITCH
-                - pa.at("P-A-O")[1])
     runs.append(route(
         "fluid-22", "pump-a.P-A-O",
         {"z": y_e.bb.zmax + LINE_STEP},      # up the strip, clear over the junction across it
@@ -1013,11 +1026,11 @@ def _authored_runs() -> list:
         {"z": loft_cross_z},                 # up the front column, to the funnel floor's hug
         y_g.y("Y-G-1"),                      # aft the machine's length onto the stem's own lane
         "divider-y-g.Y-G-1",                 # and straight down into the stem
-        # THE STRIP OFF P-A-O IS BOUNDED BY THE COLLET AT ITS FAR END, not by a bend radius.
-        # What stands aft of this barb on its own lane is fluid-16's close into V-E-I, so the
-        # stub reaches to one `LINE_PITCH` short of that collet — [13.2](F22_STUB) mm, where
-        # the climb it hands off to is [42.9](F22_CLIMB) mm and holds a stock arc at its far
-        # corner with [17.5](F22_STUB_CAP) mm still spare for this one.
+        # THE STRIP OFF P-A-O IS BOUNDED BY THE RUN THAT CROSSES IT, not by a bend radius.
+        # fluid-16 falls through the column this stub climbs and closes on the collet at its far
+        # end, so the reach here is the bag strip's `BAG_STRIP_REACH` — [6.25](F22_STUB) mm. The
+        # climb it hands off to is [42.9](F22_CLIMB) mm and would carry [17.5](F22_STUB_CAP) mm
+        # here on its own; the strip is what binds, not the leg.
         kind="fluid", stub=f22_stub, skew=FLAVOR_SKEW,
         note="pump B-channel outlet → Y-G stem: east into the tray-east lane, aft down it "
              "under the inlet's turn, up the front column over the water deck, aft over the "
@@ -1646,9 +1659,11 @@ def lane_stations() -> dict:
         "YH_LEG_LEAN":      f"{yh_lean:.3g}",
         "YH_LEG_TURN":      f"{f24.bends[0][1]:.3g}",
         "YH_LEG_R":         f"R{f24.tightest:.2f}",
-        # fluid-16's own lead, and the pump face that bounds it.
-        "F16_LEAD":         f"{math.dist(f16.pts[0], f16.pts[1]):.3g}",
-        "F16_WEST_AIR":     f"{f16.pts[0][0] - _boxes.boxed(solids['pump-b']).xmax:.3g}",
+        # The bag strip: how far apart in x the two mouths that face down it stand, and the
+        # closest the two runs that cross it ever come — off the swept tubes, not the
+        # centrelines, which is the reading `lines-clear` answers.
+        "STRIP_OFFSET":     f"{abs(f16.pts[-1][0] - runs['fluid-22'].pts[0][0]):.3g}",
+        "STRIP_SEP":        f"{scorecard._solid_gap(R.tube(f16), R.tube(runs['fluid-22'])):.3g}",
         # fluid-22's stub off the barb, the climb it hands off to, and what that climb has left
         # for this corner once its far one has taken a stock arc.
         "F22_STUB":         f"{math.dist(runs['fluid-22'].pts[0], runs['fluid-22'].pts[1]):.3g}",
