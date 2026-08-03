@@ -135,6 +135,20 @@ export const SCORECARD_REQUEST_RE = /\.scorecard\.json$/;
  * @property {ScorecardBend[]} bends  per routed run, the radius it turns at and its grade
  * @property {ScorecardMount[]} mounts  per component, the part that fastens it. Optional: an
  *                                      edition whose scorecard predates the axis omits it.
+ * @property {ScorecardSource} [source]  what the build read to produce this card. Optional: an
+ *                                       edition whose scorecard predates the block omits it.
+ */
+
+/**
+ * @typedef {Object} ScorecardSource  the card's own provenance — what it was built from
+ * @property {string} generated  ISO-8601 UTC, when the build wrote this card
+ * @property {string|null} commit  HEAD at build time. Orientation only: `inputs` is keyed on
+ *                                 file content, so a dirty tree stamps as exactly as a clean one
+ * @property {Object<string,string>} inputs  repo-relative path -> fingerprint, for every file
+ *                                 the build read. `sha256:<16 hex>` for source, `stat:<bytes>:
+ *                                 <mtime ns>` for a STEP. Re-fingerprinting these paths says
+ *                                 whether the card still describes the tree, without building
+ *                                 one: enclosure-assembly/fresh.py, which is the reader
  */
 
 // ── Focus ────────────────────────────────────────────────────────────────────────────────────
