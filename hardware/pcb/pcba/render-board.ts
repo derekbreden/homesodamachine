@@ -47,11 +47,84 @@ const throughDrilled = (circuit: any[]) =>
     ? { ...e, from_layer: "top", to_layer: "bottom", layers: ["top", "bottom"] }
     : e))
 
+/**
+ * Excellon hits, each pill/slot (`G85`) reduced to the centre its pad declares — a slot's
+ * record carries the routed run's two endpoints, so its own coordinates sit half the travel
+ * off the pad (the four USB-C shield ears land 0.3-0.4 mm out).
+ */
+type DrillHit = { x: number; y: number; d: number }
+const drillHits = (drl: string): DrillHit[] => {
+  const tool = new Map<string, number>()
+  for (const m of drl.matchAll(/^T(\d+)C([\d.]+)/gm)) tool.set(m[1]!, Number(m[2]))
+  const hits: DrillHit[] = []
+  let d = 0, at: { x: number; y: number } | null = null
+  const land = () => { if (at) hits.push({ ...at, d }); at = null }
+  for (const raw of drl.split("\n")) {
+    const line = raw.trim()
+    let m: RegExpExecArray | null
+    if ((m = /^T(\d+)$/.exec(line))) { land(); d = tool.get(m[1]!) ?? 0 }
+    else if ((m = /^G85X(-?[\d.]+)Y(-?[\d.]+)/.exec(line)) && at) {
+      hits.push({ x: (at.x + Number(m[1])) / 2, y: (at.y + Number(m[2])) / 2, d }); at = null
+    } else if ((m = /^X(-?[\d.]+)Y(-?[\d.]+)/.exec(line))) { land(); at = { x: Number(m[1]), y: Number(m[2]) } }
+  }
+  land()
+  return hits
+}
+
+/**
+ * Every plated feature claims its own hit, matched on position and drilled diameter. Two vias
+ * stack at one coordinate on this board and take two hits.
+ */
 const assertFullyDrilled = (circuit: any[], drl: string) => {
-  const holes = (drl.match(/^X-?[\d.]+Y-?[\d.]+/gm) ?? []).length
-  const want = circuit.filter((e) => e.type === "pcb_via" || e.type === "pcb_plated_hole").length
-  if (holes < want)
-    throw new Error(`drill.drl carries ${holes} holes for ${want} plated features — ${want - holes} would ship undrilled`)
+  const hits = drillHits(drl)
+  const taken = hits.map(() => false)
+
+  // refdes.pin for a pad; for a via, the connection it carries ("U1.IO21 to J8.SDA") — only the
+  // five poured nets carry a source_net, so a signal via is named by its trace.
+  const comp: Record<string, string> = {}, sPort: Record<string, any> = {}
+  const pPort: Record<string, any> = {}, net: Record<string, string> = {}
+  const pTrace: Record<string, any> = {}, sTrace: Record<string, any> = {}
+  for (const e of circuit) {
+    if (e.type === "source_component") comp[e.source_component_id] = e.name
+    else if (e.type === "source_port") sPort[e.source_port_id] = e
+    else if (e.type === "pcb_port") pPort[e.pcb_port_id] = e
+    else if (e.type === "source_net") net[e.subcircuit_connectivity_map_key] = e.name
+    else if (e.type === "pcb_trace") pTrace[e.pcb_trace_id] = e
+    else if (e.type === "source_trace") sTrace[e.source_trace_id] = e
+  }
+  const label = (e: any) => {
+    if (e.type === "pcb_via") {
+      const on = sTrace[pTrace[e.pcb_trace_id]?.source_trace_id]?.display_name
+        ?? net[e.subcircuit_connectivity_map_key]
+      return on ? `via on ${on}` : "via"
+    }
+    const sp = sPort[pPort[e.pcb_port_id]?.source_port_id]
+    return sp ? `${comp[sp.source_component_id] ?? "?"}.${sp.name ?? "?"}` : "plated hole"
+  }
+  const where = (e: any) => `${label(e)} @ (${e.x.toFixed(3)}, ${e.y.toFixed(3)})`
+
+  const POS = 0.02, DIA = 0.01   // mm; coordinates round to µm, tool diameters carry ~2e-5 of slop
+  const undrilled: string[] = [], wrongSize: string[] = []
+  for (const e of circuit) {
+    if (e.type !== "pcb_via" && e.type !== "pcb_plated_hole") continue
+    const want = e.hole_diameter ?? Math.min(e.hole_width ?? Infinity, e.hole_height ?? Infinity)
+    let exact = -1, near = -1
+    for (let i = 0; i < hits.length; i++) {
+      if (taken[i] || Math.abs(hits[i]!.x - e.x) > POS || Math.abs(hits[i]!.y - e.y) > POS) continue
+      if (Math.abs(hits[i]!.d - want) <= DIA) { exact = i; break }
+      if (near < 0) near = i
+    }
+    const best = exact >= 0 ? exact : near
+    if (best < 0) { undrilled.push(where(e)); continue }
+    taken[best] = true
+    if (exact < 0) wrongSize.push(`${where(e)} wants ⌀${want.toFixed(3)}, drilled ⌀${hits[best]!.d.toFixed(3)}`)
+  }
+  if (undrilled.length || wrongSize.length)
+    throw new Error([
+      `drill.drl does not cover the board — ${undrilled.length} undrilled, ${wrongSize.length} mis-sized:`,
+      ...undrilled.map((s) => `    UNDRILLED   ${s}`),
+      ...wrongSize.map((s) => `    WRONG SIZE  ${s}`),
+    ].join("\n"))
 }
 
 /**
