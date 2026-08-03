@@ -75,7 +75,7 @@ const drillHits = (drl: string): DrillHit[] => {
  * Every plated feature claims its own hit, matched on position and drilled diameter. Two vias
  * stack at one coordinate on this board and take two hits.
  */
-const assertFullyDrilled = (circuit: any[], drl: string) => {
+const assertFullyDrilled = (circuit: any[], drl: string, types: string[], file: string) => {
   const hits = drillHits(drl)
   const taken = hits.map(() => false)
 
@@ -99,14 +99,14 @@ const assertFullyDrilled = (circuit: any[], drl: string) => {
       return on ? `via on ${on}` : "via"
     }
     const sp = sPort[pPort[e.pcb_port_id]?.source_port_id]
-    return sp ? `${comp[sp.source_component_id] ?? "?"}.${sp.name ?? "?"}` : "plated hole"
+    return sp ? `${comp[sp.source_component_id] ?? "?"}.${sp.name ?? "?"}` : e.type.slice(4).replace(/_/g, " ")
   }
   const where = (e: any) => `${label(e)} @ (${e.x.toFixed(3)}, ${e.y.toFixed(3)})`
 
   const POS = 0.02, DIA = 0.01   // mm; coordinates round to µm, tool diameters carry ~2e-5 of slop
   const undrilled: string[] = [], wrongSize: string[] = []
   for (const e of circuit) {
-    if (e.type !== "pcb_via" && e.type !== "pcb_plated_hole") continue
+    if (!types.includes(e.type)) continue
     const want = e.hole_diameter ?? Math.min(e.hole_width ?? Infinity, e.hole_height ?? Infinity)
     let exact = -1, near = -1
     for (let i = 0; i < hits.length; i++) {
@@ -121,7 +121,7 @@ const assertFullyDrilled = (circuit: any[], drl: string) => {
   }
   if (undrilled.length || wrongSize.length)
     throw new Error([
-      `drill.drl does not cover the board — ${undrilled.length} undrilled, ${wrongSize.length} mis-sized:`,
+      `${file} does not cover the board — ${undrilled.length} undrilled, ${wrongSize.length} mis-sized:`,
       ...undrilled.map((s) => `    UNDRILLED   ${s}`),
       ...wrongSize.map((s) => `    WRONG SIZE  ${s}`),
     ].join("\n"))
@@ -348,10 +348,12 @@ try {
   for (const [name, txt] of Object.entries(layers)) writeFileSync(path.join(scratch, `${name}.gbr`), txt as string)
   const pth = convertSoupToExcellonDrillCommands({ circuitJson: throughDrilled(circuit), is_plated: true, flip_y_axis: false })
   const pthTxt = stringifyExcellonDrill(pth)
-  assertFullyDrilled(circuit, pthTxt)
+  assertFullyDrilled(circuit, pthTxt, ["pcb_via", "pcb_plated_hole"], "drill.drl")
   if (pth.length) writeFileSync(path.join(scratch, "drill.drl"), pthTxt)
   const npth = convertSoupToExcellonDrillCommands({ circuitJson: circuit, is_plated: false, flip_y_axis: false })
-  if (npth.length) writeFileSync(path.join(scratch, "drill_npth.drl"), stringifyExcellonDrill(npth))
+  const npthTxt = stringifyExcellonDrill(npth)
+  assertFullyDrilled(circuit, npthTxt, ["pcb_hole"], "drill_npth.drl")
+  if (npth.length) writeFileSync(path.join(scratch, "drill_npth.drl"), npthTxt)
   const bomCsv = await convertBomRowsToCsv(await convertCircuitJsonToBomRows({ circuitJson: circuit }))
   writeFileSync(path.join(scratch, "bom.csv"), fillBomComments(bomCsv, circuit))
   writeFileSync(path.join(scratch, "pick_and_place.csv"), convertCircuitJsonToPickAndPlaceCsv(circuit))

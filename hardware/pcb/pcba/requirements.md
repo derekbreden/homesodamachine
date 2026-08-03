@@ -1,9 +1,10 @@
 # Board requirements
 
-The rules this board must meet, enumerated. Each one is an executable check in
-[`scorecard.ts`](scorecard.ts), computed from the routed circuit-json by
-[`pick-data.ts`](pick-data.ts) on every build. The verdict shows in two places, from the same
-geometry, so neither audience can narrate around it:
+The rules this board must meet, enumerated. Each one is an executable check that runs on every
+build. The **gates** and **goals** below are computed from the routed circuit-json by
+[`pick-data.ts`](pick-data.ts) and reported by [`scorecard.ts`](scorecard.ts); the **drill
+coverage** checks at the end read the emitted Excellon files. The scorecard verdict shows in two
+places, from the same geometry, so neither audience can narrate around it:
 
 - **The terminal** — printed at the end of `bun render-board.ts pcba.tsx` (what an agent sees).
 - **The modal** — the top of the viewer's Board-checks panel, and the `pcbPath · pcbComb · % score`
@@ -73,6 +74,21 @@ but a dynamic `to={…}` (a `.map`), so it's matched by its `from` pin. Connecti
 authored trace is `auto`. Giving a connection a hand path *automatically* moves the score — nothing
 to mark by hand — and crediting clean-looking autorouter copper (which the router produces by
 accident) is impossible, because the credit follows authorship, not shape.
+
+## Drill coverage — asserted where the files are written
+
+Read from the emitted Excellon rather than the circuit-json, and thrown at gerber-write time, so a
+board that fails one produces no fab set at all. Both name the features they are missing.
+
+| Requirement | Floor | Audit |
+|---|---|---|
+| Every via + plated hole claims its own hit in `drill.drl`, on position and drilled diameter | 0 undrilled, 0 mis-sized | [`render-board.ts`](render-board.ts) `assertFullyDrilled` |
+| Every non-plated hole likewise in `drill_npth.drl` | 0 undrilled, 0 mis-sized | [`render-board.ts`](render-board.ts) `assertFullyDrilled` |
+
+A `routeInner` via declares its span as the copper transition it makes (`top->inner1`), and the
+Excellon converter emits only the spans it is asked for — the default `top->bottom`.
+`throughDrilled` restates every via as the through-hole it physically gets, before the drill file
+is generated and after the copper layers are.
 
 ## The gate is permission; the goal is the work
 
