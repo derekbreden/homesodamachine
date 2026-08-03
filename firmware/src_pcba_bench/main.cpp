@@ -205,6 +205,41 @@ static void cmdInputs() {
     Serial.println("  and a LOW B is the fail-safe: U15 holds the compressor relay off.");
 }
 
+// RUN and ERR sit on boot straps. An LED to GND is high-impedance below its
+// forward voltage, so neither node carries a level of its own between resets;
+// these hold them on the ESP32's internal pulls.
+//   IO12 MTDI — VDD_SDIO select, sampled at reset: low = 3.3 V flash.
+//   IO15 MTDO — ROM boot log on U0TXD, sampled at reset: high = printed.
+// `walk` drives both and re-parks them on the way out.
+static void parkStraps() {
+    pinMode(PIN_LED_RUN, INPUT_PULLDOWN);
+    pinMode(PIN_LED_ERR, INPUT_PULLUP);   // ~29 uA through R10/D2 — below the LED's forward drop
+}
+
+// R19/R20 (4.7k to 3V3) sit on the far side of J8's barrel junction, so they are
+// visible from IO21/IO22 only while that junction carries. Against the ESP32's
+// ~45k internal pulldown a 4.7k pull-up divides to ~3.0 V and reads HIGH.
+static void cmdBus() {
+    Serial.println("\n-- I2C bus continuity from the ESP (IO21/IO22) --");
+    struct { const char *n; int p; const char *pull; } lines[] = {
+        {"SDA IO21", PIN_SDA, "R19"}, {"SCL IO22", PIN_SCL, "R20"},
+    };
+    for (auto &l : lines) {
+        pinMode(l.p, INPUT);          delay(5); int hiz = digitalRead(l.p);
+        pinMode(l.p, INPUT_PULLDOWN); delay(5); int pd  = digitalRead(l.p);
+        pinMode(l.p, OUTPUT); digitalWrite(l.p, LOW); delay(2);
+        pinMode(l.p, INPUT);          delay(5); int rec = digitalRead(l.p);
+        Serial.printf("  %s: hi-Z=%d  with-45k-pulldown=%d  recovers-after-drive-low=%d\n",
+                      l.n, hiz, pd, rec);
+        if (pd == 1)      Serial.printf("      the 4.7k %s pull-up REACHES this pin — junction intact\n", l.pull);
+        else if (hiz == 1) Serial.printf("      floats high but a 45k pulldown wins: no 4.7k %s here — junction OPEN\n", l.pull);
+        else               Serial.printf("      dead low: no pull-up reaches this pin — junction OPEN (or line shorted low)\n");
+    }
+    Serial.println("  R19/R20 sit on the far side of J8's barrel; an open here is the barrel,");
+    Serial.println("  not the resistors — inner1/inner2 carry no annular ring at that hole.");
+    Wire.begin(PIN_SDA, PIN_SCL, 100000);  // restore the bus driver
+}
+
 static void cmdLedWalk() {
     Serial.println("\n-- LED walk — watch the west edge column --");
     struct { const char *label; int pin; } leds[] = {
@@ -212,6 +247,7 @@ static void cmdLedWalk() {
         {"RUN (green, D3, IO12)", PIN_LED_RUN},
         {"ACT (blue,  D4, IO14)", PIN_LED_ACT},
     };
+    for (auto &l : leds) { pinMode(l.pin, OUTPUT); digitalWrite(l.pin, LOW); }
     for (auto &l : leds) {
         Serial.printf("  %s ... ", l.label); Serial.flush();
         for (int i = 0; i < 6; i++) {
@@ -224,7 +260,9 @@ static void cmdLedWalk() {
     for (auto &l : leds) digitalWrite(l.pin, HIGH);
     delay(1500);
     for (auto &l : leds) digitalWrite(l.pin, LOW);
+    parkStraps();  // IO12/IO15 back to defined levels before any reset can sample them
     Serial.println("  PWR + 5V (D5/D6) are hard-wired to their rails — lit whenever 12 V is in.");
+    Serial.println("  IO12/IO15 re-parked (MTDI low, MTDO high) — safe to reset.");
 }
 
 static void cmdBuzz() {
@@ -252,9 +290,10 @@ static void cmdInfo() {
 
 static void cmdHelp() {
     Serial.println("\ncommands:");
-    Serial.println("  all    full sweep (info + scan + rtc + mcp + in + walk)");
+    Serial.println("  all    full sweep (info + scan + bus + rtc + mcp + in + walk)");
     Serial.println("  info   chip / flash / reset reason");
     Serial.println("  scan   I2C bus scan");
+    Serial.println("  bus    are R19/R20 visible from IO21/IO22 (J8 barrel junction)");
     Serial.println("  rtc    DS3231: temp, status, time, tick check");
     Serial.println("  mcp    both MCP23017s: registers + safe write round-trip");
     Serial.println("  in     off-board signal pins + gas ADC");
@@ -268,6 +307,7 @@ static void cmdHelp() {
 static void cmdAll() {
     cmdInfo();
     cmdScan();
+    cmdBus();
     cmdRtc();
     probeMcp(ADDR_MCP_A, "U2 north");
     probeMcp(ADDR_MCP_B, "U3 south");
@@ -282,10 +322,9 @@ void setup() {
     Serial.begin(115200);
     delay(300);
 
-    pinMode(PIN_LED_ERR, OUTPUT); digitalWrite(PIN_LED_ERR, LOW);
-    pinMode(PIN_LED_RUN, OUTPUT); digitalWrite(PIN_LED_RUN, LOW);
     pinMode(PIN_LED_ACT, OUTPUT); digitalWrite(PIN_LED_ACT, LOW);
     pinMode(PIN_BUZZ, OUTPUT);    digitalWrite(PIN_BUZZ, LOW);
+    parkStraps();  // IO12 MTDI / IO15 MTDO — the board must stay resettable
 
     // Actuator pins stay inputs — see the SAFETY note at the top.
     pinMode(2, INPUT);
@@ -308,11 +347,11 @@ void setup() {
 }
 
 void loop() {
-    // RUN LED is the heartbeat while the console idles.
+    // Heartbeat on ACT — IO14 carries no boot strap.
     static unsigned long last = 0;
     if (millis() - last > 1000) {
         last = millis();
-        digitalWrite(PIN_LED_RUN, !digitalRead(PIN_LED_RUN));
+        digitalWrite(PIN_LED_ACT, !digitalRead(PIN_LED_ACT));
     }
 
     static String line;
@@ -326,6 +365,7 @@ void loop() {
                 else if (line == "info") cmdInfo();
                 else if (line == "scan") cmdScan();
                 else if (line == "rtc")  cmdRtc();
+                else if (line == "bus")  cmdBus();
                 else if (line == "mcp")  { probeMcp(ADDR_MCP_A, "U2 north"); probeMcp(ADDR_MCP_B, "U3 south"); }
                 else if (line == "in")   cmdInputs();
                 else if (line == "walk") cmdLedWalk();
