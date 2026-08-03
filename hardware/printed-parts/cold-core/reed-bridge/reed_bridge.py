@@ -47,7 +47,7 @@ from _cold_core_interface import (
     tank_support_ring_height,
     wall_and_floor_thickness,
 )
-from copper_plugs import lowest_copper_z, highest_copper_z
+from _cold_core_interface import evap_tail_low_z, evap_tail_high_z
 from coil_mandrel import pitch, tube_radius, wrap_length
 from endcap_circular_dxf import (
     tube_id,
@@ -66,9 +66,12 @@ from endcap_circular_dxf import (
 tube_bottom_z_in_shell = wall_and_floor_thickness + tank_support_ring_height
 
 # [15 mm](BAND_BOTTOM) / [134.4 mm](BAND_TOP) — lowest and highest coil
-# centreline on the tube, from the foam-shell plugs the tails thread.
-band_bottom_z = lowest_copper_z - tube_bottom_z_in_shell
-band_top_z = highest_copper_z - tube_bottom_z_in_shell
+# centreline on the tube. Read from where the TAILS leave the tank, not from where
+# their copper crosses the shell wall: the two part company (each tail climbs the
+# port lane to its station), and reading the crossing here would let the front port
+# field compress the coil.
+band_bottom_z = evap_tail_low_z - tube_bottom_z_in_shell
+band_top_z = evap_tail_high_z - tube_bottom_z_in_shell
 
 # [6.35 mm](COPPER_OD) — 1/4" ACR wrap.
 copper_od = 2 * tube_radius

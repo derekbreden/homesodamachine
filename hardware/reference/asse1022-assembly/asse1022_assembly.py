@@ -17,6 +17,10 @@ Every station is read off the part upstream of it: each fitting's own module say
 how deep its threads go, and this file stacks those reaches along the flow axis.
 Move a length in any reference module and the chain closes on the new one.
 
+A station is its module, its seat and its hue. The seat carries the fitting's metal and
+the ports that fitting's module declares ([`_seating.py`](/hardware/scripts/_seating.py)).
+This assembly's own terminals are its stations' ports, named.
+
 The vent is the assembly's reason for a pose rather than a bare envelope: it weeps
 to atmosphere, and that drip is the mechanical telltale for a cross-contamination
 event ([`future.md`](/hardware/future.md) "Backflow vent monitoring"). The drip
@@ -32,6 +36,7 @@ Run:
 
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 import cadquery as cq
 
@@ -45,7 +50,11 @@ for _p in (
     _hw / "reference" / "flare38-14ptc",
 ):
     sys.path.insert(0, str(_p))
+sys.path.insert(0, str(next(p for p in _here.parents
+                            if (p / "tools" / "docgen").is_dir()) / "tools"))
 from _cadq_export import export_assembly
+from _seating import Seat
+from docgen import substitute_md
 import flare38_14ptc as oadapt
 import gagira_reducing_coupling as coupling
 import jg_pp010822e as ptc
@@ -98,51 +107,90 @@ def vent_stub():
     return stub.cut(bore)
 
 
-def _along(part, x):
-    """Seat a fitting on the flow axis: its own X origin to `x`, its axis onto the
-    ASSE 1022's (y = 0, z = the body-centre height)."""
-    return part.translate((x, 0.0, bfp.BODY_CENTER_Z))
+def _stub_tip():
+    """The stub's open end: (position, outward axis). It weeps to atmosphere — the drip
+    falls from here into the pan, and nothing plumbs into it."""
+    return (bfp.VENT_X, 0.0, -VENT_STUB_REACH), (0.0, 0.0, -1.0)
+
+
+# The stub is drawn here rather than imported, in the chain's own frame, bored onto the
+# ASSE's vent barb. It answers `build` and a port the way the reference modules do.
+_stub = SimpleNamespace(build=vent_stub, tip=_stub_tip)
+
+
+def _along(x) -> Seat:
+    """The seat a fitting takes on the flow axis: its own X origin at `x`, its axis onto
+    the ASSE 1022's (y = 0, z = the body-centre height)."""
+    return Seat.shift((x, 0.0, bfp.BODY_CENTER_Z))
+
+
+def flow_axis() -> tuple:
+    """The line every station on this chain stands on, in the assembly's own frame:
+    `(position, axis)` — the ASSE 1022's inlet plane on it, and the direction the water
+    runs. `_along` seats each fitting onto this line, and the cabinet that holds the chain
+    over a drain seats the whole assembly by it."""
+    return (0.0, 0.0, bfp.BODY_CENTER_Z), (1.0, 0.0, 0.0)
+
+
+# The chain, in the order the water meets it: what draws each station, the seat it takes,
+# and its hue. The ASSE 1022 is the frame the other four are seated in.
+STATIONS = {
+    "jg-pp010822e":       (ptc,      _along(PTC_X),      BLACK_PP),
+    "gagira-coupling":    (coupling, _along(COUPLING_X), COUPLING_SS),
+    "multiplex-asse1022": (bfp,      Seat(),             BRASS),
+    "flare38-14ptc":      (oadapt,   _along(OUTLET_X),   STAINLESS),
+    "vent-stub":          (_stub,    Seat(),             CLEAR_PVC),
+}
+
+# This assembly's boundary: the two mouths the cabinet plumbs to, and the one it catches
+# under. Each names the station port it is.
+TERMINALS = {
+    "tube-in":  ("jg-pp010822e", "tube_port"),
+    "tube-out": ("flare38-14ptc", "tube_port"),
+    "vent-tip": ("vent-stub", "tip"),
+}
 
 
 def build():
+    """The chain, each station at its seat."""
     assy = cq.Assembly(name="asse1022-assembly")
-    assy.add(_along(ptc.build(), PTC_X), name="jg-pp010822e", color=BLACK_PP)
-    assy.add(_along(coupling.build(), COUPLING_X), name="gagira-coupling", color=COUPLING_SS)
-    assy.add(bfp.build(), name="multiplex-asse1022", color=BRASS)
-    assy.add(_along(oadapt.build(), OUTLET_X), name="flare38-14ptc", color=STAINLESS)
-    assy.add(vent_stub(), name="vent-stub", color=CLEAR_PVC)
+    for name, (part, seat, color) in STATIONS.items():
+        assy.add(seat.solid(part.build()), name=name, color=color)
     return assy
 
 
-def tube_in():
-    """The 1/4" PTC mouth the cabinet's water run pushes into: (position, outward
-    axis) — the assembly's upstream terminal, off the PP010822E's own port."""
-    pos, axis = ptc.tube_port()
-    return (pos[0] + PTC_X, pos[1], pos[2] + bfp.BODY_CENTER_Z), axis
+def port(name: str) -> tuple:
+    """One terminal in this assembly's own frame: `(position, outward axis)`.
+
+    The station's module owns the station; the station's seat carries it here."""
+    if name not in TERMINALS:
+        raise KeyError(f"no terminal {name!r} (have: {', '.join(TERMINALS)})")
+    station, local = TERMINALS[name]
+    part, seat, _color = STATIONS[station]
+    return seat.port(getattr(part, local)())
 
 
-def tube_out():
-    """The 1/4" PTC mouth the LLDPE run to the split pushes into: (position,
-    outward axis) — the assembly's downstream terminal, off the flare38-14ptc."""
-    pos, axis = oadapt.tube_port()
-    return (pos[0] + OUTLET_X, pos[1], pos[2] + bfp.BODY_CENTER_Z), axis
-
-
-def vent_tip():
-    """The vent stub's open end: (position, outward axis). It weeps to atmosphere —
-    the drip falls from here into the pan, and nothing plumbs into it."""
-    return (bfp.VENT_X, 0.0, -VENT_STUB_REACH), (0.0, 0.0, -1.0)
+def ports() -> dict:
+    """Every terminal, in the order the water meets them."""
+    return {name: port(name) for name in TERMINALS}
 
 
 def main():
     assy = build()
     bb = assy.toCompound().BoundingBox()
+    stations = ports()
     print("ASSE 1022 assembly (Multiplex 19-0897 + upstream/downstream fittings)")
     print(f"  Bounding box: X [{bb.xmin:.2f}, {bb.xmax:.2f}]  "
           f"Y [{bb.ymin:.2f}, {bb.ymax:.2f}]  Z [{bb.zmin:.2f}, {bb.zmax:.2f}]")
-    for label, (pos, axis) in (("tube-in ", tube_in()), ("tube-out", tube_out()),
-                               ("vent-tip", vent_tip())):
-        print(f"  {label}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
+    for label, (pos, axis) in stations.items():
+        print(f"  {label:8}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
+
+    marks = {f"ASSE_{n.replace('-', '_').upper()}":
+             "({:.2f}, {:.2f}, {:.2f})".format(*stations[n][0]) for n in TERMINALS}
+    marks["ASSE_ENVELOPE"] = f"{bb.xlen:.1f} × {bb.ylen:.1f} × {bb.zlen:.1f} mm"
+    substitute_md(_here.parent / "README.md", variables=marks,
+                  expected_counts={k: 1 for k in marks})
+
     out = _here.parent / "asse1022-assembly.step"
     export_assembly(assy, str(out))
     print(f"-> {out.name}")

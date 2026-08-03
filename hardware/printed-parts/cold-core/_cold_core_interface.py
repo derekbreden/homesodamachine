@@ -143,18 +143,33 @@ foam_cap_lid_pour_radius = 10.0
 foam_cap_lid_vent_radius = 3.0
 foam_cap_lid_hole_inset = 30.0
 
+# --- The vessel's clocking --------------------------------------------------
+#
+# Four 1/4" NPT ports, two per end plate, each pair [1.5"](VESSEL_PORT_PITCH) centre to
+# centre on a diameter (`hole_offset` in cut-parts/carbonation/endcaps-circular). Both
+# plates carry the float rod's blind register on the axis at right angles to their own
+# pair, the rod is tack-welded into the bottom plate's register and enters the top plate's
+# at closure, so the plates are clocked together and the vessel has ONE port axis.
+#   That axis is the shell's ±Y. All four ports stand [19.05 mm](VESSEL_PORT_OFFSET) off
+# the shell's own axis on it, two under the vessel and two over it.
+vessel_port_offset = 0.750 * 25.4
+
 # CO2 inlet: one bore straight in through the −Y outer wall and the tank
 # support ring, level with the vessel's bottom-plate elbows. The 1/4" OD
 # LLDPE line arrives horizontally out of the appliance's front-panel CO2
 # chain and lands on the PP010822E collet made up on that port's TAISHER
 # elbow, which hangs inboard of the ring's bore — so the tube is the only
 # thing that crosses shell material, no bend is taken in-cavity, and nothing
-# traverses the cap stack. X is the bottom plate's own port offset: its two
-# 1/4" NPT ports sit 1.5" centre to centre on the plate's X axis
-# (`hole_spacing` in cut-parts/carbonation/endcaps-circular), so the port,
-# its elbow, the ring bore and the wall bore all stand on one line.
-co2_inlet_x = 19.05
+# traverses the cap stack. The CO2 port takes the port pair's LANE-SIDE hole, so
+# the bore runs down the shell's own centreline from the port to the lane and the
+# port, its elbow, the ring bore and the wall bore all stand on one line.
+co2_inlet_y = -vessel_port_offset
 co2_inlet_tube_radius = port_hole_radius
+
+# The top plate's two, by the same pair: the water inlet takes the +Y hole, which is the
+# one the cap can carry a conduit over, and the PRV takes the −Y hole above the CO2's.
+water_inlet_port_y = +vessel_port_offset
+prv_port_y = -vessel_port_offset
 
 # Cap-to-outer-shell joinery: 6 attachment points per face × 2 faces =
 # 12 inserts / 12 M3×25 SHCS, each screw passing lid + cap into an insert
@@ -178,30 +193,126 @@ head_cbore_depth = screw_head_height + head_seat_recess
 head_pad_height = head_cbore_depth
 head_pad_slip = 0.2  # per side, pad to the boss relief that receives it
 
+# --- The front face, and the lane that reaches it ---------------------------
+#
+# Every penetration opens on the shell's −X face. That face is the SHORT one, and
+# in the appliance it is yawed onto the machine's front (`_contents.FOAM_YAW`) —
+# which is why the shell's short axis is what sets the appliance's width.
+#
+# Nothing reaches that face head-on: the reservoir pockets fill both ±X ends of the
+# shell, so a line from the tank or from either pocket gets there along the −Y POUR
+# BAND, which runs the shell's whole length outboard of both pockets. What a line
+# may use of that band is the LANE: the strip inboard of every attachment boss.
+# All six bosses stand hard against a ±Y wall (`attachment_xy_positions`) and reach
+# `screw_boss_size` in from its outer face, so the lane is exactly what they leave,
+# and it runs clear end to end at every height above the floor slab.
+#
+# The lane is ONE BORE WIDE. That is what makes the front port field a column
+# rather than a grid — see `front_port_stations`.
+front_wall_x = -outer_shell_x_length / 2
+port_lane_outer_y = -(outer_shell_y_length / 2 - screw_boss_size)
+port_lane_inner_y = pour_band_pocket_side_y
+port_lane_mid_y = (port_lane_outer_y + port_lane_inner_y) / 2
+
+# The +Y band's lane, which is this one mirrored — the bosses stand at both signs, so both
+# bands leave the same strip. It carries ONE line and it has no field: reservoir B's flavor
+# line crosses its pocket's +Y wall, comes about in this band and climbs it to the TOP, out
+# through the cap's own `reservoir-b` conduit. So the two features that line runs between are
+# a bore in a pocket wall and a hole in the cap, and this lane is what joins them.
+west_lane_mid_y = -port_lane_mid_y
+# PETG left either side of a bore on the lane, and under the lowest one over the
+# floor slab. Below this the wall between two features stops being printable.
+port_lane_wall = 1.5
+assert port_lane_inner_y - port_lane_outer_y >= 2 * (port_hole_radius + port_lane_wall), (
+    f"the port lane is {port_lane_inner_y - port_lane_outer_y:g} mm wide, which cannot carry a "
+    f"⌀{2 * port_hole_radius:g} bore with {port_lane_wall:g} mm of PETG either side")
+
+# Where the evaporator coil's two tails leave the tank: the low one one
+# `hole_shift_from_edge` above the bottom-plate elbow band, the high one the same
+# below the top's. These are the COIL's heights — what the mandrel is wound to and
+# what the reed bridge's wrap band spans — and they are NOT the heights their copper
+# crosses the shell wall at. Each tail turns onto the port lane and climbs or drops
+# to its own station in the slot, so compressing the field can never compress the
+# coil.
+evap_tail_low_z = hole_shift_from_edge + wall_and_floor_thickness + below_tank_elbows_height
+evap_tail_high_z = (foam_shell_outer_height - hole_shift_from_edge
+                    - wall_and_floor_thickness - above_tank_elbows_height)
+
+# The FRONT PORT FIELD — where each penetration crosses the −X wall. One column,
+# pitched a bore plus one wall, climbing from the floor. What sets a station's Z is
+# NOT the height of the fitting it serves: a line leaves its fitting, turns into the
+# lane and climbs it freely, so the field is ordered by what leaves together —
+# first reservoir A and the two reed cables (all three out of the pockets' bulkhead
+# band), then the vessel's two bottom-plate lines. Everything above the field belongs
+# to the copper/PRV SLOT, which takes the rest of the column.
+#   Reservoir B is NOT here, and the field is one pitch shorter for it: its line leaves
+# by the +Y band and the cap's own conduit (`west_lane_mid_y`, `cap_conduits`), because
+# the fitting it feeds hangs in the loft directly over that band and a station on this
+# face would send it across the machine and back.
+front_port_pitch = 2 * port_hole_radius + port_lane_wall
+front_port_order = ("reservoir-a", "reed-cable-a", "reed-cable-b",
+                    "carb-water-out", "co2-in")
+front_port_floor_z = bag_pocket_floor_top_z + port_lane_wall + port_hole_radius
+
+
+def front_port_z(name):
+    """The Z one front-field station crosses the −X wall at."""
+    return front_port_floor_z + front_port_pitch * front_port_order.index(name)
+
+
+front_port_field_top_z = front_port_z(front_port_order[-1]) + port_hole_radius
+
+# The face every penetration opens on, as a direction: the shell's own −X. A station is a
+# position and the way out of it, so a turn that moves the shell moves both.
+front_port_axis = (-1.0, 0.0, 0.0)
+
+
+def front_port_station(name):
+    """One front-field station in the SHELL'S OWN frame: `(position, outward axis)`.
+
+    All five stand on the port lane's centreline, in the wall's own plane, each at its own
+    height up the column. The lane is one bore wide (above), so X and Y are the field's and
+    only Z is the station's."""
+    return ((front_wall_x, port_lane_mid_y, front_port_z(name)), front_port_axis)
+
+
+def front_port_stations() -> dict:
+    """All five, under the names the machine knows them by. The three ABOVE the field are the
+    copper/PRV slot's, and `copper_plugs.slot_stations` declares those on this same lane."""
+    return {name: front_port_station(name) for name in front_port_order}
+
+
 # Rounded outer-shell corners. Each corner's exterior wall is a true arc:
 # the outer face is a quarter-round of [12 mm](CORNER_ROUND_R) radius, the
-# inner face concentric one wall-thickness inboard. The corner boss is
-# seated deep IN the corner so its cylinder's outer edge is tangent to the
-# EXTERIOR wall arc, fusing into the outer skin with one wall-thickness of
-# PETG over the insert.
+# inner face concentric one wall-thickness inboard.
 corner_round_radius = 12.0
-_corner_arc_x = outer_shell_x_length / 2 - corner_round_radius
-_corner_arc_y = outer_shell_y_length / 2 - corner_round_radius
-_corner_boss_diag_offset = (corner_round_radius - screw_boss_size / 2) / math.sqrt(2)
-_corner_boss_x = _corner_arc_x + _corner_boss_diag_offset
-_corner_boss_y = _corner_arc_y + _corner_boss_diag_offset
 
-# Mid-long-side bosses offset in X to clear the copper/water-outlet
-# slot at x=0; opposite signs at ±Y preserve 180° rotational symmetry
-# around the Z axis (balanced gasket compression).
+# Every attachment boss stands hard against a ±Y wall — none in a corner, and none
+# on a ±X wall. Two reasons, and they are the same reason twice: the ±Y bands are
+# the only place a line running to the front face can travel, and a boss reaching
+# further in than `screw_boss_size` would narrow the lane below one bore. A boss
+# seated diagonally IN a corner (its cylinder tangent to the exterior arc, which is
+# the deepest seat available) reaches diagonally into the band, and that is what
+# closed the corner the lane has to turn through. Held against the wall instead, all
+# six leave the same lane and the ±X ends of both bands run clear to the wall.
+#   The four end bosses stand over the reservoir pockets' own far walls, which is
+# the furthest out they can go and still keep one wall of PETG around their insert
+# pockets inside the corner's rounded skin. Opposite signs at ±Y preserve 180°
+# rotational symmetry about Z (balanced gasket compression, and the top cap free to
+# install either way round).
 mid_screw_x_offset = 15.0
+_boss_wall_y = outer_shell_y_length / 2 - screw_boss_size / 2
+_end_boss_x = bag_pocket_outermost_x
 attachment_xy_positions = (
-    [(x_sign * _corner_boss_x, y_sign * _corner_boss_y)
+    [(x_sign * _end_boss_x, y_sign * _boss_wall_y)
      for x_sign in (1, -1) for y_sign in (1, -1)]
-    + [(y_sign * mid_screw_x_offset,
-        y_sign * (outer_shell_y_length / 2 - screw_boss_size / 2))
+    + [(y_sign * mid_screw_x_offset, y_sign * _boss_wall_y)
        for y_sign in (1, -1)]
 )
+for _bx, _by in attachment_xy_positions:
+    assert abs(_by) - screw_boss_size / 2 >= outer_shell_y_length / 2 - screw_boss_size, (
+        f"attachment boss at ({_bx:g}, {_by:g}) reaches past the port lane's outer edge "
+        f"({port_lane_outer_y:g}) — the lane every front penetration runs along")
 gasket_thickness = 2.0
 gasket_strip_width = 5.0
 
@@ -249,21 +360,36 @@ deck_mount_cap_gap = 1.5
 # across X and Y, how far proud of the lid's outer face its column tops stand, what the
 # screw head clamps down onto the column, and the screw that does it. A pitch of zero
 # collapses the rectangle onto a line or a point, so a mount is however many DISTINCT
-# columns its pitches leave: the AC hub rides two, the ground stud one.
-#   The board's MH1–MH4 rectangle lies with its long side across the cap's front, its
-# front columns `deck_mount_cap_gap` off the front cavity wall, standing clear of its
-# through-hole tails. The IRM-90's lies across the aft strip, its potted base flat on the
-# lid, its rear columns the same gap off the cap's rear corner boss. Between them run the
-# power block's three: the AC hub across the lid's pour hole, relay #1 on columns that
-# clear its pin tails, and the ground stud alone, standing tall enough for its lug fan.
+# columns its pitches leave: the ground stud rides one.
+#   NO ELECTRICAL BODY IS ON THIS CAP but the ground stud. The supply and the controller hang
+# on the enclosure's +X wall, one over the other; the relay lies on the lid in the band they
+# left and the AC hub lies on the relay's back, and neither has a joint yet — a body resting on
+# another is not mounted, so neither carries a row here. `deck-mounts-land` on the enclosure's
+# scorecard re-derives every column that IS here against the cap's own field each build, and
+# `deck_mount_cap_room` holds each one [1.5 mm](DECK_MOUNT_CAP_GAP) off whatever else stands in
+# the cup for the pour to reach between them.
+#   The GROUND STUD stands alone in the aft-east corner, which is also where its three earths
+# are: the hub's inlet lug, the brick's chassis, and the relay's own row. It is the only mount
+# here tall enough to want a lug fan.
+#   The MANIFOLD'S AFT STAND takes the last two rows — the loft's two valve trays, each a
+# printed plate flat on the lid's outer face like the PSU's brick, bolted down through the
+# mount ears its own module carries (`two_valve_tray.mount_stations`,
+# `three_valve_tray.mount_stations`). These two rows read the OTHER way from every row
+# above: a module is placed BY its station, but the trays are placed by the enclosure's
+# own fences — the bag-B pair on the rear column's priced face, the wide plate one bay
+# behind it — and these stations stand where the placed ears land. The figures are that
+# derivation's result, not a choice; the enclosure's `deck-mounts-land` check re-derives
+# them from the placed trays every build and fails with the row a moved tray wants, so a
+# drift cannot land silently. The bag-B pair's west cell overhangs the core into the −X
+# rib band, past the cap's cavity wall — its two ears ride the tray's centreline, the one
+# column of it the cavity can answer; the wide plate's four stand midway between its
+# cells. Both plates seat 9 mm of PETG under the head, so the stations take an M3 × 16.
 DeckMount = namedtuple("DeckMount", "centre pitch_x pitch_y standoff seat screw")
 deck_mounts = {
-    #                    centre            pitch_x pitch_y  proud  seat  screw
-    "pcba":    DeckMount((87.00,  50.25),   78.00,  66.30,   2.0,  1.60,  8.0),
-    "ac-hub":  DeckMount((92.00,   2.40),   85.00,   0.00,   3.0,  3.00,  8.0),
-    "relay-1": DeckMount((101.50, -22.10),  66.00,  13.00,   3.0,  1.50,  8.0),
-    "ground":  DeckMount((53.50, -22.10),    0.00,   0.00,   8.0,  5.60, 10.0),
-    "psu":     DeckMount((85.00, -58.50),   98.00,  33.00,   0.0,  1.60,  8.0),
+    #                        centre            pitch_x pitch_y  proud  seat  screw
+    "bag-b-tray":  DeckMount((105.25, -10.37),   0.00,  49.50,   0.0,  9.00, 16.0),
+    "vk-tray":     DeckMount(( 21.30,  44.75),  49.50,   0.00,   0.0,  9.00, 16.0),
+    "nozzle-tray": DeckMount(( -79.92,  34.97),  49.50,   0.00,   0.0,  9.00, 16.0),
 }
 
 
@@ -334,6 +460,77 @@ for _name in deck_mounts:
         f"{deck_mount_cap_gap:g} mm the pour needs to reach between them")
 
 
+# --- Cap conduits ------------------------------------------------------------
+#
+# A conduit is one of the cup's own full-height columns carrying a THROUGH bore: liquid
+# foam pours around its shank the way it pours around a deck mount's, the lid passes it,
+# and a line runs up it from the shell's open top out onto the lid's outer face. The
+# service bay stands on that face.
+cap_conduit_bore_radius = port_hole_radius   # the ⌀[6.5](PORT_HOLE_DIAMETER) every shell penetration takes
+cap_conduit_wall = 2.0
+cap_conduit_boss_radius = cap_conduit_bore_radius + cap_conduit_wall
+cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to the lid's clearance hole
+
+# Per conduit: its centre in the CAP'S OWN frame. The cap installs spun a half turn about
+# Z (`foam_assembly.spin_xy`), and a half turn is its own inverse — so a conduit that
+# stands over a vessel port at (x, y) in the shell's frame is authored at (−x, −y) here,
+# and `foam_assembly.cap_conduit_station` turns it back.
+#   water-in stands on the vessel's top-plate +Y port: a straight 1/4" PTC × NPT adapter on
+# the plate, and one tube from its collet up this bore to the deck.
+#   reservoir-b stands over the +Y BAND, not over a port: its line crosses the pocket wall at
+# the bulkhead's own height, comes about in the band and climbs the shell's whole height in
+# it, potted where it crosses, and this bore is where it reaches the deck. Its X in the cap's
+# frame is the y the FITTING it feeds wants — the divider's stem takes a stock arc's worth of
+# straight before its collet, so the conduit stands that far ahead of the stem's plane and the
+# run above the lid is one lean and no more; its Y is the band's own lane, held off the corner
+# boss by the pour gap. Nothing else uses the +Y band, so the lane is a bore wide the whole way.
+cap_conduits = {
+    "water-in": (0.0, -water_inlet_port_y),
+    "reservoir-b": (120.0, -79.5),
+}
+
+# What a line arriving off-axis turns in: the band from a top-plate elbow's own lateral
+# axis up to the cap's floor, against the rise a corner of 1/4" LLDPE takes.
+tank_top_plate_z = wall_and_floor_thickness + tank_support_ring_height + tank_height
+top_band_to_cap = foam_shell_outer_height - (tank_top_plate_z + hole_shift_from_edge)
+lldpe_bend_radius = 4.0 * 6.35   # [25.4 mm](LLDPE_BEND_R) — 4 × OD, `_routing.BEND_RATIO`
+
+
+def cap_conduit_room(name):
+    """The least room this conduit leaves to anything else standing in the cup:
+    `(mm, what)` — a screw boss, the cavity wall, a deck mount's column."""
+    x, y = cap_conduits[name]
+    room = [(min(outer_shell_x_length / 2.0 - abs(x), outer_shell_y_length / 2.0 - abs(y))
+             - wall_and_floor_thickness - cap_conduit_boss_radius, "the cavity wall")]
+    for bx, by in attachment_xy_positions:
+        room.append((math.hypot(x - bx, y - by)
+                     - screw_boss_size / 2.0 - cap_conduit_boss_radius, "a screw boss"))
+    for other in deck_mounts:
+        for ox, oy in deck_mount_xy(other):
+            room.append((math.hypot(x - ox, y - oy)
+                         - deck_mount_boss_radius - cap_conduit_boss_radius,
+                         f"the {other} mount"))
+    return min(room)
+
+
+for _name in cap_conduits:
+    _room, _what = cap_conduit_room(_name)
+    assert _room >= deck_mount_cap_gap - 1e-9, (
+        f"cap conduit {_name}: the column stands {_room:.3f} mm off {_what}, inside the "
+        f"{deck_mount_cap_gap:g} mm the pour needs to reach between them")
+
+
+# The face a cap conduit opens on, as a direction: the TOP cap's own +Z.
+cap_conduit_axis = (0.0, 0.0, 1.0)
+
+
+def cap_conduit_station(name):
+    """One cap conduit's mouth in the CAP'S OWN frame: `(position, outward axis)`, with Z
+    left at the lid's outer face for whoever seats the stack to carry."""
+    x, y = cap_conduits[name]
+    return ((x, y, 0.0), cap_conduit_axis)
+
+
 def make_box(x_range, y_range, z_range):
     """Axis-aligned box from world-coordinate ranges in each axis."""
     x_min, x_max = min(x_range), max(x_range)
@@ -368,35 +565,63 @@ def build_hole_punch(
     )
 
 
+def build_x_axis_hole_punch(
+    *,
+    origin=(0, 0, 0),
+    hole_punch_radius,
+    hole_punch_height=40,
+    direction=1,
+):
+    """X-axis ⌀ × height cylindrical cut, centered at `origin`'s Y/Z and starting
+    at `origin`'s X, extruded in `direction`·X (+1 = +X, −1 = −X — so a port on the
+    −X wall punches outward toward −X)."""
+    x, y, z = origin
+    return cq.Solid.makeCylinder(
+        hole_punch_radius, hole_punch_height,
+        cq.Vector(x, y, z), cq.Vector(direction, 0, 0))
+
+
+def cut_front_exit(foam_shell, *, z, hole_punch_radius, lateral=0.0):
+    """One penetration's mouth: a bore straight out through the −X wall, on the
+    port lane at `lateral` off its centre. The line inside reaches it along the
+    lane, so this bore's Z is the field's station and has nothing to do with the
+    height of the fitting it serves."""
+    overshoot = 1.0                                    # a through-cut, both faces cleared
+    return foam_shell.cut(
+        build_x_axis_hole_punch(
+            origin=(front_wall_x + wall_and_floor_thickness + overshoot,
+                    port_lane_mid_y + lateral, z),
+            hole_punch_radius=hole_punch_radius,
+            hole_punch_height=wall_and_floor_thickness + 2.0 * overshoot,
+            direction=-1,
+        )
+    )
+
+
 def cut_pour_band_pass_through(
     foam_shell,
     *,
     pocket_hole_x,
-    shell_hole_x,
     y,
     z,
+    exit_z,
     hole_punch_radius,
 ):
-    """Cut one −Y pass-through as two non-coaxial bores: through the
-    bag-pocket wall at `pocket_hole_x`, starting at `y` and stopping at the
-    pour band's mid-depth, and through the outer shell at `shell_hole_x`,
-    starting from that same mid-depth and running out. Between them the line
-    turns and runs along the open band."""
+    """Cut one pass-through as two bores that do not meet: through the bag-pocket
+    (or ring) wall at `pocket_hole_x`, starting at `y` and stopping on the port
+    lane, and out through the −X wall at the field station `exit_z`. Between them
+    the line turns and runs along the open lane — west to the wall, and up it from
+    the fitting's own height to the station's. The lane is what lets the two sit at
+    different X *and* different Z."""
     foam_shell = foam_shell.cut(
         build_hole_punch(
             origin=(pocket_hole_x, y, z),
             hole_punch_radius=hole_punch_radius,
-            hole_punch_height=y - pour_band_mid_y,
+            hole_punch_height=y - port_lane_mid_y,
             direction=-1,
         )
     )
-    return foam_shell.cut(
-        build_hole_punch(
-            origin=(shell_hole_x, pour_band_mid_y, z),
-            hole_punch_radius=hole_punch_radius,
-            direction=-1,
-        )
-    )
+    return cut_front_exit(foam_shell, z=exit_z, hole_punch_radius=hole_punch_radius)
 
 
 def build_slot_punch(
@@ -417,6 +642,20 @@ def build_slot_punch(
         .slot2D(slot_length, slot_diameter, angle=90)
         .extrude(direction * slot_punch_height)
     )
+
+
+def port_to_shell(solid):
+    """Carry a solid from the PORT FRAME into the shell's.
+
+    The port frame is the one every penetration is authored in, the copper-plug
+    stack among them: x lateral across the face, −y out through it, z the shell's
+    own. One quarter turn about Z puts its −y on the shell's −X, and one slide puts
+    its lateral centreline on the port lane. Authoring there is what keeps the plug
+    stack and the slot it fills a single reading — a plug is a part that plugs a slot
+    in a wall, and that is the frame that says so; a pose turned by hand alongside a
+    slot cut by hand is two implementations of one transform."""
+    return (solid.rotate(cq.Vector(0, 0, 0), cq.Vector(0, 0, 1), -90.0)
+                 .translate(cq.Vector(0.0, port_lane_mid_y, 0.0)))
 
 
 def build_z_axis_hole_punch(
@@ -456,6 +695,10 @@ if __name__ == "__main__":
         "HEAD_PAD_H": f"{head_pad_height:.4g} mm",
         "HEAD_CBORE_D": f"{head_cbore_radius * 2:.4g}",
         "CAP_SCREW_L": f"{cap_screw_length:.4g}",
+        "DECK_MOUNT_CAP_GAP": f"{deck_mount_cap_gap:.4g} mm",
+        "VESSEL_PORT_PITCH": f"{2 * vessel_port_offset / 25.4:.4g}\"",
+        "VESSEL_PORT_OFFSET": f"{vessel_port_offset:.4g} mm",
+        "LLDPE_BEND_R": f"{lldpe_bend_radius:.4g} mm",
     }
     substitute_py_comments(
         Path(__file__),
@@ -465,7 +708,7 @@ if __name__ == "__main__":
             "COIL_RADIAL_CLEARANCE": 1,
             "ABOVE_TANK_ELBOWS_HEIGHT": 1,
             "BELOW_TANK_ELBOWS_HEIGHT": 1,
-            "PORT_HOLE_DIAMETER": 1,
+            "PORT_HOLE_DIAMETER": 2,
             "SCREW_CLEARANCE_DIAMETER": 1,
             "INSERT_POCKET_DIAMETER": 1,
             "SCREW_BOSS_SIZE": 1,
@@ -473,6 +716,10 @@ if __name__ == "__main__":
             "HEAD_PAD_H": 1,
             "HEAD_CBORE_D": 1,
             "CAP_SCREW_L": 1,
+            "DECK_MOUNT_CAP_GAP": 1,
+            "VESSEL_PORT_PITCH": 1,
+            "VESSEL_PORT_OFFSET": 1,
+            "LLDPE_BEND_R": 1,
         },
     )
     print("-> _cold_core_interface.py (self)")

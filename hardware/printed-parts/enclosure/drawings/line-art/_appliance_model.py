@@ -39,12 +39,15 @@ from pathlib import Path
 import cadquery as cq
 
 _HERE = Path(__file__).resolve().parent
-_REPO_ROOT = _HERE.parents[4]
-sys.path.insert(0, str(_REPO_ROOT / "tools"))
-sys.path.insert(0, str(_REPO_ROOT / "hardware" / "printed-parts" / "cadlib"))
-sys.path.insert(0, str(_REPO_ROOT / "hardware" / "printed-parts" / "flavor" / "pump-case"))
-sys.path.insert(0, str(_REPO_ROOT / "hardware" / "reference" / "co2-coupling-body"))
-sys.path.insert(0, str(_REPO_ROOT / "hardware" / "reference" / "jg-bulkhead-union"))
+_HW = next(p for p in _HERE.parents if p.name == "hardware")
+sys.path.insert(
+    0,
+    str(next(p for p in _HERE.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
+)
+sys.path.insert(0, str(_HW / "printed-parts" / "cadlib"))
+sys.path.insert(0, str(_HW / "printed-parts" / "flavor" / "pump-case"))
+sys.path.insert(0, str(_HW / "reference" / "co2-coupling-body"))
+sys.path.insert(0, str(_HW / "reference" / "jg-bulkhead-union"))
 sys.path.insert(0, str(_HERE.parents[1]))
 
 from docgen import substitute_py_comments
@@ -83,7 +86,7 @@ DOOR_GAP = 10.0
 
 # The hopper door — the larger case footprint — centered across the
 # width and anchored to the front.
-# [155.7 mm](HOPPER_DOOR_W) — APPLIANCE_W − 2 × SIDE_MARGIN − pump_door_w − DOOR_GAP.
+# [87.7 mm](HOPPER_DOOR_W) — APPLIANCE_W − 2 × SIDE_MARGIN − pump_door_w − DOOR_GAP.
 hopper_door_w = W - 2 * SIDE_MARGIN - pump_door_w - DOOR_GAP
 # [165.0 mm](HOPPER_DOOR_D) — matches pump door depth.
 hopper_door_d = pump_door_d

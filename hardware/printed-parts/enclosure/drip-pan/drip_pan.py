@@ -1,24 +1,25 @@
 """Drip pan — the printed catch basin under the Multiplex atmospheric-vent stub,
-carried on rails above the cold core's foam-cap top. The Shutao moisture plate
+carried on rails that hang it off the chain above it. The Shutao moisture plate
 lies flat in it; any vent drip, condensate, or overflow pools in the basin and
 wets the plate, tripping the moisture alarm. Watertight (no drain) — the basin
 is emptied on service.
 
 Two printed parts:
 
-  * the BASIN — an open-top rounded-corner box, [64](PAN_LEN) x [76](PAN_DEPTH)
-    outer x [15](PAN_HEIGHT) tall, [2.5](PAN_WALL) mm walls on a [3](PAN_FLOOR)
+  * the BASIN — an open-top rounded-corner box, [53](PAN_LEN) x [76](PAN_DEPTH)
+    outer x [10](PAN_HEIGHT) tall, [2.5](PAN_WALL) mm walls on a [3](PAN_FLOOR)
     mm floor, floor-to-wall coved. The floor slab runs out past the walls on
     both ±X faces as a SLIDE FLANGE, so the basin is carried from underneath at
     its own floor plane and nothing stands proud inside it.
-  * the RAILS — a mirrored pair of L-sections, taped to the foam-cap top with
-    VHB, whose shelves are what the flanges ride. They hold the basin
-    [17.7](PAN_LIFT) mm clear of the cap, and they run fore-and-aft, so the
-    basin travels in +Y — out the back of the cabinet — rather than lifting.
+  * the RAILS — a mirrored pair of L-sections, each ONE [3](PAN_LIFT) mm layer
+    under the basin's own floor plane with a fence standing up off it. The layer
+    is bonded below and ridden above; the rails themselves never move, so nothing
+    is built under it. They run fore-and-aft, so the basin travels in +Y — out
+    the back of the cabinet — rather than lifting.
 
-The chain hangs at a fixed height over a fixed cap, and the basin stands in the
-column between them: `VENT_GAP` of air under the chain's underside, then the
-basin, then `RAIL_LIFT` of open deck down to the cap.
+The column reads down from the chain: `VENT_GAP` of air under its underside,
+then the basin, then the rail's one layer. `_contents.drip_pan_seat` is the plane
+that layer's top face reaches; what carries the rail there is TBD.
 
 Frame: +X long axis, +Y depth (the withdrawal direction), +Z up; origin at the
 basin's lower-front-left outer corner of the WALLS — the flanges reach to −X of
@@ -41,15 +42,20 @@ sys.path.insert(0, str(next(p for p in _here.parents
 from _cadq_export import export_step
 from docgen import substitute_md, substitute_py_comments
 
-# The basin is narrow across the strip and deep down it. X is the aft strip's
-# contested axis — the controller board stands in the same strip, west of the
-# basin, and every millimetre the basin gives back in X is a millimetre of the
-# board's connector lanes. Y is the axis with room to spare: the run between the
-# SeaFlo's back face and the foam cap's rear edge is deeper than the basin needs.
-# So [64](PAN_LEN) across and [76](PAN_DEPTH) down, and the moisture plate lies
-# with its long edge down the depth. [15](PAN_HEIGHT) tall is what `VENT_GAP` and
-# `RAIL_LIFT` leave of the vent's column.
-PAN_X, PAN_Y, PAN_Z = 64.0, 76.0, 15.0
+# The basin is narrow across the strip and deep down it. X is the loft's
+# contested axis — east of the basin the west column's crossing ladder climbs
+# rung over rung (`enclosure-assembly/_lines`), and the basin's east rim with
+# its rail is that ladder's lid: every millimetre the basin gives back in X is
+# ceiling a rung buys radius from. Y is the axis with room to spare: the run
+# between the SeaFlo's back face and the foam cap's rear edge is deeper than
+# the basin needs. So the width is the FLOOR the moisture plate sets and one
+# millimetre of grace — the plate turned down the depth wants
+# `PLATE_Y + 2·(PLATE_SLIP + WALL + FLOOR_COVE)` = 52 of outer width —
+# [53](PAN_LEN) across and [76](PAN_DEPTH) down, the basin hung on the atmospheric vent's own
+# tip in both plan axes (`_contents._pan_room` is the reading, and it refuses a tip that stands
+# outside the inner floor). [10](PAN_HEIGHT) tall is what `VENT_GAP` and `RAIL_LIFT` leave of
+# the vent's column.
+PAN_X, PAN_Y, PAN_Z = 53.0, 76.0, 10.0
 WALL, FLOOR = 2.5, 3.0
 CORNER_R = 6.0        # outer vertical-corner radius
 # Floor-to-wall fillet — water sheeting + cleanability. It eats the flat floor from
@@ -75,21 +81,24 @@ VENT_GAP = 4.0
 # How much more than that the rail may leave, so the rail can be a round printed
 # number under a chain whose underside is a rolled hex corner and irrational.
 VENT_GAP_SLACK = 1.0
-# The rail shelf's height off the cap — the basin's floor plane. What is left of the
-# vent's column below the rim is split between this open deck, which carries the SIG-9
-# leads and the C14 cordage, and the basin standing on it.
-# `_contents.drip_pan_seat()` measures the gap this leaves and raises outside the band.
-RAIL_LIFT = 17.7
+# Everything the rail stands under the basin. The basin hangs off the chain, `VENT_GAP` under
+# its vent, and the rail brings its own top face out to that plane (`_contents.drip_pan_seat`).
+#   It is ONE LAYER, and the layer is the whole of it. What withdraws is the BASIN — it draws
+# aft off the rails and the rails never move — so nothing under that layer is asked to clear
+# anything, carry anything, or travel. A rail is a strip the tape bonds to on its underside and
+# the basin's floor edge rides on its top, and the height of it is the height of a strip stiff
+# enough to be one: `RAIL_LIFT` is that layer's whole thickness, not a stack of members.
+#   The stack above pays for this directly — `_contents.port_row_z` reads it, so the chain, the
+# port row and the rear panel's whole field stand one of these off the basin.
+RAIL_LIFT = 3.0
 
-RAIL_WEB = 3.0        # web thickness, standing outboard of the flange
-RAIL_FIT = 0.3        # per side, flange tip to web inner face
-RAIL_FOOT = 4.0       # outboard base flange — the VHB footprint the web alone lacks
-RAIL_FOOT_T = 1.5
-RAIL_SHELF_W = 4.0    # inboard reach under the flange
-RAIL_SHELF_T = 2.5
-RAIL_FENCE = 6.0      # web height above the shelf — fences the basin in X
+RAIL_WEB = 3.0        # fence thickness, standing outboard of the basin's floor edge
+RAIL_FIT = 0.3        # per side, flange tip to fence inner face
+RAIL_BASE_REACH = 4.0  # how far the base layer runs INBOARD of the fence, under the basin's
+                       # floor edge — one footprint taking the tape below and the basin above
+RAIL_FENCE = 6.0      # fence height above the basin's floor plane — fences the basin in X
 RAIL_STOP_Y = 3.0     # the home stop at the rail's forward end
-RAIL_TAPE = 1.1       # 3M VHB 4941 between the foot's underside and the foam cap
+RAIL_TAPE = 1.1       # 3M VHB 4941 between the base layer and whatever carries it
 
 
 def _rounded_prism(x, y, z, r):
@@ -150,7 +159,7 @@ def rail_offset():
 
 
 def rail_span():
-    """Outer width across the pair — what the cap top has to offer them. The feet
+    """Outer width across the pair — what the mount has to offer them. The feet
     turn inboard, under the basin, so this is the basin plus two webs."""
     return 2 * (RAIL_WEB + RAIL_FIT) + 2 * FLANGE_W + PAN_X
 
@@ -161,26 +170,27 @@ def rail_length():
 
 
 def _rail():
-    """One L-section rail in the pair's frame: foot, web, shelf, home stop. Its
-    shelf's top face is the basin's floor plane."""
+    """One L-section rail in the pair's frame: base layer, fence, home stop. The base
+    layer's top face is the basin's floor plane."""
     length = rail_length()
-    # Foot and shelf both turn INBOARD off the web, at opposite ends of its height:
-    # the foot lies on the cap under the basin, the shelf carries the basin's floor
-    # edge. Nothing reaches outboard, so the pair is no wider than the basin plus
-    # its two webs.
-    foot = cq.Workplane("XY").box(RAIL_WEB + RAIL_FOOT, length, RAIL_FOOT_T,
+    # ONE layer stands under the basin and it does both jobs at once — the tape bonds to its
+    # underside, the basin's floor edge rides its top. It reaches INBOARD of the fence only;
+    # nothing goes outboard, so the pair is no wider than the basin plus its two fences.
+    base = cq.Workplane("XY").box(RAIL_WEB + RAIL_BASE_REACH, length, RAIL_LIFT,
                                   centered=(False, False, False))
-    web = cq.Workplane("XY").box(RAIL_WEB, length, RAIL_LIFT + RAIL_FENCE,
-                                 centered=(False, False, False))
-    shelf = (cq.Workplane("XY")
-             .box(RAIL_SHELF_W, length, RAIL_SHELF_T, centered=(False, False, False))
-             .translate((RAIL_WEB, 0.0, RAIL_LIFT - RAIL_SHELF_T)))
+    # The fence stands ON that layer rather than running down past it to the rail's underside,
+    # so what fences the basin in X is measured from the plane the basin actually sits on and
+    # the two heights are independent. A fence built from the underside instead ties them
+    # together, and thinning the layer then drives the basin's own floor edge into it.
+    fence = (cq.Workplane("XY")
+             .box(RAIL_WEB, length, RAIL_FENCE, centered=(False, False, False))
+             .translate((0.0, 0.0, RAIL_LIFT)))
     # The home stop stands at the forward end, ahead of where the basin lands —
     # the aft end is the mouth it leaves through. The basin's front wall butts it.
     stop = (cq.Workplane("XY")
-            .box(RAIL_SHELF_W, RAIL_STOP_Y, RAIL_FENCE, centered=(False, False, False))
+            .box(RAIL_BASE_REACH, RAIL_STOP_Y, RAIL_FENCE, centered=(False, False, False))
             .translate((RAIL_WEB, 0.0, RAIL_LIFT)))
-    return foot.union(web).union(shelf).union(stop)
+    return base.union(fence).union(stop)
 
 
 def build_rails():
@@ -214,7 +224,7 @@ def main():
     print(f"  Rails bounding box: X [{rb.xmin:.2f}, {rb.xmax:.2f}]  "
           f"Y [{rb.ymin:.2f}, {rb.ymax:.2f}]  Z [{rb.zmin:.2f}, {rb.zmax:.2f}]  "
           f"at ({ox:+.1f}, {oy:+.1f}, {oz:+.1f}) off the basin origin")
-    print(f"  Lift {RAIL_LIFT:g} to the floor plane on {RAIL_TAPE:g} VHB, "
+    print(f"  Bracket {RAIL_LIFT:g} to the floor plane on {RAIL_TAPE:g} VHB, "
           f"{RAIL_FIT:g} slip per side, {rail_span():g} across the pair")
     print(f"  Withdraws +Y: {PAN_Y:g} mm of travel clears the rails entirely")
     for shape, name in ((pan, "drip-pan.step"), (rails, "drip-pan-rails.step")):

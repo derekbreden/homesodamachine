@@ -29,7 +29,13 @@ the others. This lock is the one thing they all share.
 
 HSM_BUILD_SOURCE labels a build in the messages ("dev-server", "pre-commit", else
 "manual"). HSM_NO_BUILD_LOCK=1 opts out entirely, for tooling that imports a
-generator's helpers without meaning to build.
+generator's helpers without meaning to build — `arrange.py`, `probe.py` and the card
+renderers set it on themselves before the import that would take the lock.
+
+An opted-out build records itself in `unlocked.<pid>.json` and, whenever another build
+is live, prints what the opt-out costs it: it supersedes none of them, none of them can
+follow it, and all of them are on the same cores. It is silent when nothing else is
+running, which is when opting out costs nothing.
 
 HSM_BUILD_LOCK_PROTECT=1 marks a build that must not be superseded — the commit
 gates, which run for minutes and would turn a stray watcher rebuild into a failed
@@ -49,6 +55,12 @@ from pathlib import Path
 LOCK_DIR = Path(tempfile.gettempdir()) / "hsm-cad-lock"
 LOCK = LOCK_DIR / "build.json"        # the single global holder
 BY = LOCK_DIR / "build.by.json"       # who superseded the victim, for its message
+
+
+def _unlocked_of(pid: int) -> Path:
+    """Where a build running under `HSM_NO_BUILD_LOCK` records itself. `acquire` writes it
+    on the way out and `_live_builds` reads it."""
+    return LOCK_DIR / f"unlocked.{pid}.json"
 
 # How long a superseded build gets to stop on its own before it is SIGKILLed.
 # CadQuery sits inside OCCT calls that ignore signals until they return, so the
@@ -216,7 +228,7 @@ def _record(code) -> None:
 
 
 def _sweep() -> None:
-    """Drop the log and result of every build whose pid is gone."""
+    """Drop the log, result and unlocked marker of every build whose pid is gone."""
     try:
         for p in LOCK_DIR.glob("build.*.log"):
             try:
@@ -229,6 +241,66 @@ def _sweep() -> None:
                         q.unlink()
                     except OSError:
                         pass
+        for p in LOCK_DIR.glob("unlocked.*.json"):
+            try:
+                pid = int(p.name.split(".")[1])
+            except (IndexError, ValueError):
+                continue
+            if not _alive(pid):
+                try:
+                    p.unlink()
+                except OSError:
+                    pass
+    except OSError:
+        pass
+
+
+def _live_builds(exclude_pid: int = None) -> list:
+    """Every CAD build running right now: the lock's holder, and each build that opted out
+    and recorded itself. A build that opted out takes no lock, so the two are counted from
+    different files."""
+    out = {}
+    holder = _read(LOCK)
+    if holder and _alive(holder.get("pid", -1)):
+        out[holder["pid"]] = holder
+    try:
+        for p in LOCK_DIR.glob("unlocked.*.json"):
+            rec = _read(p)
+            if rec and _alive(rec.get("pid", -1)):
+                out[rec["pid"]] = rec
+    except OSError:
+        pass
+    out.pop(exclude_pid, None)
+    return sorted(out.values(), key=lambda r: r.get("started", 0.0))
+
+
+def _running_unlocked(script: str, source: str) -> None:
+    """Record this opted-out build, and name what its opting out costs while other builds
+    are on the machine: it supersedes none of them, none of them can follow it, and every
+    one of them is on the same cores. Silent when it is the only build running, which is
+    when opting out costs nothing."""
+    pid = os.getpid()
+    rec = {"pid": pid, "source": source, "script": script, "started": time.time()}
+    try:
+        LOCK_DIR.mkdir(parents=True, exist_ok=True)
+        _sweep()
+        _unlocked_of(pid).write_text(json.dumps(rec))
+        atexit.register(_drop_unlocked, pid)
+    except OSError:
+        pass
+    others = _live_builds(exclude_pid=pid)
+    if not others:
+        return
+    who = ", ".join(f"{_who(o)} pid {o['pid']}" for o in others)
+    print(f"[build] running unlocked (HSM_NO_BUILD_LOCK) beside {len(others)} live "
+          f"build{'s' if len(others) > 1 else ''}: {who} — this build supersedes none of "
+          f"them, none of them can follow it, and all of them are on the same cores",
+          file=sys.stderr, flush=True)
+
+
+def _drop_unlocked(pid: int) -> None:
+    try:
+        _unlocked_of(pid).unlink()
     except OSError:
         pass
 
@@ -249,7 +321,10 @@ def _release():
 def acquire(script: str, source: str = None) -> None:
     """Become the only running CAD build, superseding whoever holds the lock."""
     global _me
-    if os.environ.get("HSM_NO_BUILD_LOCK") or _me is not None:
+    if _me is not None:
+        return
+    if os.environ.get("HSM_NO_BUILD_LOCK"):
+        _running_unlocked(script, source or os.environ.get("HSM_BUILD_SOURCE") or "manual")
         return
     source = source or os.environ.get("HSM_BUILD_SOURCE") or "manual"
     protect = bool(os.environ.get("HSM_BUILD_LOCK_PROTECT"))

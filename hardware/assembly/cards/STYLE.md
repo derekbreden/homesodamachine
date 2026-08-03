@@ -17,7 +17,7 @@ the header band and footer rule already respect this.
 Every card is `header` / `main` / `footer` inside `.card`:
 
 - **header** — `.code` chip (subsystem accent), `h1` title (uppercase, ≤ 2
-  lines, imperative), `.deckpos` (subsystem name · NN/of, "Kitchen edition").
+  lines, imperative), `.deckpos` (subsystem name · NN/of, "Thin edition").
 - **main** — two `.col`s: text left (`flex:1`), visuals right (fixed
   `width: 760px`–`800px`). A card that is mostly diagram may flip the ratio.
 - **footer** — `.done` ("DONE WHEN" + one observable acceptance sentence) and

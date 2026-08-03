@@ -91,7 +91,7 @@ function readSource(file) {
 // them produce content, and the ones that take arguments have nothing to do when spawned
 // bare. Their imports still build the graph below, so editing one rebuilds the generators
 // that read it. Matched as a path suffix, so an edition that carries its own copy of the
-// tree (thin/hardware/scripts) has its tooling excluded on the same rule.
+// tree (hardware/scripts) has its tooling excluded on the same rule.
 const TOOLING_DIR = path.join("hardware", "scripts");
 
 // A "runnable" script is a non-`_`-prefixed .py with a `__main__` block — a

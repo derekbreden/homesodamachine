@@ -16,11 +16,63 @@ Two kinds of requirement, split the way the board splits them:
 - **GOAL** — the realization work this whole effort exists to drive, reported as a
   `score` (0–100), not a gate — the box still models while it converts.
 
-**Done** is mechanical, not a matter of opinion: *every gate green, and all five goal
-axes at 100%*. Green gates alone are permission to build, not done — the same distinction
-the board draws between "fab-ready" and "a tight, hand-routed board." The five goal axes
-are worked in two waves: **placed + located + shaped are the current focus** (driven to
-100% first); **routed + held wait behind them**, rendered gray until the focus is met.
+**Done** is mechanical, not a matter of opinion: *every gate green, and all six goal
+axes at 100%* — and the numbers serve a standard past mechanical, stated in the next
+section. Green gates alone are permission to build, not done — the same distinction
+the board draws between "fab-ready" and "a tight, hand-routed board." The **focus** is
+`bend-radius` and `mounted`, in that order — one gate, one goal, printed together at the
+card's head — and every other goal axis (**placed, located, shaped, routed, held**)
+renders gray behind them until the focus is met.
+
+## The standard — the machine reads as meant
+
+Gates prove the pack is legal. The standard is higher: **someone who opens this machine
+believes a person meant it**. That is what the board's weeks of hand placement and routing
+bought — the autorouter's traces all cleared, and none read as chosen — and it is the whole
+reason this assembly is worked by hand. Legal is the floor; the distance from legal to
+meant is the distance from packed to composed. The expectation of record: the two focus
+figures at their targets carry roughly nine tenths of it.
+
+- **bend-radius** carries the arrangement. It is the one number on the card that cannot be
+  improved by appending anything: most corners are bound by where their run's two ends
+  stand, so the grade is a measurement of the pack wearing a tube's units, and it rises
+  only when bodies move somewhere better.
+- **mounted** carries the commitment. An unfastened body is a position nobody decided; a
+  component whose fastening feature is printed into another placed part is a decision made
+  and kept.
+
+Three rules of engagement follow from the standard rather than from any gate:
+
+- **The envelope is fixed.** A box that can grow always has a legal answer, so the good
+  answer never has to be found — reaching for depth is the autorouter's move in three
+  dimensions. The pack is not full; it is finely subdivided. Room is made by spending the
+  same volume unevenly — bodies nested close where nothing needs to turn, closer together
+  and not further apart, with the freed millimetres pooled where a line has to bend.
+- **Everything moves.** The arrangement is a draft until the focus says otherwise. A pose
+  derived from a neighbour is legibility, not law: the derivation is a line in
+  [`_contents.py`](_contents.py), and changing what it derives from is ordinary work.
+  "X cannot move" is never a finding — it is the name of the next thing to move. A claim
+  about room is made over a render of the region, never over a table
+  ([`calibration/Fences.md`](/calibration/Fences.md) carries both disciplines).
+- **Prefer a move to an instrument.** The tools to look already exist — the three
+  elevations written beside the STEP, `tools/render/render-view.js` for any subset from
+  any side, `fit.py`, this card. A session that builds another describer instead of moving
+  a body has chosen the comfortable failure.
+
+**The last tenth is unexplained variance.** Wherever function leaves a choice free — which
+collet a line takes, which way a fitting clocks, which lane a run dresses to — the machine
+reads meant when that freedom is spent to a rule the eye can find (parallel, mirrored,
+flush, a shared pitch, shortest), and unconsidered when it is spent at random. The
+recurring forms: two lines crossing where re-clocking a valve or swapping an assignment
+would uncross them; a run stepping twice where once would do; parallel runs at three
+different pitches; one fitting clocked off the angle its row shares; twin channels that do
+not read as twins; 3 mm of margin against one wall and 40 against the other with nothing
+using the 40. None of these costs room — the only input they need is noticing, which is
+exactly why their absence reads as *missing any consideration*. The closing sweep on any
+stretch of placement work: open the elevations, list every variance you cannot explain,
+fix the ones no rule contests, and bring Derek the ties — the crossing whose uncrossing
+would break a symmetry, the flush that fights a pitch. Judging a tie is Derek's; seeing it
+is ours.
 
 ## Gates — permission to build
 
@@ -30,11 +82,43 @@ are worked in two waves: **placed + located + shaped are the current focus** (dr
   universe. This gate makes the registry and the pack the same set.
 - **pack-closes** — no two solids overlap. Two parts cannot occupy the same space. This
   is the one gate that also blocks the export today (see *Gating*).
+- **lines-clear** — no routed tube drives through a part it does not terminate on, through a
+  printed piece, or through another tube. The routed analogue of pack-closes: the tubes are
+  `_lines` runs rather than registry components, so pack-closes never sees them. Blocks the
+  export alongside it.
+- **bend-radius** — every routed tube turns at or above the minimum radius of the STOCK it is
+  drawn in. `lines-clear` says a tube's path is free of everything else; this says the path
+  can be made out of that tube at all. A turn tighter than the stock takes buckles the inside
+  wall, ovals the bore and then shuts it, and a collet a kink runs into stops sealing — as
+  unbuildable as two solids overlapping, and invisible to every other check on this card,
+  which read a swept solid and never ask what it took to sweep it. Each run carries two
+  grades: `drawn`, the authored radius over the stock's minimum, and `reach`, the largest
+  radius the run's own INTERIOR legs could seat (`_routing.leg_caps`). Both failing is a
+  placement — the lane is too short to turn in at any legal radius and something either side
+  of it has to move. A good `reach` is not a promise the run can be raised, though: every run
+  is drawn at the most its own legs seat, and what caps most of them is a LEAD — the standoff
+  between the fitting and the lane its run turns onto, which the approach stub cannot outrun
+  without the close folding. That standoff is a routing number while the band the lane stands
+  in still has depth, and a placement once the band is full; `tube-routing.md` carries the
+  trade. The stock minimums live in `STOCKS`; two are sourced from datasheets and the LLDPE one
+  is seeded, like the clearance floor.
 - **clearance-floor** — every part-to-part gap is at least the floor, unless the pair is a
   declared intentional contact (a part resting on another's top, a vent reaching into a
   pan). Part-to-wall is *not* here — parts seat against walls by design; overlap there is
   pack-closes' job. This is the enclosure's IPC-courtyard analog: a real spacing standard,
   measured, not a raw overlap test.
+- **port-leads** — every tube port has the straight a run off it needs. Body-to-body
+  clearance says two parts do not touch; it never says a connector between them can be
+  used, and a port is a hole with a direction. So each port's own bore is cast along its own
+  axis for the stub a run leaves a fitting on plus the tangent its first corner is seated on
+  — the two reaches `route` itself emits — and the cast has to reach. What it may end on is
+  the body the port's own runs join it to, read off those runs' anchors rather than from
+  prose, because a divider's outlet stands one leg-lead off the collet it feeds by design.
+  Two trays a clean millimetre apart with their collets facing each other pass every other
+  gate on this card and pass nothing a tube can be built through; this is the one that says
+  so. Wires are not in it — a loom turns against its own insulation and asks no straight —
+  and neither are stations PICKED on a placeholder box, which are claims about the box; both
+  are still measured and still printed.
 - **pieces-fit-bed** — each printed piece fits the H2C build envelope (325 × 320 × 320).
   A piece that overflows the bed cannot be printed; it is why the box splits into four.
 - **seams-mate** — the printed pieces mate to a slide fit (piece∩piece under the slip
@@ -42,26 +126,36 @@ are worked in two waves: **placed + located + shaped are the current focus** (dr
 - **parts-sourced** — every component is a selected real part or a finished printed-part
   design. You cannot build what is not yet specified.
 
-## Goals — the five axes
+## Goals — the six axes
 
 The board had one goal: take every connection off the autorouter onto deliberate hand
-copper. The enclosure has five, one per thing every component owes. The first three are the
-current **focus** (rendered live, green/yellow); the last two are **deferred** (rendered
-gray) until the focus is met:
+copper. The enclosure has six, one per thing every component owes. **mounted** is the live
+one (green/yellow); the other five render gray behind it until the focus — it and the
+`bend-radius` gate together — is met:
 
-- **placed** *(focus)* — placement criteria are DEFINED in code and currently HELD.
+- **mounted** *(focus)* — the feature that fastens the component is printed INTO another
+  placed part. The board is the case the rest is read against: four boss columns stand in
+  the cold core's top cap, so the cap holds the board, and the board is mounted whether or
+  not the cap itself is — the test is local, what fastens *this* one. Resting on a part is
+  not mounted, however closely: the valve trays carry boss holders, but the holders are in
+  the tray and the tray sits on the cap loose — print those holders into the cap the way
+  the board's columns are and the trays are mounted, not before. Capture is not a fastener
+  (the foam in its floor pocket, the display let into its facet), and neither is adhesive.
+  `MOUNTED_BY` in `scorecard.py` names each component's carrier; a component absent from it
+  is a joint still to design.
+- **placed** *(deferred)* — placement criteria are DEFINED in code and currently HELD.
   A component's intended position is written as measurements the scorecard checks, in three
   forms: **face-to-datum** — a body face within max_mm of the enclosure interior's same
-  face ("foam Y+ within 1 mm of the back wall, Z- within 10 mm of the floor") —
+  face (the foam's Y+ at the back wall, its Z− on the floor) —
   **part-to-part** (`near`) — the exact solid-to-solid gap to a named neighbor at most
-  max_mm, measured on the real shapes, not their boxes ("the assembly's wall tops ride
-  one clearance under the display body") — and **part-to-part keep-out** (`clear`) — that
+  max_mm, measured on the real shapes, not their boxes (the condenser block riding one seam
+  band over the shroud's roof) — and **part-to-part keep-out** (`clear`) — that
   gap at least min_mm, a working space held open on purpose. "Against the back-bottom",
-  "pressed to the display", and "leaves the channel", pinned to numbers. A component counts
+  "stands on the shroud", and "leaves the machine corridor", pinned to numbers. A component counts
   when it has rules *and* they hold; rules defined but violated are a visible drift; no
   rules yet is not-started. Rules are re-definable as the design iterates — authoring one,
   and holding it, are the milestones.
-- **located** *(focus)* — every connector (tube *and* wire) has a POSITION **and a bore Ø** on
+- **located** *(deferred)* — every connector (tube *and* wire) has a POSITION **and a bore Ø** on
   the component: a point the scorecard confirms sits on the placed body's real surface — within
   a bore radius of an actual face, so an opening counts wherever the body has one (the free
   collet of an elbow, a connector on a populated board) and a point in the open air over a
@@ -83,35 +177,50 @@ gray) until the focus is met:
   that carries no tube or wire at all (a passive body) is declared connector-free in
   `PASSIVE_NO_PORTS` and counts once; declaring the absence is the honest analogue of declaring
   a position, and it lets the axis reach 100% without inventing a port.
-- **shaped** *(focus)* — real geometry, not a placeholder box or cylinder. A placeholder
+- **shaped** *(deferred)* — real geometry, not a placeholder box or cylinder. A placeholder
   with the right *dimensions* is still a box; the real silhouette is what other parts must
   be packed against.
 - **routed** *(deferred)* — every connection modeled as a real 3D path (bend radius, length,
-  clearance), not two endpoints and an external graph. The denominator is all three
-  topologies — the fluid tube segments, the **sealed refrigerant loop** (compressor →
-  condenser → drier/cap-tube → evaporator → compressor), *and* the electrical runs (AC / DC /
-  signal / low-voltage); a connection counts only once a real path exists.
+  clearance), not two endpoints and an external graph. The denominator is every topology the
+  machine carries — the flavor manifold's fluid segments, the tap-water path, the carb-water
+  riser, the CO2 path, the **sealed refrigerant loop** (compressor → condenser →
+  drier/cap-tube → evaporator → compressor), *and* the electrical runs (AC / DC / signal /
+  low-voltage). The four declared in `scorecard.py` rather than parsed from a table are there
+  because no table owns them: `fluid-topology.md` is the beverage manifold downstream of the
+  carbonator, and the water, CO2, riser and refrigerant paths all sit outside it. A
+  connection counts only once a real path exists.
 - **held** *(deferred)* — a printed holder that fastens the component to the enclosure: a few
   bosses and screws, a tray-with-bosses that itself fastens, a wall capture, a shell facet.
-  Not a free solid resting in a collision-checked void.
+  Not a free solid resting in a collision-checked void. Looser than `mounted`: a tray whose
+  own holders are not printed into what it sits on counts here and not there.
 
 **Score by authorship, never by "it doesn't collide."** A bounding box that happens not to
 overlap is the enclosure's version of the autorouter's accidentally-clean net — crediting
 it would count the box-thinking this effort exists to remove as progress. So `shaped` and
 `held` are read from what has actually been modeled and engineered (the registry), `placed`
 from authored face-to-datum rules that must measurably hold, `located` from declared port
-positions checked on-surface against the real body *plus* a declared bore for each, and
-`routed` from whether a real path exists — never inferred from the mere absence of a clash.
+positions checked on-surface against the real body *plus* a declared bore for each,
+`routed` from whether a real path exists, and `mounted` from `MOUNTED_BY` — the named part
+whose printed geometry does the fastening — never inferred from the mere absence of a clash.
 
 ## Standards — provisional, awaiting ratification
 
 The clearance floor and the intentional-contact set (`CLEARANCE_FLOOR`, `TOUCHING_OK` in
 `scorecard.py`) are **seeded, not ratified**. The floor is a placeholder for FDM print
-tolerance plus a hand's assembly margin; the contact set is read off the pack's deliberate
-stacks. Ratifying both — a defensible floor, the exact set of pairs allowed to touch — is
-the first directed step. Context-specific keep-outs grow from there as their own gates, the
-way the board grew its gate-set: **tube bend radius** at each port, **tool/wrench access**
-at each fastener, **condenser airflow**.
+tolerance plus a hand's assembly margin. `TOUCHING_OK` is empty: no pair in this pack is
+declared free to touch, and none needs to be — the tightest pair the clearance gate reports
+stands well clear of the floor. Ratifying both — a defensible floor, and the set of pairs
+allowed to touch once the pack carries a stack that wants one — is the first directed step.
+Context-specific keep-outs grow from there as their own gates, the way the board grew its
+gate-set. **Tube bend radius** is the first of them and it is now two: `port-leads`, which
+asks whether a run can leave its fitting at all and found four collets in the loft with a
+tray parked a millimetre in front of them and the water split's supply collet looking down
+the lane at the PSU's back face; and `bend-radius`, which asks whether the turns it takes
+after that can be made in the tube. The `STOCKS` minimums that second one grades against are
+in the same state as the floor — the copper and the braided PVC are sourced, the 1/4" LLDPE
+figure is seeded from what polyethylene tube of that size is commonly published at, and the
+tube actually bought ratifies it. Still to come: **tool/wrench access** at each fastener,
+**condenser airflow**.
 
 ## Assemblability — named, not yet measured
 
@@ -173,136 +282,122 @@ arc), the transferable discipline:
 ## Lessons — already paid for
 
 - **Model shapes, not bounding boxes.** A component's footprint is its real silhouette,
-  not its axis-aligned box. The funnel that necks at a pump's bounding box — topped by two
-  thin outlet elbows — abandons the clear column beside them and goes shallow; measured
-  against the real shape it plunges. The `shaped` axis credits real geometry precisely so
+  not its axis-aligned box. The `shaped` axis credits real geometry precisely so
   box-thinking scores zero, and the clearance gate reads real solid distance, not box gap.
+  What a short `shaped` axis costs is visible in this pack: the condenser block is the one
+  placeholder, so the lane beside it and its gap to the foam assembly are both measured
+  against a box, and both are provisional until the block is real.
 - **Deferred is not removed.** A deferred item is set aside with its intent preserved and
-  counted; a removed item is absent. The scorecard makes the line concrete: a deferred
-  connection is a tracked `routed` gap, each waiting or blocked entry counted against the
-  axis; a removed path is simply not in the topology. Conflating the two is how the
-  bib-gate tray lingered as a phantom — never let a set-aside thing and a deleted thing
-  wear the same label.
+  counted; a removed item is absent. The scorecard makes the line concrete: `routed` counts
+  every connection the machine owes, placed or not, so each unrouted leg is a tracked gap
+  rather than an absence, and `_lines.BLOCKED` — where a leg the pack itself
+  prevents is named, with the measurement that prevents it — is empty. Never let a
+  set-aside thing and a deleted thing wear the same label.
+- **A clearance no gate holds is one that can be lost.** All ten of the cold core's
+  penetrations open on one x, and both bodies of the refrigeration stratum span it; what
+  keeps them clear is height, not lane — the corridor the ports open into is described and
+  measured in [`../README.md`](/hardware/printed-parts/enclosure/README.md). Two things bound
+  it now: the shroud's `clear foam-assembly` rule, and fluid-15, which crosses the machine
+  along that corridor at the bag port's own height and brings `lines-clear` with it. Above the
+  bag line and below the shroud's roof there is still nothing — `lines-clear` fires only on
+  tubes that exist, and the refrigerant loop's three legs are unauthored, so a body placed into
+  that upper band would pass every gate.
 
 ## The work queue — the focus, then what waits behind it
 
-The current focus is **placed + located + shaped to 100%**; `routed` and `held` are parked
-(gray) until then. In the open, so coverage is never misread as done:
+The current focus is **`bend-radius` green and `mounted` to 100%**; the other axes are
+parked (gray), their inventories below maintained while they wait. In the open, so
+coverage is never misread as done:
 
-**Focus — placed + located + shaped:**
+**What the axes are measured over.** The `coverage` gate makes the registry and the pack the
+same set, and every axis below is a fraction of that set — so a focus driven to 100% says
+that what is in the pack is placed, connected and real, not that the machine is packed. What
+is outside it: the manifold's four pump-row tees — Y-C and Y-D in the front column, Y-F and
+Y-G in the loft — and the CO2 chain that lands on the front panel. Each arrives owing every
+axis at once. The manifold owes one more: its tray is a cradle and nothing else — it carries
+no wall, so what stands one tray above another is the enclosure's to provide, and three of
+them are stacked with nothing between them while two more stand side by side on a loft floor
+that does not exist yet. [`_contents.py`](_contents.py)'s docstring carries the front column's
+budget and the scans behind it; [`../README.md`](/hardware/printed-parts/enclosure/README.md)
+is where the pack itself, and what is open about it, is described.
 
-- **Author placement rules for the remaining components.** Twelve carry them today
-  (foam-assembly, compressor-shroud, condenser+fan by face-to-datum; the source-select
-  assembly stood a bag-line fall corridor ahead of the cold core's front face by `clear`; the
-  hopper funnel by z+; the bag-circuit assembly by `near` the source-select tray its
-  stacking walls carry — another declared contact — plus `clear` keep-outs holding the
-  floor stratum open under its own floor; the nozzle-gate assembly by `near` the same tray
-  plus the inset off the +X wall; pump-a by `near` the bag tray's front columns
-  plus a `clear` keep-out holding the funnel drain's fall corridor open over its head;
-  pump-b by `near` its row neighbor plus a `clear` keep-out ahead of the source-select
-  east bank its elbows thread past; both pump-inlet tees by `near` the source bank they
-  hang off; the ASSE 1022 assembly by `near` the rear bulkhead it protects, a `fall` on the
-  vent tip (the drip's own column, dropped straight down, lands on the cold core's cap — the
-  rule the pose exists for, reading the column rather than the body: in this strip the body
-  stands 28 mm off the electronics shelf and the column 4), keep-outs off the shelf row and
-  the C14, and the axial room its barb keeps for the stiff 3/8" hose;
-  all measured on the real solids); the other 19 are
-  not-yet-placed. Each
-  earns a set of measurements that pin its intended position, and those must
-  measurably hold. Rules iterate as the design moves — a redefinition is expected,
-  not a failure.
-- **Locate every connector (`located` 84%).** All 31 components carry full port sets — 90 ports
-  (56 fluid, 6 refrigerant, 28 electrical), each with a position *and* a bore Ø — and 69 of them
-  sit on their body's real surface. Positions are derived from the part's own record where one
-  exists (foam penetrations, compressor holes, both trays' elbow collet centres measured off
-  their built assemblies, the pumps' outlet-elbow collets carried through their lying pose,
-  the funnel drain in the funnel's own frame, the ASSE 1022 chain's three terminals stacked
-  along its flow axis, the CO2 chain's four read off its two placed bodies' end faces), and Ø
-  from the line or fitting the port carries.
-  **21 ports read `off-surface` — a coordinate on the body's bounding box but not on the body:**
-  13 on the PCBA, whose Ø-flagged edge connectors sit at the board's bbox top, ~10.5 mm above the
-  plane the connectors stand on, so the `pcba.tsx` mapping needs its Z re-solved against the
-  board's real top face; the 3 AC-hub terminals, the 3 DC-distribution terminals, the
-  foam's CO2 top entry and the compressor's
-  AC gland are the provisional ones (device terminals not individually modelled, connector not
-  in the STEP) that a viewer pick pins. A handful of electrical bores (glands, headers, looms)
-  are noted estimates pending teardown.
-- **Make the last placeholder real.** The condenser+fan (harvested donor block) is the one
-  component still packed as a box. Convert it to real STEP geometry.
-- **Re-place the deferred front-column subsystems.** The Shutao moisture plate lying in the drip
-  pan is deferred from the pack while the front column settles — tracked here and in the
-  topology, never dropped. It returns with a placement that respects the tray stack at the cold
-  core, the pump row ahead of it, and the funnel drop. What stays open: the slab ahead of the
-  pump row's front faces and the ±X columns beside it.
-  The DIGITEN flow meter is packed, lying in the strip ahead of the cold core's front face at
-  the water inlet's own height — the only air on the carb riser that takes a rigid 60 mm body
-  with a Ø26 waist, the source-select assembly stopping short of it to the south and the
-  bag-circuit tray clearing it above. The riser itself is authored either side of it (`carb-1`,
-  `carb-2`): west inside the 9.52 mm refrig-2 leaves off the outlet collet, up the front face
-  west of the bag fall, east through the meter, up into the lane under the pump — there is no
-  lane over it, the crown and the ceiling leaving a Ø6.35 centreline 0.03 mm short of fitting —
-  and up to the bulkhead in the column east of the ASSE, because water-2 crosses that collet's
-  own southward line. Meeting the meter at the riser's own height rather than above it is what
-  stops the riser's climb at the meter instead of running the core's whole front face. `water-5`
-  comes down that same column from the chain lying above it and stops at the water inlet, so the
-  two stand stacked — each ending at its own port's height — and neither crosses the other. The
-  scorecard carries the gap.
-  The CO2 chain is packed, in the band under the pump row down to the floor-stratum tops: the
-  GASHER check screwed onto the DERPIPE inlet's stub so the front wall carries both, and the
-  WR1110 regulator laid ACROSS the band on its own — the band is the machine's whole width and
-  only one fitting deep, so a chain run inline off the wall would meet the source-select tray's
-  underside before the regulator's 57 mm were up. Its outlet ends over the slot between the
-  compressor and the condenser, which is the only column in the front stratum open to the floor,
-  and that is how segment co2-2 gets under the tray to the cold core's front face. Open on it:
-  the regulator's cradle, and the CO2 order — the appliance runs DERPIPE → check → regulator,
-  which puts the regulator on the vessel side of the check; the carbonator schematic
-  ([`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd)) shows
-  regulator → check and does not carry the WR1110 at all.
-  The water deck is packed. The SeaFlo lies motor-axis along X on the foam cap, 187 × 98 × 72 off
-  SEAFLO's dimensioned drawing; its feet carry the widest 98 and its head end is 44 mm narrower,
-  and that taper opens the band V-K lies along. The ASSE 1022 chain lies along X in the service
-  bay's **aft strip**, between the electronics shelf's back edge and the rear-panel bodies reaching
-  in from the wall, yawed so its 1/4" PTC inlet faces west at the water bulkhead and its 1/4" PTC
-  outlet faces east down the strip, and rolled so its atmospheric vent faces −Z. The drip falls
-  31.6 mm off that tip onto the foam-cap top, which is the pan's ground in this bay: the drip pan +
-  moisture plate sit on the cap under the fall in a 70 × 50 footprint measured clear, and the stub
-  is cut to the room the strip leaves. The chain's mass sits high, so a lane runs beneath it at the
-  suction's own height and V-K lies in that lane; the split and the flow regulator hang down the
-  east pocket. All six water segments route (`scorecard.WATER_SEGMENTS`), the last two through the
-  discharge chain lying level with the pump's discharge — the pump's barbs are molded into its head, so
-  each port is a clamped 3/8" stub, not a thread. **Every margin in the strip is single-digit** —
-  4.71 mm to the C14, 10.1 mm to the bulkhead, 4 mm between the drip's column and the electronics
-  shelf's rear edge — because the chain's Y footprint with the vent laid over nearly fills the
-  strip's depth. Envelope still moves: the chain's 140 × 33 × 43.3 is the reference model's
-  spec-sheet arithmetic rather than the five acquired parts measured.
+**placed + located + shaped:**
 
-**Deferred — behind the focus:**
+- **Placement rules — every component that carries rules holds them.** The foam assembly into
+  the back-bottom corner by face-to-datum, seating on the seams rather
+  than the walls; the compressor shroud on the floor at the front, centred across the machine,
+  with a `clear` keep-out holding the machine corridor open at the cold core's port face; the
+  condenser block by `near` the shroud it stands on plus a `clear` off the core; the display
+  centred on the facet by two matched x rules and the letting-in of y− and z+; the funnel by
+  z+ on the top wall; Zone B's deck and shelf each by `near foam-assembly`, the cap being the
+  mount, plus the neighbours that bound its strip; Zone C's head column — three trays, three junctions, both
+  pumps and the two pump-row tees — each by `near` the thing above, ahead of or beside it, the
+  funnel's real underside, the tray's own coil crown, the strip a junction stands across, the
+  barb a tee's run stands off, plus a `clear` on the condenser's
+  intake lane they all stand in and a `clear` on the shroud's roof for the bodies at the
+  column's bottom; and Zone C's LOFT — two trays and one divider — each by
+  `near` the body it packs against and a `clear` on whatever of the water deck stands under it,
+  because the deck beneath the loft is not level and a floor up there is a body and not a plane. A full `placed` axis is a property of this registry, not of the machine: each
+  component that joins the pack earns its own measurements, and rules iterate as the design
+  moves. A redefinition is expected, not a failure.
+- **Locate every connector — one port short.** Every port carries a position *and* a bore Ø,
+  and all but one sit on their body's real surface. The exception is the compressor shroud's
+  mains gland: a coordinate on the body's bounding box that does not land on the body, reported
+  **off-surface**, and the only thing standing between `located` and 100%. Positions are
+  derived from the part's own record where one exists — the foam ports from the shell's own
+  station names, carried into world through the pack's yaw so they follow both the shell's port
+  layout and the pose, and the shroud's from its generator's hole centres carried through the
+  same turn and seat. Where no record exists they are picks: the condenser's three are picks on
+  a placed *box* and move when the block becomes real, and the display harness is provisional on
+  the interior back face pending a viewer pick. Three bores are declared estimates pending
+  teardown — the shroud's mains gland and earth stud, and the condenser's fan pigtail.
+  `PASSIVE_NO_PORTS` is empty: every body in this pack carries at least one connector, so
+  nothing reaches the axis by declaring an absence.
+- **Make the last placeholder real.** The condenser+fan — a harvested donor block with its
+  factory filter-drier — is the one component still packed as a box, and the only thing standing
+  between `shaped` and 100%. Everything around it is packed against that box, so converting it
+  to real geometry is what makes its neighbors' clearances mean what they say. Its shelf, ear
+  pads and the two side grilles its crossing airflow needs are open.
 
-- **routed** spans the fluid segments, the tap-water path, the sealed refrigerant loop, and the
-  electrical runs (27/66 — the loop's discharge and liquid legs in copper, all six segments of
-  the tap-water path from the rear bulkhead to the cold core, the flavor tap's two legs down the
-  east pocket, the junction column's four straight collet-to-tee legs, the six pump-discharge
-  divider legs and stems, the two nozzle-outlet runs to the rear bulkheads, the hopper drain,
-  and both bag reservoir lines).
-  Paths are
-  authored in [`_lines.py`](_lines.py) with the kit in [`_routing.py`](_routing.py); see
-  [`tube-routing.md`](tube-routing.md). All three valve-manifold trays and both pump-discharge
-  dividers stand placed with every boundary port located — the fluid path waits on the manifold's
-  remaining on-tray legs. The hopper
-  funnel places in
-  [`_contents.py`](_contents.py) alongside the panel bodies, so segment 4 anchors on its own
-  drain. The on-tray seats (3/5–8, 14/16, 24/26) are interior to their assemblies and still
-  count against the axis until modeled. The electrical runs wait on the components being
-  placed, located, and held first. `_lines.BLOCKED` is empty: no connection is blocked by the
-  pack as it stands, so every unrouted one waits on its author or on a body not yet placed.
-  refrig-3 is simply unauthored: its corridor
-  stands open (the source tray's central span stops short of the cold-core face at the evap
-  ports, and the band under the ASSE 1022's body carries it the rest of the way — a cast from
-  the compressor's suction port runs its full length unobstructed), so it waits only on its
-  author.
-- **held** — a printed holder for every internal component. Today only the through-wall
-  bodies (wall + their own nut) and the display (shell facet) are held; every loose internal
-  part floats. Each needs bosses, a cradle, or a tray that itself fastens.
+**mounted + routed + held:**
+
+- **mounted** — the queue is the complement of `MOUNTED_BY`: every component it does not
+  name. Named: the five cap-column modules the deck mounts carry, the aft stand's two trays on
+  the cap columns their own ears reach, the C14 on its two panel bosses, and the WALL
+  SEQUENCE — the ASSE chain, the water split and the flow regulator — each held by a clamp
+  collar cut into the top wall directly over it and drawn shut on one of the fitting's own
+  round barrels by a single M3 across the collar's mouth. That joint is the pattern for every
+  smooth-bodied fitting still loose: the barrel is the fastening surface a fitting already has,
+  and the collar is printed into whatever placed part stands over it. Two things the pattern
+  needs before it travels — a station whose band lies wholly inside one printed piece
+  (`enclosure._dims().y_joint` cut the regulator's own feed collet in two, which is why its
+  collar sits on the end it feeds), and a neighbour that will give the collar its section
+  (the hopper's closed corner gave 5 mm of one basin edge for this one).
+- **routed** spans the flavor manifold's fluid segments, the tap-water path, the carb-water
+  riser, the CO2 path, the sealed refrigerant loop and the electrical runs. **Every fluid
+  segment the topology names is authored**: the flavor tap from the water split to V-A, the
+  whole shared section (source to channel split), BOTH bag circuits — each pair's two legs to
+  its own junction and the one line that carries that reservoir's fill and draw across the
+  machine to the core's own face — BOTH pump rows, and the two nozzle gates' runs out to the rear
+  panel, which are the only lines the manifold sends out of the machine.
+  `_lines.BLOCKED` is empty, so no connection is blocked by the pack as it stands. A run needs
+  two ports to stand between, and most of what is left has one end on a body the pack has not
+  placed — those wait on the body and come back with it. **The refrigerant loop's three legs
+  are the exception**: compressor discharge → condenser, condenser outlet → evaporator inlet,
+  evaporator outlet → compressor suction, every end located and on-surface. They wait only on
+  their author. Paths are authored in [`_lines.py`](_lines.py) with the kit in
+  [`_routing.py`](_routing.py); see [`tube-routing.md`](tube-routing.md).
+- **held** — a printed holder for every component. Held: the foam assembly by the floor, which
+  carries it while the seam posts fence it (unfastened by design); the display by the shell
+  facet it is let into; the drip basin by its own rails and those rails by VHB to the cap; the
+  five shelf modules by the cap's own deck-mount columns; the rear-panel bodies by the wall
+  their nuts clamp; and the wall sequence's three fittings by the top wall's own clamp collars.
+  Loose: the compressor shroud, whose seat, plan register and capture bosses
+  are open; the condenser block, whose shelf and ear pads are open; the funnel, whose attach
+  mode is open; the discharge chain and the CO2 chain's two bodies, whose brackets are open;
+  V-K, which rides the wide plate and so is held by it; and
+  the whole of Zone C — five trays with nothing standing one off another, eight tube-hung
+  junctions and both flavor pumps.
 - **assemblability** — the enclosure's hardest constraint, the order a hand seats every part
   in, has no executable check yet. It is a named requirement and a standing review question
   until the tooling to measure it exists — see *Assemblability*.

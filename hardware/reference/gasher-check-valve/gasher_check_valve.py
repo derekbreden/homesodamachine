@@ -29,6 +29,8 @@ _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 from _cadq_export import export_step
 
+STEP = _here.parent / "gasher-check-valve.step"
+
 HEX_ACROSS_CORNERS = 17.0   # hex circumdiameter (across corners)
 TOTAL_LENGTH = 40.0         # along the flow axis
 THREAD_D = 13.7             # 1/4" NPT major Ø (simplified, no helix)
@@ -48,6 +50,28 @@ def outlet():
     """The far end of the male NPT stub — it threads SOCKET-deep into whatever
     female it meets: (position, outward axis)."""
     return (0.0, TOTAL_LENGTH / 2.0, 0.0), (0.0, 1.0, 0.0)
+
+
+def stations() -> dict:
+    """Both ends, in the order the flow arrow runs."""
+    return {"inlet": inlet(), "outlet": outlet()}
+
+
+def stations_hold():
+    """Hold both ends to `gasher-check-valve.step` — the file the enclosure seats, while it
+    takes these stations out of this module's live figures.
+
+    The valve is a straight run on one axis, so its two stations ARE the ends of that solid's
+    box: the socket mouth a male threads into, and the stub tip that threads into the next
+    female. The chain either side of it is seated on this reading."""
+    bb = cq.importers.importStep(str(STEP)).val().BoundingBox()
+    for name, (pos, _axis), actual in (("inlet", inlet(), bb.ymin),
+                                       ("outlet", outlet(), bb.ymax)):
+        if abs(pos[1] - actual) > 1e-6:
+            raise ValueError(
+                f"gasher {name} stands at y = {pos[1]:g} and {STEP.name} ends at "
+                f"{actual:.4f} — {abs(pos[1] - actual):.4f} mm apart. The pack seats that file "
+                f"and reads this station, so the chain made up on it closes on nothing.")
 
 
 def build():
@@ -82,9 +106,8 @@ def main():
           f"male stub Ø{THREAD_D} × {STUB_LENGTH:g} mm; total {TOTAL_LENGTH:g} mm")
     for label, (pos, axis) in (("inlet  (F)", inlet()), ("outlet (M)", outlet())):
         print(f"  {label}: ({pos[0]:7.2f}, {pos[1]:6.2f}, {pos[2]:7.2f})  out {axis}")
-    out = _here.parent / "gasher-check-valve.step"
-    export_step(part, str(out))
-    print(f"-> {out.name}")
+    export_step(part, str(STEP))
+    print(f"-> {STEP.name}")
 
 
 if __name__ == "__main__":

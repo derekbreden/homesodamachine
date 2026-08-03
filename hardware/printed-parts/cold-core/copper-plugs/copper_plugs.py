@@ -1,34 +1,32 @@
-"""Copper-line plugs — four small PETG pieces that slide down into
-the shared ⌀[6.5 mm](SLOT_W) port in the outer_shell −Y wall and seal the gaps
-between (and above) the four pass-throughs that share that port.
+"""Copper-line plugs — three small PETG pieces that slide down into
+the shared ⌀[6.5 mm](SLOT_W) port in the outer_shell wall and seal the gaps
+between (and above) the three pass-throughs that share that port.
 
-Pass-throughs that pierce the −Y outer wall through the shared port,
+Pass-throughs that pierce that wall through the shared port,
 ordered low → high in Z:
 
-  • lowest copper  (cold-side evaporator inlet)  at z = hole_shift_from_edge
-                                                   + wall_and_floor_thickness
-                                                   + below_tank_elbows_height
-  • highest copper (warm-side evaporator outlet) at z = foam_shell_outer_height
-                                                   − hole_shift_from_edge
-                                                   − wall_and_floor_thickness
-                                                   − above_tank_elbows_height
-  • water inlet                                   at z = foam_shell_outer_height
-                                                   − hole_shift_from_edge
-  • PRV vent (1/4" LLDPE from prv-shroud cap)     at z = water_inlet_z
-                                                   + prv_vent_offset_above_water
+  • lowest copper  (cold-side evaporator inlet)  at z = the front port field's
+                                                   top, one wall of PETG, and
+                                                   the slot's own bottom reach
+  • highest copper (warm-side evaporator outlet) at z = one front_port_pitch up
+  • PRV vent (1/4" LLDPE from prv-shroud cap)     at z = one more
+
+Not one of the three crosses at the height its own fitting sits at. The cold tail
+climbs the port lane to reach the slot; the warm tail and the line off the
+prv-shroud's cap drop it. So the three continue the front port field's column at the
+field's own pitch instead of spreading up the wall, and every penetration the shell's
+−X face has stands in one band low on it.
 
 The PRV vent line is unpressurized in normal operation — it carries
 relief-event discharge from the prv-shroud cavity (see
 `../prv-shroud/`) out to the appliance interior. It shares the same
-slot + same 1/4" OD tube + same ⌀[6.5 mm](SLOT_W) slot punch as the other three
+slot + same 1/4" OD tube + same ⌀[6.5 mm](SLOT_W) slot punch as the other two
 pass-throughs.
 
-Four plugs in the stack:
+Three plugs in the stack:
   • copper-plug-lower:  fills the Z span between the lowest-copper
                         and highest-copper pass-throughs.
   • copper-plug-middle: fills the Z span between the highest-copper
-                        and water-inlet pass-throughs.
-  • copper-plug-upper:  fills the Z span between the water-inlet
                         and PRV-vent pass-throughs.
   • copper-plug-top:    fills the Z span above the PRV vent, up
                         to (just below) the +Z top face of the
@@ -59,8 +57,6 @@ top_flange_outer), so the flanges don't block tubes from seating.
   • LOWER plug:  arch on BOTTOM (over lowest copper), arch on TOP
                  (under highest copper).
   • MIDDLE plug: arch on BOTTOM (over highest copper), arch on TOP
-                 (under water inlet).
-  • UPPER plug:  arch on BOTTOM (over water inlet), arch on TOP
                  (under PRV vent).
   • TOP plug:    arch on BOTTOM (over PRV vent), TOP stays FLAT
                  (it's the top end of the stack).
@@ -88,15 +84,18 @@ from docgen import substitute_py_comments
 from _cold_core_interface import (
     make_box,
     wall_and_floor_thickness,
-    hole_shift_from_edge,
-    below_tank_elbows_height,
-    above_tank_elbows_height,
     foam_shell_outer_height,
-    outer_shell_y_length,
+    outer_shell_x_length,
+    front_port_axis,
+    front_port_field_top_z,
+    front_port_pitch,
+    front_wall_x,
+    port_lane_mid_y,
+    port_lane_wall,
 )
 
 # Slot width in X equals the port's ⌀[6.5 mm](SLOT_W) punch in
-# cut_slot_for_copper_and_water_inlet.
+# cut_slot_for_copper_and_prv_vent.
 slot_width_x = 6.5
 slot_half_width_x = slot_width_x / 2
 slot_x_range = (-slot_half_width_x, slot_half_width_x)
@@ -105,11 +104,19 @@ slot_x_range = (-slot_half_width_x, slot_half_width_x)
 # at each pass-through Z.
 tube_clearance_radius = slot_half_width_x  # [3.25 mm](TUBE_CLEAR_R)
 
-# Web fills the −Y outer_shell wall's Y range exactly ([2 mm](CPLUG_WALL_T) thick at
+# The plug is authored in the PORT FRAME — the frame every foam-shell penetration is
+# authored in, where the wall a port crosses is a −Y wall, the slot runs lateral in x
+# and z is the shell's own. In the shell the slot is in the −X wall, on the port lane;
+# `_cold_core_interface.port_to_shell` is the one transform that carries this frame
+# there, and `_port_cuts.cut_slot_for_copper_and_prv_vent` cuts the slot through it, so the
+# slot and the stack that fills it cannot land in two places. The plug's exported
+# STEP stays in this frame: a printed part's frame is the one that describes it, and
+# what describes a plug is the wall it plugs.
+# Web fills the wall's Y range exactly ([2 mm](CPLUG_WALL_T) thick at
 # [2 mm](CPLUG_WALL_T) wall); the two flanges sit [1 mm](FLANGE_T) outboard and [1 mm](FLANGE_T) inboard of it.
-# [-90.5 mm](WALL_OUTER_Y) — outer face of the −Y outer_shell wall (toward the appliance front).
-outer_wall_outer_y = -outer_shell_y_length / 2
-# [-88.5 mm](WALL_INNER_Y) — inner (cavity-side) face of the −Y outer_shell wall.
+# [-141.5 mm](WALL_OUTER_Y) — outer face of the wall (the shell's −X face, toward the user).
+outer_wall_outer_y = -outer_shell_x_length / 2
+# [-139.5 mm](WALL_INNER_Y) — inner (cavity-side) face of the −Y outer_shell wall.
 outer_wall_inner_y = outer_wall_outer_y + wall_and_floor_thickness
 wall_y_range = (outer_wall_inner_y, outer_wall_outer_y)
 
@@ -122,9 +129,9 @@ flange_y_thickness = 1.0
 plug_half_x_outer = slot_half_width_x + flange_x_overhang_per_side
 plug_x_range = (-plug_half_x_outer, plug_half_x_outer)
 
-# [-87.5 mm](PLUG_Y_INNER) — inner (cavity-side) flange's inward face.
+# [-138.5 mm](PLUG_Y_INNER) — inner (cavity-side) flange's inward face.
 plug_y_inner = outer_wall_inner_y + flange_y_thickness
-# [-91.5 mm](PLUG_Y_OUTER) — outer flange's outward face.
+# [-142.5 mm](PLUG_Y_OUTER) — outer flange's outward face.
 plug_y_outer = outer_wall_outer_y - flange_y_thickness
 plug_y_range = (plug_y_outer, plug_y_inner)
 
@@ -132,24 +139,36 @@ top_flange_y_range = (outer_wall_outer_y, plug_y_outer)
 bottom_flange_y_range = (plug_y_inner, outer_wall_inner_y)
 
 # Pass-through Z positions (centers).
-# [47 mm](LOWEST_COPPER_Z) — cold-side evaporator inlet, measured up from Z=0.
-lowest_copper_z = hole_shift_from_edge + wall_and_floor_thickness + below_tank_elbows_height
-# [166.4 mm](HIGHEST_COPPER_Z) — warm-side evaporator outlet, measured down from the shell top.
-highest_copper_z = foam_shell_outer_height - hole_shift_from_edge - wall_and_floor_thickness - above_tank_elbows_height
-# [198.4 mm](WATER_INLET_Z) — water inlet line, hole_shift_from_edge below the shell top.
-water_inlet_z = foam_shell_outer_height - hole_shift_from_edge
-
-# PRV vent above the water inlet: [198.4 mm](WATER_INLET_Z) → [206.4 mm](PRV_VENT_Z) → [213.4 mm](SHELL_TOP_Z).
-# The LLDPE off the prv-shroud cap bends to land at this Z in the slot.
-# [15 mm](TOP_ROOM) of room between the water inlet and the shell top
-# ([30 mm](TANK_ELBOW_H) above_tank_elbows_height), as [8 mm](PRV_OFFSET) + [7 mm](TOP_PLUG_H).
-prv_vent_offset_above_water = 8.0
-# [206.4 mm](PRV_VENT_Z) — PRV relief line.
-prv_vent_z = water_inlet_z + prv_vent_offset_above_water
-# [7 mm](TOP_PLUG_H) — Z extent of the top plug.
+# The lane is ONE COLUMN AT ONE PITCH. The front port field
+# (`_cold_core_interface.front_port_stations`) takes the bottom of it and the slot
+# takes the span above; both are one bore wide, so they share one line and cannot
+# overlap. A station's Z is where its line CROSSES THE WALL, not the height of the
+# fitting it serves — every line turns onto the lane and climbs or drops it to get
+# here — so the slot's three continue the field at its own `front_port_pitch` rather
+# than each crossing at its fitting's own height. That is what keeps all eight
+# penetrations in one low band: the stack tops out at [67.75 mm](PRV_VENT_Z) on a
+# wall [213.4 mm](SHELL_TOP_Z) tall, so whatever is packed against this face outside
+# meets every port in one reach instead of up the shell's full height. What the
+# stack owes the field is the field's top, one wall of PETG, and the reach of the
+# slot's own rounded bottom below the lowest plug.
+# [51.75 mm](LOWEST_COPPER_Z) — cold-side evaporator inlet, where it crosses the wall.
+slot_bottom_below_lowest_plug = 5.0     # open slot under the lowest plug's bottom arch
+lowest_copper_z = (front_port_field_top_z + port_lane_wall
+                   + slot_width_x / 2 + slot_bottom_below_lowest_plug)
+# The slot's own bottom — the straight section's low end, with the punch's rounded
+# end reaching slot_width_x/2 further down.
+slot_z_bottom = lowest_copper_z - slot_bottom_below_lowest_plug
+# [59.75 mm](HIGHEST_COPPER_Z) — warm-side evaporator outlet. The coil's warm tail
+# leaves its top wrap at `_cold_core_interface.evap_tail_high_z` and DROPS the lane
+# to cross here — the mirror of the cold tail's climb, and the reason the coil's own
+# geometry and this station are two numbers rather than one.
+highest_copper_z = lowest_copper_z + front_port_pitch
+# [67.75 mm](PRV_VENT_Z) — PRV relief line, down the lane from the prv-shroud cap.
+prv_vent_z = highest_copper_z + front_port_pitch
+# [145.7 mm](TOP_PLUG_H) — Z extent of the top plug, and it is most of the wall: the
+# slot runs out through the shell's top face so the stack can be dropped in from
+# above, so the plug over the highest line has to fill everything above it.
 top_plug_height = foam_shell_outer_height - prv_vent_z
-# [15 mm](TOP_ROOM) — room between the water inlet and the shell top.
-top_room_above_water = prv_vent_offset_above_water + top_plug_height
 
 # Plug end faces meet AT the tube pass-through centers. The arch
 # cutout at each tube-facing end (radius = tube_clearance_radius)
@@ -161,10 +180,25 @@ PlugSpec = namedtuple("PlugSpec", ["z_range", "arch_bottom", "arch_top"])
 
 plug_specs = {
     "lower": PlugSpec((lowest_copper_z, highest_copper_z), arch_bottom=True, arch_top=True),
-    "middle": PlugSpec((highest_copper_z, water_inlet_z), arch_bottom=True, arch_top=True),
-    "upper": PlugSpec((water_inlet_z, prv_vent_z), arch_bottom=True, arch_top=True),
+    "middle": PlugSpec((highest_copper_z, prv_vent_z), arch_bottom=True, arch_top=True),
     "top": PlugSpec((prv_vent_z, foam_shell_outer_height), arch_bottom=True, arch_top=False),
 }
+
+
+def slot_station(name):
+    """The line crossing the wall UNDER one plug, in the SHELL'S OWN frame:
+    `(position, outward axis)`.
+
+    A plug's bottom face IS a pass-through centre — the arch there holds the upper half of
+    that tube and the plug below holds its lower half — so the three stations are the three
+    plugs' own low ends, and a plug resized carries its line with it. They stand on the same
+    lane the field's five do, and continue that column at its own pitch."""
+    return ((front_wall_x, port_lane_mid_y, plug_specs[name].z_range[0]), front_port_axis)
+
+
+def slot_stations() -> dict:
+    """All three the slot carries, under the plugs whose low ends they are."""
+    return {name: slot_station(name) for name in plug_specs}
 
 # The arch's half-disc (radius = tube_clearance_radius) is tangent to
 # the web's outer X edge at (x = ±slot_half_width_x, z = at_z), so the
@@ -289,7 +323,6 @@ def main():
     variables = {
         "SLOT_W": f"{slot_width_x:.4g} mm",
         "FLANGE_T": f"{flange_y_thickness:.4g} mm",
-        "PRV_OFFSET": f"{prv_vent_offset_above_water:.4g} mm",
         "VOL_TOL": f"{volume_check_tolerance:.4g} mm³",
         "TUBE_CLEAR_R": f"{tube_clearance_radius:.4g} mm",
         "WALL_OUTER_Y": f"{outer_wall_outer_y:.4g} mm",
@@ -298,14 +331,11 @@ def main():
         "PLUG_Y_OUTER": f"{plug_y_outer:.4g} mm",
         "LOWEST_COPPER_Z": f"{lowest_copper_z:.4g} mm",
         "HIGHEST_COPPER_Z": f"{highest_copper_z:.4g} mm",
-        "WATER_INLET_Z": f"{water_inlet_z:.4g} mm",
         "PRV_VENT_Z": f"{prv_vent_z:.4g} mm",
         "TOP_PLUG_H": f"{top_plug_height:.4g} mm",
-        "TOP_ROOM": f"{top_room_above_water:.4g} mm",
         "WEB_BUFFER": f"{web_arch_buffer:.2f} mm",
         # External references (read-only constants from _cold_core_interface).
         "CPLUG_WALL_T": f"{wall_and_floor_thickness:.4g} mm",
-        "TANK_ELBOW_H": f"{above_tank_elbows_height:.4g} mm",
         "SHELL_TOP_Z": f"{foam_shell_outer_height:.4g} mm",
     }
     substitute_py_comments(
@@ -314,7 +344,6 @@ def main():
         expected_counts={
             "SLOT_W": 4,
             "FLANGE_T": 2,
-            "PRV_OFFSET": 1,
             "VOL_TOL": 1,
             "TUBE_CLEAR_R": 1,
             "WALL_OUTER_Y": 1,
@@ -323,13 +352,10 @@ def main():
             "PLUG_Y_OUTER": 1,
             "LOWEST_COPPER_Z": 1,
             "HIGHEST_COPPER_Z": 1,
-            "WATER_INLET_Z": 2,
             "PRV_VENT_Z": 2,
-            "TOP_PLUG_H": 2,
-            "TOP_ROOM": 2,
+            "TOP_PLUG_H": 1,
             "WEB_BUFFER": 1,
             "CPLUG_WALL_T": 3,
-            "TANK_ELBOW_H": 1,
             "SHELL_TOP_Z": 1,
         },
     )

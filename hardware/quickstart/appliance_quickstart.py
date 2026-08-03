@@ -41,7 +41,10 @@ from pathlib import Path
 _here = Path(__file__).resolve()
 _hardware = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hardware / "scripts"))
-sys.path.insert(0, str(_hardware.parent / "tools"))
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
+)
 from _cadq_export import export_pdf
 from docgen import substitute_py_comments
 

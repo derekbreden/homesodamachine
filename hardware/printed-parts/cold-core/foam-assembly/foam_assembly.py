@@ -23,9 +23,11 @@ corners + the two mid-long-side bosses on their diagonal), which is 180°
 symmetric about Z — that is what leaves the top cap free to rotate. The
 bottom cap is the same cup seated mouth-down, so its screws land on the
 shell's existing bottom-face inserts with no rotation and no boss moves.
-_report() proves all of it: the CO2 line's bore runs clear end to end, a
-thin vertical probe at each screw position passes clear through every cap
-and lid, and no two solids overlap (mating faces touch at zero volume)."""
+_report() proves all of it: the CO2 line's bore runs clear end to end, each
+cap conduit runs clear through the top cap and its lid while the bottom
+stack stands solid on the same line, a thin vertical probe at each screw
+position passes clear through every cap and lid, and no two solids overlap
+(mating faces touch at zero volume)."""
 
 import sys
 from pathlib import Path
@@ -42,9 +44,14 @@ sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 from _cadq_export import export_assembly
 from _cold_core_interface import (
     attachment_xy_positions,
-    co2_inlet_x,
+    cap_conduits,
+    cap_conduit_axis,
+    cap_conduit_bore_radius,
+    co2_inlet_y,
     co2_inlet_tube_radius,
+    port_lane_mid_y,
     screw_clearance_radius,
+    deck_mount_xy,
     foam_cap_height,
     head_pad_height,
 )
@@ -71,6 +78,37 @@ def _spin(shape):
     """Rotate 180° about the Z axis — the top cap's install orientation,
     which carries its deck-mount stations to the deck positions they hold."""
     return shape.rotate(cq.Vector(0, 0, 0), cq.Vector(0, 0, 1), 180)
+
+
+def spin_xy(p):
+    """A cap-frame `(x, y)` at the top cap's install orientation — the half turn `_spin`
+    gives the metal, given to a coordinate."""
+    return (-p[0], -p[1])
+
+
+def cap_conduit_station(name):
+    """One cap conduit's mouth in the ASSEMBLY'S OWN frame: `(x, y)`.
+
+    The bore is authored in the CAP's frame and the cap installs spun, so this is where a
+    line crossing the stack's top face actually comes out."""
+    return spin_xy(cap_conduits[name])
+
+
+def cap_conduit_axis_out():
+    """The way out of a cap conduit, in the assembly's frame — the top cap's +Z, which the
+    spin about Z leaves alone."""
+    return cap_conduit_axis
+
+
+def deck_mount_station(name):
+    """One deck mount's column tops in the ASSEMBLY'S OWN frame: a tuple of `(x, y)`.
+
+    The columns are authored in the CAP's frame and the cap installs spun, so this is where
+    a module's mount pattern actually lands on the stack. Both frames are centred on the
+    stack's own axis, so the spin is the whole of the difference. What each module then
+    stands at in Z is `_cold_core_interface.deck_mount_standoff`; whoever seats the
+    assembly carries all of it."""
+    return tuple(spin_xy(p) for p in deck_mount_xy(name))
 
 
 def _place_z(shape, *, zmin=None, zmax=None):
@@ -142,32 +180,42 @@ def _report(placed):
     P = [(round(x, 6), round(y, 6)) for x, y in attachment_xy_positions]
     print("  screw pattern: 6 points, the original diagonal (shared top + bottom)  OK")
 
-    # The CO2 line crosses the assembly on one axis and one part. A probe run
-    # down the bore's own line — the bottom plate's port offset in X, the
-    # water outlet's Z — passes clear through the shell from the plate's
-    # centre out past the −Y wall. The same probe run up the cap stack must
-    # find solid everywhere: nothing traverses the caps, so neither carries a
-    # CO2 bore.
+    # The CO2 bore runs from the bottom plate's lane-side port out to the PORT LANE — the
+    # tube turns there and leaves by its own front-field station, so the lane is where the
+    # bore ends and where the probe stops. What it crosses on the way is the tank support
+    # ring.
     probe_r = co2_inlet_tube_radius - 0.3
     shell_solid = placed["foam-shell"][0]
-    sb = shell_solid.BoundingBox()
     probe = cq.Solid.makeCylinder(
-        probe_r, sb.ylen / 2 + 4,
-        cq.Vector(co2_inlet_x, 0, front_face_port_z), cq.Vector(0, -1, 0),
+        probe_r, co2_inlet_y - port_lane_mid_y,
+        cq.Vector(0, co2_inlet_y, front_face_port_z), cq.Vector(0, -1, 0),
     )
-    if shell_solid.intersect(probe).Volume() > 1e-6:
-        print("  ** CO2 bore blocked in foam-shell at x=%+.2f z=%.2f"
-              % (co2_inlet_x, front_face_port_z))
-    for name in ("foam-cap-top", "foam-cap-lid-top", "foam-cap-bottom", "foam-cap-lid-bottom"):
-        solid = placed[name][0]
-        b = solid.BoundingBox()
-        column = cq.Solid.makeCylinder(
-            probe_r, b.zlen + 4, cq.Vector(co2_inlet_x, 0, b.zmin - 2), cq.Vector(0, 0, 1)
-        )
-        if solid.intersect(column).Volume() <= 1e-6:
-            print("  ** %s is open on the CO2 line — the caps carry no bore" % name)
-    print("  CO2 bore: clear through the shell at x=%+.2f, z=%.2f; cap stack solid  OK"
-          % (co2_inlet_x, front_face_port_z))
+    blocked = shell_solid.intersect(probe).Volume()
+    print("  CO2 bore: y %+.2f .. %+.2f at z %.2f — %s"
+          % (co2_inlet_y, port_lane_mid_y, front_face_port_z,
+             "clear  OK" if blocked <= 1e-6 else "** BLOCKED by %.3f mm^3" % blocked))
+
+    # Each cap conduit is one column of the TOP cap carrying a through bore, and the lid
+    # passes it. A probe on the conduit's own line meets no material in either — and the
+    # same probe meets solid in both bottom-cap parts, which carry no conduit.
+    probe_r = cap_conduit_bore_radius - 0.3
+    for cname in cap_conduits:
+        cx, cy = cap_conduit_station(cname)
+        for name, want_open in (("foam-cap-top", True), ("foam-cap-lid-top", True),
+                                ("foam-cap-bottom", False), ("foam-cap-lid-bottom", False)):
+            solid = placed[name][0]
+            b = solid.BoundingBox()
+            column = cq.Solid.makeCylinder(
+                probe_r, b.zlen + 4, cq.Vector(cx, cy, b.zmin - 2), cq.Vector(0, 0, 1))
+            blocked = solid.intersect(column).Volume()
+            if want_open and blocked > 1e-6:
+                print("  ** %s blocks the %s conduit at (%.2f, %.2f) by %.3f mm^3"
+                      % (name, cname, cx, cy, blocked))
+            if not want_open and blocked <= 1e-6:
+                print("  ** %s is open on the %s line — the bottom cap carries no conduit"
+                      % (name, cname))
+        print("  cap conduit %-9s (%+7.2f, %+7.2f) clear through cap + lid; bottom solid  OK"
+              % (cname, cx, cy))
 
     # A thin vertical probe at each screw position must pass clear through both
     # parts of each stack — a real through-hole for every screw.

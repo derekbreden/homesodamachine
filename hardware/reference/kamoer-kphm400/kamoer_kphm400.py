@@ -20,8 +20,8 @@ The body parts are conformed to the case interior, imported live from
 
 The pump's two outlet barbs sit on the body's +Y face (`body_y_face`) at the
 arch-notch positions and reach out toward the case wall (`y_face`); this model
-draws no tubing — `arch_xs` / `body_y_face` / `arch_plane_z` carry the seat
-anchors for whatever fittings attach downstream (see `pump_assembly.py`).
+draws no tubing — `barb(i)` is each as a station in the pump's own frame, for
+whatever seats the pump and attaches downstream (see `pump_assembly.py`).
 """
 
 import sys
@@ -58,6 +58,23 @@ body_y_face = cy + head_w / 2  # pump body +Y face — the plane outlet fittings
 
 # --- Axial seams (case frame; -Z = head front, +Z = motor rear) -------------
 head_front_z = base_plane_z - head_depth         # head front (clipped to cavity)
+
+
+# --- The two barbs, as stations ---------------------------------------------
+# A peristaltic head has no fixed sense — the rotor turns whichever way the motor is wired —
+# so which barb draws is the assignment of whatever seats the pump.
+
+def barb(i: int) -> tuple:
+    """One of the two outlet barbs: `(position, outward axis)` in the pump's own frame.
+
+    It stands on the body's +Y face at its arch notch, at the skirt-bottom plane the notches
+    are cut on, and reaches out toward the case wall — so the axis is +Y."""
+    return ((arch_xs[i], body_y_face, arch_plane_z), (0.0, 1.0, 0.0))
+
+
+def barbs() -> tuple:
+    """Both, in `arch_xs` order — west to east across the head's own face."""
+    return tuple(barb(i) for i in range(len(arch_xs)))
 
 
 def _zcyl(r, z0, z1, ox=cx, oy=cy):

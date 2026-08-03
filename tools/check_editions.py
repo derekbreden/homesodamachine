@@ -1,35 +1,33 @@
 """Every anchored path must land on the tree its job lives in.
 
 An edition (web/lib/editions.js) is one machine: its own generators, its own
-assemblies, its own outputs. The trees are copies of each other, so nearly every
-module name exists in all of them, and a path that escapes its own tree is
-invisible — the script runs, the STEP is written, and the number came from the
-wrong machine. A shared path that fails to escape is the other direction: it
-names a directory the edition has no copy of, and the module never imports.
+assemblies, its own outputs. A path that escapes its tree is invisible — the
+script runs, the STEP is written, and the number came from outside the job. A
+shared path that fails to reach the repo root is the other direction: it names a
+directory the content root holds no copy of, and the module never imports.
 
 Nothing enforces either at run time. Python resolves an absolute path without
-complaint, and CadQuery loads whichever STEP it is handed. So this walks each
+complaint, and CadQuery loads whichever STEP it is handed. So this walks the
 edition's Python, resolves the anchor idioms statically, and reports a path that
-lands outside the tree it was written in, or one that stays inside a tree with
-no copy of what it names.
+lands outside the tree it was written in, or one that stays inside that tree
+while naming something only the repo root carries.
 
 Four anchor idioms are in use, and only two of them self-anchor:
 
     next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_export.py").is_file())
     next(p for p in _here.parents if p.name == "hardware")
 
-both stop at the nearest copy, so a file under thin/hardware/ resolves to
-thin/. These do not:
+both stop at the content root. These do not:
 
     next(p for p in _here.parents if (p / "tools" / "docgen").is_dir())
     next(p for p in _here.parents if p.name == "homesodamachine")
 
-They reach the real repo root, which is right for `tools/` — genuinely shared,
-one copy, every edition uses it — and wrong for anything under `hardware/`.
+They reach the repo root, which is right for `tools/` — genuinely shared, one
+copy — and wrong for anything under `hardware/`.
 
 A positional anchor — `.parent`, `.parents[N]` — lands on whatever sits N levels
-up: the repo root from `hardware/`, `thin/` from `thin/hardware/`. One written
-for `tools/` finds it in `hardware/` and finds nothing in `thin/hardware/`.
+up, the repo root from `hardware/`. One written for `tools/` and used under
+`hardware/` finds nothing where it points.
 
 Run: tools/cad-venv/bin/python tools/check_editions.py
 """

@@ -47,7 +47,10 @@ _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
-sys.path.insert(0, str(_hw.parent / "tools"))
+sys.path.insert(
+    0,
+    str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
+)
 from _cadq_export import export_step
 from world_workplane import xy_plane_z_up, xz_plane_y_up
 from docgen import substitute_py_comments

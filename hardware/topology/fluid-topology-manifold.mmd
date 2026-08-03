@@ -66,7 +66,7 @@ flowchart LR
 
     subgraph MfBags["Bag Circuit"]
       VE["V-E"]
-      YE{{"Y-E"}}
+      YE["Y-E"]
       VF["V-F"]
       VH["V-H"]
       YH{{"Y-H"}}
@@ -76,10 +76,10 @@ flowchart LR
     %% Source Selection connections
     Reg -->|"fluid-2"| VA
     VA -->|"fluid-3"| YA
-    VB -->|"fluid-5"| YA
-    YA -->|"fluid-6"| YB
-    YB -->|"fluid-7"| VC
+    YA -->|"fluid-7"| VC
+    VB -->|"fluid-5"| YB
     YB -->|"fluid-8"| VD
+    YA -->|"fluid-6"| YB
 
     %% Pump Junctions connections
     VC -->|"fluid-9"| YC
@@ -129,7 +129,15 @@ flowchart LR
   %% 18-27 = sources -> manifold inlets, manifold -> pumps/bags/nozzles.
   linkStyle 18,19,20,21,22,23,24,25,26,27 stroke:#ccc,stroke-width:2px
 
-  %% Junction geometry: Y-A/Y-B are PP2308E Y-dividers (source-select); the
-  %% other six are PP0208E Tees (in-line run + branch). Orange = Tee.
+  %% Junction geometry: Y-H is the one PP2308E Y-divider, joining the two ports its own
+  %% tray's pair presents SIDE BY SIDE with the room ahead of it a trident needs; the other
+  %% seven are PP0208E Tees (in-line run + branch). Six reach BETWEEN trays, or between a
+  %% tray and a pump; Y-E joins one pair side by side like Y-H, and is a Tee because what
+  %% that pair leaves it is a strip a fitting's own diameter deep.
+  %% A Tee's run is a LANE — one straight length through the fitting, shared by two of
+  %% its three ports — and its branch is the leg that leaves that lane, which is why the
+  %% branch is the only leg at a Tee that changes level. At Y-A and Y-B that lane stands
+  %% on end: the run is a COLUMN, fluid-3 into fluid-7 and fluid-5 into fluid-8, and the
+  %% two branches face each other across fluid-6. Orange = Tee.
   classDef tee fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
-  class YC,YD,YE,YF,YG,YH tee;
+  class YA,YB,YC,YD,YE,YF,YG tee;

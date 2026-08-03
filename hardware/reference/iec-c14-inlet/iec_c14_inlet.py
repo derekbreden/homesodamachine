@@ -1,26 +1,33 @@
 """Reference solid of an IEC 60320 C14 panel-mount AC power inlet — the
-standard cheap snap-in (V-lock / clip-mount) male appliance inlet you see
-on PC power supplies and most appliances. BOM: MXR IEC 60320 C14
+two-screw male appliance inlet, 40 mm screw pitch. BOM: MXR IEC 60320 C14
 panel-mount AC inlet, 10 A / 250 VAC (Amazon B07DCXKNXQ); rear-panel mains
 inlet that accepts a standard NEMA 5-15P-to-C13 line cord.
 
-A single molded body: a rounded-corner front flange (bezel) that overhangs
-the panel cutout, a recessed shroud on the outside face holding the three
-flat male blades (line, neutral, earth) that mate with the C13 cordset, and
-a deeper housing behind the panel carrying the quick-connect spade
-terminals into the enclosure.
+A single molded body: a rounded-corner flange that bears on the panel's
+INSIDE face and carries the two screw holes, a recessed shroud that reaches
+out through the cutout holding the three flat male blades (line, neutral,
+earth) that mate with the C13 cordset, and a deeper housing carrying the
+quick-connect spade terminals into the enclosure.
 
-Real-world dimensions (mm)
---------------------------
-IEC 60320 C14 is a highly standardized form factor. No exact MXR drawing is
-published, so this is a representative generic snap-in C14 inlet built from
-the dimensions that repeat across mainstream datasheets:
-  Panel cutout: 27.0 W x 20.0 H rectangle with two stepped notches at the
-      top corners that receive the V-lock snap tabs (Jameco 27.00 x 20.50;
-      Panel Components / eBay 27 x 19.5; Mouser drawing 26.7 x 20.4;
-      Interpower 27.5 x 20). Panel thickness 1.0-1.5 mm.
-  Front flange / bezel: 30.5 W x 22.5 H, 2.0 thick, rounded corners
-      (Amazon C14 listing bezel height 22.5; standard ~31 x 23 face).
+Two kinds of figure live here. The ones a PANEL is cut and drilled to are
+CALIPERED off the part on the bench. The ones that only describe the part's
+own moulding are datasheet generics, marked as such.
+
+Calipered (the part on the bench)
+---------------------------------
+  Panel cutout: 30.95 W x 22.15 H, corner radius 3.0 — a rounded rectangle,
+      not the notched snap-in rectangle. The whole shroud passes through it.
+  Mounting: two screws, 40.0 mm apart, centred on the cutout's own 22.15 mm
+      axis — so both sit ON the mating axis, one either side of the hole.
+      The inlet lands from INSIDE the panel: its flange bears on the inner
+      face, the screws drive from inside, and each heat-set therefore takes
+      its insert flush with the INNER wall face with the boss standing proud
+      OUTWARD. A boss standing inward would foul the flange it is holding.
+
+Generic (datasheet consensus — awaiting calipers)
+-------------------------------------------------
+  Front flange: its two dimensions come off the calipered screw pitch and
+      cutout plus what an M3 takes. See FLANGE_W / FLANGE_H.
   Recessed shroud on the outside face: ~16 W x ~13 H opening, ~9 deep,
       with the three blades projecting toward +Y inside it.
   Male blades: IEC flat blades ~4.0 W x 1.0 thick. Line + neutral on a
@@ -29,9 +36,9 @@ the dimensions that repeat across mainstream datasheets:
   Body depth behind the panel face: ~27 mm overall housing + terminal
       stubs (Amazon C14 listing total ~49.7 mm minus the bezel/shroud).
 
-Sources: Mouser IEC-connector spec drawing, Interpower C14 snap-in inlet
-note, Jameco IEC 320-C14 snap-in receptacle, Panel Components Corp snap-in
-C14, RS PRO C14 snap-in datasheet — all IEC 60320-1 sheet C14.
+Sources for the generics: Mouser IEC-connector spec drawing, Interpower C14
+inlet note, Jameco IEC 320-C14 receptacle, Panel Components Corp, RS PRO C14
+datasheet — all IEC 60320-1 sheet C14.
 
 Coordinate convention
 ----------------------
@@ -40,12 +47,12 @@ Matches jg_bulkhead_union.py.
       enclosure, where the C13 line cord plugs in — the male blades face
       +Y). -Y = INWARD (the housing and spade terminals reach into the
       enclosure).
-  Origin = the panel-seating plane = the back face of the front flange
-      (the plane that sits against the OUTSIDE of the rear panel). The
-      bezel + recessed blades stand proud at y >= 0; the housing + terminals
-      sit at y < 0.
+  Origin = the panel-seating plane = the front face of the flange, which
+      bears on the INSIDE of the rear panel. The shroud and its blades reach
+      out through the cutout at y >= 0; the flange, the housing and the
+      terminals sit at y < 0, inside the enclosure.
   +Z = up. X completes the right-handed frame. The cutout long axis
-      (width 27 mm) is along X; the short axis (20 mm) is along Z.
+      (width 30.95) is along X; the short axis (22.15) is along Z.
 
 Note on the sketch plane: on the raw cq.Workplane(xz_plane_y_up), local +y
 maps to world -Z (chirality inversion documented in world_workplane.py), so
@@ -72,12 +79,27 @@ sys.path.insert(
 from _cadq_export import export_step
 from world_workplane import xz_plane_y_up
 
+STEP = _here.parent / "iec-c14-inlet.step"
 
-# --- Front flange (bezel), outside the panel ------------------------------
-FLANGE_W = 30.5      # X
-FLANGE_H = 22.5      # Z
+
+# --- CALIPERED: what a panel is cut and drilled to ------------------------
+# The rounded rectangle the shroud passes through, and the two screws that hold the
+# inlet against the panel's INNER face. Everything a printed wall does for this part
+# comes off these four numbers.
+CUTOUT_W = 30.95     # X
+CUTOUT_H = 22.15     # Z
+CUTOUT_R = 3.0       # corner radius of that rectangle
+SCREW_PITCH = 40.0   # X, centre to centre; both screws on the cutout's own Z centreline
+SCREW_D = 3.0        # M3
+
+# --- Front flange, bearing on the panel's INNER face ----------------------
+# It reaches past both screws with moulding around each, and overhangs the cutout it
+# covers. Both dimensions are the calipered figures plus what an M3 takes.
+FLANGE_EAR = SCREW_D / 2.0 + 2.0     # moulding around a screw hole, edge to centre
+FLANGE_W = SCREW_PITCH + 2.0 * FLANGE_EAR       # X — reaches past both screws
+FLANGE_H = CUTOUT_H + 2.0 * FLANGE_EAR          # Z — overhangs the cutout it covers
 FLANGE_T = 2.0       # Y, proud of the seating face
-FLANGE_FILLET = 2.5  # rounded bezel corners
+FLANGE_FILLET = 2.5  # rounded flange corners
 
 # --- Shroud: the recessed cavity on the outside face that the C13 plug
 #     enters, with the three male blades standing inside it ---------------
@@ -98,45 +120,124 @@ LN_SPACING = 14.0    # line<->neutral center spacing along X
 EARTH_OFFSET_Z = 8.0  # earth blade above the L/N line (world +Z)
 
 # --- Housing behind the panel + quick-connect terminal stubs -------------
-BODY_W = 27.5        # X, snaps into the 27 mm cutout
+# GENERIC. The inlet lands from inside, so this housing stands in the enclosure and
+# passes through nothing — the cutout owes it no clearance.
+BODY_W = 27.5        # X
 BODY_H = 20.5        # Z
 BODY_DEPTH = 22.0    # Y, molded housing into the enclosure
 BODY_FILLET = 1.5
-# Earth-blade notch at the top of the cutout-fitting body (the stepped
-# corners of a snap-in C14): a shallow raised key spanning the top edge.
-KEY_W = 14.0         # X
-KEY_H = 2.0          # Z, rises above BODY_H top edge
-KEY_DEPTH = 6.0      # Y
 
 TAB_W = 4.8          # X, Faston quick-connect spade
 TAB_T = 0.8          # Z
 TAB_PROUD = 5.0      # Y, behind the housing back face
-TAB_DEPTH_Y = -BODY_DEPTH  # tabs start at the housing back face
 
 # Seating planes along Y.
-shroud_rim_y = FLANGE_T + SHROUD_PROUD            # outer rim of the shroud
+shroud_rim_y = SHROUD_PROUD                       # outer rim of the shroud, out through the hole
 cavity_floor_y = shroud_rim_y - CAVITY_DEPTH      # floor the blades stand on
-body_back_y = -BODY_DEPTH                          # housing back face
+flange_back_y = -FLANGE_T                          # the flange's inboard face
+body_back_y = flange_back_y - BODY_DEPTH           # housing back face
+
+
+# --- What a panel owes this receptacle --------------------------------------
+# A screw-mount C14 asks a panel for three things: a rounded CUTOUT its shroud reaches
+# out through, two SCREW STATIONS that hold it there, and the FACE ROOM its flange takes
+# on the inside once it is in. A field spaced to the cutout fouls on the flange, which is
+# the widest of the three.
+#   All three are symmetric about the mating axis: the cutout is centred on it and both
+# screws sit on it. So a panel places one station and the three follow.
+
+
+def panel_cutout() -> tuple:
+    """`(width, height, corner radius)` of the axis-centred rounded rectangle the shroud
+    reaches out through."""
+    return (CUTOUT_W, CUTOUT_H, CUTOUT_R)
+
+
+def panel_screws() -> tuple:
+    """The two screw stations in the panel plane, as `(x, z)` off the cutout's own centre.
+    Both sit ON the mating axis, one either side of the hole."""
+    return ((-SCREW_PITCH / 2.0, 0.0), (SCREW_PITCH / 2.0, 0.0))
+
+
+def panel_footprint() -> tuple:
+    """`(width, height)` the receptacle takes on the panel face, seen down the mating axis —
+    what crowds a neighbour, a wall or a ceiling. The flange is the widest section, and it
+    bears on the panel's INNER face."""
+    return (FLANGE_W, FLANGE_H)
+
+
+def stations_hold():
+    """Hold the calipered panel figures to `iec-c14-inlet.step` — the file the enclosure
+    seats through its wall, while it cuts and drills off these live figures.
+
+    The face footprint is the flange's own outline, an extent of that solid's box either
+    way. Against the cutout: what stands outboard of the seating plane clears it, the
+    flange covers it, and both screws land in flange and miss it."""
+    solid = cq.importers.importStep(str(STEP)).val()
+    bb = solid.BoundingBox()
+    face_w, face_h = panel_footprint()
+    for what, claimed, actual in (("face width", face_w, bb.xlen),
+                                  ("face height", face_h, bb.zlen)):
+        if abs(claimed - actual) > 1e-6:
+            raise ValueError(
+                f"iec-c14-inlet {what} is {claimed:g} and {STEP.name} carries {actual:.4f} — "
+                f"a panel field spaced to this figure is spaced to a body that is not there.")
+    cut_w, cut_h, _r = panel_cutout()
+    # Everything standing OUTBOARD of the seating plane is what reaches through the hole.
+    out = cq.Solid.makeBox(bb.xlen + 2, bb.ymax + 1, bb.zlen + 2,
+                           cq.Vector(bb.xmin - 1, 1e-3, bb.zmin - 1))
+    ob = solid.intersect(out).BoundingBox()
+    for what, thru, hole in (("width", ob.xlen, cut_w), ("height", ob.zlen, cut_h)):
+        if thru > hole - 1e-6:
+            raise ValueError(
+                f"iec-c14-inlet reaches {thru:.4f} through the panel in {what} and the "
+                f"calipered cutout is {hole:g} — the part does not pass its own hole.")
+    for what, cover, hole in (("width", face_w, cut_w), ("height", face_h, cut_h)):
+        if cover <= hole + 1e-6:
+            raise ValueError(
+                f"the cutout is {hole:g} in {what} and the flange {cover:g} — the flange no "
+                f"longer covers the hole it is meant to bear around.")
+    # Each screw has to land in flange material and miss the hole it stands beside.
+    for sx, sz in panel_screws():
+        if abs(sx) + SCREW_D / 2.0 > face_w / 2.0 or abs(sz) + SCREW_D / 2.0 > face_h / 2.0:
+            raise ValueError(
+                f"the screw at ({sx:g}, {sz:g}) reaches past the {face_w:g} x {face_h:g} "
+                f"flange — there is no moulding there to drive into.")
+        if abs(sx) - SCREW_D / 2.0 < cut_w / 2.0 and abs(sz) - SCREW_D / 2.0 < cut_h / 2.0:
+            raise ValueError(
+                f"the screw at ({sx:g}, {sz:g}) breaks into the {cut_w:g} x {cut_h:g} "
+                f"cutout — a boss there stands in the hole the shroud comes through.")
 
 
 def build_flange():
-    """Rounded-corner bezel, Y = 0 to FLANGE_T, overhanging the cutout."""
-    return (
+    """Rounded-corner flange, Y = 0 to FLANGE_T, bearing on the panel's inner face and
+    bored for the two screws that hold it there."""
+    flange = (
         cq.Workplane(xz_plane_y_up)
+        .workplane(offset=flange_back_y)
         .rect(FLANGE_W, FLANGE_H)
         .extrude(FLANGE_T)
         .edges("|Y")
         .fillet(FLANGE_FILLET)
     )
+    for sx, sz in panel_screws():
+        bore = (
+            cq.Workplane(xz_plane_y_up)
+            .workplane(offset=flange_back_y)
+            .center(sx, -sz)                  # local +y -> world -Z
+            .circle(SCREW_D / 2.0)
+            .extrude(FLANGE_T)
+        )
+        flange = flange.cut(bore)
+    return flange
 
 
 def build_shroud():
-    """Raised ring on the bezel face (FLANGE_T -> shroud_rim_y) with a
-    recessed cavity bored back down to the cavity floor — the pocket the
-    C13 plug body enters."""
+    """Raised ring reaching out through the panel cutout (0 -> shroud_rim_y) with
+    a recessed cavity bored back down to the cavity floor — the pocket the C13 plug
+    body enters."""
     ring = (
         cq.Workplane(xz_plane_y_up)
-        .workplane(offset=FLANGE_T)
         .rect(SHROUD_W, SHROUD_H)
         .extrude(SHROUD_PROUD)
         .edges("|Y")
@@ -181,24 +282,16 @@ def build_blades():
 
 
 def build_body():
-    """Molded housing behind the panel (Y = 0 -> body_back_y) that snaps
-    into the cutout, plus a shallow top key representing the stepped
-    earth-corner of a snap-in C14 cutout."""
-    body = (
+    """Molded housing behind the flange (Y = 0 -> body_back_y), standing in the
+    enclosure with the terminals on its back face."""
+    return (
         cq.Workplane(xz_plane_y_up)
+        .workplane(offset=flange_back_y)
         .rect(BODY_W, BODY_H)
         .extrude(-BODY_DEPTH)
         .edges("|Y")
         .fillet(BODY_FILLET)
     )
-    # Top key: local -y to sit at world +Z (top edge of the body).
-    key = (
-        cq.Workplane(xz_plane_y_up)
-        .center(0.0, -(BODY_H / 2.0 + KEY_H / 2.0))
-        .rect(KEY_W, KEY_H)
-        .extrude(-KEY_DEPTH)
-    )
-    return body.union(key)
 
 
 def build_terminals():

@@ -22,7 +22,9 @@ In the file's own frame (long axis = Z):
 | Outlet 2 | −Z (bottom), collet face Z ≈ −19.25 | (0, +7.35) |
 
 So the two outlets point the **same direction**, **14.7 mm apart**, opposite
-the stem. That parallel-outlet shape lets valves feeding a divider stay
-axis-aligned (no fanning) — see `../../valve-manifold/bag-circuit-tray/`.
+the stem. That parallel-outlet shape is what suits a divider to a pair of valve
+ports lying **side by side** — the two mouths already point one way, so nothing
+has to fan — which is why Y-A and Y-B are dividers and the other six junctions
+are Tees ([`fluid-topology.md`](/hardware/topology/fluid-topology.md) §Junctions).
 
 Accepts 1/4" (6.35 mm) OD tube; the 1/4" bore radius is 3.175 mm.

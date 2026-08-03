@@ -1,4 +1,4 @@
-"""Kitchen Edition enclosure assembly — the four enclosure pieces wrapped
+"""Thin Edition enclosure assembly — the four enclosure pieces wrapped
 around the contents.
 
 Combines the four `../enclosure/enclosure-*.step` pieces with the placed
@@ -10,13 +10,19 @@ translucent so the arrangement (and both seams) reads through them.
 Export computes the enclosure scorecard (scorecard.py) over the placed solids
 and the four pieces — the gates (pack closes, part↔part clearance, pieces fit
 the bed, seams mate, parts sourced) and the three goal axes (shaped / routed /
-held) — prints the verdict, and fails the run if any gate fails."""
+held) — and prints the verdict.
+
+There is no failure exit. The .step and the scorecard sidecar are written whatever
+the gates say, a pack that does not close carries its real overlapping geometry, and
+`.githooks/pre-commit` reports the enclosure's verdict without gating on it."""
 
 import hashlib
 import json
 import math
 import os
 import pickle
+import shutil
+import subprocess
 import sys
 from dataclasses import dataclass
 from pathlib import Path
@@ -28,6 +34,9 @@ _repo = next(p for p in _here.parents if (p / "hardware" / "scripts" / "_cadq_ex
 # _repo is this EDITION's root; tools/ is shared machinery with one copy at the
 # repo root, so it gets its own anchor rather than a tools/ per edition.
 _tools = next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"
+# An edition whose root IS the repo root is the default one; the rest are named by their dir.
+# Matches web/lib/editions.js, which the render tool resolves `--edition` through.
+_edition = "kitchen" if _repo == _tools.parent else _repo.name
 sys.path.insert(0, str(_repo / "hardware" / "scripts"))
 sys.path.insert(0, str(_tools))
 from _cadq_export import export_assembly
@@ -35,6 +44,7 @@ from docgen import substitute_py_comments
 import _boxes
 import _contents as contents
 import _lines
+import fresh
 import scorecard
 
 _ENCLOSURE_DIR = _repo / "hardware" / "printed-parts" / "enclosure" / "enclosure"
@@ -62,13 +72,12 @@ CLASH_COLOR = cq.Color(1.00, 0.12, 0.20, 1.00)  # editor-only: the overlap volum
 def _placed_display():
     """The display reference seated in the facet housing: rotated −45° about X so
     its −Y screen faces the facet normal, then translated so the body lands on the
-    PCB hole (facet center + display_body_offset). That carries its glass, which
-    overhangs the body the opposite way, onto the centered counterbore."""
+    PCB hole (`enclosure.display_centre_x` + display_body_offset). That carries its
+    glass, which overhangs the body the opposite way, onto the centred counterbore."""
     outer = enclosure._dims().outer
     a, _n, origin, _dy, _dz = enclosure._facet_geom(outer)
-    fcx = outer[0] + enclosure.display_facet_x / 2.0
     target = (
-        fcx + enclosure.display_body_offset_x,
+        enclosure.display_centre_x(outer) + enclosure.display_body_offset_x,
         origin[1] + enclosure.display_body_offset_slope * math.cos(a),
         origin[2] + enclosure.display_body_offset_slope * math.sin(a),
     )
@@ -76,37 +85,22 @@ def _placed_display():
     return disp.rotate((0, 0, 0), (1, 0, 0), -45.0).translate(target)
 
 
-# --- Placement overrides -----------------------------------------------------
-# The 3D viewer's dev-only component editor writes per-component moves here (a
-# JSON sidecar beside the .step) and re-runs this script; each override is a
-# sequence of steps — every step a rotate about the solid's CURRENT centre then
-# a translate — applied to that named solid before it joins the pack. Steps
-# accumulate (the editor appends one per Apply, from the pose it's showing), so a
-# rotate always turns about the centre the viewer rotated about; preview and
-# rebuild agree. It works for every named solid (the derived trays/tees included)
-# because it acts on the finished placement, not the procedural anchor that
-# produced it, and the pack's clash gates (main(), below) validate the moved pose
-# exactly as they do the authored one. An empty/absent sidecar changes nothing.
-# Authored runs (_lines.py) are NOT overridden — a moved component's tubes stay on
-# their authored path until the move is promoted into the placement source
-# (_contents.py).
+# --- The editor's moves ------------------------------------------------------
+# The 3D viewer's dev-only component editor drags a body and writes the move to a sidecar
+# beside the .step, then re-runs this script. The sidecar and its schema belong to
+# `_contents.MOVES_PATH`, and the PACK applies it: each move composes onto the seat its body
+# took, at `place` time, so the body's own stations ride it and anything seated on it follows
+# (`_placing.Pack`). Nothing is applied to a finished solid here — that is the one route by
+# which metal could move without the routes and the gates hearing about it.
 #
-#   { "<component>": [ { "translate": [dx,dy,dz], "rotate": {"axis":[x,y,z], "deg": d} }, … ] }
-#
-# translate and rotate are each optional per step; a lone dict (not a list) is
-# tolerated as a single step.
-OVERRIDES_PATH = _here.parent / "enclosure-assembly.overrides.json"
+# The bodies below are the ones seated OUTSIDE that pack — the through-wall panel fittings,
+# the display, the funnel, and the four printed pieces. A move naming one of them still moves
+# its metal, so a drag is never silently dropped, but its stations do not ride: `_moved_apart`
+# names any that are moved this way, at every build, rather than leaving it to be discovered.
 
 
-def _load_overrides():
-    try:
-        data = json.loads(OVERRIDES_PATH.read_text())
-        return data if isinstance(data, dict) else {}
-    except (FileNotFoundError, ValueError):
-        return {}
-
-
-def _apply_step(shape, step):
+def _step(shape, step):
+    """One dragged step on a bare shape: a turn about the shape's own centre, then a shift."""
     rot = step.get("rotate")
     if rot and rot.get("deg"):
         ax = rot.get("axis") or [0.0, 0.0, 1.0]
@@ -119,38 +113,42 @@ def _apply_step(shape, step):
     return shape
 
 
-def _apply_override(name, shape, overrides):
-    steps = overrides.get(name)
+def _apart(name, shape, moves):
+    """A move on a body the pack did not seat — metal only. See the block above."""
+    steps = moves.get(name)
     if not steps:
         return shape
-    if isinstance(steps, dict):
-        steps = [steps]
-    for step in steps:
-        shape = _apply_step(shape, step)
+    for step in ([steps] if isinstance(steps, dict) else steps):
+        shape = _step(shape, step)
     return shape
 
 
-def _components(overrides):
-    """The interior components (contents.build()) — name → (shape, color), each override-applied.
-    These alone define the interior extent the box is sized around; the extras below mount through
-    or on the wall."""
-    return {n: (_apply_override(n, s, overrides), c)
-            for n, (s, c) in contents.build().items()}
+def _moved_apart(moves, pack):
+    """The moved bodies whose stations did NOT ride, named at every build so the split between
+    the two routes is never something the reader has to find out the hard way."""
+    return sorted(n for n in moves if n not in pack.solids)
 
 
-def _extras(overrides):
+def _components():
+    """The interior components (contents.build()) — name → (shape, color). These alone define
+    the interior extent the box is sized around; the extras below mount through or on the wall.
+    Already moved: the pack seated them, editor's move and all."""
+    return dict(contents.build())
+
+
+def _extras(moves):
     """The placed solids that are not interior components — the through-wall panel bodies, the
-    display, the hopper funnel — name → (shape, color), each override-applied. In the pack for the
-    assembly and the clash gates, out of the interior-extent measure."""
+    display, the hopper funnel — name → (shape, color). In the pack for the assembly and the
+    clash gates, out of the interior-extent measure."""
     out = dict(contents.panel_bodies())
     out["display"] = (_placed_display(), DISPLAY_COLOR)
     out["hopper-funnel"] = (contents.placed_funnel(), FUNNEL_COLOR)
-    return {n: (_apply_override(n, s, overrides), c) for n, (s, c) in out.items()}
+    return {n: (_apart(n, s, moves), c) for n, (s, c) in out.items()}
 
 
-def _pieces_shapes(overrides):
-    """The four enclosure pieces, name → shape, each override-applied."""
-    return {n: _apply_override(n, cq.importers.importStep(str(p)).val(), overrides)
+def _pieces_shapes(moves):
+    """The four enclosure pieces, name → shape."""
+    return {n: _apart(n, cq.importers.importStep(str(p)).val(), moves)
             for n, p in PIECES.items()}
 
 
@@ -170,12 +168,12 @@ class _Pack:
         return {**self.components, **self.extras}
 
 
-def _build_pack(overrides):
+def _build_pack(moves):
     """Build the whole pack once — components, extras, pieces, and the authored line runs."""
     return _Pack(
-        components=_components(overrides),
-        extras=_extras(overrides),
-        pieces=_pieces_shapes(overrides),
+        components=_components(),
+        extras=_extras(moves),
+        pieces=_pieces_shapes(moves),
         lines=_lines.build(),
     )
 
@@ -184,7 +182,7 @@ def build(pack=None):
     """The full assembly. Pass a prebuilt pack to reuse main()'s single build; with none, build a
     fresh pack (standalone / interactive use)."""
     if pack is None:
-        pack = _build_pack(_load_overrides())
+        pack = _build_pack(contents._moves())
 
     assy = cq.Assembly(name="kitchen-edition-enclosure-assembly")
     for name, shape in pack.pieces.items():
@@ -192,7 +190,8 @@ def build(pack=None):
     for name, (shape, color) in pack.solids.items():
         assy.add(shape, name=name, color=color)
     # The authored runs (_lines.py), in the pack's coordinates. Lines, not components: outside
-    # the component registry and its gates (and not moved by overrides).
+    # the component registry and its gates. They are drawn to the pack's own stations, so a
+    # dragged body's runs follow it — the seat it moved on is the seat `_lines` reads.
     for name, (shape, color) in pack.lines.items():
         assy.add(shape, name=name, color=color)
     return assy
@@ -204,11 +203,11 @@ def build(pack=None):
 # So a build that only changed _lines.py (route iteration) recomputes the identical component
 # verdict — ~40s of OCC booleans + distances — for nothing. This caches that verdict, keyed on what
 # determines it: each placed solid's bounding box, plus the source that places and measures them
-# (_contents.py, this file, enclosure.py, scorecard.py, the overrides) and the STEP files they
+# (_contents.py, this file, enclosure.py, scorecard.py, the editor's moves) and the STEP files they
 # import — but NOT _lines.py / _routing.py. On a hit the cheap _lines-dependent checks — the routed
-# axis and the lines-clear gate — are recomputed fresh, so neither the routed % nor the tube-clash
-# verdict goes stale. A miss or any error falls through to a full build_scorecard, so the
-# pack-closes gate is never served stale.
+# axis and the lines-clear + bend-radius gates — are recomputed fresh, so neither the routed % nor
+# the tube-clash and bend-grade verdicts go stale. A miss or any error falls through to a full
+# build_scorecard, so the pack-closes gate is never served stale.
 _SCORECARD_CACHE_PATH = _here.parent / ".enclosure-assembly.scorecard-cache.pkl"
 
 
@@ -231,7 +230,7 @@ def _source_digest():
     verdict to code it never executed, and every later build would hit it."""
     h = hashlib.sha256()
     for p in (Path(contents.__file__), _here, Path(scorecard.__file__),
-              Path(enclosure.__file__), OVERRIDES_PATH):
+              Path(enclosure.__file__), contents.MOVES_PATH):
         h.update(b"PY:" + str(p).encode())
         h.update(p.read_bytes() if p.exists() else b"")
     # The declared connector set itself, not just the file that lists it. PORTS is what
@@ -278,13 +277,15 @@ def _cached_scorecard(pack, pieces, bed, inner):
             if blob.get("key") == key:
                 sc = blob["scorecard"]
                 # The _lines-dependent checks, recomputed fresh (route work changes them every
-                # build): the routed goal and the lines-clear gate. gates_pass is refreshed too,
-                # since lines-clear is a gate.
+                # build): the routed goal and the lines-clear + bend-radius gates. gates_pass is
+                # refreshed too, since two of the three are gates.
                 routed_ck, routed = scorecard.routed_check(solids)
-                fresh = {"routed": routed_ck,
+                bend_ck, bend_rows = scorecard.bend_radius_check()
+                fresh = {"routed": routed_ck, "bend-radius": bend_ck,
                          "lines-clear": scorecard.lines_clear_check(solids, pieces)}
                 sc.checks = [fresh.get(c.id, c) for c in sc.checks]
                 sc.routed = routed
+                sc.bends = bend_rows
                 sc.gates_pass = all(c.status == "pass" for c in sc.checks if c.kind == "gate")
                 return sc
         sc = scorecard.build_scorecard(solids, pieces, bed, inner)
@@ -297,9 +298,14 @@ def _cached_scorecard(pack, pieces, bed, inner):
 
 
 def main():
-    overrides = _load_overrides()
-    pack = _build_pack(overrides)
+    moves = contents._moves()
+    pack = _build_pack(moves)
     solids = {n: s for n, (s, _c) in pack.solids.items()}
+
+    apart = _moved_apart(moves, contents.packed())
+    if apart:
+        print(f"moved apart from the pack — metal only, stations did not ride: "
+              f"{', '.join(apart)}")
 
     inner_bbs = [_boxes.boxed(s) for _n, (s, _c) in pack.components.items()]
     ix = max(b.xmax for b in inner_bbs) - min(b.xmin for b in inner_bbs)
@@ -344,7 +350,11 @@ def main():
     # The scorecard sidecar the 3D viewer reads — the same verdict, beside the model. Written
     # before the .step so the dev watcher's .step broadcast implies the sidecar is already fresh.
     sc_path = _here.parent / "enclosure-assembly.scorecard.json"
-    sc_path.write_text(json.dumps(scorecard.scorecard_dict(sc), indent=2) + "\n")
+    card = scorecard.scorecard_dict(sc)
+    # What this card was built from, so a reader can tell whether it still describes the tree
+    # without building one of its own: fresh.py, and the `source` block in the sidecar contract.
+    card[fresh.STAMP_KEY] = fresh.stamp(_step_inputs() + [contents.MOVES_PATH])
+    sc_path.write_text(json.dumps(card, indent=2) + "\n")
     print(f"-> {sc_path.name}")
 
     assy = build(pack)
@@ -368,29 +378,96 @@ def main():
     export_assembly(assy, str(out))
     print(f"-> {out.name}")
 
-    # Pin the hand-typed placeholder dimensions in _contents.py's prose.
-    substitute_py_comments(
-        Path(contents.__file__),
-        variables={
-            "CONDENSER_AIRFLOW": f"{contents.CONDENSER_AIRFLOW:.4g} mm",
-        },
-        expected_counts={
-            "CONDENSER_AIRFLOW": 1,
-        },
-    )
-    print("-> _contents.py")
+    render_elevations(out)
 
-    # Same for _lines.py: the nozzle-outlet lanes' stations are derived from the pack, so the
-    # prose quoting them is fed from the runs rather than typed alongside them.
-    substitute_py_comments(
-        Path(_lines.__file__),
-        variables=_lines.lane_stations(),
-        expected_counts={
-            "NOZ_DECK_Z": 2, "NOZ_LANE_OUTER_X": 1, "NOZ_LANE_INNER_X": 1,
-            "NOZ_POCKET_STEP": 1, "CARB_1_LEN": 1, "CARB_2_LEN": 1,
-        },
-    )
-    print("-> _lines.py")
+    # The stations the authored runs swept, fed back into _lines.py's own prose so a corridor
+    # is described by the numbers a tube was built along, not a second hand-kept copy of them.
+    stations = _lines.lane_stations()
+    if stations:
+        # Every station reads once in _lines' own prose except the two that read in
+        # _contents' instead — the front chain's, in the aft band comment, and the loft
+        # tee's headroom, in the turn that lays its branch west.
+        _in_contents = ("FRONT_CHAIN_GAP", "LOFT_TEE_HEADROOM")
+        substitute_py_comments(Path(_lines.__file__), variables=stations,
+                               expected_counts={k: 1 for k in stations
+                                                if k not in _in_contents})
+        print("-> _lines.py")
+        # The junction bay's fence in _contents.py names the two bands that pin it, the aft
+        # band's names its own forward chain, and Y-F's turn names what closes the column over
+        # it; those figures live in the same stations dict, so each fence is described by the
+        # numbers the tubes were built along too.
+        substitute_py_comments(Path(contents.__file__), variables=stations,
+                               expected_counts={"OUTLET_LANE": 1, "FRONT_CHAIN_GAP": 1,
+                                                "LOFT_TEE_HEADROOM": 1})
+        print("-> _contents.py")
+
+
+# The three orthographic elevations, written beside the STEP as `enclosure-assembly.<view>.png`.
+#
+# The `.step.png` the export already writes is a grid thumbnail: one small isometric composite,
+# at the size a browsing card wants. Isometric is the projection a coordinate cannot be read in,
+# and at that size a fitting's clocking is not visible at all — so an arrangement has, until now,
+# had no picture anyone could read it off. These are what a drawing is: plan, front and right,
+# each on a millimetre grid with numbered ticks and a scale bar measured through the projection
+# actually used, with the four printed pieces x-rayed so the pack reads through the shell rather
+# than being hidden by it.
+#
+# The set costs one viewer boot. Parsing a 20 MB STEP is the whole expense of a render; moving
+# the camera and recomposing is milliseconds, which is what `--views` exists for.
+ELEVATIONS = "top,front,right"
+
+
+def render_elevations(step: Path) -> None:
+    """Write one elevation per ELEVATIONS view beside `step`.
+
+    Best-effort, like the thumbnail hook it sits beside: a drawing that fails to render must
+    never take an export with it, and `HSM_SKIP_VIEWS` drops it outright for a build that only
+    Skipped when the STEP is byte-identical to the one these elevations were last drawn from.
+    Parsing it is the whole expense, and a build that moved no body writes the same bytes — a
+    comment, a rename, a registry note, a docgen writeback all land here with the geometry
+    where it was. The stamp is the STEP's own digest beside the PNGs; delete it, or any one of
+    them, to draw again."""
+    if os.environ.get("HSM_SKIP_VIEWS"):
+        return
+    stamp = step.with_name(f".{step.stem}.views.sha")
+    drawn = [step.with_suffix("").with_suffix(f".{v}.png") for v in ELEVATIONS.split(",")]
+    digest = hashlib.sha256(step.read_bytes()).hexdigest()
+    try:
+        if (stamp.read_text().strip() == digest
+                and all(p.is_file() for p in drawn)):
+            print(f"  (elevations unchanged: {step.name} is the geometry they were drawn from)")
+            return
+    except OSError:
+        pass
+    node = shutil.which("node")
+    tool = _tools / "render" / "render-view.js"
+    if node is None or not tool.is_file():
+        why = "node not on PATH" if node is None else "render tool missing"
+        print(f"  (elevations skipped: {why})")
+        return
+    # render-view takes the step path relative to the edition's content root, and names each
+    # output `<stem>.<view>.png` — so the stem given here must not be the .step.png thumbnail's.
+    step_rel = step.relative_to(_repo / "hardware")
+    stem = step.with_suffix(".png")
+    try:
+        r = subprocess.run(
+            [node, str(tool), str(step_rel), str(stem),
+             "--edition", _edition, "--views", ELEVATIONS, "--ortho",
+             "--xray", "enclosure_*", "--size", "1600x1200"],
+            cwd=str(_tools.parent), stdout=subprocess.DEVNULL, stderr=subprocess.PIPE,
+            timeout=900, check=False)
+        if r.returncode:
+            print(f"  (elevations skipped: render-view exited {r.returncode})")
+            return
+    except Exception as exc:
+        print(f"  (elevations skipped: {exc})")
+        return
+    try:
+        stamp.write_text(digest + "\n")
+    except OSError:
+        pass
+    for v in ELEVATIONS.split(","):
+        print(f"-> {stem.with_suffix('').name}.{v}.png")
 
 
 if __name__ == "__main__":

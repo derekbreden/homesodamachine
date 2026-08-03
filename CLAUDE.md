@@ -6,7 +6,7 @@ A home soda machine — a kitchen appliance that dispenses flavored carbonated w
 
 The prototype under the counter dispenses from a Lillium-class external carbonator. The integrated appliance under development consolidates the carbonator into the same enclosure.
 
-See `thin/hardware/future.md` for details.
+See `hardware/future.md` for details.
 
 ## Why This Exists
 
@@ -22,7 +22,7 @@ See `marketing/target-market.md` for details.
 
 Run scripts with the project's CadQuery venv: `tools/cad-venv/bin/python`.
 
-See `thin/hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py` for patterns to follow, and its companion `touch_flo_shell.md` for the idioms those patterns embody.
+See `hardware/printed-parts/faucet/touch-flo-shell/touch_flo_shell.py` for patterns to follow, and its companion `touch_flo_shell.md` for the idioms those patterns embody.
 
 ## Firmware
 
@@ -30,7 +30,7 @@ Flash with `tools/flash.sh`.
 
 ## tscircuit forks
 
-The pcba board (`thin/hardware/pcb/pcba`) consumes forked `@tscircuit/*` packages (and `circuit-json-to-gerber`) via git-dependency `overrides` in its `package.json`. The local working trees are at `~/Developer/tscircuit-forks/<pkg>` — branch `homesodamachine/through-hole-vias`, with an `upstream` remote for syncing. See `thin/hardware/pcb/pcba/FORKS.md`.
+The pcba board (`hardware/pcb/pcba`) consumes forked `@tscircuit/*` packages (and `circuit-json-to-gerber`) via git-dependency `overrides` in its `package.json`. The local working trees are at `~/Developer/tscircuit-forks/<pkg>` — branch `homesodamachine/through-hole-vias`, with an `upstream` remote for syncing. See `hardware/pcb/pcba/FORKS.md`.
 
 ## Amazon Prime
 
