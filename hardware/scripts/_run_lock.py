@@ -1,9 +1,16 @@
-"""Global single-flight lock for CAD builds: the newest build wins, unless one that
-answers the same question is already running.
+"""Global single-flight lock for CAD builds: one build at a time, and a build someone is
+waiting on keeps the machine until it is done.
 
-On start a build SIGTERMs any older live build holding the lock and takes it over;
-the superseded build names who took it and exits 143. The lock is a pid file in the
-OS temp dir; a stale file whose pid is dead is ignored.
+On start a build that finds a live holder WAITS for it, up to `WAIT_S`, and past that runs
+alongside it. The one holder it stops instead is a watcher's own rebuild, which fires again
+on the next save. `HSM_BUILD_SUPERSEDE=1` stops any holder: the build SIGTERMs it and takes
+the lock, and the superseded build names who took it and exits 143. The lock is a pid file in
+the OS temp dir; a stale file whose pid is dead is ignored.
+
+`HSM_BUILD_LOCK_PROTECT` and `HSM_BUILD_SUPERSEDE` are the two ends of one question and are
+not the same flag: PROTECT is worn by the holder and stops others stopping IT; SUPERSEDE is
+carried by the caller and stops the holder. A build wearing PROTECT still stops others unless
+they wear it too.
 
 A build that finds a live holder of the SAME script, begun after the last edit to any
 .py under hardware/, follows it instead: it prints what the holder prints and exits on
@@ -26,8 +33,8 @@ generator's helpers without meaning to build.
 
 HSM_BUILD_LOCK_PROTECT=1 marks a build that must not be superseded — the commit
 gates, which run for minutes and would turn a stray watcher rebuild into a failed
-commit. A build that finds a protected holder yields: it runs alongside rather than
-killing it, which is the pre-lock behavior and only for as long as the gate runs.
+commit. A build that finds a protected holder yields immediately rather than waiting
+its WAIT_S out first.
 """
 
 import atexit
@@ -246,6 +253,7 @@ def acquire(script: str, source: str = None) -> None:
         return
     source = source or os.environ.get("HSM_BUILD_SOURCE") or "manual"
     protect = bool(os.environ.get("HSM_BUILD_LOCK_PROTECT"))
+    supersede = bool(os.environ.get("HSM_BUILD_SUPERSEDE"))
     LOCK_DIR.mkdir(parents=True, exist_ok=True)
     _me = {"pid": os.getpid(), "source": source, "script": script,
            "started": time.time(), "protected": protect}
@@ -279,14 +287,16 @@ def acquire(script: str, source: str = None) -> None:
             print(f"[build] could not follow the running build ({e}) — building here instead",
                   file=sys.stderr, flush=True)
 
-    # A watcher rebuild does not kill a hand or agent run. That build is the answer someone
-    # is waiting on, and it is often what started this wave — a generator writes its docgen
-    # substitutions back into its own sources as it finishes, which trips the watcher. Wait
-    # it out instead; past WAIT_S the holder is treated as stuck and superseded below.
+    # Nothing stops a build someone is waiting on. Whoever the caller is, a deliberate holder
+    # is waited out — it is often what started this wave, since a generator writes its docgen
+    # substitutions back into its own sources as it finishes and that trips the watcher. Past
+    # WAIT_S the holder is yielded to below. A watcher's own rebuild is the one holder that is
+    # superseded rather than waited for: it fires again on the next save.
     if (prev and prev.get("pid") != _me["pid"] and _alive(prev["pid"])
-            and _deliberate(prev) and not _deliberate(_me)):
-        print(f"[build] waiting for the {prev.get('source', '?')} build (pid {prev['pid']}, "
-              f"{Path(prev.get('script', '?')).name}) rather than superseding it",
+            and _deliberate(prev) and not supersede):
+        print(f"[build] a {prev.get('source', '?')} build is already running (pid {prev['pid']}, "
+              f"{Path(prev.get('script', '?')).name}) — waiting for it rather than stopping it. "
+              f"HSM_BUILD_SUPERSEDE=1 stops it instead.",
               file=sys.stderr, flush=True)
         # Wait on the LOCK, not the process: a finished build whose parent has not reaped it is a
         # zombie, and `os.kill(pid, 0)` still succeeds on one. The holder drops the lock and
@@ -301,6 +311,15 @@ def acquire(script: str, source: str = None) -> None:
         prev = _read(LOCK)                        # whoever holds it now, if anyone
 
     if prev and prev.get("pid") != _me["pid"] and _alive(prev["pid"]):
+        if _deliberate(prev) and not supersede:
+            # Waited its whole WAIT_S and it is still going. It keeps the lock and the machine;
+            # this build runs beside it on the same cores, as it does behind a protected holder.
+            print(f"[build] the {prev.get('source', '?')} build (pid {prev['pid']}, "
+                  f"{Path(prev.get('script', '?')).name}) is still running after "
+                  f"{WAIT_S:.0f}s — running alongside it rather than stopping it. "
+                  f"HSM_BUILD_SUPERSEDE=1 stops it instead.", file=sys.stderr, flush=True)
+            _me = None
+            return
         print(f"[build] superseding the active build (pid {prev['pid']}, {_who(prev)}) "
               f"— sending SIGTERM", file=sys.stderr, flush=True)
         try:
