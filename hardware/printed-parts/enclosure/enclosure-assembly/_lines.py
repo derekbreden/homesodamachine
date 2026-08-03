@@ -994,6 +994,8 @@ def _authored_runs() -> list:
              "crossing, the machine's length into the collet band, and down the front column "
              "leaning onto the barb's own column"))
 
+    f22_stub = (f["bag-a-tray-assembly"].at("V-E-I")[1] - LINE_PITCH
+                - pa.at("P-A-O")[1])
     runs.append(route(
         "fluid-22", "pump-a.P-A-O",
         {"z": y_e.bb.zmax + LINE_STEP},      # up the strip, clear over the junction across it
@@ -1011,8 +1013,12 @@ def _authored_runs() -> list:
         {"z": loft_cross_z},                 # up the front column, to the funnel floor's hug
         y_g.y("Y-G-1"),                      # aft the machine's length onto the stem's own lane
         "divider-y-g.Y-G-1",                 # and straight down into the stem
-        # The strip off P-A-O carries fluid-16's lean out of Y-E's run, a `WBEND` off the barb.
-        kind="fluid", stub=WBEND, skew=FLAVOR_SKEW,
+        # THE STRIP OFF P-A-O IS BOUNDED BY THE COLLET AT ITS FAR END, not by a bend radius.
+        # What stands aft of this barb on its own lane is fluid-16's close into V-E-I, so the
+        # stub reaches to one `LINE_PITCH` short of that collet — [13.2](F22_STUB) mm, where
+        # the climb it hands off to is [42.9](F22_CLIMB) mm and holds a stock arc at its far
+        # corner with [17.5](F22_STUB_CAP) mm still spare for this one.
+        kind="fluid", stub=f22_stub, skew=FLAVOR_SKEW,
         note="pump B-channel outlet → Y-G stem: east into the tray-east lane, aft down it "
              "under the inlet's turn, up the front column over the water deck, aft over the "
              "pump and west along the funnel's floor onto the stem's own column"))
@@ -1643,6 +1649,11 @@ def lane_stations() -> dict:
         # fluid-16's own lead, and the pump face that bounds it.
         "F16_LEAD":         f"{math.dist(f16.pts[0], f16.pts[1]):.3g}",
         "F16_WEST_AIR":     f"{f16.pts[0][0] - _boxes.boxed(solids['pump-b']).xmax:.3g}",
+        # fluid-22's stub off the barb, the climb it hands off to, and what that climb has left
+        # for this corner once its far one has taken a stock arc.
+        "F22_STUB":         f"{math.dist(runs['fluid-22'].pts[0], runs['fluid-22'].pts[1]):.3g}",
+        "F22_CLIMB":        f"{math.dist(runs['fluid-22'].pts[1], runs['fluid-22'].pts[2]):.3g}",
+        "F22_STUB_CAP":     f"{math.dist(runs['fluid-22'].pts[1], runs['fluid-22'].pts[2]) - contents.LLDPE_STOCK_BEND:.3g}",
         # fluid-23's exit lead, and how far west of that collet the outlet it feeds stands.
         "F23_LEAD":         f"{math.dist(runs['fluid-23'].pts[0], runs['fluid-23'].pts[1]):.3g}",
         "F23_BACKTRACK":    f"{runs['fluid-23'].pts[0][0] - runs['fluid-23'].pts[-1][0]:.3g}",
