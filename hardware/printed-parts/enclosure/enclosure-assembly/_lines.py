@@ -877,14 +877,30 @@ def _authored_runs() -> list:
     # (`_contents.AFT_TRAY_BAY`), not more climb.
     bay_lead = contents.AFT_BAY_LEAD
     y_g_rise = 5.0                       # the diagonal's own vertical share of the climb
-    for cid, frm, to, who in (
-        ("fluid-23", "bag-b-tray-assembly.V-I-I", "divider-y-g.Y-G-2", "bag B fill ← Y-G"),
-        ("fluid-27", "vk-tray-assembly.V-J-I", "divider-y-g.Y-G-3", "nozzle B gate ← Y-G"),
-    ):
-        runs.append(R.bent(cid, frm, to, kind="fluid", skew=FLAVOR_SKEW,
-                           lead=(bay_lead, contents.Y_G_CLIMB - y_g_rise),
-                           note=f"{who}: out of the collet along the bay, about, and up into "
-                                f"the outlet standing over it"))
+    runs.append(R.bent("fluid-27", "vk-tray-assembly.V-J-I", "divider-y-g.Y-G-3",
+                       kind="fluid", skew=FLAVOR_SKEW,
+                       lead=(bay_lead, contents.Y_G_CLIMB - y_g_rise),
+                       note="nozzle B gate ← Y-G: out of the collet along the bay, about, and "
+                            "up into the outlet standing over it"))
+
+    # fluid-23 takes the same climb from the other side of the bay, and its collet does not
+    # face the fitting: V-I-I opens EAST off the turned plate while Y-G-2 stands
+    # [3.1](F23_BACKTRACK) mm WEST of it, so the lead leaves east and the leg it hands off to
+    # comes straight back — the corner past square again. The bay's own ladder does not bound
+    # this lead; the deck east of the plate carries nothing at this height, so the exit reaches
+    # [12](F23_LEAD) mm into it. The APPROACH is fenced: Y-G's outlet faces down and the pair's
+    # port plane stands [9.5](Y_G_CLIMB_FIG) mm under it, so the lead into it stops one
+    # `LINE_HUG` short of the plate.
+    F23_LEAD = 12.0
+    (w1, w2), f23_lean, f23_r, _f23_turns = lean_into(
+        *_mouth(f, "bag-b-tray-assembly.V-I-I"), *_mouth(f, "divider-y-g.Y-G-2"),
+        (F23_LEAD, contents.Y_G_CLIMB - contents.LINE_HUG))
+    runs.append(R.bent(
+        "fluid-23", "bag-b-tray-assembly.V-I-I", w1, w2, "divider-y-g.Y-G-2",
+        kind="fluid", skew=FLAVOR_SKEW, bend=f23_r,
+        note=f"bag B fill ← Y-G: out of the collet along the bay and up into the outlet "
+             f"standing over it, on leads leaning {f23_lean[0]:.1f}°/{f23_lean[1]:.1f}° into "
+             f"the leg between them"))
 
     # fluid-20 — the bag-B draw into Y-F's aft run port. The tee stands over the collet's own
     # column (`_contents.aft_lane_x`), but the pair is turned (`_contents.BAG_B_TRAY_YAW`) and
@@ -1627,6 +1643,10 @@ def lane_stations() -> dict:
         # fluid-16's own lead, and the pump face that bounds it.
         "F16_LEAD":         f"{math.dist(f16.pts[0], f16.pts[1]):.3g}",
         "F16_WEST_AIR":     f"{f16.pts[0][0] - _boxes.boxed(solids['pump-b']).xmax:.3g}",
+        # fluid-23's exit lead, and how far west of that collet the outlet it feeds stands.
+        "F23_LEAD":         f"{math.dist(runs['fluid-23'].pts[0], runs['fluid-23'].pts[1]):.3g}",
+        "F23_BACKTRACK":    f"{runs['fluid-23'].pts[0][0] - runs['fluid-23'].pts[-1][0]:.3g}",
+        "Y_G_CLIMB_FIG":    f"{contents.Y_G_CLIMB:.3g}",
         # The strip the bag-A junction stands across: the pump row's aft face to that pair's own
         # forward collets, off the placed pump rather than off the number its seat was built from.
         "BAG_STRIP":        f"{contents.bag_a_tray_port('V-F-O')[0][1] - _boxes.boxed(solids['pump-a']).ymax:.4g}",
