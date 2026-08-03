@@ -452,8 +452,7 @@ SEAFLO_LANE_X = CORE_WEST_FACE + _seaflo.FOOT_SPAN / 2.0
 # The FITTINGS LOFT, west of the pump and OVER the deck: everything the tap-water path needs
 # between the rear bulkhead and the pump's suction. The lane is narrower than the ASSE chain
 # is long, so that chain runs FRONT TO BACK, hard against the −X wall's inset, and the pan
-# lies under it the way the kitchen's does — the vent weeps off its own stub onto the basin's
-# ground.
+# lies under it — the vent weeps off its own stub onto the basin's ground.
 #   Everything the chain carries sideways it carries INBOARD. Its axis stands one port row off
 # the −X wall by construction (`WATER_BACK_X`), so the wall is the one direction it has no room
 # in: a stub turned that way reaches further past the axis than the wall stands from it, and the
@@ -570,7 +569,7 @@ AC_HUB_TURN = (((0.0, 0.0, 1.0), 90.0), ((0.0, 1.0, 0.0), 270.0))
 # controller a storey over it on the same plane — which leaves the deck band for the relay
 # and the hub and puts every electrical body on one flank with every wet one on the other.
 #   Each turn is a yaw and then a roll about the axis the yaw laid down: the yaw is the
-# module's KITCHEN yaw plus `FOAM_YAW`, and the roll is what stands the board on the edge it
+# module's OWN yaw plus `FOAM_YAW`, and the roll is what stands the board on the edge it
 # is carried by. The controller takes a THIRD turn, a quarter roll about its own long axis,
 # which lays that axis fore-and-aft down the wall instead of standing it up into the top.
 PCBA_YAW = 270.0 + FOAM_YAW
@@ -1677,7 +1676,7 @@ def deck_mount(name):
 
     Two turns stand between the cap's own frame and world: the cap's install spin, which the
     foam assembly carries (`foam_assembly.deck_mount_station`), and `FOAM_YAW`, which the
-    pack's seat carries. A module's own yaw is its kitchen yaw plus `FOAM_YAW` — the
+    pack's seat carries. A module's world yaw is its own plus `FOAM_YAW` — the
     rectangle it bolts to turned, so the module turns with it or sits across its own columns.
 
     `top_z` is where the module's underside seats — the column tops of a mount that stands

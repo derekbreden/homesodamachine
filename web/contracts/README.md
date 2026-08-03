@@ -47,7 +47,7 @@ same file the server does — Node by path, the browser by URL, one source eithe
 
 ## Conventions (enforced in code, no shared module)
 
-- **edition cookie** `hsmEdition` — picks the content root (kitchen / lite). `web/lib/viewer-routes.js`
+- **edition cookie** `hsmEdition` — picks the content root (kitchen). `web/lib/viewer-routes.js`
   reads it; `web/lib/shell.js` mirrors the localStorage choice into it.
 - **legacy redirects** `/dev`, `/dev/diagrams`, `/dev/mermaid`, `/dev/settings` → 301. `web/lib/viewer-pages.js`.
 - **generator detection** — a `.py` is a live-rebuild generator when it calls

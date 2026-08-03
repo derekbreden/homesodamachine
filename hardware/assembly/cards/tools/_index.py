@@ -21,8 +21,8 @@ TOOLS_DIR = Path(__file__).resolve().parent
 CARDS_DIR = TOOLS_DIR.parent
 ASSEMBLY_DIR = CARDS_DIR.parent
 REPO_ROOT = next(p for p in TOOLS_DIR.parents if (p / "tools" / "render").is_dir())
-# The ledger is content: the nearest hardware/, so a duplicated edition reads
-# its own tool list rather than the kitchen's.
+# The ledger is content: the nearest hardware/, so the deck reads the tool list
+# of the tree it stands in.
 HARDWARE = next(p for p in TOOLS_DIR.parents if p.name == "hardware")
 LEDGER = HARDWARE / "ledger" / "tools.md"
 

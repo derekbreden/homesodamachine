@@ -22,9 +22,7 @@ between them. Verticals first, then the crossbar that joins them.
 `../two-valve-tray/`'s own docstring is where this comes from: "a Y-divider takes two
 ports side by side, a Tee takes one above the other, and that is the tray's pose in the
 enclosure rather than anything the tray declares." Both trays here are in the pose that
-makes it a Tee. The kitchen edition runs the same shape between its `source-select` and
-`bag-circuit` assemblies — a Tee inline on each of two columns, standing on the line its
-two collets make — with the branches leaving for the two pumps instead of meeting.
+makes it a Tee.
 
 Origin = the column pair's centre in X, the trays' own centre in Y, Z = 0 at the SELECTS
 tray's valve mounting plane. Forward is −Y: all four junction ports face that way, and

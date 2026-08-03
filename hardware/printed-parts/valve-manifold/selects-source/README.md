@@ -28,10 +28,7 @@ and the two branches face each other with one length of tube between them.
     V-C ──┴────────────── V-D        selects tray
 ```
 
-Verticals first, then the bar that joins them. The kitchen edition runs the same
-shape between its `source-select` and `bag-circuit` assemblies — a Tee inline on
-each of two columns, standing on the line its two collets make — with the branches
-leaving for the two pumps instead of meeting each other.
+Verticals first, then the bar that joins them.
 
 `../two-valve-tray/` says where this comes from: *"a Y-divider takes two ports side
 by side, a Tee takes one above the other, and that is the tray's pose in the
