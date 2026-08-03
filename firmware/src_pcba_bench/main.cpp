@@ -115,6 +115,27 @@ static void cmdScan() {
         Serial.println("  !! nothing answered — check 3V3, and R19/R20 pull-ups");
 }
 
+// The ESP32's own ~45k pull-ups can carry a short bus at 100 kHz. If devices answer
+// here but not under `scan`, the bus wiring reaches them and only the R19/R20 path to
+// 3V3 is missing; if nothing answers either way, IO21/IO22 do not reach the devices.
+static void cmdScanPullup() {
+    Serial.println("\n-- I2C scan on the ESP32's INTERNAL pull-ups --");
+    Wire.begin(PIN_SDA, PIN_SCL, 100000);
+    pinMode(PIN_SDA, INPUT_PULLUP);
+    pinMode(PIN_SCL, INPUT_PULLUP);
+    delay(5);
+    Serial.printf("  idle levels with internal pull-ups: SDA=%d SCL=%d %s\n",
+                  digitalRead(PIN_SDA), digitalRead(PIN_SCL),
+                  (digitalRead(PIN_SDA) && digitalRead(PIN_SCL)) ? "(both released — bus can be driven)"
+                                                                 : "(a line is held low — bus cannot clock)");
+    int found = 0;
+    for (uint8_t a = 0x08; a < 0x78; a++) {
+        Wire.beginTransmission(a);
+        if (Wire.endTransmission() == 0) { Serial.printf("  0x%02X answered\n", a); found++; }
+    }
+    Serial.printf("  %d device(s) on internal pull-ups\n", found);
+}
+
 static void cmdRtc() {
     Serial.println("\n-- U6 DS3231SN --");
     if (!i2cPresent(ADDR_RTC)) { Serial.println("  ABSENT at 0x68"); return; }
@@ -235,9 +256,9 @@ static void cmdBus() {
         else if (hiz == 1) Serial.printf("      floats high but a 45k pulldown wins: no 4.7k %s here — junction OPEN\n", l.pull);
         else               Serial.printf("      dead low: no pull-up reaches this pin — junction OPEN (or line shorted low)\n");
     }
-    Serial.println("  R19/R20 sit on the far side of J8's barrel; an open here is the barrel,");
-    Serial.println("  not the resistors — inner1/inner2 carry no annular ring at that hole.");
-    Wire.begin(PIN_SDA, PIN_SCL, 100000);  // restore the bus driver
+    Serial.print("  re-attaching the I2C peripheral ... "); Serial.flush();
+    Wire.begin(PIN_SDA, PIN_SCL, 100000);
+    Serial.println("returned");
 }
 
 static void cmdLedWalk() {
@@ -294,6 +315,7 @@ static void cmdHelp() {
     Serial.println("  info   chip / flash / reset reason");
     Serial.println("  scan   I2C bus scan");
     Serial.println("  bus    are R19/R20 visible from IO21/IO22 (J8 barrel junction)");
+    Serial.println("  scanpu I2C scan using the ESP32's internal pull-ups instead");
     Serial.println("  rtc    DS3231: temp, status, time, tick check");
     Serial.println("  mcp    both MCP23017s: registers + safe write round-trip");
     Serial.println("  in     off-board signal pins + gas ADC");
@@ -318,9 +340,16 @@ static void cmdAll() {
 
 // ───────────────────────────────────────────────────────────────────────────
 
+// The banner leads and each init step announces itself before it runs, so a stage
+// that never returns is named by the last line printed. Nothing is swept at boot —
+// the console comes up idle and every probe is driven from the prompt.
 void setup() {
     Serial.begin(115200);
     delay(300);
+    Serial.println("\n\n=====================================================");
+    Serial.println(" pcba bring-up console");
+    Serial.println("=====================================================");
+    Serial.printf("boot: serial up, reset reason %d\n", (int)esp_reset_reason());
 
     pinMode(PIN_LED_ACT, OUTPUT); digitalWrite(PIN_LED_ACT, LOW);
     pinMode(PIN_BUZZ, OUTPUT);    digitalWrite(PIN_BUZZ, LOW);
@@ -331,17 +360,17 @@ void setup() {
     pinMode(4, INPUT);
     pinMode(17, INPUT);
     pinMode(19, INPUT);
+    Serial.println("boot: gpio parked");
 
     analogReadResolution(12);
     analogSetPinAttenuation(PIN_GAS_AOUT, ADC_11db);
     analogSetPinAttenuation(PIN_GAS_DOUT, ADC_11db);
+    Serial.println("boot: adc configured");
 
+    Serial.print("boot: Wire.begin(IO21, IO22) ... "); Serial.flush();
     Wire.begin(PIN_SDA, PIN_SCL, 100000);
+    Serial.println("returned");
 
-    Serial.println("\n\n=====================================================");
-    Serial.println(" pcba bring-up console");
-    Serial.println("=====================================================");
-    cmdAll();
     cmdHelp();
     Serial.println("\n> ");
 }
@@ -366,6 +395,7 @@ void loop() {
                 else if (line == "scan") cmdScan();
                 else if (line == "rtc")  cmdRtc();
                 else if (line == "bus")  cmdBus();
+                else if (line == "scanpu") cmdScanPullup();
                 else if (line == "mcp")  { probeMcp(ADDR_MCP_A, "U2 north"); probeMcp(ADDR_MCP_B, "U3 south"); }
                 else if (line == "in")   cmdInputs();
                 else if (line == "walk") cmdLedWalk();
