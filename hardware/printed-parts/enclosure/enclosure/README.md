@@ -314,4 +314,3 @@ clearance for the appliance.
 ## Sources
 [value](NAME) texts are updated by:
 - `/hardware/printed-parts/enclosure/enclosure/enclosure.py`
-- `/hardware/printed-parts/enclosure/enclosure/enclosure.py`

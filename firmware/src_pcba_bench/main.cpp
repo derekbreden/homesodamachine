@@ -97,6 +97,7 @@ static void printBin8(uint8_t v) {
 // ── Commands ───────────────────────────────────────────────────────────────
 
 static void cmdScan() {
+    Wire.begin(PIN_SDA, PIN_SCL, 100000);   // the probe borrows IO21/IO22 as plain GPIO
     Serial.println("\n-- I2C scan (SDA=IO21, SCL=IO22) --");
     int found = 0;
     for (uint8_t a = 0x08; a < 0x78; a++) {
@@ -294,76 +295,80 @@ static void beep(int hz, int ms) {
     digitalWrite(PIN_BUZZ, LOW);
 }
 
-// A continuity tester that reports through the board's own buzzer, so probing needs no
-// screen and no timing: touch a connector pin to that connector's GND and hold until it
-// beeps. Each net answers at its own pitch — low to high, IO25 · IO26 · IO27 · IO33 —
-// and the serial log names whichever one sounded. A contact has to hold 40 ms to count,
-// which is what keeps a fumbled touch from chattering.
+// The continuity probe. It runs by itself from power-on and never needs starting:
+// touch a connector pin to that connector's GND and hold until the board beeps.
+// Every net answers with the same note, so there is nothing to listen past and
+// nothing to keep track of — the serial log names whichever one sounded. A contact
+// has to hold 40 ms to count, which keeps a fumbled touch from chattering.
 //
-// The path each beep exercises is the whole net: ESP32 pad, its via, the trace, the
+// The path a beep exercises is the whole net: ESP32 pad, its via, the trace, the
 // connector barrel. That is the one check no view of the model can stand in for.
-static void cmdWatch() {
-    struct W { const char *name; int gpio; int hz; };
-    static const W w[] = {
-        {"J4.IO23", 23,  500},   // via undrilled — silence here is the expected result
-        {"J4.IO25", 25, 1000},
-        {"J4.IO26", 26, 1500},
-        {"J4.IO27", 27, 2100},
-        {"J3.IO33", 33, 2800},
-    };
-    const int N = 5;
-    Serial.println("\n-- audible continuity probe, 4 minutes --");
+// The three nets whose vias went undrilled are in the table too, as controls —
+// silence on those is the expected reading, not a miss.
+struct Probe { const char *name; int gpio; bool expect; };
+static const Probe kProbe[] = {
+    {"J4.IO25  SENSORS", 25, true },
+    {"J4.IO26  SENSORS", 26, true },
+    {"J4.IO27  SENSORS", 27, true },
+    {"J3.IO33  FAUCET",  33, true },
+    {"J5.IO2   RELAYS",   2, true },
+    {"J4.IO23  SENSORS", 23, false},  // via undrilled
+    {"J8.SDA   I2C",     21, false},  // via undrilled
+    {"J8.SCL   I2C",     22, false},  // via undrilled
+};
+static const int PROBE_N = sizeof(kProbe) / sizeof(kProbe[0]);
+
+static const int PROBE_HZ = 2700, PROBE_MS = 150;
+static bool probeOn = false;
+static int  pStable[PROBE_N], pPending[PROBE_N];
+static unsigned long pSince[PROBE_N];
+static bool pSeen[PROBE_N];
+
+static void probeBegin() {
+    Serial.println("\n-- continuity probe: running --");
     Serial.println("  Touch a connector pin to its own GND pin and hold until it beeps.");
-    Serial.println("  Pitch names the net, lowest to highest:");
-    Serial.println("     IO25 low · IO26 · IO27 · IO33 highest      J4 = SENSORS, J3 = FAUCET");
-    Serial.println("  IO23 would answer lowest of all, and should stay silent — its via is undrilled.");
-    Serial.println("  Two rising notes at the end means every expected net answered.");
-
-    int stable[5], pending[5]; unsigned long since[5]; bool seen[5] = {false};
-    for (int i = 0; i < N; i++) {
-        pinMode(w[i].gpio, INPUT_PULLUP);
+    Serial.println("  Every net uses the same note. These are live:");
+    for (int i = 0; i < PROBE_N; i++) {
+        pinMode(kProbe[i].gpio, INPUT_PULLUP);
         delay(2);
-        stable[i] = pending[i] = digitalRead(w[i].gpio);
-        since[i] = millis();
+        pStable[i] = pPending[i] = digitalRead(kProbe[i].gpio);
+        pSince[i] = millis();
+        pSeen[i] = false;
+        Serial.printf("     %-18s IO%-2d  %s\n", kProbe[i].name, kProbe[i].gpio,
+                      kProbe[i].expect ? "" : "(control — undrilled via, expect silence)");
     }
-    beep(900, 90); beep(1400, 90);          // armed
-    Serial.println("  probing — send any character to stop early");
-
-    unsigned long t0 = millis();
-    while (millis() - t0 < 240000) {
-        for (int i = 0; i < N; i++) {
-            int v = digitalRead(w[i].gpio);
-            if (v != pending[i]) { pending[i] = v; since[i] = millis(); continue; }
-            if (v != stable[i] && millis() - since[i] > 40) {
-                stable[i] = v;
-                if (v == LOW) {
-                    seen[i] = true;
-                    Serial.printf("   [%6lu ms] %-8s IO%-2d  CONNECTED to GND\n", millis() - t0, w[i].name, w[i].gpio);
-                    beep(w[i].hz, 160);
-                } else {
-                    Serial.printf("   [%6lu ms] %-8s IO%-2d  released\n", millis() - t0, w[i].name, w[i].gpio);
-                }
-            }
-        }
-        if (Serial.available()) { while (Serial.available()) Serial.read(); break; }
-        delay(5);
-    }
-
-    Serial.println("\n  -- roll call --");
-    for (int i = 0; i < N; i++) {
-        bool expect = (w[i].gpio != 23);
-        Serial.printf("   %-8s IO%-2d  %-9s  %s\n", w[i].name, w[i].gpio,
-                      seen[i] ? "answered" : "silent",
-                      seen[i] == expect ? "as expected" : (expect ? "<-- net did not answer" : "<-- unexpected: IO23 answered"));
-    }
-    bool all = true;
-    for (int i = 0; i < N; i++) if ((w[i].gpio != 23) && !seen[i]) all = false;
-    if (all) { beep(1400, 120); beep(2100, 200); }
-    else     { beep(700, 300); }
+    Serial.println("  J4 = 3V3 GND V5 IO25 IO26 IO27 IO23   J3 = GND V5 IO35 IO33");
+    Serial.println("  J5 = GND V5 IO2 IO19                  J8 = GND 3V3 SDA SCL");
+    Serial.println("  Type anything to stop and get the roll call.");
+    probeOn = true;
 }
 
-// Driving IO2/IO19/IO17/IO4 energizes real hardware, so they answer only while armed and
-// only for as long as the arming lasts.
+static void probeRollCall() {
+    Serial.println("\n  -- roll call --");
+    for (int i = 0; i < PROBE_N; i++)
+        Serial.printf("   %-18s IO%-2d  %-9s %s\n", kProbe[i].name, kProbe[i].gpio,
+                      pSeen[i] ? "answered" : "silent",
+                      pSeen[i] == kProbe[i].expect ? "as expected"
+                        : (kProbe[i].expect ? "<-- net did not answer" : "<-- unexpected"));
+}
+
+static void probePoll() {
+    for (int i = 0; i < PROBE_N; i++) {
+        int v = digitalRead(kProbe[i].gpio);
+        if (v != pPending[i]) { pPending[i] = v; pSince[i] = millis(); continue; }
+        if (v != pStable[i] && millis() - pSince[i] > 40) {
+            pStable[i] = v;
+            if (v == LOW) {
+                pSeen[i] = true;
+                Serial.printf("   [%7lu ms] %-18s IO%-2d  CONNECTED\n", millis(), kProbe[i].name, kProbe[i].gpio);
+                beep(PROBE_HZ, PROBE_MS);
+            }
+        }
+    }
+}
+
+// Driving IO2/IO19/IO17/IO4 energizes real hardware, so they answer only while armed
+// and only for as long as the arming lasts.
 static unsigned long armedUntil = 0;
 static void cmdArm() {
     armedUntil = millis() + 120000;
@@ -446,7 +451,7 @@ static void cmdHelp() {
     Serial.println("  bus    are R19/R20 visible from IO21/IO22 (J8 barrel junction)");
     Serial.println("  scanpu I2C scan using the ESP32's internal pull-ups instead");
     Serial.println("  rs485  DI->U7->A/B->U7->RO loopback, entirely on-board");
-    Serial.println("  watch  audible continuity probe (4 min) — touch a pin to GND, listen");
+    Serial.println("  watch  restart the continuity probe (it also runs from boot)");
     Serial.println("  arm    unlock the actuator outputs for 120 s");
     Serial.println("  drive <io2|io4|io17|io19|io32> <0|1>   drive one pin, then meter it");
     Serial.println("  rtc    DS3231: temp, status, time, tick check");
@@ -504,8 +509,11 @@ void setup() {
     Wire.begin(PIN_SDA, PIN_SCL, 100000);
     Serial.println("returned");
 
+    // Three notes: the board is up, and the IO13 -> R5 -> Q1 -> U8 chain carries.
+    for (int i = 0; i < 3; i++) { beep(PROBE_HZ, PROBE_MS); delay(PROBE_MS); }
+
     cmdHelp();
-    Serial.println("\n> ");
+    probeBegin();
 }
 
 void loop() {
@@ -516,9 +524,12 @@ void loop() {
         digitalWrite(PIN_LED_ACT, !digitalRead(PIN_LED_ACT));
     }
 
+    if (probeOn) probePoll();
+
     static String line;
     while (Serial.available()) {
         char c = Serial.read();
+        if (probeOn) { probeOn = false; probeRollCall(); Serial.println("\n> "); line = ""; continue; }
         if (c == '\n' || c == '\r') {
             line.trim();
             if (line.length()) {
@@ -529,7 +540,7 @@ void loop() {
                 else if (line == "rtc")  cmdRtc();
                 else if (line == "bus")  cmdBus();
                 else if (line == "rs485") cmdRs485();
-                else if (line == "watch") cmdWatch();
+                else if (line == "watch") probeBegin();
                 else if (line == "arm")   cmdArm();
                 else if (line.startsWith("drive ")) cmdDrive(line);
                 else if (line == "scanpu") cmdScanPullup();
