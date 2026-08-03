@@ -112,7 +112,7 @@ and coupon test are mandatory).
    the press-fit collar, and flexes to clean — and the funnel never has to be
    self-supporting, since the rigid opening cradles it during a pour. Select for
    **high tear-strength / elongation**; the 2 mm spout wall is the weak link on
-   demold. One funnel is about [78 mL](SIL_VOLUME) of silicone. BBDINO rates it
+   demold. One funnel is about [83 mL](SIL_VOLUME) of silicone. BBDINO rates it
    food-contact safe for **fat-free foods** — fine here: the concentrate is a
    sugar/sucralose syrup with no fat.
 2. **Release + inhibition.** Platinum silicone is cure-poisoned by sulfur, tin,
