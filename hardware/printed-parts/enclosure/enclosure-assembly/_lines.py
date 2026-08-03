@@ -349,6 +349,111 @@ def lean_leads(f_from, p_from, f_to, p_to, radius=contents.LLDPE_STOCK_BEND,
     return (w1, w2), lean, lead, radius * math.tan(math.radians(90.0 - lean) / 2.0)
 
 
+def _tilt(n, toward, deg):
+    """`n` turned `deg` toward `toward`, in the plane those two span. `toward` parallel to `n`
+    spans no plane and there is nothing to lean into, so the direction comes back unchanged."""
+    t = [toward[i] - n[i] * sum(toward[j] * n[j] for j in range(3)) for i in range(3)]
+    m = math.sqrt(sum(c * c for c in t))
+    if m < 1e-12:
+        return tuple(n)
+    rad = math.radians(deg)
+    return tuple(math.cos(rad) * n[i] + math.sin(rad) * (t[i] / m) for i in range(3))
+
+
+def _seat_lean(a, u, b, v, la, lb, pa, pb, straight, cap):
+    """One trial of the lean pair: the two waypoints, the turn each corner makes, and the
+    radius each seats once `straight` is taken off its lead."""
+    da, db = _tilt(u, [b[i] - a[i] for i in range(3)], pa), _tilt(v, [a[i] - b[i] for i in range(3)], pb)
+    w1 = tuple(a[i] + la * da[i] for i in range(3))
+    w2 = tuple(b[i] + lb * db[i] for i in range(3))
+    span = math.dist(w1, w2)
+    if span < 1e-9:
+        return w1, w2, 0.0, 0.0, 0.0, 0.0
+    d = [(w2[i] - w1[i]) / span for i in range(3)]
+    ang = lambda p, q: math.degrees(math.acos(max(-1.0, min(1.0,      # noqa: E731
+        sum(p[i] * q[i] for i in range(3))))))
+    t1, t2 = ang(da, d), ang(d, [-c for c in db])
+    k1, k2 = math.tan(math.radians(t1) / 2.0), math.tan(math.radians(t2) / 2.0)
+    r1 = min(cap, max(0.0, la - straight) / k1) if k1 > 1e-9 else cap
+    r2 = min(cap, max(0.0, lb - straight) / k2) if k2 > 1e-9 else cap
+    spent = r1 * k1 + r2 * k2                      # the leg between them is shared
+    if spent > span:
+        r1, r2 = r1 * span / spent, r2 * span / spent
+    return w1, w2, t1, t2, r1, r2
+
+
+def _mouth(f, anchor: str):
+    """A `route`/`bent` anchor — `"component.port"` — split into the frame and port name
+    `lean_into` reads, so a run states its two ends once and both the solve and the run itself
+    are struck from the same string."""
+    comp, _, port = anchor.partition(".")
+    return f[comp], port
+
+
+def lean_into(f_from, p_from, f_to, p_to, lead, radius=contents.LLDPE_STOCK_BEND,
+              straight=contents.DIVIDER_LEG_STRAIGHT, skew=FLAVOR_SKEW):
+    """Two waypoints joining a pair of mouths in ANY relative orientation, each lead leaned
+    into the single leg between them: `((W1, W2), (lean1°, lean2°), radius, (turn1°, turn2°))`.
+
+    `lean_leads` is the case where both mouths FACE THE SAME WAY: their normals are one
+    direction, the separation along it is one budget, and the two leads divide it. This is the
+    general one — two normals pointing wherever the fittings put them, and each lead paying
+    `r·tan(θ/2)` at its own corner on a leg both share. It is the shape most of the pack's tight
+    corners are: a mouth whose run has to go somewhere its own axis does not point.
+
+    Where the lean pays is the corner PAST SQUARE. A lead dead on its collet's axis, handing off
+    to a leg that comes back the way the lead came, turns more than 90°, and `tan(θ/2)` is above
+    1 there — so the corner spends more tangent than the lead is long and the radius lands under
+    it. Every degree of lean is a degree off that turn.
+
+    `straight` comes off the lead FIRST and the corner seats in what is left: a collet grips the
+    tube, and an arc starting at the collet face leaves the fitting nothing to hold. The radius
+    returned is the caller's to hand back as `bent(..., bend=r)` — `seat_radii` reads the leg
+    alone and otherwise spends the lead whole.
+
+    `lead` is one reach for both ends or `(out, in)`, and it is the caller's to name: how far a
+    run may stand off its own mouth is a fact about the air the pack leaves beside it. What the
+    reach buys runs out — past where the two leads overshoot each other the leg between them
+    shortens faster than the turns open, and the radius comes back DOWN.
+
+    This sweeps: the answer is a maximum, not a threshold. Ties go to the shallower pair, so no
+    more of the collet is spent than the corner needs."""
+    a, u = f_from.at(p_from), f_from.normal(p_from)
+    b, v = f_to.at(p_to), f_to.normal(p_to)
+    la, lb = lead if isinstance(lead, (tuple, list)) else (lead, lead)
+    if min(la, lb) <= straight:
+        raise ValueError(
+            f"lean_into: a lead of {min(la, lb):g} mm has no corner in it — {straight:g} of it is "
+            f"the straight the collet grips on. Give the run more standoff, or say a shorter "
+            f"`straight`.")
+
+    # Each lead's window narrows around ITS OWN best, not the pair's — the two optima part
+    # company whenever the mouths do (fluid-23 wants the whole skew at one end and none at the
+    # other), and a window struck on one lean would refine the other out of reach.
+    # The sweep stops a hair inside the skew. `bent` blocks a leg leaving more than `skew` off
+    # its collet's axis, and a lean solved exactly ON that bound rounds to either side of it
+    # through the tilt and the arc-cosine that measure it back.
+    skew = max(0.0, skew - 1e-6)
+    best = None
+    (alo, ahi), (blo, bhi), step = (0.0, skew), (0.0, skew), skew / 24.0
+    for _ in range(4):                             # coarse sweep, then three refinements
+        pa = alo
+        while pa <= ahi + 1e-9:
+            pb = blo
+            while pb <= bhi + 1e-9:
+                w1, w2, t1, t2, r1, r2 = _seat_lean(a, u, b, v, la, lb, pa, pb, straight, radius)
+                got = min(r1, r2)
+                if best is None or got > best[0] + 1e-9:
+                    best = (got, pa, pb, w1, w2, t1, t2)
+                pb += step
+            pa += step
+        alo, ahi = max(0.0, best[1] - step), min(skew, best[1] + step)
+        blo, bhi = max(0.0, best[2] - step), min(skew, best[2] + step)
+        step /= 6.0
+    got, pa, pb, w1, w2, t1, t2 = best
+    return (w1, w2), (pa, pb), got, (t1, t2)
+
+
 def _authored_runs() -> list:
     f = _frames()
     runs: list = []
@@ -431,25 +536,36 @@ def _authored_runs() -> list:
         note="hopper drain → V-B inlet: down the spout's own column, one corner, and in — "
              "every leg falls or is level"))
 
-    # fluid-24 / fluid-26 — the bag-B pair to its divider. A divider's outlets are
+    # fluid-24 / fluid-26 — the bag-B pair to its divider. The outlets are
     # [14.7](DIVIDER_SPAN) apart and the two collets they join a seat pitch
-    # ([34.25](SEAT_PITCH)) apart, so each leg leans [9.775](LEG_LEAN) mm across on its
-    # way through — and that cross is now ALL either leg carries. Y-H used to be the one
-    # divider not standing in its pair's port plane: the PSU's brick was what the aft stand
-    # had ahead of it, so the fitting stood over that crown and each leg's lean carried a
-    # climb as well as the cross. The stand packs forward now, the brick is aft behind the
-    # whole deck, and Y-H lies where every other divider lies — `_contents.y_h_pos` is
-    # `_divider_pos`, and `DIVIDER_LEG_LEAD` is the straight each leg leaves its collet on.
-    yh_lead = contents.DIVIDER_LEG_LEAD
+    # ([34.25](SEAT_PITCH)) apart, so each leg closes [9.775](LEG_LEAN) mm of cross on its way
+    # through, and Y-H does not stand where the other dividers stand:
+    # `_contents.y_h_pos` hangs it off the plate's WEST FACE at one `LINE_HUG`, so its outlets
+    # look back east at the collets they feed across [1](YH_FACE_GAP) mm of X — with the
+    # fitting [65.55](YH_CLIMB) mm up on the crown. Each leg leaves its collet WEST and the leg
+    # it hands off to climbs back EAST, so the corner between them turns PAST SQUARE, where
+    # `tan(θ/2)` is above 1 and a corner costs more tangent than its lead is long.
+    #
+    # Neither of these is a `divider_reach()` leg and `DIVIDER_LEG_LEAD` does not place this
+    # fitting, so the lead is a number THIS file picks, against the air the pack leaves beside
+    # the mouths: nothing at all stands west of V-I-O in this band, and the nearest body east of
+    # Y-H's outlets is Y-F at [39.9](YH_EAST_AIR) mm. `lean_into` spends
+    # [12](YH_LEG_LEAD) mm of it — [22](YH_LEG_LEAN)° of lean at each end brings both corners
+    # back to [88.4](YH_LEG_TURN)° and seats [R9.26](YH_LEG_R), with the
+    # [3](DIVIDER_LEG_STRAIGHT) mm of straight tube a push-to-connect collet grips on still
+    # standing in each lead.
+    YH_LEG_LEAD = 12.0
     for cid, frm, to, who in (
         ("fluid-24", "bag-b-tray-assembly.V-I-O", "divider-y-h.Y-H-1", "pump return → Y-H"),
         ("fluid-26", "divider-y-h.Y-H-3", "bag-b-tray-assembly.V-H-I", "Y-H → bag B draw"),
     ):
+        (w1, w2), lean, seated, turns = lean_into(
+            *_mouth(f, frm), *_mouth(f, to), YH_LEG_LEAD)
         runs.append(R.bent(
-            cid, frm, to, kind="fluid", skew=FLAVOR_SKEW,
-            lead=yh_lead,
-            note=f"{who}: one leaning leg carrying the cross and the climb, straight off "
-                 f"each collet"))
+            cid, frm, w1, w2, to, kind="fluid", skew=FLAVOR_SKEW, bend=seated,
+            note=f"{who}: one leaning leg carrying the cross and the climb, on two leads that "
+                 f"lean {lean[0]:.1f}°/{lean[1]:.1f}° into it — {turns[0]:.1f}° of turn at each "
+                 f"end seating R{seated:.2f}"))
 
     # fluid-14 / fluid-16 — the bag-A pair to Y-E, which stands ACROSS the strip ahead of them
     # rather than along the plane they share (`_contents.y_e_pos`). So neither of these is the
@@ -472,11 +588,19 @@ def _authored_runs() -> list:
         kind="fluid", stub=7.95, skew=FLAVOR_SKEW,
         note="pump return → Y-E branch: forward into the strip and straight up V-F's own column"))
 
+    # fluid-16's two mouths do not face one way either — Y-E's run collet fires WEST along the
+    # strip and V-E's draw opens −Y out of the port plane — so the leg between them carries a
+    # fall and a cross that neither axis points down, and both corners come in under square on
+    # an on-axis lead. `lean_into` takes [12](F16_LEAD) mm against the
+    # [17.8](F16_WEST_AIR) mm the pump's own east face leaves west of the fitting.
+    (w1, w2), f16_lean, f16_r, _f16_turns = lean_into(
+        *_mouth(f, "tee-y-e.Y-E-3"), *_mouth(f, "bag-a-tray-assembly.V-E-I"), 12.0)
     runs.append(R.bent(
-        "fluid-16", "tee-y-e.Y-E-3", "bag-a-tray-assembly.V-E-I",
-        kind="fluid", skew=FLAVOR_SKEW, lead=WBEND,
-        note="Y-E run → bag A draw: one leaning leg, straight off each collet, carrying the fall "
-             "to the port plane and the cross onto the draw's line in one move"))
+        "fluid-16", "tee-y-e.Y-E-3", w1, w2, "bag-a-tray-assembly.V-E-I",
+        kind="fluid", skew=FLAVOR_SKEW, bend=f16_r,
+        note=f"Y-E run → bag A draw: one leaning leg carrying the fall to the port plane and the "
+             f"cross onto the draw's line in one move, on leads leaning "
+             f"{f16_lean[0]:.1f}°/{f16_lean[1]:.1f}° into it"))
 
     # fluid-3 / fluid-5 / fluid-7 / fluid-8 — the junction's four COLUMN LEGS. The source pair
     # stands in the selects pair's own seats a stack pitch up, so each of these joins two
@@ -990,7 +1114,7 @@ def _authored_runs() -> list:
     # rule, and the only thing that differs between them is which bulkhead each is aimed at.
     # What holds them apart is the aim itself — the two turns behind the plate stand a whole
     # seat pitch apart in X ([6.7](GATE_SEAT_PITCH) mm) and the two leans diverge from
-    # there, never closing nearer than [0](GATE_PAIR_GAP) mm of tube — so neither owes the
+    # there, never closing nearer than [23.3](GATE_PAIR_GAP) mm of tube — so neither owes the
     # other a Y lane or a level. Both come about on the outlet lane's one rung, the deepest
     # the band holds, and water-4's turn is the third station on it.
     #   That lane is struck off the STATED WALL, not the plate's face: the band behind the
@@ -1056,7 +1180,7 @@ def _authored_runs() -> list:
         if tin[0] - 6.35 / 2.0 < chain_bb.xmax:
             appr_y = max(appr_y, chain_bb.ymax + contents.PUMP_ROW_TURN)
         # THE TWO GATES DO NOT SHARE A STRATUM. Their columns stand one seat pitch apart
-        # ([6.71](GATE_SEAT_PITCH) mm — closer than a tube), their bulkheads stand a station
+        # ([6.7](GATE_COLUMN_PITCH) mm — closer than a tube), their bulkheads stand a station
         # apart the other way, and the westmost of the two has to cross the whole field AFT of
         # the ASSE chain: so each one's long leg runs through the other's column, and no lane in
         # X parts them. What parts them is height. The AFT ROW'S gate keeps the panel's own row
@@ -1475,6 +1599,14 @@ def lane_stations() -> dict:
     stock_rise = contents.LLDPE_STOCK_BEND - yh_band + 6.35 / 2.0
     stock_drift = contents.LLDPE_STOCK_BEND * (
         1.0 - math.sqrt(max(0.0, 1.0 - (stock_rise / contents.LLDPE_STOCK_BEND) ** 2)))
+    # The two leaning legs, off the runs themselves: the lead each leaves its collet on, how far
+    # off that collet's own axis it leaves, the turn the corner at its end makes, and the radius
+    # that corner seats. `leg_skew` against the port's own normal is the lean by definition, so
+    # the figure in the prose is the one the build swept and not a second copy of the solve.
+    f24, f16 = runs["fluid-24"], runs["fluid-16"]
+    fr = _frames()
+    yh_lean = R.leg_skew(f24.pts[0], f24.pts[1],
+                         fr["bag-b-tray-assembly"].normal("V-I-O"))
     return {
         "SRC_PORT_Z":       f"{f4.pts[-1][2]:.4g}",
         "HOPPER_FALL":      f"{f4.pts[0][2] - f4.pts[1][2]:.4g}",
@@ -1482,6 +1614,19 @@ def lane_stations() -> dict:
         "DIVIDER_SPAN":     f"{span:.4g}",
         "SEAT_PITCH":       f"{contents._tray.pitch:.4g}",
         "LEG_LEAN":         f"{(contents._tray.pitch - span) / 2.0:.4g}",
+        # Y-H's two legs: the gap its outlets face the pair's collets across, the climb the leg
+        # between them carries, the air east of the outlets, and what `lean_into` makes of the
+        # lead against all that.
+        "YH_FACE_GAP":      f"{abs(f24.pts[0][0] - f24.pts[-1][0]):.3g}",
+        "YH_CLIMB":         f"{f24.pts[-1][2] - f24.pts[0][2]:.4g}",
+        "YH_EAST_AIR":      f"{_boxes.boxed(solids['tee-y-f']).xmin - runs['fluid-26'].pts[0][0]:.3g}",
+        "YH_LEG_LEAD":      f"{math.dist(f24.pts[0], f24.pts[1]):.3g}",
+        "YH_LEG_LEAN":      f"{yh_lean:.3g}",
+        "YH_LEG_TURN":      f"{f24.bends[0][1]:.3g}",
+        "YH_LEG_R":         f"R{f24.tightest:.2f}",
+        # fluid-16's own lead, and the pump face that bounds it.
+        "F16_LEAD":         f"{math.dist(f16.pts[0], f16.pts[1]):.3g}",
+        "F16_WEST_AIR":     f"{f16.pts[0][0] - _boxes.boxed(solids['pump-b']).xmax:.3g}",
         # The strip the bag-A junction stands across: the pump row's aft face to that pair's own
         # forward collets, off the placed pump rather than off the number its seat was built from.
         "BAG_STRIP":        f"{contents.bag_a_tray_port('V-F-O')[0][1] - _boxes.boxed(solids['pump-a']).ymax:.4g}",
@@ -1526,6 +1671,8 @@ def lane_stations() -> dict:
         # three turns on it stand apart, and the closest the twin gates' tubes ever come.
         "OUTLET_LANE":      f"{contents.aft_outlet_lane():.3g}",
         "GATE_SEAT_PITCH":  f"{abs(runs['fluid-18'].pts[1][0] - runs['fluid-28'].pts[1][0]):.4g}",
+        # The two gates' own columns, at that same pitch.
+        "GATE_COLUMN_PITCH": f"{abs(runs['fluid-18'].pts[1][0] - runs['fluid-28'].pts[1][0]):.4g}",
         "GATE_PAIR_GAP":    f"{scorecard._solid_gap(R.tube(runs['fluid-18']), R.tube(runs['fluid-28'])):.3g}",
         # The shelf, off the two bodies that actually bound it: the aft stand's coil crown
         # under it and the lowest body of the port field over it. The SeaFlo does not bound
