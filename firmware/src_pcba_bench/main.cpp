@@ -21,6 +21,7 @@
 
 #include <Arduino.h>
 #include <Wire.h>
+#include <WiFi.h>
 
 // ── Status LEDs — active high, through 470R to GND (D2/D3/D4) ──────────────
 static const int PIN_LED_ERR = 15;  // D2 red   — IO15/MTDO
@@ -135,6 +136,19 @@ static void cmdScanPullup() {
         if (Wire.endTransmission() == 0) { Serial.printf("  0x%02X answered\n", a); found++; }
     }
     Serial.printf("  %d device(s) on internal pull-ups\n", found);
+}
+
+// The WROOM's RF and the antenna that overhangs the board edge, checked without anyone
+// touching the board.
+static void cmdWifi() {
+    Serial.println("\n-- WiFi scan (WROOM RF + the board-edge antenna) --");
+    WiFi.mode(WIFI_STA); WiFi.disconnect(); delay(120);
+    int n = WiFi.scanNetworks();
+    Serial.printf("  %d network(s) heard\n", n);
+    for (int i = 0; i < n && i < 8; i++)
+        Serial.printf("   %-30s %4d dBm  ch%-2d\n", WiFi.SSID(i).c_str(), WiFi.RSSI(i), WiFi.channel(i));
+    Serial.println(n > 0 ? "  RF section and antenna carry." : "  nothing heard — RF or antenna suspect");
+    WiFi.scanDelete(); WiFi.mode(WIFI_OFF);
 }
 
 static void cmdRtc() {
@@ -296,49 +310,75 @@ static void beep(int hz, int ms) {
 }
 
 // The continuity probe. It runs by itself from power-on and never needs starting:
-// touch a connector pin to that connector's GND and hold until the board beeps.
-// Every net answers with the same note, so there is nothing to listen past and
-// nothing to keep track of — the serial log names whichever one sounded. A contact
-// has to hold 40 ms to count, which keeps a fumbled touch from chattering.
+// touch a connector pin to another and hold until the board beeps. Every net answers
+// with the same note, so there is nothing to listen past — the serial log names which
+// one sounded. A reading has to hold 40 ms to count, which keeps a fumble from chattering.
 //
-// The path a beep exercises is the whole net: ESP32 pad, its via, the trace, the
-// connector barrel. That is the one check no view of the model can stand in for.
-// The three nets whose vias went undrilled are in the table too, as controls —
-// silence on those is the expected reading, not a miss.
-struct Probe { const char *name; int gpio; bool expect; };
+// Three kinds of net are covered, and all three beep identically:
+//   GND-side   pins idle high on an internal pull-up; touching connector GND beeps.
+//   HIGH-side  IO35 has no internal pull-up (GPIO34-39 carry none) and idles low;
+//              touching a 3V3 pin beeps. 5V would reach it through R27's 220R and
+//              the pin is not 5V tolerant, so 3V3 is the only safe source.
+//   ANALOG     the MQ-6 dividers, beeping when their millivolts leave the floor.
+//              J11.AOUT to J11.V5 is the live one; J11.DOUT is severed and stays quiet.
+//
+// IO2 is DRIVEN low rather than sensed, which turns J5.IO2 into a ground source: a beep
+// from touching it to any GND-side pin walks the relay net out to the connector AND back,
+// proving the ESP32 drives it, not merely that copper joins.
+//
+// The nets whose vias went undrilled are in the table as controls. Silence on those is
+// the reading, not a miss.
+struct Probe { const char *name; int gpio; bool expect; bool activeHigh; };
 static const Probe kProbe[] = {
-    {"J4.IO25  SENSORS", 25, true },
-    {"J4.IO26  SENSORS", 26, true },
-    {"J4.IO27  SENSORS", 27, true },
-    {"J3.IO33  FAUCET",  33, true },
-    {"J5.IO2   RELAYS",   2, true },
-    {"J4.IO23  SENSORS", 23, false},  // via undrilled
-    {"J8.SDA   I2C",     21, false},  // via undrilled
-    {"J8.SCL   I2C",     22, false},  // via undrilled
+    {"J4.IO25  SENSORS", 25, true,  false},
+    {"J4.IO26  SENSORS", 26, true,  false},
+    {"J4.IO27  SENSORS", 27, true,  false},
+    {"J3.IO33  FAUCET",  33, true,  false},
+    {"J3.IO35  FAUCET",  35, true,  true },   // to a 3V3 pin, never 5V
+    {"J4.IO23  SENSORS", 23, false, false},   // via undrilled
+    {"J8.SDA   I2C",     21, false, false},   // via undrilled
+    {"J8.SCL   I2C",     22, false, false},   // via undrilled
 };
 static const int PROBE_N = sizeof(kProbe) / sizeof(kProbe[0]);
+
+struct Analog { const char *name; int gpio; bool expect; };
+static const Analog kAnalog[] = {
+    {"J11.AOUT GAS", PIN_GAS_AOUT, true },
+    {"J11.DOUT GAS", PIN_GAS_DOUT, false},   // divider severed at R3->R4
+};
+static const int ANALOG_N = 2;
+static const int ANALOG_MV = 800;            // floor sits ~142 mV with J11 empty
 
 static const int PROBE_HZ = 2700, PROBE_MS = 150;
 static bool probeOn = false;
 static int  pStable[PROBE_N], pPending[PROBE_N];
 static unsigned long pSince[PROBE_N];
-static bool pSeen[PROBE_N];
+static bool pSeen[PROBE_N], aSeen[ANALOG_N], aLatch[ANALOG_N];
 
 static void probeBegin() {
     Serial.println("\n-- continuity probe: running --");
-    Serial.println("  Touch a connector pin to its own GND pin and hold until it beeps.");
-    Serial.println("  Every net uses the same note. These are live:");
+    Serial.println("  Touch and hold until it beeps. Same note for every net.");
     for (int i = 0; i < PROBE_N; i++) {
-        pinMode(kProbe[i].gpio, INPUT_PULLUP);
+        pinMode(kProbe[i].gpio, kProbe[i].activeHigh ? INPUT : INPUT_PULLUP);
         delay(2);
         pStable[i] = pPending[i] = digitalRead(kProbe[i].gpio);
         pSince[i] = millis();
         pSeen[i] = false;
-        Serial.printf("     %-18s IO%-2d  %s\n", kProbe[i].name, kProbe[i].gpio,
+        Serial.printf("     %-18s IO%-2d  touch %-8s %s\n", kProbe[i].name, kProbe[i].gpio,
+                      kProbe[i].activeHigh ? "3V3" : "GND",
                       kProbe[i].expect ? "" : "(control — undrilled via, expect silence)");
     }
-    Serial.println("  J4 = 3V3 GND V5 IO25 IO26 IO27 IO23   J3 = GND V5 IO35 IO33");
-    Serial.println("  J5 = GND V5 IO2 IO19                  J8 = GND 3V3 SDA SCL");
+    for (int i = 0; i < ANALOG_N; i++) {
+        aSeen[i] = aLatch[i] = false;
+        Serial.printf("     %-18s IO%-2d  touch %-8s %s\n", kAnalog[i].name, kAnalog[i].gpio,
+                      "J11.V5", kAnalog[i].expect ? "" : "(control — divider severed, expect silence)");
+    }
+    // J5.IO2 becomes a ground source: driving it proves the path, not just the copper.
+    pinMode(2, OUTPUT); digitalWrite(2, LOW);
+    Serial.println("     J5.IO2   RELAYS  IO2   DRIVEN LOW — touch it to any GND-side pin above");
+    Serial.println("  J4 = 3V3 GND V5 IO25 IO26 IO27 IO23    J3 = GND V5 IO35 IO33");
+    Serial.println("  J5 = GND V5 IO2 IO19                   J8 = GND 3V3 SDA SCL");
+    Serial.println("  J11 = GND V5 DOUT AOUT");
     Serial.println("  Type anything to stop and get the roll call.");
     probeOn = true;
 }
@@ -350,6 +390,11 @@ static void probeRollCall() {
                       pSeen[i] ? "answered" : "silent",
                       pSeen[i] == kProbe[i].expect ? "as expected"
                         : (kProbe[i].expect ? "<-- net did not answer" : "<-- unexpected"));
+    for (int i = 0; i < ANALOG_N; i++)
+        Serial.printf("   %-18s IO%-2d  %-9s %s\n", kAnalog[i].name, kAnalog[i].gpio,
+                      aSeen[i] ? "answered" : "silent",
+                      aSeen[i] == kAnalog[i].expect ? "as expected"
+                        : (kAnalog[i].expect ? "<-- divider did not answer" : "<-- unexpected"));
 }
 
 static void probePoll() {
@@ -358,13 +403,36 @@ static void probePoll() {
         if (v != pPending[i]) { pPending[i] = v; pSince[i] = millis(); continue; }
         if (v != pStable[i] && millis() - pSince[i] > 40) {
             pStable[i] = v;
-            if (v == LOW) {
+            if (v == (kProbe[i].activeHigh ? HIGH : LOW)) {
                 pSeen[i] = true;
                 Serial.printf("   [%7lu ms] %-18s IO%-2d  CONNECTED\n", millis(), kProbe[i].name, kProbe[i].gpio);
                 beep(PROBE_HZ, PROBE_MS);
             }
         }
     }
+    static unsigned long lastA = 0;
+    if (millis() - lastA < 120) return;
+    lastA = millis();
+    for (int i = 0; i < ANALOG_N; i++) {
+        int mv = analogReadMilliVolts(kAnalog[i].gpio);
+        if (mv > ANALOG_MV && !aLatch[i]) {
+            aLatch[i] = true; aSeen[i] = true;
+            Serial.printf("   [%7lu ms] %-18s IO%-2d  %d mV\n", millis(), kAnalog[i].name, kAnalog[i].gpio, mv);
+            beep(PROBE_HZ, PROBE_MS);
+        } else if (mv < ANALOG_MV / 2) {
+            aLatch[i] = false;
+        }
+    }
+}
+
+// U15 gates the compressor: Y = A(IO19) AND B(the MQ-6 gas-clear line). Raising A alone
+// puts the gate's verdict on J5.IO19, which a jumper to any GND-side pin reads back.
+static void cmdInterlock() {
+    Serial.println("\n-- interlock: IO19 (U15.A) driven HIGH for 120 s --");
+    Serial.println("  Nothing may be plugged into J5.");
+    Serial.println("  Touch J5.IO19 to a GND-side pin: a beep means U15.Y is LOW — the gate");
+    Serial.println("  refusing the compressor while B reads gas-present. Silence means Y is high.");
+    pinMode(19, OUTPUT); digitalWrite(19, HIGH);
 }
 
 // Driving IO2/IO19/IO17/IO4 energizes real hardware, so they answer only while armed
@@ -452,6 +520,8 @@ static void cmdHelp() {
     Serial.println("  scanpu I2C scan using the ESP32's internal pull-ups instead");
     Serial.println("  rs485  DI->U7->A/B->U7->RO loopback, entirely on-board");
     Serial.println("  watch  restart the continuity probe (it also runs from boot)");
+    Serial.println("  wifi   scan — the WROOM RF section and its antenna");
+    Serial.println("  interlock  drive IO19 high so J5.IO19 carries U15's verdict");
     Serial.println("  arm    unlock the actuator outputs for 120 s");
     Serial.println("  drive <io2|io4|io17|io19|io32> <0|1>   drive one pin, then meter it");
     Serial.println("  rtc    DS3231: temp, status, time, tick check");
@@ -512,6 +582,7 @@ void setup() {
     // Three notes: the board is up, and the IO13 -> R5 -> Q1 -> U8 chain carries.
     for (int i = 0; i < 3; i++) { beep(PROBE_HZ, PROBE_MS); delay(PROBE_MS); }
 
+    cmdWifi();      // needs nobody at the board
     cmdHelp();
     probeBegin();
 }
@@ -541,6 +612,8 @@ void loop() {
                 else if (line == "bus")  cmdBus();
                 else if (line == "rs485") cmdRs485();
                 else if (line == "watch") probeBegin();
+                else if (line == "wifi")  cmdWifi();
+                else if (line == "interlock") cmdInterlock();
                 else if (line == "arm")   cmdArm();
                 else if (line.startsWith("drive ")) cmdDrive(line);
                 else if (line == "scanpu") cmdScanPullup();
