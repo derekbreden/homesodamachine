@@ -22,7 +22,7 @@ os.environ.setdefault("HSM_NO_BUILD_LOCK", "1")
 CARDS_DIR = Path(__file__).resolve().parent
 REPO_ROOT = next(p for p in CARDS_DIR.parents if (p / "tools" / "render").is_dir())
 # tools/render is shared (one copy at the repo root); hardware/ is content, so
-# it resolves to the nearest copy — this edition's, not the kitchen's.
+# it resolves to the nearest copy — the tree this file stands in.
 HARDWARE = next(p for p in CARDS_DIR.parents if p.name == "hardware")
 OUT_DIR = CARDS_DIR / "out"
 

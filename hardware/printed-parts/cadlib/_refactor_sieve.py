@@ -54,8 +54,8 @@ from pathlib import Path
 _here = Path(__file__).resolve().parent
 # The venv is shared machinery — one copy at the repo root. Everything else
 # here is content addressed by repo-relative path, so it hangs off the nearest
-# hardware/ tree instead: in a duplicated edition the sieve must hash and
-# rebuild its OWN parts, not the kitchen's.
+# hardware/ tree instead: the sieve hashes and rebuilds the parts of the tree it
+# stands in.
 _repo = next(p for p in _here.parents if (p / "tools" / "cad-venv").is_dir())
 _edition = next(p for p in _here.parents if p.name == "hardware").parent
 _baseline_path = _here / "_refactor_sieve_baseline.json"
