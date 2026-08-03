@@ -35,6 +35,7 @@ It runs a full sweep at boot, then idles as a console (`RUN` blinks as the heart
 |---|---|
 | `info` | The WROOM, its crystal, its flash, the eFuse MAC, the reset cause |
 | `scan` | The I²C bus reaches all three devices — 0x20, 0x21, 0x68 |
+| `bus` | Whether R19/R20 are visible from IO21/IO22 across J8's barrel junction |
 | `rtc` | U6 DS3231 answers, reports die temperature, and its seconds actually advance |
 | `mcp` | Both MCP23017s: register reads, plus a write round-trip that never touches a pin |
 | `in` | Every off-board signal pin, and the two gas dividers in millivolts |
@@ -60,9 +61,10 @@ stays a high-Z input) and `GPPU` is never written, because a 100 kΩ pull-up is 
 open a valve. The write round-trip uses `IPOL`, which only changes how a read is
 interpreted and never reaches a pin.
 
-`walk` drives `IO12` (`RUN`), which is the MTDI flash-voltage strap. That is a boot-time
-reading only — the LED sits to GND through 470 Ω and never holds the pin high at reset,
-which is why esptool reports the flash strap as 3.3 V.
+Two of the three firmware LEDs sit on boot straps — `RUN` on IO12 (MTDI, VDD_SDIO select)
+and `ERR` on IO15 (MTDO, ROM boot log). An LED to GND is high-impedance below its forward
+voltage, so neither pin has a level of its own between resets. The rig holds them on the
+ESP32's internal pulls (`parkStraps()`), and only `walk` drives them.
 
 ## Tear-down
 
