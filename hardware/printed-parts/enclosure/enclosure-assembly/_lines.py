@@ -726,8 +726,8 @@ def _authored_runs() -> list:
     # goes. Nothing else is near it: at this plane the closest body is the discharge chain,
     # [33.25](F25_CHAIN_CLEAR) mm AFT, and the flow regulator roofs it [14.59](F25_REG_ROOF) mm
     # up. The reach is spent to the band, and the LEAN carries the rest of the corner: the
-    # approach leaves the collet [158](F25_LEAN)° off its axis and turns [73.5](F25_TURN)° onto
-    # the climb, where a lead on the axis would hand it one past square.
+    # approach leaves the collet [22](F25_LEAN)° off its axis and turns [73.5](F25_TURN)° onto
+    # the climb.
     #   The stem's plane is a slot of its own: [41](STEM_SHELF) mm over the selects crown with a
     # tube and its floor in it, and fluid-19's shelf crossing rides Y-F's own column
     # [-12](LOFT_CROSS_CLEAR) mm above it.
@@ -1726,7 +1726,9 @@ def lane_stations() -> dict:
         "F25_RIB_FACE":     f"{contents.CORE_WEST_FACE:.3g}",
         "F25_CHAIN_CLEAR":  f"{_boxes.boxed(solids['discharge-chain']).ymin - runs['fluid-25'].pts[-1][1]:.4g}",
         "F25_REG_ROOF":     f"{_boxes.boxed(solids['flow-regulator']).zmin - runs['fluid-25'].pts[-1][2]:.4g}",
-        "F25_LEAN":         f"{R.leg_skew(runs['fluid-25'].pts[-1], runs['fluid-25'].pts[-2], tuple(-c for c in _frames()['divider-y-h'].normal('Y-H-2'))):.3g}",
+        # The approach runs OUTWARD from the collet to its waypoint, so the lean is measured
+        # against the port's own outward normal — negated, it reads the supplement.
+        "F25_LEAN":         f"{R.leg_skew(runs['fluid-25'].pts[-1], runs['fluid-25'].pts[-2], _frames()['divider-y-h'].normal('Y-H-2')):.3g}",
         "F25_TURN":         f"{runs['fluid-25'].bends[-1][1]:.3g}",
         "LOFT_BAY":         f"{runs['fluid-27'].pts[0][1] - runs['fluid-23'].pts[0][1]:.4g}",
         "PORT_ROW_Z":       f"{runs['fluid-18'].pts[-1][2]:.4g}",
