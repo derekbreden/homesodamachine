@@ -263,7 +263,14 @@ const J13f = frame("J13", J13El.props.x, J13El.props.y, 0, Object.fromEntries(js
 const BT1El = <CoinHolder name="BT1" x={-20.5} y={-1.25} />
 const U6El = <Ds3231Smd name="U6" x={-40.35} y={3.5} rot={270} />  // nudged 0.15 E (clear of BT1): opens the WROOM↔U6 flank for the interlock B-haul beside the IO15→R10 feed
 const BT1f = frame(BT1El), U6f = frame(U6El)
-const D2El = <LedRed name="D2" pcbRotation={180} {...at(-40.75, -14.75)} />
+// ERR hangs between 3V3 and IO15, cathode west toward R10 — the one LED wired the other way up.
+// IO15 is MTDO, whose level at reset decides whether the ROM prints its boot log on U0TXD, and
+// whose ~45k internal pull-up cannot lift a node an LED to GND clamps to its forward drop (~1.6 V,
+// under the ~2.5 V V_IH). Pulled up through the LED instead, the pin idles at 3V3 with the LED
+// dark, and firmware lights it by driving IO15 LOW.
+// 0.3 E of the column the other four hold: the KT-0603 courtyard reaches 1.947 one way and
+// 1.728 the other, and at rot 0 the long side faces R10.
+const D2El = <LedRed name="D2" pcbRotation={0} {...at(-40.45, -14.75)} />
 const D3El = <LedGrn name="D3" pcbRotation={180} {...at(-40.75, -17.25)} />
 const D4El = <LedBlu name="D4" pcbRotation={180} {...at(-40.75, -19.75)} />
 const D5El = <LedGrn name="D5" pcbRotation={180} {...at(-40.75, -22.25)} />
@@ -1301,13 +1308,14 @@ export default () => (
     {/* ── Indicator LEDs — one labelled column on the west edge ──────────────────────
         Five rows at 2.5 pitch (LEDs x -39.75, their 470R C23179 resistors x -43.2), each
         named by a 1.4mm silk label east of its LED:
-          ERR (red, IO15 / MTDO — runs high during boot: a glint at reset, harmless)
+          ERR (red, IO15 / MTDO — 3V3 through the LED, ACTIVE-LOW; see the D2 placement note)
           RUN (green, IO12 / MTDI — heartbeat; wants low at boot, LED-to-GND only, never tied high)
           ACT (blue, IO14 — activity, not a strap)
           PWR (green, 3V3 rail)   5V (green, 5V rail)
-        The firmware rows drive three otherwise-idle, boot-safe ESP GPIO, active-high to
-        GND; the rail rows hang off their planes through the series R (PWR lit ⇒ 12 V in
-        AND the 5V buck + 3V3 LDO are up — the board is alive before firmware runs).
+        The firmware rows drive three otherwise-idle, boot-safe ESP GPIO — ACT and RUN
+        active-high to GND, ERR active-low off 3V3; the rail rows hang off their planes
+        through the series R (PWR lit ⇒ 12 V in AND the 5V buck + 3V3 LDO are up — the
+        board is alive before firmware runs).
         Ref-des silk is stripped from the LED imports (it collides at this pitch); the
         labels name the rows (see esp32-scope.md). The RO/DI bottom lanes thread the
         PWR/5V row gap (RS485 block above). */}
@@ -1332,12 +1340,12 @@ export default () => (
         there. The LED footprint silk (diode glyph) is stripped from the imports so it doesn't sit
         under the fill. */}
 
-    {/* firmware: GPIO -> R -> anode, cathode -> GND */}
+    {/* firmware: RUN/ACT are GPIO -> R -> anode, cathode -> GND; ERR is 3V3 -> anode, cathode ->
+        R -> GPIO (the D2 placement note carries the strap it sits on) */}
     {/* LED feeds — the top band south of U1 is the sensor comb's, so all three ride the BOTTOM as
         nested pad-via L's; the GPIO→colour map is firmware's, so pins are assigned by geometry:
         IO15 comes down U1's east flank (between the GND corner pad and R5.pin2) and takes the
-        top row, entering R10.pin1 by its north face (IO15 runs high during boot — a red glint
-        at reset, harmless on a status LED); IO12/IO14 drop south off the pad row and nest
+        top row, entering R10.pin1 by its north face; IO12/IO14 drop south off the pad row and nest
         into R11/R12 by their west faces — east pin to upper row, so nothing crosses. */}
     <trace from="U1.IO15" to="R10.pin1" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO15",
@@ -1346,8 +1354,8 @@ export default () => (
         R10f.col("pin1"),
         "R10.pin1",
     )} />
-    <trace from="R10.pin2" to="D2.pin1" pcbPathRelativeTo="board" pcbPath={route("R10.pin2", "D2.pin1")} />
-    <trace from=".D2 > .cathode" to="net.GND" />
+    <trace from="R10.pin2" to="D2.pin2" pcbPathRelativeTo="board" pcbPath={route("R10.pin2", "D2.pin2")} />{/* rot 0: pin2 is the west pad, the cathode */}
+    <trace from=".D2 > .anode" to="net.V3V3" />
     <trace from="U1.IO12" to="R11.pin1" pcbPathRelativeTo="board" pcbPath={routeBottom(
         "U1.IO12",
         R11f.row("pin1"),

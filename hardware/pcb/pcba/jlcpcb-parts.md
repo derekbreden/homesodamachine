@@ -49,7 +49,7 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | C13/C15/C17/C19 — buck/LDO/driver decouple | 10 µF 25V X5R | 0805 | C15850 | Basic | (see C11) | $0.01 |
 | C14, C16 — 3V3 LDO / 5V buck output | 22 µF 25V X5R | 0805 | C45783 | Basic | — | $0.02 |
 | C18/C20 — driver VM HF | 0.1 µF 50V X7R | 0805 | C49678 | Basic | (see C1/C2) | $0.0136 |
-| D2 — fault LED (red) | KT-0603R, 0603 | 0603 | C2286 | Extended | — | — |
+| D2 — fault LED (red), **seated rot 0, reversed vs D3–D6** | KT-0603R, 0603 | 0603 | C2286 | Extended | — | — |
 | D3, D5, D6 — status/rail LEDs (green) | KT-0603G, 0603 | 0603 | C12624 | Extended | 325,847 (2026-07-02) | $0.0121 |
 | D4 — activity LED (blue) | KT-0603B, 0603 | 0603 | C2288 | Extended | 178,594 (2026-07-02) | $0.0102 |
 | U1 — base controller | ESP32-WROOM-32E-N4, no radio | SMD module 18×25.5 mm | C701341 | Extended | 30,929 (2026-07-14) | $3.77 |
@@ -315,7 +315,7 @@ point-in-time — re-check the week of ordering.
 | J10 — KF301-5.0-2P screw terminal | `C474881` | THT block, 5.0 mm-pitch 2P | Another 5.0 mm-pitch 2-pole THT screw terminal (KF301 / KF128 / DG301 family) — same 2-hole 5.0 mm land; confirm pin dia ≤ the imported hole and the body clears the courtyard. ~165k stock. |
 | J2/J3/J4/J5/J6/J7/J8/J9/J11/J13 — XH2.54 wafers | `C5359632/33/34/35/37` | XH2.54 vertical THT, 2.5 mm | Any same-count XH2.54 vertical wafer (2.5 mm) — the land is a plain n-hole 2.5 mm row, so a different-vendor XH mounts in the same holes (JLC re-derives CPL rotation per part; not a board change). J1 (9P) is the shallow one — see the first table. |
 | U8 — MLT-5020 buzzer | `C94598` | SMD 5×5 mm, 2-pad | Another **passive** (externally driven) magnetic SMD buzzer on the 5×5 mm 2-pad land — verify the pad geometry (buzzer footprints vary). Must be passive: an active buzzer would not take the LEDC tone drive. ~104k stock. |
-| D2/D3/D4/D5/D6 — status LEDs | `C2286 / C12624 / C2288` | 0603 | Any 0603 LED of the same colour (red / green / blue) — one of the deepest categories in the library (millions in stock). |
+| D2/D3/D4/D5/D6 — status LEDs | `C2286 / C12624 / C2288` | 0603 | Any 0603 LED of the same colour (red / green / blue) — one of the deepest categories in the library (millions in stock). **D2 is placed rot 0 and the rest rot 180**: ERR hangs off 3V3 so IO15/MTDO idles high (the strap that gates the ROM boot log), and its anode therefore faces the opposite way. The LED footprint silk is stripped, so the CPL rotation is what carries this — check D2 reads `0` on the placement file. |
 | BT1 — CR2032 coin base | `C5365915` | THT 2-pin base, 20 mm post span | **Footprint-specific — not a generic drop-in.** Coin-holder lands vary by vendor, so a zero-change swap is the same MPN (Kinghelm KH-CR2032-2-1) under another code; a different holder needs a footprint re-import (small respin). Low risk (~12k stock, stable LCSC brand). Avoid the flagged bent-leg SMT clips (see the BT1 note above). |
 
 **U4/U5** (`C165895`, TBD62083): fallback already documented above — the pin-identical ULN2803A
