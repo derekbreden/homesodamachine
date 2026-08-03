@@ -40,15 +40,17 @@ It runs a full sweep at boot, then idles as a console (`RUN` blinks as the heart
 | `mcp` | Both MCP23017s: register reads, plus a write round-trip that never touches a pin |
 | `in` | Every off-board signal pin, and the two gas dividers in millivolts |
 | `rs485` | DI → U7 → A/B → U7 → RO closes entirely on-board, through R6's termination |
-| `watch` | Live pin watch for 90 s — jumper a connector pin to its GND and the line reports |
+| `watch` | Audible continuity probe — touch a connector pin to its GND and hold until it beeps |
 | `walk` | The three firmware LEDs are on the GPIO the map says they are |
 | `buzz` | The IO13 → R5 → Q1 → U8 buzzer chain (audible) |
 | `arm` / `drive` | Drive one output for 120 s so it can be metered at its connector |
 | `all` | The whole sweep |
 
-`watch` is the one that walks a whole net, pad to connector, with nothing but a jumper —
-the check that no view of the model can stand in for. GPIO34–39 carry no internal pull-up,
-so IO34/IO35 need a voltage applied rather than a short to ground.
+`watch` walks a whole net — ESP32 pad, via, trace, connector barrel — with nothing but a
+jumper, which is the check no view of the model can stand in for. It answers through the
+board's own buzzer at one pitch per net, so probing needs no screen and no timing: touch and
+hold until it sounds. A contact has to hold 40 ms to register, and the serial log names
+whichever net answered. GPIO34–39 carry no internal pull-up, so IO34/IO35 stay out of it.
 
 ## Actuator outputs
 
