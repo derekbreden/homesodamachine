@@ -49,3 +49,4 @@ tools/flavor_preview.png
 *.scorecard-cache.pkl
 *.scorecard-cache.pkl.tmp
 *.views.sha
+*.pack-cache/
