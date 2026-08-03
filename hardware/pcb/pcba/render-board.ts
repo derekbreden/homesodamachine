@@ -80,7 +80,8 @@ const drillHits = (drl: string): DrillHit[] => {
 }
 
 /**
- * Every plated feature claims its own hit, matched on position and drilled diameter. Two vias
+ * Every plated feature claims its own hit, matched on position and drilled diameter, and every
+ * hit is claimed by a feature — the file drills nothing the board doesn't ask for. Two vias
  * stack at one coordinate on this board and take two hits.
  */
 const assertFullyDrilled = (circuit: any[], drl: string, types: string[], file: string) => {
@@ -127,11 +128,14 @@ const assertFullyDrilled = (circuit: any[], drl: string, types: string[], file: 
     taken[best] = true
     if (exact < 0) wrongSize.push(`${where(e)} wants ⌀${want.toFixed(3)}, drilled ⌀${hits[best]!.d.toFixed(3)}`)
   }
-  if (undrilled.length || wrongSize.length)
+  const orphan = hits.filter((_, i) => !taken[i])
+    .map((h) => `⌀${h.d.toFixed(3)} @ (${h.x.toFixed(3)}, ${h.y.toFixed(3)}) claimed by no ${types.join("/")}`)
+  if (undrilled.length || wrongSize.length || orphan.length)
     throw new Error([
-      `${file} does not cover the board — ${undrilled.length} undrilled, ${wrongSize.length} mis-sized:`,
+      `${file} does not cover the board — ${undrilled.length} undrilled, ${wrongSize.length} mis-sized, ${orphan.length} orphan:`,
       ...undrilled.map((s) => `    UNDRILLED   ${s}`),
       ...wrongSize.map((s) => `    WRONG SIZE  ${s}`),
+      ...orphan.map((s) => `    ORPHAN HIT  ${s}`),
     ].join("\n"))
 }
 

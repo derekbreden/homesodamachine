@@ -82,8 +82,8 @@ board that fails one produces no fab set at all. Both name the features they are
 
 | Requirement | Floor | Audit |
 |---|---|---|
-| Every via + plated hole claims its own hit in `drill.drl`, on position and drilled diameter | 0 undrilled, 0 mis-sized | [`render-board.ts`](render-board.ts) `assertFullyDrilled` |
-| Every non-plated hole likewise in `drill_npth.drl` | 0 undrilled, 0 mis-sized | [`render-board.ts`](render-board.ts) `assertFullyDrilled` |
+| Every via + plated hole claims its own hit in `drill.drl`, on position and drilled diameter, and every hit is claimed | 0 undrilled, 0 mis-sized, 0 orphan | [`render-board.ts`](render-board.ts) `assertFullyDrilled` |
+| Every non-plated hole likewise in `drill_npth.drl` | 0 undrilled, 0 mis-sized, 0 orphan | [`render-board.ts`](render-board.ts) `assertFullyDrilled` |
 | Every plated hole an inner-layer trace terminates on carries a pad on that layer | 0 zero-ring | [`inner-rings.ts`](inner-rings.ts) `assertInnerRinged` |
 
 A `routeInner` via declares its span as the copper transition it makes (`top->inner1`), and the
