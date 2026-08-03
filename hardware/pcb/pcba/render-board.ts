@@ -16,6 +16,14 @@
 import { composeViews, SCHEMES } from "./gerber-compose"
 import { backSilkBoardTsx } from "./bottom-silk"
 import { ledKnockoutGerber } from "./led-knockout"
+import { innerRingGerber, assertInnerRinged } from "./inner-rings"
+
+const spliceInnerRings = (circuit: any[], layers: Record<string, string>) => {
+  for (const [ref, name] of [["inner1", "In1_Cu"], ["inner2", "In2_Cu"]] as const) {
+    const frag = layers[name] ? innerRingGerber(circuit, layers[name]!, ref) : ""
+    if (frag) layers[name] = layers[name]!.replace(/M02\*/, `${frag}\nM02*`)
+  }
+}
 import { dedupDrill } from "./dedup-drill"
 import { widenPourVoids, findPourClearanceRules, antennaKeepout, dropPourSlivers, widenFastenerAnnuli, findFastenerAnnuli } from "./pour-clearance"
 import { singleflight } from "./run-lock"
@@ -268,6 +276,7 @@ async function placementPreview() {
   const circuit = await exportCircuitJson(name)
   const scratch = track(mkdtempSync(path.join(tmpdir(), `pcb-${board}-place-`)))
   const layers = stringifyGerberCommandLayers(convertSoupToGerberCommands(circuit, { flip_y_axis: false }))
+  spliceInnerRings(circuit, layers as Record<string, string>)
   if (layers["F_SilkScreen"]) layers["F_SilkScreen"] = layers["F_SilkScreen"].replace(/M02\*/, `${ledKnockoutGerber(circuit, layers["F_SilkScreen"])}\nM02*`)
   for (const [n, txt] of Object.entries(layers)) writeFileSync(path.join(scratch, `${n}.gbr`), txt as string)
   const pth = convertSoupToExcellonDrillCommands({ circuitJson: throughDrilled(circuit), is_plated: true, flip_y_axis: false })
@@ -342,6 +351,10 @@ console.log(`[${board}] generating gerbers from circuit-json (${circuit.length} 
 const scratch = track(mkdtempSync(path.join(tmpdir(), `pcb-${board}-`)))
 try {
   const layers = stringifyGerberCommandLayers(convertSoupToGerberCommands(circuit, { flip_y_axis: false }))
+  // Splice the inner-layer annular rings into the plane copper (the generator draws a plated
+  // hole only on the layers it lists; see inner-rings.ts), then check they landed.
+  spliceInnerRings(circuit, layers as Record<string, string>)
+  assertInnerRinged(circuit, layers as Record<string, string>)
   // Splice the LED knockout badges into the front silk (filled D + text/pad antipads — not
   // expressible in circuit-json; see led-knockout.ts).
   if (layers["F_SilkScreen"]) layers["F_SilkScreen"] = layers["F_SilkScreen"].replace(/M02\*/, `${ledKnockoutGerber(circuit, layers["F_SilkScreen"])}\nM02*`)

@@ -84,11 +84,20 @@ board that fails one produces no fab set at all. Both name the features they are
 |---|---|---|
 | Every via + plated hole claims its own hit in `drill.drl`, on position and drilled diameter | 0 undrilled, 0 mis-sized | [`render-board.ts`](render-board.ts) `assertFullyDrilled` |
 | Every non-plated hole likewise in `drill_npth.drl` | 0 undrilled, 0 mis-sized | [`render-board.ts`](render-board.ts) `assertFullyDrilled` |
+| Every plated hole an inner-layer trace terminates on carries a pad on that layer | 0 zero-ring | [`inner-rings.ts`](inner-rings.ts) `assertInnerRinged` |
 
 A `routeInner` via declares its span as the copper transition it makes (`top->inner1`), and the
 Excellon converter emits only the spans it is asked for — the default `top->bottom`.
 `throughDrilled` restates every via as the through-hole it physically gets, before the drill file
 is generated and after the copper layers are.
+
+Three barrels — `J8.SDA`, `J8.SCL`, `J4.IO23` — take an inner-layer trace as the only path to
+their pin, and a THT pad is drawn on the top and bottom it declares. `innerRingGerber` flashes
+their rings into the plane copper, the splice [`led-knockout.ts`](led-knockout.ts) already makes
+into the front silk. Each plane voids around a barrel by its pad radius plus the pour's own
+`netClearance`, whatever layer the pad is drawn on, so a ring lands in clearance already cut for
+it. Neither the copper-clearance floor nor the DRC reads these rings, since both are computed
+from the circuit-json.
 
 ## The gate is permission; the goal is the work
 
