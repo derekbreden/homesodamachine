@@ -21,12 +21,30 @@ All valves are normally closed solenoid valves. Flow direction is inlet (I) to o
 
 ## Junctions
 
-Eight 3-port junctions. **Y-A and Y-B are PP2308E Y-dividers** (the source-select tray's trident fittings); the other six — **Y-C, Y-D, Y-E, Y-F, Y-G, Y-H** — are **PP0208E Tees** (in-line run + branch). The `Y-` prefix is a stable identifier, not a claim that the fitting is a Y. Per-tray grouping is in [fluid-topology-trays.mmd](/hardware/topology/fluid-topology-trays.mmd).
+Eight 3-port junctions. **Y-H is a PP2308E Y-divider** (a trident: one stem, two parallel outlets); the other seven — **Y-A, Y-B, Y-C, Y-D, Y-E, Y-F, Y-G** — are **PP0208E Tees** (in-line run + branch). The `Y-` prefix is a stable identifier, not a claim that the fitting is a Y.
+
+Which of the two a junction wants follows from the placed geometry more than from the circuit: a **divider** joins two ports side by side — its outlets are parallel, which is the shape two valves standing beside each other present — and a **Tee** joins two ports one corridor serves, the run taking those and the branch turning to the third. What decides it is the pair's own sitting AND the room the fitting has: a trident is 38.5 mm from stem tip to outlet face and needs that much clear ahead of the pair it joins, where a Tee standing across a band needs only its own 13.7 mm diameter.
+
+No junction is carried by a tray: the [two-valve tray](/hardware/printed-parts/valve-manifold/two-valve-tray/README.md) seats valves only, so each fitting hangs on the two collets it joins. All five trays are placed. A tray carries no valve above another — nothing holds a valve down, so every tray in the machine lies plate-up and its two seats stand side by side — so **a junction reaching between trays can only ever be a Tee**, and that is six of the eight. The other two join one tray's own pair, and there the room decides: **Y-H** has a column ahead of it in the loft and is the trident; **Y-E** has a 16.9 mm strip between the pump row and the head column, and stands a Tee ACROSS it.
+
+Which two of a Tee's three ports take the **run** follows from the geometry the same way the divider/Tee choice does. A Tee's run is a **lane** — one straight length of tube passing through the fitting — and its branch is the leg that leaves that lane. So the run takes the two ports the same corridor serves and the branch takes the one that departs it, and the port numbering below is a naming rather than a claim about which is which: the table says where each port goes, and [`_contents.py`](/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py)'s `_tee_local` is where a name meets a run end or a branch.
+
+**Y-A and Y-B are the SELECTS-SOURCE junction**, and the lane each takes is a **column**. The source pair stands in the selects pair's own two seats one stack pitch up, so the four ports between them lie in two vertical columns — V-A over V-C, V-B over V-D — and each column is one Tee's run: the tap-water source falls straight through Y-A to channel A's select (segments 3 and 7), the hopper source through Y-B to channel B's (5 and 8). The two branches face each other across the seat pitch and meet on segment 6, which is what puts all four ports on one hydraulic node. Every mode opens exactly one of {V-A, V-B} and exactly one of {V-C, V-D}, so the traffic the pair carries is always one source to one select — straight down a column, or down half a column, across the bar and down the other half. [`printed-parts/valve-manifold/selects-source/`](/hardware/printed-parts/valve-manifold/selects-source/README.md) is that junction on its own with the four modes measured.
+
+Channel A's and channel B's four are the PUMP-ROW junctions.
+
+Channel A's stand in the **pump lane**, the strip west of the head column and aft of channel A's pump, each on the column of the barb its run butts. Their runs lie along that lane and their branches stand **up** out of it, which is the axis both third legs leave on: Y-C's branch takes the fall from the selects pair a stack pitch above (segment 9), and Y-D's is the storey-and-a-half climb to the nozzle gate in the loft (segment 17). Nothing else on the row changes level — the pump's two barbs stand on the bag-A pair's own port plane, so the whole row is flat and only the branches climb.
+
+Channel B's do **not** share one lane, and pump A is why: it stands in the front column beside channel A's, so both of its junctions are up in the loft and the two legs between them and the barbs cross a storey and a half. **Y-G** takes the straight line the loft's junction bay already holds — V-I-I and V-J-I face each other down one axis across it, which is exactly what a run is — so both its run legs (segments 23 and 27) are one short length of tube and its branch takes the climb up out of the front column (segment 22). **Y-F** stands in the loft's own pump lane, the strip between the trays and the water deck, with its run along the lane — the shared source's climb in from the front column (segment 19), the pump's suction out the other end (segment 21) — and its branch reaching sideways at the bag-B draw (segment 20). It is the only branch in the manifold that is horizontal, and the only row whose RUN legs change level.
+
+**Y-H** stands ahead of the bag-B pair on that pair's own port plane, so neither of its outlet legs climbs, and segment 25 climbs the whole front column to reach its stem. **Y-E** cannot: what is ahead of the bag-A pair is a strip a fitting's diameter deep, so it stands across it with its collets in one vertical plane — the RUN along the strip carrying reservoir A's line in from the tray-east lane (segment 15) and the bag draw out the other end (segment 16), the BRANCH facing down on V-F's own column at the fill (segment 14). A down-facing collet is entered by a rising leg, so it stands over the pair's port plane and both valve legs climb into it. Per-tray grouping is in [fluid-topology-trays.mmd](/hardware/topology/fluid-topology-trays.mmd).
+
+Y-E's and Y-H's three ports are numbered from the end the **bag** rides — Y-H-2 its stem and Y-E-2 the east end of its run, with a valve on each of the other two — where Y-A's and Y-B's are numbered from the source end down their columns. One line reaches each reservoir's port on the cold core's front face, and both the fill and the draw are on it.
 
 | Junction | Port 1 | Port 2 | Port 3 |
 |---|---|---|---|
-| Y-A | V-A-O (tap water) | V-B-O (hopper) | Y-B-1 (to channel split) |
-| Y-B | Y-A-3 (from tap/hopper merge) | V-C-I (channel A select) | V-D-I (channel B select) |
+| Y-A | V-A-O (tap water) | V-C-I (channel A select) | Y-B-3 (crossbar to Y-B) |
+| Y-B | V-B-O (hopper) | V-D-I (channel B select) | Y-A-3 (crossbar to Y-A) |
 | Y-C | V-C-O (channel A shared source) | V-E-O (bag A to pump return) | P-B-I (pump B inlet) |
 | Y-D | P-B-O (pump B outlet) | V-F-I (pump to bag A) | V-G-I (pump to nozzle A) |
 | Y-E | V-F-O (pump to bag A return) | Bag A port | V-E-I (bag A to pump) |
@@ -42,14 +60,14 @@ Each segment is one labelled edge in [fluid-topology-manifold.mmd](/hardware/top
 
 | # | From | To | Notes |
 |---|---|---|---|
-| 1 | Tap water source | Flow regulator inlet | Fed from the water-split's south run — 1/4" PTC off the ASSE 1022's split (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd)) |
+| 1 | Tap water source | Flow regulator inlet | Fed from the water-split's AFT run — 1/4" PTC off the ASSE 1022's split (see [`fluid-topology-carbonator.mmd`](/hardware/topology/fluid-topology-carbonator.mmd)) |
 | 2 | Flow regulator outlet | V-A-I | |
-| 3 | V-A-O | Y-A-1 | |
+| 3 | V-A-O | Y-A-1 | Down the west column, through Y-A's run |
 | 4 | Hopper funnel bottom | V-B-I | |
-| 5 | V-B-O | Y-A-2 | |
-| 6 | Y-A-3 | Y-B-1 | |
-| 7 | Y-B-2 | V-C-I | |
-| 8 | Y-B-3 | V-D-I | |
+| 5 | V-B-O | Y-B-1 | Down the east column, through Y-B's run |
+| 6 | Y-A-3 | Y-B-3 | The crossbar — branch to branch, one straight length |
+| 7 | Y-A-2 | V-C-I | |
+| 8 | Y-B-2 | V-D-I | |
 
 ### Channel A
 

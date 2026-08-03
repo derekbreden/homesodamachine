@@ -132,6 +132,35 @@ board = SimpleNamespace(
 MOUNTS = [Mount(board, _centre, 0.0)]
 
 
+# --- The board's own stations -----------------------------------------------
+# Two frames. `pcba.tsx` writes every pad and connector in the PCB FRAME; the board is DRAWN
+# about its own outline centre, which is the datum its mount pattern and its box share. They
+# differ by `_centre`, and `port` applies it — so a caller names a connector out of
+# `pcba.tsx` verbatim.
+
+def port(px, py) -> tuple:
+    """A point in the board's `pcbX`/`pcbY` frame, as a station on the board's TOP FACE:
+    `(position, outward axis)`.
+
+    Every wafer, header and edge connector on this board mates off that face, so the axis is
+    +Z and the height is the fab thickness — a station stands where a loom is pressed on, not
+    where the copper is."""
+    return ((px - _centre[0], py - _centre[1], _thickness), (0.0, 0.0, 1.0))
+
+
+def stations_hold():
+    """Hold the mating plane to the board this module draws.
+
+    `port` measures `_thickness` up from zero, so zero has to be the board's underside. The
+    drawn model is a slab plus one box per populated component, and a bottom-side body reaching
+    below the slab would move that floor while every station stayed where it was."""
+    floor = _build_board().val().BoundingBox().zmin
+    if abs(floor) > 1e-9:
+        raise ValueError(
+            f"the board is drawn with its underside at z = {floor:.4f} and `port` measures "
+            f"{_thickness:g} up from 0 — every connector station is off the mating face.")
+
+
 def build_pcba_tray():
     return mt.build_module_tray(MOUNTS)
 

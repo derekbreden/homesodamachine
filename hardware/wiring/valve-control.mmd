@@ -145,15 +145,15 @@ flowchart LR
     end
 
     subgraph ChA_Valves["Channel A"]
-      VE["V-E  Bag A → Pump B"]
-      VF["V-F  Pump B → Bag A"]
-      VG["V-G  Pump B → Nozzle A"]
+      VE["V-E  Bag A → Pump A"]
+      VF["V-F  Pump A → Bag A"]
+      VG["V-G  Pump A → Nozzle A"]
     end
 
     subgraph ChB_Valves["Channel B"]
-      VH["V-H  Bag B → Pump A"]
-      VI["V-I  Pump A → Bag B"]
-      VJ["V-J  Pump A → Nozzle B"]
+      VH["V-H  Bag B → Pump B"]
+      VI["V-I  Pump B → Bag B"]
+      VJ["V-J  Pump B → Nozzle B"]
     end
 
     subgraph Water_Valves["Water Supply"]

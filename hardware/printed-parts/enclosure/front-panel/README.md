@@ -38,7 +38,7 @@ The internal 1/4" LLDPE between the front-panel CO2 PTC and the vessel-side TAIS
 
 Downstream of the front-panel CO2 inlet stack: GASHER check → PP450822E onto the check's male outlet stub → a short 1/4" OD LLDPE hop → WR1110 secondary regulator, a PP010822E PTC × NPT M adapter in each of its two female ends → 1/4" OD LLDPE → the cold core's front-face CO2 bore, beside the water outlet. Procedure detail in [`/hardware/assembly/internal-plumbing.md`](/hardware/assembly/internal-plumbing.md) §1.
 
-The regulator does not thread onto the check. It lies across the band between the compressor's top and the pump row's underside, fed and drained by tube, and stands on its own cradle — owned by [`/hardware/assembly/enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) Open items, which has the station placed and its keep-outs measured.
+The regulator does not thread onto the check. It stands apart on its own cradle, fed and drained by tube. Where it stands is not settled — this pack places no part of the CO2 chain, so there is no station to stand a cradle off; both are owned by [`/hardware/assembly/enclosure-mechanical.md`](/hardware/assembly/enclosure-mechanical.md) Open items.
 
 ## References
 

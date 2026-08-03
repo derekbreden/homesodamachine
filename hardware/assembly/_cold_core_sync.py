@@ -18,7 +18,7 @@ sys.path.insert(0, str(_hw / "printed-parts" / "cadlib"))
 sys.path.insert(0, str(_hw / "printed-parts" / "cold-core"))
 
 from _cold_core_interface import (  # noqa: E402
-    co2_inlet_x,
+    co2_inlet_y,
     foam_cap_interior_height,
     foam_cap_lid_pour_radius,
     foam_cap_lid_vent_radius,
@@ -36,7 +36,6 @@ from _cold_core_interface import (  # noqa: E402
 )
 from _reed_channels import (  # noqa: E402
     cable_hole_offset_from_bulkhead_hole_x,
-    cable_shell_hole_x,
 )
 
 import importlib.util  # noqa: E402
@@ -84,8 +83,8 @@ def main():
         "WRAP_FT": f"{_coil_mandrel_gen.wrap_length / 304.8:.4g} ft",
         "STUB_LEN": f"{_coil_mandrel_gen.stub_allowance:.4g} mm",
         "CUT_FT": f"{_coil_mandrel_gen.cut_length / 304.8:.4g} ft",
-        "PLUG_INLET_Y": f"{_coil_mandrel_gen.plug_inlet_y:.4g}",
-        "PLUG_OUTLET_Y": f"{_coil_mandrel_gen.plug_outlet_y:.4g}",
+        "TAIL_INLET_Y": f"{_coil_mandrel_gen.tail_inlet_y:.4g}",
+        "TAIL_OUTLET_Y": f"{_coil_mandrel_gen.tail_outlet_y:.4g}",
         # ─── Cap pour (step 3) ────────────────────────────────────────
         "CAP_H": f"{foam_cap_interior_height:.4g} mm",
         "POUR_D": f"{foam_cap_lid_pour_radius * 2:.4g} mm",
@@ -99,18 +98,16 @@ def main():
         # Generic small-feature port hole (water outlet, reservoir
         # bulkheads, CO2 tube clearance through cap+lid).
         "TUBE_HOLE_D": f"{port_hole_radius * 2:.4g} mm",
-        # CO2 inlet X — the bottom plate's own port offset. X is the one axis
-        # this doc's frame shares with the shell's, so it reads across
-        # unchanged, and the bore, the vessel elbow and the tube all stand on
-        # it.
-        "COTWO_INLET_X": f"+{co2_inlet_x:.4g}",
-        # The two −Y-wall holes per reservoir side: flavor line inboard,
-        # reed cable outboard of the bulkhead axis.
+        # CO2 inlet Y — the vessel's own port axis. The bore, the vessel
+        # elbow and the tube all stand on it.
+        "COTWO_INLET_Y": f"{co2_inlet_y:.4g}",
+        # The two pocket-wall holes per reservoir side: flavor line inboard,
+        # reed cable outboard of the bulkhead axis. There is no matching pair of
+        # outer-wall holes — each run turns onto the port lane and leaves through
+        # its own station on the front port field, which is why the second bore
+        # is a Z on the column rather than an X on the line's own axis.
         "FLAVOR_HOLE_X": f"±{_port_cuts.flavor_line_hole_x:.4g}",
         "CABLE_HOLE_X": f"±{reservoir_bulkhead_port_x + cable_hole_offset_from_bulkhead_hole_x:.4g}",
-        # …and where each leaves the outer shell, inboard across the pour band.
-        "FLAVOR_SHELL_X": f"±{_port_cuts.flavor_line_shell_hole_x:.4g}",
-        "CABLE_SHELL_X": f"±{cable_shell_hole_x:.4g}",
         # Reservoir-to-pocket clearance — why the pockets take no foam.
         "RESERVOIR_GAP": f"{reservoir_clearance:.4g} mm",
         # ─── Output envelope (line 113) ───────────────────────────────
@@ -142,18 +139,16 @@ def main():
             "WRAP_FT": 1,
             "STUB_LEN": 3,
             "CUT_FT": 1,
-            "PLUG_INLET_Y": 1,
-            "PLUG_OUTLET_Y": 1,
+            "TAIL_INLET_Y": 1,
+            "TAIL_OUTLET_Y": 1,
             "CAP_H": 1,
             "POUR_D": 1,
             "LID_VENT_D": 1,
             "INSERT_POCKET_D": 1,
             "INSERT_HALF_DEPTH": 2,
             "TUBE_HOLE_D": 5,
-            "COTWO_INLET_X": 1,
+            "COTWO_INLET_Y": 1,
             "FLAVOR_HOLE_X": 1,
-            "FLAVOR_SHELL_X": 1,
-            "CABLE_SHELL_X": 1,
             "CABLE_HOLE_X": 2,
             "RESERVOIR_GAP": 1,
             "OUTER_X": 1,
@@ -170,7 +165,7 @@ def main():
     substitute_py_comments(
         Path(_port_cuts.__file__),
         variables={
-            "CO2_INLET_X": f"{_port_cuts.co2_inlet_x:.4g}",
+            "CO2_INLET_Y": f"{_port_cuts.co2_inlet_y:.4g}",
             "FRONT_FACE_PORT_Z": f"{_port_cuts.front_face_port_z:.4g}",
             "PORT_HOLE_DIAMETER": f"{_port_cuts.port_hole_radius * 2:.4g}",
             # Pocket-wall spacing between a side's flavor bore and its reed
@@ -179,7 +174,7 @@ def main():
             "FLAVOR_REED_PITCH": f"{_port_cuts.flavor_line_hole_offset_from_bulkhead_x + cable_hole_offset_from_bulkhead_hole_x:.4g}",
         },
         expected_counts={
-            "CO2_INLET_X": 1,
+            "CO2_INLET_Y": 1,
             "FRONT_FACE_PORT_Z": 1,
             "PORT_HOLE_DIAMETER": 3,
             "FLAVOR_REED_PITCH": 1,

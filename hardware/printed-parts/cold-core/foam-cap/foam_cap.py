@@ -38,6 +38,9 @@ from _cold_core_interface import (
     deck_mount_bore_depth,
     deck_mount_lid_slip,
     deck_mount_standoff,
+    cap_conduits,
+    cap_conduit_bore_radius,
+    cap_conduit_boss_radius,
 )
 from docgen import substitute_py_comments
 
@@ -135,11 +138,20 @@ def main():
         len(deck_mount_xy(name)) * math.pi * deck_lid_hole_radius(name) ** 2 * lid_z_height
         for name in deck_mounts
     )
-    # The two caps differ by the deck columns alone, and the two lids by the
-    # clearance holes those columns pass through — nothing else is cut into one
-    # end of the stack and not the other.
-    cap_expect = deck_column_volume
-    lid_expect = deck_lid_hole_volume
+    # Each conduit is a full-section column off the floor's cavity side less a bore that
+    # carries on down through the floor under it, and the lid it lands on takes the same
+    # bore through its plate.
+    conduit_column_volume = len(cap_conduits) * math.pi * (
+        cap_conduit_boss_radius ** 2 * (foam_cap_height - wall_and_floor_thickness)
+        - cap_conduit_bore_radius ** 2 * foam_cap_height
+    )
+    conduit_lid_hole_volume = (len(cap_conduits) * math.pi
+                               * cap_conduit_bore_radius ** 2 * lid_z_height)
+    # The two caps differ by the deck columns and the conduits, and the two lids by the
+    # openings both of those want — nothing else is cut into one end of the stack and
+    # not the other.
+    cap_expect = deck_column_volume + conduit_column_volume
+    lid_expect = deck_lid_hole_volume + conduit_lid_hole_volume
     cap_diff = cap_top.val().Volume() - cap_bottom.val().Volume()
     lid_diff = lid_bottom.val().Volume() - lid_top.val().Volume()
     assert math.isclose(cap_diff, cap_expect, rel_tol=1e-6), \

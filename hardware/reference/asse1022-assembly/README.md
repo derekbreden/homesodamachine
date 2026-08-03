@@ -26,20 +26,21 @@ The assembly has an orientation rather than just an envelope because the
 atmospheric vent weeps to atmosphere and the internal drip pan over the moisture
 sensor has to be under it. That weeping is the mechanical telltale for a
 cross-contamination event (`hardware/future.md` "Backflow vent monitoring"), and
-it drips — never plumbed into a drain. `vent_tip()` is the datum the pan catches,
-and the drip falls from there: the pan sits under the tip's column, wherever the
-pose leaves it pointing.
+it drips — never plumbed into a drain. `port("vent-tip")` is the datum the pan
+catches, and the drip falls from there: the pan sits under the tip's column,
+wherever the pose leaves it pointing.
 
 The enclosure lays it along the service bay's aft strip, behind the SeaFlo and
-over the foam cap (`enclosure-assembly/_contents.py` `ASSE1022_POS`,
+over the foam cap (`enclosure-assembly/_contents.py` `ASSE1022_AXIS`,
 `ASSE1022_YAW`, `ASSE1022_ROLL`) — a yaw about Z, a roll about X, and a
-translation, since this frame is already the cabinet's axes. Both turns are zero
-there: the chain runs the cabinet's +X with its inlet west at the tap-water
-bulkhead and its 1/4" PTC collet east onto the 1/4" LLDPE run to the water-split, and the vent hangs as
-it is built, dropping its column straight onto the cap the pan sits on. The
-scorecard measures that fall (`fall vent-tip onto foam-assembly`). All three
-terminals are carried to world coordinates from the stations below, so a length
-changed in any of the five parts moves the enclosure's ports with it.
+translation, since this frame is already the cabinet's axes. The yaw turns the
+chain's flow onto the cabinet's −Y, its inlet aft at the tap-water bulkhead and
+its 1/4" PTC collet forward onto the 1/4" LLDPE run to the water-split; the roll
+is zero, so the vent hangs as it is built, dropping its column straight onto the
+cap the pan sits on. The scorecard measures that fall (`fall vent-tip onto
+foam-assembly`). The pack seats the chain and reads all three terminals off that
+seat, so a length changed in any of the five parts moves the enclosure's ports
+with it.
 
 ## Model
 
@@ -49,13 +50,16 @@ length in any of them and the chain closes on the new one. The two female
 fittings are bored at the major Ø of the male they take, so a threaded joint
 shares a surface and no volume; the assembly's parts do not interfere.
 
-| terminal | position | out |
-|---|---|---|
-| `tube_in()` | (−36.00, 0, 27.00) | −X |
-| `tube_out()` | (87.50, 0, 27.00) | +X |
-| `vent_tip()` | (32.00, 0, −2.00) | −Z |
+`STATIONS` seats each fitting; `TERMINALS` names which of their ports are this
+assembly's own, and `port(name)` reads one off its station's seat:
 
-Overall 123.5 × 33.0 × 43.3 mm. The vent stub's reach past the barb tip is a cut
+| terminal | station port | position | out |
+|---|---|---|---|
+| `port("tube-in")` | `jg-pp010822e.tube_port` | [(-36.00, 0.00, 27.00)](ASSE_TUBE_IN) | −X |
+| `port("tube-out")` | `flare38-14ptc.tube_port` | [(104.00, 0.00, 27.00)](ASSE_TUBE_OUT) | +X |
+| `port("vent-tip")` | `vent-stub.tip` | [(32.00, 0.00, -2.00)](ASSE_VENT_TIP) | −Z |
+
+Overall [140.0 × 33.0 × 43.3 mm](ASSE_ENVELOPE). The vent stub's reach past the barb tip is a cut
 length, not a fixed dimension — it is trimmed at the bench, and `VENT_STUB_REACH`
 holds the overhang the enclosure's placement leaves for it: the room in the
 service bay's aft strip between the electronics shelf's back edge and the chain,
@@ -71,3 +75,7 @@ Builds its parts from their modules in-process, so only this one command:
 ```
 tools/cad-venv/bin/python hardware/reference/asse1022-assembly/asse1022_assembly.py
 ```
+
+## Sources
+[value](NAME) texts are updated by:
+- `/hardware/reference/asse1022-assembly/asse1022_assembly.py`

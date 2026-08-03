@@ -1,21 +1,54 @@
 # Enclosure
 
-A PETG box, 3 mm walls, sized live to the bounding box of the contents placed
-by [`../enclosure-assembly/_contents.py`](/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py),
-**split into four printable pieces** — front/back × bottom/top, every piece
-inside the H2C bed — that telescope and screw together. **Both seams stand
-clear of the front pack**, so a valve tray in either front quadrant may run the
-box's full width and depth without being notched around seam furniture: the Y
-seam sits one stance behind the cold core's front face (behind the box midpoint,
-not at it), and the front column's bottom↔top seam sits *beneath* the manifold
-stack rather than inside it, so each tray lands wholly in the front-top piece.
-Each column takes its bottom↔top seam at its own height (the seams stagger like
-a brick bond): the back-bottom piece houses the cold core, the back-top covers
-the band above it — the electronics shelf on the foam-cap top and every panel
-port (the whole external-connection inventory penetrates its rear wall, above
-the cold core); the front column splits at the top of the refrigeration
-stratum — compressor and condenser below, the valve trays + funnel + display
-above.
+A PETG box, 3 mm walls, **split into four printable pieces** — front/back ×
+bottom/top, every piece inside the H2C bed — that telescope and screw together.
+It measures [215 × 481 × 400 mm](BOX_SIZE), and two of those three numbers are
+**bounds** rather than consequences:
+
+- **Width** is the cold core's *narrow* axis. The foam assembly is yawed a quarter
+  turn (`_contents.FOAM_YAW`), so what the ±X walls have to clear is its 181 mm
+  short face instead of its 283 mm long one, and one boss chain either side of
+  that is the whole interior width. The yaw is the thin machine.
+- **Height** is a stated [400 mm](APPLIANCE_HEIGHT), floor slab's underside to the
+  top wall's outer face. The contents do not lift it; they have to fit under it,
+  and `_dims` fails the build if they do not, naming by how much.
+
+**Depth** is still a consequence: the bounding box of the contents placed by
+[`../enclosure-assembly/_contents.py`](/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py),
+walled out. The cold core sits in the **back-bottom corner** and the refrigeration
+stratum stands ahead of it, so the depth is `FRONT_DEPTH` plus the core's own long
+axis plus two standoffs.
+
+Each column takes its bottom↔top seam at its own height, inside the band both its
+pieces print in (`_bed_band`): the piece under a seam runs the floor slab to the lip
+rim, the piece over it the seam to the top wall, and both stand on the bed.
+
+Within that band a seam wants the box's own half-height — the split that leaves both
+pieces their best chance on the bed — and takes the nearest height in an **open band**
+of its column: a range with `z_joint_clear` of air on either side of it, read off the
+pack (`_z_joints`). There no body straddles the seam and neither does whatever holds
+it, and a body standing clear above one is a body the seam passes under. The FRONT
+column has such a band — `_contents.STACK_GAP`, the 2 × `z_joint_clear` between the
+compressor shroud's roof and the condenser standing over it, one height and no slack,
+which is what makes the seam the thing setting the stack's gap rather than the other
+way round — so the front seam runs under the condenser and the block is held by the
+front-top piece.
+
+The BACK column has none inside the bed's band: the cold core stands from the floor
+slab and the whole service bay stands on its lid, so the column runs solid to the
+bay's crown and what it leaves open is above all of it. That seam runs **through** its
+column, on the lane its lip needs — a one-`wall` ring inset from the cavity, held open
+at every height by the standoffs the pack is packed to, one wall off the front and
+back walls and one boss chain off the sides, which `_lip_denied` measures. The four
+station pods and the posts over them stand in the ±X boss-chain bands over their
+piece's whole height, so a seam height moves only the lip. The cold core spans that
+seam, as it spans the front column's on the other side of the Y joint.
+
+The two stand `z_joint_pitch` apart — closer and the Y seam quietly comes out with
+fewer cross-pins than it has levels for — so the column with the least room to move
+takes its height first and the other stands off it. They land far apart, which is why
+they stagger like a brick bond. `main()` prints each seam, how it landed, and the band
+the bed allowed it.
 
 `enclosure.py` exports the four printable pieces (`enclosure-front-bottom`,
 `enclosure-front-top`, `enclosure-back-bottom`, `enclosure-back-top`) plus
@@ -25,34 +58,30 @@ intact (mirrors `faucet/touch-flo-shell`).
 ## Test-print coupon
 
 It exports those same five files a second time as `enclosure-coupon-*.step` —
-the whole four-piece assembly shrunk to a [159 × 140 × 153 mm](COUPON_SIZE)
+the whole four-piece assembly shrunk to a [158 × 140 × 136 mm](COUPON_SIZE)
 box, printable in an evening, to prove the fit before the real one is
 committed. It is the same geometry from the same code: only the numbers
 describing the box differ, so a coupon that assembles is evidence about the
 appliance and not about a second model of it.
 
 Everything the assembly is judged on is on it at **full size** — the display
-housing, all three seams with their full six-level ladder of cross-pins, and
-the rear port cluster. That cluster drops as one rigid body (down by the back
-seam's own drop, so it keeps its exact stance on that lip band), but in X it is
-**packed to what it occupies** — every real spacing kept, the appliance's wide
-dead wall between distant ports closed — then centred. So it still keeps every
-spacing that matters: nut to nut, nut to lip band, flange to corner chain; only
-the empty wall between independent ports is dropped, and the coupon is that much
-narrower for it (the box's width in X, not the appliance's core-driven span).
+housing, and all three seams with their full six-level ladder of cross-pins. Its
+facet runs the coupon's own full width, the way the appliance's runs the
+appliance's; the coupon is just narrower, being only as wide as the display window
+plus a corner chain either side. The extra flat 45° face the appliance spends its
+width on proves nothing about the housing and would only make the coupon wider.
 
 No dimension of it is chosen. Each is the minimum its own feature allows — the
 depth is the display housing plus the back column's two Z-seam stations, the
-width is the packed port cluster with a corner chain either side, the height is the
-cross-pin ladder raised to clear the ports — so the coupon shrinks and grows
-with the features rather than drifting from them.
+width is the display window with a corner chain either side, the height is the
+cross-pin ladder raised to clear the facet — so the coupon shrinks and grows with
+the features rather than drifting from them.
 
 Three things are left off, being the ones a reduced box cannot host honestly:
 the contents (there is nothing packed inside it, so the walls' relief and the
-seam's stand-off have nothing to dodge), the hopper throat (the placed funnel's
-collar does not fit the shrunken top-wall frame), and the front panel's single
-CO2 bore (its one real relationship — its height over the front seam — lands
-behind the display facet in a box this short).
+seam's stand-off have nothing to dodge), the panel through-holes (there are none
+yet), and the hopper throat (the placed funnel's collar does not fit the shrunken
+top-wall frame).
 
 ## Seams + bosses
 
@@ -66,23 +95,30 @@ tongue would drive straight into the core. The floor laps anyway, but as a
 runs one overlap aft, the back keeps its bed-side half and yields its cavity-side
 half to receive it, so the slab reads unbroken across the seam with no
 straight-through line and the core still seats on a flush floor. **Every seam
-laps, none butts** — the form suited to the face. Because that shiplap lives
-inside the slab rather than standing proud, it does not push the seam ahead of the
-core: the seam still sits behind the core's front face, near the box's middle, and
-the four pieces come out near quarters.
+laps, none butts** — the form suited to the face.
+
+The core spans this seam. It is one body running the box's whole depth, so it goes
+in before the two halves close around it — which the standoffs are what make
+possible: the lip's side segments pass in the ±X chain bands, its ceiling segment
+under the top wall, and the floor's shiplap inside the slab, so none of the three
+meets the core at all.
 
 That seam runs the box's whole height, so it is pinned at **six levels** per side
 wall, not once near the top — a wall above the floor, one under each Z seam, one
 over each of their lip rims, and one under the ceiling, so every piece crossing
 it is pinned at both ends of its own span. Because the Z seams stagger, a level
-pairs whichever front and back piece meet at that height — the brick bond.
-Bottom↔top, per column: the same joint rotated 90°, at `z_joint_front` (the front
-stack's waist, above the condenser) and `z_joint_back` (the back-wall band
-between the cold core's foam-cap top and the rear bulkhead field) — the bottom
-pieces carry a 3-sided
-lip + socket pods, the top pieces carry the D-pins and the posts that carry
-them, more X-axis screws crossing each seam. The front pair joins, the
-back pair joins, then the front assembly telescopes into the back as one.
+pairs whichever front and back piece meet at that height — the brick bond. That
+ladder is also what sets the two Z seams' **offset**: `_bosses` drops a level
+landing within two socket collars of one already placed, so seams too close
+together silently cost the Y seam a fastener. The front seam's over-rim level and
+the back seam's under-seam level are the pair that meet, and the offset holds them
+a collar pitch apart.
+
+Bottom↔top, per column: the same joint rotated 90°, at `z_joint_front` and
+`z_joint_back` — the bottom pieces carry a 3-sided lip + socket pods, the top
+pieces carry the D-pins and the posts that carry them, more X-axis screws crossing
+each seam. The front pair joins, the back pair joins, then the front assembly
+telescopes into the back as one.
 
 A Z seam is pinned at **both ends of its column**, not just one, or the far end
 hinges open. The front column takes the front-wall corner and the aft end of its
@@ -134,30 +170,23 @@ ceiling strata over the overlap interlock the same way — the front post's foot
 and head come through a relief in the back half's floor and ceiling, so the post
 reaches its bed face instead of starting an overlap's length out over air.
 
-**The Y seam is pinned at a level for each end of each piece that crosses it**,
-and both Z seams count, so six levels rather than one pair near the top: a wall
-above the floor, one under each Z seam, one over each of their lip rims, and one
-under the ceiling.
-
 **What makes all of that fit is where the walls stand.** The cold core spans the
-interior wall to wall and floor to its cap, and it is what sets the box width, so
-a wall laid on its face would leave the seam machinery nowhere to stand. The **±X
-walls stand one `_contents.SIDE_RIB_INSET` off the core** — the boss chain's own
-reach — and the **back wall one `_contents.REAR_STANDOFF`**, the rear Z-seam
-lip's own thickness. The core sits flat on the floor: the print-corner relief
-runs on the standing verticals and the Y-seam's floor lap stays inside the slab,
-so the seat is square and there is nothing standing there for the core to clear.
+interior wall to wall, and it is what sets the box width, so a wall laid on its
+face would leave the seam machinery nowhere to stand. The **±X walls stand one
+`_contents.SIDE_RIB_INSET` off the core** — the boss chain's own reach — and the
+**back wall one `_contents.REAR_STANDOFF`**, the rear Z-seam lip's own thickness.
+The core sits flat on the floor: the print-corner relief runs on the standing
+verticals and the Y-seam's floor lap stays inside the slab, so the seat is square
+and there is nothing standing there for the core to clear.
 
 So the core seats flush against the **seams**, not against the walls. Every post
 has its full section, both walls carry all six levels, and the rear station's
 post runs its own corner the whole way to the floor.
 
-Those bands also set where the Y seam falls. Its full-width furniture clears the
-core two ways: the lip's ceiling segment stops ahead of it, so the **lip rim
-lands on the core's front face**, and the floor's shiplap passes beneath it in the
-slab. The mouth, plugs, pods and posts reach further aft than that but live only
-in the bands, so they pass alongside the core rather than stopping at it. What caps them is measured from whatever stands in the
-bands, not tabulated. The seam therefore sits close to the box's middle, and the
+Those bands also set where the Y seam falls. It sits at the box's mid-depth, or
+one stance behind the front pack once there is one — whichever is further back —
+capped by what is measured standing where its own furniture goes, not by a
+tabulated number. With the zone ahead of the core empty, the midpoint wins and the
 four pieces come out near quarters.
 
 `_contents.REAR_STANDOFF` is the single source for the back wall: `_port_frame()`
@@ -171,62 +200,8 @@ is offered where the necking would leave a socket with no body to bore. It reads
 zero on both walls today, and the build prints each wall's levels so a wall that
 ever loses one is visible rather than silent.
 
-The cold core rides in the back-bottom piece, verified clear of every boss at
-build time. Each printed piece fits the H2C left-nozzle build envelope
-(325 × 320 × 320 mm) even though the whole enclosure does not — that is the
-point of the split.
-
-## Refrigeration mounts
-
-The compressor, its sheet-metal shroud and the condenser/fan are the only
-contents the box holds by its own printed features rather than by a tray, so
-their mounts are the box's. All of them stand below the front Z seam and land
-whole in the **front-bottom** piece — the floor under the shroud and the
-condenser, and the +X wall the condenser's fan shroud screws to.
-
-One fastener vocabulary throughout, the seams' own: an **M3 SHCS into a ruthex
-M3 heat-set** (Ø4.0 × 5.25), the insert bored from the face the screw arrives
-at with a 3 mm blind relief past it, so no stock screw length can jack on the
-bottom of its pocket. `boss_reach` is that whole chain and is how deep every
-one of these bosses stands behind the face it presents.
-
-The floor stratum stands one `_contents.SEAM_CLEAR_LIFT` off the floor slab.
-That stance is a **seat**: a band under the shroud's rim, two rails under the
-condenser's footprint, and the compressor's pads rising from it. A band and
-rails, not slabs — a slab under a whole footprint is the same landing and
-several times the plastic.
-
-- **Compressor** — four pads on the floor under the donor's feet, each with a
-  heat-set on a vertical axis (a hole up the build axis, no arc to droop). The
-  factory rubber grommet stays in each foot and **is** the isolation element:
-  the pad is what its lower flange lands on, and the screw runs through a
-  spacer sleeve inside the grommet, so the clamp closes sleeve-to-pad and the
-  rubber is left free to work. The foot pattern is
-  [100 × 65 mm](COMP_FOOT_PITCH) — an **estimate**; the donor's is not
-  recorded, and measuring it moves the pads by changing one pair of numbers.
-- **Shroud** — the two Ø4.5 mm holes already in its side walls, read off the
-  placed part rather than re-derived from the shroud's frame and `_contents`'
-  turn of it. Their axes run along Y, so each boss stands **inside** the
-  shroud against the wall it backs and the screw arrives from outside: the
-  front one through the front wall, its head counterbored in the exterior face
-  (the seam idiom), the rear one from the machine corridor. Inside is where the
-  depth is — outside, the front wall stands 3 mm ahead of the shroud's front
-  face and the corridor's floor gas sensor 1 mm behind its rear one. A
-  **register** rising inside the shroud's own walls locates it in plan, so the
-  two screws are left holding it down and not aligning it.
-- **Condenser/fan** — the donor fan shroud's ears, in the block's +X (exhaust)
-  face, taken by pads on two webs bridging the channel to the +X wall. The
-  block's weight rides the floor rails, not the webs; the webs stop it moving.
-  Each pad runs out at 45° above and below to the web's thickness, because a
-  pad standing straight on a narrower web starts its first layer out over open
-  air on both sides. The ear pattern is [82.5 × 82.5 mm](COND_EAR_PITCH) — an
-  **estimate** (a 92 mm axial fan's, square about the fan axis, which is the
-  block face's own centre); the donor shroud is not yet separated. A pattern
-  taller than the stratum raises rather than silently colliding with the front
-  Z seam's lip band.
-
-`main()` prints every station it placed, so a measured compressor and a
-separated fan shroud have a list to be checked against.
+Each printed piece fits the H2C left-nozzle build envelope (325 × 320 × 320 mm)
+even though the whole enclosure does not — that is the point of the split.
 
 ## Print orientation + corner relief
 
@@ -245,12 +220,8 @@ back-right, and **every seam edge stays 90°**. Assembled, all four verticals
 read as relieved, each sourced from a different quadrant. The horizontal
 front-to-back arrises — side-wall↔floor and side-wall↔ceiling — are square.
 
-The display facet raises a fifth standing vertical: the shoulder where its
-window ends at the +X edge and the square top-front corner resumes. It runs the
-full build axis like the other four and is relieved with them, at **one wall** —
-the depth of the end-wall gusset behind it, which is the only body standing
-there. A deeper round would cut past the gusset into the front wall east of the
-window, which has nothing but cavity behind it.
+The display facet raises no fifth standing vertical: running wall to wall, it ends
+on the ±X exterior walls and runs out into their own rounds.
 
 The seam furniture follows the same rule: the Z-seam lip is a *horizontal* band
 that telescopes straight through those verticals, so its corners are relieved on
@@ -269,63 +240,66 @@ down. The side-wall segments, vertical to the bed, are free.
 
 ## Display housing
 
-A flat 45° facet on the top-front-left carries the
-[Waveshare ESP32-S3-Touch-LCD-4.3B config display](/hardware/reference/waveshare-43b-display/),
-facing up-and-forward (−Y front / +Z up) toward the standing user, flush to the
-−X (left) edge. The facet surface is sized to the bezel + a 3 mm buffer all
-around — [119.5 mm](DISPLAY_FACET_X) (X, lateral) × [83 mm](DISPLAY_FACET_SLOPE)
-(along the 45° slope).
+A flat 45° facet chamfers the **whole top-front arris**, wall to wall, and carries
+the [Waveshare ESP32-S3-Touch-LCD-4.3B config display](/hardware/reference/waveshare-43b-display/)
+facing up-and-forward (−Y front / +Z up) toward the standing user. The display is
+**centred** on it: the machine is 215 mm wide and the glass 113.5, so what is left
+is roughly 47 mm of flat 45° face either side of the window.
+
+Spending the whole width on it costs nothing — the chamfer is inside the box's own
+silhouette, so that corner is unpackable at any width — and the geometry gets
+simpler for it. There is no end wall closing a recess, no shoulder where a window
+stops, and no bed relief on the arris a shoulder would raise. The window's lateral
+size is the box's; `display_facet_x` is what the *glass plus its buffer* needs —
+[119.5 mm](DISPLAY_FACET_X) × [83 mm](DISPLAY_FACET_SLOPE) up the slope — which is
+what the coupon is sized to carry and what `main()` prints beside the measured
+face.
 
 The facet is thickened into a 19 mm housing (the display's overall depth) with
 the display let in. The glass is the datum: a shallow 2 mm bezel counterbore,
-centered on the facet (corners rounded 2.5 mm to match the glass), recesses the
+centred on the box (corners rounded 2.5 mm to match the glass), recesses the
 glass with the 3 mm buffer uniform all around. The glass overhangs the body
 unevenly (further up-and-left), so the 106 × 69 mm PCB through-hole sits offset
-the opposite way; where the corner pod sits behind the facet, the hole takes it
+the opposite way; where a corner pod sits behind the facet, the hole takes it
 clean through.
 
 The whole housing is cut into the box itself, flush with the front wall: the
-facet chamfers the top-front-left corner away and the back plane stands one
-housing depth behind it. Both are the housing's own 45° planes — the facet above,
-the back plane as its soffit — so the frame holds one constant thickness through
-the corner. The cut spans the facet window from the −X edge; east of the window
-the top-front corner runs on unbroken.
-
-The recessed panel is sealed from the cavity at both lateral edges: the −X edge
-by the left exterior wall, the +X edge by a one-wall gusset spanning the full
-housing depth (inner front wall, inner top wall, housing back plane), continuous
-with the slab. That gusset's depth is also what the shoulder's exterior arris is
-relieved to, so the round runs out where the gusset does. The display reference
-is seated in the housing in `../enclosure-assembly/`.
+facet chamfers the top-front corner away and the back plane stands one housing
+depth behind it. Both are the housing's own 45° planes — the facet above, the back
+plane as its soffit — so the frame holds one constant thickness through the
+corner. The display reference is seated in the housing in `../enclosure-assembly/`,
+on the same `display_centre_x` the counterbore reads, so the housing and the part
+in it cannot land on two different centres.
 
 Ceiling-down the housing lies flat, and every one of its faces — the facet and
 its back plane as the soffit — is 45° or vertical to the bed, so none of them is
 an overhang.
 
-One localised cost follows from the Z-face orientation, shared with the other
-pieces: the panel bores that were vertical when the build axis was Y are
-horizontal now, so their top arcs would droop without a teardrop (not applied).
-That covers the front CO2 inlet here and the four Ø18 bulkhead ports plus the
-C14 cutout in the back-top piece's rear wall.
-
 ## Hopper opening
 
-One rectangular opening spans the top wall right of the display housing, where
-the removable silicone funnel
+One rectangular opening spans the top wall **directly behind the display
+housing**, where the removable silicone funnel
 ([`../../zone-c/hopper-funnel/`](/hardware/printed-parts/zone-c/hopper-funnel/))
 drops in — its straight chute press-fitting the opening, its whole floor one
-ramp falling to the spout descending toward V-B on the source-select assembly,
-its flat brim resting on the wall frame left around the cut.
+ramp falling to the centred spout, its flat brim resting on the wall frame left
+around the cut.
+
 The funnel is a static placed part: the opening is cut at its collar
-(`_hopper_hole` reads the funnel's own dims at `_contents.FUNNEL_CX/CY`), so
+(`_hopper_hole` reads the funnel's own dims at `_contents.funnel_centre()`), so
 funnel and hole cannot drift apart. The frame that cut leaves is bounded by the
-display end-wall gusset left, the top-right corner pod's inboard end, the
-Y-seam lip band behind (the hole lives whole in the front-top piece), and the
-kept front ledge — and the collar is asserted to sit one `brim_margin` inside
-it on all four sides at once, so the opening is centred in what the top wall
-has to give rather than crowding one edge. That margin is the brim's landing:
-it is wider than the flange's overhang, so a full overhang's width of wall
-remains outboard of the brim edge the whole way around.
+facet's own back plane ahead (with a ledge of top wall between the two), the ±X
+top corner pods either side, and the back wall behind — and the collar is asserted
+to sit one `brim_margin` inside it on all four sides at once, so a placement that
+crowds an edge fails the build instead of silently deforming the hole. That margin
+is the brim's landing: it is wider than the flange's overhang, so a full
+overhang's width of wall remains outboard of the brim edge the whole way around.
+
+The basin is pushed as far **forward** as that frame allows and takes the top
+wall's full width, because the facet in front of it spans the machine and there is
+nothing beside it to leave room for. It then reaches aft for the plan area its
+capacity needs — which puts it **across the Y seam**. Both halves take their share
+of the cut and the collar bridges it; what the seam gives up there is its top-wall
+lip over the hole's span, which the mouth shelf's own relief already accounts for.
 
 ## Regenerate
 
@@ -339,4 +313,5 @@ clearance for the appliance.
 
 ## Sources
 [value](NAME) texts are updated by:
+- `/hardware/printed-parts/enclosure/enclosure/enclosure.py`
 - `/hardware/printed-parts/enclosure/enclosure/enclosure.py`

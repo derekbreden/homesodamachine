@@ -24,7 +24,7 @@ The threads below reach past that surface — couplings that live outside `web/`
 
 - **Phone push wakes on a commit.** [`push.js`](/web/lib/push.js), [`notifications.js`](/web/lib/notifications.js), [`boot.js`](/web/public/boot.js). Runs with `DATABASE_URL` + `FIREBASE_*`, no-ops without; the boot diff and FCM paths show on a real deploy. Verify on a device.
 
-- **Content roots.** `hardware/` and `thin/hardware/` behind the edition toggle, [`posts/`](/posts/) for the blog. [`server.js`](/web/server.js), [`viewer-routes.js`](/web/lib/viewer-routes.js).
+- **Content roots.** `hardware/` and `hardware/` behind the edition toggle, [`posts/`](/posts/) for the blog. [`server.js`](/web/server.js), [`viewer-routes.js`](/web/lib/viewer-routes.js).
 
 - **Old deep links resolve.** `/dev`, `/dev/diagrams`, `/dev/mermaid`, `/dev/settings`. [`viewer-pages.js`](/web/lib/viewer-pages.js).
 

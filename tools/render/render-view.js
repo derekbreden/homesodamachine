@@ -84,8 +84,6 @@
 //   --size WxH         default 1400x1100
 //   --bg #hex          default #1a1a2e (site navy)
 //   --edition id       which machine's tree the step path is in. Default kitchen.
-//                      The trees mirror each other's filenames, so without this a
-//                      thin path renders the kitchen's twin silently.
 //   --at <date|sha>    read the STEP as it stood at that commit, out of a throwaway
 //                      worktree; the tooling stays at HEAD. The resolved SHA goes in
 //                      the legend. Uncommitted edits in the live tree are not in it.

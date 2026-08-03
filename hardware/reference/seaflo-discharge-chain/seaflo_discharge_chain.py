@@ -35,7 +35,9 @@ import cadquery as cq
 _here = Path(__file__).resolve()
 _hw = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hw / "scripts"))
+sys.path.insert(0, str(_hw / "reference" / "gasher-check-valve"))
 from _cadq_export import export_step
+import gasher_check_valve as check   # the middle fitting's own three sections
 
 NPT_ENGAGE = 11.0           # how deep a 1/4" NPT male runs into its female
 
@@ -44,11 +46,6 @@ BARB_D, BARB_L = 11.5, 22.0     # the ridged 3/8" barb the hose stub clamps over
 MAAC_HEX, MAAC_HEX_L = 17.0, 6.0
 MAAC_NPT_D, MAAC_NPT_L = 13.7, 11.4
 
-# GASHER 1/4" NPT check, female in / male out (reference/gasher-check-valve).
-CHECK_SOCKET_D, CHECK_SOCKET_L = 15.5, 11.0
-CHECK_HEX, CHECK_HEX_L = 17.0, 18.0
-CHECK_STUB_D, CHECK_STUB_L = 13.7, 11.0
-
 # John Guest PP450822E 1/4" NPT F x 1/4" PTC.
 JG_SOCKET_D, JG_SOCKET_L = 15.0, 8.0
 JG_HEX, JG_HEX_L = 16.5, 5.0
@@ -56,10 +53,12 @@ JG_COLLET_D, JG_COLLET_L = 14.0, 13.0
 
 TUBE_D = 6.35               # the 1/4" OD LLDPE the collet accepts
 HOSE_ID = 9.525             # the 3/8" ID braided PVC the barb takes
+HOSE_OD = 15.10             # the same hose over the barb — what a neighbouring body clears
 
-# Made up: each male buries NPT_ENGAGE in the female below it.
+# Made up: each male buries NPT_ENGAGE in the female below it. The check contributes its
+# own overall length, off the module that draws it.
 LENGTH = (BARB_L + MAAC_HEX_L + MAAC_NPT_L
-          + CHECK_SOCKET_L + CHECK_HEX_L + CHECK_STUB_L
+          + check.TOTAL_LENGTH
           + JG_SOCKET_L + JG_HEX_L + JG_COLLET_L
           - 2 * NPT_ENGAGE)
 
@@ -78,14 +77,15 @@ def tube_port():
 
 def build():
     """The three fittings stacked along −Z, barb tip at Z = 0, made up at each
-    NPT joint so the stack stands its real length."""
+    NPT joint so the stack stands its real length. The check's three sections come off
+    its own module — socket boss, hex barrel, male stub, at the sizes it draws them."""
     part, z = None, 0.0
     for dia, length in ((BARB_D, BARB_L),
                         (MAAC_HEX, MAAC_HEX_L),
                         (MAAC_NPT_D, MAAC_NPT_L - NPT_ENGAGE),
-                        (CHECK_SOCKET_D, CHECK_SOCKET_L),
-                        (CHECK_HEX, CHECK_HEX_L),
-                        (CHECK_STUB_D, CHECK_STUB_L - NPT_ENGAGE),
+                        (check.SOCKET_D, check.SOCKET_LENGTH),
+                        (check.HEX_ACROSS_CORNERS, check.HEX_LENGTH),
+                        (check.THREAD_D, check.STUB_LENGTH - NPT_ENGAGE),
                         (JG_SOCKET_D, JG_SOCKET_L),
                         (JG_HEX, JG_HEX_L),
                         (JG_COLLET_D, JG_COLLET_L)):

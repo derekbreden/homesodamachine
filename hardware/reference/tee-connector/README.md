@@ -9,9 +9,11 @@ in the BOM (`hardware/bom.md` §8).
 drinking-water tee — simply a STEP that happened to be available, used as a
 close-but-not-exact geometric stand-in for layout. The design iterates toward
 the **installed characteristics of the PP0208E**, not this file; swap in
-measured PP0208E geometry as parts come in hand. The
-[bag-circuit tray](/hardware/valve-manifold/bag-circuit-tray/) uses it to join a
-pair of valves in-line on the **run** while the **branch** tees off to the bag.
+measured PP0208E geometry as parts come in hand. Six of the manifold's eight
+junctions are this fitting ([`fluid-topology.md`](/hardware/topology/fluid-topology.md)
+§Junctions): the **run** takes a pair of valve ports lying in line — one above
+the other, once the trays are stacked — and the **branch** turns off to the
+third leg.
 
 ## Geometry (measured from the STEP)
 

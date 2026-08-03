@@ -22,8 +22,7 @@
 //                    cards want the exact framed viewport)
 //   --ortho          orthographic projection (dimension-drawing look)
 //   --edition id     which machine's tree the step path is in (web/lib/editions.js).
-//                    Default kitchen. The trees mirror each other's filenames, so
-//                    without this a thin path renders the kitchen's twin silently.
+//                    Default kitchen.
 //
 // The step path is relative to the edition's content root (matches /api/steps +
 // /steps/*).

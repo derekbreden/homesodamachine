@@ -39,6 +39,24 @@ hole_dy = 13.0 / 2.0   # +/-6.5 across width
 name = "relay"
 holes = [(sx * hole_dx, sy * hole_dy) for sx in (-1.0, 1.0) for sy in (-1.0, 1.0)]
 
+# The two terminal groups, inboard of the corner holes at either end of the board: the
+# COM/NO/NC screw block on +X, the VCC/GND/IN header on −X. Both are entered from ABOVE, and
+# `land_z` is the one height a wire comes down to — the taller screw block's own top, which the
+# shorter header is served at as well.
+screw_blk_inset, screw_blk_h = 10.0, 10.0
+header_inset, header_h = 9.0, 8.5
+land_z = pcb_t + screw_blk_h
+
+
+def contacts():
+    """The COM/NO/NC screw block: `(position, outward axis)` in the relay's own frame."""
+    return ((length / 2.0 - screw_blk_inset, 0.0, land_z), (0.0, 0.0, 1.0))
+
+
+def logic():
+    """The VCC/GND/IN header, at the same landing plane."""
+    return ((-(length / 2.0 - header_inset), 0.0, land_z), (0.0, 0.0, 1.0))
+
 
 def build():
     pcb = cq.Workplane("XY").box(length, width, pcb_t, centered=(True, True, False))
@@ -49,17 +67,18 @@ def build():
         .box(19.0, 15.6, envelope_z - pin_drop - pcb_t, centered=(True, True, False))
         .translate((-2.0, 0.0, pcb_t))
     )
-    # 3-pole COM/NO/NC screw block on the +X end (inboard of the corner holes).
+    # 3-pole COM/NO/NC screw block on the +X end (inboard of the corner holes), at its own
+    # station.
     screw_blk = (
         cq.Workplane("XY")
-        .box(11.0, 15.0, 10.0, centered=(True, True, False))
-        .translate((length / 2.0 - 10.0, 0.0, pcb_t))
+        .box(11.0, 15.0, screw_blk_h, centered=(True, True, False))
+        .translate((contacts()[0][0], 0.0, pcb_t))
     )
     # VCC/GND/IN 3-pin header on the -X end (inboard of the corner holes).
     header = (
         cq.Workplane("XY")
-        .box(8.0, 3.0, 8.5, centered=(True, True, False))
-        .translate((-(length / 2.0 - 9.0), 0.0, pcb_t))
+        .box(8.0, 3.0, header_h, centered=(True, True, False))
+        .translate((logic()[0][0], 0.0, pcb_t))
     )
     # Representative pin protrusion below the board (clearance the tray must give).
     pins = (

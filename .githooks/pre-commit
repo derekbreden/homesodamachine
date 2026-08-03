@@ -4,28 +4,24 @@
 # Two jobs, in order:
 #
 #   1. GATES (hard fail — a red check blocks the commit):
-#      Both editions carry the same ledger and printed-parts drivers under their own
-#      hardware/ root, and each is gated on its own commits. A pathspec with no leading
-#      component matches from the repo root, so `hardware/` is the fat edition alone and
-#      `thin/hardware/` the thin one — each edition's gates see only its own staged files.
-#      - commit touches <edition>/          → check_pinmap.py, the BOM<->pinout<->PCB
+#      The ledger and printed-parts drivers live under hardware/, and each gate below runs
+#      only when the commit stages a file beneath the tree that gate reads.
+#      - commit touches hardware/           → check_pinmap.py, the BOM<->pinout<->PCB
 #        drift guard (pcba.tsx is canonical; pinout/BOM/sync-drivers are derived and
 #        hand-maintained, so they drift).
-#      - commit touches <edition>/printed-parts/ or its bom.md → _bom_masses.py --check,
+#      - commit touches hardware/printed-parts/ or its bom.md → _bom_masses.py --check,
 #        which reads §7's masses off the parts' own STEP solids. A part's geometry and
 #        its ledger row land together or not at all.
 #      - commit touches hardware/pcb/pcba/  → the render scorecard's fab-ready gates
 #        (out/pcba.picks.json scorecard.gatesPass), silk-audit.py (label ink on bare
 #        copper), part-orientation-audit.py (3D model vs footprint, ~8 s). These read
 #        the out/ artifacts of the last render — a red gate means the board being
-#        committed is not fab-ready. Fat edition only: the thin board's silk and
-#        orientation audits read inputs its tree does not carry.
-#      - commit touches <edition>/ enclosure → reported, never gated. A pack that does not
+#        committed is not fab-ready.
+#      - commit touches hardware/ enclosure → reported, never gated. A pack that does not
 #        close prints its clash count and lands, .step and sidecar intact for the editor
 #        to open. Rebuild-and-compare across every generator is `npm --prefix web run
 #        build:check`; the enclosure gates' own inject-defect run is `scorecard_selftest.py`.
-#      Gates print one ✓ line each on pass and dump their full output on red, each named
-#      by the edition it ran in.
+#      Gates print one ✓ line each on pass and dump their full output on red.
 #
 #   2. GLB freshness (best-effort — never blocks): render-board.ts deliberately skips
 #      the ~14 s CadQuery 3D build so board iteration stays fast, which lets
@@ -38,7 +34,7 @@
 root=$(git rev-parse --show-toplevel) || exit 0
 pcba="$root/hardware/pcb/pcba"
 py="$root/tools/cad-venv/bin/python"
-editions="hardware thin/hardware"
+editions="hardware"
 
 # The board gates and the GLB rebuild below run CadQuery. They take the CAD build lock
 # (so a stray rebuild is cleared off the machine) but must not be superseded by one — a

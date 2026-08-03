@@ -10,9 +10,9 @@ Two parts print here: the **basin** and the **rail pair** it slides on.
 | | basin | rails |
 |---|---|---|
 | type | printed PETG, open-top watertight | printed PETG, mirrored L-pair |
-| outer | [64](PAN_LEN) × [76](PAN_DEPTH) × [15](PAN_HEIGHT) mm | [70.6](RAIL_SPAN) mm across the pair |
+| outer | [53](PAN_LEN) × [76](PAN_DEPTH) × [10](PAN_HEIGHT) mm | [59.6](RAIL_SPAN) mm across the pair |
 | section | [2.5](PAN_WALL) mm walls on a [3](PAN_FLOOR) mm floor | [3](RAIL_RAIL_T) mm rail |
-| capacity | [50.3](PAN_CAPACITY) mL to the rim | — |
+| capacity | [23.9](PAN_CAPACITY) mL to the rim | — |
 
 Rounded vertical corners (r[6](PAN_CORNER_R)) and a filleted floor-to-wall cove
 (r[2](PAN_COVE_R)). No drain — the basin holds drips and is emptied on service.
@@ -31,7 +31,7 @@ and the foam cap's rear edge is deeper than the basin needs.
 
 The ASSE chain's underside and the foam-cap top bound the basin's column. Under
 that underside, [4](PAN_VENT_GAP) mm of splash-and-service air; then the basin;
-then [17.7](PAN_LIFT) mm of open deck down to the cap — the aft strip's routing
+then [3](PAN_LIFT) mm of open deck down to the cap — the aft strip's routing
 lane. The chain is rolled about its own flow axis, so its underside is a body
 corner and the vent stub's tip stands above it, leaning aft.
 
@@ -60,7 +60,7 @@ feature. The rails are a mirrored L-pair: a web, with a foot and a shelf both
 turning inboard off it at opposite ends of its height — the foot lying on the
 cap under the basin, the shelf carrying the basin — plus a home stop at the
 forward end that the basin's front wall butts. Nothing reaches outboard, so the
-pair spans [70.6](RAIL_SPAN) mm, the basin plus its two webs: the strip's east
+pair spans [59.6](RAIL_SPAN) mm, the basin plus its two webs: the strip's east
 end belongs to V-K and the umbilical cluster, and its west end to the board.
 
 They are bonded to the printed foam-cap lid with 3M VHB 4941

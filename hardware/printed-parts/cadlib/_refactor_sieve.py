@@ -74,7 +74,6 @@ _byte_hashed_step_paths = [
     "hardware/printed-parts/cold-core/foam-cap/foam-cap-gasket.step",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-lower.step",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-middle.step",
-    "hardware/printed-parts/cold-core/copper-plugs/copper-plug-upper.step",
     "hardware/printed-parts/cold-core/copper-plugs/copper-plug-top.step",
     "hardware/printed-parts/cold-core/coil-mandrel/coil-mandrel.step",
     "hardware/printed-parts/cold-core/prv-shroud/prv-shroud.step",
@@ -83,12 +82,8 @@ _byte_hashed_step_paths = [
     "hardware/printed-parts/flavor/cap-sense-sleeve/cap-sense-sleeve-neg-y.step",
     "hardware/printed-parts/flavor/peristaltic-tube/peristaltic-tube.step",
     # valve-manifold (each tray and its named assembly)
-    "hardware/printed-parts/valve-manifold/bag-circuit-tray/bag-circuit-tray.step",
-    "hardware/printed-parts/valve-manifold/bag-circuit-tray/bag-circuit-assembly.step",
-    "hardware/printed-parts/valve-manifold/nozzle-gate-tray/nozzle-gate-tray.step",
-    "hardware/printed-parts/valve-manifold/nozzle-gate-tray/nozzle-gate-assembly.step",
-    "hardware/printed-parts/valve-manifold/source-select-tray/source-select-tray.step",
-    "hardware/printed-parts/valve-manifold/source-select-tray/source-select-assembly.step",
+    "hardware/printed-parts/valve-manifold/two-valve-tray/two-valve-tray.step",
+    "hardware/printed-parts/valve-manifold/two-valve-tray/two-valve-assembly.step",
     "hardware/printed-parts/valve-manifold/single-tray/single-tray.step",
     # reference
     "hardware/reference/touch-flo-faucet/valve-body-reference/touch-flo-valve-body-reference.step",
@@ -126,15 +121,11 @@ _flavor_generators = [
     "hardware/printed-parts/flavor/peristaltic-tube/peristaltic_tube.py",
 ]
 
-# Each tray, then the assembly that imports it.
+# The cell, then the tray that cuts it twice, then the assembly that seats it.
 _valve_manifold_generators = [
-    "hardware/printed-parts/valve-manifold/bag-circuit-tray/bag_circuit_tray.py",
-    "hardware/printed-parts/valve-manifold/bag-circuit-tray/bag_circuit_assembly.py",
-    "hardware/printed-parts/valve-manifold/nozzle-gate-tray/nozzle_gate_tray.py",
-    "hardware/printed-parts/valve-manifold/nozzle-gate-tray/nozzle_gate_assembly.py",
-    "hardware/printed-parts/valve-manifold/source-select-tray/source_select_tray.py",
-    "hardware/printed-parts/valve-manifold/source-select-tray/source_select_assembly.py",
     "hardware/printed-parts/valve-manifold/single-tray/single_tray.py",
+    "hardware/printed-parts/valve-manifold/two-valve-tray/two_valve_tray.py",
+    "hardware/printed-parts/valve-manifold/two-valve-tray/two_valve_assembly.py",
 ]
 
 _reference_step_generators = [

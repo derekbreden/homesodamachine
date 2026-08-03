@@ -1,9 +1,19 @@
 """Geometry probe — ask the placed solids a question instead of reasoning about them.
 
-The enclosure pack, its panel bodies, the hopper funnel and the routed tubes,
-loaded as one flat `{name: shape}` world, with the queries that answer where a
-part is, how close two parts come, what a candidate volume runs into, and how
-far a line can travel before it hits something.
+The whole placed machine as one flat `{name: shape}` world — the enclosure pack,
+its panel bodies, the display, the hopper funnel, the four printed enclosure
+pieces and the routed tubes — with the queries that answer where a part is, how
+close two parts come, what a candidate volume runs into, and how far a line can
+travel before it hits something.
+
+The world is what `scorecard.pack_clashes` measures, body for body: its `solids`
+are `w.parts`, its `pieces` are `w.pieces`, and both are in the one dict every
+query iterates. That is the point. The pieces are the walls, seam lips,
+cross-pin pods, boss chains and ribs, they are what bounds a placement in a
+machine this full, and a query that could not see them would answer CLEAR
+exactly where the gate that blocks the build answers clash. The two groups keep
+their names so a query can ask for the interior pack alone — `skip=w.pieces` —
+but nothing has to remember to ask for the walls.
 
 Every query is exact and every query is loud. A body that cannot be normalized
 raises instead of being skipped; a boolean that fails raises with the body's
@@ -21,10 +31,12 @@ Use from anywhere in the repo:
     import probe
 
     w = probe.world()
-    print(w.table(sort="ymin"))                       # every body's box
+    print(w.table(sort="ymin"))                       # every body's box, tagged by role
     w.gap("foam-assembly", "compressor-shroud")       # exact mm between two solids
     w.hits(probe.box(x=(100, 120), y=(160, 200), z=(30, 275)))   # what a lane runs into
     w.cast((110.1, 98.4, 273.1), (0, 0, -1), dia=6.35)           # how far a tube can drop
+    w.travel("psu", (1, 0, 0))                        # how far a BODY moves, and past what
+    w.hits(vol, skip=w.pieces)                        # the interior pack alone
 
     probe.sweep(range(0, 360, 10), lambda a: w.cast(tip(a), aim(a)).free)
 
@@ -32,14 +44,16 @@ From the shell, without writing a file:
 
     tools/cad-venv/bin/python hardware/scripts/probe.py boxes --sort ymin
     tools/cad-venv/bin/python hardware/scripts/probe.py gap foam-assembly compressor-shroud
-    tools/cad-venv/bin/python hardware/scripts/probe.py at bag-circuit-assembly.Y-H-2
+    tools/cad-venv/bin/python hardware/scripts/probe.py at foam-assembly.evap-outlet
     tools/cad-venv/bin/python hardware/scripts/probe.py cast 110.14,98.36,273.1 0,0,-1 --dia 6.35
     tools/cad-venv/bin/python hardware/scripts/probe.py hits --x 100,120 --y 160,200 --z 30,275
+    tools/cad-venv/bin/python hardware/scripts/probe.py travel psu +x
     tools/cad-venv/bin/python hardware/scripts/probe.py selftest
 
 `selftest` runs the instrument against known-answer geometry — a known hit, a
-known miss, a known distance — and then normalizes every body in the real world.
-Run it when a number looks wrong before trusting the number.
+known miss, a known distance, a volume buried in a printed wall that every
+interior body clears — and then normalizes every body in the real world. Run it
+when a number looks wrong before trusting the number.
 """
 
 import math
@@ -59,6 +73,13 @@ _BOX = _HW / "printed-parts" / "enclosure" / "enclosure"        # `enclosure` �
 VOL_TOL = 1e-6          # mm³ below which an intersection is contact noise, not overlap
 TUBE_OD = 6.35          # 1/4" LLDPE, the default probe diameter
 CAST_LIMIT = 250.0      # default cast length: longer than the box's largest span
+CONTACT_EPS = 1e-7      # a gap under this is bodies touching, not bodies near each other
+TRAVEL_LIMIT = 60.0     # default body travel: past any move this pack has wanted, and short
+                        # enough that a sweep of a real body stays quick. It is a bound on the
+                        # QUERY — a travel that reaches it has found no obstacle, not room.
+
+PIECE = "piece"         # the source tag a printed enclosure piece carries
+SKIP_PIECES = "HSM_SKIP_PIECES"     # env flag that leaves the printed pieces out
 
 
 # --- normalizing what the pack hands back ---------------------------------
@@ -166,14 +187,80 @@ class Contact:
                 f"raise limit= to find one{where}")
 
 
+@dataclass
+class Stop:
+    """One body's stop under a translation: how far the mover goes before it touches this
+    body. `seated` marks a body the mover is already touching at rest — a seat it slides
+    over rather than a gap it closes, so `at` is where a FEATURE of that body first stands
+    in the way (a cap column under a module lying on the lid). `exact` is false only on a
+    seated row, where the distance is bracketed rather than stepped."""
+
+    at: float
+    name: str
+    seated: bool = False
+    exact: bool = True
+
+    def __str__(self) -> str:
+        how = "" if self.exact else "  (bracketed)"
+        seat = "  seated" if self.seated else ""
+        return f"{self.at:9.3f}  {self.name}{seat}{how}"
+
+
+@dataclass
+class Travel:
+    """Every body that stops a translation, nearest first — the whole stop list rather than
+    the first stop, so the cascade behind the binder is priced in the same reading.
+
+    Bodies the mover never reaches within `limit` are absent, and `limit` is a fact about
+    this query and not about the machine. `sliding` names the bodies the mover rests on and
+    stays resting on: never blockers, listed because a body nobody measured is not a body
+    that is not there."""
+
+    mover: str
+    direction: tuple
+    stops: list
+    limit: float
+    clearance: float
+    sliding: tuple = ()
+    skipped: tuple = ()
+
+    @property
+    def free(self) -> float:
+        """Travel before the first contact — `limit` when nothing is in the way."""
+        return self.stops[0].at if self.stops else self.limit
+
+    def __str__(self) -> str:
+        d = self.direction
+        head = (f"{self.mover} along ({d[0]:g}, {d[1]:g}, {d[2]:g}) at clearance "
+                f"{self.clearance:g} mm")
+        out = [head]
+        if self.skipped:
+            out.append(f"  holding out: {', '.join(self.skipped)}")
+        if self.sliding:
+            out.append(f"  sliding on (never a blocker): {', '.join(self.sliding)}")
+        if not self.stops:
+            out.append(f"  reached the {self.limit:g} mm travel limit with no contact — "
+                       f"raise limit= to find one")
+            return "\n".join(out)
+        out.append(f"  {'travel':>9}  body")
+        out += [f"  {s}" for s in self.stops]
+        return "\n".join(out)
+
+
 # --- the world ------------------------------------------------------------
 
 class World:
-    """The placed solids, flat and normalized: `{name: cq.Shape}`."""
+    """The placed solids, flat and normalized: `{name: cq.Shape}`.
 
-    def __init__(self, solids: dict, sources: dict):
+    One dict, every body, so no query can be written that quietly leaves a wall out.
+    The roles stay legible through `sources`, and `pieces` / `parts` split the world
+    the way `scorecard.pack_clashes` splits its arguments."""
+
+    def __init__(self, solids: dict, sources: dict, pieces_held_out: bool = False):
         self.solids = solids
-        self.sources = sources          # name → "component" | "panel" | "funnel" | "run"
+        # name → "component" | "panel" | "display" | "funnel" | "run" | PIECE
+        self.sources = sources
+        self.pieces_held_out = pieces_held_out      # asked for without pieces, see measured
         self._frames = None
         self._boxes = {}                # name → (solid, box), see bb()
 
@@ -187,6 +274,34 @@ class World:
         if name not in self.solids:
             raise KeyError(f"no body {name!r} — have: {', '.join(self.names)}")
         return self.solids[name]
+
+    def tagged(self, *sources) -> tuple:
+        """Every body carrying one of these source tags."""
+        return tuple(n for n in self.names if self.sources[n] in sources)
+
+    @property
+    def pieces(self) -> tuple:
+        """The printed enclosure pieces — what `scorecard.pack_clashes` takes as its
+        `pieces`. `skip=w.pieces` is how a query asks about the interior pack alone."""
+        return self.tagged(PIECE)
+
+    @property
+    def parts(self) -> tuple:
+        """Every body that is not a printed piece — what the same gate takes as `solids`."""
+        return tuple(n for n in self.names if self.sources[n] != PIECE)
+
+    @property
+    def measured(self) -> str:
+        """What a query against this world was measured against, in one line. A scan that
+        reports its bounds and not this is reporting half of where its answer came from:
+        the pieces are what a placement in a full machine runs into first."""
+        head = f"{len(self.solids)} bod{'y' if len(self.solids) == 1 else 'ies'}"
+        if self.pieces:
+            return f"{head}, {len(self.pieces)} of them printed enclosure pieces"
+        if self.pieces_held_out:
+            return (f"{head}, NO printed enclosure pieces ({SKIP_PIECES}) — a free answer "
+                    f"here is not one the pack-closes gate agrees with")
+        return f"{head}, no printed enclosure pieces"
 
     def bb(self, name: str):
         """A body's bounding box, held once per solid. Taking one costs real time on a
@@ -282,6 +397,91 @@ class World:
     def clear(self, vol, skip=()) -> bool:
         return not self.hits(vol, skip=skip)
 
+    # -- how far a body can move --
+
+    def travel(self, mover: str, direction, limit: float = TRAVEL_LIMIT, skip=(),
+               clearance: float = 0.0, coarse: float = 1.0, tol: float = VOL_TOL) -> Travel:
+        """How far `mover` translates along `direction` before each body stops it, nearest
+        first. The answer to "can this move, and what does it cost" — one reading, no grid.
+
+        A body standing clear is measured by advancing the mover by its own exact gap, which
+        cannot step over a contact (`gap` is 1-Lipschitz under translation), so that distance
+        is exact rather than sampled. A body the mover already RESTS on cannot be measured that
+        way — its gap stays 0 down the whole slide — so it is tested against the mover's swept
+        box, which contains every place the mover reaches: a body outside it exactly never
+        blocks, and one inside is bracketed on `coarse` and bisected to 1e-4. The error runs
+        one way — a body reported as no obstacle is exactly that, and a `seated` row's distance
+        is the bracketed figure rather than a stepped one."""
+        d = unit(direction)
+        solid = self.solid(mover)
+        skipped = tuple(sorted(set(skip) | {mover}))
+        stops, sliding = [], []
+
+        def moved(t):
+            return solid.translate((d[0] * t, d[1] * t, d[2] * t))
+
+        for name in self.names:
+            if name in skipped:
+                continue
+            other = self.solids[name]
+            # A resting face contact measures as a gap of ~1e-16 rather than a clean 0, and
+            # read as a gap it closes on the first stride and reports the seat as the stop.
+            if self.gap(mover, name) > max(clearance, CONTACT_EPS):
+                # Clear at rest: close the gap in exact strides.
+                t, hit = 0.0, None
+                while t <= limit:
+                    g = self.gap(moved(t), other) - clearance
+                    if g <= 1e-9:
+                        hit = t
+                        break
+                    t += g
+                if hit is not None:
+                    stops.append(Stop(round(hit, 4), name))
+                continue
+
+            # Touching at rest. Everywhere the mover can reach lies inside its swept box, so a
+            # body outside that box is exactly one this slide never meets.
+            try:
+                if _swept_box(solid, d, limit).intersect(other).Volume() <= tol:
+                    sliding.append(name)
+                    continue
+            except Exception as exc:
+                raise RuntimeError(
+                    f"sweeping {mover} against {name} failed ({exc}) — the travel past this "
+                    f"body is unknown, not clear") from exc
+
+            def blocked(t):
+                return moved(t).intersect(other).Volume() > tol
+
+            if blocked(0.0):
+                stops.append(Stop(0.0, name, seated=True))
+                continue
+            lo = 0.0
+            hi = None
+            t = coarse
+            while t <= limit:
+                if blocked(t):
+                    hi = t
+                    break
+                lo, t = t, t + coarse
+            if hi is None:
+                # The sweep found material this stepping did not reach: report the bracket's
+                # own floor rather than a clear, since the sweep is the exact witness.
+                stops.append(Stop(round(lo, 4), name, seated=True, exact=False))
+                continue
+            for _ in range(40):
+                mid = 0.5 * (lo + hi)
+                if blocked(mid):
+                    hi = mid
+                else:
+                    lo = mid
+                if hi - lo < 1e-4:
+                    break
+            stops.append(Stop(round(hi, 4), name, seated=True, exact=False))
+
+        stops.sort(key=lambda s: s.at)
+        return Travel(mover, d, stops, limit, clearance, tuple(sorted(sliding)), skipped)
+
     # -- how far a line can run --
 
     def cast(self, origin, direction, dia: float = TUBE_OD,
@@ -317,6 +517,20 @@ def unit(v) -> tuple:
     if n < 1e-12:
         raise ValueError(f"direction {tuple(v)} has no length")
     return tuple(float(c) / n for c in v)
+
+
+def _swept_box(sh, d, length: float):
+    """A box holding everywhere `sh` reaches while translating `length` along `d`. It contains
+    the true swept volume and is generally larger than it, so a body it does not touch is one
+    the mover exactly cannot reach, while a body it does touch has still to be measured."""
+    b = sh.BoundingBox()
+    lo = [b.xmin, b.ymin, b.zmin]
+    hi = [b.xmax, b.ymax, b.zmax]
+    for i in range(3):
+        step = d[i] * length
+        lo[i] += min(0.0, step)
+        hi[i] += max(0.0, step)
+    return box(x=(lo[0], hi[0]), y=(lo[1], hi[1]), z=(lo[2], hi[2]))
 
 
 def _axis_min(sh, origin, d) -> float:
@@ -412,14 +626,18 @@ def rebuild_sweep(module, attr: str, values, build, label: str = None) -> list:
     return out
 
 
-def bed_fit(pieces: dict, bed=None) -> list:
+def bed_fit(pieces: dict = None, bed=None) -> list:
     """Each printed piece against the print bed, through the scorecard's own check:
-    `(name, xlen, ylen, zlen, fits)` per piece, on the scorecard's own tolerance. `pieces`
-    values normalize through `shape()`, so a `build_pieces()` Workplane is accepted."""
+    `(name, xlen, ylen, zlen, fits)` per piece, on the scorecard's own tolerance. With no
+    `pieces`, the world's own. Values normalize through `shape()`, so a `build_pieces()`
+    Workplane is accepted."""
     _ensure_paths()
     import enclosure
     import scorecard
 
+    if pieces is None:
+        w = world()
+        pieces = {n: w.solid(n) for n in w.pieces}
     if bed is None:
         bed = (enclosure.H2C_X, enclosure.H2C_Y, enclosure.H2C_Z)
     return scorecard.fit_bed({n: shape(p, n) for n, p in pieces.items()}, bed)
@@ -427,7 +645,7 @@ def bed_fit(pieces: dict, bed=None) -> list:
 
 # --- loading --------------------------------------------------------------
 
-_WORLD = None
+_WORLDS: dict = {}              # (runs, pieces) → World, see world()
 
 
 def _ensure_paths() -> None:
@@ -439,13 +657,61 @@ def _ensure_paths() -> None:
             sys.path.insert(0, str(d))
 
 
-def world(runs: bool = True, reload: bool = False) -> World:
-    """The placed world: the enclosure pack's components, the panel bodies
-    seated through the walls, the hopper funnel, and (unless `runs=False`) the
-    routed tubes. Memoized — building it imports and places every STEP."""
-    global _WORLD
-    if _WORLD is not None and not reload:
-        return _WORLD
+def _assembly():
+    """The enclosure assembly module — the one place that says which STEPs the pieces are,
+    where the display sits, and which placement overrides are in force. Read from there
+    rather than restated here, so the world these instruments measure and the pack the
+    gates measure cannot drift apart."""
+    _ensure_paths()
+    import enclosure_assembly
+    return enclosure_assembly
+
+
+def _read_pieces() -> dict:
+    """The four printed enclosure pieces as the assembly reads them: `{name: shape}`,
+    from the committed `enclosure-*.step` with the same placement overrides applied.
+
+    Read, not rebuilt: `enclosure.build_pieces()` regenerates them from source and costs a
+    minute, and the STEPs are what `enclosure_assembly` imports — so a piece edited but not
+    re-exported is measured here exactly as the gate measures it, which is the whole point
+    of reading the same files."""
+    assembly = _assembly()
+    missing = [p.name for p in assembly.PIECES.values() if not p.is_file()]
+    if missing:
+        raise FileNotFoundError(
+            f"the printed enclosure pieces are not exported: {', '.join(missing)} — build "
+            f"the enclosure, or set {SKIP_PIECES}=1 to measure the interior pack alone "
+            f"(which cannot tell you whether a pose stands in a wall)")
+    return assembly._pieces_shapes(assembly.contents._moves())
+
+
+def world(runs: bool = True, pieces: bool = True, reload: bool = False) -> World:
+    """The placed world — the same bodies `scorecard.pack_clashes` measures: the pack's
+    components, the panel bodies seated through the walls, the display in its facet
+    housing, the hopper funnel, the four printed enclosure pieces, and (unless
+    `runs=False`) the routed tubes.
+
+    The pieces are IN by default, and the default is the whole point. Left out, every
+    query still answers, and the one it gets wrong is the dangerous direction: a pose clear
+    of every interior body reads CLEAR while standing in a wall, a seam lip or a boss chain
+    — and the pack-closes gate, which does compare the interior solids against the pieces,
+    then fails the build the pose was chosen for. In by default, that answer is one you
+    have to ask for; out by default, it is the one you get by forgetting.
+
+    `pieces=False` (or `HSM_SKIP_PIECES=1`) leaves them out, for a tree whose
+    `enclosure-*.step` have not been exported. It costs the answer the walls, and it is not
+    a speed setting: the pieces are four STEP imports (~0.3 s) on a world that takes
+    seconds, ~0.04 s of exact distance per body compared against them, and a `slab` band
+    they reach into. `w.measured` says which way a world was built, and both scans print
+    it.
+
+    Memoized per (runs, pieces) — building one imports and places every STEP."""
+    want_pieces = bool(pieces) and not os.environ.get(SKIP_PIECES)
+    key = (bool(runs), want_pieces)
+    if reload:
+        _WORLDS.clear()
+    elif key in _WORLDS:
+        return _WORLDS[key]
 
     _ensure_paths()
 
@@ -463,14 +729,62 @@ def world(runs: bool = True, reload: bool = False) -> World:
         add(name, entry, "component")
     for name, entry in contents.panel_bodies().items():
         add(name, entry, "panel")
+    add("display", _assembly()._placed_display(), "display")
     add("hopper-funnel", contents.placed_funnel(), "funnel")
+    if want_pieces:
+        for name, entry in _read_pieces().items():
+            add(name, entry, PIECE)
     if runs:
         import _lines
         for name, entry in _lines.build().items():
             add(name, entry, "run")
 
-    _WORLD = World(solids, sources)
-    return _WORLD
+    _WORLDS[key] = World(solids, sources, pieces_held_out=not want_pieces)
+    return _WORLDS[key]
+
+
+def wall_sample(w: World = None, side: float = 10.0):
+    """A volume buried in a printed piece that every interior body clears — the one case an
+    instrument gets wrong when the pieces are not in its world, handed back as a solid so a
+    control can put the question to `hits`, to `cast` or to `fit.check`.
+
+    Cut from the floor slab, between the cavity floor and the outer skin, where the material
+    is a piece's by construction and no interior body can reach: the pack stands ON the
+    floor. Derived from the box's own dimensions and confirmed against the world rather than
+    written down, so it survives the box being redrawn. Raises when no such volume can be
+    found, because a control that quietly tests nothing passes for the wrong reason."""
+    w = w or world()
+    if not w.pieces:
+        raise ValueError(
+            "wall_sample: this world holds no printed pieces to sample — "
+            f"it was built with pieces=False or under {SKIP_PIECES}")
+    _ensure_paths()
+    import enclosure
+    dims = enclosure._dims()
+    inner, outer = dims.inner, dims.outer
+    if outer[4] >= inner[4] - 1.0:
+        raise ValueError(
+            f"wall_sample: the floor slab is {inner[4] - outer[4]:.2f} mm thick, too thin to "
+            f"cut a sample out of — pick another wall")
+    z = (outer[4] + 0.5, inner[4] - 0.5)
+    tried = []
+    for fy in (0.2, 0.8, 0.5, 0.35, 0.65):
+        for fx in (0.5, 0.25, 0.75):
+            cx = inner[0] + fx * (inner[1] - inner[0])
+            cy = inner[2] + fy * (inner[3] - inner[2])
+            cut = box(x=(cx - side / 2, cx + side / 2), y=(cy - side / 2, cy + side / 2), z=z)
+            buried = [h for h in w.hits(cut) if w.sources[h.name] == PIECE]
+            if not buried:
+                tried.append(f"({cx:.0f}, {cy:.0f}) is not in a piece")
+                continue
+            sample = cut.intersect(w.solid(buried[0].name))
+            loose = w.hits(sample, skip=w.pieces)
+            if loose:
+                tried.append(f"({cx:.0f}, {cy:.0f}) shares the slab with {loose[0].name}")
+                continue
+            return sample
+    raise ValueError("wall_sample: no floor-slab volume is both inside a piece and clear of "
+                     "every interior body — " + "; ".join(tried))
 
 
 # --- instrument check -----------------------------------------------------
@@ -531,6 +845,43 @@ def selftest() -> int:
     if away.blocked:
         fails.append("cast no-contact")
 
+    print("controls — travel:")
+    # A block on a long rail, a post standing 3 mm east of it, and a second post 12 mm on.
+    # The rail runs under the block the whole way: a seat it slides over, never a blocker.
+    rail = box(x=(-100, 100), y=(-20, 20), z=(-5, 0))
+    mover = box(x=(0, 10), y=(-5, 5), z=(0, 10))
+    post = box(x=(13, 18), y=(-5, 5), z=(0, 10))
+    far = box(x=(30, 35), y=(-5, 5), z=(0, 10))
+    tw = World({"rail": rail, "mover": mover, "post": post, "far": far},
+               {n: "test" for n in ("rail", "mover", "post", "far")})
+    tr = tw.travel("mover", (1, 0, 0), limit=60.0)
+    check("travel to the first post", tr.free, 3.0, tol=1e-3)
+    order = [s.name for s in tr.stops]
+    print(f"  {'ok  ' if order == ['post', 'far'] else 'FAIL'}  the whole stop list, nearest "
+          f"first{'':7s} got {order}  want ['post', 'far']")
+    if order != ["post", "far"]:
+        fails.append("travel stop order")
+    check("the stop behind the binder is priced too",
+          next(s.at for s in tr.stops if s.name == "far"), 20.0, tol=1e-3)
+    print(f"  {'ok  ' if tr.sliding == ('rail',) else 'FAIL'}  a seat is named, never a "
+          f"blocker{'':13s} got {tr.sliding}  want ('rail',)")
+    if tr.sliding != ("rail",):
+        fails.append("travel seat")
+    # A body that runs out of query before it runs out of room says so: the limit is a fact
+    # about the probe, and `free` reporting it is not a clearance.
+    short = tw.travel("mover", (1, 0, 0), limit=2.0)
+    print(f"  {'ok  ' if not short.stops else 'FAIL'}  travel under the first contact finds "
+          f"none{'':5s} got {[s.name for s in short.stops]}  want []")
+    if short.stops:
+        fails.append("travel limit")
+    # A feature of the very body it rests on: the rail grows a lip 6 mm east, and sliding on
+    # the rail must not hide it. This is the shape that reads +0.000 to a gap alone.
+    lipped = rail.fuse(box(x=(16, 20), y=(-20, 20), z=(0, 20)))
+    lw = World({"rail": lipped, "mover": mover}, {"rail": "test", "mover": "test"})
+    lt = lw.travel("mover", (1, 0, 0), limit=60.0)
+    check("a lip on the seat still stops the slide",
+          lt.stops[0].at if lt.stops else -1.0, 6.0, tol=1e-3)
+
     print("controls — ranking:")
     # `up` is stopped at 80; `away` never touched anything. The untouched cast
     # wins on having no contact, not on its limit outranking 80.
@@ -557,11 +908,40 @@ def selftest() -> int:
     wc.solids["body"] = box(x=(0, 99), y=(0, 10), z=(0, 10))
     check("a swapped body is re-measured", wc.bb("body").xmax, 99.0)
 
+    print("controls — a piece is a body like any other, and says which it is:")
+    # The shape of the defect, in miniature: a candidate clear of every interior body,
+    # standing inside a printed wall. A world that answers CLEAR here answers CLEAR in the
+    # machine, and the pack-closes gate then fails the build the answer was chosen for.
+    wp = World({"part": box(x=(0, 10), y=(0, 10), z=(0, 10)),
+                "wall": box(x=(50, 60), y=(0, 100), z=(0, 100))},
+               {"part": "component", "wall": PIECE})
+    inside = box(x=(52, 58), y=(20, 30), z=(20, 30))
+    named = [h.name for h in wp.hits(inside)]
+    print(f"  {'ok  ' if named == ['wall'] else 'FAIL'}  a volume in a piece is not clear"
+          f"{'':17s} got {named}  want ['wall']")
+    if named != ["wall"]:
+        fails.append("piece occupancy")
+    print(f"  {'ok  ' if wp.clear(inside, skip=wp.pieces) else 'FAIL'}  and is clear of the "
+          f"interior pack alone{'':6s} got skip={list(wp.pieces)}")
+    if not wp.clear(inside, skip=wp.pieces):
+        fails.append("skip=pieces")
+    print(f"  {'ok  ' if wp.pieces == ('wall',) and wp.parts == ('part',) else 'FAIL'}  "
+          f"pieces and parts split the way the gate does  got {wp.pieces} / {wp.parts}")
+    if wp.pieces != ("wall",) or wp.parts != ("part",):
+        fails.append("piece/part split")
+    held = World(dict(wp.solids), dict(wp.sources), pieces_held_out=True)
+    del held.solids["wall"], held.sources["wall"]
+    print(f"  {'ok  ' if 'NO printed' in held.measured else 'FAIL'}  a world without pieces "
+          f"says so out loud{'':7s} got {held.measured!r}")
+    if "NO printed" not in held.measured:
+        fails.append("held-out world is loud")
+
     print("controls — refusals:")
     for label, thunk in (
         ("unnormalizable body raises", lambda: shape("not a solid", "x")),
         ("unknown body name raises", lambda: w.solid("nope")),
         ("zero-length direction raises", lambda: unit((0, 0, 0))),
+        ("sampling a wall of a world with no pieces raises", lambda: wall_sample(held)),
     ):
         try:
             thunk()
@@ -574,7 +954,33 @@ def selftest() -> int:
     print("\nreal world:")
     real = world()
     print(f"  ok    {len(real.solids)} bodies normalized "
-          f"({sum(1 for s in real.sources.values() if s == 'run')} routed runs)")
+          f"({sum(1 for s in real.sources.values() if s == 'run')} routed runs) — {real.measured}")
+    got = len(real.tagged("display"))
+    print(f"  {'ok  ' if got == 1 else 'FAIL'}  {'the display placed':44s} got {got}  want 1")
+    if got != 1:
+        fails.append("the display placed")
+    if real.pieces:
+        got = len(real.pieces)
+        print(f"  {'ok  ' if got == 4 else 'FAIL'}  {'the printed pieces placed':44s} "
+              f"got {got}  want 4")
+        if got != 4:
+            fails.append("the printed pieces placed")
+        sample = wall_sample(real)
+        buried = [h.name for h in real.hits(sample)]
+        loose = [h.name for h in real.hits(sample, skip=real.pieces)]
+        ok_real = buried and all(real.sources[n] == PIECE for n in buried) and not loose
+        print(f"  {'ok  ' if ok_real else 'FAIL'}  a volume in a real printed wall is not "
+              f"clear{'':4s} got in {buried}, interior {loose}")
+        if not ok_real:
+            fails.append("real piece occupancy")
+    elif real.pieces_held_out:
+        # The walls were switched off on purpose, so their controls have nothing to run
+        # against. Not a pass: the instrument is sound and this world is not the one the
+        # pack-closes gate agrees with, and both facts belong on the page.
+        print(f"  --    the printed-piece controls did not run — {real.measured}")
+    else:
+        print("  FAIL  the printed pieces are missing from a world that asked for them")
+        fails.append("pieces present")
 
     print(f"\n{'PASS' if not fails else 'FAIL: ' + ', '.join(fails)}")
     return 0 if not fails else 1
@@ -622,6 +1028,13 @@ def main(argv: list) -> int:
     p.add_argument("--limit", type=float, default=CAST_LIMIT)
     p.add_argument("--skip", default="")
 
+    p = sub.add_parser("travel", help="how far a body moves before each thing stops it")
+    p.add_argument("mover")
+    p.add_argument("direction", help="+x, -y, or x,y,z")
+    p.add_argument("--limit", type=float, default=TRAVEL_LIMIT)
+    p.add_argument("--clearance", type=float, default=0.0)
+    p.add_argument("--skip", default="")
+
     p = sub.add_parser("hits", help="what a box runs into")
     for axis in "xyz":
         p.add_argument(f"--{axis}", required=True, help="lo,hi")
@@ -637,6 +1050,7 @@ def main(argv: list) -> int:
     skip = tuple(s for s in getattr(a, "skip", "").split(",") if s)
 
     if a.cmd == "boxes":
+        print(w.measured)
         print(w.table(sort=a.sort))
     elif a.cmd == "gap":
         print(f"{w.gap(a.a, a.b):.4f} mm")
@@ -651,11 +1065,21 @@ def main(argv: list) -> int:
             pos, nrm = w.at(comp, port), w.normal(comp, port)
             print(f"{a.port} at ({pos[0]:.3f}, {pos[1]:.3f}, {pos[2]:.3f}) "
                   f"normal ({nrm[0]:g}, {nrm[1]:g}, {nrm[2]:g})")
-    elif a.cmd == "cast":
-        print(w.cast(_pt(a.origin), _pt(a.direction), dia=a.dia, limit=a.limit, skip=skip))
-    elif a.cmd == "hits":
-        found = w.hits(box(x=_range(a.x), y=_range(a.y), z=_range(a.z)), skip=skip)
-        print("\n".join(str(h) for h in found) if found else "CLEAR")
+    elif a.cmd == "travel":
+        axes = {"+x": (1, 0, 0), "-x": (-1, 0, 0), "+y": (0, 1, 0),
+                "-y": (0, -1, 0), "+z": (0, 0, 1), "-z": (0, 0, -1)}
+        d = axes.get(a.direction) or _pt(a.direction)
+        print(w.travel(a.mover, d, limit=a.limit, clearance=a.clearance, skip=skip))
+    elif a.cmd in ("cast", "hits"):
+        # A held-out body is part of the answer: "CLEAR" over a list of bodies nobody
+        # measured is the same word as "CLEAR" over the whole machine.
+        if skip:
+            print(f"holding out: {', '.join(skip)}")
+        if a.cmd == "cast":
+            print(w.cast(_pt(a.origin), _pt(a.direction), dia=a.dia, limit=a.limit, skip=skip))
+        else:
+            found = w.hits(box(x=_range(a.x), y=_range(a.y), z=_range(a.z)), skip=skip)
+            print("\n".join(str(h) for h in found) if found else "CLEAR")
     return 0
 
 
