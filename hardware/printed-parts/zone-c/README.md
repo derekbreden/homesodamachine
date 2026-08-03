@@ -7,7 +7,7 @@ framing and the other three zones:
 
 ## One opening, two layers
 
-One rectangular opening spans the top wall right of the display
+One rectangular opening spans the top wall behind the display facet
 ([`../enclosure/enclosure/`](/hardware/printed-parts/enclosure/enclosure/)
 `_hopper_hole`). In it, top to bottom:
 
@@ -30,7 +30,7 @@ One shared basin, sized to take a full 440 mL SodaStream concentrate bottle
 dumped in one pour. Silicone, removable, dishwasher-safe; cast in the
 two-piece printed mold
 ([`hopper-funnel-mold/`](/hardware/printed-parts/zone-c/hopper-funnel-mold/)).
-Its spout feeds the V-B hopper gate on the source-select tray; the valve
+Its spout feeds the V-B hopper gate on the V-A/V-B tray; the valve
 manifold, not the funnel, picks the channel, so one funnel serves both
 flavors. Valve states:
 [`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md).

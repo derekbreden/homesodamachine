@@ -29,6 +29,32 @@ import path from "node:path"
 import { Resvg } from "@resvg/resvg-js"
 
 /**
+ * Every plated via on this board is one full-stack through drill — JLCPCB standard assembly
+ * drills no blind/buried holes (pcba.tsx says so at the top).
+ *
+ * A `routeInner` via declares the span it uses ELECTRICALLY — `top->inner1`, `top->inner2`,
+ * `inner2->top` — while the drill converter emits only the holes whose span equals the one
+ * asked for, and the caller asks for the default `top->bottom`. A via declaring anything
+ * narrower is dropped from drill.drl while its pads stay on every copper layer: copper on
+ * four layers with no barrel joining them, and a gerber set that looks complete.
+ *
+ * Restating each via's span as the drill it physically gets is what makes the two agree.
+ * `assertFullyDrilled` is the floor under that — the drill file is the one fab artifact whose
+ * omissions are invisible in every other view.
+ */
+const throughDrilled = (circuit: any[]) =>
+  circuit.map((e) => (e.type === "pcb_via"
+    ? { ...e, from_layer: "top", to_layer: "bottom", layers: ["top", "bottom"] }
+    : e))
+
+const assertFullyDrilled = (circuit: any[], drl: string) => {
+  const holes = (drl.match(/^X-?[\d.]+Y-?[\d.]+/gm) ?? []).length
+  const want = circuit.filter((e) => e.type === "pcb_via" || e.type === "pcb_plated_hole").length
+  if (holes < want)
+    throw new Error(`drill.drl carries ${holes} holes for ${want} plated features — ${want - holes} would ship undrilled`)
+}
+
+/**
  * JLCPCB's BOM importer folds any row with an empty Comment up into the row above
  * it — merging that part's designator into the previous line and discarding its own
  * JLCPCB #. The stock converter fills Comment only for resistors/capacitors (their
@@ -171,7 +197,7 @@ async function placementPreview() {
   const layers = stringifyGerberCommandLayers(convertSoupToGerberCommands(circuit, { flip_y_axis: false }))
   if (layers["F_SilkScreen"]) layers["F_SilkScreen"] = layers["F_SilkScreen"].replace(/M02\*/, `${ledKnockoutGerber(circuit, layers["F_SilkScreen"])}\nM02*`)
   for (const [n, txt] of Object.entries(layers)) writeFileSync(path.join(scratch, `${n}.gbr`), txt as string)
-  const pth = convertSoupToExcellonDrillCommands({ circuitJson: circuit, is_plated: true, flip_y_axis: false })
+  const pth = convertSoupToExcellonDrillCommands({ circuitJson: throughDrilled(circuit), is_plated: true, flip_y_axis: false })
   if (pth.length) writeFileSync(path.join(scratch, "drill.drl"), stringifyExcellonDrill(pth))
   const npth = convertSoupToExcellonDrillCommands({ circuitJson: circuit, is_plated: false, flip_y_axis: false })
   if (npth.length) writeFileSync(path.join(scratch, "drill_npth.drl"), stringifyExcellonDrill(npth))
@@ -247,8 +273,10 @@ try {
   // expressible in circuit-json; see led-knockout.ts).
   if (layers["F_SilkScreen"]) layers["F_SilkScreen"] = layers["F_SilkScreen"].replace(/M02\*/, `${ledKnockoutGerber(circuit, layers["F_SilkScreen"])}\nM02*`)
   for (const [name, txt] of Object.entries(layers)) writeFileSync(path.join(scratch, `${name}.gbr`), txt as string)
-  const pth = convertSoupToExcellonDrillCommands({ circuitJson: circuit, is_plated: true, flip_y_axis: false })
-  if (pth.length) writeFileSync(path.join(scratch, "drill.drl"), stringifyExcellonDrill(pth))
+  const pth = convertSoupToExcellonDrillCommands({ circuitJson: throughDrilled(circuit), is_plated: true, flip_y_axis: false })
+  const pthTxt = stringifyExcellonDrill(pth)
+  assertFullyDrilled(circuit, pthTxt)
+  if (pth.length) writeFileSync(path.join(scratch, "drill.drl"), pthTxt)
   const npth = convertSoupToExcellonDrillCommands({ circuitJson: circuit, is_plated: false, flip_y_axis: false })
   if (npth.length) writeFileSync(path.join(scratch, "drill_npth.drl"), stringifyExcellonDrill(npth))
   const bomCsv = await convertBomRowsToCsv(await convertCircuitJsonToBomRows({ circuitJson: circuit }))

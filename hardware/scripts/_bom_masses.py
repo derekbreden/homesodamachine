@@ -47,10 +47,9 @@ PARTS = {
     "Cold-core foam cap lid — top": ["cold-core/foam-cap/foam-cap-lid-top.step"],
     "Cold-core foam cap — bottom": ["cold-core/foam-cap/foam-cap-bottom.step"],
     "Cold-core foam cap lid — bottom": ["cold-core/foam-cap/foam-cap-lid-bottom.step"],
-    "Copper-plug stack (4 plugs)": [
+    "Copper-plug stack (3 plugs)": [
         "cold-core/copper-plugs/copper-plug-lower.step",
         "cold-core/copper-plugs/copper-plug-middle.step",
-        "cold-core/copper-plugs/copper-plug-upper.step",
         "cold-core/copper-plugs/copper-plug-top.step",
     ],
     "PRV shroud": ["cold-core/prv-shroud/prv-shroud.step"],
@@ -72,9 +71,14 @@ PARTS = {
         "enclosure/drip-pan/drip-pan.step",
         "enclosure/drip-pan/drip-pan-rails.step",
     ],
-    "Valve tray — source-select": ["valve-manifold/source-select-tray/source-select-tray.step"],
-    "Valve tray — bag-circuit": ["valve-manifold/bag-circuit-tray/bag-circuit-tray.step"],
-    "Valve tray — nozzle-gate": ["valve-manifold/nozzle-gate-tray/nozzle-gate-tray.step"],
+    # One part, five off — the same solid five times, which is what the row's Qty
+    # says and what its mass has to be: the front column's three and the aft
+    # stand's forward two. The sixth cradle carries ONE valve, so it is the
+    # family's one-seat part rather than a two-seat plate with a seat empty —
+    # an unfilled seat renders a valve that is not in this list.
+    "Valve tray — two-valve (5 off)": ["valve-manifold/two-valve-tray/two-valve-tray.step"] * 5,
+    "Valve tray — single-valve (1 off)": [
+        "valve-manifold/single-valve-tray/single-valve-tray.step"],
     "Faucet touch-flo shell (3-piece: bottom + middle + top)": [
         "faucet/touch-flo-shell/touch-flo-shell-bottom.step",
         "faucet/touch-flo-shell/touch-flo-shell-middle.step",

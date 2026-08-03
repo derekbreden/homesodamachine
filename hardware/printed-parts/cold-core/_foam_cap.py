@@ -8,6 +8,9 @@ from _cold_core_interface import (
     outer_shell_x_length,
     outer_shell_y_length,
     corner_round_radius,
+    cap_conduits,
+    cap_conduit_bore_radius,
+    cap_conduit_boss_radius,
     foam_cap_height,
     foam_cap_lid_pour_radius,
     foam_cap_lid_vent_radius,
@@ -39,6 +42,28 @@ def attachment_clearances_extrude(height):
     )
 
 
+def build_conduit_columns(height):
+    """Every cap conduit's column, extruded +Z by height from z=0."""
+    return (
+        WorldWorkplane(xy_plane_z_up)
+        .workplane(offset=0)
+        .pushPoints(list(cap_conduits.values()))
+        .circle(cap_conduit_boss_radius)
+        .extrude(height)
+    )
+
+
+def build_conduit_bores(height, radius=cap_conduit_bore_radius):
+    """Every cap conduit's bore, extruded +Z by height from z=0."""
+    return (
+        WorldWorkplane(xy_plane_z_up)
+        .workplane(offset=0)
+        .pushPoints(list(cap_conduits.values()))
+        .circle(radius)
+        .extrude(height)
+    )
+
+
 def _relief_z0(open_down):
     """Z the mouth-end boss relief starts at, in the cap's own frame — always
     the material side of the open face, which is +Z from a mouth-down cup's
@@ -56,7 +81,12 @@ def build_foam_cap(open_down=False):
 
     The six boss columns run the cup's full height but stop head_pad_height
     short of the mouth: that relief is where the lid's head pads go, and the
-    slip it carries is what lets them in."""
+    slip it carries is what lets them in.
+
+    A CONDUIT column runs the full height to the mouth rim, where the lid's plate lands on
+    it, and carries a ⌀[6.5 mm](FCAP_BORE_D) bore through itself and the floor under it. Only
+    the mouth-up top cap has them: `cap_conduits` are the lines that leave by the top, and
+    the service bay is on the top cap's outer face."""
     cap = (
         WorldWorkplane(xy_plane_z_up)
         .workplane(offset=0)
@@ -75,7 +105,13 @@ def build_foam_cap(open_down=False):
     )
     # Screw clearance passes the full cap height, floor through to mating edge.
     clearances = attachment_clearances_extrude(foam_cap_height)
-    return cap.union(bosses).cut(relief).cut(clearances).unwrap()
+    cap = cap.union(bosses)
+    if not open_down:
+        cap = cap.union(build_conduit_columns(foam_cap_height))
+    cap = cap.cut(relief).cut(clearances)
+    if not open_down:
+        cap = cap.cut(build_conduit_bores(foam_cap_height))
+    return cap.unwrap()
 
 
 def build_foam_cap_lid(open_down=False):
@@ -128,14 +164,18 @@ def build_foam_cap_lid(open_down=False):
     vent_hole_plus_y = cut_hole(vent_plus_y_xy, foam_cap_lid_vent_radius)
     vent_hole_minus_y = cut_hole(vent_minus_y_xy, foam_cap_lid_vent_radius)
     clearances = attachment_clearances_extrude(lid_cut_through_depth)
-    return (
+    lid = (
         lid.cut(pour_hole)
         .cut(vent_hole_plus_y)
         .cut(vent_hole_minus_y)
         .cut(head_cbores)
         .cut(clearances)
-        .unwrap()
     )
+    # The conduit's bore continues through the plate the column's top lands on. The
+    # mouth-down bottom lid closes the stack's other end and takes none.
+    if not open_down:
+        lid = lid.cut(build_conduit_bores(lid_cut_through_depth))
+    return lid.unwrap()
 
 
 def build_foam_cap_gasket():

@@ -10,6 +10,7 @@ from _cold_core_interface import (
     bulkhead_elbow_exit_z,
     port_hole_radius,
     reed_x_depth,
+    front_port_z,
     make_box,
     cut_pour_band_pass_through,
 )
@@ -73,27 +74,24 @@ def cut_reed_channel_openings(foam_shell):
 # all three.
 cable_hole_offset_from_bulkhead_hole_x = 4.0
 
-# Where the cable leaves the shell. Outboard of the flavor line's own shell
-# bore, with PETG between the two, and still inboard of the condenser+fan
-# block against the cabinet's +X wall — the cable climbs the core's front
-# face to the PCBA from here, so it needs no fall corridor of its own.
-cable_shell_hole_x = 60.0
+# Which reservoir's cable takes which front-field station. +X is A, −X is B.
+_CABLE_STATION = {+1: "reed-cable-a", -1: "reed-cable-b"}
 
 
 def cut_reed_cable_holes(foam_shell):
-    """Cable holes, one per reservoir side, in −Y through the −Y bag-pocket
-    wall and then the −Y outer shell wall; the reed cable runs through the
-    open bag-pocket bottom to here. At bulkhead_elbow_exit_z (level with the
-    elbow's lateral port and the flavor-line hole), leaving the pocket at the
-    same y as its side's bulkhead hole and crossing the pour band to the
-    shell bore."""
+    """Cable holes, one per reservoir side: −Y through the −Y bag-pocket wall onto
+    the port lane, and out the front field at that side's station. The reed cable
+    runs through the open bag-pocket bottom to the pocket bore, leaving at
+    bulkhead_elbow_exit_z (level with the elbow's lateral port and the flavor-line
+    hole) at the same y as its side's bulkhead hole, then climbs the lane west to
+    its station — the two stations one bore pitch apart, above both flavor lines'."""
     for s in (+1, -1):
         foam_shell = cut_pour_band_pass_through(
             foam_shell,
             pocket_hole_x=s * (reservoir_bulkhead_port_x + cable_hole_offset_from_bulkhead_hole_x),
-            shell_hole_x=s * cable_shell_hole_x,
             y=reservoir_bulkhead_port_y,
             z=bulkhead_elbow_exit_z,
+            exit_z=front_port_z(_CABLE_STATION[s]),
             hole_punch_radius=port_hole_radius,
         )
     return foam_shell

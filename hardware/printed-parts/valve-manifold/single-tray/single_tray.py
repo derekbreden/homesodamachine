@@ -22,7 +22,9 @@ _here = Path(__file__).resolve()
 _hardware = next(p for p in _here.parents if p.name == "hardware")
 sys.path.insert(0, str(_hardware / "scripts"))
 sys.path.insert(0, str(_hardware / "reference" / "beduan-solenoid"))
-sys.path.insert(0, str(_hardware.parent / "tools"))
+# `tools/` is shared machinery, so it anchors on the repo root that holds it —
+# not on this edition's own root, which has no tools/ of its own.
+sys.path.insert(0, str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"))
 from _cadq_export import export_step
 from docgen import substitute_md
 import beduan_solenoid as valve
@@ -52,6 +54,37 @@ saddle_radius = port_radius + saddle_clearance
 socket_floor_z = -1.0    # socket floor, below the post tips at Z = 0
 
 
+def cut_cell(tray, cx=0.0, cy=0.0):
+    """Cut one valve's cradle into ``tray`` at cell center ``(cx, cy)``: the
+    port saddle, then the four corner-boss sockets. The two-valve tray
+    (`../two-valve-tray/`) cuts this same cell twice, so its seats cannot drift
+    from this one."""
+    # Port saddle: a concave trough along Y, open through the top face, that
+    # the port nestles into.
+    saddle_len = 2 * saddle_half_y + 2.0
+    saddle = cq.Solid.makeCylinder(
+        saddle_radius,
+        saddle_len,
+        cq.Vector(cx, cy - saddle_len / 2.0, port_center_z),
+        cq.Vector(0.0, 1.0, 0.0),
+    )
+    tray = tray.cut(cq.Workplane(obj=saddle))
+
+    # Four corner-boss sockets: blind holes from the tray top down past Z = 0;
+    # the posts hang free, the round boss seats on the tray top.
+    for sx in (-1.0, 1.0):
+        for sy in (-1.0, 1.0):
+            socket = (
+                cq.Workplane("XY")
+                .workplane(offset=socket_floor_z)
+                .center(cx + sx * corner_pos, cy + sy * corner_pos)
+                .circle(socket_radius)
+                .extrude(tray_top_z - socket_floor_z + 1.0)
+            )
+            tray = tray.cut(socket)
+    return tray
+
+
 def build_single_tray():
     block = (
         cq.Workplane("XY")
@@ -63,31 +96,7 @@ def build_single_tray():
         )
         .translate((0.0, 0.0, tray_bottom_z))
     )
-
-    # Port saddle: a concave trough along Y, open through the top face, that
-    # the port nestles into.
-    saddle_len = 2 * tray_half_y + 2.0
-    saddle = cq.Solid.makeCylinder(
-        saddle_radius,
-        saddle_len,
-        cq.Vector(0.0, -saddle_len / 2.0, port_center_z),
-        cq.Vector(0.0, 1.0, 0.0),
-    )
-    tray = block.cut(cq.Workplane(obj=saddle))
-
-    # Four corner-boss sockets: blind holes from the tray top down past Z = 0;
-    # the posts hang free, the round boss seats on the tray top.
-    for sx in (-1.0, 1.0):
-        for sy in (-1.0, 1.0):
-            socket = (
-                cq.Workplane("XY")
-                .workplane(offset=socket_floor_z)
-                .center(sx * corner_pos, sy * corner_pos)
-                .circle(socket_radius)
-                .extrude(tray_top_z - socket_floor_z + 1.0)
-            )
-            tray = tray.cut(socket)
-    return tray
+    return cut_cell(block)
 
 
 def main():

@@ -23,15 +23,8 @@ export const EDITIONS = [
   {
     id: "kitchen",
     label: "Kitchen",
-    help: "The counter appliance. hardware/",
+    help: "The tall, narrow counter appliance. hardware/",
     dir: ["hardware"],
-    shares: [],
-  },
-  {
-    id: "thin",
-    label: "Thin",
-    help: "The tall, narrow machine. thin/hardware/",
-    dir: ["thin", "hardware"],
     shares: [],
   },
 ];
@@ -44,9 +37,8 @@ export const EDITION_IDS = EDITIONS.map((e) => e.id);
 
 // Each edition's content root as one repo-root-relative path. This is the prefix a
 // pick blob's `file:` line carries, and the viewer's own paths are what is left after
-// it. Mirrored into the page pre-paint by lib/shell.js, because the edge picker has to
-// name the machine it is looking at — the trees mirror each other's filenames, so a
-// blob prefixed with the wrong root reads as a real path into another machine.
+// it. Mirrored into the page pre-paint by lib/shell.js, so the edge picker names the
+// machine it is looking at.
 export const EDITION_DIRS = Object.fromEntries(EDITIONS.map((e) => [e.id, e.dir.join("/")]));
 
 export function editionById(id) {

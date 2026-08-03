@@ -12,8 +12,6 @@ sys.path.insert(0, str(_here.parent / "printed-parts" / "cold-core"))
 sys.path.insert(0, str(_here.parent / "printed-parts" / "cold-core" / "reservoir"))
 sys.path.insert(0, str(_here.parent / "printed-parts" / "faucet"))
 sys.path.insert(0, str(_here.parent / "printed-parts" / "faucet" / "touch-flo-shell"))
-for _tray in ("single-tray", "bag-circuit-tray", "source-select-tray"):
-    sys.path.insert(0, str(_here.parent / "printed-parts" / "valve-manifold" / _tray))
 sys.path.insert(0, str(_here.parent / "reference" / "beduan-solenoid"))
 sys.path.insert(
     0,
@@ -25,8 +23,6 @@ from _reed_channels import reeds_per_reservoir
 from docgen import substitute_md
 from reservoir import insert_positions_for_side_plus_1
 from touch_flo_shell import base_pod_centers
-import bag_circuit_tray
-import source_select_tray
 
 import importlib.util
 
@@ -63,11 +59,17 @@ reeds_per_carbonator = 2
 
 # 10-valve manifold (V-A/B/C/D/E/F/G/H/I/J) per
 # `topology/fluid-topology-trays.mmd`. Eight 3-port junctions split by
-# geometry: 2 Y-dividers (Y-A/B, source-select trident) + 6 Tees
-# (Y-C/D/E/F/G/H, in-line run + branch).
+# geometry: 1 Y-divider (Y-H, the trident) + 7 Tees (in-line run +
+# branch). Which a junction is follows the pose of the pair it joins AND
+# the room the fitting has. Every tray lies plate-up, so a junction
+# reaching between trays can only be a Tee — that is six of them. The two
+# bag circuits are the only pairs meeting on one tray, and they part: Y-H
+# has a column ahead of it in the loft and takes the trident; Y-E has a
+# strip a fitting's own diameter deep between the pump row and the head
+# column, and takes a Tee standing across it.
 solenoid_count = 10
-y_divider_count = 2
-tee_count = 6
+y_divider_count = 1
+tee_count = 7
 
 # Rear-panel PP1208E bulkheads. Umbilical port: 3 on the back panel
 # (1 carbonated water + 2 flavor). Water inlet: 1 more, same SKU and
@@ -100,14 +102,15 @@ total_reeds_per_build = reeds_per_carbonator + reservoir_reeds_total
 # bulkhead, not PP1208E.
 pp1208e_per_build = panel_umbilical_bulkheads + panel_water_inlet_bulkheads
 
-# PP0308E union elbows per build: one per valve-manifold elbow — each tray
-# module's `rolls` dict is exactly its elbow set (the junction column's banks:
-# all four source-select valves, the bag tray's V-E/V-H pair; the bag east
-# bank and the nozzle-gate tray run bare until the pump-discharge tees land)
-# — and two on each of the two Kamoer pump outlets. The CO2 path takes none:
-# its line runs straight in through the foam shell's −Y wall to the adapter
-# on the vessel's own bottom-plate elbow, so no bend is made in the cavity.
-pp0308e_valve_elbows = len(source_select_tray.rolls) + len(bag_circuit_tray.rolls)
+# PP0308E union elbows per build: two on each of the two Kamoer pump outlets,
+# and that is all the geometry declares. The valve manifold turns none: the
+# two-valve tray carries no fitting on any of its four collets, so how a valve
+# leaves its tray is set when the manifold is placed, not by the tray — and an
+# elbow nothing has posed is a number with no solid behind it. The CO2 path
+# takes none either: its line runs straight in through the foam shell's −Y wall
+# to the adapter on the vessel's own bottom-plate elbow, so no bend is made in
+# the cavity.
+pp0308e_valve_elbows = 0
 pp0308e_pump_elbows = 4
 pp0308e_per_build = pp0308e_valve_elbows + pp0308e_pump_elbows
 
@@ -217,8 +220,8 @@ def main():
             "PP1208E_PANEL": 2,
             "PP1208E_INLET": 1,
             "PP1208E_TOTAL": 1,
-            "PP0308E_VALVE": 2,
-            "PP0308E_PUMP": 2,
+            "PP0308E_VALVE": 1,
+            "PP0308E_PUMP": 1,
             "PP0308E_TOTAL": 2,
             "FOAM_INSERTS": 2,
             "FOAM_SCREWS": 2,

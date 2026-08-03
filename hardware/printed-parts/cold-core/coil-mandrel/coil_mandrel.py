@@ -28,10 +28,10 @@ sys.path.insert(
     str(next(p for p in _here.parents if (p / "tools" / "docgen").is_dir()) / "tools"),
 )
 sys.path.insert(0, str(next(p for p in _here.parents if p.name == "printed-parts") / "cadlib"))
-sys.path.insert(0, str(_here.parents[1] / "copper-plugs"))
+sys.path.insert(0, str(_here.parents[1]))
 from _cadq_export import export_step
 from docgen import substitute_py_comments
-from copper_plugs import lowest_copper_z, highest_copper_z
+from _cold_core_interface import evap_tail_low_z, evap_tail_high_z
 
 
 # ═══════════════════════════════════════════════════════
@@ -83,25 +83,28 @@ mandrel_r_range = (mandrel_inner_radius, mandrel_radius)
 # FOAM-SHELL ALIGNMENT
 # ═══════════════════════════════════════════════════════
 
-# Plug positions in foam-shell coords (Y is the cylinder axis). The axial
-# coordinate of each end is the pass-through the copper actually threads —
-# the lowest and highest copper Z in the shared −Y slot, read from the plug
-# stack that seals around them.
-plug_inlet_x, plug_inlet_y, plug_inlet_z = -30.0, lowest_copper_z, 20.0
-plug_outlet_x, plug_outlet_y, plug_outlet_z = 30.0, highest_copper_z, 20.0
+# Where the coil's two tails leave the wrap, in foam-shell coords (Y is the
+# cylinder axis). These are the COIL's own heights — the elbow bands the vessel
+# leaves clear above and below itself — and NOT the slot stations the copper ends
+# up crossing the wall at. The tails reach those along the port lane, low one
+# climbing and high one dropping, so the wind length is set here and the crossing
+# heights in `copper-plugs/copper_plugs.py`. Pinning either to the other would put
+# a bend where the mandrel wants a wrap.
+tail_inlet_x, tail_inlet_y, tail_inlet_z = -30.0, evap_tail_low_z, 20.0
+tail_outlet_x, tail_outlet_y, tail_outlet_z = 30.0, evap_tail_high_z, 20.0
 
 # [119.4 mm](WIND_LENGTH) — Y span between foam-shell inlet and outlet plugs.
-wind_length = plug_outlet_y - plug_inlet_y
+wind_length = tail_outlet_y - tail_inlet_y
 
-plug_inlet_azimuth = math.degrees(math.atan2(plug_inlet_z, plug_inlet_x))
-plug_outlet_azimuth = math.degrees(math.atan2(plug_outlet_z, plug_outlet_x))
+tail_inlet_azimuth = math.degrees(math.atan2(tail_inlet_z, tail_inlet_x))
+tail_outlet_azimuth = math.degrees(math.atan2(tail_outlet_z, tail_outlet_x))
 
 # CCW azimuthal delta from inlet to outlet (right-hand helix climbs CCW).
-plug_ccw_delta = (plug_outlet_azimuth - plug_inlet_azimuth) % 360
+tail_ccw_delta = (tail_outlet_azimuth - tail_inlet_azimuth) % 360
 
 # [9](FULL_WRAPS) full wraps; the fractional wrap spans the azimuthal delta.
 full_wraps = 9
-total_wraps = full_wraps + plug_ccw_delta / 360
+total_wraps = full_wraps + tail_ccw_delta / 360
 # [12.33 mm](PITCH) — helix pitch, [0.485 in](PITCH_IN).
 pitch = wind_length / total_wraps
 
@@ -186,12 +189,12 @@ def main():
     print(f"Groove:                profile R={groove_profile_radius} mm, "
           f"offset {groove_offset:.3f} mm, depth {groove_depth:.1f} mm")
     print(f"Wind length:           {wind_length:.1f} mm  "
-          f"(foam-shell plug Y span: {plug_inlet_y} → {plug_outlet_y})")
-    print(f"Inlet plug azimuth:    {plug_inlet_azimuth:.2f}°")
-    print(f"Outlet plug azimuth:   {plug_outlet_azimuth:.2f}°")
-    print(f"CCW alignment delta:   {plug_ccw_delta:.2f}°")
+          f"(foam-shell plug Y span: {tail_inlet_y} → {tail_outlet_y})")
+    print(f"Inlet plug azimuth:    {tail_inlet_azimuth:.2f}°")
+    print(f"Outlet plug azimuth:   {tail_outlet_azimuth:.2f}°")
+    print(f"CCW alignment delta:   {tail_ccw_delta:.2f}°")
     print(f"Wraps:                 {total_wraps:.4f}  ({full_wraps} full + "
-          f"{plug_ccw_delta:.2f}° fractional)")
+          f"{tail_ccw_delta:.2f}° fractional)")
     print(f"Pitch:                 {pitch:.3f} mm  ({pitch / 25.4:.4f}\")")
     print(f"Wrap copper:           {wrap_length:.0f} mm  ({wrap_length / 304.8:.2f} ft)")
     print(f"Cut w/ tie-in stubs:   {cut_length:.0f} mm  ({cut_length / 304.8:.2f} ft)")

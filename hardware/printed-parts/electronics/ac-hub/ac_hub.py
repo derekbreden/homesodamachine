@@ -1,11 +1,11 @@
 """AC hub — the H / N / G mains distribution block: three Wago 221-413 lever nuts
 on one printed plate.
 
-Two boss columns of the cold core's top foam cap carry it
-(`_cold_core_interface.deck_mounts["ac-hub"]`), one either side of the foam-cap
-lid's pour hole, which the plate spans. Everything else in the strip lands on
-columns of that same cap with nothing printed beneath it — the controller PCBA,
-the Mean Well PSU, Teyleten relay #1, and the ground ring-terminal stack.
+It is a TRAY and not a fastened part. It carries no hold-down of its own: whatever
+body ends up carrying it grows this footprint into itself, so the joint is printed
+rather than screwed and there is no pattern for a panel to bore. The plate therefore
+ends where the wells end, and its length is the three wells and the margin — nothing
+here is sized for a driver to reach.
 
 Each Wago stands on its butt end in a well that wraps its lower half on four
 faces — both X and both Y — open at the top, so a lug drops in butt-first and its
@@ -33,18 +33,12 @@ for _p in (
     sys.path.insert(0, str(_p))
 from _cadq_export import export_step
 import wago_221_413 as wago
-from _cold_core_interface import deck_mount_xy, deck_mounts
 
 # --- Hub parameters -------------------------------------------------------
-floor_t = 3.0          # base-plate thickness — the seat the cap station clamps
+floor_t = 3.0          # base-plate thickness — the seat the panel boss clamps
 wall_t = 3.0           # well wall thickness
 press = 0.15           # per-side press-fit clearance (validated on the valve trays)
 margin = 2.0           # plate edge past the last feature
-
-# The hub's own hold-down: a clearance hole over each cap column. The SHCS head
-# bears on the floor's top face, which is what `deck_mounts["ac-hub"].seat` is.
-mount_clear_d = 3.4
-mount_pad_d = 9.0
 
 # Standing the lug on its butt end lands its own axes this way: X stays the
 # lever-hinge axis, the closed body's height lies across the strip in Y, and the
@@ -62,9 +56,8 @@ wago_slot_half_y = stand_d / 2.0 + wall_t + press    # well half-depth in Y
 @dataclass(frozen=True)
 class Layout:
     """Placement in the hub's own frame. ``wago_places`` is one (cx, cy) well centre
-    per lug; ``mount_places`` is one (x, y) per cap column."""
+    per lug, and it is the whole of the layout — the plate holds nothing else."""
     wago_places: tuple
-    mount_places: tuple
 
 
 def _abox(x0, x1, y0, y1, z0, z1):
@@ -87,15 +80,11 @@ def _wago_well(cx, cy):
 
 
 def _build_floor(L):
-    """One rectangular plate, reaching the wells and both hold-down pads and no
-    further — it ends where the wells do."""
+    """One rectangular plate, reaching the wells and no further — it ends where they do."""
     xs, ys = [], []
     for cx, cy in L.wago_places:
         xs += [cx - wago_slot_half, cx + wago_slot_half]
         ys += [cy - wago_slot_half_y, cy + wago_slot_half_y]
-    for mx, my in L.mount_places:
-        xs += [mx - mount_pad_d / 2.0, mx + mount_pad_d / 2.0]
-        ys += [my - mount_pad_d / 2.0, my + mount_pad_d / 2.0]
     return _abox(min(xs) - margin, max(xs) + margin,
                  min(ys) - margin, max(ys) + margin, 0.0, floor_t)
 
@@ -105,28 +94,27 @@ def build_hub(L):
     hub = _build_floor(L)
     for cx, cy in L.wago_places:
         hub = hub.union(_wago_well(cx, cy))
-    for mx, my in L.mount_places:
-        hub = hub.cut(
-            cq.Workplane("XY").center(mx, my).circle(mount_clear_d / 2.0).extrude(floor_t)
-        )
     return hub
 
 
 # --- Layout ---------------------------------------------------------------
-# The two hold-down holes are spaced off the cap's OWN station pitch, so they land
-# on the `ac-hub` columns by construction. They sit outboard of the Wago row, one
-# at each end, open to a driver from above.
-_span = (max(p[0] for p in deck_mount_xy("ac-hub"))
-         - min(p[0] for p in deck_mount_xy("ac-hub")))
+# Three wells abreast, neighbours sharing a wall face, and one `margin` of plate past the
+# row at each end. There is nothing outboard of them: the plate's length is the row's.
 _row_y = margin + wago_slot_half_y
-_mount_y = _row_y
-_row_w = 3 * wago_pitch
-_mount_x0 = margin + mount_pad_d / 2.0
 LAYOUT = Layout(
-    wago_places=tuple((_mount_x0 + (_span - _row_w) / 2.0 + wago_slot_half + i * wago_pitch,
-                       _row_y) for i in range(3)),
-    mount_places=((_mount_x0, _mount_y), (_mount_x0 + _span, _mount_y)),
+    wago_places=tuple((margin + wago_slot_half + i * wago_pitch, _row_y) for i in range(3)),
 )
+
+# --- Stations, in the hub's own frame -------------------------------------
+poles = ("H", "N", "G")          # the order the Wago row runs in
+
+
+def lug(pole):
+    """One lug's wire-entry face: `(position, outward axis)`. Each Wago bottoms on the floor in
+    its well and stands its wire half proud, ports UP off the top of the standing body —
+    `stand_h` over the floor's own top face."""
+    cx, cy = LAYOUT.wago_places[poles.index(pole)]
+    return ((cx, cy, floor_t + stand_h), (0.0, 0.0, 1.0))
 
 
 def build_ac_hub():
@@ -137,9 +125,8 @@ def main():
     hub = build_ac_hub()
     bb = hub.val().BoundingBox()
     print(f"   hub {bb.xlen:.1f} × {bb.ylen:.1f} × {bb.zlen:.1f} mm — "
-          f"{len(LAYOUT.wago_places)} Wago wells on "
-          f"{len(deck_mount_xy('ac-hub'))} cap columns "
-          f"(seat {deck_mounts['ac-hub'].seat:g} mm); a standing lug reaches "
+          f"{len(LAYOUT.wago_places)} Wago wells on a {floor_t:g} mm plate, "
+          f"no hold-down of its own; a standing lug reaches "
           f"{floor_t + stand_h:.1f} mm up, ports at its top")
     export_step(hub, str(_here.parent / "ac-hub.step"))
     print("-> ac-hub.step")

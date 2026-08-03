@@ -16,20 +16,30 @@ The board had ONE goal (take every connection off the autorouter onto deliberate
 copper). The enclosure has FIVE axes, one per thing every component owes — and today
 only the first three are the focus (the other two render, dimmed, but are not yet worked):
 
-    placed  — FOCUS. Placement criteria are DEFINED in code (expected face-to-datum
+    mounted — FOCUS. The feature that fastens the component is printed INTO another placed
+              part, the way the board's four boss columns stand in the cold core's cap.
+              Resting on a part is not being mounted, and neither is capture or adhesive.
+    placed  — deferred. Placement criteria are DEFINED in code (expected face-to-datum
               measurements) and currently HELD. "Foam is against the back-bottom",
               with "against" pinned to numbers the scorecard measures.
-    located — FOCUS. Every connector (tube + wire) has a POSITION on the component — a
+    located — deferred. Every connector (tube + wire) has a POSITION on the component — a
               point on the body the scorecard confirms is on-surface. A connection has no
               path until both its ends are located, so this precedes routed.
-    shaped  — FOCUS. Real geometry, not a placeholder box/cylinder.
+    shaped  — deferred. Real geometry, not a placeholder box/cylinder.
     routed  — deferred. Every connection (fluid + water + CO2 + refrigerant + electrical) a real 3D
               path (bend radius, length, clearance), not endpoints + an external graph.
     held    — deferred. A printed holder that fastens the component to the enclosure (a
               few bosses + screws, or a tray-with-bosses that itself fastens) — not a
-              free solid resting in a collision-checked void.
+              free solid resting in a collision-checked void. Looser than `mounted`: a
+              tray whose own holders are not printed into what it sits on counts here
+              and not there.
 
-placed + located + shaped are driven to 100% first; routed + held wait behind them (gray).
+The focus is `bend-radius` and `mounted`, in that order, and the card prints both above the
+blocks they live in — one is a gate and one a goal, so no single block carries the pair. Every
+other axis is gray behind them. Bend radius is what says the pack is not arranged yet: a corner
+short of its stock's minimum is a tube that cannot be built, most of them are bound by where
+their two ends STAND, and the ends that bind them are placements — so driving it is moving
+bodies, and nearly every body has some moving left to do.
 The score is by AUTHORSHIP, not by "it doesn't collide": a bounding box that happens not
 to overlap is the enclosure's version of the autorouter's accidentally-clean net —
 crediting it would count the box-thinking this effort exists to remove as progress. So
@@ -41,6 +51,7 @@ real path exists). Prose for the why — and the lessons — is in requirements.
 
 from __future__ import annotations
 
+import math
 import os
 import re
 import sys
@@ -49,28 +60,19 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import _boxes  # noqa: E402  — optimal bounding boxes, memoized once per placed solid
+import need  # noqa: E402  — what a run connects (span, axis split, detour), before what it rides
 import _contents as contents  # noqa: E402  — the manifold ports derive from the pack's own placement
 
-# The cold core's own modules. Every front foam port reads its X and Z off the
-# same constants the shell is cut with, so a bore that moves in the shell moves
-# its port with it. `_contents` has already put the cold-core directory on the
-# path; the copper plug stack sits one level below it.
-sys.path.insert(0, str(contents._hw / "printed-parts" / "cold-core" / "copper-plugs"))
+# The cold core's own module. Every front foam port names a STATION the shell is
+# cut with, so a bore that moves in the shell moves its port with it. `_contents`
+# has already put the cold-core directory on the path.
 import _cold_core_interface as _cc  # noqa: E402
-import _port_cuts as _pc  # noqa: E402
-import _reed_channels as _rc  # noqa: E402
-from copper_plugs import plug_specs as _plug_specs  # noqa: E402
 
-# The JG bulkhead union's own module, for the same reason: the rear-panel stations'
-# tube faces are its ring faces, not reaches retyped beside them.
-sys.path.insert(0, str(contents._hw / "reference" / "jg-bulkhead-union"))
+# The rear panel's through-wall fittings' own modules, for the same reason: a
+# station's reach off the wall is the fitting's figure, not one retyped beside it.
+# `_contents` has already put both directories on the path.
 import jg_bulkhead_union as _jg  # noqa: E402
-
-# The shroud's own dimensions: the ac-mains station is its 7/8" panel hole, and the
-# hole's figure is the module's, not one retyped beside it.
-sys.path.insert(0, str(contents._hw / "cut-parts" / "compressor-shroud"))
-import _compressor_shroud_dimensions as _shroud_dims  # noqa: E402
-from copper_plugs import slot_width_x as _slot_width  # noqa: E402  — and how wide the slot is
+import iec_c14_inlet as _c14  # noqa: E402
 
 # Minimum solid-to-solid distance. cadquery 2 binds OpenCascade as OCP; the guarded import
 # leaves `_HAVE_EXACT` false when it is absent, and `_solid_gap` raises.
@@ -100,6 +102,10 @@ CLASH_TOL = 1.0       # solid∩solid volume over this = a real overlap (matches
 BED_TOL = 1.0         # a printed piece within this of the bed still "fits" (matches _report_split)
 REPORT_NEAR = 6.0     # only rank part-pairs closer than this (keeps the clearance detail focused)
 DETAIL_MAX = 40
+FOCUS_DETAIL_MAX = 140  # the row cap on the focus axes; both carry more open items than DETAIL_MAX
+# The two focus axes, in the order the card leads with them. Every surface that renders this
+# scorecard — the terminal below, the viewer's modal — reads the order from here.
+FOCUS_IDS = ("bend-radius", "mounted")
 
 
 # ── The component registry — the reviewable heart ───────────────────────────
@@ -132,84 +138,141 @@ def _c(name, kind, sourced, held, note=""):
 
 
 COMPONENTS = [
-    # Cold core + floor block
-    _c("foam-assembly",     "real",        True,  "floor-capture", "cold core; its bottom cap's lid flat on the floor slab, flush against the seams at the sides and back, fenced ahead by the floor's two core lugs (enclosure.py `_core_fence`). Unfastened by design — the floor carries it, the seam posts fence it"),
-    _c("compressor-shroud", "real",        True,  "bosses", "floor seat band + plan register, and two capture bosses standing inside it at its own Ø4.5 mm base holes (enclosure.py `_shroud_seat` / `_shroud_bosses`): the front screw pins it through the front wall, the rear clamps it from the machine corridor. The rear screw's driver lane is fouled by the MQ-6 as placed — 1.00 mm behind the shroud's rear face, on the bore's own x"),
-    _c("condenser+fan",     "placeholder", True,  "bosses", "harvested donor block; two floor rails carry its weight and two +X-wall webs carry four ear pads at the donor fan shroud's screw pattern (enclosure.py `_condenser_mount`), M3×10 into ruthex through each ear. Ear pattern is an ESTIMATE until the donor shroud is separated and measured"),
-    _c("mq6-sensor",        "real",        True,  "none", "MQ-6 module STEP (PCB + sensor can + header); floor gas sensor, no mount"),
-    # Water deck
-    _c("drip-pan",          "real",        True,  "rails", "Printed PETG catch basin (printed-parts/enclosure/drip-pan). Stands in the aft strip behind the pump on its own rails, drip_pan.RAIL_LIFT above the foam-cap top, its back face on the foam cap's rear edge and its west wall a stated inset west of the ASSE vent column — narrow across the strip, deep down it, because the strip's west end is the controller board's and its depth is not. Sized by what it carries: the floor's flat area inside the coves takes the Shutao moisture plate lying down with its long edge along the withdrawal axis. Carried on its own floor edge, no fasteners. Draws aft in +Y along the rails to be emptied, rising at no point in that travel"),
-    _c("drip-pan-rails",    "real",        True,  "vhb",   "Printed PETG rail pair (printed-parts/enclosure/drip-pan, `build_rails`), a mirrored L each side of the basin: web, and a foot and shelf both turning inboard off it, plus a forward home stop. 3M VHB 4941 under foot and web onto the printed foam-cap lid. The shelves' top face is the basin's floor plane and the webs fence it in X on a 0.3 mm slip per side. Nothing reaches outboard, so the pair is no wider than the basin plus its webs — the strip's east end is V-K's and the umbilical cluster's"),
-    _c("seaflo-pump",       "real",        True,  "none", "SEAFLO 22-series 12 V 1.3 GPM diaphragm pump (reference/seaflo-22-pump); the deck's floor plan. Lies motor-axis along X, head at −X; its two 3/8\" barbs are molded into the head casting and leave its ±Y side faces — the suction faces north (+Y) to V-K, the discharge south (−Y) to the cold-core water-in. Its feet carry the widest 98 mm; the head end is 44 mm narrower, and that taper is what opens the band V-K lies in. Isolation mounts to the foam cap TBD"),
-    _c("asse1022-assembly", "real",        True,  "none","Multiplex 19-0897 ASSE 1022 backflow preventer + PP010822E, GAGIRA coupling, flare38-14ptc (3/8\" flare → 1/4\" PTC) and the clear-PVC vent stub as one chain (reference/asse1022-assembly); lies along +X in the service bay's aft strip behind the pump, 1/4\" PTC inlet west on its pigtail off the rear-panel water bulkhead, 1/4\" PTC outlet east onto the line to the split, vent in its native pose weeping down its own column onto the pan's ground on the foam-cap top, holder TBD"),
-    _c("water-split",       "real",        True,  "none","JG PP0208E 1/4\" union tee (reference/water-split); tube-hung in the east pocket, its three collets in the suction's own Z plane. The run carries the ASSE feed straight down the pocket — in at +Y, on at −Y to the flow regulator — and the branch turns V-K's share west. No tray, no holder"),
-    _c("vk-fill-valve",     "real",        True,  "none","Beduan 12 V NC solenoid (reference/beduan-solenoid) — V-K, the water-supply fill/shutoff valve. Downstream of the ASSE 1022, between the split and the SeaFlo suction. Yawed a quarter turn so it lies along X in the band the pump's narrow head end opens: inlet east at the split's branch, outlet west at the suction, all three collets in one plane. Stands on a short cradle off the foam cap; cradle TBD"),
-    _c("discharge-chain",   "real",        True,  "none","MAACFLOW 3/8\" barb + GASHER 1/4\" check + PP450822E 1/4\" PTC, made up as one piece (reference/seaflo-discharge-chain). The pump's barbs are molded into its head — no thread, and the 90° barbed accessory does not fit this head — so a stub of 3/8\" braided PVC is the only thing that can leave the discharge; it turns south over the cap's front edge and west onto this chain's barb, and the 3/8\" ends there. LIES ALONG X across the strip ahead of the core, level with the discharge that feeds it — barb east at the pump, collet west at the core — so the water crosses at that height instead of falling this chain's 83.4 mm and climbing back for the inlet. Bracket TBD"),
-    _c("digiten-flow",      "real",        True,  "none","DIGITEN FL-S402B G1/4\" Hall-effect turbine meter (reference/digiten-flow-sensor) — the dispense sensor: the pulse train off this rotor is what tells the firmware the faucet is open, so the flavor pumps have something to meter against. Inline on the carb-water riser, lying unturned in the strip ahead of the cold core's front face at the water inlet's own height, with the flow running east and the pigtail boss up. It is 60 mm tip to tip on a rigid axis with a Ø26 waist, and this band of the strip is the only air on the riser that holds one: the source-select assembly stops short of it to the south, the bag-circuit tray clears it above, and the discharge chain lies across the strip well above it. Meeting the riser here rather than above ends the climb at the meter, and water-5 comes down the same column only as far as the water inlet, so the two stand stacked and never cross. Cradle TBD"),
-    _c("flow-regulator",    "real",        True,  "none","neoFit ABCVU44 1/4\" needle flow control (reference/neofit-flow-control) — the flavor tap's regulator, throttling the manifold's feed to its low working pressure. Inline on the split's flavor run, standing on the foam-cap top in the band ahead of it, flow running south; its needle stem stands up where a screwdriver reaches it over the deck. No tray, no holder"),
-    # Valve manifold
-    _c("source-select-assembly", "real",   True,  "none", "Tray 1 — printed tray + 4 Beduan NC solenoids + 2 PP2308E Y-dividers + 4 outlet elbows (valve-manifold/source-select-tray); floors the stack, plate down and valves up, holder TBD"),
-    _c("bag-circuit-assembly",   "real",   True,  "none", "Tray 2 — printed dog-bone tray + 4 Beduan NC solenoids + 2 PP0208E Tees + 2 west outlet elbows (valve-manifold/bag-circuit-tray); rides INVERTED on the source tray's stacking walls, east ports bare, holder TBD"),
-    _c("nozzle-gate-assembly",   "real",   True,  "none", "Tray 3 — printed tray + 2 Beduan NC solenoids, every port bare (valve-manifold/nozzle-gate-tray); rides INVERTED on the same source walls in the pocket east of the bag assembly, holder TBD"),
-    # Pump row
-    _c("pump-a",            "real",        True,  "none", "Kamoer KPHM400 peristaltic + 2 PP0308E outlet elbows (reference/kamoer-kphm400 pump-assembly); lies depth-along-X ahead of the tray stack, motor west, elbows on the +Z face, holder TBD"),
-    _c("pump-b",            "real",        True,  "none", "Kamoer KPHM400 peristaltic + 2 PP0308E outlet elbows (reference/kamoer-kphm400 pump-assembly); same lying pose one slot east, head east under the funnel's high floor, holder TBD"),
-    # In-line fittings — tube-hung PTC junctions, carried by their lines (no tray, no holder)
-    _c("tee-y-c", "real", True, "none", "JG PP0208E union tee (fluid topology Y-C) hanging in the junction column: run vertical — V-C-O's drop into the run-up collet, the bag V-E-O return onto the run-down — branch rolled forward (−Y) off the pump row; its leg climbs behind pump A's barrel and drapes east over the pumps to pump B (segment 11)"),
-    _c("tee-y-f", "real", True, "none", "JG PP0208E union tee (Y-F), the channel-B twin one port row aft: V-D-O above, V-H-O return below, branch rolled forward (−Y), canted east to thread past tee-y-c; its leg climbs the west end of the column then runs east above the source tray to pump A's inlet (segment 21)"),
-    _c("y-d", "real", True, "none", "JG PP2308E two-way divider (reference/y-divider) — the Y connector for pump-discharge junction A (flavor A → pump B), seated in the open air over the pump row, tilted to face its elbows: its two outlets take the bag-V-F elbow (Y-D-2, segment 13) and the nozzle-V-G elbow (Y-D-3, segment 17), stem toward pump B (Y-D-1, segment 12)"),
-    _c("y-g", "real", True, "none", "JG PP2308E two-way divider (reference/y-divider) — the Y connector for pump-discharge junction B (flavor B → pump A), over the pump row one slot east, tilted to face its elbows: its two outlets take the bag-V-I elbow (Y-G-2, segment 23) and the nozzle-V-J elbow (Y-G-3, segment 27), stem toward pump A (Y-G-1, segment 22)"),
-    _c("elbow-bag-y-d", "real", True, "none", "JG PP0308E 90° elbow turning bag V-F-I (east) off the stack, rolled to aim its free leg at the Y-D divider's upper outlet (segment 13)"),
-    _c("elbow-bag-y-g", "real", True, "none", "JG PP0308E 90° elbow turning bag V-I-I (east) off the stack, rolled to aim its free leg at the Y-G divider's upper outlet (segment 23)"),
-    _c("elbow-y-d", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-J-I (flipped, west) off the stack, rolled to aim its free leg at the Y-G divider's lower outlet (segment 27)"),
-    _c("elbow-y-g", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-G-I (flipped, west) off the stack, rolled to aim its free leg at the Y-D divider's lower outlet (segment 17)"),
-    _c("elbow-noz-a", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-G-O (east) up out of the +X wall pocket, free leg +Z onto its run aft to bulkhead-flavor-a (segment 18)"),
-    _c("elbow-noz-b", "real", True, "none", "JG PP0308E 90° elbow turning nozzle-gate V-J-O (east) up out of the +X wall pocket, free leg +Z onto its run aft to bulkhead-flavor-b (segment 28)"),
-    # Electronics shelf
-    # Rear-panel through-wall bodies — captured by their own flange/nut on the printed wall
+    _c("foam-assembly",     "real",        True,  "floor-capture", "cold core; yawed a quarter turn so its short axis runs across the machine, its bottom cap's lid flat on the floor slab, flush against the seams at the sides and back. Unfastened by design — the floor carries it, the seam posts fence it"),
+    # Zone D — the refrigeration stratum, stacked: compressor on the floor, condenser above it
+    _c("compressor-shroud", "real",        True,  "none", "the donor compressor UPRIGHT in its sheet-metal shroud (cut-parts/compressor-shroud), standing on the floor slab one SEAM_CLEAR_LIFT up and centred across the band the cold core opens. Upright is the compressor's constraint — gravity-fed oil pickup — so the shroud's open face points down and the turn is a yaw: its single copper-bearing face reads +Y across the machine corridor at the core, and its AC gland +X. Seat, plan register, capture bosses and the compressor's own grommeted foot pads: TBD"),
+    _c("condenser+fan",     "placeholder", True,  "none", "harvested donor block with the factory filter-drier brazed to its outlet, standing over the shroud on its 151 with its airflow axis ACROSS the machine and its exhaust face +X, the wall it stands against. Only its 56 runs across, at the +X end, so a 125 mm lane stays open at the −X end of the band. Shelf, ear pads and the two side grilles the crossing needs: TBD"),
+    # Front-panel / opening
+    _c("display",           "real",        True,  "shell-facet", "Waveshare 4.3B: 45° facet housing spanning the front-top's full width, the glass centred on it (bezel counterbore + PCB through-hole)"),
+    _c("hopper-funnel",     "real",        True,  "none", "removable cast silicone basin, INTEGRAL to the shell: the printed top face is cut with the collar's own opening (`enclosure._hopper_hole`, taken off hopper_funnel's dims at the placed centre), the collar drops through it, and the flat brim flange — overhanging the collar all round — bears on the one `brim_margin` of top wall the hole is asserted to keep on every side. Directly behind the display facet, one `hopper_front_ledge` of wall between the facet's back plane and the frame. The opening crosses the Y seam, so both top pieces take their share of the cut (`enclosure._hopper_cut`) and the collar bridges it. No fastener pattern of its own — it lifts straight out"),
+    # Zone B — the WATER DECK, in the rear band of the cap the shelf's front third leaves
+    _c("seaflo-pump",       "real",        True,  "none", "SEAFLO 22-series 12 V 1.3 GPM diaphragm pump (reference/seaflo-22-pump). Lies motor-axis along Y — the only axis it fits, being longer between its ends than the cap is wide — head and feet forward, the motor can cantilevering aft over the clear cap behind them. Its two 3/8\" barbs are molded into the head casting and leave its ±Y side faces, which this yaw puts on the machine's ±X: discharge east over the cold core's port column, suction west at the fittings lane. Its base foot is a fraction of its footprint, and it is the one body the box's DEPTH gives way to. Isolation mounts to the foam cap TBD"),
+    _c("discharge-chain",   "real",        True,  "none", "MAACFLOW 3/8\" barb + GASHER 1/4\" check + PP450822E 1/4\" PTC, made up as one piece (reference/seaflo-discharge-chain). The pump's barbs are molded into its head — no thread, and the 90° barbed accessory does not fit it — so a stub of 3/8\" braided PVC is the only thing that can leave the discharge, and the 3/8\" ends at this chain's barb. LIES DOWN along Y in the strip ahead of the pump, level with the discharge that feeds it and clear over the board below: barb aft at the pump, collet forward over the cap's front edge, where the fall to the core's water-in begins. Standing it native is not available — it is taller than the discharge stands over a cap it would drop through. Bracket TBD"),
+    _c("asse1022-assembly", "real",        True,  "none", "Multiplex 19-0897 ASSE 1022 backflow preventer + PP010822E, GAGIRA coupling, flare38-14ptc (3/8\" flare → 1/4\" PTC) and the clear-PVC vent stub as one chain (reference/asse1022-assembly). Runs FRONT TO BACK down the fittings lane west of the pump — the lane is narrower than the chain is long — with its 1/4\" PTC inlet AFT under the rear-panel water bulkhead it is fed from and its 1/4\" PTC outlet forward at the split. Vent in its native pose, weeping down its own column onto the pan's ground below it. Its Z is not free: the basin's rim and section set it. Nothing holds it: 140 mm of brass with no mounting ear on it, tube-hung on the line. Holder TBD"),
+    _c("water-split",       "real",        True,  "none",      "JG PP0208E 1/4\" union tee (reference/water-split); second fitting of the WALL SEQUENCE — tube-hung on the chain's own axis in all three coordinates, its supply mouth one JUNCTION_LEG_LEAD down the line from the chain's outlet. Run along the wall, supply aft at the chain, flavor tap forward at the regulator inline ahead, branch falling to V-K. Chain, split and regulator are one family on one line. Nothing holds any of the three — a push-fit union tee has no ear to bolt. Holder TBD"),
+    _c("flow-regulator",    "real",        True,  "none",      "neoFit ABCVU44 1/4\" needle flow control (reference/neofit-flow-control) — the flavor tap's regulator, throttling the manifold's feed to its low working pressure. Third fitting of the WALL SEQUENCE: inline on the split's flavor collet, quarter-turned so both collets lie on Y, its inlet one JUNCTION_LEG_LEAD of straight from the mouth that feeds it — so fluid-1 is that straight, and the outlet fires forward down the wall's open strip with fluid-2 one lean onto V-A's inlet. Every coordinate reads off the split's collet (`contents.flowreg_lane`), so it follows the sequence. Its needle stem stands up, reached over the shelf from the bay. Nothing holds it, as with the two fittings ahead of it. Holder TBD"),
+    _c("drip-pan",          "real",        True,  "rails", "Printed PETG catch basin (printed-parts/enclosure/drip-pan). Stands in the fittings loft under the ASSE chain on its own rails, hung at the plane the chain's underside leaves (drip_pan_seat), its west wall a stated inset west of the vent column. Carried on its own floor edge, no fasteners. Draws aft in +Y along the rails to be emptied, rising at no point in that travel"),
+    _c("drip-pan-rails",    "real",        True,  "none",  "Printed PETG rail pair (printed-parts/enclosure/drip-pan, `build_rails`), a mirrored L each side of the basin: web, and a foot and shelf both turning inboard off it, plus a forward home stop. The shelves' top face is the basin's floor plane and the webs fence it in X on a 0.3 mm slip per side. Their feet stand in the loft's air — the cap under them is the loft trays' ground, not theirs — so what carries the pair is Open: bracket TBD"),
+    _c("digiten-flow",      "real",        True,  "none", "DIGITEN FL-S402B G1/4\" Hall-effect turbine meter (reference/digiten-flow-sensor) — the dispense sensor: the pulse train off this rotor is what tells the firmware the faucet is open, so the flavor pumps have something to meter against. Inline on the carb-water riser where it crosses the LOFT, yawed a quarter turn so the flow runs aft with the riser and the pigtail boss stands up at the J4 loom. Its rigid axis hangs over the SeaFlo's crown in the loft's EAST pocket, clear east of pump A's two loft lines — which is also the column that keeps the riser monotonic, the cold core's outlet standing east of the meter and the blue-ringed bulkhead west of it. The loft's west lane cannot hold it: pump A's suction and discharge run that lane's whole length a tube over the pump's crown, and a body this long laid there stands in one or the other at every height. Cradle TBD"),
+    # The CO2 chain — the side-wall inlet's two inline bodies, wall-hung in the machine
+    # corridor behind the refrigeration stratum.
+    _c("gasher-co2",        "real",        True,  "wall-capture", "GASHER 1/4\" NPT soft-seat check (reference/gasher-check-valve) — the CO2 inlet's check, female socket screwed onto the DERPIPE's male stub and male stub facing the regulator, flow west into the corridor. Held by the fitting it is made up on, which the east wall holds: no bracket of its own"),
+    _c("wr1110",            "real",        True,  "none", "Interstate Pneumatics WR1110 fixed-90 PSI secondary regulator (reference/wr1110-regulator), female 1/4\" NPT both ends, one tube hop inboard of the check ON the same axis — inline, the pose the machine corridor's straight-line depth takes: the chain lies along the corridor under every line its floor carries. A PP450822E takes the check's stub to tube and a PP010822E in each of its own ends takes it back. Cradle TBD (enclosure-mechanical Open #6, and it hangs in this pocket)"),
+    # Zone B — the ELECTRONICS SHELF, on the cap's own deck-mount columns
+    _c("pcba",              "real",        True,  "none", "Controller board (pcb/pcba), hung on the +X WALL a storey over the power block rather than standing on the cap — the two boards one above the other on the same flank, so every electrical body is on the far side of the machine from every wet one. The board is 85.05 x 72.85 as fabbed and its four mounting holes are fixed. Three faces seat it, all of them faces the brick below already answered to: EAST on `CORE_EAST_FACE`; FOOT one clearance floor over that brick's crown, so the supply's loss rises through a gap instead of into a board laid on it; AFT one hug forward of `c14_inboard_y()`, the receptacle being the one body that reaches into the bay at the height this board stands. A quarter roll about its own long axis lays that axis fore and aft down the flank, so only the board's thickness reaches inboard. Wall bosses and their pattern: TBD"),
+    _c("psu",               "real",        True,  "none", "Mean Well IRM-90-12ST 12 V open-frame supply (reference/meanwell-irm90), hung on the +X WALL rather than standing on the deck. The brick is 109 × 52 × 33.5 and the band between the pump's aft casting and the rear seam lip is 109 of Y at this flank, so the LONG axis lies fore and aft, the 52 stands up, and only the 33.5 reaches inboard — its whole plan footprint is a 33.5 mm strip against the wall instead of a 109 × 52 island under the bay. Its east face is on `CORE_EAST_FACE`, clear of every post, pod and plug the Y seam puts in the ±X rib band; its aft face is on the rear seam lip's own standoff, under the C14; its lower long edge rests on the cap lid. Both terminal blocks look INBOARD, off the face a screwdriver reaches. Nothing wet stands over it. NOTHING FASTENS IT YET — the wall bosses are not built, so it carries no `MOUNTED_BY` row; relay #2 and the DC block are not yet stationed"),
+    _c("relay-1",           "real",        True,  "none", "Teyleten 3.3 V opto-isolated relay module #1 (reference/teyleten-relay) — the compressor's 120 VAC hot switch. It LIES DOWN on the cap's lid in the aft-east deck band the two boards left, its long axis fore and aft on the band's own deep axis and its shallowest dimension standing up, and it carries the AC hub on its back. West face one clearance floor off the pump casting's east flank, the lane's own west wall; aft face on the rear seam lip's standoff. Its pins hang below its PCB. Bracket: TBD"),
+    _c("ac-hub",            "real",        True,  "none", "The printed AC hub carrying its three Wago 221-413 lever nuts (printed-parts/electronics/ac-hub) — the H / N / G mains distribution. It lies FLAT on the relay's back, one clearance floor over that module's crown and flush with its west face, wells opening UP with each lug's wire half standing proud where a hand and a ferrule reach it. Its aft face is on the rear seam lip's standoff, so the mains block sits beside the inlet it distributes with the fluid cluster's whole width of wall between it and any joint that can weep, and nothing wet anywhere over it. Its floor ends at the wells and it carries NO hold-down of its own: it is a tray, and the joint that will hold it is a printed one grown into whatever body ends up carrying it"),
+    _c("ground-stack",      "real",        True,  "none", "The chassis-ground ring-terminal stack (reference/ground-ring-stack) — the single-point ground bus, ON THE +X WALL over the hub, the last of the electrical bodies off the cap. An M3 x 10 SHCS through an external-tooth washer clamps a fan of green ring lugs — one per exposed-metal load, plus the C14 earth off the G Wago — down onto the column's insert; the lugs bolted together are the bus. The one station whose screw clamps a lug stack rather than a module. NOTHING FASTENS IT YET — the wall bosses are not built, so it carries no `MOUNTED_BY` row"),
+    # Rear-panel bodies, clamped through the wall in ONE ROW above the water deck
     _c("bulkhead-flavor-a", "real",        True,  "wall-capture", "JG bulkhead: rear-wall hole + its own nut"),
     _c("bulkhead-flavor-b", "real",        True,  "wall-capture", "JG bulkhead: rear-wall hole + its own nut"),
-    _c("bulkhead-carb",     "real",        True,  "wall-capture", "JG bulkhead: rear-wall hole + its own nut"),
-    _c("bulkhead-water",    "real",        True,  "wall-capture", "JG bulkhead: rear-wall hole + its own nut"),
-    _c("c14-inlet",         "real",        True,  "wall-capture", "C14 mains inlet: rear-wall cutout + its own flange"),
-    _c("co2-inlet",         "real",        True,  "wall-capture", "DERPIPE PTC STEP (collet + wrench hex + NPT shank): front-wall hole + its own 1/4\" NPT thread"),
-    # CO2 chain — the front-panel inlet's two in-line bodies, in the band the
-    # compressor's top and the pump row's underside leave open.
-    _c("gasher-co2",        "real",        True,  "wall-capture", "GASHER 1/4\" NPT soft-seat check (reference/gasher-check-valve) — the CO2 inlet's check, female socket screwed onto the DERPIPE's male stub and male stub facing the regulator. Held by the fitting it is made up on, which the front wall holds: no bracket of its own"),
-    _c("wr1110",            "real",        True,  "none", "Interstate Pneumatics WR1110 fixed-90 PSI secondary regulator (reference/wr1110-regulator), female 1/4\" NPT both ends. Lies flow-along-Y in the open band east of the check, where the band is deepest — it cannot follow the check inline, because the lane at the inlet's own X ends on the source-select tray's underside before its 57 mm are up. A PP010822E on each end takes it back to 1/4\" tube. Cradle TBD"),
-    # Front-panel / opening
-    _c("display",           "real",        True,  "shell-facet", "Waveshare 4.3B: 45° facet housing in the front-top (bezel counterbore + PCB through-hole)"),
-    _c("hopper-funnel",     "real",        True,  "none", "removable silicone basin; rests on the top-wall rim ledge, attach mode TBD (enclosure-mechanical Open #3)"),
-    # Electronics shelf
-    _c("pcba",              "real",        True,  "cap",  "Controller board (pcb/pcba), bolted straight to four boss columns of the cold core's top foam cap, which stand on through the cap's lid to hold the board's through-hole tails clear of it — no tray floor under it. Laid ACROSS the cap's front in its own frame's orientation and driven aft until its front columns read the cap's front cavity wall: the board's short side is what stands into the face, so the aft strip keeps the whole of the difference, and that strip is what the power block lives in. Its twelve top-entry wafers plug from the bay's own opening above and the J10 12 V throats look west down the lane beside it. The board is 85.05 x 72.85 as fabbed and its four mounting holes are fixed; the stations they land on are the cap's (`_cold_core_interface.deck_mounts`), so the column, the board and its connector map move as one. M3 SHCS into a ruthex short in each column"),
-    _c("psu",               "real",        True,  "cap",  "Mean Well IRM-90-12ST 12 V open-frame supply (reference/meanwell-irm90), on four boss columns of the same cap in the aft strip, west of the drip basin and behind the pump. Its potted base is flat, so those columns stop at the cap's mouth rim and the PSU lies on the lid's own face beside the pump, the screws crossing the lid to reach an insert beneath it. Laid ACROSS the strip: its mounting holes span most of its length, and the strip has the run in X once the basin turns narrow. Its rearmost columns stand `deck_mount_cap_gap` off the cap's own rear corner screw boss, and its AC end sits under the rear-panel C14 inlet's column. M3 SHCS into a ruthex short in each column; relay #2 and the DC block are not yet stationed"),
-    _c("relay-1",           "real",        True,  "cap",  "Teyleten 3.3 V opto-isolated relay module #1 (reference/teyleten-relay) — the compressor's 120 VAC hot switch, on four boss columns of the same cap, in the strip between the board and the PSU. Its hole rectangle is the station's pitch, so it lies in its own frame's orientation: the COM/NO screw block east under the C14 inlet's column, where the compressor shroud's SJOOW lead arrives, and the VCC/GND/IN header west down the lane the board's J5 loom crosses. Its pins hang below its PCB and its columns stand proud of the lid. M3 SHCS into a ruthex short in each column"),
-    _c("ac-hub",            "real",        True,  "cap",  "The printed AC hub carrying its three Wago 221-413 lever nuts (printed-parts/electronics/ac-hub) — the H / N / G mains distribution. Two columns of the same cap take it, one either side of the foam-cap lid's pour hole, which it spans. Its floor ends at the wells and each lug stands in one on its butt end, all three ports up. M3 SHCS into a ruthex short in each column"),
-    _c("ground-stack",      "real",        True,  "cap",  "The chassis-ground ring-terminal stack (reference/ground-ring-stack) — the single-point ground bus, on one column of the same cap east of relay #1. An M3 x 10 SHCS through an external-tooth washer clamps a fan of green ring lugs — one per exposed-metal load, plus the C14 earth off the G Wago — down onto the column's insert; the lugs bolted together are the bus. The one station whose screw clamps a lug stack rather than a module, and the one that takes the longer screw"),
+    _c("bulkhead-carb",     "real",        True,  "wall-capture", "JG bulkhead: rear-wall hole + its own nut; the accented (blue-ringed) hole, in the middle of the three so neither flavor can be mistaken for it"),
+    _c("bulkhead-water",    "real",        True,  "wall-capture", "JG bulkhead: rear-wall hole + its own nut, over the ASSE chain's inlet column"),
+    _c("c14-inlet",         "real",        True,  "wall-capture", "C14 mains inlet: rear-wall cutout + its own flange, over the PSU its cordage drops to"),
+    _c("co2-inlet",         "real",        True,  "wall-capture", "DERPIPE 5/16\" PTC × 1/4\" NPT (reference/derpipe-co2-inlet): east side-wall hole + its own NPT thread, low in the machine corridor behind the refrigeration stratum. Red accent ring at the panel opening; the customer's cylinder stands beside the machine and its short red tether lands here"),
+    # Zone C — the valve manifold, in the front column ahead of the core
+    _c("source-tray-assembly", "real",     True,  "none", "The manifold's SOURCE pair — V-A on tap water, V-B on the hopper — on one printed two-valve tray (printed-parts/valve-manifold/two-valve-tray), the first of the four identical two-valve cradles to be placed. Lies flat, plate down and valves up, ports along Y, both INLETS aft and both OUTLETS forward; the cell is symmetric under a half turn so the tray permits either clocking and fixes neither. Its east seat stands on the hopper spout's own column — V-B gates a gravity drain, which is the one line in this machine that cannot be routed around anything — and its coils ride at the top of a column standing on the refrigeration stratum's roof, with the basin overhead as their ceiling. Nothing holds it: the plate is 9 mm of floor with 56.6 mm of valve on it, and the stack pitch, the standoff that sets it and whatever seats the five are the tray README's own Open item"),
+    _c("tee-y-a",           "real",        True,  "none", "JG PP0208E union tee (reference/tee-connector — McMaster 51175K143 stand-in) — Y-A, the WEST half of the manifold's junction. Its RUN stands UP the west column: V-A's outlet a stack pitch above and V-C's inlet below are two ports on one line, which is what a run is, so the tap-water source falls straight through the fitting to channel A's select. Its BRANCH reaches EAST at Y-B's, and the two meet on fluid-6 — the H's crossbar, which is what puts all four ports on one hydraulic node. `contents.junction_tee_pos` derives all three coordinates from the four collets and the fitting's own reach; the column stands `contents.junction_column_x` outboard of its seat, which is the branch reaching further than half the valve pitch. Tube-hung on its own three legs; no cradle, no holder"),
+    _c("selects-tray-assembly", "real",    True,  "none", "The manifold's SELECTS pair — V-C and V-D, the two channel gates — on the second of the four identical two-valve trays, in the source pair's own column one `contents.tray_stack_pitch` under it, coils packed up under that tray's plate. Same part, same flat pose, ports along Y; clocked the OTHER way round — both INLETS forward at the junction that feeds them, both OUTLETS aft at the pump row still to come, with the core's front face standing `SOURCE_TRAY_AFT_BAND` behind those collets. The `TRAY_STACK_GAP` over its coils is the depth a valve's corner posts stand in the sockets of the plate above, so a valve lifts out of its seat with the stack made up. Stands in the top third of the condenser's intake lane. Nothing holds it, and nothing yet stands it off the tray above — the standoff the pitch implies is the tray README's own Open item"),
+    _c("tee-y-b",           "real",        True,  "none", "JG PP0208E union tee (reference/tee-connector — McMaster 51175K143 stand-in) — Y-B, the EAST half of the manifold's junction. The same fitting as Y-A in the same pose yawed the other way, one seat pitch east, so the two stand abreast with their branches facing each other. Its run stands up the east column, V-B's outlet over V-D's inlet, carrying the hopper source down to channel B's select; its branch reaches WEST at Y-A's across fluid-6. Every mode opens one of {V-A, V-B} and one of {V-C, V-D}, so the traffic the pair carries is one source to one select, straight down a column or across the bar. Tube-hung on its own three legs; no cradle, no holder"),
+    _c("bag-a-tray-assembly", "real",      True,  "none", "The manifold's BAG-A pair — V-E drawing from reservoir A, V-F returning to it — on the third of the four identical two-valve trays, and the column's bottom seat: under this plate is the compressor shroud's roof, and `contents.tray_column_floor` is the band between them, shorter than one `tray_stack_pitch`. Same part, same flat pose, ports along Y. The bag's two ends are V-E's INLET and V-F's OUTLET, and those two face FORWARD at Y-E; V-E-O and V-F-I face AFT at the pump row, so the pair is the first with its two valves seated opposite ways round. Reservoir A rides Y-E's stem, so one line (fluid-15) crosses the machine to the cold core's face and both the fill and the draw are on it — up the lane between this plate's own east edge and the condenser's intake face, so the column is passed on the outside and the band under the plate carries nothing. Stands in the middle third of the condenser's intake lane. Nothing holds it, and nothing yet stands it off the tray above — the standoff the pitch implies is the tray README's own Open item"),
+    _c("pump-b",            "real",        True,  "none", "Kamoer KPHM400-SW3B25 peristaltic (reference/kamoer-kphm400) — CHANNEL A's pump, standing UPRIGHT in the front column's west-forward box, motor up, its two head barbs facing aft down the lane at Y-C and Y-D. Upright and here is not a preference: a `fit.py search` over the whole front column at four orientations returns 23 free poses of 20160, and this box is the only one of them that takes the body on end. Its Z is derived rather than picked — the barbs stand on the BAG-A pair's own port plane, so both its tees lie in one plane with the collets they join. Bare pump, no elbow: the barbs already look down the lane its lines run in, so what each takes is a straight 1/4\" adapter rather than the kitchen's PP0308E turn. Isolation mounts and holder TBD"),
+    _c("tee-y-c",           "real",        True,  "none", "JG PP0208E union tee (reference/tee-connector — McMaster 51175K143 stand-in) — Y-C, channel A's SUCTION junction, where the shared source and the bag draw meet at pump B's inlet. A TEE and not a divider because it reaches BETWEEN trays rather than joining one tray's own pair (../../../topology/fluid-topology.md): a tray only ever lies plate-up, so its two seats stand side by side and their junction can only be a trident, while a junction reaching between two of them has one leg arriving on a different line. Its RUN lies along the PUMP LANE — the strip west of the tray column that both of pump B's lines run down — and its BRANCH stands UP, which is the axis the third leg leaves on: the fall from the selects pair a stack pitch above. `contents.pump_row_tee_pos` derives all three coordinates from the barb its run stands off. Tube-hung on its own three legs; no cradle, no holder"),
+    _c("tee-y-d",           "real",        True,  "none", "JG PP0208E union tee (reference/tee-connector — McMaster 51175K143 stand-in) — Y-D, channel A's DISCHARGE junction, splitting pump B's outlet between the bag it fills and the nozzle gate it dispenses through. The same fitting as Y-C in the same pose, one lane-width east of it on its own barb's column, so the two stand abreast in the pump lane on one plane. Run along the lane, branch UP — and this one's branch is the manifold's longest climb, a storey from the front column to the nozzle gate in the loft. Tube-hung on its own three legs; no cradle, no holder"),
+    _c("bag-b-tray-assembly", "real",      True,  "cap", "The manifold's BAG-B pair — V-H drawing from reservoir B, V-I returning to it — on the fourth of the four identical two-valve trays, and the first body of the LOFT: the band between the water deck's crown and the ceiling. Same part, same flat pose, ports along Y, and bag A's clocking mirrored — the bag's two ends are V-H's INLET and V-I's OUTLET and those two face FORWARD at Y-H, with V-H-O and V-I-I aft into the junction bay. Its two valves are seated the other way ROUND from bag A's, which is what makes that bay work: V-I-I lands on the column V-J-I takes on the tray facing it, so the two collets Y-G feeds sit on one line and the tee's run passes straight through. It stands at the FRONT of the loft's west lane, clear of the funnel's aft skirt and up over V-K's coil, which is the deck's tallest body under it — forward because Y-H hangs a `divider_reach` ahead of the pair and wants to land over the electronics shelf, at the head of the column reservoir B's line climbs. Its floor is the cap's own lid and its fastening its two mount ears: bolted down the tray's centreline — the one column of it the cap's cavity can answer, its west cell overhanging the core into the −X rib band — to two cap columns that stop under the lid, the PSU's joint. M3 × 16 through ear and lid into a ruthex short in each; the stations stand where the placed ears land (`contents.TRAY_MOUNTS`), and `deck-mounts-land` holds the cap's table to them"),
+    _c("divider-y-h",       "real",        True,  "none", "JG PP2308E two-way divider (reference/y-divider — McMaster 51055K417 stand-in) — Y-H, where reservoir B's fill and draw meet, and the manifold's one trident. It hangs `contents.divider_reach` ahead of its pair, in the pair's own port plane like every other divider — the stand packs against the cap's forward edge and this fitting reaches past it, so what is under it is the front column's air rather than a mains brick. A divider because the pair it joins stands side by side: V-I's outlet and V-H's inlet are the two forward collets of one tray, which is the shape parallel outlets take (../../../topology/fluid-topology.md). Numbered from the stem the BAG rides, with a valve on each outlet. Tube-hung on its own three legs; no tray, no holder"),
+    _c("vk-tray-assembly", "real",         True,  "cap", "V-K, the tap-water FILL/SHUTOFF solenoid, alone on the MIDDLE of the aft stand's three two-valve rows, one `contents.AFT_TRAY_BAY` behind the bag-B pair. It takes the plate's EAST seat — the one nearest the SeaFlo — so its outlet faces the pump's suction barb across the lane between them and water-4 is the tube that makes the crossing. This plate stands on the plane its own junction opens on — V-J's inlet on `Y-G-3`'s Y (`contents.vk_tray_y`) — so what fixes it is the fitting that feeds it and not the casting in the other lane; the pump packs against its own lane's far end (`contents.seaflo_front_y`) and the two read no body of each other's. Its WEST seat is bare, and that bare cell is the lane fluid-17 comes aft on to reach the gate behind it. Same part, same flat pose, ports along Y as every tray in the manifold. Bolted flat on the cap's lid through its mount ears to cap columns under the lid, M3 × 16 into a ruthex short in each; its stations stand where the placed ears land (`contents.TRAY_MOUNTS`), held by `deck-mounts-land`"),
+    _c("nozzle-tray-assembly", "real",     True,  "cap", "The manifold's NOZZLE GATES — V-G on flavor A, V-J on flavor B — on the LAST of the aft stand's three two-valve rows, one `contents.AFT_TRAY_BAY` behind V-K's. It carries no junction of its OWN, but each of its two flavor inlets is fed by one — V-J-I off Y-G, which stands in that bay on this pair's own column, and V-G-I off Y-D a storey and a half down in the front column — so the bay between the two trays is a fitting's section and the leads its legs turn on, not a pack gap. Its outlets face AFT at the rear panel's two flavor bulkheads — the only two lines the manifold sends out of the machine — and that is what puts this pair up here instead of in the front column. Its seats are the one pair NOT read west to east: V-G feeds the east bulkhead and V-J the west one, so seated in the topology's order the two runs would cross. Bolted flat on the cap's lid through its four mount ears — midway between its cells, where its own tubes, posts and spades leave the column open — to four cap columns under the lid, M3 × 16 into a ruthex short in each; its stations too stand where the placed ears land, held by `deck-mounts-land`"),
+    _c("tee-y-f",           "real",        True,  "none", "JG PP0208E union tee (reference/tee-connector — McMaster 51175K143 stand-in) — Y-F, channel B's SUCTION junction, where the shared source and the bag-B draw meet at pump A's inlet. It stands in the LOFT'S PUMP LANE, the strip between the loft trays' east face and the SeaFlo's west flank that runs the aft stand's whole depth with nothing in it, on the front column's own tee construction (`contents.TEE_ROLL`): RUN along the lane at the stand's port plane, BRANCH UP. The branch takes the shared source's climb out of the front column; the run's aft collet takes the bag-B draw, which comes about in the junction bay and again on this column; the run's fore collet sends the pump's suction forward down the machine, over the electronics shelf and down the front column to a barb a storey and a half below. `contents.aft_row_tee_pos` derives its three coordinates from the lane and the bag pair's aft face. Tube-hung on its own three legs; no cradle, no holder"),
+    _c("divider-y-g",       "real",        True,  "none", "JG PP2308E two-way divider (reference/y-divider — McMaster 51055K417 stand-in) — Y-G, channel B's DISCHARGE junction, splitting pump A's outlet between the bag it fills and the nozzle gate it dispenses through. It stands IN the aft stand's junction bay, ACROSS it rather than along it: the trident on its own native axis, STEM up at pump A's high barb and both OUTLETS facing DOWN on the column V-I-I and V-J-I share, offsets laid across the machine so each leg leans `contents.DIVIDER_OUTLET_X` onto that column. In that pose the fitting costs the bay 2 x `y_divider.HALF_W` of depth rather than its own 38.5 mm length, and that depth is what lets the nozzle pair stand where its outlets can still turn to the panel. Down-facing collets are entered by rising legs, so both climb out of the bay into it. Tube-hung on its own three legs; no cradle, no holder"),
+    _c("pump-a",            "real",        True,  "none", "Kamoer KPHM400-SW3B25 peristaltic (reference/kamoer-kphm400) — CHANNEL B's pump, standing UPRIGHT beside channel A's in the front column, same part and same native turn, motor down and both head barbs out the +Y face at the strip behind them. The two are one pose read twice on one lane — same band, same foot, same barb plane, stepped east so the two inner barbs of that row stand a `contents.PUMP_TWIN_PITCH` apart, which is a tube's width and the pack's floor between the two legs that leave them — and what the second one needs is 62.61 mm of width, which is the MOTOR's own square and not the body's box: the part is three stacked solids and only its bottom third is that wide. Its foot stands on the same `contents.FRONT_COLUMN_FLOOR` over the refrigeration stratum's roof that its twin's does, in the front Z seam's own band, and the display's facet roofs the column above it. Bare pump, no elbow, for the reason channel A's is bare. Both of its lines reach the loft, so this is the one pump whose junctions do not stand beside it. Isolation mounts and holder TBD"),
+    _c("tee-y-e",           "real",        True,  "none", "JG PP0208E union tee (reference/tee-connector — McMaster 51175K143 stand-in) — Y-E, where reservoir A's fill and draw meet. It joins one tray's own pair, as Y-H does, and it is a TEE and not that trident because of the room it has: it stands in the STRIP between the pump row's aft faces and the bag pair's forward collets, and a fitting 40.13 mm collet to collet cannot lie along a strip that deep. So it stands ACROSS it — both collet axes square to Y, all three collets in one vertical plane, its own diameter the whole of the depth it takes. The RUN lies along X, the axis the strip runs on: reservoir A's line arrives on its EAST collet, straight down the tray-east lane, and the bag DRAW leaves its west one. The FILL takes the BRANCH, which faces down on V-F's own column. A down-facing collet is entered by a rising leg, so it stands a `contents.JUNCTION_LEG_LEAD` over the pair's port plane and both valve legs climb into it (../../../topology/fluid-topology.md). Numbered from the end the BAG rides, as Y-H is. Tube-hung on its own three legs; no tray, no holder"),
+]
+
+# ── Pose provenance (the settled set) ───────────────────────────────────────────────────────
+# A component's POSE — where it stands and how it is turned — is PROVISIONAL unless it is named
+# here. The default is provisional, and it is the state of nearly every body in this pack.
+#   `_contents.py` states what each pose FOLLOWS, in one voice. This states which poses the
+# following stops at. Named here, a pose is an INPUT to the work and a neighbour's face can be
+# priced against. Absent, the pose is PART of the work, and a limit reported against it is a
+# limit against a draft (`calibration/Fences.md`, *The frozen first draft*).
+#   The value states what is settled, which is narrower than the body. A settled pose still
+# moves; moving it costs a reason rather than a line.
+#   The ENCLOSURE WALLS are the sixth settled placement and have no row here, having no registry
+# entry: they are the envelope, fixed by the brief (`CLAUDE.md`).
+#   ROUTES are not poses, and none of them are settled — every run in `_lines.py`, the copper
+# between the settled bodies included. `need.py` ranks them; `room.py` reads the bands they cross.
+SETTLED = {
+    "foam-assembly":
+        "The cold core, yawed a quarter turn so its short axis runs across the machine, its "
+        "bottom cap's lid flat on the floor slab, flush against the seams at the sides and back. "
+        "The yaw is what buys the full width and the floor is what carries it.",
+    "compressor-shroud":
+        "UPRIGHT on the floor slab, centred across the band the cold core opens. Upright is the "
+        "compressor's own constraint — gravity-fed oil pickup — so the turn is a yaw and the "
+        "open face points down. The station is settled; the seat, plan register and capture "
+        "bosses under it are not built yet.",
+    "condenser+fan":
+        "Over the shroud on its 151, airflow axis ACROSS the machine, exhaust face +X at the "
+        "wall it stands against — the loop's hot end stacked on its own stratum with the band "
+        "between them the front Z seam's. The block is still a placeholder; its POSE is not.",
+    "display":
+        "Centred on the 45° facet spanning the front-top's full width, let into the top-front "
+        "corner. The facet is the customer-facing plane of the machine and the glass is centred "
+        "on it.",
+    "hopper-funnel":
+        "The basin resting on the top-wall rim ledge directly behind the display facet, its "
+        "spout on V-B's own column: V-B gates a gravity drain, the one line in this machine "
+        "that cannot be routed around anything, so the spout's column is the fixed thing and "
+        "the basin hangs off it. Settled in WHERE IT STANDS. The closed aft-west corner "
+        "(`hopper_funnel.notch_x` / `notch_y`) is not covered by this: the basin is a "
+        "customer-facing cast part and a corner taken out of it to clear a fitting clamp is an "
+        "open defect, `assembly/enclosure-mechanical.md` Open #8.",
+}
+
+
+def pose(name: str) -> str:
+    """`settled` or `provisional` for a component's placement — the default is provisional."""
+    return "settled" if name in SETTLED else "provisional"
+
+
+# The joints closed by a MADE-UP THREAD instead of by a line: two ports screwed into each
+# other until the fitting's own shoulder takes up, stated as the port pair rather than the
+# body pair because it is the PORTS that mate. A made-up joint is a connection carrying no
+# run, which is the one relation `_lines.py` cannot report, so both gates that read a joint
+# read it from here: the two bodies meet on purpose (TOUCHING_OK is derived below), and
+# neither port owes the other the lead a line would leave on (`port_mates`).
+MADE_UP = [
+    # The CO2 inlet's check, its female socket run down onto the DERPIPE's male NPT stub.
+    (("co2-inlet", "npt-out"), ("gasher-co2", "inlet")),
 ]
 
 # Unordered part pairs allowed to touch by design — a part resting on another's top, or
 # a body reaching into a pan. PROVISIONAL: seeded from the pack's deliberate stacks; the
 # clearance gate excludes these, so a sub-floor gap between any OTHER pair is what fails.
 # Ratifying this set (and the floor above) is the first directed step.
+#   Every pair written out here is the FOAM CAP carrying something: the whole of Zone B
+# stands on that one lid, either flat on its face or on the deck-mount columns that stand
+# through it. The made-up threads join them — a joint that is tightened metal to metal is
+# a contact by construction, so it is read off `MADE_UP` rather than retyped.
+#   A declared contact says these two touch. It does not say the module is on the columns that
+# are supposed to carry it: a module stood clear of its own rectangle still rests on the lid and
+# still lands here, exempt. `deck-mounts-land` is the check that reads that joint.
 TOUCHING_OK = {
     frozenset(p) for p in [
         ("foam-assembly", "seaflo-pump"),       # the pump's base flat on the foam-cap top
-        ("foam-assembly", "water-split"),       # the split's body flat on the cap, under V-K's cradle
-        ("foam-assembly", "flow-regulator"),    # the regulator's body flat on the cap, ahead of the pump
-        ("foam-assembly", "drip-pan-rails"),    # the rails' feet flat on the foam-cap top
-        ("foam-assembly", "pcba"),              # the board's underside on the cap's deck-mount boss tops
-        ("foam-assembly", "psu"),                # the PSU's base on the same cap's other four
-        ("foam-assembly", "relay-1"),           # the relay's PCB on four more, standing clear of its pins
-        ("foam-assembly", "ac-hub"),            # the hub's floor on the two that span the pour hole
-        ("foam-assembly", "ground-stack"),      # the lug fan on the one column that carries the bus
-        ("drip-pan", "drip-pan-rails"),         # the basin's floor edge flat on the shelves
-        ("co2-inlet", "gasher-co2"),            # the check made up on the inlet's NPT stub
-        # The valve-manifold stack: the source-select tray's floor rests on the
-        # bag-circuit tray's column wall tops, one tray pitch apart by design.
-        ("source-select-assembly", "bag-circuit-assembly"),
+        ("drip-pan", "drip-pan-rails"),         # the basin's floor edge riding its own rail shelves
+        ("foam-assembly", "bag-b-tray-assembly"),    # the aft stand's forward plate flat on the cap
+        ("foam-assembly", "nozzle-tray-assembly"),   # and the wide plate behind it (`aft_tray_z`)
+        ("foam-assembly", "vk-tray-assembly"),       # and the middle row's, on the same lid
+        # The +X WALL COLUMN's two lowest bodies still rest their feet on that lid — hung on the
+        # wall in X, stood on the cap in Z. The three above them read the body under them
+        # instead, so the cap carries nothing electrical any more.
+        ("foam-assembly", "psu"),               # the brick's lower long edge down on the lid's face
+        ("foam-assembly", "pcba"),              # the board's lower long edge on the same face
     ]
-}
+} | {frozenset((a[0], b[0])) for a, b in MADE_UP}
 
 
 # ── Connections (the routed axis) — fluid segments + electrical runs ─────────
@@ -245,8 +308,8 @@ REFRIGERANT_SEGMENTS = [
 WATER_SEGMENTS = [
     ("water-1", "bulkhead-water tube-in", "asse1022-assembly tube-in (PP010822E → GAGIRA coupling)"),
     ("water-2", "asse1022-assembly tube-out (PI4512F6S + PP061208W, 1/4\" PTC)", "water-split supply (PP0208E 1/4\" tee)"),
-    ("water-3", "water-split to-vk (PP0208E 1/4\" tee)", "vk-fill-valve inlet (Beduan 1/4\" QC)"),
-    ("water-4", "vk-fill-valve outlet (Beduan 1/4\" QC)", "seaflo-pump suction (1/4\" → 3/8\" barb adapter)"),
+    ("water-3", "water-split to-vk (PP0208E 1/4\" tee)", "V-K inlet on the nozzle plate (Beduan 1/4\" QC)"),
+    ("water-4", "V-K outlet on the nozzle plate (Beduan 1/4\" QC)", "seaflo-pump suction (1/4\" → 3/8\" barb adapter)"),
     ("water-5", "discharge-chain tube-port (PP450822E 1/4\" PTC)", "foam-assembly water-in"),
     ("water-6", "seaflo-pump discharge (3/8\" barb, molded)", "discharge-chain barb-tip (3/8\" braided-PVC stub, 2 clamps)"),
 ]
@@ -312,9 +375,10 @@ def load_connections() -> list[Connection]:
     # back out of this module.
     import _lines
     done = _lines.routed_ids()
+    short = _lines.blocked_ids()
     for c in conns:
         c.routed = c.id in done
-        c.blocked = _lines.BLOCKED.get(c.id, "")
+        c.blocked = short.get(c.id, "")
     return conns
 
 
@@ -340,167 +404,377 @@ def load_connections() -> list[Connection]:
 # A component is `placed` when it has rules AND every rule holds; rules defined but
 # violated are a visible drift; no rules yet = not started. Every component earns rules
 # eventually. Faces: x-/x+ = left/right walls, y-/y+ = front/back walls, z-/z+ = floor/ceiling.
-PLACEMENT_RULES = {
-    # "Foam is against the back-bottom, full width, standing on its ring" — the
-    # canonical example. It seats flush against the SEAMS rather than the walls:
-    # the ±X walls stand one boss chain (`_contents.SIDE_RIB_INSET`) off it so the
-    # corner posts and boss chains have their full section, and the back wall one
-    # wall (`enclosure.rear_seam_clear`) off it so the rear Z-seam lip's inner
-    # face is what it seats against. Those standoffs are the placement, so the
-    # tolerances carry them. In Z it stands on the floor slab itself: its bottom
-    # lid is a plane and nothing is under it.
-    "foam-assembly":     [("y+", 4.0), ("x-", 15.0), ("x+", 15.0), ("z-", 1.0)],
-    # "Compressor is front-left on the floor" — one corner-rib chain inboard of the
-    # cold core's side face, which the wall stands a further chain outboard of.
-    # Like the foam it seats on a SEAM, not a wall: the front wall stands one wall
-    # (`enclosure.front_seam_clear`) off it so the front column's Z-seam lip keeps
-    # a full-width front segment, and that lip's inner face is what it seats on.
-    "compressor-shroud": [("y-", 4.0), ("z-", 4.0), ("x-", 29.0)],
-    # "Condenser is front-right on the floor" — the same, off the right.
-    "condenser+fan":     [("y-", 4.0), ("z-", 4.0), ("x+", 29.0)],
-    # "The assembly stands ahead of the cold core": its tall walls' back faces hold
-    # this much air off the foam's front face. The floor is authored here rather than
-    # read from the `STACK_CORE_GAP` that positions the stack — a rule measured against
-    # its own input measures nothing, and the constant carries a rounding residue the
-    # placed solids cannot land on. The lane each bag line falls down is deeper than
-    # this — both lines drop through the recess in the assembly's aft profile, and
-    # `_lines` measures the corridor in those two columns.
-    "source-select-assembly": [("clear", "foam-assembly", 18.0)],
-    # "The funnel rides the top wall" — brim top one brim thickness + one wall above the
-    # interior ceiling. Its shallow-floored basin runs the top frame's full depth and
-    # its centred drain hangs high over the pump row — the pumps' own `clear` keep-out
-    # holds the segment-4 drop corridor open beneath it.
-    "hopper-funnel":     [("z+", 6.1)],
-    # "The source-select tray carries the bag tray": stacked one tray pitch
-    # above, this tray's wall tops resting on the source tray's (a declared
-    # contact — the `near` holds at zero), while the floor stratum below the
-    # stack stays one stack gap open (the compressor and tipped condenser tops
-    # are the deferred water deck's ground).
-    "bag-circuit-assembly": [("near", "source-select-assembly", 1.0),
-                             ("clear", "compressor-shroud", 2.5),
-                             ("clear", "condenser+fan", 2.5)],
-    # "The nozzle-gate tray rides the pocket east of the bag assembly, on the
-    # stack's second-story plane": its hanging wall tops reach the source
-    # tray's wall-top plane, but the source's east wall slabs (which follow
-    # its aimed valves) stop just outboard of them, so the tray floats a few
-    # millimetres off the source assembly — held open until its holder. Its
-    # bare east (V-G/V-J) ports stand INSET off the cold core's +X face (by
-    # GATE_WALL_INSET, in _contents.py), opening the pocket their outlet elbows
-    # will turn aft into. The +X wall then stands a further corner-rib chain
-    # outboard of that face, so the measured gap to the wall carries both.
-    "nozzle-gate-assembly": [("near", "source-select-assembly", 4.0),
-                             ("x+", 30.0)],
-    # "P-A stands one stack gap ahead of the stack, under the funnel's
-    # drop": its aft face a stack gap off the bag tray's front columns — the
-    # stack's flat front at the row's height, which the bag branches rise
-    # clear of, rolled up into their fall — and the segment-4 drop corridor
-    # under the funnel's high centred drain held open over it, a keep-out
-    # the gravity drain physically depends on.
-    "pump-a": [("near", "bag-circuit-assembly", 10.0), ("clear", "hopper-funnel", 4.0)],
-    # "P-B rides the row one nose gap east of P-A, its elbows ahead of the
-    # east bank": the row tie to its neighbor, and a keep-out holding its
-    # aft elbow clear of the source-select east walls it threads past.
-    "pump-b": [("near", "pump-a", 6.5), ("clear", "source-select-assembly", 2.5)],
-    # The tees hang in the junction column between the source and bag banks. The
-    # column leans off vertical (each elbow rolled to aim at the other, _contents
-    # `JUNCTION_ROLL`) and tee-y-c slides up its run toward the bag (`JUNCTION_LIFT`,
-    # raising its branch so the suction stem leaves gently), so a tee stands well
-    # off the source bank — the `near` gap allows for that.
-    "tee-y-c": [("near", "source-select-assembly", 15.0)],
-    "tee-y-f": [("near", "source-select-assembly", 15.0)],
-    # "The ASSE 1022 chain lies in the service bay's aft strip, one pigtail off the
-    # water bulkhead, rolled about its flow axis so the vent leans aft." Five measurements
-    # pin it. `near bulkhead-water` holds the inlet at the bulkhead it takes its feed from —
-    # that stance is the placement, and the roll turns about the line those two fittings
-    # sit on, so it does not disturb them. `fall` is the drip, and the rule the pose exists
-    # for: the vent tip's own column, dropped straight down, lands in the pan, where the
-    # moisture plate lies. It reads the column, not the body — the two part company in this
-    # strip, and further apart under a rolled chain than an upright one. `clear psu` holds
-    # open the lane between the shelf's back edge and this body, which the C14's cordage
-    # crosses going forward to the AC hub. `x-` reads the outlet end's stance off the −X
-    # wall — the room the 1/4" line to the split leaves in, bounded east by the
-    # nozzle-outlet runs crossing the strip.
-    "asse1022-assembly": [("near", "bulkhead-water", 20.0),
-                          ("fall", "vent-tip", "drip-pan", 60.0),
-                          ("clear", "psu", 8.0),
-                          ("clear", "c14-inlet", 4.0),
-                          ("x-", 80.0)],
-    # The two electronics modules, each on four boss columns of the foam cap. Both read
-    # `near foam-assembly` because the cap IS the mount — a module off its columns is a
-    # module with no root. The board holds off the pump it shares the column with; the PSU
-    # holds off the basin's rails and the pump behind it, stands on the C14 inlet's own
-    # column so the energized run is short, and keeps its distance from the board rather
-    # than standing over it, because the bay has no ventilation and its loss has nowhere
-    # to go but the air the board sits in.
-    "pcba": [("near", "foam-assembly", 0.5),
-             ("clear", "seaflo-pump", 3.0)],
-    "psu": [("near", "foam-assembly", 0.5),
-            ("near", "c14-inlet", 20.0),
-            ("clear", "seaflo-pump", 1.0),
-            ("clear", "drip-pan-rails", 1.0),
-            ("clear", "pcba", 10.0)],
-    # The power block, in the strip between them. All three read `near foam-assembly`
-    # for the same reason the two modules do — the cap IS the mount. Beyond that each
-    # holds off its neighbours in the strip, which is the tightest band on the face:
-    # the hub takes the board's side, relay #1 the middle, the ground stack the PSU's.
-    # The stack also stands off the relay, since a fan of loose mains lugs swinging on
-    # their pigtails is the one thing in the strip that is not fixed where it is drawn.
-    "ac-hub": [("near", "foam-assembly", 0.5),
-               ("clear", "pcba", 1.0),
-               ("clear", "relay-1", 1.0)],
-    "relay-1": [("near", "foam-assembly", 0.5),
-                ("clear", "psu", 1.0),
-                ("clear", "ground-stack", 1.0)],
-    "ground-stack": [("near", "foam-assembly", 0.5),
-                     ("clear", "psu", 1.0),
-                     ("clear", "ac-hub", 1.0)],
-    # V-K on its cradle, laid along X in the band the pump's head taper opens: its inlet takes the
-    # split's branch (`near water-split` — the feed that anchors the pose), its outlet looks west
-    # straight down the lane under the ASSE overhang to the suction. Lifted off the cap on its
-    # cradle (`clear foam-assembly`), clear of the pump body (`clear seaflo-pump`), and standing
-    # off the backflow preventer it sits downstream of (`clear asse1022-assembly`).
-    # The pan is centred on the vent column rather than posed, so its rules read the seat
-    # and the two neighbours that bound the strip it stands in: it rides its rails, keeps
-    # the lane it draws aft along clear of the pump, and stands off the chain overhead.
-    "drip-pan": [("near", "drip-pan-rails", 0.5),
-                 ("clear", "seaflo-pump", 3.0),
-                 ("clear", "asse1022-assembly", 6.0)],
-    # The rails sit on the cap under the basin, in the same strip.
-    "drip-pan-rails": [("near", "foam-assembly", 0.5),
-                       ("near", "drip-pan", 0.5),
-                       ("clear", "seaflo-pump", 3.0)],
-    "vk-fill-valve": [("near", "water-split", 12.0),
-                      ("clear", "seaflo-pump", 4.0),
-                      ("clear", "asse1022-assembly", 3.0),
-                      ("clear", "foam-assembly", 5.0)],
-    # The flow regulator stands in the band ahead of the cap on the flavor run's own X, directly
-    # over the collet it feeds (`near source-select-assembly`), with the pump filling the deck
-    # behind it — so what it has to hold off is the pump, not the pocket it used to hang in.
-    "flow-regulator": [("near", "source-select-assembly", 70.0),
-                       ("clear", "seaflo-pump", 1.5)],
-    # The flow meter's placement IS the band it lies in, so that band's walls are stated
-    # as keep-outs: the bag-circuit tray above, the cold core standing behind it, the
-    # source-select assembly stopping short of it to the south, and the discharge chain
-    # hanging down the strip to the east. A rigid 60 mm body with a Ø26 waist has no
-    # other seat on this line, so any of these closing on it is the thing to see.
-    "digiten-flow": [("clear", "bag-circuit-assembly", 5.0),
-                     ("clear", "foam-assembly", 5.0),
-                     ("clear", "source-select-assembly", 5.0),
-                     ("clear", "discharge-chain", 5.0)],
-    # The CO2 check is made up on the front-panel inlet's stub, so its placement IS
-    # that joint: it touches the fitting it threads onto and it hangs in the band,
-    # off the floor block below it.
-    "gasher-co2": [("near", "co2-inlet", 0.0),
-                   ("clear", "compressor-shroud", 5.0)],
-    # The regulator lies across the same band, and what makes the band a band is the
-    # two things it is held between — the compressor's top below, the pump row's
-    # underside above. Both are stated as keep-outs, because the band is the
-    # placement.
-    "wr1110": [("clear", "compressor-shroud", 5.0),
-               ("clear", "pump-a", 5.0),
-               ("clear", "pump-b", 5.0),
-               ("clear", "source-select-assembly", 5.0)],
-}
+def _declare_placement_rules():
+    """The placed axis's measured expectations, built on first use — `placement_rules()`,
+    and `scorecard.PLACEMENT_RULES`.
+
+    A `near`/`clear` tolerance may be struck off the pack itself (`contents.pump_twin_gap`
+    and its kin read placed boxes), so building this table at import builds the pack. Taken
+    when a rule is first read instead.
+    """
+    return {
+        # "Foam is against the back-bottom, full width, standing on its lid" — the
+        # canonical example, and the pose the whole thin machine stands on. It seats flush
+        # against the SEAMS rather than the walls: the ±X walls stand one boss chain
+        # (`_contents.SIDE_RIB_INSET`) off it so the corner posts and boss chains have their
+        # full section, and the back wall one wall (`enclosure.rear_seam_clear`) off it so the
+        # rear Z-seam lip's inner face is what it seats against. Those standoffs are the
+        # placement, so the tolerances carry them. In Z it stands on the floor slab itself: its
+        # bottom lid is a plane and nothing is under it. `y+` and `z-` together are the
+        # back-bottom corner; the two `x` rules are the full width the yaw bought.
+        #   Its `y+` is NOT stated: the core is no longer the rearmost body. The SeaFlo runs
+        # front to back over it and overhangs the cap's own rear edge, so the pump is what the
+        # back wall stands off and the pump is where that rule now lives. The core keeps its
+        # X fences and its floor.
+        "foam-assembly":     [("x-", 15.0), ("x+", 15.0), ("z-", 1.0)],
+        # "The compressor is on the floor at the front, upright, centred across the machine."
+        # The two x rules carry the same bound, which is what makes them a centring statement
+        # rather than two stances. `clear foam-assembly` is the machine corridor — the band
+        # its copper turns in on the way to the core's front face, which nothing may close.
+        "compressor-shroud": [("y-", 4.0), ("z-", 4.0), ("x-", 17.0), ("x+", 17.0),
+                              ("clear", "foam-assembly", 40.0)],
+        # "The condenser stands over the compressor, off the cold core's face." `near
+        # compressor-shroud` is the stack — a block off its own stratum has no root — held at
+        # the one band the front Z seam has (`_contents.STACK_GAP`), and the `clear` rule is
+        # the air between the loop's hot end and its cold one.
+        "condenser+fan":     [("near", "compressor-shroud", contents.STACK_GAP + 1.0),
+                              ("y-", 4.0),
+                              ("clear", "foam-assembly", 2.0)],
+        # "The display is CENTRED on a facet that runs the full width, let into the
+        # top-front corner." The two x rules carry the same bound, which is what makes
+        # them a centring statement rather than two stances: neither wall may be nearer
+        # than the other by more than the tolerance. y− and z+ are the letting-in — the
+        # body's own faces one facet wall inside the front and top walls.
+        "display":           [("x-", 48.0), ("x+", 48.0), ("y-", 2.0), ("z+", 2.0)],
+        # "The funnel rides the top wall, hard behind the display" — brim top one brim thickness
+        # + one wall above the interior ceiling, and its collar's front edge one brim margin
+        # behind the facet's own back plane, which `_contents.funnel_centre` places it on and
+        # `enclosure._hopper_hole` asserts the frame for.
+        "hopper-funnel":     [("z+", 6.1)],
+        # --- Zone B, the service bay above the cold core -------------------------
+        # The pump lies front to back on the cap, its motor can cantilevering aft. `y+` fences
+        # the tail's drift toward the wall — a band, not a hug: the wall stands where the rear
+        # panel's own field put it, and the tail room behind the can is what that leaves.
+        # `near foam-assembly` is the seat — its base is flat on the lid. `clear` is the strip
+        # ahead of it the chain lies in — and the chain's own placement states the trade: it
+        # packs aft on its stub's lead but yields that lead to the condenser's port-clear when
+        # the strip closes, so what this rule holds is the floor, not a band.
+        "seaflo-pump":       [("y+", 15.0), ("near", "foam-assembly", 0.5),
+                              ("clear", "discharge-chain", 1.0)],
+        # The chain lies along Y on the pump's crown, on the stub of 3/8" braided PVC that is the
+        # only thing that leaves the discharge — so `near seaflo-pump` is the roof it stands on.
+        "discharge-chain":   [("near", "seaflo-pump", 2.0)],
+        # The ASSE chain runs down the lane with its inlet under the bulkhead it is fed from
+        # (`near bulkhead-water` — the feed that anchors the pose), its vent falling into the
+        # basin below it, and its body standing off the −X wall's seam furniture. The bound is
+        # looser than the kitchen's because the port field is a STRATUM above the water deck
+        # here, not beside it: even a station standing on the chain's own column is one climb
+        # away, and that climb is the height the deck takes.
+        "asse1022-assembly": [("near", "bulkhead-water", 26.0),
+                              ("fall", "vent-tip", "drip-pan", 60.0),
+                              ("clear", "seaflo-pump", 30.0)],
+        # The split hangs off the chain that feeds it — on its plane, a step east of its outlet
+        # column — so its rules read that chain and the bodies that bound the loft it hangs in.
+        # No seat rule: the deck below is the loft trays' ground and holds no station for this
+        # fitting (`fit.py slab`, the component note).
+        # Second fitting of the wall sequence: its supply mouth one JUNCTION_LEG_LEAD off the
+        # chain's outlet on that outlet's own column, the hopper cone's sheet the ceiling over
+        # its forward half.
+        "water-split":       [("near", "asse1022-assembly", contents.JUNCTION_LEG_LEAD + 4.0),
+                              ("clear", "hopper-funnel", 1.0),
+                              ("clear", "flow-regulator", 5.0)],
+        # V-K stands on its cradle ACROSS THE LANE from the split that feeds it, lifted off the
+        # cap by that cradle, clear of the pump it discharges to. `near water-split` is the strip
+        # between the two bodies — the one water-3's branch climb stands in, and the whole reason
+        # the valve is not laid across the lane instead.
+        # The regulator stands on the loft floor over the aft stand's coils, one hop down the
+        # lane from the split that feeds it, so its tie is that fitting and its holds are the
+        # bodies that bound the loft.
+        # Third fitting of the wall sequence: inline ahead of the split's flavor collet, under
+        # the same cone-sheet ceiling.
+        "flow-regulator":    [("near", "water-split", contents.JUNCTION_LEG_LEAD + 4.0),
+                              ("clear", "hopper-funnel", 1.0)],
+        # The pan is centred on the vent column rather than posed, so its rules read the seat
+        # and the neighbours that bound the strip it stands in: it rides its rails, keeps the
+        # lane it draws aft along clear of the pump, and stands off the chain overhead.
+        "drip-pan":          [("near", "drip-pan-rails", 0.5),
+                              ("clear", "seaflo-pump", 3.0),
+                              ("clear", "asse1022-assembly", 3.0)],
+        "drip-pan-rails":    [("near", "drip-pan", 0.5),
+                              ("clear", "seaflo-pump", 3.0)],
+        # The electrical block stands in two columns on the machine's east flank. On the WALL:
+        # the brick, and the board a storey over it reading that brick's own crown as its floor,
+        # so the `near` that matters for the board is the body under it and not the cap it left.
+        # The 10 mm between them is the air the supply's loss rises through — the bay has no
+        # ventilation — and it is the one gap here that is a requirement rather than a result.
+        "psu":               [("near", "foam-assembly", 0.5),
+                              ("clear", "seaflo-pump", 1.0)],
+        "pcba":              [("near", "psu", 10.0),
+                              ("clear", "seaflo-pump", 3.0),
+                              ("clear", "c14-inlet", 1.0)],
+        # On the DECK, in the band the boards left: the relay lying down on the lid and the hub
+        # lying on the relay's back. Each reads the body it stands on, so the column holds
+        # together if any one of them moves, and both hold off the casting to their west.
+        "relay-1":           [("near", "psu", 1.0),
+                              ("clear", "seaflo-pump", 1.0),
+                              ("clear", "c14-inlet", 1.0)],
+        "ac-hub":            [("near", "relay-1", 1.0),
+                              ("clear", "seaflo-pump", 1.0),
+                              ("clear", "c14-inlet", 1.0)],
+        "ground-stack":      [("near", "ac-hub", 1.0),
+                              ("clear", "c14-inlet", 1.0),
+                              ("clear", "psu", 1.0)],
+        # --- Zone C, the valve manifold in the front column -----------------------
+        # "The source pair heads the column, in the front column ahead of the core and off the
+        # condenser's intake face."
+        #   `clear hopper-funnel` is the basin overhead — this column's ceiling, bounded by
+        # `_contents.SOURCE_TRAY_HEADROOM`. The gap is exact solid to exact solid: the basin's
+        # floor slopes up toward the front, so the surface standing over these coils is not the
+        # spout tip that sets the funnel's bounding box.
+        #   `clear foam-assembly` says the tray is in the FRONT COLUMN and not over the cap. It
+        # is not the aft band: the tray stands well above the core's crown, so the measured gap
+        # runs diagonally to the shell's top-front arris and is much longer than the Y the feeds
+        # actually turn in. That band is `_contents.SOURCE_TRAY_AFT_BAND`, and what holds it is
+        # fluid-2's own turn west and fluid-4's turn forward, both authored inside it.
+        #   `clear condenser+fan` is the block's INTAKE: the air crosses the cabinet from the −X
+        # side face into its finstack, so this lane is the one the tray must not stand in.
+        "source-tray-assembly": [("clear", "hopper-funnel", contents.SOURCE_TRAY_HEADROOM),
+                                 ("clear", "foam-assembly", 30.0),
+                                 ("clear", "condenser+fan", 10.0)],
+        # "The selects pair is PACKED UP UNDER THE SOURCE PAIR, in that tray's own column."
+        #   `near source-tray-assembly` is the pack relation — the one thing this tray is packed
+        # against — and its bound is `_contents.TRAY_STACK_GAP`, so the gap that keeps a valve
+        # liftable is the gap the rule measures. Plate underside to coil crown, exact solid to
+        # exact solid.
+        #   `clear foam-assembly` says the tray is in the FRONT COLUMN and not over the cap. This
+        # tray straddles the core's crown rather than standing over it, so the gap runs straight
+        # down Y to the shell's front face and is the aft band itself — `SOURCE_TRAY_AFT_BAND`,
+        # the number the pair above derives its own Y from, which this one inherits.
+        #   `clear condenser+fan` is again the block's INTAKE, and the gap the rule measures is
+        # what this tray leaves between itself and the finstack the air crosses to.
+        "selects-tray-assembly": [("near", "source-tray-assembly", contents.TRAY_STACK_GAP + 0.5),
+                                  ("clear", "foam-assembly", contents.SOURCE_TRAY_AFT_BAND - 0.5),
+                                  ("clear", "condenser+fan", 10.0)],
+        # "The bag-A pair is PACKED UP UNDER THE SELECTS PAIR, on the column's bottom seat."
+        #   `near selects-tray-assembly` is the pack relation, bounded by `TRAY_STACK_GAP` like the
+        # tray above it, so the same liftable-valve gap is the gap the rule measures.
+        #   `clear compressor-shroud` is what the column has left under its bottom plate —
+        # `contents.tray_column_floor`. No line crosses in it: every corridor `_lines` uses passes
+        # the column rather than threading under it, so what the band is for is reaching the seat,
+        # and the bound is the pack's own floor. `tray_column_floor` itself raises when the plate is
+        # under the roof.
+        #   `clear foam-assembly` is the aft band, the same `SOURCE_TRAY_AFT_BAND` the pair above
+        # inherits: this tray straddles nothing, so the gap runs straight down Y to the shell's
+        # front face.
+        #   `clear condenser+fan` is the block's INTAKE. This is the third body in that lane.
+        "bag-a-tray-assembly": [("near", "selects-tray-assembly", contents.TRAY_STACK_GAP + 0.5),
+                                ("clear", "compressor-shroud", CLEARANCE_FLOOR),
+                                ("clear", "foam-assembly", contents.SOURCE_TRAY_AFT_BAND - 0.5),
+                                ("clear", "condenser+fan", 10.0)],
+        # "The manifold's junction stands on the two columns its four ports make." Each tee is held
+        # to BOTH trays, because its run reaches a collet on each and it sits midway between them:
+        # the bound is the standoff `contents.junction_tee_pos` leaves, half the stack pitch less
+        # the fitting's own run. A tee nearer one tray than that has slid down its column.
+        "tee-y-a":           [("near", "source-tray-assembly", contents.tray_stack_pitch() / 2.0),
+                              ("near", "selects-tray-assembly", contents.tray_stack_pitch() / 2.0),
+                              ("clear", "condenser+fan", 10.0)],
+        "tee-y-b":           [("near", "source-tray-assembly", contents.tray_stack_pitch() / 2.0),
+                              ("near", "selects-tray-assembly", contents.tray_stack_pitch() / 2.0),
+                              ("clear", "condenser+fan", 10.0)],
+        # "Y-E stands ACROSS the strip between the pump row's aft faces and the bag pair's forward
+        # collets." Both `near` rules are that strip: the fitting's own body is what fills it, so the
+        # bound either side is that body's half-width and the pack's floor, and `contents.y_e_pos`
+        # raises the day the strip is narrower than the two together.
+        "tee-y-e":           [("near", "bag-a-tray-assembly", contents.TEE_HALF_W + 1.5),
+                              ("near", "pump-a", contents.TEE_HALF_W + 1.5),
+                              ("clear", "condenser+fan", 10.0)],
+        # --- Zone C's second stand: channel A's pump, and the loft over the water deck ----
+        # "Channel A's pump stands upright in the front column's west-forward box, in the same
+        # lane as channel A's own trays."
+        #   `near bag-a-tray-assembly` is that relation, and the bound is the lane it leaves
+        # between its barb face and that tray's own — the corridor fluid-11 and fluid-12 run
+        # down to Y-C and Y-D. What holds the pose in Z is not a rule but a derivation:
+        # `contents._build` stands the barbs ON that tray's port plane.
+        #   `clear condenser+fan` is the block's intake lane, which every body in the front column
+        # stands in.
+        "pump-b":            [("near", "bag-a-tray-assembly", 25.0),
+                              ("clear", "condenser+fan", 10.0)],
+        # "The pump row's two tees stand abreast in the pump lane, on their own barbs' columns."
+        #   `near pump-b` is the relation that places each: the tee stands off the barb its run
+        # butts, and the bound is the lane's own length — pump aft face to the aft band the tray
+        # leg turns in — halved, because the tee sits midway down it. `clear` on the tray column
+        # and on each other is the lane's width, which is what holds the two apart; `clear
+        # condenser+fan` is the intake lane every body in the front column stands in.
+        "tee-y-c":           [("near", "pump-b", 45.0),
+                              ("clear", "bag-a-tray-assembly", 1.0),
+                              ("clear", "tee-y-d", 1.0),
+                              ("clear", "condenser+fan", 10.0)],
+        "tee-y-d":           [("near", "pump-b", 45.0),
+                              ("clear", "bag-a-tray-assembly", 1.0),
+                              ("clear", "tee-y-c", 1.0),
+                              ("clear", "condenser+fan", 10.0)],
+        # "The bag-B pair and the nozzle gates stand in the LOFT's west lane, a JUNCTION BAY apart."
+        #   Each reads `clear` of the other at `contents.AFT_TRAY_BAY`: the two pairs face each
+        # other collet for collet across that bay, and what stands in it is a fitting — Y-G's run,
+        # the one straight line the two facing columns already share. A pack gap here is what the
+        # four legs owed into the slot could not leave through.
+        #   `clear vk-fill-valve` is the loft's own FLOOR under this lane. The deck beneath the
+        # loft is not level — V-K's coil is its tallest body — so what a plate up here clears is
+        # that coil and not a plane, and the gap the rule measures is the whole of it.
+        #   `clear hopper-funnel` is the loft's forward face, the basin's aft skirt, measured
+        # against the real surface: the box says the pair is a millimetre off it and the solid
+        # says far more, and the pair is placed against the second. `clear pump-a` is the east
+        # lane it leaves whole for a body that fills it.
+        "bag-b-tray-assembly": [("clear", "nozzle-tray-assembly", contents.AFT_TRAY_BAY - 0.5),
+                                ("clear", "hopper-funnel", 5.0),
+                                ("clear", "pump-a", 5.0)],
+        #   The nozzle pair's own last rule is the lane its two outlet runs turn in: it is the
+        # only pair with lines that leave the machine, and what they leave through stands on the
+        # rear wall behind it. `clear asse1022-assembly` is the chain under it — the one body on
+        # the deck that reaches the loft's floor, and it is held out of it.
+        "nozzle-tray-assembly": [("clear", "bag-b-tray-assembly", contents.AFT_TRAY_BAY - 0.5),
+                                 ("clear", "asse1022-assembly", 1.0),
+                                 ("clear", "bulkhead-flavor-a", 20.0)],
+        # "Channel B's two tees stand in the loft — Y-G in the bay its run crosses, Y-F in the
+        # lane pump A's own two lines run down."
+        #   `near bag-b-tray-assembly` places both of them, and for the same reason: every leg
+        # either one has to a body up here is a short one off that pair. Y-G's two run legs are a
+        # `TEE_RUN_LEAD` of tube each; Y-F's BRANCH is what reaches back at the same pair's draw,
+        # so the bound is the fitting's own body plus the pack's floor. Both of the legs that leave
+        # the loft (fluid-21 out of Y-F, fluid-22 into Y-G) reach the front column, and neither is
+        # a placement relation — a run that long is measured, not packed against.
+        "divider-y-g":       [("near", "bag-b-tray-assembly", contents.AFT_TRAY_BAY / 2.0 + 0.5),
+                              ("clear", "nozzle-tray-assembly", contents.TEE_RUN_LEAD - 0.5),
+                              ("clear", "tee-y-f", 1.0)],
+        "tee-y-f":           [("near", "bag-b-tray-assembly", contents.TEE_HALF_W + 1.5),
+                              ("clear", "nozzle-tray-assembly", 1.0),
+                              ("clear", "seaflo-pump", 1.0)],
+        # Y-H hangs off its pair like the other three, and the two `clear` rules are what it
+        # hangs BETWEEN: the funnel's skirt above it and the shelf's crown one clearance floor
+        # below — its legs' geometry stands its belly right on that floor over the PSU. The
+        # `near` reads solids, and the nearest span to its pair runs diagonal to the collet
+        # stack, wider than the axial reach the pose is derived from.
+        "divider-y-h":       [("near", "bag-b-tray-assembly", contents.divider_reach() + 8.0),
+                              ("clear", "hopper-funnel", 1.0),
+                              ("clear", "psu", 1.0)],
+        # "Channel B's pump stands UPRIGHT in the front column beside channel A's, on the strip
+        # between that pump's flank and the condenser's intake face."
+        #   `near pump-b` is the whole of the seat: the two are one pose read twice, this one seated
+        # off its twin in all three axes, and the bound is `contents.pump_twin_gap()` — what the two
+        # flanks are left with once their inner barbs stand a `contents.PUMP_TWIN_PITCH` apart.
+        #   `clear condenser+fan` is what the lane has left once both motors are in it. It is under
+        # the 10 mm every other body in this column holds off that face: the strip is
+        # `TRAY_EAST_LANE`-wide short of taking two 62.61 mm motors at that hold, and this is the
+        # rest of it. The block is still a placeholder, so the number is what the geometry leaves
+        # rather than what a thermal bound would ask for.
+        #   `clear display` is the facet overhead, which roofs this column, and `clear
+        # compressor-shroud` the refrigeration stratum's roof under its foot — the pump is the body
+        # in this column that reaches lowest, and the band it leaves is the front Z seam's.
+        "pump-a":            [("near", "pump-b", contents.pump_twin_gap() + 0.5),
+                              ("clear", "condenser+fan", 8.0),
+                              ("clear", "display", 5.0),
+                              ("clear", "compressor-shroud", contents.FRONT_COLUMN_FLOOR - 0.5),
+                              ("clear", "bag-a-tray-assembly", 1.0)],
+        # "The CO2 check is made up on the side-wall inlet's stub", so its placement IS that
+        # joint: it touches the fitting it threads onto and hangs in the corridor, off the
+        # shroud's aft face ahead of it. `near` carries the slop the made-up pair is built to,
+        # which is what `_panel_bodies` asserts the two land within.
+        "gasher-co2":        [("near", "co2-inlet", contents.CO2_MADE_UP_TOL),
+                              ("clear", "compressor-shroud", 4.0)],
+        # The regulator continues the same axis one tube hop inboard of the check, between the
+        # shroud's aft face and the core's front one, the two faces that make the corridor a
+        # corridor. `near` is the bound on that hop, held apart from `CO2_HOP` itself: past it
+        # co2-1 stops being one straight length of tube between two adapters and becomes a run.
+        "wr1110":            [("near", "gasher-co2", 12.0),
+                              ("clear", "compressor-shroud", 3.0),
+                              ("clear", "foam-assembly", 15.0),
+                              ("clear", "condenser+fan", 5.0)],
+        # "The flow meter lies inline on the riser, in the loft's east pocket over the water
+        # deck's crown" — the pump carries both bounds, which is what makes the pair a band
+        # rather than two stances: `clear` is the room the riser's own fittings need under the
+        # body, `near` is the pocket itself, and without it the meter is free to drift up the
+        # loft's open air into the display facet. Its WEST edge is pump A's two loft lines,
+        # which are runs and not parts — no placement rule can state them, `lines-clear` is
+        # what holds that edge, and `fit.py search` is what picked this column clear of them.
+        "digiten-flow":      [("clear", "seaflo-pump", 1.0),
+                              ("near", "seaflo-pump", 20.0)],
+        # --- The panel bodies: the rear port row, and the CO2 inlet on the east wall ---
+        # Each stands in a hole its own wall cuts and is held by its own nut or thread, so the
+        # placement IS the pierce, and the three axes divide cleanly. The wall's own axis is the
+        # reach past the cavity plane — the end the customer pushes a tube onto, which has to stand
+        # proud of the panel without fouling what the machine backs up against. The second face rule
+        # is the stratum the row runs on. And ALONG the wall the row's pitch is a band, not a floor:
+        # `near` is the neighbour that fixes the station, `clear` is the room to get a hand on each
+        # nut, and a fitting that had only the floor could slide down the wall unopposed.
+        #   The pitch itself is `back_wall_ports()`; these are what it has to buy.
+        # The water bulkhead's hand-room reads differently from its row-mates': the ASSE chain
+        # hangs on this fitting's own feed, `ASSE_INLET_HOP` of tube away, and its nut is made
+        # up before the chain is hung — parts go in — so the standing gap owes the hop's tube,
+        # not a hand.
+        "bulkhead-water":    [("y+", 13.0), ("z+", 21.0),
+                              ("near", "c14-inlet", 9.0),
+                              ("clear", "c14-inlet", 5.0),
+                              ("clear", "asse1022-assembly", 8.0)],
+        "bulkhead-flavor-b": [("y+", 13.0), ("z+", 21.0),
+                              ("near", "bulkhead-carb", 9.0),
+                              ("clear", "bulkhead-carb", 5.0),
+                              ("clear", "c14-inlet", 5.0)],
+        "bulkhead-carb":     [("y+", 13.0), ("z+", 21.0),
+                              ("near", "bulkhead-flavor-a", 9.0),
+                              ("clear", "bulkhead-flavor-a", 5.0),
+                              ("clear", "bulkhead-flavor-b", 5.0)],
+        "bulkhead-flavor-a": [("y+", 13.0), ("z+", 21.0),
+                              ("near", "bulkhead-carb", 9.0),
+                              ("clear", "bulkhead-carb", 5.0),
+                              ("clear", "nozzle-tray-assembly", 20.0)],
+        # The C14 is the one rectangular station in the row, and it reaches further out than the
+        # JG fittings because a mains cord's hood is what lands on it.
+        "c14-inlet":         [("y+", 15.0), ("z+", 20.0),
+                              ("near", "bulkhead-water", 9.0),
+                              ("clear", "bulkhead-water", 5.0),
+                              ("clear", "nozzle-tray-assembly", 15.0)],
+        # The CO2 inlet is the only body on the EAST wall, and the axes divide the same way: `x+` is
+        # the collet the customer's red tether lands on, `z-` is how low it stands under everything
+        # the corridor floor carries, and the shroud ahead of it carries the band its stub reaches
+        # inboard across. The check made up on that stub is placed from the check's own side.
+        "co2-inlet":         [("x+", 23.0), ("z-", 46.0),
+                              ("near", "compressor-shroud", 15.0),
+                              ("clear", "compressor-shroud", 8.0),
+                              ("clear", "foam-assembly", 25.0)],
+    }
+
+
+# The rows a build computes. Unset — the default — is all of them.
+# `HSM_CARD_ONLY=bend-radius,mounted` computes those two and STANDS THE REST DOWN.
+#
+# A stood-down row reads "not computed" and never "pass": nothing looked at it, and a gate
+# nobody looked at is not a gate that held. `gates_pass` stays false while any gate is stood
+# down, so a partial card cannot report BUILD-READY.
+#
+# Measured, on the pack as it stands: clearance-floor 37 s, lines-clear 29 s, placed 17 s,
+# routed 17 s, pack-closes 6 s, and every other row under half a second.
+CARD_ONLY = frozenset(
+    r.strip() for r in os.environ.get("HSM_CARD_ONLY", "").split(",") if r.strip())
+
+
+def _computes(cid: str) -> bool:
+    return not CARD_ONLY or cid in CARD_ONLY
+
+
+def _stood_down(cid: str, label: str, kind: str = "gate") -> "Check":
+    return Check(cid, label, kind, "skip", "not computed", "—")
+
+
+_PLACEMENT_RULES = None
+
+
+def placement_rules() -> dict:
+    """The placement rules. The same dict object every call — `scorecard_selftest` puts a
+    probe rule in it and takes it out again."""
+    global _PLACEMENT_RULES
+    if _PLACEMENT_RULES is None:
+        _PLACEMENT_RULES = _declare_placement_rules()
+    return _PLACEMENT_RULES
 
 
 def placement_audit(solids: dict, inner: tuple) -> list[tuple[str, bool, list]]:
@@ -508,10 +782,12 @@ def placement_audit(solids: dict, inner: tuple) -> list[tuple[str, bool, list]]:
     (name, all_hold, [(label, gap, bound_mm, ok)]) — label is the face for a face-to-datum
     rule, "near <other>" / "clear <other>" for the part-to-part forms. Components without
     rules are not returned — they are simply not-yet-placed."""
+    if not _computes("placed"):
+        return []
     ix0, ix1, iy0, iy1, iz0, iz1 = inner
     datum = {"x-": ix0, "x+": ix1, "y-": iy0, "y+": iy1, "z-": iz0, "z+": iz1}
     out = []
-    for name, rules in PLACEMENT_RULES.items():
+    for name, rules in placement_rules().items():
         if name not in solids:
             continue
         bb = _boxes.boxed(solids[name])
@@ -531,7 +807,7 @@ def placement_audit(solids: dict, inner: tuple) -> list[tuple[str, bool, list]]:
                 checks.append((f"clear {other}", gap, mn, present and gap >= mn))
             elif rule[0] == "fall":
                 _tag, port, other, mx = rule
-                p = next(q for q in PORTS if q.component == name and q.name == port)
+                p = next(q for q in ports() if q.component == name and q.name == port)
                 who, drop = _fall_first(p.pos, p.diam, mx, solids, skip=(name,))
                 checks.append((f"fall {port} onto {who or 'nothing'}", drop, mx, who == other))
             else:
@@ -572,6 +848,117 @@ def _fall_first(pos, dia, reach, solids: dict, skip=()) -> tuple:
     return who, best
 
 
+# ── The port LEAD (a gate) — that a located port can actually be used ────────
+# `placement_audit` gates how close two BODIES come and `ports_audit` gates that a port sits on
+# its own body's surface. Neither asks the question a connector exists to answer: is there room
+# for a line to LEAVE it. A port is a hole with a direction, and a hole with another body parked
+# in front of it is a hole nothing can be plugged into — a defect that shows up nowhere else,
+# because both bodies may be a clean clearance apart while the collet between them is useless.
+#
+# So: cast the port's own bore along its own axis, at the port's own Ø, for the straight a run
+# off it would take, and require the cast to reach. `probe.cast` is the same query; this is it
+# taken against the pack the scorecard already has, once per port, so the gate needs no second
+# world.
+#
+# What the cast may hit is the body the port is JOINED to — a divider's outlet stands
+# `DIVIDER_LEG_LEAD` off the valve collet it feeds, and a tee's run collet stands
+# `TEE_RUN_LEAD` off its, both by construction — so the mate is held out. The mate is read off
+# the AUTHORED RUNS rather than from prose: a run names `component.port` at each end, so the
+# body at the far end of every run terminating on this port is what the lead is allowed to end
+# on. A port with no run yet is held to the full lead against everything, which is the useful
+# direction — that is exactly the state the loft's four collets were in.
+# The gate's population is the ports that carry a LINE WITH A BEND RADIUS — every tube, and no
+# wire: a loom turns against its own insulation and needs no straight, so casting a cable gland's
+# bore is measuring the wrong thing. And it is the ports on REAL geometry: a station PICKED on a
+# primitive box (`condenser+fan`) is a claim about the box, not a measurement of the part, so a
+# lead taken off it measures the box. Those are still measured and still printed — the gate's
+# population follows the `shaped` axis, and a placeholder's ports join it when its geometry does.
+PORT_LEAD_KINDS = ("fluid", "refrigerant")
+PORT_LEAD_BENDS = 2.0   # × the line's bend radius: the stub a run leaves a fitting on, and the
+                        # tangent its first corner is seated on — `_routing.route`'s own two
+                        # reaches, and the shortest straight any turn off a port can be built in.
+
+
+def _lead_first(pos, axis, dia, reach, solids: dict, skip=()) -> tuple:
+    """What a line leaving `pos` along `axis` runs into, and how far it gets: a column of `dia`
+    swept `reach` along the axis, and the NEAREST body it meets. `(None, reach)` when the column
+    reaches its full length untouched — that is the probe's own length, not a clearance.
+
+    A boolean that will not resolve raises, for `_fall_first`'s reason: an unmeasured body is
+    not an absent one, and the difference decides whether a fitting can be plugged in."""
+    import cadquery as cq
+
+    col = cq.Solid.makeCylinder(dia / 2.0, reach, cq.Vector(*pos), cq.Vector(*axis))
+    best, who = reach, None
+    for n, s in solids.items():
+        if n in skip:
+            continue
+        if _bbox_gap(_boxes.boxed(col), _boxes.boxed(s)) > 0:
+            continue
+        try:
+            inter = col.intersect(s)
+            if inter.Volume() <= CLASH_TOL:
+                continue
+        except Exception as exc:
+            raise RuntimeError(
+                f"the lead out of {tuple(round(c, 2) for c in pos)} against {n} could not be "
+                f"taken ({exc}) — whether the port can be used is unknown, not clear") from exc
+        b = inter.BoundingBox()
+        # How far along the axis the nearest point of the intersection lies.
+        corners = [(b.xmin, b.xmax), (b.ymin, b.ymax), (b.zmin, b.zmax)]
+        got = min(sum((c[i] - pos[i]) * axis[i] for i in range(3))
+                  for c in ((corners[0][a], corners[1][bb], corners[2][cc])
+                            for a in (0, 1) for bb in (0, 1) for cc in (0, 1)))
+        if got < best:
+            best, who = max(0.0, got), n
+    return who, best
+
+
+def port_mates(runs) -> dict:
+    """`(component, port)` → the set of component names the port's own CONNECTIONS join it to.
+    Mostly read off the runs' anchors, so a line re-authored elsewhere moves what its port is
+    allowed to open onto; plus the `MADE_UP` threads, which are the same relation with no run
+    in it — each end opens onto the body it is screwed into, and a joint tightened home has
+    no line to report."""
+    out: dict = {}
+    for r in runs:
+        (fc, _, fp), (tc, _, tp) = r.frm.partition("."), r.to.partition(".")
+        out.setdefault((fc, fp), set()).add(tc)
+        out.setdefault((tc, tp), set()).add(fc)
+    for (ac, ap), (bc, bp) in MADE_UP:
+        out.setdefault((ac, ap), set()).add(bc)
+        out.setdefault((bc, bp), set()).add(ac)
+    return out
+
+
+def port_leads(solids: dict, mates: dict | None = None) -> list[tuple[str, str, str | None, float, float, bool, bool]]:
+    """Every tube port's clear lead: `(component, port, what it meets, how far, what it needs,
+    ok, gated)`. A port needs `PORT_LEAD_BENDS` bend radii of its own bore along its own axis,
+    clear of every body but the one its own runs join it to.
+
+    The reach is the LINE's radius, not the port's: soft LLDPE turns at `_lines.WBEND` and
+    1/4" ACR copper at `_routing.BEND_RATIO` × its OD, so a flavor collet asks 8 mm of straight
+    where a refrigerant stub asks 25.4."""
+    import _lines
+    import _routing as R
+
+    real = {c.name for c in COMPONENTS if c.is_real}
+    if mates is None:
+        mates = port_mates(_lines.build_runs())
+    out = []
+    for p in ports():
+        if p.kind not in PORT_LEAD_KINDS or p.pos is None or not p.face or p.diam is None:
+            continue
+        if p.component not in solids:
+            continue
+        bend = _lines.WBEND if p.kind == "fluid" else R.BEND_RATIO * p.diam
+        need = PORT_LEAD_BENDS * bend
+        skip = {p.component} | mates.get((p.component, p.name), set())
+        who, free = _lead_first(p.pos, R.normal_of(p.face), p.diam, need, solids, skip=skip)
+        out.append((p.component, p.name, who, free, need, who is None, p.component in real))
+    return out
+
+
 # ── Ports (the located axis) — where every connector sits on the component, and how big ──
 # A connection has no path until BOTH its ends have a position AND a bore on a real body. This
 # is the located axis: each component's tube/wire connectors, declared with a world position,
@@ -605,320 +992,293 @@ def _p(name, component, kind, pos, face, diam, mates, note=""):
     return Port(name, component, kind, pos, face, diam, mates, note)
 
 
-# The cold core's front face in world. Its placement puts the shell's local Y origin there,
-# so every foam port is written as this face, or a reach aft off it, and they ride the core.
-_FOAM_FACE = contents.FRONT_DEPTH
-# The rear panel's OUTER face — the one `panel_bodies()` seats the bulkhead unions and the C14
-# on, standing one wall behind the pack's own rear standoff. The through-wall ports below are
-# written as reaches off it, so a change in the pack's depth carries them.
-_PANEL_OUT = contents._port_frame()[2] + contents.WALL
-# JG bulkhead union: tube-face reach outboard / inboard of the panel, off the fitting's
-# own two ring faces — so a line drawn to a station butts the collet face that is there.
-_JG_OUT, _JG_IN = _jg.near_ring_face_y, -_jg.far_ring_face_y
-# C14 inlet: the spade tips' plane inboard of the panel, measured off the seated STEP —
-# `iec_c14_inlet.py` quotes deeper spades than the file carries, and what `panel_bodies()`
-# seats through the wall is the file.
-_C14_IN = -contents._load(contents.IEC_C14).BoundingBox().ymin
-# DERPIPE CO2 inlet: the collet mouth is the fitting's own far face. `_panel_bodies`
-# asserts the stub tip onto `CO2_GASHER_Y`, so the mouth is that seat less the body's
-# whole length, measured off the same STEP the wall seats.
-_CO2_MOUTH_Y = contents.CO2_GASHER_Y - contents._load(contents.DERPIPE_STEP).BoundingBox().ylen
-# Each rear-panel station as (x, z), read off the hole the wall is cut for, so the hole,
-# the body seated in it and the ports below are the one reading.
-_BACK_A     = contents.back_port_station("bulkhead-flavor-a")
-_BACK_B     = contents.back_port_station("bulkhead-flavor-b")
-_BACK_CARB  = contents.back_port_station("bulkhead-carb")
-_BACK_WATER = contents.back_port_station("bulkhead-water")
-_BACK_C14   = contents.back_port_station("c14-inlet")
-
-# Front foam ports, in the shell's own frame. `foam_shell_port` carries a
-# (local x, local z) on the −Y face into world, so these follow the shell
-# instead of being retyped after it. The flavor line and the reed cable leave
-# level out of the bulkhead elbow's lateral port; the four slot penetrations
-# sit where the copper plug stack's spans meet, each join being a bore centre.
+# Front foam ports. `foam_shell_port` takes a STATION NAME — a front-port-field
+# station for the six round bores, a copper plug for the four the slot carries — and
+# carries it into world through the yaw, so these follow both the shell's own port
+# layout and the pose the pack gives it instead of being retyped after either. It
+# hands back the FACE with the position — the yaw puts the shell's local −X on world
+# −Y, facing the user — which is what each row spreads.
 _FOAM_PORT = contents.foam_shell_port
 
 
-def _CO2_CHAIN(name, face):
-    """A CO2-chain body's end face centre, read off the placed solid rather than
-    retyped. Both are straight-through fittings placed on an axis, so an end IS
-    the box's face centre — and a body that moves, or turns, carries its two
-    ports with it. The check runs +Y off the wall; the regulator lies across the
-    band on +X."""
-    bb = _boxes.boxed(contents.build()[name][0])
-    mid = {"x": (bb.xmin + bb.xmax) / 2.0,
-           "y": (bb.ymin + bb.ymax) / 2.0,
-           "z": (bb.zmin + bb.zmax) / 2.0}
-    end = {"x-": bb.xmin, "x+": bb.xmax, "y-": bb.ymin, "y+": bb.ymax}[face]
-    return tuple(end if a == face[0] else mid[a] for a in "xyz")
+# The CO2 chain's mouths, each off the module that draws the body it is on and carried into
+# world by the seat the pack gave that body — the two the pack holds, and the DERPIPE's two,
+# which `panel_bodies()` seats through the wall. A body that moves takes its mouths with it.
+_CO2_CHAIN = contents.co2_chain_port
+_CO2_INLET = contents.co2_inlet_port
+
+# The rear-panel bodies' own reaches, off the wall face `panel_bodies()` seats them on: the
+# stated rear plane the box is built to, plus the wall.
+_PANEL_OUT = contents.REAR_PLANE_Y + contents.WALL
+# JG bulkhead union: tube-face reach outboard / inboard of the panel, off the fitting's
+# own two ports — so a run drawn to a station butts the collet face that is there.
+_JG_OUT, _JG_IN = _jg.port(+1)[0][1], -_jg.port(-1)[0][1]
+# C14 inlet: the spade TIPS' plane inboard of the panel. The flange bears on the INNER
+# face, so the wall's own thickness stands in front of the fitting's three figures.
+_C14_IN = contents.WALL + _c14.FLANGE_T + _c14.BODY_DEPTH + _c14.TAB_PROUD
+def _declare_ports():
+    """The declared connector set, built on first use — `ports()`, and `scorecard.PORTS`.
+
+    Every station here reads off the pack: `contents.foam_shell_port`, `pump_port`,
+    `back_port_station` and their kin resolve against placed solids, so the first one
+    evaluated builds the whole pack. Built at import that cost lands on anything that
+    imports this module for any reason — a probe, `need.py`, a one-line query — so it is
+    taken when a port is first asked for instead.
+    """
+    _BACK_A     = contents.back_port_station("bulkhead-flavor-a")
+    _BACK_B     = contents.back_port_station("bulkhead-flavor-b")
+    _BACK_CARB  = contents.back_port_station("bulkhead-carb")
+    _BACK_WATER = contents.back_port_station("bulkhead-water")
+    _BACK_C14   = contents.back_port_station("c14-inlet")
+
+    declared = [
+        # foam-assembly — 8 tube penetrations (foam-shell README §Penetrations) + 2 reed-cable exits.
+        # NINE on the shell's −X face, which the yaw puts at the machine's front: six take their own
+        # round bore on the front port field, three share the slot above it, and every one of them
+        # reaches that face along the port lane rather than head-on — so a station's Z is where its
+        # line crosses the wall, not where its fitting sits. The tenth leaves by the TOP CAP, whose
+        # outer face is the service bay's floor. Ø: the beverage/flavor lines run the
+        # foam shell's Ø6.5 port-holes (_cold_core_interface.port_hole_radius 3.25) sized for 1/4"
+        # tube; the water-in takes the SeaFlo's 3/8" discharge on the warm side; the copper legs are
+        # 1/4" ACR = 6.35. Every mate named here is a body the thin pack has not placed yet, so each
+        # of these is a located end waiting on its other one; that is what `routed` is counting.
+        _p("carb-water-out", "foam-assembly", "fluid",       *_FOAM_PORT("carb-water-out"), 6.35,  "the carb-water riser, to the faucet umbilical", "1/4\" tank NPT elbow line"),
+        _p("reservoir-A",    "foam-assembly", "fluid",       *_FOAM_PORT("reservoir-a"), 6.35,  "reservoir A ↔ peristaltic pump A (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
+        _p("reservoir-B",    "foam-assembly", "fluid",       *_FOAM_PORT("reservoir-b"), 6.35,  "reservoir B ↔ peristaltic pump B (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
+        _p("co2-in",         "foam-assembly", "fluid",       *_FOAM_PORT("co2-in"), 6.35,  "the CO2 chain (front-panel inlet → check → regulator)", "1/4\" LLDPE; the Ø6.5 bore runs on through the support ring to the adapter under the plate"),
+        _p("evap-inlet",     "foam-assembly", "refrigerant", *_FOAM_PORT("lower"), 6.35,  "condenser+fan outlet (liquid line via drier + cap tube)", "1/4\" ACR copper"),
+        _p("evap-outlet",    "foam-assembly", "refrigerant", *_FOAM_PORT("middle"), 6.35,  "compressor-shroud suction", "1/4\" ACR copper"),
+        _p("water-in",       "foam-assembly", "fluid",       *_FOAM_PORT("water-in"), 6.35,  "the tap-water path's pump discharge (carbonator water inlet)", "1/4\" LLDPE up the TOP CAP's conduit, coaxial with the vessel's top-plate Port 2; a straight PP010822E stands on that port and the tube runs from its collet to the deck. The SeaFlo's 3/8\" discharge steps down at the warm-side check valve, so the bore sees 1/4\""),
+        _p("prv-vent",       "foam-assembly", "fluid",       *_FOAM_PORT("top"), 6.35,  "appliance interior (relief-event discharge only)", "1/4\" relief discharge"),
+        _p("reed-cable-A",   "foam-assembly", "electrical",  *_FOAM_PORT("reed-cable-a"), 6.5,   "J6 REEDS A — reservoir A level reeds (SIG-10)", "reed cable through the Ø6.5 shell bore, outboard of reservoir-A's (_reed_channels.py)"),
+        _p("reed-cable-B",   "foam-assembly", "electrical",  *_FOAM_PORT("reed-cable-b"), 6.5,   "J7 REEDS B — reservoir B level reeds (SIG-11)", "reed cable through the Ø6.5 shell bore, outboard of reservoir-B's (_reed_channels.py)"),
+        # Hopper funnel — the removable silicone basin's single drain: the spout-tube exit annulus,
+        # feeding the manifold's shared source by tube (segment 4). Defined in the funnel's own frame
+        # (hopper_funnel.drain_local = (neck_dx, 0, −drop)) carried through the placement's FUNNEL_ROT
+        # + `funnel_centre()` (brim on the box top), so it rides the part. The spout sits on the collar
+        # centre and the shallow full-width floor keeps it high — the whole column beneath it is open,
+        # which is what segment 4 needs, since it may only ever fall.
+        _p("drain", "hopper-funnel", "fluid", contents.funnel_drain(), "z-", 6.35, "V-B-I by tube — segment 4 (hopper gate → shared source; must fall)", "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"),
+        # compressor-shroud — the shroud's own four penetrations, carried through `_contents`'
+        # turn and seat (`shroud_port`) rather than retyped after them. Both copper stubs share
+        # the +Y face that looks across the machine corridor at the core; suction and discharge
+        # are assigned by world x per the physical loop — discharge inboard, under the condenser
+        # it feeds, suction outboard at the core's own port lane. Copper is 1/4" ACR; the AC
+        # gland Ø and the earth-stud Ø are estimates pending the shroud teardown.
+        _p("ac-mains",        "compressor-shroud", "electrical",  contents.shroud_port("ac-mains"),  "x+", 22.2, "Teyleten relay #1 / AC distribution (AC-4 switched-H + AC-5 N, 3-wire gland)", "the shroud's own 7/8\" panel hole (compressor_shroud.ac_hole_diameter_mm), clamping the SS 1/2\" NPT cable gland"),
+        _p("earth-bond",      "compressor-shroud", "electrical",  contents.shroud_port("earth-bond"), "x+", 5.0,  "electronics-shelf ground bus (AC-6)", "M5 earth stud/ring (estimate — confirm at shroud teardown)"),
+        _p("refrig-suction",  "compressor-shroud", "refrigerant", contents.shroud_port("refrig-suction"),   "y+", 6.35, "foam-assembly evaporator outlet", "1/4\" ACR copper"),
+        _p("refrig-discharge","compressor-shroud", "refrigerant", contents.shroud_port("refrig-discharge"), "y+", 6.35, "condenser+fan inlet", "1/4\" ACR copper"),
+        # condenser+fan — a harvested donor block packed as a primitive, so these are PICKS on
+        # its placed box, not measurements of the part: both refrigerant ports on the narrow +Y
+        # face it presents to the machine corridor (drier + cap tube hang off the outlet), the
+        # fan pigtail on the +X face its air leaves by. They move when the block does.
+        _p("refrig-inlet",  "condenser+fan", "refrigerant", contents.condenser_port("refrig-inlet"),  "z+", 6.35, "compressor-shroud discharge", "1/4\" ACR copper, entering the block's crown where refrig-1's climb turns in over it"),
+        _p("refrig-outlet", "condenser+fan", "refrigerant", contents.condenser_port("refrig-outlet"), "x-", 6.35, "filter-drier → cap tube → foam-assembly evaporator inlet", "1/4\" ACR copper, leaving low on the intake face at the tray-east lane refrig-2 falls down"),
+        _p("fan-power",     "condenser+fan", "electrical",  contents.condenser_port("fan-power"),     "x+", 4.0,  "J2 MANIFOLD B FAN + COM (DC-8, 12 V)", "DC pigtail 2-wire (estimate); on the exhaust face, fan centred"),
+        # Display — the one harness off the back of the Waveshare board, into the facet's cavity.
+        _p("harness", "display", "electrical", contents.display_harness(), "y+", 8.0, "5 V power + display data (PCBA / power bus)", "connector not modeled in STEP; PROVISIONAL on the interior back face — refine with a pick"),
+        # Rear-panel bodies. Each station is a reach off `_PANEL_OUT`, the face `panel_bodies()`
+        # seats them on, so a body's two ends move with the wall the pack sized.
+        _p("tube-out", "bulkhead-flavor-a", "fluid", (_BACK_A[0], _PANEL_OUT + _JG_OUT, _BACK_A[1]), "y+", 6.35, "customer flavor A line (rear umbilical)", "JG 1/4\" PTC, outward"),
+        _p("tube-in",  "bulkhead-flavor-a", "fluid", (_BACK_A[0], _PANEL_OUT - _JG_IN, _BACK_A[1]), "y-", 6.35, "flavor A internal line (bag/pump circuit A)", "JG 1/4\" PTC, inward"),
+        _p("tube-out", "bulkhead-flavor-b", "fluid", (_BACK_B[0], _PANEL_OUT + _JG_OUT, _BACK_B[1]), "y+", 6.35, "customer flavor B line (rear umbilical)", "JG 1/4\" PTC, outward"),
+        _p("tube-in",  "bulkhead-flavor-b", "fluid", (_BACK_B[0], _PANEL_OUT - _JG_IN, _BACK_B[1]), "y-", 6.35, "flavor B internal line (bag/pump circuit B)", "JG 1/4\" PTC, inward"),
+        _p("tube-out", "bulkhead-carb", "fluid", (_BACK_CARB[0], _PANEL_OUT + _JG_OUT, _BACK_CARB[1]), "y+", 6.35, "carbonated-water line (rear umbilical / faucet)", "JG 1/4\" PTC, outward"),
+        _p("tube-in",  "bulkhead-carb", "fluid", (_BACK_CARB[0], _PANEL_OUT - _JG_IN, _BACK_CARB[1]), "y-", 6.35, "the carb-water riser off the cold core's front face — segment carb-2", "JG 1/4\" PTC, inward"),
+        _p("tube-out", "bulkhead-water", "fluid", (_BACK_WATER[0], _PANEL_OUT + _JG_OUT, _BACK_WATER[1]), "y+", 6.35, "house tap-water line (rear umbilical)", "JG 1/4\" PTC, outward"),
+        _p("tube-in",  "bulkhead-water", "fluid", (_BACK_WATER[0], _PANEL_OUT - _JG_IN, _BACK_WATER[1]), "y-", 6.35, "asse1022-assembly tube-in (the backflow preventer's own chain) — segment water-1", "JG 1/4\" PTC, inward; the chain's inlet stands directly under this station, so the pigtail turns one corner"),
+        _p("mains-in", "c14-inlet", "electrical", (_BACK_C14[0], _PANEL_OUT - _C14_IN, _BACK_C14[1] + 0.5), "y-", 8.0, "AC distribution — L/N/E to the electronics shelf", "C14 spade terminals; 3-wire mains harness inboard"),
+        # The CO2 chain, wall-hung on one axis into the machine corridor: the DERPIPE's two
+        # ends bracket the east wall, the check's bracket its made-up thread, and the
+        # regulator's bracket the hop.
+        _p("tube-in",  "co2-inlet", "fluid", *_CO2_INLET("collet"),   7.94, "customer CO2 supply — 5/16\" push-to-connect (the cylinder's short red tether)", "5/16\" PTC collet, outboard"),
+        _p("npt-out",  "co2-inlet", "fluid", *_CO2_INLET("stub-tip"), 6.35, "gasher-co2 inlet — the check threads onto this stub", "1/4\" NPT shank, inboard"),
+        _p("inlet",    "gasher-co2", "fluid", *_CO2_CHAIN("gasher-co2", "inlet"),  6.35, "co2-inlet npt-out (made up, no line between)", "1/4\" NPT female socket"),
+        _p("outlet",   "gasher-co2", "fluid", *_CO2_CHAIN("gasher-co2", "outlet"), 6.35, "wr1110 inlet — segment co2-1", "1/4\" NPT male stub, into a PP450822E onto 1/4\" tube"),
+        _p("inlet",    "wr1110", "fluid", *_CO2_CHAIN("wr1110", "inlet"),  6.35, "gasher-co2 outlet — segment co2-1", "1/4\" NPT female socket, PP010822E onto 1/4\" tube"),
+        _p("outlet",   "wr1110", "fluid", *_CO2_CHAIN("wr1110", "outlet"), 6.35, "foam-assembly co2-in — segment co2-2", "1/4\" NPT female socket, PP010822E onto 1/4\" tube"),
+        # The ASSE 1022 chain — the tap-water path's one non-negotiable component, with the
+        # fittings that reach it from 1/4" tube on one side and 3/8" hose on the other.
+        _p("tube-in",  "asse1022-assembly", "fluid", *contents.bfp_terminal("tube-in"),  6.35, "bulkhead-water tube-in — segment water-1", "JG PP010822E 1/4\" PTC, facing aft (+Y) up at the bulkhead it is fed from"),
+        _p("tube-out", "asse1022-assembly", "fluid", *contents.bfp_terminal("tube-out"), 6.35, "water-split supply — segment water-2", "flare38-14ptc 1/4\" PTC, facing forward (−Y) down the lane to the split"),
+        _p("vent-tip", "asse1022-assembly", "fluid", *contents.bfp_terminal("vent-tip"), 6.35, "atmosphere, dripping onto the drip pan + moisture plate (deferred) — never plumbed", "Sealproof 1/4\" ID clear-PVC stub, facing −Z over the basin; cut to length at the bench"),
+        # V-K, the fill/shutoff solenoid.
+        _p("V-K-I", "vk-tray-assembly", "fluid", *contents.vk_terminal("inlet"),  6.35, "water-split to-vk — segment water-3", "Beduan 1/4\" QC collet, facing forward (−Y) at the fall out of the fittings loft"),
+        _p("V-K-O", "vk-tray-assembly", "fluid", *contents.vk_terminal("outlet"), 6.35, "seaflo-pump suction — segment water-4", "Beduan 1/4\" QC collet, facing aft (+Y), its leg turning east into the strip west of the pump"),
+        # The split — one run carried straight through, one branch turned.
+        _p("supply",    "water-split", "fluid", *contents.split_terminal("supply"),    6.35, "asse1022-assembly tube-out — segment water-2", "PP0208E 1/4\" PTC run"),
+        _p("to-vk",     "water-split", "fluid", *contents.split_terminal("to-vk"),     6.35, "vk-tray-assembly V-K-I — segment water-3", "PP0208E 1/4\" PTC branch"),
+        _p("to-flavor", "water-split", "fluid", *contents.split_terminal("to-flavor"), 6.35, "flow-regulator inlet — fluid segment 1", "PP0208E 1/4\" PTC run"),
+        # The flavor tap's regulator.
+        _p("inlet",  "flow-regulator", "fluid", *contents.flowreg_terminal("inlet"),  6.35, "water-split to-flavor — fluid segment 1", "neoFit 1/4\" PTC collet"),
+        _p("outlet", "flow-regulator", "fluid", *contents.flowreg_terminal("outlet"), 6.35, "the valve manifold's shared source — fluid segment 2", "neoFit 1/4\" PTC collet"),
+        # The pump and the chain that leaves its discharge.
+        _p("suction",  "seaflo-pump", "fluid", *contents.seaflo_terminal("suction"),   6.35, "vk-tray-assembly V-K-O — segment water-4", "3/8\" hose barb on the head, facing west (−X) at the fittings lane; a 1/4\"→3/8\" barb adapter takes the LLDPE, worm-gear clamp"),
+        _p("discharge", "seaflo-pump", "fluid", *contents.seaflo_terminal("discharge"), 15.1, "discharge-chain barb-tip — segment water-6", "3/8\" hose barb molded into the head, facing east (+X) over the cold core's port column; a braided-PVC stub clamps over it"),
+        _p("barb-tip",  "discharge-chain", "fluid", *contents.disch_terminal("barb-tip"),  15.1, "seaflo-pump discharge — segment water-6", "MAACFLOW 3/8\" hose barb, facing aft (+Y) at the stub off the pump, level with it; worm-gear clamp"),
+        _p("tube-port", "discharge-chain", "fluid", *contents.disch_terminal("tube-port"), 6.35, "foam-assembly water-in — segment water-5", "PP450822E 1/4\" PTC collet, facing forward (−Y) off the far end of the laid-down chain, over the cap's front edge — above the port it feeds, so water-5 only ever descends"),
+        # The carb riser's flow meter, inline in the loft with the flow running aft.
+        _p("inlet",   "digiten-flow", "fluid", *contents.digiten_terminal("inlet"),  6.35, "foam-assembly carb-water-out — segment carb-1", "1/4\" PTC collet, facing forward (−Y) at the riser's climb out of the front column"),
+        _p("outlet",  "digiten-flow", "fluid", *contents.digiten_terminal("outlet"), 6.35, "bulkhead-carb tube-in — segment carb-2", "1/4\" PTC collet, facing aft (+Y) at the climb to the rear port row"),
+        _p("pigtail", "digiten-flow", "electrical", *contents.digiten_terminal("wire-exit"), 8.0, "J4 SENSORS — DIGITEN flow pulse (SIG-4)", "3-wire pigtail on a JST-XH 3-pin, leaving the rim boss upward"),
+        # The AC hub's three lever nuts — the mains distribution.
+        _p("H", "ac-hub", "electrical", *contents.ac_hub_lug("H"), 8.0, "C14 hot in (AC-1 H); out to PSU primary (AC-2 H) and relay #1 COM (AC-3)", "16 AWG, ferruled under the lever"),
+        _p("N", "ac-hub", "electrical", *contents.ac_hub_lug("N"), 8.0, "C14 neutral in (AC-1 N); out to PSU primary (AC-2 N); third port open for the shroud lead (AC-5)", "16 AWG, ferruled under the lever"),
+        _p("G", "ac-hub", "electrical", *contents.ac_hub_lug("G"), 8.0, "C14 earth in (AC-1 G); out to PSU chassis (AC-2 G) and the ground stack", "16 AWG, ferruled under the lever"),
+        # Relay #1 and the ground bus.
+        _p("contacts", "relay-1", "electrical", *contents.relay_terminal("contacts"), 8.0, "COM from the H lever nut (AC-3); NO to the compressor shroud's switched hot (AC-4)", "16 AWG, crimp forks under captive screws"),
+        _p("logic",    "relay-1", "electrical", *contents.relay_terminal("logic"),    6.0, "board J5 RELAYS loom — VCC/GND/IN (LV-1/2/3)", "22 AWG under captive screws"),
+        _p("stud", "ground-stack", "electrical", *contents.ground_stud(), 10.0, "chassis ground — C14 earth off the G lever nut, PSU chassis, pressure vessel, compressor body, and the shroud bond (AC-6)", "16 AWG green, ring terminals stacked under one M3 x 10"),
+        # The supply's two terminal blocks.
+        _p("ac-in",  "psu", "electrical", *contents.psu_terminal("ac-in"),  10.0, "C14 mains inlet via the AC distribution — H+N+G (AC-1/AC-2)", "16 AWG mains, ferruled under captive screws"),
+        _p("dc-out", "psu", "electrical", *contents.psu_terminal("dc-out"), 8.0,  "dc-dist 12 V block (DC-1)", "16 AWG, ferruled under captive screws"),
+        # The board's twelve top-entry wafers and its two edge connectors, each read in the
+        # board's OWN pcb frame and carried to world by the pose its four holes take.
+        _p("J1-manifold-a", "pcba", "electrical", contents.pcba_port(11.0, 16.48),   "z+", 10.0, "8 manifold-A solenoids (DC-6)", "9-cond JST XH"),
+        _p("J2-manifold-b", "pcba", "electrical", contents.pcba_port(11.0, -5.77),   "z+", 8.0,  "4 manifold-B solenoids + condenser fan (DC-7/DC-8)", "6-cond JST XH"),
+        _p("J3-faucet",     "pcba", "electrical", contents.pcba_port(-52.25, -30.3), "z+", 6.0,  "faucet display UART up the umbilical (SIG-6)", "4-cond JST XH"),
+        _p("J4-sensors",    "pcba", "electrical", contents.pcba_port(-35.0, -30.3),  "z+", 8.0,  "temp bus + DIGITEN flow + moisture (SIG-1/4/9)", "7-cond JST XH"),
+        _p("J5-relays",     "pcba", "electrical", contents.pcba_port(-41.95, 31.0),  "z+", 6.0,  "both Teyleten relay modules (LV-1/2/3)", "4-cond JST XH"),
+        _p("J6-reeds-a",    "pcba", "electrical", contents.pcba_port(-27.1, 31.0),   "z+", 7.0,  "foam-assembly reed-cable-A — reservoir A reeds (SIG-10)", "5-cond JST XH"),
+        _p("J7-reeds-b",    "pcba", "electrical", contents.pcba_port(-0.5, -30.3),   "z+", 8.0,  "foam-assembly reed-cable-B — reservoir B + carbonator reeds (SIG-2/3/11)", "7-cond JST XH"),
+        _p("J8-i2c",        "pcba", "electrical", contents.pcba_port(1.3, 31.0),     "z+", 6.0,  "off-board MPR121 cap-sense (SIG-8)", "4-cond JST XH"),
+        _p("J9-display",    "pcba", "electrical", contents.pcba_port(-17.75, -30.3), "z+", 6.0,  "display harness — 4.3B RS485 + 12 V (SIG-7)", "4-cond JST XH"),
+        _p("J10-12v",       "pcba", "electrical", contents.pcba_port(12.35, -21.5),  "z+", 5.0,  "dc-dist 12 V block — board power inlet (DC-4)", "2-pole 5.0 mm screw block"),
+        _p("J11-gas",       "pcba", "electrical", contents.pcba_port(-62.0, -23.85), "z+", 6.0,  "mq6-sensor header — MQ-6 gas/leak sensor (SIG-12)", "4-cond JST XH"),
+        _p("J13-pumps",     "pcba", "electrical", contents.pcba_port(-12.25, 31.0),  "z+", 6.0,  "Kamoer pump A + B motors (DC-5)", "4-cond JST XH"),
+        _p("J14-usb",       "pcba", "electrical", contents.pcba_port(-62.0, 16.5),   "z+", 9.0,  "USB-C programming port (bench only, no loom)", "USB-C receptacle"),
+        # The source pair's four bare collets. The tray module owns every one of them
+        # (`two_valve_tray.port_collets`) and `source_tray_port` only carries them, so a seat
+        # pitch or a port length changed on the part moves the world station with it. Both
+        # inlets face AFT, at the two feeds that come from the back of the machine; both
+        # outlets face FORWARD, each at the head of its own junction column.
+        _p("V-A-I", "source-tray-assembly", "fluid", *contents.source_tray_port("V-A-I"), 6.35, "flow-regulator outlet — fluid segment 2", "Beduan 1/4\" QC collet, facing aft (+Y) up the bay at the regulator that feeds it"),
+        _p("V-A-O", "source-tray-assembly", "fluid", *contents.source_tray_port("V-A-O"), 6.35, "tee-y-a Y-A-1 — fluid segment 3", "Beduan 1/4\" QC collet, facing forward (−Y) at the head of the west column"),
+        _p("V-B-I", "source-tray-assembly", "fluid", *contents.source_tray_port("V-B-I"), 6.35, "hopper-funnel drain — fluid segment 4 (must only ever fall)", "Beduan 1/4\" QC collet, facing aft (+Y) under the spout's own column"),
+        _p("V-B-O", "source-tray-assembly", "fluid", *contents.source_tray_port("V-B-O"), 6.35, "tee-y-b Y-B-1 — fluid segment 5", "Beduan 1/4\" QC collet, facing forward (−Y) at the head of the east column"),
+        # Y-A's three, numbered from the SOURCE end down: the run's two collets stand a stack
+        # pitch apart on the west column with the fitting midway between them, and the branch
+        # reaches east at Y-B's across the crossbar.
+        _p("Y-A-1", "tee-y-a", "fluid", *contents.y_a_port("Y-A-1"), 6.35, "source-tray-assembly V-A-O — fluid segment 3", "PP0208E 1/4\" PTC run collet, facing UP (+Z) the column at V-A"),
+        _p("Y-A-2", "tee-y-a", "fluid", *contents.y_a_port("Y-A-2"), 6.35, "selects-tray-assembly V-C-I — fluid segment 7", "PP0208E 1/4\" PTC run collet, facing DOWN (−Z) the column at V-C"),
+        _p("Y-A-3", "tee-y-a", "fluid", *contents.y_a_port("Y-A-3"), 6.35, "tee-y-b Y-B-3 — fluid segment 6", "PP0208E 1/4\" PTC branch, facing EAST (+X) at Y-B's own across the crossbar"),
+        # The selects pair's four. Same tray, same module, the clocking turned round: both
+        # INLETS face FORWARD at the foot of their own junction column, both OUTLETS AFT at the
+        # pump row still to be placed.
+        _p("V-C-I", "selects-tray-assembly", "fluid", *contents.selects_tray_port("V-C-I"), 6.35, "tee-y-a Y-A-2 — fluid segment 7", "Beduan 1/4\" QC collet, facing forward (−Y) at the foot of the west column"),
+        _p("V-C-O", "selects-tray-assembly", "fluid", *contents.selects_tray_port("V-C-O"), 6.35, "tee-y-c Y-C-1 — fluid segment 9", "Beduan 1/4\" QC collet, facing aft (+Y) at the pump row"),
+        _p("V-D-I", "selects-tray-assembly", "fluid", *contents.selects_tray_port("V-D-I"), 6.35, "tee-y-b Y-B-2 — fluid segment 8", "Beduan 1/4\" QC collet, facing forward (−Y) at the foot of the east column"),
+        _p("V-D-O", "selects-tray-assembly", "fluid", *contents.selects_tray_port("V-D-O"), 6.35, "tee-y-f Y-F-1 — fluid segment 19", "Beduan 1/4\" QC collet, facing aft (+Y) at the pump row"),
+        # Y-B's three, the same fitting read the same way one seat pitch east: run up the east
+        # column, branch back west at Y-A's.
+        _p("Y-B-1", "tee-y-b", "fluid", *contents.y_b_port("Y-B-1"), 6.35, "source-tray-assembly V-B-O — fluid segment 5", "PP0208E 1/4\" PTC run collet, facing UP (+Z) the column at V-B"),
+        _p("Y-B-2", "tee-y-b", "fluid", *contents.y_b_port("Y-B-2"), 6.35, "selects-tray-assembly V-D-I — fluid segment 8", "PP0208E 1/4\" PTC run collet, facing DOWN (−Z) the column at V-D"),
+        _p("Y-B-3", "tee-y-b", "fluid", *contents.y_b_port("Y-B-3"), 6.35, "tee-y-a Y-A-3 — fluid segment 6", "PP0208E 1/4\" PTC branch, facing WEST (−X) at Y-A's own across the crossbar"),
+        # The bag-A pair's four — the first pair whose two valves face OPPOSITE ways, because the
+        # circuit puts the bag on V-E's inlet and V-F's outlet. Those two go FORWARD to Y-E; the
+        # other two go AFT to the pump row, which is where the rest of channel A is.
+        _p("V-E-I", "bag-a-tray-assembly", "fluid", *contents.bag_a_tray_port("V-E-I"), 6.35, "tee-y-e Y-E-3 — fluid segment 16", "Beduan 1/4\" QC collet, facing forward (−Y) at the junction the bag draws through"),
+        _p("V-E-O", "bag-a-tray-assembly", "fluid", *contents.bag_a_tray_port("V-E-O"), 6.35, "tee-y-c Y-C-2 — fluid segment 10", "Beduan 1/4\" QC collet, facing aft (+Y) at the pump row"),
+        _p("V-F-I", "bag-a-tray-assembly", "fluid", *contents.bag_a_tray_port("V-F-I"), 6.35, "tee-y-d Y-D-2 — fluid segment 13", "Beduan 1/4\" QC collet, facing aft (+Y) at the pump row"),
+        _p("V-F-O", "bag-a-tray-assembly", "fluid", *contents.bag_a_tray_port("V-F-O"), 6.35, "tee-y-e Y-E-1 — fluid segment 14", "Beduan 1/4\" QC collet, facing forward (−Y) at the junction the pump returns through"),
+        # Y-E's three, numbered from the end the BAG rides. This one stands ACROSS the strip ahead
+        # of its pair, so its collets face along X and DOWN rather than along the pair's own axis:
+        # the reservoir line and the draw are the run's two, and the fill is the branch.
+        _p("Y-E-1", "tee-y-e", "fluid", *contents.y_e_port("Y-E-1"), 6.35, "bag-a-tray-assembly V-F-O — fluid segment 14", "PP0208E 1/4\" PTC BRANCH, facing DOWN (−Z) on V-F's own column at the leg that climbs into it"),
+        _p("Y-E-2", "tee-y-e", "fluid", *contents.y_e_port("Y-E-2"), 6.35, "foam-assembly reservoir-A — fluid segment 15", "PP0208E 1/4\" PTC RUN, the EAST of the two, facing back down the tray-east lane at the bag line that crosses the machine to the core's face"),
+        # The pump row's two tees. Y-C's run carries the bag draw forward into the pump and its
+        # branch takes the fall from the selects pair; Y-D's run carries the pump's outlet aft to
+        # the bag's fill valve and its branch is the climb to the loft. Both stand on the pump
+        # lane, so both runs face along Y and both branches face up.
+        _p("Y-C-1", "tee-y-c", "fluid", *contents.y_c_port("Y-C-1"), 6.35, "selects-tray-assembly V-C-O \u2014 fluid segment 9", "PP0208E 1/4\" PTC BRANCH, facing up (+Z) at the selects pair's fall"),
+        _p("Y-C-2", "tee-y-c", "fluid", *contents.y_c_port("Y-C-2"), 6.35, "bag-a-tray-assembly V-E-O \u2014 fluid segment 10", "PP0208E 1/4\" PTC RUN, the AFT of the two, facing back up the pump lane at the bag draw"),
+        _p("Y-C-3", "tee-y-c", "fluid", *contents.y_c_port("Y-C-3"), 6.35, "pump-b P-B-I \u2014 fluid segment 11", "PP0208E 1/4\" PTC RUN, the FORWARD of the two, facing down the lane at pump B's inlet barb"),
+        _p("Y-D-1", "tee-y-d", "fluid", *contents.y_d_port("Y-D-1"), 6.35, "pump-b P-B-O \u2014 fluid segment 12", "PP0208E 1/4\" PTC RUN, the FORWARD of the two, facing down the lane at pump B's outlet barb"),
+        _p("Y-D-2", "tee-y-d", "fluid", *contents.y_d_port("Y-D-2"), 6.35, "bag-a-tray-assembly V-F-I \u2014 fluid segment 13", "PP0208E 1/4\" PTC RUN, the AFT of the two, facing back up the pump lane at the bag's fill valve"),
+        _p("Y-D-3", "tee-y-d", "fluid", *contents.y_d_port("Y-D-3"), 6.35, "nozzle-tray-assembly V-G-I \u2014 fluid segment 17", "PP0208E 1/4\" PTC BRANCH, facing up (+Z) at the storey-high climb to the nozzle gate"),
+        _p("Y-E-3", "tee-y-e", "fluid", *contents.y_e_port("Y-E-3"), 6.35, "bag-a-tray-assembly V-E-I — fluid segment 16", "PP0208E 1/4\" PTC RUN, the WEST of the two, facing west along the strip at the leg that falls to V-E"),
+        # The bag-B pair's four — bag A's circuit mirrored, so the same clocking and the same map.
+        # The bag's two ends face FORWARD at Y-H; V-H-O and V-I-I face AFT at channel B's pump.
+        _p("V-H-I", "bag-b-tray-assembly", "fluid", *contents.bag_b_tray_port("V-H-I"), 6.35, "divider-y-h Y-H-3 — fluid segment 26", "Beduan 1/4\" QC collet, facing forward (−Y) at the divider the bag draws through"),
+        _p("V-H-O", "bag-b-tray-assembly", "fluid", *contents.bag_b_tray_port("V-H-O"), 6.35, "tee-y-f Y-F-2 — fluid segment 20", "Beduan 1/4\" QC collet, facing aft (+Y) into the junction bay at Y-F's branch"),
+        _p("V-I-I", "bag-b-tray-assembly", "fluid", *contents.bag_b_tray_port("V-I-I"), 6.35, "divider-y-g Y-G-2 — fluid segment 23", "Beduan 1/4\" QC collet, facing aft (+Y) into the bay, its leg climbing into Y-G's west outlet overhead"),
+        _p("V-I-O", "bag-b-tray-assembly", "fluid", *contents.bag_b_tray_port("V-I-O"), 6.35, "divider-y-h Y-H-1 — fluid segment 24", "Beduan 1/4\" QC collet, facing forward (−Y) at the divider the pump returns through"),
+        # Y-H's three, numbered from the stem the BAG rides, as Y-E's are from its own bag end.
+        _p("Y-H-1", "divider-y-h", "fluid", *contents.y_h_port("Y-H-1"), 6.35, "bag-b-tray-assembly V-I-O — fluid segment 24", "PP2308E 1/4\" PTC outlet, the EAST of the two, facing aft (+Y) at V-I"),
+        _p("Y-H-2", "divider-y-h", "fluid", *contents.y_h_port("Y-H-2"), 6.35, "foam-assembly reservoir-B — fluid segment 25", "PP2308E 1/4\" PTC stem, facing forward (−Y) at the bag line that drops out of the loft and crosses the machine to the core's face"),
+        _p("Y-H-3", "divider-y-h", "fluid", *contents.y_h_port("Y-H-3"), 6.35, "bag-b-tray-assembly V-H-I — fluid segment 26", "PP2308E 1/4\" PTC outlet, the WEST of the two, facing aft (+Y) at V-H"),
+        # The nozzle gates' four. Both INLETS face forward at the two pump rows that feed them —
+        # one in the front column, one in this loft — and both OUTLETS aft at the rear panel.
+        _p("V-G-I", "nozzle-tray-assembly", "fluid", *contents.nozzle_tray_port("V-G-I"), 6.35, "tee-y-d Y-D-3 — fluid segment 17", "Beduan 1/4\" QC collet, facing forward (−Y) into the junction bay at the storey-and-a-half climb from channel A's pump row"),
+        _p("V-G-O", "nozzle-tray-assembly", "fluid", *contents.nozzle_tray_port("V-G-O"), 6.35, "bulkhead-flavor-a tube-in — fluid segment 18", "Beduan 1/4\" QC collet, facing aft (+Y) at the rear panel's flavor-A bulkhead"),
+        _p("V-J-I", "vk-tray-assembly", "fluid", *contents.vk_tray_port("V-J-I"), 6.35, "divider-y-g Y-G-3 — fluid segment 27", "Beduan 1/4\" QC collet, facing forward (−Y) into the bay, its leg climbing into Y-G's east outlet overhead"),
+        _p("V-J-O", "vk-tray-assembly", "fluid", *contents.vk_tray_port("V-J-O"), 6.35, "bulkhead-flavor-b tube-in — fluid segment 28", "Beduan 1/4\" QC collet, facing aft (+Y) at the rear panel's flavor-B bulkhead"),
+        # Channel B's pump row. Y-F's run lies along the loft's pump lane with its branch reaching
+        # west at the bag pair; Y-G's run is the straight line the bay already holds, with its
+        # branch standing up at the pump's high barb.
+        _p("Y-F-1", "tee-y-f", "fluid", *contents.y_f_port("Y-F-1"), 6.35, "selects-tray-assembly V-D-O — fluid segment 19", "PP0208E 1/4\" PTC RUN, the AFT of the two, facing back up the loft's pump lane at the climb out of the front column"),
+        _p("Y-F-2", "tee-y-f", "fluid", *contents.y_f_port("Y-F-2"), 6.35, "bag-b-tray-assembly V-H-O — fluid segment 20", "PP0208E 1/4\" PTC BRANCH, facing west (−X) across the junction bay at the bag-B draw"),
+        _p("Y-F-3", "tee-y-f", "fluid", *contents.y_f_port("Y-F-3"), 6.35, "pump-a P-A-I — fluid segment 21", "PP0208E 1/4\" PTC RUN, the FORWARD of the two, facing down the lane at pump A's low barb"),
+        _p("Y-G-1", "divider-y-g", "fluid", *contents.y_g_port("Y-G-1"), 6.35, "pump-a P-A-O — fluid segment 22", "PP2308E 1/4\" PTC STEM, facing up (+Z) at the climb to pump A's high barb"),
+        _p("Y-G-2", "divider-y-g", "fluid", *contents.y_g_port("Y-G-2"), 6.35, "bag-b-tray-assembly V-I-I — fluid segment 23", "PP2308E 1/4\" PTC outlet, the WEST of the two, facing down (−Z) over the bag's fill gate"),
+        _p("Y-G-3", "divider-y-g", "fluid", *contents.y_g_port("Y-G-3"), 6.35, "vk-tray-assembly V-J-I — fluid segment 27", "PP2308E 1/4\" PTC outlet, the EAST of the two, facing down (−Z) over the nozzle-B gate"),
+        # The two pumps' barbs. Each is the part's own station (`kamoer_kphm400.arch_xs` on its
+        # head's +Y face at the arch plane) carried through the turn and seat the body takes. A
+        # peristaltic head has no fixed sense — the rotor's direction is the motor's wiring — so
+        # which barb is suction and which discharge is an assignment, made so no leg crosses another.
+        _p("P-A-I", "pump-a", "fluid", *contents.pump_port("pump-a", "P-A-I"), 6.35, "tee-y-f Y-F-3 — fluid segment 21", "Kamoer head barb, the LOW one on the lying pump's west face; a straight 1/4\" adapter takes the LLDPE"),
+        _p("P-A-O", "pump-a", "fluid", *contents.pump_port("pump-a", "P-A-O"), 6.35, "tee-y-g Y-G-1 — fluid segment 22", "Kamoer head barb, the HIGH one on the lying pump's west face; a straight 1/4\" adapter takes the LLDPE"),
+        _p("P-B-I", "pump-b", "fluid", *contents.pump_port("pump-b", "P-B-I"), 6.35, "tee-y-c Y-C-3 — fluid segment 11", "Kamoer head barb, the WEST one on the standing pump's aft face, on the bag-A pair's own port plane"),
+        _p("P-B-O", "pump-b", "fluid", *contents.pump_port("pump-b", "P-B-O"), 6.35, "tee-y-d Y-D-1 — fluid segment 12", "Kamoer head barb, the EAST one on the standing pump's aft face, on the bag-A pair's own port plane"),
+    ]
+
+    # A foam-shell port's Ø is checked against the hole it actually crosses. The lane is one
+    # bore wide, so there is a single number to check against, and a port declared fatter than
+    # it is a line that does not go through the wall — whatever its fitting is on the warm side.
+    # The `located` axis cannot catch this: it asks whether a coordinate lands on the body's
+    # surface, and a Ø too big for the bore lands on the surface exactly as well as one that
+    # fits. A component's own ports being self-consistent with its geometry is a property of
+    # the declaration, so it is checked where the declaration is.
+    foam_bore = contents.foam_shell_bore()
+    for port in declared:
+        if port.component == "foam-assembly" and port.diam is not None:
+            assert port.diam <= foam_bore + 1e-9, (
+                f"foam-assembly:{port.name} declares Ø{port.diam:g} through the shell's "
+                f"Ø{foam_bore:g} port lane — it cannot cross the wall. Every transition happens "
+                f"on the warm side (assembly/cold-core.md), so the Ø here is the line AT the wall")
+    return declared
 
 
-_EXIT_Z = _cc.bulkhead_elbow_exit_z
-_PLUG_JOIN = {name: spec.z_range[0] for name, spec in _plug_specs.items()}
-
-PORTS = [
-    # foam-assembly — 8 tube penetrations (foam-shell README §Penetrations) + 2 reed-cable exits
-    # on the −Y front wall, the CO2 inlet among them — its bore carries on through the support
-    # ring to the elbow under the vessel's bottom plate. Ø: the beverage/flavor lines run the foam shell's
-    # Ø6.5 port-holes (_cold_core_interface.port_hole_radius 3.25) sized for 1/4" tube; the
-    # water-in takes the SeaFlo's 3/8" discharge; the copper legs are 1/4" ACR = 6.35.
-    # The two flavor lines and the two reed cables exit at their shell-side bore X, well
-    # inboard of the pocket-side bore they start at — see the foam-shell README's
-    # §Two-bore front pass-throughs.
-    _p("carb-water-out", "foam-assembly", "fluid",       _FOAM_PORT(0.0, _pc.front_face_port_z), "y-", 6.35,  "digiten-flow inlet — segment carb-1 (routed)", "1/4\" tank NPT elbow line; refrig-2 climbs this same station to the evaporator inlet above and stands 9.52 mm off the collet, so the riser turns west inside that gap rather than leaving the face head-on"),
-    _p("reservoir-A",    "foam-assembly", "fluid",       _FOAM_PORT(+_pc.flavor_line_shell_hole_x, _EXIT_Z), "y-", 6.35,  "reservoir A ↔ peristaltic pump A (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
-    _p("reservoir-B",    "foam-assembly", "fluid",       _FOAM_PORT(-_pc.flavor_line_shell_hole_x, _EXIT_Z), "y-", 6.35,  "reservoir B ↔ peristaltic pump B (bag circuit)", "1/4\" LLDPE flavor line, Ø6.5 foam port"),
-    _p("co2-in",         "foam-assembly", "fluid",       _FOAM_PORT(_cc.co2_inlet_x, _pc.front_face_port_z), "y-", 6.35,  "CO2 chain (WR1110 → the vessel's bottom-plate CO2 elbow)", "1/4\" LLDPE; the Ø6.5 bore runs on through the support ring to the adapter under the plate"),
-    _p("evap-inlet",     "foam-assembly", "refrigerant", _FOAM_PORT(0.0, _PLUG_JOIN["lower"]),  "y-", 6.35,  "condenser+fan outlet (liquid line via drier + cap tube)", "1/4\" ACR copper"),
-    _p("evap-outlet",    "foam-assembly", "refrigerant", _FOAM_PORT(0.0, _PLUG_JOIN["middle"]), "y-", 6.35,  "compressor-shroud suction", "1/4\" ACR copper"),
-    _p("water-in",       "foam-assembly", "fluid",       _FOAM_PORT(0.0, _PLUG_JOIN["upper"]),  "y-", 6.35,  "gasher-water out (SeaFlo outlet check → carbonator water inlet)", "1/4\" LLDPE; the SeaFlo's 3/8\" discharge steps down at the warm-side check valve, so the wall sees 1/4\""),
-    _p("prv-vent",       "foam-assembly", "fluid",       _FOAM_PORT(0.0, _PLUG_JOIN["top"]),    "y-", 6.35,  "appliance interior (relief-event discharge only)", "1/4\" relief discharge"),
-    _p("reed-cable-A",   "foam-assembly", "electrical",  _FOAM_PORT(+_rc.cable_shell_hole_x, _EXIT_Z), "y-", 6.5,   "J6 REEDS A — reservoir A level reeds (SIG-10)", "reed cable through the Ø6.5 shell bore, outboard of reservoir-A's (_reed_channels.py)"),
-    _p("reed-cable-B",   "foam-assembly", "electrical",  _FOAM_PORT(-_rc.cable_shell_hole_x, _EXIT_Z), "y-", 6.5,   "J7 REEDS B — reservoir B level reeds (SIG-11)", "reed cable through the Ø6.5 shell bore, outboard of reservoir-B's (_reed_channels.py)"),
-    # compressor-shroud — compressor_shroud.py local hole centers carried through _contents'
-    # _rot((0,0,1),−90) + _at(14,0,3). Both copper stubs share the one face → world +Y (toward
-    # the foam/cold core they mate to); the AC gland + earth bond ride the +X face (into the
-    # inter-part channel). suction/discharge assigned by world x per the physical loop. Copper is
-    # 1/4" ACR; the AC gland Ø and earth-stud Ø are estimates pending the shroud teardown.
-    _p("ac-mains",        "compressor-shroud", "electrical",  (192.0, 66.5, 78.0),  "x+", _shroud_dims.ac_hole_diameter_mm,  "Teyleten relay #1 / AC distribution (AC-4 switched-H + AC-5 N, 3-wire gland)", "the shroud's own 7/8\" panel hole (compressor_shroud.ac_hole_diameter_mm), clamping the 3-wire mains gland"),
-    _p("earth-bond",      "compressor-shroud", "electrical",  (192.0, 31.5, 78.0),  "x+", 5.0,   "electronics-shelf ground bus (AC-6)", "M5 earth stud/ring (estimate — confirm at shroud teardown)"),
-    _p("refrig-suction",  "compressor-shroud", "refrigerant", (59.25, 133.0, 78.0), "y+", 6.35,  "foam-assembly evaporator outlet", "1/4\" ACR copper"),
-    _p("refrig-discharge","compressor-shroud", "refrigerant", (146.75, 133.0, 78.0),"y+", 6.35,  "condenser+fan inlet", "1/4\" ACR copper"),
-    # condenser+fan — placeholder box harvested from the donor, tipped on its back (a −90°
-    # turn about X: donor top → aft, donor front → up); ports are the 2026-07-17 step-viewer
-    # picks carried through the tip. Both refrigerant ports on the −X face (toward the
-    # compressor): inlet back-top, outlet front-bottom (drier + cap-tube hang off it). The
-    # fan is on the opposite +X face; airflow runs −X → +X, unchanged by the tip. Copper is
-    # 1/4" ACR; the fan pigtail Ø is an estimate.
-    _p("refrig-inlet",  "condenser+fan", "refrigerant", (213.0, 172.5, 148.5), "x-", 6.35, "compressor-shroud discharge", "1/4\" ACR copper"),
-    _p("refrig-outlet", "condenser+fan", "refrigerant", (213.0, 5.5, 8.5),     "x-", 6.35, "filter-drier → cap tube → foam-assembly evaporator inlet", "1/4\" ACR copper"),
-    _p("fan-power",     "condenser+fan", "electrical",  (269.0, 89.0, 78.5),   "x+", 4.0,  "J2 MANIFOLD B FAN + COM (DC-8, 12 V)", "DC pigtail 2-wire (estimate); +X exhaust face (fan centered); airflow −X→+X"),
-    # CO2 inlet (front panel) — the DERPIPE steps the customer's 5/16" PTC down to the 1/4"
-    # NPT stub inboard, and the GASHER check is made up on that stub, so the two read as one
-    # body off the wall. Both stations are reaches off the inlet's own X/Z, which is where the
-    # hole is cut, and the check's ends come off its placed solid rather than being retyped.
-    _p("tube-in",  "co2-inlet", "fluid", (contents.CO2_INLET_X, _CO2_MOUTH_Y, contents.CO2_INLET_Z),  "y-", 7.94, "customer CO2 supply — 5/16\" push-to-connect (front-panel tether)", "5/16\" PTC collet, outboard"),
-    _p("npt-out",  "co2-inlet", "fluid", (contents.CO2_INLET_X, contents.CO2_GASHER_Y, contents.CO2_INLET_Z), "y+", 6.35, "gasher-co2 inlet — the check threads onto this stub", "1/4\" NPT shank, inboard"),
-    _p("inlet",    "gasher-co2", "fluid", _CO2_CHAIN("gasher-co2", "y-"), "y-", 6.35, "co2-inlet npt-out (made up, no line between)", "1/4\" NPT female socket"),
-    _p("outlet",   "gasher-co2", "fluid", _CO2_CHAIN("gasher-co2", "y+"), "y+", 6.35, "wr1110 inlet — segment co2-1", "1/4\" NPT male stub, into a PP010822E onto 1/4\" tube"),
-    _p("inlet",    "wr1110", "fluid", _CO2_CHAIN("wr1110", "x-"), "x-", 6.35, "gasher-co2 outlet — segment co2-1", "1/4\" NPT female socket, PP010822E onto 1/4\" tube"),
-    _p("outlet",   "wr1110", "fluid", _CO2_CHAIN("wr1110", "x+"), "x+", 6.35, "foam-assembly co2-in — segment co2-2", "1/4\" NPT female socket, PP010822E onto 1/4\" tube"),
-    # Rear-panel through-wall bodies — each JG bulkhead union is a 1/4" tube port each side of the
-    # rear wall (Y = tube-flow axis, +Y = outward to the rear umbilical, −Y = inward to the
-    # subsystem it feeds). The C14 mains inlet carries one 3-wire harness inboard from the panel
-    # cord entry. Each station is a reach off `_PANEL_OUT`, the face `panel_bodies()` seats them
-    # on, so the ports ride the wall the box sizes itself to rather than a world Y of their own.
-    _p("tube-out", "bulkhead-flavor-a", "fluid", (_BACK_A[0], _PANEL_OUT + _JG_OUT, _BACK_A[1]), "y+", 6.35, "customer flavor A line (rear umbilical)", "JG 1/4\" PTC, outward"),
-    _p("tube-in",  "bulkhead-flavor-a", "fluid", (_BACK_A[0], _PANEL_OUT - _JG_IN, _BACK_A[1]), "y-", 6.35, "flavor A internal line (bag/pump circuit A)", "JG 1/4\" PTC, inward"),
-    _p("tube-out", "bulkhead-flavor-b", "fluid", (_BACK_B[0], _PANEL_OUT + _JG_OUT, _BACK_B[1]), "y+", 6.35, "customer flavor B line (rear umbilical)", "JG 1/4\" PTC, outward"),
-    _p("tube-in",  "bulkhead-flavor-b", "fluid", (_BACK_B[0], _PANEL_OUT - _JG_IN, _BACK_B[1]), "y-", 6.35, "flavor B internal line (bag/pump circuit B)", "JG 1/4\" PTC, inward"),
-    _p("tube-out", "bulkhead-carb", "fluid", (_BACK_CARB[0], _PANEL_OUT + _JG_OUT, _BACK_CARB[1]), "y+", 6.35, "carbonated-water line (rear umbilical / faucet)", "JG 1/4\" PTC, outward"),
-    _p("tube-in",  "bulkhead-carb", "fluid", (_BACK_CARB[0], _PANEL_OUT - _JG_IN, _BACK_CARB[1]), "y-", 6.35, "digiten-flow outlet — segment carb-2 (routed)", "JG 1/4\" PTC, inward; the riser climbs to it in the column east of the ASSE, because water-2 crosses its own southward line"),
-    _p("tube-out", "bulkhead-water", "fluid", (_BACK_WATER[0], _PANEL_OUT + _JG_OUT, _BACK_WATER[1]), "y+", 6.35, "house tap-water line (rear umbilical)", "JG 1/4\" PTC, outward"),
-    _p("tube-in",  "bulkhead-water", "fluid", (_BACK_WATER[0], _PANEL_OUT - _JG_IN, _BACK_WATER[1]), "y-", 6.35, "asse1022-assembly tube-in (the backflow preventer's own chain) — segment water-1 (routed)", "JG 1/4\" PTC, inward"),
-    _p("mains-in", "c14-inlet", "electrical", (_BACK_C14[0], _PANEL_OUT - _C14_IN, _BACK_C14[1] + 0.5), "y-", 8.0, "AC distribution — L/N/E to the electronics shelf", "C14 spade terminals; 3-wire mains harness inboard"),
-    # Floor sensor — a single signal header (one cable penetration, not one per conductor).
-    # MQ-6 header pins down (−Z) at the board floor — the 4-pin row runs along the
-    # PCB's −X edge (x≈103), NOT the board centre, so the port sits on that edge.
-    _p("header", "mq6-sensor", "electrical", (103.0, 144.0, 3.0), "z-", 8.0, "PCBA gas-sensor input — VCC/GND/DO/AO (SIG)", "4-pin 2.54 mm header at the PCB's −X edge, pins down"),
-    # ASSE 1022 assembly — its three terminals, each read off the reference module's own
-    # station and carried through the placement (contents.bfp_terminal). The chain's stack-up
-    # sets where they land, so a length changed in any of its five parts moves them together.
-    # The vent is not a connection: it terminates to atmosphere over the drip pan, and plumbing
-    # it into anything would destroy the telltale it exists to be (internal-plumbing.md §2).
-    _p("tube-in",  "asse1022-assembly", "fluid", *contents.bfp_terminal("tube-in"),  6.35,  "bulkhead-water tube-in — segment water-1 (routed)", "JG PP010822E 1/4\" PTC, facing west; water-1 is the pigtail off the rear-panel bulkhead"),
-    _p("tube-out", "asse1022-assembly", "fluid", *contents.bfp_terminal("tube-out"), 6.35,  "water-split supply — segment water-2 (routed)", "flare38-14ptc 1/4\" PTC, facing east down the aft strip to the split"),
-    _p("vent-tip", "asse1022-assembly", "fluid", *contents.bfp_terminal("vent-tip"), 6.35,  "atmosphere, dripping onto the drip pan + moisture plate (deferred) — never plumbed", "Sealproof 1/4\" ID clear-PVC stub, facing −Z over the foam-cap top; cut to length at the bench"),
-    # V-K — the water-supply fill/shutoff solenoid, its two 1/4" QC collets on the flow axis,
-    # each carried through the placement (contents.vk_terminal). Downstream of the ASSE, between
-    # the split and the suction.
-    _p("inlet",  "vk-fill-valve", "fluid", *contents.vk_terminal("inlet"),  6.35, "water-split to-vk — segment water-3 (routed)", "Beduan 1/4\" QC collet, facing east (+X) at the split's branch"),
-    _p("outlet", "vk-fill-valve", "fluid", *contents.vk_terminal("outlet"), 6.35, "seaflo-pump suction — segment water-4 (routed)", "Beduan 1/4\" QC collet, facing west (+X reversed); looks straight down the lane under the ASSE overhang to the suction"),
-    # The water split — a 1/4" tee: the run carries the ASSE feed through to the flavor tap,
-    # the branch turns V-K's share west.
-    _p("supply",    "water-split", "fluid", *contents.split_terminal("supply"),    6.35, "asse1022-assembly tube-out — segment water-2 (routed)", "PP0208E 1/4\" PTC run, facing north up the pocket at the line off the ASSE outlet"),
-    _p("to-vk",     "water-split", "fluid", *contents.split_terminal("to-vk"),     6.35, "vk-fill-valve inlet — segment water-3 (routed)", "PP0208E 1/4\" PTC branch, facing west at V-K's inlet"),
-    _p("to-flavor", "water-split", "fluid", *contents.split_terminal("to-flavor"), 6.35, "flow-regulator inlet — fluid segment 1 (routed)", "PP0208E 1/4\" PTC run, facing south down the pocket to the regulator"),
-    # The DIGITEN flow meter — its two 1/4" PTC collets on the flow axis and its pigtail
-    # boss, each carried through the placement (contents.digiten_terminal). Inline on the
-    # carb riser in the strip ahead of the cold core's front face.
-    _p("inlet",   "digiten-flow", "fluid", *contents.digiten_terminal("inlet"),  6.35, "foam-assembly carb-water-out — segment carb-1 (routed)", "1/4\" PTC collet, facing west up the riser's climb"),
-    _p("outlet",  "digiten-flow", "fluid", *contents.digiten_terminal("outlet"), 6.35, "bulkhead-carb tube-in — segment carb-2 (routed)", "1/4\" PTC collet, facing east at the climb into the under-pump lane"),
-    _p("pigtail", "digiten-flow", "electrical", *contents.digiten_terminal("wire-exit"), 8.0, "J4 SENSORS — DIGITEN flow pulse (SIG-4, IO25 + V5 + GND)", "3-wire pigtail on a JST-XH 2.54 3-pin, leaving the rim boss upward"),
-    # The flow regulator, inline on the flavor run below the split.
-    _p("inlet",  "flow-regulator", "fluid", *contents.flowreg_terminal("inlet"),  6.35, "water-split to-flavor — fluid segment 1 (routed)", "neoFit 1/4\" PTC collet, facing north up the pocket at the split"),
-    _p("outlet", "flow-regulator", "fluid", *contents.flowreg_terminal("outlet"), 6.35, "source-select-assembly V-A-I — fluid segment 2 (routed)", "neoFit 1/4\" PTC collet, facing south down the pocket to the manifold"),
-    # The SeaFlo's two head barbs, on its ±Y side faces; the yaw turns the suction north, the
-    # discharge south.
-    _p("suction",  "seaflo-pump", "fluid", *contents.seaflo_terminal("suction"),   6.35,  "vk-fill-valve outlet — segment water-4 (routed)", "3/8\" hose barb on the head, facing north (+Y); a 1/4\"→3/8\" barb adapter takes the LLDPE, worm-gear clamp"),
-    _p("discharge","seaflo-pump", "fluid", *contents.seaflo_terminal("discharge"), 15.1, "discharge-chain barb-tip — segment water-6 (routed)", "3/8\" hose barb molded into the head, facing south (−Y); a braided-PVC stub clamps over it"),
-    # The discharge chain's two ends — the barb the pump's hose stub clamps onto, and the
-    # 1/4" PTC that starts the run to the cold core.
-    _p("barb-tip",  "discharge-chain", "fluid", *contents.disch_terminal("barb-tip"),  15.1, "seaflo-pump discharge — segment water-6 (routed)", "MAACFLOW 3/8\" hose barb, facing east (+X) at the stub off the pump, level with it; worm-gear clamp"),
-    _p("tube-port", "discharge-chain", "fluid", *contents.disch_terminal("tube-port"), 6.35,  "foam-assembly water-in — segment water-5 (routed)", "PP450822E 1/4\" PTC collet, facing west (−X) off the far end of the laid-down chain — above the port it feeds, so water-5 only ever descends"),
-    # Hopper funnel — the removable silicone basin's single drain: the spout-tube exit annulus,
-    # feeding V-B by tube (segment 4). Defined in the funnel's own frame
-    # (hopper_funnel.drain_local = (neck_dx, 0, −drop)) carried through the placement's
-    # FUNNEL_ROT + FUNNEL_CX/CY (brim on the box top), so it rides the part. The spout sits
-    # on the collar centre and the shallow full-frame floor keeps it high: the drain hangs
-    # over the pump row's crest (the pumps' `clear` keep-out holds the drop corridor open).
-    # Segment 4 is the gravity drain + air-purge path and must only fall; V-B-I's collet
-    # plane lies ~23 below the drain, ~126 mm aft-east of it — the tray stack's height
-    # spends most of the banked fall, and the leg's author has the elbow-roll DOF
-    # (bag_circuit_tray place_elbow) to turn V-B-I sideways if the drop needs it.
-    _p("drain", "hopper-funnel", "fluid", contents.funnel_drain(), "z-", 6.35, "V-B-I by tube — segment 4 (hopper gate → shared source; must fall)", "funnel drain; spout exit annulus (`spout_id` 6.35 bore), bottom face of the spout tube"),
-    # Source-select assembly (Tray 1) — the manifold's four boundary connectors: the outlet
-    # elbows' free collets. Each tray publishes its collets in its own coordinates
-    # (`boundary_collets`, off the same rolls the STEP is built with) and _contents carries
-    # them through the placement, so a tray edit or a stack move lands here on its own —
-    # position and axis both. The tray floors the stack (180° about Z), so V-A/V-B face
-    # straight UP east — the tap feed and the funnel drain both arrive from above — while
-    # V-C/V-D face up WEST along the junction column, each rolled inward off its port axis to
-    # aim at the bag tray's collet across the gap. On-tray plumbing (segments 3/5/6/7/8 —
-    # valve↔divider tubes) is interior to the assembly and carries no port here.
-    _p("V-A-I", "source-select-assembly", "fluid", *contents.src_collet("VA"), 6.35, "tap-water chain — segment 2, teed off the BFP's 3/8\" discharge hose ahead of the SeaFlo (pressurized; length-tolerant)", "JG elbow collet, 1/4\" tube, facing up at the aft-east station"),
-    _p("V-B-I", "source-select-assembly", "fluid", *contents.src_collet("VB"), 6.35, "hopper-funnel drain by tube — segment 4 (gravity + air purge; the drain exit sits ~86 above this collet)", "JG elbow collet, 1/4\" tube, facing up at the fwd-east station"),
-    _p("V-C-O", "source-select-assembly", "fluid", *contents.src_collet("VC"), 6.35, "tee-y-c Y-C-1 — segment 9 (routed)", "JG elbow collet, 1/4\" tube, rolled inward up the junction column"),
-    _p("V-D-O", "source-select-assembly", "fluid", *contents.src_collet("VD"), 6.35, "tee-y-f Y-F-1 — segment 19 (routed)", "JG elbow collet, 1/4\" tube, rolled inward up the junction column"),
-    # Bag-circuit assembly (Tray 2) — the manifold's six boundary connectors: the west
-    # outlet elbows' free collets, the bare east port tips, and the two Tee bag branches,
-    # derived the same way through the tray's INVERTED pose (180° about Y). V-E/V-H face
-    # DOWN the junction column, each rolled outward off its port axis to meet the source
-    # tray's; V-F/V-I run bare, facing EAST, each turned −Y by a discharge elbow onto the
-    # LLDPE run down to its divider over the pumps; both bag branches are rolled to the one
-    # `bag_fall_aim`, each aimed DOWN its own fall to its reservoir. On-tray plumbing (segments
-    # 14/16/24/26 — valve↔Tee port butts) is
-    # interior to the assembly and carries no port here.
-    _p("V-F-I", "bag-circuit-assembly", "fluid", *contents.bag_collet("VF"), 6.35, "Y-D-2 via elbow-bag-y-d — segment 13 (routed)", "bare valve port collet, 1/4\" tube, facing east onto its discharge elbow"),
-    _p("V-I-I", "bag-circuit-assembly", "fluid", *contents.bag_collet("VI"), 6.35, "Y-G-2 via elbow-bag-y-g — segment 23 (routed)", "bare valve port collet, 1/4\" tube, facing east onto its discharge elbow"),
-    _p("V-E-O", "bag-circuit-assembly", "fluid", *contents.bag_collet("VE"), 6.35, "tee-y-c Y-C-2 — segment 10 (bag A to pump return, routed)", "JG elbow collet, 1/4\" tube, rolled outward down the junction column"),
-    _p("V-H-O", "bag-circuit-assembly", "fluid", *contents.bag_collet("VH"), 6.35, "tee-y-f Y-F-2 — segment 20 (bag B to pump return, routed)", "JG elbow collet, 1/4\" tube, rolled outward down the junction column"),
-    _p("Y-E-2", "bag-circuit-assembly", "fluid", *contents.bag_collet("YE"), 6.35, "Bag A port — foam-assembly reservoir-A line, segment 15", "Tee branch collet, 1/4\" tube, rolled to aim down the fall to reservoir A"),
-    _p("Y-H-2", "bag-circuit-assembly", "fluid", *contents.bag_collet("YH"), 6.35, "Bag B port — foam-assembly reservoir-B line, segment 25", "Tee branch collet, 1/4\" tube, rolled to aim down the fall to reservoir B"),
-    # Nozzle-gate assembly (Tray 3) — four boundary connectors, all bare valve port tips,
-    # derived the same way through the tray's INVERTED pose (180° about Y, in the pocket
-    # east of the bag assembly). V-G-I/V-J-I face WEST at the bag tray's east bank, each
-    # turned −Y by a discharge elbow onto its run to the divider; V-G-O/V-J-O face EAST into the
-    # +X wall pocket, each turned +Z by an outlet elbow onto its run aft to the rear umbilical.
-    _p("V-G-I", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VG-I"), 6.35, "Y-D-3 via elbow-y-g — segment 17 (routed)", "bare valve port collet, 1/4\" tube, facing west onto its discharge elbow"),
-    _p("V-J-I", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VJ-I"), 6.35, "Y-G-3 via elbow-y-d — segment 27 (routed)", "bare valve port collet, 1/4\" tube, facing west onto its discharge elbow"),
-    _p("V-G-O", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VG-O"), 6.35, "bulkhead-flavor-a via elbow-noz-a — segment 18 (routed)", "bare valve port collet, 1/4\" tube, facing east onto its outlet elbow"),
-    _p("V-J-O", "nozzle-gate-assembly", "fluid", *contents.noz_collet("VJ-O"), 6.35, "bulkhead-flavor-b via elbow-noz-b — segment 28 (routed)", "bare valve port collet, 1/4\" tube, facing east onto its outlet elbow"),
-    # Pump row — each Kamoer's two boundary connectors are its outlet ELBOWS' free collets
-    # (pump_assembly.py seats a PP0308E on each arch_xs outlet), carried through the lying
-    # pose (−90° about Y, +90° roll about X) + the POS tuples: the elbows stand on the +Z
-    # face, legs turning west over the head, both free collets facing −X at z 271.17. The
-    # two stations straddle the pump's width; inlet aft, outlet front (the peristaltic
-    # direction is firmware's; the assignment is the loom's convention). Ø is the 1/4"
-    # line nominal.
-    _p("P-A-I", "pump-a", "fluid", *contents.pump_inlet_pose("pump-a"), 6.35, "tee-y-f Y-F-3 — segment 21 (channel B suction, routed)", "PP0308E elbow collet, aft station, facing west at the collet centre (fluid-21 climbs the west end then runs east into it)"),
-    _p("P-A-O", "pump-a", "fluid", *contents.pump_outlet_pose("pump-a"), 6.35, "Y-G-1 divider stem — segment 22 (channel B discharge, routed)", "PP0308E elbow collet, front station, aimed east at y-g"),
-    _p("P-B-I", "pump-b", "fluid", *contents.pump_inlet_pose("pump-b"), 6.35, "tee-y-c Y-C-3 — segment 11 (channel A suction, routed)", "PP0308E elbow collet, aft station, aimed northwest where fluid-11 drops in off the pump row"),
-    _p("P-B-O", "pump-b", "fluid", *contents.pump_outlet_pose("pump-b"), 6.35, "Y-D-1 divider stem — segment 12 (channel A discharge, routed)", "PP0308E elbow collet, front station, facing west at y-d"),
-    # Pump-inlet union tees — free-hanging PP0208E fittings in the junction column, ports
-    # named by the fluid topology and derived off _contents' tee placement. The run lies on
-    # the line between the two collets it butts, which leans off vertical because both elbows
-    # are rolled to aim at each other: -1 down at the source drop, -2 up at the bag return,
-    # each one straight stub away, and branch -3 rolled about the run (JUNCTION_ROLL) to swing
-    # forward (−Y) off the pump row, where its suction leg picks it up.
-    _p("Y-C-1", "tee-y-c", "fluid", *contents.tee_port("tee-y-c", 1), 6.35, "source-select V-C-O — segment 9 (routed)", "PP0208E run collet, down the column at the source"),
-    _p("Y-C-2", "tee-y-c", "fluid", *contents.tee_port("tee-y-c", 2), 6.35, "bag-circuit V-E-O — segment 10 (routed)", "PP0208E run collet, up the column at the bag tray"),
-    _p("Y-C-3", "tee-y-c", "fluid", *contents.tee_port("tee-y-c", 3), 6.35, "pump-b P-B-I — segment 11 (routed)", "PP0208E branch collet, rolled forward (−Y) off the pump row"),
-    _p("Y-F-1", "tee-y-f", "fluid", *contents.tee_port("tee-y-f", 1), 6.35, "source-select V-D-O — segment 19 (routed)", "PP0208E run collet, down the column at the source"),
-    _p("Y-F-2", "tee-y-f", "fluid", *contents.tee_port("tee-y-f", 2), 6.35, "bag-circuit V-H-O — segment 20 (routed)", "PP0208E run collet, up the column at the bag tray"),
-    _p("Y-F-3", "tee-y-f", "fluid", *contents.tee_port("tee-y-f", 3), 6.35, "pump-a P-A-I — segment 21 (routed)", "PP0208E branch collet, rolled forward (−Y), canted east past tee-y-c"),
-    # Pump-discharge dividers Y-D/Y-G — free-hanging PP2308E two-way dividers over the pump row,
-    # ports off _contents' divider placement. Each divider is tilted (_solve_discharge) so its two
-    # parallel outlets (-2 upper, -3 lower) face back at a flavor's bag and nozzle elbows; the stem
-    # (-1) faces the pump discharge it will later feed. The netlist is diagonal — a flavor's two
-    # valves sit on opposite tray rows.
-    _p("Y-D-1", "y-d", "fluid", *contents.divider_port("y-d", 1), 6.35, "pump-b P-B-O — segment 12 (channel A discharge, routed)", "PP2308E stem collet, facing the pump"),
-    _p("Y-D-2", "y-d", "fluid", *contents.divider_port("y-d", 2), 6.35, "elbow-bag-y-d free — segment 13 (routed)", "PP2308E upper outlet, aimed at the bag-A elbow"),
-    _p("Y-D-3", "y-d", "fluid", *contents.divider_port("y-d", 3), 6.35, "elbow-y-g free — segment 17 (routed)", "PP2308E lower outlet, aimed at the nozzle-A elbow"),
-    _p("Y-G-1", "y-g", "fluid", *contents.divider_port("y-g", 1), 6.35, "pump-a P-A-O — segment 22 (channel B discharge, routed)", "PP2308E stem collet, facing the pump"),
-    _p("Y-G-2", "y-g", "fluid", *contents.divider_port("y-g", 2), 6.35, "elbow-bag-y-g free — segment 23 (routed)", "PP2308E upper outlet, aimed at the bag-B elbow"),
-    _p("Y-G-3", "y-g", "fluid", *contents.divider_port("y-g", 3), 6.35, "elbow-y-d free — segment 27 (routed)", "PP2308E lower outlet, aimed at the nozzle-B elbow"),
-    # The four discharge turn-elbows' free collets — where each LLDPE run to a divider leaves. Each
-    # elbow is rolled about its valve-port axis so its free leg aims at the divider outlet it feeds.
-    _p("free", "elbow-bag-y-d", "fluid", *contents.elbow_free_pose("elbow-bag-y-d"), 6.35, "y-d Y-D-2 — segment 13 (routed)", "PP0308E free collet, aimed at the Y-D upper outlet"),
-    _p("free", "elbow-y-g", "fluid", *contents.elbow_free_pose("elbow-y-g"), 6.35, "y-d Y-D-3 — segment 17 (routed)", "PP0308E free collet, aimed at the Y-D lower outlet"),
-    _p("free", "elbow-bag-y-g", "fluid", *contents.elbow_free_pose("elbow-bag-y-g"), 6.35, "y-g Y-G-2 — segment 23 (routed)", "PP0308E free collet, aimed at the Y-G upper outlet"),
-    _p("free", "elbow-y-d", "fluid", *contents.elbow_free_pose("elbow-y-d"), 6.35, "y-g Y-G-3 — segment 27 (routed)", "PP0308E free collet, aimed at the Y-G lower outlet"),
-    # The two nozzle-outlet elbows' free collets — where each LLDPE run to a rear flavor bulkhead
-    # leaves, standing +Z out of the +X wall pocket.
-    _p("free", "elbow-noz-a", "fluid", *contents.outlet_free_pose("elbow-noz-a"), 6.35, "bulkhead-flavor-a tube-in — segment 18 (routed)", "PP0308E free collet, up out of the pocket"),
-    _p("free", "elbow-noz-b", "fluid", *contents.outlet_free_pose("elbow-noz-b"), 6.35, "bulkhead-flavor-b tube-in — segment 28 (routed)", "PP0308E free collet, up out of the pocket"),
-    # Waveshare display — its data/power connector is NOT in the imported STEP (only the four
-    # corner mounts are), so this one harness port is placed provisionally on the interior (+Y)
-    # back face at the PCB centre. A viewer pick would pin it exactly.
-    _p("harness", "display", "electrical", (56.75, 43.8, 300.2), "y+", 8.0, "5 V power + display data (PCBA / power bus)", "connector not modeled in STEP; PROVISIONAL on the interior back face — refine with a pick"),
-    # Controller PCBA — every field loom lands on a labelled JST XH edge connector (J1–J14, no
-    # J12; ac-wiring-schedule.md §Board connector map). Each is given in the board's OWN pcb frame,
-    # `pcbX`/`pcbY` verbatim from pcba.tsx, and `contents.pcba_port` carries it to world through the
-    # placement's own yaw and offset — so the map is the board's, wherever the board is put, and Z
-    # is its top plane by construction (looms plug from +Z). Ø is the loom bundle OD by conductor
-    # count (est).
-    _p("J1-manifold-a", "pcba", "electrical", contents.pcba_port(11.0, 16.48),   "z+", 10.0, "8 manifold-A solenoids (DC-6)", "9-cond JST XH"),
-    _p("J2-manifold-b", "pcba", "electrical", contents.pcba_port(11.0, -5.77),   "z+", 8.0,  "4 manifold-B solenoids + condenser fan (DC-7/DC-8)", "6-cond JST XH"),
-    _p("J3-faucet",     "pcba", "electrical", contents.pcba_port(-52.25, -30.3), "z+", 6.0,  "faucet display UART up the umbilical (SIG-6)", "4-cond JST XH"),
-    _p("J4-sensors",    "pcba", "electrical", contents.pcba_port(-35.0, -30.3),  "z+", 8.0,  "temp bus + DIGITEN flow + moisture (SIG-1/4/9)", "7-cond JST XH"),
-    _p("J5-relays",     "pcba", "electrical", contents.pcba_port(-41.95, 31.0),  "z+", 6.0,  "both Teyleten relay modules (LV-1/2/3)", "4-cond JST XH"),
-    _p("J6-reeds-a",    "pcba", "electrical", contents.pcba_port(-27.1, 31.0),   "z+", 7.0,  "foam-assembly reed-cable-A — reservoir A reeds (SIG-10)", "5-cond JST XH"),
-    _p("J7-reeds-b",    "pcba", "electrical", contents.pcba_port(-0.5, -30.3),   "z+", 8.0,  "foam-assembly reed-cable-B — reservoir B + carbonator reeds (SIG-2/3/11)", "7-cond JST XH"),
-    _p("J8-i2c",        "pcba", "electrical", contents.pcba_port(1.3, 31.0),     "z+", 6.0,  "off-board MPR121 cap-sense (SIG-8)", "4-cond JST XH"),
-    _p("J9-display",    "pcba", "electrical", contents.pcba_port(-17.75, -30.3), "z+", 6.0,  "display harness — 4.3B RS485 + 12 V (SIG-7)", "4-cond JST XH"),
-    _p("J10-12v",       "pcba", "electrical", contents.pcba_port(12.35, -21.5),  "z+", 5.0,  "dc-dist 12 V block — board power inlet (DC-4)", "2-pole 5.0 mm screw block"),
-    _p("J11-gas",       "pcba", "electrical", contents.pcba_port(-62.0, -23.85), "z+", 6.0,  "mq6-sensor header — MQ-6 gas/leak sensor (SIG-12)", "4-cond JST XH"),
-    _p("J13-pumps",     "pcba", "electrical", contents.pcba_port(-12.25, 31.0),  "z+", 6.0,  "Kamoer pump A + B motors (DC-5)", "4-cond JST XH"),
-    _p("J14-usb",       "pcba", "electrical", contents.pcba_port(-62.0, 16.5),   "z+", 9.0,  "USB-C programming port (bench only, no loom)", "USB-C receptacle"),
-    # The AC hub's three lever nuts, west to east along the row, each face-up under the
-    # bay's own opening. Derived from the hub's pose the way the board's ports are.
-    _p("H", "ac-hub", "electrical", *contents.ac_hub_lug("H"), 8.0, "C14 hot in (AC-1 H); out to PSU primary (AC-2 H) and relay #1 COM (AC-3)", "16 AWG, ferruled under the lever"),
-    _p("N", "ac-hub", "electrical", *contents.ac_hub_lug("N"), 8.0, "C14 neutral in (AC-1 N); out to PSU primary (AC-2 N); third port open for the shroud lead (AC-5)", "16 AWG, ferruled under the lever"),
-    _p("G", "ac-hub", "electrical", *contents.ac_hub_lug("G"), 8.0, "C14 earth in (AC-1 G); out to PSU chassis (AC-2 G) and the ground stack", "16 AWG, ferruled under the lever"),
-    # Relay #1's two ends, both face-up on its PCB.
-    _p("contacts", "relay-1", "electrical", *contents.relay_terminal("contacts"), 8.0, "COM from the H lever nut (AC-3); NO to the compressor shroud's switched hot (AC-4)", "16 AWG, crimp forks under captive screws"),
-    _p("logic",    "relay-1", "electrical", *contents.relay_terminal("logic"),    6.0, "board J5 RELAYS loom — VCC/GND/IN (LV-1/2/3)", "22 AWG under captive screws"),
-    # The ground bus: one landing, every green bond onto it.
-    _p("stud", "ground-stack", "electrical", *contents.ground_stud(), 10.0, "chassis ground — C14 earth off the G lever nut, PSU chassis, pressure vessel, compressor body, and the shroud bond (AC-6)", "16 AWG green, ring terminals stacked under one M3 x 10"),
-    # 12 V distribution block — the three runs that land on it. The block has no station
-    # (its hardware is unpicked); these positions stand over the strip's remaining pocket.
-    _p("in",       "dc-dist", "electrical", (88.0, 290.0, 283.0), "z+", 6.0, "PSU 12 V output (DC-1)", "16 AWG; PROVISIONAL — block unstationed"),
-    _p("to-board", "dc-dist", "electrical", (88.0, 295.0, 283.0), "z+", 5.0, "board J10 12 V inlet (DC-4)", "16 AWG; PROVISIONAL — block unstationed"),
-    _p("to-relay2","dc-dist", "electrical", (88.0, 300.0, 283.0), "z+", 6.0, "Teyleten relay #2 contact — SeaFlo gate (DC-2)", "16 AWG; PROVISIONAL — block unstationed"),
-    # The PSU's two terminal blocks, each face-up on its own stepped end ledge. Derived
-    # from the pose the way the board's are, so they cannot drift from the body.
-    _p("ac-in",  "psu", "electrical", *contents.psu_terminal("ac-in"),  10.0, "C14 mains inlet via the AC distribution — H+N+G (AC-1/AC-2)", "16 AWG mains, ferruled under captive screws"),
-    _p("dc-out", "psu", "electrical", *contents.psu_terminal("dc-out"), 8.0,  "dc-dist 12 V block (DC-1)", "16 AWG, ferruled under captive screws"),
-]
+_PORTS = None
 
 
-# A foam-shell port's Ø is checked against the hole it actually crosses. The shell's round
-# bores and its shared slot are one width, so there is a single number to check against, and
-# a port declared fatter than it is a line that does not go through the wall — whatever its
-# fitting is on the warm side. The `located` axis cannot catch this: it asks whether a
-# coordinate lands on the body's surface, and a Ø too big for the bore lands on the surface
-# exactly as well as one that fits. A component's ports being self-consistent with its own
-# geometry is a property of the declaration, so it is checked where the declaration is.
-_FOAM_BORE = _cc.port_hole_radius * 2
-assert abs(_FOAM_BORE - _slot_width) < 1e-9, (
-    f"the round bores are ⌀{_FOAM_BORE:g} and the slot is ⌀{_slot_width:g} — the shell no "
-    f"longer has one port width, so a port cannot be checked against a single number")
-for _port in PORTS:
-    if _port.component == "foam-assembly" and _port.diam is not None:
-        assert _port.diam <= _FOAM_BORE + 1e-9, (
-            f"foam-assembly:{_port.name} declares Ø{_port.diam:g} through the shell's "
-            f"Ø{_FOAM_BORE:g} bore — it cannot cross the wall. Every transition happens on "
-            f"the warm side (assembly/cold-core.md), so the Ø here is the line AT the wall")
-del _port
+def ports() -> list:
+    """The declared connector set. The same list object every call — `scorecard_selftest`
+    appends a probe port to it and takes it away again."""
+    global _PORTS
+    if _PORTS is None:
+        _PORTS = _declare_ports()
+    return _PORTS
+
+
+def __getattr__(name):
+    """`scorecard.PORTS` from another module. A bare `PORTS` inside this one does not come
+    through here, so this module's own readers call `ports()`."""
+    if name == "PORTS":
+        return ports()
+    if name == "PLACEMENT_RULES":
+        return placement_rules()
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 
 # Components that carry NO tube or wire connector at all — a passive body, located trivially
 # once declared connector-free. Declaring the absence is the honest analogue of declaring a
 # position — never a silent gap, and it lets the located axis reach 100% without inventing a
-# port. Empty today: every packed component carries at least one connector. A name here must
-# own no PORTS entry (asserted in ports_audit).
-PASSIVE_NO_PORTS: frozenset = frozenset()
+# port. The basin catches the vent's drip and is drawn out to be emptied by hand, and its rails
+# are structure; nothing joins either. A name here must own no PORTS entry (asserted in
+# ports_audit).
+PASSIVE_NO_PORTS: frozenset = frozenset({"drip-pan", "drip-pan-rails"})
 
 
 def _on_bbox_surface(pos, bb, tol) -> bool:
@@ -1042,16 +1402,16 @@ def ports_audit(solids: dict, tol: float = 2.0) -> list[tuple[str, bool, list]]:
     a full coordinate AND bore, the PCBA per-pad specificity. Components with no ports declared
     are not returned — like placement rules, they are simply not-yet-authored."""
     by_comp: dict[str, list[Port]] = {}
-    for p in PORTS:
+    for p in ports():
         by_comp.setdefault(p.component, []).append(p)
     contradiction = PASSIVE_NO_PORTS & by_comp.keys()
     assert not contradiction, f"declared connector-free but has ports: {sorted(contradiction)}"
     out = []
-    for comp, ports in by_comp.items():
+    for comp, comp_ports in by_comp.items():
         solid = solids.get(comp)
         shell = _face_shell(solid) if (solid is not None and _HAVE_EXACT) else None
         rows = []
-        for p in ports:
+        for p in comp_ports:
             fluid = (p.kind == "fluid" and p.pos is not None and p.diam is not None
                      and bool(p.face) and solid is not None and shell is not None)
             if p.pos is None:
@@ -1138,6 +1498,8 @@ def pack_clashes(solids: dict, pieces: dict) -> list[tuple[str, str, float]]:
     """Every content pair, plus every content-vs-piece pair, whose overlap volume passes
     CLASH_TOL — the pack-closes gate (the box's original collision check, now the
     scorecard's first gate)."""
+    if not _computes("pack-closes"):
+        return []
     names = list(solids)
     bbs = {n: _boxes.boxed(solids[n]) for n in names}
     out = []
@@ -1235,11 +1597,143 @@ def line_clashes(lines: dict, solids: dict, ends: dict) -> list[tuple[str, str, 
     return out
 
 
+# ── Tube bend radius ────────────────────────────────────────────────────────
+# A tube has a radius below which it stops being a tube: the wall on the inside of the turn
+# buckles, the bore goes oval and then shut, and a push-to-connect collet a kink runs into no
+# longer seals. That floor is a property of the STOCK — its material, its wall, its diameter —
+# and not of the run, so it is stated here per stock and every run drawn in that stock is
+# measured against it. Conventionally it is quoted as a multiple of OD, which is how these read.
+#
+# `min_bend` is the tightest CENTRELINE radius the stock takes. Two of the three are sourced;
+# the LLDPE one is seeded, like CLEARANCE_FLOOR and `_routing.BEND_RATIO` — ~1 in. is the figure
+# 1/4" polyethylene push-to-connect tube is commonly published at, and the tube actually bought
+# ratifies it.
+@dataclass
+class Stock:
+    name: str
+    od: float            # the tube's outside Ø — the run's own `diam`
+    min_bend: float      # tightest centreline radius, mm
+    kinds: tuple         # the run kinds drawn in it
+    source: str
+
+
+STOCKS = (
+    Stock("1/4\" LLDPE", 6.35, 25.4, ("fluid", "water", "co2"),
+          "4×OD — seeded from the ~1 in. minimum 1/4\" polyethylene tube is published at"),
+    Stock("1/4\" soft ACR copper", 6.35, 12.7, ("refrigerant",),
+          "2×OD — a lever bender's smallest common former (_routing.BEND_RATIO)"),
+    Stock("3/8\" braided PVC", 15.10, 15.9, ("water",),
+          "neoPure PVCR-0610 datasheet minimum"),
+)
+
+# Grade bands on `radius ÷ the stock's minimum`. B is the requirement — a run AT its stock's
+# floor is buildable and nothing more; A is the room that survives a part moving a millimetre.
+GRADE_BANDS = ((1.5, "A"), (1.0, "B"), (0.75, "C"), (0.5, "D"), (0.0, "F"))
+BEND_GRADE_PASS = "B"       # the worst grade a run may carry and still clear the gate
+
+
+def stock_of(kind: str, od: float) -> Stock:
+    """The stock a run is drawn in, from its kind and bore Ø. Raises on a pair no stock claims —
+    a new tube on the machine states its own bend floor before its runs can be graded."""
+    for s in STOCKS:
+        if kind in s.kinds and abs(s.od - od) < 0.05:
+            return s
+    have = "; ".join(f"{s.name} Ø{s.od:g} for " + "/".join(s.kinds) for s in STOCKS)
+    raise KeyError(
+        f"no stock declared for a {kind} run at Ø{od:g} — add it to STOCKS with the minimum "
+        f"bend radius its datasheet gives (have: {have})")
+
+
+def grade_of(ratio: float) -> str:
+    return next(g for lo, g in GRADE_BANDS if ratio >= lo)
+
+
+def bend_radii(runs) -> list[dict]:
+    """Every authored run graded on the radius it turns at, worst first.
+
+    Two grades, because two different things are wrong when a bend is too tight:
+
+      `drawn` — the radius the run is authored at over its stock's minimum. This is the
+                buildable/not question, and the gate reads it.
+      `reach` — the largest radius the run's own INTERIOR legs could seat, over the same
+                minimum (`_routing.leg_caps`). This is the ceiling the PACK imposes: how gentle
+                the run could be made if only its `bend=` were raised.
+
+    The pair is the diagnostic. `drawn` F with `reach` A is an authoring number — one edit in
+    `_lines.py` and the run is legal. `drawn` F with `reach` F is a placement: the lane the run
+    passes through is too short to turn in at any legal radius, and something on either side of
+    it has to move. The leads are held out of `reach` on purpose — a run's exit and approach
+    stubs are reaches the author picks, so counting them would blame the pack for a number it
+    does not own, and every run whose stub is one bend radius (`_routing.STUB`) would report a
+    ceiling exactly at the radius it is already drawn at.
+
+    `reach` bounds the CENTRELINE and nothing else. A run redrawn at its reach sweeps a wider
+    tube through different air, so it is a radius the waypoints seat, not one the pack has room
+    for — `lines-clear` and the routed clearances are what answer that, after the edit.
+
+    A run with no corner carries no bend to grade: `grade` is None and it is out of the gate's
+    population. The radius on a straight run is the one it would turn at if it turned.
+    """
+    import _routing as R
+
+    rows = []
+    for r in runs:
+        st = stock_of(r.kind, r.diam)
+        caps = R.leg_caps(r)
+        inner = [c for c in caps if c[4] == "interior"]
+        seat = min((c[0] for c in caps), default=float("inf"))
+        hold = min((c[0] for c in inner), default=float("inf"))
+        binding = min(inner, key=lambda c: c[0]) if inner else None
+        turns = [t for _i, t, _a, _b in r.bends]
+        # Each CORNER is graded on the radius it turns at, and the run reports its worst. A run
+        # holds as many radii as it has corners (`_routing.seat_radii`), so one number for the
+        # whole run is the tightest of them and says nothing about the rest.
+        corners = [{"at": i, "turn": round(t, 1), "radius": round(r.radii[i], 3),
+                    "ratio": round(r.radii[i] / st.min_bend, 4),
+                    "grade": grade_of(r.radii[i] / st.min_bend),
+                    "legs": [round(a, 2), round(b, 2)]}
+                   for i, t, a, b in r.bends]
+        tightest = min((c["radius"] for c in corners), default=r.bend)
+        ratio = tightest / st.min_bend
+        rows.append({
+            "id": r.id, "kind": r.kind, "frm": r.frm, "to": r.to,
+            "stock": st.name, "od": r.diam,
+            "radius": round(tightest, 3), "cap": round(r.bend, 3), "minBend": st.min_bend,
+            "ratio": round(ratio, 4),
+            "grade": grade_of(ratio) if turns else None,
+            "need": need.figures(r),
+            "corners": corners,
+            "atSpec": sum(1 for c in corners if c["radius"] >= st.min_bend - 1e-9),
+            "bends": len(turns), "worstTurn": round(max(turns), 1) if turns else None,
+            "seat": None if seat == float("inf") else round(seat, 3),
+            "reach": None if hold == float("inf") else round(hold, 3),
+            "reachRatio": None if hold == float("inf") else round(hold / st.min_bend, 4),
+            "reachGrade": None if not turns else ("A" if hold == float("inf")
+                                                  else grade_of(hold / st.min_bend)),
+            "binding": None if binding is None else {
+                "leg": binding[1], "length": round(binding[2], 3),
+                "demand": round(binding[3], 4),
+                "from": [round(v, 2) for v in r.pts[binding[1]]],
+                "to": [round(v, 2) for v in r.pts[binding[1] + 1]],
+            },
+        })
+    order = {g: i for i, (_lo, g) in enumerate(GRADE_BANDS)}
+    # Worst first, and within a grade the run with the least room to improve — which is the
+    # order the work wants: a run whose lanes cannot hold a legal bend is a part to move, and
+    # one whose lanes can is a number to raise. The ungraded straights sort last.
+    rows.sort(key=lambda d: (0 if d["grade"] else 1,
+                             -order.get(d["grade"], 0), -order.get(d["reachGrade"], 0),
+                             d["reachRatio"] if d["reachRatio"] is not None else 1e9))
+    return rows
+
+
 def part_clearances(solids: dict) -> list[tuple[str, str, float, bool]]:
     """Content pairs closer than REPORT_NEAR, as (a, b, gap, allowed) sorted tightest
     first. `allowed` marks a declared intentional contact (TOUCHING_OK). Part-to-wall is
     excluded on purpose — parts seat against walls by design; overlap there is the
     pack-closes gate's job, not clearance."""
+    if not _computes("clearance-floor"):
+        return []
     names = list(solids)
     bbs = {n: _boxes.boxed(solids[n]) for n in names}
     out = []
@@ -1251,6 +1745,121 @@ def part_clearances(solids: dict) -> list[tuple[str, str, float, bool]]:
             if gap < REPORT_NEAR:
                 out.append((a, b, gap, frozenset((a, b)) in TOUCHING_OK))
     out.sort(key=lambda r: r[2])
+    return out
+
+
+# ── Mounted (a FOCUS axis) — the part whose printed feature fastens each component ──────────
+# A component is MOUNTED when the feature that holds it is printed INTO another placed part.
+# The board is the case the rest is read against: four boss columns stand in the cold core's top
+# cap, so the cap holds the board, and the board is mounted whether or not the cap itself is.
+# The test is local — what fastens THIS one — not a chain down to the floor.
+#
+# Resting on something is not being mounted, however closely. The front column's three trays
+# carry mount ears and nothing under them answers: the bag-A plate rests over the refrigeration
+# stratum, and the one body in reach — the compressor shroud, 12 mm under it — is sheet metal,
+# which can carry no printed feature. Capture is not a fastener either: `foam-assembly` sits in
+# a floor pocket, and `display` in a shell facet, and neither is mounted. Nor is adhesive.
+#
+# Distinct from the looser `held`, which is a declared holder STATE and counts both of those.
+# The value here is the part whose printed geometry does the fastening, so each row names its
+# own joint and an absent row is a component nothing yet fastens.
+MOUNTED_BY = {
+    # The cold core's top cap carries a boss column per hole; M3 SHCS into a ruthex short in each.
+    # `deck-mounts-land` is the gate that measures whether each module still stands on all of its.
+    "ground-stack": "foam-assembly",
+    # The aft stand's two plates, bolted through their own mount ears to cap columns that stop
+    # under the lid — the PSU's joint at the trays' stations. These rows read the other way from
+    # the modules': the trays are placed by the enclosure's fences and the cap's table stands
+    # where the placed ears land, held there by `deck-mounts-land`'s alignment rows.
+    "bag-b-tray-assembly":  "foam-assembly",
+    "vk-tray-assembly":     "foam-assembly",
+    "nozzle-tray-assembly": "foam-assembly",
+    # Two M3 stations off `panel_screws()`, standing as bosses proud of the back panel's outer
+    # face at insert depth plus a cap, drilled blind from the inner face.
+    "c14-inlet":    "enclosure_back_top",
+}
+
+
+# The cap deck mounts, and the solid each one carries. A module's own name IS its mount's
+# except the ground bus, which is placed as the stack of lugs standing on its single column,
+# and the aft stand's two trays, whose mounts follow THEM (`contents.TRAY_MOUNTS`).
+# The cap's deck mounts, module by module. NO ELECTRICAL BODY is among them: the brick, the
+# controller, the relay, the hub and the ground stud all hang on the +X wall
+# (`_contents.EAST_WALL_SEAT`), so the joints that hold them are the wall's and not the cap's,
+# and what the cap carries is the three fluid trays.
+DECK_MOUNTED = {"bag-b-tray": "bag-b-tray-assembly",
+                "vk-tray": "vk-tray-assembly",
+                "nozzle-tray": "nozzle-tray-assembly"}
+
+
+def deck_mount_landings(solids: dict) -> list[tuple[str, int, int, float]]:
+    """Every cap deck mount, as (module, columns landed on, columns total, worst miss mm).
+
+    A deck-mounted module is bolted down — one M3 through the module into a ruthex set in each
+    column top — and the two ends of that joint are authored in DIFFERENT frames: the column is
+    printed into the foam cap, the module rides the pack's own seat. So a module can be stood
+    where no column reaches it and still rest on the cap, clear every other body, and read as
+    seated everywhere else on this card. `clearance-floor` cannot see it either: cap-carries-module
+    is a declared contact, and the contact stays true while the screws land in air.
+
+    A column lands when the module has material directly over it — the plan test, cast as the
+    column's own circle up the module's own height and intersected with it. `worst miss` is how
+    far the furthest unlanded column stands from the module's outline, so the report says how far
+    out it is and not just that it is out."""
+    import cadquery as cq
+    out = []
+    for mount, name in sorted(DECK_MOUNTED.items()):
+        if name not in solids:
+            continue
+        solid = solids[name]
+        b = _boxes.boxed(solid)
+        _ctr, cols, _top = contents.deck_mount(mount)
+        landed, miss = 0, 0.0
+        for cx, cy in cols:
+            probe = (cq.Workplane("XY").workplane(offset=b.zmin - 1.0)
+                     .circle(_cc.deck_mount_boss_radius)
+                     .extrude(b.zlen + 2.0).val())
+            probe = probe.translate((cx, cy, 0.0))
+            # Per solid, and summed — NOT one boolean against the whole body. A tray
+            # assembly is a COMPOUND (its plate and each of its valves are separate
+            # solids), and a boolean against a compound under-reports: the same probe
+            # that finds 264.65 mm³ of plate under an ear reads 0.00 against the
+            # compound the plate is one of. A module with no material over a column is
+            # a module whose screws land in air, so a false miss here is the check
+            # calling a good joint bad — and a false LAND would be worse.
+            if sum(probe.intersect(s).Volume() for s in solid.Solids()) > 1e-6:
+                landed += 1
+            else:
+                miss = max(miss, min((_solid_gap(probe, s) for s in solid.Solids()),
+                                     default=0.0))
+        out.append((name, landed, len(cols), miss))
+    return out
+
+
+def tray_mount_alignment() -> list[tuple[str, float, list]]:
+    """Each aft-stand plate's worst ear-hole-to-column miss in plan, mm, with the
+    cap-frame stations its placed ears actually want.
+
+    The two ends of a tray's joint are authored in different frames — the ear rides the
+    tray's own seat, the column the cap's table — and the TRAY is the authority: it is
+    placed by the enclosure's fences, and the table's stations are that derivation's
+    result. The landing probe cannot read this (an ear is material over the column at
+    any small drift), so this is the check that holds the table to the trays. A row past
+    the mechanism's own slip is a moved tray, and its detail carries the stations the
+    new pose wants, in the frame `_cold_core_interface.deck_mounts` is written in.
+
+    The table's SEAT is the same kind of copy — the plate thickness the screw crosses
+    before the lid — so a plate rethickened without the table hearing counts as the same
+    drift, folded into the row's miss."""
+    plate = contents.tray_mount_seat()
+    out = []
+    for mount, body in sorted(contents.TRAY_MOUNTS.items()):
+        holes = contents.tray_mount_holes(mount)
+        _ctr, cols, _top = contents.deck_mount(mount)
+        worst = max(min(math.hypot(hx - cx, hy - cy) for cx, cy in cols)
+                    for hx, hy in holes)
+        worst = max(worst, abs(_cc.deck_mounts[mount].seat - plate))
+        out.append((body, worst, [contents.foam_cap_frame(h) for h in holes]))
     return out
 
 
@@ -1300,6 +1909,7 @@ class Scorecard:
     shaped: int
     routed: int
     held: int
+    mounted: int
     ports: list = field(default_factory=list)   # the full connector inventory — every port's
                                                 # component, position, face, bore Ø, mate, and
                                                 # status. Uncapped (unlike check.detail, which
@@ -1309,6 +1919,19 @@ class Scorecard:
                                                 # per solid it is built from), how much of them is
                                                 # material, and whether the geometry is still a
                                                 # bare primitive. Also uncapped.
+    bends: list = field(default_factory=list)   # per routed run: the radius it turns at, the stock
+                                                # minimum it is graded against, and the interior
+                                                # leg that caps how gentle it could be made.
+                                                # Uncapped, unlike the gate's own detail.
+    mounts: list = field(default_factory=list)  # per component: the part whose printed feature
+                                                # fastens it (None = the joint is still to
+                                                # design) and what merely holds it today. The
+                                                # other focus axis's table, in the same form.
+    poses: list = field(default_factory=list)   # per component: whether its POSE is settled or
+                                                # provisional, and for a settled one the
+                                                # statement of what is settled. Reported, never
+                                                # graded — provisional is a true state of the
+                                                # work and not a shortfall in it.
 
 
 def _pct(done: int, total: int) -> int:
@@ -1321,6 +1944,8 @@ def routed_check(solids=None) -> tuple:
     component audits do not: a build reusing cached component audits still recomputes this fresh,
     so the routed % never goes stale. Given the placed solids, each authored run's detail carries
     its tightest gap to a part it does not terminate on — the tube↔part clearance."""
+    if not _computes("routed"):
+        return _stood_down("routed", "Connections modeled as real 3D paths", "goal"), 0
     import _lines
     conns = load_connections()
     fluid = sum(1 for c in conns if c.kind == "fluid")
@@ -1329,12 +1954,14 @@ def routed_check(solids=None) -> tuple:
     water = sum(1 for c in conns if c.kind == "water")
     co2 = sum(1 for c in conns if c.kind == "co2")
     routed_done = sum(1 for c in conns if c.routed)
+    blocked = sum(1 for c in conns if c.blocked)
     routed = _pct(routed_done, len(conns))
+    # Derived, not narrated: a hand-written account of which paths stand goes stale the
+    # build after it is written, and this line is the one a reader takes the state from.
     routed_detail = [f"{fluid} fluid + {water} water + {co2} CO2 + {refrig} refrigerant + "
-                     f"{wire} electrical; {routed_done} routed — the water and CO2 paths are "
-                     f"closed end to end, the fluid path waits on the manifold's remaining "
-                     f"on-tray legs, the refrigerant loop on its suction leg, and the electrical "
-                     f"runs on the components being held"]
+                     f"{wire} electrical; {routed_done} routed, {blocked} blocked by the pack, "
+                     f"{len(conns) - routed_done - blocked} waiting on an author or on a body "
+                     f"the pack has not placed"]
     # The per-run nearest-gap report is an exact solid-distance query against every body.
     # HSM_SKIP_CLEARANCES drops it; each run's ports, length and bends still print, and
     # `lines-clear` still gates on interpenetration.
@@ -1364,6 +1991,9 @@ def lines_clear_check(solids: dict, pieces: dict) -> Check:
     may drive through a part it does not terminate on, through a printed piece, or through another
     tube. Blocks the export alongside pack-closes (enclosure_assembly.main) — a tube that
     intersects another solid is as physically unbuildable as two overlapping parts."""
+    if not _computes("lines-clear"):
+        return _stood_down("lines-clear",
+                           "No routed tube intersects a part, a piece or another tube")
     import _lines
     import _routing as R
     runs = _lines.build_runs()
@@ -1375,15 +2005,108 @@ def lines_clear_check(solids: dict, pieces: dict) -> Check:
                  [f"{a} ∩ {b}: {v:.1f} mm³" for a, b, v in clashes][:DETAIL_MAX])
 
 
+def bend_radius_check() -> tuple:
+    """The bend-radius GATE and the table behind it — a (Check, rows) pair. Reads _lines, so it
+    is recomputed on a cache hit like `routed` and `lines-clear`; a route redrawn at a new radius
+    must never be graded on the last build's corners.
+
+    A tube turned tighter than its stock takes kinks: the bore goes oval and then shut, and the
+    machine cannot be assembled with that piece of tube in it. That is the same class of defect
+    as two solids overlapping, so it gates rather than scores — the anticipated one this file's
+    clearance note has been naming since it was written. It reports without blocking the export,
+    as every gate but pack-closes and lines-clear does."""
+    import _lines
+    rows = bend_radii(_lines.build_runs())
+    order = {g: i for i, (_lo, g) in enumerate(GRADE_BANDS)}
+    limit = order[BEND_GRADE_PASS]
+    graded = [d for d in rows if d["grade"]]
+    straight = len(rows) - len(graded)
+    short = [d for d in graded if order[d["grade"]] > limit]
+    hist = {g: sum(1 for d in graded if d["grade"] == g) for _lo, g in GRADE_BANDS}
+    pinned = sum(1 for d in short if order[d["reachGrade"]] > limit)
+    worst = graded[0]["grade"] if graded else "A"
+    tally = " ".join(f"{g}:{hist[g]}" for _lo, g in GRADE_BANDS if hist[g])
+
+    corners = [c for d in rows for c in d["corners"]]
+    at_spec = sum(d["atSpec"] for d in rows)
+    detail = ["grade = radius ÷ the stock's minimum — " + ", ".join(
+        f"{s.name} R{s.min_bend:g} ({s.source})" for s in STOCKS)]
+    # Every CORNER turns at its own radius, so the population is corners and a run's grade is the
+    # worst of the ones it holds. A run reading F on one corner and A on three is the ordinary
+    # case, and the run figure alone hides which.
+    detail.append(
+        f"{at_spec}/{len(corners)} CORNERS at or above their stock's minimum, across "
+        f"{len(graded)} bent runs")
+    detail.append(
+        f"{len(graded) - len(short)}/{len(graded)} runs with every corner at or above it; "
+        f"{tally}; {straight} straight runs carry no bend to grade. Rows read "
+        f"drawn/reach — `reach` is the largest radius this run's INTERIOR legs could seat, so a "
+        f"row failing on BOTH is a placement to move and not a number to raise ({pinned} of "
+        f"{len(short)}). Reach bounds the centreline only: a run redrawn at it sweeps a wider "
+        f"tube, and lines-clear is what says whether that fits. Each row ends with its NEED — "
+        f"the span its two ends stand apart, split by axis, against the path drawn: a path far "
+        f"over its span rides infrastructure its ends do not ask for, and there the move is "
+        f"the route, not the corner (need.py prints the pack's table, worst first).")
+    # Which BODIES the pinned runs hang off. A reach failure is a leg too short to turn in, and
+    # a leg is short because of where its run's two ends stand — so the components on the ends
+    # of those runs are the ones a fix moves, and the ones carrying several are where to start.
+    pin = {}
+    for d in rows:
+        if d["reachGrade"] and order[d["reachGrade"]] > limit:
+            for comp in (d["frm"].split(".")[0], d["to"].split(".")[0]):
+                pin.setdefault(comp, []).append(d["id"])
+    ranked = sorted(pin.items(), key=lambda kv: (-len(kv[1]), kv[0]))[:8]
+    if ranked:
+        detail.append("pinned runs hang off: " + "; ".join(
+            f"{c} ×{len(ids)} ({', '.join(sorted(ids))})" for c, ids in ranked))
+    for d in rows:
+        b = d["binding"]
+        where = (f"leg {b['leg']}→{b['leg'] + 1} is {b['length']:.2f} mm and wants "
+                 f"{b['demand']:.2f}×R, {tuple(b['from'])}→{tuple(b['to'])}"
+                 if b else "no interior leg — its own stubs alone hold it")
+        if not d["grade"]:
+            detail.append(f"—/— {d['id']}: straight, no bend — {d['stock']}, R{d['radius']:.2f} "
+                          f"if it turned")
+            continue
+        n = d["need"]
+        detail.append(
+            f"{d['grade']}/{d['reachGrade']} {d['id']} ({d['frm']} → {d['to']}): "
+            f"{d['atSpec']}/{d['bends']} corners at spec, tightest R{d['radius']:.2f} = "
+            f"{d['ratio']:.2f}× the {d['stock']} minimum (R{d['minBend']:g}) under a cap of "
+            f"R{d['cap']:.2f}, corners "
+            + "[" + ", ".join(f"{c['at']}:R{c['radius']:.1f}{c['grade']}" for c in d["corners"])
+            + "] — reach "
+            + (f"R{d['reach']:.2f} ({d['reachRatio']:.2f}×): {where}"
+               if d["reach"] is not None else f"unbounded: {where}")
+            + f" — need Δ({n['axis']['x']:g}, {n['axis']['y']:g}, {n['axis']['z']:g}) "
+            + f"span {n['span']:g}, path {n['path']:g}"
+            + (f" = {n['detour']:.2f}× span" if n["detour"] is not None else ""))
+    # Worst-first, so the cap takes the best rows off the end. Say so rather than letting the
+    # list end where a reader would read it as complete; `scorecard.bends` carries all of them.
+    if len(detail) > FOCUS_DETAIL_MAX:
+        detail = detail[:FOCUS_DETAIL_MAX - 1] + [
+            f"… {len(detail) - FOCUS_DETAIL_MAX + 1} further rows not shown — the list is "
+            f"worst-first, so these grade better or are ungraded straights; the sidecar's "
+            f"`bends` table carries all {len(rows)}"]
+    ck = Check("bend-radius", "Every routed tube turns at or above its stock's minimum radius",
+               "gate", "pass" if not short else "fail",
+               f"{worst} — {at_spec}/{len(corners)} corners at spec",
+               f"every corner ≥ its stock's minimum ({BEND_GRADE_PASS})", detail)
+    return ck, rows
+
+
 def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float], inner: tuple) -> Scorecard:
     reg = {c.name: c for c in COMPONENTS}
     checks: list[Check] = []
 
+    def _cap(cid):
+        return FOCUS_DETAIL_MAX if cid in FOCUS_IDS else DETAIL_MAX
+
     def gate(cid, label, ok, value, target, detail=None):
-        checks.append(Check(cid, label, "gate", "pass" if ok else "fail", value, target, (detail or [])[:DETAIL_MAX]))
+        checks.append(Check(cid, label, "gate", "pass" if ok else "fail", value, target, (detail or [])[:_cap(cid)]))
 
     def goal(cid, label, done, value, target, detail=None, active=True):
-        checks.append(Check(cid, label, "goal", "pass" if done else "warn", value, target, (detail or [])[:DETAIL_MAX], active))
+        checks.append(Check(cid, label, "goal", "pass" if done else "warn", value, target, (detail or [])[:_cap(cid)], active))
 
     # ── GATES — must hold to print + assemble what is placed ──
     # Coverage: the registry must describe exactly the placed set, or the goal counts
@@ -1392,19 +2115,54 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     declared = set(reg)
     undeclared = sorted(placed_set - declared)
     unplaced = sorted(declared - placed_set)
-    gate("coverage", "Every placed part declared in the registry", not undeclared and not unplaced,
+    # A settled pose whose name is not a component stands as authority over a body the pack
+    # does not have.
+    orphan_settled = sorted(set(SETTLED) - declared)
+    gate("coverage", "Every placed part declared in the registry",
+         not undeclared and not unplaced and not orphan_settled,
          f"{len(placed_set & declared)}/{len(placed_set)} placed declared", "all declared",
-         [f"{n}: placed but not declared" for n in undeclared] + [f"{n}: declared but not placed" for n in unplaced])
+         [f"{n}: placed but not declared" for n in undeclared]
+         + [f"{n}: declared but not placed" for n in unplaced]
+         + [f"{n}: pose declared settled but no such component" for n in orphan_settled])
 
     clashes = pack_clashes(solids, pieces)
     gate("pack-closes", "No two solids overlap (pack closes)", not clashes,
          f"{len(clashes)} clash", "0 clash",
          [f"{a} ∩ {b}: {v:.1f} mm³" for a, b, v in clashes])
 
+    # A pose derived from a band it does not have still lands, and pack-closes reads the overlap
+    # it makes — but a band short of what stands in it is a measurement, and the body that has to
+    # move to give it back is often not either of the two the clash names. `_contents.SHORT` is
+    # filled as the pack is built, so this reads the same build the solids above came from.
+    gate("room-holds", "Every derived pose has the room its own construction states",
+         not contents.SHORT, f"{len(contents.SHORT)} short", "0 short",
+         [f"{who}: {why}" for who, why in sorted(contents.SHORT.items())])
+
     # The routed tubes clash against the placed solids the same way — but they live outside the
     # component registry, so pack-closes never sees them. Fresh every build (reads _lines); the
     # cache layer recomputes it on a hit, like routed.
     checks.append(lines_clear_check(solids, pieces))
+
+    # And they have to be BENDABLE. lines-clear says a tube's path is free of everything else;
+    # this says the path can be made out of that tube at all.
+    bend_ck, bend_rows = bend_radius_check()
+    checks.append(bend_ck)
+
+    # Body-to-body clearance says two parts do not touch; it never says a connector between
+    # them can be used. This does: every tube port gets its own bore cast along its own axis
+    # for the straight a run off it would take. Two trays a clean millimetre apart with their
+    # collets facing each other pass every other check on this card and pass nothing a tube
+    # can be built through.
+    leads = port_leads(solids)
+    short = [r for r in leads if not r[5] and r[6]]
+    ungated = [r for r in leads if not r[6]]
+    gate("port-leads", "Every tube port has the straight a run off it needs", not short,
+         f"{sum(1 for r in leads if r[6]) - len(short)}/{sum(1 for r in leads if r[6])} clear",
+         "all clear",
+         [f"{c}.{p}: {free:.2f} mm to {who}, needs {need:.2f} — ✗ no room to leave"
+          for c, p, who, free, need, ok, _g in short]
+         + [f"{c}.{p}: {free:.2f} mm to {who}, needs {need:.2f} — picked on placeholder "
+            f"geometry, not gated" for c, p, who, free, need, ok, _g in ungated if not ok])
 
     clr = part_clearances(solids)
     violations = [(a, b, g) for a, b, g, allowed in clr if not allowed and g < CLEARANCE_FLOOR]
@@ -1414,6 +2172,26 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
          # Show the tightest handful either way, marking declared contacts and violations.
          [f"{a} — {b}: {g:.2f} mm" + (" — CONTACT (declared ok)" if allowed else (" — ✗ below floor" if g < CLEARANCE_FLOOR else ""))
           for a, b, g, allowed in clr[:DETAIL_MAX]])
+
+    # A module bolted to the cap and the columns it bolts to are authored in different frames,
+    # so nothing else on this card compares them: the contact between them is declared, and a
+    # module standing where no column reaches still makes it. This is what reads the joint —
+    # landings for the modules the stations place, and hole-to-bore alignment for the trays
+    # the stations follow.
+    land = deck_mount_landings(solids)
+    off = [r for r in land if r[1] < r[2]]
+    align = tray_mount_alignment()
+    adrift = [r for r in align if r[1] > _cc.deck_mount_lid_slip]
+    gate("deck-mounts-land", "Every cap-mounted module stands on all of its own columns",
+         not off and not adrift,
+         f"{sum(r[1] for r in land)}/{sum(r[2] for r in land)} columns landed", "all landed",
+         [f"{n}: {c}/{t} columns under it — furthest stands {m:.2f} mm off its outline"
+          for n, c, t, m in off]
+         + [f"{n}: an ear hole stands {m:.2f} mm off its column's bore — the tray moved and the "
+            f"cap's table has not. `_cold_core_interface.deck_mounts` wants stations "
+            + "; ".join(f"({x:.2f}, {y:.2f})" for x, y in want)
+            for n, m, want in adrift])
+
 
     beds = fit_bed(pieces, bed)
     over = [r for r in beds if not r[4]]
@@ -1448,7 +2226,7 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     placed_detail = [f"{'✓' if ok else '✗'} {name}: {_fmt(cks)} mm" for name, ok, cks in pa]
     placed_detail.append(f"{total - len(pa)} components: no placement rules defined yet")
     goal("placed", "Placement criteria defined and held (face-to-datum)", placed_pct == 100,
-         f"{placed_pct}% ({len(placed_held)}/{total})", "100%", placed_detail, active=True)
+         f"{placed_pct}% ({len(placed_held)}/{total})", "100%", placed_detail, active=False)
 
     # located — FOCUS: every connector (tube + wire) has a position AND a bore on the component.
     # A connection has no path until both ends are located, so this is the precondition to routed.
@@ -1472,7 +2250,7 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     unlocated = total - len(pta) - len(passive)
     located_detail.append(f"{unlocated} components: no connector positions defined yet")
     goal("located", "Connectors located on the component — position + bore Ø (tubes + wires)", located_pct == 100,
-         f"{located_pct}% ({len(located_comps) + len(passive)}/{total})", "100%", located_detail, active=True)
+         f"{located_pct}% ({len(located_comps) + len(passive)}/{total})", "100%", located_detail, active=False)
 
     # shaped — FOCUS: real geometry, not a placeholder box/cylinder. The registry declares it and
     # the geometry has to agree: a bare box or cylinder is a placeholder whatever the entry says,
@@ -1497,7 +2275,7 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
                       f"{f * 100:.0f}% material" for f, n in loose]
     goal("shaped", "Components modeled as real geometry (not a placeholder box)",
          shaped == 100 and not mismatched,
-         f"{shaped}% ({len(real)}/{total})", "100%", shaped_detail, active=True)
+         f"{shaped}% ({len(real)}/{total})", "100%", shaped_detail, active=False)
 
     # routed — DEFERRED: every fluid + water + refrigerant + electrical connection a real 3D path. Lives in
     # routed_check() so a cache-hit build can recompute just this (it reads _lines) without redoing
@@ -1510,8 +2288,42 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
     held = _pct(len(held_done), total)
     goal("held", "Components in a printed holder fastened to the enclosure", held == 100,
          f"{held}% ({len(held_done)}/{total})", "100%",
-         [f"{len(held_done)} held (through-wall bodies + display); {total - len(held_done)} loose internal parts unheld"],
+         [f"{len(held_done)} held ({', '.join(f'{c.name} by {c.held}' for c in held_done) or 'none'}); "
+          f"{total - len(held_done)} loose internal parts unheld"],
          active=False)
+
+    # mounted — FOCUS: the feature that fastens each component is printed into another placed
+    # part. Every row absent from MOUNTED_BY is a joint still to design, which is what the
+    # remainder counts; the rollup names which part carries what, so a reader sees where the
+    # fastening already concentrates.
+    mounted_done = [c for c in COMPONENTS if c.name in MOUNTED_BY]
+    loose = [c for c in COMPONENTS if c.name not in MOUNTED_BY]
+    mounted = _pct(len(mounted_done), total)
+    carriers: dict[str, list[str]] = {}
+    for c in mounted_done:
+        carriers.setdefault(MOUNTED_BY[c.name], []).append(c.name)
+    mounted_detail = [f"{by} carries {len(ns)}: {', '.join(sorted(ns))}"
+                      for by, ns in sorted(carriers.items())]
+    mounted_detail.append(
+        f"{len(loose)} with nothing fastening them — a body resting on another is not mounted, "
+        f"and neither is one captured by a pocket or stuck down. One row each, below.")
+    # One row per open joint, carrying what holds that body today. The distance from there to a
+    # feature printed into another part is the joint to design.
+    mounted_detail += [
+        f"{c.name}: nothing fastens it — "
+        + (f"held by {c.held}, which is not a printed-in feature" if c.is_held
+           else "nothing holds it at all")
+        for c in sorted(loose, key=lambda c: (c.is_held, c.name))]
+    goal("mounted", "The feature that fastens each component is printed into another part",
+         mounted == 100, f"{mounted}% ({len(mounted_done)}/{total})", "100%",
+         mounted_detail, active=True)
+
+    # The fastening record as structured rows, one per component — what `bends` is to the other
+    # focus axis. Uncapped; the check.detail strings above are its capped human summary.
+    mounts_table = [
+        {"component": c.name, "by": MOUNTED_BY.get(c.name), "held": c.held, "kind": c.kind}
+        for c in sorted(COMPONENTS, key=lambda c: (c.name in MOUNTED_BY, c.name))
+    ]
 
     # The full connector inventory as structured rows — the audit-readable port table. Every
     # declared port, with its world coordinate and bore Ø, so the audit reads them directly
@@ -1534,9 +2346,22 @@ def build_scorecard(solids: dict, pieces: dict, bed: tuple[float, float, float],
         for n, (boxes, fill, prim) in sorted(shapes.items())
     ]
 
+    # The pose table — every placed body with its provenance, settled ones carrying their
+    # statement. Sorted settled first, so the short list a limit may be priced against reads
+    # ahead of the long one that is still the work.
+    poses_table = [
+        {"name": n, "pose": pose(n), "settled": SETTLED.get(n)}
+        for n in sorted(solids, key=lambda n: (pose(n) != "settled", n))
+    ]
+
+    # A row nobody asked for is reported stood down rather than left off the card, so a
+    # partial card still names everything the full one does and none of it reads as held.
+    if CARD_ONLY:
+        checks = [c if c.id in CARD_ONLY else _stood_down(c.id, c.label, c.kind)
+                  for c in checks]
     gates_pass = all(c.status == "pass" for c in checks if c.kind == "gate")
-    return Scorecard(checks, gates_pass, placed_pct, located_pct, shaped, routed, held,
-                     ports_table, shapes_table)
+    return Scorecard(checks, gates_pass, placed_pct, located_pct, shaped, routed, held, mounted,
+                     ports_table, shapes_table, bend_rows, mounts_table, poses_table)
 
 
 def scorecard_dict(sc: Scorecard) -> dict:
@@ -1551,6 +2376,7 @@ def scorecard_dict(sc: Scorecard) -> dict:
         "shaped": sc.shaped,
         "routed": sc.routed,
         "held": sc.held,
+        "mounted": sc.mounted,
         "checks": [
             {"id": c.id, "label": c.label, "kind": c.kind, "status": c.status,
              "value": c.value, "target": c.target, "detail": list(c.detail), "active": c.active}
@@ -1558,58 +2384,97 @@ def scorecard_dict(sc: Scorecard) -> dict:
         ],
         "ports": list(sc.ports),
         "shapes": list(sc.shapes),
+        "bends": list(sc.bends),
+        "mounts": list(sc.mounts),
+        "poses": list(sc.poses),
     }
 
 
 def format_scorecard(sc: Scorecard) -> str:
-    """Render the verdict as a terminal block. Gates read green (pass) / red (fail); the
-    two focus goals read green (100%) / yellow (in progress); the two deferred goals render
-    gray. Color is emitted only to a TTY — piped/captured output stays plain."""
+    """Render the verdict as a terminal block. The two FOCUS axes come first, with their rows;
+    then the gates (green pass / red fail) and the goals, the deferred ones gray and down to
+    their figure. Color is emitted only to a TTY — piped/captured output stays plain."""
     tty = sys.stdout.isatty()
     GREEN, YELLOW, RED, GRAY = "32", "33", "31", "90"
 
     def col(s, code):
         return f"\033[{code}m{s}\033[0m" if tty else s
 
-    mark = {"pass": "✓", "fail": "✗", "warn": "•"}
+    mark = {"pass": "✓", "fail": "✗", "warn": "•", "skip": "·"}
     gates = [c for c in sc.checks if c.kind == "gate"]
     goals = {c.id: c for c in sc.checks if c.kind == "goal"}
+    by_id = {c.id: c for c in sc.checks}
     passed = sum(1 for c in gates if c.status == "pass")
     w = max(len(c.label) for c in sc.checks)
     rows = []
 
     rows.append("── enclosure scorecard " + "─" * 30)
 
-    # Gates.
-    hdr = f"GATES (printable + assembleable)   {passed}/{len(gates)} pass"
-    rows.append(hdr if sc.gates_pass else hdr + "   " + col("✗ NOT BUILD-READY", RED))
-    for c in gates:
-        code = GREEN if c.status == "pass" else RED
-        rows.append(f"  {col(mark[c.status], code)} {c.label.ljust(w)}  {c.value}  (want {c.target})")
+    # FOCUS, ahead of the blocks and carrying its own rows: the two axes the work is on.
+    # `bend-radius` is a gate and `mounted` is a goal, so no existing block carries both, and a
+    # figure read after ten others is not a focus. Their rows print here; the blocks below carry
+    # each one's line alone.
+    bend = by_id.get("bend-radius")
+    bend_met = bend is not None and bend.status == "pass"
+    focus_met = bend_met and sc.mounted == 100
+    rows.append("FOCUS  "
+                + col(f"bend-radius {bend.value if bend else '—'}", GREEN if bend_met else RED)
+                + "   ·   "
+                + col(f"mounted {sc.mounted}%", GREEN if sc.mounted == 100 else YELLOW)
+                + (col("   ✓ FOCUS MET", GREEN) if focus_met else ""))
+    for fid in FOCUS_IDS:
+        c = by_id.get(fid)
+        if c is None:
+            continue
+        code = GRAY if c.status == "skip" else (
+            GREEN if c.status == "pass" else (RED if c.kind == "gate" else YELLOW))
+        rows.append(f"  {col(mark[c.status], code)} {col(c.label.ljust(w), code)}  {c.value}  (want {c.target})")
         for d in c.detail:
             rows.append(f"      – {d}")
 
-    # Goals — the three focus axes live, the two deferred axes gray.
-    focus_met = sc.placed == 100 and sc.located == 100 and sc.shaped == 100
-    done = sc.gates_pass and focus_met and sc.routed == 100 and sc.held == 100
-    tail = col("  ✓ DONE", GREEN) if done else (col("  ✓ FOCUS MET", GREEN) if focus_met else "")
-    rows.append("GOAL   " + col(f"focus: placed {sc.placed}% · located {sc.located}% · shaped {sc.shaped}%", GREEN if focus_met else YELLOW)
-                + "   " + col(f"deferred: routed {sc.routed}% · held {sc.held}%", GRAY) + tail)
+    # Gates. The focus gate keeps its line among the ten; its rows are above.
+    hdr = f"GATES (printable + assembleable)   {passed}/{len(gates)} pass"
+    rows.append(hdr if sc.gates_pass else hdr + "   " + col("✗ NOT BUILD-READY", RED))
+    for c in gates:
+        code = GRAY if c.status == "skip" else (GREEN if c.status == "pass" else RED)
+        focus = c.id in FOCUS_IDS
+        note = col("  ↑ rows under FOCUS", code) if focus else ""
+        rows.append(f"  {col(mark[c.status], code)} {c.label.ljust(w)}  {c.value}  (want {c.target}){note}")
+        if focus:
+            continue
+        for d in c.detail:
+            rows.append(f"      – {d}")
 
-    def render_goal(gid):
+    # Goals — mounted is the live axis, the rest gray behind it. A deferred axis prints its
+    # figure and the count of rows `scorecard.json` holds for it.
+    done = (sc.gates_pass and focus_met and sc.placed == 100 and sc.located == 100
+            and sc.shaped == 100 and sc.routed == 100 and sc.held == 100)
+    tail = col("  ✓ DONE", GREEN) if done else ""
+    rows.append("GOAL   " + col(f"focus: mounted {sc.mounted}%", GREEN if sc.mounted == 100 else YELLOW)
+                + "   " + col(f"deferred: placed {sc.placed}% · located {sc.located}% · "
+                              f"shaped {sc.shaped}% · routed {sc.routed}% · held {sc.held}%", GRAY) + tail)
+
+    ordered = sorted(goals, key=lambda g: (g not in FOCUS_IDS, list(goals).index(g)))
+    for gid in ordered:
         c = goals[gid]
-        if c.active:
-            code = GREEN if c.status == "pass" else YELLOW
-            rows.append(f"  {col(mark[c.status], code)} {col(c.label.ljust(w), code)}  {c.value}  (want {c.target})")
-            for d in c.detail:
-                rows.append(f"      – {d}")
+        if gid in FOCUS_IDS:
+            code = GRAY if c.status == "skip" else (GREEN if c.status == "pass" else YELLOW)
+            rows.append(f"  {col(mark[c.status], code)} {col(c.label.ljust(w), code)}  {c.value}  "
+                        f"(want {c.target}){col('  ↑ rows under FOCUS', code)}")
         else:
-            rows.append(col(f"  · {c.label.ljust(w)}  {c.value}  — deferred until focus is met", GRAY))
-            for d in c.detail:
-                rows.append(col(f"      – {d}", GRAY))
+            n = len(c.detail)
+            rows.append(col(f"  · {c.label.ljust(w)}  {c.value}  — deferred; {n} "
+                            f"row{'' if n == 1 else 's'} in the sidecar", GRAY))
 
-    for gid in ("placed", "located", "shaped", "routed", "held"):
-        render_goal(gid)
+    # POSE — which placements a limit may be priced against, and which are still the work.
+    # Not a gate and not a goal: 100% settled is not a finish line, and a body's pose being
+    # provisional is a true reading of this pack rather than a shortfall in it.
+    if sc.poses:
+        settled = [p["name"] for p in sc.poses if p["pose"] == "settled"]
+        rows.append(f"POSE   settled {len(settled)}/{len(sc.poses)}   "
+                    + col(", ".join(settled) + " (+ the enclosure walls)", GREEN))
+        rows.append(col(f"       every other pose is provisional, and so is every route — "
+                        f"`scorecard.SETTLED` states what each settled one covers", GRAY))
 
     rows.append("─" * 53)
     return "\n".join(rows)

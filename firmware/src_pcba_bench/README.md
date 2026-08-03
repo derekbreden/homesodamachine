@@ -2,7 +2,7 @@
 
 A throwaway rig for a bare, JLCPCB-assembled controller board on the bench. It runs on
 the board's **own** WROOM (U1) and answers one question — did the fab build what
-[`pcba.tsx`](/thin/hardware/pcb/pcba/pcba.tsx) describes — by talking to every on-board
+[`pcba.tsx`](/hardware/pcb/pcba/pcba.tsx) describes — by talking to every on-board
 device and printing what it finds.
 
 This is **not** the production firmware, and it carries no appliance logic: no state

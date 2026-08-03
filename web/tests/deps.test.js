@@ -41,7 +41,7 @@ test("content roots resolve to the declared editions", () => {
 });
 
 test("a full-copy edition rebuilds only itself (thin isolation)", () => {
-  // thin/hardware/ is a complete copy of hardware/ — every module name exists
+  // hardware/ is a complete copy of hardware/ — every module name exists
   // in both. Without the sibling/edition narrowing in the import walk, one
   // _contents.py edit would rebuild BOTH machines' enclosures on every save.
   // It also has its own hardware/scripts, so even the otherwise-shared
@@ -80,11 +80,10 @@ test("a full-copy edition rebuilds only itself (thin isolation)", () => {
 });
 
 test("a tray STEP's consumers include the assemblies that only _load it (regression)", () => {
-  // source-select-assembly.step is loaded by _contents.py via the _load()
-  // helper; _contents.py is imported by the enclosure and the enclosure-assembly.
-  // Neither names the file or calls importStep directly, so the old import-only
-  // walk missed both.
-  const consumers = findScriptsConsumingStep("source-select-assembly.step", ROOTS);
+  // two-valve-assembly.step is loaded by _contents.py via the _load() helper, and
+  // _contents.py is imported by the enclosure and the enclosure-assembly. Neither
+  // names the file nor calls importStep, so an import-only walk misses both.
+  const consumers = findScriptsConsumingStep("two-valve-assembly.step", ROOTS);
   assert.ok(
     consumers.some(ends("hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py")),
     `expected the enclosure-assembly among consumers, got:\n${consumers.map(rel).join("\n")}`,
@@ -97,16 +96,16 @@ test("a tray STEP's consumers include the assemblies that only _load it (regress
 
 test("a producer is never listed as a consumer of its own STEP", () => {
   const producerOf = buildProducerMap(ROOTS);
-  const producer = producerOf.get("source-select-assembly.step");
+  const producer = producerOf.get("two-valve-assembly.step");
   assert.ok(producer, "the tray assembly STEP should have a producer script");
-  const consumers = findScriptsConsumingStep("source-select-assembly.step", ROOTS);
+  const consumers = findScriptsConsumingStep("two-valve-assembly.step", ROOTS);
   assert.ok(!consumers.includes(producer), `${rel(producer)} produces the step, not consumes it`);
 });
 
 test("build order puts a producer before the scripts that load its STEP", () => {
   const order = buildOrder(ROOTS).map(rel);
   const producer = order.findIndex(
-    (s) => s.split(path.sep).join("/").endsWith("source-select-tray/source_select_assembly.py"),
+    (s) => s.split(path.sep).join("/").endsWith("two-valve-tray/two_valve_assembly.py"),
   );
   const consumer = order.findIndex(
     (s) => s.split(path.sep).join("/").endsWith("hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py"),
@@ -157,21 +156,19 @@ test("short basenames don't substring-match longer step names (collision regress
 });
 
 test("the import walk continues THROUGH a generator that doubles as a base module (regression)", () => {
-  // single_tray is imported by bag_circuit_tray, which is itself imported by
-  // bag_circuit_assembly / nozzle_gate_tray / source_select_tray (they build on
-  // the tray's python, not its .step — so the STEP-load cascade can't catch
-  // them), and nozzle_gate_tray is in turn imported by nozzle_gate_assembly.
-  // Stopping the walk at the first runnable would leave nozzle-gate-tray.step
-  // stale when single_tray changed; the walk must recurse past bag_circuit_tray
-  // (and then past nozzle_gate_tray) even though both are runnable generators.
+  // single_tray is imported by each N-valve tray, and each of those by its own
+  // assembly — they build on the tray's python, not its .step, so the STEP-load
+  // cascade cannot reach them. Stopping at the first runnable would leave
+  // two-valve-assembly.step stale when single_tray changed; the walk has to recurse
+  // past two_valve_tray even though it is itself a runnable generator.
   const singleTray = findGenerateScripts(ROOTS).find(ends("single-tray/single_tray.py"));
   const deps = findRunnableScriptsTransitivelyImporting(singleTray, ROOTS);
   for (const downstream of [
-    "bag-circuit-tray/bag_circuit_tray.py",
-    "bag-circuit-tray/bag_circuit_assembly.py",
-    "nozzle-gate-tray/nozzle_gate_tray.py",
-    "nozzle-gate-tray/nozzle_gate_assembly.py",
-    "source-select-tray/source_select_tray.py",
+    "two-valve-tray/two_valve_tray.py",
+    "two-valve-tray/two_valve_assembly.py",
+    "three-valve-tray/three_valve_tray.py",
+    "three-valve-tray/three_valve_assembly.py",
+    "single-valve-tray/single_valve_tray.py",
   ]) {
     assert.ok(
       deps.some(ends(downstream)),
@@ -180,22 +177,15 @@ test("the import walk continues THROUGH a generator that doubles as a base modul
   }
 });
 
-test("an edition's module does not drag in the other edition's twin (regression)", () => {
-  // hardware/ and thin/hardware/ mirror each other's filenames — _contents.py,
-  // enclosure.py, enclosure_assembly.py, scorecard.py. Matching dependents by bare
-  // module name rebuilt the OTHER machine's assembly for a _contents.py edit it never
-  // imports: a second full assembly competing for the same cores on every route edit,
-  // which is most of what made a build take minutes.
+test("a _contents.py edit rebuilds the assembly that imports it", () => {
+  // _contents.py is imported, not loaded as a STEP, so the wave that rebuilds the
+  // assembly comes from the import walk rather than the STEP-load cascade.
   const hwContents = path.join(
     REPO_ROOT, "hardware", "printed-parts", "enclosure", "enclosure-assembly", "_contents.py");
   const deps = findRunnableScriptsTransitivelyImporting(hwContents, ROOTS).map(rel);
   assert.ok(
     deps.some(ends("enclosure/enclosure-assembly/enclosure_assembly.py")),
-    `hardware's own assembly must still rebuild; got:\n${deps.join("\n")}`,
-  );
-  assert.ok(
-    !deps.some((d) => d.split(path.sep).join("/").startsWith("thin/")),
-    `no thin script may rebuild for a hardware _contents.py edit; got:\n${deps.join("\n")}`,
+    `the assembly must rebuild; got:\n${deps.join("\n")}`,
   );
 });
 

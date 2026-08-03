@@ -69,11 +69,17 @@ def _ring(z0, ang):
     return eye.union(barrel).rotate((0, 0, 0), (0, 0, 1), ang)
 
 
+def landing():
+    """The top of the lug fan, in the stack's OWN frame: `(position, outward axis)` — where the
+    next ring terminal goes on and the screw comes down. `build` stands the washer on it."""
+    return ((0.0, 0.0, ring_count * tongue_t), (0.0, 0.0, 1.0))
+
+
 def build():
     part = _ring(0.0, 0.0)
     for i in range(1, ring_count):
         part = part.union(_ring(i * tongue_t, i * fan_step))
-    top = ring_count * tongue_t
+    top = landing()[0][2]
 
     washer = (
         cq.Workplane("XY").cylinder(washer_t, washer_od / 2.0, centered=(True, True, False))

@@ -11,6 +11,12 @@ transform, measured against the placed world.
     print(fit.check(pose, skip=("vk-fill-valve",)))
     print(pose.port("inlet"))                   # world position and axis
 
+The world is `probe.world()`, which holds the four printed enclosure pieces alongside the
+interior pack — so a pose this reports CLEAR is a pose the enclosure's pack-closes gate
+also calls clear, walls, seam lips, cross-pin pods and boss chains included. `skip=`
+takes them out one query at a time (`skip=probe.world().pieces`) and both scans say when
+they were held out.
+
 The body and its ports move under one `cq.Location`, so a port cannot drift from the face
 it names. A pose reports the transform it used; two poses of the same part with the same
 arguments are the same solid.
@@ -29,14 +35,18 @@ they leave, on the same measured distances.
 
 `slab` maps what is free in a Z band rather than testing one part: the largest rectangles
 a footprint could stand in. Obstacles count by their bounding box unless named in `exact`,
-which measures against the solid — a part that is mostly air reads as mostly air.
+which measures against the solid — a part that is mostly air reads as mostly air. A
+printed piece is always exact and never boxed: its box is the whole machine, and a scan
+that counted it by box would report the cavity full.
 
-Both scans state their own bounds before their answer. A search reports the `Box` it ranged
-over — every range, every axis pinned to one value, every body held out — and names the ends
-the best pose sits on. A slab reports its field, where the field came from, which bodies were
-measured exactly, and whether its largest rectangle runs to the edge of a field the caller
-supplied. An end of a scan is a fact about the grid and not about the geometry, so a limit
-read off one arrives with the grid attached.
+Both scans state their own bounds before their answer, and what they measured them
+against. A search reports the `Box` it ranged over — every range, every axis pinned to one
+value, every body held out, and the world the poses were measured in — and names the ends
+the best pose sits on. A slab reports its field, where the field came from, which bodies
+were measured by box and which exactly, which printed pieces reach into the band, and
+whether its largest rectangle runs to the edge of a field the caller supplied. An end of a
+scan is a fact about the grid and not about the geometry, so a limit read off one arrives
+with the grid attached.
 
 From the shell, without writing a file:
 
@@ -51,9 +61,10 @@ From the shell, without writing a file:
 `selftest` checks the instrument against known-answer geometry — that a port lands on the
 body it belongs to at arbitrary angles, that clearance only ever removes poses, that a
 known fit fits and a known clash clashes, that a body whose bounding box reaches nearer
-than its material is reported at its material, and that a scan reports the box it searched
-and the ends its answer sits on. Run it when an answer looks wrong before trusting the
-answer.
+than its material is reported at its material, that a pose clear of every interior body
+but standing in a printed piece comes back CLASH, and that a scan reports the box it
+searched and the ends its answer sits on. Run it when an answer looks wrong before
+trusting the answer.
 """
 
 import inspect
@@ -64,13 +75,13 @@ from pathlib import Path
 
 import cadquery as cq
 
-from OCP.gp import gp_Pnt, gp_Vec
-
 _HERE = Path(__file__).resolve().parent
 if str(_HERE) not in sys.path:
     sys.path.insert(0, str(_HERE))
 
 import probe                                                        # noqa: E402
+from _seating import _carry_axis, _carry_point                      # noqa: E402  — one carry,
+# shared with the seats the placed bodies read through
 
 _HW = next(p for p in Path(__file__).resolve().parents if p.name == "hardware")
 _REF = _HW / "reference"
@@ -341,20 +352,6 @@ class Pose:
                 f"z[{b.zmin:.1f},{b.zmax:.1f}]")
 
 
-def _carry_point(loc: cq.Location, p) -> tuple:
-    q = gp_Pnt(float(p[0]), float(p[1]), float(p[2]))
-    q.Transform(loc.wrapped.Transformation())
-    return (q.X(), q.Y(), q.Z())
-
-
-def _carry_axis(loc: cq.Location, a) -> tuple:
-    """An axis takes the rotation and not the translation — `gp_Vec` is the direction
-    half of the same transform that moved the body."""
-    v = gp_Vec(float(a[0]), float(a[1]), float(a[2]))
-    v.Transform(loc.wrapped.Transformation())
-    return (v.X(), v.Y(), v.Z())
-
-
 # --- fit ------------------------------------------------------------------
 
 @dataclass(order=True)
@@ -494,17 +491,20 @@ def _conflict(sh, w, skip=(), clearance: float = 0.0):
     The same test `check` makes, stopping at the first answer instead of measuring every
     neighbour — a rejected pose costs one exact query rather than twenty. Only bodies whose
     bounding box is already inside the threshold can be a conflict, and the nearest box is
-    tried first."""
+    tried first — then the smallest, because a printed piece's box spans the whole machine
+    and is 0 mm from every candidate while its material is almost always elsewhere. Order
+    only decides which exact query is paid first; the verdict is the same either way."""
     cb = sh.BoundingBox()
     near = []
     for name in w.names:
         if name in skip:
             continue
-        sep = _bb_gap(cb, w.bb(name))
+        ob = w.bb(name)
+        sep = _bb_gap(cb, ob)
         if sep > clearance:                 # a box gap under-states the solid gap
             continue
-        near.append((sep, name))
-    for _, name in sorted(near):
+        near.append((sep, ob.xlen * ob.ylen * ob.zlen, name))
+    for _sep, _vol, name in sorted(near):
         d = w.gap(name, sh)
         if d >= clearance and d > TOUCH:
             continue
@@ -555,12 +555,17 @@ class Box:
     axis held to one value. An end of this box is a fact about the grid and not about the
     geometry, so a pose sitting on one is reported alongside the pose.
 
-    A rotation whose values tile the circle at their own spacing has no end to sit on."""
+    A rotation whose values tile the circle at their own spacing has no end to sit on.
+
+    `measured` is the other half of the same disclosure: a grid says where the scan looked,
+    and that says what it looked at. A free pose in a world whose printed pieces were held
+    out is free of the interior pack and nothing more."""
 
     specs: dict                                     # label -> the spec as given
     values: dict                                    # label -> what it expanded to
     anchor: str = "at"
     skip: tuple = ()                                # bodies held out of the measurement
+    measured: str = ""                              # the world it was measured in
 
     @property
     def swept(self) -> list:
@@ -607,7 +612,8 @@ class Box:
         return ("box  " + (swept or "nothing swept")
                 + (f"  fixed: {held}" if held else "")
                 + (f"  anchor={self.anchor}" if self.anchor != "at" else "")
-                + (f"  holding out: {', '.join(self.skip)}" if self.skip else ""))
+                + (f"  holding out: {', '.join(self.skip)}" if self.skip else "")
+                + (f"\n  against  {self.measured}" if self.measured else ""))
 
 
 class Candidates(list):
@@ -651,14 +657,15 @@ def search(part: Part, x, y, z, yaw=(0.0,), pitch=(0.0,), roll=(0.0,), anchor: s
     Raising `clearance` can only remove poses: it is a threshold on a measured distance and
     the distances do not depend on it.
 
-    The report states the `Box` before the answer, and names the ends the best pose sits
-    on — a pose on an end is the grid reporting where it stopped."""
+    The report states the `Box` before the answer — the grid, and the world the grid was
+    measured in — and names the ends the best pose sits on; a pose on an end is the grid
+    reporting where it stopped."""
     if anchor not in ("at", "bbmin"):
         raise ValueError(f"anchor={anchor!r}: expected 'at' or 'bbmin'")
     w = world or probe.world()
     specs = dict(x=x, y=y, z=z, yaw=yaw, pitch=pitch, roll=roll)
     values = {n: _axis_values(specs[n], n) for n in AXES}
-    box = Box(specs, values, anchor, tuple(skip))
+    box = Box(specs, values, anchor, tuple(skip), w.measured)
     grid = [dict(zip(AXES, (gx, gy, gz, ya, pi, ro)))
             for gx in values["x"]
             for gy in values["y"]
@@ -734,11 +741,17 @@ def slab(z: tuple, x: tuple = None, y: tuple = None, step: float = 4.0, skip=(),
     a part that is mostly air hides space behind its box. Name those in `exact` (or pass
     `exact=True`) to intersect the band against the solid instead.
 
+    A printed enclosure piece is always exact and can never be boxed: its box is the whole
+    machine, so counting one by box would black out the field and report a full cavity. Its
+    material — the walls, and the seam lips, cross-pin pods, boss chains and ribs standing
+    inboard of them — is measured cell by cell like any other exact body.
+
     `size=(w, d)` keeps only rectangles that hold that footprint in either orientation.
 
-    The report states the field, where the field came from, and which bodies were measured
-    exactly — a field the caller supplied is a bound on the scan and not on the machine, so
-    a rectangle reaching the edge of one is reported as reaching it."""
+    The report states the field, where the field came from, the world it measured against,
+    and which bodies were taken by box against which were taken exactly — a field the
+    caller supplied is a bound on the scan and not on the machine, so a rectangle reaching
+    the edge of one is reported as reaching it."""
     w = world or probe.world()
     zlo, zhi = float(z[0]), float(z[1])
     if zhi <= zlo:
@@ -757,29 +770,44 @@ def slab(z: tuple, x: tuple = None, y: tuple = None, step: float = 4.0, skip=(),
     nx, ny = max(1, int(round((x1 - x0) / step))), max(1, int(round((y1 - y0) / step)))
     sx, sy = (x1 - x0) / nx, (y1 - y0) / ny
 
+    in_band = tuple(n for n in live if w.sources[n] == probe.PIECE)
     want_exact = set(live) if exact is True else {n for n in exact if n in live}
+    want_exact |= set(in_band)
     grid = [[False] * ny for _ in range(nx)]
 
-    for name in live:
+    # Boxes first, solids second. An exact body only has to answer for the cells the boxed
+    # bodies left free, and in a machine this full that is most of the booleans gone. The
+    # order changes nothing: a cell marked by a box is occupied whoever marks it.
+    for name in (n for n in live if n not in want_exact):
         b = w.bb(name)
         i0, i1 = _span(b.xmin, b.xmax, x0, sx, nx)
         j0, j1 = _span(b.ymin, b.ymax, y0, sy, ny)
-        if i0 >= i1 or j0 >= j1:
-            continue
-        if name not in want_exact:
-            for i in range(i0, i1):
-                for j in range(j0, j1):
-                    grid[i][j] = True
-            continue
-        solid = w.solid(name)
         for i in range(i0, i1):
+            for j in range(j0, j1):
+                grid[i][j] = True
+
+    band = probe.box(x=(x0, x1), y=(y0, y1), z=(zlo, zhi))
+    for name in sorted(want_exact):
+        clipped, boxes = _in_band(w.solid(name), band, name)
+        if clipped is None:                 # nothing of this body stands in the field's band
+            continue
+        cb = clipped.BoundingBox()
+        i0, i1 = _span(cb.xmin, cb.xmax, x0, sx, nx)
+        j0, j1 = _span(cb.ymin, cb.ymax, y0, sy, ny)
+        for i in range(i0, i1):
+            cx0, cx1 = x0 + i * sx, x0 + (i + 1) * sx
+            reach = [b for b in boxes if b.xmax > cx0 and b.xmin < cx1]
+            if not reach:
+                continue
             for j in range(j0, j1):
                 if grid[i][j]:
                     continue
-                cell = probe.box(x=(x0 + i * sx, x0 + (i + 1) * sx),
-                                 y=(y0 + j * sy, y0 + (j + 1) * sy), z=(zlo, zhi))
+                cy0, cy1 = y0 + j * sy, y0 + (j + 1) * sy
+                if not any(b.ymax > cy0 and b.ymin < cy1 for b in reach):
+                    continue                # no material's box reaches this cell
+                cell = probe.box(x=(cx0, cx1), y=(cy0, cy1), z=(zlo, zhi))
                 try:
-                    if cell.intersect(solid).Volume() > VOL_TOL:
+                    if cell.intersect(clipped).Volume() > VOL_TOL:
                         grid[i][j] = True
                 except Exception as exc:
                     raise RuntimeError(
@@ -797,11 +825,17 @@ def slab(z: tuple, x: tuple = None, y: tuple = None, step: float = 4.0, skip=(),
               f"{len(rects)} rectangle(s)"
               + (f" holding {size[0]:g}×{size[1]:g}" if size else ""))
         print(f"  field  x[{x0:.1f},{x1:.1f}] y[{y0:.1f},{y1:.1f}] {source}")
-        by_box = len(live) - len(want_exact)
-        print(f"  bodies  {by_box} by bounding box"
-              + (f", {len(want_exact)} exact: {', '.join(sorted(want_exact))}"
-                 if want_exact else ", none exact")
+        print(f"  against  {w.measured}")
+        named = sorted(n for n in want_exact if n not in in_band)
+        print(f"  bodies  {len(live) - len(want_exact)} by bounding box"
+              + (f", {len(named)} exact: {', '.join(named)}" if named else ", none exact")
               + (f"  holding out: {', '.join(skip)}" if skip else ""))
+        held = [n for n in w.pieces if n in skip]
+        print("  pieces  " + (
+            f"{len(in_band)} reach this band, measured exactly — a piece's box is the whole "
+            f"machine: {', '.join(in_band)}" if in_band else
+            f"held out: {', '.join(held)}" if held else
+            "none reach this band" if w.pieces else "none in this world"))
         if rects:
             ends = _field_ends(rects[0], (x0, x1), (y0, y1), given)
             if ends:
@@ -812,6 +846,27 @@ def slab(z: tuple, x: tuple = None, y: tuple = None, step: float = 4.0, skip=(),
         if len(rects) > top:
             print(f"  … {len(rects) - top} more rectangle(s) not shown")
     return rects
+
+
+def _in_band(solid, band, name: str):
+    """`solid` clipped to the scan's own band, and one box per body the clip leaves.
+
+    Every cell of the grid lies inside the band, so `cell ∩ solid` and `cell ∩ (solid ∩
+    band)` enclose the same volume: the clip decides what a cell costs, never what it
+    answers. It is what makes a printed piece affordable — the boolean runs against the
+    material standing in this band rather than against the whole shell — and the boxes it
+    hands back reject most cells before a boolean is built at all, since a cell no
+    material's box reaches cannot hold material. `(None, [])` when nothing of the body
+    stands in the band."""
+    try:
+        clipped = solid.intersect(band)
+        if clipped.Volume() <= VOL_TOL:
+            return None, []
+    except Exception as exc:
+        raise RuntimeError(
+            f"clipping {name} to the scan band failed ({exc}) — its occupancy in the band "
+            f"is unknown, not empty") from exc
+    return clipped, [s.BoundingBox() for s in clipped.Solids()]
 
 
 _CAVITY = None                          # the enclosure's own dimensions, read once
@@ -904,6 +959,10 @@ def selftest() -> int:
         print(f"  {'ok  ' if passed else 'FAIL'}  {label:52s} {got}{tail}")
         if not passed:
             fails.append(label)
+
+    def _line(box: Box) -> str:
+        """A `Box` renders over two lines; a control row wants the grid on one."""
+        return str(box).splitlines()[0]
 
     # A cube centred on its origin in X and Y, with a port on the centre of its +X face,
     # in a module of its own so port discovery sees it exactly as it sees a real part.
@@ -1032,6 +1091,37 @@ def selftest() -> int:
     ok("room is the measured distance", abs(check(cube, world=wa, near=4 * side).room
                                             - 1.25 * side) < 1e-6)
 
+    print("controls — a printed piece is a body the pose has to clear:")
+    # The defect in miniature. `shell` is shaped like what it stands for: a box whose
+    # bounding box is the whole field and whose material is only the rim, so a world that
+    # took it by its box would call everything occupied and one that left it out would call
+    # everything free. The candidate stands in the rim, 140 mm from the only interior body.
+    rim = (probe.box(x=(-3 * side, 3 * side), y=(-3 * side, 3 * side), z=(0, 2 * side))
+           .cut(probe.box(x=(-2 * side, 2 * side), y=(-2 * side, 2 * side),
+                          z=(-1.0, 2 * side + 1.0))))
+    walled = probe.World(
+        {"far-part": probe.box(x=(10 * side, 11 * side), y=(0, side), z=(0, side)), "shell": rim},
+        {"far-part": "component", "shell": probe.PIECE})
+    buried = p.pose(at=(2.5 * side, 0, side / 4))
+    v = check(buried, world=walled, near=4 * side)
+    ok("a pose inside a printed piece is not clear", bool(v.clashes) and not v.clear,
+       f"{[h.name for h in v.clashes]}", "['shell']")
+    ok("holding the pieces out is what makes it read clear",
+       check(buried, world=walled, skip=walled.pieces, near=4 * side).clear,
+       f"skip={list(walled.pieces)}")
+    ok("the fast reject calls it a conflict too", _conflict(buried.solid, walled) == "shell",
+       f"{_conflict(buried.solid, walled)}", "shell")
+    # And the same thing one level up: the pose the search would have offered is gone.
+    lane = dict(x=(0.0, 2.5 * side, side / 2), y=0.0, z=side / 4)
+    with_pieces = search(p, world=walled, quiet=True, **lane)
+    without = search(p, world=walled, skip=walled.pieces, quiet=True, **lane)
+    ok("a search offers no pose the pack-closes gate would fail",
+       len(with_pieces) < len(without) and all(check(c.pose, world=walled, near=4 * side).clear
+                                               for c in with_pieces),
+       f"{len(with_pieces)} free of {len(without)} with the pieces held out")
+    ok("the search says which world it ranged in",
+       "printed enclosure piece" in str(with_pieces.box), str(with_pieces.box).splitlines()[-1])
+
     print("controls — the fast reject agrees with the full check:")
     disagreed = []
     for c in (0.0, 0.1 * side, 0.5 * side):
@@ -1061,8 +1151,10 @@ def selftest() -> int:
     ok("the swept axis is named swept", b.swept == ["x"], f"{b.swept}", "['x']")
     ok("the pinned axes are named fixed", b.fixed == ["y", "z", "yaw", "pitch", "roll"],
        f"{b.fixed}")
-    ok("the rendered box carries the range", "x[0,40] step 4" in str(b), str(b))
-    ok("the rendered box carries the held-out body", "nothing-here" in str(b), str(b))
+    ok("the rendered box carries the range", "x[0,40] step 4" in str(b), _line(b))
+    ok("the rendered box carries the held-out body", "nothing-here" in str(b), _line(b))
+    ok("the rendered box carries the world it measured in",
+       str(b).splitlines()[-1].strip().startswith("against"), str(b).splitlines()[-1].strip())
     ok("the best pose is at the low end and says so", b.edges(found[0].point) == ["x low"],
        f"{b.edges(found[0].point)}", "['x low']")
     ok("a fixed axis is never an end", not any(e.startswith(("y ", "z ")) for e in
@@ -1070,7 +1162,7 @@ def selftest() -> int:
     blocked = search(p, x=face + 1.0, y=0.0, z=0.0, world=w, quiet=True)
     ok("a search that finds nothing still carries its box",
        blocked == [] and blocked.box is not None and "x=51" in str(blocked.box),
-       str(blocked.box))
+       _line(blocked.box))
 
     print("controls — an end is an end only where widening reaches:")
     for label, values, at, want in (
@@ -1094,6 +1186,39 @@ def selftest() -> int:
        f"{widest.area:.0f} mm²", f"{span * (span - hi):.0f} mm²")
     ok("slab excludes the occupied band",
        all(not (r.y[0] < hi and r.y[1] > lo) for r in rects), f"{len(rects)} rects")
+
+    print("controls — a slab never counts a printed piece by its box:")
+    # `rim`'s box is the whole field and its material is only the edge of it. Counted by
+    # box it fills the machine; counted exactly it is what it is. A piece is always the
+    # second, which is why nothing about it is left to the caller to remember.
+    field, hole = (-3 * side, 3 * side), 2 * side
+    wr = probe.World({"shell": rim}, {"shell": probe.PIECE})
+    rects = slab(z=(0, 2 * side), x=field, y=field, step=side / 2, world=wr, quiet=True)
+    inside = max(rects, key=lambda r: r.area) if rects else None
+    ok("the space inside a piece is free", inside is not None
+       and abs(inside.area - (2 * hole) ** 2) < 1e-6,
+       f"{inside.area:.0f} mm²" if inside else "no rectangle", f"{(2 * hole) ** 2:.0f} mm²")
+    # The same body under any other tag still counts by its box — the rule is about pieces,
+    # not about this shape.
+    wb = probe.World({"shell": rim}, {"shell": "component"})
+    ok("the same body under another tag still counts by its box",
+       slab(z=(0, 2 * side), x=field, y=field, step=side / 2, world=wb, quiet=True) == [],
+       "no free rectangle")
+    # The band clip is what makes a piece affordable, so it has to be free of consequence:
+    # every cell must land the same way against the clipped body as against the whole one.
+    band = probe.box(x=field, y=field, z=(0, 2 * side))
+    clipped, boxes = _in_band(rim, band, "shell")
+    ok("the clip leaves one box per body it leaves", len(boxes) == len(clipped.Solids()),
+       f"{len(boxes)} for {len(clipped.Solids())}")
+    disagreed = []
+    for gx in [field[0] + k * side for k in range(6)]:
+        for gy in [field[0] + k * side for k in range(6)]:
+            cell = probe.box(x=(gx, gx + side), y=(gy, gy + side), z=(0, 2 * side))
+            if (cell.intersect(clipped).Volume() > VOL_TOL) != (
+                    cell.intersect(rim).Volume() > VOL_TOL):
+                disagreed.append((gx, gy))
+    ok("a clipped body answers every cell the way the whole one does", not disagreed,
+       f"{len(disagreed)} disagreed" if disagreed else "36 cells")
 
     print("controls — a slab states the field it scanned:")
     ends = _field_ends(widest, (0, span), (0, span), (True, True))
@@ -1124,6 +1249,29 @@ def selftest() -> int:
         else:
             print(f"  FAIL  {label} — returned instead of raising")
             fails.append(label)
+
+    print("\nreal world:")
+    real = probe.world()
+    print(f"  ok    {real.measured}")
+    if real.pieces:
+        # The synthetic control above proves the rule; this one proves the wiring. A volume
+        # cut out of a real printed wall must come back CLASH, and must come back clear the
+        # moment the walls are the thing held out.
+        ok("the printed pieces are in the world it measures against", len(real.pieces) == 4,
+           f"{len(real.pieces)}", "4")
+        sample = probe.wall_sample(real)
+        v = check(sample, world=real)
+        ok("a volume inside a real printed wall clashes",
+           bool(v.clashes) and all(real.sources[h.name] == probe.PIECE for h in v.clashes),
+           f"{[h.name for h in v.clashes]}")
+        ok("and clears every interior body once they are held out",
+           check(sample, world=real, skip=real.pieces).clear)
+    elif real.pieces_held_out:
+        # Switched off on purpose: the walls have nothing to answer for here. Said out
+        # loud, because a green run against a world with no walls is not the same claim.
+        print(f"  --    the printed-piece controls did not run — {real.measured}")
+    else:
+        ok("the printed pieces are in the world it measures against", False, "0", "4")
 
     print("\nreal parts:")
     named = sorted(d.name for d in _REF.iterdir() if d.is_dir())

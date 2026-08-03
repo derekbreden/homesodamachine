@@ -51,12 +51,17 @@ from docgen import substitute_md
 # width of top wall remains beyond it in every case. enclosure.py `_hopper_hole`
 # owns the frame and asserts it; the funnel takes the front of the Y span, and a
 # deeper box adds its top wall behind rather than growing the part.
-collar_w = 148.5        # collar footprint (X) — the frame's width less 2 × brim_margin
-collar_d = 122.0        # collar footprint (Y) — what the top wall has room for once the spout
-                        # stands over V-B's collet on the moved deck, one brim_margin behind the
-                        # front ledge. The chute cannot carry the lost plan area back: the basin
-                        # floor already rides on the bag tray's crown, so depth is spent, and the
-                        # capacity target absorbs the difference instead
+collar_w = 159.0        # collar footprint (X) — the frame's width less 2 × brim_margin. The
+                        # basin takes the top wall's FULL width: it stands behind the display
+                        # facet, which spans the machine, so there is nothing beside it to leave
+                        # room for
+collar_d = collar_w     # collar footprint (Y) — as deep as it is wide, which is the deepest a
+                        # basin of this width may be. One rise serves every run (see ramp_angle),
+                        # so the LONGEST run is what the grade is measured on, and a Y run past
+                        # the X one would quietly put the front/back floor under `ramp_angle`.
+                        # Square is where the two runs meet, so it is the most plan area the grade
+                        # allows — and plan area is what buys capacity cheaply, so this is also
+                        # the shallowest the basin can be. The check below holds the line
 brim_margin = 10.0      # top-wall left between the collar edge and the frame, all around —
                         # one overhang catches the flange, the rest is what stands beyond it
 brim_overhang = 7.0     # brim flange reach past the collar — what actually catches the
@@ -64,15 +69,19 @@ brim_overhang = 7.0     # brim flange reach past the collar — what actually ca
 brim_thickness = 3.0    # flange thickness, resting on the enclosure top
 collar_wall = 3.0       # straight press-fit collar wall (opening − bore)
 # The basin is sized in bottles: a full one goes in dumped, not metered, and the
-# margin is what keeps a miss off the counter. That requirement is the ONLY thing
-# the straight section is for — the ramp's depth is set by its grade and the
-# spout by its tube, so the chute is whatever height still owes the target after
-# those. Plan area makes volume far cheaper than depth does: widen the collar and
-# the chute must SHORTEN by the same volume, which lifts the ramp, the spout and
-# the drain with it. Sized here, asserted in `build`.
+# margin is what keeps a miss off the counter. The ramp's depth is set by its grade
+# and the spout by its tube, so the straight section is the only height the basin's
+# volume is in — and it stands between two bounds. The FLOOR is that requirement,
+# asserted in `build`. The CEILING is the pack: the chute hangs the ramp, the spout
+# and the drain lower with every millimetre of itself, and the source pair's coils
+# stand directly under the basin, so what the column leaves over them
+# (`_contents.SOURCE_TRAY_HEADROOM`, held by the enclosure scorecard's
+# `source-tray-assembly clear hopper-funnel`) is what the chute may spend. It takes
+# that band whole rather than stopping at the floor: the collar already fills its
+# frame in both axes, so depth is the only thing left that buys capacity.
 bottle_ml = 440.0       # one SodaStream concentrate bottle
-capacity_bottles = 1.3  # basin capacity to the brim, in bottles — the requirement
-chute_h = 28.70        # straight rectangular chute height — brim top down to the ramp start
+capacity_bottles = 1.3  # basin capacity to the brim, in bottles — the floor it must clear
+chute_h = 27.65        # straight rectangular chute height — brim top down to the ramp start
 neck_dx = 0.0           # neck (ramp foot + spout) on the collar centre — every floor
                         # run stays short, so the grade costs the least depth
 ramp_angle = 15.0       # deg — the floor's shallowest line (the long X half-run); the
@@ -195,10 +204,9 @@ def build(drop=drop):
     fill = cavity.intersect(
         _box(600.0, 600.0, m["end_z"], m["top_z"], m["cx"], m["cy"])
     ).Volume()
-    # The chute owes the basin its target. Capacity is LINEAR in chute_h (the cone
-    # spans the ramp rise, which the X half-run fixes, and the spout tube is fixed),
-    # so a miss names the height that closes it — and any collar widening shows up
-    # here as slack to give back in depth, not as a bigger basin.
+    # The chute is what carries the basin past its floor. Capacity is LINEAR in
+    # chute_h (the cone spans the ramp rise, which the X half-run fixes, and the
+    # spout tube is fixed), so a miss names the height that closes it.
     want = capacity_bottles * bottle_ml * 1000.0
     if fill < want - 1.0:
         bore_area = m["bore_w"] * m["bore_d"]

@@ -5,7 +5,7 @@
 // what pcba.tsx describes — by talking to every on-board device and printing
 // what it finds.
 //
-// Pin map is read off thin/hardware/pcb/pcba/pcba.tsx (the canonical map).
+// Pin map is read off hardware/pcb/pcba/pcba.tsx (the canonical map).
 //
 // SAFETY — four GPIO reach off-board actuators, and this rig never drives them.
 // They are left as inputs so their loads stay de-energized:

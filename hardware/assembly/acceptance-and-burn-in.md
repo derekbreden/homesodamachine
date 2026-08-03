@@ -77,13 +77,13 @@ Immediately measure the dispensed water temperature with the thermocouple insert
 
 ### 6. First flavor A dispense + flavor pump metering
 
-Re-fill the carbonator (step 3 cycle repeats automatically since the low-level reed is asserted; let it run through). Place the graduated cylinder under the faucet. Set the bench-acceptance UI to "Channel A, metered ratio test" — firmware will run a fixed-duration carbonated water dispense alongside a peristaltic pulse train on **P-B, channel A's pump** ([`/hardware/topology/fluid-topology.md`](/hardware/topology/fluid-topology.md)), sized to the documented [1:20](RATIO) ratio.
+Re-fill the carbonator (step 3 cycle repeats automatically since the low-level reed is asserted; let it run through). Place the graduated cylinder under the faucet. Set the bench-acceptance UI to "Channel A, metered ratio test" — firmware will run a fixed-duration carbonated water dispense alongside a peristaltic-pump A pulse train sized to the documented [1:20](RATIO) ratio.
 
 Run the metered dispense (target [~250 mL](METERED_WATER) water + [~12.5 mL](METERED_FLAVOR) flavor A concentrate, totalling [~262.5 mL](METERED_TOTAL)). The graduated cylinder receives the mixed product; the carbonator low-reed will likely assert mid-pour and queue a refill which firmware will defer until the dispense window closes.
 
 Measure: total volume in the graduated cylinder, and (if refractometer available) °Brix of the mixed dispense. Compute actual ratio against the [1:20](RATIO) target. Tasting is allowed but not the pass criterion; the volume and the refractometer reading are.
 
-**Pass:** total dispense volume within [~5 %](RATIO_TOL) of [~262.5 mL](METERED_TOTAL) (i.e., [~249–276 mL](METERED_RANGE)); refractometer reading consistent with a [1:20](RATIO) dilution of the SodaStream concentrate (no absolute number locked here — see Open items for the ratio-tolerance gap); P-B audibly running during the dispense window, no missed steps, no pump slip. **Fail:** volume far outside the [±5 %](RATIO_TOL_SIGNED) band (suggests P-B under- or over-delivery, indicating a tube-fatigue problem in the peristaltic head); refractometer reading suggests a far-off ratio; any pump audible stall.
+**Pass:** total dispense volume within [~5 %](RATIO_TOL) of [~262.5 mL](METERED_TOTAL) (i.e., [~249–276 mL](METERED_RANGE)); refractometer reading consistent with a [1:20](RATIO) dilution of the SodaStream concentrate (no absolute number locked here — see Open items for the ratio-tolerance gap); pump A audibly running during the dispense window, no missed steps, no pump slip. **Fail:** volume far outside the [±5 %](RATIO_TOL_SIGNED) band (suggests pump A under- or over-delivery, indicating a tube-fatigue problem in the peristaltic head); refractometer reading suggests a far-off ratio; any pump audible stall.
 
 ### 7. First flavor B dispense + flavor pump metering
 
@@ -101,7 +101,7 @@ Repeat with "clean cycle, Channel B."
 
 ### 9. Air-purge cycle through both channels
 
-From the bench-acceptance UI, run "air purge, Channel A." Firmware executes the topology-table "Air Purge In → Bag A" + "Air Purge Out A" sequence: with the hopper funnel dry and open to air, channel A's pump pulls air through V-B → V-C → P-B → V-F into the now-rinsed reservoir, then pushes the rinse-water + air slug out the nozzle through V-E → P-B → V-G.
+From the bench-acceptance UI, run "air purge, Channel A." Firmware executes the topology-table "Air Purge In → Bag A" + "Air Purge Out A" sequence: with the hopper funnel dry and open to air, pump A pulls air through V-B → V-C → P-A → V-F into the now-rinsed reservoir, then pushes the rinse-water + air slug out the nozzle through V-E → P-A → V-G.
 
 Repeat with "air purge, Channel B."
 

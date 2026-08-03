@@ -3,7 +3,7 @@
 The removable dishwasher-safe silicone funnel that seats in the Zone C top-wall
 opening, right of the display and flush to the front. Pour a full 440 mL
 SodaStream flavor bottle into it in one go; lift it out by hand for the
-dishwasher and to reach the source-select assembly beneath.
+dishwasher and to reach the valve trays beneath.
 Zone framing: [`../README.md`](/hardware/printed-parts/zone-c/README.md).
 
 ## Shape
@@ -21,7 +21,7 @@ frame and rides the part. Top to bottom:
   lands mid-margin with a full overhang's width of wall still outboard of it,
   and the part reads square in its opening from above.
 - **Chute.** A tall straight rectangular section — vertical walls, no slope —
-  [28.7 mm](HOPPER_CHUTE) from the brim top down to where the ramp starts. Its top
+  [27.65 mm](HOPPER_CHUTE) from the brim top down to where the ramp starts. Its top
   press-fits the 3 mm top wall; the rest hangs down into the box as a straight
   rectangular drop.
 - **Ramp + spout.** Below the chute a shallow ramp narrows to a round
@@ -36,7 +36,7 @@ frame and rides the part. Top to bottom:
   the real solids by the enclosure scorecard. Total drop
   [53 mm](HOPPER_DROP) below the brim.
 
-Capacity to the brim is [580 mL](HOPPER_CAP) — a full 440 mL bottle dumped,
+Capacity to the brim is [807 mL](HOPPER_CAP) — a full 440 mL bottle dumped,
 not metered.
 
 The enclosure cuts its top-wall opening from this collar at the funnel's

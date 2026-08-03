@@ -24,7 +24,7 @@
 set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-EDITION="thin"
+EDITION="kitchen"
 STEP="printed-parts/enclosure/enclosure-assembly/enclosure-assembly.step"
 VIEWS="top,front,right"
 SIZE="1600x1200"

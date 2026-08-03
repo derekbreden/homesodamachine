@@ -35,7 +35,6 @@ relay_diaphragm_gpio = 2                # J5 `IO2`  -> relay #2 (diaphragm pump 
 psu_power_w = 80                        # rated output
 psu_voltage_v = 12                      # regulated rail
 psu_current_a = 6.7                     # max
-psu_mass_g = 200
 
 # ─── AC/DC pigtail lengths ─────────────────────────────────────────────
 # Source: ../wiring/ac-wiring-schedule.md "AC mains" + "12 V distribution".
@@ -58,7 +57,6 @@ def main():
         "PSU_POWER": f"{psu_power_w:.4g} W",
         "PSU_VOLTAGE": f"{psu_voltage_v:.4g} V",
         "PSU_CURRENT": f"{psu_current_a:.4g} A",
-        "PSU_MASS": f"~{psu_mass_g:.4g} g",
         # AC/DC pigtail lengths.
         "PIGTAIL_SHORT": f"~{pigtail_short_mm:.4g} mm",
         "PIGTAIL_MEDIUM": f"~{pigtail_medium_mm:.4g} mm",
@@ -78,7 +76,6 @@ def main():
             "PSU_POWER": 1,
             "PSU_VOLTAGE": 2,
             "PSU_CURRENT": 1,
-            "PSU_MASS": 1,
             "PIGTAIL_SHORT": 1,
             "PIGTAIL_MEDIUM": 2,
             "PIGTAIL_INLET": 1,

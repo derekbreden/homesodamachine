@@ -105,9 +105,17 @@ def test_clearance_floor() -> None:
     viol = [(a, b, g) for a, b, g, ok in tight if not ok and g < sc.CLEARANCE_FLOOR]
     check("fires on a sub-floor gap between undeclared parts", len(viol) == 1,
           f"tightest {viol[0][2]:.2f} mm" if viol else "no violation seen")
-    # Control: the same 0.5 mm gap, but a declared intentional contact → allowed.
-    contact = sc.part_clearances({"foam-assembly": box(0, 0, 0),
-                                  "ac-hub": box(0, 0, 10.5)})
+    # Control: the same 0.5 mm gap, but a declared intentional contact → allowed. The
+    # pair is injected rather than taken from the pack, so this tests the exemption
+    # mechanism whether or not the pack currently declares any contact of its own —
+    # a set that happens to be empty must not quietly retire the check that reads it.
+    pair = frozenset(("mq6-sensor", "dc-dist"))
+    sc.TOUCHING_OK.add(pair)
+    try:
+        contact = sc.part_clearances({"mq6-sensor": box(0, 0, 0),
+                                      "dc-dist": box(0, 0, 10.5)})
+    finally:
+        sc.TOUCHING_OK.discard(pair)
     cviol = [r for r in contact if not r[3] and r[2] < sc.CLEARANCE_FLOOR]
     check("silent on a declared TOUCHING_OK contact at the same gap", len(cviol) == 0,
           f"{len(cviol)} spurious violation(s)")
@@ -183,7 +191,7 @@ def test_placement() -> None:
         del sc.PLACEMENT_RULES["near-probe"]
 
     # The part-to-part `clear` (keep-out) form — proven through an injected probe rule,
-    # independent of the pack rules that lean on it (the bag-circuit assembly's floor-stratum
+    # independent of the pack rules that lean on it (the pack's own floor-stratum
     # keep-outs), so the proof never rides the current pack's numbers.
     print("placed (part-to-part `clear` keep-out fires)")
     sc.PLACEMENT_RULES["clear-probe"] = [("clear", "display", 7.0)]
@@ -205,6 +213,48 @@ def test_placement() -> None:
         del sc.PLACEMENT_RULES["clear-probe"]
 
 
+# ── port-leads: a body parked in front of a collet = no room to leave ────────
+def test_port_leads() -> None:
+    print(f"port-leads (a tube port has {sc.PORT_LEAD_BENDS:g} bend radii of straight)")
+    import _lines
+    reach = sc.PORT_LEAD_BENDS * _lines.WBEND
+
+    # The instrument first, on hand-built geometry. A collet at the origin looking +Y.
+    near = {"wall": box(-5, 3.0, -5, 20, 20, 20)}        # a body 3 mm off the port face
+    who, free = sc._lead_first((0, 0, 0), (0, 1, 0), 6.35, reach, near)
+    check("fires on a body parked in front of a port", who == "wall" and free < reach,
+          f"{free:.2f} mm to {who}")
+    far = {"wall": box(-5, reach + 5.0, -5, 20, 20, 20)}
+    who2, free2 = sc._lead_first((0, 0, 0), (0, 1, 0), 6.35, reach, far)
+    check("silent on a port with its lead clear", who2 is None and free2 == reach,
+          f"reached {free2:.2f} mm")
+    # The same near body, held out because the port's own run terminates on it — a divider's
+    # outlet stands one leg-lead off the collet it feeds, and that is the mate, not a blockage.
+    who3, free3 = sc._lead_first((0, 0, 0), (0, 1, 0), 6.35, reach, near, skip=("wall",))
+    check("silent when the body in front is the port's own mate", who3 is None,
+          f"{free3:.2f} mm, hit {who3}")
+
+    # And through `port_leads`, so the wiring from a Port row to a verdict is proven too.
+    probe = sc._p("probe", "tee-y-c", "fluid", (0.0, 0.0, 0.0), "y+", 6.35, "a test fixture")
+    sc.PORTS.append(probe)
+    try:
+        blocked = sc.port_leads({"tee-y-c": box(-5, -20, -5, 20, 20, 20), **near}, mates={})
+        row = next(r for r in blocked if r[1] == "probe")
+        check("port_leads reports a blocked collet", not row[5] and row[6], f"met {row[2]}")
+        clear = sc.port_leads({"tee-y-c": box(-5, -20, -5, 20, 20, 20), **far}, mates={})
+        crow = next(r for r in clear if r[1] == "probe")
+        check("port_leads passes a clear collet", crow[5], f"met {crow[2]}")
+        # The gate itself: a blocked collet must turn build_scorecard's verdict red.
+        card = sc.build_scorecard({"tee-y-c": box(-5, -20, -5, 20, 20, 20), **near},
+                                  {"piece": box(400, 0, 0)}, (325.0, 320.0, 320.0),
+                                  (0.0, 100.0, 0.0, 100.0, 0.0, 100.0))
+        pl = next(c for c in card.checks if c.id == "port-leads")
+        check("port-leads gate goes red on a blocked collet",
+              pl.kind == "gate" and pl.status == "fail", f"status={pl.status}")
+    finally:
+        sc.PORTS.remove(probe)
+
+
 # ── located: a fluid port is the open mouth of its own bore, exactly where it says ────
 def test_located_faces() -> None:
     print("located (a fluid port names the collet face that is there)")
@@ -217,10 +267,10 @@ def test_located_faces() -> None:
     solid_tip = cq.Solid.makeCylinder(6.0, 20.0, cq.Vector(0, -20, 0), cq.Vector(0, 1, 0))
 
     def status(y, body):
-        probe = sc._p("probe", "digiten-flow", "fluid", (0.0, y, 0.0), "y+", 6.35, "a test fixture")
+        probe = sc._p("probe", "tee-y-c", "fluid", (0.0, y, 0.0), "y+", 6.35, "a test fixture")
         sc.PORTS.append(probe)
         try:
-            comp, ok, rows = next(r for r in sc.ports_audit({"digiten-flow": body}) if r[0] == "digiten-flow")
+            comp, ok, rows = next(r for r in sc.ports_audit({"tee-y-c": body}) if r[0] == "tee-y-c")
             return next(s for pt, s in rows if pt.name == "probe")
         finally:
             sc.PORTS.remove(probe)
@@ -260,8 +310,12 @@ def test_scorecard_end_to_end() -> None:
           f"status={packok.status}")
 
 
-# ── routing guards: a path that cannot be made raises ────────────────────────
+# ── routing guards: a path short of what it needs is drawn and recorded ──────
 def test_routing_guards() -> None:
+    """A run that cannot hold its collet discipline is drawn at what it has and its shortfall
+    written to `_routing.BLOCKED`. These are the controls on that record — that a clean run
+    leaves it empty, and that each shortfall lands in it with the run still swept, so the tangle
+    a moved body makes can be looked at instead of ending the build."""
     import _routing as R
 
     print("routing guards (bend radius, ambiguous close, folded close)")
@@ -273,6 +327,7 @@ def test_routing_guards() -> None:
 
     def fixture():
         R._frames.clear()
+        R.BLOCKED.clear()
         R.frame("A", box(0, 0, 0), {"p": ((0.0, 0.0, 0.0), "y+", 6.35)})
         R.frame("B", box(0, 0, 0), {"p": ((span, depth, 0.0), "y-", 6.35)})
 
@@ -284,35 +339,220 @@ def test_routing_guards() -> None:
     fixture()
     try:
         run = R.route("t", "A.p", across, "B.p")
-        check("silent on legs that clear the bend radius", len(run.bends) >= 2, f"{len(run.bends)} bends")
+        check("silent on legs that clear the bend radius",
+              len(run.bends) >= 2 and not R.BLOCKED, f"{len(run.bends)} bends")
     except ValueError as e:
         check("silent on legs that clear the bend radius", False, str(e)[:70])
 
-    # A stub shorter than the bend radius cannot seat the turn off the port.
+    # A stub shorter than the bend radius cannot seat the whole turn off the port — so the corner
+    # takes what the stub holds and the gate reads the tighter radius, rather than the build dying
+    # on a leg the pack is entitled to shorten.
     fixture()
-    try:
-        R.route("t", "A.p", across, "B.p", stub=bend / 3.0)
-        check("fires on a leg too short for its bend radius", False, "no raise")
-    except ValueError as e:
-        check("fires on a leg too short for its bend radius", "tangent" in str(e), str(e)[:58])
+    short = R.route("t", "A.p", across, "B.p", stub=bend / 3.0)
+    check("a leg too short for the cap seats a tighter corner, not a raise",
+          short.tightest <= bend / 3.0 + 1e-6 and short.tightest > 0,
+          f"stub R{bend / 3.0:.2f} → corner R{short.tightest:.2f} under a cap of R{short.bend:.2f}")
 
-    # Two coordinates still differing at the close = an ambiguous corner order.
+    # Two coordinates still differing at the close = an ambiguous corner order. The run is drawn
+    # as one leg across all of them and the ambiguity recorded against it.
     fixture()
-    try:
-        R.route("t", "A.p", "B.p")
-        check("fires when the close is ambiguous (2 coords differ)", False, "no raise")
-    except ValueError as e:
-        check("fires when the close is ambiguous (2 coords differ)",
-              "needs another constraint" in str(e), str(e)[:58])
+    amb = R.route("t", "A.p", "B.p")
+    check("records the ambiguous close, and still draws the run",
+          "needs another constraint" in R.BLOCKED.get("t", "")
+          and amb.pts[-1] == (span, depth, 0.0),
+          R.BLOCKED.get("t", "no record")[:58])
 
-    # A path nearer the port than its own approach stub would back out and come straight back.
+    # A path nearer the port than its own approach stub would back out and come straight back, so
+    # the stub is drawn at the room the path leaves it and the shortfall says how much that was.
     fixture()
-    try:
-        R.route("t", "A.p", {"y": depth - bend / 2.0}, across, "B.p", stub=(bend, bend * 2.0))
-        check("fires when the close folds back on itself", False, "no raise")
-    except ValueError as e:
-        check("fires when the close folds back on itself", "folds" in str(e), str(e)[:58])
+    fold = R.route("t", "A.p", {"y": depth - bend / 2.0}, across, "B.p", stub=(bend, bend * 2.0))
+    check("records the folded close, and closes on the port anyway",
+          "folds" in R.BLOCKED.get("t", "") and fold.pts[-1] == (span, depth, 0.0),
+          R.BLOCKED.get("t", "no record")[:58])
+
+    # A corner whose legs are wholly spent on its neighbours seats nothing; it is drawn square
+    # and the run recorded, so `bend-radius` grades the kink instead of the build ending on it.
+    fixture()
+    kink = R.route("t", "A.p", across, "B.p", stub=(1e-7, bend), bend=bend)
+    check("records a corner that seats no radius, and draws it square",
+          "seats no radius" in R.BLOCKED.get("t", "") and min(kink.radii.values()) == 0.0,
+          R.BLOCKED.get("t", "no record")[:58])
     R._frames.clear()
+    R.BLOCKED.clear()
+
+
+# ── bend-radius: the grade reads the same inequality the guard raises on ─────
+def test_bend_radius() -> None:
+    """`leg_caps` claims the largest radius a centreline seats, and the gate grades against it.
+    That claim is only worth anything if it is the SAME bound `_bends` raises on — a second
+    implementation of the arithmetic would drift from the guard and the card would grade a run
+    buildable that the build refuses. So the control is a round trip: measure the cap, then
+    author the run at it and just past it, and require the guard to agree at both."""
+    import _routing as R
+
+    print("bend radius (the cap, its classification, the grades)")
+    span, depth, stub = 200.0, 130.0, 40.0
+
+    def fixture():
+        R._frames.clear()
+        R.frame("A", box(0, 0, 0), {"p": ((0.0, 0.0, 0.0), "y+", 6.35)})
+        R.frame("B", box(0, 0, 0), {"p": ((span, depth, 0.0), "y-", 6.35)})
+
+    # An explicit stub, so the two lead legs are fixed lengths and the centreline does not move
+    # when the radius does — otherwise the default stub (one bend radius) rescales the run.
+    def at(r):
+        fixture()
+        return R.route("t", "A.p", {"x": span}, "B.p", stub=stub, bend=r)
+
+    run = at(6.0)
+    caps = R.leg_caps(run)
+    seat = min(c[0] for c in caps)
+    where = {c[1]: c[4] for c in caps}
+    check("the two end legs are leads, the rest interior",
+          where.get(0) == "lead" and where.get(len(run.pts) - 2) == "lead"
+          and all(v == "interior" for k, v in where.items() if k not in (0, len(run.pts) - 2)),
+          " ".join(f"{k}:{v}" for k, v in sorted(where.items())))
+
+    got = at(seat)
+    check("every corner reaches the cap leg_caps measured",
+          all(v >= seat - 1e-6 for v in got.radii.values()),
+          f"R{seat:.2f} → {sorted(round(v, 2) for v in got.radii.values())}")
+    # Past what the legs seat, a corner takes less — it does not raise. A cap is a ceiling, and
+    # the floor under it is the geometry, so a part that moves re-seats rather than failing the
+    # build and `bend-radius` is what says the corner got too tight.
+    past = at(seat * 2.0)
+    check("past the cap the corners seat less rather than raising",
+          past.tightest <= seat + 1e-6 and past.pts == got.pts,
+          f"cap R{seat * 2:.2f} → tightest R{past.tightest:.2f}, centreline unmoved")
+    # A cap BELOW what the legs seat is honoured — that is how a turn is authored deliberately
+    # tighter than its room.
+    tight = at(seat / 2.0)
+    check("a cap under what the legs seat holds every corner to it",
+          all(abs(v - seat / 2.0) < 1e-6 for v in tight.radii.values()),
+          f"cap R{seat / 2:.2f} → {sorted(round(v, 2) for v in tight.radii.values())}")
+
+    # The whole point of per-corner: a corner held down by its OWN cap leaves the rest of the leg
+    # it shares to the neighbour, which then rises past what an equal share would have given it.
+    corners = sorted(got.radii)
+    a, b = corners[0], corners[1]
+    held = at({a: 1.0})
+    check("a corner held by its cap leaves its leg to the neighbour",
+          held.radii[a] <= 1.0 + 1e-6 and held.radii[b] > got.radii[b] + 1e-6,
+          f"corner {a} capped R1.0 → corner {b} rises R{got.radii[b]:.2f} → R{held.radii[b]:.2f}")
+
+    # A cap naming something that is not a corner is an author's mistake, not a silent no-op.
+    try:
+        at({max(corners) + 99: 5.0})
+        check("a cap on a waypoint that is not a corner raises", False, "no raise")
+    except ValueError as e:
+        check("a cap on a waypoint that is not a corner raises", "not a corner" in str(e), str(e)[:58])
+
+    # The grade bands, on the stock the fixture's Ø6.35 refrigerant runs are drawn in.
+    copper = sc.stock_of("refrigerant", 6.35)
+    check("a run at its stock's minimum grades B (buildable, no more)",
+          sc.grade_of(copper.min_bend / copper.min_bend) == "B", f"R{copper.min_bend:g}")
+    check("half the minimum grades F", sc.grade_of(0.5 - 1e-9) == "F")
+    try:
+        sc.stock_of("fluid", 3.0)
+        check("an undeclared stock raises rather than being graded", False, "no raise")
+    except KeyError as e:
+        check("an undeclared stock raises rather than being graded", "no stock declared" in str(e))
+
+    # A run with no corner has no bend to grade, and must not be counted as a failing one.
+    # Two collets facing each other down one line: the whole run is a single straight length.
+    R._frames.clear()
+    R.frame("A", box(0, 0, 0), {"p": ((0.0, 0.0, 0.0), "y+", 6.35)})
+    R.frame("B", box(0, 0, 0), {"p": ((0.0, depth, 0.0), "y-", 6.35)})
+    straight = R.route("s", "A.p", "B.p", stub=0.0, bend=6.0)
+    rows = sc.bend_radii([straight, at(6.0)])
+    check("a straight run is ungraded, a bent one is graded",
+          len(rows) == 2 and [d["grade"] is None for d in rows].count(True) == 1
+          and next(d["grade"] for d in rows if d["id"] == "s") is None,
+          f"{straight.id}: {len(straight.bends)} bends")
+    bent = next(d for d in rows if d["grade"])
+    check("reach is measured without the leads seat counts",
+          bent["reach"] is not None and bent["seat"] is not None and bent["reach"] >= bent["seat"],
+          f"seat R{bent['seat']:.2f} ≤ reach R{bent['reach']:.2f}")
+    # The need record rides every row: what the run CONNECTS, beside what pins it. A straight
+    # spends its path on its span exactly; the bent fixture's span is its endpoint distance
+    # split by axis, and its drawn path exceeds it.
+    sn = next(d for d in rows if d["id"] == "s")["need"]
+    check("need: a straight run's path is its span",
+          abs(sn["detour"] - 1.0) < 1e-9, f"detour {sn['detour']}")
+    n = bent["need"]
+    check("need: span is the endpoint distance, split by axis",
+          abs(n["span"] - (span * span + depth * depth) ** 0.5) < 0.01
+          and n["axis"] == {"x": span, "y": depth, "z": 0.0} and n["detour"] > 1.0,
+          f"span {n['span']}, path {n['path']} = {n['detour']}× over Δ({span:g}, {depth:g}, 0)")
+    R._frames.clear()
+
+
+def test_divider_reach() -> None:
+    """`divider_reach` is the only thing standing between `DIVIDER_LEAN` and the front of the
+    machine, and the lean is a number a future session will want to push. What stops it is
+    each leg's two corners: an R`WBEND` arc eats `WBEND · tan(lean/2)` off every straight it
+    meets, from both ends of the leaning run at once. These are the controls on that bound —
+    that it is silent where the tube still runs straight, and records on each of the two ends
+    it can run out at, so nobody has to read the reach as a number somebody picked."""
+    import _contents as c
+
+    print("divider reach (the lean's own bound)")
+    lean, lead = c.DIVIDER_LEAN, c.DIVIDER_LEG_LEAD
+    keep = dict(c.SHORT)
+    try:
+        c.SHORT.clear()
+        check("silent at the lean the machine is built to",
+              c.divider_reach() > 2 * lead and not c.SHORT,
+              f"lean {lean}° → reach {c.divider_reach():.2f} mm")
+
+        # The leaning run: steepen far enough and the two arcs meet in the middle of it.
+        c.SHORT.clear()
+        c.DIVIDER_LEAN = 85.0
+        c.divider_reach()
+        check("records the leaning run that cannot seat both arcs",
+              any("the leaning run" in v for v in c.SHORT.values()),
+              "; ".join(c.SHORT)[:58] or "no record")
+
+        # The collet stub: the same arc eats into the 6 mm straight off the valve's own port.
+        c.SHORT.clear()
+        c.DIVIDER_LEAN, c.DIVIDER_LEG_LEAD = 60.0, 3.5
+        c.divider_reach()
+        check("records the collet stub that cannot seat its arc",
+              any("each collet stub" in v for v in c.SHORT.values()),
+              "; ".join(c.SHORT)[:58] or "no record")
+    finally:
+        c.DIVIDER_LEAN, c.DIVIDER_LEG_LEAD = lean, lead
+        c.SHORT.clear()
+        c.SHORT.update(keep)
+
+
+# ── room-holds: a derivation short of its own stated band = a red gate ───────
+def test_room_holds() -> None:
+    """`room-holds` carries what a pose could not get. The derivations fill `_contents.SHORT` as
+    the pack is built and this gate reads it, so the control is the round trip: an empty record
+    passes, one entry turns the gate red and its measurement reaches the card's detail."""
+    import _contents as c
+
+    print("room-holds (a derived pose has the band it states)")
+    bed, inner = (325.0, 320.0, 320.0), (0.0, 100.0, 0.0, 100.0, 0.0, 100.0)
+    solids, pieces = {"a": box(0, 0, 0)}, {"piece": box(200, 0, 0)}
+    keep = dict(c.SHORT)
+    try:
+        c.SHORT.clear()
+        clean = next(k for k in sc.build_scorecard(solids, pieces, bed, inner).checks
+                     if k.id == "room-holds")
+        check("passes when every derived pose got its band", clean.status == "pass",
+              f"status={clean.status}, {clean.value}")
+
+        c.SHORT["a-band"] = "the band is 2.50 mm and what stands in it wants 7.35"
+        red = next(k for k in sc.build_scorecard(solids, pieces, bed, inner).checks
+                   if k.id == "room-holds")
+        check("goes red on a pose short of its own band, with the measurement",
+              red.status == "fail" and any("7.35" in d for d in red.detail),
+              f"status={red.status}, {red.value}")
+    finally:
+        c.SHORT.clear()
+        c.SHORT.update(keep)
 
 
 def main() -> None:
@@ -320,8 +560,9 @@ def main() -> None:
     if not sc._HAVE_EXACT:
         print("  note: exact solid-distance kernel unavailable; clearance uses bbox estimate")
     for t in (test_pack_closes, test_lines_clear, test_clearance_floor, test_fit_bed,
-              test_seams_mate, test_placement, test_located_faces,
-              test_scorecard_end_to_end, test_routing_guards):
+              test_seams_mate, test_placement, test_port_leads, test_located_faces,
+              test_scorecard_end_to_end, test_routing_guards, test_bend_radius,
+              test_divider_reach, test_room_holds):
         t()
     print("─" * 53)
     if _failures:

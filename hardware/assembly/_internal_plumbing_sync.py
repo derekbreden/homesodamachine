@@ -29,18 +29,18 @@ sys.path.insert(
     ),
 )
 
-from _cold_core_interface import co2_inlet_x, co2_inlet_tube_radius  # noqa: E402
+from _cold_core_interface import co2_inlet_y, co2_inlet_tube_radius  # noqa: E402
 
 from docgen import substitute_md  # noqa: E402
 
 
 def main():
     variables = {
-        # CO2 inlet X (in cold-core foam-shell coordinates, which is the
-        # vessel bottom plate's own port offset) and the bore diameter the
-        # 1/4" OD LLDPE crosses the shell wall through. Source: `co2_inlet_x`
-        # and `2 × co2_inlet_tube_radius` in _cold_core_interface.py.
-        "COTWO_INLET_X": f"+{co2_inlet_x:.4g} mm",
+        # CO2 inlet Y (in cold-core foam-shell coordinates — the vessel's own
+        # port axis) and the bore diameter the 1/4" OD LLDPE crosses the shell
+        # wall through. Source: `co2_inlet_y` and `2 × co2_inlet_tube_radius`
+        # in _cold_core_interface.py.
+        "COTWO_INLET_Y": f"{co2_inlet_y:.4g} mm",
         "COTWO_TUBE_D": f"{2 * co2_inlet_tube_radius:.4g} mm",
     }
 
@@ -48,7 +48,7 @@ def main():
         _here / "internal-plumbing.md",
         variables=variables,
         expected_counts={
-            "COTWO_INLET_X": 1,
+            "COTWO_INLET_Y": 1,
             "COTWO_TUBE_D": 1,
         },
     )

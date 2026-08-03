@@ -140,6 +140,26 @@ mounting_flat = [
     (arm_u - mounting_hole_z, 0.0),    # right wall
 ]
 
+# ── Stations, in the shroud's own frame ─────────────────────────────
+# The four penetrations a line arrives at, each on the OUTER surface of the wall it
+# crosses and looking out of it. Both copper stubs take the left (−X) wall at the
+# quarter points of the depth; the AC gland and the earth stud share the back (+Y) one.
+# The two copper bores are one bore twice — which carries suction and which discharge
+# is piped inside the shroud, and the assignment is the enclosure's.
+STATIONS = {
+    "refrig-west":  ((-outer_x, -copper_hole_depth_offset, hole_center_z), (-1.0, 0.0, 0.0)),
+    "refrig-east":  ((-outer_x, +copper_hole_depth_offset, hole_center_z), (-1.0, 0.0, 0.0)),
+    "ac-mains":     ((0.0, outer_y, hole_center_z), (0.0, 1.0, 0.0)),
+    "earth-bond":   ((bond_hole_x, outer_y, hole_center_z), (0.0, 1.0, 0.0)),
+}
+
+
+def port(name):
+    """One penetration: `(position, outward axis)` in the shroud's own frame."""
+    if name not in STATIONS:
+        raise KeyError(f"no station {name!r} (have: {', '.join(STATIONS)})")
+    return STATIONS[name]
+
 _out_dir = _here.parent
 _step_path = _out_dir / "compressor-shroud.step"
 _dxf_path = _out_dir / "compressor-shroud-flat.dxf"
@@ -198,16 +218,15 @@ def make_step():
             )
             shroud = shroud.cut(seam).cut(notch)
 
-    # AC hole in the back (+Y) face.
-    shroud = _cut_cylinder(shroud, (0, outer_y - wall_thickness / 2, hole_center_z),
-                           (0, 1, 0), ac_hole_diameter)
-    # Copper inlet + outlet in the left (-X) face.
-    for dy in (-copper_hole_depth_offset, copper_hole_depth_offset):
-        shroud = _cut_cylinder(shroud, (-outer_x + wall_thickness / 2, dy, hole_center_z),
-                               (1, 0, 0), copper_hole_diameter)
-    # Earth-bond hole in the back (+Y) face, beside the AC hole.
-    shroud = _cut_cylinder(shroud, (bond_hole_x, outer_y - wall_thickness / 2, hole_center_z),
-                           (0, 1, 0), bond_hole_diameter)
+    # The three line penetrations, each bored on its own station's centre, half a wall
+    # thickness in from the outer face the station stands on.
+    for name, dia in (("ac-mains", ac_hole_diameter), ("earth-bond", bond_hole_diameter),
+                      ("refrig-west", copper_hole_diameter),
+                      ("refrig-east", copper_hole_diameter)):
+        (px, py, pz), axis = port(name)
+        inward = tuple(-a * wall_thickness / 2 for a in axis)
+        shroud = _cut_cylinder(shroud, (px + inward[0], py + inward[1], pz + inward[2]),
+                               tuple(abs(a) for a in axis), dia)
     # Mounting holes near the base of the left (-X) and right (+X) faces.
     shroud = _cut_cylinder(shroud, (-outer_x + wall_thickness / 2, 0, mounting_hole_z),
                            (1, 0, 0), mounting_hole_diameter)

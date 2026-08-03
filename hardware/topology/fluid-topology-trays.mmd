@@ -1,60 +1,70 @@
 flowchart LR
 
-  %% Valve-manifold fluid topology grouped by physical carrier. Each box is a
-  %% printed tray or a tube-hung fitting group; the nodes inside are the valves
-  %% and junction fittings it carries. Hexagons are Y-dividers; orange nodes are
-  %% Tees (in-line run + branch). Blue links are on-tray seats; gray links run
-  %% between carriers. The pump-discharge tees (Y-D/Y-G) are not yet placed —
-  %% their group names the gap, not a carrier. Source, pump, bag, and nozzle
-  %% endpoints are omitted — this is the condensed view; the complete chart is
+  %% Valve-manifold fluid topology grouped by physical carrier. Every box is one
+  %% printed two-valve tray — five of them, all the same part — and the two
+  %% valves inside are the pair that meets at one junction. The junctions
+  %% themselves have no carrier: no fitting seats on the tray, so each follows
+  %% from where its pair's two ports land rather than from the tray. Blue links
+  %% reach a pair's own junction; gray ones cross to another pair or to a pump.
+  %% Hexagons are Y-dividers — the fitting a pair joined SIDE BY SIDE takes where
+  %% there is room ahead of it for a trident, which is Y-H alone; orange nodes are
+  %% Tees (in-line run + branch), which is every junction reaching two ports on
+  %% DIFFERENT trays, plus Y-E, whose own pair leaves it a strip a fitting's
+  %% diameter deep and so stands it ACROSS that strip. Y-A and Y-B are the pair to read that
+  %% way: the source tray stands in the selects tray's own two seats, so each of
+  %% them takes one port from each tray down one column, and the edge between
+  %% them is the crossbar that puts all four on one node. Source, pump, bag and
+  %% nozzle are omitted
+  %% — this is the condensed view; the complete chart is
   %% fluid-topology-manifold.mmd, every endpoint present and every edge
   %% labelled with its route ID.
 
-  subgraph Tray1["Tray 1 — Source Select"]
+  subgraph TraySrc["Tray — V-A · V-B"]
     VA["V-A"]
     VB["V-B"]
-    YA{{"Y-A"}}
-    YB{{"Y-B"}}
+  end
+
+  subgraph TraySel["Tray — V-C · V-D"]
     VC["V-C"]
     VD["V-D"]
   end
 
-  subgraph Tray2["Tray 2 — Bag Circuit"]
+  subgraph TrayBagA["Tray — V-E · V-F"]
     VE["V-E"]
     VF["V-F"]
-    YE{{"Y-E"}}
-    VH["V-H"]
-    VI["V-I"]
-    YH{{"Y-H"}}
   end
 
-  subgraph Tray3["Tray 3 — Nozzle Gate"]
+  subgraph TrayBagB["Tray — V-H · V-I"]
+    VH["V-H"]
+    VI["V-I"]
+  end
+
+  subgraph TrayNoz["Tray — V-G · V-J"]
     VG["V-G"]
     VJ["V-J"]
   end
 
-  subgraph Junction["Junction column — tube-hung"]
-    YC{{"Y-C"}}
-    YF{{"Y-F"}}
-  end
+  YA{{"Y-A"}}
+  YB{{"Y-B"}}
+  YC{{"Y-C"}}
+  YD{{"Y-D"}}
+  YE["Y-E"]
+  YF{{"Y-F"}}
+  YG{{"Y-G"}}
+  YH{{"Y-H"}}
 
-  subgraph Discharge["Pump-discharge tees — not yet placed"]
-    YD{{"Y-D"}}
-    YG{{"Y-G"}}
-  end
-
-  %% ---- On-tray seats (blue, links 0-8) ----
-  VA --> YA
-  VB --> YA
-  YA --> YB
-  YB --> VC
-  YB --> VD
+  %% ---- A tray's two valves to the junction they share (blue) ----
   VF --> YE
   YE --> VE
   VI --> YH
   YH --> VH
 
-  %% ---- Between carriers (gray, links 9-16) ----
+  %% ---- Everything that crosses to another pair or a pump (gray) ----
+  VA --> YA
+  YA --> VC
+  VB --> YB
+  YB --> VD
+  YA --> YB
   VC --> YC
   VD --> YF
   VE --> YC
@@ -66,6 +76,6 @@ flowchart LR
 
   %% ---- Styling ----
   classDef tee fill:#c2410c,stroke:#7c2d12,color:#ffffff,stroke-width:2px;
-  class YE,YH,YC,YF,YD,YG tee;
-  linkStyle 0,1,2,3,4,5,6,7,8 stroke:#09f,stroke-width:2px
-  linkStyle 9,10,11,12,13,14,15,16 stroke:#888,stroke-width:2px
+  class YA,YB,YC,YF,YD,YG,YE tee;
+  linkStyle 0,1,2,3 stroke:#09f,stroke-width:2px
+  linkStyle 4,5,6,7,8,9,10,11,12,13,14,15,16 stroke:#888,stroke-width:2px

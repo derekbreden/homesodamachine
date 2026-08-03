@@ -142,7 +142,7 @@ function relForBroadcast(absPath) {
 }
 
 // Repo-root-relative path for logs, so files in either tree read cleanly
-// (`hardware/...` or `thin/hardware/...`) instead of a `../` climb.
+// (`hardware/...` or `hardware/...`) instead of a `../` climb.
 function relForLog(absPath) {
   return path.relative(PROJECT_ROOT, absPath);
 }

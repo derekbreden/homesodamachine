@@ -11,10 +11,12 @@ collets meeting at the body centre, run half-length and branch reach both
 20.07 mm, collet OD 13.7 mm, 1/4" (6.35 mm) bore. Reconcile against a measured
 PP0208E as parts come in hand (same note as reference/tee-connector).
 
-Frame: the run along ±Y — the ASSE supply comes down it from +Y and the flavor
-tap leaves it at −Y — and the branch along −X, turning V-K's share west. Centre
-at the origin, the three collet faces in the Z = 0 plane — placed by a pure
-translation in the enclosure.
+Frame: the run along ±Y, the supply at +Y and the flavor tap at −Y, and the branch
+along −X at a right angle to both. Centre at the origin, the three collet faces in
+the Z = 0 plane. Which of the three ends up pointing where is the enclosure's to
+say — it turns this frame twice on the way in ([`_contents.py`](/hardware/printed-parts/enclosure/enclosure-assembly/_contents.py)
+`SPLIT_ROLL`, `SPLIT_PITCH`), and the branch is the port those turns are FOR:
+it is the only one of the three that can be given a level of its own.
 
 Run:
     tools/cad-venv/bin/python hardware/reference/water-split/water_split.py
@@ -44,7 +46,8 @@ def supply():
 
 def to_vk():
     """The branch collet feeding V-K, on to the SeaFlo suction: (position, axis).
-    It takes V-K's share off the run at a right angle, west."""
+    It takes V-K's share off the run at a right angle — the one port of the three
+    the enclosure can point at a level the other two are not on."""
     return (-REACH, 0.0, 0.0), (-1.0, 0.0, 0.0)
 
 
