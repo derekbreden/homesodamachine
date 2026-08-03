@@ -261,6 +261,99 @@ static void cmdBus() {
     Serial.println("returned");
 }
 
+// U7 (COS13487) switches direction on its own, so driving DI puts the bit on A/B and the
+// receiver hands it back on RO. The loop therefore closes on the board: DI -> U7 -> the
+// differential pair and R6's 120R termination -> U7 -> RO, through D10/D11 on the way.
+static const int PIN_485_DI = 32;
+static const int PIN_485_RO = 34;
+
+static void cmdRs485() {
+    Serial.println("\n-- RS485 loopback (IO32 DI -> U7 -> A/B -> U7 -> IO34 RO) --");
+    pinMode(PIN_485_DI, OUTPUT);
+    pinMode(PIN_485_RO, INPUT);
+    int pass = 0, n = 0;
+    for (int i = 0; i < 6; i++) {
+        int want = i & 1;
+        digitalWrite(PIN_485_DI, want);
+        delayMicroseconds(800);
+        int got = digitalRead(PIN_485_RO);
+        n++; if (got == want) pass++;
+        Serial.printf("   DI=%d  ->  RO=%d   %s\n", want, got, got == want ? "ok" : "MISMATCH");
+    }
+    digitalWrite(PIN_485_DI, HIGH);   // idle mark
+    Serial.printf("  %d/%d echoed — %s\n", pass, n,
+                  pass == n ? "U7, the pair, and both hauls carry" : "the loop does not close");
+    Serial.println("  (J9 empty is fine; R6 terminates the pair on-board)");
+}
+
+// Every input that can take an internal pull-up, sampled continuously and printed on change.
+// Short a connector pin to that connector's GND with a jumper and its line reports here —
+// which walks the whole net, pad to connector, the way nothing in the model can.
+static void cmdWatch() {
+    struct W { const char *name; int gpio; bool pullup; };
+    static const W w[] = {
+        {"J4.IO23", 23, true},  {"J4.IO25", 25, true}, {"J4.IO26", 26, true},
+        {"J4.IO27", 27, true},  {"J3.IO33", 33, true}, {"J3.IO35", 35, false},
+        {"U7.RO",   34, false},
+    };
+    Serial.println("\n-- live pin watch, 90 s — short a connector pin to its GND --");
+    Serial.println("  IO35/IO34 are input-only: GPIO34-39 have no internal pull-up, so those");
+    Serial.println("  two need a voltage applied rather than a short to ground.");
+    int last[7];
+    for (int i = 0; i < 7; i++) {
+        pinMode(w[i].gpio, w[i].pullup ? INPUT_PULLUP : INPUT);
+        delay(2);
+        last[i] = digitalRead(w[i].gpio);
+        Serial.printf("   %-9s IO%-2d start = %d%s\n", w[i].name, w[i].gpio, last[i],
+                      w[i].pullup ? "" : "   (no pull-up available)");
+    }
+    Serial.println("  watching...");
+    unsigned long t0 = millis();
+    while (millis() - t0 < 90000) {
+        for (int i = 0; i < 7; i++) {
+            int v = digitalRead(w[i].gpio);
+            if (v != last[i]) {
+                Serial.printf("   [%6lu ms] %-9s IO%-2d  %d -> %d\n", millis() - t0, w[i].name, w[i].gpio, last[i], v);
+                last[i] = v;
+            }
+        }
+        if (Serial.available()) { while (Serial.available()) Serial.read(); break; }
+        delay(15);
+    }
+    Serial.println("  watch ended");
+}
+
+// Driving IO2/IO19/IO17/IO4 energizes real hardware, so they answer only while armed and
+// only for as long as the arming lasts.
+static unsigned long armedUntil = 0;
+static void cmdArm() {
+    armedUntil = millis() + 120000;
+    Serial.println("\n-- actuator outputs ARMED for 120 s --");
+    Serial.println("  IO2  -> J5.IO2   relay (carbonator pump gate)");
+    Serial.println("  IO19 -> U15.A    interlock -> J5.IO19 relay (compressor)");
+    Serial.println("  IO17 -> U11.IN1  pump A     IO4 -> U12.IN1  pump B");
+    Serial.println("  Confirm J1/J2/J5/J13 are unplugged before driving anything.");
+    Serial.println("  usage: drive io19 1   /   drive io19 0");
+}
+
+static void cmdDrive(const String &line) {
+    int sp1 = line.indexOf(' '), sp2 = line.lastIndexOf(' ');
+    if (sp1 < 0 || sp2 <= sp1) { Serial.println("usage: drive <io2|io4|io17|io19|io32> <0|1>"); return; }
+    String which = line.substring(sp1 + 1, sp2); which.trim();
+    int val = line.substring(sp2 + 1).toInt() ? HIGH : LOW;
+    int gpio = which == "io2" ? 2 : which == "io4" ? 4 : which == "io17" ? 17
+             : which == "io19" ? 19 : which == "io32" ? 32 : -1;
+    if (gpio < 0) { Serial.printf("unknown pin '%s'\n", which.c_str()); return; }
+    bool actuator = (gpio == 2 || gpio == 4 || gpio == 17 || gpio == 19);
+    if (actuator && millis() > armedUntil) { Serial.println("actuator pins are not armed — run 'arm' first"); return; }
+    pinMode(gpio, OUTPUT);
+    digitalWrite(gpio, val);
+    Serial.printf("\nIO%d driven %s\n", gpio, val ? "HIGH" : "LOW");
+    if (gpio == 19)
+        Serial.println("  meter J5.IO19 against J5.GND: it follows IO19 only while U15's B input\n"
+                       "  reads gas-clear. B is fed from the MQ-6 DOUT divider through R25.");
+}
+
 static void cmdLedWalk() {
     Serial.println("\n-- LED walk — watch the west edge column --");
     struct { const char *label; int pin; } leds[] = {
@@ -316,6 +409,10 @@ static void cmdHelp() {
     Serial.println("  scan   I2C bus scan");
     Serial.println("  bus    are R19/R20 visible from IO21/IO22 (J8 barrel junction)");
     Serial.println("  scanpu I2C scan using the ESP32's internal pull-ups instead");
+    Serial.println("  rs485  DI->U7->A/B->U7->RO loopback, entirely on-board");
+    Serial.println("  watch  live pin watch (90 s) — jumper a connector pin to GND");
+    Serial.println("  arm    unlock the actuator outputs for 120 s");
+    Serial.println("  drive <io2|io4|io17|io19|io32> <0|1>   drive one pin, then meter it");
     Serial.println("  rtc    DS3231: temp, status, time, tick check");
     Serial.println("  mcp    both MCP23017s: registers + safe write round-trip");
     Serial.println("  in     off-board signal pins + gas ADC");
@@ -395,6 +492,10 @@ void loop() {
                 else if (line == "scan") cmdScan();
                 else if (line == "rtc")  cmdRtc();
                 else if (line == "bus")  cmdBus();
+                else if (line == "rs485") cmdRs485();
+                else if (line == "watch") cmdWatch();
+                else if (line == "arm")   cmdArm();
+                else if (line.startsWith("drive ")) cmdDrive(line);
                 else if (line == "scanpu") cmdScanPullup();
                 else if (line == "mcp")  { probeMcp(ADDR_MCP_A, "U2 north"); probeMcp(ADDR_MCP_B, "U3 south"); }
                 else if (line == "in")   cmdInputs();
