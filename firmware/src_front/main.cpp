@@ -490,9 +490,11 @@ static StatusPayload ctrlStatus = {};
 static unsigned long ctrlStatusMs = 0;
 static unsigned long statusAskedMs = 0;
 
-// A prime hold: the finger is down on the pad and ticks are going out under it.
+// A prime hold: the finger is down on the pad and ticks are going out under it. holdAckMs
+// stays 0 until MSG_RESP_PRIME{RUNNING} lands, which is the difference between a motor
+// turning and a frame sent into a bus with nothing on it.
 static bool holding = false;
-static unsigned long holdStartMs = 0, holdTickMs = 0;
+static unsigned long holdStartMs = 0, holdTickMs = 0, holdAckMs = 0;
 
 static void setPrimeMsg(const char *s);
 static void setCleanMsg(const char *s);
@@ -517,7 +519,7 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     Serial.printf("[J9] MSG_RESP_PRIME state=%u ch=%u ms=%lu\n",
                   st.state, st.channel, (unsigned long)st.ms);
     switch (st.state) {
-      case PRIME_RUNNING: snprintf(buf, sizeof(buf), "pump turning"); break;
+      case PRIME_RUNNING: holdAckMs = millis(); snprintf(buf, sizeof(buf), "pump turning"); break;
       case PRIME_STOPPED: snprintf(buf, sizeof(buf), "stopped after %lu.%lu s",
                                    (unsigned long)st.ms / 1000, ((unsigned long)st.ms % 1000) / 100); break;
       case PRIME_TIMEOUT: snprintf(buf, sizeof(buf), "controller lost the hold"); break;
@@ -657,7 +659,7 @@ static void setCleanMsg(const char *s) { if (cleanMsg) lv_label_set_text(cleanMs
 static void refreshLinkDot() {
   static int shown = -1;
   if (!linkDot) return;
-  int ok = (j9.framesRx > 0 && millis() - j9.lastRxMs < 10000) ? 1 : 0;
+  int ok = (j9.framesRx > 0 && millis() - j9.lastRxMs < 30000) ? 1 : 0;
   if (ok == shown) return;
   shown = ok;
   lv_label_set_text(linkDot, ok ? LV_SYMBOL_OK "  J9" : LV_SYMBOL_WARNING "  J9");
@@ -722,6 +724,9 @@ static void primeHoldEnd() {
   primeSend(MSG_PRIME_STOP);
   lv_label_set_text(primePadLbl, "HOLD TO PRIME");
   lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_ACCENT), 0);
+  // MSG_RESP_PRIME{STOPPED} overwrites this with the length the controller measured.
+  if (!holdAckMs) setPrimeMsg("no answer from the controller");
+  else            setPrimeMsg("lifted");
   Serial.printf("[J9] MSG_PRIME_STOP ch=%u after %lu ms\n",
                 flavorSel, millis() - holdStartMs);
 }
@@ -730,6 +735,7 @@ static void primeHoldBegin() {
   if (holding) return;
   holding = true;
   holdStartMs = holdTickMs = millis();
+  holdAckMs = 0;
   primeSend(MSG_PRIME_START);
   lv_label_set_text(primePadLbl, "PRIMING");
   lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_GOOD), 0);
@@ -1388,13 +1394,18 @@ void loop() {
       snprintf(b, sizeof(b), "%lu.%lu s", el / 1000, (el % 1000) / 100);
       lv_label_set_text(primeElapsed, b);
       lv_bar_set_value(primeBar, (int32_t)(el > PRIME_MAX_MS ? PRIME_MAX_MS : el), LV_ANIM_OFF);
+      if (!holdAckMs && el > 700) setPrimeMsg("no answer from the controller");
     }
   }
 
-  if (uiReady && activePage == PAGE_STATUS && !screenIdle &&
-      millis() - statusAskedMs >= 2000) {
-    statusAskedMs = millis();
-    j9.send(MSG_STATUS_REQ, nullptr, 0);
+  // The status request is the only traffic this board starts on its own: every 2 s while
+  // STATUS is up, every 10 s otherwise, and never while a hold owns the pair.
+  if (uiReady && !screenIdle && !holding) {
+    uint32_t every = (activePage == PAGE_STATUS) ? 2000 : 10000;
+    if (millis() - statusAskedMs >= every) {
+      statusAskedMs = millis();
+      j9.send(MSG_STATUS_REQ, nullptr, 0);
+    }
   }
 
   // Once a second: the rail's link indicator, and whichever page shows something live.
