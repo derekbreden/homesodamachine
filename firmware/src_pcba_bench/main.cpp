@@ -283,15 +283,13 @@ static const int PIN_485_DI = 32;
 static const int PIN_485_RO = 34;
 
 // ── The J9 link ────────────────────────────────────────────────────────────
-// The same two pins the loopback bit-bangs also carry a real UART out to J9, which is
-// where the front-face display hangs. Serial1 owns them while the link is up, so the
-// two DC tests that drive IO32 by hand (`rs485`, `drive io32`) take the link down first
-// and bring it back after.
+// The same two pins the loopback bit-bangs carry a UART out to J9, where the front-face
+// display hangs. Serial1 holds them while the link is up, so `rs485` and `drive io32`
+// take the link down and put it back.
 //
-// Every byte we transmit comes straight back at us: /RE is tied to GND, so U7's receiver
-// never stops listening, and the same is true at the display's end. rs485Send() therefore
-// swallows exactly what it just sent — otherwise the console would answer its own replies
-// and never stop.
+// /RE is tied to GND, so U7's receiver runs while the driver does; the display's
+// transceiver switches direction on its own and behaves the same way. Every transmitted
+// byte arrives back at its own receiver, and rs485Send() reads off exactly what it wrote.
 static const long RS485_BAUD = 115200;
 static bool rs485Up = false;
 
@@ -823,10 +821,8 @@ void setup() {
     probeBegin();
 }
 
-// One command table for both sources. Whatever a command prints goes to the USB console
-// either way — that is where a human is watching, and the display has no use for the
-// pump's stage log. What goes back over J9 is a single line saying whether the command
-// was known, which is all the far end needs to light a button green.
+// One command table for both sources. What a command prints goes to the USB console
+// either way; what goes back over J9 is one line naming whether the command was known.
 static bool dispatch(const String &line) {
     if      (line == "all")  cmdAll();
     else if (line == "info") cmdInfo();
@@ -851,8 +847,7 @@ static bool dispatch(const String &line) {
     return true;
 }
 
-// A line off J9 runs the same table the console does. `ping` answers `PONG`, so the far
-// end can prove the link without actuating anything.
+// A line off J9 runs the same table the console does.
 static void rs485Poll() {
     static String line;
     while (rs485Up && Serial1.available()) {
@@ -861,8 +856,7 @@ static void rs485Poll() {
             line.trim();
             if (line.length()) {
                 Serial.printf("\n[J9] %s\n", line.c_str());
-                // PING/PONG never reach the table: answering a ping by dispatching it
-                // would send another ping, and the two ends would volley forever.
+                // PING/PONG are answered here, not dispatched.
                 if (line == "PING" || line == "ping") {
                     rs485Send("PONG");
                 } else if (line == "PONG") {
