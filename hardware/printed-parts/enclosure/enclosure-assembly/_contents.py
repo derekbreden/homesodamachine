@@ -623,16 +623,17 @@ TRAY_YAW = 0.0
 # flank reservoir B's port opens on at x 11: Y-H hangs off that flank (`y_h_pos`) with the
 # bag on its stem.
 BAG_B_TRAY_YAW = 270.0
-# The aft stand's LAST row alone stands turned. It carries one valve, so its plate is the
-# family's one-seat part, and the plate a seat narrower saves its width in X — the axis the
-# stand is not short of, since all three rows share one west face and the two-seat plates set
-# the lane. A quarter turn spends that saving in Y instead, which is the axis this row and the
-# electronics shelf immediately behind it are both bidding for.
-#   It stands UNTURNED. The turn was worth its X while the electronics were bidding for this
-# row's Y; with the bag pair gone to the west lane the east lane has Y to spare and what is
-# short is X, and a plate on its long axis is a seat NARROWER across the machine than a turned
-# one. Ports back on Y means both its runs leave down the lane they travel rather than across
-# it, and this row's inlet stops needing a lane against the wall to be reached from.
+# THE NOZZLE-A GATE stands turned a quarter, alone in the west lane's aft end rather than on
+# the aft stand. It carries one valve, so its plate is the family's one-seat part.
+#   Turned, its collets face ±X and its length lies ACROSS the lane. That is what both its runs
+# want, and they want it in opposite directions: the inlet opens WEST down the front column's
+# own lane, which is the lane that feeds it, and the outlet opens EAST toward the column its
+# bulkhead stands on. Unturned, both would leave along the lane and each would owe a corner to
+# get across it.
+#   Standing here rather than on the stand is what makes the outlet's run one straight length:
+# the plate is FORWARD of the pump's front face, so the bulkhead's whole column is open from
+# this row's port plane to the panel's own stratum and nothing of the aft field stands in it.
+NOZZLE_TRAY_YAW = 270.0
 #
 # THE SOURCE PAIR is the pair whose pose is not chosen: V-B gates a GRAVITY drain, so its
 # inlet has to stand under the funnel's spout with nothing between, and the spout's column
@@ -1547,7 +1548,7 @@ def _build():
     pack.place("bag-b-tray-assembly", _load(TRAY_ASSEMBLY), yaw=BAG_B_TRAY_YAW,
                org=bag_b_tray_pos())
     pack.place("vk-tray-assembly", _load(TRAY_ASSEMBLY), yaw=TRAY_YAW, org=vk_tray_pos())
-    pack.place("nozzle-tray-assembly", _load(TRAY1_ASSEMBLY), yaw=TRAY_YAW,
+    pack.place("nozzle-tray-assembly", _load(TRAY1_ASSEMBLY), yaw=NOZZLE_TRAY_YAW,
                org=nozzle_tray_pos())
     pack.place("divider-y-g", _load(Y_DIVIDER), turn=DIVIDER_G_TURNS, org=y_g_pos())
     # Both pumps, side by side in the front column on ONE lane and one plane. Channel B is
@@ -2728,26 +2729,19 @@ def vk_tray_y():
 
 
 def nozzle_tray_y():
-    """The nozzle gates' plate's origin in Y — the east lane's AFT row, PACKED AGAINST THE BACK.
+    """The nozzle-A gate's plate's origin in Y — PACKED AFT AGAINST THE PUMP'S FRONT FACE.
 
-    This row's two gates are the only mouths that leave the machine, and they leave through the
-    rear panel, so aft is where it belongs — but not as far aft as it fits. WHAT THE BAND
-    BEHIND IT HAS TO HOLD IS A CORNER, not a collet. Each gate leaves aft and turns up, and a
-    square turn at stock spends `LLDPE_STOCK_BEND` of that leg on its own tangent before the
-    arc even begins; the collet's `JUNCTION_LEG_LEAD` is the straight that has to survive in
-    front of it. So the leg is the two ADDED, and the plate stands that far forward of the
-    deepest rung the band can hold — one tube and its floor off the rear seam lip's standoff.
-    Packed to the collet's lead alone the gate leaves on a 3 mm leg and every turn behind this
-    row clamps to it.
-      The deck it packs into is the band the ELECTRICAL COLUMN left when it went to the +X
-    wall — nothing stands between this row and the panel any more.
+    The plate stands in the one band the west lane leaves between the bag pair's own flank and
+    the casting: Y-H hangs forward of it in the pair's port plane, the SeaFlo packs aft against
+    the core (`seaflo_front_y`), and what is left between them is this plate's whole allowance.
+    Turned, the plate spends its NARROW side on that band.
 
-    What that opens is the bay ahead of it. The bay is no longer a figure this plate carries:
-    it is whatever the two rows leave between them, and `_lines.bay_lane` strikes its lanes
-    forward off V-K's plate rather than off this one, so the runs that turn in it hold their
-    stations wherever this row stands."""
-    return (REAR_PLANE_Y - REAR_STANDOFF - LINE_HUG - TUBE_HALF
-            - LLDPE_STOCK_BEND - JUNCTION_LEG_LEAD - _tray.port_half)
+    IT TAKES THE AFT END OF THE BAND, a line's clearance off the casting, because the slack
+    belongs FORWARD. Forward is where `fluid-17` comes down off Y-H's crown into this plate's
+    own bay, and a fall wants every millimetre it can get between the trident it clears and the
+    collet it lands on — the two corners that fall share that leg and each turns on half of it.
+    Aft of the plate there is nothing to give the slack to: the casting's face is a wall."""
+    return seaflo_front_y() - LINE_HUG - _tray1.half_x
 
 
 def _pan_room(pan_x, pan_y, vent):
@@ -2941,29 +2935,42 @@ def vk_tray_pos():
     return (aft_tray_x() + _tray.half_x, vk_tray_y(), z)
 
 
+def nozzle_gate_in_x():
+    """V-G's INLET COLUMN — the westmost X at which `fluid-17`'s closing corner is still bound
+    by its own FALL and not by the straight it closes on.
+
+    The gate's inlet faces west down the front column's lane, and that lane cannot run at this
+    plate's port plane: the cap conduit's column stands in it (`water-in`, a `LINE_PITCH`
+    wide) and Y-H's west flank stands east of that, and the two fences cross. So the feed
+    crosses OVER Y-H's crown instead and takes its fall in this plate's own bay — and the two
+    corners that fall share the fall's whole length, each turning on half.
+
+    That halves is the figure this column is struck from. West of here the closing straight is
+    shorter than the fall leaves those corners and it becomes the binder; east of here the
+    straight is slack the corners cannot use, and every millimetre of it comes off the lead
+    `fluid-18` turns its own first corner on. So the column stands exactly where the two stop
+    trading: the conduit's lane, plus half the fall.
+
+    Restated on the pack's side rather than read back from `_lines`, for `LLDPE_BEND`'s own
+    reason — a pose that read the routing module would be a cycle in the build order."""
+    lane = foam_shell_port("water-in")[0][0] + LINE_PITCH
+    fall = _ydiv.HALF_W + LINE_HUG + TUBE_HALF      # Y-H's crown over the port plane, at the hug
+    return lane + fall / 2.0
+
+
 def nozzle_tray_pos():
-    """The nozzle gates' own origin in world — the stand's AFT row, one `AFT_TRAY_BAY` behind
-    V-K's, on the west face all three rows share.
+    """The nozzle-A gate's own origin in world — turned, in the WEST LANE'S AFT END, forward of
+    the pump's face and on the port plane the whole loft shares.
 
-    It carries no junction of its own. V-J-I is fed by Y-G, which stands in the forward bay on
-    this pair's own column; V-G-I by Y-D, a storey and a half down in the front column.
-    Turned, this plate is a seat NARROWER across the stand than the two-valve rows are, and it
-    spends that difference on ONE side rather than half on each: flush WEST on the face all
-    three rows share, so what the difference leaves is a single lane down the stand's EAST
-    flank. That lane is the whole reason the row can be turned at all — the turn puts this
-    valve's inlet collet on X, facing the wall, and a collet facing the wall with nothing
-    between is a collet nothing can be run into.
+    It carries no junction of its own and it joins no row: V-G-I is fed by Y-D, a storey and a
+    half down in the front column, and V-G-O runs alone to its bulkhead. So the plate is placed
+    by the two runs and by nothing else — its X by the inlet's column (`nozzle_gate_in_x`), its
+    Y by the band the lane leaves it (`nozzle_tray_y`), and its Z by the loft's own plane.
 
-    This row leaves the face the other two share and stands ONE TUBE'S LANE off the pump's
-    east flank — the casting's face, a `LINE_HUG`, a tube's full section, and a `LINE_HUG`
-    again. The slot beside the casting is the one column anything descending on this flank has,
-    and a plate hugging the flank leaves that column a `LINE_HUG` wide.
-    What the row's own X buys past that is the jog `fluid-18` makes to reach
-    `bulkhead-flavor-a`: V-G is centred on this plate and the bulkhead's station is west of it,
-    so the two corners that share the jog each turn on half of whatever stands between them."""
+    The inlet collet stands on the plate's own WEST face, so the column and the face are one
+    figure and the plate reaches east from it by its own half-length."""
     _bx, _y, z = bag_b_tray_pos()
-    return (packed().box("seaflo-pump").xmax + 2.0 * PUMP_ROW_TURN + _tray1.half_x,
-            nozzle_tray_y(), z)
+    return (nozzle_gate_in_x() + _tray.port_half, nozzle_tray_y(), z)
 
 
 # The bag-B pair reads like bag A in its clocking — the bag's two ends are V-H's INLET and
@@ -2978,15 +2985,13 @@ BAG_B_TRAY_COLLETS = {
     "V-I-I": "xn-yp", "V-I-O": "xn-yn",
     "V-H-I": "xp-yn", "V-H-O": "xp-yp",
 }
-# The aft row carries V-G ALONE, so it is the family's one-seat plate and not a two-seat plate
-# with a seat left empty — an unfilled seat is not a smaller tray, it is a valve that is not in
-# the machine standing in every elevation and absent from the BOM (`single_valve_tray`).
-#   Turned a QUARTER TURN about Z. The saving a one-seat plate makes is all in X, and X is not
-# what this row is short of — all three rows share one west face and the two-seat plates set the
-# lane. Turned, the saving lands in Y instead, which is the axis this row and the electronics
-# shelf behind it are both bidding for: 59 mm of row depth becomes 38.25. Its collets face ±X
-# rather than ±Y, so V-G's outlet leaves the plate sideways and turns aft to its bulkhead.
-# Its west seat is bare.
+# The nozzle-A gate carries V-G ALONE, so it is the family's one-seat plate and not a two-seat
+# plate with a seat left empty — an unfilled seat is not a smaller tray, it is a valve that is
+# not in the machine standing in every elevation and absent from the BOM (`single_valve_tray`).
+#   Its seats are declared in the PART'S OWN FRAME and `NOZZLE_TRAY_YAW` carries them: turned,
+# the inlet opens WEST down the lane that feeds it and the outlet EAST toward its bulkhead's
+# column, so the plate's two faces answer the two runs and neither owes a corner to reach the
+# one it wants. Its west seat is bare.
 NOZZLE_TRAY_COLLETS = {
     "V-G-I": "xc-yn", "V-G-O": "xc-yp",
 }
