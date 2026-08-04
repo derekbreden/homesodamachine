@@ -317,9 +317,9 @@ private:
 static const long RS485_BAUD = 115200;
 static bool rs485Up = false;
 static EchoCancel j9Stream(Serial1);
-static ProtoLink j9;
+static HdlcLink j9;
 
-static void j9OnMessage(ProtoLink *link, const uint8_t *frame, uint16_t len);
+static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len);
 
 static void rs485Begin() {
     Serial1.begin(RS485_BAUD, SERIAL_8N1, PIN_485_RO, PIN_485_DI);
@@ -645,19 +645,6 @@ static void pumpExercise(const Pump &p) {
     pumpMark(p.mark);
 }
 
-// Both channels at the end of boot, so a power cycle is the whole test and the console
-// is somewhere to look afterwards rather than somewhere to type.
-static void pumpBootRun() {
-    Serial.println("\n=====================================================");
-    Serial.println(" pump self-test — both DRV8870 channels, ~30 s");
-    Serial.println("=====================================================");
-    Serial.println("  Whichever J13 pair a pump is on runs during its own half:");
-    Serial.println("    1 beep  -> pump A, J13.AM2 + AM1 (the two WEST pins)");
-    Serial.println("    2 beeps -> pump B, J13.BM2 + BM1 (the two EAST pins)");
-    for (auto &p : kPump) pumpExercise(p);
-    Serial.println("\n-- pump self-test complete --");
-}
-
 // What MSG_PUMP_RUN reaches. The string commands parse down to this too, so a run asked
 // for over J9 and a run typed at the console are the same run.
 static bool pumpRun(uint8_t channel, uint8_t duty, uint16_t ms) {
@@ -862,7 +849,6 @@ void setup() {
 
     cmdWifi();      // needs nobody at the board
     cmdHelp();
-    pumpBootRun();  // also needs nobody at the board, and the room hears the result
     probeBegin();
 }
 
@@ -877,9 +863,10 @@ static bool dispatch(const String &line) {
     else if (line == "rs485") cmdRs485();
     else if (line == "rs485link") { if (!rs485Up) rs485Begin(); Serial.println("\nJ9 link up on IO32/IO34 @ 115200"); }
     else if (line == "link") {
-        Serial.printf("\nJ9 %s — TinyProto Fd, %s, echo outstanding %u byte(s)\n",
+        Serial.printf("\nJ9 %s — TinyProto Hdlc, frames rx %lu / tx %lu, last rx %lu ms ago, echo outstanding %u byte(s)\n",
                       rs485Up ? "up" : "DOWN",
-                      j9.isConnected() ? "CONNECTED to the far end" : "not connected",
+                      (unsigned long)j9.framesRx, (unsigned long)j9.framesTx,
+                      j9.lastRxMs ? (unsigned long)(millis() - j9.lastRxMs) : 0UL,
                       (unsigned)j9Stream.echoOutstanding());
     }
     else if (line == "pumpmsg") {
@@ -904,7 +891,7 @@ static bool dispatch(const String &line) {
 
 // Frames off J9. A run is answered after it has finished, so MSG_RESP_PUMP_DONE arriving
 // at the display is the motor having already stopped.
-static void j9OnMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
+static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
     uint8_t type = msgType(frame);
     const uint8_t *payload = msgPayload(frame);
     uint16_t plen = msgPayloadLen(len);
