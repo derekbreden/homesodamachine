@@ -1,6 +1,7 @@
 #pragma once
 
 #include <TinyProtocolFd.h>
+#include <TinyProtocolHdlc.h>
 #include <hal/tiny_types.h>
 #include "proto_msg.h"
 
@@ -186,4 +187,87 @@ private:
     ProtoLink *self = (ProtoLink *)userData;
     Serial.printf("[%s] %s\n", self->name, connected ? "CONNECTED" : "DISCONNECTED");
   }
+};
+
+// ════════════════════════════════════════════════════════════
+//  HdlcLink: the same messages over a half-duplex pair
+// ════════════════════════════════════════════════════════════
+//
+// ProtoLink above is TinyProto Fd — connection-oriented HDLC with windowing, ACKs and
+// keepalives, and both ends transmitting whenever they have something to say. That is
+// what a point-to-point full-duplex UART wants, and it is what the RP2040 and S3 links
+// run.
+//
+// The RS485 pair is one wire in each direction shared by both ends. On it, two ends that
+// transmit on their own schedule collide, and because their retry timing matches they
+// collide again on the retry: measured on J9, Fd reached CONNECTED and fell out of it
+// 15 times in 30 seconds, one every 2 s — its retry timeout.
+//
+// HdlcLink drops to the framing layer: byte-stuffed frames with CRC16, no connection to
+// lose and no keepalive to collide with, and nothing on the wire unless a message is
+// being sent. A corrupted frame fails CRC and is dropped. What makes a command reliable
+// is the reply to it — a sender learns MSG_PUMP_RUN arrived when MSG_RESP_PUMP_DONE
+// comes back, and retries if it does not.
+struct HdlcLink : public tinyproto::Hdlc {
+  HdlcLink() : tinyproto::Hdlc(frameBuf, sizeof(frameBuf)) {}
+
+  Stream *serial = nullptr;
+  const char *name = "";
+  uint32_t framesRx = 0, framesTx = 0;
+  unsigned long lastRxMs = 0;
+
+  void (*onMessage)(HdlcLink *link, const uint8_t *data, uint16_t len) = nullptr;
+
+  void begin(Stream &ser, const char *linkName) {
+    serial = &ser;
+    name = linkName;
+    enableCrc16();
+    tinyproto::Hdlc::begin();
+  }
+
+  // Pump RX then TX. A reply queued from inside onMessage goes out on this same call,
+  // because run_rx is drained before run_tx is asked for anything.
+  void service() {
+    if (!serial) return;
+    uint8_t rx[128];
+    int avail = serial->available();
+    while (avail > 0) {
+      int want = avail > (int)sizeof(rx) ? (int)sizeof(rx) : avail;
+      int got = serial->readBytes(rx, want);
+      if (got <= 0) break;
+      run_rx(rx, got);
+      avail -= got;
+    }
+    for (;;) {
+      uint8_t tx[128];
+      int len = run_tx(tx, sizeof(tx));
+      if (len <= 0) break;
+      serial->write(tx, len);
+    }
+  }
+
+  int send(uint8_t msgType, const void *data, uint16_t len) {
+    uint8_t out[len + 1];
+    out[0] = msgType;
+    if (len > 0 && data) memcpy(out + 1, data, len);
+    int r = write((const char *)out, len + 1);
+    if (r >= 0) framesTx++;
+    return r;
+  }
+
+  int sendResponse(uint8_t msgType, uint8_t value) {
+    ResponsePayload resp{value};
+    return send(msgType, &resp, sizeof(resp));
+  }
+
+protected:
+  void onReceive(uint8_t *pdata, int size) override {
+    if (size < 1) return;
+    framesRx++;
+    lastRxMs = millis();
+    if (onMessage) onMessage(this, pdata, (uint16_t)size);
+  }
+
+private:
+  uint8_t frameBuf[512];
 };
