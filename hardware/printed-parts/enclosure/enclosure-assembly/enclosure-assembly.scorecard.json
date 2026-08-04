@@ -162,13 +162,10 @@
       "id": "deck-mounts-land",
       "label": "Every cap-mounted module stands on all of its own columns",
       "kind": "gate",
-      "status": "fail",
-      "value": "7/8 columns landed",
+      "status": "pass",
+      "value": "8/8 columns landed",
       "target": "all landed",
-      "detail": [
-        "nozzle-b-tray-assembly: 1/2 columns under it \u2014 furthest stands 7.19 mm off its outline",
-        "nozzle-b-tray-assembly: an ear hole stands 15.45 mm off its column's bore \u2014 the tray moved and the cap's table has not. `_cold_core_interface.deck_mounts` wants stations (-58.17, 27.62); (-107.67, 27.62)"
-      ],
+      "detail": [],
       "active": true
     },
     {
@@ -7051,8 +7048,8 @@
     }
   ],
   "source": {
-    "generated": "2026-08-04T20:01:26+00:00",
-    "commit": "0e325fe05e15c0f505b9b1032870e3088d5686da",
+    "generated": "2026-08-04T20:12:09+00:00",
+    "commit": "d16760520f29b413df01391fe5a12ad609adf0ee",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
