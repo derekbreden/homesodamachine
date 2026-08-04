@@ -169,7 +169,8 @@ for _p in (_hw / "scripts", _tools,
            _hw / "printed-parts" / "zone-c" / "hopper-funnel",
            _hw / "reference" / "asse1022-assembly",
            _hw / "reference" / "water-split", _hw / "reference" / "neofit-flow-control",
-           _hw / "reference" / "seaflo-discharge-chain", _hw / "reference" / "seaflo-22-pump",
+           _hw / "reference" / "seaflo-discharge-chain", _hw / "reference" / "seaflo-suction-chain",
+           _hw / "reference" / "seaflo-22-pump",
            _hw / "reference" / "digiten-flow-sensor",
            _hw / "reference" / "beduan-solenoid", _hw / "reference" / "meanwell-irm90",
            _hw / "reference" / "wago-221-413", _hw / "reference" / "teyleten-relay",
@@ -196,6 +197,7 @@ import asse1022_assembly as _bfp         # noqa: E402  — its three terminals, 
 import water_split as _split             # noqa: E402  — its three 1/4" collets, the same way
 import neofit_flow_control as _flowreg   # noqa: E402  — its two 1/4" collets and its stem
 import seaflo_discharge_chain as _disch  # noqa: E402  — its barb tip and its 1/4" collet
+import seaflo_suction_chain as _suct     # noqa: E402  — the same two, less the check between
 import seaflo_22_pump as _seaflo         # noqa: E402  — its two head barbs
 import digiten_flow_sensor as _digiten   # noqa: E402  — its two 1/4" PTC collets, coaxial on ±X
 import beduan_solenoid as _vk            # noqa: E402  — V-K's two 1/4" QC collets
@@ -247,6 +249,7 @@ COMP_SHROUD   = _hw / "cut-parts" / "compressor-shroud" / "compressor-shroud.ste
 FUNNEL_STEP = _hw / "printed-parts" / "zone-c" / "hopper-funnel" / "hopper-funnel.step"
 SEAFLO_STEP      = _hw / "reference" / "seaflo-22-pump" / "seaflo-22-pump.step"
 DISCH_CHAIN_STEP = _hw / "reference" / "seaflo-discharge-chain" / "seaflo-discharge-chain.step"
+SUCT_CHAIN_STEP  = _hw / "reference" / "seaflo-suction-chain" / "seaflo-suction-chain.step"
 ASSE_STEP        = _hw / "reference" / "asse1022-assembly" / "asse1022-assembly.step"
 WATER_SPLIT_STEP = _hw / "reference" / "water-split" / "water-split.step"
 FLOWREG_STEP     = _hw / "reference" / "neofit-flow-control" / "neofit-flow-control.step"
@@ -1055,6 +1058,7 @@ COLORS = {
     # Zone B — the water deck
     "seaflo-pump":       cq.Color(0.30, 0.45, 0.70),
     "discharge-chain":   cq.Color(0.72, 0.72, 0.76),
+    "suction-chain":     cq.Color(0.72, 0.72, 0.76),
     "digiten-flow":      cq.Color(0.92, 0.92, 0.94),
     # The CO2 chain — red, the customer-wayfinding color the inlet carries
     "gasher-co2":        cq.Color(0.85, 0.35, 0.30),
@@ -1197,6 +1201,7 @@ PORTED_BODIES = {
     "flow-regulator":        (_flowreg.build,       FLOWREG_STEP),
     "seaflo-pump":           (_seaflo.build,        SEAFLO_STEP),
     "discharge-chain":       (_disch.build,         DISCH_CHAIN_STEP),
+    "suction-chain":         (_suct.build,          SUCT_CHAIN_STEP),
     "digiten-flow":          (_digiten.build_assembly, DIGITEN_STEP),
     "psu":                   (_psu_ref.build,       MEANWELL_STEP),
     "relay-1":               (_relay_ref.build,     RELAY_STEP),
@@ -1539,6 +1544,14 @@ def _build():
     pack.place("bag-b-tray-assembly", _load(TRAY_ASSEMBLY), yaw=BAG_B_TRAY_YAW,
                org=bag_b_tray_pos())
     pack.place("vk-tray-assembly", _load(TRAY1_ASSEMBLY), yaw=TRAY_YAW, org=vk_tray_pos())
+    # The suction chain, STANDING in the pocket between V-K's outlet and the pump's suction
+    # barb — the discharge chain's two end fittings with nothing between them, because nothing
+    # holds pressure off the pump on the inlet side. It is seated by its COLLET and not by a
+    # face: that mouth is what `water-4` ends on and what `suction_chain_collet` derives off the
+    # valve's own outlet, so it is placed once that plate is in the pack. The barb the stub
+    # clamps onto stands one made-up length above it on the same axis.
+    pack.place("suction-chain", _load(SUCT_CHAIN_STEP),
+               station=_suct.tube_port(), port=suction_chain_collet())
     pack.place("nozzle-b-tray-assembly", _load(TRAY1_ASSEMBLY), yaw=TRAY_YAW,
                org=nozzle_b_tray_pos())
     pack.place("nozzle-tray-assembly", _load(TRAY1_ASSEMBLY), yaw=NOZZLE_TRAY_YAW,
@@ -1995,6 +2008,16 @@ def disch_terminal(name):
     """One of the discharge chain's two ends in world: `(pos, face)`. The chain is laid
     down by `DISCH_CHAIN_TURN`, and the seat that lays it down carries both stations."""
     return _world("discharge-chain", DISCH_TERMINALS[name]())
+
+
+SUCT_TERMINALS = {"barb-tip": _suct.barb_tip, "tube-port": _suct.tube_port}
+
+
+def suct_terminal(name):
+    """One of the suction chain's two ends in world: `(pos, face)`. The chain takes no turn —
+    it is drawn barb-up and collet-down, which is the way it stands — so the seat is the one
+    `suction_chain_collet` puts under its collet, and it carries the barb too."""
+    return _world("suction-chain", SUCT_TERMINALS[name]())
 
 
 CO2_CHAIN_TERMINALS = {"gasher-co2": _gasher.stations, "wr1110": _wr1110.stations}
@@ -2983,6 +3006,34 @@ def nozzle_b_tray_y():
     reason — a pose that read the routing module would be a cycle in the build order."""
     lane = REAR_PLANE_Y - PUMP_ROW_TURN
     return lane - LLDPE_STOCK_BEND - JUNCTION_LEG_LEAD - _tray1.port_half
+
+
+def suction_chain_collet():
+    """The suction chain's 1/4" PTC collet in world — the mouth `water-4` ends on, and the whole
+    of the chain's pose, since the two fittings stand in line off it.
+
+    THE CHAIN STANDS UP, and the pocket is why. V-K's outlet and the SeaFlo's suction barb sit
+    on this deck with the stand's aft row behind them and the PSU's brick east, and what that
+    leaves between the two mouths is a pocket 60.5 of X by 45.2 of Y. A body needs its own half
+    section and a `LINE_HUG` off each of those four walls, so the axis of a Ø17 chain has a
+    41.5 × 26.2 rectangle to lie in — a 49.1 mm diagonal, against the 54.4 mm the chain stands
+    made up. IT DOES NOT LIE DOWN IN HERE IN ANY DIRECTION. The pocket's third dimension is
+    120.6 mm of Z to the ceiling, which is the one that holds it, so the chain stands vertical:
+    collet DOWN at the tube, barb UP at the hose, which is the sense the fittings are already
+    drawn in and needs no turn at all.
+
+    That leaves the collet's own three coordinates, and `water-4` is what strikes them. It
+    leaves V-K's outlet facing AFT and enters this collet facing UP, so the run is ONE SQUARE
+    CORNER and the collet stands on the far side of it: the valve's own column in X, so the
+    corner is planar and the run makes no lateral move at all, and one stock arc's tangent plus
+    the `JUNCTION_LEG_LEAD` a collet takes in each of Y and Z — the least offset at which that
+    corner is a full stock arc with real straight seated in both fittings.
+
+    Restated on the pack's side rather than read back from `_lines`, for `nozzle_b_tray_y`'s
+    reason — a pose that read the routing module would be a cycle in the build order."""
+    x, y, z = vk_tray_port("V-K-O")[0]
+    reach = LLDPE_STOCK_BEND + JUNCTION_LEG_LEAD
+    return (x, y + reach, z + reach)
 
 
 def nozzle_gate_in_x():
