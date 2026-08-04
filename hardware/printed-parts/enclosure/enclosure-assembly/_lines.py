@@ -262,11 +262,6 @@ PWBEND = 3.0
 CBEND = 3.0
 # The 3/8" braided-PVC discharge stub's minimum bend radius (neoPure PVCR-0610 spec).
 HOSE_BEND = 15.9
-# The reach the branch run to V-K is given at each end: the climb off the split's upward collet,
-# the lane ahead of the valve's mouth, and twice it for the height that lane stands at, which is
-# what carries the run over the PSU's aft corner. The lane is the binding one — the mouth stands
-# this far behind the PSU's back face, and a closing corner seats on the straight it has.
-VK_TURN = 7.0
 # How far off a collet's own axis a soft-LLDPE run may leave or enter as one straight length,
 # past the rigid-copper `COLLET_SKEW`. Y-H's two legs are a straight at exactly this lean and
 # the reach that stands the fitting off its pair is struck on it (`_contents.divider_reach`),
@@ -777,6 +772,10 @@ def _authored_runs() -> list:
         {"y": lane_1},                       # aft into the band, onto the ladder's near rung
         y_c.x("Y-C-2"),                      # west onto the tee's column
         "tee-y-c.Y-C-2",                     # and forward into the run's aft port
+        # THE EXIT IS THE WHOLE STANDOFF THIS GATE HAS. The first rung of the ladder stands
+        # this far aft of the collet, so the reach cannot grow without the exit running past
+        # the rung it is aiming at and folding the corner back on itself. The corner it seats
+        # is the tray's to give, not this number's.
         kind="fluid", stub=5.1, skew=FLAVOR_SKEW,
         note="bag A draw → Y-C run: aft, west onto the pump lane and straight down it"))
 
@@ -821,6 +820,12 @@ def _authored_runs() -> list:
         {"y": lane_2},                       # aft into the band, onto the row's second lane
         bag.x("V-F-I"),                      # east onto the collet's own column
         "bag-a-tray-assembly.V-F-I",         # and forward into it
+        # THE APPROACH IS SPENT, and not on air. The lane ahead of this collet is open — the
+        # foam block's west face is the next thing in it — but the path stands only
+        # [12.5](F13_APPROACH) mm off the port face to begin with, and a stub longer than that
+        # would have the closing turn back out and come straight back in. So the closing
+        # corner is held by where the LANE stands, not by this number: what buys it a rounder
+        # turn is the tray's own standoff, not a reach.
         kind="fluid", stub=12.4, skew=FLAVOR_SKEW,
         note="Y-D run → V-F: up the pump lane, east across the band on its own lane and "
              "forward into the bag's fill gate"))
@@ -1279,7 +1284,14 @@ def _authored_runs() -> list:
     # the one run that has to get from the fittings loft to the loft's own port plane. What
     # stands between the two is the whole electronics shelf and the bag-B pair behind it, so the
     # fall is in two parts on either side of them.
-    #   The branch stands the line down where it leaves, and the first fall stops on the west
+    #   The branch runs EAST [25.4](W3_EXIT) mm — one stock radius — before it turns down. A
+    # square corner turns on `R` of tangent in each of its two legs, so the exit reach is a
+    # CEILING on the exit corner and a reach under stock caps that corner under stock. Here the
+    # reach is free: the loft's east lane is open well past this standoff, and the run crosses
+    # east anyway, so the millimetres come out of a leg it was already going to travel and only
+    # move WHERE the fall happens. Past its own tangent the reach stops binding and the FALL is
+    # what bounds the corner — the exit corner and the one at the bottom of the fall share that
+    # leg, so each seats [17.34](W3_EXIT_R) mm of it — and the first fall stops on the west
     # column's FIFTH rung — over the loft gap, at the crossing's own y forward of every tray
     # and rail — because this run and fluid-19's fall may not share a stratum: V-K's column
     # stands 7.26 off Y-F's, a pitch short by 0.09, so the rung under fluid-19's crossing
@@ -1311,7 +1323,7 @@ def _authored_runs() -> list:
                                              # for a bay that no longer stands here
         vk.z("V-K-I"),                       # down into the bay onto the stand's port plane
         "vk-tray-assembly.V-K-I",            # and aft into the mouth
-        kind="water", skew=FLAVOR_SKEW, stub=(VK_TURN, 1.0),
+        kind="water", skew=FLAVOR_SKEW, stub=(contents.LLDPE_STOCK_BEND, 1.0),
         note="tap water: split branch → V-K inlet, down onto the west column's crown rung, east "
              "across the machine onto the valve's column and down the far side of the trays"))
 
@@ -1498,10 +1510,17 @@ def _authored_runs() -> list:
     # the jog is the shortest leg in the run — so every corner seats the jog and nothing
     # more. Leaned, the jog and the climb share one leg between the two on-axis leads, and
     # the two corners seat what the aft budget between the ports holds.
+    #   THE LEADS PAY FOR THEMSELVES ONLY SO FAR. Both are one stock radius, which is every
+    # millimetre this run can spend on them: the aft budget is fixed, so each millimetre of
+    # lead comes out of the lean's own y and STEEPENS it, and a steeper lean turns through a
+    # wider angle at each end — which asks `R·tan(θ/2)` back faster than the lead grows. The
+    # two corners climb to [23.4](CARB2_R) mm against a stock R25.4 and stop there; past this
+    # reach the angle takes more than the lead gives and the corners come back down.
     runs.append(R.bent(
         "carb-2", "digiten-flow.outlet",
         "bulkhead-carb.tube-in",
-        kind="water", skew=FLAVOR_SKEW, lead=(12.9, 12.9),
+        kind="water", skew=FLAVOR_SKEW,
+        lead=(contents.LLDPE_STOCK_BEND, contents.LLDPE_STOCK_BEND),
         note="carb riser: DIGITEN outlet → rear bulkhead, one lean west and up between "
              "the on-axis leads"))
 
@@ -1729,6 +1748,15 @@ def lane_stations() -> dict:
         "W4_LANE":          f"{_boxes.boxed(solids['vk-tray-assembly']).xmin - runs['water-4'].pts[-1][0]:.3g}",
         "W4_RISE":          f"{runs['water-4'].pts[-1][2] - runs['water-4'].pts[0][2]:.3g}",
         "W4_STUB":          f"{runs['water-4'].pts[1][1] - runs['water-4'].pts[0][1]:.3g}",
+        # water-3's exit reach off the split, and what its exit corner seats on it. The corner
+        # is the FALL's to bound once the reach clears its own tangent, so the two figures part
+        # company at the point the standoff stops being the binding one.
+        "W3_EXIT":          f"{math.dist(runs['water-3'].pts[0], runs['water-3'].pts[1]):.3g}",
+        "W3_EXIT_R":        f"{runs['water-3'].radii[1]:.4g}",
+        # carb-2's corners against the lean they are struck on, and fluid-13's approach — the
+        # two other reaches on this pack that a corner, not a body, is what spends.
+        "CARB2_R":          f"{runs['carb-2'].tightest:.3g}",
+        "F13_APPROACH":     f"{math.dist(runs['fluid-13'].pts[-1], runs['fluid-13'].pts[-2]):.3g}",
         # The band over Y-G's crown that fluid-22's fall is taken in, off the two bodies that
         # bound it: the trident's own crown and the hopper's floor.
         "YG_COLUMN":        f"{_boxes.boxed(contents.placed_funnel()).zmin - _boxes.boxed(solids['divider-y-g']).zmax:.3g}",
