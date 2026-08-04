@@ -132,7 +132,7 @@ own legs seat because that gap is what the strip has.
 A run has to be able to LEAVE its port. `scorecard.port_leads` gates that, at each tube port's
 own bore along its own axis, for the stub `route` emits plus the tangent its first corner is
 seated on — the same two reaches this kit uses to build the run. The body a port's own runs join
-it to is held out, because a divider's outlet stands one `DIVIDER_LEG_LEAD` off the collet it
+it to is held out, because a divider's outlet stands one `divider_reach()` off the collet it
 feeds and a tee's run collet one `TEE_RUN_LEAD` off its, both by construction. A port with no run
 yet is held to the full lead against everything, which is the useful direction: that is the state
 a collet is in before anyone tries to route it, and the state four of them were in when a tray

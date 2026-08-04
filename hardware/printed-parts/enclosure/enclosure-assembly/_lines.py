@@ -100,7 +100,7 @@ bound it:
     down their columns at the two channel gates, and the bag pair's a stack pitch below it,
     where fluid-14 and fluid-16 leave forward and both pumps' four barbs stand. Those two legs
     CLIMB out of this plane, because the fitting they reach stands over it.
-  * the LOFT's own port plane at [333.3](LOFT_PORT_Z), where the whole of channel B stands.
+  * the LOFT's own port plane at [267.7](LOFT_PORT_Z), where the whole of channel B stands.
     Both of the loft's trays present their eight collets on it, so fluid-24 and fluid-26 are
     the bag-A pair's two legs read again a storey up, and fluid-18 and fluid-28 leave it on
     the level before they climb.
@@ -132,7 +132,7 @@ bound it:
     TRAY-EAST LANE — so neither owes the other any separation, and each corridor carries the
     one line it was already the shape for.
   * the LOFT GAP, between the Y-H divider's crown and the aft stand's trays' —
-    [-28.4](LOFT_GAP) mm, and the one stratum at this height that runs clear across the machine
+    [37.2](LOFT_GAP) mm, and the one stratum at this height that runs clear across the machine
     with the electronics shelf under it and the basin's rails over it. Nothing crosses IN it
     today: water-3 crosses east a storey over it, on the west column's fifth rung, forward of
     every tray and rail — its stratum is ranked against fluid-19's fall on the column a pitch
@@ -268,10 +268,10 @@ HOSE_BEND = 15.9
 # this far behind the PSU's back face, and a closing corner seats on the straight it has.
 VK_TURN = 7.0
 # How far off a collet's own axis a soft-LLDPE run may leave or enter as one straight length,
-# past the rigid-copper `COLLET_SKEW`. The legs at the divider lean by construction
-# (`_contents.DIVIDER_LEAN`), fluid-16 leans out of Y-E's run the same way, and a
-# push-to-connect collet grips all round.
-FLAVOR_SKEW = 22.0
+# past the rigid-copper `COLLET_SKEW`. Y-H's two legs are a straight at exactly this lean and
+# the reach that stands the fitting off its pair is struck on it (`_contents.divider_reach`),
+# so the number is the PACK's and this name is bound to it.
+FLAVOR_SKEW = contents.FLAVOR_SKEW
 # The straight the fall into Y-H's stem is seated on: the run comes about this far ahead of the
 # collet, in the plane the stem faces. Y-G's fall comes about at one `WBEND` instead — its stem
 # faces UP into the basin's own column, so the lane it turns on is under the rails and the
@@ -536,36 +536,21 @@ def _authored_runs() -> list:
         note="hopper drain → V-B inlet: down the spout's own column, one corner, and in — "
              "every leg falls or is level"))
 
-    # fluid-24 / fluid-26 — the bag-B pair to its divider. The outlets are
-    # [14.7](DIVIDER_SPAN) apart and the two collets they join a seat pitch
-    # ([34.25](SEAT_PITCH)) apart, so each leg closes [9.775](LEG_LEAN) mm of cross on its way
-    # through, and Y-H does not stand where the other dividers stand:
-    # `_contents.y_h_pos` hangs it off the plate's WEST FACE at one `LINE_HUG`, so its outlets
-    # look back east at the collets they feed across [1](YH_FACE_GAP) mm of X — with the
-    # fitting [65.55](YH_CLIMB) mm up on the crown. Each leg leaves its collet WEST and the leg
-    # it hands off to climbs back EAST, so the corner between them turns PAST SQUARE, where
-    # `tan(θ/2)` is above 1 and a corner costs more tangent than its lead is long.
-    #
-    # Neither of these is a `divider_reach()` leg and `DIVIDER_LEG_LEAD` does not place this
-    # fitting, so the lead is a number THIS file picks, against the air the pack leaves beside
-    # the mouths: nothing at all stands west of V-I-O in this band, and the nearest body east of
-    # Y-H's outlets is Y-F at [39.9](YH_EAST_AIR) mm. `lean_into` spends
-    # [12](YH_LEG_LEAD) mm of it — [22](YH_LEG_LEAN)° of lean at each end brings both corners
-    # back to [88.4](YH_LEG_TURN)° and seats [R9.26](YH_LEG_R), with the
-    # [3](DIVIDER_LEG_STRAIGHT) mm of straight tube a push-to-connect collet grips on still
-    # standing in each lead.
-    YH_LEG_LEAD = 12.0
+    # fluid-24 / fluid-26 — the bag-B pair to its divider, and each is ONE STRAIGHT LENGTH OF
+    # TUBE. The outlets are [14.7](DIVIDER_SPAN) apart and the two collets they join a seat
+    # pitch ([34.25](SEAT_PITCH)) apart, so each leg closes [9.775](LEG_LEAN) mm of cross on
+    # its way through; `_contents.y_h_pos` stands the trident on the pair's own port plane a
+    # `divider_reach()` off their faces, which is that offset over the tangent of the lean a
+    # collet takes. So the straight between each pair of mouths leaves both of them
+    # [28](YH_LEG_LEAN)° off axis, and there is no corner on either run to seat an arc in.
     for cid, frm, to, who in (
         ("fluid-24", "bag-b-tray-assembly.V-I-O", "divider-y-h.Y-H-1", "pump return → Y-H"),
         ("fluid-26", "divider-y-h.Y-H-3", "bag-b-tray-assembly.V-H-I", "Y-H → bag B draw"),
     ):
-        (w1, w2), lean, seated, turns = lean_into(
-            *_mouth(f, frm), *_mouth(f, to), YH_LEG_LEAD)
         runs.append(R.bent(
-            cid, frm, w1, w2, to, kind="fluid", skew=FLAVOR_SKEW, bend=seated,
-            note=f"{who}: one leaning leg carrying the cross and the climb, on two leads that "
-                 f"lean {lean[0]:.1f}°/{lean[1]:.1f}° into it — {turns[0]:.1f}° of turn at each "
-                 f"end seating R{seated:.2f}"))
+            cid, frm, to, kind="fluid", skew=FLAVOR_SKEW,
+            note=f"{who}: one straight length across the reach, leaving each collet at the "
+                 f"lean the fitting's own standoff is struck on"))
 
     # fluid-14 / fluid-16 — the bag-A pair to Y-E, which stands ACROSS the strip ahead of them
     # rather than along the plane they share (`_contents.y_e_pos`). So neither of these is the
@@ -705,7 +690,7 @@ def _authored_runs() -> list:
 
     # fluid-25 — reservoir B to Y-H's stem, and the run whose two ends stand one nearly over
     # the other. The reservoir drains from a ramped outlet at the bottom of its pocket and Y-H
-    # hangs in the LOFT, so what this connection owes is a STOREY OF Z and [0.125](BAG_B_CROSS)
+    # hangs in the LOFT, so what this connection owes is a STOREY OF Z and [10.12](BAG_B_CROSS)
     # mm of plan. It does not cross the machine and it takes no lane in the corridor: the cold
     # core's own +Y BAND (`_cold_core_interface.west_lane_mid_y`) stands directly under the
     # fitting, runs the shell's whole height with nothing else in it, and carries the climb
@@ -714,45 +699,42 @@ def _authored_runs() -> list:
     # and `assembly/cold-core.md` lays the tube in the band before the pour.
     #
     # What IS drawn is the last of it, off the conduit's mouth on the lid's outer face at
-    # [253.4](BAG_B_DECK_Z): a climb up the deck's west end and one leaning leg into the stem.
-    # THE STEM FACES WEST at x [11.1](F25_STEM_X) and the conduit opens +Z at
-    # [11](F25_RISER_X) — one line in plan — so the run reaches WEST OF BOTH and comes back east
-    # into the collet. That reach IS the closing corner: it is the whole leg the last turn seats
-    # its tangent in, and nothing else on this run bears on it.
-    #   WHAT STOPS THE REACH IS THE SHELL, and not at the wall. At the stem's own height the
-    # front piece's rib band stands proud of the west wall's inner face all the way to
-    # [0](F25_RIB_FACE) — `_contents.CORE_WEST_FACE`, the plane that band ends on at this flank
-    # — so the run's own half-section and a `LINE_HUG` off THAT is the westmost the approach
-    # goes. Nothing else is near it: at this plane the closest body is the discharge chain,
-    # [33.25](F25_CHAIN_CLEAR) mm AFT, and the flow regulator roofs it [14.59](F25_REG_ROOF) mm
-    # up. The reach is spent to the band, and the LEAN carries the rest of the corner: the
-    # approach leaves the collet [22](F25_LEAN)° off its axis and turns [73.5](F25_TURN)° onto
-    # the climb.
-    #   The stem's plane is a slot of its own: [41](STEM_SHELF) mm over the selects crown with a
-    # tube and its floor in it, and fluid-19's shelf crossing rides Y-F's own column
-    # [-12](LOFT_CROSS_CLEAR) mm above it.
-    y_h = f["divider-y-h"]
-    riser = f["foam-assembly"].at("reservoir-B")
-    f25_stop = contents.CORE_WEST_FACE + 6.35 / 2.0 + CLIMB_HUG
+    # [253.4](BAG_B_DECK_Z): a rise off the deck and a reach east into the stem, and ONE CORNER
+    # between them. THE CONDUIT OPENS +Z and THE STEM FACES WEST on the pair's own port plane,
+    # so the two mouths are square to each other and the whole run stands in one section — the
+    # stem's own plane at y [216.75](F25_PLANE_Y), which `_cold_core_interface.cap_conduits`
+    # puts the bore on.
+    #   EACH MOUTH HAS THE SAME ROOM, `_contents.stem_standoff` — the rise is the port plane's
+    # height over the lid and the reach is struck to match it — and what the two leads spend of
+    # that room is solved, not picked: past where they overshoot each other the leg between them
+    # shortens faster than the turns open. The pair that seats the roundest corner leaves
+    # [9](F25_RISE_LEAD) mm on the rise and [4.75](F25_REACH_LEAD) on the reach, both leaning
+    # [22](F25_LEAN)° in, and the turns come to [49.6](F25_TURN)° and [10.6](F25_TURN_IN)°
+    # against the square the two axes stand at.
+    #   Nothing crowds it on this deck: the conduits' own column is what it rises on, and the
+    # whole run stands east of that column.
+    f25_room = contents.stem_standoff()
 
-    def _f25_west(lead_in):
-        return lean_into(*_mouth(f, "foam-assembly.reservoir-B"),
-                         *_mouth(f, "divider-y-h.Y-H-2"),
-                         (STEM_FALL_REACH, lead_in))[0][1][0]
+    def _f25_trials():
+        """Every lead pair on the room, less the ones whose two arcs eat the whole leg between
+        them: at the very top of the sweep the corners meet and the straight they share is
+        gone, and a leg with no straight left in it is a pair of arcs and not a route."""
+        for a in range(7, int(2.0 * f25_room) + 1):
+            for b in range(7, int(2.0 * f25_room) + 1):
+                got = lean_into(*_mouth(f, "foam-assembly.reservoir-B"),
+                                *_mouth(f, "divider-y-h.Y-H-2"), (0.5 * a, 0.5 * b))
+                (p, q), _lean, r, (t1, t2) = got
+                spent = r * (math.tan(math.radians(t1) / 2.0) + math.tan(math.radians(t2) / 2.0))
+                if spent <= math.dist(p, q) - contents.LINE_HUG:
+                    yield got
 
-    lo, hi = contents.DIVIDER_LEG_STRAIGHT + 1e-3, 20.0    # the reach walks the approach west:
-    for _ in range(60):                                    # bisect for where its tube reads the band
-        mid = (lo + hi) / 2.0
-        lo, hi = (lo, mid) if _f25_west(mid) < f25_stop else (mid, hi)
-    (w1, w2), f25_lean, f25_r, _f25_turns = lean_into(
-        *_mouth(f, "foam-assembly.reservoir-B"), *_mouth(f, "divider-y-h.Y-H-2"),
-        (STEM_FALL_REACH, (lo + hi) / 2.0))
+    (w1, w2), f25_lean, f25_r, f25_turns = max(_f25_trials(), key=lambda got: got[2])
     runs.append(R.bent(
         "fluid-25", "foam-assembly.reservoir-B", w1, w2, "divider-y-h.Y-H-2",
         kind="fluid", skew=FLAVOR_SKEW, bend=f25_r,
-        note=f"reservoir B → Y-H stem: up the conduit's own column off the lid, then one leaning "
-             f"leg west to the rib band and back east into the stem, its approach leaning "
-             f"{f25_lean[1]:.1f}° into the climb"))
+        note=f"reservoir B → Y-H stem: up off the conduit and east into the stem in the stem's "
+             f"own plane, each leg leaning {f25_lean[0]:.1f}°/{f25_lean[1]:.1f}° into the "
+             f"corner between them"))
 
     # fluid-9 … fluid-13 — CHANNEL A's PUMP ROW, in the pump lane west of the tray column.
     # Five runs and two tees, and every one of them is a lane and a turn: the lane is the
@@ -910,24 +892,28 @@ def _authored_runs() -> list:
     # (`_contents.AFT_TRAY_BAY`), not more climb.
     bay_lead = contents.AFT_BAY_LEAD
     y_g_rise = 5.0                       # the diagonal's own vertical share of the climb
+    # HOW FAR DOWN AN OUTLET LEG MAY REACH. Y-G's outlets face down and stand over the BAY —
+    # the band between the two plates, and east of the bag pair's own face — so what is under
+    # them is the stand's seat and not a plate's crown. The leg reaches to one `LINE_HUG` over
+    # that seat, which is the whole of the climb plus the port plane's own height on it.
+    y_g_drop = y_g.at("Y-G-2")[2] - contents.aft_tray_z() - contents.LINE_HUG
     runs.append(R.bent("fluid-27", "vk-tray-assembly.V-J-I", "divider-y-g.Y-G-3",
                        kind="fluid", skew=FLAVOR_SKEW,
-                       lead=(bay_lead, contents.Y_G_CLIMB - y_g_rise),
+                       lead=(bay_lead, y_g_drop - y_g_rise),
                        note="nozzle B gate ← Y-G: out of the collet along the bay, about, and "
                             "up into the outlet standing over it"))
 
     # fluid-23 takes the same climb from the other side of the bay, and its collet does not
     # face the fitting: V-I-I opens EAST off the turned plate while Y-G-2 stands
-    # [3.1](F23_BACKTRACK) mm WEST of it, so the lead leaves east and the leg it hands off to
-    # comes straight back — the corner past square again. The bay's own ladder does not bound
-    # this lead; the deck east of the plate carries nothing at this height, so the exit reaches
-    # [12](F23_LEAD) mm into it. The APPROACH is fenced: Y-G's outlet faces down and the pair's
-    # port plane stands [9.5](Y_G_CLIMB_FIG) mm under it, so the lead into it stops one
-    # `LINE_HUG` short of the plate.
-    F23_LEAD = 12.0
+    # [-8.08](F23_BACKTRACK) mm WEST of it, so the lead leaves east and the leg it hands off to
+    # comes straight back — the corner past square again. WHAT BOUNDS THE EXIT is water-3's own
+    # fall, which holds the column [15.3](F23_EAST_AIR) mm east of this collet on its way to V-K:
+    # the lead stops a `LINE_PITCH` short of it, which is the whole of the deck this run has.
+    F23_LEAD = max(contents.DIVIDER_LEG_STRAIGHT + contents.LINE_HUG,
+                   vk.at("V-K-I")[0] - LINE_PITCH - bb.at("V-I-I")[0])
     (w1, w2), f23_lean, f23_r, _f23_turns = lean_into(
         *_mouth(f, "bag-b-tray-assembly.V-I-I"), *_mouth(f, "divider-y-g.Y-G-2"),
-        (F23_LEAD, contents.Y_G_CLIMB - contents.LINE_HUG))
+        (F23_LEAD, y_g_drop))
     runs.append(R.bent(
         "fluid-23", "bag-b-tray-assembly.V-I-I", w1, w2, "divider-y-g.Y-G-2",
         kind="fluid", skew=FLAVOR_SKEW, bend=f23_r,
@@ -1011,14 +997,20 @@ def _authored_runs() -> list:
     yf3_drop = yf3[2] - west_col[2]
     yf3_lead = yf3_drop / 2.0
     # THE COLLET IS ALREADY EAST OF THE CASTING. Y-F stands over V-H-O and the SeaFlo's flank
-    # ends [11.6](F21_GRAZE_CLEAR) mm west of that column, so this run never comes near the
+    # ends [39](F21_GRAZE_CLEAR) mm west of that column, so this run never comes near the
     # corner a lean would be dodging — and struck as a 45° about that corner the two waypoints
     # land AFT of each other while the run is travelling forward, which is a doubling-back and
     # two 135° turns on a six millimetre leg. What the run owes between the collet and the
-    # band is [4.17](F21_BAND_STEP) mm of X, and the fall already carries more than that.
+    # band is [31.6](F21_BAND_STEP) mm of X, and the fall already carries more than that.
     runs.append(R.bent(
         "fluid-21", "tee-y-f.Y-F-3",
-        (yf3[0], yf3[1] - yf3_lead, west_col[2]),    # forward, then down onto the deck crossing
+        # THE RUN REACHES THE BLOCK'S LANE BEFORE IT DROPS PAST THE CROWN. Y-F stands over V-H-O
+        # and that collet's column is east of the condenser's west flank, so a fall struck on
+        # the tee's own x stands inside the block for every millimetre it crosses. The port
+        # itself is clear over the crown, so the west move is taken THERE, on the plane the
+        # collet already presents on, and the fall that follows is the same single leg it was.
+        (lane_e, yf3[1] - yf3_lead, yf3[2]),         # west onto the block's own lane, over its crown
+        (lane_e, yf3[1] - yf3_lead, west_col[2]),    # and down onto the deck crossing
         (band_x, band_y, west_col[2]),               # forward the machine's length into the collet band
         (pai[0], band_y, pai[2]),                    # the fall, leaning onto the barb's own column
         "pump-a.P-A-I",                              # and forward into it
@@ -1030,18 +1022,29 @@ def _authored_runs() -> list:
     runs.append(route(
         "fluid-22", "pump-a.P-A-O",
         {"z": y_e.bb.zmax + LINE_STEP},      # up the strip, clear over the junction across it
-        # THE STEM'S OWN COLUMN IS THE LANE. Y-G stands in the strip between the lanes and the
-        # band over its crown is [31](YG_COLUMN) mm clear to the hopper's floor, so this run
-        # takes the stem's x at the FIRST crossing and never leaves it: the climb, the length
-        # of the machine and the fall are all one column, and the fall is taken ON the stem.
-        # Struck off the tray-east lane instead, the run arrives a stem's offset east of the
-        # port and spends two corners on a jog no body asks for.
-        y_g.x("Y-G-1"),                      # east over it onto the stem's own column
+        # THE STEM'S OWN COLUMN IS THE LANE, ONCE THE RUN IS ALOFT AND AFT OF THE RISER. Y-G
+        # stands in the strip between the lanes and the band over its crown is [31](YG_COLUMN)
+        # mm clear to the hopper's floor, so the length of the machine and the fall want one
+        # column and the fall is taken ON the stem. THE CLIMB CANNOT HAVE IT: the stem stands
+        # east of `lane_e`, the lane the condenser's west flank leaves, and carb-1's riser holds
+        # that lane for the whole storey — so this run climbs a `LINE_PITCH` west of the riser,
+        # in the strip neither the block nor the riser is in.
+        {"x": min(y_g.at("Y-G-1")[0], lane_e - LINE_PITCH)},
         # AND STRAIGHT UP FROM THERE. The aft leg this run used to take at the crossing's own
         # height put it in the front column's east lane at the very depth fluid-21's fall
         # crosses that lane, and the run has the same Y to spend whichever storey it spends it
         # on — so it spends it aloft, where the column is the funnel's floor and nothing else's.
-        {"z": loft_cross_z},                 # up the front column, to the funnel floor's hug
+        # THE BAND IS UNDER CARB-1'S, NOT AT THE FUNNEL'S FLOOR. The riser leaves `lane_e` for
+        # the meter along the loft and holds its own column aft of that, a `LINE_PITCH` off the
+        # stem's; the band this run has is the one between Y-F's crown and that lane, and it
+        # stands on the crown because the lane above it is spoken for.
+        {"z": y_f.bb.zmax + CLIMB_HUG + 6.35 / 2.0},
+        # The step east waits until the run is AFT OF THE RISER'S OWN REACH EAST. carb-1 leaves
+        # `lane_e` for the meter on the band ahead of the core, so the two cross wherever this
+        # run takes the stem's column forward of it; aft of that band the loft is this run's.
+        {"y": f["foam-assembly"].bb.ymin - contents.PUMP_ROW_TURN + LINE_PITCH
+              + contents.LLDPE_STOCK_BEND},
+        y_g.x("Y-G-1"),                      # east over the aft stand onto the stem's own column
         y_g.y("Y-G-1"),                      # aft the machine's length onto the stem's own lane
         "divider-y-g.Y-G-1",                 # and straight down into the stem
         # THE STRIP OFF P-A-O IS BOUNDED BY THE RUN THAT CROSSES IT, not by a bend radius.
@@ -1074,7 +1077,11 @@ def _authored_runs() -> list:
     # surviving in front. Struck at the stub the run turns four millimetres off the fitting's
     # face and both corners clamp to it. The band west of here is the pair's crown and the
     # trident's two legs are a lane further west again, so this column is free to stand back.
-    yf1_col = yf1[0] - contents.JUNCTION_LEG_LEAD - R.stock_min("fluid", y_f.diam("Y-F-1"))
+    #   AND IT CLEARS THE HOPPER DRAIN. Fluid-4 falls the spout's own column through this same
+    # band, so the column stands back by whichever is further west: what its own corner wants,
+    # or a `LINE_PITCH` off that fall.
+    yf1_col = min(yf1[0] - contents.JUNCTION_LEG_LEAD - R.stock_min("fluid", y_f.diam("Y-F-1")),
+                  f["hopper-funnel"].at("drain")[0] - LINE_PITCH)
     runs.append(R.bent(
         "fluid-19", "selects-tray-assembly.V-D-O",
         (vdo[0], lane_mid, vdo[2]),          # aft into the band, onto the lane between the row's
@@ -1416,7 +1423,7 @@ def _authored_runs() -> list:
     #   The horizontal leg carries the whole plan move, so it leaves the collet
     # [0.955](W5_LEAN)° off its axis — inside the `FLAVOR_SKEW` a push-to-connect takes — and
     # the fall enters the bore dead on the vertical it is drilled at. Nothing stands under the
-    # leg: the deck's west end carries reservoir B's own riser [18](W5_RISER_GAP) mm off this
+    # leg: the deck's west end carries reservoir B's own riser [7.42](W5_RISER_GAP) mm off this
     # bore, and the bag pair closes the band east of both.
     chain = f["discharge-chain"]
     runs.append(R.bent(
@@ -1625,10 +1632,9 @@ def lane_stations() -> dict:
     f4, f15 = runs["fluid-4"], runs["fluid-15"]
     solids = {n: s for n, (s, _c) in {**contents.build(), **contents.panel_bodies()}.items()}
     span = 2.0 * contents.DIVIDER_OUTLET_X
-    # The two leaning legs, off the runs themselves: the lead each leaves its collet on, how far
-    # off that collet's own axis it leaves, the turn the corner at its end makes, and the radius
-    # that corner seats. `leg_skew` against the port's own normal is the lean by definition, so
-    # the figure in the prose is the one the build swept and not a second copy of the solve.
+    # The two straight legs, off the runs themselves: how far off its collet's own axis each
+    # leaves. `leg_skew` against the port's own normal is the lean by definition, so the figure
+    # in the prose is the one the reach was struck on and not a second copy of it.
     f24, f16 = runs["fluid-24"], runs["fluid-16"]
     fr = _frames()
     yh_lean = R.leg_skew(f24.pts[0], f24.pts[1],
@@ -1640,16 +1646,8 @@ def lane_stations() -> dict:
         "DIVIDER_SPAN":     f"{span:.4g}",
         "SEAT_PITCH":       f"{contents._tray.pitch:.4g}",
         "LEG_LEAN":         f"{(contents._tray.pitch - span) / 2.0:.4g}",
-        # Y-H's two legs: the gap its outlets face the pair's collets across, the climb the leg
-        # between them carries, the air east of the outlets, and what `lean_into` makes of the
-        # lead against all that.
-        "YH_FACE_GAP":      f"{abs(f24.pts[0][0] - f24.pts[-1][0]):.3g}",
-        "YH_CLIMB":         f"{f24.pts[-1][2] - f24.pts[0][2]:.4g}",
-        "YH_EAST_AIR":      f"{_boxes.boxed(solids['tee-y-f']).xmin - runs['fluid-26'].pts[0][0]:.3g}",
-        "YH_LEG_LEAD":      f"{math.dist(f24.pts[0], f24.pts[1]):.3g}",
+        # Y-H's two legs: the lean the straight between each pair of mouths leaves them at.
         "YH_LEG_LEAN":      f"{yh_lean:.3g}",
-        "YH_LEG_TURN":      f"{f24.bends[0][1]:.3g}",
-        "YH_LEG_R":         f"R{f24.tightest:.2f}",
         # The bag strip: how far apart in x the two mouths that face down it stand, and the
         # closest the two runs that cross it ever come — off the swept tubes, not the
         # centrelines, which is the reading `lines-clear` answers.
@@ -1660,10 +1658,10 @@ def lane_stations() -> dict:
         "F22_STUB":         f"{math.dist(runs['fluid-22'].pts[0], runs['fluid-22'].pts[1]):.3g}",
         "F22_CLIMB":        f"{math.dist(runs['fluid-22'].pts[1], runs['fluid-22'].pts[2]):.3g}",
         "F22_STUB_CAP":     f"{math.dist(runs['fluid-22'].pts[1], runs['fluid-22'].pts[2]) - contents.LLDPE_STOCK_BEND:.3g}",
-        # fluid-23's exit lead, and how far west of that collet the outlet it feeds stands.
-        "F23_LEAD":         f"{math.dist(runs['fluid-23'].pts[0], runs['fluid-23'].pts[1]):.3g}",
+        # fluid-23's exit lead, the deck east of its collet that water-3's fall leaves it, and
+        # how far west of that collet the outlet it feeds stands.
+        "F23_EAST_AIR":     f"{_frames()['vk-tray-assembly'].at('V-K-I')[0] - runs['fluid-23'].pts[0][0]:.3g}",
         "F23_BACKTRACK":    f"{runs['fluid-23'].pts[0][0] - runs['fluid-23'].pts[-1][0]:.3g}",
-        "Y_G_CLIMB_FIG":    f"{contents.Y_G_CLIMB:.3g}",
         # The strip the bag-A junction stands across: the pump row's aft face to that pair's own
         # forward collets, off the placed pump rather than off the number its seat was built from.
         "BAG_STRIP":        f"{contents.bag_a_tray_port('V-F-O')[0][1] - _boxes.boxed(solids['pump-a']).ymax:.4g}",
@@ -1701,11 +1699,6 @@ def lane_stations() -> dict:
         "BAG_B_CROSS":      f"{abs(runs['fluid-25'].pts[-1][0] - runs['fluid-25'].pts[0][0]):.4g}",
         # fluid-25's two mouths, the shell plane its approach reaches west to, and what the two
         # bodies nearest that plane leave it. The lean and the turn are off the built run.
-        "F25_STEM_X":       f"{runs['fluid-25'].pts[-1][0]:.3g}",
-        "F25_RISER_X":      f"{runs['fluid-25'].pts[0][0]:.3g}",
-        "F25_RIB_FACE":     f"{contents.CORE_WEST_FACE:.3g}",
-        "F25_CHAIN_CLEAR":  f"{_boxes.boxed(solids['discharge-chain']).ymin - runs['fluid-25'].pts[-1][1]:.4g}",
-        "F25_REG_ROOF":     f"{_boxes.boxed(solids['flow-regulator']).zmin - runs['fluid-25'].pts[-1][2]:.4g}",
         # The approach runs OUTWARD from the collet to its waypoint, so the lean is measured
         # against the port's own outward normal — negated, it reads the supplement.
         "F25_LEAN":         f"{R.leg_skew(runs['fluid-25'].pts[-1], runs['fluid-25'].pts[-2], _frames()['divider-y-h'].normal('Y-H-2')):.3g}",
@@ -1786,8 +1779,6 @@ def lane_stations() -> dict:
         # stem's plane keeps over the selects crown, and what fluid-19's crossing leaves over
         # that plane at Y-F's column.
         "PUMP_ROW_LEAD":    f"{runs['fluid-10'].pts[1][1] - runs['fluid-10'].pts[0][1]:.4g}",
-        "STEM_SHELF":       f"{runs['fluid-25'].pts[-1][2] - _boxes.boxed(solids['selects-tray-assembly']).zmax:.2g}",
-        "LOFT_CROSS_CLEAR": f"{runs['fluid-19'].pts[2][2] - runs['fluid-25'].pts[-1][2]:.2g}",
         # The front chain's own link, off the placed bodies: what Y-E's hang keeps to the
         # pumps' aft faces. The column keeps the same figure to Y-E.
         "FRONT_CHAIN_GAP":  f"{_boxes.boxed(solids['tee-y-e']).ymin - _boxes.boxed(solids['pump-a']).ymax:.2g}",
