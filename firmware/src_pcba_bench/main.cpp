@@ -11,10 +11,10 @@
 // stay de-energized, and nothing but a command naming one ever drives it:
 //   IO2  -> J5.IO2   relay (carbonator diaphragm-pump 12 V gate)   arm + drive
 //   IO19 -> U15.A    compressor interlock -> J5.IO19 relay         arm + drive, interlock
-//   IO17 -> U11.IN1  pump A H-bridge                               pump a
-//   IO4  -> U12.IN1  pump B H-bridge                               pump b
-// `arm` gates the two that hold a level indefinitely; `pump` needs no gate because
-// its run is bounded and every exit path parks the pin back to an input.
+//   IO17 -> U11.IN1  pump A H-bridge                               pump a, boot self-test
+//   IO4  -> U12.IN1  pump B H-bridge                               pump b, boot self-test
+// `arm` gates IO2/IO19, which hold their level until the next `drive`. The pump runs
+// are bounded and park their pin back to an input on every exit path.
 // The MCP23017 GPA/GPB pins reach the TBD62083 valve drivers, so the MCP probe
 // is read-only on everything that leaves a pin: IODIR is never written (all
 // pins stay high-Z inputs) and GPPU is never written (a 100k pull-up on a DMOS
@@ -487,11 +487,9 @@ static void cmdDrive(const String &line) {
 }
 
 // ───────────────────────────────────────────────────────────────────────────
-// Pumps. A peristaltic head is loud enough that the room is the whole instrument,
-// which puts the DRV8870 pair — the last block on the board that no probe reaches
-// and no meter is needed for — inside a listen-and-hold bench. `pump` runs one
-// channel through a staged exercise and stops itself; nothing here can leave a
-// motor turning, because every exit path runs through pumpPark().
+// Pumps. A peristaltic head on J13 is audible across the room. The staged run below
+// goes off by itself at the end of boot and answers to `pump` from the prompt; every
+// exit path from it runs through pumpPark().
 
 static void pumpPark(int pin) {
     ledcWrite(pin, 0);
@@ -499,8 +497,14 @@ static void pumpPark(int pin) {
     pinMode(pin, INPUT);   // back to the boot parking — IN1's own pull-down coasts the bridge
 }
 
-// Any byte on the console is the stop. Drained here so loop() doesn't then read
-// the same keystroke as a command.
+// A terminal sends CR LF and loop() dispatches on the CR, so the LF is still queued
+// when the command starts. This empties the buffer and holds it empty for 60 ms.
+static void pumpDrain() {
+    unsigned long t0 = millis();
+    while (millis() - t0 < 60) { while (Serial.available()) Serial.read(); delay(4); }
+}
+
+// Any byte on the console is the stop, and it is eaten here rather than left for loop().
 static bool pumpKey() {
     if (!Serial.available()) return false;
     while (Serial.available()) Serial.read();
@@ -519,14 +523,13 @@ static bool pumpHold(unsigned long ms) {
 
 static void pumpSet(int pin, int pct) { ledcWrite(pin, (uint32_t)(pct * 255 + 50) / 100); }
 
-struct Pump { const char *who; int pin; const char *driver; const char *j13; };
+struct Pump { const char *who; int pin; const char *driver; const char *j13; int mark; };
 static const Pump kPump[] = {
-    {"A", PIN_PUMP_A, "U11", "AM2 + AM1 (the two WEST pins)"},
-    {"B", PIN_PUMP_B, "U12", "BM2 + BM1 (the two EAST pins)"},
+    {"A", PIN_PUMP_A, "U11", "AM2 + AM1 (the two WEST pins)", 1},
+    {"B", PIN_PUMP_B, "U12", "BM2 + BM1 (the two EAST pins)", 2},
 };
 
-// Three full-duty jabs. A head that twitches has current reaching the motor even
-// if something downstream is jammed, and it costs a second to find that out first.
+// Three full-duty jabs, 80 ms on and 400 ms off. A head with current in it twitches.
 static bool pumpBump(int pin) {
     Serial.print("  bump   3 jabs at 100% — the head should twitch ... "); Serial.flush();
     for (int i = 0; i < 3; i++) {
@@ -539,33 +542,21 @@ static bool pumpBump(int pin) {
     return false;
 }
 
-// The ramp is the one number worth having. Break-away duty is a property of the
-// driver and the motor together, so pump A's figure next to pump B's is the check
-// that neither DRV8870 is delivering less than its twin.
-static int pumpRamp(int pin) {
-    Serial.println("  ramp   0 -> 100% over 8 s");
-    Serial.println("         PRESS ANY KEY the moment the head starts turning.");
-    Serial.println("         (a second key stops the run)");
-    int breakaway = -1;
-    for (int pct = 0; pct <= 100; pct += 2) {
+// Ten steps, each held long enough to be its own sound. `pump a 30` holds one duty.
+static bool pumpRamp(int pin) {
+    Serial.print("  ramp   climbing in 10s of a percent — listen for where it breaks away:\n         ");
+    Serial.flush();
+    for (int pct = 10; pct <= 100; pct += 10) {
         pumpSet(pin, pct);
-        if (pumpHold(150)) {
-            if (breakaway < 0) {
-                breakaway = pct;
-                Serial.printf("         break-away at %d%% duty — ramp continues\n", pct);
-            } else {
-                Serial.println("         STOPPED");
-                return -2;
-            }
-        }
+        Serial.printf("%d ", pct); Serial.flush();
+        if (pumpHold(700)) { Serial.println("\n         STOPPED"); return true; }
     }
-    if (breakaway < 0) Serial.println("         reached 100% with no break-away marked");
-    return breakaway;
+    Serial.println("");
+    return false;
 }
 
-// Stepping back down is what proves IN1 is modulating rather than stuck: a pin
-// shorted high, or a bridge latched on, gives the same full-speed sound at 75, 50
-// and 25% that it gives at 100.
+// A modulating IN1 drops the head's pitch at each of the three. A pin shorted high or
+// a bridge latched on holds full speed through all of them.
 static bool pumpSteps(int pin) {
     const int steps[] = {75, 50, 25};
     Serial.print("  steps  100 -> 75 -> 50 -> 25% — listen for the speed drop at each ... "); Serial.flush();
@@ -577,15 +568,18 @@ static bool pumpSteps(int pin) {
     return false;
 }
 
+// One beep ahead of pump A, two ahead of pump B, and the same again behind — the ear
+// alone places every sound in the ~30 s that follows.
+static void pumpMark(int n) {
+    for (int i = 0; i < n; i++) { beep(PROBE_HZ, PROBE_MS); delay(120); }
+}
+
 static void pumpExercise(const Pump &p) {
     Serial.printf("\n-- pump %s — IO%d -> %s.IN1 -> J13.%s --\n", p.who, p.pin, p.driver, p.j13);
-    Serial.println("  One direction only (IN2 is grounded), so polarity at the connector");
-    Serial.println("  decides which way the head turns and either way is a pass.");
-    Serial.println("  ~20 s of motor. Any key stops it. Starting in 3 s —");
-    for (int i = 3; i > 0; i--) {
-        Serial.printf("  %d ...\n", i);
-        if (pumpHold(1000)) { Serial.println("  cancelled — nothing was driven"); return; }
-    }
+    Serial.println("  One direction only (IN2 is grounded): polarity at the connector sets which");
+    Serial.println("  way the head turns, and either way is a pass. Any key stops the run.");
+    pumpDrain();
+    pumpMark(p.mark);
     if (!ledcAttach(p.pin, PUMP_PWM_HZ, PUMP_PWM_BITS)) {
         Serial.printf("  ledcAttach(IO%d) failed — no LEDC channel free; nothing driven\n", p.pin);
         pinMode(p.pin, INPUT);
@@ -593,12 +587,8 @@ static void pumpExercise(const Pump &p) {
     }
     pumpSet(p.pin, 0);
     unsigned long t0 = millis();
-    int breakaway = -3;
     bool stopped = pumpBump(p.pin);
-    if (!stopped) {
-        breakaway = pumpRamp(p.pin);
-        stopped = (breakaway == -2);
-    }
+    if (!stopped) stopped = pumpRamp(p.pin);
     if (!stopped) {
         Serial.print("  full   100% for 3 s ... "); Serial.flush();
         stopped = pumpHold(3000);
@@ -606,17 +596,25 @@ static void pumpExercise(const Pump &p) {
     }
     if (!stopped) stopped = pumpSteps(p.pin);
     pumpPark(p.pin);
-    Serial.printf("  stop   IO%d coasting, parked as an input\n", p.pin);
-    Serial.printf("\n  pump %s: %lu ms driven", p.who, millis() - t0);
-    if (breakaway >= 0)       Serial.printf(", break-away %d%% duty\n", breakaway);
-    else if (breakaway == -1) Serial.println(", break-away not marked");
-    else                      Serial.println(", run cut short\n");
-    Serial.println("  Silence throughout means the fault is IO -> IN1, the bridge, or the OUT haul");
-    Serial.println("  to J13 — 'watch' walks that last leg with a jumper, and 'drive' holds IN1 high");
-    Serial.println("  for a meter on the OUT pair.");
-    Serial.printf("  Run the other channel and compare: the two DRV8870s should break away within\n"
-                  "  a few percent of each other on the same pump.\n");
-    beep(PROBE_HZ, PROBE_MS);   // the run is over — no need to be looking at the screen
+    Serial.printf("  stop   IO%d coasting, parked as an input — %lu ms driven%s\n",
+                  p.pin, millis() - t0, stopped ? " (cut short)" : "");
+    Serial.println("  Silence throughout puts the fault on IO -> IN1, the bridge, or the OUT haul");
+    Serial.println("  to J13. 'watch' walks that last leg with a jumper; 'drive' holds IN1 high for");
+    Serial.println("  a meter on the OUT pair.");
+    pumpMark(p.mark);
+}
+
+// Both channels at the end of boot, so a power cycle is the whole test and the console
+// is somewhere to look afterwards rather than somewhere to type.
+static void pumpBootRun() {
+    Serial.println("\n=====================================================");
+    Serial.println(" pump self-test — both DRV8870 channels, ~30 s");
+    Serial.println("=====================================================");
+    Serial.println("  Whichever J13 pair a pump is on runs during its own half:");
+    Serial.println("    1 beep  -> pump A, J13.AM2 + AM1 (the two WEST pins)");
+    Serial.println("    2 beeps -> pump B, J13.BM2 + BM1 (the two EAST pins)");
+    for (auto &p : kPump) pumpExercise(p);
+    Serial.println("\n-- pump self-test complete --");
 }
 
 static void cmdPump(const String &line) {
@@ -656,6 +654,7 @@ static void cmdPump(const String &line) {
     Serial.printf("\n-- pump %s held at %d%% for %d s (IO%d -> %s.IN1 -> J13.%s) --\n",
                   p->who, duty, secs, p->pin, p->driver, p->j13);
     Serial.println("  Any key stops it early.");
+    pumpDrain();
     if (!ledcAttach(p->pin, PUMP_PWM_HZ, PUMP_PWM_BITS)) {
         Serial.printf("  ledcAttach(IO%d) failed — no LEDC channel free; nothing driven\n", p->pin);
         pinMode(p->pin, INPUT);
@@ -792,6 +791,7 @@ void setup() {
 
     cmdWifi();      // needs nobody at the board
     cmdHelp();
+    pumpBootRun();  // also needs nobody at the board, and the room hears the result
     probeBegin();
 }
 
