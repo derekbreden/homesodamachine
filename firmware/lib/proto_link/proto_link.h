@@ -246,12 +246,26 @@ struct HdlcLink : public tinyproto::Hdlc {
     }
   }
 
+  // hdlc_ll_put_frame keeps the caller's pointer as tx.origin_data and serializes from
+  // it later, inside run_tx — it does not copy. So the frame lives in a member here, and
+  // run_tx is drained before returning, while that buffer is still the one it was handed.
+  // A frame built on the stack and left to the next service() call goes out as whatever
+  // reused the stack: right length, wrong bytes, and a CRC computed over the wrong bytes
+  // that therefore passes.
   int send(uint8_t msgType, const void *data, uint16_t len) {
-    uint8_t out[len + 1];
-    out[0] = msgType;
-    if (len > 0 && data) memcpy(out + 1, data, len);
-    int r = write((const char *)out, len + 1);
-    if (r >= 0) framesTx++;
+    if (!serial) return TINY_ERR_FAILED;
+    if ((size_t)len + 1 > sizeof(txFrame)) return TINY_ERR_INVALID_DATA;
+    txFrame[0] = msgType;
+    if (len > 0 && data) memcpy(txFrame + 1, data, len);
+    int r = write((const char *)txFrame, len + 1);
+    if (r < 0) return r;
+    for (;;) {
+      uint8_t tx[128];
+      int n = run_tx(tx, sizeof(tx));
+      if (n <= 0) break;
+      serial->write(tx, n);
+    }
+    framesTx++;
     return r;
   }
 
@@ -269,5 +283,6 @@ protected:
   }
 
 private:
-  uint8_t frameBuf[512];
+  uint8_t frameBuf[512];   // RX frame assembly
+  uint8_t txFrame[256];    // held until run_tx has serialized it
 };
