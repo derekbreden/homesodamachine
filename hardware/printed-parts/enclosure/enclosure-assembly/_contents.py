@@ -2955,26 +2955,24 @@ def nozzle_b_tray_pos():
 
 
 def nozzle_b_tray_y():
-    """The nozzle-B gate's plate's origin in Y — its OUTLET standing where the come-about
-    behind it IS its own approach to the panel.
+    """The nozzle-B gate's plate's origin in Y — its OUTLET one come-about forward of the band
+    that carries it, which stands the plate as far aft as the machine has room for.
 
-    The outlet faces aft at `bulkhead-flavor-b`, and the run between them spends the band
-    behind this plate on one turn: aft off the collet, up its whole storey, and west across
-    the electronics field on the lane it closes into the bulkhead on. That lane is the ASSE
-    CHAIN'S OWN AFT FACE a `PUMP_ROW_TURN` clear — the chain stands in the panel's stratum
-    across this bulkhead's column, so the approach comes about aft of the chain, which is the
-    aft of the two planes the closing straight could take. ONE STOCK ARC forward of that lane
-    is where the come-about and the approach are one turn and the band behind the plate is that
-    turn's own tangent, and the plate's own `port_half` stands its origin ahead of the collet.
+    The outlet faces aft at `bulkhead-flavor-b`, and the FIRST thing the run does is turn: aft
+    off the collet onto the AFT OUTLET LANE, the one band all three of the stand's aft-facing
+    outlets turn on, a `PUMP_ROW_TURN` off `REAR_PLANE_Y`. That turn is this plate's ONLY
+    fence. Its own corridor — the plate's X band, at the plate's own storey — carries no body
+    at all between the collet and the cap's aft edge, so nothing behind the plate stops it and
+    the come-about is what places it: one stock arc's tangent and the `JUNCTION_LEG_LEAD` the
+    collet takes, with the plate's own `port_half` standing its origin ahead of the collet.
 
-    Forward of here the two planes stand apart and the band carries both turns; aft of here
-    the leg between the collet and the lane is shorter than the arc it seats.
+    Aft of here the leg between the collet and the lane is shorter than the arc it seats, and
+    the run's first corner comes off stock.
 
     Restated on the pack's side rather than read back from `_lines`, for `LLDPE_BEND`'s own
     reason — a pose that read the routing module would be a cycle in the build order."""
-    appr = max(bulkhead_water_mouth()[1] - LLDPE_STOCK_BEND - JUNCTION_LEG_LEAD,
-               packed().box("asse1022-assembly").ymax + PUMP_ROW_TURN)
-    return appr - LLDPE_STOCK_BEND - _tray1.port_half
+    lane = REAR_PLANE_Y - PUMP_ROW_TURN
+    return lane - LLDPE_STOCK_BEND - JUNCTION_LEG_LEAD - _tray1.port_half
 
 
 def nozzle_gate_in_x():
