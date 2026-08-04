@@ -919,7 +919,7 @@ PUMP_PORT_RISE = _kamoer.arch_plane_z - _kamoer.head_front_z
 #     the front column's air, and is not what pins this any more.
 #   * not AFT: nothing pins it. The stand's aft face used to ride the rear corner column's
 #     face; the whole band behind it is now the outlet lane's and the shelf's, and it runs
-#     [32.2](OUTLET_LANE) mm deep — the three aft-facing outlets turn on it and climb to the
+#     [188](OUTLET_LANE) mm deep — the three aft-facing outlets turn on it and climb to the
 #     rear panel a lane behind the deck they leave.
 #   * the LEAD is the bay's own turn construction: two legs come about on the shared
 #     column and pass a `LINE_PITCH` apart, so each turn stands
@@ -3149,16 +3149,14 @@ def y_g_pos():
     pair's turned east face and V-J-I opens −Y off the east row's forward face, so the strip
     between those two plates is the one band both collets look into, and `vk_tray_y` cuts it
     to this fitting's own section with a `LINE_HUG` at each plate.
-    IN X IT STANDS CLEAR OF THE COLUMN FLUID-17 COMES AFT ON. That run crosses the bay on the
-    nozzle pair's own station and this fitting's STEM stands proud of the trays' crown, so the
-    two want the same air unless the trident holds off by its own half-section and a line's
-    floor. East is the side that has it, and east is also where V-I-I points: standing there
-    puts the outlet the bag's fill climbs into ahead of that collet rather than behind it, and
-    the crossing between the two collets goes whole to V-J-I's leg, which opens ALONG the bay
-    and has the bay's own lead to turn it in.
+    IN X IT STANDS ON V-I-I'S OWN COLUMN — one of the two collets it feeds, and the one whose
+    leg opens along the strip rather than across it. A junction standing on a port it joins is
+    a leg with no plan to cross: `fluid-23` leaves that collet and climbs, and the whole of the
+    crossing between the two collets goes to V-J-I's leg, which opens ALONG the bay and has the
+    bay's own lead to turn it in. Read off the collet, so a re-clocked or re-stood bag-B pair
+    carries the trident with it.
     In Z it keeps the climb its stem makes to the pump's barb."""
-    return (packed().box("nozzle-tray-assembly").xmin + _tray1.half_x
-            + _ydiv.HALF_W + 6.35 / 2.0 + LINE_HUG,
+    return (bag_b_tray_port("V-I-I")[0][0],
             packed().box("bag-b-tray-assembly").ymax + LINE_HUG + _ydiv.HALF_W,
             aft_port_z() + Y_G_CLIMB + DIVIDER_HALF)
 
