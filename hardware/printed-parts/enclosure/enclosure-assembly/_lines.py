@@ -104,7 +104,7 @@ bound it:
     Both of the loft's trays present their eight collets on it, so fluid-24 and fluid-26 are
     the bag-A pair's two legs read again a storey up, and fluid-18 and fluid-28 leave it on
     the level before they climb.
-  * the loft's JUNCTION BAY (`_contents.AFT_TRAY_BAY`) — [37.33](LOFT_BAY) mm between the
+  * the loft's JUNCTION BAY (`_contents.AFT_TRAY_BAY`) — [54.63](LOFT_BAY) mm between the
     two trays, and the loft's answer to the front column's aft band, except that here the two
     pairs face each OTHER collet for collet. So its depth is a FITTING's: Y-G stands in it on
     the one column V-I-I and V-J-I share, and fluid-23 and fluid-27 are the two straight
@@ -1304,7 +1304,22 @@ def _authored_runs() -> list:
     # one `PUMP_ROW_TURN` over the stand's crown, and this one stands a whole tube above that,
     # forward of the basin's rails the whole way.
     y_h = f["divider-y-h"]
+    y_g = f["divider-y-g"]
     vk_stock = R.stock_min("water", vk.diam("V-K-I"))
+    # How far forward of its own collet this fall comes down. TWO floors want that plane and the
+    # longer one takes it. The CLOSING CORNER wants a stock arc with the collet's own lead still
+    # standing in front of it. And Y-G STANDS ON THIS COLUMN — the trident's east face and V-K's
+    # own column are one plane, so the fall may not come down inside the fitting's band at all:
+    # it stops a tube and a floor FORWARD of it, and the aft leg that leaves runs under the
+    # trident's floor on the port plane. Whichever backoff is longer is the one the run takes,
+    # and the extra is slack on a leg it was travelling anyway.
+    # And a THIRD floor, which is usually the longest: the leg between the crossing and the fall
+    # carries a corner at each end, so it seats a stock arc for both only at twice the stock
+    # radius. The run holds the split's own Y the whole way across, so that leg is exactly what
+    # this backoff leaves of it.
+    w3_back = max(vk_stock + contents.JUNCTION_LEG_LEAD,
+                  vk.at("V-K-I")[1] - (y_g.bb.ymin - CLIMB_HUG - 6.35 / 2.0),
+                  vk.at("V-K-I")[1] - (sp.at("to-vk")[1] - 2.0 * vk_stock))
     runs.append(route(
         "water-3", "water-split.to-vk",
         {"z": nz.bb.zmax + contents.PUMP_ROW_TURN + 6.35},
@@ -1312,15 +1327,10 @@ def _authored_runs() -> list:
                                              # fluid-17's, one tube clear of the run it shares
                                              # the east column with
         vk.x("V-K-I"),                       # east across it onto the valve's own column
-        vk.y("V-K-I", -(vk_stock + contents.JUNCTION_LEG_LEAD)),
-                                             # aft down that column onto the plane its own CLOSING
-                                             # CORNER wants. V-K's east seat stands at the far end
-                                             # of the stand and the band ahead of that column is
-                                             # open to the condenser — Y-G's strip is thirty
-                                             # millimetres west of it — so the fall lands where a
-                                             # square turn seats its tangent with the collet's
-                                             # lead surviving in front, not on a bay lead struck
-                                             # for a bay that no longer stands here
+        vk.y("V-K-I", -w3_back),             # aft down that column onto the plane `w3_back`
+                                             # strikes — a square turn's own tangent with the
+                                             # collet's lead in front of it, or clear forward of
+                                             # Y-G's band, whichever stands further out
         vk.z("V-K-I"),                       # down into the bay onto the stand's port plane
         "vk-tray-assembly.V-K-I",            # and aft into the mouth
         kind="water", skew=FLAVOR_SKEW, stub=(contents.LLDPE_STOCK_BEND, 1.0),
@@ -1328,7 +1338,7 @@ def _authored_runs() -> list:
              "across the machine onto the valve's column and down the far side of the trays"))
 
     # water-4 — V-K's outlet to the SeaFlo's suction barb, a hop across the lane between the
-    # east stand and the pump. Its two ends stand [65.9](W4_SPAN) mm apart and BOTH FACE INTO
+    # east stand and the pump. Its two ends stand [67.3](W4_SPAN) mm apart and BOTH FACE INTO
     # THE BAY: the valve discharges aft at y [333.4](W4_BARB_Y), the barb opens EAST on that
     # same plane, and the bay behind the valve's plate is the one band on this deck with no
     # plate in it. So the run never leaves the valves' own port stratum to cross — it comes
