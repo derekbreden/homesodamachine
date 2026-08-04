@@ -1405,56 +1405,27 @@ def _authored_runs() -> list:
              f"(3/8\" braided PVC, two clamps)"))
 
     # water-5 — the chain's forward collet to the core's water inlet, and the tap-water path's
-    # one fall. THE INLET IS UNDER THE PUMP. The conduit opens +Z out of the top cap at
-    # x [71.5](W5_INLET_X), and the casting's head block stands over that column from
-    # [13](W5_SLOT) mm above the lid to its crown — so nothing reaches this port from above,
-    # and the run arrives along the SLOT the casting leaves between its head and the lid it
-    # stands on. `contents.seaflo_lid_slot` measures that slot off the solid, because the
-    # pump's box is one brick from foot to crown and says the port is buried.
-    #   The collet faces FORWARD, so the run leaves forward whatever it is going to do, and
-    # the turn it makes there is bounded by Y-H's aft face — the trident stands on this same
-    # column a storey down. One come-about there, east along the loft over the bag pair's own
-    # crown, aft clear of that pair, and one fall down the open column in the band between the
-    # pair and the casting's front face. Then the slot: aft under the head at the lead the
-    # port itself asks for, and down into the conduit.
-    #   The fall's column is the one place on this deck where a line may go from the loft to
-    # the lid without crossing a body — the bag pair closes it forward, the casting closes it
-    # aft, and the [23.5](W5_WINDOW) mm between them is what this run spends.
-    w5_slot = contents.seaflo_lid_slot(*foam.at("water-in")[:2])
-    # The band under the head: the port's own lead off the lid, which is what a ⌀6.35 line
-    # clears the casting's underside on. `port-leads` states the lead; the slot states the roof.
-    w5_under = foam.at("water-in")[2] + contents.JUNCTION_LEG_LEAD
-    # The come-about stands clear of the trident's aft face; the fall's column stands clear of
-    # the bag pair's, in the window between that pair and the casting's front face. ONE LEAN
-    # joins them — the whole eastward crossing and the step onto the fall's column in one leg,
-    # which is what the fall's head corner seats on. The lean holds the loft's height for its
-    # whole length: the pair's crown is under it and the drop is on the far side of the pair.
+    # one fall. TWO LEGS AND ONE CORNER. The chain hands the water over on the deck's own west
+    # end, facing FORWARD, and `_cold_core_interface.cap_conduits` stands the inlet's bore
+    # ahead of it on very nearly that column — so the run is one horizontal leg out to the
+    # bore's own station and one fall straight down it, and the corner between them has a
+    # [30](W5_LEG) mm leg on one side and the whole [81.5](W5_FALL) mm of the fall on the
+    # other. Both hold a stock arc, which is what this line turns at.
+    #   The horizontal leg carries the whole plan move, so it leaves the collet
+    # [0.955](W5_LEAN)° off its axis — inside the `FLAVOR_SKEW` a push-to-connect takes — and
+    # the fall enters the bore dead on the vertical it is drilled at. Nothing stands under the
+    # leg: the deck's west end carries reservoir B's own riser [18](W5_RISER_GAP) mm off this
+    # bore, and the bag pair closes the band east of both.
     chain = f["discharge-chain"]
-    # The come-about stands the collet's own lead ahead of it. The band forward of this chain
-    # is the pair's, and the trident that used to hold this column stands ahead of the pair
-    # now (`_contents.y_h_pos`), so what bounds the turn is the port and not a body.
-    w5_turn = chain.at("tube-port")[1] - contents.JUNCTION_LEG_LEAD
-    w5_drop = f["bag-b-tray-assembly"].bb.ymax + contents.PUMP_ROW_TURN
     runs.append(R.bent(
         "water-5", "discharge-chain.tube-port",
-        (foam.at("water-in")[0], w5_drop, chain.at("tube-port")[2]),
-                                             # the lean: east along the loft over the pair's
-                                             # crown and onto the conduit's column together
-        (foam.at("water-in")[0], w5_drop, w5_under),
-                                             # down the window onto the slot under the head
-        (foam.at("water-in")[0], foam.at("water-in")[1], w5_under),
-                                             # aft along the slot onto the conduit's station
-        "foam-assembly.water-in",            # and down into it
-        kind="water", skew=FLAVOR_SKEW,
-        lead=(chain.at("tube-port")[1] - w5_turn, contents.JUNCTION_LEG_LEAD),
-        note="carb water: discharge chain → cold-core water inlet, one lean east along the "
-             "loft, down the window ahead of the pump and aft along the slot under its head"))
-    if w5_under + 6.35 / 2.0 > foam.at("water-in")[2] + w5_slot - contents.LINE_HUG:
-        R._blocked("water-5",
-                   f"the slot the casting leaves over the conduit is {w5_slot:.2f} mm and the "
-                   f"line wants "
-                   f"{contents.JUNCTION_LEG_LEAD + 6.35 / 2.0 + contents.LINE_HUG:.2f} of it — "
-                   f"the pump's head stands over this port's own column")
+        (foam.at("water-in")[0], foam.at("water-in")[1], chain.at("tube-port")[2]),
+                                             # out to the bore's own station, holding the deck's
+                                             # height the whole way
+        "foam-assembly.water-in",            # and one fall straight down the bore
+        kind="water", skew=FLAVOR_SKEW, lead=(0.0, 0.0),
+        note="carb water: discharge chain → cold-core water inlet, one leg out to the conduit's "
+             "own station and one fall down it"))
 
     # --- The CO2 path: the front-wall chain to the core's CO2 bore. The check is made up
     # on the DERPIPE's stub and carries no line, so the path is one short hop and one long
@@ -1776,9 +1747,12 @@ def lane_stations() -> dict:
         "YG_COLUMN":        f"{_boxes.boxed(contents.placed_funnel()).zmin - _boxes.boxed(solids['divider-y-g']).zmax:.3g}",
         # water-5's fall, and the two figures the casting sets it: the slot its head leaves
         # over the conduit's own column, and the window between the bag pair and its front face.
-        "W5_INLET_X":       f"{runs['water-5'].pts[-1][0]:.3g}",
-        "W5_SLOT":          f"{contents.seaflo_lid_slot(*runs['water-5'].pts[-1][:2]):.3g}",
-        "W5_WINDOW":        f"{_boxes.boxed(solids['seaflo-pump']).ymin - _boxes.boxed(solids['bag-b-tray-assembly']).ymax:.3g}",
+        # water-5's two legs, the lean the horizontal one leaves its collet on, and what the
+        # deck's own west end leaves between this bore and reservoir B's riser.
+        "W5_LEG":           f"{math.dist(runs['water-5'].pts[0], runs['water-5'].pts[1]):.3g}",
+        "W5_FALL":          f"{math.dist(runs['water-5'].pts[1], runs['water-5'].pts[2]):.3g}",
+        "W5_LEAN":          f"{R.leg_skew(runs['water-5'].pts[0], runs['water-5'].pts[1], _frames()['discharge-chain'].normal('tube-port')):.3g}",
+        "W5_RISER_GAP":     f"{math.dist(runs['water-5'].pts[-1][:2], runs['fluid-25'].pts[0][:2]):.3g}",
         # The shelf crossing, off the shelf itself: how far over the tallest lid on the cap the
         # crossing's own lane stands, and the widest lane those modules leave between them.
         "SHELF_STEP":       f"{max(p[2] for p in runs['fluid-19'].pts) - _shelf_top_under(solids, runs['fluid-19']):.4g}",
