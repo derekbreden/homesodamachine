@@ -1,6 +1,6 @@
 {
   "gatesPass": false,
-  "placed": 67,
+  "placed": 64,
   "located": 100,
   "shaped": 98,
   "routed": 56,
@@ -131,9 +131,8 @@
         "seaflo-pump \u2014 drip-pan-rails: 1.00 mm",
         "psu \u2014 relay-1: 1.00 mm",
         "relay-1 \u2014 ac-hub: 1.00 mm",
-        "psu \u2014 pcba: 1.00 mm",
-        "foam-assembly \u2014 pcba: 1.05 mm \u2014 CONTACT (declared ok)",
         "bag-b-tray-assembly \u2014 tee-y-f: 1.25 mm",
+        "condenser+fan \u2014 pcba: 1.38 mm",
         "pump-b \u2014 pump-a: 1.74 mm",
         "flow-regulator \u2014 hopper-funnel: 2.28 mm",
         "asse1022-assembly \u2014 drip-pan: 2.42 mm",
@@ -142,7 +141,6 @@
         "bag-a-tray-assembly \u2014 tee-y-c: 2.62 mm",
         "seaflo-pump \u2014 nozzle-tray-assembly: 3.00 mm",
         "ac-hub \u2014 ground-stack: 3.00 mm",
-        "pcba \u2014 vk-tray-assembly: 3.02 mm",
         "source-tray-assembly \u2014 hopper-funnel: 3.37 mm",
         "pump-a \u2014 tee-y-e: 3.44 mm",
         "compressor-shroud \u2014 wr1110: 3.50 mm",
@@ -203,7 +201,7 @@
       "label": "Placement criteria defined and held (face-to-datum)",
       "kind": "goal",
       "status": "warn",
-      "value": "67% (28/42)",
+      "value": "64% (27/42)",
       "target": "100%",
       "detail": [
         "\u2713 foam-assembly: x- 14.0 x+ 14.0 z- 0.0 mm",
@@ -219,7 +217,7 @@
         "\u2717 drip-pan: near drip-pan-rails 0.0 clear seaflo-pump 4.3 clear asse1022-assembly 2.4(<3) mm",
         "\u2717 drip-pan-rails: near drip-pan 0.0 clear seaflo-pump 1.0(<3) mm",
         "\u2713 psu: near foam-assembly 0.0 clear seaflo-pump 60.5 mm",
-        "\u2713 pcba: near psu 1.0 clear seaflo-pump 84.1 clear c14-inlet 102.5 mm",
+        "\u2717 pcba: near psu 75.7(>10) clear seaflo-pump 92.8 clear c14-inlet 174.2 mm",
         "\u2713 relay-1: near psu 1.0 clear seaflo-pump 87.8 clear c14-inlet 27.4 mm",
         "\u2713 ac-hub: near relay-1 1.0 clear seaflo-pump 86.7 clear c14-inlet 14.6 mm",
         "\u2717 ground-stack: near ac-hub 3.0(>1) clear c14-inlet 10.9 clear psu 38.7 mm",
@@ -1354,9 +1352,9 @@
       "name": "J1-manifold-a",
       "kind": "electrical",
       "pos": [
-        190.4,
-        291.92,
-        259.4
+        178.4,
+        264.198,
+        282.428
       ],
       "face": "z+",
       "diam": 10.0,
@@ -1369,9 +1367,9 @@
       "name": "J2-manifold-b",
       "kind": "electrical",
       "pos": [
-        190.4,
-        314.17,
-        259.4
+        178.4,
+        264.198,
+        304.678
       ],
       "face": "z+",
       "diam": 8.0,
@@ -1384,9 +1382,9 @@
       "name": "J3-faucet",
       "kind": "electrical",
       "pos": [
-        190.4,
-        338.7,
-        322.65
+        178.4,
+        200.948,
+        329.208
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1399,9 +1397,9 @@
       "name": "J4-sensors",
       "kind": "electrical",
       "pos": [
-        190.4,
-        338.7,
-        305.4
+        178.4,
+        218.198,
+        329.208
       ],
       "face": "z+",
       "diam": 8.0,
@@ -1414,9 +1412,9 @@
       "name": "J5-relays",
       "kind": "electrical",
       "pos": [
-        190.4,
-        277.4,
-        312.35
+        178.4,
+        211.248,
+        267.908
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1429,9 +1427,9 @@
       "name": "J6-reeds-a",
       "kind": "electrical",
       "pos": [
-        190.4,
-        277.4,
-        297.5
+        178.4,
+        226.098,
+        267.908
       ],
       "face": "z+",
       "diam": 7.0,
@@ -1444,9 +1442,9 @@
       "name": "J7-reeds-b",
       "kind": "electrical",
       "pos": [
-        190.4,
-        338.7,
-        270.9
+        178.4,
+        252.698,
+        329.208
       ],
       "face": "z+",
       "diam": 8.0,
@@ -1459,9 +1457,9 @@
       "name": "J8-i2c",
       "kind": "electrical",
       "pos": [
-        190.4,
-        277.4,
-        269.1
+        178.4,
+        254.498,
+        267.908
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1474,9 +1472,9 @@
       "name": "J9-display",
       "kind": "electrical",
       "pos": [
-        190.4,
-        338.7,
-        288.15
+        178.4,
+        235.448,
+        329.208
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1489,9 +1487,9 @@
       "name": "J10-12v",
       "kind": "electrical",
       "pos": [
-        190.4,
-        329.9,
-        258.05
+        178.4,
+        265.548,
+        320.408
       ],
       "face": "z+",
       "diam": 5.0,
@@ -1504,9 +1502,9 @@
       "name": "J11-gas",
       "kind": "electrical",
       "pos": [
-        190.4,
-        332.25,
-        332.4
+        178.4,
+        191.198,
+        322.758
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1519,9 +1517,9 @@
       "name": "J13-pumps",
       "kind": "electrical",
       "pos": [
-        190.4,
-        277.4,
-        282.65
+        178.4,
+        240.948,
+        267.908
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1534,9 +1532,9 @@
       "name": "J14-usb",
       "kind": "electrical",
       "pos": [
-        190.4,
-        291.9,
-        332.4
+        178.4,
+        191.198,
+        282.408
       ],
       "face": "z+",
       "diam": 9.0,
@@ -2816,12 +2814,12 @@
       "component": "pcba",
       "boxes": [
         [
-          172.9,
-          271.9,
-          253.4,
-          192.0,
-          344.7,
-          344.216
+          160.9,
+          179.382,
+          262.408,
+          180.0,
+          270.198,
+          335.208
         ]
       ],
       "fill": 0.2397,
@@ -7010,8 +7008,8 @@
     }
   ],
   "source": {
-    "generated": "2026-08-04T06:31:10+00:00",
-    "commit": "e2f77eeee770674980626c6db14ee4ac632ce90c",
+    "generated": "2026-08-04T14:21:45+00:00",
+    "commit": "fee9391a9fb7e86f30c443a05282f68610de656d",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
@@ -7037,7 +7035,7 @@
       "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:b78f9d04aa498d58",
       "hardware/printed-parts/enclosure/enclosure-assembly/_placing.py": "sha256:bedaac869792e918",
       "hardware/printed-parts/enclosure/enclosure-assembly/_routing.py": "sha256:7dcbef665dc87001",
-      "hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.overrides.json": "sha256:ca3d163bab055381",
+      "hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.overrides.json": "sha256:a8a2c39713b03762",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py": "sha256:44d9ed4ee43813ac",
       "hardware/printed-parts/enclosure/enclosure-assembly/need.py": "sha256:85ed5764f1d597f8",
       "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:c5dbe3461d3c62b5",
