@@ -21,6 +21,8 @@ elif env_name == "esp32s3_faucet":
     path = "firmware/src_faucet/fw_version.h"
 elif env_name == "esp32s3_front":
     path = "firmware/src_front/fw_version.h"
+elif env_name == "pcba_bench":
+    path = "firmware/src_pcba_bench/fw_version.h"
 else:
     path = "firmware/src/fw_version.h"
 

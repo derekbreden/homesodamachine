@@ -24,6 +24,8 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <WiFi.h>
+#include "proto_link.h"
+#include "fw_version.h"
 
 // ── Status LEDs — active high, through 470R to GND (D2/D3/D4) ──────────────
 static const int PIN_LED_ERR = 15;  // D2 red   — IO15/MTDO, active-low (LED to 3V3)
@@ -287,30 +289,49 @@ static const int PIN_485_RO = 34;
 // display hangs. Serial1 holds them while the link is up, so `rs485` and `drive io32`
 // take the link down and put it back.
 //
-// /RE is tied to GND, so U7's receiver runs while its driver does and every transmitted
-// line lands back in this board's own RX. The 4.3B at the far end gates its receiver off
-// while driving and returns nothing. rs485Poll() drops an incoming line matching the last
-// one sent, which reads the same under either behavior and never eats a reply.
+// /RE is tied to GND, so U7's receiver runs while its driver does and every byte this
+// board drives onto the pair returns on its own RX. HDLC reads a stream, not lines, so
+// the echo is cancelled a layer below the protocol: EchoCancel counts what it writes and
+// swallows that many before anything reaches ProtoLink. The bus is half-duplex, so while
+// this board drives, nothing else is on the wire and the echo arrives contiguous and in
+// order ahead of any reply.
+//
+// (The 4.3B gates its receiver off while driving and has no echo to cancel — `RS485:LOOP`
+// there reads `no echo` in both pin orientations.)
+class EchoCancel : public Stream {
+public:
+    explicit EchoCancel(HardwareSerial &s) : ser(s) {}
+    size_t write(uint8_t b) override { pending++; return ser.write(b); }
+    size_t write(const uint8_t *b, size_t n) override { pending += n; return ser.write(b, n); }
+    int available() override { drain(); return ser.available(); }
+    int read() override      { drain(); return ser.read(); }
+    int peek() override      { drain(); return ser.peek(); }
+    void flush() override    { ser.flush(); }
+    size_t echoOutstanding() const { return pending; }
+private:
+    void drain() { while (pending && ser.available()) { ser.read(); pending--; } }
+    HardwareSerial &ser;
+    size_t pending = 0;
+};
+
 static const long RS485_BAUD = 115200;
 static bool rs485Up = false;
-static String rs485LastSent;
+static EchoCancel j9Stream(Serial1);
+static ProtoLink j9;
+
+static void j9OnMessage(ProtoLink *link, const uint8_t *frame, uint16_t len);
 
 static void rs485Begin() {
     Serial1.begin(RS485_BAUD, SERIAL_8N1, PIN_485_RO, PIN_485_DI);
+    j9.onMessage = j9OnMessage;
+    j9.begin(j9Stream, "J9");
     rs485Up = true;
 }
 
 static void rs485End() {
+    j9.end();
     Serial1.end();
     rs485Up = false;
-}
-
-static void rs485Send(const char *s) {
-    if (!rs485Up) return;
-    rs485LastSent = s;
-    Serial1.write((const uint8_t *)s, strlen(s));
-    Serial1.write('\n');
-    Serial1.flush();
 }
 
 static void cmdRs485() {
@@ -637,6 +658,29 @@ static void pumpBootRun() {
     Serial.println("\n-- pump self-test complete --");
 }
 
+// What MSG_PUMP_RUN reaches. The string commands parse down to this too, so a run asked
+// for over J9 and a run typed at the console are the same run.
+static bool pumpRun(uint8_t channel, uint8_t duty, uint16_t ms) {
+    if (channel > 1) return false;
+    const Pump *p = &kPump[channel];
+    if (duty > 100) duty = 100;
+    unsigned long hold = ms;
+    if (hold > (unsigned long)PUMP_MAX_S * 1000) hold = (unsigned long)PUMP_MAX_S * 1000;
+    Serial.printf("\n-- pump %s at %u%% for %lu ms (IO%d -> %s.IN1 -> J13.%s) --\n",
+                  p->who, duty, hold, p->pin, p->driver, p->j13);
+    if (!ledcAttach(p->pin, PUMP_PWM_HZ, PUMP_PWM_BITS)) {
+        Serial.printf("  ledcAttach(IO%d) failed — no LEDC channel free; nothing driven\n", p->pin);
+        pinMode(p->pin, INPUT);
+        return false;
+    }
+    unsigned long t0 = millis();
+    pumpSet(p->pin, duty);
+    pumpHold(hold);
+    pumpPark(p->pin);
+    Serial.printf("  elapsed %lu ms — IO%d coasting, parked as an input\n", millis() - t0, p->pin);
+    return true;
+}
+
 static void cmdPump(const String &line) {
     int sp1 = line.indexOf(' ');
     String rest = sp1 < 0 ? String("") : line.substring(sp1 + 1); rest.trim();
@@ -733,6 +777,7 @@ static void cmdInfo() {
     Serial.printf("  free heap : %u bytes\n", ESP.getFreeHeap());
     Serial.printf("  reset     : %d (1=power-on, 3=SW, 12=SW-CPU)\n", (int)esp_reset_reason());
     Serial.printf("  uptime    : %lu ms\n", millis());
+    Serial.printf("  firmware  : %s\n", FW_VERSION);
 }
 
 static void cmdHelp() {
@@ -742,7 +787,8 @@ static void cmdHelp() {
     Serial.println("  scan   I2C bus scan");
     Serial.println("  bus    are R19/R20 visible from IO21/IO22 (J8 barrel junction)");
     Serial.println("  rs485  DI->U7->A/B->U7->RO loopback, entirely on-board");
-    Serial.println("  ping   send PING out on J9 — a live far end answers PONG");
+    Serial.println("  link   J9 TinyProto state — up/down, connected, echo outstanding");
+    Serial.println("  pumpmsg  send the display's own MSG_PUMP_RUN frame back at it");
     Serial.println("  rs485link  bring the J9 link back after 'rs485' or 'drive io32'");
     Serial.println("  watch  restart the continuity probe (it also runs from boot)");
     Serial.println("  wifi   scan — the WROOM RF section and its antenna");
@@ -830,7 +876,17 @@ static bool dispatch(const String &line) {
     else if (line == "bus")  cmdBus();
     else if (line == "rs485") cmdRs485();
     else if (line == "rs485link") { if (!rs485Up) rs485Begin(); Serial.println("\nJ9 link up on IO32/IO34 @ 115200"); }
-    else if (line == "ping") { rs485Send("PING"); Serial.println("\nPING sent on J9 — a live far end answers PONG"); }
+    else if (line == "link") {
+        Serial.printf("\nJ9 %s — TinyProto Fd, %s, echo outstanding %u byte(s)\n",
+                      rs485Up ? "up" : "DOWN",
+                      j9.isConnected() ? "CONNECTED to the far end" : "not connected",
+                      (unsigned)j9Stream.echoOutstanding());
+    }
+    else if (line == "pumpmsg") {
+        PumpRunPayload req{1, 60, 1000};   // the frame the display's button sends
+        int r = j9.send(MSG_PUMP_RUN, &req, sizeof(req));
+        Serial.printf("\nMSG_PUMP_RUN ch=1 duty=60 ms=1000 -> send()=%d\n", r);
+    }
     else if (line == "watch") probeBegin();
     else if (line == "wifi")  cmdWifi();
     else if (line == "interlock") cmdInterlock();
@@ -846,35 +902,36 @@ static bool dispatch(const String &line) {
     return true;
 }
 
-// A line off J9 runs the same table the console does.
-static void rs485Poll() {
-    static String line;
-    while (rs485Up && Serial1.available()) {
-        char c = Serial1.read();
-        if (c == '\n' || c == '\r') {
-            line.trim();
-            if (line.length()) {
-                if (line == rs485LastSent) { rs485LastSent = ""; line = ""; continue; }
-                Serial.printf("\n[J9] %s\n", line.c_str());
-                // PING/PONG are answered here, not dispatched.
-                if (line == "PING" || line == "ping") {
-                    rs485Send("PONG");
-                } else if (line == "PONG") {
-                    Serial.println("  the far end is alive");
-                } else {
-                    if (probeOn) { probeOn = false; probeRollCall(); }
-                    digitalWrite(PIN_LED_ACT, HIGH);
-                    bool known = dispatch(line);
-                    digitalWrite(PIN_LED_ACT, LOW);
-                    rs485Send(((known ? String("OK:") : String("ERR:")) + line).c_str());
-                }
-                Serial.println("\n> ");
-            }
-            line = "";
-        } else if (line.length() < 64) {
-            line += c;
-        }
+// Frames off J9. A run is answered after it has finished, so MSG_RESP_PUMP_DONE arriving
+// at the display is the motor having already stopped.
+static void j9OnMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
+    uint8_t type = msgType(frame);
+    const uint8_t *payload = msgPayload(frame);
+    uint16_t plen = msgPayloadLen(len);
+
+    if (type == MSG_PUMP_RUN && plen >= sizeof(PumpRunPayload)) {
+        PumpRunPayload req;
+        memcpy(&req, payload, sizeof(req));
+        Serial.printf("\n[J9] MSG_PUMP_RUN ch=%u duty=%u ms=%u\n", req.channel, req.duty, req.ms);
+        if (probeOn) { probeOn = false; probeRollCall(); }
+        digitalWrite(PIN_LED_ACT, HIGH);
+        bool ok = pumpRun(req.channel, req.duty, req.ms);
+        digitalWrite(PIN_LED_ACT, LOW);
+        link->sendResponse(ok ? MSG_RESP_PUMP_DONE : MSG_ERR_SLOT_INVALID, req.channel);
+        Serial.println("\n> ");
+        return;
     }
+
+    if (type == MSG_TEXT) {
+        char text[96];
+        uint16_t n = plen < sizeof(text) - 1 ? plen : sizeof(text) - 1;
+        memcpy(text, payload, n);
+        text[n] = '\0';
+        Serial.printf("\n[J9] text: %s\n\n> ", text);
+        return;
+    }
+
+    Serial.printf("\n[J9] type 0x%02X, %u byte(s)\n\n> ", type, plen);
 }
 
 void loop() {
@@ -887,7 +944,7 @@ void loop() {
 
     if (probeOn) probePoll();
 
-    rs485Poll();
+    if (rs485Up) j9.service();
 
     static String line;
     while (Serial.available()) {

@@ -7,6 +7,7 @@
 #include "esp_lcd_panel_ops.h"
 #include "freertos/semphr.h"
 #include "fw_version.h"
+#include "proto_link.h"
 
 // Animated loading logo — the 16-frame glass/bubbles loop (the same animation
 // the config display uses), rendered natively at 360x360 RGB565 by
@@ -409,53 +410,46 @@ static void animTimerCb(lv_timer_t *t) {
 //  RS485 link to the base ESP32
 // ════════════════════════════════════════════════════════════
 
-// A transceiver that keeps receiving while it drives puts the sent line back in its own
-// RX; one that gates its receiver off does not. rs485Poll() drops an incoming line that
-// matches the last one sent, so both behaviors read the same and a reply is never eaten.
-static char rs485LastSent[96] = "";
+// The transport is the one the appliance already runs between boards: TinyProto Fd over
+// the UART, typed frames through ProtoLink. This board's transceiver gates its receiver
+// off while driving, so nothing it sends returns and there is no echo to cancel here —
+// the base's U7 keeps receiving and cancels its own, a layer below its ProtoLink.
+static ProtoLink j9;
 
-static void rs485Send(const char *s) {
-  strncpy(rs485LastSent, s, sizeof(rs485LastSent) - 1);
-  rs485LastSent[sizeof(rs485LastSent) - 1] = '\0';
-  Serial1.write((const uint8_t *)s, strlen(s));
-  Serial1.write('\n');
-  Serial1.flush();
+static void j9OnMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
+  (void)link;
+  uint8_t type = msgType(frame);
+  const uint8_t *payload = msgPayload(frame);
+  uint16_t plen = msgPayloadLen(len);
+
+  if (type == MSG_RESP_PUMP_DONE && plen >= sizeof(ResponsePayload)) {
+    char buf[48];
+    snprintf(buf, sizeof(buf), "pump %c ran", payload[0] == 1 ? 'B' : 'A');
+    Serial.printf("[J9] MSG_RESP_PUMP_DONE ch=%u\n", payload[0]);
+    setStatus(buf);
+    return;
+  }
+
+  Serial.printf("[J9] type 0x%02X, %u byte(s)\n", type, plen);
 }
 
-static void rs485Begin() {
+static void j9Begin() {
   Serial1.begin(RS485_BAUD, SERIAL_8N1, rs485Rx, rs485Tx);
+  j9.onMessage = j9OnMessage;
+  j9.begin(Serial1, "J9");
   Serial.printf("RS485: rx=GPIO%d tx=GPIO%d @ %d\n", rs485Rx, rs485Tx, RS485_BAUD);
 }
 
-// PING is answered here rather than passed on. Everything else the base sends — OK:,
-// ERR:, PONG — lands on the status label and the USB console.
-static void rs485Line(const char *line) {
-  if (strcmp(line, rs485LastSent) == 0) { rs485LastSent[0] = '\0'; return; }
-  Serial.printf("[485] %s\n", line);
-  if (strcmp(line, "PING") == 0) { rs485Send("PONG"); return; }
-  setStatus(line);
-}
-
-static void rs485Poll() {
-  static char buf[96];
-  static uint8_t pos = 0;
-  while (Serial1.available()) {
-    char c = Serial1.read();
-    if (c == '\n' || c == '\r') {
-      if (pos > 0) { buf[pos] = '\0'; rs485Line(buf); pos = 0; }
-    } else if (pos < sizeof(buf) - 1) {
-      buf[pos++] = c;
-    }
-  }
-}
-
-// The bench button. `pump a 60 1` is the base console's bounded hold — pump A at 60% for
-// one second. The base answers OK: once the run has finished, so the label changes after
-// the motor stops rather than when the press lands.
+// The bench button. One MSG_PUMP_RUN naming the channel, the duty and the run length —
+// the base answers MSG_RESP_PUMP_DONE once the run has finished, so the label changes
+// after the motor stops rather than when the press lands.
 static void pumpBtnCb(lv_event_t *e) {
   (void)e;
-  setStatus("sent: pump a 60 1");
-  rs485Send("pump a 60 1");
+  PumpRunPayload req{PUMP_CHANNEL_B, 60, 1000};
+  int r = j9.send(MSG_PUMP_RUN, &req, sizeof(req));
+  Serial.printf("[J9] MSG_PUMP_RUN ch=%u duty=%u ms=%u -> send()=%d\n",
+                req.channel, req.duty, req.ms, r);
+  setStatus(r >= 0 ? "pump B requested" : "send failed");
 }
 
 static void buildStatus(lv_obj_t *scr) {
@@ -471,7 +465,7 @@ static void buildStatus(lv_obj_t *scr) {
   lv_obj_add_event_cb(btn, pumpBtnCb, LV_EVENT_CLICKED, NULL);
 
   lv_obj_t *lbl = lv_label_create(btn);
-  lv_label_set_text(lbl, "RUN PUMP A");
+  lv_label_set_text(lbl, "RUN PUMP B");
   lv_obj_center(lbl);
 }
 
@@ -540,6 +534,12 @@ static void processTextLine(const char *line) {
     } else {
       Serial.println("ERR:IDLE expects 0 or 1");
     }
+  } else if (strcmp(line, "PUMP") == 0) {
+    pumpBtnCb(nullptr);           // the button's own frame, without a finger on the glass
+    Serial.println("OK:PUMP");
+  } else if (strcmp(line, "LINK") == 0) {
+    Serial.printf("LINK:rx=GPIO%d,tx=GPIO%d,%s\n", rs485Rx, rs485Tx,
+                  j9.isConnected() ? "CONNECTED" : "not connected");
   } else if (strcmp(line, "RS485:LOOP") == 0) {
     // The transceiver receives while it drives, so a line sent here returns on this
     // board's own RX. Nothing is swallowed and nothing need be attached to the pair.
@@ -563,12 +563,13 @@ static void processTextLine(const char *line) {
                   strcmp(got, probe) == 0 ? "closes" : "no echo");
   } else if (strcmp(line, "RS485:SWAP") == 0) {
     int t = rs485Rx; rs485Rx = rs485Tx; rs485Tx = t;
+    j9.end();
     Serial1.end();
-    rs485Begin();
+    j9Begin();
     Serial.printf("OK:RS485 rx=GPIO%d tx=GPIO%d\n", rs485Rx, rs485Tx);
   } else if (strncmp(line, "RS485:", 6) == 0) {
-    rs485Send(line + 6);
-    Serial.printf("OK:sent '%s'\n", line + 6);
+    int r = j9.sendText(line + 6);
+    Serial.printf("OK:sendText('%s')=%d\n", line + 6, r);
   } else {
     Serial.printf("ERR:unknown command '%s'\n", line);
   }
@@ -594,7 +595,7 @@ void setup() {
   // Expander + panel/touch resets, then the RGB panel itself — initialized on a
   // separate task with a timeout. If esp_lcd ever blocks, setup() still returns
   // and loop() keeps serial alive (board stays flashable, no BOOT-button dance).
-  rs485Begin();
+  j9Begin();
 
   ch422gBringUp();
   xTaskCreatePinnedToCore(panelInitTask, "panelinit", 8192, nullptr, 5, nullptr, 1);
@@ -668,7 +669,7 @@ void loop() {
     }
   }
 
-  rs485Poll();
+  j9.service();
 
   // Idle: after inactivity, turn the backlight off and pause the animation
   // (no point repainting a dark screen). A touch wakes it — see wake().
