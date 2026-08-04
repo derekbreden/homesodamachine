@@ -1377,16 +1377,18 @@ def _authored_runs() -> list:
              "down it on the valves' own stratum, and one lean aft and up the lane between "
              "the casting and the aft row into the barb"))
 
-    # water-6 — the 3/8" braided stub off the molded discharge barb. The barb points east
+    # water-6 — the 3/8" braided stub off the molded discharge barb. The barb points WEST
     # at the wall; the hose comes about in the pocket between them on its own radius and
-    # runs forward leaning gently back onto the chain's barb, which stands east of the
-    # discharge's own column for exactly this leg.
-    #   BOTH REACHES ARE FENCED, AND NEITHER IS THE CORNER. The pocket sets the exit: the wall's
-    # inner face stands at x 195 and the barb tip at x 177, so the hose's own half-section and
-    # one clearance floor leave 9.45 mm before a sweep touches the piece, and 9.0 takes it. The
-    # approach is the COLLET'S OWN LEAD and no more — the basin stands aft of this barb at
-    # exactly that reach (`_contents` hangs its front wall off this station), so a closing
-    # straight longer than the lead is a straight drawn inside the basin.
+    # climbs the pump's west flank, closing forward and up onto the chain's barb, which
+    # stands over the discharge's own column for exactly this leg.
+    #   THE APPROACH IS FENCED AND THE EXIT IS NOT. The pocket the exit turns in runs from the
+    # −X wall's inner face at x [-14](W6_WALL_X) out to the barb tip at x [9](W6_BARB_X), and
+    # the hose's own half-section and one clearance floor leave [14.45](W6_POCKET_FREE) mm of
+    # it before a sweep touches the piece — more than this reach spends, so the sweep stands
+    # [8.16](W6_WALL_CLEAR) mm off that wall built. The approach is the COLLET'S OWN LEAD and
+    # no more — the basin stands aft of this barb at exactly that reach (`_contents` hangs its
+    # front wall off this station), so a closing straight longer than the lead is a straight
+    # drawn inside the basin.
     #   What is left is the DIRECTION of each. This hose is CLAMPED ONTO A BARB, so the straight
     # a joint needs is the barb itself and lies upstream of this run's first point — the route
     # owes none of its own, and every millimetre of both reaches goes to the corner. `lean_into`
@@ -1715,6 +1717,14 @@ def lane_stations() -> dict:
         "W6_LEAN_IN":       f"{R.leg_skew(runs['water-6'].pts[-1], runs['water-6'].pts[-2], _frames()['discharge-chain'].normal('barb-tip')):.3g}",
         "W6_TURN_OUT":      f"{runs['water-6'].bends[0][1]:.3g}",
         "W6_TURN_IN":       f"{runs['water-6'].bends[-1][1]:.3g}",
+        # The pocket that reach turns in, off the two faces that bound it — the −X wall stands
+        # one rib inset outboard of the core's west face — and what it leaves once the hose's
+        # own half-section and one clearance floor are off it, against what the built sweep
+        # actually keeps to that wall.
+        "W6_BARB_X":        f"{runs['water-6'].pts[0][0]:.3g}",
+        "W6_WALL_X":        f"{contents.CORE_WEST_FACE - contents.SIDE_RIB_INSET:.3g}",
+        "W6_POCKET_FREE":   f"{runs['water-6'].pts[0][0] - (contents.CORE_WEST_FACE - contents.SIDE_RIB_INSET) - runs['water-6'].diam / 2.0 - contents.LINE_HUG:.4g}",
+        "W6_WALL_CLEAR":    f"{_boxes.boxed(R.tube(runs['water-6'])).xmin - (contents.CORE_WEST_FACE - contents.SIDE_RIB_INSET):.3g}",
         "LOFT_BAY":         f"{runs['fluid-27'].pts[0][1] - runs['fluid-23'].pts[0][1]:.4g}",
         "PORT_ROW_Z":       f"{runs['fluid-18'].pts[-1][2]:.4g}",
         # The outlet lane: what the band has spare once its one rung is struck, the pitch the

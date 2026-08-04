@@ -546,10 +546,10 @@ FLOWREG_RUN = FLOWREG_DROP / math.tan(math.radians(21.0)) - 4.0
 # The discharge chain. The pump's barbs are molded into its head — no thread, and the 90°
 # barbed accessory does not fit it — so a stub of 3/8" braided PVC is the only thing that can
 # leave the discharge, and it clamps onto this chain's barb, where the 3/8" ends. It LIES
-# DOWN along Y, level with the discharge that feeds it: barb aft at the pump, collet forward
-# over the cap's front edge, where the fall to the core's water-in begins. Standing it in its
-# native pose is not available — it is taller than the discharge stands over a cap it would
-# have to drop through. Bracket TBD.
+# DOWN along Y on the pump's own crown, over the discharge that feeds it: barb aft at the
+# pump, collet forward over the deck, where the fall to the core's water-in begins. Standing
+# it in its native pose is not available — it is taller than the discharge stands over a cap
+# it would have to drop through. Bracket TBD.
 DISCH_CHAIN_TURN = ((1.0, 0.0, 0.0), -90.0)  # the native +Z barb swung onto +Y, at the pump
 # The AC hub lies FLAT, which is the pose a tray of three lever nuts is drawn in: its plate on
 # the horizontal, its wells opening UP, and each lug's wire half standing proud where a hand
@@ -1389,10 +1389,10 @@ def _build():
     # holds is the one that turn put there.
     pack.place("seaflo-pump", _load(SEAFLO_STEP), yaw=SEAFLO_YAW,
                org_x=at(SEAFLO_LANE_X), front=at(seaflo_front_y()), foot=at(foam_cap_top()))
-    # The chain on the pump's crown: its east flank on the discharge barb's own column, its aft
-    # face on that barb's y, its foot one `LINE_HUG` off the roof. Its collet points +Y at a
-    # molded barb pointing +X, and the 3/8" stub between them comes about in the wall pocket on
-    # the hose's own radius and climbs the pump's east corner onto it.
+    # The chain on the pump's crown: its west face one `LINE_HUG` inboard of `CORE_WEST_FACE`,
+    # its aft face on the discharge barb's own y, its foot one `LINE_HUG` off the roof. Its
+    # BARB points +Y at a molded discharge pointing −X, and the 3/8" stub between them comes
+    # about in the wall pocket on the hose's own radius and climbs the pump's west flank onto it.
     # The chain is joined to the pump by a HOSE (`water-6`, 3/8" braided PVC) and not screwed
     # to its barb, so nothing about the casting fixes it across the machine — what it owes the
     # pump is reach, and what it owes the box is to stand out of the ±X rib band. It rides the
