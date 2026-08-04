@@ -476,8 +476,10 @@ cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to th
 # stands over a vessel port at (x, y) in the shell's frame is authored at (−x, −y) here,
 # and `foam_assembly.cap_conduit_station` turns it back.
 #   water-in stands over the TOP BAND, not over its port. Its line leaves the vessel's
-# top-plate +Y port on a 1/4" PTC × NPT ELBOW, runs the band between that plate and the cap's
-# floor (`top_band_to_cap`), and climbs this bore to the deck. What puts it here is the run
+# top-plate +Y port LATERALLY — the port carries one of the four TAISHER street elbows every
+# vessel port takes (`ledger/bom.md`), with a PTC adapter made up on its female end — runs the
+# band between that plate and the cap's floor (`top_band_to_cap`), and climbs this bore to the
+# deck. What puts it here is the run
 # above the lid: the discharge chain hands the water over on the deck's own west end, and a
 # bore on the plate's own column stands under the SeaFlo — which lies across the bay on that
 # lid — so a line reaching it has to thread the slot the casting leaves and take its corners
