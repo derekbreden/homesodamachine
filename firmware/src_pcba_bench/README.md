@@ -47,6 +47,7 @@ press Enter once to reach a `>` prompt. Type `help` for the list:
 | `mcp` | Both MCP23017s: register reads, plus a write round-trip that never touches a pin |
 | `in` | Every off-board signal pin, and the two gas dividers in millivolts |
 | `rs485` | DI → U7 → A/B → U7 → RO closes entirely on-board, through R6's termination |
+| `ping` | Sends `PING` out of J9 — a live far end answers `PONG` |
 | `watch` | Audible continuity probe — touch a connector pin to its GND and hold until it beeps |
 | `walk` | The three firmware LEDs are on the GPIO the map says they are |
 | `buzz` | The IO13 → R5 → Q1 → U8 buzzer chain (audible) |
@@ -95,6 +96,22 @@ connector sets which way the head turns and either way is a pass. A brownout res
 the motor: the pin reverts to an input, which the DRV8870's own input pull-down coasts.
 `ISEN` sits on GND with no sense resistor, so the chip's current limit never trips and the
 motor sees the 12 V rail through the bridge — ~0.8 A peak for a KPHM400.
+
+## The J9 link
+
+IO32 and IO34 carry a 115200 8N1 UART out to **J9** (`B · A · GND · V12`), where the
+front-face display hangs. A line arriving there runs the same command table the console
+does, and one line goes back: `OK:<cmd>`, `ERR:<cmd>`, or `PONG` for a ping. Whatever the
+command prints still goes to the USB console — that is where a human is watching, and the
+display has no use for the pump's stage log.
+
+Both ends of this bus listen while they talk. `/RE` is tied to GND on U7 and the display's
+transceiver switches direction on its own, so every byte transmitted arrives back at its
+own receiver. `rs485Send()` swallows exactly what it just sent; without that the console
+would answer its own replies and never stop.
+
+`rs485` and `drive io32` drive IO32 as a plain pin, so both take the link down first —
+`rs485` restores it, and `rs485link` brings it back after `drive`.
 
 The same care governs the MCP probe. The MCP23017 GPA/GPB pins reach the TBD62083 valve
 drivers, whose inputs are high-impedance DMOS gates: `IODIR` is never written (every pin
