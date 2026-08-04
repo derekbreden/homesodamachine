@@ -1195,8 +1195,8 @@ def _authored_runs() -> list:
     #   The pair are TWINS and are built as twins: one lane, one shelf level, one approach
     # rule, and the only thing that differs between them is which bulkhead each is aimed at.
     # What holds them apart is the aim itself — the two turns behind the plate stand a whole
-    # seat pitch apart in X ([13.26](GATE_SEAT_PITCH) mm) and the two leans diverge from
-    # there, never closing nearer than [31.7](GATE_PAIR_GAP) mm of tube — so neither owes the
+    # seat pitch apart in X ([19.96](GATE_SEAT_PITCH) mm) and the two leans diverge from
+    # there, never closing nearer than [30.7](GATE_PAIR_GAP) mm of tube — so neither owes the
     # other a Y lane or a level. Both come about on the outlet lane's one rung, the deepest
     # the band holds, and water-4's turn is the third station on it.
     #   That lane is struck off the STATED WALL, not the plate's face: the band behind the
@@ -1267,7 +1267,7 @@ def _authored_runs() -> list:
         meter_w = f["digiten-flow"].bb.xmin - contents.PUMP_ROW_TURN
         lane_x = min(gate[0], meter_w) if gate[0] + 6.35 / 2.0 > meter_w else gate[0]
         # THE TWO GATES DO NOT SHARE A STRATUM. Their columns stand one seat pitch apart
-        # ([13.26](GATE_COLUMN_PITCH) mm — closer than a tube), their bulkheads stand a station
+        # ([19.96](GATE_COLUMN_PITCH) mm — closer than a tube), their bulkheads stand a station
         # apart the other way, and the westmost of the two has to cross the whole field AFT of
         # the ASSE chain: so each one's long leg runs through the other's column, and no lane in
         # X parts them. What parts them is height. The AFT ROW'S gate keeps the panel's own row

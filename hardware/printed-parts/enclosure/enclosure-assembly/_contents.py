@@ -938,6 +938,14 @@ AFT_BAY_LEAD = (AFT_TRAY_BAY - LINE_PITCH) / 2.0   # the straight a bay leg turn
 # tube and its own floor, and the bay stands one more off each plate face — under that the
 # outer two are inside the plates and the middle one is inside its neighbours.
 VK_TRAY_BAY = 3.0 * LINE_PITCH + 2.0 * LINE_HUG
+# The nozzle-B gate's plate off the row's own west face. Alone among the stand's rows this one
+# does not pack onto the casting: it stands out in the strip between that flank and the PSU's
+# brick, which is the body the +X wall carries at THIS row's Y. What the strip trades is the two
+# runs leaving the plate in opposite directions — `fluid-27` reaches its west flank and shortens
+# as the plate comes east, `fluid-28` climbs off the outlet and lengthens. Every corner on both
+# holds its radius the whole way across; what ends the strip is `fluid-28`, whose climb takes a
+# fifth corner and comes off stock past it, well before the brick is met.
+NOZZLE_B_TRAY_EAST = 7.0
 # Outlet face over the stand's own port plane — the long side of the diagonal fluid-23 and
 # fluid-27's corners turn on, and the figure the whole tap-water stack stands on: Y-G's stem
 # faces UP needing its `JUNCTION_LEG_LEAD` of clear bore under the basin's rails, and
@@ -2945,13 +2953,15 @@ def vk_tray_pos():
 
 
 def nozzle_b_tray_pos():
-    """The nozzle-B gate's plate's own origin in world — the middle row's WEST column, back at
+    """The nozzle-B gate's plate's own origin in world — the middle row's west column, back at
     the panel its outlet feeds.
 
-    It packs west onto the SeaFlo's own flank like every row of this stand (`aft_tray_x`), and
-    the one-seat plate's reach to that face is its own half-length. Y is `nozzle_b_tray_y`."""
+    The row's west face is the SeaFlo's east flank one `LINE_HUG` clear (`aft_tray_x`), and
+    this plate stands `NOZZLE_B_TRAY_EAST` off it, out in the strip that face leaves against
+    the +X wall's electrical column. The one-seat plate's reach to its own west face is its
+    half-length. Y is `nozzle_b_tray_y`."""
     _bx, _y, z = bag_b_tray_pos()
-    return (aft_tray_x() + _tray1.half_x, nozzle_b_tray_y(), z)
+    return (aft_tray_x() + _tray1.half_x + NOZZLE_B_TRAY_EAST, nozzle_b_tray_y(), z)
 
 
 def nozzle_b_tray_y():
