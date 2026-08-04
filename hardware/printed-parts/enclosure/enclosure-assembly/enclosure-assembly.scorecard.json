@@ -7010,8 +7010,8 @@
     }
   ],
   "source": {
-    "generated": "2026-08-04T06:22:48+00:00",
-    "commit": "dbb2b02d8d7cc48860636c75f7fced08525ccd70",
+    "generated": "2026-08-04T06:31:10+00:00",
+    "commit": "e2f77eeee770674980626c6db14ee4ac632ce90c",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
@@ -7034,13 +7034,13 @@
       "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "sha256:95325ce4d58f2cfe",
       "hardware/printed-parts/enclosure/enclosure-assembly/_boxes.py": "sha256:49c24b59d78cae9a",
       "hardware/printed-parts/enclosure/enclosure-assembly/_contents.py": "sha256:e2f702a46abf23ad",
-      "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:944b1c0c02a8827a",
+      "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:b78f9d04aa498d58",
       "hardware/printed-parts/enclosure/enclosure-assembly/_placing.py": "sha256:bedaac869792e918",
       "hardware/printed-parts/enclosure/enclosure-assembly/_routing.py": "sha256:7dcbef665dc87001",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.overrides.json": "sha256:ca3d163bab055381",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py": "sha256:44d9ed4ee43813ac",
       "hardware/printed-parts/enclosure/enclosure-assembly/need.py": "sha256:85ed5764f1d597f8",
-      "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:68f49f1439e901ef",
+      "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:c5dbe3461d3c62b5",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "stat:726302:1785705962150479625",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "stat:766665:1785735313209124048",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "stat:541614:1785705952324899942",
