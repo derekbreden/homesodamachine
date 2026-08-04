@@ -100,7 +100,7 @@ static const uint16_t *animFrames[] = {
 #define GT911_ADDR_A 0x5D
 #define GT911_ADDR_B 0x14
 #define GT911_REG_STATUS 0x814E  // buffer-status / touch-count
-#define GT911_REG_POINT1 0x8150  // first touch point (8 bytes: id, xL,xH, yL,yH, ...)
+#define GT911_REG_POINT1 0x8150  // point 1: xL,xH, yL,yH, sizeL,sizeH (the track ID is 0x814F)
 
 // ── RS485 to the base ESP32 (J9 / SIG-7) ──────────────────────
 // Onboard SP3485, automatic direction switching — no DE line. Its 120R termination is
@@ -174,6 +174,9 @@ static bool screenIdle = false;  // true while asleep (backlight off via idle)
 // ── Touch (GT911) ──
 static uint8_t gt911Addr = 0;     // probed at init (0 = not found)
 static uint32_t touchCount = 0;   // diagnostics: presses seen since last GET_DIAG
+static uint16_t lastTouchX = 0, lastTouchY = 0;  // where the last press landed
+static uint8_t lastRaw[8] = {0};                 // the GT911's own bytes for that press
+static uint8_t lastStatus = 0;
 
 // ── Diagnostics (read via GET_DIAG) ──
 static uint32_t maxLoopMs = 0;
@@ -341,8 +344,12 @@ static bool gt911ReadTouch(uint16_t *x, uint16_t *y) {
   if ((status & 0x0F) > 0) {
     uint8_t p[8];
     if (gt911ReadBytes(GT911_REG_POINT1, p, 8)) {
-      *x = (uint16_t)p[1] | ((uint16_t)p[2] << 8);
-      *y = (uint16_t)p[3] | ((uint16_t)p[4] << 8);
+      memcpy(lastRaw, p, 8);
+      lastStatus = status;
+      // 0x814F is the track ID; POINT1 (0x8150) is already X-low, so the coordinates
+      // start at p[0] — x low/high, then y low/high, then a 16-bit touch size.
+      *x = (uint16_t)p[0] | ((uint16_t)p[1] << 8);
+      *y = (uint16_t)p[2] | ((uint16_t)p[3] << 8);
       touched = true;
     }
   }
@@ -368,7 +375,15 @@ static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
   uint16_t x = 0, y = 0;
   bool now = gt911ReadTouch(&x, &y);
   if (now) {
-    if (!prevTouch) touchCount++;  // count press edges
+    if (!prevTouch) {
+      touchCount++;  // count press edges
+      Serial.printf("[touch] x=%u y=%u  status=0x%02X raw=%02X %02X %02X %02X %02X %02X %02X %02X%s\n",
+                    x, y, lastStatus, lastRaw[0], lastRaw[1], lastRaw[2], lastRaw[3],
+                    lastRaw[4], lastRaw[5], lastRaw[6], lastRaw[7],
+                    screenIdle ? " (idle — consumed)" : "");
+      lastTouchX = x;
+      lastTouchY = y;
+    }
     bool wasIdle = screenIdle;
     wake();
     data->point.x = x;
@@ -414,9 +429,9 @@ static void animTimerCb(lv_timer_t *t) {
 // the UART, typed frames through ProtoLink. This board's transceiver gates its receiver
 // off while driving, so nothing it sends returns and there is no echo to cancel here —
 // the base's U7 keeps receiving and cancels its own, a layer below its ProtoLink.
-static ProtoLink j9;
+static HdlcLink j9;
 
-static void j9OnMessage(ProtoLink *link, const uint8_t *frame, uint16_t len) {
+static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   (void)link;
   uint8_t type = msgType(frame);
   const uint8_t *payload = msgPayload(frame);
@@ -499,8 +514,8 @@ static void processTextLine(const char *line) {
     Serial.printf("VERSION:FRONT=%s\n", FW_VERSION);
   } else if (strcmp(line, "GET_DIAG") == 0) {
     Serial.printf("DIAG:heap=%lu,minHeap=%lu,psram=%lu,freePsram=%lu,bl=%d,"
-                  "frame=%u,gt911=0x%02X,touch=%lu,idle=%d,"
-                  "maxLoopMs=%lu,uptime=%lus\n",
+                  "frame=%u,gt911=0x%02X,touch=%lu,lastXY=%u/%u,idle=%d,"
+                  "link=%s,maxLoopMs=%lu,uptime=%lus\n",
                   (unsigned long)ESP.getFreeHeap(),
                   (unsigned long)ESP.getMinFreeHeap(),
                   (unsigned long)ESP.getPsramSize(),
@@ -509,7 +524,9 @@ static void processTextLine(const char *line) {
                   (unsigned)animFrameIdx,
                   gt911Addr,
                   (unsigned long)touchCount,
+                  (unsigned)lastTouchX, (unsigned)lastTouchY,
                   screenIdle ? 1 : 0,
+                  j9.framesRx ? "rx" : "silent",
                   (unsigned long)maxLoopMs,
                   millis() / 1000);
     maxLoopMs = 0;  // high-water mark since last query
@@ -538,8 +555,9 @@ static void processTextLine(const char *line) {
     pumpBtnCb(nullptr);           // the button's own frame, without a finger on the glass
     Serial.println("OK:PUMP");
   } else if (strcmp(line, "LINK") == 0) {
-    Serial.printf("LINK:rx=GPIO%d,tx=GPIO%d,%s\n", rs485Rx, rs485Tx,
-                  j9.isConnected() ? "CONNECTED" : "not connected");
+    Serial.printf("LINK:rx=GPIO%d,tx=GPIO%d,framesRx=%lu,framesTx=%lu,%s\n", rs485Rx, rs485Tx,
+                  (unsigned long)j9.framesRx, (unsigned long)j9.framesTx,
+                  j9.framesRx ? "frames seen" : "nothing received yet");
   } else if (strcmp(line, "RS485:LOOP") == 0) {
     // The transceiver receives while it drives, so a line sent here returns on this
     // board's own RX. Nothing is swallowed and nothing need be attached to the pair.
@@ -568,7 +586,7 @@ static void processTextLine(const char *line) {
     j9Begin();
     Serial.printf("OK:RS485 rx=GPIO%d tx=GPIO%d\n", rs485Rx, rs485Tx);
   } else if (strncmp(line, "RS485:", 6) == 0) {
-    int r = j9.sendText(line + 6);
+    int r = j9.send(MSG_TEXT, line + 6, strlen(line + 6));
     Serial.printf("OK:sendText('%s')=%d\n", line + 6, r);
   } else {
     Serial.printf("ERR:unknown command '%s'\n", line);
