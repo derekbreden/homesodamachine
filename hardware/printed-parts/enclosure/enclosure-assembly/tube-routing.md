@@ -192,5 +192,36 @@ finds it. They are pictures of a pose the pack does not hold; the sidecar is emp
   pair's own west cell at +20.01: 83 mm³. This one is not a fence of its own. The gate follows
   the lane its feed rides, so it moves when the pair does and not before.
 
+## V-K's own travel in X
+
+The fill valve stands on the one-seat plate now (`vk_tray_pos`), so its column moves without
+carrying a gate with it. Two runs read that column and they read it the same direction: west of
+today both of them lose radius, east of today both gain.
+
+    V-K in x     water-4        fluid-23       water-3 path
+      -25        R 7.03 F       R 1.52 F        252.9 mm
+      -10        R 0.47 F       R 1.52 F        267.9 mm
+        0        R 5.47 F       R 6.62 F        277.9 mm
+      +8.5       R 9.72 F       R10.88 F        286.4 mm
+
+`fluid-23`'s exit lead is struck off V-K's inlet column a `LINE_PITCH` short of the fall
+(`F23_LEAD`), so west of today that lead is on its `DIVIDER_LEG_STRAIGHT` floor and the corner
+turns on 4 mm. `water-4`'s west step is the deck between V-K's outlet column and its own descent,
+and the descent is fenced by the nozzle-B plate. East is fenced by `CORE_EAST_FACE`, one
+`LINE_HUG` inside it, which is +8.5.
+
+Two renders beside this file are the west move at −25. They are pictures of a pose the pack does
+not hold; the sidecar carries the tray's Y and nothing in X.
+
+- [`blocked-west.water-3-bag-b.png`](blocked-west.water-3-bag-b.png) — **the binding one, and it
+  is `blocked-east`'s own collision met from the other side.** `water-3` falls on V-K's inlet
+  column, so walking V-K west walks the fall into the bag-B pair's east cell: 398 mm³, the same
+  volume the pair walking east produces. `bag_b_east_limit` reads the authored column, so it does
+  not follow a V-K the sidecar has moved.
+- [`blocked-west.vk-lead-nozzle-b.png`](blocked-west.vk-lead-nozzle-b.png) — V-K's outlet faces
+  aft at the nozzle-B plate, and once the two columns overlap the collet has 4.49 mm of straight
+  where `port-leads` wants 8.00. The plate's east face and a tube's radius is the fence: V-K-O
+  clears it down to x 140.43.
+
 Every body named here is provisional — `scorecard.SETTLED` names five poses and none of them is
 in this list. The electrical flank east of V-K is provisional in the same way.
