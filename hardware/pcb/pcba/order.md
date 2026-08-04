@@ -104,22 +104,24 @@ Y6-12927587A ($60.13) + Standard-PCBA sub-order SMT026080460464 ($368.98). Same 
 first batch throughout, FedEx Express DDP. All 50 BOM lines matched, 0 unselected; U13 on CH340B
 `C81010`, R22 on `C100444` (its `C25900` read a 20-piece shortfall on the order form and was swapped
 there — the board source carries `C100444`). The fab set is `29f598cb`'s: 227/227 drills, the three
-inner-layer rings, D2 anode-east.
+inner-layer rings, D2 anode-east. The polarity query (BT1 + D2–D6) was answered **confirmed as
+drawn, proceed** on 2026-08-04.
 
-## Polarity confirmation — the LED engineering query
+## Polarity confirmation — the engineering query
 
-Standard-PCBA file review emails a polarity-confirmation query before production: an annotated top
-view marking anode/cathode on the five indicator LEDs **D2–D6**, asking the customer to confirm. Only
-the LEDs are queried — the `KT_0603R` / `KT_0603G` / `Blue_light_0603` parts are the ones whose
-library-vs-CPL orientation convention JLC will not assume. The 1N4148W (D7, unambiguous cathode band)
-and the other polarized parts are not asked about.
+Standard-PCBA file review emails a polarity-confirmation query before production: annotated top views
+marking polarity on the five indicator LEDs **D2–D6** and the **BT1** coin base, asking the customer
+to confirm. The `KT_0603R` / `KT_0603G` / `Blue_light_0603` parts are the ones whose library-vs-CPL
+orientation convention JLC will not assume; BT1 is queried against its silk `+`. The 1N4148W (D7,
+unambiguous cathode band) and the other polarized parts are not asked about.
 
-The answer differs between D2 and D3–D6. Confirm both and proceed.
+The answer differs between D2 and D3–D6. Confirm all six and proceed.
 
-| LED | Rotation | Anode/+ | Cathode |
+| Part | Rotation | Anode/+ | Cathode/− |
 |---|---|---|---|
 | D3–D6 | `pcbRotation={180}` | WEST, to its series R (R11–R14) | EAST, to GND |
 | D2 (ERR) | `pcbRotation={0}` | EAST, to 3V3 | WEST, to R10 → IO15 |
+| BT1 | — | EAST barrel, silk-marked `+`, to U6.VBAT | WEST barrel, to GND |
 
 D2 sits on IO15 (MTDO), whose level at reset decides whether the ROM prints its boot log on U0TXD. A
 ~45 kΩ internal pull-up cannot lift a node an LED to GND clamps to its forward drop (~1.6 V, under
