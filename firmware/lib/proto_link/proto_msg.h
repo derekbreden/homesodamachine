@@ -79,10 +79,12 @@ struct __attribute__((packed)) ResponsePayload {
 constexpr uint8_t PUMP_CHANNEL_A = 0;  // U11 -> J13.AM2/AM1, the two WEST pins
 constexpr uint8_t PUMP_CHANNEL_B = 1;  // U12 -> J13.BM2/BM1, the two EAST pins
 
+// Run one pump, full power, for this long. A peristaltic head does not break away
+// part-throttle, and flavor is metered by how long the pump is on — so how hard to drive
+// it is not a thing a caller gets to say.
 struct __attribute__((packed)) PumpRunPayload {
   uint8_t  channel;
-  uint8_t  duty;     // percent
-  uint16_t ms;       // run length
+  uint16_t ms;
 };
 
 inline uint32_t uartCrc32Update(uint32_t prev, const uint8_t *data, size_t len) {

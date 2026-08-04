@@ -473,12 +473,10 @@ static void j9Begin() {
 // after the motor stops rather than when the press lands.
 static void pumpBtnCb(lv_event_t *e) {
   (void)e;
-  // Full power for a second. A Kamoer head does not break away part-throttle — the
-  // appliance meters flavor by how long the pump is on, not by how hard it is driven.
-  PumpRunPayload req{PUMP_CHANNEL_B, 100, 1000};
+  PumpRunPayload req{PUMP_CHANNEL_B, 1000};
   int r = j9.send(MSG_PUMP_RUN, &req, sizeof(req));
-  Serial.printf("[J9] MSG_PUMP_RUN ch=%u duty=%u ms=%u -> send()=%d, bytesTx=%lu bytesRx=%lu\n",
-                req.channel, req.duty, req.ms, r,
+  Serial.printf("[J9] MSG_PUMP_RUN ch=%u ms=%u -> send()=%d, bytesTx=%lu bytesRx=%lu\n",
+                req.channel, req.ms, r,
                 (unsigned long)j9.bytesTx, (unsigned long)j9.bytesRx);
   setStatus(r >= 0 ? "pump B requested" : "send failed");
 }
