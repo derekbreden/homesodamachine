@@ -89,6 +89,13 @@ pump into the east pair and running `pump b` closes that one without soldering.
 Also never demonstrated on any board: the Q2/Q3 auto-reset pair passing, and U15's *pass*
 path (gas-clear high on B, Y following A) — both need EN and R25 respectively.
 
+`scanpu` has never run against a live bus. It calls `Wire.begin` before
+`pinMode(INPUT_PULLUP)`, and on ESP32 a `pinMode` on a pin the I²C peripheral already holds
+can detach it from the matrix — so a silent bus under `scanpu` is not yet evidence about
+the board. It exists for a bodged batch-1 board, where R19/R20 are severed and the ESP32's
+own ~45 kΩ pull-ups are the only ones; a batch-2 board has working pull-ups and answers to
+`scan`.
+
 ## Batch 2 deltas
 
 Three things differ from the board above. A batch-2 failure that is not on this list is
