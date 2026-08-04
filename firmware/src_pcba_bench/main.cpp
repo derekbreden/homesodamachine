@@ -918,7 +918,9 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         return;
     }
 
-    Serial.printf("\n[J9] type 0x%02X, %u byte(s)\n\n> ", type, plen);
+    Serial.printf("\n[J9] type 0x%02X, %u byte(s), raw", type, plen);
+    for (uint16_t i = 0; i < len && i < 16; i++) Serial.printf(" %02X", frame[i]);
+    Serial.print("\n\n> ");
 }
 
 void loop() {
