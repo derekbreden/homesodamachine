@@ -409,16 +409,17 @@ static void animTimerCb(lv_timer_t *t) {
 //  RS485 link to the base ESP32
 // ════════════════════════════════════════════════════════════
 
-// Both transceivers on this bus keep receiving while they drive, so a sent byte lands
-// back in the sender's own RX. rs485Send() reads off exactly what it wrote.
+// A transceiver that keeps receiving while it drives puts the sent line back in its own
+// RX; one that gates its receiver off does not. rs485Poll() drops an incoming line that
+// matches the last one sent, so both behaviors read the same and a reply is never eaten.
+static char rs485LastSent[96] = "";
+
 static void rs485Send(const char *s) {
-  size_t n = Serial1.write((const uint8_t *)s, strlen(s));
-  n += Serial1.write('\n');
+  strncpy(rs485LastSent, s, sizeof(rs485LastSent) - 1);
+  rs485LastSent[sizeof(rs485LastSent) - 1] = '\0';
+  Serial1.write((const uint8_t *)s, strlen(s));
+  Serial1.write('\n');
   Serial1.flush();
-  unsigned long t0 = millis();
-  while (n && millis() - t0 < 50) {
-    if (Serial1.available()) { Serial1.read(); n--; }
-  }
 }
 
 static void rs485Begin() {
@@ -429,6 +430,7 @@ static void rs485Begin() {
 // PING is answered here rather than passed on. Everything else the base sends — OK:,
 // ERR:, PONG — lands on the status label and the USB console.
 static void rs485Line(const char *line) {
+  if (strcmp(line, rs485LastSent) == 0) { rs485LastSent[0] = '\0'; return; }
   Serial.printf("[485] %s\n", line);
   if (strcmp(line, "PING") == 0) { rs485Send("PONG"); return; }
   setStatus(line);
@@ -538,6 +540,27 @@ static void processTextLine(const char *line) {
     } else {
       Serial.println("ERR:IDLE expects 0 or 1");
     }
+  } else if (strcmp(line, "RS485:LOOP") == 0) {
+    // The transceiver receives while it drives, so a line sent here returns on this
+    // board's own RX. Nothing is swallowed and nothing need be attached to the pair.
+    while (Serial1.available()) Serial1.read();
+    static const char *probe = "LOOPTEST";
+    Serial1.write((const uint8_t *)probe, strlen(probe));
+    Serial1.write('\n');
+    Serial1.flush();
+    char got[32];
+    uint8_t n = 0;
+    unsigned long t0 = millis();
+    while (millis() - t0 < 200 && n < sizeof(got) - 1) {
+      if (Serial1.available()) {
+        char c = Serial1.read();
+        if (c == '\n' || c == '\r') break;
+        got[n++] = c;
+      }
+    }
+    got[n] = '\0';
+    Serial.printf("OK:LOOP rx=GPIO%d tx=GPIO%d got='%s' %s\n", rs485Rx, rs485Tx, got,
+                  strcmp(got, probe) == 0 ? "closes" : "no echo");
   } else if (strcmp(line, "RS485:SWAP") == 0) {
     int t = rs485Rx; rs485Rx = rs485Tx; rs485Tx = t;
     Serial1.end();

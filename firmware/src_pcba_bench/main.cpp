@@ -287,11 +287,13 @@ static const int PIN_485_RO = 34;
 // display hangs. Serial1 holds them while the link is up, so `rs485` and `drive io32`
 // take the link down and put it back.
 //
-// /RE is tied to GND, so U7's receiver runs while the driver does; the display's
-// transceiver switches direction on its own and behaves the same way. Every transmitted
-// byte arrives back at its own receiver, and rs485Send() reads off exactly what it wrote.
+// /RE is tied to GND, so U7's receiver runs while its driver does and every transmitted
+// line lands back in this board's own RX. The 4.3B at the far end gates its receiver off
+// while driving and returns nothing. rs485Poll() drops an incoming line matching the last
+// one sent, which reads the same under either behavior and never eats a reply.
 static const long RS485_BAUD = 115200;
 static bool rs485Up = false;
+static String rs485LastSent;
 
 static void rs485Begin() {
     Serial1.begin(RS485_BAUD, SERIAL_8N1, PIN_485_RO, PIN_485_DI);
@@ -305,13 +307,10 @@ static void rs485End() {
 
 static void rs485Send(const char *s) {
     if (!rs485Up) return;
-    size_t n = Serial1.write((const uint8_t *)s, strlen(s));
-    n += Serial1.write('\n');
-    Serial1.flush();                       // wait for the last bit to leave the driver
-    unsigned long t0 = millis();
-    while (n && millis() - t0 < 50) {      // ~87 us per byte at 115200; 50 ms is slack
-        if (Serial1.available()) { Serial1.read(); n--; }
-    }
+    rs485LastSent = s;
+    Serial1.write((const uint8_t *)s, strlen(s));
+    Serial1.write('\n');
+    Serial1.flush();
 }
 
 static void cmdRs485() {
@@ -855,6 +854,7 @@ static void rs485Poll() {
         if (c == '\n' || c == '\r') {
             line.trim();
             if (line.length()) {
+                if (line == rs485LastSent) { rs485LastSent = ""; line = ""; continue; }
                 Serial.printf("\n[J9] %s\n", line.c_str());
                 // PING/PONG are answered here, not dispatched.
                 if (line == "PING" || line == "ping") {
