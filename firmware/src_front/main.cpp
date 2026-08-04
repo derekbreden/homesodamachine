@@ -8,6 +8,7 @@
 #include "freertos/semphr.h"
 #include "fw_version.h"
 #include "proto_link.h"
+#include <driver/gpio.h>
 
 // Animated loading logo — the 16-frame glass/bubbles loop (the same animation
 // the config display uses), rendered natively at 360x360 RGB565 by
@@ -449,6 +450,13 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
 }
 
 static void j9Begin() {
+  // GPIO43 is U0TXD and the bootloader leaves UART0 holding the pad, driving it. UART1
+  // maps it as its RX all the same, and then reads the pad's own output instead of the
+  // transceiver: measured as zero bytes arriving, below HDLC, while the base was
+  // replying. gpio_reset_pin hands both pads back to the matrix first, and the same
+  // reply then reads `7E 16 01 8F DF 7E` — flag, MSG_RESP_PUMP_DONE, channel, CRC, flag.
+  gpio_reset_pin((gpio_num_t)rs485Rx);
+  gpio_reset_pin((gpio_num_t)rs485Tx);
   Serial1.begin(RS485_BAUD, SERIAL_8N1, rs485Rx, rs485Tx);
   j9.onMessage = j9OnMessage;
   j9.begin(Serial1, "J9");
@@ -460,7 +468,9 @@ static void j9Begin() {
 // after the motor stops rather than when the press lands.
 static void pumpBtnCb(lv_event_t *e) {
   (void)e;
-  PumpRunPayload req{PUMP_CHANNEL_B, 60, 1000};
+  // Full power for a second. A Kamoer head does not break away part-throttle — the
+  // appliance meters flavor by how long the pump is on, not by how hard it is driven.
+  PumpRunPayload req{PUMP_CHANNEL_B, 100, 1000};
   int r = j9.send(MSG_PUMP_RUN, &req, sizeof(req));
   Serial.printf("[J9] MSG_PUMP_RUN ch=%u duty=%u ms=%u -> send()=%d, bytesTx=%lu bytesRx=%lu\n",
                 req.channel, req.duty, req.ms, r,
@@ -559,6 +569,25 @@ static void processTextLine(const char *line) {
     Serial.printf("LINK:rx=GPIO%d,tx=GPIO%d,framesRx=%lu,framesTx=%lu,%s\n", rs485Rx, rs485Tx,
                   (unsigned long)j9.framesRx, (unsigned long)j9.framesTx,
                   j9.framesRx ? "frames seen" : "nothing received yet");
+  } else if (strcmp(line, "RS485:RAW") == 0) {
+    // Below HDLC: whatever the UART hands over for 4 s, printed as it arrives.
+    Serial.println("RAW:listening 4s");
+    unsigned long t0 = millis();
+    uint32_t n = 0;
+    while (millis() - t0 < 4000) {
+      while (Serial1.available()) { Serial.printf(" %02X", Serial1.read()); n++; }
+      delay(2);
+    }
+    Serial.printf("\nRAW:%lu byte(s)\n", (unsigned long)n);
+  } else if (strcmp(line, "RS485:REINIT") == 0) {
+    // GPIO43/44 are U0TXD/U0RXD and carry whatever the bootloader left on the pads.
+    // Hand them back to the GPIO matrix before UART1 claims them again.
+    j9.end();
+    Serial1.end();
+    gpio_reset_pin((gpio_num_t)rs485Rx);
+    gpio_reset_pin((gpio_num_t)rs485Tx);
+    j9Begin();
+    Serial.println("OK:REINIT");
   } else if (strcmp(line, "RS485:LOOP") == 0) {
     // The transceiver receives while it drives, so a line sent here returns on this
     // board's own RX. Nothing is swallowed and nothing need be attached to the pair.
