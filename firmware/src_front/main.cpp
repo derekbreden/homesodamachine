@@ -812,11 +812,14 @@ static void buildRail(lv_obj_t *scr) {
   lv_obj_set_pos(linkDot, 0, 8 + PAGE_COUNT * (RAIL_ITEM_H + 6) + 4);
 }
 
+// The screen behind it is already THEME_BG. LVGL repaints the whole 800x480 every frame
+// (full_refresh), so a second opaque fill of the pane is 586 KB written to PSRAM per frame
+// against a bus the scan-out DMA is reading continuously.
 static lv_obj_t *buildPane(lv_obj_t *scr) {
   lv_obj_t *o = lv_obj_create(scr);
   lv_obj_set_size(o, PANE_W, SCREEN_H);
   lv_obj_set_pos(o, RAIL_W, 0);
-  lv_obj_set_style_bg_color(o, THEME_BG, 0);
+  lv_obj_set_style_bg_opa(o, LV_OPA_TRANSP, 0);
   lv_obj_set_style_border_width(o, 0, 0);
   lv_obj_set_style_radius(o, 0, 0);
   lv_obj_set_style_pad_all(o, PANE_PAD, 0);
@@ -1395,7 +1398,7 @@ void loop() {
   }
 
   // Once a second: the rail's link indicator, and whichever page shows something live.
-  if (uiReady) {
+  if (uiReady && !screenIdle) {
     static unsigned long lastSlow = 0;
     if (millis() - lastSlow >= 1000) {
       lastSlow = millis();
