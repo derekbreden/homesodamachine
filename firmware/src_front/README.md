@@ -121,9 +121,13 @@ Newline-terminated, 115200 baud over the native USB CDC:
   idle state / loop high-water / uptime
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
 - `IDLE:0` / `IDLE:1` → wake / force the idle state (test without the 60 s wait)
-- `RS485:<text>` → send a line to the base (e.g. `RS485:ping`, `RS485:pump a 60 1`)
+- `PUMP` → send the button's own `MSG_PUMP_RUN` frame without a finger on the glass
+- `LINK` → RX/TX GPIO and the frame counters
+- `RS485:<text>` → send text to the base as `MSG_TEXT`
 - `RS485:SWAP` → exchange the RX/TX GPIO and report which way round it now runs
-- `RS485:LOOP` → send a line without dropping the echo and report what returned
+- `RS485:LOOP` → transmit and report whatever returns on this board's own receiver
+- `RS485:RAW` → print the UART's bytes for 4 s, below HDLC
+- `RS485:REINIT` → release both pads and bring the link up again
 
 ## RS485 link to the base ESP32 (J9 / SIG-7)
 
@@ -133,30 +137,35 @@ Direction switching is automatic at both ends, so there is no DE line; the board
 120 Ω termination is a DIP switch, off as shipped, and the base carries R6 across the
 pair.
 
-This board's transceiver gates its receiver off while driving: `RS485:LOOP` sends a line
-without dropping anything and reads `no echo` in both pin orientations. The base's U7 has
-`/RE` tied to GND and does echo itself. `rs485Poll()` on each side drops an incoming line
-matching the last one sent, which reads the same under either behavior and never eats a
-reply.
+GPIO43 is U0TXD and the bootloader leaves UART0 holding the pad. UART1 maps it as its RX
+all the same and then reads the pad's own driver rather than the transceiver — `RS485:RAW`
+logs zero bytes across a window the base is transmitting in. `j9Begin()` calls
+`gpio_reset_pin()` on both pads first, and the same window then logs the whole frame:
+`7E 16 01 8F DF 7E` — flag, `MSG_RESP_PUMP_DONE`, channel 1, CRC16, flag.
 
-GPIO43/44 are U0TXD/U0RXD, and the bootloader leaves UART0 holding those pads. UART1 will
-map GPIO43 as its RX anyway and then read the pad's own driver instead of the
-transceiver — zero bytes arrive, below HDLC, while the far end is transmitting. `j9Begin()`
-calls `gpio_reset_pin()` on both pads first. `RS485:RAW` reads the UART below HDLC and
-`RS485:REINIT` redoes that release, which is how this was found.
+This board's transceiver keeps its receiver off while driving: with a pin that provably
+receives, `RS485:LOOP` still reads `no echo`. The base's U7 has `/RE` tied to GND and does
+hear itself, and cancels that a layer below its own HDLC.
 
-Waveshare's table reads GPIO43 `RS485_RXD`, GPIO44 `RS485_TXD`. `RS485:SWAP` exchanges the
-two and reports which way round it is running; `RS485:LOOP` cannot settle which is right,
-since this board does not echo either way.
-
-Lines arriving from the base go to the status label and the USB console. `PING` is
-answered `PONG`.
+The transport is `HdlcLink` — TinyProto's framing layer, CRC16, no connection and no
+keepalives. `ProtoLink`/`Fd` is what the RP2040 and S3 UARTs run; on a shared pair its
+two ends collide on their own schedules and fall out of CONNECTED every 2 s.
 
 ## Bench button
 
-One `RUN PUMP A` button under the logo sends `pump a 60 1` — the base console's bounded
-hold, pump A at 60% for one second. The base replies `OK:pump a 60 1` when the run has
-finished, and that reply is what the status label shows.
+One `RUN PUMP B` button under the logo sends a typed frame:
+
+```
+MSG_PUMP_RUN { channel = PUMP_CHANNEL_B, duty = 100, ms = 1000 }
+```
+
+The base runs the pump and answers `MSG_RESP_PUMP_DONE` with the channel that ran, sent
+after the run has finished — so the status label changes when the motor stops, not when
+the press lands.
+
+Full power, because a Kamoer head does not break away part-throttle: 60% for a second
+turns nothing, and the appliance meters flavor by how long the pump is on rather than by
+how hard it is driven.
 
 ## Integration seams (not implemented)
 
