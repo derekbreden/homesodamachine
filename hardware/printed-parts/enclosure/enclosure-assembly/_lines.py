@@ -1272,7 +1272,7 @@ def _authored_runs() -> list:
         #   IT STANDS AFT OF THE COLLET AND THE APPROACH STANDS FORWARD OF THE MOUTH, and the
         # two are not the same lane. The collet faces aft and the mouth is entered from ahead,
         # so both the come-about and the closing turn want their tangent in Y — and the band
-        # between the two fittings is [15.8](GATE_MOUTH_BAND) mm, which is not two arcs. What
+        # between the two fittings is [15.78](GATE_MOUTH_BAND) mm, which is not two arcs. What
         # the run does instead is take each turn on the side of its own fitting that HAS the
         # room: aft of the collet, in the band the rear plane leaves behind the stand, and
         # forward of the mouth on the chain's own honest lane. The leg between them is the
@@ -1300,7 +1300,7 @@ def _authored_runs() -> list:
         # above or west of the two legs it spends there.
         #   THE CROSSING ANSWERS TO WHAT STANDS IN ITS OWN LANE. A gate held under that row
         # crossed AFT over it; this one crosses FORWARD on the approach lane, and the row's own
-        # band stands [141](CROSS_ROW_SLACK) mm away from it — so there is nothing to climb
+        # band stands [141.3](CROSS_ROW_SLACK) mm away from it — so there is nothing to climb
         # under and the crossing takes the panel's stratum whole, on one climb rather than two.
         crosses_row = (nz.bb.ymin - contents.PUMP_ROW_TURN <= appr_y
                        <= nz.bb.ymax + contents.PUMP_ROW_TURN)
@@ -1411,34 +1411,30 @@ def _authored_runs() -> list:
         note="tap water: split branch → V-K inlet, down onto the west column's crown rung, east "
              "across the machine onto the valve's column and down the far side of the trays"))
 
-    # water-4 — V-K's outlet to the SeaFlo's suction barb, and the one run on this deck whose
-    # two ends fight each other. They stand [34.2](W4_SPAN) mm apart and point NINETY DEGREES
-    # APART: the valve discharges AFT, the barb opens EAST at y [333.4](W4_BARB_Y), and the
-    # rise between them is [17.7](W4_RISE) mm. A 1/4" LLDPE stock arc is R25.4 and spends its
-    # whole radius as tangent in EACH leg it touches, so a run that turns inside a 34 mm span
-    # cannot hold one at either end — which is what the bay's own lane did to it.
-    #   THE ADAPTER CHAIN IS MISSING AND THIS RUN CANNOT BE MADE UP AS DRAWN. The line is 1/4"
-    # LLDPE and `seaflo-pump.suction` is a 3/8" BARB — the two do not join, and nothing in the
-    # pack stands between them. Whatever the chain turns out to be owns this end of the run: it
-    # moves the mouth, it sets the direction the tube arrives from, and it will re-strike every
-    # figure below. The run is drawn so the shape can be looked at while that is settled.
-    #
-    #   THE LOOP IS SOLVED, NOT STRUCK. Every corner here holds a full stock arc and no
-    # arrangement of the bay's own lanes buys that: the outlet faces AFT, the barb faces EAST,
-    # the two stand [34.2](W4_SPAN) mm apart, and an R25.4 arc spends its whole radius as
-    # tangent in EACH leg it touches — so a path turning inside that span starves every corner
-    # it makes, which is what the bay's lane did (two corners sharing 3.73 mm, R1.86 each).
-    # What holds the arcs is the open deck EAST of the stand, between the aft row and the PSU's
-    # brick, and the run takes its reversal out there and comes back.
-    #   These four points are a SEARCH RESULT — the shortest centreline holding R25.4 at every
-    # corner, leaving the collet and entering the barb inside `FLAVOR_SKEW`, clear of every
-    # placed body — and not a figure struck off a fence. They are written down because the
-    # search found them, which is a weaker reason than the rest of this file carries and is
-    # stated as one.
-    #   IT IS A PIGTAIL AND IT READS AS ONE. [4.93](W4_SPRAWL)× its own span of centreline,
-    # 62 × 71 × 52 mm of deck for a 34 mm hop, and in plan it closes a circle across its own
-    # start. That is what R25.4 at every corner MEANS over a span this short — the arcs are
-    # most of the run and the run is mostly arc. It is drawn because the shape is worth
+    # water-4 — V-K's outlet to the SeaFlo's suction, and the one run on this deck whose two
+    # ends face across each other. They stand [34.2](W4_SPAN) mm apart and NINETY DEGREES
+    # apart: the valve discharges AFT, the barb opens EAST at y [333.4](W4_BARB_Y), and the
+    # rise between them is [17.7](W4_RISE) mm.
+    #   THE ARCS DO NOT FIT BETWEEN THE MOUTHS. A 1/4" LLDPE stock arc is R25.4 and a corner
+    # spends that whole radius as tangent in EACH leg it sits in, so four of them want more
+    # straight than a 34 mm span holds anywhere in it. Turned inside the span every corner
+    # starves — the bay's own lane put two of them on a 3.73 mm leg, R1.86 each.
+    #   So the run turns where the straights are: the OPEN DECK EAST OF THE STAND, between the
+    # aft row and the PSU's brick, the one band here with four tangents' worth of room and no
+    # body standing in it. It goes out, comes about, and returns onto the barb's own approach.
+    # The centreline that buys is [4.92](W4_SPRAWL)× the span it crosses: at this radius over
+    # this distance the arcs are most of the run.
+    #   These four points hold R25.4 at EVERY corner, leave the collet and enter the barb
+    # inside `FLAVOR_SKEW`, and clear every placed body and every other run. They are solved
+    # against those conditions rather than struck off a fence — so a body moving near them
+    # moves what they should be, and the conditions above are what to re-solve against.
+    #   THE MOUTH IS THE PUMP'S OWN BARB. `seaflo-pump.suction` is the 3/8" barb moulded into
+    # the head casting, and the chain that carries 1/4" LLDPE onto it — stub, two SAE #6
+    # clamps, MAACFLOW 1/4" NPT M × 3/8" barb, John Guest PP450822E — is in the ledger and not
+    # in the pack. Its twin is: `reference/seaflo-discharge-chain` stands on the casting's
+    # other side and water-5 and water-6 end on its stations. Placed, the suction chain's PTC
+    # collet becomes this run's mouth, and that collet's FACING is what the ninety degrees
+    # above is measured against. It is drawn because the shape is worth
     # looking at, not because a loom would be built this way.
     W4_LOOP = ((116.99, 352.20, 271.03),    # aft off the collet, barely leaning
                (153.74, 373.65, 295.46),    # out into the east strip and up
@@ -1447,9 +1443,8 @@ def _authored_runs() -> list:
     runs.append(R.bent(
         "water-4", "vk-tray-assembly.V-K-O", *W4_LOOP, "seaflo-pump.suction",
         kind="water", skew=FLAVOR_SKEW, bend=R.stock_min("water", vk.diam("V-K-O")),
-        note="tap water: V-K outlet → SeaFlo suction, its reversal taken on the open deck east "
-             "of the stand so every corner holds a stock arc — the adapter chain from 1/4\" "
-             "LLDPE to the pump's 3/8\" barb is still to be placed and owns this end"))
+        note="tap water: V-K outlet → SeaFlo suction, its come-about taken on the open deck "
+             "east of the stand where four stock tangents fit, every corner at R25.4"))
 
     # water-6 — the 3/8" braided stub off the molded discharge barb. The barb points WEST
     # at the wall; the hose comes about in the pocket between them on its own radius and

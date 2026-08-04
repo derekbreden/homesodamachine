@@ -48,13 +48,21 @@ static const uint16_t *animFrames[] = {
 // (16 MB flash / 8 MB octal PSRAM). Mounts in the appliance front face,
 // angled up toward a standing user.
 //
-// It brings up the RGB panel + LVGL and runs the animated loading logo centered on
-// the theme background. The interaction UX is not built yet; what stands in for it is
-// one bench button that runs a pump on the base board over RS485, which is there to
-// prove the link end to end rather than to be the product's UX.
+// The screen is a rail of five icons down the left edge and a pane to their right. The
+// pane changes shape with the page: a picture and two numbers, a split of two cards, a
+// grid, a scrolling column. Service → Prime → a flavor → hold the pad, and the pump on
+// the base board turns for as long as the finger stays down.
 
 // ── Theme (matches faucet display / config display / iOS app) ──
 #define THEME_BG  lv_color_hex(0x1a1a2e)
+
+#define COL_CARD     0x242440   // panel behind a group of controls
+#define COL_CARD_ON  0x33335c   // the same panel, pressed or selected
+#define COL_ACCENT   0xe94560   // the app icon's liquid, and every primary action
+#define COL_TEXT     0xe8e8f2
+#define COL_DIM      0x8888aa
+#define COL_GOOD     0x37c98b
+#define COL_WARN     0xf0a83c
 
 // ════════════════════════════════════════════════════════════
 //  Pin map — fixed by the Waveshare ESP32-S3-Touch-LCD-4.3B
@@ -152,16 +160,54 @@ static void *fb0 = nullptr, *fb1 = nullptr;
 // to it), so no separate draw buffer is allocated.
 static lv_disp_draw_buf_t draw_buf;
 
+// ── Shell geometry ──
+// The rail holds five 82 px targets with a link indicator in its foot; the pane takes the
+// remaining 76% of the width.
+#define RAIL_W    190
+#define RAIL_ITEM_H 82
+#define PANE_W    (SCREEN_W - RAIL_W)
+#define PANE_PAD  16
+
+// ── Pages ──
+// Every page is built once and lives for the life of the firmware; switching hides one and
+// shows another. Sub-views inside a page work the same way.
+enum Page { PAGE_HOME, PAGE_FLAVOR, PAGE_SERVICE, PAGE_STATUS, PAGE_SETUP, PAGE_COUNT };
+
+enum FlavorView  { FLV_BOTH, FLV_DETAIL, FLV_COUNT };
+enum ServiceView { SVC_MENU, SVC_PRIME_PICK, SVC_PRIME_HOLD,
+                   SVC_CLEAN_PICK, SVC_CLEAN_CONFIRM, SVC_COUNT };
+
+static lv_obj_t *pageObj[PAGE_COUNT];
+static lv_obj_t *railBtn[PAGE_COUNT];
+static lv_obj_t *flvView[FLV_COUNT];
+static lv_obj_t *svcView[SVC_COUNT];
+static Page activePage = PAGE_HOME;
+static bool uiReady = false;
+
+static void showPage(Page p);
+static void showFlavor(FlavorView v);
+static void showService(ServiceView v);
+
 // ── UI objects ──
 static lv_obj_t *logoImg;
 static lv_img_dsc_t frameDsc[NUM_ANIM_FRAMES];
 static lv_timer_t *animTimer = nullptr;
 static uint8_t animFrameIdx = 0;
-static lv_obj_t *statusLabel = nullptr;   // last line off the J9 link
 
-static void setStatus(const char *s) {
-  if (statusLabel) lv_label_set_text(statusLabel, s);
-}
+static lv_obj_t *linkDot;          // rail foot — J9 heard from, or not
+static lv_obj_t *homeFlavorLine;   // HOME's two ratios
+static lv_obj_t *flvCardLbl[2];    // the two FLAVOR cards' ratio text
+static lv_obj_t *flvDetailName, *flvDetailRatio;
+static lv_obj_t *primeTitle, *primePad, *primePadLbl, *primeElapsed, *primeBar, *primeMsg;
+static lv_obj_t *cleanTitle, *cleanMsg;
+static lv_obj_t *statUptime, *statHeap, *statGas, *statGasBar, *statFrames, *statFoot;
+static lv_obj_t *setupCtrlVer, *setupTouch, *setupLinkPins, *setupSleep, *setupBl;
+
+// Flavor 1 and 2 as this panel holds them. The base carries no config store, so a ratio
+// changed here is this display's own until one sends it somewhere.
+static uint8_t flavorRatio[2] = {12, 12};
+static uint8_t flavorSel = PUMP_CHANNEL_B;   // which flavor the detail and hold pages act on
+static const char *kFlavorName[2] = {"FLAVOR 1", "FLAVOR 2"};
 
 // ── Idle backlight-off (the faucet's idle behavior, adapted to this board) ──
 // The backlight is a digital line on the CH422G (on/off only — no PWM), so the
