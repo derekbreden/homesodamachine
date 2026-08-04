@@ -88,7 +88,7 @@ shorter edges; rails on the E/W edges would have read 95 × 72.8 instead. Rails-
 default; the first order selected **"Depanel boards & edge rail before delivery: Yes"**, so boards
 arrive de-railed at the true 85.05 × 72.85 outline (the PCBA tray fits that).
 
-## As ordered — first assembled batch
+## As ordered
 
 Order **W2026071513250534** (2026-07-15, qty 10, $702.00 all-in = $70.20/board — full as-paid
 breakdown in [`ledger/purchases.md`](/hardware/ledger/purchases.md)): PCB sub-order Y5-12927587A
@@ -97,6 +97,14 @@ order: POFV epoxy-filled-&-capped, ENIG 1U", 4-layer 1.6 mm, 1 oz outer / 0.5 oz
 white silk, flying-probe full test, "Require Full Quantity," top-side SMT with every THT part tagged
 [Wave Soldering], edge rails added by JLCPCB (85 × 82.8, N/S) and depaneled before delivery. All 50
 BOM lines matched, 0 unselected; U15 matched to `C12512` and the 10 k pull-ups to `C98220`.
+
+**Second batch** — order **W2026080412059985** (2026-08-03, qty 10, $702.11 all-in = $70.21/board —
+as-paid breakdown in [`ledger/purchases.md`](/hardware/ledger/purchases.md)): PCB sub-order
+Y6-12927587A ($60.13) + Standard-PCBA sub-order SMT026080460464 ($368.98). Same selections as the
+first batch throughout, FedEx Express DDP. All 50 BOM lines matched, 0 unselected; U13 on CH340B
+`C81010`, R22 on `C100444` (its `C25900` read a 20-piece shortfall on the order form and was swapped
+there — the board source carries `C100444`). The fab set is `29f598cb`'s: 227/227 drills, the three
+inner-layer rings, D2 anode-east.
 
 ## Polarity confirmation — the LED engineering query
 
