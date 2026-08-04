@@ -39,6 +39,7 @@ the end.
 | USB-C, U14, CH340C, SW1 | flash + verify | pass |
 | WiFi RF + board-edge antenna | `wifi` at boot | 15 networks, best −42 dBm |
 | RS485 — U7, the pair, R6's 120 Ω, both ESD clamps | `rs485` loopback | 6/6 |
+| **J9 barrels + the haul out to them** | a 4.3B display on J9, TinyProto Hdlc both ways | frames carried; see below |
 | Buzzer IO13 → R5 → Q1 → U8 | `buzz` | Derek: *"I heard beeps."* |
 | Status LEDs ERR / RUN / ACT | `walk` | all three; ERR inverted (above) |
 | Gas analog divider R1/R2 | `watch`, J11.AOUT → J11.V5 | **3020 mV** against `pcba.tsx`'s ~3.0 V; floor 142 mV |
@@ -48,6 +49,26 @@ the end.
 | U15 interlock, fail-safe path | `interlock`, then J5.IO19 → J4.IO26 | Derek: *"Got a beep on J5 IO19 to J4 IO26"* — Y held LOW with A high |
 | **U11 DRV8870 → J13.AM2/AM1** | `pump a`, Kamoer KPHM400 on the west pair | Derek: *"It worked beautifully! The motor ran!"* |
 | **U12 DRV8870 → J13.BM2/BM1** | `pump b`, same pump moved to the east pair | Derek: *"It did run, noticeable steps, very good"* |
+
+**The J9 link, 2026-08-04.** A Waveshare ESP32-S3-Touch-LCD-4.3B on J9, taking its
+7–36 V from `V12` on the same 4-conductor loom that carries the pair, so the display runs
+off the board. A button on its panel sends `MSG_PUMP_RUN{channel B, 100%, 1000 ms}` and
+the board answers `MSG_RESP_PUMP_DONE` after the run; Derek: *"tapping run pump b did run
+pump b."*
+
+That is more than the `rs485` loopback proves. The loopback closes on-board at R6, so it
+passes whether or not J9's barrels carry — these frames went out through them, into a
+cable, and back. Both hauls and both barrels are exercised.
+
+Two facts that cost hours and are not the board's:
+
+- **The 4.3B's RS485 sits on GPIO43/44, which are U0TXD/U0RXD.** The bootloader leaves
+  UART0 holding GPIO43, and `Serial1.begin()` maps it as RX without releasing that
+  driver, so the display reads its own pad and hears nothing. `gpio_reset_pin()` on both
+  pads first. Until that was found, every symptom pointed at this board.
+- **A Kamoer head does not break away part-throttle.** `pump b 60 1` prints a clean
+  1001 ms run and turns nothing; at 100% it turns. The console's own report says only
+  that IN1 was driven — the room says whether the head moved.
 
 Both runs drove jabs, a ten-step ramp 10→100%, 3 s at full, then 75/50/25%, and the head
 turned through all of it on both channels. The step-down is the half that discriminates:
@@ -89,7 +110,8 @@ emitter consumes. See [`FORKS.md`](FORKS.md) for the upstream/fork seam that pro
 
 Everything behind the dead bus, and only that: both MCP23017s and their address straps,
 U6 DS3231, BT1/CR2032, both TBD62083 valve drivers, all 12 valve outputs, the fan output,
-10 reed inputs, and the off-board MPR121 through J8. Reaching any of it needs the bodge or
+10 reed inputs, and the off-board MPR121 through J8. J3's faucet UART carries to the
+connector but has never had the 1.47" display on it. Reaching any of it needs the bodge or
 a batch-2 board. Everything on this board *not* behind the bus has now been exercised.
 
 Also never demonstrated on any board: the Q2/Q3 auto-reset pair passing, and U15's *pass*
