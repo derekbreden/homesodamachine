@@ -484,7 +484,7 @@ cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to th
 # bore on the plate's own column stands under the SeaFlo — which lies across the bay on that
 # lid — so a line reaching it has to thread the slot the casting leaves and take its corners
 # in there. On this column the run off the chain is one horizontal leg and one fall, and both
-# legs seat a stock arc. The band is [14](TOP_BAND) mm against the [25.4](LLDPE_BEND_R) a
+# legs seat a stock arc. The band is [14](TOP_BAND) mm against the [25.4 mm](LLDPE_BEND_R) a
 # stock arc wants, so the corner OFF THE ELBOW is the one this move buys with, and it is
 # potted where it turns.
 #   reservoir-b stands over the +Y BAND, not over a port: its line crosses the pocket wall at
@@ -729,7 +729,7 @@ if __name__ == "__main__":
             "DECK_MOUNT_CAP_GAP": 1,
             "VESSEL_PORT_PITCH": 1,
             "VESSEL_PORT_OFFSET": 1,
-            "LLDPE_BEND_R": 1,
+            "LLDPE_BEND_R": 2,
         },
     )
     print("-> _cold_core_interface.py (self)")

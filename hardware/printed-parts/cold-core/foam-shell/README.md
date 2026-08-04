@@ -289,7 +289,7 @@ service bay stands on the face it opens on.
 | 6 | CO2 inlet | own ⌀[6.5 mm](TUBE_HOLE_D) field bore | 1/4" OD line from the WR1110 regulator — in through the wall, along the lane, and in through the support ring |
 | 7 | Copper evaporator inlet (low) | shared slot | 1/4" OD ACR copper to compressor |
 | 8 | Copper evaporator outlet (high) | shared slot | 1/4" OD ACR copper to compressor |
-| 9 | Water inlet | **top-cap conduit** | 1/4" OD line from the diaphragm pump, straight up off the vessel's top-plate Port 2 |
+| 9 | Water inlet | **top-cap conduit** | 1/4" OD line from the diaphragm pump — down the conduit at the cap's west end, along the band under the cap floor, into the top-plate Port 2 elbow |
 | 10 | PRV vent | shared slot | 1/4" OD LLDPE from the prv-shroud cap into the appliance interior (unpressurized; carries relief-event discharge only — see [`/hardware/printed-parts/cold-core/prv-shroud/`](/hardware/printed-parts/cold-core/prv-shroud/)) |
 
 For the water inlet and CO2 inlet, the supply-side tubing reduces to
@@ -445,10 +445,11 @@ Every internal component is installed first:
   leave their fittings and turn onto the lane; the evaporator inlet climbs
   it and the PRV vent comes down it, to land in vertical alignment in the
   slot.
-- Water inlet: a **straight** 1/4" PTC × 1/4" NPT M adapter (JG PP010822E) made
-  up on the vessel's top-plate Port 2, collet up, and a length of 1/4" OD LLDPE
-  pushed into it and on up through the top cap's conduit. The line is vertical
-  end to end and takes no bend inside the shell.
+- Water inlet: a 1/4" PTC × 1/4" NPT M adapter (JG PP010822E) made up on the
+  lateral FNPT of the vessel's top-plate Port 2 elbow, collet turned into the
+  band, and a length of 1/4" OD LLDPE from that collet along the band between
+  the top plate and the cap floor, then up the top cap's conduit at the cap's
+  west end. The corner off the elbow is potted where it turns.
 - Four copper plugs slid down into the slot from above (through
   the 10 mm open extension past the wall top) to seal between the
   pass-throughs.
