@@ -2691,20 +2691,20 @@
       "component": "foam-assembly",
       "boxes": [
         [
-          -0.0,
-          180.5,
-          233.4,
-          181.0,
-          463.5,
-          251.4
-        ],
-        [
           0.0,
           180.5,
           20.0,
           181.0,
           463.5,
           233.4
+        ],
+        [
+          -0.0,
+          180.5,
+          233.4,
+          181.0,
+          463.5,
+          251.4
         ],
         [
           -0.0,
@@ -7090,8 +7090,8 @@
     }
   ],
   "source": {
-    "generated": "2026-08-04T00:38:20+00:00",
-    "commit": "5e64853e2d49587dab411d5d377a9fdb9a892135",
+    "generated": "2026-08-04T00:42:47+00:00",
+    "commit": "e3f02275fc7b74376b0b6a69f6bd12e39046144b",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
@@ -7101,7 +7101,7 @@
       "hardware/printed-parts/cold-core/_cold_core_interface.py": "sha256:16dd9c21c1e22c38",
       "hardware/printed-parts/cold-core/_port_cuts.py": "sha256:4c408f68edf9faf0",
       "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py": "sha256:51e6c039156d8018",
-      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "stat:1832737:1785803074982672299",
+      "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "stat:1832799:1785804018162959052",
       "hardware/printed-parts/cold-core/foam-assembly/foam_assembly.py": "sha256:268e1ea31e9aa3c8",
       "hardware/printed-parts/electronics/ac-hub/ac-hub-assembly.step": "stat:257447:1785729866135427623",
       "hardware/printed-parts/electronics/ac-hub/ac_hub.py": "sha256:d701a5a0c37d8c3c",
