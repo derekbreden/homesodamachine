@@ -382,12 +382,23 @@ static uint8_t gt911Probe() {
 }
 
 // Reads the first touch point. Returns true if a finger is down; fills x,y.
+//
+// Bit 7 of 0x814E is raised when the GT911 has a NEW frame and cleared by the read below.
+// Between frames the last one stands, so a poll that finds the flag clear — or that fails
+// on the bus — has learned nothing, and answers with the state it last read. A tap needs
+// one PRESSED sample and survives either reading; a hold is PRESSED across every poll it
+// spans, and reporting "no finger" on the polls that carry no news ends it.
+static uint16_t heldX = 0, heldY = 0;
+static bool     heldDown = false;
+static uint32_t gt911Stale = 0;   // polls that carried no new frame
+
 static bool gt911ReadTouch(uint16_t *x, uint16_t *y) {
+  *x = heldX; *y = heldY;
   if (!gt911Addr) return false;
   uint8_t status;
-  if (!gt911ReadBytes(GT911_REG_STATUS, &status, 1)) return false;
-  if (!(status & 0x80)) return false;  // buffer not ready yet
-  bool touched = false;
+  if (!gt911ReadBytes(GT911_REG_STATUS, &status, 1)) { gt911Stale++; return heldDown; }
+  if (!(status & 0x80))                              { gt911Stale++; return heldDown; }
+
   if ((status & 0x0F) > 0) {
     uint8_t p[8];
     if (gt911ReadBytes(GT911_REG_POINT1, p, 8)) {
@@ -395,13 +406,17 @@ static bool gt911ReadTouch(uint16_t *x, uint16_t *y) {
       lastStatus = status;
       // 0x814F is the track ID; POINT1 (0x8150) is already X-low, so the coordinates
       // start at p[0] — x low/high, then y low/high, then a 16-bit touch size.
-      *x = (uint16_t)p[0] | ((uint16_t)p[1] << 8);
-      *y = (uint16_t)p[2] | ((uint16_t)p[3] << 8);
-      touched = true;
+      heldX = *x = (uint16_t)p[0] | ((uint16_t)p[1] << 8);
+      heldY = *y = (uint16_t)p[2] | ((uint16_t)p[3] << 8);
+      heldDown = true;
+    } else {
+      gt911Stale++;   // the frame was there and the point read failed — keep the state
     }
+  } else {
+    heldDown = false;
   }
   gt911WriteByte(GT911_REG_STATUS, 0);  // clear buffer-ready for the next frame
-  return touched;
+  return heldDown;
 }
 
 // Turn the backlight back on (instant) and put the panel back on HOME. Always resets the
@@ -423,26 +438,50 @@ static void wake() {
 // that finger lifts. Every widget on this panel inherits it from here.
 static bool touchWakesOnly = false;
 
+// A lift has to be reported for this long before it reaches a widget. One poll finding no
+// finger, between two that do, is a dropped report — every widget on this panel inherits
+// the bridge from here, the same way it inherits the wake suppression above.
+#define TOUCH_RELEASE_MS 150
+
+static uint32_t touchBridged = 0;   // polls carried across a dropped report
+
 static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
   static bool prevTouch = false;
+  static unsigned long lastDownMs = 0;
+  static uint32_t bridgedRun = 0;
   uint16_t x = 0, y = 0;
   bool now = gt911ReadTouch(&x, &y);
+
   if (now) {
-    if (!prevTouch) {
+    lastDownMs = millis();
+    if (!prevTouch && bridgedRun == 0) {
       touchCount++;  // count press edges
       touchWakesOnly = screenIdle || !backlightOn;
       Serial.printf("[touch] x=%u y=%u  status=0x%02X raw=%02X %02X %02X %02X %02X %02X %02X %02X%s\n",
                     x, y, lastStatus, lastRaw[0], lastRaw[1], lastRaw[2], lastRaw[3],
                     lastRaw[4], lastRaw[5], lastRaw[6], lastRaw[7],
                     touchWakesOnly ? " (dark — wakes only)" : "");
-      lastTouchX = x;
-      lastTouchY = y;
     }
+    bridgedRun = 0;
+    lastTouchX = x;
+    lastTouchY = y;
     wake();
     data->point.x = x;
     data->point.y = y;
     data->state = touchWakesOnly ? LV_INDEV_STATE_RELEASED : LV_INDEV_STATE_PRESSED;
+  } else if (lastDownMs && millis() - lastDownMs < TOUCH_RELEASE_MS) {
+    bridgedRun++;
+    touchBridged++;
+    data->point.x = lastTouchX;
+    data->point.y = lastTouchY;
+    data->state = touchWakesOnly ? LV_INDEV_STATE_RELEASED : LV_INDEV_STATE_PRESSED;
   } else {
+    if (lastDownMs) {
+      Serial.printf("[touch] up  (%lu poll(s) bridged, %lu stale)\n",
+                    (unsigned long)bridgedRun, (unsigned long)gt911Stale);
+      lastDownMs = 0;
+      bridgedRun = 0;
+    }
     touchWakesOnly = false;   // finger lifted — the next press is the user's own
     data->state = LV_INDEV_STATE_RELEASED;
   }
@@ -713,9 +752,15 @@ static void refreshStatusPage() {
 }
 
 // ── Prime — the hold, and the ticks under it ──
+static int lastSendErr = 0;
+
 static void primeSend(uint8_t type) {
   ChannelPayload p{flavorSel};
-  j9.send(type, &p, sizeof(p));
+  int r = j9.send(type, &p, sizeof(p));
+  if (r < 0) {
+    lastSendErr = r;
+    Serial.printf("[J9] send(type 0x%02X) = %d\n", type, r);
+  }
 }
 
 static void primeHoldEnd() {
@@ -1168,10 +1213,12 @@ static void processTextLine(const char *line) {
   if (strcmp(line, "GET_VERSION") == 0) {
     Serial.printf("VERSION:FRONT=%s\n", FW_VERSION);
   } else if (strcmp(line, "GET_DIAG") == 0) {
-    Serial.printf("DIAG:page=%d,holding=%d,heap=%lu,minHeap=%lu,psram=%lu,freePsram=%lu,bl=%d,"
+    Serial.printf("DIAG:page=%d,holding=%d,bridged=%lu,stale=%lu,sendErr=%d,"
+                  "heap=%lu,minHeap=%lu,psram=%lu,freePsram=%lu,bl=%d,"
                   "frame=%u,gt911=0x%02X,touch=%lu,lastXY=%u/%u,idle=%d,"
                   "link=%s,maxLoopMs=%lu,uptime=%lus\n",
                   (int)activePage, holding ? 1 : 0,
+                  (unsigned long)touchBridged, (unsigned long)gt911Stale, lastSendErr,
                   (unsigned long)ESP.getFreeHeap(),
                   (unsigned long)ESP.getMinFreeHeap(),
                   (unsigned long)ESP.getPsramSize(),
