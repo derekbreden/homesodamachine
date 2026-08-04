@@ -475,8 +475,16 @@ cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to th
 # Z (`foam_assembly.spin_xy`), and a half turn is its own inverse — so a conduit that
 # stands over a vessel port at (x, y) in the shell's frame is authored at (−x, −y) here,
 # and `foam_assembly.cap_conduit_station` turns it back.
-#   water-in stands on the vessel's top-plate +Y port: a straight 1/4" PTC × NPT adapter on
-# the plate, and one tube from its collet up this bore to the deck.
+#   water-in stands over the TOP BAND, not over its port. Its line leaves the vessel's
+# top-plate +Y port on a 1/4" PTC × NPT ELBOW, runs the band between that plate and the cap's
+# floor (`top_band_to_cap`), and climbs this bore to the deck. What puts it here is the run
+# above the lid: the discharge chain hands the water over on the deck's own west end, and a
+# bore on the plate's own column stands under the SeaFlo — which lies across the bay on that
+# lid — so a line reaching it has to thread the slot the casting leaves and take its corners
+# in there. On this column the run off the chain is one horizontal leg and one fall, and both
+# legs seat a stock arc. The band is [14](TOP_BAND) mm against the [25.4](LLDPE_BEND_R) a
+# stock arc wants, so the corner OFF THE ELBOW is the one this move buys with, and it is
+# potted where it turns.
 #   reservoir-b stands over the +Y BAND, not over a port: its line crosses the pocket wall at
 # the bulkhead's own height, comes about in the band and climbs the shell's whole height in
 # it, potted where it crosses, and this bore is where it reaches the deck. Its X in the cap's
@@ -485,7 +493,7 @@ cap_conduit_lid_slip = deck_mount_lid_slip   # per side, a standing column to th
 # run above the lid is one lean and no more; its Y is the band's own lane, held off the corner
 # boss by the pour gap. Nothing else uses the +Y band, so the lane is a bore wide the whole way.
 cap_conduits = {
-    "water-in": (0.0, -water_inlet_port_y),
+    "water-in": (102.0, -80.5),
     "reservoir-b": (120.0, -79.5),
 }
 
