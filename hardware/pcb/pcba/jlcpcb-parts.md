@@ -75,8 +75,9 @@ this carries the JLCPCB/LCSC identity each maps to. Stock and price are point-in
 | R26, R27 — faucet-UART series R, feeds D10/D11 (IO33/IO35) | 220 Ω ±1% | 0402 | C25091 | Basic | 100,000,000+ (2026-07-13) | $0.0003 |
 | D10, D11 — faucet-UART ESD clamp (IO33/IO35) | ESD9B3.3ST5G, low-cap bidirectional TVS, 3.3 V / ~15 pF | SOD-923 | C96512 | Extended | 28,355 (2026-07-13) | $0.02 |
 
-Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C98220 = YAGEO RC0603FR-0710KL (10 kΩ, R7/R8/R17/R18); C11702 / C25900 / C25091
-= UNI-ROYAL 0402WGF series (the 0402 R21/R22/R26/R27 family); C49678 = YAGEO
+Manufacturers: C4190 / C22978 / C21190 = UNI-ROYAL 0603WAF series; C98220 = YAGEO RC0603FR-0710KL (10 kΩ, R7/R8/R17/R18); C11702 / C25091
+= UNI-ROYAL 0402WGF series (0402 R21/R26/R27); C100444 = CR0402FF4701G (4.7 kΩ 0402, R22 — Basic
+C25900 read 0 at the 2026-08-03 order, swapped on the order form); C49678 = YAGEO
 CC0805KRX7R9BB104; C165895 = Toshiba TBD62083AFWG (octal DMOS sink driver); C47023 = Microchip MCP23017-E/SO;
 C94598 = Jiangsu Huaneng MLT-5020; C2146 = JSCJ S8050 J3Y; C474881 = Cixi Kefa Elec
 KF301-5.0-2P screw terminal; XH2.54 connectors = XUNPU WAFER-XH2.54-{n}PZZ, one vendor
@@ -172,8 +173,8 @@ IO19, the gate just vetoes it on gas.
 line to the faucet flavor LCD (R26 in IO33/TX, R27 in IO35/RX), at the driver end: series damping on
 the ~1 m umbilical's edges + the current-limit that lets the on-board ESD clamp do its job. They are
 the **series element of the on-board clamp topology** — J3 → 220 Ω → clamp-at-the-IC (D10/D11) → U1 —
-not a standalone backstop. Same UNI-ROYAL 0402WGF family as R21/R22 (`C11702`/`C25900`); deep Basic
-stock. Placement is tight against the WROOM south cap column — R27 rides IO35's own drop in the west
+not a standalone backstop. Same UNI-ROYAL 0402WGF family as R21 (`C11702`); deep Basic
+stock (R22's 4.7 k rides `C100444` since C25900 ran dry). Placement is tight against the WROOM south cap column — R27 rides IO35's own drop in the west
 sliver (the IO34 RS485 bottom haul is nudged one drop-column W to open it), R26 the open top pocket E
 of the caps / N of U9; see the pcba.tsx FAUCET block.
 
@@ -278,7 +279,7 @@ no-component target, and it keeps the every-top-SMD-pad-has-paste gate honest (3
 ## Stock risk & designated second-sources
 
 Every stock/price figure above is **point-in-time** and must be re-checked the week of ordering. This
-board carries **29 unique Extended parts** — each is both a one-time JLCPCB feeder/setup fee (~$3
+board carries **30 unique Extended parts** — each is both a one-time JLCPCB feeder/setup fee (~$3
 apiece, ~$80–90 total) *and* a stock dependency: any single Extended part out of stock stalls the whole
 assembly order. **Every Extended part has a documented same-footprint, same-pinout fallback below, so an
 out-of-stock code is a BOM swap, never a board respin.** The genuinely shallow / single-source parts
