@@ -1,9 +1,7 @@
 # Front-Face Display (Waveshare ESP32-S3-Touch-LCD-4.3B)
 
-Foundation firmware for the appliance's front-face display: it brings up the
-RGB panel and LVGL and runs the animated loading logo centered on the theme
-background (`0x1a1a2e`). The interaction UX is not built yet — this is the
-panel bring-up and the structure to grow it on.
+The appliance's front-face display: an RGB panel under LVGL, showing a rail of five
+pages down the left edge and a pane to their right.
 
 ## Board
 
@@ -117,11 +115,15 @@ faucet display; the difference is the backlight itself:
 Newline-terminated, 115200 baud over the native USB CDC:
 
 - `GET_VERSION` → `VERSION:FRONT=<fw>`
-- `GET_DIAG` → heap / PSRAM / backlight / frame / GT911 addr / touch count /
-  idle state / loop high-water / uptime
+- `GET_DIAG` → page / holding / heap / PSRAM / backlight / frame / GT911 addr /
+  touch count / last XY / idle state / loop high-water / uptime
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
 - `IDLE:0` / `IDLE:1` → wake / force the idle state (test without the 60 s wait)
-- `PUMP` → send the button's own `MSG_PUMP_RUN` frame without a finger on the glass
+- `PAGE:0`..`PAGE:4` → show one page (HOME, FLAVOR, SERVICE, STATUS, SETUP)
+- `PRIME:START:<1|2>` / `PRIME:STOP` → the pad's own handlers, without a finger on
+  the glass: same frames, same ticks, same readouts
+- `STATUS` → ask the base for one `StatusPayload`
+- `PUMP` → one `MSG_PUMP_RUN { B, 1000 }`
 - `LINK` → RX/TX GPIO and the frame counters
 - `RS485:<text>` → send text to the base as `MSG_TEXT`
 - `RS485:SWAP` → exchange the RX/TX GPIO and report which way round it now runs
@@ -151,22 +153,58 @@ The transport is `HdlcLink` — TinyProto's framing layer, CRC16, no connection 
 keepalives. `ProtoLink`/`Fd` is what the RP2040 and S3 UARTs run; on a shared pair its
 two ends collide on their own schedules and fall out of CONNECTED every 2 s.
 
-## Bench button
+## The interface
 
-One `RUN PUMP B` button under the logo sends a typed frame:
+A 190 px rail down the left carries five 82 px targets — **HOME · FLAVOR · SERVICE ·
+STATUS · SETUP** — each an icon over a word, with a J9 indicator in its foot. The
+remaining 610 px is the pane, and it takes a different shape on each page:
+
+| Page | Shape | Reads / writes |
+|---|---|---|
+| HOME | the loading animation, a headline, both ratios | display-local |
+| FLAVOR | two cards → one card's detail, with `−`/`+` on the ratio | display-local; level `--` |
+| SERVICE | PRIME \| CLEAN → a flavor → the hold pad or the confirm | **the base** |
+| STATUS | four tiles and a bar, polled every 2 s | **the base** |
+| SETUP | a scrolling column of rows | display-local, plus the base's build |
+
+Text is Montserrat 20 and up; 20 is the smallest font built, so nothing smaller can
+render. Every page is built at boot and switching hides one and shows another.
+
+Waking from idle lands on HOME with every drill-down reset.
+
+### Prime
+
+**SERVICE → PRIME → a flavor → hold the pad.** Three taps, then the finger stays down.
 
 ```
-MSG_PUMP_RUN { channel = PUMP_CHANNEL_B, ms = 1000 }
+MSG_PRIME_START { channel }      finger down
+MSG_PRIME_TICK  { channel }      every 500 ms while it stays down
+MSG_PRIME_STOP  { channel }      lift, or the finger slides off the pad
 ```
 
-The base runs the pump and answers `MSG_RESP_PUMP_DONE` with the channel that ran, sent
-after the run has finished — so the status label changes when the motor stops, not when
-the press lands.
+The base drives the pump at full power and answers `MSG_RESP_PRIME { state, channel, ms }`
+on every state change — `RUNNING`, `STOPPED`, `TIMEOUT` when a tick runs later than 2 s,
+`LIMIT` at the 60 s ceiling, `REFUSED` when something else has the pump. The pad shows
+elapsed seconds against a bar scaled to that ceiling.
 
-The run is at full power and the message carries no duty. A Kamoer head does not break
-away part-throttle — 60% for a second turns nothing — and the appliance meters flavor by
-how long the pump is on, so a duty field could only ever hold one value.
+A tick goes out every ~550 ms in practice: the hold view repaints its readout at 10 Hz and
+one repaint of this panel takes ~110 ms, so the 500 ms check lands a loop late.
+
+### Clean
+
+**SERVICE → CLEAN → a flavor → START** sends `MSG_CLEAN_START { channel }`. The valve
+manifold hangs off the MCP23017s, whose pins the bench rig holds high-Z, so it answers
+`MSG_ERR_UNSUPPORTED` and the pane says so.
+
+### Frame rate
+
+The animation runs on HOME and is paused everywhere else. Measured on the panel with the
+rail up: **~9.4 fps against the 10 fps timer**, one full-screen repaint ~117 ms. FLAVOR,
+SERVICE and SETUP sit at `maxLoopMs=0` — nothing on them invalidates, so nothing repaints.
+`GET_DIAG` reports the high-water mark and clears it.
 
 ## Integration seams (not implemented)
 
-- **State sync and config push** over the link above.
+- **Flavor ratio and level** — the ratio is this display's own until a controller stores
+  it; the level reads `--` until a reservoir is sensed.
+- **Dispense and carbonation state** on HOME.
