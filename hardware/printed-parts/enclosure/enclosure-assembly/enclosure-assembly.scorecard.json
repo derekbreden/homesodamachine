@@ -7007,8 +7007,8 @@
     }
   ],
   "source": {
-    "generated": "2026-08-04T14:57:08+00:00",
-    "commit": "de69736675325e8869f4474850897d2dd62215a7",
+    "generated": "2026-08-04T15:56:39+00:00",
+    "commit": "809e8f16fa86f0cbaeaa81e61abdaa893f5ca5e4",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
