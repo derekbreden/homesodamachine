@@ -26,7 +26,7 @@ import { COS13487EESA_3_3 } from "./imports/COS13487EESA_3_3"
 import { SM712_TCT } from "./imports/SM712_TCT"
 import { ESP32_WROOM_32E_N4 } from "./imports/ESP32_WROOM_32E_N4"
 import { AMS1117_3_3 } from "./imports/AMS1117_3_3"
-import { CH340C } from "./imports/CH340C"
+import { CH340B } from "./imports/CH340B"
 import { USBLC6_2SC6 } from "./imports/USBLC6_2SC6"
 import { TYPE_C_31_M_12 } from "./imports/TYPE_C_31_M_12"
 import { DRV8870DDAR } from "./imports/DRV8870DDAR"
@@ -460,7 +460,7 @@ const centred = (Part: (props: any) => any) =>
 
 export const Esp32 = centred(ESP32_WROOM_32E_N4)   // U1  — bare WROOM module
 export const Ams1117 = centred(AMS1117_3_3)         // U9  — 3V3 LDO (SOT-223)
-export const Ch340 = centred(CH340C)                // U13 — USB-UART bridge (SOP-16)
+export const Ch340 = centred(CH340B)                // U13 — USB-UART bridge (SOP-16)
 export const Usblc6 = centred(USBLC6_2SC6)          // U14 — USB ESD array (SOT-23-6)
 export const UsbC = centred(TYPE_C_31_M_12)         // J14 — USB-C receptacle
 export const Drv8870 = centred(DRV8870DDAR)         // U11/U12 — pump H-bridges (SOP-8)

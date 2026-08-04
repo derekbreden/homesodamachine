@@ -256,7 +256,7 @@ peak from the 3V3 plane through its single 3V3 stitch via, with C10 (0.1 µF) + 
 (10 µF bulk) at the pin. The 3 castellated GND pads + the 9-pad centre thermal pad all share
 one `GND` port and each auto-stitches to the bottom plane. EN power-on RC: R7 (10 kΩ, `C98220`
 Extended) up to 3V3, C12 (1 µF, `C15849` Basic) to GND. IO0 held high by R8 (10 kΩ). Programming
-is the on-board USB-C block — J14 + U13 (CH340C), auto-reset onto EN/IO0 (see
+is the on-board USB-C block — J14 + U13 (CH340B), auto-reset onto EN/IO0 (see
 [`esp32-scope.md`](esp32-scope.md)). The bare module's IO pins are SMD pads, single-layer
 endpoints: a net that needs the bottom layer lands its run up onto the top pad through a
 via-in-pad, capped like the plane stitches; every signal on the board is a hand-routed
@@ -287,7 +287,7 @@ carry a *specific* designated alternate (first table); the deep commodity types 
 
 | Part | LCSC | Recorded stock | Risk | Designated fallback (confirm in-stock at order) |
 |---|---|---|---|---|
-| **U13** — CH340C USB-UART | `C7464026` | **0 in JLC stock (2026-08-03)** — Parts Pre-order only, est. 13-day lead, min 18 (~$9); `C84681` likewise pre-order-only | **High — resolve at order.** Both CH340C codes churn between deep and zero within weeks (this one read ~23k on 2026-07-13) | **CH340B `C81010` — in stock, 3,871 (2026-08-03)**, SOP-16, pin-compatible; or pre-order `C7464026` and absorb the lead time. **Not** CH340G (needs an external crystal this board omits) or the SOP-8 CH340N. |
+| **U13** — CH340B USB-UART | `C81010` | ~3,871 (2026-08-03) | Med — the CH34x family churns between deep and zero within weeks (both CH340C codes sat pre-order-only on 2026-08-03) | The CH340C codes (`C7464026`, `C84681`) when in stock — same pins on every connected function; the two NC pins differ (C: NC/R232 input, B: RST/TNOW output) and the board connects neither ([`imports/CH340B.tsx`](imports/CH340B.tsx)). **Not** CH340G (needs an external crystal this board omits) or the SOP-8 CH340N. |
 | **C3** — 470 µF/25 V bulk (THT radial) | `C350206` | **~566** (2026-08-03) | Med — restocked (read ~91 on 2026-06-27), but a single-vendor THT electrolytic that has run near-zero once | Drop-in: any 470 µF/25 V radial, D10×12.5 mm / 5.08 mm pitch, in the THT-assembly library (the 5.0 mm lead pitch is the load-bearing dimension; a taller D10 body still seats). Eliminate-the-THT-part path (needs a footprint swap to SMD — small respin): `C3351` / `C47023111` / `C3445246` (470 µF/25 V SMD). Re-verify `C350206` first. |
 | **U6** — DS3231SN RTC | `C9866` | ~3,175 (2026-08-03), **$7.85** | Low-Med — genuine Maxim/ADI part (stock recovered), but the board's priciest (~40 % of BOM) | Drop-in: another DS3231SN; or the pin-compatible **DS3231M** (SOIC-16-300mil, MEMS ±5 ppm — looser but ample for an appliance) if a DS3231SN code is short — verify its JLC code at order. *Cost note (owner's call, not a defect):* a ±2 ppm TCXO RTC is over-spec if the appliance only needs coarse timekeeping — a plain RTC, or ESP32 internal time, would cut ~$7/unit. |
 | **U7** — COS13487 RS-485 | `C51949447` | ~3,735 (2026-08-03) | Low-Med — a second-source clone that has run shallow before (~431 on 2026-07-14) | Genuine TI **THVD1426DR** (`C5215921`, SOIC-8, auto-direction, ~2,956 in stock 2026-07-13) — same pinout, deeper supply. *(verified in-library, SOIC-8, "Automatic direction control")* |

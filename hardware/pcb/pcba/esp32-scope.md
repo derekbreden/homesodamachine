@@ -38,7 +38,7 @@ on-board AMS1117-3.3 LDO (U9), fed off the 5 V rail (the K7805 12 V→5 V buck).
 ## USB-C programming block
 
 Flashed over a plain USB-C cable — J14 (USB-C receptacle above the WROOM, opening
-flush to the west board edge) + U13 (CH340C USB-UART bridge). Data only: the bridge runs off the board 3V3 (the board is
+flush to the west board edge) + U13 (CH340B USB-UART bridge). Data only: the bridge runs off the board 3V3 (the board is
 12 V-powered), USB VBUS powers nothing. CC1/CC2 carry 5.1k Rd (R15/R16); U14 (USBLC6)
 clamps D+/D-. Auto-reset is the classic cross-coupled NPN pair off DTR/RTS — Q2 pulls EN,
 Q3 pulls IO0 — so esptool resets + enters download mode with no key press; BOOT (SW1) and

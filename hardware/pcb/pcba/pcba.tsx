@@ -51,7 +51,7 @@
  * this dense layout whenever a net is added; the capacity-autorouter handles the PCB fine.
  * Disabling the schematic removes the hang and speeds every render; the gerbers are unaffected.
  *
- * The clearance floor (0.147) is the RTS lane skimming U13's north pad row; the web
+ * The clearance floor (0.15) is the signal/GND via pair at (-45.6, 14.66), SE of U13; the web
  * viewer's board chip reports it live (clearance.ts -> picks.json).
  */
 import { at, Cap, Res, Jst, jstPins, ulnOUT, Tbd62083, Mcp23017, Ds3231Smd, Cos13487, Sm712, Buck5, Buzzer, CoinHolder, BulkCap, Npn, Esp32, Ams1117, Ch340, Usblc6, UsbC, Drv8870, Tact, Diode, Pfet, Tvs, Zener, And2, EsdClamp } from "./parts"
@@ -344,7 +344,7 @@ export const decoupling: DecouplingRule[] = [
   { cap: "C7", near: "U7", role: "COS13487 VCC", kind: "hf" },
   { cap: "C4", near: "U2", role: "MCP 0x20 VDD", kind: "hf" },
   { cap: "C5", near: "U3", role: "MCP 0x21 VDD", kind: "hf" },
-  { cap: "C21", near: "U13", role: "CH340C 3V3", kind: "hf" },
+  { cap: "C21", near: "U13", role: "CH340B 3V3", kind: "hf" },
   { cap: "C22", near: "U14", role: "USBLC6 VBUS", kind: "hf" },
   { cap: "C23", near: "U15", role: "interlock AND-gate VCC", kind: "hf" },
   { cap: "C1", near: "U5", role: "V12 island HF (ULN B)", kind: "hf" },
@@ -1380,7 +1380,7 @@ export default () => (
 
     {/* ── USB-C programming block ─────────────────────────────────────────────────────
         USB-C receptacle (J14, west edge above the WROOM, opening flush to the west board edge) +
-        CH340C USB-UART bridge (U13) flash the WROOM over a plain USB-C cable. Data only: the
+        CH340B USB-UART bridge (U13) flash the WROOM over a plain USB-C cable. Data only: the
         bridge runs off the board 3V3, VBUS powers nothing. CC1/CC2 carry 5.1k Rd pulldowns
         (R15/R16); U14 (USBLC6) clamps D+/D-; both D+ / both D- pads tie for either cable
         orientation.
@@ -1471,7 +1471,7 @@ export default () => (
     <trace from="U14.pin4" to="U13.D_NEG" pcbPathRelativeTo="board" pcbPath={route(
         "U14.pin4", U14f.row("pin4", 1.35), U13f.below("D_NEG", 0.7775), U13f.col("D_NEG"), "U13.D_NEG",
     )} />
-    {/* CH340C: 3V3 supply (VCC + V3 tied for 3.3 V op) + 0.1uF decoupling; UART crossed to
+    {/* CH340B: 3V3 supply (VCC + V3 tied for 3.3 V op) + 0.1uF decoupling; UART crossed to
         the WROOM (bridge TXD -> ESP RXD0/IO3, bridge RXD -> ESP TXD0/IO1). */}
     <trace from=".U13 > .VCC" to="net.V3V3" />
     <trace from=".U13 > .V3" to="net.V3V3" />
@@ -1541,7 +1541,7 @@ export default () => (
     )} />
     <trace from="U13.DTR" to="Q3.E" pcbPathRelativeTo="board" pcbPath={route(
         "U13.DTR",
-        { row: U13f.pin("pin16").y - 1.12 },  // drop below U13's (moved) north-pad shadow
+        { row: U13f.pin("pin16").y - 1.25 },  // drop below U13's north-pad shadow (the CH340B land's pads run 0.25 deeper than the C's)
         { col: C21f.pin("pin1").x + 1.1 },   // west to just east of C21
         { row: C21f.pin("pin1").y - 1.15 },  // duck below C21's band
         { col: Q3f.pin("B").x + 0.85 },      // west, clear of C21, east of Q3.B's column
