@@ -165,3 +165,32 @@ paths `_lines.py` builds. The runs render into `enclosure-assembly.step` — cop
 refrigerant loop, white for the LLDPE the fluid and tap-water lines are drawn in.
 
 Line clearance is reported, not gated. Port leads are gated.
+
+## What fences the west lane's east travel
+
+`fluid-17` crosses over Y-H's crown because no lane exists at the nozzle gate's own port plane:
+the cap conduit's column wants that lane a `LINE_PITCH` east of `water-in` and Y-H's west flank
+wants it a tube and a floor west of the trident, and the two stand **0.41 mm** the wrong side of
+each other. Walking Y-H east opens the lane — Y-H's X is `bag_b_tray_pos`'s, so the walk is
+bag-B's — and the run then climbs once, holds the gate's plane and spends its whole reach on the
+corner that closes into the collet.
+
+Three bodies stand in that walk, and the renders beside this file are each one at the move that
+finds it. They are pictures of a pose the pack does not hold; the sidecar is empty.
+
+- [`blocked-east.water-3-bag-b.png`](blocked-east.water-3-bag-b.png) — **the binding one.**
+  `water-3` falls the storey on V-K's own inlet column and the pair's plate crosses that column
+  once its east face passes it. `bag_b_east_limit` is struck exactly here, a `LINE_PITCH` and a
+  `JUNCTION_LEG_LEAD` west of the fall, and at bag-B +20.48 the column comes down through the
+  plate's east cell: 398 mm³. V-K's column is the escape — it rides `vk_tray_pos`, which is
+  packed onto the SeaFlo's flank — and east of it stands the electrical flank.
+- [`blocked-east.divider-y-g-pcba.png`](blocked-east.divider-y-g-pcba.png) — Y-G stands on
+  V-I-I's own column, so it rides the pair east and reaches the controller board's inboard face:
+  165 mm³. The trident is wider than either lane it joins; the two columns crossing its band are
+  `bulkhead-flavor-a`'s climb and V-K's fall, and the middle of what they leave clears both.
+- [`blocked-east.nozzle-bag-b.png`](blocked-east.nozzle-bag-b.png) — the gate's plate reaches the
+  pair's own west cell at +20.01: 83 mm³. This one is not a fence of its own. The gate follows
+  the lane its feed rides, so it moves when the pair does and not before.
+
+Every body named here is provisional — `scorecard.SETTLED` names five poses and none of them is
+in this list. The electrical flank east of V-K is provisional in the same way.
