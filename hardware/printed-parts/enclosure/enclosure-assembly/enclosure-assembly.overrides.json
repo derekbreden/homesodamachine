@@ -1,8 +1,15 @@
 {
   "vk-tray-assembly": {
     "translate": [
+      -34.25,
+      0.0,
+      0
+    ]
+  },
+  "nozzle-b-tray-assembly": {
+    "translate": [
       0,
-      17.3,
+      8.0,
       0
     ]
   }

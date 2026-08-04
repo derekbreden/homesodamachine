@@ -52,16 +52,18 @@
       "label": "Every routed tube turns at or above its stock's minimum radius",
       "kind": "gate",
       "status": "fail",
-      "value": "F \u2014 36/98 corners at spec",
+      "value": "F \u2014 32/100 corners at spec",
       "target": "every corner \u2265 its stock's minimum (B)",
       "detail": [
         "grade = radius \u00f7 the stock's minimum \u2014 1/4\" LLDPE R25.4 (4\u00d7OD \u2014 seeded from the ~1 in. minimum 1/4\" polyethylene tube is published at), 1/4\" soft ACR copper R12.7 (2\u00d7OD \u2014 a lever bender's smallest common former (_routing.BEND_RATIO)), 3/8\" braided PVC R15.9 (neoPure PVCR-0610 datasheet minimum)",
-        "36/98 CORNERS at or above their stock's minimum, across 35 bent runs",
-        "6/35 runs with every corner at or above it; B:6 C:3 D:4 F:22; 6 straight runs carry no bend to grade. Rows read drawn/reach \u2014 `reach` is the largest radius this run's INTERIOR legs could seat, so a row failing on BOTH is a placement to move and not a number to raise (22 of 29). Reach bounds the centreline only: a run redrawn at it sweeps a wider tube, and lines-clear is what says whether that fits. Each row ends with its NEED \u2014 the span its two ends stand apart, split by axis, against the path drawn: a path far over its span rides infrastructure its ends do not ask for, and there the move is the route, not the corner (need.py prints the pack's table, worst first).",
-        "pinned runs hang off: foam-assembly \u00d74 (carb-1, co2-2, fluid-15, fluid-25); selects-tray-assembly \u00d74 (fluid-19, fluid-7, fluid-8, fluid-9); tee-y-c \u00d73 (fluid-10, fluid-11, fluid-9); tee-y-f \u00d73 (fluid-19, fluid-20, fluid-21); bag-a-tray-assembly \u00d72 (fluid-10, fluid-16); bag-b-tray-assembly \u00d72 (fluid-20, fluid-23); divider-y-g \u00d72 (fluid-22, fluid-23); pump-a \u00d72 (fluid-21, fluid-22)",
-        "F/F water-4 (vk-tray-assembly.V-K-O \u2192 seaflo-pump.suction): 1/3 corners at spec, tightest R5.47 = 0.22\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R5.5F, 2:R5.5F, 3:R25.4B] \u2014 reach R5.47 (0.22\u00d7): leg 1\u21922 is 10.95 mm and wants 2.00\u00d7R, (152.38, 380.9, 267.7)\u2192(141.43, 380.9, 267.7) \u2014 need \u0394(63.38, 14.1, 17.7) span 67.29, path 131.86 = 1.96\u00d7 span",
+        "32/100 CORNERS at or above their stock's minimum, across 35 bent runs",
+        "6/35 runs with every corner at or above it; B:6 C:3 D:2 F:24; 6 straight runs carry no bend to grade. Rows read drawn/reach \u2014 `reach` is the largest radius this run's INTERIOR legs could seat, so a row failing on BOTH is a placement to move and not a number to raise (23 of 29). Reach bounds the centreline only: a run redrawn at it sweeps a wider tube, and lines-clear is what says whether that fits. Each row ends with its NEED \u2014 the span its two ends stand apart, split by axis, against the path drawn: a path far over its span rides infrastructure its ends do not ask for, and there the move is the route, not the corner (need.py prints the pack's table, worst first).",
+        "pinned runs hang off: foam-assembly \u00d74 (carb-1, co2-2, fluid-15, fluid-25); selects-tray-assembly \u00d74 (fluid-19, fluid-7, fluid-8, fluid-9); divider-y-g \u00d73 (fluid-22, fluid-23, fluid-27); tee-y-c \u00d73 (fluid-10, fluid-11, fluid-9); tee-y-f \u00d73 (fluid-19, fluid-20, fluid-21); bag-a-tray-assembly \u00d72 (fluid-10, fluid-16); bag-b-tray-assembly \u00d72 (fluid-20, fluid-23); nozzle-b-tray-assembly \u00d72 (fluid-27, fluid-28)",
+        "F/F water-4 (vk-tray-assembly.V-K-O \u2192 seaflo-pump.suction): 1/3 corners at spec, tightest R1.86 = 0.07\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R1.9F, 2:R1.9F, 3:R25.4B] \u2014 reach R1.86 (0.07\u00d7): leg 1\u21922 is 3.73 mm and wants 2.00\u00d7R, (118.12, 355.81, 267.7)\u2192(114.4, 355.81, 267.7) \u2014 need \u0394(29.12, 3.2, 17.7) span 34.23, path 70.79 = 2.07\u00d7 span",
         "F/F fluid-20 (bag-b-tray-assembly.V-H-O \u2192 tee-y-f.Y-F-2): 1/4 corners at spec, tightest R5.52 = 0.22\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R11.0F, 2:R25.4B, 3:R5.5F, 4:R5.5F] \u2014 reach R5.52 (0.22\u00d7): leg 3\u21924 is 11.03 mm and wants 2.00\u00d7R, (148.06, 231.69, 320.86)\u2192(137.03, 231.69, 320.86) \u2014 need \u0394(0, 20.07, 53.16) span 56.82, path 98.92 = 1.74\u00d7 span",
+        "F/F fluid-27 (nozzle-b-tray-assembly.V-J-I \u2192 divider-y-g.Y-G-2): 0/4 corners at spec, tightest R6.14 = 0.24\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R19.3C, 2:R19.3C, 3:R6.1F, 4:R6.1F] \u2014 reach R6.14 (0.24\u00d7): leg 3\u21924 is 12.28 mm and wants 2.00\u00d7R, (156.65, 262.1, 267.7)\u2192(144.38, 262.1, 267.7) \u2014 need \u0394(26.25, 97.89, 9.5) span 101.79, path 136.38 = 1.34\u00d7 span",
         "F/F fluid-17 (tee-y-d.Y-D-3 \u2192 nozzle-tray-assembly.V-G-I): 1/5 corners at spec, tightest R6.14 = 0.24\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R7.5F, 2:R13.0D, 3:R25.4B, 4:R6.1F, 5:R6.1F] \u2014 reach R6.14 (0.24\u00d7): leg 4\u21925 is 12.28 mm and wants 2.00\u00d7R, (17.35, 256.38, 279.98)\u2192(17.35, 256.38, 267.7) \u2014 need \u0394(26.63, 137.58, 66.75) span 155.22, path 230.55 = 1.49\u00d7 span",
+        "F/F water-3 (water-split.to-vk \u2192 vk-tray-assembly.V-K-I): 0/5 corners at spec, tightest R7.48 = 0.29\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R17.3D, 2:R17.3D, 3:R7.5F, 4:R7.5F, 5:R14.0D] \u2014 reach R7.48 (0.29\u00d7): leg 3\u21924 is 14.96 mm and wants 2.00\u00d7R, (118.12, 272.14, 323.53)\u2192(118.12, 257.17, 323.53) \u2014 need \u0394(82.77, 0.94, 90.5) span 122.64, path 174.93 = 1.43\u00d7 span",
         "F/F fluid-21 (tee-y-f.Y-F-3 \u2192 pump-a.P-A-I): 1/5 corners at spec, tightest R8.10 = 0.32\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R8.1F, 2:R8.1F, 3:R11.1F, 4:R11.1F, 5:R25.4B] \u2014 reach R8.10 (0.32\u00d7): leg 1\u21922 is 16.20 mm and wants 2.00\u00d7R, (137.03, 169.17, 320.86)\u2192(120.83, 169.17, 320.86) \u2014 need \u0394(22.87, 102.64, 139.98) span 175.08, path 237.13 = 1.35\u00d7 span",
         "F/F carb-1 (foam-assembly.carb-water-out \u2192 digiten-flow.inlet): 1/4 corners at spec, tightest R4.17 = 0.16\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R4.2F, 2:R25.4B, 3:R9.6F, 4:R9.6F] \u2014 reach R9.59 (0.38\u00d7): leg 3\u21924 is 19.18 mm and wants 2.00\u00d7R, (120.83, 176.32, 339.2)\u2192(140.0, 176.32, 339.2) \u2014 need \u0394(28, 164.5, 288.45) span 333.24, path 506.73 = 1.52\u00d7 span",
         "F/F fluid-11 (tee-y-c.Y-C-3 \u2192 pump-b.P-B-I): 0/2 corners at spec, tightest R10.27 = 0.40\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R10.3F, 2:R10.3F] \u2014 reach R10.27 (0.40\u00d7): leg 1\u21922 is 20.54 mm and wants 2.00\u00d7R, (29.27, 87.82, 180.88)\u2192(49.81, 87.82, 180.88) \u2014 need \u0394(20.54, 21.81, 0) span 29.96, path 33.54 = 1.12\u00d7 span",
@@ -71,19 +73,17 @@
         "F/F fluid-5 (source-tray-assembly.V-B-O \u2192 tee-y-b.Y-B-1): 0/2 corners at spec, tightest R11.85 = 0.47\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R11.8F, 2:R11.8F] \u2014 reach R11.88 (0.47\u00d7): leg 1\u21922 is 11.23 mm and wants 0.95\u00d7R, (90.5, 91.9, 312.08)\u2192(95.45, 84.77, 304.95) \u2014 need \u0394(4.94, 12.73, 12.73) span 18.67, path 20.96 = 1.12\u00d7 span",
         "F/F fluid-7 (tee-y-a.Y-A-2 \u2192 selects-tray-assembly.V-C-I): 0/2 corners at spec, tightest R11.85 = 0.47\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R11.8F, 2:R11.8F] \u2014 reach R11.88 (0.47\u00d7): leg 1\u21922 is 11.23 mm and wants 0.95\u00d7R, (51.31, 84.77, 253.61)\u2192(56.25, 91.9, 246.48) \u2014 need \u0394(4.95, 12.73, 12.73) span 18.67, path 20.96 = 1.12\u00d7 span",
         "F/F fluid-8 (tee-y-b.Y-B-2 \u2192 selects-tray-assembly.V-D-I): 0/2 corners at spec, tightest R11.85 = 0.47\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R11.8F, 2:R11.8F] \u2014 reach R11.88 (0.47\u00d7): leg 1\u21922 is 11.23 mm and wants 0.95\u00d7R, (95.45, 84.77, 253.61)\u2192(90.5, 91.9, 246.48) \u2014 need \u0394(4.94, 12.73, 12.73) span 18.67, path 20.96 = 1.12\u00d7 span",
-        "F/F fluid-23 (bag-b-tray-assembly.V-I-I \u2192 divider-y-g.Y-G-2): 0/2 corners at spec, tightest R6.62 = 0.26\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R6.62, corners [1:R6.6F, 2:R6.6F] \u2014 reach R12.11 (0.48\u00d7): leg 1\u21922 is 27.77 mm and wants 2.29\u00d7R, (144.44, 236.72, 268.66)\u2192(144.38, 262.1, 257.4) \u2014 need \u0394(7.35, 28.22, 9.5) span 30.67, path 46.94 = 1.53\u00d7 span",
+        "F/F fluid-23 (bag-b-tray-assembly.V-I-I \u2192 divider-y-g.Y-G-3): 0/2 corners at spec, tightest R0.94 = 0.04\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R0.94, corners [1:R0.9F, 2:R0.9F] \u2014 reach R12.34 (0.49\u00d7): leg 1\u21922 is 30.93 mm and wants 2.51\u00d7R, (140.73, 235.3, 268.18)\u2192(129.68, 262.1, 257.4) \u2014 need \u0394(7.35, 28.22, 9.5) span 30.67, path 53.38 = 1.74\u00d7 span",
         "F/D fluid-9 (selects-tray-assembly.V-C-O \u2192 tee-y-c.Y-C-1): 1/3 corners at spec, tightest R12.47 = 0.49\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R12.5F, 2:R14.5D, 3:R25.4B] \u2014 reach R13.49 (0.53\u00d7): leg 1\u21922 is 26.98 mm and wants 2.00\u00d7R, (56.25, 168.97, 246.48)\u2192(29.27, 168.97, 246.48) \u2014 need \u0394(26.98, 37.71, 45.53) span 64.98, path 112.69 = 1.73\u00d7 span",
         "F/D fluid-10 (bag-a-tray-assembly.V-E-O \u2192 tee-y-c.Y-C-2): 0/2 corners at spec, tightest R5.12 = 0.20\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R5.1F, 2:R21.9C] \u2014 reach R13.49 (0.53\u00d7): leg 1\u21922 is 26.98 mm and wants 2.00\u00d7R, (56.25, 161.62, 180.88)\u2192(29.27, 161.62, 180.88) \u2014 need \u0394(26.98, 17.64, 0) span 32.24, path 43.29 = 1.34\u00d7 span",
         "F/D fluid-19 (selects-tray-assembly.V-D-O \u2192 tee-y-f.Y-F-1): 0/3 corners at spec, tightest R8.80 = 0.35\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R8.8F, 2:R17.2D, 3:R17.2D] \u2014 reach R17.16 (0.68\u00d7): leg 2\u21923 is 34.33 mm and wants 2.00\u00d7R, (83.15, 165.3, 320.86)\u2192(83.15, 199.62, 320.86) \u2014 need \u0394(26.45, 43.12, 74.38) span 89.96, path 133.16 = 1.48\u00d7 span",
-        "F/D fluid-28 (nozzle-b-tray-assembly.V-J-O \u2192 bulkhead-flavor-b.tube-in): 3/4 corners at spec, tightest R5.83 = 0.23\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R25.4B, 2:R25.4B, 3:R25.4B, 4:R5.8F] \u2014 reach R18.43 (0.73\u00d7): leg 3\u21924 is 36.85 mm and wants 2.00\u00d7R, (45.15, 444.38, 321.35)\u2192(45.15, 444.38, 358.2) \u2014 need \u0394(72.98, 39.22, 90.5) span 122.7, path 167.5 = 1.36\u00d7 span",
+        "F/D fluid-28 (nozzle-b-tray-assembly.V-J-O \u2192 bulkhead-flavor-b.tube-in): 3/4 corners at spec, tightest R5.83 = 0.23\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R25.4C, 2:R25.4C, 3:R25.4C, 4:R5.8F] \u2014 reach R18.43 (0.73\u00d7): leg 3\u21924 is 36.85 mm and wants 2.00\u00d7R, (45.15, 444.38, 321.35)\u2192(45.15, 444.38, 358.2) \u2014 need \u0394(72.98, 31.22, 90.5) span 120.38, path 159.5 = 1.32\u00d7 span",
         "F/C fluid-16 (tee-y-e.Y-E-3 \u2192 bag-a-tray-assembly.V-E-I): 0/2 corners at spec, tightest R5.67 = 0.22\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R5.67, corners [1:R5.7F, 2:R5.7F] \u2014 reach R22.51 (0.89\u00d7): leg 1\u21922 is 25.79 mm and wants 1.15\u00d7R, (64.39, 87.75, 207.45)\u2192(57.31, 91.71, 182.97) \u2014 need \u0394(14.18, 10.29, 28.07) span 33.09, path 37.1 = 1.12\u00d7 span",
         "F/C fluid-1 (water-split.to-flavor \u2192 flow-regulator.inlet): 0/2 corners at spec, tightest R10.79 = 0.42\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R10.8F, 2:R10.8F] \u2014 reach R22.58 (0.89\u00d7): leg 1\u21922 is 8.37 mm and wants 0.37\u00d7R, (15.29, 250.07, 358.2)\u2192(15.29, 242.25, 355.2) \u2014 need \u0394(0, 11.82, 3) span 12.19, path 12.28 = 1.01\u00d7 span",
         "F/C fluid-15 (foam-assembly.reservoir-A \u2192 tee-y-e.Y-E-2): 1/4 corners at spec, tightest R10.20 = 0.40\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R12.70, corners [1:R12.0F, 2:R35.2B, 3:R10.2F, 4:R10.3F] \u2014 reach R23.59 (0.93\u00d7): leg 1\u21922 is 47.17 mm and wants 2.00\u00d7R, (168.0, 168.5, 26.75)\u2192(120.83, 168.5, 26.75) \u2014 need \u0394(57.43, 93.29, 182.2) span 212.6, path 303.9 = 1.43\u00d7 span",
         "F/A fluid-13 (tee-y-d.Y-D-2 \u2192 bag-a-tray-assembly.V-F-I): 1/2 corners at spec, tightest R12.47 = 0.49\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R25.4B, 2:R12.5F] \u2014 reach R46.82 (1.84\u00d7): leg 1\u21922 is 93.64 mm and wants 2.00\u00d7R, (-3.14, 168.97, 180.88)\u2192(90.5, 168.97, 180.88) \u2014 need \u0394(93.64, 17.64, 0) span 95.29, path 119.97 = 1.26\u00d7 span",
         "F/A fluid-14 (bag-a-tray-assembly.V-F-O \u2192 tee-y-e.Y-E-1): 0/1 corners at spec, tightest R8.00 = 0.32\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R8.0F] \u2014 reach unbounded: no interior leg \u2014 its own stubs alone hold it \u2014 need \u0394(0, 10.29, 8) span 13.04, path 14.86 = 1.14\u00d7 span",
-        "D/D water-3 (water-split.to-vk \u2192 vk-tray-assembly.V-K-I): 3/5 corners at spec, tightest R17.34 = 0.68\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R17.3D, 2:R17.3D, 3:R25.4B, 4:R25.4B, 5:R25.4B] \u2014 reach R17.34 (0.68\u00d7): leg 1\u21922 is 34.67 mm and wants 2.00\u00d7R, (60.76, 272.14, 358.2)\u2192(60.76, 272.14, 323.53) \u2014 need \u0394(117.02, 16.36, 90.5) span 148.83, path 277.89 = 1.87\u00d7 span",
         "D/A water-6 (seaflo-pump.discharge \u2192 discharge-chain.barb-tip): 0/2 corners at spec, tightest R8.64 = 0.54\u00d7 the 3/8\" braided PVC minimum (R15.9) under a cap of R8.64, corners [1:R8.6D, 2:R8.6D] \u2014 reach R24.25 (1.52\u00d7): leg 1\u21922 is 47.72 mm and wants 1.97\u00d7R, (0.11, 333.4, 286.82)\u2192(9.48, 341.16, 332.96) \u2014 need \u0394(0.5, 0, 49.5) span 49.5, path 57.55 = 1.16\u00d7 span",
-        "D/A fluid-27 (nozzle-b-tray-assembly.V-J-I \u2192 divider-y-g.Y-G-3): 1/2 corners at spec, tightest R13.92 = 0.55\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R25.4B, 2:R13.9D] \u2014 reach R76.07 (2.99\u00d7): leg 1\u21922 is 86.50 mm and wants 1.14\u00d7R, (118.13, 347.66, 267.7)\u2192(129.68, 262.1, 262.4) \u2014 need \u0394(11.55, 89.89, 9.5) span 91.12, path 98.73 = 1.08\u00d7 span",
         "D/A fluid-4 (hopper-funnel.drain \u2192 source-tray-assembly.V-B-I): 0/1 corners at spec, tightest R18.56 = 0.73\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R18.6D] \u2014 reach unbounded: no interior leg \u2014 its own stubs alone hold it \u2014 need \u0394(0, 18.56, 34.62) span 39.28, path 45.22 = 1.15\u00d7 span",
         "C/C co2-2 (wr1110.outlet \u2192 foam-assembly.co2-in): 1/3 corners at spec, tightest R21.75 = 0.86\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R21.8C, 2:R21.8C, 3:R25.4B] \u2014 reach R21.75 (0.86\u00d7): leg 1\u21922 is 43.51 mm and wants 2.00\u00d7R, (55.0, 147.0, 16.0)\u2192(55.0, 155.1, 58.75) \u2014 need \u0394(85, 33.5, 42.75) span 100.87, path 180.33 = 1.79\u00d7 span",
         "C/B carb-2 (digiten-flow.outlet \u2192 bulkhead-carb.tube-in): 0/2 corners at spec, tightest R23.39 = 0.92\u00d7 the 1/4\" LLDPE minimum (R25.4) under a cap of R25.40, corners [1:R23.4C, 2:R23.4C] \u2014 reach R31.28 (1.23\u00d7): leg 1\u21922 is 67.94 mm and wants 2.17\u00d7R, (140.0, 430.4, 339.2)\u2192(75.01, 424.81, 358.2) \u2014 need \u0394(64.99, 45.21, 19) span 81.42, path 94.47 = 1.16\u00d7 span",
@@ -135,6 +135,7 @@
         "relay-1 \u2014 ac-hub: 1.00 mm",
         "seaflo-pump \u2014 nozzle-b-tray-assembly: 1.00 mm",
         "bag-b-tray-assembly \u2014 tee-y-f: 1.25 mm",
+        "condenser+fan \u2014 pcba: 1.38 mm",
         "pump-b \u2014 pump-a: 1.74 mm",
         "flow-regulator \u2014 hopper-funnel: 2.28 mm",
         "asse1022-assembly \u2014 drip-pan: 2.42 mm",
@@ -218,7 +219,7 @@
         "\u2717 drip-pan: near drip-pan-rails 0.0 clear seaflo-pump 4.3 clear asse1022-assembly 2.4(<3) mm",
         "\u2717 drip-pan-rails: near drip-pan 0.0 clear seaflo-pump 1.0(<3) mm",
         "\u2713 psu: near foam-assembly 0.0 clear seaflo-pump 60.5 mm",
-        "\u2717 pcba: near psu 58.4(>10) clear seaflo-pump 89.9 clear c14-inlet 158.4 mm",
+        "\u2717 pcba: near psu 75.7(>10) clear seaflo-pump 92.8 clear c14-inlet 175.4 mm",
         "\u2713 relay-1: near psu 1.0 clear seaflo-pump 87.8 clear c14-inlet 27.4 mm",
         "\u2713 ac-hub: near relay-1 1.0 clear seaflo-pump 86.7 clear c14-inlet 14.6 mm",
         "\u2717 ground-stack: near ac-hub 3.0(>1) clear c14-inlet 10.9 clear psu 38.7 mm",
@@ -345,19 +346,19 @@
         "\u2713 fluid-11: tee-y-c.Y-C-3 \u2192 pump-b.P-B-I \u2014 \u00d86.35 \u00d7 33.5 mm, 2 bends at R25.4 \u2014 nearest 1.00 mm to fluid-22",
         "\u2713 fluid-12: pump-b.P-B-O \u2192 tee-y-d.Y-D-1 \u2014 \u00d86.35 \u00d7 22.3 mm, 2 bends at R25.4 \u2014 nearest 22.62 mm to tee-y-c",
         "\u2713 fluid-13: tee-y-d.Y-D-2 \u2192 bag-a-tray-assembly.V-F-I \u2014 \u00d86.35 \u00d7 120.0 mm, 2 bends at R25.4 \u2014 nearest 1.00 mm to fluid-10",
-        "\u2713 fluid-27: nozzle-b-tray-assembly.V-J-I \u2192 divider-y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 98.7 mm, 2 bends at R25.4 \u2014 nearest 5.44 mm to vk-tray-assembly",
-        "\u2713 fluid-23: bag-b-tray-assembly.V-I-I \u2192 divider-y-g.Y-G-2 \u2014 \u00d86.35 \u00d7 46.9 mm, 2 bends at R6.6 \u2014 nearest 1.65 mm to water-3",
-        "\u2713 fluid-20: bag-b-tray-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 98.9 mm, 4 bends at R25.4 \u2014 nearest 0.00 mm to water-3",
+        "\u2713 fluid-27: nozzle-b-tray-assembly.V-J-I \u2192 divider-y-g.Y-G-2 \u2014 \u00d86.35 \u00d7 136.4 mm, 4 bends at R25.4 \u2014 nearest 0.00 mm to water-4",
+        "\u2713 fluid-23: bag-b-tray-assembly.V-I-I \u2192 divider-y-g.Y-G-3 \u2014 \u00d86.35 \u00d7 53.4 mm, 2 bends at R0.9 \u2014 nearest 1.24 mm to foam-assembly",
+        "\u2713 fluid-20: bag-b-tray-assembly.V-H-O \u2192 tee-y-f.Y-F-2 \u2014 \u00d86.35 \u00d7 98.9 mm, 4 bends at R25.4 \u2014 nearest 4.68 mm to fluid-22",
         "\u2713 fluid-21: tee-y-f.Y-F-3 \u2192 pump-a.P-A-I \u2014 \u00d86.35 \u00d7 237.1 mm, 5 bends at R25.4 \u2014 nearest 0.80 mm to carb-1",
         "\u2713 fluid-22: pump-a.P-A-O \u2192 divider-y-g.Y-G-1 \u2014 \u00d86.35 \u00d7 379.8 mm, 7 bends at R25.4 \u2014 nearest 1.00 mm to fluid-11",
         "\u2713 fluid-19: selects-tray-assembly.V-D-O \u2192 tee-y-f.Y-F-1 \u2014 \u00d86.35 \u00d7 133.2 mm, 3 bends at R25.4 \u2014 nearest 0.64 mm to fluid-4",
         "\u2713 fluid-17: tee-y-d.Y-D-3 \u2192 nozzle-tray-assembly.V-G-I \u2014 \u00d86.35 \u00d7 230.5 mm, 5 bends at R25.4 \u2014 nearest 1.00 mm to water-5",
         "\u2713 fluid-18: nozzle-tray-assembly.V-G-O \u2192 bulkhead-flavor-a.tube-in \u2014 \u00d86.35 \u00d7 286.2 mm, 2 bends at R25.4 \u2014 nearest 2.03 mm to carb-2",
-        "\u2713 fluid-28: nozzle-b-tray-assembly.V-J-O \u2192 bulkhead-flavor-b.tube-in \u2014 \u00d86.35 \u00d7 167.5 mm, 4 bends at R25.4 \u2014 nearest 1.96 mm to seaflo-pump",
+        "\u2713 fluid-28: nozzle-b-tray-assembly.V-J-O \u2192 bulkhead-flavor-b.tube-in \u2014 \u00d86.35 \u00d7 159.5 mm, 4 bends at R25.4 \u2014 nearest 1.96 mm to seaflo-pump",
         "\u2713 water-1: bulkhead-water.tube-in \u2192 asse1022-assembly.tube-in \u2014 \u00d86.35 \u00d7 10.0 mm, 0 bends at R25.4 \u2014 nearest 15.90 mm to bulkhead-flavor-b",
         "\u2713 water-2: asse1022-assembly.tube-out \u2192 water-split.supply \u2014 \u00d86.35 \u00d7 8.0 mm, 0 bends at R25.4 \u2014 nearest 12.33 mm to discharge-chain",
-        "\u2713 water-3: water-split.to-vk \u2192 vk-tray-assembly.V-K-I \u2014 \u00d86.35 \u00d7 277.9 mm, 5 bends at R25.4 \u2014 nearest 0.00 mm to fluid-20",
-        "\u2713 water-4: vk-tray-assembly.V-K-O \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 131.9 mm, 3 bends at R25.4 \u2014 nearest 2.95 mm to psu",
+        "\u2713 water-3: water-split.to-vk \u2192 vk-tray-assembly.V-K-I \u2014 \u00d86.35 \u00d7 174.9 mm, 5 bends at R25.4 \u2014 nearest 1.28 mm to divider-y-g",
+        "\u2713 water-4: vk-tray-assembly.V-K-O \u2192 seaflo-pump.suction \u2014 \u00d86.35 \u00d7 70.8 mm, 3 bends at R25.4 \u2014 nearest 0.00 mm to fluid-27",
         "\u2713 water-6: seaflo-pump.discharge \u2192 discharge-chain.barb-tip \u2014 \u00d815.1 \u00d7 57.5 mm, 2 bends at R8.6 \u2014 nearest 2.64 mm to drip-pan",
         "\u2713 water-5: discharge-chain.tube-port \u2192 foam-assembly.water-in \u2014 \u00d86.35 \u00d7 100.6 mm, 1 bends at R25.4 \u2014 nearest 0.00 mm to fluid-25",
         "\u2713 co2-1: gasher-co2.outlet \u2192 wr1110.inlet \u2014 \u00d86.35 \u00d7 10.0 mm, 0 bends at R3.0 \u2014 nearest 10.83 mm to compressor-shroud",
@@ -993,8 +994,8 @@
       "name": "V-K-I",
       "kind": "fluid",
       "pos": [
-        152.375,
-        288.5,
+        118.125,
+        271.2,
         267.7
       ],
       "face": "y-",
@@ -1008,8 +1009,8 @@
       "name": "V-K-O",
       "kind": "fluid",
       "pos": [
-        152.375,
-        347.5,
+        118.125,
+        330.2,
         267.7
       ],
       "face": "y+",
@@ -1324,7 +1325,7 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        281.5,
+        264.2,
         273.42
       ],
       "face": "z+",
@@ -1339,7 +1340,7 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        281.5,
+        264.2,
         295.67
       ],
       "face": "z+",
@@ -1354,7 +1355,7 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        218.25,
+        200.95,
         320.2
       ],
       "face": "z+",
@@ -1369,7 +1370,7 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        235.5,
+        218.2,
         320.2
       ],
       "face": "z+",
@@ -1384,7 +1385,7 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        228.55,
+        211.25,
         258.9
       ],
       "face": "z+",
@@ -1399,7 +1400,7 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        243.4,
+        226.1,
         258.9
       ],
       "face": "z+",
@@ -1414,7 +1415,7 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        270.0,
+        252.7,
         320.2
       ],
       "face": "z+",
@@ -1429,7 +1430,7 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        271.8,
+        254.5,
         258.9
       ],
       "face": "z+",
@@ -1444,7 +1445,7 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        252.75,
+        235.45,
         320.2
       ],
       "face": "z+",
@@ -1459,7 +1460,7 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        282.85,
+        265.55,
         311.4
       ],
       "face": "z+",
@@ -1474,7 +1475,7 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        208.5,
+        191.2,
         313.75
       ],
       "face": "z+",
@@ -1489,7 +1490,7 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        258.25,
+        240.95,
         258.9
       ],
       "face": "z+",
@@ -1504,7 +1505,7 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        208.5,
+        191.2,
         273.4
       ],
       "face": "z+",
@@ -1959,9 +1960,9 @@
       ],
       "face": "x+",
       "diam": 6.35,
-      "mates": "divider-y-g Y-G-2 \u2014 fluid segment 23",
+      "mates": "divider-y-g Y-G-3 \u2014 fluid segment 23",
       "status": "ok",
-      "note": "Beduan 1/4\" QC collet, facing aft (+Y) into the bay, its leg climbing into Y-G's west outlet overhead"
+      "note": "Beduan 1/4\" QC collet, facing aft (+Y) into the bay, its leg climbing into Y-G's WEST outlet overhead"
     },
     {
       "component": "bag-b-tray-assembly",
@@ -2059,14 +2060,14 @@
       "kind": "fluid",
       "pos": [
         118.125,
-        351.985,
+        359.985,
         267.7
       ],
       "face": "y-",
       "diam": 6.35,
-      "mates": "divider-y-g Y-G-3 \u2014 fluid segment 27",
+      "mates": "divider-y-g Y-G-2 \u2014 fluid segment 27",
       "status": "ok",
-      "note": "Beduan 1/4\" QC collet, facing forward (\u2212Y) into the bay, its leg climbing into Y-G's east outlet overhead"
+      "note": "Beduan 1/4\" QC collet, facing forward (\u2212Y) down the stand's east lane, round V-K's plate and west under the trident into Y-G's EAST outlet"
     },
     {
       "component": "nozzle-b-tray-assembly",
@@ -2074,7 +2075,7 @@
       "kind": "fluid",
       "pos": [
         118.125,
-        410.985,
+        418.985,
         267.7
       ],
       "face": "y+",
@@ -2154,9 +2155,9 @@
       ],
       "face": "z-",
       "diam": 6.35,
-      "mates": "bag-b-tray-assembly V-I-I \u2014 fluid segment 23",
+      "mates": "nozzle-b-tray-assembly V-J-I \u2014 fluid segment 27",
       "status": "ok",
-      "note": "PP2308E 1/4\" PTC outlet, the WEST of the two, facing down (\u2212Z) over the bag's fill gate"
+      "note": "PP2308E 1/4\" PTC outlet, the EAST of the two, facing down (\u2212Z) over the bay, on the lane the nozzle-B feed comes west down"
     },
     {
       "component": "divider-y-g",
@@ -2169,9 +2170,9 @@
       ],
       "face": "z-",
       "diam": 6.35,
-      "mates": "nozzle-b-tray-assembly V-J-I \u2014 fluid segment 27",
+      "mates": "bag-b-tray-assembly V-I-I \u2014 fluid segment 23",
       "status": "ok",
-      "note": "PP2308E 1/4\" PTC outlet, the EAST of the two, facing down (\u2212Z) over the nozzle-B gate"
+      "note": "PP2308E 1/4\" PTC outlet, the WEST of the two, facing down (\u2212Z) over the bay, on the column the bag pair's own draw collet stands on"
     },
     {
       "component": "pump-a",
@@ -2792,18 +2793,18 @@
       "boxes": [
         [
           101.0,
-          351.985,
+          359.985,
           256.4,
           135.25,
-          410.985,
+          418.985,
           313.0
         ],
         [
           99.0,
-          353.135,
+          361.135,
           253.4,
           137.25,
-          409.835,
+          417.835,
           262.4
         ]
       ],
@@ -2840,10 +2841,10 @@
       "boxes": [
         [
           160.9,
-          196.684,
+          179.384,
           253.4,
           180.0,
-          287.5,
+          270.2,
           326.2
         ]
       ],
@@ -3127,19 +3128,19 @@
       "component": "vk-tray-assembly",
       "boxes": [
         [
-          135.25,
-          288.5,
+          101.0,
+          271.2,
           256.4,
-          169.5,
-          347.5,
+          135.25,
+          330.2,
           313.0
         ],
         [
-          133.25,
-          289.65,
+          99.0,
+          272.35,
           253.4,
-          171.5,
-          346.35,
+          137.25,
+          329.05,
           262.4
         ]
       ],
@@ -3188,16 +3189,16 @@
       "to": "seaflo-pump.suction",
       "stock": "1/4\" LLDPE",
       "od": 6.35,
-      "radius": 5.475,
+      "radius": 1.862,
       "cap": 25.4,
       "minBend": 25.4,
-      "ratio": 0.2156,
+      "ratio": 0.0733,
       "grade": "F",
       "need": {
         "ends": [
           [
-            152.38,
-            347.5,
+            118.12,
+            330.2,
             267.7
           ],
           [
@@ -3207,35 +3208,35 @@
           ]
         ],
         "axis": {
-          "x": 63.38,
-          "y": 14.1,
+          "x": 29.12,
+          "y": 3.2,
           "z": 17.7
         },
-        "span": 67.29,
-        "path": 131.86,
-        "detour": 1.96
+        "span": 34.23,
+        "path": 70.79,
+        "detour": 2.068
       },
       "corners": [
         {
           "at": 1,
           "turn": 90.0,
-          "radius": 5.475,
-          "ratio": 0.2156,
+          "radius": 1.862,
+          "ratio": 0.0733,
           "grade": "F",
           "legs": [
-            33.4,
-            10.95
+            25.61,
+            3.72
           ]
         },
         {
           "at": 2,
           "turn": 90.0,
-          "radius": 5.475,
-          "ratio": 0.2156,
+          "radius": 1.862,
+          "ratio": 0.0733,
           "grade": "F",
           "legs": [
-            10.95,
-            50.69
+            3.72,
+            28.56
           ]
         },
         {
@@ -3245,30 +3246,30 @@
           "ratio": 1.0,
           "grade": "B",
           "legs": [
-            50.69,
-            52.43
+            28.56,
+            25.4
           ]
         }
       ],
       "atSpec": 1,
       "bends": 3,
       "worstTurn": 90.0,
-      "seat": 5.475,
-      "reach": 5.475,
-      "reachRatio": 0.2156,
+      "seat": 1.862,
+      "reach": 1.862,
+      "reachRatio": 0.0733,
       "reachGrade": "F",
       "binding": {
         "leg": 1,
-        "length": 10.95,
+        "length": 3.725,
         "demand": 2.0,
         "from": [
-          152.38,
-          380.9,
+          118.12,
+          355.81,
           267.7
         ],
         "to": [
-          141.43,
-          380.9,
+          114.4,
+          355.81,
           267.7
         ]
       }
@@ -3373,6 +3374,109 @@
           137.03,
           231.69,
           320.86
+        ]
+      }
+    },
+    {
+      "id": "fluid-27",
+      "kind": "fluid",
+      "frm": "nozzle-b-tray-assembly.V-J-I",
+      "to": "divider-y-g.Y-G-2",
+      "stock": "1/4\" LLDPE",
+      "od": 6.35,
+      "radius": 6.138,
+      "cap": 25.4,
+      "minBend": 25.4,
+      "ratio": 0.2417,
+      "grade": "F",
+      "need": {
+        "ends": [
+          [
+            118.13,
+            359.99,
+            267.7
+          ],
+          [
+            144.38,
+            262.1,
+            277.2
+          ]
+        ],
+        "axis": {
+          "x": 26.25,
+          "y": 97.89,
+          "z": 9.5
+        },
+        "span": 101.79,
+        "path": 136.38,
+        "detour": 1.34
+      },
+      "corners": [
+        {
+          "at": 1,
+          "turn": 90.0,
+          "radius": 19.263,
+          "ratio": 0.7584,
+          "grade": "C",
+          "legs": [
+            25.61,
+            38.53
+          ]
+        },
+        {
+          "at": 2,
+          "turn": 90.0,
+          "radius": 19.263,
+          "ratio": 0.7584,
+          "grade": "C",
+          "legs": [
+            38.53,
+            72.28
+          ]
+        },
+        {
+          "at": 3,
+          "turn": 90.0,
+          "radius": 6.138,
+          "ratio": 0.2416,
+          "grade": "F",
+          "legs": [
+            72.28,
+            12.28
+          ]
+        },
+        {
+          "at": 4,
+          "turn": 90.0,
+          "radius": 6.138,
+          "ratio": 0.2416,
+          "grade": "F",
+          "legs": [
+            12.28,
+            9.5
+          ]
+        }
+      ],
+      "atSpec": 0,
+      "bends": 4,
+      "worstTurn": 90.0,
+      "seat": 6.138,
+      "reach": 6.138,
+      "reachRatio": 0.2416,
+      "reachGrade": "F",
+      "binding": {
+        "leg": 3,
+        "length": 12.275,
+        "demand": 2.0,
+        "from": [
+          156.65,
+          262.1,
+          267.7
+        ],
+        "to": [
+          144.38,
+          262.1,
+          267.7
         ]
       }
     },
@@ -3487,6 +3591,120 @@
           17.35,
           256.38,
           267.7
+        ]
+      }
+    },
+    {
+      "id": "water-3",
+      "kind": "water",
+      "frm": "water-split.to-vk",
+      "to": "vk-tray-assembly.V-K-I",
+      "stock": "1/4\" LLDPE",
+      "od": 6.35,
+      "radius": 7.483,
+      "cap": 25.4,
+      "minBend": 25.4,
+      "ratio": 0.2946,
+      "grade": "F",
+      "need": {
+        "ends": [
+          [
+            35.36,
+            272.14,
+            358.2
+          ],
+          [
+            118.12,
+            271.2,
+            267.7
+          ]
+        ],
+        "axis": {
+          "x": 82.77,
+          "y": 0.94,
+          "z": 90.5
+        },
+        "span": 122.64,
+        "path": 174.93,
+        "detour": 1.426
+      },
+      "corners": [
+        {
+          "at": 1,
+          "turn": 90.0,
+          "radius": 17.337,
+          "ratio": 0.6826,
+          "grade": "D",
+          "legs": [
+            25.4,
+            34.67
+          ]
+        },
+        {
+          "at": 2,
+          "turn": 90.0,
+          "radius": 17.337,
+          "ratio": 0.6826,
+          "grade": "D",
+          "legs": [
+            34.67,
+            57.37
+          ]
+        },
+        {
+          "at": 3,
+          "turn": 90.0,
+          "radius": 7.483,
+          "ratio": 0.2946,
+          "grade": "F",
+          "legs": [
+            57.37,
+            14.97
+          ]
+        },
+        {
+          "at": 4,
+          "turn": 90.0,
+          "radius": 7.483,
+          "ratio": 0.2946,
+          "grade": "F",
+          "legs": [
+            14.97,
+            55.83
+          ]
+        },
+        {
+          "at": 5,
+          "turn": 90.0,
+          "radius": 14.025,
+          "ratio": 0.5522,
+          "grade": "D",
+          "legs": [
+            55.83,
+            14.03
+          ]
+        }
+      ],
+      "atSpec": 0,
+      "bends": 5,
+      "worstTurn": 90.0,
+      "seat": 7.483,
+      "reach": 7.483,
+      "reachRatio": 0.2946,
+      "reachGrade": "F",
+      "binding": {
+        "leg": 3,
+        "length": 14.965,
+        "demand": 2.0,
+        "from": [
+          118.12,
+          272.14,
+          323.53
+        ],
+        "to": [
+          118.12,
+          257.17,
+          323.53
         ]
       }
     },
@@ -4333,13 +4551,13 @@
       "id": "fluid-23",
       "kind": "fluid",
       "frm": "bag-b-tray-assembly.V-I-I",
-      "to": "divider-y-g.Y-G-2",
+      "to": "divider-y-g.Y-G-3",
       "stock": "1/4\" LLDPE",
       "od": 6.35,
-      "radius": 6.623,
-      "cap": 6.623,
+      "radius": 0.937,
+      "cap": 0.937,
       "minBend": 25.4,
-      "ratio": 0.2607,
+      "ratio": 0.0369,
       "grade": "F",
       "need": {
         "ends": [
@@ -4349,7 +4567,7 @@
             267.7
           ],
           [
-            144.38,
+            129.68,
             262.1,
             277.2
           ]
@@ -4360,51 +4578,51 @@
           "z": 9.5
         },
         "span": 30.67,
-        "path": 46.94,
-        "detour": 1.53
+        "path": 53.38,
+        "detour": 1.74
       },
       "corners": [
         {
           "at": 1,
-          "turn": 74.1,
-          "radius": 6.623,
-          "ratio": 0.2607,
+          "turn": 93.8,
+          "radius": 0.937,
+          "ratio": 0.0369,
           "grade": "F",
           "legs": [
-            8.0,
-            27.77
+            4.0,
+            30.93
           ]
         },
         {
           "at": 2,
-          "turn": 113.9,
-          "radius": 6.623,
-          "ratio": 0.2607,
+          "turn": 110.4,
+          "radius": 0.937,
+          "ratio": 0.0369,
           "grade": "F",
           "legs": [
-            27.77,
+            30.93,
             19.8
           ]
         }
       ],
       "atSpec": 0,
       "bends": 2,
-      "worstTurn": 113.9,
-      "seat": 10.596,
-      "reach": 12.114,
-      "reachRatio": 0.4769,
+      "worstTurn": 110.4,
+      "seat": 3.746,
+      "reach": 12.343,
+      "reachRatio": 0.4859,
       "reachGrade": "F",
       "binding": {
         "leg": 1,
-        "length": 27.768,
-        "demand": 2.2923,
+        "length": 30.935,
+        "demand": 2.5063,
         "from": [
-          144.44,
-          236.72,
-          268.66
+          140.73,
+          235.3,
+          268.18
         ],
         "to": [
-          144.38,
+          129.68,
           262.1,
           257.4
         ]
@@ -4691,7 +4909,7 @@
         "ends": [
           [
             118.13,
-            410.99,
+            418.99,
             267.7
           ],
           [
@@ -4702,12 +4920,12 @@
         ],
         "axis": {
           "x": 72.98,
-          "y": 39.22,
+          "y": 31.22,
           "z": 90.5
         },
-        "span": 122.7,
-        "path": 167.5,
-        "detour": 1.365
+        "span": 120.38,
+        "path": 159.5,
+        "detour": 1.325
       },
       "corners": [
         {
@@ -4715,9 +4933,9 @@
           "turn": 90.0,
           "radius": 25.4,
           "ratio": 1.0,
-          "grade": "B",
+          "grade": "C",
           "legs": [
-            33.4,
+            25.4,
             53.65
           ]
         },
@@ -4726,7 +4944,7 @@
           "turn": 90.0,
           "radius": 25.4,
           "ratio": 1.0,
-          "grade": "B",
+          "grade": "C",
           "legs": [
             53.65,
             72.98
@@ -4737,7 +4955,7 @@
           "turn": 90.0,
           "radius": 25.4,
           "ratio": 1.0,
-          "grade": "B",
+          "grade": "C",
           "legs": [
             72.98,
             36.85
@@ -5181,120 +5399,6 @@
       "binding": null
     },
     {
-      "id": "water-3",
-      "kind": "water",
-      "frm": "water-split.to-vk",
-      "to": "vk-tray-assembly.V-K-I",
-      "stock": "1/4\" LLDPE",
-      "od": 6.35,
-      "radius": 17.337,
-      "cap": 25.4,
-      "minBend": 25.4,
-      "ratio": 0.6826,
-      "grade": "D",
-      "need": {
-        "ends": [
-          [
-            35.36,
-            272.14,
-            358.2
-          ],
-          [
-            152.38,
-            288.5,
-            267.7
-          ]
-        ],
-        "axis": {
-          "x": 117.02,
-          "y": 16.36,
-          "z": 90.5
-        },
-        "span": 148.83,
-        "path": 277.89,
-        "detour": 1.867
-      },
-      "corners": [
-        {
-          "at": 1,
-          "turn": 90.0,
-          "radius": 17.337,
-          "ratio": 0.6826,
-          "grade": "D",
-          "legs": [
-            25.4,
-            34.67
-          ]
-        },
-        {
-          "at": 2,
-          "turn": 90.0,
-          "radius": 17.337,
-          "ratio": 0.6826,
-          "grade": "D",
-          "legs": [
-            34.67,
-            91.62
-          ]
-        },
-        {
-          "at": 3,
-          "turn": 90.0,
-          "radius": 25.4,
-          "ratio": 1.0,
-          "grade": "B",
-          "legs": [
-            91.62,
-            50.8
-          ]
-        },
-        {
-          "at": 4,
-          "turn": 90.0,
-          "radius": 25.4,
-          "ratio": 1.0,
-          "grade": "B",
-          "legs": [
-            50.8,
-            55.83
-          ]
-        },
-        {
-          "at": 5,
-          "turn": 90.0,
-          "radius": 25.4,
-          "ratio": 1.0,
-          "grade": "B",
-          "legs": [
-            55.83,
-            67.16
-          ]
-        }
-      ],
-      "atSpec": 3,
-      "bends": 5,
-      "worstTurn": 90.0,
-      "seat": 17.337,
-      "reach": 17.337,
-      "reachRatio": 0.6826,
-      "reachGrade": "D",
-      "binding": {
-        "leg": 1,
-        "length": 34.675,
-        "demand": 2.0,
-        "from": [
-          60.76,
-          272.14,
-          358.2
-        ],
-        "to": [
-          60.76,
-          272.14,
-          323.53
-        ]
-      }
-    },
-    {
       "id": "water-6",
       "kind": "water",
       "frm": "seaflo-pump.discharge",
@@ -5372,87 +5476,6 @@
           9.48,
           341.16,
           332.96
-        ]
-      }
-    },
-    {
-      "id": "fluid-27",
-      "kind": "fluid",
-      "frm": "nozzle-b-tray-assembly.V-J-I",
-      "to": "divider-y-g.Y-G-3",
-      "stock": "1/4\" LLDPE",
-      "od": 6.35,
-      "radius": 13.919,
-      "cap": 25.4,
-      "minBend": 25.4,
-      "ratio": 0.548,
-      "grade": "D",
-      "need": {
-        "ends": [
-          [
-            118.13,
-            351.99,
-            267.7
-          ],
-          [
-            129.68,
-            262.1,
-            277.2
-          ]
-        ],
-        "axis": {
-          "x": 11.55,
-          "y": 89.89,
-          "z": 9.5
-        },
-        "span": 91.12,
-        "path": 98.73,
-        "detour": 1.084
-      },
-      "corners": [
-        {
-          "at": 1,
-          "turn": 8.4,
-          "radius": 25.4,
-          "ratio": 1.0,
-          "grade": "B",
-          "legs": [
-            4.32,
-            86.5
-          ]
-        },
-        {
-          "at": 2,
-          "turn": 93.5,
-          "radius": 13.919,
-          "ratio": 0.548,
-          "grade": "D",
-          "legs": [
-            86.5,
-            14.8
-          ]
-        }
-      ],
-      "atSpec": 1,
-      "bends": 2,
-      "worstTurn": 93.5,
-      "seat": 13.919,
-      "reach": 76.068,
-      "reachRatio": 2.9948,
-      "reachGrade": "A",
-      "binding": {
-        "leg": 1,
-        "length": 86.499,
-        "demand": 1.1371,
-        "from": [
-          118.13,
-          347.66,
-          267.7
-        ],
-        "to": [
-          129.68,
-          262.1,
-          262.4
         ]
       }
     },
@@ -7025,15 +7048,15 @@
     }
   ],
   "source": {
-    "generated": "2026-08-04T17:31:21+00:00",
-    "commit": "6ff150db7add4ea1fcfd9d5b7b8b36c0d82c3db5",
+    "generated": "2026-08-04T18:16:20+00:00",
+    "commit": "c719dfc3432abccc0f8ba3a5b1210cf0b5aaebbf",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
       "hardware/cut-parts/compressor-shroud/compressor_shroud.py": "sha256:be802be9d63ebcee",
       "hardware/printed-parts/cadlib/snap.py": "sha256:c4a25328d3b20635",
       "hardware/printed-parts/cadlib/world_workplane.py": "sha256:6fc15b2371091f65",
-      "hardware/printed-parts/cold-core/_cold_core_interface.py": "sha256:cd87664c50924b55",
+      "hardware/printed-parts/cold-core/_cold_core_interface.py": "sha256:da0c18296318c7b0",
       "hardware/printed-parts/cold-core/_port_cuts.py": "sha256:4c408f68edf9faf0",
       "hardware/printed-parts/cold-core/copper-plugs/copper_plugs.py": "sha256:51e6c039156d8018",
       "hardware/printed-parts/cold-core/foam-assembly/foam-assembly.step": "stat:1832799:1785804018162959052",
@@ -7049,13 +7072,13 @@
       "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "sha256:95325ce4d58f2cfe",
       "hardware/printed-parts/enclosure/enclosure-assembly/_boxes.py": "sha256:49c24b59d78cae9a",
       "hardware/printed-parts/enclosure/enclosure-assembly/_contents.py": "sha256:538a8d0bda9de2e1",
-      "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:c82499c54e5ae3cd",
+      "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:6424ef7323846782",
       "hardware/printed-parts/enclosure/enclosure-assembly/_placing.py": "sha256:bedaac869792e918",
       "hardware/printed-parts/enclosure/enclosure-assembly/_routing.py": "sha256:7dcbef665dc87001",
-      "hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.overrides.json": "sha256:2dc4b889c4ccaed3",
+      "hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.overrides.json": "sha256:f713c108a6fd79f6",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py": "sha256:44d9ed4ee43813ac",
       "hardware/printed-parts/enclosure/enclosure-assembly/need.py": "sha256:85ed5764f1d597f8",
-      "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:293b4a69d6d15cd0",
+      "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:621d5ccbc1d6437b",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-bottom.step": "stat:726302:1785705962150479625",
       "hardware/printed-parts/enclosure/enclosure/enclosure-back-top.step": "stat:766665:1785735313209124048",
       "hardware/printed-parts/enclosure/enclosure/enclosure-front-bottom.step": "stat:541614:1785705952324899942",
