@@ -1411,77 +1411,45 @@ def _authored_runs() -> list:
         note="tap water: split branch → V-K inlet, down onto the west column's crown rung, east "
              "across the machine onto the valve's column and down the far side of the trays"))
 
-    # water-4 — V-K's outlet to the SeaFlo's suction barb, a hop across the lane between the
-    # east stand and the pump. Its two ends stand [34.2](W4_SPAN) mm apart and BOTH FACE INTO
-    # THE BAY: the valve discharges aft at y [333.4](W4_BARB_Y), the barb opens EAST on that
-    # same plane, and the bay behind the valve's plate is the one band on this deck with no
-    # plate in it. So the run never leaves the valves' own port stratum to cross — it comes
-    # aft one bay-half, runs west down the bay, and leans forward and up into the barb.
-    #   THE BAY IS THE LANE. `VK_TRAY_BAY` is struck for one tube: the plate's aft face and
-    # the aft row's forward face stand [24](W4_BAY) mm apart and a ⌀6.35 line hugs each by
-    # 0.83, which is why the crossing rides the bay's midpoint and nothing else turns in it
-    # west of the gate's own climb.
-    #   The descent column stands in the LANE BETWEEN THE BARB TIP AND THE PLATE'S WEST
-    # FACE — `R.channel` puts it on that gap's midpoint, and the gap is the whole of what
-    # the pump leaves the east lane at this depth, since the casting's own reach here is the
-    # barb and not the foot pad ([10](W4_LANE) mm). What the lean buys is the barb's
-    # [17.7](W4_RISE) mm of Z and the half-bay of Y together, one leg carrying both, and its
-    # two corners are the run's roundest: the crossing and the closing lead are what they
-    # seat on.
-    #   The come-about off the mouth turns on the plane its own arc wants
-    # ([33.4](W4_STUB) mm off the plate's face, `aft_turn_lane`) — a stock tangent with the
-    # collet's lead surviving in front of it.
-    suction = sea.at("suction")
-    # THREE RUNS TURN IN THIS BAND and each stands on its own column: this one off V-K-O at the
-    # stand's east end, the nozzle-B gate off V-J-O, and the nozzle-A feed descending on V-G's.
-    # None is within a tube of another in X, so each takes the whole band's depth for its turn.
-    #   The lane stands where its own corner wants it, and forward of the NOZZLE-B PLATE where
-    # that plate stands in the band: the turn is a body's width of tube laid across the deck and
-    # the plate is a body on the same deck, so the two cannot share a Y. What the band leaves
-    # between the two plates is what the turn gets.
-    w4_lane = aft_turn_lane(R.stock_min("water", vk.diam("V-K-O")))
-    if vk.bb.xmax > nzb.bb.xmin and nzb.bb.xmax > vk.bb.xmin:
-        w4_lane = min(w4_lane, nzb.bb.ymin - contents.PUMP_ROW_TURN)
-    # The descent column stands ONE STOCK ARC EAST OF THE BARB, which is what its closing corner
-    # turns on. Nothing closes that lane: at the barb's own depth the pump's reach IS the barb,
-    # the east stand is forward of it and the aft row is behind it, so the band from the tip to
-    # the core's east face is empty and the lead the corner wants is the only thing asking for
-    # any of it. Clamped to that face, which is the one edge the band does have.
-    #   WHAT THE CROSSING HOLDS OFF IS WHATEVER OF THE NOZZLE-B GATE STANDS IN THIS LANE, and
-    # that gate reaches into it two ways. Its PLATE is a body on the deck: where the lane meets
-    # the plate's own Y band the whole plate closes the lane, and the descent stands one tube
-    # and one floor east of its east face, the crossing spending its west travel forward of the
-    # plate on the leg that closes into the barb. Its CLIMB is a tube on V-J-O's column,
-    # standing between that collet and the lane the gate crosses the field on: where this lane
-    # meets that band, a `LINE_PITCH` off the column is centre-to-centre spacing, which leaves
-    # the two tubes one clearance floor apart on the straights and nothing at all once each
-    # turns — and both DO turn here, this one west off its lane and the gate onto its own climb
-    # — so the descent stands a pitch AND a tube's radius clear of it. Where the lane meets
-    # neither, the descent takes the stock arc off the barb and nothing else asks for the band.
-    w4_stock = R.stock_min("water", vk.diam("V-K-O"))
-
-    def w4_clear_of(lo, hi, keep):
-        """`keep` where this lane falls in the band `[lo, hi]` a tube wide either side."""
-        return keep if lo - 6.35 / 2.0 <= w4_lane <= hi + 6.35 / 2.0 else suction[0] + w4_stock
-
-    gate_o = nzb.at("V-J-O")
-    w4_x = min(max(suction[0] + w4_stock,
-                   w4_clear_of(nzb.bb.ymin, nzb.bb.ymax,
-                               nzb.bb.xmax + contents.LINE_HUG + 6.35 / 2.0),
-                   w4_clear_of(gate_o[1], nzb_climb_y,
-                               gate_o[0] + LINE_PITCH + 6.35 / 2.0)),
-               contents.CORE_EAST_FACE - 6.35 / 2.0)
+    # water-4 — V-K's outlet to the SeaFlo's suction barb, and the one run on this deck whose
+    # two ends fight each other. They stand [34.2](W4_SPAN) mm apart and point NINETY DEGREES
+    # APART: the valve discharges AFT, the barb opens EAST at y [333.4](W4_BARB_Y), and the
+    # rise between them is [17.7](W4_RISE) mm. A 1/4" LLDPE stock arc is R25.4 and spends its
+    # whole radius as tangent in EACH leg it touches, so a run that turns inside a 34 mm span
+    # cannot hold one at either end — which is what the bay's own lane did to it.
+    #   THE ADAPTER CHAIN IS MISSING AND THIS RUN CANNOT BE MADE UP AS DRAWN. The line is 1/4"
+    # LLDPE and `seaflo-pump.suction` is a 3/8" BARB — the two do not join, and nothing in the
+    # pack stands between them. Whatever the chain turns out to be owns this end of the run: it
+    # moves the mouth, it sets the direction the tube arrives from, and it will re-strike every
+    # figure below. The run is drawn so the shape can be looked at while that is settled.
+    #
+    #   THE LOOP IS SOLVED, NOT STRUCK. Every corner here holds a full stock arc and no
+    # arrangement of the bay's own lanes buys that: the outlet faces AFT, the barb faces EAST,
+    # the two stand [34.2](W4_SPAN) mm apart, and an R25.4 arc spends its whole radius as
+    # tangent in EACH leg it touches — so a path turning inside that span starves every corner
+    # it makes, which is what the bay's lane did (two corners sharing 3.73 mm, R1.86 each).
+    # What holds the arcs is the open deck EAST of the stand, between the aft row and the PSU's
+    # brick, and the run takes its reversal out there and comes back.
+    #   These four points are a SEARCH RESULT — the shortest centreline holding R25.4 at every
+    # corner, leaving the collet and entering the barb inside `FLAVOR_SKEW`, clear of every
+    # placed body — and not a figure struck off a fence. They are written down because the
+    # search found them, which is a weaker reason than the rest of this file carries and is
+    # stated as one.
+    #   IT IS A PIGTAIL AND IT READS AS ONE. [4.93](W4_SPRAWL)× its own span of centreline,
+    # 62 × 71 × 52 mm of deck for a 34 mm hop, and in plan it closes a circle across its own
+    # start. That is what R25.4 at every corner MEANS over a span this short — the arcs are
+    # most of the run and the run is mostly arc. It is drawn because the shape is worth
+    # looking at, not because a loom would be built this way.
+    W4_LOOP = ((116.99, 352.20, 271.03),    # aft off the collet, barely leaning
+               (153.74, 373.65, 295.46),    # out into the east strip and up
+               (142.80, 295.27, 332.50),    # forward over the bay at the strip's own height
+               (101.59, 329.06, 285.49))    # and back down onto the barb's approach
     runs.append(R.bent(
-        "water-4", "vk-tray-assembly.V-K-O",
-        (w4_x, w4_lane, vk.at("V-K-O")[2]),
-                                         # west down the bay's first lane, holding the valves'
-                                         # own port stratum onto the descent column
-        "seaflo-pump.suction",
-        kind="water", skew=FLAVOR_SKEW,
-        lead=(w4_lane - vk.at("V-K-O")[1], w4_x - suction[0]),
-        note="tap water: V-K outlet → SeaFlo suction, aft into the bay's first lane, west "
-             "down it on the valves' own stratum, and one lean aft and up the lane between "
-             "the casting and the aft row into the barb"))
+        "water-4", "vk-tray-assembly.V-K-O", *W4_LOOP, "seaflo-pump.suction",
+        kind="water", skew=FLAVOR_SKEW, bend=R.stock_min("water", vk.diam("V-K-O")),
+        note="tap water: V-K outlet → SeaFlo suction, its reversal taken on the open deck east "
+             "of the stand so every corner holds a stock arc — the adapter chain from 1/4\" "
+             "LLDPE to the pump's 3/8\" barb is still to be placed and owns this end"))
 
     # water-6 — the 3/8" braided stub off the molded discharge barb. The barb points WEST
     # at the wall; the hose comes about in the pocket between them on its own radius and
@@ -1847,10 +1815,17 @@ def lane_stations() -> dict:
         # descent column stands in, and the rise its one lean carries.
         "W4_SPAN":          f"{math.dist(runs['water-4'].pts[0], runs['water-4'].pts[-1]):.3g}",
         "W4_BARB_Y":        f"{runs['water-4'].pts[-1][1]:.4g}",
-        "W4_BAY":           f"{contents.VK_TRAY_BAY:.3g}",
-        "W4_LANE":          f"{_boxes.boxed(solids['vk-tray-assembly']).xmin - runs['water-4'].pts[-1][0]:.3g}",
         "W4_RISE":          f"{runs['water-4'].pts[-1][2] - runs['water-4'].pts[0][2]:.3g}",
-        "W4_STUB":          f"{runs['water-4'].pts[1][1] - runs['water-4'].pts[0][1]:.3g}",
+        # What the all-stock loop costs, as a multiple of the hop it makes: the arcs are most
+        # of this run and the run is mostly arc.
+        "W4_SPRAWL":        f"{runs['water-4'].length / math.dist(runs['water-4'].pts[0], runs['water-4'].pts[-1]):.3g}",
+        # The nozzle-B gate's own three fences, each one a figure a BOUNDING BOX got wrong.
+        # The band its collet and its mouth leave between them, which is not two stock arcs;
+        # how far forward of the chain's box the chain's own material on that column stops;
+        # and how far the crossing now runs from the row its height was once held under.
+        "GATE_MOUTH_BAND":  f"{runs['fluid-28'].pts[-1][1] - runs['fluid-28'].pts[0][1]:.4g}",
+        "CHAIN_COLUMN_SLACK": f"{_boxes.boxed(solids['asse1022-assembly']).ymax - max(b.ymax for b in (s.BoundingBox() for s in solids['asse1022-assembly'].Solids()) if b.xmax > runs['fluid-28'].pts[-1][0] - 6.35 / 2.0 and b.xmin < runs['fluid-28'].pts[-1][0] + 6.35 / 2.0):.3g}",
+        "CROSS_ROW_SLACK":  f"{runs['fluid-28'].pts[-2][1] - _boxes.boxed(solids['nozzle-tray-assembly']).ymax:.4g}",
         # water-3's exit reach off the split, and what its exit corner seats on it. The corner
         # is the FALL's to bound once the reach clears its own tangent, so the two figures part
         # company at the point the standoff stops being the binding one.
