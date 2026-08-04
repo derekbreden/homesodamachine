@@ -62,4 +62,7 @@ composed from those gerbers.
   `route`/`routeBottom`/`routeInner` frame idiom (every waypoint derives from a pad and rides its
   part), pad shadows as through-stack walls, moving a component tighter as a one-line change, and
   the render→floor verify loop. Read before writing a `pcbPath`.
+- [`bench-log.md`](bench-log.md) — what has been exercised on assembled boards and what it
+  read, per batch, with the deltas between batches. Facts only, in the register of the
+  print logs. Read when a board does something the model does not predict.
 - Per-step specs (`uln2803.md`, `mcp23017.md`, …).
