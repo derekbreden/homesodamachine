@@ -15,6 +15,7 @@ from _cold_core_interface import (
     foam_cap_lid_pour_radius,
     foam_cap_lid_vent_radius,
     foam_cap_lid_hole_inset,
+    foam_cap_lid_pour_xy,
     attachment_xy_positions,
     screw_clearance_radius,
     head_cbore_radius,
@@ -43,14 +44,24 @@ def attachment_clearances_extrude(height):
 
 
 def build_conduit_columns(height):
-    """Every cap conduit's column, extruded +Z by height from z=0."""
-    return (
-        WorldWorkplane(xy_plane_z_up)
-        .workplane(offset=0)
-        .pushPoints(list(cap_conduits.values()))
-        .circle(cap_conduit_boss_radius)
-        .extrude(height)
-    )
+    """Every cap conduit's column, extruded +Z by height from z=0.
+
+    ONE EXTRUDE PER CONDUIT, unioned. A bore's wall is thicker than half the `LINE_PITCH`
+    its neighbour stands at, so a pair of conduits carries bosses that OVERLAP — and two
+    overlapping wires pushed through a single extrude close one self-intersecting face,
+    not a fused pair. Unioning the columns one at a time is what makes them the single
+    peanut-section post the pour and the lid actually meet."""
+    columns = None
+    for centre in cap_conduits.values():
+        column = (
+            WorldWorkplane(xy_plane_z_up)
+            .workplane(offset=0)
+            .moveTo(centre)
+            .circle(cap_conduit_boss_radius)
+            .extrude(height)
+        )
+        columns = column if columns is None else columns.union(column)
+    return columns
 
 
 def build_conduit_bores(height, radius=cap_conduit_bore_radius):
@@ -144,10 +155,12 @@ def build_foam_cap_lid(open_down=False):
         .extrude(head_cbore_depth)
     )
 
-    # Pour hole on the +X half at y=0; vent holes mirrored across y at the −X corners.
+    # Pour hole on the +X half, off the centreline by whatever the deck-mount stations
+    # there leave it (`foam_cap_lid_pour_xy`); vent holes mirrored across y at the −X
+    # corners, where no station stands.
     inset_x = outer_shell_x_length / 2 - foam_cap_lid_hole_inset
     inset_y = outer_shell_y_length / 2 - foam_cap_lid_hole_inset
-    pour_xy = (inset_x, 0)
+    pour_xy = foam_cap_lid_pour_xy()
     vent_plus_y_xy = (-inset_x, inset_y)
     vent_minus_y_xy = (-inset_x, -inset_y)
 

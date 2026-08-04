@@ -51,6 +51,23 @@ lid_z_height = wall_and_floor_thickness
 
 
 
+def _conduit_section_area():
+    """The conduit columns' section as ONE figure — the union of their circles.
+
+    Where two columns overlap they are a single post, so the lens they share is area the
+    pack holds once. `build_conduit_columns` unions them for the same reason."""
+    r = cap_conduit_boss_radius
+    centres = list(cap_conduits.values())
+    area = len(centres) * math.pi * r ** 2
+    for i, a in enumerate(centres):
+        for b in centres[i + 1:]:
+            d = math.dist(a, b)
+            if d < 2.0 * r:
+                area -= (2.0 * r ** 2 * math.acos(d / (2.0 * r))
+                         - (d / 2.0) * math.sqrt(4.0 * r ** 2 - d ** 2))
+    return area
+
+
 def deck_boss_z_top(name):
     """A deck mount's column tops, off the cap's floor. A flush mount stops at the mouth
     rim, under the lid; a standing one carries the full cavity, the lid that closes it,
@@ -138,12 +155,18 @@ def main():
         len(deck_mount_xy(name)) * math.pi * deck_lid_hole_radius(name) ** 2 * lid_z_height
         for name in deck_mounts
     )
-    # Each conduit is a full-section column off the floor's cavity side less a bore that
-    # carries on down through the floor under it, and the lid it lands on takes the same
-    # bore through its plate.
-    conduit_column_volume = len(cap_conduits) * math.pi * (
-        cap_conduit_boss_radius ** 2 * (foam_cap_height - wall_and_floor_thickness)
-        - cap_conduit_bore_radius ** 2 * foam_cap_height
+    # Each conduit is a column off the floor's cavity side less a bore that carries on down
+    # through the floor under it, and the lid it lands on takes the same bore through its
+    # plate. The columns are priced on their SHARED section, not one section each: a pair
+    # whose bores stand a `LINE_PITCH` apart carries bosses that overlap, they fuse into one
+    # post, and the lens they hold in common is material counted once. The bores never merge
+    # — a bore is thinner than the wall around it — so they price one each.
+    #   The lens is taken pairwise, which is exact for a pair and over-subtracts for three
+    # columns mutually overlapping. Nothing here is asked to trust that: the assertion below
+    # is what a third conduit would fail against.
+    conduit_column_volume = (
+        _conduit_section_area() * (foam_cap_height - wall_and_floor_thickness)
+        - len(cap_conduits) * math.pi * cap_conduit_bore_radius ** 2 * foam_cap_height
     )
     conduit_lid_hole_volume = (len(cap_conduits) * math.pi
                                * cap_conduit_bore_radius ** 2 * lid_z_height)
