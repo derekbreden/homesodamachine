@@ -1411,40 +1411,28 @@ def _authored_runs() -> list:
         note="tap water: split branch → V-K inlet, down onto the west column's crown rung, east "
              "across the machine onto the valve's column and down the far side of the trays"))
 
-    # water-4 — V-K's outlet to the SeaFlo's suction, and the one run on this deck whose two
-    # ends face across each other. They stand [34.2](W4_SPAN) mm apart and NINETY DEGREES
-    # apart: the valve discharges AFT, the barb opens EAST at y [333.4](W4_BARB_Y), and the
-    # rise between them is [17.7](W4_RISE) mm.
-    #   THE ARCS DO NOT FIT BETWEEN THE MOUTHS. A 1/4" LLDPE stock arc is R25.4 and a corner
-    # spends that whole radius as tangent in EACH leg it sits in, so four of them want more
-    # straight than a 34 mm span holds anywhere in it. Turned inside the span every corner
-    # starves — the bay's own lane put two of them on a 3.73 mm leg, R1.86 each.
-    #   So the run turns where the straights are: the OPEN DECK EAST OF THE STAND, between the
-    # aft row and the PSU's brick, the one band here with four tangents' worth of room and no
-    # body standing in it. It goes out, comes about, and returns onto the barb's own approach.
-    # The centreline that buys is [4.92](W4_SPRAWL)× the span it crosses: at this radius over
-    # this distance the arcs are most of the run.
-    #   These four points hold R25.4 at EVERY corner, leave the collet and enter the barb
-    # inside `FLAVOR_SKEW`, and clear every placed body and every other run. They are solved
-    # against those conditions rather than struck off a fence — so a body moving near them
-    # moves what they should be, and the conditions above are what to re-solve against.
-    #   THE MOUTH IS THE PUMP'S OWN BARB. `seaflo-pump.suction` is the 3/8" barb moulded into
-    # the head casting, and the chain that carries 1/4" LLDPE onto it — stub, two SAE #6
-    # clamps, MAACFLOW 1/4" NPT M × 3/8" barb, John Guest PP450822E — is in the ledger and not
-    # in the pack. Its twin is: `reference/seaflo-discharge-chain` stands on the casting's
-    # other side and water-5 and water-6 end on its stations. Placed, the suction chain's PTC
-    # collet becomes this run's mouth, and that collet's FACING is what the ninety degrees
-    # above is measured against. It is drawn because the shape is worth
-    # looking at, not because a loom would be built this way.
-    W4_LOOP = ((116.99, 352.20, 271.03),    # aft off the collet, barely leaning
-               (153.74, 373.65, 295.46),    # out into the east strip and up
-               (142.80, 295.27, 332.50),    # forward over the bay at the strip's own height
-               (101.59, 329.06, 285.49))    # and back down onto the barb's approach
+    # water-4 — V-K's outlet to the suction chain's collet. ONE SQUARE CORNER, and the mouth it
+    # ends on is why: `suction-chain.tube-port` is a 1/4" PTC collet facing DOWN, and the pose
+    # that puts it there (`_contents.suction_chain_collet`) stands it on the VALVE'S OWN COLUMN,
+    # one stock arc's tangent and a `JUNCTION_LEG_LEAD` off the outlet in each of Y and Z.
+    #   So the run makes no lateral move at all. It leaves the outlet aft on the collet's own
+    # axis, turns once in the YZ plane, and rises into the chain's foot on that collet's axis —
+    # [0](W4_SKEW_OUT)° and [0](W4_SKEW_IN)° of lean at the two fittings, each with the full
+    # `JUNCTION_LEG_LEAD` of straight before the tube starts to bend, and the corner between
+    # them a whole [25.4](W4_R) mm arc. The centreline is [1.18](W4_SPRAWL)× the [47.2](W4_SPAN)
+    # mm span it crosses, which is what a single stock corner costs over this distance.
+    #   THE MOUTH IS WHAT MOVED. Run onto `seaflo-pump.suction` — the 3/8" barb moulded into
+    # the head casting — the two ends stood [34.2] mm apart and NINETY DEGREES apart, and no
+    # all-stock path across that span is anything but a coil: an R25.4 corner spends its whole
+    # radius as tangent in each leg it touches, and four of them want more straight than 34 mm
+    # holds. The chain is what takes the 3/8" off that barb, and its collet is ours to point.
+    vko, suct = vk.at("V-K-O"), f["suction-chain"]
+    w4_corner = (vko[0], suct.at("tube-port")[1], vko[2])
     runs.append(R.bent(
-        "water-4", "vk-tray-assembly.V-K-O", *W4_LOOP, "seaflo-pump.suction",
+        "water-4", "vk-tray-assembly.V-K-O", w4_corner, "suction-chain.tube-port",
         kind="water", skew=FLAVOR_SKEW, bend=R.stock_min("water", vk.diam("V-K-O")),
-        note="tap water: V-K outlet → SeaFlo suction, its come-about taken on the open deck "
-             "east of the stand where four stock tangents fit, every corner at R25.4"))
+        note="tap water: V-K outlet → suction chain's collet, one square corner on the valve's "
+             "own column, at R25.4"))
 
     # water-6 — the 3/8" braided stub off the molded discharge barb. The barb points WEST
     # at the wall; the hose comes about in the pocket between them on its own radius and
@@ -1474,6 +1462,33 @@ def _authored_runs() -> list:
         note=f"carb water: SeaFlo discharge barb → discharge chain, one leaning sweep in the "
              f"wall pocket on reaches leaning {w6_lean[0]:.1f}°/{w6_lean[1]:.1f}° into it "
              f"(3/8\" braided PVC, two clamps)"))
+
+    # water-7 — the 3/8" braided stub off the molded suction barb, the discharge stub's opposite
+    # number and the last 3/8" on this side. BOTH OF ITS ENDS FACE AWAY FROM THE OTHER: the
+    # pump's barb opens EAST at z [285.4](W7_BARB_Z) and the chain's opens UP at z
+    # [355.5](W7_CROWN_Z), so the hose has to arrive travelling DOWN on a run that starts
+    # [70.1](W7_RISE) mm BELOW where it ends. It comes over the top, and that is not slack in
+    # the route — it is what an upward mouth costs a line fed from underneath it.
+    #   THE COMEABOUT DOES NOT FIT IN THE POCKET. Turning over needs two of the hose's own radii
+    # between the column it climbs and the column it falls on — [31.8](W7_TURNOVER) mm — and the
+    # pocket leaves [28.1](W7_POCKET_Y) mm of Y between the stand's two rows and [3.9](W7_POCKET_X)
+    # mm of X between `fluid-18`'s lane and the flow meter's flank. So the turn is taken OVER THE
+    # PUMP'S CROWN, in the open air above the casting where neither fence reaches, and the hose
+    # climbs the west side of that crown to get there.
+    #   These three points hold R[15.9](W7_R) — the reinforced PVC's own minimum, which its twin
+    # on the discharge side does not reach — at every corner, leave the barb and enter the chain's
+    # inside [14](W7_SKEW)°, stand [3.9](W7_CEIL_CLEAR) mm under the interior ceiling at their
+    # crown, and clear every placed body and every other run. They are solved against those
+    # conditions, so a body moving near them moves what they should be.
+    W7_ARCH = ((106.45, 337.44, 287.01),    # east off the barb on its own axis, starting to lift
+               (84.68, 355.20, 364.89),     # up and back over the casting's crown, clear of it
+               (117.68, 370.29, 382.55))    # east again to the chain's column, and over the top
+    runs.append(R.bent(
+        "water-7", "seaflo-pump.suction", *W7_ARCH, "suction-chain.barb-tip",
+        kind="water", bend=HOSE_BEND, skew=14.0,
+        note="carb water: SeaFlo suction barb → suction chain, its turnover taken over the "
+             "pump's own crown where the pocket's two fences do not reach, every corner at "
+             "R15.9 (3/8\" braided PVC, two clamps)"))
 
     # water-5 — the chain's forward collet to the core's water inlet, and the tap-water path's
     # one fall. TWO LEGS AND ONE CORNER. The chain hands the water over on the deck's own west
@@ -1805,15 +1820,28 @@ def lane_stations() -> dict:
         "SHELF_OVERSHOOT":  f"{_boxes.boxed(solids['seaflo-pump']).zmax - _boxes.boxed(solids['nozzle-tray-assembly']).zmax:.3g}",
         "SEAFLO_STEP_Y":    f"{contents.seaflo_aft_step()[0]:.4g}",
         "SEAFLO_AFT_CROWN": f"{contents.seaflo_aft_step()[1]:.4g}",
-        # water-4's own need and the four stations that answer it: the span its two ends
-        # actually ask for, the plane they share, the bay it crosses in and the lane its
-        # descent column stands in, and the rise its one lean carries.
+        # water-4's span and its one corner, and the two leans that say the run is on-axis at
+        # both fittings — the collet's pose is struck so that neither end has to lean at all.
         "W4_SPAN":          f"{math.dist(runs['water-4'].pts[0], runs['water-4'].pts[-1]):.3g}",
-        "W4_BARB_Y":        f"{runs['water-4'].pts[-1][1]:.4g}",
-        "W4_RISE":          f"{runs['water-4'].pts[-1][2] - runs['water-4'].pts[0][2]:.3g}",
-        # What the all-stock loop costs, as a multiple of the hop it makes: the arcs are most
-        # of this run and the run is mostly arc.
+        "W4_R":             f"{runs['water-4'].tightest:.4g}",
+        "W4_SKEW_OUT":      f"{R.leg_skew(runs['water-4'].pts[0], runs['water-4'].pts[1], _frames()['vk-tray-assembly'].normal('V-K-O')):.2g}",
+        "W4_SKEW_IN":       f"{R.leg_skew(runs['water-4'].pts[-1], runs['water-4'].pts[-2], _frames()['suction-chain'].normal('tube-port')):.2g}",
+        # What one square stock corner costs over this span, as a multiple of the span itself.
         "W4_SPRAWL":        f"{runs['water-4'].length / math.dist(runs['water-4'].pts[0], runs['water-4'].pts[-1]):.3g}",
+        # The suction stub's two mouths and the rise between them, the turnover its own radius
+        # asks for against the two fences that refuse it in the pocket, and what its crown
+        # leaves under the interior ceiling.
+        "W7_SKEW":          "14",
+        "W7_R":             f"{runs['water-7'].tightest:.3g}",
+        "W7_BARB_Z":        f"{runs['water-7'].pts[0][2]:.4g}",
+        "W7_CROWN_Z":       f"{runs['water-7'].pts[-1][2]:.4g}",
+        "W7_RISE":          f"{runs['water-7'].pts[-1][2] - runs['water-7'].pts[0][2]:.3g}",
+        "W7_TURNOVER":      f"{2.0 * HOSE_BEND:.3g}",
+        # The pocket's own two fences against that turnover: the Y the stand's two rows leave a
+        # climbing hose between them, and the X `fluid-18`'s lane and the meter's flank leave.
+        "W7_POCKET_Y":      f"{(_boxes.boxed(solids['nozzle-b-tray-assembly']).ymin - 15.1 / 2.0 - contents.LINE_HUG) - (_boxes.boxed(solids['vk-tray-assembly']).ymax + 15.1 / 2.0 + contents.LINE_HUG):.3g}",
+        "W7_POCKET_X":      f"{(_boxes.boxed(solids['digiten-flow']).xmin - 15.1 / 2.0 - contents.LINE_HUG) - (runs['fluid-18'].pts[-1][0] + 15.1 / 2.0 + 6.35 / 2.0 + contents.LINE_HUG):.2g}",
+        "W7_CEIL_CLEAR":    f"{394.0 - (max(p[2] for p in runs['water-7'].pts) + 15.1 / 2.0):.3g}",
         # The nozzle-B gate's own three fences, each one a figure a BOUNDING BOX got wrong.
         # The band its collet and its mouth leave between them, which is not two stock arcs;
         # how far forward of the chain's box the chain's own material on that column stops;
