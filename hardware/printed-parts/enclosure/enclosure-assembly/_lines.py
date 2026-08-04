@@ -104,7 +104,7 @@ bound it:
     Both of the loft's trays present their eight collets on it, so fluid-24 and fluid-26 are
     the bag-A pair's two legs read again a storey up, and fluid-18 and fluid-28 leave it on
     the level before they climb.
-  * the loft's JUNCTION BAY (`_contents.AFT_TRAY_BAY`) — [126.1](LOFT_BAY) mm between the
+  * the loft's JUNCTION BAY (`_contents.AFT_TRAY_BAY`) — [141.6](LOFT_BAY) mm between the
     two trays, and the loft's answer to the front column's aft band, except that here the two
     pairs face each OTHER collet for collet. So its depth is a FITTING's: Y-G stands in it on
     the one column V-I-I and V-J-I share, and fluid-23 and fluid-27 are the two straight
@@ -1402,7 +1402,7 @@ def _authored_runs() -> list:
     # two corners are the run's roundest: the crossing and the closing lead are what they
     # seat on.
     #   The come-about off the mouth turns on the plane its own arc wants
-    # ([25.6](W4_STUB) mm off the plate's face, `aft_turn_lane`) — a stock tangent with the
+    # ([33.4](W4_STUB) mm off the plate's face, `aft_turn_lane`) — a stock tangent with the
     # collet's lead surviving in front of it.
     suction = sea.at("suction")
     # THREE RUNS TURN IN THIS BAND and each stands on its own column: this one off V-K-O at the
