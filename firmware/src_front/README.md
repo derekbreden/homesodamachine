@@ -139,8 +139,11 @@ without dropping anything and reads `no echo` in both pin orientations. The base
 matching the last one sent, which reads the same under either behavior and never eats a
 reply.
 
-GPIO43/44 are U0TXD/U0RXD, so the ROM and 2nd-stage bootloader print on this bus at every
-reset of this board.
+GPIO43/44 are U0TXD/U0RXD, and the bootloader leaves UART0 holding those pads. UART1 will
+map GPIO43 as its RX anyway and then read the pad's own driver instead of the
+transceiver — zero bytes arrive, below HDLC, while the far end is transmitting. `j9Begin()`
+calls `gpio_reset_pin()` on both pads first. `RS485:RAW` reads the UART below HDLC and
+`RS485:REINIT` redoes that release, which is how this was found.
 
 Waveshare's table reads GPIO43 `RS485_RXD`, GPIO44 `RS485_TXD`. `RS485:SWAP` exchanges the
 two and reports which way round it is running; `RS485:LOOP` cannot settle which is right,
