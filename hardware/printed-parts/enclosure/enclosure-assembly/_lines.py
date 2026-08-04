@@ -138,7 +138,7 @@ bound it:
     every tray and rail — its stratum is ranked against fluid-19's fall on the column a pitch
     short of its own (the west-column table below) — and holds V-K's column down to the third
     `LINE_PITCH` ahead of the bay's own turn lane, whose lead seats its foot corner at stock.
-  * the loft's OUTLET LANE (`_contents.aft_outlet_lane`), [32.2](OUTLET_LANE) mm of spare
+  * the loft's OUTLET LANE (`_contents.aft_outlet_lane`), [188](OUTLET_LANE) mm of spare
     between the nozzle plate's aft face and the stated wall beyond its one lane's own minimum
     — spare the plate's own pin (V-J's aft collet rim on the rear corner column,
     `_contents.bag_b_tray_y`) leaves to the lane, which is struck off the wall and carries it
@@ -853,16 +853,6 @@ def _authored_runs() -> list:
         two rows, and what it holds is one turn's worth wherever the turn stands in X."""
         return vk.bb.ymax + contents.JUNCTION_LEG_LEAD + stock
 
-    def aft_row_approach(stock: float) -> float:
-        """The Y a run FALLS on to reach the aft row's forward-facing collets — the mirror of
-        `aft_turn_lane`, struck off the row it is going into rather than the row it left.
-
-        Held AFT of the SUCTION BARB'S OWN LANE. The barb faces west out of the casting and
-        water-4 crosses the whole band on its axis to reach it; a fall struck for the closing
-        corner alone lands within a tube of that crossing, so the corner gives up the last
-        millimetres rather than the crossing giving up its plane."""
-        return max(nz.bb.ymin - contents.JUNCTION_LEG_LEAD - stock,
-                   sea.at("suction")[1] + LINE_PITCH + 6.35 / 2.0)
     # The stratum a run crosses the WATER DECK on: the FUNNEL'S FLOOR, at the hug — the one
     # ceiling this end of the box has, and the funnel spans the crossing's whole forward
     # reach. The pump's crown sets the stratum's floor a storey down; everything between
@@ -905,7 +895,7 @@ def _authored_runs() -> list:
 
     # fluid-23 takes the same climb from the other side of the bay, and its collet does not
     # face the fitting: V-I-I opens EAST off the turned plate while Y-G-2 stands
-    # [-8.08](F23_BACKTRACK) mm WEST of it, so the lead leaves east and the leg it hands off to
+    # [-7.35](F23_BACKTRACK) mm WEST of it, so the lead leaves east and the leg it hands off to
     # comes straight back — the corner past square again. WHAT BOUNDS THE EXIT is water-3's own
     # fall, which holds the column [15.3](F23_EAST_AIR) mm east of this collet on its way to V-K:
     # the lead stops a `LINE_PITCH` short of it, which is the whole of the deck this run has.
@@ -1093,76 +1083,71 @@ def _authored_runs() -> list:
              "branch's own plane, aft along it over the shelf, and east into the collet "
              "standing out over the aft stand's plates"))
 
-    # fluid-17 — channel A's discharge tee to the nozzle-A gate, and the longest run in the
-    # machine: a storey, from the front column's own west rim to the aft stand's wide plate.
-    # Y-D's branch faces UP, so the run leaves on that axis; what it has to cross is the whole
-    # service bay, and the aft stand is what shapes it. It climbs the front column's west lane
-    # onto the stratum over the electronics shelf, crosses east in the band aft of the trays,
-    # comes aft up the SLOT between the bag-B pair's east face and the SeaFlo's flank, drops
-    # onto the stand's own port plane in the junction bay, and turns west onto the gate's
-    # column.
+    # fluid-17 — channel A's discharge tee to the nozzle-A gate. Both ends stand in the FRONT
+    # COLUMN'S WEST LANE: Y-D's branch faces UP off the lane's own floor, and the gate's inlet
+    # faces WEST down the lane from the far end of it. So the run never leaves the lane — it
+    # steps east off the tee, climbs the storey, comes aft the length of the lane on the gate's
+    # own port plane, and turns east into the collet.
     #
-    # The band it crosses in is floored by the shelf's tallest module and roofed by the source
-    # pair's own port underside, and it carries TWO crossings: reservoir B's fill holds the Y-H
-    # port plane through it on its way to the loft, so this one takes the band's ROOF — a tube's
-    # radius and a clearance floor under that underside.
-    #   It comes aft on THE GATE'S OWN COLUMN. The stand is three rows of one plate now and the
-    # gate takes its plate's east seat, so that column runs the length of the stand with the
-    # middle row's bare west seat and the bag pair's bay under it — the run reaches its own
-    # collet without ever leaving the column it lands on, and the turn into the bay is the fall
-    # itself rather than a lane across it.
+    # THE GATE'S OWN PORT PLANE CARRIES NO LANE THROUGH THE Y-H BAND. Between the tee and the
+    # gate the run has to cross the band the bag pair's west flank stands in, and at that height
+    # the band is full across the whole corridor: the −X boss chain, then the cap conduit's
+    # column falling on `water-in`, then reservoir B's own fill climbing to Y-H, then the
+    # trident itself. The conduit's column wants the lane a `LINE_PITCH` EAST of it and Y-H's
+    # west flank wants it a turn's clearance WEST — two fences that cross, and a corridor with
+    # no width left between them.
+    #   SO THE RUN CROSSES OVER Y-H'S CROWN. One tube and its floor over the trident is a
+    # stratum nothing else in the band reaches, and the conduit's column is the only body still
+    # standing in it — which sets the lane's X on its own, a line's pitch clear of that column.
+    # The run comes aft on that stratum and takes its fall in the bay the gate's plate opens on,
+    # where the plate itself is the only thing standing.
     vg_stock = R.stock_min("fluid", nz.diam("V-G-I"))
+    vg_stub = 7.45                           # the straight Y-D's branch collet takes before it turns
+    gate_in = nz.at("V-G-I")
+    lane_x = f["foam-assembly"].at("water-in")[0] + LINE_PITCH
+    crown_z = f["divider-y-h"].bb.zmax + CLIMB_HUG + 6.35 / 2.0
     runs.append(route(
         "fluid-17", "tee-y-d.Y-D-3",
-        {"x": f["tee-y-c"].bb.xmin - contents.PUMP_ROW_TURN},
-                                             # EAST OUT OF THE BAND FIRST. Y-D stands in the
-                                             # front column's west lane, which is inside the −X
-                                             # boss chain, and that chain runs the piece's whole
-                                             # height — so a climb taken where the tee stands
-                                             # rises into the wall's own furniture.
-                                             #   THE STEP IS A LEG AND TWO CORNERS SHARE IT, so it
-                                             # runs to the far wall of the strip rather than just
-                                             # off the near one: the strip is bounded east by Y-C,
-                                             # whose own centre column carries fluid-9's fall, and
-                                             # the tray stack stands behind that. Struck one tube's
-                                             # floor off `CORE_WEST_FACE` the step is seven
-                                             # millimetres and both corners turn on three
-        {"z": nz.bb.zmax + contents.PUMP_ROW_TURN},
-                                             # up out of the front column and OVER THE STAND'S
-                                             # CROWN — the stand is three rows of one plate on one
-                                             # lane, so a run reaching the last row crosses the
-                                             # other two, and the band over the crown is where it
-                                             # crosses them
-        {"y": y_g.bb.ymin - CLIMB_HUG - 6.35},
-                                             # CROSS IN THE ONE BAND BETWEEN THE TWO TRIDENTS.
-                                             # This run ends on the far side of the machine AND
-                                             # well aft, so every millimetre it crosses forward of
-                                             # its own destination it pays for twice. Forward of
-                                             # this plane stands Y-H on the pair's west flank with
-                                             # its two legs and the bag's own fill, and the draw's
-                                             # climb beside Y-F; aft of it Y-G's crown reaches into
-                                             # this very stratum — and a fitting is round where
-                                             # its box is square, so the clearance is struck as
-                                             # a whole tube off that box and not one floor
-        nz.x("V-G-I"),                       # east onto the gate's own COLUMN, still aloft
-        {"y": aft_row_approach(vg_stock)},   # aft ALONG THE CROWN onto the plane its own
-                                             # lane. The fall is taken IN the bay and not ahead
-                                             # of it: V-K's plate stands on this column between
-                                             # here and there, and a run dropping to the port
-                                             # plane before it has cleared that plate crosses it
-        {"z": nz.at("V-G-I")[2]},            # down the bay onto the stand's port plane
-        "nozzle-tray-assembly.V-G-I",        # and aft into the collet, down the lane it faces
-        kind="fluid", skew=FLAVOR_SKEW, stub=(7.45, 1.0),
+        {"x": lane_x},                       # east out of the −X boss chain the tee stands
+                                             # inside, and onto the one column the conduit's own
+                                             # fall leaves open in this corridor
+        {"z": crown_z},                      # up the storey and over Y-H's crown, the stratum
+                                             # the band's own bodies stop under
+        {"y": gate_in[1]},                   # aft along it to the gate's plane
+        {"z": gate_in[2]},                   # down into the bay the gate's plate opens on
+        "nozzle-tray-assembly.V-G-I",        # and east into the collet, on the collet's own axis
+        kind="fluid", skew=FLAVOR_SKEW, stub=(vg_stub, 1.0),
         bend=vg_stock,
-        note="Y-D branch → nozzle A gate: up the front column's west lane, east over the "
-             "stand's crown onto the gate's own column, and down it into the collet"))
+        note="Y-D branch → nozzle A gate: east onto the lane the conduit's column leaves, up "
+             "and over Y-H's crown, aft to the gate's plane and down into its own bay"))
 
-    # fluid-18 / fluid-28 — the nozzle gates to the rear panel, and the only two lines the
-    # manifold sends OUT of the machine. Both end on the rear panel's own port row, one
-    # bulkhead each, and the nozzle tray stands in the loft's west lane
-    # ahead of them — which is what puts that pair up here rather than in the front column.
+    # fluid-18 — the nozzle-A gate to its rear bulkhead. V-G-O faces EAST off the turned plate,
+    # standing forward of the pump and one lane west of its bulkhead's column, and those three
+    # facts are the whole run: east onto that column, up the storey in the open band forward of
+    # the pump, and AFT ALONG THE COLUMN INTO THE COLLET.
+    #   THE CLOSING LEG IS THE COLLET'S OWN AXIS, so there is no closing corner: the column the
+    # run climbs is the bulkhead's own X and the stratum it turns onto is the bulkhead's own Z,
+    # and what is left between them is one straight length of tube. The climb's corner has that
+    # whole leg to turn on and rises to stock; the corner off the collet turns on the Δx between
+    # the gate and the bulkhead, which is the only plan this run owes.
+    gate18, tin18 = nz.at("V-G-O"), f["bulkhead-flavor-a"].at("tube-in")
+    stock18 = R.stock_min("fluid", nz.diam("V-G-O"))
+    runs.append(R.bent(
+        "fluid-18", "nozzle-tray-assembly.V-G-O",
+        (tin18[0], gate18[1], gate18[2]),    # east onto the bulkhead's own column, on the
+                                             # collet's axis, clear of the pump's flank
+        (tin18[0], gate18[1], tin18[2]),     # up the storey in the band forward of the pump,
+                                             # onto the panel's own stratum
+        "bulkhead-flavor-a.tube-in",         # and straight aft into the collet
+        kind="fluid", skew=FLAVOR_SKEW, bend=stock18,
+        note="nozzle A: gate → rear panel, east onto the bulkhead's column, up the storey "
+             "forward of the pump, and one straight run aft into the collet"))
+
+    # fluid-28 — the nozzle-B gate to its rear bulkhead, the line the manifold sends OUT of the
+    # machine from the aft stand. It ends on the rear panel's own port row and the vk plate
+    # stands in the loft's west lane ahead of it.
     #
-    # Both leave AFT into the OUTLET LANE behind the plate (`_contents.aft_outlet_lane`), and
+    # It leaves AFT into the OUTLET LANE behind the plate (`_contents.aft_outlet_lane`), and
     # the band they turn in is the panel field's own footing: the water bulkhead's body stands
     # on V-J's column from the port row down, and the C14's on V-G's.
     #   So each climbs only as far as the SHELF — the band between the AFT STAND'S OWN CROWN
@@ -1173,8 +1158,8 @@ def _authored_runs() -> list:
     #   The pair are TWINS and are built as twins: one lane, one shelf level, one approach
     # rule, and the only thing that differs between them is which bulkhead each is aimed at.
     # What holds them apart is the aim itself — the two turns behind the plate stand a whole
-    # seat pitch apart in X ([6.7](GATE_SEAT_PITCH) mm) and the two leans diverge from
-    # there, never closing nearer than [23.3](GATE_PAIR_GAP) mm of tube — so neither owes the
+    # seat pitch apart in X ([13.26](GATE_SEAT_PITCH) mm) and the two leans diverge from
+    # there, never closing nearer than [30.5](GATE_PAIR_GAP) mm of tube — so neither owes the
     # other a Y lane or a level. Both come about on the outlet lane's one rung, the deepest
     # the band holds, and water-4's turn is the third station on it.
     #   That lane is struck off the STATED WALL, not the plate's face: the band behind the
@@ -1184,7 +1169,6 @@ def _authored_runs() -> list:
     # `REAR_PLANE_Y` and the whole spare rides the three leads that turn on it.
     out_lane = contents.REAR_PLANE_Y - contents.LINE_HUG - 6.35 / 2.0
     for cid, port, panel, who, plate, body in (
-        ("fluid-18", "V-G-O", "bulkhead-flavor-a", "nozzle A", nz, "nozzle-tray-assembly"),
         ("fluid-28", "V-J-O", "bulkhead-flavor-b", "nozzle B", vk, "vk-tray-assembly"),
     ):
         bh = f[panel]
@@ -1240,7 +1224,7 @@ def _authored_runs() -> list:
         if tin[0] - 6.35 / 2.0 < chain_bb.xmax:
             appr_y = max(appr_y, chain_bb.ymax + contents.PUMP_ROW_TURN)
         # THE TWO GATES DO NOT SHARE A STRATUM. Their columns stand one seat pitch apart
-        # ([6.7](GATE_COLUMN_PITCH) mm — closer than a tube), their bulkheads stand a station
+        # ([13.26](GATE_COLUMN_PITCH) mm — closer than a tube), their bulkheads stand a station
         # apart the other way, and the westmost of the two has to cross the whole field AFT of
         # the ASSE chain: so each one's long leg runs through the other's column, and no lane in
         # X parts them. What parts them is height. The AFT ROW'S gate keeps the panel's own row
@@ -1361,16 +1345,16 @@ def _authored_runs() -> list:
     # the east stand is forward of it and the aft row is behind it, so the band from the tip to
     # the core's east face is empty and the lead the corner wants is the only thing asking for
     # any of it. Clamped to that face, which is the one edge the band does have.
-    #   The band's one tenant is the NOZZLE-A FEED, which falls on its gate's own column on its
-    # way into the row behind; the descent stands a lane clear of that and takes the stock arc
-    # anyway, since east of the fall the band is wider than the arc asks for.
+    #   The band's one tenant is the NOZZLE-B GATE, which climbs on V-J-O's own column on its
+    # way to the panel; the descent stands a lane clear of that and takes the stock arc anyway,
+    # since east of that column the band is wider than the arc asks for.
     w4_stock = R.stock_min("water", vk.diam("V-K-O"))
-    #   A `LINE_PITCH` off that fall is centre-to-centre spacing, which leaves the two tubes one
-    # clearance floor apart on the straights and nothing at all once each turns — and both DO
-    # turn here, this one west off its lane and the fall onto its own closing leg. So the
-    # descent stands a pitch AND a tube's radius clear, which is what the two arcs want.
+    #   A `LINE_PITCH` off that column is centre-to-centre spacing, which leaves the two tubes
+    # one clearance floor apart on the straights and nothing at all once each turns — and both
+    # DO turn here, this one west off its lane and the gate onto its own climb. So the descent
+    # stands a pitch AND a tube's radius clear, which is what the two arcs want.
     w4_x = min(max(suction[0] + w4_stock,
-                   nz.at("V-G-I")[0] + LINE_PITCH + 6.35 / 2.0),
+                   vk.at("V-J-O")[0] + LINE_PITCH + 6.35 / 2.0),
                contents.CORE_EAST_FACE - 6.35 / 2.0)
     runs.append(R.bent(
         "water-4", "vk-tray-assembly.V-K-O",
