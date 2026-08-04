@@ -528,6 +528,8 @@ static void cmdArm() {
     Serial.println("  usage: drive io19 1   /   drive io19 0");
 }
 
+static bool primeHoldsPin(int gpio);   // a held prime drives one of these pins from J9
+
 static void cmdDrive(const String &line) {
     int sp1 = line.indexOf(' '), sp2 = line.lastIndexOf(' ');
     if (sp1 < 0 || sp2 <= sp1) { Serial.println("usage: drive <io2|io4|io17|io19|io32> <0|1>"); return; }
@@ -538,6 +540,10 @@ static void cmdDrive(const String &line) {
     if (gpio < 0) { Serial.printf("unknown pin '%s'\n", which.c_str()); return; }
     bool actuator = (gpio == 2 || gpio == 4 || gpio == 17 || gpio == 19);
     if (actuator && millis() > armedUntil) { Serial.println("actuator pins are not armed — run 'arm' first"); return; }
+    if (primeHoldsPin(gpio)) {
+        Serial.println("a prime hold has this pin — lift the finger on the glass first");
+        return;
+    }
     if (gpio == PIN_485_DI && rs485Up) {   // metering DI means taking it back from the UART
         rs485End();
         Serial.println("  J9 link down — IO32 is a plain output now; 'rs485link' brings it back");
@@ -692,7 +698,75 @@ static bool pumpRun(uint8_t channel, uint16_t ms) {
     return true;
 }
 
+// ── Prime — the pump turns while a finger stays on the glass ───────────────
+// pumpRun() above holds the loop for the whole run, which a hold cannot do: ticks arrive
+// while the pump is turning and the run ends when they stop. So the pin is driven here and
+// parked from primeService(), and loop() keeps servicing J9 throughout.
+static bool          primeActive = false;
+static uint8_t       primeChannel = 0;
+static unsigned long primeStartMs = 0;
+static unsigned long primeLastTickMs = 0;
+
+static const char *primeStateName(uint8_t s) {
+    switch (s) {
+        case PRIME_RUNNING: return "running";
+        case PRIME_STOPPED: return "stopped";
+        case PRIME_TIMEOUT: return "tick timeout";
+        case PRIME_LIMIT:   return "ceiling";
+        default:            return "refused";
+    }
+}
+
+static void primeSay(uint8_t state, uint8_t channel, uint32_t ms) {
+    PrimeStatePayload st{state, channel, ms};
+    j9.send(MSG_RESP_PRIME, &st, sizeof(st));
+}
+
+static void primeEnd(uint8_t state) {
+    if (!primeActive) return;
+    uint32_t ran = millis() - primeStartMs;
+    pumpPark(kPump[primeChannel].pin);
+    primeActive = false;
+    digitalWrite(PIN_LED_ACT, LOW);
+    primeSay(state, primeChannel, ran);
+    Serial.printf("\n[J9] prime %s %s after %lu ms\n\n> ",
+                  kPump[primeChannel].who, primeStateName(state), (unsigned long)ran);
+}
+
+static void primeBegin(uint8_t channel) {
+    if (channel > 1 || primeActive) { primeSay(PRIME_REFUSED, channel, 0); return; }
+    if (!ledcAttach(kPump[channel].pin, PUMP_PWM_HZ, PUMP_PWM_BITS)) {
+        pinMode(kPump[channel].pin, INPUT);
+        primeSay(PRIME_REFUSED, channel, 0);
+        Serial.printf("\n[J9] prime %s refused — no LEDC channel free\n\n> ", kPump[channel].who);
+        return;
+    }
+    primeChannel    = channel;
+    primeStartMs    = millis();
+    primeLastTickMs = primeStartMs;
+    primeActive     = true;
+    digitalWrite(PIN_LED_ACT, HIGH);
+    pumpSet(kPump[channel].pin, 100);
+    primeSay(PRIME_RUNNING, channel, 0);
+    Serial.printf("\n[J9] prime %s running at full (IO%d -> %s.IN1 -> J13.%s)\n\n> ",
+                  kPump[channel].who, kPump[channel].pin, kPump[channel].driver, kPump[channel].j13);
+}
+
+static void primeService() {
+    if (!primeActive) return;
+    unsigned long now = millis();
+    if (now - primeLastTickMs > PRIME_TICK_GRACE_MS)  primeEnd(PRIME_TIMEOUT);
+    else if (now - primeStartMs >= PRIME_MAX_MS)      primeEnd(PRIME_LIMIT);
+}
+
+static bool primeHoldsPin(int gpio) { return primeActive && gpio == kPump[primeChannel].pin; }
+
 static void cmdPump(const String &line) {
+    if (primeActive) {
+        Serial.println("\na prime hold has pump " + String(kPump[primeChannel].who) +
+                       " — lift the finger on the glass first");
+        return;
+    }
     int sp1 = line.indexOf(' ');
     String rest = sp1 < 0 ? String("") : line.substring(sp1 + 1); rest.trim();
     if (rest == "stop") {
@@ -798,7 +872,7 @@ static void cmdHelp() {
     Serial.println("  scan   I2C bus scan");
     Serial.println("  bus    are R19/R20 visible from IO21/IO22 (J8 barrel junction)");
     Serial.println("  rs485  DI->U7->A/B->U7->RO loopback, entirely on-board");
-    Serial.println("  link   J9 TinyProto state — up/down, connected, echo outstanding");
+    Serial.println("  link   J9 TinyProto state — up/down, connected, echo outstanding, prime");
     Serial.println("  pumpmsg  send the display's own MSG_PUMP_RUN frame back at it");
     Serial.println("  rs485link  bring the J9 link back after 'rs485' or 'drive io32'");
     Serial.println("  watch  restart the continuity probe (it also runs from boot)");
@@ -892,6 +966,10 @@ static bool dispatch(const String &line) {
                       (unsigned long)j9.framesRx, (unsigned long)j9.framesTx,
                       j9.lastRxMs ? (unsigned long)(millis() - j9.lastRxMs) : 0UL,
                       (unsigned)j9Stream.echoOutstanding());
+        if (primeActive)
+            Serial.printf("   prime %s running %lu ms, last tick %lu ms ago\n",
+                          kPump[primeChannel].who, (unsigned long)(millis() - primeStartMs),
+                          (unsigned long)(millis() - primeLastTickMs));
     }
     else if (line == "pumpmsg") {
         PumpRunPayload req{PUMP_CHANNEL_B, 1000};   // the frame the display's button sends
@@ -924,12 +1002,51 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
         PumpRunPayload req;
         memcpy(&req, payload, sizeof(req));
         Serial.printf("\n[J9] MSG_PUMP_RUN ch=%u ms=%u\n", req.channel, req.ms);
+        if (primeActive) { link->sendResponse(MSG_ERR_BUSY, req.channel); return; }
         if (probeOn) { probeOn = false; probeRollCall(); }
         digitalWrite(PIN_LED_ACT, HIGH);
         bool ok = pumpRun(req.channel, req.ms);
         digitalWrite(PIN_LED_ACT, LOW);
         link->sendResponse(ok ? MSG_RESP_PUMP_DONE : MSG_ERR_SLOT_INVALID, req.channel);
         Serial.println("\n> ");
+        return;
+    }
+
+    if (type == MSG_PRIME_START && plen >= sizeof(ChannelPayload)) {
+        if (probeOn) { probeOn = false; probeRollCall(); }
+        primeBegin(payload[0]);
+        return;
+    }
+
+    if (type == MSG_PRIME_TICK && plen >= sizeof(ChannelPayload)) {
+        if (primeActive && payload[0] == primeChannel) primeLastTickMs = millis();
+        return;
+    }
+
+    if (type == MSG_PRIME_STOP && plen >= sizeof(ChannelPayload)) {
+        primeEnd(PRIME_STOPPED);
+        return;
+    }
+
+    if (type == MSG_STATUS_REQ) {
+        StatusPayload s{};
+        s.uptimeS      = millis() / 1000;
+        s.freeHeap     = ESP.getFreeHeap();
+        s.framesRx     = j9.framesRx;
+        s.framesTx     = j9.framesTx;
+        s.gasMv        = (uint16_t)analogReadMilliVolts(PIN_GAS_AOUT);
+        s.flags        = (analogReadMilliVolts(PIN_GAS_DOUT) > 1500 ? STATUS_F_GAS_TRIP : 0)
+                       | (primeActive ? STATUS_F_PRIMING : 0);
+        s.primeChannel = primeChannel;
+        strncpy(s.version, FW_VERSION, sizeof(s.version) - 1);
+        link->send(MSG_RESP_STATUS, &s, sizeof(s));
+        return;
+    }
+
+    // The valve manifold hangs off the MCP23017s, whose pins this rig holds high-Z.
+    if (type == MSG_CLEAN_START) {
+        link->sendResponse(MSG_ERR_UNSUPPORTED, plen ? payload[0] : 0);
+        Serial.printf("\n[J9] MSG_CLEAN_START -> unsupported\n\n> ");
         return;
     }
 
@@ -953,6 +1070,7 @@ void loop() {
     if (probeOn) probePoll();
 
     if (rs485Up) j9.service();
+    primeService();
 
     static String line;
     while (Serial.available()) {
