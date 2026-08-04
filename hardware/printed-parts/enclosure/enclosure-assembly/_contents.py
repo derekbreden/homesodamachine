@@ -575,7 +575,7 @@ AC_HUB_TURN = (((0.0, 0.0, 1.0), 90.0), ((0.0, 1.0, 0.0), 270.0))
 PCBA_YAW = 270.0 + FOAM_YAW
 RELAY_YAW = 180.0 + FOAM_YAW
 PCBA_TURN = (((0.0, 0.0, 1.0), PCBA_YAW), ((0.0, 1.0, 0.0), -90.0),
-             ((1.0, 0.0, 0.0), 180.0))
+             ((1.0, 0.0, 0.0), 270.0))
 # The relay LIES DOWN under the hub, so its yaw is the whole of its turn: the module's long
 # axis lands on world Y, the band's own deep axis, and the shallowest of its three dimensions
 # stands up. What that buys is the hub's floor — a body on end here would be taller than the
@@ -1485,24 +1485,6 @@ def _build():
                east=at(EAST_WALL_SEAT),
                aft=at(REAR_PLANE_Y - REAR_STANDOFF - REAR_CORNER_POST - LINE_HUG),
                foot=at(foam_cap_top()))
-    # The controller board STANDS ON THE BRICK'S OWN WALL, a storey over it — the two boards
-    # one above the other on the flank, which is what puts every electrical body on the far
-    # side of the machine from every wet one and leaves the whole aft-east deck band free.
-    # Three seats, and the power block already answered to all three: EAST on `CORE_EAST_FACE`,
-    # the same plane its flank takes; FOOT one clearance floor over that brick's crown, so the
-    # supply's loss rises through a gap instead of into a board laid on it; and AFT one hug
-    # forward of `c14_inboard_y()` — the receptacle is the body that actually bounds this
-    # corner, reaching into the bay at the very height this board stands, and nothing else on
-    # this flank comes near it.
-    #   The ROLL is what makes it fit. The board's LONG edge stands up under the old turn and
-    # reaches the top wall; rolled a quarter about its own long axis that edge lies fore and
-    # aft instead, down a flank that has the length to take it, and what stands up is the
-    # shorter one. Only the board's thickness then reaches inboard, and the band it spends was
-    # the air over the brick.
-    pack.place("pcba", _load(PCBA_BOARD), turn=PCBA_TURN,
-               east=at(EAST_WALL_SEAT),
-               aft=at(pack.box("psu").ymin - LINE_HUG),
-               foot=at(foam_cap_top()))
     # The relay STANDS ON THE +X WALL over the brick, its board's face to that wall and its
     # cans looking inboard — the face a screwdriver reaches and the face a boss lands on.
     # Three seats: EAST on `EAST_WALL_SEAT`, AFT on the brick's own aft plane, FOOT one
@@ -1551,6 +1533,25 @@ def _build():
     pack.place("nozzle-tray-assembly", _load(TRAY1_ASSEMBLY), yaw=NOZZLE_TRAY_YAW,
                org=nozzle_tray_pos())
     pack.place("divider-y-g", _load(Y_DIVIDER), turn=DIVIDER_G_TURNS, org=y_g_pos())
+    # The controller board STANDS ON THE WET SIDE'S OWN FLANK, forward of the electrical stack
+    # rather than over it. The air above the brick is spoken for three bodies deep — the relay
+    # on its crown, the hub over that, the ground stack over that — and this board is longer
+    # than what they leave.
+    #   THE ROLL IS WHAT PUTS IT HERE. A quarter turn about its own long axis lays that axis
+    # fore and aft down the flank instead of standing it up into the top, so only the board's
+    # thickness reaches inboard. It also makes the board 90.8 long in Y, and the front and back
+    # tops carry side ribs down onto `CORE_EAST_FACE` at two stations in this band — a board out
+    # on the wall would have to clear both and would then have less than its own length left
+    # before the receptacle. So it stands INBOARD of the rib line, on the flank they leave open.
+    #   Three seats. EAST one clearance floor inside `CORE_EAST_FACE` — the rib line, and the
+    # plane the whole electrical flank already takes. AFT one floor forward of the V-K row's own
+    # forward face: that row is the one wet body standing at this height on this flank, the two
+    # overlap in plan, and Y is what parts them. FOOT on the cap's top, the plane every body on
+    # this deck stands from.
+    pack.place("pcba", _load(PCBA_BOARD), turn=PCBA_TURN,
+               east=at(CORE_EAST_FACE - LINE_HUG),
+               aft=at(pack.box("vk-tray-assembly").ymin - LINE_HUG),
+               foot=at(foam_cap_top()))
     # Both pumps, side by side in the front column on ONE lane and one plane. Channel B is
     # seated FIRST because channel A stands on it. B's Z is not a pick: it stands the two barbs
     # on the BAG-A PAIR'S OWN PORT PLANE, so Y-C and Y-D — the two tees that join this pump to

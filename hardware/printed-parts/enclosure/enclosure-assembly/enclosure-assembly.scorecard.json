@@ -123,6 +123,7 @@
       "detail": [
         "foam-assembly \u2014 seaflo-pump: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 bag-b-tray-assembly: 0.00 mm \u2014 CONTACT (declared ok)",
+        "foam-assembly \u2014 pcba: 0.00 mm \u2014 CONTACT (declared ok)",
         "gasher-co2 \u2014 co2-inlet: 0.00 mm \u2014 CONTACT (declared ok)",
         "drip-pan \u2014 drip-pan-rails: 0.00 mm \u2014 CONTACT (declared ok)",
         "foam-assembly \u2014 psu: 0.00 mm \u2014 CONTACT (declared ok)",
@@ -217,7 +218,7 @@
         "\u2717 drip-pan: near drip-pan-rails 0.0 clear seaflo-pump 4.3 clear asse1022-assembly 2.4(<3) mm",
         "\u2717 drip-pan-rails: near drip-pan 0.0 clear seaflo-pump 1.0(<3) mm",
         "\u2713 psu: near foam-assembly 0.0 clear seaflo-pump 60.5 mm",
-        "\u2717 pcba: near psu 75.7(>10) clear seaflo-pump 92.8 clear c14-inlet 174.2 mm",
+        "\u2717 pcba: near psu 75.7(>10) clear seaflo-pump 92.8 clear c14-inlet 175.4 mm",
         "\u2713 relay-1: near psu 1.0 clear seaflo-pump 87.8 clear c14-inlet 27.4 mm",
         "\u2713 ac-hub: near relay-1 1.0 clear seaflo-pump 86.7 clear c14-inlet 14.6 mm",
         "\u2717 ground-stack: near ac-hub 3.0(>1) clear c14-inlet 10.9 clear psu 38.7 mm",
@@ -1353,8 +1354,8 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        264.198,
-        282.428
+        264.2,
+        273.42
       ],
       "face": "z+",
       "diam": 10.0,
@@ -1368,8 +1369,8 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        264.198,
-        304.678
+        264.2,
+        295.67
       ],
       "face": "z+",
       "diam": 8.0,
@@ -1383,8 +1384,8 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        200.948,
-        329.208
+        200.95,
+        320.2
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1398,8 +1399,8 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        218.198,
-        329.208
+        218.2,
+        320.2
       ],
       "face": "z+",
       "diam": 8.0,
@@ -1413,8 +1414,8 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        211.248,
-        267.908
+        211.25,
+        258.9
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1428,8 +1429,8 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        226.098,
-        267.908
+        226.1,
+        258.9
       ],
       "face": "z+",
       "diam": 7.0,
@@ -1443,8 +1444,8 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        252.698,
-        329.208
+        252.7,
+        320.2
       ],
       "face": "z+",
       "diam": 8.0,
@@ -1458,8 +1459,8 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        254.498,
-        267.908
+        254.5,
+        258.9
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1473,8 +1474,8 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        235.448,
-        329.208
+        235.45,
+        320.2
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1488,8 +1489,8 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        265.548,
-        320.408
+        265.55,
+        311.4
       ],
       "face": "z+",
       "diam": 5.0,
@@ -1503,8 +1504,8 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        191.198,
-        322.758
+        191.2,
+        313.75
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1518,8 +1519,8 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        240.948,
-        267.908
+        240.95,
+        258.9
       ],
       "face": "z+",
       "diam": 6.0,
@@ -1533,8 +1534,8 @@
       "kind": "electrical",
       "pos": [
         178.4,
-        191.198,
-        282.408
+        191.2,
+        273.4
       ],
       "face": "z+",
       "diam": 9.0,
@@ -2815,11 +2816,11 @@
       "boxes": [
         [
           160.9,
-          179.382,
-          262.408,
+          179.384,
+          253.4,
           180.0,
-          270.198,
-          335.208
+          270.2,
+          326.2
         ]
       ],
       "fill": 0.2397,
@@ -7008,8 +7009,8 @@
     }
   ],
   "source": {
-    "generated": "2026-08-04T14:21:45+00:00",
-    "commit": "fee9391a9fb7e86f30c443a05282f68610de656d",
+    "generated": "2026-08-04T14:30:04+00:00",
+    "commit": "9726ed373dab6432c0e3c56f00c64ff1c2774f35",
     "inputs": {
       "hardware/cut-parts/compressor-shroud/_compressor_shroud_dimensions.py": "sha256:04895283373e0d5b",
       "hardware/cut-parts/compressor-shroud/compressor-shroud.step": "stat:191074:1782634266000000000",
@@ -7031,11 +7032,11 @@
       "hardware/printed-parts/enclosure/drip-pan/drip-pan.step": "stat:117259:1785686863767739385",
       "hardware/printed-parts/enclosure/drip-pan/drip_pan.py": "sha256:95325ce4d58f2cfe",
       "hardware/printed-parts/enclosure/enclosure-assembly/_boxes.py": "sha256:49c24b59d78cae9a",
-      "hardware/printed-parts/enclosure/enclosure-assembly/_contents.py": "sha256:e2f702a46abf23ad",
+      "hardware/printed-parts/enclosure/enclosure-assembly/_contents.py": "sha256:2751725a8e575326",
       "hardware/printed-parts/enclosure/enclosure-assembly/_lines.py": "sha256:b78f9d04aa498d58",
       "hardware/printed-parts/enclosure/enclosure-assembly/_placing.py": "sha256:bedaac869792e918",
       "hardware/printed-parts/enclosure/enclosure-assembly/_routing.py": "sha256:7dcbef665dc87001",
-      "hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.overrides.json": "sha256:a8a2c39713b03762",
+      "hardware/printed-parts/enclosure/enclosure-assembly/enclosure-assembly.overrides.json": "sha256:ca3d163bab055381",
       "hardware/printed-parts/enclosure/enclosure-assembly/enclosure_assembly.py": "sha256:44d9ed4ee43813ac",
       "hardware/printed-parts/enclosure/enclosure-assembly/need.py": "sha256:85ed5764f1d597f8",
       "hardware/printed-parts/enclosure/enclosure-assembly/scorecard.py": "sha256:c5dbe3461d3c62b5",
