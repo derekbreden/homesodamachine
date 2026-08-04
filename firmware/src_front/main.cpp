@@ -369,8 +369,13 @@ static void wake() {
   }
 }
 
-// LVGL pointer indev: any touch wakes and resets the idle timer. While dimmed,
-// the first touch is consumed (wake only) so it can't trip future UI.
+// LVGL pointer indev: any touch wakes and resets the idle timer. A touch that begins on a
+// dark screen wakes it and reaches no widget — the whole press is withheld, not just the
+// sample the wake happened on. wake() clears screenIdle at once, so a finger still resting
+// on the glass looks like a fresh press within a few milliseconds; the latch holds until
+// that finger lifts. Every widget on this panel inherits it from here.
+static bool touchWakesOnly = false;
+
 static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
   static bool prevTouch = false;
   uint16_t x = 0, y = 0;
@@ -378,20 +383,20 @@ static void touchpadRead(lv_indev_drv_t *drv, lv_indev_data_t *data) {
   if (now) {
     if (!prevTouch) {
       touchCount++;  // count press edges
+      touchWakesOnly = screenIdle || !backlightOn;
       Serial.printf("[touch] x=%u y=%u  status=0x%02X raw=%02X %02X %02X %02X %02X %02X %02X %02X%s\n",
                     x, y, lastStatus, lastRaw[0], lastRaw[1], lastRaw[2], lastRaw[3],
                     lastRaw[4], lastRaw[5], lastRaw[6], lastRaw[7],
-                    screenIdle ? " (idle — consumed)" : "");
+                    touchWakesOnly ? " (dark — wakes only)" : "");
       lastTouchX = x;
       lastTouchY = y;
     }
-    bool wasIdle = screenIdle;
     wake();
     data->point.x = x;
     data->point.y = y;
-    // While idle, consume the first touch (wake only) so it can't trip future UI.
-    data->state = wasIdle ? LV_INDEV_STATE_RELEASED : LV_INDEV_STATE_PRESSED;
+    data->state = touchWakesOnly ? LV_INDEV_STATE_RELEASED : LV_INDEV_STATE_PRESSED;
   } else {
+    touchWakesOnly = false;   // finger lifted — the next press is the user's own
     data->state = LV_INDEV_STATE_RELEASED;
   }
   prevTouch = now;
