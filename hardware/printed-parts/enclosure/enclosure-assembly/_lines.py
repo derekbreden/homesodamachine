@@ -104,7 +104,7 @@ bound it:
     Both of the loft's trays present their eight collets on it, so fluid-24 and fluid-26 are
     the bag-A pair's two legs read again a storey up, and fluid-18 and fluid-28 leave it on
     the level before they climb.
-  * the loft's JUNCTION BAY (`_contents.AFT_TRAY_BAY`) — [54.63](LOFT_BAY) mm between the
+  * the loft's JUNCTION BAY (`_contents.AFT_TRAY_BAY`) — [118.1](LOFT_BAY) mm between the
     two trays, and the loft's answer to the front column's aft band, except that here the two
     pairs face each OTHER collet for collet. So its depth is a FITTING's: Y-G stands in it on
     the one column V-I-I and V-J-I share, and fluid-23 and fluid-27 are the two straight
@@ -843,6 +843,7 @@ def _authored_runs() -> list:
     pa, bb, nz = f["pump-a"], f["bag-b-tray-assembly"], f["nozzle-tray-assembly"]
     y_f, y_g = f["tee-y-f"], f["divider-y-g"]
     sea, vk = f["seaflo-pump"], f["vk-tray-assembly"]
+    nzb = f["nozzle-b-tray-assembly"]
 
     def aft_turn_lane(stock: float) -> float:
         """The Y a run leaving the middle row's AFT face turns on — the plane its own closing
@@ -892,7 +893,7 @@ def _authored_runs() -> list:
     # them is the stand's seat and not a plate's crown. The leg reaches to one `LINE_HUG` over
     # that seat, which is the whole of the climb plus the port plane's own height on it.
     y_g_drop = y_g.at("Y-G-2")[2] - contents.aft_tray_z() - contents.LINE_HUG
-    runs.append(R.bent("fluid-27", "vk-tray-assembly.V-J-I", "divider-y-g.Y-G-3",
+    runs.append(R.bent("fluid-27", "nozzle-b-tray-assembly.V-J-I", "divider-y-g.Y-G-3",
                        kind="fluid", skew=FLAVOR_SKEW,
                        lead=(bay_lead, y_g_drop - y_g_rise),
                        note="nozzle B gate ← Y-G: out of the collet along the bay, about, and "
@@ -1164,7 +1165,7 @@ def _authored_runs() -> list:
     # rule, and the only thing that differs between them is which bulkhead each is aimed at.
     # What holds them apart is the aim itself — the two turns behind the plate stand a whole
     # seat pitch apart in X ([13.26](GATE_SEAT_PITCH) mm) and the two leans diverge from
-    # there, never closing nearer than [30.5](GATE_PAIR_GAP) mm of tube — so neither owes the
+    # there, never closing nearer than [31.7](GATE_PAIR_GAP) mm of tube — so neither owes the
     # other a Y lane or a level. Both come about on the outlet lane's one rung, the deepest
     # the band holds, and water-4's turn is the third station on it.
     #   That lane is struck off the STATED WALL, not the plate's face: the band behind the
@@ -1173,8 +1174,11 @@ def _authored_runs() -> list:
     # and a lane is air, so the rung stands where its tube holds the pack's floor off
     # `REAR_PLANE_Y` and the whole spare rides the three leads that turn on it.
     out_lane = contents.REAR_PLANE_Y - contents.LINE_HUG - 6.35 / 2.0
+    # The nozzle-B gate's own climb plane, read back out of the loop: `water-4` crosses the
+    # same deck and holds off the band between that collet and this plane.
+    nzb_climb_y = None
     for cid, port, panel, who, plate, body in (
-        ("fluid-28", "V-J-O", "bulkhead-flavor-b", "nozzle B", vk, "vk-tray-assembly"),
+        ("fluid-28", "V-J-O", "bulkhead-flavor-b", "nozzle B", nzb, "nozzle-b-tray-assembly"),
     ):
         bh = f[panel]
         # The climb stands as far ahead of the collet as the CLOSING CORNER wants — a stock
@@ -1208,18 +1212,6 @@ def _authored_runs() -> list:
                      and fr.bb.ymin > behind]
             return min(ahead) if ahead else out_lane
 
-        #   The come-about stands where its OWN CORNER wants it and not at the band's midpoint:
-        # a square turn at stock spends its radius on the tangent, and the collet's lead is the
-        # straight that has to survive in front of that. `_contents.nozzle_tray_y` cuts the band
-        # to exactly this sum, so the midpoint of it is half a corner.
-        climb_y = (aft_turn_lane(gate_stock) if plate is vk
-                   else min(gate[1] + contents.JUNCTION_LEG_LEAD + gate_stock,
-                            field_front(gate[0], plate.bb.ymax) - contents.PUMP_ROW_TURN))
-        # The climb stands on the gate's own column unless the METER stands in it — the run
-        # crosses the meter's band at the panel's stratum and the meter's crown reaches into it,
-        # so the column steps west of that body before it rises.
-        meter_w = f["digiten-flow"].bb.xmin - contents.PUMP_ROW_TURN
-        lane_x = min(gate[0], meter_w) if gate[0] + 6.35 / 2.0 > meter_w else gate[0]
         # The west leg runs at the panel's stratum, and the ASSE CHAIN stands in that stratum
         # across the west end of the field. A leg reaching a bulkhead behind the chain crosses
         # its column, so on that column the approach stands AFT of the chain rather than ahead
@@ -1228,6 +1220,21 @@ def _authored_runs() -> list:
         appr_y = tin[1] - gate_stock - contents.JUNCTION_LEG_LEAD
         if tin[0] - 6.35 / 2.0 < chain_bb.xmax:
             appr_y = max(appr_y, chain_bb.ymax + contents.PUMP_ROW_TURN)
+        #   The come-about stands where its OWN CORNER wants it: a square turn at stock spends
+        # its radius on the tangent, and the collet's lead is the straight that has to survive
+        # in front of that. `_contents.nozzle_tray_y` cuts the band to exactly this sum.
+        #   IT STANDS NO FURTHER AFT THAN THE APPROACH. Where a gate's own band reaches past
+        # that lane, the come-about and the approach are ONE turn, and the run climbs on the
+        # lane it crosses the field on.
+        climb_y = min(appr_y,
+                      aft_turn_lane(gate_stock) if plate is vk
+                      else min(gate[1] + contents.JUNCTION_LEG_LEAD + gate_stock,
+                               field_front(gate[0], plate.bb.ymax) - contents.PUMP_ROW_TURN))
+        # The climb stands on the gate's own column unless the METER stands in it — the run
+        # crosses the meter's band at the panel's stratum and the meter's crown reaches into it,
+        # so the column steps west of that body before it rises.
+        meter_w = f["digiten-flow"].bb.xmin - contents.PUMP_ROW_TURN
+        lane_x = min(gate[0], meter_w) if gate[0] + 6.35 / 2.0 > meter_w else gate[0]
         # THE TWO GATES DO NOT SHARE A STRATUM. Their columns stand one seat pitch apart
         # ([13.26](GATE_COLUMN_PITCH) mm — closer than a tube), their bulkheads stand a station
         # apart the other way, and the westmost of the two has to cross the whole field AFT of
@@ -1243,6 +1250,7 @@ def _authored_runs() -> list:
         # above or west of the two legs it spends there.
         cross_z = (panel_z if plate is nz
                    else nz.bb.zmax + 2.0 * contents.PUMP_ROW_TURN)
+        nzb_climb_y = climb_y
         legs = [(lane_x, climb_y, gate[2]),  # aft off the gate into its own climb band
                 (lane_x, climb_y, cross_z),  # and up the storey, clear of the field
                 (lane_x, appr_y, cross_z),   # aft over it on this run's own stratum
@@ -1350,7 +1358,7 @@ def _authored_runs() -> list:
     #   The descent column stands in the LANE BETWEEN THE BARB TIP AND THE PLATE'S WEST
     # FACE — `R.channel` puts it on that gap's midpoint, and the gap is the whole of what
     # the pump leaves the east lane at this depth, since the casting's own reach here is the
-    # barb and not the foot pad ([10](W4_LANE) mm). What the lean buys is the barb's
+    # barb and not the foot pad ([44.2](W4_LANE) mm). What the lean buys is the barb's
     # [17.7](W4_RISE) mm of Z and the half-bay of Y together, one leg carrying both, and its
     # two corners are the run's roundest: the crossing and the closing lead are what they
     # seat on.
@@ -1367,16 +1375,29 @@ def _authored_runs() -> list:
     # the east stand is forward of it and the aft row is behind it, so the band from the tip to
     # the core's east face is empty and the lead the corner wants is the only thing asking for
     # any of it. Clamped to that face, which is the one edge the band does have.
-    #   The band's one tenant is the NOZZLE-B GATE, which climbs on V-J-O's own column on its
-    # way to the panel; the descent stands a lane clear of that and takes the stock arc anyway,
-    # since east of that column the band is wider than the arc asks for.
+    #   WHAT THE CROSSING HOLDS OFF IS WHATEVER OF THE NOZZLE-B GATE STANDS IN THIS LANE, and
+    # that gate reaches into it two ways. Its PLATE is a body on the deck: where the lane meets
+    # the plate's own Y band the whole plate closes the lane, and the descent stands one tube
+    # and one floor east of its east face, the crossing spending its west travel forward of the
+    # plate on the leg that closes into the barb. Its CLIMB is a tube on V-J-O's column,
+    # standing between that collet and the lane the gate crosses the field on: where this lane
+    # meets that band, a `LINE_PITCH` off the column is centre-to-centre spacing, which leaves
+    # the two tubes one clearance floor apart on the straights and nothing at all once each
+    # turns — and both DO turn here, this one west off its lane and the gate onto its own climb
+    # — so the descent stands a pitch AND a tube's radius clear of it. Where the lane meets
+    # neither, the descent takes the stock arc off the barb and nothing else asks for the band.
     w4_stock = R.stock_min("water", vk.diam("V-K-O"))
-    #   A `LINE_PITCH` off that column is centre-to-centre spacing, which leaves the two tubes
-    # one clearance floor apart on the straights and nothing at all once each turns — and both
-    # DO turn here, this one west off its lane and the gate onto its own climb. So the descent
-    # stands a pitch AND a tube's radius clear, which is what the two arcs want.
+
+    def w4_clear_of(lo, hi, keep):
+        """`keep` where this lane falls in the band `[lo, hi]` a tube wide either side."""
+        return keep if lo - 6.35 / 2.0 <= w4_lane <= hi + 6.35 / 2.0 else suction[0] + w4_stock
+
+    gate_o = nzb.at("V-J-O")
     w4_x = min(max(suction[0] + w4_stock,
-                   vk.at("V-J-O")[0] + LINE_PITCH + 6.35 / 2.0),
+                   w4_clear_of(nzb.bb.ymin, nzb.bb.ymax,
+                               nzb.bb.xmax + contents.LINE_HUG + 6.35 / 2.0),
+                   w4_clear_of(gate_o[1], nzb_climb_y,
+                               gate_o[0] + LINE_PITCH + 6.35 / 2.0)),
                contents.CORE_EAST_FACE - 6.35 / 2.0)
     runs.append(R.bent(
         "water-4", "vk-tray-assembly.V-K-O",
