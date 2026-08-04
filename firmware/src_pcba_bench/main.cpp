@@ -136,24 +136,6 @@ static void cmdScan() {
 // The ESP32's own ~45k pull-ups can carry a short bus at 100 kHz. If devices answer
 // here but not under `scan`, the bus wiring reaches them and only the R19/R20 path to
 // 3V3 is missing; if nothing answers either way, IO21/IO22 do not reach the devices.
-static void cmdScanPullup() {
-    Serial.println("\n-- I2C scan on the ESP32's INTERNAL pull-ups --");
-    Wire.begin(PIN_SDA, PIN_SCL, 100000);
-    pinMode(PIN_SDA, INPUT_PULLUP);
-    pinMode(PIN_SCL, INPUT_PULLUP);
-    delay(5);
-    Serial.printf("  idle levels with internal pull-ups: SDA=%d SCL=%d %s\n",
-                  digitalRead(PIN_SDA), digitalRead(PIN_SCL),
-                  (digitalRead(PIN_SDA) && digitalRead(PIN_SCL)) ? "(both released — bus can be driven)"
-                                                                 : "(a line is held low — bus cannot clock)");
-    int found = 0;
-    for (uint8_t a = 0x08; a < 0x78; a++) {
-        Wire.beginTransmission(a);
-        if (Wire.endTransmission() == 0) { Serial.printf("  0x%02X answered\n", a); found++; }
-    }
-    Serial.printf("  %d device(s) on internal pull-ups\n", found);
-}
-
 // The WROOM's RF and the antenna that overhangs the board edge, checked without anyone
 // touching the board.
 static void cmdWifi() {
@@ -300,8 +282,44 @@ static void cmdBus() {
 static const int PIN_485_DI = 32;
 static const int PIN_485_RO = 34;
 
+// ── The J9 link ────────────────────────────────────────────────────────────
+// The same two pins the loopback bit-bangs also carry a real UART out to J9, which is
+// where the front-face display hangs. Serial1 owns them while the link is up, so the
+// two DC tests that drive IO32 by hand (`rs485`, `drive io32`) take the link down first
+// and bring it back after.
+//
+// Every byte we transmit comes straight back at us: /RE is tied to GND, so U7's receiver
+// never stops listening, and the same is true at the display's end. rs485Send() therefore
+// swallows exactly what it just sent — otherwise the console would answer its own replies
+// and never stop.
+static const long RS485_BAUD = 115200;
+static bool rs485Up = false;
+
+static void rs485Begin() {
+    Serial1.begin(RS485_BAUD, SERIAL_8N1, PIN_485_RO, PIN_485_DI);
+    rs485Up = true;
+}
+
+static void rs485End() {
+    Serial1.end();
+    rs485Up = false;
+}
+
+static void rs485Send(const char *s) {
+    if (!rs485Up) return;
+    size_t n = Serial1.write((const uint8_t *)s, strlen(s));
+    n += Serial1.write('\n');
+    Serial1.flush();                       // wait for the last bit to leave the driver
+    unsigned long t0 = millis();
+    while (n && millis() - t0 < 50) {      // ~87 us per byte at 115200; 50 ms is slack
+        if (Serial1.available()) { Serial1.read(); n--; }
+    }
+}
+
 static void cmdRs485() {
     Serial.println("\n-- RS485 loopback (IO32 DI -> U7 -> A/B -> U7 -> IO34 RO) --");
+    bool wasUp = rs485Up;
+    if (wasUp) rs485End();                 // the UART holds these pins; take them back
     pinMode(PIN_485_DI, OUTPUT);
     pinMode(PIN_485_RO, INPUT);
     int pass = 0, n = 0;
@@ -317,6 +335,7 @@ static void cmdRs485() {
     Serial.printf("  %d/%d echoed — %s\n", pass, n,
                   pass == n ? "U7, the pair, and both hauls carry" : "the loop does not close");
     Serial.println("  (J9 empty is fine; R6 terminates the pair on-board)");
+    if (wasUp) rs485Begin();
 }
 
 static void beep(int hz, int ms) {
@@ -478,6 +497,10 @@ static void cmdDrive(const String &line) {
     if (gpio < 0) { Serial.printf("unknown pin '%s'\n", which.c_str()); return; }
     bool actuator = (gpio == 2 || gpio == 4 || gpio == 17 || gpio == 19);
     if (actuator && millis() > armedUntil) { Serial.println("actuator pins are not armed — run 'arm' first"); return; }
+    if (gpio == PIN_485_DI && rs485Up) {   // metering DI means taking it back from the UART
+        rs485End();
+        Serial.println("  J9 link down — IO32 is a plain output now; 'rs485link' brings it back");
+    }
     pinMode(gpio, OUTPUT);
     digitalWrite(gpio, val);
     Serial.printf("\nIO%d driven %s\n", gpio, val ? "HIGH" : "LOW");
@@ -721,8 +744,9 @@ static void cmdHelp() {
     Serial.println("  info   chip / flash / reset reason");
     Serial.println("  scan   I2C bus scan");
     Serial.println("  bus    are R19/R20 visible from IO21/IO22 (J8 barrel junction)");
-    Serial.println("  scanpu I2C scan using the ESP32's internal pull-ups instead");
     Serial.println("  rs485  DI->U7->A/B->U7->RO loopback, entirely on-board");
+    Serial.println("  ping   send PING out on J9 — a live far end answers PONG");
+    Serial.println("  rs485link  bring the J9 link back after 'rs485' or 'drive io32'");
     Serial.println("  watch  restart the continuity probe (it also runs from boot)");
     Serial.println("  wifi   scan — the WROOM RF section and its antenna");
     Serial.println("  interlock  drive IO19 high so J5.IO19 carries U15's verdict");
@@ -786,6 +810,10 @@ void setup() {
     Wire.begin(PIN_SDA, PIN_SCL, 100000);
     Serial.println("returned");
 
+    rs485Begin();
+    Serial.printf("boot: J9 link up on IO32/IO34 @ %ld — a line arriving there runs a command\n",
+                  RS485_BAUD);
+
     // Three notes: the board is up, and the IO13 -> R5 -> Q1 -> U8 chain carries.
     for (int i = 0; i < 3; i++) { beep(PROBE_HZ, PROBE_MS); delay(PROBE_MS); }
 
@@ -793,6 +821,66 @@ void setup() {
     cmdHelp();
     pumpBootRun();  // also needs nobody at the board, and the room hears the result
     probeBegin();
+}
+
+// One command table for both sources. Whatever a command prints goes to the USB console
+// either way — that is where a human is watching, and the display has no use for the
+// pump's stage log. What goes back over J9 is a single line saying whether the command
+// was known, which is all the far end needs to light a button green.
+static bool dispatch(const String &line) {
+    if      (line == "all")  cmdAll();
+    else if (line == "info") cmdInfo();
+    else if (line == "scan") cmdScan();
+    else if (line == "rtc")  cmdRtc();
+    else if (line == "bus")  cmdBus();
+    else if (line == "rs485") cmdRs485();
+    else if (line == "rs485link") { if (!rs485Up) rs485Begin(); Serial.println("\nJ9 link up on IO32/IO34 @ 115200"); }
+    else if (line == "ping") { rs485Send("PING"); Serial.println("\nPING sent on J9 — a live far end answers PONG"); }
+    else if (line == "watch") probeBegin();
+    else if (line == "wifi")  cmdWifi();
+    else if (line == "interlock") cmdInterlock();
+    else if (line == "arm")   cmdArm();
+    else if (line.startsWith("drive ")) cmdDrive(line);
+    else if (line == "pump" || line.startsWith("pump ")) cmdPump(line);
+    else if (line == "mcp")  { probeMcp(ADDR_MCP_A, "U2 north"); probeMcp(ADDR_MCP_B, "U3 south"); }
+    else if (line == "in")   cmdInputs();
+    else if (line == "walk") cmdLedWalk();
+    else if (line == "buzz") cmdBuzz();
+    else if (line == "help") cmdHelp();
+    else return false;
+    return true;
+}
+
+// A line off J9 runs the same table the console does. `ping` answers `PONG`, so the far
+// end can prove the link without actuating anything.
+static void rs485Poll() {
+    static String line;
+    while (rs485Up && Serial1.available()) {
+        char c = Serial1.read();
+        if (c == '\n' || c == '\r') {
+            line.trim();
+            if (line.length()) {
+                Serial.printf("\n[J9] %s\n", line.c_str());
+                // PING/PONG never reach the table: answering a ping by dispatching it
+                // would send another ping, and the two ends would volley forever.
+                if (line == "PING" || line == "ping") {
+                    rs485Send("PONG");
+                } else if (line == "PONG") {
+                    Serial.println("  the far end is alive");
+                } else {
+                    if (probeOn) { probeOn = false; probeRollCall(); }
+                    digitalWrite(PIN_LED_ACT, HIGH);
+                    bool known = dispatch(line);
+                    digitalWrite(PIN_LED_ACT, LOW);
+                    rs485Send(((known ? String("OK:") : String("ERR:")) + line).c_str());
+                }
+                Serial.println("\n> ");
+            }
+            line = "";
+        } else if (line.length() < 64) {
+            line += c;
+        }
+    }
 }
 
 void loop() {
@@ -805,6 +893,8 @@ void loop() {
 
     if (probeOn) probePoll();
 
+    rs485Poll();
+
     static String line;
     while (Serial.available()) {
         char c = Serial.read();
@@ -813,25 +903,7 @@ void loop() {
             line.trim();
             if (line.length()) {
                 digitalWrite(PIN_LED_ACT, HIGH);
-                if      (line == "all")  cmdAll();
-                else if (line == "info") cmdInfo();
-                else if (line == "scan") cmdScan();
-                else if (line == "rtc")  cmdRtc();
-                else if (line == "bus")  cmdBus();
-                else if (line == "rs485") cmdRs485();
-                else if (line == "watch") probeBegin();
-                else if (line == "wifi")  cmdWifi();
-                else if (line == "interlock") cmdInterlock();
-                else if (line == "arm")   cmdArm();
-                else if (line.startsWith("drive ")) cmdDrive(line);
-                else if (line == "pump" || line.startsWith("pump ")) cmdPump(line);
-                else if (line == "scanpu") cmdScanPullup();
-                else if (line == "mcp")  { probeMcp(ADDR_MCP_A, "U2 north"); probeMcp(ADDR_MCP_B, "U3 south"); }
-                else if (line == "in")   cmdInputs();
-                else if (line == "walk") cmdLedWalk();
-                else if (line == "buzz") cmdBuzz();
-                else if (line == "help") cmdHelp();
-                else Serial.printf("unknown: '%s' (try 'help')\n", line.c_str());
+                if (!dispatch(line)) Serial.printf("unknown: '%s' (try 'help')\n", line.c_str());
                 digitalWrite(PIN_LED_ACT, LOW);
                 Serial.println("\n> ");
                 line = "";
