@@ -9,6 +9,8 @@
 #include "fw_version.h"
 #include "proto_link.h"
 #include <driver/gpio.h>
+#include "soc/gpio_reg.h"
+#include "soc/io_mux_reg.h"
 
 // Animated loading logo — the 16-frame glass/bubbles loop (the same animation
 // the config display uses), rendered natively at 360x360 RGB565 by
@@ -529,6 +531,10 @@ static StatusPayload ctrlStatus = {};
 static unsigned long ctrlStatusMs = 0;
 static unsigned long statusAskedMs = 0;
 
+static uint32_t linkReinits = 0;
+static uint8_t  unanswered = 0;      // status polls sent since a frame last arrived
+static uint32_t padMux[2] = {0, 0}, padOut[2] = {0, 0};
+
 // A prime hold: the finger is down on the pad and ticks are going out under it. holdAckMs
 // stays 0 until MSG_RESP_PRIME{RUNNING} lands, which is the difference between a motor
 // turning and a frame sent into a bus with nothing on it.
@@ -546,6 +552,8 @@ static void j9OnMessage(HdlcLink *link, const uint8_t *frame, uint16_t len) {
   const uint8_t *payload = msgPayload(frame);
   uint16_t plen = msgPayloadLen(len);
   char buf[64];
+
+  unanswered = 0;   // anything arriving says the far end is still hearing us
 
   if (type == MSG_RESP_PUMP_DONE && plen >= sizeof(ResponsePayload)) {
     Serial.printf("[J9] MSG_RESP_PUMP_DONE ch=%u\n", payload[0]);
@@ -605,6 +613,49 @@ static void j9Begin() {
   j9.onMessage = j9OnMessage;
   j9.begin(Serial1, "J9");
   Serial.printf("RS485: rx=GPIO%d tx=GPIO%d @ %d\n", rs485Rx, rs485Tx, RS485_BAUD);
+}
+
+// ── The link's own watchdog ───────────────────────────────────────────────
+// Measured on the bench: mid-session the base's HDLC stops seeing anything from this board
+// while bytesTx keeps climbing 8 per frame and base→display keeps arriving; the base's own
+// loopback still reads 6/6. A gpio_reset_pin on both pads and a Serial1 restart recovers
+// it, and the first frame or two after that recovery are still lost.
+//
+// GPIO43/44 are U0TXD/U0RXD. padWatch() samples the IO MUX and GPIO matrix entries for
+// both and prints when either changes, which names whatever reclaims them.
+static const uint32_t kPadMuxReg[2] = {IO_MUX_GPIO43_REG, IO_MUX_GPIO44_REG};
+static const uint32_t kPadOutReg[2] = {GPIO_FUNC43_OUT_SEL_CFG_REG, GPIO_FUNC44_OUT_SEL_CFG_REG};
+
+static void padSample(uint32_t *mux, uint32_t *out) {
+  for (int i = 0; i < 2; i++) {
+    mux[i] = REG_READ(kPadMuxReg[i]);
+    out[i] = REG_READ(kPadOutReg[i]);
+  }
+}
+
+static void j9Reinit(const char *why) {
+  linkReinits++;
+  Serial.printf("[J9] reinit #%lu (%s)\n", (unsigned long)linkReinits, why);
+  j9.end();
+  Serial1.end();
+  j9Begin();
+  padSample(padMux, padOut);
+  unanswered = 0;
+}
+
+static void padWatch() {
+  uint32_t mux[2], out[2];
+  padSample(mux, out);
+  for (int i = 0; i < 2; i++) {
+    if (mux[i] != padMux[i] || out[i] != padOut[i]) {
+      Serial.printf("[J9] GPIO%d re-routed: mux %08lX -> %08lX, outsel %08lX -> %08lX\n",
+                    43 + i,
+                    (unsigned long)padMux[i], (unsigned long)mux[i],
+                    (unsigned long)padOut[i], (unsigned long)out[i]);
+      padMux[i] = mux[i];
+      padOut[i] = out[i];
+    }
+  }
 }
 
 // One MSG_PUMP_RUN naming the channel and the run length. The base answers
@@ -776,11 +827,14 @@ static void primeHoldEnd() {
                 flavorSel, millis() - holdStartMs);
 }
 
+static bool holdRetried = false;
+
 static void primeHoldBegin() {
   if (holding) return;
   holding = true;
   holdStartMs = holdTickMs = millis();
   holdAckMs = 0;
+  holdRetried = false;
   primeSend(MSG_PRIME_START);
   lv_label_set_text(primePadLbl, "PRIMING");
   lv_obj_set_style_bg_color(primePad, lv_color_hex(COL_GOOD), 0);
@@ -1213,11 +1267,13 @@ static void processTextLine(const char *line) {
   if (strcmp(line, "GET_VERSION") == 0) {
     Serial.printf("VERSION:FRONT=%s\n", FW_VERSION);
   } else if (strcmp(line, "GET_DIAG") == 0) {
-    Serial.printf("DIAG:page=%d,holding=%d,bridged=%lu,stale=%lu,sendErr=%d,"
+    Serial.printf("DIAG:page=%d,holding=%d,reinits=%lu,unanswered=%u,"
+                  "bridged=%lu,stale=%lu,sendErr=%d,"
                   "heap=%lu,minHeap=%lu,psram=%lu,freePsram=%lu,bl=%d,"
                   "frame=%u,gt911=0x%02X,touch=%lu,lastXY=%u/%u,idle=%d,"
                   "link=%s,maxLoopMs=%lu,uptime=%lus\n",
                   (int)activePage, holding ? 1 : 0,
+                  (unsigned long)linkReinits, (unsigned)unanswered,
                   (unsigned long)touchBridged, (unsigned long)gt911Stale, lastSendErr,
                   (unsigned long)ESP.getFreeHeap(),
                   (unsigned long)ESP.getMinFreeHeap(),
@@ -1441,16 +1497,27 @@ void loop() {
       snprintf(b, sizeof(b), "%lu.%lu s", el / 1000, (el % 1000) / 100);
       lv_label_set_text(primeElapsed, b);
       lv_bar_set_value(primeBar, (int32_t)(el > PRIME_MAX_MS ? PRIME_MAX_MS : el), LV_ANIM_OFF);
-      if (!holdAckMs && el > 700) setPrimeMsg("no answer from the controller");
+      // A START that goes unanswered is this board's TX having stopped reaching the wire.
+      // One reset of the pads, one more START, and the hold carries on under the finger.
+      if (!holdAckMs && el > 700 && !holdRetried) {
+        holdRetried = true;
+        j9Reinit("prime start unanswered");
+        primeSend(MSG_PRIME_START);
+        setPrimeMsg("link reset — retrying");
+      }
+      if (!holdAckMs && el > 1800) setPrimeMsg("no answer from the controller");
     }
   }
 
   // The status request is the only traffic this board starts on its own: every 2 s while
-  // STATUS is up, every 10 s otherwise, and never while a hold owns the pair.
+  // STATUS is up, every 10 s otherwise, and never while a hold owns the pair. Three in a
+  // row with nothing back is the same failure, found before a finger meets the glass.
   if (uiReady && !screenIdle && !holding) {
     uint32_t every = (activePage == PAGE_STATUS) ? 2000 : 10000;
     if (millis() - statusAskedMs >= every) {
       statusAskedMs = millis();
+      if (unanswered >= 3) j9Reinit("3 status polls unanswered");
+      else                 unanswered++;
       j9.send(MSG_STATUS_REQ, nullptr, 0);
     }
   }
@@ -1460,6 +1527,7 @@ void loop() {
     static unsigned long lastSlow = 0;
     if (millis() - lastSlow >= 1000) {
       lastSlow = millis();
+      padWatch();
       refreshLinkDot();
       if (activePage == PAGE_STATUS) refreshStatusPage();
       if (activePage == PAGE_SETUP && setupTouch) {
