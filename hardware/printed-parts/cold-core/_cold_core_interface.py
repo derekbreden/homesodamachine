@@ -389,7 +389,7 @@ deck_mounts = {
     #                        centre            pitch_x pitch_y  proud  seat  screw
     "bag-b-tray":  DeckMount((105.25,  17.02),   0.00,  49.50,   0.0,  9.00, 16.0),
     "vk-tray":     DeckMount(( 21.30,  44.75),  49.50,   0.00,   0.0,  9.00, 16.0),
-    "nozzle-tray": DeckMount((  65.98, -37.51),   0.00,  49.50,   0.0,  9.00, 16.0),
+    "nozzle-tray": DeckMount((  65.62, -37.51),   0.00,  49.50,   0.0,  9.00, 16.0),
 }
 
 
