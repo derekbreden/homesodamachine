@@ -494,11 +494,11 @@ ASSE_INLET_HOP = 10.0        # the least tube between the panel's mouth and the 
 # placed chain's underside.
 DRIP_PAN_X, DRIP_PAN_Y = _pan.PAN_X, _pan.PAN_Y
 # V-K — the fill/shutoff solenoid, between the split and the SeaFlo suction — is not posed
-# here. It is the same Beduan the manifold's trays carry, and it rides a plate of its OWN
-# (`vk-tray-assembly`, `VK_TRAY_COLLETS`) on the aft stand's middle row; `vk_terminal` reads its
-# two collets off that plate. It takes the stand's MIDDLE row, and the SeaFlo's front face is
-# read off it (`seaflo_front_y`) — so the pump stands on the middle row's own plane, with a row
-# of the stand ahead of the casting and a row behind it.
+# here. It is the same Beduan the manifold's trays carry, and it rides a ONE-SEAT plate of its
+# own (`vk-tray-assembly`, `VK_TRAY_COLLETS`) on the aft stand's middle row; `vk_terminal` reads
+# its two collets off that plate. It takes the stand's MIDDLE row, and the SeaFlo's front face
+# is read off it (`seaflo_front_y`) — so the pump stands on the middle row's own plane, with a
+# row of the stand ahead of the casting and a row behind it.
 
 # The split hangs in the fittings loft under the chain it is fed from, on the chain's OWN
 # PLANE, with its run down the lane and its BRANCH HANGING DOWN. Two turns say that: the roll
@@ -1080,6 +1080,7 @@ COLORS = {
     "bag-b-tray-assembly":  cq.Color(0.85, 0.78, 0.62),
     "divider-y-h":          cq.Color(0.85, 0.85, 0.88),
     "nozzle-tray-assembly": cq.Color(0.85, 0.78, 0.62),
+    "nozzle-b-tray-assembly": cq.Color(0.85, 0.78, 0.62),
     "vk-tray-assembly": cq.Color(0.85, 0.78, 0.62),
     "pump-a":               cq.Color(0.55, 0.35, 0.55),
     "tee-y-f":              cq.Color(0.92, 0.92, 0.92),
@@ -1524,12 +1525,14 @@ def _build():
         pack.place(name, _load(TRAY_ASSEMBLY), yaw=TRAY_YAW, org=tray_pos)
     # --- Zone C's second stand: both pumps under the head column's own lane, and the AFT STAND
     # on the water deck carrying the rest of channel B — the bag-B pair with Y-H ahead of it,
-    # V-K on the middle row, the nozzle gates behind, and the two tees in the bays. Three plates
-    # off ONE part, so the tap-water fill valve has this stand's mount rather than a cradle of
-    # its own and every row's width is the same figure.
+    # and three LONE VALVES each on the family's one-seat plate (`single_valve_tray`): the
+    # tap-water fill valve and the two nozzle gates. The bag pair is the one pair here, so it
+    # is the one two-seat plate, and each of the other three is placed by its OWN runs.
     pack.place("bag-b-tray-assembly", _load(TRAY_ASSEMBLY), yaw=BAG_B_TRAY_YAW,
                org=bag_b_tray_pos())
-    pack.place("vk-tray-assembly", _load(TRAY_ASSEMBLY), yaw=TRAY_YAW, org=vk_tray_pos())
+    pack.place("vk-tray-assembly", _load(TRAY1_ASSEMBLY), yaw=TRAY_YAW, org=vk_tray_pos())
+    pack.place("nozzle-b-tray-assembly", _load(TRAY1_ASSEMBLY), yaw=TRAY_YAW,
+               org=nozzle_b_tray_pos())
     pack.place("nozzle-tray-assembly", _load(TRAY1_ASSEMBLY), yaw=NOZZLE_TRAY_YAW,
                org=nozzle_tray_pos())
     pack.place("divider-y-g", _load(Y_DIVIDER), turn=DIVIDER_G_TURNS, org=y_g_pos())
@@ -1695,6 +1698,7 @@ def deck_mount(name):
 # to them by the scorecard's `deck-mounts-land` check, whose fail row carries the stations
 # a moved tray wants.
 TRAY_MOUNTS = {"bag-b-tray": "bag-b-tray-assembly", "vk-tray": "vk-tray-assembly",
+               "nozzle-b-tray": "nozzle-b-tray-assembly",
                "nozzle-tray": "nozzle-tray-assembly"}
 
 
@@ -1703,8 +1707,9 @@ def tray_mount_holes(mount):
 
     The tray module owns the stations (`two_valve_tray.mount_stations`) and the seat the pack
     gave the plate carries them out — so the holes follow the tray wherever its fences send it,
-    and the cap's table is what has to keep up. Every row of the stand is the same part, so one
-    station pattern answers for all three."""
+    and the cap's table is what has to keep up. The one-seat plate carries the family's ears at
+    the family's `ear_y` (`single_valve_tray`), so one station pattern answers for every row of
+    the stand whichever part the row is."""
     body = TRAY_MOUNTS[mount]
     return tuple(packed().point(body, (x, y, 0.0))[:2] for x, y in _tray.mount_stations())
 
@@ -2710,7 +2715,7 @@ def seaflo_front_y():
 
 
 def vk_tray_y():
-    """The V-K/V-J plate's origin in Y — the east lane's FORWARD row, standing on the plane its
+    """The middle row's origin in Y — the east lane's FORWARD row, standing on the plane its
     own junction opens on.
 
     FORWARD is where this lane's slack belongs. These rows have a junction plane to answer to
@@ -2881,10 +2886,11 @@ def bag_b_east_limit():
     band between the two: a `LINE_PITCH` off the fall, and the collet's own
     `JUNCTION_LEG_LEAD` of straight before anything turns. The flank west of the plate wants
     more travel than this; the deck is what there is."""
-    # Read off the row's own seat rather than a placed plate: V-K's row is packed onto the
+    # Read off the row's own seat rather than a placed plate: the middle row packs onto the
     # SeaFlo's flank (`aft_tray_x`) and this pair is seated before it, so the column is the
-    # stand's west face and half a seat pitch, which stands before either plate is in.
-    return (aft_tray_x() + _tray.half_x + _tray.pitch / 2.0) - LINE_PITCH - JUNCTION_LEG_LEAD
+    # stand's west face, one one-seat plate's reach and one seat pitch — which stands before
+    # either plate is in.
+    return (aft_tray_x() + _tray1.half_x + _tray.pitch) - LINE_PITCH - JUNCTION_LEG_LEAD
 
 
 def y_h_stem_x():
@@ -2930,10 +2936,43 @@ def vk_tray_pos():
     bag-B pair, on the west face all three rows share.
 
     Its outlet faces the SeaFlo's suction barb east of the plate, and the pump's own front face
-    is read off that collet plane (`seaflo_front_y`). Its second seat is unfilled: the plate is
-    the tray family's two-valve part and V-K is one valve."""
+    is read off that collet plane (`seaflo_front_y`). One valve, one seat, the family's one-seat
+    part — so the plate's own reach either side of the seat is all it takes across the machine."""
     _bx, _y, z = bag_b_tray_pos()
-    return (aft_tray_x() + _tray.half_x, vk_tray_y(), z)
+    return (nozzle_b_tray_pos()[0] + _tray.pitch, vk_tray_y(), z)
+
+
+def nozzle_b_tray_pos():
+    """The nozzle-B gate's plate's own origin in world — the middle row's WEST column, back at
+    the panel its outlet feeds.
+
+    It packs west onto the SeaFlo's own flank like every row of this stand (`aft_tray_x`), and
+    the one-seat plate's reach to that face is its own half-length. Y is `nozzle_b_tray_y`."""
+    _bx, _y, z = bag_b_tray_pos()
+    return (aft_tray_x() + _tray1.half_x, nozzle_b_tray_y(), z)
+
+
+def nozzle_b_tray_y():
+    """The nozzle-B gate's plate's origin in Y — its OUTLET standing where the come-about
+    behind it IS its own approach to the panel.
+
+    The outlet faces aft at `bulkhead-flavor-b`, and the run between them spends the band
+    behind this plate on one turn: aft off the collet, up its whole storey, and west across
+    the electronics field on the lane it closes into the bulkhead on. That lane is the ASSE
+    CHAIN'S OWN AFT FACE a `PUMP_ROW_TURN` clear — the chain stands in the panel's stratum
+    across this bulkhead's column, so the approach comes about aft of the chain, which is the
+    aft of the two planes the closing straight could take. One `JUNCTION_LEG_LEAD` and one
+    stock arc forward of that lane is where the come-about and the approach are ONE turn, and
+    the plate's own `port_half` stands its origin ahead of the collet.
+
+    Forward of here the two planes stand apart and the band carries both turns; aft of here
+    the leg between the collet and the lane is shorter than the arc it seats.
+
+    Restated on the pack's side rather than read back from `_lines`, for `LLDPE_BEND`'s own
+    reason — a pose that read the routing module would be a cycle in the build order."""
+    appr = max(bulkhead_water_mouth()[1] - LLDPE_STOCK_BEND - JUNCTION_LEG_LEAD,
+               packed().box("asse1022-assembly").ymax + PUMP_ROW_TURN)
+    return appr - JUNCTION_LEG_LEAD - LLDPE_STOCK_BEND - _tray1.port_half
 
 
 def nozzle_gate_in_x():
@@ -2996,18 +3035,21 @@ BAG_B_TRAY_COLLETS = {
 NOZZLE_TRAY_COLLETS = {
     "V-G-I": "xc-yn", "V-G-O": "xc-yp",
 }
-# The middle row's two seats, west to east: V-J on the west, V-K on the east.
-#   V-J's inlet faces V-I-I across the bay, on the bag pair's aft face and on one column with
-# it; Y-G stands between the two collets it feeds and its run passes straight through. V-K's
-# outlet and the SeaFlo's suction barb share the plane `vk_tray_y` opens on, a lane apart in
-# X, and `water-4` crosses the bay behind the plate to join them.
+# V-K, the tap-water fill valve, ALONE on the one-seat plate. Its outlet and the SeaFlo's
+# suction barb share the plane `vk_tray_y` opens on and `water-4` is the crossing between them;
+# its inlet faces forward at the fall `water-3` makes out of the fittings loft.
+VK_TRAY_COLLETS = {
+    "V-K-I": "xc-yn", "V-K-O": "xc-yp",
+}
+# The nozzle-B gate, V-J, alone on its own one-seat plate — the twin of the nozzle-A gate's,
+# and clocked the same way its runs are: the inlet faces FORWARD at the bay Y-G stands in, the
+# outlet AFT at the panel field its bulkhead is in.
 #   Both flavor gates stand EAST of both flavor bulkheads: V-J gates nozzle B at
 # `bulkhead-flavor-b`, V-G gates nozzle A at `bulkhead-flavor-a`, and all four panel stations
 # stand west of the gate that feeds them. `fluid-18` and `fluid-28` each cross the aft-east
 # field the electronics block stands in.
-VK_TRAY_COLLETS = {
-    "V-J-I": "xn-yn", "V-J-O": "xn-yp",
-    "V-K-I": "xp-yn", "V-K-O": "xp-yp",
+NOZZLE_B_TRAY_COLLETS = {
+    "V-J-I": "xc-yn", "V-J-O": "xc-yp",
 }
 
 
@@ -3020,17 +3062,21 @@ def nozzle_tray_port(name):
 
 
 def vk_tray_port(name):
-    return _tray_port("vk-tray-assembly", name, VK_TRAY_COLLETS)
+    return _tray_port("vk-tray-assembly", name, VK_TRAY_COLLETS, _tray1)
+
+
+def nozzle_b_tray_port(name):
+    return _tray_port("nozzle-b-tray-assembly", name, NOZZLE_B_TRAY_COLLETS, _tray1)
 
 
 def aft_stand_east_face():
     """The east wall of the slot between the aft stand and the SeaFlo's flank — V-K's seated
-    valve, whose declared X keep-out is the seat pitch itself.
+    valve, whose declared X keep-out is its own cell's reach.
 
-    The plate under it is a floor one `two_valve_tray.top_z` tall and the slot is a corridor
+    The plate under it is a floor one `single_valve_tray.top_z` tall and the slot is a corridor
     for the whole height of the stand, so this face is the one a run in the slot holds off.
     Read off the seat, so it follows a re-clocked plate."""
-    return vk_tray_port("V-K-O")[0][0] + _tray.pitch / 2.0
+    return vk_tray_port("V-K-O")[0][0] + _tray1.half_x
 
 
 def y_h_pos():

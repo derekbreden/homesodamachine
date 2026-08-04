@@ -28,12 +28,12 @@ carries one valve gets this part instead.
 The aft stand's middle row, carrying V-K — the tap-water fill/shutoff solenoid
 between the water split and the SeaFlo's suction.
 
-The plate's saving over a two-valve is all in X, and that row does not need X:
-the stand's three rows share one west face and the widest of them sets the lane.
-So the row is turned a quarter turn about Z, which spends the saving in **Y**
-instead — the axis the electronics shelf behind it is competing for. Turned, its
-collets face ±X rather than ±Y, and `_contents.VK_TRAY_COLLETS` names them on
-the `xc` seat.
+The enclosure's aft stand carries three of these — V-K on the middle row and
+the two nozzle gates — each placed by its own two runs. Flat, the plate spends
+its saving over a two-valve in **X** and its collets face ±Y, which is how all
+three stand: `_contents.VK_TRAY_COLLETS`, `NOZZLE_B_TRAY_COLLETS` and
+`NOZZLE_TRAY_COLLETS` each name one seat's pair on the `xc` seat. A row turned a
+quarter turn about Z spends the saving in **Y** instead, its collets on ±X.
 
 `xc` is the same key the three-valve plate's middle seat carries, so a valve
 moved between the two keeps its collet names.

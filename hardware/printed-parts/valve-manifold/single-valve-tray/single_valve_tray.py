@@ -11,9 +11,9 @@ renders a valve that is not in the machine and not in the BOM. A row that
 carries one valve gets this part.
 
 Its plate is [38.25](PLATE_X) x [40](PLATE_Y), against the two-valve's 72.5 x 40.
-The saving is in X, so a row that is turned a quarter turn about Z spends it in
-Y instead — which is what the aft stand's V-K row does, to leave the electronics
-their depth.
+The saving is in X. Three of these stand on the enclosure's aft stand — the
+tap-water fill valve and the two nozzle gates — and a row turned a quarter turn
+about Z spends that saving in Y instead, its collets facing ±X.
 
 Frame: the seat on the origin, ports out both ±Y faces, plate top at
 `tray_top_z`. Same as every other tray in the family.

@@ -371,24 +371,25 @@ deck_mount_cap_gap = 1.5
 #   The GROUND STUD stands alone in the aft-east corner, which is also where its three earths
 # are: the hub's inlet lug, the brick's chassis, and the relay's own row. It is the only mount
 # here tall enough to want a lug fan.
-#   The MANIFOLD'S AFT STAND takes the last two rows — the loft's two valve trays, each a
+#   The MANIFOLD'S AFT STAND takes the last four rows — the loft's valve trays, each a
 # printed plate flat on the lid's outer face like the PSU's brick, bolted down through the
 # mount ears its own module carries (`two_valve_tray.mount_stations`,
-# `three_valve_tray.mount_stations`). These two rows read the OTHER way from every row
-# above: a module is placed BY its station, but the trays are placed by the enclosure's
-# own fences — the bag-B pair on the rear column's priced face, the wide plate one bay
-# behind it — and these stations stand where the placed ears land. The figures are that
-# derivation's result, not a choice; the enclosure's `deck-mounts-land` check re-derives
-# them from the placed trays every build and fails with the row a moved tray wants, so a
-# drift cannot land silently. The bag-B pair's west cell overhangs the core into the −X
-# rib band, past the cap's cavity wall — its two ears ride the tray's centreline, the one
-# column of it the cavity can answer; the wide plate's four stand midway between its
-# cells. Both plates seat 9 mm of PETG under the head, so the stations take an M3 × 16.
+# `single_valve_tray.mount_stations`). Every ear in the family stands at the same `ear_y` on
+# the plate's own centreline, so one station pattern answers for all four. These rows read
+# the OTHER way from every row above: a module is placed BY its station, but the trays are
+# placed by the enclosure's own fences — the bag-B pair on the rear column's priced face, and
+# each lone valve by its own two runs — and these stations stand where the placed ears land.
+# The figures are that derivation's result, not a choice; the enclosure's `deck-mounts-land`
+# check re-derives them from the placed trays every build and fails with the row a moved tray
+# wants, so a drift cannot land silently. The bag-B pair's west cell overhangs the core into
+# the −X rib band, past the cap's cavity wall. Every plate seats 9 mm of PETG under the head,
+# so the stations take an M3 × 16.
 DeckMount = namedtuple("DeckMount", "centre pitch_x pitch_y standoff seat screw")
 deck_mounts = {
     #                        centre            pitch_x pitch_y  proud  seat  screw
     "bag-b-tray":  DeckMount((105.25,  17.02),   0.00,  49.50,   0.0,  9.00, 16.0),
-    "vk-tray":     DeckMount((  4.00,  44.75),  49.50,   0.00,   0.0,  9.00, 16.0),
+    "vk-tray":     DeckMount((  4.00,  61.87),  49.50,   0.00,   0.0,  9.00, 16.0),
+    "nozzle-b-tray": DeckMount((-59.48, 27.62), 49.50,   0.00,   0.0,  9.00, 16.0),
     "nozzle-tray": DeckMount((  65.62, -37.51),   0.00,  49.50,   0.0,  9.00, 16.0),
 }
 
