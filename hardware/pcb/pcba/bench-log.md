@@ -116,6 +116,10 @@ new.
 3. **D2 rotated**: anode to 3V3, cathode to R10. IO15/MTDO idles HIGH, so the ROM boot log
    prints and ERR idles dark. **Firmware lights ERR by driving IO15 LOW** — which is what
    the bench firmware already does, so ERR is correct on batch 2 and inverted on batch 1.
+4. **U13 is a CH340B (`C81010`), not a CH340C** — both CH340C codes sat pre-order-only at
+   order time. Every pin the board connects is identical; the two NC pins differ (B: RST,
+   TNOW) and stay unconnected. Same CH34x driver, same 460 kbit/s flash path. The DTR lane
+   moved 0.13 south with the B land's deeper pads ([`imports/CH340B.tsx`](imports/CH340B.tsx)).
 
 First things to check on a batch-2 board, in order: does the ROM boot log print (proves
 #3); does `scan` find 0x20, 0x21, 0x68 (proves #1 and #2); does esptool flash with no
