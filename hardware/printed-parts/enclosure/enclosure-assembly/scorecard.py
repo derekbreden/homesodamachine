@@ -1667,6 +1667,22 @@ def bend_radii(runs) -> list[dict]:
     does not own, and every run whose stub is one bend radius (`_routing.STUB`) would report a
     ceiling exactly at the radius it is already drawn at.
 
+    HOLDING THE LEADS OUT CUTS BOTH WAYS, and a high `reach` on a run whose worst corner sits
+    on an END leg is the one reading to distrust. `reach` says the interior is roomy; it says
+    nothing about whether that end leg can grow, and there are three reasons it may not:
+
+      - the leg is a `route` stub aimed at a constraint that stands nearer than the reach, so
+        lengthening it OVERSHOOTS and folds the corner back on itself (`_routing.BLOCKED`
+        names this: a corner turning 180° between a leg and the overshoot it came back on);
+      - the leg is a `route` approach and the path stands off the port face by less than the
+        stub asks, so the close backs out and comes straight back in;
+      - the run is `bent` with no `lead`, in which case there IS no stub — the first and last
+        legs are the hand-placed geometry itself, and their length is a station's to change.
+
+    So a `reach` A row is a candidate, not a fix. What tells the two apart is whether the end
+    leg is a reach the author picks or a distance the pack sets, and that is read at the call
+    in `_lines.py`, not off this row.
+
     `reach` bounds the CENTRELINE and nothing else. A run redrawn at its reach sweeps a wider
     tube through different air, so it is a radius the waypoints seat, not one the pack has room
     for — `lines-clear` and the routed clearances are what answer that, after the edit.
