@@ -4,12 +4,13 @@
 //   * PARTS — hardware/ledger/bom.md, keyed by the hidden <!--@TAG--> category
 //     marker and the line cost on each data row (the same tags hardware/scripts/
 //     _bom_categories.py owns and the pre-commit gate enforces).
-//   * LABOR — hardware/ledger/labor.md, keyed by section, carrying two
-//     attended-minute columns per operation (groove / today). Section subtotals
-//     there are written by hardware/scripts/_labor_totals.py; this view sums the
-//     operation rows itself rather than reading those, so the page can't inherit
-//     a stale total.
-// Both server-render into a themed page inside the shared shell.
+//   * LABOR — hardware/ledger/labor.md, keyed by section, carrying an
+//     attended-minute estimate per operation and the hourly rate they're priced
+//     at. Section subtotals there are written by hardware/scripts/
+//     _labor_totals.py; this view sums the operation rows itself rather than
+//     reading those, so the page can't inherit a stale total.
+// The two are added together once, in the topline, and server-render into a
+// themed page inside the shared shell.
 //
 // Dev-gated in the public nav like the other engineering surfaces — see
 // shell.js renderNav / BASE_CSS (a[data-nav="cost"]). The route itself always
@@ -155,21 +156,24 @@ export function readCostRollup(hardwareDir) {
   return { total, rowCount, cats };
 }
 
-// Parse labor.md → { groove, today, opCount, cats: [{ n, name, groove, today,
-// ops: [{ name, cards, groove, today }] }] }, sorted by groove minutes
-// descending. A row's two minute columns are its last two cells — Groove
-// (2nd-last), Today (last) — matching _labor_totals.py's parse. The bold inline
+// Parse labor.md → { minutes, rate, opCount, cats: [{ n, name, minutes,
+// ops: [{ name, cards, minutes }] }] }, sorted by minutes descending. A row's
+// estimate is its last cell, matching _labor_totals.py's parse. The bold inline
 // subtotal row is skipped along with headers and separators, so what the page
-// shows is always the sum of the operations under it.
+// shows is always the sum of the operations under it. The hourly rate comes off
+// the ledger's own [$100](LABOR_RATE) marker — the view never carries a second
+// copy of a number the ledger sets.
 export function readLaborRollup(hardwareDir) {
   const text = fs.readFileSync(path.join(hardwareDir, "ledger", "labor.md"), "utf-8");
+  const rm = text.match(/\[\$([0-9][0-9,]*(?:\.[0-9]+)?)\]\(LABOR_RATE\)/);
+  const rate = rm ? parseFloat(rm[1].replace(/,/g, "")) : 0;
   const cats = [];
   let cat = null;
 
   for (const raw of text.split("\n")) {
     if (raw.startsWith("## ")) {
       const m = raw.match(/^## (\d+)\.\s*(.+?)\s*$/);
-      cat = m ? { n: parseInt(m[1], 10), name: m[2], groove: 0, today: 0, ops: [] } : null;
+      cat = m ? { n: parseInt(m[1], 10), name: m[2], minutes: 0, ops: [] } : null;
       if (cat) cats.push(cat);
       continue;
     }
@@ -178,31 +182,38 @@ export function readLaborRollup(hardwareDir) {
     if (cells.length < 2 || cells.every((c) => /^[-:\s]*$/.test(c))) continue; // separator
     const first = cells[0];
     if (first.toLowerCase() === "operation" || first.startsWith("**")) continue; // header / subtotal
-    const min = (c) => {
-      const m = c.match(/^([0-9][0-9,]*)$/);
-      return m ? parseInt(m[1].replace(/,/g, ""), 10) : 0;
-    };
-    const groove = min(cells[cells.length - 2]);
-    const today = min(cells[cells.length - 1]);
-    cat.groove += groove;
-    cat.today += today;
+    const m = cells[cells.length - 1].match(/^([0-9][0-9,]*)$/);
+    const minutes = m ? parseInt(m[1].replace(/,/g, ""), 10) : 0;
+    cat.minutes += minutes;
     // Cards cell is an em-dash when the operation has no card of its own.
     const cards = (cells[1] || "").replace(/^—$/, "");
-    cat.ops.push({ name: first, cards, groove, today });
+    cat.ops.push({ name: first, cards, minutes });
   }
 
   const filled = cats.filter((c) => c.ops.length);
-  filled.sort((a, b) => b.groove - a.groove);
+  filled.sort((a, b) => b.minutes - a.minutes);
   return {
-    groove: filled.reduce((s, c) => s + c.groove, 0),
-    today: filled.reduce((s, c) => s + c.today, 0),
+    minutes: filled.reduce((s, c) => s + c.minutes, 0),
+    rate,
     opCount: filled.reduce((s, c) => s + c.ops.length, 0),
     cats: filled,
   };
 }
 
-function hours(min) {
-  return (min / 60).toFixed(1) + " h";
+// Minutes → "h m" the way a person says it: 45 m, 2 h, 1 h 15 m. Mirrors
+// _labor_totals.py's hm(). The ledger's estimates land on a coarse increment
+// ladder on purpose; a decimal hour would put back exactly the false precision
+// the ladder exists to keep out.
+// A whole-dollar rate shows no cents — "$100/h", not "$100.00/h".
+function rateStr(r) {
+  return r % 1 ? money(r) : "$" + r.toLocaleString("en-US");
+}
+
+function hm(min) {
+  const h = Math.floor(min / 60);
+  const m = min % 60;
+  if (!h) return `${m} m`;
+  return m ? `${h} h ${m} m` : `${h} h`;
 }
 
 const COST_CSS = `
@@ -245,84 +256,116 @@ const COST_CSS = `
 .cost-total { display: flex; justify-content: space-between; align-items: baseline; padding: 0.9rem 1rem; margin-top: 0.75rem; border-top: 2px solid var(--border); font-weight: 700; }
 .cost-total .v { color: var(--accent); font-variant-numeric: tabular-nums; }
 .cost-total .v2 { color: var(--text-3); font-weight: 400; font-variant-numeric: tabular-nums; margin-left: 0.6rem; }
-/* Labor — the same chart, two fills per bar: groove solid, today ghosted
-   behind it. Both scale against the largest TODAY, so the gap between the
-   two columns is the thing the eye reads. */
-.cost-rule { border: 0; border-top: 1px solid var(--border); margin: 3rem 0 0; }
-.cost-fig { display: flex; flex-direction: column; gap: 0.15rem; }
-.cost-cap { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3); }
-.cost-big.dim { color: var(--text-2); font-size: 1.9rem; }
-.cost-bar.lab { grid-template-columns: minmax(130px, 1.6fr) minmax(70px, 3fr) 3.4rem 3.4rem; }
-.cost-bt.lab { position: relative; }
-.cost-bt.lab .cost-bf { position: absolute; top: 0; bottom: 0; left: 0; }
-.cost-bt.lab .cost-bf.ghost { opacity: 0.26; }
-.cost-legend { display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem; font-size: 0.72rem; color: var(--text-2); margin: 0.85rem 2px 0; }
-.cost-legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+/* The topline — the one figure the page exists to state. Parts and labor are
+   two ledgers; this is the only place they are added together, so it gets the
+   weight: a gradient wash across both accents, the split bar in the same two
+   colours, and each half linking down to the section that derives it. */
+.cost-top {
+  position: relative; overflow: hidden;
+  border: 1px solid var(--border); border-radius: 16px;
+  background:
+    radial-gradient(120% 150% at 10% 0%, rgba(68, 136, 255, 0.22), transparent 62%),
+    radial-gradient(120% 150% at 95% 100%, rgba(153, 76, 230, 0.20), transparent 60%),
+    var(--surface);
+  padding: 1.9rem 1.75rem 1.5rem; margin: 0.25rem 0 2.75rem;
+}
+.cost-top-cap { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-2); }
+.cost-top-big {
+  font-size: clamp(2.6rem, 9vw, 4rem); font-weight: 700; line-height: 1.05;
+  letter-spacing: -0.025em; font-variant-numeric: tabular-nums;
+  margin: 0.35rem 0 1.3rem; color: var(--accent);
+}
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .cost-top-big {
+    background: linear-gradient(96deg, var(--accent) 15%, var(--chart-purple));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+}
+.cost-split { display: flex; gap: 2px; height: 10px; border-radius: 5px; overflow: hidden; background: var(--surface-2); }
+.cost-split i { display: block; height: 100%; }
+.cost-split .p { background: var(--accent); }
+.cost-split .l { background: var(--chart-purple); }
+.cost-top-legs { display: flex; flex-wrap: wrap; gap: 0.4rem 2rem; margin-top: 0.95rem; }
+.cost-top-leg { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--text-2); text-decoration: none; }
+.cost-top-leg b { color: var(--text); font-size: 1.05rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.cost-top-leg:hover b { color: var(--accent); }
+.cost-key { width: 11px; height: 11px; border-radius: 3px; background: var(--accent); flex: none; }
+.cost-key.l { background: var(--chart-purple); }
+/* Labor — the same ranked chart, scaled by time, priced beside it. */
+.cost-rule { border: 0; border-top: 1px solid var(--border); margin: 3.25rem 0 0; }
+.cost-bar.lab { grid-template-columns: minmax(130px, 1.6fr) minmax(60px, 3fr) 4.9rem 4.4rem; }
+.cost-bar.lab .cost-bf { background: var(--chart-purple); }
+.cost-hero.lab .cost-big, .cost-total.lab .v { color: var(--chart-purple); }
 .cost-items th {
   padding: 0.4rem 1rem 0.15rem; border-top: 1px solid var(--border); font-weight: 500;
   font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-3);
 }
-.cost-key { width: 12px; height: 12px; border-radius: 3px; background: var(--accent); flex: none; }
-.cost-key.ghost { opacity: 0.26; }
 @media (max-width: 560px) {
+  .cost-top { padding: 1.5rem 1.15rem 1.25rem; }
   .cost-bar { grid-template-columns: 1fr auto 2.75rem; grid-template-areas: "l l l" "t v p"; }
   .cost-bl { grid-area: l; } .cost-bt { grid-area: t; } .cost-bv { grid-area: v; } .cost-bp { grid-area: p; }
-  .cost-bar.lab { grid-template-columns: 1fr 3.2rem 3.2rem; }
+  .cost-bar.lab { grid-template-columns: 1fr 4.6rem 4.2rem; }
 }
 `;
 
 // The labor half of the page: the same ranked-bar + itemization shape as the
-// parts half, but the unit is attended minutes and every figure comes in two —
-// what the operation takes in a groove, and what it takes at today's experience
-// level. The bars carry both, on one scale.
+// parts half, with attended time scaling the bar and the money it comes to
+// beside it. The rate is the ledger's.
 function renderLaborSection(labor) {
-  const { groove, today, opCount, cats } = labor;
-  const mx = Math.max(...cats.map((c) => c.today), 1);
+  const { minutes, rate, opCount, cats } = labor;
+  const mx = Math.max(...cats.map((c) => c.minutes), 1);
+  const cash = (mins) => money((mins / 60) * rate);
 
   const bars = cats.map((c) => {
-    const wt = ((c.today / mx) * 100).toFixed(1);
-    const wg = ((c.groove / mx) * 100).toFixed(1);
+    const w = ((c.minutes / mx) * 100).toFixed(1);
     return `<div class="cost-bar lab">
       <div class="cost-bl">${escape(c.name)}</div>
-      <div class="cost-bt lab">
-        <div class="cost-bf ghost" style="width:${wt}%"></div>
-        <div class="cost-bf" style="width:${wg}%"></div>
-      </div>
-      <div class="cost-bv">${hours(c.groove)}</div><div class="cost-bp">${hours(c.today)}</div>
+      <div class="cost-bt"><div class="cost-bf" style="width:${w}%"></div></div>
+      <div class="cost-bv">${hm(c.minutes)}</div><div class="cost-bp">${cash(c.minutes)}</div>
     </div>`;
   }).join("\n");
 
   const details = cats.map((c) => {
     const rows = c.ops.map((o) => `<tr>
         <td>${escape(o.name)}${o.cards ? ` <span class="cost-secs">${escape(o.cards)}</span>` : ""}</td>
-        <td class="cost-num">${o.groove} min</td><td class="cost-qty">${o.today} min</td>
+        <td class="cost-num">${hm(o.minutes)}</td><td class="cost-qty">${cash(o.minutes)}</td>
       </tr>`).join("");
     const n = c.ops.length;
-    // Two identical "min" columns need naming — the parts table's qty/$ pair
-    // reads itself, this one doesn't.
-    return `<details class="cost-cat"><summary>${escape(c.name)} <span class="cost-dt">${hours(c.groove)} &middot; ${hours(c.today)} today &middot; ${n} op${n === 1 ? "" : "s"}</span></summary>
-      <table class="cost-items"><thead><tr><th></th><th class="cost-num">groove</th><th class="cost-qty">today</th></tr></thead><tbody>${rows}</tbody></table></details>`;
+    return `<details class="cost-cat"><summary>${escape(c.name)} <span class="cost-dt">${hm(c.minutes)} &middot; ${cash(c.minutes)} &middot; ${n} op${n === 1 ? "" : "s"}</span></summary>
+      <table class="cost-items"><tbody>${rows}</tbody></table></details>`;
   }).join("\n");
 
   return `<hr class="cost-rule">
   <h1 class="cost-title" id="labor">Labor by category</h1>
-  <div class="cost-hero">
-    <div class="cost-fig"><div class="cost-big">${hours(groove)}</div><div class="cost-cap">in a groove</div></div>
-    <div class="cost-fig"><div class="cost-big dim">${hours(today)}</div><div class="cost-cap">today</div></div>
-    <div class="cost-lbl">attended time per finished unit &mdash; ${opCount} hand operations across ${cats.length} kinds of work</div>
+  <div class="cost-hero lab">
+    <div class="cost-big">${hm(minutes)}</div>
+    <div class="cost-lbl">attended time per finished unit &mdash; ${opCount} hand operations across ${cats.length} kinds of work, priced at ${rateStr(rate)} an hour</div>
   </div>
-  <p class="cost-note">Attended minutes only: a row counts the time a person is <em>on</em> the operation, not the time the operation takes. The 30-minute hydro hold, the vacuum holds, the silicone cure, the foam rise, the ~200 printer-hours and the 8-hour burn-in are all real and none of them are here. <strong>Groove</strong> assumes the fixture is built and a batch of ten is in flight, so setup amortizes; <strong>today</strong> is the same operation at the current experience level, where most of the gap is rework rather than slower hands. Ranked by groove time.</p>
   <h2 class="cost-h2">All work, ranked</h2>
   <div class="cost-chart">
 ${bars}
   </div>
-  <div class="cost-legend">
-    <span><i class="cost-key"></i>in a groove</span>
-    <span><i class="cost-key ghost"></i>today &mdash; ${(today / groove).toFixed(1)}&times; across the build</span>
-  </div>
   <h2 class="cost-h2">Every operation</h2>
 ${details}
-  <div class="cost-total"><span>Per-unit total</span><span><span class="v">${hours(groove)}</span><span class="v2">${hours(today)} today</span></span></div>
+  <div class="cost-total lab"><span>Per-unit total</span><span><span class="v">${cash(minutes)}</span><span class="v2">${hm(minutes)}</span></span></div>
+`;
+}
+
+// The topline: the only place the two ledgers are added together, and the first
+// thing on the page.
+function renderTopline(total, labor) {
+  const labour = (labor.minutes / 60) * labor.rate;
+  const all = total + labour;
+  const pp = (total / all) * 100;
+  return `<section class="cost-top">
+    <div class="cost-top-cap">Total cost per unit</div>
+    <div class="cost-top-big">${money(all)}</div>
+    <div class="cost-split"><i class="p" style="width:${pp.toFixed(1)}%"></i><i class="l" style="width:${(100 - pp).toFixed(1)}%"></i></div>
+    <div class="cost-top-legs">
+      <a class="cost-top-leg" href="#parts"><i class="cost-key"></i>Parts <b>${money(total)}</b></a>
+      <a class="cost-top-leg" href="#labor"><i class="cost-key l"></i>Labor <b>${money(labour)}</b> ${hm(labor.minutes)} at ${rateStr(labor.rate)}/h</a>
+    </div>
+  </section>
 `;
 }
 
@@ -371,7 +414,7 @@ function renderCostBody(rollup, labor) {
   }).join("\n");
 
   return `<main class="cost-wrap">
-  <h1 class="cost-title">Parts by category</h1>
+${labor ? renderTopline(total, labor) : ""}  <h1 class="cost-title" id="parts">Parts by category</h1>
   <div class="cost-hero">
     <div class="cost-big">${money(total)}</div>
     <div class="cost-lbl">delivered cost per finished unit &mdash; ${rowCount} ledger lines across ${cats.length} part-type categories, amortized per unit</div>
