@@ -104,15 +104,23 @@ the LEDs are queried — the `KT_0603R` / `KT_0603G` / `Blue_light_0603` parts a
 library-vs-CPL orientation convention JLC will not assume. The 1N4148W (D7, unambiguous cathode band)
 and the other polarized parts are not asked about.
 
-**Correct answer: anode/+ on the WEST pad, cathode EAST — confirm and proceed.** That is the design
-intent: each LED seats `pcbRotation={180}`, which swings its footprint pin1 (anode, native +x) to the
-west pad facing the series resistor (R10–R14), and the netlist runs GPIO/rail → R → anode, cathode →
-GND (the indicator-LED block in `pcba.tsx`). `pcba.cpl.csv` exports D2–D6 at rotation 180 straight
-from that placement, so JLC's render is the design **unchanged**, not a proposed correction — the
-query is a confirm-what's-in-your-files checkpoint, not a flag that something is wrong. It arrives on
-the standard flow with no paid Confirm-Parts-Placement checkpoint bought. Confirmed correct on order
-W2026071513250534; still worth a diode-tester check on board #1 before powering the batch, since this
-query is the LED polarity's only pre-arrival verification.
+The answer differs between D2 and D3–D6. Confirm both and proceed.
+
+| LED | Rotation | Anode/+ | Cathode |
+|---|---|---|---|
+| D3–D6 | `pcbRotation={180}` | WEST, to its series R (R11–R14) | EAST, to GND |
+| D2 (ERR) | `pcbRotation={0}` | EAST, to 3V3 | WEST, to R10 → IO15 |
+
+D2 sits on IO15 (MTDO), whose level at reset decides whether the ROM prints its boot log on U0TXD. A
+~45 kΩ internal pull-up cannot lift a node an LED to GND clamps to its forward drop (~1.6 V, under
+the ~2.5 V V_IH), so ERR hangs off the rail instead: the pin idles at 3V3 through the dark LED, and
+firmware lights it by driving IO15 LOW. D2 also stands 0.3 mm east of the D3–D6 column — the KT-0603
+courtyard reaches 1.947 one way and 1.728 the other, and at rot 0 its long side faces R10.
+
+`pcba.cpl.csv` exports each LED at its own placement rotation, so the annotated view JLC returns is
+the board as drawn. The query arrives on the standard flow with no paid Confirm-Parts-Placement
+checkpoint bought, and is the LED polarity's only pre-arrival verification — board #1 gets a
+diode-tester check on all five pads before the batch is powered.
 
 ## Panelization
 
