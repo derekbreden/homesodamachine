@@ -189,7 +189,7 @@ const R9f = frame(R9El)
 // 3V3 — the same protection R9 gives the IO26 1-wire line. Both horizontal; R21 south (haul enters
 // pin1 from the low band, pin2 drops to the barrel), R22 north (pin1→3V3 plane, pin2 taps R21.pin2).
 const R21El = <Res name="R21" resistance="1k" footprint="0402" jlcpcb="C11702" x={-36.75} y={-26.5} rot={0} side="S" />
-const R22El = <Res name="R22" resistance="4.7k" footprint="0402" jlcpcb="C25900" x={-34} y={-26.5} rot={180} side="N" />
+const R22El = <Res name="R22" resistance="4.7k" footprint="0402" jlcpcb="C100444" x={-34} y={-26.5} rot={180} side="N" />
 const R21f = frame(R21El), R22f = frame(R22El)
 // ── J10 12V input protection: reverse-polarity pass FET + surge clamp ──────
 // Series order at the inlet: J10.V12 → Q4 (pass FET) → V12 island. Q4 (AO3407A P-FET, SOT-23) sits
