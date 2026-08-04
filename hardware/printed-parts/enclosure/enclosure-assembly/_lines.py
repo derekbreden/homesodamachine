@@ -1196,7 +1196,7 @@ def _authored_runs() -> list:
     # rule, and the only thing that differs between them is which bulkhead each is aimed at.
     # What holds them apart is the aim itself — the two turns behind the plate stand a whole
     # seat pitch apart in X ([19.96](GATE_SEAT_PITCH) mm) and the two leans diverge from
-    # there, never closing nearer than [30.7](GATE_PAIR_GAP) mm of tube — so neither owes the
+    # there, never closing nearer than [0](GATE_PAIR_GAP) mm of tube — so neither owes the
     # other a Y lane or a level. Both come about on the outlet lane's one rung, the deepest
     # the band holds, and water-4's turn is the third station on it.
     #   That lane is struck off the STATED WALL, not the plate's face: the band behind the
@@ -1245,22 +1245,41 @@ def _authored_runs() -> list:
 
         # The west leg runs at the panel's stratum, and the ASSE CHAIN stands in that stratum
         # across the west end of the field. A leg reaching a bulkhead behind the chain crosses
-        # its column, so on that column the approach stands AFT of the chain rather than ahead
-        # of the bulkhead — which is the shorter closing straight of the two, and the collet's.
-        chain_bb = f["asse1022-assembly"].bb
+        # its column, so what that column has to clear is whatever of the chain STANDS ON IT.
+        def chain_reach_on(x0):
+            """The aftmost ASSE-chain material standing on the column at `x0`, or None.
+
+            Read off the chain's OWN PARTS. The chain is a run of six fittings and its
+            bounding box is the one rectangle around all of them: that box's aft face belongs
+            to the vent elbow at x[7.04, 23.54], a body clear of every bulkhead column here,
+            while what actually stands on this column ends [36](CHAIN_COLUMN_SLACK) mm
+            forward of it. A box read here is a reach measured on one fitting and spent on
+            another."""
+            lo, hi = x0 - 6.35 / 2.0, x0 + 6.35 / 2.0
+            on = [b.ymax for b in
+                  (s.BoundingBox() for s in
+                   contents.packed().solids["asse1022-assembly"].Solids())
+                  if b.xmax > lo and b.xmin < hi]
+            return max(on) if on else None
+
         appr_y = tin[1] - gate_stock - contents.JUNCTION_LEG_LEAD
-        if tin[0] - 6.35 / 2.0 < chain_bb.xmax:
-            appr_y = max(appr_y, chain_bb.ymax + contents.PUMP_ROW_TURN)
+        _chain = chain_reach_on(tin[0])
+        if _chain is not None:
+            appr_y = max(appr_y, _chain + contents.PUMP_ROW_TURN)
         #   The come-about stands where its OWN CORNER wants it: a square turn at stock spends
         # its radius on the tangent, and the collet's lead is the straight that has to survive
         # in front of that. `_contents.nozzle_tray_y` cuts the band to exactly this sum.
-        #   IT STANDS NO FURTHER AFT THAN THE APPROACH. Where a gate's own band reaches past
-        # that lane, the come-about and the approach are ONE turn, and the run climbs on the
-        # lane it crosses the field on.
-        climb_y = min(appr_y,
-                      aft_turn_lane(gate_stock) if plate is vk
-                      else min(gate[1] + contents.JUNCTION_LEG_LEAD + gate_stock,
-                               field_front(gate[0], plate.bb.ymax) - contents.PUMP_ROW_TURN))
+        #   IT STANDS AFT OF THE COLLET AND THE APPROACH STANDS FORWARD OF THE MOUTH, and the
+        # two are not the same lane. The collet faces aft and the mouth is entered from ahead,
+        # so both the come-about and the closing turn want their tangent in Y — and the band
+        # between the two fittings is [15.8](GATE_MOUTH_BAND) mm, which is not two arcs. What
+        # the run does instead is take each turn on the side of its own fitting that HAS the
+        # room: aft of the collet, in the band the rear plane leaves behind the stand, and
+        # forward of the mouth on the chain's own honest lane. The leg between them is the
+        # crossing, and it carries the Y move at the field's stratum where nothing stands.
+        climb_y = min(aft_turn_lane(gate_stock) if plate is vk
+                      else gate[1] + contents.JUNCTION_LEG_LEAD + gate_stock,
+                      out_lane)
         # The climb stands on the gate's own column unless the METER stands in it — the run
         # crosses the meter's band at the panel's stratum and the meter's crown reaches into it,
         # so the column steps west of that body before it rises.
@@ -1279,22 +1298,30 @@ def _authored_runs() -> list:
         # so the row it climbs over is what its crossing height is for, and everything else in
         # that field — the basin, the backflow chain, the meter's outlet lean — stands clear
         # above or west of the two legs it spends there.
-        cross_z = (panel_z if plate is nz
+        #   THE CROSSING ANSWERS TO WHAT STANDS IN ITS OWN LANE. A gate held under that row
+        # crossed AFT over it; this one crosses FORWARD on the approach lane, and the row's own
+        # band stands [141](CROSS_ROW_SLACK) mm away from it — so there is nothing to climb
+        # under and the crossing takes the panel's stratum whole, on one climb rather than two.
+        crosses_row = (nz.bb.ymin - contents.PUMP_ROW_TURN <= appr_y
+                       <= nz.bb.ymax + contents.PUMP_ROW_TURN)
+        cross_z = (panel_z if plate is nz or not crosses_row
                    else nz.bb.zmax + 2.0 * contents.PUMP_ROW_TURN)
         nzb_climb_y = climb_y
-        legs = [(lane_x, climb_y, gate[2]),  # aft off the gate into its own climb band
-                (lane_x, climb_y, cross_z),  # and up the storey, clear of the field
-                (lane_x, appr_y, cross_z),   # aft over it on this run's own stratum
-                (tin[0], appr_y, cross_z)]   # west onto the bulkhead's column
+        legs = [(lane_x, climb_y, gate[2]),  # aft off the gate into the outlet lane
+                (lane_x, climb_y, cross_z),  # and up the storey there, clear of the field
+                (lane_x, appr_y, cross_z)]   # forward onto the approach lane
+        if abs(climb_y - appr_y) < 1e-6:     # one lane serves both where the band allows it
+            legs = legs[:2]
+        legs.append((tin[0], appr_y, cross_z))       # west onto the bulkhead's column
         if cross_z != panel_z:
             legs.append((tin[0], appr_y, panel_z))   # the last step, on that column alone
         runs.append(R.bent(
             cid, f"{body}.{port}", *legs,
             f"{panel}.tube-in",              # and aft into the collet
             kind="fluid", skew=FLAVOR_SKEW, bend=gate_stock,
-            note=f"{who}: nozzle gate → rear panel, up its whole storey in the band behind "
-                 f"the gate, aft over the electronics field on its own stratum, and west onto "
-                 f"the bulkhead's column"))
+            note=f"{who}: nozzle gate → rear panel, aft off the collet into the outlet lane, "
+                 f"up its whole storey there, forward onto the approach lane and west across "
+                 f"the electronics field to the bulkhead's own column"))
 
     # --- The TAP-WATER PATH: rear bulkhead → ASSE 1022 → split → V-K → SeaFlo → the core's
     # water inlet. Six runs on the water deck and down the front column, at the pigtails'
