@@ -104,9 +104,11 @@ front-face display hangs. A line arriving there runs the same command table the 
 does, and one line goes back: `OK:<cmd>`, `ERR:<cmd>`, or `PONG` for a ping. What the
 command prints still goes to the USB console.
 
-`/RE` is tied to GND on U7, so its receiver runs while its driver does; the display's
-transceiver switches direction on its own and behaves the same way. Every transmitted
-byte arrives back at its own receiver, and `rs485Send()` reads off exactly what it wrote.
+`/RE` is tied to GND on U7, so its receiver runs while its driver does and every line this
+board sends lands back in its own RX. The 4.3B at the far end gates its receiver off while
+driving and returns nothing — `RS485:LOOP` on the display reads `no echo` in both pin
+orientations. `rs485Poll()` drops an incoming line matching the last one sent, which reads
+the same under either behavior and never eats a reply.
 
 `rs485` and `drive io32` drive IO32 as a plain pin, so both take the link down —
 `rs485` restores it, and `rs485link` brings it back after `drive`.
