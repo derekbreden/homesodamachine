@@ -46,10 +46,17 @@ the end.
 | J3.IO33 → J3.GND, J3.IO35 → 3V3 | `watch` | beeped |
 | Relay net, driven | `watch`, J5.IO2 → J4.IO26 | Derek: *"Confirmed beeps under those conditions."* |
 | U15 interlock, fail-safe path | `interlock`, then J5.IO19 → J4.IO26 | Derek: *"Got a beep on J5 IO19 to J4 IO26"* — Y held LOW with A high |
-| **U11 DRV8870 → J13.AM2/AM1** | `pump a` with a Kamoer KPHM400 on J13 | Derek: *"It worked beautifully! The motor ran!"* — 15673 ms, all four stages |
+| **U11 DRV8870 → J13.AM2/AM1** | `pump a`, Kamoer KPHM400 on the west pair | Derek: *"It worked beautifully! The motor ran!"* |
+| **U12 DRV8870 → J13.BM2/BM1** | `pump b`, same pump moved to the east pair | Derek: *"It did run, noticeable steps, very good"* |
 
-`pump a` runs jabs, a ten-step ramp 10→100%, 3 s at full, then 75/50/25%. The head turned
-through all of it.
+Both runs drove jabs, a ten-step ramp 10→100%, 3 s at full, then 75/50/25%, and the head
+turned through all of it on both channels. The step-down is the half that discriminates:
+the speed dropped audibly at each of the three, which a pin stuck high or a bridge latched
+on does not do.
+
+The console prints `15673 ms driven` for every run — the stage timing is deterministic, so
+that number is the same with a motor and without one. Only the room reports whether a pump
+turned.
 
 ### Silent, and predicted silent
 
@@ -80,11 +87,10 @@ emitter consumes. See [`FORKS.md`](FORKS.md) for the upstream/fork seam that pro
 
 ### Not exercised on batch 1
 
-Everything behind the dead bus: both MCP23017s and their address straps, U6 DS3231,
-BT1/CR2032, both TBD62083 valve drivers, all 12 valve outputs, the fan output, 10 reed
-inputs, and the off-board MPR121 through J8. Plus **U12 DRV8870** — `pump b` ran its full
-sequence, but with nothing on J13.BM2/BM1 it switched into an open circuit. Plugging the
-pump into the east pair and running `pump b` closes that one without soldering.
+Everything behind the dead bus, and only that: both MCP23017s and their address straps,
+U6 DS3231, BT1/CR2032, both TBD62083 valve drivers, all 12 valve outputs, the fan output,
+10 reed inputs, and the off-board MPR121 through J8. Reaching any of it needs the bodge or
+a batch-2 board. Everything on this board *not* behind the bus has now been exercised.
 
 Also never demonstrated on any board: the Q2/Q3 auto-reset pair passing, and U15's *pass*
 path (gas-clear high on B, Y following A) — both need EN and R25 respectively.
@@ -113,5 +119,5 @@ new.
 
 First things to check on a batch-2 board, in order: does the ROM boot log print (proves
 #3); does `scan` find 0x20, 0x21, 0x68 (proves #1 and #2); does esptool flash with no
-buttons and does SW2 reset (the auto-reset pair's first real exercise); does `pump b` turn
-a motor (U12's first).
+buttons and does SW2 reset — the auto-reset pair has never once been demonstrated, on any
+board, because EN was severed here.
