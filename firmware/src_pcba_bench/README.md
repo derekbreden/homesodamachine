@@ -47,7 +47,8 @@ press Enter once to reach a `>` prompt. Type `help` for the list:
 | `mcp` | Both MCP23017s: register reads, plus a write round-trip that never touches a pin |
 | `in` | Every off-board signal pin, and the two gas dividers in millivolts |
 | `rs485` | DI → U7 → A/B → U7 → RO closes entirely on-board, through R6's termination |
-| `ping` | Sends `PING` out of J9 — a live far end answers `PONG` |
+| `link` | J9 frame counters and the echo canceller's outstanding count |
+| `pumpmsg` | Sends the display's own `MSG_PUMP_RUN` frame back at it |
 | `watch` | Audible continuity probe — touch a connector pin to its GND and hold until it beeps |
 | `walk` | The three firmware LEDs are on the GPIO the map says they are |
 | `buzz` | The IO13 → R5 → Q1 → U8 buzzer chain (audible) |
@@ -100,15 +101,19 @@ motor sees the 12 V rail through the bridge — ~0.8 A peak for a KPHM400.
 ## The J9 link
 
 IO32 and IO34 carry a 115200 8N1 UART out to **J9** (`B · A · GND · V12`), where the
-front-face display hangs. A line arriving there runs the same command table the console
-does, and one line goes back: `OK:<cmd>`, `ERR:<cmd>`, or `PONG` for a ping. What the
-command prints still goes to the USB console.
+front-face display hangs. `MSG_PUMP_RUN` arriving there names a channel, a duty and a run
+length; the run happens and `MSG_RESP_PUMP_DONE` goes back naming the channel, sent after
+the run has finished. What the run prints still goes to the USB console.
 
-`/RE` is tied to GND on U7, so its receiver runs while its driver does and every line this
-board sends lands back in its own RX. The 4.3B at the far end gates its receiver off while
-driving and returns nothing — `RS485:LOOP` on the display reads `no echo` in both pin
-orientations. `rs485Poll()` drops an incoming line matching the last one sent, which reads
-the same under either behavior and never eats a reply.
+The transport is `HdlcLink` — TinyProto's framing layer with CRC16, no connection and no
+keepalives. `Fd` collides with itself here: two ends transmitting on their own schedules
+over one shared pair fall out of CONNECTED every 2 s, its retry timeout.
+
+`/RE` is tied to GND on U7, so its receiver runs while its driver does and every byte this
+board sends lands back in its own RX. `EchoCancel` wraps `Serial1`, counts what it writes
+and swallows that many before ProtoLink sees them — the bus is half-duplex, so the echo
+arrives contiguous and ahead of any reply. The 4.3B keeps its receiver off while driving
+and has no echo to cancel.
 
 `rs485` and `drive io32` drive IO32 as a plain pin, so both take the link down —
 `rs485` restores it, and `rs485link` brings it back after `drive`.
