@@ -123,6 +123,7 @@ Newline-terminated, 115200 baud over the native USB CDC:
 - `IDLE:0` / `IDLE:1` → wake / force the idle state (test without the 60 s wait)
 - `RS485:<text>` → send a line to the base (e.g. `RS485:ping`, `RS485:pump a 60 1`)
 - `RS485:SWAP` → exchange the RX/TX GPIO and report which way round it now runs
+- `RS485:LOOP` → send a line without dropping the echo and report what returned
 
 ## RS485 link to the base ESP32 (J9 / SIG-7)
 
@@ -132,14 +133,18 @@ Direction switching is automatic at both ends, so there is no DE line; the board
 120 Ω termination is a DIP switch, off as shipped, and the base carries R6 across the
 pair.
 
-Both transceivers receive while they drive, so a transmitted byte lands back in the
-sender's own RX. `rs485Send()` reads off exactly what it wrote.
+This board's transceiver gates its receiver off while driving: `RS485:LOOP` sends a line
+without dropping anything and reads `no echo` in both pin orientations. The base's U7 has
+`/RE` tied to GND and does echo itself. `rs485Poll()` on each side drops an incoming line
+matching the last one sent, which reads the same under either behavior and never eats a
+reply.
 
 GPIO43/44 are U0TXD/U0RXD, so the ROM and 2nd-stage bootloader print on this bus at every
 reset of this board.
 
-Waveshare's table reads GPIO43 `RS485_RXD`, GPIO44 `RS485_TXD`. `RS485:SWAP` over USB
-exchanges the two and reports which way round it is running.
+Waveshare's table reads GPIO43 `RS485_RXD`, GPIO44 `RS485_TXD`. `RS485:SWAP` exchanges the
+two and reports which way round it is running; `RS485:LOOP` cannot settle which is right,
+since this board does not echo either way.
 
 Lines arriving from the base go to the status label and the USB console. `PING` is
 answered `PONG`.
