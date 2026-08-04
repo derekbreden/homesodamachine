@@ -462,8 +462,9 @@ static void pumpBtnCb(lv_event_t *e) {
   (void)e;
   PumpRunPayload req{PUMP_CHANNEL_B, 60, 1000};
   int r = j9.send(MSG_PUMP_RUN, &req, sizeof(req));
-  Serial.printf("[J9] MSG_PUMP_RUN ch=%u duty=%u ms=%u -> send()=%d\n",
-                req.channel, req.duty, req.ms, r);
+  Serial.printf("[J9] MSG_PUMP_RUN ch=%u duty=%u ms=%u -> send()=%d, bytesTx=%lu bytesRx=%lu\n",
+                req.channel, req.duty, req.ms, r,
+                (unsigned long)j9.bytesTx, (unsigned long)j9.bytesRx);
   setStatus(r >= 0 ? "pump B requested" : "send failed");
 }
 
