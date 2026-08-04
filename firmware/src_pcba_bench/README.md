@@ -33,8 +33,7 @@ polarity is a pass — the head is bidirectional, so which way it turns carries 
 pio device monitor -e pcba_bench
 ```
 
-At boot it prints the command list, scans WiFi, runs the pump self-test, and starts the
-continuity probe; then it idles as a console (`ACT` blinks as the heartbeat, and lights
+At boot it prints the command list, scans WiFi, and starts the continuity probe; then it idles as a console (`ACT` blinks as the heartbeat, and lights
 solid while a command runs). The first keystroke leaves the probe and calls the roll —
 press Enter once to reach a `>` prompt. Type `help` for the list:
 
@@ -76,20 +75,16 @@ one at a level for metering, and the arming lapses after 120 s:
 
 ## Pumps
 
-**The pump self-test runs by itself at the end of boot** — 12 V on with a pump on J13 is
-the whole procedure, and the console is somewhere to look afterwards rather than somewhere
-to type. It takes both channels in turn, ~30 s, marked by ear: **one beep** opens and
-closes pump A, **two beeps** pump B. Whichever J13 pair the pump is on runs during its own
-half. Any key stops a run.
+`pump a` / `pump b` runs a staged exercise on one channel, ~20 s, and any key stops it.
 
-Each half is four stages. Three full-duty jabs, 80 ms on — the head twitches. A ten-step
+It is four stages. Three full-duty jabs, 80 ms on — the head twitches. A ten-step
 climb from 10% to 100%, 700 ms a step, each step its own sound. Three seconds at full
 speed. Then 75/50/25%, where a modulating `IN1` drops the head's pitch at each and a pin
 shorted high or a bridge latched on holds full speed through all three.
 
-From the prompt: `pump a` / `pump b` runs one half on demand, `pump <a|b> <duty%> [seconds]`
-holds a single duty (max 60 s) for a longer listen or a meter on the OUT pair, and
-`pump stop` parks both.
+`pump <a|b> <duty%> [seconds]` holds a single duty (max 60 s) for a longer listen or a
+meter on the OUT pair, and `pump stop` parks both. A Kamoer head does not break away
+part-throttle — 60% for a second turns nothing — so a run meant to be heard wants 100.
 
 PWM is 20 kHz, above hearing — every sound the pump makes is mechanical. `IN2` is on the
 GND plane, so `IN1` high drives and `IN1` low coasts, one direction only; polarity at the
