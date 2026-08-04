@@ -3,6 +3,7 @@ constants and hole-punch helpers that every sibling part (foam shell,
 foam cap stack, reservoir, copper plugs, coil mandrel) needs to stay
 in sync against."""
 
+import itertools
 import math
 import sys
 from collections import namedtuple
@@ -531,6 +532,79 @@ for _name in cap_conduits:
     assert _room >= deck_mount_cap_gap - 1e-9, (
         f"cap conduit {_name}: the column stands {_room:.3f} mm off {_what}, inside the "
         f"{deck_mount_cap_gap:g} mm the pour needs to reach between them")
+
+
+def foam_cap_lid_pour_xy():
+    """The pour hole's centre in the lid — the +X half, on the LEAST offset off the cap's
+    own centreline that clears every deck-mount station.
+
+    A station this hole swallows is a tray ear with no lid under its screw: the head would
+    bear on the cap column's top two millimetres down, and the plate would stand on nothing
+    while its other ear stood on the lid. So the hole holds its own radius, the station's
+    clearance hole and the pour gap off each of them, and takes the smallest shift that
+    buys it — the pour wants the cap's middle, and every millimetre off it is spent.
+
+    `deck_mount_cap_room` prices a station against everything standing in the CUP; this is
+    the same fence read from the LID's side, which is where the pour and the vents are cut."""
+    x = outer_shell_x_length / 2 - foam_cap_lid_hole_inset
+    need = foam_cap_lid_pour_radius + screw_clearance_radius + deck_mount_cap_gap
+    bands = []
+    for name in deck_mounts:
+        for sx, sy in deck_mount_xy(name):
+            reach = need ** 2 - (x - sx) ** 2
+            if reach > 0.0:
+                half = math.sqrt(reach)
+                bands.append((sy - half, sy + half))
+    y = 0.0
+    moved = True
+    while moved:                      # step off each band by its nearer edge, and re-read
+        moved = False
+        for lo, hi in bands:
+            if lo < y < hi:
+                y = lo if (y - lo) <= (hi - y) else hi
+                moved = True
+    return (x, y)
+
+
+for _name in deck_mounts:
+    _px, _py = foam_cap_lid_pour_xy()
+    for _sx, _sy in deck_mount_xy(_name):
+        _room = (math.hypot(_px - _sx, _py - _sy)
+                 - foam_cap_lid_pour_radius - screw_clearance_radius)
+        assert _room >= deck_mount_cap_gap - 1e-9, (
+            f"deck mount {_name}: its lid clearance hole at ({_sx:g}, {_sy:g}) stands "
+            f"{_room:.3f} mm off the pour hole, inside the {deck_mount_cap_gap:g} mm that "
+            f"leaves a land under the screw's head")
+
+
+def cap_conduit_pair_neck(a, b):
+    """What a PAIR of conduits leaves between them: `(mm, what)`.
+
+    A pair is one of two things and never a third. APART, with at least the pour gap
+    between the two columns, so foam reaches down between them. Or MERGED, the two bores
+    standing nearer than a boss diameter and their columns fusing into one post — and then
+    what matters is the NECK the lens leaves, which carries the joint and must be a wall
+    thick. What neither may be is tangent: two circles meeting near a point close a knife
+    edge that prints as a void and holds no load.
+
+    `cap_conduit_room` prices a conduit against everything else standing in the cup; this
+    is the one pair it cannot price, because for a pair overlap is a design and not a
+    clash."""
+    r = cap_conduit_boss_radius
+    d = math.hypot(a[0] - b[0], a[1] - b[1])
+    if d >= 2.0 * r:
+        return (d - 2.0 * r, "the pour gap between two standing columns")
+    return (2.0 * math.sqrt(max(r * r - (d / 2.0) ** 2, 0.0)), "the neck their lens leaves")
+
+
+for _a, _b in itertools.combinations(sorted(cap_conduits), 2):
+    _neck, _what = cap_conduit_pair_neck(cap_conduits[_a], cap_conduits[_b])
+    _want = (deck_mount_cap_gap
+             if _what.startswith("the pour") else cap_conduit_wall)
+    assert _neck >= _want - 1e-9, (
+        f"cap conduits {_a} and {_b}: {_what} is {_neck:.3f} mm, under the "
+        f"{_want:g} mm it takes — a pair either stands the pour gap apart or merges on a "
+        f"neck a wall thick")
 
 
 # The face a cap conduit opens on, as a direction: the TOP cap's own +Z.
