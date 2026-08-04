@@ -96,11 +96,26 @@ motor sees the 12 V rail through the bridge — ~0.8 A peak for a KPHM400.
 ## The J9 link
 
 IO32 and IO34 carry a 115200 8N1 UART out to **J9** (`B · A · GND · V12`), where the
-front-face display hangs. `MSG_PUMP_RUN` arriving there names a channel and a run length —
-the run is at full power, because a head does not break away part-throttle and flavor is
-metered by time, so how hard to drive is not the caller's to say. `MSG_RESP_PUMP_DONE` goes
-back naming the channel, sent after the run has finished. What the run prints still goes to
-the USB console.
+front-face display hangs. What arrives there:
+
+| Frame | What the rig does | What goes back |
+|---|---|---|
+| `MSG_PUMP_RUN { channel, ms }` | Runs one pump at full power, blocking | `MSG_RESP_PUMP_DONE` after the run finishes |
+| `MSG_PRIME_START { channel }` | Drives the pump and starts the tick clock | `MSG_RESP_PRIME { RUNNING }` |
+| `MSG_PRIME_TICK { channel }` | Restarts the tick clock | nothing |
+| `MSG_PRIME_STOP { channel }` | Parks the pin | `MSG_RESP_PRIME { STOPPED, ms }` |
+| `MSG_STATUS_REQ` | Reads uptime, heap, frames, the gas divider | `MSG_RESP_STATUS` |
+| `MSG_CLEAN_START { channel }` | — | `MSG_ERR_UNSUPPORTED` |
+
+A prime is the one thing here that outlives the call that started it. `primeService()` runs
+from `loop()` and parks the pin when a tick runs later than `PRIME_TICK_GRACE_MS` (2 s) or
+the hold reaches `PRIME_MAX_MS` (60 s), answering `MSG_RESP_PRIME { TIMEOUT }` or
+`{ LIMIT }`. While a prime holds a pin, `pump`, `drive` and `MSG_PUMP_RUN` all refuse it —
+`link` names the channel and how long ago its last tick landed. What a run prints still
+goes to the USB console.
+
+`MSG_CLEAN_START` reaches valves the MCP23017 probe deliberately never drives, which is
+what `MSG_ERR_UNSUPPORTED` says.
 
 The transport is `HdlcLink` — TinyProto's framing layer with CRC16, no connection and no
 keepalives. `Fd` collides with itself here: two ends transmitting on their own schedules
