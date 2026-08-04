@@ -101,16 +101,14 @@ motor sees the 12 V rail through the bridge — ~0.8 A peak for a KPHM400.
 
 IO32 and IO34 carry a 115200 8N1 UART out to **J9** (`B · A · GND · V12`), where the
 front-face display hangs. A line arriving there runs the same command table the console
-does, and one line goes back: `OK:<cmd>`, `ERR:<cmd>`, or `PONG` for a ping. Whatever the
-command prints still goes to the USB console — that is where a human is watching, and the
-display has no use for the pump's stage log.
+does, and one line goes back: `OK:<cmd>`, `ERR:<cmd>`, or `PONG` for a ping. What the
+command prints still goes to the USB console.
 
-Both ends of this bus listen while they talk. `/RE` is tied to GND on U7 and the display's
-transceiver switches direction on its own, so every byte transmitted arrives back at its
-own receiver. `rs485Send()` swallows exactly what it just sent; without that the console
-would answer its own replies and never stop.
+`/RE` is tied to GND on U7, so its receiver runs while its driver does; the display's
+transceiver switches direction on its own and behaves the same way. Every transmitted
+byte arrives back at its own receiver, and `rs485Send()` reads off exactly what it wrote.
 
-`rs485` and `drive io32` drive IO32 as a plain pin, so both take the link down first —
+`rs485` and `drive io32` drive IO32 as a plain pin, so both take the link down —
 `rs485` restores it, and `rs485link` brings it back after `drive`.
 
 The same care governs the MCP probe. The MCP23017 GPA/GPB pins reach the TBD62083 valve

@@ -46,13 +46,10 @@ static const uint16_t *animFrames[] = {
 // (16 MB flash / 8 MB octal PSRAM). Mounts in the appliance front face,
 // angled up toward a standing user.
 //
-// This is the foundation only: it brings up the RGB panel + LVGL and runs
-// the animated loading logo centered on the theme background. The interaction UX is
-// deliberately not built yet. Two integration seams are marked below but not
-// implemented:
-//   • Touch (GT911 on the shared I2C bus; reset already released via CH422G).
-//   • The RS485/UART link to the base ESP32 (state sync, config) — this board
-//     is the appliance's front-face config + interaction surface.
+// It brings up the RGB panel + LVGL and runs the animated loading logo centered on
+// the theme background. The interaction UX is not built yet; what stands in for it is
+// one bench button that runs a pump on the base board over RS485, which is there to
+// prove the link end to end rather than to be the product's UX.
 
 // ── Theme (matches faucet display / config display / iOS app) ──
 #define THEME_BG  lv_color_hex(0x1a1a2e)
@@ -104,6 +101,19 @@ static const uint16_t *animFrames[] = {
 #define GT911_REG_STATUS 0x814E  // buffer-status / touch-count
 #define GT911_REG_POINT1 0x8150  // first touch point (8 bytes: id, xL,xH, yL,yH, ...)
 
+// ── RS485 to the base ESP32 (J9 / SIG-7) ──────────────────────
+// Onboard SP3485, automatic direction switching — no DE line. Its 120R termination is
+// a DIP switch, off as shipped; the base end carries R6 across the pair.
+//
+// GPIO43 and GPIO44 are U0TXD and U0RXD, so the ROM and the 2nd-stage bootloader print
+// on this bus at every reset.
+//
+// Waveshare's table reads GPIO43 RS485_RXD, GPIO44 RS485_TXD. `RS485:SWAP` exchanges
+// the two and reports which way round it is now running.
+#define RS485_BAUD 115200
+static int rs485Rx = 43;
+static int rs485Tx = 44;
+
 // ── CH422G I/O expander ───────────────────────────────────────
 // Not a normal single-register expander: each "register" is its own 7-bit
 // I2C address, and you write one bare data byte to it (no register pointer).
@@ -145,6 +155,11 @@ static lv_obj_t *logoImg;
 static lv_img_dsc_t frameDsc[NUM_ANIM_FRAMES];
 static lv_timer_t *animTimer = nullptr;
 static uint8_t animFrameIdx = 0;
+static lv_obj_t *statusLabel = nullptr;   // last line off the J9 link
+
+static void setStatus(const char *s) {
+  if (statusLabel) lv_label_set_text(statusLabel, s);
+}
 
 // ── Idle backlight-off (the faucet's idle behavior, adapted to this board) ──
 // The backlight is a digital line on the CH422G (on/off only — no PWM), so the
@@ -390,6 +405,74 @@ static void animTimerCb(lv_timer_t *t) {
   lv_img_set_src(logoImg, &frameDsc[animFrameIdx]);
 }
 
+// ════════════════════════════════════════════════════════════
+//  RS485 link to the base ESP32
+// ════════════════════════════════════════════════════════════
+
+// Both transceivers on this bus keep receiving while they drive, so a sent byte lands
+// back in the sender's own RX. rs485Send() reads off exactly what it wrote.
+static void rs485Send(const char *s) {
+  size_t n = Serial1.write((const uint8_t *)s, strlen(s));
+  n += Serial1.write('\n');
+  Serial1.flush();
+  unsigned long t0 = millis();
+  while (n && millis() - t0 < 50) {
+    if (Serial1.available()) { Serial1.read(); n--; }
+  }
+}
+
+static void rs485Begin() {
+  Serial1.begin(RS485_BAUD, SERIAL_8N1, rs485Rx, rs485Tx);
+  Serial.printf("RS485: rx=GPIO%d tx=GPIO%d @ %d\n", rs485Rx, rs485Tx, RS485_BAUD);
+}
+
+// PING is answered here rather than passed on. Everything else the base sends — OK:,
+// ERR:, PONG — lands on the status label and the USB console.
+static void rs485Line(const char *line) {
+  Serial.printf("[485] %s\n", line);
+  if (strcmp(line, "PING") == 0) { rs485Send("PONG"); return; }
+  setStatus(line);
+}
+
+static void rs485Poll() {
+  static char buf[96];
+  static uint8_t pos = 0;
+  while (Serial1.available()) {
+    char c = Serial1.read();
+    if (c == '\n' || c == '\r') {
+      if (pos > 0) { buf[pos] = '\0'; rs485Line(buf); pos = 0; }
+    } else if (pos < sizeof(buf) - 1) {
+      buf[pos++] = c;
+    }
+  }
+}
+
+// The bench button. `pump a 60 1` is the base console's bounded hold — pump A at 60% for
+// one second. The base answers OK: once the run has finished, so the label changes after
+// the motor stops rather than when the press lands.
+static void pumpBtnCb(lv_event_t *e) {
+  (void)e;
+  setStatus("sent: pump a 60 1");
+  rs485Send("pump a 60 1");
+}
+
+static void buildStatus(lv_obj_t *scr) {
+  statusLabel = lv_label_create(scr);
+  lv_obj_set_style_text_color(statusLabel, lv_color_hex(0x8888aa), 0);
+  lv_label_set_text(statusLabel, "J9 idle");
+  lv_obj_align(statusLabel, LV_ALIGN_BOTTOM_MID, 0, -24);
+
+  lv_obj_t *btn = lv_btn_create(scr);
+  lv_obj_set_size(btn, 320, 96);
+  lv_obj_align(btn, LV_ALIGN_BOTTOM_MID, 0, -64);
+  lv_obj_set_style_bg_color(btn, lv_color_hex(0xe94560), 0);
+  lv_obj_add_event_cb(btn, pumpBtnCb, LV_EVENT_CLICKED, NULL);
+
+  lv_obj_t *lbl = lv_label_create(btn);
+  lv_label_set_text(lbl, "RUN PUMP A");
+  lv_obj_center(lbl);
+}
+
 static void buildUi() {
   for (uint8_t i = 0; i < NUM_ANIM_FRAMES; i++) {
     frameDsc[i].header.cf = LV_IMG_CF_TRUE_COLOR;
@@ -406,7 +489,9 @@ static void buildUi() {
 
   logoImg = lv_img_create(scr);
   lv_img_set_src(logoImg, &frameDsc[0]);
-  lv_obj_align(logoImg, LV_ALIGN_CENTER, 0, 0);
+  lv_obj_align(logoImg, LV_ALIGN_CENTER, 0, -80);
+
+  buildStatus(scr);
 }
 
 // ════════════════════════════════════════════════════════════
@@ -453,6 +538,14 @@ static void processTextLine(const char *line) {
     } else {
       Serial.println("ERR:IDLE expects 0 or 1");
     }
+  } else if (strcmp(line, "RS485:SWAP") == 0) {
+    int t = rs485Rx; rs485Rx = rs485Tx; rs485Tx = t;
+    Serial1.end();
+    rs485Begin();
+    Serial.printf("OK:RS485 rx=GPIO%d tx=GPIO%d\n", rs485Rx, rs485Tx);
+  } else if (strncmp(line, "RS485:", 6) == 0) {
+    rs485Send(line + 6);
+    Serial.printf("OK:sent '%s'\n", line + 6);
   } else {
     Serial.printf("ERR:unknown command '%s'\n", line);
   }
@@ -478,6 +571,8 @@ void setup() {
   // Expander + panel/touch resets, then the RGB panel itself — initialized on a
   // separate task with a timeout. If esp_lcd ever blocks, setup() still returns
   // and loop() keeps serial alive (board stays flashable, no BOOT-button dance).
+  rs485Begin();
+
   ch422gBringUp();
   xTaskCreatePinnedToCore(panelInitTask, "panelinit", 8192, nullptr, 5, nullptr, 1);
   unsigned long initStart = millis();
@@ -550,7 +645,7 @@ void loop() {
     }
   }
 
-  // Seam: service the RS485/UART link to the base ESP32 here.
+  rs485Poll();
 
   // Idle: after inactivity, turn the backlight off and pause the animation
   // (no point repainting a dark screen). A touch wakes it — see wake().

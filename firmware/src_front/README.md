@@ -121,9 +121,35 @@ Newline-terminated, 115200 baud over the native USB CDC:
   idle state / loop high-water / uptime
 - `BL:0` / `BL:1` → backlight off / on (drives CH422G EXIO2)
 - `IDLE:0` / `IDLE:1` → wake / force the idle state (test without the 60 s wait)
+- `RS485:<text>` → send a line to the base (e.g. `RS485:ping`, `RS485:pump a 60 1`)
+- `RS485:SWAP` → exchange the RX/TX GPIO and report which way round it now runs
+
+## RS485 link to the base ESP32 (J9 / SIG-7)
+
+The onboard SP3485 is on **GPIO43/44** at 115200 8N1, wired to the pcba's **J9**
+(`B · A · GND · V12`) — the same 4-wire loom carries the pair and the 7–36 V input.
+Direction switching is automatic at both ends, so there is no DE line; the board's own
+120 Ω termination is a DIP switch, off as shipped, and the base carries R6 across the
+pair.
+
+Both transceivers receive while they drive, so a transmitted byte lands back in the
+sender's own RX. `rs485Send()` reads off exactly what it wrote.
+
+GPIO43/44 are U0TXD/U0RXD, so the ROM and 2nd-stage bootloader print on this bus at every
+reset of this board.
+
+Waveshare's table reads GPIO43 `RS485_RXD`, GPIO44 `RS485_TXD`. `RS485:SWAP` over USB
+exchanges the two and reports which way round it is running.
+
+Lines arriving from the base go to the status label and the USB console. `PING` is
+answered `PONG`.
+
+## Bench button
+
+One `RUN PUMP A` button under the logo sends `pump a 60 1` — the base console's bounded
+hold, pump A at 60% for one second. The base replies `OK:pump a 60 1` when the run has
+finished, and that reply is what the status label shows.
 
 ## Integration seams (not implemented)
 
-- **Base-ESP32 link** — this board is the front-face config + interaction
-  surface; it connects to the base ESP32 over RS485 (SIG-7). State sync and
-  config push plug into `loop()`.
+- **State sync and config push** over the link above.
