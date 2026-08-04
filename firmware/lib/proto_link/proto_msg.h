@@ -26,6 +26,7 @@ constexpr uint8_t MSG_SWAP_IMAGES      = 0x06;
 constexpr uint8_t MSG_UPLOAD_PNG_START = 0x07;
 constexpr uint8_t MSG_UPLOAD_RP_START  = 0x08;
 constexpr uint8_t MSG_DEVICE_READY     = 0x09;  // device → ESP32: "I'm ready" + image count
+constexpr uint8_t MSG_PUMP_RUN         = 0x0A;  // display → ESP32: run one pump now
 
 // Responses (device → ESP32)
 constexpr uint8_t MSG_RESP_READY       = 0x10;
@@ -34,6 +35,7 @@ constexpr uint8_t MSG_RESP_UPLOAD_OK   = 0x12;
 constexpr uint8_t MSG_RESP_DELETE_OK   = 0x13;
 constexpr uint8_t MSG_RESP_COUNT       = 0x14;
 constexpr uint8_t MSG_RESP_SWAP_OK     = 0x15;
+constexpr uint8_t MSG_RESP_PUMP_DONE   = 0x16;  // ResponsePayload: the channel that ran
 
 // Error responses (device → ESP32)
 constexpr uint8_t MSG_ERR_SLOT_INVALID   = 0xE1;
@@ -72,6 +74,15 @@ struct __attribute__((packed)) SwapPayload {
 
 struct __attribute__((packed)) ResponsePayload {
   uint8_t value;
+};
+
+constexpr uint8_t PUMP_CHANNEL_A = 0;  // U11 -> J13.AM2/AM1, the two WEST pins
+constexpr uint8_t PUMP_CHANNEL_B = 1;  // U12 -> J13.BM2/BM1, the two EAST pins
+
+struct __attribute__((packed)) PumpRunPayload {
+  uint8_t  channel;
+  uint8_t  duty;     // percent
+  uint16_t ms;       // run length
 };
 
 inline uint32_t uartCrc32Update(uint32_t prev, const uint8_t *data, size_t len) {
