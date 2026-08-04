@@ -33,8 +33,10 @@ polarity is a pass — the head is bidirectional, so which way it turns carries 
 pio device monitor -e pcba_bench
 ```
 
-It runs a full sweep at boot, then idles as a console (`RUN` blinks as the heartbeat,
-`ACT` lights while a command runs). Type `help` for the list:
+At boot it prints the command list, scans WiFi, runs the pump self-test, and starts the
+continuity probe; then it idles as a console (`ACT` blinks as the heartbeat, and lights
+solid while a command runs). The first keystroke leaves the probe and calls the roll —
+press Enter once to reach a `>` prompt. Type `help` for the list:
 
 | command | what it proves |
 |---|---|
@@ -72,25 +74,27 @@ one at a level for metering, and the arming lapses after 120 s:
 
 ## Pumps
 
-`pump a` / `pump b` is the whole DRV8870 block on one command, and it needs no meter —
-a peristaltic head is loud enough that the room is the instrument. It announces itself,
-counts down three seconds, then runs ~20 s: three full-duty jabs (the head twitches), a
-0→100% ramp, 3 s at full speed, and a 100/75/50/25% step-down. Any key stops it.
+**The pump self-test runs by itself at the end of boot** — 12 V on with a pump on J13 is
+the whole procedure, and the console is somewhere to look afterwards rather than somewhere
+to type. It takes both channels in turn, ~30 s, marked by ear: **one beep** opens and
+closes pump A, **two beeps** pump B. Whichever J13 pair the pump is on runs during its own
+half. Any key stops a run.
 
-Two of those stages carry the verdict. **The ramp asks for a keypress at the moment the
-head starts turning and prints the duty** — break-away is a property of the driver and
-the motor together, so pump A's number beside pump B's on the same pump is the check that
-neither bridge is delivering less than its twin. **The step-down is what proves `IN1` is
-modulating** rather than stuck: a pin shorted high or a bridge latched on sounds identical
-at 25% and at 100%.
+Each half is four stages. Three full-duty jabs, 80 ms on — the head twitches. A ten-step
+climb from 10% to 100%, 700 ms a step, each step its own sound. Three seconds at full
+speed. Then 75/50/25%, where a modulating `IN1` drops the head's pitch at each and a pin
+shorted high or a bridge latched on holds full speed through all three.
 
-`pump <a|b> <duty%> [seconds]` holds one duty (max 60 s) for a longer listen or a meter on
-the OUT pair; `pump stop` parks both. PWM is 20 kHz, above hearing, so nothing the pump
-makes is electrical. Drive is one direction only — `IN2` is on the GND plane, so `IN1`
-high drives and `IN1` low coasts, which also means a brownout reset stops the motor: the
-pin reverts to an input and the DRV8870's own input pull-down coasts the bridge. `ISEN`
-sits on GND with no sense resistor, so the chip's current limit never trips and the motor
-sees the 12 V rail through the bridge — ~0.8 A peak for a KPHM400.
+From the prompt: `pump a` / `pump b` runs one half on demand, `pump <a|b> <duty%> [seconds]`
+holds a single duty (max 60 s) for a longer listen or a meter on the OUT pair, and
+`pump stop` parks both.
+
+PWM is 20 kHz, above hearing — every sound the pump makes is mechanical. `IN2` is on the
+GND plane, so `IN1` high drives and `IN1` low coasts, one direction only; polarity at the
+connector sets which way the head turns and either way is a pass. A brownout reset stops
+the motor: the pin reverts to an input, which the DRV8870's own input pull-down coasts.
+`ISEN` sits on GND with no sense resistor, so the chip's current limit never trips and the
+motor sees the 12 V rail through the bridge — ~0.8 A peak for a KPHM400.
 
 The same care governs the MCP probe. The MCP23017 GPA/GPB pins reach the TBD62083 valve
 drivers, whose inputs are high-impedance DMOS gates: `IODIR` is never written (every pin
